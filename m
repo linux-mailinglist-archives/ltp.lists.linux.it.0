@@ -1,55 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50F94B54F
-	for <lists+linux-ltp@lfdr.de>; Sun, 28 Apr 2019 07:26:10 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 18439B554
+	for <lists+linux-ltp@lfdr.de>; Sun, 28 Apr 2019 08:12:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 144913EAB0E
-	for <lists+linux-ltp@lfdr.de>; Sun, 28 Apr 2019 07:26:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CFAA93EAB1F
+	for <lists+linux-ltp@lfdr.de>; Sun, 28 Apr 2019 08:12:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 9BCF53EAAEA
- for <ltp@lists.linux.it>; Sun, 28 Apr 2019 07:26:06 +0200 (CEST)
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com
- [209.85.217.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id CEAF73EA063
+ for <ltp@lists.linux.it>; Sun, 28 Apr 2019 08:12:50 +0200 (CEST)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5622C1000AC3
- for <ltp@lists.linux.it>; Sun, 28 Apr 2019 07:26:03 +0200 (CEST)
-Received: by mail-vs1-f45.google.com with SMTP id r12so3247708vsp.7
- for <ltp@lists.linux.it>; Sat, 27 Apr 2019 22:26:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=8oQBwnRLzY6Flm8yg0MQ7RmRUt7VqNJWcOAS36Rg6Tk=;
- b=OmCjvetQVoWBgoXJC9PBaxSwIEQUI1eqThFHgl5A3CiPcG0Cw2I/gtg7vZ94dVqDp3
- t7F5KzPnwA0Sp9CYsTgFCw+1xplacfdrr5h9JA6/frf1eLgmG2BV84CY4RSVrrPzrgVm
- EVIU/pdrJy89itbbhuj9z10VSiUmnIdMkR8Pf6K5ex65/5B4wxG+PeNdWiYZ6zHJlXXC
- Lf+WlAXBcnNbp02z6ON6u8JE4Xd4bRuWTwlNxmyr+f3thEHMgc8vVsXe1Ww+7jVrR9CF
- HSTgSyrnh26SDunRHdbHTbMjGMZz0V+eKUsJwcrl+LxFjjCJUTACIZamiCCSodNRoFqP
- 0ntg==
-X-Gm-Message-State: APjAAAW5N/9pBw2bnprfcHwM0oIO//J3o+QGZAVpbS5DCmqPAK2AqsTR
- Nz4/9z/9I5u4sUsszNIL0UF8feiYlXv8ywuRgKWshATqQqw=
-X-Google-Smtp-Source: APXvYqyWQ65s83fGFGYtggrSp8ffB2xocTg/a2oxZoGz6BcxOJIbnbAcksrUWapR2cpIweJec9gVjGOu88fDhag6Xx4=
-X-Received: by 2002:a67:ea0b:: with SMTP id g11mr8322499vso.130.1556429164759; 
- Sat, 27 Apr 2019 22:26:04 -0700 (PDT)
-MIME-Version: 1.0
-References: <20190418111812.GB3073@rei.lan> <20190426131258.GA18760@rei>
-In-Reply-To: <20190426131258.GA18760@rei>
-From: Li Wang <liwang@redhat.com>
-Date: Sun, 28 Apr 2019 13:25:53 +0800
-Message-ID: <CAEemH2ezD-diAYeG0=pbgUgdMtSFxs+dWYo4CnDNdHQT=SOEaQ@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A16A7600B0A
+ for <ltp@lists.linux.it>; Sun, 28 Apr 2019 08:12:49 +0200 (CEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 27 Apr 2019 23:12:45 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.60,404,1549958400"; d="scan'208";a="165729640"
+Received: from yifei-server.sh.intel.com ([10.239.13.18])
+ by fmsmga004.fm.intel.com with ESMTP; 27 Apr 2019 23:12:44 -0700
+From: Ammy Yi <ammy.yi@intel.com>
+To: ltp@lists.linux.it
+Date: Sun, 28 Apr 2019 13:48:15 +0800
+Message-Id: <20190428054815.3266-1-ammy.yi@intel.com>
+X-Mailer: git-send-email 2.14.1
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Cc: ltp@lists.linux.it
-Subject: Re: [LTP] LTP Release
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Cc: Ammy Yi <ammy.yi@intel.com>
+Subject: [LTP] [PATCH v2 ltp] Add 4 more cases for Intel PT.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -61,74 +50,99 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1179647554=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1179647554==
-Content-Type: multipart/alternative; boundary="0000000000007bf86005879067c2"
-
---0000000000007bf86005879067c2
-Content-Type: text/plain; charset="UTF-8"
-
-On Fri, Apr 26, 2019 at 9:13 PM Cyril Hrubis <chrubis@suse.cz> wrote:
-
-> Hi!
-> > So as usually please go ahead and point out anything that should go in
-> > before the release.
->
-> Only Peter replied so far, so I suppose that we are ready to freeze git
-> starting next week and start the pre-release testing.
->
-> Or is there anything that has to be considered to be included before we
-> do that?
->
-
-Here is a simple fix for hugepage test broken with memory shortage.
-Consider merging?
-http://lists.linux.it/pipermail/ltp/2019-April/011714.html
-
--- 
-Regards,
-Li Wang
-
---0000000000007bf86005879067c2
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_defa=
-ult" style=3D"font-size:small"><br></div></div><br><div class=3D"gmail_quot=
-e"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Apr 26, 2019 at 9:13 PM Cy=
-ril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis=
-@suse.cz</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D=
-"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-le=
-ft:1ex">Hi!<br>
-&gt; So as usually please go ahead and point out anything that should go in=
-<br>
-&gt; before the release.<br>
-<br>
-Only Peter replied so far, so I suppose that we are ready to freeze git<br>
-starting next week and start the pre-release testing.<br>
-<br>
-Or is there anything that has to be considered to be included before we<br>
-do that?<br></blockquote><div><br></div><div class=3D"gmail_default" style=
-=3D"font-size:small">Here is a simple fix for hugepage test broken with mem=
-ory shortage. Consider merging?</div><div class=3D"gmail_default"><a href=
-=3D"http://lists.linux.it/pipermail/ltp/2019-April/011714.html" target=3D"_=
-blank">http://lists.linux.it/pipermail/ltp/2019-April/011714.html</a></div>=
-</div><div><br></div>-- <br><div dir=3D"ltr" class=3D"m_-658254797222657513=
-0gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br><=
-/div></div></div></div></div>
-
---0000000000007bf86005879067c2--
-
---===============1179647554==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
-dHAK
-
---===============1179647554==--
+MS4gQWRkIEludGVsIFBUIHNhbnBzaG90IG1vZGUgdGVzdC4KMi4gQWRkIEludGVsIFBUIGV4Y2x1
+ZGUgdXNlciB0cmFjZSBtb2RlIHRlc3QuCjMuIEFkZCBJbnRlbCBQVCBleGNsdWRlIGtlcm5lbCB0
+cmFjZSBtb2RlIHRlc3QuCjQuIEFkZCBJbnRlbCBQVCBkaXNhYmxlIGJyYW5jaCB0cmFjZSBtb2Rl
+IHRlc3QuCgpTaWduZWQtb2ZmLWJ5OiBBbW15IFlpIDxhbW15LnlpQGludGVsLmNvbT4KLS0tCiBy
+dW50ZXN0L3RyYWNpbmcgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgNCArKwogdGVzdGNh
+c2VzL2tlcm5lbC90cmFjaW5nL3B0X3Rlc3QvcHRfdGVzdC5jIHwgNjQgKysrKysrKysrKysrKysr
+KysrKysrKysrLS0tLS0tCiAyIGZpbGVzIGNoYW5nZWQsIDU1IGluc2VydGlvbnMoKyksIDEzIGRl
+bGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL3J1bnRlc3QvdHJhY2luZyBiL3J1bnRlc3QvdHJhY2lu
+ZwppbmRleCA1MDQxMzJkNzAuLmQyNzAwY2E1NyAxMDA2NDQKLS0tIGEvcnVudGVzdC90cmFjaW5n
+CisrKyBiL3J1bnRlc3QvdHJhY2luZwpAQCAtNCwzICs0LDcgQEAgZnRyYWNlX3JlZ3Jlc3Npb24w
+MglmdHJhY2VfcmVncmVzc2lvbjAyLnNoCiBmdHJhY2Utc3RyZXNzLXRlc3QJZnRyYWNlX3N0cmVz
+c190ZXN0LnNoIDkwCiBkeW5hbWljX2RlYnVnMDEJCWR5bmFtaWNfZGVidWcwMS5zaAogcHRfZnVs
+bF90cmFjZV9iYXNpYyBwdF90ZXN0CitwdF9zbmFwc2hvdF90cmFjZV9iYXNpYyBwdF90ZXN0IC1t
+CitwdF9leF91c2VyIHB0X3Rlc3QgLWUgdXNlcgorcHRfZXhfa2VybmVsIHB0X3Rlc3QgLWUga2Vy
+bmVsCitwdF9kaXNhYmxlX2JyYW5jaCBwdF90ZXN0IC1iCmRpZmYgLS1naXQgYS90ZXN0Y2FzZXMv
+a2VybmVsL3RyYWNpbmcvcHRfdGVzdC9wdF90ZXN0LmMgYi90ZXN0Y2FzZXMva2VybmVsL3RyYWNp
+bmcvcHRfdGVzdC9wdF90ZXN0LmMKaW5kZXggNWZlYjFhYTYzLi42OWNiNDk4YjkgMTAwNjQ0Ci0t
+LSBhL3Rlc3RjYXNlcy9rZXJuZWwvdHJhY2luZy9wdF90ZXN0L3B0X3Rlc3QuYworKysgYi90ZXN0
+Y2FzZXMva2VybmVsL3RyYWNpbmcvcHRfdGVzdC9wdF90ZXN0LmMKQEAgLTYsMTQgKzYsMTQgQEAK
+ICAqLwogCiAvKgotICogVGhpcyB0ZXN0IHdpbGwgY2hlY2sgaWYgSW50ZWwgUFQoSW50ZWwgUHJv
+Y2Vzc2VyIFRyYWNlKSBmdWxsIHRyYWNlIG1vZGUgaXMKLSAqIHdvcmtpbmcuCisgKiBUaGlzIHRl
+c3Qgd2lsbCBjaGVjayBpZiBJbnRlbCBQVChJbnRlbCBQcm9jZXNzZXIgVHJhY2UpIGlzIHdvcmtp
+bmcuCiAgKgogICogSW50ZWwgQ1BVIG9mIDV0aC1nZW5lcmF0aW9uIENvcmUgKEJyb2Fkd2VsbCkg
+b3IgbmV3ZXIgaXMgcmVxdWlyZWQgZm9yIHRoZSB0ZXN0LgogICoKICAqIGtjb25maWcgcmVxdWly
+ZW1lbnQ6IENPTkZJR19QRVJGX0VWRU5UUwogICovCiAKKwogI2luY2x1ZGUgPHNjaGVkLmg+CiAj
+aW5jbHVkZSA8c3RkbGliLmg+CiAjaW5jbHVkZSA8c3RkaW8uaD4KQEAgLTQwLDIzICs0MCwzNSBA
+QCBpbnQgZmRlID0gLTE7CiAvL21hcCBoZWFkIGFuZCBzaXplCiB1aW50NjRfdCAqKmJ1Zm07CiBs
+b25nIGJ1aHN6Oworc3RhdGljIGNoYXIgKnN0cl9tb2RlOworc3RhdGljIGNoYXIgKnN0cl9leGNs
+dWRlX2luZm87CitzdGF0aWMgY2hhciAqc3RyX2JyYW5jaF9mbGFnOworaW50IG1vZGUgPSAxOwog
+Ci1zdGF0aWMgdWludDY0X3QgKipjcmVhdGVfbWFwKGludCBmZGUsIGxvbmcgYnVmc2l6ZSkKK3N0
+YXRpYyB1aW50NjRfdCAqKmNyZWF0ZV9tYXAoaW50IHJ3X2ZsYWcsIGxvbmcgYnVmc2l6ZSwgaW50
+IGZsYWcpCiB7CiAJdWludDY0X3QgKipidWZfZXY7CisJaW50IHByb19mbGFnOwogCXN0cnVjdCBw
+ZXJmX2V2ZW50X21tYXBfcGFnZSAqcGM7CiAKIAlidWZfZXYgPSBTQUZFX01BTExPQygyKnNpemVv
+Zih1aW50NjRfdCAqKSk7CiAJYnVmX2V2WzBdID0gTlVMTDsKIAlidWZfZXZbMV0gPSBOVUxMOwot
+CWJ1Zl9ldlswXSA9IFNBRkVfTU1BUChOVUxMLCBJTlRFTF9QVF9NRU1TSVpFLCBQUk9UX1JFQUQg
+fCBQUk9UX1dSSVRFLAotCQkJCQkJCU1BUF9TSEFSRUQsIGZkZSwgMCk7CisJaWYgKGZsYWcgPT0g
+MSkgeworCQl0c3RfcmVzKFRJTkZPLCAibWVtb3J5IHdpbGwgYmUgci93IGZvciBmdWxsIHRyYWNl
+IG1vZGUhIik7CisJCXByb19mbGFnID0gUFJPVF9SRUFEIHwgUFJPVF9XUklURTsKKwl9IGVsc2Ug
+eworCQl0c3RfcmVzKFRJTkZPLCAibWVtb3J5IHdpbGwgYmUgciBvbmx5IGZvciBzbmFwc2hvdCBt
+b2RlISIpOworCQlwcm9fZmxhZyA9IFBST1RfUkVBRDsKKwl9CisJYnVmX2V2WzBdID0gU0FGRV9N
+TUFQKHJ3X2ZsYWcsIElOVEVMX1BUX01FTVNJWkUsIFBST1RfUkVBRCB8IFBST1RfV1JJVEUsCisJ
+CQkJCQkJTUFQX1NIQVJFRCwgcndfZmxhZywgMCk7CiAKIAlwYyA9IChzdHJ1Y3QgcGVyZl9ldmVu
+dF9tbWFwX3BhZ2UgKilidWZfZXZbMF07CiAJcGMtPmF1eF9vZmZzZXQgPSBJTlRFTF9QVF9NRU1T
+SVpFOwogCXBjLT5hdXhfc2l6ZSA9IGJ1ZnNpemU7Ci0JYnVmX2V2WzFdID0gU0FGRV9NTUFQKE5V
+TEwsIGJ1ZnNpemUsIFBST1RfUkVBRCB8IFBST1RfV1JJVEUsCi0JCQkJCU1BUF9TSEFSRUQsIGZk
+ZSwgSU5URUxfUFRfTUVNU0laRSk7CisJYnVmX2V2WzFdID0gU0FGRV9NTUFQKE5VTEwsIGJ1ZnNp
+emUsIHByb19mbGFnLAorCQkJCQlNQVBfU0hBUkVELCByd19mbGFnLCBJTlRFTF9QVF9NRU1TSVpF
+KTsKIAlyZXR1cm4gYnVmX2V2OwogfQogCkBAIC04OSw3ICsxMDEsNyBAQCBzdGF0aWMgdm9pZCBk
+ZWxfbWFwKHVpbnQ2NF90ICoqYnVmX2V2LCBsb25nIGJ1ZnNpemUpCiAJZnJlZShidWZfZXYpOwog
+fQogCi1zdGF0aWMgdm9pZCBpbnRlbF9wdF9mdWxsX3RyYWNlX2NoZWNrKHZvaWQpCitzdGF0aWMg
+dm9pZCBpbnRlbF9wdF90cmFjZV9jaGVjayh2b2lkKQogewogCXVpbnQ2NF90IGF1eF9oZWFkID0g
+MDsKIAlzdHJ1Y3QgcGVyZl9ldmVudF9tbWFwX3BhZ2UgKnBtcDsKQEAgLTEwOCw3ICsxMjAsNyBA
+QCBzdGF0aWMgdm9pZCBpbnRlbF9wdF9mdWxsX3RyYWNlX2NoZWNrKHZvaWQpCiAJCXJldHVybjsK
+IAl9CiAKLQl0c3RfcmVzKFRQQVNTLCAicGVyZiB0cmFjZSBmdWxsIG1vZGUgaXMgcGFzc2VkISIp
+OworCXRzdF9yZXMoVFBBU1MsICJwZXJmIHRyYWNlIHRlc3QgaXMgcGFzc2VkISIpOwogfQogCiBz
+dGF0aWMgdm9pZCBzZXR1cCh2b2lkKQpAQCAtMTE2LDYgKzEyOCw3IEBAIHN0YXRpYyB2b2lkIHNl
+dHVwKHZvaWQpCiAJc3RydWN0IHBlcmZfZXZlbnRfYXR0ciBhdHRyID0ge307CiAKIAlidWhzeiA9
+IDIgKiBQQUdFU0laRTsKKwogCWlmIChhY2Nlc3MoSU5URUxfUFRfUEFUSCwgRl9PSykpIHsKIAkJ
+dHN0X2JyayhUQ09ORiwKIAkJCSJSZXF1aXJlcyBJbnRlbCBDb3JlIDV0aCsgZ2VuZXJhdGlvbiAo
+QnJvYWR3ZWxsIGFuZCBuZXdlcikiCkBAIC0xMzAsOSArMTQzLDIzIEBAIHN0YXRpYyB2b2lkIHNl
+dHVwKHZvaWQpCiAJYXR0ci5jb25maWcJPSBCSVQoaW50ZWxfcHRfcG11X3ZhbHVlKElOVEVMX1BU
+X0ZPUk1BVF9UU0MpKSB8CiAJCQkJQklUKGludGVsX3B0X3BtdV92YWx1ZShJTlRFTF9QVF9GT1JN
+QVRfTlJUKSk7CiAJYXR0ci5zaXplCT0gc2l6ZW9mKHN0cnVjdCBwZXJmX2V2ZW50X2F0dHIpOwot
+CWF0dHIuZXhjbHVkZV9rZXJuZWwJCT0gMDsKLQlhdHRyLmV4Y2x1ZGVfdXNlcgkJPSAwOwogCWF0
+dHIubW1hcAkJCT0gMTsKKwlpZiAoc3RyX2JyYW5jaF9mbGFnICE9IE5VTEwgJiYgIXN0cl9icmFu
+Y2hfZmxhZykgeworCQl0c3RfcmVzKFRJTkZPLCAiSW50ZWwgUFQgd2lsbCBkaXNhYmxlIGJyYW5j
+aCB0cmFjZSEiKTsKKwkJYXR0ci5jb25maWcgfD0gMTsKKwl9CisKKwlhdHRyLmV4Y2x1ZGVfa2Vy
+bmVsCT0gMDsKKwlhdHRyLmV4Y2x1ZGVfdXNlcgk9IDA7CisKKwlpZiAoc3RyX2V4Y2x1ZGVfaW5m
+byAhPSBOVUxMICYmIHN0cmNtcChzdHJfZXhjbHVkZV9pbmZvLCAidXNlciIpKSB7CisJCXRzdF9y
+ZXMoVElORk8sICJJbnRlbCBQVCB3aWxsIGV4Y2x1ZGUga2VybmVsIHRyYWNlISIpOworCQlhdHRy
+LmV4Y2x1ZGVfa2VybmVsID0gMTsKKwl9CisJaWYgKHN0cl9leGNsdWRlX2luZm8gIT0gTlVMTCAm
+JiBzdHJjbXAoc3RyX2V4Y2x1ZGVfaW5mbywgImtlcm5lbCIpKSB7CisJCXRzdF9yZXMoVElORk8s
+ICJJbnRlbCBQVCB3aWxsIGV4Y2x1ZGUgdXNlciB0cmFjZSEiKTsKKwkJYXR0ci5leGNsdWRlX3Vz
+ZXIgPSAxOworCX0KIAogCS8qIG9ubHkgZ2V0IHRyYWNlIGZvciBvd24gcGlkICovCiAJZmRlID0g
+dHN0X3N5c2NhbGwoX19OUl9wZXJmX2V2ZW50X29wZW4sICZhdHRyLCAwLCAtMSwgLTEsIDApOwpA
+QCAtMTQyLDggKzE2OSwxMCBAQCBzdGF0aWMgdm9pZCBzZXR1cCh2b2lkKQogCQlyZXR1cm47CiAJ
+fQogCWJ1Zm0gPSBOVUxMOwotCWJ1Zm0gPSBjcmVhdGVfbWFwKGZkZSwgYnVoc3opOworCWlmIChz
+dHJfbW9kZSAhPSBOVUxMICYmICFzdHJfbW9kZSkKKwkJbW9kZSA9IDA7CiAKKwlidWZtID0gY3Jl
+YXRlX21hcChmZGUsIGJ1aHN6LCBtb2RlKTsKIH0KIAogc3RhdGljIHZvaWQgY2xlYW51cCh2b2lk
+KQpAQCAtMTU0LDggKzE4MywxNyBAQCBzdGF0aWMgdm9pZCBjbGVhbnVwKHZvaWQpCiAJZGVsX21h
+cChidWZtLCBidWhzeik7CiB9CiAKK3N0YXRpYyBzdHJ1Y3QgdHN0X29wdGlvbiBvcHRpb25zW10g
+PSB7CisJeyJtIiwgJnN0cl9tb2RlLCAiLW0gZGlmZmVyZW50IG1vZGUsIGRlZmF1bHQgaXMgZnVs
+bCBtb2RlIn0sCisJeyJlOiIsICZzdHJfZXhjbHVkZV9pbmZvLCAiLWUgZXhjbHVkZSBpbmZvLCB1
+c2VyIG9yIGtlcm5lbCJ9LAorCXsiYiIsICZzdHJfYnJhbmNoX2ZsYWcsICItYiBpZiBkaXNhYmxl
+IGJyYW5jaCB0cmFjZSJ9LAorCXtOVUxMLCBOVUxMLCBOVUxMfQorfTsKKworCiBzdGF0aWMgc3Ry
+dWN0IHRzdF90ZXN0IHRlc3QgPSB7Ci0JLnRlc3RfYWxsID0gaW50ZWxfcHRfZnVsbF90cmFjZV9j
+aGVjaywKKwkudGVzdF9hbGwgPSBpbnRlbF9wdF90cmFjZV9jaGVjaywKKwkub3B0aW9ucyA9IG9w
+dGlvbnMsCiAJLm1pbl9rdmVyID0gIjQuMSIsCiAJLnNldHVwID0gc2V0dXAsCiAJLmNsZWFudXAg
+PSBjbGVhbnVwLAotLSAKMi4xNC4xCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xp
+c3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
