@@ -2,42 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D3F0FB92
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2019 16:33:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8BF1FBC2
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2019 16:43:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2016D3EACB8
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2019 16:33:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BDEE63EACBB
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2019 16:43:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id E1BBE3EA05E
- for <ltp@lists.linux.it>; Tue, 30 Apr 2019 16:33:11 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 6C0293EAC9D
+ for <ltp@lists.linux.it>; Tue, 30 Apr 2019 16:43:51 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id AFD291A00EA2
- for <ltp@lists.linux.it>; Tue, 30 Apr 2019 16:33:10 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id BF6DD200B17
+ for <ltp@lists.linux.it>; Tue, 30 Apr 2019 16:43:49 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id DA646ADF0;
- Tue, 30 Apr 2019 14:33:09 +0000 (UTC)
-Date: Tue, 30 Apr 2019 16:33:07 +0200
+ by mx1.suse.de (Postfix) with ESMTP id C37C3ADA3;
+ Tue, 30 Apr 2019 14:43:48 +0000 (UTC)
+Date: Tue, 30 Apr 2019 16:43:46 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Amir Goldstein <amir73il@gmail.com>
-Message-ID: <20190430143307.GA15102@dell5510>
-References: <20190424085317.409-1-amir73il@gmail.com>
- <CAOQ4uxgSrpfo=uz29PQOO0LjZFdX+dY4PNQdb7rCWbP3T8MgAA@mail.gmail.com>
+To: Jan Stancek <jstancek@redhat.com>
+Message-ID: <20190430144346.GA16914@dell5510>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAOQ4uxgSrpfo=uz29PQOO0LjZFdX+dY4PNQdb7rCWbP3T8MgAA@mail.gmail.com>
 User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_PASS autolearn=disabled
  version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Cc: ltp@lists.linux.it, Murphy Zhou <jencce.kernel@gmail.com>,
- Jan Kara <jack@suse.cz>, overlayfs <linux-unionfs@vger.kernel.org>
-Subject: Re: [LTP] [PATCH] fanotify06: add a test case for overlayfs
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Cc: ltp@lists.linux.it
+Subject: [LTP] TST_BRK_SUPPORTS_ONLY_TCONF_TBROK() error message
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -55,6 +52,15 @@ Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgQW1pciwKClJldmlld2VkLWJ5OiBQZXRyIFZvcmVsIDxwdm9yZWxAc3VzZS5jej4KClRoYW5r
-cyBmb3IgeW91ciBwYXRjaCEKCktpbmQgcmVnYXJkcywKUGV0cgoKLS0gCk1haWxpbmcgbGlzdCBp
-bmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+SGkgSmFuLAoKeW91ciBjb21taXQgMDczOGUzNzUzICgibGliOiBidWlsZCBjaGVjayBwYXJhbWV0
+ZXJzIGZvciB0c3RfYnJrKCkiKSBhZGRlZCBjaGVjawpmb3IgaW52YWxpZCB0eXBlcy4gSSBndWVz
+cyB3ZSBkaWRuJ3QgZmluZCBhIHdheSBob3cgdG8gcHJpbnQgbWVhbmluZ2Z1bCBlcnJvcgptZXNz
+YWdlIGUuZy4gInRzdF9icmsoKTogaW52YWxpZCB0eXBlLCBwbGVhc2UgdXNlIFRCUk9LL1RDT05G
+L1RGQUlMIiBhcyBYaWFvCnN1Z2dlc3RlZCBbMV0uIEJlY2F1c2UgZXJyb3IgbWVzc2FnZSBvbiB0
+c3RfYnJrKFRJTkZPLCAiZm9vIikgaXMgYSBiaXQKY29uZnVzaW5nOgoKLi4vLi4vLi4vLi4vaW5j
+bHVkZS90c3RfY29tbW9uLmg6Njk6MjU6IGVycm9yOiBzaXplIG9mIHVubmFtZWQgYXJyYXkgaXMg
+bmVnYXRpdmUKICBkbyB7ICgodm9pZClzaXplb2YoY2hhclsxIC0gMiAqICEhKGNvbmRpdGlvbild
+KSk7IH0gd2hpbGUgKDApCgoodGhpcyBpcyBub3QgcmVsYXRlZCB0byBjdXJyZW50IHJlbGVhc2Ug
+ZWZmb3J0KQoKS2luZCByZWdhcmRzLApQZXRyCgpbMV0gaHR0cHM6Ly9wYXRjaHdvcmsub3psYWJz
+Lm9yZy9jb21tZW50LzIwMjYzNzgvCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xp
+c3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
