@@ -2,55 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69999F1E6
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2019 10:18:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CC61F206
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2019 10:31:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 371573EACB1
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2019 10:18:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C81803EACAD
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2019 10:31:04 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 1919C3EACA4
- for <ltp@lists.linux.it>; Tue, 30 Apr 2019 10:18:14 +0200 (CEST)
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com
- [209.85.221.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id D82323EACA1
+ for <ltp@lists.linux.it>; Tue, 30 Apr 2019 10:31:02 +0200 (CEST)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8122C1000B08
- for <ltp@lists.linux.it>; Tue, 30 Apr 2019 10:18:10 +0200 (CEST)
-Received: by mail-vk1-f172.google.com with SMTP id d74so1010566vka.3
- for <ltp@lists.linux.it>; Tue, 30 Apr 2019 01:18:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=9LS8p4Ewb18hpyg1mC631bbZSeLolb3fTMEGuved/kI=;
- b=dPRCrFkjFHiYJmkXiR78bvrWvG78xPEduKU0n9SePcUM67OvCEmqn/H5knc1P4P/oO
- N6xs5tZ4FHPZFX4V05/EBw7F0k81UuUNbBCM81Y9ciCvXSmTVHhOdGSld1CDFzmBTHG5
- Sa6xiAv1n45XswyGExRRSPRsizHZg5zP0f3QFYIlzIULHqh6eWQOxOlKlgVVzN7124VI
- nuN68XDyrU/zPRuD1ndRj2faMGOleJ5Y6jVRdmW/rd0JAqMUL2fUT+cDtFxevuGy0noN
- 0UdQ6satx0fnTvkXf6Nt+I1xXNeAG89vRpxY+XR7MbJnX9ACCcvnuxvff7prlmmH7qks
- 9c9A==
-X-Gm-Message-State: APjAAAUBzpc2sjRGmBOQwFDCD2+fNMU0yiTXPRL0YhaP0S6/D2nKszT1
- tQLSBoG6EYiu84arN6IfCX8eO8TgAoJOrES3rvtaYUhSZL0f1Q==
-X-Google-Smtp-Source: APXvYqy76I/cRas72q0XxYeZ76jCrlAXpeGtIFrTvOfPaHMBZiHR94V04/rheLkjnP1H+R8Ib0I2GMdJjd9R2+iKOYI=
-X-Received: by 2002:a1f:7f05:: with SMTP id o5mr16101659vki.91.1556612291831; 
- Tue, 30 Apr 2019 01:18:11 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id F1AF720117A
+ for <ltp@lists.linux.it>; Tue, 30 Apr 2019 10:31:01 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id 09F75C05D275
+ for <ltp@lists.linux.it>; Tue, 30 Apr 2019 08:31:00 +0000 (UTC)
+Received: from localhost (dhcp-12-130.nay.redhat.com [10.66.12.130])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 73B136C52C;
+ Tue, 30 Apr 2019 08:30:57 +0000 (UTC)
+Date: Tue, 30 Apr 2019 16:30:56 +0800
+From: Murphy Zhou <xzhou@redhat.com>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <20190430083056.b6q2p6yzqbp2q6fm@XZHOUW.usersys.redhat.com>
+References: <20190430071446.13716-1-xzhou@redhat.com>
+ <CAEemH2c0FYg+WoCJfzWmaUiANE3pcpdXT2fHVGXsL_qnRJUn+A@mail.gmail.com>
 MIME-Version: 1.0
-References: <20190430043957.479-1-xzhou@redhat.com>
-In-Reply-To: <20190430043957.479-1-xzhou@redhat.com>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 30 Apr 2019 16:18:00 +0800
-Message-ID: <CAEemH2fX+8DhH56E0dmXxiX9FXb2i1VdF544y-AtxCPkEK+4uQ@mail.gmail.com>
-To: Murphy Zhou <xzhou@redhat.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <CAEemH2c0FYg+WoCJfzWmaUiANE3pcpdXT2fHVGXsL_qnRJUn+A@mail.gmail.com>
+User-Agent: NeoMutt/20180716-1400-f2a658
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+ (mx1.redhat.com [10.5.110.31]); Tue, 30 Apr 2019 08:31:00 +0000 (UTC)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_PASS
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
 Cc: ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH] OVL_MNT: put overlayfs lower, upper, work,
- mnt dir in separated mountpoint
+Subject: Re: [LTP] [PATCH] syscalls/swapon02: Do not fail on overlayfs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -62,74 +57,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0140772828=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0140772828==
-Content-Type: multipart/alternative; boundary="000000000000b54bb20587bb0aa2"
-
---000000000000b54bb20587bb0aa2
-Content-Type: text/plain; charset="UTF-8"
-
-On Tue, Apr 30, 2019 at 12:40 PM Murphy Zhou <xzhou@redhat.com> wrote:
-
-> Some tests are mounting overlayfs internally and run tests on it.
-> This mount can fail if the filesystem we are running on does not
-> support overlay mount upon it. For example, we are already running
-> tests on overlayfs or NFS, or CIFS. Test will report broken and
-> failure.
->
-> Fixing this by put overlayfs dirs in a separaed mountpoint, like
-> readahead02 by Amir.
->
-> Signed-off-by: Xiong Zhou <xzhou@redhat.com>
->
-Reviewed-by: Li Wang <liwang@redhat.com>
-
-LGTM.
-
--- 
-Regards,
-Li Wang
-
---000000000000b54bb20587bb0aa2
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Tue, Apr 30, 2019 at 12:40 PM Murphy Zhou &lt;<a=
- href=3D"mailto:xzhou@redhat.com">xzhou@redhat.com</a>&gt; wrote:<br></div>=
-<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
-left:1px solid rgb(204,204,204);padding-left:1ex">Some tests are mounting o=
-verlayfs internally and run tests on it.<br>
-This mount can fail if the filesystem we are running on does not<br>
-support overlay mount upon it. For example, we are already running<br>
-tests on overlayfs or NFS, or CIFS. Test will report broken and<br>
-failure.<br>
-<br>
-Fixing this by put overlayfs dirs in a separaed mountpoint, like<br>
-readahead02 by Amir.<br>
-<br>
-Signed-off-by: Xiong Zhou &lt;<a href=3D"mailto:xzhou@redhat.com" target=3D=
-"_blank">xzhou@redhat.com</a>&gt;<br></blockquote><div><span class=3D"gmail=
-_default" style=3D"font-size:small"></span>Reviewed-by: Li Wang &lt;<a href=
-=3D"mailto:liwang@redhat.com" target=3D"_blank">liwang@redhat.com</a>&gt;</=
-div><div><span class=3D"gmail_default"><br></span></div><div><span class=3D=
-"gmail_default">LGTM.</span></div><div><br></div></div>-- <br><div dir=3D"l=
-tr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>=
-Li Wang<br></div></div></div></div>
-
---000000000000b54bb20587bb0aa2--
-
---===============0140772828==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
-dHAK
-
---===============0140772828==--
+T24gVHVlLCBBcHIgMzAsIDIwMTkgYXQgMDQ6MTQ6MjNQTSArMDgwMCwgTGkgV2FuZyB3cm90ZToK
+PiBPbiBUdWUsIEFwciAzMCwgMjAxOSBhdCAzOjIxIFBNIE11cnBoeSBaaG91IDx4emhvdUByZWRo
+YXQuY29tPiB3cm90ZToKPiAKPiA+IEN1cnJlbnRseSBzd2FwZmlsZXMgb24gT3ZlcmxheWZzIGFy
+ZSBub3Qgc3VwcG9ydGVkLgo+ID4KPiA+IFNvIGlmIHdlIGFyZSBvbiBvdmVybGF5ZnMgYW5kIHdl
+IGdldCBFSU5WQUwgZnJvbSBzd2Fwb24oKSB3ZSByZXR1cm4gVENPTkYuCj4gPgo+ID4gU2lnbmVk
+LW9mZi1ieTogTXVycGh5IFpob3UgPHh6aG91QHJlZGhhdC5jb20+Cj4gPiAtLS0KPiA+ICB0ZXN0
+Y2FzZXMva2VybmVsL3N5c2NhbGxzL3N3YXBvbi9zd2Fwb24wMi5jIHwgNSArKysrKwo+ID4gIDEg
+ZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvdGVzdGNh
+c2VzL2tlcm5lbC9zeXNjYWxscy9zd2Fwb24vc3dhcG9uMDIuYwo+ID4gYi90ZXN0Y2FzZXMva2Vy
+bmVsL3N5c2NhbGxzL3N3YXBvbi9zd2Fwb24wMi5jCj4gPiBpbmRleCA0YWY1MTA1YzYuLjIxMWNk
+ZmM0ZSAxMDA2NDQKPiA+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvc3dhcG9uL3N3
+YXBvbjAyLmMKPiA+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvc3dhcG9uL3N3YXBv
+bjAyLmMKPiA+IEBAIC04Niw2ICs4NiwxMSBAQCBzdGF0aWMgdm9pZCB2ZXJpZnlfc3dhcG9uKHN0
+cnVjdCB0ZXN0X2Nhc2VfdCAqdGVzdCkKPiA+ICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVy
+bjsKPiA+ICAgICAgICAgfQo+ID4KPiA+ICsgICAgICAgaWYgKGZzX3R5cGUgPT0gVFNUX09WRVJM
+QVlGU19NQUdJQyAmJiBlcnJubyA9PSBFSU5WQUwpIHsKPiA+ICsgICAgICAgICAgICAgICB0c3Rf
+cmVzbShUQ09ORiwgIlN3YXBmaWxlIG9uIG92ZXJsYXlmcyBub3QgaW1wbGVtZXRlZCIpOwo+ID4g
+KyAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuOwo+ID4gKyAgICAgICB9Cj4gPgo+IAo+IFRo
+ZSBjb2RlIGxvb2tzIGNvcnJlY3QuCj4gCj4gQnV0IGl0IGFscmVhZHkgaGFzIGEgdGVzdCBza2lw
+cGluZyBmb3IgQlRSRlMsIGlzIHRoZXJlIGFueSBwb3NzaWJpbGl0eSB0bwo+IGNvbWJpbmUgdGhl
+c2UgZmlsZXN5c3RlbXMgY2hlY2sgdG9nZXRoZXI/CgpHb29kIGlkZWF+ICBTZW5kaW5nIFYyLgoK
+VGhhbnNrIQpNCgo+IAo+IAo+ID4gKwo+ID4gICAgICAgICB0c3RfcmVzbShURkFJTCwgInN3YXBv
+bigyKSBmYWlsZWQgdG8gcHJvZHVjZSBleHBlY3RlZCBlcnJvcjoiCj4gPiAgICAgICAgICAgICAg
+ICAgICIgJWQsIGVycm5vOiAlcyBhbmQgZ290ICVkLiIsIHRlc3QtPmV4cF9lcnJubywKPiA+ICAg
+ICAgICAgICAgICAgICAgdGVzdC0+ZXhwX2VycnZhbCwgVEVTVF9FUlJOTyk7Cj4gPiAtLQo+ID4g
+Mi4yMS4wCj4gPgo+ID4KPiA+IC0tCj4gPiBNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0
+cy5saW51eC5pdC9saXN0aW5mby9sdHAKPiA+Cj4gCj4gCj4gLS0gCj4gUmVnYXJkcywKPiBMaSBX
+YW5nCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGlu
+Zm8vbHRwCg==
