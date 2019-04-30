@@ -1,55 +1,56 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C639F1E0
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2019 10:14:38 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 69999F1E6
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2019 10:18:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1AE853EACAD
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2019 10:14:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 371573EACB1
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2019 10:18:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id AC9F83EACA1
- for <ltp@lists.linux.it>; Tue, 30 Apr 2019 10:14:36 +0200 (CEST)
-Received: from mail-vs1-f68.google.com (mail-vs1-f68.google.com
- [209.85.217.68])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 1919C3EACA4
+ for <ltp@lists.linux.it>; Tue, 30 Apr 2019 10:18:14 +0200 (CEST)
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com
+ [209.85.221.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A2D84600E4C
- for <ltp@lists.linux.it>; Tue, 30 Apr 2019 10:14:37 +0200 (CEST)
-Received: by mail-vs1-f68.google.com with SMTP id w13so7492054vsc.4
- for <ltp@lists.linux.it>; Tue, 30 Apr 2019 01:14:35 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8122C1000B08
+ for <ltp@lists.linux.it>; Tue, 30 Apr 2019 10:18:10 +0200 (CEST)
+Received: by mail-vk1-f172.google.com with SMTP id d74so1010566vka.3
+ for <ltp@lists.linux.it>; Tue, 30 Apr 2019 01:18:13 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=EFQ2kaCdVbV7dGEMPUqWTFoEnuxUMPWjlGs44OS9S/4=;
- b=A/LOxjoUICW9YP0ljzv/DhXC7bc4+zLWyhjHgUvTUQMgWUePzziVUNfo8ALpeYjOBy
- AZhmxE1KCEmhJtLVRfu2ZGwvxaiLMUbb+nLfytZu1vc2n0xCIPhGyj4rgHtoW61dyfAy
- oSoqncgGmZ9r95lsIVDTM5nJrleKjhZy3bXVMbRWgo3kdbE33DDQmvxqd8CYGD+Hp6A4
- 5csq1m1rNj00poJ+nUmvuUV4oLKlYXGu/ZcmxK2hJI8kQmTULOZTqcntSQG8xVqhr/2q
- ClvPzebRcdyKGxl3rOH/159Q42Z8hUSh76AFjtFHNhsg/JlXWQlZ2989OJu30GqWDjFo
- hakg==
-X-Gm-Message-State: APjAAAXGhHNb/f9uUtKcXU86ZDGxwSe00vk6EpoTmkFm1z3ldXFr5y4r
- hanf9rJtFnAN6lGlj/kZvm1/wc2vme+ifYSne8q3CjG7iOk=
-X-Google-Smtp-Source: APXvYqxwjTt79/yRIJ3+lT8ENRAZ/Ek7qUepdQUo8HbpB0pZzmRPUMZyC3zKs0/XkMoY6p6o6rAbN0GQpaVRNHFgu8U=
-X-Received: by 2002:a67:fe91:: with SMTP id b17mr19046889vsr.217.1556612074246; 
- Tue, 30 Apr 2019 01:14:34 -0700 (PDT)
+ bh=9LS8p4Ewb18hpyg1mC631bbZSeLolb3fTMEGuved/kI=;
+ b=dPRCrFkjFHiYJmkXiR78bvrWvG78xPEduKU0n9SePcUM67OvCEmqn/H5knc1P4P/oO
+ N6xs5tZ4FHPZFX4V05/EBw7F0k81UuUNbBCM81Y9ciCvXSmTVHhOdGSld1CDFzmBTHG5
+ Sa6xiAv1n45XswyGExRRSPRsizHZg5zP0f3QFYIlzIULHqh6eWQOxOlKlgVVzN7124VI
+ nuN68XDyrU/zPRuD1ndRj2faMGOleJ5Y6jVRdmW/rd0JAqMUL2fUT+cDtFxevuGy0noN
+ 0UdQ6satx0fnTvkXf6Nt+I1xXNeAG89vRpxY+XR7MbJnX9ACCcvnuxvff7prlmmH7qks
+ 9c9A==
+X-Gm-Message-State: APjAAAUBzpc2sjRGmBOQwFDCD2+fNMU0yiTXPRL0YhaP0S6/D2nKszT1
+ tQLSBoG6EYiu84arN6IfCX8eO8TgAoJOrES3rvtaYUhSZL0f1Q==
+X-Google-Smtp-Source: APXvYqy76I/cRas72q0XxYeZ76jCrlAXpeGtIFrTvOfPaHMBZiHR94V04/rheLkjnP1H+R8Ib0I2GMdJjd9R2+iKOYI=
+X-Received: by 2002:a1f:7f05:: with SMTP id o5mr16101659vki.91.1556612291831; 
+ Tue, 30 Apr 2019 01:18:11 -0700 (PDT)
 MIME-Version: 1.0
-References: <20190430071446.13716-1-xzhou@redhat.com>
-In-Reply-To: <20190430071446.13716-1-xzhou@redhat.com>
+References: <20190430043957.479-1-xzhou@redhat.com>
+In-Reply-To: <20190430043957.479-1-xzhou@redhat.com>
 From: Li Wang <liwang@redhat.com>
-Date: Tue, 30 Apr 2019 16:14:23 +0800
-Message-ID: <CAEemH2c0FYg+WoCJfzWmaUiANE3pcpdXT2fHVGXsL_qnRJUn+A@mail.gmail.com>
+Date: Tue, 30 Apr 2019 16:18:00 +0800
+Message-ID: <CAEemH2fX+8DhH56E0dmXxiX9FXb2i1VdF544y-AtxCPkEK+4uQ@mail.gmail.com>
 To: Murphy Zhou <xzhou@redhat.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
 Cc: ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH] syscalls/swapon02: Do not fail on overlayfs
+Subject: Re: [LTP] [PATCH] OVL_MNT: put overlayfs lower, upper, work,
+ mnt dir in separated mountpoint
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -61,130 +62,68 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1183635341=="
+Content-Type: multipart/mixed; boundary="===============0140772828=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1183635341==
-Content-Type: multipart/alternative; boundary="000000000000bd36960587bafdeb"
+--===============0140772828==
+Content-Type: multipart/alternative; boundary="000000000000b54bb20587bb0aa2"
 
---000000000000bd36960587bafdeb
+--000000000000b54bb20587bb0aa2
 Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Apr 30, 2019 at 3:21 PM Murphy Zhou <xzhou@redhat.com> wrote:
+On Tue, Apr 30, 2019 at 12:40 PM Murphy Zhou <xzhou@redhat.com> wrote:
 
-> Currently swapfiles on Overlayfs are not supported.
+> Some tests are mounting overlayfs internally and run tests on it.
+> This mount can fail if the filesystem we are running on does not
+> support overlay mount upon it. For example, we are already running
+> tests on overlayfs or NFS, or CIFS. Test will report broken and
+> failure.
 >
-> So if we are on overlayfs and we get EINVAL from swapon() we return TCONF.
+> Fixing this by put overlayfs dirs in a separaed mountpoint, like
+> readahead02 by Amir.
 >
-> Signed-off-by: Murphy Zhou <xzhou@redhat.com>
-> ---
->  testcases/kernel/syscalls/swapon/swapon02.c | 5 +++++
->  1 file changed, 5 insertions(+)
+> Signed-off-by: Xiong Zhou <xzhou@redhat.com>
 >
-> diff --git a/testcases/kernel/syscalls/swapon/swapon02.c
-> b/testcases/kernel/syscalls/swapon/swapon02.c
-> index 4af5105c6..211cdfc4e 100644
-> --- a/testcases/kernel/syscalls/swapon/swapon02.c
-> +++ b/testcases/kernel/syscalls/swapon/swapon02.c
-> @@ -86,6 +86,11 @@ static void verify_swapon(struct test_case_t *test)
->                         return;
->         }
->
-> +       if (fs_type == TST_OVERLAYFS_MAGIC && errno == EINVAL) {
-> +               tst_resm(TCONF, "Swapfile on overlayfs not implemeted");
-> +                       return;
-> +       }
->
+Reviewed-by: Li Wang <liwang@redhat.com>
 
-The code looks correct.
-
-But it already has a test skipping for BTRFS, is there any possibility to
-combine these filesystems check together?
-
-
-> +
->         tst_resm(TFAIL, "swapon(2) failed to produce expected error:"
->                  " %d, errno: %s and got %d.", test->exp_errno,
->                  test->exp_errval, TEST_ERRNO);
-> --
-> 2.21.0
->
->
-> --
-> Mailing list info: https://lists.linux.it/listinfo/ltp
->
-
+LGTM.
 
 -- 
 Regards,
 Li Wang
 
---000000000000bd36960587bafdeb
+--000000000000b54bb20587bb0aa2
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
 t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Tue, Apr 30, 2019 at 3:21 PM Murphy Zhou &lt;<a =
-href=3D"mailto:xzhou@redhat.com">xzhou@redhat.com</a>&gt; wrote:<br></div><=
-blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
-eft:1px solid rgb(204,204,204);padding-left:1ex">Currently swapfiles on Ove=
-rlayfs are not supported.<br>
+r" class=3D"gmail_attr">On Tue, Apr 30, 2019 at 12:40 PM Murphy Zhou &lt;<a=
+ href=3D"mailto:xzhou@redhat.com">xzhou@redhat.com</a>&gt; wrote:<br></div>=
+<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
+left:1px solid rgb(204,204,204);padding-left:1ex">Some tests are mounting o=
+verlayfs internally and run tests on it.<br>
+This mount can fail if the filesystem we are running on does not<br>
+support overlay mount upon it. For example, we are already running<br>
+tests on overlayfs or NFS, or CIFS. Test will report broken and<br>
+failure.<br>
 <br>
-So if we are on overlayfs and we get EINVAL from swapon() we return TCONF.<=
-br>
+Fixing this by put overlayfs dirs in a separaed mountpoint, like<br>
+readahead02 by Amir.<br>
 <br>
-Signed-off-by: Murphy Zhou &lt;<a href=3D"mailto:xzhou@redhat.com" target=
-=3D"_blank">xzhou@redhat.com</a>&gt;<br>
----<br>
-=C2=A0testcases/kernel/syscalls/swapon/swapon02.c | 5 +++++<br>
-=C2=A01 file changed, 5 insertions(+)<br>
-<br>
-diff --git a/testcases/kernel/syscalls/swapon/swapon02.c b/testcases/kernel=
-/syscalls/swapon/swapon02.c<br>
-index 4af5105c6..211cdfc4e 100644<br>
---- a/testcases/kernel/syscalls/swapon/swapon02.c<br>
-+++ b/testcases/kernel/syscalls/swapon/swapon02.c<br>
-@@ -86,6 +86,11 @@ static void verify_swapon(struct test_case_t *test)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 return;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (fs_type =3D=3D TST_OVERLAYFS_MAGIC &amp;&am=
-p; errno =3D=3D EINVAL) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_resm(TCONF, &qu=
-ot;Swapfile on overlayfs not implemeted&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0return;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br></blockquote><div><br></div><div><div clas=
-s=3D"gmail_default" style=3D"font-size:small">The code looks correct.</div>=
-<br></div><div><div class=3D"gmail_default" style=3D"font-size:small">But i=
-t already has a test skipping for BTRFS, is there any possibility to combin=
-e these filesystems check together?</div></div><div>=C2=A0</div><blockquote=
- class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
-lid rgb(204,204,204);padding-left:1ex">
-+<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_resm(TFAIL, &quot;swapon(2) failed to produ=
-ce expected error:&quot;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot; %d, er=
-rno: %s and got %d.&quot;, test-&gt;exp_errno,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0test-&gt;exp_=
-errval, TEST_ERRNO);<br>
--- <br>
-2.21.0<br>
-<br>
-<br>
--- <br>
-Mailing list info: <a href=3D"https://lists.linux.it/listinfo/ltp" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.linux.it/listinfo/ltp</a><br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
-Wang<br></div></div></div></div>
+Signed-off-by: Xiong Zhou &lt;<a href=3D"mailto:xzhou@redhat.com" target=3D=
+"_blank">xzhou@redhat.com</a>&gt;<br></blockquote><div><span class=3D"gmail=
+_default" style=3D"font-size:small"></span>Reviewed-by: Li Wang &lt;<a href=
+=3D"mailto:liwang@redhat.com" target=3D"_blank">liwang@redhat.com</a>&gt;</=
+div><div><span class=3D"gmail_default"><br></span></div><div><span class=3D=
+"gmail_default">LGTM.</span></div><div><br></div></div>-- <br><div dir=3D"l=
+tr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>=
+Li Wang<br></div></div></div></div>
 
---000000000000bd36960587bafdeb--
+--000000000000b54bb20587bb0aa2--
 
---===============1183635341==
+--===============0140772828==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -193,4 +132,4 @@ Content-Disposition: inline
 Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
 dHAK
 
---===============1183635341==--
+--===============0140772828==--
