@@ -2,51 +2,56 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADF74F275
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2019 11:08:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22158F2AC
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2019 11:21:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 832E23EACAD
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2019 11:08:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F3B9D3EACC2
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Apr 2019 11:21:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 351633EACA3
- for <ltp@lists.linux.it>; Tue, 30 Apr 2019 11:08:53 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 1E2213EAC9C
+ for <ltp@lists.linux.it>; Tue, 30 Apr 2019 11:21:47 +0200 (CEST)
+Received: from mail-vk1-f193.google.com (mail-vk1-f193.google.com
+ [209.85.221.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3B9931001132
- for <ltp@lists.linux.it>; Tue, 30 Apr 2019 11:08:49 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 0770630BC654
- for <ltp@lists.linux.it>; Tue, 30 Apr 2019 09:08:51 +0000 (UTC)
-Received: from localhost (dhcp-12-130.nay.redhat.com [10.66.12.130])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 6CC696C509;
- Tue, 30 Apr 2019 09:08:47 +0000 (UTC)
-Date: Tue, 30 Apr 2019 17:08:46 +0800
-From: Murphy Zhou <xzhou@redhat.com>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20190430090846.s2ctvbipxgs6nprr@XZHOUW.usersys.redhat.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 70B04600F42
+ for <ltp@lists.linux.it>; Tue, 30 Apr 2019 11:21:48 +0200 (CEST)
+Received: by mail-vk1-f193.google.com with SMTP id x194so2948964vke.0
+ for <ltp@lists.linux.it>; Tue, 30 Apr 2019 02:21:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=9smMGkoTqzgEXMqPvd5kF8P2KQFkuP1eo+R448bCEvE=;
+ b=qGrDkPoiOxBVT2yhQ/m3pWaR0L0bMqLqLHZKMkRaQDV8VTTg27H4D2SNaK4HI4qPm7
+ IrpPLjceFXHWq49ercjYEWQaAeRv9QabGdWUXFGAeimF33l3RD9hN+9v8S3hntdAsTk9
+ qROP7ECw3hbRi8//m3HPaI46Unv8x7qMPr60uZz7yzus+zU+s07Er37wNysaKF+YVwm1
+ x4Zkmexu7dRUH9RzMBkW5UIWgD05Xa22WITOyK97HaAsq7P5/dl8L/so2cPdpIdrKMl7
+ T2Jnbii2gNk4FyTAHqC7HKzsJsj0q3xVxTyg5Oea2oMuyZWGu99tXsbq3fIgEJy32VQT
+ JvJA==
+X-Gm-Message-State: APjAAAU4+C/EPIv2elPhulg15U9baYt4rm7jgdEVwo1c9DBhKYv04lnI
+ ajgIOcFNaXbDlKvoA4fqaFchKyPrz5h4GkSowIdkRA==
+X-Google-Smtp-Source: APXvYqybm4lUoeUadN+2AQpKQEqcZKDh68athVtWmI7aKgPvwQyxtNZwUUlC5A9AClvgEnZuyuwyXkmmGCxLSV/FGGU=
+X-Received: by 2002:a1f:1284:: with SMTP id 126mr34896244vks.72.1556616105061; 
+ Tue, 30 Apr 2019 02:21:45 -0700 (PDT)
+MIME-Version: 1.0
 References: <20190430071446.13716-1-xzhou@redhat.com>
  <CAEemH2c0FYg+WoCJfzWmaUiANE3pcpdXT2fHVGXsL_qnRJUn+A@mail.gmail.com>
  <20190430083056.b6q2p6yzqbp2q6fm@XZHOUW.usersys.redhat.com>
  <CAEemH2d-xLCFayr8uCycdYZCtwg1YRHJcpXjdzRCi6zJ6_rMPw@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2d-xLCFayr8uCycdYZCtwg1YRHJcpXjdzRCi6zJ6_rMPw@mail.gmail.com>
-User-Agent: NeoMutt/20180716-1400-f2a658
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.46]); Tue, 30 Apr 2019 09:08:51 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+ <20190430090846.s2ctvbipxgs6nprr@XZHOUW.usersys.redhat.com>
+In-Reply-To: <20190430090846.s2ctvbipxgs6nprr@XZHOUW.usersys.redhat.com>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 30 Apr 2019 17:21:34 +0800
+Message-ID: <CAEemH2dvDqWq7XMS_dNkuKkE31FejY59H+cvX37R8xCeo0uD3Q@mail.gmail.com>
+To: Murphy Zhou <xzhou@redhat.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
 Cc: ltp@lists.linux.it
 Subject: Re: [LTP] [PATCH] syscalls/swapon02: Do not fail on overlayfs
 X-BeenThere: ltp@lists.linux.it
@@ -60,44 +65,128 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0294061284=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gVHVlLCBBcHIgMzAsIDIwMTkgYXQgMDQ6NTQ6MjNQTSArMDgwMCwgTGkgV2FuZyB3cm90ZToK
-PiBPbiBUdWUsIEFwciAzMCwgMjAxOSBhdCA0OjMxIFBNIE11cnBoeSBaaG91IDx4emhvdUByZWRo
-YXQuY29tPiB3cm90ZToKPiAKPiA+IE9uIFR1ZSwgQXByIDMwLCAyMDE5IGF0IDA0OjE0OjIzUE0g
-KzA4MDAsIExpIFdhbmcgd3JvdGU6Cj4gPiA+IE9uIFR1ZSwgQXByIDMwLCAyMDE5IGF0IDM6MjEg
-UE0gTXVycGh5IFpob3UgPHh6aG91QHJlZGhhdC5jb20+IHdyb3RlOgo+ID4gPgo+ID4gPiA+IEN1
-cnJlbnRseSBzd2FwZmlsZXMgb24gT3ZlcmxheWZzIGFyZSBub3Qgc3VwcG9ydGVkLgo+ID4gPiA+
-Cj4gPiA+ID4gU28gaWYgd2UgYXJlIG9uIG92ZXJsYXlmcyBhbmQgd2UgZ2V0IEVJTlZBTCBmcm9t
-IHN3YXBvbigpIHdlIHJldHVybgo+ID4gVENPTkYuCj4gPiA+ID4KPiA+ID4gPiBTaWduZWQtb2Zm
-LWJ5OiBNdXJwaHkgWmhvdSA8eHpob3VAcmVkaGF0LmNvbT4KPiA+ID4gPiAtLS0KPiA+ID4gPiAg
-dGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9zd2Fwb24vc3dhcG9uMDIuYyB8IDUgKysrKysKPiA+
-ID4gPiAgMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKQo+ID4gPiA+Cj4gPiA+ID4gZGlm
-ZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvc3dhcG9uL3N3YXBvbjAyLmMKPiA+
-ID4gPiBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvc3dhcG9uL3N3YXBvbjAyLmMKPiA+ID4g
-PiBpbmRleCA0YWY1MTA1YzYuLjIxMWNkZmM0ZSAxMDA2NDQKPiA+ID4gPiAtLS0gYS90ZXN0Y2Fz
-ZXMva2VybmVsL3N5c2NhbGxzL3N3YXBvbi9zd2Fwb24wMi5jCj4gPiA+ID4gKysrIGIvdGVzdGNh
-c2VzL2tlcm5lbC9zeXNjYWxscy9zd2Fwb24vc3dhcG9uMDIuYwo+ID4gPiA+IEBAIC04Niw2ICs4
-NiwxMSBAQCBzdGF0aWMgdm9pZCB2ZXJpZnlfc3dhcG9uKHN0cnVjdCB0ZXN0X2Nhc2VfdCAqdGVz
-dCkKPiA+ID4gPiAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm47Cj4gPiA+ID4gICAgICAg
-ICB9Cj4gPiA+ID4KPiA+ID4gPiArICAgICAgIGlmIChmc190eXBlID09IFRTVF9PVkVSTEFZRlNf
-TUFHSUMgJiYgZXJybm8gPT0gRUlOVkFMKSB7Cj4gPiA+ID4gKyAgICAgICAgICAgICAgIHRzdF9y
-ZXNtKFRDT05GLCAiU3dhcGZpbGUgb24gb3ZlcmxheWZzIG5vdAo+ID4gaW1wbGVtZXRlZCIpOwo+
-ID4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAgIHJldHVybjsKPiA+ID4gPiArICAgICAgIH0K
-PiA+ID4gPgo+ID4gPgo+ID4gPiBUaGUgY29kZSBsb29rcyBjb3JyZWN0Lgo+ID4gPgo+ID4gPiBC
-dXQgaXQgYWxyZWFkeSBoYXMgYSB0ZXN0IHNraXBwaW5nIGZvciBCVFJGUywgaXMgdGhlcmUgYW55
-IHBvc3NpYmlsaXR5IHRvCj4gPiA+IGNvbWJpbmUgdGhlc2UgZmlsZXN5c3RlbXMgY2hlY2sgdG9n
-ZXRoZXI/Cj4gPgo+ID4gR29vZCBpZGVhfiAgU2VuZGluZyBWMi4KPiA+Cj4gCj4gT25lIG1vcmUg
-Y29tbWVudC4KPiAKPiBJIGp1c3Qgbm90aWNlZCB0aGF0IGl0IGFsc28gaGFzIGFuIEZTIHNraXBw
-aW5nIGxpc3QgaW4gc2V0dXAoKSwgZG8gdSB0aGluawo+IGNhbiB3ZSBtb3ZlIEJUUkZTIGFuZCBP
-VkVSTEFZRlMgdG8gdGhlcmU/CgpHcmVhdCEgVGhhdCBtYWtlcyBwZXJmZWN0IHNlbnNlLiBBbHNv
-IEknbSB0aGlua2luZyBhIGZldyBvdGhlciB0d2Vha3MKbmVlZGVkOgoKICBORlMgbm93IGFjdHVh
-bGx5IHN1cHBvcnQgc3dhcGZpbGVzLiBMZXQncyByZW1vdmUgaXQgZnJvbSBza2lwIGxpc3Q7CiAg
-U2tpcCBhbGwgc3dhcG9uL3N3YXBvZmYgdGVzdHMgb24gVE1QRlMgQlRSRlMgT1ZFUkxBWUZTOwog
-IEFkZCBDSUZTX01BR0lDLCB0aGVuIHNraXAgb24gaXQgdG9vOwogIFJlbW92ZSBleGlzdGluZyBC
-VFJGUyByZXR1cm4gdmFsdWUgdHdlYWtzLgoKVGhhbmtzLApNCgo+IAo+IC0tIAo+IFJlZ2FyZHMs
-Cj4gTGkgV2FuZwoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0
-L2xpc3RpbmZvL2x0cAo=
+--===============0294061284==
+Content-Type: multipart/alternative; boundary="000000000000fe95800587bbede5"
+
+--000000000000fe95800587bbede5
+Content-Type: text/plain; charset="UTF-8"
+
+On Tue, Apr 30, 2019 at 5:08 PM Murphy Zhou <xzhou@redhat.com> wrote:
+
+> ...
+> > > > > +       if (fs_type == TST_OVERLAYFS_MAGIC && errno == EINVAL) {
+> > > > > +               tst_resm(TCONF, "Swapfile on overlayfs not
+> > > implemeted");
+> > > > > +                       return;
+> > > > > +       }
+> > > > >
+> > > >
+> > > > The code looks correct.
+> > > >
+> > > > But it already has a test skipping for BTRFS, is there any
+> possibility to
+> > > > combine these filesystems check together?
+> > >
+> > > Good idea~  Sending V2.
+> > >
+> >
+> > One more comment.
+> >
+> > I just noticed that it also has an FS skipping list in setup(), do u
+> think
+> > can we move BTRFS and OVERLAYFS to there?
+>
+> Great! That makes perfect sense. Also I'm thinking a few other tweaks
+> needed:
+>
+>   NFS now actually support swapfiles. Let's remove it from skip list;
+>
+
+But AFAIK someone still run LTP on old distro/kernel, so we can't guarantee
+the test works fine in that situation. So, my opinion is to reserve the
+NFS, or do you have a better way to make test more flexible?
+
+
+>   Skip all swapon/swapoff tests on TMPFS BTRFS OVERLAYFS;
+>   Add CIFS_MAGIC, then skip on it too;
+>   Remove existing BTRFS return value tweaks.
+>
+
+Agree.
+
+-- 
+Regards,
+Li Wang
+
+--000000000000fe95800587bbede5
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Tue, Apr 30, 2019 at 5:08 PM Murphy Zhou &lt;<a =
+href=3D"mailto:xzhou@redhat.com">xzhou@redhat.com</a>&gt; wrote:<br></div><=
+blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
+eft:1px solid rgb(204,204,204);padding-left:1ex"><span class=3D"gmail_defau=
+lt" style=3D"font-size:small">...</span><br>
+&gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (fs_type =3D=3D TST_OVER=
+LAYFS_MAGIC &amp;&amp; errno =3D=3D EINVAL) {<br>
+&gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0tst_resm(TCONF, &quot;Swapfile on overlayfs not<br>
+&gt; &gt; implemeted&quot;);<br>
+&gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
+&gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; &gt; &gt; &gt;<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; The code looks correct.<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; But it already has a test skipping for BTRFS, is there any p=
+ossibility to<br>
+&gt; &gt; &gt; combine these filesystems check together?<br>
+&gt; &gt;<br>
+&gt; &gt; Good idea~=C2=A0 Sending V2.<br>
+&gt; &gt;<br>
+&gt; <br>
+&gt; One more comment.<br>
+&gt; <br>
+&gt; I just noticed that it also has an FS skipping list in setup(), do u t=
+hink<br>
+&gt; can we move BTRFS and OVERLAYFS to there?<br>
+<br>
+Great! That makes perfect sense. Also I&#39;m thinking a few other tweaks<b=
+r>
+needed:<br>
+<br>
+=C2=A0 NFS now actually support swapfiles. Let&#39;s remove it from skip li=
+st;<br></blockquote><div><br></div><div><div class=3D"gmail_default" style=
+=3D"font-size:small">But AFAIK someone still run LTP on old distro/kernel, =
+so we can&#39;t guarantee the test works fine in that situation. So, my opi=
+nion is to reserve the NFS, or do you have a better way to make test more f=
+lexible?</div></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
+g-left:1ex">
+=C2=A0 Skip all swapon/swapoff tests on TMPFS BTRFS OVERLAYFS;<br>
+=C2=A0 Add CIFS_MAGIC, then skip on it too;<br>
+=C2=A0 Remove existing BTRFS return value tweaks.<br></blockquote><div><br>=
+</div><div><div class=3D"gmail_default" style=3D"font-size:small">Agree.</d=
+iv></div></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signat=
+ure"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></=
+div></div>
+
+--000000000000fe95800587bbede5--
+
+--===============0294061284==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
+dHAK
+
+--===============0294061284==--
