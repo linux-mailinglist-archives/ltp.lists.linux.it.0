@@ -1,62 +1,89 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B12915065
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 May 2019 17:38:47 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 886D915084
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 May 2019 17:42:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1891A3EAEBC
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 May 2019 17:38:47 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 49A6D3EAEC1
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 May 2019 17:42:43 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 1AAB83EA65F
- for <ltp@lists.linux.it>; Mon,  6 May 2019 17:38:44 +0200 (CEST)
-Received: from mail-pg1-x54a.google.com (mail-pg1-x54a.google.com
- [IPv6:2607:f8b0:4864:20::54a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 40EE13EA2DD
+ for <ltp@lists.linux.it>; Mon,  6 May 2019 17:42:40 +0200 (CEST)
+Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A90EE6005F7
- for <ltp@lists.linux.it>; Mon,  6 May 2019 17:38:45 +0200 (CEST)
-Received: by mail-pg1-x54a.google.com with SMTP id 14so8236022pgo.14
- for <ltp@lists.linux.it>; Mon, 06 May 2019 08:38:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=0fVpLGLqvCFks3wqu36nBLdEgm9uj0iD381sMLInOo8=;
- b=ScyS7qdQ2Qx1UthKQ0F/i7G+uch+uLJ78etxZArs4nkZusEw5lhcDKdKheLyGdhuXY
- Anfx+VwQSqeQEShQN56GvCvh/c+wHxxj6K9UlWvgu/esd7gCY5PM71GlqNc1BFhg/2SF
- D/De1bSfbdMrKeMJVfTsoiVzhEVGvgms/XrpCc+63wRUe/PtZVTJHmRKBmhwRWhBBIY6
- zJWx2k/MoXQ+kdakf3KSlsGnVy72H0hN6NacfJVGjEpYLTBkU1hGxGU+rT6/d7gDqJ71
- lr8eDuaj44JNm9rrvyFlqqafGAgDLRyGTQMmht9cQptucmIyL9P943zu2soRDOoGq72q
- tmFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=0fVpLGLqvCFks3wqu36nBLdEgm9uj0iD381sMLInOo8=;
- b=K3fRNjBU0nZ0LAiTwnUO72GfdwkGRpySB/d+r056ydmPk15Z0y3pl4H5/+VXXOlPej
- X1MILFxX/ABpYQemVz+0Rvc0Aa8gZofFGtPlBrOBiTPO/hDd+giTUWDY2A2yxsh7eV4h
- L1/eQBI7oXfJznoiDlTb2wZU7hmcxEmVx5gtfOO3QyqlMmpccRN+UjHzRJfgwafxqMto
- jFJGlee8+/Rdk7K8wglWzTFzFvPOQfa55qTAGyCmUE4WbOn3lNURvfZFfixPU3TmpT/V
- IHHJqqQkiHLCzgywr1+DYEZxtBcZJdKhHHDruOZzQ1AFFjSL9uTw+sia3ll0wvSK/xMi
- Jk4A==
-X-Gm-Message-State: APjAAAW8WpMtUSPXnZBitv87nV3yprsi7bPqZSs3SWOQ+DlEO8tBFx/M
- IFBgchbHFPvIPqit40bLT8Yrh50X0vDbkKIq/w5DyxOFeAxGYRDdTGH+goHwY/RebeRTm/dt7XQ
- zGjJtkkAsRggw38nWpDibvii3eBRz8SOCYtxLYbq1plQS84zvz5g3Y3e/9/oR//oWAw2K6sDW
-X-Google-Smtp-Source: APXvYqytDchNPqQqBfl/NmT/o6LvOZEyfLSnAHiyhq875KSP0q8ITIq5a0cyvNDxWG6RmPHMbCKVbJ2LYDL+dM/iMNg=
-X-Received: by 2002:a63:7141:: with SMTP id b1mr32672308pgn.331.1557157121527; 
- Mon, 06 May 2019 08:38:41 -0700 (PDT)
-Date: Mon,  6 May 2019 08:38:36 -0700
-Message-Id: <20190506153836.232148-1-paullawrence@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.21.0.1020.gf2820cf01a-goog
-From: Paul Lawrence <paullawrence@google.com>
-To: ltp@lists.linux.it, kernel-team@android.com
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C9BB5603454
+ for <ltp@lists.linux.it>; Mon,  6 May 2019 17:42:41 +0200 (CEST)
+Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
+ by aserp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x46Fg0br133144;
+ Mon, 6 May 2019 15:42:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2018-07-02;
+ bh=g4RfSiaC4RviBrFmPwRIqyPWOYaVvT5fihHHOnH/fE4=;
+ b=fvIlvmXzAN1/Q18fmAW78jjKW7QsgCLgvkUjcH7/isFNgFUe9OrTh6zW6+Z5hGzSUyrU
+ kC2Vpfo5+x3HimjDO9jXZ5VasChurWv8o/D0Y/tcTKOjkOS3sayPBm3/sIygzmBsF+V+
+ CbM97eLhIxqK1Lqtsvx3yUtBzTjdOgft4iM1G+NlVaWPrhwvl6NfySSOf0yS0PnKXqLA
+ q9gnAIXLbyiTe/IH4WAuw6HnT73xuC35zT5BgkzbHu82LUrAPEhf9yrbd/pOaGIqY0/l
+ vsMYlkZ1euOyJE2piEZS4LZSaMMORuUtFrBjR0W4AWfF8GS2aRh9SOor71awyjRiZgcm Mg== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by aserp2130.oracle.com with ESMTP id 2s94b5qfgy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 06 May 2019 15:42:35 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x46FgQvv133932;
+ Mon, 6 May 2019 15:42:35 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by aserp3030.oracle.com with ESMTP id 2s94b8yjwq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 06 May 2019 15:42:35 +0000
+Received: from abhmp0013.oracle.com (abhmp0013.oracle.com [141.146.116.19])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x46FgZ1h000383;
+ Mon, 6 May 2019 15:42:35 GMT
+Received: from [192.168.1.111] (/95.161.223.113)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Mon, 06 May 2019 08:42:34 -0700
+To: Petr Vorel <pvorel@suse.cz>
+References: <20190427053929.7372-1-pvorel@suse.cz>
+ <5cff91e0-c566-27c3-95dd-39dd4e2b6d0e@oracle.com>
+ <20190502114459.GA32460@dell5510>
+ <0c7a3010-d7d6-1d83-0548-148adb55b2cc@oracle.com>
+ <20190506153220.GA21222@dell5510>
+From: Alexey Kodanev <alexey.kodanev@oracle.com>
+Message-ID: <25305d65-d8ab-f0fa-dd39-defc093d6823@oracle.com>
+Date: Mon, 6 May 2019 18:42:32 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
+MIME-Version: 1.0
+In-Reply-To: <20190506153220.GA21222@dell5510>
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=5900 definitions=9249
+ signatures=668686
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1810050000 definitions=main-1905060134
+X-Proofpoint-Virus-Version: vendor=nai engine=5900 definitions=9249
+ signatures=668686
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
+ definitions=main-1905060133
 X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] ANDROID: Fix ioctl03 test for Android
+Cc: ltp@lists.linux.it
+Subject: Re: [LTP] [PATCH 1/1] net/broken_ip: Rewrite into new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -73,19 +100,23 @@ Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-QW5kcm9pZCBoYXMgdHVuIGZpbGUgYXQgL2Rldi90dW4gbm90IC9kZXYvbmV0L3R1bgoKU2lnbmVk
-LW9mZi1ieTogUGF1bCBMYXdyZW5jZSA8cGF1bGxhd3JlbmNlQGdvb2dsZS5jb20+Ci0tLQogdGVz
-dGNhc2VzL2tlcm5lbC9zeXNjYWxscy9pb2N0bC9pb2N0bDAzLmMgfCA1ICsrKysrCiAxIGZpbGUg
-Y2hhbmdlZCwgNSBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9z
-eXNjYWxscy9pb2N0bC9pb2N0bDAzLmMgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2lvY3Rs
-L2lvY3RsMDMuYwppbmRleCBiMWI1MGVkYjQuLmNjOWEyZWRhZiAxMDA2NDQKLS0tIGEvdGVzdGNh
-c2VzL2tlcm5lbC9zeXNjYWxscy9pb2N0bC9pb2N0bDAzLmMKKysrIGIvdGVzdGNhc2VzL2tlcm5l
-bC9zeXNjYWxscy9pb2N0bC9pb2N0bDAzLmMKQEAgLTc5LDYgKzc5LDExIEBAIHN0YXRpYyB2b2lk
-IHZlcmlmeV9mZWF0dXJlcyh2b2lkKQogCXVuc2lnbmVkIGludCBmZWF0dXJlcywgaTsKIAogCWlu
-dCBuZXRmZCA9IG9wZW4oIi9kZXYvbmV0L3R1biIsIE9fUkRXUik7CisKKwkvKiBBbmRyb2lkIGhh
-cyB0dW4gYXQgL2Rldi90dW4gKi8KKwlpZiAobmV0ZmQgPT0gLTEgJiYgKGVycm5vID09IEVOT0RF
-ViB8fCBlcnJubyA9PSBFTk9FTlQpKQorCQluZXRmZCA9IG9wZW4oIi9kZXYvdHVuIiwgT19SRFdS
-KTsKKwogCWlmIChuZXRmZCA9PSAtMSkgewogCQlpZiAoZXJybm8gPT0gRU5PREVWIHx8IGVycm5v
-ID09IEVOT0VOVCkKIAkJCXRzdF9icmsoVENPTkYsICJUVU4gc3VwcG9ydCBpcyBtaXNzaW5nPyIp
-OwotLSAKMi4yMS4wLjEwMjAuZ2YyODIwY2YwMWEtZ29vZwoKCi0tIApNYWlsaW5nIGxpc3QgaW5m
-bzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+T24gMDYuMDUuMjAxOSAxODozMiwgUGV0ciBWb3JlbCB3cm90ZToKPiBIaSBBbGV4ZXksCj4gCj4+
+Pj4gQWNrZWQtYnk6IEFsZXhleSBLb2RhbmV2IDxhbGV4ZXkua29kYW5ldkBvcmFjbGUuY29tPgo+
+Pj4gLi4uCj4+Pj4+ICtleHBvcnQgSUNNUFY0X0RBVEFfTUFYU0laRT0xNDcyCj4+Pj4+ICtleHBv
+cnQgSUNNUFY2X0RBVEFfTUFYU0laRT0xNDUyCj4gCj4+Pj4gU2luY2UgdGhlc2UgdmFyaWFibGVz
+IGFyZSBpbiB0aGUgbGlicmFyeSwgbWF5IGJlIGl0IHdvdWxkIGJlIGJldHRlciB0byB0dW5lCj4+
+Pj4gdGhlbSBkZXBlbmRpbmcgb24gYW4gTVRVIG9mIHRoZSB0ZXN0cyBpbnRlcmZhY2VzPwo+Pj4g
+R29vZCBpZGVhLiAxNDcyIGFuZCAxNDUyIGFyZSBiYXNlZCBvbiBNVFUgPSAxNTAwIChJUHY0OiAx
+NTAwIC0gMjAgYnl0ZXMgZm9yIElQdjQgaGVhZGVyCj4+PiAtIDggYnl0ZXMgZm9yIElDTVAgaGVh
+ZGVyOyBJUHY2OiAxNTAwIC0gNDAgYnl0ZXMgZm9yIElQdjYgaGVhZGVyIC0gOCBieXRlcyBmb3Ig
+SUNNUCBoZWFkZXIpLAo+Pj4gd2hpY2ggbG9va3MgdG8gbWUgYXMgdGhlIGRlZmF1bHQgZm9yIG5l
+dG5zIE5JQ3MgYW5kIGV0aGVybmV0IGFuZCB3aWZpIE5JQ3MsCj4+PiBidXQgd2Ugc2hvdWxkIGF2
+b2lkIGZhaWx1cmVzIHdoZW4gZGlmZmVyZW50IE1UVSB1c2VkLgo+Pj4gSSBwcm9wb3NlIG1lcmdp
+bmcgdGhpcyB2ZXJzaW9uIGFuZCBhZGQgTVRVIGRldGVjdGlvbiBzdXBwb3J0IGxhdGVyLgo+IAo+
+IAo+PiBPSy4gUGVyaGFwcyB3ZSBzaG91bGQgcmVuYW1lIHRoZW0gdG8gaW5kaWNhdGUgdGhhdCB0
+aGV5IHJlbGF0ZSB0byBucy1pY21wdl9zZW5kZXIsCj4+IGJlY2F1c2UgdGhlIG1heGltdW0gaWNt
+cCBkYXRhIHNpemUgaXMgNjU1MzUgLSBoZWFkZXJzLCBub3QgdGhvc2UgdmFsdWVzLgo+IFRydWUu
+IEhvdyBhYm91dCB0aGlzOgo+IAo+IGV4cG9ydCBOU19JQ01QVjRfU0VOREVSX0RBVEFfTUFYU0la
+RT0xNDcyCj4gZXhwb3J0IE5TX0lDTVBWNl9TRU5ERVJfREFUQV9NQVhTSVpFPTE0NTIKPiAKCkFn
+cmVlLgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0
+aW5mby9sdHAK
