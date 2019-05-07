@@ -2,57 +2,88 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D887A15FCF
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 May 2019 10:52:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E84D21B301
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 May 2019 11:37:37 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AB3DA3EA448
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 May 2019 10:52:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B7E4D294AD4
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 May 2019 11:37:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 2A5913EA367
- for <ltp@lists.linux.it>; Tue,  7 May 2019 10:52:16 +0200 (CEST)
-Received: from mail-ua1-f67.google.com (mail-ua1-f67.google.com
- [209.85.222.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 5D9763EA03A
+ for <ltp@lists.linux.it>; Tue,  7 May 2019 10:59:47 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B299F1A00362
- for <ltp@lists.linux.it>; Tue,  7 May 2019 10:52:14 +0200 (CEST)
-Received: by mail-ua1-f67.google.com with SMTP id f9so5724236ual.1
- for <ltp@lists.linux.it>; Tue, 07 May 2019 01:52:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=0UyfNzTK6JFx4NkHY2Z+h0djzzz5mj4KhGFLK705hU4=;
- b=J4T5oO48RarewB3fFYGNhk3m8d+o6j+7Gh1qsq04zzGoP7L8ReehNivjd8uXaRBm/Z
- MmSNmmWXI5oJNulce5q4PfTlCaIMYBEHMSqwvL0jOn3yG0UiRYPiwSN7Ptc1/0vvAQ6S
- FCgnBgstnj3TtUGckxNOYh8YzgffywUTnq89wq17YocYNHnlBdyMojKXc1Mks+JFsdqx
- vZt+5XQkXXRZaXI7bAjAF+72exgdiYIhlNzDJ5MaS4w0RLIgs0uWgWgKXHSu8bGWd7eB
- oTfk4yFg99ud3CsJVQVj/kqoZV1gql3aglYntPPby2Ixja+IVB04Thp/YSBtgNehbxtB
- TZLg==
-X-Gm-Message-State: APjAAAUvNiBWy3UBLQKE2T8RltoS5HLglvtAXryNZbKdUTUgWhtMZd8p
- k5aqQjoBIpsb2TZriUVXd2UfwzH0MHQohcp+RNp5UGaRytfYCw==
-X-Google-Smtp-Source: APXvYqxn5qxnh7vf/2nH22GBOkA5oxOl0IZHnInUB5icuCh8HUz6l398kLVZe8dsTJwystTxNeuELoQ4Z7gNvMWGBKI=
-X-Received: by 2002:ab0:2b19:: with SMTP id e25mr15911428uar.68.1557219133538; 
- Tue, 07 May 2019 01:52:13 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D20F9601193
+ for <ltp@lists.linux.it>; Tue,  7 May 2019 10:59:45 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id E9297ABAC;
+ Tue,  7 May 2019 08:59:44 +0000 (UTC)
+To: Li Wang <liwang@redhat.com>
+References: <20190507065530.12174-1-camann@suse.com>
+ <CAEemH2e=9J_7OtSsS5wq+4YgfOm1zj=PK5cnaBk69LKtdR71ZA@mail.gmail.com>
+From: Christian Amann <camann@suse.de>
+Openpgp: preference=signencrypt
+Autocrypt: addr=camann@suse.de; keydata=
+ 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
+ du2mz1Q=
+Message-ID: <7f9b69db-12a2-6e88-7687-602b88ce8cd7@suse.de>
+Date: Tue, 7 May 2019 10:59:44 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-References: <20190430152949.17723-1-xzhou@redhat.com>
- <20190430235915.19512-1-xzhou@redhat.com>
-In-Reply-To: <20190430235915.19512-1-xzhou@redhat.com>
-From: Li Wang <liwan@redhat.com>
-Date: Tue, 7 May 2019 16:52:01 +0800
-Message-ID: <CAEemH2f3Dq9tpoD8Cq+vJ5SYoaOfVQdP3FQU-6op52U+1p=Yeg@mail.gmail.com>
-To: Murphy Zhou <xzhou@redhat.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+In-Reply-To: <CAEemH2e=9J_7OtSsS5wq+4YgfOm1zj=PK5cnaBk69LKtdR71ZA@mail.gmail.com>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+X-Mailman-Approved-At: Mon, 13 May 2019 11:36:55 +0200
 Cc: ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH v3] syscalls/swap{on,
-	off}: skip if FIBMAP ioctl trial fails
+Subject: Re: [LTP] [PATCH v1] crypto/af_alg02: fixed read() being stuck
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -64,490 +95,368 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0671770446=="
+Content-Type: multipart/mixed; boundary="===============0226159435=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0671770446==
-Content-Type: multipart/alternative; boundary="0000000000004aedaf05884855ec"
+This is a multi-part message in MIME format.
+--===============0226159435==
+Content-Type: multipart/alternative;
+ boundary="------------F37DA55FA47633BD29A384E3"
+Content-Language: en-US
 
---0000000000004aedaf05884855ec
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Murphy,
-
-On Wed, May 1, 2019 at 7:59 AM Murphy Zhou <xzhou@redhat.com> wrote:
-
-> That means swapfile in the test filesystem is not supported.
-> Add a test helper to do a FIBMAP ioctl test. Remove old fs type whitelist
-> code.
->
-> Signed-off-by: Murphy Zhou <xzhou@redhat.com>
-> ---
-> v2:
->    Test FIBMAP instead of fstype whitelist.
-> v3:
->    Fix fs_type undeclared in swapoff01.c.
->
->  include/tst_fs.h                              |  5 +++
->  lib/tst_ioctl.c                               | 41 +++++++++++++++++++
->  testcases/kernel/syscalls/swapoff/swapoff01.c | 13 ++----
->  testcases/kernel/syscalls/swapoff/swapoff02.c | 11 +++--
->  testcases/kernel/syscalls/swapon/swapon01.c   | 13 ++----
->  testcases/kernel/syscalls/swapon/swapon02.c   | 16 ++------
->  testcases/kernel/syscalls/swapon/swapon03.c   | 20 ++-------
->  7 files changed, 65 insertions(+), 54 deletions(-)
->  create mode 100644 lib/tst_ioctl.c
->
-> diff --git a/include/tst_fs.h b/include/tst_fs.h
-> index b2b19ada6..cc38b3547 100644
-> --- a/include/tst_fs.h
-> +++ b/include/tst_fs.h
-> @@ -172,6 +172,11 @@ const char **tst_get_supported_fs_types(void);
->   */
->  void tst_fill_fs(const char *path, int verbose);
->
-> +/*
-> + * test if FIBMAP ioctl is supported
-> + */
-> +int tst_fibmap(void);
-> +
->  #ifdef TST_TEST_H__
->  static inline long tst_fs_type(const char *path)
->  {
-> diff --git a/lib/tst_ioctl.c b/lib/tst_ioctl.c
-> new file mode 100644
-> index 000000000..d468d5898
-> --- /dev/null
-> +++ b/lib/tst_ioctl.c
-> @@ -0,0 +1,41 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +
-> +#include <errno.h>
-> +#include <stdio.h>
-> +#include <stdlib.h>
-> +#include <sys/ioctl.h>
-> +#include <linux/fs.h>
-> +
-> +#define TST_NO_DEFAULT_MAIN
-> +
-> +#include "tst_test.h"
-> +
-> +int tst_fibmap(void)
-> +{
-> +       /* test if FIBMAP ioctl is supported */
-> +       int fd, block = 0;
-> +       const char *tmpdir = getenv("TMPDIR");
-> +       char buf[128];
-> +
-> +       tst_res(TINFO, "Testing if FIBMAP ioctl is supported in %s",
-> tmpdir);
-> +
-> +       sprintf(buf, "%s/tst_fibmap", tmpdir);
-> +
-> +       fd = open(buf, O_RDWR | O_CREAT, 0666);
-> +       if (fd < 0) {
-> +               tst_res(TWARN | TERRNO,
-> +                        "open(%s, O_RDWR | O_CREAT, 0666) failed", buf);
-> +               return 1;
-> +       }
-> +
-> +       if (ioctl(fd, FIBMAP, &block)) {
-> +               close(fd);
-> +               return 1;
-> +       }
-> +
-> +       if (close(fd)) {
-> +               tst_res(TWARN | TERRNO, "close(fd) failed");
-> +               return 1;
-> +       }
-> +       return 0;
-> +}
-> diff --git a/testcases/kernel/syscalls/swapoff/swapoff01.c
-> b/testcases/kernel/syscalls/swapoff/swapoff01.c
-> index a63e661a5..a37cd9be1 100644
-> --- a/testcases/kernel/syscalls/swapoff/swapoff01.c
-> +++ b/testcases/kernel/syscalls/swapoff/swapoff01.c
-> @@ -55,11 +55,6 @@ int main(int ac, char **av)
->  static void verify_swapoff(void)
->  {
->         if (ltp_syscall(__NR_swapon, "./swapfile01", 0) != 0) {
-> -               if (fs_type == TST_BTRFS_MAGIC && errno == EINVAL) {
-> -                       tst_brkm(TCONF, cleanup,
-> -                                "Swapfiles on BTRFS are not implemented");
-> -               }
-> -
->                 tst_resm(TBROK, "Failed to turn on the swap file"
->                          ", skipping test iteration");
->                 return;
-> @@ -86,13 +81,11 @@ static void setup(void)
->
->         tst_tmpdir();
->
-> -       switch ((fs_type = tst_fs_type(cleanup, "."))) {
-> -       case TST_NFS_MAGIC:
-> -       case TST_TMPFS_MAGIC:
-> +       fs_type = tst_fs_type(cleanup, ".");
-> +       if (tst_fibmap()) {
->                 tst_brkm(TCONF, cleanup,
-> -                        "Cannot do swapoff on a file on %s filesystem",
-> +                        "Cannot do FIBMAP ioctl on a file on %s
-> filesystem",
->                          tst_fs_type_name(fs_type));
-> -       break;
->         }
->
->         if (!tst_fs_has_free(NULL, ".", 64, TST_MB)) {
-> diff --git a/testcases/kernel/syscalls/swapoff/swapoff02.c
-> b/testcases/kernel/syscalls/swapoff/swapoff02.c
-> index b5c6312a1..889f3c800 100644
-> --- a/testcases/kernel/syscalls/swapoff/swapoff02.c
-> +++ b/testcases/kernel/syscalls/swapoff/swapoff02.c
-> @@ -43,6 +43,7 @@ char *TCID = "swapoff02";
->  int TST_TOTAL = 3;
->
->  static uid_t nobody_uid;
-> +static long fs_type;
->
->  static struct test_case_t {
->         char *err_desc;
-> @@ -138,13 +139,11 @@ static void setup(void)
->
->         tst_tmpdir();
->
-> -       switch ((type = tst_fs_type(cleanup, "."))) {
-> -       case TST_NFS_MAGIC:
-> -       case TST_TMPFS_MAGIC:
-> +       fs_type = tst_fs_type(cleanup, ".");
-> +       if (tst_fibmap()) {
->                 tst_brkm(TCONF, cleanup,
-> -                        "Cannot do swapoff on a file on %s filesystem",
-> -                        tst_fs_type_name(type));
-> -       break;
-> +                        "Cannot do FIBMAP ioctl on a file on %s
-> filesystem",
-> +                        tst_fs_type_name(fs_type));
->         }
->
->         if (!tst_fs_has_free(NULL, ".", 1, TST_KB)) {
-> diff --git a/testcases/kernel/syscalls/swapon/swapon01.c
-> b/testcases/kernel/syscalls/swapon/swapon01.c
-> index 32538f82b..0a5a3de86 100644
-> --- a/testcases/kernel/syscalls/swapon/swapon01.c
-> +++ b/testcases/kernel/syscalls/swapon/swapon01.c
-> @@ -39,11 +39,6 @@ static void verify_swapon(void)
->         TEST(ltp_syscall(__NR_swapon, "./swapfile01", 0));
->
->         if (TEST_RETURN == -1) {
-> -               if (fs_type == TST_BTRFS_MAGIC && errno == EINVAL) {
-> -                       tst_brkm(TCONF, cleanup,
-> -                                "Swapfile on BTRFS not implemeted");
-> -                       return;
-> -               }
->                 tst_resm(TFAIL | TTERRNO, "Failed to turn on swapfile");
->         } else {
->                 tst_resm(TPASS, "Succeeded to turn on swapfile");
-> @@ -84,13 +79,11 @@ static void setup(void)
->
->         tst_tmpdir();
->
-> -       switch ((fs_type = tst_fs_type(cleanup, "."))) {
-> -       case TST_NFS_MAGIC:
-> -       case TST_TMPFS_MAGIC:
-> +       fs_type = tst_fs_type(cleanup, ".");
-> +       if (tst_fibmap()) {
->
-
-I'm not sure whether FIBMAP ioctl FAIL means that swapfile is unsupportted
-on a filesystem.
-If that's true, shouldn't we verify FIBMAP ioctl on the swapfile?  Here you
-just test that in a tmp file, it probably not a correct way I guess.
-
-IMO, maybe we can define the function API as:
-    tst_fibmap(const char *filename);
-And calling it in behind of make_swapfile(cleanup, "swapfile01");
-
-Beside that, there is another issue in this patch, since the
-getenv("TMPDIR"); depend on runltp script, so we cann't run the test
-independently.
-
-# ./swapon01
-tst_ioctl.c:20: INFO: Testing if FIBMAP ioctl is supported in (null)
-tst_ioctl.c:27: WARN: open((null)/tst_fibmap, O_RDWR | O_CREAT, 0666)
-failed: ENOENT
-swapon01    1  TCONF  :  swapon01.c:86: Cannot do FIBMAP ioctl on a file on
-XFS filesystem
-swapon01    2  TCONF  :  swapon01.c:86: Remaining cases not appropriate for
-configuration
-
--- 
-Regards,
-Li Wang
-
---0000000000004aedaf05884855ec
-Content-Type: text/html; charset="UTF-8"
+This is a multi-part message in MIME format.
+--------------F37DA55FA47633BD29A384E3
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div di=
-r=3D"ltr"><div class=3D"gmail_default" style=3D"font-size:small">Hi Murphy,=
-</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_=
-attr">On Wed, May 1, 2019 at 7:59 AM Murphy Zhou &lt;<a href=3D"mailto:xzho=
-u@redhat.com">xzhou@redhat.com</a>&gt; wrote:<br></div><blockquote class=3D=
-"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(2=
-04,204,204);padding-left:1ex">That means swapfile in the test filesystem is=
- not supported.<br>
-Add a test helper to do a FIBMAP ioctl test. Remove old fs type whitelist c=
-ode.<br>
-<br>
-Signed-off-by: Murphy Zhou &lt;<a href=3D"mailto:xzhou@redhat.com" target=
-=3D"_blank">xzhou@redhat.com</a>&gt;<br>
----<br>
-v2:<br>
-=C2=A0 =C2=A0Test FIBMAP instead of fstype whitelist.<br>
-v3:<br>
-=C2=A0 =C2=A0Fix fs_type undeclared in swapoff01.c.<br>
-<br>
-=C2=A0include/tst_fs.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 5 +++<br>
-=C2=A0lib/tst_ioctl.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 41 +++++++++++=
-++++++++<br>
-=C2=A0testcases/kernel/syscalls/swapoff/swapoff01.c | 13 ++----<br>
-=C2=A0testcases/kernel/syscalls/swapoff/swapoff02.c | 11 +++--<br>
-=C2=A0testcases/kernel/syscalls/swapon/swapon01.c=C2=A0 =C2=A0| 13 ++----<b=
-r>
-=C2=A0testcases/kernel/syscalls/swapon/swapon02.c=C2=A0 =C2=A0| 16 ++------=
-<br>
-=C2=A0testcases/kernel/syscalls/swapon/swapon03.c=C2=A0 =C2=A0| 20 ++------=
--<br>
-=C2=A07 files changed, 65 insertions(+), 54 deletions(-)<br>
-=C2=A0create mode 100644 lib/tst_ioctl.c<br>
-<br>
-diff --git a/include/tst_fs.h b/include/tst_fs.h<br>
-index b2b19ada6..cc38b3547 100644<br>
---- a/include/tst_fs.h<br>
-+++ b/include/tst_fs.h<br>
-@@ -172,6 +172,11 @@ const char **tst_get_supported_fs_types(void);<br>
-=C2=A0 */<br>
-=C2=A0void tst_fill_fs(const char *path, int verbose);<br>
-<br>
-+/*<br>
-+ * test if FIBMAP ioctl is supported<br>
-+ */<br>
-+int tst_fibmap(void);<br>
-+<br>
-=C2=A0#ifdef TST_TEST_H__<br>
-=C2=A0static inline long tst_fs_type(const char *path)<br>
-=C2=A0{<br>
-diff --git a/lib/tst_ioctl.c b/lib/tst_ioctl.c<br>
-new file mode 100644<br>
-index 000000000..d468d5898<br>
---- /dev/null<br>
-+++ b/lib/tst_ioctl.c<br>
-@@ -0,0 +1,41 @@<br>
-+// SPDX-License-Identifier: GPL-2.0-or-later<br>
-+<br>
-+#include &lt;errno.h&gt;<br>
-+#include &lt;stdio.h&gt;<br>
-+#include &lt;stdlib.h&gt;<br>
-+#include &lt;sys/ioctl.h&gt;<br>
-+#include &lt;linux/fs.h&gt;<br>
-+<br>
-+#define TST_NO_DEFAULT_MAIN<br>
-+<br>
-+#include &quot;tst_test.h&quot;<br>
-+<br>
-+int tst_fibmap(void)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* test if FIBMAP ioctl is supported */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0int fd, block =3D 0;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0const char *tmpdir =3D getenv(&quot;TMPDIR&quot=
-;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0char buf[128];<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TINFO, &quot;Testing if FIBMAP ioctl is=
- supported in %s&quot;, tmpdir);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0sprintf(buf, &quot;%s/tst_fibmap&quot;, tmpdir)=
-;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0fd =3D open(buf, O_RDWR | O_CREAT, 0666);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (fd &lt; 0) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TWARN | TER=
-RNO,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 &quot;open(%s, O_RDWR | O_CREAT, 0666) failed&quot;, buf);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 1;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (ioctl(fd, FIBMAP, &amp;block)) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0close(fd);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 1;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (close(fd)) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TWARN | TER=
-RNO, &quot;close(fd) failed&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 1;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
-+}<br>
-diff --git a/testcases/kernel/syscalls/swapoff/swapoff01.c b/testcases/kern=
-el/syscalls/swapoff/swapoff01.c<br>
-index a63e661a5..a37cd9be1 100644<br>
---- a/testcases/kernel/syscalls/swapoff/swapoff01.c<br>
-+++ b/testcases/kernel/syscalls/swapoff/swapoff01.c<br>
-@@ -55,11 +55,6 @@ int main(int ac, char **av)<br>
-=C2=A0static void verify_swapoff(void)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (ltp_syscall(__NR_swapon, &quot;./swapfile01=
-&quot;, 0) !=3D 0) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (fs_type =3D=3D =
-TST_BTRFS_MAGIC &amp;&amp; errno =3D=3D EINVAL) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0tst_brkm(TCONF, cleanup,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;Swapfiles on BTRFS are not imp=
-lemented&quot;);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
--<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_resm(TBROK, &qu=
-ot;Failed to turn on the swap file&quot;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0&quot;, skipping test iteration&quot;);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return;<br>
-@@ -86,13 +81,11 @@ static void setup(void)<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_tmpdir();<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0switch ((fs_type =3D tst_fs_type(cleanup, &quot=
-;.&quot;))) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0case TST_NFS_MAGIC:<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0case TST_TMPFS_MAGIC:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0fs_type =3D tst_fs_type(cleanup, &quot;.&quot;)=
-;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (tst_fibmap()) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_brkm(TCONF, cle=
-anup,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 &quot;Cannot do swapoff on a file on %s filesystem&quot;,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 &quot;Cannot do FIBMAP ioctl on a file on %s filesystem&quot;,<b=
-r>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0tst_fs_type_name(fs_type));<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!tst_fs_has_free(NULL, &quot;.&quot;, 64, T=
-ST_MB)) {<br>
-diff --git a/testcases/kernel/syscalls/swapoff/swapoff02.c b/testcases/kern=
-el/syscalls/swapoff/swapoff02.c<br>
-index b5c6312a1..889f3c800 100644<br>
---- a/testcases/kernel/syscalls/swapoff/swapoff02.c<br>
-+++ b/testcases/kernel/syscalls/swapoff/swapoff02.c<br>
-@@ -43,6 +43,7 @@ char *TCID =3D &quot;swapoff02&quot;;<br>
-=C2=A0int TST_TOTAL =3D 3;<br>
-<br>
-=C2=A0static uid_t nobody_uid;<br>
-+static long fs_type;<br>
-<br>
-=C2=A0static struct test_case_t {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 char *err_desc;<br>
-@@ -138,13 +139,11 @@ static void setup(void)<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_tmpdir();<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0switch ((type =3D tst_fs_type(cleanup, &quot;.&=
-quot;))) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0case TST_NFS_MAGIC:<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0case TST_TMPFS_MAGIC:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0fs_type =3D tst_fs_type(cleanup, &quot;.&quot;)=
-;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (tst_fibmap()) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_brkm(TCONF, cle=
-anup,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 &quot;Cannot do swapoff on a file on %s filesystem&quot;,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 tst_fs_type_name(type));<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 &quot;Cannot do FIBMAP ioctl on a file on %s filesystem&quot;,<b=
-r>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 tst_fs_type_name(fs_type));<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!tst_fs_has_free(NULL, &quot;.&quot;, 1, TS=
-T_KB)) {<br>
-diff --git a/testcases/kernel/syscalls/swapon/swapon01.c b/testcases/kernel=
-/syscalls/swapon/swapon01.c<br>
-index 32538f82b..0a5a3de86 100644<br>
---- a/testcases/kernel/syscalls/swapon/swapon01.c<br>
-+++ b/testcases/kernel/syscalls/swapon/swapon01.c<br>
-@@ -39,11 +39,6 @@ static void verify_swapon(void)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 TEST(ltp_syscall(__NR_swapon, &quot;./swapfile0=
-1&quot;, 0));<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (TEST_RETURN =3D=3D -1) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (fs_type =3D=3D =
-TST_BTRFS_MAGIC &amp;&amp; errno =3D=3D EINVAL) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0tst_brkm(TCONF, cleanup,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;Swapfile on BTRFS not implemet=
-ed&quot;);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0return;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_resm(TFAIL | TT=
-ERRNO, &quot;Failed to turn on swapfile&quot;);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 } else {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_resm(TPASS, &qu=
-ot;Succeeded to turn on swapfile&quot;);<br>
-@@ -84,13 +79,11 @@ static void setup(void)<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_tmpdir();<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0switch ((fs_type =3D tst_fs_type(cleanup, &quot=
-;.&quot;))) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0case TST_NFS_MAGIC:<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0case TST_TMPFS_MAGIC:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0fs_type =3D tst_fs_type(cleanup, &quot;.&quot;)=
-;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (tst_fibmap()) {<br></blockquote><div><br></=
-div><div class=3D"gmail_default" style=3D"font-size:small">I&#39;m not sure=
- whether FIBMAP ioctl FAIL means that swapfile is unsupportted on a filesys=
-tem.</div><div class=3D"gmail_default" style=3D"font-size:small">If that&#3=
-9;s true, shouldn&#39;t we verify FIBMAP ioctl on the swapfile?=C2=A0 Here =
-you just test that in a tmp file, it probably not a correct way I guess.</d=
-iv><div class=3D"gmail_default" style=3D"font-size:small"><br></div><div cl=
-ass=3D"gmail_default" style=3D"font-size:small">IMO, maybe we can define th=
-e function API as:</div><div class=3D"gmail_default" style=3D"font-size:sma=
-ll">=C2=A0 =C2=A0 tst_fibmap(const char *filename);</div><div class=3D"gmai=
-l_default" style=3D"font-size:small">And calling it in behind of=C2=A0<span=
- class=3D"gmail_default"></span>make_swapfile(cleanup, &quot;swapfile01&quo=
-t;);</div><div class=3D"gmail_default" style=3D"font-size:small"><br></div>=
-<div class=3D"gmail_default" style=3D"font-size:small">Beside that, there i=
-s another issue in this patch, since the getenv(&quot;TMPDIR&quot;); depend=
- on runltp script, so we cann&#39;t run the test independently.=C2=A0</div>=
-<div class=3D"gmail_default" style=3D"font-size:small"><br></div><div class=
-=3D"gmail_default" style=3D"font-size:small"><div class=3D"gmail_default">#=
- ./swapon01=C2=A0</div><div class=3D"gmail_default">tst_ioctl.c:20: INFO: T=
-esting if FIBMAP ioctl is supported in (null)</div><div class=3D"gmail_defa=
-ult">tst_ioctl.c:27: WARN: open((null)/tst_fibmap, O_RDWR | O_CREAT, 0666) =
-failed: ENOENT</div><div class=3D"gmail_default">swapon01=C2=A0 =C2=A0 1=C2=
-=A0 TCONF=C2=A0 :=C2=A0 swapon01.c:86: Cannot do FIBMAP ioctl on a file on =
-XFS filesystem</div><div class=3D"gmail_default">swapon01=C2=A0 =C2=A0 2=C2=
-=A0 TCONF=C2=A0 :=C2=A0 swapon01.c:86: Remaining cases not appropriate for =
-configuration</div><div><br></div></div></div>-- <br><div dir=3D"ltr" class=
-=3D"gmail_signature"><div dir=3D"ltr"><div><div dir=3D"ltr">Regards,<br>Li =
-Wang<br></div></div></div></div></div></div></div></div>
+Hi Li,
 
---0000000000004aedaf05884855ec--
+Thanks for having a look at my patch. To my knowledge
+/pthread_timedjoin_np/ does not kill the thread if it times out. It
+returns ETIMEDOUT which, in this case, leads to the whole testcase
+terminating.
 
---===============0671770446==
+I chose this method over setting test.timeout because this way an
+informative error-message can be printed.
+
+I may be missing the problem here. Can you point me in the right
+direction why this is bad practice?
+
+Kind regards,
+
+Christian
+
+
+On 07/05/2019 10:07, Li Wang wrote:
+> Hi=C2=A0Christian,
+>
+> On Tue, May 7, 2019 at 2:56 PM Christian Amann <camann@suse.com
+> <mailto:camann@suse.com>> wrote:
+>
+>     On kernels < 4.14 (missing commit 2d97591ef43d) reading from
+>     the request socket does not return and the testcase does not
+>     finish.
+>
+>     This fix moves the logic to a child thread in order for the
+>     parent to handle the timeout and report a message to the user.
+>
+>     Signed-off-by: Christian Amann <camann@suse.com
+>     <mailto:camann@suse.com>>
+>     ---
+>     =C2=A0testcases/kernel/crypto/Makefile=C2=A0 =C2=A0|=C2=A0 2 ++
+>     =C2=A0testcases/kernel/crypto/af_alg02.c | 36
+>     +++++++++++++++++++++++++++++++++++-
+>     =C2=A02 files changed, 37 insertions(+), 1 deletion(-)
+>
+>     diff --git a/testcases/kernel/crypto/Makefile
+>     b/testcases/kernel/crypto/Makefile
+>     index 76f9308c2..6547e1cb6 100644
+>     --- a/testcases/kernel/crypto/Makefile
+>     +++ b/testcases/kernel/crypto/Makefile
+>     @@ -20,3 +20,5 @@ include $(top_srcdir)/include/mk/testcases.mk
+>     <http://testcases.mk>
+>     =C2=A0CFLAGS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0+=3D -D_GNU_SOURCE
+>
+>     =C2=A0include $(top_srcdir)/include/mk/generic_leaf_target.mk
+>     <http://generic_leaf_target.mk>
+>     +
+>     +af_alg02: CFLAGS +=3D -pthread
+>     diff --git a/testcases/kernel/crypto/af_alg02.c
+>     b/testcases/kernel/crypto/af_alg02.c
+>     index a9e820423..056511993 100644
+>     --- a/testcases/kernel/crypto/af_alg02.c
+>     +++ b/testcases/kernel/crypto/af_alg02.c
+>     @@ -7,12 +7,23 @@
+>     =C2=A0 * Regression test for commit ecaaab564978 ("crypto: salsa20 =
+- fix
+>     =C2=A0 * blkcipher_walk API usage"), or CVE-2017-17805.=C2=A0 This =
+test
+>     verifies that an
+>     =C2=A0 * empty message can be encrypted with Salsa20 without crashi=
+ng
+>     the kernel.
+>     + *
+>     + * read() fix:
+>     + * Calls read() in child thread in order to manually kill it
+>     after timeout.
+>     + * With kernels missing commit 2d97591ef43d ("crypto: af_alg -
+>     consolidation
+>     + * of duplicate code") read() does not return.
+>     =C2=A0 */
+>
+>     =C2=A0#include "tst_test.h"
+>     =C2=A0#include "tst_af_alg.h"
+>     +#include "tst_safe_pthread.h"
+>     +#include <pthread.h>
+>     +#include <time.h>
+>     +#include <errno.h>
+>
+>     -static void run(void)
+>     +#define VERIFY_TIMEOUT (time(NULL) + 5)
+>
+>
+> It is very neccessary to take some action before process being killed
+> in timeout. In LTP, we have an tst_timeout_remaining() function. Have
+> a look?
+>
+>     +
+>     +void *verify_encrypt(void *arg)
+>     =C2=A0{
+>     =C2=A0 =C2=A0 =C2=A0 =C2=A0 char buf[16];
+>     =C2=A0 =C2=A0 =C2=A0 =C2=A0 int reqfd =3D tst_alg_setup_reqfd("skci=
+pher", "salsa20",
+>     NULL, 16);
+>     @@ -22,6 +33,29 @@ static void run(void)
+>     =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_res(TPA=
+SS, "Successfully \"encrypted\" an
+>     empty message");
+>     =C2=A0 =C2=A0 =C2=A0 =C2=A0 else
+>     =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_res(TBR=
+OK, "read() didn't return 0");
+>     +=C2=A0 =C2=A0 =C2=A0 =C2=A0return arg;
+>     +}
+>     +
+>     +static void run(void)
+>     +{
+>     +=C2=A0 =C2=A0 =C2=A0 =C2=A0pthread_t thr;
+>     +=C2=A0 =C2=A0 =C2=A0 =C2=A0int join_ret;
+>     +=C2=A0 =C2=A0 =C2=A0 =C2=A0struct timespec read_timeout;
+>     +
+>     +=C2=A0 =C2=A0 =C2=A0 =C2=A0read_timeout.tv_sec=C2=A0 =3D VERIFY_TI=
+MEOUT;
+>     +=C2=A0 =C2=A0 =C2=A0 =C2=A0read_timeout.tv_nsec =3D 0;
+>     +
+>     +=C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_PTHREAD_CREATE(&thr, NULL, verify_=
+encrypt, NULL);
+>     +=C2=A0 =C2=A0 =C2=A0 =C2=A0join_ret =3D pthread_timedjoin_np(thr, =
+NULL, &read_timeout);
+>     +
+>     +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (join_ret !=3D 0) {
+>     +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (join_re=
+t =3D=3D ETIMEDOUT)
+>     +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0tst_brk(TBROK,
+>     +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0"Timed out while reading fro=
+m
+>     request socket.");
+>     +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0else
+>     +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0tst_brk(TBROK | TTERRNO,
+>     +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0"Error while joining child t=
+hread");
+>     +=C2=A0 =C2=A0 =C2=A0 =C2=A0}
+>     =C2=A0}
+>
+>     =C2=A0static struct tst_test test =3D {
+>     --=20
+>     2.16.4
+>
+>
+>     --=20
+>     Mailing list info: https://lists.linux.it/listinfo/ltp
+>
+>
+>
+> --=20
+> Regards,
+> Li Wang
+
+--------------F37DA55FA47633BD29A384E3
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>Hi Li,</p>
+    <p>Thanks for having a look at my patch. To my knowledge <i>pthread_timedjoin_np</i>
+      does not kill the thread if it times out. It returns ETIMEDOUT
+      which, in this case, leads to the whole testcase terminating.</p>
+    <p>I chose this method over setting test.timeout because this way an
+      informative error-message can be printed.</p>
+    <p>I may be missing the problem here. Can you point me in the right
+      direction why this is bad practice?</p>
+    <p>Kind regards,</p>
+    <p>Christian<br>
+    </p>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 07/05/2019 10:07, Li Wang wrote:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CAEemH2e=9J_7OtSsS5wq+4YgfOm1zj=PK5cnaBk69LKtdR71ZA@mail.gmail.com">
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <div dir="ltr">
+        <div dir="ltr">
+          <div dir="ltr">
+            <div dir="ltr">
+              <div class="gmail_default" style="font-size:small">Hi Christian,</div>
+            </div>
+            <br>
+            <div class="gmail_quote">
+              <div dir="ltr" class="gmail_attr">On Tue, May 7, 2019 at
+                2:56 PM Christian Amann &lt;<a
+                  href="mailto:camann@suse.com" moz-do-not-send="true">camann@suse.com</a>&gt;
+                wrote:<br>
+              </div>
+              <blockquote class="gmail_quote" style="margin:0px 0px 0px
+                0.8ex;border-left:1px solid
+                rgb(204,204,204);padding-left:1ex">On kernels &lt; 4.14
+                (missing commit 2d97591ef43d) reading from<br>
+                the request socket does not return and the testcase does
+                not<br>
+                finish.<br>
+                <br>
+                This fix moves the logic to a child thread in order for
+                the<br>
+                parent to handle the timeout and report a message to the
+                user.<br>
+                <br>
+                Signed-off-by: Christian Amann &lt;<a
+                  href="mailto:camann@suse.com" target="_blank"
+                  moz-do-not-send="true">camann@suse.com</a>&gt;<br>
+                ---<br>
+                 testcases/kernel/crypto/Makefile   |  2 ++<br>
+                 testcases/kernel/crypto/af_alg02.c | 36
+                +++++++++++++++++++++++++++++++++++-<br>
+                 2 files changed, 37 insertions(+), 1 deletion(-)<br>
+                <br>
+                diff --git a/testcases/kernel/crypto/Makefile
+                b/testcases/kernel/crypto/Makefile<br>
+                index 76f9308c2..6547e1cb6 100644<br>
+                --- a/testcases/kernel/crypto/Makefile<br>
+                +++ b/testcases/kernel/crypto/Makefile<br>
+                @@ -20,3 +20,5 @@ include $(top_srcdir)/include/mk/<a
+                  href="http://testcases.mk" rel="noreferrer"
+                  target="_blank" moz-do-not-send="true">testcases.mk</a><br>
+                 CFLAGS                 += -D_GNU_SOURCE<br>
+                <br>
+                 include $(top_srcdir)/include/mk/<a
+                  href="http://generic_leaf_target.mk" rel="noreferrer"
+                  target="_blank" moz-do-not-send="true">generic_leaf_target.mk</a><br>
+                +<br>
+                +af_alg02: CFLAGS += -pthread<br>
+                diff --git a/testcases/kernel/crypto/af_alg02.c
+                b/testcases/kernel/crypto/af_alg02.c<br>
+                index a9e820423..056511993 100644<br>
+                --- a/testcases/kernel/crypto/af_alg02.c<br>
+                +++ b/testcases/kernel/crypto/af_alg02.c<br>
+                @@ -7,12 +7,23 @@<br>
+                  * Regression test for commit ecaaab564978 ("crypto:
+                salsa20 - fix<br>
+                  * blkcipher_walk API usage"), or CVE-2017-17805.  This
+                test verifies that an<br>
+                  * empty message can be encrypted with Salsa20 without
+                crashing the kernel.<br>
+                + *<br>
+                + * read() fix:<br>
+                + * Calls read() in child thread in order to manually
+                kill it after timeout.<br>
+                + * With kernels missing commit 2d97591ef43d ("crypto:
+                af_alg - consolidation<br>
+                + * of duplicate code") read() does not return.<br>
+                  */<br>
+                <br>
+                 #include "tst_test.h"<br>
+                 #include "tst_af_alg.h"<br>
+                +#include "tst_safe_pthread.h"<br>
+                +#include &lt;pthread.h&gt;<br>
+                +#include &lt;time.h&gt;<br>
+                +#include &lt;errno.h&gt;<br>
+                <br>
+                -static void run(void)<br>
+                +#define VERIFY_TIMEOUT (time(NULL) + 5)<br>
+              </blockquote>
+              <div><br>
+              </div>
+              <div class="gmail_default" style="font-size:small">It is
+                very neccessary to take some action before process being
+                killed in timeout. In LTP, we have an
+                tst_timeout_remaining() function. Have a look?</div>
+              <blockquote class="gmail_quote" style="margin:0px 0px 0px
+                0.8ex;border-left:1px solid
+                rgb(204,204,204);padding-left:1ex">
+                +<br>
+                +void *verify_encrypt(void *arg)<br>
+                 {<br>
+                        char buf[16];<br>
+                        int reqfd = tst_alg_setup_reqfd("skcipher",
+                "salsa20", NULL, 16);<br>
+                @@ -22,6 +33,29 @@ static void run(void)<br>
+                                tst_res(TPASS, "Successfully
+                \"encrypted\" an empty message");<br>
+                        else<br>
+                                tst_res(TBROK, "read() didn't return
+                0");<br>
+                +       return arg;<br>
+                +}<br>
+                +<br>
+                +static void run(void)<br>
+                +{<br>
+                +       pthread_t thr;<br>
+                +       int join_ret;<br>
+                +       struct timespec read_timeout;<br>
+                +<br>
+                +       read_timeout.tv_sec  = VERIFY_TIMEOUT;<br>
+                +       read_timeout.tv_nsec = 0;<br>
+                +<br>
+                +       SAFE_PTHREAD_CREATE(&amp;thr, NULL,
+                verify_encrypt, NULL);<br>
+                +       join_ret = pthread_timedjoin_np(thr, NULL,
+                &amp;read_timeout);<br>
+                +<br>
+                +       if (join_ret != 0) {<br>
+                +               if (join_ret == ETIMEDOUT)<br>
+                +                       tst_brk(TBROK,<br>
+                +                               "Timed out while reading
+                from request socket.");<br>
+                +               else<br>
+                +                       tst_brk(TBROK | TTERRNO,<br>
+                +                               "Error while joining
+                child thread");<br>
+                +       }<br>
+                 }<br>
+                <br>
+                 static struct tst_test test = {<br>
+                -- <br>
+                2.16.4<br>
+                <br>
+                <br>
+                -- <br>
+                Mailing list info: <a
+                  href="https://lists.linux.it/listinfo/ltp"
+                  rel="noreferrer" target="_blank"
+                  moz-do-not-send="true">https://lists.linux.it/listinfo/ltp</a><br>
+              </blockquote>
+            </div>
+            <br clear="all">
+            <div><br>
+            </div>
+            -- <br>
+            <div dir="ltr" class="gmail_signature">
+              <div dir="ltr">
+                <div>Regards,<br>
+                </div>
+                <div>Li Wang<br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+  </body>
+</html>
+
+--------------F37DA55FA47633BD29A384E3--
+
+--===============0226159435==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -556,4 +465,4 @@ Content-Disposition: inline
 Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
 dHAK
 
---===============0671770446==--
+--===============0226159435==--
