@@ -1,78 +1,55 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC66215E5F
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 May 2019 09:41:03 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DC8115ED3
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 May 2019 10:07:58 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 89C493EA3EF
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 May 2019 09:41:03 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 27F3D3EA39A
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 May 2019 10:07:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 4586A3EA063
- for <ltp@lists.linux.it>; Tue,  7 May 2019 09:41:00 +0200 (CEST)
-Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
- [IPv6:2607:f8b0:4864:20::642])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id C86D63EA046
+ for <ltp@lists.linux.it>; Tue,  7 May 2019 10:07:55 +0200 (CEST)
+Received: from mail-ua1-f67.google.com (mail-ua1-f67.google.com
+ [209.85.222.67])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1C851602321
- for <ltp@lists.linux.it>; Tue,  7 May 2019 09:40:51 +0200 (CEST)
-Received: by mail-pl1-x642.google.com with SMTP id b3so7731244plr.7
- for <ltp@lists.linux.it>; Tue, 07 May 2019 00:40:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mbobrowski-org.20150623.gappssmtp.com; s=20150623;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=B6R4A57E6BDF/lorH22GH5tVhGXLu+83ZVQ9YGruqfI=;
- b=tvvRzFExkp0j8zPGzvhNdZGPiDHWTdQAi0gMRrOc0YNBxW2RblzTSk8zqoomBMIYfj
- CdrGsU3BISHgFnNoElILtQA8YtcpfGVuk91g9m3iTue4jzk90RdTCSvKvdUXAgsmH9JL
- ZMthBpgX/bIyj9jmHDDKjbzTucV4jpg1Ov9jnUhAXHgErZP42ULYE1UQ3zG/cetP3u9y
- Q4/Pa2SVc0JB6ixJVEbKgTv0vTpTmHidMJ8rp/egSfSQzBgPbOd0faKYGwbdtYBPlpvm
- CZ3bOgNCjKfQ73/OV8B3Px9Dxqkwjld3eHH+Ca93JdXjK2nXeW90ImqHPMEDCwYK05LQ
- lEiA==
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 94C9B600CEF
+ for <ltp@lists.linux.it>; Tue,  7 May 2019 10:07:53 +0200 (CEST)
+Received: by mail-ua1-f67.google.com with SMTP id o33so5666096uae.12
+ for <ltp@lists.linux.it>; Tue, 07 May 2019 01:07:53 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=B6R4A57E6BDF/lorH22GH5tVhGXLu+83ZVQ9YGruqfI=;
- b=YK2iiRytGJ3y0Psiz/tN6uF//sfhm9QlBW2yLCsqqBfv27/SCM7aGDsmV0gZZSjwRk
- /bgYauYhqUZZ57ngDJSU2np0oRX3I/58Wj+qz29CXmMyZuQu5fyWSruz17BZH9kRNfQ7
- tJref37UIENLzn+GFfCGLfFF5XyBFdLtsMJsmET1N1hE1VbMopcldWFKS6LW/aPlNjhO
- aWKKnADVy9CR9hitt2/D/5vTOKOfXKRKlO6+MIRgegmOz2RLFfOfm7tHJ7+YfoHMwRzj
- NMe0+qlPnJWk9OM1FXebNg4VgvCa+CBbrVphX3rT/iweyeqffMIql2SBJi8iITD7rl1+
- pCZQ==
-X-Gm-Message-State: APjAAAU94QCm36EGZwgap+vAUgE+qQzREu0oP7yp1pOWepVoS3ulZXVY
- a3nCb9k9ditKi5RRrKksTWp4
-X-Google-Smtp-Source: APXvYqwhtAHwjSjOl9wBxwLRrCpBUaSWEb2RgH4GSaaL+MuXTSdvtdlZ4khanIdCS7J2gep/zkM2ow==
-X-Received: by 2002:a17:902:1e3:: with SMTP id
- b90mr18552705plb.182.1557214850397; 
- Tue, 07 May 2019 00:40:50 -0700 (PDT)
-Received: from lithium.mbobrowski.org ([103.230.158.220])
- by smtp.gmail.com with ESMTPSA id j32sm14605696pgi.73.2019.05.07.00.40.48
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 07 May 2019 00:40:49 -0700 (PDT)
-Date: Tue, 7 May 2019 17:40:44 +1000
-From: Matthew Bobrowski <mbobrowski@mbobrowski.org>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20190507074042.GC12903@lithium.mbobrowski.org>
-References: <cover.1555763787.git.mbobrowski@mbobrowski.org>
- <6639dd7a9ff9929ce79f4f353f3e1db075594ea2.1555763787.git.mbobrowski@mbobrowski.org>
- <20190426152748.GA31769@rei.lan>
- <20190427045341.GA3894@lithium.mbobrowski.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=JEz5+7kCMziOqOohng1ePtw9wdLLUyGOjaIvy3P3cyM=;
+ b=aVchiDSMp+VNJ3FE6wX93yPDV7x9JjxlvX51VpV4dzw/UL4hTDwpz4oTwDulvI1xuO
+ /+6Zjp5r+Z3k3Nf4HPVobNdSKSy2/XuA8Pf31GyxlWRSueTcO9c1APVjlmDoiAYwoyjk
+ WX3eXADefZov3y1T0qy9jtIwXzuDY+PkjPQsJpe/axTlqafVddL5hp1VbGmIA9pOw3yL
+ zmEkrtiEfdJ9uKq9DX/1ERigEyLxlrcEdBO/ZrIXj9N+GS+j22f0FP74aphyXl3yrtkl
+ dNGoheM+g65mvbtBJlOc/6ztctDEMI3FDM9YZ9Ycl5MtNvvh0CIm1qmBl06/uhBW0M6+
+ W4qw==
+X-Gm-Message-State: APjAAAVIlgMHwuSKAe5ZF92DMnwGziKKyOjyIfrZQwKP2Itn3HvjFqhN
+ h3Yp0JLiwxPQcBjCqtKZWEVwXNhqDG/tk/VoFUNK3A==
+X-Google-Smtp-Source: APXvYqxQhUfmrCdtpZ7misiQZAr4g9+hd9SfMkclH6GQ7/BK5kwpAjEq+WmErP3f9kr0oGSmfvYHr/64hg4gMW+nR6k=
+X-Received: by 2002:a9f:3233:: with SMTP id x48mr15466830uad.89.1557216471858; 
+ Tue, 07 May 2019 01:07:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190427045341.GA3894@lithium.mbobrowski.org>
-User-Agent: Mutt/1.5.21 (2010-09-15)
+References: <20190507065530.12174-1-camann@suse.com>
+In-Reply-To: <20190507065530.12174-1-camann@suse.com>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 7 May 2019 16:07:40 +0800
+Message-ID: <CAEemH2e=9J_7OtSsS5wq+4YgfOm1zj=PK5cnaBk69LKtdR71ZA@mail.gmail.com>
+To: Christian Amann <camann@suse.com>
 X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID
+X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_PASS
  autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Cc: jack@suse.cz, ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH v2 1/3] syscalls/fanotify13: new test to verify
- FAN_REPORT_FID functionality
+Cc: ltp@lists.linux.it
+Subject: Re: [LTP] [PATCH v1] crypto/af_alg02: fixed read() being stuck
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -84,103 +61,273 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0657117728=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgQ3lyaWwsCgpBbnkgZmVlZGJhY2sgb24gdGhlIGJlbG93PwoKT24gU2F0LCBBcHIgMjcsIDIw
-MTkgYXQgMDI6NTM6NDRQTSArMTAwMCwgTWF0dGhldyBCb2Jyb3dza2kgd3JvdGU6Cj4gT24gRnJp
-LCBBcHIgMjYsIDIwMTkgYXQgMDU6Mjc6NDhQTSArMDIwMCwgQ3lyaWwgSHJ1YmlzIHdyb3RlOgo+
-ID4gSGkhCj4gPiBJJ3ZlIHRyaWVkIHRoZXNlIHRlc3RzIG9uIGJ1aWxkc2VydmljZSB0byBjaGVj
-ayB0aGF0IHRoZXJlIGFyZSBubwo+ID4gcHJvYmxlbXMgb24gc2xpZ2h0bHkgb2xkZXIgZGlzdHJp
-YnV0aW9ucyBhbmQgZm91bmQgdHdvLgo+ID4gCj4gPiBUaGUgZmlyc3Qgb25lIGlzIHRoYXQgd2Ug
-ZG8gZGVmaW5lIGZhbGxiYWNrIGRlZmluaXRpb25zIGluIGZhbm90aWZ5LmgKPiA+IGJ1dCB0aGVu
-IGlmZGVmIHRoZSB3aG9sZSB0ZXN0IGNvZGUgaW4gI2lmIGRlZmluZWQoSEFWRV9TWVNfRkFOT1RJ
-RllfSCkKPiA+IHNvIHRoYXQgaXQncyBlZmVjdGl2ZWx5IGRpc2FibGVkIG9uIG9sZGVyIGRpc3Ry
-b3MgZXZlbiB3aXRoIGZhbGxiYWNrCj4gPiBkZWZpbml0aW9ucyBpbiBwbGFjZS4gQWxzbyBpdCdz
-IFRTVF9URVNUX1RDT05GKCkgYnV0IHRoYXQgaXMganVzdCBlYXN5Cj4gPiB0byBmaXggdHlwby4g
-SSBndWVzcyB0aGF0IHdlIGNhbiByZW1vdmUgdGhlIGlmZGVmIGFuZCBzeXMvZmFub3RpZnkuaAo+
-ID4gaW5jbHVkZSBmcm9tIHRoZSB0ZXN0IHNvdXJjZXMgc2luY2Ugd2UgY29uZGl0aW9uYWxseSBp
-bmNsdWRlIHRoZQo+ID4gc3lzL2Zhbm90aWZ5LmggaW4gdGhlIGxvY2FsIGZhbm90aWZ5LmggYWxy
-ZWFkeS4KPiAKPiBPSy4gSW4gdGhhdCBjYXNlIEkgY2FuIHdyaXRlIGEgcGF0Y2ggdGhhdCBpcyB0
-byBiZSBhcHBsaWVkIHByaW9yIHRvIHRoaXMgc2VyaWVzCj4gd2hpY2ggZXNzZW50aWFsbHkganVz
-dCByZW1vdmVzIHRoaXMgc3BlY2lmaWMgcHJlcHJvY2Vzc29yIGNvbmRpdGlvbmFsIGRpcmVjdGl2
-ZQo+IGZyb20gYWxsIHRoZSBzb3VyY2UgZmlsZXMuIFdvdWxkIHlvdSBsaWtlIG1lIHRvIGRvIHRo
-aXM/Cj4gIAo+ID4gVGhlIHNlY29uZCBvbmUgaXMgdGhhdCB3ZSBmYWlsIHRvIGNvbXBpbGUgb24g
-b2xkZXIgZGlzdHJpYnV0aW9ucyBiZWNhdXNlCj4gPiBvZiBtaXNzaW5nIG5hbWVfdG9faGFuZGxl
-X2F0KCkgc28gd2UgbmVlZCBjb25maWd1cmUgY2hlY2sgZm9yIHRoYXQKPiA+IHN5c2NhbGwgYW5k
-IGZhbGxiYWNrIGRlZmluaXRpb24gaW4gbGFwaS8gaGVhZGVyLCBvciBhdCBsZWFzdCBjb25maWd1
-cmUKPiA+IGNoZWNrIGFuZCBpZmRlZiBpbiB0aGUgZmFub3RpZnlfZ2V0X2ZpZCgpIGZ1bmN0aW9u
-LiBXaGljaCBzaG91bGQgYmUgYXMKPiA+IGVhc3kgYXMgYWRkaW5nIGEgbmFtZV90b19oYW5kbGVf
-YXQgbGluZSB0byBBQ19DSEVDS19GVU5DUygpIGluIHRoZQo+ID4gY29uZmlndXJlLmFjIGFuZCB1
-c2luZyB0aGUgbWFjcm8gZnJvbSBjb25maWcuaC4KPiAKPiBTdXJlLiBJJ3ZlIGdvbmUgYWhlYWQg
-YW4gdXBkYXRlZCBpdCB0byBhY2NvbW1vZGF0ZSBmb3IgdGhpcy4gUHJpb3IgdG8KPiBzdWJtaXR0
-aW5nIHRocm91Z2ggYW5vdGhlciBwYXRjaGVzIHNlcmllcywgY2hhbmdlcyBjYW4gYmUgZm91bmQg
-aGVyZToKPiBodHRwczovL2dpdGh1Yi5jb20vbWF0dGhld2JvYnJvd3NraS9sdHAvY29tbWl0LzU0
-MjY0ZGIwZTU3NGQyZjkwZTcxNmE1MTBmY2IxZGExMWVlMTc0ZGMuCj4gCj4gSSB0aGluayB3ZSBj
-YW4gZG8gYmV0dGVyIGFuZCBhbHNvIHByb3ZpZGUgYSBmYWxsYmFjayBkZWZpbml0aW9uIHRob3Vn
-aCwKPiB0aG91Z2h0cz8gRG9uJ3QgYmVsaWV2ZSB0aGF0IGl0IHdvdWxkIHRha2UgbXVjaCBlZmZv
-cnQuIAo+ICAKPiA+ID4gZGlmZiAtLWdpdCBhL3J1bnRlc3Qvc3lzY2FsbHMgYi9ydW50ZXN0L3N5
-c2NhbGxzCj4gPiA+IGluZGV4IDJiOGNhNzEuLmRmZGM2Y2IgMTAwNjQ0Cj4gPiA+IC0tLSBhL3J1
-bnRlc3Qvc3lzY2FsbHMKPiA+ID4gKysrIGIvcnVudGVzdC9zeXNjYWxscwo+ID4gPiBAQCAtNTM3
-LDYgKzUzNyw3IEBAIGZhbm90aWZ5MDkgZmFub3RpZnkwOQo+ID4gPiAgZmFub3RpZnkxMCBmYW5v
-dGlmeTEwCj4gPiA+ICBmYW5vdGlmeTExIGZhbm90aWZ5MTEKPiA+ID4gIGZhbm90aWZ5MTIgZmFu
-b3RpZnkxMgo+ID4gPiArZmFub3RpZnkxMyBmYW5vdGlmeTEzCj4gPiA+ICAKPiA+ID4gIGlvcGVy
-bTAxIGlvcGVybTAxCj4gPiA+ICBpb3Blcm0wMiBpb3Blcm0wMgo+ID4gPiBkaWZmIC0tZ2l0IGEv
-dGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS8uZ2l0aWdub3JlIGIvdGVzdGNhc2Vz
-L2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS8uZ2l0aWdub3JlCj4gPiA+IGluZGV4IDQyNTZiOGMu
-LjE2YmRkOTkgMTAwNjQ0Cj4gPiA+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZmFu
-b3RpZnkvLmdpdGlnbm9yZQo+ID4gPiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2Zh
-bm90aWZ5Ly5naXRpZ25vcmUKPiA+ID4gQEAgLTEwLDQgKzEwLDUgQEAKPiA+ID4gIC9mYW5vdGlm
-eTEwCj4gPiA+ICAvZmFub3RpZnkxMQo+ID4gPiAgL2Zhbm90aWZ5MTIKPiA+ID4gKy9mYW5vdGlm
-eTEzCj4gPiA+ICAvZmFub3RpZnlfY2hpbGQKPiA+ID4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9r
-ZXJuZWwvc3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkuaCBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lz
-Y2FsbHMvZmFub3RpZnkvZmFub3RpZnkuaAo+ID4gPiBpbmRleCAxNDY1NGI3Li5lOWIyM2NjIDEw
-MDY0NAo+ID4gPiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5L2Zhbm90
-aWZ5LmgKPiA+ID4gKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5v
-dGlmeS5oCj4gPiA+IEBAIC0yOSw2ICsyOSwxMSBAQAo+ID4gPiAgI2RlZmluZQlfX0ZBTk9USUZZ
-X0hfXwo+ID4gPiAgCj4gPiA+ICAjaW5jbHVkZSAiY29uZmlnLmgiCj4gPiA+ICsjaW5jbHVkZSA8
-c3lzL3N0YXRmcy5oPgo+ID4gPiArI2luY2x1ZGUgPHN5cy90eXBlcy5oPgo+ID4gPiArI2luY2x1
-ZGUgPHN5cy9zdGF0Lmg+Cj4gPiA+ICsjaW5jbHVkZSA8ZXJybm8uaD4KPiA+ID4gKyNpbmNsdWRl
-IDxmY250bC5oPgo+ID4gPiAgCj4gPiA+ICAjaWYgZGVmaW5lZChIQVZFX1NZU19GQU5PVElGWV9I
-KQo+ID4gPiAgCj4gPiA+IEBAIC01Nyw5ICs2Miw2IEBAIHN0YXRpYyBsb25nIGZhbm90aWZ5X21h
-cmsoaW50IGZkLCB1bnNpZ25lZCBpbnQgZmxhZ3MsIHVpbnQ2NF90IG1hc2ssCj4gPiA+ICAjaWZu
-ZGVmIEZBTl9SRVBPUlRfVElECj4gPiA+ICAjZGVmaW5lIEZBTl9SRVBPUlRfVElECQkweDAwMDAw
-MTAwCj4gPiA+ICAjZW5kaWYKPiA+ID4gLSNpZm5kZWYgRkFOX1JFUE9SVF9GSUQKPiA+ID4gLSNk
-ZWZpbmUgRkFOX1JFUE9SVF9GSUQJCTB4MDAwMDAyMDAKPiA+ID4gLSNlbmRpZgo+ID4gPiAgCj4g
-PiA+ICAjaWZuZGVmIEZBTl9NQVJLX0lOT0RFCj4gPiA+ICAjZGVmaW5lIEZBTl9NQVJLX0lOT0RF
-CQkwCj4gPiA+IEBAIC04OSw2ICs5MSw1MCBAQCBzdHJ1Y3QgZmFub3RpZnlfbWFya190eXBlIHsK
-PiA+ID4gIAljb25zdCBjaGFyICogbmFtZTsKPiA+ID4gIH07Cj4gPiA+ICAKPiA+ID4gKyNpZm5k
-ZWYgRkFOX1JFUE9SVF9GSUQKPiA+ID4gKyNkZWZpbmUgRkFOX1JFUE9SVF9GSUQJCTB4MDAwMDAy
-MDAKPiA+ID4gKwo+ID4gPiArc3RydWN0IGZhbm90aWZ5X2V2ZW50X2luZm9faGVhZGVyIHsKPiA+
-ID4gKwl1aW50OF90IGluZm9fdHlwZTsKPiA+ID4gKwl1aW50OF90IHBhZDsKPiA+ID4gKwl1aW50
-MTZfdCBsZW47Cj4gPiA+ICt9Owo+ID4gPiArCj4gPiA+ICtzdHJ1Y3QgZmFub3RpZnlfZXZlbnRf
-aW5mb19maWQgewo+ID4gPiArCXN0cnVjdCBmYW5vdGlmeV9ldmVudF9pbmZvX2hlYWRlciBoZHI7
-Cj4gPiA+ICsJX19rZXJuZWxfZnNpZF90IGZzaWQ7Cj4gPiA+ICsJdW5zaWduZWQgY2hhciBoYW5k
-bGVbMF07Cj4gPiA+ICt9Owo+ID4gPiArCj4gPiA+ICsvKgo+ID4gPiArICogSGVscGVyIGZ1bmN0
-aW9uIHVzZWQgdG8gb2J0YWluIF9fa2VybmVsX2ZzaWRfdCBhbmQgZmlsZV9oYW5kbGUgb2JqZWN0
-cwo+ID4gPiArICogZm9yIGEgZ2l2ZW4gcGF0aC4gVXNlZCBieSB0ZXN0IGZpbGVzIGNvcnJlbGF0
-ZWQgdG8gRkFOX1JFUE9SVF9GSUQKPiA+ID4gKyAqIGZ1bmN0aW9uYWxpdHkuCj4gPiA+ICsgKi8K
-PiA+ID4gK3N0YXRpYyBpbmxpbmUgdm9pZCBmYW5vdGlmeV9nZXRfZmlkKGNvbnN0IGNoYXIgKnBh
-dGgsIF9fa2VybmVsX2ZzaWRfdCAqZnNpZCwKPiA+ID4gKwkJCXN0cnVjdCBmaWxlX2hhbmRsZSAq
-aGFuZGxlKQo+ID4gPiArewo+ID4gPiArCWludCBtb3VudF9pZDsKPiA+ID4gKwlzdHJ1Y3Qgc3Rh
-dGZzIHN0YXRzOwo+ID4gPiArCj4gPiA+ICsJaWYgKHN0YXRmcyhwYXRoLCAmc3RhdHMpID09IC0x
-KQo+ID4gPiArCQl0c3RfYnJrKFRCUk9LIHwgVEVSUk5PLAo+ID4gPiArCQkJInN0YXRmcyglcywg
-Li4uKSBmYWlsZWQiLCBwYXRoKTsKPiA+ID4gKwltZW1jcHkoZnNpZCwgJnN0YXRzLmZfZnNpZCwg
-c2l6ZW9mKHN0YXRzLmZfZnNpZCkpOwo+ID4gPiArCj4gPiA+ICsJaWYgKG5hbWVfdG9faGFuZGxl
-X2F0KEFUX0ZEQ1dELCBwYXRoLCBoYW5kbGUsICZtb3VudF9pZCwgMCkgPT0gLTEpIHsKPiA+ID4g
-KwkJaWYgKGVycm5vID09IEVPUE5PVFNVUFApIHsKPiA+ID4gKwkJCXRzdF9yZXMoVENPTkYsCj4g
-PiA+ICsJCQkJImZpbGVzeXN0ZW0gJXMgZG9lcyBub3Qgc3VwcG9ydCBmaWxlIGhhbmRsZXMiLAo+
-ID4gPiArCQkJCXRzdF9kZXZpY2UtPmZzX3R5cGUpOwo+ID4gCj4gPiBCdHcsIGhlcmUgdGhlIHRz
-dF9yZXMoKSBkb2VzIG5vdCBtYWtlIG11Y2ggc2Vuc2Ugc2ljZSB0aGUgY29kZSB3aWxsCj4gPiBj
-b250aW51ZSBhbmQgd2Ugd2lsbCBleGl0IHRoZSB0ZXN0IHdpdGggdGhlIHRzdF9icmsoKSBiZWxv
-dy4gU2hvdWxkbid0Cj4gPiB3ZSB1c2UgdHN0X2JyaygpIGhlcmUgYXMgd2VsbD8KPiAKPiBZZXMs
-IHdlIHNob3VsZCBiZSB1c2luZyB0c3RfYnJrKC4uLikgaW5zdGVhZC4gVGhhbmtzIGZvciBwaWNr
-aW5nIHRoaXMgdXAuCj4gIAo+ID4gPiArCQl9Cj4gPiA+ICsJCXRzdF9icmsoVEJST0sgfCBURVJS
-Tk8sCj4gPiA+ICsJCQkibmFtZV90b19oYW5kbGVfYXQoQVRfRkRDV0QsICVzLCAuLi4pIGZhaWxl
-ZCIsIHBhdGgpOwo+ID4gPiArCX0KPiA+ID4gK30KPiA+ID4gKwo+ID4gPiArI2VuZGlmCj4gPiA+
-ICsKPiA+ID4gICNkZWZpbmUgSU5JVF9GQU5PVElGWV9NQVJLX1RZUEUodCkgXAo+ID4gPiAgCXsg
-RkFOX01BUktfICMjIHQsICJGQU5fTUFSS18iICN0IH0KCi0tIApNYXR0aGV3IEJvYnJvd3NraQoK
-LS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0
-cAo=
+--===============0657117728==
+Content-Type: multipart/alternative; boundary="000000000000a4e996058847b6a7"
+
+--000000000000a4e996058847b6a7
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Christian,
+
+On Tue, May 7, 2019 at 2:56 PM Christian Amann <camann@suse.com> wrote:
+
+> On kernels < 4.14 (missing commit 2d97591ef43d) reading from
+> the request socket does not return and the testcase does not
+> finish.
+>
+> This fix moves the logic to a child thread in order for the
+> parent to handle the timeout and report a message to the user.
+>
+> Signed-off-by: Christian Amann <camann@suse.com>
+> ---
+>  testcases/kernel/crypto/Makefile   |  2 ++
+>  testcases/kernel/crypto/af_alg02.c | 36
+> +++++++++++++++++++++++++++++++++++-
+>  2 files changed, 37 insertions(+), 1 deletion(-)
+>
+> diff --git a/testcases/kernel/crypto/Makefile
+> b/testcases/kernel/crypto/Makefile
+> index 76f9308c2..6547e1cb6 100644
+> --- a/testcases/kernel/crypto/Makefile
+> +++ b/testcases/kernel/crypto/Makefile
+> @@ -20,3 +20,5 @@ include $(top_srcdir)/include/mk/testcases.mk
+>  CFLAGS                 += -D_GNU_SOURCE
+>
+>  include $(top_srcdir)/include/mk/generic_leaf_target.mk
+> +
+> +af_alg02: CFLAGS += -pthread
+> diff --git a/testcases/kernel/crypto/af_alg02.c
+> b/testcases/kernel/crypto/af_alg02.c
+> index a9e820423..056511993 100644
+> --- a/testcases/kernel/crypto/af_alg02.c
+> +++ b/testcases/kernel/crypto/af_alg02.c
+> @@ -7,12 +7,23 @@
+>   * Regression test for commit ecaaab564978 ("crypto: salsa20 - fix
+>   * blkcipher_walk API usage"), or CVE-2017-17805.  This test verifies
+> that an
+>   * empty message can be encrypted with Salsa20 without crashing the
+> kernel.
+> + *
+> + * read() fix:
+> + * Calls read() in child thread in order to manually kill it after
+> timeout.
+> + * With kernels missing commit 2d97591ef43d ("crypto: af_alg -
+> consolidation
+> + * of duplicate code") read() does not return.
+>   */
+>
+>  #include "tst_test.h"
+>  #include "tst_af_alg.h"
+> +#include "tst_safe_pthread.h"
+> +#include <pthread.h>
+> +#include <time.h>
+> +#include <errno.h>
+>
+> -static void run(void)
+> +#define VERIFY_TIMEOUT (time(NULL) + 5)
+>
+
+It is very neccessary to take some action before process being killed in
+timeout. In LTP, we have an tst_timeout_remaining() function. Have a look?
+
+> +
+> +void *verify_encrypt(void *arg)
+>  {
+>         char buf[16];
+>         int reqfd = tst_alg_setup_reqfd("skcipher", "salsa20", NULL, 16);
+> @@ -22,6 +33,29 @@ static void run(void)
+>                 tst_res(TPASS, "Successfully \"encrypted\" an empty
+> message");
+>         else
+>                 tst_res(TBROK, "read() didn't return 0");
+> +       return arg;
+> +}
+> +
+> +static void run(void)
+> +{
+> +       pthread_t thr;
+> +       int join_ret;
+> +       struct timespec read_timeout;
+> +
+> +       read_timeout.tv_sec  = VERIFY_TIMEOUT;
+> +       read_timeout.tv_nsec = 0;
+> +
+> +       SAFE_PTHREAD_CREATE(&thr, NULL, verify_encrypt, NULL);
+> +       join_ret = pthread_timedjoin_np(thr, NULL, &read_timeout);
+> +
+> +       if (join_ret != 0) {
+> +               if (join_ret == ETIMEDOUT)
+> +                       tst_brk(TBROK,
+> +                               "Timed out while reading from request
+> socket.");
+> +               else
+> +                       tst_brk(TBROK | TTERRNO,
+> +                               "Error while joining child thread");
+> +       }
+>  }
+>
+>  static struct tst_test test = {
+> --
+> 2.16.4
+>
+>
+> --
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+>
+
+
+-- 
+Regards,
+Li Wang
+
+--000000000000a4e996058847b6a7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div cl=
+ass=3D"gmail_default" style=3D"font-size:small">Hi=C2=A0Christian,</div></d=
+iv><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On =
+Tue, May 7, 2019 at 2:56 PM Christian Amann &lt;<a href=3D"mailto:camann@su=
+se.com">camann@suse.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
+quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
+204);padding-left:1ex">On kernels &lt; 4.14 (missing commit 2d97591ef43d) r=
+eading from<br>
+the request socket does not return and the testcase does not<br>
+finish.<br>
+<br>
+This fix moves the logic to a child thread in order for the<br>
+parent to handle the timeout and report a message to the user.<br>
+<br>
+Signed-off-by: Christian Amann &lt;<a href=3D"mailto:camann@suse.com" targe=
+t=3D"_blank">camann@suse.com</a>&gt;<br>
+---<br>
+=C2=A0testcases/kernel/crypto/Makefile=C2=A0 =C2=A0|=C2=A0 2 ++<br>
+=C2=A0testcases/kernel/crypto/af_alg02.c | 36 +++++++++++++++++++++++++++++=
+++++++-<br>
+=C2=A02 files changed, 37 insertions(+), 1 deletion(-)<br>
+<br>
+diff --git a/testcases/kernel/crypto/Makefile b/testcases/kernel/crypto/Mak=
+efile<br>
+index 76f9308c2..6547e1cb6 100644<br>
+--- a/testcases/kernel/crypto/Makefile<br>
++++ b/testcases/kernel/crypto/Makefile<br>
+@@ -20,3 +20,5 @@ include $(top_srcdir)/include/mk/<a href=3D"http://testca=
+ses.mk" rel=3D"noreferrer" target=3D"_blank">testcases.mk</a><br>
+=C2=A0CFLAGS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+=
+=3D -D_GNU_SOURCE<br>
+<br>
+=C2=A0include $(top_srcdir)/include/mk/<a href=3D"http://generic_leaf_targe=
+t.mk" rel=3D"noreferrer" target=3D"_blank">generic_leaf_target.mk</a><br>
++<br>
++af_alg02: CFLAGS +=3D -pthread<br>
+diff --git a/testcases/kernel/crypto/af_alg02.c b/testcases/kernel/crypto/a=
+f_alg02.c<br>
+index a9e820423..056511993 100644<br>
+--- a/testcases/kernel/crypto/af_alg02.c<br>
++++ b/testcases/kernel/crypto/af_alg02.c<br>
+@@ -7,12 +7,23 @@<br>
+=C2=A0 * Regression test for commit ecaaab564978 (&quot;crypto: salsa20 - f=
+ix<br>
+=C2=A0 * blkcipher_walk API usage&quot;), or CVE-2017-17805.=C2=A0 This tes=
+t verifies that an<br>
+=C2=A0 * empty message can be encrypted with Salsa20 without crashing the k=
+ernel.<br>
++ *<br>
++ * read() fix:<br>
++ * Calls read() in child thread in order to manually kill it after timeout=
+.<br>
++ * With kernels missing commit 2d97591ef43d (&quot;crypto: af_alg - consol=
+idation<br>
++ * of duplicate code&quot;) read() does not return.<br>
+=C2=A0 */<br>
+<br>
+=C2=A0#include &quot;tst_test.h&quot;<br>
+=C2=A0#include &quot;tst_af_alg.h&quot;<br>
++#include &quot;tst_safe_pthread.h&quot;<br>
++#include &lt;pthread.h&gt;<br>
++#include &lt;time.h&gt;<br>
++#include &lt;errno.h&gt;<br>
+<br>
+-static void run(void)<br>
++#define VERIFY_TIMEOUT (time(NULL) + 5)<br></blockquote><div><br></div><di=
+v class=3D"gmail_default" style=3D"font-size:small">It is very neccessary t=
+o take some action before process being killed in timeout. In LTP, we have =
+an tst_timeout_remaining() function. Have a look?</div><div class=3D"gmail_=
+default" style=3D"font-size:small"></div><blockquote class=3D"gmail_quote" =
+style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pa=
+dding-left:1ex">
++<br>
++void *verify_encrypt(void *arg)<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 char buf[16];<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 int reqfd =3D tst_alg_setup_reqfd(&quot;skciphe=
+r&quot;, &quot;salsa20&quot;, NULL, 16);<br>
+@@ -22,6 +33,29 @@ static void run(void)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_res(TPASS, &quo=
+t;Successfully \&quot;encrypted\&quot; an empty message&quot;);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 else<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_res(TBROK, &quo=
+t;read() didn&#39;t return 0&quot;);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return arg;<br>
++}<br>
++<br>
++static void run(void)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0pthread_t thr;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0int join_ret;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0struct timespec read_timeout;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0read_timeout.tv_sec=C2=A0 =3D VERIFY_TIMEOUT;<b=
+r>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0read_timeout.tv_nsec =3D 0;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_PTHREAD_CREATE(&amp;thr, NULL, verify_encr=
+ypt, NULL);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0join_ret =3D pthread_timedjoin_np(thr, NULL, &a=
+mp;read_timeout);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (join_ret !=3D 0) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (join_ret =3D=3D=
+ ETIMEDOUT)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0tst_brk(TBROK,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;Timed out while reading from re=
+quest socket.&quot;);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0else<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0tst_brk(TBROK | TTERRNO,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;Error while joining child threa=
+d&quot;);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+=C2=A0}<br>
+<br>
+=C2=A0static struct tst_test test =3D {<br>
+-- <br>
+2.16.4<br>
+<br>
+<br>
+-- <br>
+Mailing list info: <a href=3D"https://lists.linux.it/listinfo/ltp" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.linux.it/listinfo/ltp</a><br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
+Wang<br></div></div></div></div></div></div>
+
+--000000000000a4e996058847b6a7--
+
+--===============0657117728==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
+dHAK
+
+--===============0657117728==--
