@@ -1,48 +1,57 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85B1017052
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 May 2019 07:23:40 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 32E321708D
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 May 2019 07:50:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5D173294AD0
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 May 2019 07:23:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0C2AA294AAA
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 May 2019 07:50:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id EAE5E3EADD0
- for <ltp@lists.linux.it>; Wed,  8 May 2019 07:23:28 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id B4EE23EA02A
+ for <ltp@lists.linux.it>; Wed,  8 May 2019 07:50:22 +0200 (CEST)
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com
+ [209.85.217.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 775361400123
- for <ltp@lists.linux.it>; Wed,  8 May 2019 07:23:28 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id F32B4308A110;
- Wed,  8 May 2019 05:23:26 +0000 (UTC)
-Received: from dhcp-12-157.nay.redhat.com (dhcp-12-157.nay.redhat.com
- [10.66.12.157])
- by smtp.corp.redhat.com (Postfix) with ESMTP id E982910027C7;
- Wed,  8 May 2019 05:23:25 +0000 (UTC)
-From: Li Wang <liwang@redhat.com>
-To: chrubis@suse.cz
-Date: Wed,  8 May 2019 13:23:18 +0800
-Message-Id: <20190508052318.9020-3-liwang@redhat.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1B494600B09
+ for <ltp@lists.linux.it>; Wed,  8 May 2019 07:50:24 +0200 (CEST)
+Received: by mail-vs1-f53.google.com with SMTP id w13so11917738vsc.4
+ for <ltp@lists.linux.it>; Tue, 07 May 2019 22:50:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=PcMfdk/c90jCVHrXYIt7kcI726ninzMx/3MEXlY+PPM=;
+ b=DKOWiu8X+t7LrOkwGfeYXLKdm6HXocGjryfjdT4MTHGYhOY7ncngHexMMRVfGZD0G3
+ jIQUYZzknP0hsHmaNZ1KgDc5bGVylqwRjmOF8pEA6BrIw8TXWda7YXUONXUUezKPqDds
+ BR1783Xmocoy8JAZ+ii2y6wM+WDeiA1CKnqWArZSo8Eoi+yO9v7aFaplCzOcvLI65FgJ
+ 6urWgCDyCdwqKgrDqY0qxiZ+kohmEVBzUsZWtjHt+jmQiRUh8jEpibGEejsD2vZGnXBi
+ zOwCQ76FcD/GVJ7xQGQAPBVSnBu8qD7/pcGMd+2byGujZF9vP3SKCSbJznBZLV3o/FWy
+ I4fg==
+X-Gm-Message-State: APjAAAXDF4rhYhMXw2XWyXwGGB5mRaLkGORE+1EvziYcZx2jAsUi+2j6
+ uF70pCHF9MPTu25ibdrc7g0wdyN06IdG2cE8ts6Hu3UtX5myzg==
+X-Google-Smtp-Source: APXvYqw5J5Sz1Z7bOE5JA0AhYoTpXUElf/P+JEtVGs4eCnBpvJETgYp4XtU+/HV2LJcYsjuJudub9leXqWISBzQ2mlg=
+X-Received: by 2002:a67:f443:: with SMTP id r3mr15121817vsn.179.1557294620563; 
+ Tue, 07 May 2019 22:50:20 -0700 (PDT)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.44]); Wed, 08 May 2019 05:23:27 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+References: <20190508052318.9020-2-liwang@redhat.com>
+In-Reply-To: <20190508052318.9020-2-liwang@redhat.com>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 8 May 2019 13:50:09 +0800
+Message-ID: <CAEemH2fxyK48dffwvyCkbmZ59rvSUuLUeZW9MCYjBNhBi86Axw@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+X-Spam-Status: No, score=1.1 required=7.0 tests=HTML_IMAGE_ONLY_16,
+ HTML_MESSAGE,SPF_PASS,T_REMOTE_IMAGE autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
 Cc: ltp@lists.linux.it
-Subject: [LTP] [PATCH 2/2] libltpnuma: remove restrictions on numa node-id
+Subject: Re: [LTP] [PATCH 1/2] numa: fix numa test error with non-continuous
+	nodes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -54,44 +63,73 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1887374995=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Rm9yIHNvbWUgcHBjNjRsZSBzeXN0ZW1zLCBpdCBoYXMgbm9uLWNvbnRpbnVvdXMgbnVtYSBub2Rl
-cyBpbgpoYXJkd2FyZSBjb25maWd1cmF0aW9uLiBTbyB3ZSdyZSBoaXR0aW5nIHRoZSBiZWxvdyB3
-YXJuaW5ncyB3aGlsZQpydW5uaW5nIHNldF9tZW1wb2xpY3kgdGVzdHMgb24gdGhhdC4gVG8gZml4
-IHRoaXMgaXNzdWUsIGxldCdzIGp1c3QKcmVtb3ZlIHJlc3RyaWN0aW9ucyBvbiBudW1hIG5vZGUt
-aWQgaW4gZ2V0X21lbXBvbGljeSgpLgoKRXJyb3IgTG9nCi0tLS0tLS0tLQp0c3RfdGVzdC5jOjEw
-OTY6IElORk86IFRpbWVvdXQgcGVyIHJ1biBpcyAwaCA1MG0gMDBzCnRzdF9udW1hLmM6MTkwOiBJ
-TkZPOiBGb3VuZCAyIE5VTUEgbWVtb3J5IG5vZGVzCnNldF9tZW1wb2xpY3kwMS5jOjYzOiBQQVNT
-OiBzZXRfbWVtcG9saWN5KE1QT0xfQklORCkgbm9kZSAwCnRzdF9udW1hLmM6MjY6IElORk86IE5v
-ZGUgMCBhbGxvY2F0ZWQgMTYgcGFnZXMKdHN0X251bWEuYzoyNjogSU5GTzogTm9kZSA4IGFsbG9j
-YXRlZCAwIHBhZ2VzCnNldF9tZW1wb2xpY3kwMS5jOjgyOiBQQVNTOiBjaGlsZDogTm9kZSAwIGFs
-bG9jYXRlZCAxNgpzZXRfbWVtcG9saWN5MDEuYzo2MzogUEFTUzogc2V0X21lbXBvbGljeShNUE9M
-X0JJTkQpIG5vZGUgOAp0c3RfbnVtYS5jOjkyOiBXQVJOOiBnZXRfbWVtcG9saWN5KC4uLikgcmV0
-dXJuZWQgaW52YWxpZCBub2RlIDgKdHN0X251bWEuYzo5MjogV0FSTjogZ2V0X21lbXBvbGljeSgu
-Li4pIHJldHVybmVkIGludmFsaWQgbm9kZSA4CnRzdF9udW1hLmM6OTI6IFdBUk46IGdldF9tZW1w
-b2xpY3koLi4uKSByZXR1cm5lZCBpbnZhbGlkIG5vZGUgOAouLi4KdHN0X251bWEuYzoyNjogSU5G
-TzogTm9kZSAwIGFsbG9jYXRlZCAwIHBhZ2VzCnRzdF9udW1hLmM6MjY6IElORk86IE5vZGUgOCBh
-bGxvY2F0ZWQgMCBwYWdlcwpzZXRfbWVtcG9saWN5MDEuYzo4NjogRkFJTDogY2hpbGQ6IE5vZGUg
-OCBhbGxvY2F0ZWQgMCwgZXhwZWN0ZWQgMTYKCmxzY3B1Ci0tLS0tCkFyY2hpdGVjdHVyZTogICAg
-ICAgIHBwYzY0bGUKLi4uCkNQVShzKTogICAgICAgICAgICAgIDEyOApDb3JlKHMpIHBlciBzb2Nr
-ZXQ6ICAxNgpTb2NrZXQocyk6ICAgICAgICAgICAyCk5VTUEgbm9kZShzKTogICAgICAgIDIKTW9k
-ZWwgbmFtZTogICAgICAgICAgUE9XRVI5LCBhbHRpdmVjIHN1cHBvcnRlZAouLi4KTlVNQSBub2Rl
-MCBDUFUocyk6ICAgMC02MwpOVU1BIG5vZGU4IENQVShzKTogICA2NC0xMjcKClNpZ25lZC1vZmYt
-Ynk6IExpIFdhbmcgPGxpd2FuZ0ByZWRoYXQuY29tPgotLS0KIGxpYnMvbGlibHRwbnVtYS90c3Rf
-bnVtYS5jIHwgNSArKystLQogMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMiBkZWxl
-dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9saWJzL2xpYmx0cG51bWEvdHN0X251bWEuYyBiL2xpYnMv
-bGlibHRwbnVtYS90c3RfbnVtYS5jCmluZGV4IDBiYTZkYWYzOS4uNTZjODY0MGZmIDEwMDY0NAot
-LS0gYS9saWJzL2xpYmx0cG51bWEvdHN0X251bWEuYworKysgYi9saWJzL2xpYmx0cG51bWEvdHN0
-X251bWEuYwpAQCAtODgsOCArODgsOSBAQCB2b2lkIHRzdF9ub2RlbWFwX2NvdW50X3BhZ2VzKHN0
-cnVjdCB0c3Rfbm9kZW1hcCAqbm9kZXMsCiAJCWlmIChyZXQgPCAwKQogCQkJdHN0X2JyayhUQlJP
-SyB8IFRFUlJOTywgImdldF9tZW1wb2xpY3koKSBmYWlsZWQiKTsKIAotCQlpZiAobm9kZSA8IDAg
-fHwgKHVuc2lnbmVkIGludClub2RlID49IG5vZGVzLT5jbnQpIHsKLQkJCXRzdF9yZXMoVFdBUk4s
-ICJnZXRfbWVtcG9saWN5KC4uLikgcmV0dXJuZWQgaW52YWxpZCBub2RlICVpXG4iLCBub2RlKTsK
-KwkJaWYgKG5vZGUgPCAwKSB7CisJCQl0c3RfcmVzKFRXQVJOLAorCQkJCSJnZXRfbWVtcG9saWN5
-KC4uLikgcmV0dXJuZWQgaW52YWxpZCBub2RlICVpXG4iLCBub2RlKTsKIAkJCWNvbnRpbnVlOwog
-CQl9CiAKLS0gCjIuMjAuMQoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5s
-aW51eC5pdC9saXN0aW5mby9sdHAK
+--===============1887374995==
+Content-Type: multipart/alternative; boundary="000000000000ab86de058859e8ff"
+
+--000000000000ab86de058859e8ff
+Content-Type: text/plain; charset="UTF-8"
+
+On Wed, May 8, 2019 at 1:23 PM Li Wang <liwang@redhat.com> wrote:
+
+> Numa test failed on such machine which has non-continuous numa nodes,
+> it gets wrong data because of the below syntax rule is not applicable
+> to that special situation.
+>   ` numastat -p $pid |awk '/^Total/ {print $'$((node+2))'}'
+> In this patch, we fix that to print the last column replacing by '$NF'
+> in awk.
+>   ` numastat -p $pid |awk '/^Total/ {print $NF}'
+>
+
+Bah, I made a mistake on the node memory counting, it should be the asgd
+node but not total, I will fix it in PATCH v2. Plz ignore this one. Sorry
+about that.
+
+-- 
+Regards,
+Li Wang
+
+--000000000000ab86de058859e8ff
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_defa=
+ult" style=3D"font-size:small"><img class=3D"gmail-ajT" src=3D"https://ssl.=
+gstatic.com/ui/v1/icons/mail/images/cleardot.gif"><br></div></div><br><div =
+class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, May 8, =
+2019 at 1:23 PM Li Wang &lt;<a href=3D"mailto:liwang@redhat.com">liwang@red=
+hat.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"=
+margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-lef=
+t:1ex">Numa test failed on such machine which has non-continuous numa nodes=
+,<br>
+it gets wrong data because of the below syntax rule is not applicable<br>
+to that special situation.<br>
+=C2=A0 ` numastat -p $pid |awk &#39;/^Total/ {print $&#39;$((node+2))&#39;}=
+&#39;<br>
+In this patch, we fix that to print the last column replacing by &#39;$NF&#=
+39;<br>
+in awk.<br>
+=C2=A0 ` numastat -p $pid |awk &#39;/^Total/ {print $NF}&#39;<br></blockquo=
+te><div><br></div><div><div class=3D"gmail_default" style=3D"font-size:smal=
+l">Bah, I made a mistake on the node memory counting, it should be the=C2=
+=A0asgd node but not total, I will fix it in PATCH v2. Plz ignore this one.=
+ Sorry about=C2=A0that.</div><div class=3D"gmail_default" style=3D"font-siz=
+e:small"><br></div></div></div>-- <br><div dir=3D"ltr" class=3D"gmail_signa=
+ture"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div><=
+/div></div></div>
+
+--000000000000ab86de058859e8ff--
+
+--===============1887374995==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
+dHAK
+
+--===============1887374995==--
