@@ -2,55 +2,85 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71D4D184AB
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 May 2019 07:00:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59CD71857D
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 May 2019 08:45:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 368013EABCF
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 May 2019 07:00:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 271CF3EABE3
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 May 2019 08:45:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 0E8ED3EA028
- for <ltp@lists.linux.it>; Thu,  9 May 2019 07:00:02 +0200 (CEST)
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com
- [209.85.221.176])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 6BDA73EABBF
+ for <ltp@lists.linux.it>; Thu,  9 May 2019 08:45:52 +0200 (CEST)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 5EAB91A0195B
- for <ltp@lists.linux.it>; Thu,  9 May 2019 06:59:59 +0200 (CEST)
-Received: by mail-vk1-f176.google.com with SMTP id s80so275640vke.6
- for <ltp@lists.linux.it>; Wed, 08 May 2019 21:59:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=r2Dv8woA0bU/DEUtFvE68x06CTgndEBixqQnLPZ7Czc=;
- b=E/NxI8wyMgKgdVyxzOb4xhk7rkmucxyDKKVPU135QC8EYi0mVIK7tKq0QX1HgqxmkR
- 4+7VvaoQzfF6mdzkaEjaqVjrPmLLm67fXTVSmkiAnf7fSp9c6wNRmDCRFCFJYNrLYNrL
- hzsVFUsNR5EEXMF328f4aOIGIBKPWX1S1dftMXZI6OEO7Y+IOPlRrd+QxvGMNMRMoBRc
- TdrUpoFM2xIYcehQk1BE+vrR8JJu4oHjrdKDVWoWDl8B6KZ3jNpdflZGu6WDMWzJ0PgH
- gqJnpVyw1M8FosD29tspRRXHqiIhp0LbVlcFf4E2q1G0UXLpKEfwcs7bw2PdNXUObkZa
- 0M7g==
-X-Gm-Message-State: APjAAAX3X+XI3Ll8S4JcHAvkP+zMZQXf1BIgWorREyqXll0HILVPMls9
- Fl/4OIMIKD559tWTpKZPUefHZ4QGutg3RKOPtkgLOIrb/b0=
-X-Google-Smtp-Source: APXvYqxBh1mkw3WF8OQu+L4ImYA5qw212S254KzEUlk1MiweHnTUHVlzsDcZJ5tmEExzORSVmcUTGQ0hDJlGtPhBV4w=
-X-Received: by 2002:a1f:28d7:: with SMTP id o206mr575421vko.36.1557377998253; 
- Wed, 08 May 2019 21:59:58 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id F01A914060A4
+ for <ltp@lists.linux.it>; Thu,  9 May 2019 08:45:49 +0200 (CEST)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x496bsF6073033
+ for <ltp@lists.linux.it>; Thu, 9 May 2019 02:45:48 -0400
+Received: from e06smtp07.uk.ibm.com (e06smtp07.uk.ibm.com [195.75.94.103])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2scckee1qq-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <ltp@lists.linux.it>; Thu, 09 May 2019 02:45:47 -0400
+Received: from localhost
+ by e06smtp07.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <ltp@lists.linux.it> from <bala24@linux.vnet.ibm.com>;
+ Thu, 9 May 2019 07:45:44 +0100
+Received: from b06cxnps4076.portsmouth.uk.ibm.com (9.149.109.198)
+ by e06smtp07.uk.ibm.com (192.168.101.137) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 9 May 2019 07:45:42 +0100
+Received: from d06av25.portsmouth.uk.ibm.com (d06av25.portsmouth.uk.ibm.com
+ [9.149.105.61])
+ by b06cxnps4076.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x496jfkh47972392
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 9 May 2019 06:45:41 GMT
+Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 71D8711C052;
+ Thu,  9 May 2019 06:45:41 +0000 (GMT)
+Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id D50F811C050;
+ Thu,  9 May 2019 06:45:40 +0000 (GMT)
+Received: from dhcp-9-109-247-167.in.ibm.com (unknown [9.124.35.91])
+ by d06av25.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+ Thu,  9 May 2019 06:45:40 +0000 (GMT)
+Date: Thu, 9 May 2019 12:15:35 +0530
+From: Balamuruhan S <bala24@linux.vnet.ibm.com>
+To: Li Wang <liwang@redhat.com>
+References: <20190508084447.18191-1-liwang@redhat.com>
+ <20190508084447.18191-2-liwang@redhat.com>
 MIME-Version: 1.0
-References: <20190508071636.13804-1-camann@suse.com>
-In-Reply-To: <20190508071636.13804-1-camann@suse.com>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 9 May 2019 12:59:46 +0800
-Message-ID: <CAEemH2cSz+JTxy6mT7H0JYj+RsBbgAuFL-q7RY775n9oJQAwoQ@mail.gmail.com>
-To: Christian Amann <camann@suse.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20190508084447.18191-2-liwang@redhat.com>
+User-Agent: Mutt/1.9.2 (2017-12-15)
+X-TM-AS-GCONF: 00
+x-cbid: 19050906-0028-0000-0000-0000036BD146
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19050906-0029-0000-0000-0000242B510E
+Message-Id: <20190509064535.GA6096@dhcp-9-109-247-167.in.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-05-09_02:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1905090043
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=none autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
 Cc: ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH v3] crypto/af_alg02: fixed read() being stuck
+Subject: Re: [LTP] [PATCH v2 2/2] libltpnuma: remove restrictions on numa
+ node-id
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -62,268 +92,51 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2010711681=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============2010711681==
-Content-Type: multipart/alternative; boundary="0000000000005e1c4205886d5214"
-
---0000000000005e1c4205886d5214
-Content-Type: text/plain; charset="UTF-8"
-
-On Wed, May 8, 2019 at 3:16 PM Christian Amann <camann@suse.com> wrote:
-
-> On kernels < 4.14 (missing commit 2d97591ef43d) reading from
-> the request socket does not return and the testcase does not
-> finish.
->
-> This fix moves the logic to a child thread in order for the
-> parent to handle the timeout and report a message to the user.
->
-> Signed-off-by: Christian Amann <camann@suse.com>
->
-Reviewed-by: Li Wang <liwang@redhat.com>
-
----
->
-> Notes:
->     Hi Li,
->
->     > We could set LTP_ATTRIBUTE_UNUSED at the behind of unused parameter
-> to get
->     > rid of compiling warning
->
->     Thats very useful but I couldn't find it anywhere in the documentation.
->     IMHO it should be put in there, because I stumbled upon this problem
->     a couple of times.
->
-
-This is just a definition for variable attribute which supports by GNU
-compiler, I'm not sure if we should add it to LTP documents.
-
-$ grep LTP_ATTRIBUTE_UNUSED . -r
-tst_common.h:25:#define LTP_ATTRIBUTE_UNUSED __attribute__((unused))
-
-
->
->     Anyway, I implemented your suggestions. I hope it's an alright patch
-> now.
->     Thanks for your feedback!
->
->     Regards,
->     Christian
->
->  testcases/kernel/crypto/Makefile   |  2 ++
->  testcases/kernel/crypto/af_alg02.c | 37
-> +++++++++++++++++++++++++++++++++++--
->  2 files changed, 37 insertions(+), 2 deletions(-)
->
-> diff --git a/testcases/kernel/crypto/Makefile
-> b/testcases/kernel/crypto/Makefile
-> index 76f9308c2..6547e1cb6 100644
-> --- a/testcases/kernel/crypto/Makefile
-> +++ b/testcases/kernel/crypto/Makefile
-> @@ -20,3 +20,5 @@ include $(top_srcdir)/include/mk/testcases.mk
->  CFLAGS                 += -D_GNU_SOURCE
->
->  include $(top_srcdir)/include/mk/generic_leaf_target.mk
-> +
-> +af_alg02: CFLAGS += -pthread
-> diff --git a/testcases/kernel/crypto/af_alg02.c
-> b/testcases/kernel/crypto/af_alg02.c
-> index a9e820423..1c725212a 100644
-> --- a/testcases/kernel/crypto/af_alg02.c
-> +++ b/testcases/kernel/crypto/af_alg02.c
-> @@ -7,23 +7,56 @@
->   * Regression test for commit ecaaab564978 ("crypto: salsa20 - fix
->   * blkcipher_walk API usage"), or CVE-2017-17805.  This test verifies
-> that an
->   * empty message can be encrypted with Salsa20 without crashing the
-> kernel.
-> + *
-> + * Fix for kernels < 4.14:
-> + * With kernels missing commit 2d97591ef43d ("crypto: af_alg -
-> consolidation
-> + * of duplicate code") read() does not return in this situation. The call
-> is
-> + * now moved to a child thread in order to cancel it in case read() takes
-> an
-> + * unusual long amount of time.
->   */
->
->  #include "tst_test.h"
->  #include "tst_af_alg.h"
-> +#include "tst_safe_pthread.h"
-> +#include <pthread.h>
-> +#include <errno.h>
->
-> -static void run(void)
-> +void *verify_encrypt(void *arg LTP_ATTRIBUTE_UNUSED)
->  {
->         char buf[16];
->         int reqfd = tst_alg_setup_reqfd("skcipher", "salsa20", NULL, 16);
->
-> +       TST_CHECKPOINT_WAKE(0);
-> +
->         /* With the bug the kernel crashed here */
->         if (read(reqfd, buf, 16) == 0)
->                 tst_res(TPASS, "Successfully \"encrypted\" an empty
-> message");
->         else
-> -               tst_res(TBROK, "read() didn't return 0");
-> +               tst_res(TFAIL, "read() didn't return 0");
-> +       return arg;
->
-
-Since arg has been marked as unused, so here better to return NULL.
-
-Anyway, patch V3 looks good to me.
-
--- 
-Regards,
-Li Wang
-
---0000000000005e1c4205886d5214
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-size:small"></d=
-iv><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div=
- dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-si=
-ze:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" c=
-lass=3D"gmail_attr">On Wed, May 8, 2019 at 3:16 PM Christian Amann &lt;<a h=
-ref=3D"mailto:camann@suse.com" target=3D"_blank">camann@suse.com</a>&gt; wr=
-ote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
- 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On kernels =
-&lt; 4.14 (missing commit 2d97591ef43d) reading from<br>
-the request socket does not return and the testcase does not<br>
-finish.<br>
-<br>
-This fix moves the logic to a child thread in order for the<br>
-parent to handle the timeout and report a message to the user.<br>
-<br>
-Signed-off-by: Christian Amann &lt;<a href=3D"mailto:camann@suse.com" targe=
-t=3D"_blank">camann@suse.com</a>&gt;<br></blockquote><div>Reviewed-by: Li W=
-ang &lt;<a href=3D"mailto:liwang@redhat.com" target=3D"_blank">liwang@redha=
-t.com</a>&gt;<br></div><div class=3D"gmail_default" style=3D"font-size:smal=
-l"><br></div><div class=3D"gmail_default" style=3D"font-size:small"></div><=
-blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
-eft:1px solid rgb(204,204,204);padding-left:1ex">
----<br>
-<br>
-Notes:<br>
-=C2=A0 =C2=A0 Hi Li,<br>
-<br>
-=C2=A0 =C2=A0 &gt; We could set LTP_ATTRIBUTE_UNUSED at the behind of unuse=
-d parameter to get<br>
-=C2=A0 =C2=A0 &gt; rid of compiling warning<br>
-<br>
-=C2=A0 =C2=A0 Thats very useful but I couldn&#39;t find it anywhere in the =
-documentation.<br>
-=C2=A0 =C2=A0 IMHO it should be put in there, because I stumbled upon this =
-problem<br>
-=C2=A0 =C2=A0 a couple of times.<br></blockquote><div><br></div><div><div c=
-lass=3D"gmail_default">This is just a definition for=C2=A0variable attribut=
-e which supports by=C2=A0GNU compiler, I&#39;m=C2=A0not sure if we should a=
-dd it to LTP documents.</div><br></div><div><div class=3D"gmail_default" st=
-yle=3D"font-size:small">$ grep LTP_ATTRIBUTE_UNUSED . -r</div></div><div><d=
-iv class=3D"gmail_default">tst_common.h:25:#define LTP_ATTRIBUTE_UNUSED<spa=
-n style=3D"white-space:pre-wrap">		</span>__attribute__((unused))<br></div>=
-</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
-x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-=C2=A0 =C2=A0 Anyway, I implemented your suggestions. I hope it&#39;s an al=
-right patch now.<br>
-=C2=A0 =C2=A0 Thanks for your feedback!<br>
-<br>
-=C2=A0 =C2=A0 Regards,<br>
-=C2=A0 =C2=A0 Christian<br>
-<br>
-=C2=A0testcases/kernel/crypto/Makefile=C2=A0 =C2=A0|=C2=A0 2 ++<br>
-=C2=A0testcases/kernel/crypto/af_alg02.c | 37 +++++++++++++++++++++++++++++=
-++++++--<br>
-=C2=A02 files changed, 37 insertions(+), 2 deletions(-)<br>
-<br>
-diff --git a/testcases/kernel/crypto/Makefile b/testcases/kernel/crypto/Mak=
-efile<br>
-index 76f9308c2..6547e1cb6 100644<br>
---- a/testcases/kernel/crypto/Makefile<br>
-+++ b/testcases/kernel/crypto/Makefile<br>
-@@ -20,3 +20,5 @@ include $(top_srcdir)/include/mk/<a href=3D"http://testca=
-ses.mk" rel=3D"noreferrer" target=3D"_blank">testcases.mk</a><br>
-=C2=A0CFLAGS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+=
-=3D -D_GNU_SOURCE<br>
-<br>
-=C2=A0include $(top_srcdir)/include/mk/<a href=3D"http://generic_leaf_targe=
-t.mk" rel=3D"noreferrer" target=3D"_blank">generic_leaf_target.mk</a><br>
-+<br>
-+af_alg02: CFLAGS +=3D -pthread<br>
-diff --git a/testcases/kernel/crypto/af_alg02.c b/testcases/kernel/crypto/a=
-f_alg02.c<br>
-index a9e820423..1c725212a 100644<br>
---- a/testcases/kernel/crypto/af_alg02.c<br>
-+++ b/testcases/kernel/crypto/af_alg02.c<br>
-@@ -7,23 +7,56 @@<br>
-=C2=A0 * Regression test for commit ecaaab564978 (&quot;crypto: salsa20 - f=
-ix<br>
-=C2=A0 * blkcipher_walk API usage&quot;), or CVE-2017-17805.=C2=A0 This tes=
-t verifies that an<br>
-=C2=A0 * empty message can be encrypted with Salsa20 without crashing the k=
-ernel.<br>
-+ *<br>
-+ * Fix for kernels &lt; 4.14:<br>
-+ * With kernels missing commit 2d97591ef43d (&quot;crypto: af_alg - consol=
-idation<br>
-+ * of duplicate code&quot;) read() does not return in this situation. The =
-call is<br>
-+ * now moved to a child thread in order to cancel it in case read() takes =
-an<br>
-+ * unusual long amount of time.<br>
-=C2=A0 */<br>
-<br>
-=C2=A0#include &quot;tst_test.h&quot;<br>
-=C2=A0#include &quot;tst_af_alg.h&quot;<br>
-+#include &quot;tst_safe_pthread.h&quot;<br>
-+#include &lt;pthread.h&gt;<br>
-+#include &lt;errno.h&gt;<br>
-<br>
--static void run(void)<br>
-+void *verify_encrypt(void *arg LTP_ATTRIBUTE_UNUSED)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 char buf[16];<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 int reqfd =3D tst_alg_setup_reqfd(&quot;skciphe=
-r&quot;, &quot;salsa20&quot;, NULL, 16);<br>
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0TST_CHECKPOINT_WAKE(0);<br>
-+<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* With the bug the kernel crashed here */<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (read(reqfd, buf, 16) =3D=3D 0)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_res(TPASS, &quo=
-t;Successfully \&quot;encrypted\&quot; an empty message&quot;);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 else<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TBROK, &quo=
-t;read() didn&#39;t return 0&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TFAIL, &quo=
-t;read() didn&#39;t return 0&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return arg;<br></blockquote><div><br></div><div=
-><div class=3D"gmail_default" style=3D"font-size:small">Since arg has been =
-marked as unused, so here better to return NULL.</div></div><div><br></div>=
-<div><div class=3D"gmail_default" style=3D"font-size:small">Anyway, patch V=
-3 looks good to me.</div></div><div>=C2=A0</div></div>-- <br><div dir=3D"lt=
-r" class=3D"m_6104703560222033971gmail_signature"><div dir=3D"ltr"><div>Reg=
-ards,<br></div><div>Li Wang<br></div></div></div></div></div></div></div></=
-div></div>
-
---0000000000005e1c4205886d5214--
-
---===============2010711681==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
-dHAK
-
---===============2010711681==--
+T24gV2VkLCBNYXkgMDgsIDIwMTkgYXQgMDQ6NDQ6NDdQTSArMDgwMCwgTGkgV2FuZyB3cm90ZToK
+PiBGb3Igc29tZSBwcGM2NGxlIHN5c3RlbXMsIGl0IGhhcyBub24tY29udGludW91cyBudW1hIG5v
+ZGVzIGluCj4gaGFyZHdhcmUgY29uZmlndXJhdGlvbi4gU28gd2UncmUgaGl0dGluZyB0aGUgYmVs
+b3cgd2FybmluZ3Mgd2hpbGUKPiBydW5uaW5nIHNldF9tZW1wb2xpY3kgdGVzdHMgb24gdGhhdC4g
+VG8gZml4IHRoaXMgaXNzdWUsIGxldCdzIGp1c3QKPiByZW1vdmUgcmVzdHJpY3Rpb25zIG9uIG51
+bWEgbm9kZS1pZCBpbiBnZXRfbWVtcG9saWN5KCkuCj4gCj4gRXJyb3IgTG9nCj4gLS0tLS0tLS0t
+Cj4gdHN0X3Rlc3QuYzoxMDk2OiBJTkZPOiBUaW1lb3V0IHBlciBydW4gaXMgMGggNTBtIDAwcwo+
+IHRzdF9udW1hLmM6MTkwOiBJTkZPOiBGb3VuZCAyIE5VTUEgbWVtb3J5IG5vZGVzCj4gc2V0X21l
+bXBvbGljeTAxLmM6NjM6IFBBU1M6IHNldF9tZW1wb2xpY3koTVBPTF9CSU5EKSBub2RlIDAKPiB0
+c3RfbnVtYS5jOjI2OiBJTkZPOiBOb2RlIDAgYWxsb2NhdGVkIDE2IHBhZ2VzCj4gdHN0X251bWEu
+YzoyNjogSU5GTzogTm9kZSA4IGFsbG9jYXRlZCAwIHBhZ2VzCj4gc2V0X21lbXBvbGljeTAxLmM6
+ODI6IFBBU1M6IGNoaWxkOiBOb2RlIDAgYWxsb2NhdGVkIDE2Cj4gc2V0X21lbXBvbGljeTAxLmM6
+NjM6IFBBU1M6IHNldF9tZW1wb2xpY3koTVBPTF9CSU5EKSBub2RlIDgKPiB0c3RfbnVtYS5jOjky
+OiBXQVJOOiBnZXRfbWVtcG9saWN5KC4uLikgcmV0dXJuZWQgaW52YWxpZCBub2RlIDgKPiB0c3Rf
+bnVtYS5jOjkyOiBXQVJOOiBnZXRfbWVtcG9saWN5KC4uLikgcmV0dXJuZWQgaW52YWxpZCBub2Rl
+IDgKPiB0c3RfbnVtYS5jOjkyOiBXQVJOOiBnZXRfbWVtcG9saWN5KC4uLikgcmV0dXJuZWQgaW52
+YWxpZCBub2RlIDgKPiAuLi4KPiB0c3RfbnVtYS5jOjI2OiBJTkZPOiBOb2RlIDAgYWxsb2NhdGVk
+IDAgcGFnZXMKPiB0c3RfbnVtYS5jOjI2OiBJTkZPOiBOb2RlIDggYWxsb2NhdGVkIDAgcGFnZXMK
+PiBzZXRfbWVtcG9saWN5MDEuYzo4NjogRkFJTDogY2hpbGQ6IE5vZGUgOCBhbGxvY2F0ZWQgMCwg
+ZXhwZWN0ZWQgMTYKPiAKPiBsc2NwdQo+IC0tLS0tCj4gQXJjaGl0ZWN0dXJlOiAgICAgICAgcHBj
+NjRsZQo+IC4uLgo+IENQVShzKTogICAgICAgICAgICAgIDEyOAo+IENvcmUocykgcGVyIHNvY2tl
+dDogIDE2Cj4gU29ja2V0KHMpOiAgICAgICAgICAgMgo+IE5VTUEgbm9kZShzKTogICAgICAgIDIK
+PiBNb2RlbCBuYW1lOiAgICAgICAgICBQT1dFUjksIGFsdGl2ZWMgc3VwcG9ydGVkCj4gLi4uCj4g
+TlVNQSBub2RlMCBDUFUocyk6ICAgMC02Mwo+IE5VTUEgbm9kZTggQ1BVKHMpOiAgIDY0LTEyNwo+
+IAo+IFNpZ25lZC1vZmYtYnk6IExpIFdhbmcgPGxpd2FuZ0ByZWRoYXQuY29tPgo+IENjOiBDeXJp
+bCBIcnViaXMgPGNocnViaXNAc3VzZS5jej4KPiAtLS0KPiAgbGlicy9saWJsdHBudW1hL3RzdF9u
+dW1hLmMgfCA1ICsrKy0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDIgZGVs
+ZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2xpYnMvbGlibHRwbnVtYS90c3RfbnVtYS5jIGIv
+bGlicy9saWJsdHBudW1hL3RzdF9udW1hLmMKPiBpbmRleCAwYmE2ZGFmMzkuLjU2Yzg2NDBmZiAx
+MDA2NDQKPiAtLS0gYS9saWJzL2xpYmx0cG51bWEvdHN0X251bWEuYwo+ICsrKyBiL2xpYnMvbGli
+bHRwbnVtYS90c3RfbnVtYS5jCj4gQEAgLTg4LDggKzg4LDkgQEAgdm9pZCB0c3Rfbm9kZW1hcF9j
+b3VudF9wYWdlcyhzdHJ1Y3QgdHN0X25vZGVtYXAgKm5vZGVzLAo+ICAJCWlmIChyZXQgPCAwKQo+
+ICAJCQl0c3RfYnJrKFRCUk9LIHwgVEVSUk5PLCAiZ2V0X21lbXBvbGljeSgpIGZhaWxlZCIpOwo+
+ICAKPiAtCQlpZiAobm9kZSA8IDAgfHwgKHVuc2lnbmVkIGludClub2RlID49IG5vZGVzLT5jbnQp
+IHsKPiAtCQkJdHN0X3JlcyhUV0FSTiwgImdldF9tZW1wb2xpY3koLi4uKSByZXR1cm5lZCBpbnZh
+bGlkIG5vZGUgJWlcbiIsIG5vZGUpOwo+ICsJCWlmIChub2RlIDwgMCkgewoKSXQgaXMgYmV0dGVy
+IHRvIGhhdmUgY2hlY2sgZm9yIHBvd2VycGMgYW5kIHJlbW92ZSByZXN0cmljdGlvbiBhcyBpdCB3
+aWxsCnN0aWxsIGhvbGQgZ29vZCBmb3Igb3RoZXIgYXJjaC4KCi0tIEJhbGEKCj4gKwkJCXRzdF9y
+ZXMoVFdBUk4sCj4gKwkJCQkiZ2V0X21lbXBvbGljeSguLi4pIHJldHVybmVkIGludmFsaWQgbm9k
+ZSAlaVxuIiwgbm9kZSk7Cj4gIAkJCWNvbnRpbnVlOwo+ICAJCX0KPiAgCj4gLS0gCj4gMi4yMC4x
+Cj4gCj4gCj4gLS0gCj4gTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQv
+bGlzdGluZm8vbHRwCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4
+Lml0L2xpc3RpbmZvL2x0cAo=
