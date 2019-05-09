@@ -2,87 +2,59 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E463187A7
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 May 2019 11:24:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E857018815
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 May 2019 12:00:38 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1432B3EABD2
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 May 2019 11:24:08 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C3D0C3EABEC
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 May 2019 12:00:38 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 2FC8E3EABC0
- for <ltp@lists.linux.it>; Thu,  9 May 2019 11:24:07 +0200 (CEST)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id E44483EA028
+ for <ltp@lists.linux.it>; Thu,  9 May 2019 12:00:32 +0200 (CEST)
+Received: from mail-vs1-f66.google.com (mail-vs1-f66.google.com
+ [209.85.217.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 79C101A00F8E
- for <ltp@lists.linux.it>; Thu,  9 May 2019 11:24:06 +0200 (CEST)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x499Ms3U063101
- for <ltp@lists.linux.it>; Thu, 9 May 2019 05:24:04 -0400
-Received: from e06smtp04.uk.ibm.com (e06smtp04.uk.ibm.com [195.75.94.100])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2scf4axp1a-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <ltp@lists.linux.it>; Thu, 09 May 2019 05:24:04 -0400
-Received: from localhost
- by e06smtp04.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <ltp@lists.linux.it> from <bala24@linux.vnet.ibm.com>;
- Thu, 9 May 2019 10:24:02 +0100
-Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
- by e06smtp04.uk.ibm.com (192.168.101.134) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 9 May 2019 10:24:01 +0100
-Received: from d06av24.portsmouth.uk.ibm.com (d06av24.portsmouth.uk.ibm.com
- [9.149.105.60])
- by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x499O0Z138404238
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 9 May 2019 09:24:00 GMT
-Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 1CA434204D;
- Thu,  9 May 2019 09:24:00 +0000 (GMT)
-Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 827E242049;
- Thu,  9 May 2019 09:23:59 +0000 (GMT)
-Received: from dhcp-9-109-247-167.in.ibm.com (unknown [9.124.35.91])
- by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
- Thu,  9 May 2019 09:23:59 +0000 (GMT)
-Date: Thu, 9 May 2019 14:53:54 +0530
-From: Balamuruhan S <bala24@linux.vnet.ibm.com>
-To: Li Wang <liwang@redhat.com>
-References: <20190508084447.18191-1-liwang@redhat.com>
- <20190508084447.18191-2-liwang@redhat.com>
- <20190509064535.GA6096@dhcp-9-109-247-167.in.ibm.com>
- <CAEemH2ei_ORaYzfmfJOiPr0Gb7R2Kt2-WNWGp9fVBSzqGiWeug@mail.gmail.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 712546024EA
+ for <ltp@lists.linux.it>; Thu,  9 May 2019 12:00:29 +0200 (CEST)
+Received: by mail-vs1-f66.google.com with SMTP id o10so1009447vsp.12
+ for <ltp@lists.linux.it>; Thu, 09 May 2019 03:00:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=8fw9PcSNlsBtsMjXNuptbK6JHWwpzLG/bXFnVJPgDb4=;
+ b=iypx+UDYPjAmqF2+OC74AwifJ6eYFMDTmCRh4DDQd8aOn+lSqsSFZhZUS2JU2hP+oc
+ aGygYc6fdVxBoHNd4b8rtBXntOlBEJpaVrkmwvcUdcfpYuiSSdScSUIS7I/TDt76Gz1T
+ FI+Fn/9bZZyeWHDVokY2+JrJ/5uMsYrEvzUOZr7rkG1HLomyPyurogswfSgDubkFEio/
+ an//brZJKvZyIpk95VJKN5xYjKpb/+RzV/oaYrjlNIZvJX2QzoPTUxg+J66qpjASbe3p
+ Kz0FXbGnSpXgAqbao8f5cEUB6XNfcasc3BgtA7AmzfAoYfhjti6gpmxSYTE3sAKyO8MQ
+ vnFw==
+X-Gm-Message-State: APjAAAUGrlF8fO9rJ3YIQ+REOFXaZ/PdUqZAN8MeayB3847oJdxmthuM
+ uP/SwSH2unycRSXYm9kqXMmrSB2ntp4FyFQ06iP9hA==
+X-Google-Smtp-Source: APXvYqzHPXIA2S91FE6HdP8njOAZpZ9iSd2qFxXqLEXqoV/n8MzIPXl2QGwhP+BZTdbyWGD/3aUKcvCQkoWzi8AlVDo=
+X-Received: by 2002:a67:7241:: with SMTP id n62mr1677184vsc.217.1557396028284; 
+ Thu, 09 May 2019 03:00:28 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2ei_ORaYzfmfJOiPr0Gb7R2Kt2-WNWGp9fVBSzqGiWeug@mail.gmail.com>
-User-Agent: Mutt/1.9.2 (2017-12-15)
-X-TM-AS-GCONF: 00
-x-cbid: 19050909-0016-0000-0000-00000279E046
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19050909-0017-0000-0000-000032D693C2
-Message-Id: <20190509092354.GB8751@dhcp-9-109-247-167.in.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-05-09_02:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=3 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1905090058
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+References: <20190508084447.18191-1-liwang@redhat.com>
+ <20190509071605.GB6096@dhcp-9-109-247-167.in.ibm.com>
+ <CAEemH2e=9eRgj_1H50dY_=fEsL3vsZbxexxUceJhW24ebsQ1Kg@mail.gmail.com>
+ <20190509091911.GA8751@dhcp-9-109-247-167.in.ibm.com>
+In-Reply-To: <20190509091911.GA8751@dhcp-9-109-247-167.in.ibm.com>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 9 May 2019 18:00:17 +0800
+Message-ID: <CAEemH2e6WURWFkMneL6vdEwPpbwxj0Lt=HjpfSYdyzxnhGdODQ@mail.gmail.com>
+To: Balamuruhan S <bala24@linux.vnet.ibm.com>, Cyril Hrubis <chrubis@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=none autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
 Cc: ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH v2 2/2] libltpnuma: remove restrictions on numa
- node-id
+Subject: Re: [LTP] [PATCH v2 1/2] numa: fix numa test error with
+ non-continuous nodes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -94,69 +66,209 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1955551599=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gVGh1LCBNYXkgMDksIDIwMTkgYXQgMDQ6MDA6NDBQTSArMDgwMCwgTGkgV2FuZyB3cm90ZToK
-PiBPbiBUaHUsIE1heSA5LCAyMDE5IGF0IDI6NDUgUE0gQmFsYW11cnVoYW4gUyA8YmFsYTI0QGxp
-bnV4LnZuZXQuaWJtLmNvbT4KPiB3cm90ZToKPiAKPiA+IE9uIFdlZCwgTWF5IDA4LCAyMDE5IGF0
-IDA0OjQ0OjQ3UE0gKzA4MDAsIExpIFdhbmcgd3JvdGU6Cj4gPiA+IEZvciBzb21lIHBwYzY0bGUg
-c3lzdGVtcywgaXQgaGFzIG5vbi1jb250aW51b3VzIG51bWEgbm9kZXMgaW4KPiA+ID4gaGFyZHdh
-cmUgY29uZmlndXJhdGlvbi4gU28gd2UncmUgaGl0dGluZyB0aGUgYmVsb3cgd2FybmluZ3Mgd2hp
-bGUKPiA+ID4gcnVubmluZyBzZXRfbWVtcG9saWN5IHRlc3RzIG9uIHRoYXQuIFRvIGZpeCB0aGlz
-IGlzc3VlLCBsZXQncyBqdXN0Cj4gPiA+IHJlbW92ZSByZXN0cmljdGlvbnMgb24gbnVtYSBub2Rl
-LWlkIGluIGdldF9tZW1wb2xpY3koKS4KPiA+ID4KPiA+ID4gRXJyb3IgTG9nCj4gPiA+IC0tLS0t
-LS0tLQo+ID4gPiB0c3RfdGVzdC5jOjEwOTY6IElORk86IFRpbWVvdXQgcGVyIHJ1biBpcyAwaCA1
-MG0gMDBzCj4gPiA+IHRzdF9udW1hLmM6MTkwOiBJTkZPOiBGb3VuZCAyIE5VTUEgbWVtb3J5IG5v
-ZGVzCj4gPiA+IHNldF9tZW1wb2xpY3kwMS5jOjYzOiBQQVNTOiBzZXRfbWVtcG9saWN5KE1QT0xf
-QklORCkgbm9kZSAwCj4gPiA+IHRzdF9udW1hLmM6MjY6IElORk86IE5vZGUgMCBhbGxvY2F0ZWQg
-MTYgcGFnZXMKPiA+ID4gdHN0X251bWEuYzoyNjogSU5GTzogTm9kZSA4IGFsbG9jYXRlZCAwIHBh
-Z2VzCj4gPiA+IHNldF9tZW1wb2xpY3kwMS5jOjgyOiBQQVNTOiBjaGlsZDogTm9kZSAwIGFsbG9j
-YXRlZCAxNgo+ID4gPiBzZXRfbWVtcG9saWN5MDEuYzo2MzogUEFTUzogc2V0X21lbXBvbGljeShN
-UE9MX0JJTkQpIG5vZGUgOAo+ID4gPiB0c3RfbnVtYS5jOjkyOiBXQVJOOiBnZXRfbWVtcG9saWN5
-KC4uLikgcmV0dXJuZWQgaW52YWxpZCBub2RlIDgKPiA+ID4gdHN0X251bWEuYzo5MjogV0FSTjog
-Z2V0X21lbXBvbGljeSguLi4pIHJldHVybmVkIGludmFsaWQgbm9kZSA4Cj4gPiA+IHRzdF9udW1h
-LmM6OTI6IFdBUk46IGdldF9tZW1wb2xpY3koLi4uKSByZXR1cm5lZCBpbnZhbGlkIG5vZGUgOAo+
-ID4gPiAuLi4KPiA+ID4gdHN0X251bWEuYzoyNjogSU5GTzogTm9kZSAwIGFsbG9jYXRlZCAwIHBh
-Z2VzCj4gPiA+IHRzdF9udW1hLmM6MjY6IElORk86IE5vZGUgOCBhbGxvY2F0ZWQgMCBwYWdlcwo+
-ID4gPiBzZXRfbWVtcG9saWN5MDEuYzo4NjogRkFJTDogY2hpbGQ6IE5vZGUgOCBhbGxvY2F0ZWQg
-MCwgZXhwZWN0ZWQgMTYKPiA+ID4KPiA+ID4gbHNjcHUKPiA+ID4gLS0tLS0KPiA+ID4gQXJjaGl0
-ZWN0dXJlOiAgICAgICAgcHBjNjRsZQo+ID4gPiAuLi4KPiA+ID4gQ1BVKHMpOiAgICAgICAgICAg
-ICAgMTI4Cj4gPiA+IENvcmUocykgcGVyIHNvY2tldDogIDE2Cj4gPiA+IFNvY2tldChzKTogICAg
-ICAgICAgIDIKPiA+ID4gTlVNQSBub2RlKHMpOiAgICAgICAgMgo+ID4gPiBNb2RlbCBuYW1lOiAg
-ICAgICAgICBQT1dFUjksIGFsdGl2ZWMgc3VwcG9ydGVkCj4gPiA+IC4uLgo+ID4gPiBOVU1BIG5v
-ZGUwIENQVShzKTogICAwLTYzCj4gPiA+IE5VTUEgbm9kZTggQ1BVKHMpOiAgIDY0LTEyNwo+ID4g
-Pgo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBMaSBXYW5nIDxsaXdhbmdAcmVkaGF0LmNvbT4KPiA+ID4g
-Q2M6IEN5cmlsIEhydWJpcyA8Y2hydWJpc0BzdXNlLmN6Pgo+ID4gPiAtLS0KPiA+ID4gIGxpYnMv
-bGlibHRwbnVtYS90c3RfbnVtYS5jIHwgNSArKystLQo+ID4gPiAgMSBmaWxlIGNoYW5nZWQsIDMg
-aW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPiA+ID4KPiA+ID4gZGlmZiAtLWdpdCBhL2xp
-YnMvbGlibHRwbnVtYS90c3RfbnVtYS5jIGIvbGlicy9saWJsdHBudW1hL3RzdF9udW1hLmMKPiA+
-ID4gaW5kZXggMGJhNmRhZjM5Li41NmM4NjQwZmYgMTAwNjQ0Cj4gPiA+IC0tLSBhL2xpYnMvbGli
-bHRwbnVtYS90c3RfbnVtYS5jCj4gPiA+ICsrKyBiL2xpYnMvbGlibHRwbnVtYS90c3RfbnVtYS5j
-Cj4gPiA+IEBAIC04OCw4ICs4OCw5IEBAIHZvaWQgdHN0X25vZGVtYXBfY291bnRfcGFnZXMoc3Ry
-dWN0IHRzdF9ub2RlbWFwICpub2RlcywKPiA+ID4gICAgICAgICAgICAgICBpZiAocmV0IDwgMCkK
-PiA+ID4gICAgICAgICAgICAgICAgICAgICAgIHRzdF9icmsoVEJST0sgfCBURVJSTk8sICJnZXRf
-bWVtcG9saWN5KCkgZmFpbGVkIik7Cj4gPiA+Cj4gPiA+IC0gICAgICAgICAgICAgaWYgKG5vZGUg
-PCAwIHx8ICh1bnNpZ25lZCBpbnQpbm9kZSA+PSBub2Rlcy0+Y250KSB7Cj4gPiA+IC0gICAgICAg
-ICAgICAgICAgICAgICB0c3RfcmVzKFRXQVJOLCAiZ2V0X21lbXBvbGljeSguLi4pIHJldHVybmVk
-Cj4gPiBpbnZhbGlkIG5vZGUgJWlcbiIsIG5vZGUpOwo+ID4gPiArICAgICAgICAgICAgIGlmIChu
-b2RlIDwgMCkgewo+ID4KPiA+IEl0IGlzIGJldHRlciB0byBoYXZlIGNoZWNrIGZvciBwb3dlcnBj
-IGFuZCByZW1vdmUgcmVzdHJpY3Rpb24gYXMgaXQgd2lsbAo+ID4gc3RpbGwgaG9sZCBnb29kIGZv
-ciBvdGhlciBhcmNoLgo+ID4KPiAKPiBJZiB0aGUgbm9uLWNvbnRpbnVvdXMgbnVtYSBub2RlcyBv
-bmx5IGFwcGVhciBpbiBwcGMgbWFjaGluZSwgdGhhdCBzaG91bGQgYmUKPiBuZWNlc3NhcnkgdG8g
-Y2hlY2sgYXJjaCBiZWZvcmUgcmVtb3ZpbmcgdGhlIHJlc3RyaWN0aW9uLgo+IAo+IHRoZW4gdGhl
-IHBhdGNoIHByb2JhYmx5IGxpa2U6Cj4gCj4gLS0tIGEvbGlicy9saWJsdHBudW1hL3RzdF9udW1h
-LmMKPiArKysgYi9saWJzL2xpYmx0cG51bWEvdHN0X251bWEuYwo+IEBAIC04OCw3ICs4OCwxMSBA
-QCB2b2lkIHRzdF9ub2RlbWFwX2NvdW50X3BhZ2VzKHN0cnVjdCB0c3Rfbm9kZW1hcCAqbm9kZXMs
-Cj4gICAgICAgICAgICAgICAgIGlmIChyZXQgPCAwKQo+ICAgICAgICAgICAgICAgICAgICAgICAg
-IHRzdF9icmsoVEJST0sgfCBURVJSTk8sICJnZXRfbWVtcG9saWN5KCkgZmFpbGVkIik7Cj4gCj4g
-KyNpZiBkZWZpbmVkIChfX3Bvd2VycGM2NF9fKSB8fCAoX19wb3dlcnBjX18pCj4gKyAgICAgICAg
-ICAgICAgIGlmIChub2RlIDwgMCkgewo+ICsjZWxpZgo+ICAgICAgICAgICAgICAgICBpZiAobm9k
-ZSA8IDAgfHwgKHVuc2lnbmVkIGludClub2RlID49IG5vZGVzLT5jbnQpIHsKPiArI2VuZGlmCgpM
-b29rcyBnb29kIHRvIG1lLiBUaGFua3MhCgotLSBCYWxhCj4gICAgICAgICAgICAgICAgICAgICAg
-ICAgdHN0X3JlcyhUV0FSTiwgImdldF9tZW1wb2xpY3koLi4uKSByZXR1cm5lZCBpbnZhbGlkCj4g
-bm9kZSAlaVxuIiwgbm9kZSk7Cj4gICAgICAgICAgICAgICAgICAgICAgICAgY29udGludWU7Cj4g
-ICAgICAgICAgICAgICAgIH0KPiAKPiAKPiAtLSAKPiBSZWdhcmRzLAo+IExpIFdhbmcKCgotLSAK
-TWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+--===============1955551599==
+Content-Type: multipart/alternative; boundary="0000000000000a82c30588718573"
+
+--0000000000000a82c30588718573
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Bala,
+
+On Thu, May 9, 2019 at 5:19 PM Balamuruhan S <bala24@linux.vnet.ibm.com>
+wrote:
+
+> [...snip...]
+> > > > --- a/testcases/kernel/numa/numa01.sh
+> > > > +++ b/testcases/kernel/numa/numa01.sh
+> > > > @@ -52,9 +52,18 @@ TST_NEEDS_CMDS="awk bc numactl numastat"
+> > > >  extract_numastat_p()
+> > > >  {
+> > > >       local pid=$1
+> > > > -     local node=$(($2 + 2))
+> > > > -
+> > > > -     echo $(numastat -p $pid |awk '/^Total/ {print $'$node'}')
+> > > > +     local node=$2
+> > > > +
+> > > > +     echo $(numastat -p $pid |               \
+> > > > +             awk -v node=$node '/Node/ {     \
+> > > > +             gsub("Node", "");               \
+> > > > +             for (i=0; i<NF; i++)            \
+> > > > +                     if ($i == node)         \
+> > > > +                             col=i+1;        \
+> > > > +                     next                    \
+> > > > +             }                               \
+> > > > +             /^Total/ {print $col}'          \
+> > > > +     )
+> > > >  }
+> > >
+> > > If we can use extract_numastat_p0 with node_index then the existing
+> code
+> > > works, for example if can index while iterating $node_list and use this
+> > > with extract_numastat_p0 then it should work.
+> > >
+> >
+> > Hi Bala,
+> >
+> > Sorry, I don't fully understand what's you mean here :(. Could you
+> explain
+> > something more for this method?
+>
+> instead of changing `extract_numastat_p0()` can do something like this ?
+
+
+> diff --git a/testcases/kernel/numa/numa01.sh
+> b/testcases/kernel/numa/numa01.sh
+> index 33393ac8d..47c18edd6 100755
+> --- a/testcases/kernel/numa/numa01.sh
+> +++ b/testcases/kernel/numa/numa01.sh
+> @@ -94,6 +94,7 @@ setup()
+>  test1()
+>  {
+>         Mem_curr=0
+> +       node_index=0
+>
+>         for node in $nodes_list; do
+>                 numactl --cpunodebind=$node --membind=$node support_numa
+> alloc_1MB &
+> @@ -101,7 +102,8 @@ test1()
+>
+>                 TST_RETRY_FUNC "check_for_support_numa $pid" 0
+>
+> -               Mem_curr=$(echo "$(extract_numastat_p $pid $node) * $MB"
+> |bc)
+> +               Mem_curr=$(echo "$(extract_numastat_p $pid $node_index) *
+> $MB" |bc)
+> +               let node_index++
+>
+
+I guess it can be work, but the disadvantage of that is we have to involve
+a new variable(node_index) in each of the tests (from test1 to test10).
+Hence I don't think it is much better than my patch. For which way to go,
+I'd leave this to Cyril to make a choice. Or, maybe he has different
+thoughts on this:).
+
+Anyway, thanks for your suggestion.
+
+-- 
+Regards,
+Li Wang
+
+--0000000000000a82c30588718573
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_defa=
+ult" style=3D"font-size:small">Hi Bala,</div></div><br><div class=3D"gmail_=
+quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, May 9, 2019 at 5:19 PM=
+ Balamuruhan S &lt;<a href=3D"mailto:bala24@linux.vnet.ibm.com">bala24@linu=
+x.vnet.ibm.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" st=
+yle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padd=
+ing-left:1ex"><span class=3D"gmail_default" style=3D"font-size:small">[...s=
+nip...]</span><br>
+&gt; &gt; &gt; --- a/testcases/kernel/numa/numa01.sh<br>
+&gt; &gt; &gt; +++ b/testcases/kernel/numa/numa01.sh<br>
+&gt; &gt; &gt; @@ -52,9 +52,18 @@ TST_NEEDS_CMDS=3D&quot;awk bc numactl num=
+astat&quot;<br>
+&gt; &gt; &gt;=C2=A0 extract_numastat_p()<br>
+&gt; &gt; &gt;=C2=A0 {<br>
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0local pid=3D$1<br>
+&gt; &gt; &gt; -=C2=A0 =C2=A0 =C2=A0local node=3D$(($2 + 2))<br>
+&gt; &gt; &gt; -<br>
+&gt; &gt; &gt; -=C2=A0 =C2=A0 =C2=A0echo $(numastat -p $pid |awk &#39;/^Tot=
+al/ {print $&#39;$node&#39;}&#39;)<br>
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0local node=3D$2<br>
+&gt; &gt; &gt; +<br>
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0echo $(numastat -p $pid |=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0\<br>
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0awk -v node=
+=3D$node &#39;/Node/ {=C2=A0 =C2=A0 =C2=A0\<br>
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gsub(&quot;=
+Node&quot;, &quot;&quot;);=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0\<br>
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for (i=3D0;=
+ i&lt;NF; i++)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 \<br>
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0if ($i =3D=3D node)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0\<br>
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0col=3Di+1;=C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 \<br>
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0next=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 \<br>
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0\<br>
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/^Total/ {p=
+rint $col}&#39;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 \<br>
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0)<br>
+&gt; &gt; &gt;=C2=A0 }<br>
+&gt; &gt;<br>
+&gt; &gt; If we can use extract_numastat_p0 with node_index then the existi=
+ng code<br>
+&gt; &gt; works, for example if can index while iterating $node_list and us=
+e this<br>
+&gt; &gt; with extract_numastat_p0 then it should work.<br>
+&gt; &gt;<br>
+&gt; <br>
+&gt; Hi Bala,<br>
+&gt; <br>
+&gt; Sorry, I don&#39;t fully understand what&#39;s you mean here :(. Could=
+ you explain<br>
+&gt; something more for this method?<br>
+<br>
+instead of changing `extract_numastat_p0()` can do something like this ?</b=
+lockquote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8=
+ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+diff --git a/testcases/kernel/numa/numa01.sh b/testcases/kernel/numa/numa01=
+.sh<br>
+index 33393ac8d..47c18edd6 100755<br>
+--- a/testcases/kernel/numa/numa01.sh<br>
++++ b/testcases/kernel/numa/numa01.sh<br>
+@@ -94,6 +94,7 @@ setup()<br>
+=C2=A0test1()<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 Mem_curr=3D0<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0node_index=3D0<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 for node in $nodes_list; do<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 numactl --cpunodebi=
+nd=3D$node --membind=3D$node support_numa alloc_1MB &amp;<br>
+@@ -101,7 +102,8 @@ test1()<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 TST_RETRY_FUNC &quo=
+t;check_for_support_numa $pid&quot; 0<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mem_curr=3D$(echo &=
+quot;$(extract_numastat_p $pid $node) * $MB&quot; |bc)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mem_curr=3D$(echo &=
+quot;$(extract_numastat_p $pid $node_index) * $MB&quot; |bc)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0let node_index++<br=
+></blockquote><div><br></div><div><div class=3D"gmail_default" style=3D"fon=
+t-size:small">I guess it can be work, but the disadvantage of that is we ha=
+ve to involve a new variable(node_index) in each of the tests (from test1 t=
+o test10). Hence I don&#39;t think it is much better than my patch. For whi=
+ch way to go, I&#39;d leave this=C2=A0to Cyril to make a choice. Or, maybe =
+he has different thoughts on this:).</div></div><div>=C2=A0</div><div><div =
+class=3D"gmail_default" style=3D"font-size:small">Anyway, thanks for your s=
+uggestion.</div></div><div class=3D"gmail_default" style=3D"font-size:small=
+"><br></div></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div di=
+r=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div></=
+div>
+
+--0000000000000a82c30588718573--
+
+--===============1955551599==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
+dHAK
+
+--===============1955551599==--
