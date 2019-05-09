@@ -1,58 +1,88 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DE2818674
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 May 2019 10:00:57 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B44E1879B
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 May 2019 11:19:30 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E8C393EABC3
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 May 2019 10:00:56 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E72893EABD1
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 May 2019 11:19:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id A418D3EABC2
- for <ltp@lists.linux.it>; Thu,  9 May 2019 10:00:54 +0200 (CEST)
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com
- [209.85.217.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id E2FA23EABBF
+ for <ltp@lists.linux.it>; Thu,  9 May 2019 11:19:27 +0200 (CEST)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E112160CBA8
- for <ltp@lists.linux.it>; Thu,  9 May 2019 10:00:54 +0200 (CEST)
-Received: by mail-vs1-f54.google.com with SMTP id e2so813889vsc.13
- for <ltp@lists.linux.it>; Thu, 09 May 2019 01:00:52 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ZV5jyAvSDfuxne/M4Qx+RKlisEkxwvYCLT/xBFolDXg=;
- b=nbCgWjKURMwHIQ8ZXnMwUjHC7AhMKJOoU9y2dg5PsmSbYRcgJeKx1smzLZiYvguEHG
- pH2y4dbAVXTYxJ1HxzZ8HDbQ8MubNY6WStPeh9IhLG8BZbmQbx2thtpJ4J4Zv9OauYLK
- VmO23Oc4Qrpq5Kjj9ZXDTStzWSDpg30mSn5z4mAU+0mQKWlGIevc2H6SrF/T4SsdgAkp
- ijZkNikHqPsJ33lsHToq/39399vMNQy4jxXtx78lveJs+duC72epjENC3D9PysHSHqf7
- WP+nW1OUDt5nqOi/DLECVjiTUHS3UyWqGdfJE76KWv2xxhRpbKlhvrn27cf0qv2Q/FOy
- rIiw==
-X-Gm-Message-State: APjAAAW7kO3FqCh86XNyxI5DEc4gIqaKtgw/INSCPsReWXPhVz+Cw9q4
- 1KCZkO6z19z0T4pP96vy4Id8P6BwN1NbsLEZkdt11UlGAIE=
-X-Google-Smtp-Source: APXvYqxOGF2FZJgZeKySwgcwxG27A0Ov6bWCYD3Gvw2h3P0lp1J7/e+CytJTsifWv8qt/e8NY1wa+b7vhehe8Qd7S+8=
-X-Received: by 2002:a67:ea0b:: with SMTP id g11mr1527281vso.130.1557388851489; 
- Thu, 09 May 2019 01:00:51 -0700 (PDT)
-MIME-Version: 1.0
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7993D60134C
+ for <ltp@lists.linux.it>; Thu,  9 May 2019 11:19:25 +0200 (CEST)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x4992x55112122
+ for <ltp@lists.linux.it>; Thu, 9 May 2019 05:19:23 -0400
+Received: from e06smtp03.uk.ibm.com (e06smtp03.uk.ibm.com [195.75.94.99])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2scgtw1vtj-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <ltp@lists.linux.it>; Thu, 09 May 2019 05:19:23 -0400
+Received: from localhost
+ by e06smtp03.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <ltp@lists.linux.it> from <bala24@linux.vnet.ibm.com>;
+ Thu, 9 May 2019 10:19:21 +0100
+Received: from b06cxnps3074.portsmouth.uk.ibm.com (9.149.109.194)
+ by e06smtp03.uk.ibm.com (192.168.101.133) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 9 May 2019 10:19:19 +0100
+Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com
+ [9.149.105.59])
+ by b06cxnps3074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x499JIcg35782748
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 9 May 2019 09:19:18 GMT
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id F15A5A4055;
+ Thu,  9 May 2019 09:19:17 +0000 (GMT)
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5FD84A405D;
+ Thu,  9 May 2019 09:19:17 +0000 (GMT)
+Received: from dhcp-9-109-247-167.in.ibm.com (unknown [9.124.35.91])
+ by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+ Thu,  9 May 2019 09:19:17 +0000 (GMT)
+Date: Thu, 9 May 2019 14:49:11 +0530
+From: Balamuruhan S <bala24@linux.vnet.ibm.com>
+To: Li Wang <liwang@redhat.com>
 References: <20190508084447.18191-1-liwang@redhat.com>
- <20190508084447.18191-2-liwang@redhat.com>
- <20190509064535.GA6096@dhcp-9-109-247-167.in.ibm.com>
-In-Reply-To: <20190509064535.GA6096@dhcp-9-109-247-167.in.ibm.com>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 9 May 2019 16:00:40 +0800
-Message-ID: <CAEemH2ei_ORaYzfmfJOiPr0Gb7R2Kt2-WNWGp9fVBSzqGiWeug@mail.gmail.com>
-To: Balamuruhan S <bala24@linux.vnet.ibm.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+ <20190509071605.GB6096@dhcp-9-109-247-167.in.ibm.com>
+ <CAEemH2e=9eRgj_1H50dY_=fEsL3vsZbxexxUceJhW24ebsQ1Kg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAEemH2e=9eRgj_1H50dY_=fEsL3vsZbxexxUceJhW24ebsQ1Kg@mail.gmail.com>
+User-Agent: Mutt/1.9.2 (2017-12-15)
+X-TM-AS-GCONF: 00
+x-cbid: 19050909-0012-0000-0000-00000319DD63
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19050909-0013-0000-0000-0000215262C9
+Message-Id: <20190509091911.GA8751@dhcp-9-109-247-167.in.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-05-09_02:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1905090057
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=none autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
 Cc: ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH v2 2/2] libltpnuma: remove restrictions on numa
-	node-id
+Subject: Re: [LTP] [PATCH v2 1/2] numa: fix numa test error with
+ non-continuous nodes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -64,224 +94,114 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1600733039=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1600733039==
-Content-Type: multipart/alternative; boundary="00000000000045458f05886fd9ea"
-
---00000000000045458f05886fd9ea
-Content-Type: text/plain; charset="UTF-8"
-
-On Thu, May 9, 2019 at 2:45 PM Balamuruhan S <bala24@linux.vnet.ibm.com>
-wrote:
-
-> On Wed, May 08, 2019 at 04:44:47PM +0800, Li Wang wrote:
-> > For some ppc64le systems, it has non-continuous numa nodes in
-> > hardware configuration. So we're hitting the below warnings while
-> > running set_mempolicy tests on that. To fix this issue, let's just
-> > remove restrictions on numa node-id in get_mempolicy().
-> >
-> > Error Log
-> > ---------
-> > tst_test.c:1096: INFO: Timeout per run is 0h 50m 00s
-> > tst_numa.c:190: INFO: Found 2 NUMA memory nodes
-> > set_mempolicy01.c:63: PASS: set_mempolicy(MPOL_BIND) node 0
-> > tst_numa.c:26: INFO: Node 0 allocated 16 pages
-> > tst_numa.c:26: INFO: Node 8 allocated 0 pages
-> > set_mempolicy01.c:82: PASS: child: Node 0 allocated 16
-> > set_mempolicy01.c:63: PASS: set_mempolicy(MPOL_BIND) node 8
-> > tst_numa.c:92: WARN: get_mempolicy(...) returned invalid node 8
-> > tst_numa.c:92: WARN: get_mempolicy(...) returned invalid node 8
-> > tst_numa.c:92: WARN: get_mempolicy(...) returned invalid node 8
-> > ...
-> > tst_numa.c:26: INFO: Node 0 allocated 0 pages
-> > tst_numa.c:26: INFO: Node 8 allocated 0 pages
-> > set_mempolicy01.c:86: FAIL: child: Node 8 allocated 0, expected 16
-> >
-> > lscpu
-> > -----
-> > Architecture:        ppc64le
-> > ...
-> > CPU(s):              128
-> > Core(s) per socket:  16
-> > Socket(s):           2
-> > NUMA node(s):        2
-> > Model name:          POWER9, altivec supported
-> > ...
-> > NUMA node0 CPU(s):   0-63
-> > NUMA node8 CPU(s):   64-127
-> >
-> > Signed-off-by: Li Wang <liwang@redhat.com>
-> > Cc: Cyril Hrubis <chrubis@suse.cz>
-> > ---
-> >  libs/libltpnuma/tst_numa.c | 5 +++--
-> >  1 file changed, 3 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/libs/libltpnuma/tst_numa.c b/libs/libltpnuma/tst_numa.c
-> > index 0ba6daf39..56c8640ff 100644
-> > --- a/libs/libltpnuma/tst_numa.c
-> > +++ b/libs/libltpnuma/tst_numa.c
-> > @@ -88,8 +88,9 @@ void tst_nodemap_count_pages(struct tst_nodemap *nodes,
-> >               if (ret < 0)
-> >                       tst_brk(TBROK | TERRNO, "get_mempolicy() failed");
-> >
-> > -             if (node < 0 || (unsigned int)node >= nodes->cnt) {
-> > -                     tst_res(TWARN, "get_mempolicy(...) returned
-> invalid node %i\n", node);
-> > +             if (node < 0) {
->
-> It is better to have check for powerpc and remove restriction as it will
-> still hold good for other arch.
->
-
-If the non-continuous numa nodes only appear in ppc machine, that should be
-necessary to check arch before removing the restriction.
-
-then the patch probably like:
-
---- a/libs/libltpnuma/tst_numa.c
-+++ b/libs/libltpnuma/tst_numa.c
-@@ -88,7 +88,11 @@ void tst_nodemap_count_pages(struct tst_nodemap *nodes,
-                if (ret < 0)
-                        tst_brk(TBROK | TERRNO, "get_mempolicy() failed");
-
-+#if defined (__powerpc64__) || (__powerpc__)
-+               if (node < 0) {
-+#elif
-                if (node < 0 || (unsigned int)node >= nodes->cnt) {
-+#endif
-                        tst_res(TWARN, "get_mempolicy(...) returned invalid
-node %i\n", node);
-                        continue;
-                }
-
-
--- 
-Regards,
-Li Wang
-
---00000000000045458f05886fd9ea
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_defa=
-ult" style=3D"font-size:small"><br></div></div><br><div class=3D"gmail_quot=
-e"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, May 9, 2019 at 2:45 PM Bal=
-amuruhan S &lt;<a href=3D"mailto:bala24@linux.vnet.ibm.com" target=3D"_blan=
-k">bala24@linux.vnet.ibm.com</a>&gt; wrote:<br></div><blockquote class=3D"g=
-mail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204=
-,204,204);padding-left:1ex">On Wed, May 08, 2019 at 04:44:47PM +0800, Li Wa=
-ng wrote:<br>
-&gt; For some ppc64le systems, it has non-continuous numa nodes in<br>
-&gt; hardware configuration. So we&#39;re hitting the below warnings while<=
-br>
-&gt; running set_mempolicy tests on that. To fix this issue, let&#39;s just=
-<br>
-&gt; remove restrictions on numa node-id in get_mempolicy().<br>
-&gt; <br>
-&gt; Error Log<br>
-&gt; ---------<br>
-&gt; tst_test.c:1096: INFO: Timeout per run is 0h 50m 00s<br>
-&gt; tst_numa.c:190: INFO: Found 2 NUMA memory nodes<br>
-&gt; set_mempolicy01.c:63: PASS: set_mempolicy(MPOL_BIND) node 0<br>
-&gt; tst_numa.c:26: INFO: Node 0 allocated 16 pages<br>
-&gt; tst_numa.c:26: INFO: Node 8 allocated 0 pages<br>
-&gt; set_mempolicy01.c:82: PASS: child: Node 0 allocated 16<br>
-&gt; set_mempolicy01.c:63: PASS: set_mempolicy(MPOL_BIND) node 8<br>
-&gt; tst_numa.c:92: WARN: get_mempolicy(...) returned invalid node 8<br>
-&gt; tst_numa.c:92: WARN: get_mempolicy(...) returned invalid node 8<br>
-&gt; tst_numa.c:92: WARN: get_mempolicy(...) returned invalid node 8<br>
-&gt; ...<br>
-&gt; tst_numa.c:26: INFO: Node 0 allocated 0 pages<br>
-&gt; tst_numa.c:26: INFO: Node 8 allocated 0 pages<br>
-&gt; set_mempolicy01.c:86: FAIL: child: Node 8 allocated 0, expected 16<br>
-&gt; <br>
-&gt; lscpu<br>
-&gt; -----<br>
-&gt; Architecture:=C2=A0 =C2=A0 =C2=A0 =C2=A0 ppc64le<br>
-&gt; ...<br>
-&gt; CPU(s):=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 128<br>
-&gt; Core(s) per socket:=C2=A0 16<br>
-&gt; Socket(s):=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A02<br>
-&gt; NUMA node(s):=C2=A0 =C2=A0 =C2=A0 =C2=A0 2<br>
-&gt; Model name:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 POWER9, altivec supporte=
-d<br>
-&gt; ...<br>
-&gt; NUMA node0 CPU(s):=C2=A0 =C2=A00-63<br>
-&gt; NUMA node8 CPU(s):=C2=A0 =C2=A064-127<br>
-&gt; <br>
-&gt; Signed-off-by: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com" target=
-=3D"_blank">liwang@redhat.com</a>&gt;<br>
-&gt; Cc: Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz" target=3D"_bla=
-nk">chrubis@suse.cz</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 libs/libltpnuma/tst_numa.c | 5 +++--<br>
-&gt;=C2=A0 1 file changed, 3 insertions(+), 2 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/libs/libltpnuma/tst_numa.c b/libs/libltpnuma/tst_numa.c<b=
-r>
-&gt; index 0ba6daf39..56c8640ff 100644<br>
-&gt; --- a/libs/libltpnuma/tst_numa.c<br>
-&gt; +++ b/libs/libltpnuma/tst_numa.c<br>
-&gt; @@ -88,8 +88,9 @@ void tst_nodemap_count_pages(struct tst_nodemap *nod=
-es,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret &lt; 0)<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0tst_brk(TBROK | TERRNO, &quot;get_mempolicy() failed&quot;);<b=
-r>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (node &lt; 0 || (u=
-nsigned int)node &gt;=3D nodes-&gt;cnt) {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0tst_res(TWARN, &quot;get_mempolicy(...) returned invalid node %i\n&q=
-uot;, node);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (node &lt; 0) {<br=
->
-<br>
-It is better to have check for powerpc and remove restriction as it will<br=
->
-still hold good for other arch.<br></blockquote><div><br></div><div><div cl=
-ass=3D"gmail_default" style=3D"font-size:small">If the non-continuous numa =
-nodes only appear in ppc machine, that should be necessary to check arch be=
-fore removing the restriction.</div><br></div><div class=3D"gmail_default" =
-style=3D"font-size:small">then the patch probably like:</div><div class=3D"=
-gmail_default" style=3D"font-size:small"><br></div><div class=3D"gmail_defa=
-ult">--- a/libs/libltpnuma/tst_numa.c</div><div class=3D"gmail_default">+++=
- b/libs/libltpnuma/tst_numa.c</div><div class=3D"gmail_default">@@ -88,7 +8=
-8,11 @@ void tst_nodemap_count_pages(struct tst_nodemap *nodes,</div><div c=
-lass=3D"gmail_default">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 if (ret &lt; 0)</div><div class=3D"gmail_default">=C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_brk(TBRO=
-K | TERRNO, &quot;get_mempolicy() failed&quot;);</div><div class=3D"gmail_d=
-efault">=C2=A0</div><div class=3D"gmail_default">+#if defined (__powerpc64_=
-_) || (__powerpc__)</div><div class=3D"gmail_default">+=C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (node &lt; 0) {</div><div class=3D"gm=
-ail_default">+#elif</div><div class=3D"gmail_default">=C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (node &lt; 0 || (unsigned int)node &g=
-t;=3D nodes-&gt;cnt) {</div><div class=3D"gmail_default">+#endif</div><div =
-class=3D"gmail_default">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_res(TWARN, &quot;get_mempolicy(...) =
-returned invalid node %i\n&quot;, node);</div><div class=3D"gmail_default">=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 continue;</div><div class=3D"gmail_default">=C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }</div><div class=3D"gmail_default" sty=
-le=3D"font-size:small"></div></div><br clear=3D"all"><div><br></div>-- <br>=
-<div dir=3D"ltr" class=3D"m_-5166788601101912600gmail_signature"><div dir=
-=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div></d=
-iv>
-
---00000000000045458f05886fd9ea--
-
---===============1600733039==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
-dHAK
-
---===============1600733039==--
+T24gVGh1LCBNYXkgMDksIDIwMTkgYXQgMDM6NTQ6MTVQTSArMDgwMCwgTGkgV2FuZyB3cm90ZToK
+PiBPbiBUaHUsIE1heSA5LCAyMDE5IGF0IDM6MTYgUE0gQmFsYW11cnVoYW4gUyA8YmFsYTI0QGxp
+bnV4LnZuZXQuaWJtLmNvbT4KPiB3cm90ZToKPiAKPiA+IE9uIFdlZCwgTWF5IDA4LCAyMDE5IGF0
+IDA0OjQ0OjQ2UE0gKzA4MDAsIExpIFdhbmcgd3JvdGU6Cj4gPiA+IE51bWEgdGVzdCBmYWlsZWQg
+b24gc3VjaCBtYWNoaW5lIHdoaWNoIGhhcyBub24tY29udGludW91cyBudW1hIG5vZGVzLAo+ID4g
+PiBpdCBnZXRzIHdyb25nIGRhdGEgYmVjYXVzZSBvZiB0aGUgYmVsb3cgc3ludGF4IHJ1bGUgaXMg
+bm90IGFwcGxpY2FibGUKPiA+ID4gdG8gdGhhdCBzcGVjaWFsIHNpdHVhdGlvbi4KPiA+ID4gICBg
+IG51bWFzdGF0IC1wICRwaWQgfGF3ayAnL15Ub3RhbC8ge3ByaW50ICQnJCgobm9kZSsyKSknfScK
+PiA+ID4gSW4gdGhpcyBwYXRjaCwgd2UgZml4IHRoYXQgdmlhIGEgYml0IGNvbXBsZXggd2F5IG9m
+IGF3ayB0byBnZXQgdGhlCj4gPiA+IGFsbG9jYXRlZCBtZW1vcnkgaW4gc3BlY2lmaWVkIG5vZGUu
+Cj4gPiA+Cj4gPiA+ICAgIyBudW1hY3RsIC1ICj4gPiA+ICAgYXZhaWxhYmxlOiAyIG5vZGVzICgw
+LDgpCj4gPiA+ICAgbm9kZSAwIGNwdXM6IDAgMSAyIDMgNCA1IDYgNyA4IDkgMTAgMTEgMTIgMTMg
+MTQgMTUgMTYgMTcgMTgKPiA+ID4gICAgICAgICAgICAgICAgMTkgMjAgMjEgMjIgMjMgMjQgMjUg
+MjYgMjcgMjggMjkgMzAgMzEgMzIgMzMgMzQKPiA+ID4gICAgICAgICAgICAgICAgMzUgMzYgMzcg
+MzggMzkgNDAgNDEgNDIgNDMgNDQgNDUgNDYgNDcgNDggNDkgNTAKPiA+ID4gICAgICAgICAgICAg
+ICAgNTEgNTIgNTMgNTQgNTUgNTYgNTcgNTggNTkgNjAgNjEgNjIgNjMKPiA+ID4gICBub2RlIDAg
+c2l6ZTogMjU3NzQxIE1CCj4gPiA+ICAgbm9kZSAwIGZyZWU6IDI1MzE1OCBNQgo+ID4gPiAgIG5v
+ZGUgOCBjcHVzOiA2NCA2NSA2NiA2NyA2OCA2OSA3MCA3MSA3MiA3MyA3NCA3NSA3NiA3NyA3OCA3
+OQo+ID4gPiAgICAgICAgICAgICAgICA4MCA4MSA4MiA4MyA4NCA4NSA4NiA4NyA4OCA4OSA5MCA5
+MSA5MiA5MyA5NCA5NQo+ID4gPiAgICAgICAgICAgICAgICA5NiA5NyA5OCA5OSAxMDAgMTAxIDEw
+MiAxMDMgMTA0IDEwNSAxMDYgMTA3IDEwOAo+ID4gPiAgICAgICAgICAgICAgICAxMDkgMTEwIDEx
+MSAxMTIgMTEzIDExNCAxMTUgMTE2IDExNyAxMTggMTE5IDEyMAo+ID4gPiAgICAgICAgICAgICAg
+ICAxMjEgMTIyIDEyMyAxMjQgMTI1IDEyNiAxMjcKPiA+ID4gICBub2RlIDggc2l6ZTogMjYxNzUy
+IE1CCj4gPiA+ICAgbm9kZSA4IGZyZWU6IDI0MDkzMyBNQgo+ID4gPiAgIG5vZGUgZGlzdGFuY2Vz
+Ogo+ID4gPiAgIG5vZGUgICAwICAgOAo+ID4gPiAgICAgMDogIDEwICA0MAo+ID4gPiAgICAgODog
+IDQwICAxMAo+ID4gPgo+ID4gPiAgICMgbnVtYXN0YXQgLXAgJHBpZAo+ID4gPiAgIFBlci1ub2Rl
+IHByb2Nlc3MgbWVtb3J5IHVzYWdlIChpbiBNQnMpIGZvciBQSUQgMzQxNjggKHN1cHBvcnRfbnVt
+YSkKPiA+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBOb2RlIDAgICAgICAgICAgTm9k
+ZSA4ICAgICAgICAgICBUb3RhbAo+ID4gPiAgICAgICAgICAgICAgICAgICAgIC0tLS0tLS0tLS0t
+LS0tLSAtLS0tLS0tLS0tLS0tLS0gLS0tLS0tLS0tLS0tLS0tCj4gPiA+ICAgSHVnZSAgICAgICAg
+ICAgICAgICAgICAgICAgICAwLjAwICAgICAgICAgICAgMC4wMCAgICAgICAgICAgIDAuMDAKPiA+
+ID4gICBIZWFwICAgICAgICAgICAgICAgICAgICAgICAgIDAuMDAgICAgICAgICAgICAwLjEyICAg
+ICAgICAgICAgMC4xMgo+ID4gPiAgIFN0YWNrICAgICAgICAgICAgICAgICAgICAgICAgMC4wMCAg
+ICAgICAgICAgIDAuMDYgICAgICAgICAgICAwLjA2Cj4gPiA+ICAgUHJpdmF0ZSAgICAgICAgICAg
+ICAgICAgICAgICAxLjYyICAgICAgICAgICAgMS41MCAgICAgICAgICAgIDMuMTIKPiA+ID4gICAt
+LS0tLS0tLS0tLS0tLS0tICAtLS0tLS0tLS0tLS0tLS0gLS0tLS0tLS0tLS0tLS0tIC0tLS0tLS0t
+LS0tLS0tLQo+ID4gPiAgIFRvdGFsICAgICAgICAgICAgICAgICAgICAgICAgMS42MiAgICAgICAg
+ICAgIDEuNjkgICAgICAgICAgICAzLjMxCj4gPiA+Cj4gPiA+IFNpZ25lZC1vZmYtYnk6IExpIFdh
+bmcgPGxpd2FuZ0ByZWRoYXQuY29tPgo+ID4gPiBDYzogQ2h1bnl1IEh1IDxjaHVodUByZWRoYXQu
+Y29tPgo+ID4gPiBDYzogQ3lyaWwgSHJ1YmlzIDxjaHJ1YmlzQHN1c2UuY3o+Cj4gPiA+IC0tLQo+
+ID4gPiAgdGVzdGNhc2VzL2tlcm5lbC9udW1hL251bWEwMS5zaCB8IDI2ICsrKysrKysrKysrKysr
+KysrKysrKystLS0tCj4gPiA+ICAxIGZpbGUgY2hhbmdlZCwgMjIgaW5zZXJ0aW9ucygrKSwgNCBk
+ZWxldGlvbnMoLSkKPiA+ID4KPiA+ID4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvbnVt
+YS9udW1hMDEuc2gKPiA+IGIvdGVzdGNhc2VzL2tlcm5lbC9udW1hL251bWEwMS5zaAo+ID4gPiBp
+bmRleCAzMzM5M2FjOGQuLjdmM2RlZTg0OSAxMDA3NTUKPiA+ID4gLS0tIGEvdGVzdGNhc2VzL2tl
+cm5lbC9udW1hL251bWEwMS5zaAo+ID4gPiArKysgYi90ZXN0Y2FzZXMva2VybmVsL251bWEvbnVt
+YTAxLnNoCj4gPiA+IEBAIC01Miw5ICs1MiwxOCBAQCBUU1RfTkVFRFNfQ01EUz0iYXdrIGJjIG51
+bWFjdGwgbnVtYXN0YXQiCj4gPiA+ICBleHRyYWN0X251bWFzdGF0X3AoKQo+ID4gPiAgewo+ID4g
+PiAgICAgICBsb2NhbCBwaWQ9JDEKPiA+ID4gLSAgICAgbG9jYWwgbm9kZT0kKCgkMiArIDIpKQo+
+ID4gPiAtCj4gPiA+IC0gICAgIGVjaG8gJChudW1hc3RhdCAtcCAkcGlkIHxhd2sgJy9eVG90YWwv
+IHtwcmludCAkJyRub2RlJ30nKQo+ID4gPiArICAgICBsb2NhbCBub2RlPSQyCj4gPiA+ICsKPiA+
+ID4gKyAgICAgZWNobyAkKG51bWFzdGF0IC1wICRwaWQgfCAgICAgICAgICAgICAgIFwKPiA+ID4g
+KyAgICAgICAgICAgICBhd2sgLXYgbm9kZT0kbm9kZSAnL05vZGUvIHsgICAgIFwKPiA+ID4gKyAg
+ICAgICAgICAgICBnc3ViKCJOb2RlIiwgIiIpOyAgICAgICAgICAgICAgIFwKPiA+ID4gKyAgICAg
+ICAgICAgICBmb3IgKGk9MDsgaTxORjsgaSsrKSAgICAgICAgICAgIFwKPiA+ID4gKyAgICAgICAg
+ICAgICAgICAgICAgIGlmICgkaSA9PSBub2RlKSAgICAgICAgIFwKPiA+ID4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgY29sPWkrMTsgICAgICAgIFwKPiA+ID4gKyAgICAgICAgICAgICAg
+ICAgICAgIG5leHQgICAgICAgICAgICAgICAgICAgIFwKPiA+ID4gKyAgICAgICAgICAgICB9ICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwKPiA+ID4gKyAgICAgICAgICAgICAvXlRvdGFs
+LyB7cHJpbnQgJGNvbH0nICAgICAgICAgIFwKPiA+ID4gKyAgICAgKQo+ID4gPiAgfQo+ID4KPiA+
+IElmIHdlIGNhbiB1c2UgZXh0cmFjdF9udW1hc3RhdF9wMCB3aXRoIG5vZGVfaW5kZXggdGhlbiB0
+aGUgZXhpc3RpbmcgY29kZQo+ID4gd29ya3MsIGZvciBleGFtcGxlIGlmIGNhbiBpbmRleCB3aGls
+ZSBpdGVyYXRpbmcgJG5vZGVfbGlzdCBhbmQgdXNlIHRoaXMKPiA+IHdpdGggZXh0cmFjdF9udW1h
+c3RhdF9wMCB0aGVuIGl0IHNob3VsZCB3b3JrLgo+ID4KPiAKPiBIaSBCYWxhLAo+IAo+IFNvcnJ5
+LCBJIGRvbid0IGZ1bGx5IHVuZGVyc3RhbmQgd2hhdCdzIHlvdSBtZWFuIGhlcmUgOiguIENvdWxk
+IHlvdSBleHBsYWluCj4gc29tZXRoaW5nIG1vcmUgZm9yIHRoaXMgbWV0aG9kPwoKaW5zdGVhZCBv
+ZiBjaGFuZ2luZyBgZXh0cmFjdF9udW1hc3RhdF9wMCgpYCBjYW4gZG8gc29tZXRoaW5nIGxpa2Ug
+dGhpcyA/CgpkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9udW1hL251bWEwMS5zaCBiL3Rl
+c3RjYXNlcy9rZXJuZWwvbnVtYS9udW1hMDEuc2gKaW5kZXggMzMzOTNhYzhkLi40N2MxOGVkZDYg
+MTAwNzU1Ci0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvbnVtYS9udW1hMDEuc2gKKysrIGIvdGVzdGNh
+c2VzL2tlcm5lbC9udW1hL251bWEwMS5zaApAQCAtOTQsNiArOTQsNyBAQCBzZXR1cCgpCiB0ZXN0
+MSgpCiB7CiAgICAgICAgTWVtX2N1cnI9MAorICAgICAgIG5vZGVfaW5kZXg9MAogCiAgICAgICAg
+Zm9yIG5vZGUgaW4gJG5vZGVzX2xpc3Q7IGRvCiAgICAgICAgICAgICAgICBudW1hY3RsIC0tY3B1
+bm9kZWJpbmQ9JG5vZGUgLS1tZW1iaW5kPSRub2RlIHN1cHBvcnRfbnVtYSBhbGxvY18xTUIgJgpA
+QCAtMTAxLDcgKzEwMiw4IEBAIHRlc3QxKCkKIAogICAgICAgICAgICAgICAgVFNUX1JFVFJZX0ZV
+TkMgImNoZWNrX2Zvcl9zdXBwb3J0X251bWEgJHBpZCIgMAogCi0gICAgICAgICAgICAgICBNZW1f
+Y3Vycj0kKGVjaG8gIiQoZXh0cmFjdF9udW1hc3RhdF9wICRwaWQgJG5vZGUpICogJE1CIiB8YmMp
+CisgICAgICAgICAgICAgICBNZW1fY3Vycj0kKGVjaG8gIiQoZXh0cmFjdF9udW1hc3RhdF9wICRw
+aWQgJG5vZGVfaW5kZXgpICogJE1CIiB8YmMpCisgICAgICAgICAgICAgICBsZXQgbm9kZV9pbmRl
+eCsrCiAgICAgICAgICAgICAgICBpZiBbICQoZWNobyAiJE1lbV9jdXJyIDwgJE1CIiB8IGJjKSAt
+ZXEgMSBdOyB0aGVuCiAgICAgICAgICAgICAgICAgICAgICAgIHRzdF9yZXMgVEZBSUwgXAogICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICJOVU1BIG1lbW9yeSBhbGxvY2F0ZWQgaW4gbm9k
+ZSRub2RlIGlzIGxlc3MgdGhhbiBleHBlY3RlZCIKCgotLSBCYWxhCgo+IAo+IAo+IAo+ID4KPiA+
+IFRoaXMgaXMganVzdCBteSB0aG91Z2h0cywgcGxlYXNlIGZlZWwgZnJlZSB0byBjb3JyZWN0IG1l
+IGlmIEkgbWlzcyBvcgo+ID4gaXQgaXMgc29tZXRoaW5nIHdyb25nLiBUaGFua3MhCj4gPgo+ID4g
+LS0gQmFsYQo+ID4gPgo+ID4gPiAgY2hlY2tfZm9yX3N1cHBvcnRfbnVtYSgpCj4gPiA+IEBAIC0z
+NjMsNyArMzcyLDE2IEBAIHRlc3Q5KCkKPiA+ID4gICAgICAgICAgICAgICBwaWQ9JCEKPiA+ID4g
+ICAgICAgICAgICAgICBUU1RfUkVUUllfRlVOQyAiY2hlY2tfZm9yX3N1cHBvcnRfbnVtYSAkcGlk
+IiAwCj4gPiA+Cj4gPiA+IC0gICAgICAgICAgICAgTWVtX2h1Z2U9JChlY2hvICQobnVtYXN0YXQg
+LXAgJHBpZCB8YXdrICcvXkh1Z2UvIHtwcmludAo+ID4gJCckKChub2RlKzIpKSd9JykpCj4gPiA+
+ICsgICAgICAgICAgICAgTWVtX2h1Z2U9JChlY2hvICQobnVtYXN0YXQgLXAgJHBpZCB8ICAgIFwK
+PiA+ID4gKyAgICAgICAgICAgICAgICAgICAgIGF3ayAtdiBub2RlPSRub2RlICcvTm9kZS8geyAg
+ICAgXAo+ID4gPiArICAgICAgICAgICAgICAgICAgICAgZ3N1YigiTm9kZSIsICIiKTsgICAgICAg
+ICAgICAgICBcCj4gPiA+ICsgICAgICAgICAgICAgICAgICAgICBmb3IgKGk9MDsgaTxORjsgaSsr
+KSAgICAgICAgICAgIFwKPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKCRp
+ID09IG5vZGUpICAgICAgICAgXAo+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIGNvbD1pKzE7ICAgICAgICBcCj4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIG5leHQgICAgICAgICAgICAgICAgICAgIFwKPiA+ID4gKyAgICAgICAgICAgICAgICAgICAg
+IH0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXAo+ID4gPiArICAgICAgICAgICAgICAg
+ICAgICAgL15IdWdlLyB7cHJpbnQgJGNvbH0nKSAgICAgICAgICBcCj4gPiA+ICsgICAgICAgICAg
+ICAgKQo+ID4gPiAgICAgICAgICAgICAgIE1lbV9odWdlPSQoKCR7TWVtX2h1Z2UlLip9ICogMTAy
+NCkpCj4gPiA+Cj4gPiA+ICAgICAgICAgICAgICAgaWYgWyAiJE1lbV9odWdlIiAtbHQgIiRIUEFH
+RV9TSVpFIiBdOyB0aGVuCj4gPiA+IC0tCj4gPiA+IDIuMjAuMQo+ID4gPgo+ID4gPgo+ID4gPiAt
+LQo+ID4gPiBNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5m
+by9sdHAKPiA+Cj4gPgo+IAo+IC0tIAo+IFJlZ2FyZHMsCj4gTGkgV2FuZwoKCi0tIApNYWlsaW5n
+IGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
