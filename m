@@ -2,67 +2,135 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE5BD1C70E
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 May 2019 12:34:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86B611C710
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 May 2019 12:34:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 995043EA365
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 May 2019 12:34:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5960B3EA313
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 May 2019 12:34:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 76EF5294A6E
- for <ltp@lists.linux.it>; Mon, 13 May 2019 22:13:53 +0200 (CEST)
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
- [IPv6:2607:f8b0:4864:20::62a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 85C22294A6E
+ for <ltp@lists.linux.it>; Mon, 13 May 2019 22:19:30 +0200 (CEST)
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com
+ [67.231.156.173])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 94A161000B31
- for <ltp@lists.linux.it>; Mon, 13 May 2019 22:13:49 +0200 (CEST)
-Received: by mail-pl1-x62a.google.com with SMTP id a5so7006346pls.12
- for <ltp@lists.linux.it>; Mon, 13 May 2019 13:13:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=boi9NL6iSAzONGdXr76d7hDZm3DbVMV/BBfhBy+eMyM=;
- b=qzytrqHk7QCh/U9d0ETDI+K7oPTN3GhrHJ517iEujR4is77IJp32YBwi0iyc5O1RJe
- vNESXeKnm2bzchZwNsFLD8FmNCw7loCoJmhZLBzWwk+2+mpfSh+52BlgM+CNk11uWJBZ
- Ky/XiS52I4wT8latd2iJIv9mOHhoe/PflgTqg0DDzc7oqIQtGTBD7RzS21Ej6KJL8LHI
- phXt5MAfER28l6VQJ8P2VAzYrEZWUSf9MRI3zGrUUkslYPZ5TvCxJqP188nc2ezbmM2G
- IsnasKJq1yqFTzM9MOue8L2RFgcTmVC/iOZp7PUNRC8nu1l4O6maRfjMe65LT+z4+Kbq
- oEmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=boi9NL6iSAzONGdXr76d7hDZm3DbVMV/BBfhBy+eMyM=;
- b=NadeRnoehqV2koagggE5hchl6BuHQmMBW8ztv3UK3hX4Zebt8I8gjdAPpkxsIKjygT
- MRjsaBXJ77tpPtP2Hj7yxfmsXsu54svDibgSBFuZOLHzQULTwhjO+oUNZ1wPDKVF+VA9
- HMUYeVNEPa/BoPL0viXkwBKeqJbf3rxMeyAHXTWK9Xveen0lW2rcT4thbSktaHHM7m0x
- Vx5JZb/RjypArtPjBwjY6rbj6lBgKlM2z82qst5h7ba1vZTA/+Wj4T01eCW43r6kzICT
- TPAxN9VyfAcahvgBGedExWZZBk/YrdaS1KXTN8s0WJzDGgVJ0n+W2MGP7moB6ToEZ2D5
- 9AyQ==
-X-Gm-Message-State: APjAAAWzgda8liNXD/XXxtAHBlmURGHi/2OIym6o8KaCJutVuMdRuJ9W
- sN0e7F2cq+BEAGk07b7+OH9Ep1fGmIjrcBPZ19A=
-X-Google-Smtp-Source: APXvYqxHMpNg7SQWZb67+kg1AXSqM4Ax1NS8i5mu0NhvE4EeMpMiv6wjhS3S3385eP0HeFCQj93U5BocjkvJkIChXz4=
-X-Received: by 2002:a17:902:2beb:: with SMTP id
- l98mr31528634plb.290.1557778430736; 
- Mon, 13 May 2019 13:13:50 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 82FCD1400C6B
+ for <ltp@lists.linux.it>; Mon, 13 May 2019 22:19:28 +0200 (CEST)
+Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
+ by mx0b-0016f401.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x4DKADuB012076; Mon, 13 May 2019 13:16:53 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com;
+ h=from : to : cc :
+ subject : date : message-id : references : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=pfpt0818;
+ bh=8FSlz0GjC3PdOKK/ewJnq9q1qVk9z6fQdSQDgDPLZOs=;
+ b=v8h8SgiZTm2Mrf3UKe715rKamNihd4Ywk9LCgclviNg51vqDvK8/3RvWaC5xJq+FRnyJ
+ VlqRytZQWSER0seoEEL3JJD9lpESnkfSKDRe2nQuJIx0PM7wVgmeh9JiSRUcerIss9TM
+ +wOxxxMGugafn9Am/EVOMhDTDnOQMTxgtVE2Oy8tIx3lyJTtuvEj8OPoxKJbgrPQU1uY
+ l7xm5n/tUP6amIn1e+ILLBU96cT0FYJC9wJ2Jr8UCq1nYp9d4jZd3WdMakJmbzirH5/g
+ 8SoY4yb7Dg39sBTj6an/Of82bbjH88cGICYQHOl3ITxmVKklZL1xCsZ1CgHwpMcJ/vk3 7Q== 
+Received: from sc-exch02.marvell.com ([199.233.58.182])
+ by mx0b-0016f401.pphosted.com with ESMTP id 2sf9xchp6t-11
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
+ Mon, 13 May 2019 13:16:52 -0700
+Received: from SC-EXCH02.marvell.com (10.93.176.82) by SC-EXCH02.marvell.com
+ (10.93.176.82) with Microsoft SMTP Server (TLS) id 15.0.1367.3; Mon, 13 May
+ 2019 13:16:22 -0700
+Received: from NAM05-CO1-obe.outbound.protection.outlook.com (104.47.48.53) by
+ SC-EXCH02.marvell.com (10.93.176.82) with Microsoft SMTP Server
+ (TLS) id
+ 15.0.1367.3 via Frontend Transport; Mon, 13 May 2019 13:16:22 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=marvell.onmicrosoft.com; s=selector1-marvell-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8FSlz0GjC3PdOKK/ewJnq9q1qVk9z6fQdSQDgDPLZOs=;
+ b=dks3mxVUhOA91QILnn063NP916tvQ50FO0HuSlFouxKiM2NmHe7/J61cDuzv86U7wkwlelrnvjMwDWsUX1IDt6L0iNX5Na+Irjq3DZhlvQF+7dyI92gtqo9kCjQBhuOQidaPvHhQhrT4ciRIFbufee94Py6FAGmZEH68TyVdL5w=
+Received: from MN2PR18MB3086.namprd18.prod.outlook.com (20.179.21.74) by
+ MN2PR18MB3328.namprd18.prod.outlook.com (10.255.238.17) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1878.21; Mon, 13 May 2019 20:16:18 +0000
+Received: from MN2PR18MB3086.namprd18.prod.outlook.com
+ ([fe80::9407:14a6:29bf:d683]) by MN2PR18MB3086.namprd18.prod.outlook.com
+ ([fe80::9407:14a6:29bf:d683%7]) with mapi id 15.20.1878.024; Mon, 13 May 2019
+ 20:16:18 +0000
+From: Yuri Norov <ynorov@marvell.com>
+To: Andreas Schwab <schwab@suse.de>, Yury Norov <yury.norov@gmail.com>,
+ "ltp@lists.linux.it" <ltp@lists.linux.it>
+Thread-Topic: [EXT] Re: [PATCH v9 00/24] ILP32 for ARM64
+Thread-Index: AQHUhpjH9to/8IYtJ0GO80mU13Jv5KZi1g0AgAbuLc2AAL0yKQ==
+Date: Mon, 13 May 2019 20:16:17 +0000
+Message-ID: <MN2PR18MB30865B950D85C6463EB0E1D4CB0F0@MN2PR18MB3086.namprd18.prod.outlook.com>
+References: <20180516081910.10067-1-ynorov@caviumnetworks.com>
+ <20190508225900.GA14091@yury-thinkpad>,<mvmtvdyoi33.fsf@suse.de>
+In-Reply-To: <mvmtvdyoi33.fsf@suse.de>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [2601:640:9:8937:19d3:11c4:475e:3daa]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: d63a7e5a-30b5-4c72-6c2e-08d6d7dfdb8f
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600141)(711020)(4605104)(2017052603328)(7193020);
+ SRVR:MN2PR18MB3328; 
+x-ms-traffictypediagnostic: MN2PR18MB3328:
+x-microsoft-antispam-prvs: <MN2PR18MB332863E675D3AFB0F5BEF1F1CB0F0@MN2PR18MB3328.namprd18.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:826;
+x-forefront-prvs: 0036736630
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(396003)(376002)(366004)(136003)(39860400002)(346002)(199004)(189003)(55016002)(25786009)(9686003)(6246003)(316002)(64756008)(66556008)(66476007)(6116002)(66946007)(66446008)(76176011)(2501003)(7736002)(86362001)(73956011)(186003)(2906002)(476003)(76116006)(486006)(11346002)(4326008)(52536014)(446003)(46003)(229853002)(305945005)(99286004)(5660300002)(8936002)(68736007)(33656002)(8676002)(74316002)(6506007)(53936002)(4744005)(81166006)(7406005)(7416002)(7696005)(81156014)(6436002)(71200400001)(478600001)(102836004)(71190400001)(14454004)(54906003)(110136005)(14444005)(256004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR18MB3328;
+ H:MN2PR18MB3086.namprd18.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: marvell.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: 0BNA/4lGkwI/JlW9pnyosBaPDm721604g/Nf3FAJ0B/ROE9Hupn8TalOe1n6tAYKBDim/zKvwaubRL4labxcw8SscgAKrkz3NAY9IT8pwPQqCdoIhfvxdC+p0d7UMmZonRhz5O8qSt1NR37x5d6Q8ksZX5WcNMnR+FBN4iTbjqkO6PhExPk0DpVNmBzaE5FftIenOPUYMIbxzHe+bvHEQgZxHBjiHME+aFmfMpdmjDJ7+3xkWh51b+veSpXfSdLSW14XLPVYo20s6/c9dCbye7Yi/6xmMC76lhS2Vcnth7hRgBiwxiFiiWt3eswxlQ7+vdjDsya1CQjzCICCMUDKcv5hH32IXVRrkcJSS5MlhwGHZQiizlXIjUtGK7HABrJhnjUva8d8aP1ahEBGQ5CFagk/HuznHKSSaQ/sGRRSgHg=
 MIME-Version: 1.0
-References: <20190510043845.4977-1-xzhou@redhat.com>
- <20190513143413.GA4568@dell5510>
-In-Reply-To: <20190513143413.GA4568@dell5510>
-From: Steve French <smfrench@gmail.com>
-Date: Mon, 13 May 2019 15:13:39 -0500
-Message-ID: <CAH2r5mvSS4crgid-srKr+hycN=uW-vPLGhF81RvA6UBP2T7K4A@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-MS-Exchange-CrossTenant-Network-Message-Id: d63a7e5a-30b5-4c72-6c2e-08d6d7dfdb8f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 May 2019 20:16:17.9821 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 70e1fb47-1155-421d-87fc-2e58f638b6e0
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR18MB3328
+X-OriginatorOrg: marvell.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-05-13_12:, , signatures=0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+ DKIM_VALID_AU,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
 X-Mailman-Approved-At: Tue, 14 May 2019 12:34:01 +0200
-Cc: CIFS <linux-cifs@vger.kernel.org>, ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH] safe_setuid: skip if testing on CIFS
+Cc: "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ Szabolcs Nagy <szabolcs.nagy@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Heiko Carstens <heiko.carstens@de.ibm.com>, Philipp
+ Tomsich <philipp.tomsich@theobroma-systems.com>,
+ Joseph Myers <joseph@codesourcery.com>,
+ "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
+ Steve Ellcey <sellcey@caviumnetworks.com>,
+ Prasun Kapoor <Prasun.Kapoor@caviumnetworks.com>, Alexander
+ Graf <agraf@suse.de>, Bamvor Zhangjian <bamv2005@gmail.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Dave Martin <Dave.Martin@arm.com>,
+ Adam Borowski <kilobyte@angband.pl>, Manuel
+ Montezelo <manuel.montezelo@gmail.com>, James Hogan <james.hogan@imgtec.com>,
+ Chris Metcalf <cmetcalf@mellanox.com>, Arnd Bergmann <arnd@arndb.de>,
+ Andrew Pinski <pinskia@gmail.com>, Lin Yongting <linyongting@huawei.com>,
+ Alexey Klimov <klimov.linux@gmail.com>, Mark Brown <broonie@kernel.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Maxim Kuvyrkov <maxim.kuvyrkov@linaro.org>, Florian
+ Weimer <fweimer@redhat.com>,
+ "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
+ Nathan_Lynch <Nathan_Lynch@mentor.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Ramana Radhakrishnan <ramana.gcc@googlemail.com>,
+ Martin Schwidefsky <schwidefsky@de.ibm.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Christoph Muellner <christoph.muellner@theobroma-systems.com>
+Subject: Re: [LTP] [EXT] Re: [PATCH v9 00/24] ILP32 for ARM64
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -79,34 +147,14 @@ Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-QWxzbyBub3RlIHRoYXQgd2UgYXJlIHdvcmtpbmcgb24gcGF0Y2hlcyB0byBpbXByb3ZlIHNhdmlu
-ZyBvZiBtb2RlCmJpdHMgYW5kIG93bmVyc2hpcCBpbmZvcm1hdGlvbiBldmVuIGluIGNhc2VzIHdo
-ZXJlIHRoZSBzZXJ2ZXIgZG9lcyBub3QKc3VwcG9ydCBQT1NJWCBFeHRlbnNpb25zLgoKQ3VycmVu
-dGx5IG1vdW50IG9wdGlvbnMgY2lmc2FjbCBhbmQgaWRzZnJvbXNpZCBjYW4gYmUgdXNlZCBmb3Ig
-c29tZQp1c2UgY2FzZXMgYnV0IHRoZXkgYXJlIGJlaW5nIGV4dGVuZGVkLgoKT24gTW9uLCBNYXkg
-MTMsIDIwMTkgYXQgMTE6MDQgQU0gUGV0ciBWb3JlbCA8cHZvcmVsQHN1c2UuY3o+IHdyb3RlOgo+
-Cj4gSGkgTXVycGh5LAo+Cj4gPiBBcyBDSUZTIGlzIG5vdCBzdXBwb3J0aW5nIHNldHVpZCBvcGVy
-YXRpb25zLgo+IEFueSByZWZlcmVuY2UgdG8gdGhpcz8KPiBmcy9jaWZzL2NpZnNmcy5jIGFuZCBv
-dGhlciBwYXJ0cyBvZiBrZXJuZWwgY2lmcyB3b3JrcyB3aXRoIENJRlNfTU9VTlRfU0VUX1VJRC4K
-PiBBbHNvIHNhbWJhX3NldHJldWlkKCkgZnJvbSBsaWIvdXRpbC9zZXRpZC5jIGZyb20gc2FtYmEg
-Z2l0IChJIGd1ZXNzIHVzZWQgaW4KPiBzYW1iYSBsaWJyYXJpZXMgd29ya3Mgd2l0aCBTWVNfc2V0
-cmV1aWQgc3lzY2FsbCBvciBzZXRyZXVpZCgpIGxpYmMgd3JhcHBlci4KPiBXaGF0IGFtIEkgbWlz
-c2luZz8KPgo+ID4gZGlmZiAtLWdpdCBhL2xpYi90c3Rfc2FmZV9tYWNyb3MuYyBiL2xpYi90c3Rf
-c2FmZV9tYWNyb3MuYwo+ID4gaW5kZXggMGU1OWEzZjk4Li4zNjk0MWVjMGIgMTAwNjQ0Cj4gPiAt
-LS0gYS9saWIvdHN0X3NhZmVfbWFjcm9zLmMKPiA+ICsrKyBiL2xpYi90c3Rfc2FmZV9tYWNyb3Mu
-Ywo+ID4gQEAgLTExMSw2ICsxMTEsNyBAQCBpbnQgc2FmZV9zZXRyZXVpZChjb25zdCBjaGFyICpm
-aWxlLCBjb25zdCBpbnQgbGluZW5vLAo+ID4gICAgICAgICAgICAgICAgIHVpZF90IHJ1aWQsIHVp
-ZF90IGV1aWQpCj4gPiAgewo+ID4gICAgICAgaW50IHJ2YWw7Cj4gPiArICAgICBsb25nIGZzX3R5
-cGU7Cj4KPiA+ICAgICAgIHJ2YWwgPSBzZXRyZXVpZChydWlkLCBldWlkKTsKPiA+ICAgICAgIGlm
-IChydmFsID09IC0xKSB7Cj4gPiBAQCAtMTE5LDYgKzEyMCwxMyBAQCBpbnQgc2FmZV9zZXRyZXVp
-ZChjb25zdCBjaGFyICpmaWxlLCBjb25zdCBpbnQgbGluZW5vLAo+ID4gICAgICAgICAgICAgICAg
-ICAgICAgICAobG9uZylydWlkLCAobG9uZylldWlkKTsKPiA+ICAgICAgIH0KPgo+ID4gKyAgICAg
-ZnNfdHlwZSA9IHRzdF9mc190eXBlKCIuIik7Cj4gPiArICAgICBpZiAoZnNfdHlwZSA9PSBUU1Rf
-Q0lGU19NQUdJQykgewo+ID4gKyAgICAgICAgICAgICB0c3RfYnJrXyhmaWxlLCBsaW5lbm8sIFRD
-T05GLAo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAic2V0cmV1aWQgaXMgbm90IHN1cHBvcnRl
-ZCBvbiAlcyBmaWxlc3lzdGVtIiwKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgdHN0X2ZzX3R5
-cGVfbmFtZShmc190eXBlKSk7Cj4gPiArICAgICB9Cj4gSSBndWVzcyB0aGlzIGNoZWNrIHNob3Vs
-ZCBiZSBiZWZvcmUgc2V0cmV1aWQoKSBBcyBpdCdzIGluIHNhZmVfc2V0ZXVpZCgpIGFuZAo+IHNh
-ZmVfc2V0dWlkKCkKPiA+ICsKPiA+ICAgICAgIHJldHVybiBydmFsOwo+ID4gIH0KPgo+IEtpbmQg
-cmVnYXJkcywKPiBQZXRyCgoKCi0tIApUaGFua3MsCgpTdGV2ZQoKLS0gCk1haWxpbmcgbGlzdCBp
-bmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+KyBsdHBAbGlzdHMubGludXguaXQKCj4gVGhlcmUgaXMgYSBwcm9ibGVtIHdpdGggdGhlIHN0YWNr
+IHNpemUgYWNjb3VudGluZyBkdXJpbmcgZXhlY3ZlIHdoZW4KPiB0aGVyZSBpcyBubyBzdGFjayBs
+aW1pdDoKPgo+ICQgdWxpbWl0IC1zCj4gODE5Mgo+ICQgLi9oZWxsby5pbHAzMiAKPiBIZWxsbyBX
+b3JsZCEKPiAkIHVsaW1pdCAtcyB1bmxpbWl0ZWQKPiAkIC4vaGVsbG8uaWxwMzIgCj4gU2VnbWVu
+dGF0aW9uIGZhdWx0Cj4gJCBzdHJhY2UgLi9oZWxsby5pbHAzMiAKPiBleGVjdmUoIi4vaGVsbG8u
+aWxwMzIiLCBbIi4vaGVsbG8uaWxwMzIiXSwgMHhmZmZmZjEwNTQ4ZjAgLyogNzcgdmFycyAqLykg
+PSAtMSBFTk9NRU0gKENhbm5vdCBhbGxvY2F0ZSBtZW1vcnkpCj4gKysrIGtpbGxlZCBieSBTSUdT
+RUdWICsrKwo+IFNlZ21lbnRhdGlvbiBmYXVsdCAoY29yZSBkdW1wZWQpCj4KPiBBbmRyZWFzLgoK
+VGhhbmtzIEFuZHJlYXMsIEkgd2lsbCB0YWtlIGEgbG9vay4gRG8gd2UgaGF2ZSBzdWNoIHRlc3Qg
+aW4gTFRQPwogICAgCll1cnkKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5s
+aW51eC5pdC9saXN0aW5mby9sdHAK
