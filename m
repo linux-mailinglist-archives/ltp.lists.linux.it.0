@@ -2,135 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86B611C710
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 May 2019 12:34:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18E871C1C9
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 May 2019 07:25:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5960B3EA313
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 May 2019 12:34:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CB04E294AC4
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 May 2019 07:25:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 85C22294A6E
- for <ltp@lists.linux.it>; Mon, 13 May 2019 22:19:30 +0200 (CEST)
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com
- [67.231.156.173])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 82FCD1400C6B
- for <ltp@lists.linux.it>; Mon, 13 May 2019 22:19:28 +0200 (CEST)
-Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
- by mx0b-0016f401.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x4DKADuB012076; Mon, 13 May 2019 13:16:53 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com;
- h=from : to : cc :
- subject : date : message-id : references : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=pfpt0818;
- bh=8FSlz0GjC3PdOKK/ewJnq9q1qVk9z6fQdSQDgDPLZOs=;
- b=v8h8SgiZTm2Mrf3UKe715rKamNihd4Ywk9LCgclviNg51vqDvK8/3RvWaC5xJq+FRnyJ
- VlqRytZQWSER0seoEEL3JJD9lpESnkfSKDRe2nQuJIx0PM7wVgmeh9JiSRUcerIss9TM
- +wOxxxMGugafn9Am/EVOMhDTDnOQMTxgtVE2Oy8tIx3lyJTtuvEj8OPoxKJbgrPQU1uY
- l7xm5n/tUP6amIn1e+ILLBU96cT0FYJC9wJ2Jr8UCq1nYp9d4jZd3WdMakJmbzirH5/g
- 8SoY4yb7Dg39sBTj6an/Of82bbjH88cGICYQHOl3ITxmVKklZL1xCsZ1CgHwpMcJ/vk3 7Q== 
-Received: from sc-exch02.marvell.com ([199.233.58.182])
- by mx0b-0016f401.pphosted.com with ESMTP id 2sf9xchp6t-11
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
- Mon, 13 May 2019 13:16:52 -0700
-Received: from SC-EXCH02.marvell.com (10.93.176.82) by SC-EXCH02.marvell.com
- (10.93.176.82) with Microsoft SMTP Server (TLS) id 15.0.1367.3; Mon, 13 May
- 2019 13:16:22 -0700
-Received: from NAM05-CO1-obe.outbound.protection.outlook.com (104.47.48.53) by
- SC-EXCH02.marvell.com (10.93.176.82) with Microsoft SMTP Server
- (TLS) id
- 15.0.1367.3 via Frontend Transport; Mon, 13 May 2019 13:16:22 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marvell.onmicrosoft.com; s=selector1-marvell-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8FSlz0GjC3PdOKK/ewJnq9q1qVk9z6fQdSQDgDPLZOs=;
- b=dks3mxVUhOA91QILnn063NP916tvQ50FO0HuSlFouxKiM2NmHe7/J61cDuzv86U7wkwlelrnvjMwDWsUX1IDt6L0iNX5Na+Irjq3DZhlvQF+7dyI92gtqo9kCjQBhuOQidaPvHhQhrT4ciRIFbufee94Py6FAGmZEH68TyVdL5w=
-Received: from MN2PR18MB3086.namprd18.prod.outlook.com (20.179.21.74) by
- MN2PR18MB3328.namprd18.prod.outlook.com (10.255.238.17) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1878.21; Mon, 13 May 2019 20:16:18 +0000
-Received: from MN2PR18MB3086.namprd18.prod.outlook.com
- ([fe80::9407:14a6:29bf:d683]) by MN2PR18MB3086.namprd18.prod.outlook.com
- ([fe80::9407:14a6:29bf:d683%7]) with mapi id 15.20.1878.024; Mon, 13 May 2019
- 20:16:18 +0000
-From: Yuri Norov <ynorov@marvell.com>
-To: Andreas Schwab <schwab@suse.de>, Yury Norov <yury.norov@gmail.com>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
-Thread-Topic: [EXT] Re: [PATCH v9 00/24] ILP32 for ARM64
-Thread-Index: AQHUhpjH9to/8IYtJ0GO80mU13Jv5KZi1g0AgAbuLc2AAL0yKQ==
-Date: Mon, 13 May 2019 20:16:17 +0000
-Message-ID: <MN2PR18MB30865B950D85C6463EB0E1D4CB0F0@MN2PR18MB3086.namprd18.prod.outlook.com>
-References: <20180516081910.10067-1-ynorov@caviumnetworks.com>
- <20190508225900.GA14091@yury-thinkpad>,<mvmtvdyoi33.fsf@suse.de>
-In-Reply-To: <mvmtvdyoi33.fsf@suse.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2601:640:9:8937:19d3:11c4:475e:3daa]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: d63a7e5a-30b5-4c72-6c2e-08d6d7dfdb8f
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600141)(711020)(4605104)(2017052603328)(7193020);
- SRVR:MN2PR18MB3328; 
-x-ms-traffictypediagnostic: MN2PR18MB3328:
-x-microsoft-antispam-prvs: <MN2PR18MB332863E675D3AFB0F5BEF1F1CB0F0@MN2PR18MB3328.namprd18.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:826;
-x-forefront-prvs: 0036736630
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(396003)(376002)(366004)(136003)(39860400002)(346002)(199004)(189003)(55016002)(25786009)(9686003)(6246003)(316002)(64756008)(66556008)(66476007)(6116002)(66946007)(66446008)(76176011)(2501003)(7736002)(86362001)(73956011)(186003)(2906002)(476003)(76116006)(486006)(11346002)(4326008)(52536014)(446003)(46003)(229853002)(305945005)(99286004)(5660300002)(8936002)(68736007)(33656002)(8676002)(74316002)(6506007)(53936002)(4744005)(81166006)(7406005)(7416002)(7696005)(81156014)(6436002)(71200400001)(478600001)(102836004)(71190400001)(14454004)(54906003)(110136005)(14444005)(256004);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR18MB3328;
- H:MN2PR18MB3086.namprd18.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: marvell.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: 0BNA/4lGkwI/JlW9pnyosBaPDm721604g/Nf3FAJ0B/ROE9Hupn8TalOe1n6tAYKBDim/zKvwaubRL4labxcw8SscgAKrkz3NAY9IT8pwPQqCdoIhfvxdC+p0d7UMmZonRhz5O8qSt1NR37x5d6Q8ksZX5WcNMnR+FBN4iTbjqkO6PhExPk0DpVNmBzaE5FftIenOPUYMIbxzHe+bvHEQgZxHBjiHME+aFmfMpdmjDJ7+3xkWh51b+veSpXfSdLSW14XLPVYo20s6/c9dCbye7Yi/6xmMC76lhS2Vcnth7hRgBiwxiFiiWt3eswxlQ7+vdjDsya1CQjzCICCMUDKcv5hH32IXVRrkcJSS5MlhwGHZQiizlXIjUtGK7HABrJhnjUva8d8aP1ahEBGQ5CFagk/HuznHKSSaQ/sGRRSgHg=
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id CE576294AA6
+ for <ltp@lists.linux.it>; Tue, 14 May 2019 07:25:00 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 072112010AE
+ for <ltp@lists.linux.it>; Tue, 14 May 2019 07:24:58 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.60,467,1549900800"; d="scan'208";a="62920857"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 14 May 2019 13:24:55 +0800
+Received: from G08CNEXCHPEKD03.g08.fujitsu.local (unknown [10.167.33.85])
+ by cn.fujitsu.com (Postfix) with ESMTP id EBDDD4CDFAD4;
+ Tue, 14 May 2019 13:24:54 +0800 (CST)
+Received: from [10.167.215.30] (10.167.215.30) by
+ G08CNEXCHPEKD03.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ id 14.3.439.0; Tue, 14 May 2019 13:24:57 +0800
+Message-ID: <5CDA5124.3070708@cn.fujitsu.com>
+Date: Tue, 14 May 2019 13:24:52 +0800
+From: xuyang <xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: d63a7e5a-30b5-4c72-6c2e-08d6d7dfdb8f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 May 2019 20:16:17.9821 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 70e1fb47-1155-421d-87fc-2e58f638b6e0
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR18MB3328
-X-OriginatorOrg: marvell.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-05-13_12:, , signatures=0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+To: Petr Vorel <pvorel@suse.cz>
+References: <1557732392-7049-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20190513131451.GA22761@dell5510>
+In-Reply-To: <20190513131451.GA22761@dell5510>
+X-Originating-IP: [10.167.215.30]
+X-yoursite-MailScanner-ID: EBDDD4CDFAD4.A231C
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=none autolearn=disabled
+ version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-X-Mailman-Approved-At: Tue, 14 May 2019 12:34:01 +0200
-Cc: "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- Szabolcs Nagy <szabolcs.nagy@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Heiko Carstens <heiko.carstens@de.ibm.com>, Philipp
- Tomsich <philipp.tomsich@theobroma-systems.com>,
- Joseph Myers <joseph@codesourcery.com>,
- "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
- Steve Ellcey <sellcey@caviumnetworks.com>,
- Prasun Kapoor <Prasun.Kapoor@caviumnetworks.com>, Alexander
- Graf <agraf@suse.de>, Bamvor Zhangjian <bamv2005@gmail.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Dave Martin <Dave.Martin@arm.com>,
- Adam Borowski <kilobyte@angband.pl>, Manuel
- Montezelo <manuel.montezelo@gmail.com>, James Hogan <james.hogan@imgtec.com>,
- Chris Metcalf <cmetcalf@mellanox.com>, Arnd Bergmann <arnd@arndb.de>,
- Andrew Pinski <pinskia@gmail.com>, Lin Yongting <linyongting@huawei.com>,
- Alexey Klimov <klimov.linux@gmail.com>, Mark Brown <broonie@kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Maxim Kuvyrkov <maxim.kuvyrkov@linaro.org>, Florian
- Weimer <fweimer@redhat.com>,
- "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
- Nathan_Lynch <Nathan_Lynch@mentor.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Ramana Radhakrishnan <ramana.gcc@googlemail.com>,
- Martin Schwidefsky <schwidefsky@de.ibm.com>,
- "David S . Miller" <davem@davemloft.net>,
- Christoph Muellner <christoph.muellner@theobroma-systems.com>
-Subject: Re: [LTP] [EXT] Re: [PATCH v9 00/24] ILP32 for ARM64
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Cc: ltp@lists.linux.it
+Subject: Re: [LTP] [PATCH] ltp-cap.m4: add libcap version detection && fix
+ compiler error
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -142,19 +57,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-KyBsdHBAbGlzdHMubGludXguaXQKCj4gVGhlcmUgaXMgYSBwcm9ibGVtIHdpdGggdGhlIHN0YWNr
-IHNpemUgYWNjb3VudGluZyBkdXJpbmcgZXhlY3ZlIHdoZW4KPiB0aGVyZSBpcyBubyBzdGFjayBs
-aW1pdDoKPgo+ICQgdWxpbWl0IC1zCj4gODE5Mgo+ICQgLi9oZWxsby5pbHAzMiAKPiBIZWxsbyBX
-b3JsZCEKPiAkIHVsaW1pdCAtcyB1bmxpbWl0ZWQKPiAkIC4vaGVsbG8uaWxwMzIgCj4gU2VnbWVu
-dGF0aW9uIGZhdWx0Cj4gJCBzdHJhY2UgLi9oZWxsby5pbHAzMiAKPiBleGVjdmUoIi4vaGVsbG8u
-aWxwMzIiLCBbIi4vaGVsbG8uaWxwMzIiXSwgMHhmZmZmZjEwNTQ4ZjAgLyogNzcgdmFycyAqLykg
-PSAtMSBFTk9NRU0gKENhbm5vdCBhbGxvY2F0ZSBtZW1vcnkpCj4gKysrIGtpbGxlZCBieSBTSUdT
-RUdWICsrKwo+IFNlZ21lbnRhdGlvbiBmYXVsdCAoY29yZSBkdW1wZWQpCj4KPiBBbmRyZWFzLgoK
-VGhhbmtzIEFuZHJlYXMsIEkgd2lsbCB0YWtlIGEgbG9vay4gRG8gd2UgaGF2ZSBzdWNoIHRlc3Qg
-aW4gTFRQPwogICAgCll1cnkKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5s
-aW51eC5pdC9saXN0aW5mby9sdHAK
+b24gMjAxOS8wNS8xMyAyMToxNCwgUGV0ciBWb3JlbCB3cm90ZToKCj4gSGkgWWFuZywKPgo+Cj4+
+IEN1cnJlbnQgbHRwLWNhcC5tNCBkZWZpbmVzIGNhcF9saWJzIHdoZW4gbGliY2FwIGhhcwo+PiBj
+YXBfY29tcGFyZSBmdW5jdGlvbi4gIFRoaXMgZnVuY3Rpb24gd2FzIGludHJvZHVjZWQgYnkKPj4g
+bGliY2FwLTIuIEl0IGlzIG9ubHkgdXNlZCBmb3IgdGhlIHR3byBwbGFjZXMsIGFuZCBhbm90aGVy
+Cj4+IHBsYWNlcyB3b3JrIGZpbmVzIHdpdGggbGliY2FwLTEuIFNvIGFkZCBsaWJjYXAgdmVyc2lv
+bgo+PiBkZXRlY3Rpb24uCj4gQ2FuJ3Qgd2UganVzdCBmaXggdGhlc2UgcG9zc2libGUgY29tcGls
+ZXIgZXJyb3JzIGZvciBvbGQgZGlzdHJvcyBhbmQgcmVxdWlyZQo+IGxpYmNhcCB2Mj8gIFRDT05G
+IGZvciB2ZXJ5IG9sZCBkaXN0cm9zIGxvb2tzIE9LIGZvciBtZS4KPiBsaWJjYXAtMi4wMCB3YXMg
+cmVsZWFzZWQgMTIgeWVhcnMgYWdvICgyMDA3KSwgdGhlc2UgZGlzdHJvcyBkb2VzIG5vdCBoYXZl
+IGl0Ogo+IFNMRVMgMTAgU1AzIFsxXSwgUkhFTC00LjggWzJdLCBEZWJpYW4gNC4wIFszXS4gRG8g
+d2UgcmVhbGx5IHdhbnQgdG8gY2FyZSBhYm91dAo+IHRoZXNlIG9sZCBkaXN0cm9zIChpdCBsb29r
+cyBsaWtlIG9ubHkgUkhFTCBpcyBzdXBwb3J0ZWQpPwo+IFdlIGFsc28gZHJvcHBlZCBsaWJudW1h
+IHYxIHN1cHBvcnQgKGluIDJjOThjYmJhZiksIHYyIHdhcyByZWxlYXNlZCBhdCBzaW1pbGFyCj4g
+ZGF0ZSAoMjAwOCkuCkhpIFBldGVyCgogICBJIHNlbnQgYSBtYWlsIHRvIHlvdSBsYXN0IEZyaWRh
+eSBtZW50aW9uZWQgdGhpcyBwcm9ibGVtLiBBdCB0aGUgYmVnaW5uaW5nLCBJCiAgIHRoaW5rIGl0
+IG1ha2VzIG5vIHNlbnNlIGJlY2F1c2UgbGliY2FwLTEgaXMgdG9vIG9sZC4gIEJ1dCBJIG5vdGlj
+ZXMgdGhhdCBsdHAtcXVvdGEubTQKICAgaGFzIHF1b3RhX3YxIGFuZCBxdW90YV92Mi4gSSBjaGFu
+Z2VzIG15IG1pbmQuCgogICBTaW5jZSB3ZSBoYXZlIGRyb3AgbGlibnVtYSB2MSwgSSBhZ3JlZSB3
+aXRoIHlvdSB0aGF0IHdlIGFsc28gZHJvcCBsaWJjYXAgdjEodG9vIG9sZCkuCiAgIEFsc28sIEkg
+dGhpbmsgd2Ugc2hvdWxkIGRyb3AgcXVvdGFfdjEgYmVjYXVzZSBpdCBpcyB0b28gb2xkIChzaW5j
+ZSBMaW51eCAyLjQuMjIsIFFfR0VUSU5GTyBoYXMKICAgYmVlbiBzdXBwb3J0ZWQgaW4ga2VybmVs
+KS4KCktpbmQgUmVnYXJkcywKWWFuZyBYdQoKPiBLaW5kIHJlZ2FyZHMsCj4gUGV0cgo+Cj4gWzFd
+IGh0dHBzOi8vZGlzdHJvd2F0Y2guY29tL3RhYmxlLnBocD9kaXN0cmlidXRpb249c2xlJnBrZ2xp
+c3Q9dHJ1ZSZ2ZXJzaW9uPTEwLXNwMyNwa2dsaXN0Cj4gWzJdIGh0dHBzOi8vZGlzdHJvd2F0Y2gu
+Y29tL3RhYmxlLnBocD9kaXN0cmlidXRpb249cmVkaGF0JnBrZ2xpc3Q9dHJ1ZSZ2ZXJzaW9uPXJo
+ZWwtNC44I3BrZ2xpc3QKPiBbM10gaHR0cHM6Ly9kaXN0cm93YXRjaC5jb20vdGFibGUucGhwP2Rp
+c3RyaWJ1dGlvbj1kZWJpYW4mcGtnbGlzdD10cnVlJnZlcnNpb249NC4wI3BrZ2xpc3QKPgo+CgoK
+CgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8v
+bHRwCg==
