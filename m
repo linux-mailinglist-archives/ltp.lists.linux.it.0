@@ -1,48 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27E91203DB
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 May 2019 12:47:27 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D1E62041E
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 May 2019 13:09:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F0F643EA367
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 May 2019 12:47:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4F7503EA33E
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 May 2019 13:09:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id D6BFB3EA0B7
- for <ltp@lists.linux.it>; Thu, 16 May 2019 12:47:24 +0200 (CEST)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id DA1A83EA2E0
+ for <ltp@lists.linux.it>; Thu, 16 May 2019 13:09:51 +0200 (CEST)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 4CEB61000DF4
- for <ltp@lists.linux.it>; Thu, 16 May 2019 12:47:18 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.60,476,1549900800"; d="scan'208,223";a="63325693"
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 821461A01CD1
+ for <ltp@lists.linux.it>; Thu, 16 May 2019 13:09:48 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.60,476,1549900800"; d="scan'208,217";a="63327793"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 16 May 2019 18:47:18 +0800
+ by heian.cn.fujitsu.com with ESMTP; 16 May 2019 19:09:46 +0800
 Received: from G08CNEXCHPEKD03.g08.fujitsu.local (unknown [10.167.33.85])
- by cn.fujitsu.com (Postfix) with ESMTP id B8C994CDAD75;
- Thu, 16 May 2019 18:47:18 +0800 (CST)
+ by cn.fujitsu.com (Postfix) with ESMTP id 99FAA46BA6C2;
+ Thu, 16 May 2019 19:09:44 +0800 (CST)
 Received: from [10.167.215.30] (10.167.215.30) by
  G08CNEXCHPEKD03.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- id 14.3.439.0; Thu, 16 May 2019 18:47:17 +0800
-Message-ID: <5CDD3FB4.50502@cn.fujitsu.com>
-Date: Thu, 16 May 2019 18:47:16 +0800
+ id 14.3.439.0; Thu, 16 May 2019 19:09:43 +0800
+Message-ID: <5CDD44F6.6090700@cn.fujitsu.com>
+Date: Thu, 16 May 2019 19:09:42 +0800
 From: xuyang <xuyang2018.jy@cn.fujitsu.com>
 User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
  rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-To: <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="------------010906040209030101090809"
+To: Li Wang <liwang@redhat.com>
+References: <20190516073826.GA14532@dell5510>
+ <1051593197.23090826.1557995723298.JavaMail.zimbra@redhat.com>
+ <20190516090705.GA21814@rei.lan>
+ <CAEemH2dj3Txm=otnF+UEg2eJY70wTC-5tbT2R1VfrB0qAxtqmQ@mail.gmail.com>
+In-Reply-To: <CAEemH2dj3Txm=otnF+UEg2eJY70wTC-5tbT2R1VfrB0qAxtqmQ@mail.gmail.com>
 X-Originating-IP: [10.167.215.30]
-X-yoursite-MailScanner-ID: B8C994CDAD75.A0C78
+X-yoursite-MailScanner-ID: 99FAA46BA6C2.A1742
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=none autolearn=disabled
- version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] increase quotactl01.c coverage
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Cc: ltp@lists.linux.it
+Subject: Re: [LTP] Oldest still supported kernel
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -54,158 +58,199 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Content-Type: multipart/mixed; boundary="===============1674985585=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---------------010906040209030101090809
-Content-Type: text/plain; charset="GB2312"
-Content-Transfer-Encoding: 8bit
+--===============1674985585==
+Content-Type: multipart/alternative;
+	boundary="------------080209070505000304080406"
+
+--------------080209070505000304080406
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 
 Hi
+>
+> On Thu, May 16, 2019 at 5:07 PM Cyril Hrubis <chrubis@suse.cz 
+> <mailto:chrubis@suse.cz>> wrote:
+>
+>     Hi!
+>     > > Is it the oldest version we want to support or even something
+>     older?
+>     >
+>     > I'd like minimum to be at least 3.10.0 / glibc-2.17 (RHEL7).
+>
+>
+> This minimum looks good to me.
+>
+>     >
+>     > Older distros use LTP mostly for regression tests, so it might
+>     be acceptable
+>     > for users to switch to older release tag, rather than always
+>     latest master.
+>
+>
+> I think so. To switch to older release is a better option in that 
+> situation.
+>
+>     >
+>     > There's also an option, we create a "legacy" branch for old distros,
+>     > and accept only critical fixes (no new tests, rewrites, etc.).
+>     It would
+>     > be unsupported, but provide place where legacy users can cooperate.
+>
+>     I was trying to avoid having several active branches for LTP for
+>     several
+>     reasons. Mainly to avoid people running old LTP on reasonably modern
+>     kernels because they were under an impression that older release
+>     is more
+>     stable. Hence I would like to avoid having this if possible.
+>
+>
+> Yes, to maintain an old LTP branch will also cost more energy, I agree 
+> to avoid do that too.
+>
+> But one more question, if a person posts a patch to fix an older issue 
+> which conflicts with the new kernel stuff, what should we do for that?
+  In this situation,  I think new kernel stuff has a higher priority if 
+older issue is not very serious.
+  For Oldest supported , I don't think we must specify a kernel or glibc 
+oldest version.
 
-Current, most distros enable QFMT_V2([1]) and disable QFMT_V1.  So when we run quotaclt01.c ,it uses quota_v2 (format id 2, /mntpoint/aquota.user,/mointpoint/aquota.group)
-But if we enable CONFIG_QFMT_V2 and CONFIG_QFMT_V1 in kernel, the following combinations also take effect and succeed.
+  Kind Regards
+  Yang Xu
 
-1.  format id 1£¨QFMT_VFS_OLD), /mntpoint/quota.user,/mointpoint/quota.group£¬using quotacheck -ug --format=vfsold
-2.  format id 2£¨QFMT_VFS_V0), /mntpoint/aquota.user,/mointpoint/aquota.group£¬using quotacheck -ug --format=vfsv0
-3.  format id 4£¨QFMT_VFS_V1), /mntpoint/aquota.user,/mointpoint/aquota.group£¬using quotacheck -ug --format=vfsv1
-
-But I don't find a good way to test the above three format in quotaclt01.c . Does anyone have a good way?
-By the way, I think ltp-quota.m4 can be rewrite or remove because it is confused. I think we can only check Q_GETINFO and sys/quota.h in ltp-quota.m4.
-If someone is interested in this case, you can use this attached patch. 
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/fs/quota/Kconfig
+>
+> -- 
+> Regards,
+> Li Wang
 
 
 
 
---------------010906040209030101090809
-Content-Type: text/plain;
-	name="0001-syscalls-quotactl01.c-add-vfsold-and-vfsv1-format-ch.patch"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment;
-	filename*0="0001-syscalls-quotactl01.c-add-vfsold-and-vfsv1-format-ch.pa";
-	filename*1="tch"
+--------------080209070505000304080406
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-RnJvbSBhNDkzZDg0YzAwODVmYjg3ZDc0N2JlYmVjMDhlZTAxNGUzMmZjODFh
-IE1vbiBTZXAgMTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBZYW5nIFh1IDx4dXlh
-bmcyMDE4Lmp5QGNuLmZ1aml0c3UuY29tPgpEYXRlOiBUaHUsIDE2IE1heSAy
-MDE5IDE4OjM1OjE5ICswODAwClN1YmplY3Q6IFtQQVRDSF0gc3lzY2FsbHMv
-cXVvdGFjdGwwMS5jOiBhZGQgdmZzb2xkIGFuZCB2ZnN2MSBmb3JtYXQgY2hl
-Y2sKClNpZ25lZC1vZmYtYnk6IFlhbmcgWHUgPHh1eWFuZzIwMTguanlAY24u
-ZnVqaXRzdS5jb20+Ci0tLQogbTQvbHRwLXF1b3RhLm00ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIHwgMjkgKystLS0tLS0tLQogLi4uL2tlcm5l
-bC9zeXNjYWxscy9xdW90YWN0bC9xdW90YWN0bDAxLmMgICAgIHwgNTQgKysr
-KysrKystLS0tLS0tLS0tLQogMiBmaWxlcyBjaGFuZ2VkLCAyNyBpbnNlcnRp
-b25zKCspLCA1NiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9tNC9sdHAt
-cXVvdGEubTQgYi9tNC9sdHAtcXVvdGEubTQKaW5kZXggYTI1ZTM0YTgzLi41
-NjE4Yzc2OWUgMTAwNjQ0Ci0tLSBhL200L2x0cC1xdW90YS5tNAorKysgYi9t
-NC9sdHAtcXVvdGEubTQKQEAgLTIwLDkgKzIwLDEwIEBAIGRubAogZG5sIExU
-UF9DSEVDS19TWVNDQUxMX1FVT1RBQ1RMCiBkbmwgLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLQogZG5sCi1BQ19ERUZVTihbTFRQX0NIRUNLX1NZU0NB
-TExfUVVPVEFDVExdLFtkbmwKK0FDX0RFRlVOKFtMVFBfQ0hFQ0tfU1lTQ0FM
-TF9RVU9UQUNUTF0sWworQUNfQ0hFQ0tfSEVBREVSUyhbc3lzL3F1b3RhLmhd
-LFtxdW90YV9oZWFkZXJfcHJlZml4PSJzeXMiXSkKK2lmIHRlc3QgIngkcXVv
-dGFfaGVhZGVyX3ByZWZpeCIgIT0geDsgdGhlbgogCUFDX0xJTktfSUZFTFNF
-KFtBQ19MQU5HX1NPVVJDRShbCi0jZGVmaW5lIF9MSU5VWF9RVU9UQV9WRVJT
-SU9OIDIKICNpbmNsdWRlIDxzeXMvdHlwZXMuaD4KICNpbmNsdWRlIDxzeXMv
-cXVvdGEuaD4KICNpbmNsdWRlIDx1bmlzdGQuaD4KQEAgLTMxLDI4ICszMiw4
-IEBAIGludCBtYWluKHZvaWQpIHsKIAlyZXR1cm4gcXVvdGFjdGwoUUNNRChR
-X0dFVElORk8sIFVTUlFVT1RBKSwgKGNvbnN0IGNoYXIgKikgIi9kZXYvbnVs
-bCIsCiAJCQlnZXRldWlkKCksIChjYWRkcl90KSAmZHEpOwogfV0pXSxbaGFz
-X3F1b3RhdjI9InllcyJdKQotCitmaQogaWYgdGVzdCAieCRoYXNfcXVvdGF2
-MiIgPSB4eWVzOyB0aGVuCi0JQUNfREVGSU5FKEhBVkVfUVVPVEFWMiwxLFtE
-ZWZpbmUgdG8gMSBpZiB5b3UgaGF2ZSBxdW90YSB2Ml0pCi1lbHNlCi0KLQkj
-IGdvdCBxdW90YSB2MT8KLQlBQ19MSU5LX0lGRUxTRShbQUNfTEFOR19TT1VS
-Q0UoWwotI2RlZmluZSBfTElOVVhfUVVPVEFfVkVSU0lPTiAxCi0jaW5jbHVk
-ZSA8c3lzL3R5cGVzLmg+Ci0jaW5jbHVkZSA8c3lzL3F1b3RhLmg+Ci0jaW5j
-bHVkZSA8dW5pc3RkLmg+Ci1pbnQgbWFpbih2b2lkKSB7Ci0Jc3RydWN0IGRx
-YmxrIGRxOwotCXJldHVybiBxdW90YWN0bChRQ01EKFFfR0VUUVVPVEEsIFVT
-UlFVT1RBKSwgKGNvbnN0IGNoYXIgKikgIi9kZXYvbnVsbCIsCi0JCQlnZXRl
-dWlkKCksIChjYWRkcl90KSAmZHEpOwotfV0pXSxbaGFzX3F1b3RhdjE9Inll
-cyJdKQotCi0JaWYgdGVzdCAieCRoYXNfcXVvdGF2MSIgPSB4eWVzOyB0aGVu
-Ci0JCUFDX0RFRklORShIQVZFX1FVT1RBVjEsMSxbRGVmaW5lIHRvIDEgaWYg
-eW91IGhhdmUgcXVvdGEgdjFdKQotCWVsc2UKLQkJQUNfTVNHX1dBUk4oQ291
-bGRuJ3QgZGV0ZXJtaW5lIHF1b3RhIHZlcnNpb24gKHBsZWFzZSBzdWJtaXQg
-Y29uZmlnLmxvZyBhbmQgbWFucGFnZSB0byBsdHBAbGlzdHMubGludXguaXQp
-KQotCWZpCi0KKwlBQ19ERUZJTkUoSEFWRV9RVU9UQV9RX0dFVElORk8sMSxb
-RGVmaW5lIHRvIDEgaWYgeW91IGhhdmUgcXVvdGEgUV9HRVRJTkZPXSkKIGZp
-CiBdKQpkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9x
-dW90YWN0bC9xdW90YWN0bDAxLmMgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2Nh
-bGxzL3F1b3RhY3RsL3F1b3RhY3RsMDEuYwppbmRleCA5MmI2NTRlYmEuLjdj
-NWExYzQwMSAxMDA2NDQKLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxs
-cy9xdW90YWN0bC9xdW90YWN0bDAxLmMKKysrIGIvdGVzdGNhc2VzL2tlcm5l
-bC9zeXNjYWxscy9xdW90YWN0bC9xdW90YWN0bDAxLmMKQEAgLTU1LDQ0ICs1
-NSwyOSBAQAogCiAjaW5jbHVkZSAidHN0X3Rlc3QuaCIKIAotI2lmIGRlZmlu
-ZWQoSEFWRV9RVU9UQVYyKSB8fCBkZWZpbmVkKEhBVkVfUVVPVEFWMSkKLSMg
-aW5jbHVkZSA8c3lzL3F1b3RhLmg+Ci0KLSMgaWYgZGVmaW5lZChIQVZFX1FV
-T1RBVjIpCi0jICBkZWZpbmUgX0xJTlVYX1FVT1RBX1ZFUlNJT04gIDIKLSMg
-IGlmbmRlZiBRRk1UX1ZGU19WMAotIyAgIGRlZmluZSBRRk1UX1ZGU19WMCAg
-ICAgMgotIyAgZW5kaWYKLSMgIGRlZmluZSBVU1JQQVRIIE1OVFBPSU5UICIv
-YXF1b3RhLnVzZXIiCi0jICBkZWZpbmUgR1JQUEFUSCBNTlRQT0lOVCAiL2Fx
-dW90YS5ncm91cCIKLSMgIGRlZmluZSBGTVRJRAlRRk1UX1ZGU19WMAotIyBl
-bHNlCi0jICBkZWZpbmUgX0xJTlVYX1FVT1RBX1ZFUlNJT04gIDEKLSMgIGlm
-bmRlZiBRRk1UX1ZGU19PTEQKLSMgICBkZWZpbmUgUUZNVF9WRlNfT0xEICAg
-IDEKLSMgIGVuZGlmCi0jICBkZWZpbmUgVVNSUEFUSCBNTlRQT0lOVCAiL3F1
-b3RhLnVzZXIiCi0jICBkZWZpbmUgR1JQUEFUSCBNTlRQT0lOVCAiL3F1b3Rh
-Lmdyb3VwIgotIyAgZGVmaW5lIEZNVElECVFGTVRfVkZTX09MRAotIyBlbmRp
-ZgorI2lmIEhBVkVfU1lTX1FVT1RBX0gKKyNpbmNsdWRlIDxzeXMvcXVvdGEu
-aD4KIAotIyBkZWZpbmUgTU5UUE9JTlQJIm1udHBvaW50IgorI2RlZmluZSBN
-TlRQT0lOVCAibW50cG9pbnQiCiAKLXN0YXRpYyBpbnQzMl90IGZtdF9pZCA9
-IEZNVElEOworY2hhciBVU1JQQVRIWzMyXTsKK2NoYXIgR1JQUEFUSFszMl07
-CitzdGF0aWMgaW50MzJfdCBmbXRfaWQ7CiBzdGF0aWMgaW50IHRlc3RfaWQ7
-CiBzdGF0aWMgc3RydWN0IGRxYmxrIHNldF9kcSA9IHsKIAkuZHFiX2Jzb2Z0
-bGltaXQgPSAxMDAsCiAJLmRxYl92YWxpZCA9IFFJRl9CTElNSVRTCiB9Owog
-c3RhdGljIHN0cnVjdCBkcWJsayByZXNfZHE7Ci0jIGlmIGRlZmluZWQoSEFW
-RV9RVU9UQVYyKQorCisjIGlmIEhBVkVfUVVPVEFfUV9HRVRJTkZPCiBzdGF0
-aWMgc3RydWN0IGRxaW5mbyBzZXRfcWYgPSB7CiAJLmRxaV9iZ3JhY2UgPSA4
-MCwKIAkuZHFpX3ZhbGlkID0gSUlGX0JHUkFDRQogfTsKIHN0YXRpYyBzdHJ1
-Y3QgZHFpbmZvIHJlc19xZjsKIHN0YXRpYyBpbnQzMl90IGZtdF9idWY7Ci0j
-IGVuZGlmCisjZW5kaWYKIAogc3RhdGljIHN0cnVjdCB0Y2FzZSB7CiAJaW50
-IGNtZDsKQEAgLTExMiw3ICs5Nyw3IEBAIHN0YXRpYyBzdHJ1Y3QgdGNhc2Ug
-ewogCXtRQ01EKFFfR0VUUVVPVEEsIFVTUlFVT1RBKSwgJnRlc3RfaWQsICZy
-ZXNfZHEsCiAJJnNldF9kcS5kcWJfYnNvZnRsaW1pdCwgJnJlc19kcS5kcWJf
-YnNvZnRsaW1pdCwKIAlzaXplb2YocmVzX2RxLmRxYl9ic29mdGxpbWl0KSwg
-ImdldCBkaXNrIHF1b3RhIGxpbWl0IGZvciB1c2VyIn0sCi0jIGlmIGRlZmlu
-ZWQoSEFWRV9RVU9UQVYyKQorIyBpZiBIQVZFX1FVT1RBX1FfR0VUSU5GTwog
-CXtRQ01EKFFfU0VUSU5GTywgVVNSUVVPVEEpLCAmdGVzdF9pZCwgJnNldF9x
-ZiwKIAlOVUxMLCBOVUxMLCAwLCAic2V0IGluZm9ybWF0aW9uIGFib3V0IHF1
-b3RhZmlsZSBmb3IgdXNlciJ9LAogCkBAIC0xMzksNyArMTI0LDcgQEAgc3Rh
-dGljIHN0cnVjdCB0Y2FzZSB7CiAJe1FDTUQoUV9HRVRRVU9UQSwgR1JQUVVP
-VEEpLCAmdGVzdF9pZCwgJnJlc19kcSwgJnNldF9kcS5kcWJfYnNvZnRsaW1p
-dCwKIAkmcmVzX2RxLmRxYl9ic29mdGxpbWl0LCBzaXplb2YocmVzX2RxLmRx
-Yl9ic29mdGxpbWl0KSwKIAkic2V0IGRpc2sgcXVvdGEgbGltaXQgZm9yIGdy
-b3VwIn0sCi0jIGlmIGRlZmluZWQoSEFWRV9RVU9UQVYyKQorIyBpZiAgSEFW
-RV9RVU9UQV9RX0dFVElORk8KIAl7UUNNRChRX1NFVElORk8sIEdSUFFVT1RB
-KSwgJnRlc3RfaWQsICZzZXRfcWYsCiAJTlVMTCwgTlVMTCwgMCwgInNldCBp
-bmZvcm1hdGlvbiBhYm91dCBxdW90YWZpbGUgZm9yIGdyb3VwIn0sCiAKQEAg
-LTE1OSwxOCArMTQ0LDIyIEBAIHN0YXRpYyBzdHJ1Y3QgdGNhc2UgewogCiBz
-dGF0aWMgdm9pZCBzZXR1cCh2b2lkKQogewotCWNvbnN0IGNoYXIgKmNvbnN0
-IGNtZFtdID0geyJxdW90YWNoZWNrIiwgIi11ZyIsIE1OVFBPSU5ULCBOVUxM
-fTsKKwljb25zdCBjaGFyICpjb25zdCBjbWRbXSA9IHsicXVvdGFjaGVjayIs
-ICItdWciLCAiLS1mb3JtYXQ9dmZzdjAiLCBNTlRQT0lOVCwgTlVMTH07CiAJ
-aW50IHJldDsKIAotCiAJcmV0ID0gdHN0X3J1bl9jbWQoY21kLCBOVUxMLCBO
-VUxMLCAxKTsKIAlzd2l0Y2ggKHJldCkgewogCWNhc2UgMjU1OgotCQl0c3Rf
-YnJrKFRDT05GLCAicXVvdGFjaGVjayBiaW5hcnkgbm90IGluc3RhbGxlZCIp
-OworCQl0c3RfYnJrKFRCUk9LLCAicXVvdGFjaGVjayBiaW5hcnkgbm90IGlu
-c3RhbGxlZCIpOworCWNhc2UgMDoKKwkJc3ByaW50ZihVU1JQQVRILCAiJXMv
-YXF1b3RhLnVzZXIiLCBNTlRQT0lOVCk7CisJCXNwcmludGYoR1JQUEFUSCwg
-IiVzL2FxdW90YS5ncm91cCIsIE1OVFBPSU5UKTsKKwkJZm10X2lkID0gMjsK
-KwkJdHN0X3JlcyhUSU5GTywgIiVzICVzICVkIiwgVVNSUEFUSCwgR1JQUEFU
-SCwgZm10X2lkKTsKKwkJYnJlYWs7CiAJZGVmYXVsdDoKIAkJdHN0X2JyayhU
-QlJPSywgInF1b3RhY2hlY2sgZXhpdGVkIHdpdGggJWkiLCByZXQpOwotCWNh
-c2UgMDoKLQlicmVhazsKKwkJYnJlYWs7CiAJfQogCiAJdGVzdF9pZCA9IGdl
-dGV1aWQoKTsKQEAgLTE4Nyw5ICsxNzYsMTAgQEAgc3RhdGljIHZvaWQgdmVy
-aWZ5X3F1b3RhKHVuc2lnbmVkIGludCBuKQogCXN0cnVjdCB0Y2FzZSAqdGMg
-PSAmdGNhc2VzW25dOwogCiAJcmVzX2RxLmRxYl9ic29mdGxpbWl0ID0gMDsK
-KyMgaWYgSEFWRV9RVU9UQV9RX0dFVElORk8KIAlyZXNfcWYuZHFpX2lncmFj
-ZSA9IDA7CiAJZm10X2J1ZiA9IDA7Ci0KKyNlbmRpZgogCVRFU1QocXVvdGFj
-dGwodGMtPmNtZCwgdHN0X2RldmljZS0+ZGV2LCAqdGMtPmlkLCB0Yy0+YWRk
-cikpOwogCWlmIChUU1RfUkVUID09IC0xKSB7CiAJCXRzdF9yZXMoVEZBSUwg
-fCBUVEVSUk5PLCAicXVvdGFjdGwgZmFpbGVkIHRvICVzIiwgdGMtPmRlcyk7
-Ci0tIAoyLjE4LjEKCg==
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#ffffff">
+    Hi<br>
+    <blockquote
+cite="mid:CAEemH2dj3Txm=otnF+UEg2eJY70wTC-5tbT2R1VfrB0qAxtqmQ@mail.gmail.com"
+      type="cite">
+      <div dir="ltr"><br>
+        <div class="gmail_quote">
+          <div dir="ltr" class="gmail_attr">On Thu, May 16, 2019 at 5:07
+            PM Cyril Hrubis &lt;<a moz-do-not-send="true"
+              href="mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt;
+            wrote:<br>
+          </div>
+          <blockquote class="gmail_quote" style="margin: 0px 0px 0px
+            0.8ex; border-left: 1px solid rgb(204, 204, 204);
+            padding-left: 1ex;">Hi!<br>
+            &gt; &gt; Is it the oldest version we want to support or
+            even something older?<br>
+            &gt; <br>
+            &gt; I'd like minimum to be at least 3.10.0 / glibc-2.17
+            (RHEL7).<br>
+          </blockquote>
+          <div><br>
+          </div>
+          <div>
+            <div class="gmail_default" style="font-size: small;">This
+              minimum looks good to me.</div>
+          </div>
+          <div>Â </div>
+          <blockquote class="gmail_quote" style="margin: 0px 0px 0px
+            0.8ex; border-left: 1px solid rgb(204, 204, 204);
+            padding-left: 1ex;">
+            &gt; <br>
+            &gt; Older distros use LTP mostly for regression tests, so
+            it might be acceptable<br>
+            &gt; for users to switch to older release tag, rather than
+            always latest master.<br>
+          </blockquote>
+          <div><br>
+          </div>
+          <div class="gmail_default" style="font-size: small;">I think
+            so. To switch to older release is a better option in that
+            situation.</div>
+          <div class="gmail_default" style="font-size: small;"></div>
+          <blockquote class="gmail_quote" style="margin: 0px 0px 0px
+            0.8ex; border-left: 1px solid rgb(204, 204, 204);
+            padding-left: 1ex;">
+            &gt; <br>
+            &gt; There's also an option, we create a "legacy" branch for
+            old distros,<br>
+            &gt; and accept only critical fixes (no new tests, rewrites,
+            etc.). It would<br>
+            &gt; be unsupported, but provide place where legacy users
+            can cooperate.<br>
+            <br>
+            I was trying to avoid having several active branches for LTP
+            for several<br>
+            reasons. Mainly to avoid people running old LTP on
+            reasonably modern<br>
+            kernels because they were under an impression that older
+            release is more<br>
+            stable. Hence I would like to avoid having this if possible.<br>
+          </blockquote>
+          <div><br>
+          </div>
+          <div>
+            <div class="gmail_default" style="font-size: small;">Yes, to
+              maintain an old LTP branch will also cost more energy, I
+              agree to avoid do that too.</div>
+            <br>
+          </div>
+          <div>
+            <div class="gmail_default" style="font-size: small;">But one
+              more question, if a person posts a patch to fix an older
+              issue which conflicts with the new kernel stuff, what
+              should we do for that?Â </div>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+    Â In thisÂ <span class="gt-baf-term-text"><span class="gt-baf-cell
+        gt-baf-word-clickable">situation, Â I think new kernel stuff has
+        a higher priority if older issue is not very serious.<br>
+        Â For Oldest supported , I don't think we must specify a kernel
+        or glibc oldest version. <br>
+      </span></span>
+    <pre wrap=""> Kind Regards
+ Yang XuÂ </pre>
+    <span class="gt-baf-term-text"><span class="gt-baf-cell
+        gt-baf-word-clickable"></span></span>
+    <blockquote
+cite="mid:CAEemH2dj3Txm=otnF+UEg2eJY70wTC-5tbT2R1VfrB0qAxtqmQ@mail.gmail.com"
+      type="cite">
+      <div dir="ltr">
+        <div><br>
+        </div>
+        -- <br>
+        <div dir="ltr" class="gmail_signature">
+          <div dir="ltr">
+            <div>Regards,<br>
+            </div>
+            <div>Li Wang<br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
 
---------------010906040209030101090809
+--------------080209070505000304080406--
+
+--===============1674985585==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -214,4 +259,4 @@ Content-Disposition: inline
 Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
 dHAK
 
---------------010906040209030101090809--
+--===============1674985585==--
