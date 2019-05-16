@@ -2,54 +2,53 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 855C420255
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 May 2019 11:14:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83D952025C
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 May 2019 11:15:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 48CC93EA3C6
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 May 2019 11:14:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5AA6F3EA383
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 May 2019 11:15:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 061663EA2DB
- for <ltp@lists.linux.it>; Thu, 16 May 2019 11:14:35 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id A313C3EA1AB
+ for <ltp@lists.linux.it>; Thu, 16 May 2019 11:15:21 +0200 (CEST)
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 64685602201
- for <ltp@lists.linux.it>; Thu, 16 May 2019 11:14:34 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 40FF72013C1
+ for <ltp@lists.linux.it>; Thu, 16 May 2019 11:15:20 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 69D5A30C0DCF;
- Thu, 16 May 2019 09:14:32 +0000 (UTC)
+ by mx1.redhat.com (Postfix) with ESMTPS id 95D00307D913;
+ Thu, 16 May 2019 09:15:19 +0000 (UTC)
 Received: from localhost (dhcp-12-130.nay.redhat.com [10.66.12.130])
- by smtp.corp.redhat.com (Postfix) with ESMTP id D96CF60BE5;
- Thu, 16 May 2019 09:14:31 +0000 (UTC)
-Date: Thu, 16 May 2019 17:14:30 +0800
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 0F1665D9C3;
+ Thu, 16 May 2019 09:15:18 +0000 (UTC)
+Date: Thu, 16 May 2019 17:15:17 +0800
 From: Murphy Zhou <xzhou@redhat.com>
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20190516091430.g2ewjubhurdzlnz4@XZHOUW.usersys.redhat.com>
+Message-ID: <20190516091517.6c6gbgzkmf5vr6qz@XZHOUW.usersys.redhat.com>
 References: <20190503210005.GA18171@x230>
  <20190515092129.26336-1-xzhou@redhat.com>
- <20190515092129.26336-2-xzhou@redhat.com>
- <20190515133940.GB5429@dell5510>
+ <20190515133102.GA5429@dell5510> <20190515134245.GC5429@dell5510>
+ <CAOQ4uxhaSBiKY7nLNnbvpc7mpcnyOJ8Ecf3Es8n_VTPBRnfF7g@mail.gmail.com>
+ <20190515182057.GA1856@x230>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190515133940.GB5429@dell5510>
+In-Reply-To: <20190515182057.GA1856@x230>
 User-Agent: NeoMutt/20180716-1400-f2a658
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.45]); Thu, 16 May 2019 09:14:32 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+ (mx1.redhat.com [10.5.110.48]); Thu, 16 May 2019 09:15:19 +0000 (UTC)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Cc: liwan@redhat.com, ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH v2 2/2] OVL_MNT: put overlayfs lower, upper, work,
- mnt dir in a separated mountpoint
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Cc: Li Wang <liwan@redhat.com>, ltp@lists.linux.it
+Subject: Re: [LTP] [PATCH v2 1/2] OVL_MNT: add setup_overlay helper
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -66,21 +65,21 @@ Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gV2VkLCBNYXkgMTUsIDIwMTkgYXQgMDM6Mzk6NDBQTSArMDIwMCwgUGV0ciBWb3JlbCB3cm90
-ZToKPiBIaSBNdXJwaHksCj4gCj4gPiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2V4
-ZWN2ZWF0L2V4ZWN2ZWF0MDMuYwo+IC4uLgo+ID4gLQkvKiBTZXR1cCBhbiBvdmVybGF5IG1vdW50
-IHdpdGggbG93ZXIgZmlsZSAqLwo+ID4gLQlTQUZFX01LRElSKCJsb3dlciIsIDA3NTUpOwo+ID4g
-LQlTQUZFX01LRElSKCJ1cHBlciIsIDA3NTUpOwo+ID4gLQlTQUZFX01LRElSKCJ3b3JrIiwgMDc1
-NSk7Cj4gPiAtCVNBRkVfTUtESVIoT1ZMX01OVCwgMDc1NSk7Cj4gPiAtCXJldCA9IG1vdW50KCJv
-dmVybGF5IiwgT1ZMX01OVCwgIm92ZXJsYXkiLCAwLAo+ID4gLQkJICAgICJsb3dlcmRpcj1sb3dl
-cix1cHBlcmRpcj11cHBlcix3b3JrZGlyPXdvcmsiKTsKPiA+IC0JaWYgKHJldCA8IDApIHsKPiA+
-IC0JCWlmIChlcnJubyA9PSBFTk9ERVYpIHsKPiA+IC0JCQl0c3RfYnJrKFRDT05GLAo+ID4gLQkJ
-CQkib3ZlcmxheWZzIGlzIG5vdCBjb25maWd1cmVkIGluIHRoaXMga2VybmVsLiIpOwo+ID4gLQkJ
-fQo+ID4gLQkJdHN0X2JyayhUQlJPSyB8IFRFUlJOTywgIm92ZXJsYXlmcyBtb3VudCBmYWlsZWQi
-KTsKPiA+IC0JfQo+ID4gLQlvdmxfbW91bnRlZCA9IDE7Cj4gPiArCWlmIChzZXR1cF9vdmVybGF5
-KDEpID09IDApCj4gPiArCQlvdmxfbW91bnRlZCA9IDE7Cj4gSGVyZSB5b3UgY2hhbmdlIHRlc3Qg
-YmVoYXZpb3Igb24gRU5PREVWLgoKR3JlYXQgY2F0Y2ghIEkgbWlzc2VkIHRoaXMgd2hlbiBjb3B5
-aW5nIHNldHVwX292ZXJsYXkgZnJvbSByZWFkYWhlYWQwMi4KaW5vdGlmeSB0ZXN0cyBhcmUgZGlm
-ZmVyZW50IGZyb20gdGhpcy4KClRoYW5rcyEKbQoKPiAKPiArIG1vcmUgaW5mbyBhdCAxc3QgcGF0
-Y2guCj4gCj4gS2luZCByZWdhcmRzLAo+IFBldHIKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0
-cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+SGkgQW1pciBhbmQgUGV0ciwKCk9uIFdlZCwgTWF5IDE1LCAyMDE5IGF0IDA4OjIwOjU3UE0gKzAy
+MDAsIFBldHIgVm9yZWwgd3JvdGU6Cj4gSGkgQW1pciwgTXVycGh5LAo+IAo+IAo+ID4gSSBsaWtl
+ZCB5b3VyIGlkZWEgb2YgY3JlYXRlX292ZXJsYXlfZGlycy9tb3VudF9vdmVybGF5IGJldHRlci4K
+PiA+IEl0IGlzIG1vcmUgZmxleGlibGUgZm9yIGZ1dHVyZSB0ZXN0cyB0aGF0IG1heSB3YW50IHRv
+IHVtb3VudCBhbmQKPiA+IG1vdW50IG92ZXJsYXkgc2V2ZXJhbCB0aW1lcyBhbmQgdGhlIHNldHVw
+IG9mIGxvd2VyL3VwcGVyIGZpbGVzCj4gPiBjb3VsZCBiZSB2ZXJ5IGRpZmZlcmVudCBpbiBmdXR1
+cmUgdGVzdHMsIG5vdCBsaW1pdGVkIHRvIGp1c3QgY3JlYXRpbmcKPiA+IGZpbGVzIChtYXliZSBz
+eW1saW5rcywgeGF0dHIpLgo+ID4gVGhlIGV4cGVyaWVuY2UgZnJvbSB4ZnN0ZXN0cyBvdmVybGF5
+IHRlc3RzIHN1Z2dlc3RzIHRoYXQgdGhlCj4gPiBjcmVhdGVfb3ZlcmxheV9kaXJzL21vdW50X292
+ZXJsYXkgaGVscGVycyBhcmUgYSBnb29kIG1vZGVsIHRvIGZvbGxvdy4KPiAKPiBUaGFua3MgZm9y
+IGlkZWFzLCBhZ3JlZSB3aXRoIGl0Lgo+IAo+IE90aGVyIHRoaW5nIGlzIHRvIGhhdmUgY29uc3Qg
+Y2hhciAqZmlsZSwgY29uc3QgaW50IGxpbmVubyBhcyBmaXJzdCBwYXJhbWV0ZXJzCj4gZm9yIG1v
+dW50X292ZXJsYXlfKCkgYW5kIGNyZWF0ZSBtb3VudF9vdmVybGF5KCkgYW5kIFNBRkVfTU9VTlRf
+T1ZFUkxBWSgpIGFzIG1hY3JvcywKPiB3aGljaCB3b3VsZCB1c2UgaXQuIFNlZSB0c3RfbWtmc3tf
+LH0oKSBhcyBleGFtcGxlcy4KClZlcnkgZ29vZCBzdWdnZXN0cyEgSSdsbCBkaWdnaW5nIGludG8g
+aXQuCgpUaGFua3MsCk0KPiAKPiA+IFRoYW5rcywKPiA+IEFtaXIuCj4gCj4gS2luZCByZWdhcmRz
+LAo+IFBldHIKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9s
+aXN0aW5mby9sdHAK
