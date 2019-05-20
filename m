@@ -2,41 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9574E23C71
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 May 2019 17:43:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EB3623DC3
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 May 2019 18:45:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 64A552D0147
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 May 2019 17:43:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 56DC92D0144
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 May 2019 18:45:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id B1F562D013A
- for <ltp@lists.linux.it>; Mon, 20 May 2019 17:43:17 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 0B7B03EA18F
+ for <ltp@lists.linux.it>; Mon, 20 May 2019 18:45:30 +0200 (CEST)
+Received: from mail-yb1-xb42.google.com (mail-yb1-xb42.google.com
+ [IPv6:2607:f8b0:4864:20::b42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 571E61A00EA0
- for <ltp@lists.linux.it>; Mon, 20 May 2019 17:43:16 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 8CD08AFE3;
- Mon, 20 May 2019 15:43:16 +0000 (UTC)
-Date: Mon, 20 May 2019 17:43:15 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Message-ID: <20190520154314.GA15837@dell5510>
-References: <20190429124630.4834-1-pvorel@suse.cz>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 511C91000CA5
+ for <ltp@lists.linux.it>; Mon, 20 May 2019 18:45:26 +0200 (CEST)
+Received: by mail-yb1-xb42.google.com with SMTP id a21so5932884ybg.9
+ for <ltp@lists.linux.it>; Mon, 20 May 2019 09:45:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=etPCk/AjxodEm4JMCU7lqKlKeZVk1af5f4kcOzqWRF8=;
+ b=X44tZLnOi+484l1Rzl2N7KURNF3h8GzuGFbPxSmVLCUMJ1dZ2dWu0j7bIOlK7vg8zS
+ D0Cm7zYtW2febPb/ksB5JFHBKX58UZtY7LhiuqdSgtUluYErU5PC45t8EfzmClAkk4Qc
+ xEyvp7EsSUphIe8C39kyxK7J1bdozeflBaT9ZbhOQcY/pm4XOFf1J2xR+4o6UeiIYyqN
+ vvLGsLCPurzqpUB3G7u/0anbSenO5OCr/lApULLcoJ3WgYY+96jz8j38/IfwErUQ/WQR
+ TqP3r+q/uzl0NGGTDM9dWvuVIfJ7HRVcJBusa7I6umwLu5EkCWN4FV58/0HI9Xskbp5H
+ BmKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=etPCk/AjxodEm4JMCU7lqKlKeZVk1af5f4kcOzqWRF8=;
+ b=VT9n4DQdTDs6RIki7wTH6ANyWWQwHv4wZhVSf/zOAs7brOkA4j9rCDqfPGHeZSZP5x
+ T/vzdjKdsMPGn/dst9YIXbWYPhdPt7rZr8vYjpPq5li8tojKlcAKtjBN3MzdusOaids9
+ 2MRmaFCOymLUrfUxNTWgbfvTAhh+LOtNr7oT0M5XPcdkXeqLkl0L9Kaw/VtF+SU3mXIK
+ 7QiCZcr7/XsA9UN2Dv0Ze9I0ofIN279SB2BttlMqOjCcN4nZ08DeMdaserhD4leOGTV7
+ zz5GAOn9myQjm3jV8FoSGyKRVj0sBlqMjYB/86OoRZx1ROsSiDTlidxhi9G54zdqwFH9
+ gMdw==
+X-Gm-Message-State: APjAAAVo3zIEk+u4++3YuKhBIb4WXMf8j6M3AisSLy3aBlVJtgVWfsez
+ c3rf9LV4m35nj1U9uauGViPmKxFXivxQs7r2gA4=
+X-Google-Smtp-Source: APXvYqyrIF8gIK75hGxApAQrI11WpiqM0ipdT36EticupRV8PZ1a58lNfqhIN9OLT78gZS2OYbg9oYoTPxR3cDNFCNw=
+X-Received: by 2002:a25:cb0c:: with SMTP id b12mr12496862ybg.144.1558370728292; 
+ Mon, 20 May 2019 09:45:28 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190429124630.4834-1-pvorel@suse.cz>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+References: <20190506105457.22350-1-camann@suse.com>
+ <1ef7d8ee-ae31-b44c-71e6-7d09da55eda2@suse.com>
+ <20190506201948.GA9828@dell5510> <20190520143135.GA27341@dell5510>
+ <20190520144645.GD28976@rei.lan> <20190520152400.GA11845@dell5510>
+In-Reply-To: <20190520152400.GA11845@dell5510>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Mon, 20 May 2019 19:45:16 +0300
+Message-ID: <CAOQ4uxivgpoMeUUxm-fboFfiXLXn+QXNzKJWSHAZhidwUsuvng@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] tst_net.sh: Remove -B option from
-	tst_rhost_run()
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Cc: ltp@lists.linux.it
+Subject: Re: [LTP] [PATCH v4] syscalls/copy_file_range: add/restructured
+	tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -48,22 +76,25 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGksCgo+IFRoaXMgb3B0aW9uIHdhcyBhZGRlZCBpbiA2YmNmN2NlMDUgKCJsaWI6IHRzdF9yaG9z
-dF9ydW46IG5ldyBvcHRpb24gLUIKPiBmb3Igc2F2aW5nIGJhY2tncm91bmQgbG9nIikgYW5kIHVz
-ZWQgaW4gdHN0X2R1bXBfcmhvc3RfY21kKCkgYWRkZWQgaW4KPiA5MjFmYjJkMmMgKCJuZXR3b3Jr
-L3RzdF9uZXRsb2FkOiBkdW1wIGJhY2tncm91bmQgbmV0c3RyZXNzIG91dHB1dCBvbgo+IGZhaWx1
-cmUiKS4KPiBCdXQgZDZjZTMzYTJlICgibmV0c3RyZXNzOiBzZXQgcG9ydCBkeW5hbWljYWxseSBv
-biB0aGUgc2VydmVyLXNpZGUiKQo+IG1vdmVkIGxvZ2dpbmcgaW50byBuZXRzdHJlc3MubG9nLCBj
-cmVhdGVkIGJ5IG5ldHN0cmVzcy5jLCAtQiBpcyBub3QKPiB1c2VkIGFueSBtb3JlLgoKPiBOT1RF
-OiBpZiB0aGlzIGZlYXR1cmUgaXMgcmVpbnRyb2R1Y2VkLCBpdCBzaG91bGQgY2hlY2sgd2hldGhl
-cgo+IFRTVF9ORUVEU19UTVBESVI9MSBpcyBzZXQgKHNpbWlsYXIgdG8gZml4IGUzYTFhYTEwNiAo
-Im5ldC90c3RfbmV0bG9hZDoKPiBUQlJPSyB3aGVuIFRTVF9ORUVEU19UTVBESVIgbm90IHNldCIp
-KS4KCj4gU2lnbmVkLW9mZi1ieTogUGV0ciBWb3JlbCA8cHZvcmVsQHN1c2UuY3o+CgpNZXJnZWQu
-CgpLaW5kIHJlZ2FyZHMsClBldHIKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0
-cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+T24gTW9uLCBNYXkgMjAsIDIwMTkgYXQgNjoyNCBQTSBQZXRyIFZvcmVsIDxwdm9yZWxAc3VzZS5j
+ej4gd3JvdGU6Cj4KPiBIaSwKPgo+ID4gPiAyKSBHbGliYyBhZGRzIGludGVybmFsIGltcGxlbWVu
+dGF0aW9uIG9mIGNvcHlfZmlsZV9yYW5nZSgpLCB1c2VkIGFzIGZhbGxiYWNrCj4gPiA+IHdoZW4g
+a2VybmVsIDwgNC41ICh3aGljaCBicm91Z2h0IGNvcHlfZmlsZV9yYW5nZSgpKSBbMV0uIEkgZ3Vl
+c3MgdGhlcmUgaXMgbm8gd2F5Cj4gPiA+IHRvIHVzZSBpdCBleHBsaWNpdGx5IDooLgo+Cj4gPiBX
+ZWxsIHdlIGNhbiBhbHdheXMgdXNlIGZpbGVzeXN0ZW0gdGhhdCBkb2VzIG5vdCBzdXBwb3J0IHRo
+ZSBvcGVyYXRpb24sCj4gPiBzbyBydW5uaW5nIHRoZSB0ZXN0IGZvciBhbGwgZmlsZXN5c3RlbXMg
+c2hvdWxkIGdldCB0aGUgZW11bGF0aW9uIGNvdmVyZWQKPiA+IGZvciBzdXJlLi4uCj4gT2gsIHRo
+YXQncyB0aGUgd2F5IDopLgoKQWN0dWFsbHksIHRoZXJlIGlzIG5vIHN1Y2ggdGhpbmcgYXMgZmls
+ZXN5c3RlbSB0aGF0IGRvZXMgbm90IHN1cHBvcnQKY29weV9maWxlX3JhbmdlKCkgYmVjYXVzZSB0
+aGUga2VybmVsIHByb3ZpZGVzIGEgZmFsbGJhY2sgZGVmYXVsdCBpbXBsZW1lbnRhdGlvbgooaW4t
+a2VybmVsIGNvcHkpLgoKPiBNZXJnZWQgdGhlbiwgdGhhbmtzIGZvciB5b3VyIHBhdGNoLCBDaHJp
+c3RpYW4uCj4KCkkgd2FzIGdvaW5nIHRvIGFzayB0aGF0IHlvdSBkcm9wIHRoZSBFWERFViB0ZXN0
+LCBiZWNhdXNlIEkgYW0gd29ya2luZyBvbiBhIHBhdGgKc2V0IHRvIHJlbGF4IHRoZSBjcm9zcy1k
+ZXZpY2UgY29uc3RyYWludC4KT2ggd2VsbC4gSSB3aWxsIHBvc3QgYSBwYXRjaCB0byByZW1vdmUg
+dGhhdCB0ZXN0IGNhc2Ugb25jZSBteSBjb2RlIGlzIG1lcmdlZC4KClRoYW5rcywKQW1pci4KCi0t
+IApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
