@@ -1,42 +1,45 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CCEE23BD8
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 May 2019 17:18:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3709E23BFB
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 May 2019 17:24:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 48A102987AA
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 May 2019 17:18:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CEE402987AB
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 May 2019 17:24:04 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 109663EA2E0
- for <ltp@lists.linux.it>; Mon, 20 May 2019 17:18:29 +0200 (CEST)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 35222298791
+ for <ltp@lists.linux.it>; Mon, 20 May 2019 17:24:03 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id EACA6600695
- for <ltp@lists.linux.it>; Mon, 20 May 2019 17:18:28 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D543D1A010BA
+ for <ltp@lists.linux.it>; Mon, 20 May 2019 17:24:02 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 3D417B006
- for <ltp@lists.linux.it>; Mon, 20 May 2019 15:18:28 +0000 (UTC)
-Date: Mon, 20 May 2019 17:18:26 +0200
+ by mx1.suse.de (Postfix) with ESMTP id DF60FAD8F
+ for <ltp@lists.linux.it>; Mon, 20 May 2019 15:24:01 +0000 (UTC)
+Date: Mon, 20 May 2019 17:24:00 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20190520151826.GA10350@dell5510>
-References: <20190520135450.22014-1-pvorel@suse.cz>
- <20190520141940.GB28976@rei.lan> <20190520145002.GA28760@dell5510>
+Message-ID: <20190520152400.GA11845@dell5510>
+References: <20190506105457.22350-1-camann@suse.com>
+ <1ef7d8ee-ae31-b44c-71e6-7d09da55eda2@suse.com>
+ <20190506201948.GA9828@dell5510> <20190520143135.GA27341@dell5510>
+ <20190520144645.GD28976@rei.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190520145002.GA28760@dell5510>
+In-Reply-To: <20190520144645.GD28976@rei.lan>
 User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
 Cc: ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH] lib: Migrate tst_get_unused_port to new API
+Subject: Re: [LTP] [PATCH v4] syscalls/copy_file_range: add/restructured
+	tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -54,8 +57,12 @@ Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGksCgpQdXNoZWQgd2l0aCBmb2xsb3dpbmcgZGlmZjoKPiAtCXJldHVybiBUU1RfR0VUX1VOVVNF
-RF9QT1JUKGZhbWlseSwgdHlwZSk7Cj4gKwlwcmludGYoIiVkIiwgVFNUX0dFVF9VTlVTRURfUE9S
-VChmYW1pbHksIHR5cGUpKTsKPiArCXJldHVybiAwOwo+ICB9CgpLaW5kIHJlZ2FyZHMsClBldHIK
-Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
-dHAK
+SGksCgo+ID4gMikgR2xpYmMgYWRkcyBpbnRlcm5hbCBpbXBsZW1lbnRhdGlvbiBvZiBjb3B5X2Zp
+bGVfcmFuZ2UoKSwgdXNlZCBhcyBmYWxsYmFjawo+ID4gd2hlbiBrZXJuZWwgPCA0LjUgKHdoaWNo
+IGJyb3VnaHQgY29weV9maWxlX3JhbmdlKCkpIFsxXS4gSSBndWVzcyB0aGVyZSBpcyBubyB3YXkK
+PiA+IHRvIHVzZSBpdCBleHBsaWNpdGx5IDooLgoKPiBXZWxsIHdlIGNhbiBhbHdheXMgdXNlIGZp
+bGVzeXN0ZW0gdGhhdCBkb2VzIG5vdCBzdXBwb3J0IHRoZSBvcGVyYXRpb24sCj4gc28gcnVubmlu
+ZyB0aGUgdGVzdCBmb3IgYWxsIGZpbGVzeXN0ZW1zIHNob3VsZCBnZXQgdGhlIGVtdWxhdGlvbiBj
+b3ZlcmVkCj4gZm9yIHN1cmUuLi4KT2gsIHRoYXQncyB0aGUgd2F5IDopLgpNZXJnZWQgdGhlbiwg
+dGhhbmtzIGZvciB5b3VyIHBhdGNoLCBDaHJpc3RpYW4uCgpLaW5kIHJlZ2FyZHMsClBldHIKCi0t
+IApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
