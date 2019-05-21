@@ -2,42 +2,58 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28A6F25106
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 May 2019 15:48:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03E542510E
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 May 2019 15:49:33 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 023DC3EA70A
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 May 2019 15:48:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CEBBD294AEA
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 May 2019 15:49:32 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id CF7D43EA687
- for <ltp@lists.linux.it>; Tue, 21 May 2019 15:47:55 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 4C46A294A36
+ for <ltp@lists.linux.it>; Tue, 21 May 2019 15:49:30 +0200 (CEST)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 852D8100118B
- for <ltp@lists.linux.it>; Tue, 21 May 2019 15:47:51 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 10A35AEE1;
- Tue, 21 May 2019 13:47:54 +0000 (UTC)
-Date: Tue, 21 May 2019 15:47:52 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <20190521134752.GB19326@rei.lan>
-References: <20190520144145.GC28976@rei.lan>
- <1558432300-2269-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C7EBA1A01492
+ for <ltp@lists.linux.it>; Tue, 21 May 2019 15:49:29 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id 53E1413AA9;
+ Tue, 21 May 2019 13:49:23 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B81717967;
+ Tue, 21 May 2019 13:49:23 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 41AD95B424;
+ Tue, 21 May 2019 13:49:23 +0000 (UTC)
+Date: Tue, 21 May 2019 09:49:23 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
+To: Cyril Hrubis <chrubis@suse.cz>, Petr Vorel <pvorel@suse.cz>
+Message-ID: <224303782.23845756.1558446563195.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20190521095833.GA12205@rei>
+References: <a5e65ca65d88177d9142cbd2d5a3ddf5dda174b5.1558379215.git.jstancek@redhat.com>
+ <20190521095833.GA12205@rei>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1558432300-2269-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Originating-IP: [10.43.17.163, 10.4.195.9]
+Thread-Topic: shmctl01: don't use hardcoded index == 0 for SHM_STAT test
+Thread-Index: jlKn2HJEqDIoAFdgGG7eQtcbJ5l7eA==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+ (mx1.redhat.com [10.5.110.29]); Tue, 21 May 2019 13:49:23 +0000 (UTC)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Cc: ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH v3] syscalls/move_page12: Add new regression test
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Cc: liwan@redhat.com, ltp@lists.linux.it
+Subject: Re: [LTP] [PATCH] shmctl01: don't use hardcoded index == 0 for
+ SHM_STAT test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -54,16 +70,16 @@ Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkhCj4gKwkJaWYgKHRjYXNlc1tuXS5vZmZsaW5lKSB7Cj4gKwkJCWlmIChkb19zb2Z0X29mZmxp
-bmUodGNhc2VzW25dLnRwYWdlcykgPT0gRUlOVkFMKSB7Cj4gKwkJCQlTQUZFX0tJTEwoY3BpZCwg
-U0lHS0lMTCk7Cj4gKwkJCQlTQUZFX1dBSVRQSUQoY3BpZCwgJnN0YXR1cywgMCk7Cj4gKwkJCQlT
-QUZFX01VTk1BUChhZGRyLCB0Y2FzZXNbbl0udHBhZ2VzICogaHBzeik7Cj4gKwkJCQl0c3RfcmVz
-KFRGQUlMLAoJCQkJCV4KCQkJCQlTaG91bGRuJ3QgdGhpcyBiZSBUQ09ORiBpbnN0ZWFkPwoKPiAr
-CQkJCQkibWFkdmlzZSgpIGRpZG4ndCBzdXBwb3J0ICIKPiArCQkJCQkiTUFEVl9TT0ZUX09GRkxJ
-TkUiKTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXgoJCQkJ
-CSBMS01MIGNvZGluZyBzdHlsZSBwcmVmZXJzIG5vdAoJCQkJCSB0byBicmVhayB1cCB1c2VyIHZp
-c2libGUKCQkJCQkgc3RyaW5ncywgc28gdGhpcyBzdHJpbmcgc2hvdWxkCgkJCQkJIGJlIG9uIG9u
-ZSBsaW5lIGV2ZW4gaWYgdGhlIGxpbmUKCQkJCQkgaXMgbG9uZ2VyIHRoYW4gODAgY2hhcnMuCgo+
-ICsJCQkJcmV0dXJuOwo+ICsJCQl9Cj4gKwkJfQoKT3RoZXIgdGhhbiB0aGF0IGl0IGxvb2tzIGdv
-b2QuCgotLSAKQ3lyaWwgSHJ1YmlzCmNocnViaXNAc3VzZS5jegoKLS0gCk1haWxpbmcgbGlzdCBp
-bmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+Ci0tLS0tIE9yaWdpbmFsIE1lc3NhZ2UgLS0tLS0KPiBIaSEKPiA+ICtzdGF0aWMgdm9pZCBmdW5j
+X3NzdGF0X3NldHVwKHZvaWQpCj4gPiArewo+ID4gKwlzdHJ1Y3Qgc2htX2luZm8gdG1wOwo+ID4g
+KwlpbnQgcmV0Owo+ID4gKwo+ID4gKwlyZXQgPSBzaG1jdGwoc2htX2lkXzEsIFNITV9JTkZPLCAo
+dm9pZCAqKSZ0bXApOwo+ID4gKwlpZiAocmV0IDwgMCkKPiA+ICsJCXRzdF9yZXNtKFRGQUlMfFRF
+UlJOTywgInNobWN0bChTSE1fSU5GTykiKTsKPiAKPiBJIHdvbmRlciBpZiBpdCBtYWtlcyBzZW5z
+ZSB0byBjb250aW51ZSBoZXJlIGlmIHNobWN0bCgpIGhhcyBmYWlsZWQsCj4gbWF5YmUgd2Ugc2hv
+dWxkIGRvIHRzdF9icmttKFRCUk9LIC4uLikgaW5zdGVhZC4KCkl0IGlzICdzZXR1cCBwaGFzZScs
+IGJ1dCBpdCBhbHNvIGlzIGtpbmQtb2YgdGVzdCBmb3Igc2htY3RsKCkgYXMgd2VsbC4KV2UgZG9u
+J3QgcmlzayBtdWNoIGlmIHdlIGNvbnRpbnVlLCB3b3JzdCBjYXNlIGlzIHdlIGdldCBvbmUgbW9y
+ZSBmYWlsLgoKQFBldHI6IERvIHlvdSBoYXZlIGFueSBwcmVmZXJlbmNlPwoKPiAKPiBPdGhlcndp
+c2UgaXQgbG9va3MgZ29vZCwgYWNrZWQuCj4gCj4gLS0KPiBDeXJpbCBIcnViaXMKPiBjaHJ1Ymlz
+QHN1c2UuY3oKPiAKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5p
+dC9saXN0aW5mby9sdHAK
