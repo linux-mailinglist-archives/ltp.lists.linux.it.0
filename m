@@ -2,48 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9160B24FC0
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 May 2019 15:08:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 137402504B
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 May 2019 15:29:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6422C3EA71C
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 May 2019 15:08:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DA1EF3EA70A
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 May 2019 15:29:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 5485E3EA67C
- for <ltp@lists.linux.it>; Tue, 21 May 2019 15:08:29 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id E4CA43EA67C
+ for <ltp@lists.linux.it>; Tue, 21 May 2019 15:29:38 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A19C7600A7D
- for <ltp@lists.linux.it>; Tue, 21 May 2019 15:08:30 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E677114019BB
+ for <ltp@lists.linux.it>; Tue, 21 May 2019 15:29:37 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 70EAFAEC2;
- Tue, 21 May 2019 13:08:27 +0000 (UTC)
-Date: Tue, 21 May 2019 15:08:26 +0200
+ by mx1.suse.de (Postfix) with ESMTP id 10FE3AEC2;
+ Tue, 21 May 2019 13:29:37 +0000 (UTC)
+Date: Tue, 21 May 2019 15:29:36 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Amir Goldstein <amir73il@gmail.com>
-Message-ID: <20190521130826.GA18812@rei.lan>
-References: <20190506105457.22350-1-camann@suse.com>
- <1ef7d8ee-ae31-b44c-71e6-7d09da55eda2@suse.com>
- <20190506201948.GA9828@dell5510> <20190520143135.GA27341@dell5510>
- <20190520144645.GD28976@rei.lan> <20190520152400.GA11845@dell5510>
- <CAOQ4uxivgpoMeUUxm-fboFfiXLXn+QXNzKJWSHAZhidwUsuvng@mail.gmail.com>
- <20190521114040.GB13910@rei>
- <CAOQ4uxi8v+WqwY8sNh+j4b6vYfeyLvHR4+jodt1=s9hUF1FSWQ@mail.gmail.com>
+To: Jan Stancek <jstancek@redhat.com>
+Message-ID: <20190521132936.GA19326@rei.lan>
+References: <dc7300409a949189aa4ce9ef555405e36bdb50ab.1558426636.git.jstancek@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAOQ4uxi8v+WqwY8sNh+j4b6vYfeyLvHR4+jodt1=s9hUF1FSWQ@mail.gmail.com>
+In-Reply-To: <dc7300409a949189aa4ce9ef555405e36bdb50ab.1558426636.git.jstancek@redhat.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Cc: ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH v4] syscalls/copy_file_range: add/restructured
-	tests
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Cc: liwan@redhat.com, ltp@lists.linux.it
+Subject: Re: [LTP] [PATCH] overcommit_memory: update for "mm: fix
+ false-positive OVERCOMMIT_GUESS failures"
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -60,11 +53,14 @@ Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkhCj4gPiBTbyB0aGUgZ2xpYmMgZmFsbGJhY2sgY29kZSBpcyBwcm9iYWJseSBzb21ldGhpbmcg
-dGhhdCB3aWxsIGVuZCB1cCBiZWluZwo+ID4gdXNlZCBpZiBzb21lb25lIHdhbnRzIHRvIHJ1biBh
-cHBsaWNhdGlvbiB0aGF0IHVzZXMgdGhpcyBzeXNjYWxsIG9uIEJTRAo+IAo+IE9yIExpbnV4IGtl
-cm5lbCA8IDQuNS4KCkxpbnV4IGtlcm5lbCA0LjUgaXMgYWJvdXQgdHdvIHllYXJzIG9sZGVyIHRo
-YW4gZ2xpYmMgMi4yNyB0aGF0CmltcGxlbWVudHMgdGhlIGVtdWxhdGlvbiwgc28gSSBkb3VidCB0
-aGF0IHNvbWVvbmUgd2lsbCBhY3R1YWxseSBydW4gdGhpcwpjb21iaW5hdGlvbi4KCi0tIApDeXJp
-bCBIcnViaXMKY2hydWJpc0BzdXNlLmN6CgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8v
-bGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+SGkhCj4gY29tbWl0IDhjNzgyOWIwNGM1MiAoIm1tOiBmaXggZmFsc2UtcG9zaXRpdmUgT1ZFUkNP
+TU1JVF9HVUVTUyBmYWlsdXJlcyIpCj4gY2hhbmdlcyBsb2dpYyBvZiBfX3ZtX2Vub3VnaF9tZW1v
+cnkoKSwgc2ltcGxpZnlpbmcgaXQgdG86Cj4gICAgIFdoZW4gaW4gR1VFU1MgbW9kZSwgY2F0Y2gg
+d2lsZCBhbGxvY2F0aW9ucyBieSBjb21wYXJpbmcgdGhlaXIgcmVxdWVzdAo+ICAgICBzaXplIHRv
+IHRvdGFsIGFtb3VudCBvZiByYW0gYW5kIHN3YXAgaW4gdGhlIHN5c3RlbS4KPiAKPiBUZXN0Y2Fz
+ZSBjdXJyZW50bHkgYWxsb2NhdGVzIG1lbV90b3RhbCArIHN3YXBfdG90YWwsIHdoaWNoIGRvZXNu
+J3QgdHJpZ2dlcgo+IG5ldyBjb25kaXRpb24uIE1ha2UgaXQgbW9yZSBleHRyZW1lLCBidXQgYXNz
+dW1pbmcgZnJlZV90b3RhbCAvIDIgd2lsbCBQQVNTLAo+IGFuZCBzdW1fdG90YWwgKiAyIHdpbGwg
+RkFJTC4KCkxvb2tzIGdvb2QsIGFja2VkLgoKLS0gCkN5cmlsIEhydWJpcwpjaHJ1YmlzQHN1c2Uu
+Y3oKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5m
+by9sdHAK
