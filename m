@@ -2,36 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCB1B24322
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 May 2019 23:49:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8C37246F8
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 May 2019 06:40:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 93A022D0137
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 May 2019 23:49:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5EB673EA4D8
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 May 2019 06:40:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 2EB9C3EA62E
- for <ltp@lists.linux.it>; Mon, 20 May 2019 23:49:21 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id DEA983EA3F5
+ for <ltp@lists.linux.it>; Tue, 21 May 2019 06:40:08 +0200 (CEST)
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B6B361000BEA
- for <ltp@lists.linux.it>; Mon, 20 May 2019 23:49:16 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id DDBBDAF46;
- Mon, 20 May 2019 21:49:18 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon, 20 May 2019 23:49:11 +0200
-Message-Id: <20190520214911.1460-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.21.0
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D37441001545
+ for <ltp@lists.linux.it>; Tue, 21 May 2019 06:40:04 +0200 (CEST)
+Received: by mail-pf1-x443.google.com with SMTP id q17so8354792pfq.8
+ for <ltp@lists.linux.it>; Mon, 20 May 2019 21:40:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=android.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=ficLywgrOg/rDMwMEgJBajV0SbwOkFczLaysZW3mXTE=;
+ b=QhaejEQvid/zASIghHo4w5dwx3QL78sHj3Qx/4LSYSTObd4zJLWtVSyvYEx/GYFsiV
+ N5xaPF8QcRFGBtzUWhBjrEoNFm3mdqcXyADzFRpnv9FBbISn/QdpvKSy7r7hwt/aAQGe
+ ho9rQnmzLsbRWhbGO7IFX9jH6/KsR2ZCp7siuQoAMrWxoiIZRJBOOAGQthIt8pwuKssT
+ KAIruaBW6C4BpCV4CKPjbPm89OyWWUSEXY6l7R72T7cpxxEpxRf3vD5Mf8BYQKH3B/dZ
+ jvzOx4G1sMdIKnrnj5XJp4DLVgZ5VUCS5pCcKDYfQVNSzFz9B29Ra3TXukCpJOBaCbhD
+ 6v6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=ficLywgrOg/rDMwMEgJBajV0SbwOkFczLaysZW3mXTE=;
+ b=h/5NaBPKaGXraSpicgFNkxdXiZgxdxqPd+tzdiZFVZfhZ2ZP3wsyfZJqBaBNHvwEHk
+ DaoIN9kaxyk6HORWhL7CklbR5/EQ6xZH9YPeNd+SArXhefDDS/aydfIFKTlDFvogLQXm
+ sLLb9g9olCey6tY1BQZUgwxBsjRWuQkLu3c2Rq+6hLvUrrsLJQSWgpfyfuxVMSCphN0b
+ oEBNc/kUjbwcblsRBnvTSehOT0CunikPrdiL+vsXUm0X1S+acDwaRAYzaZnM22+/YIdB
+ mbf8sW51Oc4APW3Uudg5Bz4PtUoSKq7ddLpEIQ3RoAQ7tGX5gb+VIN7KnlMyTlY33WA+
+ S6kg==
+X-Gm-Message-State: APjAAAWKWOOiF9/qaDsGamtE+NC0+QAoBqLW530ElANAki4bZYJtVFfD
+ 8+iol8uQssJxMD6H/J8UqXWdew==
+X-Google-Smtp-Source: APXvYqxGSEjrrYMX52obAB5b6aitqbj7/w3ewTuorq6/ZJagVQ1iFI8laSOyntluEdnkPemGh3SsRg==
+X-Received: by 2002:a63:4753:: with SMTP id w19mr6313798pgk.421.1558413606272; 
+ Mon, 20 May 2019 21:40:06 -0700 (PDT)
+Received: from localhost ([172.56.30.85])
+ by smtp.gmail.com with ESMTPSA id b4sm21744990pfd.120.2019.05.20.21.40.04
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 20 May 2019 21:40:05 -0700 (PDT)
+Date: Tue, 21 May 2019 12:40:01 +0800
+From: Sandeep Patil <sspatil@android.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20190521044001.GB7753@google.com>
+References: <20190520041730.28238-1-sspatil@android.com>
+ <20190520041730.28238-2-sspatil@android.com>
+ <20190520095356.GB25405@rei.lan>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190520095356.GB25405@rei.lan>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH] lapi/ustat.h: Replace daddr_t with long
+Cc: chrubis@suze.cz, kernel-team@android.com, ltp@lists.linux.it
+Subject: Re: [LTP] [RFC PATCH 1/1] open_posix_testsuite/pthread_sigmask: fix
+ return value checks
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -48,15 +87,16 @@ Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-RnJvbTogUGV0ciBWb3JlbCA8cGV0ci52b3JlbEBnbWFpbC5jb20+CgpkYWRkcl90IGlzIHVzdWFs
-bHkgdHlwZWRlZiB0byBfX2tlcm5lbF9kYWRkcl90LAp3aGljaCBpcyBpbnQgb3IgbG9uZy4KVXNp
-bmcgbG9uZyBhcyBkYWRkcl90IGlzIG5vdCBkZWZpbmVkIGF0IGxlYXN0IG9uIG11c2wuCgpTaWdu
-ZWQtb2ZmLWJ5OiBQZXRyIFZvcmVsIDxwZXRyLnZvcmVsQGdtYWlsLmNvbT4KLS0tCiBpbmNsdWRl
-L2xhcGkvdXN0YXQuaCB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBk
-ZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGFwaS91c3RhdC5oIGIvaW5jbHVkZS9s
-YXBpL3VzdGF0LmgKaW5kZXggMTJjMDczNTgyLi4wMzAxNzljNGEgMTAwNjQ0Ci0tLSBhL2luY2x1
-ZGUvbGFwaS91c3RhdC5oCisrKyBiL2luY2x1ZGUvbGFwaS91c3RhdC5oCkBAIC0xMSw3ICsxMSw3
-IEBACiAjIGluY2x1ZGUgPHN5cy91c3RhdC5oPgogI2Vsc2UKIHN0cnVjdCB1c3RhdCB7Ci0JZGFk
-ZHJfdCBmX3RmcmVlOworCWxvbmcgZl90ZnJlZTsKIAlpbm9fdCBmX3Rpbm9kZTsKIAljaGFyIGZf
-Zm5hbWVbNl07CiAJY2hhciBmX2ZwYWNrWzZdOwotLSAKMi4yMS4wCgoKLS0gCk1haWxpbmcgbGlz
-dCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+T24gTW9uLCBNYXkgMjAsIDIwMTkgYXQgMTE6NTM6NTdBTSArMDIwMCwgQ3lyaWwgSHJ1YmlzIHdy
+b3RlOgo+IEhpIQo+ID4gQ29uc2lzdGVudGx5IHVzZSBlcnJvcigzKSBhbmQgcmVwbGFjZSBhbGwg
+b2NjdXJlbmNlcyBvZiBwZXJyb3IoKQo+ID4gYXQgdGhlIHNhbWUgdGltZS4KPiAKPiBUaGUgZXJy
+b3IoMykgaXMgR05VIGV4dGVuc2lvbiB3ZSBjYW5ub3QgdXNlIGl0IGluIGEgUE9TSVggdGVzdHN1
+aXRlIGFzCj4gc3VjaCwgSSBndWVzcyB0aGF0IHdlIHdpbGwgaGF2ZSB0byBhZGQgY3VzdG9tIGVy
+cm9yIHJlcG9ydGluZyBmdW5jdGlvbnMKPiAoaW4gYSBzZXBhcmF0ZSBwYXRjaCkgdG8gdGhlIG9w
+ZW5fcG9zaXhfdGVzdHN1aXRlL2luY2x1ZGUvcG9zaXh0ZXN0LmgKPiBoZWFkZXIuLi4KPiAKPiBP
+dGhlciB0aGFuIHRoYXQgdGhlIHBhdGNoIGlzIG9idmlvdXNseSBjb3JyZWN0LgoKVGhhbmtzIHlv
+dSB3YW50IG1lIHRvIGFkZCBhbiBlcnJvcigzKS1saWtlIGZ1bmN0aW9uIHRoZXJlPwpJIGd1ZXNz
+IEkgY2FuIGRvIHRoYXQgYW5kIHRoZW4gc3RhcnQgY2hhbmdpbmcgYWxsIHRlc3RzLgoKVGhhbmtz
+IGZvciBwb2ludGluZyBvdXQgdGhlIEdOVS1leHRlbnNpb24sIGRpZG4ndCByZWFsaXplIHRoYXQu
+CgotIHNzcAoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xp
+c3RpbmZvL2x0cAo=
