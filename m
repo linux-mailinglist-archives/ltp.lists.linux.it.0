@@ -1,42 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8574B2B70C
-	for <lists+linux-ltp@lfdr.de>; Mon, 27 May 2019 15:54:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id D57602B748
+	for <lists+linux-ltp@lfdr.de>; Mon, 27 May 2019 16:09:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 41F7B294ABE
-	for <lists+linux-ltp@lfdr.de>; Mon, 27 May 2019 15:54:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 998423EA9B7
+	for <lists+linux-ltp@lfdr.de>; Mon, 27 May 2019 16:09:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id E250F3EA146
- for <ltp@lists.linux.it>; Mon, 27 May 2019 15:54:29 +0200 (CEST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 55E0C3EA17E
+ for <ltp@lists.linux.it>; Mon, 27 May 2019 16:09:55 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8AA191A009A4
- for <ltp@lists.linux.it>; Mon, 27 May 2019 15:54:29 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 40438600057
+ for <ltp@lists.linux.it>; Mon, 27 May 2019 16:09:53 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id DA7C8AF10
- for <ltp@lists.linux.it>; Mon, 27 May 2019 13:54:28 +0000 (UTC)
-Date: Mon, 27 May 2019 15:54:27 +0200
+ by mx1.suse.de (Postfix) with ESMTP id 87D0AAC3F;
+ Mon, 27 May 2019 14:09:53 +0000 (UTC)
+Date: Mon, 27 May 2019 16:09:52 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Christian Amann <camann@suse.com>
-Message-ID: <20190527135427.GB23658@rei>
-References: <20190527094146.13561-1-camann@suse.com>
+To: Jinhui huang <huangjh.jy@cn.fujitsu.com>
+Message-ID: <20190527140952.GC23658@rei>
+References: <1558660677-13516-1-git-send-email-huangjh.jy@cn.fujitsu.com>
+ <1558949927-4438-1-git-send-email-huangjh.jy@cn.fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190527094146.13561-1-camann@suse.com>
+In-Reply-To: <1558949927-4438-1-git-send-email-huangjh.jy@cn.fujitsu.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
 Cc: ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH v1] syscalls/setsockopt04: Add CVE-2016-9793
- testcase
+Subject: Re: [LTP] [PATCH v2] syscalls/sched_setaffinity01.c: rewrite test
+ with new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -53,9 +55,5 @@ Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkhCkkndmUgcmVtb3ZlZCB0aGUgLnRpbWVvdXQgc2V0dGluZ3MgZnJvbSB0aGUgdHN0X3Rlc3Qg
-c3RydWN0dXJlIGFuZApwdXNoZWQsIHRoYW5rcy4KCkFzIGZhciBhcyBJIGNhbiB0ZWxsIHRoZXJl
-IGlzIG5vIHBvaW50IGluIHR3ZWFraW5nIHRoZSBkZWZhdWx0IHRpbWVvdXQKZm9yIHRlc3RjYXNl
-cyB0aGF0IGhhdmUgcnVudGltZSBpbiBtaWxpc2Vjb25kcy4KCi0tIApDeXJpbCBIcnViaXMKY2hy
-dWJpc0BzdXNlLmN6CgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXgu
-aXQvbGlzdGluZm8vbHRwCg==
+SGkhClB1c2hlZCwgdGhhbmtzLgoKLS0gCkN5cmlsIEhydWJpcwpjaHJ1YmlzQHN1c2UuY3oKCi0t
+IApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
