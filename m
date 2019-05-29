@@ -2,53 +2,55 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AB312D45E
-	for <lists+linux-ltp@lfdr.de>; Wed, 29 May 2019 05:56:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ECE22D6EE
+	for <lists+linux-ltp@lfdr.de>; Wed, 29 May 2019 09:49:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 62DBB294ADE
-	for <lists+linux-ltp@lfdr.de>; Wed, 29 May 2019 05:56:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4291B3EA1DC
+	for <lists+linux-ltp@lfdr.de>; Wed, 29 May 2019 09:49:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 4CE8C3EA16D
- for <ltp@lists.linux.it>; Wed, 29 May 2019 05:56:36 +0200 (CEST)
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTP id 412EB3EA18F
+ for <ltp@lists.linux.it>; Wed, 29 May 2019 09:49:05 +0200 (CEST)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CB787200C11
- for <ltp@lists.linux.it>; Wed, 29 May 2019 05:56:33 +0200 (CEST)
-Received: from callcc.thunk.org ([66.31.38.53]) (authenticated bits=0)
- (User authenticated as tytso@ATHENA.MIT.EDU)
- by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id x4T3uDxh003771
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 28 May 2019 23:56:14 -0400
-Received: by callcc.thunk.org (Postfix, from userid 15806)
- id 30068420481; Tue, 28 May 2019 23:56:13 -0400 (EDT)
-Date: Tue, 28 May 2019 23:56:13 -0400
-From: "Theodore Ts'o" <tytso@mit.edu>
-To: kernel test robot <rong.a.chen@intel.com>
-Message-ID: <20190529035613.GA6210@mit.edu>
-Mail-Followup-To: Theodore Ts'o <tytso@mit.edu>,
- kernel test robot <rong.a.chen@intel.com>, Jan Kara <jack@suse.cz>,
- Ira Weiny <ira.weiny@intel.com>,
- LKML <linux-kernel@vger.kernel.org>,
- Stephen Rothwell <sfr@canb.auug.org.au>, lkp@01.org,
- ltp@lists.linux.it
-References: <20190529025256.GB22325@shao2-debian>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 45163200FF7
+ for <ltp@lists.linux.it>; Wed, 29 May 2019 09:49:03 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id 4EF513082B5A;
+ Wed, 29 May 2019 07:49:02 +0000 (UTC)
+Received: from localhost (dhcp-12-130.nay.redhat.com [10.66.12.130])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id AD33960C18;
+ Wed, 29 May 2019 07:49:01 +0000 (UTC)
+Date: Wed, 29 May 2019 15:49:00 +0800
+From: Murphy Zhou <xzhou@redhat.com>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <20190529074900.c656afgiwcb7bhta@XZHOUW.usersys.redhat.com>
+References: <20190524122357.GA28108@dell5510>
+ <20190525115112.15399-1-xzhou@redhat.com>
+ <20190527120945.GA25513@dell5510>
+ <20190527133859.mun7h2xlzjdcwlqv@XZHOUW.usersys.redhat.com>
+ <20190527153632.GA20053@dell5510>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190529025256.GB22325@shao2-debian>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20190527153632.GA20053@dell5510>
+User-Agent: NeoMutt/20180716-1844-e630b3
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+ (mx1.redhat.com [10.5.110.45]); Wed, 29 May 2019 07:49:02 +0000 (UTC)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>, Jan Kara <jack@suse.cz>,
- Ira Weiny <ira.weiny@intel.com>, LKML <linux-kernel@vger.kernel.org>,
- lkp@01.org, ltp@lists.linux.it
-Subject: Re: [LTP] [ext4] 079f9927c7: ltp.mmap16.fail
+Cc: ltp@lists.linux.it
+Subject: Re: [LTP] [PATCH v4 1/2] OVL_MNT: add helpers to setup overlayfs
+	mountpoint
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -65,27 +67,30 @@ Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gV2VkLCBNYXkgMjksIDIwMTkgYXQgMTA6NTI6NTZBTSArMDgwMCwga2VybmVsIHRlc3Qgcm9i
-b3Qgd3JvdGU6Cj4gRllJLCB3ZSBub3RpY2VkIHRoZSBmb2xsb3dpbmcgY29tbWl0IChidWlsdCB3
-aXRoIGdjYy03KToKPiAKPiBjb21taXQ6IDA3OWY5OTI3YzdiZmEwMjZkOTYzZGIxNDU1MTk3MTU5
-ZWJlNWI1MzQgKCJleHQ0OiBncmFjZWZ1bGx5IGhhbmRsZSBleHQ0X2JyZWFrX2xheW91dHMoKSBm
-YWlsdXJlIGR1cmluZyB0cnVuY2F0ZSIpCj4gaHR0cHM6Ly9naXQua2VybmVsLm9yZy9jZ2l0L2xp
-bnV4L2tlcm5lbC9naXQvbmV4dC9saW51eC1uZXh0LmdpdCBtYXN0ZXIKCkphbiAtLS0gdGhpcyBp
-cyB0aGUgb2xkIHZlcnNpb24gb2YgeW91ciBwYXRjaCwgd2hpY2ggSSBoYWQgZHJvcHBlZApiZWZv
-cmUgc2VuZGluZyBhIHB1c2ggcmVxdWVzdCB0byBMaW51cy4gIEhvd2V2ZXIsIEkgZm9yZ290IHRv
-IHJlc2V0CnRoZSBkZXYgYnJhbmNoIHNvIGl0IHN0aWxsIGhhZCB0aGUgb2xkIHBhdGNoIG9uIGl0
-LCBhbmQgc28gaXQgZ290CnBpY2tlZCB1cCBpbiBsaW51eC1uZXh0LiAgQXBvbG9naWVzIGZvciB0
-aGUgY29uZnVzaW9uLgoKSSd2ZSByZXNldCB0aGUgZGV2IGJyYW5jaCBvbiBleHQ0LmdpdCwgYW5k
-IHRoZSBuZXcgdmVyc2lvbiBvZiB5b3VyCnBhdGNoIHdpbGwgc2hvdyB1cCB0aGVyZSBzaG9ydGx5
-LCBhcyBJIHN0YXJ0IHJldmlld2luZyBwYXRjaGVzIGZvciB0aGUKbmV4dCBtZXJnZSB3aW5kb3cu
-CgpDaGVlcnMsCgoJCQkJCS0gVGVkCgo+IDw8PHRlc3Rfc3RhcnQ+Pj4KPiB0YWc9bW1hcDE2IHN0
-aW1lPTE1NTkwNzg3MDYKPiBjbWRsaW5lPSJtbWFwMTYiCj4gY29udGFjdHM9IiIKPiBhbmFseXNp
-cz1leGl0Cj4gPDw8dGVzdF9vdXRwdXQ+Pj4KPiBta2UyZnMgMS40My40ICgzMS1KYW4tMjAxNykK
-PiBtbWFwMTYgICAgICAwICBUSU5GTyAgOiAgVXNpbmcgdGVzdCBkZXZpY2UgTFRQX0RFVj0nL2Rl
-di9sb29wMCcKPiBtbWFwMTYgICAgICAwICBUSU5GTyAgOiAgRm9ybWF0dGluZyAvZGV2L2xvb3Aw
-IHdpdGggZXh0NCBvcHRzPSctYiAxMDI0JyBleHRyYSBvcHRzPScxMDI0MCcKPiBtbWFwMTYgICAg
-ICAxICBURkFJTCAgOiAgbW1hcDE2LmM6ODU6IEJ1ZyBpcyByZXByb2R1Y2VkIQo+IDw8PGV4ZWN1
-dGlvbl9zdGF0dXM+Pj4KPiBpbml0aWF0aW9uX3N0YXR1cz0ib2siCj4gZHVyYXRpb249OCB0ZXJt
-aW5hdGlvbl90eXBlPWV4aXRlZCB0ZXJtaW5hdGlvbl9pZD0xIGNvcmVmaWxlPW5vCj4gY3V0aW1l
-PTExIGNzdGltZT0zNDUKPiA8PDx0ZXN0X2VuZD4+PgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBo
-dHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+T24gTW9uLCBNYXkgMjcsIDIwMTkgYXQgMDU6MzY6MzJQTSArMDIwMCwgUGV0ciBWb3JlbCB3cm90
+ZToKPiBIaSBBbWlyLCBNdXJwaHksCj4gCj4gPiA+IFRPRE86Cj4gPiA+IEknbSBzdGlsbCBub3Qg
+c3VyZSBhYm91dCBvdmxfbW91bnRlZC4gVGhlcmUgaXMgc3RhdGljIGludCBtbnRwb2ludF9tb3Vu
+dGVkIGluCj4gPiA+IGxpYi90c3RfdGVzdC5jLCB3aGljaCBkb2VzIHVtb3VudC4gIHRzdF90ZXN0
+LT5tbnRwb2ludCwgSSBndWVzcyB3ZSBzaG91bGQgdXNlCj4gPiA+IGl0LiBXRFlUPwo+IAo+ID4g
+bW50cG9pbnRfbW91bnRlZCBpcyB0cmFja2luZyBtb3VudCBzdGF0dXMgb2YgYSBzZXBhcmF0ZWQg
+bW91bnRwb2ludCB3aGljaAo+ID4gaXMgdGhlIGJhc2UgZm9yIGNyZWF0aW5nIG92ZXJsYXkgZGly
+cyBhbmQgb3ZlcmxheSBtb3VudHBvaW50LiBUaGlzIHNlcGFyYXRlZAo+ID4gbW91bnRwb2ludCBp
+cyBzZXR1cCBmcm9tIHNjcmF0Y2gsIGdyYWIgZGV2LCBtZmtzIGV0Yy4gSXQncyBzZXBhcmF0ZWQg
+ZnJvbQo+ID4gcnVubHRwIC1kIERJUi4gVGhpcyBpcyB3aHkgdGhpcyBwYXRjaCBpcyBuZWVkZWQu
+Cj4gCj4gPiBPdmVybGF5ZnMgaXMgbW91bnRlZCBvbiB0aGlzIHNlcGFyYXRlZCBtb3VudHBvaW50
+LiBUZXN0Y2FzZXMgbmVlZCB0byB1bW91bnQKPiA+IG92ZXJsYXlmcyBpbiBjbGVhbnVwIGlmIHNl
+dHVwIG92ZXJsYXkgc3VjY2Vzc2Z1bGx5LiBUaGF0J3Mgd2h5IG92bF9tb3VudGVkCj4gPiBpcyBu
+ZWVkZWQuCj4gCj4gPiBIb3cgYWJvdXQgU0FGRV9VTU9VTlRfT1ZFUkxBWSBpZ25vcmluZyBFSU5W
+QUwgPwo+IEkgZG9uJ3Qgc2VlIG11Y2ggYmVuZWZpdHMsIHdoZW4gd2UgaGF2ZSBTQUZFX1VNT1VO
+VCgpLiAgTW9yZSB1c2VmdWwgbG9va3MgdG8gbWUKPiBmb3Igc2ltcGxlIGNhc2VzIG1vdmUgb3Zs
+X21vdW50ZWQgYW5kIFNBRkVfVU1PVU5UKE9WTF9NTlQpICB0byBsaWJyYXJ5ICh0aGUgb25seQo+
+IHRoaW5nIG5lZWRlZCB3b3VsZCBiZSBzb21lIGZsYWcgZm9yIHN0cnVjdCB0c3RfdGVzdCBlLmcu
+IC5tb3VudF9vdmVybGF5ID0gMSkuCgpBZnRlciBzb21lIGRpZ2dpbmcsIEkgdGhpbmsgcHV0dGlu
+ZyBvdmxfbW91bnRlZCBhbmQgVU1PVU5UIHRvIGxpYnJhcnkgaXMKZ29vZCBidXQgY3JlYXRpbmcg
+ZGlycyBhbmQgTU9VTlQgaW4gbGlicmFyeSBiZW5lZml0cyBsZXNzLiBCZWNhdXNlIHNwbGl0dGlu
+ZwpjcmVhdGluZyBkaXJzIGFuZCBNT1VOVCB3YXMgaW50ZW5kZWQgdG8gYmUgbW9yZSBmbGV4aWJs
+ZSBvbiB0aGlzLiBBbHNvLAppbm90aWZ5MDcvOCBuZWVkcyB0byBjcmVhdGUgZXh0cmEgZGlycyBi
+ZWZvcmUgbW91bnRpbmcuIFNvIGV4ZWN2ZWF0MDMgaXMKdGhlIG9ubHkgb25lIGNhc2UgdG8gYmVu
+ZWZpdCBmcm9tIGNyZWF0aW5nIGRpcnMgYW5kIE1PVU5UIGluIHRoZSBsaWJyYXJ5LgoKVGhhbmtz
+IQoKPiAKPiA+IFRoYW5rcyEKPiA+IE0KPiAKPiAKPiBLaW5kIHJlZ2FyZHMsCj4gUGV0cgoKLS0g
+Ck1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
