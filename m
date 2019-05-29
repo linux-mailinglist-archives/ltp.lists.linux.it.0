@@ -2,68 +2,84 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5AC02D737
-	for <lists+linux-ltp@lfdr.de>; Wed, 29 May 2019 10:04:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51E532D920
+	for <lists+linux-ltp@lfdr.de>; Wed, 29 May 2019 11:33:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9B6E13EA1D3
-	for <lists+linux-ltp@lfdr.de>; Wed, 29 May 2019 10:04:56 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2650E3EA2EC
+	for <lists+linux-ltp@lfdr.de>; Wed, 29 May 2019 11:33:12 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 0262D3EA137
- for <ltp@lists.linux.it>; Wed, 29 May 2019 10:04:54 +0200 (CEST)
-Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
- [IPv6:2a00:1450:4864:20::141])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 6776D3EA1B6
+ for <ltp@lists.linux.it>; Wed, 29 May 2019 11:33:07 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 360DF201343
- for <ltp@lists.linux.it>; Wed, 29 May 2019 10:04:54 +0200 (CEST)
-Received: by mail-lf1-x141.google.com with SMTP id m14so1211597lfp.12
- for <ltp@lists.linux.it>; Wed, 29 May 2019 01:04:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=1LIOku9W0w6jyilHULXZM0qJLovMNSsThL0PJAa4R6s=;
- b=cChtVJTAkdUeB569BzFxW+lkBv7RfvyARS1+90S3q0TPpHzTNLxCWGjgwut75/WYHZ
- CQ9XfGod9nJpU5BjcSlJyGmMzlSkH569SwBTcbB9Hg7jZTwZdfOfeeWP2oc2MJKZwMiW
- kYz9kLS/NVsgGustKQHks5T0k1EOf3OwfcwoMTZIn5LIJ2h3oDzvilSVIOJpzqUHD0Qh
- Io1B9qE1nYXUFSIBylfBsvLgZBYmIByUJzMPyFR56uHECQLCJrdIXEG5oXM+wrtyqdBn
- NwWeexMTd9waVGwrIeFxp/jE71lcpq9O9JeJ+tRcfj+6BXyU9vzfBWUuEJbO9nKdDTIX
- pmvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=1LIOku9W0w6jyilHULXZM0qJLovMNSsThL0PJAa4R6s=;
- b=SAS+Ea8GVCG/4wDToB5Vl4Dl6+UdzF9qtQ0SQ1VifPpps1obMicBmniYyco9I2SvZl
- RqjusPMtoEF6o/GRLpsDlxGw8CHpjLnSjZPLKT21QLsAcy0VoKvtJGSVeW9lH3cksIGa
- frUYhYhy2gdTNE2oaVsDKBhnz4/rwQwO9jcVsztsSQa/IXIi6pKn9BIoudyCaF7sbuWT
- QOhKK8fCBgKyxpxPR5T6lG1WxszpW2K6rAAxA/wZtA0G1y0PYyspuwa1Jd1CamnrvWwd
- zHYAlWwklE+IKUinn6S/NwkpWm92lCbC+CK0RvoErognY7HliGo8JdbNtRMKx7Hgq1Lb
- Ts8g==
-X-Gm-Message-State: APjAAAWaCsgr6FnM7HxNpqJ8MAGivotkrZFBgPfu2wFF+ufpRsRMaZ12
- nWZdKtgI/WJHxYXklX0yOeimegY9L8ATBd+Wa+TmnA==
-X-Google-Smtp-Source: APXvYqzGg3PfDli6WYmdX+mVXkhECaeIUHXaK/vTD7ZvztMnsVmqR0e2YR/cufgv/gQgmROlPOEQ02URCK8zPU2nObI=
-X-Received: by 2002:ac2:4428:: with SMTP id w8mr3070736lfl.99.1559117093345;
- Wed, 29 May 2019 01:04:53 -0700 (PDT)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E95AD1A01142
+ for <ltp@lists.linux.it>; Wed, 29 May 2019 11:33:05 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 04146AFCF
+ for <ltp@lists.linux.it>; Wed, 29 May 2019 09:33:04 +0000 (UTC)
+From: Christian Amann <camann@suse.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=camann@suse.com; keydata=
+ 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
+ du2mz1Q=
+To: ltp@lists.linux.it
+Message-ID: <7b0b763f-0b6b-fb18-7916-d25afdcb5c68@suse.com>
+Date: Wed, 29 May 2019 11:33:03 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-References: <20190529025256.GB22325@shao2-debian>
- <20190529035613.GA6210@mit.edu>
-In-Reply-To: <20190529035613.GA6210@mit.edu>
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Wed, 29 May 2019 13:34:42 +0530
-Message-ID: <CA+G9fYtVH0UF55Xins22sXCvcOLN+JGv-p2brj58BjzNGqdE2A@mail.gmail.com>
-To: "Theodore Ts'o" <tytso@mit.edu>, kernel test robot <rong.a.chen@intel.com>,
- Jan Kara <jack@suse.cz>, 
- Ira Weiny <ira.weiny@intel.com>, LKML <linux-kernel@vger.kernel.org>, 
- Stephen Rothwell <sfr@canb.auug.org.au>, lkp@01.org, ltp@lists.linux.it
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Cc: lkft-triage@lists.linaro.org
-Subject: Re: [LTP] [LKP] [ext4] 079f9927c7: ltp.mmap16.fail
+X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] TST_GET_UNUSED_PORT returns ports < 1024
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -75,31 +91,91 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1816860241=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgVGVkLAoKT24gV2VkLCAyOSBNYXkgMjAxOSBhdCAwOToyNiwgVGhlb2RvcmUgVHMnbyA8dHl0
-c29AbWl0LmVkdT4gd3JvdGU6Cj4KPiBPbiBXZWQsIE1heSAyOSwgMjAxOSBhdCAxMDo1Mjo1NkFN
-ICswODAwLCBrZXJuZWwgdGVzdCByb2JvdCB3cm90ZToKPiA+IEZZSSwgd2Ugbm90aWNlZCB0aGUg
-Zm9sbG93aW5nIGNvbW1pdCAoYnVpbHQgd2l0aCBnY2MtNyk6Cj4gPgo+ID4gY29tbWl0OiAwNzlm
-OTkyN2M3YmZhMDI2ZDk2M2RiMTQ1NTE5NzE1OWViZTViNTM0ICgiZXh0NDogZ3JhY2VmdWxseSBo
-YW5kbGUgZXh0NF9icmVha19sYXlvdXRzKCkgZmFpbHVyZSBkdXJpbmcgdHJ1bmNhdGUiKQo+ID4g
-aHR0cHM6Ly9naXQua2VybmVsLm9yZy9jZ2l0L2xpbnV4L2tlcm5lbC9naXQvbmV4dC9saW51eC1u
-ZXh0LmdpdCBtYXN0ZXIKCkkgZG8gaGF2ZSBmb3VuZCB0aGlzIHByb2JsZW0gb24gbGludXggbmV4
-dCAyMDE5MDUyOCBvbiB4ODZfNjQsIGkzODYsCmFybTY0IGFuZCBhcm0gYXJjaGl0ZWN0dXJlcy4K
-QnV0LCB0aGlzIGZhaWx1cmUgaXMgbm90IGVhc3kgdG8gcmVwcm9kdWNlLgpzbyB0aG91Z2h0IG9m
-IHNoYXJpbmcgcmVwb3J0IHdpdGggc3RlcHMgdG8gcmVwcm9kdWNlIGFuZCBnb3QgZGVsYXllZC4K
-Cj4KPiBKYW4gLS0tIHRoaXMgaXMgdGhlIG9sZCB2ZXJzaW9uIG9mIHlvdXIgcGF0Y2gsIHdoaWNo
-IEkgaGFkIGRyb3BwZWQKPiBiZWZvcmUgc2VuZGluZyBhIHB1c2ggcmVxdWVzdCB0byBMaW51cy4g
-IEhvd2V2ZXIsIEkgZm9yZ290IHRvIHJlc2V0Cj4gdGhlIGRldiBicmFuY2ggc28gaXQgc3RpbGwg
-aGFkIHRoZSBvbGQgcGF0Y2ggb24gaXQsIGFuZCBzbyBpdCBnb3QKPiBwaWNrZWQgdXAgaW4gbGlu
-dXgtbmV4dC4gIEFwb2xvZ2llcyBmb3IgdGhlIGNvbmZ1c2lvbi4KPgo+IEkndmUgcmVzZXQgdGhl
-IGRldiBicmFuY2ggb24gZXh0NC5naXQsIGFuZCB0aGUgbmV3IHZlcnNpb24gb2YgeW91cgo+IHBh
-dGNoIHdpbGwgc2hvdyB1cCB0aGVyZSBzaG9ydGx5LCBhcyBJIHN0YXJ0IHJldmlld2luZyBwYXRj
-aGVzIGZvciB0aGUKPiBuZXh0IG1lcmdlIHdpbmRvdy4KCkhvd2V2ZXIsIFRoYW5rcyBmb3IgbG9v
-a2luZyBpbnRvIHRoaXMgcHJvYmxlbS4KSSB3aWxsIGtlZXAgbW9uaXRvcmluZyB0aGlzIG1tYXAx
-NiBmYWlsdXJlIGFuZCBsZXQgeW91IGtub3cgd2hlbiBpdAp3aWxsIGdldCBmaXhlZC4KCi0gTmFy
-ZXNoCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGlu
-Zm8vbHRwCg==
+This is a multi-part message in MIME format.
+--===============1816860241==
+Content-Type: multipart/alternative;
+ boundary="------------CD7340F345524FEEE45578EA"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------CD7340F345524FEEE45578EA
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+SGksCgp3aGVuIHVzaW5nIHRoZSBUU1RfR0VUX1VOVVNFRF9QT1JUIG1hY3JvIHlvdSBzb21l
+dGltZXMgZ2V0IHBvcnRzIGxvd2VyCnRoYW4gMTAyNCB3aGljaCB3b3VsZCByZXF1aXJlIGEg
+dGVzdGNhc2UgdG8gaGF2ZSB0aGUKQ0FQX05FVF9CSU5EX1NFUlZJQ0UgY2FwYWJpbGl0eSAo
+b3Igc2ltcGx5IHJ1biBhcyByb290KS4KCk9mIGNvdXJzZSB5b3UgY291bGQgd3JpdGUgYSB3
+cmFwcGVyIGxpa2UgdGhlIGZvbGxvd2luZyB0byBhdm9pZCB0aGF0Cmlzc3VlLCBidXQgaW4g
+bXkgb3BpbmlvbiBpdCB3b3VsZCBiZSBuaWNlIHRvIGhhdmUgdGhlIG9wdGlvbiB0byBnZXQK
+bm9uLXJvb3QgcG9ydHMgZGlyZWN0bHkgZnJvbSB0aGUgbGlicmFyeS4KCi8qIFdyYXBwZXIg
+dG8gdG8gZ2V0IGEgbm9uLXJvb3QgcG9ydCBpZiBuZWNlc3NhcnkgKi8Kc3RhdGljIGludCBn
+ZXRfcG9ydCh1aWRfdCB1aWQpCnsKwqDCoMKgwqDCoMKgwqAgc3RhdGljIGludCBjb3VudCA9
+IDEwOwrCoMKgwqDCoMKgwqDCoCBpbnQgcG9ydDsKCsKgwqDCoMKgwqDCoMKgIHBvcnQgPSBU
+U1RfR0VUX1VOVVNFRF9QT1JUKEFGX0lORVQsIFNPQ0tfU1RSRUFNKTsKwqDCoMKgwqDCoMKg
+wqAgaWYgKHBvcnQgPCAxMDAwICYmIHVpZCAhPSAwKSB7CsKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBpZiAoIWNvdW50KQrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIHRzdF9icmsoVEJST0ssICJDb3VsZCBub3QgZ2V0IGZpdHRpbmcg
+cG9ydCIpOwrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY291bnQtLTsKwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBnZXRfcG9ydCh1aWQpOwrCoMKgwqDC
+oMKgwqDCoCB9CsKgwqDCoMKgwqDCoMKgIHJldHVybiBwb3J0Owp9CgpLaW5kIHJlZ2FyZHMs
+CgpDaHJpc3RpYW4KCgo=
+--------------CD7340F345524FEEE45578EA
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>Hi,</p>
+    <p>when using the TST_GET_UNUSED_PORT macro you sometimes get ports
+      lower than 1024 which would require a testcase to have the
+      CAP_NET_BIND_SERVICE capability (or simply run as root).</p>
+    <p>Of course you could write a wrapper like the following to avoid
+      that issue, but in my opinion it would be nice to have the option
+      to get non-root ports directly from the library.</p>
+    <p><font color="#3366ff">/* Wrapper to to get a non-root port if
+        necessary */<br>
+        static int get_port(uid_t uid)<br>
+        {<br>
+                static int count = 10;<br>
+                int port;<br>
+        <br>
+                port = TST_GET_UNUSED_PORT(AF_INET, SOCK_STREAM);<br>
+                if (port &lt; 1000 &amp;&amp; uid != 0) {<br>
+                        if (!count)<br>
+                                tst_brk(TBROK, "Could not get fitting
+        port");<br>
+                        count--;<br>
+                        return get_port(uid);<br>
+                }<br>
+                return port;<br>
+        }</font><br>
+    </p>
+    <p>Kind regards,</p>
+    <p>Christian<br>
+    </p>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------CD7340F345524FEEE45578EA--
+
+--===============1816860241==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
+dHAK
+
+--===============1816860241==--
