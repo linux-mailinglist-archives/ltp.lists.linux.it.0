@@ -2,44 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E62522FF67
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 May 2019 17:27:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ED1430046
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 May 2019 18:40:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B14E73EA656
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 May 2019 17:27:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 069EC3EA641
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 May 2019 18:40:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id B732B3EA04A
- for <ltp@lists.linux.it>; Thu, 30 May 2019 17:27:40 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 93D543EA0C4
+ for <ltp@lists.linux.it>; Thu, 30 May 2019 18:40:17 +0200 (CEST)
+Received: from out30-45.freemail.mail.aliyun.com
+ (out30-45.freemail.mail.aliyun.com [115.124.30.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0EBC41401837
- for <ltp@lists.linux.it>; Thu, 30 May 2019 17:27:39 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 4807DAC5C;
- Thu, 30 May 2019 15:27:39 +0000 (UTC)
-Date: Thu, 30 May 2019 17:27:37 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Murphy Zhou <xzhou@redhat.com>
-Message-ID: <20190530152736.GB25602@rei>
-References: <20190530102336.10898-1-xzhou@redhat.com>
- <20190530102336.10898-2-xzhou@redhat.com>
- <20190530111030.GC31468@rei.lan>
- <20190530150500.j2wkehkf5fopt2nw@XZHOUW.usersys.redhat.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 694E214017C4
+ for <ltp@lists.linux.it>; Thu, 30 May 2019 18:40:10 +0200 (CEST)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R301e4; CH=green; DM=||false|;
+ FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04394; MF=caspar@linux.alibaba.com; NM=1;
+ PH=DS; RN=3; SR=0; TI=SMTPD_---0TT1NYN9_1559234406; 
+Received: from linux.alibaba.com(mailfrom:caspar@linux.alibaba.com
+ fp:SMTPD_---0TT1NYN9_1559234406) by smtp.aliyun-inc.com(127.0.0.1);
+ Fri, 31 May 2019 00:40:06 +0800
+Date: Fri, 31 May 2019 00:40:05 +0800
+From: Caspar Zhang <caspar@linux.alibaba.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20190530164005.GB57736@linux.alibaba.com>
+References: <f11c83459b71fbf399794fb8363f2b538b0b6346.1559207183.git.caspar@casparzhang.com>
+ <20190530151843.GA25602@rei>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190530150500.j2wkehkf5fopt2nw@XZHOUW.usersys.redhat.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20190530151843.GA25602@rei>
+User-Agent: Mutt/1.11.3 (2019-02-01)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-7.5 required=7.0 tests=ENV_AND_HDR_SPF_MATCH,
+ SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Cc: ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH 2/2] syscalls: update tcases using dev_fs_type to
- use some_filesystems
+Cc: Caspar Zhang <caspar@linux.alibaba.com>, LTP List <ltp@lists.linux.it>
+Subject: Re: [LTP] [PATCH 1/3] tst_test: fix again when test has both TPASS
+ and TCONF
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -56,24 +59,30 @@ Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkhCj4gPiBJIGd1ZXNzIHRoYXQgd2UgY2FuIGVuYWJsZSB0aGUgdGhpcyB0ZXN0IGZvciBhbGwg
-ZmlsZXN5c3RlbXMsIHRoZXJlIGlzCj4gPiBpbi1rZXJuZWwgZmFsbGJhY2sgZm9yIGZpbGVzeXN0
-ZW1zIHRoYXQgZG9lcyBub3Qgc3VwcG9ydCB0aGUgc3lzY2FsbCBzbwo+ID4gaXQgc2hvdWxkIHdv
-cmsgb24gYWxsIGZpbGVzeXN0ZW1zIGFuZCB0aGUgZmFsbGJhY2sgY29kZSBzaG91bGQgYmUgdGVz
-dGVkCj4gPiBhcyB3ZWxsLgo+ID4gCj4gPiA+ICB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2dl
-dHhhdHRyL2dldHhhdHRyMDQuYyAgICAgICAgICAgfCA3ICsrKysrLS0KPiA+IAo+ID4gV2VsbCBJ
-IHdvdWxkIGJlIHNsaWdodGx5IGluIGZhdm9yIG9mIGVuYWJsaW5nIHRoaXMgdGVzdCBmb3IgYWxs
-Cj4gPiBmaWxlc3lzdGVtcyBhcyB3ZWxsLgo+ID4gCj4gPiBJZiB3ZSBldmVyIHdhbnQgdG8gbWFp
-bnRhaW4gbGlzdCBvZiBmaWxlc3lzdGVtcyB0aGF0IHN1cHBvcnQgZXh0ZW5kZWQKPiA+IGF0dHJp
-YnV0ZXMgdGhlcmUgc2hvdWxkIGJlIG9ubHkgb25lIHNvbWV3aGVyZSBpbiB0aGUgdGVzdCBsaWJy
-YXJ5IHNvCj4gPiB0aGF0IHdlIGRvbid0IGhhdmUgdG8gY2hhbmdlIHRob3VzYW5kIHRlc3RjYXNl
-cyBsYXRlciBvbi4KPiAKPiBIbW0uLiBTbyB3ZSBhY3R1YWxseSBkb24ndCBuZWVkIHRoaXMgYXJy
-YXkuIEp1c3QgZW5hYmxlIHNvbWUgcHJvcGVyCj4gdGVzdHMgZm9yIGFsbCBmaWxlc3lzdGVtcy4K
-Ckxvb2tzIGxpa2UgdGhhdCwgSSd2ZSBjaGVja2VkIHRoZSBmZ2V0eGF0dHIwMS5jIHRlc3QgYW5k
-IHdlIG9ubHkgc2tpcApmYXQgYW5kIHZmYXQgd2hlbiB0aGUgdGVzdCBpcyBleGVjdXRlZCwgYWxs
-IHRoZSBvdGhlciBmaWxlc3lzdGVtcyBkbwpzdXBwb3J0IGV4dGVuZGVkIGF0dHJpYnV0ZXMuIERp
-c2FibGluZyBmYXQgYW5kIHZmYXQgZG9lcyBub3Qgc2VlbSB0bwpzcGVlZCB1cCB0aGUgdGVzdCBh
-dCBhbGwsIEkgZ3Vlc3MgdGhhdCB0aGUgbWtmcyArIG1vdW50IGlzIGZhc3QgZW5vdWdoCnNvIHRo
-YXQgdGhlIGRpZmZlcmVuY2UgaXMgbm90IG1lYXN1cmVhYmxlLgoKLS0gCkN5cmlsIEhydWJpcwpj
-aHJ1YmlzQHN1c2UuY3oKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51
-eC5pdC9saXN0aW5mby9sdHAK
+T24gVGh1LCBNYXkgMzAsIDIwMTkgYXQgMDU6MTg6NDNQTSArMDIwMCwgQ3lyaWwgSHJ1YmlzIHdy
+b3RlOgo+IEhpIQo+ID4gQ29uc2lkZXIgdGhpcyBzaXR1YXRpb246IHdlIGdldCBvbmx5IFRQQVNT
+IGFuZCBUQ09ORiBpbiB0ZXN0Cj4gPiByZXN1bHRzLCBhbmQgdGhlIGxhc3Qgc3RhdHVzIGhhcHBl
+bnMgdG8gYmUgVFBBU1MsIHRoZSBjaGVjawo+ID4gY29uZGl0aW9uIGluIGNvbW1pdCBmZWNkZDg4
+NWViNGIgKCJ0c3RfdGVzdDogRml4IGV4aXQgdmFsdWUgb24KPiA+IHRzdF9icmsoVENPTkYsIC4u
+LikiIHdvbid0IHdvcmsuIEZpeCBpdCBieSByZW1vdmluZyB1bm5lY2Vzc2FyeQo+ID4gVENPTkYg
+Y2hlY2suCj4KPiBXaGF0IGlzIHRoZSBleGFjdCBzZXF1ZW5jZSBvZiB0aGUgdHN0X3JlcygpL3Rz
+dF9icmsoKSBjYWxscyBsZWFkaW5nIHRvCj4gdGhpcz8KPgo+IEJlY2F1c2UgaWYgdGhlIHRlc3Qg
+ZnVuY3Rpb24gaGFzIGV4aXR0ZWQgd2l0aCAwIHRoZSBkb19leGl0KCkgZnVuY3Rpb24KPiB3b3Vs
+ZCBiZSBwYXNzZWQgMCBhbmQgdGhhdCBjYXNlIGlzIGhhbmRsZWQgYWxyZWFkeToKPgo+IAlpZiAo
+cmVzdWx0cy0+c2tpcHBlZCAmJiAhcmVzdWx0cy0+cGFzc2VkKQo+IAkJcmV0IHw9IFRDT05GOwoK
+SG1tLi4uIHlvdSBhcmUgcmlnaHQsIHRoZSBvcmlnaW5hbCBmaXggd2FzIGFic29sdXRlbHkgY29y
+cmVjdC4gUGxlYXNlCmZlZWwgZnJlZSB0byBpZ25vcmUgdGhpcyBwYXRjaC4gU29ycnkgZm9yIHRo
+ZSBub2lzZSA7LSkKClRoYW5rcywKQ2FzcGFyCgoKPgo+ID4gRml4ZXM6IDUzOTBkNmVhMzY1NyAo
+ImxpYi90c3RfdGVzdDogUmVwb3J0IDAgaWYgdGVzdCBoYXMgYm90aCBUUEFTUyBhbmQgVENPTkYi
+KQo+ID4gU2lnbmVkLW9mZi1ieTogQ2FzcGFyIFpoYW5nIDxjYXNwYXJAbGludXguYWxpYmFiYS5j
+b20+Cj4gPiAtLS0KPiA+ICBsaWIvdHN0X3Rlc3QuYyB8IDIgKy0KPiA+ICAxIGZpbGUgY2hhbmdl
+ZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvbGli
+L3RzdF90ZXN0LmMgYi9saWIvdHN0X3Rlc3QuYwo+ID4gaW5kZXggMmQ4OGFkYmQ3Li44YmExMjJm
+YmUgMTAwNjQ0Cj4gPiAtLS0gYS9saWIvdHN0X3Rlc3QuYwo+ID4gKysrIGIvbGliL3RzdF90ZXN0
+LmMKPiA+IEBAIC01OTQsNyArNTk0LDcgQEAgc3RhdGljIHZvaWQgZG9fZXhpdChpbnQgcmV0KQo+
+ID4gIAkJcHJpbnRmKCJza2lwcGVkICAlZFxuIiwgcmVzdWx0cy0+c2tpcHBlZCk7Cj4gPiAgCQlw
+cmludGYoIndhcm5pbmdzICVkXG4iLCByZXN1bHRzLT53YXJuaW5ncyk7Cj4gPgo+ID4gLQkJaWYg
+KHJlc3VsdHMtPnBhc3NlZCAmJiByZXQgPT0gVENPTkYpCj4gPiArCQlpZiAocmVzdWx0cy0+cGFz
+c2VkKQo+ID4gIAkJCXJldCA9IDA7Cj4KPiAtLQo+IEN5cmlsIEhydWJpcwo+IGNocnViaXNAc3Vz
+ZS5jegoKLS0KICAgICAgICBUaGFua3MsCiAgICAgICAgQ2FzcGFyCgotLSAKTWFpbGluZyBsaXN0
+IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
