@@ -2,54 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D25830C46
-	for <lists+linux-ltp@lfdr.de>; Fri, 31 May 2019 12:02:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03DC030C71
+	for <lists+linux-ltp@lfdr.de>; Fri, 31 May 2019 12:15:33 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D8BD43EA298
-	for <lists+linux-ltp@lfdr.de>; Fri, 31 May 2019 12:02:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BDAF5390297
+	for <lists+linux-ltp@lfdr.de>; Fri, 31 May 2019 12:15:32 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 56BA73EA05E
- for <ltp@lists.linux.it>; Fri, 31 May 2019 12:02:50 +0200 (CEST)
-Received: from mail-vk1-f194.google.com (mail-vk1-f194.google.com
- [209.85.221.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 0B3541A01177
- for <ltp@lists.linux.it>; Fri, 31 May 2019 12:02:49 +0200 (CEST)
-Received: by mail-vk1-f194.google.com with SMTP id l73so1373408vkl.8
- for <ltp@lists.linux.it>; Fri, 31 May 2019 03:02:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=1/s52rvaexv4SsskWnfPJroucQ9fnMPRMoNiYthtsNg=;
- b=t9+eBFoGZyrY69KUp58HQ68EXDn36Mx0bz3Xyv3IA+frNh+onkfXhun+9DsxtlbYVJ
- pP8h3B35Kzf4GLjWY32eF4yRvNa6OZ+zggMafnaGB5eaF2fsp930e0vfjrm2Tt81lMxQ
- 2cjkBcz937puuCmJm0L8cnguR5XWR4YgQgTAGrjslDZpfVOPuBewv1JDBQJFMnlMj4HO
- 3SC6Xpefkf8ITxgffGTm8w6Va/kdbkMGQGy/5Ga3LUd4aBmCe37Y/ggyG7u7OWbQ9cFk
- W1nXxIDj2sXCIHgwE44KKQPH/qFCjxyf7JVlSeh0/Q7vbp4EbzM9KEZw/Zn/+HWgIKi6
- i1Sg==
-X-Gm-Message-State: APjAAAUMp+b5ehN+7EWicJu0/0zyoJrzN83dBuTqW4jMu2JPYE+7TZaT
- k6BAMssX5frDUQbjuJrEv44OFN4k/BySW0nzhgqqYi78yvs5uw==
-X-Google-Smtp-Source: APXvYqwg9dXCQdnSxhNtjMhdu2Xlw9RrGqdokQHHTm60mE9GJw/HfLsL586rmquM4orWJ4A4j47JuUmnT0uDIo02T54=
-X-Received: by 2002:a1f:23d6:: with SMTP id j205mr3639660vkj.52.1559296967777; 
- Fri, 31 May 2019 03:02:47 -0700 (PDT)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 3F17E3EA180
+ for <ltp@lists.linux.it>; Fri, 31 May 2019 12:15:29 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 42C521A016C7
+ for <ltp@lists.linux.it>; Fri, 31 May 2019 12:15:26 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.60,534,1549900800"; d="scan'208";a="65374394"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 31 May 2019 18:15:23 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id 64CBB4CD846F;
+ Fri, 31 May 2019 18:15:21 +0800 (CST)
+Received: from [10.167.215.39] (10.167.215.39) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ id 14.3.439.0; Fri, 31 May 2019 18:15:26 +0800
+Message-ID: <5CF0FEB5.4030700@cn.fujitsu.com>
+Date: Fri, 31 May 2019 18:15:17 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
+To: Jinhui huang <huangjh.jy@cn.fujitsu.com>
 References: <1559292243-2882-1-git-send-email-huangjh.jy@cn.fujitsu.com>
 In-Reply-To: <1559292243-2882-1-git-send-email-huangjh.jy@cn.fujitsu.com>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 31 May 2019 18:02:36 +0800
-Message-ID: <CAEemH2eupy=uOYFpUFg3mDF0M06SZ07XW9+kw2e_B=wrY5-QOQ@mail.gmail.com>
-To: Jinhui huang <huangjh.jy@cn.fujitsu.com>
+X-Originating-IP: [10.167.215.39]
+X-yoursite-MailScanner-ID: 64CBB4CD846F.ABCA0
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Cc: LTP List <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Subject: Re: [LTP] [PATCH] syscalls/copy_file_range02.c: Compatible with new
  and old kernels
 X-BeenThere: ltp@lists.linux.it
@@ -63,238 +56,52 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1633341155=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1633341155==
-Content-Type: multipart/alternative; boundary="000000000000dd3ebb058a2c1de2"
-
---000000000000dd3ebb058a2c1de2
-Content-Type: text/plain; charset="UTF-8"
-
-On Fri, May 31, 2019 at 4:44 PM Jinhui huang <huangjh.jy@cn.fujitsu.com>
-wrote:
-
-> On new kernels, copy_file_range() returned EISDIR when copyed contents
-> to directory, but on old kernels, it returned EBADF, we should accept
-> EBADF to be compatible with new and old kernels.
->
-> The patch as follows:
-> commit 11cbfb10775a ("vfs: deny copy_file_range() for non regular files")
->
-
-Patch makes sense.
-
-Reviewed-by: Li Wang <liwang@redhat.com>
-
->
-> Signed-off-by: Jinhui huang <huangjh.jy@cn.fujitsu.com>
-> ---
->  .../syscalls/copy_file_range/copy_file_range02.c   | 33
-> +++++++++++++++-------
->  1 file changed, 23 insertions(+), 10 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
-> b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
-> index 07c0207..9e6356c 100644
-> --- a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
-> +++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
-> @@ -54,19 +54,32 @@ static void verify_copy_file_range(unsigned int n)
->         TEST(sys_copy_file_range(fd_src, 0, *tc->copy_to_fd,
->                                 0, CONTSIZE, tc->flags));
->
-> -       if (TST_RET == -1) {
-> -               if (tc->exp_err == TST_ERR) {
-> +       if (TST_RET != -1) {
-> +               tst_res(TFAIL,
-> +                       "copy_file_range returned wrong value: %ld",
-> TST_RET);
-> +               return;
-> +       }
-> +
-> +       if (tc->exp_err == TST_ERR) {
-> +               tst_res(TPASS | TTERRNO,
-> +                       "copy_file_range failed as expected");
-> +       } else {
-> +               /* copy_file_range() returned EISDIR when copyed contents
-> to
-> +                * directory on new kernels, but on old kernels, it
-> returned
-> +                * EBADF.
-> +                *
-> +                * the patch as follws:
-> +                * commit 11cbfb10775a ("vfs: deny copy_file_range() for
-> non regular files")
-> +                */
-> +               if (tc->exp_err == EISDIR && TST_ERR == EBADF) {
->                         tst_res(TPASS | TTERRNO,
-> -                                       "copy_file_range failed as
-> expected");
-> -               } else {
-> -                       tst_res(TFAIL | TTERRNO,
-> -                               "copy_file_range failed unexpectedly;
-> expected %s, but got",
-> -                               tst_strerrno(tc->exp_err));
-> +                               "copy_file_range failed as expected");
->                         return;
->                 }
-> -       } else {
-> -               tst_res(TFAIL,
-> -                       "copy_file_range returned wrong value: %ld",
-> TST_RET);
-> +
-> +               tst_res(TFAIL | TTERRNO,
-> +                       "copy_file_range failed unexpectedly; expected %s,
-> but got",
-> +                       tst_strerrno(tc->exp_err));
->         }
->  }
->
-> --
-> 1.8.3.1
->
->
->
->
-> --
-> Mailing list info: https://lists.linux.it/listinfo/ltp
->
-
-
--- 
-Regards,
-Li Wang
-
---000000000000dd3ebb058a2c1de2
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Fri, May 31, 2019 at 4:44 PM Jinhui huang &lt;<a=
- href=3D"mailto:huangjh.jy@cn.fujitsu.com">huangjh.jy@cn.fujitsu.com</a>&gt=
-; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On new =
-kernels, copy_file_range() returned EISDIR when copyed contents<br>
-to directory, but on old kernels, it returned EBADF, we should accept<br>
-EBADF to be compatible with new and old kernels.<br>
-<br>
-The patch as follows:<br>
-commit 11cbfb10775a (&quot;vfs: deny copy_file_range() for non regular file=
-s&quot;)<br></blockquote><div><br></div><div class=3D"gmail_default" style=
-=3D"font-size:small">Patch makes sense.</div><div class=3D"gmail_default" s=
-tyle=3D"font-size:small"><br></div><div class=3D"gmail_default" style=3D"fo=
-nt-size:small">Reviewed-by: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com=
-">liwang@redhat.com</a>&gt;</div><div class=3D"gmail_default" style=3D"font=
--size:small"></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
-x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-Signed-off-by: Jinhui huang &lt;<a href=3D"mailto:huangjh.jy@cn.fujitsu.com=
-" target=3D"_blank">huangjh.jy@cn.fujitsu.com</a>&gt;<br>
----<br>
-=C2=A0.../syscalls/copy_file_range/copy_file_range02.c=C2=A0 =C2=A0| 33 +++=
-++++++++++++-------<br>
-=C2=A01 file changed, 23 insertions(+), 10 deletions(-)<br>
-<br>
-diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c =
-b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c<br>
-index 07c0207..9e6356c 100644<br>
---- a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c<br>
-+++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c<br>
-@@ -54,19 +54,32 @@ static void verify_copy_file_range(unsigned int n)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 TEST(sys_copy_file_range(fd_src, 0, *tc-&gt;cop=
-y_to_fd,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 0, CONTSIZE, tc-&gt;flags));<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0if (TST_RET =3D=3D -1) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (tc-&gt;exp_err =
-=3D=3D TST_ERR) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (TST_RET !=3D -1) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TFAIL,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0&quot;copy_file_range returned wrong value: %ld&quot;, TST_RET);<=
-br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (tc-&gt;exp_err =3D=3D TST_ERR) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TPASS | TTE=
-RRNO,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0&quot;copy_file_range failed as expected&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* copy_file_range(=
-) returned EISDIR when copyed contents to<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * directory on new=
- kernels, but on old kernels, it returned<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * EBADF.<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 *<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * the patch as fol=
-lws:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * commit 11cbfb107=
-75a (&quot;vfs: deny copy_file_range() for non regular files&quot;)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (tc-&gt;exp_err =
-=3D=3D EISDIR &amp;&amp; TST_ERR =3D=3D EBADF) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 tst_res(TPASS | TTERRNO,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;cop=
-y_file_range failed as expected&quot;);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0tst_res(TFAIL | TTERRNO,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;copy_file_range failed unexpect=
-edly; expected %s, but got&quot;,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_strerrno(tc-&gt;exp_err));<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;copy_file_range failed as expec=
-ted&quot;);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 return;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TFAIL,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0&quot;copy_file_range returned wrong value: %ld&quot;, TST_RET);<=
-br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TFAIL | TTE=
-RRNO,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0&quot;copy_file_range failed unexpectedly; expected %s, but got&q=
-uot;,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0tst_strerrno(tc-&gt;exp_err));<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-=C2=A0}<br>
-<br>
--- <br>
-1.8.3.1<br>
-<br>
-<br>
-<br>
-<br>
--- <br>
-Mailing list info: <a href=3D"https://lists.linux.it/listinfo/ltp" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.linux.it/listinfo/ltp</a><br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
-Wang<br></div></div></div></div>
-
---000000000000dd3ebb058a2c1de2--
-
---===============1633341155==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
-dHAK
-
---===============1633341155==--
+T24gMjAxOS8wNS8zMSAxNjo0NCwgSmluaHVpIGh1YW5nIHdyb3RlOgo+IE9uIG5ldyBrZXJuZWxz
+LCBjb3B5X2ZpbGVfcmFuZ2UoKSByZXR1cm5lZCBFSVNESVIgd2hlbiBjb3B5ZWQgY29udGVudHMK
+PiB0byBkaXJlY3RvcnksIGJ1dCBvbiBvbGQga2VybmVscywgaXQgcmV0dXJuZWQgRUJBREYsIHdl
+IHNob3VsZCBhY2NlcHQKPiBFQkFERiB0byBiZSBjb21wYXRpYmxlIHdpdGggbmV3IGFuZCBvbGQg
+a2VybmVscy4KPgo+IFRoZSBwYXRjaCBhcyBmb2xsb3dzOgo+IGNvbW1pdCAxMWNiZmIxMDc3NWEg
+KCJ2ZnM6IGRlbnkgY29weV9maWxlX3JhbmdlKCkgZm9yIG5vbiByZWd1bGFyIGZpbGVzIikKSGks
+CgpGcm9tIGRlc2NyaXB0aW9uIG9mIGNvbW1pdCwgSSB3b25kZXIgaWYgd2UgY2FuIGFkZCBtb3Jl
+IHRlc3RzIGZvciBzb21lCm5vbiByZWd1bGFyIGZpbGVzKGUuZy4gYmxvY2ssIHBpcGUpPwpJIGp1
+c3Qgd2FudCB0byBpbmNyZWFzZSBjb3ZlcmFnZSBhbmQgZml4IGFsbCBzaW1pbGFyIGlzc3VlcyBh
+cyB5b3UgZGlkLiA6LSkKCkJlc3QgUmVnYXJkcywKWGlhbyBZYW5nCj4gU2lnbmVkLW9mZi1ieTog
+SmluaHVpIGh1YW5nIDxodWFuZ2poLmp5QGNuLmZ1aml0c3UuY29tPgo+IC0tLQo+ICAuLi4vc3lz
+Y2FsbHMvY29weV9maWxlX3JhbmdlL2NvcHlfZmlsZV9yYW5nZTAyLmMgICB8IDMzICsrKysrKysr
+KysrKysrKy0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDIzIGluc2VydGlvbnMoKyksIDEwIGRl
+bGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvY29w
+eV9maWxlX3JhbmdlL2NvcHlfZmlsZV9yYW5nZTAyLmMgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2Nh
+bGxzL2NvcHlfZmlsZV9yYW5nZS9jb3B5X2ZpbGVfcmFuZ2UwMi5jCj4gaW5kZXggMDdjMDIwNy4u
+OWU2MzU2YyAxMDA2NDQKPiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2NvcHlfZmls
+ZV9yYW5nZS9jb3B5X2ZpbGVfcmFuZ2UwMi5jCj4gKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNj
+YWxscy9jb3B5X2ZpbGVfcmFuZ2UvY29weV9maWxlX3JhbmdlMDIuYwo+IEBAIC01NCwxOSArNTQs
+MzIgQEAgc3RhdGljIHZvaWQgdmVyaWZ5X2NvcHlfZmlsZV9yYW5nZSh1bnNpZ25lZCBpbnQgbikK
+PiAgCVRFU1Qoc3lzX2NvcHlfZmlsZV9yYW5nZShmZF9zcmMsIDAsICp0Yy0+Y29weV90b19mZCwK
+PiAgCQkJCTAsIENPTlRTSVpFLCB0Yy0+ZmxhZ3MpKTsKPiAgCj4gLQlpZiAoVFNUX1JFVCA9PSAt
+MSkgewo+IC0JCWlmICh0Yy0+ZXhwX2VyciA9PSBUU1RfRVJSKSB7Cj4gKwlpZiAoVFNUX1JFVCAh
+PSAtMSkgewo+ICsJCXRzdF9yZXMoVEZBSUwsCj4gKwkJCSJjb3B5X2ZpbGVfcmFuZ2UgcmV0dXJu
+ZWQgd3JvbmcgdmFsdWU6ICVsZCIsIFRTVF9SRVQpOwo+ICsJCXJldHVybjsKPiArCX0KPiArCj4g
+KwlpZiAodGMtPmV4cF9lcnIgPT0gVFNUX0VSUikgewo+ICsJCXRzdF9yZXMoVFBBU1MgfCBUVEVS
+Uk5PLAo+ICsJCQkiY29weV9maWxlX3JhbmdlIGZhaWxlZCBhcyBleHBlY3RlZCIpOwo+ICsJfSBl
+bHNlIHsKPiArCQkvKiBjb3B5X2ZpbGVfcmFuZ2UoKSByZXR1cm5lZCBFSVNESVIgd2hlbiBjb3B5
+ZWQgY29udGVudHMgdG8KPiArCQkgKiBkaXJlY3Rvcnkgb24gbmV3IGtlcm5lbHMsIGJ1dCBvbiBv
+bGQga2VybmVscywgaXQgcmV0dXJuZWQKPiArCQkgKiBFQkFERi4KPiArCQkgKgo+ICsJCSAqIHRo
+ZSBwYXRjaCBhcyBmb2xsd3M6Cj4gKwkJICogY29tbWl0IDExY2JmYjEwNzc1YSAoInZmczogZGVu
+eSBjb3B5X2ZpbGVfcmFuZ2UoKSBmb3Igbm9uIHJlZ3VsYXIgZmlsZXMiKQo+ICsJCSAqLwo+ICsJ
+CWlmICh0Yy0+ZXhwX2VyciA9PSBFSVNESVIgJiYgVFNUX0VSUiA9PSBFQkFERikgewo+ICAJCQl0
+c3RfcmVzKFRQQVNTIHwgVFRFUlJOTywKPiAtCQkJCQkiY29weV9maWxlX3JhbmdlIGZhaWxlZCBh
+cyBleHBlY3RlZCIpOwo+IC0JCX0gZWxzZSB7Cj4gLQkJCXRzdF9yZXMoVEZBSUwgfCBUVEVSUk5P
+LAo+IC0JCQkJImNvcHlfZmlsZV9yYW5nZSBmYWlsZWQgdW5leHBlY3RlZGx5OyBleHBlY3RlZCAl
+cywgYnV0IGdvdCIsCj4gLQkJCQl0c3Rfc3RyZXJybm8odGMtPmV4cF9lcnIpKTsKPiArCQkJCSJj
+b3B5X2ZpbGVfcmFuZ2UgZmFpbGVkIGFzIGV4cGVjdGVkIik7Cj4gIAkJCXJldHVybjsKPiAgCQl9
+Cj4gLQl9IGVsc2Ugewo+IC0JCXRzdF9yZXMoVEZBSUwsCj4gLQkJCSJjb3B5X2ZpbGVfcmFuZ2Ug
+cmV0dXJuZWQgd3JvbmcgdmFsdWU6ICVsZCIsIFRTVF9SRVQpOwo+ICsKPiArCQl0c3RfcmVzKFRG
+QUlMIHwgVFRFUlJOTywKPiArCQkJImNvcHlfZmlsZV9yYW5nZSBmYWlsZWQgdW5leHBlY3RlZGx5
+OyBleHBlY3RlZCAlcywgYnV0IGdvdCIsCj4gKwkJCXRzdF9zdHJlcnJubyh0Yy0+ZXhwX2Vycikp
+Owo+ICAJfQo+ICB9Cj4gIAoKCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3Rz
+LmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
