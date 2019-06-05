@@ -2,58 +2,44 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8FB73573F
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jun 2019 08:56:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDC0C3574E
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jun 2019 09:02:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9F47E3EA6D9
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jun 2019 08:56:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6461D3EA68A
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jun 2019 09:02:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id C4BB83EA1BB
- for <ltp@lists.linux.it>; Wed,  5 Jun 2019 08:56:02 +0200 (CEST)
-Received: from mail-vs1-f68.google.com (mail-vs1-f68.google.com
- [209.85.217.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id A3CA13EA662
+ for <ltp@lists.linux.it>; Wed,  5 Jun 2019 09:02:32 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D17151401223
- for <ltp@lists.linux.it>; Wed,  5 Jun 2019 08:55:59 +0200 (CEST)
-Received: by mail-vs1-f68.google.com with SMTP id z11so15084335vsq.9
- for <ltp@lists.linux.it>; Tue, 04 Jun 2019 23:55:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=aREKdWiiAsXpdxZz/v3jzDi96QLGqwrnSCm+ezSgzn4=;
- b=XL6D14TJy87EyVs8n8jMhZKlmRfn/5RrRrfyOfeQpI062iBkCTQNyDxExiW72HzOHv
- 1WFbklPGGUqZ6dl/K18681Va6d+Hz9Id/CrWlbj8zBOLBaEX5NptJT5rP64UT1LJ/fqS
- kFVYAKbM5WtORarTxugZpm2ffSa4o/eJhRYJG88iMJkew3hCj+MQ3Wz5WDc1Agv2eslQ
- FiSvJPuyLIq3AxaEdMe9r9N6ulIHiuBAf6PNTUscewdz3fN086Tkisq5tj3DAX3Ij1qW
- QkPwsU2h+0VAjDtMdzzRj7AqfaYKcdEn+bdRKXMCdc7dhjqp+7dEot4/TRZGU4HXLauW
- UDXA==
-X-Gm-Message-State: APjAAAXduRCD+ZwEeOYJyug3OXXXhNT7dktt4JpNNwFHHstwJW+iTECT
- /ZCrACf8NbSZAe5KYnInZgrBTaetxo1+vvSwv7Zp+MULtCAkZg==
-X-Google-Smtp-Source: APXvYqyBetE71mwOSXUtIvKfubXcAW/DxLijmIhJHuHl9+/Xm3ihB5wXm0cNQBtx0qeT5HlBrKPLXUbNNnivVCeuP1k=
-X-Received: by 2002:a67:2686:: with SMTP id m128mr8791230vsm.130.1559717758569; 
- Tue, 04 Jun 2019 23:55:58 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D05CD201022
+ for <ltp@lists.linux.it>; Wed,  5 Jun 2019 09:02:30 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 03885ADE0;
+ Wed,  5 Jun 2019 07:02:29 +0000 (UTC)
+Date: Wed, 5 Jun 2019 09:02:29 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Po-Hsu Lin <po-hsu.lin@canonical.com>
+Message-ID: <20190605070228.GA778@rei.lan>
+References: <CAMy_GT-kRs7_EZvrP-JdFc_wa8OMc3295N6FWUg7AxoY2O66fA@mail.gmail.com>
+ <20190531083203.GA4224@rei.lan> <20190531094356.GC4224@rei.lan>
+ <CAMy_GT-80RtX=qkXJ0NYN-3eY_N+MiH5Xq5iPGm41y=d-n3CAA@mail.gmail.com>
 MIME-Version: 1.0
-References: <CAOQ4uxihom9Uw66c0BwuiWHOejZXDJHUe3rHBVRfk0=C-AYnAw@mail.gmail.com>
- <20190528141214.18752-1-xzhou@redhat.com>
- <20190528141214.18752-2-xzhou@redhat.com>
- <CAEemH2fcM18gLbM3bWRu7ddR+8QbmYCL+4U83Z5tiWgZ4suz_A@mail.gmail.com>
-In-Reply-To: <CAEemH2fcM18gLbM3bWRu7ddR+8QbmYCL+4U83Z5tiWgZ4suz_A@mail.gmail.com>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 5 Jun 2019 14:55:47 +0800
-Message-ID: <CAEemH2f275JA7f_mzyQwQeW8LJ2_YS5L42=KD1KWWGZKrmwitQ@mail.gmail.com>
-To: Murphy Zhou <xzhou@redhat.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <CAMy_GT-80RtX=qkXJ0NYN-3eY_N+MiH5Xq5iPGm41y=d-n3CAA@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Cc: LTP List <ltp@lists.linux.it>
-Subject: Re: [LTP] [PATCH v6 2/4] swapon/libswapon: add helper
-	is_swap_supported
+X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Cc: ltp@lists.linux.it
+Subject: Re: [LTP] insmod01_sh test from commands test suite will make
+ cve-2017-17053 test fail
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -65,342 +51,30 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0409055522=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0409055522==
-Content-Type: multipart/alternative; boundary="000000000000f326f4058a8e1635"
-
---000000000000f326f4058a8e1635
-Content-Type: text/plain; charset="UTF-8"
-
-On Wed, Jun 5, 2019 at 1:51 PM Li Wang <liwang@redhat.com> wrote:
-
->
->
-> On Tue, May 28, 2019 at 10:13 PM Murphy Zhou <xzhou@redhat.com> wrote:
->
->> To check if the filesystem we are testing on supports FIBMAP, mkswap,
->> swapon and swapoff operations.
->> Modify make_swapfile function to test mkswap support status safely.
->>
->> Signed-off-by: Murphy Zhou <xzhou@redhat.com>
->> ---
->>  testcases/kernel/syscalls/swapon/libswapon.c | 45 +++++++++++++++++++-
->>  testcases/kernel/syscalls/swapon/libswapon.h |  7 ++-
->>  2 files changed, 49 insertions(+), 3 deletions(-)
->>
->> diff --git a/testcases/kernel/syscalls/swapon/libswapon.c
->> b/testcases/kernel/syscalls/swapon/libswapon.c
->> index cf6a98891..f66d19548 100644
->> --- a/testcases/kernel/syscalls/swapon/libswapon.c
->> +++ b/testcases/kernel/syscalls/swapon/libswapon.c
->> @@ -19,13 +19,15 @@
->>   *
->>   */
->>
->> +#include <errno.h>
->> +#include "lapi/syscalls.h"
->>  #include "test.h"
->>  #include "libswapon.h"
->>
->>  /*
->>   * Make a swap file
->>   */
->> -void make_swapfile(void (cleanup)(void), const char *swapfile)
->> +int make_swapfile(void (cleanup)(void), const char *swapfile, int safe)
->>  {
->>         if (!tst_fs_has_free(NULL, ".", sysconf(_SC_PAGESIZE) * 10,
->>             TST_BYTES)) {
->> @@ -45,5 +47,44 @@ void make_swapfile(void (cleanup)(void), const char
->> *swapfile)
->>         argv[1] = swapfile;
->>         argv[2] = NULL;
->>
->> -       tst_run_cmd(cleanup, argv, "/dev/null", "/dev/null", 0);
->> +       return tst_run_cmd(cleanup, argv, "/dev/null", "/dev/null", safe);
->> +}
->> +
->> +/*
->> + * Check swapon/swapoff support status of filesystems or files
->> + * we are testing on.
->> + */
->> +void is_swap_supported(void (cleanup)(void), const char *filename)
->> +{
->> +       int fibmap = tst_fibmap(filename);
->> +       long fs_type = tst_fs_type(cleanup, filename);
->> +       const char *fstype = tst_fs_type_name(fs_type);
->> +
->> +       int ret = make_swapfile(NULL, filename, 1);
->> +       if (ret != 0) {
->> +               if (fibmap != 0) {
->>
->
-> As I replied in patch 1/4, how do we know that means FIBMAP not support if
-> just verify fibmap != 0?
-> So I would suggest to make the return value of tst_fibmap() is more
-> precise and do if (fibmap == 1) check here.
->
-
-And also, imagine that if swapon01 test failed on BRTFS or NFS(support
-swapfile but not
-support FIBMAP ioctl), then here will report the new bug as a TCONF to LTP.
-
-
-> +                       tst_brkm(TCONF, cleanup,
->> +                               "mkswap on %s not supported", fstype);
->> +               } else {
->> +                       tst_brkm(TFAIL, cleanup,
->> +                               "mkswap on %s failed", fstype);
->> +               }
->> +       }
->> +
->> +       TEST(ltp_syscall(__NR_swapon, filename, 0));
->> +       if (TEST_RETURN == -1) {
->> +               if (fibmap != 0 && errno == EINVAL) {
->> +                       tst_brkm(TCONF, cleanup,
->> +                               "Swapfile on %s not implemented", fstype);
->>
->
-> Maybe there is unnecessary to check fibmap value again? Since if the
-> fibmap is 1, it has already broken in make_swapfile() error handler and
-> never coming here?
->
->
->
->> +               } else {
->> +                       tst_brkm(TFAIL | TERRNO, cleanup,
->> +                                "swapon on %s failed", fstype);
->> +               }
->> +       }
->> +
->> +       TEST(ltp_syscall(__NR_swapoff, filename, 0));
->> +       if (TEST_RETURN == -1) {
->> +               tst_brkm(TFAIL | TERRNO, cleanup,
->> +                       "swapoff on %s failed", fstype);
->> +       }
->>  }
->> diff --git a/testcases/kernel/syscalls/swapon/libswapon.h
->> b/testcases/kernel/syscalls/swapon/libswapon.h
->> index 7f7211eb4..a51833ec1 100644
->> --- a/testcases/kernel/syscalls/swapon/libswapon.h
->> +++ b/testcases/kernel/syscalls/swapon/libswapon.h
->> @@ -29,6 +29,11 @@
->>  /*
->>   * Make a swap file
->>   */
->> -void make_swapfile(void (cleanup)(void), const char *swapfile);
->> +int make_swapfile(void (cleanup)(void), const char *swapfile, int safe);
->>
->> +/*
->> + * Check swapon/swapoff support status of filesystems or files
->> + * we are testing on.
->> + */
->> +void is_swap_supported(void (cleanup)(void), const char *filename);
->>  #endif /* __LIBSWAPON_H__ */
->> --
->> 2.21.0
->>
->>
->> --
->> Mailing list info: https://lists.linux.it/listinfo/ltp
->>
->
->
-> --
-> Regards,
-> Li Wang
->
-
-
--- 
-Regards,
-Li Wang
-
---000000000000f326f4058a8e1635
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Wed, Jun 5, 2019 at 1:51 PM Li Wang &lt;<a href=
-=3D"mailto:liwang@redhat.com">liwang@redhat.com</a>&gt; wrote:<br></div><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
-t:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div dir=3D=
-"ltr"><div style=3D"font-size:small"><br></div></div><br><div class=3D"gmai=
-l_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, May 28, 2019 at 10:1=
-3 PM Murphy Zhou &lt;<a href=3D"mailto:xzhou@redhat.com" target=3D"_blank">=
-xzhou@redhat.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" =
-style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pa=
-dding-left:1ex">To check if the filesystem we are testing on supports FIBMA=
-P, mkswap,<br>
-swapon and swapoff operations.<br>
-Modify make_swapfile function to test mkswap support status safely.<br>
-<br>
-Signed-off-by: Murphy Zhou &lt;<a href=3D"mailto:xzhou@redhat.com" target=
-=3D"_blank">xzhou@redhat.com</a>&gt;<br>
----<br>
-=C2=A0testcases/kernel/syscalls/swapon/libswapon.c | 45 +++++++++++++++++++=
--<br>
-=C2=A0testcases/kernel/syscalls/swapon/libswapon.h |=C2=A0 7 ++-<br>
-=C2=A02 files changed, 49 insertions(+), 3 deletions(-)<br>
-<br>
-diff --git a/testcases/kernel/syscalls/swapon/libswapon.c b/testcases/kerne=
-l/syscalls/swapon/libswapon.c<br>
-index cf6a98891..f66d19548 100644<br>
---- a/testcases/kernel/syscalls/swapon/libswapon.c<br>
-+++ b/testcases/kernel/syscalls/swapon/libswapon.c<br>
-@@ -19,13 +19,15 @@<br>
-=C2=A0 *<br>
-=C2=A0 */<br>
-<br>
-+#include &lt;errno.h&gt;<br>
-+#include &quot;lapi/syscalls.h&quot;<br>
-=C2=A0#include &quot;test.h&quot;<br>
-=C2=A0#include &quot;libswapon.h&quot;<br>
-<br>
-=C2=A0/*<br>
-=C2=A0 * Make a swap file<br>
-=C2=A0 */<br>
--void make_swapfile(void (cleanup)(void), const char *swapfile)<br>
-+int make_swapfile(void (cleanup)(void), const char *swapfile, int safe)<br=
->
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!tst_fs_has_free(NULL, &quot;.&quot;, sysco=
-nf(_SC_PAGESIZE) * 10,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 TST_BYTES)) {<br>
-@@ -45,5 +47,44 @@ void make_swapfile(void (cleanup)(void), const char *swa=
-pfile)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 argv[1] =3D swapfile;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 argv[2] =3D NULL;<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_run_cmd(cleanup, argv, &quot;/dev/null&quot=
-;, &quot;/dev/null&quot;, 0);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return tst_run_cmd(cleanup, argv, &quot;/dev/nu=
-ll&quot;, &quot;/dev/null&quot;, safe);<br>
-+}<br>
-+<br>
-+/*<br>
-+ * Check swapon/swapoff support status of filesystems or files<br>
-+ * we are testing on.<br>
-+ */<br>
-+void is_swap_supported(void (cleanup)(void), const char *filename)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0int fibmap =3D tst_fibmap(filename);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0long fs_type =3D tst_fs_type(cleanup, filename)=
-;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0const char *fstype =3D tst_fs_type_name(fs_type=
-);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0int ret =3D make_swapfile(NULL, filename, 1);<b=
-r>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret !=3D 0) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (fibmap !=3D 0) =
-{<br></blockquote><div><br></div><div style=3D"font-size:small">As I replie=
-d in patch 1/4, how do we know that means FIBMAP not support if just verify=
- fibmap !=3D 0?</div><div style=3D"font-size:small">So I would suggest to m=
-ake the return value of tst_fibmap() is more precise and do if (fibmap =3D=
-=3D 1) check here.</div></div></div></blockquote><div><br></div><div class=
-=3D"gmail_default" style=3D"font-size:small">And also, imagine that if swap=
-on01 test failed on BRTFS or NFS(support swapfile but not</div><div class=
-=3D"gmail_default" style=3D"font-size:small">support FIBMAP ioctl), then he=
-re will report the new bug as a TCONF to LTP.</div><div class=3D"gmail_defa=
-ult" style=3D"font-size:small"><br></div><blockquote class=3D"gmail_quote" =
-style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pa=
-dding-left:1ex"><div dir=3D"ltr"><div class=3D"gmail_quote"><div style=3D"f=
-ont-size:small"><br></div><div style=3D"font-size:small"></div><blockquote =
-class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px sol=
-id rgb(204,204,204);padding-left:1ex">
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0tst_brkm(TCONF, cleanup,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;mkswap on %s not supported&quot=
-;, fstype);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0tst_brkm(TFAIL, cleanup,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;mkswap on %s failed&quot;, fsty=
-pe);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0TEST(ltp_syscall(__NR_swapon, filename, 0));<br=
->
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (TEST_RETURN =3D=3D -1) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (fibmap !=3D 0 &=
-amp;&amp; errno =3D=3D EINVAL) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0tst_brkm(TCONF, cleanup,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;Swapfile on %s not implemented&=
-quot;, fstype);<br></blockquote><div><br></div><div><div style=3D"font-size=
-:small">Maybe there is unnecessary to check fibmap value again? Since if th=
-e fibmap is 1, it has already broken in make_swapfile() error handler and n=
-ever coming here?</div><br></div><div>=C2=A0</div><blockquote class=3D"gmai=
-l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
-4,204);padding-left:1ex">
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0tst_brkm(TFAIL | TERRNO, cleanup,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;swapon on %s failed&quot;, fst=
-ype);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0TEST(ltp_syscall(__NR_swapoff, filename, 0));<b=
-r>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (TEST_RETURN =3D=3D -1) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_brkm(TFAIL | TE=
-RRNO, cleanup,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0&quot;swapoff on %s failed&quot;, fstype);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-=C2=A0}<br>
-diff --git a/testcases/kernel/syscalls/swapon/libswapon.h b/testcases/kerne=
-l/syscalls/swapon/libswapon.h<br>
-index 7f7211eb4..a51833ec1 100644<br>
---- a/testcases/kernel/syscalls/swapon/libswapon.h<br>
-+++ b/testcases/kernel/syscalls/swapon/libswapon.h<br>
-@@ -29,6 +29,11 @@<br>
-=C2=A0/*<br>
-=C2=A0 * Make a swap file<br>
-=C2=A0 */<br>
--void make_swapfile(void (cleanup)(void), const char *swapfile);<br>
-+int make_swapfile(void (cleanup)(void), const char *swapfile, int safe);<b=
-r>
-<br>
-+/*<br>
-+ * Check swapon/swapoff support status of filesystems or files<br>
-+ * we are testing on.<br>
-+ */<br>
-+void is_swap_supported(void (cleanup)(void), const char *filename);<br>
-=C2=A0#endif /* __LIBSWAPON_H__ */<br>
--- <br>
-2.21.0<br>
-<br>
-<br>
--- <br>
-Mailing list info: <a href=3D"https://lists.linux.it/listinfo/ltp" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.linux.it/listinfo/ltp</a><br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail-m_-7530312610193821184gmail_signature"><div dir=3D"ltr"><di=
-v>Regards,<br></div><div>Li Wang<br></div></div></div></div>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
-Wang<br></div></div></div></div>
-
---000000000000f326f4058a8e1635--
-
---===============0409055522==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
-dHAK
-
---===============0409055522==--
+SGkhCj4gWWVzIHlvdSdyZSByaWdodCwgdGhlIGluc21vZCB0ZXN0IGlzIG5vdCB0aGUgY2F1c2Ug
+aGVyZS4KPiAKPiBJIGZvdW5kIGl0J3MgdGhlIGJsb2NrX2RldiB0ZXN0IGZyb20ga2VybmVsX21p
+c2MsIHRoZSBsdHBfYmxvY2tfZGV2Cj4gbW9kdWxlIGluc2VydGlvbiB3aWxsIGZpcnN0IHNldCB0
+aGUgdGFpbnQgZmxhZyB0byAxMjI4ODoKPiAkIHN1ZG8gaW5zbW9kIGx0cF9ibG9ja19kZXYua28K
+PiAkIGNhdCAvcHJvYy9zeXMva2VybmVsL3RhaW50ZWQKPiAxMjI4OAo+IAo+IEJ1dCB0aGUgdGVz
+dCB3aWxsIGdlbmVyYXRlIGtlcm5lbCB3YXJuaW5ncyBhbmQgbWFrZSBpdCAxMjgwMAo+ICQgc3Vk
+byBybW1vZCBsdHBfYmxvY2tfZGV2Cj4gJCBzdWRvIC4vYmxvY2tfZGV2Cj4gYmxvY2tfZGV2ICAg
+IDEgIFRQQVNTICA6ICBUZXN0LWNhc2UgJzEnCj4gYmxvY2tfZGV2ICAgIDIgIFRQQVNTICA6ICBU
+ZXN0LWNhc2UgJzInCj4gYmxvY2tfZGV2ICAgIDMgIFRQQVNTICA6ICBUZXN0LWNhc2UgJzMnCj4g
+YmxvY2tfZGV2ICAgIDQgIFRQQVNTICA6ICBUZXN0LWNhc2UgJzQnCj4gYmxvY2tfZGV2ICAgIDUg
+IFRQQVNTICA6ICBUZXN0LWNhc2UgJzUnCj4gYmxvY2tfZGV2ICAgIDYgIFRQQVNTICA6ICBUZXN0
+LWNhc2UgJzYnCj4gYmxvY2tfZGV2ICAgIDcgIFRQQVNTICA6ICBUZXN0LWNhc2UgJzcnCj4gJCBj
+YXQgL3Byb2Mvc3lzL2tlcm5lbC90YWludGVkCj4gMTI4MDAKPiAKPiAxMjgwMCA9IDAwMTEwMDEw
+MDAwMDAwMDAKPiBUaGUgVyBmbGFnIGlzIGhlcmUuCj4gCj4gVHJhY2VzIGNvdWxkIGJlIGZvdW5k
+IGluIGRtZXNnOgo+IGh0dHBzOi8vcGFzdGViaW4udWJ1bnR1LmNvbS9wL2dwOVpESE5qNkovCgpM
+b29raW5nIGF0IHRoZSB0ZXN0IGFuZCBhdCB0aGUga2VybmVsIHNvdXJjZSB0aGUgdGVzdCBpcyB0
+cmlnZ2VyaW5nCmV4YWN0bHkgdGhlIGNvbmRpdGlvbiBpdCdzIHN1cHBvc2VkIHRvIHRvIHRyaWdn
+ZXIgYW5kIHRoZSB3YXJuaW5nIGlzIHRvCmJlIGV4cGVjdGVkLgoKSSBndWVzcyB0aGF0IHRoZSBi
+ZXN0IHNvbHV0aW9uIHdvdWxkIGJlIHJ1bm5pbmcgdGhlIGtlcm5lbF9taXNjCnRlc3RjYXNlcyBz
+ZXBhcmF0ZWx5IGZyb20gdGhlIHJlc3QuCgotLSAKQ3lyaWwgSHJ1YmlzCmNocnViaXNAc3VzZS5j
+egoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZv
+L2x0cAo=
