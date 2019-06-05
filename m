@@ -1,72 +1,56 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B98803563B
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jun 2019 07:33:41 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id BC47235647
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jun 2019 07:40:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 866DE3EA6CB
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jun 2019 07:33:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8B8663EA6CB
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jun 2019 07:40:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 8C35A3EA602
- for <ltp@lists.linux.it>; Wed,  5 Jun 2019 07:33:38 +0200 (CEST)
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 1849C3EA603
+ for <ltp@lists.linux.it>; Wed,  5 Jun 2019 07:40:22 +0200 (CEST)
+Received: from mail-vk1-f196.google.com (mail-vk1-f196.google.com
+ [209.85.221.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B73E820015D
- for <ltp@lists.linux.it>; Wed,  5 Jun 2019 07:33:37 +0200 (CEST)
-Received: by mail-pf1-x442.google.com with SMTP id q10so3949837pff.9
- for <ltp@lists.linux.it>; Tue, 04 Jun 2019 22:33:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=/BHgT8WDeay8buYH/M4UbFYT8IhGHo9J49naarFWAe0=;
- b=csJWa3Sb1hKxud1F4Iz1k3ABlA26l2I35vjcmsr1LKpoWluaqjNJHR8V8Uyi24yvHf
- gBMFpvcm4ga3SQtgPnJmR7ZHc59pVKoZW6dn7he8bRE5SqMfFPVU4f3a1+4DOzkfcepR
- rDtZhkZ0aPveSXzYd184rCEI29vfk9JTnI0hSTw5NPjDN1bfuZkBeQ6DC3YGIQvskimR
- ohqru0o69eKQFfS2fthFAi52JoMe0UUgb7xoYJ0H508Fc47mwPsuc0Vg38eBANfOts/5
- /TtR3/dbGD7r6xzsPh5nlgKVsMflHJR2fbzEgkfPcW6MgSK3JcXFCmdIRV17/Pj2I6h2
- 3A8g==
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id F108E600A8C
+ for <ltp@lists.linux.it>; Wed,  5 Jun 2019 07:40:22 +0200 (CEST)
+Received: by mail-vk1-f196.google.com with SMTP id r23so4019647vkd.12
+ for <ltp@lists.linux.it>; Tue, 04 Jun 2019 22:40:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=/BHgT8WDeay8buYH/M4UbFYT8IhGHo9J49naarFWAe0=;
- b=pMXP5n4qWPALrz7V/NcG9c9MfqQO4hNijCXSKUu74HFQ0QbuOiXx5GE/i8trt4CQwP
- DQEYnKG4PM5Lt1+vGhlIvdVk2M9uPnOEcGmTky7Ra1bi197gC+SCsdVfCmjjgZZCBYA5
- kmlw9JSIEMRtVbON4/C0mgqY85ysnVfWLJCw5miyMyyqAUYN/R5YQdQHuWg0qjuV+C/B
- lWtQs5vuuFHqja0HKrWmkwB1hi3yfvK7H3ElHCUf7xr2VHF9Uw4yXoTAatB8nLEiRQKJ
- KQYS2uWaB9Rsiraox2xqJWVIv/LGgnCVx2b6/tazOCZOzGeu28+l/fleTV/GfHYLgt6w
- P6ZA==
-X-Gm-Message-State: APjAAAWZgQiuHkZxCWMd5eRNdRZy9nYg8owAXs6ViM5HqpFaL7KIERx8
- JQ+x5dbXgGNQH3sPKAAUEuJaaQFDVMI=
-X-Google-Smtp-Source: APXvYqwJlV2QDtfJFY9IPqpwj8+5csXlKRFWou6bGvGDW6M+1AT6+K+iHnp/9iKmwwycNCsiPBQw3g==
-X-Received: by 2002:a63:de43:: with SMTP id y3mr2045847pgi.271.1559712816218; 
- Tue, 04 Jun 2019 22:33:36 -0700 (PDT)
-Received: from XZHOUW.usersys.redhat.com ([209.132.188.80])
- by smtp.gmail.com with ESMTPSA id d7sm9347318pfq.0.2019.06.04.22.33.34
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 04 Jun 2019 22:33:35 -0700 (PDT)
-From: Murphy Zhou <jencce.kernel@gmail.com>
-To: ltp@lists.linux.it,
-	chrubis@suse.cz,
-	yangx.jy@cn.fujitsu.com
-Date: Wed,  5 Jun 2019 13:33:12 +0800
-Message-Id: <20190605053312.17369-1-jencce.kernel@gmail.com>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <5CF750DF.9040006@cn.fujitsu.com>
-References: <5CF750DF.9040006@cn.fujitsu.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=qID9f+l0Rt54WPywJ/GKZiPGUB/L42uyt11662QftSA=;
+ b=h3rS1qyGpiaFJUsoqA5JuKRcdopTWU9mUq27Q2Z96wh/4rfa/y7MvgHhjLBAMhzpM7
+ okcPEucY6PjvJxUXicV+NYc9zoU/0cpIY0rL7VBX/9WcfcmvDX3hHOShAjHPMbv4/Qvf
+ qQ2Lg10zM23EHGvua/6X4mZQiZRGWNii+tpWS7SMBnBsbyI5KLw4NoWf3BFd03t2uGwc
+ eyrR/zip+xolWcCWGjwY9ORSLO4e67MLV/OHUllSAHPsspMn7N6mmLqQjaP38a6Hytsz
+ sqkjVxjMt7kf8gfertqENyzdsrDerPzHSrK9ytVFa1wOBPjX1I3AYe7IX0fnOvNlHXjO
+ HBLw==
+X-Gm-Message-State: APjAAAX3+0v31pCLi0zlv0thUWVjq1k0HZrdxRFA4pLe57XKN/Es/1BR
+ n1TLTMOpTG7NXUS4NaJVyQims66E6jBBllfsiSSRGw==
+X-Google-Smtp-Source: APXvYqxwQHTY3dbVE+9vUV66AkHhyPxgxCQUSWAVeChI9awA7Cqwn2Mz1HyfgBqmf3BPHfKdbaT+paWFx9Dr09IGEQw=
+X-Received: by 2002:a1f:56c3:: with SMTP id k186mr10209708vkb.24.1559713219209; 
+ Tue, 04 Jun 2019 22:40:19 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+References: <CAOQ4uxihom9Uw66c0BwuiWHOejZXDJHUe3rHBVRfk0=C-AYnAw@mail.gmail.com>
+ <20190528141214.18752-1-xzhou@redhat.com>
+In-Reply-To: <20190528141214.18752-1-xzhou@redhat.com>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 5 Jun 2019 13:40:07 +0800
+Message-ID: <CAEemH2c7P7DGZP97z+TnNoRx9=Dhju51vPTH3S2JeUjU3jCRMQ@mail.gmail.com>
+To: Murphy Zhou <xzhou@redhat.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v3] syscalls/preadv2/preadv203: set mount_device flag
+X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Cc: LTP List <ltp@lists.linux.it>
+Subject: Re: [LTP] [PATCH v6 1/4] lib/tst_ioctl.c: add helper tst_fibmap
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -78,26 +62,290 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1230460584=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Tm93IHRoZSB0ZXN0cyBhcmUgcnVubmluZyBpbiBNT1VOVFBPSU5UIHdpdGhvdXQgaXQgbW91bnRl
-ZC4gRmFpbHMgb24KTkZTLCBjaWZzLCB0bXBmczoKCiAgICBwcmVhZHYyMDMuYyBkb2VzIG5vdCBz
-ZXQgbW91bnRfZGV2aWNlLCB3aGljaCBtYWtlcyBCUk9LOgogICAgICBwcmVhZHYyMDMuYzoxMjI6
-IEJST0s6IHByZWFkdjIoKSBmYWlsZWQ6IEVPUE5PVFNVUFAKClNpZ25lZC1vZmYtYnk6IE11cnBo
-eSBaaG91IDxqZW5jY2Uua2VybmVsQGdtYWlsLmNvbT4KLS0tCnYzOgogIGltcHJvdmUgY29tbWl0
-IG1lc3NhZ2UKdjI6CiAgc2V0IG1vdW50X2RldmljZSBpbiBwcmVhZHYyMDMuYywgcmF0aGVyIHRo
-YW4gaW4gdGhlIGxpYnJhcnkKCiB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3ByZWFkdjIvcHJl
-YWR2MjAzLmMgfCAxICsKIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQoKZGlmZiAtLWdp
-dCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcHJlYWR2Mi9wcmVhZHYyMDMuYyBiL3Rlc3Rj
-YXNlcy9rZXJuZWwvc3lzY2FsbHMvcHJlYWR2Mi9wcmVhZHYyMDMuYwppbmRleCA4MTBkMWU4ZGIu
-LmU0ZjY4YTUxYiAxMDA2NDQKLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9wcmVhZHYy
-L3ByZWFkdjIwMy5jCisrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcHJlYWR2Mi9wcmVh
-ZHYyMDMuYwpAQCAtMjYxLDYgKzI2MSw3IEBAIHN0YXRpYyBzdHJ1Y3QgdHN0X3Rlc3QgdGVzdCA9
-IHsKIAkuY2xlYW51cCA9IGNsZWFudXAsCiAJLnRlc3RfYWxsID0gdmVyaWZ5X3ByZWFkdjIsCiAJ
-Lm1udHBvaW50ID0gTU5UUE9JTlQsCisJLm1vdW50X2RldmljZSA9IDEsCiAJLmFsbF9maWxlc3lz
-dGVtcyA9IDEsCiAJLm5lZWRzX3RtcGRpciA9IDEsCiAJLm5lZWRzX3Jvb3QgPSAxLAotLSAKMi4y
-MS4wCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3Rp
-bmZvL2x0cAo=
+--===============1230460584==
+Content-Type: multipart/alternative; boundary="00000000000062115d058a8d0844"
+
+--00000000000062115d058a8d0844
+Content-Type: text/plain; charset="UTF-8"
+
+On Tue, May 28, 2019 at 10:13 PM Murphy Zhou <xzhou@redhat.com> wrote:
+
+> To check if FIBMAP ioctl is supported on the filesystem we are
+> testing on. It also can check the support status of specific
+> files, but that may not needed for now.
+>
+> Signed-off-by: Murphy Zhou <xzhou@redhat.com>
+> ---
+> v6:
+>   Modify make_swapfile() to check mkswap support status safely
+>   Remove whitelist
+>   Remove BTRFS EINVAL check
+>   Check mkswap status before testing swapon in helper
+>   If swapon pass, following swapoff failure will fail the whole test and
+> break
+>   Also modify swapoff02 to remove whitelist completely
+> v5:
+>   Split to 4 patches
+>   Only take one filename parameter in tst_fibmap
+>   Add helper is_swap_supported to check swap operation support status
+>   Test fibmap/swapon and swapoff operation in the helper
+>   Keep NFS/TMPFS whitelist
+>   Keep BTRFS EINVAL handling logic, except above 2 situation:
+>     if swapon fails and fibmap is not supported, tst_brk with TCONF
+>     if swapon fails and fibmap is supported, tst_brk with TFAIL
+>   If swapon test pass in the helper, test swapoff similarly
+>   Put is_swap_supported helper in libswapon, link swapoff binaries to it
+>   Mute a sprintf filaname wanrning by the way
+> v4:
+>   Fail softly if FIBMAP nit supported, instead of skip entire testcase
+> v3:
+>   Fix fs_type undeclared in swapoff01.c
+> v2:
+>   Test FIBMAP instead of fstype whitelist
+>
+>  include/tst_fs.h |  5 +++++
+>  lib/tst_ioctl.c  | 37 +++++++++++++++++++++++++++++++++++++
+>  2 files changed, 42 insertions(+)
+>  create mode 100644 lib/tst_ioctl.c
+>
+> diff --git a/include/tst_fs.h b/include/tst_fs.h
+> index ebca065c6..6d03371ec 100644
+> --- a/include/tst_fs.h
+> +++ b/include/tst_fs.h
+> @@ -178,6 +178,11 @@ const char **tst_get_supported_fs_types(void);
+>   */
+>  void tst_fill_fs(const char *path, int verbose);
+>
+> +/*
+> + * test if FIBMAP ioctl is supported
+> + */
+> +int tst_fibmap(const char *filename);
+> +
+>  #ifdef TST_TEST_H__
+>  static inline long tst_fs_type(const char *path)
+>  {
+> diff --git a/lib/tst_ioctl.c b/lib/tst_ioctl.c
+> new file mode 100644
+> index 000000000..38aa937db
+> --- /dev/null
+> +++ b/lib/tst_ioctl.c
+> @@ -0,0 +1,37 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +
+> +#include <errno.h>
+> +#include <stdio.h>
+> +#include <stdlib.h>
+> +#include <sys/ioctl.h>
+> +#include <linux/fs.h>
+> +
+> +#define TST_NO_DEFAULT_MAIN
+> +
+> +#include "tst_test.h"
+> +
+> +int tst_fibmap(const char *filename)
+> +{
+> +       /* test if FIBMAP ioctl is supported */
+> +       int fd, block = 0;
+> +
+> +       fd = open(filename, O_RDWR | O_CREAT, 0666);
+> +       if (fd < 0) {
+> +               tst_res(TWARN | TERRNO,
+> +                        "open(%s, O_RDWR | O_CREAT, 0666) failed",
+> filename);
+> +               return 1;
+>
+
+what about return -1 here?  Calling this tst_fibmap() in otherplace, we
+don't know that
+the reruened 1 means a open/close() fail or FIBMAP ioctl is NOT supported.
+
+> +       }
+> +
+> +       if (ioctl(fd, FIBMAP, &block)) {
+> +               tst_res(TINFO, "FIBMAP ioctl is NOT supported");
+> +               close(fd);
+> +               return 1;
+> +       }
+> +       tst_res(TINFO, "FIBMAP ioctl is supported");
+> +
+> +       if (close(fd)) {
+> +               tst_res(TWARN | TERRNO, "close(fd) failed");
+> +               return 1;
+>
+
+return -1;
+
+> +       }
+> +       return 0;
+> +}
+> --
+> 2.21.0
+>
+>
+> --
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+>
+
+
+-- 
+Regards,
+Li Wang
+
+--00000000000062115d058a8d0844
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Tue, May 28, 2019 at 10:13 PM Murphy Zhou &lt;<a=
+ href=3D"mailto:xzhou@redhat.com">xzhou@redhat.com</a>&gt; wrote:<br></div>=
+<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
+left:1px solid rgb(204,204,204);padding-left:1ex">To check if FIBMAP ioctl =
+is supported on the filesystem we are<br>
+testing on. It also can check the support status of specific<br>
+files, but that may not needed for now.<br>
+<br>
+Signed-off-by: Murphy Zhou &lt;<a href=3D"mailto:xzhou@redhat.com" target=
+=3D"_blank">xzhou@redhat.com</a>&gt;<br>
+---<br>
+v6:<br>
+=C2=A0 Modify make_swapfile() to check mkswap support status safely<br>
+=C2=A0 Remove whitelist<br>
+=C2=A0 Remove BTRFS EINVAL check<br>
+=C2=A0 Check mkswap status before testing swapon in helper<br>
+=C2=A0 If swapon pass, following swapoff failure will fail the whole test a=
+nd break<br>
+=C2=A0 Also modify swapoff02 to remove whitelist completely<br>
+v5:<br>
+=C2=A0 Split to 4 patches<br>
+=C2=A0 Only take one filename parameter in tst_fibmap<br>
+=C2=A0 Add helper is_swap_supported to check swap operation support status<=
+br>
+=C2=A0 Test fibmap/swapon and swapoff operation in the helper<br>
+=C2=A0 Keep NFS/TMPFS whitelist<br>
+=C2=A0 Keep BTRFS EINVAL handling logic, except above 2 situation:<br>
+=C2=A0 =C2=A0 if swapon fails and fibmap is not supported, tst_brk with TCO=
+NF<br>
+=C2=A0 =C2=A0 if swapon fails and fibmap is supported, tst_brk with TFAIL<b=
+r>
+=C2=A0 If swapon test pass in the helper, test swapoff similarly<br>
+=C2=A0 Put is_swap_supported helper in libswapon, link swapoff binaries to =
+it<br>
+=C2=A0 Mute a sprintf filaname wanrning by the way<br>
+v4:<br>
+=C2=A0 Fail softly if FIBMAP nit supported, instead of skip entire testcase=
+<br>
+v3:<br>
+=C2=A0 Fix fs_type undeclared in swapoff01.c<br>
+v2:<br>
+=C2=A0 Test FIBMAP instead of fstype whitelist<br>
+<br>
+=C2=A0include/tst_fs.h |=C2=A0 5 +++++<br>
+=C2=A0lib/tst_ioctl.c=C2=A0 | 37 +++++++++++++++++++++++++++++++++++++<br>
+=C2=A02 files changed, 42 insertions(+)<br>
+=C2=A0create mode 100644 lib/tst_ioctl.c<br>
+<br>
+diff --git a/include/tst_fs.h b/include/tst_fs.h<br>
+index ebca065c6..6d03371ec 100644<br>
+--- a/include/tst_fs.h<br>
++++ b/include/tst_fs.h<br>
+@@ -178,6 +178,11 @@ const char **tst_get_supported_fs_types(void);<br>
+=C2=A0 */<br>
+=C2=A0void tst_fill_fs(const char *path, int verbose);<br>
+<br>
++/*<br>
++ * test if FIBMAP ioctl is supported<br>
++ */<br>
++int tst_fibmap(const char *filename);<br>
++<br>
+=C2=A0#ifdef TST_TEST_H__<br>
+=C2=A0static inline long tst_fs_type(const char *path)<br>
+=C2=A0{<br>
+diff --git a/lib/tst_ioctl.c b/lib/tst_ioctl.c<br>
+new file mode 100644<br>
+index 000000000..38aa937db<br>
+--- /dev/null<br>
++++ b/lib/tst_ioctl.c<br>
+@@ -0,0 +1,37 @@<br>
++// SPDX-License-Identifier: GPL-2.0-or-later<br>
++<br>
++#include &lt;errno.h&gt;<br>
++#include &lt;stdio.h&gt;<br>
++#include &lt;stdlib.h&gt;<br>
++#include &lt;sys/ioctl.h&gt;<br>
++#include &lt;linux/fs.h&gt;<br>
++<br>
++#define TST_NO_DEFAULT_MAIN<br>
++<br>
++#include &quot;tst_test.h&quot;<br>
++<br>
++int tst_fibmap(const char *filename)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* test if FIBMAP ioctl is supported */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0int fd, block =3D 0;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0fd =3D open(filename, O_RDWR | O_CREAT, 0666);<=
+br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (fd &lt; 0) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TWARN | TER=
+RNO,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 &quot;open(%s, O_RDWR | O_CREAT, 0666) failed&quot;, filename);<=
+br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 1;<br></bloc=
+kquote><div><br></div><div class=3D"gmail_default" style=3D"font-size:small=
+">what about return -1 here?=C2=A0 Calling this tst_fibmap() in otherplace,=
+ we don&#39;t know that</div><div class=3D"gmail_default" style=3D"font-siz=
+e:small">the reruened 1 means a open/close() fail or FIBMAP ioctl is NOT su=
+pported.</div><div class=3D"gmail_default" style=3D"font-size:small"></div>=
+<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
+left:1px solid rgb(204,204,204);padding-left:1ex">
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (ioctl(fd, FIBMAP, &amp;block)) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TINFO, &quo=
+t;FIBMAP ioctl is NOT supported&quot;);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0close(fd);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 1;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TINFO, &quot;FIBMAP ioctl is supported&=
+quot;);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (close(fd)) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TWARN | TER=
+RNO, &quot;close(fd) failed&quot;);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 1;<br></bloc=
+kquote><div><br></div><div class=3D"gmail_default" style=3D"font-size:small=
+">return -1;</div><div class=3D"gmail_default" style=3D"font-size:small"></=
+div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
+der-left:1px solid rgb(204,204,204);padding-left:1ex">
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
++}<br>
+-- <br>
+2.21.0<br>
+<br>
+<br>
+-- <br>
+Mailing list info: <a href=3D"https://lists.linux.it/listinfo/ltp" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.linux.it/listinfo/ltp</a><br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
+Wang<br></div></div></div></div>
+
+--00000000000062115d058a8d0844--
+
+--===============1230460584==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
+dHAK
+
+--===============1230460584==--
