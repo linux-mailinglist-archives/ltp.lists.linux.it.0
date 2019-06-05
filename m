@@ -2,37 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 372F535E72
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jun 2019 15:56:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2392935E9F
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jun 2019 16:06:44 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0E94A3EA6DE
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jun 2019 15:56:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E93D23EA6FA
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jun 2019 16:06:43 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 62EFE3EA675
- for <ltp@lists.linux.it>; Wed,  5 Jun 2019 15:56:50 +0200 (CEST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 34D6C3EA3C0
+ for <ltp@lists.linux.it>; Wed,  5 Jun 2019 16:06:41 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6E9F5600F14
- for <ltp@lists.linux.it>; Wed,  5 Jun 2019 15:56:49 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D24126019D3
+ for <ltp@lists.linux.it>; Wed,  5 Jun 2019 16:06:40 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 1A6CCAFEF
- for <ltp@lists.linux.it>; Wed,  5 Jun 2019 13:56:46 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Wed,  5 Jun 2019 15:56:41 +0200
-Message-Id: <20190605135641.1848-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.21.0
+ by mx1.suse.de (Postfix) with ESMTP id 35342AC10;
+ Wed,  5 Jun 2019 14:06:40 +0000 (UTC)
+Date: Wed, 5 Jun 2019 16:06:39 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Murphy Zhou <jencce.kernel@gmail.com>
+Message-ID: <20190605140638.GA25618@rei>
+References: <5CF750DF.9040006@cn.fujitsu.com>
+ <20190605053312.17369-1-jencce.kernel@gmail.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20190605053312.17369-1-jencce.kernel@gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] README: Add note about testing with Travis CI
+X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Cc: ltp@lists.linux.it
+Subject: Re: [LTP] [PATCH v3] syscalls/preadv2/preadv203: set mount_device
+	flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -49,16 +54,20 @@ Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-U2lnbmVkLW9mZi1ieTogUGV0ciBWb3JlbCA8cHZvcmVsQHN1c2UuY3o+Ci0tLQogUkVBRE1FLm1k
-IHwgMyArKysKIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9S
-RUFETUUubWQgYi9SRUFETUUubWQKaW5kZXggMWViNDc0N2MzLi5jMDE3YjUwMzIgMTAwNjQ0Ci0t
-LSBhL1JFQURNRS5tZAorKysgYi9SRUFETUUubWQKQEAgLTE4NSwzICsxODUsNiBAQCBsaXN0LiBB
-bHNvIG5vdGUgdGhhdCB0aGVzZSBkb2N1bWVudHMgYXJlIGF2YWlsYWJsZSBvbmxpbmUgYXQ6CiAq
-IGh0dHBzOi8vZ2l0aHViLmNvbS9saW51eC10ZXN0LXByb2plY3QvbHRwL3dpa2kvQy1UZXN0LUNh
-c2UtVHV0b3JpYWwKIAogQWx0aG91Z2ggd2UgYWNjZXB0IEdpdEh1YiBwdWxsIHJlcXVlc3RzLCB0
-aGUgcHJlZmVycmVkIHdheSBpcyBzZW5kaW5nIHBhdGNoZXMgdG8gb3VyIG1haWxpbmcgbGlzdC4K
-KworSXQncyByZWNvbW1lbmRlZCB0byB0ZXN0IHBhdGNoZXMgb24gVHJhdmlzIENJIGJlZm9yZSBw
-b3N0aW5nIHRvIG1haWxpbmcgbGlzdAorKHNpZ24gdXAgdG8gVHJhdmlzIENJIGFuZCBlbmFibGUg
-cnVubmluZyBidWlsZHMgb24geW91ciBMVFAgZm9yayBvbiBodHRwczovL3RyYXZpcy1jaS5vcmcv
-YWNjb3VudC9yZXBvc2l0b3JpZXMpLgotLSAKMi4yMS4wCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZv
-OiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+SGkhCj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcHJlYWR2Mi9wcmVh
+ZHYyMDMuYyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcHJlYWR2Mi9wcmVhZHYyMDMuYwo+
+IGluZGV4IDgxMGQxZThkYi4uZTRmNjhhNTFiIDEwMDY0NAo+IC0tLSBhL3Rlc3RjYXNlcy9rZXJu
+ZWwvc3lzY2FsbHMvcHJlYWR2Mi9wcmVhZHYyMDMuYwo+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwv
+c3lzY2FsbHMvcHJlYWR2Mi9wcmVhZHYyMDMuYwo+IEBAIC0yNjEsNiArMjYxLDcgQEAgc3RhdGlj
+IHN0cnVjdCB0c3RfdGVzdCB0ZXN0ID0gewo+ICAJLmNsZWFudXAgPSBjbGVhbnVwLAo+ICAJLnRl
+c3RfYWxsID0gdmVyaWZ5X3ByZWFkdjIsCj4gIAkubW50cG9pbnQgPSBNTlRQT0lOVCwKPiArCS5t
+b3VudF9kZXZpY2UgPSAxLAo+ICAJLmFsbF9maWxlc3lzdGVtcyA9IDEsCj4gIAkubmVlZHNfdG1w
+ZGlyID0gMSwKPiAgCS5uZWVkc19yb290ID0gMSwKCldoYXQgYSBzaWxseSBtaXN0YWtlIG9mIG1p
+bmUsIHRoYW5rcyBmb3IgZml4aW5nIHRoYXQuCgpVbmZvcnR1bmF0ZWx5IGl0IHNlZW1zIHRoYXQg
+dGhpcyBicmVha3MgdGhlIHRlc3Qgb24gYSBzdWJzZXQgb2YKZmlsZXN5c3RlbXMuIEZvciBtZSBp
+dCBmYWlscyB3aGVuIGZpbGVzIGFyZSB3cml0dGVuIGluIHRoZSB0ZXN0IHNldHVwLApndWVzcyB0
+aGF0IHdyaXRpbmcgMTAwMCBmaWxlcyB3aXRoIDY2IGJsb2NrcyBvZiBzaXplIDQxMjMgaXMgYWJv
+dXQgMjM2TUIKaXMgdG9vIG11Y2ggZm9yIHRoZSBkZWZhdWx0IDI1Nk1CIGxvb3AgZGV2aWNlLgoK
+SSB3aWxsIGxvb2sgaW50byB0aGF0IGFuZCBzZW5kIGEgcGF0Y2ggbGF0ZXIgb24uCgotLSAKQ3ly
+aWwgSHJ1YmlzCmNocnViaXNAc3VzZS5jegoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczov
+L2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
