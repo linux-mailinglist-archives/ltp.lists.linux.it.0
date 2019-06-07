@@ -1,87 +1,43 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id F03DD3895C
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jun 2019 13:48:56 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 69C8F389E9
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jun 2019 14:12:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C6F913EA6BA
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jun 2019 13:48:56 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 428A93EA65F
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jun 2019 14:12:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id EB9EE3EA5DC
- for <ltp@lists.linux.it>; Fri,  7 Jun 2019 13:48:53 +0200 (CEST)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 95E333EA5E4
+ for <ltp@lists.linux.it>; Fri,  7 Jun 2019 14:12:15 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 20E2360075C
- for <ltp@lists.linux.it>; Fri,  7 Jun 2019 13:48:54 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8A64D1A011F9
+ for <ltp@lists.linux.it>; Fri,  7 Jun 2019 14:12:14 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id BFFE6AF10
- for <ltp@lists.linux.it>; Fri,  7 Jun 2019 11:48:51 +0000 (UTC)
-To: Cyril Hrubis <chrubis@suse.cz>
+ by mx1.suse.de (Postfix) with ESMTP id D3F72AFA9
+ for <ltp@lists.linux.it>; Fri,  7 Jun 2019 12:12:13 +0000 (UTC)
+Date: Fri, 7 Jun 2019 14:12:12 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Christian Amann <camann@suse.com>
+Message-ID: <20190607121212.GC13869@rei.lan>
 References: <20190604072228.17513-1-camann@suse.com>
- <20190606121436.GB27083@rei> <7c7bf785-adbd-d69b-c17b-bc65c2228d11@suse.com>
+ <20190606121436.GB27083@rei>
+ <7c7bf785-adbd-d69b-c17b-bc65c2228d11@suse.com>
  <20190607113537.GA13869@rei.lan>
-From: Christian Amann <camann@suse.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=camann@suse.com; keydata=
- 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
- du2mz1Q=
-Message-ID: <7824ed12-432a-4a02-395f-a0a2afbb0134@suse.com>
-Date: Fri, 7 Jun 2019 13:48:51 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ <7824ed12-432a-4a02-395f-a0a2afbb0134@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20190607113537.GA13869@rei.lan>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <7824ed12-432a-4a02-395f-a0a2afbb0134@suse.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
 Cc: ltp@lists.linux.it
 Subject: Re: [LTP] [PATCH v2] syscalls/acct02: add functional testcase
 X-BeenThere: ltp@lists.linux.it
@@ -100,20 +56,24 @@ Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Ck9uIDA3LzA2LzIwMTkgMTM6MzUsIEN5cmlsIEhydWJpcyB3cm90ZToKPiBIaSEKPj4geWVzLCBJ
-IGhhdmUgdGVzdGVkIGl0IG9uIGEgc3lzdGVtIGxpa2UgeW91IGRlc2NyaWJlIGJ1dCBJIHJlY2Vp
-dmUgYQo+PiBwb3NpdGl2ZSBvdXRwdXQ6Cj4+Cj4+IHRzdF9rY29uZmlnLmM6NjI6IElORk86IFBh
-cnNpbmcga2VybmVsIGNvbmZpZyAnL3Byb2MvY29uZmlnLmd6Jwo+PiB0c3RfdGVzdC5jOjExMTE6
-IElORk86IFRpbWVvdXQgcGVyIHJ1biBpcyAwaCAwNW0gMDBzCj4+IHRzdF9rY29uZmlnLmM6NjI6
-IElORk86IFBhcnNpbmcga2VybmVsIGNvbmZpZyAnL3Byb2MvY29uZmlnLmd6Jwo+PiBhY2N0MDIu
-YzoxNTk6IElORk86IFZlcmlmeWluZyB1c2luZyAnc3RydWN0IGFjY3QnCj4+IGFjY3QwMi5jOjEz
-NzogSU5GTzogTnVtYmVyIG9mIGFjY291bnRpbmcgZmlsZSBlbnRyaWVzIHRlc3RlZDogMQo+PiBh
-Y2N0MDIuYzoxNDA6IFBBU1M6IGFjY3QoKSB3cm90ZSBjb3JyZWN0IGZpbGUgY29udGVudHMhCj4+
-Cj4+IFRoZXJlIHNlZW1zIHRvIGJlIHNvbWV0aGluZyBlbHNlIGdvaW5nIHdyb25nLiBJIHdpbGwg
-aW52ZXN0aWdhdGUgdGhpcy4KPiBNYXkgYmUgc29tZXRoaW5nIHdyb25nIGF0IG15IGVuZCBhcyB3
-ZWxsLCB3aGF0IGtlcm5lbCB2ZXJzaW9ucyBoYXZlIHlvdQo+IHRlc3RlZD8gQXQgbXkgZW5kIEkg
-dGVzdGVkIDQuMjAuCj4KSSBoYXZlIGEgNC4xOSBrZXJuZWwgeDg2XzY0IG1hY2hpbmUgcnVubmlu
-ZyBhbmQgSSBkb3VibGUgY2hlY2tlZCB0aGF0IEkKaGF2ZSB0aGUgc2FtZSBjb25maWdzIGFzIHlv
-dSBoYXZlIHByb3ZpZGVkLgoKU3RpbGwsIEkgaGF2ZSBhIGhhcmQgdGltZSByZXByb2R1Y2luZyB0
-aGUgZXJyb3IuCgoKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXgu
-aXQvbGlzdGluZm8vbHRwCg==
+SGkhCj4gPj4geWVzLCBJIGhhdmUgdGVzdGVkIGl0IG9uIGEgc3lzdGVtIGxpa2UgeW91IGRlc2Ny
+aWJlIGJ1dCBJIHJlY2VpdmUgYQo+ID4+IHBvc2l0aXZlIG91dHB1dDoKPiA+Pgo+ID4+IHRzdF9r
+Y29uZmlnLmM6NjI6IElORk86IFBhcnNpbmcga2VybmVsIGNvbmZpZyAnL3Byb2MvY29uZmlnLmd6
+Jwo+ID4+IHRzdF90ZXN0LmM6MTExMTogSU5GTzogVGltZW91dCBwZXIgcnVuIGlzIDBoIDA1bSAw
+MHMKPiA+PiB0c3Rfa2NvbmZpZy5jOjYyOiBJTkZPOiBQYXJzaW5nIGtlcm5lbCBjb25maWcgJy9w
+cm9jL2NvbmZpZy5neicKPiA+PiBhY2N0MDIuYzoxNTk6IElORk86IFZlcmlmeWluZyB1c2luZyAn
+c3RydWN0IGFjY3QnCj4gPj4gYWNjdDAyLmM6MTM3OiBJTkZPOiBOdW1iZXIgb2YgYWNjb3VudGlu
+ZyBmaWxlIGVudHJpZXMgdGVzdGVkOiAxCj4gPj4gYWNjdDAyLmM6MTQwOiBQQVNTOiBhY2N0KCkg
+d3JvdGUgY29ycmVjdCBmaWxlIGNvbnRlbnRzIQo+ID4+Cj4gPj4gVGhlcmUgc2VlbXMgdG8gYmUg
+c29tZXRoaW5nIGVsc2UgZ29pbmcgd3JvbmcuIEkgd2lsbCBpbnZlc3RpZ2F0ZSB0aGlzLgo+ID4g
+TWF5IGJlIHNvbWV0aGluZyB3cm9uZyBhdCBteSBlbmQgYXMgd2VsbCwgd2hhdCBrZXJuZWwgdmVy
+c2lvbnMgaGF2ZSB5b3UKPiA+IHRlc3RlZD8gQXQgbXkgZW5kIEkgdGVzdGVkIDQuMjAuCj4gPgo+
+IEkgaGF2ZSBhIDQuMTkga2VybmVsIHg4Nl82NCBtYWNoaW5lIHJ1bm5pbmcgYW5kIEkgZG91Ymxl
+IGNoZWNrZWQgdGhhdCBJCj4gaGF2ZSB0aGUgc2FtZSBjb25maWdzIGFzIHlvdSBoYXZlIHByb3Zp
+ZGVkLgo+IAo+IFN0aWxsLCBJIGhhdmUgYSBoYXJkIHRpbWUgcmVwcm9kdWNpbmcgdGhlIGVycm9y
+LgoKTG9va3MgbGlrZSB0aGlzIGlzIHZlcnkgc3BlY2lmaWMgZXJyb3IgdGhhdCBoYXBwZW5zIGZv
+ciBtZSBzaW5jZSBJIGhhdmUKL21udCBvbiBteSByb290ZnMsIGl0IHdvcmtzIGZvciBhbnkgb3Ro
+ZXIgZmlsZXN5c3RlbSBJJ3ZlIHRyaWVkIHRob3VnaC4KCkkgZ3Vlc3MgdGhhdCB3ZSBjYW4gZ28g
+YWhlYWQgYW5kIHB1c2ggdGhlIHRlc3QgdGhlbi4KCi0tIApDeXJpbCBIcnViaXMKY2hydWJpc0Bz
+dXNlLmN6CgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlz
+dGluZm8vbHRwCg==
