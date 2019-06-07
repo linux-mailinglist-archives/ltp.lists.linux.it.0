@@ -1,31 +1,32 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BA5538444
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jun 2019 08:21:56 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BAB438454
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jun 2019 08:32:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D6C433EA610
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jun 2019 08:21:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1DBA83EA620
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jun 2019 08:32:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id F131B3EA5DC
- for <ltp@lists.linux.it>; Fri,  7 Jun 2019 08:21:53 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 17B9C3EA5DD
+ for <ltp@lists.linux.it>; Fri,  7 Jun 2019 08:32:40 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C319D601016
- for <ltp@lists.linux.it>; Fri,  7 Jun 2019 08:21:54 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B6EDA201343
+ for <ltp@lists.linux.it>; Fri,  7 Jun 2019 08:32:39 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 925AFAEA0;
- Fri,  7 Jun 2019 06:21:50 +0000 (UTC)
-To: Petr Vorel <pvorel@suse.cz>, Cyril Hrubis <chrubis@suse.cz>
-References: <7b0b763f-0b6b-fb18-7916-d25afdcb5c68@suse.com>
- <20190606134321.GA30964@rei.lan> <20190606144549.GA14501@dell5510>
-From: Christian Amann <camann@suse.de>
+ by mx1.suse.de (Postfix) with ESMTP id CCD7EAECA
+ for <ltp@lists.linux.it>; Fri,  7 Jun 2019 06:32:38 +0000 (UTC)
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <20190604072228.17513-1-camann@suse.com>
+ <20190606121436.GB27083@rei>
+From: Christian Amann <camann@suse.com>
 Openpgp: preference=signencrypt
-Autocrypt: addr=camann@suse.de; keydata=
+Autocrypt: addr=camann@suse.com; keydata=
  xsFNBFuOSGcBEAC8nPcXDp1KLSM/2OcnwHj4Oj7MBKt9BwxA3ODtxP3vvKghs5x+CFUs9ZLk
  f3fC1LOWWL5peDV9cO3mRT1idNM+ZZqc/puH2DGLXMpGFU/l1xEprIQSGOxngFWquoBR6Q+Q
  eyLI+iQIqPt6D3YjcOFn/86n/mew7Hi6wMSZnSY3OF+sjLkAVBnWUgS7AzS3Z5QRrFhqiAu1
@@ -69,20 +70,20 @@ Autocrypt: addr=camann@suse.de; keydata=
  KB/SbYfaGYsgS6nTcjC38RJkFxMFTMfmoZk1wzFzjFrAbvRV3xid/JaLmYiFoZQSRmCGatnv
  bvlAWQdqs4uj/5fssZEEcc5J5SRLX7n87PCacZvdgeUjNILuIiAHr/Xa8LPAqx9zMhHfMXMu
  du2mz1Q=
-Message-ID: <31bcbd67-6afe-e88f-f3dd-3f464051fa57@suse.de>
-Date: Fri, 7 Jun 2019 08:21:50 +0200
+Message-ID: <7c7bf785-adbd-d69b-c17b-bc65c2228d11@suse.com>
+Date: Fri, 7 Jun 2019 08:32:38 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <20190606144549.GA14501@dell5510>
+In-Reply-To: <20190606121436.GB27083@rei>
 Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
 Cc: ltp@lists.linux.it
-Subject: Re: [LTP] TST_GET_UNUSED_PORT returns ports < 1024
+Subject: Re: [LTP] [PATCH v2] syscalls/acct02: add functional testcase
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -94,41 +95,131 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0164393581=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGksCgpPbiAwNi8wNi8yMDE5IDE2OjQ1LCBQZXRyIFZvcmVsIHdyb3RlOgo+IEhpIEN5cmlsLAo+
-Cj4+PiB3aGVuIHVzaW5nIHRoZSBUU1RfR0VUX1VOVVNFRF9QT1JUIG1hY3JvIHlvdSBzb21ldGlt
-ZXMgZ2V0IHBvcnRzIGxvd2VyCj4+PiB0aGFuIDEwMjQgd2hpY2ggd291bGQgcmVxdWlyZSBhIHRl
-c3RjYXNlIHRvIGhhdmUgdGhlCj4+PiBDQVBfTkVUX0JJTkRfU0VSVklDRSBjYXBhYmlsaXR5IChv
-ciBzaW1wbHkgcnVuIGFzIHJvb3QpLgo+PiBMb29raW5nIGF0IHRoZSBjb2RlIGFzIGZhciBhcyBJ
-IGNhbiB0ZWxsIHRoZSBmdW5jdGlvbiByZXR1cm5zIHRoZSBwb3J0Cj4+IGluIHRoZSBuZXR3b3Jr
-IGVuZGlhbml0eSwgd2hpY2ggaXMgYmlnIGVuZGlhbi4gSW50ZWwgQ1BVcyBhcmUgbGl0dGxlCj4+
-IGVuZGlhbiwgc28gaWYgeW91IHdhbnQgdG8gcHJpbnQgdGhlIHBvcnQgeW91IGFjdHVhbGx5IGhh
-dmUgdG8gdXNlCj4+IG50b2hzKCkgZnVuY3Rpb24gdG8gY29udmVydCBpdCB0byB0aGUgaG9zdCBl
-bmRpYW5pdHkuIEFuZCBpZiB5b3UgYXJlCj4+IHBhc3NpbmcgdGhhdCB2YWx1ZSBpbiB0aGUgc29j
-a2FkZHJfaW4gc3RydWN0dXJlIHlvdSBtdXN0IG5vdCB1c2UgdGhlCj4+IGh0b25zKCkgc2luY2Ug
-dGhlIHZhbHVlIGlzIGFscmVhZHkgaW4gdGhlIGNvcnJlY3QgYnl0ZSBvcmRlci4gQW5kIHllcwo+
-PiB0aGlzIGlzIGhvcnJpYmx5IGNvbmZ1c2luZywgYnV0IHRoYXQncyBob3cgaXQgaXMuCj4gVGhh
-bmtzIGZvciBkZWJ1Z2dpbmcgdGhlIHByb2JsZW0uCj4KWWVzLCBhbmQgYWxzbyB0aGFua3MgZm9y
-IHRoZSBjbGFyaWZpY2F0aW9uLgo+PiBJIGd1ZXNzIHRoYXQgd2Ugc2hvdWxkIHdyaXRlIGRvd24g
-dGhpcyBwaWVjZSBvZiBpbmZvcm1hdGlvbiBpbiB0aGUKPj4gZG9jdW1lbnRhdGlvbiwgYmVjYXVz
-ZSBpdCBsb29rcyBsaWtlIHRoZSB0c3RfZ2V0X3VudXNlZF9wb3J0IHNoZWxsCj4+IGhlbHBlciBk
-b2VzIHRoaXMgaW5jb3JyZWN0bHkgYW5kIHByaW50cyB0aGUgcmF3IHZhbHVlIGluc3RlYWQgb2YK
-Pj4gY29udmVydGluZyBpdCB3aXRoIG50b2hzKCkuCj4gQ29ycmVjdCwgSSd2ZSBzZW50IGEgcGF0
-Y2ggZml4aW5nIGl0IGZvciBzaGVsbCB0ZXN0cyBbMV0uCj4gQXMgSSBub3RlZCB0aGVyZSwgdGhp
-cyBwcm9ibGVtIHdhcyBldmVuIG9uIHZlcnNpb24gZm9yIG9sZCBBUEkuCj4KPiBOb3Qgc3VyZSBh
-Ym91dCBkb2NzIGFzIHRoZXJlIGlzIG5vIGRvY3MgZm9yIG5ldHdvcmsgQVBJIHNoZWxsL0MgZnVu
-Y3Rpb25zIHlldAo+IEJ1dCBldmVuIHRoZSBwcm9ibGVtIGZvciBzaGVsbCB3YXMgZml4ZWQgYnkg
-dGhhdCBwYXRjaCBpdCdkIGJlIHdvcnRoIHRvIGFkZCBub3RlCj4gYWJvdXQgYnl0ZSBvcmRlciB0
-byBDIGNvZGUgdHN0X2dldF91bnVzZWRfcG9ydCgpIGFuZC9vciBoZWFkZXIgZGVmaW5pbmcKPiBU
-U1RfR0VUX1VOVVNFRF9QT1JUKCkgZGV2ZWxvcGVycyB1c2luZyBpdCBpbiBDLgoKSSBhZ3JlZS4g
-RnJvbSB3aGF0IEkgY2FuIHRlbGwgdGhlcmUgaXMgbm8gZWFzeSB3YXkgdG8gcXVpY2tseSBkZXRl
-cm1pbmUKdGhlIGVuZGlhbm5lc3MuIEEgbGl0dGxlIGhpbnQgd291bGQgYmUgbmljZSB0byBjdXQg
-ZG93biBkZXZlbG9wbWVudCB0aW1lCihhbmQgcG9zc2libHkgdGltZSBzcGVudCBkZWJ1Z2dpbmcg
-bGF0ZXIgb24pLgoKPiBLaW5kIHJlZ2FyZHMsCj4gUGV0cgo+Cj4gWzFdIGh0dHBzOi8vcGF0Y2h3
-b3JrLm96bGFicy5vcmcvcGF0Y2gvMTExMTE2Ny8KCktpbmQgcmVnYXJkcywKCkNocmlzdGlhbgoK
-CgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8v
-bHRwCg==
+This is a multi-part message in MIME format.
+--===============0164393581==
+Content-Type: multipart/alternative;
+ boundary="------------3EDE5C734E1FD634BD09D44F"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------3EDE5C734E1FD634BD09D44F
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+Hi,
+
+yes, I have tested it on a system like you describe but I receive a
+positive output:
+
+tst_kconfig.c:62: INFO: Parsing kernel config '/proc/config.gz'
+tst_test.c:1111: INFO: Timeout per run is 0h 05m 00s
+tst_kconfig.c:62: INFO: Parsing kernel config '/proc/config.gz'
+acct02.c:159: INFO: Verifying using 'struct acct'
+acct02.c:137: INFO: Number of accounting file entries tested: 1
+acct02.c:140: PASS: acct() wrote correct file contents!
+
+There seems to be something else going wrong. I will investigate this.
+
+Kind regards,
+
+Christian
+
+
+On 06/06/2019 14:14, Cyril Hrubis wrote:
+> Hi!
+> Have you tried the test on the !v3 case?
+>
+> I do have:
+>
+> CONFIG_BSD_PROCESS_ACCT=y
+> # CONFIG_BSD_PROCESS_ACCT_V3 is not set
+>
+> And the test fails with:
+>
+> tst_kconfig.c:62: INFO: Parsing kernel config '/proc/config.gz'
+> tst_test.c:1111: INFO: Timeout per run is 0h 05m 00s
+> tst_kconfig.c:62: INFO: Parsing kernel config '/proc/config.gz'
+> acct02.c:159: INFO: Verifying using 'struct acct'
+> acct02.c:137: INFO: Number of accounting file entries tested: 0
+> acct02.c:142: FAIL: acct() wrote incorrect file contents!
+>
+> Looks like the file is empty for me...
+>
+
+--------------3EDE5C734E1FD634BD09D44F
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>Hi,</p>
+    <p>yes, I have tested it on a system like you describe but I receive
+      a positive output:</p>
+    <p>tst_kconfig.c:62: <font color="#33ccff">INFO:</font> Parsing
+      kernel config '/proc/config.gz'<br>
+      tst_test.c:1111: <font color="#33ccff">INFO:</font> Timeout per
+      run is 0h 05m 00s<br>
+      tst_kconfig.c:62: <font color="#33ccff">INFO:</font> Parsing
+      kernel config '/proc/config.gz'<br>
+      acct02.c:159: <font color="#33ccff">INFO:</font> Verifying using
+      'struct acct'<br>
+      acct02.c:137: <font color="#33ccff">INFO:</font> Number of
+      accounting file entries tested: 1<br>
+      acct02.c:140: <font color="#33cc00">PASS:</font> acct() wrote
+      correct file contents!<br>
+      <br>
+    </p>
+    <p>There seems to be something else going wrong. I will investigate
+      this.</p>
+    <p>Kind regards,</p>
+    <p>Christian<br>
+    </p>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 06/06/2019 14:14, Cyril Hrubis
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20190606121436.GB27083@rei">
+      <pre class="moz-quote-pre" wrap="">Hi!
+Have you tried the test on the !v3 case?
+
+I do have:
+
+CONFIG_BSD_PROCESS_ACCT=y
+# CONFIG_BSD_PROCESS_ACCT_V3 is not set
+
+And the test fails with:
+
+tst_kconfig.c:62: INFO: Parsing kernel config '/proc/config.gz'
+tst_test.c:1111: INFO: Timeout per run is 0h 05m 00s
+tst_kconfig.c:62: INFO: Parsing kernel config '/proc/config.gz'
+acct02.c:159: INFO: Verifying using 'struct acct'
+acct02.c:137: INFO: Number of accounting file entries tested: 0
+acct02.c:142: FAIL: acct() wrote incorrect file contents!
+
+Looks like the file is empty for me...
+
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------3EDE5C734E1FD634BD09D44F--
+
+--===============0164393581==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
+dHAK
+
+--===============0164393581==--
