@@ -1,58 +1,57 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03E3E3ADA8
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2019 05:33:26 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id CF7DB3AEE7
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2019 08:12:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 664393EAE03
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2019 05:33:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AB0CE3EB02A
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2019 08:12:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 8B1FA3EADCE
- for <ltp@lists.linux.it>; Mon, 10 Jun 2019 05:33:22 +0200 (CEST)
-Received: from mail-vk1-f195.google.com (mail-vk1-f195.google.com
- [209.85.221.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id B82623EA36C
+ for <ltp@lists.linux.it>; Mon, 10 Jun 2019 08:12:21 +0200 (CEST)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 718D5600967
- for <ltp@lists.linux.it>; Mon, 10 Jun 2019 05:33:20 +0200 (CEST)
-Received: by mail-vk1-f195.google.com with SMTP id p24so1381720vki.5
- for <ltp@lists.linux.it>; Sun, 09 Jun 2019 20:33:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=B/3tYFGm9p3LaJlgHqh4DAel/YUOLcVHISuQYxf7Eiw=;
- b=iUjscR2ouyEv8nTFgOmIkOVspnM3MTCMN1HDOlVfniCqoe/U++jJjGiATXZP9vDmty
- AVRT8ddEYQ5hb4efhUS025hLpd+Cq7vkcd7Np9YGHBP429mihyGLwVj5Wu01nqP9kmUG
- tCP27jWw5jILYuFBnblyFH5SLbyO6RUEwIBWRPKgs8RBwP/yuWIGipI41UyZCXyZMCq5
- PXhOPRJ7c4WUBA5aNVkc5FCSP742crZlCrbdRVvjSsZ7kxAI4cKBXKzZgYkmi4vmZb5b
- I125Nn8gPTexjK6/LUOllleJqIOUobbLK1Sm38Gnx7XQyZfpmsJLMJX2vMX67dLZopTd
- 2ctw==
-X-Gm-Message-State: APjAAAU4BPhVC2tg4ftK0/CbHQnz4bn48nNBka2AUdNqx9Ee1vyoKhYI
- PjN2njlEVgI75N4c2nNz4qrqdARxBWPqyhoq8Py4mQ==
-X-Google-Smtp-Source: APXvYqzXkUiMB7Or3tHZC13c7m9Ae4+diw8vSeRqhcGh+1NrDm3tmfYjfQSabWptgN2o8F6c8a6hRqOLSvqfgjyHFJQ=
-X-Received: by 2002:a1f:e645:: with SMTP id d66mr5479828vkh.72.1560137599060; 
- Sun, 09 Jun 2019 20:33:19 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 56D2C2009E1
+ for <ltp@lists.linux.it>; Mon, 10 Jun 2019 08:12:18 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id C3E773086206;
+ Mon, 10 Jun 2019 06:12:16 +0000 (UTC)
+Received: from localhost (dhcp-12-130.nay.redhat.com [10.66.12.130])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id E63C6196E6;
+ Mon, 10 Jun 2019 06:12:10 +0000 (UTC)
+Date: Mon, 10 Jun 2019 14:12:09 +0800
+From: Murphy Zhou <xzhou@redhat.com>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <20190610061209.bsdrcld6ilh4vjk5@XZHOUW.usersys.redhat.com>
+References: <CAOQ4uxihom9Uw66c0BwuiWHOejZXDJHUe3rHBVRfk0=C-AYnAw@mail.gmail.com>
+ <20190528141214.18752-1-xzhou@redhat.com>
+ <20190528141214.18752-2-xzhou@redhat.com>
+ <CAEemH2fcM18gLbM3bWRu7ddR+8QbmYCL+4U83Z5tiWgZ4suz_A@mail.gmail.com>
+ <CAEemH2f275JA7f_mzyQwQeW8LJ2_YS5L42=KD1KWWGZKrmwitQ@mail.gmail.com>
+ <20190605093005.qwpput3zxrd22z44@XZHOUW.usersys.redhat.com>
+ <CAEemH2eezXfcn=cXPNDxTHf2wUn+auxh7jpJ3LuFnF-mm8yjig@mail.gmail.com>
 MIME-Version: 1.0
-References: <1551962651-22261-1-git-send-email-sumit.garg@linaro.org>
- <20190327144826.GA30619@rei>
- <CAFA6WYPxhVSub1SQyAk_51=NB0=yhjBfWPKdXoAjJB_TP0Za1Q@mail.gmail.com>
-In-Reply-To: <CAFA6WYPxhVSub1SQyAk_51=NB0=yhjBfWPKdXoAjJB_TP0Za1Q@mail.gmail.com>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 10 Jun 2019 11:33:08 +0800
-Message-ID: <CAEemH2fHYLuCpBAiyNz8cmzyT0rTJcAF56Lj1W8g0nN9Tv-Afw@mail.gmail.com>
-To: Sumit Garg <sumit.garg@linaro.org>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <CAEemH2eezXfcn=cXPNDxTHf2wUn+auxh7jpJ3LuFnF-mm8yjig@mail.gmail.com>
+User-Agent: NeoMutt/20180716-1844-e630b3
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+ (mx1.redhat.com [10.5.110.42]); Mon, 10 Jun 2019 06:12:16 +0000 (UTC)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
 Cc: LTP List <ltp@lists.linux.it>
-Subject: Re: [LTP] [PATCH v3] syscalls/sync_file_range: add partial file
-	sync test-cases
+Subject: Re: [LTP] [PATCH v6 2/4] swapon/libswapon: add helper
+ is_swap_supported
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -64,220 +63,180 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0911438228=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0911438228==
-Content-Type: multipart/alternative; boundary="00000000000064ac09058aefd72f"
-
---00000000000064ac09058aefd72f
-Content-Type: text/plain; charset="UTF-8"
-
-On Thu, Mar 28, 2019 at 12:57 PM Sumit Garg <sumit.garg@linaro.org> wrote:
-
-> On Wed, 27 Mar 2019 at 20:18, Cyril Hrubis <chrubis@suse.cz> wrote:
-> >
-> > Hi!
-> > Sorry for the long delay.
-> >
-> > This is altmost perfect, the only problem is that the third test fails
-> > on vfat. As far as I can tell the reason is that vfat does not support
-> > sparse files, hence seeking to the middle of file and writing there also
-> > schedulles I/O to write zeros from the start of the file to the offset
-> > we started writing to.
-> >
->
-> Hmm, I see.
->
-> > Following ugly patch solves the problem:
-> >
-> > diff --git
-> a/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-> b/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-> > index 334ea5e88..774524c2f 100644
-> > --- a/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-> > +++ b/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-> > @@ -45,6 +45,12 @@ static void verify_sync_file_range(struct testcase
-> *tc)
-> >
-> >         fd = SAFE_OPEN(tc->fname, O_RDWR|O_CREAT, MODE);
-> >
-> > +       if (!strcmp(tst_device->fs_type, "vfat")) {
-> > +               tst_res(TINFO, "Pre-filling file");
-> > +               tst_fill_fd(fd, 0, tc->write_off, 1);
-> > +               fsync(fd);
-> > +       }
-> > +
-> >         lseek(fd, tc->write_off, SEEK_SET);
-> >
-> >
-> > So either we limit the tests so that the sync region does not overlap
-> with the
-> > possible hole at the start of the file and loose some test coverage.
-> >
-> > Or we can add a function to the test library that would return
-> true/false if
-> > sparse files are supported for a given FS.
-> >
->
-> My initial thought behind this test-case was to run sync over a range
-> which is partially written. The other partial region not being written
-> could either be a hole or already synced data. So pre-fill file in
-> case of vfat looks sane option, but how about if we add pre-fill as
-> part of setup? Something like:
->
-
-I think this is a bit better. Could u send a new patch version?
-
-
-> --- a/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-> +++ b/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-> @@ -86,6 +86,12 @@ static void setup(void)
->  {
->         if (!check_sync_file_range())
->                 tst_brk(TCONF, "sync_file_range() not supported");
-> +
-> +       if (!strcmp(tst_device->fs_type, "vfat")) {
-> +               tst_res(TINFO, "Pre-filling file");
-> +               tst_fill_file(FNAME3, 0, TST_MB, FILE_SZ_MB);
-> +               sync();
-> +       }
->  }
->
-> -Sumit
->
-> > --
-> > Cyril Hrubis
-> > chrubis@suse.cz
->
-> --
-> Mailing list info: https://lists.linux.it/listinfo/ltp
->
-
-
--- 
-Regards,
-Li Wang
-
---00000000000064ac09058aefd72f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Thu, Mar 28, 2019 at 12:57 PM Sumit Garg &lt;<a =
-href=3D"mailto:sumit.garg@linaro.org">sumit.garg@linaro.org</a>&gt; wrote:<=
-br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Wed, 27 Mar 2=
-019 at 20:18, Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz" target=3D=
-"_blank">chrubis@suse.cz</a>&gt; wrote:<br>
-&gt;<br>
-&gt; Hi!<br>
-&gt; Sorry for the long delay.<br>
-&gt;<br>
-&gt; This is altmost perfect, the only problem is that the third test fails=
-<br>
-&gt; on vfat. As far as I can tell the reason is that vfat does not support=
-<br>
-&gt; sparse files, hence seeking to the middle of file and writing there al=
-so<br>
-&gt; schedulles I/O to write zeros from the start of the file to the offset=
-<br>
-&gt; we started writing to.<br>
-&gt;<br>
-<br>
-Hmm, I see.<br>
-<br>
-&gt; Following ugly patch solves the problem:<br>
-&gt;<br>
-&gt; diff --git a/testcases/kernel/syscalls/sync_file_range/sync_file_range=
-02.c b/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c<br>
-&gt; index 334ea5e88..774524c2f 100644<br>
-&gt; --- a/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c<br=
->
-&gt; +++ b/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c<br=
->
-&gt; @@ -45,6 +45,12 @@ static void verify_sync_file_range(struct testcase =
-*tc)<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fd =3D SAFE_OPEN(tc-&gt;fname, O_RDWR=
-|O_CREAT, MODE);<br>
-&gt;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!strcmp(tst_device-&gt;fs_type, &quot;=
-vfat&quot;)) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TINFO,=
- &quot;Pre-filling file&quot;);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_fill_fd(fd=
-, 0, tc-&gt;write_off, 1);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fsync(fd);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0lseek(fd, tc-&gt;write_off, SEEK_SET)=
-;<br>
-&gt;<br>
-&gt;<br>
-&gt; So either we limit the tests so that the sync region does not overlap =
-with the<br>
-&gt; possible hole at the start of the file and loose some test coverage.<b=
-r>
-&gt;<br>
-&gt; Or we can add a function to the test library that would return true/fa=
-lse if<br>
-&gt; sparse files are supported for a given FS.<br>
-&gt;<br>
-<br>
-My initial thought behind this test-case was to run sync over a range<br>
-which is partially written. The other partial region not being written<br>
-could either be a hole or already synced data. So pre-fill file in<br>
-case of vfat looks sane option, but how about if we add pre-fill as<br>
-part of setup? Something like:<br></blockquote><div><br></div><div><div cla=
-ss=3D"gmail_default" style=3D"font-size:small">I think this is a bit better=
-. Could u send a new patch version?</div></div><div><br></div><blockquote c=
-lass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px soli=
-d rgb(204,204,204);padding-left:1ex">
-<br>
---- a/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c<br>
-+++ b/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c<br>
-@@ -86,6 +86,12 @@ static void setup(void)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!check_sync_file_range())<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_brk(TCONF, &quo=
-t;sync_file_range() not supported&quot;);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!strcmp(tst_device-&gt;fs_type, &quot;vfat&=
-quot;)) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TINFO, &quo=
-t;Pre-filling file&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_fill_file(FNAME=
-3, 0, TST_MB, FILE_SZ_MB);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0sync();<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-=C2=A0}<br>
-<br>
--Sumit<br>
-<br>
-&gt; --<br>
-&gt; Cyril Hrubis<br>
-&gt; <a href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</=
-a><br>
-<br>
--- <br>
-Mailing list info: <a href=3D"https://lists.linux.it/listinfo/ltp" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.linux.it/listinfo/ltp</a><br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
-Wang<br></div></div></div></div>
-
---00000000000064ac09058aefd72f--
-
---===============0911438228==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
-dHAK
-
---===============0911438228==--
+T24gV2VkLCBKdW4gMDUsIDIwMTkgYXQgMDU6NTM6MTNQTSArMDgwMCwgTGkgV2FuZyB3cm90ZToK
+PiBPbiBXZWQsIEp1biA1LCAyMDE5IGF0IDU6MzAgUE0gTXVycGh5IFpob3UgPHh6aG91QHJlZGhh
+dC5jb20+IHdyb3RlOgo+IAo+ID4gT24gV2VkLCBKdW4gMDUsIDIwMTkgYXQgMDI6NTU6NDdQTSAr
+MDgwMCwgTGkgV2FuZyB3cm90ZToKPiA+ID4gT24gV2VkLCBKdW4gNSwgMjAxOSBhdCAxOjUxIFBN
+IExpIFdhbmcgPGxpd2FuZ0ByZWRoYXQuY29tPiB3cm90ZToKPiA+ID4KPiA+ID4gPgo+ID4gPiA+
+Cj4gPiA+ID4gT24gVHVlLCBNYXkgMjgsIDIwMTkgYXQgMTA6MTMgUE0gTXVycGh5IFpob3UgPHh6
+aG91QHJlZGhhdC5jb20+IHdyb3RlOgo+ID4gPiA+Cj4gPiA+ID4+IFRvIGNoZWNrIGlmIHRoZSBm
+aWxlc3lzdGVtIHdlIGFyZSB0ZXN0aW5nIG9uIHN1cHBvcnRzIEZJQk1BUCwgbWtzd2FwLAo+ID4g
+PiA+PiBzd2Fwb24gYW5kIHN3YXBvZmYgb3BlcmF0aW9ucy4KPiA+ID4gPj4gTW9kaWZ5IG1ha2Vf
+c3dhcGZpbGUgZnVuY3Rpb24gdG8gdGVzdCBta3N3YXAgc3VwcG9ydCBzdGF0dXMgc2FmZWx5Lgo+
+ID4gPiA+Pgo+ID4gPiA+PiBTaWduZWQtb2ZmLWJ5OiBNdXJwaHkgWmhvdSA8eHpob3VAcmVkaGF0
+LmNvbT4KPiA+ID4gPj4gLS0tCj4gPiA+ID4+ICB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3N3
+YXBvbi9saWJzd2Fwb24uYyB8IDQ1Cj4gPiArKysrKysrKysrKysrKysrKysrLQo+ID4gPiA+PiAg
+dGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9zd2Fwb24vbGlic3dhcG9uLmggfCAgNyArKy0KPiA+
+ID4gPj4gIDIgZmlsZXMgY2hhbmdlZCwgNDkgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkK
+PiA+ID4gPj4KPiA+ID4gPj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMv
+c3dhcG9uL2xpYnN3YXBvbi5jCj4gPiA+ID4+IGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9z
+d2Fwb24vbGlic3dhcG9uLmMKPiA+ID4gPj4gaW5kZXggY2Y2YTk4ODkxLi5mNjZkMTk1NDggMTAw
+NjQ0Cj4gPiA+ID4+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvc3dhcG9uL2xpYnN3
+YXBvbi5jCj4gPiA+ID4+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvc3dhcG9uL2xp
+YnN3YXBvbi5jCj4gPiA+ID4+IEBAIC0xOSwxMyArMTksMTUgQEAKPiA+ID4gPj4gICAqCj4gPiA+
+ID4+ICAgKi8KPiA+ID4gPj4KPiA+ID4gPj4gKyNpbmNsdWRlIDxlcnJuby5oPgo+ID4gPiA+PiAr
+I2luY2x1ZGUgImxhcGkvc3lzY2FsbHMuaCIKPiA+ID4gPj4gICNpbmNsdWRlICJ0ZXN0LmgiCj4g
+PiA+ID4+ICAjaW5jbHVkZSAibGlic3dhcG9uLmgiCj4gPiA+ID4+Cj4gPiA+ID4+ICAvKgo+ID4g
+PiA+PiAgICogTWFrZSBhIHN3YXAgZmlsZQo+ID4gPiA+PiAgICovCj4gPiA+ID4+IC12b2lkIG1h
+a2Vfc3dhcGZpbGUodm9pZCAoY2xlYW51cCkodm9pZCksIGNvbnN0IGNoYXIgKnN3YXBmaWxlKQo+
+ID4gPiA+PiAraW50IG1ha2Vfc3dhcGZpbGUodm9pZCAoY2xlYW51cCkodm9pZCksIGNvbnN0IGNo
+YXIgKnN3YXBmaWxlLCBpbnQKPiA+IHNhZmUpCj4gPiA+ID4+ICB7Cj4gPiA+ID4+ICAgICAgICAg
+aWYgKCF0c3RfZnNfaGFzX2ZyZWUoTlVMTCwgIi4iLCBzeXNjb25mKF9TQ19QQUdFU0laRSkgKiAx
+MCwKPiA+ID4gPj4gICAgICAgICAgICAgVFNUX0JZVEVTKSkgewo+ID4gPiA+PiBAQCAtNDUsNSAr
+NDcsNDQgQEAgdm9pZCBtYWtlX3N3YXBmaWxlKHZvaWQgKGNsZWFudXApKHZvaWQpLCBjb25zdCBj
+aGFyCj4gPiA+ID4+ICpzd2FwZmlsZSkKPiA+ID4gPj4gICAgICAgICBhcmd2WzFdID0gc3dhcGZp
+bGU7Cj4gPiA+ID4+ICAgICAgICAgYXJndlsyXSA9IE5VTEw7Cj4gPiA+ID4+Cj4gPiA+ID4+IC0g
+ICAgICAgdHN0X3J1bl9jbWQoY2xlYW51cCwgYXJndiwgIi9kZXYvbnVsbCIsICIvZGV2L251bGwi
+LCAwKTsKPiA+ID4gPj4gKyAgICAgICByZXR1cm4gdHN0X3J1bl9jbWQoY2xlYW51cCwgYXJndiwg
+Ii9kZXYvbnVsbCIsICIvZGV2L251bGwiLAo+ID4gc2FmZSk7Cj4gPiA+ID4+ICt9Cj4gPiA+ID4+
+ICsKPiA+ID4gPj4gKy8qCj4gPiA+ID4+ICsgKiBDaGVjayBzd2Fwb24vc3dhcG9mZiBzdXBwb3J0
+IHN0YXR1cyBvZiBmaWxlc3lzdGVtcyBvciBmaWxlcwo+ID4gPiA+PiArICogd2UgYXJlIHRlc3Rp
+bmcgb24uCj4gPiA+ID4+ICsgKi8KPiA+ID4gPj4gK3ZvaWQgaXNfc3dhcF9zdXBwb3J0ZWQodm9p
+ZCAoY2xlYW51cCkodm9pZCksIGNvbnN0IGNoYXIgKmZpbGVuYW1lKQo+ID4gPiA+PiArewo+ID4g
+PiA+PiArICAgICAgIGludCBmaWJtYXAgPSB0c3RfZmlibWFwKGZpbGVuYW1lKTsKPiA+ID4gPj4g
+KyAgICAgICBsb25nIGZzX3R5cGUgPSB0c3RfZnNfdHlwZShjbGVhbnVwLCBmaWxlbmFtZSk7Cj4g
+PiA+ID4+ICsgICAgICAgY29uc3QgY2hhciAqZnN0eXBlID0gdHN0X2ZzX3R5cGVfbmFtZShmc190
+eXBlKTsKPiA+ID4gPj4gKwo+ID4gPiA+PiArICAgICAgIGludCByZXQgPSBtYWtlX3N3YXBmaWxl
+KE5VTEwsIGZpbGVuYW1lLCAxKTsKPiA+ID4gPj4gKyAgICAgICBpZiAocmV0ICE9IDApIHsKPiA+
+ID4gPj4gKyAgICAgICAgICAgICAgIGlmIChmaWJtYXAgIT0gMCkgewo+ID4gPiA+Pgo+ID4gPiA+
+Cj4gPiA+ID4gQXMgSSByZXBsaWVkIGluIHBhdGNoIDEvNCwgaG93IGRvIHdlIGtub3cgdGhhdCBt
+ZWFucyBGSUJNQVAgbm90Cj4gPiBzdXBwb3J0IGlmCj4gPiA+ID4ganVzdCB2ZXJpZnkgZmlibWFw
+ICE9IDA/Cj4gPiA+ID4gU28gSSB3b3VsZCBzdWdnZXN0IHRvIG1ha2UgdGhlIHJldHVybiB2YWx1
+ZSBvZiB0c3RfZmlibWFwKCkgaXMgbW9yZQo+ID4gPiA+IHByZWNpc2UgYW5kIGRvIGlmIChmaWJt
+YXAgPT0gMSkgY2hlY2sgaGVyZS4KPiA+Cj4gPiBWZXJ5IGdvb2QgY2F0Y2guIFRoZSByZXR1cm4g
+dmFsdWUgc2hvdWxkIGJlIG1vcmUgcHJlY2lzZS4gVGhhbmtzIQo+ID4KPiA+ID4gPgo+ID4gPgo+
+ID4gPiBBbmQgYWxzbywgaW1hZ2luZSB0aGF0IGlmIHN3YXBvbjAxIHRlc3QgZmFpbGVkIG9uIEJS
+VEZTIG9yIE5GUyhzdXBwb3J0Cj4gPiA+IHN3YXBmaWxlIGJ1dCBub3QKPiA+ID4gc3VwcG9ydCBG
+SUJNQVAgaW9jdGwpLCB0aGVuIGhlcmUgd2lsbCByZXBvcnQgdGhlIG5ldyBidWcgYXMgYSBUQ09O
+RiB0bwo+ID4gTFRQLgo+ID4KPiA+IEhlcmUgaXMgdGVzdGluZyBta3N3YXAgZm9yIHN3YXBvbiB0
+ZXN0IHByZXBhcmF0aW9uLiBJZiBta3N3YXAgZmFpbCwgYW5kCj4gPiBGSUJNQVAgbm90IHN1cHBv
+cnRlZCwgaXQncyByZWFzb25hYmxlIHRvIG1lIHRoYXQgd2Ugc2hvdWxkIG5vdCBnbyBvbiB0bwo+
+ID4gdGVzdCBzd2Fwb24uCj4gPgo+ID4gQnV0IHllcywgaWYgYSByZWdyZXNzaW9uIGNhdXNlcyBt
+a3N3YXAgZmFpbCB3aXRob3V0IEZJQk1BUCBzdXBwb3J0ZWQsIHdlCj4gPiBjb3VsZCBtaXNzIHRo
+ZSBidWcgaGVyZSBsaWtlIHlvdSBkZXNjcmliZWQuIFRoaXMgc2l0dWF0aW9uIHNob3VsZCBiZQo+
+ID4gY292ZXJlZCBieSB0Y2FzZSBmb3IgbWtzd2FwIElNTy4KPiA+Cj4gCj4gSSdtIHRoaW5raW5n
+IG1heWJlIHdlIGNhbm4ndCBhdm9pZCBhZGRpbmcgYSB3aGlsZWxpc3QgaW4gdGhlIHRlc3QsIGF0
+IGxlYXN0Cj4gZm9yIGtub3duIGZpbGVzeXN0ZW0gd2l0aG91dCBGSUJNQVAgc3VwcG9ydGVkLgoK
+Tm8sIEkgdGhpbmsgd2UgZG9uJ3QgbmVlZCBhIHdoaWxlbGlzdCBoZXJlLiBBbWlyIGFuZCBJIGRp
+c2N1c3NlZCBsb25nIHdheQp0byBoZXJlLCB5b3UgY2FuIGNoZWNrIHRoYXQuIFdlIGFyZSBub3Qg
+dXNpbmcgZmlibWFwIHRlc3QgYXMgYSB2ZXJkaWN0IGZvcgpzd2FwZmlsZSBpcyBzdXBwb3J0ZWQg
+b3Igbm90LiBEb2luZyBhIG1rc3dhcC9zd2Fwb24vc3dhcG9mZiB0ZXN0IGJlZm9yZQpyZWFsIHRl
+c3RzIHRvIGRldGVjdCB0aGUgc3VwcG9ydCBzaXR1YXRpb24uIHRzdF9maWJtYXAgcmVzdWx0IGhl
+bHBzIHVzCnRvIGRlY2lkZSBob3cgdG8gcmVwb3J0LiBJZiB0aGUgdW5kZXJuZWF0aCBmaWxlc3lz
+dGVtIGNhbiBzdXJ2aXZlIHRoZXNlCnRlc3QsIGl0IHNob3VsZCBiZSBzdXBwb3J0aW5nIHN3YXBm
+aWxlcyBhbmQgc3dhcG9uL3N3YXBvZmYgdGVzdHMgc2hvdWxkCnJ1bi4KClRoZSB3aGl0ZWxpc3Rl
+ZCBuZnMgYW5kIHRtcGZzIGFyZSB3ZWxsIGNvdmVyZWQgYnkgdGhlc2UgcHJlLXRlc3RzLiBNb3Jl
+LCAKTkZTIHNob3VsZCBub3QgYmUgc2tpcHBlZCBhcyBpZiB3ZSB0dXJuIG9uIGtlcm5sZSBjb25m
+aWdzIGZvciBORlNfU1dBUCwKdGhlc2UgdGVzdHMgY2FuIHJ1biBvbiBORlMuCgpXaGl0ZWxpc3Qg
+Y291bGQgc2tpcCBtb3JlIHRlc3RzIGFuZCBidWdzLgoKSSB0ZXN0ZWQgc29tZSBmaWJtYXAvbWtz
+d2FwL3N3YXBvbi9zd2Fwb2ZmIHRlc3RzIGZvciB5b3VyIHJlZmVyZW5jZToKCjEgbWVhbnMgcG9z
+aXRpdmUsIDAgbWVhbnMgbmVnYXRpdmUuCgotLS0tLS0tLSBPbiA1LjMtcmMzKyBrZXJuZWwsIE5G
+U19TV0FQPXkgU1VOUlBDX1NXQVA9eSAtLS0tLS0tCglmaWJhbXAJbWtzd2FwCXN3YXBvbiBzd2Fw
+b2ZmCnhmcwkxCTEJMQkxCmV4dDQJMQkxCTEJMQoKYnRyZnMJMAkxCTAJMAp0bXBmcwkwCTEJMAkw
+CgpvdmwJMQkxCTEJMQoKY2lmcwp2My4xMQkwCTEJMAkwCnYxCTAJMQkwCTAKdjIJMAkxCTAJMAoK
+bmZzCnY0LjIJMAkxCTEqCTEKdjQuMQkwCTEJMQkxCnY0LjAJMAkxCTEqIAkxCnYzCTAJMQkxCTEK
+CiogaGFuZyBzb21ldGltZXMKCi0tLS0tLS0tLSBPbiAzLjEwLjAgYmFzZWQga2VybmVsIC0tLS0t
+LS0tLS0tLS0tLS0KCWZpYmFtcAlta3N3YXAJc3dhcG9uIHN3YXBvZmYKeGZzCTEJMQkxCTEKZXh0
+NAkxCTEJMQkxCgpidHJmcwkwCTEJMAkwCnRtcGZzCTAJMQkwCTAKCm92bAkxCTEJMQkxCgpjaWZz
+CnYzLjAJMAkxCTAJMAoKbmZzCnY0LjIJMAkxCTAJMAoKCi0tLS0tLS0tLS0gT24gMi42LjMyIGJh
+c2VkIGtlcm5lbCAtLS0tLS0tLS0tLS0tLS0KCWZpYmFtcAlta3N3YXAJc3dhcG9uIHN3YXBvZmYK
+dG1wZnMJMAkxCTAJMAp4ZnMJMQkxCTEJMQpleHQ0CTEJMQkxCTEKY2lmcwkwCTAJMAkwCm5mcwkw
+CTAJMAkwCgo+IAo+IEZZSTogd2hhdCBkbyB5b3UgdGhpbmsgaWYgY2hhbmdlIHRoZSBpc19zd2Fw
+X3N1cHBvcnRlZCguLi4pIGxpa2UgdGhpcz8KPiAKPiB2b2lkIGlzX3N3YXBfc3VwcG9ydGVkKHZv
+aWQgKGNsZWFudXApKHZvaWQpLCBjb25zdCBjaGFyICpmaWxlbmFtZSkKPiB7Cj4gICAgICAgICBp
+bnQgZmlibWFwID0gdHN0X2ZpYm1hcChmaWxlbmFtZSk7Cj4gCj4gICAgICAgICBpZiAoZmlibWFw
+ID09IDEpIHsKCmZpYm1hcCA9PSAwIGRvZXMgbm90IG1lYW4gc3dhcGZpbGUgaXMgc3VwcG9ydGVk
+LiBXZSBuZWVkIHRvIG1ha2Ugc3VyZSB0aGF0CnN1cnZpdm9ycyBvZiB0aGlzIGZ1bmN0aW9uIGFy
+ZSBzdXBwb3J0aW5nIHN3YXBmaWxlcy4KClRoYW5rcywKTXVycGh5Cgo+ICAgICAgICAgICAgICAg
+ICBpbnQgcmV0Owo+ICAgICAgICAgICAgICAgICBsb25nIGZzX3R5cGUgPSB0c3RfZnNfdHlwZShj
+bGVhbnVwLCBmaWxlbmFtZSk7Cj4gICAgICAgICAgICAgICAgIGNvbnN0IGNoYXIgKmZzdHlwZSA9
+IHRzdF9mc190eXBlX25hbWUoZnNfdHlwZSk7Cj4gCj4gICAgICAgICAgICAgICAgIHJldCA9IG1h
+a2Vfc3dhcGZpbGUoTlVMTCwgZmlsZW5hbWUsIDEpOwo+ICAgICAgICAgICAgICAgICBpZiAocmV0
+ICE9IDApIHsKPiAgICAgICAgICAgICAgICAgICAgICAgICBpZiAoZnNfdHlwZSA9PSBUU1RfTkZT
+X01BR0lDIHx8Cj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmc190eXBlID09IFRT
+VF9UTVBGU19NQUdJQyB8fAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZnNfdHlw
+ZSA9PSBUU1RfQlJURlNfTUFHSUMpIHsKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHRzdF9icmttKFRGQUlMLCBjbGVhbnVwLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAibWtzd2FwIG9uICVzIGZhaWxlZCIsIGZzdHlwZSk7Cj4gICAgICAgICAgICAg
+ICAgICAgICAgICAgfSBlbHNlIHsKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRz
+dF9icmttKFRDT05GLCBjbGVhbnVwLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAibWtzd2FwIG9uICVzIG5vdCBzdXBwb3J0ZWQiLAo+IGZzdHlwZSk7Cj4gICAgICAg
+ICAgICAgICAgICAgICAgICAgfQo+ICAgICAgICAgICAgICAgICB9Cj4gCj4gICAgICAgICAgICAg
+ICAgIFRFU1QobHRwX3N5c2NhbGwoX19OUl9zd2Fwb24sIGZpbGVuYW1lLCAwKSk7Cj4gICAgICAg
+ICAgICAgICAgIGlmIChURVNUX1JFVFVSTiA9PSAtMSkgewo+ICAgICAgICAgICAgICAgICAgICAg
+ICAgIGlmIChlcnJubyA9PSBFSU5WQUwpIHsKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHRzdF9icmttKFRDT05GLCBjbGVhbnVwLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIlN3YXBmaWxlIG9uICVzIG5vdCBpbXBsZW1lbnRlZCIsCj4gZnN0eXBl
+KTsKPiAgICAgICAgICAgICAgICAgICAgICAgICB9IGVsc2Ugewo+ICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgdHN0X2Jya20oVEZBSUwgfCBURVJSTk8sIGNsZWFudXAsCj4gICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAic3dhcG9uIG9uICVzIGZhaWxlZCIs
+IGZzdHlwZSk7Cj4gICAgICAgICAgICAgICAgICAgICAgICAgfQo+ICAgICAgICAgICAgICAgICB9
+Cj4gCj4gICAgICAgICAgICAgICAgIFRFU1QobHRwX3N5c2NhbGwoX19OUl9zd2Fwb2ZmLCBmaWxl
+bmFtZSwgMCkpOwo+ICAgICAgICAgICAgICAgICBpZiAoVEVTVF9SRVRVUk4gPT0gLTEpIHsKPiAg
+ICAgICAgICAgICAgICAgICAgICAgICB0c3RfYnJrbShURkFJTCB8IFRFUlJOTywgY2xlYW51cCwK
+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJzd2Fwb2ZmIG9uICVzIGZhaWxlZCIs
+IGZzdHlwZSk7Cj4gICAgICAgICAgICAgICAgIH0KPiAgICAgICAgIH0KPiB9Cj4gCj4gPgo+ID4g
+SSdtIGdvaW5nIHRvIGRpZyBtb3JlIG9uIGZpYm1hcC9ta3N3YXAvc3dhcG9uL3N3YXBvZmYgc3Vw
+cG9ydCBzdGF0dXMgb2YKPiA+IHZhcmllcyBmaWxlc3lzdGVtcy4KPiA+Cj4gPiA+Cj4gPiA+Cj4g
+PiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgdHN0X2Jya20oVENPTkYsIGNsZWFudXAsCj4g
+PiA+ID4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIm1rc3dhcCBvbiAlcyBub3Qg
+c3VwcG9ydGVkIiwgZnN0eXBlKTsKPiA+ID4gPj4gKyAgICAgICAgICAgICAgIH0gZWxzZSB7Cj4g
+PiA+ID4+ICsgICAgICAgICAgICAgICAgICAgICAgIHRzdF9icmttKFRGQUlMLCBjbGVhbnVwLAo+
+ID4gPiA+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJta3N3YXAgb24gJXMgZmFp
+bGVkIiwgZnN0eXBlKTsKPiA+ID4gPj4gKyAgICAgICAgICAgICAgIH0KPiA+ID4gPj4gKyAgICAg
+ICB9Cj4gPiA+ID4+ICsKPiA+ID4gPj4gKyAgICAgICBURVNUKGx0cF9zeXNjYWxsKF9fTlJfc3dh
+cG9uLCBmaWxlbmFtZSwgMCkpOwo+ID4gPiA+PiArICAgICAgIGlmIChURVNUX1JFVFVSTiA9PSAt
+MSkgewo+ID4gPiA+PiArICAgICAgICAgICAgICAgaWYgKGZpYm1hcCAhPSAwICYmIGVycm5vID09
+IEVJTlZBTCkgewo+ID4gPiA+PiArICAgICAgICAgICAgICAgICAgICAgICB0c3RfYnJrbShUQ09O
+RiwgY2xlYW51cCwKPiA+ID4gPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiU3dh
+cGZpbGUgb24gJXMgbm90IGltcGxlbWVudGVkIiwKPiA+IGZzdHlwZSk7Cj4gPiA+ID4+Cj4gPiA+
+ID4KPiA+ID4gPiBNYXliZSB0aGVyZSBpcyB1bm5lY2Vzc2FyeSB0byBjaGVjayBmaWJtYXAgdmFs
+dWUgYWdhaW4/IFNpbmNlIGlmIHRoZQo+ID4gPiA+IGZpYm1hcCBpcyAxLCBpdCBoYXMgYWxyZWFk
+eSBicm9rZW4gaW4gbWFrZV9zd2FwZmlsZSgpIGVycm9yIGhhbmRsZXIgYW5kCj4gPiA+ID4gbmV2
+ZXIgY29taW5nIGhlcmU/Cj4gPgo+ID4gSWYgbWtzd2FwIHN1Y2NlZWRzLCB3ZSBhcmUgY29taW5n
+IGhlcmUuCj4gPgo+IAo+IEFoIHllcy4gSSBtaXNzZWQgdGhhdCBzaXR1YXRpb24uCj4gCj4gPgo+
+ID4gVGhhbmtzIGZvciByZXZpZXdpbmchCj4gPiBNdXJwaHkKPiA+Cj4gPiA+ID4KPiA+ID4gPgo+
+ID4gPiA+Cj4gPiA+ID4+ICsgICAgICAgICAgICAgICB9IGVsc2Ugewo+ID4gPiA+PiArICAgICAg
+ICAgICAgICAgICAgICAgICB0c3RfYnJrbShURkFJTCB8IFRFUlJOTywgY2xlYW51cCwKPiA+ID4g
+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgInN3YXBvbiBvbiAlcyBmYWlsZWQi
+LCBmc3R5cGUpOwo+ID4gPiA+PiArICAgICAgICAgICAgICAgfQo+ID4gPiA+PiArICAgICAgIH0K
+PiA+ID4gPj4gKwo+ID4gPiA+PiArICAgICAgIFRFU1QobHRwX3N5c2NhbGwoX19OUl9zd2Fwb2Zm
+LCBmaWxlbmFtZSwgMCkpOwo+ID4gPiA+PiArICAgICAgIGlmIChURVNUX1JFVFVSTiA9PSAtMSkg
+ewo+ID4gPiA+PiArICAgICAgICAgICAgICAgdHN0X2Jya20oVEZBSUwgfCBURVJSTk8sIGNsZWFu
+dXAsCj4gPiA+ID4+ICsgICAgICAgICAgICAgICAgICAgICAgICJzd2Fwb2ZmIG9uICVzIGZhaWxl
+ZCIsIGZzdHlwZSk7Cj4gPiA+ID4+ICsgICAgICAgfQo+ID4gPiA+PiAgfQo+ID4gPiA+PiBkaWZm
+IC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9zd2Fwb24vbGlic3dhcG9uLmgKPiA+
+ID4gPj4gYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3N3YXBvbi9saWJzd2Fwb24uaAo+ID4g
+PiA+PiBpbmRleCA3ZjcyMTFlYjQuLmE1MTgzM2VjMSAxMDA2NDQKPiA+ID4gPj4gLS0tIGEvdGVz
+dGNhc2VzL2tlcm5lbC9zeXNjYWxscy9zd2Fwb24vbGlic3dhcG9uLmgKPiA+ID4gPj4gKysrIGIv
+dGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9zd2Fwb24vbGlic3dhcG9uLmgKPiA+ID4gPj4gQEAg
+LTI5LDYgKzI5LDExIEBACj4gPiA+ID4+ICAvKgo+ID4gPiA+PiAgICogTWFrZSBhIHN3YXAgZmls
+ZQo+ID4gPiA+PiAgICovCj4gPiA+ID4+IC12b2lkIG1ha2Vfc3dhcGZpbGUodm9pZCAoY2xlYW51
+cCkodm9pZCksIGNvbnN0IGNoYXIgKnN3YXBmaWxlKTsKPiA+ID4gPj4gK2ludCBtYWtlX3N3YXBm
+aWxlKHZvaWQgKGNsZWFudXApKHZvaWQpLCBjb25zdCBjaGFyICpzd2FwZmlsZSwgaW50Cj4gPiBz
+YWZlKTsKPiA+ID4gPj4KPiA+ID4gPj4gKy8qCj4gPiA+ID4+ICsgKiBDaGVjayBzd2Fwb24vc3dh
+cG9mZiBzdXBwb3J0IHN0YXR1cyBvZiBmaWxlc3lzdGVtcyBvciBmaWxlcwo+ID4gPiA+PiArICog
+d2UgYXJlIHRlc3Rpbmcgb24uCj4gPiA+ID4+ICsgKi8KPiA+ID4gPj4gK3ZvaWQgaXNfc3dhcF9z
+dXBwb3J0ZWQodm9pZCAoY2xlYW51cCkodm9pZCksIGNvbnN0IGNoYXIgKmZpbGVuYW1lKTsKPiA+
+ID4gPj4gICNlbmRpZiAvKiBfX0xJQlNXQVBPTl9IX18gKi8KPiA+ID4gPj4gLS0KPiA+ID4gPj4g
+Mi4yMS4wCj4gPiA+ID4+Cj4gPiA+ID4+Cj4gPiA+ID4+IC0tCj4gPiA+ID4+IE1haWxpbmcgbGlz
+dCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo+ID4gPiA+Pgo+ID4g
+PiA+Cj4gPiA+ID4KPiA+ID4gPiAtLQo+ID4gPiA+IFJlZ2FyZHMsCj4gPiA+ID4gTGkgV2FuZwo+
+ID4gPiA+Cj4gPiA+Cj4gPiA+Cj4gPiA+IC0tCj4gPiA+IFJlZ2FyZHMsCj4gPiA+IExpIFdhbmcK
+PiA+Cj4gCj4gCj4gLS0gCj4gUmVnYXJkcywKPiBMaSBXYW5nCgotLSAKTWFpbGluZyBsaXN0IGlu
+Zm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
