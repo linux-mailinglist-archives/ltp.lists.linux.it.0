@@ -1,68 +1,59 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54E303AF54
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2019 09:11:34 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 389543B027
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2019 10:01:47 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 29DF43EB01C
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2019 09:11:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0EA153EB01E
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jun 2019 10:01:47 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 8B7053EB011
- for <ltp@lists.linux.it>; Mon, 10 Jun 2019 09:11:32 +0200 (CEST)
-Received: from mail-ua1-x942.google.com (mail-ua1-x942.google.com
- [IPv6:2607:f8b0:4864:20::942])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id D802D3EA5C1
+ for <ltp@lists.linux.it>; Mon, 10 Jun 2019 10:01:45 +0200 (CEST)
+Received: from mail-ua1-f67.google.com (mail-ua1-f67.google.com
+ [209.85.222.67])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E63791000ACF
- for <ltp@lists.linux.it>; Mon, 10 Jun 2019 09:11:27 +0200 (CEST)
-Received: by mail-ua1-x942.google.com with SMTP id o2so2144713uae.10
- for <ltp@lists.linux.it>; Mon, 10 Jun 2019 00:11:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=lTtC8p64nfSEehaqmLSJKdkMUq0KbY7h5ZLV/W6eJKA=;
- b=d0QwJzIO18hZLn5E+W4EF8i25802M6jW3Z0BqqFLv02LpeWsbTXSTKrmRT7OqhfRTl
- kznlwARmnuLgMXXb6uXtEgRsED6Y4RI+ZeauMja3ZvPvbPyHt6D9tbe0dYTKFEAtq2hr
- b17MDRH+36430GzEHyR6Jdqze2eVdsRNrmDrko667K0CU/UNFkeCSyDv0jpLviFZlIg3
- FBUeAyV4q/aL4fIUdOuygj5Umbb+DIHC9DCLK3NZSMnrTfHCEsAAOkUmt6wSvPpYcb7Y
- sTClwrBDbHYl//gzOwYDK4G5QT7zDteAebuFphImuNSrEXxVxZDqjURiWFnJ6Ian5xPH
- XcwQ==
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 76E831A01070
+ for <ltp@lists.linux.it>; Mon, 10 Jun 2019 10:01:44 +0200 (CEST)
+Received: by mail-ua1-f67.google.com with SMTP id 94so2696724uam.3
+ for <ltp@lists.linux.it>; Mon, 10 Jun 2019 01:01:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=lTtC8p64nfSEehaqmLSJKdkMUq0KbY7h5ZLV/W6eJKA=;
- b=FXWGsjvnZMjaFQ5P/UTVoR3CF8d4pDnbp6e+6yut1hpRxlDBQdqTZSMONyukjK6428
- v/oEBO7rVZUNFuHMFc/oppRX8FthZm1sUcXomGEsFC31Lwdhb8kOD+xqow9MBO1Q+0Rd
- GAnar0wDXRMwm+OHIUWiL7+FYcVOZF2zjfQzJ3aNBcVXDd5hx0YyYYko5pwhP3r+GDnN
- sHB93aOqbNEfBKiQLCP6vAN42EfZsUUUkN7S2gavwt8+eMO2Azr06LwPngLoz0MxMLfT
- fs2cMlBJIbPAQ9d/JUL5wBjRWRvZ+sxAouhywig8dygbd29TWlrS8t8jMhZKE4+ZaYd8
- Mpiw==
-X-Gm-Message-State: APjAAAVcc6Ol1en8iuFTONhFnQwVCj7E8MJYvoJb7yodRcWxTfvOyXpO
- 0nW61oGIBPmqU5br8rveTYVt7cE4LzSFvW1YpkbaKg==
-X-Google-Smtp-Source: APXvYqxD5XmuH0q+RXNCGUfZGACOBoXpeeKNpdjoJ22+rv8Xf0zgIqk5cXNRf3HyI23x+X5+IBRufXEjJDHRU1TqSJE=
-X-Received: by 2002:ab0:4127:: with SMTP id j36mr31569218uad.125.1560150690516; 
- Mon, 10 Jun 2019 00:11:30 -0700 (PDT)
+ bh=mwJURAUStQUZs7bF1WT2nZmgj+LjLq4ALIhpoFjrnRY=;
+ b=KD9HeFN84t3Ph73elHxrX8laOH8f6udpBoxVS2++fZqPTgQQZUTQSZp53rWfbbDY3L
+ aAIOBqvl9rDIhCrM36CyimLrtsL96byO30mMG0iNAYeBe5TlSiSUdd7na37YD7raqQHZ
+ soYkJYuAJnvUYlHf6izdiL/5uVogj9IiUgXO1fSLAqMFicJEj6E5k82iYs/zj6xLLSpt
+ qVUcA0volWZ0jonpZfMKVeeusWxBbW0uN+IOC9OvtRFPWRMQh25XVIbV7wlz1MPvjGEz
+ HRPVhFYc88oyGn04UayFx3yiRQZheRsViyMDx1E2XHgzOQExyoMDOFMUBZSDfbv78T3z
+ hHQA==
+X-Gm-Message-State: APjAAAW96NiZJE3lA7o4jbC7uuKA3EEu2384XSlwSak8GoaGv4TD+QBv
+ 9MpKYT7y5Ivf6+7F8oGRJVCsBJ0jvr4+9sbUuJDYvw==
+X-Google-Smtp-Source: APXvYqwLh4I3mejt2oJtFYPtiuP28AWS67vQpSHSubs1fzBAmWaXHnYm05shzqYLSx8xI1J+9PbXoBsALLFSsmi69Po=
+X-Received: by 2002:ab0:985:: with SMTP id x5mr30949477uag.89.1560153703387;
+ Mon, 10 Jun 2019 01:01:43 -0700 (PDT)
 MIME-Version: 1.0
-References: <1551962651-22261-1-git-send-email-sumit.garg@linaro.org>
- <20190327144826.GA30619@rei>
- <CAFA6WYPxhVSub1SQyAk_51=NB0=yhjBfWPKdXoAjJB_TP0Za1Q@mail.gmail.com>
- <CAEemH2fHYLuCpBAiyNz8cmzyT0rTJcAF56Lj1W8g0nN9Tv-Afw@mail.gmail.com>
-In-Reply-To: <CAEemH2fHYLuCpBAiyNz8cmzyT0rTJcAF56Lj1W8g0nN9Tv-Afw@mail.gmail.com>
-From: Sumit Garg <sumit.garg@linaro.org>
-Date: Mon, 10 Jun 2019 12:41:19 +0530
-Message-ID: <CAFA6WYNPgyyag1+rBK4P_JYQtMDY7TxkAyf+ZFW7WCWgo1DfKQ@mail.gmail.com>
-To: Li Wang <liwang@redhat.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+References: <f11c83459b71fbf399794fb8363f2b538b0b6346.1559207183.git.caspar@casparzhang.com>
+ <5e8374fa7f4ea9d64cdfc39a2ca449761327c257.1559207183.git.caspar@casparzhang.com>
+ <CAEemH2eV6RZKdZV0MMuogAzyvoXCsuvrfp3v_1TNtO1cOoAPGA@mail.gmail.com>
+ <20190609154038.GA53103@linux.alibaba.com>
+In-Reply-To: <20190609154038.GA53103@linux.alibaba.com>
+From: Li Wang <liwang@redhat.com>
+Date: Mon, 10 Jun 2019 16:01:32 +0800
+Message-ID: <CAEemH2dX6ESKrS0DnKYDogaTZQwpf9MbOo0W=TS0VnEeN2EbXg@mail.gmail.com>
+To: Caspar Zhang <caspar@linux.alibaba.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
 Cc: LTP List <ltp@lists.linux.it>
-Subject: Re: [LTP] [PATCH v3] syscalls/sync_file_range: add partial file
-	sync test-cases
+Subject: Re: [LTP] [PATCH 2/3] lib/test.sh: TCONF needs to be counted
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -74,61 +65,219 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2065660994=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gTW9uLCAxMCBKdW4gMjAxOSBhdCAwOTowMywgTGkgV2FuZyA8bGl3YW5nQHJlZGhhdC5jb20+
-IHdyb3RlOgo+Cj4KPgo+IE9uIFRodSwgTWFyIDI4LCAyMDE5IGF0IDEyOjU3IFBNIFN1bWl0IEdh
-cmcgPHN1bWl0LmdhcmdAbGluYXJvLm9yZz4gd3JvdGU6Cj4+Cj4+IE9uIFdlZCwgMjcgTWFyIDIw
-MTkgYXQgMjA6MTgsIEN5cmlsIEhydWJpcyA8Y2hydWJpc0BzdXNlLmN6PiB3cm90ZToKPj4gPgo+
-PiA+IEhpIQo+PiA+IFNvcnJ5IGZvciB0aGUgbG9uZyBkZWxheS4KPj4gPgo+PiA+IFRoaXMgaXMg
-YWx0bW9zdCBwZXJmZWN0LCB0aGUgb25seSBwcm9ibGVtIGlzIHRoYXQgdGhlIHRoaXJkIHRlc3Qg
-ZmFpbHMKPj4gPiBvbiB2ZmF0LiBBcyBmYXIgYXMgSSBjYW4gdGVsbCB0aGUgcmVhc29uIGlzIHRo
-YXQgdmZhdCBkb2VzIG5vdCBzdXBwb3J0Cj4+ID4gc3BhcnNlIGZpbGVzLCBoZW5jZSBzZWVraW5n
-IHRvIHRoZSBtaWRkbGUgb2YgZmlsZSBhbmQgd3JpdGluZyB0aGVyZSBhbHNvCj4+ID4gc2NoZWR1
-bGxlcyBJL08gdG8gd3JpdGUgemVyb3MgZnJvbSB0aGUgc3RhcnQgb2YgdGhlIGZpbGUgdG8gdGhl
-IG9mZnNldAo+PiA+IHdlIHN0YXJ0ZWQgd3JpdGluZyB0by4KPj4gPgo+Pgo+PiBIbW0sIEkgc2Vl
-Lgo+Pgo+PiA+IEZvbGxvd2luZyB1Z2x5IHBhdGNoIHNvbHZlcyB0aGUgcHJvYmxlbToKPj4gPgo+
-PiA+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3N5bmNfZmlsZV9yYW5n
-ZS9zeW5jX2ZpbGVfcmFuZ2UwMi5jIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9zeW5jX2Zp
-bGVfcmFuZ2Uvc3luY19maWxlX3JhbmdlMDIuYwo+PiA+IGluZGV4IDMzNGVhNWU4OC4uNzc0NTI0
-YzJmIDEwMDY0NAo+PiA+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvc3luY19maWxl
-X3JhbmdlL3N5bmNfZmlsZV9yYW5nZTAyLmMKPj4gPiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5
-c2NhbGxzL3N5bmNfZmlsZV9yYW5nZS9zeW5jX2ZpbGVfcmFuZ2UwMi5jCj4+ID4gQEAgLTQ1LDYg
-KzQ1LDEyIEBAIHN0YXRpYyB2b2lkIHZlcmlmeV9zeW5jX2ZpbGVfcmFuZ2Uoc3RydWN0IHRlc3Rj
-YXNlICp0YykKPj4gPgo+PiA+ICAgICAgICAgZmQgPSBTQUZFX09QRU4odGMtPmZuYW1lLCBPX1JE
-V1J8T19DUkVBVCwgTU9ERSk7Cj4+ID4KPj4gPiArICAgICAgIGlmICghc3RyY21wKHRzdF9kZXZp
-Y2UtPmZzX3R5cGUsICJ2ZmF0IikpIHsKPj4gPiArICAgICAgICAgICAgICAgdHN0X3JlcyhUSU5G
-TywgIlByZS1maWxsaW5nIGZpbGUiKTsKPj4gPiArICAgICAgICAgICAgICAgdHN0X2ZpbGxfZmQo
-ZmQsIDAsIHRjLT53cml0ZV9vZmYsIDEpOwo+PiA+ICsgICAgICAgICAgICAgICBmc3luYyhmZCk7
-Cj4+ID4gKyAgICAgICB9Cj4+ID4gKwo+PiA+ICAgICAgICAgbHNlZWsoZmQsIHRjLT53cml0ZV9v
-ZmYsIFNFRUtfU0VUKTsKPj4gPgo+PiA+Cj4+ID4gU28gZWl0aGVyIHdlIGxpbWl0IHRoZSB0ZXN0
-cyBzbyB0aGF0IHRoZSBzeW5jIHJlZ2lvbiBkb2VzIG5vdCBvdmVybGFwIHdpdGggdGhlCj4+ID4g
-cG9zc2libGUgaG9sZSBhdCB0aGUgc3RhcnQgb2YgdGhlIGZpbGUgYW5kIGxvb3NlIHNvbWUgdGVz
-dCBjb3ZlcmFnZS4KPj4gPgo+PiA+IE9yIHdlIGNhbiBhZGQgYSBmdW5jdGlvbiB0byB0aGUgdGVz
-dCBsaWJyYXJ5IHRoYXQgd291bGQgcmV0dXJuIHRydWUvZmFsc2UgaWYKPj4gPiBzcGFyc2UgZmls
-ZXMgYXJlIHN1cHBvcnRlZCBmb3IgYSBnaXZlbiBGUy4KPj4gPgo+Pgo+PiBNeSBpbml0aWFsIHRo
-b3VnaHQgYmVoaW5kIHRoaXMgdGVzdC1jYXNlIHdhcyB0byBydW4gc3luYyBvdmVyIGEgcmFuZ2UK
-Pj4gd2hpY2ggaXMgcGFydGlhbGx5IHdyaXR0ZW4uIFRoZSBvdGhlciBwYXJ0aWFsIHJlZ2lvbiBu
-b3QgYmVpbmcgd3JpdHRlbgo+PiBjb3VsZCBlaXRoZXIgYmUgYSBob2xlIG9yIGFscmVhZHkgc3lu
-Y2VkIGRhdGEuIFNvIHByZS1maWxsIGZpbGUgaW4KPj4gY2FzZSBvZiB2ZmF0IGxvb2tzIHNhbmUg
-b3B0aW9uLCBidXQgaG93IGFib3V0IGlmIHdlIGFkZCBwcmUtZmlsbCBhcwo+PiBwYXJ0IG9mIHNl
-dHVwPyBTb21ldGhpbmcgbGlrZToKPgo+Cj4gSSB0aGluayB0aGlzIGlzIGEgYml0IGJldHRlci4g
-Q291bGQgdSBzZW5kIGEgbmV3IHBhdGNoIHZlcnNpb24/Cj4KClN1cmUuIEJUVywgYXBvbG9naWVz
-IGZvciB0aGUgZGVsYXkgYXMgSSB3YXMgYnVzeSB3aXRoIHNvbWUgb3RoZXIgdGFza3MuCgotU3Vt
-aXQKCj4+Cj4+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvc3luY19maWxlX3Jhbmdl
-L3N5bmNfZmlsZV9yYW5nZTAyLmMKPj4gKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9z
-eW5jX2ZpbGVfcmFuZ2Uvc3luY19maWxlX3JhbmdlMDIuYwo+PiBAQCAtODYsNiArODYsMTIgQEAg
-c3RhdGljIHZvaWQgc2V0dXAodm9pZCkKPj4gIHsKPj4gICAgICAgICBpZiAoIWNoZWNrX3N5bmNf
-ZmlsZV9yYW5nZSgpKQo+PiAgICAgICAgICAgICAgICAgdHN0X2JyayhUQ09ORiwgInN5bmNfZmls
-ZV9yYW5nZSgpIG5vdCBzdXBwb3J0ZWQiKTsKPj4gKwo+PiArICAgICAgIGlmICghc3RyY21wKHRz
-dF9kZXZpY2UtPmZzX3R5cGUsICJ2ZmF0IikpIHsKPj4gKyAgICAgICAgICAgICAgIHRzdF9yZXMo
-VElORk8sICJQcmUtZmlsbGluZyBmaWxlIik7Cj4+ICsgICAgICAgICAgICAgICB0c3RfZmlsbF9m
-aWxlKEZOQU1FMywgMCwgVFNUX01CLCBGSUxFX1NaX01CKTsKPj4gKyAgICAgICAgICAgICAgIHN5
-bmMoKTsKPj4gKyAgICAgICB9Cj4+ICB9Cj4+Cj4+IC1TdW1pdAo+Pgo+PiA+IC0tCj4+ID4gQ3ly
-aWwgSHJ1YmlzCj4+ID4gY2hydWJpc0BzdXNlLmN6Cj4+Cj4+IC0tCj4+IE1haWxpbmcgbGlzdCBp
-bmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo+Cj4KPgo+IC0tCj4gUmVn
-YXJkcywKPiBMaSBXYW5nCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGlu
-dXguaXQvbGlzdGluZm8vbHRwCg==
+--===============2065660994==
+Content-Type: multipart/alternative; boundary="0000000000004934c3058af3971e"
+
+--0000000000004934c3058af3971e
+Content-Type: text/plain; charset="UTF-8"
+
+On Sun, Jun 9, 2019 at 11:41 PM Caspar Zhang <caspar@linux.alibaba.com>
+wrote:
+
+> On Fri, May 31, 2019 at 11:17:14AM +0800, Li Wang wrote:
+> >
+> >
+> > On Thu, May 30, 2019 at 5:10 PM Caspar Zhang <[1]
+> caspar@linux.alibaba.com>
+> > wrote:
+> >
+> >     TCONF should also be one of exit statuses in a single test, else the
+> >     output of TST_COUNT in shell tests could be wrong.
+> >
+> >     Wrong:
+> >     <<<test_output>>>
+> >     memcg_use_hierarchy_test 1 TINFO: Starting test 1
+> >     memcg_use_hierarchy_test 1 TINFO: set
+> /dev/memcg/memory.use_hierarchy to 0
+> >     failed
+> >     memcg_use_hierarchy_test 1 TPASS: process 28658 is killed
+> >     memcg_use_hierarchy_test 2 TINFO: Starting test 2
+> >     memcg_use_hierarchy_test 2 TINFO: set
+> /dev/memcg/memory.use_hierarchy to 0
+> >     failed
+> >     memcg_use_hierarchy_test 2 TCONF: memory.use_hierarchy already been
+> 1,
+> >     blame systemd, skip
+> >     memcg_use_hierarchy_test 2 TINFO: Starting test 3
+> >     memcg_use_hierarchy_test 2 TINFO: set
+> /dev/memcg/memory.use_hierarchy to 0
+> >     failed
+> >     memcg_use_hierarchy_test 2 TPASS: echo 0 >
+> subgroup/memory.use_hierarchy
+> >     failed as expected
+> >     <<<execution_status>>>
+> >
+> >     Right:
+> >     <<<test_output>>>
+> >     memcg_use_hierarchy_test 1 TINFO: Starting test 1
+> >     memcg_use_hierarchy_test 1 TINFO: set
+> /dev/memcg/memory.use_hierarchy to 0
+> >     failed
+> >     memcg_use_hierarchy_test 1 TPASS: process 26825 is killed
+> >     memcg_use_hierarchy_test 2 TINFO: Starting test 2
+> >     memcg_use_hierarchy_test 2 TINFO: set
+> /dev/memcg/memory.use_hierarchy to 0
+> >     failed
+> >     memcg_use_hierarchy_test 2 TCONF: memory.use_hierarchy already been
+> 1,
+> >     blame systemd, skip
+> >     memcg_use_hierarchy_test 3 TINFO: Starting test 3
+> >     memcg_use_hierarchy_test 3 TINFO: set
+> /dev/memcg/memory.use_hierarchy to 0
+> >     failed
+> >     memcg_use_hierarchy_test 3 TPASS: echo 0 >
+> subgroup/memory.use_hierarchy
+> >     failed as expected
+> >     <<<execution_status>>>
+> >
+> >
+> > This is a good catch, but maybe it's not wise to simply regard the TCONF
+> as a
+> > single test, because there are many system-config detections in setup()
+> > function, that will make LTP gives a mendacious report on the test
+> numbers if
+> > applying this patch.
+> >
+> > e.g.
+> >
+> > if tst_kvcmp -lt "3.10"; then
+> >     tst_brk TCONF "test must be run with kernel 3.10 or newer"
+> > fi
+> > if dir path not exist; then
+> >     tst_brk TCONF "system does not have xxxx/"
+> > fi
+> > and so on...
+>
+> TCONF usually report only once, I would still take it a valid report on
+> numbers. Take your case as example, I guess we are able to see results
+> like:
+>
+
+Okay, that sounds reasonable too.
+
+-- 
+Regards,
+Li Wang
+
+--0000000000004934c3058af3971e
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Sun, Jun 9, 2019 at 11:41 PM Caspar Zhang &lt;<a=
+ href=3D"mailto:caspar@linux.alibaba.com" target=3D"_blank">caspar@linux.al=
+ibaba.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">On Fri, May 31, 2019 at 11:17:14AM +0800, Li Wang wrote:<br>
+&gt;<br>
+&gt;<br>
+&gt; On Thu, May 30, 2019 at 5:10 PM Caspar Zhang &lt;[1]<a href=3D"mailto:=
+caspar@linux.alibaba.com" target=3D"_blank">caspar@linux.alibaba.com</a>&gt=
+;<br>
+&gt; wrote:<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0TCONF should also be one of exit statuses in a sing=
+le test, else the<br>
+&gt;=C2=A0 =C2=A0 =C2=A0output of TST_COUNT in shell tests could be wrong.<=
+br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0Wrong:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&lt;&lt;&lt;test_output&gt;&gt;&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0memcg_use_hierarchy_test 1 TINFO: Starting test 1<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0memcg_use_hierarchy_test 1 TINFO: set /dev/memcg/me=
+mory.use_hierarchy to 0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0failed<br>
+&gt;=C2=A0 =C2=A0 =C2=A0memcg_use_hierarchy_test 1 TPASS: process 28658 is =
+killed<br>
+&gt;=C2=A0 =C2=A0 =C2=A0memcg_use_hierarchy_test 2 TINFO: Starting test 2<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0memcg_use_hierarchy_test 2 TINFO: set /dev/memcg/me=
+mory.use_hierarchy to 0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0failed<br>
+&gt;=C2=A0 =C2=A0 =C2=A0memcg_use_hierarchy_test 2 TCONF: memory.use_hierar=
+chy already been 1,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0blame systemd, skip<br>
+&gt;=C2=A0 =C2=A0 =C2=A0memcg_use_hierarchy_test 2 TINFO: Starting test 3<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0memcg_use_hierarchy_test 2 TINFO: set /dev/memcg/me=
+mory.use_hierarchy to 0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0failed<br>
+&gt;=C2=A0 =C2=A0 =C2=A0memcg_use_hierarchy_test 2 TPASS: echo 0 &gt; subgr=
+oup/memory.use_hierarchy<br>
+&gt;=C2=A0 =C2=A0 =C2=A0failed as expected<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&lt;&lt;&lt;execution_status&gt;&gt;&gt;<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0Right:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&lt;&lt;&lt;test_output&gt;&gt;&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0memcg_use_hierarchy_test 1 TINFO: Starting test 1<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0memcg_use_hierarchy_test 1 TINFO: set /dev/memcg/me=
+mory.use_hierarchy to 0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0failed<br>
+&gt;=C2=A0 =C2=A0 =C2=A0memcg_use_hierarchy_test 1 TPASS: process 26825 is =
+killed<br>
+&gt;=C2=A0 =C2=A0 =C2=A0memcg_use_hierarchy_test 2 TINFO: Starting test 2<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0memcg_use_hierarchy_test 2 TINFO: set /dev/memcg/me=
+mory.use_hierarchy to 0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0failed<br>
+&gt;=C2=A0 =C2=A0 =C2=A0memcg_use_hierarchy_test 2 TCONF: memory.use_hierar=
+chy already been 1,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0blame systemd, skip<br>
+&gt;=C2=A0 =C2=A0 =C2=A0memcg_use_hierarchy_test 3 TINFO: Starting test 3<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0memcg_use_hierarchy_test 3 TINFO: set /dev/memcg/me=
+mory.use_hierarchy to 0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0failed<br>
+&gt;=C2=A0 =C2=A0 =C2=A0memcg_use_hierarchy_test 3 TPASS: echo 0 &gt; subgr=
+oup/memory.use_hierarchy<br>
+&gt;=C2=A0 =C2=A0 =C2=A0failed as expected<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&lt;&lt;&lt;execution_status&gt;&gt;&gt;<br>
+&gt;<br>
+&gt;<br>
+&gt; This is a good catch, but maybe it&#39;s not wise to simply regard the=
+ TCONF as a<br>
+&gt; single test, because there are many system-config detections in setup(=
+)<br>
+&gt; function, that will make LTP gives=C2=A0a mendacious report on the tes=
+t numbers if<br>
+&gt; applying this patch.<br>
+&gt;<br>
+&gt; e.g.<br>
+&gt;<br>
+&gt; if tst_kvcmp -lt &quot;3.10&quot;; then<br>
+&gt; =C2=A0 =C2=A0 tst_brk TCONF &quot;test must be run with kernel 3.10 or=
+ newer&quot;<br>
+&gt; fi<br>
+&gt; if dir path not exist; then<br>
+&gt; =C2=A0 =C2=A0 tst_brk TCONF &quot;system does not have xxxx/&quot;<br>
+&gt; fi<br>
+&gt; and so on...<br>
+<br>
+TCONF usually report only once, I would still take it a valid report on<br>
+numbers. Take your case as example, I guess we are able to see results<br>
+like:<br></blockquote><div><br></div><div><div class=3D"gmail_default" styl=
+e=3D"font-size:small"><span style=3D"color:rgb(51,51,51);font-family:arial;=
+font-size:13px">Okay, that sounds reasonable too.=C2=A0</span></div></div><=
+/div><div><br></div>-- <br><div dir=3D"ltr" class=3D"m_4964527189387703313g=
+mail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></d=
+iv></div></div></div>
+
+--0000000000004934c3058af3971e--
+
+--===============2065660994==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
+dHAK
+
+--===============2065660994==--
