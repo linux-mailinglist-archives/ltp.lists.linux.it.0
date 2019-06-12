@@ -1,59 +1,86 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18422428D6
-	for <lists+linux-ltp@lfdr.de>; Wed, 12 Jun 2019 16:25:59 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id C231C42A52
+	for <lists+linux-ltp@lfdr.de>; Wed, 12 Jun 2019 17:07:14 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DF2CC3EAE5C
-	for <lists+linux-ltp@lfdr.de>; Wed, 12 Jun 2019 16:25:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 95E263EAE2B
+	for <lists+linux-ltp@lfdr.de>; Wed, 12 Jun 2019 17:07:14 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 447BC3EA9D4
- for <ltp@lists.linux.it>; Wed, 12 Jun 2019 16:25:56 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id BECD23EA6E9
+ for <ltp@lists.linux.it>; Wed, 12 Jun 2019 17:07:12 +0200 (CEST)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 98556601CE8
- for <ltp@lists.linux.it>; Wed, 12 Jun 2019 16:25:54 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id B620581F18;
- Wed, 12 Jun 2019 14:25:52 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AD1486A250;
- Wed, 12 Jun 2019 14:25:52 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id A419824AFA;
- Wed, 12 Jun 2019 14:25:52 +0000 (UTC)
-Date: Wed, 12 Jun 2019 10:25:49 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <278919491.27726511.1560349549390.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20190612135929.GA3048@rei.lan>
-References: <916c20b9a379badd37a85aa1e1339566c9807d23.1560248542.git.jstancek@redhat.com>
- <20190612135929.GA3048@rei.lan>
-MIME-Version: 1.0
-X-Originating-IP: [10.43.17.163, 10.4.195.28]
-Thread-Topic: syscalls/ioctl_ns0[156]: align stack and wait for child
-Thread-Index: DUjNFRNKGw+A1jQKMirWYH/vlG4ddQ==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.26]); Wed, 12 Jun 2019 14:25:52 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 23F2E140184A
+ for <ltp@lists.linux.it>; Wed, 12 Jun 2019 17:07:10 +0200 (CEST)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x5CF4Ijq109853
+ for <ltp@lists.linux.it>; Wed, 12 Jun 2019 11:07:08 -0400
+Received: from e06smtp02.uk.ibm.com (e06smtp02.uk.ibm.com [195.75.94.98])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2t33bcsfcx-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <ltp@lists.linux.it>; Wed, 12 Jun 2019 11:07:08 -0400
+Received: from localhost
+ by e06smtp02.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <ltp@lists.linux.it> from <zohar@linux.ibm.com>;
+ Wed, 12 Jun 2019 16:07:06 +0100
+Received: from b06cxnps4074.portsmouth.uk.ibm.com (9.149.109.196)
+ by e06smtp02.uk.ibm.com (192.168.101.132) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 12 Jun 2019 16:07:04 +0100
+Received: from d06av24.portsmouth.uk.ibm.com (mk.ibm.com [9.149.105.60])
+ by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x5CF73Er52559980
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 12 Jun 2019 15:07:03 GMT
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 38DBE42042;
+ Wed, 12 Jun 2019 15:07:03 +0000 (GMT)
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5F39F4203F;
+ Wed, 12 Jun 2019 15:07:02 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.80.109.218])
+ by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+ Wed, 12 Jun 2019 15:07:02 +0000 (GMT)
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+Date: Wed, 12 Jun 2019 11:06:51 -0400
+In-Reply-To: <20190611193021.17651-4-pvorel@suse.cz>
+References: <20190611193021.17651-1-pvorel@suse.cz>
+ <20190611193021.17651-4-pvorel@suse.cz>
+X-Mailer: Evolution 3.20.5 (3.20.5-1.fc24) 
+Mime-Version: 1.0
+X-TM-AS-GCONF: 00
+x-cbid: 19061215-0008-0000-0000-000002F327C0
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19061215-0009-0000-0000-000022602A27
+Message-Id: <1560352011.4578.43.camel@linux.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-06-12_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1906120101
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Cc: liwan@redhat.com, ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH v2] syscalls/ioctl_ns0[156]: align stack and wait
- for child
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Cc: Ignaz Forster <iforster@suse.de>, linux-integrity@vger.kernel.org,
+ Mimi Zohar <zohar@linux.vnet.ibm.com>
+Subject: Re: [LTP] [PATCH v3 3/4] ima/ima_measurements.sh: Require builtin
+ IMA tcb policy
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -70,25 +97,35 @@ Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Ci0tLS0tIE9yaWdpbmFsIE1lc3NhZ2UgLS0tLS0KPiBIaSEKPiA+IFRlc3QgY3Jhc2hlcyAoU0lH
-QlVTKSB3aGVuIHVzaW5nIGNoaWxkIHN0YWNrIGhhdmUgYmVlbiBvYnNlcnZlZCBmb3IKPiA+IGlv
-Y3RsX25zMDEuIEFsaWduIHN0YWNrIHRvIDY0IGJ5dGVzIGZvciBhbGwgdGVzdGNhc2VzIHVzaW5n
-IGNsb25lLAo+ID4gd2hpY2ggc2hvdWxkIHdvcmsgZm9yIGFueSBhcmNoLgo+IAo+IExvb2tpbmcg
-YXQgdGhlIHJlc3Qgb2YgdGhlIHRlc3QgaXQgc2VlbXMgdGhhdCBhbGwgb2YgdGhlbSB1c2UgbWFs
-bG9jKCkKPiB0byBhbGxvY2F0ZSB0aGUgY2hpbGQgc3RhY2sgYW5kIGRlcGVuZHMgb24gdGhlIGxp
-YmMgdG8gYWxpZ24gdGhlCj4gYnVmZmVycywgbWF5YmUgaXQgd291bGQgYmUgZWFzaWVyIHRvIGNo
-YW5nZSB0aGVzZSB0ZXN0cyB0byB1c2UgbWFsbG9jKCkKPiBhcyB3ZWxsLgoKRGVmYXVsdCBhbGln
-bm1lbnQgaXMgbm90IGVub3VnaDoKICBBbGlnbm1lbnQ6ICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgMiAqIHNpemVvZihzaXplX3QpIChkZWZhdWx0KQogICAgICAgKGkuZS4sIDggYnl0ZSBh
-bGlnbm1lbnQgd2l0aCA0Ynl0ZSBzaXplX3QpLiBUaGlzIHN1ZmZpY2VzIGZvcgogICAgICAgbmVh
-cmx5IGFsbCBjdXJyZW50IG1hY2hpbmVzIGFuZCBDIGNvbXBpbGVycy4gSG93ZXZlciwgeW91IGNh
-bgogICAgICAgZGVmaW5lIE1BTExPQ19BTElHTk1FTlQgdG8gYmUgd2lkZXIgdGhhbiB0aGlzIGlm
-IG5lY2Vzc2FyeS4KCkknbSBndWVzc2luZyBtb3N0IG9mIHRlc3RzIGNyb3NzIE1fTU1BUF9USFJF
-U0hPTEQsIGFuZCBnZXQgcGFnZSBhbGlnbm1lbnQKZnJvbSBtbWFwLiBCdXQgc2hvdWxkIHdlIHJl
-bHkgb24gdGhhdD8KCkhvdyBhYm91dCBwb3NpeF9tZW1hbGlnbigpPwoKPiAKPiA+IEFkZCBTSUdD
-SExEIHRvIGNsb25lIGZsYWdzLCBzbyB0aGF0IExUUCBsaWJyYXJ5IGNhbiByZWFwIGFsbCBjaGls
-ZHJlbgo+ID4gYW5kIGNoZWNrIHRoZWlyIHJldHVybiBjb2RlLiAgQWxzbyBjaGVjayBsdHBfY2xv
-bmUoKSByZXR1cm4gdmFsdWUuCj4gPiAKPiA+IFN1cHByZXNzIHdhcm5pbmcgZm9yIHVudXNlZCAq
-YXJnIGluIGNoaWxkKCkuCj4gCj4gVGhlIHJlc3QgaXMgT0suCj4gCj4gLS0KPiBDeXJpbCBIcnVi
-aXMKPiBjaHJ1YmlzQHN1c2UuY3oKPiAKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9s
-aXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+SGkgUGV0ciwKCk9uIFR1ZSwgMjAxOS0wNi0xMSBhdCAyMTozMCArMDIwMCwgUGV0ciBWb3JlbCB3
+cm90ZToKPiBBbHRob3VnaCBjdXN0b20gcG9saWN5IHdoaWNoIGNvbnRhaW5zIHRjYiBjYW4gYmUg
+bG9hZGVkIHZpYSBkcmFjdXQsCgped2hpY2ggbWF5IGNvbnRhaW4gdGhlIGVxdWl2YWxlbnQgbWVh
+c3VyZW1lbnQgdGNiIHJ1bGVzCgo+IHN5c3RlbWQgb3IgbGF0ZXIgbWFudWFsbHkgZnJvbSB1c2Vy
+IHNwYWNlLCBkZXRlY3RpbmcgaXQgd291bGQgcmVxdWlyZQo+IElNQV9SRUFEX1BPTElDWT15LiBJ
+biBvcmRlciB0byBzaW1wbGlmeSB0aGUgY2hlY2sgYW5kIGF2b2lkIGZhbHNlCj4gcG9zaXRpdmVz
+IGxldHMgaWdub3JlIHRoaXMgb3B0aW9uIGFuZCByZXF1aXJlIGJ1aWx0aW4gSU1BIHRjYiBwb2xp
+Y3kuCgpUaGlzIHRlc3QgaXMgZm9yIGFkZGluZyBuZXcgbWVhc3VyZW1lbnRzIHRvIHRoZSBtZWFz
+dXJlbWVudCBsaXN0LgoKPiAKPiBTaWduZWQtb2ZmLWJ5OiBQZXRyIFZvcmVsIDxwdm9yZWxAc3Vz
+ZS5jej4KPiAtLS0KPiAgLi4uL2tlcm5lbC9zZWN1cml0eS9pbnRlZ3JpdHkvaW1hL3Rlc3RzL2lt
+YV9tZWFzdXJlbWVudHMuc2ggICAgfCAzICsrLQo+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRp
+b25zKCspLCAxIGRlbGV0aW9uKC0pCj4gCj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwv
+c2VjdXJpdHkvaW50ZWdyaXR5L2ltYS90ZXN0cy9pbWFfbWVhc3VyZW1lbnRzLnNoIGIvdGVzdGNh
+c2VzL2tlcm5lbC9zZWN1cml0eS9pbnRlZ3JpdHkvaW1hL3Rlc3RzL2ltYV9tZWFzdXJlbWVudHMu
+c2gKPiBpbmRleCAzMjhhZmZjNDMuLmEzYWEyNGQ4YSAxMDA3NTUKPiAtLS0gYS90ZXN0Y2FzZXMv
+a2VybmVsL3NlY3VyaXR5L2ludGVncml0eS9pbWEvdGVzdHMvaW1hX21lYXN1cmVtZW50cy5zaAo+
+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS90ZXN0cy9pbWFf
+bWVhc3VyZW1lbnRzLnNoCj4gQEAgLTU3LDcgKzU3LDggQEAgc2V0dXAoKQo+ICAJWyAteiAiJERJ
+R0VTVF9JTkRFWCIgXSAmJiB0c3RfYnJrIFRDT05GIFwKPiAgCQkiQ2Fubm90IGZpbmQgZGlnZXN0
+IGluZGV4ICh0ZW1wbGF0ZTogJyR0ZW1wbGF0ZScpIgo+IAo+IC0JdHN0X3JlcyBUSU5GTyAiSU1B
+IG1lYXN1cmVtZW50IHRlc3RzIGFzc3VtZSB0Y2IgcG9saWN5IHRvIGJlIGxvYWRlZCAoaW1hX3Bv
+bGljeT10Y2IpIgo+ICsJZ3JlcCAtcSAtZSBpbWFfcG9saWN5PVthLXpfXSp0Y2IgLWUgaW1hX3Rj
+YiAtZSBpbWFfYXBwcmFpc2VfdGNiIC9wcm9jL2NtZGxpbmUgfHwgXAo+ICsJCXRzdF9icmsgVENP
+TkYgIklNQSBtZWFzdXJlbWVudCB0ZXN0cyByZXF1aXJlIGJ1aWx0aW4gSU1BIHRjYiBwb2xpY3kg
+KGltYV9wb2xpY3k9dGNiIG9yIGltYV9wb2xpY3k9YXBwcmFpc2VfdGNiIGtlcm5lbCBwYXJhbWV0
+ZXIpIgo+ICB9Cj4gCgoiYXBwcmFpc2VfdGNiIiBkb2Vzbid0IHByb3ZpZGUgdGhlIG5lY2Vzc2Fy
+eSBtZWFzdXJlbWVudCBydWxlcy4KImltYV9wb2xpY3k9IiBpc24ndCBvcmRlciBzcGVjaWZpYy4g
+wqBUaGUgY2hlY2sgd291bGQgYmUgZm9yICJ8dGNiIiwgInwKdGNiIiwgInRjYnwiLCAidGNiIHwi
+LCBvciBqdXN0ICI9dGNiIi4gwqBUaGUgZGVwcmVjYXRlZCAiaW1hX3RjYiIKb3B0aW9uIGlzIGZp
+bmUgdG9vLgoKTWltaQoKPiAgIyBUT0RPOiBmaW5kIHN1cHBvcnQgZm9yIHJtZDEyOCBybWQyNTYg
+cm1kMzIwIHdwMjU2IHdwMzg0IHRncjEyOCB0Z3IxNjAKCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZv
+OiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
