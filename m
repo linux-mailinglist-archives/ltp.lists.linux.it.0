@@ -2,42 +2,57 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8961A4323E
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Jun 2019 04:38:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14EFD43242
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Jun 2019 04:51:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5EB233EAE20
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Jun 2019 04:38:03 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D15963EAE21
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Jun 2019 04:51:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 8B63B3EA6CF
- for <ltp@lists.linux.it>; Thu, 13 Jun 2019 04:38:01 +0200 (CEST)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id C8CE63EA6D9
+ for <ltp@lists.linux.it>; Thu, 13 Jun 2019 04:51:51 +0200 (CEST)
+Received: from mail-ua1-f66.google.com (mail-ua1-f66.google.com
+ [209.85.222.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 76EA91001550
- for <ltp@lists.linux.it>; Thu, 13 Jun 2019 04:37:24 +0200 (CEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2019 19:37:26 -0700
-X-ExtLoop1: 1
-Received: from yifei-server.sh.intel.com ([10.239.13.18])
- by fmsmga004.fm.intel.com with ESMTP; 12 Jun 2019 19:37:25 -0700
-From: Ammy Yi <ammy.yi@intel.com>
-To: ltp@lists.linux.it
-Date: Thu, 13 Jun 2019 10:11:38 +0800
-Message-Id: <20190613021138.5313-1-ammy.yi@intel.com>
-X-Mailer: git-send-email 2.14.1
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0CF416010F0
+ for <ltp@lists.linux.it>; Thu, 13 Jun 2019 04:51:52 +0200 (CEST)
+Received: by mail-ua1-f66.google.com with SMTP id r7so6752267ual.2
+ for <ltp@lists.linux.it>; Wed, 12 Jun 2019 19:51:49 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=LaVpi48RCOTPkKTvURtVlIF+ce6crXW3K66Oz+7bHuM=;
+ b=Gq/T5h6gH+jjhkYkLYmk3f87YQGsV/QQQGxSx4p7yZ0ewfnVKmoKNzXdReHvZR0Q6g
+ zSj7dOhmiPc+N2AwdXndVedD5JMSDtuwX/FCGAjBsnlO7pHI+U6v7yZqMdU8FA3+7Zln
+ uF36zDGcYzAwhFtMB98HNIH+JUXWjWBxGWCo3afzzc85L3CX4gxEahOSjEYBDoeOwcN+
+ V3wswz2YE6/z74+zWwQwZn9bk+AB5CDkUTV4bpqEy3kmZ1KsXC/TMMyeoKPdIj0ursrZ
+ tK7c4edqk5KLdpOEMkSBl8MHoOsWsR1cc2Mrv4mk0Zxzsq9zuen/xU9U7Sdt30iUsTBD
+ yLxg==
+X-Gm-Message-State: APjAAAVlhB85C9lSZGhNRugqUpAIBKQwqPE4Mljhhtq4aaN4bzWjrYup
+ nQFHlhqO2+mgiRJHFUOLn3vvL7HoKRDOa7wjlKoDw6bqoVDxUw==
+X-Google-Smtp-Source: APXvYqx5LHvCyOUnG3kCjp0mQ5bpwZk9K9Hc1SXZDky7P6VSRrlJ2b65KmxDW4C0j1E6Pp9kNFL95Q7APeajguIDtms=
+X-Received: by 2002:a9f:2e0e:: with SMTP id t14mr3507020uaj.119.1560394308224; 
+ Wed, 12 Jun 2019 19:51:48 -0700 (PDT)
+MIME-Version: 1.0
+References: <20190608054550.13744-1-liwang@redhat.com>
+ <20190612154855.GA4223@rei>
+In-Reply-To: <20190612154855.GA4223@rei>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 13 Jun 2019 10:51:36 +0800
+Message-ID: <CAEemH2cmBAG1chpYLxN49EYuG9sAehPcgUgHPSa2cxNaEPZW3w@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Cc: Ammy Yi <ammy.yi@intel.com>
-Subject: [LTP] [PATCH v5 ltp] Add 4 more cases for Intel PT.
+X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Cc: LTP List <ltp@lists.linux.it>
+Subject: Re: [LTP] [PATCH RFC 1/3] lib: adding tst_on_arch function in
+	library
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -49,104 +64,672 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0835313917=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-MS4gQWRkIEludGVsIFBUIHNhbnBzaG90IG1vZGUgdGVzdC4KMi4gQWRkIEludGVsIFBUIGV4Y2x1
-ZGUgdXNlciB0cmFjZSBtb2RlIHRlc3QuCjMuIEFkZCBJbnRlbCBQVCBleGNsdWRlIGtlcm5lbCB0
-cmFjZSBtb2RlIHRlc3QuCjQuIEFkZCBJbnRlbCBQVCBkaXNhYmxlIGJyYW5jaCB0cmFjZSBtb2Rl
-IHRlc3QuCgpTaWduZWQtb2ZmLWJ5OiBBbW15IFlpIDxhbW15LnlpQGludGVsLmNvbT4KLS0tCiBy
-dW50ZXN0L3RyYWNpbmcgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgNCArKwogdGVzdGNh
-c2VzL2tlcm5lbC90cmFjaW5nL3B0X3Rlc3QvcHRfdGVzdC5jIHwgNjcgKysrKysrKysrKysrKysr
-KysrKysrKysrLS0tLS0tCiAyIGZpbGVzIGNoYW5nZWQsIDU4IGluc2VydGlvbnMoKyksIDEzIGRl
-bGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL3J1bnRlc3QvdHJhY2luZyBiL3J1bnRlc3QvdHJhY2lu
-ZwppbmRleCA1MDQxMzJkNzAuLmQyNzAwY2E1NyAxMDA2NDQKLS0tIGEvcnVudGVzdC90cmFjaW5n
-CisrKyBiL3J1bnRlc3QvdHJhY2luZwpAQCAtNCwzICs0LDcgQEAgZnRyYWNlX3JlZ3Jlc3Npb24w
-MglmdHJhY2VfcmVncmVzc2lvbjAyLnNoCiBmdHJhY2Utc3RyZXNzLXRlc3QJZnRyYWNlX3N0cmVz
-c190ZXN0LnNoIDkwCiBkeW5hbWljX2RlYnVnMDEJCWR5bmFtaWNfZGVidWcwMS5zaAogcHRfZnVs
-bF90cmFjZV9iYXNpYyBwdF90ZXN0CitwdF9zbmFwc2hvdF90cmFjZV9iYXNpYyBwdF90ZXN0IC1t
-CitwdF9leF91c2VyIHB0X3Rlc3QgLWUgdXNlcgorcHRfZXhfa2VybmVsIHB0X3Rlc3QgLWUga2Vy
-bmVsCitwdF9kaXNhYmxlX2JyYW5jaCBwdF90ZXN0IC1iCmRpZmYgLS1naXQgYS90ZXN0Y2FzZXMv
-a2VybmVsL3RyYWNpbmcvcHRfdGVzdC9wdF90ZXN0LmMgYi90ZXN0Y2FzZXMva2VybmVsL3RyYWNp
-bmcvcHRfdGVzdC9wdF90ZXN0LmMKaW5kZXggNWZlYjFhYTYzLi41OTNmNmMyNjAgMTAwNjQ0Ci0t
-LSBhL3Rlc3RjYXNlcy9rZXJuZWwvdHJhY2luZy9wdF90ZXN0L3B0X3Rlc3QuYworKysgYi90ZXN0
-Y2FzZXMva2VybmVsL3RyYWNpbmcvcHRfdGVzdC9wdF90ZXN0LmMKQEAgLTYsMTQgKzYsMTQgQEAK
-ICAqLwogCiAvKgotICogVGhpcyB0ZXN0IHdpbGwgY2hlY2sgaWYgSW50ZWwgUFQoSW50ZWwgUHJv
-Y2Vzc2VyIFRyYWNlKSBmdWxsIHRyYWNlIG1vZGUgaXMKLSAqIHdvcmtpbmcuCisgKiBUaGlzIHRl
-c3Qgd2lsbCBjaGVjayBpZiBJbnRlbCBQVChJbnRlbCBQcm9jZXNzZXIgVHJhY2UpIGlzIHdvcmtp
-bmcuCiAgKgogICogSW50ZWwgQ1BVIG9mIDV0aC1nZW5lcmF0aW9uIENvcmUgKEJyb2Fkd2VsbCkg
-b3IgbmV3ZXIgaXMgcmVxdWlyZWQgZm9yIHRoZSB0ZXN0LgogICoKICAqIGtjb25maWcgcmVxdWly
-ZW1lbnQ6IENPTkZJR19QRVJGX0VWRU5UUwogICovCiAKKwogI2luY2x1ZGUgPHNjaGVkLmg+CiAj
-aW5jbHVkZSA8c3RkbGliLmg+CiAjaW5jbHVkZSA8c3RkaW8uaD4KQEAgLTQwLDIyICs0MCwzNSBA
-QCBpbnQgZmRlID0gLTE7CiAvL21hcCBoZWFkIGFuZCBzaXplCiB1aW50NjRfdCAqKmJ1Zm07CiBs
-b25nIGJ1aHN6Oworc3RhdGljIGNoYXIgKnN0cl9tb2RlOworc3RhdGljIGNoYXIgKnN0cl9leGNs
-dWRlX2luZm87CitzdGF0aWMgY2hhciAqc3RyX2JyYW5jaF9mbGFnOworaW50IG1vZGUgPSAxOwog
-Ci1zdGF0aWMgdWludDY0X3QgKipjcmVhdGVfbWFwKGludCBmZGUsIGxvbmcgYnVmc2l6ZSkKK3N0
-YXRpYyB1aW50NjRfdCAqKmNyZWF0ZV9tYXAoaW50IGZkZSwgbG9uZyBidWZzaXplLCBpbnQgZmxh
-ZykKIHsKIAl1aW50NjRfdCAqKmJ1Zl9ldjsKKwlpbnQgcHJvX2ZsYWc7CiAJc3RydWN0IHBlcmZf
-ZXZlbnRfbW1hcF9wYWdlICpwYzsKIAogCWJ1Zl9ldiA9IFNBRkVfTUFMTE9DKDIqc2l6ZW9mKHVp
-bnQ2NF90ICopKTsKIAlidWZfZXZbMF0gPSBOVUxMOwogCWJ1Zl9ldlsxXSA9IE5VTEw7CisJaWYg
-KGZsYWcgPT0gMSkgeworCQl0c3RfcmVzKFRJTkZPLCAibWVtb3J5IHdpbGwgYmUgci93IGZvciBm
-dWxsIHRyYWNlIG1vZGUhIik7CisJCXByb19mbGFnID0gUFJPVF9SRUFEIHwgUFJPVF9XUklURTsK
-Kwl9IGVsc2UgeworCQl0c3RfcmVzKFRJTkZPLCAibWVtb3J5IHdpbGwgYmUgciBvbmx5IGZvciBz
-bmFwc2hvdCBtb2RlISIpOworCQlwcm9fZmxhZyA9IFBST1RfUkVBRDsKKwl9CiAJYnVmX2V2WzBd
-ID0gU0FGRV9NTUFQKE5VTEwsIElOVEVMX1BUX01FTVNJWkUsIFBST1RfUkVBRCB8IFBST1RfV1JJ
-VEUsCiAJCQkJCQkJTUFQX1NIQVJFRCwgZmRlLCAwKTsKIAorCXRzdF9yZXMoVElORk8sICJPcGVu
-IEludGVsIFBUIGV2ZW50IGZhaWxlZC4iKTsKIAlwYyA9IChzdHJ1Y3QgcGVyZl9ldmVudF9tbWFw
-X3BhZ2UgKilidWZfZXZbMF07CiAJcGMtPmF1eF9vZmZzZXQgPSBJTlRFTF9QVF9NRU1TSVpFOwog
-CXBjLT5hdXhfc2l6ZSA9IGJ1ZnNpemU7Ci0JYnVmX2V2WzFdID0gU0FGRV9NTUFQKE5VTEwsIGJ1
-ZnNpemUsIFBST1RfUkVBRCB8IFBST1RfV1JJVEUsCisJYnVmX2V2WzFdID0gU0FGRV9NTUFQKE5V
-TEwsIGJ1ZnNpemUsIHByb19mbGFnLAogCQkJCQlNQVBfU0hBUkVELCBmZGUsIElOVEVMX1BUX01F
-TVNJWkUpOwogCXJldHVybiBidWZfZXY7CiB9CkBAIC04OSw3ICsxMDIsNyBAQCBzdGF0aWMgdm9p
-ZCBkZWxfbWFwKHVpbnQ2NF90ICoqYnVmX2V2LCBsb25nIGJ1ZnNpemUpCiAJZnJlZShidWZfZXYp
-OwogfQogCi1zdGF0aWMgdm9pZCBpbnRlbF9wdF9mdWxsX3RyYWNlX2NoZWNrKHZvaWQpCitzdGF0
-aWMgdm9pZCBpbnRlbF9wdF90cmFjZV9jaGVjayh2b2lkKQogewogCXVpbnQ2NF90IGF1eF9oZWFk
-ID0gMDsKIAlzdHJ1Y3QgcGVyZl9ldmVudF9tbWFwX3BhZ2UgKnBtcDsKQEAgLTEwNCwxMSArMTE3
-LDExIEBAIHN0YXRpYyB2b2lkIGludGVsX3B0X2Z1bGxfdHJhY2VfY2hlY2sodm9pZCkKIAlwbXAg
-PSAoc3RydWN0IHBlcmZfZXZlbnRfbW1hcF9wYWdlICopYnVmbVswXTsKIAlhdXhfaGVhZCA9ICoo
-dm9sYXRpbGUgdWludDY0X3QgKikmcG1wLT5hdXhfaGVhZDsKIAlpZiAoYXV4X2hlYWQgPT0gMCkg
-ewotCQl0c3RfcmVzKFRGQUlMLCAiVGhlcmUgaXMgbm8gdHJhY2UhIik7CisJCXRzdF9yZXMoVEZB
-SUwsICJUaGVyZSBpcyBubyB0cmFjZS4iKTsKIAkJcmV0dXJuOwogCX0KIAotCXRzdF9yZXMoVFBB
-U1MsICJwZXJmIHRyYWNlIGZ1bGwgbW9kZSBpcyBwYXNzZWQhIik7CisJdHN0X3JlcyhUUEFTUywg
-InBlcmYgdHJhY2UgdGVzdCBpcyBwYXNzZWQuIik7CiB9CiAKIHN0YXRpYyB2b2lkIHNldHVwKHZv
-aWQpCkBAIC0xMTYsNiArMTI5LDcgQEAgc3RhdGljIHZvaWQgc2V0dXAodm9pZCkKIAlzdHJ1Y3Qg
-cGVyZl9ldmVudF9hdHRyIGF0dHIgPSB7fTsKIAogCWJ1aHN6ID0gMiAqIFBBR0VTSVpFOworCiAJ
-aWYgKGFjY2VzcyhJTlRFTF9QVF9QQVRILCBGX09LKSkgewogCQl0c3RfYnJrKFRDT05GLAogCQkJ
-IlJlcXVpcmVzIEludGVsIENvcmUgNXRoKyBnZW5lcmF0aW9uIChCcm9hZHdlbGwgYW5kIG5ld2Vy
-KSIKQEAgLTEzMCwyMCArMTQ0LDM4IEBAIHN0YXRpYyB2b2lkIHNldHVwKHZvaWQpCiAJYXR0ci5j
-b25maWcJPSBCSVQoaW50ZWxfcHRfcG11X3ZhbHVlKElOVEVMX1BUX0ZPUk1BVF9UU0MpKSB8CiAJ
-CQkJQklUKGludGVsX3B0X3BtdV92YWx1ZShJTlRFTF9QVF9GT1JNQVRfTlJUKSk7CiAJYXR0ci5z
-aXplCT0gc2l6ZW9mKHN0cnVjdCBwZXJmX2V2ZW50X2F0dHIpOwotCWF0dHIuZXhjbHVkZV9rZXJu
-ZWwJCT0gMDsKLQlhdHRyLmV4Y2x1ZGVfdXNlcgkJPSAwOwogCWF0dHIubW1hcAkJCT0gMTsKKwlp
-ZiAoc3RyX2JyYW5jaF9mbGFnKSB7CisJCXRzdF9yZXMoVElORk8sICJJbnRlbCBQVCB3aWxsIGRp
-c2FibGUgYnJhbmNoIHRyYWNlLiIpOworCQlhdHRyLmNvbmZpZyB8PSAxOworCX0KKworCWF0dHIu
-ZXhjbHVkZV9rZXJuZWwJPSAwOworCWF0dHIuZXhjbHVkZV91c2VyCT0gMDsKKwlpZiAoc3RyX2V4
-Y2x1ZGVfaW5mbykgeworCQlpZiAoIXN0cmNtcChzdHJfZXhjbHVkZV9pbmZvLCAidXNlciIpKSB7
-CisJCQl0c3RfcmVzKFRJTkZPLCAiSW50ZWwgUFQgd2lsbCBleGNsdWRlIHVzZXIgdHJhY2UuIik7
-CisJCQlhdHRyLmV4Y2x1ZGVfdXNlciA9IDE7CisJCX0gZWxzZSBpZiAoIXN0cmNtcChzdHJfZXhj
-bHVkZV9pbmZvLCAia2VybmVsIikpIHsKKwkJCXRzdF9yZXMoVElORk8sICJJbnRlbCBQVCB3aWxs
-IGV4Y2x1ZGUga2VybmVsIHRyYWNlLiIpOworCQkJYXR0ci5leGNsdWRlX2tlcm5lbCA9IDE7CisJ
-CX0gZWxzZSB7CisJCQl0c3RfYnJrKFRCUk9LLCAiSW52YWxpZCAtZSAnJXMnIiwgc3RyX2V4Y2x1
-ZGVfaW5mbyk7CisJCX0KKwl9CiAKIAkvKiBvbmx5IGdldCB0cmFjZSBmb3Igb3duIHBpZCAqLwog
-CWZkZSA9IHRzdF9zeXNjYWxsKF9fTlJfcGVyZl9ldmVudF9vcGVuLCAmYXR0ciwgMCwgLTEsIC0x
-LCAwKTsKIAlpZiAoZmRlIDwgMCkgewotCQl0c3RfcmVzKFRJTkZPLCAiT3BlbiBJbnRlbCBQVCBl
-dmVudCBmYWlsZWQhIik7Ci0JCXRzdF9yZXMoVEZBSUwsICJwZXJmIHRyYWNlIGZ1bGwgbW9kZSBp
-cyBmYWlsZWQhIik7CisJCXRzdF9yZXMoVElORk8sICJPcGVuIEludGVsIFBUIGV2ZW50IGZhaWxl
-ZC4iKTsKKwkJdHN0X3JlcyhURkFJTCwgInBlcmYgdHJhY2UgZnVsbCBtb2RlIGlzIGZhaWxlZC4i
-KTsKIAkJcmV0dXJuOwogCX0KIAlidWZtID0gTlVMTDsKLQlidWZtID0gY3JlYXRlX21hcChmZGUs
-IGJ1aHN6KTsKKwlpZiAoc3RyX21vZGUpCisJCW1vZGUgPSAwOwogCisJYnVmbSA9IGNyZWF0ZV9t
-YXAoZmRlLCBidWhzeiwgbW9kZSk7CiB9CiAKIHN0YXRpYyB2b2lkIGNsZWFudXAodm9pZCkKQEAg
-LTE1NCw4ICsxODYsMTcgQEAgc3RhdGljIHZvaWQgY2xlYW51cCh2b2lkKQogCWRlbF9tYXAoYnVm
-bSwgYnVoc3opOwogfQogCitzdGF0aWMgc3RydWN0IHRzdF9vcHRpb24gb3B0aW9uc1tdID0gewor
-CXsibSIsICZzdHJfbW9kZSwgIi1tIGRpZmZlcmVudCBtb2RlLCBkZWZhdWx0IGlzIGZ1bGwgbW9k
-ZSJ9LAorCXsiZToiLCAmc3RyX2V4Y2x1ZGVfaW5mbywgIi1lIGV4Y2x1ZGUgaW5mbywgdXNlciBv
-ciBrZXJuZWwifSwKKwl7ImIiLCAmc3RyX2JyYW5jaF9mbGFnLCAiLWIgaWYgZGlzYWJsZSBicmFu
-Y2ggdHJhY2UifSwKKwl7TlVMTCwgTlVMTCwgTlVMTH0KK307CisKKwogc3RhdGljIHN0cnVjdCB0
-c3RfdGVzdCB0ZXN0ID0gewotCS50ZXN0X2FsbCA9IGludGVsX3B0X2Z1bGxfdHJhY2VfY2hlY2ss
-CisJLnRlc3RfYWxsID0gaW50ZWxfcHRfdHJhY2VfY2hlY2ssCisJLm9wdGlvbnMgPSBvcHRpb25z
-LAogCS5taW5fa3ZlciA9ICI0LjEiLAogCS5zZXR1cCA9IHNldHVwLAogCS5jbGVhbnVwID0gY2xl
-YW51cCwKLS0gCjIuMTQuMQoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5s
-aW51eC5pdC9saXN0aW5mby9sdHAK
+--===============0835313917==
+Content-Type: multipart/alternative; boundary="00000000000073c870058b2b9c6b"
+
+--00000000000073c870058b2b9c6b
+Content-Type: text/plain; charset="UTF-8"
+
+On Wed, Jun 12, 2019 at 11:49 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+
+> Hi!
+> > Testcases for specified arch should be limited on that only being
+> supported
+> > platform to run, we now create a function tst_on_arch to achieve this new
+> > feature in LTP library.  All you need to run a test on the expected arch
+> is
+> > to set the '.arch' string in the 'struct tst_test' to choose the required
+> > arch list. e.g. '.arch = "x86_64, i386"'.
+>
+> There is no point in adding the coma between the architectures, i.e.
+> this should be just .arch = "x86_64 i386".
+>
+
+Agree.
+
+
+>
+> > For more complicated usages such as customize your test code for a
+> special
+> > arch, the tst_on_arch function could be invoked in the test directly.
+> >
+> > Signed-off-by: Li Wang <liwang@redhat.com>
+> > ---
+> >  doc/test-writing-guidelines.txt | 54 +++++++++++++++++++++++++
+> >  include/tst_arch.h              | 16 ++++++++
+> >  include/tst_test.h              |  7 +++-
+> >  lib/tst_arch.c                  | 71 +++++++++++++++++++++++++++++++++
+> >  4 files changed, 147 insertions(+), 1 deletion(-)
+> >  create mode 100644 include/tst_arch.h
+> >  create mode 100644 lib/tst_arch.c
+> >
+> > diff --git a/doc/test-writing-guidelines.txt
+> b/doc/test-writing-guidelines.txt
+> > index f1912dc12..10442d756 100644
+> > --- a/doc/test-writing-guidelines.txt
+> > +++ b/doc/test-writing-guidelines.txt
+> > @@ -1668,6 +1668,60 @@ sturct tst_test test = {
+> >  };
+> >
+> -------------------------------------------------------------------------------
+> >
+> > +2.2.30 Testing on specified architecture
+> > +^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> > +
+> > +Testcases for specified arch should be limited on that only being
+> supported
+> > +platform to run, we now create a function tst_on_arch to achieve this
+> new
+> > +feature in LTP library.  All you need to run a test on the expected
+> arch is
+> > +to set the '.arch' string in the 'struct tst_test' to choose the
+> required
+> > +arch list. e.g. '.arch = "x86_64, i386"'.
+> > +
+> > +[source,c]
+> >
+> +-------------------------------------------------------------------------------
+> > +#include "tst_test.h"
+> > +
+> > +static void setup(void)
+> > +{
+> > +     ...
+> > +}
+> > +
+> > +static struct tst_test test = {
+> > +     ...
+> > +     .setup = setup,
+> > +     .arch = "x86_64, i386",
+> > +     ...
+> > +}
+> >
+> +-------------------------------------------------------------------------------
+> > +
+> > +For more complicated usages such as customize your test code for a
+> special
+> > +arch, the tst_on_arch function could be invoked in the test directly.
+> > +
+> > +[source,c]
+> >
+> +-------------------------------------------------------------------------------
+> > +#include "tst_test.h"
+> > +
+> > +static void do_test(void)
+> > +{
+> > +     if (tst_on_arch("x86_64, i386")) {
+> > +             /* code for x86_64, i386 */
+> > +             ...
+> > +     } else if (tst_on_arch("ppc64")) {
+> > +             /* code for ppc64 */
+> > +             ...
+> > +     } else if (tst_on_arch("s390, s390x")) {
+> > +             /* code for s390x */
+> > +             ...
+> > +     }
+>
+> What is the point of the runtime detection here?
+>
+> It's not like we can run s390x binary on i386, i.e. we know for which
+> architecture we are compiling for at the compile time.
+>
+
+You are right. But we still have some chance to do analysis at runtime, if
+you take a look at patch 2/3, e.g. to parse '/proc/<pid>/maps'
+in max_map_count.c can be done at runtime detection. That's what I thought
+we can export the tst_on_arch() as a global function.
+
+
+>
+> > +}
+> > +
+> > +static struct tst_test test = {
+> > +     ...
+> > +     .test_all = do_test,
+> > +     ...
+> > +}
+> >
+> +-------------------------------------------------------------------------------
+> > +
+> >
+> >  2.3 Writing a testcase in shell
+> >  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> > diff --git a/include/tst_arch.h b/include/tst_arch.h
+> > new file mode 100644
+> > index 000000000..7bf0493ce
+> > --- /dev/null
+> > +++ b/include/tst_arch.h
+> > @@ -0,0 +1,16 @@
+> > +/* SPDX-License-Identifier: GPL-2.0-or-later
+> > + * Copyright (c) 2019 Li Wang <liwang@redhat.com>
+> > + */
+> > +
+> > +#ifndef TST_ARCH_H__
+> > +#define TST_ARCH_H__
+> > +
+> > +/*
+> > + * Check if test platform is in the given arch list. If yes return 1,
+> > + * otherwise return 0.
+> > + *
+> > + * @arch, NULL or vliad arch list
+> > + */
+> > +int tst_on_arch(const char *arch);
+> > +
+> > +#endif /* TST_ARCH_H__ */
+> > diff --git a/include/tst_test.h b/include/tst_test.h
+> > index 8bdf38482..cafcb1a89 100644
+> > --- a/include/tst_test.h
+> > +++ b/include/tst_test.h
+> > @@ -28,6 +28,7 @@
+> >  #include "tst_atomic.h"
+> >  #include "tst_kvercmp.h"
+> >  #include "tst_clone.h"
+> > +#include "tst_arch.h"
+> >  #include "tst_kernel.h"
+> >  #include "tst_minmax.h"
+> >  #include "tst_get_bad_addr.h"
+> > @@ -114,6 +115,8 @@ struct tst_test {
+> >
+> >       const char *min_kver;
+> >
+> > +     const char *arch;
+> > +
+> >       /* If set the test is compiled out */
+> >       const char *tconf_msg;
+> >
+> > @@ -253,7 +256,6 @@ const char *tst_strstatus(int status);
+> >  unsigned int tst_timeout_remaining(void);
+> >  void tst_set_timeout(int timeout);
+> >
+> > -
+> >  /*
+> >   * Returns path to the test temporary directory in a newly allocated
+> buffer.
+> >   */
+> > @@ -265,6 +267,9 @@ static struct tst_test test;
+> >
+> >  int main(int argc, char *argv[])
+> >  {
+> > +     if (!tst_on_arch(test.arch))
+> > +             tst_brk(TCONF, "Test needs running on %s arch!",
+> test.arch);
+> > +
+> >       tst_run_tcases(argc, argv, &test);
+> >  }
+>
+> This may be a bit cleaner that compiling the test out, but will not save
+> us from arch specific ifdefs completely so I'm not sure it's worth the
+> trouble.
+>
+
+Indeed, I also realized that after signing off this patch, we can't replace
+ifdefs completely via a simple function, since it occurring in the
+compiling early phase. But anyway I roll out this for comments in case we
+could find an improved way to do better.
+
+
+>
+> > diff --git a/lib/tst_arch.c b/lib/tst_arch.c
+> > new file mode 100644
+> > index 000000000..a9f2775b4
+> > --- /dev/null
+> > +++ b/lib/tst_arch.c
+> > @@ -0,0 +1,71 @@
+> > +/* SPDX-License-Identifier: GPL-2.0-or-later
+> > + * Copyright (c) 2019 Li Wang <liwang@redhat.com>
+> > + */
+> > +
+> > +#include <string.h>
+> > +
+> > +#define TST_NO_DEFAULT_MAIN
+> > +#include "tst_arch.h"
+> > +#include "tst_test.h"
+> > +
+> > +static const char *const arch_type_list[] = {
+> > +     "i386",
+> > +     "x86",
+> > +     "x86_64",
+> > +     "ia64",
+> > +     "ppc",
+> > +     "ppc64",
+> > +     "s390",
+> > +     "s390x",
+> > +     "arm",
+> > +     "aarch64",
+> > +     "sparc",
+> > +     NULL
+> > +};
+> > +
+> > +static int is_valid_arch(const char *arch)
+> > +{
+> > +     unsigned int i;
+> > +
+> > +     for (i = 0; arch_type_list[i]; i++) {
+> > +             if (strstr(arch, arch_type_list[i]))
+> > +                     return 1;
+> > +     }
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +int tst_on_arch(const char *arch)
+> > +{
+> > +#if defined(__i386__)
+> > +     char *tst_arch = "i386";
+> > +#elif defined(__x86__)
+> > +     char *tst_arch = "x86";
+> > +#elif defined(__x86_64__)
+> > +     char *tst_arch = "x86_64";
+> > +#elif defined(__ia64__)
+> > +     char *tst_arch = "ia64";
+> > +#elif defined(__powerpc__)
+> > +     char *tst_arch = "ppc";
+> > +#elif defined(__powerpc64__)
+> > +     char *tst_arch = "ppc64";
+> > +#elif defined(__s390__)
+> > +     char *tst_arch = "s390";
+> > +#elif defined(__s390x__)
+> > +     char *tst_arch = "s390x";
+> > +#elif defined(__arm__)
+> > +     char *tst_arch = "arm";
+> > +#elif defined(__arch64__)
+> > +     char *tst_arch = "aarch64";
+> > +#elif defined(__sparc__)
+> > +     char *tst_arch = "sparc";
+> > +#endif
+> > +
+> > +     if (arch != NULL && !is_valid_arch(arch))
+> > +             tst_brk(TBROK, "please set valid arches!");
+> > +
+> > +     if (arch == NULL || strstr(arch, tst_arch))
+> > +             return 1;
+>
+> Isn't using strstr() completely broken here?
+>
+> Couple of the architecture names are prefixes of the 64bit variant, also
+> validating the architecture by strstr() is kind of pointless, it will
+> match any garbage that contains one of the substrings.
+>
+
+Yes, that's true.
+
+
+>
+> If nothing else we should strdup() the string and then loop over strtok().
+>
+
+Good suggestion!
+
+
+>
+> > +     return 0;
+> > +}
+> > --
+> > 2.17.0
+> >
+> >
+> > --
+> > Mailing list info: https://lists.linux.it/listinfo/ltp
+>
+> --
+> Cyril Hrubis
+> chrubis@suse.cz
+>
+
+
+-- 
+Regards,
+Li Wang
+
+--00000000000073c870058b2b9c6b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Wed, Jun 12, 2019 at 11:49 PM Cyril Hrubis &lt;<=
+a href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><=
+blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
+eft:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
+&gt; Testcases for specified arch should be limited on that only being supp=
+orted<br>
+&gt; platform to run, we now create a function tst_on_arch to achieve this =
+new<br>
+&gt; feature in LTP library.=C2=A0 All you need to run a test on the expect=
+ed arch is<br>
+&gt; to set the &#39;.arch&#39; string in the &#39;struct tst_test&#39; to =
+choose the required<br>
+&gt; arch list. e.g. &#39;.arch =3D &quot;x86_64, i386&quot;&#39;.<br>
+<br>
+There is no point in adding the coma between the architectures, i.e.<br>
+this should be just .arch =3D &quot;x86_64 i386&quot;.<br></blockquote><div=
+><br></div><div><div class=3D"gmail_default" style=3D"font-size:small">Agre=
+e.</div></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"m=
+argin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left=
+:1ex">
+<br>
+&gt; For more complicated usages such as customize your test code for a spe=
+cial<br>
+&gt; arch, the tst_on_arch function could be invoked in the test directly.<=
+br>
+&gt; <br>
+&gt; Signed-off-by: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com" target=
+=3D"_blank">liwang@redhat.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 doc/test-writing-guidelines.txt | 54 +++++++++++++++++++++++++<b=
+r>
+&gt;=C2=A0 include/tst_arch.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 | 16 ++++++++<br>
+&gt;=C2=A0 include/tst_test.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 |=C2=A0 7 +++-<br>
+&gt;=C2=A0 lib/tst_arch.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 | 71 +++++++++++++++++++++++++++++++++<br>
+&gt;=C2=A0 4 files changed, 147 insertions(+), 1 deletion(-)<br>
+&gt;=C2=A0 create mode 100644 include/tst_arch.h<br>
+&gt;=C2=A0 create mode 100644 lib/tst_arch.c<br>
+&gt; <br>
+&gt; diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidel=
+ines.txt<br>
+&gt; index f1912dc12..10442d756 100644<br>
+&gt; --- a/doc/test-writing-guidelines.txt<br>
+&gt; +++ b/doc/test-writing-guidelines.txt<br>
+&gt; @@ -1668,6 +1668,60 @@ sturct tst_test test =3D {<br>
+&gt;=C2=A0 };<br>
+&gt;=C2=A0 ----------------------------------------------------------------=
+---------------<br>
+&gt;=C2=A0 <br>
+&gt; +2.2.30 Testing on specified architecture<br>
+&gt; +^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^<br>
+&gt; +<br>
+&gt; +Testcases for specified arch should be limited on that only being sup=
+ported<br>
+&gt; +platform to run, we now create a function tst_on_arch to achieve this=
+ new<br>
+&gt; +feature in LTP library.=C2=A0 All you need to run a test on the expec=
+ted arch is<br>
+&gt; +to set the &#39;.arch&#39; string in the &#39;struct tst_test&#39; to=
+ choose the required<br>
+&gt; +arch list. e.g. &#39;.arch =3D &quot;x86_64, i386&quot;&#39;.<br>
+&gt; +<br>
+&gt; +[source,c]<br>
+&gt; +---------------------------------------------------------------------=
+----------<br>
+&gt; +#include &quot;tst_test.h&quot;<br>
+&gt; +<br>
+&gt; +static void setup(void)<br>
+&gt; +{<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0...<br>
+&gt; +}<br>
+&gt; +<br>
+&gt; +static struct tst_test test =3D {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0...<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0.setup =3D setup,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0.arch =3D &quot;x86_64, i386&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0...<br>
+&gt; +}<br>
+&gt; +---------------------------------------------------------------------=
+----------<br>
+&gt; +<br>
+&gt; +For more complicated usages such as customize your test code for a sp=
+ecial<br>
+&gt; +arch, the tst_on_arch function could be invoked in the test directly.=
+<br>
+&gt; +<br>
+&gt; +[source,c]<br>
+&gt; +---------------------------------------------------------------------=
+----------<br>
+&gt; +#include &quot;tst_test.h&quot;<br>
+&gt; +<br>
+&gt; +static void do_test(void)<br>
+&gt; +{<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (tst_on_arch(&quot;x86_64, i386&quot;)) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* code for x86_64, i=
+386 */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0...<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0} else if (tst_on_arch(&quot;ppc64&quot;)) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* code for ppc64 */<=
+br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0...<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0} else if (tst_on_arch(&quot;s390, s390x&quot;)) =
+{<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* code for s390x */<=
+br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0...<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+<br>
+What is the point of the runtime detection here?<br>
+<br>
+It&#39;s not like we can run s390x binary on i386, i.e. we know for which<b=
+r>
+architecture we are compiling for at the compile time.<br></blockquote><div=
+><br></div><div><div class=3D"gmail_default" style=3D"font-size:small">You =
+are right. But we still have some chance to do analysis at runtime, if you =
+take a look at patch 2/3, e.g. to parse &#39;/proc/&lt;pid&gt;/maps&#39; in=
+=C2=A0max_map_count.c can be done at runtime detection. That&#39;s what I t=
+hought we can export the tst_on_arch() as a global function.=C2=A0</div></d=
+iv><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
+px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+&gt; +}<br>
+&gt; +<br>
+&gt; +static struct tst_test test =3D {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0...<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0.test_all =3D do_test,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0...<br>
+&gt; +}<br>
+&gt; +---------------------------------------------------------------------=
+----------<br>
+&gt; +<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 2.3 Writing a testcase in shell<br>
+&gt;=C2=A0 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+&gt; diff --git a/include/tst_arch.h b/include/tst_arch.h<br>
+&gt; new file mode 100644<br>
+&gt; index 000000000..7bf0493ce<br>
+&gt; --- /dev/null<br>
+&gt; +++ b/include/tst_arch.h<br>
+&gt; @@ -0,0 +1,16 @@<br>
+&gt; +/* SPDX-License-Identifier: GPL-2.0-or-later<br>
+&gt; + * Copyright (c) 2019 Li Wang &lt;<a href=3D"mailto:liwang@redhat.com=
+" target=3D"_blank">liwang@redhat.com</a>&gt;<br>
+&gt; + */<br>
+&gt; +<br>
+&gt; +#ifndef TST_ARCH_H__<br>
+&gt; +#define TST_ARCH_H__<br>
+&gt; +<br>
+&gt; +/*<br>
+&gt; + * Check if test platform is in the given arch list. If yes return 1,=
+<br>
+&gt; + * otherwise return 0.<br>
+&gt; + *<br>
+&gt; + * @arch, NULL or vliad arch list<br>
+&gt; + */<br>
+&gt; +int tst_on_arch(const char *arch);<br>
+&gt; +<br>
+&gt; +#endif /* TST_ARCH_H__ */<br>
+&gt; diff --git a/include/tst_test.h b/include/tst_test.h<br>
+&gt; index 8bdf38482..cafcb1a89 100644<br>
+&gt; --- a/include/tst_test.h<br>
+&gt; +++ b/include/tst_test.h<br>
+&gt; @@ -28,6 +28,7 @@<br>
+&gt;=C2=A0 #include &quot;tst_atomic.h&quot;<br>
+&gt;=C2=A0 #include &quot;tst_kvercmp.h&quot;<br>
+&gt;=C2=A0 #include &quot;tst_clone.h&quot;<br>
+&gt; +#include &quot;tst_arch.h&quot;<br>
+&gt;=C2=A0 #include &quot;tst_kernel.h&quot;<br>
+&gt;=C2=A0 #include &quot;tst_minmax.h&quot;<br>
+&gt;=C2=A0 #include &quot;tst_get_bad_addr.h&quot;<br>
+&gt; @@ -114,6 +115,8 @@ struct tst_test {<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0const char *min_kver;<br>
+&gt;=C2=A0 <br>
+&gt; +=C2=A0 =C2=A0 =C2=A0const char *arch;<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* If set the test is compiled out */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0const char *tconf_msg;<br>
+&gt;=C2=A0 <br>
+&gt; @@ -253,7 +256,6 @@ const char *tst_strstatus(int status);<br>
+&gt;=C2=A0 unsigned int tst_timeout_remaining(void);<br>
+&gt;=C2=A0 void tst_set_timeout(int timeout);<br>
+&gt;=C2=A0 <br>
+&gt; -<br>
+&gt;=C2=A0 /*<br>
+&gt;=C2=A0 =C2=A0* Returns path to the test temporary directory in a newly =
+allocated buffer.<br>
+&gt;=C2=A0 =C2=A0*/<br>
+&gt; @@ -265,6 +267,9 @@ static struct tst_test test;<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 int main(int argc, char *argv[])<br>
+&gt;=C2=A0 {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (!tst_on_arch(test.arch))<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_brk(TCONF, &quot;=
+Test needs running on %s arch!&quot;, test.arch);<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_run_tcases(argc, argv, &amp;test);<br>
+&gt;=C2=A0 }<br>
+<br>
+This may be a bit cleaner that compiling the test out, but will not save<br=
+>
+us from arch specific ifdefs completely so I&#39;m not sure it&#39;s worth =
+the<br>
+trouble.<br></blockquote><div><br></div><div><div class=3D"gmail_default" s=
+tyle=3D"font-size:small">Indeed, I also realized that after signing off thi=
+s patch, we can&#39;t replace ifdefs completely via a simple function, sinc=
+e it occurring in the compiling early phase. But anyway I roll out this for=
+ comments in case we could find an improved way to do better.</div><div cla=
+ss=3D"gmail_default" style=3D"font-size:small">=C2=A0</div></div><blockquot=
+e class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px s=
+olid rgb(204,204,204);padding-left:1ex">
+<br>
+&gt; diff --git a/lib/tst_arch.c b/lib/tst_arch.c<br>
+&gt; new file mode 100644<br>
+&gt; index 000000000..a9f2775b4<br>
+&gt; --- /dev/null<br>
+&gt; +++ b/lib/tst_arch.c<br>
+&gt; @@ -0,0 +1,71 @@<br>
+&gt; +/* SPDX-License-Identifier: GPL-2.0-or-later<br>
+&gt; + * Copyright (c) 2019 Li Wang &lt;<a href=3D"mailto:liwang@redhat.com=
+" target=3D"_blank">liwang@redhat.com</a>&gt;<br>
+&gt; + */<br>
+&gt; +<br>
+&gt; +#include &lt;string.h&gt;<br>
+&gt; +<br>
+&gt; +#define TST_NO_DEFAULT_MAIN<br>
+&gt; +#include &quot;tst_arch.h&quot;<br>
+&gt; +#include &quot;tst_test.h&quot;<br>
+&gt; +<br>
+&gt; +static const char *const arch_type_list[] =3D {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0&quot;i386&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0&quot;x86&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0&quot;x86_64&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0&quot;ia64&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0&quot;ppc&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0&quot;ppc64&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0&quot;s390&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0&quot;s390x&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0&quot;arm&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0&quot;aarch64&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0&quot;sparc&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0NULL<br>
+&gt; +};<br>
+&gt; +<br>
+&gt; +static int is_valid_arch(const char *arch)<br>
+&gt; +{<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0unsigned int i;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0for (i =3D 0; arch_type_list[i]; i++) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (strstr(arch, arch=
+_type_list[i]))<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0return 1;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0return 0;<br>
+&gt; +}<br>
+&gt; +<br>
+&gt; +int tst_on_arch(const char *arch)<br>
+&gt; +{<br>
+&gt; +#if defined(__i386__)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0char *tst_arch =3D &quot;i386&quot;;<br>
+&gt; +#elif defined(__x86__)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0char *tst_arch =3D &quot;x86&quot;;<br>
+&gt; +#elif defined(__x86_64__)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0char *tst_arch =3D &quot;x86_64&quot;;<br>
+&gt; +#elif defined(__ia64__)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0char *tst_arch =3D &quot;ia64&quot;;<br>
+&gt; +#elif defined(__powerpc__)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0char *tst_arch =3D &quot;ppc&quot;;<br>
+&gt; +#elif defined(__powerpc64__)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0char *tst_arch =3D &quot;ppc64&quot;;<br>
+&gt; +#elif defined(__s390__)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0char *tst_arch =3D &quot;s390&quot;;<br>
+&gt; +#elif defined(__s390x__)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0char *tst_arch =3D &quot;s390x&quot;;<br>
+&gt; +#elif defined(__arm__)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0char *tst_arch =3D &quot;arm&quot;;<br>
+&gt; +#elif defined(__arch64__)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0char *tst_arch =3D &quot;aarch64&quot;;<br>
+&gt; +#elif defined(__sparc__)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0char *tst_arch =3D &quot;sparc&quot;;<br>
+&gt; +#endif<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (arch !=3D NULL &amp;&amp; !is_valid_arch(arch=
+))<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_brk(TBROK, &quot;=
+please set valid arches!&quot;);<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (arch =3D=3D NULL || strstr(arch, tst_arch))<b=
+r>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 1;<br>
+<br>
+Isn&#39;t using strstr() completely broken here?<br>
+<br>
+Couple of the architecture names are prefixes of the 64bit variant, also<br=
+>
+validating the architecture by strstr() is kind of pointless, it will<br>
+match any garbage that contains one of the substrings.<br></blockquote><div=
+><br></div><div><div class=3D"gmail_default" style=3D"font-size:small">Yes,=
+ that&#39;s true.</div></div><div>=C2=A0</div><blockquote class=3D"gmail_qu=
+ote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,20=
+4);padding-left:1ex">
+<br>
+If nothing else we should strdup() the string and then loop over strtok().<=
+br></blockquote><div><br></div><div><div class=3D"gmail_default" style=3D"f=
+ont-size:small">Good suggestion!</div></div><div>=C2=A0</div><blockquote cl=
+ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid=
+ rgb(204,204,204);padding-left:1ex">
+<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0return 0;<br>
+&gt; +}<br>
+&gt; -- <br>
+&gt; 2.17.0<br>
+&gt; <br>
+&gt; <br>
+&gt; -- <br>
+&gt; Mailing list info: <a href=3D"https://lists.linux.it/listinfo/ltp" rel=
+=3D"noreferrer" target=3D"_blank">https://lists.linux.it/listinfo/ltp</a><b=
+r>
+<br>
+-- <br>
+Cyril Hrubis<br>
+<a href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a><br=
+>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
+Wang<br></div></div></div></div>
+
+--00000000000073c870058b2b9c6b--
+
+--===============0835313917==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
+dHAK
+
+--===============0835313917==--
