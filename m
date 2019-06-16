@@ -2,45 +2,64 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E11047406
-	for <lists+linux-ltp@lfdr.de>; Sun, 16 Jun 2019 11:52:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0FBD4743B
+	for <lists+linux-ltp@lfdr.de>; Sun, 16 Jun 2019 12:24:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 60D433EAFFB
-	for <lists+linux-ltp@lfdr.de>; Sun, 16 Jun 2019 11:52:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BB9DA3EB050
+	for <lists+linux-ltp@lfdr.de>; Sun, 16 Jun 2019 12:24:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 8BC063EA4B7
- for <ltp@lists.linux.it>; Sun, 16 Jun 2019 11:52:50 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 8F85C3EA4B8
+ for <ltp@lists.linux.it>; Sun, 16 Jun 2019 12:24:03 +0200 (CEST)
+Received: from mail-lf1-x142.google.com (mail-lf1-x142.google.com
+ [IPv6:2a00:1450:4864:20::142])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E4A6C20168D
- for <ltp@lists.linux.it>; Sun, 16 Jun 2019 11:52:48 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id E6DF32F8BEA
- for <ltp@lists.linux.it>; Sun, 16 Jun 2019 09:52:46 +0000 (UTC)
-Received: from dustball.brq.redhat.com (unknown [10.43.17.163])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 20C197FE99;
- Sun, 16 Jun 2019 09:52:45 +0000 (UTC)
-From: Jan Stancek <jstancek@redhat.com>
-To: ltp@lists.linux.it
-Date: Sun, 16 Jun 2019 11:52:41 +0200
-Message-Id: <a15d4137b63e4202751bea4e726658aa14be7351.1560678643.git.jstancek@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.38]); Sun, 16 Jun 2019 09:52:46 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 9B9901A023FC
+ for <ltp@lists.linux.it>; Sun, 16 Jun 2019 12:24:02 +0200 (CEST)
+Received: by mail-lf1-x142.google.com with SMTP id d11so4496850lfb.4
+ for <ltp@lists.linux.it>; Sun, 16 Jun 2019 03:24:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=KaZmNHMRO6pguVYYuS6CcjODk8YtX1UztzOB46tTzvE=;
+ b=zWOra5kGA1PAX3Kj5zfL5NaXTT6gJaanJbgXDjvE3CCS2BArz3yTBWEDXE+wWPF3Tu
+ 7XTD3zLPfjgO6kxNup6ks1b7RyKxXc9gn2QDlm8/6dDNux/nFlYhnKsyZ2SXVRpwCcGV
+ +4yipPGwYmHUka0iCkg3VvBwUUHTMU8sd33f2w/YGNEyeCQeau5HH3hk/AZOFOaai2J2
+ S9LIWNxmPmLG1IHhlfZb0pvOfLaZPhErXOxFU8h1yMZ0+A8kVMEqndwZb95Ch1Tj1I5g
+ 2INXj9fpX03qFXvWthn+z9jcW9ewrdVOx/8opGgvG4SnOYR21mo4TjQBDaVpriGnmjak
+ RiVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=KaZmNHMRO6pguVYYuS6CcjODk8YtX1UztzOB46tTzvE=;
+ b=bU6v8jNuMrWftbB3qjyEqb7dkuW+U7HY0nKfzrOncBbB5lEsU3wnd/5myE6la0wq1g
+ b0VnnzaTLMkYpQt98AVQ7aKiDpL7Neacs1T8+6tEIwxl7dtQWbtn4FgRzBDwnb/qos2w
+ +mi0Gsiyl1i5vTk16NW3d+uxwzE5U8uC5VgLJmH83MRhqJwPmsSoHEJDajLWWq6re1ZX
+ xn2MEhkiKFp1ymv67YnQ3SJxluKuO1vQisBjXrG2mtZvTxJbG5EhUBCY2VOGCcEjbByD
+ JUD2Kn8C9I/E9G3j7ctQriXu0koQYcGts9DC9jFZm0UjcfHVHOReB/w5RM0NfLDr63YY
+ nKUQ==
+X-Gm-Message-State: APjAAAUWD89olnfMCzIpkCFEPOqedRFhpuZMFXLYwD95oZcO8P5z98n+
+ IddAEQIT0xd79bvUIfvzZrdTCgodlr8shYLs0cjPhg==
+X-Google-Smtp-Source: APXvYqx0v6UP1SjO6u+1FlgGabyb6/la0hinFIive3HY+tz+AfdrmP68zWSOWPjXMyWStUtjMqWZF7Ibd16NPozz/Lc=
+X-Received: by 2002:a19:671c:: with SMTP id b28mr184968lfc.164.1560680641837; 
+ Sun, 16 Jun 2019 03:24:01 -0700 (PDT)
+MIME-Version: 1.0
+References: <a15d4137b63e4202751bea4e726658aa14be7351.1560678643.git.jstancek@redhat.com>
+In-Reply-To: <a15d4137b63e4202751bea4e726658aa14be7351.1560678643.git.jstancek@redhat.com>
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Sun, 16 Jun 2019 15:53:50 +0530
+Message-ID: <CA+G9fYuUw2LDwwiR++GC4d5NUtC=WkS0fvxpYvdAyNG-PZxr-w@mail.gmail.com>
+To: Jan Stancek <jstancek@redhat.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Cc: fhrbata@redhat.com, liwan@redhat.com
-Subject: [LTP] [PATCH] syscalls/tgkill03: wait for defunct tid to get
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Cc: fhrbata@redhat.com, liwan@redhat.com, ltp@lists.linux.it
+Subject: Re: [LTP] [PATCH] syscalls/tgkill03: wait for defunct tid to get
 	detached
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
@@ -53,39 +72,25 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Q2FzZSB3aGVyZSBkZWZ1bmN0IHRpZCBpcyB1c2VkIGhhcyBiZWVuIG9ic2VydmVkIHRvIHNwb3Jh
-ZGljYWxseSBmYWlsOgogIHRna2lsbDAzLmM6OTY6IEZBSUw6IERlZnVuY3QgdGlkIHNob3VsZCBo
-YXZlIGZhaWxlZCB3aXRoIEVTUkNIOiBTVUNDRVNTCgpnbGliYyBfX3B0aHJlYWRfdGltZWRqb2lu
-X2V4KCkgd2FpdHMgZm9yIENMT05FX0NISUxEX0NMRUFSVElEIHRvIGNsZWFyIHRpZCwKYW5kIHRo
-ZW4gcmVzdW1lcy4gS2VybmVsIGNsZWFycyBpdCAoZ2xpYmMgcGQtPnRpZCkgYXQ6CiAgZG9fZXhp
-dAogICAgZXhpdF9tbQogICAgICBtbV9yZWxlYXNlCiAgICAgICAgcHV0X3VzZXIoMCwgdHNrLT5j
-bGVhcl9jaGlsZF90aWQpOwoKYnV0IGtlcm5lbCB0aWQgaXMgc3RpbGwgdmFsaWQsIHByZXN1bWFi
-bHkgdW50aWw6CiAgcmVsZWFzZV90YXNrCiAgICBfX2V4aXRfc2lnbmFsCiAgICAgIF9fdW5oYXNo
-X3Byb2Nlc3MKICAgICAgICBkZXRhY2hfcGlkCgpUbyBhdm9pZCByYWNlIHdhaXQgdW50aWwgL3By
-b2MvPHBpZD4vdGFzay88dGlkPiBkaXNhcHBlYXJzLgoKU2lnbmVkLW9mZi1ieTogSmFuIFN0YW5j
-ZWsgPGpzdGFuY2VrQHJlZGhhdC5jb20+Ci0tLQogdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy90
-Z2tpbGwvdGdraWxsMDMuYyB8IDYgKysrKystCiAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25z
-KCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxs
-cy90Z2tpbGwvdGdraWxsMDMuYyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvdGdraWxsL3Rn
-a2lsbDAzLmMKaW5kZXggZjViYmRjNWE4ZDRlLi41YWMxZDI2NTFmN2EgMTAwNjQ0Ci0tLSBhL3Rl
-c3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvdGdraWxsL3Rna2lsbDAzLmMKKysrIGIvdGVzdGNhc2Vz
-L2tlcm5lbC9zeXNjYWxscy90Z2tpbGwvdGdraWxsMDMuYwpAQCAtNyw2ICs3LDcgQEAKIAogI2lu
-Y2x1ZGUgPHB0aHJlYWQuaD4KICNpbmNsdWRlIDxwd2QuaD4KKyNpbmNsdWRlIDxzdGRpby5oPgog
-I2luY2x1ZGUgPHN5cy90eXBlcy5oPgogCiAjaW5jbHVkZSAidHN0X3NhZmVfcHRocmVhZC5oIgpA
-QCAtNDIsNiArNDMsNyBAQCBzdGF0aWMgdm9pZCBzZXR1cCh2b2lkKQogewogCXNpZ3NldF90IHNp
-Z3VzcjE7CiAJcHRocmVhZF90IGRlZnVuY3RfdGhyZWFkOworCWNoYXIgZGVmdW5jdF90aWRfcGF0
-aFtQQVRIX01BWF07CiAKIAlzaWdlbXB0eXNldCgmc2lndXNyMSk7CiAJc2lnYWRkc2V0KCZzaWd1
-c3IxLCBTSUdVU1IxKTsKQEAgLTU1LDggKzU3LDEwIEBAIHN0YXRpYyB2b2lkIHNldHVwKHZvaWQp
-CiAJVFNUX0NIRUNLUE9JTlRfV0FJVCgwKTsKIAogCVNBRkVfUFRIUkVBRF9DUkVBVEUoJmRlZnVu
-Y3RfdGhyZWFkLCBOVUxMLCBkZWZ1bmN0X3RocmVhZF9mdW5jLCBOVUxMKTsKLQogCVNBRkVfUFRI
-UkVBRF9KT0lOKGRlZnVuY3RfdGhyZWFkLCBOVUxMKTsKKwlzcHJpbnRmKGRlZnVuY3RfdGlkX3Bh
-dGgsICIvcHJvYy8lZC90YXNrLyVkIiwgZ2V0cGlkKCksIGRlZnVuY3RfdGlkKTsKKwl3aGlsZSAo
-YWNjZXNzKGRlZnVuY3RfdGlkX3BhdGgsIFJfT0spID09IDApCisJCXVzbGVlcCgxMDAwMCk7CiB9
-CiAKIHN0YXRpYyB2b2lkIGNsZWFudXAodm9pZCkKLS0gCjEuOC4zLjEKCgotLSAKTWFpbGluZyBs
-aXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+SGkgSmFuLAoKT24gU3VuLCAxNiBKdW4gMjAxOSBhdCAxNToyMiwgSmFuIFN0YW5jZWsgPGpzdGFu
+Y2VrQHJlZGhhdC5jb20+IHdyb3RlOgo+Cj4gQ2FzZSB3aGVyZSBkZWZ1bmN0IHRpZCBpcyB1c2Vk
+IGhhcyBiZWVuIG9ic2VydmVkIHRvIHNwb3JhZGljYWxseSBmYWlsOgo+ICAgdGdraWxsMDMuYzo5
+NjogRkFJTDogRGVmdW5jdCB0aWQgc2hvdWxkIGhhdmUgZmFpbGVkIHdpdGggRVNSQ0g6IFNVQ0NF
+U1MKCldlIGRvIGhhdmUgbm90aWNlZCB0Z2tpbGwwMyBnZXR0aW5nIGZhaWxlZCBpbnRlcm1pdHRl
+bnRseSBkdWUgdG8gdGhpcyBlcnJvci4KCj4KPiBnbGliYyBfX3B0aHJlYWRfdGltZWRqb2luX2V4
+KCkgd2FpdHMgZm9yIENMT05FX0NISUxEX0NMRUFSVElEIHRvIGNsZWFyIHRpZCwKPiBhbmQgdGhl
+biByZXN1bWVzLiBLZXJuZWwgY2xlYXJzIGl0IChnbGliYyBwZC0+dGlkKSBhdDoKPiAgIGRvX2V4
+aXQKPiAgICAgZXhpdF9tbQo+ICAgICAgIG1tX3JlbGVhc2UKPiAgICAgICAgIHB1dF91c2VyKDAs
+IHRzay0+Y2xlYXJfY2hpbGRfdGlkKTsKPgo+IGJ1dCBrZXJuZWwgdGlkIGlzIHN0aWxsIHZhbGlk
+LCBwcmVzdW1hYmx5IHVudGlsOgo+ICAgcmVsZWFzZV90YXNrCj4gICAgIF9fZXhpdF9zaWduYWwK
+PiAgICAgICBfX3VuaGFzaF9wcm9jZXNzCj4gICAgICAgICBkZXRhY2hfcGlkCj4KPiBUbyBhdm9p
+ZCByYWNlIHdhaXQgdW50aWwgL3Byb2MvPHBpZD4vdGFzay88dGlkPiBkaXNhcHBlYXJzLgo+Cj4g
+U2lnbmVkLW9mZi1ieTogSmFuIFN0YW5jZWsgPGpzdGFuY2VrQHJlZGhhdC5jb20+CgpSZXZpZXdl
+ZC1ieTogIE5hcmVzaCBLYW1ib2p1IDxuYXJlc2gua2FtYm9qdUBsaW5hcm8ub3JnPgoKVGhhbmtz
+IGZvciB0aGlzIGZpeCBwYXRjaC4KCkJlc3QgcmVnYXJkcwpOYXJlc2ggS2FtYm9qdQoKLS0gCk1h
+aWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
