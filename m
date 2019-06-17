@@ -1,39 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E22C647EAB
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Jun 2019 11:44:31 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 27DC947FC4
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Jun 2019 12:35:14 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B20083EB071
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Jun 2019 11:44:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D1877294AD0
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Jun 2019 12:35:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 5D0C43EA41C
- for <ltp@lists.linux.it>; Mon, 17 Jun 2019 11:44:28 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 423FB3EA4B7
+ for <ltp@lists.linux.it>; Mon, 17 Jun 2019 12:35:12 +0200 (CEST)
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3C1F86000E8
- for <ltp@lists.linux.it>; Mon, 17 Jun 2019 11:44:26 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 29992AF35;
- Mon, 17 Jun 2019 09:44:26 +0000 (UTC)
-From: Cyril Hrubis <chrubis@suse.cz>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id F142C1A013BE
+ for <ltp@lists.linux.it>; Mon, 17 Jun 2019 12:35:03 +0200 (CEST)
+Received: by mail-pf1-x443.google.com with SMTP id x15so5476479pfq.0
+ for <ltp@lists.linux.it>; Mon, 17 Jun 2019 03:35:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mbobrowski-org.20150623.gappssmtp.com; s=20150623;
+ h=date:from:to:cc:subject:message-id:mime-version:content-disposition
+ :user-agent; bh=z+QofpDH56KTzSrfcqQgQKQ4V4An87D8D81APm2aL+I=;
+ b=y9ko5JbvAkrRgRwFdUaazT9ReJD3ywNn8ij0uJ7/0NRjQhq1tOgCq99koEZla1LUNV
+ XQIyKQ17PexKMAxeL1b/iar4LqNN3IDcfOlLy+UBIwSPrwh7byElIofwdmcOeaszILK2
+ wf8D/HwI8fN9vvxBaUUFsCS7QCw9mj2Svz6AZsu1A/ywhW2Hz6PBEG2HM4PGeMX2FKfo
+ gducjnC9Wk0hxFQgHp7MNDMc1ls/evR3Iq0Lmi5UZi9qiiMfz9FjTokGf/VNny71MA8X
+ nSOFI/qQVc4Vv/tXAiZQ5YWY6lFxMv8kMgYWZWtskJHos3bk54IYKzlTRugsf+o4Xa3v
+ mtnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition:user-agent;
+ bh=z+QofpDH56KTzSrfcqQgQKQ4V4An87D8D81APm2aL+I=;
+ b=mwjwoBZ8JdNKpqCLOd9CRWiir1UBXUG0jbg0Xhq3OzUqZgyVBAiD71riqnEmiub9vG
+ VIhaV8lqo+07tjnhSjHOYB0r80+6iDta9iBfgRJRsXmwXhXtITiZTNbmwpfyXgDKY/cY
+ MF3yfaXDTWMnYwhFnFLwbD5IZWeHOCMicHCKmbYPrn7oqz+iQ8UH3AjZuQpWtPvTNAOG
+ ZQQHOh6cpsvA30seVptzMtOeqZmlgL5O5be9LQIScE69zxh7p9yfPknRdQ/iZYUTFvqn
+ FYNelzV9wuIthi2yVRxWLtFBjFsPTjhepzCd/ogXecbud5bhtLOFWFVuLiBRpu97vcUa
+ 0kcg==
+X-Gm-Message-State: APjAAAXuvJvdT9ocVjE8TkPMcn7L0qYOuT7uApaYciUOsHG1gIp9uPfG
+ 2VgONnTU+gvANdAwsfyW6j3sJlzG1Q==
+X-Google-Smtp-Source: APXvYqzgrB0CDqjo3O+uKS73kPYgK7DigpQtNYLjZ3m2Wi07IWlZ16fGqI4GlnMQfZGwpobn4ei8YA==
+X-Received: by 2002:a17:90a:950d:: with SMTP id
+ t13mr25188722pjo.81.1560767701885; 
+ Mon, 17 Jun 2019 03:35:01 -0700 (PDT)
+Received: from poseidon.Home ([114.78.0.167])
+ by smtp.gmail.com with ESMTPSA id v13sm2953919pfe.105.2019.06.17.03.34.59
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Mon, 17 Jun 2019 03:35:01 -0700 (PDT)
+Date: Mon, 17 Jun 2019 20:34:55 +1000
+From: Matthew Bobrowski <mbobrowski@mbobrowski.org>
 To: ltp@lists.linux.it
-Date: Mon, 17 Jun 2019 11:44:22 +0200
-Message-Id: <20190617094422.15846-1-chrubis@suse.cz>
-X-Mailer: git-send-email 2.19.2
+Message-ID: <cover.1560766652.git.mbobrowski@mbobrowski.org>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+User-Agent: Mutt/1.11.3 (2019-02-01)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH] [RFC] doc: Clarify what should be cleaned up at test
-	end
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Cc: jack@suse.cz
+Subject: [LTP] [PATCH v4 0/3] syscalls/fanotify: FAN_REPORT_FID and
+ Directory Modification Events
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -50,27 +82,31 @@ Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-VGhpcyBhZGRzIGEgc2hvcnQgcGFyYWdyYXBoIHRoYXQgd3JpdGVzIGRvd24gcHJldmlvdXNseSB1
-bndyaXR0ZW4gcnVsZQpmb3IgcmVzb3VyY2UgY2xlYW51cC4KClNpZ25lZC1vZmYtYnk6IEN5cmls
-IEhydWJpcyA8Y2hydWJpc0BzdXNlLmN6PgpDQzogSmFuIFN0YW5jZWsgPGpzdGFuY2VrQHJlZGhh
-dC5jb20+Ci0tLQogZG9jL3Rlc3Qtd3JpdGluZy1ndWlkZWxpbmVzLnR4dCB8IDggKysrKysrKysK
-IDEgZmlsZSBjaGFuZ2VkLCA4IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kb2MvdGVzdC13
-cml0aW5nLWd1aWRlbGluZXMudHh0IGIvZG9jL3Rlc3Qtd3JpdGluZy1ndWlkZWxpbmVzLnR4dApp
-bmRleCBmMTkxMmRjMTIuLjIxMjIzYmEwMyAxMDA2NDQKLS0tIGEvZG9jL3Rlc3Qtd3JpdGluZy1n
-dWlkZWxpbmVzLnR4dAorKysgYi9kb2MvdGVzdC13cml0aW5nLWd1aWRlbGluZXMudHh0CkBAIC0z
-NDcsNiArMzQ3LDE0IEBAIGFzc2lnbmVkIGEgdmFsaWQgZmlsZSBkZXNjcmlwdG9yLiBGb3IgbW9z
-dCBvZiB0aGUgdGhpbmdzIHlvdSBuZWVkIHRvIGNyZWF0ZQogZXh0cmEgZmxhZyB0aGF0IGlzIHNl
-dCByaWdodCBhZnRlciBzdWNjZXNzZnVsIGluaXRpYWxpemF0aW9uIHRob3VnaC4gQ29uc2lkZXIs
-CiBmb3IgZXhhbXBsZSwgdGVzdCBzZXR1cCBiZWxvdy4KIAorV2UgYWxzbyBwcmVmZXIgY2xlYW5p
-bmcgdXAgcmVzb3VyY2VzIHRoYXQgd291bGQgb3RoZXJ3aXNlIGJlIHJlbGVhc2VkIG9uIHRoZQor
-cHJvZ3JhbSBleGl0LiBUaGVyZSBhcmUgdHdvIG1haW4gcmVhc29ucyBmb3IgdGhpcyBkZWNpc2lv
-bi4gUmVzb3VyY2VzIHN1Y2ggYXMKK2ZpbGUgZGVzY3JpcHRvcnMgYW5kIG1tYXBlZCBtZW1vcnkg
-Y291bGQgYmxvY2sgdW1vdW50aW5nIGEgYmxvY2sgZGV2aWNlIGluCitjYXNlcyB3aGVyZSB0aGUg
-dGVzdCBsaWJyYXJ5IGhhcyBtb3VudGVkIGEgZmlsZXN5c3RlbSBmb3IgdGhlIHRlc3QgdGVtcG9y
-YXJ5CitkaXJlY3RvcnkuIE5vdCBmcmVlaW5nIGFsbG9jYXRlZCBtZW1vcnkgd291bGQgdXBzZXQg
-c3RhdGljIGFuYWx5c2lzIGFuZCB0b29scworc3VjaCBhcyB2YWxncmluZCBhbmQgcHJvZHVjZSBm
-YWxzZS1wb3NpdGl2ZXMgd2hlbiBjaGVja2luZyBmb3IgbGVha3MgaW4gdGhlCitsaWJjIGFuZCBv
-dGhlciBsb3cgbGV2ZWwgbGlicmFyaWVzLgorCiBbc291cmNlLGNdCiAtLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tCiBzdGF0aWMgaW50IGZkMCwgZmQxLCBtb3VudF9mbGFnOwotLSAKMi4xOS4yCgoKLS0g
-Ck1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+VGhpcyBwYXRjaCBzZXJpZXMgY29udGFpbnMgdGhlIGNoYW5nZXMgbmVlZGVkIHRvIHZhbGlkYXRl
+IHRoZSBuZXcKRkFOX1JFUE9SVF9GSUQgZmxhZyBhbmQgZGlyZWN0b3J5IG1vZGlmaWNhdGlvbiBl
+dmVudCBmdW5jdGlvbmFsaXR5CndpdGhpbiB0aGUgZmFub3RpZnkgQVBJLgoKQ2hhbmdlcyBzaW5j
+ZSB2ZXJzaW9uIDM6CiAgICAgICAgKiBBZGRlZCBtaXNzaW5nIF9HTlVfU09VUkNFIGZlYXR1cmUg
+bWFjcm8gZnJvbQogICAgICAgICAgc3lzY2FsbHMvZmFub3RpZnkwNS4KCSogTW92ZWQgZmFub3Rp
+ZnlfZ2V0X2ZpZCgpIGluIGZhbm90aWZ5Lmggb3V0c2lkZSAjaWZuZGVmCgkgIEZBTl9SRVBPUlRf
+RklEIHRvIGFjY29tbW9kYXRlIGZvciB0aGUgc2l0dWF0aW9uIHdoZXJlIExUUCBpcwoJICBidWls
+dCBvbiBhIHN5c3RlbSB0aGF0IGhhcyBuZXdlciAoNS4xID4pIGtlcm5lbCBoZWFkZXJzCgkgIGlu
+c3RhbGxlZC4KClRoYW5rcyBmb3IgeW91ciBoZWxwIEFtaXIgYW5kIEphbi4KCk1hdHRoZXcgQm9i
+cm93c2tpICgzKToKICBzeXNjYWxscy9mYW5vdGlmeTEzOiBuZXcgdGVzdCB0byB2ZXJpZnkgRkFO
+X1JFUE9SVF9GSUQgZnVuY3Rpb25hbGl0eQogIHN5c2NhbGxzL2Zhbm90aWZ5MTQ6IG5ldyB0ZXN0
+IHRvIHZhbGlkYXRlIEZBTl9SRVBPUlRfRklEIGludGVyZmFjZQogICAgcmV0dXJuIHZhbHVlcwog
+IHN5c2NhbGxzL2Zhbm90aWZ5MTU6IHZlcmlmeSBmaWQgZm9yIGRpcmVudCBldmVudHMKCiBjb25m
+aWd1cmUuYWMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgIDEgKwogcnVudGVz
+dC9zeXNjYWxscyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAzICsKIHRlc3RjYXNl
+cy9rZXJuZWwvc3lzY2FsbHMvZmFub3RpZnkvLmdpdGlnbm9yZSB8ICAgMyArCiB0ZXN0Y2FzZXMv
+a2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5L2Zhbm90aWZ5LmggfCAgODEgKysrKy0KIC4uLi9rZXJu
+ZWwvc3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkwNS5jICAgICB8ICAgMSArCiAuLi4va2VybmVs
+L3N5c2NhbGxzL2Zhbm90aWZ5L2Zhbm90aWZ5MTMuYyAgICAgfCAzMTMgKysrKysrKysrKysrKysr
+KysrCiAuLi4va2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5L2Zhbm90aWZ5MTQuYyAgICAgfCAxNzEg
+KysrKysrKysrKwogLi4uL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeTE1LmMgICAg
+IHwgMjQ1ICsrKysrKysrKysrKysrCiA4IGZpbGVzIGNoYW5nZWQsIDgxNSBpbnNlcnRpb25zKCsp
+LCAzIGRlbGV0aW9ucygtKQogY3JlYXRlIG1vZGUgMTAwNjQ0IHRlc3RjYXNlcy9rZXJuZWwvc3lz
+Y2FsbHMvZmFub3RpZnkvZmFub3RpZnkxMy5jCiBjcmVhdGUgbW9kZSAxMDA2NDQgdGVzdGNhc2Vz
+L2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeTE0LmMKIGNyZWF0ZSBtb2RlIDEwMDY0
+NCB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5L2Zhbm90aWZ5MTUuYwoKLS0gCjIu
+MjEuMAoKCi0tIApNYXR0aGV3IEJvYnJvd3NraQoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRw
+czovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
