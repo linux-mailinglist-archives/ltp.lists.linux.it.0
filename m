@@ -1,67 +1,56 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50B734756E
-	for <lists+linux-ltp@lfdr.de>; Sun, 16 Jun 2019 17:11:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 176464782B
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Jun 2019 04:23:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 14BCF3EB039
-	for <lists+linux-ltp@lfdr.de>; Sun, 16 Jun 2019 17:11:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A056E3EA499
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Jun 2019 04:23:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 02E503EA2D1
- for <ltp@lists.linux.it>; Sun, 16 Jun 2019 17:11:27 +0200 (CEST)
-Received: from mail-yw1-xc43.google.com (mail-yw1-xc43.google.com
- [IPv6:2607:f8b0:4864:20::c43])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 68E1E3EA3F7
+ for <ltp@lists.linux.it>; Mon, 17 Jun 2019 04:23:13 +0200 (CEST)
+Received: from mail-ua1-f67.google.com (mail-ua1-f67.google.com
+ [209.85.222.67])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CD6792010E4
- for <ltp@lists.linux.it>; Sun, 16 Jun 2019 17:11:22 +0200 (CEST)
-Received: by mail-yw1-xc43.google.com with SMTP id b143so3744254ywb.7
- for <ltp@lists.linux.it>; Sun, 16 Jun 2019 08:11:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=zpxwiTm8I/aHlmQeMNj39jBuUzAHmiXgP6KAvlWvP/Q=;
- b=scCQatk5W695aHUBofvvFe8zsk08TPSuOJaNXHiN4orurRs5pNwJ/NVoOIEnO2wWP6
- 116V3icbie9XATdT+W593qI+h23A1bSdwLX7XlRCZ3KmeSVeMdyuw8cDb4hMljovx/+2
- /kLDsnGFoTi5AnwHLaIhHp6pWjbHOwZwpdL6iVUdoyj4kbKYIP2KTk4dQ+mMBWmM3q5N
- nbUMhPHaaOD09n/qfnLzdzSP48kjfLjJ1rNjrHVKhgc3AAJioVW/9NRnKLUmqw4MFMGm
- nIdNBm9Kvn1jcn+gPUDgukkK34pp2rjKsVEElesRZ/73a5qu8XqWvMaUkShdgKuPBfte
- 3qhw==
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0F431600567
+ for <ltp@lists.linux.it>; Mon, 17 Jun 2019 04:23:14 +0200 (CEST)
+Received: by mail-ua1-f67.google.com with SMTP id o2so2868573uae.10
+ for <ltp@lists.linux.it>; Sun, 16 Jun 2019 19:23:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=zpxwiTm8I/aHlmQeMNj39jBuUzAHmiXgP6KAvlWvP/Q=;
- b=L+8ZK3IiL3t5w0dEb8Uethu2nim/aZAp4yUD0kgW0mwZhNo8ux8UffUEYWg4cOdaru
- kdKnffWEe4+H4fDecz9XE2K9CG5DF3uylNxqUdFxDndJ2FhE4SsgCt7+tk0oHbOn0e4N
- P5NqPvFBIjIDTY0joWj0FfpIdptLb2cAdQjNEIReTx/NSHw52dxfTgxFvxTraEeCO1c9
- BKocqEN/362Mir4zh3xDBgv3KJKC4O5Aui3I9766ArHT4bSZIHdcSsEMWh5t0BZCxK3n
- dOqfhoQPbsl/Jlr+X0O2z8kjBgI8povUqlgRcKXx8jX3RKRCvV64qp0+tvUU61PI4DYP
- Zy+A==
-X-Gm-Message-State: APjAAAVpeI3UcvMPfSEfqrzhW6A/W/denxauH1RkbXFYnOSeQbcvOlcj
- WthwJk/mjelPteOI2aapDZbcZhGSGIGMvEqHAVM=
-X-Google-Smtp-Source: APXvYqyz6Qa25B9Dh98X4pcRZL2rlRnaItpD08iG5QwfNLXzIyjG/dDf1YsC0VeYYaj4giiPhIErU36VU20hYC3Ocjs=
-X-Received: by 2002:a81:50d5:: with SMTP id e204mr6207497ywb.379.1560697881479; 
- Sun, 16 Jun 2019 08:11:21 -0700 (PDT)
+ bh=S1I+9A1AkI1921MLhZstFKQss87qDIwk45yB2h0yCms=;
+ b=mhASi0rJ4YducnmXdAjtU5TnXKetPKM0m/mJ0r2toMbWKFN/1kNCwoeJEBDApGjLtV
+ rNtPGoICXMicuZeXQ4mHk7wVn7m8pINqgzjWG7qX+6aHIX6efrxMXgfftzgqsEIFcUgC
+ jK9kQgcPw/OvAT+a54pPzmiN8AxxSIhZTv/Ti4zWVTLDcYmRjA1VMX0t5xS4mQ+kfofa
+ xWmZtYHtCWNKzdGdGFXa6nJDyC/sg+yHKnkqSATDvW4icC4Z7V7XN6gBkbAILENi5pAx
+ P2BFdbhhJjIDyA1sdh1xSEejrAAqWyA7cNuNt9nrgqmL8rA1eARE0HfRGrKXHXt/RRcc
+ 0UBQ==
+X-Gm-Message-State: APjAAAXYsomxVaX4Qlti8Bk8u5Vx8ig/GuOgBdnwyhktia7uPTBvirV/
+ M7oKsJ/GOZl+62ykZw54STuZDvJ/ryk/SFJ6WTspqA==
+X-Google-Smtp-Source: APXvYqzwSVTMAzHXLdUq+gEd9bRX9CpxDTG5TiKbm92UrMD0uKib9/yDmv+M3QcE71DHMcX8aUPN4/VB72TDvXvUTuk=
+X-Received: by 2002:ab0:67d6:: with SMTP id w22mr11168830uar.68.1560738190326; 
+ Sun, 16 Jun 2019 19:23:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1558242368.git.mbobrowski@mbobrowski.org>
- <5a1302c56c25f53395757727ec509169bdd6bc03.1558242368.git.mbobrowski@mbobrowski.org>
-In-Reply-To: <5a1302c56c25f53395757727ec509169bdd6bc03.1558242368.git.mbobrowski@mbobrowski.org>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Sun, 16 Jun 2019 18:11:10 +0300
-Message-ID: <CAOQ4uxi_ZWkihkDZSuVTtNPoKLZ4NEioc6u5hLQeFM=p-_9GFg@mail.gmail.com>
-To: Matthew Bobrowski <mbobrowski@mbobrowski.org>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+References: <a15d4137b63e4202751bea4e726658aa14be7351.1560678643.git.jstancek@redhat.com>
+In-Reply-To: <a15d4137b63e4202751bea4e726658aa14be7351.1560678643.git.jstancek@redhat.com>
+From: Li Wang <liwan@redhat.com>
+Date: Mon, 17 Jun 2019 10:22:59 +0800
+Message-ID: <CAEemH2dAr_6q8cfkBhRamUJNcP5=W=PcOp1UTEttBsXkhgNABA@mail.gmail.com>
+To: Jan Stancek <jstancek@redhat.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Cc: Jan Kara <jack@suse.cz>, LTP List <ltp@lists.linux.it>
-Subject: Re: [LTP] [PATCH v3 1/3] syscalls/fanotify13: new test to verify
- FAN_REPORT_FID functionality
+X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Cc: fhrbata@redhat.com, LTP List <ltp@lists.linux.it>
+Subject: Re: [LTP] [PATCH] syscalls/tgkill03: wait for defunct tid to get
+	detached
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -73,98 +62,189 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0741615653=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gU3VuLCBNYXkgMTksIDIwMTkgYXQgODoyNSBBTSBNYXR0aGV3IEJvYnJvd3NraQo8bWJvYnJv
-d3NraUBtYm9icm93c2tpLm9yZz4gd3JvdGU6Cj4KPiBBIG5ld2x5IGRlZmluZWQgdGVzdCBmaWxl
-IHRvIHZhbGlkYXRlIHRoZSBmYW5vdGlmeSBGQU5fUkVQT1JUX0ZJRAo+IGZ1bmN0aW9uYWxpdHku
-IEEgbmV3IGxpbmUgZW50cnkgZm9yIHRoaXMgdGVzdCBmaWxlIGhhcyBiZWVuIGFkZGVkIHdpdGhp
-bgo+IHJ1bnRlc3Qvc3lzY2FsbHMuCj4KPiBBZGRpdGlvbmFsbHksIGRlZmluZWQgYSBoZWxwZXIg
-ZnVuY3Rpb24gdGhhdCBjYW4gYmUgdXNlZCB0byBvYnRhaW4KPiBfX2tlcm5lbF9mc2lkX3QgYW5k
-IGZpbGVfaGFuZGxlIG9iamVjdHMuIFRoaXMgaGVscGVyIHdpbGwgYmUgdXNlZCBieQo+IHRlc3Qg
-ZmlsZXMgcmVsYXRlZCB0byB2ZXJpZnlpbmcgRkFOX1JFUE9SVF9GSUQuIFRoZSBuYW1lX3RvX2hh
-bmRsZV9hdCgpCj4gZnVuY3Rpb24gaXMgY29uZGl0aW9uYWxseSBhZGRlZCB0byBhY2NvbW1vZGF0
-ZSBmb3IgYnVpbGRzIG9uIG9sZGVyCj4gZGlzdHJpYnV0aW9ucy4KPgo+IFNpZ25lZC1vZmYtYnk6
-IE1hdHRoZXcgQm9icm93c2tpIDxtYm9icm93c2tpQG1ib2Jyb3dza2kub3JnPgo+IFJldmlld2Vk
-LWJ5OiBBbWlyIEdvbGRzdGVpbiA8YW1pcjczaWxAZ21haWwuY29tPgo+IC0tLQoKTWF0dGhldywK
-ClNvcnJ5IGZvciB0aGUgZGVsYXksIEkndmUgZm91bmQgc29tZSBidWlsZCB3YXJuaW5nL2Vycm9y
-cyB0aGF0IG5lZWQgZml4aW5nLgoKPiAgY29uZmlndXJlLmFjICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHwgICAxICsKPiAgcnVudGVzdC9zeXNjYWxscyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHwgICAxICsKPiAgdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlm
-eS8uZ2l0aWdub3JlIHwgICAxICsKPiAgdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlm
-eS9mYW5vdGlmeS5oIHwgIDU2ICsrKy0KPiAgLi4uL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9m
-YW5vdGlmeTEzLmMgICAgIHwgMzEzICsrKysrKysrKysrKysrKysrKwo+ICA1IGZpbGVzIGNoYW5n
-ZWQsIDM2OSBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+ICBjcmVhdGUgbW9kZSAxMDA2
-NDQgdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeTEzLmMKPgo+IGRp
-ZmYgLS1naXQgYS9jb25maWd1cmUuYWMgYi9jb25maWd1cmUuYWMKPiBpbmRleCA1M2FkNzg0ZDcu
-LmFjNGQ4NWIwZSAxMDA2NDQKPiAtLS0gYS9jb25maWd1cmUuYWMKPiArKysgYi9jb25maWd1cmUu
-YWMKPiBAQCAtNjgsNiArNjgsNyBAQCBBQ19DSEVDS19GVU5DUyhbIFwKPiAgICAgIGtjbXAgXAo+
-ICAgICAgbWtkaXJhdCBcCj4gICAgICBta25vZGF0IFwKPiArICAgIG5hbWVfdG9faGFuZGxlX2F0
-IFwKPiAgICAgIG9wZW5hdCBcCj4gICAgICBwcmVhZHYgXAo+ICAgICAgcHJlYWR2MiBcCj4gZGlm
-ZiAtLWdpdCBhL3J1bnRlc3Qvc3lzY2FsbHMgYi9ydW50ZXN0L3N5c2NhbGxzCj4gaW5kZXggMmI4
-Y2E3MTliLi5kZmRjNmNiZjkgMTAwNjQ0Cj4gLS0tIGEvcnVudGVzdC9zeXNjYWxscwo+ICsrKyBi
-L3J1bnRlc3Qvc3lzY2FsbHMKPiBAQCAtNTM3LDYgKzUzNyw3IEBAIGZhbm90aWZ5MDkgZmFub3Rp
-ZnkwOQo+ICBmYW5vdGlmeTEwIGZhbm90aWZ5MTAKPiAgZmFub3RpZnkxMSBmYW5vdGlmeTExCj4g
-IGZhbm90aWZ5MTIgZmFub3RpZnkxMgo+ICtmYW5vdGlmeTEzIGZhbm90aWZ5MTMKPgo+ICBpb3Bl
-cm0wMSBpb3Blcm0wMQo+ICBpb3Blcm0wMiBpb3Blcm0wMgo+IGRpZmYgLS1naXQgYS90ZXN0Y2Fz
-ZXMva2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5Ly5naXRpZ25vcmUgYi90ZXN0Y2FzZXMva2VybmVs
-L3N5c2NhbGxzL2Zhbm90aWZ5Ly5naXRpZ25vcmUKPiBpbmRleCA0MjU2YjhjZDMuLjE2YmRkOTll
-NSAxMDA2NDQKPiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5Ly5naXRp
-Z25vcmUKPiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5Ly5naXRpZ25v
-cmUKPiBAQCAtMTAsNCArMTAsNSBAQAo+ICAvZmFub3RpZnkxMAo+ICAvZmFub3RpZnkxMQo+ICAv
-ZmFub3RpZnkxMgo+ICsvZmFub3RpZnkxMwo+ICAvZmFub3RpZnlfY2hpbGQKPiBkaWZmIC0tZ2l0
-IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeS5oIGIvdGVzdGNh
-c2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeS5oCj4gaW5kZXggMTQ2NTRiN2M3
-Li5kNmUyNTkwMDIgMTAwNjQ0Cj4gLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5v
-dGlmeS9mYW5vdGlmeS5oCj4gKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlm
-eS9mYW5vdGlmeS5oCj4gQEAgLTI5LDYgKzI5LDExIEBACj4gICNkZWZpbmUgICAgICAgIF9fRkFO
-T1RJRllfSF9fCj4KPiAgI2luY2x1ZGUgImNvbmZpZy5oIgo+ICsjaW5jbHVkZSA8c3lzL3N0YXRm
-cy5oPgo+ICsjaW5jbHVkZSA8c3lzL3R5cGVzLmg+Cj4gKyNpbmNsdWRlIDxzeXMvc3RhdC5oPgo+
-ICsjaW5jbHVkZSA8ZXJybm8uaD4KPiArI2luY2x1ZGUgPGZjbnRsLmg+Cj4KPiAgI2lmIGRlZmlu
-ZWQoSEFWRV9TWVNfRkFOT1RJRllfSCkKPgo+IEBAIC01Nyw5ICs2Miw2IEBAIHN0YXRpYyBsb25n
-IGZhbm90aWZ5X21hcmsoaW50IGZkLCB1bnNpZ25lZCBpbnQgZmxhZ3MsIHVpbnQ2NF90IG1hc2ss
-Cj4gICNpZm5kZWYgRkFOX1JFUE9SVF9USUQKPiAgI2RlZmluZSBGQU5fUkVQT1JUX1RJRCAgICAg
-ICAgIDB4MDAwMDAxMDAKPiAgI2VuZGlmCj4gLSNpZm5kZWYgRkFOX1JFUE9SVF9GSUQKPiAtI2Rl
-ZmluZSBGQU5fUkVQT1JUX0ZJRCAgICAgICAgIDB4MDAwMDAyMDAKPiAtI2VuZGlmCj4KPiAgI2lm
-bmRlZiBGQU5fTUFSS19JTk9ERQo+ICAjZGVmaW5lIEZBTl9NQVJLX0lOT0RFICAgICAgICAgMAo+
-IEBAIC04OSw2ICs5MSw1NCBAQCBzdHJ1Y3QgZmFub3RpZnlfbWFya190eXBlIHsKPiAgICAgICAg
-IGNvbnN0IGNoYXIgKiBuYW1lOwo+ICB9Owo+Cj4gKyNpZm5kZWYgRkFOX1JFUE9SVF9GSUQKPiAr
-I2RlZmluZSBGQU5fUkVQT1JUX0ZJRCAgICAgICAgIDB4MDAwMDAyMDAKPiArCj4gK3N0cnVjdCBm
-YW5vdGlmeV9ldmVudF9pbmZvX2hlYWRlciB7Cj4gKyAgICAgICB1aW50OF90IGluZm9fdHlwZTsK
-PiArICAgICAgIHVpbnQ4X3QgcGFkOwo+ICsgICAgICAgdWludDE2X3QgbGVuOwo+ICt9Owo+ICsK
-PiArc3RydWN0IGZhbm90aWZ5X2V2ZW50X2luZm9fZmlkIHsKPiArICAgICAgIHN0cnVjdCBmYW5v
-dGlmeV9ldmVudF9pbmZvX2hlYWRlciBoZHI7Cj4gKyAgICAgICBfX2tlcm5lbF9mc2lkX3QgZnNp
-ZDsKPiArICAgICAgIHVuc2lnbmVkIGNoYXIgaGFuZGxlWzBdOwo+ICt9Owo+ICsKPiArLyoKPiAr
-ICogSGVscGVyIGZ1bmN0aW9uIHVzZWQgdG8gb2J0YWluIF9fa2VybmVsX2ZzaWRfdCBhbmQgZmls
-ZV9oYW5kbGUgb2JqZWN0cwo+ICsgKiBmb3IgYSBnaXZlbiBwYXRoLiBVc2VkIGJ5IHRlc3QgZmls
-ZXMgY29ycmVsYXRlZCB0byBGQU5fUkVQT1JUX0ZJRAo+ICsgKiBmdW5jdGlvbmFsaXR5Lgo+ICsg
-Ki8KPiArc3RhdGljIGlubGluZSB2b2lkIGZhbm90aWZ5X2dldF9maWQoY29uc3QgY2hhciAqcGF0
-aCwgX19rZXJuZWxfZnNpZF90ICpmc2lkLAo+ICsgICAgICAgICAgICAgICAgICAgICAgIHN0cnVj
-dCBmaWxlX2hhbmRsZSAqaGFuZGxlKQo+ICt7Cj4gKyAgICAgICBpbnQgbW91bnRfaWQ7Cj4gKyAg
-ICAgICBzdHJ1Y3Qgc3RhdGZzIHN0YXRzOwo+ICsKPiArICAgICAgIGlmIChzdGF0ZnMocGF0aCwg
-JnN0YXRzKSA9PSAtMSkKPiArICAgICAgICAgICAgICAgdHN0X2JyayhUQlJPSyB8IFRFUlJOTywK
-PiArICAgICAgICAgICAgICAgICAgICAgICAic3RhdGZzKCVzLCAuLi4pIGZhaWxlZCIsIHBhdGgp
-Owo+ICsgICAgICAgbWVtY3B5KGZzaWQsICZzdGF0cy5mX2ZzaWQsIHNpemVvZihzdGF0cy5mX2Zz
-aWQpKTsKPiArCj4gKyNpZmRlZiBIQVZFX05BTUVfVE9fSEFORExFX0FUCj4gKyAgICAgICBpZiAo
-bmFtZV90b19oYW5kbGVfYXQoQVRfRkRDV0QsIHBhdGgsIGhhbmRsZSwgJm1vdW50X2lkLCAwKSA9
-PSAtMSkgewoKbmFtZV90b19oYW5kbGVfYXQgcmVxdWlyZXMgI2RlZmluZSBfR05VX1NPVVJDRSwg
-d2hpY2ggYXJlCm1pc3NpbmcgaW4gZmFub3RpZnkwNS5jIGFuZCBmYW5vdGlmeTE0LmMuIFBsZWFz
-ZSBhZGQgdGhlIG1pc3NpbmcKZGVmaW5lIHRvIHRob3NlIHRlc3RzCmJlZm9yZSBhbnkgaW5jbHVk
-ZXMuCgo+ICsgICAgICAgICAgICAgICBpZiAoZXJybm8gPT0gRU9QTk9UU1VQUCkgewo+ICsgICAg
-ICAgICAgICAgICAgICAgICAgIHRzdF9icmsoVENPTkYsCj4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAiZmlsZXN5c3RlbSAlcyBkb2VzIG5vdCBzdXBwb3J0IGZpbGUgaGFuZGxlcyIs
-Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0c3RfZGV2aWNlLT5mc190eXBlKTsK
-PiArICAgICAgICAgICAgICAgfQo+ICsgICAgICAgICAgICAgICB0c3RfYnJrKFRCUk9LIHwgVEVS
-Uk5PLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICJuYW1lX3RvX2hhbmRsZV9hdChBVF9GRENX
-RCwgJXMsIC4uLikgZmFpbGVkIiwgcGF0aCk7Cj4gKyAgICAgICB9Cj4gKyNlbHNlCj4gKyAgICAg
-ICB0c3RfYnJrKFRDT05GLCAibmFtZV90b19oYW5kbGVfYXQoKSBpcyBub3QgaW1wbG1lbnRlZCIp
-Owo+ICsjZW5kaWYgLyogSEFWRV9OQU1FX1RPX0hBTkRMRV9BVCAqLwo+ICt9Cj4gKwo+ICsjZW5k
-aWYKClRoZSBkZWZpbml0aW9uIG9mIGZhbm90aWZ5X2dldF9maWQoKSBzaG91bGQgYmUgb3V0c2lk
-ZQojaWZuZGVmIEZBTl9SRVBPUlRfRklECgpCZWNhdXNlIGlmIG5ldyBrZXJuZWwgKDUuMSkgaGVh
-ZGVycyBhcmUgaW5zdGFsbGVkCmZhbm90aWZ5X2dldF9maWQoKSBzdGlsbCBuZWVkcyB0byBiZSBk
-ZWZpbmVkLgoKUGxlYXNlIGZpeCByZWJhc2UgYW5kIHJlLXBvc3QgdGhlIHNlcmllcyBvciBhc2sg
-bWUgdG8KZG8gaXQgaWYgeW91IGFyZSB0b28gYnVzeS4KClRoYW5rcywKQW1pci4KCi0tIApNYWls
-aW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+--===============0741615653==
+Content-Type: multipart/alternative; boundary="0000000000006c21a1058b7bad90"
+
+--0000000000006c21a1058b7bad90
+Content-Type: text/plain; charset="UTF-8"
+
+On Sun, Jun 16, 2019 at 5:52 PM Jan Stancek <jstancek@redhat.com> wrote:
+
+> Case where defunct tid is used has been observed to sporadically fail:
+>   tgkill03.c:96: FAIL: Defunct tid should have failed with ESRCH: SUCCESS
+>
+> glibc __pthread_timedjoin_ex() waits for CLONE_CHILD_CLEARTID to clear tid,
+> and then resumes. Kernel clears it (glibc pd->tid) at:
+>   do_exit
+>     exit_mm
+>       mm_release
+>         put_user(0, tsk->clear_child_tid);
+>
+> but kernel tid is still valid, presumably until:
+>   release_task
+>     __exit_signal
+>       __unhash_process
+>         detach_pid
+>
+> To avoid race wait until /proc/<pid>/task/<tid> disappears.
+>
+> Signed-off-by: Jan Stancek <jstancek@redhat.com>
+> ---
+>  testcases/kernel/syscalls/tgkill/tgkill03.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/testcases/kernel/syscalls/tgkill/tgkill03.c
+> b/testcases/kernel/syscalls/tgkill/tgkill03.c
+> index f5bbdc5a8d4e..5ac1d2651f7a 100644
+> --- a/testcases/kernel/syscalls/tgkill/tgkill03.c
+> +++ b/testcases/kernel/syscalls/tgkill/tgkill03.c
+> @@ -7,6 +7,7 @@
+>
+>  #include <pthread.h>
+>  #include <pwd.h>
+> +#include <stdio.h>
+>  #include <sys/types.h>
+>
+>  #include "tst_safe_pthread.h"
+> @@ -42,6 +43,7 @@ static void setup(void)
+>  {
+>         sigset_t sigusr1;
+>         pthread_t defunct_thread;
+> +       char defunct_tid_path[PATH_MAX];
+>
+>         sigemptyset(&sigusr1);
+>         sigaddset(&sigusr1, SIGUSR1);
+> @@ -55,8 +57,10 @@ static void setup(void)
+>         TST_CHECKPOINT_WAIT(0);
+>
+>         SAFE_PTHREAD_CREATE(&defunct_thread, NULL, defunct_thread_func,
+> NULL);
+> -
+>         SAFE_PTHREAD_JOIN(defunct_thread, NULL);
+> +       sprintf(defunct_tid_path, "/proc/%d/task/%d", getpid(),
+> defunct_tid);
+> +       while (access(defunct_tid_path, R_OK) == 0)
+> +               usleep(10000);
+>
+
+To be on the safe side, I think maybe TST_RETRY_FUNC is a better choice
+here.
+
+    TST_RETRY_FUNC(access(defunct_tid_path, R_OK), -1);
+
+ }
+>
+>  static void cleanup(void)
+> --
+> 1.8.3.1
+>
+>
+
+-- 
+Regards,
+Li Wang
+
+--0000000000006c21a1058b7bad90
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Sun, Jun 16, 2019 at 5:52 PM Jan Stancek &lt;<a =
+href=3D"mailto:jstancek@redhat.com">jstancek@redhat.com</a>&gt; wrote:<br><=
+/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
+rder-left:1px solid rgb(204,204,204);padding-left:1ex">Case where defunct t=
+id is used has been observed to sporadically fail:<br>
+=C2=A0 tgkill03.c:96: FAIL: Defunct tid should have failed with ESRCH: SUCC=
+ESS<br>
+<br>
+glibc __pthread_timedjoin_ex() waits for CLONE_CHILD_CLEARTID to clear tid,=
+<br>
+and then resumes. Kernel clears it (glibc pd-&gt;tid) at:<br>
+=C2=A0 do_exit<br>
+=C2=A0 =C2=A0 exit_mm<br>
+=C2=A0 =C2=A0 =C2=A0 mm_release<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 put_user(0, tsk-&gt;clear_child_tid);<br>
+<br>
+but kernel tid is still valid, presumably until:<br>
+=C2=A0 release_task<br>
+=C2=A0 =C2=A0 __exit_signal<br>
+=C2=A0 =C2=A0 =C2=A0 __unhash_process<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 detach_pid<br>
+<br>
+To avoid race wait until /proc/&lt;pid&gt;/task/&lt;tid&gt; disappears.<br>
+<br>
+Signed-off-by: Jan Stancek &lt;<a href=3D"mailto:jstancek@redhat.com" targe=
+t=3D"_blank">jstancek@redhat.com</a>&gt;<br>
+---<br>
+=C2=A0testcases/kernel/syscalls/tgkill/tgkill03.c | 6 +++++-<br>
+=C2=A01 file changed, 5 insertions(+), 1 deletion(-)<br>
+<br>
+diff --git a/testcases/kernel/syscalls/tgkill/tgkill03.c b/testcases/kernel=
+/syscalls/tgkill/tgkill03.c<br>
+index f5bbdc5a8d4e..5ac1d2651f7a 100644<br>
+--- a/testcases/kernel/syscalls/tgkill/tgkill03.c<br>
++++ b/testcases/kernel/syscalls/tgkill/tgkill03.c<br>
+@@ -7,6 +7,7 @@<br>
+<br>
+=C2=A0#include &lt;pthread.h&gt;<br>
+=C2=A0#include &lt;pwd.h&gt;<br>
++#include &lt;stdio.h&gt;<br>
+=C2=A0#include &lt;sys/types.h&gt;<br>
+<br>
+=C2=A0#include &quot;tst_safe_pthread.h&quot;<br>
+@@ -42,6 +43,7 @@ static void setup(void)<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 sigset_t sigusr1;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 pthread_t defunct_thread;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0char defunct_tid_path[PATH_MAX];<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 sigemptyset(&amp;sigusr1);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 sigaddset(&amp;sigusr1, SIGUSR1);<br>
+@@ -55,8 +57,10 @@ static void setup(void)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 TST_CHECKPOINT_WAIT(0);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 SAFE_PTHREAD_CREATE(&amp;defunct_thread, NULL, =
+defunct_thread_func, NULL);<br>
+-<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 SAFE_PTHREAD_JOIN(defunct_thread, NULL);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0sprintf(defunct_tid_path, &quot;/proc/%d/task/%=
+d&quot;, getpid(), defunct_tid);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0while (access(defunct_tid_path, R_OK) =3D=3D 0)=
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0usleep(10000);<br><=
+/blockquote><div><br></div><div><div class=3D"gmail_default" style=3D"font-=
+size:small">To be on the safe side, I think maybe TST_RETRY_FUNC is a bette=
+r choice here.</div><div class=3D"gmail_default" style=3D"font-size:small">=
+<br></div><div class=3D"gmail_default" style=3D"font-size:small">=C2=A0 =C2=
+=A0 TST_RETRY_FUNC(access(defunct_tid_path, R_OK), -1);</div></div><div cla=
+ss=3D"gmail_default" style=3D"font-size:small"><br></div><div class=3D"gmai=
+l_default" style=3D"font-size:small"></div><blockquote class=3D"gmail_quote=
+" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);=
+padding-left:1ex">
+=C2=A0}<br>
+<br>
+=C2=A0static void cleanup(void)<br>
+-- <br>
+1.8.3.1<br>
+<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><div dir=3D"ltr"><div><div dir=3D"ltr">Regards,<=
+br>Li Wang<br></div></div></div></div></div>
+
+--0000000000006c21a1058b7bad90--
+
+--===============0741615653==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
+dHAK
+
+--===============0741615653==--
