@@ -2,44 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CEAF498BC
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Jun 2019 07:51:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8B7B4A322
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Jun 2019 15:59:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5E3F6294B12
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Jun 2019 07:51:27 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A9CB3294ADC
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Jun 2019 15:59:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 9B4B83EA3C6
- for <ltp@lists.linux.it>; Tue, 18 Jun 2019 07:51:23 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id D0C06294AC2
+ for <ltp@lists.linux.it>; Tue, 18 Jun 2019 15:59:25 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4102A1A008AA
- for <ltp@lists.linux.it>; Tue, 18 Jun 2019 07:51:21 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 850C8200AE0
+ for <ltp@lists.linux.it>; Tue, 18 Jun 2019 15:59:24 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id E1DF6AE1F;
- Tue, 18 Jun 2019 05:51:20 +0000 (UTC)
-Date: Tue, 18 Jun 2019 07:51:19 +0200
+ by mx1.suse.de (Postfix) with ESMTP id DC1E7AEAF;
+ Tue, 18 Jun 2019 13:59:22 +0000 (UTC)
+Date: Tue, 18 Jun 2019 15:59:21 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20190618055119.GA13571@x230>
-References: <20190615042048.29839-1-liwang@redhat.com>
- <20190617214901.GC19347@x230>
- <CAEemH2cAFUkmmiokVwvC5YvT1QoXaANxtCjFypnYS309ietX0g@mail.gmail.com>
+To: Ignaz Forster <iforster@suse.de>
+Message-ID: <20190618135921.GA30776@x230>
+References: <20190613161414.29161-1-pvorel@suse.cz>
+ <20190613161414.29161-5-pvorel@suse.cz>
+ <55f6fec4-ef01-db2b-62c0-cbbbf79c6c12@suse.de>
+ <20190614141449.GA24614@dell5510>
+ <794ee977-463f-6670-fac6-3e27e25d64ab@suse.de>
+ <20190614144611.GA869@dell5510>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEemH2cAFUkmmiokVwvC5YvT1QoXaANxtCjFypnYS309ietX0g@mail.gmail.com>
+In-Reply-To: <20190614144611.GA869@dell5510>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Cc: LTP List <ltp@lists.linux.it>
-Subject: Re: [LTP] [PATCH v2 1/3] lib: adding .arch field in tst_test
- structure
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Cc: linux-integrity@vger.kernel.org, ltp@lists.linux.it,
+ Mimi Zohar <zohar@linux.ibm.com>
+Subject: Re: [LTP] [PATCH v4 4/4] ima: Add overlay test + doc
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -57,17 +60,14 @@ Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgTGksCgo+ID4gPiBUZXN0Y2FzZXMgZm9yIHNwZWNpZmllZCBhcmNoIHNob3VsZCBiZSBsaW1p
-dGVkIG9uIHRoYXQgb25seSBiZWluZwo+ID4gc3VwcG9ydGVkCj4gPiA+IHBsYXRmb3JtIHRvIHJ1
-biwgd2Ugbm93IGNyZWF0ZSBhIGZ1bmN0aW9uIHRzdF9vbl9hcmNoIHRvIGFjaGlldmUgdGhpcyBu
-ZXcKPiA+ID4gZmVhdHVyZSBpbiBMVFAgbGlicmFyeS4gIEFsbCB5b3UgbmVlZCB0byBydW4gYSB0
-ZXN0IG9uIHRoZSBleHBlY3RlZCBhcmNoCj4gPiBpcwo+ID4gPiB0byBzZXQgdGhlICcuYXJjaCcg
-c3RyaW5nIGluIHRoZSAnc3RydWN0IHRzdF90ZXN0JyB0byBjaG9vc2UgdGhlIHJlcXVpcmVkCj4g
-PiA+IGFyY2ggbGlzdC4gZS5nLiAnLmFyY2ggPSAieDg2XzY0IGkzODYiJy4KPiA+IEp1c3Qgb25l
-IG5vdGUsIHN0cmluZ3MgYXJlIGVycm9yIHByb25lLiBJIHdvbmRlciBpZiBkZWZpbmluZyBjb25z
-dGFudHMgYW5kCj4gPiB1c2luZwo+ID4gYXJyYXkgd291bGQgYmUgdG9vIGNvbXBsaWNhdGVkIGZv
-ciB0aGlzIHVzZSBjYXNlLgoKCj4gSSB0aG91Z2h0IGFib3V0IHRoYXQgYXJyYXkgd2F5LCBidXQg
-aXQgc2VlbXMgYSBiaXQgY29tcGxpY3RlZCBpbiB1c2luZy4KPiBZZXMsIHN0cmluZ3MgYXJlIGVh
-c3kgdG8gaW52b2x2ZSB0eXBvIGJ1dCB3ZSBjYW4gbWFrZSBhIGNoZWNrIGluIGxpYnJhcnkuCk9L
-LCBhZ3JlZSA6KS4KCj4gVGhhbmtzIGZvciByZXZpZXcuCgpLaW5kIHJlZ2FyZHMsClBldHIKCi0t
-IApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+SGkgTWltaSwgSWduYXosCgo+ID4gPiA+IFRoaXMgdGVzdCByZXF1aXJlcyAiYXBwcmFpc2VfdGNi
+IiAoInRjYiIgaXMgbm90IGVub3VnaCksIGFzIHRoZSBlcnJvcnMgb25seQo+ID4gPiA+IG9jY3Vy
+IGR1cmluZyBhcHByYWlzYWwuCj4gPiA+IEFyZSB5b3Ugc3VyZT8gVGhpcyBpcyBhIG5vdGUgZm9y
+IGltYV9tZWFzdXJlbWVudHMuc2ggdGVzdCAobm90IGZvciBldm1fb3ZlcmxheS5zaCkuCj4gPiA+
+IEkgcmVxdWlyZSBpbWFfcG9saWN5PXRjYiBoZXJlLCBhY2NvcmRpbmcgdG8gTWltaSBbMV0KCj4g
+PiBPaCwgc29ycnksIHlvdSBhcmUgY29ycmVjdCAtICJ0Y2IiIGlzIGNvcnJlY3QgaW4gdGhpcyBj
+YXNlLiBJIGdvdCBjb25mdXNlZAo+ID4gYXMgdGhlIGRvY3VtZW50YXRpb24gaXMgaW5jbHVkZWQg
+aW4gdGhlIG92ZXJsYXlmcyByZXByb2R1Y2VyIHBhdGNoLgo+IE1heWJlIEkgc2hvdWxkIHB1dCBp
+dCBpbnRvIHNlcGFyYXRlIGNvbW1pdC4KV2hvbGUgcGF0Y2hzZXQgbWVyZ2VkLgoKVGhhbmtzIGEg
+bG90IGJvdGggZm9yIHlvdXIgaGVscCEKCgpLaW5kIHJlZ2FyZHMsClBldHIKCi0tIApNYWlsaW5n
+IGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
