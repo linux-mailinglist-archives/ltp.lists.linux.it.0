@@ -1,43 +1,58 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DBF74C792
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jun 2019 08:39:42 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 506DA4C888
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jun 2019 09:39:57 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2BE803EA96A
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jun 2019 08:39:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1FFA32988D4
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jun 2019 09:39:57 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 391923EA8CD
- for <ltp@lists.linux.it>; Thu, 20 Jun 2019 08:39:39 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id DF86A2987A9
+ for <ltp@lists.linux.it>; Thu, 20 Jun 2019 09:39:54 +0200 (CEST)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D8C4C1000B1B
- for <ltp@lists.linux.it>; Thu, 20 Jun 2019 08:39:33 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 5F86FAC4C
- for <ltp@lists.linux.it>; Thu, 20 Jun 2019 06:39:36 +0000 (UTC)
-Date: Thu, 20 Jun 2019 08:39:32 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Christian Amann <camann@suse.com>
-Message-ID: <20190620063931.GA19535@dell5510>
-References: <20190614072829.24529-1-camann@suse.com>
- <20190614072829.24529-4-camann@suse.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 382FC200DB1
+ for <ltp@lists.linux.it>; Thu, 20 Jun 2019 09:39:53 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id AC163300156D;
+ Thu, 20 Jun 2019 07:39:52 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A14825D719;
+ Thu, 20 Jun 2019 07:39:52 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9858BE160;
+ Thu, 20 Jun 2019 07:39:52 +0000 (UTC)
+Date: Thu, 20 Jun 2019 03:39:49 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <1982029926.29252849.1561016389361.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20190619144346.GC30900@rei.lan>
+References: <67bee9aca637a86b8101b122d149094b50397553.1560545529.git.jstancek@redhat.com>
+ <20190619144346.GC30900@rei.lan>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190614072829.24529-4-camann@suse.com>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Originating-IP: [10.40.204.184, 10.4.195.14]
+Thread-Topic: mtest06: tweak DISTANT_MMAP_SIZE
+Thread-Index: 4HhaV2MutJcE+TVhHiC2BbtpyRdTgQ==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+ (mx1.redhat.com [10.5.110.46]); Thu, 20 Jun 2019 07:39:52 +0000 (UTC)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
 Cc: ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH v3 4/4] syscalls/pidfd_send_signal03
+Subject: Re: [LTP] [PATCH 1/2] mtest06: tweak DISTANT_MMAP_SIZE
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -49,15 +64,12 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgQ2hyaXN0aWFuLAoKPiBBZGQgdGVzdGNhc2UgdG8gY2hlY2sgaWYgdGhlIHN5c2NhbGwgd2ls
-bCBzZW5kIGEgc2lnbmFsCj4gdG8gYSBwcm9jZXNzIHdpdGggdGhlIHNhbWUgUElEIGFzIHRoZSB0
-YXJnZXRlZCBwcm9jZXNzLgoKPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gQW1hbm4gPGNhbWFu
-bkBzdXNlLmNvbT4KPiBSZXZpZXdlZC1ieTogUGV0ciBWb3JlbCA8cHZvcmVsQHN1c2UuY3o+CgpX
-aG9sZSBwYXRjaHNldCBtZXJnZWQsIHRoeCEKCktpbmQgcmVnYXJkcywKUGV0cgoKLS0gCk1haWxp
-bmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+Ci0tLS0tIE9yaWdpbmFsIE1lc3NhZ2UgLS0tLS0KPiBIaSEKPiBMb29rcyBvaywgYWNrZWQuCgpC
+b3RoIHB1c2hlZC4KCj4gCj4gLS0KPiBDeXJpbCBIcnViaXMKPiBjaHJ1YmlzQHN1c2UuY3oKPiAK
+Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
+dHAK
