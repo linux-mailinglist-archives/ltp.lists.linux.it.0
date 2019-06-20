@@ -1,58 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 506DA4C888
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jun 2019 09:39:57 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id BFB304C8A2
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jun 2019 09:47:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1FFA32988D4
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jun 2019 09:39:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8824B2988D4
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jun 2019 09:47:11 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id DF86A2987A9
- for <ltp@lists.linux.it>; Thu, 20 Jun 2019 09:39:54 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 7DC232987A9
+ for <ltp@lists.linux.it>; Thu, 20 Jun 2019 09:47:09 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 382FC200DB1
- for <ltp@lists.linux.it>; Thu, 20 Jun 2019 09:39:53 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id AC163300156D;
- Thu, 20 Jun 2019 07:39:52 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A14825D719;
- Thu, 20 Jun 2019 07:39:52 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9858BE160;
- Thu, 20 Jun 2019 07:39:52 +0000 (UTC)
-Date: Thu, 20 Jun 2019 03:39:49 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <1982029926.29252849.1561016389361.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20190619144346.GC30900@rei.lan>
-References: <67bee9aca637a86b8101b122d149094b50397553.1560545529.git.jstancek@redhat.com>
- <20190619144346.GC30900@rei.lan>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 72E6814016BD
+ for <ltp@lists.linux.it>; Thu, 20 Jun 2019 09:47:08 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 7CAABAD27
+ for <ltp@lists.linux.it>; Thu, 20 Jun 2019 07:47:07 +0000 (UTC)
+Date: Thu, 20 Jun 2019 09:47:03 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Christian Amann <camann@suse.com>
+Message-ID: <20190620074703.GC13879@dell5510>
+References: <20190607141622.20316-1-camann@suse.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.40.204.184, 10.4.195.14]
-Thread-Topic: mtest06: tweak DISTANT_MMAP_SIZE
-Thread-Index: 4HhaV2MutJcE+TVhHiC2BbtpyRdTgQ==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.46]); Thu, 20 Jun 2019 07:39:52 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20190607141622.20316-1-camann@suse.com>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
 Cc: ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH 1/2] mtest06: tweak DISTANT_MMAP_SIZE
+Subject: Re: [LTP] [PATCH v1] syscalls/acct02: Fix wrongfully failing
+ sometimes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.18
 Precedence: list
@@ -64,12 +48,22 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Ci0tLS0tIE9yaWdpbmFsIE1lc3NhZ2UgLS0tLS0KPiBIaSEKPiBMb29rcyBvaywgYWNrZWQuCgpC
-b3RoIHB1c2hlZC4KCj4gCj4gLS0KPiBDeXJpbCBIcnViaXMKPiBjaHJ1YmlzQHN1c2UuY3oKPiAK
-Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
-dHAK
+SGkgQ2hyaXN0aWFuLAoKPiBPbiBzb21lIHN5c3RlbXMgdGhlIHByb2Nlc3MgY2FsbGluZyBhY2N0
+KCkgaGFzIHRvIGVuZCBiZWZvcmUKPiBwcm9jZXNzIGFjY291bnRpbmcgaXMgc3RhcnRlZC4gVGhp
+cyBjYXVzZWQgdGhlIG9yaWdpbmFsIHRlc3QKPiB0byBmYWlsIG9uIHRob3NlIHN5c3RlbXMuCj4g
+VGhpcyBmaXggZm9ya3MgYSBjaGlsZCBwcm9jZXNzIHRvIGNhbGwgYWNjdCgpIGluIG9yZGVyIHRv
+Cj4gYWN0aXZhdGUgcHJvY2VzcyBhY2NvdW50aW5nIGJlZm9yZSBydW5uaW5nIHRoZSB0ZXN0IHBy
+b2dyYW0uCgo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBBbWFubiA8Y2FtYW5uQHN1c2UuY29t
+PgoKUmV2aWV3ZWQtYnk6IFBldHIgVm9yZWwgPHB2b3JlbEBzdXNlLmN6PgoKVGhhbmtzIGZvciB5
+b3UgcGF0Y2guIENvdWxkIHlvdSBiZSBwbGVhc2UgbW9yZSBzcGVjaWZpYz8KKHdoaWNoIGtlcm5l
+bCB2ZXJzaW9uIC8gZ2xpYmMpCgpJJ20gdGVzdGluZyBpdCBvbiB2YXJpb3VzIGRpc3Ryb3MsIGFs
+bCBoYXZlIHN0cnVjdCBhY2N0X3YzIGFuZCBhbGwgZmFpbAoocmVnYXJkbGVzcyB0aGlzIHBhdGNo
+KToKRkFJTDogYWNjdCgpIHdyb3RlIGluY29ycmVjdCBmaWxlIGNvbnRlbnRzIQoKS2luZCByZWdh
+cmRzLApQZXRyCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQv
+bGlzdGluZm8vbHRwCg==
