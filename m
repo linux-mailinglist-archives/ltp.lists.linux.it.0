@@ -2,57 +2,45 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEE155275C
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Jun 2019 11:01:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAF435276C
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Jun 2019 11:02:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BECFE3C1424
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Jun 2019 11:01:11 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BD8383C1425
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Jun 2019 11:02:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 3C0EB3C12A1
- for <ltp@lists.linux.it>; Tue, 25 Jun 2019 11:01:08 +0200 (CEST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id C72B63C12A1
+ for <ltp@lists.linux.it>; Tue, 25 Jun 2019 11:02:47 +0200 (CEST)
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 818401401215
- for <ltp@lists.linux.it>; Tue, 25 Jun 2019 11:01:07 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 66A2C600131
+ for <ltp@lists.linux.it>; Tue, 25 Jun 2019 11:02:47 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
  [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id C50C581DEE
- for <ltp@lists.linux.it>; Tue, 25 Jun 2019 09:01:05 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B9DEE608C2
- for <ltp@lists.linux.it>; Tue, 25 Jun 2019 09:01:05 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id AB2F81806B16;
- Tue, 25 Jun 2019 09:01:05 +0000 (UTC)
-Date: Tue, 25 Jun 2019 05:01:02 -0400 (EDT)
+ by mx1.redhat.com (Postfix) with ESMTPS id C52F0308FBAF
+ for <ltp@lists.linux.it>; Tue, 25 Jun 2019 09:02:45 +0000 (UTC)
+Received: from dustball.brq.redhat.com (unknown [10.43.17.163])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id EB0C96085B;
+ Tue, 25 Jun 2019 09:02:42 +0000 (UTC)
 From: Jan Stancek <jstancek@redhat.com>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <123680949.29869386.1561453262485.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20190625070737.30408-3-liwang@redhat.com>
-References: <20190625070737.30408-1-liwang@redhat.com>
- <20190625070737.30408-2-liwang@redhat.com>
- <20190625070737.30408-3-liwang@redhat.com>
-MIME-Version: 1.0
-X-Originating-IP: [10.43.17.163, 10.4.195.21]
-Thread-Topic: pkey: add test for memory protection keys
-Thread-Index: aCCcpUP2qZjWynEhf1DGg/vxZNDihA==
+To: ltp@lists.linux.it
+Date: Tue, 25 Jun 2019 11:02:39 +0200
+Message-Id: <64e3837429239829860f1df5d8145c12078a799f.1561451809.git.jstancek@redhat.com>
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.25]); Tue, 25 Jun 2019 09:01:05 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+ (mx1.redhat.com [10.5.110.43]); Tue, 25 Jun 2019 09:02:45 +0000 (UTC)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 2/2] pkey: add test for memory protection keys
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH] lib: make save_restore '?' prefix ignore also errors
+ from open/read
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,48 +52,75 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Ci0tLS0tIE9yaWdpbmFsIE1lc3NhZ2UgLS0tLS0KPiArCj4gKyNpZm5kZWYgUEtFWVNfSAo+ICsj
-ZGVmaW5lIFBLRVlTX0gKPiArCj4gKyNpbmNsdWRlICJ0c3RfdGVzdC5oIgo+ICsjaW5jbHVkZSAi
-bGFwaS9zeXNjYWxscy5oIgo+ICsKPiArI2lmbmRlZiBQS0VZX0RJU0FCTEVfQUNDRVNTCj4gKyMg
-ZGVmaW5lIFBLRVlfRElTQUJMRV9BQ0NFU1MgMHgxCj4gKyMgZGVmaW5lIFBLRVlfRElTQUJMRV9X
-UklURSAgMHgyCj4gKyNlbmRpZgo+ICsKPiArI2lmbmRlZiBIQVZFX1BLRVlfTVBST1RFQ1QKPiAr
-c3RhdGljIGlubGluZSBpbnQgcGtleV9tcHJvdGVjdCh2b2lkICphZGRyLCBzaXplX3QgbGVuLCBp
-bnQgcHJvdCwgaW50IHBrZXkpCj4gK3sKPiArCXJldHVybiB0c3Rfc3lzY2FsbChTWVNfcGtleV9t
-cHJvdGVjdCwgYWRkciwgbGVuLCBwcm90LCBwa2V5KTsKCkhpLAoKVGhpcyBzaG91bGQgYmUgX19O
-Ul8qOgoKSW4gZmlsZSBpbmNsdWRlZCBmcm9tIHBrZXkwMS5jOjMyOgpwa2V5Lmg6IEluIGZ1bmN0
-aW9uIOKAmHBrZXlfbXByb3RlY3TigJk6CnBrZXkuaDoyMDogZXJyb3I6IOKAmFNZU19wa2V5X21w
-cm90ZWN04oCZIHVuZGVjbGFyZWQgKGZpcnN0IHVzZSBpbiB0aGlzIGZ1bmN0aW9uKQpwa2V5Lmg6
-MjA6IGVycm9yOiAoRWFjaCB1bmRlY2xhcmVkIGlkZW50aWZpZXIgaXMgcmVwb3J0ZWQgb25seSBv
-bmNlCnBrZXkuaDoyMDogZXJyb3I6IGZvciBlYWNoIGZ1bmN0aW9uIGl0IGFwcGVhcnMgaW4uKQpw
-a2V5Lmg6IEluIGZ1bmN0aW9uIOKAmHBrZXlfYWxsb2PigJk6CnBrZXkuaDoyNTogZXJyb3I6IOKA
-mFNZU19wa2V5X2FsbG9j4oCZIHVuZGVjbGFyZWQgKGZpcnN0IHVzZSBpbiB0aGlzIGZ1bmN0aW9u
-KQpwa2V5Lmg6IEluIGZ1bmN0aW9uIOKAmHBrZXlfZnJlZeKAmToKcGtleS5oOjMwOiBlcnJvcjog
-4oCYU1lTX3BrZXlfZnJlZeKAmSB1bmRlY2xhcmVkIChmaXJzdCB1c2UgaW4gdGhpcyBmdW5jdGlv
-bikKCj4gK3N0YXRpYyB2b2lkIHNldHVwKHZvaWQpCj4gK3sKPiArCWludCBpLCBmZDsKPiArCj4g
-KwlpZiAoYWNjZXNzKCIvcHJvYy9zeXMvdm0vbnJfaHVnZXBhZ2VzIiwgRl9PSykpIHsKPiArCQl0
-c3RfcmVzKFRJTkZPLCAiSHVnZSBwYWdlIGlzIG5vdCBzdXBwb3J0ZWQiKTsKPiArCQlzaXplID0g
-Z2V0cGFnZXNpemUoKTsKPiArCQlub19odWdlcGFnZSA9IDE7Cj4gKwl9IGVsc2Ugewo+ICsJCVNB
-RkVfRklMRV9QUklOVEYoIi9wcm9jL3N5cy92bS9ucl9odWdlcGFnZXMiLCAiJWQiLCAxKTsKClRo
-ZXJlIGFyZSAyIHByb2JsZW1zIGhlcmUsIGJvdGggcmVsYXRlZCB0byBmYWN0IHRoYXQgdGhpcyBm
-aWxlIGV4aXN0cywKYnV0IG1heSByZXR1cm4gRU9QTk9UU1VQUCBvbiByZWFkL3dyaXRlLgoKMS4g
-c2F2ZV9yZXN0b3JlIHNob3VsZCBpZ25vcmUgYWxzbyByZWFkL29wZW4gZXJyb3JzIGlmIHBhdGgg
-aXMgcHJlZml4ZWQgd2l0aCAnPycKICAgSSdsbCBzZW5kIHRoaXMgc2VwYXJhdGVseS4KCjIuIFNB
-RkVfRklMRV9QUklOVEYgaW4gcGtleTAxLmMgc2hvdWxkbid0IGJlIHNhZmUsIGJlY2F1c2Ugd2Ug
-bmVlZCB0byBzb21laG93CiAgIGRldGVjdCB0aGF0IHdyaXRlIHdvcmtlZAoKIyBscyAtbGEgL3By
-b2Mvc3lzL3ZtL25yX2h1Z2VwYWdlcwotcnctci0tci0tLiAxIHJvb3Qgcm9vdCAwIEp1biAyNSAw
-NDoxMiAvcHJvYy9zeXMvdm0vbnJfaHVnZXBhZ2VzCgojIGNhdCAvcHJvYy9zeXMvdm0vbnJfaHVn
-ZXBhZ2VzCmNhdDogL3Byb2Mvc3lzL3ZtL25yX2h1Z2VwYWdlczogT3BlcmF0aW9uIG5vdCBzdXBw
-b3J0ZWQKCj4gK3N0YXRpYyBzdHJ1Y3QgdHN0X3Rlc3QgdGVzdCA9IHsKPiArCS50Y250ID0gQVJS
-QVlfU0laRSh0Y2FzZXMpLAo+ICsJLmZvcmtzX2NoaWxkID0gMSwKPiArCS50ZXN0ID0gdmVyaWZ5
-X3BrZXksCj4gKwkuc2V0dXAgPSBzZXR1cCwKPiArCS5jbGVhbnVwID0gY2xlYW51cCwKPiArCS5z
-YXZlX3Jlc3RvcmUgPSBzYXZlX3Jlc3RvcmUsCgoubmVlZHNfcm9vdCA9IDEgYXMgd2VsbCwgc2lu
-Y2Ugd2Ugd3JpdGUgdG8gL3Byb2MgYW5kIG1vdW50IHRtcGZzCgpSZXN0IGxvb2tzIGdvb2QgdG8g
-bWUsIGJ1dCBJIGhhdmVuJ3QgZm91bmQgeWV0IHN5c3RlbSB0aGF0IGNvdWxkIHJ1biB0aGUgdGVz
-dC4KClJlZ2FyZHMsCkphbgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxp
-bnV4Lml0L2xpc3RpbmZvL2x0cAo=
+Prefix '?' was meant to silently ignore non-existing paths.
+However there are some /proc files which exist, but trigger
+error only after open/read:
+  # ls -la /proc/sys/vm/nr_hugepages
+  -rw-r--r--. 1 root root 0 Jun 25 04:17 /proc/sys/vm/nr_hugepages
+  # cat /proc/sys/vm/nr_hugepages
+  cat: /proc/sys/vm/nr_hugepages: Operation not supported
+
+This leads to unavoidable TBROK. Extend '?' flag to cover also open/read.
+
+Signed-off-by: Jan Stancek <jstancek@redhat.com>
+---
+ doc/test-writing-guidelines.txt | 9 +++++----
+ lib/tst_sys_conf.c              | 6 ++++++
+ 2 files changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
+index c6d4e001d72b..d0b7417f2cc8 100644
+--- a/doc/test-writing-guidelines.txt
++++ b/doc/test-writing-guidelines.txt
+@@ -1515,10 +1515,11 @@ and restored at the end of the test. Only first line of a specified
+ file is saved and restored.
+ 
+ Pathnames can be optionally prefixed to specify how strictly (during
+-'store') are handled files that don't exist:
+-  (no prefix) - test ends with TCONF
+-  '?'         - test prints info message and continues
+-  '!'         - test ends with TBROK
++'store') are handled errors:
++  (no prefix) - test ends with TCONF, if file doesn't exist
++  '?'         - test prints info message and continues,
++                if file doesn't exist or open/read fails
++  '!'         - test ends with TBROK, if file doesn't exist
+ 
+ 'restore' is always strict and will TWARN if it encounters any error.
+ 
+diff --git a/lib/tst_sys_conf.c b/lib/tst_sys_conf.c
+index e767856ec148..bbe469936c99 100644
+--- a/lib/tst_sys_conf.c
++++ b/lib/tst_sys_conf.c
+@@ -66,6 +66,9 @@ int tst_sys_conf_save(const char *path)
+ 
+ 	fp = fopen(path, "r");
+ 	if (fp == NULL) {
++		if (flag == '?')
++			return 1;
++
+ 		tst_brk(TBROK | TERRNO, "Failed to open FILE '%s' for reading",
+ 			path);
+ 		return 1;
+@@ -75,6 +78,9 @@ int tst_sys_conf_save(const char *path)
+ 	fclose(fp);
+ 
+ 	if (ret == NULL) {
++		if (flag == '?')
++			return 1;
++
+ 		tst_brk(TBROK | TERRNO, "Failed to read anything from '%s'",
+ 			path);
+ 	}
+-- 
+1.8.3.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
