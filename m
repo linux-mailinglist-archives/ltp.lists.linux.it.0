@@ -2,66 +2,55 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75BD959886
-	for <lists+linux-ltp@lfdr.de>; Fri, 28 Jun 2019 12:39:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07E3F59901
+	for <lists+linux-ltp@lfdr.de>; Fri, 28 Jun 2019 13:09:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 28D2D3C1C81
-	for <lists+linux-ltp@lfdr.de>; Fri, 28 Jun 2019 12:39:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CCA6A3C1C81
+	for <lists+linux-ltp@lfdr.de>; Fri, 28 Jun 2019 13:09:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id A1D463C074A
- for <ltp@lists.linux.it>; Fri, 28 Jun 2019 12:39:15 +0200 (CEST)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 10FCE1A01769
- for <ltp@lists.linux.it>; Fri, 28 Jun 2019 12:39:14 +0200 (CEST)
-Received: from mail-pg1-f200.google.com ([209.85.215.200])
- by youngberry.canonical.com with esmtps (TLS1.0:RSA_AES_128_CBC_SHA1:16)
- (Exim 4.76) (envelope-from <po-hsu.lin@canonical.com>)
- id 1hgoHh-0002pG-P0
- for ltp@lists.linux.it; Fri, 28 Jun 2019 10:39:13 +0000
-Received: by mail-pg1-f200.google.com with SMTP id d187so380474pga.7
- for <ltp@lists.linux.it>; Fri, 28 Jun 2019 03:39:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id;
- bh=dM6XGPVs5jhCu6ZiWk1AafkWBg1BPVXUQT/tSFRe8W8=;
- b=G8Zq92bh1+AMPMKwH99FhpKWxaMO2UQlbaZMK4tV1MtDM+quSUMfJRdqY+bOAM4gN5
- dzUnNfTW82WibX31+gVzI0IeYBhknF9bwiWkcOjeWlYvYTrF/KuMdEgn8tp2kzwGklHs
- xSZLtCsJ7gyFYA0IA35gAUoIE4haBel3XyhXUGY9LrZQGyfxCLCbWhc9RsaIqjT0yjwh
- eFkYX5F3NPOKvHKqaoUoG72WSqeSGm2f2ZKs6Dvf5CSLjQLS05PlhAWcMBvDjf1hXc8t
- IO2PiuB71PsyDwBNQ4QV5sMPQdLc3QSXrsuJhZglal0ouMAoOP0vUfcRQtn5Rm8scL9k
- W16A==
-X-Gm-Message-State: APjAAAUJTqpeTeWU2kGs3I7FkIxmKLnCrMrxvD7//31xqF/siRZ/QUEg
- 5Eugv2XeOnn0drMyujrDr4QFlWQeyRcI+bra8l6WURuJJlQmqF7wmegYt6XOPZtr3wXsubs8o/i
- wdtqwCPd818+AXfiDNG9j8R5MHus=
-X-Received: by 2002:a17:902:44e:: with SMTP id
- 72mr5779354ple.326.1561718352302; 
- Fri, 28 Jun 2019 03:39:12 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqw1JSifnY2IezCdn3HUm3u6NGN0KbObh74kL6ewDeNp990wF3MZ1+ouFKvkLTN+9F1/FixgBQ==
-X-Received: by 2002:a17:902:44e:: with SMTP id
- 72mr5779330ple.326.1561718351995; 
- Fri, 28 Jun 2019 03:39:11 -0700 (PDT)
-Received: from Leggiero.taipei.internal (61-220-137-37.HINET-IP.hinet.net.
- [61.220.137.37])
- by smtp.gmail.com with ESMTPSA id d6sm1367199pgv.4.2019.06.28.03.39.10
- for <ltp@lists.linux.it>
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Fri, 28 Jun 2019 03:39:11 -0700 (PDT)
-From: Po-Hsu Lin <po-hsu.lin@canonical.com>
-To: ltp@lists.linux.it
-Date: Fri, 28 Jun 2019 18:39:00 +0800
-Message-Id: <20190628103900.10113-1-po-hsu.lin@canonical.com>
-X-Mailer: git-send-email 2.17.1
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 420853C094C
+ for <ltp@lists.linux.it>; Fri, 28 Jun 2019 13:09:39 +0200 (CEST)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 4E7761001729
+ for <ltp@lists.linux.it>; Fri, 28 Jun 2019 13:09:34 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id 8FADE2F8BE3;
+ Fri, 28 Jun 2019 11:09:36 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8588619C70;
+ Fri, 28 Jun 2019 11:09:36 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7BDDF54D3C;
+ Fri, 28 Jun 2019 11:09:36 +0000 (UTC)
+Date: Fri, 28 Jun 2019 07:09:33 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
+To: Song Hongzhi <hongzhi.song@windriver.com>, ltp@lists.linux.it
+Message-ID: <1731168043.30655111.1561720172996.JavaMail.zimbra@redhat.com>
+In-Reply-To: <dc4e1e30-face-9039-db90-5a6dae2fc2ea@windriver.com>
+References: <dc4e1e30-face-9039-db90-5a6dae2fc2ea@windriver.com>
+MIME-Version: 1.0
+X-Originating-IP: [10.43.17.163, 10.4.195.16]
+Thread-Topic: Bug Report: diotest4 fails on mips64
+Thread-Index: Kvwh14Q3CYZZ0EFxR6qt4m+bMyERyg==
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+ (mx1.redhat.com [10.5.110.38]); Fri, 28 Jun 2019 11:09:36 +0000 (UTC)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH] scenario_groups/default: run the kernel_misc test
- after the cve test
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] Bug Report: diotest4 fails on mips64
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,49 +62,40 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The block_dev test in kernel_misc will taint kernel with a warning flag,
-this is an expected behaviour.
-
-However, if you run the cve-2017-17053 after it, as the test is looking
-for a warning / died flag for a tainted kernel, it will cause false
-alarm with:
-  tst_taint.c:88: BROK: Kernel is already tainted: 14849
-
-The kernel_misc test was executed before the cve test in the default
-test plan. Move the kernel_misc test to the end of the list to
-workaround this issue.
-
-Signed-off-by: Po-Hsu Lin <po-hsu.lin@canonical.com>
----
- scenario_groups/default | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/scenario_groups/default b/scenario_groups/default
-index 1f3e5b27f..e5b34782c 100644
---- a/scenario_groups/default
-+++ b/scenario_groups/default
-@@ -22,7 +22,6 @@ power_management_tests
- hugetlb
- commands
- hyperthreading
--kernel_misc
- fs_ext4
- can
- cpuhotplug
-@@ -30,3 +29,4 @@ net.ipv6_lib
- input
- cve
- crypto
-+kernel_misc
--- 
-2.17.1
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+CgotLS0tLSBPcmlnaW5hbCBNZXNzYWdlIC0tLS0tCj4gKkx0cDoqCj4gCj4gbGF0ZXN0IG1hc3Rl
+cgo+IAo+IAo+ICpLZXJuZWw6Kgo+IAo+IEFmdGVyIHY1LjEgQVJDSD1taXBzNjQKPiAKPiAKPiAq
+RXJyb3IgaW5mbzoqCj4gCj4gZGlvdGVzdDQgMTAgVEJST0sgOiBkaW90ZXN0NC5jOjM2ODogY2Fu
+J3QgbW1hcCBmaWxlOiBJbnZhbGlkIGFyZ3VtZW50Cj4gZGlvdGVzdDQgMTEgVEJST0sgOiBkaW90
+ZXN0NC5jOjM2ODogUmVtYWluaW5nIGNhc2VzIGJyb2tlbgo+IAo+IAo+IEkgdGhpbmsgdGhlIGZp
+cnN0IGFyZ3VtZW50IG9mIG1tYXAgaXMgaW52YWxpZC4KPiAKPiAgwqDCoCA+c2htX2Jhc2UgPSAo
+Y2hhciAqKSgoKGxvbmcpc2JyaygwKSArIChzaG1zeiAtIDEpKSAmIH4oc2htc3ogLSAxKSk7Cj4g
+Cj4gIMKgwqAgPnNobV9iYXNlID0gbW1hcChzaG1fYmFzZSwgMHgxMDAwMDAsIFBST1RfUkVBRCB8
+IFBST1RfV1JJVEUsCgpJIGRvbid0IHNlZSBhbnkgbm90ZSB3aHkgdGhhdCBtbWFwIG5lZWRzIHRv
+IGJlIE1BUF9GSVhFRC4gSSdkIGRyb3AgaXQsCmxldCBrZXJuZWwgcGljayBhbiBhZGRyZXNzOgoK
+ZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvaW8vZGlyZWN0X2lvL2Rpb3Rlc3Q0LmMgYi90
+ZXN0Y2FzZXMva2VybmVsL2lvL2RpcmVjdF9pby9kaW90ZXN0NC5jCmluZGV4IGU0NjE2ZTQwMGFi
+ZC4uYmYyMDBjZDQxYTI3IDEwMDY0NAotLS0gYS90ZXN0Y2FzZXMva2VybmVsL2lvL2RpcmVjdF9p
+by9kaW90ZXN0NC5jCisrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvaW8vZGlyZWN0X2lvL2Rpb3Rlc3Q0
+LmMKQEAgLTM1MiwxOCArMzUyLDE0IEBAIGludCBtYWluKGludCBhcmdjLCBjaGFyICphcmd2W10p
+CiAgICAgICAgdG90YWwrKzsKCiAgICAgICAgLyogVGVzdC0xMDogcmVhZCwgd3JpdGUgdG8gYSBt
+bWFwZWQgZmlsZSAqLwotICAgICAgIHNobV9iYXNlID0gKGNoYXIgKikoKChsb25nKXNicmsoMCkg
+KyAoc2htc3ogLSAxKSkgJiB+KHNobXN6IC0gMSkpOwotICAgICAgIGlmIChzaG1fYmFzZSA9PSBO
+VUxMKSB7Ci0gICAgICAgICAgICAgICB0c3RfYnJrbShUQlJPSywgY2xlYW51cCwgInNicmsgZmFp
+bGVkOiAlcyIsIHN0cmVycm9yKGVycm5vKSk7Ci0gICAgICAgfQogICAgICAgIG9mZnNldCA9IDQw
+OTY7CiAgICAgICAgY291bnQgPSBidWZzaXplOwogICAgICAgIGlmICgoZmQgPSBvcGVuKGZpbGVu
+YW1lLCBPX0RJUkVDVCB8IE9fUkRXUikpIDwgMCkgewogICAgICAgICAgICAgICAgdHN0X2Jya20o
+VEJST0ssIGNsZWFudXAsICJjYW4ndCBvcGVuICVzOiAlcyIsCiAgICAgICAgICAgICAgICAgICAg
+ICAgICBmaWxlbmFtZSwgc3RyZXJyb3IoZXJybm8pKTsKICAgICAgICB9Ci0gICAgICAgc2htX2Jh
+c2UgPSBtbWFwKHNobV9iYXNlLCAweDEwMDAwMCwgUFJPVF9SRUFEIHwgUFJPVF9XUklURSwKLSAg
+ICAgICAgICAgICAgICAgICAgICAgTUFQX1NIQVJFRCB8IE1BUF9GSVhFRCwgZmQsIDApOworICAg
+ICAgIHNobV9iYXNlID0gbW1hcCgwLCAweDEwMDAwMCwgUFJPVF9SRUFEIHwgUFJPVF9XUklURSwK
+KyAgICAgICAgICAgICAgICAgICAgICAgTUFQX1NIQVJFRCwgZmQsIDApOwogICAgICAgIGlmIChz
+aG1fYmFzZSA9PSAoY2FkZHJfdCkgLSAxKSB7CiAgICAgICAgICAgICAgICB0c3RfYnJrbShUQlJP
+SywgY2xlYW51cCwgImNhbid0IG1tYXAgZmlsZTogJXMiLAogICAgICAgICAgICAgICAgICAgICAg
+ICAgc3RyZXJyb3IoZXJybm8pKTsKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0
+cy5saW51eC5pdC9saXN0aW5mby9sdHAK
