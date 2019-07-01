@@ -2,48 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A43D5B6B1
-	for <lists+linux-ltp@lfdr.de>; Mon,  1 Jul 2019 10:19:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB10E5B7CD
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Jul 2019 11:17:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3D6F23C1DC3
-	for <lists+linux-ltp@lfdr.de>; Mon,  1 Jul 2019 10:19:36 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E2D8E3C1DAA
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Jul 2019 11:17:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 177103C1DCC
- for <ltp@lists.linux.it>; Mon,  1 Jul 2019 10:19:30 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 908123C1D75
+ for <ltp@lists.linux.it>; Mon,  1 Jul 2019 11:17:50 +0200 (CEST)
+Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9C509600838
- for <ltp@lists.linux.it>; Mon,  1 Jul 2019 10:19:24 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 6504188307
- for <ltp@lists.linux.it>; Mon,  1 Jul 2019 08:19:23 +0000 (UTC)
-Received: from dhcp-3-207.nay.redhat.com (dhcp-3-207.nay.redhat.com
- [10.66.3.207])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 55CB25D71C
- for <ltp@lists.linux.it>; Mon,  1 Jul 2019 08:19:22 +0000 (UTC)
-From: Li Wang <liwang@redhat.com>
-To: ltp@lists.linux.it
-Date: Mon,  1 Jul 2019 16:19:17 +0800
-Message-Id: <20190701081917.32051-2-liwang@redhat.com>
-In-Reply-To: <20190701081917.32051-1-liwang@redhat.com>
-References: <20190701081917.32051-1-liwang@redhat.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A37E91000BEB
+ for <ltp@lists.linux.it>; Mon,  1 Jul 2019 11:17:42 +0200 (CEST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+ [147.11.189.40])
+ by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id x619HCcq032279
+ (version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
+ Mon, 1 Jul 2019 02:17:22 -0700
+Received: from [128.224.162.188] (128.224.162.188) by ALA-HCA.corp.ad.wrs.com
+ (147.11.189.50) with Microsoft SMTP Server (TLS) id 14.3.439.0;
+ Mon, 1 Jul 2019 02:17:01 -0700
+To: Jan Stancek <jstancek@redhat.com>, <ltp@lists.linux.it>
+References: <dc4e1e30-face-9039-db90-5a6dae2fc2ea@windriver.com>
+ <1731168043.30655111.1561720172996.JavaMail.zimbra@redhat.com>
+From: "Hongzhi, Song" <hongzhi.song@windriver.com>
+Message-ID: <77f916ad-58e3-bf0c-e1e7-da8fc3397ba4@windriver.com>
+Date: Mon, 1 Jul 2019 17:16:57 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.28]); Mon, 01 Jul 2019 08:19:23 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+In-Reply-To: <1731168043.30655111.1561720172996.JavaMail.zimbra@redhat.com>
+Content-Language: en-US
+X-Originating-IP: [128.224.162.188]
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v5 2/2] pkey: add test for memory protection keys
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] Bug Report: diotest4 fails on mips64
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,421 +54,44 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Memory Protection Keys for Userspace (PKU aka PKEYs) is a Skylake-SP
-server feature that provides a mechanism for enforcing page-based
-protections, but without requiring modification of the page tables
-when an application changes protection domains. It works by dedicating
-4 previously ignored bits in each page table entry to a "protection key",
-giving 16 possible keys.
-
-Basic method for PKEYs test:
-  1. test allocates a pkey(e.g. PKEY_DISABLE_ACCESS) via pkey_alloc()
-  2. pkey_mprotect() apply this pkey to a piece of memory buffer
-  3. check if the access right of buffer has been changed and take effect
-  4. remove the access right(pkey) from this buffer via pkey_mprotect()
-  5. check if buffer area can be read or write after removing pkey
-  6. pkey_free() releases the pkey after using it
-
-Looping around this basic test on diffenrent types of memory.
-
-Signed-off-by: Li Wang <liwang@redhat.com>
----
-
-Notes:
-    v4 --> v5
-      * use "/sys/kernel/mm/hugepages/" for huge page detection
-
- configure.ac                               |   1 +
- runtest/syscalls                           |   2 +
- testcases/kernel/syscalls/pkeys/.gitignore |   1 +
- testcases/kernel/syscalls/pkeys/Makefile   |   8 +
- testcases/kernel/syscalls/pkeys/pkey.h     |  50 ++++
- testcases/kernel/syscalls/pkeys/pkey01.c   | 263 +++++++++++++++++++++
- 6 files changed, 325 insertions(+)
- create mode 100644 testcases/kernel/syscalls/pkeys/.gitignore
- create mode 100644 testcases/kernel/syscalls/pkeys/Makefile
- create mode 100644 testcases/kernel/syscalls/pkeys/pkey.h
- create mode 100644 testcases/kernel/syscalls/pkeys/pkey01.c
-
-diff --git a/configure.ac b/configure.ac
-index 65fc2a232..5a9b74b0a 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -74,6 +74,7 @@ AC_CHECK_FUNCS([ \
-     pidfd_send_signal \
-     preadv \
-     preadv2 \
-+    pkey_mprotect \
-     profil \
-     pwritev \
-     pwritev2 \
-diff --git a/runtest/syscalls b/runtest/syscalls
-index c6a064481..6ea991f12 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -721,6 +721,8 @@ mprotect02 mprotect02
- mprotect03 mprotect03
- mprotect04 mprotect04
- 
-+pkey01 pkey01
-+
- mq_notify01 mq_notify01
- mq_notify02 mq_notify02
- mq_open01 mq_open01
-diff --git a/testcases/kernel/syscalls/pkeys/.gitignore b/testcases/kernel/syscalls/pkeys/.gitignore
-new file mode 100644
-index 000000000..6fd5addb8
---- /dev/null
-+++ b/testcases/kernel/syscalls/pkeys/.gitignore
-@@ -0,0 +1 @@
-+/pkey01
-diff --git a/testcases/kernel/syscalls/pkeys/Makefile b/testcases/kernel/syscalls/pkeys/Makefile
-new file mode 100644
-index 000000000..9ee2c2ea5
---- /dev/null
-+++ b/testcases/kernel/syscalls/pkeys/Makefile
-@@ -0,0 +1,8 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2019 Red Hat, Inc.
-+
-+top_srcdir		?= ../../../..
-+
-+include $(top_srcdir)/include/mk/testcases.mk
-+
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/pkeys/pkey.h b/testcases/kernel/syscalls/pkeys/pkey.h
-new file mode 100644
-index 000000000..d623244eb
---- /dev/null
-+++ b/testcases/kernel/syscalls/pkeys/pkey.h
-@@ -0,0 +1,50 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2019 Red Hat, Inc.
-+ */
-+
-+#ifndef PKEYS_H
-+#define PKEYS_H
-+
-+#include "tst_test.h"
-+#include "lapi/syscalls.h"
-+
-+#ifndef PKEY_DISABLE_ACCESS
-+# define PKEY_DISABLE_ACCESS 0x1
-+# define PKEY_DISABLE_WRITE  0x2
-+#endif
-+
-+#ifndef HAVE_PKEY_MPROTECT
-+static inline int pkey_mprotect(void *addr, size_t len, int prot, int pkey)
-+{
-+	return tst_syscall(__NR_pkey_mprotect, addr, len, prot, pkey);
-+}
-+
-+static inline int pkey_alloc(unsigned int flags, unsigned int access_rights)
-+{
-+	return tst_syscall(__NR_pkey_alloc, flags, access_rights);
-+}
-+
-+static inline int pkey_free(int pkey)
-+{
-+	return tst_syscall(__NR_pkey_free, pkey);
-+}
-+#endif /* HAVE_PKEY_MPROTECT */
-+
-+static inline void check_pkey_support(void)
-+{
-+	int pkey = pkey_alloc(0, 0);
-+
-+	if (pkey == -1) {
-+		if (errno == ENOSYS)
-+			tst_brk(TCONF, "pkey_alloc is not implemented");
-+		if (errno == EINVAL)
-+			tst_brk(TCONF, "pku is not supported on this CPU");
-+		if (errno == ENOSPC)
-+			tst_brk(TCONF, "pkeys are not available for test");
-+	}
-+
-+	pkey_free(pkey);
-+}
-+
-+#endif /* PKEYS_H */
-diff --git a/testcases/kernel/syscalls/pkeys/pkey01.c b/testcases/kernel/syscalls/pkeys/pkey01.c
-new file mode 100644
-index 000000000..3b1e60ce6
---- /dev/null
-+++ b/testcases/kernel/syscalls/pkeys/pkey01.c
-@@ -0,0 +1,263 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2019 Red Hat, Inc.
-+ *
-+ * Memory Protection Keys for Userspace (PKU aka PKEYs) is a Skylake-SP
-+ * server feature that provides a mechanism for enforcing page-based
-+ * protections, but without requiring modification of the page tables
-+ * when an application changes protection domains. It works by dedicating
-+ * 4 previously ignored bits in each page table entry to a "protection key",
-+ * giving 16 possible keys.
-+ *
-+ * Basic method for PKEYs testing:
-+ *    1. test allocates a pkey(e.g. PKEY_DISABLE_ACCESS) via pkey_alloc()
-+ *    2. pkey_mprotect() apply this pkey to a piece of memory(buffer)
-+ *    3. check if access right of the buffer has been changed and take effect
-+ *    4. remove the access right(pkey) from this buffer via pkey_mprotect()
-+ *    5. check if buffer area can be read or write after removing pkey
-+ *    6. pkey_free() releases the pkey after using it
-+ *
-+ * Looping around this basic test on diffenrent types of memory.
-+ */
-+
-+#define _GNU_SOURCE
-+#include <stdio.h>
-+#include <unistd.h>
-+#include <errno.h>
-+#include <stdlib.h>
-+#include <sys/syscall.h>
-+#include <sys/mman.h>
-+#include <sys/wait.h>
-+
-+#include "pkey.h"
-+
-+#define TMP_DIR "tmp_pkey"
-+#define TEST_FILE TMP_DIR"/testfile"
-+#define STR "abcdefghijklmnopqrstuvwxyz12345\n"
-+#define PATH_VM_NRHPS "/proc/sys/vm/nr_hugepages"
-+
-+static int size;
-+static int no_hugepage;
-+
-+static const char * const save_restore[] = {
-+	"?/proc/sys/vm/nr_hugepages",
-+	NULL,
-+};
-+
-+static struct tcase {
-+	unsigned long flags;
-+	unsigned long access_rights;
-+	char *name;
-+} tcases[] = {
-+	{0, PKEY_DISABLE_ACCESS, "PKEY_DISABLE_ACCESS"},
-+	{0, PKEY_DISABLE_WRITE, "PKEY_DISABLE_WRITE"},
-+};
-+
-+static void setup(void)
-+{
-+	int i, fd;
-+
-+	if (access("/sys/kernel/mm/hugepages/", F_OK)) {
-+		tst_res(TINFO, "Huge page is not supported");
-+		size = getpagesize();
-+		no_hugepage = 1;
-+	} else {
-+		int val;
-+		SAFE_FILE_PRINTF(PATH_VM_NRHPS, "%d", 1);
-+		SAFE_FILE_SCANF(PATH_VM_NRHPS, "%d", &val);
-+		if (val != 1)
-+			tst_brk(TBROK, "nr_hugepages = %d, but expect %d",
-+					val, 1);
-+		size = SAFE_READ_MEMINFO("Hugepagesize:") * 1024;
-+	}
-+
-+	SAFE_MKDIR(TMP_DIR, 0664);
-+	SAFE_MOUNT(TMP_DIR, TMP_DIR, "tmpfs", 0, NULL);
-+
-+	check_pkey_support();
-+
-+	fd = SAFE_OPEN(TEST_FILE, O_RDWR | O_CREAT, 0664);
-+	for (i = 0; i < 128; i++)
-+		SAFE_WRITE(1, fd, STR, strlen(STR));
-+
-+	SAFE_CLOSE(fd);
-+}
-+
-+static void cleanup(void)
-+{
-+	SAFE_UMOUNT(TMP_DIR);
-+	SAFE_RMDIR(TMP_DIR);
-+}
-+
-+static struct mmap_param {
-+	int prot;
-+	int flags;
-+	int fd;
-+} mmap_params[] = {
-+	{PROT_READ,  MAP_ANONYMOUS | MAP_PRIVATE, -1},
-+	{PROT_READ,  MAP_ANONYMOUS | MAP_SHARED, -1},
-+	{PROT_READ,  MAP_ANONYMOUS | MAP_PRIVATE | MAP_HUGETLB, -1},
-+	{PROT_READ,  MAP_ANONYMOUS | MAP_SHARED  | MAP_HUGETLB, -1},
-+	{PROT_READ,  MAP_PRIVATE, 0},
-+	{PROT_READ,  MAP_SHARED, 0},
-+
-+	{PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE, -1},
-+	{PROT_WRITE, MAP_ANONYMOUS | MAP_SHARED, -1},
-+	{PROT_WRITE, MAP_PRIVATE, 0},
-+	{PROT_WRITE, MAP_SHARED, 0},
-+	{PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE | MAP_HUGETLB, -1},
-+	{PROT_WRITE, MAP_ANONYMOUS | MAP_SHARED  | MAP_HUGETLB, -1},
-+
-+	{PROT_EXEC,  MAP_ANONYMOUS | MAP_PRIVATE, -1},
-+	{PROT_EXEC,  MAP_ANONYMOUS | MAP_SHARED, -1},
-+	{PROT_EXEC,  MAP_ANONYMOUS | MAP_PRIVATE | MAP_HUGETLB, -1},
-+	{PROT_EXEC,  MAP_ANONYMOUS | MAP_SHARED  | MAP_HUGETLB, -1},
-+	{PROT_EXEC,  MAP_PRIVATE, 0},
-+	{PROT_EXEC,  MAP_SHARED, 0},
-+
-+	{PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE, -1},
-+	{PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_SHARED, -1},
-+	{PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE | MAP_HUGETLB, -1},
-+	{PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_SHARED  | MAP_HUGETLB, -1},
-+	{PROT_READ | PROT_WRITE, MAP_PRIVATE, 0},
-+	{PROT_READ | PROT_WRITE, MAP_SHARED, 0},
-+
-+	{PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANONYMOUS | MAP_PRIVATE, -1},
-+	{PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANONYMOUS | MAP_SHARED, -1},
-+	{PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANONYMOUS | MAP_PRIVATE | MAP_HUGETLB, -1},
-+	{PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANONYMOUS | MAP_SHARED  | MAP_HUGETLB, -1},
-+	{PROT_READ | PROT_WRITE | PROT_EXEC, MAP_PRIVATE, 0},
-+	{PROT_READ | PROT_WRITE | PROT_EXEC, MAP_SHARED, 0},
-+};
-+
-+static char *flag_to_str(int flags)
-+{
-+	switch (flags) {
-+	case MAP_PRIVATE:
-+		return "MAP_PRIVATE";
-+	case MAP_SHARED:
-+		return "MAP_SHARED";
-+	case MAP_ANONYMOUS | MAP_PRIVATE:
-+		return "MAP_ANONYMOUS|MAP_PRIVATE";
-+	case MAP_ANONYMOUS | MAP_SHARED:
-+		return "MAP_ANONYMOUS|MAP_SHARED";
-+	case MAP_ANONYMOUS | MAP_PRIVATE | MAP_HUGETLB:
-+		return "MAP_ANONYMOUS|MAP_PRIVATE|MAP_HUGETLB";
-+	case MAP_ANONYMOUS | MAP_SHARED  | MAP_HUGETLB:
-+		return "MAP_ANONYMOUS|MAP_SHARED|MAP_HUGETLB";
-+	default:
-+		return "UNKNOWN FLAGS";
-+	}
-+}
-+
-+static void pkey_test(struct tcase *tc, struct mmap_param *mpa)
-+{
-+	pid_t pid;
-+	char *buffer;
-+	int pkey, status;
-+	int fd = mpa->fd;
-+
-+	if (no_hugepage && (mpa->flags & MAP_HUGETLB)) {
-+		tst_res(TINFO, "Skip test on (%s) buffer", flag_to_str(mpa->flags));
-+		return;
-+	}
-+
-+	if (fd == 0)
-+		fd = SAFE_OPEN(TEST_FILE, O_RDWR | O_CREAT, 0664);
-+
-+	buffer = SAFE_MMAP(NULL, size, mpa->prot, mpa->flags, fd, 0);
-+
-+	pkey = pkey_alloc(tc->flags, tc->access_rights);
-+	if (pkey == -1)
-+		tst_brk(TBROK | TERRNO, "pkey_alloc failed");
-+
-+	tst_res(TINFO, "Set %s on (%s) buffer", tc->name, flag_to_str(mpa->flags));
-+	if (pkey_mprotect(buffer, size, mpa->prot, pkey) == -1)
-+		tst_brk(TBROK | TERRNO, "pkey_mprotect failed");
-+
-+	pid = SAFE_FORK();
-+	if (pid == 0) {
-+		struct rlimit r;
-+
-+		r.rlim_cur = 1;
-+		r.rlim_max = 1;
-+		/* Children crash are expected, avoid dumping corefile */
-+		SAFE_SETRLIMIT(RLIMIT_CORE, &r);
-+
-+		switch (tc->access_rights) {
-+			case PKEY_DISABLE_ACCESS:
-+			tst_res(TFAIL | TERRNO,
-+				"Read buffer success, buffer[0] = %d", *buffer);
-+		break;
-+			case PKEY_DISABLE_WRITE:
-+			*buffer = 'a';
-+		break;
-+		}
-+		exit(0);
-+	}
-+
-+	SAFE_WAITPID(pid, &status, 0);
-+	if (WIFSIGNALED(status)) {
-+		if (WTERMSIG(status) == SIGSEGV) {
-+			tst_res(TPASS, "Child ended by %s as expected",
-+				tst_strsig(SIGSEGV));
-+		} else {
-+			tst_res(TFAIL | TERRNO, "Child ended by %s unexpected" ,
-+				tst_strsig(WTERMSIG(status)));
-+		}
-+	} else {
-+		tst_res(TFAIL | TERRNO,
-+			"Child unexpectedly ended with %d",
-+			WEXITSTATUS(status));
-+	}
-+
-+	tst_res(TINFO, "Remove %s from the buffer", tc->name);
-+	if (pkey_mprotect(buffer, size, mpa->prot, 0x0) == -1)
-+		tst_brk(TBROK | TERRNO, "pkey_mprotect failed");
-+
-+	switch (mpa->prot) {
-+		case PROT_READ:
-+		tst_res(TPASS, "Read buffer success, buffer[0] = %d", *buffer);
-+	break;
-+		case PROT_WRITE:
-+		*buffer = 'a';
-+	break;
-+		case PROT_READ | PROT_WRITE:
-+		case PROT_READ | PROT_WRITE | PROT_EXEC:
-+		*buffer = 'a';
-+		tst_res(TPASS, "Read & Write buffer success, buffer[0] = %d", *buffer);
-+	break;
-+	}
-+
-+	if (fd >= 0)
-+		SAFE_CLOSE(fd);
-+
-+	SAFE_MUNMAP(buffer, size);
-+
-+	if (pkey_free(pkey) == -1)
-+		tst_brk(TBROK | TERRNO, "pkey_free failed");
-+}
-+
-+static void verify_pkey(unsigned int i)
-+{
-+	long unsigned int j;
-+	struct mmap_param *mpa;
-+
-+	struct tcase *tc = &tcases[i];
-+
-+	for (j = 0; j < ARRAY_SIZE(mmap_params); j++) {
-+		mpa = &mmap_params[j];
-+
-+		pkey_test(tc, mpa);
-+	}
-+}
-+
-+static struct tst_test test = {
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.needs_root = 1,
-+	.forks_child = 1,
-+	.test = verify_pkey,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.save_restore = save_restore,
-+};
--- 
-2.20.1
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+VGhhbmtzIGZvciB5b3VyIHdvcmsuCgpJIHdpbGwgYmFja3BvcnQgdGhlIHBhdGNoIHRvIG15IHBy
+b2plY3QgYWZ0ZXIgbWVyZ2VkLgoKCi0tSG9uZ3poaQoKCgpPbiA2LzI4LzE5IDc6MDkgUE0sIEph
+biBTdGFuY2VrIHdyb3RlOgo+Cj4gLS0tLS0gT3JpZ2luYWwgTWVzc2FnZSAtLS0tLQo+PiAqTHRw
+OioKPj4KPj4gbGF0ZXN0IG1hc3Rlcgo+Pgo+Pgo+PiAqS2VybmVsOioKPj4KPj4gQWZ0ZXIgdjUu
+MSBBUkNIPW1pcHM2NAo+Pgo+Pgo+PiAqRXJyb3IgaW5mbzoqCj4+Cj4+IGRpb3Rlc3Q0IDEwIFRC
+Uk9LIDogZGlvdGVzdDQuYzozNjg6IGNhbid0IG1tYXAgZmlsZTogSW52YWxpZCBhcmd1bWVudAo+
+PiBkaW90ZXN0NCAxMSBUQlJPSyA6IGRpb3Rlc3Q0LmM6MzY4OiBSZW1haW5pbmcgY2FzZXMgYnJv
+a2VuCj4+Cj4+Cj4+IEkgdGhpbmsgdGhlIGZpcnN0IGFyZ3VtZW50IG9mIG1tYXAgaXMgaW52YWxp
+ZC4KPj4KPj4gICDCoMKgID5zaG1fYmFzZSA9IChjaGFyICopKCgobG9uZylzYnJrKDApICsgKHNo
+bXN6IC0gMSkpICYgfihzaG1zeiAtIDEpKTsKPj4KPj4gICDCoMKgID5zaG1fYmFzZSA9IG1tYXAo
+c2htX2Jhc2UsIDB4MTAwMDAwLCBQUk9UX1JFQUQgfCBQUk9UX1dSSVRFLAo+IEkgZG9uJ3Qgc2Vl
+IGFueSBub3RlIHdoeSB0aGF0IG1tYXAgbmVlZHMgdG8gYmUgTUFQX0ZJWEVELiBJJ2QgZHJvcCBp
+dCwKPiBsZXQga2VybmVsIHBpY2sgYW4gYWRkcmVzczoKPgo+IGRpZmYgLS1naXQgYS90ZXN0Y2Fz
+ZXMva2VybmVsL2lvL2RpcmVjdF9pby9kaW90ZXN0NC5jIGIvdGVzdGNhc2VzL2tlcm5lbC9pby9k
+aXJlY3RfaW8vZGlvdGVzdDQuYwo+IGluZGV4IGU0NjE2ZTQwMGFiZC4uYmYyMDBjZDQxYTI3IDEw
+MDY0NAo+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvaW8vZGlyZWN0X2lvL2Rpb3Rlc3Q0LmMKPiAr
+KysgYi90ZXN0Y2FzZXMva2VybmVsL2lvL2RpcmVjdF9pby9kaW90ZXN0NC5jCj4gQEAgLTM1Miwx
+OCArMzUyLDE0IEBAIGludCBtYWluKGludCBhcmdjLCBjaGFyICphcmd2W10pCj4gICAgICAgICAg
+dG90YWwrKzsKPgo+ICAgICAgICAgIC8qIFRlc3QtMTA6IHJlYWQsIHdyaXRlIHRvIGEgbW1hcGVk
+IGZpbGUgKi8KPiAtICAgICAgIHNobV9iYXNlID0gKGNoYXIgKikoKChsb25nKXNicmsoMCkgKyAo
+c2htc3ogLSAxKSkgJiB+KHNobXN6IC0gMSkpOwo+IC0gICAgICAgaWYgKHNobV9iYXNlID09IE5V
+TEwpIHsKPiAtICAgICAgICAgICAgICAgdHN0X2Jya20oVEJST0ssIGNsZWFudXAsICJzYnJrIGZh
+aWxlZDogJXMiLCBzdHJlcnJvcihlcnJubykpOwo+IC0gICAgICAgfQo+ICAgICAgICAgIG9mZnNl
+dCA9IDQwOTY7Cj4gICAgICAgICAgY291bnQgPSBidWZzaXplOwo+ICAgICAgICAgIGlmICgoZmQg
+PSBvcGVuKGZpbGVuYW1lLCBPX0RJUkVDVCB8IE9fUkRXUikpIDwgMCkgewo+ICAgICAgICAgICAg
+ICAgICAgdHN0X2Jya20oVEJST0ssIGNsZWFudXAsICJjYW4ndCBvcGVuICVzOiAlcyIsCj4gICAg
+ICAgICAgICAgICAgICAgICAgICAgICBmaWxlbmFtZSwgc3RyZXJyb3IoZXJybm8pKTsKPiAgICAg
+ICAgICB9Cj4gLSAgICAgICBzaG1fYmFzZSA9IG1tYXAoc2htX2Jhc2UsIDB4MTAwMDAwLCBQUk9U
+X1JFQUQgfCBQUk9UX1dSSVRFLAo+IC0gICAgICAgICAgICAgICAgICAgICAgIE1BUF9TSEFSRUQg
+fCBNQVBfRklYRUQsIGZkLCAwKTsKPiArICAgICAgIHNobV9iYXNlID0gbW1hcCgwLCAweDEwMDAw
+MCwgUFJPVF9SRUFEIHwgUFJPVF9XUklURSwKPiArICAgICAgICAgICAgICAgICAgICAgICBNQVBf
+U0hBUkVELCBmZCwgMCk7Cj4gICAgICAgICAgaWYgKHNobV9iYXNlID09IChjYWRkcl90KSAtIDEp
+IHsKPiAgICAgICAgICAgICAgICAgIHRzdF9icmttKFRCUk9LLCBjbGVhbnVwLCAiY2FuJ3QgbW1h
+cCBmaWxlOiAlcyIsCj4gICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJlcnJvcihlcnJubykp
+Owo+CgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGlu
+Zm8vbHRwCg==
