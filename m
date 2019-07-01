@@ -1,45 +1,47 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A1185B645
-	for <lists+linux-ltp@lfdr.de>; Mon,  1 Jul 2019 10:03:41 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 301E35B6B0
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Jul 2019 10:19:29 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D34933C1DC1
-	for <lists+linux-ltp@lfdr.de>; Mon,  1 Jul 2019 10:03:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D50203C1DC0
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Jul 2019 10:19:28 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id D8B683C1D77
- for <ltp@lists.linux.it>; Mon,  1 Jul 2019 10:03:37 +0200 (CEST)
-Received: from Galois.linutronix.de (Galois.linutronix.de
- [IPv6:2a0a:51c0:0:12e:550::1])
- (using TLSv1.2 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 386C53C1D7C
+ for <ltp@lists.linux.it>; Mon,  1 Jul 2019 10:19:24 +0200 (CEST)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 3BC55140054E
- for <ltp@lists.linux.it>; Mon,  1 Jul 2019 10:03:36 +0200 (CEST)
-Received: from pd9ef1cb8.dip0.t-ipconnect.de ([217.239.28.184] helo=nanos)
- by Galois.linutronix.de with esmtpsa (TLS1.2:DHE_RSA_AES_256_CBC_SHA256:256)
- (Exim 4.80) (envelope-from <tglx@linutronix.de>)
- id 1hhrHd-0000IT-DL; Mon, 01 Jul 2019 10:03:29 +0200
-Date: Mon, 1 Jul 2019 10:03:28 +0200 (CEST)
-From: Thomas Gleixner <tglx@linutronix.de>
-To: Li Wang <liwang@redhat.com>
-In-Reply-To: <CAEemH2cg01cdz=amrCWU00Xof9+cxmfR_DqCBaQe36QoGsakmA@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.1907010959390.1802@nanos.tec.linutronix.de>
-References: <CAEemH2cg01cdz=amrCWU00Xof9+cxmfR_DqCBaQe36QoGsakmA@mail.gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5569210009E3
+ for <ltp@lists.linux.it>; Mon,  1 Jul 2019 10:19:19 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id D231981DE0
+ for <ltp@lists.linux.it>; Mon,  1 Jul 2019 08:19:21 +0000 (UTC)
+Received: from dhcp-3-207.nay.redhat.com (dhcp-3-207.nay.redhat.com
+ [10.66.3.207])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 0D56E5D71C
+ for <ltp@lists.linux.it>; Mon,  1 Jul 2019 08:19:20 +0000 (UTC)
+From: Li Wang <liwang@redhat.com>
+To: ltp@lists.linux.it
+Date: Mon,  1 Jul 2019 16:19:16 +0800
+Message-Id: <20190701081917.32051-1-liwang@redhat.com>
 MIME-Version: 1.0
-X-Linutronix-Spam-Score: -1.0
-X-Linutronix-Spam-Level: -
-X-Linutronix-Spam-Status: No , -1.0 points, 5.0 required, ALL_TRUSTED=-1,
- SHORTCIRCUIT=-0.0001
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+ (mx1.redhat.com [10.5.110.25]); Mon, 01 Jul 2019 08:19:21 +0000 (UTC)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [Kernel BUG?] SMSW operation get success on UMIP KVM guest
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v5 1/2] pkey: add syscall numbers for pkey
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,58 +53,162 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: kernellwp@gmail.com, ricardo.neri-calderon@linux.intel.com,
- ricardo.neri@intel.com, linux-kernel <linux-kernel@vger.kernel.org>,
- Ping Fang <pifang@redhat.com>, pbonzini@redhat.com,
- LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Mon, 1 Jul 2019, Li Wang wrote:
+Signed-off-by: Li Wang <liwang@redhat.com>
+---
+ include/lapi/syscalls/aarch64.in   | 3 +++
+ include/lapi/syscalls/arm.in       | 3 +++
+ include/lapi/syscalls/i386.in      | 3 +++
+ include/lapi/syscalls/ia64.in      | 3 +++
+ include/lapi/syscalls/powerpc.in   | 3 +++
+ include/lapi/syscalls/powerpc64.in | 3 +++
+ include/lapi/syscalls/s390.in      | 3 +++
+ include/lapi/syscalls/s390x.in     | 3 +++
+ include/lapi/syscalls/sparc.in     | 3 +++
+ include/lapi/syscalls/sparc64.in   | 3 +++
+ include/lapi/syscalls/x86_64.in    | 3 +++
+ 11 files changed, 33 insertions(+)
 
-> Hello there,
-> 
-> LTP/umip_basic_test get failed on KVM UMIP system(kernel-v5.2-rc4.x86_64).
-> The test is only trying to do
->      asm volatile("smsw %0\n" : "=m" (val));
-> and expect to get SIGSEGV in this SMSW operation, but it exits with 0
-> unexpectedly.
-> 
-> ====================
-> # grep CONFIG_X86_INTEL_UMIP /boot/config-5.2.0-0.rc4.x86_64
-> CONFIG_X86_INTEL_UMIP=y
-> 
-> # lscpu |grep umip
-> Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge
-> mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp
-> lm constant_tsc rep_good nopl xtopology cpuid tsc_known_freq pni pclmulqdq
-> ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer
-> aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch cpuid_fault
-> invpcid_single pti ssbd ibrs ibpb stibp fsgsbase tsc_adjust bmi1 hle avx2
-> smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt
-> clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves arat umip
-> pku ospke md_clear
-> 
-> # ./umip_basic_test
-> ...
-> umip_basic_test.c:68: INFO: TEST smsw, smsw result save at [0x7ffda00dca70]
-> umip_basic_test.c:118: FAIL: Didn't receive SIGSEGV, child exited with
-> exited with 0
-
-SMSW is emulated and returns a constant value:
-
-#define CR0_STATE       (X86_CR0_PE | X86_CR0_MP | X86_CR0_ET | \
-                         X86_CR0_NE | X86_CR0_WP | X86_CR0_AM | \
-                         X86_CR0_PG)
-
-IIRC that is done to not break stuff like Wine. Ricardo should know the
-details.
-
-Thanks,
-
-	tglx
+diff --git a/include/lapi/syscalls/aarch64.in b/include/lapi/syscalls/aarch64.in
+index ce6080894..7db6e281c 100644
+--- a/include/lapi/syscalls/aarch64.in
++++ b/include/lapi/syscalls/aarch64.in
+@@ -265,5 +265,8 @@ mlock2 284
+ copy_file_range 285
+ preadv2 286
+ pwritev2 287
++pkey_mprotect 288
++pkey_alloc 289
++pkey_free 290
+ pidfd_send_signal 424
+ _sysctl 1078
+diff --git a/include/lapi/syscalls/arm.in b/include/lapi/syscalls/arm.in
+index 33168889f..00e99f2b9 100644
+--- a/include/lapi/syscalls/arm.in
++++ b/include/lapi/syscalls/arm.in
+@@ -349,5 +349,8 @@ mlock2 (__NR_SYSCALL_BASE+390)
+ copy_file_range (__NR_SYSCALL_BASE+391)
+ preadv2 (__NR_SYSCALL_BASE+392)
+ pwritev2 (__NR_SYSCALL_BASE+393)
++pkey_mprotect (__NR_SYSCALL_BASE+394)
++pkey_alloc (__NR_SYSCALL_BASE+395)
++pkey_free (__NR_SYSCALL_BASE+396)
+ statx (__NR_SYSCALL_BASE+397)
+ pidfd_send_signal (__NR_SYSCALL_BASE+424)
+diff --git a/include/lapi/syscalls/i386.in b/include/lapi/syscalls/i386.in
+index 3355b9127..02f3955ba 100644
+--- a/include/lapi/syscalls/i386.in
++++ b/include/lapi/syscalls/i386.in
+@@ -347,5 +347,8 @@ mlock2 376
+ copy_file_range 377
+ preadv2 378
+ pwritev2 379
++pkey_mprotect 380
++pkey_alloc 381
++pkey_free 382
+ statx 383
+ pidfd_send_signal 424
+diff --git a/include/lapi/syscalls/ia64.in b/include/lapi/syscalls/ia64.in
+index 9ac81e91e..cf9f73e85 100644
+--- a/include/lapi/syscalls/ia64.in
++++ b/include/lapi/syscalls/ia64.in
+@@ -305,4 +305,7 @@ mlock2 1346
+ copy_file_range 1347
+ preadv2 1348
+ pwritev2 1349
++pkey_mprotect 1354
++pkey_alloc 1355
++pkey_free 1356
+ pidfd_send_signal 1448
+diff --git a/include/lapi/syscalls/powerpc.in b/include/lapi/syscalls/powerpc.in
+index 488d6dfa9..660165d7a 100644
+--- a/include/lapi/syscalls/powerpc.in
++++ b/include/lapi/syscalls/powerpc.in
+@@ -356,3 +356,6 @@ preadv2 380
+ pwritev2 381
+ statx 383
+ pidfd_send_signal 424
++pkey_mprotect 386
++pkey_alloc 384
++pkey_free 385
+diff --git a/include/lapi/syscalls/powerpc64.in b/include/lapi/syscalls/powerpc64.in
+index 488d6dfa9..660165d7a 100644
+--- a/include/lapi/syscalls/powerpc64.in
++++ b/include/lapi/syscalls/powerpc64.in
+@@ -356,3 +356,6 @@ preadv2 380
+ pwritev2 381
+ statx 383
+ pidfd_send_signal 424
++pkey_mprotect 386
++pkey_alloc 384
++pkey_free 385
+diff --git a/include/lapi/syscalls/s390.in b/include/lapi/syscalls/s390.in
+index 69b49eac0..c304ef4b7 100644
+--- a/include/lapi/syscalls/s390.in
++++ b/include/lapi/syscalls/s390.in
+@@ -338,4 +338,7 @@ mlock2 374
+ copy_file_range 375
+ preadv2 376
+ pwritev2 377
++pkey_mprotect 384
++pkey_alloc 385
++pkey_free 386
+ pidfd_send_signal 424
+diff --git a/include/lapi/syscalls/s390x.in b/include/lapi/syscalls/s390x.in
+index 685c16f68..7d632d1dc 100644
+--- a/include/lapi/syscalls/s390x.in
++++ b/include/lapi/syscalls/s390x.in
+@@ -337,4 +337,7 @@ mlock2 374
+ copy_file_range 375
+ preadv2 376
+ pwritev2 377
++pkey_mprotect 384
++pkey_alloc 385
++pkey_free 386
+ pidfd_send_signal 424
+diff --git a/include/lapi/syscalls/sparc.in b/include/lapi/syscalls/sparc.in
+index e74b48170..ab7204663 100644
+--- a/include/lapi/syscalls/sparc.in
++++ b/include/lapi/syscalls/sparc.in
+@@ -343,4 +343,7 @@ mlock2 356
+ copy_file_range 357
+ preadv2 358
+ pwritev2 359
++pkey_mprotect 362
++pkey_alloc 363
++pkey_free 364
+ pidfd_send_signal 424
+diff --git a/include/lapi/syscalls/sparc64.in b/include/lapi/syscalls/sparc64.in
+index 577aa9b35..d17dce5cd 100644
+--- a/include/lapi/syscalls/sparc64.in
++++ b/include/lapi/syscalls/sparc64.in
+@@ -319,4 +319,7 @@ mlock2 356
+ copy_file_range 357
+ preadv2 358
+ pwritev2 359
++pkey_mprotect 362
++pkey_alloc 363
++pkey_free 364
+ pidfd_send_signal 424
+diff --git a/include/lapi/syscalls/x86_64.in b/include/lapi/syscalls/x86_64.in
+index 99d387277..fdb414c10 100644
+--- a/include/lapi/syscalls/x86_64.in
++++ b/include/lapi/syscalls/x86_64.in
+@@ -314,5 +314,8 @@ mlock2 325
+ copy_file_range 326
+ preadv2 327
+ pwritev2 328
++pkey_mprotect 329
++pkey_alloc 330
++pkey_free 331
+ statx 332
+ pidfd_send_signal 424
+-- 
+2.20.1
 
 
 -- 
