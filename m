@@ -1,51 +1,49 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B53895ADF0
-	for <lists+linux-ltp@lfdr.de>; Sun, 30 Jun 2019 03:51:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id EFA045B507
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Jul 2019 08:27:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 38F603C1CA8
-	for <lists+linux-ltp@lfdr.de>; Sun, 30 Jun 2019 03:51:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8A9EC3C1D8A
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Jul 2019 08:27:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 1A5E63C14F6
- for <ltp@lists.linux.it>; Sun, 30 Jun 2019 03:51:28 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 39EF7600553
- for <ltp@lists.linux.it>; Sun, 30 Jun 2019 03:51:28 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
- [10.5.11.16])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 655B23688B
- for <ltp@lists.linux.it>; Sun, 30 Jun 2019 01:51:24 +0000 (UTC)
-Received: from localhost (dhcp-12-130.nay.redhat.com [10.66.12.130])
- by smtp.corp.redhat.com (Postfix) with ESMTP id D85505C220
- for <ltp@lists.linux.it>; Sun, 30 Jun 2019 01:51:23 +0000 (UTC)
-Date: Sun, 30 Jun 2019 09:51:22 +0800
-From: Murphy Zhou <xzhou@redhat.com>
-To: ltp@lists.linux.it
-Message-ID: <20190630015122.yyft4gka3i67wown@XZHOUW.usersys.redhat.com>
-References: <CAEemH2e5b4q+bOeE3v8FG-piSUteCinPMVmxpnkVcYCmrUc4Uw@mail.gmail.com>
- <20190611074741.31903-1-xzhou@redhat.com>
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 8C7B03C1D57
+ for <ltp@lists.linux.it>; Mon,  1 Jul 2019 08:27:54 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id AE1A71000BC0
+ for <ltp@lists.linux.it>; Mon,  1 Jul 2019 08:27:46 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.63,437,1557158400"; d="scan'208";a="70344591"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 01 Jul 2019 14:27:46 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id C86624CDE658;
+ Mon,  1 Jul 2019 14:27:47 +0800 (CST)
+Received: from [10.167.215.39] (10.167.215.39) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ id 14.3.439.0; Mon, 1 Jul 2019 14:27:48 +0800
+Message-ID: <5D19A7E1.10607@cn.fujitsu.com>
+Date: Mon, 1 Jul 2019 14:27:45 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190611074741.31903-1-xzhou@redhat.com>
-User-Agent: NeoMutt/20180716-1844-e630b3
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.30]); Sun, 30 Jun 2019 01:51:24 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
-X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+To: Po-Hsu Lin <po-hsu.lin@canonical.com>
+References: <20190628103900.10113-1-po-hsu.lin@canonical.com>
+In-Reply-To: <20190628103900.10113-1-po-hsu.lin@canonical.com>
+X-Originating-IP: [10.167.215.39]
+X-yoursite-MailScanner-ID: C86624CDE658.AA2CA
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v7 1/4] lib/tst_ioctl.c: add helper tst_fibmap
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Status: Clean
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] scenario_groups/default: run the kernel_misc test
+ after the cve test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,135 +55,61 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Ping ?
+Hi,
 
-On Tue, Jun 11, 2019 at 03:47:38PM +0800, Murphy Zhou wrote:
-> To check if FIBMAP ioctl is supported by the filesystem we are
-> testing on. It also can check the support status of specific
-> files, but that may not needed for now.
-> 
-> Reviewed-by: Li Wang <liwang@redhat.com>
-> Signed-off-by: Murphy Zhou <xzhou@redhat.com>
+Your patch just workarounds the issue for now, because it still happens 
+if a new test designed to taint
+kernel is added to the group before cve group in future.
+
+Could we save the value of tainted before running block_dev and then 
+restore it after running block_dev?
+
+Best Regards,
+Xiao Yang
+On 2019/06/28 18:39, Po-Hsu Lin wrote:
+> The block_dev test in kernel_misc will taint kernel with a warning flag,
+> this is an expected behaviour.
+>
+> However, if you run the cve-2017-17053 after it, as the test is looking
+> for a warning / died flag for a tainted kernel, it will cause false
+> alarm with:
+>    tst_taint.c:88: BROK: Kernel is already tainted: 14849
+>
+> The kernel_misc test was executed before the cve test in the default
+> test plan. Move the kernel_misc test to the end of the list to
+> workaround this issue.
+>
+> Signed-off-by: Po-Hsu Lin<po-hsu.lin@canonical.com>
 > ---
-> v7:
->   Make tst_fibmap return value more accurate
->   Print errno if fibmap ioctl does not succeed
->   Make swapoff02 use new helper
->   Mute some build warnnings
->   cc linux-fsdevel list
->   Overall diff stat:
-> 
->  include/tst_fs.h                               |  5 +++++
->  lib/tst_ioctl.c                                | 37 +++++++++++++++++++++++++++++++++++++
->  testcases/kernel/syscalls/swapoff/Makefile     |  3 ++-
->  testcases/kernel/syscalls/swapoff/Makefile.inc |  6 ++++++
->  testcases/kernel/syscalls/swapoff/swapoff01.c  | 10 ++--------
->  testcases/kernel/syscalls/swapoff/swapoff02.c  | 11 ++---------
->  testcases/kernel/syscalls/swapon/libswapon.c   | 45 +++++++++++++++++++++++++++++++++++++++++++--
->  testcases/kernel/syscalls/swapon/libswapon.h   |  7 ++++++-
->  testcases/kernel/syscalls/swapon/swapon01.c    | 11 ++---------
->  testcases/kernel/syscalls/swapon/swapon02.c    | 13 +++----------
->  testcases/kernel/syscalls/swapon/swapon03.c    | 15 ++++-----------
->  11 files changed, 112 insertions(+), 51 deletions(-)
-> 
-> v6:
->   Modify make_swapfile() to check mkswap support status safely
->   Remove whitelist
->   Remove BTRFS EINVAL check
->   Check mkswap status before testing swapon in helper
->   If swapon pass, following swapoff failure will fail the whole test and break
->   Also modify swapoff02 to remove whitelist completely
-> v5:
->   Split to 4 patches
->   Only take one filename parameter in tst_fibmap
->   Add helper is_swap_supported to check swap operation support status
->   Test fibmap/swapon and swapoff operation in the helper
->   Keep NFS/TMPFS whitelist
->   Keep BTRFS EINVAL handling logic, except above 2 situation:
->     if swapon fails and fibmap is not supported, tst_brk with TCONF
->     if swapon fails and fibmap is supported, tst_brk with TFAIL
->   If swapon test pass in the helper, test swapoff similarly
->   Put is_swap_supported helper in libswapon, link swapoff binaries to it
->   Mute a sprintf filaname wanrning by the way
-> v4:
->   Fail softly if FIBMAP nit supported, instead of skip entire testcase
-> v3:
->   Fix fs_type undeclared in swapoff01.c
-> v2:
->   Test FIBMAP instead of fstype whitelist
-> 
->  include/tst_fs.h |  5 +++++
->  lib/tst_ioctl.c  | 37 +++++++++++++++++++++++++++++++++++++
->  2 files changed, 42 insertions(+)
->  create mode 100644 lib/tst_ioctl.c
-> 
-> diff --git a/include/tst_fs.h b/include/tst_fs.h
-> index ebca065c6..6d03371ec 100644
-> --- a/include/tst_fs.h
-> +++ b/include/tst_fs.h
-> @@ -178,6 +178,11 @@ const char **tst_get_supported_fs_types(void);
->   */
->  void tst_fill_fs(const char *path, int verbose);
->  
-> +/*
-> + * test if FIBMAP ioctl is supported
-> + */
-> +int tst_fibmap(const char *filename);
-> +
->  #ifdef TST_TEST_H__
->  static inline long tst_fs_type(const char *path)
->  {
-> diff --git a/lib/tst_ioctl.c b/lib/tst_ioctl.c
-> new file mode 100644
-> index 000000000..364220bcd
-> --- /dev/null
-> +++ b/lib/tst_ioctl.c
-> @@ -0,0 +1,37 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +
-> +#include <errno.h>
-> +#include <stdio.h>
-> +#include <stdlib.h>
-> +#include <sys/ioctl.h>
-> +#include <linux/fs.h>
-> +
-> +#define TST_NO_DEFAULT_MAIN
-> +
-> +#include "tst_test.h"
-> +
-> +int tst_fibmap(const char *filename)
-> +{
-> +	/* test if FIBMAP ioctl is supported */
-> +	int fd, block = 0;
-> +
-> +	fd = open(filename, O_RDWR | O_CREAT, 0666);
-> +	if (fd < 0) {
-> +		tst_res(TWARN | TERRNO,
-> +			 "open(%s, O_RDWR | O_CREAT, 0666) failed", filename);
-> +		return -1;
-> +	}
-> +
-> +	if (ioctl(fd, FIBMAP, &block)) {
-> +		tst_res(TINFO | TERRNO, "FIBMAP ioctl is NOT supported");
-> +		close(fd);
-> +		return 1;
-> +	}
-> +	tst_res(TINFO, "FIBMAP ioctl is supported");
-> +
-> +	if (close(fd)) {
-> +		tst_res(TWARN | TERRNO, "close(fd) failed");
-> +		return -1;
-> +	}
-> +	return 0;
-> +}
-> -- 
-> 2.21.0
-> 
+>   scenario_groups/default | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/scenario_groups/default b/scenario_groups/default
+> index 1f3e5b27f..e5b34782c 100644
+> --- a/scenario_groups/default
+> +++ b/scenario_groups/default
+> @@ -22,7 +22,6 @@ power_management_tests
+>   hugetlb
+>   commands
+>   hyperthreading
+> -kernel_misc
+>   fs_ext4
+>   can
+>   cpuhotplug
+> @@ -30,3 +29,4 @@ net.ipv6_lib
+>   input
+>   cve
+>   crypto
+> +kernel_misc
+
+
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
