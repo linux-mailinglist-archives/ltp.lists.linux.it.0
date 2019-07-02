@@ -2,33 +2,33 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 928F85CFFA
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2019 15:04:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 742B15D017
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2019 15:05:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 33F0B3C1D98
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2019 15:04:36 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2F4903C1DA3
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Jul 2019 15:05:19 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 444FC3C1D60
- for <ltp@lists.linux.it>; Tue,  2 Jul 2019 15:04:33 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 78D263C1D60
+ for <ltp@lists.linux.it>; Tue,  2 Jul 2019 15:05:15 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id EC79314016AE
- for <ltp@lists.linux.it>; Tue,  2 Jul 2019 15:04:32 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 09EF514016E4
+ for <ltp@lists.linux.it>; Tue,  2 Jul 2019 15:05:14 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 45E25B8FB;
- Tue,  2 Jul 2019 13:04:32 +0000 (UTC)
-Date: Tue, 2 Jul 2019 15:04:31 +0200
+ by mx1.suse.de (Postfix) with ESMTP id 5612DBA74;
+ Tue,  2 Jul 2019 13:05:14 +0000 (UTC)
+Date: Tue, 2 Jul 2019 15:05:13 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Po-Hsu Lin <po-hsu.lin@canonical.com>
-Message-ID: <20190702130431.GA11122@rei>
+To: Xiao Yang <yangx.jy@cn.fujitsu.com>
+Message-ID: <20190702130513.GB11122@rei>
 References: <20190628103900.10113-1-po-hsu.lin@canonical.com>
+ <5D19A7E1.10607@cn.fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190628103900.10113-1-po-hsu.lin@canonical.com>
+In-Reply-To: <5D19A7E1.10607@cn.fujitsu.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
@@ -48,14 +48,19 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Po-Hsu Lin <po-hsu.lin@canonical.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Pushed, thanks.
+> Your patch just workarounds the issue for now, because it still happens 
+> if a new test designed to taint
+> kernel is added to the group before cve group in future.
+
+Unfortunately there is no better solution for this, so I pushed the
+patch.
 
 -- 
 Cyril Hrubis
