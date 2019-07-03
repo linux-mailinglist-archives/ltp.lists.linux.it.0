@@ -2,46 +2,66 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C00FD5DED1
-	for <lists+linux-ltp@lfdr.de>; Wed,  3 Jul 2019 09:24:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F62D5E200
+	for <lists+linux-ltp@lfdr.de>; Wed,  3 Jul 2019 12:24:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 20A133C1D77
-	for <lists+linux-ltp@lfdr.de>; Wed,  3 Jul 2019 09:24:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 269753C1DB6
+	for <lists+linux-ltp@lfdr.de>; Wed,  3 Jul 2019 12:24:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 7BE493C1D50
- for <ltp@lists.linux.it>; Wed,  3 Jul 2019 09:24:24 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D6D6B600D78
- for <ltp@lists.linux.it>; Wed,  3 Jul 2019 09:24:23 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 64848356D2
- for <ltp@lists.linux.it>; Wed,  3 Jul 2019 07:24:22 +0000 (UTC)
-Received: from dhcp-3-207.nay.redhat.com (dhcp-3-207.nay.redhat.com
- [10.66.3.207])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 5650380F8F;
- Wed,  3 Jul 2019 07:24:21 +0000 (UTC)
-From: Li Wang <liwang@redhat.com>
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 11B763C1D4C
+ for <ltp@lists.linux.it>; Wed,  3 Jul 2019 12:24:12 +0200 (CEST)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id AB7051A014AD
+ for <ltp@lists.linux.it>; Wed,  3 Jul 2019 12:24:11 +0200 (CEST)
+Received: from mail-pg1-f199.google.com ([209.85.215.199])
+ by youngberry.canonical.com with esmtps (TLS1.0:RSA_AES_128_CBC_SHA1:16)
+ (Exim 4.76) (envelope-from <po-hsu.lin@canonical.com>)
+ id 1hicPw-0004SP-0L
+ for ltp@lists.linux.it; Wed, 03 Jul 2019 10:23:12 +0000
+Received: by mail-pg1-f199.google.com with SMTP id f18so1357928pgb.10
+ for <ltp@lists.linux.it>; Wed, 03 Jul 2019 03:23:11 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:subject:date:message-id;
+ bh=cY0g+HzCdq2B8qVGQ9eDJ0qUqd157mDx7Ic0UfNV450=;
+ b=MGxRNraSe/c+6zhI2nFh/H7MDjT9X0gJ+YWFw5DGXbRdl9MJJZ61SkWJ6tutdnFN4r
+ JBnUbenmiLhJZdwDr5KLlYEtnhWmhNgF88S9NJDdymDMRmpxtt+dENF/u6eHJ/NgNFTq
+ 0PZajwd0yjWVOoptGT5LWyxFTtHWjy0wzBj6UIZyinXQ5Jp2uhaJJ+Z9seiyFbCCwRDs
+ XK5djqHyT+vjd314yWlLXHfcCttkFW8eTsFp66IZVmyou+lXc1qAG1kes2Z+vz7EoqPa
+ x+4BGbgxcep6UJVkYBaZjxSsLTSf53cIgpPm8n08gY68fdaKrZdq6xYAhCB8eB6oo8gF
+ qvuw==
+X-Gm-Message-State: APjAAAU9jxvBiRYfGA2tA9yIaHBYFNPgf58Oo1SuaWHcjr0USkF6YiAa
+ h/1/TrwJjii+zocm+Jj8xTYol3jMGlRCzmotMduTG65c9IqY3SZj1CsoetlGSgGle6AkxKh1dSu
+ YjCRelO+1vE/CQKdmx3pIDdjAuro=
+X-Received: by 2002:a17:902:f301:: with SMTP id
+ gb1mr40929579plb.292.1562149390504; 
+ Wed, 03 Jul 2019 03:23:10 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqxIvQmJG1eZmi13phKc6JtsBdK2qF1go2XRJRLwM39QoCLbb+yoOE29vveh1YdqkKanOyz5wA==
+X-Received: by 2002:a17:902:f301:: with SMTP id
+ gb1mr40929539plb.292.1562149390067; 
+ Wed, 03 Jul 2019 03:23:10 -0700 (PDT)
+Received: from Leggiero.taipei.internal (61-220-137-37.HINET-IP.hinet.net.
+ [61.220.137.37])
+ by smtp.gmail.com with ESMTPSA id f19sm3257642pfk.180.2019.07.03.03.23.08
+ for <ltp@lists.linux.it>
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Wed, 03 Jul 2019 03:23:09 -0700 (PDT)
+From: Po-Hsu Lin <po-hsu.lin@canonical.com>
 To: ltp@lists.linux.it
-Date: Wed,  3 Jul 2019 15:24:17 +0800
-Message-Id: <20190703072417.24091-1-liwang@redhat.com>
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.30]); Wed, 03 Jul 2019 07:24:22 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+Date: Wed,  3 Jul 2019 18:23:00 +0800
+Message-Id: <20190703102303.32166-1-po-hsu.lin@canonical.com>
+X-Mailer: git-send-email 2.17.1
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] lib: add tst_no_corefile to avoid corefile dumping
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/3] zram/zram_lib.sh: fix zram_compress_alg() test
+ for zram01
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,132 +73,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-If crash is expected in a testcase, we can avoid dumping core file
-in calling this function.
+The zram_compress_alg() test in zram01 is not working properly, this
+patchset will address the following issues:
+  1. One-liner local variable assignment with space-separated value does
+     not work for DASH, which is symbolically linked to /bin/sh on some
+     OS like Ubuntu.
+  2. Inconsistent variable name for compression algorithms, and the
+     algorithm name needs to be sanitized.
+  3. Hard-coded block device numbers to iterate with. If the number of
+     the available zram compression algorithms is larger than the
+     number of block devices, the test will fail.
 
-Signed-off-by: Li Wang <liwang@redhat.com>
-Cc: Jan Stancek <jstancek@redhat.com>
----
+Po-Hsu Lin (3):
+  zram/zram_lib.sh: fix local variable assignment for DASH
+  zram/zram_lib.sh: fix variable name and algorithm retrieval
+  zram/zram_lib.sh: iterate through all available compression algorithms
+    for all zram block devices
 
-Notes:
-    v1 --> v2
-        * add a paramenter to hide the message print
-        * add notes in test-writing-guidelines.txt
+ .../kernel/device-drivers/zram/zram_lib.sh    | 22 ++++++++++++-------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
- doc/test-writing-guidelines.txt                | 14 ++++++++++++--
- include/tst_safe_macros.h                      | 18 ++++++++++++++++++
- .../kernel/security/umip/umip_basic_test.c     |  2 ++
- testcases/kernel/syscalls/ipc/shmat/shmat01.c  | 16 +++-------------
- 4 files changed, 35 insertions(+), 15 deletions(-)
-
-diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
-index c6d4e001d..1a77db6bf 100644
---- a/doc/test-writing-guidelines.txt
-+++ b/doc/test-writing-guidelines.txt
-@@ -826,8 +826,8 @@ The 'TST_PROCESS_STATE_WAIT()' waits until process 'pid' is in requested
- It's mostly used with state 'S' which means that process is sleeping in kernel
- for example in 'pause()' or any other blocking syscall.
- 
--2.2.10 Signal handlers
--^^^^^^^^^^^^^^^^^^^^^^
-+2.2.10 Signals and signal handlers
-+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
- 
- If you need to use signal handlers, keep the code short and simple. Don't
- forget that the signal handler is called asynchronously and can interrupt the
-@@ -859,6 +859,16 @@ type defined in C99 but this one *DOES NOT* imply 'volatile' (it's just a
- 'typedef' to 'int'). So the correct type for a flag that is changed from a
- signal handler is either 'volatile int' or 'volatile sig_atomic_t'.
- 
-+If a crash (e.g. triggered by signal SIGSEGV) is expected in testing, you can
-+avoid dumping core file via calling this below tst_no_corefile() function.
-+Note that this chanage will only effect on that process with this invoke. And
-+the parameter 'verbose' is used as message print option.
-+
-+[source,c]
-+-------------------------------------------------------------------------------
-+void tst_no_corefile(int verbose);
-+-------------------------------------------------------------------------------
-+
- 2.2.11 Kernel Modules
- ^^^^^^^^^^^^^^^^^^^^^
- 
-diff --git a/include/tst_safe_macros.h b/include/tst_safe_macros.h
-index 53a888c80..c4ddf84ef 100644
---- a/include/tst_safe_macros.h
-+++ b/include/tst_safe_macros.h
-@@ -394,6 +394,24 @@ static inline int safe_setrlimit(const char *file, const int lineno,
- #define SAFE_SETRLIMIT(resource, rlim) \
- 	safe_setrlimit(__FILE__, __LINE__, (resource), (rlim))
- 
-+/*
-+ * Crash is expected, avoid dumping corefile.
-+ * 1 is a special value, that disables core-to-pipe.
-+ * At the same time it is small enough value for
-+ * core-to-file, so it skips creating cores as well.
-+ */
-+static inline void tst_no_corefile(int verbose)
-+{
-+       struct rlimit r;
-+
-+       r.rlim_cur = 1;
-+       r.rlim_max = 1;
-+       SAFE_SETRLIMIT(RLIMIT_CORE, &r);
-+
-+       if (verbose)
-+	       tst_res(TINFO, "Avoid dumping corefile in process(%d)", getpid());
-+}
-+
- typedef void (*sighandler_t)(int);
- static inline sighandler_t safe_signal(const char *file, const int lineno,
- 				       int signum, sighandler_t handler)
-diff --git a/testcases/kernel/security/umip/umip_basic_test.c b/testcases/kernel/security/umip/umip_basic_test.c
-index c34d4a1f6..37850ef9f 100644
---- a/testcases/kernel/security/umip/umip_basic_test.c
-+++ b/testcases/kernel/security/umip/umip_basic_test.c
-@@ -86,6 +86,8 @@ static void verify_umip_instruction(unsigned int n)
- 
- 	pid = SAFE_FORK();
- 	if (pid == 0) {
-+		tst_no_corefile(0);
-+
- 		switch (n) {
- 		case 0:
- 			asm_sgdt();
-diff --git a/testcases/kernel/syscalls/ipc/shmat/shmat01.c b/testcases/kernel/syscalls/ipc/shmat/shmat01.c
-index aa9dfd4e5..f75914799 100644
---- a/testcases/kernel/syscalls/ipc/shmat/shmat01.c
-+++ b/testcases/kernel/syscalls/ipc/shmat/shmat01.c
-@@ -59,19 +59,9 @@ static void *expected_addr(void *in_addr, void *out_addr)
- 
- static void do_child(int *in_addr, int expect_crash)
- {
--	if (expect_crash) {
--		/*
--		 * Crash is expected, avoid dumping corefile.
--		 * 1 is a special value, that disables core-to-pipe.
--		 * At the same time it is small enough value for
--		 * core-to-file, so it skips creating cores as well.
--		*/
--		struct rlimit r;
--
--		r.rlim_cur = 1;
--		r.rlim_max = 1;
--		SAFE_SETRLIMIT(RLIMIT_CORE, &r);
--	}
-+	if (expect_crash)
-+		tst_no_corefile(1);
-+
- 	*in_addr = 10;
- 
- 	exit(0);
 -- 
-2.20.1
+2.17.1
 
 
 -- 
