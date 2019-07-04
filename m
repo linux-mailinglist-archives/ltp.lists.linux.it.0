@@ -1,52 +1,56 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6BD85F404
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jul 2019 09:45:00 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 05A335F453
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jul 2019 10:08:48 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 78C413C1DAC
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jul 2019 09:45:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C6D7D3C1DAB
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jul 2019 10:08:47 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 34F5D3C1D98
- for <ltp@lists.linux.it>; Thu,  4 Jul 2019 09:44:58 +0200 (CEST)
-Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 433ED3C1D96
+ for <ltp@lists.linux.it>; Thu,  4 Jul 2019 10:08:46 +0200 (CEST)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3244120135F
- for <ltp@lists.linux.it>; Thu,  4 Jul 2019 09:44:55 +0200 (CEST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
- [147.11.189.40])
- by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id x647iGhL025559
- (version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
- Thu, 4 Jul 2019 00:44:31 -0700
-Received: from [128.224.162.188] (128.224.162.188) by ALA-HCA.corp.ad.wrs.com
- (147.11.189.50) with Microsoft SMTP Server (TLS) id 14.3.439.0;
- Thu, 4 Jul 2019 00:44:07 -0700
-To: Jan Stancek <jstancek@redhat.com>
-References: <dc4e1e30-face-9039-db90-5a6dae2fc2ea@windriver.com>
- <1731168043.30655111.1561720172996.JavaMail.zimbra@redhat.com>
- <77f916ad-58e3-bf0c-e1e7-da8fc3397ba4@windriver.com>
- <818477200.31466413.1562158387201.JavaMail.zimbra@redhat.com>
- <286312662.31605904.1562198532095.JavaMail.zimbra@redhat.com>
-From: "Hongzhi, Song" <hongzhi.song@windriver.com>
-Message-ID: <faeb7464-f0c8-b97e-3b0b-7f38c2e94b99@windriver.com>
-Date: Thu, 4 Jul 2019 15:44:04 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 167061000D13
+ for <ltp@lists.linux.it>; Thu,  4 Jul 2019 10:08:39 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id EA3213DE0F
+ for <ltp@lists.linux.it>; Thu,  4 Jul 2019 08:08:42 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E135E176D2
+ for <ltp@lists.linux.it>; Thu,  4 Jul 2019 08:08:42 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id D7B181833001;
+ Thu,  4 Jul 2019 08:08:42 +0000 (UTC)
+Date: Thu, 4 Jul 2019 04:08:39 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <2030850327.31633394.1562227719657.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20190703072417.24091-1-liwang@redhat.com>
+References: <20190703072417.24091-1-liwang@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <286312662.31605904.1562198532095.JavaMail.zimbra@redhat.com>
-Content-Language: en-US
-X-Originating-IP: [128.224.162.188]
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Originating-IP: [10.43.17.163, 10.4.195.27]
+Thread-Topic: add tst_no_corefile to avoid corefile dumping
+Thread-Index: 79U7jyLjvYoRgkgdUu31bAqv82uj7g==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+ (mx1.redhat.com [10.5.110.29]); Thu, 04 Jul 2019 08:08:42 +0000 (UTC)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] Bug Report: diotest4 fails on mips64
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] lib: add tst_no_corefile to avoid corefile
+ dumping
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,68 +63,109 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Ck9uIDcvNC8xOSA4OjAyIEFNLCBKYW4gU3RhbmNlayB3cm90ZToKPgo+IC0tLS0tIE9yaWdpbmFs
-IE1lc3NhZ2UgLS0tLS0KPj4gLS0tLS0gT3JpZ2luYWwgTWVzc2FnZSAtLS0tLQo+Pj4gVGhhbmtz
-IGZvciB5b3VyIHdvcmsuCj4+Pgo+Pj4gSSB3aWxsIGJhY2twb3J0IHRoZSBwYXRjaCB0byBteSBw
-cm9qZWN0IGFmdGVyIG1lcmdlZC4KPj4gRG9lcyBpdCBtZWFuLCB0aGF0IHBhdGNoIEkgcG9zdGVk
-IGZpeGVzIHByb2JsZW0gZm9yIHlvdT8KPj4KPj4gRG8geW91IGhhdmUgZ29vZC9iYWQga2VybmVs
-IHZlcnNpb24/IEkgd2FzIGxvb2tpbmcgYXQgcmVjZW50Cj4+IHVwc3RyZWFtIGNoYW5nZXMsIGJ1
-dCBkaWRuJ3Qgc3BvdCBhbnl0aGluZyB0aGF0IGNvdWxkIGV4cGxhaW4KPj4gdGhhdCBFSU5WQUwu
-Cj4gUHJvYmxlbSBhcHBlYXJzIHRvIGJlIHRoYXQgIm1tYXAuaCIgZG9lc24ndCBpbmNsdWRlICJj
-b25maWcuaCIsCj4gc28gTU1BUF9HUkFOVUxBUklUWSBlbmRzIHVwIGJlaW5nIGp1c3Qgc2luZ2xl
-IHBhZ2UuCgpTb3JyeSwgY2FuIHlvdSB0ZWxsIG1lIHRoZSByZWxhdGlvbnNoaXAgYmV0d2VlbiBj
-b25maWcuaCBhbmQgCk1NQVBfR1JBTlVMQVJJVFkgPwoKSSB0ZXN0ZWQgc2V2ZXJhbCB0aW1lcyB0
-aGF0IGluY2x1ZGluZyAiY29uZmlnLmgiIGluZGVlZCBmaXhlZCB0aGUgYnVnLgoKCj4KPiBGb2xs
-b3dpbmcgZml4ZXMgaXQgZm9yIG1lIG9uIHFlbXUgZW11bGF0ZWQgNWtjLW1hbHRhLCBydW5uaW5n
-IDUuMi4wLXJjNzoKPgo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2xhcGkvbW1hcC5oIGIvaW5jbHVk
-ZS9sYXBpL21tYXAuaAo+IGluZGV4IDE4NTQ3YzBkNC4uOThiNmFkZTFlIDEwMDY0NAo+IC0tLSBh
-L2luY2x1ZGUvbGFwaS9tbWFwLmgKPiArKysgYi9pbmNsdWRlL2xhcGkvbW1hcC5oCj4gQEAgLTE5
-LDYgKzE5LDggQEAKPiAgICNpZm5kZWYgTEFQSV9NTUFQX0hfXwo+ICAgI2RlZmluZSBMQVBJX01N
-QVBfSF9fCj4KPiArI2luY2x1ZGUgImNvbmZpZy5oIgo+ICsKPiAgICNpZm5kZWYgTUFQX0hVR0VU
-TEIKPiAgICMgZGVmaW5lIE1BUF9IVUdFVExCIDB4NDAwMDAKPiAgICNlbmRpZgo+Cj4gYnV0IHN0
-aWxsLCBwZXJoYXBzIHdlIHNob3VsZCBhbHNvIGRyb3AgdGhhdCBNQVBfRklYRUQuCgoKQWdyZWUg
-d2l0aCBpdC4gQ291bGQgSSBzZW5kIHRoZSBwYXRjaCB3aXRoIHlvdXIgc2lnbmVkLW9mZj8KCi0t
-SG9uZ3poaQoKCj4KPj4+Cj4+PiAtLUhvbmd6aGkKPj4+Cj4+Pgo+Pj4KPj4+IE9uIDYvMjgvMTkg
-NzowOSBQTSwgSmFuIFN0YW5jZWsgd3JvdGU6Cj4+Pj4gLS0tLS0gT3JpZ2luYWwgTWVzc2FnZSAt
-LS0tLQo+Pj4+PiAqTHRwOioKPj4+Pj4KPj4+Pj4gbGF0ZXN0IG1hc3Rlcgo+Pj4+Pgo+Pj4+Pgo+
-Pj4+PiAqS2VybmVsOioKPj4+Pj4KPj4+Pj4gQWZ0ZXIgdjUuMSBBUkNIPW1pcHM2NAo+Pj4+Pgo+
-Pj4+Pgo+Pj4+PiAqRXJyb3IgaW5mbzoqCj4+Pj4+Cj4+Pj4+IGRpb3Rlc3Q0IDEwIFRCUk9LIDog
-ZGlvdGVzdDQuYzozNjg6IGNhbid0IG1tYXAgZmlsZTogSW52YWxpZCBhcmd1bWVudAo+Pj4+PiBk
-aW90ZXN0NCAxMSBUQlJPSyA6IGRpb3Rlc3Q0LmM6MzY4OiBSZW1haW5pbmcgY2FzZXMgYnJva2Vu
-Cj4+Pj4+Cj4+Pj4+Cj4+Pj4+IEkgdGhpbmsgdGhlIGZpcnN0IGFyZ3VtZW50IG9mIG1tYXAgaXMg
-aW52YWxpZC4KPj4+Pj4KPj4+Pj4gICAgwqDCoCA+c2htX2Jhc2UgPSAoY2hhciAqKSgoKGxvbmcp
-c2JyaygwKSArIChzaG1zeiAtIDEpKSAmIH4oc2htc3ogLSAxKSk7Cj4+Pj4+Cj4+Pj4+ICAgIMKg
-wqAgPnNobV9iYXNlID0gbW1hcChzaG1fYmFzZSwgMHgxMDAwMDAsIFBST1RfUkVBRCB8IFBST1Rf
-V1JJVEUsCj4+Pj4gSSBkb24ndCBzZWUgYW55IG5vdGUgd2h5IHRoYXQgbW1hcCBuZWVkcyB0byBi
-ZSBNQVBfRklYRUQuIEknZCBkcm9wIGl0LAo+Pj4+IGxldCBrZXJuZWwgcGljayBhbiBhZGRyZXNz
-Ogo+Pj4+Cj4+Pj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvaW8vZGlyZWN0X2lvL2Rp
-b3Rlc3Q0LmMKPj4+PiBiL3Rlc3RjYXNlcy9rZXJuZWwvaW8vZGlyZWN0X2lvL2Rpb3Rlc3Q0LmMK
-Pj4+PiBpbmRleCBlNDYxNmU0MDBhYmQuLmJmMjAwY2Q0MWEyNyAxMDA2NDQKPj4+PiAtLS0gYS90
-ZXN0Y2FzZXMva2VybmVsL2lvL2RpcmVjdF9pby9kaW90ZXN0NC5jCj4+Pj4gKysrIGIvdGVzdGNh
-c2VzL2tlcm5lbC9pby9kaXJlY3RfaW8vZGlvdGVzdDQuYwo+Pj4+IEBAIC0zNTIsMTggKzM1Miwx
-NCBAQCBpbnQgbWFpbihpbnQgYXJnYywgY2hhciAqYXJndltdKQo+Pj4+ICAgICAgICAgICB0b3Rh
-bCsrOwo+Pj4+Cj4+Pj4gICAgICAgICAgIC8qIFRlc3QtMTA6IHJlYWQsIHdyaXRlIHRvIGEgbW1h
-cGVkIGZpbGUgKi8KPj4+PiAtICAgICAgIHNobV9iYXNlID0gKGNoYXIgKikoKChsb25nKXNicmso
-MCkgKyAoc2htc3ogLSAxKSkgJiB+KHNobXN6IC0KPj4+PiAxKSk7Cj4+Pj4gLSAgICAgICBpZiAo
-c2htX2Jhc2UgPT0gTlVMTCkgewo+Pj4+IC0gICAgICAgICAgICAgICB0c3RfYnJrbShUQlJPSywg
-Y2xlYW51cCwgInNicmsgZmFpbGVkOiAlcyIsCj4+Pj4gc3RyZXJyb3IoZXJybm8pKTsKPj4+PiAt
-ICAgICAgIH0KPj4+PiAgICAgICAgICAgb2Zmc2V0ID0gNDA5NjsKPj4+PiAgICAgICAgICAgY291
-bnQgPSBidWZzaXplOwo+Pj4+ICAgICAgICAgICBpZiAoKGZkID0gb3BlbihmaWxlbmFtZSwgT19E
-SVJFQ1QgfCBPX1JEV1IpKSA8IDApIHsKPj4+PiAgICAgICAgICAgICAgICAgICB0c3RfYnJrbShU
-QlJPSywgY2xlYW51cCwgImNhbid0IG9wZW4gJXM6ICVzIiwKPj4+PiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBmaWxlbmFtZSwgc3RyZXJyb3IoZXJybm8pKTsKPj4+PiAgICAgICAgICAgfQo+
-Pj4+IC0gICAgICAgc2htX2Jhc2UgPSBtbWFwKHNobV9iYXNlLCAweDEwMDAwMCwgUFJPVF9SRUFE
-IHwgUFJPVF9XUklURSwKPj4+PiAtICAgICAgICAgICAgICAgICAgICAgICBNQVBfU0hBUkVEIHwg
-TUFQX0ZJWEVELCBmZCwgMCk7Cj4+Pj4gKyAgICAgICBzaG1fYmFzZSA9IG1tYXAoMCwgMHgxMDAw
-MDAsIFBST1RfUkVBRCB8IFBST1RfV1JJVEUsCj4+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-TUFQX1NIQVJFRCwgZmQsIDApOwo+Pj4+ICAgICAgICAgICBpZiAoc2htX2Jhc2UgPT0gKGNhZGRy
-X3QpIC0gMSkgewo+Pj4+ICAgICAgICAgICAgICAgICAgIHRzdF9icmttKFRCUk9LLCBjbGVhbnVw
-LCAiY2FuJ3QgbW1hcCBmaWxlOiAlcyIsCj4+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-c3RyZXJyb3IoZXJybm8pKTsKPj4+Pgo+PiAtLQo+PiBNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6
-Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAKPj4KCi0tIApNYWlsaW5nIGxpc3QgaW5mbzog
-aHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+
+----- Original Message -----
+> If crash is expected in a testcase, we can avoid dumping core file
+> in calling this function.
+> 
+> Signed-off-by: Li Wang <liwang@redhat.com>
+> Cc: Jan Stancek <jstancek@redhat.com>
+> ---
+> 
+> Notes:
+>     v1 --> v2
+>         * add a paramenter to hide the message print
+>         * add notes in test-writing-guidelines.txt
+> 
+>  doc/test-writing-guidelines.txt                | 14 ++++++++++++--
+>  include/tst_safe_macros.h                      | 18 ++++++++++++++++++
+>  .../kernel/security/umip/umip_basic_test.c     |  2 ++
+>  testcases/kernel/syscalls/ipc/shmat/shmat01.c  | 16 +++-------------
+>  4 files changed, 35 insertions(+), 15 deletions(-)
+> 
+> diff --git a/doc/test-writing-guidelines.txt
+> b/doc/test-writing-guidelines.txt
+> index c6d4e001d..1a77db6bf 100644
+> --- a/doc/test-writing-guidelines.txt
+> +++ b/doc/test-writing-guidelines.txt
+> @@ -826,8 +826,8 @@ The 'TST_PROCESS_STATE_WAIT()' waits until process 'pid'
+> is in requested
+>  It's mostly used with state 'S' which means that process is sleeping in
+>  kernel
+>  for example in 'pause()' or any other blocking syscall.
+>  
+> -2.2.10 Signal handlers
+> -^^^^^^^^^^^^^^^^^^^^^^
+> +2.2.10 Signals and signal handlers
+> +^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  
+>  If you need to use signal handlers, keep the code short and simple. Don't
+>  forget that the signal handler is called asynchronously and can interrupt
+>  the
+> @@ -859,6 +859,16 @@ type defined in C99 but this one *DOES NOT* imply
+> 'volatile' (it's just a
+>  'typedef' to 'int'). So the correct type for a flag that is changed from a
+>  signal handler is either 'volatile int' or 'volatile sig_atomic_t'.
+>  
+> +If a crash (e.g. triggered by signal SIGSEGV) is expected in testing, you
+> can
+> +avoid dumping core file via calling this below tst_no_corefile() function.
+> +Note that this chanage will only effect on that process with this invoke.
+> And
+
+I'd rephrase it to:
+
+   If a crash (e.g. triggered by signal SIGSEGV) is expected in testing, you
+   can avoid creation of core files by calling tst_no_corefile() function.
+   This takes effect for process (and its children) which invoked it, unless
+   they subsequently modify RLIMIT_CORE.
+
+   Note that LTP library will reap any processes that test didn't reap itself,
+   and report any non-zero exit code as failure.
+
+One note below.
+
+> +the parameter 'verbose' is used as message print option.
+> +
+> +[source,c]
+> +-------------------------------------------------------------------------------
+> +void tst_no_corefile(int verbose);
+> +-------------------------------------------------------------------------------
+> +
+>  2.2.11 Kernel Modules
+>  ^^^^^^^^^^^^^^^^^^^^^
+>  
+> diff --git a/include/tst_safe_macros.h b/include/tst_safe_macros.h
+> index 53a888c80..c4ddf84ef 100644
+> --- a/include/tst_safe_macros.h
+> +++ b/include/tst_safe_macros.h
+> @@ -394,6 +394,24 @@ static inline int safe_setrlimit(const char *file, const
+> int lineno,
+>  #define SAFE_SETRLIMIT(resource, rlim) \
+>  	safe_setrlimit(__FILE__, __LINE__, (resource), (rlim))
+>  
+> +/*
+> + * Crash is expected, avoid dumping corefile.
+> + * 1 is a special value, that disables core-to-pipe.
+> + * At the same time it is small enough value for
+> + * core-to-file, so it skips creating cores as well.
+> + */
+> +static inline void tst_no_corefile(int verbose)
+> +{
+> +       struct rlimit r;
+> +
+> +       r.rlim_cur = 1;
+> +       r.rlim_max = 1;
+> +       SAFE_SETRLIMIT(RLIMIT_CORE, &r);
+
+SAFE_SETRLIMIT is fine if needs_root = 1. But if test runs as unprivileged user
+and RLIMIT_CORE is already 0, unprivileged user won't be able to increase it,
+so we get TBROK here.
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
