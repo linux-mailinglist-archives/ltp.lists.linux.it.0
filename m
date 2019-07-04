@@ -2,51 +2,48 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D1C55F1CC
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jul 2019 05:29:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 946AB5F25D
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jul 2019 07:48:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C502C3C1DA5
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jul 2019 05:29:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4DEA13C1DA4
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Jul 2019 07:48:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id BB0FD3C1D52
- for <ltp@lists.linux.it>; Thu,  4 Jul 2019 05:29:24 +0200 (CEST)
-Received: from mail-vs1-f67.google.com (mail-vs1-f67.google.com
- [209.85.217.67])
+ by picard.linux.it (Postfix) with ESMTP id 7F19B3C1D3D
+ for <ltp@lists.linux.it>; Thu,  4 Jul 2019 07:48:23 +0200 (CEST)
+Received: from mail-vs1-f66.google.com (mail-vs1-f66.google.com
+ [209.85.217.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2F0AA1400528
- for <ltp@lists.linux.it>; Thu,  4 Jul 2019 05:29:22 +0200 (CEST)
-Received: by mail-vs1-f67.google.com with SMTP id 190so1130197vsf.9
- for <ltp@lists.linux.it>; Wed, 03 Jul 2019 20:29:22 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id AF14E1401A96
+ for <ltp@lists.linux.it>; Thu,  4 Jul 2019 07:48:21 +0200 (CEST)
+Received: by mail-vs1-f66.google.com with SMTP id s141so1268625vsc.3
+ for <ltp@lists.linux.it>; Wed, 03 Jul 2019 22:48:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=61djNddAs5Tr56ygUvFtCuHTe5z6u1mgNRRaPJIJ9PU=;
- b=Q8WnDfrPdpFuldvRY7OtPnc52v5nrKlhgE8EppoxU9TsEXNGCM2kFS1TxzH/eM4LdG
- AB02qkkoPzGWczrjN+1ZdLC1kOVhJcVwt52sTITbRsq0XOuLjyvLNylik8tCXkLK/GVy
- gguNCVs9tCffJV2wmwURrZ13OyAMsI3y1aWUJNxzyk1yWclYn21wrGTc6Jra8emZ29Pj
- TNppqyorrjcqkrb60opNG0xGIK0qAw4AjpN4g2O4mP5iiUFv83cfC+5swKvoJxCIC1l5
- mGjpoJXljchuXt0C8Dv2Ol8auQHBaIcb3N2ovKUBJ+HLzLqlIqD/zOKaW3uLXt71BL8k
- 5kgw==
-X-Gm-Message-State: APjAAAVhqk+P9gsCV5/jDNmdblCAJBXLWPhBJ3pPIYYRu3J4xJjkqBtI
- lgHIVC5WJJ1W1nZ0QJuTmGxQ3o9rig8C69JmCjrVmA==
-X-Google-Smtp-Source: APXvYqyZa6zsnK/GYwQxNU7CVgTO7cfMdwILvm9/9nA4xtvaATD59aW/Cu3YFZhTr/gBzEk4b24AWwGrsWJNOI1kCG8=
-X-Received: by 2002:a67:11c1:: with SMTP id 184mr20307130vsr.217.1562210960928; 
- Wed, 03 Jul 2019 20:29:20 -0700 (PDT)
+ bh=ZgCegHdSMHjbIcKQcysNJ+5esBcxXmfHGv1M4BAf0uM=;
+ b=YemhXxGQulaaMi2EV1yYvn0SjuNuL1UhDYG8zv6jsBbmYr7e4SLQuOA585pM7V6+9w
+ o5cx/wwNAuE3fKMz0tWAnY/Z7CPQEOOnxKLC2asG7YwtoOK5s4OQJH2H5opxA0BaUvOz
+ ELIF+goqZglLB/p7t/cYx/8m9u5gt4wMULYP57L95bwHElDjfOA9AR4V1hK4DaNPOLz9
+ eEY/LihNFVOHE95zoaCghqfcq9ItseZFni6YXy4a+3k9V1/DW2jExw0wjDkpE65ceOoC
+ QFtuKbkpS7MzM6D4ALzYybnXw5xpZhcbbYUGaOiywcfbSr1IsFujFIH7rsiU295x50rx
+ 8Z4w==
+X-Gm-Message-State: APjAAAWMy7MLg0mXpNa0sNqH3Ql7f+nEe4gVjwoUN7eNq9ujY6VRk4mu
+ +j7AZb29uF+7fwgKLXEz+PTkq9NLVFQrPs2JKpvQzw==
+X-Google-Smtp-Source: APXvYqxrlYfJlndFU4a/lZS3XKMNDhoCOhiaj77GSIUkkc4Ruz5pG5Dw5ZoyqRwsOlG2iM5AS2utS/LEUzNbyLjZdY8=
+X-Received: by 2002:a67:fc45:: with SMTP id p5mr21508100vsq.179.1562219300344; 
+ Wed, 03 Jul 2019 22:48:20 -0700 (PDT)
 MIME-Version: 1.0
 References: <20190607095213.13372-1-liwang@redhat.com>
- <20190610032754.GA7114@hori.linux.bs1.fc.nec.co.jp>
- <5D0C7204.9020704@cn.fujitsu.com>
- <CAEemH2c+CWAOmAH=1WT+GR-iZ=5RoDcCmD=-zBpc63PHg6xXyQ@mail.gmail.com>
- <5D142EF6.6030402@cn.fujitsu.com>
-In-Reply-To: <5D142EF6.6030402@cn.fujitsu.com>
+ <20190703131005.GA1712@rei>
+In-Reply-To: <20190703131005.GA1712@rei>
 From: Li Wang <liwang@redhat.com>
-Date: Thu, 4 Jul 2019 11:29:09 +0800
-Message-ID: <CAEemH2dHGvv_fP3AFstX5Corc4D0pK_ULGxANzkf4+biR5WC-A@mail.gmail.com>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Date: Thu, 4 Jul 2019 13:48:09 +0800
+Message-ID: <CAEemH2fGUABOfz=Yq6xONgmHwjaiU6n_q=9EXyZz2EUedpuK8Q@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
@@ -65,191 +62,139 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0336046696=="
+Cc: Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>, LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0604857600=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0336046696==
-Content-Type: multipart/alternative; boundary="000000000000642c37058cd295ba"
+--===============0604857600==
+Content-Type: multipart/alternative; boundary="000000000000756c41058cd486e1"
 
---000000000000642c37058cd295ba
+--000000000000756c41058cd486e1
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Xu,
+On Wed, Jul 3, 2019 at 9:10 PM Cyril Hrubis <chrubis@suse.cz> wrote:
 
-On Thu, Jun 27, 2019 at 10:50 AM Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-wrote:
-
-> ...
->> Hi Li
->>
->> Your patch can handle EBUSY errno correctly for soft offline.
->> But move page  may be killed by SIGBUS because of  MCE  when we soft
->> offline concurrently.
->> That leads to move_page failed with ESRCH.   Also, move page may fails
->> with ENOMEM .
->> Do you notice it ?
->>
+> Hi!
+> > +                     if (ret == EINVAL) {
+> >                               SAFE_KILL(cpid, SIGKILL);
+> >                               SAFE_WAITPID(cpid, &status, 0);
+> >                               SAFE_MUNMAP(addr, tcases[n].tpages * hpsz);
+> >                               tst_res(TCONF,
+> >                                       "madvise() didn't support
+> MADV_SOFT_OFFLINE");
+> >                               return;
+> > +                     } else if (ret == EBUSY) {
+> > +                             SAFE_MUNMAP(addr, tcases[n].tpages * hpsz);
+> > +                             goto out;
 >
-> I didn't get this failure, it seems not related to this patch. Two
-> questions:
+> Shouldn't we continue with the test here rather than exit?
 >
-> 1. which kernel version do you test?
-> 2. can you reproduce this without my patch?
->
-> Hi Li
->
-> I test it on 3.10.0-957.el7.x86_64  kvm(my machine was not support numa
-> and i enable it on kvm. as below:
->  <cpu mode='custom' match='exact' check='full'>
->     <model fallback='forbid'>Penryn</model>
->     <feature policy='require' name='x2apic'/>
->     <feature policy='require' name='hypervisor'/>
->     <numa>
->       <cell id='0' cpus='0' memory='1048576' unit='KiB'/>
->       <cell id='1' cpus='1' memory='1048576' unit='KiB'/>
->     </numa>
->   </cpu>
->
-> Does it only exist on kvm and doesn't  exist on physical machine?  I don't
-> have physical machine that supports numa.
+> I guess that there is no harm in doing a few more iterations if we
+> manage to hit EBUSY, or is there a good reason to exit the test here?
 >
 
-I can reproduce your problem on bare metal too, it seems like you hit the
-bug as the commit 6bc9b56433b (mm: fix race on soft-offlining free huge
-pages) described, which Naoya pointed out before:
+Yes, we can do more iterations then, but it probably makes no sense.
 
-See:
+The reason I guess is that, if we get an EBUSY on the hugepage offline,
+that means the page is already being isolated by move_pages() in the child
+at that moment and we can't really release it. So in the next iteration,
+the mmap() will be failed with ENOMEM(since we only have 1 huge page in
+/proc/.../nr_hugepages).
 
-+               /*
-+                * We set PG_hwpoison only when the migration source
-hugepage
-+                * was successfully dissolved, because otherwise hwpoisoned
-+                * hugepage remains on free hugepage list, then userspace
-will
-+                * find it as SIGBUS by allocation failure. That's not
-expected
-+                * in soft-offlining.
-+                */
-+               ret = dissolve_free_huge_page(page);
-+               if (!ret) {
-+                       if (set_hwpoison_free_buddy_page(page))
-+                               num_poisoned_pages_inc();
-+               }
+To confirm that, I change the code to continue after get EBUSY, but it
+couldn't:
 
-And, this bz still exists in the latest rhel7 kernel, I will open a bug to
-RHEL7 product.
+# ./move_pages12
+tst_test.c:1100: INFO: Timeout per run is 0h 05m 00s
+move_pages12.c:251: INFO: Free RAM 30860672 kB
+move_pages12.c:269: INFO: Increasing 2048kB hugepages pool on node 0 to 4
+move_pages12.c:279: INFO: Increasing 2048kB hugepages pool on node 1 to 5
+move_pages12.c:195: INFO: Allocating and freeing 4 hugepages on node 0
+move_pages12.c:195: INFO: Allocating and freeing 4 hugepages on node 1
+move_pages12.c:185: PASS: Bug not reproduced
+move_pages12.c:146: CONF: Cannot allocate hugepage, memory too fragmented?
+
+>
+> Otherwise the patch looks good.
+>
+
+Thanks for review.
 
 -- 
 Regards,
 Li Wang
 
---000000000000642c37058cd295ba
+--000000000000756c41058cd486e1
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Hi Xu,</div></div><br><div class=3D"gmail_quote"><div dir=3D"=
-ltr" class=3D"gmail_attr">On Thu, Jun 27, 2019 at 10:50 AM Yang Xu &lt;<a h=
-ref=3D"mailto:xuyang2018.jy@cn.fujitsu.com">xuyang2018.jy@cn.fujitsu.com</a=
->&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
- 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><u>=
-</u>
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Wed, Jul 3, 2019 at 9:10 PM Cyril Hrubis &lt;<a =
+href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><bl=
+ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
+t:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0if (ret =3D=3D EINVAL) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_KILL(cpid, SIGKILL);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_WAITPID(cpid, &amp;status, 0)=
+;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_MUNMAP(addr, tcases[n].tpages=
+ * hpsz);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TCONF,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;=
+madvise() didn&#39;t support MADV_SOFT_OFFLINE&quot;);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0} else if (ret =3D=3D EBUSY) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_MUNMAP(addr, tcases[n].tpages * hps=
+z);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto out;<br>
+<br>
+Shouldn&#39;t we continue with the test here rather than exit?<br>
+<br>
+I guess that there is no harm in doing a few more iterations if we<br>
+manage to hit EBUSY, or is there a good reason to exit the test here?<br></=
+blockquote><div><br></div><div><div class=3D"gmail_default" style=3D"font-s=
+ize:small">Yes, we can do more iterations then, but it probably makes no se=
+nse.=C2=A0</div><div class=3D"gmail_default" style=3D"font-size:small"><br>=
+</div><div class=3D"gmail_default" style=3D"font-size:small">The reason I g=
+uess is that, if we get an EBUSY on the hugepage offline, that means the pa=
+ge is already being isolated by move_pages() in the child at that moment an=
+d we can&#39;t really release it. So in the next iteration, the mmap() will=
+ be failed with ENOMEM(since we only have 1 huge page in /proc/.../nr_hugep=
+ages).</div></div><div>=C2=A0</div><div><div class=3D"gmail_default" style=
+=3D"font-size:small">To confirm that, I change the code to continue after g=
+et EBUSY, but it couldn&#39;t:</div><div class=3D"gmail_default" style=3D"f=
+ont-size:small"><br></div># ./move_pages12 <br>tst_test.c:1100: INFO: Timeo=
+ut per run is 0h 05m 00s<br>move_pages12.c:251: INFO: Free RAM 30860672 kB<=
+br>move_pages12.c:269: INFO: Increasing 2048kB hugepages pool on node 0 to =
+4<br>move_pages12.c:279: INFO: Increasing 2048kB hugepages pool on node 1 t=
+o 5<br>move_pages12.c:195: INFO: Allocating and freeing 4 hugepages on node=
+ 0<br>move_pages12.c:195: INFO: Allocating and freeing 4 hugepages on node =
+1<br>move_pages12.c:185: PASS: Bug not reproduced<br>move_pages12.c:146: CO=
+NF: Cannot allocate hugepage, memory too fragmented?<br><div class=3D"gmail=
+_default" style=3D"font-size:small"></div></div><blockquote class=3D"gmail_=
+quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
+204);padding-left:1ex">
+<br>
+Otherwise the patch looks good.<br></blockquote><div><br></div><div class=
+=3D"gmail_default" style=3D"font-size:small">Thanks for review.</div></div>=
+<div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=
+=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
 
- =20
-   =20
- =20
-  <div bgcolor=3D"#ffffff">
-    <blockquote type=3D"cite"><div dir=3D"ltr"><div class=3D"gmail_quote"><=
-blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
-eft:1px solid rgb(204,204,204);padding-left:1ex"><span class=3D"gmail_defau=
-lt" style=3D"font-size:small">...</span><br>
-            Hi Li<br>
-            <br>
-            Your patch can handle EBUSY errno correctly for soft
-            offline. <br>
-            But move page=C2=A0 may be killed by SIGBUS because of=C2=A0 MC=
-E=C2=A0 when
-            we soft offline concurrently.=C2=A0 <br>
-            That leads to move_page failed with ESRCH.=C2=A0 =C2=A0Also, mo=
-ve page
-            may fails with ENOMEM .<br>
-            Do you notice it ?<br>
-          </blockquote>
-          <div><br>
-          </div>
-          <div>
-            <div style=3D"font-size:small">I
-              didn&#39;t get this failure, it seems not related to this
-              patch. Two questions:</div>
-            <div style=3D"font-size:small"><br>
-            </div>
-            <div style=3D"font-size:small">1.
-              which kernel version do you test?</div>
-            <div style=3D"font-size:small">2. can
-              you reproduce this without my patch?</div>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-    Hi Li<br>
-    <br>
-    I test it on 3.10.0-957.el7.x86_64=C2=A0 kvm(my machine was not support
-    numa and i enable it on kvm. as below: <br>
-    =C2=A0&lt;cpu mode=3D&#39;custom&#39; match=3D&#39;exact&#39; check=3D&=
-#39;full&#39;&gt;<br>
-    =C2=A0=C2=A0=C2=A0 &lt;model fallback=3D&#39;forbid&#39;&gt;Penryn&lt;/=
-model&gt;<br>
-    =C2=A0=C2=A0=C2=A0 &lt;feature policy=3D&#39;require&#39; name=3D&#39;x=
-2apic&#39;/&gt;<br>
-    =C2=A0=C2=A0=C2=A0 &lt;feature policy=3D&#39;require&#39; name=3D&#39;h=
-ypervisor&#39;/&gt;<br>
-    =C2=A0=C2=A0=C2=A0 &lt;numa&gt;<br>
-    =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &lt;cell id=3D&#39;0&#39; cpus=3D&#39;0&=
-#39; memory=3D&#39;1048576&#39; unit=3D&#39;KiB&#39;/&gt;<br>
-    =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &lt;cell id=3D&#39;1&#39; cpus=3D&#39;1&=
-#39; memory=3D&#39;1048576&#39; unit=3D&#39;KiB&#39;/&gt;<br>
-    =C2=A0=C2=A0=C2=A0 &lt;/numa&gt;<br>
-    =C2=A0 &lt;/cpu&gt;<br>
-    <br>
-    Does it only exist on kvm and doesn&#39;t=C2=A0 exist on physical machi=
-ne?=C2=A0 I
-    don&#39;t have physical machine that supports numa.<br></div></blockquo=
-te><div><br></div><div><div class=3D"gmail_default" style=3D"font-size:smal=
-l">I can reproduce your problem on  bare metal too, it seems like you hit t=
-he bug as the commit 6bc9b56433b (<span class=3D"gmail_default"></span>mm: =
-fix race on soft-offlining free huge pages) described, which Naoya pointed =
-out before:</div><div class=3D"gmail_default" style=3D"font-size:small"><br=
-></div><div class=3D"gmail_default" style=3D"font-size:small">See:</div><di=
-v class=3D"gmail_default" style=3D"font-size:small"><br></div><div class=3D=
-"gmail_default" style=3D"font-size:small">+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 /*</div>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0* We set PG_hwpoison only when the migration source hugepage<br>+=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* was successfully =
-dissolved, because otherwise hwpoisoned<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0* hugepage remains on free hugepage list, then u=
-serspace will<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*=
- find it as SIGBUS by allocation failure. That&#39;s not expected<br>+ =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* in soft-offlining.<br=
->+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br>+ =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D dissolve_free_huge_page(p=
-age);<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!ret) {<br>=
-+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 if (set_hwpoison_free_buddy_page(page))<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 num_poisoned_pages_inc();<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 }<br><div class=3D"gmail_default" style=3D"font-size:small"><=
-br></div><div class=3D"gmail_default" style=3D"font-size:small">And, this b=
-z still exists in the latest rhel7 kernel, I will open a bug to RHEL7 produ=
-ct.<br></div></div></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gm=
-ail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></di=
-v></div></div></div>
+--000000000000756c41058cd486e1--
 
---000000000000642c37058cd295ba--
-
---===============0336046696==
+--===============0604857600==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -259,4 +204,4 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============0336046696==--
+--===============0604857600==--
