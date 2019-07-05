@@ -2,47 +2,48 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C4BA61D3B
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Jul 2019 12:45:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4217A63F17
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2019 04:05:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 175A33C1C72
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Jul 2019 12:45:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E08A83C1D02
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2019 04:05:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 749323C17A2
- for <ltp@lists.linux.it>; Mon,  8 Jul 2019 12:45:49 +0200 (CEST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 733863C14F5
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2019 04:05:31 +0200 (CEST)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id BAFF71A01073
- for <ltp@lists.linux.it>; Mon,  8 Jul 2019 12:45:47 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.63,466,1557158400"; d="scan'208";a="70953528"
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id AE99E600B8B
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2019 04:05:25 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.63,472,1557158400"; d="scan'208";a="71066041"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 08 Jul 2019 18:45:45 +0800
+ by heian.cn.fujitsu.com with ESMTP; 10 Jul 2019 10:05:22 +0800
 Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id 2EB4A4CDDD5A;
- Mon,  8 Jul 2019 18:45:48 +0800 (CST)
+ by cn.fujitsu.com (Postfix) with ESMTP id DAAEB4B40405;
+ Wed, 10 Jul 2019 10:05:16 +0800 (CST)
 Received: from localhost.localdomain (10.167.215.46) by
  G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Mon, 8 Jul 2019 18:45:43 +0800
+ (TLS) id 14.3.439.0; Wed, 10 Jul 2019 10:05:25 +0800
 From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <amir73il@gmail.com>, <ltp@lists.linux.it>
-Date: Sat, 6 Jul 2019 04:42:37 +0800
-Message-ID: <1562359357-24526-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+To: <chrubis@suse.cz>
+Date: Sat, 6 Jul 2019 06:48:56 +0800
+Message-ID: <1562366936-26456-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <CAOQ4uxgUfhDL3kE_2xFKTnfs+Pgn5UJ38n2aFxz4XndfUeFX8A@mail.gmail.com>
-References: <CAOQ4uxgUfhDL3kE_2xFKTnfs+Pgn5UJ38n2aFxz4XndfUeFX8A@mail.gmail.com>
+In-Reply-To: <20190709105303.GA4914@rei.lan>
+References: <20190709105303.GA4914@rei.lan>
 MIME-Version: 1.0
 X-Originating-IP: [10.167.215.46]
-X-yoursite-MailScanner-ID: 2EB4A4CDDD5A.A34C9
+X-yoursite-MailScanner-ID: DAAEB4B40405.AF9E2
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Spam-Status: No, score=2.1 required=7.0 tests=DATE_IN_PAST_96_XX,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] syscalls/copy_file_range02: increase coverage and
- remove EXDEV test
+X-Spam-Level: **
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH RESEND] syscalls/prctl06.c: New test for prctl() with
+ PR_{SET, GET}_NO_NEW_PRIVS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,272 +55,308 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Since Amir path for copy_file_range has been merged into linux-xfs,
-I add test for swapfile, immutable file, bounds in ltp.  Also, add test
-for block char pipe dev and remove EXDEV test(5.3 will relax the cross-device
-constraint[2]).  I follow xfstests code[3][4][5] and increase it .
-
-[1]https://git.kernel.org/pub/scm/linux/kernel/git/djwong/xfs-linux.git/commit/?h=for-next-5.3&id=5dae222a5ff0c269730393018a5539cc970a4726
-[2]https://git.kernel.org/pub/scm/linux/kernel/git/djwong/xfs-linux.git/commit/?h=for-next-5.3&id=96e6e8f4a68df2d94800311163faa67124df24e5
-[3]https://patchwork.kernel.org/patch/10971759/
-[4]https://patchwork.kernel.org/patch/10971747/
-[5]https://patchwork.kernel.org/patch/10961421/
-
 Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 ---
- .../copy_file_range/copy_file_range.h         |  11 +-
- .../copy_file_range/copy_file_range02.c       | 139 +++++++++++++++---
- 2 files changed, 130 insertions(+), 20 deletions(-)
+ include/lapi/prctl.h                          |   5 +
+ runtest/syscalls                              |   1 +
+ testcases/kernel/syscalls/prctl/.gitignore    |   1 +
+ testcases/kernel/syscalls/prctl/prctl06.c     | 173 ++++++++++++++++++
+ .../kernel/syscalls/prctl/prctl06_execve.c    |  65 +++++++
+ 5 files changed, 245 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/prctl/prctl06.c
+ create mode 100644 testcases/kernel/syscalls/prctl/prctl06_execve.c
 
-diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range.h b/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
-index b6d132978..f9e2565d9 100644
---- a/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
-+++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
-@@ -9,6 +9,7 @@
+diff --git a/include/lapi/prctl.h b/include/lapi/prctl.h
+index ad0b12bce..54b3da20f 100644
+--- a/include/lapi/prctl.h
++++ b/include/lapi/prctl.h
+@@ -24,4 +24,9 @@
+ # define PR_GET_CHILD_SUBREAPER	37
+ #endif
  
- #include <stdbool.h>
- #include <unistd.h>
-+#include <sys/sysmacros.h>
- #include "lapi/syscalls.h"
- 
- #define TEST_VARIANTS	2
-@@ -18,10 +19,18 @@
- #define FILE_DEST_PATH  "file_dest"
- #define FILE_RDONL_PATH "file_rdonl"
- #define FILE_DIR_PATH	"file_dir"
--#define FILE_MNTED_PATH	MNTPOINT"/file_mnted"
-+#define FILE_IMMUTABLE_PATH "file_immutable"
-+#define FILE_SWAP_PATH "file_swap"
-+#define FILE_BLKDEV    "file_blk"
-+#define FILE_CHRDEV    "file_chr"
-+#define FILE_FIFO      "file_fifo"
-+#define FILE_COPY_PATH  "file_copy"
- 
- #define CONTENT		"ABCDEFGHIJKLMNOPQRSTUVWXYZ12345\n"
- #define CONTSIZE	(sizeof(CONTENT) - 1)
-+#define MAX_LEN   ((long long)(~0ULL >> 1))
-+#define MIN_OFF   65537
-+#define MAX_OFF   (MAX_LEN - MIN_OFF)
- 
- static void syscall_info(void)
- {
-diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
-index 07c0207c2..89519ac1d 100644
---- a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
-+++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
-@@ -10,15 +10,25 @@
-  *
-  * 1) Try to copy contents to file open as readonly
-  *    -> EBADF
-- * 2) Try to copy contents to file on different mounted
-- *    filesystem -> EXDEV
-- * 3) Try to copy contents to directory -> EISDIR
-- * 4) Try to copy contents to a file opened with the
-+ * 2) Try to copy contents to directory -> EISDIR
-+ * 3) Try to copy contents to a file opened with the
-  *    O_APPEND flag -> EBADF
-- * 5) Try to copy contents to closed filedescriptor
-+ * 4) Try to copy contents to closed filedescriptor
-  *    -> EBADF
-- * 6) Try to copy contents with invalid 'flags' value
-+ * 5) Try to copy contents with invalid 'flags' value
-  *    -> EINVAL
-+ * 6) Try to copy contents to a file chattred with +i
-+ *    flag -> EPERM
-+ * 7) Try to copy contents to a swapfile ->ETXTBSY
-+ * 8) Try to copy contents to the samefile with overlapping
-+ *    ->EINVAL
-+ * 9) Try to copy contents to a blkdev ->EINVAL
-+ * 10) Try to copy contents to a chardev ->EINVAL
-+ * 11) Try to copy contents to a FIFO ->EINVAL
-+ * 12) Try to copy contents to a file with length beyond
-+ *     8EiB wraps around 0 -> EOVERFLOW
-+ * 13) Try to copy contents to a file with target file range
-+ *     beyond 8TiB ->EFBIG
-  */
- 
- #define _GNU_SOURCE
-@@ -29,30 +39,74 @@
- static int fd_src;
- static int fd_dest;
- static int fd_rdonly;
--static int fd_mnted;
- static int fd_dir;
- static int fd_closed;
- static int fd_append;
-+static int fd_immutable;
-+static int fd_swapfile;
-+static int fd_dup;
-+static int fd_blkdev;
-+static int fd_chrdev;
-+static int fd_fifo;
-+static int fd_copy;
++#ifndef PR_SET_NO_NEW_PRIVS
++# define PR_SET_NO_NEW_PRIVS 38
++# define PR_GET_NO_NEW_PRIVS 39
++#endif
 +
-+static int chattr_i_nsup;
-+static int swap_nsup;
+ #endif /* LAPI_PRCTL_H__ */
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 702d6a8c7..a9cad6748 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -860,6 +860,7 @@ prctl02 prctl02
+ prctl03 prctl03
+ prctl04 prctl04
+ prctl05 prctl05
++prctl06 prctl06
  
- static struct tcase {
- 	int	*copy_to_fd;
- 	int	flags;
- 	int	exp_err;
-+	loff_t  dst;
-+	loff_t     len;
- } tcases[] = {
--	{&fd_rdonly,	0,	EBADF},
--	{&fd_mnted,	0,	EXDEV},
--	{&fd_dir,	0,	EISDIR},
--	{&fd_append,	0,	EBADF},
--	{&fd_closed,	0,	EBADF},
--	{&fd_dest,	-1,	EINVAL},
-+	{&fd_rdonly,	0,   EBADF,      0,     CONTSIZE},
-+	{&fd_dir,	0,   EISDIR,     0,     CONTSIZE},
-+	{&fd_append,	0,   EBADF,      0,     CONTSIZE},
-+	{&fd_closed,	0,   EBADF,      0,     CONTSIZE},
-+	{&fd_dest,	-1,  EINVAL,     0,     CONTSIZE},
-+	{&fd_immutable, 0,   EPERM,      0,     CONTSIZE},
-+	{&fd_swapfile,  0,   ETXTBSY,    0,     CONTSIZE},
-+	{&fd_dup,       0,   EINVAL,     0,     CONTSIZE/2},
-+	{&fd_blkdev,    0,   EINVAL,     0,     CONTSIZE},
-+	{&fd_chrdev,    0,   EINVAL,     0,     CONTSIZE},
-+	{&fd_fifo,      0,   EINVAL,     0,     CONTSIZE},
-+	{&fd_copy,      0,   EOVERFLOW,  MAX_OFF, 2*MAX_LEN},
-+	{&fd_copy,      0,   EFBIG,      MAX_OFF, MIN_OFF},
- };
- 
-+static int run_command(char *command, char *option, char *file)
+ pread01 pread01
+ pread01_64 pread01_64
+diff --git a/testcases/kernel/syscalls/prctl/.gitignore b/testcases/kernel/syscalls/prctl/.gitignore
+index 9ecaf9854..f52f6f665 100644
+--- a/testcases/kernel/syscalls/prctl/.gitignore
++++ b/testcases/kernel/syscalls/prctl/.gitignore
+@@ -3,3 +3,4 @@
+ /prctl03
+ /prctl04
+ /prctl05
++/prctl06
+diff --git a/testcases/kernel/syscalls/prctl/prctl06.c b/testcases/kernel/syscalls/prctl/prctl06.c
+new file mode 100644
+index 000000000..9dd82a241
+--- /dev/null
++++ b/testcases/kernel/syscalls/prctl/prctl06.c
+@@ -0,0 +1,173 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2019 FUJITSU LIMITED. All rights reserved.
++ * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
++ *
++ * Test PR_GET_NO_NEW_PRIVS and PR_SET_NO_NEW_PRIVS of prctl(2).
++ *
++ * 1)Return the value of the no_new_privs bit for the calling thread.
++ *  A value of 0 indicates the regular execve(2) behavior.  A value of
++ *  1 indicates execve(2) will operate in the privilege-restricting mode.
++ * 2)With no_new_privs set to 1, diables privilege granting operations
++ *  at execve-time. For example, a process will not be able to execute a
++ *  setuid binary to change their uid or gid if this bit is set. The same
++ *  is true for file capabilities.
++ * 3)The setting of this bit is inherited by children created by fork(2).
++ *  We also check NoNewPrivs field in /proc/[pid]/status if it supports.
++ */
++
++#include <errno.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <sys/prctl.h>
++#include <pwd.h>
++#include <sys/types.h>
++#include <unistd.h>
++#include <sys/capability.h>
++#include <lapi/prctl.h>
++#include "tst_test.h"
++
++#define IPC_ENV_VAR        "LTP_IPC_PATH"
++#define MNTPOINT           "mntpoint"
++#define TESTBIN            "prctl06_execve"
++#define TEST_REL_BIN_DIR   MNTPOINT"/"
++#define SUID_MODE          (S_ISUID|S_ISGID|S_IXUSR|S_IXGRP|S_IXOTH)
++
++static int flag = 1;
++static char CapEff[20];
++
++static void check_proc_field(int val, char *name)
 +{
-+	const char *const cmd[] = {command, option, file, NULL};
-+	int ret;
++	char path[50];
++	pid_t pid;
++	int field = 0;
 +
-+	ret = tst_run_cmd(cmd, NULL, NULL, 1);
-+	switch (ret) {
-+	case 0:
-+	return 0;
-+	case 255:
-+		tst_res(TCONF, "%s binary not installed", command);
-+	return 1;
-+	default:
-+		tst_res(TCONF, "%s exited with %i", command, ret);
-+	return 2;
++	pid = getpid();
++	sprintf(path, "/proc/%d/status", pid);
++
++	TEST(FILE_LINES_SCANF(path, "NoNewPrivs:%d", &field));
++	if (TST_RET == 1) {
++		tst_res(TCONF,
++			"/proc/[pid]/status doesn't support NoNewPrivs field");
++		flag = 0;
++		return;
++	}
++	if (val == field)
++		tst_res(TPASS, "%s %s NoNewPrivs field expected %d got %d",
++			name, path, val, field);
++	else
++		tst_res(TFAIL, "%s %s NoNewPrivs field expected %d got %d",
++			name, path, val, field);
++
++	SAFE_FILE_LINES_SCANF(path, "CapEff:%s", CapEff);
++}
++
++static void check_no_new_privs(int val, char *name)
++{
++	TEST(prctl(PR_GET_NO_NEW_PRIVS, 0, 0, 0, 0));
++	if (TST_RET == val)
++		tst_res(TPASS,
++			"%s prctl(PR_GET_NO_NEW_PRIVS) expected %d got %d",
++			name, val, val);
++	else
++		tst_res(TFAIL,
++			"%s prctl(PR_GET_NO_NEW_PRIVS) expected %d got %ld",
++			name, val, TST_RET);
++	if (flag)
++		check_proc_field(val, name);
++}
++
++static void do_prctl(void)
++{
++	char ipc_env_var[1024];
++	char *const argv[] = {"prctl06_execve", "parent process", CapEff, NULL};
++	char *const childargv[] = {"prctl06_execve", "child process", CapEff, NULL};
++	char *const envp[] = {"LTP_TEST_ENV_VAR=test", ipc_env_var, NULL };
++	int childpid;
++	struct passwd *pw;
++	uid_t nobody_uid;
++	gid_t nobody_gid;
++
++	pw = SAFE_GETPWNAM("nobody");
++	nobody_uid = pw->pw_uid;
++	nobody_gid = pw->pw_gid;
++
++	check_no_new_privs(0, "parent");
++	tst_res(TINFO,
++		"parent process CapEff %s when no new privs was 0", CapEff);
++
++	TEST(prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0));
++	if (TST_RET == -1) {
++		tst_res(TFAIL | TTERRNO, "prctl(PR_SET_NO_NEW_PRIVS) failed");
++		return;
++	}
++	tst_res(TPASS, "prctl(PR_SET_NO_NEW_PRIVS) succeeded");
++
++	SAFE_CHMOD("prctl06_execve", SUID_MODE);
++	SAFE_SETGID(nobody_gid);
++	SAFE_SETUID(nobody_uid);
++
++	sprintf(ipc_env_var, IPC_ENV_VAR "=%s", getenv(IPC_ENV_VAR));
++
++	childpid = SAFE_FORK();
++	if (childpid == 0) {
++		check_no_new_privs(1, "child");
++		execve("prctl06_execve", childargv, envp);
++		tst_brk(TFAIL | TTERRNO,
++			"child process failed to execute prctl_execve");
++
++	} else {
++		tst_reap_children();
++		check_no_new_privs(1, "parent");
++		tst_res(TINFO,
++			"parent process CapEff %s when no new privs was 1", CapEff);
++		execve("prctl06_execve", argv, envp);
++		tst_brk(TFAIL | TTERRNO,
++			"parent process failed to execute prctl_execve");
 +	}
 +}
 +
- static void verify_copy_file_range(unsigned int n)
- {
- 	struct tcase *tc = &tcases[n];
-+	if (tc->exp_err == ETXTBSY && chattr_i_nsup) {
-+		tst_res(TCONF, "filesystem doesn't support chattr +i, skip it");
-+		return;
++static void verify_prctl(void)
++{
++	int pid;
++
++	pid = SAFE_FORK();
++	if (pid == 0) {
++		do_prctl();
++		exit(0);
 +	}
-+	if (tc->exp_err == EPERM && swap_nsup) {
-+		tst_res(TCONF, "filesystem doesn't support swapfile, skip it");
-+		return;
-+	}
- 
- 	TEST(sys_copy_file_range(fd_src, 0, *tc->copy_to_fd,
--				0, CONTSIZE, tc->flags));
-+				&tc->dst, tc->len, tc->flags));
- 
- 	if (TST_RET == -1) {
- 		if (tc->exp_err == TST_ERR) {
-@@ -76,33 +130,80 @@ static void cleanup(void)
- 		SAFE_CLOSE(fd_append);
- 	if (fd_dir > 0)
- 		SAFE_CLOSE(fd_dir);
--	if (fd_mnted > 0)
--		SAFE_CLOSE(fd_mnted);
- 	if (fd_rdonly > 0)
- 		SAFE_CLOSE(fd_rdonly);
- 	if (fd_dest > 0)
- 		SAFE_CLOSE(fd_dest);
- 	if (fd_src > 0)
- 		SAFE_CLOSE(fd_src);
-+	if (fd_immutable > 0) {
-+		run_command("chattr", "-i", FILE_IMMUTABLE_PATH);
-+		SAFE_CLOSE(fd_immutable);
-+	}
-+	if (fd_swapfile > 0) {
-+		run_command("swapoff", FILE_SWAP_PATH, NULL);
-+		SAFE_CLOSE(fd_swapfile);
-+	}
-+	if (fd_dup > 0)
-+		SAFE_CLOSE(fd_dup);
-+	if (fd_copy > 0)
-+		SAFE_CLOSE(fd_copy);
++	tst_reap_children();
++}
 +
-+	SAFE_UNLINK(FILE_BLKDEV);
-+	SAFE_UNLINK(FILE_CHRDEV);
-+	SAFE_UNLINK(FILE_FIFO);
- }
- 
- static void setup(void)
- {
- 	syscall_info();
-+	dev_t dev[2];
-+
-+	dev[1] = makedev(7, 127);
-+	dev[2] = makedev(1, 3);
- 
- 	if (access(FILE_DIR_PATH, F_OK) == -1)
- 		SAFE_MKDIR(FILE_DIR_PATH, 0777);
- 
-+	SAFE_MKNOD(FILE_BLKDEV, S_IFBLK | 0777, dev[1]);
-+	SAFE_MKNOD(FILE_CHRDEV, S_IFCHR | 0777, dev[2]);
-+	SAFE_MKNOD(FILE_FIFO, S_IFIFO | 0777, 0);
-+
- 	fd_src    = SAFE_OPEN(FILE_SRC_PATH, O_RDWR | O_CREAT, 0664);
- 	fd_dest   = SAFE_OPEN(FILE_DEST_PATH, O_RDWR | O_CREAT, 0664);
- 	fd_rdonly = SAFE_OPEN(FILE_RDONL_PATH, O_RDONLY | O_CREAT, 0664);
--	fd_mnted  = SAFE_OPEN(FILE_MNTED_PATH, O_RDWR | O_CREAT, 0664);
- 	fd_dir    = SAFE_OPEN(FILE_DIR_PATH, O_DIRECTORY);
- 	fd_closed = -1;
- 	fd_append = SAFE_OPEN(FILE_DEST_PATH,
- 			O_RDWR | O_CREAT | O_APPEND, 0664);
-+	fd_immutable = SAFE_OPEN(FILE_IMMUTABLE_PATH, O_RDWR | O_CREAT, 0664);
-+	fd_swapfile = SAFE_OPEN(FILE_SWAP_PATH, O_RDWR | O_CREAT, 0600);
-+	fd_blkdev = SAFE_OPEN(FILE_BLKDEV, O_RDWR, 0664);
-+	fd_chrdev = SAFE_OPEN(FILE_CHRDEV, O_RDWR, 0664);
-+	fd_fifo = SAFE_OPEN(FILE_FIFO, O_RDWR, 0664);
-+
-+	SAFE_WRITE(1, fd_src, CONTENT, CONTSIZE);
-+	close(fd_src);
-+	fd_src = SAFE_OPEN(FILE_SRC_PATH, O_RDONLY, 0664);
-+	fd_dup = SAFE_OPEN(FILE_SRC_PATH, O_WRONLY|O_CREAT, 0666);
-+
-+	fd_copy = SAFE_OPEN(FILE_COPY_PATH, O_RDWR | O_CREAT | O_TRUNC, 0664);
-+	chattr_i_nsup = run_command("chattr", "+i", FILE_IMMUTABLE_PATH);
-+
-+	if (!tst_fs_has_free(".", sysconf(_SC_PAGESIZE) * 10, TST_BYTES)) {
-+		tst_res(TCONF, "Insufficient disk space to create swap file");
-+		swap_nsup = 3;
++static void setup(void)
++{
++	TEST(prctl(PR_GET_NO_NEW_PRIVS, 0, 0, 0, 0));
++	if (TST_RET == 0) {
++		tst_res(TINFO, "kernel supports PR_GET/SET_NO_NEW_PRIVS");
++		SAFE_CP(TESTBIN, TEST_REL_BIN_DIR);
 +		return;
 +	}
 +
-+	if (tst_fill_file(FILE_SWAP_PATH, 0, sysconf(_SC_PAGESIZE), 10) != 0) {
-+		tst_res(TCONF, "Failed to create swapfile");
-+		swap_nsup = 4;
-+		return;
-+	}
- 
--	SAFE_WRITE(1, fd_src,  CONTENT,  CONTSIZE);
-+	swap_nsup = run_command("mkswap", FILE_SWAP_PATH, NULL);
-+	swap_nsup = run_command("swapon", FILE_SWAP_PATH, NULL);
- }
- 
- static struct tst_test test = {
-@@ -113,6 +214,6 @@ static struct tst_test test = {
- 	.needs_root = 1,
- 	.mount_device = 1,
- 	.mntpoint = MNTPOINT,
--	.dev_fs_type = "ext4",
-+	.all_filesystems = 1,
- 	.test_variants = TEST_VARIANTS,
- };
++	if (TST_ERR == EINVAL)
++		tst_brk(TCONF,
++			"kernel doesn't support PR_GET/SET_NO_NEW_PRIVS");
++
++	tst_brk(TBROK | TTERRNO,
++		"current environment doesn't permit PR_GET/SET_NO_NEW_PRIVS");
++}
++
++static const char *const resfile[] = {
++	TESTBIN,
++	NULL,
++};
++
++static struct tst_test test = {
++	.resource_files = resfile,
++	.setup = setup,
++	.test_all = verify_prctl,
++	.forks_child = 1,
++	.needs_root = 1,
++	.mount_device = 1,
++	.mntpoint = MNTPOINT,
++	.child_needs_reinit = 1,
++};
+diff --git a/testcases/kernel/syscalls/prctl/prctl06_execve.c b/testcases/kernel/syscalls/prctl/prctl06_execve.c
+new file mode 100644
+index 000000000..6b256afae
+--- /dev/null
++++ b/testcases/kernel/syscalls/prctl/prctl06_execve.c
+@@ -0,0 +1,65 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2019 FUJITSU LIMITED. All rights reserved.
++ * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
++ *
++ * dummy program which is used by prctl06 testcase
++ */
++#define TST_NO_DEFAULT_MAIN
++#include <stdlib.h>
++#include <sys/types.h>
++#include <unistd.h>
++#include <errno.h>
++#include <pwd.h>
++#include <stdio.h>
++#include <string.h>
++#include "tst_test.h"
++
++int main(int argc, char **argv)
++{
++	struct passwd *pw;
++	uid_t unknown_uid;
++	gid_t unknown_gid;
++	char path[50];
++	char CapEff[20];
++	pid_t pid;
++
++	tst_reinit();
++	if (argc != 3)
++		tst_brk(TFAIL, "argc is %d, expected 3", argc);
++
++	pid = getpid();
++	sprintf(path, "/proc/%d/status", pid);
++	SAFE_FILE_LINES_SCANF(path, "CapEff:%s", CapEff);
++
++	if (strncmp(CapEff, argv[2], sizeof(CapEff)))
++		tst_res(TFAIL,
++			"%s gains root privileges, current CapEff %s, expect %s",
++			argv[1], CapEff, argv[2]);
++	else
++		tst_res(TPASS,
++			"%s doesn't gain root privileges, CapEff %s",
++			argv[1], CapEff);
++
++	pw = SAFE_GETPWNAM("nobody");
++	unknown_uid = pw->pw_uid + 1;
++	unknown_gid = pw->pw_gid + 1;
++
++	TEST(setgid(unknown_gid));
++	if (TST_RET == -1)
++		tst_res(TPASS,
++			"%s setgid(%d) isn't permmit", argv[1], unknown_gid);
++	else
++		tst_res(TFAIL, "%s setgid(%d) succeed expectedly",
++			argv[1], unknown_gid);
++
++	TEST(setuid(unknown_uid));
++	if (TST_RET == -1)
++		tst_res(TPASS,
++			"%s setuid(%d) isn't permmit", argv[1], unknown_uid);
++	else
++		tst_res(TFAIL, " %s setuid(%d) succeed unexpectedly",
++			argv[1], unknown_gid);
++
++	return 0;
++}
 -- 
 2.18.1
 
