@@ -1,47 +1,65 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD6FC6007F
-	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jul 2019 07:16:15 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 549BE60936
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jul 2019 17:22:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 41FD93C1DA7
-	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jul 2019 07:16:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DB5C63C1DC8
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jul 2019 17:22:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 757863C1D38
- for <ltp@lists.linux.it>; Fri,  5 Jul 2019 07:16:12 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id C5A283C1D31
+ for <ltp@lists.linux.it>; Fri,  5 Jul 2019 17:22:35 +0200 (CEST)
+Received: from mail-yb1-xb43.google.com (mail-yb1-xb43.google.com
+ [IPv6:2607:f8b0:4864:20::b43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C4B8720135C
- for <ltp@lists.linux.it>; Fri,  5 Jul 2019 07:16:10 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 57CB981F13
- for <ltp@lists.linux.it>; Fri,  5 Jul 2019 05:16:08 +0000 (UTC)
-Received: from dhcp-3-207.nay.redhat.com (dhcp-3-207.nay.redhat.com
- [10.66.3.207])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 473511001B18;
- Fri,  5 Jul 2019 05:16:07 +0000 (UTC)
-From: Li Wang <liwang@redhat.com>
-To: ltp@lists.linux.it
-Date: Fri,  5 Jul 2019 13:16:03 +0800
-Message-Id: <20190705051603.24599-1-liwang@redhat.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 90F69600EA6
+ for <ltp@lists.linux.it>; Fri,  5 Jul 2019 17:22:34 +0200 (CEST)
+Received: by mail-yb1-xb43.google.com with SMTP id x4so2363409ybk.0
+ for <ltp@lists.linux.it>; Fri, 05 Jul 2019 08:22:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=r6MOqOqm/SjfdcdgaZhyQjNhfZIJo1z/27MiPsGZNxo=;
+ b=nwL8Kj/qBXySgup6akoVSUZhb3nTlaXVOviJMvORnnS5nLEUPe5KE+wjfgVgaRS55I
+ IwYf1Nzgli3MBxaa910aptxN5hU3zAYZ2N98j5Ki29qhjfc2d9FjD4Uyg8g6CTw1CVvx
+ AhxIwhebPAkyP8B/wxTqhjEh/glXJOMd01K1jYoFIwyRF59hSWUDf2mYjdzUzi/p79jb
+ hHOogauqrDTPmKb+JPvfikTR/l2BMX2zdQ2j7MlNVAzVGP199IlkMV+0QJJGhf9kTsSe
+ MbN+gOljK+ouPzIQDqnpzl1sYa1kpvAi6Rti4L9F+Fq89iQYewJPZ1bVP38aEsRXlWoN
+ 9hiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=r6MOqOqm/SjfdcdgaZhyQjNhfZIJo1z/27MiPsGZNxo=;
+ b=blk2gFs0ME44RmvbUaPNAKRq+Vwu0ehiuH9aOTBr6ChnNAnsPB+b0TJvX84AOcZVN8
+ KQO/gW+C3G2ozLlwEI5X1rWRkSvYtXRvW3jgk4SBWd0G/htvEPsW3HeiSM50SAtPCvPk
+ mdRUWMIgl2b8nRB46rxDf7MHIp+OEdaUCBbG6s8v0V0FvZuugOT3XM9g1ADVUJtKlluP
+ akYJQZ1oNBeucK7vNYiUzKZZW8cWGR/xYgqIwv6M4zhwvglxrZe6hKFAXVMh8l/cIVVu
+ W8mc+P/0GUNb9PMsV7dMK7JwjSNQv76SzUDRSazPPKQ0DrbH3KkbcQm696Rj9QeNO5Zq
+ bJWQ==
+X-Gm-Message-State: APjAAAWaueT/ecFL+/Egozz6s1oaxPFzPhWcIxAPtFRHxdc/Obz8DLtb
+ Nzov4P4bHkJIKpC24INIzcL/LSD3eCDxPF+tya4=
+X-Google-Smtp-Source: APXvYqxiB78IeKMXlPGXWUE4cMQpjDGqTeTYBV5GxhdtLbhtHCwMkhhyTJGUEs24xsm+Dku1DdNK5qvDaFBoYqtc2ZA=
+X-Received: by 2002:a25:c486:: with SMTP id u128mr2666400ybf.428.1562340153258; 
+ Fri, 05 Jul 2019 08:22:33 -0700 (PDT)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.25]); Fri, 05 Jul 2019 05:16:08 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+References: <1562125302-4279-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+In-Reply-To: <1562125302-4279-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Fri, 5 Jul 2019 18:22:21 +0300
+Message-ID: <CAOQ4uxgUfhDL3kE_2xFKTnfs+Pgn5UJ38n2aFxz4XndfUeFX8A@mail.gmail.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v3] lib: add tst_no_corefile()
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/copy_file_range02: increase coverage and
+ remove EXDEV test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,184 +71,289 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Adds a simple helper to avoid corefile dump.
+On Fri, Jul 5, 2019 at 12:37 PM Yang Xu <xuyang2018.jy@cn.fujitsu.com> wrote:
+>
+> Since Amir path for copy_file_range has been merged into linux-xfs,
+> I add test for swapfile, immutable file, bounds in ltp.  Also, add test
+> for block char pipe dev and remove EXDEV test(5.3 will relax the cross-device
+> constraint[2]).  I follow xfstests code[3][4][5] and increase it .
+>
+> [1]https://git.kernel.org/pub/scm/linux/kernel/git/djwong/xfs-linux.git/commit/?h=for-next-5.3&id=5dae222a5ff0c269730393018a5539cc970a4726
+> [2]https://git.kernel.org/pub/scm/linux/kernel/git/djwong/xfs-linux.git/commit/?h=for-next-5.3&id=96e6e8f4a68df2d94800311163faa67124df24e5
+> [3]https://patchwork.kernel.org/patch/10971759/
+> [4]https://patchwork.kernel.org/patch/10971747/
+> [5]https://patchwork.kernel.org/patch/10961421/
+>
+> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+> ---
+>  .../copy_file_range/copy_file_range.h         |  11 +-
+>  .../copy_file_range/copy_file_range02.c       | 127 +++++++++++++++---
+>  2 files changed, 118 insertions(+), 20 deletions(-)
+>
+> diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range.h b/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
+> index b6d132978..22bbb46a5 100644
+> --- a/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
+> +++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
+> @@ -9,6 +9,7 @@
+>
+>  #include <stdbool.h>
+>  #include <unistd.h>
+> +#include <sys/sysmacros.h>
+>  #include "lapi/syscalls.h"
+>
+>  #define TEST_VARIANTS  2
+> @@ -18,10 +19,18 @@
+>  #define FILE_DEST_PATH  "file_dest"
+>  #define FILE_RDONL_PATH "file_rdonl"
+>  #define FILE_DIR_PATH  "file_dir"
+> -#define FILE_MNTED_PATH        MNTPOINT"/file_mnted"
+> +#define FILE_IMMUTABLE_PATH "file_immutable"
+> +#define FILE_SWAP_PATH "file_swap"
+> +#define FILE_BLKDEV    "file_blk"
+> +#define FILE_CHRDEV    "file_chr"
+> +#define FILE_FIFO      "file_fifo"
+> +#define FILE_COPY_PATH  "file_copy"
+>
+>  #define CONTENT                "ABCDEFGHIJKLMNOPQRSTUVWXYZ12345\n"
+>  #define CONTSIZE       (sizeof(CONTENT) - 1)
+> +#define MAX_OFF   9223372036854712050
 
-If crash is expected in a testcase, we can avoid dumping core file
-in calling this function.
+Please use the expression instead of the unexplained value
 
-Signed-off-by: Li Wang <liwang@redhat.com>
-Cc: Jan Stancek <jstancek@redhat.com>
----
- doc/test-writing-guidelines.txt               | 12 +++++-
- include/tst_coredump.h                        | 18 +++++++++
- include/tst_test.h                            |  1 +
- lib/tst_coredump.c                            | 40 +++++++++++++++++++
- .../kernel/security/umip/umip_basic_test.c    |  2 +
- testcases/kernel/syscalls/ipc/shmat/shmat01.c | 16 ++------
- 6 files changed, 74 insertions(+), 15 deletions(-)
- create mode 100644 include/tst_coredump.h
- create mode 100644 lib/tst_coredump.c
+> +#define MIN_OFF   65537
+> +#define MAX_LEN   9223372036854775807
 
-diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
-index c6d4e001d..a0f9cea71 100644
---- a/doc/test-writing-guidelines.txt
-+++ b/doc/test-writing-guidelines.txt
-@@ -826,8 +826,8 @@ The 'TST_PROCESS_STATE_WAIT()' waits until process 'pid' is in requested
- It's mostly used with state 'S' which means that process is sleeping in kernel
- for example in 'pause()' or any other blocking syscall.
- 
--2.2.10 Signal handlers
--^^^^^^^^^^^^^^^^^^^^^^
-+2.2.10 Signals and signal handlers
-+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
- 
- If you need to use signal handlers, keep the code short and simple. Don't
- forget that the signal handler is called asynchronously and can interrupt the
-@@ -859,6 +859,14 @@ type defined in C99 but this one *DOES NOT* imply 'volatile' (it's just a
- 'typedef' to 'int'). So the correct type for a flag that is changed from a
- signal handler is either 'volatile int' or 'volatile sig_atomic_t'.
- 
-+If a crash (e.g. triggered by signal SIGSEGV) is expected in testing, you
-+can avoid creation of core files by calling tst_no_corefile() function.
-+This takes effect for process (and its children) which invoked it, unless
-+they subsequently modify RLIMIT_CORE.
-+
-+Note that LTP library will reap any processes that test didn't reap itself,
-+and report any non-zero exit code as failure.
-+
- 2.2.11 Kernel Modules
- ^^^^^^^^^^^^^^^^^^^^^
- 
-diff --git a/include/tst_coredump.h b/include/tst_coredump.h
-new file mode 100644
-index 000000000..e1f892544
---- /dev/null
-+++ b/include/tst_coredump.h
-@@ -0,0 +1,18 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2019 Red Hat, Inc.
-+ */
-+
-+#ifndef TST_COREDUMP__
-+#define TST_COREDUMP__
-+
-+/*
-+ * If crash is expected, avoid dumping corefile.
-+ * 1 is a special value, that disables core-to-pipe.
-+ * At the same time it is small enough value for
-+ * core-to-file, so it skips creating cores as well.
-+ */
-+void tst_no_corefile(int verbose);
-+
-+#endif /* TST_COREDUMP_H */
-+
-diff --git a/include/tst_test.h b/include/tst_test.h
-index 2e8e36352..b50e88b60 100644
---- a/include/tst_test.h
-+++ b/include/tst_test.h
-@@ -33,6 +33,7 @@
- #include "tst_get_bad_addr.h"
- #include "tst_path_has_mnt_flags.h"
- #include "tst_sys_conf.h"
-+#include "tst_coredump.h"
- 
- /*
-  * Reports testcase result.
-diff --git a/lib/tst_coredump.c b/lib/tst_coredump.c
-new file mode 100644
-index 000000000..907c06dca
---- /dev/null
-+++ b/lib/tst_coredump.c
-@@ -0,0 +1,40 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2019 Red Hat, Inc.
-+ */
-+
-+#define TST_NO_DEFAULT_MAIN
-+
-+#include <sys/time.h>
-+#include <sys/resource.h>
-+
-+#include "tst_test.h"
-+#include "tst_coredump.h"
-+
-+void tst_no_corefile(int verbose)
-+{
-+	struct rlimit new_r, old_r;
-+
-+	new_r.rlim_cur = 1;
-+	new_r.rlim_max = 1;
-+
-+	if (setrlimit(RLIMIT_CORE, &new_r) == -1) {
-+		if (getrlimit(RLIMIT_CORE, &old_r) == -1) {
-+			tst_res(TWARN | TERRNO,
-+				"Failed to disable core dump, "
-+				"getrlimit failed in process(%d)",
-+				getpid());
-+			return;
-+		}
-+
-+		tst_res(TWARN,
-+			"Failed to disable core dump in process(pid=%d), "
-+			"current limits: soft=%lld; hard=%lld", getpid(),
-+			(long long) old_r.rlim_cur,
-+			(long long) old_r.rlim_max);
-+		return;
-+	}
-+
-+	if (verbose)
-+		tst_res(TINFO, "Avoid dumping corefile for process(pid=%d)", getpid());
-+}
-diff --git a/testcases/kernel/security/umip/umip_basic_test.c b/testcases/kernel/security/umip/umip_basic_test.c
-index c34d4a1f6..37850ef9f 100644
---- a/testcases/kernel/security/umip/umip_basic_test.c
-+++ b/testcases/kernel/security/umip/umip_basic_test.c
-@@ -86,6 +86,8 @@ static void verify_umip_instruction(unsigned int n)
- 
- 	pid = SAFE_FORK();
- 	if (pid == 0) {
-+		tst_no_corefile(0);
-+
- 		switch (n) {
- 		case 0:
- 			asm_sgdt();
-diff --git a/testcases/kernel/syscalls/ipc/shmat/shmat01.c b/testcases/kernel/syscalls/ipc/shmat/shmat01.c
-index aa9dfd4e5..f75914799 100644
---- a/testcases/kernel/syscalls/ipc/shmat/shmat01.c
-+++ b/testcases/kernel/syscalls/ipc/shmat/shmat01.c
-@@ -59,19 +59,9 @@ static void *expected_addr(void *in_addr, void *out_addr)
- 
- static void do_child(int *in_addr, int expect_crash)
- {
--	if (expect_crash) {
--		/*
--		 * Crash is expected, avoid dumping corefile.
--		 * 1 is a special value, that disables core-to-pipe.
--		 * At the same time it is small enough value for
--		 * core-to-file, so it skips creating cores as well.
--		*/
--		struct rlimit r;
--
--		r.rlim_cur = 1;
--		r.rlim_max = 1;
--		SAFE_SETRLIMIT(RLIMIT_CORE, &r);
--	}
-+	if (expect_crash)
-+		tst_no_corefile(1);
-+
- 	*in_addr = 10;
- 
- 	exit(0);
--- 
-2.20.1
+Same here
 
+>
+>  static void syscall_info(void)
+>  {
+> diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+> index 07c0207c2..b408d738d 100644
+> --- a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+> +++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+> @@ -10,15 +10,25 @@
+>   *
+>   * 1) Try to copy contents to file open as readonly
+>   *    -> EBADF
+> - * 2) Try to copy contents to file on different mounted
+> - *    filesystem -> EXDEV
+> - * 3) Try to copy contents to directory -> EISDIR
+> - * 4) Try to copy contents to a file opened with the
+> + * 2) Try to copy contents to directory -> EISDIR
+> + * 3) Try to copy contents to a file opened with the
+>   *    O_APPEND flag -> EBADF
+> - * 5) Try to copy contents to closed filedescriptor
+> + * 4) Try to copy contents to closed filedescriptor
+>   *    -> EBADF
+> - * 6) Try to copy contents with invalid 'flags' value
+> + * 5) Try to copy contents with invalid 'flags' value
+>   *    -> EINVAL
+> + * 6) Try to copy contents to a file chattred with +i
+> + *    flag -> EPERM
+> + * 7) Try to copy contents to a swapfile ->ETXTBSY
+> + * 8) Try to copy contents to the samefile with overlapping
+> + *    ->EINVAL
+> + * 9) Try to copy contents to a blkdev ->EINVAL
+> + * 10) Try to copy contents to a chardev ->EINVAL
+> + * 11) Try to copy contents to a FIFO ->EINVAL
+> + * 12) Try to copy contents to a file with length beyond
+> + *     8EiB wraps around 0 -> EOVERFLOW
+> + * 13) Try to copy contents to a file with target file range
+> + *     beyond 8TiB ->EFBIG
+>   */
+>
+>  #define _GNU_SOURCE
+> @@ -29,30 +39,61 @@
+>  static int fd_src;
+>  static int fd_dest;
+>  static int fd_rdonly;
+> -static int fd_mnted;
+>  static int fd_dir;
+>  static int fd_closed;
+>  static int fd_append;
+> +static int fd_immutable;
+> +static int fd_swapfile;
+> +static int fd_dup;
+> +static int fd_blkdev;
+> +static int fd_chrdev;
+> +static int fd_fifo;
+> +static int fd_copy;
+>
+>  static struct tcase {
+>         int     *copy_to_fd;
+>         int     flags;
+>         int     exp_err;
+> +       loff_t  dst;
+> +       loff_t     len;
+>  } tcases[] = {
+> -       {&fd_rdonly,    0,      EBADF},
+> -       {&fd_mnted,     0,      EXDEV},
+> -       {&fd_dir,       0,      EISDIR},
+> -       {&fd_append,    0,      EBADF},
+> -       {&fd_closed,    0,      EBADF},
+> -       {&fd_dest,      -1,     EINVAL},
+> +       {&fd_rdonly,    0,   EBADF,      0,     CONTSIZE},
+> +       {&fd_dir,       0,   EISDIR,     0,     CONTSIZE},
+> +       {&fd_append,    0,   EBADF,      0,     CONTSIZE},
+> +       {&fd_closed,    0,   EBADF,      0,     CONTSIZE},
+> +       {&fd_dest,      -1,  EINVAL,     0,     CONTSIZE},
+> +       {&fd_immutable, 0,   EPERM,      0,     CONTSIZE},
+> +       {&fd_swapfile,  0,   ETXTBSY,    0,     CONTSIZE},
+> +       {&fd_dup,       0,   EINVAL,     0,     CONTSIZE/2},
+> +       {&fd_blkdev,    0,   EINVAL,     0,     CONTSIZE},
+> +       {&fd_chrdev,    0,   EINVAL,     0,     CONTSIZE},
+> +       {&fd_fifo,      0,   EINVAL,     0,     CONTSIZE},
+> +       {&fd_copy,      0,   EOVERFLOW,  MAX_OFF, 2*MAX_LEN},
+> +       {&fd_copy,      0,   EFBIG,      MAX_OFF, MIN_OFF},
+>  };
+>
+> +static void run_command(char *command, char *option, char *file)
+> +{
+> +       const char *const cmd[] = {command, option, file, NULL};
+> +       int ret;
+> +
+> +       ret = tst_run_cmd(cmd, NULL, NULL, 1);
+> +       switch (ret) {
+> +       case 0:
+> +       break;
+> +       case 255:
+> +               tst_res(TCONF, "%s binary not installed", command);
+> +       break;
+> +       default:
+> +               tst_res(TCONF, "%s exited with %i", command, ret);
+> +       }
+> +}
+> +
+>  static void verify_copy_file_range(unsigned int n)
+>  {
+>         struct tcase *tc = &tcases[n];
+> -
+>         TEST(sys_copy_file_range(fd_src, 0, *tc->copy_to_fd,
+> -                               0, CONTSIZE, tc->flags));
+> +                               &tc->dst, tc->len, tc->flags));
+>
+>         if (TST_RET == -1) {
+>                 if (tc->exp_err == TST_ERR) {
+> @@ -76,33 +117,81 @@ static void cleanup(void)
+>                 SAFE_CLOSE(fd_append);
+>         if (fd_dir > 0)
+>                 SAFE_CLOSE(fd_dir);
+> -       if (fd_mnted > 0)
+> -               SAFE_CLOSE(fd_mnted);
+>         if (fd_rdonly > 0)
+>                 SAFE_CLOSE(fd_rdonly);
+>         if (fd_dest > 0)
+>                 SAFE_CLOSE(fd_dest);
+>         if (fd_src > 0)
+>                 SAFE_CLOSE(fd_src);
+> +       if (fd_immutable > 0) {
+> +               run_command("chattr", "-i", FILE_IMMUTABLE_PATH);
+> +               SAFE_CLOSE(fd_immutable);
+> +       }
+> +       if (fd_swapfile > 0) {
+> +               run_command("swapoff", FILE_SWAP_PATH, NULL);
+> +               SAFE_CLOSE(fd_swapfile);
+> +       }
+> +       if (fd_dup > 0)
+> +               SAFE_CLOSE(fd_dup);
+> +       if (fd_copy > 0)
+> +               SAFE_CLOSE(fd_copy);
+> +
+> +       SAFE_UNLINK(FILE_BLKDEV);
+> +       SAFE_UNLINK(FILE_CHRDEV);
+> +       SAFE_UNLINK(FILE_FIFO);
+>  }
+>
+>  static void setup(void)
+>  {
+>         syscall_info();
+> +       int swap_flag = 1;
+> +       dev_t dev[3];
+> +
+> +       dev[1] = makedev(7, 3);
+
+You've picked /dev/loop3, which is high likely to be a real device
+on a system where this test is run and with release kernel this test
+may write over that real device - not a good thing.
+My xfstest uses device (7, 123), which has better odds to be unused,
+but I think I may switch to a test owned device before proposing the
+test for merge.
+
+> +       dev[2] = makedev(7, 4);
+
+Would be safer to use a known device like /dev/null IMO
+
+> +       dev[3] = makedev(7, 5);
+
+dev[3] not needed for S_FIFO
+
+>
+>         if (access(FILE_DIR_PATH, F_OK) == -1)
+>                 SAFE_MKDIR(FILE_DIR_PATH, 0777);
+>
+> +       SAFE_MKNOD(FILE_BLKDEV, S_IFBLK | 0777, dev[1]);
+> +       SAFE_MKNOD(FILE_CHRDEV, S_IFCHR | 0777, dev[2]);
+
+Would be safer to use a known device like /dev/null IMO
+
+> +       SAFE_MKNOD(FILE_FIFO, S_IFIFO | 0777, dev[3]);
+> +
+>         fd_src    = SAFE_OPEN(FILE_SRC_PATH, O_RDWR | O_CREAT, 0664);
+>         fd_dest   = SAFE_OPEN(FILE_DEST_PATH, O_RDWR | O_CREAT, 0664);
+>         fd_rdonly = SAFE_OPEN(FILE_RDONL_PATH, O_RDONLY | O_CREAT, 0664);
+> -       fd_mnted  = SAFE_OPEN(FILE_MNTED_PATH, O_RDWR | O_CREAT, 0664);
+>         fd_dir    = SAFE_OPEN(FILE_DIR_PATH, O_DIRECTORY);
+>         fd_closed = -1;
+>         fd_append = SAFE_OPEN(FILE_DEST_PATH,
+>                         O_RDWR | O_CREAT | O_APPEND, 0664);
+> +       fd_immutable = SAFE_OPEN(FILE_IMMUTABLE_PATH, O_RDWR | O_CREAT, 0664);
+> +       fd_swapfile = SAFE_OPEN(FILE_SWAP_PATH, O_RDWR | O_CREAT, 0600);
+> +       fd_blkdev = SAFE_OPEN(FILE_BLKDEV, O_RDWR, 0664);
+> +       fd_chrdev = SAFE_OPEN(FILE_CHRDEV, O_RDWR, 0664);
+> +       fd_fifo = SAFE_OPEN(FILE_FIFO, O_RDWR, 0664);
+> +
+> +       SAFE_WRITE(1, fd_src, CONTENT, CONTSIZE);
+> +       close(fd_src);
+> +       fd_src = SAFE_OPEN(FILE_SRC_PATH, O_RDONLY, 0664);
+> +       fd_dup = SAFE_OPEN(FILE_SRC_PATH, O_WRONLY|O_CREAT, 0666);
+> +
+> +       fd_copy = SAFE_OPEN(FILE_COPY_PATH, O_RDWR | O_CREAT | O_TRUNC, 0664);
+> +       run_command("chattr", "+i", FILE_IMMUTABLE_PATH);
+
+fs may not support chattr +i. immutable file test case should be
+skipped in that case.
+
+>
+> -       SAFE_WRITE(1, fd_src,  CONTENT,  CONTSIZE);
+> +       if (!tst_fs_has_free(".", sysconf(_SC_PAGESIZE) * 10, TST_BYTES)) {
+> +               tst_res(TCONF, "Insufficient disk space to create swap file");
+> +               swap_flag = 0;
+> +       }
+> +
+> +       if (tst_fill_file(FILE_SWAP_PATH, 0, sysconf(_SC_PAGESIZE), 10) != 0) {
+> +               tst_res(TCONF, "Failed to create swapfile");
+> +               swap_flag = 0;
+> +       }
+> +       if (swap_flag) {
+> +               run_command("mkswap", FILE_SWAP_PATH, NULL);
+> +               run_command("swapon", FILE_SWAP_PATH, NULL);
+
+fs may not support swap. swapfile test case should be skipped in that case.
+
+Please make sure run your test on release kernel and not only on xfs-next
+when you test it.
+You may want to run on older kernel with btrfs to see how no support
+for swapfiles behaves.
+
+Thanks,
+Amir.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
