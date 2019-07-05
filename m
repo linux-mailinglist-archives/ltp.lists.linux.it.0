@@ -2,70 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A9CB6163E
-	for <lists+linux-ltp@lfdr.de>; Sun,  7 Jul 2019 21:01:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C4BA61D3B
+	for <lists+linux-ltp@lfdr.de>; Mon,  8 Jul 2019 12:45:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C9BBA3C18FD
-	for <lists+linux-ltp@lfdr.de>; Sun,  7 Jul 2019 21:01:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 175A33C1C72
+	for <lists+linux-ltp@lfdr.de>; Mon,  8 Jul 2019 12:45:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 0125C3C1D04
- for <ltp@lists.linux.it>; Sun,  7 Jul 2019 21:00:35 +0200 (CEST)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8648D1A00E67
- for <ltp@lists.linux.it>; Sun,  7 Jul 2019 21:00:34 +0200 (CEST)
-Received: by mail-wr1-x442.google.com with SMTP id f9so14672878wre.12
- for <ltp@lists.linux.it>; Sun, 07 Jul 2019 12:00:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=4HYBxlOybXKQVP2iNeqVFst2n2tPhRJThNX+8BEq2yI=;
- b=Aa+tx16jw0G/vlLf8jTQfTYAOGkWDZJNLrQIRuzce8vkvluZMs4wE4RGaTw9sSk9gQ
- v5sY3RoPUA3HJMFwdSPspvIjaZoWS3PsxYkFrnev6WeyZ5VEiysgvuVa795/y3WPnTRq
- fnhHCaAJgolLm/0+pg0FfaLI7fDPwUW/YXiDe7N+rdBvitHWmIRruxv//BryiA19WSgg
- v15KXBgEJgrQZGmyfhSKZ5EyRo3fAEnfr3qZryEDQbAIJSbN97BMfOQgRdXwT8EF1u7U
- qM8aKNWvC74h1W0bwN7ogZd+f3vFbarD8zqJvnBp/nXui5YP9ESHW3Y438n//Zo2uszI
- IZkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=4HYBxlOybXKQVP2iNeqVFst2n2tPhRJThNX+8BEq2yI=;
- b=FkA3dWyc+F4ZdNeYBYuaYZYjjLz6RtvmwcDApl0L0j3doIN6A6KISm1nY0Kc5g0vu6
- 6MHRwQGwmRCk/D8TpXyOqYaMYhJ6/CtiotCutQqeqUKklxKtd1gLnWL1Wo0OjRNRZFZ1
- TnTctXM9ir811fKl5KL4s0tF4iXN+USCPMm9W/ri1wlQYtrYuh9a54bIRKaQdRmG1hht
- fC2tOP7BBLoAkFKg7+6gGwvRWoAuUN68WdFa3O4ddeDNHaq/6Ch2pMQbihdKjTRDtefw
- WaLWhad6/s+jk75xMBVq+gmmpht1lkunTMztm4Ue/XC2W6PguaC3CyudjgcC2/aHMgbr
- 25CQ==
-X-Gm-Message-State: APjAAAXIu4K1cIWbMKltIz26ybHNF0kf3H9KREtlXK/OwG8B8boLvQvk
- s3yEjcB4c+LIN6Bbyn6cdUQf0fId
-X-Google-Smtp-Source: APXvYqyG+SsoqpkBvL73b9bTSdRC6XftyBE/8Tbq0HPJvQkt3htHp3AhHjmu2/q1BqA3c9HW9gp3rw==
-X-Received: by 2002:adf:eccd:: with SMTP id s13mr5800719wro.193.1562526033784; 
- Sun, 07 Jul 2019 12:00:33 -0700 (PDT)
-Received: from x230.suse.de (gw.ms-free.net. [95.85.240.250])
- by smtp.gmail.com with ESMTPSA id d10sm16403849wro.18.2019.07.07.12.00.32
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Sun, 07 Jul 2019 12:00:32 -0700 (PDT)
-From: Petr Vorel <petr.vorel@gmail.com>
-To: ltp@lists.linux.it
-Date: Sun,  7 Jul 2019 21:00:16 +0200
-Message-Id: <20190707190016.27296-6-petr.vorel@gmail.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190707190016.27296-1-petr.vorel@gmail.com>
-References: <20190707190016.27296-1-petr.vorel@gmail.com>
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 749323C17A2
+ for <ltp@lists.linux.it>; Mon,  8 Jul 2019 12:45:49 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id BAFF71A01073
+ for <ltp@lists.linux.it>; Mon,  8 Jul 2019 12:45:47 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.63,466,1557158400"; d="scan'208";a="70953528"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 08 Jul 2019 18:45:45 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id 2EB4A4CDDD5A;
+ Mon,  8 Jul 2019 18:45:48 +0800 (CST)
+Received: from localhost.localdomain (10.167.215.46) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ (TLS) id 14.3.439.0; Mon, 8 Jul 2019 18:45:43 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <amir73il@gmail.com>, <ltp@lists.linux.it>
+Date: Sat, 6 Jul 2019 04:42:37 +0800
+Message-ID: <1562359357-24526-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <CAOQ4uxgUfhDL3kE_2xFKTnfs+Pgn5UJ38n2aFxz4XndfUeFX8A@mail.gmail.com>
+References: <CAOQ4uxgUfhDL3kE_2xFKTnfs+Pgn5UJ38n2aFxz4XndfUeFX8A@mail.gmail.com>
 MIME-Version: 1.0
+X-Originating-IP: [10.167.215.46]
+X-yoursite-MailScanner-ID: 2EB4A4CDDD5A.A34C9
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 5/5] setdomainname03: Convert to new API
+Subject: [LTP] [PATCH v2] syscalls/copy_file_range02: increase coverage and
+ remove EXDEV test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,238 +59,271 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Use _UTSNAME_LENGTH (65), which is defined in lapi/utsname.h
-instead of __NEW_UTS_LEN (64).
+Since Amir path for copy_file_range has been merged into linux-xfs,
+I add test for swapfile, immutable file, bounds in ltp.  Also, add test
+for block char pipe dev and remove EXDEV test(5.3 will relax the cross-device
+constraint[2]).  I follow xfstests code[3][4][5] and increase it .
 
-Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
+[1]https://git.kernel.org/pub/scm/linux/kernel/git/djwong/xfs-linux.git/commit/?h=for-next-5.3&id=5dae222a5ff0c269730393018a5539cc970a4726
+[2]https://git.kernel.org/pub/scm/linux/kernel/git/djwong/xfs-linux.git/commit/?h=for-next-5.3&id=96e6e8f4a68df2d94800311163faa67124df24e5
+[3]https://patchwork.kernel.org/patch/10971759/
+[4]https://patchwork.kernel.org/patch/10971747/
+[5]https://patchwork.kernel.org/patch/10961421/
+
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 ---
- .../syscalls/setdomainname/setdomainname03.c  | 195 +++---------------
- 1 file changed, 32 insertions(+), 163 deletions(-)
+ .../copy_file_range/copy_file_range.h         |  11 +-
+ .../copy_file_range/copy_file_range02.c       | 139 +++++++++++++++---
+ 2 files changed, 130 insertions(+), 20 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/setdomainname/setdomainname03.c b/testcases/kernel/syscalls/setdomainname/setdomainname03.c
-index 82793b878..e53ea8806 100644
---- a/testcases/kernel/syscalls/setdomainname/setdomainname03.c
-+++ b/testcases/kernel/syscalls/setdomainname/setdomainname03.c
-@@ -1,185 +1,54 @@
-+// SPDX-License-Identifier: GPL-2.0
- /*
-- * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program;  if not, write to the Free Software
-- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-- *
-+ * Copyright (c) Wipro Technologies Ltd, 2002. All Rights Reserved.
-+ * Copyright (c) 2019 Petr Vorel <petr.vorel@gmail.com>
-+ * Author: Saji Kumar.V.R <saji.kumar@wipro.com>
-  */
--/**********************************************************
-- *
-- *    TEST IDENTIFIER   : setdomainname03
-- *
-- *    EXECUTED BY       : root / superuser
-- *
-- *    TEST TITLE        : test for EPERM error value when run as non superuser
-- *
-- *    TEST CASE TOTAL   : 1
-- *
-- *    AUTHOR            : Saji Kumar.V.R <saji.kumar@wipro.com>
-- *
-- *    SIGNALS
-- *      Uses SIGUSR1 to pause before test if option set.
-- *      (See the parse_opts(3) man page).
-- *
-- *    DESCRIPTION
-- * 	Verify that, setdomainname(2) returns -1 and sets errno to EPERM
-- * 	if the effective user id of the caller is not super-user.
-- *
-- * Algorithm:
-- *  Setup:
-- *   Setup signal handling.
-- *   Pause for SIGUSR1 if option specified.
-- *   save current domainname
-- *   change effective user id to "nobody" user
-- *
-- *  Test:
-- *   Loop if the proper options are given.
-- *   Execute system call
-- *   Check return code, Check return code, if (system call failed (return=-1)) &
-- *			(errno set == expected errno)
-- *   		Issue sys call fails with expected return value and errno.
-- *   	Otherwise,
-- *		Issue sys call fails with unexpected errno.
-- *   Otherwise,
-- *	Issue sys call returns unexpected value.
-- *
-- *  Cleanup:
-- *   Change effective user id to root
-- *   Restore old domainname
-- *   Print errno log and/or timing stats if options given
-- *
-- * Usage:  <for command-line>
-- *  setdomainname03 [-c n] [-e] [-i n] [-I x] [-P x] [-t] [-h] [-f] [-p]
-- *	where,  -c n : Run n copies concurrently.
-- *		-e   : Turn on errno logging.
-- *		-h   : Show help screen
-- *		-f   : Turn off functional testing
-- *		-i n : Execute test n times.
-- *		-I x : Execute test for x seconds.
-- *		-p   : Pause for SIGUSR1 before starting
-- *		-P x : Pause for x seconds between iterations.
-- *		-t   : Turn on syscall timing.
-- *
-- ****************************************************************/
+diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range.h b/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
+index b6d132978..f9e2565d9 100644
+--- a/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
++++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
+@@ -9,6 +9,7 @@
  
--#include <string.h>
- #include <errno.h>
- #include <pwd.h>
--#include <linux/utsname.h>
+ #include <stdbool.h>
+ #include <unistd.h>
++#include <sys/sysmacros.h>
+ #include "lapi/syscalls.h"
  
--#include "test.h"
-+#include "setdomainname.h"
+ #define TEST_VARIANTS	2
+@@ -18,10 +19,18 @@
+ #define FILE_DEST_PATH  "file_dest"
+ #define FILE_RDONL_PATH "file_rdonl"
+ #define FILE_DIR_PATH	"file_dir"
+-#define FILE_MNTED_PATH	MNTPOINT"/file_mnted"
++#define FILE_IMMUTABLE_PATH "file_immutable"
++#define FILE_SWAP_PATH "file_swap"
++#define FILE_BLKDEV    "file_blk"
++#define FILE_CHRDEV    "file_chr"
++#define FILE_FIFO      "file_fifo"
++#define FILE_COPY_PATH  "file_copy"
  
--#define MAX_NAME_LEN __NEW_UTS_LEN
--
--char *TCID = "setdomainname03";
--int TST_TOTAL = 1;
--
--static char nobody_uid[] = "nobody";
- struct passwd *ltpuser;
+ #define CONTENT		"ABCDEFGHIJKLMNOPQRSTUVWXYZ12345\n"
+ #define CONTSIZE	(sizeof(CONTENT) - 1)
++#define MAX_LEN   ((long long)(~0ULL >> 1))
++#define MIN_OFF   65537
++#define MAX_OFF   (MAX_LEN - MIN_OFF)
  
--static char test_domain_name[MAX_NAME_LEN] = "test_dom";
--static char old_domain_name[MAX_NAME_LEN];
--
--static void setup();		/* setup function for the tests */
--static void cleanup();		/* cleanup function for the tests */
--
--int main(int ac, char **av)
-+static void do_test(void)
+ static void syscall_info(void)
  {
--	int lc;
--
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	/*
--	 * Invoke setup function to call individual test setup functions
--	 * for the test which run as root/super-user.
--	 */
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
-+	char *new = TST_VALID_DOMAIN_NAME;
+diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+index 07c0207c2..89519ac1d 100644
+--- a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
++++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+@@ -10,15 +10,25 @@
+  *
+  * 1) Try to copy contents to file open as readonly
+  *    -> EBADF
+- * 2) Try to copy contents to file on different mounted
+- *    filesystem -> EXDEV
+- * 3) Try to copy contents to directory -> EISDIR
+- * 4) Try to copy contents to a file opened with the
++ * 2) Try to copy contents to directory -> EISDIR
++ * 3) Try to copy contents to a file opened with the
+  *    O_APPEND flag -> EBADF
+- * 5) Try to copy contents to closed filedescriptor
++ * 4) Try to copy contents to closed filedescriptor
+  *    -> EBADF
+- * 6) Try to copy contents with invalid 'flags' value
++ * 5) Try to copy contents with invalid 'flags' value
+  *    -> EINVAL
++ * 6) Try to copy contents to a file chattred with +i
++ *    flag -> EPERM
++ * 7) Try to copy contents to a swapfile ->ETXTBSY
++ * 8) Try to copy contents to the samefile with overlapping
++ *    ->EINVAL
++ * 9) Try to copy contents to a blkdev ->EINVAL
++ * 10) Try to copy contents to a chardev ->EINVAL
++ * 11) Try to copy contents to a FIFO ->EINVAL
++ * 12) Try to copy contents to a file with length beyond
++ *     8EiB wraps around 0 -> EOVERFLOW
++ * 13) Try to copy contents to a file with target file range
++ *     beyond 8TiB ->EFBIG
+  */
  
--		tst_count = 0;
--
--		/*
--		 * Call setdomainname(2)
--		 */
--		TEST(setdomainname(test_domain_name, MAX_NAME_LEN));
--		if ((TEST_RETURN == -1) && (TEST_ERRNO == EPERM)) {
--			tst_resm(TPASS, "expected failure; Got EPERM");
--		} else {
--			tst_resm(TFAIL, "Call failed to produce "
--				 "expected error;  Expected errno: %d "
--				 "Got : %d, %s", EPERM, TEST_ERRNO,
--				 strerror(TEST_ERRNO));
--		}
-+	TEST(do_setdomainname(new, sizeof(new)));
+ #define _GNU_SOURCE
+@@ -29,30 +39,74 @@
+ static int fd_src;
+ static int fd_dest;
+ static int fd_rdonly;
+-static int fd_mnted;
+ static int fd_dir;
+ static int fd_closed;
+ static int fd_append;
++static int fd_immutable;
++static int fd_swapfile;
++static int fd_dup;
++static int fd_blkdev;
++static int fd_chrdev;
++static int fd_fifo;
++static int fd_copy;
++
++static int chattr_i_nsup;
++static int swap_nsup;
  
-+	if (TST_RET != -1) {
-+		tst_res(TFAIL, "unexpected exit code: %ld", TST_RET);
+ static struct tcase {
+ 	int	*copy_to_fd;
+ 	int	flags;
+ 	int	exp_err;
++	loff_t  dst;
++	loff_t     len;
+ } tcases[] = {
+-	{&fd_rdonly,	0,	EBADF},
+-	{&fd_mnted,	0,	EXDEV},
+-	{&fd_dir,	0,	EISDIR},
+-	{&fd_append,	0,	EBADF},
+-	{&fd_closed,	0,	EBADF},
+-	{&fd_dest,	-1,	EINVAL},
++	{&fd_rdonly,	0,   EBADF,      0,     CONTSIZE},
++	{&fd_dir,	0,   EISDIR,     0,     CONTSIZE},
++	{&fd_append,	0,   EBADF,      0,     CONTSIZE},
++	{&fd_closed,	0,   EBADF,      0,     CONTSIZE},
++	{&fd_dest,	-1,  EINVAL,     0,     CONTSIZE},
++	{&fd_immutable, 0,   EPERM,      0,     CONTSIZE},
++	{&fd_swapfile,  0,   ETXTBSY,    0,     CONTSIZE},
++	{&fd_dup,       0,   EINVAL,     0,     CONTSIZE/2},
++	{&fd_blkdev,    0,   EINVAL,     0,     CONTSIZE},
++	{&fd_chrdev,    0,   EINVAL,     0,     CONTSIZE},
++	{&fd_fifo,      0,   EINVAL,     0,     CONTSIZE},
++	{&fd_copy,      0,   EOVERFLOW,  MAX_OFF, 2*MAX_LEN},
++	{&fd_copy,      0,   EFBIG,      MAX_OFF, MIN_OFF},
+ };
+ 
++static int run_command(char *command, char *option, char *file)
++{
++	const char *const cmd[] = {command, option, file, NULL};
++	int ret;
++
++	ret = tst_run_cmd(cmd, NULL, NULL, 1);
++	switch (ret) {
++	case 0:
++	return 0;
++	case 255:
++		tst_res(TCONF, "%s binary not installed", command);
++	return 1;
++	default:
++		tst_res(TCONF, "%s exited with %i", command, ret);
++	return 2;
++	}
++}
++
+ static void verify_copy_file_range(unsigned int n)
+ {
+ 	struct tcase *tc = &tcases[n];
++	if (tc->exp_err == ETXTBSY && chattr_i_nsup) {
++		tst_res(TCONF, "filesystem doesn't support chattr +i, skip it");
 +		return;
- 	}
- 
--	/*
--	 * Invoke cleanup() to delete the test directories created
--	 * in the setup().
--	 */
--	cleanup();
--	tst_exit();
-+	if (TST_ERR != EPERM) {
-+		tst_res(TFAIL | TTERRNO, "unexpected errno: %d, expected: EPERM",
-+			TST_ERR);
++	}
++	if (tc->exp_err == EPERM && swap_nsup) {
++		tst_res(TCONF, "filesystem doesn't support swapfile, skip it");
 +		return;
 +	}
  
-+	tst_res(TPASS | TTERRNO, "expected failure");
- }
+ 	TEST(sys_copy_file_range(fd_src, 0, *tc->copy_to_fd,
+-				0, CONTSIZE, tc->flags));
++				&tc->dst, tc->len, tc->flags));
  
--/*
-- * setup(void) - performs all ONE TIME setup for this test.
-- */
--void setup(void)
-+void setup_setuid(void)
- {
--	tst_require_root();
--
--	/* Capture unexpected signals */
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--
--	/* Switch to nobody user for correct error code collection */
--	if ((ltpuser = getpwnam(nobody_uid)) == NULL) {
--		tst_brkm(TBROK, NULL, "\"nobody\" user not present");
--	}
--	if (seteuid(ltpuser->pw_uid) == -1) {
--		tst_resm(TWARN, "seteuid failed to "
--			 "to set the effective uid to %d", ltpuser->pw_uid);
--		perror("seteuid");
--	}
--
--	/* Save current domainname */
--	if ((getdomainname(old_domain_name, MAX_NAME_LEN)) < 0) {
--		tst_brkm(TBROK, NULL, "getdomainname() failed while"
--			 " getting current domain name");
--	}
--
--	TEST_PAUSE;
--
-+	ltpuser = SAFE_GETPWNAM("nobody");
-+	SAFE_SETEUID(ltpuser->pw_uid);
-+	setup();
- }
- 
--/*
-- * cleanup() - Performs all ONE TIME cleanup for this test at
-- */
--void cleanup(void)
-+static void cleanup_setuid(void)
- {
--
--	/* Set effective user id back to root */
--	if (seteuid(0) == -1) {
--		tst_resm(TWARN, "seteuid failed to "
--			 "to set the effective uid to root");
--		perror("seteuid");
--	}
--
--	/* Restore domain name */
--	if ((setdomainname(old_domain_name, strlen(old_domain_name)))
--	    < 0) {
--		tst_resm(TWARN, "setdomainname() failed while restoring"
--			 " domainname to \"%s\"", old_domain_name);
--	}
--
-+	SAFE_SETEUID(0);
-+	cleanup();
- }
+ 	if (TST_RET == -1) {
+ 		if (tc->exp_err == TST_ERR) {
+@@ -76,33 +130,80 @@ static void cleanup(void)
+ 		SAFE_CLOSE(fd_append);
+ 	if (fd_dir > 0)
+ 		SAFE_CLOSE(fd_dir);
+-	if (fd_mnted > 0)
+-		SAFE_CLOSE(fd_mnted);
+ 	if (fd_rdonly > 0)
+ 		SAFE_CLOSE(fd_rdonly);
+ 	if (fd_dest > 0)
+ 		SAFE_CLOSE(fd_dest);
+ 	if (fd_src > 0)
+ 		SAFE_CLOSE(fd_src);
++	if (fd_immutable > 0) {
++		run_command("chattr", "-i", FILE_IMMUTABLE_PATH);
++		SAFE_CLOSE(fd_immutable);
++	}
++	if (fd_swapfile > 0) {
++		run_command("swapoff", FILE_SWAP_PATH, NULL);
++		SAFE_CLOSE(fd_swapfile);
++	}
++	if (fd_dup > 0)
++		SAFE_CLOSE(fd_dup);
++	if (fd_copy > 0)
++		SAFE_CLOSE(fd_copy);
 +
-+static struct tst_test test = {
-+	.needs_root = 1,
-+	.setup = setup_setuid,
-+	.cleanup = cleanup_setuid,
-+	.test_all = do_test,
-+	.test_variants = TEST_VARIANTS,
-+};
++	SAFE_UNLINK(FILE_BLKDEV);
++	SAFE_UNLINK(FILE_CHRDEV);
++	SAFE_UNLINK(FILE_FIFO);
+ }
+ 
+ static void setup(void)
+ {
+ 	syscall_info();
++	dev_t dev[2];
++
++	dev[1] = makedev(7, 127);
++	dev[2] = makedev(1, 3);
+ 
+ 	if (access(FILE_DIR_PATH, F_OK) == -1)
+ 		SAFE_MKDIR(FILE_DIR_PATH, 0777);
+ 
++	SAFE_MKNOD(FILE_BLKDEV, S_IFBLK | 0777, dev[1]);
++	SAFE_MKNOD(FILE_CHRDEV, S_IFCHR | 0777, dev[2]);
++	SAFE_MKNOD(FILE_FIFO, S_IFIFO | 0777, 0);
++
+ 	fd_src    = SAFE_OPEN(FILE_SRC_PATH, O_RDWR | O_CREAT, 0664);
+ 	fd_dest   = SAFE_OPEN(FILE_DEST_PATH, O_RDWR | O_CREAT, 0664);
+ 	fd_rdonly = SAFE_OPEN(FILE_RDONL_PATH, O_RDONLY | O_CREAT, 0664);
+-	fd_mnted  = SAFE_OPEN(FILE_MNTED_PATH, O_RDWR | O_CREAT, 0664);
+ 	fd_dir    = SAFE_OPEN(FILE_DIR_PATH, O_DIRECTORY);
+ 	fd_closed = -1;
+ 	fd_append = SAFE_OPEN(FILE_DEST_PATH,
+ 			O_RDWR | O_CREAT | O_APPEND, 0664);
++	fd_immutable = SAFE_OPEN(FILE_IMMUTABLE_PATH, O_RDWR | O_CREAT, 0664);
++	fd_swapfile = SAFE_OPEN(FILE_SWAP_PATH, O_RDWR | O_CREAT, 0600);
++	fd_blkdev = SAFE_OPEN(FILE_BLKDEV, O_RDWR, 0664);
++	fd_chrdev = SAFE_OPEN(FILE_CHRDEV, O_RDWR, 0664);
++	fd_fifo = SAFE_OPEN(FILE_FIFO, O_RDWR, 0664);
++
++	SAFE_WRITE(1, fd_src, CONTENT, CONTSIZE);
++	close(fd_src);
++	fd_src = SAFE_OPEN(FILE_SRC_PATH, O_RDONLY, 0664);
++	fd_dup = SAFE_OPEN(FILE_SRC_PATH, O_WRONLY|O_CREAT, 0666);
++
++	fd_copy = SAFE_OPEN(FILE_COPY_PATH, O_RDWR | O_CREAT | O_TRUNC, 0664);
++	chattr_i_nsup = run_command("chattr", "+i", FILE_IMMUTABLE_PATH);
++
++	if (!tst_fs_has_free(".", sysconf(_SC_PAGESIZE) * 10, TST_BYTES)) {
++		tst_res(TCONF, "Insufficient disk space to create swap file");
++		swap_nsup = 3;
++		return;
++	}
++
++	if (tst_fill_file(FILE_SWAP_PATH, 0, sysconf(_SC_PAGESIZE), 10) != 0) {
++		tst_res(TCONF, "Failed to create swapfile");
++		swap_nsup = 4;
++		return;
++	}
+ 
+-	SAFE_WRITE(1, fd_src,  CONTENT,  CONTSIZE);
++	swap_nsup = run_command("mkswap", FILE_SWAP_PATH, NULL);
++	swap_nsup = run_command("swapon", FILE_SWAP_PATH, NULL);
+ }
+ 
+ static struct tst_test test = {
+@@ -113,6 +214,6 @@ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	.mount_device = 1,
+ 	.mntpoint = MNTPOINT,
+-	.dev_fs_type = "ext4",
++	.all_filesystems = 1,
+ 	.test_variants = TEST_VARIANTS,
+ };
 -- 
-2.20.1
+2.18.1
+
+
 
 
 -- 
