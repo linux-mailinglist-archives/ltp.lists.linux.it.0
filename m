@@ -1,71 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 675906163C
-	for <lists+linux-ltp@lfdr.de>; Sun,  7 Jul 2019 21:00:46 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A9CB6163E
+	for <lists+linux-ltp@lfdr.de>; Sun,  7 Jul 2019 21:01:02 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 171E23C197B
-	for <lists+linux-ltp@lfdr.de>; Sun,  7 Jul 2019 21:00:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C9BBA3C18FD
+	for <lists+linux-ltp@lfdr.de>; Sun,  7 Jul 2019 21:01:01 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id CCF683C18FD
- for <ltp@lists.linux.it>; Sun,  7 Jul 2019 21:00:32 +0200 (CEST)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 0125C3C1D04
+ for <ltp@lists.linux.it>; Sun,  7 Jul 2019 21:00:35 +0200 (CEST)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8F3E56005E3
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8648D1A00E67
  for <ltp@lists.linux.it>; Sun,  7 Jul 2019 21:00:34 +0200 (CEST)
-Received: by mail-wr1-x444.google.com with SMTP id f9so14672819wre.12
- for <ltp@lists.linux.it>; Sun, 07 Jul 2019 12:00:32 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id f9so14672878wre.12
+ for <ltp@lists.linux.it>; Sun, 07 Jul 2019 12:00:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=VaZJo5UmvypEjUADNcjaFynhJfiTvzzwzo5y5EYs2WA=;
- b=X0Q5BiI9GUSr3dcWKfAWv+Fd1fmorBY/pY0Z5ZQuAProzKPZZAm1AN3rT6RgLIyax/
- GSHVFgLn/oBRSBjlt5j29IHFeLoSHhZxk2G9J/X7gToKGcCyh89Q38CYTQPFibJPsK45
- 0uwpH/POH9QNZsrpy0EXZxbF64WTSxmaU4oDFCZug/DECnU9yzCyq8qc5XaHhEu/DzEC
- xmQY/BIKdIHe6WbnPPBitqPmO2QXSCc94xa59WNOcHQD7cA/5lV0XIMKww6n3xNapS19
- IhCtFhtO56IowFdSKB81yQ+oxdjWhy6yP2VDQO0Ck1nCcSMIlEus0AKCWVk8XiB5QPQt
- sZhg==
+ bh=4HYBxlOybXKQVP2iNeqVFst2n2tPhRJThNX+8BEq2yI=;
+ b=Aa+tx16jw0G/vlLf8jTQfTYAOGkWDZJNLrQIRuzce8vkvluZMs4wE4RGaTw9sSk9gQ
+ v5sY3RoPUA3HJMFwdSPspvIjaZoWS3PsxYkFrnev6WeyZ5VEiysgvuVa795/y3WPnTRq
+ fnhHCaAJgolLm/0+pg0FfaLI7fDPwUW/YXiDe7N+rdBvitHWmIRruxv//BryiA19WSgg
+ v15KXBgEJgrQZGmyfhSKZ5EyRo3fAEnfr3qZryEDQbAIJSbN97BMfOQgRdXwT8EF1u7U
+ qM8aKNWvC74h1W0bwN7ogZd+f3vFbarD8zqJvnBp/nXui5YP9ESHW3Y438n//Zo2uszI
+ IZkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=VaZJo5UmvypEjUADNcjaFynhJfiTvzzwzo5y5EYs2WA=;
- b=tkbaeSrxwI+UugQ0Sknz+Q/0C0gOYH4DzLZjYpDxozFJAqleou2REigVPIEi1MmExO
- QS8LlI0i1qHKM5OrGaOeQpkcrsp5lZcagphAYp4zKmnFl+KDjMGnvdXFEnh8do63LE/i
- xIija/9N0o78w5Bn/h7Yk3Nm4fymbs8uWdLInHE3oOqTQixpM/p9vBkpUE/CyCI+jhoD
- C5te9T0tYPixeRn8hPPW1SPVdSZG9EmjmDnJQEpfveKc0JisQT2E9HA4dctB1VXUgZRf
- wX1h3bxFEQznXDaUxsWPE8BHVxa5vdW4AnuZl10CS2WJmbf/XoT5daD+aydyonznTQTQ
- FZNA==
-X-Gm-Message-State: APjAAAXH1CYmiqD6YyuViAyraRNBRhkG/5fMYbtffkO2YB9VAMeXIUmq
- bayhAWrBKZkJHEVl4O629pesOJO7
-X-Google-Smtp-Source: APXvYqx33FUpJElYD9zQihDjs1Ufq9G/CzFHNQpUAcVj/eW81/CXRkd36Kwn2dzBhKh7CAv1uj8LdQ==
-X-Received: by 2002:adf:e3c4:: with SMTP id k4mr9882166wrm.341.1562526031323; 
- Sun, 07 Jul 2019 12:00:31 -0700 (PDT)
+ bh=4HYBxlOybXKQVP2iNeqVFst2n2tPhRJThNX+8BEq2yI=;
+ b=FkA3dWyc+F4ZdNeYBYuaYZYjjLz6RtvmwcDApl0L0j3doIN6A6KISm1nY0Kc5g0vu6
+ 6MHRwQGwmRCk/D8TpXyOqYaMYhJ6/CtiotCutQqeqUKklxKtd1gLnWL1Wo0OjRNRZFZ1
+ TnTctXM9ir811fKl5KL4s0tF4iXN+USCPMm9W/ri1wlQYtrYuh9a54bIRKaQdRmG1hht
+ fC2tOP7BBLoAkFKg7+6gGwvRWoAuUN68WdFa3O4ddeDNHaq/6Ch2pMQbihdKjTRDtefw
+ WaLWhad6/s+jk75xMBVq+gmmpht1lkunTMztm4Ue/XC2W6PguaC3CyudjgcC2/aHMgbr
+ 25CQ==
+X-Gm-Message-State: APjAAAXIu4K1cIWbMKltIz26ybHNF0kf3H9KREtlXK/OwG8B8boLvQvk
+ s3yEjcB4c+LIN6Bbyn6cdUQf0fId
+X-Google-Smtp-Source: APXvYqyG+SsoqpkBvL73b9bTSdRC6XftyBE/8Tbq0HPJvQkt3htHp3AhHjmu2/q1BqA3c9HW9gp3rw==
+X-Received: by 2002:adf:eccd:: with SMTP id s13mr5800719wro.193.1562526033784; 
+ Sun, 07 Jul 2019 12:00:33 -0700 (PDT)
 Received: from x230.suse.de (gw.ms-free.net. [95.85.240.250])
- by smtp.gmail.com with ESMTPSA id d10sm16403849wro.18.2019.07.07.12.00.30
+ by smtp.gmail.com with ESMTPSA id d10sm16403849wro.18.2019.07.07.12.00.32
  (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Sun, 07 Jul 2019 12:00:30 -0700 (PDT)
+ Sun, 07 Jul 2019 12:00:32 -0700 (PDT)
 From: Petr Vorel <petr.vorel@gmail.com>
 To: ltp@lists.linux.it
-Date: Sun,  7 Jul 2019 21:00:15 +0200
-Message-Id: <20190707190016.27296-5-petr.vorel@gmail.com>
+Date: Sun,  7 Jul 2019 21:00:16 +0200
+Message-Id: <20190707190016.27296-6-petr.vorel@gmail.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190707190016.27296-1-petr.vorel@gmail.com>
 References: <20190707190016.27296-1-petr.vorel@gmail.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 4/5] setdomainname02: Convert to new API
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 5/5] setdomainname03: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,16 +82,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Use _UTSNAME_LENGTH (65), which is defined in lapi/utsname.h
+instead of __NEW_UTS_LEN (64).
+
 Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
 ---
- .../syscalls/setdomainname/setdomainname02.c  | 197 ++++--------------
- 1 file changed, 35 insertions(+), 162 deletions(-)
+ .../syscalls/setdomainname/setdomainname03.c  | 195 +++---------------
+ 1 file changed, 32 insertions(+), 163 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/setdomainname/setdomainname02.c b/testcases/kernel/syscalls/setdomainname/setdomainname02.c
-index 6af09ca40..875ed0c44 100644
---- a/testcases/kernel/syscalls/setdomainname/setdomainname02.c
-+++ b/testcases/kernel/syscalls/setdomainname/setdomainname02.c
-@@ -1,181 +1,54 @@
+diff --git a/testcases/kernel/syscalls/setdomainname/setdomainname03.c b/testcases/kernel/syscalls/setdomainname/setdomainname03.c
+index 82793b878..e53ea8806 100644
+--- a/testcases/kernel/syscalls/setdomainname/setdomainname03.c
++++ b/testcases/kernel/syscalls/setdomainname/setdomainname03.c
+@@ -1,185 +1,54 @@
 +// SPDX-License-Identifier: GPL-2.0
  /*
 - * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
@@ -112,15 +115,15 @@ index 6af09ca40..875ed0c44 100644
 + * Copyright (c) 2019 Petr Vorel <petr.vorel@gmail.com>
 + * Author: Saji Kumar.V.R <saji.kumar@wipro.com>
   */
-- /*******************************************************************
+-/**********************************************************
 - *
-- *    TEST IDENTIFIER   : setdomainname02
+- *    TEST IDENTIFIER   : setdomainname03
 - *
 - *    EXECUTED BY       : root / superuser
 - *
-- *    TEST TITLE        : test for checking error conditions for setdomainame(2)
+- *    TEST TITLE        : test for EPERM error value when run as non superuser
 - *
-- *    TEST CASE TOTAL   : 3
+- *    TEST CASE TOTAL   : 1
 - *
 - *    AUTHOR            : Saji Kumar.V.R <saji.kumar@wipro.com>
 - *
@@ -128,184 +131,185 @@ index 6af09ca40..875ed0c44 100644
 - *      Uses SIGUSR1 to pause before test if option set.
 - *      (See the parse_opts(3) man page).
 - *
-- * DESCRIPTION
-- * 	Verify that,
-- *   1) setdomainname(2) returns -1 and sets errno to EINVAL if the parameter,
-- *	len is less than zero
-- *   2) setdomainname(2) returns -1 and sets errno to EINVAL if value of
-- *	len is greater than the maximum allowed value
-- *   3) setdomainname(2) returns -1 and sets errno to EFAULT for a bad address
-- *	for name
+- *    DESCRIPTION
+- * 	Verify that, setdomainname(2) returns -1 and sets errno to EPERM
+- * 	if the effective user id of the caller is not super-user.
 - *
-- * ALGORITHM
-- * Setup:
+- * Algorithm:
+- *  Setup:
 - *   Setup signal handling.
 - *   Pause for SIGUSR1 if option specified.
-- *   Save current domainname
+- *   save current domainname
+- *   change effective user id to "nobody" user
 - *
 - *  Test:
 - *   Loop if the proper options are given.
 - *   Execute system call
-- *   Check return code, if (system call failed (return=-1)) &
-- *			   (errno set == expected errno)
-- *              Issue sys call fails with expected return value and errno.
+- *   Check return code, Check return code, if (system call failed (return=-1)) &
+- *			(errno set == expected errno)
+- *   		Issue sys call fails with expected return value and errno.
+- *   	Otherwise,
+- *		Issue sys call fails with unexpected errno.
 - *   Otherwise,
-- *      Issue sys call returns unexpected value.
+- *	Issue sys call returns unexpected value.
 - *
 - *  Cleanup:
-- *        Restore old domain name.
-- *        Print errno log and/or timing stats if options given
-- *  Side Effects :
-- *	 setdomainname() is resetting value to NULL, if an invalid address
-- *	 is given for name. So, to overcome this problem, domainname is
-- *	 resetting to original value as part of cleanup() routine.
+- *   Change effective user id to root
+- *   Restore old domainname
+- *   Print errno log and/or timing stats if options given
 - *
-- * USAGE:  <for command-line>
-- *  setdomainname02  [-c n] [-e] [-i n] [-I x] [-P x] [-t] [-h] [-f] [-p]
-- *		where,  -c n : Run n copies concurrently.
-- *			-e   : Turn on errno logging.
-- *			-h   : Show help screen
-- *			-f   : Turn off functional testing
-- *			-i n : Execute test n times.
-- *			-I x : Execute test for x seconds.
-- *			-p   : Pause for SIGUSR1 before starting
-- *			-P x : Pause for x seconds between iterations.
-- *			-t   : Turn on syscall timing.
+- * Usage:  <for command-line>
+- *  setdomainname03 [-c n] [-e] [-i n] [-I x] [-P x] [-t] [-h] [-f] [-p]
+- *	where,  -c n : Run n copies concurrently.
+- *		-e   : Turn on errno logging.
+- *		-h   : Show help screen
+- *		-f   : Turn off functional testing
+- *		-i n : Execute test n times.
+- *		-I x : Execute test for x seconds.
+- *		-p   : Pause for SIGUSR1 before starting
+- *		-P x : Pause for x seconds between iterations.
+- *		-t   : Turn on syscall timing.
 - *
-- *********************************************************************/
+- ****************************************************************/
+ 
+-#include <string.h>
+ #include <errno.h>
+ #include <pwd.h>
+-#include <linux/utsname.h>
  
 -#include "test.h"
 +#include "setdomainname.h"
  
--#include <errno.h>
--#include <sys/utsname.h>
-+#define ERRNO_DESC(x) .exp_errno = x, .errno_desc = #x
- 
--#define MAX_NAME_LEN _UTSNAME_DOMAIN_LENGTH - 1
-+#define MAX_NAME_LENGTH _UTSNAME_DOMAIN_LENGTH - 1
- 
--static void cleanup(void);
--static void setup(void);
+-#define MAX_NAME_LEN __NEW_UTS_LEN
 -
--char *TCID = "setdomainname02";
--int TST_TOTAL = 3;
+-char *TCID = "setdomainname03";
+-int TST_TOTAL = 1;
 -
+-static char nobody_uid[] = "nobody";
+ struct passwd *ltpuser;
+ 
+-static char test_domain_name[MAX_NAME_LEN] = "test_dom";
 -static char old_domain_name[MAX_NAME_LEN];
--static struct test_case_t {
-+struct test_case {
- 	char *desc;
- 	char *name;
- 	int len;
- 	int exp_errno;
--	char err_desc[10];
--} test_cases[] = {
--	{
--	"test with len = -1", "test_dom", -1, EINVAL, "EINVAL"}, {
--	"test with len > allowed maximum", "test_dom", MAX_NAME_LEN + 1,
--		    EINVAL, "EINVAL"}, {
--"test with name = NULL", NULL, MAX_NAME_LEN, EFAULT, "EFAULT"},};
+-
+-static void setup();		/* setup function for the tests */
+-static void cleanup();		/* cleanup function for the tests */
 -
 -int main(int ac, char **av)
-+	char *errno_desc;
-+} tcases[] = {
-+	{ "len == -1", TST_VALID_DOMAIN_NAME, -1, ERRNO_DESC(EINVAL) },
-+	{ "len > allowed maximum", TST_VALID_DOMAIN_NAME, MAX_NAME_LENGTH + 1, ERRNO_DESC(EINVAL) },
-+	{ "name == NULL", NULL, MAX_NAME_LENGTH, ERRNO_DESC(EFAULT) }
-+};
-+
-+void verify_setdomainname(unsigned int nr)
++static void do_test(void)
  {
--	int lc, ind;
+-	int lc;
 -
 -	tst_parse_opts(ac, av, NULL, NULL);
 -
--	setup();		/* global setup */
--
--	/* The following loop checks looping state if -i option given */
+-	/*
+-	 * Invoke setup function to call individual test setup functions
+-	 * for the test which run as root/super-user.
+-	 */
+-	setup();
 -
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		/* reset tst_count in case we are looping */
++	char *new = TST_VALID_DOMAIN_NAME;
+ 
 -		tst_count = 0;
-+	struct test_case *tcase = &tcases[nr];
- 
--		for (ind = 0; ind < TST_TOTAL; ind++) {
-+	TEST(do_setdomainname(tcase->name, (size_t) tcase->len));
- 
--			/*
--			 * call the system call with the TEST() macro
--			 */
--			TEST(setdomainname(test_cases[ind].name,
--					   (size_t) test_cases[ind].len));
 -
--			if ((TEST_RETURN == -1) &&
--			    (TEST_ERRNO == test_cases[ind].exp_errno)) {
--				tst_resm(TPASS, "expected failure; Got %s",
--					 test_cases[ind].err_desc);
--			} else {
--				tst_resm(TFAIL, "Call failed to produce "
--					 "expected error;  Expected errno: %d "
--					 "Got : %d, %s",
--					 test_cases[ind].exp_errno,
--					 TEST_ERRNO, strerror(TEST_ERRNO));
--			}
+-		/*
+-		 * Call setdomainname(2)
+-		 */
+-		TEST(setdomainname(test_domain_name, MAX_NAME_LEN));
+-		if ((TEST_RETURN == -1) && (TEST_ERRNO == EPERM)) {
+-			tst_resm(TPASS, "expected failure; Got EPERM");
+-		} else {
+-			tst_resm(TFAIL, "Call failed to produce "
+-				 "expected error;  Expected errno: %d "
+-				 "Got : %d, %s", EPERM, TEST_ERRNO,
+-				 strerror(TEST_ERRNO));
 -		}
-+	tst_res(TINFO, "testing %s", tcase->desc);
++	TEST(do_setdomainname(new, sizeof(new)));
+ 
 +	if (TST_RET != -1) {
 +		tst_res(TFAIL, "unexpected exit code: %ld", TST_RET);
 +		return;
  	}
  
+-	/*
+-	 * Invoke cleanup() to delete the test directories created
+-	 * in the setup().
+-	 */
 -	cleanup();
--
 -	tst_exit();
--
--}
--
++	if (TST_ERR != EPERM) {
++		tst_res(TFAIL | TTERRNO, "unexpected errno: %d, expected: EPERM",
++			TST_ERR);
++		return;
++	}
+ 
++	tst_res(TPASS | TTERRNO, "expected failure");
+ }
+ 
 -/*
-- * setup() - performs all the ONE TIME setup for this test.
+- * setup(void) - performs all ONE TIME setup for this test.
 - */
 -void setup(void)
--{
++void setup_setuid(void)
+ {
 -	tst_require_root();
 -
+-	/* Capture unexpected signals */
 -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-
+-	/* Switch to nobody user for correct error code collection */
+-	if ((ltpuser = getpwnam(nobody_uid)) == NULL) {
+-		tst_brkm(TBROK, NULL, "\"nobody\" user not present");
+-	}
+-	if (seteuid(ltpuser->pw_uid) == -1) {
+-		tst_resm(TWARN, "seteuid failed to "
+-			 "to set the effective uid to %d", ltpuser->pw_uid);
+-		perror("seteuid");
+-	}
 -
 -	/* Save current domainname */
 -	if ((getdomainname(old_domain_name, MAX_NAME_LEN)) < 0) {
 -		tst_brkm(TBROK, NULL, "getdomainname() failed while"
 -			 " getting current domain name");
-+	if (TST_ERR != tcase->exp_errno) {
-+		tst_res(TFAIL | TTERRNO, "unexpected errno: %d, expected: %d",
-+			TST_ERR, tcase->exp_errno);
-+		return;
- 	}
- 
+-	}
+-
 -	TEST_PAUSE;
 -
-+	tst_res(TPASS | TTERRNO, "expected failure");
++	ltpuser = SAFE_GETPWNAM("nobody");
++	SAFE_SETEUID(ltpuser->pw_uid);
++	setup();
  }
  
 -/*
-- * cleanup() - performs all the ONE TIME cleanup for this test at completion
-- * 	       or premature exit.
+- * cleanup() - Performs all ONE TIME cleanup for this test at
 - */
 -void cleanup(void)
--{
++static void cleanup_setuid(void)
+ {
+-
+-	/* Set effective user id back to root */
+-	if (seteuid(0) == -1) {
+-		tst_resm(TWARN, "seteuid failed to "
+-			 "to set the effective uid to root");
+-		perror("seteuid");
+-	}
 -
 -	/* Restore domain name */
--	if ((setdomainname(old_domain_name, sizeof(old_domain_name)))
+-	if ((setdomainname(old_domain_name, strlen(old_domain_name)))
 -	    < 0) {
 -		tst_resm(TWARN, "setdomainname() failed while restoring"
 -			 " domainname to \"%s\"", old_domain_name);
 -	}
 -
--}
++	SAFE_SETEUID(0);
++	cleanup();
+ }
++
 +static struct tst_test test = {
-+	.tcnt = ARRAY_SIZE(tcases),
 +	.needs_root = 1,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.test = verify_setdomainname,
++	.setup = setup_setuid,
++	.cleanup = cleanup_setuid,
++	.test_all = do_test,
 +	.test_variants = TEST_VARIANTS,
 +};
 -- 
