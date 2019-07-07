@@ -2,68 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB47B6163D
-	for <lists+linux-ltp@lfdr.de>; Sun,  7 Jul 2019 21:00:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C620D6163A
+	for <lists+linux-ltp@lfdr.de>; Sun,  7 Jul 2019 21:00:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BD8D43C1D0D
-	for <lists+linux-ltp@lfdr.de>; Sun,  7 Jul 2019 21:00:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E6D0E3C1CFF
+	for <lists+linux-ltp@lfdr.de>; Sun,  7 Jul 2019 21:00:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 2121B3C1C7A
- for <ltp@lists.linux.it>; Sun,  7 Jul 2019 21:00:33 +0200 (CEST)
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id E966C3C0596
+ for <ltp@lists.linux.it>; Sun,  7 Jul 2019 21:00:27 +0200 (CEST)
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 34C581A00E68
- for <ltp@lists.linux.it>; Sun,  7 Jul 2019 21:00:25 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id s3so13629008wms.2
- for <ltp@lists.linux.it>; Sun, 07 Jul 2019 12:00:25 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 03BD06005E3
+ for <ltp@lists.linux.it>; Sun,  7 Jul 2019 21:00:30 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id v15so3262190wml.0
+ for <ltp@lists.linux.it>; Sun, 07 Jul 2019 12:00:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=yOsWY2Pw0meyVvkgeX8+LdVIajcGimGqzaFMF3X0Mp8=;
- b=ItXOGh9ZJG//RUqKkSatRLmTXSywgdnJhqnudUt17NtSPUmStdqP+Le7dX4Zb8b7Aw
- c72rJGeuTqpUXmuTmJjh5X9qEIi5aBJ7SouznKIGiyMHubMWyrL1zz1Sn72gizLUqIZL
- YORBwv2uYcqwfORA+Y9j5DFFYM0GYuizlwSO9goVi0qY4vJrfkn3z7c4o71Ws+7umyay
- IaJQaFdbURBDuyH6S5R+OUC0/WFTNEOUIA2dS8LgGjlOhQk9nCTIH6clB4neZxe37+Gi
- mO6sbqFzCHBzLuin5n+2E9VgcM5Whqybt8PRuGr7t3vP0fYpP/o99dl3VbJ5eJ2E4nwV
- tG5A==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=rED4gOwtBg4nmO/obajgKt3u2zcvwhouitvptVJBYVY=;
+ b=IzaJq03f+RaFFmv5n9tnGnmNxFYO5D3t9y8aQTvp4VURwgwoCP2AnAMVW8Bx+Q3ivh
+ J+SmGtiWyW/zJR6ZeC14vpZ5uNfXih6fJkNGYuT7sGxtLRnBg5nUNFqfOytAJiQMjIfK
+ nblC5GJR63Qi+ELcqp86Kw9FQ58jlBjUPsE03O45HxatWIXQ7Z+JqFgiPCcMza7H5A0T
+ aW9pI84r1kFUsnNhLqpRTtYTqMbn8krc+hdK0E8O3PAwn+BivptJp+OnnJ8Sw/XfbKvW
+ MqxWgHjWmjTVgQyHMBsFKRxZEwRS2wqkeeTf9giAdFwd94VBqFgXhxlrCzM1oF6g7nPq
+ Tw/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=yOsWY2Pw0meyVvkgeX8+LdVIajcGimGqzaFMF3X0Mp8=;
- b=CpPxpRM4xyI30b8X9Yp4jsApJr0/Wq2zvoFcmfk/06JoH4uaHs8gBLFunVgSgLfaMD
- pPK0j95Y16CfK6NGf8wb1Z4ROt5+g8YMGzAqtVfVRUK9eUileHAbNFHWMQeu/RgkPOom
- 5o7euBaq0e7qxfnGJYXewqwxwZ+S+FEynneLrQkuNqSJ9g5PBfeiC5l5XblN9Xg02Kyy
- L0w/msyM0GC5O8ziaAGTCHORBwsyl0gZayBpeKnOHC+ru8YhpmXsS6K1OCPgLUTHhPio
- v+Zbyu4r5jB/Jzn/xDlCfStHlPm8MJFBRBqw1q58B6rnzs4Ay3tz+qzQPoe8sg0MnJvQ
- EOSQ==
-X-Gm-Message-State: APjAAAVpDPN+cJHTZNObKUSXwmC2ivvuvuI/EyC6C7kde0zMIScMiB+W
- CAeIJeerbWcS0EtoA4lYydwcjRQR
-X-Google-Smtp-Source: APXvYqxXYrwpqjySbftsjJ+jmiPnYmkOPq3aWUdoz68g6rAX2UKFgPR2jrTvy89pgrOKFDKcOV9GVg==
-X-Received: by 2002:a1c:9dc5:: with SMTP id g188mr13337897wme.93.1562526024496; 
- Sun, 07 Jul 2019 12:00:24 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=rED4gOwtBg4nmO/obajgKt3u2zcvwhouitvptVJBYVY=;
+ b=PdBcx2f8EAFTHvWeeJGJZDtZT3c0nz8rUNPtRUdty0ytGHex9HpggnFmM8PJx0YTSN
+ nKS+O4CPnHoN4CnXa6BLvsaOuTZgb+tLe3jyevQjgzmqzCGNRHqa7MLukrfhWReQtFKG
+ zO6vP74w9bnnZPS3dIN0biZQ/JNjpPA9g4o43pi4qGLh2TcYA91pgCExWiBtDfMHupHE
+ iyyeGzyaj3YComXOkMRC9/XDePpxq4X//VVjuCSznPSTKOFV47fws2J9KubhChriFEeN
+ tK1uFGW8xzU66v4Bb5CUFnTFKlkbUEgCZ/vrFzv56CbAPF1s4mrniObF3ZS+yNsSYPhU
+ RgxQ==
+X-Gm-Message-State: APjAAAUgqJ4UIj775zTGrc5XGB4sXmU6OXg2td5C8weXYELLEaJdcbuM
+ BUSGiIZZ2U070Wqvt/5HFzIW1tcj
+X-Google-Smtp-Source: APXvYqwcelEPw7Eh94TMvA103QAYcLgxdMfjsP+2pa8IMJCxYdSADXIdp1zG6DaWAd/4dsPlQoPEFA==
+X-Received: by 2002:a1c:3:: with SMTP id 3mr13097849wma.6.1562526026853;
+ Sun, 07 Jul 2019 12:00:26 -0700 (PDT)
 Received: from x230.suse.de (gw.ms-free.net. [95.85.240.250])
- by smtp.gmail.com with ESMTPSA id d10sm16403849wro.18.2019.07.07.12.00.23
+ by smtp.gmail.com with ESMTPSA id d10sm16403849wro.18.2019.07.07.12.00.25
  (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Sun, 07 Jul 2019 12:00:23 -0700 (PDT)
+ Sun, 07 Jul 2019 12:00:26 -0700 (PDT)
 From: Petr Vorel <petr.vorel@gmail.com>
 To: ltp@lists.linux.it
-Date: Sun,  7 Jul 2019 21:00:11 +0200
-Message-Id: <20190707190016.27296-1-petr.vorel@gmail.com>
+Date: Sun,  7 Jul 2019 21:00:12 +0200
+Message-Id: <20190707190016.27296-2-petr.vorel@gmail.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20190707190016.27296-1-petr.vorel@gmail.com>
+References: <20190707190016.27296-1-petr.vorel@gmail.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 0/5] setdomainname() converted to new API
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/5] lib: include <errno.h> in tst_test.h
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,33 +81,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+tst_test.h is using errno variable, thus it should include <errno.h>.
 
-simple to new API + lapi header (fixes for MUSL + (maybe) for Bionic).
-Given that sethostname() tests are identical, I'll probably reuse
-setdomainname() (compiler time option).
+Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
+---
+ include/tst_test.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-Kind regards,
-Petr
-
-Petr Vorel (5):
-  lib: include <errno.h> in tst_test.h
-  lapi: Add utsname.h
-  setdomainname01: Convert to new API
-  setdomainname02: Convert to new API
-  setdomainname03: Convert to new API
-
- configure.ac                                  |   1 +
- include/lapi/utsname.h                        |  16 ++
- include/tst_test.h                            |   1 +
- .../syscalls/setdomainname/setdomainname.h    |  58 ++++++
- .../syscalls/setdomainname/setdomainname01.c  | 162 +++-----------
- .../syscalls/setdomainname/setdomainname02.c  | 197 ++++--------------
- .../syscalls/setdomainname/setdomainname03.c  | 195 +++--------------
- 7 files changed, 167 insertions(+), 463 deletions(-)
- create mode 100644 include/lapi/utsname.h
- create mode 100644 testcases/kernel/syscalls/setdomainname/setdomainname.h
-
+diff --git a/include/tst_test.h b/include/tst_test.h
+index 2e8e36352..2e53e68bf 100644
+--- a/include/tst_test.h
++++ b/include/tst_test.h
+@@ -14,6 +14,7 @@
+ #include <unistd.h>
+ #include <limits.h>
+ #include <string.h>
++#include <errno.h>
+ 
+ #include "tst_common.h"
+ #include "tst_res_flags.h"
 -- 
 2.20.1
 
