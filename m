@@ -1,90 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60DDD632B5
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jul 2019 10:10:52 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 179F7633EB
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jul 2019 12:06:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2359E3C1B49
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jul 2019 10:10:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B95223C1CFD
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jul 2019 12:06:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id E4DFE3C003C
- for <ltp@lists.linux.it>; Tue,  9 Jul 2019 10:10:50 +0200 (CEST)
-Received: from m9a0002g.houston.softwaregrp.com
- (m9a0002g.houston.softwaregrp.com [15.124.64.67])
- (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id A625D3C176C
+ for <ltp@lists.linux.it>; Tue,  9 Jul 2019 12:06:50 +0200 (CEST)
+Received: from mail-yb1-xb43.google.com (mail-yb1-xb43.google.com
+ [IPv6:2607:f8b0:4864:20::b43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E9A791A00E4B
- for <ltp@lists.linux.it>; Tue,  9 Jul 2019 10:10:45 +0200 (CEST)
-Received: FROM m9a0002g.houston.softwaregrp.com (15.121.0.190) BY
- m9a0002g.houston.softwaregrp.com WITH ESMTP; 
- Tue,  9 Jul 2019 08:10:44 +0000
-Received: from M4W0335.microfocus.com (2002:f78:1193::f78:1193) by
- M9W0067.microfocus.com (2002:f79:be::f79:be) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10; Tue, 9 Jul 2019 08:10:37 +0000
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com (15.124.8.12) by
- M4W0335.microfocus.com (15.120.17.147) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10 via Frontend Transport; Tue, 9 Jul 2019 08:10:37 +0000
-Received: from MW2PR18MB2234.namprd18.prod.outlook.com (52.132.183.31) by
- MW2PR18MB2201.namprd18.prod.outlook.com (52.132.183.22) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2052.18; Tue, 9 Jul 2019 08:10:36 +0000
-Received: from MW2PR18MB2234.namprd18.prod.outlook.com
- ([fe80::693b:dcc1:c2c4:33a4]) by MW2PR18MB2234.namprd18.prod.outlook.com
- ([fe80::693b:dcc1:c2c4:33a4%6]) with mapi id 15.20.2052.020; Tue, 9 Jul 2019
- 08:10:36 +0000
-From: Christian Amann <camann@suse.com>
-To: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Thread-Topic: [PATCH v1] syscalls/ioctl08: Add check for btrfs
-Thread-Index: AQHVNiiIGf23cybj00O3DuKcztBSnqbB7su5
-Date: Tue, 9 Jul 2019 08:10:35 +0000
-Message-ID: <MW2PR18MB2234061990DCAD3F1D38941FABF10@MW2PR18MB2234.namprd18.prod.outlook.com>
-References: <20190709073228.18707-1-camann@suse.com>
-In-Reply-To: <20190709073228.18707-1-camann@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=camann@suse.com; 
-x-originating-ip: [2620:113:80c0:5::2222]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 73c575be-b3e6-4889-8e4b-08d70444ec20
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
- SRVR:MW2PR18MB2201; 
-x-ms-traffictypediagnostic: MW2PR18MB2201:
-x-microsoft-antispam-prvs: <MW2PR18MB2201C2AC512998D5CC49139EABF10@MW2PR18MB2201.namprd18.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2150;
-x-forefront-prvs: 0093C80C01
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(4636009)(366004)(39860400002)(136003)(396003)(376002)(346002)(199004)(189003)(229853002)(4326008)(6606003)(316002)(81156014)(91956017)(6436002)(6246003)(76116006)(66476007)(66446008)(66556008)(5640700003)(64756008)(68736007)(478600001)(2906002)(81166006)(66946007)(19627405001)(7736002)(73956011)(71200400001)(1730700003)(14454004)(102836004)(71190400001)(476003)(86362001)(186003)(76176011)(6506007)(486006)(25786009)(5660300002)(53546011)(52536014)(256004)(6116002)(14444005)(6916009)(53936002)(9686003)(33656002)(2351001)(8676002)(11346002)(446003)(74316002)(99286004)(7696005)(2501003)(55016002)(8936002)(54896002)(46003)(17423001);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MW2PR18MB2201;
- H:MW2PR18MB2234.namprd18.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: suse.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: 7gPGoanqJG7tRD2teDNXF+Ubklx80yI9BThzol6T7vfqshEohb8yMqbvsF+2kD++emW6W1QtbgDL4MwuuaENOsQfyYVpZMAPcyMRXh1aE3OvM9E1HZ4z0O1g6/ZxcklTnUOT57E5yZG7Ivi5WlvkiFLVZ6z2EH2SqHxxcW0XM8pgdmGrSQs8LsIT4pCj3/ysIUMlP5sEmgvxAHq4u13FlPZxt0naYd6OHYjeC8HLg/g/EXUkZ2njW0JEtibetLe4MJw1e7DH4xO1HjmrkUKVFE5gnztxMejSqQpZLiSLoSpYnHqwhKhpF60YvGKytmPChSlw3BP2vsjCXt8qMCS1F5YZ51Og6xDk7npHv41fBxK957KhfqP1US3Frj0diO99PEziPC3Ea1Pd/v9A6cQ9CPi3/5koNMTPlXPcTY/Lwfs=
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 162211000457
+ for <ltp@lists.linux.it>; Tue,  9 Jul 2019 12:06:45 +0200 (CEST)
+Received: by mail-yb1-xb43.google.com with SMTP id 13so1972773ybx.8
+ for <ltp@lists.linux.it>; Tue, 09 Jul 2019 03:06:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=YJqAWnEFUsFopJN+R3yC83dmhjT965SS1H0uOaMRsJo=;
+ b=OLKsnY6bzpEfOVpog6JnXWlurm5k9SjaVR8ex5tx0tgAzdvuy9YanNgGoWLUc2Uc0U
+ /L04BNldCDVEoVov87pvyOmt0IULIuxHSS8MyI/Xbq1lTM2EFuXMO7yuJanF98EZVxH+
+ b2Th/dc+0vEPs2lJWhpdNcSOUSygTeRPuWVMIJMPESeRvxErD+VAop9P07em3LBV67sA
+ 7fEPrCdO+9tndu/6U5K4mfGdaz23RVUjPMcNuPJo84MjnHMUjhQXK7neSmUc08B9T+9L
+ tKPdbnwWKH8m/zv7Mf5zPhUQwPahdqOIfZORKXZx0dMzOAJhPZCbnBjPqNjUAjdqt7gQ
+ d/tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=YJqAWnEFUsFopJN+R3yC83dmhjT965SS1H0uOaMRsJo=;
+ b=ZwfhlVnNb9sXggggNX8TPr1sVQSTajYnv1MV2wuYBrnYxU3khTQAIixB8BHOY5DjiH
+ LcJzI38TeOo6UUnJcd+i/KQeW1HVNEK2PKUei3Hk0oc/u/xNnfKHePEfgrhByFG866s4
+ 5MgPIbZhDE5gy0OyCUETfOCCTUgpGph+fDAn4a1SI/B6k9HlKrAPzcUXFVKIfon32LHE
+ 2GwAPAkLHwUAlw1WhTvdWMm+FTJlkHc8mVyWKdEjCsG3b1sH8WyFv3kGU8QLl+YN9sf8
+ mOs+sWuJ27slx9p5Gz+1yBFZZ/1Hvh6ziUyZmyRH/b5Rp6ZO5K7jH22BhNp/h64PC6DL
+ XvVQ==
+X-Gm-Message-State: APjAAAU++Keck+EGxvkYJzR2H2pCTgTzUUezxoOLx2yg7SWzWpkI81Q+
+ MXbFmg1RfIz2Lvr7mVQzw61clWi+mz8I7b1LUSs=
+X-Google-Smtp-Source: APXvYqwy4sVQAPO9pz+GUmqcnZ2+5fXlK0qEvpUdUSJhEXnKD1KCVhVywcDTPzPc1vvjn5W0TUQC40JjHnEAEQA/5uc=
+X-Received: by 2002:a25:8109:: with SMTP id o9mr11936909ybk.132.1562666808489; 
+ Tue, 09 Jul 2019 03:06:48 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 73c575be-b3e6-4889-8e4b-08d70444ec20
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jul 2019 08:10:35.9979 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: camann@suse.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR18MB2201
-X-OriginatorOrg: suse.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+References: <CAOQ4uxgUfhDL3kE_2xFKTnfs+Pgn5UJ38n2aFxz4XndfUeFX8A@mail.gmail.com>
+ <1562359357-24526-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <CAOQ4uxhHOCb2fB_wSbBz8ekvm4S9_PsAXKD45=+MZNgt+Y-2gQ@mail.gmail.com>
+ <5D243AD7.10401@cn.fujitsu.com>
+In-Reply-To: <5D243AD7.10401@cn.fujitsu.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Tue, 9 Jul 2019 13:06:37 +0300
+Message-ID: <CAOQ4uxhjbaszcCL0=QAncBT3PzqJR_7oyR+_0-zNa-pt6JNQSA@mail.gmail.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] syscalls/ioctl08: Add check for btrfs
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] syscalls/copy_file_range02: increase coverage
+ and remove EXDEV test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,168 +74,80 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0910781785=="
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0910781785==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MW2PR18MB2234061990DCAD3F1D38941FABF10MW2PR18MB2234namp_"
-
---_000_MW2PR18MB2234061990DCAD3F1D38941FABF10MW2PR18MB2234namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Sorry, I just found out that my mail forwarding stopped working so I didn't=
- see that there's already a patch for that.
-
-Please Ignore this, thanks!
-
-
-Regards,
-
-Christian
-
-
-________________________________
-From: Christian Amann
-Sent: Tuesday, July 9, 2019 9:32:28 AM
-To: ltp@lists.linux.it
-Cc: amir73il@gmail.com; Christian Amann
-Subject: [PATCH v1] syscalls/ioctl08: Add check for btrfs
-
-This test used to fail on systems with missing btrfs support. Now it
-ends with TCONF.
-
-Reported-by: Amir Goldstein <amir73il@gmail.com>
-Signed-off-by: Christian Amann <camann@suse.com>
----
- testcases/kernel/syscalls/ioctl/ioctl08.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl08.c b/testcases/kernel/s=
-yscalls/ioctl/ioctl08.c
-index 8de80048c..c39423b8b 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl08.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl08.c
-@@ -112,9 +112,15 @@ static void setup(void)
-                         sizeof(struct file_dedupe_range_info));
- }
-
-+static const char *kconfigs[] =3D {
-+       "CONFIG_BTRFS_FS",
-+       NULL
-+};
-+
- static struct tst_test test =3D {
-         .test =3D verify_ioctl,
-         .tcnt =3D ARRAY_SIZE(tcases),
-+       .needs_kconfigs =3D kconfigs,
-         .setup =3D setup,
-         .cleanup =3D cleanup,
-         .min_kver =3D "4.5",
---
-2.16.4
-
-
---_000_MW2PR18MB2234061990DCAD3F1D38941FABF10MW2PR18MB2234namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size: 12pt; colo=
-r: rgb(0, 0, 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFo=
-nt&quot;, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoCo=
-lorEmoji, &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymb=
-ols;">
-<p style=3D"margin-top:0; margin-bottom:0">Sorry, I just found out that my =
-mail forwarding stopped working so I didn't see that there's already a patc=
-h for that.</p>
-<p style=3D"margin-top:0; margin-bottom:0">Please Ignore this, thanks!</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">Regards,</p>
-<p style=3D"margin-top:0; margin-bottom:0">Christian</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Christian Amann<br>
-<b>Sent:</b> Tuesday, July 9, 2019 9:32:28 AM<br>
-<b>To:</b> ltp@lists.linux.it<br>
-<b>Cc:</b> amir73il@gmail.com; Christian Amann<br>
-<b>Subject:</b> [PATCH v1] syscalls/ioctl08: Add check for btrfs</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+On Tue, Jul 9, 2019 at 9:57 AM Yang Xu <xuyang2018.jy@cn.fujitsu.com> wrote:
 >
-<div class=3D"PlainText">This test used to fail on systems with missing btr=
-fs support. Now it<br>
-ends with TCONF.<br>
-<br>
-Reported-by: Amir Goldstein &lt;amir73il@gmail.com&gt;<br>
-Signed-off-by: Christian Amann &lt;camann@suse.com&gt;<br>
----<br>
-&nbsp;testcases/kernel/syscalls/ioctl/ioctl08.c | 6 &#43;&#43;&#43;&#43;&#4=
-3;&#43;<br>
-&nbsp;1 file changed, 6 insertions(&#43;)<br>
-<br>
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl08.c b/testcases/kernel/s=
-yscalls/ioctl/ioctl08.c<br>
-index 8de80048c..c39423b8b 100644<br>
---- a/testcases/kernel/syscalls/ioctl/ioctl08.c<br>
-&#43;&#43;&#43; b/testcases/kernel/syscalls/ioctl/ioctl08.c<br>
-@@ -112,9 &#43;112,15 @@ static void setup(void)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sizeo=
-f(struct file_dedupe_range_info));<br>
-&nbsp;}<br>
-&nbsp;<br>
-&#43;static const char *kconfigs[] =3D {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;CONFIG_BTRFS_FS&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL<br>
-&#43;};<br>
-&#43;<br>
-&nbsp;static struct tst_test test =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .test =3D verify_ioctl,<br=
+> on 2019/07/08 23:17, Amir Goldstein wrote:
 >
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .tcnt =3D ARRAY_SIZE(tcase=
-s),<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .needs_kconfigs =3D kconfigs,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .setup =3D setup,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .cleanup =3D cleanup,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .min_kver =3D &quot;4.5&qu=
-ot;,<br>
--- <br>
-2.16.4<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+> > On Mon, Jul 8, 2019 at 1:46 PM Yang Xu<xuyang2018.jy@cn.fujitsu.com>  wrote:
+> >> Since Amir path for copy_file_range has been merged into linux-xfs,
+> >> I add test for swapfile, immutable file, bounds in ltp.  Also, add test
+> >> for block char pipe dev and remove EXDEV test(5.3 will relax the cross-device
+> >> constraint[2]).  I follow xfstests code[3][4][5] and increase it .
+> >>
+> >> [1]https://git.kernel.org/pub/scm/linux/kernel/git/djwong/xfs-linux.git/commit/?h=for-next-5.3&id=5dae222a5ff0c269730393018a5539cc970a4726
+> >> [2]https://git.kernel.org/pub/scm/linux/kernel/git/djwong/xfs-linux.git/commit/?h=for-next-5.3&id=96e6e8f4a68df2d94800311163faa67124df24e5
+> >> [3]https://patchwork.kernel.org/patch/10971759/
+> >> [4]https://patchwork.kernel.org/patch/10971747/
+> >> [5]https://patchwork.kernel.org/patch/10961421/
+> >>
+> >> Signed-off-by: Yang Xu<xuyang2018.jy@cn.fujitsu.com>
+> >> ---
+> >>   .../copy_file_range/copy_file_range.h         |  11 +-
+> >>   .../copy_file_range/copy_file_range02.c       | 139 +++++++++++++++---
+> >>   2 files changed, 130 insertions(+), 20 deletions(-)
+> >>
+> >> diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range.h b/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
+> >> index b6d132978..f9e2565d9 100644
+> >> --- a/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
+> >> +++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
+> >> @@ -9,6 +9,7 @@
+> >>
+> >>   #include<stdbool.h>
+> >>   #include<unistd.h>
+> >> +#include<sys/sysmacros.h>
+> >>   #include "lapi/syscalls.h"
+> >>
+> >>   #define TEST_VARIANTS  2
+> >> @@ -18,10 +19,18 @@
+> >>   #define FILE_DEST_PATH  "file_dest"
+> >>   #define FILE_RDONL_PATH "file_rdonl"
+> >>   #define FILE_DIR_PATH  "file_dir"
+> >> -#define FILE_MNTED_PATH        MNTPOINT"/file_mnted"
+> >> +#define FILE_IMMUTABLE_PATH "file_immutable"
+> >> +#define FILE_SWAP_PATH "file_swap"
+> >> +#define FILE_BLKDEV    "file_blk"
+> >> +#define FILE_CHRDEV    "file_chr"
+> >> +#define FILE_FIFO      "file_fifo"
+> >> +#define FILE_COPY_PATH  "file_copy"
+> >>
+> >>   #define CONTENT                "ABCDEFGHIJKLMNOPQRSTUVWXYZ12345\n"
+> >>   #define CONTSIZE       (sizeof(CONTENT) - 1)
+> >> +#define MAX_LEN   ((long long)(~0ULL>>  1))
+> >> +#define MIN_OFF   65537
+> >> +#define MAX_OFF   (MAX_LEN - MIN_OFF)
+> > In the xfstest the value of MAX_OFF is ((1ULL<<  63) - MIN_OFF)
+> > Not sure why it was changed here?
+> Because the LONG LONG max value in kernel linux/limit.h is defined as" #define LLONG_MAX  ((long long)(~0ULL>>  1))".
+> I think it is a common usage.   If you don't like this way, I will use the xfstests vaule.
 
---_000_MW2PR18MB2234061990DCAD3F1D38941FABF10MW2PR18MB2234namp_--
+No it makes sense. VFS max size is larger than XFS max size and
+I think btrfs is limited for the VFS max.
 
---===============0910781785==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Maybe it is better to define MAX_LFS_FILESIZE if it is not defined
+in some ltp header file and #define MAX_LEN MAX_LFS_FILESIZE
+leaving comments where due.
 
+Also, I now wonder if running this test on 32bit kernel and with test
+compiled for 32bit will yield the expected errors?
+
+Thanks,
+Amir.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0910781785==--
