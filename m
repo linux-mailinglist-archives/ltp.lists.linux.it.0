@@ -1,54 +1,66 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36F4464357
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2019 10:08:14 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4243864309
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2019 09:47:48 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 07ED23C07AD
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2019 10:08:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 106043C1C7C
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2019 09:47:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 54E653C07AD
- for <ltp@lists.linux.it>; Wed, 10 Jul 2019 10:08:12 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 589821A00162
- for <ltp@lists.linux.it>; Wed, 10 Jul 2019 10:08:09 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.63,473,1557158400"; d="scan'208";a="71090960"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 10 Jul 2019 16:08:06 +0800
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id EA2AA4CE1C88;
- Wed, 10 Jul 2019 15:32:16 +0800 (CST)
-Received: from [10.167.215.46] (10.167.215.46) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- id 14.3.439.0; Wed, 10 Jul 2019 15:32:17 +0800
-Message-ID: <5D25947F.8000700@cn.fujitsu.com>
-Date: Wed, 10 Jul 2019 15:32:15 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id D364F3C02C2
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2019 09:47:46 +0200 (CEST)
+Received: from mail-yw1-xc43.google.com (mail-yw1-xc43.google.com
+ [IPv6:2607:f8b0:4864:20::c43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 7320F201351
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2019 09:47:45 +0200 (CEST)
+Received: by mail-yw1-xc43.google.com with SMTP id u141so517017ywe.4
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2019 00:47:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=kG6/VaZzCs+/33k54ukSAzSBN1XnVeF+rMVOrLdByeM=;
+ b=TopW/goVUC/SSi30qKA2vK94rNeVpPZ6jF3n7zAbwB9GIDgH5jogPr1msu51qrkAjo
+ cjk9futraaWmGD8xwMaYqHzUuijwq+GwNDEz2xRYhKLy6o5DzGwZcb4uItN3imyGbObP
+ G/b1nhTmlq5AZoLUceQdQ2soRj1XA25+oMU3mEh59nEyli+BE16or+pxF/SFqYLbXite
+ 6m6D39DLZAJ4JTKaTnxC0ptobbLC7Qgldvp0Sn7Fq+EH5Yct5ATeIk6g8D3SqTmrA3Ot
+ 0H8GfZIy+QvekQlDMrc6JA6SRguR6KHtaMTNZcBxePMJBBmIAeoIJQzPPqIFHh2k7r2O
+ 4KBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=kG6/VaZzCs+/33k54ukSAzSBN1XnVeF+rMVOrLdByeM=;
+ b=BqnCwIFeYX9DQ/m7drFDqzUtE7H+FunmldvRie8sqF187FIvqZmzKO7cc+O+9g3ahj
+ 1iGYI2ARgjIFWWJNEKizVnwf1ldpd/cSTJsiHIk5vm54lUI4SsiWXb59ErXVY4CVn9d4
+ dxh0eBRPNvEcDc+pgWRy9X272tCplkgWDFMRG3JsiyqrAYOVzewHKuuJYOfpbhEhKcKg
+ qV/ffSJPiG/4jtxmqv8SVl4hCY8eG7gW9OYugJ5wMLmghq9gi4wD9eqeO6VEFWXFYJ0e
+ o0UXf9KEqz8Ul+X3WXQIG6a/WBmQc7ggj0bYZflR9FZFLC1mVUlPxOEMiVNgs7zfUYGs
+ LHLQ==
+X-Gm-Message-State: APjAAAVge3D8WH/ts3fxZVw0EGy+z4ez48vjGH9E8k/nNYofetxlaNlP
+ rEPdmVvn6HT+5UgLdSAoz+TlANSdso2uyX1cbaY=
+X-Google-Smtp-Source: APXvYqzZjClrq38GlbdhhALPveD0ug0jkHwUzmgD8HQUINR+YP8hA5eVSU/IeXkAM4qcJPyzqRuC2bk4hgeg0+O1NvE=
+X-Received: by 2002:a81:31c3:: with SMTP id x186mr13003648ywx.25.1562744864150; 
+ Wed, 10 Jul 2019 00:47:44 -0700 (PDT)
 MIME-Version: 1.0
-To: Amir Goldstein <amir73il@gmail.com>
-References: <CAOQ4uxgUfhDL3kE_2xFKTnfs+Pgn5UJ38n2aFxz4XndfUeFX8A@mail.gmail.com>
- <1562359357-24526-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <CAOQ4uxhHOCb2fB_wSbBz8ekvm4S9_PsAXKD45=+MZNgt+Y-2gQ@mail.gmail.com>
- <5D243AD7.10401@cn.fujitsu.com>
- <CAOQ4uxhjbaszcCL0=QAncBT3PzqJR_7oyR+_0-zNa-pt6JNQSA@mail.gmail.com>
-In-Reply-To: <CAOQ4uxhjbaszcCL0=QAncBT3PzqJR_7oyR+_0-zNa-pt6JNQSA@mail.gmail.com>
-X-Originating-IP: [10.167.215.46]
-X-yoursite-MailScanner-ID: EA2AA4CE1C88.AF94E
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+References: <CAOQ4uxhjbaszcCL0=QAncBT3PzqJR_7oyR+_0-zNa-pt6JNQSA@mail.gmail.com>
+ <1562743104-2705-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+In-Reply-To: <1562743104-2705-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Wed, 10 Jul 2019 10:47:33 +0300
+Message-ID: <CAOQ4uxjrFDJqUaFw=Fb1d_OKyq-qH9SV3ELVHPEDHM1Bak0ZaA@mail.gmail.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] syscalls/copy_file_range02: increase coverage
- and remove EXDEV test
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 1/3] lib: alter find_free_loopdev()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,97 +73,122 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-on 2019/07/09 18:06, Amir Goldstein wrote:
-
-> On Tue, Jul 9, 2019 at 9:57 AM Yang Xu<xuyang2018.jy@cn.fujitsu.com>  wrote:
->> on 2019/07/08 23:17, Amir Goldstein wrote:
->>
->>> On Mon, Jul 8, 2019 at 1:46 PM Yang Xu<xuyang2018.jy@cn.fujitsu.com>   wrote:
->>>> Since Amir path for copy_file_range has been merged into linux-xfs,
->>>> I add test for swapfile, immutable file, bounds in ltp.  Also, add test
->>>> for block char pipe dev and remove EXDEV test(5.3 will relax the cross-device
->>>> constraint[2]).  I follow xfstests code[3][4][5] and increase it .
->>>>
->>>> [1]https://git.kernel.org/pub/scm/linux/kernel/git/djwong/xfs-linux.git/commit/?h=for-next-5.3&id=5dae222a5ff0c269730393018a5539cc970a4726
->>>> [2]https://git.kernel.org/pub/scm/linux/kernel/git/djwong/xfs-linux.git/commit/?h=for-next-5.3&id=96e6e8f4a68df2d94800311163faa67124df24e5
->>>> [3]https://patchwork.kernel.org/patch/10971759/
->>>> [4]https://patchwork.kernel.org/patch/10971747/
->>>> [5]https://patchwork.kernel.org/patch/10961421/
->>>>
->>>> Signed-off-by: Yang Xu<xuyang2018.jy@cn.fujitsu.com>
->>>> ---
->>>>    .../copy_file_range/copy_file_range.h         |  11 +-
->>>>    .../copy_file_range/copy_file_range02.c       | 139 +++++++++++++++---
->>>>    2 files changed, 130 insertions(+), 20 deletions(-)
->>>>
->>>> diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range.h b/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
->>>> index b6d132978..f9e2565d9 100644
->>>> --- a/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
->>>> +++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
->>>> @@ -9,6 +9,7 @@
->>>>
->>>>    #include<stdbool.h>
->>>>    #include<unistd.h>
->>>> +#include<sys/sysmacros.h>
->>>>    #include "lapi/syscalls.h"
->>>>
->>>>    #define TEST_VARIANTS  2
->>>> @@ -18,10 +19,18 @@
->>>>    #define FILE_DEST_PATH  "file_dest"
->>>>    #define FILE_RDONL_PATH "file_rdonl"
->>>>    #define FILE_DIR_PATH  "file_dir"
->>>> -#define FILE_MNTED_PATH        MNTPOINT"/file_mnted"
->>>> +#define FILE_IMMUTABLE_PATH "file_immutable"
->>>> +#define FILE_SWAP_PATH "file_swap"
->>>> +#define FILE_BLKDEV    "file_blk"
->>>> +#define FILE_CHRDEV    "file_chr"
->>>> +#define FILE_FIFO      "file_fifo"
->>>> +#define FILE_COPY_PATH  "file_copy"
->>>>
->>>>    #define CONTENT                "ABCDEFGHIJKLMNOPQRSTUVWXYZ12345\n"
->>>>    #define CONTSIZE       (sizeof(CONTENT) - 1)
->>>> +#define MAX_LEN   ((long long)(~0ULL>>   1))
->>>> +#define MIN_OFF   65537
->>>> +#define MAX_OFF   (MAX_LEN - MIN_OFF)
->>> In the xfstest the value of MAX_OFF is ((1ULL<<   63) - MIN_OFF)
->>> Not sure why it was changed here?
->> Because the LONG LONG max value in kernel linux/limit.h is defined as" #define LLONG_MAX  ((long long)(~0ULL>>   1))".
->> I think it is a common usage.   If you don't like this way, I will use the xfstests vaule.
-> No it makes sense. VFS max size is larger than XFS max size and
-> I think btrfs is limited for the VFS max.
+On Wed, Jul 10, 2019 at 10:18 AM Yang Xu <xuyang2018.jy@cn.fujitsu.com> wrote:
 >
-> Maybe it is better to define MAX_LFS_FILESIZE if it is not defined
-> in some ltp header file and #define MAX_LEN MAX_LFS_FILESIZE
-> leaving comments where due.
+> Alter find_free_loopdev() to return the free loopdev minor
+> (and -1 for no free loopdev) and then WE can safely use the
+> minor number that find_free_loopdev() returned in test cases.
 >
-> Also, I now wonder if running this test on 32bit kernel and with test
-> compiled for 32bit will yield the expected errors?
-Hi Amir
+> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 
-I have sent a v3 patch. I split it into 3 patch.
-lib: alter find_free_loopdev()
-syscalls/copy_file_range01: add cross-device test
-syscalls/copy_file_range02: increase coverage and remove EXDEV test
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
 
-I don't have 32bit machine or vm.   It takes some time.  Please wait.
-ps: If someone can help to test it, it will be great.
-
-Thanks,
-Yang Xu
-
-> Thanks,
-> Amir.
+> ---
+>  doc/test-writing-guidelines.txt |  9 +++++++++
+>  include/tst_device.h            |  6 ++++++
+>  lib/tst_device.c                | 12 ++++++------
+>  3 files changed, 21 insertions(+), 6 deletions(-)
+>
+> diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
+> index c6d4e001d..887801e68 100644
+> --- a/doc/test-writing-guidelines.txt
+> +++ b/doc/test-writing-guidelines.txt
+> @@ -1045,6 +1045,15 @@ IMPORTANT: All testcases should use 'tst_umount()' instead of 'umount(2)' to
+>  -------------------------------------------------------------------------------
+>  #include "tst_test.h"
+>
+> +int find_free_loopdev();
+> +-------------------------------------------------------------------------------
+> +This function finds a free loopdev for use and returns the free loopdev minor(-1
+> +for no free loopdev).
+> +
+> +[source,c]
+> +-------------------------------------------------------------------------------
+> +#include "tst_test.h"
+> +
+>  unsigned long tst_dev_bytes_written(const char *dev);
+>  -------------------------------------------------------------------------------
+>
+> diff --git a/include/tst_device.h b/include/tst_device.h
+> index 61902b7e0..8953b0828 100644
+> --- a/include/tst_device.h
+> +++ b/include/tst_device.h
+> @@ -44,6 +44,12 @@ int tst_umount(const char *path);
+>   */
+>  int tst_clear_device(const char *dev);
+>
+> +/*
+> + * Finds a free loop device for use and returns the free loopdev minor(-1 for no
+> + * free loopdev).
+> + */
+> +int find_free_loopdev(void);
+> +
+>  /*
+>   * Reads test block device stat file and returns the bytes written since the
+>   * last call of this function.
+> diff --git a/lib/tst_device.c b/lib/tst_device.c
+> index 65fcc1337..3b87dd1f1 100644
+> --- a/lib/tst_device.c
+> +++ b/lib/tst_device.c
+> @@ -68,7 +68,7 @@ static int set_dev_path(int dev)
+>         return 0;
+>  }
+>
+> -static int find_free_loopdev(void)
+> +int find_free_loopdev(void)
+>  {
+>         int ctl_fd, dev_fd, rc, i;
+>         struct loop_info loopinfo;
+> @@ -82,10 +82,10 @@ static int find_free_loopdev(void)
+>                 if (rc >= 0) {
+>                         set_dev_path(rc);
+>                         tst_resm(TINFO, "Found free device '%s'", dev_path);
+> -                       return 0;
+> +                       return rc;
+>                 }
+>                 tst_resm(TINFO, "Couldn't find free loop device");
+> -               return 1;
+> +               return -1;
+>         }
+>
+>         switch (errno) {
+> @@ -121,7 +121,7 @@ static int find_free_loopdev(void)
+>                                 continue;
+>                         tst_resm(TINFO, "Found free device '%s'", dev_path);
+>                         close(dev_fd);
+> -                       return 0;
+> +                       return i;
+>                 }
+>
+>                 close(dev_fd);
+> @@ -129,7 +129,7 @@ static int find_free_loopdev(void)
+>
+>         tst_resm(TINFO, "No free devices found");
+>
+> -       return 1;
+> +       return -1;
+>  }
+>
+>  static int attach_device(const char *dev, const char *file)
+> @@ -274,7 +274,7 @@ const char *tst_acquire_device__(unsigned int size)
+>                 return NULL;
+>         }
+>
+> -       if (find_free_loopdev())
+> +       if (find_free_loopdev() == -1)
+>                 return NULL;
+>
+>         if (attach_device(dev_path, DEV_FILE))
+> --
+> 2.18.1
 >
 >
 >
-
-
-
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
