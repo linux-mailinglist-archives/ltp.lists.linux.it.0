@@ -1,50 +1,65 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF28B64273
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2019 09:18:59 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 982D26428B
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2019 09:23:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9F3E13C1CFC
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2019 09:18:59 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6A3CB3C1C7E
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2019 09:23:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id DCA413C1C81
- for <ltp@lists.linux.it>; Wed, 10 Jul 2019 09:18:50 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 4982360103F
- for <ltp@lists.linux.it>; Wed, 10 Jul 2019 09:18:50 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.63,473,1557158400"; d="scan'208";a="71086441"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 10 Jul 2019 15:18:46 +0800
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id 0B4814CDB2E5;
- Wed, 10 Jul 2019 15:18:45 +0800 (CST)
-Received: from localhost.localdomain (10.167.215.46) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Wed, 10 Jul 2019 15:18:44 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <amir73il@gmail.com>
-Date: Wed, 10 Jul 2019 15:18:24 +0800
-Message-ID: <1562743104-2705-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1562743104-2705-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-References: <CAOQ4uxhjbaszcCL0=QAncBT3PzqJR_7oyR+_0-zNa-pt6JNQSA@mail.gmail.com>
- <1562743104-2705-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-MIME-Version: 1.0
-X-Originating-IP: [10.167.215.46]
-X-yoursite-MailScanner-ID: 0B4814CDB2E5.AE200
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 6D6993C0137
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2019 09:23:21 +0200 (CEST)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id D853E10011D5
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2019 09:23:15 +0200 (CEST)
+Received: from mail-pg1-f199.google.com ([209.85.215.199])
+ by youngberry.canonical.com with esmtps (TLS1.0:RSA_AES_128_CBC_SHA1:16)
+ (Exim 4.76) (envelope-from <po-hsu.lin@canonical.com>)
+ id 1hl6wh-0008I5-16
+ for ltp@lists.linux.it; Wed, 10 Jul 2019 07:23:19 +0000
+Received: by mail-pg1-f199.google.com with SMTP id n7so924046pgr.12
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2019 00:23:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:subject:date:message-id;
+ bh=R46JYTFJFs3dUHT6CyNz3XPJOVzqYp0zkAXrC4Wzyjg=;
+ b=BHdNiTgYBVdODfSj5wfX+HQxtpxeJeGRZ3gAphJ1uBFCCdj3ZJBksg2rTHMXhf55MR
+ 4fBm0uzbwwsd9OvgbWiAhCPDhVZ+U0JszIYlCB4hBpIQVu21Pu+sRyN90NGvADCmevyZ
+ 6/LP6XpL2gm9z6gPjQZlnP3m8IGnEwL5Gb3D3CbGvM8rhDF0VdS/0rM/yoL29yg84250
+ W1bA8yNfES/ESQjgEjxzLNuka3nDUsIt09cdMbwy4n0jTVv+WZfr+FP/Jj97RNSGijAY
+ /r+Zweap1s2cKn6xrdclgyB9drPe3Z0HvPBvjkqOlWUfFVnVRrdxTQpnflH6zju1uSQg
+ zQcQ==
+X-Gm-Message-State: APjAAAVnuFD1FvvbGLhc3ahuv10Lj+jnGSsmVezgM+G3GAVN8vVcpZK3
+ kMCncb+yYMaalg/5mbp5vJR5BQ2giLI+b6vSusXf8shUQGp68TWiOkoKwMZZFMzBL5MUx2yq8/3
+ ZMF6GrCShBbUhQo0TsqZ3SOYieCs=
+X-Received: by 2002:a65:4d4e:: with SMTP id j14mr35150078pgt.50.1562743397390; 
+ Wed, 10 Jul 2019 00:23:17 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqy561Z3qIc7t0Y6vCH4pi1jjR/B0WDCADWnIvGCOpXHKf/GfDSXN6sFnIfm7V6rIJ8DWuLoWg==
+X-Received: by 2002:a65:4d4e:: with SMTP id j14mr35150037pgt.50.1562743396829; 
+ Wed, 10 Jul 2019 00:23:16 -0700 (PDT)
+Received: from Leggiero.taipei.internal (61-220-137-37.HINET-IP.hinet.net.
+ [61.220.137.37])
+ by smtp.gmail.com with ESMTPSA id h26sm1192653pfq.64.2019.07.10.00.23.15
+ for <ltp@lists.linux.it>
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Wed, 10 Jul 2019 00:23:16 -0700 (PDT)
+From: Po-Hsu Lin <po-hsu.lin@canonical.com>
+To: ltp@lists.linux.it
+Date: Wed, 10 Jul 2019 15:23:02 +0800
+Message-Id: <20190710072305.25806-1-po-hsu.lin@canonical.com>
+X-Mailer: git-send-email 2.17.1
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
-X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 3/3] syscalls/copy_file_range02: increase coverage
- and remove EXDEV test
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCHv2 0/3] zram/zram_lib.sh: fix zram_compress_alg() test
+ for zram01
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,287 +71,33 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Since Amir patch[1] for copy_file_range has been merged into linux-xfs for
-next branch, I want to add test for swapfile, immutable file, bounds in ltp.
-Also, add test for block,char,pipe dev and remove EXDEV test(5.3 will relax
-the cross-device constraint[2]).  I follow xfstests code[3][4][5].
+The zram_compress_alg() test in zram01 is not working properly, this
+patchset will address the following issues:
+  1. Inconsistent variable name for compression algorithms, and the
+     algorithm name needs to be sanitized before use.
+  2. Hard-coded block device numbers to iterate with. If the number of
+     the available zram compression algorithms is larger than the
+     number of block devices, the test will fail.
+  3. Restore the compression algorithm back to the default one.
 
-[1]https://git.kernel.org/pub/scm/fs/xfs/xfs-linux.git/commit/?h=for-next&id=96e6e8f
-[2]https://git.kernel.org/pub/scm/fs/xfs/xfs-linux.git/commit/?h=for-next&id=5dae222
-[3]https://patchwork.kernel.org/patch/10971759/
-[4]https://patchwork.kernel.org/patch/10971747/
-[5]https://patchwork.kernel.org/patch/10961421/
+Po-Hsu Lin (3):
+  zram/zram_lib.sh: fix variable name and algorithm retrieval
+  zram/zram_lib.sh: iterate through all available compression algorithms
+    for all zram block devices
+  zram/zram_lib.sh: set the compression algorithms back to default after
+    test
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- .../copy_file_range/copy_file_range.h         |  20 ++-
- .../copy_file_range/copy_file_range02.c       | 142 +++++++++++++++---
- 2 files changed, 141 insertions(+), 21 deletions(-)
+ .../kernel/device-drivers/zram/zram_lib.sh    | 24 +++++++++++++------
+ 1 file changed, 17 insertions(+), 7 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range.h b/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
-index b6d132978..2a9eec75d 100644
---- a/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
-+++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
-@@ -9,6 +9,8 @@
- 
- #include <stdbool.h>
- #include <unistd.h>
-+#include <sys/sysmacros.h>
-+#include <limits.h>
- #include "lapi/syscalls.h"
- 
- #define TEST_VARIANTS	2
-@@ -18,11 +20,27 @@
- #define FILE_DEST_PATH  "file_dest"
- #define FILE_RDONL_PATH "file_rdonl"
- #define FILE_DIR_PATH	"file_dir"
--#define FILE_MNTED_PATH	MNTPOINT"/file_mnted"
-+#define FILE_MNTED_PATH  MNTPOINT"/file_mnted"
-+#define FILE_IMMUTABLE_PATH "file_immutable"
-+#define FILE_SWAP_PATH "file_swap"
-+#define FILE_BLKDEV    "file_blk"
-+#define FILE_CHRDEV    "/dev/null"
-+#define FILE_FIFO      "file_fifo"
-+#define FILE_COPY_PATH  "file_copy"
- 
- #define CONTENT		"ABCDEFGHIJKLMNOPQRSTUVWXYZ12345\n"
- #define CONTSIZE	(sizeof(CONTENT) - 1)
- 
-+#if __WORDSIZE == 64
-+	#define MAX_LFS_FILESIZE        ((loff_t)LLONG_MAX)
-+#else
-+	#define MAX_LFS_FILESIZE        ((loff_t)ULONG_MAX << PAGE_SHIFT)
-+#endif
-+
-+#define MAX_LEN   MAX_LFS_FILESIZE
-+#define MIN_OFF   65537
-+#define MAX_OFF   (MAX_LEN - MIN_OFF)
-+
- static void syscall_info(void)
- {
- 	switch (tst_variant) {
-diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
-index 07c0207c2..abe6d5751 100644
---- a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
-+++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
-@@ -10,15 +10,25 @@
-  *
-  * 1) Try to copy contents to file open as readonly
-  *    -> EBADF
-- * 2) Try to copy contents to file on different mounted
-- *    filesystem -> EXDEV
-- * 3) Try to copy contents to directory -> EISDIR
-- * 4) Try to copy contents to a file opened with the
-+ * 2) Try to copy contents to directory -> EISDIR
-+ * 3) Try to copy contents to a file opened with the
-  *    O_APPEND flag -> EBADF
-- * 5) Try to copy contents to closed filedescriptor
-+ * 4) Try to copy contents to closed filedescriptor
-  *    -> EBADF
-- * 6) Try to copy contents with invalid 'flags' value
-+ * 5) Try to copy contents with invalid 'flags' value
-  *    -> EINVAL
-+ * 6) Try to copy contents to a file chattred with +i
-+ *    flag -> EPERM
-+ * 7) Try to copy contents to a swapfile ->ETXTBSY
-+ * 8) Try to copy contents to the samefile with overlapping
-+ *    ->EINVAL
-+ * 9) Try to copy contents to a blkdev ->EINVAL
-+ * 10) Try to copy contents to a chardev ->EINVAL
-+ * 11) Try to copy contents to a FIFO ->EINVAL
-+ * 12) Try to copy contents to a file with length beyond
-+ *     16EiB wraps around 0 -> EOVERFLOW
-+ * 13) Try to copy contents to a file with target file range
-+ *     beyond 8EiB ->EFBIG
-  */
- 
- #define _GNU_SOURCE
-@@ -29,30 +39,78 @@
- static int fd_src;
- static int fd_dest;
- static int fd_rdonly;
--static int fd_mnted;
- static int fd_dir;
- static int fd_closed;
- static int fd_append;
-+static int fd_immutable;
-+static int fd_swapfile;
-+static int fd_dup;
-+static int fd_blkdev;
-+static int fd_chrdev;
-+static int fd_fifo;
-+static int fd_copy;
-+
-+static int chattr_i_nsup;
-+static int swap_nsup;
-+static int loop_devn;
- 
- static struct tcase {
- 	int	*copy_to_fd;
- 	int	flags;
- 	int	exp_err;
-+	loff_t  dst;
-+	loff_t     len;
- } tcases[] = {
--	{&fd_rdonly,	0,	EBADF},
--	{&fd_mnted,	0,	EXDEV},
--	{&fd_dir,	0,	EISDIR},
--	{&fd_append,	0,	EBADF},
--	{&fd_closed,	0,	EBADF},
--	{&fd_dest,	-1,	EINVAL},
-+	{&fd_rdonly,	0,   EBADF,      0,     CONTSIZE},
-+	{&fd_dir,	0,   EISDIR,     0,     CONTSIZE},
-+	{&fd_append,	0,   EBADF,      0,     CONTSIZE},
-+	{&fd_closed,	0,   EBADF,      0,     CONTSIZE},
-+	{&fd_dest,	-1,  EINVAL,     0,     CONTSIZE},
-+	{&fd_immutable, 0,   EPERM,      0,     CONTSIZE},
-+	{&fd_swapfile,  0,   ETXTBSY,    0,     CONTSIZE},
-+	{&fd_dup,       0,   EINVAL,     0,     CONTSIZE/2},
-+	{&fd_blkdev,    0,   EINVAL,     0,     CONTSIZE},
-+	{&fd_chrdev,    0,   EINVAL,     0,     CONTSIZE},
-+	{&fd_fifo,      0,   EINVAL,     0,     CONTSIZE},
-+	{&fd_copy,      0,   EOVERFLOW,  MAX_OFF, 2*MAX_LEN},
-+	{&fd_copy,      0,   EFBIG,      MAX_OFF, MIN_OFF},
- };
- 
-+static int run_command(char *command, char *option, char *file)
-+{
-+	const char *const cmd[] = {command, option, file, NULL};
-+	int ret;
-+
-+	ret = tst_run_cmd(cmd, NULL, NULL, 1);
-+	switch (ret) {
-+	case 0:
-+	return 0;
-+	case 255:
-+		tst_res(TCONF, "%s binary not installed", command);
-+	return 1;
-+	default:
-+		tst_res(TCONF, "%s exited with %i", command, ret);
-+	return 2;
-+	}
-+}
-+
- static void verify_copy_file_range(unsigned int n)
- {
- 	struct tcase *tc = &tcases[n];
--
-+	if (tc->copy_to_fd == &fd_immutable && chattr_i_nsup) {
-+		tst_res(TCONF, "filesystem doesn't support chattr +i, skip it");
-+		return;
-+	}
-+	if (tc->copy_to_fd == &fd_swapfile && swap_nsup) {
-+		tst_res(TCONF, "filesystem doesn't support swapfile, skip it");
-+		return;
-+	}
-+	if (tc->copy_to_fd == &fd_blkdev && loop_devn == -1) {
-+		tst_res(TCONF, "filesystem doesn't have free loopdev, skip it");
-+		return;
-+	}
- 	TEST(sys_copy_file_range(fd_src, 0, *tc->copy_to_fd,
--				0, CONTSIZE, tc->flags));
-+				&tc->dst, tc->len, tc->flags));
- 
- 	if (TST_RET == -1) {
- 		if (tc->exp_err == TST_ERR) {
-@@ -76,14 +134,27 @@ static void cleanup(void)
- 		SAFE_CLOSE(fd_append);
- 	if (fd_dir > 0)
- 		SAFE_CLOSE(fd_dir);
--	if (fd_mnted > 0)
--		SAFE_CLOSE(fd_mnted);
- 	if (fd_rdonly > 0)
- 		SAFE_CLOSE(fd_rdonly);
- 	if (fd_dest > 0)
- 		SAFE_CLOSE(fd_dest);
- 	if (fd_src > 0)
- 		SAFE_CLOSE(fd_src);
-+	if (fd_immutable > 0) {
-+		run_command("chattr", "-i", FILE_IMMUTABLE_PATH);
-+		SAFE_CLOSE(fd_immutable);
-+	}
-+	if (fd_swapfile > 0) {
-+		run_command("swapoff", FILE_SWAP_PATH, NULL);
-+		SAFE_CLOSE(fd_swapfile);
-+	}
-+	if (fd_dup > 0)
-+		SAFE_CLOSE(fd_dup);
-+	if (loop_devn >= 0)
-+		SAFE_UNLINK(FILE_BLKDEV);
-+	if (fd_copy > 0)
-+		SAFE_CLOSE(fd_copy);
-+	SAFE_UNLINK(FILE_FIFO);
- }
- 
- static void setup(void)
-@@ -93,16 +164,47 @@ static void setup(void)
- 	if (access(FILE_DIR_PATH, F_OK) == -1)
- 		SAFE_MKDIR(FILE_DIR_PATH, 0777);
- 
-+	loop_devn = find_free_loopdev();
-+	if (loop_devn >= 0)
-+		SAFE_MKNOD(FILE_BLKDEV, S_IFBLK | 0777, makedev(7, loop_devn));
-+
-+	SAFE_MKNOD(FILE_FIFO, S_IFIFO | 0777, 0);
-+
- 	fd_src    = SAFE_OPEN(FILE_SRC_PATH, O_RDWR | O_CREAT, 0664);
- 	fd_dest   = SAFE_OPEN(FILE_DEST_PATH, O_RDWR | O_CREAT, 0664);
- 	fd_rdonly = SAFE_OPEN(FILE_RDONL_PATH, O_RDONLY | O_CREAT, 0664);
--	fd_mnted  = SAFE_OPEN(FILE_MNTED_PATH, O_RDWR | O_CREAT, 0664);
- 	fd_dir    = SAFE_OPEN(FILE_DIR_PATH, O_DIRECTORY);
- 	fd_closed = -1;
- 	fd_append = SAFE_OPEN(FILE_DEST_PATH,
- 			O_RDWR | O_CREAT | O_APPEND, 0664);
-+	fd_immutable = SAFE_OPEN(FILE_IMMUTABLE_PATH, O_RDWR | O_CREAT, 0664);
-+	fd_swapfile = SAFE_OPEN(FILE_SWAP_PATH, O_RDWR | O_CREAT, 0600);
-+	fd_blkdev = SAFE_OPEN(FILE_BLKDEV, O_RDWR, 0600);
-+	fd_chrdev = SAFE_OPEN(FILE_CHRDEV, O_RDWR, 0600);
-+	fd_fifo = SAFE_OPEN(FILE_FIFO, O_RDWR, 0600);
-+
-+	SAFE_WRITE(1, fd_src, CONTENT, CONTSIZE);
-+	close(fd_src);
-+	fd_src = SAFE_OPEN(FILE_SRC_PATH, O_RDONLY, 0664);
-+	fd_dup = SAFE_OPEN(FILE_SRC_PATH, O_WRONLY|O_CREAT, 0666);
-+
-+	fd_copy = SAFE_OPEN(FILE_COPY_PATH, O_RDWR | O_CREAT | O_TRUNC, 0664);
-+	chattr_i_nsup = run_command("chattr", "+i", FILE_IMMUTABLE_PATH);
-+
-+	if (!tst_fs_has_free(".", sysconf(_SC_PAGESIZE) * 10, TST_BYTES)) {
-+		tst_res(TCONF, "Insufficient disk space to create swap file");
-+		swap_nsup = 3;
-+		return;
-+	}
-+
-+	if (tst_fill_file(FILE_SWAP_PATH, 0, sysconf(_SC_PAGESIZE), 10) != 0) {
-+		tst_res(TCONF, "Failed to create swapfile");
-+		swap_nsup = 4;
-+		return;
-+	}
- 
--	SAFE_WRITE(1, fd_src,  CONTENT,  CONTSIZE);
-+	swap_nsup = run_command("mkswap", FILE_SWAP_PATH, NULL);
-+	swap_nsup = run_command("swapon", FILE_SWAP_PATH, NULL);
- }
- 
- static struct tst_test test = {
-@@ -113,6 +215,6 @@ static struct tst_test test = {
- 	.needs_root = 1,
- 	.mount_device = 1,
- 	.mntpoint = MNTPOINT,
--	.dev_fs_type = "ext4",
-+	.all_filesystems = 1,
- 	.test_variants = TEST_VARIANTS,
- };
 -- 
-2.18.1
-
-
+2.17.1
 
 
 -- 
