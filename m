@@ -2,63 +2,49 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C46864020
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2019 06:36:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B2E8640B6
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2019 07:33:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1E9623C1CF7
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2019 06:36:03 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 21DE13C1D04
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jul 2019 07:33:11 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 944DF3C0232
- for <ltp@lists.linux.it>; Wed, 10 Jul 2019 06:35:59 +0200 (CEST)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 8C97F1A0149C
- for <ltp@lists.linux.it>; Wed, 10 Jul 2019 06:35:58 +0200 (CEST)
-Received: from mail-wr1-f69.google.com ([209.85.221.69])
- by youngberry.canonical.com with esmtps (TLS1.0:RSA_AES_128_CBC_SHA1:16)
- (Exim 4.76) (envelope-from <po-hsu.lin@canonical.com>)
- id 1hl4Kj-0007ED-BC
- for ltp@lists.linux.it; Wed, 10 Jul 2019 04:35:57 +0000
-Received: by mail-wr1-f69.google.com with SMTP id g8so390750wrw.2
- for <ltp@lists.linux.it>; Tue, 09 Jul 2019 21:35:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Q3JrnTTh5FLPtYnzZJkBRD4X8cPkFOu7sXcc6R2I2fE=;
- b=Pkbim0tTcgcJCE3WVyU7M86c/+WAiN4fZJx4KAVNYXbDY/mNojpqo3Us67f3y/snwI
- iwU2pX9iEBSK3YYmnlUIMSn9EDM2+9ZHu9lfJrQor5Upk0slwJ3wv5EbomM9OBUum1Pe
- ktX9cjLzfXNT1xnTq6IHqav1mp8h5sc6KoNrHwhb1kbceE1LCHfOt8l2MHqfy2oKu6we
- Ho2TFIacG9eAiq8sBN5Yy4nB5wjBNXfNJQvpBtZ1Vk0x7QZPDbdi/nhC0i+0S/5+I33N
- a706lvWf5MXeYZKtgwXXWuzm0232F/unBznLoquQjSO+Eg8VHpHta1fuNpovqFTezbZK
- fsGg==
-X-Gm-Message-State: APjAAAU6PBxOz/h3zNUr/dJhXw40Efjxc834a1QnftZqHZzI2WQ1deWi
- rN5OfexffOaLdqEW7Sy2FFflBaeiUPu3h7/S5n/JL7OMK0G0+aSNFjzl6lJT4PcnkOvR5+/3QZI
- 7+2ywgkbJSRcfhzMrsPZ5XNnnXmREguM7JoiD/106nNc=
-X-Received: by 2002:a7b:c0d0:: with SMTP id s16mr3084106wmh.141.1562733357028; 
- Tue, 09 Jul 2019 21:35:57 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqzd6/MqIl3DzMVTmB6jPuab3xMjXBWLjzVx9JdeEKHCzRcvuvoYsLvWfYehAI1g5ZhE+uY3FqbAZcBtdGowC5c=
-X-Received: by 2002:a7b:c0d0:: with SMTP id s16mr3084046wmh.141.1562733356392; 
- Tue, 09 Jul 2019 21:35:56 -0700 (PDT)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 06B1B3C104A
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2019 07:33:07 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id AAF46201116
+ for <ltp@lists.linux.it>; Wed, 10 Jul 2019 07:33:03 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.63,473,1557158400"; d="scan'208";a="71078507"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 10 Jul 2019 13:32:59 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id AE1A44CDDD42;
+ Wed, 10 Jul 2019 13:32:59 +0800 (CST)
+Received: from [10.167.215.39] (10.167.215.39) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ id 14.3.439.0; Wed, 10 Jul 2019 13:33:01 +0800
+Message-ID: <5D25788A.6040506@cn.fujitsu.com>
+Date: Wed, 10 Jul 2019 13:32:58 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-References: <20190703102303.32166-1-po-hsu.lin@canonical.com>
- <20190703102303.32166-3-po-hsu.lin@canonical.com>
- <20190709114412.GC5888@rei.lan>
-In-Reply-To: <20190709114412.GC5888@rei.lan>
-From: Po-Hsu Lin <po-hsu.lin@canonical.com>
-Date: Wed, 10 Jul 2019 12:35:45 +0800
-Message-ID: <CAMy_GT_o7WiWo1zt7VDDqg+zjMGocL9K5EoxSTq1YzBuY1ekfg@mail.gmail.com>
 To: Cyril Hrubis <chrubis@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
-X-Virus-Status: Clean
+References: <7ad6c506-e195-db0d-3b2b-a30b95c42f8a@oracle.com>
+ <1559922050-15221-1-git-send-email-ice_yangxiao@163.com>
+ <20190709154536.GA8195@rei.lan>
+In-Reply-To: <20190709154536.GA8195@rei.lan>
+X-Originating-IP: [10.167.215.39]
+X-yoursite-MailScanner-ID: AE1A44CDDD42.AD7E6
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/3] zram/zram_lib.sh: fix variable name and
- algorithm retrieval
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Status: Clean
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] rcu/rcu_torture.sh: Rewrite test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,51 +57,124 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, Jul 9, 2019 at 7:44 PM Cyril Hrubis <chrubis@suse.cz> wrote:
->
+On 2019/07/09 23:45, Cyril Hrubis wrote:
 > Hi!
-> >       tst_resm TINFO "test that we can set compression algorithm"
-> >
-> > -     local algs="$(cat /sys/block/zram0/comp_algorithm)"
-> > -     tst_resm TINFO "supported algs: $algs"
-> > +     local zram_algs="$(sed 's/[][]//g' /sys/block/zram0/comp_algorithm)"
->
-> This has still the same name as the variable set in the zram01.sh.
->
-> There are two options what to do here, either we remove zram_algs from
-> the zram01.sh or set the algorithms to the ones defined in the zram01.sh
-> test at the end of this function.
->
+>> +rcutorture_setup()
+>> +{
+>> +	# do test by inserting and removing rcutorture module
+>> +	# so check if it is built-in, loaded or unbuilt
+>> +	modprobe -n --first-time rcutorture>/dev/null 2>&1 || \
+>> +		tst_brk TCONF "built-in, loaded or unbuilt rcutorture"
+> Wouldn't the --first-time disable the test on subsequent runs? Or do I
+> misunderstand how --first-time is supposed to work?
+Hi,
+No, -n option doesn't execute any operations.
 
-OK thanks,
-I think maybe it's better to keep zram_algs in zram01.sh, make the
-mapped zram property structure intact.
-That's probably the original purpose for the local variable "algs".
+We has to build rcutorture as a module if we want to run the test, so I 
+just want to check
+if rcutorture is built as a module instead of built-in or unbuilt by 
+--first-time.
 
-I will re-send a version with variable name unified with the local
-algs here, so we don't need to restore the zram_algs in the end of
-this function.
+> Also I guess that some modprobe implementations may not support
+> --first-time e.g. busybox.
+Is there any way to check if rcutorture is only built as a module?
+>> +}
+>>
+>> -trap cleanup INT
+>> +rcutorture_test()
+>> +{
+>> +	local rcu_type=$1
+>>
+>> -rcu_type="rcu rcu_bh srcu sched"
+>> +	tst_res TINFO "${rcu_type}-torture: running ${test_time} sec..."
+>>
+>> -if tst_kvcmp -lt "3.12"; then
+>> -	rcu_type="$rcu_type rcu_sync rcu_expedited rcu_bh_sync rcu_bh_expedited \
+>> -	          srcu_sync srcu_expedited sched_sync sched_expedited"
+>> +	modprobe rcutorture nfakewriters=${num_writers} \
+>> +		torture_type=${rcu_type}>/dev/null 2>&1
+>> +	if [ $? -ne 0 ]; then
+>> +		dmesg | grep -q "invalid torture type: \"${rcu_type}\""&&  \
+>> +			tst_brk TCONF "invalid ${rcu_type} type"
+>>
+>> -	if tst_kvcmp -lt "3.11"; then
+>> -		rcu_type="$rcu_type srcu_raw srcu_raw_sync"
+>> +		tst_brk TBROK "failed to load module"
+>>   	fi
+>> -fi
+>> -
+>> -TST_TOTAL=$(echo "$rcu_type" | wc -w)
+>> -
+>> -est_time=`echo "scale=2; $test_time * $TST_TOTAL / 60 " | bc`
+>> -tst_resm TINFO "estimate time $est_time min"
+>> -
+>> -for type in $rcu_type; do
+>> -
+>> -	tst_resm TINFO "$type: running $test_time sec..."
+>> -
+>> -	modprobe rcutorture nfakewriters=$num_writers \
+>> -	         stat_interval=60 test_no_idle_hz=1 shuffle_interval=3 \
+>> -	         stutter=5 irqreader=1 fqs_duration=0 fqs_holdoff=0 \
+>> -	         fqs_stutter=3 test_boost=1 test_boost_interval=7 \
+>> -	         test_boost_duration=4 shutdown_secs=0 \
+>> -	         stall_cpu=0 stall_cpu_holdoff=10 n_barrier_cbs=0 \
+>> -	         onoff_interval=0 onoff_holdoff=0 torture_type=$type \
+>> -	>  /dev/null 2>&1 || tst_brkm TBROK "failed to load module"
+>>
+>> -	sleep $test_time
+>> +	sleep ${test_time}
+>>
+>> -	rmmod rcutorture>  /dev/null 2>&1 || \
+>> -		tst_brkm TBROK "failed to unload module"
+>> +	rmmod rcutorture>/dev/null 2>&1 || \
+>> +		tst_brk TBROK "failed to unload module"
+> This should be modprobe -r, rmmod has been deprecated for quite some
+> time.
+I will use modprobe -r instead.
+
+Best Regards,
+Xiao Yang
+>>   	# check module status in dmesg
+>> -	result_str=`dmesg | sed -nE '$s/.*End of test: ([A-Z]+):.*/\1/p'`
+>> -	if [ "$result_str" = "SUCCESS" ]; then
+>> -		tst_resm TPASS "$type: completed"
+>> +	local res=$(dmesg | sed -nE "s/.* ${rcu_type}-torture:.* End of test: (.*): .*/\1/p" | tail -n1)
+>> +	if [ "$res" = "SUCCESS" ]; then
+>> +		tst_res TPASS "${rcu_type}-torture: $res"
+>>   	else
+>> -		tst_resm TFAIL "$type: $result_str, see dmesg"
+>> +		tst_res TFAIL "${rcu_type}-torture: $res, see dmesg"
+>>   	fi
+>> -done
+>> +}
+>> +
+>> +do_test()
+>> +{
+>> +	case $1 in
+>> +	1) rcutorture_test rcu;;
+>> +	2) rcutorture_test srcu;;
+>> +	3) rcutorture_test srcud;;
+>> +	4) rcutorture_test tasks;;
+>> +	esac
+>> +}
+>>
+>> -tst_exit
+>> +tst_run
+>> -- 
+>> 1.8.3.1
+>>
+>>
+>>
+>> -- 
+>> Mailing list info: https://lists.linux.it/listinfo/ltp
 
 
-> > +     tst_resm TINFO "supported algs: $zram_algs"
-> >       local i=0
-> >       for alg in $zram_algs; do
-> >               local sys_path="/sys/block/zram${i}/comp_algorithm"
-> > --
-> > 2.17.1
-> >
-> >
-> > --
-> > Mailing list info: https://lists.linux.it/listinfo/ltp
->
-> --
-> Cyril Hrubis
-> chrubis@suse.cz
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
