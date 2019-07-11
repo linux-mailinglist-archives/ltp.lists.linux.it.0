@@ -1,40 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 642B06584D
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jul 2019 15:58:54 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E258665888
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jul 2019 16:10:35 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 25B333C1C90
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jul 2019 15:58:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AD23D3C1C94
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jul 2019 16:10:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 09E333C02C3
- for <ltp@lists.linux.it>; Thu, 11 Jul 2019 15:58:52 +0200 (CEST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 464F23C1B49
+ for <ltp@lists.linux.it>; Thu, 11 Jul 2019 16:10:34 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8AB681000353
- for <ltp@lists.linux.it>; Thu, 11 Jul 2019 15:58:45 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7DD4C6009E6
+ for <ltp@lists.linux.it>; Thu, 11 Jul 2019 16:10:33 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 66ABFAF1B
- for <ltp@lists.linux.it>; Thu, 11 Jul 2019 13:58:50 +0000 (UTC)
+ by mx1.suse.de (Postfix) with ESMTP id 235EDAF10
+ for <ltp@lists.linux.it>; Thu, 11 Jul 2019 14:10:32 +0000 (UTC)
 Received: by localhost (Postfix, from userid 1000)
- id 31E21829CE; Thu, 11 Jul 2019 15:58:50 +0200 (CEST)
+ id E3EE2829D3; Thu, 11 Jul 2019 16:10:31 +0200 (CEST)
 From: Michael Moese <mmoese@suse.de>
 To: ltp@lists.linux.it
-Date: Thu, 11 Jul 2019 15:58:45 +0200
-Message-Id: <20190711135845.14177-1-mmoese@suse.de>
+Date: Thu, 11 Jul 2019 16:10:26 +0200
+Message-Id: <20190711141026.14705-1-mmoese@suse.de>
 X-Mailer: git-send-email 2.22.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v3] Add a regression test for CVE-2017-1000380
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v4] Add a regression test for CVE-2017-1000380
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,6 +61,11 @@ This patch adds a regression test triggering this race condition.
 
 Signed-off-by: Michael Moese <mmoese@suse.de>
 ---
+Changes to v2:
+ - remove leftover declarion of unused variable in ioctl_thread()
+ - reduced iov_len by 1, so the strlen command hits a valid \0 for sure
+   in any case.
+ - fix whitespace before tab in Makefile
 
 Changes to v1:
  - Initialize buffers in ioctl_thread() outside of the loop
@@ -72,8 +76,8 @@ Changes to v1:
  testcases/kernel/Makefile            |   1 +
  testcases/kernel/sound/.gitignore    |   1 +
  testcases/kernel/sound/Makefile      |  12 +++
- testcases/kernel/sound/snd_timer01.c | 140 +++++++++++++++++++++++++++
- 5 files changed, 155 insertions(+)
+ testcases/kernel/sound/snd_timer01.c | 139 +++++++++++++++++++++++++++
+ 5 files changed, 154 insertions(+)
  create mode 100644 testcases/kernel/sound/.gitignore
  create mode 100644 testcases/kernel/sound/Makefile
  create mode 100644 testcases/kernel/sound/snd_timer01.c
@@ -111,7 +115,7 @@ index 000000000..57eae0593
 +snd_timer
 diff --git a/testcases/kernel/sound/Makefile b/testcases/kernel/sound/Makefile
 new file mode 100644
-index 000000000..5fdc7dd42
+index 000000000..ad1e25c30
 --- /dev/null
 +++ b/testcases/kernel/sound/Makefile
 @@ -0,0 +1,12 @@
@@ -123,16 +127,16 @@ index 000000000..5fdc7dd42
 +
 +CPPFLAGS		+= -D_GNU_SOURCE
 +
-+LDLIBS 			+= -pthread
++LDLIBS			+= -pthread
 +
 +
 +include $(top_srcdir)/include/mk/generic_leaf_target.mk
 diff --git a/testcases/kernel/sound/snd_timer01.c b/testcases/kernel/sound/snd_timer01.c
 new file mode 100644
-index 000000000..80b03022a
+index 000000000..fe2f3ed3f
 --- /dev/null
 +++ b/testcases/kernel/sound/snd_timer01.c
-@@ -0,0 +1,140 @@
+@@ -0,0 +1,139 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +
 +/* Copyright (c) 2019 Michael Moese <mmoese@suse.com>
@@ -174,7 +178,6 @@ index 000000000..80b03022a
 +
 +static void *ioctl_thread(void *unused)
 +{
-+	(void) unused;
 +	int tread_arg = 1;
 +	struct snd_timer_select ts;
 +	struct snd_timer_params tp;
@@ -230,7 +233,7 @@ index 000000000..80b03022a
 +	SAFE_PTHREAD_CREATE(&th, &thread_attr, ioctl_thread, NULL);
 +
 +	iov.iov_base = read_buf;
-+	iov.iov_len = sizeof(read_buf);
++	iov.iov_len = sizeof(read_buf) - 1;
 +
 +	while (tst_fzsync_run_a(&fzsync_pair)) {
 +		nz = 0;
