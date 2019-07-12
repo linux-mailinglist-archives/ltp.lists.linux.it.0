@@ -1,60 +1,67 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46D2B66AAD
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jul 2019 12:06:52 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id AD55366AD8
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jul 2019 12:24:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EAE423C1D15
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jul 2019 12:06:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 246D23C1CF4
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jul 2019 12:24:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id C33B13C1C86
- for <ltp@lists.linux.it>; Fri, 12 Jul 2019 12:06:48 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id CFA7C3C1C94
+ for <ltp@lists.linux.it>; Fri, 12 Jul 2019 12:24:16 +0200 (CEST)
+Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
+ [IPv6:2a00:1450:4864:20::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 581CD603458
- for <ltp@lists.linux.it>; Fri, 12 Jul 2019 12:06:50 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id E33D9882EF;
- Fri, 12 Jul 2019 10:06:45 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D9D7D5D71A;
- Fri, 12 Jul 2019 10:06:45 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id D091424F19;
- Fri, 12 Jul 2019 10:06:45 +0000 (UTC)
-Date: Fri, 12 Jul 2019 06:06:42 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
-To: Song Hongzhi <hongzhi.song@windriver.com>
-Message-ID: <408284891.32847796.1562926002494.JavaMail.zimbra@redhat.com>
-In-Reply-To: <c15e6a0a-34dd-100a-2a42-066a1e23f206@windriver.com>
-References: <1562826026-158569-1-git-send-email-hongzhi.song@windriver.com>
- <408194681.32599099.1562831328308.JavaMail.zimbra@redhat.com>
- <c0c07134-f5a8-b4d3-c210-c58c36653423@windriver.com>
- <1691784527.32812965.1562915669160.JavaMail.zimbra@redhat.com>
- <c15e6a0a-34dd-100a-2a42-066a1e23f206@windriver.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C8F26200C78
+ for <ltp@lists.linux.it>; Fri, 12 Jul 2019 12:24:15 +0200 (CEST)
+Received: by mail-lj1-x241.google.com with SMTP id x25so8857478ljh.2
+ for <ltp@lists.linux.it>; Fri, 12 Jul 2019 03:24:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mwsgJ3MdMh0CfxgRCqmuDip4vtYP0TjDqTaZVEKvfts=;
+ b=sOiw3z6Qmi8IoQyJSueUR9zv/XYPfOzqx/yhgclkseoSL6Q8TpIAQd2fG6MZH/koS+
+ 5aH8Dyfx7AxzrQbv7+oFTfMY525soBXqq3F2f5BNWIt2PzI5qX3KO5K6Bvve4+8Ge2Ld
+ iAvVS6Vjdhr6Cz559+BVYlguEtubMtxKjQSrNuaeQACOZA4C3zPwy2ZZXxKQ/PUjbYbk
+ 7nsZi/+5O5Vt1M/wLBhNRFb57Jzon6FOX7Mi/G4f7Ai0q62+T/0knSUGXNwP/dtrRd4l
+ XCjV0D/x1ntD7Fge67fppCRQ+vRYRIrzNNJMBuRJi4wQ/X1gz+O3rJgMISLz/DO4DRlg
+ +69g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mwsgJ3MdMh0CfxgRCqmuDip4vtYP0TjDqTaZVEKvfts=;
+ b=nmH0KsfeffhB/8i/yfBbOYdOOLNIDufpAHfF8gF2QvWg48T+pgBVeksK+0V6XPzg7v
+ hNZG0kZeOYeRqjNOL3XH6ZI2IOVYUMXQdKVYnEuyWIWz+nVTcPCbn/5lhHQxD09xWaGt
+ ry2LfEENVB1vbMt8bq2dCWoG+2PY5j5a2D03B+9IZU41h/7YttuoTGJLShLm9iSzZjit
+ zaNjork8cKNCg4Z2guIhlsmQlSEIxSjsJqU6QrKQOTJonvioBgsGK4MG9JAADpO1Hqh/
+ dFGUeSG8S2klZcNPu90LDp2p1FQN1lvGWpLI76hREn/JTjZ8LFBKXBk0i9wg8PErhpUi
+ 8bqQ==
+X-Gm-Message-State: APjAAAUsup3vrxOxUrkTPtzr0BAWw6zT2CKLQjQlsDTJXvLxReh2ZwLH
+ Ax/uGGZT7qRsBJCpnaElaBq8vVxU2lE=
+X-Google-Smtp-Source: APXvYqxUtjzdclUZSu6Zy3q03hlaThFUzFOWQP0vENIGPyJRkrVytJr6TDiP5Bw623yobhWEqjeqiA==
+X-Received: by 2002:a2e:7614:: with SMTP id r20mr5604245ljc.42.1562927054714; 
+ Fri, 12 Jul 2019 03:24:14 -0700 (PDT)
+Received: from genomnajs.ideon.se ([85.235.10.227])
+ by smtp.gmail.com with ESMTPSA id y18sm1375477ljh.1.2019.07.12.03.24.12
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Fri, 12 Jul 2019 03:24:13 -0700 (PDT)
+From: Linus Walleij <linus.walleij@linaro.org>
+To: ltp@lists.linux.it
+Date: Fri, 12 Jul 2019 12:24:09 +0200
+Message-Id: <20190712102409.12906-1-linus.walleij@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.163, 10.4.195.15]
-Thread-Topic: getrlimit03: adjust a bit of code to compatiable with mips32
-Thread-Index: aoA7hNHMhzDGKGBls160YEynVDtDQA==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.28]); Fri, 12 Jul 2019 10:06:45 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V2] getrlimit03: adjust a bit of code to
- compatiable with mips32
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/ioprio: Add test cases for I/O priority
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,79 +73,508 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-CgotLS0tLSBPcmlnaW5hbCBNZXNzYWdlIC0tLS0tCj4gCj4gT24gNy8xMi8xOSAzOjE0IFBNLCBK
-YW4gU3RhbmNlayB3cm90ZToKPiA+IC0tLS0tIE9yaWdpbmFsIE1lc3NhZ2UgLS0tLS0KPiA+PiBP
-biA3LzExLzE5IDM6NDggUE0sIEphbiBTdGFuY2VrIHdyb3RlOgo+ID4+PiAtLS0tLSBPcmlnaW5h
-bCBNZXNzYWdlIC0tLS0tCj4gPj4+PiBFcnJvciBpbmZvOgo+ID4+Pj4gZ2V0cmxpbWl0MDMuYzox
-MDQ6IEZBSUw6IF9fTlJfcHJsaW1pdDY0KDApIGhhZCBybGltX2N1ciA9Cj4gPj4+PiBmZmZmZmZm
-ZmZmZmZmZmZmIGJ1dCBfX05SX2dldHJsaW1pdCgwKSBoYWQgcmxpbV9jdXIgPSA3ZmZmZmZmZgo+
-ID4+Pj4KPiA+Pj4+IEFjY29yZGluZyB0byBrZXJuZWwgY29kZTogW2FyY2gvbWlwcy9pbmNsdWRl
-L3VhcGkvYXNtL3Jlc291cmNlLmhdCj4gPj4+PiBSTElNX0lORklOSVRZIGlzIHNldCB0byAweDdm
-ZmZmZmZmVUwgaW5zdGVhZCBvZiBVTE9OR19NQVggb24gbWlwczMyLgo+ID4+Pj4KPiA+Pj4+IC8q
-Cj4gPj4+PiAgICAqIFN1UyBzYXlzIGxpbWl0cyBoYXZlIHRvIGJlIHVuc2lnbmVkLgo+ID4+Pj4g
-ICAgKiBXaGljaCBtYWtlcyBhIHRvbiBtb3JlIHNlbnNlIGFueXdheSwKPiA+Pj4+ICAgICogYnV0
-IHdlIGtlZXAgdGhlIG9sZCB2YWx1ZSBvbiBNSVBTMzIsCj4gPj4+PiAgICAqIGZvciBjb21wYXRp
-YmlsaXR5Ogo+ID4+Pj4gICAgKi8KPiA+Pj4+ICNpZm5kZWYgX19taXBzNjQKPiA+Pj4+ICMgZGVm
-aW5lIFJMSU1fSU5GSU5JVFkgICAgICAweDdmZmZmZmZmVUwKPiA+Pj4+ICNlbmRpZgo+ID4+Pj4K
-PiA+Pj4+IEFkZGluZyBjb25kaXRpb25hbCBzdGF0ZW1lbnQgYWJvdXQgbWlwcyB0byBmaXggdGhp
-cy4KPiA+Pj4+Cj4gPj4+PiBTaWduZWQtb2ZmLWJ5OiBIb25nemhpLlNvbmcgPGhvbmd6aGkuc29u
-Z0B3aW5kcml2ZXIuY29tPgo+ID4+Pj4gLS0tCj4gPj4+PiAgICB0ZXN0Y2FzZXMva2VybmVsL3N5
-c2NhbGxzL2dldHJsaW1pdC9nZXRybGltaXQwMy5jIHwgMTAgKysrKysrKystLQo+ID4+Pj4gICAg
-MSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPiA+Pj4+Cj4g
-Pj4+PiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9nZXRybGltaXQvZ2V0
-cmxpbWl0MDMuYwo+ID4+Pj4gYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2dldHJsaW1pdC9n
-ZXRybGltaXQwMy5jCj4gPj4+PiBpbmRleCBlNGQ1NmM0Li4xOTAzNTU4IDEwMDY0NAo+ID4+Pj4g
-LS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9nZXRybGltaXQvZ2V0cmxpbWl0MDMuYwo+
-ID4+Pj4gKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9nZXRybGltaXQvZ2V0cmxpbWl0
-MDMuYwo+ID4+Pj4gQEAgLTYxLDcgKzYxLDEzIEBAIHN0cnVjdCBybGltaXRfdWxvbmcgewo+ID4+
-Pj4gICAgCXVuc2lnbmVkIGxvbmcgcmxpbV9jdXI7Cj4gPj4+PiAgICAJdW5zaWduZWQgbG9uZyBy
-bGltX21heDsKPiA+Pj4+ICAgIH07Cj4gPj4+PiArI2lmZGVmIF9fbWlwcwo+ID4+Pj4gKyNpZm5k
-ZWYgX19taXBzNjQKPiA+Pj4+ICtjb25zdCB1bnNpZ25lZCBsb25nIFJMSU1fSU5GSU5JVFlfVUwg
-PSAweDdmZmZmZmZmVUw7Cj4gPj4+PiArI2Vsc2UKPiA+Pj4+ICAgIGNvbnN0IHVuc2lnbmVkIGxv
-bmcgUkxJTV9JTkZJTklUWV9VTCA9IFVMT05HX01BWDsKPiA+Pj4+ICsjZW5kaWYKPiA+Pj4+ICsj
-ZW5kaWYKPiA+Pj4gSGksCj4gPj4+Cj4gPj4+IFRoaXMgd2lsbCBicmVhayBldmVyeSBvdGhlciBh
-cmNoLCBiZWNhdXNlIGl0J3Mgbm93IHVuZGVmaW5lZCBldmVyeXdoZXJlCj4gPj4+IGV4Y2VwdCBt
-aXBzLgo+ID4+Cj4gPj4gSXMgdGhlcmUgYSBnb29kIHdheSB0byBmaWx0ZXIgbWlwczMyPwo+ID4g
-TWF5YmUgc29tZXRoaW5nIGxpa2U6Cj4gPgo+ID4gI2luY2x1ZGUgImxhcGkvYWJpc2l6ZS5oIgo+
-ID4KPiA+ICNpZiBkZWZpbmVkKF9fbWlwc19fKSAmJiBkZWZpbmVkKFRTVF9BQkkzMikKPiA+IGNv
-bnN0IHVuc2lnbmVkIGxvbmcgUkxJTV9JTkZJTklUWV9VTCA9IDB4N2ZmZmZmZmZVTDsKPiA+ICNl
-bHNlCj4gPiBjb25zdCB1bnNpZ25lZCBsb25nIFJMSU1fSU5GSU5JVFlfVUwgPSBVTE9OR19NQVg7
-Cj4gPiAjZW5kaWYKPiAKPiAKPiBUU1RfQUJJMzIgbG9va3MgbGlrZSBub3Qgd29yawoKQ2FuIHlv
-dSBlbGFib3JhdGU/Cgo+LCBhbmQgSSBzZW50IHBhdGNoLVYzIHVzaW5nIF9fbWlwcyBhbmQgX19t
-aXBzNjQuCj4gCj4gLS1Ib25nemhpCj4gCj4gCj4gPgo+ID4+IEkgdHJpZWQKPiA+Pgo+ID4+ICAg
-wqA2NSAjaWZkZWYgX19taXBzCj4gPj4gICDCoDY2ICNpZm5kZWYgX19taXBzNjQKPiA+PiAgIMKg
-NjcgY29uc3QgdW5zaWduZWQgbG9uZyBSTElNX0lORklOSVRZX1VMID0gMHg3ZmZmZmZmZlVMOwo+
-ID4+ICAgwqA2OCAjZW5kaWYKPiA+PiAgIMKgNjkgY29uc3QgdW5zaWduZWQgbG9uZyBSTElNX0lO
-RklOSVRZX1VMID0gVUxPTkdfTUFYOwo+ID4+ICAgwqA3MCAjZWxzZQo+ID4+ICAgwqA3MSBjb25z
-dCB1bnNpZ25lZCBsb25nIFJMSU1fSU5GSU5JVFlfVUwgPSBVTE9OR19NQVg7Cj4gPj4gICDCoDcy
-ICNlbmRpZgo+ID4+Cj4gPj4gYnV0IG1pcHMzMiB0aGlua3MgdGhlIFJMSU1fSU5GSU5JVFlfVUwg
-bWljcm8gaXMgcmVkZWZpbmVkLgo+ID4+Cj4gPj4KPiA+Pj4+ICAgIAo+ID4+Pj4gICAgc3RhdGlj
-IGludCBnZXRybGltaXRfdWxvbmcoaW50IHJlc291cmNlLCBzdHJ1Y3QgcmxpbWl0X3Vsb25nICpy
-bGltKQo+ID4+Pj4gICAgewo+ID4+Pj4gQEAgLTEwMSw4ICsxMDcsOCBAQCBzdGF0aWMgaW50IGNv
-bXBhcmVfdTY0X3Vsb25nKGludCByZXNvdXJjZSwgdWludDY0X3QKPiA+Pj4+IHZhbF91NjQsCj4g
-Pj4+PiAgICB7Cj4gPj4+PiAgICAJaWYgKCh2YWxfdTY0ID4gUkxJTV9JTkZJTklUWV9VTCAmJiB2
-YWxfdWwgIT0gUkxJTV9JTkZJTklUWV9VTCkgfHwKPiA+Pj4+ICAgIAkgICAgKHZhbF91NjQgPD0g
-UkxJTV9JTkZJTklUWV9VTCAmJiB2YWxfdWwgIT0gdmFsX3U2NCkpIHsKPiA+Pj4+IC0JCXRzdF9y
-ZXMoVEZBSUwsICJfX05SX3BybGltaXQ2NCglZCkgaGFkICVzID0gJSIgUFJJeDY0ICIgYnV0ICIK
-PiA+Pj4+IF9fTlJfZ2V0cmxpbWl0X3Vsb25nX3N0ciAiKCVkKSBoYWQgJXMgPSAlbHgiLAo+ID4+
-Pj4gLQkJCXJlc291cmNlLCBraW5kLCB2YWxfdTY0LAo+ID4+Pj4gKwkJdHN0X3JlcyhURkFJTCwg
-IlNJR05FRF9HRVRSTElNSVQgPSAlZCBfX1dPUkRTSVpFICVkIFVMT05HX01BWCA9ICVsdQo+ID4+
-Pj4gUkxJTV9JTkZJTklUWV9VTCA9ICVsdSBfX05SX3BybGltaXQ2NCglZCkgaGFkICVzID0gJSIg
-UFJJeDY0ICIgYnV0ICIKPiA+Pj4+IF9fTlJfZ2V0cmxpbWl0X3Vsb25nX3N0ciAiKCVkKSBoYWQg
-JXMgPSAlbHgiLAo+ID4+Pj4gKwkJCVNJR05FRF9HRVRSTElNSVQsIF9fV09SRFNJWkUsIFVMT05H
-X01BWCwgUkxJTV9JTkZJTklUWV9VTCwgcmVzb3VyY2UsCj4gPj4+IEkgc3VnZ2VzdCB0byBzcGxp
-dCBpdCBpbnRvIGFub3RoZXIgdHN0X3JlcygpIG1lc3NhZ2UsIGxpbmUgYWJvdmUgaXMKPiA+Pj4g
-bmVhcmx5Cj4gPj4+IDIwMCBjaGFyYWN0ZXJzLgo+ID4+Cj4gPj4gU29ycnksIEkgc2hvdWxkbid0
-IGFwcGVuZCBkZWJ1ZyBjb2RlIHRvIHBhdGNoLgo+ID4+Cj4gPj4gLS1Ib25nemhpCj4gPj4KPiA+
-Pgo+ID4+PiBSZWdhcmRzLAo+ID4+PiBKYW4KPiA+Pj4KPiA+Pj4+IGtpbmQsIHZhbF91NjQsCj4g
-Pj4+PiAgICAJCQlyZXNvdXJjZSwga2luZCwgdmFsX3VsKTsKPiA+Pj4+ICAgIAkJcmV0dXJuIC0x
-Owo+ID4+Pj4gICAgCX0KPiA+Pj4+IC0tCj4gPj4+PiAyLjguMQo+ID4+Pj4KPiA+Pj4+Cj4gPj4+
-PiAtLQo+ID4+Pj4gTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlz
-dGluZm8vbHRwCj4gPj4+Pgo+IAoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3Rz
-LmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+The ioprio_get/ioprio_set syscalls are used primarily by the
+userspace tool "ionice" to set priority of a process, user or
+process group toward the I/O (block layer) scheduler.
+
+This adds a simple iprio_get test and two more verbose tests
+for ioprio_set.
+
+Cc: Anders Roxell <anders.roxell@linaro.org>
+Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+---
+I never did LTP work before. Reviews appreciated.
+If this proves worthwhile I will add test cases for
+real-time and other scheduling requireing root access
+and possibly look into testing user or process group
+scheduling as well.
+---
+ testcases/kernel/syscalls/ioprio/.gitignore   |   1 +
+ testcases/kernel/syscalls/ioprio/Makefile     |  22 +++
+ testcases/kernel/syscalls/ioprio/ioprio.h     |  44 +++++
+ .../kernel/syscalls/ioprio/ioprio_get01.c     |  72 ++++++++
+ .../kernel/syscalls/ioprio/ioprio_set01.c     | 123 +++++++++++++
+ .../kernel/syscalls/ioprio/ioprio_set02.c     | 166 ++++++++++++++++++
+ 6 files changed, 428 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/ioprio/.gitignore
+ create mode 100644 testcases/kernel/syscalls/ioprio/Makefile
+ create mode 100644 testcases/kernel/syscalls/ioprio/ioprio.h
+ create mode 100644 testcases/kernel/syscalls/ioprio/ioprio_get01.c
+ create mode 100644 testcases/kernel/syscalls/ioprio/ioprio_set01.c
+ create mode 100644 testcases/kernel/syscalls/ioprio/ioprio_set02.c
+
+diff --git a/testcases/kernel/syscalls/ioprio/.gitignore b/testcases/kernel/syscalls/ioprio/.gitignore
+new file mode 100644
+index 000000000000..fc1c236053a4
+--- /dev/null
++++ b/testcases/kernel/syscalls/ioprio/.gitignore
+@@ -0,0 +1 @@
++/ioprio_get01.c
+diff --git a/testcases/kernel/syscalls/ioprio/Makefile b/testcases/kernel/syscalls/ioprio/Makefile
+new file mode 100644
+index 000000000000..7a1a87a28ead
+--- /dev/null
++++ b/testcases/kernel/syscalls/ioprio/Makefile
+@@ -0,0 +1,22 @@
++#
++#  Copyright (c) International Business Machines  Corp., 2001
++#
++#  This program is free software;  you can redistribute it and/or modify
++#  it under the terms of the GNU General Public License as published by
++#  the Free Software Foundation; either version 2 of the License, or
++#  (at your option) any later version.
++#
++#  This program is distributed in the hope that it will be useful,
++#  but WITHOUT ANY WARRANTY;  without even the implied warranty of
++#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
++#  the GNU General Public License for more details.
++#
++#  You should have received a copy of the GNU General Public License
++#  along with this program;  if not, write to the Free Software
++#  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
++#
++
++top_srcdir		?= ../../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/ioprio/ioprio.h b/testcases/kernel/syscalls/ioprio/ioprio.h
+new file mode 100644
+index 000000000000..3a0f068a053a
+--- /dev/null
++++ b/testcases/kernel/syscalls/ioprio/ioprio.h
+@@ -0,0 +1,44 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2019 Linus Walleij <linus.walleij@linaro.org>
++ */
++
++#ifndef LTP_IOPRIO_H
++#define LTP_IOPRIO_H
++
++enum {
++	IOPRIO_CLASS_NONE = 0,
++	IOPRIO_CLASS_RT,
++	IOPRIO_CLASS_BE,
++	IOPRIO_CLASS_IDLE,
++};
++
++enum {
++	IOPRIO_WHO_PROCESS = 1,
++	IOPRIO_WHO_PGRP,
++	IOPRIO_WHO_USER,
++};
++
++#define IOPRIO_CLASS_SHIFT	(13)
++#define IOPRIO_PRIO_MASK	((1UL << IOPRIO_CLASS_SHIFT) - 1)
++
++#define IOPRIO_PRIO_CLASS(data)	((data) >> IOPRIO_CLASS_SHIFT)
++#define IOPRIO_PRIO_LEVEL(data)	((data) & IOPRIO_PRIO_MASK)
++#define IOPRIO_PRIO_VALUE(class, data)	(((class) << IOPRIO_CLASS_SHIFT) | data)
++
++static const char *to_class_str[] = {
++	[IOPRIO_CLASS_NONE] = "NONE",
++	[IOPRIO_CLASS_RT]   = "REALTIME",
++	[IOPRIO_CLASS_BE]   = "BEST-EFFORT",
++	[IOPRIO_CLASS_IDLE] = "IDLE"
++};
++
++/* Priority range from 0 (highest) to 7 (lowest) */
++static inline int prio_in_range(int prio)
++{
++	if ((prio < 0) || (prio > 7))
++		return 0;
++	return 1;
++}
++
++#endif
+diff --git a/testcases/kernel/syscalls/ioprio/ioprio_get01.c b/testcases/kernel/syscalls/ioprio/ioprio_get01.c
+new file mode 100644
+index 000000000000..62183ebcf856
+--- /dev/null
++++ b/testcases/kernel/syscalls/ioprio/ioprio_get01.c
+@@ -0,0 +1,72 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2019 Linaro Limited
++ */
++#include <sys/types.h>
++#include <fcntl.h>
++#include <errno.h>
++#include <string.h>
++#include <signal.h>
++#include <unistd.h>
++#include <sys/syscall.h>
++
++#include "test.h"
++#include "ioprio.h"
++
++static void setup(void);
++static void cleanup(void);
++
++TCID_DEFINE(ioprio_get01);
++int TST_TOTAL = 1;
++
++static int ioprio_get(int which, int who)
++{
++	return syscall(SYS_ioprio_get, which, who);
++}
++
++int main(int ac, char **av)
++{
++	int lc;
++
++	tst_parse_opts(ac, av, NULL, NULL);
++
++	setup();
++
++	for (lc = 0; TEST_LOOPING(lc); lc++) {
++
++		tst_count = 0;
++		int prio, class;
++
++		/* Get the I/O priority for the current process */
++		TEST(ioprio_get(IOPRIO_WHO_PROCESS, 0));
++
++		if (TEST_RETURN == -1) {
++			tst_resm(TFAIL | TTERRNO, "ioprio_get failed");
++			continue;
++		}
++
++		class = IOPRIO_PRIO_CLASS(TEST_RETURN);
++		prio = IOPRIO_PRIO_LEVEL(TEST_RETURN);
++
++		if (!prio_in_range(prio)) {
++			tst_resm(TFAIL, "ioprio out of range (%d)", prio);
++			continue;
++		}
++
++		tst_resm(TPASS, "ioprio_get returned class %s prio %d",
++			 to_class_str[class], prio);
++	}
++
++	cleanup();
++	tst_exit();
++}
++
++static void setup(void)
++{
++	tst_sig(NOFORK, DEF_HANDLER, cleanup);
++	TEST_PAUSE;
++}
++
++static void cleanup(void)
++{
++}
+diff --git a/testcases/kernel/syscalls/ioprio/ioprio_set01.c b/testcases/kernel/syscalls/ioprio/ioprio_set01.c
+new file mode 100644
+index 000000000000..776c5392e8dc
+--- /dev/null
++++ b/testcases/kernel/syscalls/ioprio/ioprio_set01.c
+@@ -0,0 +1,123 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2019 Linus Walleij <linus.walleij@linaro.org>
++ */
++#include <sys/types.h>
++#include <fcntl.h>
++#include <errno.h>
++#include <string.h>
++#include <signal.h>
++#include <unistd.h>
++#include <sys/syscall.h>
++
++#include "test.h"
++#include "ioprio.h"
++
++static void setup(void);
++static void cleanup(void);
++
++TCID_DEFINE(ioprio_set01);
++int TST_TOTAL = 1;
++
++static int ioprio_get(int which, int who)
++{
++	return syscall(SYS_ioprio_get, which, who);
++}
++
++static int ioprio_set(int which, int who, int ioprio)
++{
++	return syscall(SYS_ioprio_set, which, who, ioprio);
++}
++
++static void ioprio_check_setting(int class, int prio)
++{
++	int res;
++	int newclass, newprio;
++
++	res = ioprio_get(IOPRIO_WHO_PROCESS, 0);
++	if (res == -1) {
++		tst_resm(TFAIL | TTERRNO,
++			 "reading back prio failed");
++		return;
++	}
++
++	newclass = IOPRIO_PRIO_CLASS(res);
++	newprio = IOPRIO_PRIO_LEVEL(res);
++	if (newclass != class)
++		tst_resm(TFAIL,
++			 "wrong class after setting, expected %s got %s",
++			 to_class_str[class],
++			 to_class_str[newclass]);
++	else if (newprio != prio)
++		tst_resm(TFAIL,
++			 "wrong prio after setting, expected %d got %d",
++			 prio, newprio);
++	else
++		tst_resm(TPASS, "ioprio_set new class %s, new prio %d",
++			 to_class_str[newclass],
++			 newprio);
++}
++
++int main(int ac, char **av)
++{
++	int lc;
++
++	tst_parse_opts(ac, av, NULL, NULL);
++
++	setup();
++
++	for (lc = 0; TEST_LOOPING(lc); lc++) {
++
++		tst_count = 0;
++		int class, prio;
++
++		/* Get the I/O priority for the current process */
++		TEST(ioprio_get(IOPRIO_WHO_PROCESS, 0));
++
++		if (TEST_RETURN == -1) {
++			tst_resm(TFAIL | TTERRNO, "ioprio_get failed");
++			/* Try to continue anyway */
++			class = IOPRIO_CLASS_NONE;
++			prio = 4;
++		} else {
++			class = IOPRIO_PRIO_CLASS(TEST_RETURN);
++			prio = IOPRIO_PRIO_LEVEL(TEST_RETURN);
++			tst_resm(TPASS, "ioprio_get returned class %s prio %d",
++				 to_class_str[class], prio);
++		}
++
++		/* Bump prio to what it was + 1 */
++		class = IOPRIO_CLASS_BE;
++		prio++;
++
++		TEST(ioprio_set(IOPRIO_WHO_PROCESS, 0,
++				IOPRIO_PRIO_VALUE(class, prio)));
++		if (TEST_RETURN == -1)
++			tst_resm(TFAIL | TTERRNO, "ioprio_set failed");
++		else
++			ioprio_check_setting(class, prio);
++
++		/* Bump prio down two notches */
++		prio -= 2;
++		TEST(ioprio_set(IOPRIO_WHO_PROCESS, 0,
++				IOPRIO_PRIO_VALUE(class, prio)));
++		if (TEST_RETURN == -1)
++			tst_resm(TFAIL | TTERRNO, "ioprio_set failed");
++		else
++			ioprio_check_setting(class, prio);
++
++	}
++
++	cleanup();
++	tst_exit();
++}
++
++static void setup(void)
++{
++	tst_sig(NOFORK, DEF_HANDLER, cleanup);
++	TEST_PAUSE;
++}
++
++static void cleanup(void)
++{
++}
+diff --git a/testcases/kernel/syscalls/ioprio/ioprio_set02.c b/testcases/kernel/syscalls/ioprio/ioprio_set02.c
+new file mode 100644
+index 000000000000..1ba515b37e90
+--- /dev/null
++++ b/testcases/kernel/syscalls/ioprio/ioprio_set02.c
+@@ -0,0 +1,166 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2019 Linus Walleij <linus.walleij@linaro.org>
++ */
++#include <sys/types.h>
++#include <fcntl.h>
++#include <errno.h>
++#include <string.h>
++#include <signal.h>
++#include <unistd.h>
++#include <sys/syscall.h>
++
++#include "test.h"
++#include "ioprio.h"
++
++static void setup(void);
++static void cleanup(void);
++
++TCID_DEFINE(ioprio_set02);
++int TST_TOTAL = 1;
++
++static int ioprio_get(int which, int who)
++{
++	return syscall(SYS_ioprio_get, which, who);
++}
++
++static int ioprio_set(int which, int who, int ioprio)
++{
++	return syscall(SYS_ioprio_set, which, who, ioprio);
++}
++
++static void ioprio_check_setting(int class, int prio, int report)
++{
++	int res;
++	int newclass, newprio;
++
++	res = ioprio_get(IOPRIO_WHO_PROCESS, 0);
++	if (res == -1) {
++		tst_resm(TFAIL | TTERRNO,
++			 "reading back prio failed");
++		return;
++	}
++
++	newclass = IOPRIO_PRIO_CLASS(res);
++	newprio = IOPRIO_PRIO_LEVEL(res);
++	if (newclass != class)
++		tst_resm(TFAIL,
++			 "wrong class after setting, expected %s got %s",
++			 to_class_str[class],
++			 to_class_str[newclass]);
++	else if (newprio != prio)
++		tst_resm(TFAIL,
++			 "wrong prio after setting, expected %d got %d",
++			 prio, newprio);
++	else if (report)
++		tst_resm(TPASS, "ioprio_set new class %s, new prio %d",
++			 to_class_str[newclass],
++			 newprio);
++}
++
++int main(int ac, char **av)
++{
++	int lc;
++
++	tst_parse_opts(ac, av, NULL, NULL);
++
++	setup();
++
++	for (lc = 0; TEST_LOOPING(lc); lc++) {
++
++		tst_count = 0;
++		int class, prio;
++		int fail_in_loop;
++
++		/* Get the I/O priority for the current process */
++		TEST(ioprio_get(IOPRIO_WHO_PROCESS, 0));
++
++		if (TEST_RETURN == -1) {
++			tst_resm(TFAIL | TTERRNO, "ioprio_get failed");
++			/* Try to continue anyway */
++			class = IOPRIO_CLASS_NONE;
++			prio = 4;
++		} else {
++			class = IOPRIO_PRIO_CLASS(TEST_RETURN);
++			prio = IOPRIO_PRIO_LEVEL(TEST_RETURN);
++			tst_resm(TPASS, "ioprio_get returned class %s prio %d",
++				 to_class_str[class], prio);
++		}
++
++		/* Bump to best effort scheduling, all 8 priorities */
++		class = IOPRIO_CLASS_BE;
++
++		fail_in_loop = 0;
++		for (prio = 0; prio < 8; prio++) {
++			TEST(ioprio_set(IOPRIO_WHO_PROCESS, 0,
++					IOPRIO_PRIO_VALUE(class, prio)));
++			if (TEST_RETURN == -1) {
++				tst_resm(TFAIL | TTERRNO, "ioprio_set IOPRIO_CLASS_BE prio %d failed", prio);
++				fail_in_loop = 1;
++			}
++		}
++		if (!fail_in_loop)
++			tst_resm(TPASS, "tested all 8 prios in class %s",
++				 to_class_str[class]);
++
++		/* Test to fail with prio 8, first set prio 4 */
++		ioprio_set(IOPRIO_WHO_PROCESS, 0,
++			   IOPRIO_PRIO_VALUE(class, 4));
++		TEST(ioprio_set(IOPRIO_WHO_PROCESS, 0,
++				IOPRIO_PRIO_VALUE(class, 8)));
++		if (TEST_RETURN == -1) {
++			ioprio_check_setting(class, 4, 1);
++			prio = 5;
++		}
++		else
++			tst_resm(TFAIL, "ioprio_set IOPRIO_CLASS_BE prio %d should not work", prio);
++
++		/* Bump down to idle scheduling */
++		class = IOPRIO_CLASS_IDLE;
++
++		fail_in_loop = 0;
++		for (prio = 0; prio < 8; prio++) {
++			TEST(ioprio_set(IOPRIO_WHO_PROCESS, 0,
++					IOPRIO_PRIO_VALUE(class, prio)));
++			if (TEST_RETURN == -1) {
++				tst_resm(TFAIL | TTERRNO, "ioprio_set IOPRIO_CLASS_IDLE failed");
++				fail_in_loop = 1;
++			}
++		}
++		if (!fail_in_loop)
++			tst_resm(TPASS, "tested all 8 prios in class %s",
++				 to_class_str[class]);
++
++		/* Test NONE scheduling */
++		class = IOPRIO_CLASS_NONE;
++		TEST(ioprio_set(IOPRIO_WHO_PROCESS, 0,
++				IOPRIO_PRIO_VALUE(class, 0)));
++		if (TEST_RETURN == -1)
++			tst_resm(TFAIL | TTERRNO, "ioprio_set IOPRIO_CLASS_NONE failed");
++		else
++			ioprio_check_setting(class, 0, 1);
++
++		/* Any other prio than 0 should not work with NONE */
++		class = IOPRIO_CLASS_NONE;
++		TEST(ioprio_set(IOPRIO_WHO_PROCESS, 0,
++				IOPRIO_PRIO_VALUE(class, 4)));
++		if (TEST_RETURN == -1)
++			tst_resm(TPASS, "tested illegal priority with class %s",
++				 to_class_str[class]);
++		else
++			tst_resm(TFAIL, "ioprio_set IOPRIO_CLASS_NONE should fail");
++	}
++
++	cleanup();
++	tst_exit();
++}
++
++static void setup(void)
++{
++	tst_sig(NOFORK, DEF_HANDLER, cleanup);
++	TEST_PAUSE;
++}
++
++static void cleanup(void)
++{
++}
+-- 
+2.21.0
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
