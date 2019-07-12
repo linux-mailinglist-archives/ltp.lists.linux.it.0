@@ -1,39 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3195367056
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jul 2019 15:43:35 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B5C367073
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jul 2019 15:48:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EE7733C1D17
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jul 2019 15:43:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D60363C1D0C
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jul 2019 15:48:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 942973C1CA0
- for <ltp@lists.linux.it>; Fri, 12 Jul 2019 15:43:31 +0200 (CEST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 250743C1C94
+ for <ltp@lists.linux.it>; Fri, 12 Jul 2019 15:48:50 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0CE8914088F0
- for <ltp@lists.linux.it>; Fri, 12 Jul 2019 15:43:30 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1B836604831
+ for <ltp@lists.linux.it>; Fri, 12 Jul 2019 15:48:48 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 45434AEFF;
- Fri, 12 Jul 2019 13:43:30 +0000 (UTC)
+ by mx1.suse.de (Postfix) with ESMTP id 5D26CAF47;
+ Fri, 12 Jul 2019 13:48:48 +0000 (UTC)
+Date: Fri, 12 Jul 2019 15:48:33 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Fri, 12 Jul 2019 15:43:28 +0200
-Message-Id: <20190712134328.20528-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.22.0
+To: ltp@lists.linux.it, Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20190712134833.GA21258@dell5510>
+References: <20190411233115.32744-1-pvorel@suse.cz>
+ <20190411233115.32744-4-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20190411233115.32744-4-pvorel@suse.cz>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH] tst_test.sh: Use $LTP_TIMEOUT_MUL also in
- TST_RETRY_FN_EXP_BACKOFF()
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH 3/3] make: Add
+ -Werror-implicit-function-declaration for all targets
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,72 +48,48 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Sandeep Patil <sspatil@android.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This function should also address possibility of slow machine.
+Hi,
 
-Because using on 2 places moved the default definition to the beginning
-of the script.
-+ use $((...)) instead of expr.
-+ move expression using $3 after check whether we have enough parameters
+> Previously it was passed only to Android build, but it's good to check
+> it for all.
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- testcases/lib/tst_test.sh | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> Tested in travis:
+> https://travis-ci.org/pevik/ltp/builds/518886113
+> ---
+>  include/mk/env_post.mk | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-index 31b3a3951..55a642267 100644
---- a/testcases/lib/tst_test.sh
-+++ b/testcases/lib/tst_test.sh
-@@ -17,6 +17,8 @@ export TST_ITERATIONS=1
- export TST_TMPDIR_RHOST=0
- export TST_LIB_LOADED=1
- 
-+export LTP_TIMEOUT_MUL=${LTP_TIMEOUT_MUL:-1}
-+
- . tst_ansi_color.sh
- . tst_security.sh
- 
-@@ -164,12 +166,13 @@ TST_RETRY_FN_EXP_BACKOFF()
- {
- 	local tst_fun="$1"
- 	local tst_exp=$2
--	local tst_sec=$(expr $3 \* 1000000)
- 	local tst_delay=1
-+	local tst_sec
- 
- 	if [ $# -ne 3 ]; then
- 		tst_brk TBROK "TST_RETRY_FN_EXP_BACKOFF expects 3 parameters"
- 	fi
-+	tst_sec=$(($3 * LTP_TIMEOUT_MUL * 1000000))
- 
- 	if ! tst_is_int "$tst_sec"; then
- 		tst_brk TBROK "TST_RETRY_FN_EXP_BACKOFF: tst_sec must be integer ('$tst_sec')"
-@@ -185,7 +188,7 @@ TST_RETRY_FN_EXP_BACKOFF()
- 			tst_sleep ${tst_delay}us
- 			tst_delay=$((tst_delay*2))
- 		else
--			tst_brk TBROK "\"$tst_fun\" timed out"
-+			tst_brk TBROK "\"$tst_fun\" timed out! If you are running on slow machine, try exporting LTP_TIMEOUT_MUL"
- 		fi
- 	done
- 
-@@ -374,8 +377,6 @@ _tst_rescmp()
- 
- _tst_setup_timer()
- {
--	LTP_TIMEOUT_MUL=${LTP_TIMEOUT_MUL:-1}
--
- 	local sec=$((300 * LTP_TIMEOUT_MUL))
- 	local h=$((sec / 3600))
- 	local m=$((sec / 60 % 60))
--- 
-2.22.0
+> diff --git a/include/mk/env_post.mk b/include/mk/env_post.mk
+> index 913bdf5d1..3ffdd0b7f 100644
+> --- a/include/mk/env_post.mk
+> +++ b/include/mk/env_post.mk
+> @@ -41,11 +41,9 @@ ifeq ($(UCLINUX),1)
+>  CPPFLAGS			+= -D__UCLIBC__ -DUCLINUX
+>  endif
 
+> -ifeq ($(ANDROID),1)
+> -# There are many undeclared functions, it's best not to accidentally overlook
+> -# them.
+>  CFLAGS				+= -Werror-implicit-function-declaration
+
+> +ifeq ($(ANDROID),1)
+>  LDFLAGS				+= -L$(top_builddir)/lib/android_libpthread
+>  LDFLAGS				+= -L$(top_builddir)/lib/android_librt
+>  endif
+
+Ping, please. Drop it or merge?
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
