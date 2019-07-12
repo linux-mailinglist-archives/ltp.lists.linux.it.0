@@ -2,46 +2,48 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2365966698
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jul 2019 07:47:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA366666B5
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jul 2019 08:00:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E4FCD3C1CE6
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jul 2019 07:47:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 24B2B3C1D19
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jul 2019 08:00:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id D72B63C1C7F
- for <ltp@lists.linux.it>; Fri, 12 Jul 2019 07:47:01 +0200 (CEST)
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
- (using TLSv1.1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 41C441A00EB2
- for <ltp@lists.linux.it>; Fri, 12 Jul 2019 07:46:57 +0200 (CEST)
-Received: from ALA-HCA.corp.ad.wrs.com ([147.11.189.40])
- by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id x6C5kqUa010344
- (version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
- Thu, 11 Jul 2019 22:46:52 -0700 (PDT)
-Received: from [128.224.162.188] (128.224.162.188) by ALA-HCA.corp.ad.wrs.com
- (147.11.189.50) with Microsoft SMTP Server (TLS) id 14.3.468.0;
- Thu, 11 Jul 2019 22:46:51 -0700
-To: Jan Stancek <jstancek@redhat.com>
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id DD4623C1C86
+ for <ltp@lists.linux.it>; Fri, 12 Jul 2019 08:00:17 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 42031100286F
+ for <ltp@lists.linux.it>; Fri, 12 Jul 2019 08:00:10 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.63,481,1557158400"; d="scan'208";a="71241078"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 12 Jul 2019 14:00:11 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id 073ED4CDF044;
+ Fri, 12 Jul 2019 14:00:09 +0800 (CST)
+Received: from [10.167.215.46] (10.167.215.46) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ id 14.3.439.0; Fri, 12 Jul 2019 14:00:12 +0800
+Message-ID: <5D2821EB.6070807@cn.fujitsu.com>
+Date: Fri, 12 Jul 2019 14:00:11 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+MIME-Version: 1.0
+To: "Hongzhi, Song" <hongzhi.song@windriver.com>
 References: <1562826026-158569-1-git-send-email-hongzhi.song@windriver.com>
  <408194681.32599099.1562831328308.JavaMail.zimbra@redhat.com>
-From: "Hongzhi, Song" <hongzhi.song@windriver.com>
-Message-ID: <c0c07134-f5a8-b4d3-c210-c58c36653423@windriver.com>
-Date: Fri, 12 Jul 2019 13:46:24 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.2
-MIME-Version: 1.0
-In-Reply-To: <408194681.32599099.1562831328308.JavaMail.zimbra@redhat.com>
-Content-Language: en-US
-X-Originating-IP: [128.224.162.188]
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
-X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ <c0c07134-f5a8-b4d3-c210-c58c36653423@windriver.com>
+In-Reply-To: <c0c07134-f5a8-b4d3-c210-c58c36653423@windriver.com>
+X-Originating-IP: [10.167.215.46]
+X-yoursite-MailScanner-ID: 073ED4CDF044.AFCE7
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Status: Clean
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH V2] getrlimit03: adjust a bit of code to
  compatiable with mips32
 X-BeenThere: ltp@lists.linux.it
@@ -56,62 +58,139 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Ck9uIDcvMTEvMTkgMzo0OCBQTSwgSmFuIFN0YW5jZWsgd3JvdGU6Cj4KPiAtLS0tLSBPcmlnaW5h
-bCBNZXNzYWdlIC0tLS0tCj4+IEVycm9yIGluZm86Cj4+IGdldHJsaW1pdDAzLmM6MTA0OiBGQUlM
-OiBfX05SX3BybGltaXQ2NCgwKSBoYWQgcmxpbV9jdXIgPQo+PiBmZmZmZmZmZmZmZmZmZmZmIGJ1
-dCBfX05SX2dldHJsaW1pdCgwKSBoYWQgcmxpbV9jdXIgPSA3ZmZmZmZmZgo+Pgo+PiBBY2NvcmRp
-bmcgdG8ga2VybmVsIGNvZGU6IFthcmNoL21pcHMvaW5jbHVkZS91YXBpL2FzbS9yZXNvdXJjZS5o
-XQo+PiBSTElNX0lORklOSVRZIGlzIHNldCB0byAweDdmZmZmZmZmVUwgaW5zdGVhZCBvZiBVTE9O
-R19NQVggb24gbWlwczMyLgo+Pgo+PiAvKgo+PiAgICogU3VTIHNheXMgbGltaXRzIGhhdmUgdG8g
-YmUgdW5zaWduZWQuCj4+ICAgKiBXaGljaCBtYWtlcyBhIHRvbiBtb3JlIHNlbnNlIGFueXdheSwK
-Pj4gICAqIGJ1dCB3ZSBrZWVwIHRoZSBvbGQgdmFsdWUgb24gTUlQUzMyLAo+PiAgICogZm9yIGNv
-bXBhdGliaWxpdHk6Cj4+ICAgKi8KPj4gI2lmbmRlZiBfX21pcHM2NAo+PiAjIGRlZmluZSBSTElN
-X0lORklOSVRZICAgICAgMHg3ZmZmZmZmZlVMCj4+ICNlbmRpZgo+Pgo+PiBBZGRpbmcgY29uZGl0
-aW9uYWwgc3RhdGVtZW50IGFib3V0IG1pcHMgdG8gZml4IHRoaXMuCj4+Cj4+IFNpZ25lZC1vZmYt
-Ynk6IEhvbmd6aGkuU29uZyA8aG9uZ3poaS5zb25nQHdpbmRyaXZlci5jb20+Cj4+IC0tLQo+PiAg
-IHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZ2V0cmxpbWl0L2dldHJsaW1pdDAzLmMgfCAxMCAr
-KysrKysrKy0tCj4+ICAgMSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlv
-bnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZ2V0cmxp
-bWl0L2dldHJsaW1pdDAzLmMKPj4gYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2dldHJsaW1p
-dC9nZXRybGltaXQwMy5jCj4+IGluZGV4IGU0ZDU2YzQuLjE5MDM1NTggMTAwNjQ0Cj4+IC0tLSBh
-L3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZ2V0cmxpbWl0L2dldHJsaW1pdDAzLmMKPj4gKysr
-IGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9nZXRybGltaXQvZ2V0cmxpbWl0MDMuYwo+PiBA
-QCAtNjEsNyArNjEsMTMgQEAgc3RydWN0IHJsaW1pdF91bG9uZyB7Cj4+ICAgCXVuc2lnbmVkIGxv
-bmcgcmxpbV9jdXI7Cj4+ICAgCXVuc2lnbmVkIGxvbmcgcmxpbV9tYXg7Cj4+ICAgfTsKPj4gKyNp
-ZmRlZiBfX21pcHMKPj4gKyNpZm5kZWYgX19taXBzNjQKPj4gK2NvbnN0IHVuc2lnbmVkIGxvbmcg
-UkxJTV9JTkZJTklUWV9VTCA9IDB4N2ZmZmZmZmZVTDsKPj4gKyNlbHNlCj4+ICAgY29uc3QgdW5z
-aWduZWQgbG9uZyBSTElNX0lORklOSVRZX1VMID0gVUxPTkdfTUFYOwo+PiArI2VuZGlmCj4+ICsj
-ZW5kaWYKPiBIaSwKPgo+IFRoaXMgd2lsbCBicmVhayBldmVyeSBvdGhlciBhcmNoLCBiZWNhdXNl
-IGl0J3Mgbm93IHVuZGVmaW5lZCBldmVyeXdoZXJlIGV4Y2VwdCBtaXBzLgoKCklzIHRoZXJlIGEg
-Z29vZCB3YXkgdG8gZmlsdGVyIG1pcHMzMj8KCkkgdHJpZWQKCiDCoDY1ICNpZmRlZiBfX21pcHMK
-IMKgNjYgI2lmbmRlZiBfX21pcHM2NAogwqA2NyBjb25zdCB1bnNpZ25lZCBsb25nIFJMSU1fSU5G
-SU5JVFlfVUwgPSAweDdmZmZmZmZmVUw7CiDCoDY4ICNlbmRpZgogwqA2OSBjb25zdCB1bnNpZ25l
-ZCBsb25nIFJMSU1fSU5GSU5JVFlfVUwgPSBVTE9OR19NQVg7CiDCoDcwICNlbHNlCiDCoDcxIGNv
-bnN0IHVuc2lnbmVkIGxvbmcgUkxJTV9JTkZJTklUWV9VTCA9IFVMT05HX01BWDsKIMKgNzIgI2Vu
-ZGlmCgpidXQgbWlwczMyIHRoaW5rcyB0aGUgUkxJTV9JTkZJTklUWV9VTCBtaWNybyBpcyByZWRl
-ZmluZWQuCgoKPgo+PiAgIAo+PiAgIHN0YXRpYyBpbnQgZ2V0cmxpbWl0X3Vsb25nKGludCByZXNv
-dXJjZSwgc3RydWN0IHJsaW1pdF91bG9uZyAqcmxpbSkKPj4gICB7Cj4+IEBAIC0xMDEsOCArMTA3
-LDggQEAgc3RhdGljIGludCBjb21wYXJlX3U2NF91bG9uZyhpbnQgcmVzb3VyY2UsIHVpbnQ2NF90
-Cj4+IHZhbF91NjQsCj4+ICAgewo+PiAgIAlpZiAoKHZhbF91NjQgPiBSTElNX0lORklOSVRZX1VM
-ICYmIHZhbF91bCAhPSBSTElNX0lORklOSVRZX1VMKSB8fAo+PiAgIAkgICAgKHZhbF91NjQgPD0g
-UkxJTV9JTkZJTklUWV9VTCAmJiB2YWxfdWwgIT0gdmFsX3U2NCkpIHsKPj4gLQkJdHN0X3JlcyhU
-RkFJTCwgIl9fTlJfcHJsaW1pdDY0KCVkKSBoYWQgJXMgPSAlIiBQUkl4NjQgIiBidXQgIgo+PiBf
-X05SX2dldHJsaW1pdF91bG9uZ19zdHIgIiglZCkgaGFkICVzID0gJWx4IiwKPj4gLQkJCXJlc291
-cmNlLCBraW5kLCB2YWxfdTY0LAo+PiArCQl0c3RfcmVzKFRGQUlMLCAiU0lHTkVEX0dFVFJMSU1J
-VCA9ICVkIF9fV09SRFNJWkUgJWQgVUxPTkdfTUFYID0gJWx1Cj4+IFJMSU1fSU5GSU5JVFlfVUwg
-PSAlbHUgX19OUl9wcmxpbWl0NjQoJWQpIGhhZCAlcyA9ICUiIFBSSXg2NCAiIGJ1dCAiCj4+IF9f
-TlJfZ2V0cmxpbWl0X3Vsb25nX3N0ciAiKCVkKSBoYWQgJXMgPSAlbHgiLAo+PiArCQkJU0lHTkVE
-X0dFVFJMSU1JVCwgX19XT1JEU0laRSwgVUxPTkdfTUFYLCBSTElNX0lORklOSVRZX1VMLCByZXNv
-dXJjZSwKPiBJIHN1Z2dlc3QgdG8gc3BsaXQgaXQgaW50byBhbm90aGVyIHRzdF9yZXMoKSBtZXNz
-YWdlLCBsaW5lIGFib3ZlIGlzIG5lYXJseSAyMDAgY2hhcmFjdGVycy4KCgpTb3JyeSwgSSBzaG91
-bGRuJ3QgYXBwZW5kIGRlYnVnIGNvZGUgdG8gcGF0Y2guCgotLUhvbmd6aGkKCgo+Cj4gUmVnYXJk
-cywKPiBKYW4KPgo+PiBraW5kLCB2YWxfdTY0LAo+PiAgIAkJCXJlc291cmNlLCBraW5kLCB2YWxf
-dWwpOwo+PiAgIAkJcmV0dXJuIC0xOwo+PiAgIAl9Cj4+IC0tCj4+IDIuOC4xCj4+Cj4+Cj4+IC0t
-Cj4+IE1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0
-cAo+PgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3Rp
-bmZvL2x0cAo=
+on 2019/07/12 13:46, Hongzhi, Song wrote:
+>
+> On 7/11/19 3:48 PM, Jan Stancek wrote:
+>>
+>> ----- Original Message -----
+>>> Error info:
+>>> getrlimit03.c:104: FAIL: __NR_prlimit64(0) had rlim_cur =
+>>> ffffffffffffffff but __NR_getrlimit(0) had rlim_cur = 7fffffff
+>>>
+>>> According to kernel code: [arch/mips/include/uapi/asm/resource.h]
+>>> RLIM_INFINITY is set to 0x7fffffffUL instead of ULONG_MAX on mips32.
+>>>
+>>> /*
+>>>   * SuS says limits have to be unsigned.
+>>>   * Which makes a ton more sense anyway,
+>>>   * but we keep the old value on MIPS32,
+>>>   * for compatibility:
+>>>   */
+>>> #ifndef __mips64
+>>> # define RLIM_INFINITY      0x7fffffffUL
+>>> #endif
+>>>
+>>> Adding conditional statement about mips to fix this.
+>>>
+>>> Signed-off-by: Hongzhi.Song <hongzhi.song@windriver.com>
+>>> ---
+>>>   testcases/kernel/syscalls/getrlimit/getrlimit03.c | 10 ++++++++--
+>>>   1 file changed, 8 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/testcases/kernel/syscalls/getrlimit/getrlimit03.c
+>>> b/testcases/kernel/syscalls/getrlimit/getrlimit03.c
+>>> index e4d56c4..1903558 100644
+>>> --- a/testcases/kernel/syscalls/getrlimit/getrlimit03.c
+>>> +++ b/testcases/kernel/syscalls/getrlimit/getrlimit03.c
+>>> @@ -61,7 +61,13 @@ struct rlimit_ulong {
+>>>       unsigned long rlim_cur;
+>>>       unsigned long rlim_max;
+>>>   };
+>>> +#ifdef __mips
+>>> +#ifndef __mips64
+>>> +const unsigned long RLIM_INFINITY_UL = 0x7fffffffUL;
+>>> +#else
+>>>   const unsigned long RLIM_INFINITY_UL = ULONG_MAX;
+>>> +#endif
+>>> +#endif
+>> Hi,
+>>
+>> This will break every other arch, because it's now undefined 
+>> everywhere except mips.
+>
+>
+> Is there a good way to filter mips32?
+>
+> I tried
+>
+>  65 #ifdef __mips
+>  66 #ifndef __mips64
+>  67 const unsigned long RLIM_INFINITY_UL = 0x7fffffffUL;
+>  68 #endif
+>  69 const unsigned long RLIM_INFINITY_UL = ULONG_MAX;
+>  70 #else
+>  71 const unsigned long RLIM_INFINITY_UL = ULONG_MAX;
+>  72 #endif
+>
+> but mips32 thinks the RLIM_INFINITY_UL micro is redefined.
+
+Hi hongzhi
+
+You redefine RLIM_INFINITY_UL macro indeed when on mips32 because line 67 and 69.
+
+It should be as below:
++#ifdef __mips
++#ifndef __mips64
++const unsigned long RLIM_INFINITY_UL = 0x7fffffffUL;
+#endif
++#else
++const unsigned long RLIM_INFINITY_UL = ULONG_MAX;
++#endif
+
+  
+
+>
+>
+>>
+>>>     static int getrlimit_ulong(int resource, struct rlimit_ulong *rlim)
+>>>   {
+>>> @@ -101,8 +107,8 @@ static int compare_u64_ulong(int resource, uint64_t
+>>> val_u64,
+>>>   {
+>>>       if ((val_u64 > RLIM_INFINITY_UL && val_ul != RLIM_INFINITY_UL) ||
+>>>           (val_u64 <= RLIM_INFINITY_UL && val_ul != val_u64)) {
+>>> -        tst_res(TFAIL, "__NR_prlimit64(%d) had %s = %" PRIx64 " but "
+>>> __NR_getrlimit_ulong_str "(%d) had %s = %lx",
+>>> -            resource, kind, val_u64,
+>>> +        tst_res(TFAIL, "SIGNED_GETRLIMIT = %d __WORDSIZE %d 
+>>> ULONG_MAX = %lu
+>>> RLIM_INFINITY_UL = %lu __NR_prlimit64(%d) had %s = %" PRIx64 " but "
+>>> __NR_getrlimit_ulong_str "(%d) had %s = %lx",
+>>> +            SIGNED_GETRLIMIT, __WORDSIZE, ULONG_MAX, 
+>>> RLIM_INFINITY_UL, resource,
+>> I suggest to split it into another tst_res() message, line above is 
+>> nearly 200 characters.
+>
+>
+> Sorry, I shouldn't append debug code to patch.
+>
+> --Hongzhi
+>
+>
+>>
+>> Regards,
+>> Jan
+>>
+>>> kind, val_u64,
+>>>               resource, kind, val_ul);
+>>>           return -1;
+>>>       }
+>>> -- 
+>>> 2.8.1
+>>>
+>>>
+>>> -- 
+>>> Mailing list info: https://lists.linux.it/listinfo/ltp
+>>>
+>
+
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
