@@ -1,51 +1,38 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 438FD684FD
-	for <lists+linux-ltp@lfdr.de>; Mon, 15 Jul 2019 10:13:55 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 84BC168655
+	for <lists+linux-ltp@lfdr.de>; Mon, 15 Jul 2019 11:29:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 02E573C1D03
-	for <lists+linux-ltp@lfdr.de>; Mon, 15 Jul 2019 10:13:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2942A3C1D03
+	for <lists+linux-ltp@lfdr.de>; Mon, 15 Jul 2019 11:29:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id D106C3C185D
- for <ltp@lists.linux.it>; Mon, 15 Jul 2019 10:13:52 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 0F62B600A59
- for <ltp@lists.linux.it>; Mon, 15 Jul 2019 10:13:52 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.63,493,1557158400"; d="scan'208";a="71454983"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 15 Jul 2019 16:13:45 +0800
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id 54D3D4CDE8C5;
- Mon, 15 Jul 2019 16:13:33 +0800 (CST)
-Received: from [10.167.215.46] (10.167.215.46) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- id 14.3.439.0; Mon, 15 Jul 2019 16:13:47 +0800
-Message-ID: <5D2C35B6.6080606@cn.fujitsu.com>
-Date: Mon, 15 Jul 2019 16:13:42 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+ by picard.linux.it (Postfix) with ESMTP id 73E7D3C18F9
+ for <ltp@lists.linux.it>; Mon, 15 Jul 2019 11:29:49 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A8C3F6005C0
+ for <ltp@lists.linux.it>; Mon, 15 Jul 2019 11:29:50 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id A2142AD0B
+ for <ltp@lists.linux.it>; Mon, 15 Jul 2019 09:29:46 +0000 (UTC)
+From: Cyril Hrubis <chrubis@suse.cz>
+To: ltp@lists.linux.it
+Date: Mon, 15 Jul 2019 11:29:45 +0200
+Message-Id: <20190715092945.14175-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <20190712141530.22195-1-chrubis@suse.cz>
- <20190712141530.22195-3-chrubis@suse.cz>
-In-Reply-To: <20190712141530.22195-3-chrubis@suse.cz>
-X-Originating-IP: [10.167.215.46]
-X-yoursite-MailScanner-ID: 54D3D4CDE8C5.AEC68
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
 X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] syscalls/acct02: Fix failures with nearly
- full FS
+Subject: [LTP] [COMMITTED] [PATCH] snd_timer01: Fix compilation
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,67 +44,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+On a few older distributions the timer functions used in fuzzy sync
+library needs -lrt and also -pthread has to be in CFLAGS instead.
 
-> While process accounting is running the kernel checks the percentage of
-> available space on disk. If the accounting is enabled and the free space
-> drops below 2% the accounting is disabled until we reach at least 4% of
-> free space. Which especially means that we have to have more than 4% of
-> free space when we start the accounting because we are starting in
-> disabled state. And when accounting is disabled the data are dropped
-> silently instead of being written to the file, which makes this test
-> fail because we end up with an empty file.
->
-> So this patch checks if there is at least 4.1% of free space before we
-> start the test and exit with TCONF otherwise.
->
-> Signed-off-by: Cyril Hrubis<chrubis@suse.cz>
-> CC: Christian Amann<camann@suse.com>
-> ---
->   testcases/kernel/syscalls/acct/acct02.c | 12 ++++++++++++
->   1 file changed, 12 insertions(+)
->
-> diff --git a/testcases/kernel/syscalls/acct/acct02.c b/testcases/kernel/syscalls/acct/acct02.c
-> index f61faf206..6c375d5cb 100644
-> --- a/testcases/kernel/syscalls/acct/acct02.c
-> +++ b/testcases/kernel/syscalls/acct/acct02.c
-> @@ -146,8 +146,20 @@ static void run(void)
->
->   static void setup(void)
->   {
-> +	struct statfs buf;
-> +
->   	clock_ticks = SAFE_SYSCONF(_SC_CLK_TCK);
->
-> +	SAFE_STATFS(".",&buf);
-> +
-> +	float avail = (100.00 * buf.f_bavail) / buf.f_blocks;
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+---
+ testcases/kernel/sound/Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Hi Cyril
-
-  I met the same problem on last week when I ran acct02 on nearly full FS.  Since kernel/acct.c has defined the RESUME(4) and SUSPEND(2) macro,
-4.1 is enough.  And I think we can leave a simple comment in here for why the limit is 4.1(even though the commit message has the reason).
-
-Thanks
-Yang Xu
-
-> +
-> +	if (avail<  4.1) {
-> +		tst_brk(TCONF,
-> +			"Less than 4.1%% (%.2f) of free space on filesystem",
-> +			avail);
-> +	}
-> +
->   	TEST(acct(NULL));
->   	if (TST_RET == -1)
->   		tst_brk(TBROK | TTERRNO,
-
-
+diff --git a/testcases/kernel/sound/Makefile b/testcases/kernel/sound/Makefile
+index ad1e25c30..9abcc2b27 100644
+--- a/testcases/kernel/sound/Makefile
++++ b/testcases/kernel/sound/Makefile
+@@ -6,7 +6,7 @@ include $(top_srcdir)/include/mk/testcases.mk
+ 
+ CPPFLAGS		+= -D_GNU_SOURCE
+ 
+-LDLIBS			+= -pthread
+-
++snd_timer01: CFLAGS+=-pthread
++snd_timer01: LDLIBS+=-lrt
+ 
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+-- 
+2.21.0
 
 
 -- 
