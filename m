@@ -1,50 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5AA16982E
-	for <lists+linux-ltp@lfdr.de>; Mon, 15 Jul 2019 17:16:46 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id AD90869894
+	for <lists+linux-ltp@lfdr.de>; Mon, 15 Jul 2019 17:49:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 62E923C1D05
-	for <lists+linux-ltp@lfdr.de>; Mon, 15 Jul 2019 17:16:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 692453C1D13
+	for <lists+linux-ltp@lfdr.de>; Mon, 15 Jul 2019 17:49:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 0139D3C1CE4
- for <ltp@lists.linux.it>; Mon, 15 Jul 2019 17:16:43 +0200 (CEST)
-Received: from m12-12.163.com (m12-12.163.com [220.181.12.12])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 2F0646018B2
- for <ltp@lists.linux.it>; Mon, 15 Jul 2019 17:16:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id; bh=91J+NoRwZCbFKNx/V2
- /zcsU6HdC8PH29pQ2wU34ioBo=; b=bNsuyeDYOOIOV/JWx4HKufP1I+HjyQFU6m
- eZn/EQH0tMReeM4Yqd76cqj5b8RNQ8Amk2x5Z4ufzMHg9KcX4lqheRP7TuZRgMPg
- wrO9wsFqYBEPC9l02xS53hCNQUoFc6AGtvdajsksWju4Ht9BPHg+tKbZ9kzcdDuU
- VPRvVe+CM=
-Received: from RHEL7U5GA_Intel64.localdomain (unknown [183.210.51.51])
- by smtp8 (Coremail) with SMTP id DMCowAAHxAjWmCxdjX0oCg--.40800S2;
- Mon, 15 Jul 2019 23:16:39 +0800 (CST)
-From: Xiao Yang <ice_yangxiao@163.com>
-To: ltp@lists.linux.it
-Date: Mon, 15 Jul 2019 23:16:36 +0800
-Message-Id: <1563203796-22102-1-git-send-email-ice_yangxiao@163.com>
-X-Mailer: git-send-email 1.8.3.1
-X-CM-TRANSID: DMCowAAHxAjWmCxdjX0oCg--.40800S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWruFWkAr4rKrWUGw4DZr4xJFb_yoWkurb_C3
- W7Ka48KFWUA3y7tr15Aw4kXry0y3y7Jrs5Kr1DKFWfGrW7W3s8Kas8ZF13Jrn5WF4v9r9x
- Zrs3WFs5Kry3AjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRKHUDJUUUUU==
-X-Originating-IP: [183.210.51.51]
-X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/1tbiTAPyXlSIglZDVQAAs9
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id C483C3C1D08
+ for <ltp@lists.linux.it>; Mon, 15 Jul 2019 17:49:48 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 8987C200ACA
+ for <ltp@lists.linux.it>; Mon, 15 Jul 2019 17:49:47 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id A7659AD72;
+ Mon, 15 Jul 2019 15:49:46 +0000 (UTC)
+Date: Mon, 15 Jul 2019 17:49:45 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20190715154945.GA28618@rei>
+References: <20190711113405.GA27889@rei.lan>
+ <1562907197-2322-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <1562907197-2322-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH] syscalls/acct02.c: Read threshold from
- /proc/sys/kernel/acct
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] syscalls/prctl06: New test for prctl() with
+ PR_{SET, GET}_NO_NEW_PRIVS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,54 +48,220 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-MIME-Version: 1.0
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Don't use hardcoded threshold(default 4%) to check free space
-because it can be changed by writing "/proc/sys/kernel/acct"
-or using sysctl.
+Hi!
+> +static uid_t nobody_uid;
+> +static gid_t nobody_gid;
+> +static int flag = 1;
+> +
+> +static void check_proc_field(int val, char *name)
+> +{
+> +	int field = 0;
+> +	char path[50];
+> +
+> +	strcpy(path, "/proc/self/status");
 
-Signed-off-by: Xiao Yang <ice_yangxiao@163.com>
----
- testcases/kernel/syscalls/acct/acct02.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Can't we just define PROC_STATUS "/proc/self/status" and use that
+instead of copying bytes around at runtime?
 
-diff --git a/testcases/kernel/syscalls/acct/acct02.c b/testcases/kernel/syscalls/acct/acct02.c
-index c2c2066..9e2f934 100644
---- a/testcases/kernel/syscalls/acct/acct02.c
-+++ b/testcases/kernel/syscalls/acct/acct02.c
-@@ -150,18 +150,21 @@ static void run(void)
- static void setup(void)
- {
- 	struct statfs buf;
-+	float limit;
- 
- 	clock_ticks = SAFE_SYSCONF(_SC_CLK_TCK);
- 
- 	SAFE_STATFS(".", &buf);
- 
- 	float avail = (100.00 * buf.f_bavail) / buf.f_blocks;
-+	SAFE_FILE_SCANF("/proc/sys/kernel/acct", "%f %*i %*i", &limit);
-+	limit += 0.1;
- 
- 	/* The accounting data are silently discarded on nearly FS */
--	if (avail < 4.1) {
-+	if (avail < limit) {
- 		tst_brk(TCONF,
--			"Less than 4.1%% (%.2f) of free space on filesystem",
--			avail);
-+			"Less than (%.2f)%% (%.2f) of free space on filesystem",
-+			limit, avail);
- 	}
- 
- 	TEST(acct(NULL));
+> +	TEST(FILE_LINES_SCANF(path, "NoNewPrivs:%d", &field));
+> +	if (TST_RET == 1) {
+> +		tst_res(TCONF,
+> +			"%s doesn't support NoNewPrivs field", path);
+> +		flag = 0;
+> +		return;
+> +	}
+> +	if (val == field)
+> +		tst_res(TPASS, "%s %s NoNewPrivs field expected %d got %d",
+> +			name, path, val, field);
+> +	else
+> +		tst_res(TFAIL, "%s %s NoNewPrivs field expected %d got %d",
+> +			name, path, val, field);
+> +}
+> +
+> +static void check_no_new_privs(int val, char *name)
+> +{
+> +	TEST(prctl(PR_GET_NO_NEW_PRIVS, 0, 0, 0, 0));
+> +	if (TST_RET == val)
+> +		tst_res(TPASS,
+> +			"%s prctl(PR_GET_NO_NEW_PRIVS) expected %d got %d",
+> +			name, val, val);
+> +	else
+> +		tst_res(TFAIL,
+> +			"%s prctl(PR_GET_NO_NEW_PRIVS) expected %d got %ld",
+> +			name, val, TST_RET);
+> +	if (flag)
+> +		check_proc_field(val, name);
+> +}
+> +
+> +static void do_prctl(void)
+> +{
+> +	char ipc_env_var[1024];
+> +	char *const argv[] = {"prctl06_execve", "parent process", NULL};
+> +	char *const childargv[] = {"prctl06_execve", "child process", NULL};
+> +	char *const envp[] = {ipc_env_var, NULL };
+> +	int childpid;
+> +
+> +	check_no_new_privs(0, "parent");
+> +
+> +	TEST(prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0));
+> +	if (TST_RET == -1) {
+> +		tst_res(TFAIL | TTERRNO, "prctl(PR_SET_NO_NEW_PRIVS) failed");
+> +		return;
+> +	}
+> +	tst_res(TPASS, "prctl(PR_SET_NO_NEW_PRIVS) succeeded");
+> +
+> +	SAFE_SETGID(nobody_gid);
+> +	SAFE_SETUID(nobody_uid);
+> +
+> +	sprintf(ipc_env_var, IPC_ENV_VAR "=%s", getenv(IPC_ENV_VAR));
+> +
+> +	childpid = SAFE_FORK();
+> +	if (childpid == 0) {
+> +		check_no_new_privs(1, "child");
+> +		execve("prctl06_execve", childargv, envp);
+> +		tst_brk(TFAIL | TTERRNO,
+> +			"child process failed to execute prctl_execve");
+> +
+> +	} else {
+> +		tst_reap_children();
+> +		check_no_new_privs(1, "parent");
+> +		execve("prctl06_execve", argv, envp);
+> +		tst_brk(TFAIL | TTERRNO,
+> +			"parent process failed to execute prctl_execve");
+> +	}
+> +}
+> +
+> +static void verify_prctl(void)
+> +{
+> +	int pid;
+> +
+> +	pid = SAFE_FORK();
+> +	if (pid == 0) {
+> +		do_prctl();
+> +		exit(0);
+> +	}
+> +}
+> +
+> +static void setup(void)
+> +{
+> +	struct passwd *pw;
+> +
+> +	pw = SAFE_GETPWNAM("nobody");
+> +	nobody_uid = pw->pw_uid;
+> +	nobody_gid = pw->pw_gid;
+> +
+> +	SAFE_CP(TESTBIN, TEST_REL_BIN_DIR);
+> +	SAFE_CHMOD("prctl06_execve", SUID_MODE);
+> +	SAFE_CHOWN("prctl06_execve", 0, 0);
+
+You are actually changing and executing the wrong file here. You are
+working directly with the file in the test temporary directory and not
+with the file that has been copied over to the mount point.
+
+I guess that we should define BIN_PATH and use it here and also for the
+execve() above.
+
+> +	TEST(prctl(PR_GET_NO_NEW_PRIVS, 0, 0, 0, 0));
+> +	if (TST_RET == 0) {
+> +		tst_res(TINFO, "kernel supports PR_GET/SET_NO_NEW_PRIVS");
+> +		return;
+> +	}
+> +
+> +	if (TST_ERR == EINVAL)
+> +		tst_brk(TCONF,
+> +			"kernel doesn't support PR_GET/SET_NO_NEW_PRIVS");
+> +
+> +	tst_brk(TBROK | TTERRNO,
+> +		"current environment doesn't permit PR_GET/SET_NO_NEW_PRIVS");
+> +}
+> +
+> +static const char *const resfile[] = {
+> +	TESTBIN,
+> +	NULL,
+> +};
+> +
+> +static struct tst_test test = {
+> +	.resource_files = resfile,
+> +	.setup = setup,
+> +	.test_all = verify_prctl,
+> +	.forks_child = 1,
+> +	.needs_root = 1,
+> +	.mount_device = 1,
+> +	.mntpoint = MNTPOINT,
+> +	.child_needs_reinit = 1,
+> +};
+> diff --git a/testcases/kernel/syscalls/prctl/prctl06_execve.c b/testcases/kernel/syscalls/prctl/prctl06_execve.c
+> new file mode 100644
+> index 000000000..92e218020
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/prctl/prctl06_execve.c
+> @@ -0,0 +1,52 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2019 FUJITSU LIMITED. All rights reserved.
+> + * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+> + *
+> + * dummy program which is used by prctl06 testcase
+> + */
+> +#define TST_NO_DEFAULT_MAIN
+> +#include <stdlib.h>
+> +#include <sys/types.h>
+> +#include <unistd.h>
+> +#include <errno.h>
+> +#include <pwd.h>
+> +#include <stdio.h>
+> +#include <string.h>
+> +#include "tst_test.h"
+> +
+> +int main(int argc, char **argv)
+> +{
+> +	char path[50];
+> +	struct passwd *pw;
+> +
+> +	pw = SAFE_GETPWNAM("nobody");
+> +
+> +	tst_reinit();
+> +	if (argc != 2)
+> +		tst_brk(TFAIL, "argc is %d, expected 2", argc);
+> +
+> +	strcpy(path, "/proc/self/status");
+
+Here as well, can we use a macro instead?
+
+> +	TEST(getegid());
+> +	if (TST_RET == 0)
+> +		tst_res(TFAIL,
+> +			"%s getegid() returns 0 unexpectedly, it gains root privileges",
+> +			argv[1]);
+> +	if (TST_RET == pw->pw_gid)
+> +		tst_res(TPASS,
+> +			"%s getegid() returns nobody, it doesn't gain root privileges",
+> +			argv[1]);
+> +
+> +	TEST(geteuid());
+> +	if (TST_RET == 0)
+> +		tst_res(TFAIL,
+> +			"%s geteuid() returns 0 unexpectedly, it gains root privileges",
+> +			argv[1]);
+> +	if (TST_RET == pw->pw_uid)
+> +		tst_res(TPASS,
+> +			"%s geteuid() returns nobody, it doesn't gain root privileges",
+> +			argv[1]);
+> +
+> +	return 0;
+> +}
+
+The rest looks good.
+
 -- 
-1.8.3.1
-
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
