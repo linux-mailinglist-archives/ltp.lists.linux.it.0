@@ -1,37 +1,55 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE2D56AAA2
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jul 2019 16:32:47 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D59B6ABE8
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jul 2019 17:37:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 370D33C1D32
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jul 2019 16:32:47 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9C8D03C1D20
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jul 2019 17:37:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 274333C1808
- for <ltp@lists.linux.it>; Tue, 16 Jul 2019 16:32:43 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 60438600C57
- for <ltp@lists.linux.it>; Tue, 16 Jul 2019 16:32:45 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 33280B03C
- for <ltp@lists.linux.it>; Tue, 16 Jul 2019 14:32:42 +0000 (UTC)
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue, 16 Jul 2019 16:32:38 +0200
-Message-Id: <20190716143238.483-1-chrubis@suse.cz>
-X-Mailer: git-send-email 2.21.0
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id AE36D3C1C68
+ for <ltp@lists.linux.it>; Tue, 16 Jul 2019 17:37:20 +0200 (CEST)
+Received: from m12-12.163.com (m12-12.163.com [220.181.12.12])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id B0D381401725
+ for <ltp@lists.linux.it>; Tue, 16 Jul 2019 17:37:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=9xLe0
+ lMxAe8eF7PSSoNZusL/WCuW7S99FCko8BA5mB0=; b=iYs5xiyQuqF1zy/E93rNb
+ qhEDUxW+nnOsBQNPF8BItTV8R91aaYwHUyq9tsD/5EpvIFQRfv4bSQ6x7eZ2kh6p
+ UM6md7AP990fQ/f44qY5Pz55CQ0PFsXHH+aJK2fJh+/sDpxwAv7+vAJROXnfMkFW
+ Ed66Uvli15hdG4ulX6I7Yc=
+Received: from [192.168.0.10] (unknown [183.210.51.51])
+ by smtp8 (Coremail) with SMTP id DMCowABXhOwr7y1d7rrTCg--.58757S2;
+ Tue, 16 Jul 2019 23:37:16 +0800 (CST)
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <1563203796-22102-1-git-send-email-ice_yangxiao@163.com>
+ <20190715160010.GA30303@rei.lan>
+ <02b9f80d-05ec-e837-5770-c12f73f6bb0f@163.com> <20190716141739.GA17060@rei>
+From: Xiao Yang <ice_yangxiao@163.com>
+Message-ID: <c5fa26ee-77d1-38c5-5d73-bf81df29fa5f@163.com>
+Date: Tue, 16 Jul 2019 23:37:15 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.6.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+In-Reply-To: <20190716141739.GA17060@rei>
+Content-Language: en-US
+X-CM-TRANSID: DMCowABXhOwr7y1d7rrTCg--.58757S2
+X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+ VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUVpnQUUUUU
+X-Originating-IP: [183.210.51.51]
+X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/1tbiMw3zXlXlx7nBUAAAsM
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [COMMITTED] [PATCH] syscalls/prctl07: Fix build.
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/acct02.c: Read threshold from
+ /proc/sys/kernel/acct
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,65 +61,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Ideally this is last fix for prctl07.
+On 07/16/2019 10:17 PM, Cyril Hrubis wrote:
+> Hi!
+>>> Good catch, I missed the sysctl API since I haven't realized that the
+>>> proc handlers are all stuffed in a different file in kernel/sysctl.c.
+>>>
+>>> What about we as well temporarily lower the value if needed while the
+>>> test is running?
+>> Hi Cyril,
+>>
+>> When free space is not enough, test can change the threshold by itself
+>> or remind user to modify the threshold by sysctl API manually.
+>>
+>> Which one do you prefer?
+> Ideally the test should modify the threshold.
+Hi Cyril,
 
-Since I've changed the check_proc_capamb() to use macro definition
-instead of raw integer value we depend on sys/capability.h being
-included to compile the code.
+OK, I will improve the patch as you suggested. :-)
 
-So this commit changes:
+Best Regards,
+Xiao Yang
+>
 
-The sys/capability.h is included under HAVE_SYS_CAPABILITY_H now and so
-the function is ifdefed out if we don't have that header.
-
-Also it looks like HAVE_LIBCAP is not defined unless libcap supports
-cap_compare() which should be fixed. The check for libcap and
-cap_compare() has to be uncoupled but that has to be done in a sepratate
-patch.
-
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
----
- testcases/kernel/syscalls/prctl/prctl07.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/prctl/prctl07.c b/testcases/kernel/syscalls/prctl/prctl07.c
-index 37d77df33..79f7710a8 100644
---- a/testcases/kernel/syscalls/prctl/prctl07.c
-+++ b/testcases/kernel/syscalls/prctl/prctl07.c
-@@ -25,7 +25,7 @@
- #include <sys/prctl.h>
- #include <stdlib.h>
- #include "config.h"
--#ifdef HAVE_LIBCAP
-+#ifdef HAVE_SYS_CAPABILITY_H
- # include <sys/capability.h>
- #endif
- #include "lapi/syscalls.h"
-@@ -35,7 +35,8 @@
- 
- #define PROC_STATUS "/proc/self/status"
- 
--static inline void check_proc_capamb(char *message, int flag)
-+#ifdef HAVE_SYS_CAPABILITY_H
-+static void check_proc_capamb(char *message, int flag)
- {
- 	int cap_num;
- 	char CapAmb[20];
-@@ -62,6 +63,7 @@ static inline void check_proc_capamb(char *message, int flag)
- 			"%s, CapAmb in %s doesn't have CAP_NET_BIND_SERVICE",
- 			message, PROC_STATUS);
- }
-+#endif
- 
- static inline void check_cap_raise(unsigned int cap, char *message, int fail_flag)
- {
--- 
-2.21.0
 
 
 -- 
