@@ -1,37 +1,43 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8E6D6AA75
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jul 2019 16:16:28 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EA266AA7E
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jul 2019 16:17:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3CD483C1D38
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jul 2019 16:16:28 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 491793C1D3A
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jul 2019 16:17:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 771183C1D02
- for <ltp@lists.linux.it>; Tue, 16 Jul 2019 16:16:23 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTP id A18F83C1D02
+ for <ltp@lists.linux.it>; Tue, 16 Jul 2019 16:17:41 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 4B91D1000F2E
- for <ltp@lists.linux.it>; Tue, 16 Jul 2019 16:16:16 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 366EC1000F23
+ for <ltp@lists.linux.it>; Tue, 16 Jul 2019 16:17:35 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 56933AF7D
- for <ltp@lists.linux.it>; Tue, 16 Jul 2019 14:16:21 +0000 (UTC)
+ by mx1.suse.de (Postfix) with ESMTP id 6E00DAF7D;
+ Tue, 16 Jul 2019 14:17:40 +0000 (UTC)
+Date: Tue, 16 Jul 2019 16:17:39 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue, 16 Jul 2019 16:16:19 +0200
-Message-Id: <20190716141619.31427-1-chrubis@suse.cz>
-X-Mailer: git-send-email 2.21.0
+To: Xiao Yang <ice_yangxiao@163.com>
+Message-ID: <20190716141739.GA17060@rei>
+References: <1563203796-22102-1-git-send-email-ice_yangxiao@163.com>
+ <20190715160010.GA30303@rei.lan>
+ <02b9f80d-05ec-e837-5770-c12f73f6bb0f@163.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <02b9f80d-05ec-e837-5770-c12f73f6bb0f@163.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [COMMITTED] [PATCH] lapi/securebits.h: Fix.
+Subject: Re: [LTP] [PATCH] syscalls/acct02.c: Read threshold from
+ /proc/sys/kernel/acct
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,43 +49,30 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-I managed to break the original file when applying and made the fallback
-definition depend on the existence of the file, which is indeed wrong,
-sorry everyone.
+Hi!
+> > Good catch, I missed the sysctl API since I haven't realized that the
+> > proc handlers are all stuffed in a different file in kernel/sysctl.c.
+> >
+> > What about we as well temporarily lower the value if needed while the
+> > test is running?
+> Hi Cyril,
+> 
+> When free space is not enough, test can change the threshold by itself
+> or remind user to modify the threshold by sysctl API manually.
+> 
+> Which one do you prefer?
 
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
----
- include/lapi/securebits.h | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+Ideally the test should modify the threshold.
 
-diff --git a/include/lapi/securebits.h b/include/lapi/securebits.h
-index 6207c06cd..2da137c3a 100644
---- a/include/lapi/securebits.h
-+++ b/include/lapi/securebits.h
-@@ -5,9 +5,13 @@
-  */
- #ifndef LAPI_SECUREBITS_H
- #define LAPI_SECUREBITS_H
-+
- # ifdef HAVE_LINUX_SECUREBITS_H
- #  include <linux/securebits.h>
--# else
-+# endif
-+
-+# ifndef SECBIT_NO_CAP_AMBIENT_RAISE
- #  define SECBIT_NO_CAP_AMBIENT_RAISE  6
--# endif /* HAVE_LINUX_SECUREBITS_H*/
-+# endif
-+
- #endif /* LAPI_SECUREBITS_H */
 -- 
-2.21.0
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
