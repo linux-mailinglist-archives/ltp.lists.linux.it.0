@@ -1,41 +1,38 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78FE86A698
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jul 2019 12:31:58 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 908C46A6A8
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jul 2019 12:40:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3C83F3C1D24
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jul 2019 12:31:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0B4723C1D26
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jul 2019 12:40:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 81A143C02C2
- for <ltp@lists.linux.it>; Tue, 16 Jul 2019 12:31:54 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 1A1CA3C1809
+ for <ltp@lists.linux.it>; Tue, 16 Jul 2019 12:40:18 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6A9D01401451
- for <ltp@lists.linux.it>; Tue, 16 Jul 2019 12:31:53 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 32CBC60095E
+ for <ltp@lists.linux.it>; Tue, 16 Jul 2019 12:40:19 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 7632BAE20;
- Tue, 16 Jul 2019 10:31:52 +0000 (UTC)
-Date: Tue, 16 Jul 2019 12:31:51 +0200
+ by mx1.suse.de (Postfix) with ESMTP id E8533AB98
+ for <ltp@lists.linux.it>; Tue, 16 Jul 2019 10:40:16 +0000 (UTC)
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20190716103151.GA14629@rei>
-References: <20190711141026.14705-1-mmoese@suse.de>
- <CAEemH2cjr23TZUDNLAt2Vvk03W8sHNy+eaJT6YYXSFU+KxmTvQ@mail.gmail.com>
+To: ltp@lists.linux.it
+Date: Tue, 16 Jul 2019 12:40:16 +0200
+Message-Id: <20190716104016.19983-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2cjr23TZUDNLAt2Vvk03W8sHNy+eaJT6YYXSFU+KxmTvQ@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4] Add a regression test for CVE-2017-1000380
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [COMMITTED] [PATCH] syscalls/prctl06: Remove sys/capability.h
+ include
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,45 +44,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > +static void setup(void)
-> > +{
-> > +       tst_fzsync_pair_init(&fzsync_pair);
-> > +       tst_taint_init(TST_TAINT_W | TST_TAINT_D);
-> > +       snd_fd = SAFE_OPEN("/dev/snd/timer",
-> > +                       O_RDONLY|O_CREAT|O_NOCTTY|O_SYNC|O_LARGEFILE, 0);
-> >
-> 
-> Should we check if the file exists before opening it?
+This breaks build on system without libcap installed and the test
+compiles cleanly without that include as well.
 
-Yes we should. We should add access("/dev/snd/timer", F_OK) to the test
-setup.
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+---
+ testcases/kernel/syscalls/prctl/prctl06.h | 1 -
+ 1 file changed, 1 deletion(-)
 
-> Otherwise, snd_timer01 failed as:
-> 
-> # ./snd_timer01
-> tst_test.c:1100: INFO: Timeout per run is 0h 05m 00s
-> safe_macros.c:225: BROK: snd_timer01.c:73: open(/dev/snd/timer,1052992,00)
-> failed: ENOENT
-> 
-> # lsmod |grep -i snd
-> 
-> # grep -i snd /boot/config-4.18.0-107.el8.s390x
-> 
-> # ls /dev/snd/timer
-> ls: cannot access '/dev/snd/timer': No such file or directory
-
-I guess that there is no soundcard on mainframe :-).
-
+diff --git a/testcases/kernel/syscalls/prctl/prctl06.h b/testcases/kernel/syscalls/prctl/prctl06.h
+index f5c66e809..7f5be20bb 100644
+--- a/testcases/kernel/syscalls/prctl/prctl06.h
++++ b/testcases/kernel/syscalls/prctl/prctl06.h
+@@ -13,7 +13,6 @@
+ #include <pwd.h>
+ #include <sys/types.h>
+ #include <unistd.h>
+-#include <sys/capability.h>
+ #include <lapi/prctl.h>
+ #include "tst_test.h"
+ 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.21.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
