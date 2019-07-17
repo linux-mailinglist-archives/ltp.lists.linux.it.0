@@ -2,58 +2,56 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D9136B7BD
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2019 09:56:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 502466B7DF
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2019 10:09:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 06D7A3C1D24
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2019 09:56:49 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1E98F3C1D1E
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jul 2019 10:09:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id C504A3C1D15
- for <ltp@lists.linux.it>; Wed, 17 Jul 2019 09:56:47 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 6E9653C1D00
+ for <ltp@lists.linux.it>; Wed, 17 Jul 2019 10:09:06 +0200 (CEST)
+Received: from mail-ua1-f68.google.com (mail-ua1-f68.google.com
+ [209.85.222.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 655A7601D7F
- for <ltp@lists.linux.it>; Wed, 17 Jul 2019 09:56:47 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id BEF154E92A;
- Wed, 17 Jul 2019 07:56:45 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B5FB05D968;
- Wed, 17 Jul 2019 07:56:45 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id ACDE618089C8;
- Wed, 17 Jul 2019 07:56:45 +0000 (UTC)
-Date: Wed, 17 Jul 2019 03:56:45 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
-To: Li Wang <liwan@redhat.com>
-Message-ID: <32687581.576777.1563350205495.JavaMail.zimbra@redhat.com>
-In-Reply-To: <CAEemH2dviTYAAcsOgotuOG5gicUVVP2g2RE3MomOp5NVG_4U+Q@mail.gmail.com>
-References: <20190705051603.24599-1-liwang@redhat.com>
- <02ade9af1634c4681156dceecfd51721284044e3.1562591065.git.jstancek@redhat.com>
- <20190711123441.GA8709@rei>
- <1337100107.32641000.1562849136661.JavaMail.zimbra@redhat.com>
- <CAEemH2dviTYAAcsOgotuOG5gicUVVP2g2RE3MomOp5NVG_4U+Q@mail.gmail.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8D7D410008F8
+ for <ltp@lists.linux.it>; Wed, 17 Jul 2019 10:09:00 +0200 (CEST)
+Received: by mail-ua1-f68.google.com with SMTP id g11so9302067uak.0
+ for <ltp@lists.linux.it>; Wed, 17 Jul 2019 01:09:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=CNfeAN+yRYrenSEq2+QDGjSlGnoiPst36VfAzlJKFXk=;
+ b=szeTa0g10Upfziv+dJiWfeav51dYELarwuH2xncyRgmvSU9DGhskEaeA6Gaq8L3GWe
+ 9H7bWncl/a8Hog56iYUiDqOWTewQCx+vBMEokuXTJdhOEhIaYMDTd4+m96wfaTorjFnD
+ tMsL4nGDj6+Uv003iAX4BWkmFB/0/Rduqr1IPkNwM/W2aYux/ZJ/QQYYLsQ/TnIvadPG
+ o3nqyz30mhQ2TXv2AgqcbYIaKJmYpXtV3/39QtJQ1X7qNE3mMOk77mcgJOuAsiiy5TI/
+ yriliHDi/CmJz+bBBS7/tw4yxfODtfY0GHup4TXEuLAuO892d4XWnfzKUHb010FuiooN
+ Jw0w==
+X-Gm-Message-State: APjAAAUukwjLfeTVg7xnJvvKMK0DVud5PwuaA0lF+N6+/e7QHGeqPZG2
+ IXvUZ673c6feArH2PPraEjCOp6nsm9RbQpr3HKrQoA==
+X-Google-Smtp-Source: APXvYqwi7ouZRH4qEog3e4gTX9H1Ahstfsz8C9032ITS2ALmwb3UcBGNYqneTZCnGPZW34NSQtSyiBoB1RJEraWGQKI=
+X-Received: by 2002:ab0:74c7:: with SMTP id f7mr23093960uaq.106.1563350944514; 
+ Wed, 17 Jul 2019 01:09:04 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.163, 10.4.195.19]
-Thread-Topic: add tst_no_corefile()
-Thread-Index: winMlkRz+nkSujBVFy7yunuVRSRdPg==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.38]); Wed, 17 Jul 2019 07:56:45 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+References: <20190701081917.32051-1-liwang@redhat.com>
+ <20190701081917.32051-2-liwang@redhat.com>
+ <20190709142426.GA6920@rei.lan>
+In-Reply-To: <20190709142426.GA6920@rei.lan>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 17 Jul 2019 16:08:53 +0800
+Message-ID: <CAEemH2fA6Xxhqbb7pJ1G3ChFbtzOueNpfzqP3EDnx9kq6LMpDQ@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3.1] lib: add tst_no_corefile()
+X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v5 2/2] pkey: add test for memory protection keys
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,38 +64,70 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0381380095=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+--===============0381380095==
+Content-Type: multipart/alternative; boundary="000000000000b51a5c058ddc017a"
 
+--000000000000b51a5c058ddc017a
+Content-Type: text/plain; charset="UTF-8"
 
------ Original Message -----
-> Hi Jan,
-> 
-> On Thu, Jul 11, 2019 at 8:45 PM Jan Stancek <jstancek@redhat.com> wrote:
-> 
-> > ...
-> > >
-> > > because otherwise we will print the mesasge even in cases that the
-> > > corefile is not in fact limited.
-> >
-> > Depends on setup of core_pattern, if it's core-to-file it's already
-> > limited.
-> > If it's core-to-pipe, then it's no limit, so I agree, we can move it above.
-> >
-> >
-> I helped to push the v3.1 base on Cyril's suggestion. Since I'm going to
-> apply the pkey testcase. Thanks.
+On Tue, Jul 9, 2019 at 10:24 PM Cyril Hrubis <chrubis@suse.cz> wrote:
 
-Thanks Li.
+> Hi!
+> Looks good, some minor comments below.
+>
 
-> 
-> --
-> Regards,
-> Li Wang
-> 
+Thanks! Pushed with the following changes:
+
+1. add .needs_tmpdir = 1 in test struct
+2. remove SAFE_MKDIR/SAFE_MOUNT from setup()
+3. remove cleanup() function
+4. take use of tst_no_corefile()
+5. adjust the status content printing
+6. adjust the code indent for switch case
+
+-- 
+Regards,
+Li Wang
+
+--000000000000b51a5c058ddc017a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Tue, Jul 9, 2019 at 10:24 PM Cyril Hrubis &lt;<a=
+ href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
+ft:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
+Looks good, some minor comments below.<br></blockquote><div><br></div><div>=
+<div class=3D"gmail_default" style=3D"font-size:small">Thanks! Pushed with =
+the following changes:</div><div class=3D"gmail_default" style=3D"font-size=
+:small"><br></div><div class=3D"gmail_default" style=3D"font-size:small">1.=
+ add .needs_tmpdir =3D 1 in test struct</div><div class=3D"gmail_default" s=
+tyle=3D"font-size:small">2. remove=C2=A0<span class=3D"gmail_default"></spa=
+n>SAFE_MKDIR/SAFE_MOUNT from setup()</div><div class=3D"gmail_default" styl=
+e=3D"font-size:small">3. remove cleanup() function</div><div class=3D"gmail=
+_default" style=3D"font-size:small">4. take use of tst_no_corefile()</div><=
+div class=3D"gmail_default" style=3D"font-size:small">5. adjust the status =
+content printing</div><div class=3D"gmail_default" style=3D"font-size:small=
+">6. adjust the code indent for switch case</div></div></div><div><br></div=
+>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Re=
+gards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--000000000000b51a5c058ddc017a--
+
+--===============0381380095==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0381380095==--
