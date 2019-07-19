@@ -2,42 +2,44 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3812A6E337
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jul 2019 11:15:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F3CA6E483
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jul 2019 12:49:14 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 01F7E3C1D13
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jul 2019 11:15:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 703C33C1D45
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jul 2019 12:49:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id F20383C14BF
- for <ltp@lists.linux.it>; Fri, 19 Jul 2019 11:15:16 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0B16A600831
- for <ltp@lists.linux.it>; Fri, 19 Jul 2019 11:15:18 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id CD344AEF3;
- Fri, 19 Jul 2019 09:15:15 +0000 (UTC)
-Date: Fri, 19 Jul 2019 11:15:19 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20190719091519.GC30204@dell5510>
-References: <20190718083943.7687-1-pvorel@suse.cz>
- <20190718083943.7687-2-pvorel@suse.cz>
- <CAEemH2e6PmPYWWQg+NgSR=6Qc4BZpEswbcc4Y+n3B_pFqnQJDQ@mail.gmail.com>
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 883C23C1C7E
+ for <ltp@lists.linux.it>; Fri, 19 Jul 2019 12:49:09 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id AF0F7140165F
+ for <ltp@lists.linux.it>; Fri, 19 Jul 2019 12:49:03 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.64,282,1559491200"; d="scan'208";a="71784664"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 19 Jul 2019 18:49:00 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id C5CF94B41EE5
+ for <ltp@lists.linux.it>; Fri, 19 Jul 2019 18:48:56 +0800 (CST)
+Received: from localhost.localdomain (10.167.215.46) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ (TLS) id 14.3.439.0; Fri, 19 Jul 2019 18:49:00 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Fri, 19 Jul 2019 18:48:54 +0800
+Message-ID: <1563533334-2232-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2e6PmPYWWQg+NgSR=6Qc4BZpEswbcc4Y+n3B_pFqnQJDQ@mail.gmail.com>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
-X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Originating-IP: [10.167.215.46]
+X-yoursite-MailScanner-ID: C5CF94B41EE5.AED08
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] c: Use $LTP_TIMEOUT_MUL also in retry
- functions
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Status: Clean
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH] m4: remove useless ltp-securebits.m4
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,79 +51,103 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li,
+Since commit fe9d9218c, we have detected linux/securebits.h in
+confiure.ac. one place used the HAVE_SECUREBITS(ltp-securebits.m4 
+defined), it only controls compile. kernel/security/securebits/
+check_keepcaps.c has HAVE_LINUX_SECUREBITS_H check in internal, 
+so removing it is safe.
 
-thanks for your review!
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+---
+ configure.ac                       |  1 -
+ include/mk/features.mk.default     |  3 ---
+ include/mk/features.mk.in          |  3 ---
+ m4/ltp-securebits.m4               | 10 ----------
+ testcases/kernel/security/Makefile |  4 ----
+ 5 files changed, 21 deletions(-)
+ delete mode 100644 m4/ltp-securebits.m4
 
-> On Thu, Jul 18, 2019 at 4:40 PM Petr Vorel <pvorel@suse.cz> wrote:
-> >...
-> >  #ifndef TST_COMMON_H__
-> > @@ -51,15 +40,22 @@
+diff --git a/configure.ac b/configure.ac
+index 3dcf282e8..f899d8ebc 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -226,7 +226,6 @@ LTP_CHECK_NOMMU_LINUX
+ LTP_CHECK_PERF_EVENT
+ LTP_CHECK_PRCTL_SUPPORT
+ LTP_CHECK_RLIMIT64
+-LTP_CHECK_SECUREBITS
+ LTP_CHECK_SELINUX
+ LTP_CHECK_SIGNAL
+ LTP_CHECK_STATX
+diff --git a/include/mk/features.mk.default b/include/mk/features.mk.default
+index 94b8b0c54..3a6cc5176 100644
+--- a/include/mk/features.mk.default
++++ b/include/mk/features.mk.default
+@@ -29,9 +29,6 @@ WITH_PYTHON			:= no
+ 
+ # Features knobs
+ 
+-# Is securebits[.h], et all support available?
+-HAVE_SECUREBITS			:= no
+-
+ # Test suite knobs
+ 
+ # Enable testcases/kernel/power_management's compile and install?
+diff --git a/include/mk/features.mk.in b/include/mk/features.mk.in
+index 7536b6f20..8e561b738 100644
+--- a/include/mk/features.mk.in
++++ b/include/mk/features.mk.in
+@@ -29,9 +29,6 @@ WITH_PYTHON			:= @WITH_PYTHON@
+ 
+ # Features knobs
+ 
+-# Is securebits[.h], et all support available?
+-HAVE_SECUREBITS			:= @HAVE_SECUREBITS@
+-
+ # Test suite knobs
+ 
+ # Enable testcases/kernel/power_management's compile and install?
+diff --git a/m4/ltp-securebits.m4 b/m4/ltp-securebits.m4
+deleted file mode 100644
+index 7888e6335..000000000
+--- a/m4/ltp-securebits.m4
++++ /dev/null
+@@ -1,10 +0,0 @@
+-dnl SPDX-License-Identifier: GPL-2.0-or-later
+-dnl Copyright (c) Serge Hallyn (2010)
+-
+-AC_DEFUN([LTP_CHECK_SECUREBITS],[
+-	AC_CHECK_HEADERS(linux/securebits.h,[have_securebits=yes])
+-if test "x$have_securebits" != xyes; then
+-	have_securebits=no
+-fi
+-AC_SUBST(HAVE_SECUREBITS,$have_securebits)
+-])
+diff --git a/testcases/kernel/security/Makefile b/testcases/kernel/security/Makefile
+index 0b4b98b83..eea794aa9 100644
+--- a/testcases/kernel/security/Makefile
++++ b/testcases/kernel/security/Makefile
+@@ -24,10 +24,6 @@ top_srcdir		?= ../../..
+ 
+ include	$(top_srcdir)/include/mk/env_pre.mk
+ 
+-ifneq ($(HAVE_SECUREBITS),yes)
+-FILTER_OUT_DIRS		+= securebits
+-endif
+-
+ OPT_CFLAGS		+= -O
+ DEBUG_LDFLAGS		+= -s
+ 
+-- 
+2.18.1
 
-> >  #define TST_RETRY_FN_EXP_BACKOFF(FUNC, ERET, MAX_DELAY)        \
-> >  ({     int tst_delay_ = 1;                                             \
-> > +       float m = 1;    \
-> > +       char *mul = getenv("LTP_TIMEOUT_MUL");  \
-
-> We also need a prefix/suffix in the variable definition to make sure
-> that it will
-> not alias with anything that has been passed to the FUNC, just like what we do
-> for the tst_delay_.
-
-> e.g. if the FUNC is defined as foo_func(m); the m variable will be aliased and
-> the function will do something very unexpected.
-Good point, I'll fix it in v3.
-
-> > +       if (mul) {      \
-> > +               m = atof(mul); \
-> > +               if (m < 1) \
-> > +                       tst_brk(TBROK, "Invalid timeout multiplier '%s'", mul); \
-
-> If we reverse some code order in tst_set_timeout() function, then here
-> we have no need to check if m < 1 again, since the LTP_TIMEOUT_MUL
-> valid check will be finished in setup() early phase.
-> (This comment is just FYI, and I also think it's OK to check twice.)
-Good point. I'd probably check twice in case the logic changes one day.
-
-> --------------------------------------
-> void tst_set_timeout(int timeout)
-> {
->         float m = 1;
->         char *mul = getenv("LTP_TIMEOUT_MUL");
-
->         if (mul) {
->                 m = atof(mul);
->                 if (m < 1)
->                         tst_brk(TBROK, "Invalid timeout multiplier '%s'", mul);
->         }
-
->         if (timeout == -1) {
->                 tst_res(TINFO, "Timeout per run is disabled");
->                 return;
->         }
-
->         results->timeout = timeout * m + 0.5;
-
->         tst_res(TINFO, "Timeout per run is %uh %02um %02us",
->                 results->timeout/3600, (results->timeout%3600)/60,
->                 results->timeout % 60);
-
->         if (getpid() == lib_pid)
->                 alarm(results->timeout);
->         else
->                 heartbeat();
-> }
 
 
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
