@@ -1,45 +1,48 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F3CA6E483
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jul 2019 12:49:14 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FDCC6E49A
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jul 2019 12:59:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 703C33C1D45
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jul 2019 12:49:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2246B3C1D12
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jul 2019 12:59:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 883C23C1C7E
- for <ltp@lists.linux.it>; Fri, 19 Jul 2019 12:49:09 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id AF0F7140165F
- for <ltp@lists.linux.it>; Fri, 19 Jul 2019 12:49:03 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.64,282,1559491200"; d="scan'208";a="71784664"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 19 Jul 2019 18:49:00 +0800
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id C5CF94B41EE5
- for <ltp@lists.linux.it>; Fri, 19 Jul 2019 18:48:56 +0800 (CST)
-Received: from localhost.localdomain (10.167.215.46) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Fri, 19 Jul 2019 18:49:00 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Fri, 19 Jul 2019 18:48:54 +0800
-Message-ID: <1563533334-2232-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 171AD3C0300;
+ Fri, 19 Jul 2019 12:59:50 +0200 (CEST)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E369F1000BDF;
+ Fri, 19 Jul 2019 12:59:38 +0200 (CEST)
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 19 Jul 2019 03:59:40 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,282,1559545200"; d="scan'208";a="191896422"
+Received: from yixin-dev.sh.intel.com (HELO yixin-dev) ([10.239.161.25])
+ by fmsmga004.fm.intel.com with ESMTP; 19 Jul 2019 03:59:39 -0700
+Date: Fri, 19 Jul 2019 18:50:12 +0800
+From: "Zhang, Yixin" <yixin.zhang@intel.com>
+To: "Siliang,Yu" <siliangx.yu@intel.com>
+Message-ID: <20190719105012.GA18145@yixin-dev>
+References: <20190719040655.54345-1-siliangx.yu@intel.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.167.215.46]
-X-yoursite-MailScanner-ID: C5CF94B41EE5.AED08
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20190719040655.54345-1-siliangx.yu@intel.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH] m4: remove useless ltp-securebits.m4
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH LTP] - cpuhotplug06.sh:Add judgment for command
+ "top".
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,103 +54,61 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp-owner <ltp-owner@lists.linux.it>,
+ ltp-request <ltp-request@lists.linux.it>, ltp <ltp@lists.linux.it>,
+ Jerry Chen <jerry.t.chen@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Since commit fe9d9218c, we have detected linux/securebits.h in
-confiure.ac. one place used the HAVE_SECUREBITS(ltp-securebits.m4 
-defined), it only controls compile. kernel/security/securebits/
-check_keepcaps.c has HAVE_LINUX_SECUREBITS_H check in internal, 
-so removing it is safe.
+Hi Siliang,
+There is some issue in your patch:
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- configure.ac                       |  1 -
- include/mk/features.mk.default     |  3 ---
- include/mk/features.mk.in          |  3 ---
- m4/ltp-securebits.m4               | 10 ----------
- testcases/kernel/security/Makefile |  4 ----
- 5 files changed, 21 deletions(-)
- delete mode 100644 m4/ltp-securebits.m4
+1. The "top" tool is not 100% located at /usr/bin/, you should use "which" cmd
+    to check it
+2. [[ -L "/usr/bin/top" ]] does not mean the case should go to TCONF. The real
+    logic is the check the realpath of the top tool and check it's name, if the
+    real name is not "top" (like "htop" in Clear Liunx case), TCONF the case.
+    We don't care if it's a symlink or not, we just care if it's using the
+    oringal top or an other top which may not support "top -b".
+3. The error log is not correct. Clear Linux use symlink or Clear Liunx use
+    "htop" doesn't go to the conclusion that if a distro use symlink or it use
+    "htop" or some other "Xtop" so it's Clear Linux. We should not mention a
+    specific distro name here. Same for commit message.
+4. Take care of white spaces v.s. <tab>
 
-diff --git a/configure.ac b/configure.ac
-index 3dcf282e8..f899d8ebc 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -226,7 +226,6 @@ LTP_CHECK_NOMMU_LINUX
- LTP_CHECK_PERF_EVENT
- LTP_CHECK_PRCTL_SUPPORT
- LTP_CHECK_RLIMIT64
--LTP_CHECK_SECUREBITS
- LTP_CHECK_SELINUX
- LTP_CHECK_SIGNAL
- LTP_CHECK_STATX
-diff --git a/include/mk/features.mk.default b/include/mk/features.mk.default
-index 94b8b0c54..3a6cc5176 100644
---- a/include/mk/features.mk.default
-+++ b/include/mk/features.mk.default
-@@ -29,9 +29,6 @@ WITH_PYTHON			:= no
- 
- # Features knobs
- 
--# Is securebits[.h], et all support available?
--HAVE_SECUREBITS			:= no
--
- # Test suite knobs
- 
- # Enable testcases/kernel/power_management's compile and install?
-diff --git a/include/mk/features.mk.in b/include/mk/features.mk.in
-index 7536b6f20..8e561b738 100644
---- a/include/mk/features.mk.in
-+++ b/include/mk/features.mk.in
-@@ -29,9 +29,6 @@ WITH_PYTHON			:= @WITH_PYTHON@
- 
- # Features knobs
- 
--# Is securebits[.h], et all support available?
--HAVE_SECUREBITS			:= @HAVE_SECUREBITS@
--
- # Test suite knobs
- 
- # Enable testcases/kernel/power_management's compile and install?
-diff --git a/m4/ltp-securebits.m4 b/m4/ltp-securebits.m4
-deleted file mode 100644
-index 7888e6335..000000000
---- a/m4/ltp-securebits.m4
-+++ /dev/null
-@@ -1,10 +0,0 @@
--dnl SPDX-License-Identifier: GPL-2.0-or-later
--dnl Copyright (c) Serge Hallyn (2010)
--
--AC_DEFUN([LTP_CHECK_SECUREBITS],[
--	AC_CHECK_HEADERS(linux/securebits.h,[have_securebits=yes])
--if test "x$have_securebits" != xyes; then
--	have_securebits=no
--fi
--AC_SUBST(HAVE_SECUREBITS,$have_securebits)
--])
-diff --git a/testcases/kernel/security/Makefile b/testcases/kernel/security/Makefile
-index 0b4b98b83..eea794aa9 100644
---- a/testcases/kernel/security/Makefile
-+++ b/testcases/kernel/security/Makefile
-@@ -24,10 +24,6 @@ top_srcdir		?= ../../..
- 
- include	$(top_srcdir)/include/mk/env_pre.mk
- 
--ifneq ($(HAVE_SECUREBITS),yes)
--FILTER_OUT_DIRS		+= securebits
--endif
--
- OPT_CFLAGS		+= -O
- DEBUG_LDFLAGS		+= -s
- 
--- 
-2.18.1
+Yixin
 
-
-
+On 2019-07-19 at 12:06:55 +0800, Siliang,Yu wrote:
+> From: "Yu,Siliang" <siliangx.yu@intel.com>
+> 
+> Only on clear linux OS,"top" is a link file.
+> If it's clear linux,skip the test.
+> 
+> Signed-off-by: Yu,Siliang <siliangx.yu@intel.com>
+> ---
+>  .../kernel/hotplug/cpu_hotplug/functional/cpuhotplug06.sh     | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/testcases/kernel/hotplug/cpu_hotplug/functional/cpuhotplug06.sh b/testcases/kernel/hotplug/cpu_hotplug/functional/cpuhotplug06.sh
+> index 18a11197e..d5877d085 100755
+> --- a/testcases/kernel/hotplug/cpu_hotplug/functional/cpuhotplug06.sh
+> +++ b/testcases/kernel/hotplug/cpu_hotplug/functional/cpuhotplug06.sh
+> @@ -49,6 +49,10 @@ done
+>  
+>  LOOP_COUNT=1
+>  
+> +if [[ -L "/usr/bin/top" ]];then
+> +        tst_brkm TCONF "Invalid argument on Clear Linux Skip the test..."
+> +fi
+> +
+>  if [ $(get_present_cpus_num) -lt 2 ]; then
+>  	tst_brkm TCONF "system doesn't have required CPU hotplug support"
+>  fi
+> -- 
+> 2.22.0
+> 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
