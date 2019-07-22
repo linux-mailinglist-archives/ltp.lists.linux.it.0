@@ -2,40 +2,52 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 611826E7E0
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jul 2019 17:19:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 250776F70C
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2019 03:59:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E66E63C1D2F
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jul 2019 17:19:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A4EC93C183E
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2019 03:59:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 0F66E3C180C
- for <ltp@lists.linux.it>; Fri, 19 Jul 2019 14:48:27 +0200 (CEST)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id D9C3A1A002EF
- for <ltp@lists.linux.it>; Fri, 19 Jul 2019 14:48:26 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B3C65337;
- Fri, 19 Jul 2019 05:48:24 -0700 (PDT)
-Received: from e112269-lin.arm.com (e112269-lin.cambridge.arm.com
- [10.1.196.133])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 437443F71A;
- Fri, 19 Jul 2019 05:48:24 -0700 (PDT)
-From: Steven Price <steven.price@arm.com>
-To: ltp@lists.linux.it
-Date: Fri, 19 Jul 2019 13:48:17 +0100
-Message-Id: <20190719124817.5140-1-steven.price@arm.com>
-X-Mailer: git-send-email 2.20.1
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id B6E233C134D
+ for <ltp@lists.linux.it>; Mon, 22 Jul 2019 03:59:02 +0200 (CEST)
+Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 076842005DC
+ for <ltp@lists.linux.it>; Mon, 22 Jul 2019 03:58:58 +0200 (CEST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+ [147.11.189.40])
+ by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id x6M1vBWW017537
+ (version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
+ Sun, 21 Jul 2019 18:57:21 -0700
+Received: from [128.224.162.188] (128.224.162.188) by ALA-HCA.corp.ad.wrs.com
+ (147.11.189.50) with Microsoft SMTP Server (TLS) id 14.3.468.0;
+ Sun, 21 Jul 2019 18:57:00 -0700
+To: Li Wang <liwang@redhat.com>, Sebastian Andrzej Siewior
+ <bigeasy@linutronix.de>, Borislav Petkov <bp@suse.de>, Dave Hansen
+ <dave.hansen@intel.com>, Thomas Gleixner <tglx@linutronix.de>
+References: <56f854e2-9cc6-4725-3182-ff83e106ee23@windriver.com>
+ <20190717094614.GA9539@rei>
+ <7d2c4936-2e89-6285-c856-a156d3a76284@windriver.com>
+ <CAEemH2edg4R-JFM=u_ceLoRcNAMmV=c+hVV6kxoK4g6DOBnGeg@mail.gmail.com>
+From: "Hongzhi, Song" <hongzhi.song@windriver.com>
+Message-ID: <e7d0e66d-f348-9d57-0ea9-dc1fa289942d@windriver.com>
+Date: Mon, 22 Jul 2019 09:56:55 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.2
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+In-Reply-To: <CAEemH2edg4R-JFM=u_ceLoRcNAMmV=c+hVV6kxoK4g6DOBnGeg@mail.gmail.com>
+Content-Language: en-US
+X-Originating-IP: [128.224.162.188]
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-X-Mailman-Approved-At: Fri, 19 Jul 2019 17:19:30 +0200
-Subject: [LTP] [PATCH] ustat02: Fix EFAULT in 32bit compatibility mode
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] Question about kernel/syscall/signal/signal06.c
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,52 +59,105 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Steven Price <steven.price@arm.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: x86-ml <x86@kernel.org>, LTP List <ltp@lists.linux.it>,
+ Oleg Nesterov <oleg@redhat.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The size of dev_t is larger than 32 bits which causes the dev argument
-to be passed incorrectly. On Arm this means that the EFAULT test case
-actually returns EINVAL because the device number isn't recognised.
-
-Signed-off-by: Steven Price <steven.price@arm.com>
----
-This is the same fix as 989bcfc7544d ("ustat: Fix EFAULT in 32bit
-compatability mode") applied to ustat02. Originally it was justified[1]
-that this doesn't affect ustat02 as the test works on x86, however it
-does affect Arm.
-
-I believe this only affects Arm and not x86 because only Arm requires a
-64 bit argument to be aligned in registers. This means the test is
-currently passing the dev number in r2/r3 and leaving junk in r1 which
-is then being treated as the device number.
-
-However even on x86 the pointer value is actually the upper bits of
-root_dev rather than the expected (void*)-1.
-
-[1] http://lists.linux.it/pipermail/ltp/2019-February/010752.html
----
- testcases/kernel/syscalls/ustat/ustat02.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/testcases/kernel/syscalls/ustat/ustat02.c b/testcases/kernel/syscalls/ustat/ustat02.c
-index 9bbe4f3f5..1a0e9e059 100644
---- a/testcases/kernel/syscalls/ustat/ustat02.c
-+++ b/testcases/kernel/syscalls/ustat/ustat02.c
-@@ -36,7 +36,7 @@ int TST_TOTAL = ARRAY_SIZE(tc);
- 
- void run(unsigned int test)
- {
--	TEST(tst_syscall(__NR_ustat, *tc[test].dev, tc[test].buf));
-+	TEST(tst_syscall(__NR_ustat, (unsigned int)*tc[test].dev, tc[test].buf));
- 
- 	if ((TST_RET == -1) && (TST_ERR == tc[test].exp_errno))
- 		tst_res(TPASS | TTERRNO, "ustat(2) expected failure");
--- 
-2.20.1
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+Ck9uIDcvMTkvMTkgNDo0NCBQTSwgTGkgV2FuZyB3cm90ZToKPiBPbiBGcmksIEp1bCAxOSwgMjAx
+OSBhdCA0OjE0IFBNIEhvbmd6aGksIFNvbmcKPiA8aG9uZ3poaS5zb25nQHdpbmRyaXZlci5jb20+
+IHdyb3RlOgo+PiBUaGlzIGNhc2UgZmFpbHMgd2hlbiBib290IHFlbXV4ODYtNjQgd2l0aCAxLzIg
+Y29yZXMuCj4+Cj4+IEkgZmluZCBba2VybmVsIDUuMi1yYzE6IDBkNzE0ZGJhMTYyXSBjYXVzZXMg
+dGhlIGZhaWx1cmUgYnkgZ2l0IGJpc2VjdC4KCkhpIExpLFdhbmcKCgpTb3JyeSBmb3IgbXkgYSBi
+aXQgbWlzdGFrZSwgdGhlIGV4YWN0IHRhZyBpcyBbNS4xLXJjMyA6IDBkNzE0ZGJhMTYyXQoKY29t
+bWl0IDBkNzE0ZGJhMTYyNjIwZmQ4YjlmNWIzMTA0YTQ4N2UwNDEzNTNjNGQKQXV0aG9yOiBTZWJh
+c3RpYW4gQW5kcnplaiBTaWV3aW9yIDxiaWdlYXN5QGxpbnV0cm9uaXguZGU+CkRhdGU6wqDCoCBX
+ZWQgQXByIDMgMTg6NDE6NDggMjAxOSArMDIwMAoKIMKgwqDCoCB4ODYvZnB1OiBVcGRhdGUgeHN0
+YXRlJ3MgUEtSVSB2YWx1ZSBvbiB3cml0ZV9wa3J1KCkKCiDCoMKgwqAgRHVyaW5nIHRoZSBjb250
+ZXh0IHN3aXRjaCB0aGUgeHN0YXRlIGlzIGxvYWRlZCB3aGljaCBhbHNvIGluY2x1ZGVzIHRoZQog
+wqDCoMKgIFBLUlUgdmFsdWUuCgogwqDCoMKgIElmIHhzdGF0ZSBpcyByZXN0b3JlZCBvbiByZXR1
+cm4gdG8gdXNlcmxhbmQgaXQgaXMgcmVxdWlyZWQKIMKgwqDCoCB0aGF0IHRoZSBQS1JVIHZhbHVl
+IGluIHhzdGF0ZSBpcyB0aGUgc2FtZSBhcyB0aGUgb25lIGluIHRoZSBDUFUuCgogwqDCoMKgIFNh
+dmUgdGhlIFBLUlUgaW4geHN0YXRlIGR1cmluZyBtb2RpZmljYXRpb24uCgoKPj4KPj4gSWYgZ2l0
+IGNoZWNrb3V0IGEgY29tbWl0IGJlZm9yZSAwZDcxNGRiYTE2MiwgdGhlIGNhc2Ugd2lsbCBwYXNz
+IG9uIHRoZQo+PiBzYW1lIHFlbXUgY29uZmlndXJhdGlvbi4KPiBJdCBzb3VuZHMgbGlrZSBhIG5l
+dyByZWdyZXNzaW9uIG9uIGZwdS4gSSB3aWxsIGhhdmUgYSB0cnkgb24gdGhpcyB0ZXN0IHRoZW4u
+Cj4KPiBASG9uZ3poaSwgY291bGQgeW91IHByb3ZpZGUgbW9yZSBpbmZvIG9mIHlvdXIgdGVzdCBt
+YWNoaW5lPyAoZS5nLgo+IGxzY3B1LCB1bmFtZSAtcikKPiBhbmQgdGVzdCByZXN1bHQgd2l0aCAx
+dmNwdSwgMnZjcHVzPwoKCkkgdGVzdGVkICItc21wIDEvMi80IiBhbmQgIi1jcHUgU2t5bGFrZS1D
+bGllbnQtSUJSUy9jb3JlMmR1byIsIGFsbCBvZiAKdGhlbSBmYWlsZWQuCgoKMS4gVGhpcyBpcyBt
+eSBxZW11IGJvb3QgY21kbGluZToKCnFlbXUtc3lzdGVtLXg4Nl82NCAtZGV2aWNlIAp2aXJ0aW8t
+bmV0LXBjaSxuZXRkZXY9bmV0MCxtYWM9NTI6NTQ6MDA6MTI6MzU6MDIgLW5ldGRldiAKdXNlcixp
+ZD1uZXQwLGhvc3Rmd2Q9dGNwOjoyMjIyLToyMixob3N0ZndkPXRjcDo6MjMyMy06MjMsdGZ0cD1p
+bWFnZXMvcWVtdXg4Ni02NCAKLWRyaXZlIGZpbGU9aW1hZ2Uucm9vdGZzLmV4dDQsaWY9dmlydGlv
+LGZvcm1hdD1yYXcgLXZnYSB2bXdhcmUgCi1zaG93LWN1cnNvciAtdXNiIC1kZXZpY2UgdXNiLXRh
+YmxldCAtb2JqZWN0IApybmctcmFuZG9tLGZpbGVuYW1lPS9kZXYvdXJhbmRvbSxpZD1ybmcwIC1k
+ZXZpY2UgCnZpcnRpby1ybmctcGNpLHJuZz1ybmcwwqAgLW5vZ3JhcGhpY8KgIC1tIDI1NsKgIC1j
+cHUgU2t5bGFrZS1DbGllbnQtSUJSUyAKLXNlcmlhbCBtb246c3RkaW8gLXNlcmlhbCBudWxsIC1r
+ZXJuZWwgbGludXgvYXJjaC94ODYvYm9vdC9iekltYWdlIAotYXBwZW5kICdyb290PS9kZXYvdmRh
+IHJ3IGhpZ2hyZXM9b2ZmIGNvbnNvbGU9dHR5UzAgbWVtPTI1Nk0gaXA9ZGhjcCAKdmdhPTAgdXZl
+c2FmYi5tb2RlX29wdGlvbj02NDB4NDgwLTMyIG9wcm9maWxlLnRpbWVyPTEgCnV2ZXNhZmIudGFz
+a190aW1lb3V0PS0xICcKCjIuIGxzY3B1Cgpyb290QHFlbXV4ODYtNjQ6fiMgbHNjcHUKQXJjaGl0
+ZWN0dXJlOsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHg4Nl82NApDUFUg
+b3AtbW9kZShzKTrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAzMi1iaXQsIDY0LWJpdApCeXRl
+IE9yZGVyOsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBMaXR0bGUg
+RW5kaWFuCkFkZHJlc3Mgc2l6ZXM6wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgNDAg
+Yml0cyBwaHlzaWNhbCwgNDggYml0cyB2aXJ0dWFsCkNQVShzKTrCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgNApPbi1saW5lIENQVShzKSBsaXN0
+OsKgwqDCoMKgwqDCoMKgwqDCoMKgIDAKVGhyZWFkKHMpIHBlciBjb3JlOsKgwqDCoMKgwqDCoMKg
+wqDCoCAxCkNvcmUocykgcGVyIHNvY2tldDrCoMKgwqDCoMKgwqDCoMKgwqAgMQpTb2NrZXQocyk6
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAxClZlbmRvciBJ
+RDrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBHZW51aW5lSW50
+ZWwKQ1BVIGZhbWlseTrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+NgpNb2RlbDrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCA5NApNb2RlbCBuYW1lOsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCBJbnRlbCBDb3JlIFByb2Nlc3NvciAoU2t5bGFrZSwgSUJSUykKU3RlcHBpbmc6wqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAzCkNQVSBNSHo6wqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAzMTAwLjAxMgpCb2dvTUlQUzrC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA2MjAwLjAyCkwxZCBj
+YWNoZTrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgMzIgS2lCCkwx
+aSBjYWNoZTrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAzMiBL
+aUIKTDIgY2FjaGU6wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCA0IE1pQgpMMyBjYWNoZTrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIDE2IE1pQgpWdWxuZXJhYmlsaXR5IEwxdGY6wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBN
+aXRpZ2F0aW9uOyBQVEUgSW52ZXJzaW9uClZ1bG5lcmFiaWxpdHkgTWVsdGRvd246wqDCoCBNaXRp
+Z2F0aW9uOyBQVEkKVnVsbmVyYWJpbGl0eSBTcGVjIHN0b3JlIGJ5cGFzczogVnVsbmVyYWJsZQpW
+dWxuZXJhYmlsaXR5IFNwZWN0cmUgdjE6wqDCoMKgwqDCoMKgwqAgTWl0aWdhdGlvbjsgX191c2Vy
+IHBvaW50ZXIgc2FuaXRpemF0aW9uClZ1bG5lcmFiaWxpdHkgU3BlY3RyZSB2MjrCoMKgwqDCoMKg
+wqDCoCBNaXRpZ2F0aW9uOyBGdWxsIGdlbmVyaWMgcmV0cG9saW5lLCAKU1RJQlAgZGlzYWIKIMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgbGVkLCBSU0IgZmlsbGluZwpGbGFnczrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGZwdSBkZSBwc2UgdHNjIG1zciBwYWUgbWNlIGN4OCBh
+cGljIHNlcCAKbXRyciBwZwogwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBlIG1jYSBjbW92IHBhdCBwc2UzNiBjbGZsdXNoIG1t
+eCBmeHNyIApzc2Ugc3NlMgogwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzeXNjYWxsIG54IHJkdHNjcCBsbSBjb25zdGFudF90
+c2MgCnJlcF9nb29kIG5vcGwKIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB4dG9wb2xvZ3kgY3B1aWQgcG5pIHBjbG11bHFk
+cSBzc3NlMyAKY3gxNiBzc2U0XwogwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAxIHNzZTRfMiBtb3ZiZSBwb3BjbnQgYWVzIHhz
+YXZlIApoeXBlcnZpc29yIGxhaGYKIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgX2xtIGFibSBwdGkgZnNnc2Jhc2UgYm1pMSBz
+bWVwIGJtaTIgCmVybXMgYWR4IHNtCiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFwIHhzYXZlb3B0IHhnZXRidjEgYXJhdAoK
+CjMuwqAgdW5hbWUgLXIKCnJvb3RAcWVtdXg4Ni02NDp+IyB1bmFtZSAtcgo1LjEuMC1yYzMtTGlu
+dXgtc3RhbmRhcmQKCgpUaGFua3MuCgotLUhvbmd6aGkKCgo+Cj4gW0NjaW5nIGZwdSBEZXYgaW4g
+dGhpcyBsb29wXQo+Cj4+Cj4+IC0tSG9uZ3poaQo+Pgo+Pgo+PiBPbiA3LzE3LzE5IDU6NDYgUE0s
+IEN5cmlsIEhydWJpcyB3cm90ZToKPj4+IEhpIQo+Pj4+IEkgZmluZCBzaWduYWwwNiBmYWlscyBv
+biBxZW11eDg2LTY0IHdoZW4gcWVtdSBoYXMgYSBzbWFsbCBudW1iZXIgY29yZXMsCj4+Pj4gZS5n
+LiAicWVtdSAtc21wIDEvMi80LzYiLgo+Pj4+Cj4+Pj4gRVJST1IgSU5GTzoKPj4+Pgo+Pj4+IHNp
+Z25hbDA2Pz8/Pz8/IDA/PyBUSU5GTz8/IDo/PyBsb29wID0gMjMKPj4+PiBzaWduYWwwNj8/Pz8/
+PyAxPz8gVEZBSUw/PyA6Pz8gc2lnbmFsMDYuYzo4NzogQnVnIFJlcHJvZHVjZWQhCj4+Pj4KPj4+
+PiBCdXQgaWYgYm9vdCBxZW11IHdpdGggIi1zbXAgMTYiLCB0aGUgY2FzZSBoYXMgZ3JlYXQgY2hh
+bmNlIHRvIHBhc3MuCj4+Pj4KPj4+Pgo+Pj4+IEkgaGF2ZSB0d28gcXVlc3Rpb25zIGFib3V0IHRo
+aXMgY2FzZToKPj4+Pgo+Pj4+IDEuIEkgZG9uJ3Qga25vdyB3aHkgbXVsdGktY29yZSB3aWxsIGFm
+ZmVjdCB0aGUgY2FzZS4KPj4+IEhhdmUgeW91IGxvb2tlZCBpbnRvIHRoZSBjb2RlPyBUaGUgdGVz
+dCBpcyB0cnlpbmcgdG8gcmVwcm9kdWNlIGEgcmFjZQo+Pj4gY29uZGl0aW9uIGJldHdlZW4gdHdv
+IHRocmVhZHMgb2YgY291cnNlIHRoZSBudW1iZXIgb2YgY29yZXMgZG9lcyBhZmZlY3QKPj4+IHRo
+ZSByZXByb2R1Y2liaWxpdHkuCj4+Pgo+Pj4+IDIuIE9uIGZhaWx1cmUgc2l0dWF0aW9uLCB3aGF0
+IGRvZXMgYnJlYWsgdGhlICJ3aGlsZSBsb29wIiBzaG93biBpbiBiZWxvdwo+Pj4+IGNvZGUuCj4+
+PiBCdWcgaW4gYSBrZXJuZWwgdGhhdCBmYWlscyB0byByZXN0b3JlIGZwdSBzdGF0ZS4KPj4+Cj4K
+PgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZv
+L2x0cAo=
