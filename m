@@ -2,36 +2,64 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11CA7702FD
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2019 17:03:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12743709FE
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2019 21:44:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A1F273C1D1C
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2019 17:03:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C50933C1C8A
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2019 21:44:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 142773C1047
- for <ltp@lists.linux.it>; Mon, 22 Jul 2019 17:03:20 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 420523C0300
+ for <ltp@lists.linux.it>; Mon, 22 Jul 2019 21:44:51 +0200 (CEST)
+Received: from mail-pl1-x64a.google.com (mail-pl1-x64a.google.com
+ [IPv6:2607:f8b0:4864:20::64a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 67DDD1000D29
- for <ltp@lists.linux.it>; Mon, 22 Jul 2019 17:03:12 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 85406AFCC
- for <ltp@lists.linux.it>; Mon, 22 Jul 2019 15:03:17 +0000 (UTC)
-From: Cyril Hrubis <chrubis@suse.cz>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 765031400325
+ for <ltp@lists.linux.it>; Mon, 22 Jul 2019 21:44:50 +0200 (CEST)
+Received: by mail-pl1-x64a.google.com with SMTP id g18so20429800plj.19
+ for <ltp@lists.linux.it>; Mon, 22 Jul 2019 12:44:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=date:message-id:mime-version:subject:from:to:cc;
+ bh=A12thcn3+MwojQkJzSZb/BYD3KaxmIN2mdvT4/zzP4E=;
+ b=FHNM4QuZzm7WL0kVyl/3oYT/tRJV/IxuhKAjTCgeqTfySm95f+WtF1lZkFb4g+hGrf
+ hTAb4MwXLz41CtUq/R8qbFfo0vP0SaDlQuWOmDEgcsePJd0f/hoQ8U86B3t/R37Mr8Gr
+ VA6cc/YqhctMzzlKjFpemfxZ/GEtDHb5/g0uoFYx5HPCgK8dS1IXs5Xyv08tdelNboxx
+ 6DbiHSv0SM7xVJLinAPYcurK3SbD/vVVG+EsyU6QMi3r8hXeOdIId3DFNiPGXNnId7DN
+ CWqeetprrRkLI+f1dIzgAnmqEW/EOqjmBKp1UTT5hWeMLhdamBnhbn/1sJv6qCM2yJZW
+ WPeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+ bh=A12thcn3+MwojQkJzSZb/BYD3KaxmIN2mdvT4/zzP4E=;
+ b=k7k7sn3sAkVQR1VIPb/I1ytp9ZvvVJM6fqq3AKw9cLy7+ucmX1AV23xwyLn/ff9jqk
+ gljZiOrkPP2qdETMEN6tIPdqLUvepRSTcrpGxLpssjQ1B85I7ftiQETalw32gpXeXOgS
+ kui0T0GoIuMz0newbwo4S+qu8hULqd7hM9HdUFtfVPQVlZOjUIKs7vR1Z4Vc+33VEzzF
+ T6QxLdPwmvYCql5bJVS/DVJGNg2ThfhlNUwUnYDrS/mKl7fdiEEafoaL+s7RBgWFz+MF
+ X9QSxNhXoXvE2H5UuACMpA1rLb2dNlrHpMXTZdZ6mScijMs4gpQJI+mI/EOFRk+ta+U6
+ yosw==
+X-Gm-Message-State: APjAAAUOjJ7TljBZPt5Jo/q5H3Ju6au0FovuYAbdYO+NjKo5kurmVk7J
+ 1ysm/Gh6wKSPUheFtSX2fnyNjvok8E2djpcjequ3T3eGapmuTpXCBYtcjP3EfdmSsOpsYyckNX5
+ IjtgU3Nn0aFd8s3bBipPhzyxQC3hyuMG62C3ibo8s1YO55VfAZdIAoCVsIwY=
+X-Google-Smtp-Source: APXvYqzKk+GQYvQUMZCPNRlDjX/7qynDuoqapIZIaOODvSkjP4mIWzoA3uKT8ucqL3MEXjjym18dGThzXqVr
+X-Received: by 2002:a63:6fcf:: with SMTP id
+ k198mr72153594pgc.276.1563824688068; 
+ Mon, 22 Jul 2019 12:44:48 -0700 (PDT)
+Date: Mon, 22 Jul 2019 12:44:39 -0700
+Message-Id: <20190722194439.161904-1-smuckle@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.22.0.657.g960e92d24f-goog
+From: Steve Muckle <smuckle@google.com>
 To: ltp@lists.linux.it
-Date: Mon, 22 Jul 2019 17:03:16 +0200
-Message-Id: <20190722150316.27395-1-chrubis@suse.cz>
-X-Mailer: git-send-email 2.21.0
-MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] syscalls/mbind0{2,3,4}: Add basic mbind tests
+X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/statx01: loosen the stx_blocks check
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,470 +71,36 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: kernel-team@android.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This test is similar to the set_mempolicy() tests, but with mbind we are
-actually binding memory to nodes after it was mapped.
+A filesystem may preallocate blocks (ext4 does this), so even though the
+contents of the file may fit into a single block, statx may report more
+than one block. Loosen the test to accommodate this.
 
-mbind02: We are trying to get EIO with MPOL_MF_STRICT and page that was already
-         faulted on wrong node. This actually fails for me on SLE12 SP4.
-
-mbind03: We are moving pages with MPOL_MF_MOVE and MPOL_MF_MOVE_ALL and
-         checking the result.
-
-mbind04: We are applying memory policy before we fault the pages and check
-         that the pages were faulted accordingly.
-
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+Signed-off-by: Steve Muckle <smuckle@google.com>
 ---
- runtest/syscalls                           |   3 +
- testcases/kernel/syscalls/mbind/.gitignore |   3 +
- testcases/kernel/syscalls/mbind/mbind.h    |  26 ++++
- testcases/kernel/syscalls/mbind/mbind02.c  | 103 ++++++++++++++++
- testcases/kernel/syscalls/mbind/mbind03.c  | 123 +++++++++++++++++++
- testcases/kernel/syscalls/mbind/mbind04.c  | 132 +++++++++++++++++++++
- 6 files changed, 390 insertions(+)
- create mode 100644 testcases/kernel/syscalls/mbind/mbind.h
- create mode 100644 testcases/kernel/syscalls/mbind/mbind02.c
- create mode 100644 testcases/kernel/syscalls/mbind/mbind03.c
- create mode 100644 testcases/kernel/syscalls/mbind/mbind04.c
+ testcases/kernel/syscalls/statx/statx01.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 67dfed661..0114b002b 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -628,6 +628,9 @@ lstat02_64 lstat02_64
- mallopt01 mallopt01
+diff --git a/testcases/kernel/syscalls/statx/statx01.c b/testcases/kernel/syscalls/statx/statx01.c
+index 23ea99b4a..5e705dc7d 100644
+--- a/testcases/kernel/syscalls/statx/statx01.c
++++ b/testcases/kernel/syscalls/statx/statx01.c
+@@ -92,7 +92,7 @@ static void test_normal_file(void)
+ 			buff.stx_mode, MODE);
  
- mbind01 mbind01
-+mbind02 mbind02
-+mbind03 mbind03
-+mbind04 mbind04
  
- memset01 memset01
- memcmp01 memcmp01
-diff --git a/testcases/kernel/syscalls/mbind/.gitignore b/testcases/kernel/syscalls/mbind/.gitignore
-index 64139f75c..b78d20264 100644
---- a/testcases/kernel/syscalls/mbind/.gitignore
-+++ b/testcases/kernel/syscalls/mbind/.gitignore
-@@ -1 +1,4 @@
- /mbind01
-+/mbind02
-+/mbind03
-+/mbind04
-diff --git a/testcases/kernel/syscalls/mbind/mbind.h b/testcases/kernel/syscalls/mbind/mbind.h
-new file mode 100644
-index 000000000..62e749bca
---- /dev/null
-+++ b/testcases/kernel/syscalls/mbind/mbind.h
-@@ -0,0 +1,26 @@
-+/*
-+ * SPDX-License-Identifier: GPL-2.0-or-later
-+ *
-+ * Copyright (c) 2019 Cyril Hrubis <chrubis@suse.cz>
-+ */
-+
-+#ifndef MBIND_H__
-+#define MBIND_H__
-+
-+static inline const char *mbind_flag_name(unsigned flag)
-+{
-+	switch (flag) {
-+	case 0:
-+		return "0";
-+	case MPOL_MF_STRICT:
-+		return "MPOL_MF_STRICT";
-+	case MPOL_MF_MOVE:
-+		return "MPOL_MF_MOVE";
-+	case MPOL_MF_MOVE_ALL:
-+		return "MPOL_MF_MOVE_ALL";
-+	default:
-+		return "???";
-+	}
-+}
-+
-+#endif /* MBIND_H__ */
-diff --git a/testcases/kernel/syscalls/mbind/mbind02.c b/testcases/kernel/syscalls/mbind/mbind02.c
-new file mode 100644
-index 000000000..5352c34ee
---- /dev/null
-+++ b/testcases/kernel/syscalls/mbind/mbind02.c
-@@ -0,0 +1,103 @@
-+/*
-+ * SPDX-License-Identifier: GPL-2.0-or-later
-+ *
-+ * Copyright (c) 2019 Cyril Hrubis <chrubis@suse.cz>
-+ */
-+
-+/*
-+ * We are testing mbind() EIO error.
-+ *
-+ * We first fault a allocated page, then attempt to mbind it to a different node.
-+ *
-+ * This is a regression test for:
-+ *
-+ * a7f40cfe3b7a mm: mempolicy: make mbind() return -EIO when MPOL_MF_STRICT is specified
-+ *
-+ */
-+
-+#include <errno.h>
-+#include "config.h"
-+#ifdef HAVE_NUMA_H
-+# include <numa.h>
-+# include <numaif.h>
-+#endif
-+#include "tst_test.h"
-+#include "tst_numa.h"
-+
-+#ifdef HAVE_NUMA_H
-+
-+static size_t page_size;
-+static struct tst_nodemap *nodes;
-+
-+static void setup(void)
-+{
-+	page_size = getpagesize();
-+
-+	nodes = tst_get_nodemap(TST_NUMA_MEM, 2 * page_size / 1024);
-+	if (nodes->cnt <= 1)
-+		tst_brk(TCONF, "Test requires at least two NUMA memory nodes");
-+}
-+
-+static void cleanup(void)
-+{
-+	tst_nodemap_free(nodes);
-+}
-+
-+static void verify_policy(int mode)
-+{
-+	struct bitmask *bm = numa_allocate_nodemask();
-+	unsigned int i;
-+	void *ptr;
-+	unsigned long size = page_size;
-+	int node = 0;
-+
-+	ptr = tst_numa_map(NULL, size);
-+	tst_nodemap_reset_counters(nodes);
-+	tst_numa_fault(ptr, size);
-+	tst_nodemap_count_pages(nodes, ptr, size);
-+	tst_nodemap_print_counters(nodes);
-+
-+	for (i = 0; i < nodes->cnt; i++) {
-+		if (!nodes->counters[i]) {
-+			node = nodes->map[i];
-+			tst_res(TINFO, "Attempting to bind to node %i", node);
-+			numa_bitmask_setbit(bm, node);
-+			break;
-+		}
-+	}
-+
-+	TEST(mbind(ptr, size, mode, bm->maskp, bm->size + 1, MPOL_MF_STRICT));
-+
-+	if (TST_RET) {
-+		tst_res(TPASS | TTERRNO,
-+		        "mbind(%s, MPOL_MF_STRICT) node %u",
-+		        tst_numa_mode_name(mode), node);
-+	} else {
-+		tst_res(TFAIL, "mbind(%s, MPOL_MF_STRICT) node %u succeded",
-+		        tst_numa_mode_name(mode), node);
-+	}
-+
-+	tst_numa_unmap(ptr, size);
-+	numa_free_nodemask(bm);
-+}
-+
-+static void verify_mbind(unsigned int n)
-+{
-+	int mode = n ? MPOL_PREFERRED : MPOL_BIND;
-+
-+	verify_policy(mode);
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.test = verify_mbind,
-+	.tcnt = 2,
-+	.forks_child = 1,
-+};
-+
-+#else
-+
-+TST_TEST_TCONF(NUMA_ERROR_MSG);
-+
-+#endif /* HAVE_NUMA_H */
-diff --git a/testcases/kernel/syscalls/mbind/mbind03.c b/testcases/kernel/syscalls/mbind/mbind03.c
-new file mode 100644
-index 000000000..f0622b07f
---- /dev/null
-+++ b/testcases/kernel/syscalls/mbind/mbind03.c
-@@ -0,0 +1,123 @@
-+/*
-+ * SPDX-License-Identifier: GPL-2.0-or-later
-+ *
-+ * Copyright (c) 2019 Cyril Hrubis <chrubis@suse.cz>
-+ */
-+
-+/*
-+ * We are testing mbind() MPOL_MF_MOVE and MPOL_MF_MOVE_ALL.
-+ *
-+ * If one of these flags is passed along with the policy kernel attempts to
-+ * move already faulted pages to match the requested policy.
-+ */
-+
-+#include <errno.h>
-+#include "config.h"
-+#ifdef HAVE_NUMA_H
-+# include <numa.h>
-+# include <numaif.h>
-+# include "mbind.h"
-+#endif
-+#include "tst_test.h"
-+#include "tst_numa.h"
-+
-+#ifdef HAVE_NUMA_H
-+
-+static size_t page_size;
-+static struct tst_nodemap *nodes;
-+
-+static void setup(void)
-+{
-+	page_size = getpagesize();
-+
-+	nodes = tst_get_nodemap(TST_NUMA_MEM, 2 * page_size / 1024);
-+	if (nodes->cnt <= 1)
-+		tst_brk(TCONF, "Test requires at least two NUMA memory nodes");
-+}
-+
-+static void cleanup(void)
-+{
-+	tst_nodemap_free(nodes);
-+}
-+
-+static void verify_policy(int mode, unsigned flag)
-+{
-+	struct bitmask *bm = numa_allocate_nodemask();
-+	unsigned int i;
-+	void *ptr;
-+	unsigned long size = page_size;
-+	unsigned int node = 0;
-+
-+	ptr = tst_numa_map(NULL, size);
-+	tst_nodemap_reset_counters(nodes);
-+	tst_numa_fault(ptr, size);
-+	tst_nodemap_count_pages(nodes, ptr, size);
-+	tst_nodemap_print_counters(nodes);
-+
-+	for (i = 0; i < nodes->cnt; i++) {
-+		if (!nodes->counters[i]) {
-+			node = nodes->map[i];
-+			tst_res(TINFO, "Attempting to move to node %i", node);
-+			numa_bitmask_setbit(bm, node);
-+			break;
-+		}
-+	}
-+
-+	TEST(mbind(ptr, size, mode, bm->maskp, bm->size + 1, flag));
-+
-+	if (TST_RET) {
-+		tst_res(TFAIL | TTERRNO,
-+		        "mbind(%s, %s) node %u",
-+		        tst_numa_mode_name(mode), mbind_flag_name(flag), node);
-+		goto exit;
-+	} else {
-+		tst_res(TPASS, "mbind(%s, %s) node %u succeded",
-+		        tst_numa_mode_name(mode), mbind_flag_name(flag), node);
-+	}
-+
-+	tst_nodemap_reset_counters(nodes);
-+	tst_nodemap_count_pages(nodes, ptr, size);
-+
-+	for (i = 0; i < nodes->cnt; i++) {
-+		if (nodes->map[i] == node) {
-+			if (nodes->counters[i] == 1) {
-+				tst_res(TPASS, "Node %u allocated %u", node, 1);
-+			} else {
-+				tst_res(TFAIL, "Node %u allocated %u, expected %u",
-+				        node, nodes->counters[i], 0);
-+			}
-+			continue;
-+		}
-+
-+		if (nodes->counters[i]) {
-+			tst_res(TFAIL, "Node %u allocated %u, expected 0",
-+			        i, nodes->counters[i]);
-+		}
-+	}
-+
-+exit:
-+	tst_numa_unmap(ptr, size);
-+	numa_free_nodemask(bm);
-+}
-+
-+void verify_mbind(unsigned int n)
-+{
-+	int mode = n ? MPOL_PREFERRED : MPOL_BIND;
-+
-+	verify_policy(mode, MPOL_MF_MOVE);
-+	verify_policy(mode, MPOL_MF_MOVE_ALL);
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.test = verify_mbind,
-+	.tcnt = 2,
-+	.forks_child = 1,
-+};
-+
-+#else
-+
-+TST_TEST_TCONF(NUMA_ERROR_MSG);
-+
-+#endif /* HAVE_NUMA_H */
-diff --git a/testcases/kernel/syscalls/mbind/mbind04.c b/testcases/kernel/syscalls/mbind/mbind04.c
-new file mode 100644
-index 000000000..28fbc356b
---- /dev/null
-+++ b/testcases/kernel/syscalls/mbind/mbind04.c
-@@ -0,0 +1,132 @@
-+/*
-+ * SPDX-License-Identifier: GPL-2.0-or-later
-+ *
-+ * Copyright (c) 2019 Cyril Hrubis <chrubis@suse.cz>
-+ */
-+
-+/*
-+ * We are testing mbind() with MPOL_BIND and MPOL_PREFERRED.
-+ *
-+ * For each node with memory we set its bit in nodemask with set_mempolicy()
-+ * and verify that memory has been faulted accordingly.
-+ */
-+
-+#include <errno.h>
-+#include "config.h"
-+#ifdef HAVE_NUMA_H
-+# include <numa.h>
-+# include <numaif.h>
-+# include "mbind.h"
-+#endif
-+#include "tst_test.h"
-+#include "tst_numa.h"
-+
-+#ifdef HAVE_NUMA_H
-+
-+static size_t page_size;
-+static struct tst_nodemap *nodes;
-+
-+#define PAGES_ALLOCATED 16u
-+
-+static void setup(void)
-+{
-+	page_size = getpagesize();
-+
-+	nodes = tst_get_nodemap(TST_NUMA_MEM, 2 * PAGES_ALLOCATED * page_size / 1024);
-+	if (nodes->cnt <= 1)
-+		tst_brk(TCONF, "Test requires at least two NUMA memory nodes");
-+}
-+
-+static void cleanup(void)
-+{
-+	tst_nodemap_free(nodes);
-+}
-+
-+static void verify_policy(unsigned int node, int mode, unsigned flag)
-+{
-+	struct bitmask *bm = numa_allocate_nodemask();
-+	unsigned int i;
-+	void *ptr;
-+	unsigned long size = PAGES_ALLOCATED * page_size;
-+
-+	numa_bitmask_setbit(bm, node);
-+
-+	ptr = tst_numa_map(NULL, size);
-+
-+	TEST(mbind(ptr, size, mode, bm->maskp, bm->size + 1, flag));
-+
-+	if (TST_RET) {
-+		tst_res(TFAIL | TTERRNO,
-+		        "mbind(%s, %s) node %u",
-+		        tst_numa_mode_name(mode), mbind_flag_name(flag), node);
-+		return;
-+	}
-+
-+	tst_res(TPASS, "mbind(%s, %s) node %u",
-+	        tst_numa_mode_name(mode), mbind_flag_name(flag), node);
-+
-+	numa_free_nodemask(bm);
-+
-+	const char *prefix = "child: ";
-+
-+	if (SAFE_FORK()) {
-+		prefix = "parent: ";
-+		tst_reap_children();
-+	}
-+
-+	tst_nodemap_reset_counters(nodes);
-+	tst_numa_fault(ptr, size);
-+	tst_nodemap_count_pages(nodes, ptr, size);
-+	tst_numa_unmap(ptr, size);
-+
-+	int fail = 0;
-+
-+	for (i = 0; i < nodes->cnt; i++) {
-+		if (nodes->map[i] == node) {
-+			if (nodes->counters[i] == PAGES_ALLOCATED) {
-+				tst_res(TPASS, "%sNode %u allocated %u",
-+				        prefix, node, PAGES_ALLOCATED);
-+			} else {
-+				tst_res(TFAIL, "%sNode %u allocated %u, expected %u",
-+				        prefix, node, nodes->counters[i],
-+				        PAGES_ALLOCATED);
-+				fail = 1;
-+			}
-+			continue;
-+		}
-+
-+		if (nodes->counters[i]) {
-+			tst_res(TFAIL, "%sNode %u allocated %u, expected 0",
-+			        prefix, i, nodes->counters[i]);
-+			fail = 1;
-+		}
-+	}
-+
-+	if (fail)
-+		tst_nodemap_print_counters(nodes);
-+}
-+
-+static void verify_mbind(unsigned int n)
-+{
-+	unsigned int i;
-+	int mode = n ? MPOL_PREFERRED : MPOL_BIND;
-+
-+	for (i = 0; i < nodes->cnt; i++) {
-+		verify_policy(nodes->map[i], mode, 0);
-+		verify_policy(nodes->map[i], mode, MPOL_MF_STRICT);
-+	}
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.test = verify_mbind,
-+	.tcnt = 2,
-+	.forks_child = 1,
-+};
-+
-+#else
-+
-+TST_TEST_TCONF(NUMA_ERROR_MSG);
-+
-+#endif /* HAVE_NUMA_H */
+-	if (buff.stx_blocks <= buff.stx_blksize/512)
++	if (buff.stx_blocks <= 128)
+ 		tst_res(TPASS, "stx_blocks(%"PRIu64") is valid",
+ 			buff.stx_blocks);
+ 	else
 -- 
-2.21.0
+2.22.0.657.g960e92d24f-goog
 
 
 -- 
