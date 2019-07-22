@@ -1,48 +1,37 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 834356F94B
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2019 08:05:43 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id BF1476FB5A
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2019 10:34:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D2FC53C1CFB
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2019 08:05:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7203E3C1CFB
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2019 10:34:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id EEE233C185E
- for <ltp@lists.linux.it>; Mon, 22 Jul 2019 08:05:38 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 9D8A71000C16
- for <ltp@lists.linux.it>; Mon, 22 Jul 2019 08:05:30 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.64,293,1559491200"; d="scan'208";a="71932309"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 22 Jul 2019 14:05:30 +0800
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id 6A7F14CDE64B;
- Mon, 22 Jul 2019 14:05:27 +0800 (CST)
-Received: from [10.167.215.46] (10.167.215.46) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- id 14.3.439.0; Mon, 22 Jul 2019 14:05:32 +0800
-Message-ID: <5D355223.5040705@cn.fujitsu.com>
-Date: Mon, 22 Jul 2019 14:05:23 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id A8F5B3C185E
+ for <ltp@lists.linux.it>; Mon, 22 Jul 2019 10:34:04 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 4B6222003B0
+ for <ltp@lists.linux.it>; Mon, 22 Jul 2019 10:34:02 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id B18FDAD7F;
+ Mon, 22 Jul 2019 08:34:01 +0000 (UTC)
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Mon, 22 Jul 2019 10:33:56 +0200
+Message-Id: <20190722083356.10142-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.22.0
 MIME-Version: 1.0
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <20190716143238.483-1-chrubis@suse.cz>
-In-Reply-To: <20190716143238.483-1-chrubis@suse.cz>
-X-Originating-IP: [10.167.215.46]
-X-yoursite-MailScanner-ID: 6A7F14CDE64B.AEE9E
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [COMMITTED] [PATCH] syscalls/prctl07: Fix build.
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [RFC PATCH] syscalls: Remove getcontext01
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,73 +43,174 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+According to man getcontext(3) getcontext was this function from
+POSIX.1-2001 (SUSv2) removed from POSIX.1-2008 (SUSv3).
 
-> Ideally this is last fix for prctl07.
->
-> Since I've changed the check_proc_capamb() to use macro definition
-> instead of raw integer value we depend on sys/capability.h being
-> included to compile the code.
->
-> So this commit changes:
->
-> The sys/capability.h is included under HAVE_SYS_CAPABILITY_H now and so
-> the function is ifdefed out if we don't have that header.
->
-> Also it looks like HAVE_LIBCAP is not defined unless libcap supports
-> cap_compare() which should be fixed. The check for libcap and
-> cap_compare() has to be uncoupled but that has to be done in a sepratate
-> patch.
-Hi Cyril
+Given that the test was just a smoke tests (doing nothing) and we don't
+test other functions from this family ({set,swap,make}context) remove it.
 
-     I have a patch for this on 2019.5 [1] but not correct way.  Also, I am going to simpify and remove some m4.
-I will uncouple libcap and cap_compare in ltp-cap.m4.
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ runtest/syscalls                              |  2 -
+ .../kernel/syscalls/getcontext/.gitignore     |  1 -
+ testcases/kernel/syscalls/getcontext/Makefile | 23 -----
+ .../kernel/syscalls/getcontext/getcontext01.c | 89 -------------------
+ 4 files changed, 115 deletions(-)
+ delete mode 100644 testcases/kernel/syscalls/getcontext/.gitignore
+ delete mode 100644 testcases/kernel/syscalls/getcontext/Makefile
+ delete mode 100644 testcases/kernel/syscalls/getcontext/getcontext01.c
 
-[1]http://lists.linux.it/pipermail/ltp/2019-May/011925.html
-
-> Signed-off-by: Cyril Hrubis<chrubis@suse.cz>
-> ---
->   testcases/kernel/syscalls/prctl/prctl07.c | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/prctl/prctl07.c b/testcases/kernel/syscalls/prctl/prctl07.c
-> index 37d77df33..79f7710a8 100644
-> --- a/testcases/kernel/syscalls/prctl/prctl07.c
-> +++ b/testcases/kernel/syscalls/prctl/prctl07.c
-> @@ -25,7 +25,7 @@
->   #include<sys/prctl.h>
->   #include<stdlib.h>
->   #include "config.h"
-> -#ifdef HAVE_LIBCAP
-> +#ifdef HAVE_SYS_CAPABILITY_H
->   # include<sys/capability.h>
->   #endif
->   #include "lapi/syscalls.h"
-> @@ -35,7 +35,8 @@
->
->   #define PROC_STATUS "/proc/self/status"
->
-> -static inline void check_proc_capamb(char *message, int flag)
-> +#ifdef HAVE_SYS_CAPABILITY_H
-> +static void check_proc_capamb(char *message, int flag)
->   {
->   	int cap_num;
->   	char CapAmb[20];
-> @@ -62,6 +63,7 @@ static inline void check_proc_capamb(char *message, int flag)
->   			"%s, CapAmb in %s doesn't have CAP_NET_BIND_SERVICE",
->   			message, PROC_STATUS);
->   }
-> +#endif
->
->   static inline void check_cap_raise(unsigned int cap, char *message, int fail_flag)
->   {
-
-
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 67dfed661..432cd3ac5 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -363,8 +363,6 @@ ftruncate04_64 ftruncate04_64
+ #futimesat test cases
+ futimesat01 futimesat01
+ 
+-getcontext01 getcontext01
+-
+ getcpu01 getcpu01
+ 
+ getcwd01 getcwd01
+diff --git a/testcases/kernel/syscalls/getcontext/.gitignore b/testcases/kernel/syscalls/getcontext/.gitignore
+deleted file mode 100644
+index 1e5e14e73..000000000
+--- a/testcases/kernel/syscalls/getcontext/.gitignore
++++ /dev/null
+@@ -1 +0,0 @@
+-/getcontext01
+diff --git a/testcases/kernel/syscalls/getcontext/Makefile b/testcases/kernel/syscalls/getcontext/Makefile
+deleted file mode 100644
+index bd617d806..000000000
+--- a/testcases/kernel/syscalls/getcontext/Makefile
++++ /dev/null
+@@ -1,23 +0,0 @@
+-#
+-#  Copyright (c) International Business Machines  Corp., 2001
+-#
+-#  This program is free software;  you can redistribute it and/or modify
+-#  it under the terms of the GNU General Public License as published by
+-#  the Free Software Foundation; either version 2 of the License, or
+-#  (at your option) any later version.
+-#
+-#  This program is distributed in the hope that it will be useful,
+-#  but WITHOUT ANY WARRANTY;  without even the implied warranty of
+-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+-#  the GNU General Public License for more details.
+-#
+-#  You should have received a copy of the GNU General Public License
+-#  along with this program;  if not, write to the Free Software
+-#  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+-#
+-
+-top_srcdir		?= ../../../..
+-
+-include $(top_srcdir)/include/mk/testcases.mk
+-
+-include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/getcontext/getcontext01.c b/testcases/kernel/syscalls/getcontext/getcontext01.c
+deleted file mode 100644
+index 48e78907f..000000000
+--- a/testcases/kernel/syscalls/getcontext/getcontext01.c
++++ /dev/null
+@@ -1,89 +0,0 @@
+-/*
+- * Copyright (c) Wipro Technologies Ltd, 2005.  All Rights Reserved.
+- *  Author: Prashant P Yendigeri <prashant.yendigeri@wipro.com>
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- */
+-
+-#include <features.h>
+-
+-#include <stdio.h>
+-#include <unistd.h>
+-#include <errno.h>
+-#include <ucontext.h>
+-
+-#include "test.h"
+-
+-char *TCID = "getcontext01";
+-
+-#if !defined(__UCLIBC__)
+-
+-static void setup(void);
+-static void cleanup(void);
+-
+-int TST_TOTAL = 1;
+-
+-static void test_getcontext(void)
+-{
+-	ucontext_t ptr;
+-
+-	TEST(getcontext(&ptr));
+-
+-	if (TEST_RETURN == -1) {
+-		if (errno == ENOSYS)
+-			tst_resm(TCONF, "getcontext not implemented in libc");
+-		else
+-			tst_resm(TFAIL | TTERRNO, "getcontext failed");
+-	} else if (TEST_RETURN == 0) {
+-		tst_resm(TPASS, "getcontext passed");
+-	} else {
+-		tst_resm(TFAIL, "Unexpected return value %li", TEST_RETURN);
+-	}
+-}
+-
+-int main(int ac, char **av)
+-{
+-	int lc;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-
+-		tst_count = 0;
+-
+-		test_getcontext();
+-	}
+-
+-	cleanup();
+-	tst_exit();
+-}
+-
+-static void setup(void)
+-{
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-
+-	TEST_PAUSE;
+-}
+-
+-static void cleanup(void)
+-{
+-}
+-
+-#else /* systems that dont support obsolete getcontext */
+-int main(void)
+-{
+-	tst_brkm(TCONF, NULL, "system doesn't have getcontext support");
+-}
+-#endif
+-- 
+2.22.0
 
 
 -- 
