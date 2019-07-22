@@ -2,52 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 250776F70C
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2019 03:59:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 987346F722
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2019 04:29:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A4EC93C183E
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2019 03:59:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 267BB3C1D1D
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jul 2019 04:29:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id B6E233C134D
- for <ltp@lists.linux.it>; Mon, 22 Jul 2019 03:59:02 +0200 (CEST)
-Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 859F23C134D
+ for <ltp@lists.linux.it>; Mon, 22 Jul 2019 04:29:18 +0200 (CEST)
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 076842005DC
- for <ltp@lists.linux.it>; Mon, 22 Jul 2019 03:58:58 +0200 (CEST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
- [147.11.189.40])
- by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id x6M1vBWW017537
- (version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
- Sun, 21 Jul 2019 18:57:21 -0700
-Received: from [128.224.162.188] (128.224.162.188) by ALA-HCA.corp.ad.wrs.com
- (147.11.189.50) with Microsoft SMTP Server (TLS) id 14.3.468.0;
- Sun, 21 Jul 2019 18:57:00 -0700
-To: Li Wang <liwang@redhat.com>, Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>, Borislav Petkov <bp@suse.de>, Dave Hansen
- <dave.hansen@intel.com>, Thomas Gleixner <tglx@linutronix.de>
-References: <56f854e2-9cc6-4725-3182-ff83e106ee23@windriver.com>
- <20190717094614.GA9539@rei>
- <7d2c4936-2e89-6285-c856-a156d3a76284@windriver.com>
- <CAEemH2edg4R-JFM=u_ceLoRcNAMmV=c+hVV6kxoK4g6DOBnGeg@mail.gmail.com>
-From: "Hongzhi, Song" <hongzhi.song@windriver.com>
-Message-ID: <e7d0e66d-f348-9d57-0ea9-dc1fa289942d@windriver.com>
-Date: Mon, 22 Jul 2019 09:56:55 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.2
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7FE5E140075E
+ for <ltp@lists.linux.it>; Mon, 22 Jul 2019 04:29:16 +0200 (CEST)
+Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id 4371228180E20BB15148
+ for <ltp@lists.linux.it>; Mon, 22 Jul 2019 10:29:12 +0800 (CST)
+Received: from linux-lmwb.huawei.com (10.175.103.112) by
+ DGGEMS407-HUB.china.huawei.com (10.3.19.207) with Microsoft SMTP Server id
+ 14.3.439.0; Mon, 22 Jul 2019 10:29:05 +0800
+From: Song Jian <songjian15@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Mon, 22 Jul 2019 10:29:01 +0800
+Message-ID: <1563762541-89314-1-git-send-email-songjian15@huawei.com>
+X-Mailer: git-send-email 2.6.2
 MIME-Version: 1.0
-In-Reply-To: <CAEemH2edg4R-JFM=u_ceLoRcNAMmV=c+hVV6kxoK4g6DOBnGeg@mail.gmail.com>
-Content-Language: en-US
-X-Originating-IP: [128.224.162.188]
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Originating-IP: [10.175.103.112]
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] Question about kernel/syscall/signal/signal06.c
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH]syscalls/ioctl: bugfix for syscalls/ioctl/ioctl_ns05.c
+ syscalls/ioctl/ioctl_ns06.c
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,105 +50,48 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: x86-ml <x86@kernel.org>, LTP List <ltp@lists.linux.it>,
- Oleg Nesterov <oleg@redhat.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Ck9uIDcvMTkvMTkgNDo0NCBQTSwgTGkgV2FuZyB3cm90ZToKPiBPbiBGcmksIEp1bCAxOSwgMjAx
-OSBhdCA0OjE0IFBNIEhvbmd6aGksIFNvbmcKPiA8aG9uZ3poaS5zb25nQHdpbmRyaXZlci5jb20+
-IHdyb3RlOgo+PiBUaGlzIGNhc2UgZmFpbHMgd2hlbiBib290IHFlbXV4ODYtNjQgd2l0aCAxLzIg
-Y29yZXMuCj4+Cj4+IEkgZmluZCBba2VybmVsIDUuMi1yYzE6IDBkNzE0ZGJhMTYyXSBjYXVzZXMg
-dGhlIGZhaWx1cmUgYnkgZ2l0IGJpc2VjdC4KCkhpIExpLFdhbmcKCgpTb3JyeSBmb3IgbXkgYSBi
-aXQgbWlzdGFrZSwgdGhlIGV4YWN0IHRhZyBpcyBbNS4xLXJjMyA6IDBkNzE0ZGJhMTYyXQoKY29t
-bWl0IDBkNzE0ZGJhMTYyNjIwZmQ4YjlmNWIzMTA0YTQ4N2UwNDEzNTNjNGQKQXV0aG9yOiBTZWJh
-c3RpYW4gQW5kcnplaiBTaWV3aW9yIDxiaWdlYXN5QGxpbnV0cm9uaXguZGU+CkRhdGU6wqDCoCBX
-ZWQgQXByIDMgMTg6NDE6NDggMjAxOSArMDIwMAoKIMKgwqDCoCB4ODYvZnB1OiBVcGRhdGUgeHN0
-YXRlJ3MgUEtSVSB2YWx1ZSBvbiB3cml0ZV9wa3J1KCkKCiDCoMKgwqAgRHVyaW5nIHRoZSBjb250
-ZXh0IHN3aXRjaCB0aGUgeHN0YXRlIGlzIGxvYWRlZCB3aGljaCBhbHNvIGluY2x1ZGVzIHRoZQog
-wqDCoMKgIFBLUlUgdmFsdWUuCgogwqDCoMKgIElmIHhzdGF0ZSBpcyByZXN0b3JlZCBvbiByZXR1
-cm4gdG8gdXNlcmxhbmQgaXQgaXMgcmVxdWlyZWQKIMKgwqDCoCB0aGF0IHRoZSBQS1JVIHZhbHVl
-IGluIHhzdGF0ZSBpcyB0aGUgc2FtZSBhcyB0aGUgb25lIGluIHRoZSBDUFUuCgogwqDCoMKgIFNh
-dmUgdGhlIFBLUlUgaW4geHN0YXRlIGR1cmluZyBtb2RpZmljYXRpb24uCgoKPj4KPj4gSWYgZ2l0
-IGNoZWNrb3V0IGEgY29tbWl0IGJlZm9yZSAwZDcxNGRiYTE2MiwgdGhlIGNhc2Ugd2lsbCBwYXNz
-IG9uIHRoZQo+PiBzYW1lIHFlbXUgY29uZmlndXJhdGlvbi4KPiBJdCBzb3VuZHMgbGlrZSBhIG5l
-dyByZWdyZXNzaW9uIG9uIGZwdS4gSSB3aWxsIGhhdmUgYSB0cnkgb24gdGhpcyB0ZXN0IHRoZW4u
-Cj4KPiBASG9uZ3poaSwgY291bGQgeW91IHByb3ZpZGUgbW9yZSBpbmZvIG9mIHlvdXIgdGVzdCBt
-YWNoaW5lPyAoZS5nLgo+IGxzY3B1LCB1bmFtZSAtcikKPiBhbmQgdGVzdCByZXN1bHQgd2l0aCAx
-dmNwdSwgMnZjcHVzPwoKCkkgdGVzdGVkICItc21wIDEvMi80IiBhbmQgIi1jcHUgU2t5bGFrZS1D
-bGllbnQtSUJSUy9jb3JlMmR1byIsIGFsbCBvZiAKdGhlbSBmYWlsZWQuCgoKMS4gVGhpcyBpcyBt
-eSBxZW11IGJvb3QgY21kbGluZToKCnFlbXUtc3lzdGVtLXg4Nl82NCAtZGV2aWNlIAp2aXJ0aW8t
-bmV0LXBjaSxuZXRkZXY9bmV0MCxtYWM9NTI6NTQ6MDA6MTI6MzU6MDIgLW5ldGRldiAKdXNlcixp
-ZD1uZXQwLGhvc3Rmd2Q9dGNwOjoyMjIyLToyMixob3N0ZndkPXRjcDo6MjMyMy06MjMsdGZ0cD1p
-bWFnZXMvcWVtdXg4Ni02NCAKLWRyaXZlIGZpbGU9aW1hZ2Uucm9vdGZzLmV4dDQsaWY9dmlydGlv
-LGZvcm1hdD1yYXcgLXZnYSB2bXdhcmUgCi1zaG93LWN1cnNvciAtdXNiIC1kZXZpY2UgdXNiLXRh
-YmxldCAtb2JqZWN0IApybmctcmFuZG9tLGZpbGVuYW1lPS9kZXYvdXJhbmRvbSxpZD1ybmcwIC1k
-ZXZpY2UgCnZpcnRpby1ybmctcGNpLHJuZz1ybmcwwqAgLW5vZ3JhcGhpY8KgIC1tIDI1NsKgIC1j
-cHUgU2t5bGFrZS1DbGllbnQtSUJSUyAKLXNlcmlhbCBtb246c3RkaW8gLXNlcmlhbCBudWxsIC1r
-ZXJuZWwgbGludXgvYXJjaC94ODYvYm9vdC9iekltYWdlIAotYXBwZW5kICdyb290PS9kZXYvdmRh
-IHJ3IGhpZ2hyZXM9b2ZmIGNvbnNvbGU9dHR5UzAgbWVtPTI1Nk0gaXA9ZGhjcCAKdmdhPTAgdXZl
-c2FmYi5tb2RlX29wdGlvbj02NDB4NDgwLTMyIG9wcm9maWxlLnRpbWVyPTEgCnV2ZXNhZmIudGFz
-a190aW1lb3V0PS0xICcKCjIuIGxzY3B1Cgpyb290QHFlbXV4ODYtNjQ6fiMgbHNjcHUKQXJjaGl0
-ZWN0dXJlOsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHg4Nl82NApDUFUg
-b3AtbW9kZShzKTrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAzMi1iaXQsIDY0LWJpdApCeXRl
-IE9yZGVyOsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBMaXR0bGUg
-RW5kaWFuCkFkZHJlc3Mgc2l6ZXM6wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgNDAg
-Yml0cyBwaHlzaWNhbCwgNDggYml0cyB2aXJ0dWFsCkNQVShzKTrCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgNApPbi1saW5lIENQVShzKSBsaXN0
-OsKgwqDCoMKgwqDCoMKgwqDCoMKgIDAKVGhyZWFkKHMpIHBlciBjb3JlOsKgwqDCoMKgwqDCoMKg
-wqDCoCAxCkNvcmUocykgcGVyIHNvY2tldDrCoMKgwqDCoMKgwqDCoMKgwqAgMQpTb2NrZXQocyk6
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAxClZlbmRvciBJ
-RDrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBHZW51aW5lSW50
-ZWwKQ1BVIGZhbWlseTrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-NgpNb2RlbDrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCA5NApNb2RlbCBuYW1lOsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCBJbnRlbCBDb3JlIFByb2Nlc3NvciAoU2t5bGFrZSwgSUJSUykKU3RlcHBpbmc6wqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAzCkNQVSBNSHo6wqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAzMTAwLjAxMgpCb2dvTUlQUzrC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA2MjAwLjAyCkwxZCBj
-YWNoZTrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgMzIgS2lCCkwx
-aSBjYWNoZTrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAzMiBL
-aUIKTDIgY2FjaGU6wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCA0IE1pQgpMMyBjYWNoZTrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIDE2IE1pQgpWdWxuZXJhYmlsaXR5IEwxdGY6wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBN
-aXRpZ2F0aW9uOyBQVEUgSW52ZXJzaW9uClZ1bG5lcmFiaWxpdHkgTWVsdGRvd246wqDCoCBNaXRp
-Z2F0aW9uOyBQVEkKVnVsbmVyYWJpbGl0eSBTcGVjIHN0b3JlIGJ5cGFzczogVnVsbmVyYWJsZQpW
-dWxuZXJhYmlsaXR5IFNwZWN0cmUgdjE6wqDCoMKgwqDCoMKgwqAgTWl0aWdhdGlvbjsgX191c2Vy
-IHBvaW50ZXIgc2FuaXRpemF0aW9uClZ1bG5lcmFiaWxpdHkgU3BlY3RyZSB2MjrCoMKgwqDCoMKg
-wqDCoCBNaXRpZ2F0aW9uOyBGdWxsIGdlbmVyaWMgcmV0cG9saW5lLCAKU1RJQlAgZGlzYWIKIMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgbGVkLCBSU0IgZmlsbGluZwpGbGFnczrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGZwdSBkZSBwc2UgdHNjIG1zciBwYWUgbWNlIGN4OCBh
-cGljIHNlcCAKbXRyciBwZwogwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBlIG1jYSBjbW92IHBhdCBwc2UzNiBjbGZsdXNoIG1t
-eCBmeHNyIApzc2Ugc3NlMgogwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzeXNjYWxsIG54IHJkdHNjcCBsbSBjb25zdGFudF90
-c2MgCnJlcF9nb29kIG5vcGwKIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB4dG9wb2xvZ3kgY3B1aWQgcG5pIHBjbG11bHFk
-cSBzc3NlMyAKY3gxNiBzc2U0XwogwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAxIHNzZTRfMiBtb3ZiZSBwb3BjbnQgYWVzIHhz
-YXZlIApoeXBlcnZpc29yIGxhaGYKIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgX2xtIGFibSBwdGkgZnNnc2Jhc2UgYm1pMSBz
-bWVwIGJtaTIgCmVybXMgYWR4IHNtCiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFwIHhzYXZlb3B0IHhnZXRidjEgYXJhdAoK
-CjMuwqAgdW5hbWUgLXIKCnJvb3RAcWVtdXg4Ni02NDp+IyB1bmFtZSAtcgo1LjEuMC1yYzMtTGlu
-dXgtc3RhbmRhcmQKCgpUaGFua3MuCgotLUhvbmd6aGkKCgo+Cj4gW0NjaW5nIGZwdSBEZXYgaW4g
-dGhpcyBsb29wXQo+Cj4+Cj4+IC0tSG9uZ3poaQo+Pgo+Pgo+PiBPbiA3LzE3LzE5IDU6NDYgUE0s
-IEN5cmlsIEhydWJpcyB3cm90ZToKPj4+IEhpIQo+Pj4+IEkgZmluZCBzaWduYWwwNiBmYWlscyBv
-biBxZW11eDg2LTY0IHdoZW4gcWVtdSBoYXMgYSBzbWFsbCBudW1iZXIgY29yZXMsCj4+Pj4gZS5n
-LiAicWVtdSAtc21wIDEvMi80LzYiLgo+Pj4+Cj4+Pj4gRVJST1IgSU5GTzoKPj4+Pgo+Pj4+IHNp
-Z25hbDA2Pz8/Pz8/IDA/PyBUSU5GTz8/IDo/PyBsb29wID0gMjMKPj4+PiBzaWduYWwwNj8/Pz8/
-PyAxPz8gVEZBSUw/PyA6Pz8gc2lnbmFsMDYuYzo4NzogQnVnIFJlcHJvZHVjZWQhCj4+Pj4KPj4+
-PiBCdXQgaWYgYm9vdCBxZW11IHdpdGggIi1zbXAgMTYiLCB0aGUgY2FzZSBoYXMgZ3JlYXQgY2hh
-bmNlIHRvIHBhc3MuCj4+Pj4KPj4+Pgo+Pj4+IEkgaGF2ZSB0d28gcXVlc3Rpb25zIGFib3V0IHRo
-aXMgY2FzZToKPj4+Pgo+Pj4+IDEuIEkgZG9uJ3Qga25vdyB3aHkgbXVsdGktY29yZSB3aWxsIGFm
-ZmVjdCB0aGUgY2FzZS4KPj4+IEhhdmUgeW91IGxvb2tlZCBpbnRvIHRoZSBjb2RlPyBUaGUgdGVz
-dCBpcyB0cnlpbmcgdG8gcmVwcm9kdWNlIGEgcmFjZQo+Pj4gY29uZGl0aW9uIGJldHdlZW4gdHdv
-IHRocmVhZHMgb2YgY291cnNlIHRoZSBudW1iZXIgb2YgY29yZXMgZG9lcyBhZmZlY3QKPj4+IHRo
-ZSByZXByb2R1Y2liaWxpdHkuCj4+Pgo+Pj4+IDIuIE9uIGZhaWx1cmUgc2l0dWF0aW9uLCB3aGF0
-IGRvZXMgYnJlYWsgdGhlICJ3aGlsZSBsb29wIiBzaG93biBpbiBiZWxvdwo+Pj4+IGNvZGUuCj4+
-PiBCdWcgaW4gYSBrZXJuZWwgdGhhdCBmYWlscyB0byByZXN0b3JlIGZwdSBzdGF0ZS4KPj4+Cj4K
-PgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZv
-L2x0cAo=
+fix ioctl_ns05, ioctl_ns06 timeout.
+signal() will return 0 if success, so it have no chance to equal
+nr_wake=1, use another api to to repalce the current api to ensure that
+nr_wark = 0.
+
+Signed-off-by: Song Jian <songjian15@huawei.com>
+---
+ testcases/kernel/syscalls/ioctl/ioctl_ns05.c | 2 +-
+ testcases/kernel/syscalls/ioctl/ioctl_ns06.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_ns05.c b/testcases/kernel/syscalls/ioctl/ioctl_ns05.c
+index a8dee07..8162012 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_ns05.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_ns05.c
+@@ -80,7 +80,7 @@ static void run(void)
+ 	SAFE_CLOSE(my_fd);
+ 	SAFE_CLOSE(child_fd);
+ 	SAFE_CLOSE(parent_fd);
+-	TST_CHECKPOINT_WAKE(0);
++	TST_CHECKPOINT_WAKE2(0, 0);
+ }
+ static struct tst_test test = {
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_ns06.c b/testcases/kernel/syscalls/ioctl/ioctl_ns06.c
+index 805a0a0..d5010d0 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_ns06.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_ns06.c
+@@ -75,7 +75,7 @@ static void run(void)
+ 	SAFE_CLOSE(my_fd);
+ 	SAFE_CLOSE(parent_fd);
+ 	SAFE_CLOSE(child_fd);
+-	TST_CHECKPOINT_WAKE(0);
++	TST_CHECKPOINT_WAKE2(0, 0);
+ }
+ static struct tst_test test = {
+2.6.2
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
