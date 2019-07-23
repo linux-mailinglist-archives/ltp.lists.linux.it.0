@@ -2,76 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42D0F71D3A
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jul 2019 18:59:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 402BF71DC3
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jul 2019 19:32:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E22173C1CF3
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jul 2019 18:59:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 08A2B3C1D18
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jul 2019 19:32:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id CD42A3C1860
- for <ltp@lists.linux.it>; Tue, 23 Jul 2019 18:59:41 +0200 (CEST)
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 49C9C3C1C7C
+ for <ltp@lists.linux.it>; Tue, 23 Jul 2019 19:32:50 +0200 (CEST)
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 1475D1400773
- for <ltp@lists.linux.it>; Tue, 23 Jul 2019 18:59:41 +0200 (CEST)
-Received: by mail-pf1-x443.google.com with SMTP id r7so19447381pfl.3
- for <ltp@lists.linux.it>; Tue, 23 Jul 2019 09:59:40 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3963C1000C0E
+ for <ltp@lists.linux.it>; Tue, 23 Jul 2019 19:32:44 +0200 (CEST)
+Received: by mail-pg1-x543.google.com with SMTP id u17so19760838pgi.6
+ for <ltp@lists.linux.it>; Tue, 23 Jul 2019 10:32:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=92oaRarwwa/XxYrp1cSWyX4HysRrRkXNq1HP7r+LaaI=;
- b=i9BCqdAdbmNUF/VM4QMITB32FyA6tazdmV5aLE8TPAiRK7LHBq0Z75pXlByB+kjXqK
- l/zsgqjj0khUaPRbX9ZpZ9bcWkHzEfZBfTnIwW+F5/49ghXTGmX686D4bWfTKTo76IO8
- 1RM/CITWAbJjBoDl2ThTM5UZ5FAkxg8ztBX6LA+qlf+xjmeRCPd6bMBMKISoO0Y3icCG
- e+LwAccM4SoCyhb6wCFdiYtx8q1ZumoFCkqTJ0lxp5I6/VVLYdm5yjin9cAnVngM13NS
- W9M3IifYr8qJ4rLElOsvIfPcRIyjT9jmXJ6zJGDMYDonVwbIyHYCWs0TgLUnbZNSeNp9
- 0r9Q==
+ bh=5+cax57ba/TuhJGYE/xp/GSuO5MTGHkH7FMNTK5N9/g=;
+ b=e8P4WWqkSVB/5DzNgpMtQWQlp7n2KKu94e7dKdXp/kWvlXv2oPzS8smCKIr1V8HonP
+ 05DsbRkhBpVQFETML7u7PCYQ2luWWIVa73i8xLCKejpCgA5MinRahGoWbkmDCmEUqH5X
+ F//K36ujARUfxC0/7SbZgkNay4/dY8Rn1vKo+4XNxQPgGOvkK3z9tgzPJ4gY6FB3Vlua
+ C1g8BxoBgoXDijY+Ys+ZRkVXnep97YwjUbvwKA4Fx8IlcIUNNmuzw+E3Zi7Zw7vf6iov
+ zKin36j2Y35EnU3qmK1IRen79BK4X8vc9Nug0XxAn7DYQIrm9BTLouBen2dEG8qD9QJf
+ 9fyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=92oaRarwwa/XxYrp1cSWyX4HysRrRkXNq1HP7r+LaaI=;
- b=ollFiHW2y5xsCGG/g/L8cuVgAxVUSU6uBI65oYEmASOvIfjIKnRl2Ir8mUFmp31b5T
- RMS/SXAWZS/4GjxSoRq8DXtfYvWaQLDwFtTx+UIe6mWx7+eV1oBrTz020TInXbW8QWKM
- bAnUDwWwxBmk7BmEL361OjQmbHXV0EvvYG2LHdK+cxQ2l61ihwaPwTyGPnXRvW1bP7f+
- UkhpfFSUtO5YQNQs2B1KdXU9UxE5/tr8lildlYbcYwK+xOyuv/+BMGEAdM0PSblnR059
- 3bllw9axpvT0qMLupHsddsVIrglD6OLVGsY8Cp4NfLfKvMgzMRm1OXvd38C6Ps+7fJyL
- jAFA==
-X-Gm-Message-State: APjAAAUSVZm1pkh9CKZjrc+bqhqka+eaZF3VeGBqOd3AQmquX9rgG69N
- XPbYnuFFoyXkLmBCDa53/DLk9v2lp5OTvg==
-X-Google-Smtp-Source: APXvYqzDTanN3jcVwHeAZvbXYll5/0x6XEPQcXppHaeAKmHTVg75uLdvNYNu5mUW/9BEBsuK/lKwPw==
-X-Received: by 2002:a17:90a:9bc5:: with SMTP id
- b5mr83841585pjw.109.1563901178613; 
- Tue, 23 Jul 2019 09:59:38 -0700 (PDT)
+ bh=5+cax57ba/TuhJGYE/xp/GSuO5MTGHkH7FMNTK5N9/g=;
+ b=XsX6WaakF+w1Lo6Mn9Q945kLFLC7/sZTCit2ZjpUGEi2qoGKCmZSVWADwGBpzKYGL1
+ HLKIsVCOvN3aMSd/7yyYI7A6Vr56784zGJVlirfUrA92JFx49Z/j4Mf622gZhyIDihCS
+ uifi+6a9t5cK6RFDvp+LTShQDPF1epjXLtJteT58r1frvMaAXuOW62/NMNvDeIgUq5OL
+ jy891mzKPME0EiYRegBgRUj9pDfXvFJ7RUdiodsJIFEr773aTrZdsdcLrAVYrZD0G25i
+ KWIPon6fZo9mPzvPQnkIJ4dMuFx+dRkm32bdT/WKmYryA5LJrO3cClkMKdURNRFqIUVz
+ e/rg==
+X-Gm-Message-State: APjAAAVbd2kc+wZ24NcV5ROPoOjyXN2amieMW1zi7XnC0tBEhp2I9i0p
+ w106c36xqgchwguikz/X+vYiew==
+X-Google-Smtp-Source: APXvYqxPJyZVJprcYdLeeSelD5F20HrQa+XG9iZFr20qCSwNRxK/xsk+oKmgBR+tXNELnpxnC2hFNA==
+X-Received: by 2002:a62:be04:: with SMTP id l4mr6659240pff.77.1563903167511;
+ Tue, 23 Jul 2019 10:32:47 -0700 (PDT)
 Received: from smuckle.san.corp.google.com
  ([2620:15c:2d:3:d440:a026:9220:62ba])
- by smtp.gmail.com with ESMTPSA id g2sm38415737pfi.26.2019.07.23.09.59.37
+ by smtp.gmail.com with ESMTPSA id m20sm43677430pff.79.2019.07.23.10.32.46
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 23 Jul 2019 09:59:37 -0700 (PDT)
+ Tue, 23 Jul 2019 10:32:46 -0700 (PDT)
 To: Cyril Hrubis <chrubis@suse.cz>
-References: <20190419210637.88522-1-smuckle@google.com>
- <20190521144733.GD19326@rei.lan> <20190723123134.GA27487@rei.lan>
+References: <20190722194439.161904-1-smuckle@google.com>
+ <20190723110306.GB22630@rei.lan>
 From: Steve Muckle <smuckle@google.com>
-Message-ID: <41f99cb1-9b49-9e5e-a5d3-2b858a8a417c@google.com>
-Date: Tue, 23 Jul 2019 09:59:36 -0700
+Message-ID: <1be1f0b8-170a-ac92-b86f-924e2d7f2295@google.com>
+Date: Tue, 23 Jul 2019 10:32:45 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.7.2
 MIME-Version: 1.0
-In-Reply-To: <20190723123134.GA27487@rei.lan>
+In-Reply-To: <20190723110306.GB22630@rei.lan>
 Content-Language: en-GB
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
  USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH v2] syscalls/sendmmsg: add new test
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/statx01: loosen the stx_blocks check
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,11 +87,37 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 7/23/19 5:31 AM, Cyril Hrubis wrote:
+On 7/23/19 4:03 AM, Cyril Hrubis wrote:
 > Hi!
-> Ping. Are you going to work on this test or should I take over?
+>> A filesystem may preallocate blocks (ext4 does this), so even though the
+>> contents of the file may fit into a single block, statx may report more
+>> than one block. Loosen the test to accommodate this.
+>>
+>> Signed-off-by: Steve Muckle <smuckle@google.com>
+>> ---
+>>   testcases/kernel/syscalls/statx/statx01.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/testcases/kernel/syscalls/statx/statx01.c b/testcases/kernel/syscalls/statx/statx01.c
+>> index 23ea99b4a..5e705dc7d 100644
+>> --- a/testcases/kernel/syscalls/statx/statx01.c
+>> +++ b/testcases/kernel/syscalls/statx/statx01.c
+>> @@ -92,7 +92,7 @@ static void test_normal_file(void)
+>>   			buff.stx_mode, MODE);
+>>   
+>>   
+>> -	if (buff.stx_blocks <= buff.stx_blksize/512)
+>> +	if (buff.stx_blocks <= 128)
+> 
+> Why 128?
 
-Hi sorry for the delay, yes I'm just getting back to this now.
+Was just restoring it to what it was previously.
+
+> Can't we rather multiply the buff.stx_blksize/512 by 16?
+
+That would work for ext4, but should this be loosened further to give 
+some headroom in case some FS preallocates more? Or is it preferable to 
+keep the test as strict as possible and loosen it when/if failures happen?
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
