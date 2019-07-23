@@ -1,41 +1,56 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 531A371540
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jul 2019 11:33:18 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id AFBDF7157E
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jul 2019 11:49:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D4D7B3C1C81
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jul 2019 11:33:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2F8B23C1D17
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jul 2019 11:49:12 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id F35B13C1860
- for <ltp@lists.linux.it>; Tue, 23 Jul 2019 11:33:14 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 2E4383C183E
+ for <ltp@lists.linux.it>; Tue, 23 Jul 2019 11:49:08 +0200 (CEST)
+Received: from mail-vs1-f65.google.com (mail-vs1-f65.google.com
+ [209.85.217.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1764C600A88
- for <ltp@lists.linux.it>; Tue, 23 Jul 2019 11:33:15 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id A0C26ADA2;
- Tue, 23 Jul 2019 09:33:12 +0000 (UTC)
-Date: Tue, 23 Jul 2019 11:33:11 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20190723093310.GA22630@rei.lan>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 71188600CEF
+ for <ltp@lists.linux.it>; Tue, 23 Jul 2019 11:49:07 +0200 (CEST)
+Received: by mail-vs1-f65.google.com with SMTP id r3so28354080vsr.13
+ for <ltp@lists.linux.it>; Tue, 23 Jul 2019 02:49:07 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=5kWbGsZeNfU+8ZbxaNwG7T1fiLMRUyT1L23IprRd/VE=;
+ b=dU8qqaB9ruIJarthWw/sInajUI94rM8ZvwUeQu3e2jU5RmFdPScvzEJRApu3ucZKHE
+ 3UF1LvO5NsRdz3la3dLHNTbZMMlTzXd705LihGvjr4WzDJdiKoob1nY/ik2cygjtKuNc
+ kM/RXQkvjDi3GwVo9dKtNbjNI2qKzKwzkgte8FdPg/b8yzXQJUYMeZOqriCXbwHq0WwR
+ L0MeZRW4wxq8l7e+T5Zyhtb64qna3sOp6YdDfpAQkeaKaHqCX0pO8fpLI7Q8jm9ax6Qx
+ 26f0Yez7jMTMIXsXXyrSie5YQ8kJqUlxoqCobPqPNL14lC16THGGGAnaXdpj+aVCqfFo
+ K30g==
+X-Gm-Message-State: APjAAAXYq2zLB+/yu9MWsSVVwwB/cgyYpNpyS6ToybJkpRjPSdXc6c34
+ O4wka5Q1EQ0zUVl9VUrI1ro8hJNtEHyC1HMTxtZDkQ==
+X-Google-Smtp-Source: APXvYqxQEZ5+gcqqZLWNnzqCOBQ62LjnV6vheykBFFJWse99erJMpvmFJYvBxkLMzVkI+LVl+RwdCuA6OR3J3+J1xZQ=
+X-Received: by 2002:a67:ed87:: with SMTP id d7mr2825743vsp.130.1563875346187; 
+ Tue, 23 Jul 2019 02:49:06 -0700 (PDT)
+MIME-Version: 1.0
 References: <20190722150316.27395-1-chrubis@suse.cz>
  <CAEemH2dapin31=WrPsA97wgX=2d5rzQy8+D7LVta6nr6BwFN5A@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2dapin31=WrPsA97wgX=2d5rzQy8+D7LVta6nr6BwFN5A@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+ <20190723093310.GA22630@rei.lan>
+In-Reply-To: <20190723093310.GA22630@rei.lan>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 23 Jul 2019 17:48:55 +0800
+Message-ID: <CAEemH2dNcNmrqgg2o2acOk3=aYg9A4HpPnHGEQfjyORm_98pUw@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v2] syscalls/mbind0{2,3,4}: Add basic mbind tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -54,136 +69,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > ...
-> >  create mode 100644 testcases/kernel/syscalls/mbind/mbind.h
-> >  create mode 100644 testcases/kernel/syscalls/mbind/mbind02.c
-> >  create mode 100644 testcases/kernel/syscalls/mbind/mbind03.c
-> >  create mode 100644 testcases/kernel/syscalls/mbind/mbind04.c
-> 
-> Ad Petr commented in the patch V1, Makefile needs updating after
-> adding libltpnuma, otherwise, these test cases won't build
-> successfully.
-> 
-> LDFLAGS += -L$(top_builddir)/libs/libltpnuma
-> LDLIBS  += $(NUMA_LIBS) -lltpnuma
+On Tue, Jul 23, 2019 at 5:33 PM Cyril Hrubis <chrubis@suse.cz> wrote:
 
-My bad, I had outdated LTP tree on my NUMA machine, will fix.
+> > Why not test MPOL_INTERLEAVE for mbind02? I guess it also makes sense
+> > to add here.
+>
+> Good catch, we have a bitmask with a single node, so I guess that this
+> would work as well. Have you tested it?
 
-> > diff --git a/testcases/kernel/syscalls/mbind/mbind02.c
-> > b/testcases/kernel/syscalls/mbind/mbind02.c
-> > ...
-> > +       TEST(mbind(ptr, size, mode, bm->maskp, bm->size + 1, MPOL_MF_STRICT));
-> > +
-> > +       if (TST_RET) {
-> 
-> I think we'd better check if the TST_RET is EIO before getting TPASS?
-> Otherwise, it will miss the failure with any other errno.
-> 
-> if (TST_ERR == EIO) {
->         tst_res(TPASS | TTERRNO,
->                         "mbind(%s, MPOL_MF_STRICT) node %u",
->                          tst_numa_mode_name(mode), node);
-> } else {
->          tst_res(TFAIL | TTERRNO, "mbind(%s, MPOL_MF_STRICT) node %u
-> failed unexpcted",
->                          tst_numa_mode_name(mode), node);
-> }
+Yes, it works for me.
 
-Of course, thanks for catching that.
+> > I remember there are some ppc64le which have non-continuous numa nodes
+> > in hardware configuration. I'm not sure if that special config will
+> > break the mbind04 test, will update details to you after I run this
+> > test on such a system.
+>
+> The LTP NUMA library should handle that, the nodes->cnt is the
+> lenght of the NUMA map and the actual node ids are in the nodes->map[]
+> array.
 
-> > +               tst_res(TPASS | TTERRNO,
-> > +                       "mbind(%s, MPOL_MF_STRICT) node %u",
-> > +                       tst_numa_mode_name(mode), node);
-> > +       } else {
-> > +               tst_res(TFAIL, "mbind(%s, MPOL_MF_STRICT) node %u succeded",
-> > +                       tst_numa_mode_name(mode), node);
-> > +       }
-> > +
-> > +       tst_numa_unmap(ptr, size);
-> > +       numa_free_nodemask(bm);
-> > +}
-> > +
-> > +static void verify_mbind(unsigned int n)
-> > +{
-> > +       int mode = n ? MPOL_PREFERRED : MPOL_BIND;
-> 
-> Why not test MPOL_INTERLEAVE for mbind02? I guess it also makes sense
-> to add here.
-
-Good catch, we have a bitmask with a single node, so I guess that this
-would work as well. Have you tested it?
-
-> > +       .forks_child = 1,
-> 
-> .forks_child is redundant?
-
-Sure.
-
-> > diff --git a/testcases/kernel/syscalls/mbind/mbind03.c b/testcases/kernel/syscalls/mbind/mbind03.c
-> > new file mode 100644
-> > index 000000000..f0622b07f
-> > --- /dev/null
-> > +++ b/testcases/kernel/syscalls/mbind/mbind03.c
-> > ...
-> > +
-> > +void verify_mbind(unsigned int n)
-> > +{
-> > +       int mode = n ? MPOL_PREFERRED : MPOL_BIND;
-> 
-> Adding MPOL_INTERLEAVE?
-
-Here as well, I guess that it should work fine.
-
-> > +       .forks_child = 1,
-> 
-> remove .forks_child.
-> 
-> > diff --git a/testcases/kernel/syscalls/mbind/mbind04.c
-> > +++ b/testcases/kernel/syscalls/mbind/mbind04.c
-> > ...
-> > +
-> > +static void verify_policy(unsigned int node, int mode, unsigned flag)
-> > +{
-> > +       struct bitmask *bm = numa_allocate_nodemask();
-> > +       unsigned int i;
-> > +       void *ptr;
-> > +       unsigned long size = PAGES_ALLOCATED * page_size;
-> > +
-> > +       numa_bitmask_setbit(bm, node);
-> > +
-> > +       ptr = tst_numa_map(NULL, size);
-> > +
-> > +       TEST(mbind(ptr, size, mode, bm->maskp, bm->size + 1, flag));
-> > +
-> > +       if (TST_RET) {
-> > +               tst_res(TFAIL | TTERRNO,
-> > +                       "mbind(%s, %s) node %u",
-> > +                       tst_numa_mode_name(mode), mbind_flag_name(flag), node);
-> 
-> Do numa_free_nodemask(bm) before return?
-
-Will move the numa_free_nodemask(bm) before the if.
-
-> > +static void verify_mbind(unsigned int n)
-> > +{
-> > +       unsigned int i;
-> > +       int mode = n ? MPOL_PREFERRED : MPOL_BIND;
-> > +
-> > +       for (i = 0; i < nodes->cnt; i++) {
-> 
-> I remember there are some ppc64le which have non-continuous numa nodes
-> in hardware configuration. I'm not sure if that special config will
-> break the mbind04 test, will update details to you after I run this
-> test on such a system.
-
-The LTP NUMA library should handle that, the nodes->cnt is the
-lenght of the NUMA map and the actual node ids are in the nodes->map[]
-array.
+You're right, I verified that it doesn't affect by the non-continuous
+node system.
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+Regards,
+Li Wang
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
