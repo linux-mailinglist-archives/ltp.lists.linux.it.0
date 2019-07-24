@@ -2,39 +2,65 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7A4873193
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Jul 2019 16:25:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA37C7367D
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Jul 2019 20:24:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 434ED3C1D15
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Jul 2019 16:25:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 204E13C1D0C
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Jul 2019 20:24:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 206ED3C13D8
- for <ltp@lists.linux.it>; Wed, 24 Jul 2019 16:25:50 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id E653C3C13D8
+ for <ltp@lists.linux.it>; Wed, 24 Jul 2019 20:23:56 +0200 (CEST)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 029901401871
- for <ltp@lists.linux.it>; Wed, 24 Jul 2019 16:25:48 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 4F8D8AEEE;
- Wed, 24 Jul 2019 14:25:48 +0000 (UTC)
-Date: Wed, 24 Jul 2019 16:25:47 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: "piotr.krzysztof.gawel" <piotr.krzysztof.gawel@gmail.com>
-Message-ID: <20190724142520.GA21787@rei.lan>
-References: <5d383661.1c69fb81.3d170.b9f8@mx.google.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <5d383661.1c69fb81.3d170.b9f8@mx.google.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 67E9C600A4D
+ for <ltp@lists.linux.it>; Wed, 24 Jul 2019 20:23:56 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id z1so47979220wru.13
+ for <ltp@lists.linux.it>; Wed, 24 Jul 2019 11:23:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=8v6vcPSs5+bMoShur69VDemvcoZ58MoKcocF2F72s1A=;
+ b=cEs3K/c47iOCV+rF5RhFK55A9wZCsTWgDoHfJj5rZzlErMULRozFWGBVGOZJzm1Ouk
+ m2DCKNnbc7BeCmVuSuUB+Br/RaE89cYYOSepGC/05vIMnDniU3l2ajwVP9R7SGLXbJQW
+ qXubmpUvSJ0rJ8rSgsbvzt9hCohTTjvWsGLDKpMYygByPnmEg1C502cnS71+1tBxP7bp
+ ciR9riNLWIIuUALn7tb5ZFNbcCf5b8uyLJ6QkhWaxkmM7Lpqe7vdxM0KFeS53cC16uW8
+ 4U38CPWPOzpYsXUcO03J7lIcELi0g80MfN0NXajEp83ZM6zqFIYXDjlIMouPsRxS9YGc
+ BBAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=8v6vcPSs5+bMoShur69VDemvcoZ58MoKcocF2F72s1A=;
+ b=j3ysrAnn9ZgPLaX4rapnm9+4NikIVLIRfB76dDHolJtsCkh/XCzqpBxVrCxZSCdItS
+ NQ0n0LZJ3g8N3ctHYlGmtDQnwN7tWHckkzSVS70H+BpE70pb17Uq7G8+le4R5Rgy4hMv
+ nOdj4USkrNLrhZVTJydYjClao6pRRCP9SG7DrjMBWus7N2+LpF4q++YZv1HiBAqpEvXs
+ 2qw1tRGVj/2VXZF729hSp4Nz5BrgMYgMpBRSwjG8TwuFp9uxW6kVTr2ngHS4UPx34zi0
+ m8inB90tmElWKSc5r9drQooHduZtP/FtPQ0rrGbrsZlFuIt8RdAoq5I1pQXdciHyTwD/
+ 6mQg==
+X-Gm-Message-State: APjAAAWivfG1B+7U7EnQj5f67+/g7Ke4tTKi+iLY7BFH3frMTTcLomgV
+ 5DeMH01qzf6tAJWuCxxYSB/XQde0
+X-Google-Smtp-Source: APXvYqwFcN8jH3lYkg4PpWTeWVuO1sjrgr8bOF17hfEg/FzKOkyRBXn1iyGSFyNxzuxX7v+Y7AWkOg==
+X-Received: by 2002:a5d:6a52:: with SMTP id t18mr51856726wrw.178.1563992635843; 
+ Wed, 24 Jul 2019 11:23:55 -0700 (PDT)
+Received: from localhost.localdomain (static-46-238-236-44.awacom.net.
+ [46.238.236.44])
+ by smtp.gmail.com with ESMTPSA id o6sm90944429wra.27.2019.07.24.11.23.55
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Wed, 24 Jul 2019 11:23:55 -0700 (PDT)
+From: Piotr Gawel <piotr.krzysztof.gawel@gmail.com>
+To: ltp@lists.linux.it
+Date: Wed, 24 Jul 2019 20:23:42 +0200
+Message-Id: <1563992624-4968-1-git-send-email-piotr.krzysztof.gawel@gmail.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] Patch for LTP
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH] tst_timer fixes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,35 +72,32 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: piotr.krzysztof.gawel@gmail.com
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> When I run LTP tests with musl libc, I discovered few issues in tst_timer_test.c:
-> 
-> The array with run times was not sorted. As Rich Felker pointed out, cmp() function breaks the contract for qsort() ??? I fixed it.Because array was not sorted, some tests were dumping cores. Plotting function strongly relies on having array sorted. I fixed that in #1 but still prefer defensive
->  programming here ??? protect against buffer overflow i.e. when input data is incorrect.Calculation if average run time is greater than desired time + threshold was incorrect. Each expected run should be in range t < s[i] < t + threshold, so for max.
->  edge: sum(s[i] + threshold) < sum(t + threshold). For i belonging to [d,n] => sum(s[i]) < (n-d)*(t + threshold) and not (n-d)*t + threshold.
-> Please add this patch to main line of LTP if you don???t see issues here. Feel free to modify the change if needed.Thanks in advance!
+Hello LTP community,
 
-Good catch, also thanks for the patch.
+As requested, I've split my previous patch into two and resigned
+from third change (hardening).
+Please review these patches and add them to main stream.
 
-Can you please split the patch into separate patches?
+Kind regards,
+Piotr
 
-You are doing unrelated changes each should be in a separate patch.
+Piotr Gawel (2):
+  tst_timer: fix qsort comparison function
+  tst_timer: fix verification of execution time
 
-Also the comment in the compare function should rather be in the patch
-description than in the code itself.
-
-Lastly but not least if you could send the patches with git-send-email
-or at least inline so that I can comment on the changes in the reply.
+ lib/tst_timer_test.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.7.4
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
