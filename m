@@ -1,48 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFC6B72C81
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Jul 2019 12:46:56 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AEAB72CA2
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Jul 2019 12:52:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1B3433C1D14
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Jul 2019 12:46:56 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 228D43C1CFF
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Jul 2019 12:52:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 5C4713C18F5
- for <ltp@lists.linux.it>; Wed, 24 Jul 2019 12:46:52 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 9B9073C183E
+ for <ltp@lists.linux.it>; Wed, 24 Jul 2019 12:52:38 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E2960100127B
- for <ltp@lists.linux.it>; Wed, 24 Jul 2019 12:46:45 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 1B18F1401A09
+ for <ltp@lists.linux.it>; Wed, 24 Jul 2019 12:52:37 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 817FEAD4C;
- Wed, 24 Jul 2019 10:46:50 +0000 (UTC)
-Date: Wed, 24 Jul 2019 12:46:48 +0200
+ by mx1.suse.de (Postfix) with ESMTP id 5C115AF9F;
+ Wed, 24 Jul 2019 10:52:37 +0000 (UTC)
+Date: Wed, 24 Jul 2019 12:52:36 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Li Wang <liwang@redhat.com>
-Message-ID: <20190724104648.GA17426@rei.lan>
-References: <20190607095213.13372-1-liwang@redhat.com>
- <20190703131005.GA1712@rei>
- <CAEemH2fGUABOfz=Yq6xONgmHwjaiU6n_q=9EXyZz2EUedpuK8Q@mail.gmail.com>
- <CAEemH2eMA78=5eNwJnZPJ1kw1GZnimSyBsQ+e_wrAu3E+JOoPg@mail.gmail.com>
- <20190710125954.GA5628@rei.lan>
- <CAEemH2ffEk0QT_LHdo6NEuy2FRkwe4j1rRgf9C0E8HzQE-V_eA@mail.gmail.com>
- <CAEemH2eYgUn9LFr2OzX8TsuZ_jDrbOccU56h8FkSYYztB_Y8yA@mail.gmail.com>
+Message-ID: <20190724105236.GB17426@rei.lan>
+References: <20190723115937.27247-1-chrubis@suse.cz>
+ <CAEemH2d2+X=qOvfb-B9r-CKTvOmC=0kuDGqci0XLFc3bM9U_fA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEemH2eYgUn9LFr2OzX8TsuZ_jDrbOccU56h8FkSYYztB_Y8yA@mail.gmail.com>
+In-Reply-To: <CAEemH2d2+X=qOvfb-B9r-CKTvOmC=0kuDGqci0XLFc3bM9U_fA@mail.gmail.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH RFC] move_pages12: handle errno EBUSY for
- madvise(..., MADV_SOFT_OFFLINE)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] syscalls/mbind0{2,3,4}: Add basic mbind tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,11 +54,33 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> Would you mind if I apply this patch? or do you have other thoughts
-> besides retry mmap on ENOMEM?
+> > +#include "tst_test.h"
+> > +#include "tst_numa.h"
+> > +
+> > +#ifdef HAVE_NUMA_H
+> 
+> HAVE_NUMA_V2 is needed here, to avoid hitting cross-compilation failures.
+>     https://travis-ci.com/wangli5665/ltp/builds/120315507
 
-My only concern is that we may exit the test too soon if we do not
-attempt to retry.
+Ah, sorry, I've forgotten about these. I will fix that.
+
+> In case you missed some comments from Petr, plz see:
+>     http://lists.linux.it/pipermail/ltp/2019-June/012226.html
+>     http://lists.linux.it/pipermail/ltp/2019-June/012227.html
+>
+> > +
+> > +       TEST(mbind(ptr, size, mode, bm->maskp, bm->size + 1, MPOL_MF_STRICT));
+> > +
+> 
+> Maybe we also need to move the tst_numa_unmap/numa_free_nodemask to
+> here, in case of the mbind02 hit fail and return early.
+
+Sure will do.
+
+> Besides these tiny issues, patch v3 looks good to me.
+
+Should I send a v4 or can I push the patch with your ack with these two
+issues fixed?
 
 -- 
 Cyril Hrubis
