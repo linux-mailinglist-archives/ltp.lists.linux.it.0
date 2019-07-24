@@ -2,53 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE1B872B53
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Jul 2019 11:27:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA30872B52
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Jul 2019 11:27:13 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 943693C1CF5
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Jul 2019 11:27:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 75F393C1CF9
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Jul 2019 11:27:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id ED6DB3C1D00
- for <ltp@lists.linux.it>; Wed, 24 Jul 2019 11:27:18 +0200 (CEST)
-Received: from mail-ua1-f66.google.com (mail-ua1-f66.google.com
- [209.85.222.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 826F03C13D8
+ for <ltp@lists.linux.it>; Wed, 24 Jul 2019 11:27:12 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 0CBAC1A013CC
- for <ltp@lists.linux.it>; Wed, 24 Jul 2019 11:27:18 +0200 (CEST)
-Received: by mail-ua1-f66.google.com with SMTP id o2so18198132uae.10
- for <ltp@lists.linux.it>; Wed, 24 Jul 2019 02:27:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=AJpmcCRmMHYPsjCwAcg/NeAa0ewj1xPSjF4QcUiszjc=;
- b=Exds3BEXyDQUAwB9rT7C6rI190TUZ92mJv35GiBdGUWT8LjQIDDQTb6G5iDwVCjT9F
- wz7JgswIUy5A5sz2IlS8JLvPRkH18NAIpLO8jMyhz7CjzkCzqL+M2wRMygCj86N3l9sP
- /DBtCDHt94qwoslinyKNKAfVYDYmLMnl2hpwN0b8JMuflMWjdgElHaxcjaccIY+uiMdx
- SlH7j3uct8kKTNzWqh31WsUw64wAOtXe/amcyU33SmmyeNwZKZNqdFOHBV6b6xBj2YZ3
- BHpe+/hd09U50/WwUi55usO2j7P/inEpyY997plFQ0gHhrti3Lx8D6j1omEf9UEjmUCW
- aB6Q==
-X-Gm-Message-State: APjAAAUk1CKuo8l5hhQTXRD25kFAIrxVbON1FfQJpSlqz7pqaxXD5Ayg
- 5zL2uYuP/CFVaabh4ttsDMAFA3Vuypn9G17ISa5k7Q==
-X-Google-Smtp-Source: APXvYqzgBLXhHrpHa9RpRaqF2Y7ORe7UdIZ2TZBtqeA4uoX3j0bNzwEADRgCgbU8kecrOvg3jxBEASZuwsGi9/GWr6E=
-X-Received: by 2002:ab0:74c7:: with SMTP id f7mr2191312uaq.106.1563960436854; 
- Wed, 24 Jul 2019 02:27:16 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D4935601CBE
+ for <ltp@lists.linux.it>; Wed, 24 Jul 2019 11:27:11 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 1938AAF40
+ for <ltp@lists.linux.it>; Wed, 24 Jul 2019 09:27:11 +0000 (UTC)
+Date: Wed, 24 Jul 2019 11:27:15 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <20190724092715.GB4917@dell5510>
+References: <20190724080328.16145-1-rpalethorpe@suse.com>
+ <20190724080328.16145-2-rpalethorpe@suse.com>
 MIME-Version: 1.0
-References: <20190723115937.27247-1-chrubis@suse.cz>
-In-Reply-To: <20190723115937.27247-1-chrubis@suse.cz>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 24 Jul 2019 17:27:04 +0800
-Message-ID: <CAEemH2d2+X=qOvfb-B9r-CKTvOmC=0kuDGqci0XLFc3bM9U_fA@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20190724080328.16145-2-rpalethorpe@suse.com>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] syscalls/mbind0{2,3,4}: Add basic mbind tests
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] Essential headers for BPF map creation
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,40 +47,49 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+Hi Richie,
 
-On Tue, Jul 23, 2019 at 7:59 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
-> +#include "tst_test.h"
-> +#include "tst_numa.h"
-> +
-> +#ifdef HAVE_NUMA_H
+> ---
+>  include/lapi/bpf.h               | 242 +++++++++++++++++++++++++++++++
+>  include/lapi/syscalls/aarch64.in |   1 +
+>  include/lapi/syscalls/i386.in    |   1 +
+>  include/lapi/syscalls/s390.in    |   1 +
+>  include/lapi/syscalls/sparc.in   |   1 +
+>  include/lapi/syscalls/x86_64.in  |   1 +
+>  6 files changed, 247 insertions(+)
+>  create mode 100644 include/lapi/bpf.h
 
-HAVE_NUMA_V2 is needed here, to avoid hitting cross-compilation failures.
-    https://travis-ci.com/wangli5665/ltp/builds/120315507
+> diff --git a/include/lapi/bpf.h b/include/lapi/bpf.h
+> new file mode 100644
+> index 000000000..369de0175
+> --- /dev/null
+> +++ b/include/lapi/bpf.h
+> @@ -0,0 +1,242 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2019 Richard Palethorpe <rpalethorpe@suse.com>
+> + *
+> + * Essential Extended Berkeley Packet Filter (eBPF) headers
+> + *
+> + * Mostly copied/adapted from linux/bpf.h and libbpf so that we can perform
+> + * some eBPF testing without any external dependencies.
+Probably the only sane way. But it will be uncomfortable to keep the header
+updated. Simple copy of include/uapi/linux/bpf.h would be easier
+(but we'd require to have kernel headers anyway (<linux/types.h> and
+<linux/bpf_common.h>).
 
-In case you missed some comments from Petr, plz see:
-    http://lists.linux.it/pipermail/ltp/2019-June/012226.html
-    http://lists.linux.it/pipermail/ltp/2019-June/012227.html
-
-> +
-> +       TEST(mbind(ptr, size, mode, bm->maskp, bm->size + 1, MPOL_MF_STRICT));
-> +
-
-Maybe we also need to move the tst_numa_unmap/numa_free_nodemask to
-here, in case of the mbind02 hit fail and return early.
-
-Besides these tiny issues, patch v3 looks good to me.
-
---
-Regards,
-Li Wang
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
