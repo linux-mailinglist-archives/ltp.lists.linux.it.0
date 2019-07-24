@@ -1,78 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1BB974151
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 00:17:51 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6285C7425D
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 01:52:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2A8E43C1CFC
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 00:17:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 25E243C1CF3
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 01:52:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 781BD3C14BC
- for <ltp@lists.linux.it>; Thu, 25 Jul 2019 00:17:48 +0200 (CEST)
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 9B0D23C0300
+ for <ltp@lists.linux.it>; Thu, 25 Jul 2019 01:52:15 +0200 (CEST)
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id BD027200C13
- for <ltp@lists.linux.it>; Thu, 25 Jul 2019 00:17:47 +0200 (CEST)
-Received: by mail-pg1-x543.google.com with SMTP id n9so15673614pgc.1
- for <ltp@lists.linux.it>; Wed, 24 Jul 2019 15:17:47 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id DFBE810006B4
+ for <ltp@lists.linux.it>; Thu, 25 Jul 2019 01:52:01 +0200 (CEST)
+Received: by mail-pf1-x441.google.com with SMTP id b13so21720325pfo.1
+ for <ltp@lists.linux.it>; Wed, 24 Jul 2019 16:52:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=HTNb3qQ9guy8DvE8F62NBS689nVWePvWU3zNIZoLZPE=;
- b=tkcOmR6PLyUxupF4pFDV9DipC8bFVbr7EeuyLC49voUO9azkWW4aW+LS0wAdnq9JNX
- Jk5nJNQdQoDbFPBJJoSFtMN77FNjUgMS6U4jI7Wfymthwts/VkvuTNbufkeeUK7Eq0fW
- Yqcrt7ht9vd+3NLq9TPzKPsaBehLhPCw3bN/u+2iuNXiH7f2bHHU20a6hu0sH8bjdwP4
- 1sEwXmSp+HLZrLg4c/mpshgqEYkTwVdpJmprMTq00qvks1L1/T+TiZtGJ5B99RNn1neJ
- V0H1qA5c5AZjFjPGGhGx5z5ihIRjaSePD6wWr6LSdLLXj2CcORPWdgMd6QsHiTmVBQW+
- Ba0g==
+ bh=NoALU55vro1UsnS1IeUYvQSSrit2K4YU92w/F+e8B8g=;
+ b=SqYJN4bQQIJoUNZRa9Kri+n1FI7MAwRc9Vl4JnjC2/tvdxnJDZ37vIEfsMMwmSpR81
+ ssiyL94+1tXqAYxPBFMAYbup/d+NSmjoMOO8u9CRMCIb4s4ag7m7CCfUCP06OCuxLDBu
+ IHxSTeqMvCwrVomfxcHVqm+S84IDkazMU6grlHPZNwVLRJRA1XRvRNV/lU47ODu33DE/
+ l4pvUPDDmxVLknKRDVOlblp0iu8bFK03LUsbOxVEC97EGAfCuha/qoFBEGwIMbqkeUQq
+ LR5ymq7oMaE/20MMtil3G0IHLEql+J6T3YqLp0OEUqIsmfiRSK9CVfJnIx0FS7dgpmpR
+ HPOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=HTNb3qQ9guy8DvE8F62NBS689nVWePvWU3zNIZoLZPE=;
- b=N/9okrTwRX04argPA2EGScnci1XvcAvsgH0LpUYQ5DBvDIIUJnX98C9BDmCja4Nz5U
- PooO33yM9dX8tQJ0eHjWlWn4FSiZ6KhjwyFS6B/Ldi1fX4cyS3/YTHXj7CiCcMqzoxcx
- VYfhPX/kyqXycs+uSZcdaBialK4ugdy9tw8127EDF1brl29sZ5RuJp/ia/09aXl5wGsA
- hkXBs7OC/tKgzxyTjtl5E/AEUDOCCbscxazO8ldpRTLtpyNB5Ie+KrsMs/slv1XCPoV/
- +Tg0HntHjtUl5kHmcPZaoh32rQfUrnt40jhc5z0uX2guDIfaxvKdNdKnxpgpqw2hhuJJ
- 1/4A==
-X-Gm-Message-State: APjAAAWws3bfgdvwMzY56Rhbz6x5zFrDSkTMfyDSBorY4CumPMfkBlSB
- ea8kg4xsrGU1698gEVIGM0p8Wg==
-X-Google-Smtp-Source: APXvYqzLtG4aKWNi47QJ/hPlVUMMLxIfwxSEMy49K4k+vXzFRpzEt1nuNu5niWJIjA0BJoHCB8jbrA==
-X-Received: by 2002:a17:90a:5884:: with SMTP id
- j4mr93042999pji.142.1564006665651; 
- Wed, 24 Jul 2019 15:17:45 -0700 (PDT)
+ bh=NoALU55vro1UsnS1IeUYvQSSrit2K4YU92w/F+e8B8g=;
+ b=ereQgwcGyLi1R2ObA4dKJOlnoUR2RrYW5u7N2xf6dnWR3CWawrVW6tjDY970szoOkx
+ vCCXKIESXvXSLkQ0O91GGomhExmc3zpxTHUPnOHX5WQvhCLhOJo/h1tX/r+QJ1QsAh2v
+ qH4qrwzAXcnW97fmNMMcBjovZrR+LNNO5UXCMjmuB8AMeAGt/4Jx/IazScy6eNNLjhBy
+ nn8CHuvjpiE8FK1wCTZac7p88XzJ6mxY0Ws3OPdhriNh4bZiKJ3WdyD7de5WrxavBp63
+ oE9zuXjh5Qd2cdoqK/pTAd3MyNjIpEuNDNop/H76LEzKOPgnokEu0t8zYz5slXoRQKap
+ yQuw==
+X-Gm-Message-State: APjAAAVoCX4fK42qrWOhJiFjivEWEgaWaqPW2tugT/Z938b3/RfVw2/+
+ UQ2KS5T6iu0WtfCnuWbyaMcnYQ==
+X-Google-Smtp-Source: APXvYqxWF8JsYLFJW+7lU81cz2ZFdgZAz51S2U9bjQBK6FemqFw6pK/SZAij2GAShbgmRzWEA2BF+A==
+X-Received: by 2002:a63:fb14:: with SMTP id o20mr71787470pgh.136.1564012325262; 
+ Wed, 24 Jul 2019 16:52:05 -0700 (PDT)
 Received: from ?IPv6:2620:0:1000:2514:1b4a:f4aa:2d85:6656?
  ([2620:0:1000:2514:1b4a:f4aa:2d85:6656])
- by smtp.gmail.com with ESMTPSA id j15sm69436434pfn.150.2019.07.24.15.17.44
+ by smtp.gmail.com with ESMTPSA id 22sm55336979pfu.179.2019.07.24.16.52.04
  (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
- Wed, 24 Jul 2019 15:17:45 -0700 (PDT)
+ Wed, 24 Jul 2019 16:52:04 -0700 (PDT)
 To: Cyril Hrubis <chrubis@suse.cz>
-References: <20190722194439.161904-1-smuckle@google.com>
- <20190723110306.GB22630@rei.lan>
- <1be1f0b8-170a-ac92-b86f-924e2d7f2295@google.com>
- <20190724115735.GC17426@rei.lan>
+References: <20190723203133.202257-1-smuckle@google.com>
+ <20190724134155.GC19478@rei.lan>
 From: Steve Muckle <smuckle@google.com>
-Message-ID: <75ded79c-da38-b648-fcfd-a423cc5f0e89@google.com>
-Date: Wed, 24 Jul 2019 15:17:44 -0700
+Message-ID: <2d8ac294-d537-43d2-eb41-f2fcfed82a2c@google.com>
+Date: Wed, 24 Jul 2019 16:52:03 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20190724115735.GC17426@rei.lan>
+In-Reply-To: <20190724134155.GC19478@rei.lan>
 Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
  USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/statx01: loosen the stx_blocks check
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] syscalls/sendmmsg: add new test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,54 +87,135 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 7/24/19 4:57 AM, Cyril Hrubis wrote:
-> Hi!
->>> Why 128?
->>
->> Was just restoring it to what it was previously.
->>
->>> Can't we rather multiply the buff.stx_blksize/512 by 16?
->>
->> That would work for ext4, but should this be loosened further to give
->> some headroom in case some FS preallocates more? Or is it preferable to
->> keep the test as strict as possible and loosen it when/if failures happen?
+Hi Cyril, thanks for your feedback.
+
+On 7/24/19 6:42 AM, Cyril Hrubis wrote:
+>> diff --git a/configure.ac b/configure.ac
+>> index 3dcf282e8..5e4e7f1f9 100644
+>> --- a/configure.ac
+>> +++ b/configure.ac
+>> @@ -82,9 +82,11 @@ AC_CHECK_FUNCS([ \
+>>       pwritev \
+>>       pwritev2 \
+>>       readlinkat \
+>> +    recvmmsg \
+>>       renameat \
+>>       renameat2 \
+>>       sched_getcpu \
+>> +    sendmmsg \
+>>       sigpending \
+>>       splice \
+>>       stime \
+>> @@ -253,6 +255,7 @@ LTP_CHECK_TIME
+>>   LTP_CHECK_TIMERFD
+>>   test "x$with_tirpc" = xyes && LTP_CHECK_TIRPC
+>>   LTP_CHECK_TPACKET_V3
+>> +LTP_CHECK_MMSGHDR
 > 
-> That is hard to decide. I would go for the lowest limit that works for
-> everybody.
+> This seems to be already there under the # custom functions comment.
+
+Ah yes looks like this got added while I was sitting on the patch, and I 
+failed to notice it when I rebased. Removed.
+
+>> +	addr.sin_family = AF_INET;
+>> +	addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+>> +	addr.sin_port = htons(port);
 > 
-> Also for me ext4 allocates only one block for the file no matter what I
-> do, something has to be tuned differently in your setup.
+> The port returned by TST_GET_UNUSED_PORT() is already in network byte
+> order, we found a bug recently where test was failing randomly since if
+> we attempt to convert the value we may end up with priviledged port
+> number if we are unlucky.
+
+Fixed.
+
 > 
-> Isn't it just a difference in the block size and inode size?
+>> +	SAFE_CONNECT(send_sockfd, (struct sockaddr *) &addr, sizeof(addr));
+>> +
+>> +	memset(msg1, 0, sizeof(msg1));
+>> +	msg1[0].iov_base = "one";
+>> +	msg1[0].iov_len = 3;
+>> +	msg1[1].iov_base = "two";
+>> +	msg1[1].iov_len = 3;
+>> +
+>> +	memset(&msg2, 0, sizeof(msg2));
+>> +	msg2.iov_base = "three";
+>> +	msg2.iov_len = 5;
+>> +
+>> +	memset(msg, 0, sizeof(msg));
+>> +	msg[0].msg_hdr.msg_iov = msg1;
+>> +	msg[0].msg_hdr.msg_iovlen = 2;
+>> +
+>> +	msg[1].msg_hdr.msg_iov = &msg2;
+>> +	msg[1].msg_hdr.msg_iovlen = 1;
+>> +
+>> +	sem_wait(&send_sem);
+>> +
+>> +	while (msgs) {
+>> +		retval = do_sendmmsg(send_sockfd, msg, msgs, 0);
+>> +		if (retval < 0) {
+>> +			/*
+>> +			 * tst_brk is used here so reader is not left waiting
+>> +			 * for data - note timeout for recvmmsg does not work
+>> +			 * as one would expect (see man page)
+>> +			 */
+>> +			tst_brk(TBROK|TTERRNO, "sendmmsg failed");
+>> +			goto out;
+>> +		}
+>> +		msgs -= retval;
+> 
+> Wouldn't this resend the start of the message again if we got
+> interrupted in the middle?
 
-On my platform stx_blocks = 16 (8kb) and stx_blksize = 4096, so two fs 
-blocks are being allocated.
+The failure modes aren't clear to me. Based on the man page for sendmmsg 
+it sounded like it returns the number of messages successfully sent, and 
+I assumed that unsuccessfully sent messages were not partially sent? The 
+sendmsg page says that it only sends messages that can fit atomically in 
+the underlying protocol.
 
-Interestingly, if I create a 256 byte file on this Android platform in 
-/data, it 4kb:
+> I guess that the correct retry would loop over the messages and
+> decrement the iov_len and shift the buffers based on the msg_len.
+> Something as:
+> 
+> retry:
+> 	retval = do_sendmmsg(send_sockfd, msg, msgs, 0);
+> 
+> 	for (i = 0; i < retval; i++) {
+> 		int transmitted = msg[i].msg_len;
+> 		msg[i].msg_len = 0;
+> 		for (j = 0; j < msg[i].msg_iovlen; j++) {
+> 			int len = msg[i].msg_iov[j].msg_iovlen;
+> 
+> 			/* whole buffer send */
+> 			if (transmitted >= len) {
+> 				transmitted -= len;
+> 				msg[i].msg_iov[j].msg_iovlen = 0;
+> 				continue;
+> 			}
+> 
+> 			msg[i].msg_iov[j].msg_iovlen -= transmitted;
+> 			msg[i].msg_iov[j].msg_iov += transmitted;
+> 
+> 			goto retry;
+> 		}
+> 	}
+> 
+> Also I'm pretty sure that we will actually happen to write the whole
+> buffer unless we fill up the kernel buffers, which we hardly will with
+> a few bytes. So maybe we should just send the message here and check
+> that the msg_len are filled correctly in this case.
 
-vsoc_x86:/data # dd if=/dev/zero of=test_file bs=1 count=256
-256+0 records in
-256+0 records out
-256 bytes (256 B) copied, 0.000926 s, 270 K/s
-vsoc_x86:/data # ls -ls test_file
-4 -rw-rw-rw- 1 root root 256 2019-07-24 19:28 test_file
+That works for me, after all if we get unlucky and cannot send the first 
+message in the vector, sendmmsg() returns an error and the test will 
+fail. So retrying on the second message is a bit inconsistent.
 
-However if I go into the directory specified in TMPDIR, it takes 8kb:
+>> +	addr.sin_port = htons(port);
+> 
+> Here as well, the htons() should be dropped.
 
-vsoc_x86:/data/local/tmp # dd if=/dev/zero of=test_file bs=1 count=256
-256+0 records in
-256+0 records out
-256 bytes (256 B) copied, 0.000927 s, 270 K/s
-vsoc_x86:/data/local/tmp # ls -ls
-total 8
-8 -rw-rw-rw- 1 root root 256 2019-07-24 19:30 test_file
+Fixed.
 
-It is also 8kb if I create it in /data/local, but not if I create a 
-directory at /data/testdir and create the file there.
-
-Perhaps the x-attributes are spilling out of the inode in some cases and 
-into a data block? I don't know enough about filesystems to say.
+thanks,
+steve
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
