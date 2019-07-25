@@ -2,56 +2,65 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A756D7430E
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 04:02:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6760174323
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 04:15:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6259A3C1CF8
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 04:02:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 128253C1D1C
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 04:15:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id F2F293C1C90
- for <ltp@lists.linux.it>; Thu, 25 Jul 2019 04:02:24 +0200 (CEST)
-Received: from mail-vs1-f67.google.com (mail-vs1-f67.google.com
- [209.85.217.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 467F03C1C95;
+ Thu, 25 Jul 2019 04:15:18 +0200 (CEST)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D2FE61A007E9
- for <ltp@lists.linux.it>; Thu, 25 Jul 2019 04:02:23 +0200 (CEST)
-Received: by mail-vs1-f67.google.com with SMTP id 2so32660113vso.8
- for <ltp@lists.linux.it>; Wed, 24 Jul 2019 19:02:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=u3Qh5CURFrtIITH2FUglwFi7IjBMC3BWsWOHBFi66JE=;
- b=Qvp+0HKHJJUrbssAOVW1FvR76FHbfuTbmJYh+XtL/SnysJ7x2FIo3v8hOycHVv1O/f
- E7mSbOo7SjhX5La0wL8t5XJcmdFGeoGFZvCgk1Le6y3Z/mgr+qTPbGI9i6jzfeQg6g4g
- vz0UdMCRQP6OHFbDYmxmXfMPABOVyCEI7K6mswqPKgGf7ePWFuRoZ9QyFVot6AjwuFoW
- Txj/Rrmsifl5F6eFyVuPUJX/El1h4svyc8sjkfb13k0G+C+qwwmlYr6mTZqGXpkFPYT7
- CRP55mpjpIbfC8QGpFQXQjXmcQLQM/pA0DEPEFaCc3Stwx103klqo+a/dJMV8i+SPjq1
- SBLQ==
-X-Gm-Message-State: APjAAAU1p+gHOmBVY3rWNsn2opzUke4M74ki2YCJjfNs3baWPOyVXTO8
- PyBk3oPt6QoS+HHU5VAyf+BQZzpemKYEFBo67ZjIPw==
-X-Google-Smtp-Source: APXvYqwZ0ZdbQkFXxlkXaocEWweNggiad8VOMIdI7X8x8U+N2LefZy+iXMuMIJm6pxIDWPqMNRdthJNaAI6G9qs8T5o=
-X-Received: by 2002:a67:ed87:: with SMTP id d7mr10642960vsp.130.1564020142724; 
- Wed, 24 Jul 2019 19:02:22 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 409461001572;
+ Thu, 25 Jul 2019 04:15:10 +0200 (CEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 24 Jul 2019 19:15:13 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,305,1559545200"; d="scan'208";a="177836772"
+Received: from fmsmsx103.amr.corp.intel.com ([10.18.124.201])
+ by FMSMGA003.fm.intel.com with ESMTP; 24 Jul 2019 19:15:13 -0700
+Received: from fmsmsx155.amr.corp.intel.com (10.18.116.71) by
+ FMSMSX103.amr.corp.intel.com (10.18.124.201) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Wed, 24 Jul 2019 19:15:12 -0700
+Received: from shsmsx101.ccr.corp.intel.com (10.239.4.153) by
+ FMSMSX155.amr.corp.intel.com (10.18.116.71) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Wed, 24 Jul 2019 19:15:12 -0700
+Received: from shsmsx106.ccr.corp.intel.com ([169.254.10.240]) by
+ SHSMSX101.ccr.corp.intel.com ([169.254.1.80]) with mapi id 14.03.0439.000;
+ Thu, 25 Jul 2019 10:15:10 +0800
+From: "Yu, SiliangX" <siliangx.yu@intel.com>
+To: ltp <ltp@lists.linux.it>, ltp-request <ltp-request@lists.linux.it>,
+ ltp-owner <ltp-owner@lists.linux.it>, "Zhang, Yixin" <yixin.zhang@intel.com>, 
+ "Chen, Jerry T" <jerry.t.chen@intel.com>
+Thread-Topic: [PATCH LTP] -Cpuhotplug06:Skip the test if "htop" is used.
+Thread-Index: AQHVQowJIWE3DqeTYEas9xRCNS1Aoqbal72g
+Date: Thu, 25 Jul 2019 02:15:10 +0000
+Message-ID: <93CB9FBFC0191046943085F64FD50730012E1660@SHSMSX106.ccr.corp.intel.com>
+References: <20190724234502.105332-1-siliangx.yu@intel.com>
+In-Reply-To: <20190724234502.105332-1-siliangx.yu@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.0.600.7
+dlp-reaction: no-action
+x-originating-ip: [10.239.127.40]
 MIME-Version: 1.0
-References: <20190723115937.27247-1-chrubis@suse.cz>
- <CAEemH2d2+X=qOvfb-B9r-CKTvOmC=0kuDGqci0XLFc3bM9U_fA@mail.gmail.com>
- <20190724105236.GB17426@rei.lan>
-In-Reply-To: <20190724105236.GB17426@rei.lan>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 25 Jul 2019 10:02:11 +0800
-Message-ID: <CAEemH2dkj_9sg4H7u69_cGWUhoLWGQQmT-_2rdPf-7umLzx3Xg@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] syscalls/mbind0{2,3,4}: Add basic mbind tests
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH LTP] -Cpuhotplug06:Skip the test if "htop" is used.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,25 +72,52 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+Hi,all
 
-> Should I send a v4 or can I push the patch with your ack with these two
-> issues fixed?
+So sorry for this.
+Please ignore this mail.
 
-I have done around build & test on kind of systems(x86_64, ppc64le)
-and confirmed it works well. I think we can push it.
+Best Regards
+Siliang Yu
 
-    Acked-by: Li Wang <liwang@redhat.com>
 
--- 
-Regards,
-Li Wang
+-----Original Message-----
+From: Yu, SiliangX 
+Sent: Thursday, July 25, 2019 7:45 AM
+To: ltp <ltp@lists.linux.it>; ltp-request <ltp-request@lists.linux.it>; ltp-owner <ltp-owner@lists.linux.it>; Yu, SiliangX <siliangx.yu@intel.com>; Zhang, Yixin <yixin.zhang@intel.com>; Chen, Jerry T <jerry.t.chen@intel.com>
+Subject: [PATCH LTP] -Cpuhotplug06:Skip the test if "htop" is used.
+
+From: "Yu,Siliang" <siliangx.yu@intel.com>
+
+In some distro, "htop" is used instead "top", which doesn't support '-b'. Skip the test if "htop" is used.
+---
+ .../kernel/hotplug/cpu_hotplug/functional/cpuhotplug06.sh    | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/testcases/kernel/hotplug/cpu_hotplug/functional/cpuhotplug06.sh b/testcases/kernel/hotplug/cpu_hotplug/functional/cpuhotplug06.sh
+index 18a11197e..ecf4eedea 100755
+--- a/testcases/kernel/hotplug/cpu_hotplug/functional/cpuhotplug06.sh
++++ b/testcases/kernel/hotplug/cpu_hotplug/functional/cpuhotplug06.sh
+@@ -49,6 +49,11 @@ done
+ 
+ LOOP_COUNT=1
+ 
++LNTOP=$(ls -l $(which top) | cut -s -d ">" -f2) if [[ -n $LNTOP ]] && 
++[[ $LNTOP != "top" ]] ; then
++	tst_brkm TCONF "Command doesn't support , Skip the test..."
++fi
++
+ if [ $(get_present_cpus_num) -lt 2 ]; then
+ 	tst_brkm TCONF "system doesn't have required CPU hotplug support"
+ fi
+--
+2.22.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
