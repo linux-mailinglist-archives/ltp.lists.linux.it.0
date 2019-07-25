@@ -2,65 +2,46 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6760174323
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 04:15:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7E3E74407
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 05:37:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 128253C1D1C
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 04:15:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6FD433C1CF9
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 05:37:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 467F03C1C95;
- Thu, 25 Jul 2019 04:15:18 +0200 (CEST)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 582693C02C2
+ for <ltp@lists.linux.it>; Thu, 25 Jul 2019 05:37:22 +0200 (CEST)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 409461001572;
- Thu, 25 Jul 2019 04:15:10 +0200 (CEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2019 19:15:13 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,305,1559545200"; d="scan'208";a="177836772"
-Received: from fmsmsx103.amr.corp.intel.com ([10.18.124.201])
- by FMSMGA003.fm.intel.com with ESMTP; 24 Jul 2019 19:15:13 -0700
-Received: from fmsmsx155.amr.corp.intel.com (10.18.116.71) by
- FMSMSX103.amr.corp.intel.com (10.18.124.201) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Wed, 24 Jul 2019 19:15:12 -0700
-Received: from shsmsx101.ccr.corp.intel.com (10.239.4.153) by
- FMSMSX155.amr.corp.intel.com (10.18.116.71) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Wed, 24 Jul 2019 19:15:12 -0700
-Received: from shsmsx106.ccr.corp.intel.com ([169.254.10.240]) by
- SHSMSX101.ccr.corp.intel.com ([169.254.1.80]) with mapi id 14.03.0439.000;
- Thu, 25 Jul 2019 10:15:10 +0800
-From: "Yu, SiliangX" <siliangx.yu@intel.com>
-To: ltp <ltp@lists.linux.it>, ltp-request <ltp-request@lists.linux.it>,
- ltp-owner <ltp-owner@lists.linux.it>, "Zhang, Yixin" <yixin.zhang@intel.com>, 
- "Chen, Jerry T" <jerry.t.chen@intel.com>
-Thread-Topic: [PATCH LTP] -Cpuhotplug06:Skip the test if "htop" is used.
-Thread-Index: AQHVQowJIWE3DqeTYEas9xRCNS1Aoqbal72g
-Date: Thu, 25 Jul 2019 02:15:10 +0000
-Message-ID: <93CB9FBFC0191046943085F64FD50730012E1660@SHSMSX106.ccr.corp.intel.com>
-References: <20190724234502.105332-1-siliangx.yu@intel.com>
-In-Reply-To: <20190724234502.105332-1-siliangx.yu@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.0.600.7
-dlp-reaction: no-action
-x-originating-ip: [10.239.127.40]
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 154166011D4
+ for <ltp@lists.linux.it>; Thu, 25 Jul 2019 05:37:23 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id B8A683179164;
+ Thu, 25 Jul 2019 03:37:18 +0000 (UTC)
+Received: from dhcp-3-207.nay.redhat.com (dhcp-3-207.nay.redhat.com
+ [10.66.3.207])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 9F34C6061B;
+ Thu, 25 Jul 2019 03:37:17 +0000 (UTC)
+From: Li Wang <liwang@redhat.com>
+To: ltp@lists.linux.it
+Date: Thu, 25 Jul 2019 11:37:13 +0800
+Message-Id: <20190725033713.8551-1-liwang@redhat.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+ (mx1.redhat.com [10.5.110.41]); Thu, 25 Jul 2019 03:37:18 +0000 (UTC)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH LTP] -Cpuhotplug06:Skip the test if "htop" is used.
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] move_pages12: handle errno EBUSY for madvise(...,
+ MADV_SOFT_OFFLINE)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,46 +58,149 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,all
+The test#2 is going to simulate the race condition, where move_pages()
+and soft offline are called on a single hugetlb page concurrently. But,
+it return EBUSY and report FAIL in soft-offline a moving hugepage as a
+result sometimes.
 
-So sorry for this.
-Please ignore this mail.
+The root cause seems a call to page_huge_active return false, then the
+soft offline action will failed to isolate hugepage with EBUSY return as
+below call trace:
 
-Best Regards
-Siliang Yu
+In Parent:
+  madvise(..., MADV_SOFT_OFFLINE)
+  ...
+    soft_offline_page
+      soft_offline_in_use_page
+        soft_offline_huge_page
+          isolate_huge_page
+            page_huge_active  --> return false at here
 
+In Child:
+  move_pages()
+  ...
+    do_move_pages
+      do_move_pages_to_node
+        add_page_for_migration
+          isolate_huge_page   --> it has already isolated the hugepage
 
------Original Message-----
-From: Yu, SiliangX 
-Sent: Thursday, July 25, 2019 7:45 AM
-To: ltp <ltp@lists.linux.it>; ltp-request <ltp-request@lists.linux.it>; ltp-owner <ltp-owner@lists.linux.it>; Yu, SiliangX <siliangx.yu@intel.com>; Zhang, Yixin <yixin.zhang@intel.com>; Chen, Jerry T <jerry.t.chen@intel.com>
-Subject: [PATCH LTP] -Cpuhotplug06:Skip the test if "htop" is used.
+In this patch, I simply regard the returned EBUSY as a normal situation and
+mask it in error handler. Because move_pages is calling add_page_for_migration
+to isolate hugepage before do migration, so that's very possible to hit the
+collision and return EBUSY on the same page.
 
-From: "Yu,Siliang" <siliangx.yu@intel.com>
+Error log:
+----------
+move_pages12.c:235: INFO: Free RAM 8386256 kB
+move_pages12.c:253: INFO: Increasing 2048kB hugepages pool on node 0 to 4
+move_pages12.c:263: INFO: Increasing 2048kB hugepages pool on node 1 to 6
+move_pages12.c:179: INFO: Allocating and freeing 4 hugepages on node 0
+move_pages12.c:179: INFO: Allocating and freeing 4 hugepages on node 1
+move_pages12.c:169: PASS: Bug not reproduced
+move_pages12.c:81: FAIL: madvise failed: SUCCESS
+move_pages12.c:81: FAIL: madvise failed: SUCCESS
+move_pages12.c:143: BROK: mmap((nil),4194304,3,262178,-1,0) failed: ENOMEM
+move_pages12.c:114: FAIL: move_pages failed: EINVAL
 
-In some distro, "htop" is used instead "top", which doesn't support '-b'. Skip the test if "htop" is used.
+Dmesg:
+------
+[165435.492170] soft offline: 0x61c00 hugepage failed to isolate
+[165435.590252] soft offline: 0x61c00 hugepage failed to isolate
+[165435.725493] soft offline: 0x61400 hugepage failed to isolate
+
+Other two fixes in this patch:
+ * use TERRNO(but not TTERRNO) to catch madvise(..., MADV_SOFT_OFFLINE) errno
+ * go out test when hugepage allocating failed with ENOMEM
+
+Signed-off-by: Li Wang <liwang@redhat.com>
 ---
- .../kernel/hotplug/cpu_hotplug/functional/cpuhotplug06.sh    | 5 +++++
- 1 file changed, 5 insertions(+)
 
-diff --git a/testcases/kernel/hotplug/cpu_hotplug/functional/cpuhotplug06.sh b/testcases/kernel/hotplug/cpu_hotplug/functional/cpuhotplug06.sh
-index 18a11197e..ecf4eedea 100755
---- a/testcases/kernel/hotplug/cpu_hotplug/functional/cpuhotplug06.sh
-+++ b/testcases/kernel/hotplug/cpu_hotplug/functional/cpuhotplug06.sh
-@@ -49,6 +49,11 @@ done
+Notes:
+    v1 --> v2
+       attempt to retry the mmap() on ENOMEM.
+
+ .../kernel/syscalls/move_pages/move_pages12.c | 38 ++++++++++++++-----
+ 1 file changed, 29 insertions(+), 9 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/move_pages/move_pages12.c b/testcases/kernel/syscalls/move_pages/move_pages12.c
+index 964b712fb..203402cfb 100644
+--- a/testcases/kernel/syscalls/move_pages/move_pages12.c
++++ b/testcases/kernel/syscalls/move_pages/move_pages12.c
+@@ -77,8 +77,8 @@ static void *addr;
+ static int do_soft_offline(int tpgs)
+ {
+ 	if (madvise(addr, tpgs * hpsz, MADV_SOFT_OFFLINE) == -1) {
+-		if (errno != EINVAL)
+-			tst_res(TFAIL | TTERRNO, "madvise failed");
++		if (errno != EINVAL && errno != EBUSY)
++			tst_res(TFAIL | TERRNO, "madvise failed");
+ 		return errno;
+ 	}
+ 	return 0;
+@@ -121,7 +121,8 @@ static void do_child(int tpgs)
  
- LOOP_COUNT=1
+ static void do_test(unsigned int n)
+ {
+-	int i;
++	int i, ret, retrys;
++	void *ptr;
+ 	pid_t cpid = -1;
+ 	int status;
+ 	unsigned int twenty_percent = (tst_timeout_remaining() / 5);
+@@ -135,19 +136,37 @@ static void do_test(unsigned int n)
+ 	if (cpid == 0)
+ 		do_child(tcases[n].tpages);
  
-+LNTOP=$(ls -l $(which top) | cut -s -d ">" -f2) if [[ -n $LNTOP ]] && 
-+[[ $LNTOP != "top" ]] ; then
-+	tst_brkm TCONF "Command doesn't support , Skip the test..."
-+fi
+-	for (i = 0; i < LOOPS; i++) {
+-		void *ptr;
++	for (i = 0; i < LOOPS; retrys = 0, i++) {
++retry:
++		ptr = mmap(NULL, tcases[n].tpages * hpsz,
++				PROT_READ | PROT_WRITE,
++				MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB, -1, 0);
++		if (ptr == MAP_FAILED) {
++			if (errno == ENOMEM) {
++				if (retrys < LOOPS) {
++					retrys++;
++					usleep(1000);
++					goto retry;
++				}
 +
- if [ $(get_present_cpus_num) -lt 2 ]; then
- 	tst_brkm TCONF "system doesn't have required CPU hotplug support"
- fi
---
-2.22.0
++				if (i > 0) {
++					tst_res(TINFO, "Test run %d times", i);
++					goto out;
++				}
++			}
++
++			tst_brk(TBROK | TERRNO, "Cannot allocate hugepage");
++		}
+ 
+-		ptr = SAFE_MMAP(NULL, tcases[n].tpages * hpsz,
+-			PROT_READ | PROT_WRITE,
+-			MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB, -1, 0);
+ 		if (ptr != addr)
+ 			tst_brk(TBROK, "Failed to mmap at desired addr");
+ 
+ 		memset(addr, 0, tcases[n].tpages * hpsz);
+ 
+ 		if (tcases[n].offline) {
+-			if (do_soft_offline(tcases[n].tpages) == EINVAL) {
++			ret = do_soft_offline(tcases[n].tpages);
++
++			if (ret == EINVAL) {
+ 				SAFE_KILL(cpid, SIGKILL);
+ 				SAFE_WAITPID(cpid, &status, 0);
+ 				SAFE_MUNMAP(addr, tcases[n].tpages * hpsz);
+@@ -163,6 +182,7 @@ static void do_test(unsigned int n)
+ 			break;
+ 	}
+ 
++out:
+ 	SAFE_KILL(cpid, SIGKILL);
+ 	SAFE_WAITPID(cpid, &status, 0);
+ 	if (!WIFEXITED(status))
+-- 
+2.20.1
 
 
 -- 
