@@ -1,40 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1357C74C91
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 13:10:35 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 83A7674C93
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 13:10:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C43633C1D25
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 13:10:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E83AB3C1D22
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 13:10:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 85CD53C1CF3
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id D14E93C1A4E
  for <ltp@lists.linux.it>; Thu, 25 Jul 2019 13:10:31 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id CD7361000DE0
- for <ltp@lists.linux.it>; Thu, 25 Jul 2019 13:10:24 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 495C51A00EA0
+ for <ltp@lists.linux.it>; Thu, 25 Jul 2019 13:10:31 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id E0C3BB009;
- Thu, 25 Jul 2019 11:10:29 +0000 (UTC)
+ by mx1.suse.de (Postfix) with ESMTP id C663CB00E;
+ Thu, 25 Jul 2019 11:10:30 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 25 Jul 2019 13:10:23 +0200
-Message-Id: <20190725111027.18716-2-pvorel@suse.cz>
+Date: Thu, 25 Jul 2019 13:10:24 +0200
+Message-Id: <20190725111027.18716-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.22.0
 In-Reply-To: <20190725111027.18716-1-pvorel@suse.cz>
 References: <20190725111027.18716-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 1/5] tst_net.sh: enhance tst_add_ipaddr(),
- add tst_del_ipaddr()
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 2/5] tst_net.sh: Add -m option to return mask in
+ tst_ipaddr_un()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,100 +51,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-These changes are intended for easier handling with IP addresses
-(not have to calculate dad for IPv6 when adding IP address).
-Add -a IP and -s options to tst_add_ipaddr()
-
-tst_del_ipaddr() (which uses internally tst_add_ipaddr()) is defined
-mainly for better code readability.
++ reformat docs a bit
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/lib/tst_net.sh | 48 +++++++++++++++++++++++++++++++---------
- 1 file changed, 37 insertions(+), 11 deletions(-)
+ testcases/lib/tst_net.sh | 25 ++++++++++++++-----------
+ 1 file changed, 14 insertions(+), 11 deletions(-)
 
 diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
-index 1678bcfda..54e975473 100644
+index 54e975473..df91fd772 100644
 --- a/testcases/lib/tst_net.sh
 +++ b/testcases/lib/tst_net.sh
-@@ -1,7 +1,7 @@
- #!/bin/sh
- # SPDX-License-Identifier: GPL-2.0-or-later
- # Copyright (c) 2014-2017 Oracle and/or its affiliates. All Rights Reserved.
--# Copyright (c) 2016-2018 Petr Vorel <pvorel@suse.cz>
-+# Copyright (c) 2016-2019 Petr Vorel <pvorel@suse.cz>
- # Author: Alexey Kodanev <alexey.kodanev@oracle.com>
+@@ -353,22 +353,25 @@ tst_ipaddr()
  
- [ -n "$TST_LIB_NET_LOADED" ] && return 0
-@@ -443,14 +443,33 @@ tst_init_iface()
- 	tst_rhost_run -c "ip link set $iface up"
- }
- 
--# tst_add_ipaddr [TYPE] [LINK]
+ # Get IP address of unused network, specified either by type and counter
+ # or by net and host.
+-# tst_ipaddr_un [-cCOUNTER] [TYPE]
++# tst_ipaddr_un [-cCOUNTER] [-m] [TYPE]
+ # tst_ipaddr_un NET_ID [HOST_ID]
 -# TYPE: { lhost | rhost }; Default value is 'lhost'.
--# LINK: link number starting from 0. Default value is '0'.
-+# tst_add_ipaddr [TYPE] [LINK] [-a IP] [-d] [-s]
-+# Options:
-+# TYPE: { lhost | rhost }, default value is 'lhost'
-+# LINK: link number starting from 0, default value is '0'
-+# -a IP: IP address to be added, default value is
-+# $(tst_ipaddr)/$IPV{4,6}_{L,R}PREFIX
-+# -d: delete address instead of adding
-+# -s: safe option, if something goes wrong, will exit with TBROK
- tst_add_ipaddr()
+-# COUNTER: Integer value for counting HOST_ID and NET_ID. Default is 1.
+-# NET_ID: Integer or hex value of net. For IPv4 is 3rd octet, for IPv6
+-# is 3rd hextet.
+-# HOST_ID: Integer or hex value of host. For IPv4 is 4th octet, for
+-# IPv6 is the last hextet. Default value is 0.
++#
++# OPTIONS
++# -c COUNTER: integer value for counting HOST_ID and NET_ID (default: 1)
++# -m: print also mask
++# TYPE: { lhost | rhost } (default: 'lhost')
++# NET_ID: integer or hex value of net (IPv4: 3rd octet, IPv6: 3rd hextet)
++# HOST_ID: integer or hex value of host (IPv4: 4th octet, IPv6: the last
++# hextet, default: 0)
+ tst_ipaddr_un()
  {
-+	local action="add"
-+	local addr dad lsafe mask rsafe
-+
-+	local OPTIND
-+	while getopts a:ds opt; do
-+		case "$opt" in
-+		a) addr="$OPTARG" ;;
-+		d) action="del" ;;
-+		s) lsafe="ROD"; rsafe="-s" ;;
-+		*) tst_brk TBROK "tst_add_ipaddr: unknown option: $OPTARG" ;;
-+		esac
-+	done
-+	shift $((OPTIND - 1))
-+
- 	local type="${1:-lhost}"
- 	local link_num="${2:-0}"
--	local mask dad
-+	local iface=$(tst_iface $type $link_num)
+-	local counter host_id net_id max_host_id max_net_id tmp type
++	local counter host_id mask max_host_id max_net_id net_id tmp type
+ 	local OPTIND
  
- 	if [ "$TST_IPV6" ]; then
- 		dad="nodad"
-@@ -458,17 +477,24 @@ tst_add_ipaddr()
- 	else
- 		[ "$type" = "lhost" ] && mask=$IPV4_LPREFIX || mask=$IPV4_RPREFIX
- 	fi
--
--	local iface=$(tst_iface $type $link_num)
-+	[ -n "$addr" ] || addr="$(tst_ipaddr $type)"
-+	echo $addr | grep -q / || addr="$addr/$mask"
+-	while getopts "c:" opt; do
++	while getopts "c:m" opt; do
+ 		case $opt in
+ 			c) counter="$OPTARG";;
++			m) [ "$TST_IPV6" ] && mask="/64" || mask="/24";;
+ 		esac
+ 	done
+ 	shift $(($OPTIND - 1))
+@@ -405,14 +408,14 @@ tst_ipaddr_un()
+ 	host_id=$((host_id % max_net_id))
  
- 	if [ $type = "lhost" ]; then
--		tst_res_ TINFO "set local addr $(tst_ipaddr)/$mask"
--		ip addr add $(tst_ipaddr)/$mask dev $iface $dad
-+		tst_res_ TINFO "set local addr $addr"
-+		$lsafe ip addr $action $addr dev $iface $dad
- 		return $?
+ 	if [ -z "$TST_IPV6" ]; then
+-		echo "${IPV4_NET16_UNUSED}.${net_id}.${host_id}"
++		echo "${IPV4_NET16_UNUSED}.${net_id}.${host_id}${mask}"
+ 		return
  	fi
  
--	tst_res_ TINFO "set remote addr $(tst_ipaddr rhost)/$mask"
--	tst_rhost_run -c "ip addr add $(tst_ipaddr rhost)/$mask dev $iface $dad"
-+	tst_res_ TINFO "set remote addr $addr"
-+	tst_rhost_run $rsafe -c "ip addr $action $addr dev $iface $dad"
-+}
-+
-+# tst_del_ipaddr [ tst_add_ipaddr options ]
-+# Delete IP address
-+tst_del_ipaddr()
-+{
-+	tst_add_ipaddr -d $@
+ 	[ $host_id -gt 0 ] && host_id="$(printf %x $host_id)" || host_id=
+ 	[ $net_id -gt 0 ] && net_id="$(printf %x $net_id)" || net_id=
+ 	[ "$net_id" ] && net_id=":$net_id"
+-	echo "${IPV6_NET32_UNUSED}${net_id}::${host_id}"
++	echo "${IPV6_NET32_UNUSED}${net_id}::${host_id}${mask}"
  }
  
- # tst_restore_ipaddr [TYPE] [LINK]
+ # tst_init_iface [TYPE] [LINK]
 -- 
 2.22.0
 
