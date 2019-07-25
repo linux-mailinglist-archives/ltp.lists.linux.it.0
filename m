@@ -1,39 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB0EB74C92
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 13:10:40 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1357C74C91
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 13:10:35 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 94E3D3C1D70
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 13:10:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C43633C1D25
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 13:10:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 85C4E3C1C95
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 85CD53C1CF3
  for <ltp@lists.linux.it>; Thu, 25 Jul 2019 13:10:31 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 35CF9601F87
- for <ltp@lists.linux.it>; Thu, 25 Jul 2019 13:10:29 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id CD7361000DE0
+ for <ltp@lists.linux.it>; Thu, 25 Jul 2019 13:10:24 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 910A1AFF9;
- Thu, 25 Jul 2019 11:10:28 +0000 (UTC)
+ by mx1.suse.de (Postfix) with ESMTP id E0C3BB009;
+ Thu, 25 Jul 2019 11:10:29 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 25 Jul 2019 13:10:22 +0200
-Message-Id: <20190725111027.18716-1-pvorel@suse.cz>
+Date: Thu, 25 Jul 2019 13:10:23 +0200
+Message-Id: <20190725111027.18716-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.22.0
+In-Reply-To: <20190725111027.18716-1-pvorel@suse.cz>
+References: <20190725111027.18716-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 0/5] net/route: rewrite route-change-{dst, gw,
- if} into new API
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 1/5] tst_net.sh: enhance tst_add_ipaddr(),
+ add tst_del_ipaddr()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,51 +51,100 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+These changes are intended for easier handling with IP addresses
+(not have to calculate dad for IPv6 when adding IP address).
+Add -a IP and -s options to tst_add_ipaddr()
 
-hope this version could be sufficient enough.
+tst_del_ipaddr() (which uses internally tst_add_ipaddr()) is defined
+mainly for better code readability.
 
-I've added some support to tst_net.sh for general IP address handling.
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ testcases/lib/tst_net.sh | 48 +++++++++++++++++++++++++++++++---------
+ 1 file changed, 37 insertions(+), 11 deletions(-)
 
-I'm thinking about adding support for adding general vlan support to
-tst_net.sh instead of using add_macvlan() (virt_lib.sh, ipsec_lib.sh and dhcp_lib.sh would use it),
-but that would be in separate patchset.
-
-Kind regards,
-Petr
-
-Petr Vorel (5):
-  tst_net.sh: enhance tst_add_ipaddr(), add tst_del_ipaddr()
-  tst_net.sh: Add -m option to return mask in tst_ipaddr_un()
-  network/route: Rewrite route-change-dst into new API
-  network/route: Rewrite route-change-gw into new API
-  network/route: Rewrite route-change-if into new API
-
- runtest/net_stress.route                      |  12 +-
- testcases/lib/tst_net.sh                      |  81 +++--
- .../network/stress/route/00_Descriptions.txt  |  54 +--
- .../network/stress/route/route-change-dst     |  33 ++
- .../network/stress/route/route-change-gw      |  38 ++
- .../network/stress/route/route-change-if      |  87 +++++
- testcases/network/stress/route/route-lib.sh   |  17 +
- .../network/stress/route/route4-change-dst    | 276 ---------------
- .../network/stress/route/route4-change-gw     | 292 ----------------
- .../network/stress/route/route4-change-if     | 324 ------------------
- .../network/stress/route/route6-change-dst    | 272 ---------------
- .../network/stress/route/route6-change-gw     | 292 ----------------
- .../network/stress/route/route6-change-if     | 323 -----------------
- 13 files changed, 249 insertions(+), 1852 deletions(-)
- create mode 100755 testcases/network/stress/route/route-change-dst
- create mode 100755 testcases/network/stress/route/route-change-gw
- create mode 100755 testcases/network/stress/route/route-change-if
- create mode 100644 testcases/network/stress/route/route-lib.sh
- delete mode 100644 testcases/network/stress/route/route4-change-dst
- delete mode 100644 testcases/network/stress/route/route4-change-gw
- delete mode 100644 testcases/network/stress/route/route4-change-if
- delete mode 100644 testcases/network/stress/route/route6-change-dst
- delete mode 100644 testcases/network/stress/route/route6-change-gw
- delete mode 100644 testcases/network/stress/route/route6-change-if
-
+diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
+index 1678bcfda..54e975473 100644
+--- a/testcases/lib/tst_net.sh
++++ b/testcases/lib/tst_net.sh
+@@ -1,7 +1,7 @@
+ #!/bin/sh
+ # SPDX-License-Identifier: GPL-2.0-or-later
+ # Copyright (c) 2014-2017 Oracle and/or its affiliates. All Rights Reserved.
+-# Copyright (c) 2016-2018 Petr Vorel <pvorel@suse.cz>
++# Copyright (c) 2016-2019 Petr Vorel <pvorel@suse.cz>
+ # Author: Alexey Kodanev <alexey.kodanev@oracle.com>
+ 
+ [ -n "$TST_LIB_NET_LOADED" ] && return 0
+@@ -443,14 +443,33 @@ tst_init_iface()
+ 	tst_rhost_run -c "ip link set $iface up"
+ }
+ 
+-# tst_add_ipaddr [TYPE] [LINK]
+-# TYPE: { lhost | rhost }; Default value is 'lhost'.
+-# LINK: link number starting from 0. Default value is '0'.
++# tst_add_ipaddr [TYPE] [LINK] [-a IP] [-d] [-s]
++# Options:
++# TYPE: { lhost | rhost }, default value is 'lhost'
++# LINK: link number starting from 0, default value is '0'
++# -a IP: IP address to be added, default value is
++# $(tst_ipaddr)/$IPV{4,6}_{L,R}PREFIX
++# -d: delete address instead of adding
++# -s: safe option, if something goes wrong, will exit with TBROK
+ tst_add_ipaddr()
+ {
++	local action="add"
++	local addr dad lsafe mask rsafe
++
++	local OPTIND
++	while getopts a:ds opt; do
++		case "$opt" in
++		a) addr="$OPTARG" ;;
++		d) action="del" ;;
++		s) lsafe="ROD"; rsafe="-s" ;;
++		*) tst_brk TBROK "tst_add_ipaddr: unknown option: $OPTARG" ;;
++		esac
++	done
++	shift $((OPTIND - 1))
++
+ 	local type="${1:-lhost}"
+ 	local link_num="${2:-0}"
+-	local mask dad
++	local iface=$(tst_iface $type $link_num)
+ 
+ 	if [ "$TST_IPV6" ]; then
+ 		dad="nodad"
+@@ -458,17 +477,24 @@ tst_add_ipaddr()
+ 	else
+ 		[ "$type" = "lhost" ] && mask=$IPV4_LPREFIX || mask=$IPV4_RPREFIX
+ 	fi
+-
+-	local iface=$(tst_iface $type $link_num)
++	[ -n "$addr" ] || addr="$(tst_ipaddr $type)"
++	echo $addr | grep -q / || addr="$addr/$mask"
+ 
+ 	if [ $type = "lhost" ]; then
+-		tst_res_ TINFO "set local addr $(tst_ipaddr)/$mask"
+-		ip addr add $(tst_ipaddr)/$mask dev $iface $dad
++		tst_res_ TINFO "set local addr $addr"
++		$lsafe ip addr $action $addr dev $iface $dad
+ 		return $?
+ 	fi
+ 
+-	tst_res_ TINFO "set remote addr $(tst_ipaddr rhost)/$mask"
+-	tst_rhost_run -c "ip addr add $(tst_ipaddr rhost)/$mask dev $iface $dad"
++	tst_res_ TINFO "set remote addr $addr"
++	tst_rhost_run $rsafe -c "ip addr $action $addr dev $iface $dad"
++}
++
++# tst_del_ipaddr [ tst_add_ipaddr options ]
++# Delete IP address
++tst_del_ipaddr()
++{
++	tst_add_ipaddr -d $@
+ }
+ 
+ # tst_restore_ipaddr [TYPE] [LINK]
 -- 
 2.22.0
 
