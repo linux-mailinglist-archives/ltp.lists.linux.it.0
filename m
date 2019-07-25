@@ -1,41 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8823C75008
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 15:48:07 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 891A5750E6
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 16:23:45 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E81F33C1CF3
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 15:48:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4FB683C1CDE
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jul 2019 16:23:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 1A1FB3C0300
- for <ltp@lists.linux.it>; Thu, 25 Jul 2019 15:48:05 +0200 (CEST)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id EBBF43C0300
+ for <ltp@lists.linux.it>; Thu, 25 Jul 2019 16:23:43 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8F6DE600F62
- for <ltp@lists.linux.it>; Thu, 25 Jul 2019 15:48:06 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C22C81A00807
+ for <ltp@lists.linux.it>; Thu, 25 Jul 2019 16:23:42 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 56E3FAEA7
- for <ltp@lists.linux.it>; Thu, 25 Jul 2019 13:48:03 +0000 (UTC)
-Date: Thu, 25 Jul 2019 15:48:02 +0200
+ by mx1.suse.de (Postfix) with ESMTP id DC58DAD72
+ for <ltp@lists.linux.it>; Thu, 25 Jul 2019 14:23:41 +0000 (UTC)
+Date: Thu, 25 Jul 2019 16:23:40 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Christian Amann <camann@suse.com>
-Message-ID: <20190725134802.GB23135@rei.lan>
-References: <20190725115724.30055-1-camann@suse.com>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <20190725142315.GC23135@rei.lan>
+References: <20190724080328.16145-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190725115724.30055-1-camann@suse.com>
+In-Reply-To: <20190724080328.16145-1-rpalethorpe@suse.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] timers/timer_create: Add test for
- CVE-2017-18344
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 0/2] [RFC] BPF testing
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,14 +54,34 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> In kernels prior to 4.14.8 (missing commit cef31d9af908)
-> the sigevent.sigev_notify field is not properly checked
-> when creating a timer using timer_create(2).
-> This can be used to read arbitrary kernel memory.
+> This patch set introduces a very basic test which kicks the tires of the bpf
+> system call. It doesn't actually load a eBPF program, I will create another
+> test for that. However I have some concerns which I will discuss while doing
+> that.
+> 
+> There are already extensive BPF tests in the kernel selftests. These appear to
+> be quite complex and test a variety of functionality. They also are far less
+> structured than LTP's modern tests and are tied to the kernel tree which makes
+> using them in QA a pain. There are also some tests in the BCC project, which
+> may test the kernel as a byproduct.
+> 
+> So there are a number of options which are not necessarily mutually exclusive:
+> 
+> 1) Port (some of) the selftests to the LTP.
+> 2) Port the LTP library to the selftests.
+> 3) Focus the LTP's BPF tests on reproducing specific high impact bugs.
 
-This is fine but I would like to move the timers into the syscalls
-directory before we start to add new testcases. Should I do the move or
-will you send a patch?
+The option 3 sounds good, just FYI there are CVEs some with POCs for BPF,
+just by googling "ebpf CVE" you got some:
+
+https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-16995
+https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-7308
+
+Also cloudfare blog seems to be very relevant:
+
+https://blog.cloudflare.com/ebpf-cant-count/
+
+And there are some test stuffed in linux/samples/bpf/ as well.
 
 -- 
 Cyril Hrubis
