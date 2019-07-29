@@ -1,45 +1,43 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3002978E0C
-	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jul 2019 16:32:18 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0339878E42
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jul 2019 16:42:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 972A23C1D59
-	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jul 2019 16:32:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A51E43C1D4E
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jul 2019 16:42:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 101823C111E
- for <ltp@lists.linux.it>; Mon, 29 Jul 2019 16:32:14 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id AE61A3C185F
+ for <ltp@lists.linux.it>; Mon, 29 Jul 2019 16:42:48 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C0BBB2010F2
- for <ltp@lists.linux.it>; Mon, 29 Jul 2019 16:32:13 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BB556140125F
+ for <ltp@lists.linux.it>; Mon, 29 Jul 2019 16:42:47 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 28EDAAF00;
- Mon, 29 Jul 2019 14:32:13 +0000 (UTC)
-Date: Mon, 29 Jul 2019 16:32:13 +0200
+ by mx1.suse.de (Postfix) with ESMTP id EF996ACA8;
+ Mon, 29 Jul 2019 14:42:46 +0000 (UTC)
+Date: Mon, 29 Jul 2019 16:42:46 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>, Jan Stancek <jstancek@redhat.com>
-Message-ID: <20190729143213.GB4040@dell5510>
-References: <20190726092110.13116-1-pvorel@suse.cz>
- <1968200096.2791881.1564143777013.JavaMail.zimbra@redhat.com>
- <20190726122830.GA4254@dell5510> <20190726124752.GB28028@rei.lan>
- <20190726185004.GA12472@x230>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20190729144227.GA8824@dell5510>
+References: <1b8b7f73-fd31-58d2-5162-3648fa9729a5@163.com>
+ <1563789167-2328-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20190729122621.GB5872@dell5510> <20190729131619.GB27006@rei.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190726185004.GA12472@x230>
+In-Reply-To: <20190729131619.GB27006@rei.lan>
 User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/mprotect04: Fix compilation error for
- ia64
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/2] m4: remove some useless m4
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,22 +56,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril, Jan,
+Hi,
 
-> > Hi!
-> > > > Thanks, I missed the ia64-specific code. RHEL dropped support for
-> > > > ia64 in RHEL6, and RHEL5 will likely be EOL in ~6 months, so I'm
-> > > > fine either way.
-> > > Thanks for a quick reply. So it's up to Cyril, whether keep the
-> > > support or not.
+> > > Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+> > Acked-by: Petr Vorel <pvorel@suse.cz>
 
-> > Hmm, the last processors were made in 2017 but looking at TOP500 systems
-> > there was peek for itanim in 2004 and there were pretty nonexistent
-> > since 2012. Given that officially supported distros are going EOL soon
-> > enough I do not think that it makes sense to keep itanium specific code
-> > just so that 0.1% of our tests works on these processors.
-> Agree. OK, I'll remove ia64 specific code.
-Merged as 5c60b7230. I'm sorry I forget to add your ack.
+> > Although I wonder whether mixing 4 changes (even related to autoconf)
+> > in single commit is a good idea (makes it a bit hard to review).
+
+> Yes please, at least the SPDX conversion has to be in a separate patch.
++1
+
+BTW m4/ltp-signalfd.m4 would require cleanup as well.
 
 Kind regards,
 Petr
