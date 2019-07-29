@@ -2,46 +2,45 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DBEB7779A
-	for <lists+linux-ltp@lfdr.de>; Sat, 27 Jul 2019 10:27:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 205CD783A4
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jul 2019 05:29:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2A5593C1D28
-	for <lists+linux-ltp@lfdr.de>; Sat, 27 Jul 2019 10:27:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DF3043C1D7D
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jul 2019 05:29:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 38CA03C0137
- for <ltp@lists.linux.it>; Sat, 27 Jul 2019 10:27:25 +0200 (CEST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 0BC983C1D2B
+ for <ltp@lists.linux.it>; Mon, 29 Jul 2019 05:29:09 +0200 (CEST)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id EDAFE600934
- for <ltp@lists.linux.it>; Sat, 27 Jul 2019 10:27:26 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.64,314,1559491200"; d="scan'208";a="72316396"
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 338BC600CEF
+ for <ltp@lists.linux.it>; Mon, 29 Jul 2019 05:29:07 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.64,320,1559491200"; d="scan'208";a="72409603"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 27 Jul 2019 16:27:19 +0800
+ by heian.cn.fujitsu.com with ESMTP; 29 Jul 2019 11:29:00 +0800
 Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id EFF1E4CDCEBD
- for <ltp@lists.linux.it>; Sat, 27 Jul 2019 16:27:19 +0800 (CST)
+ by cn.fujitsu.com (Postfix) with ESMTP id 126FC4B4041E
+ for <ltp@lists.linux.it>; Mon, 29 Jul 2019 11:28:59 +0800 (CST)
 Received: from localhost.localdomain (10.167.215.46) by
  G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Sat, 27 Jul 2019 16:27:18 +0800
+ (TLS) id 14.3.439.0; Mon, 29 Jul 2019 11:28:58 +0800
 From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 To: <ltp@lists.linux.it>
-Date: Sat, 27 Jul 2019 16:27:11 +0800
-Message-ID: <1564216031-2973-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+Date: Mon, 29 Jul 2019 09:27:31 +0800
+Message-ID: <1564363652-3975-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
 X-Originating-IP: [10.167.215.46]
-X-yoursite-MailScanner-ID: EFF1E4CDCEBD.A4130
+X-yoursite-MailScanner-ID: 126FC4B4041E.AE7EB
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] syscalls/prctl08: New test for prctl() with
- PR_{SET, GET}_TIMERSLACK
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] syscalls/nanosleep03: remove duplicated
+ nanosleep03
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,192 +57,259 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
------
-v1->v2:
-   1)remove useless struct member
-   2)compare time should be (sleep + timer_slack) if time is not enough large
----
- include/lapi/prctl.h                       |   5 +
- runtest/syscalls                           |   1 +
- testcases/kernel/syscalls/prctl/.gitignore |   1 +
- testcases/kernel/syscalls/prctl/Makefile   |   1 +
- testcases/kernel/syscalls/prctl/prctl08.c  | 118 +++++++++++++++++++++
- 5 files changed, 126 insertions(+)
- create mode 100644 testcases/kernel/syscalls/prctl/prctl08.c
+1) remove duplicated nanosleep03, because nanosleep02 also
+test EINTR when it is interrupted by a signal handler
+2)nanosleep01:Replace GPL verbose text by SPDX license identifier
 
-diff --git a/include/lapi/prctl.h b/include/lapi/prctl.h
-index 8ee492259..0b4e196c3 100644
---- a/include/lapi/prctl.h
-+++ b/include/lapi/prctl.h
-@@ -19,6 +19,11 @@
- # define PR_SET_SECCOMP  22
- #endif
- 
-+#ifndef PR_SET_TIMERSLACK
-+# define PR_SET_TIMERSLACK 29
-+# define PR_GET_TIMERSLACK 30
-+#endif
-+
- #ifndef PR_SET_CHILD_SUBREAPER
- # define PR_SET_CHILD_SUBREAPER	36
- # define PR_GET_CHILD_SUBREAPER	37
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+---
+ runtest/syscalls                              |   1 -
+ .../kernel/syscalls/nanosleep/.gitignore      |   1 -
+ .../kernel/syscalls/nanosleep/nanosleep01.c   |  16 +-
+ .../kernel/syscalls/nanosleep/nanosleep02.c   |   7 +-
+ .../kernel/syscalls/nanosleep/nanosleep03.c   | 148 ------------------
+ 5 files changed, 7 insertions(+), 166 deletions(-)
+ delete mode 100644 testcases/kernel/syscalls/nanosleep/nanosleep03.c
+
 diff --git a/runtest/syscalls b/runtest/syscalls
-index 0114b002b..48836f422 100644
+index 48836f422..881ed2403 100644
 --- a/runtest/syscalls
 +++ b/runtest/syscalls
-@@ -872,6 +872,7 @@ prctl04 prctl04
- prctl05 prctl05
- prctl06 prctl06
- prctl07 prctl07
-+prctl08 prctl08
+@@ -784,7 +784,6 @@ munmap03 munmap03
  
- pread01 pread01
- pread01_64 pread01_64
-diff --git a/testcases/kernel/syscalls/prctl/.gitignore b/testcases/kernel/syscalls/prctl/.gitignore
-index 2178db366..fe36a8e0f 100644
---- a/testcases/kernel/syscalls/prctl/.gitignore
-+++ b/testcases/kernel/syscalls/prctl/.gitignore
-@@ -6,3 +6,4 @@
- /prctl06
- /prctl06_execve
- /prctl07
-+/prctl08
-diff --git a/testcases/kernel/syscalls/prctl/Makefile b/testcases/kernel/syscalls/prctl/Makefile
-index cf19507c0..d3c41ff4e 100644
---- a/testcases/kernel/syscalls/prctl/Makefile
-+++ b/testcases/kernel/syscalls/prctl/Makefile
-@@ -21,5 +21,6 @@ top_srcdir		?= ../../../..
- include $(top_srcdir)/include/mk/testcases.mk
+ nanosleep01 nanosleep01
+ nanosleep02 nanosleep02
+-nanosleep03 nanosleep03
+ nanosleep04 nanosleep04
  
- prctl07: LDLIBS += $(CAP_LIBS)
-+prctl08: LDLIBS+=-lrt
+ nftw01 nftw01
+diff --git a/testcases/kernel/syscalls/nanosleep/.gitignore b/testcases/kernel/syscalls/nanosleep/.gitignore
+index 11ed6bbcb..9bf03ea97 100644
+--- a/testcases/kernel/syscalls/nanosleep/.gitignore
++++ b/testcases/kernel/syscalls/nanosleep/.gitignore
+@@ -1,4 +1,3 @@
+ /nanosleep01
+ /nanosleep02
+-/nanosleep03
+ /nanosleep04
+diff --git a/testcases/kernel/syscalls/nanosleep/nanosleep01.c b/testcases/kernel/syscalls/nanosleep/nanosleep01.c
+index 96e1cf1b4..418f86565 100644
+--- a/testcases/kernel/syscalls/nanosleep/nanosleep01.c
++++ b/testcases/kernel/syscalls/nanosleep/nanosleep01.c
+@@ -1,21 +1,8 @@
++// SPDX-License-Identifier: GPL-2.0-or-lat
+ /*
+  * Copyright (c) International Business Machines  Corp., 2001
+  *  07/2001 Ported by Wayne Boyer
+  * Copyright (C) 2015-2017 Cyril Hrubis <chrubis@suse.cz>
+- *
+- * This program is free software;  you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation; either version 2 of the License, or
+- * (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- * the GNU General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program;  if not, write to the Free Software Foundation,
+- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+  */
  
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/prctl/prctl08.c b/testcases/kernel/syscalls/prctl/prctl08.c
-new file mode 100644
-index 000000000..92b9bfe41
---- /dev/null
-+++ b/testcases/kernel/syscalls/prctl/prctl08.c
-@@ -0,0 +1,118 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2019 FUJITSU LIMITED. All rights reserved.
-+ * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+ /*
+@@ -25,7 +12,6 @@
+  */
+ 
+ #include <errno.h>
+-
+ #include "tst_timer_test.h"
+ 
+ int sample_fn(int clk_id, long long usec)
+diff --git a/testcases/kernel/syscalls/nanosleep/nanosleep02.c b/testcases/kernel/syscalls/nanosleep/nanosleep02.c
+index 8bd2c44c4..20a93d3b6 100644
+--- a/testcases/kernel/syscalls/nanosleep/nanosleep02.c
++++ b/testcases/kernel/syscalls/nanosleep/nanosleep02.c
+@@ -10,6 +10,9 @@
+  *  Verify that nanosleep() will be successful to suspend the execution
+  *  of a process, returns after the receipt of a signal and writes the
+  *  remaining sleep time into the structure.
 + *
-+ * Test PR_GET_TIMERSLACK and PR_SET_TIMERSLACK of prctl(2).
-+ * 1)Each thread has two associated timer slack values: a "default"
-+ *   value, and a "current" value. PR_SET_TIMERSLACK sets the "current"
-+ *   timer slack value for the calling thread.
-+ * 2)When a new thread is created, the two timer slack values are made
-+ *   the same as the "current" value of the creating thread.
-+ * 3)The maximum timer slack value is ULONG_MAX. On 32bit machines, it
-+ *   is a valid value(about 4s). On 64bit machines, it is about 500 years
-+ *   and no person will set this over 4s.  prctl return value is int, so
-+ *   we test themaximum value is INT_MAX.
-+ * 4)we also check /proc/[pid]/timerslack_ns if it is supported.
-+ */
++ *  This test also verifies that if the call is interrupted by a signal
++ *  handler, nanosleep() returns -1, sets errno to EINTR.
+  */
+ 
+ #include <errno.h>
+@@ -39,11 +42,13 @@ static void do_child(void)
+ 	TEST(nanosleep(&timereq, &timerem));
+ 	tst_timer_stop();
+ 
+-	if (!TST_RET)
++	if (TST_RET != -1)
+ 		tst_brk(TBROK, "nanosleep was not interrupted");
+ 	if (TST_ERR != EINTR)
+ 		tst_brk(TBROK | TTERRNO, "nanosleep() failed");
+ 
++	tst_res(TPASS, "nanosleep() returned -1, set errno to EINTER");
 +
-+#include <sys/prctl.h>
-+#include <string.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <linux/limits.h>
-+#include "lapi/syscalls.h"
-+#include "lapi/prctl.h"
-+#include "tst_timer.h"
-+#include "tst_test.h"
-+
-+#define PROC_NS_PATH "/proc/self/timerslack_ns"
-+
-+static struct tcase {
-+	unsigned long setvalue;
-+	unsigned long cmptime;
-+} tcases[] = {
-+	{1, 50000},
-+	{70000, 120000},
-+	{INT_MAX, 50000},
-+};
-+
-+static int proc_flag = 1;
-+
-+static void check_proc_ns(char *message, unsigned long value)
-+{
-+	unsigned long proc_value;
-+
-+	SAFE_FILE_SCANF(PROC_NS_PATH, "%lu", &proc_value);
-+	if (proc_value == value)
-+		tst_res(TPASS, "%s %s  got %lu expectedly",
-+				message, PROC_NS_PATH, proc_value);
-+	else
-+		tst_res(TFAIL, "%s %s expected %lu got %lu",
-+				message, PROC_NS_PATH, value, proc_value);
-+}
-+
-+static void check_get_timerslack(char *message, unsigned long value)
-+{
-+	TEST(prctl(PR_GET_TIMERSLACK));
-+	if ((unsigned long)TST_RET == value)
-+		tst_res(TPASS, "%s prctl(PR_GET_TIMERSLACK) got %lu expectedly",
-+				message, value);
-+	else
-+		tst_res(TFAIL, "%s prctl(PR_GET_TIMERSLACK) expected %lu got %lu",
-+				message, value, TST_RET);
-+
-+	if (proc_flag)
-+		check_proc_ns(message, value);
-+}
-+
-+static void verify_prctl(unsigned int n)
-+{
-+	struct tcase *tc = &tcases[n];
-+	int pid;
-+
-+	struct timespec timereq = { .tv_sec = 0, .tv_nsec = 50000 };
-+	struct timespec timecmp = { .tv_sec = 0, .tv_nsec = tc->cmptime};
-+
-+	TEST(prctl(PR_SET_TIMERSLACK, tc->setvalue));
-+	if (TST_RET == -1) {
-+		tst_res(TFAIL | TTERRNO, "prctl(PR_SET_TIMERSLACK, %lu) failed",
-+				tc->setvalue);
-+		return;
-+	}
-+	tst_res(TPASS, "prctl(PR_SET_TIMERSLACK, %lu) success", tc->setvalue);
-+
-+	pid = SAFE_FORK();
-+	if (pid == 0) {
-+		check_get_timerslack("child process", tc->setvalue);
-+		/* A value of 0 means using default */
-+		prctl(PR_SET_TIMERSLACK, 0);
-+		check_get_timerslack("After set 0, child process", tc->setvalue);
-+
-+		tst_timer_start(CLOCK_MONOTONIC);
-+		TEST(nanosleep(&timereq, NULL));
-+		tst_timer_stop();
-+
-+		if (tst_timespec_lt(tst_timer_elapsed(), timecmp))
-+			tst_brk(TFAIL, "nanosleep() slept less than timecmp");
-+
-+		tst_res(TPASS, "nanosleep() slept more than timecmp, %llius",
-+				tst_timer_elapsed_us());
-+		exit(0);
-+	}
-+}
-+
-+static void setup(void)
-+{
-+	if (access(PROC_NS_PATH, F_OK) == -1) {
-+		tst_res(TCONF, "proc doesn't support timerslack_ns interface");
-+		proc_flag = 0;
-+	}
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.test = verify_prctl,
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.forks_child = 1,
-+};
+ 	if (tst_timespec_lt(timereq, tst_timer_elapsed()))
+ 		tst_brk(TFAIL, "nanosleep() slept more than timereq");
+ 
+diff --git a/testcases/kernel/syscalls/nanosleep/nanosleep03.c b/testcases/kernel/syscalls/nanosleep/nanosleep03.c
+deleted file mode 100644
+index 456e140e9..000000000
+--- a/testcases/kernel/syscalls/nanosleep/nanosleep03.c
++++ /dev/null
+@@ -1,148 +0,0 @@
+-/*
+- * Copyright (c) International Business Machines  Corp., 2001
+- *  07/2001 Ported by Wayne Boyer
+- *
+- * This program is free software;  you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation; either version 2 of the License, or
+- * (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- * the GNU General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program;  if not, write to the Free Software Foundation,
+- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+- */
+-
+-/*
+- * Test Description:
+- *  Verify that nanosleep() will fail to suspend the execution
+- *  of a process for a specified time if interrupted by a non-blocked signal.
+- *
+- * Expected Result:
+- *  nanosleep() should return with -1 value and sets errno to EINTR.
+- */
+-
+-#include <errno.h>
+-#include <unistd.h>
+-#include <fcntl.h>
+-#include <time.h>
+-#include <sys/wait.h>
+-
+-#include "test.h"
+-#include "safe_macros.h"
+-
+-char *TCID = "nanosleep03";
+-int TST_TOTAL = 1;
+-
+-static void do_child(void);
+-static void setup(void);
+-static void sig_handler();
+-
+-int main(int ac, char **av)
+-{
+-	int lc;
+-	pid_t cpid;
+-	int status;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-#ifdef UCLINUX
+-	maybe_run_child(&do_child, "dddd", &timereq.tv_sec, &timereq.tv_nsec,
+-			&timerem.tv_sec, &timerem.tv_nsec);
+-#endif
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-		tst_count = 0;
+-
+-		/*
+-		 * Creat a child process and suspend its
+-		 * execution using nanosleep()
+-		 */
+-		if ((cpid = FORK_OR_VFORK()) == -1)
+-			tst_brkm(TBROK, NULL, "fork() failed");
+-
+-		if (cpid == 0) {
+-#ifdef UCLINUX
+-			if (self_exec(av[0], "dddd",
+-				      timereq.tv_sec, timereq.tv_nsec,
+-				      timerem.tv_sec, timerem.tv_nsec) < 0) {
+-				tst_brkm(TBROK, NULL, "self_exec failed");
+-			}
+-#else
+-			do_child();
+-#endif
+-		}
+-
+-		sleep(1);
+-
+-		/* Now send signal to child */
+-		SAFE_KILL(NULL, cpid, SIGINT);
+-
+-		/* Wait for child to execute */
+-		wait(&status);
+-		if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
+-			tst_resm(TPASS, "nanosleep() failed, interrupted"
+-				 " by signal (%d) as expected", EINTR);
+-		} else {
+-			tst_resm(TFAIL, "child process exited abnormally; "
+-				 "status = %d", status);
+-		}
+-	}
+-
+-	tst_exit();
+-}
+-
+-static void do_child(void)
+-{
+-	struct timespec timereq = {.tv_sec = 5, .tv_nsec = 9999};
+-	struct timespec timerem;
+-
+-	/*
+-	 * Call nanosleep() to suspend child process
+-	 * for specified time 'tv_sec'.
+-	 * Call should return before suspending execution
+-	 * for the specified time due to receipt of signal
+-	 * from Parent.
+-	 */
+-	TEST(nanosleep(&timereq, &timerem));
+-
+-	if (TEST_RETURN == -1) {
+-
+-		/* Check for expected errno is set */
+-		if (TEST_ERRNO != EINTR) {
+-			tst_resm(TFAIL | TTERRNO,
+-				 "nanosleep() failed; expected errno: %d",
+-				 EINTR);
+-			exit(1);
+-		}
+-	} else {
+-		tst_resm(TFAIL, "nanosleep() returns %ld, "
+-			 "expected -1, errno:%d", TEST_RETURN, EINTR);
+-		exit(1);
+-	}
+-
+-	exit(0);
+-}
+-
+-static void setup(void)
+-{
+-	tst_sig(FORK, DEF_HANDLER, NULL);
+-
+-	TEST_PAUSE;
+-
+-	if (signal(SIGINT, sig_handler) == SIG_ERR) {
+-		tst_brkm(TBROK, NULL,
+-			 "signal() fails to setup signal handler");
+-	}
+-
+-}
+-
+-static void sig_handler(void)
+-{
+-}
 -- 
 2.18.1
 
