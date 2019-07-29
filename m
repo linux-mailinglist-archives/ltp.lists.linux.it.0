@@ -1,42 +1,43 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3605A78BBD
-	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jul 2019 14:26:28 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 552F678BDD
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jul 2019 14:36:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 06C773C1D22
-	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jul 2019 14:26:28 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 239453C1D22
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jul 2019 14:36:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 8FC133C1CF8
- for <ltp@lists.linux.it>; Mon, 29 Jul 2019 14:26:26 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id C8EEE3C1CFD
+ for <ltp@lists.linux.it>; Mon, 29 Jul 2019 14:35:58 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 47C221401240
- for <ltp@lists.linux.it>; Mon, 29 Jul 2019 14:26:21 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 70B31600954
+ for <ltp@lists.linux.it>; Mon, 29 Jul 2019 14:36:00 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 76058AC20;
- Mon, 29 Jul 2019 12:26:21 +0000 (UTC)
-Date: Mon, 29 Jul 2019 14:26:21 +0200
+ by mx1.suse.de (Postfix) with ESMTP id 32652AE8C
+ for <ltp@lists.linux.it>; Mon, 29 Jul 2019 12:35:57 +0000 (UTC)
+Date: Mon, 29 Jul 2019 14:35:57 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <20190729122621.GB5872@dell5510>
-References: <1b8b7f73-fd31-58d2-5162-3648fa9729a5@163.com>
- <1563789167-2328-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20190729123557.GA9131@dell5510>
+References: <20190729120222.4717-1-pvorel@suse.cz>
+ <20190729121719.GA25075@rei.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1563789167-2328-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+In-Reply-To: <20190729121719.GA25075@rei.lan>
 User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/2] m4: remove some useless m4
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] syscalls/clock_gettime: Ported
+ clock_gettime03.c to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,29 +56,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi Cyril,
 
-> Since commit fe9d9218c, we have detected linux/securebits.h in
-> confiure.ac. one place used the HAVE_SECUREBITS defined), it only
-> controls compile. kernel/security/securebits/check_keepcaps.c has
-> HAVE_LINUX_SECUREBITS_H check in internal, so removing it is safe.
+> Hi!
+> > NOTE: test is still a mess, even after porting it.
+> > Cleaning it up would probably be its own patch as the best
+> > solution would be to rewrite it from scratch.
 
-> No testcase used these macros defined in ltp/time.m4, and these
-> (CLOCK_MONOTONIC_RAW, CLOCK_REALTIME_COARSE, CLOCK_MONOTONIC_COARSE)
-> have been defined in lapi/posix_clocks.h. Removing it is safe.
+> The patch looks good, acked.
 
-> FS_IOC_GETFLAGS and FS_IOC_SETFLAGS have been defined in lapi/fs.h.
-> setxattr03.c checked this ioctl return value, so removing it is safe.
+> There are couple of things that could be done to make the code cleaner.
+> For instance we should make use of the .restore_wallclock flag in the
+> test structure. But let's do that in a subsequent patches.
++1
 
-> Since commit ef772539, LTP_CHECK_CGROUPSTATS has been removed. But
-> testcase still used it. It looks like a mistakenly deletion. Removing
-> ltp-cgroupstats.m4, check linux/cgroupstats.h in configure.ac.
-
-> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Acked-by: Petr Vorel <pvorel@suse.cz>
-
-Although I wonder whether mixing 4 changes (even related to autoconf)
-in single commit is a good idea (makes it a bit hard to review).
+> Also I'm not 100% sure that this test belongs under the clock_gettime/
+> directory, we do call clock_gettime() in the main test function but the
+> whole test is about inserting leap second. Maybe we should keep the test
+> under the clock_gettime directory and rename it to leapsec01.c or
+> something like this, but I'm not 100% sure about this.
++1 Before 0051eab23 it was called leapsec_timer.c. I also consider leapsec01.c
+as more descriptive. Anyone else against renaming it?
 
 Kind regards,
 Petr
