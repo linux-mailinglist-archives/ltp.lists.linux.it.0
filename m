@@ -1,47 +1,48 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CFB07B99A
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 08:24:40 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 970E97B9B3
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 08:32:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CBEED3C1D02
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 08:24:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 29BE53C1CF6
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 08:32:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 89A8F3C194D
- for <ltp@lists.linux.it>; Wed, 31 Jul 2019 08:24:37 +0200 (CEST)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id B1D363C18FA
+ for <ltp@lists.linux.it>; Wed, 31 Jul 2019 08:32:52 +0200 (CEST)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 451FB1A0123C
- for <ltp@lists.linux.it>; Wed, 31 Jul 2019 08:24:34 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.64,328,1559491200"; d="scan'208";a="72571770"
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 2E5E91000489
+ for <ltp@lists.linux.it>; Wed, 31 Jul 2019 08:32:44 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.64,328,1559491200"; d="scan'208";a="72572400"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 31 Jul 2019 14:24:17 +0800
+ by heian.cn.fujitsu.com with ESMTP; 31 Jul 2019 14:32:46 +0800
 Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id 4C7174CDDAE4;
- Wed, 31 Jul 2019 14:24:16 +0800 (CST)
+ by cn.fujitsu.com (Postfix) with ESMTP id 5CA9C4CDE65E;
+ Wed, 31 Jul 2019 14:32:45 +0800 (CST)
 Received: from localhost.localdomain (10.167.215.46) by
  G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Wed, 31 Jul 2019 14:24:16 +0800
+ (TLS) id 14.3.439.0; Wed, 31 Jul 2019 14:32:45 +0800
 From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 To: <chrubis@suse.cz>
-Date: Wed, 31 Jul 2019 14:24:06 +0800
-Message-ID: <1564554246-2265-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+Date: Wed, 31 Jul 2019 14:32:40 +0800
+Message-ID: <1564554760-2524-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <20190730112120.GA10214@rei.lan>
 References: <20190730112120.GA10214@rei.lan>
 MIME-Version: 1.0
 X-Originating-IP: [10.167.215.46]
-X-yoursite-MailScanner-ID: 4C7174CDDAE4.AF553
+X-yoursite-MailScanner-ID: 5CA9C4CDE65E.A2745
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] syscalls/nanosleep03: remove duplicated nanosleep03
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v3] syscalls/nanosleep03: remove duplicated nanosleep03
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,6 +65,10 @@ test EINTR when it is interrupted by a signal handler
 2)nanosleep01:Replace GPL verbose text by SPDX license identifier
 
 Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+------
+v2->v3:
+fix some typos
+------
 ---
  runtest/syscalls                              |   1 -
  .../kernel/syscalls/nanosleep/.gitignore      |   1 -
@@ -130,7 +135,7 @@ index 96e1cf1b4..567be8c10 100644
  
  int sample_fn(int clk_id, long long usec)
 diff --git a/testcases/kernel/syscalls/nanosleep/nanosleep02.c b/testcases/kernel/syscalls/nanosleep/nanosleep02.c
-index 8bd2c44c4..cf7849ca5 100644
+index 8bd2c44c4..7176f9373 100644
 --- a/testcases/kernel/syscalls/nanosleep/nanosleep02.c
 +++ b/testcases/kernel/syscalls/nanosleep/nanosleep02.c
 @@ -10,6 +10,9 @@
@@ -159,11 +164,11 @@ index 8bd2c44c4..cf7849ca5 100644
 +	}
 +	if (TST_ERR != EINTR) {
 +		tst_res(TFAIL | TTERRNO,
-+			"nanosleep() failed, expected EINTT, got");
++			"nanosleep() failed, expected EINTR, got");
 +		return;
 +	}
 +
-+	tst_res(TPASS, "nanosleep() returned -1, set errno to EINTER");
++	tst_res(TPASS, "nanosleep() returned -1, set errno to EINTR");
  
  	if (tst_timespec_lt(timereq, tst_timer_elapsed()))
  		tst_brk(TFAIL, "nanosleep() slept more than timereq");
