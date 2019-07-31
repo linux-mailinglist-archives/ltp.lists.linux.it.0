@@ -1,43 +1,43 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9E157C14A
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 14:28:12 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E71F27C14C
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 14:28:38 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8077E3C1D2E
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 14:28:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9EA9B3C1D2B
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 14:28:38 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id BAB0D3C1D0F
- for <ltp@lists.linux.it>; Wed, 31 Jul 2019 14:28:11 +0200 (CEST)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id C5AD93C1D0F
+ for <ltp@lists.linux.it>; Wed, 31 Jul 2019 14:28:36 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7F7F01401B69
- for <ltp@lists.linux.it>; Wed, 31 Jul 2019 14:28:10 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 958B910005FD
+ for <ltp@lists.linux.it>; Wed, 31 Jul 2019 14:28:30 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id C6CF0AE37;
- Wed, 31 Jul 2019 12:28:09 +0000 (UTC)
-Date: Wed, 31 Jul 2019 14:28:08 +0200
+ by mx1.suse.de (Postfix) with ESMTP id A3FD6AD93;
+ Wed, 31 Jul 2019 12:28:35 +0000 (UTC)
+Date: Wed, 31 Jul 2019 14:28:34 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <20190731122808.GE22537@dell5510>
+Message-ID: <20190731122834.GF22537@dell5510>
 References: <20190730110555.GB7528@rei.lan>
  <1564569629-2358-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <1564569629-2358-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <1564569629-2358-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1564569629-2358-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+In-Reply-To: <1564569629-2358-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v7 2/3] syscalls/copy_file_range01: add
- cross-device test
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v7 3/3] syscalls/copy_file_range02: increase
+ coverage and remove EXDEV test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,10 +58,14 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi,
 
-> Amir has relaxed cross-device constraint since commit[1], I think we can test it in
-> copy_file_range01.
+> Since Amir patch[1] for copy_file_range has been merged into upstream
+> kernel, we should add swapfile, immutable file, bounds tests in ltp.
+> Also, add block,char,pipe dev tests and remove EXDEV test(the cross-device
+> constraint has been relaxed since[2]). I follow xfstests code[3].
 
-> [1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=5dae222a5
+> [1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=96e6e8f4a
+> [2]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=5dae222a5
+> [3]https://git.kernel.org/pub/scm/fs/xfs/xfstests-dev.git/tree/tests/generic/(553,554,564,565}
 
 > Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 > Reviewed-by: Amir Goldstein <amir73il@gmail.com>
