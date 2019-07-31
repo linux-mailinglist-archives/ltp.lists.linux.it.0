@@ -2,42 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FB767C24B
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 14:54:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EE027C36B
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 15:26:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F0A093C1D32
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 14:54:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 955453C1D50
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 15:26:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 9C90E3C1D19
- for <ltp@lists.linux.it>; Wed, 31 Jul 2019 14:54:18 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 66D863C02C2
+ for <ltp@lists.linux.it>; Wed, 31 Jul 2019 15:26:03 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 47DA714011AE
- for <ltp@lists.linux.it>; Wed, 31 Jul 2019 14:54:17 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A30C11401B67
+ for <ltp@lists.linux.it>; Wed, 31 Jul 2019 15:26:02 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 92410AD2A
- for <ltp@lists.linux.it>; Wed, 31 Jul 2019 12:54:17 +0000 (UTC)
-Date: Wed, 31 Jul 2019 14:54:16 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20190731125416.GA29215@dell5510>
-References: <20190729120222.4717-1-pvorel@suse.cz>
- <20190729121719.GA25075@rei.lan> <20190729123557.GA9131@dell5510>
+ by mx1.suse.de (Postfix) with ESMTP id 8A154AFCD;
+ Wed, 31 Jul 2019 13:26:01 +0000 (UTC)
+Date: Wed, 31 Jul 2019 15:25:59 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <20190731132558.GB30487@rei.lan>
+References: <20190730110555.GB7528@rei.lan>
+ <1564569629-2358-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20190731120503.GC22537@dell5510> <20190731122853.GA30487@rei.lan>
+ <20190731124816.GG22537@dell5510>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190729123557.GA9131@dell5510>
-User-Agent: Mutt/1.11.3 (2019-02-01)
+In-Reply-To: <20190731124816.GG22537@dell5510>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] syscalls/clock_gettime: Ported
- clock_gettime03.c to new API
+Subject: Re: [LTP] [PATCH v7 1/3] lib: alter find_free_loopdev()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,38 +49,29 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi!
+> > > > -			return 0;
+> > > > +			if (path != NULL)
+> > > > +				strncpy(path, buf, path_len);
+> > > Is it safe to assume that path_len is *always* < 1024 (size of buf)?
+> 
+> > strncpy() is tricky that it may not null-terminate the string if the
+> > source is too long, I would have just added path[path_len-1] = 0 after
+> > the strncpy() here.
+> I was thinking about it as well.
+> I suggest to merge it with this change (+ tiny change I proposed in docs).
 
-> > > NOTE: test is still a mess, even after porting it.
-> > > Cleaning it up would probably be its own patch as the best
-> > > solution would be to rewrite it from scratch.
+I'm okay with that.
 
-> > The patch looks good, acked.
-
-> > There are couple of things that could be done to make the code cleaner.
-> > For instance we should make use of the .restore_wallclock flag in the
-> > test structure. But let's do that in a subsequent patches.
-> +1
-
-> > Also I'm not 100% sure that this test belongs under the clock_gettime/
-> > directory, we do call clock_gettime() in the main test function but the
-> > whole test is about inserting leap second. Maybe we should keep the test
-> > under the clock_gettime directory and rename it to leapsec01.c or
-> > something like this, but I'm not 100% sure about this.
-> +1 Before 0051eab23 it was called leapsec_timer.c. I also consider leapsec01.c
-> as more descriptive. Anyone else against renaming it?
-
-Merged.
-
-Kind regards,
-Petr
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
