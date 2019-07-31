@@ -2,29 +2,29 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D16A77C0AB
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 14:05:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA74D7C0B5
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 14:07:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 82E553C1D28
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 14:05:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B80D33C1D28
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 14:07:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 5E8AD3C1D15
- for <ltp@lists.linux.it>; Wed, 31 Jul 2019 14:05:07 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTP id 0EDA23C1D15
+ for <ltp@lists.linux.it>; Wed, 31 Jul 2019 14:07:09 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 9ACD16012B6
- for <ltp@lists.linux.it>; Wed, 31 Jul 2019 14:05:08 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 32BB96012B9
+ for <ltp@lists.linux.it>; Wed, 31 Jul 2019 14:07:10 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 42809AF30;
- Wed, 31 Jul 2019 12:05:05 +0000 (UTC)
-Date: Wed, 31 Jul 2019 14:05:03 +0200
+ by mx1.suse.de (Postfix) with ESMTP id DF819AB9D;
+ Wed, 31 Jul 2019 12:07:07 +0000 (UTC)
+Date: Wed, 31 Jul 2019 14:07:06 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <20190731120503.GC22537@dell5510>
+Message-ID: <20190731120706.GD22537@dell5510>
 References: <20190730110555.GB7528@rei.lan>
  <1564569629-2358-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 MIME-Version: 1.0
@@ -57,18 +57,23 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Xu,
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+...
+> +++ b/doc/test-writing-guidelines.txt
+> @@ -1053,6 +1053,18 @@ IMPORTANT: All testcases should use 'tst_umount()' instead of 'umount(2)' to
+>  -------------------------------------------------------------------------------
+>  #include "tst_test.h"
 
-...
-> +++ b/lib/tst_device.c
-...
-> -			return 0;
-> +			if (path != NULL)
-> +				strncpy(path, buf, path_len);
-Is it safe to assume that path_len is *always* < 1024 (size of buf)?
-> +			return i;
-...
+> +int tst_find_free_loopdev(const char *path, size_t path_len);
+> +-------------------------------------------------------------------------------
+> +
+> +This function finds a free loopdev and returns the free loopdev minor (-1 for no
+> +free loopdev). If path is non-NULL, it will be filled with free loopdev path.
+> +If you want to use a customized loop device, we can call tst_find_free_loopdev
+> +(NULL, 0) in tests to get a free minor number. Then mknod.
+Maybe (as "Then mknod." is a sentence without a verb):
+   (NULL, 0) in tests to get a free minor number and then mknod.
 
+(nitch, of course can be fixed during merge)
 
 Kind regards,
 Petr
