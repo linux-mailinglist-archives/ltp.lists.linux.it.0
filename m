@@ -1,43 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E71F27C14C
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 14:28:38 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 563337C14F
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 14:28:58 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9EA9B3C1D2B
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 14:28:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F401F3C1D2E
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 14:28:57 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id C5AD93C1D0F
- for <ltp@lists.linux.it>; Wed, 31 Jul 2019 14:28:36 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 722993C1D0F
+ for <ltp@lists.linux.it>; Wed, 31 Jul 2019 14:28:56 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 958B910005FD
- for <ltp@lists.linux.it>; Wed, 31 Jul 2019 14:28:30 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E76061401201
+ for <ltp@lists.linux.it>; Wed, 31 Jul 2019 14:28:55 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id A3FD6AD93;
- Wed, 31 Jul 2019 12:28:35 +0000 (UTC)
-Date: Wed, 31 Jul 2019 14:28:34 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <20190731122834.GF22537@dell5510>
+ by mx1.suse.de (Postfix) with ESMTP id 50631AD93;
+ Wed, 31 Jul 2019 12:28:55 +0000 (UTC)
+Date: Wed, 31 Jul 2019 14:28:54 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <20190731122853.GA30487@rei.lan>
 References: <20190730110555.GB7528@rei.lan>
  <1564569629-2358-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <1564569629-2358-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20190731120503.GC22537@dell5510>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1564569629-2358-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+In-Reply-To: <20190731120503.GC22537@dell5510>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v7 3/3] syscalls/copy_file_range02: increase
- coverage and remove EXDEV test
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v7 1/3] lib: alter find_free_loopdev()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,30 +48,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi!
+> ...
+> > +++ b/lib/tst_device.c
+> ...
+> > -			return 0;
+> > +			if (path != NULL)
+> > +				strncpy(path, buf, path_len);
+> Is it safe to assume that path_len is *always* < 1024 (size of buf)?
 
-> Since Amir patch[1] for copy_file_range has been merged into upstream
-> kernel, we should add swapfile, immutable file, bounds tests in ltp.
-> Also, add block,char,pipe dev tests and remove EXDEV test(the cross-device
-> constraint has been relaxed since[2]). I follow xfstests code[3].
+strncpy() is tricky that it may not null-terminate the string if the
+source is too long, I would have just added path[path_len-1] = 0 after
+the strncpy() here.
 
-> [1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=96e6e8f4a
-> [2]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=5dae222a5
-> [3]https://git.kernel.org/pub/scm/fs/xfs/xfstests-dev.git/tree/tests/generic/(553,554,564,565}
+> > +			return i;
+> ...
+> 
+> 
+> Kind regards,
+> Petr
 
-> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-> Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-
-Kind regards,
-Petr
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
