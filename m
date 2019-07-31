@@ -1,57 +1,48 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 896217BC77
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 11:02:42 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 44A027BE8C
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 12:41:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E6D533C1D42
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 11:02:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E60323C1CF7
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 12:41:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id AC9BF3C1826
- for <ltp@lists.linux.it>; Wed, 31 Jul 2019 11:02:38 +0200 (CEST)
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com
- [209.85.222.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id CC023601A78
- for <ltp@lists.linux.it>; Wed, 31 Jul 2019 11:02:37 +0200 (CEST)
-Received: by mail-ua1-f42.google.com with SMTP id 34so26666101uar.8
- for <ltp@lists.linux.it>; Wed, 31 Jul 2019 02:02:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Nc2KYJCDAJ3fZAs0s9uayhe3SP2FqSFeI/gr7W4Yisw=;
- b=ij0rJUkJDsXkm6h3M2PCd3Zk0cTBzjapsymlubCG9tCgFRosQYrZUyLLezrs14C14t
- t2lNlLZO4dx1l0HCERFku7r+067x+oIR3ucX/oBCAvXndcvUZna6GXYJ8MjRMO9Q7rAJ
- f1oSqaafk+igr9EZ4jttvrzUqYOdW7BxDLZ4GZOtUbBtugMu19Hoo1lIRoaDstVlYRiT
- 2PVVG4mwMYqEYQ6LHaplCiacLT2O1dIJudoBhIyT4n7gmC4U94jbusRlu74XlUaX4QJh
- OCJOUd7IPlX92wCyv4AvqhebOsmDbNkd8m2u31/AfmThYmb5eyrmDZuFYLc8GDzcQ57p
- J5/g==
-X-Gm-Message-State: APjAAAURfZ7s3YsTvn1geXzt82wplPiSYcM/q1lLXHcmQQBm+k6uwmR3
- tWDpXE/qDNUNme9IFHqh4maXQCEFwV8Uuc8LZlmntw==
-X-Google-Smtp-Source: APXvYqwyGmQge8ISg4y1ZuLWKPMfolEwe/qmHFA7BwCqtpVUK0b75hVUk9Jn7/dOJJc50B3MIchCtTOYXAe5bBmmU7g=
-X-Received: by 2002:ab0:67d6:: with SMTP id w22mr8886524uar.68.1564563756691; 
- Wed, 31 Jul 2019 02:02:36 -0700 (PDT)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id B5C3F3C1D53
+ for <ltp@lists.linux.it>; Wed, 31 Jul 2019 12:41:05 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id EA5E21001748
+ for <ltp@lists.linux.it>; Wed, 31 Jul 2019 12:40:55 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.64,329,1559491200"; d="scan'208";a="72588302"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 31 Jul 2019 18:40:41 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id 514484CDE8D8;
+ Wed, 31 Jul 2019 18:40:36 +0800 (CST)
+Received: from localhost.localdomain (10.167.215.46) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ (TLS) id 14.3.439.0; Wed, 31 Jul 2019 18:40:36 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <chrubis@suse.cz>, <pvorel@suse.cz>
+Date: Wed, 31 Jul 2019 18:40:27 +0800
+Message-ID: <1564569629-2358-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <20190730110555.GB7528@rei.lan>
+References: <20190730110555.GB7528@rei.lan>
 MIME-Version: 1.0
-References: <6db4a928733290dca3b2e4b4a27f1cb69d805401.1563959090.git.jstancek@redhat.com>
- <CAEemH2dqE8Ad_r+vnrd0BnBoyOO9GTLoE20SPSQtV7mbr-Yabg@mail.gmail.com>
- <1049532097.3289438.1564481693647.JavaMail.zimbra@redhat.com>
-In-Reply-To: <1049532097.3289438.1564481693647.JavaMail.zimbra@redhat.com>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 31 Jul 2019 17:02:25 +0800
-Message-ID: <CAEemH2cDDgKrhxDwNgUq_yg_=v0YKXhHWBVugfg4Wy6UKOuNcA@mail.gmail.com>
-To: Jan Stancek <jstancek@redhat.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
-X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Originating-IP: [10.167.215.46]
+X-yoursite-MailScanner-ID: 514484CDE8D8.AEDF9
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syslog: fix sporadic failures due to
- rate-limitting
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Status: Clean
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v7 1/3] lib: alter find_free_loopdev()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,51 +54,178 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Jan,
+Alter find_free_loopdev() to tst_find_free_loopdev(path, path_len),
+tst_acquire_device() passes the dev_path and path_len inside of
+the tst_device.c. It returns the free loopdev minor (and -1 for no
+free loopdev). If path is non-NULL, it will be filled with free
+loopdev path. We also can call tst_find_free_loopdev(NULL, 0) to
+make a customized loopdev by using mkdnod.
 
-> Have you followed all the steps?
-> - stop rsyslog
-> - delete imjournal.state
-> - run kmsg01 couple times
-> - run syslog01
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+-------
+v6->v7:
+     correct logic when use old detection way
+---
+---
+ doc/test-writing-guidelines.txt | 12 +++++++++++
+ include/tst_device.h            |  6 ++++++
+ lib/tst_device.c                | 35 +++++++++++++++++++--------------
+ 3 files changed, 38 insertions(+), 15 deletions(-)
 
-Finally, I run more times for ksm01 to make a large backlog of
-messages then reproduced it. After applying your patch, the problem
-does not appear anymore.  So, ACK for this patch.
-
----------- Reproduce Log -----------
-# cat runtest/wangli
-kmsg01 kmsg01
-kmsg01 kmsg01
-kmsg01 kmsg01
-kmsg01 kmsg01
-kmsg01 kmsg01
-syslog01 syslog01
-
-# systemctl stop rsyslog; rm -fr /var/lib/rsyslog/*; ./runltp -f wangli
-syslog01 FAIL
-
-# journalctl
-...
-Jul 31 04:53:18 hp-dl385pg8-11.rhts.eng.pek2.redhat.com
-rsyslogd[3336]: imjournal from <hp-dl385pg8-11:restraintd>: begin to
-drop messages due to rate-limiting
-Jul 31 04:53:19 hp-dl385pg8-11.rhts.eng.pek2.redhat.com
-syslogtst[3341]: syslogtst: mail info test.
-Jul 31 04:53:21 hp-dl385pg8-11.rhts.eng.pek2.redhat.com systemd[1]:
-Stopping System Logging Service...
-Jul 31 04:53:21 hp-dl385pg8-11.rhts.eng.pek2.redhat.com
-rsyslogd[3336]: imjournal: 63528 messages lost due to rate-limiting
-
+diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
+index e59d72065..d21fbf76a 100644
+--- a/doc/test-writing-guidelines.txt
++++ b/doc/test-writing-guidelines.txt
+@@ -1053,6 +1053,18 @@ IMPORTANT: All testcases should use 'tst_umount()' instead of 'umount(2)' to
+ -------------------------------------------------------------------------------
+ #include "tst_test.h"
+ 
++int tst_find_free_loopdev(const char *path, size_t path_len);
++-------------------------------------------------------------------------------
++
++This function finds a free loopdev and returns the free loopdev minor (-1 for no
++free loopdev). If path is non-NULL, it will be filled with free loopdev path.
++If you want to use a customized loop device, we can call tst_find_free_loopdev
++(NULL, 0) in tests to get a free minor number. Then mknod.
++
++[source,c]
++-------------------------------------------------------------------------------
++#include "tst_test.h"
++
+ unsigned long tst_dev_bytes_written(const char *dev);
+ -------------------------------------------------------------------------------
+ 
+diff --git a/include/tst_device.h b/include/tst_device.h
+index 61902b7e0..f0ddc3e93 100644
+--- a/include/tst_device.h
++++ b/include/tst_device.h
+@@ -44,6 +44,12 @@ int tst_umount(const char *path);
+  */
+ int tst_clear_device(const char *dev);
+ 
++/*
++ * Finds a free loop device for use and returns the free loopdev minor(-1 for no
++ * free loopdev). If path is non-NULL, it will be filled with free loopdev path.
++ *
++ */
++int tst_find_free_loopdev(const char *path, size_t path_len);
+ /*
+  * Reads test block device stat file and returns the bytes written since the
+  * last call of this function.
+diff --git a/lib/tst_device.c b/lib/tst_device.c
+index 65fcc1337..3eb51bee1 100644
+--- a/lib/tst_device.c
++++ b/lib/tst_device.c
+@@ -53,25 +53,26 @@ static const char *dev_variants[] = {
+ 	"/dev/block/loop%i"
+ };
+ 
+-static int set_dev_path(int dev)
++static int set_dev_path(int dev, char *path, size_t path_len)
+ {
+ 	unsigned int i;
+ 	struct stat st;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(dev_variants); i++) {
+-		snprintf(dev_path, sizeof(dev_path), dev_variants[i], dev);
++		snprintf(path, path_len, dev_variants[i], dev);
+ 
+-		if (stat(dev_path, &st) == 0 && S_ISBLK(st.st_mode))
++		if (stat(path, &st) == 0 && S_ISBLK(st.st_mode))
+ 			return 1;
+ 	}
+ 
+ 	return 0;
+ }
+ 
+-static int find_free_loopdev(void)
++int tst_find_free_loopdev(char *path, size_t path_len)
+ {
+ 	int ctl_fd, dev_fd, rc, i;
+ 	struct loop_info loopinfo;
++	char buf[1024];
+ 
+ 	/* since Linux 3.1 */
+ 	ctl_fd = open(LOOP_CONTROL_FILE, O_RDWR);
+@@ -80,12 +81,14 @@ static int find_free_loopdev(void)
+ 		rc = ioctl(ctl_fd, LOOP_CTL_GET_FREE);
+ 		close(ctl_fd);
+ 		if (rc >= 0) {
+-			set_dev_path(rc);
+-			tst_resm(TINFO, "Found free device '%s'", dev_path);
+-			return 0;
++			if (path)
++				set_dev_path(rc, path, path_len);
++			tst_resm(TINFO, "Found free device %d '%s'",
++				rc, path ?: "");
++			return rc;
+ 		}
+ 		tst_resm(TINFO, "Couldn't find free loop device");
+-		return 1;
++		return -1;
+ 	}
+ 
+ 	switch (errno) {
+@@ -106,22 +109,24 @@ static int find_free_loopdev(void)
+ 	 */
+ 	for (i = 0; i < 256; i++) {
+ 
+-		if (!set_dev_path(i))
++		if (!set_dev_path(i, buf, sizeof(buf)))
+ 			continue;
+ 
+-		dev_fd = open(dev_path, O_RDONLY);
++		dev_fd = open(buf, O_RDONLY);
+ 
+ 		if (dev_fd < 0)
+ 			continue;
+ 
+ 		if (ioctl(dev_fd, LOOP_GET_STATUS, &loopinfo) == 0) {
+-			tst_resm(TINFO, "Device '%s' in use", dev_path);
++			tst_resm(TINFO, "Device '%s' in use", buf);
+ 		} else {
+ 			if (errno != ENXIO)
+ 				continue;
+-			tst_resm(TINFO, "Found free device '%s'", dev_path);
++			tst_resm(TINFO, "Found free device '%s'", buf);
+ 			close(dev_fd);
+-			return 0;
++			if (path != NULL)
++				strncpy(path, buf, path_len);
++			return i;
+ 		}
+ 
+ 		close(dev_fd);
+@@ -129,7 +134,7 @@ static int find_free_loopdev(void)
+ 
+ 	tst_resm(TINFO, "No free devices found");
+ 
+-	return 1;
++	return -1;
+ }
+ 
+ static int attach_device(const char *dev, const char *file)
+@@ -274,7 +279,7 @@ const char *tst_acquire_device__(unsigned int size)
+ 		return NULL;
+ 	}
+ 
+-	if (find_free_loopdev())
++	if (tst_find_free_loopdev(dev_path, sizeof(dev_path)) == -1)
+ 		return NULL;
+ 
+ 	if (attach_device(dev_path, DEV_FILE))
 -- 
-Regards,
-Li Wang
+2.18.1
+
+
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
