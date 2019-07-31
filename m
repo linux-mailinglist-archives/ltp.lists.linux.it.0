@@ -1,47 +1,47 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48BC17B7F5
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 04:13:16 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CFB07B99A
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 08:24:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D8D303C1D0D
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 04:13:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CBEED3C1D02
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Jul 2019 08:24:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 557363C1C90
- for <ltp@lists.linux.it>; Wed, 31 Jul 2019 04:13:13 +0200 (CEST)
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
- (using TLSv1.1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 436C61001385
- for <ltp@lists.linux.it>; Wed, 31 Jul 2019 04:13:04 +0200 (CEST)
-Received: from ALA-HCA.corp.ad.wrs.com ([147.11.189.40])
- by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id x6V2D4vY006089
- (version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
- Tue, 30 Jul 2019 19:13:04 -0700 (PDT)
-Received: from [128.224.162.188] (128.224.162.188) by ALA-HCA.corp.ad.wrs.com
- (147.11.189.50) with Microsoft SMTP Server (TLS) id 14.3.468.0;
- Tue, 30 Jul 2019 19:13:04 -0700
-To: <linux-btrfs@vger.kernel.org>, <josef@toxicpanda.com>
-References: <b501bcff-8be0-4303-8789-363fda4658e5@windriver.com>
-From: "Hongzhi, Song" <hongzhi.song@windriver.com>
-Message-ID: <cc01d19f-4955-c0b9-a5be-356ea10de59c@windriver.com>
-Date: Wed, 31 Jul 2019 10:13:01 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 89A8F3C194D
+ for <ltp@lists.linux.it>; Wed, 31 Jul 2019 08:24:37 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 451FB1A0123C
+ for <ltp@lists.linux.it>; Wed, 31 Jul 2019 08:24:34 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.64,328,1559491200"; d="scan'208";a="72571770"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 31 Jul 2019 14:24:17 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id 4C7174CDDAE4;
+ Wed, 31 Jul 2019 14:24:16 +0800 (CST)
+Received: from localhost.localdomain (10.167.215.46) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ (TLS) id 14.3.439.0; Wed, 31 Jul 2019 14:24:16 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <chrubis@suse.cz>
+Date: Wed, 31 Jul 2019 14:24:06 +0800
+Message-ID: <1564554246-2265-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <20190730112120.GA10214@rei.lan>
+References: <20190730112120.GA10214@rei.lan>
 MIME-Version: 1.0
-In-Reply-To: <b501bcff-8be0-4303-8789-363fda4658e5@windriver.com>
-Content-Language: en-US
-X-Originating-IP: [128.224.162.188]
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
-X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Originating-IP: [10.167.215.46]
+X-yoursite-MailScanner-ID: 4C7174CDDAE4.AF553
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] Bug Report: Btrfs can't allocate space for delete when
- block size arounds 512M
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Status: Clean
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] syscalls/nanosleep03: remove duplicated nanosleep03
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,58 +53,279 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: dsterba@suse.com, ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGksCgpBbnlvbmUgbm90aWNlIHRoaXM/CgotLUhvbmd6aGkKCgpPbiA3LzE3LzE5IDQ6MzQgUE0s
-IEhvbmd6aGksIFNvbmcgd3JvdGU6Cj4gSGkgZnJpZW5kcywKPgo+ICpEZXNjcmlwdGlvbjoqCj4K
-Pgo+IMKgwqDCoCBPbmUgTFRQIHRlc3RjYXNlLCBmc19maWxsLmMsIGZhaWxzIG9uIGJ0cmZzIHdp
-dGgga2VybmVsIGVycm9yIHdoZW4gCj4gdW5saW5rIGZpbGVzIG9uIEJ0cmZzIGRldmljZToKPgo+
-IMKgwqDCoCAiQlRSRlMgd2FybmluZyAoZGV2aWNlIGxvb3AwKTogY291bGQgbm90IGFsbG9jYXRl
-IHNwYWNlIGZvciBhIAo+IGRlbGV0ZTsgd2lsbCB0cnVuY2F0ZSBvbiBtb3VudCIuCj4KPgo+IMKg
-wqDCoCBJIGZvdW5kIHRoZSBsb29wIGJsb2NrIGRldmljZSBmb3JtYXR0ZWQgd2l0aCBidHJmcyBy
-b3VnaGx5IHJhbmdzIAo+IGZyb20gNDYwTSB0byA1NjBNIHdpbGwgY2F1c2UgdGhlIGVycm9yLgo+
-Cj4gwqDCoMKgIDI1Nk0gYW5kIDFHIGFsbCBwYXNzLgo+Cj4KPiDCoMKgwqAgVGhlIGZzX2ZpbGwu
-YyBzb3VyY2UgY29kZToKPgo+IFtodHRwczovL2dpdGh1Yi5jb20vbGludXgtdGVzdC1wcm9qZWN0
-L2x0cC9ibG9iL21hc3Rlci90ZXN0Y2FzZXMva2VybmVsL2ZzL2ZzX2ZpbGwvZnNfZmlsbC5jXSAK
-Pgo+Cj4gwqDCoMKgIFRoZSBmc19maWxsLmMgY2FsbHMgdW5saW5rIHdoaWNoIHRyaWdnZXJzIHRo
-ZSBlcnJvci4KPgo+IFtodHRwczovL2dpdGh1Yi5jb20vbGludXgtdGVzdC1wcm9qZWN0L2x0cC9i
-bG9iL2UzNDU3ZTQyYzFiOTNmNTRiYjgxZGE3NDZlYmEzMTRmZDM0YWQ0MGUvdGVzdGNhc2VzL2tl
-cm5lbC9mcy9mc19maWxsL2ZzX2ZpbGwuYyNMNTVdIAo+Cj4KPiBbaHR0cHM6Ly9naXRodWIuY29t
-L2xpbnV4LXRlc3QtcHJvamVjdC9sdHAvYmxvYi9lMzQ1N2U0MmMxYjkzZjU0YmI4MWRhNzQ2ZWJh
-MzE0ZmQzNGFkNDBlL2xpYi9zYWZlX21hY3Jvcy5jI0wzNThdIAo+Cj4KPgo+ICpFcnJvciBpbmZv
-OioKPgo+IMKgwqDCoCBUaGUgaXNzdWUgbWF5YmUgbm90IHJlcHJvZHVjZWQgZXZlcnl0aW1lIGJ1
-dCBmb3VyIGZpZnRocyBjaGFuY2UuCj4KPiDCoMKgwqAgZnNfZmlsbC5jOjUzOiBJTkZPOiBVbmxp
-bmtpbmcgbW50cG9pbnQvdGhyZWFkNS9maWxlMAo+IMKgwqDCoCBzYWZlX21hY3Jvcy5jOjM2MDog
-QlJPSzogZnNfZmlsbC5jOjU1OiAKPiB1bmxpbmsobW50cG9pbnQvdGhyZWFkMTAvZmlsZTApIGZh
-aWxlZDogRU5PU1BDCj4gwqDCoMKgIHNhZmVfbWFjcm9zLmM6MzYwOiBCUk9LOiBmc19maWxsLmM6
-NTU6IAo+IHVubGluayhtbnRwb2ludC90aHJlYWQxMS9maWxlMCkgZmFpbGVkOiBFTk9TUEMKPiDC
-oMKgwqAgWzYyNDc3LjM3ODg0OF0gQlRSRlMgd2FybmluZyAoZGV2aWNlIGxvb3AwKTogY291bGQg
-bm90IGFsbG9jYXRlIAo+IHNwYWNlIGZvciBhIGRlbGV0ZTsgd2lsbCB0cnVuY2F0ZSBvbiBtb3Vu
-dAo+IMKgwqDCoCBbNjI0NzcuMzc4OTA1XSBCVFJGUyB3YXJuaW5nIChkZXZpY2UgbG9vcDApOiBj
-b3VsZCBub3QgYWxsb2NhdGUgCj4gc3BhY2UgZm9yIGEgZGVsZXRlOyB3aWxsIHRydW5jYXRlIG9u
-IG1vdW50Cj4KPgo+Cj4gKktlcm5lbDoqCj4KPiDCoMKgwqAgQWZ0ZXIgdjUuMi1yYzEsIHFlbXV4
-ODYtNjQKPgo+IMKgwqDCoCAjIG1ha2UgLWo0MCBBUkNIPXg4Nl82NCBDUk9TU19DT01QSUxFPXg4
-Ni02NC1nY2MKPiDCoMKgwqAgdXNlIHFlbXUgdG8gYm9vdHVwIGtlcm5lbAo+Cj4KPiAqTFRQOioK
-Pgo+IMKgwqDCoCBtYXN0ZXIgYnJhbmNoOiBJIHRlc3RlZCBvbiAyMDE5MDYyNQo+IMKgwqDCoCBS
-ZXByb2R1Y2U6Cj4KPiDCoMKgwqAgLy8gYnVpbGQgTHRwCj4gwqDCoMKgICMgY2QgTHRwLXNvdXJj
-ZQo+IMKgwqDCoCAjIC4vYnVpbGQuc2gKPgo+IMKgwqDCoCAvLyBjb3B5IGZpbGVzIHRvIHFlbXUK
-PiDCoMKgwqAgIyBjcCBydW5sdHAgdGVzdGNhc2VzL2tlcm5lbC9mcy9mc19maWxsL2ZzX2ZpbGwg
-dG8gcWVtdQo+Cj4gwqDCoMKgIC8vIGxvZ2luIHRvIHFlbXU6Cj4gwqDCoMKgIC8vIGFkanVzdCBi
-bG9jayBkZXZpY2Ugc2l6ZSB0byA1MTJNCj4gwqDCoMKgICMgdmkgcnVubHRwCj4gwqDCoMKgIGlu
-IGZ1bmN0aW9uOiBjcmVhdGVfYmxvY2soKQo+IMKgwqDCoCDCoMKgwqAgZGQgaWY9L2Rldi96ZXJv
-IG9mPSR7VE1QfS90ZXN0LmltZyBicz0xMDI0IGNvdW50PTI2MjE0NAo+IMKgwqDCoCDCoMKgwqAg
-LS0tPgo+IMKgwqDCoCDCoMKgwqAgZGQgaWY9L2Rldi96ZXJvIG9mPSR7VE1QfS90ZXN0LmltZyBi
-cz0xMDI0IGNvdW50PTUyNDI4OAo+Cj4gwqDCoMKgIC8vIGV4ZWN1dGUgdGVzdGNhc2UKPiDCoMKg
-wqAgIyBydW5sdHAgLWYgZnMgLXMgZnNfZmlsbAo+Cj4KPiAqQW5hbHlzaXM6Kgo+Cj4gwqDCoMKg
-IE9uZSBuZXcga2VybmVsIGNvbW1pdCBjb250YWluZWQgaW4gdjUuMi1yYzEgaW50cm9kdWNlcyB0
-aGUgaXNzdWUuCj4KPiDCoMKgwqAgY29tbWl0IGM4ZWFlYWM3YjczNDM0N2MzYWZiYTcwMDhiN2Fm
-NjJmMzdiOWMxNDAKPiDCoMKgwqAgQXV0aG9yOiBKb3NlZiBCYWNpayA8am9zZWZAdG94aWNwYW5k
-YS5jb20+Cj4gwqDCoMKgIERhdGU6wqDCoCBXZWQgQXByIDEwIDE1OjU2OjEwIDIwMTkgLTA0MDAK
-Pgo+IMKgwqDCoCDCoMKgwqAgYnRyZnM6IHJlc2VydmUgZGVsYWxsb2MgbWV0YWRhdGEgZGlmZmVy
-ZW50bHkKPiDCoMKgIMKgwqAgwqAgLi4uCj4KPgo+IEFueW9uZSdzIHJlcGx5IHdpbGwgYmUgYXBw
-cmVjaWF0ZWQuCj4KPiAtLUhvbmd6aGkKPgo+Cj4KPgo+Cj4KCi0tIApNYWlsaW5nIGxpc3QgaW5m
-bzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+1) remove duplicated nanosleep03, because nanosleep02 also
+test EINTR when it is interrupted by a signal handler
+2)nanosleep01:Replace GPL verbose text by SPDX license identifier
+
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+---
+ runtest/syscalls                              |   1 -
+ .../kernel/syscalls/nanosleep/.gitignore      |   1 -
+ .../kernel/syscalls/nanosleep/nanosleep01.c   |  16 +-
+ .../kernel/syscalls/nanosleep/nanosleep02.c   |  20 ++-
+ .../kernel/syscalls/nanosleep/nanosleep03.c   | 148 ------------------
+ 5 files changed, 17 insertions(+), 169 deletions(-)
+ delete mode 100644 testcases/kernel/syscalls/nanosleep/nanosleep03.c
+
+diff --git a/runtest/syscalls b/runtest/syscalls
+index da5924716..1c858d53e 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -785,7 +785,6 @@ munmap03 munmap03
+ 
+ nanosleep01 nanosleep01
+ nanosleep02 nanosleep02
+-nanosleep03 nanosleep03
+ nanosleep04 nanosleep04
+ 
+ nftw01 nftw01
+diff --git a/testcases/kernel/syscalls/nanosleep/.gitignore b/testcases/kernel/syscalls/nanosleep/.gitignore
+index 11ed6bbcb..9bf03ea97 100644
+--- a/testcases/kernel/syscalls/nanosleep/.gitignore
++++ b/testcases/kernel/syscalls/nanosleep/.gitignore
+@@ -1,4 +1,3 @@
+ /nanosleep01
+ /nanosleep02
+-/nanosleep03
+ /nanosleep04
+diff --git a/testcases/kernel/syscalls/nanosleep/nanosleep01.c b/testcases/kernel/syscalls/nanosleep/nanosleep01.c
+index 96e1cf1b4..567be8c10 100644
+--- a/testcases/kernel/syscalls/nanosleep/nanosleep01.c
++++ b/testcases/kernel/syscalls/nanosleep/nanosleep01.c
+@@ -1,21 +1,8 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) International Business Machines  Corp., 2001
+  *  07/2001 Ported by Wayne Boyer
+  * Copyright (C) 2015-2017 Cyril Hrubis <chrubis@suse.cz>
+- *
+- * This program is free software;  you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation; either version 2 of the License, or
+- * (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- * the GNU General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program;  if not, write to the Free Software Foundation,
+- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+  */
+ 
+ /*
+@@ -25,7 +12,6 @@
+  */
+ 
+ #include <errno.h>
+-
+ #include "tst_timer_test.h"
+ 
+ int sample_fn(int clk_id, long long usec)
+diff --git a/testcases/kernel/syscalls/nanosleep/nanosleep02.c b/testcases/kernel/syscalls/nanosleep/nanosleep02.c
+index 8bd2c44c4..cf7849ca5 100644
+--- a/testcases/kernel/syscalls/nanosleep/nanosleep02.c
++++ b/testcases/kernel/syscalls/nanosleep/nanosleep02.c
+@@ -10,6 +10,9 @@
+  *  Verify that nanosleep() will be successful to suspend the execution
+  *  of a process, returns after the receipt of a signal and writes the
+  *  remaining sleep time into the structure.
++ *
++ *  This test also verifies that if the call is interrupted by a signal
++ *  handler, nanosleep() returns -1, sets errno to EINTR.
+  */
+ 
+ #include <errno.h>
+@@ -39,10 +42,19 @@ static void do_child(void)
+ 	TEST(nanosleep(&timereq, &timerem));
+ 	tst_timer_stop();
+ 
+-	if (!TST_RET)
+-		tst_brk(TBROK, "nanosleep was not interrupted");
+-	if (TST_ERR != EINTR)
+-		tst_brk(TBROK | TTERRNO, "nanosleep() failed");
++	if (TST_RET != -1) {
++		tst_res(TFAIL,
++			"nanosleep was not interrupted, returned %ld ,expected -1",
++			TST_RET);
++		return;
++	}
++	if (TST_ERR != EINTR) {
++		tst_res(TFAIL | TTERRNO,
++			"nanosleep() failed, expected EINTT, got");
++		return;
++	}
++
++	tst_res(TPASS, "nanosleep() returned -1, set errno to EINTER");
+ 
+ 	if (tst_timespec_lt(timereq, tst_timer_elapsed()))
+ 		tst_brk(TFAIL, "nanosleep() slept more than timereq");
+diff --git a/testcases/kernel/syscalls/nanosleep/nanosleep03.c b/testcases/kernel/syscalls/nanosleep/nanosleep03.c
+deleted file mode 100644
+index 456e140e9..000000000
+--- a/testcases/kernel/syscalls/nanosleep/nanosleep03.c
++++ /dev/null
+@@ -1,148 +0,0 @@
+-/*
+- * Copyright (c) International Business Machines  Corp., 2001
+- *  07/2001 Ported by Wayne Boyer
+- *
+- * This program is free software;  you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation; either version 2 of the License, or
+- * (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- * the GNU General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program;  if not, write to the Free Software Foundation,
+- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+- */
+-
+-/*
+- * Test Description:
+- *  Verify that nanosleep() will fail to suspend the execution
+- *  of a process for a specified time if interrupted by a non-blocked signal.
+- *
+- * Expected Result:
+- *  nanosleep() should return with -1 value and sets errno to EINTR.
+- */
+-
+-#include <errno.h>
+-#include <unistd.h>
+-#include <fcntl.h>
+-#include <time.h>
+-#include <sys/wait.h>
+-
+-#include "test.h"
+-#include "safe_macros.h"
+-
+-char *TCID = "nanosleep03";
+-int TST_TOTAL = 1;
+-
+-static void do_child(void);
+-static void setup(void);
+-static void sig_handler();
+-
+-int main(int ac, char **av)
+-{
+-	int lc;
+-	pid_t cpid;
+-	int status;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-#ifdef UCLINUX
+-	maybe_run_child(&do_child, "dddd", &timereq.tv_sec, &timereq.tv_nsec,
+-			&timerem.tv_sec, &timerem.tv_nsec);
+-#endif
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-		tst_count = 0;
+-
+-		/*
+-		 * Creat a child process and suspend its
+-		 * execution using nanosleep()
+-		 */
+-		if ((cpid = FORK_OR_VFORK()) == -1)
+-			tst_brkm(TBROK, NULL, "fork() failed");
+-
+-		if (cpid == 0) {
+-#ifdef UCLINUX
+-			if (self_exec(av[0], "dddd",
+-				      timereq.tv_sec, timereq.tv_nsec,
+-				      timerem.tv_sec, timerem.tv_nsec) < 0) {
+-				tst_brkm(TBROK, NULL, "self_exec failed");
+-			}
+-#else
+-			do_child();
+-#endif
+-		}
+-
+-		sleep(1);
+-
+-		/* Now send signal to child */
+-		SAFE_KILL(NULL, cpid, SIGINT);
+-
+-		/* Wait for child to execute */
+-		wait(&status);
+-		if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
+-			tst_resm(TPASS, "nanosleep() failed, interrupted"
+-				 " by signal (%d) as expected", EINTR);
+-		} else {
+-			tst_resm(TFAIL, "child process exited abnormally; "
+-				 "status = %d", status);
+-		}
+-	}
+-
+-	tst_exit();
+-}
+-
+-static void do_child(void)
+-{
+-	struct timespec timereq = {.tv_sec = 5, .tv_nsec = 9999};
+-	struct timespec timerem;
+-
+-	/*
+-	 * Call nanosleep() to suspend child process
+-	 * for specified time 'tv_sec'.
+-	 * Call should return before suspending execution
+-	 * for the specified time due to receipt of signal
+-	 * from Parent.
+-	 */
+-	TEST(nanosleep(&timereq, &timerem));
+-
+-	if (TEST_RETURN == -1) {
+-
+-		/* Check for expected errno is set */
+-		if (TEST_ERRNO != EINTR) {
+-			tst_resm(TFAIL | TTERRNO,
+-				 "nanosleep() failed; expected errno: %d",
+-				 EINTR);
+-			exit(1);
+-		}
+-	} else {
+-		tst_resm(TFAIL, "nanosleep() returns %ld, "
+-			 "expected -1, errno:%d", TEST_RETURN, EINTR);
+-		exit(1);
+-	}
+-
+-	exit(0);
+-}
+-
+-static void setup(void)
+-{
+-	tst_sig(FORK, DEF_HANDLER, NULL);
+-
+-	TEST_PAUSE;
+-
+-	if (signal(SIGINT, sig_handler) == SIG_ERR) {
+-		tst_brkm(TBROK, NULL,
+-			 "signal() fails to setup signal handler");
+-	}
+-
+-}
+-
+-static void sig_handler(void)
+-{
+-}
+-- 
+2.18.1
+
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
