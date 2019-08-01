@@ -2,29 +2,29 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F7F17D88E
-	for <lists+linux-ltp@lfdr.de>; Thu,  1 Aug 2019 11:27:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B2CB7D890
+	for <lists+linux-ltp@lfdr.de>; Thu,  1 Aug 2019 11:27:38 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C6C713C201C
-	for <lists+linux-ltp@lfdr.de>; Thu,  1 Aug 2019 11:27:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CAD703C2053
+	for <lists+linux-ltp@lfdr.de>; Thu,  1 Aug 2019 11:27:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 4EBAE3C1E01
+ by picard.linux.it (Postfix) with ESMTP id 54C2B3C1E03
  for <ltp@lists.linux.it>; Thu,  1 Aug 2019 11:26:36 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B194A6025ED
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id ACB786025DB
  for <ltp@lists.linux.it>; Thu,  1 Aug 2019 11:26:35 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id C6336B656
+ by mx1.suse.de (Postfix) with ESMTP id B0B98B653
  for <ltp@lists.linux.it>; Thu,  1 Aug 2019 09:26:32 +0000 (UTC)
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu,  1 Aug 2019 11:26:12 +0200
-Message-Id: <20190801092616.30553-6-chrubis@suse.cz>
+Date: Thu,  1 Aug 2019 11:26:13 +0200
+Message-Id: <20190801092616.30553-7-chrubis@suse.cz>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20190801092616.30553-1-chrubis@suse.cz>
 References: <20190801092616.30553-1-chrubis@suse.cz>
@@ -34,7 +34,7 @@ X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH 5/9] syscalls/add_key04: Make use of guarded
+Subject: [LTP] [RFC PATCH 6/9] syscalls/adjtimex: Make use of guarded
  buffers.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -54,54 +54,177 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- testcases/kernel/syscalls/add_key/add_key04.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ .../kernel/syscalls/adjtimex/adjtimex01.c     | 23 ++++++-----
+ .../kernel/syscalls/adjtimex/adjtimex02.c     | 39 +++++++++++--------
+ 2 files changed, 36 insertions(+), 26 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/add_key/add_key04.c b/testcases/kernel/syscalls/add_key/add_key04.c
-index 28cc91f72..12a169eda 100644
---- a/testcases/kernel/syscalls/add_key/add_key04.c
-+++ b/testcases/kernel/syscalls/add_key/add_key04.c
-@@ -32,6 +32,10 @@
+diff --git a/testcases/kernel/syscalls/adjtimex/adjtimex01.c b/testcases/kernel/syscalls/adjtimex/adjtimex01.c
+index 51d75f3e0..60b3544a8 100644
+--- a/testcases/kernel/syscalls/adjtimex/adjtimex01.c
++++ b/testcases/kernel/syscalls/adjtimex/adjtimex01.c
+@@ -12,14 +12,14 @@
+ #define SET_MODE (ADJ_OFFSET | ADJ_FREQUENCY | ADJ_MAXERROR | ADJ_ESTERROR | \
+ 	ADJ_STATUS | ADJ_TIMECONST | ADJ_TICK)
  
- #define ASSOC_ARRAY_FAN_OUT 16
+-static struct timex tim_save;
+-static struct timex buff;
++static struct timex *tim_save;
++static struct timex *buf;
  
-+#define PAYLOAD "payload"
-+
-+static char *payload;
-+
- static void do_test(void)
+ void verify_adjtimex(void)
  {
- 	int status;
-@@ -42,7 +46,6 @@ static void do_test(void)
+-	buff = tim_save;
+-	buff.modes = SET_MODE;
+-	TEST(adjtimex(&buff));
++	*buf = *tim_save;
++	buf->modes = SET_MODE;
++	TEST(adjtimex(buf));
+ 	if ((TST_RET >= TIME_OK) && (TST_RET <= TIME_ERROR)) {
+ 		tst_res(TPASS, "adjtimex() with mode 0x%x ", SET_MODE);
+ 	} else {
+@@ -27,8 +27,8 @@ void verify_adjtimex(void)
+ 				SET_MODE);
+ 	}
  
- 	if (SAFE_FORK() == 0) {
- 		char description[32];
--		const char payload[] = "payload";
- 		int i;
+-	buff.modes = ADJ_OFFSET_SINGLESHOT;
+-	TEST(adjtimex(&buff));
++	buf->modes = ADJ_OFFSET_SINGLESHOT;
++	TEST(adjtimex(buf));
+ 	if ((TST_RET >= TIME_OK) && (TST_RET <= TIME_ERROR)) {
+ 		tst_res(TPASS, "adjtimex() with mode 0x%x ",
+ 				ADJ_OFFSET_SINGLESHOT);
+@@ -41,10 +41,10 @@ void verify_adjtimex(void)
  
- 		for (i = 0; i < ASSOC_ARRAY_FAN_OUT; i++) {
-@@ -55,7 +58,7 @@ static void do_test(void)
- 			}
- 		}
+ static void setup(void)
+ {
+-	tim_save.modes = 0;
++	tim_save->modes = 0;
  
--		TEST(add_key("user", "userkey", payload, sizeof(payload),
-+		TEST(add_key("user", "userkey", payload, sizeof(PAYLOAD),
- 			     KEY_SPEC_SESSION_KEYRING));
- 		if (TST_RET < 0)
- 			tst_brk(TBROK | TTERRNO, "unable to create user key");
-@@ -72,7 +75,13 @@ static void do_test(void)
- 		tst_brk(TBROK, "Child %s", tst_strstatus(status));
+ 	/* Save current parameters */
+-	if ((adjtimex(&tim_save)) == -1) {
++	if ((adjtimex(tim_save)) == -1) {
+ 		tst_brk(TBROK | TERRNO,
+ 			"adjtimex(): failed to save current params");
+ 	}
+@@ -54,4 +54,9 @@ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	.setup = setup,
+ 	.test_all = verify_adjtimex,
++	.bufs = (struct tst_buffers []) {
++		{&buf, .size = sizeof(*buf)},
++		{&tim_save, .size = sizeof(*tim_save)},
++		{},
++	}
+ };
+diff --git a/testcases/kernel/syscalls/adjtimex/adjtimex02.c b/testcases/kernel/syscalls/adjtimex/adjtimex02.c
+index 2c0031992..19ee97158 100644
+--- a/testcases/kernel/syscalls/adjtimex/adjtimex02.c
++++ b/testcases/kernel/syscalls/adjtimex/adjtimex02.c
+@@ -16,14 +16,14 @@
+ 
+ static int hz;			/* HZ from sysconf */
+ 
+-static struct timex tim_save;
+-static struct timex buff;
++static struct timex *tim_save;
++static struct timex *buf;
+ 
+ static struct passwd *ltpuser;
+ 
+ static void verify_adjtimex(unsigned int nr)
+ {
+-	struct timex *buffp;
++	struct timex *bufp;
+ 	int expected_errno = 0;
+ 
+ 	/*
+@@ -39,20 +39,20 @@ static void verify_adjtimex(unsigned int nr)
+ 		return;
+ 	}
+ 
+-	buff = tim_save;
+-	buff.modes = SET_MODE;
+-	buffp = &buff;
++	*buf = *tim_save;
++	buf->modes = SET_MODE;
++	bufp = buf;
+ 	switch (nr) {
+ 	case 0:
+-		buffp = (struct timex *)-1;
++		bufp = (struct timex *)-1;
+ 		expected_errno = EFAULT;
+ 		break;
+ 	case 1:
+-		buff.tick = 900000 / hz - 1;
++		buf->tick = 900000 / hz - 1;
+ 		expected_errno = EINVAL;
+ 		break;
+ 	case 2:
+-		buff.tick = 1100000 / hz + 1;
++		buf->tick = 1100000 / hz + 1;
+ 		expected_errno = EINVAL;
+ 		break;
+ 	case 3:
+@@ -62,18 +62,18 @@ static void verify_adjtimex(unsigned int nr)
+ 		expected_errno = EPERM;
+ 		break;
+ 	case 4:
+-		buff.offset = 512000L + 1;
++		buf->offset = 512000L + 1;
+ 		expected_errno = EINVAL;
+ 		break;
+ 	case 5:
+-		buff.offset = (-1) * (512000L) - 1;
++		buf->offset = (-1) * (512000L) - 1;
+ 		expected_errno = EINVAL;
+ 		break;
+ 	default:
+ 		tst_brk(TFAIL, "Invalid test case %u ", nr);
+ 	}
+ 
+-	TEST(adjtimex(buffp));
++	TEST(adjtimex(bufp));
+ 	if ((TST_RET == -1) && (TST_ERR == expected_errno)) {
+ 		tst_res(TPASS | TTERRNO,
+ 				"adjtimex() error %u ", expected_errno);
+@@ -90,23 +90,23 @@ static void verify_adjtimex(unsigned int nr)
+ 
+ static void setup(void)
+ {
+-	tim_save.modes = 0;
++	tim_save->modes = 0;
+ 
+ 	/* set the HZ from sysconf */
+ 	hz = SAFE_SYSCONF(_SC_CLK_TCK);
+ 
+ 	/* Save current parameters */
+-	if ((adjtimex(&tim_save)) == -1)
++	if ((adjtimex(tim_save)) == -1)
+ 		tst_brk(TBROK | TERRNO,
+-				"adjtimex(): failed to save current params");
++			"adjtimex(): failed to save current params");
  }
  
-+static void setup(void)
-+{
-+	payload = tst_strdup(PAYLOAD);
-+}
-+
- static struct tst_test test = {
-+	.setup = setup,
- 	.test_all = do_test,
- 	.forks_child = 1,
+ static void cleanup(void)
+ {
+-	tim_save.modes = SET_MODE;
++	tim_save->modes = SET_MODE;
+ 
+ 	/* Restore saved parameters */
+-	if ((adjtimex(&tim_save)) == -1)
++	if ((adjtimex(tim_save)) == -1)
+ 		tst_res(TWARN, "Failed to restore saved parameters");
+ }
+ 
+@@ -116,4 +116,9 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.test = verify_adjtimex,
++	.bufs = (struct tst_buffers []) {
++		{&buf, .size = sizeof(*buf)},
++		{&tim_save, .size = sizeof(*tim_save)},
++		{},
++	}
  };
 -- 
 2.21.0
