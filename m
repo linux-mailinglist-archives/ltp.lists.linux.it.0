@@ -2,39 +2,56 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 956B77D891
-	for <lists+linux-ltp@lfdr.de>; Thu,  1 Aug 2019 11:27:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07D397D97F
+	for <lists+linux-ltp@lfdr.de>; Thu,  1 Aug 2019 12:39:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4A52B3C20A0
-	for <lists+linux-ltp@lfdr.de>; Thu,  1 Aug 2019 11:27:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 51D8C3C2017
+	for <lists+linux-ltp@lfdr.de>; Thu,  1 Aug 2019 12:39:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 556EF3C1E05
- for <ltp@lists.linux.it>; Thu,  1 Aug 2019 11:26:36 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id B05963C1E06
+ for <ltp@lists.linux.it>; Thu,  1 Aug 2019 12:39:46 +0200 (CEST)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id ACBC26025DC
- for <ltp@lists.linux.it>; Thu,  1 Aug 2019 11:26:35 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id E5EB3B005
- for <ltp@lists.linux.it>; Thu,  1 Aug 2019 09:26:32 +0000 (UTC)
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Thu,  1 Aug 2019 11:26:16 +0200
-Message-Id: <20190801092616.30553-10-chrubis@suse.cz>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20190801092616.30553-1-chrubis@suse.cz>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 601E7201526
+ for <ltp@lists.linux.it>; Thu,  1 Aug 2019 12:39:45 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id 20FDB30B1AD0;
+ Thu,  1 Aug 2019 10:39:43 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1231260852;
+ Thu,  1 Aug 2019 10:39:43 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 06F001800202;
+ Thu,  1 Aug 2019 10:39:43 +0000 (UTC)
+Date: Thu, 1 Aug 2019 06:39:42 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <1879623564.3992300.1564655982672.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20190801092616.30553-2-chrubis@suse.cz>
 References: <20190801092616.30553-1-chrubis@suse.cz>
+ <20190801092616.30553-2-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Originating-IP: [10.43.17.163, 10.4.195.8]
+Thread-Topic: Add support for guarded buffers
+Thread-Index: w2EmzimhHlEg4gTeAa27wh7V03zA4w==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+ (mx1.redhat.com [10.5.110.41]); Thu, 01 Aug 2019 10:39:43 +0000 (UTC)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH 9/9] syscalls/sendmmsg01: Make use of guarded
- buffers.
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH 1/9] lib: Add support for guarded buffers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,143 +63,26 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-We also send one more byte in the second buffer in an attempt to trick
-the kernel to write after the second iovec used for receive. Note that
-because this is UDP connection this byte is then discarded in kernel and
-we don't have to anything even when the test is running in a loop with
-the -i parameter.
 
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
----
- .../kernel/syscalls/sendmmsg/sendmmsg01.c     | 68 +++++++++----------
- 1 file changed, 33 insertions(+), 35 deletions(-)
+----- Original Message -----
+> This commit adds a support for guarder buffers. Guarded buffer is a
+> buffer allocated so that there is PROT_NONE page immediatelly after the
+> end of the buffer i.e. any access after the buffer generates
+> SEGFAULT/EFAULT etc.
+> 
+> The library is hooked into the tst_test structure so that all you need
+> is to fill up an NULL terminated array of buffer pointers and sizes to
+> get the respective buffers allocated. The library supports allocating
+> memory in test runtime as well as well as allocating more complex
+> buffers, which currently are iovec vectors.
 
-diff --git a/testcases/kernel/syscalls/sendmmsg/sendmmsg01.c b/testcases/kernel/syscalls/sendmmsg/sendmmsg01.c
-index 7411467ee..37084102e 100644
---- a/testcases/kernel/syscalls/sendmmsg/sendmmsg01.c
-+++ b/testcases/kernel/syscalls/sendmmsg/sendmmsg01.c
-@@ -22,35 +22,27 @@
- 
- static int send_sockfd;
- static int receive_sockfd;
--static struct mmsghdr msg[VLEN];
--static struct iovec msg1[2], msg2;
-+static struct mmsghdr *snd_msg, *rcv_msg;
-+static struct iovec *snd1, *snd2, *rcv1, *rcv2;
- 
- static void run(void)
- {
--	struct mmsghdr msgs_in[VLEN];
--	struct iovec iovecs[VLEN];
--	char bufs[VLEN][BUFSIZE+1];
- 	struct timespec timeout;
--	int i, retval;
-+	int retval;
- 
--	retval = do_sendmmsg(send_sockfd, msg, VLEN, 0);
--	if (retval < 0 || msg[0].msg_len != 6 || msg[1].msg_len != 5) {
-+	retval = do_sendmmsg(send_sockfd, snd_msg, VLEN, 0);
-+	if (retval < 0 || snd_msg[0].msg_len != 6 || snd_msg[1].msg_len != 6) {
- 		tst_res(TFAIL|TTERRNO, "sendmmsg failed");
- 		return;
- 	}
- 
--	memset(msgs_in, 0, sizeof(msgs_in));
--	for (i = 0; i < VLEN; i++) {
--		iovecs[i].iov_base = bufs[i];
--		iovecs[i].iov_len = BUFSIZE;
--		msgs_in[i].msg_hdr.msg_iov = &iovecs[i];
--		msgs_in[i].msg_hdr.msg_iovlen = 1;
--	}
-+	memset(rcv1->iov_base, 0, rcv1->iov_len);
-+	memset(rcv2->iov_base, 0, rcv2->iov_len);
- 
- 	timeout.tv_sec = 1;
- 	timeout.tv_nsec = 0;
- 
--	retval = do_recvmmsg(receive_sockfd, msgs_in, VLEN, 0, &timeout);
-+	retval = do_recvmmsg(receive_sockfd, rcv_msg, VLEN, 0, &timeout);
- 
- 	if (retval == -1) {
- 		tst_res(TFAIL | TTERRNO, "recvmmsg failed");
-@@ -62,14 +54,12 @@ static void run(void)
- 		return;
- 	}
- 
--	bufs[0][msgs_in[0].msg_len] = 0;
--	if (strcmp(bufs[0], "onetwo"))
-+	if (memcmp(rcv1->iov_base, "onetwo", 6))
- 		tst_res(TFAIL, "Error in first received message");
- 	else
- 		tst_res(TPASS, "First message received successfully");
- 
--	bufs[1][msgs_in[1].msg_len] = 0;
--	if (strcmp(bufs[1], "three"))
-+	if (memcmp(rcv2->iov_base, "three", 5))
- 		tst_res(TFAIL, "Error in second received message");
- 	else
- 		tst_res(TPASS, "Second message received successfully");
-@@ -88,24 +78,23 @@ static void setup(void)
- 	addr.sin_port = port;
- 
- 	SAFE_BIND(receive_sockfd, (struct sockaddr *)&addr, sizeof(addr));
--	SAFE_CONNECT(send_sockfd, (struct sockaddr *) &addr, sizeof(addr));
--
--	memset(msg1, 0, sizeof(msg1));
--	msg1[0].iov_base = "one";
--	msg1[0].iov_len = 3;
--	msg1[1].iov_base = "two";
--	msg1[1].iov_len = 3;
-+	SAFE_CONNECT(send_sockfd, (struct sockaddr *)&addr, sizeof(addr));
- 
--	memset(&msg2, 0, sizeof(msg2));
--	msg2.iov_base = "three";
--	msg2.iov_len = 5;
-+	memcpy(snd1[0].iov_base, "one", snd1[0].iov_len);
-+	memcpy(snd1[1].iov_base, "two", snd1[1].iov_len);
-+	memcpy(snd2->iov_base, "three3", snd2->iov_len);
- 
--	memset(msg, 0, sizeof(msg));
--	msg[0].msg_hdr.msg_iov = msg1;
--	msg[0].msg_hdr.msg_iovlen = 2;
-+	memset(snd_msg, 0, VLEN * sizeof(*snd_msg));
-+	snd_msg[0].msg_hdr.msg_iov = snd1;
-+	snd_msg[0].msg_hdr.msg_iovlen = 2;
-+	snd_msg[1].msg_hdr.msg_iov = snd2;
-+	snd_msg[1].msg_hdr.msg_iovlen = 1;
- 
--	msg[1].msg_hdr.msg_iov = &msg2;
--	msg[1].msg_hdr.msg_iovlen = 1;
-+	memset(rcv_msg, 0, VLEN * sizeof(*rcv_msg));
-+	rcv_msg[0].msg_hdr.msg_iov = rcv1;
-+	rcv_msg[0].msg_hdr.msg_iovlen = 1;
-+	rcv_msg[1].msg_hdr.msg_iov = rcv2;
-+	rcv_msg[1].msg_hdr.msg_iovlen = 1;
- 
- 	test_info();
- }
-@@ -123,4 +112,13 @@ static struct tst_test test = {
- 	.setup = setup,
- 	.cleanup = cleanup,
- 	.test_variants = TEST_VARIANTS,
-+	.bufs = (struct tst_buffers []) {
-+		{&snd1, .iov_sizes = (int[]){3, 3, -1}},
-+		{&snd2, .iov_sizes = (int[]){6, -1}},
-+		{&rcv1, .iov_sizes = (int[]){6, -1}},
-+		{&rcv2, .iov_sizes = (int[]){5, -1}},
-+		{&snd_msg, .size = VLEN * sizeof(*snd_msg)},
-+		{&rcv_msg, .size = VLEN * sizeof(*rcv_msg)},
-+		{},
-+	}
- };
--- 
-2.21.0
-
+Runtime alloc in loop could be an issue, do we need also runtime free?
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
