@@ -1,40 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B4B17D88F
-	for <lists+linux-ltp@lfdr.de>; Thu,  1 Aug 2019 11:27:29 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 54ECF7D88D
+	for <lists+linux-ltp@lfdr.de>; Thu,  1 Aug 2019 11:27:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E31F63C2059
-	for <lists+linux-ltp@lfdr.de>; Thu,  1 Aug 2019 11:27:28 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0A9703C1E28
+	for <lists+linux-ltp@lfdr.de>; Thu,  1 Aug 2019 11:27:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 50CB03C1E02
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 4A68C3C1E00
  for <ltp@lists.linux.it>; Thu,  1 Aug 2019 11:26:36 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id AE9A76025EB
- for <ltp@lists.linux.it>; Thu,  1 Aug 2019 11:26:35 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 34E856013CB
+ for <ltp@lists.linux.it>; Thu,  1 Aug 2019 11:26:38 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id CDDD3B614
+ by mx1.suse.de (Postfix) with ESMTP id DCF4CAFF9
  for <ltp@lists.linux.it>; Thu,  1 Aug 2019 09:26:32 +0000 (UTC)
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu,  1 Aug 2019 11:26:14 +0200
-Message-Id: <20190801092616.30553-8-chrubis@suse.cz>
+Date: Thu,  1 Aug 2019 11:26:15 +0200
+Message-Id: <20190801092616.30553-9-chrubis@suse.cz>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20190801092616.30553-1-chrubis@suse.cz>
 References: <20190801092616.30553-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH 7/9] syscalls/clock_getres01: Make use of guarded
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [RFC PATCH 8/9] syscalls/clock_settime01: Make use of guarded
  buffers.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -54,52 +54,74 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- .../kernel/syscalls/clock_getres/clock_getres01.c    | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ .../syscalls/clock_settime/clock_settime01.c  | 29 ++++++++++++-------
+ 1 file changed, 18 insertions(+), 11 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/clock_getres/clock_getres01.c b/testcases/kernel/syscalls/clock_getres/clock_getres01.c
-index 15f323108..e39f2909b 100644
---- a/testcases/kernel/syscalls/clock_getres/clock_getres01.c
-+++ b/testcases/kernel/syscalls/clock_getres/clock_getres01.c
-@@ -15,12 +15,12 @@
- #include "tst_test.h"
- #include "lapi/posix_clocks.h"
+diff --git a/testcases/kernel/syscalls/clock_settime/clock_settime01.c b/testcases/kernel/syscalls/clock_settime/clock_settime01.c
+index c68fe59a1..62d349154 100644
+--- a/testcases/kernel/syscalls/clock_settime/clock_settime01.c
++++ b/testcases/kernel/syscalls/clock_settime/clock_settime01.c
+@@ -23,23 +23,24 @@
+ #define DELTA_US (long long) (DELTA_SEC * 1000000)
+ #define DELTA_EPS (long long) (DELTA_US * 0.1)
  
--static struct timespec res;
-+static struct timespec *res, *null;
- 
- static struct test_case {
- 	char *name;
- 	clockid_t clk_id;
--	struct timespec *res;
-+	struct timespec **res;
- 	int ret;
- 	int err;
- } tcase[] = {
-@@ -28,7 +28,7 @@ static struct test_case {
- 	{"MONOTONIC", CLOCK_MONOTONIC, &res, 0, 0},
- 	{"PROCESS_CPUTIME_ID", CLOCK_PROCESS_CPUTIME_ID, &res, 0, 0},
- 	{"THREAD_CPUTIME_ID", CLOCK_THREAD_CPUTIME_ID, &res, 0, 0},
--	{"REALTIME", CLOCK_REALTIME, NULL, 0, 0},
-+	{"REALTIME", CLOCK_REALTIME, &null, 0, 0},
- 	{"CLOCK_MONOTONIC_RAW", CLOCK_MONOTONIC_RAW, &res, 0, 0,},
- 	{"CLOCK_REALTIME_COARSE", CLOCK_REALTIME_COARSE, &res, 0, 0,},
- 	{"CLOCK_MONOTONIC_COARSE", CLOCK_MONOTONIC_COARSE, &res, 0, 0,},
-@@ -40,7 +40,7 @@ static struct test_case {
- 
- static void do_test(unsigned int i)
++static struct timespec *begin, *change, *end;
++
+ static void verify_clock_settime(void)
  {
--	TEST(clock_getres(tcase[i].clk_id, tcase[i].res));
-+	TEST(clock_getres(tcase[i].clk_id, *tcase[i].res));
+ 	long long elapsed;
+-	struct timespec begin, change, end;
  
- 	if (TST_RET != tcase[i].ret) {
- 		if (TST_ERR == EINVAL) {
-@@ -65,4 +65,8 @@ static void do_test(unsigned int i)
- static struct tst_test test = {
- 	.test = do_test,
- 	.tcnt = ARRAY_SIZE(tcase),
+ 	/* test 01: move forward */
+ 
+-	SAFE_CLOCK_GETTIME(CLOCK_REALTIME, &begin);
++	SAFE_CLOCK_GETTIME(CLOCK_REALTIME, begin);
+ 
+-	change = tst_timespec_add_us(begin, DELTA_US);
++	*change = tst_timespec_add_us(*begin, DELTA_US);
+ 
+-	if (clock_settime(CLOCK_REALTIME, &change) != 0)
++	if (clock_settime(CLOCK_REALTIME, change) != 0)
+ 		tst_brk(TBROK | TTERRNO, "could not set realtime change");
+ 
+-	SAFE_CLOCK_GETTIME(CLOCK_REALTIME, &end);
++	SAFE_CLOCK_GETTIME(CLOCK_REALTIME, end);
+ 
+-	elapsed = tst_timespec_diff_us(end, begin);
++	elapsed = tst_timespec_diff_us(*end, *begin);
+ 
+ 	if (elapsed >= DELTA_US && elapsed < (DELTA_US + DELTA_EPS))
+ 		tst_res(TPASS, "clock_settime(2): was able to advance time");
+@@ -48,16 +49,16 @@ static void verify_clock_settime(void)
+ 
+ 	/* test 02: move backward */
+ 
+-	SAFE_CLOCK_GETTIME(CLOCK_REALTIME, &begin);
++	SAFE_CLOCK_GETTIME(CLOCK_REALTIME, begin);
+ 
+-	change = tst_timespec_sub_us(begin, DELTA_US);
++	*change = tst_timespec_sub_us(*begin, DELTA_US);
+ 
+-	if (clock_settime(CLOCK_REALTIME, &change) != 0)
++	if (clock_settime(CLOCK_REALTIME, change) != 0)
+ 		tst_brk(TBROK | TTERRNO, "could not set realtime change");
+ 
+-	SAFE_CLOCK_GETTIME(CLOCK_REALTIME, &end);
++	SAFE_CLOCK_GETTIME(CLOCK_REALTIME, end);
+ 
+-	elapsed = tst_timespec_diff_us(end, begin);
++	elapsed = tst_timespec_diff_us(*end, *begin);
+ 
+ 	if (~(elapsed) <= DELTA_US && ~(elapsed) > (DELTA_US - DELTA_EPS))
+ 		tst_res(TPASS, "clock_settime(2): was able to recede time");
+@@ -69,4 +70,10 @@ static struct tst_test test = {
+ 	.test_all = verify_clock_settime,
+ 	.needs_root = 1,
+ 	.restore_wallclock = 1,
 +	.bufs = (struct tst_buffers []) {
-+		{&res, .size = sizeof(*res)},
++		{&begin, .size = sizeof(*begin)},
++		{&change, .size = sizeof(*change)},
++		{&end, .size = sizeof(*end)},
 +		{},
 +	}
  };
