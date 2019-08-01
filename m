@@ -1,48 +1,49 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B8817D68E
-	for <lists+linux-ltp@lfdr.de>; Thu,  1 Aug 2019 09:44:40 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B4FFE7D686
+	for <lists+linux-ltp@lfdr.de>; Thu,  1 Aug 2019 09:42:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1DA293C2013
-	for <lists+linux-ltp@lfdr.de>; Thu,  1 Aug 2019 09:44:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 57ABB3C1E0E
+	for <lists+linux-ltp@lfdr.de>; Thu,  1 Aug 2019 09:42:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 988E13C1E03
- for <ltp@lists.linux.it>; Thu,  1 Aug 2019 09:44:36 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 051F83C1DF4
+ for <ltp@lists.linux.it>; Thu,  1 Aug 2019 09:42:48 +0200 (CEST)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id E6B3020146A
- for <ltp@lists.linux.it>; Thu,  1 Aug 2019 09:43:21 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.64,333,1559491200"; d="scan'208";a="72654537"
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 3BBA360197F
+ for <ltp@lists.linux.it>; Thu,  1 Aug 2019 09:42:47 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.64,333,1559491200"; d="scan'208";a="72654534"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
  by heian.cn.fujitsu.com with ESMTP; 01 Aug 2019 15:42:38 +0800
 Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id A60774CDDD3F;
- Thu,  1 Aug 2019 15:42:34 +0800 (CST)
+ by cn.fujitsu.com (Postfix) with ESMTP id A15C84CDD99E;
+ Thu,  1 Aug 2019 15:42:35 +0800 (CST)
 Received: from localhost.localdomain.localdomain (10.167.215.28) by
  G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Thu, 1 Aug 2019 15:42:34 +0800
+ (TLS) id 14.3.439.0; Thu, 1 Aug 2019 15:42:35 +0800
 From: Jinhui huang <huangjh.jy@cn.fujitsu.com>
 To: <ltp@lists.linux.it>
-Date: Thu, 1 Aug 2019 15:42:27 +0800
-Message-ID: <1564645349-10859-1-git-send-email-huangjh.jy@cn.fujitsu.com>
+Date: Thu, 1 Aug 2019 15:42:28 +0800
+Message-ID: <1564645349-10859-2-git-send-email-huangjh.jy@cn.fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1564395109-7165-3-git-send-email-huangjh.jy@cn.fujitsu.com>
+In-Reply-To: <1564645349-10859-1-git-send-email-huangjh.jy@cn.fujitsu.com>
 References: <1564395109-7165-3-git-send-email-huangjh.jy@cn.fujitsu.com>
+ <1564645349-10859-1-git-send-email-huangjh.jy@cn.fujitsu.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.167.215.28]
-X-yoursite-MailScanner-ID: A60774CDDD3F.A5325
+X-yoursite-MailScanner-ID: A15C84CDD99E.A1175
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: huangjh.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 1/3] syscalls/ftruncate: Rewrite ftruncate01 and
- merge ftruncate02
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 2/3] syscalls/ftruncate: Rewrite ftruncate03 and
+ add new error test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,49 +60,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+1) Cleanup and convert to new API.
+2) Add EINVAL error test for ftruncate().
+
 Signed-off-by: Jinhui huang <huangjh.jy@cn.fujitsu.com>
 ---
- runtest/syscalls                                  |   2 -
- testcases/kernel/syscalls/ftruncate/.gitignore    |   2 -
- testcases/kernel/syscalls/ftruncate/ftruncate01.c | 237 +++++-------------
- testcases/kernel/syscalls/ftruncate/ftruncate02.c | 286 ----------------------
- 4 files changed, 66 insertions(+), 461 deletions(-)
- delete mode 100644 testcases/kernel/syscalls/ftruncate/ftruncate02.c
+ testcases/kernel/syscalls/ftruncate/ftruncate03.c | 235 +++++++---------------
+ 1 file changed, 71 insertions(+), 164 deletions(-)
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index a68a4c9..bf5a5f6 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -354,8 +354,6 @@ fsync04 fsync04
- 
- ftruncate01 ftruncate01
- ftruncate01_64 ftruncate01_64
--ftruncate02 ftruncate02
--ftruncate02_64 ftruncate02_64
- ftruncate03 ftruncate03
- ftruncate03_64 ftruncate03_64
- ftruncate04 ftruncate04
-diff --git a/testcases/kernel/syscalls/ftruncate/.gitignore b/testcases/kernel/syscalls/ftruncate/.gitignore
-index 814b707..b08763f 100644
---- a/testcases/kernel/syscalls/ftruncate/.gitignore
-+++ b/testcases/kernel/syscalls/ftruncate/.gitignore
-@@ -1,7 +1,5 @@
- /ftruncate01
- /ftruncate01_64
--/ftruncate02
--/ftruncate02_64
- /ftruncate03
- /ftruncate03_64
- /ftruncate04
-diff --git a/testcases/kernel/syscalls/ftruncate/ftruncate01.c b/testcases/kernel/syscalls/ftruncate/ftruncate01.c
-index 3309af5..930d86c 100644
---- a/testcases/kernel/syscalls/ftruncate/ftruncate01.c
-+++ b/testcases/kernel/syscalls/ftruncate/ftruncate01.c
-@@ -1,203 +1,98 @@
+diff --git a/testcases/kernel/syscalls/ftruncate/ftruncate03.c b/testcases/kernel/syscalls/ftruncate/ftruncate03.c
+index bb4dd1e..b83e0c2 100644
+--- a/testcases/kernel/syscalls/ftruncate/ftruncate03.c
++++ b/testcases/kernel/syscalls/ftruncate/ftruncate03.c
+@@ -1,188 +1,95 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
-- *
-- *   Copyright (c) International Business Machines  Corp., 2001
++ * Copyright (c) International Business Machines  Corp., 2002
++ * Copyright (c) 2019 FUJITSU LIMITED. All rights reserved.
+  *
+- *   Copyright (c) International Business Machines  Corp., 2002
 - *
 - *   This program is free software;  you can redistribute it and/or modify
 - *   it under the terms of the GNU General Public License as published by
@@ -116,549 +93,245 @@ index 3309af5..930d86c 100644
 - *   You should have received a copy of the GNU General Public License
 - *   along with this program;  if not, write to the Free Software
 - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-+ * Copyright (c) International Business Machines  Corp., 2001
-+ * Copyright (c) 2019 FUJITSU LIMITED. All rights reserved.
-+ * Author: Wayne Boyer
++ * Jay Huie
++ * Robbie Williamson
   */
 -
  /*
-- * Test Name: ftruncate01
+- * Test Name: ftruncate03
 - *
   * Test Description:
-- *  Verify that, ftruncate(2) succeeds to truncate a file to a specified
-- *  length if the file indicated by file descriptor opened for writing.
+  *  Verify that,
+- *  1) ftruncate(2) returns -1 and sets errno to EINVAL if the specified
+- *     socket is invalid.
+- *  2) ftruncate(2) returns -1 and sets errno to EINVAL if the specified
+- *     file descriptor has an attempt to write, when open for read only.
+- *  3) ftruncate(2) returns -1 and sets errno to EBADF if the file descriptor
+- *     of the specified file is not valid.
 - *
 - * Expected Result:
-- *  ftruncate(2) should return a value 0 and the length of the file after
-- *  truncation should be equal to the length it is truncated to.
-- *
-- * Algorithm:
-- *  Setup:
-- *   Setup signal handling.
-- *   Create temporary directory.
-- *   Pause for SIGUSR1 if option specified.
-- *
-- *  Test:
-- *   Loop if the proper options are given.
-- *   Execute system call
-- *   Check return code, if system call failed (return=-1)
-- *	Log the errno and Issue a FAIL message.
-- *   Otherwise,
-- *	Verify the Functionality of system call
-- *      if successful,
-- *		Issue Functionality-Pass message.
-- *      Otherwise,
-- *		Issue Functionality-Fail message.
-- *  Cleanup:
-- *   Print errno log and/or timing stats if options given
-- *   Delete the temporary directory created.
-- *
-- * Usage:  <for command-line>
-- *  ftruncate01 [-c n] [-f] [-i n] [-I x] [-P x] [-t]
-- *     where,  -c n : Run n copies concurrently.
-- *             -f   : Turn off functionality Testing.
-- *	       -i n : Execute test n times.
-- *	       -I x : Execute test for x seconds.
-- *	       -P x : Pause for x seconds between iterations.
-- *	       -t   : Turn on syscall timing.
+- *  ftruncate() should fail with return value -1 and set expected errno.
 - *
 - * HISTORY
-- *	07/2001 Ported by Wayne Boyer
+- *      02/2002 Written by Jay Huie
+- *	02/2002 Adapted for and included into the LTP by Robbie Williamson
 - *
 - * RESTRICTIONS:
 - *  This test should be run by 'non-super-user' only.
 - *
-+ *  Verify that, ftruncate() succeeds to truncate a file to a certain length,
-+ *  if the file previously is smaller than the truncated size, ftruncate()
-+ *  shall increase the size of the file.
++ *  1)ftruncate() fails with EINVAL if the file is a socket.
++ *  2)ftruncate() fails with EINVAL if the file descriptor opens with O_RDONLY.
++ *  3)ftruncate() fails with EINVAL if the length is negative.
++ *  4)ftruncate() fails with EBADF if the file descriptor is invalid.
   */
  
- #include <sys/types.h>
- #include <sys/stat.h>
-+#include <unistd.h>
- #include <fcntl.h>
+-#include <stdio.h>
++#include <sys/types.h>
++#include <sys/stat.h>
++#include <fcntl.h>
+ #include <unistd.h>
  #include <errno.h>
  #include <string.h>
--#include <signal.h>
 -#include <inttypes.h>
+-#include <sys/types.h>
+ #include <sys/socket.h>
+-#include <fcntl.h>
  
 -#include "test.h"
--#include "safe_macros.h"
 +#include "tst_test.h"
++
++#define TESTFILE1	"testfile1"
++#define TESTFILE2	"testfile2"
  
--#define TESTFILE	"testfile"	/* file under test */
--#define FILE_MODE	S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
--#define BUF_SIZE	256	/* buffer size */
--#define FILE_SIZE	1024	/* test file size */
--#define TRUNC_LEN	256	/* truncation length */
-+#define TESTFILE	"testfile"
+-#define TESTFILE	"ftruncate03_tst_file"
++static int sock_fd, read_fd, fd;
++static int bad_fd = -1;
  
--TCID_DEFINE(ftruncate01);
--int TST_TOTAL = 1;		/* Total number of test conditions */
--int fildes;			/* file descriptor for test file */
-+#define TRUNC_LEN1	256
-+#define TRUNC_LEN2	512
-+#define FILE_SIZE	1024
+-TCID_DEFINE(ftruncate03);
+-int TST_TOTAL = 3;
++static struct tcase {
++	int *fd;
++	off_t length;
++	int exp_errno;
++} tcases[] = {
++	{&sock_fd, 4, EINVAL},
++	{&read_fd, 4, EINVAL},
++	{&fd, -1, EINVAL},
++	{&bad_fd, 4, EBADF},
++};
  
--void setup();			/* setup function for the test */
--void cleanup();			/* cleanup function for the test */
-+static int fd;
- 
--int main(int ac, char **av)
-+static void check_and_report(off_t offset, char data, off_t trunc_len)
+-int main(void)
++static void verify_ftruncate(unsigned int n)
  {
--	struct stat stat_buf;	/* stat(2) struct contents */
--	int lc;
--	off_t file_length;	/* test file length */
+-	int wjh_ret = -1, wjh_f = -1, count = 0;
+-	//used for the 2nd test
+-	//make str > trunc_size characters long
+-	char str[] = "THIS IS JAYS TEST FILE DATA";
+-	int trunc_size = 4;
+-	int flag = O_RDONLY;
 -
--	tst_parse_opts(ac, av, NULL, NULL);
+-#ifdef DEBUG
+-	printf("Starting test, possible errnos are; EBADF(%d) EINVAL(%d)\n",
+-	       EBADF, EINVAL);
+-	printf("\t\tENOENT(%d) EACCES(%d) EPERM(%d)\n\n", ENOENT, EACCES,
+-	       EPERM);
+-#endif
 -
--	setup();
+-	tst_tmpdir();
 -
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-//TEST1: ftruncate on a socket is not valid, should fail w/ EINVAL
 -
--		tst_count = 0;
+-#ifdef DEBUG
+-	printf("Starting test1\n");
+-#endif
+-	wjh_f = socket(PF_INET, SOCK_STREAM, 0);
+-	wjh_ret = ftruncate(wjh_f, 1);
+-#ifdef DEBUG
+-	printf("DEBUG: fd: %d ret: %d errno(%d) %s\n",
+-	       wjh_f, wjh_ret, errno, strerror(errno));
+-#endif
+-	if (wjh_ret == -1 && errno == EINVAL) {
+-		tst_resm(TPASS, "Test Passed");
+-	} else {
+-		tst_resm(TFAIL,
+-			 "ftruncate(socket)=%i (wanted -1), errno=%i (wanted EINVAL %i)",
+-			 wjh_ret, errno, EINVAL);
+-	}
+-	close(wjh_f);
+-	errno = 0;
+-	wjh_ret = 0;
+-	wjh_f = -1;
 -
--		/*
--		 * Call ftruncate(2) to truncate a test file to a
--		 * specified length.
--		 */
--		TEST(ftruncate(fildes, TRUNC_LEN));
+-//TEST2: ftruncate on fd not open for writing should be EINVAL
 -
--		if (TEST_RETURN == -1) {
--			tst_resm(TFAIL | TTERRNO, "ftruncate(%s) failed",
--				 TESTFILE);
--			continue;
--		}
--		/*
--		 * Get the testfile information using
--		 * fstat(2).
--		 */
--		if (fstat(fildes, &stat_buf) < 0) {
--			tst_brkm(TFAIL, cleanup,
--				 "stat(2) of %s failed, error:%d",
--				 TESTFILE, errno);
--		}
--		stat_buf.st_mode &= ~S_IFREG;
--		file_length = stat_buf.st_size;
--
--		/*
--		 * Check for expected size of testfile after
--		 * truncate(2) on it.
--		 */
--		if (file_length != TRUNC_LEN) {
--			tst_resm(TFAIL,
--				 "%s: Incorrect file size %" PRId64 ", "
--				 "Expected %d", TESTFILE,
--				 (int64_t) file_length, TRUNC_LEN);
--		} else {
--			tst_resm(TPASS, "Functionality of ftruncate() "
--				 "on %s successful", TESTFILE);
+-#ifdef DEBUG
+-	printf("\nStarting test2\n");
+-#endif
+-	//create a file and fill it so we can truncate it in ReadOnly mode
+-	//delete it first, ignore if it doesn't exist
+-	unlink(TESTFILE);
+-	errno = 0;
+-	wjh_f = open(TESTFILE, O_RDWR | O_CREAT, 0644);
+-	if (wjh_f == -1) {
+-		tst_brkm(TFAIL | TERRNO, tst_rmdir, "open(%s) failed",
+-			 TESTFILE);
+-	}
+-	while (count < strlen(str)) {
+-		if ((count += write(wjh_f, str, strlen(str))) == -1) {
+-			tst_resm(TFAIL | TERRNO, "write() failed");
+-			close(wjh_f);
+-			tst_rmdir();
+-			tst_exit();
 -		}
 -	}
-+	int i, file_length;
-+	char buf[FILE_SIZE];
-+	struct stat stat_buf;
- 
--	cleanup();
--	tst_exit();
--}
-+	memset(buf, '*', sizeof(buf));
- 
--/*
-- * void
-- * setup() - performs all ONE TIME setup for this test.
-- *  Create a temporary directory and change directory to it.
-- *  Create a test file under temporary directory and write some
-- *  data into it.
-- */
--void setup(void)
--{
--	int i;
--	int c, c_total = 0;	/* bytes to be written to file */
--	char tst_buff[BUF_SIZE];	/* buffer to hold data */
-+	SAFE_FSTAT(fd, &stat_buf);
-+	file_length = stat_buf.st_size;
- 
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
-+	if (file_length != trunc_len) {
-+		tst_brk(TBROK, "ftruncate() got incorrected size: %d",
-+			file_length);
-+	}
- 
--	TEST_PAUSE;
-+	SAFE_LSEEK(fd, offset, SEEK_SET);
-+	SAFE_READ(0, fd, buf, sizeof(buf));
- 
--	tst_tmpdir();
-+	for (i = 0; i < TRUNC_LEN1; i++) {
-+		if (buf[i] != data)
-+			tst_brk(TBROK, "ftruncate() got incorrect data");
-+	}
-+
-+	tst_res(TPASS, "ftruncate() succeeded");
-+}
- 
--	/* Fill the test buffer with the known data */
--	for (i = 0; i < BUF_SIZE; i++) {
--		tst_buff[i] = 'a';
-+static void verify_ftruncate(void)
-+{
-+	tst_res(TINFO, "Truncated length smaller than file size");
-+	TEST(ftruncate(fd, TRUNC_LEN1));
-+	if (TST_RET == -1) {
-+		tst_res(TFAIL | TTERRNO, "ftruncate() failed");
-+		return;
- 	}
- 
--	/* open a file for reading/writing */
--	fildes = SAFE_OPEN(cleanup, TESTFILE, O_RDWR | O_CREAT, FILE_MODE);
+-	close(wjh_f);
+-	errno = 0;
 -
--	/* Write to the file 1k data from the buffer */
--	while (c_total < FILE_SIZE) {
--		if ((c = write(fildes, tst_buff, sizeof(tst_buff))) <= 0) {
--			tst_brkm(TBROK | TERRNO, cleanup, "write(%s) failed",
--				 TESTFILE);
+-//Uncomment below if you want it to succeed, O_RDWR => success
+-// flag = O_RDWR;
+-#ifdef DEBUG
+-	if (flag == O_RDWR) {
+-		printf("\tLooks like it should succeed!\n");
+-	}
+-#endif
++	struct tcase *tc = &tcases[n];
+ 
+-	wjh_f = open(TESTFILE, flag);
+-	if (wjh_f == -1) {
+-		tst_brkm(TFAIL | TERRNO, tst_rmdir, "open(%s) failed",
+-			 TESTFILE);
+-	}
+-	wjh_ret = ftruncate(wjh_f, trunc_size);
+-#ifdef DEBUG
+-	printf("DEBUG: fd: %d ret: %d @ errno(%d) %s\n",
+-	       wjh_f, wjh_ret, errno, strerror(errno));
+-#endif
+-	if ((flag == O_RDONLY) && (wjh_ret == -1) && (errno == EINVAL)) {
+-		tst_resm(TPASS, "Test Passed");
+-	} else if ((flag == O_RDWR)) {
+-		if (wjh_ret == 0) {
+-			tst_resm(TPASS, "Test Succeeded!");
 -		} else {
--			c_total += c;
+-			tst_resm(TFAIL | TERRNO,
+-				 "ftruncate(%s) should have succeeded, but didn't! ret="
+-				 "%d (wanted 0)", TESTFILE, wjh_ret);
 -		}
-+	check_and_report(0, 'a', TRUNC_LEN1);
-+
-+	tst_res(TINFO, "Truncated length exceeds file size");
-+	TEST(ftruncate(fd, TRUNC_LEN2));
-+	if (TST_RET == -1) {
-+		tst_res(TFAIL | TTERRNO, "ftruncate() failed");
+-	} else			//flag was O_RDONLY but return codes wrong
+-	{
+-		tst_resm(TFAIL,
+-			 "ftruncate(rd_only_fd)=%i (wanted -1), errno=%i (wanted %i EINVAL)",
+-			 wjh_ret, errno, EINVAL);
++	TEST(ftruncate(*tc->fd, tc->length));
++	if (TST_RET != -1) {
++		tst_res(TFAIL, "ftruncate() succeeded unexpectedly and got %ld",
++			TST_RET);
 +		return;
  	}
-+
-+	check_and_report(TRUNC_LEN1, 0, TRUNC_LEN2);
- }
- 
--/*
-- * void
-- * cleanup() - performs all ONE TIME cleanup for this test at
-- *	       completion or premature exit.
-- *  Close the temporary file.
-- *  Remove the test directory and testfile created in the setup.
-- */
--void cleanup(void)
-+static void setup(void)
- {
-+	if (tst_fill_file(TESTFILE, 'a', FILE_SIZE, 1))
-+		tst_brk(TBROK, "Failed to create test file");
- 
--	/* Close the testfile after writing data into it */
--	if (close(fildes) == -1)
--		tst_brkm(TFAIL | TERRNO, NULL, "close(%s) failed", TESTFILE);
+-	close(wjh_f);
+-	errno = 0;
+-	wjh_ret = 0;
+-	wjh_f = -1;
 -
--	tst_rmdir();
-+	fd = SAFE_OPEN(TESTFILE, O_RDWR);
+-//TEST3: invalid socket descriptor should fail w/ EBADF
+-
+-#ifdef DEBUG
+-	printf("\nStarting test3\n");
+-#endif
+-	wjh_f = -999999;	//should be a bad file descriptor
+-	wjh_ret = ftruncate(wjh_f, trunc_size);
+-#ifdef DEBUG
+-	printf("DEBUG: fd: %d ret: %d @ errno(%d) %s\n",
+-	       wjh_f, wjh_ret, errno, strerror(errno));
+-#endif
+-	if (wjh_ret != -1 || errno != EBADF) {
+-		tst_resm(TFAIL | TERRNO,
+-			 "ftruncate(invalid_fd)=%d (wanted -1 and EBADF)",
+-			 wjh_ret);
++
++	if (TST_ERR == tc->exp_errno) {
++		tst_res(TPASS | TTERRNO, "ftruncate() failed expectedly");
+ 	} else {
+-		tst_resm(TPASS, "Test Passed");
++		tst_res(TFAIL | TTERRNO,
++			"ftruncate() failed unexpectedly, got %s, expected",
++			tst_strerrno(tc->exp_errno));
+ 	}
 +}
++
++static void setup(void)
++{
++	sock_fd = SAFE_SOCKET(PF_INET, SOCK_STREAM, 0);
  
+-	tst_rmdir();
++	read_fd = SAFE_OPEN(TESTFILE1, O_RDONLY | O_CREAT, 0644);
+ 
+-//Done Testing
+-	tst_exit();
++	if (tst_fill_file(TESTFILE2, 'a', 100, 1))
++		tst_brk(TBROK, "Failed to create test file");
++
++	fd = SAFE_OPEN(TESTFILE2, O_RDWR);
+ }
++
 +static void cleanup(void)
 +{
++	if (sock_fd > 0)
++		SAFE_CLOSE(sock_fd);
++
++	if (read_fd > 0)
++		SAFE_CLOSE(read_fd);
++
 +	if (fd > 0)
 +		SAFE_CLOSE(fd);
- }
++}
 +
 +static struct tst_test test = {
-+	.test_all = verify_ftruncate,
++	.tcnt = ARRAY_SIZE(tcases),
++	.test = verify_ftruncate,
 +	.setup = setup,
 +	.cleanup = cleanup,
 +	.needs_tmpdir = 1,
 +};
-diff --git a/testcases/kernel/syscalls/ftruncate/ftruncate02.c b/testcases/kernel/syscalls/ftruncate/ftruncate02.c
-deleted file mode 100644
-index 8ae226a..0000000
---- a/testcases/kernel/syscalls/ftruncate/ftruncate02.c
-+++ /dev/null
-@@ -1,286 +0,0 @@
--/*
-- *
-- *   Copyright (c) International Business Machines  Corp., 2001
-- *
-- *   This program is free software;  you can redistribute it and/or modify
-- *   it under the terms of the GNU General Public License as published by
-- *   the Free Software Foundation; either version 2 of the License, or
-- *   (at your option) any later version.
-- *
-- *   This program is distributed in the hope that it will be useful,
-- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-- *   the GNU General Public License for more details.
-- *
-- *   You should have received a copy of the GNU General Public License
-- *   along with this program;  if not, write to the Free Software
-- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-- */
--
--/*
-- * Test Name: ftruncate02
-- *
-- * Test Description:
-- *  Verify that, ftruncate(2) succeeds to truncate a file to a certain length,
-- *  but the attempt to read past the truncated length will fail.
-- *
-- * Expected Result:
-- *  ftruncate(2) should return a value 0 and the attempt to read past the
-- *  truncated length will fail. In case where the file before  truncation was
-- *  shorter, the bytes between the old and new should  be all zeroes.
-- *
-- * Algorithm:
-- *  Setup:
-- *   Setup signal handling.
-- *   Create temporary directory.
-- *   Pause for SIGUSR1 if option specified.
-- *
-- *  Test:
-- *   Loop if the proper options are given.
-- *   Execute system call
-- *   Check return code, if system call failed (return=-1)
-- *	Log the errno and Issue a FAIL message.
-- *   Otherwise,
-- *	Verify the Functionality of system call
-- *      if successful,
-- *		Issue Functionality-Pass message.
-- *      Otherwise,
-- *		Issue Functionality-Fail message.
-- *  Cleanup:
-- *   Print errno log and/or timing stats if options given
-- *   Delete the temporary directory created.
-- *
-- * Usage:  <for command-line>
-- *  ftruncate02 [-c n] [-f] [-i n] [-I x] [-P x] [-t]
-- *     where,  -c n : Run n copies concurrently.
-- *             -f   : Turn off functionality Testing.
-- *	       -i n : Execute test n times.
-- *	       -I x : Execute test for x seconds.
-- *	       -P x : Pause for x seconds between iterations.
-- *	       -t   : Turn on syscall timing.
-- *
-- * HISTORY
-- *	07/2001 Ported by Wayne Boyer
-- *
-- * RESTRICTIONS:
-- *
-- */
--
--#include <stdio.h>
--#include <sys/types.h>
--#include <sys/stat.h>
--#include <fcntl.h>
--#include <errno.h>
--#include <string.h>
--#include <signal.h>
--
--#include "test.h"
--#include "safe_macros.h"
--
--#define TESTFILE	"testfile"	/* file under test */
--#define FILE_MODE	S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
--#define BUF_SIZE	256	/* buffer size */
--#define FILE_SIZE	1024	/* test file size */
--#define TRUNC_LEN1	256	/* truncation length */
--#define TRUNC_LEN2	512	/* truncation length */
--
--TCID_DEFINE(ftruncate02);
--int TST_TOTAL = 1;		/* Total number of test conditions */
--int fd;				/* file descriptor of testfile */
--char tst_buff[BUF_SIZE];	/* buffer to hold testfile contents */
--
--void setup();			/* setup function for the test */
--void cleanup();			/* cleanup function for the test */
--
--int main(int ac, char **av)
--{
--	struct stat stat_buf;	/* stat(2) struct contents */
--	int lc;
--	off_t file_length2;	/* test file length */
--	off_t file_length1;	/* test file length */
--	int rbytes, i;		/* bytes read from testfile */
--	int read_len;		/* total no. of bytes read from testfile */
--	int err_flag = 0;	/* error indicator flag */
--
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--
--		tst_count = 0;
--		read_len = 0;
--
--		/*
--		 * Call ftruncate(2) to truncate a test file to a
--		 * specified length (TRUNC_LEN1).
--		 */
--		TEST(ftruncate(fd, TRUNC_LEN1));
--
--		if (TEST_RETURN == -1) {
--			tst_resm(TFAIL | TTERRNO,
--				 "ftruncate(%s) to size %d failed", TESTFILE,
--				 TRUNC_LEN1);
--			continue;
--		}
--		/*
--		 * Get the testfile information using
--		 * fstat(2).
--		 */
--		if (fstat(fd, &stat_buf) < 0) {
--			tst_brkm(TFAIL, cleanup, "fstat(2) of %s failed"
--				 " after 1st truncate, error:%d",
--				 TESTFILE, errno);
--		}
--		stat_buf.st_mode &= ~S_IFREG;
--		file_length1 = stat_buf.st_size;
--
--		/*
--		 * Set the file pointer of testfile to the
--		 * beginning of the file.
--		 */
--		if (lseek(fd, 0, SEEK_SET) < 0) {
--			tst_brkm(TFAIL, cleanup, "lseek(2) on %s failed"
--				 " after 1st ftruncate, error:%d",
--				 TESTFILE, errno);
--		}
--
--		/* Read the testfile from the beginning. */
--		while ((rbytes = read(fd, tst_buff,
--				      sizeof(tst_buff))) > 0) {
--			read_len += rbytes;
--		}
--
--		/*
--		 * Execute ftruncate(2) again to truncate
--		 * testfile to a size TRUNC_LEN2.
--		 */
--		TEST(ftruncate(fd, TRUNC_LEN2));
--
--		/*
--		 * Get the testfile information using
--		 * fstat(2)
--		 */
--		if (fstat(fd, &stat_buf) < 0) {
--			tst_brkm(TFAIL, cleanup, "fstat(2) of %s failed"
--				 " after 2nd truncate, error:%d",
--				 TESTFILE, errno);
--		}
--		stat_buf.st_mode &= ~S_IFREG;
--		file_length2 = stat_buf.st_size;
--
--		/*
--		 * Set the file pointer of testfile to the
--		 * offset TRUNC_LEN1 of testfile.
--		 */
--		if (lseek(fd, TRUNC_LEN1, SEEK_SET) < 0) {
--			tst_brkm(TFAIL, cleanup, "lseek(2) on %s failed"
--				 " after 2nd ftruncate, error:%d",
--				 TESTFILE, errno);
--		}
--
--		/* Read the testfile contents till EOF */
--		while ((rbytes = read(fd, tst_buff,
--				      sizeof(tst_buff))) > 0) {
--			for (i = 0; i < rbytes; i++) {
--				if (tst_buff[i] != 0) {
--					err_flag++;
--				}
--			}
--		}
--
--		/*
--		 * Check for expected size of testfile after
--		 * issuing ftruncate(2) on it. If the ftruncate(2)
--		 * to a smaller file passed, then check to see
--		 * if file size was increased. If the ftruncate(2)
--		 * to a smaller file failed, then don't check.
--		 * Both results are allowed according to the SUS.
--		 */
--
--		if (TEST_RETURN != -1) {
--			if ((file_length1 != TRUNC_LEN1) ||
--			    (file_length2 != TRUNC_LEN2) ||
--			    (read_len != TRUNC_LEN1) ||
--			    (err_flag != 0)) {
--				tst_resm(TFAIL,
--					 "Functionality of ftruncate(2) "
--					 "on %s Failed", TESTFILE);
--			} else {
--				tst_resm(TPASS,
--					 "Functionality of ftruncate(2) "
--					 "on %s successful", TESTFILE);
--			}
--		}
--		if (TEST_RETURN == -1) {
--			if ((file_length1 != TRUNC_LEN1) ||
--			    (read_len != TRUNC_LEN1) ||
--			    (err_flag != 0)) {
--				tst_resm(TFAIL,
--					 "Functionality of ftruncate(2) "
--					 "on %s Failed", TESTFILE);
--			} else {
--				tst_resm(TPASS,
--					 "Functionality of ftruncate(2) "
--					 "on %s successful", TESTFILE);
--			}
--		}
--	}
--
--	cleanup();
--	tst_exit();
--}
--
--/*
-- * void
-- * setup() - performs all ONE TIME setup for this test.
-- *  Create a temporary directory and change directory to it.
-- *  Create a test file under temporary directory and write some
-- *  data into it.
-- */
--void setup(void)
--{
--	int i;
--	int wbytes;		/* bytes written to testfile */
--	int write_len = 0;	/* total no. of bytes written to testfile */
--
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
--
--	tst_tmpdir();
--
--	/* Fill the test buffer with the known data */
--	for (i = 0; i < BUF_SIZE; i++) {
--		tst_buff[i] = 'a';
--	}
--	/* open a file for reading/writing */
--	fd = SAFE_OPEN(cleanup, TESTFILE, O_RDWR | O_CREAT, FILE_MODE);
--
--	/* Write to the file 1k data from the buffer */
--	while (write_len < FILE_SIZE) {
--		if ((wbytes = write(fd, tst_buff, sizeof(tst_buff))) <= 0) {
--			tst_brkm(TBROK, cleanup, "write(%s) failed", TESTFILE);
--		} else {
--			write_len += wbytes;
--		}
--	}
--}
--
--/*
-- * void
-- * cleanup() - performs all ONE TIME cleanup for this test at
-- *	       completion or premature exit.
-- *  Close the testfile.
-- *  Remove the test directory and testfile created in the setup.
-- */
--void cleanup(void)
--{
--
--	/* Close the testfile after writing data into it */
--	if (close(fd) == -1)
--		tst_brkm(TFAIL | TERRNO, NULL, "close(%s) failed", TESTFILE);
--
--	tst_rmdir();
--
--}
 -- 
 1.8.3.1
 
