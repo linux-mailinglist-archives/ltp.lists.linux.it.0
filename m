@@ -2,40 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEA1E7FBAB
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2019 16:03:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD52B7FBF2
+	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2019 16:20:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BDF453C2079
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2019 16:03:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9455E3C2032
+	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2019 16:20:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 7414C3C2033
- for <ltp@lists.linux.it>; Fri,  2 Aug 2019 16:03:03 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 05FAD3C1DEA
+ for <ltp@lists.linux.it>; Fri,  2 Aug 2019 16:20:15 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id F03D01400108
- for <ltp@lists.linux.it>; Fri,  2 Aug 2019 16:03:02 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 10F2820297F
+ for <ltp@lists.linux.it>; Fri,  2 Aug 2019 16:20:14 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 261ADB636;
- Fri,  2 Aug 2019 14:03:02 +0000 (UTC)
+ by mx1.suse.de (Postfix) with ESMTP id 59261B603
+ for <ltp@lists.linux.it>; Fri,  2 Aug 2019 14:20:14 +0000 (UTC)
+Date: Fri, 2 Aug 2019 16:20:13 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: ltp@lists.linux.it
+Message-ID: <20190802142013.GB17684@rei>
 References: <20190801092616.30553-1-chrubis@suse.cz>
  <20190801092616.30553-2-chrubis@suse.cz>
- <1879623564.3992300.1564655982672.JavaMail.zimbra@redhat.com>
- <20190801114522.GA23916@rei>
-User-agent: mu4e 1.2.0; emacs 26.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: ltp@lists.linux.it
-In-reply-to: <20190801114522.GA23916@rei>
-Date: Fri, 02 Aug 2019 16:03:02 +0200
-Message-ID: <878ssbd5rd.fsf@rpws.prws.suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20190801092616.30553-2-chrubis@suse.cz>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] [RFC PATCH 1/9] lib: Add support for guarded buffers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -48,42 +47,23 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Hi!
+> diff --git a/testcases/kernel/syscalls/accept/accept02.c b/testcases/kernel/syscalls/accept/accept02.c
+> index df048ede4..1a0f625c9 100644
+> --- a/testcases/kernel/syscalls/accept/accept02.c
+> +++ b/testcases/kernel/syscalls/accept/accept02.c
 
-Cyril Hrubis <chrubis@suse.cz> writes:
-
-> Hi!
->> > This commit adds a support for guarder buffers. Guarded buffer is a
->> > buffer allocated so that there is PROT_NONE page immediatelly after the
->> > end of the buffer i.e. any access after the buffer generates
->> > SEGFAULT/EFAULT etc.
->> > 
->> > The library is hooked into the tst_test structure so that all you need
->> > is to fill up an NULL terminated array of buffer pointers and sizes to
->> > get the respective buffers allocated. The library supports allocating
->> > memory in test runtime as well as well as allocating more complex
->> > buffers, which currently are iovec vectors.
->> 
->> Runtime alloc in loop could be an issue, do we need also runtime free?
->
-> We can easily add it if we find it useful, so far all the usecases
-> were either already allocating buffers in setup or converted to do so.
-
-I am just starting to convert one of the bpf tests and I am considering
-just wrapping the systemcall or creating some helper func which takes
-whatever buffer is supplied and copy it to a new gaurded buffer. It is
-maybe not efficient with large buffer sizes, but in most cases I don't
-think it would matter too much.
+Sigh looks like I've added this test conversion to this patch as a
+mistake, I will move it to a separate patch in v2.
 
 -- 
-Thank you,
-Richard.
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
