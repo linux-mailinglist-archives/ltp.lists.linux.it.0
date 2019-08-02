@@ -1,51 +1,46 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4666B7F4D3
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2019 12:13:11 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D38E7F526
+	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2019 12:34:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E18593C202C
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2019 12:13:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C521A3C1E12
+	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2019 12:34:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id ABB773C1DFD
- for <ltp@lists.linux.it>; Fri,  2 Aug 2019 12:13:06 +0200 (CEST)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 5AB833C1DFD
+ for <ltp@lists.linux.it>; Fri,  2 Aug 2019 12:34:56 +0200 (CEST)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id D0F3560234E
- for <ltp@lists.linux.it>; Fri,  2 Aug 2019 12:13:03 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.64,337,1559491200"; d="scan'208";a="72746201"
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 34543100455D
+ for <ltp@lists.linux.it>; Fri,  2 Aug 2019 12:34:47 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.64,337,1559491200"; d="scan'208";a="72748171"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 02 Aug 2019 18:13:00 +0800
+ by heian.cn.fujitsu.com with ESMTP; 02 Aug 2019 18:34:50 +0800
 Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id 570E84CDFAC4
- for <ltp@lists.linux.it>; Fri,  2 Aug 2019 18:13:01 +0800 (CST)
-Received: from [10.167.215.46] (10.167.215.46) by
+ by cn.fujitsu.com (Postfix) with ESMTP id 00ADF4CDFAB7
+ for <ltp@lists.linux.it>; Fri,  2 Aug 2019 18:34:47 +0800 (CST)
+Received: from localhost.localdomain (10.167.215.46) by
  G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- id 14.3.439.0; Fri, 2 Aug 2019 18:13:01 +0800
-Message-ID: <5D440CAA.9080701@cn.fujitsu.com>
-Date: Fri, 2 Aug 2019 18:12:58 +0800
+ (TLS) id 14.3.439.0; Fri, 2 Aug 2019 18:34:45 +0800
 From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+To: <ltp@lists.linux.it>
+Date: Fri, 2 Aug 2019 18:34:41 +0800
+Message-ID: <1564742081-2234-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-To: "ltp@lists.linux.it" <ltp@lists.linux.it>
-References: <1560250815-2308-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <5D2D681D.1050909@cn.fujitsu.com>
-In-Reply-To: <5D2D681D.1050909@cn.fujitsu.com>
 X-Originating-IP: [10.167.215.46]
-X-yoursite-MailScanner-ID: 570E84CDFAC4.AF1CC
+X-yoursite-MailScanner-ID: 00ADF4CDFAB7.A0A5F
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] cgroup_regression_test.sh: fix test_5 possible
- mount failure because of cgroup hierarchy
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/statx04: use stx_attributes_mask before test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,72 +57,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+stx_attributes_mask shows what's supported in stx_attributes.
+we should check four attrbutes whether supports on tested filesystem
+and report the non-supported attributes  before test.
 
-Hi
-Ping. :-)
-> Hi 
->
-> Ping.  :-) 
->
->> Currently, if systems doesn't mount subsys1,subsys2 and the hierarchy is not equal to 0, running it
->> reports the following error:
->>
->> mount: xxx is already mounted or /tmp/ltp-wPw08anmTI/LTP_cgroup_regression_test.V4jf0qrS7z/cgroup busy
->> cgroup_regression_test 5 TFAIL: mount net_prio and pids failed
->>
->> It fails because libcgroup doesn't permmit destroy cgroup subsystem hierarchies.
->> Simple umnout does not destroy the hierarchies. They still live inside kernel!
->>
->> When  hierarchy is equal to 0 in /proc/cgroups, we can mount them together on
->> a new mountpoint.
->>
->> I add a check for subsystem hierarchy and get subsystem from head.
->>
->> Notice:
->> more information about"Bug 612805 - cgroup: mount: none already mounted or /cgroups busy"
->>
->> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
->> ---
->>  .../cgroup/cgroup_regression_test.sh           | 18 +++++++++++++-----
->>  1 file changed, 13 insertions(+), 5 deletions(-)
->>
->> diff --git a/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh b/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh
->> index e197f5d3f..38cb760c2 100755
->> --- a/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh
->> +++ b/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh
->> @@ -252,8 +252,10 @@ test5()
->>  		return
->>  	fi
->>  
->> -	local subsys1=`tail -n 1 /proc/cgroups | awk '{ print $1 }'`
->> -	local subsys2=`tail -n 2 /proc/cgroups | head -1 | awk '{ print $1 }'`
->> +	local subsys1=`head -2 /proc/cgroups | tail -n 1 | awk '{ print $1 }'`
->> +	local subsys1_hierarchy=`head -2 /proc/cgroups | tail -n 1 | awk '{ print $2 }'`
->> +	local subsys2=`head -3 /proc/cgroups | tail -n 1 | awk '{ print $1 }'`
->> +	local subsys2_hierarchy=`head -3 /proc/cgroups | tail -n 1 | awk '{ print $2 }'`
->>  
->>  	# Accounting here for the fact that the chosen subsystems could
->>  	# have been already previously mounted at boot time: in such a
->> @@ -267,10 +269,16 @@ test5()
->>  	if [ -z "$mounted" ]; then
->>  		mntpoint=cgroup
->>  		failing=$subsys1
->> -		mount -t cgroup -o $subsys1,$subsys2 xxx $mntpoint/
->> +		mount -t cgroup -o $subsys1,$subsys2 xxx $mntpoint/ 2>/dev/null
->> +		# Even subsystem has not been mounted, it still live in kernel.
->> +		# So we will get EBUSY when both mount subsys1 and subsys2 if
->> +		# hierarchy isn't equal to 0.
->>  		if [ $? -ne 0 ]; then
->> -			tst_res TFAIL "mount $subsys1 and $subsys2 failed"
->> -			return
->> +			if [ "$subsys1_hierarchy" = 0 -a "$subsys2_hierarchy" = 0 ]; then
->> +				tst_res TFAIL "mount $subsys1 and $subsys2 failed"
->> +				return
->> +			fi
->> +			failing=$subsys1,$subsys2
->>  		fi
->>  	else
->>  		# Use the pre-esistent mountpoint as $mntpoint and use a
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+---
+ testcases/kernel/syscalls/statx/statx04.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/statx/statx04.c b/testcases/kernel/syscalls/statx/statx04.c
+index 71de734f5..e4b198c07 100644
+--- a/testcases/kernel/syscalls/statx/statx04.c
++++ b/testcases/kernel/syscalls/statx/statx04.c
+@@ -138,23 +138,37 @@ static void caid_flags_setup(void)
+ 	attr |= FS_COMPR_FL | FS_APPEND_FL | FS_IMMUTABLE_FL | FS_NODUMP_FL;
+ 
+ 	ret = ioctl(fd, FS_IOC_SETFLAGS, &attr);
+-	if (ret < 0) {
+-		if (errno == EOPNOTSUPP)
+-			tst_brk(TCONF, "Flags not supported");
++	if (ret < 0)
+ 		tst_brk(TBROK | TERRNO, "ioctl(%i, FS_IOC_SETFLAGS, %i)", fd, attr);
+-	}
+ 
+ 	clear_flags = 1;
+ }
+ 
+ static void setup(void)
+ {
++	struct statx buf;
++
+ 	SAFE_MKDIR(TESTDIR_FLAGGED, 0777);
+ 	SAFE_MKDIR(TESTDIR_UNFLAGGED, 0777);
+ 
+ 	if (!strcmp(tst_device->fs_type, "btrfs") && tst_kvercmp(4, 13, 0) < 0)
+ 		tst_brk(TCONF, "Btrfs statx() supported since 4.13");
+ 
++	TEST(statx(AT_FDCWD, TESTDIR_FLAGGED, 0, 0, &buf));
++	if (TST_RET == -1)
++		tst_brk(TFAIL | TTERRNO,
++			"sys_statx(AT_FDCWD, %s, 0, 0, &buf)", TESTDIR_FLAGGED);
++
++	/* Mask to show which attributes are supported on filesystem. */
++	if ((buf.stx_attributes_mask & FS_COMPR_FL) == 0)
++		tst_brk(TCONF, "filesystem doesn't support FS_COMPR_FL");
++	if ((buf.stx_attributes_mask & FS_APPEND_FL) == 0)
++		tst_brk(TCONF, "filesystem doesn't support FS_APPEND_FL");
++	if ((buf.stx_attributes_mask & FS_IMMUTABLE_FL) == 0)
++		tst_brk(TCONF, "filesystem doesn't support FS_IMMUTABLE_FL");
++	if ((buf.stx_attributes_mask & FS_NODUMP_FL) == 0)
++		tst_brk(TCONF, "filesystem doesn't support FS_NODUMP_FL");
++
+ 	caid_flags_setup();
+ }
+ 
+-- 
+2.18.1
 
 
 
