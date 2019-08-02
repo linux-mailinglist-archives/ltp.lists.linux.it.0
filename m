@@ -2,40 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED69C7F639
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2019 13:50:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20DFD7F7AF
+	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2019 15:00:04 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B75773C1E12
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2019 13:50:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7AB773C207D
+	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2019 15:00:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id E90703C1DEB
- for <ltp@lists.linux.it>; Fri,  2 Aug 2019 13:50:49 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 9A3BE3C2029
+ for <ltp@lists.linux.it>; Fri,  2 Aug 2019 14:59:59 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 706911400533
- for <ltp@lists.linux.it>; Fri,  2 Aug 2019 13:50:48 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 92A29600865
+ for <ltp@lists.linux.it>; Fri,  2 Aug 2019 15:00:00 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 794B2AF7A;
- Fri,  2 Aug 2019 11:50:47 +0000 (UTC)
-Date: Fri, 2 Aug 2019 13:50:46 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <20190802115046.GB27727@rei>
-References: <1564742081-2234-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ by mx1.suse.de (Postfix) with ESMTP id 4E998AD85;
+ Fri,  2 Aug 2019 12:59:57 +0000 (UTC)
+Date: Fri, 2 Aug 2019 14:59:55 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Message-ID: <20190802125955.GA707@dell5510>
+References: <20190725111027.18716-1-pvorel@suse.cz>
+ <20190725111027.18716-4-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1564742081-2234-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+In-Reply-To: <20190725111027.18716-4-pvorel@suse.cz>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/statx04: use stx_attributes_mask before
- test
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 3/5] network/route: Rewrite route-change-dst
+ into new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,31 +49,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> +	/* Mask to show which attributes are supported on filesystem. */
-> +	if ((buf.stx_attributes_mask & FS_COMPR_FL) == 0)
-> +		tst_brk(TCONF, "filesystem doesn't support FS_COMPR_FL");
-> +	if ((buf.stx_attributes_mask & FS_APPEND_FL) == 0)
-> +		tst_brk(TCONF, "filesystem doesn't support FS_APPEND_FL");
-> +	if ((buf.stx_attributes_mask & FS_IMMUTABLE_FL) == 0)
-> +		tst_brk(TCONF, "filesystem doesn't support FS_IMMUTABLE_FL");
-> +	if ((buf.stx_attributes_mask & FS_NODUMP_FL) == 0)
-> +		tst_brk(TCONF, "filesystem doesn't support FS_NODUMP_FL");
+Hi,
 
-I doubt that all these flags are either set or unset for a given
-fileystem, can we rather than this set flags such as supp_compr etc and
-disable only tests for a subset of unsupported flags rather than the
-whole test?
+> * Drop route command (use just ip command), support both IPv4 and IPv6
+> * Add route-lib.sh (will be used in other route-change-*)
+> * Use unused network range to avoid clash with real network
+> * Add verification with ping (previous version sent UDP datagram with
+> ns-udpsender, but didn't verify receiving it on rhost and didn't setup
+> rhost ip at all)
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+> Suggested-by: Alexey Kodanev <alexey.kodanev@oracle.com>
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+>  runtest/net_stress.route                      |   4 +-
+>  .../network/stress/route/00_Descriptions.txt  |  18 +-
+>  .../network/stress/route/route-change-dst     |  33 +++
+>  testcases/network/stress/route/route-lib.sh   |  17 ++
+>  .../network/stress/route/route4-change-dst    | 276 ------------------
+>  .../network/stress/route/route6-change-dst    | 272 -----------------
+>  6 files changed, 55 insertions(+), 565 deletions(-)
+>  create mode 100755 testcases/network/stress/route/route-change-dst
+Just a small change, not worth of sending v2: use .sh extension
+for all 3 tests (route-change-{dst,gw,if}.sh).
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
