@@ -1,48 +1,65 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B99C07EA9D
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2019 05:12:03 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C92C7EACA
+	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2019 05:49:38 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 84E3E3C1DFC
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2019 05:12:03 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AD1FD3C1DFB
+	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2019 05:49:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 866E73C1DE3
- for <ltp@lists.linux.it>; Fri,  2 Aug 2019 05:12:01 +0200 (CEST)
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
- (using TLSv1.1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C4EE41A00A21
- for <ltp@lists.linux.it>; Fri,  2 Aug 2019 05:11:58 +0200 (CEST)
-Received: from ALA-HCA.corp.ad.wrs.com ([147.11.189.40])
- by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id x723BsMQ006917
- (version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
- Thu, 1 Aug 2019 20:11:54 -0700 (PDT)
-Received: from [128.224.162.188] (128.224.162.188) by ALA-HCA.corp.ad.wrs.com
- (147.11.189.50) with Microsoft SMTP Server (TLS) id 14.3.468.0;
- Thu, 1 Aug 2019 20:11:53 -0700
-From: "Hongzhi, Song" <hongzhi.song@windriver.com>
-To: <linux-btrfs@vger.kernel.org>, <josef@toxicpanda.com>,
- <linux-kernel@vger.kernel.org>
-References: <b501bcff-8be0-4303-8789-363fda4658e5@windriver.com>
-Message-ID: <f6795b4b-d70e-491e-e7ce-d235ca1b95ff@windriver.com>
-Date: Fri, 2 Aug 2019 11:11:50 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id B52CD3C1DC8
+ for <ltp@lists.linux.it>; Fri,  2 Aug 2019 05:49:34 +0200 (CEST)
+Received: from tyo161.gate.nec.co.jp (tyo161.gate.nec.co.jp [114.179.232.161])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 0E72B604832
+ for <ltp@lists.linux.it>; Fri,  2 Aug 2019 05:49:30 +0200 (CEST)
+Received: from mailgate02.nec.co.jp ([114.179.233.122])
+ by tyo161.gate.nec.co.jp (8.15.1/8.15.1) with ESMTPS id x723nHRd021476
+ (version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+ Fri, 2 Aug 2019 12:49:17 +0900
+Received: from mailsv01.nec.co.jp (mailgate-v.nec.co.jp [10.204.236.94])
+ by mailgate02.nec.co.jp (8.15.1/8.15.1) with ESMTP id x723nHF8020504;
+ Fri, 2 Aug 2019 12:49:17 +0900
+Received: from mail03.kamome.nec.co.jp (mail03.kamome.nec.co.jp [10.25.43.7])
+ by mailsv01.nec.co.jp (8.15.1/8.15.1) with ESMTP id x723nHQm016586; 
+ Fri, 2 Aug 2019 12:49:17 +0900
+Received: from bpxc99gp.gisp.nec.co.jp ([10.38.151.147] [10.38.151.147]) by
+ mail02.kamome.nec.co.jp with ESMTP id BT-MMP-7341281;
+ Fri, 2 Aug 2019 12:48:27 +0900
+Received: from BPXM23GP.gisp.nec.co.jp ([10.38.151.215]) by
+ BPXC19GP.gisp.nec.co.jp ([10.38.151.147]) with mapi id 14.03.0439.000; Fri, 2
+ Aug 2019 12:48:26 +0900
+From: Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>
+To: Li Wang <liwang@redhat.com>
+Thread-Topic: =?utf-8?B?W01NIEJ1Zz9dIG1tYXAoKSB0cmlnZ2VycyBTSUdCVVMgd2hpbGUgZG9pbmcg?=
+ =?utf-8?B?dGhl4oCLIOKAi251bWFfbW92ZV9wYWdlcygpIGZvciBvZmZsaW5lZCBodWdl?=
+ =?utf-8?Q?page_in_background?=
+Thread-Index: AQHVRc0JEN0QZXp8lkC2QA8h/0i/bKbmp8yA
+Date: Fri, 2 Aug 2019 03:48:26 +0000
+Message-ID: <20190802034825.GA20130@hori.linux.bs1.fc.nec.co.jp>
+References: <CAEemH2dMW6oh6Bbm=yqUADF+mDhuQgFTTGYftB+xAhqqdYV3Ng@mail.gmail.com>
+In-Reply-To: <CAEemH2dMW6oh6Bbm=yqUADF+mDhuQgFTTGYftB+xAhqqdYV3Ng@mail.gmail.com>
+Accept-Language: en-US, ja-JP
+Content-Language: ja-JP
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.34.125.150]
+Content-ID: <2CC86BE40AAF934886BEF4A53FDE2B6F@gisp.nec.co.jp>
 MIME-Version: 1.0
-In-Reply-To: <b501bcff-8be0-4303-8789-363fda4658e5@windriver.com>
-Content-Language: en-US
-X-Originating-IP: [128.224.162.188]
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-TM-AS-MML: disable
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] Bug Report: Btrfs prompts "can't allocate space for
- delete" when block size arounds 512M
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] 
+ =?utf-8?q?=5BMM_Bug=3F=5D_mmap=28=29_triggers_SIGBUS_while?=
+ =?utf-8?b?IGRvaW5nIHRoZeKAiyDigItudW1hX21vdmVfcGFnZXMoKSBmb3Igb2ZmbGlu?=
+ =?utf-8?q?ed_hugepage_in_background?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,59 +71,66 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: dsterba@suse.com, ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: "xishi.qiuxishi@alibaba-inc.com" <xishi.qiuxishi@alibaba-inc.com>,
+ "mhocko@kernel.org" <mhocko@kernel.org>, Linux-MM <linux-mm@kvack.org>,
+ LTP List <ltp@lists.linux.it>,
+ "mike.kravetz@oracle.com" <mike.kravetz@oracle.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-QWRkIGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcuCgpQaW5nLi4uCgoKVGhhbmtzLAoKLS1I
-b25nemhpCgoKT24gNy8xNy8xOSA0OjM0IFBNLCBIb25nemhpLCBTb25nIHdyb3RlOgo+IEhpIGZy
-aWVuZHMsCj4KPiAqRGVzY3JpcHRpb246Kgo+Cj4KPiDCoMKgwqAgT25lIExUUCB0ZXN0Y2FzZSwg
-ZnNfZmlsbC5jLCBmYWlscyBvbiBidHJmcyB3aXRoIGtlcm5lbCBlcnJvciB3aGVuIAo+IHVubGlu
-ayBmaWxlcyBvbiBCdHJmcyBkZXZpY2U6Cj4KPiDCoMKgwqAgIkJUUkZTIHdhcm5pbmcgKGRldmlj
-ZSBsb29wMCk6IGNvdWxkIG5vdCBhbGxvY2F0ZSBzcGFjZSBmb3IgYSAKPiBkZWxldGU7IHdpbGwg
-dHJ1bmNhdGUgb24gbW91bnQiLgo+Cj4KPiDCoMKgwqAgSSBmb3VuZCB0aGUgbG9vcCBibG9jayBk
-ZXZpY2UgZm9ybWF0dGVkIHdpdGggYnRyZnMgcm91Z2hseSByYW5ncyAKPiBmcm9tIDQ2ME0gdG8g
-NTYwTSB3aWxsIGNhdXNlIHRoZSBlcnJvci4KPgo+IMKgwqDCoCAyNTZNIGFuZCAxRyBhbGwgcGFz
-cy4KPgo+Cj4gwqDCoMKgIFRoZSBmc19maWxsLmMgc291cmNlIGNvZGU6Cj4KPiBbaHR0cHM6Ly9n
-aXRodWIuY29tL2xpbnV4LXRlc3QtcHJvamVjdC9sdHAvYmxvYi9tYXN0ZXIvdGVzdGNhc2VzL2tl
-cm5lbC9mcy9mc19maWxsL2ZzX2ZpbGwuY10gCj4KPgo+IMKgwqDCoCBUaGUgZnNfZmlsbC5jIGNh
-bGxzIHVubGluayB3aGljaCB0cmlnZ2VycyB0aGUgZXJyb3IuCj4KPiBbaHR0cHM6Ly9naXRodWIu
-Y29tL2xpbnV4LXRlc3QtcHJvamVjdC9sdHAvYmxvYi9lMzQ1N2U0MmMxYjkzZjU0YmI4MWRhNzQ2
-ZWJhMzE0ZmQzNGFkNDBlL3Rlc3RjYXNlcy9rZXJuZWwvZnMvZnNfZmlsbC9mc19maWxsLmMjTDU1
-XSAKPgo+Cj4gW2h0dHBzOi8vZ2l0aHViLmNvbS9saW51eC10ZXN0LXByb2plY3QvbHRwL2Jsb2Iv
-ZTM0NTdlNDJjMWI5M2Y1NGJiODFkYTc0NmViYTMxNGZkMzRhZDQwZS9saWIvc2FmZV9tYWNyb3Mu
-YyNMMzU4XSAKPgo+Cj4KPiAqRXJyb3IgaW5mbzoqCj4KPiDCoMKgwqAgVGhlIGlzc3VlIG1heWJl
-IG5vdCByZXByb2R1Y2VkIGV2ZXJ5dGltZSBidXQgZm91ciBmaWZ0aHMgY2hhbmNlLgo+Cj4gwqDC
-oMKgIGZzX2ZpbGwuYzo1MzogSU5GTzogVW5saW5raW5nIG1udHBvaW50L3RocmVhZDUvZmlsZTAK
-PiDCoMKgwqAgc2FmZV9tYWNyb3MuYzozNjA6IEJST0s6IGZzX2ZpbGwuYzo1NTogCj4gdW5saW5r
-KG1udHBvaW50L3RocmVhZDEwL2ZpbGUwKSBmYWlsZWQ6IEVOT1NQQwo+IMKgwqDCoCBzYWZlX21h
-Y3Jvcy5jOjM2MDogQlJPSzogZnNfZmlsbC5jOjU1OiAKPiB1bmxpbmsobW50cG9pbnQvdGhyZWFk
-MTEvZmlsZTApIGZhaWxlZDogRU5PU1BDCj4gwqDCoMKgIFs2MjQ3Ny4zNzg4NDhdIEJUUkZTIHdh
-cm5pbmcgKGRldmljZSBsb29wMCk6IGNvdWxkIG5vdCBhbGxvY2F0ZSAKPiBzcGFjZSBmb3IgYSBk
-ZWxldGU7IHdpbGwgdHJ1bmNhdGUgb24gbW91bnQKPiDCoMKgwqAgWzYyNDc3LjM3ODkwNV0gQlRS
-RlMgd2FybmluZyAoZGV2aWNlIGxvb3AwKTogY291bGQgbm90IGFsbG9jYXRlIAo+IHNwYWNlIGZv
-ciBhIGRlbGV0ZTsgd2lsbCB0cnVuY2F0ZSBvbiBtb3VudAo+Cj4KPgo+ICpLZXJuZWw6Kgo+Cj4g
-wqDCoMKgIEFmdGVyIHY1LjItcmMxLCBxZW11eDg2LTY0Cj4KPiDCoMKgwqAgIyBtYWtlIC1qNDAg
-QVJDSD14ODZfNjQgQ1JPU1NfQ09NUElMRT14ODYtNjQtZ2NjCj4gwqDCoMKgIHVzZSBxZW11IHRv
-IGJvb3R1cCBrZXJuZWwKPgo+Cj4gKkxUUDoqCj4KPiDCoMKgwqAgbWFzdGVyIGJyYW5jaDogSSB0
-ZXN0ZWQgb24gMjAxOTA2MjUKPiDCoMKgwqAgUmVwcm9kdWNlOgo+Cj4gwqDCoMKgIC8vIGJ1aWxk
-IEx0cAo+IMKgwqDCoCAjIGNkIEx0cC1zb3VyY2UKPiDCoMKgwqAgIyAuL2J1aWxkLnNoCj4KPiDC
-oMKgwqAgLy8gY29weSBmaWxlcyB0byBxZW11Cj4gwqDCoMKgICMgY3AgcnVubHRwIHRlc3RjYXNl
-cy9rZXJuZWwvZnMvZnNfZmlsbC9mc19maWxsIHRvIHFlbXUKPgo+IMKgwqDCoCAvLyBsb2dpbiB0
-byBxZW11Ogo+IMKgwqDCoCAvLyBhZGp1c3QgYmxvY2sgZGV2aWNlIHNpemUgdG8gNTEyTQo+IMKg
-wqDCoCAjIHZpIHJ1bmx0cAo+IMKgwqDCoCBpbiBmdW5jdGlvbjogY3JlYXRlX2Jsb2NrKCkKPiDC
-oMKgwqAgwqDCoMKgIGRkIGlmPS9kZXYvemVybyBvZj0ke1RNUH0vdGVzdC5pbWcgYnM9MTAyNCBj
-b3VudD0yNjIxNDQKPiDCoMKgwqAgwqDCoMKgIC0tLT4KPiDCoMKgwqAgwqDCoMKgIGRkIGlmPS9k
-ZXYvemVybyBvZj0ke1RNUH0vdGVzdC5pbWcgYnM9MTAyNCBjb3VudD01MjQyODgKPgo+IMKgwqDC
-oCAvLyBleGVjdXRlIHRlc3RjYXNlCj4gwqDCoMKgICMgcnVubHRwIC1mIGZzIC1zIGZzX2ZpbGwK
-Pgo+Cj4gKkFuYWx5c2lzOioKPgo+IMKgwqDCoCBPbmUgbmV3IGtlcm5lbCBjb21taXQgY29udGFp
-bmVkIGluIHY1LjItcmMxIGludHJvZHVjZXMgdGhlIGlzc3VlLgo+Cj4gwqDCoMKgIGNvbW1pdCBj
-OGVhZWFjN2I3MzQzNDdjM2FmYmE3MDA4YjdhZjYyZjM3YjljMTQwCj4gwqDCoMKgIEF1dGhvcjog
-Sm9zZWYgQmFjaWsgPGpvc2VmQHRveGljcGFuZGEuY29tPgo+IMKgwqDCoCBEYXRlOsKgwqAgV2Vk
-IEFwciAxMCAxNTo1NjoxMCAyMDE5IC0wNDAwCj4KPiDCoMKgwqAgwqDCoMKgIGJ0cmZzOiByZXNl
-cnZlIGRlbGFsbG9jIG1ldGFkYXRhIGRpZmZlcmVudGx5Cj4gwqDCoCDCoMKgIMKgIC4uLgo+Cj4K
-PiBBbnlvbmUncyByZXBseSB3aWxsIGJlIGFwcHJlY2lhdGVkLgo+Cj4gLS1Ib25nemhpCj4KPgo+
-Cj4KPgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3Rp
-bmZvL2x0cAo=
+On Mon, Jul 29, 2019 at 01:17:27PM +0800, Li Wang wrote:
+> Hi Naoya and Linux-MMers,
+> 
+> The LTP/move_page12 V2 triggers SIGBUS in the kernel-v5.2.3 testing.
+> https://github.com/wangli5665/ltp/blob/master/testcases/kernel/syscalls/
+> move_pages/move_pages12.c
+> 
+> It seems like the retry mmap() triggers SIGBUS while doing the numa_move_pages
+> () in background. That is very similar to the kernel bug which was mentioned by
+> commit 6bc9b56433b76e40d(mm: fix race on soft-offlining ): A race condition
+> between soft offline and hugetlb_fault which causes unexpected process SIGBUS
+> killing.
+> 
+> I'm not sure if that below patch is making sene to memory-failures.c, but after
+> building a new kernel-5.2.3 with this change, the problem can NOT be reproduced
+> . 
+> 
+> Any comments?
+> 
+> ----------------------------------
+> --- a/mm/memory-failure.c
+> +++ b/mm/memory-failure.c
+> @@ -1695,15 +1695,16 @@ static int soft_offline_huge_page(struct page *page,
+> int flags)
+>         unlock_page(hpage);
+> 
+>         ret = isolate_huge_page(hpage, &pagelist);
+> +       if (!ret) {
+> +               pr_info("soft offline: %#lx hugepage failed to isolate\n",
+> pfn);
+> +               return -EBUSY;
+> +       }
+> +
+>         /*
+>          * get_any_page() and isolate_huge_page() takes a refcount each,
+>          * so need to drop one here.
+>          */
+>         put_hwpoison_page(hpage);
+> -       if (!ret) {
+> -               pr_info("soft offline: %#lx hugepage failed to isolate\n",
+> pfn);
+> -               return -EBUSY;
+> -       }
+
+Sorry for my late response.
+
+This change skips put_hwpoison_page() in failure path, so soft_offline_page()
+should return without releasing hpage's refcount taken by get_any_page(),
+maybe which is not what we want.
+
+- Naoya
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
