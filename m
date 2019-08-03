@@ -1,56 +1,56 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45EC18063F
-	for <lists+linux-ltp@lfdr.de>; Sat,  3 Aug 2019 14:55:59 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4826E80643
+	for <lists+linux-ltp@lfdr.de>; Sat,  3 Aug 2019 15:02:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A90863C2044
-	for <lists+linux-ltp@lfdr.de>; Sat,  3 Aug 2019 14:55:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D8FAD3C1E1F
+	for <lists+linux-ltp@lfdr.de>; Sat,  3 Aug 2019 15:02:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id C3E793C1DC7
- for <ltp@lists.linux.it>; Sat,  3 Aug 2019 14:55:55 +0200 (CEST)
-Received: from mail-vs1-f67.google.com (mail-vs1-f67.google.com
- [209.85.217.67])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id C320B3C194D
+ for <ltp@lists.linux.it>; Sat,  3 Aug 2019 15:02:19 +0200 (CEST)
+Received: from mail-vk1-f196.google.com (mail-vk1-f196.google.com
+ [209.85.221.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D8D4D1000CAD
- for <ltp@lists.linux.it>; Sat,  3 Aug 2019 14:55:47 +0200 (CEST)
-Received: by mail-vs1-f67.google.com with SMTP id r3so53089537vsr.13
- for <ltp@lists.linux.it>; Sat, 03 Aug 2019 05:55:53 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 06AC01401103
+ for <ltp@lists.linux.it>; Sat,  3 Aug 2019 15:02:19 +0200 (CEST)
+Received: by mail-vk1-f196.google.com with SMTP id e83so15846289vke.12
+ for <ltp@lists.linux.it>; Sat, 03 Aug 2019 06:02:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=X7kL82HtEsnDaT5cQB9VDtwND9p8OzArEyJgrvkf0nE=;
- b=KvDkdtlIqNFWXEFB3EWmsz0oVT6JU1FHop/vQMFsx8Kl0CuMpCur/nIzw994th1vgW
- 11oSSOZ8LvQvxVl5SAko6koH++FU4UQn1euat2sAt6CVm603utWduZgeV6rQTRS8ikrN
- sAWrp5FVMweEGQDslgFGxynhu5MIId64m1CmYaLnRQb8fnb/G0LTb8BgB/yLyvdfuBTq
- 74rpi+ZGnX3JEqq/OnJzUbxPwjdXfiQ9X57gohnpGeblVxkHEq6ZxBazyQaPPd9AbcWe
- 9uQ4FMSI98HhPAvVUd/3gFmDsYYSoyX8wvJdNoyQUPqrT3Uob5n3Rw/jF/BXkrGUKWfG
- 2XWQ==
-X-Gm-Message-State: APjAAAXAyQjNKlK9v8b76gEoh2FcgQwb90gICiwXHyII7M0SAdh9Mtlb
- jXeseSI51SNtDbBTCTm2CBDxKo57lzInN7ZFcKZqYdZT7D8=
-X-Google-Smtp-Source: APXvYqxtYGinvmnFBeq40vszwYjDBOiPf4NsTpyYV3b5MfbyHSt0duPlSBNJ2x1x5gQf+nq+WFpbtyuCM7PZDvEjQbc=
-X-Received: by 2002:a67:fc45:: with SMTP id p5mr27300342vsq.179.1564836952234; 
- Sat, 03 Aug 2019 05:55:52 -0700 (PDT)
+ bh=0F1sjEGvOi1HPhfF62YveMSPmzdCANlbEUtY4Iqkmpw=;
+ b=Zc9O8dCwXWjl6sPvvnS57wMA+ThCl/t8FroWA1kjVaweUVlUVf7CGkIS3zNegMLrHS
+ Lhowgb0pvJpk7kH9cWk6v1PETeH4ZZ2RmtAzuTjkCjeN1+lhNIkeuQELJYZQRJ2EveXh
+ vtdlw3P8IA1jQL3rEjcRfMCSL6jL7hLK8cNTCO0J879lb8bRFqCITA9yZwlGPe9HZUsP
+ 0IDrCt4+bSoyFa84L7z/wBiics2lI1sv+OjQUV/D3p2yaFN81GWk95lMn6Paz/qFfLRx
+ 4ulGqbRf+ptuBivwHHUVS5Hr8NZR1uZDKMWL9W8w4FbHfwFaOlqjCQOq65LG5zCDIIrh
+ oeXA==
+X-Gm-Message-State: APjAAAU1AT05MYpd/f74SVaEWwb4rUBtsJ5qOfwNefa5VKEFm9b9GsWY
+ ILgyFspAeaY7xF54gI7QFkkS0IQsej8c/DbPqthhFg==
+X-Google-Smtp-Source: APXvYqwe9lBdU/95XgcVjrP36tnaMlTp1dcqdcYArAfsDhZrCnu5vUHe3gqk3+j/OAKFVD+Wy82JPOK4uKg3d5gelCk=
+X-Received: by 2002:ac5:c2d2:: with SMTP id i18mr52961135vkk.36.1564837337715; 
+ Sat, 03 Aug 2019 06:02:17 -0700 (PDT)
 MIME-Version: 1.0
 References: <20190801092616.30553-1-chrubis@suse.cz>
- <20190801092616.30553-2-chrubis@suse.cz>
-In-Reply-To: <20190801092616.30553-2-chrubis@suse.cz>
+ <20190801092616.30553-3-chrubis@suse.cz>
+In-Reply-To: <20190801092616.30553-3-chrubis@suse.cz>
 From: Li Wang <liwang@redhat.com>
-Date: Sat, 3 Aug 2019 20:55:41 +0800
-Message-ID: <CAEemH2dBj6Re=+booW5Lc77P1yumEbqP_4g6NMRPji-CtUG-aw@mail.gmail.com>
+Date: Sat, 3 Aug 2019 21:02:06 +0800
+Message-ID: <CAEemH2d8dEe0km7FA43S2eQYHE00m9advsAbUbmFfixcV0-qhw@mail.gmail.com>
 To: Cyril Hrubis <chrubis@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH 1/9] lib: Add support for guarded buffers
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH 2/9] lib: Add a canary for guarded buffers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,78 +68,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
-
-This is a quite good idea to involve guard buffer in LTP testing. And
-you patch set looks very clean & tidy, just have some few comments in
-below.
-
-On Thu, Aug 1, 2019 at 5:27 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+On Thu, Aug 1, 2019 at 5:26 PM Cyril Hrubis <chrubis@suse.cz> wrote:
 >
-> This commit adds a support for guarder buffers. Guarded buffer is a
-> buffer allocated so that there is PROT_NONE page immediatelly after the
-> end of the buffer i.e. any access after the buffer generates
-> SEGFAULT/EFAULT etc.
->
-> The library is hooked into the tst_test structure so that all you need
-> is to fill up an NULL terminated array of buffer pointers and sizes to
-> get the respective buffers allocated. The library supports allocating
-> memory in test runtime as well as well as allocating more complex
-> buffers, which currently are iovec vectors.
->
-> All buffers are freeed automatically at the end of the test.
-...
+> In a case that the buffer size is not a multiple of a page size there is
+> unused space before the start of the buffer. Let's fill that with
+> center mirrored random bytes and check that the buffer wasn't modified
+> before we unmap it.
 
-> + * Allocates size bytes, returns pointer to the allocated buffer.
-> + */
-> +void *tst_alloc(size_t size);
+I like this check canary part. Amazing to me.
 
-What about drawing a simple picture in the code comments? That can
-help people to understand what kind of buffer structure the
-tst_alloc() returned.
-
-/*
- * Allocates size bytes, returns pointer to the allocated buffer.
- *
- * This is the structure of the allocated buferr:
- *
- * |<--  1 page  -->|                 |<--  1 page  -->|
- *
- * -----------------------------------------------------
- * | buf_shift | <-- bufs[i].size --> |  1 guard page  |
- * -----------------------------------------------------
- */
-void *tst_alloc(size_t size);
-
-> +++ b/include/tst_test.h
-> @@ -35,6 +35,7 @@
->  #include "tst_path_has_mnt_flags.h"
->  #include "tst_sys_conf.h"
->  #include "tst_coredump.h"
-> +#include "tst_buffers.h"
->
->  /*
->   * Reports testcase result.
-> @@ -200,6 +201,11 @@ struct tst_test {
->          * test.
->          */
->         const char *const *needs_kconfigs;
 > +
-> +       /*
-> +        * NULL-terminated array to be allocated buffers.
-> +        */
-> +       struct tst_buffers *bufs;
+> +static void check_canary(struct map *map)
+> +{
+> +       size_t i;
+> +       char *buf = map->addr;
+> +
+> +       for (i = 0; i < map->buf_shift/2; i++) {
+> +               if (buf[map->buf_shift - i - 1] != buf[i]) {
+> +                       tst_res(TWARN,
+> +                               "pid %i: buffer modified before address %p %zu",
+> +                               (char*)map->addr + map->buf_shift, i);
 
-I tend to agree with Richard for this. Looks like adding such a new
-field in tst_test struct is a little bit complicated. Maybe we can
-define a series macro for doing that, which something likes:
+Here you probably missed the getpid() for printing %i match :).
 
-TST_INIT_GUARD_BUFFER(ptr, size)
-TST_INIT_IOVEC_GUARD_BUFFER(ptr, iov_sizes)
-
-then, testcase just calling it in setup() if needed.
-
---
+-- 
 Regards,
 Li Wang
 
