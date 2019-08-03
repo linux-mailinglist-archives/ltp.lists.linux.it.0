@@ -1,92 +1,56 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D57A7FFCF
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2019 19:42:58 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 45EC18063F
+	for <lists+linux-ltp@lfdr.de>; Sat,  3 Aug 2019 14:55:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5151E3C1E24
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 Aug 2019 19:42:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A90863C2044
+	for <lists+linux-ltp@lfdr.de>; Sat,  3 Aug 2019 14:55:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 351283C1E02
- for <ltp@lists.linux.it>; Fri,  2 Aug 2019 19:42:55 +0200 (CEST)
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id C3E793C1DC7
+ for <ltp@lists.linux.it>; Sat,  3 Aug 2019 14:55:55 +0200 (CEST)
+Received: from mail-vs1-f67.google.com (mail-vs1-f67.google.com
+ [209.85.217.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 069A720A6CE
- for <ltp@lists.linux.it>; Fri,  2 Aug 2019 19:42:54 +0200 (CEST)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x72HclqR169368;
- Fri, 2 Aug 2019 17:42:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2018-07-02;
- bh=qQ2degySGezHPZVUFes5RH7s/QM5AOAAph4PyTsDeb4=;
- b=nOyiDmWMBdJpZJ6J8/AqC+RDETQN8h0mRNAHVtHlLGahut+ewZA7WtdQjJm+Rjlr6wae
- gxciS5F+fh+oKsckZxSaVMUofmxXB7la8lj8nqPzgn2yCfuHXaMrwcHqJt68yRz3pYWh
- dYCD+D9prsJ7Gf4CcfHjFI+SehCL8m7nj35KgCiBBWhIEJMxS3QXTzSkI7+iFWdLff5C
- w9HeW/6OwDNKJBYiwgHJS145bRDcmNLOQ20sc+h1MRlAEbnhZCahvxvN8HFHKmUaOHcp
- oT4CJ7dXEokiEIQ2Q2s8maUea8jGwyJdkYpq66bFxn4rujsgqpNMPfB8ClZGMK6vikM8 9w== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by aserp2120.oracle.com with ESMTP id 2u0ejq3kd5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 02 Aug 2019 17:42:42 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x72HgfHn189167;
- Fri, 2 Aug 2019 17:42:41 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by aserp3020.oracle.com with ESMTP id 2u49hufg5k-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 02 Aug 2019 17:42:41 +0000
-Received: from abhmp0004.oracle.com (abhmp0004.oracle.com [141.146.116.10])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x72HgZe0001558;
- Fri, 2 Aug 2019 17:42:35 GMT
-Received: from [192.168.1.222] (/71.63.128.209)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Fri, 02 Aug 2019 10:42:35 -0700
-To: Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>
-References: <CAEemH2dMW6oh6Bbm=yqUADF+mDhuQgFTTGYftB+xAhqqdYV3Ng@mail.gmail.com>
- <47999e20-ccbe-deda-c960-473db5b56ea0@oracle.com>
- <CAEemH2d=vEfppCbCgVoGdHed2kuY3GWnZGhymYT1rnxjoWNdcQ@mail.gmail.com>
- <a65e748b-7297-8547-c18d-9fb07202d5a0@oracle.com>
- <27a48931-aff6-d001-de78-4f7bef584c32@oracle.com>
- <20190802041557.GA16274@hori.linux.bs1.fc.nec.co.jp>
-From: Mike Kravetz <mike.kravetz@oracle.com>
-Message-ID: <54a5c9f5-eade-0d8f-24f9-bff6f19d4905@oracle.com>
-Date: Fri, 2 Aug 2019 10:42:33 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D8D4D1000CAD
+ for <ltp@lists.linux.it>; Sat,  3 Aug 2019 14:55:47 +0200 (CEST)
+Received: by mail-vs1-f67.google.com with SMTP id r3so53089537vsr.13
+ for <ltp@lists.linux.it>; Sat, 03 Aug 2019 05:55:53 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=X7kL82HtEsnDaT5cQB9VDtwND9p8OzArEyJgrvkf0nE=;
+ b=KvDkdtlIqNFWXEFB3EWmsz0oVT6JU1FHop/vQMFsx8Kl0CuMpCur/nIzw994th1vgW
+ 11oSSOZ8LvQvxVl5SAko6koH++FU4UQn1euat2sAt6CVm603utWduZgeV6rQTRS8ikrN
+ sAWrp5FVMweEGQDslgFGxynhu5MIId64m1CmYaLnRQb8fnb/G0LTb8BgB/yLyvdfuBTq
+ 74rpi+ZGnX3JEqq/OnJzUbxPwjdXfiQ9X57gohnpGeblVxkHEq6ZxBazyQaPPd9AbcWe
+ 9uQ4FMSI98HhPAvVUd/3gFmDsYYSoyX8wvJdNoyQUPqrT3Uob5n3Rw/jF/BXkrGUKWfG
+ 2XWQ==
+X-Gm-Message-State: APjAAAXAyQjNKlK9v8b76gEoh2FcgQwb90gICiwXHyII7M0SAdh9Mtlb
+ jXeseSI51SNtDbBTCTm2CBDxKo57lzInN7ZFcKZqYdZT7D8=
+X-Google-Smtp-Source: APXvYqxtYGinvmnFBeq40vszwYjDBOiPf4NsTpyYV3b5MfbyHSt0duPlSBNJ2x1x5gQf+nq+WFpbtyuCM7PZDvEjQbc=
+X-Received: by 2002:a67:fc45:: with SMTP id p5mr27300342vsq.179.1564836952234; 
+ Sat, 03 Aug 2019 05:55:52 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190802041557.GA16274@hori.linux.bs1.fc.nec.co.jp>
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9337
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1906280000 definitions=main-1908020185
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9337
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1906280000
- definitions=main-1908020184
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+References: <20190801092616.30553-1-chrubis@suse.cz>
+ <20190801092616.30553-2-chrubis@suse.cz>
+In-Reply-To: <20190801092616.30553-2-chrubis@suse.cz>
+From: Li Wang <liwang@redhat.com>
+Date: Sat, 3 Aug 2019 20:55:41 +0800
+Message-ID: <CAEemH2dBj6Re=+booW5Lc77P1yumEbqP_4g6NMRPji-CtUG-aw@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] 
- =?utf-8?q?=5BMM_Bug=3F=5D_mmap=28=29_triggers_SIGBUS_while?=
- =?utf-8?b?IGRvaW5nIHRoZeKAiyDigItudW1hX21vdmVfcGFnZXMoKSBmb3Igb2ZmbGlu?=
- =?utf-8?q?ed_hugepage_in_background?=
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH 1/9] lib: Add support for guarded buffers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,90 +62,86 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "xishi.qiuxishi@alibaba-inc.com" <xishi.qiuxishi@alibaba-inc.com>,
- "mhocko@kernel.org" <mhocko@kernel.org>, Linux-MM <linux-mm@kvack.org>,
- LTP List <ltp@lists.linux.it>
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 8/1/19 9:15 PM, Naoya Horiguchi wrote:
-> On Thu, Aug 01, 2019 at 05:19:41PM -0700, Mike Kravetz wrote:
->> There appears to be a race with hugetlb_fault and try_to_unmap_one of
->> the migration path.
->>
->> Can you try this patch in your environment?  I am not sure if it will
->> be the final fix, but just wanted to see if it addresses issue for you.
->>
->> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
->> index ede7e7f5d1ab..f3156c5432e3 100644
->> --- a/mm/hugetlb.c
->> +++ b/mm/hugetlb.c
->> @@ -3856,6 +3856,20 @@ static vm_fault_t hugetlb_no_page(struct mm_struct *mm,
->>  
->>  		page = alloc_huge_page(vma, haddr, 0);
->>  		if (IS_ERR(page)) {
->> +			/*
->> +			 * We could race with page migration (try_to_unmap_one)
->> +			 * which is modifying page table with lock.  However,
->> +			 * we are not holding lock here.  Before returning
->> +			 * error that will SIGBUS caller, get ptl and make
->> +			 * sure there really is no entry.
->> +			 */
->> +			ptl = huge_pte_lock(h, mm, ptep);
->> +			if (!huge_pte_none(huge_ptep_get(ptep))) {
->> +				ret = 0;
->> +				spin_unlock(ptl);
->> +				goto out;
->> +			}
->> +			spin_unlock(ptl);
-> 
-> Thanks you for investigation, Mike.
-> I tried this change and found no SIGBUS, so it works well.
-> 
-> I'm still not clear about how !huge_pte_none() becomes true here,
-> because we enter hugetlb_no_page() only when huge_pte_none() is non-null
-> and (racy) try_to_unmap_one() from page migration should convert the
-> huge_pte into a migration entry, not null.
+Hi Cyril,
 
-Thanks for taking a look Naoya.
+This is a quite good idea to involve guard buffer in LTP testing. And
+you patch set looks very clean & tidy, just have some few comments in
+below.
 
-In try_to_unmap_one(), there is this code block:
+On Thu, Aug 1, 2019 at 5:27 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+>
+> This commit adds a support for guarder buffers. Guarded buffer is a
+> buffer allocated so that there is PROT_NONE page immediatelly after the
+> end of the buffer i.e. any access after the buffer generates
+> SEGFAULT/EFAULT etc.
+>
+> The library is hooked into the tst_test structure so that all you need
+> is to fill up an NULL terminated array of buffer pointers and sizes to
+> get the respective buffers allocated. The library supports allocating
+> memory in test runtime as well as well as allocating more complex
+> buffers, which currently are iovec vectors.
+>
+> All buffers are freeed automatically at the end of the test.
+...
 
-		/* Nuke the page table entry. */
-		flush_cache_page(vma, address, pte_pfn(*pvmw.pte));
-		if (should_defer_flush(mm, flags)) {
-			/*
-			 * We clear the PTE but do not flush so potentially
-			 * a remote CPU could still be writing to the page.
-			 * If the entry was previously clean then the
-			 * architecture must guarantee that a clear->dirty
-			 * transition on a cached TLB entry is written through
-			 * and traps if the PTE is unmapped.
-			 */
-			pteval = ptep_get_and_clear(mm, address, pvmw.pte);
+> + * Allocates size bytes, returns pointer to the allocated buffer.
+> + */
+> +void *tst_alloc(size_t size);
 
-			set_tlb_ubc_flush_pending(mm, pte_dirty(pteval));
-		} else {
-			pteval = ptep_clear_flush(vma, address, pvmw.pte);
-		}
+What about drawing a simple picture in the code comments? That can
+help people to understand what kind of buffer structure the
+tst_alloc() returned.
 
-That happens before setting the migration entry.  Therefore, for a period
-of time the pte is NULL (huge_pte_none() returns true).
+/*
+ * Allocates size bytes, returns pointer to the allocated buffer.
+ *
+ * This is the structure of the allocated buferr:
+ *
+ * |<--  1 page  -->|                 |<--  1 page  -->|
+ *
+ * -----------------------------------------------------
+ * | buf_shift | <-- bufs[i].size --> |  1 guard page  |
+ * -----------------------------------------------------
+ */
+void *tst_alloc(size_t size);
 
-try_to_unmap_one holds the page table lock, but hugetlb_fault does not take
-the lock to 'optimistically' check huge_pte_none().  When huge_pte_none
-returns true, it calls hugetlb_no_page which is where we try to allocate
-a page and fails.
+> +++ b/include/tst_test.h
+> @@ -35,6 +35,7 @@
+>  #include "tst_path_has_mnt_flags.h"
+>  #include "tst_sys_conf.h"
+>  #include "tst_coredump.h"
+> +#include "tst_buffers.h"
+>
+>  /*
+>   * Reports testcase result.
+> @@ -200,6 +201,11 @@ struct tst_test {
+>          * test.
+>          */
+>         const char *const *needs_kconfigs;
+> +
+> +       /*
+> +        * NULL-terminated array to be allocated buffers.
+> +        */
+> +       struct tst_buffers *bufs;
 
-Does that make sense, or am I missing something?
+I tend to agree with Richard for this. Looks like adding such a new
+field in tst_test struct is a little bit complicated. Maybe we can
+define a series macro for doing that, which something likes:
 
-The patch checks for this specific condition: someone changing the pte
-from NULL to non-NULL while holding the lock.  I am not sure if this is
-the best way to fix.  But, it may be the easiest.
--- 
-Mike Kravetz
+TST_INIT_GUARD_BUFFER(ptr, size)
+TST_INIT_IOVEC_GUARD_BUFFER(ptr, iov_sizes)
+
+then, testcase just calling it in setup() if needed.
+
+--
+Regards,
+Li Wang
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
