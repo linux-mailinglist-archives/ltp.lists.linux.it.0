@@ -1,58 +1,85 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F6BB84B42
-	for <lists+linux-ltp@lfdr.de>; Wed,  7 Aug 2019 14:13:27 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id D569A84E66
+	for <lists+linux-ltp@lfdr.de>; Wed,  7 Aug 2019 16:16:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1E9F03C1D18
-	for <lists+linux-ltp@lfdr.de>; Wed,  7 Aug 2019 14:13:27 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 932283C1D3C
+	for <lists+linux-ltp@lfdr.de>; Wed,  7 Aug 2019 16:16:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 6173C3C14F7
- for <ltp@lists.linux.it>; Wed,  7 Aug 2019 14:13:25 +0200 (CEST)
-Received: from mail104.syd.optusnet.com.au (mail104.syd.optusnet.com.au
- [211.29.132.246])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 7AE1914016D5
- for <ltp@lists.linux.it>; Wed,  7 Aug 2019 14:13:22 +0200 (CEST)
-Received: from dread.disaster.area (pa49-181-167-148.pa.nsw.optusnet.com.au
- [49.181.167.148])
- by mail104.syd.optusnet.com.au (Postfix) with ESMTPS id 8D38B43DDBD;
- Wed,  7 Aug 2019 22:13:19 +1000 (AEST)
-Received: from dave by dread.disaster.area with local (Exim 4.92)
- (envelope-from <david@fromorbit.com>)
- id 1hvKnc-00025G-GH; Wed, 07 Aug 2019 22:12:12 +1000
-Date: Wed, 7 Aug 2019 22:12:12 +1000
-From: Dave Chinner <david@fromorbit.com>
-To: Murphy Zhou <jencce.kernel@gmail.com>
-Message-ID: <20190807121212.GM7777@dread.disaster.area>
-References: <20190730110555.GB7528@rei.lan>
- <1564569629-2358-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <1564569629-2358-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <20190805065832.ti6vpoviykfaxcj7@XZHOUW.usersys.redhat.com>
- <5D47D6B9.9090306@cn.fujitsu.com>
- <20190805102211.pvyufepn6xywi7vm@XZHOUW.usersys.redhat.com>
- <20190806162703.GA1333@dell5510>
- <20190807101742.mt6tgowsh4xw5hyt@XZHOUW.usersys.redhat.com>
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 6AC533C1CF7
+ for <ltp@lists.linux.it>; Wed,  7 Aug 2019 16:16:51 +0200 (CEST)
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 092DF6008F7
+ for <ltp@lists.linux.it>; Wed,  7 Aug 2019 16:16:52 +0200 (CEST)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x77EEL0F173043;
+ Wed, 7 Aug 2019 14:16:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2018-07-02;
+ bh=5WrVqAvIwZyPfWUx4ylqQnhTJ/3Zzt4//uyiBa13UXQ=;
+ b=2IKoA6l3Ekw5hXd5I60O/pk/pOykO2ufHLRL7WQxb7KS4PqiFy7m4XBQIyUvjsDCn/Qu
+ 1OqO3Sh2qxt82c68hkRAzd+to0L72Icv7qiFAfKv5WsILpHNUIk6IdiShnDJSftZD1Pn
+ rpZ9dX5iS7HJ3EIcctTBQ4ax43mpRb+5R7tEldgNeXXbwal9YYfDf478wyQwoAH1SSGN
+ tBWT+pW+sFaqG8onk9gpeU2p6tmYE4chvGoGl18nSpRwshnIIS1fPLTx9txQTtdrKGTX
+ 6K1SfsGgbrWWqmOdp2oYCvbKk6tR0ZM2mJhn89EN8N7MCKiRmlhPPUkdkdHtxVyF/Wer HA== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by aserp2120.oracle.com with ESMTP id 2u527pvjm0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 07 Aug 2019 14:16:48 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x77EDVuK063615;
+ Wed, 7 Aug 2019 14:16:48 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+ by aserp3020.oracle.com with ESMTP id 2u75780138-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 07 Aug 2019 14:16:48 +0000
+Received: from abhmp0019.oracle.com (abhmp0019.oracle.com [141.146.116.25])
+ by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id x77EGipd010900;
+ Wed, 7 Aug 2019 14:16:47 GMT
+Received: from [192.168.1.111] (/95.161.223.113)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 07 Aug 2019 07:16:44 -0700
+To: Petr Vorel <pvorel@suse.cz>, Li Wang <liwang@redhat.com>
+References: <20190731063320.4898-1-pvorel@suse.cz>
+ <CAEemH2f5XQZw-1hP7ffNYFUtPcBW7TujgkGjN5T0NBa5gnx_AQ@mail.gmail.com>
+ <20190731072744.GA9043@x230>
+From: Alexey Kodanev <alexey.kodanev@oracle.com>
+Message-ID: <75d2ba6f-447d-8982-0404-df3100073d5c@oracle.com>
+Date: Wed, 7 Aug 2019 17:16:42 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190807101742.mt6tgowsh4xw5hyt@XZHOUW.usersys.redhat.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Optus-CM-Score: 0
-X-Optus-CM-Analysis: v=2.2 cv=P6RKvmIu c=1 sm=1 tr=0 cx=a_idp_d
- a=gu9DDhuZhshYSb5Zs/lkOA==:117 a=gu9DDhuZhshYSb5Zs/lkOA==:17
- a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=kj9zAlcOel0A:10 a=FmdZ9Uzk2mMA:10
- a=VwQbUJbxAAAA:8 a=7-415B0cAAAA:8 a=f0VrTJKEscU-Eh1SCHsA:9
- a=CjuIK1q_8ugA:10 a=AjGcO6oz07-iQ99wixmX:22 a=biEYGPWJfzWAr4FL6Ov7:22
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+In-Reply-To: <20190731072744.GA9043@x230>
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9341
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1906280000 definitions=main-1908070152
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9341
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1906280000
+ definitions=main-1908070152
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v7 3/3] syscalls/copy_file_range02: increase
- coverage and remove EXDEV test
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] zram01: Fix division by 0
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,65 +91,49 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-xfs@vger.kernel.org, ltp@lists.linux.it
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed, Aug 07, 2019 at 06:17:42PM +0800, Murphy Zhou wrote:
-> ccing linux-xfs@vger.kernel.org
+On 31.07.2019 10:27, Petr Vorel wrote:
+> Hi Li,
 > 
-> Hi,
+>>> +       if [ $used_mem -eq 0 ]; then
+>>> +               tst_resm TBROK "no memory used by zram"
+>>> +               return
+>>> +       fi
 > 
-> Tracked down this to be a xfs specific issue:
+>> Why not use tst_brkm directly? Otherwise looks good to me.
+> Make sense.
+> Thanks for your ack, lets wait for Alexey.
 > 
-> If we call copy_file_range with a large offset like this:
+> I wonder how this can happen (found occasionally on ppc64le).
 > 
-> 	loff_t off = 9223372036854710270; // 2 ** 63
-> 	ret = copy_file_range(fd_in, 0, fd_out, &off, 65537, 0);
 
-That's not 2**63:
+Is it actually working, i.e. writing to zram?
 
-$ echo $((9223372036854710270 + 65537))
-9223372036854775807
+      while true; do
+          dd conv=notrunc if=/dev/zero of=zram${i}/file \
+             oflag=append count=1 bs=1024 status=none \
+             > /dev/null 2>&1 || break
+          b=$(($b + 1))
+      done
+      tst_resm TINFO "zram$i can be filled with '$b' KB"
 
-$ echo $((2**63 - 1))
-9223372036854775807
+Perhaps, we could add a check for the minimum value of $b and print
+the last error from dd too...
 
-i.e. it's LLONG_MAX, not an overflow. XFS sets sb->s_maxbytes in
-xfs_max_file_offset to:
-
-	(1 << BITS_PER_LONG - 1) - 1 = 2**63 - 1 = LLONG_MAX.
-
-So no matter how we look at it, this operation should not return
-EFBIG on XFS.
-
-> (test programme cfrbig.c attached)
+> If this happen than zram02 and zram03 fails on timeout:
+> /opt/ltp/testcases/bin/zram_lib.sh: line 38: echo: write error: Device or resource busy
+> zram03      1  TBROK  :  safe_file_ops.c:301: Failed to close FILE '/sys/block/zram0/disksize' at zram03.c:87: errno=EBUSY(16): Device or resource busy
 > 
-> xfs has it done successfully, while ext4 returns EFBIG.
+> Maybe some timeout would help, need to look into it.
+> 
+> Petr
+> 
 
-ext4 has a max file size of 2**32 * blocksize, so it doesn't support
-files larger than 16TB. So it will give EFBIG on this test.
-
-/me compiles and runs the test program on his workstation:
-
-$ ls -l foobar
--rw------- 1 dave dave 10737418240 Apr 12 14:46 foobar
-$ ./a.out foobar bar
-ret 65537
-$ ls -l bar
--rw-r--r-- 1 dave dave 9223372036854775807 Aug  7 22:11 bar
-$
-
-That looks like a successful copy to me, not EINVAL or EFBIG...
-
-Cheers,
-
-Dave.
--- 
-Dave Chinner
-david@fromorbit.com
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
