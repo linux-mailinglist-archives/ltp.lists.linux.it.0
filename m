@@ -2,51 +2,53 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27B2D84616
-	for <lists+linux-ltp@lfdr.de>; Wed,  7 Aug 2019 09:39:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89A11846F1
+	for <lists+linux-ltp@lfdr.de>; Wed,  7 Aug 2019 10:16:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AC9DF3C1D74
-	for <lists+linux-ltp@lfdr.de>; Wed,  7 Aug 2019 09:39:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2F6803C1D78
+	for <lists+linux-ltp@lfdr.de>; Wed,  7 Aug 2019 10:16:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 654683C1773
- for <ltp@lists.linux.it>; Wed,  7 Aug 2019 09:39:15 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 02A733C1CDE
+ for <ltp@lists.linux.it>; Wed,  7 Aug 2019 10:16:41 +0200 (CEST)
+Received: from mail-vk1-f193.google.com (mail-vk1-f193.google.com
+ [209.85.221.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6E2F1600C24
- for <ltp@lists.linux.it>; Wed,  7 Aug 2019 09:39:16 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 0ABDCAEFC;
- Wed,  7 Aug 2019 07:39:12 +0000 (UTC)
-Date: Wed, 7 Aug 2019 09:39:09 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Mike Kravetz <mike.kravetz@oracle.com>
-Message-ID: <20190807073909.GL11812@dhcp22.suse.cz>
-References: <CAEemH2dMW6oh6Bbm=yqUADF+mDhuQgFTTGYftB+xAhqqdYV3Ng@mail.gmail.com>
- <47999e20-ccbe-deda-c960-473db5b56ea0@oracle.com>
- <CAEemH2d=vEfppCbCgVoGdHed2kuY3GWnZGhymYT1rnxjoWNdcQ@mail.gmail.com>
- <a65e748b-7297-8547-c18d-9fb07202d5a0@oracle.com>
- <27a48931-aff6-d001-de78-4f7bef584c32@oracle.com>
- <20190802041557.GA16274@hori.linux.bs1.fc.nec.co.jp>
- <54a5c9f5-eade-0d8f-24f9-bff6f19d4905@oracle.com>
- <20190805085740.GC7597@dhcp22.suse.cz>
- <7d78f6b9-afb8-79d1-003e-56de58fded00@oracle.com>
- <3c104b29-ffe2-07cb-440e-cb88d8e11acb@oracle.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 47323201095
+ for <ltp@lists.linux.it>; Wed,  7 Aug 2019 10:16:40 +0200 (CEST)
+Received: by mail-vk1-f193.google.com with SMTP id 130so17904268vkn.9
+ for <ltp@lists.linux.it>; Wed, 07 Aug 2019 01:16:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=nmR/aRt/7w3kh6Vv50BpVC8rKO4EAX+1CcgjPsPbn5U=;
+ b=T3bkRfmlN+3Jzj20xQE1aCvhvkF2hAPHvKz3Y1/9QpZ6rg4L5KM+rGo4B8p/ciah6a
+ c7Y5Dk1rJRIWRRuN8z4u5HVCHbRYKnXn5CaOxbesa4645MPhSxMLz/KxMsADkuGfWHvQ
+ 2TiODoG81E6BghvzL+xQ55WJvpclv3Fk8YC+KiOeQPqrdaM8sD2N/1h9a0HvpSgKm8Yu
+ 2ZgXDKhvGLk9TeBgeTCB3XObj0aemPVT7e6Yzy5pz+PQLcDBtq2JPj5Bltt19HyrL8Vs
+ mlsnZd0re5En2R7zQWsQjz29UyTvhr7pXMF8BhlrmIQImqMm+PwCJa0VYUeh98LtfClV
+ SdcQ==
+X-Gm-Message-State: APjAAAU15/ZSMjmaBZiaFkeyNVmWfvHOl77SPhD5c/zcr75zlG90ksgy
+ psPfiPCQ0PLFn55t9oM+MPUEiVSknkg2VfkjDB6+LQ==
+X-Google-Smtp-Source: APXvYqy/ylNUV3ZgKKUPSKj8kIOvHEoHaJlboYbXwkPv10ja4wfpmpavd7t7COAWzi7EDfBCtl0jf4PGc+uGO6W4NxE=
+X-Received: by 2002:a1f:3dc1:: with SMTP id k184mr119717vka.24.1565165799090; 
+ Wed, 07 Aug 2019 01:16:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <3c104b29-ffe2-07cb-440e-cb88d8e11acb@oracle.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+References: <76fa74b68aa0794f58e01d5794fffa3a02df0203.1565089789.git.jstancek@redhat.com>
+In-Reply-To: <76fa74b68aa0794f58e01d5794fffa3a02df0203.1565089789.git.jstancek@redhat.com>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 7 Aug 2019 16:16:28 +0800
+Message-ID: <CAEemH2e+qQuEXht_JPQdx+LrG7V3FWRZG6rPO8LGOcNVorC71Q@mail.gmail.com>
+To: Jan Stancek <jstancek@redhat.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] 
- =?utf-8?q?=5BMM_Bug=3F=5D_mmap=28=29_triggers_SIGBUS_while?=
- =?utf-8?b?IGRvaW5nIHRoZeKAiyDigItudW1hX21vdmVfcGFnZXMoKSBmb3Igb2ZmbGlu?=
- =?utf-8?q?ed_hugepage_in_background?=
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] clock_getres01: pass non-NULL res as parameter
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,56 +60,59 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "xishi.qiuxishi@alibaba-inc.com" <xishi.qiuxishi@alibaba-inc.com>,
- Linux-MM <linux-mm@kvack.org>, Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>,
- LTP List <ltp@lists.linux.it>
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue 06-08-19 17:07:25, Mike Kravetz wrote:
-> On 8/5/19 10:36 AM, Mike Kravetz wrote:
-> >>>>> Can you try this patch in your environment?  I am not sure if it will
-> >>>>> be the final fix, but just wanted to see if it addresses issue for you.
-> >>>>>
-> >>>>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> >>>>> index ede7e7f5d1ab..f3156c5432e3 100644
-> >>>>> --- a/mm/hugetlb.c
-> >>>>> +++ b/mm/hugetlb.c
-> >>>>> @@ -3856,6 +3856,20 @@ static vm_fault_t hugetlb_no_page(struct mm_struct *mm,
-> >>>>>  
-> >>>>>  		page = alloc_huge_page(vma, haddr, 0);
-> >>>>>  		if (IS_ERR(page)) {
-> >>>>> +			/*
-> >>>>> +			 * We could race with page migration (try_to_unmap_one)
-> >>>>> +			 * which is modifying page table with lock.  However,
-> >>>>> +			 * we are not holding lock here.  Before returning
-> >>>>> +			 * error that will SIGBUS caller, get ptl and make
-> >>>>> +			 * sure there really is no entry.
-> >>>>> +			 */
-> >>>>> +			ptl = huge_pte_lock(h, mm, ptep);
-> >>>>> +			if (!huge_pte_none(huge_ptep_get(ptep))) {
-> >>>>> +				ret = 0;
-> >>>>> +				spin_unlock(ptl);
-> >>>>> +				goto out;
-> >>>>> +			}
-> >>>>> +			spin_unlock(ptl);
-> >>>>
-> >>>> Thanks you for investigation, Mike.
-> >>>> I tried this change and found no SIGBUS, so it works well.
-> 
-> Here is another way to address the issue.  Take the hugetlb fault mutex in
-> the migration code when modifying the page tables.  IIUC, the fault mutex
-> was introduced to prevent this same issue when there were two page faults
-> on the same page (and we were unable to allocate an 'extra' page).  The
-> downside to such an approach is that we add more hugetlbfs specific code
-> to try_to_unmap_one.
+Hi Jan,
 
-I would rather go with the hugetlb_no_page which is better isolated.
+On Tue, Aug 6, 2019 at 7:11 PM Jan Stancek <jstancek@redhat.com> wrote:
+>
+> Since commit a9446a906f52 ("lib/vdso/32: Remove inconsistent NULL pointer checks")
+> VDSO treats NULL parameter differently than in syscall.
+>
+> Pass valid pointer. Subsequent patch will add test variants that test NULL
+> res parameter using syscall.
+>
+> Signed-off-by: Jan Stancek <jstancek@redhat.com>
+> ---
+>  testcases/kernel/syscalls/clock_getres/clock_getres01.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/testcases/kernel/syscalls/clock_getres/clock_getres01.c b/testcases/kernel/syscalls/clock_getres/clock_getres01.c
+> index 15f32310839a..6b556965530e 100644
+> --- a/testcases/kernel/syscalls/clock_getres/clock_getres01.c
+> +++ b/testcases/kernel/syscalls/clock_getres/clock_getres01.c
+> @@ -28,7 +28,7 @@ static struct test_case {
+>         {"MONOTONIC", CLOCK_MONOTONIC, &res, 0, 0},
+>         {"PROCESS_CPUTIME_ID", CLOCK_PROCESS_CPUTIME_ID, &res, 0, 0},
+>         {"THREAD_CPUTIME_ID", CLOCK_THREAD_CPUTIME_ID, &res, 0, 0},
+> -       {"REALTIME", CLOCK_REALTIME, NULL, 0, 0},
+> +       {"REALTIME", CLOCK_REALTIME, &res, 0, 0},
+
+If we change NULL to &res, it will be a duplicate of the first case.
+So my suggest here is to remove it directly, since patch2/2 has
+already added variants to test NULL via syscall.
+
+Otherwise, the patchset looks good.
+
+>         {"CLOCK_MONOTONIC_RAW", CLOCK_MONOTONIC_RAW, &res, 0, 0,},
+>         {"CLOCK_REALTIME_COARSE", CLOCK_REALTIME_COARSE, &res, 0, 0,},
+>         {"CLOCK_MONOTONIC_COARSE", CLOCK_MONOTONIC_COARSE, &res, 0, 0,},
+> --
+> 1.8.3.1
+>
+>
+> --
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+
+
+
 -- 
-Michal Hocko
-SUSE Labs
+Regards,
+Li Wang
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
