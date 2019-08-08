@@ -1,57 +1,43 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 843BE85DF5
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 11:13:58 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A339385E3B
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 11:27:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 300223C1D23
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 11:13:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6713F3C1D1B
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 11:27:36 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 02FFE3C1CDE
- for <ltp@lists.linux.it>; Thu,  8 Aug 2019 11:13:57 +0200 (CEST)
-Received: from mail-ua1-f67.google.com (mail-ua1-f67.google.com
- [209.85.222.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id EEDE53C176D
+ for <ltp@lists.linux.it>; Thu,  8 Aug 2019 11:27:34 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 30073200142
- for <ltp@lists.linux.it>; Thu,  8 Aug 2019 11:13:56 +0200 (CEST)
-Received: by mail-ua1-f67.google.com with SMTP id j8so36116422uan.6
- for <ltp@lists.linux.it>; Thu, 08 Aug 2019 02:13:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=mSKh5CDNJ2fTUnhucpUUaq44cl4FtTgTCp1gwtXB6EY=;
- b=M4IvaZ8keyYISqmDiYuSRH3nlLC6SN1VJ/8NZcR6OsayUN4VOLqpYx+U4uQGK7t++m
- boXWwy/dWpm1uSWv59ecM1h5ts36tA5DnqMDRIgnEgBQlZ3lIe3jJC5kBimpysxQJGkr
- wWIvpDftWjXED0FP63w7WxAGu6MIynVePhtxZmQx+3HoV1SJOzsYaBi1zRLjLNxadsub
- upscxJU5BRf1FK+9gHqprIfFlW4AfVtSBCMrYsoZ0iiCnTL/F3k4F63U8lVo5/SKQFv/
- Gm4mzAP651m2NzQqvVfMWohyQ587HP0/csDu09yVP/deVdjlGb/8vxlOw9YcUPZeKW2b
- SAsQ==
-X-Gm-Message-State: APjAAAU5T1+jwidAn6xPT/6wcwcYmFTanQhWrWuEUsNnh0soi7TRGcaL
- ns2vjCOR8TwE+EyuG6DV7yW5zHetaj8L9kvEQATWHw==
-X-Google-Smtp-Source: APXvYqwXdvWffm0RVd2rwxtdWqkSnAnHzvMxp0W/2XYZVz/l9dysvuf00vgNgJ+vh3+aez3Db9SUdGZWmv8YHvUrmVA=
-X-Received: by 2002:a9f:2e0e:: with SMTP id t14mr8360589uaj.119.1565255634968; 
- Thu, 08 Aug 2019 02:13:54 -0700 (PDT)
-MIME-Version: 1.0
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 1DE551A00A20
+ for <ltp@lists.linux.it>; Thu,  8 Aug 2019 11:27:33 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 6A6C8AE39;
+ Thu,  8 Aug 2019 09:27:33 +0000 (UTC)
+Date: Thu, 8 Aug 2019 11:27:32 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <20190808092732.GB11500@rei.lan>
 References: <20190801092616.30553-1-chrubis@suse.cz>
- <20190801092616.30553-2-chrubis@suse.cz>
- <871rxyd5tc.fsf@rpws.prws.suse.cz> <20190808090635.GA11500@rei.lan>
-In-Reply-To: <20190808090635.GA11500@rei.lan>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 8 Aug 2019 17:13:44 +0800
-Message-ID: <CAEemH2fWSxuXegxGiKRWzpHLHQdgxTe_nHW+-0ezusJKNp4T7A@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+ <20190801092616.30553-3-chrubis@suse.cz>
+ <CAEemH2d8dEe0km7FA43S2eQYHE00m9advsAbUbmFfixcV0-qhw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAEemH2d8dEe0km7FA43S2eQYHE00m9advsAbUbmFfixcV0-qhw@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH 1/9] lib: Add support for guarded buffers
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH 2/9] lib: Add a canary for guarded buffers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,18 +55,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> > This seems like debug info to me. Not really useful most of the time.
->
-> Yes, this is a leftover.
->
-> I do wonder if we should print a message first time the tst_alloc() is
-> called so that it's clear that the test is using guarded buffers.
+Hi!
+> > +static void check_canary(struct map *map)
+> > +{
+> > +       size_t i;
+> > +       char *buf = map->addr;
+> > +
+> > +       for (i = 0; i < map->buf_shift/2; i++) {
+> > +               if (buf[map->buf_shift - i - 1] != buf[i]) {
+> > +                       tst_res(TWARN,
+> > +                               "pid %i: buffer modified before address %p %zu",
+> > +                               (char*)map->addr + map->buf_shift, i);
+> 
+> Here you probably missed the getpid() for printing %i match :).
 
-Sounds necessary. Or should we need a way for silent using?
+Ah, right, I guess that this is unfinished last minute modification.
+
+Actually as it is the canaries are checked only for the main library pid
+becuase the tst_free_all() is hooked up in the do_test_cleanup().
+
+I guess that we should call it in the run_tests() function before we
+call exit(0) for the child processes as well as in the tst_vbrk_() and
+after that changes printing pid in the warning makes sense.
 
 -- 
-Regards,
-Li Wang
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
