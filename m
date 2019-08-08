@@ -2,55 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E4F485B3A
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 09:05:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FEB885BCB
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 09:46:14 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 018273C1D1E
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 09:05:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C27793C1D23
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 09:46:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id E24053C1C87
- for <ltp@lists.linux.it>; Thu,  8 Aug 2019 09:04:59 +0200 (CEST)
-Received: from mail-vs1-f68.google.com (mail-vs1-f68.google.com
- [209.85.217.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 8AAA43C1C7E
+ for <ltp@lists.linux.it>; Thu,  8 Aug 2019 09:46:11 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id AB66F600D32
- for <ltp@lists.linux.it>; Thu,  8 Aug 2019 09:05:00 +0200 (CEST)
-Received: by mail-vs1-f68.google.com with SMTP id v129so62365121vsb.11
- for <ltp@lists.linux.it>; Thu, 08 Aug 2019 00:04:58 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=/iXOSzpJNuJA7c1w7SUyZvyKWCKz2ne9Ty7MkKRQVnE=;
- b=IjGKnmxWJE4VadFgwybTV6Rk7kvlAd78lnOyI++uelpfy8xd704RKeUmRAU1//adIW
- G8gJ7UNqwcSiT3XDqX6eNuTxkVxdNaE841QXMINEdP2VtYocZmkqjOSPwdSHGKw9OJPx
- Gcq9O5OrJSzurJhpZxOJ+jGq0/3TsbrgLMFJPPFd6asdSD/dARrF95zhzztb/q7f2uMe
- U1LghAYfnReqTRjpoO8QfnOwgCZiblJ1m/5sPuPlb7gHPmZ1nWWSrWoBJGaIjAUzFvMh
- A3tvGFndOfobJtaLBTdqz25yWxPtC2uAyei/Rt/ipvlPXrn6D/RvT4rk/bhZV/A5abco
- 1+TA==
-X-Gm-Message-State: APjAAAWLqIW3M1I3Uer+b1Y42LXJwo2Ij/m7gS3axy7DQkc+kQb7qPhQ
- TAY0lAhP/1dRY/lR0gEgYAlMWiIo6iti2xavW5SGHg==
-X-Google-Smtp-Source: APXvYqwhMkyYiq9E1Xv3323UdpNdlfnAeSjKycP6ubTtCZWyOGIrL8GyYX02EE8/fIT455DrCT76LeiN40NQd1Ayq3o=
-X-Received: by 2002:a67:ed87:: with SMTP id d7mr8861486vsp.130.1565247897035; 
- Thu, 08 Aug 2019 00:04:57 -0700 (PDT)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 126081A013A3
+ for <ltp@lists.linux.it>; Thu,  8 Aug 2019 09:46:09 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 36F83B11C;
+ Thu,  8 Aug 2019 07:46:08 +0000 (UTC)
+Date: Thu, 8 Aug 2019 09:46:07 +0200
+From: Michal Hocko <mhocko@kernel.org>
+To: Mike Kravetz <mike.kravetz@oracle.com>
+Message-ID: <20190808074607.GI11812@dhcp22.suse.cz>
+References: <20190808000533.7701-1-mike.kravetz@oracle.com>
 MIME-Version: 1.0
-References: <20190807094119.10834-1-pvorel@suse.cz>
-In-Reply-To: <20190807094119.10834-1-pvorel@suse.cz>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 8 Aug 2019 15:04:46 +0800
-Message-ID: <CAEemH2cM7mhkYBvTTFC4UhjnYxG0D_e-nkCmSF2U8pB61UT0bw@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20190808000533.7701-1-mike.kravetz@oracle.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_SOFTFAIL
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/copy_file_range02: Fix #12 when TMPDIR
- is on tmpfs or ext[234]
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] hugetlbfs: fix hugetlb page migration/fault race
+ causing SIGBUS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,54 +48,97 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "Darrick J . Wong" <darrick.wong@oracle.com>, LTP List <ltp@lists.linux.it>
+Cc: xishi.qiuxishi@alibaba-inc.com, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>,
+ Andrew Morton <akpm@linux-foundation.org>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Petr,
+On Wed 07-08-19 17:05:33, Mike Kravetz wrote:
+> Li Wang discovered that LTP/move_page12 V2 sometimes triggers SIGBUS
+> in the kernel-v5.2.3 testing.  This is caused by a race between hugetlb
+> page migration and page fault.
+> 
+> If a hugetlb page can not be allocated to satisfy a page fault, the task
+> is sent SIGBUS.  This is normal hugetlbfs behavior.  A hugetlb fault
+> mutex exists to prevent two tasks from trying to instantiate the same
+> page.  This protects against the situation where there is only one
+> hugetlb page, and both tasks would try to allocate.  Without the mutex,
+> one would fail and SIGBUS even though the other fault would be successful.
+> 
+> There is a similar race between hugetlb page migration and fault.
+> Migration code will allocate a page for the target of the migration.
+> It will then unmap the original page from all page tables.  It does
+> this unmap by first clearing the pte and then writing a migration
+> entry.  The page table lock is held for the duration of this clear and
+> write operation.  However, the beginnings of the hugetlb page fault
+> code optimistically checks the pte without taking the page table lock.
+> If clear (as it can be during the migration unmap operation), a hugetlb
+> page allocation is attempted to satisfy the fault.  Note that the page
+> which will eventually satisfy this fault was already allocated by the
+> migration code.  However, the allocation within the fault path could
+> fail which would result in the task incorrectly being sent SIGBUS.
+> 
+> Ideally, we could take the hugetlb fault mutex in the migration code
+> when modifying the page tables.  However, locks must be taken in the
+> order of hugetlb fault mutex, page lock, page table lock.  This would
+> require significant rework of the migration code.  Instead, the issue
+> is addressed in the hugetlb fault code.  After failing to allocate a
+> huge page, take the page table lock and check for huge_pte_none before
+> returning an error.  This is the same check that must be made further
+> in the code even if page allocation is successful.
+> 
+> Reported-by: Li Wang <liwang@redhat.com>
+> Fixes: 290408d4a250 ("hugetlb: hugepage migration core")
+> Signed-off-by: Mike Kravetz <mike.kravetz@oracle.com>
+> Tested-by: Li Wang <liwang@redhat.com>
 
-Thanks for highlight this.
+Acked-by: Michal Hocko <mhocko@suse.com>
 
-> Cyril, Jan, Li, still not sure what the policy about errno is (see
-> Cyril's statements in recent discussion about it in Jinhui's patch [1]
-> [2]). With these frequent changes we should IMHO check for all possible
-> variants (EXDEV, EFBIG, EINVAL).
->
-> Or should we investigate all fixes and keep errors which highlight
-> important fix was not backported (to both stable and LTS/enterprise
-> distros kernels?). That'd be weird but approach practical :).
+Thanks!
 
-That sounds not very realistic. We can't satisfy all distributions for
-errno checking, because we don't know when/wheather it backports the
-patch.
-
->
-> Anyway, we should define and write down LTP policy / rules about it.
-
-I think we might have these ways of choosing:
-
-1. Only align with the latest kernel behavior
-    e.g limit the latest kernel version and verify that valid errno
-The disadvantage of this is only tested on a small kernel range.
-
-2. Guarded by kernel version check as Cyril suggests in [1]
-    e.g  kernel >= 4.10; Check errno == EBADF
-           kernel < 4.10; Check errno == EISDIR
-           ....
-The disadvantage is that the test result is affected by LTS with a
-backport-patch.
-
-3. Regards all acceptable errnos as valid on any kernel version
-    e.g  whatever errno get any of them EXDEV, EFBIG, EINVAL, regard valid
-This sounds obviously awful.
-
-Or, anything else?
+> ---
+>  mm/hugetlb.c | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
+> 
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index ede7e7f5d1ab..6d7296dd11b8 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -3856,6 +3856,25 @@ static vm_fault_t hugetlb_no_page(struct mm_struct *mm,
+>  
+>  		page = alloc_huge_page(vma, haddr, 0);
+>  		if (IS_ERR(page)) {
+> +			/*
+> +			 * Returning error will result in faulting task being
+> +			 * sent SIGBUS.  The hugetlb fault mutex prevents two
+> +			 * tasks from racing to fault in the same page which
+> +			 * could result in false unable to allocate errors.
+> +			 * Page migration does not take the fault mutex, but
+> +			 * does a clear then write of pte's under page table
+> +			 * lock.  Page fault code could race with migration,
+> +			 * notice the clear pte and try to allocate a page
+> +			 * here.  Before returning error, get ptl and make
+> +			 * sure there really is no pte entry.
+> +			 */
+> +			ptl = huge_pte_lock(h, mm, ptep);
+> +			if (!huge_pte_none(huge_ptep_get(ptep))) {
+> +				ret = 0;
+> +				spin_unlock(ptl);
+> +				goto out;
+> +			}
+> +			spin_unlock(ptl);
+>  			ret = vmf_error(PTR_ERR(page));
+>  			goto out;
+>  		}
+> -- 
+> 2.20.1
 
 -- 
-Regards,
-Li Wang
+Michal Hocko
+SUSE Labs
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
