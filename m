@@ -2,60 +2,60 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89EF9858AE
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 05:46:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DD71858D1
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 05:57:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 558AD3C1D1D
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 05:46:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 24F773C1D00
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 05:57:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 5C6D93C1826
- for <ltp@lists.linux.it>; Thu,  8 Aug 2019 05:46:32 +0200 (CEST)
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
+ by picard.linux.it (Postfix) with ESMTP id 25A5A3C1826
+ for <ltp@lists.linux.it>; Thu,  8 Aug 2019 05:57:40 +0200 (CEST)
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 238F5140074F
- for <ltp@lists.linux.it>; Thu,  8 Aug 2019 05:46:31 +0200 (CEST)
-Received: by mail-pg1-x544.google.com with SMTP id n190so2463064pgn.0
- for <ltp@lists.linux.it>; Wed, 07 Aug 2019 20:46:31 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 414C91400760
+ for <ltp@lists.linux.it>; Thu,  8 Aug 2019 05:57:39 +0200 (CEST)
+Received: by mail-pl1-x644.google.com with SMTP id y8so816876plr.12
+ for <ltp@lists.linux.it>; Wed, 07 Aug 2019 20:57:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=pzXtPRlMum0DW21qy61NSwSMMERmj2eVuSmTIJ63eQQ=;
- b=lXBPS+B4PrcFGCY8VKGHWqGQfLbQn6mRh94CgrVmSTlcWMg1+TFfODouhyOniI895B
- PJ04kh+zKs9EZBZjCkUsYwcBEbxVVQ697cTokii1cOOajOhEn9h8WxFh+c+GLR6dLZgq
- Fb6qI75MxOUPPcUgGQoPwbvl93Rb+0MFOHC0bEq1hFdztatzTWR86BlXQFGJWdP5XGvm
- Kf86BihViVREIL7Dc3lL6TV6PCqlVJmQHczLg/sJlzNFpIStsbnedtKLzYQhTE4hBcV6
- rgjqbCpgj2fm9LdHvuKkKq2P4vXR1ItsgExK3qEYYzepoAJlghBKc5BhTHfHL61J4Ilg
- pZuQ==
+ bh=z1ooqPdIRs/tsHBTeSSOXXoHWHM7YN+Y/PWuPzXUn1I=;
+ b=kL9tp1z4ziTZ3MztHpa9ewHWrHM+dBVOl3KrB0AkGu/XAlJLheJiq4Fli4VVLxB8Eo
+ 1exXfhh2K29Il9zlWzY6nBn9Wkq7Z+8czqABytW9Nlepfdg9Y5Q9NYFPYGVSI8K0YUgc
+ gxRhxxA3ZSWOD8//3vll8HpGi4/lMoTrKAZ7gYEJ5H3wHy+3gvXrNozShnZ8Y5BG3ukk
+ tq15Afiyc2zCjuYbJFr7zImnqF3r2mPkVUwpRg2q6BcufjK30HoRLCGGRNYE90Mh1fTJ
+ i8J8Gm6nO4jq71+QvqxfVUkFvEZDVI3zS/H4epEmkxuWpbVYi9fUY4BbsdmLagTE82/D
+ tiuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=pzXtPRlMum0DW21qy61NSwSMMERmj2eVuSmTIJ63eQQ=;
- b=shUilV2qX5ym9Zt8PD5x8BPfx8eE+EahlpivoUGW2woCK2IketGQMxyerzR04X3leP
- RXsPujNaTXZVUecO1+seVAbzmv7+GVeQw1JiwYh97X5U8Hb5xi207aK9bUzTcNl6Opyv
- ftE8kGe5rfWVjA0NwgmwU3iHT/cVkbBE9vGi9PS5O6mMMn9l3kfc9BeH5jD37IVrX6gJ
- kPqjAwlgdm0X6SJ03SGCOntIo/MNDoHdJBf60iebUsM+rNiBhI8R1iMfpfJ2YHAiRWP+
- f4PKZlwZcRcYE9eKGHYFjQNz9NerYdkszh2/cwlcxUtaKZe4K7HC6InbScj0imKxCfnw
- 1wxg==
-X-Gm-Message-State: APjAAAUupOGdhDCAnht4eFAcbxLim+zb6gF3ZcbKjw7GEDi5CPfz31ja
- fR/aRtKL61pFCVOcHOHYWj0=
-X-Google-Smtp-Source: APXvYqyoeDARMatIQv2ibw2RT05rPz8mU+mmKmbD87Obsv7lm5AZQrpF6FT/bvBuydiJpmKCAwrmng==
-X-Received: by 2002:a17:90a:2506:: with SMTP id
- j6mr1791042pje.129.1565235989435; 
- Wed, 07 Aug 2019 20:46:29 -0700 (PDT)
+ bh=z1ooqPdIRs/tsHBTeSSOXXoHWHM7YN+Y/PWuPzXUn1I=;
+ b=nD7KIX2xWnndBeTaB1NKi6Oh/GsKT2qBbmSuU0pQQaLa9GgQv9xg2Azi4WLrk8PquB
+ 2em4lf3qOYC4aYfSbrSAJyaqv58WEmrpZ0u1HUhP4p/2SqBnt+zH+fIOH9prf2bD6gtY
+ MTxkgj+EuKQ68Wm9XFdNwZ9pcNVq9yOUmKX93PZSMv4VuQ81iYbA5Hd55rFTdr8MAgSr
+ Wf5EcaqbpsjO90MUyNGq69uvs9IrJrC17UVJfddavr5gS+XGrxCuCZqO5EwIV4E4n9Ks
+ GdR/oXSEFrmR4WiyR/FEhDQmYiPytUvOOqD1nkRr9p3AN6V4gTF3Jw7/tPseOZdw2qO9
+ LBHw==
+X-Gm-Message-State: APjAAAUcV9dIxGrNLM1AuPYJ8YJS1xo7aa4bCkH6iMd/8fNCz4WX/Ko8
+ RuW9ERWXBeK8yTNEiZcAQR2KO78l
+X-Google-Smtp-Source: APXvYqyqYPSfvwTIahJZ9431LAnsS1BQFwpOBt8dwNVB59nwoNETcnwlesYUxFE1HCRAklRi1jpMgw==
+X-Received: by 2002:a17:902:86:: with SMTP id
+ a6mr11570445pla.244.1565236657878; 
+ Wed, 07 Aug 2019 20:57:37 -0700 (PDT)
 Received: from localhost ([209.132.188.80])
- by smtp.gmail.com with ESMTPSA id g66sm91229867pfb.44.2019.08.07.20.46.28
+ by smtp.gmail.com with ESMTPSA id d12sm58350046pfn.11.2019.08.07.20.57.36
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 07 Aug 2019 20:46:28 -0700 (PDT)
-Date: Thu, 8 Aug 2019 11:46:21 +0800
+ Wed, 07 Aug 2019 20:57:37 -0700 (PDT)
+Date: Thu, 8 Aug 2019 11:57:30 +0800
 From: Murphy Zhou <jencce.kernel@gmail.com>
-To: Dave Chinner <david@fromorbit.com>
-Message-ID: <20190808034621.e7pqwazdqtsed2ew@XZHOUW.usersys.redhat.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20190808035730.3kzors4trok6amtr@XZHOUW.usersys.redhat.com>
 References: <20190730110555.GB7528@rei.lan>
  <1564569629-2358-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
  <1564569629-2358-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
@@ -64,10 +64,10 @@ References: <20190730110555.GB7528@rei.lan>
  <20190805102211.pvyufepn6xywi7vm@XZHOUW.usersys.redhat.com>
  <20190806162703.GA1333@dell5510>
  <20190807101742.mt6tgowsh4xw5hyt@XZHOUW.usersys.redhat.com>
- <20190807121212.GM7777@dread.disaster.area>
+ <5D4B92EF.4090800@cn.fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190807121212.GM7777@dread.disaster.area>
+In-Reply-To: <5D4B92EF.4090800@cn.fujitsu.com>
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -93,68 +93,110 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed, Aug 07, 2019 at 10:12:12PM +1000, Dave Chinner wrote:
-> On Wed, Aug 07, 2019 at 06:17:42PM +0800, Murphy Zhou wrote:
-> > ccing linux-xfs@vger.kernel.org
-> > 
-> > Hi,
-> > 
-> > Tracked down this to be a xfs specific issue:
-> > 
-> > If we call copy_file_range with a large offset like this:
-> > 
-> > 	loff_t off = 9223372036854710270; // 2 ** 63
-> > 	ret = copy_file_range(fd_in, 0, fd_out, &off, 65537, 0);
+On Thu, Aug 08, 2019 at 11:11:43AM +0800, Yang Xu wrote:
+> on 2019/08/07 18:17, Murphy Zhou wrote:
 > 
-> That's not 2**63:
+> > And I have a question about LTP itself.
+> >
+> > If we run the testcase directly like:
+> > 	 ./testcases/kernel/syscalls/copy_file_range/copy_file_range02
+> >
+> > to test all_filesystems, for every filesystem, we mkfs and mount it in
+> > .mntpoint, but we do not chdir to .mntpoint. So we are running tests in 
+> > the same tmpdir, fs type of which does not change while looping
+> > all_filesystems.  Only the .mntpoint in tmpdir has different fs type in
+> > each loop.
+> >
+> > Now we are using this to test cross-device copy in copy_file_range01.c,
+> > but in copy_file_range02.c, we are not using .mntpint at all, all the
+> > tests in the all_filesystems loop are running in the same tmpdir. In other
+> > words, we are NOT testing all filesystems.
+> >
+> > Is this expected?
+>  I removed the mnted test for cross-device copy_file_range in copy_file_range02.c.
+> And I ignore the non-used mntpoint. IMO, we can directly use the FILE_MNTED to test EFBIG on all filesystems, 
 
-Ya! I was looking too roughly.
+If mntpoint is not used, it makes absolutely NO sense to test all_filesystems.
 
-> 
-> $ echo $((9223372036854710270 + 65537))
-> 9223372036854775807
-> 
-> $ echo $((2**63 - 1))
-> 9223372036854775807
-> 
-> i.e. it's LLONG_MAX, not an overflow. XFS sets sb->s_maxbytes in
-> xfs_max_file_offset to:
-> 
-> 	(1 << BITS_PER_LONG - 1) - 1 = 2**63 - 1 = LLONG_MAX.
-> 
-> So no matter how we look at it, this operation should not return
-> EFBIG on XFS.
-> 
-> > (test programme cfrbig.c attached)
-> > 
-> > xfs has it done successfully, while ext4 returns EFBIG.
-> 
-> ext4 has a max file size of 2**32 * blocksize, so it doesn't support
-> files larger than 16TB. So it will give EFBIG on this test.
-> 
-> /me compiles and runs the test program on his workstation:
-> 
-> $ ls -l foobar
-> -rw------- 1 dave dave 10737418240 Apr 12 14:46 foobar
-> $ ./a.out foobar bar
-> ret 65537
-> $ ls -l bar
-> -rw-r--r-- 1 dave dave 9223372036854775807 Aug  7 22:11 bar
-> $
-> 
-> That looks like a successful copy to me, not EINVAL or EFBIG...
+Because in the all_filesystems loop, various supported filesystems are
+created and mounted in mntpoint.
 
-Thanks Dave for the confirmation! This testcase needs some fix.
+And the copy_file_range tests happens outside of mntpoint. It just repeats
+the same test several times in the same tmpdir, fs type of which depends
+on /tmp configuration.
 
+When the log prints "testing ext2", it's not the truth.
+
+EFBIG is another issue.
+
+Thanks,
 Murphy
-
 > 
-> Cheers,
+> as below:
+> diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+> index 26bfa008a..67974ffa2 100644
+> --- a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+> +++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+> @@ -49,6 +49,7 @@ static int fd_blkdev;
+>  static int fd_chrdev;
+>  static int fd_fifo;
+>  static int fd_copy;
+> +static int fd_mnted;
 > 
-> Dave.
-> -- 
-> Dave Chinner
-> david@fromorbit.com
+>  static int chattr_i_nsup;
+>  static int swap_nsup;
+> 
+> @@ -73,7 +74,7 @@ static struct tcase {
+>         {&fd_chrdev,    0,   EINVAL,     0,     CONTSIZE},
+>         {&fd_fifo,      0,   EINVAL,     0,     CONTSIZE},
+>         {&fd_copy,      0,   EOVERFLOW,  MAX_OFF, ULLONG_MAX},
+> -       {&fd_copy,      0,   EFBIG,      MAX_OFF, MIN_OFF},
+> +       {&fd_mnted,      0,   EFBIG,      MAX_OFF, MIN_OFF},
+>  };
+> 
+>  static int run_command(char *command, char *option, char *file)
+> @@ -117,7 +118,10 @@ static void verify_copy_file_range(unsigned int n)
+>                         tst_res(TPASS | TTERRNO,
+>                                         "copy_file_range failed as expected");
+>                 } else {
+> -                       tst_res(TFAIL | TTERRNO,
+> +                       if (tc->exp_err == EFBIG && TST_ERR == EXDEV)
+> +                               tst_res(TCONF, "copy_file_range doesn't support cross-device,skip it");
+> +                       else
+> +                               tst_res(TFAIL | TTERRNO,
+>                                 "copy_file_range failed unexpectedly; expected %s, but got",
+>                                 tst_strerrno(tc->exp_err));
+>                         return;
+> 
+> @@ -152,6 +156,8 @@ static void cleanup(void)
+>                 SAFE_CLOSE(fd_dup);
+>         if (fd_copy > 0)
+>                 SAFE_CLOSE(fd_copy);
+> +       if (fd_mnted > 0)
+> +               SAFE_CLOSE(fd_mnted);
+>         SAFE_UNLINK(FILE_FIFO);
+>  }
+> 
+> @@ -194,6 +200,7 @@ static void setup(void)
+> 
+>         fd_copy = SAFE_OPEN(FILE_COPY_PATH, O_RDWR | O_CREAT | O_TRUNC, 0664);
+>         chattr_i_nsup = run_command("chattr", "+i", FILE_IMMUTABLE_PATH);
+> +       fd_mnted  = SAFE_OPEN(FILE_MNTED_PATH, O_RDWR | O_CREAT, 0664);
+> 
+>         if (!tst_fs_has_free(".", sysconf(_SC_PAGESIZE) * 10, TST_BYTES)) {
+>                 tst_res(TCONF, "Insufficient disk space to create swap file");
+>                 swap_nsup = 3;
+> 
+> test12) succeed on extN, failed on both btrfs and xfs, we need to detect filesystem type to handle. Or, I think we 
+> can set a limit on filesize because this kind of user scene is a bit more than the first one , the EFBIG error can be 
+> received easily (Also, we don't need  mnt_device mntpoint all_filesystem if so).
+> What do you think about it?
+> 
+> > I commented out testcases in copy_file_range02.c other then #12, and add
+> > some nasty debug info:
+> 
+> 
+> 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
