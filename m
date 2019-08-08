@@ -1,57 +1,63 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 253F48586E
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 05:12:17 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F84E85897
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 05:41:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C6F1A3C1D00
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 05:12:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AB1F63C1D1F
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 05:41:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 6F0903C1773
- for <ltp@lists.linux.it>; Thu,  8 Aug 2019 05:12:15 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id CDE93100074D
- for <ltp@lists.linux.it>; Thu,  8 Aug 2019 05:12:07 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.64,358,1559491200"; d="scan'208";a="73187039"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 08 Aug 2019 11:12:01 +0800
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id C4D614CDFCE8;
- Thu,  8 Aug 2019 11:12:01 +0800 (CST)
-Received: from [10.167.215.46] (10.167.215.46) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- id 14.3.439.0; Thu, 8 Aug 2019 11:12:00 +0800
-Message-ID: <5D4B92EF.4090800@cn.fujitsu.com>
-Date: Thu, 8 Aug 2019 11:11:43 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+ by picard.linux.it (Postfix) with ESMTP id A5BC83C1826
+ for <ltp@lists.linux.it>; Thu,  8 Aug 2019 05:41:00 +0200 (CEST)
+Received: from tyo161.gate.nec.co.jp (tyo161.gate.nec.co.jp [114.179.232.161])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 1F17C100095E
+ for <ltp@lists.linux.it>; Thu,  8 Aug 2019 05:40:49 +0200 (CEST)
+Received: from mailgate02.nec.co.jp ([114.179.233.122])
+ by tyo161.gate.nec.co.jp (8.15.1/8.15.1) with ESMTPS id x783efIu030575
+ (version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+ Thu, 8 Aug 2019 12:40:41 +0900
+Received: from mailsv02.nec.co.jp (mailgate-v.nec.co.jp [10.204.236.94])
+ by mailgate02.nec.co.jp (8.15.1/8.15.1) with ESMTP id x783efAY003936;
+ Thu, 8 Aug 2019 12:40:41 +0900
+Received: from mail02.kamome.nec.co.jp (mail02.kamome.nec.co.jp [10.25.43.5])
+ by mailsv02.nec.co.jp (8.15.1/8.15.1) with ESMTP id x783eeEd020078; 
+ Thu, 8 Aug 2019 12:40:41 +0900
+Received: from bpxc99gp.gisp.nec.co.jp ([10.38.151.148] [10.38.151.148]) by
+ mail02.kamome.nec.co.jp with ESMTP id BT-MMP-7505107;
+ Thu, 8 Aug 2019 12:36:24 +0900
+Received: from BPXM23GP.gisp.nec.co.jp ([10.38.151.215]) by
+ BPXC20GP.gisp.nec.co.jp ([10.38.151.148]) with mapi id 14.03.0439.000; Thu, 8
+ Aug 2019 12:36:23 +0900
+From: Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>
+To: Mike Kravetz <mike.kravetz@oracle.com>
+Thread-Topic: [PATCH] hugetlbfs: fix hugetlb page migration/fault race
+ causing SIGBUS
+Thread-Index: AQHVTX0N0YwnRs9J50WW+DT6/gmNh6bwAwsA
+Date: Thu, 8 Aug 2019 03:36:22 +0000
+Message-ID: <20190808033622.GA28751@hori.linux.bs1.fc.nec.co.jp>
+References: <20190808000533.7701-1-mike.kravetz@oracle.com>
+In-Reply-To: <20190808000533.7701-1-mike.kravetz@oracle.com>
+Accept-Language: en-US, ja-JP
+Content-Language: ja-JP
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.34.125.150]
+Content-ID: <BB43671309A3D0478266CADD63E511C9@gisp.nec.co.jp>
 MIME-Version: 1.0
-To: Murphy Zhou <jencce.kernel@gmail.com>
-References: <20190730110555.GB7528@rei.lan>
- <1564569629-2358-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <1564569629-2358-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <20190805065832.ti6vpoviykfaxcj7@XZHOUW.usersys.redhat.com>
- <5D47D6B9.9090306@cn.fujitsu.com>
- <20190805102211.pvyufepn6xywi7vm@XZHOUW.usersys.redhat.com>
- <20190806162703.GA1333@dell5510>
- <20190807101742.mt6tgowsh4xw5hyt@XZHOUW.usersys.redhat.com>
-In-Reply-To: <20190807101742.mt6tgowsh4xw5hyt@XZHOUW.usersys.redhat.com>
-X-Originating-IP: [10.167.215.46]
-X-yoursite-MailScanner-ID: C4D614CDFCE8.AF30B
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-TM-AS-MML: disable
 X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v7 3/3] syscalls/copy_file_range02: increase
- coverage and remove EXDEV test
+Subject: Re: [LTP] [PATCH] hugetlbfs: fix hugetlb page migration/fault race
+ causing SIGBUS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,99 +69,97 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-xfs@vger.kernel.org, ltp@lists.linux.it
+Cc: "xishi.qiuxishi@alibaba-inc.com" <xishi.qiuxishi@alibaba-inc.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Michal Hocko <mhocko@kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-on 2019/08/07 18:17, Murphy Zhou wrote:
+On Wed, Aug 07, 2019 at 05:05:33PM -0700, Mike Kravetz wrote:
+> Li Wang discovered that LTP/move_page12 V2 sometimes triggers SIGBUS
+> in the kernel-v5.2.3 testing.  This is caused by a race between hugetlb
+> page migration and page fault.
+> 
+> If a hugetlb page can not be allocated to satisfy a page fault, the task
+> is sent SIGBUS.  This is normal hugetlbfs behavior.  A hugetlb fault
+> mutex exists to prevent two tasks from trying to instantiate the same
+> page.  This protects against the situation where there is only one
+> hugetlb page, and both tasks would try to allocate.  Without the mutex,
+> one would fail and SIGBUS even though the other fault would be successful.
+> 
+> There is a similar race between hugetlb page migration and fault.
+> Migration code will allocate a page for the target of the migration.
+> It will then unmap the original page from all page tables.  It does
+> this unmap by first clearing the pte and then writing a migration
+> entry.  The page table lock is held for the duration of this clear and
+> write operation.  However, the beginnings of the hugetlb page fault
+> code optimistically checks the pte without taking the page table lock.
+> If clear (as it can be during the migration unmap operation), a hugetlb
+> page allocation is attempted to satisfy the fault.  Note that the page
+> which will eventually satisfy this fault was already allocated by the
+> migration code.  However, the allocation within the fault path could
+> fail which would result in the task incorrectly being sent SIGBUS.
+> 
+> Ideally, we could take the hugetlb fault mutex in the migration code
+> when modifying the page tables.  However, locks must be taken in the
+> order of hugetlb fault mutex, page lock, page table lock.  This would
+> require significant rework of the migration code.  Instead, the issue
+> is addressed in the hugetlb fault code.  After failing to allocate a
+> huge page, take the page table lock and check for huge_pte_none before
+> returning an error.  This is the same check that must be made further
+> in the code even if page allocation is successful.
+> 
+> Reported-by: Li Wang <liwang@redhat.com>
+> Fixes: 290408d4a250 ("hugetlb: hugepage migration core")
+> Signed-off-by: Mike Kravetz <mike.kravetz@oracle.com>
+> Tested-by: Li Wang <liwang@redhat.com>
 
-> And I have a question about LTP itself.
->
-> If we run the testcase directly like:
-> 	 ./testcases/kernel/syscalls/copy_file_range/copy_file_range02
->
-> to test all_filesystems, for every filesystem, we mkfs and mount it in
-> .mntpoint, but we do not chdir to .mntpoint. So we are running tests in 
-> the same tmpdir, fs type of which does not change while looping
-> all_filesystems.  Only the .mntpoint in tmpdir has different fs type in
-> each loop.
->
-> Now we are using this to test cross-device copy in copy_file_range01.c,
-> but in copy_file_range02.c, we are not using .mntpint at all, all the
-> tests in the all_filesystems loop are running in the same tmpdir. In other
-> words, we are NOT testing all filesystems.
->
-> Is this expected?
- I removed the mnted test for cross-device copy_file_range in copy_file_range02.c.
-And I ignore the non-used mntpoint. IMO, we can directly use the FILE_MNTED to test EFBIG on all filesystems, 
+Thanks for the work and nice description.
 
-as below:
-diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
-index 26bfa008a..67974ffa2 100644
---- a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
-+++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
-@@ -49,6 +49,7 @@ static int fd_blkdev;
- static int fd_chrdev;
- static int fd_fifo;
- static int fd_copy;
-+static int fd_mnted;
+Reviewed-by: Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>
 
- static int chattr_i_nsup;
- static int swap_nsup;
-
-@@ -73,7 +74,7 @@ static struct tcase {
-        {&fd_chrdev,    0,   EINVAL,     0,     CONTSIZE},
-        {&fd_fifo,      0,   EINVAL,     0,     CONTSIZE},
-        {&fd_copy,      0,   EOVERFLOW,  MAX_OFF, ULLONG_MAX},
--       {&fd_copy,      0,   EFBIG,      MAX_OFF, MIN_OFF},
-+       {&fd_mnted,      0,   EFBIG,      MAX_OFF, MIN_OFF},
- };
-
- static int run_command(char *command, char *option, char *file)
-@@ -117,7 +118,10 @@ static void verify_copy_file_range(unsigned int n)
-                        tst_res(TPASS | TTERRNO,
-                                        "copy_file_range failed as expected");
-                } else {
--                       tst_res(TFAIL | TTERRNO,
-+                       if (tc->exp_err == EFBIG && TST_ERR == EXDEV)
-+                               tst_res(TCONF, "copy_file_range doesn't support cross-device,skip it");
-+                       else
-+                               tst_res(TFAIL | TTERRNO,
-                                "copy_file_range failed unexpectedly; expected %s, but got",
-                                tst_strerrno(tc->exp_err));
-                        return;
-
-@@ -152,6 +156,8 @@ static void cleanup(void)
-                SAFE_CLOSE(fd_dup);
-        if (fd_copy > 0)
-                SAFE_CLOSE(fd_copy);
-+       if (fd_mnted > 0)
-+               SAFE_CLOSE(fd_mnted);
-        SAFE_UNLINK(FILE_FIFO);
- }
-
-@@ -194,6 +200,7 @@ static void setup(void)
-
-        fd_copy = SAFE_OPEN(FILE_COPY_PATH, O_RDWR | O_CREAT | O_TRUNC, 0664);
-        chattr_i_nsup = run_command("chattr", "+i", FILE_IMMUTABLE_PATH);
-+       fd_mnted  = SAFE_OPEN(FILE_MNTED_PATH, O_RDWR | O_CREAT, 0664);
-
-        if (!tst_fs_has_free(".", sysconf(_SC_PAGESIZE) * 10, TST_BYTES)) {
-                tst_res(TCONF, "Insufficient disk space to create swap file");
-                swap_nsup = 3;
-
-test12) succeed on extN, failed on both btrfs and xfs, we need to detect filesystem type to handle. Or, I think we 
-can set a limit on filesize because this kind of user scene is a bit more than the first one , the EFBIG error can be 
-received easily (Also, we don't need  mnt_device mntpoint all_filesystem if so).
-What do you think about it?
-
-> I commented out testcases in copy_file_range02.c other then #12, and add
-> some nasty debug info:
-
-
-
+> ---
+>  mm/hugetlb.c | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
+> 
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index ede7e7f5d1ab..6d7296dd11b8 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -3856,6 +3856,25 @@ static vm_fault_t hugetlb_no_page(struct mm_struct *mm,
+>  
+>  		page = alloc_huge_page(vma, haddr, 0);
+>  		if (IS_ERR(page)) {
+> +			/*
+> +			 * Returning error will result in faulting task being
+> +			 * sent SIGBUS.  The hugetlb fault mutex prevents two
+> +			 * tasks from racing to fault in the same page which
+> +			 * could result in false unable to allocate errors.
+> +			 * Page migration does not take the fault mutex, but
+> +			 * does a clear then write of pte's under page table
+> +			 * lock.  Page fault code could race with migration,
+> +			 * notice the clear pte and try to allocate a page
+> +			 * here.  Before returning error, get ptl and make
+> +			 * sure there really is no pte entry.
+> +			 */
+> +			ptl = huge_pte_lock(h, mm, ptep);
+> +			if (!huge_pte_none(huge_ptep_get(ptep))) {
+> +				ret = 0;
+> +				spin_unlock(ptl);
+> +				goto out;
+> +			}
+> +			spin_unlock(ptl);
+>  			ret = vmf_error(PTR_ERR(page));
+>  			goto out;
+>  		}
+> -- 
+> 2.20.1
+> 
+> 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
