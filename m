@@ -2,62 +2,80 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F84E85897
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 05:41:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89EF9858AE
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 05:46:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AB1F63C1D1F
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 05:41:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 558AD3C1D1D
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 05:46:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id A5BC83C1826
- for <ltp@lists.linux.it>; Thu,  8 Aug 2019 05:41:00 +0200 (CEST)
-Received: from tyo161.gate.nec.co.jp (tyo161.gate.nec.co.jp [114.179.232.161])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 1F17C100095E
- for <ltp@lists.linux.it>; Thu,  8 Aug 2019 05:40:49 +0200 (CEST)
-Received: from mailgate02.nec.co.jp ([114.179.233.122])
- by tyo161.gate.nec.co.jp (8.15.1/8.15.1) with ESMTPS id x783efIu030575
- (version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Thu, 8 Aug 2019 12:40:41 +0900
-Received: from mailsv02.nec.co.jp (mailgate-v.nec.co.jp [10.204.236.94])
- by mailgate02.nec.co.jp (8.15.1/8.15.1) with ESMTP id x783efAY003936;
- Thu, 8 Aug 2019 12:40:41 +0900
-Received: from mail02.kamome.nec.co.jp (mail02.kamome.nec.co.jp [10.25.43.5])
- by mailsv02.nec.co.jp (8.15.1/8.15.1) with ESMTP id x783eeEd020078; 
- Thu, 8 Aug 2019 12:40:41 +0900
-Received: from bpxc99gp.gisp.nec.co.jp ([10.38.151.148] [10.38.151.148]) by
- mail02.kamome.nec.co.jp with ESMTP id BT-MMP-7505107;
- Thu, 8 Aug 2019 12:36:24 +0900
-Received: from BPXM23GP.gisp.nec.co.jp ([10.38.151.215]) by
- BPXC20GP.gisp.nec.co.jp ([10.38.151.148]) with mapi id 14.03.0439.000; Thu, 8
- Aug 2019 12:36:23 +0900
-From: Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>
-To: Mike Kravetz <mike.kravetz@oracle.com>
-Thread-Topic: [PATCH] hugetlbfs: fix hugetlb page migration/fault race
- causing SIGBUS
-Thread-Index: AQHVTX0N0YwnRs9J50WW+DT6/gmNh6bwAwsA
-Date: Thu, 8 Aug 2019 03:36:22 +0000
-Message-ID: <20190808033622.GA28751@hori.linux.bs1.fc.nec.co.jp>
-References: <20190808000533.7701-1-mike.kravetz@oracle.com>
-In-Reply-To: <20190808000533.7701-1-mike.kravetz@oracle.com>
-Accept-Language: en-US, ja-JP
-Content-Language: ja-JP
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.34.125.150]
-Content-ID: <BB43671309A3D0478266CADD63E511C9@gisp.nec.co.jp>
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 5C6D93C1826
+ for <ltp@lists.linux.it>; Thu,  8 Aug 2019 05:46:32 +0200 (CEST)
+Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
+ [IPv6:2607:f8b0:4864:20::544])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 238F5140074F
+ for <ltp@lists.linux.it>; Thu,  8 Aug 2019 05:46:31 +0200 (CEST)
+Received: by mail-pg1-x544.google.com with SMTP id n190so2463064pgn.0
+ for <ltp@lists.linux.it>; Wed, 07 Aug 2019 20:46:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=pzXtPRlMum0DW21qy61NSwSMMERmj2eVuSmTIJ63eQQ=;
+ b=lXBPS+B4PrcFGCY8VKGHWqGQfLbQn6mRh94CgrVmSTlcWMg1+TFfODouhyOniI895B
+ PJ04kh+zKs9EZBZjCkUsYwcBEbxVVQ697cTokii1cOOajOhEn9h8WxFh+c+GLR6dLZgq
+ Fb6qI75MxOUPPcUgGQoPwbvl93Rb+0MFOHC0bEq1hFdztatzTWR86BlXQFGJWdP5XGvm
+ Kf86BihViVREIL7Dc3lL6TV6PCqlVJmQHczLg/sJlzNFpIStsbnedtKLzYQhTE4hBcV6
+ rgjqbCpgj2fm9LdHvuKkKq2P4vXR1ItsgExK3qEYYzepoAJlghBKc5BhTHfHL61J4Ilg
+ pZuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=pzXtPRlMum0DW21qy61NSwSMMERmj2eVuSmTIJ63eQQ=;
+ b=shUilV2qX5ym9Zt8PD5x8BPfx8eE+EahlpivoUGW2woCK2IketGQMxyerzR04X3leP
+ RXsPujNaTXZVUecO1+seVAbzmv7+GVeQw1JiwYh97X5U8Hb5xi207aK9bUzTcNl6Opyv
+ ftE8kGe5rfWVjA0NwgmwU3iHT/cVkbBE9vGi9PS5O6mMMn9l3kfc9BeH5jD37IVrX6gJ
+ kPqjAwlgdm0X6SJ03SGCOntIo/MNDoHdJBf60iebUsM+rNiBhI8R1iMfpfJ2YHAiRWP+
+ f4PKZlwZcRcYE9eKGHYFjQNz9NerYdkszh2/cwlcxUtaKZe4K7HC6InbScj0imKxCfnw
+ 1wxg==
+X-Gm-Message-State: APjAAAUupOGdhDCAnht4eFAcbxLim+zb6gF3ZcbKjw7GEDi5CPfz31ja
+ fR/aRtKL61pFCVOcHOHYWj0=
+X-Google-Smtp-Source: APXvYqyoeDARMatIQv2ibw2RT05rPz8mU+mmKmbD87Obsv7lm5AZQrpF6FT/bvBuydiJpmKCAwrmng==
+X-Received: by 2002:a17:90a:2506:: with SMTP id
+ j6mr1791042pje.129.1565235989435; 
+ Wed, 07 Aug 2019 20:46:29 -0700 (PDT)
+Received: from localhost ([209.132.188.80])
+ by smtp.gmail.com with ESMTPSA id g66sm91229867pfb.44.2019.08.07.20.46.28
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 07 Aug 2019 20:46:28 -0700 (PDT)
+Date: Thu, 8 Aug 2019 11:46:21 +0800
+From: Murphy Zhou <jencce.kernel@gmail.com>
+To: Dave Chinner <david@fromorbit.com>
+Message-ID: <20190808034621.e7pqwazdqtsed2ew@XZHOUW.usersys.redhat.com>
+References: <20190730110555.GB7528@rei.lan>
+ <1564569629-2358-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <1564569629-2358-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20190805065832.ti6vpoviykfaxcj7@XZHOUW.usersys.redhat.com>
+ <5D47D6B9.9090306@cn.fujitsu.com>
+ <20190805102211.pvyufepn6xywi7vm@XZHOUW.usersys.redhat.com>
+ <20190806162703.GA1333@dell5510>
+ <20190807101742.mt6tgowsh4xw5hyt@XZHOUW.usersys.redhat.com>
+ <20190807121212.GM7777@dread.disaster.area>
 MIME-Version: 1.0
-X-TM-AS-MML: disable
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20190807121212.GM7777@dread.disaster.area>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] hugetlbfs: fix hugetlb page migration/fault race
- causing SIGBUS
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v7 3/3] syscalls/copy_file_range02: increase
+ coverage and remove EXDEV test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,97 +87,74 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "xishi.qiuxishi@alibaba-inc.com" <xishi.qiuxishi@alibaba-inc.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Michal Hocko <mhocko@kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: linux-xfs@vger.kernel.org, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed, Aug 07, 2019 at 05:05:33PM -0700, Mike Kravetz wrote:
-> Li Wang discovered that LTP/move_page12 V2 sometimes triggers SIGBUS
-> in the kernel-v5.2.3 testing.  This is caused by a race between hugetlb
-> page migration and page fault.
+On Wed, Aug 07, 2019 at 10:12:12PM +1000, Dave Chinner wrote:
+> On Wed, Aug 07, 2019 at 06:17:42PM +0800, Murphy Zhou wrote:
+> > ccing linux-xfs@vger.kernel.org
+> > 
+> > Hi,
+> > 
+> > Tracked down this to be a xfs specific issue:
+> > 
+> > If we call copy_file_range with a large offset like this:
+> > 
+> > 	loff_t off = 9223372036854710270; // 2 ** 63
+> > 	ret = copy_file_range(fd_in, 0, fd_out, &off, 65537, 0);
 > 
-> If a hugetlb page can not be allocated to satisfy a page fault, the task
-> is sent SIGBUS.  This is normal hugetlbfs behavior.  A hugetlb fault
-> mutex exists to prevent two tasks from trying to instantiate the same
-> page.  This protects against the situation where there is only one
-> hugetlb page, and both tasks would try to allocate.  Without the mutex,
-> one would fail and SIGBUS even though the other fault would be successful.
-> 
-> There is a similar race between hugetlb page migration and fault.
-> Migration code will allocate a page for the target of the migration.
-> It will then unmap the original page from all page tables.  It does
-> this unmap by first clearing the pte and then writing a migration
-> entry.  The page table lock is held for the duration of this clear and
-> write operation.  However, the beginnings of the hugetlb page fault
-> code optimistically checks the pte without taking the page table lock.
-> If clear (as it can be during the migration unmap operation), a hugetlb
-> page allocation is attempted to satisfy the fault.  Note that the page
-> which will eventually satisfy this fault was already allocated by the
-> migration code.  However, the allocation within the fault path could
-> fail which would result in the task incorrectly being sent SIGBUS.
-> 
-> Ideally, we could take the hugetlb fault mutex in the migration code
-> when modifying the page tables.  However, locks must be taken in the
-> order of hugetlb fault mutex, page lock, page table lock.  This would
-> require significant rework of the migration code.  Instead, the issue
-> is addressed in the hugetlb fault code.  After failing to allocate a
-> huge page, take the page table lock and check for huge_pte_none before
-> returning an error.  This is the same check that must be made further
-> in the code even if page allocation is successful.
-> 
-> Reported-by: Li Wang <liwang@redhat.com>
-> Fixes: 290408d4a250 ("hugetlb: hugepage migration core")
-> Signed-off-by: Mike Kravetz <mike.kravetz@oracle.com>
-> Tested-by: Li Wang <liwang@redhat.com>
+> That's not 2**63:
 
-Thanks for the work and nice description.
+Ya! I was looking too roughly.
 
-Reviewed-by: Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>
-
-> ---
->  mm/hugetlb.c | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
 > 
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index ede7e7f5d1ab..6d7296dd11b8 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -3856,6 +3856,25 @@ static vm_fault_t hugetlb_no_page(struct mm_struct *mm,
->  
->  		page = alloc_huge_page(vma, haddr, 0);
->  		if (IS_ERR(page)) {
-> +			/*
-> +			 * Returning error will result in faulting task being
-> +			 * sent SIGBUS.  The hugetlb fault mutex prevents two
-> +			 * tasks from racing to fault in the same page which
-> +			 * could result in false unable to allocate errors.
-> +			 * Page migration does not take the fault mutex, but
-> +			 * does a clear then write of pte's under page table
-> +			 * lock.  Page fault code could race with migration,
-> +			 * notice the clear pte and try to allocate a page
-> +			 * here.  Before returning error, get ptl and make
-> +			 * sure there really is no pte entry.
-> +			 */
-> +			ptl = huge_pte_lock(h, mm, ptep);
-> +			if (!huge_pte_none(huge_ptep_get(ptep))) {
-> +				ret = 0;
-> +				spin_unlock(ptl);
-> +				goto out;
-> +			}
-> +			spin_unlock(ptl);
->  			ret = vmf_error(PTR_ERR(page));
->  			goto out;
->  		}
+> $ echo $((9223372036854710270 + 65537))
+> 9223372036854775807
+> 
+> $ echo $((2**63 - 1))
+> 9223372036854775807
+> 
+> i.e. it's LLONG_MAX, not an overflow. XFS sets sb->s_maxbytes in
+> xfs_max_file_offset to:
+> 
+> 	(1 << BITS_PER_LONG - 1) - 1 = 2**63 - 1 = LLONG_MAX.
+> 
+> So no matter how we look at it, this operation should not return
+> EFBIG on XFS.
+> 
+> > (test programme cfrbig.c attached)
+> > 
+> > xfs has it done successfully, while ext4 returns EFBIG.
+> 
+> ext4 has a max file size of 2**32 * blocksize, so it doesn't support
+> files larger than 16TB. So it will give EFBIG on this test.
+> 
+> /me compiles and runs the test program on his workstation:
+> 
+> $ ls -l foobar
+> -rw------- 1 dave dave 10737418240 Apr 12 14:46 foobar
+> $ ./a.out foobar bar
+> ret 65537
+> $ ls -l bar
+> -rw-r--r-- 1 dave dave 9223372036854775807 Aug  7 22:11 bar
+> $
+> 
+> That looks like a successful copy to me, not EINVAL or EFBIG...
+
+Thanks Dave for the confirmation! This testcase needs some fix.
+
+Murphy
+
+> 
+> Cheers,
+> 
+> Dave.
 > -- 
-> 2.20.1
-> 
-> 
+> Dave Chinner
+> david@fromorbit.com
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
