@@ -1,87 +1,57 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 916A385848
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 04:47:10 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 253F48586E
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 05:12:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 420943C1D1B
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 04:47:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C6F1A3C1D00
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 05:12:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 00ABD3C197B
- for <ltp@lists.linux.it>; Thu,  8 Aug 2019 04:47:07 +0200 (CEST)
-Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 57ADF100037D
- for <ltp@lists.linux.it>; Thu,  8 Aug 2019 04:47:00 +0200 (CEST)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x782hvDB102089;
- Thu, 8 Aug 2019 02:46:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2018-07-02;
- bh=lrRmrH7t2DxXhTipWxRRs5ivdb/74vVU7DqRNEZ410k=;
- b=2pId28en9LJEdW0ne3zijEyIyY48YmF3imXfi6P2+oxCWtdJ6n6EKOllE3HNkXrr5Cgp
- 25iopFMtfd8J0PeGIJtZLoIgdPA2vGVWrxRnsqRfTfcZglqLzSBICsThdvJrL13fq4/T
- aVshbx3FtGdJ0sIGAQwpJ+wJLDwFPgbaZKp0HBsd7bTk7gyQZ4c2Up4Ap4MqZEB+VrpF
- iTmbzXtzX4OkI2a89ev0Qhj94GjIrsftZtwlv+F7/Qt9fszW46aKfRRnKD5t5l45CN7w
- gt7lhpfWpxRuPcCTPjSVX0u3RXC+7j3W1N3okx3TOm6xL2RQGPktKh5qu4Dlq4kpZkqk ew== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by userp2130.oracle.com with ESMTP id 2u51pu7u5e-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 08 Aug 2019 02:46:54 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x782hJ4C173010;
- Thu, 8 Aug 2019 02:44:53 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by aserp3020.oracle.com with ESMTP id 2u7578hr6f-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 08 Aug 2019 02:44:53 +0000
-Received: from abhmp0003.oracle.com (abhmp0003.oracle.com [141.146.116.9])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x782iqqv010401;
- Thu, 8 Aug 2019 02:44:52 GMT
-Received: from [192.168.1.222] (/71.63.128.209)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Wed, 07 Aug 2019 19:44:51 -0700
-To: =?UTF-8?B?6KOY56iA55+zKOeogOefsyk=?= <xishi.qiuxishi@alibaba-inc.com>,
- linux-mm <linux-mm@kvack.org>,
- linux-kernel <linux-kernel@vger.kernel.org>, ltp <ltp@lists.linux.it>
-References: <f7a64f0a-1ae0-4582-a293-b608bc8fed36.xishi.qiuxishi@alibaba-inc.com>
-From: Mike Kravetz <mike.kravetz@oracle.com>
-Message-ID: <5f072c20-2396-48ee-700a-ea7eafc20328@oracle.com>
-Date: Wed, 7 Aug 2019 19:44:47 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+ by picard.linux.it (Postfix) with ESMTP id 6F0903C1773
+ for <ltp@lists.linux.it>; Thu,  8 Aug 2019 05:12:15 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id CDE93100074D
+ for <ltp@lists.linux.it>; Thu,  8 Aug 2019 05:12:07 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.64,358,1559491200"; d="scan'208";a="73187039"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 08 Aug 2019 11:12:01 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id C4D614CDFCE8;
+ Thu,  8 Aug 2019 11:12:01 +0800 (CST)
+Received: from [10.167.215.46] (10.167.215.46) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ id 14.3.439.0; Thu, 8 Aug 2019 11:12:00 +0800
+Message-ID: <5D4B92EF.4090800@cn.fujitsu.com>
+Date: Thu, 8 Aug 2019 11:11:43 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-In-Reply-To: <f7a64f0a-1ae0-4582-a293-b608bc8fed36.xishi.qiuxishi@alibaba-inc.com>
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9342
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1906280000 definitions=main-1908080027
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9342
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1906280000
- definitions=main-1908080027
+To: Murphy Zhou <jencce.kernel@gmail.com>
+References: <20190730110555.GB7528@rei.lan>
+ <1564569629-2358-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <1564569629-2358-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20190805065832.ti6vpoviykfaxcj7@XZHOUW.usersys.redhat.com>
+ <5D47D6B9.9090306@cn.fujitsu.com>
+ <20190805102211.pvyufepn6xywi7vm@XZHOUW.usersys.redhat.com>
+ <20190806162703.GA1333@dell5510>
+ <20190807101742.mt6tgowsh4xw5hyt@XZHOUW.usersys.redhat.com>
+In-Reply-To: <20190807101742.mt6tgowsh4xw5hyt@XZHOUW.usersys.redhat.com>
+X-Originating-IP: [10.167.215.46]
+X-yoursite-MailScanner-ID: C4D614CDFCE8.AF30B
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
 X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] hugetlbfs: fix hugetlb page migration/fault race
- causing SIGBUS
+Subject: Re: [LTP] [PATCH v7 3/3] syscalls/copy_file_range02: increase
+ coverage and remove EXDEV test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,27 +63,99 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>,
- Andrew Morton <akpm@linux-foundation.org>, Michal Hocko <mhocko@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: linux-xfs@vger.kernel.org, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gOC83LzE5IDc6MjQgUE0sIOijmOeogOefsyjnqIDnn7MpIHdyb3RlOgo+IEhpIE1pa2UsCj4g
-Cj4gRG8geW91IG1lYW4gdGhlIHNpbWlsYXIgcmFjZSBpcyBsaWtlIHRoZSBmb2xsb3dpbmc/Cj4g
-Cj4gbWlncmF0aW9uIGNsZWFyaW5nIHRoZSBwdGUKPiAgIHBhZ2UgZmF1bHQoYmVmb3JlIHdlIHJl
-dHVybiBlcnJvciwgYW5kIG5vdyB3ZSByZXR1cm4gMCwgdGhlbiB0cnkgcGFnZSBmYXVsdCBhZ2Fp
-biwgcmlnaHQ/KQo+ICAgICBtaWdyYXRpb24gd3JpdGluZyBhIG1pZ3JhdGlvbiBlbnRyeQoKWWVz
-LCBzb21ldGhpbmcgbGlrZSB0aGUgdGhhdC4gIFRoZSBjaGFuZ2UgaXMgdG8gdGFrZXMgdGhlIHBh
-Z2UgdGFibGUgbG9jawp0byBleGFtaW5lIHRoZSBwdGUgYmVmb3JlIHJldHVybmluZy4gIElmIHRo
-ZSBwdGUgaXMgY2xlYXIgd2hlbiBleGFtaW5lZAp3aGlsZSBob2xkaW5nIHRoZSBsb2NrLCBhbiBl
-cnJvciB3aWxsIGJlIHJldHVybmVkIGFzIGJlZm9yZS4gIElmIG5vdCBjbGVhciwKdGhlbiB3ZSBy
-ZXR1cm4gemVybyBhbmQgdHJ5IGFnYWluLgoKVGhpcyBjaGFuZ2UgYWRkcyBjb2RlIHdoaWNoIGlz
-IHZlcnkgbXVjaCBsaWtlIHRoaXMgY2hlY2sgZnVydGhlciBpbgp0aGUgcm91dGluZSBodWdldGxi
-X25vX3BhZ2UoKToKCglwdGwgPSBodWdlX3B0ZV9sb2NrKGgsIG1tLCBwdGVwKTsKCXNpemUgPSBp
-X3NpemVfcmVhZChtYXBwaW5nLT5ob3N0KSA+PiBodWdlX3BhZ2Vfc2hpZnQoaCk7CglpZiAoaWR4
-ID49IHNpemUpCgkJZ290byBiYWNrb3V0OwoKCXJldCA9IDA7CglpZiAoIWh1Z2VfcHRlX25vbmUo
-aHVnZV9wdGVwX2dldChwdGVwKSkpCgkJZ290byBiYWNrb3V0OwoKLS0gCk1pa2UgS3JhdmV0egoK
-LS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0
-cAo=
+on 2019/08/07 18:17, Murphy Zhou wrote:
+
+> And I have a question about LTP itself.
+>
+> If we run the testcase directly like:
+> 	 ./testcases/kernel/syscalls/copy_file_range/copy_file_range02
+>
+> to test all_filesystems, for every filesystem, we mkfs and mount it in
+> .mntpoint, but we do not chdir to .mntpoint. So we are running tests in 
+> the same tmpdir, fs type of which does not change while looping
+> all_filesystems.  Only the .mntpoint in tmpdir has different fs type in
+> each loop.
+>
+> Now we are using this to test cross-device copy in copy_file_range01.c,
+> but in copy_file_range02.c, we are not using .mntpint at all, all the
+> tests in the all_filesystems loop are running in the same tmpdir. In other
+> words, we are NOT testing all filesystems.
+>
+> Is this expected?
+ I removed the mnted test for cross-device copy_file_range in copy_file_range02.c.
+And I ignore the non-used mntpoint. IMO, we can directly use the FILE_MNTED to test EFBIG on all filesystems, 
+
+as below:
+diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+index 26bfa008a..67974ffa2 100644
+--- a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
++++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+@@ -49,6 +49,7 @@ static int fd_blkdev;
+ static int fd_chrdev;
+ static int fd_fifo;
+ static int fd_copy;
++static int fd_mnted;
+
+ static int chattr_i_nsup;
+ static int swap_nsup;
+
+@@ -73,7 +74,7 @@ static struct tcase {
+        {&fd_chrdev,    0,   EINVAL,     0,     CONTSIZE},
+        {&fd_fifo,      0,   EINVAL,     0,     CONTSIZE},
+        {&fd_copy,      0,   EOVERFLOW,  MAX_OFF, ULLONG_MAX},
+-       {&fd_copy,      0,   EFBIG,      MAX_OFF, MIN_OFF},
++       {&fd_mnted,      0,   EFBIG,      MAX_OFF, MIN_OFF},
+ };
+
+ static int run_command(char *command, char *option, char *file)
+@@ -117,7 +118,10 @@ static void verify_copy_file_range(unsigned int n)
+                        tst_res(TPASS | TTERRNO,
+                                        "copy_file_range failed as expected");
+                } else {
+-                       tst_res(TFAIL | TTERRNO,
++                       if (tc->exp_err == EFBIG && TST_ERR == EXDEV)
++                               tst_res(TCONF, "copy_file_range doesn't support cross-device,skip it");
++                       else
++                               tst_res(TFAIL | TTERRNO,
+                                "copy_file_range failed unexpectedly; expected %s, but got",
+                                tst_strerrno(tc->exp_err));
+                        return;
+
+@@ -152,6 +156,8 @@ static void cleanup(void)
+                SAFE_CLOSE(fd_dup);
+        if (fd_copy > 0)
+                SAFE_CLOSE(fd_copy);
++       if (fd_mnted > 0)
++               SAFE_CLOSE(fd_mnted);
+        SAFE_UNLINK(FILE_FIFO);
+ }
+
+@@ -194,6 +200,7 @@ static void setup(void)
+
+        fd_copy = SAFE_OPEN(FILE_COPY_PATH, O_RDWR | O_CREAT | O_TRUNC, 0664);
+        chattr_i_nsup = run_command("chattr", "+i", FILE_IMMUTABLE_PATH);
++       fd_mnted  = SAFE_OPEN(FILE_MNTED_PATH, O_RDWR | O_CREAT, 0664);
+
+        if (!tst_fs_has_free(".", sysconf(_SC_PAGESIZE) * 10, TST_BYTES)) {
+                tst_res(TCONF, "Insufficient disk space to create swap file");
+                swap_nsup = 3;
+
+test12) succeed on extN, failed on both btrfs and xfs, we need to detect filesystem type to handle. Or, I think we 
+can set a limit on filesize because this kind of user scene is a bit more than the first one , the EFBIG error can be 
+received easily (Also, we don't need  mnt_device mntpoint all_filesystem if so).
+What do you think about it?
+
+> I commented out testcases in copy_file_range02.c other then #12, and add
+> some nasty debug info:
+
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
