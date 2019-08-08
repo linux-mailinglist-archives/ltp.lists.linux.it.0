@@ -1,48 +1,56 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73252859F6
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 07:45:26 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E4F485B3A
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 09:05:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 39E883C1CFA
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 07:45:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 018273C1D1E
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Aug 2019 09:05:01 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 62A773C1826
- for <ltp@lists.linux.it>; Thu,  8 Aug 2019 07:45:23 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id E24053C1C87
+ for <ltp@lists.linux.it>; Thu,  8 Aug 2019 09:04:59 +0200 (CEST)
+Received: from mail-vs1-f68.google.com (mail-vs1-f68.google.com
+ [209.85.217.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B7A9820038A
- for <ltp@lists.linux.it>; Thu,  8 Aug 2019 07:45:22 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id C7E87308429D;
- Thu,  8 Aug 2019 05:45:20 +0000 (UTC)
-Received: from dhcp-3-207.nay.redhat.com (dhcp-3-207.nay.redhat.com
- [10.66.3.207])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 445AF60BE1;
- Thu,  8 Aug 2019 05:45:19 +0000 (UTC)
-From: Li Wang <liwang@redhat.com>
-To: ltp@lists.linux.it
-Date: Thu,  8 Aug 2019 13:45:13 +0800
-Message-Id: <20190808054513.31041-1-liwang@redhat.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id AB66F600D32
+ for <ltp@lists.linux.it>; Thu,  8 Aug 2019 09:05:00 +0200 (CEST)
+Received: by mail-vs1-f68.google.com with SMTP id v129so62365121vsb.11
+ for <ltp@lists.linux.it>; Thu, 08 Aug 2019 00:04:58 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=/iXOSzpJNuJA7c1w7SUyZvyKWCKz2ne9Ty7MkKRQVnE=;
+ b=IjGKnmxWJE4VadFgwybTV6Rk7kvlAd78lnOyI++uelpfy8xd704RKeUmRAU1//adIW
+ G8gJ7UNqwcSiT3XDqX6eNuTxkVxdNaE841QXMINEdP2VtYocZmkqjOSPwdSHGKw9OJPx
+ Gcq9O5OrJSzurJhpZxOJ+jGq0/3TsbrgLMFJPPFd6asdSD/dARrF95zhzztb/q7f2uMe
+ U1LghAYfnReqTRjpoO8QfnOwgCZiblJ1m/5sPuPlb7gHPmZ1nWWSrWoBJGaIjAUzFvMh
+ A3tvGFndOfobJtaLBTdqz25yWxPtC2uAyei/Rt/ipvlPXrn6D/RvT4rk/bhZV/A5abco
+ 1+TA==
+X-Gm-Message-State: APjAAAWLqIW3M1I3Uer+b1Y42LXJwo2Ij/m7gS3axy7DQkc+kQb7qPhQ
+ TAY0lAhP/1dRY/lR0gEgYAlMWiIo6iti2xavW5SGHg==
+X-Google-Smtp-Source: APXvYqwhMkyYiq9E1Xv3323UdpNdlfnAeSjKycP6ubTtCZWyOGIrL8GyYX02EE8/fIT455DrCT76LeiN40NQd1Ayq3o=
+X-Received: by 2002:a67:ed87:: with SMTP id d7mr8861486vsp.130.1565247897035; 
+ Thu, 08 Aug 2019 00:04:57 -0700 (PDT)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.40]); Thu, 08 Aug 2019 05:45:20 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+References: <20190807094119.10834-1-pvorel@suse.cz>
+In-Reply-To: <20190807094119.10834-1-pvorel@suse.cz>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 8 Aug 2019 15:04:46 +0800
+Message-ID: <CAEemH2cM7mhkYBvTTFC4UhjnYxG0D_e-nkCmSF2U8pB61UT0bw@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v3] move_pages12: handle errno EBUSY for madvise(...,
- MADV_SOFT_OFFLINE)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/copy_file_range02: Fix #12 when TMPDIR
+ is on tmpfs or ext[234]
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,164 +62,54 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>,
- Mike Kravetz <mike.kravetz@oracle.com>
+Cc: "Darrick J . Wong" <darrick.wong@oracle.com>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The test#2 is going to simulate the race condition, where move_pages()
-and soft offline are called on a single hugetlb page concurrently. But,
-it return EBUSY and report FAIL in soft-offline a moving hugepage as a
-result sometimes.
+Hi Petr,
 
-The root cause seems a call to page_huge_active return false, then the
-soft offline action will failed to isolate hugepage with EBUSY return as
-below call trace:
+Thanks for highlight this.
 
-In Parent:
-  madvise(..., MADV_SOFT_OFFLINE)
-  ...
-    soft_offline_page
-      soft_offline_in_use_page
-        soft_offline_huge_page
-          isolate_huge_page
-            page_huge_active
-             # return false at here
+> Cyril, Jan, Li, still not sure what the policy about errno is (see
+> Cyril's statements in recent discussion about it in Jinhui's patch [1]
+> [2]). With these frequent changes we should IMHO check for all possible
+> variants (EXDEV, EFBIG, EINVAL).
+>
+> Or should we investigate all fixes and keep errors which highlight
+> important fix was not backported (to both stable and LTS/enterprise
+> distros kernels?). That'd be weird but approach practical :).
 
-In Child:
-  move_pages()
-  ...
-    do_move_pages
-      do_move_pages_to_node
-        add_page_for_migration
-          isolate_huge_page
-            # it has already isolated the hugepage
+That sounds not very realistic. We can't satisfy all distributions for
+errno checking, because we don't know when/wheather it backports the
+patch.
 
-In this patch, I simply regard the returned EBUSY as a normal situation and
-mask it in error handler. Because move_pages is calling add_page_for_migration
-to isolate hugepage before do migration, so that's very possible to hit the
-collision and return EBUSY on the same page.
+>
+> Anyway, we should define and write down LTP policy / rules about it.
 
-Error log:
-----------
-move_pages12.c:235: INFO: Free RAM 8386256 kB
-move_pages12.c:253: INFO: Increasing 2048kB hugepages pool on node 0 to 4
-move_pages12.c:263: INFO: Increasing 2048kB hugepages pool on node 1 to 6
-move_pages12.c:179: INFO: Allocating and freeing 4 hugepages on node 0
-move_pages12.c:179: INFO: Allocating and freeing 4 hugepages on node 1
-move_pages12.c:169: PASS: Bug not reproduced
-move_pages12.c:81: FAIL: madvise failed: SUCCESS
-move_pages12.c:81: FAIL: madvise failed: SUCCESS
-move_pages12.c:143: BROK: mmap((nil),4194304,3,262178,-1,0) failed: ENOMEM
-move_pages12.c:114: FAIL: move_pages failed: EINVAL
+I think we might have these ways of choosing:
 
-Dmesg:
-------
-[165435.492170] soft offline: 0x61c00 hugepage failed to isolate
-[165435.590252] soft offline: 0x61c00 hugepage failed to isolate
-[165435.725493] soft offline: 0x61400 hugepage failed to isolate
+1. Only align with the latest kernel behavior
+    e.g limit the latest kernel version and verify that valid errno
+The disadvantage of this is only tested on a small kernel range.
 
-Other two fixes in this patch:
- * use TERRNO(but not TTERRNO) to catch madvise(..., MADV_SOFT_OFFLINE) errno
- * retry mmap when hugepage allocating failed with ENOMEM
- * retry numa_move_pages when hitting ENOMEM
+2. Guarded by kernel version check as Cyril suggests in [1]
+    e.g  kernel >= 4.10; Check errno == EBADF
+           kernel < 4.10; Check errno == EISDIR
+           ....
+The disadvantage is that the test result is affected by LTS with a
+backport-patch.
 
-Signed-off-by: Li Wang <liwang@redhat.com>
-Cc: Mike Kravetz <mike.kravetz@oracle.com>
-Cc: Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>
-Cc: Cyril Hrubis <chrubis@suse.cz>
----
+3. Regards all acceptable errnos as valid on any kernel version
+    e.g  whatever errno get any of them EXDEV, EFBIG, EINVAL, regard valid
+This sounds obviously awful.
 
-Notes:
-    Hi Cyril,
-    
-    Since the SIGBUS problem has been marked as mainline kernel issue, and
-    Mike has worked out a patch[1] to LKML for solving that. So we have no
-    necessary to mask the SIGBUS again for move_page12. Here I take your
-    suggest to retry mmap while hitting ENOMEM in the test looping.
-    
-    And, after the patch[1] merging in linus kernel. I'll help to note the
-    SIGBUS issue/patch in test#2 code comments via a seperate patch.
-    
-    [1] https://lkml.org/lkml/2019/8/7/941
+Or, anything else?
 
- .../kernel/syscalls/move_pages/move_pages12.c | 30 ++++++++++++++-----
- 1 file changed, 22 insertions(+), 8 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/move_pages/move_pages12.c b/testcases/kernel/syscalls/move_pages/move_pages12.c
-index 964b712fb..5d7afad8e 100644
---- a/testcases/kernel/syscalls/move_pages/move_pages12.c
-+++ b/testcases/kernel/syscalls/move_pages/move_pages12.c
-@@ -77,8 +77,8 @@ static void *addr;
- static int do_soft_offline(int tpgs)
- {
- 	if (madvise(addr, tpgs * hpsz, MADV_SOFT_OFFLINE) == -1) {
--		if (errno != EINVAL)
--			tst_res(TFAIL | TTERRNO, "madvise failed");
-+		if (errno != EINVAL && errno != EBUSY)
-+			tst_res(TFAIL | TERRNO, "madvise failed");
- 		return errno;
- 	}
- 	return 0;
-@@ -111,6 +111,9 @@ static void do_child(int tpgs)
- 		TEST(numa_move_pages(ppid, test_pages,
- 			pages, nodes, status, MPOL_MF_MOVE_ALL));
- 		if (TST_RET < 0) {
-+			if (errno == ENOMEM)
-+				continue;
-+
- 			tst_res(TFAIL | TTERRNO, "move_pages failed");
- 			break;
- 		}
-@@ -121,7 +124,8 @@ static void do_child(int tpgs)
- 
- static void do_test(unsigned int n)
- {
--	int i;
-+	int i, ret;
-+	void *ptr;
- 	pid_t cpid = -1;
- 	int status;
- 	unsigned int twenty_percent = (tst_timeout_remaining() / 5);
-@@ -136,18 +140,28 @@ static void do_test(unsigned int n)
- 		do_child(tcases[n].tpages);
- 
- 	for (i = 0; i < LOOPS; i++) {
--		void *ptr;
-+		ptr = mmap(NULL, tcases[n].tpages * hpsz,
-+				PROT_READ | PROT_WRITE,
-+				MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB, -1, 0);
-+		if (ptr == MAP_FAILED) {
-+			if (i == 0)
-+				tst_brk(TBROK | TERRNO, "Cannot allocate hugepage");
-+
-+			if (errno == ENOMEM) {
-+				usleep(1000);
-+				continue;
-+			}
-+		}
- 
--		ptr = SAFE_MMAP(NULL, tcases[n].tpages * hpsz,
--			PROT_READ | PROT_WRITE,
--			MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB, -1, 0);
- 		if (ptr != addr)
- 			tst_brk(TBROK, "Failed to mmap at desired addr");
- 
- 		memset(addr, 0, tcases[n].tpages * hpsz);
- 
- 		if (tcases[n].offline) {
--			if (do_soft_offline(tcases[n].tpages) == EINVAL) {
-+			ret = do_soft_offline(tcases[n].tpages);
-+
-+			if (ret == EINVAL) {
- 				SAFE_KILL(cpid, SIGKILL);
- 				SAFE_WAITPID(cpid, &status, 0);
- 				SAFE_MUNMAP(addr, tcases[n].tpages * hpsz);
 -- 
-2.20.1
-
+Regards,
+Li Wang
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
