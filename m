@@ -2,46 +2,38 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10EB787258
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 Aug 2019 08:46:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D42D18737D
+	for <lists+linux-ltp@lfdr.de>; Fri,  9 Aug 2019 09:52:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CFBDC3C1D01
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 Aug 2019 08:46:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0F7FE3C1D75
+	for <lists+linux-ltp@lfdr.de>; Fri,  9 Aug 2019 09:52:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 8B2623C1C70
- for <ltp@lists.linux.it>; Fri,  9 Aug 2019 08:46:37 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTP id 255083C183A
+ for <ltp@lists.linux.it>; Fri,  9 Aug 2019 09:52:52 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 740AD1A014E1
- for <ltp@lists.linux.it>; Fri,  9 Aug 2019 08:46:36 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D37F01A008A3
+ for <ltp@lists.linux.it>; Fri,  9 Aug 2019 09:52:50 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id C910BB03B;
- Fri,  9 Aug 2019 06:46:34 +0000 (UTC)
-Date: Fri, 9 Aug 2019 08:46:33 +0200
-From: Michal Hocko <mhocko@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Message-ID: <20190809064633.GK18351@dhcp22.suse.cz>
-References: <20190808000533.7701-1-mike.kravetz@oracle.com>
- <20190808074607.GI11812@dhcp22.suse.cz>
- <20190808074736.GJ11812@dhcp22.suse.cz>
- <416ee59e-9ae8-f72d-1b26-4d3d31501330@oracle.com>
- <20190808185313.GG18351@dhcp22.suse.cz>
- <20190808163928.118f8da4f4289f7c51b8ffd4@linux-foundation.org>
+ by mx1.suse.de (Postfix) with ESMTP id 88FFFB07B
+ for <ltp@lists.linux.it>; Fri,  9 Aug 2019 07:52:49 +0000 (UTC)
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Fri,  9 Aug 2019 09:52:44 +0200
+Message-Id: <20190809075244.17950-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.22.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190808163928.118f8da4f4289f7c51b8ffd4@linux-foundation.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_SOFTFAIL
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] hugetlbfs: fix hugetlb page migration/fault race
- causing SIGBUS
+Subject: [LTP] [PATCH] tst_test.sh: Reduce false positives in reserved
+ variable warnings
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,56 +45,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: xishi.qiuxishi@alibaba-inc.com, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>,
- ltp@lists.linux.it, Mike Kravetz <mike.kravetz@oracle.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Thu 08-08-19 16:39:28, Andrew Morton wrote:
-> On Thu, 8 Aug 2019 20:53:13 +0200 Michal Hocko <mhocko@kernel.org> wrote:
-> 
-> > > https://lkml.org/lkml/2019/6/1/165
-> > > 
-> > > Ironic to find that commit message in a stable backport.
-> > > 
-> > > I'm happy to drop the Fixes tag.
-> > 
-> > No, please do not drop the Fixes tag. That is a very _useful_
-> > information. If the stable tree maintainers want to abuse it so be it.
-> > They are responsible for their tree. If you do not think this is a
-> > stable material then fine with me. I tend to agree but that doesn't mean
-> > that we should obfuscate Fixes.
-> 
-> Well, we're responsible for stable trees too.
+"Reserved variable TST_FOO used!" and "Private variable or function
+_tst_foo used!" reports some false positive.
 
-We are only responsible as far as to consider whether a patch is worth
-backporting to stable trees and my view is that we are doing that
-responsible. What do stable maintainers do in the end is their business.
+Filter out commented code and variables and functions not starting with
+searched prefix (foo_tst_bar() or $foo_tst_bar).
 
-> And yes, I find it
-> irksome.  I/we evaluate *every* fix for -stable inclusion and if I/we
-> decide "no" then dangit, it should be backported.
+NOTE: There are still some false positives (e.g. echo "echo
+TST_SHOULD_NOT_BE_FOUND"), but let's not complicate the regexp too much.
 
-Exactly
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ testcases/lib/tst_test.sh | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> Maybe we should introduce the Fixes-no-stable: tag.  That should get
-> their attention.
-
-No please, Fixes shouldn't be really tight to any stable tree rules. It
-is a very useful indication of which commit has introduced bug/problem
-or whatever that the patch follows up to. We in Suse are using this tag
-to evaluate potential fixes as the stable is not reliable. We could live
-with Fixes-no-stable or whatever other name but does it really makes
-sense to complicate the existing state when stable maintainers are doing
-whatever they want anyway? Does a tag like that force AI from selecting
-a patch? I am not really convinced.
-
+diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+index 31b3a3951..f779cc471 100644
+--- a/testcases/lib/tst_test.sh
++++ b/testcases/lib/tst_test.sh
+@@ -402,7 +402,7 @@ tst_run()
+ 	local _tst_name
+ 
+ 	if [ -n "$TST_TEST_PATH" ]; then
+-		for _tst_i in $(grep TST_ "$TST_TEST_PATH" | sed 's/.*TST_//; s/[="} \t\/:`].*//'); do
++		for _tst_i in $(grep '^[^#]*\bTST_' "$TST_TEST_PATH" | sed 's/.*TST_//; s/[="} \t\/:`].*//'); do
+ 			case "$_tst_i" in
+ 			DISABLE_APPARMOR|DISABLE_SELINUX);;
+ 			SETUP|CLEANUP|TESTFUNC|ID|CNT|MIN_KVER);;
+@@ -417,7 +417,7 @@ tst_run()
+ 			esac
+ 		done
+ 
+-		for _tst_i in $(grep _tst_ "$TST_TEST_PATH" | sed 's/.*_tst_//; s/[="} \t\/:`].*//'); do
++		for _tst_i in $(grep '^[^#]*\b_tst_' "$TST_TEST_PATH" | sed 's/.*_tst_//; s/[="} \t\/:`].*//'); do
+ 			tst_res TWARN "Private variable or function _tst_$_tst_i used!"
+ 		done
+ 	fi
 -- 
-Michal Hocko
-SUSE Labs
+2.22.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
