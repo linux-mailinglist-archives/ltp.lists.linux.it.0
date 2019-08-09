@@ -2,41 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E8E287BF1
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 Aug 2019 15:48:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2ACF87C36
+	for <lists+linux-ltp@lfdr.de>; Fri,  9 Aug 2019 15:57:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DAE533C1D08
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 Aug 2019 15:48:49 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B50093C1CFA
+	for <lists+linux-ltp@lfdr.de>; Fri,  9 Aug 2019 15:57:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id E2A243C1C8A
- for <ltp@lists.linux.it>; Fri,  9 Aug 2019 15:48:47 +0200 (CEST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 28F1F3C07A5
+ for <ltp@lists.linux.it>; Fri,  9 Aug 2019 15:57:55 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A12C81A0155D
- for <ltp@lists.linux.it>; Fri,  9 Aug 2019 15:48:47 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9EFD7601959
+ for <ltp@lists.linux.it>; Fri,  9 Aug 2019 15:57:54 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id EAB26AF47
- for <ltp@lists.linux.it>; Fri,  9 Aug 2019 13:48:46 +0000 (UTC)
-Date: Fri, 9 Aug 2019 15:48:45 +0200
+ by mx1.suse.de (Postfix) with ESMTP id E3F3EACC2;
+ Fri,  9 Aug 2019 13:57:53 +0000 (UTC)
+Date: Fri, 9 Aug 2019 15:57:52 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20190809134845.GA12261@dell5510>
-References: <20190809075244.17950-1-pvorel@suse.cz>
- <20190809121610.GA32115@rei.lan>
+Message-ID: <20190809135752.GB12261@dell5510>
+References: <20190806164523.557-1-pvorel@suse.cz>
+ <20190809093354.GA13178@rei.lan> <20190809100701.GB27030@dell5510>
+ <20190809103506.GB13178@rei.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190809121610.GA32115@rei.lan>
+In-Reply-To: <20190809103506.GB13178@rei.lan>
 User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] tst_test.sh: Reduce false positives in reserved
- variable warnings
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 4/4] build: Move
+ -Werror-implicit-function-declaration from make to build.sh
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,9 +59,15 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Cyril,
 
-> Hi!
-> Looks good, acked.
-Thanks for review, merged.
+> > > Shouldn't this be -Werror=implicit-function-declaration ?
+> > Yes, it is. '${CFLAGS:-' part is POSIX shell substitute (${parameter:-[word]}
+> > from [1]), the result is '-Werror=implicit-function-declaration' when CFLAGS is
+> > empty or not set.
+> > I might change it as
+
+> I meant the = after -Werror vs -.
+Sure (I'm blind today). Changed to more common
+-Werror=implicit-function-declaration and merged.
 
 Kind regards,
 Petr
