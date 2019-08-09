@@ -1,45 +1,55 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D78CE87ECE
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 Aug 2019 18:03:10 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 33205885BA
+	for <lists+linux-ltp@lfdr.de>; Sat, 10 Aug 2019 00:17:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8F18E3C1CFA
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 Aug 2019 18:03:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F3BCC3C1CF7
+	for <lists+linux-ltp@lfdr.de>; Sat, 10 Aug 2019 00:17:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id D6CF23C197B
- for <ltp@lists.linux.it>; Fri,  9 Aug 2019 18:03:08 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 40FFF3C0515
+ for <ltp@lists.linux.it>; Sat, 10 Aug 2019 00:17:24 +0200 (CEST)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 67E561A0176B
- for <ltp@lists.linux.it>; Fri,  9 Aug 2019 18:03:06 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id CA6D2AC45;
- Fri,  9 Aug 2019 16:03:05 +0000 (UTC)
-Date: Fri, 9 Aug 2019 18:02:54 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Alexey Kodanev <alexey.kodanev@oracle.com>
-Message-ID: <20190809160254.GA342@dell5510>
-References: <20190725111027.18716-1-pvorel@suse.cz>
- <20190725111027.18716-5-pvorel@suse.cz>
- <89188a02-2213-bea7-5273-d0077de5878e@oracle.com>
- <20190806195502.GA11768@dell5510>
- <4a9a229c-b00a-5427-0760-9312df90e5af@oracle.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <4a9a229c-b00a-5427-0760-9312df90e5af@oracle.com>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4B4556017B9
+ for <ltp@lists.linux.it>; Sat, 10 Aug 2019 00:17:24 +0200 (CEST)
+Received: from akpm3.svl.corp.google.com (unknown [104.133.8.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 8646B20C01;
+ Fri,  9 Aug 2019 22:17:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1565389039;
+ bh=sBCc7FSNFhlnRsGYMaaCt24naPV+9JGWf4SdSDBpZSQ=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=M0Yq6MHAY53t1ncV64OxCpQqedn+WGq7kUdkHQs/u4ha4+lqiISH5b3bRrmIog8Wt
+ o8ciIYK8TbwhCQwuiXofvHPxI9UqaGaq0sdOWGr5Xetzut3rRRFlbp/2r5gMkvzC1m
+ KsxqJdOSCt+CD15CCLeCix6toLaH2Y6YVAvmk3DQ=
+Date: Fri, 9 Aug 2019 15:17:18 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Michal Hocko <mhocko@kernel.org>
+Message-Id: <20190809151718.d285cd1f6d0f1cf02cb93dc8@linux-foundation.org>
+In-Reply-To: <20190809064633.GK18351@dhcp22.suse.cz>
+References: <20190808000533.7701-1-mike.kravetz@oracle.com>
+ <20190808074607.GI11812@dhcp22.suse.cz>
+ <20190808074736.GJ11812@dhcp22.suse.cz>
+ <416ee59e-9ae8-f72d-1b26-4d3d31501330@oracle.com>
+ <20190808185313.GG18351@dhcp22.suse.cz>
+ <20190808163928.118f8da4f4289f7c51b8ffd4@linux-foundation.org>
+ <20190809064633.GK18351@dhcp22.suse.cz>
+X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 4/5] network/route: Rewrite route-change-gw
- into new API
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] hugetlbfs: fix hugetlb page migration/fault race
+ causing SIGBUS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,61 +61,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: Sasha Levin <sashal@kernel.org>, xishi.qiuxishi@alibaba-inc.com,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>, ltp@lists.linux.it,
+ Mike Kravetz <mike.kravetz@oracle.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Alexey,
+On Fri, 9 Aug 2019 08:46:33 +0200 Michal Hocko <mhocko@kernel.org> wrote:
 
-> >>> +	local gw="$(tst_ipaddr_un 1 $(($1 + 1)))"
+> > Maybe we should introduce the Fixes-no-stable: tag.  That should get
+> > their attention.
+> 
+> No please, Fixes shouldn't be really tight to any stable tree rules. It
+> is a very useful indication of which commit has introduced bug/problem
+> or whatever that the patch follows up to. We in Suse are using this tag
+> to evaluate potential fixes as the stable is not reliable. We could live
+> with Fixes-no-stable or whatever other name but does it really makes
+> sense to complicate the existing state when stable maintainers are doing
+> whatever they want anyway? Does a tag like that force AI from selecting
+> a patch? I am not really convinced.
 
-> >> We should keep $(($1 + 1)) within the valid range except already added IP address
-> >> ($lhost), i.e. for IPv4 the range is 2..254 for host id:
+It should work if we ask stable trees maintainers not to backport
+such patches.
 
-> >>     local gw="$(tst_ipaddr_un 1 $(($1 % 253 + 2)))"
-
-> >> Either we could limit the value here or in the tst_ipaddr_un(). Looks like
-> >> route-change-if needs a similar fix for net id?
-> > Good point (sorry to keep octet/hextet overflow related errors).
-> > Although it'd be simpler to fix it in the code, I'd prefer to have this support
-> > in tst_ipaddr_un(). Diff below adds -l MIN_HOST_ID (I'll post it as a part of v3),
-> > do we want to lower also max host id?
-
-> It can only be "max host id" option since we already have this variable in the
-> function, and in the test setup, we could assign "lhost" variable with the max
-> value:
-
->   lhost="$(tst_ipaddr_un 1 $max_host_id)"
-
-I'll have to implement min value as well, because we have for non-counter mode
-(e.g tst_ipaddr_un $net_id $host_id) 0 as well, so it will break for invalid
-gateway 10.23.1.0. I wanted to avoid -c mode for these route tests.
-
-I guess <0-254> for max host ID for this mode was good idea, but IMHO it should
-be: <0-255> (to allow both network address and broadcast address), and allow to
-have minimize both min and max. So for case of valid address it'd would be:
-tst_ipaddr_un -l 1 -m 254 $net_id $host_id
-
-Other could be to have range for this mode default suitable for hosts (<1..254>)
-as we have it for -c mode. Getting network would be:
-
-tst_ipaddr_un -n $net_id # instead of tst_ipaddr_un $net_id 0
-
-Getting broadcast would be:
-
-tst_ipaddr_un -b $net_id # currently not possible at all with tst_ipaddr_un
-
-This second proposal looks more usable to me, although -b and -n aren't obvious
-(long getopts would be better, but I think it's better to avoid them).
-
-+ I'd still keep proposed -m max_host_id, so we could use tst_ipaddr_un $net_id 254
-for route and tst_ipaddr_un -m 253 $net_id $1 for hosts.
-
-Kind regards,
-Petr
+Sasha, please don't backport patches which are marked Fixes-no-stable:
+and which lack a cc:stable tag.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
