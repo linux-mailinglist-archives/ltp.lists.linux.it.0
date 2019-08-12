@@ -2,54 +2,49 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD2698983D
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Aug 2019 09:49:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85AC5898EF
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Aug 2019 10:45:29 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 943193C1CF5
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Aug 2019 09:49:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 22E893C1CF5
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Aug 2019 10:45:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 673633C1C81
- for <ltp@lists.linux.it>; Mon, 12 Aug 2019 09:49:13 +0200 (CEST)
-Received: from mail-ua1-f68.google.com (mail-ua1-f68.google.com
- [209.85.222.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 0D0FD3C1C81
+ for <ltp@lists.linux.it>; Mon, 12 Aug 2019 10:45:27 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 89DC11A00F70
- for <ltp@lists.linux.it>; Mon, 12 Aug 2019 09:49:12 +0200 (CEST)
-Received: by mail-ua1-f68.google.com with SMTP id z13so39919199uaa.4
- for <ltp@lists.linux.it>; Mon, 12 Aug 2019 00:49:12 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=1kgIsZ44RRlcJP206tVFyOnrF5p9ssNO1UZGglXBel4=;
- b=nVhLvakOsFJSQUr8cuH5g4vShR3Jm7SZ3JhHPTxAQeJij56jMli89k00iHLjCdSdwH
- GqnLFvWpswSbyHKc9lfnhygH4fRTJ2x4pE6gCagXJMiUXMPC+AnDqSqpA6tQy9bt+b6r
- hUrGPH5a6gfG8KrDz6A6ASV+j0uN0f1Dhc6bziboO7ECqXo4NLjvRN022G1fqH25Bdrc
- kVKZ1ibZq3CAORzlAiY80mCORfVwokfBnZ+qhAZAIgBmpeasrD9J8KdJghThjdbM4XQD
- t55u2YVV5qIcW99Mw9GsXQFcWMHcnzsyxJtKyrxJXT4ywG/wJdNg+zNw4jMbIeD3zuRR
- dS+g==
-X-Gm-Message-State: APjAAAU9NxGkf12x6iQr5hXZ64JnkKtHUMP0g7oDscy87oSfVLwIhsQK
- UsnkF3qALx4u959d+qhUfPDH7C6ImVxwVWzhoRPscA==
-X-Google-Smtp-Source: APXvYqzduKtPu2GRB4b0Krh4G1XOuiL8i5qH5gtE67ImwRNaNKe6CyatzI77GH1ikmFwBpfEHYliVbUBKnI3Ex2Nw0o=
-X-Received: by 2002:ab0:3384:: with SMTP id y4mr3590823uap.106.1565596151511; 
- Mon, 12 Aug 2019 00:49:11 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E771114011A9
+ for <ltp@lists.linux.it>; Mon, 12 Aug 2019 10:45:26 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id C4681AD46;
+ Mon, 12 Aug 2019 08:45:25 +0000 (UTC)
+Date: Mon, 12 Aug 2019 10:45:24 +0200
+From: Michal Hocko <mhocko@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Message-ID: <20190812084524.GC5117@dhcp22.suse.cz>
+References: <20190808000533.7701-1-mike.kravetz@oracle.com>
+ <20190808074607.GI11812@dhcp22.suse.cz>
+ <20190808074736.GJ11812@dhcp22.suse.cz>
+ <416ee59e-9ae8-f72d-1b26-4d3d31501330@oracle.com>
+ <20190808185313.GG18351@dhcp22.suse.cz>
+ <20190808163928.118f8da4f4289f7c51b8ffd4@linux-foundation.org>
+ <20190809064633.GK18351@dhcp22.suse.cz>
+ <20190809151718.d285cd1f6d0f1cf02cb93dc8@linux-foundation.org>
+ <20190811234614.GZ17747@sasha-vm>
 MIME-Version: 1.0
-References: <20190812072431.24378-1-yixin.zhang@intel.com>
-In-Reply-To: <20190812072431.24378-1-yixin.zhang@intel.com>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 12 Aug 2019 15:49:00 +0800
-Message-ID: <CAEemH2cQKpE+3Z837WwXV4V4gySLsDsnH9i8wmg=F8Hh7u9GMQ@mail.gmail.com>
-To: Yixin Zhang <yixin.zhang@intel.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20190811234614.GZ17747@sasha-vm>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_SOFTFAIL
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH ltp] runtest/fs: remove non-acsii char from comment
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] hugetlbfs: fix hugetlb page migration/fault race
+ causing SIGBUS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,17 +56,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: xishi.qiuxishi@alibaba-inc.com, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>,
+ Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>, ltp@lists.linux.it,
+ Mike Kravetz <mike.kravetz@oracle.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Applied.
+On Sun 11-08-19 19:46:14, Sasha Levin wrote:
+> On Fri, Aug 09, 2019 at 03:17:18PM -0700, Andrew Morton wrote:
+> > On Fri, 9 Aug 2019 08:46:33 +0200 Michal Hocko <mhocko@kernel.org> wrote:
+> > 
+> > > > Maybe we should introduce the Fixes-no-stable: tag.  That should get
+> > > > their attention.
+> > > 
+> > > No please, Fixes shouldn't be really tight to any stable tree rules. It
+> > > is a very useful indication of which commit has introduced bug/problem
+> > > or whatever that the patch follows up to. We in Suse are using this tag
+> > > to evaluate potential fixes as the stable is not reliable. We could live
+> > > with Fixes-no-stable or whatever other name but does it really makes
+> > > sense to complicate the existing state when stable maintainers are doing
+> > > whatever they want anyway? Does a tag like that force AI from selecting
+> > > a patch? I am not really convinced.
+> > 
+> > It should work if we ask stable trees maintainers not to backport
+> > such patches.
+> > 
+> > Sasha, please don't backport patches which are marked Fixes-no-stable:
+> > and which lack a cc:stable tag.
+> 
+> I'll add it to my filter, thank you!
+
+I would really prefer to stick with Fixes: tag and stable only picking
+up cc: stable patches. I really hate to see workarounds for sensible
+workflows (marking the Fixes) just because we are trying to hide
+something from stable maintainers. Seriously, if stable maintainers have
+a different idea about what should be backported, it is their call. They
+are the ones to deal with regressions and the backporting effort in
+those cases of disagreement.
 
 -- 
-Regards,
-Li Wang
+Michal Hocko
+SUSE Labs
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
