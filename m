@@ -1,41 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C14F28B823
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Aug 2019 14:12:08 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 273DA8B824
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Aug 2019 14:13:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D33F93C1D63
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Aug 2019 14:12:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BD2B73C1D26
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Aug 2019 14:13:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 9E8773C1C7F
- for <ltp@lists.linux.it>; Tue, 13 Aug 2019 14:12:04 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 81C193C0752
+ for <ltp@lists.linux.it>; Tue, 13 Aug 2019 14:13:42 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 489981401499
- for <ltp@lists.linux.it>; Tue, 13 Aug 2019 14:12:03 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2EE651400158
+ for <ltp@lists.linux.it>; Tue, 13 Aug 2019 14:13:41 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 9890EB62E;
- Tue, 13 Aug 2019 12:12:03 +0000 (UTC)
-Date: Tue, 13 Aug 2019 14:12:03 +0200
+ by mx1.suse.de (Postfix) with ESMTP id 764CDB62E;
+ Tue, 13 Aug 2019 12:13:41 +0000 (UTC)
+Date: Tue, 13 Aug 2019 14:13:40 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Jan Stancek <jstancek@redhat.com>
-Message-ID: <20190813121202.GB16005@rei.lan>
+Message-ID: <20190813121340.GC16005@rei.lan>
 References: <ee463189a82212a10c1ac06229dc0a418e18305b.1565361031.git.jstancek@redhat.com>
+ <e4c5428276c9a85efc6bddaa2d82e2aed5806108.1565361031.git.jstancek@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ee463189a82212a10c1ac06229dc0a418e18305b.1565361031.git.jstancek@redhat.com>
+In-Reply-To: <e4c5428276c9a85efc6bddaa2d82e2aed5806108.1565361031.git.jstancek@redhat.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/2] clock_getres01: drop case which is passing
- NULL res parameter
+Subject: Re: [LTP] [PATCH v2 2/2] clock_getres01: add test variants
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,39 +55,56 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> Since commit a9446a906f52 ("lib/vdso/32: Remove inconsistent NULL pointer checks")
-> VDSO treats NULL parameter differently than in syscall.
-> 
-> Drop NULL parameter, subsequent patch will add test variants that test NULL
-> res parameter using syscall.
+> 0 - default, could be either VDSO or syscall
+> 1 - syscall with valid res parameter
+> 2 - syscall with NULL res parameter
 > 
 > Signed-off-by: Jan Stancek <jstancek@redhat.com>
 > ---
->  testcases/kernel/syscalls/clock_getres/clock_getres01.c | 1 -
->  1 file changed, 1 deletion(-)
+>  testcases/kernel/syscalls/clock_getres/clock_getres01.c | 15 ++++++++++++++-
+>  1 file changed, 14 insertions(+), 1 deletion(-)
 > 
 > diff --git a/testcases/kernel/syscalls/clock_getres/clock_getres01.c b/testcases/kernel/syscalls/clock_getres/clock_getres01.c
-> index 15f32310839a..df3e84271ad9 100644
+> index df3e84271ad9..a4134bc1d3c2 100644
 > --- a/testcases/kernel/syscalls/clock_getres/clock_getres01.c
 > +++ b/testcases/kernel/syscalls/clock_getres/clock_getres01.c
-> @@ -28,7 +28,6 @@ static struct test_case {
->  	{"MONOTONIC", CLOCK_MONOTONIC, &res, 0, 0},
->  	{"PROCESS_CPUTIME_ID", CLOCK_PROCESS_CPUTIME_ID, &res, 0, 0},
->  	{"THREAD_CPUTIME_ID", CLOCK_THREAD_CPUTIME_ID, &res, 0, 0},
-> -	{"REALTIME", CLOCK_REALTIME, NULL, 0, 0},
+> @@ -13,6 +13,7 @@
+>  #include <errno.h>
+>  
+>  #include "tst_test.h"
+> +#include "lapi/syscalls.h"
+>  #include "lapi/posix_clocks.h"
+>  
+>  static struct timespec res;
+> @@ -39,7 +40,18 @@ static struct test_case {
+>  
+>  static void do_test(unsigned int i)
+>  {
+> -	TEST(clock_getres(tcase[i].clk_id, tcase[i].res));
+> +	switch (tst_variant) {
+> +	case 0:
+> +		TEST(clock_getres(tcase[i].clk_id, tcase[i].res));
+> +		break;
+> +	case 1:
+> +		TEST(tst_syscall(__NR_clock_getres, tcase[i].clk_id,
+> +			tcase[i].res));
+> +		break;
+> +	case 2:
+> +		TEST(tst_syscall(__NR_clock_getres, tcase[i].clk_id, NULL));
+> +		break;
+> +	}
+>  
+>  	if (TST_RET != tcase[i].ret) {
+>  		if (TST_ERR == EINVAL) {
+> @@ -64,4 +76,5 @@ static void do_test(unsigned int i)
+>  static struct tst_test test = {
+>  	.test = do_test,
+>  	.tcnt = ARRAY_SIZE(tcase),
+> +	.test_variants = 3,
+>  };
 
-Shouldn't we keep the REALTIME clock here and pass the &res here
-instead?
-
->  	{"CLOCK_MONOTONIC_RAW", CLOCK_MONOTONIC_RAW, &res, 0, 0,},
->  	{"CLOCK_REALTIME_COARSE", CLOCK_REALTIME_COARSE, &res, 0, 0,},
->  	{"CLOCK_MONOTONIC_COARSE", CLOCK_MONOTONIC_COARSE, &res, 0, 0,},
-> -- 
-> 1.8.3.1
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+Can we please print which variant we are about to test from the test
+setup() as well?
 
 -- 
 Cyril Hrubis
