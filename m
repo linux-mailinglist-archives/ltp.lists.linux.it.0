@@ -2,50 +2,53 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A96F48B2B5
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Aug 2019 10:43:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 338CF8B4A7
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Aug 2019 11:54:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 607A43C1CF3
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Aug 2019 10:43:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C78E83C1CFB
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Aug 2019 11:54:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id E30843C0300
- for <ltp@lists.linux.it>; Tue, 13 Aug 2019 10:43:22 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 1831C3C1C6D
+ for <ltp@lists.linux.it>; Tue, 13 Aug 2019 11:54:00 +0200 (CEST)
+Received: from mail-ua1-f67.google.com (mail-ua1-f67.google.com
+ [209.85.222.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 2A6E6600805
- for <ltp@lists.linux.it>; Tue, 13 Aug 2019 10:43:23 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 53120AB92;
- Tue, 13 Aug 2019 08:43:19 +0000 (UTC)
-Date: Tue, 13 Aug 2019 10:43:17 +0200
-From: Michal Hocko <mhocko@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Message-ID: <20190813084317.GD17933@dhcp22.suse.cz>
-References: <416ee59e-9ae8-f72d-1b26-4d3d31501330@oracle.com>
- <20190808185313.GG18351@dhcp22.suse.cz>
- <20190808163928.118f8da4f4289f7c51b8ffd4@linux-foundation.org>
- <20190809064633.GK18351@dhcp22.suse.cz>
- <20190809151718.d285cd1f6d0f1cf02cb93dc8@linux-foundation.org>
- <20190811234614.GZ17747@sasha-vm>
- <20190812084524.GC5117@dhcp22.suse.cz>
- <39b59001-55c1-a98b-75df-3a5dcec74504@suse.cz>
- <20190812132226.GI5117@dhcp22.suse.cz>
- <20190812153326.GB17747@sasha-vm>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E47FB1000B5E
+ for <ltp@lists.linux.it>; Tue, 13 Aug 2019 11:53:53 +0200 (CEST)
+Received: by mail-ua1-f67.google.com with SMTP id j8so41269617uan.6
+ for <ltp@lists.linux.it>; Tue, 13 Aug 2019 02:54:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=SzpVMQth9gC3e1rXG5S5PBZgZBQRN9AZH4EZVpaGRus=;
+ b=eEHsSTZFuVFRmvpsvCZUc5ZVKvS9aO9DDWoRyevUG3mDRKw4YS908H8nN3X7U47M1s
+ Qe5ggoRQhjRv+mHxnnW38Szkx8BE0rDA491WlRfD6iTzArEtkfDMh6HVKDCdSb9xbude
+ XaV79mLYb2bvbLFzPR6CQRhC+Mm1TrBOJDHydVRcG+kyy0SFzk9cKfEa2GX4M+qb1uni
+ MOzcWH2lJg1BilkDDgdrtjWm0HC97oT1mvXCAi0mm2OnaM8apTHpAhQOq/DJLqage31s
+ vyL2/mnepzs4BAqlzSo/r+kiKLd9Lyy25ynwGFKklnJZfxnXRuU1ZRE0JPw+SFXjDWdD
+ tFVA==
+X-Gm-Message-State: APjAAAUeK1LgJrTL2XEe/iwhAYnlL0z8oMQmvajtUop41u0ZlXbfHjSn
+ Vdh6yE95nnqrQjI8Mr6w28tuq63C8vCRLxj9FugsSQ==
+X-Google-Smtp-Source: APXvYqyKmb5wdg/24c/4K3wyHkAticzBegr51YAKlLzDD/at1k4BHV2oM2Kp+eimObIRa5CnOmXshrPb/n86QTtBbnQ=
+X-Received: by 2002:ab0:3384:: with SMTP id y4mr8343834uap.106.1565690038858; 
+ Tue, 13 Aug 2019 02:53:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190812153326.GB17747@sasha-vm>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+References: <20190812143941.8119-1-chrubis@suse.cz>
+In-Reply-To: <20190812143941.8119-1-chrubis@suse.cz>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 13 Aug 2019 17:53:47 +0800
+Message-ID: <CAEemH2daVNZM+Jf2+vooouRFfSpjWTgfT9+KneAikE5ncLys_A@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_SOFTFAIL
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] hugetlbfs: fix hugetlb page migration/fault race
- causing SIGBUS
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 00/11] Introduce guarded buffers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,46 +60,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: xishi.qiuxishi@alibaba-inc.com, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, Vlastimil Babka <vbabka@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>,
- Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>, ltp@lists.linux.it,
- Mike Kravetz <mike.kravetz@oracle.com>
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Mon 12-08-19 11:33:26, Sasha Levin wrote:
-[...]
-> I'd be happy to run whatever validation/regression suite for mm/ you
-> would suggest.
+Hi Cyril,
 
-You would have to develop one first and I am afraid that won't be really
-simple and useful.
+I helped to compile & run the whole patch v2 on some platforms[1], the
+test result looks pretty good.
 
-> I've heard the "every patch is a snowflake" story quite a few times, and
-> I understand that most mm/ patches are complex, but we agree that
-> manually testing every patch isn't scalable, right? Even for patches
-> that mm/ tags for stable, are they actually tested on every stable tree?
-> How is it different from the "aplies-it-must-be-ok workflow"?
+Just a tiny issue was found in test_guarded_buf.c, since the .bufs
+does not ending with a {}, so sometimes it gets segmental fault from:
+        $ cat tst_buffers.c  -n
+        115 for (i = 0; bufs[i].ptr; i++) {
 
-There is a human brain put in and process each patch to make sure that
-the change makes sense and we won't break none of many workloads that
-people care about. Even if you run your patch throug mm tests which is
-by far the most comprehensive test suite I know of we do regress from
-time to time. We simply do not have a realistic testing coverage becuase
-workload differ quite a lot and they are not really trivial to isolate
-to a self contained test case. A lot of functionality doesn't have a
-direct interface to test for because it triggers when the system gets
-into some state.
+And I will keep going to review the patchset in the next few days.
+Will let you know if I can find more issues.
 
-Ideal? Not at all and I am happy to hear some better ideas. Until then
-we simply have to rely on gut feeling and understanding of the code
-and experience from workloads we have seen in the past.
+[1] (x86_64 + kernel-5.3.0-rc3), (aarch64 + kernel-4.18.0),
+(rassberryPi + 4.14.78)
+
 -- 
-Michal Hocko
-SUSE Labs
+Regards,
+Li Wang
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
