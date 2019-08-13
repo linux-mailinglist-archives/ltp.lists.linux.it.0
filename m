@@ -2,40 +2,30 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 190588A979
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Aug 2019 23:37:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A96F48B2B5
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Aug 2019 10:43:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A05553C1D17
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Aug 2019 23:37:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 607A43C1CF3
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Aug 2019 10:43:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 757C23C0302
- for <ltp@lists.linux.it>; Mon, 12 Aug 2019 23:37:36 +0200 (CEST)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id E30843C0300
+ for <ltp@lists.linux.it>; Tue, 13 Aug 2019 10:43:22 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5418F1000AC3
- for <ltp@lists.linux.it>; Mon, 12 Aug 2019 23:37:29 +0200 (CEST)
-Received: from akpm3.svl.corp.google.com (unknown [104.133.8.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 25FB2206C1;
- Mon, 12 Aug 2019 21:37:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1565645852;
- bh=07tJJiA2VR08JnF9uwMOoDCaKsZwYqGb2v9SvApZzMc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=xHPKjAQr8eR3Ys5t2F8n8lhJx/sQg6Qgi3Km8sf0/tf137IyaQhuxWflV6htZbHui
- kpSIg+UULX+BoKkMpAo+Sx8XyPE8Jl/KJ3HJq7Aevp+VoNDiBBFPV+L4dhqxK59Toh
- kUg/XzZ9wWOiMo6oYMgEAxSGz3yUuPiS3S+nDnYg=
-Date: Mon, 12 Aug 2019 14:37:31 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 2A6E6600805
+ for <ltp@lists.linux.it>; Tue, 13 Aug 2019 10:43:23 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 53120AB92;
+ Tue, 13 Aug 2019 08:43:19 +0000 (UTC)
+Date: Tue, 13 Aug 2019 10:43:17 +0200
+From: Michal Hocko <mhocko@kernel.org>
 To: Sasha Levin <sashal@kernel.org>
-Message-Id: <20190812143731.3f46b952e53ff3434e04bcf9@linux-foundation.org>
-In-Reply-To: <20190812153326.GB17747@sasha-vm>
-References: <20190808074736.GJ11812@dhcp22.suse.cz>
- <416ee59e-9ae8-f72d-1b26-4d3d31501330@oracle.com>
+Message-ID: <20190813084317.GD17933@dhcp22.suse.cz>
+References: <416ee59e-9ae8-f72d-1b26-4d3d31501330@oracle.com>
  <20190808185313.GG18351@dhcp22.suse.cz>
  <20190808163928.118f8da4f4289f7c51b8ffd4@linux-foundation.org>
  <20190809064633.GK18351@dhcp22.suse.cz>
@@ -45,13 +35,15 @@ References: <20190808074736.GJ11812@dhcp22.suse.cz>
  <39b59001-55c1-a98b-75df-3a5dcec74504@suse.cz>
  <20190812132226.GI5117@dhcp22.suse.cz>
  <20190812153326.GB17747@sasha-vm>
-X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
-Mime-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190812153326.GB17747@sasha-vm>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] hugetlbfs: fix hugetlb page migration/fault race
  causing SIGBUS
 X-BeenThere: ltp@lists.linux.it
@@ -66,36 +58,45 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: xishi.qiuxishi@alibaba-inc.com, linux-kernel@vger.kernel.org,
- Michal Hocko <mhocko@kernel.org>, linux-mm@kvack.org,
- Vlastimil Babka <vbabka@suse.cz>, Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>,
- ltp@lists.linux.it, Mike Kravetz <mike.kravetz@oracle.com>
+ linux-mm@kvack.org, Vlastimil Babka <vbabka@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>, ltp@lists.linux.it,
+ Mike Kravetz <mike.kravetz@oracle.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Mon, 12 Aug 2019 11:33:26 -0400 Sasha Levin <sashal@kernel.org> wrote:
+On Mon 12-08-19 11:33:26, Sasha Levin wrote:
+[...]
+> I'd be happy to run whatever validation/regression suite for mm/ you
+> would suggest.
 
-> >I thought that absence of the Cc is the indication :P. Anyway, I really
-> >do not understand why should we bother, really. I have tried to explain
-> >that stable maintainers should follow Cc: stable because we bother to
-> >consider that part and we are quite good at not forgetting (Thanks
-> >Andrew for persistence). Sasha has told me that MM will be blacklisted
-> >from automagic selection procedure.
-> 
-> I'll add mm/ to the ignore list for AUTOSEL patches.
+You would have to develop one first and I am afraid that won't be really
+simple and useful.
 
-Thanks, I'm OK with that.  I'll undo Fixes-no-stable.
+> I've heard the "every patch is a snowflake" story quite a few times, and
+> I understand that most mm/ patches are complex, but we agree that
+> manually testing every patch isn't scalable, right? Even for patches
+> that mm/ tags for stable, are they actually tested on every stable tree?
+> How is it different from the "aplies-it-must-be-ok workflow"?
 
-Although I'd prefer that "akpm" was ignored, rather than "./mm/". 
-Plenty of "mm" patches don't touch mm/, such as drivers/base/memory.c,
-include/linux/blah, fs/, etc.  And I am diligent about considering
--stable for all the other code I look after.
+There is a human brain put in and process each patch to make sure that
+the change makes sense and we won't break none of many workloads that
+people care about. Even if you run your patch throug mm tests which is
+by far the most comprehensive test suite I know of we do regress from
+time to time. We simply do not have a realistic testing coverage becuase
+workload differ quite a lot and they are not really trivial to isolate
+to a self contained test case. A lot of functionality doesn't have a
+direct interface to test for because it triggers when the system gets
+into some state.
 
-This doesn't mean that I'm correct all the time, by any means - I'd
-like to hear about patches which autosel thinks should be backported
-but which don't include the c:stable tag.
-
+Ideal? Not at all and I am happy to hear some better ideas. Until then
+we simply have to rely on gut feeling and understanding of the code
+and experience from workloads we have seen in the past.
+-- 
+Michal Hocko
+SUSE Labs
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
