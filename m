@@ -2,36 +2,37 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CE098D2C6
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Aug 2019 14:13:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 508B28E4A8
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2019 07:58:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0F6BE3C1D16
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Aug 2019 14:13:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CB2653C1D75
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Aug 2019 07:58:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id EB4F93C0300
- for <ltp@lists.linux.it>; Wed, 14 Aug 2019 14:13:34 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 450D33C1D18
+ for <ltp@lists.linux.it>; Thu, 15 Aug 2019 07:58:46 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A73A1140182C
- for <ltp@lists.linux.it>; Wed, 14 Aug 2019 14:13:33 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 94DF62011E7
+ for <ltp@lists.linux.it>; Thu, 15 Aug 2019 07:58:45 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 1441DACEC;
- Wed, 14 Aug 2019 12:13:32 +0000 (UTC)
-From: Cyril Hrubis <chrubis@suse.cz>
+ by mx1.suse.de (Postfix) with ESMTP id 9667CAFE3;
+ Thu, 15 Aug 2019 05:58:43 +0000 (UTC)
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 14 Aug 2019 14:13:28 +0200
-Message-Id: <20190814121328.22999-1-chrubis@suse.cz>
-X-Mailer: git-send-email 2.21.0
+Date: Thu, 15 Aug 2019 07:58:36 +0200
+Message-Id: <20190815055836.13634-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.22.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH] syscalls/shmat03: Remove it from runtest/cve
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v3] zram01: Improve error detection
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,98 +44,69 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Davidlohr Bueso <dave@stgolabs.net>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The original POC[1] and CVE-2017-5669 are not tested by this test
-anymore as it turned out that the CVE was bogus.
+* TBROK when detected size is 0 (+ print dd stderr, if any)
+* TBROK if actually used memory is 0, this fixes division by 0:
 
-And the test became regression test for:
+Sometimes free reports no memory use by zram, which leads to division by 0:
+zram01 8 TINFO: zram used 0M, zram disk sizes 104857600M
+/opt/ltp/testcases/bin/zram01.sh: line 87: 100 * 104857600 / 0: division by 0 (error token is "0")
 
-commit 8f89c007b6dec16a1793cb88de88fcc02117bbbc
-Author: Davidlohr Bueso <dave@stgolabs.net>
-Date:   Fri May 25 14:47:30 2018 -0700
-
-    ipc/shm: fix shmat() nil address after round-down when remapping
-
-Hence we will keep the test but remove it from the CVE runtest file and adjust
-the top level comment in the test code.
-
-[1] https://bugzilla.kernel.org/attachment.cgi?id=252511
-    from https://bugzilla.kernel.org/show_bug.cgi?id=192931
-
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-CC: Davidlohr Bueso <dave@stgolabs.net>
+Suggested-by: Alexey Kodanev <alexey.kodanev@oracle.com>
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- runtest/cve                                   |  1 -
- testcases/kernel/syscalls/ipc/shmat/shmat03.c | 32 ++++++++++---------
- 2 files changed, 17 insertions(+), 16 deletions(-)
+Hi Alexey,
 
-diff --git a/runtest/cve b/runtest/cve
-index 33c9196e0..acbbbe5f5 100644
---- a/runtest/cve
-+++ b/runtest/cve
-@@ -16,7 +16,6 @@ cve-2016-9604 keyctl08
- cve-2016-10044 cve-2016-10044
- cve-2017-2618 cve-2017-2618
- cve-2017-2671 cve-2017-2671
--cve-2017-5669 shmat03
- cve-2017-6951 request_key05
- cve-2017-7308 setsockopt02
- cve-2017-7472 keyctl04
-diff --git a/testcases/kernel/syscalls/ipc/shmat/shmat03.c b/testcases/kernel/syscalls/ipc/shmat/shmat03.c
-index 13ea39c63..18d3db028 100644
---- a/testcases/kernel/syscalls/ipc/shmat/shmat03.c
-+++ b/testcases/kernel/syscalls/ipc/shmat/shmat03.c
-@@ -4,26 +4,28 @@
-  * Copyright (c) 2017 Fujitsu Ltd. (Xiao Yang <yangx.jy@cn.fujitsu.com>)
-  */
- /*
-- * Test for CVE-2017-5669 which allows us to map the nil page using shmat.
-+ * Originated as a test for CVE-2017-5669 but as it turns out the CVE was bogus
-+ * to begin with and the test was changed into a regression test for commit:
-  *
-- * When the bug is present shmat(..., (void *)1, SHM_RND) will round address
-- * 0x1 down to zero and give us the (nil/null) page. With the current bug fix
-- * in place, shmat it will return EINVAL instead. We also check to see if the
-- * returned address is outside the nil page in case an alternative fix has
-- * been applied.
-+ * commit 8f89c007b6dec16a1793cb88de88fcc02117bbbc
-+ * Author: Davidlohr Bueso <dave@stgolabs.net>
-+ * Date:   Fri May 25 14:47:30 2018 -0700
-  *
-- * In any case we manage to map some memory we also try to write to it. This
-- * is just to see if we get an access error or some other unexpected behaviour.
-+ *  ipc/shm: fix shmat() nil address after round-down when remapping
-  *
-- * See commit 95e91b831f (ipc/shm: Fix shmat mmap nil-page protection)
-+ * Which makes sure that SHM_REMAP forbids NULL address consistently for
-+ * SHM_RND as well.
-  *
-- * The commit above disallowed SHM_RND maps to zero (and rounded) entirely and
-- * that broke userland for cases like Xorg. New behavior disallows REMAPs to
-- * lower addresses (0<=PAGESIZE).
-+ * The timeline went as:
-  *
-- * See commit a73ab244f0da (Revert "ipc/shm: Fix shmat mmap nil-page protect...)
-- * See commit 8f89c007b6de (ipc/shm: fix shmat() nil address after round-dow...)
-- * See https://github.com/linux-test-project/ltp/issues/319
-+ * 95e91b831f (ipc/shm: Fix shmat mmap nil-page protection)
-+ * a73ab244f0da (Revert "ipc/shm: Fix shmat mmap nil-page protect...)
-+ * 8f89c007b6de (ipc/shm: fix shmat() nil address after round-dow...)
-+ *
-+ * The original commit disallowed SHM_RND maps to zero (and rounded) entirely
-+ * and that broke userland for cases like Xorg.
-+ *
-+ * See also https://github.com/linux-test-project/ltp/issues/319
-  *
-  * This test needs root permissions or else security_mmap_addr(), from
-  * get_unmapped_area(), will cause permission errors when trying to mmap lower
+feel free to send your fix if this is not what you meant.
+
+Kind regards,
+Petr
+
+Changes v2->v3:
+* print last dd error (if any) only when $b -eq 0
+
+Changes v2->v3:
+* add TBROK when $b -eq 0
+* print last dd error, if any
+---
+
+ testcases/kernel/device-drivers/zram/zram01.sh | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/testcases/kernel/device-drivers/zram/zram01.sh b/testcases/kernel/device-drivers/zram/zram01.sh
+index b3ed5170d..c0d46ed75 100755
+--- a/testcases/kernel/device-drivers/zram/zram01.sh
++++ b/testcases/kernel/device-drivers/zram/zram01.sh
+@@ -67,9 +67,13 @@ zram_fill_fs()
+ 		while true; do
+ 			dd conv=notrunc if=/dev/zero of=zram${i}/file \
+ 				oflag=append count=1 bs=1024 status=none \
+-				> /dev/null 2>&1 || break
++				2>err.txt || break
+ 			b=$(($b + 1))
+ 		done
++		if [ $b -eq 0 ]; then
++			[ -s err.txt ] && tst_resm TWARN "dd error: $(cat err.txt)"
++			tst_brkm TBROK "cannot fill zram"
++		fi
+ 		tst_resm TINFO "zram$i can be filled with '$b' KB"
+ 	done
+ 
+@@ -82,6 +86,8 @@ zram_fill_fs()
+ 		total_size=$(($total_size + $s))
+ 	done
+ 
++	[ $used_mem -eq 0 ] && tst_brkm TBROK "no memory used by zram"
++
+ 	tst_resm TINFO "zram used ${used_mem}M, zram disk sizes ${total_size}M"
+ 
+ 	local v=$((100 * $total_size / $used_mem))
 -- 
-2.21.0
+2.22.0
 
 
 -- 
