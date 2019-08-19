@@ -2,41 +2,44 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55874923AB
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Aug 2019 14:42:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDA10924F8
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Aug 2019 15:28:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 082AF3C1CE7
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Aug 2019 14:42:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 82E833C1814
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Aug 2019 15:28:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 8C6DE3C1C88
- for <ltp@lists.linux.it>; Mon, 19 Aug 2019 14:42:03 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id EBD6B3C1814
+ for <ltp@lists.linux.it>; Mon, 19 Aug 2019 15:28:51 +0200 (CEST)
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+ (using TLSv1.1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 0F5DE1000A59
- for <ltp@lists.linux.it>; Mon, 19 Aug 2019 14:41:55 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 8E07AAB9B
- for <ltp@lists.linux.it>; Mon, 19 Aug 2019 12:42:01 +0000 (UTC)
-Date: Mon, 19 Aug 2019 14:42:00 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Message-ID: <20190819124159.GA11715@rei.lan>
-References: <20190812143941.8119-1-chrubis@suse.cz>
- <20190812143941.8119-2-chrubis@suse.cz>
- <877e79wmme.fsf@rpws.prws.suse.cz>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E7B38200BC6
+ for <ltp@lists.linux.it>; Mon, 19 Aug 2019 15:28:45 +0200 (CEST)
+Received: from ALA-HCA.corp.ad.wrs.com ([147.11.189.40])
+ by mail.windriver.com (8.15.2/8.15.1) with ESMTPS id x7JDSfj8001914
+ (version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL)
+ for <ltp@lists.linux.it>; Mon, 19 Aug 2019 06:28:42 -0700 (PDT)
+Received: from [128.224.162.221] (128.224.162.221) by ALA-HCA.corp.ad.wrs.com
+ (147.11.189.50) with Microsoft SMTP Server (TLS) id 14.3.468.0;
+ Mon, 19 Aug 2019 06:28:40 -0700
+To: <ltp@lists.linux.it>
+From: He Zhe <zhe.he@windriver.com>
+Message-ID: <2c982dfd-9929-8969-4c4e-18d2d91ede1b@windriver.com>
+Date: Mon, 19 Aug 2019 21:28:38 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <877e79wmme.fsf@rpws.prws.suse.cz>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+Content-Language: en-US
+X-Originating-IP: [128.224.162.221]
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 01/11] lib: Add support for guarded buffers
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] MIPS/MIPS64 syscalls
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,58 +51,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> We could add guarded buffers to huge numbers of tests by wrapping the
-> user supplied buffer in various calls to SAFE_* macros and tst_*
-> functions. This could be configurable at compile time and it should be
-> detectable if a buffer is already guarded, so double wrapping should not
-> be an issue.
-
-Fair point. The detection would however be O(n), well we can do a little
-trick like maintaing the memory range in which all the mmaps were done
-and rule out any heap based allocation in O(1) easily, but anything that
-crosses the malloc threshold would be O(n).
-
-> However I am not sure the current API makes this easy. We should
-> probably have a tst_free(void *buf) and/or tst_buffer_alloc(struct
-> tst_buffer *buf) and tst_buffer_free(struct tst_buffer *buf) (which
-> could just put the buffer on a free list for reuse).
-
-I guess that this calls for completely different API since 99% time we
-will do with just single buffer.
-
-Unless we are:
-
-* The test is compiled with pthreads
-  and we managed to run two SAFE_MACROS() concurently
-
-* The buffer is bigger than one page
-
-* We call SAFE_MACROS() recursively, which we don't
-
-So all of this could be done by a tst_temp_alloc() and tst_temp_free()
-that would attempt to grab single pre-allocated buffer and only fall
-back to allocating/freeing new buffer when the buffer is currently in
-use.
-
-> I am not sure if this is something which needs to be addressed now or
-> can be left for another patch set. My main concern is that one of the
-> existing API functions will need to be changed.
-
-I guess that it would be easier to make these changes incrementally,
-because adding more functionality to this patchset would only make it
-harder to review and I would like to get this API in so that we can
-star making use of it.
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkgQWxsLAoKVGhlcmUgc2VlbXMgbm90IGFueSBtaXBzL21pcHM2NCBzeXNjYWxscyBkZWZpbmVk
+LiBXaGVyZSBjYW4gd2UgZmluZCB0aGVtPyBvciBkbyB3ZSBzdXBwb3J0IHRoZW0/CgpscyBpbmNs
+dWRlL2xhcGkvc3lzY2FsbHMvCmFhcmNoNjQuaW7CoCBocHBhLmluwqAgaWE2NC5pbsKgIHBvd2Vy
+cGM2NC5pbsKgIHJlZ2VuLnNowqAgczM5MHguaW7CoCBzcGFyYzY0LmluwqAgc3RyaXBfc3lzY2Fs
+bC5hd2sKYXJtLmluwqDCoMKgwqDCoCBpMzg2LmluwqAgb3JkZXLCoMKgwqAgcG93ZXJwYy5pbsKg
+wqDCoCBzMzkwLmluwqDCoCBzaC5pbsKgwqDCoMKgIHNwYXJjLmluwqDCoMKgIHg4Nl82NC5pbgoK
+U29tZSBjYXNlcyBsaWtlIHJ0X3NpZ3RpbWVkd2FpdDAxIHdvdWxkIGZhaWwgd2l0aG91dCB0aGUg
+ZGVmaW5pdGlvbi4KCi4vdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9zaWd3YWl0aW5mby9zaWd3
+YWl0aW5mbzAxLmMKI2lmZGVmIFRFU1RfUlRfU0lHVElNRURXQUlUwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoApzdGF0aWMgaW50IG15X3J0X3NpZ3RpbWVk
+d2FpdChjb25zdCBzaWdzZXRfdCAqIHNldCwgc2lnaW5mb190ICogaW5mbyzCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgCsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IHRpbWVzcGVjICp0aW1lb3V0KcKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgCnvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoArCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgCsKgwqDCoMKgwqDCoMKgIC8qIFRoZSBsYXN0IGFyZ3VtZW50IGlzIChu
+dW1iZXJfb2Zfc2lnbmFscykvKGJpdHNfcGVyX2J5dGUpLCB3aGljaCBhcmUgNjQgYW5kIDgsIHJl
+c3AuICovCsKgwqDCoMKgwqDCoMKgIHJldHVybiBsdHBfc3lzY2FsbChfX05SX3J0X3NpZ3RpbWVk
+d2FpdCwgc2V0LCBpbmZvLCB0aW1lb3V0LCA4KTvCoMKgwqDCoMKgwqDCoMKgCn3CoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoAojZW5kaWYKCgpUaGFua3MsClpoZQoK
+LS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0
+cAo=
