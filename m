@@ -2,40 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A636392099
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Aug 2019 11:44:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55874923AB
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Aug 2019 14:42:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6DBF03C1CE4
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Aug 2019 11:44:44 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 082AF3C1CE7
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Aug 2019 14:42:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 4F8483C18F7
- for <ltp@lists.linux.it>; Mon, 19 Aug 2019 11:44:42 +0200 (CEST)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 8C6DE3C1C88
+ for <ltp@lists.linux.it>; Mon, 19 Aug 2019 14:42:03 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7E3D91400B61
- for <ltp@lists.linux.it>; Mon, 19 Aug 2019 11:44:41 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 0F5DE1000A59
+ for <ltp@lists.linux.it>; Mon, 19 Aug 2019 14:41:55 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id C7F1BAF0B
- for <ltp@lists.linux.it>; Mon, 19 Aug 2019 09:44:40 +0000 (UTC)
+ by mx1.suse.de (Postfix) with ESMTP id 8E07AAB9B
+ for <ltp@lists.linux.it>; Mon, 19 Aug 2019 12:42:01 +0000 (UTC)
+Date: Mon, 19 Aug 2019 14:42:00 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.de>
+Message-ID: <20190819124159.GA11715@rei.lan>
 References: <20190812143941.8119-1-chrubis@suse.cz>
- <20190812143941.8119-4-chrubis@suse.cz>
-User-agent: mu4e 1.2.0; emacs 26.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: ltp@lists.linux.it
-In-reply-to: <20190812143941.8119-4-chrubis@suse.cz>
-Date: Mon, 19 Aug 2019 11:44:40 +0200
-Message-ID: <875zmtwktz.fsf@rpws.prws.suse.cz>
+ <20190812143941.8119-2-chrubis@suse.cz>
+ <877e79wmme.fsf@rpws.prws.suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <877e79wmme.fsf@rpws.prws.suse.cz>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 03/11] doc: Add guarded buffers documentation
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 01/11] lib: Add support for guarded buffers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,123 +48,58 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi!
+> We could add guarded buffers to huge numbers of tests by wrapping the
+> user supplied buffer in various calls to SAFE_* macros and tst_*
+> functions. This could be configurable at compile time and it should be
+> detectable if a buffer is already guarded, so double wrapping should not
+> be an issue.
 
-Just nitpicking...
+Fair point. The detection would however be O(n), well we can do a little
+trick like maintaing the memory range in which all the mmaps were done
+and rule out any heap based allocation in O(1) easily, but anything that
+crosses the malloc threshold would be O(n).
 
-Cyril Hrubis <chrubis@suse.cz> writes:
+> However I am not sure the current API makes this easy. We should
+> probably have a tst_free(void *buf) and/or tst_buffer_alloc(struct
+> tst_buffer *buf) and tst_buffer_free(struct tst_buffer *buf) (which
+> could just put the buffer on a free list for reuse).
 
-> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-> ---
->  doc/test-writing-guidelines.txt | 68 +++++++++++++++++++++++++++++++++
->  1 file changed, 68 insertions(+)
->
-> diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
-> index 573dd08d9..e5ee2fef0 100644
-> --- a/doc/test-writing-guidelines.txt
-> +++ b/doc/test-writing-guidelines.txt
-> @@ -1699,6 +1699,74 @@ struct tst_test test = {
->  };
->  -------------------------------------------------------------------------------
->  
-> +2.2.31 Guarded buffers
-> +^^^^^^^^^^^^^^^^^^^^^^
-> +
-> +The test library also supports guarded buffers, which are buffers allocated so
-> +that:
+I guess that this calls for completely different API since 99% time we
+will do with just single buffer.
 
-Don't need 'also'
+Unless we are:
 
-> +
-> +* The end of the buffer is followed by PROT_NONE page
-                                         ^ a
-> +
-> +* The rest of the page before the buffer is filled with random canary
-         ^ remainder                                                     ^data
+* The test is compiled with pthreads
+  and we managed to run two SAFE_MACROS() concurently
 
-> +
-> +Which means that the any access after the buffer with yield Segmentation
-                                                    ^ will    ^ a
-> +fault or EFAULT depending on if the access happened in userspace or kernel
-                                                                      ^the
-> +respectively. The canary before the buffer will also catch any write access
-> +outside of the buffer.
-> +
-> +The purpose of the patch is to catch off-by-one bugs happening while buffers
-                                                      ^ which happen
-                                                      when buffers ...
+* The buffer is bigger than one page
 
-> +and structures are passed to syscalls. New tests should allocate guarded
-> +buffers for all data passed to the tested syscall which are passed by a
-> +pointer.
-> +
-> +[source,c]
-> +-------------------------------------------------------------------------------
-> +#include "tst_test.h"
-> +
-> +static struct foo *foo_ptr;
-> +static struct iovec *iov;
-> +static void *buf_ptr;
-> +static char *id;
-> +...
-> +
-> +static void run(void)
-> +{
-> +	...
-> +
-> +	foo_ptr->bar = 1;
-> +	foo_ptr->buf = buf_ptr;
-> +
-> +	...
-> +}
-> +
-> +static void setup(void)
-> +{
-> +	...
-> +
-> +	id = tst_strdup(string);
-> +
-> +	...
-> +}
-> +
-> +static struct tst_test test = {
-> +	...
-> +	.bufs = (struct tst_buffers []) {
-> +		{&foo_ptr, .size = sizeof(*foo_ptr)},
-> +		{&buf_ptr, .size = BUF_SIZE},
-> +		{&iov, .iov_sizes = (int[]){128, 32, -1},
-> +		{}
-> +	}
-> +};
-> +-------------------------------------------------------------------------------
-> +
-> +Guarded buffers can be allocated on runtime in a test setup() by a
-                                    ^ at                        ^ function
-> +'tst_alloc()' or by 'tst_strdup()' as well as by filling up the .bufs array in
-^ call to
+* We call SAFE_MACROS() recursively, which we don't
 
-> +the tst_test structure.
-> +
-> +So far the tst_test structure supports allocating either a plain buffer by
-> +setting up the size or struct iovec, which is allocated recursively including
-> +the individual buffers as described by an '-1' terminated array of buffer
-> +sizes.
->  
->  2.3 Writing a testcase in shell
->  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> -- 
-> 2.21.0
+So all of this could be done by a tst_temp_alloc() and tst_temp_free()
+that would attempt to grab single pre-allocated buffer and only fall
+back to allocating/freeing new buffer when the buffer is currently in
+use.
 
+> I am not sure if this is something which needs to be addressed now or
+> can be left for another patch set. My main concern is that one of the
+> existing API functions will need to be changed.
+
+I guess that it would be easier to make these changes incrementally,
+because adding more functionality to this patchset would only make it
+harder to review and I would like to get this API in so that we can
+star making use of it.
 
 -- 
-Thank you,
-Richard.
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
