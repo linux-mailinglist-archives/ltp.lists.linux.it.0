@@ -1,63 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FF9491ED7
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Aug 2019 10:27:01 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 72BE391FA2
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Aug 2019 11:06:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F1AB23C1C96
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Aug 2019 10:27:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F30563C1D1D
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Aug 2019 11:06:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id B46583C1770
- for <ltp@lists.linux.it>; Mon, 19 Aug 2019 10:26:59 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 708B43C1814
+ for <ltp@lists.linux.it>; Mon, 19 Aug 2019 11:06:04 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 783216007A5
- for <ltp@lists.linux.it>; Mon, 19 Aug 2019 10:27:01 +0200 (CEST)
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
- [209.85.217.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 68B052EF175
- for <ltp@lists.linux.it>; Mon, 19 Aug 2019 08:26:57 +0000 (UTC)
-Received: by mail-vs1-f71.google.com with SMTP id p63so522280vsd.10
- for <ltp@lists.linux.it>; Mon, 19 Aug 2019 01:26:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=vCR01+/FGbwbEa80wtnY0CBGdkQPgXOR+kN8EJ/0a5E=;
- b=JEYPSj57E9fI6AnyV7752ATOr3u8YshoymuXOmGYd2RJFaqN42uTY1bIxuXRJr4qF3
- SSZBMIfkNaCv06MZcmlYAb9fpmd3AuOySiOrwh8RvlsPVS4ZB0Tp3ZfedSAgP6g94Eua
- VJWrscSxWSGeKtaZ07x3TYBvzWPQxnxmTlF3z9kLoqoxgZQ3Cef+AKdMbyPKmY9iQo6y
- M1RqBrGhT707pyjeTkK4wajSEW4YJ052esSEbXKSz1u7R5QhAzvPLB76YgrGtjbzAhih
- 6jgZ6xTKR0WtXs9kzsOqrpIwXJXLYX6+8wbELfrfCFQZlI7S5P5Y4wKxXlU0TwlLoeC/
- DzCw==
-X-Gm-Message-State: APjAAAUKMahFy4o/B13HYzZylJlSV8vX3HQS6hBkZoOHSwWx7raleLc4
- eTXT/RhrlLeznVdhNb4xADrlgJhFHGZOI0SS+ZFyA2mOMrcbotQvEWj8rNof38uQLpsZVZntxiF
- wpjkA4xLgtIZHMPgw8aqsYPmygAE=
-X-Received: by 2002:ab0:3384:: with SMTP id y4mr6508599uap.106.1566203216656; 
- Mon, 19 Aug 2019 01:26:56 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqy4ICb7HZ7XQF/t5NNhVjHaEiQ/GfTQJJN0ItvUwg3rYkXGR0oAP4BRacNRVBdG7QcyC3SuGP9Xvq+lf6v5QOM=
-X-Received: by 2002:ab0:3384:: with SMTP id y4mr6508590uap.106.1566203216424; 
- Mon, 19 Aug 2019 01:26:56 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 14CF320021E
+ for <ltp@lists.linux.it>; Mon, 19 Aug 2019 11:06:02 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 8B69BADEC
+ for <ltp@lists.linux.it>; Mon, 19 Aug 2019 09:06:01 +0000 (UTC)
+References: <20190812143941.8119-1-chrubis@suse.cz>
+ <20190812143941.8119-2-chrubis@suse.cz>
+User-agent: mu4e 1.2.0; emacs 26.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: ltp@lists.linux.it
+In-reply-to: <20190812143941.8119-2-chrubis@suse.cz>
+Date: Mon, 19 Aug 2019 11:06:01 +0200
+Message-ID: <877e79wmme.fsf@rpws.prws.suse.cz>
 MIME-Version: 1.0
-References: <20190819065928.26939-1-yixin.zhang@intel.com>
-In-Reply-To: <20190819065928.26939-1-yixin.zhang@intel.com>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 19 Aug 2019 16:26:44 +0800
-Message-ID: <CAEemH2d+PX0VLN5kSnx5G=W7h-uBVZdtEQxNbgsi5P6YwTT83Q@mail.gmail.com>
-To: Yixin Zhang <yixin.zhang@intel.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH ltp] testcases/kernel/Makefile: remove 'timer'
- from Android FILTER_OUT_DIRS
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 01/11] lib: Add support for guarded buffers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,22 +46,89 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Reply-To: rpalethorpe@suse.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Mon, Aug 19, 2019 at 3:10 PM Yixin Zhang <yixin.zhang@intel.com> wrote:
->
-> 'timer' folder is removed in 0051eab232e7f777f435945b1aba8911f203d65b.
-> Remove it from FILTER_OUT_DIRS for Android
+Hi,
 
-Good catch, pushed.
+Cyril Hrubis <chrubis@suse.cz> writes:
 
--- 
-Regards,
-Li Wang
+> +
+> +/*
+> + * Buffer description consist of a pointer to a pointer and buffer type/size
+> + * encoded as a different structure members.
+> + *
+> + * Only one of the size and iov_sizes can be set at a time.
+> + */
+> +struct tst_buffers {
+> +	/*
+> +	 * This pointer points to a buffer pointer.
+> +	 */
+> +	void *ptr;
+> +	/*
+> +	 * Buffer size.
+> +	 */
+> +	size_t size;
+> +	/*
+> +	 * Array of iov buffer sizes terminated by -1.
+> +	 */
+> +	int *iov_sizes;
+> +};
+> +
+> +/*
+> + * Allocates buffers based on the tst_buffers structure.
+> + *
+> + * @bufs NULL terminated array of test buffer descriptions.
+> + *
+> + * This is called from the test library if the tst_test->bufs pointer is set.
+> + */
+> +void tst_buffers_alloc(struct tst_buffers bufs[]);
+> +
+> +/*
+> + * strdup() that callls tst_alloc().
+> + */
+> +char *tst_strdup(const char *str);
+> +
+> +/*
+> + * Allocates size bytes, returns pointer to the allocated buffer.
+> + */
+> +void *tst_alloc(size_t size);
+> +
+> +/*
+> + * Allocates iovec structure including the buffers.
+> + *
+> + * @sizes -1 terminated array of buffer sizes.
+> + */
+> +struct iovec *tst_iovec_alloc(int sizes[]);
+> +
+> +/*
+> + * Frees all allocated buffers.
+> + *
+> + * This is called at the end of the test automatically.
+> + */
+> +void tst_free_all(void);
+
+We could add guarded buffers to huge numbers of tests by wrapping the
+user supplied buffer in various calls to SAFE_* macros and tst_*
+functions. This could be configurable at compile time and it should be
+detectable if a buffer is already guarded, so double wrapping should not
+be an issue.
+
+However I am not sure the current API makes this easy. We should
+probably have a tst_free(void *buf) and/or tst_buffer_alloc(struct
+tst_buffer *buf) and tst_buffer_free(struct tst_buffer *buf) (which
+could just put the buffer on a free list for reuse).
+
+I am not sure if this is something which needs to be addressed now or
+can be left for another patch set. My main concern is that one of the
+existing API functions will need to be changed.
+
+--
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
