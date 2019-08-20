@@ -1,42 +1,51 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 062BE95963
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Aug 2019 10:25:12 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C663295AAC
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Aug 2019 11:10:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B75AE3C1D01
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Aug 2019 10:25:11 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4B0163C1D24
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Aug 2019 11:10:19 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id C60193C18F8
- for <ltp@lists.linux.it>; Tue, 20 Aug 2019 10:25:09 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id BDA76200C6A
- for <ltp@lists.linux.it>; Tue, 20 Aug 2019 10:25:08 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 3D6F4ABBE
- for <ltp@lists.linux.it>; Tue, 20 Aug 2019 08:25:06 +0000 (UTC)
-References: <20190812143941.8119-1-chrubis@suse.cz>
- <20190812143941.8119-2-chrubis@suse.cz> <877e79wmme.fsf@rpws.prws.suse.cz>
- <20190819124159.GA11715@rei.lan>
-User-agent: mu4e 1.2.0; emacs 26.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Cyril Hrubis <chrubis@suse.cz>
-In-reply-to: <20190819124159.GA11715@rei.lan>
-Date: Tue, 20 Aug 2019 10:25:06 +0200
-Message-ID: <8736hww8f1.fsf@rpws.prws.suse.cz>
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 77BE03C1CE4
+ for <ltp@lists.linux.it>; Tue, 20 Aug 2019 11:10:15 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id A7FA7600875
+ for <ltp@lists.linux.it>; Tue, 20 Aug 2019 11:10:13 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.64,407,1559491200"; d="scan'208";a="73940535"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 20 Aug 2019 17:10:11 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id 881754CE03E3;
+ Tue, 20 Aug 2019 17:10:06 +0800 (CST)
+Received: from [10.167.215.46] (10.167.215.46) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ id 14.3.439.0; Tue, 20 Aug 2019 17:10:03 +0800
+Message-ID: <5D5BB8DC.6070900@cn.fujitsu.com>
+Date: Tue, 20 Aug 2019 17:09:48 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
-X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+To: Li Wang <liwang@redhat.com>
+References: <20190815083630.26975-1-pvorel@suse.cz>
+ <20190816085309.fqvip4exe4mvtv2o@XZHOUW.usersys.redhat.com>
+ <CAEemH2d7TYn4sZ7kkjRsPc-yBnTrN9LC+w84MAO6pDxYpfiFcw@mail.gmail.com>
+In-Reply-To: <CAEemH2d7TYn4sZ7kkjRsPc-yBnTrN9LC+w84MAO6pDxYpfiFcw@mail.gmail.com>
+X-Originating-IP: [10.167.215.46]
+X-yoursite-MailScanner-ID: 881754CE03E3.AD50E
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 01/11] lib: Add support for guarded buffers
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Status: Clean
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] lapi/fs.h: Replace MAX_LFS_FILESIZE constant with
+ own implementation
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,66 +57,79 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
+Cc: LTP List <ltp@lists.linux.it>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+on 2019/08/19 16:16, Li Wang wrote:
 
-Cyril Hrubis <chrubis@suse.cz> writes:
+> On Fri, Aug 16, 2019 at 4:53 PM Murphy Zhou<jencce.kernel@gmail.com>  wrote:
+>> On Thu, Aug 15, 2019 at 10:36:30AM +0200, Petr Vorel wrote:
+>>> Some libc implementations on arm (at least AArch32 target with hard
+>>> float (arm-linux-gnueabihf)) or some libc (musl, bionic) does not
+>>> export PAGE_SHIFT. Replace it with own inline function.
+>>>
+>>> This required to replace MAX_LFS_FILESIZE constant with function
+>>> tst_max_lfs_filesize(). Given that we must use MAX_OFF in a function,
+>>> move dst from tcase struct to verify_copy_file_range().
+>>>
+>>> Credits for 32 bit MAX_LFS_FILESIZE algorithm: Cyril Hrubis.
+>> I got the same results:
+>>
+>> copy_file_range02.c:120: INFO: dst 9223372036854710270 len 65537
+>> copy_file_range02.c:136: FAIL: copy_file_range returned wrong value: 32
+> I'm not chanllenge the tst_max_lfs_filesize().
+>
+> But I don't understand why to define MAX_OFF as (MAX_LEN - MIN_OFF),
+> the failure indicates that not to write at a position past the maximum
+> allowed offset. Shouldn't we give a dst_off large than
+> MAX_LFS_FILESIZE?
+Yes, we should use a dst_off large than MAX_LFS_FILESIZE because it used pos to compare
+in kernel code as below:
 
-> Hi!
->> We could add guarded buffers to huge numbers of tests by wrapping the
->> user supplied buffer in various calls to SAFE_* macros and tst_*
->> functions. This could be configurable at compile time and it should be
->> detectable if a buffer is already guarded, so double wrapping should not
->> be an issue.
->
-> Fair point. The detection would however be O(n), well we can do a little
-> trick like maintaing the memory range in which all the mmaps were done
-> and rule out any heap based allocation in O(1) easily, but anything that
-> crosses the malloc threshold would be O(n).
->
->> However I am not sure the current API makes this easy. We should
->> probably have a tst_free(void *buf) and/or tst_buffer_alloc(struct
->> tst_buffer *buf) and tst_buffer_free(struct tst_buffer *buf) (which
->> could just put the buffer on a free list for reuse).
->
-> I guess that this calls for completely different API since 99% time we
-> will do with just single buffer.
->
-> Unless we are:
->
-> * The test is compiled with pthreads
->   and we managed to run two SAFE_MACROS() concurently
->
-> * The buffer is bigger than one page
->
-> * We call SAFE_MACROS() recursively, which we don't
->
-> So all of this could be done by a tst_temp_alloc() and tst_temp_free()
-> that would attempt to grab single pre-allocated buffer and only fall
-> back to allocating/freeing new buffer when the buffer is currently in
-> use.
->
->> I am not sure if this is something which needs to be addressed now or
->> can be left for another patch set. My main concern is that one of the
->> existing API functions will need to be changed.
->
-> I guess that it would be easier to make these changes incrementally,
-> because adding more functionality to this patchset would only make it
-> harder to review and I would like to get this API in so that we can
-> star making use of it.
+mm/filemap.c
+  static int generic_write_check_limits(struct file *file, loff_t pos, loff_t *count)
+...
+if (unlikely(pos>= max_size))
+   return -EFBIG;
+...
 
-OK, I am happy with this patchset except for the few minor comments on
-the docs.
+I strace xfstest generic/564 code( I follow this test code to ltp), as below:
+#max_off=$((8 * 2**60 - 65536 - 1))
+#min_off=65537
+#xfs_io -f -c "pwrite -S 0x61 0 128k" file
+#touch copy
+#strace xfs_io -c "copy_range -l $min_off -s 0 -d $max_off file" copy
+....
+  openat(AT_FDCWD, "file", O_RDONLY)      = 4
+  copy_file_range(4, [0], 3, [9223372036854710271], 65537, 0) = 65536
+  copy_file_range(4, [65536], 3, [9223372036854775807], 1, 0) = -1 EFBIG (File too large)
+....
 
--- 
-Thank you,
-Richard.
+xfsprogs used a loop to call copy_file_range, and get EFBIG when pos greater than LLONG_MAX.
+
+I think we should  use tst_max_lfs_filesize instead of (tst_max_lfs_filesize -MIN_OFF)
+and this case will pass whether xfs,btrfs and ext4.
+
+Thanks for pointing out this.
+
+> if I change the code as below, then it could be passed.
+>
+> --- a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+> +++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+> @@ -115,7 +115,7 @@ static void verify_copy_file_range(unsigned int n)
+>          }
+>
+>          if (tc->copy_to_fd ==&fd_copy)
+> -               dst = tst_max_lfs_filesize() - MIN_OFF;
+> +               dst = tst_max_lfs_filesize();
+>
+>
+
+
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
