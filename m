@@ -2,48 +2,65 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D30695757
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Aug 2019 08:35:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 236CA957C1
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Aug 2019 09:00:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EB2F23C1D18
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Aug 2019 08:35:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 858D83C1D44
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Aug 2019 09:00:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 8FC3F3C1C95
- for <ltp@lists.linux.it>; Tue, 20 Aug 2019 08:34:58 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 82CB0600496
- for <ltp@lists.linux.it>; Tue, 20 Aug 2019 08:34:57 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.64,407,1559491200"; d="scan'208";a="73931374"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 20 Aug 2019 14:34:48 +0800
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id 017744CE03D3;
- Tue, 20 Aug 2019 14:34:49 +0800 (CST)
-Received: from localhost.localdomain (10.167.215.46) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Tue, 20 Aug 2019 14:34:45 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <chrubis@suse.cz>
-Date: Tue, 20 Aug 2019 14:33:58 +0800
-Message-ID: <1566282838-2980-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <20190802115046.GB27727@rei>
-References: <20190802115046.GB27727@rei>
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 86B6B3C1CA0
+ for <ltp@lists.linux.it>; Tue, 20 Aug 2019 09:00:01 +0200 (CEST)
+Received: from mail-lf1-x142.google.com (mail-lf1-x142.google.com
+ [IPv6:2a00:1450:4864:20::142])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 0E2D71000B5F
+ for <ltp@lists.linux.it>; Tue, 20 Aug 2019 08:59:53 +0200 (CEST)
+Received: by mail-lf1-x142.google.com with SMTP id v16so3255718lfg.11
+ for <ltp@lists.linux.it>; Tue, 20 Aug 2019 00:00:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=afX65U9iSHVTOuRVa96SwdzvVkvnDrhIhmHas8vfAVQ=;
+ b=uP+DgGBILFffVSKGZIE+J5nuBJQqhfsOcMImlw75bAoM8sUOnf5HAn97/89Q3XcyaJ
+ /cmUnXZ8ULuMYp7obJRWsPp2HOPb+vx17QpUN3vUxvnzH9k8DOJPECZV3yNMkLSO+kKZ
+ T3VGZYZB0uD+649o7MpJ2WcDZA3K/r3S+CeSCLIdGhBJBdrIdMyaesMBJ1MdHid1ksg9
+ P0V2PSiry2jiVVRkUUdEy7PSr800uQi653+pK/weo/9R5ypwlRG2GM74cv0hR2klzvcL
+ qFXnLQQn38t/OxAtxZJYEeC4nlpB2PpaekrDDzVShBZhajo+t0SOZy0EI1+Bs/Rt0ElK
+ r2DQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=afX65U9iSHVTOuRVa96SwdzvVkvnDrhIhmHas8vfAVQ=;
+ b=ISjMjClezFvy6pE/kVEh9saJAP6k/NjU5ObY6fDnJRAVht5I04GJm6JOCmGt9hlVQJ
+ mU7rsoi4YoZ+4W0e8VWo02OWeEB2VfX2I3do3IZXFrmOF3f7B76qP2KpOkNSkrLkiGZ+
+ cnIpx1LELuvEXV0AP5WQLIagagaa/aO4M1GbBTFCsEd65qyRb63jMQjAq64+SDrp/uKJ
+ Q2mG0SV3HQndLoK/w5tLreGVz7qdWS/uoLdrkUteYr9Mg09IWRXVCBpqwyaGbHFYx+xs
+ h1WGBsd395kzrNpMPJpX/mi18fj1uGYSZoHdoem5Oe4msE/RMtVVWbHySI3KK/cx0BeX
+ HT3g==
+X-Gm-Message-State: APjAAAUO8nDcW9VDaFxOX2jOmTqC2pMU3efWIrDvKzgAo/9e6UvG8Q3H
+ 7dyDRVaszqTdUPpQJSJw16YtP1Oqmil/nDCUjZoVGw==
+X-Google-Smtp-Source: APXvYqyZxCQpxbtyELMPlRWx/rHg1djte5TBwZ4+VBoc5fWEtXBpl0kJPGbXwsHQYRc4e5HBEb52iSsRqEhzpxC2jm8=
+X-Received: by 2002:ac2:5c42:: with SMTP id s2mr14900588lfp.61.1566284399694; 
+ Mon, 19 Aug 2019 23:59:59 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.167.215.46]
-X-yoursite-MailScanner-ID: 017744CE03D3.AD72E
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+References: <20190819074601.12094-1-linus.walleij@linaro.org>
+ <20190819134904.GB11715@rei.lan>
+In-Reply-To: <20190819134904.GB11715@rei.lan>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 20 Aug 2019 08:59:48 +0200
+Message-ID: <CACRpkdbu5xesabEvMdSbj0AbirweM9EnSh=cOC3AKUKYzErqcg@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] syscalls/statx04: use stx_attributes_mask before
- test
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v5] syscalls/ioprio: Add test cases for I/O
+ priority
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,201 +72,22 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Jens Axboe <axboe@kernel.dk>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-stx_attributes_mask shows what's supported in stx_attributes.
-we should check four attrbutes whether supports on tested filesystem
-and only test supported flags on tested filesystem.
+On Mon, Aug 19, 2019 at 3:49 PM Cyril Hrubis <chrubis@suse.cz> wrote:
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- testcases/kernel/syscalls/statx/statx04.c | 124 ++++++++++++++++------
- 1 file changed, 91 insertions(+), 33 deletions(-)
+> Pushed with a minor change, thanks.
 
-diff --git a/testcases/kernel/syscalls/statx/statx04.c b/testcases/kernel/syscalls/statx/statx04.c
-index 71de734f5..7b462c3f9 100644
---- a/testcases/kernel/syscalls/statx/statx04.c
-+++ b/testcases/kernel/syscalls/statx/statx04.c
-@@ -34,6 +34,10 @@
- #define TESTDIR_UNFLAGGED MOUNT_POINT"/test_dir2"
- 
- static int fd, clear_flags;
-+static int supp_compr;
-+static int supp_append;
-+static int supp_immutable;
-+static int supp_nodump;
- 
- static void test_flagged(void)
- {
-@@ -47,25 +51,33 @@ static void test_flagged(void)
- 		tst_brk(TFAIL | TTERRNO,
- 			"sys_statx(AT_FDCWD, %s, 0, 0, &buf)", TESTDIR_FLAGGED);
- 
--	if (buf.stx_attributes & STATX_ATTR_COMPRESSED)
--		tst_res(TPASS, "STATX_ATTR_COMPRESSED flag is set");
--	else
--		tst_res(TFAIL, "STATX_ATTR_COMPRESSED flag is not set");
-+	if (supp_compr) {
-+		if (buf.stx_attributes & STATX_ATTR_COMPRESSED)
-+			tst_res(TPASS, "STATX_ATTR_COMPRESSED flag is set");
-+		else
-+			tst_res(TFAIL, "STATX_ATTR_COMPRESSED flag is not set");
-+	}
- 
--	if (buf.stx_attributes & STATX_ATTR_APPEND)
--		tst_res(TPASS, "STATX_ATTR_APPEND flag is set");
--	else
--		tst_res(TFAIL, "STATX_ATTR_APPEND flag is not set");
-+	if (supp_append) {
-+		if (buf.stx_attributes & STATX_ATTR_APPEND)
-+			tst_res(TPASS, "STATX_ATTR_APPEND flag is set");
-+		else
-+			tst_res(TFAIL, "STATX_ATTR_APPEND flag is not set");
-+	}
- 
--	if (buf.stx_attributes & STATX_ATTR_IMMUTABLE)
--		tst_res(TPASS, "STATX_ATTR_IMMUTABLE flag is set");
--	else
--		tst_res(TFAIL, "STATX_ATTR_IMMUTABLE flag is not set");
-+	if (supp_immutable) {
-+		if (buf.stx_attributes & STATX_ATTR_IMMUTABLE)
-+			tst_res(TPASS, "STATX_ATTR_IMMUTABLE flag is set");
-+		else
-+			tst_res(TFAIL, "STATX_ATTR_IMMUTABLE flag is not set");
-+	}
- 
--	if (buf.stx_attributes & STATX_ATTR_NODUMP)
--		tst_res(TPASS, "STATX_ATTR_NODUMP flag is set");
--	else
--		tst_res(TFAIL, "STATX_ATTR_NODUMP flag is not set");
-+	if (supp_nodump) {
-+		if (buf.stx_attributes & STATX_ATTR_NODUMP)
-+			tst_res(TPASS, "STATX_ATTR_NODUMP flag is set");
-+		else
-+			tst_res(TFAIL, "STATX_ATTR_NODUMP flag is not set");
-+	}
- }
- 
- static void test_unflagged(void)
-@@ -82,25 +94,33 @@ static void test_unflagged(void)
- 			"sys_statx(AT_FDCWD, %s, 0, 0, &buf)",
- 			TESTDIR_UNFLAGGED);
- 
--	if ((buf.stx_attributes & STATX_ATTR_COMPRESSED) == 0)
--		tst_res(TPASS, "STATX_ATTR_COMPRESSED flag is not set");
--	else
--		tst_res(TFAIL, "STATX_ATTR_COMPRESSED flag is set");
-+	if (supp_compr) {
-+		if ((buf.stx_attributes & STATX_ATTR_COMPRESSED) == 0)
-+			tst_res(TPASS, "STATX_ATTR_COMPRESSED flag is not set");
-+		else
-+			tst_res(TFAIL, "STATX_ATTR_COMPRESSED flag is set");
-+	}
- 
--	if ((buf.stx_attributes & STATX_ATTR_APPEND) == 0)
--		tst_res(TPASS, "STATX_ATTR_APPEND flag is not set");
--	else
--		tst_res(TFAIL, "STATX_ATTR_APPEND flag is set");
-+	if (supp_append) {
-+		if ((buf.stx_attributes & STATX_ATTR_APPEND) == 0)
-+			tst_res(TPASS, "STATX_ATTR_APPEND flag is not set");
-+		else
-+			tst_res(TFAIL, "STATX_ATTR_APPEND flag is set");
-+	}
- 
--	if ((buf.stx_attributes & STATX_ATTR_IMMUTABLE) == 0)
--		tst_res(TPASS, "STATX_ATTR_IMMUTABLE flag is not set");
--	else
--		tst_res(TFAIL, "STATX_ATTR_IMMUTABLE flag is set");
-+	if (supp_immutable) {
-+		if ((buf.stx_attributes & STATX_ATTR_IMMUTABLE) == 0)
-+			tst_res(TPASS, "STATX_ATTR_IMMUTABLE flag is not set");
-+		else
-+			tst_res(TFAIL, "STATX_ATTR_IMMUTABLE flag is set");
-+	}
- 
--	if ((buf.stx_attributes & STATX_ATTR_NODUMP) == 0)
--		tst_res(TPASS, "STATX_ATTR_NODUMP flag is not set");
--	else
--		tst_res(TFAIL, "STATX_ATTR_NODUMP flag is set");
-+	if (supp_nodump) {
-+		if ((buf.stx_attributes & STATX_ATTR_NODUMP) == 0)
-+			tst_res(TPASS, "STATX_ATTR_NODUMP flag is not set");
-+		else
-+			tst_res(TFAIL, "STATX_ATTR_NODUMP flag is set");
-+	}
- }
- 
- struct test_cases {
-@@ -135,7 +155,14 @@ static void caid_flags_setup(void)
- 		tst_brk(TBROK | TERRNO, "ioctl(%i, FS_IOC_GETFLAGS, ...)", fd);
- 	}
- 
--	attr |= FS_COMPR_FL | FS_APPEND_FL | FS_IMMUTABLE_FL | FS_NODUMP_FL;
-+	if (supp_compr)
-+		attr |= FS_COMPR_FL;
-+	if (supp_append)
-+		attr |= FS_APPEND_FL;
-+	if (supp_immutable)
-+		attr |= FS_IMMUTABLE_FL;
-+	if (supp_nodump)
-+		attr |= FS_NODUMP_FL;
- 
- 	ret = ioctl(fd, FS_IOC_SETFLAGS, &attr);
- 	if (ret < 0) {
-@@ -149,12 +176,43 @@ static void caid_flags_setup(void)
- 
- static void setup(void)
- {
-+	struct statx buf;
-+
-+	supp_compr = 1;
-+	supp_append = 1;
-+	supp_immutable = 1;
-+	supp_nodump = 1;
- 	SAFE_MKDIR(TESTDIR_FLAGGED, 0777);
- 	SAFE_MKDIR(TESTDIR_UNFLAGGED, 0777);
- 
- 	if (!strcmp(tst_device->fs_type, "btrfs") && tst_kvercmp(4, 13, 0) < 0)
- 		tst_brk(TCONF, "Btrfs statx() supported since 4.13");
- 
-+	TEST(statx(AT_FDCWD, TESTDIR_FLAGGED, 0, 0, &buf));
-+	if (TST_RET == -1)
-+		tst_brk(TFAIL | TTERRNO,
-+			"sys_statx(AT_FDCWD, %s, 0, 0, &buf)", TESTDIR_FLAGGED);
-+
-+	if ((buf.stx_attributes_mask & FS_COMPR_FL) == 0) {
-+		supp_compr = 0;
-+		tst_res(TCONF, "filesystem doesn't support FS_COMPR_FL");
-+	}
-+	if ((buf.stx_attributes_mask & FS_APPEND_FL) == 0) {
-+		supp_append = 0;
-+		tst_res(TCONF, "filesystem doesn't support FS_APPEND_FL");
-+	}
-+	if ((buf.stx_attributes_mask & FS_IMMUTABLE_FL) == 0) {
-+		supp_immutable = 0;
-+		tst_res(TCONF, "filesystem doesn't support FS_IMMUTABLE_FL");
-+	}
-+	if ((buf.stx_attributes_mask & FS_NODUMP_FL) == 0) {
-+		supp_nodump = 0;
-+		tst_res(TCONF, "filesystem doesn't support FS_NODUMP_FL");
-+	}
-+	if (!(supp_compr || supp_append || supp_immutable || supp_nodump))
-+		tst_brk(TCONF,
-+			"filesystem doesn't support the above any attr, skip it");
-+
- 	caid_flags_setup();
- }
- 
--- 
-2.18.1
+Thanks a lot Cyril! :)
 
+It's my first LTP test so I hope I get better at writing them over time.
 
-
+Yours,
+Linus Walleij
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
