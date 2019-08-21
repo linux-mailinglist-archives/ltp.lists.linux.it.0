@@ -2,53 +2,46 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD9EA97478
-	for <lists+linux-ltp@lfdr.de>; Wed, 21 Aug 2019 10:14:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B84B974E3
+	for <lists+linux-ltp@lfdr.de>; Wed, 21 Aug 2019 10:27:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 83AB33C1CFB
-	for <lists+linux-ltp@lfdr.de>; Wed, 21 Aug 2019 10:14:59 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1B6A63C1CFB
+	for <lists+linux-ltp@lfdr.de>; Wed, 21 Aug 2019 10:27:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 7C8EC3C1866
- for <ltp@lists.linux.it>; Wed, 21 Aug 2019 10:14:57 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 9F51A600C2B
- for <ltp@lists.linux.it>; Wed, 21 Aug 2019 10:14:57 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.64,412,1559491200"; d="scan'208";a="73995725"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 21 Aug 2019 16:14:52 +0800
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id 252674CE03E7;
- Wed, 21 Aug 2019 16:14:45 +0800 (CST)
-Received: from [10.167.215.46] (10.167.215.46) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- id 14.3.439.0; Wed, 21 Aug 2019 16:14:48 +0800
-Message-ID: <5D5CFD75.3050506@cn.fujitsu.com>
-Date: Wed, 21 Aug 2019 16:14:45 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 9509E3C1866
+ for <ltp@lists.linux.it>; Wed, 21 Aug 2019 10:27:01 +0200 (CEST)
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+ (using TLSv1.1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 04CEC1A011C2
+ for <ltp@lists.linux.it>; Wed, 21 Aug 2019 10:26:58 +0200 (CEST)
+Received: from ALA-HCA.corp.ad.wrs.com ([147.11.189.40])
+ by mail.windriver.com (8.15.2/8.15.1) with ESMTPS id x7L8QsEw022729
+ (version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
+ Wed, 21 Aug 2019 01:26:54 -0700 (PDT)
+Received: from [128.224.162.221] (128.224.162.221) by ALA-HCA.corp.ad.wrs.com
+ (147.11.189.50) with Microsoft SMTP Server (TLS) id 14.3.468.0;
+ Wed, 21 Aug 2019 01:26:53 -0700
+To: Jan Stancek <jstancek@redhat.com>
+References: <1566311128-454547-1-git-send-email-zhe.he@windriver.com>
+ <1181420641.7386594.1566314247400.JavaMail.zimbra@redhat.com>
+From: He Zhe <zhe.he@windriver.com>
+Message-ID: <ebb19cf0-02e8-30b4-9e17-1eae1effaba5@windriver.com>
+Date: Wed, 21 Aug 2019 16:26:50 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-To: Li Wang <liwang@redhat.com>
-References: <20190815083630.26975-1-pvorel@suse.cz>
- <20190816085309.fqvip4exe4mvtv2o@XZHOUW.usersys.redhat.com>
- <CAEemH2d7TYn4sZ7kkjRsPc-yBnTrN9LC+w84MAO6pDxYpfiFcw@mail.gmail.com>
- <5D5BB8DC.6070900@cn.fujitsu.com>
- <CAEemH2d_CKOwE3mHEXZKi1BkMBw5dn95aMJtkrSRciH2PU6NJA@mail.gmail.com>
-In-Reply-To: <CAEemH2d_CKOwE3mHEXZKi1BkMBw5dn95aMJtkrSRciH2PU6NJA@mail.gmail.com>
-X-Originating-IP: [10.167.215.46]
-X-yoursite-MailScanner-ID: 252674CE03E7.AC244
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+In-Reply-To: <1181420641.7386594.1566314247400.JavaMail.zimbra@redhat.com>
+Content-Language: en-US
+X-Originating-IP: [128.224.162.221]
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] lapi/fs.h: Replace MAX_LFS_FILESIZE constant with
- own implementation
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] cve: Fix kernel symbol finding for meltdown case
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,61 +53,122 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-on 2019/08/21 15:27, Li Wang wrote:
 
-> On Tue, Aug 20, 2019 at 5:10 PM Yang Xu<xuyang2018.jy@cn.fujitsu.com>  wrote:
-> ...
->>> But I don't understand why to define MAX_OFF as (MAX_LEN - MIN_OFF),
->>> the failure indicates that not to write at a position past the maximum
->>> allowed offset. Shouldn't we give a dst_off large than
->>> MAX_LFS_FILESIZE?
->> Yes, we should use a dst_off large than MAX_LFS_FILESIZE because it used pos to compare
->> in kernel code as below:
->>
->> mm/filemap.c
->>    static int generic_write_check_limits(struct file *file, loff_t pos, loff_t *count)
->> ...
->> if (unlikely(pos>= max_size))
->>     return -EFBIG;
->> ...
->>
->> I strace xfstest generic/564 code( I follow this test code to ltp), as below:
->> #max_off=$((8 * 2**60 - 65536 - 1))
->> #min_off=65537
->> #xfs_io -f -c "pwrite -S 0x61 0 128k" file
->> #touch copy
->> #strace xfs_io -c "copy_range -l $min_off -s 0 -d $max_off file" copy
->> ....
->>    openat(AT_FDCWD, "file", O_RDONLY)      = 4
->>    copy_file_range(4, [0], 3, [9223372036854710271], 65537, 0) = 65536
->>    copy_file_range(4, [65536], 3, [9223372036854775807], 1, 0) = -1 EFBIG (File too large)
->> ....
->>
->> xfsprogs used a loop to call copy_file_range, and get EFBIG when pos greater than LLONG_MAX.
->>
->> I think we should  use tst_max_lfs_filesize instead of (tst_max_lfs_filesize -MIN_OFF)
->> and this case will pass whether xfs,btrfs and ext4.
-> Good job, Xu. I think you can format a new patch to fix this problem.
-> Because Petr's patch is used for solving the cross-compiling issue and
-> looks good.
-Hi Li
 
-OK. I will send a new patch to fix this problem. But copy_file_range02.c still has a problem as Murphy found,
-we set all_filesystem but use the same tmpdir instead of mntpoint.  I think we can remove all_filesystem and mountpoint.
-
-@Murphy Zhou  Hi Murphy, would you like to send a new patch to remove useless all_filesystem or I do it in my
-new patch by adding your signed-off-by tag? What do you think about it?
-
-> @Petr Vorel Hi Petr, what do you think? any more comments?
+On 8/20/19 11:17 PM, Jan Stancek wrote:
+> ----- Original Message -----
+>> From: He Zhe <zhe.he@windriver.com>
+>>
+>> meltdown case failed as below.
+>> safe_file_ops.c:219: BROK: Expected 3 conversions got 2 at meltdown.c:272
+> What line doesn't match current pattern?
+> I'm not seeing any changes in kallsyms output:
 >
+> kernel: "%px %c %s\n"
+>         "%px %c %s\t[%s]\n"
+> LTP:    "%lx %c SYMBOL%c"
 
+Thanks and yes, you're correct.
 
+I just found the root cause and I'll send v2.
+
+find_kernel_symbol is defined to try twice with each of /proc/kallsyms and
+/boot/System.map-%s. Currently if the symbol is not found in /proc/kallsyms,
+when kernel option CONFIG_KALLSYMS_ALL is disabled, it would stop the case
+immediately due to SAFE_FILE_LINES_SCANF.
+
+Zhe
+
+>
+>> The case used SAFE_FILE_LINES_SCANF which is a wrapper of vsscanf which
+>> cannot
+>> extract the symbol name from the following line pattern of kernel symbol
+>> table.
+> Did you mean "extract symbol address"?
+>
+>> 01234567 T SYMBOL_NAME
+>>
+>> Also the original format pattern is not correct.
+>>
+>> This patch re-writes the symbol extraction process and adds a NULL pointer
+>> check.
+>>
+>> Signed-off-by: He Zhe <zhe.he@windriver.com>
+>> ---
+>>  testcases/cve/meltdown.c | 38 +++++++++++++++++++++++++++++++-------
+>>  1 file changed, 31 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/testcases/cve/meltdown.c b/testcases/cve/meltdown.c
+>> index f78c38b..4c3f3b2 100644
+>> --- a/testcases/cve/meltdown.c
+>> +++ b/testcases/cve/meltdown.c
+>> @@ -248,15 +248,34 @@ set_cache_hit_threshold(void)
+>>  static unsigned long
+>>  find_symbol_in_file(const char *filename, const char *symname)
+>>  {
+>> -	unsigned long addr;
+>> -	char type;
+>> -	int ret, read;
+>> -	char fmt[strlen(symname) + 64];
+>> +	unsigned long addr = 0;
+>> +	int found = 0;
+>> +	char line[BUFSIZ] = {0};
+>> +	FILE *fp = NULL;
+>> +	char *p = NULL;
+>> +
+>> +	fp = fopen(filename, "r");
+>> +	if (fp == NULL) {
+>> +		tst_res(TBROK | TERRNO,
+>> +			"Failed to open file:%s for symbol:%s",
+>> +			filename, symname);
+>> +		return 0;
+>> +	}
+>>  
+>> -	sprintf(fmt, "%%lx %%c %s%%c", symname);
+>> +	while (fgets(line, BUFSIZ, fp) != NULL) {
+>> +		p = strstr(line, symname);
+>> +		/* Make sure this line is exactly for this symbol.
+>> +		 * Substract the EOL added by fgets for each line.
+>> +		 */
+>> +		if (p && ((strlen(p) - 1) == strlen(symname))) {
+>> +			found = sscanf(line, "%lx", &addr);
+>> +			if (found == 1)
+>> +				break;
+>> +		}
+>> +	}
+>> +	fclose(fp);
+>>  
+>> -	ret = SAFE_FILE_LINES_SCANF(filename, fmt, &addr, &type, &read);
+>> -	if (ret)
+>> +	if (found != 1)
+>>  		return 0;
+>>  
+>>  	return addr;
+>> @@ -322,6 +341,11 @@ static void run(void)
+>>  
+>>  	/* read address of saved_cmdline_addr */
+>>  	addr = saved_cmdline_addr;
+>> +	if (!addr) {
+>> +		tst_res(TBROK | TERRNO, "saved_cmdline_addr is 0\n");
+>> +		return;
+>> +	}
+>> +
+>>  	size = sizeof(addr);
+>>  	for (i = 0; i < size; i++) {
+>>  		ret = readbyte(spec_fd, addr);
+>> --
+>> 2.7.4
+>>
+>>
+>> --
+>> Mailing list info: https://lists.linux.it/listinfo/ltp
+>>
 
 
 -- 
