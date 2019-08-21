@@ -2,40 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58FB698037
-	for <lists+linux-ltp@lfdr.de>; Wed, 21 Aug 2019 18:35:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3D5098039
+	for <lists+linux-ltp@lfdr.de>; Wed, 21 Aug 2019 18:35:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2797B3C1D04
-	for <lists+linux-ltp@lfdr.de>; Wed, 21 Aug 2019 18:35:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8471D3C1D09
+	for <lists+linux-ltp@lfdr.de>; Wed, 21 Aug 2019 18:35:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id DAA6D3C1C7F
- for <ltp@lists.linux.it>; Wed, 21 Aug 2019 18:35:07 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 925E03C1C7F
+ for <ltp@lists.linux.it>; Wed, 21 Aug 2019 18:35:24 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8C62A1A01231
- for <ltp@lists.linux.it>; Wed, 21 Aug 2019 18:35:06 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 651AC600662
+ for <ltp@lists.linux.it>; Wed, 21 Aug 2019 18:35:26 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id B9870AD85
- for <ltp@lists.linux.it>; Wed, 21 Aug 2019 16:35:04 +0000 (UTC)
-Message-ID: <1566405304.3587.20.camel@suse.de>
+ by mx1.suse.de (Postfix) with ESMTP id 22A06AD85
+ for <ltp@lists.linux.it>; Wed, 21 Aug 2019 16:35:23 +0000 (UTC)
+Message-ID: <1566405322.3587.21.camel@suse.de>
 From: Clemens Famulla-Conrad <cfamullaconrad@suse.de>
 To: Cyril Hrubis <chrubis@suse.cz>, ltp@lists.linux.it
-Date: Wed, 21 Aug 2019 18:35:04 +0200
-In-Reply-To: <20190820151831.7418-4-chrubis@suse.cz>
+Date: Wed, 21 Aug 2019 18:35:22 +0200
+In-Reply-To: <20190820151831.7418-3-chrubis@suse.cz>
 References: <20190820151831.7418-1-chrubis@suse.cz>
- <20190820151831.7418-4-chrubis@suse.cz>
+ <20190820151831.7418-3-chrubis@suse.cz>
 X-Mailer: Evolution 3.26.6 
 Mime-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 3/5] kernel/uevent: Add uevent02
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 2/5] kernel/uevent: Add uevent01
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,40 +56,269 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Hi Cyril,
 
 On Tue, 2019-08-20 at 17:18 +0200, Cyril Hrubis wrote:
-> Similar to uevent01 but we create and remove a tun network card
-> instead.
+> Simple test that attached and detaches a file to a loop device and
+> checks that kernel broadcasts correct events to the kernel uevent
+> broadcast group.
 > 
 > Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 > ---
 >  runtest/uevent                      |   1 +
+>  scenario_groups/default             |   1 +
 >  testcases/kernel/uevents/.gitignore |   1 +
->  testcases/kernel/uevents/uevent02.c | 141
+>  testcases/kernel/uevents/Makefile   |   6 +
+>  testcases/kernel/uevents/uevent.h   | 176
 > ++++++++++++++++++++++++++++
->  3 files changed, 143 insertions(+)
->  create mode 100644 testcases/kernel/uevents/uevent02.c
+>  testcases/kernel/uevents/uevent01.c |  90 ++++++++++++++
+>  6 files changed, 275 insertions(+)
+>  create mode 100644 runtest/uevent
+>  create mode 100644 testcases/kernel/uevents/.gitignore
+>  create mode 100644 testcases/kernel/uevents/Makefile
+>  create mode 100644 testcases/kernel/uevents/uevent.h
+>  create mode 100644 testcases/kernel/uevents/uevent01.c
 > 
 > diff --git a/runtest/uevent b/runtest/uevent
-> index e9cdf26b8..30b1114a4 100644
-> --- a/runtest/uevent
+> new file mode 100644
+> index 000000000..e9cdf26b8
+> --- /dev/null
 > +++ b/runtest/uevent
-> @@ -1 +1,2 @@
->  uevent01 uevent01
-> +uevent02 uevent02
+> @@ -0,0 +1 @@
+> +uevent01 uevent01
+> diff --git a/scenario_groups/default b/scenario_groups/default
+> index 093f5f706..62ae0759d 100644
+> --- a/scenario_groups/default
+> +++ b/scenario_groups/default
+> @@ -29,3 +29,4 @@ input
+>  cve
+>  crypto
+>  kernel_misc
+> +uevent
 > diff --git a/testcases/kernel/uevents/.gitignore
 > b/testcases/kernel/uevents/.gitignore
-> index 53d0b546a..0afc95534 100644
-> --- a/testcases/kernel/uevents/.gitignore
-> +++ b/testcases/kernel/uevents/.gitignore
-> @@ -1 +1,2 @@
->  uevent01
-> +uevent02
-> diff --git a/testcases/kernel/uevents/uevent02.c
-> b/testcases/kernel/uevents/uevent02.c
 > new file mode 100644
-> index 000000000..2c28d1810
+> index 000000000..53d0b546a
 > --- /dev/null
-> +++ b/testcases/kernel/uevents/uevent02.c
-> @@ -0,0 +1,141 @@
+> +++ b/testcases/kernel/uevents/.gitignore
+> @@ -0,0 +1 @@
+> +uevent01
+> diff --git a/testcases/kernel/uevents/Makefile
+> b/testcases/kernel/uevents/Makefile
+> new file mode 100644
+> index 000000000..cba769739
+> --- /dev/null
+> +++ b/testcases/kernel/uevents/Makefile
+> @@ -0,0 +1,6 @@
+> +# SPDX-License-Identifier: GPL-2.0-or-later
+> +
+> +top_srcdir			?= ../../..
+> +
+> +include $(top_srcdir)/include/mk/testcases.mk
+> +include $(top_srcdir)/include/mk/generic_leaf_target.mk
+> diff --git a/testcases/kernel/uevents/uevent.h
+> b/testcases/kernel/uevents/uevent.h
+> new file mode 100644
+> index 000000000..2c32dd534
+> --- /dev/null
+> +++ b/testcases/kernel/uevents/uevent.h
+> @@ -0,0 +1,176 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (C) 2019 Cyril Hrubis <chrubis@suse.cz>
+> + */
+> +
+> +#ifndef UEVENT_H__
+> +#define UEVENT_H__
+> +
+> +#include "tst_netlink.h"
+> +
+> +/*
+> + * There are two broadcast groups defined for the
+> NETLINK_KOBJECT_UEVENT. The
+> + * primary consument of the KERNEL group is udev which handles the
+> hotplug
+> + * events and then, once udev does it's magic the events are
+> rebroadcasted to
+> + * the UDEV group which is consumed by various daemons in the
+> userspace.
+> + */
+> +enum monitor_netlink_group {
+> +	MONITOR_GROUP_NONE,
+> +	MONITOR_GROUP_KERNEL,
+> +	MONITOR_GROUP_UDEV,
+> +};
+> +
+> +/*
+> + * The messages received from the NETLINK_KOBJECT_UEVENT socket are
+> stored as a
+> + * sequence of a null-terminated strings. First in the buffer is a
+> summary of a
+> + * action i.e. "$ACTION@$DEVPATH" which is then followed by a bunch
+> of
+> + * key-value pairs.
+> + *
+> + * For example attaching a file to loopback device generates event:
+> + *
+> + * "change@/devices/virtual/block/loop0\0
+> + *  ACTION=change\0
+> + *  DEVPATH=/devices/virtual/block/loop0\0
+> + *  SUBSYSTEM=block\0
+> + *  MAJOR=7\0
+> + *  MINOR=0\0
+> + *  DEVNAME=loop0\0
+> + *  DEVTYPE=disk\0
+> + *  SEQNUM=2677\0"
+> + */
+> +
+> +/*
+> + * Prints uevent.
+> + */
+> +static inline void print_uevent(const char *event, int len)
+> +{
+> +	int consumed = 0;
+> +
+> +	tst_res(TINFO, "Got uevent:");
+> +
+> +	while (consumed < len) {
+> +		tst_res(TINFO, "%s", event);
+> +		int l = strlen(event) + 1;
+> +		consumed += l;
+> +		event += l;
+> +	}
+> +}
+> +
+> +/*
+> + * Uevents read from the socket are matched against this
+> description.
+> + *
+> + * The msg is the overall action description e.g.
+> + * "add@/class/input/input4/mouse1" which has to be matched exactly
+> before we
+> + * event attempt to check the key-value pairs stored in the values
+> array. The
+> + * event is considered to match if all key-value pairs in the values
+> has been
+> + * found in the received event.
+> + */
+> +struct uevent_desc {
+> +	const char *msg;
+> +	int value_cnt;
+> +	const char **values;
+> +};
+> +
+> +static inline int uevent_match(const char *event, int len,
+> +                               const struct uevent_desc *uevent)
+> +{
+> +	int consumed = 0;
+> +	int val_matches = 0;
+> +
+> +	if (memcmp(event, uevent->msg, strlen(uevent->msg)))
+> +		return 0;
+> +
+> +	int l = strlen(event) + 1;
+> +
+> +	consumed += l;
+> +	event += l;
+> +
+> +	while (consumed < len) {
+> +		int i;
+> +		for (i = 0; i < uevent->value_cnt; i++) {
+> +			if (!strcmp(event, uevent->values[i])) {
+> +				val_matches++;
+> +				break;
+> +			}
+> +		}
+> +
+> +		l = strlen(event) + 1;
+> +		consumed += l;
+> +		event += l;
+> +	}
+> +
+> +	return val_matches == uevent->value_cnt;
+> +}
+> +
+> +static inline int open_uevent_netlink(void)
+> +{
+> +	int fd;
+> +	struct sockaddr_nl nl_addr = {
+> +		.nl_family = AF_NETLINK,
+> +		.nl_groups = MONITOR_GROUP_KERNEL,
+> +	};
+> +
+> +	fd = SAFE_SOCKET(AF_NETLINK, SOCK_RAW,
+> NETLINK_KOBJECT_UEVENT);
+> +
+> +	SAFE_BIND(fd, (struct sockaddr *)&nl_addr, sizeof(nl_addr));
+> +
+> +	return fd;
+> +}
+> +
+> +/*
+> + * Reads events from uevent netlink socket until all expected events
+> passed in
+> + * the uevent array are matched.
+> + */
+> +static inline void wait_for_uevents(int fd, const struct uevent_desc
+> *const uevents[])
+> +{
+> +	int i = 0;
+> +
+> +	while (1) {
+> +		int len;
+> +		char buf[4096];
+> +
+> +		len = recv(fd, &buf, sizeof(buf), 0);
+> +
+> +		if (len == 0)
+> +			continue;
+> +
+> +		print_uevent(buf, len);
+> +
+> +		if (uevent_match(buf, len, uevents[i])) {
+> +			tst_res(TPASS, "Got expected UEVENT");
+> +			if (!uevents[++i]) {
+> +				close(fd);
+> +				exit(0);
+> +			}
+> +		}
+> +	}
+> +}
+> +
+> +/*
+> + * Waits 5 seconds for a child to exit, kills the child after a
+> timeout.
+> + */
+> +static inline void wait_for_pid(int pid)
+> +{
+> +	int status, ret;
+> +	int retries = 5000;
+> +
+> +	do {
+> +		ret = waitpid(pid, &status, WNOHANG);
+> +		usleep(1000);
+> +	} while (ret == 0 && retries--);
+> +
+> +	if (ret == pid) {
+> +		if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
+> +			return;
+> +
+> +		tst_res(TFAIL, "Child exitted with %s",
+> tst_strstatus(status));
+> +	}
+> +
+> +	SAFE_KILL(pid, SIGKILL);
+> +
+> +	SAFE_WAITPID(pid, NULL, 0);
+> +
+> +	tst_res(TFAIL, "Did not get all expected UEVENTS");
+> +}
+> +
+> +#endif /* UEVENT_H__ */
+> diff --git a/testcases/kernel/uevents/uevent01.c
+> b/testcases/kernel/uevents/uevent01.c
+> new file mode 100644
+> index 000000000..41cd01b1f
+> --- /dev/null
+> +++ b/testcases/kernel/uevents/uevent01.c
+> @@ -0,0 +1,90 @@
 > +// SPDX-License-Identifier: GPL-2.0-or-later
 > +/*
 > + * Copyright (C) 2019 Cyril Hrubis <chrubis@suse.cz>
@@ -98,144 +327,70 @@ On Tue, 2019-08-20 at 17:18 +0200, Cyril Hrubis wrote:
 > +/*
 > + * Very simple uevent netlink socket test.
 > + *
-> + * We fork a child that listens for a kernel events while parents
-> creates and removes
-             ^maybe line wrap?
-
-> + * a tun network device which should produce two several add and
-> remove events.
+> + * We fork a child that listens for a kernel events while parents 
+> attaches and
+> + * detaches a loop device which should produce two change events.
 > + */
 > +
 > +#include <stdio.h>
 > +#include <stdlib.h>
 > +#include <sys/wait.h>
-> +#include <linux/if.h>
-> +#include <linux/if_tun.h>
-> +
 > +#include "tst_test.h"
 > +
 > +#include "uevent.h"
 > +
-> +#define TUN_PATH "/dev/net/tun"
-> +
-> +static void generate_tun_uevents(void)
+> +static void generate_device_events(const char *dev_path)
 > +{
-> +	int fd = SAFE_OPEN(TUN_PATH, O_RDWR);
+> +	tst_fill_file("loop.img", 0, 1024, 1024);
 > +
-> +	struct ifreq ifr = {
-> +		.ifr_flags = IFF_TUN,
-> +		.ifr_name = "ltp-tun0",
-> +	};
-> +
-> +	SAFE_IOCTL(fd, TUNSETIFF, (void*)&ifr);
-> +
-> +	SAFE_IOCTL(fd, TUNSETPERSIST, 0);
-> +
-> +	SAFE_CLOSE(fd);
+> +	tst_res(TINFO, "Attaching device %s", dev_path);
+> +	tst_attach_device(dev_path, "loop.img");
+> +	tst_res(TINFO, "Detaching device %s", dev_path);
+> +	tst_detach_device(dev_path);
 > +}
 > +
 > +static void verify_uevent(void)
 > +{
-> +	int pid, fd;
+> +	int pid, fd, dev_num;
+> +	char dev_path[1024];
+> +	char ev_msg[1024];
+> +	char ev_dev_path[1024];
+> +	char ev_dev_minor[128];
+> +	char ev_dev_name[128];
 > +
-> +	struct uevent_desc add = {
-> +		.msg = "add@/devices/virtual/net/ltp-tun0",
-> +		.value_cnt = 0,
-                             ^should it be 4?
-
+> +	struct uevent_desc desc = {
+> +		.msg = ev_msg,
+> +		.value_cnt = 7,
 > +		.values = (const char*[]) {
-> +			"ACTION=add",
-> +			"DEVPATH=/devices/virtual/net/ltp-tun0",
-> +			"SUBSYSTEM=net",
-> +			"ITERFACE=ltp-tun0",
-                          ^INTERFACE
-
+> +			"ACTION=change",
+> +			ev_dev_path,
+> +			"SUBSYSTEM=block",
+> +			"MAJOR=7",
+> +			ev_dev_minor,
+> +			ev_dev_name,
+> +			"DEVTYPE=disk",
 > +		}
 > +	};
 > +
-> +	struct uevent_desc add_rx = {
-> +		.msg = "add@/devices/virtual/net/ltp-tun0/queues/rx-
-> 0",
-> +		.value_cnt = 0,
-                             ^3
+> +	dev_num = tst_find_free_loopdev(dev_path, sizeof(dev_path));
 
-> +		.values = (const char*[]) {
-> +			"ACTION=add",
-> +			"DEVPATH=/devices/virtual/net/ltp-
-> tun0/queues/rx-0",
-> +			"SUBSYSTEM=queueus",
-                                        ^queues
+Maybe it isn't worth to check if dev_num is a valid number.
 
-> +		}
-> +	};
 > +
-> +	struct uevent_desc add_tx = {
-> +		.msg = "add@/devices/virtual/net/ltp-tun0/queues/tx-
-> 0",
-> +		.value_cnt = 0,
-                             ^3
-
-> +		.values = (const char*[]) {
-> +			"ACTION=add",
-> +			"DEVPATH=/devices/virtual/net/ltp-
-> tun0/queues/tx-0",
-> +			"SUBSYSTEM=queueus",
-                                        ^queues
-
-> +		}
-> +	};
+> +	snprintf(ev_msg, sizeof(ev_msg),
+> +	         "change@/devices/virtual/block/loop%i", dev_num);
 > +
-> +	struct uevent_desc rem_rx = {
-> +		.msg = "remove@/devices/virtual/net/ltp-
-> tun0/queues/rx-0",
-> +		.value_cnt = 0,
-                             ^3
-
-> +		.values = (const char*[]) {
-> +			"ACTION=remove",
-> +			"DEVPATH=/devices/virtual/net/ltp-
-> tun0/queues/rx-0",
-> +			"SUBSYSTEM=queueus",
-                                        ^queues
-
-> +		}
-> +	};
+> +	snprintf(ev_dev_path, sizeof(ev_dev_path),
+> +	         "DEVPATH=/devices/virtual/block/loop%i", dev_num);
 > +
-> +	struct uevent_desc rem_tx = {
-> +		.msg = "remove@/devices/virtual/net/ltp-
-> tun0/queues/tx-0",
-> +		.value_cnt = 0,
-                             ^3
-
-> +		.values = (const char*[]) {
-> +			"ACTION=remove",
-> +			"DEVPATH=/devices/virtual/net/ltp-
-> tun0/queues/tx-0",
-> +			"SUBSYSTEM=queueus",
-> +		}
-> +	};
-> +
-> +	struct uevent_desc rem = {
-> +		.msg = "remove@/devices/virtual/net/ltp-tun0",
-> +		.value_cnt = 0,
-                             ^4
-> +		.values = (const char*[]) {
-> +			"ACTION=remove",
-> +			"DEVPATH=/devices/virtual/net/ltp-tun0",
-> +			"SUBSYSTEM=net",
-> +			"ITERFACE=ltp-tun0",
-                          ^should be INTERFACE
-
-> +		}
-> +	};
+> +	snprintf(ev_dev_minor, sizeof(ev_dev_minor), "MINOR=%i",
+> dev_num);
+> +	snprintf(ev_dev_name, sizeof(ev_dev_name), "DEVNAME=loop%i",
+> dev_num);
 > +
 > +	const struct uevent_desc *const uevents[] = {
-> +		&add,
-> +		&add_rx,
-> +		&add_tx,
-> +		&rem_rx,
-> +		&rem_tx,
-> +		&rem,
+> +		&desc,
+> +		&desc,
 > +		NULL
 > +	};
 > +
@@ -244,11 +399,16 @@ On Tue, 2019-08-20 at 17:18 +0200, Cyril Hrubis wrote:
 > +		fd = open_uevent_netlink();
 > +		TST_CHECKPOINT_WAKE(0);
 > +		wait_for_uevents(fd, uevents);
+
+For me it wasn't obvious that wait_for_uevents() does the exit(). Not
+sure if we should do the exit better here or name the function like
+exit_on_uevents().
+
 > +	}
 > +
 > +	TST_CHECKPOINT_WAIT(0);
 > +
-> +	generate_tun_uevents();
+> +	generate_device_events(dev_path);
 > +
 > +	wait_for_pid(pid);
 > +}
@@ -257,20 +417,19 @@ On Tue, 2019-08-20 at 17:18 +0200, Cyril Hrubis wrote:
 > +	.test_all = verify_uevent,
 > +	.forks_child = 1,
 > +	.needs_tmpdir = 1,
+
+Just curious, where do we need the tmpdir?
+
 > +	.needs_checkpoints = 1,
 > +	.needs_root = 1,
-> +	.needs_drivers = (const char *const []) {
-> +		"tun",
-> +		NULL
-> +	},
 > +};
 > -- 
 > 2.21.0
 > 
 > 
 
-thanks
-clemens
+thx
+Clemens
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
