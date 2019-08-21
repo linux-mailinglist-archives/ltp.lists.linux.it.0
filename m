@@ -2,42 +2,53 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDD7E9741C
-	for <lists+linux-ltp@lfdr.de>; Wed, 21 Aug 2019 09:58:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD9EA97478
+	for <lists+linux-ltp@lfdr.de>; Wed, 21 Aug 2019 10:14:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6C1343C1D3C
-	for <lists+linux-ltp@lfdr.de>; Wed, 21 Aug 2019 09:58:03 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 83AB33C1CFB
+	for <lists+linux-ltp@lfdr.de>; Wed, 21 Aug 2019 10:14:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id EB0333C1866
- for <ltp@lists.linux.it>; Wed, 21 Aug 2019 09:57:59 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id BFA94600BF2
- for <ltp@lists.linux.it>; Wed, 21 Aug 2019 09:58:01 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id A3BCEAC0C;
- Wed, 21 Aug 2019 07:57:57 +0000 (UTC)
-References: <20190819133618.7538-1-rpalethorpe@suse.com>
- <20190820095521.GA22253@rei.lan>
- <CAEemH2cX1CO=zLzf1ZHQM+MUNS=FLKpGD1ypx=2uGst5qXn4YQ@mail.gmail.com>
- <20190820102711.GA22483@rei.lan>
-User-agent: mu4e 1.2.0; emacs 26.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Cyril Hrubis <chrubis@suse.cz>
-In-reply-to: <20190820102711.GA22483@rei.lan>
-Date: Wed, 21 Aug 2019 09:57:57 +0200
-Message-ID: <87y2znuf0a.fsf@rpws.prws.suse.cz>
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 7C8EC3C1866
+ for <ltp@lists.linux.it>; Wed, 21 Aug 2019 10:14:57 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 9F51A600C2B
+ for <ltp@lists.linux.it>; Wed, 21 Aug 2019 10:14:57 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.64,412,1559491200"; d="scan'208";a="73995725"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 21 Aug 2019 16:14:52 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id 252674CE03E7;
+ Wed, 21 Aug 2019 16:14:45 +0800 (CST)
+Received: from [10.167.215.46] (10.167.215.46) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ id 14.3.439.0; Wed, 21 Aug 2019 16:14:48 +0800
+Message-ID: <5D5CFD75.3050506@cn.fujitsu.com>
+Date: Wed, 21 Aug 2019 16:14:45 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
+To: Li Wang <liwang@redhat.com>
+References: <20190815083630.26975-1-pvorel@suse.cz>
+ <20190816085309.fqvip4exe4mvtv2o@XZHOUW.usersys.redhat.com>
+ <CAEemH2d7TYn4sZ7kkjRsPc-yBnTrN9LC+w84MAO6pDxYpfiFcw@mail.gmail.com>
+ <5D5BB8DC.6070900@cn.fujitsu.com>
+ <CAEemH2d_CKOwE3mHEXZKi1BkMBw5dn95aMJtkrSRciH2PU6NJA@mail.gmail.com>
+In-Reply-To: <CAEemH2d_CKOwE3mHEXZKi1BkMBw5dn95aMJtkrSRciH2PU6NJA@mail.gmail.com>
+X-Originating-IP: [10.167.215.46]
+X-yoursite-MailScanner-ID: 252674CE03E7.AC244
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
 X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] tst_res: Print errno number in addition to error
- name
+Subject: Re: [LTP] [PATCH] lapi/fs.h: Replace MAX_LFS_FILESIZE constant with
+ own implementation
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,45 +60,62 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: LTP List <ltp@lists.linux.it>,
- Richard Palethorpe <richard.palethorpe@suse.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: LTP List <ltp@lists.linux.it>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+on 2019/08/21 15:27, Li Wang wrote:
 
-Cyril Hrubis <chrubis@suse.cz> writes:
-
-> Hi!
->> > > It appears we are atleast missing ENOTSUPP (524) which is probably returned by
->> > > create_timer for some alarm clocks on none x86 arches. This isn't entirely
->> > > clear, but what is clear is that it would help to know what the error number
->> > > is without using strace.
->> >
->> > Can we please also patch the lib/errnos.h so that the ENOTSUPP is
->> > included there as well?
+> On Tue, Aug 20, 2019 at 5:10 PM Yang Xu<xuyang2018.jy@cn.fujitsu.com>  wrote:
+> ...
+>>> But I don't understand why to define MAX_OFF as (MAX_LEN - MIN_OFF),
+>>> the failure indicates that not to write at a position past the maximum
+>>> allowed offset. Shouldn't we give a dst_off large than
+>>> MAX_LFS_FILESIZE?
+>> Yes, we should use a dst_off large than MAX_LFS_FILESIZE because it used pos to compare
+>> in kernel code as below:
 >>
->> Not sure if we should do that since it(from google) says ENOTSUPP is
->> not intended to used in userland.
+>> mm/filemap.c
+>>    static int generic_write_check_limits(struct file *file, loff_t pos, loff_t *count)
+>> ...
+>> if (unlikely(pos>= max_size))
+>>     return -EFBIG;
+>> ...
+>>
+>> I strace xfstest generic/564 code( I follow this test code to ltp), as below:
+>> #max_off=$((8 * 2**60 - 65536 - 1))
+>> #min_off=65537
+>> #xfs_io -f -c "pwrite -S 0x61 0 128k" file
+>> #touch copy
+>> #strace xfs_io -c "copy_range -l $min_off -s 0 -d $max_off file" copy
+>> ....
+>>    openat(AT_FDCWD, "file", O_RDONLY)      = 4
+>>    copy_file_range(4, [0], 3, [9223372036854710271], 65537, 0) = 65536
+>>    copy_file_range(4, [65536], 3, [9223372036854775807], 1, 0) = -1 EFBIG (File too large)
+>> ....
+>>
+>> xfsprogs used a loop to call copy_file_range, and get EFBIG when pos greater than LLONG_MAX.
+>>
+>> I think we should  use tst_max_lfs_filesize instead of (tst_max_lfs_filesize -MIN_OFF)
+>> and this case will pass whether xfs,btrfs and ext4.
+> Good job, Xu. I think you can format a new patch to fix this problem.
+> Because Petr's patch is used for solving the cross-compiling issue and
+> looks good.
+Hi Li
 
-I suppose we could print a warning/fail if any error value over 512
-(ERESTARTSYS) is seen by tst_res(). We can define these error numbers in
-user land for debugging purposes.
+OK. I will send a new patch to fix this problem. But copy_file_range02.c still has a problem as Murphy found,
+we set all_filesystem but use the same tmpdir instead of mntpoint.  I think we can remove all_filesystem and mountpoint.
 
+@Murphy Zhou  Hi Murphy, would you like to send a new patch to remove useless all_filesystem or I do it in my
+new patch by adding your signed-off-by tag? What do you think about it?
+
+> @Petr Vorel Hi Petr, what do you think? any more comments?
 >
-> Looks like there are two of these ENOTSUP and ENOTSUPP so the syscall
-> returning ENOTSUPP is a bug itself since it should return ENOTSUP. Also
-> btw ENOTSUP == EOPNOTSUPP and we do have EOPNOTSUPP in errnos.h.
 
-I think there is quite a lot of stuff missing. Maybe it is time to
-create a script for generating this list?
 
---
-Thank you,
-Richard.
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
