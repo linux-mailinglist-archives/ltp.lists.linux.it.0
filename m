@@ -1,50 +1,49 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 021A498AF7
-	for <lists+linux-ltp@lfdr.de>; Thu, 22 Aug 2019 07:56:50 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C58D98DFC
+	for <lists+linux-ltp@lfdr.de>; Thu, 22 Aug 2019 10:42:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B5A8F3C1D01
-	for <lists+linux-ltp@lfdr.de>; Thu, 22 Aug 2019 07:56:49 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A0E033C1D06
+	for <lists+linux-ltp@lfdr.de>; Thu, 22 Aug 2019 10:42:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id DEF713C17A2
- for <ltp@lists.linux.it>; Thu, 22 Aug 2019 07:56:47 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 4D62A3C1CF4
+ for <ltp@lists.linux.it>; Thu, 22 Aug 2019 10:42:04 +0200 (CEST)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 6487514010C6
- for <ltp@lists.linux.it>; Thu, 22 Aug 2019 07:56:42 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.64,415,1559491200"; d="scan'208";a="74048647"
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 78157600976
+ for <ltp@lists.linux.it>; Thu, 22 Aug 2019 10:42:03 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.64,415,1559491200"; d="scan'208";a="74057611"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 22 Aug 2019 13:56:37 +0800
+ by heian.cn.fujitsu.com with ESMTP; 22 Aug 2019 16:41:57 +0800
 Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id 7D8054CE03EB;
- Thu, 22 Aug 2019 13:56:35 +0800 (CST)
+ by cn.fujitsu.com (Postfix) with ESMTP id DD7A14CE03F2;
+ Thu, 22 Aug 2019 16:41:52 +0800 (CST)
 Received: from [10.167.215.46] (10.167.215.46) by
  G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- id 14.3.439.0; Thu, 22 Aug 2019 13:56:38 +0800
-Message-ID: <5D5E2E91.1060805@cn.fujitsu.com>
-Date: Thu, 22 Aug 2019 13:56:33 +0800
+ id 14.3.439.0; Thu, 22 Aug 2019 16:41:55 +0800
+Message-ID: <5D5E5551.9050308@cn.fujitsu.com>
+Date: Thu, 22 Aug 2019 16:41:53 +0800
 From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
  rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-To: Li Wang <liwang@redhat.com>
+To: Richard Palethorpe <rpalethorpe@suse.com>
 References: <20190808153825.18363-1-rpalethorpe@suse.com>
  <20190808153825.18363-2-rpalethorpe@suse.com>
- <CAEemH2czBk5KKgFB0_4bWtnwdnJdq0sJNmo=q3_u1UipEhaOJw@mail.gmail.com>
-In-Reply-To: <CAEemH2czBk5KKgFB0_4bWtnwdnJdq0sJNmo=q3_u1UipEhaOJw@mail.gmail.com>
+In-Reply-To: <20190808153825.18363-2-rpalethorpe@suse.com>
 X-Originating-IP: [10.167.215.46]
-X-yoursite-MailScanner-ID: 7D8054CE03EB.AE69B
+X-yoursite-MailScanner-ID: DD7A14CE03F2.AE2FD
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
 Subject: Re: [LTP] [RFC PATCH 1/1] capability: Introduce capability API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -57,121 +56,266 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: mmoese@suse.com, Richard Palethorpe <rpalethorpe@suse.com>,
- LTP List <ltp@lists.linux.it>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: mmoese@suse.com, ltp@lists.linux.it
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-5LqOIDIwMTkvMDgvMTUgMTU6MTAsIExpIFdhbmcg5YaZ6YGTOgo+IE9uIFRodSwgQXVnIDgsIDIw
-MTkgYXQgMTE6MzkgUE0gUmljaGFyZCBQYWxldGhvcnBlPHJwYWxldGhvcnBlQHN1c2UuY29tPiAg
-d3JvdGU6Cj4+IC0tLQo+PiAgIGluY2x1ZGUvdHN0X2NhcGFiaWxpdHkuaCB8IDU2ICsrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrCj4+ICAgaW5jbHVkZS90c3RfdGVzdC5oICAgICAgIHwgIDYg
-KysrKwo+PiAgIGxpYi90c3RfY2FwYWJpbGl0eS5jICAgICB8IDc4ICsrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysKPj4gICBsaWIvdHN0X3Rlc3QuYyAgICAgICAgICAgfCAg
-MyArKwo+PiAgIDQgZmlsZXMgY2hhbmdlZCwgMTQzIGluc2VydGlvbnMoKykKPj4gICBjcmVhdGUg
-bW9kZSAxMDA2NDQgaW5jbHVkZS90c3RfY2FwYWJpbGl0eS5oCj4+ICAgY3JlYXRlIG1vZGUgMTAw
-NjQ0IGxpYi90c3RfY2FwYWJpbGl0eS5jCj4+Cj4+IGRpZmYgLS1naXQgYS9pbmNsdWRlL3RzdF9j
-YXBhYmlsaXR5LmggYi9pbmNsdWRlL3RzdF9jYXBhYmlsaXR5LmgKPj4gbmV3IGZpbGUgbW9kZSAx
-MDA2NDQKPj4gaW5kZXggMDAwMDAwMDAwLi42MzQyYjY2N2UKPj4gLS0tIC9kZXYvbnVsbAo+PiAr
-KysgYi9pbmNsdWRlL3RzdF9jYXBhYmlsaXR5LmgKPj4gQEAgLTAsMCArMSw1NiBAQAo+PiArLyog
-U1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIgKi8KPj4gKy8qCj4+ICsg
-KiBDb3B5cmlnaHQgKGMpIDIwMTkgUmljaGFyZCBQYWxldGhvcnBlPHJwYWxldGhvcnBlQHN1c2Uu
-Y29tPgo+PiArICovCj4+ICsvKioKPj4gKyAqIEBmaWxlIHRzdF9jYXBhYmlsaXR5LmgKPj4gKyAq
-Cj4+ICsgKiBMaW1pdGVkIGNhcGFiaWxpdHkgb3BlcmF0aW9ucyB3aXRob3V0IGxpYmNhcC4KPj4g
-KyAqLwo+PiArCj4+ICsjaW5jbHVkZTxzdGRpbnQuaD4KPj4gKwo+PiArI2luY2x1ZGUgImxhcGkv
-c3lzY2FsbHMuaCIKPj4gKwo+PiArI2lmbmRlZiBUU1RfQ0FQQUJJTElUWV9ICj4+ICsjZGVmaW5l
-IFRTVF9DQVBBQklMSVRZX0gKPj4gKwo+PiArI2lmbmRlZiBDQVBfU1lTX0FETUlOCj4+ICsjIGRl
-ZmluZSBDQVBfU1lTX0FETUlOICAgICAgICAyMQo+PiArI2VuZGlmCj4+ICsKPj4gKyNpZm5kZWYg
-Q0FQX1RPX01BU0sKPj4gKyMgZGVmaW5lIENBUF9UT19NQVNLKHgpICAgICAgKDE8PCAgKCh4KSYg
-IDMxKSkKPj4gKyNlbmRpZgo+PiArCj4+ICsjZGVmaW5lIFRTVF9EUk9QIDEKPj4gKyNkZWZpbmUg
-VFNUX1JFUVVJUkUgMTw8ICAxCj4+ICsKPj4gKyNkZWZpbmUgVFNUX0NBUChhY3Rpb24sIGNhcGFi
-aWxpdHkpIHthY3Rpb24sIGNhcGFiaWxpdHksICNjYXBhYmlsaXR5fQo+PiArCj4+ICtzdHJ1Y3Qg
-dHN0X2NhcF91c2VyX2hlYWRlciB7Cj4+ICsgICAgICAgdWludDMyX3QgdmVyc2lvbjsKPj4gKyAg
-ICAgICBpbnQgcGlkOwo+PiArfTsKPj4gKwo+PiArc3RydWN0IHRzdF9jYXBfdXNlcl9kYXRhIHsK
-Pj4gKyAgICAgICB1aW50MzJfdCBlZmZlY3RpdmU7Cj4+ICsgICAgICAgdWludDMyX3QgcGVybWl0
-dGVkOwo+PiArICAgICAgIHVpbnQzMl90IGluaGVyaXRhYmxlOwo+PiArfTsKPj4gKwo+PiArc3Ry
-dWN0IHRzdF9jYXAgewo+PiArICAgICAgIHVpbnQzMl90IGFjdGlvbjsKPj4gKyAgICAgICB1aW50
-MzJfdCBpZDsKPj4gKyAgICAgICBjaGFyICpuYW1lOwo+PiArfTsKPj4gKwo+PiAraW50IHRzdF9j
-YXBnZXQoc3RydWN0IHRzdF9jYXBfdXNlcl9oZWFkZXIgKmhkciwKPj4gKyAgICAgICAgICAgICAg
-c3RydWN0IHRzdF9jYXBfdXNlcl9kYXRhICpkYXRhKTsKPj4gK2ludCB0c3RfY2Fwc2V0KHN0cnVj
-dCB0c3RfY2FwX3VzZXJfaGVhZGVyICpoZHIsCj4+ICsgICAgICAgICAgICAgIGNvbnN0IHN0cnVj
-dCB0c3RfY2FwX3VzZXJfZGF0YSAqZGF0YSk7Cj4+ICsKPj4gK3ZvaWQgdHN0X2NhcF9hY3Rpb24o
-c3RydWN0IHRzdF9jYXAgKmNhcCk7Cj4+ICt2b2lkIHRzdF9jYXBfc2V0dXAoc3RydWN0IHRzdF9j
-YXAgKmNhcCk7Cj4+ICsKPj4gKyNlbmRpZgo+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS90c3RfdGVz
-dC5oIGIvaW5jbHVkZS90c3RfdGVzdC5oCj4+IGluZGV4IGNkZWFmNmFkMC4uODRhY2YyYzU5IDEw
-MDY0NAo+PiAtLS0gYS9pbmNsdWRlL3RzdF90ZXN0LmgKPj4gKysrIGIvaW5jbHVkZS90c3RfdGVz
-dC5oCj4+IEBAIC0zNiw2ICszNiw3IEBACj4+ICAgI2luY2x1ZGUgInRzdF9zeXNfY29uZi5oIgo+
-PiAgICNpbmNsdWRlICJ0c3RfY29yZWR1bXAuaCIKPj4gICAjaW5jbHVkZSAidHN0X2J1ZmZlcnMu
-aCIKPj4gKyNpbmNsdWRlICJ0c3RfY2FwYWJpbGl0eS5oIgo+Pgo+PiAgIC8qCj4+ICAgICogUmVw
-b3J0cyB0ZXN0Y2FzZSByZXN1bHQuCj4+IEBAIC0yMDYsNiArMjA3LDExIEBAIHN0cnVjdCB0c3Rf
-dGVzdCB7Cj4+ICAgICAgICAgICAqIE5VTEwtdGVybWluYXRlZCBhcnJheSB0byBiZSBhbGxvY2F0
-ZWQgYnVmZmVycy4KPj4gICAgICAgICAgICovCj4+ICAgICAgICAgIHN0cnVjdCB0c3RfYnVmZmVy
-cyAqYnVmczsKPj4gKwo+PiArICAgICAgIC8qCj4+ICsgICAgICAgICogTlVMTC10ZXJtaW5hdGVk
-IGFycmF5IG9mIGNhcGFiaWxpdHkgc2V0dGluZ3MKPj4gKyAgICAgICAgKi8KPj4gKyAgICAgICBz
-dHJ1Y3QgdHN0X2NhcCAqY2FwczsKPj4gICB9Owo+Pgo+PiAgIC8qCj4+IGRpZmYgLS1naXQgYS9s
-aWIvdHN0X2NhcGFiaWxpdHkuYyBiL2xpYi90c3RfY2FwYWJpbGl0eS5jCj4+IG5ldyBmaWxlIG1v
-ZGUgMTAwNjQ0Cj4+IGluZGV4IDAwMDAwMDAwMC4uZDIyOTQ5MWFlCj4+IC0tLSAvZGV2L251bGwK
-Pj4gKysrIGIvbGliL3RzdF9jYXBhYmlsaXR5LmMKPj4gQEAgLTAsMCArMSw3OCBAQAo+PiArLyog
-U1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIgKi8KPj4gKy8qCj4+ICsg
-KiBDb3B5cmlnaHQgKGMpIDIwMTkgUmljaGFyZCBQYWxldGhvcnBlPHJwYWxldGhvcnBlQHN1c2Uu
-Y29tPgo+PiArICovCj4+ICsKPj4gKyNkZWZpbmUgVFNUX05PX0RFRkFVTFRfTUFJTgo+PiArI2lu
-Y2x1ZGUgInRzdF90ZXN0LmgiCj4+ICsjaW5jbHVkZSAidHN0X2NhcGFiaWxpdHkuaCIKPj4gKwo+
-PiAraW50IHRzdF9jYXBnZXQoc3RydWN0IHRzdF9jYXBfdXNlcl9oZWFkZXIgKmhkciwKPj4gKyAg
-ICAgICAgICAgICAgc3RydWN0IHRzdF9jYXBfdXNlcl9kYXRhICpkYXRhKQo+PiArewo+PiArICAg
-ICAgIHJldHVybiB0c3Rfc3lzY2FsbChfX05SX2NhcGdldCwgaGRyLCBkYXRhKTsKPj4gK30KPj4g
-Kwo+PiAraW50IHRzdF9jYXBzZXQoc3RydWN0IHRzdF9jYXBfdXNlcl9oZWFkZXIgKmhkciwKPj4g
-KyAgICAgICAgICAgICAgY29uc3Qgc3RydWN0IHRzdF9jYXBfdXNlcl9kYXRhICpkYXRhKQo+PiAr
-ewo+PiArICAgICAgIHJldHVybiB0c3Rfc3lzY2FsbChfX05SX2NhcHNldCwgaGRyLCBkYXRhKTsK
-Pj4gK30KPj4gKwo+PiArdm9pZCB0c3RfY2FwX2FjdGlvbihzdHJ1Y3QgdHN0X2NhcCAqY2FwKQo+
-PiArewo+PiArICAgICAgIHN0cnVjdCB0c3RfY2FwX3VzZXJfaGVhZGVyIGhkciA9IHsKPj4gKyAg
-ICAgICAgICAgICAgIC52ZXJzaW9uID0gMHgyMDA4MDUyMiwKPj4gKyAgICAgICAgICAgICAgIC5w
-aWQgPSB0c3Rfc3lzY2FsbChfX05SX2dldHRpZCksCj4+ICsgICAgICAgfTsKPj4gKyAgICAgICBz
-dHJ1Y3QgdHN0X2NhcF91c2VyX2RhdGEgY3VyID0geyAwIH07Cj4+ICsgICAgICAgc3RydWN0IHRz
-dF9jYXBfdXNlcl9kYXRhIG5ldyA9IHsgMCB9Owo+PiArICAgICAgIHVpbnQzMl90IG1hc2sgPSBD
-QVBfVE9fTUFTSyhjYXAtPmlkKTsKPj4gKyAgICAgICB1aW50MzJfdCBhY3QgPSBjYXAtPmFjdGlv
-bjsKPj4gKwo+PiArICAgICAgIGlmICh0c3RfY2FwZ2V0KCZoZHIsJmN1cikpCj4+ICsgICAgICAg
-ICAgICAgICB0c3RfYnJrKFRCUk9LIHwgVFRFUlJOTywgInRzdF9jYXBnZXQoKSIpOwo+PiArCj4+
-ICsgICAgICAgbmV3ID0gY3VyOwo+PiArCj4+ICsgICAgICAgc3dpdGNoIChhY3QpIHsKPj4gKyAg
-ICAgICBjYXNlIFRTVF9EUk9QOgo+PiArICAgICAgICAgICAgICAgaWYgKGN1ci5lZmZlY3RpdmUm
-ICBtYXNrKSB7Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgIHRzdF9yZXMoVElORk8sICJEcm9w
-cGluZyAlcyglZCkiLAo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNhcC0+bmFt
-ZSwgY2FwLT5pZCk7Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgIG5ldy5lZmZlY3RpdmUmPSB+
-bWFzazsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgbmV3LnBlcm1pdHRlZCY9IH5tYXNrOwo+
-PiArICAgICAgICAgICAgICAgICAgICAgICBuZXcuaW5oZXJpdGFibGUmPSB+bWFzazsKPj4gKyAg
-ICAgICAgICAgICAgIH0KPj4gKyAgICAgICAgICAgICAgIGJyZWFrOwo+PiArICAgICAgIGNhc2Ug
-VFNUX1JFUVVJUkU6Cj4+ICsgICAgICAgICAgICAgICBpZiAoY3VyLnBlcm1pdHRlZCBeIG1hc2sp
-IHsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgdHN0X2JyayhUQ09ORiwgIk5lZWQgJXMoJWQp
-IiwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjYXAtPm5hbWUsIGNhcC0+aWQp
-Owo+PiArICAgICAgICAgICAgICAgfSBlbHNlIGlmIChjdXIuZWZmZWN0aXZlIF4gbWFzaykgewo+
-PiArICAgICAgICAgICAgICAgICAgICAgICB0c3RfcmVzKFRJTkZPLCAiUGVybWl0dGluZyAlcygl
-ZCkiLAo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNhcC0+bmFtZSwgY2FwLT5p
-ZCk7Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgIG5ldy5lZmZlY3RpdmUgfD0gbWFzazsKPj4g
-KyAgICAgICAgICAgICAgICAgICAgICAgbmV3LmluaGVyaXRhYmxlIHw9IG1hc2s7Cj4+ICsgICAg
-ICAgICAgICAgICB9Cj4+ICsgICAgICAgICAgICAgICBicmVhazsKPj4gKyAgICAgICBkZWZhdWx0
-Ogo+PiArICAgICAgICAgICAgICAgdHN0X2JyayhUQlJPSywgIlVucmVjb2duaXNlZCBhY3Rpb24g
-JWQiLCBjYXAtPmFjdGlvbik7Cj4+ICsgICAgICAgfQo+PiArCj4+ICsgICAgICAgaWYgKGN1ci5l
-ZmZlY3RpdmUgIT0gbmV3LmVmZmVjdGl2ZSkgewo+PiArICAgICAgICAgICAgICAgaWYgKHRzdF9j
-YXBzZXQoJmhkciwmbmV3KSkKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgdHN0X2JyayhUQlJP
-SyB8IFRFUlJOTywgInRzdF9jYXBzZXQoJXMpIiwgY2FwLT5uYW1lKTsKPiBJdCBkb2VzIG5vdCB3
-b3JrIGZvciB0aGlzIHNpbXBsZSBjYXBfdGVzdC5jLCBkaWQgSSBtaXNzIGFueXRoaW5nPwo+Cj4g
-IyB3aG9hbWkKPiByb290Cj4KPiAjIC4vY2FwX3Rlc3QKPiB0c3RfdGVzdC5jOjExMTE6IElORk86
-IFRpbWVvdXQgcGVyIHJ1biBpcyAwaCAwNW0gMDBzCj4gdHN0X2NhcGFiaWxpdHkuYzo0MjogSU5G
-TzogRHJvcHBpbmcgQ0FQX1NZU19BRE1JTigyMSkKPiB0c3RfY2FwYWJpbGl0eS5jOjY1OiBCUk9L
-OiB0c3RfY2Fwc2V0KENBUF9TWVNfQURNSU4pOiBFUEVSTQo+CkhpIExpCkkgaGF2ZSB0cmllZCBp
-dCBhbmQgaGF2ZSB0aGUgc2FtZSBmYWlsdXJlLiBUaGUgX0xJTlVYX0NBUEFCSUxJVFlfVkVSU0lP
-Tl8zIHNlZW0gbm90IHN1cHBvcnQgb24gbXkgc3lzdGVtIGNhdXNlcyBmYWlsLgpJZiBJIHVzZSBf
-TElOVVhfQ0FQQUJJTElUWV9WRVJTSU9OXzEsIGNhcF90ZXN0IHdpbGwgcGFzcy4gIEkgYW0gc3Rp
-bGwgbG9va2luZyBpbnRvIF9MSU5VWF9DQVBBQklMSVRZX1ZFUlNJT05fMyBkZXBlbmRlbmNlLgoK
-PiAjIC4vY2FwX3Rlc3QKPiB0c3RfdGVzdC5jOjExMTE6IElORk86IFRpbWVvdXQgcGVyIHJ1biBp
-cyAwaCAwNW0gMDBzCj4gdHN0X2NhcGFiaWxpdHkuYzo1MTogQ09ORjogTmVlZCBDQVBfU1lTX0FE
-TUlOKDIxKQo+Cj4gIyBjYXQgY2FwX3Rlc3QuYwo+ICNpbmNsdWRlICJ0c3RfdGVzdC5oIgo+ICNp
-bmNsdWRlICJsaW51eC9jYXBhYmlsaXR5LmgiCj4KPiBzdGF0aWMgdm9pZCBkb190ZXN0KHZvaWQp
-Cj4gewo+ICAgICAgICAgIHRzdF9yZXMoVFBBU1MsICJIZWxsbyIpOwo+IH0KPgo+IHN0YXRpYyBz
-dHJ1Y3QgdHN0X3Rlc3QgdGVzdCA9IHsKPiAgICAgICAgICAudGVzdF9hbGwgPSBkb190ZXN0LAo+
-ICAgICAgICAgIC5uZWVkc19yb290ID0gMSwKPiAgICAgICAgICAuY2FwcyA9IChzdHJ1Y3QgdHN0
-X2NhcCBbXSkgewo+IC8vICAgICAgICAgICAgICAgIFRTVF9DQVAoVFNUX0RST1AsIENBUF9TWVNf
-QURNSU4pLAo+ICAgICAgICAgICAgICAgICAgVFNUX0NBUChUU1RfUkVRVUlSRSwgQ0FQX1NZU19B
-RE1JTiksCj4gICAgICAgICAgICAgICAgICB7fSwKPiAgICAgICAgICB9LAo+IH07Cj4KCgoKCi0t
-IApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+on 2019/08/08 23:38, Richard Palethorpe wrote:
+
+> ---
+>   include/tst_capability.h | 56 +++++++++++++++++++++++++++++
+>   include/tst_test.h       |  6 ++++
+>   lib/tst_capability.c     | 78 ++++++++++++++++++++++++++++++++++++++++
+>   lib/tst_test.c           |  3 ++
+>   4 files changed, 143 insertions(+)
+>   create mode 100644 include/tst_capability.h
+>   create mode 100644 lib/tst_capability.c
+>
+> diff --git a/include/tst_capability.h b/include/tst_capability.h
+> new file mode 100644
+> index 000000000..6342b667e
+> --- /dev/null
+> +++ b/include/tst_capability.h
+> @@ -0,0 +1,56 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * Copyright (c) 2019 Richard Palethorpe<rpalethorpe@suse.com>
+> + */
+> +/**
+> + * @file tst_capability.h
+> + *
+> + * Limited capability operations without libcap.
+> + */
+> +
+> +#include<stdint.h>
+> +
+> +#include "lapi/syscalls.h"
+> +
+> +#ifndef TST_CAPABILITY_H
+> +#define TST_CAPABILITY_H
+> +
+> +#ifndef CAP_SYS_ADMIN
+> +# define CAP_SYS_ADMIN        21
+> +#endif
+> +
+> +#ifndef CAP_TO_MASK
+> +# define CAP_TO_MASK(x)      (1<<  ((x)&  31))
+> +#endif
+> +
+> +#define TST_DROP 1
+> +#define TST_REQUIRE 1<<  1
+> +
+> +#define TST_CAP(action, capability) {action, capability, #capability}
+> +
+> +struct tst_cap_user_header {
+> +	uint32_t version;
+> +	int pid;
+> +};
+> +
+> +struct tst_cap_user_data {
+> +	uint32_t effective;
+> +	uint32_t permitted;
+> +	uint32_t inheritable;
+> +};
+> +
+> +struct tst_cap {
+> +	uint32_t action;
+> +	uint32_t id;
+> +	char *name;
+> +};
+> +
+> +int tst_capget(struct tst_cap_user_header *hdr,
+> +	       struct tst_cap_user_data *data);
+> +int tst_capset(struct tst_cap_user_header *hdr,
+> +	       const struct tst_cap_user_data *data);
+> +
+> +void tst_cap_action(struct tst_cap *cap);
+> +void tst_cap_setup(struct tst_cap *cap);
+> +
+> +#endif
+> diff --git a/include/tst_test.h b/include/tst_test.h
+> index cdeaf6ad0..84acf2c59 100644
+> --- a/include/tst_test.h
+> +++ b/include/tst_test.h
+> @@ -36,6 +36,7 @@
+>   #include "tst_sys_conf.h"
+>   #include "tst_coredump.h"
+>   #include "tst_buffers.h"
+> +#include "tst_capability.h"
+>
+>   /*
+>    * Reports testcase result.
+> @@ -206,6 +207,11 @@ struct tst_test {
+>   	 * NULL-terminated array to be allocated buffers.
+>   	 */
+>   	struct tst_buffers *bufs;
+> +
+> +	/*
+> +	 * NULL-terminated array of capability settings
+> +	 */
+> +	struct tst_cap *caps;
+>   };
+>
+>   /*
+> diff --git a/lib/tst_capability.c b/lib/tst_capability.c
+> new file mode 100644
+> index 000000000..d229491ae
+> --- /dev/null
+> +++ b/lib/tst_capability.c
+> @@ -0,0 +1,78 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * Copyright (c) 2019 Richard Palethorpe<rpalethorpe@suse.com>
+> + */
+> +
+> +#define TST_NO_DEFAULT_MAIN
+> +#include "tst_test.h"
+> +#include "tst_capability.h"
+> +
+> +int tst_capget(struct tst_cap_user_header *hdr,
+> +	       struct tst_cap_user_data *data)
+> +{
+> +	return tst_syscall(__NR_capget, hdr, data);
+> +}
+> +
+> +int tst_capset(struct tst_cap_user_header *hdr,
+> +	       const struct tst_cap_user_data *data)
+> +{
+> +	return tst_syscall(__NR_capset, hdr, data);
+> +}
+> +
+> +void tst_cap_action(struct tst_cap *cap)
+> +{
+> +	struct tst_cap_user_header hdr = {
+> +		.version = 0x20080522,
+> +		.pid = tst_syscall(__NR_gettid),
+> +	};
+Hi Richard
+
+If we use _LINUX_CAPABILITY_VERSION_1, kernel will report the following warning: `cap_test' uses 32-bit capabilities (legacy support in use)
+
+_LINUX_CAPABILITY_VERSION_2 has been deprecated since kernel 2.6.25, so we can only use _LINUX_CAPABILITY_VERSION_3.
+
+But _LINUX_CAPABILITY_VERSION_3 uses 64-bit capabilities as man-page said, effective defined as uint32_t in tst_cap_usr_data is not enough.
+I guess we need to define cur[2] ,new[2] and compare. Also, it can slove the EPERM failure as Li wang's cap_test.c found.
+  
+ps: I changed  kernel code to track this problem.
+diff --git a/security/commoncap.c b/security/commoncap.c
+index f4ee0ae106b2..291eb4e71031 100644
+--- a/security/commoncap.c
++++ b/security/commoncap.c
+@@ -247,24 +247,31 @@ int cap_capset(struct cred *new,
+         if (cap_inh_is_capped()&&
+             !cap_issubset(*inheritable,
+                           cap_combine(old->cap_inheritable,
+-                                     old->cap_permitted)))
++                                     old->cap_permitted))) {
+                 /* incapable of using this inheritable set */
++               printk("xuyang 0\n");
+                 return -EPERM;
++       }
+
+         if (!cap_issubset(*inheritable,
+                           cap_combine(old->cap_inheritable,
+-                                     old->cap_bset)))
++                                     old->cap_bset))) {
+                 /* no new pI capabilities outside bounding set */
++               printk("xuyang 1\n");
+                 return -EPERM;
++       }
+
+         /* verify restrictions on target's new Permitted set */
+-       if (!cap_issubset(*permitted, old->cap_permitted))
++       if (!cap_issubset(*permitted, old->cap_permitted)) {
++               printk("xuyang  2\n");
+                 return -EPERM;
++       }
+
+         /* verify the _new_Effective_ is a subset of the _new_Permitted_ */
+-       if (!cap_issubset(*effective, *permitted))
++       if (!cap_issubset(*effective, *permitted)) {
++               printk("xuyang 3\n");
+                 return -EPERM;
+-
++       }
+         new->cap_effective   = *effective;
+         new->cap_inheritable = *inheritable;
+
+#./cap_test  (dmesg will report "xuyang 3",return EPERM if use version 3)
+
+Thanks
+Yang Xu
+
+> +	struct tst_cap_user_data cur = { 0 };
+> +	struct tst_cap_user_data new = { 0 };
+> +	uint32_t mask = CAP_TO_MASK(cap->id);
+> +	uint32_t act = cap->action;
+> +
+> +	if (tst_capget(&hdr,&cur))
+> +		tst_brk(TBROK | TTERRNO, "tst_capget()");
+> +
+> +	new = cur;
+> +
+> +	switch (act) {
+> +	case TST_DROP:
+> +		if (cur.effective&  mask) {
+> +			tst_res(TINFO, "Dropping %s(%d)",
+> +				cap->name, cap->id);
+> +			new.effective&= ~mask;
+> +			new.permitted&= ~mask;
+> +			new.inheritable&= ~mask;
+> +		}
+> +		break;
+> +	case TST_REQUIRE:
+> +		if (cur.permitted ^ mask) {
+> +			tst_brk(TCONF, "Need %s(%d)",
+> +				cap->name, cap->id);
+> +		} else if (cur.effective ^ mask) {
+> +			tst_res(TINFO, "Permitting %s(%d)",
+> +				cap->name, cap->id);
+> +			new.effective |= mask;
+> +			new.inheritable |= mask;
+> +		}
+> +		break;
+> +	default:
+> +		tst_brk(TBROK, "Unrecognised action %d", cap->action);
+> +	}
+> +
+> +	if (cur.effective != new.effective) {
+> +		if (tst_capset(&hdr,&new))
+> +			tst_brk(TBROK | TERRNO, "tst_capset(%s)", cap->name);
+> +	} else {
+> +		tst_res(TINFO, "No capability changes needed");
+> +	}
+> +}
+> +
+> +void tst_cap_setup(struct tst_cap *caps)
+> +{
+> +	struct tst_cap *cap;
+> +
+> +	for (cap = caps; cap->action; cap++) {
+> +		tst_cap_action(cap);
+> +	}
+> +}
+> diff --git a/lib/tst_test.c b/lib/tst_test.c
+> index 8dc71dbb3..62e54d071 100644
+> --- a/lib/tst_test.c
+> +++ b/lib/tst_test.c
+> @@ -893,6 +893,9 @@ static void do_test_setup(void)
+>
+>   	if (main_pid != getpid())
+>   		tst_brk(TBROK, "Runaway child in setup()!");
+> +
+> +	if (tst_test->caps)
+> +		tst_cap_setup(tst_test->caps);
+>   }
+>
+>   static void do_cleanup(void)
+
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
