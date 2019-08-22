@@ -2,40 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3D5098039
-	for <lists+linux-ltp@lfdr.de>; Wed, 21 Aug 2019 18:35:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 021A498AF7
+	for <lists+linux-ltp@lfdr.de>; Thu, 22 Aug 2019 07:56:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8471D3C1D09
-	for <lists+linux-ltp@lfdr.de>; Wed, 21 Aug 2019 18:35:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B5A8F3C1D01
+	for <lists+linux-ltp@lfdr.de>; Thu, 22 Aug 2019 07:56:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 925E03C1C7F
- for <ltp@lists.linux.it>; Wed, 21 Aug 2019 18:35:24 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 651AC600662
- for <ltp@lists.linux.it>; Wed, 21 Aug 2019 18:35:26 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 22A06AD85
- for <ltp@lists.linux.it>; Wed, 21 Aug 2019 16:35:23 +0000 (UTC)
-Message-ID: <1566405322.3587.21.camel@suse.de>
-From: Clemens Famulla-Conrad <cfamullaconrad@suse.de>
-To: Cyril Hrubis <chrubis@suse.cz>, ltp@lists.linux.it
-Date: Wed, 21 Aug 2019 18:35:22 +0200
-In-Reply-To: <20190820151831.7418-3-chrubis@suse.cz>
-References: <20190820151831.7418-1-chrubis@suse.cz>
- <20190820151831.7418-3-chrubis@suse.cz>
-X-Mailer: Evolution 3.26.6 
-Mime-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
-X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id DEF713C17A2
+ for <ltp@lists.linux.it>; Thu, 22 Aug 2019 07:56:47 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 6487514010C6
+ for <ltp@lists.linux.it>; Thu, 22 Aug 2019 07:56:42 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.64,415,1559491200"; d="scan'208";a="74048647"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 22 Aug 2019 13:56:37 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id 7D8054CE03EB;
+ Thu, 22 Aug 2019 13:56:35 +0800 (CST)
+Received: from [10.167.215.46] (10.167.215.46) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ id 14.3.439.0; Thu, 22 Aug 2019 13:56:38 +0800
+Message-ID: <5D5E2E91.1060805@cn.fujitsu.com>
+Date: Thu, 22 Aug 2019 13:56:33 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+MIME-Version: 1.0
+To: Li Wang <liwang@redhat.com>
+References: <20190808153825.18363-1-rpalethorpe@suse.com>
+ <20190808153825.18363-2-rpalethorpe@suse.com>
+ <CAEemH2czBk5KKgFB0_4bWtnwdnJdq0sJNmo=q3_u1UipEhaOJw@mail.gmail.com>
+In-Reply-To: <CAEemH2czBk5KKgFB0_4bWtnwdnJdq0sJNmo=q3_u1UipEhaOJw@mail.gmail.com>
+X-Originating-IP: [10.167.215.46]
+X-yoursite-MailScanner-ID: 7D8054CE03EB.AE69B
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/5] kernel/uevent: Add uevent01
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Status: Clean
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH 1/1] capability: Introduce capability API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,389 +57,121 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: cfamullaconrad@suse.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: mmoese@suse.com, Richard Palethorpe <rpalethorpe@suse.com>,
+ LTP List <ltp@lists.linux.it>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
-
-On Tue, 2019-08-20 at 17:18 +0200, Cyril Hrubis wrote:
-> Simple test that attached and detaches a file to a loop device and
-> checks that kernel broadcasts correct events to the kernel uevent
-> broadcast group.
-> 
-> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-> ---
->  runtest/uevent                      |   1 +
->  scenario_groups/default             |   1 +
->  testcases/kernel/uevents/.gitignore |   1 +
->  testcases/kernel/uevents/Makefile   |   6 +
->  testcases/kernel/uevents/uevent.h   | 176
-> ++++++++++++++++++++++++++++
->  testcases/kernel/uevents/uevent01.c |  90 ++++++++++++++
->  6 files changed, 275 insertions(+)
->  create mode 100644 runtest/uevent
->  create mode 100644 testcases/kernel/uevents/.gitignore
->  create mode 100644 testcases/kernel/uevents/Makefile
->  create mode 100644 testcases/kernel/uevents/uevent.h
->  create mode 100644 testcases/kernel/uevents/uevent01.c
-> 
-> diff --git a/runtest/uevent b/runtest/uevent
-> new file mode 100644
-> index 000000000..e9cdf26b8
-> --- /dev/null
-> +++ b/runtest/uevent
-> @@ -0,0 +1 @@
-> +uevent01 uevent01
-> diff --git a/scenario_groups/default b/scenario_groups/default
-> index 093f5f706..62ae0759d 100644
-> --- a/scenario_groups/default
-> +++ b/scenario_groups/default
-> @@ -29,3 +29,4 @@ input
->  cve
->  crypto
->  kernel_misc
-> +uevent
-> diff --git a/testcases/kernel/uevents/.gitignore
-> b/testcases/kernel/uevents/.gitignore
-> new file mode 100644
-> index 000000000..53d0b546a
-> --- /dev/null
-> +++ b/testcases/kernel/uevents/.gitignore
-> @@ -0,0 +1 @@
-> +uevent01
-> diff --git a/testcases/kernel/uevents/Makefile
-> b/testcases/kernel/uevents/Makefile
-> new file mode 100644
-> index 000000000..cba769739
-> --- /dev/null
-> +++ b/testcases/kernel/uevents/Makefile
-> @@ -0,0 +1,6 @@
-> +# SPDX-License-Identifier: GPL-2.0-or-later
-> +
-> +top_srcdir			?= ../../..
-> +
-> +include $(top_srcdir)/include/mk/testcases.mk
-> +include $(top_srcdir)/include/mk/generic_leaf_target.mk
-> diff --git a/testcases/kernel/uevents/uevent.h
-> b/testcases/kernel/uevents/uevent.h
-> new file mode 100644
-> index 000000000..2c32dd534
-> --- /dev/null
-> +++ b/testcases/kernel/uevents/uevent.h
-> @@ -0,0 +1,176 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (C) 2019 Cyril Hrubis <chrubis@suse.cz>
-> + */
-> +
-> +#ifndef UEVENT_H__
-> +#define UEVENT_H__
-> +
-> +#include "tst_netlink.h"
-> +
-> +/*
-> + * There are two broadcast groups defined for the
-> NETLINK_KOBJECT_UEVENT. The
-> + * primary consument of the KERNEL group is udev which handles the
-> hotplug
-> + * events and then, once udev does it's magic the events are
-> rebroadcasted to
-> + * the UDEV group which is consumed by various daemons in the
-> userspace.
-> + */
-> +enum monitor_netlink_group {
-> +	MONITOR_GROUP_NONE,
-> +	MONITOR_GROUP_KERNEL,
-> +	MONITOR_GROUP_UDEV,
-> +};
-> +
-> +/*
-> + * The messages received from the NETLINK_KOBJECT_UEVENT socket are
-> stored as a
-> + * sequence of a null-terminated strings. First in the buffer is a
-> summary of a
-> + * action i.e. "$ACTION@$DEVPATH" which is then followed by a bunch
-> of
-> + * key-value pairs.
-> + *
-> + * For example attaching a file to loopback device generates event:
-> + *
-> + * "change@/devices/virtual/block/loop0\0
-> + *  ACTION=change\0
-> + *  DEVPATH=/devices/virtual/block/loop0\0
-> + *  SUBSYSTEM=block\0
-> + *  MAJOR=7\0
-> + *  MINOR=0\0
-> + *  DEVNAME=loop0\0
-> + *  DEVTYPE=disk\0
-> + *  SEQNUM=2677\0"
-> + */
-> +
-> +/*
-> + * Prints uevent.
-> + */
-> +static inline void print_uevent(const char *event, int len)
-> +{
-> +	int consumed = 0;
-> +
-> +	tst_res(TINFO, "Got uevent:");
-> +
-> +	while (consumed < len) {
-> +		tst_res(TINFO, "%s", event);
-> +		int l = strlen(event) + 1;
-> +		consumed += l;
-> +		event += l;
-> +	}
-> +}
-> +
-> +/*
-> + * Uevents read from the socket are matched against this
-> description.
-> + *
-> + * The msg is the overall action description e.g.
-> + * "add@/class/input/input4/mouse1" which has to be matched exactly
-> before we
-> + * event attempt to check the key-value pairs stored in the values
-> array. The
-> + * event is considered to match if all key-value pairs in the values
-> has been
-> + * found in the received event.
-> + */
-> +struct uevent_desc {
-> +	const char *msg;
-> +	int value_cnt;
-> +	const char **values;
-> +};
-> +
-> +static inline int uevent_match(const char *event, int len,
-> +                               const struct uevent_desc *uevent)
-> +{
-> +	int consumed = 0;
-> +	int val_matches = 0;
-> +
-> +	if (memcmp(event, uevent->msg, strlen(uevent->msg)))
-> +		return 0;
-> +
-> +	int l = strlen(event) + 1;
-> +
-> +	consumed += l;
-> +	event += l;
-> +
-> +	while (consumed < len) {
-> +		int i;
-> +		for (i = 0; i < uevent->value_cnt; i++) {
-> +			if (!strcmp(event, uevent->values[i])) {
-> +				val_matches++;
-> +				break;
-> +			}
-> +		}
-> +
-> +		l = strlen(event) + 1;
-> +		consumed += l;
-> +		event += l;
-> +	}
-> +
-> +	return val_matches == uevent->value_cnt;
-> +}
-> +
-> +static inline int open_uevent_netlink(void)
-> +{
-> +	int fd;
-> +	struct sockaddr_nl nl_addr = {
-> +		.nl_family = AF_NETLINK,
-> +		.nl_groups = MONITOR_GROUP_KERNEL,
-> +	};
-> +
-> +	fd = SAFE_SOCKET(AF_NETLINK, SOCK_RAW,
-> NETLINK_KOBJECT_UEVENT);
-> +
-> +	SAFE_BIND(fd, (struct sockaddr *)&nl_addr, sizeof(nl_addr));
-> +
-> +	return fd;
-> +}
-> +
-> +/*
-> + * Reads events from uevent netlink socket until all expected events
-> passed in
-> + * the uevent array are matched.
-> + */
-> +static inline void wait_for_uevents(int fd, const struct uevent_desc
-> *const uevents[])
-> +{
-> +	int i = 0;
-> +
-> +	while (1) {
-> +		int len;
-> +		char buf[4096];
-> +
-> +		len = recv(fd, &buf, sizeof(buf), 0);
-> +
-> +		if (len == 0)
-> +			continue;
-> +
-> +		print_uevent(buf, len);
-> +
-> +		if (uevent_match(buf, len, uevents[i])) {
-> +			tst_res(TPASS, "Got expected UEVENT");
-> +			if (!uevents[++i]) {
-> +				close(fd);
-> +				exit(0);
-> +			}
-> +		}
-> +	}
-> +}
-> +
-> +/*
-> + * Waits 5 seconds for a child to exit, kills the child after a
-> timeout.
-> + */
-> +static inline void wait_for_pid(int pid)
-> +{
-> +	int status, ret;
-> +	int retries = 5000;
-> +
-> +	do {
-> +		ret = waitpid(pid, &status, WNOHANG);
-> +		usleep(1000);
-> +	} while (ret == 0 && retries--);
-> +
-> +	if (ret == pid) {
-> +		if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
-> +			return;
-> +
-> +		tst_res(TFAIL, "Child exitted with %s",
-> tst_strstatus(status));
-> +	}
-> +
-> +	SAFE_KILL(pid, SIGKILL);
-> +
-> +	SAFE_WAITPID(pid, NULL, 0);
-> +
-> +	tst_res(TFAIL, "Did not get all expected UEVENTS");
-> +}
-> +
-> +#endif /* UEVENT_H__ */
-> diff --git a/testcases/kernel/uevents/uevent01.c
-> b/testcases/kernel/uevents/uevent01.c
-> new file mode 100644
-> index 000000000..41cd01b1f
-> --- /dev/null
-> +++ b/testcases/kernel/uevents/uevent01.c
-> @@ -0,0 +1,90 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (C) 2019 Cyril Hrubis <chrubis@suse.cz>
-> + */
-> +
-> +/*
-> + * Very simple uevent netlink socket test.
-> + *
-> + * We fork a child that listens for a kernel events while parents 
-> attaches and
-> + * detaches a loop device which should produce two change events.
-> + */
-> +
-> +#include <stdio.h>
-> +#include <stdlib.h>
-> +#include <sys/wait.h>
-> +#include "tst_test.h"
-> +
-> +#include "uevent.h"
-> +
-> +static void generate_device_events(const char *dev_path)
-> +{
-> +	tst_fill_file("loop.img", 0, 1024, 1024);
-> +
-> +	tst_res(TINFO, "Attaching device %s", dev_path);
-> +	tst_attach_device(dev_path, "loop.img");
-> +	tst_res(TINFO, "Detaching device %s", dev_path);
-> +	tst_detach_device(dev_path);
-> +}
-> +
-> +static void verify_uevent(void)
-> +{
-> +	int pid, fd, dev_num;
-> +	char dev_path[1024];
-> +	char ev_msg[1024];
-> +	char ev_dev_path[1024];
-> +	char ev_dev_minor[128];
-> +	char ev_dev_name[128];
-> +
-> +	struct uevent_desc desc = {
-> +		.msg = ev_msg,
-> +		.value_cnt = 7,
-> +		.values = (const char*[]) {
-> +			"ACTION=change",
-> +			ev_dev_path,
-> +			"SUBSYSTEM=block",
-> +			"MAJOR=7",
-> +			ev_dev_minor,
-> +			ev_dev_name,
-> +			"DEVTYPE=disk",
-> +		}
-> +	};
-> +
-> +	dev_num = tst_find_free_loopdev(dev_path, sizeof(dev_path));
-
-Maybe it isn't worth to check if dev_num is a valid number.
-
-> +
-> +	snprintf(ev_msg, sizeof(ev_msg),
-> +	         "change@/devices/virtual/block/loop%i", dev_num);
-> +
-> +	snprintf(ev_dev_path, sizeof(ev_dev_path),
-> +	         "DEVPATH=/devices/virtual/block/loop%i", dev_num);
-> +
-> +	snprintf(ev_dev_minor, sizeof(ev_dev_minor), "MINOR=%i",
-> dev_num);
-> +	snprintf(ev_dev_name, sizeof(ev_dev_name), "DEVNAME=loop%i",
-> dev_num);
-> +
-> +	const struct uevent_desc *const uevents[] = {
-> +		&desc,
-> +		&desc,
-> +		NULL
-> +	};
-> +
-> +	pid = SAFE_FORK();
-> +	if (!pid) {
-> +		fd = open_uevent_netlink();
-> +		TST_CHECKPOINT_WAKE(0);
-> +		wait_for_uevents(fd, uevents);
-
-For me it wasn't obvious that wait_for_uevents() does the exit(). Not
-sure if we should do the exit better here or name the function like
-exit_on_uevents().
-
-> +	}
-> +
-> +	TST_CHECKPOINT_WAIT(0);
-> +
-> +	generate_device_events(dev_path);
-> +
-> +	wait_for_pid(pid);
-> +}
-> +
-> +static struct tst_test test = {
-> +	.test_all = verify_uevent,
-> +	.forks_child = 1,
-> +	.needs_tmpdir = 1,
-
-Just curious, where do we need the tmpdir?
-
-> +	.needs_checkpoints = 1,
-> +	.needs_root = 1,
-> +};
-> -- 
-> 2.21.0
-> 
-> 
-
-thx
-Clemens
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+5LqOIDIwMTkvMDgvMTUgMTU6MTAsIExpIFdhbmcg5YaZ6YGTOgo+IE9uIFRodSwgQXVnIDgsIDIw
+MTkgYXQgMTE6MzkgUE0gUmljaGFyZCBQYWxldGhvcnBlPHJwYWxldGhvcnBlQHN1c2UuY29tPiAg
+d3JvdGU6Cj4+IC0tLQo+PiAgIGluY2x1ZGUvdHN0X2NhcGFiaWxpdHkuaCB8IDU2ICsrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrCj4+ICAgaW5jbHVkZS90c3RfdGVzdC5oICAgICAgIHwgIDYg
+KysrKwo+PiAgIGxpYi90c3RfY2FwYWJpbGl0eS5jICAgICB8IDc4ICsrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysKPj4gICBsaWIvdHN0X3Rlc3QuYyAgICAgICAgICAgfCAg
+MyArKwo+PiAgIDQgZmlsZXMgY2hhbmdlZCwgMTQzIGluc2VydGlvbnMoKykKPj4gICBjcmVhdGUg
+bW9kZSAxMDA2NDQgaW5jbHVkZS90c3RfY2FwYWJpbGl0eS5oCj4+ICAgY3JlYXRlIG1vZGUgMTAw
+NjQ0IGxpYi90c3RfY2FwYWJpbGl0eS5jCj4+Cj4+IGRpZmYgLS1naXQgYS9pbmNsdWRlL3RzdF9j
+YXBhYmlsaXR5LmggYi9pbmNsdWRlL3RzdF9jYXBhYmlsaXR5LmgKPj4gbmV3IGZpbGUgbW9kZSAx
+MDA2NDQKPj4gaW5kZXggMDAwMDAwMDAwLi42MzQyYjY2N2UKPj4gLS0tIC9kZXYvbnVsbAo+PiAr
+KysgYi9pbmNsdWRlL3RzdF9jYXBhYmlsaXR5LmgKPj4gQEAgLTAsMCArMSw1NiBAQAo+PiArLyog
+U1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIgKi8KPj4gKy8qCj4+ICsg
+KiBDb3B5cmlnaHQgKGMpIDIwMTkgUmljaGFyZCBQYWxldGhvcnBlPHJwYWxldGhvcnBlQHN1c2Uu
+Y29tPgo+PiArICovCj4+ICsvKioKPj4gKyAqIEBmaWxlIHRzdF9jYXBhYmlsaXR5LmgKPj4gKyAq
+Cj4+ICsgKiBMaW1pdGVkIGNhcGFiaWxpdHkgb3BlcmF0aW9ucyB3aXRob3V0IGxpYmNhcC4KPj4g
+KyAqLwo+PiArCj4+ICsjaW5jbHVkZTxzdGRpbnQuaD4KPj4gKwo+PiArI2luY2x1ZGUgImxhcGkv
+c3lzY2FsbHMuaCIKPj4gKwo+PiArI2lmbmRlZiBUU1RfQ0FQQUJJTElUWV9ICj4+ICsjZGVmaW5l
+IFRTVF9DQVBBQklMSVRZX0gKPj4gKwo+PiArI2lmbmRlZiBDQVBfU1lTX0FETUlOCj4+ICsjIGRl
+ZmluZSBDQVBfU1lTX0FETUlOICAgICAgICAyMQo+PiArI2VuZGlmCj4+ICsKPj4gKyNpZm5kZWYg
+Q0FQX1RPX01BU0sKPj4gKyMgZGVmaW5lIENBUF9UT19NQVNLKHgpICAgICAgKDE8PCAgKCh4KSYg
+IDMxKSkKPj4gKyNlbmRpZgo+PiArCj4+ICsjZGVmaW5lIFRTVF9EUk9QIDEKPj4gKyNkZWZpbmUg
+VFNUX1JFUVVJUkUgMTw8ICAxCj4+ICsKPj4gKyNkZWZpbmUgVFNUX0NBUChhY3Rpb24sIGNhcGFi
+aWxpdHkpIHthY3Rpb24sIGNhcGFiaWxpdHksICNjYXBhYmlsaXR5fQo+PiArCj4+ICtzdHJ1Y3Qg
+dHN0X2NhcF91c2VyX2hlYWRlciB7Cj4+ICsgICAgICAgdWludDMyX3QgdmVyc2lvbjsKPj4gKyAg
+ICAgICBpbnQgcGlkOwo+PiArfTsKPj4gKwo+PiArc3RydWN0IHRzdF9jYXBfdXNlcl9kYXRhIHsK
+Pj4gKyAgICAgICB1aW50MzJfdCBlZmZlY3RpdmU7Cj4+ICsgICAgICAgdWludDMyX3QgcGVybWl0
+dGVkOwo+PiArICAgICAgIHVpbnQzMl90IGluaGVyaXRhYmxlOwo+PiArfTsKPj4gKwo+PiArc3Ry
+dWN0IHRzdF9jYXAgewo+PiArICAgICAgIHVpbnQzMl90IGFjdGlvbjsKPj4gKyAgICAgICB1aW50
+MzJfdCBpZDsKPj4gKyAgICAgICBjaGFyICpuYW1lOwo+PiArfTsKPj4gKwo+PiAraW50IHRzdF9j
+YXBnZXQoc3RydWN0IHRzdF9jYXBfdXNlcl9oZWFkZXIgKmhkciwKPj4gKyAgICAgICAgICAgICAg
+c3RydWN0IHRzdF9jYXBfdXNlcl9kYXRhICpkYXRhKTsKPj4gK2ludCB0c3RfY2Fwc2V0KHN0cnVj
+dCB0c3RfY2FwX3VzZXJfaGVhZGVyICpoZHIsCj4+ICsgICAgICAgICAgICAgIGNvbnN0IHN0cnVj
+dCB0c3RfY2FwX3VzZXJfZGF0YSAqZGF0YSk7Cj4+ICsKPj4gK3ZvaWQgdHN0X2NhcF9hY3Rpb24o
+c3RydWN0IHRzdF9jYXAgKmNhcCk7Cj4+ICt2b2lkIHRzdF9jYXBfc2V0dXAoc3RydWN0IHRzdF9j
+YXAgKmNhcCk7Cj4+ICsKPj4gKyNlbmRpZgo+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS90c3RfdGVz
+dC5oIGIvaW5jbHVkZS90c3RfdGVzdC5oCj4+IGluZGV4IGNkZWFmNmFkMC4uODRhY2YyYzU5IDEw
+MDY0NAo+PiAtLS0gYS9pbmNsdWRlL3RzdF90ZXN0LmgKPj4gKysrIGIvaW5jbHVkZS90c3RfdGVz
+dC5oCj4+IEBAIC0zNiw2ICszNiw3IEBACj4+ICAgI2luY2x1ZGUgInRzdF9zeXNfY29uZi5oIgo+
+PiAgICNpbmNsdWRlICJ0c3RfY29yZWR1bXAuaCIKPj4gICAjaW5jbHVkZSAidHN0X2J1ZmZlcnMu
+aCIKPj4gKyNpbmNsdWRlICJ0c3RfY2FwYWJpbGl0eS5oIgo+Pgo+PiAgIC8qCj4+ICAgICogUmVw
+b3J0cyB0ZXN0Y2FzZSByZXN1bHQuCj4+IEBAIC0yMDYsNiArMjA3LDExIEBAIHN0cnVjdCB0c3Rf
+dGVzdCB7Cj4+ICAgICAgICAgICAqIE5VTEwtdGVybWluYXRlZCBhcnJheSB0byBiZSBhbGxvY2F0
+ZWQgYnVmZmVycy4KPj4gICAgICAgICAgICovCj4+ICAgICAgICAgIHN0cnVjdCB0c3RfYnVmZmVy
+cyAqYnVmczsKPj4gKwo+PiArICAgICAgIC8qCj4+ICsgICAgICAgICogTlVMTC10ZXJtaW5hdGVk
+IGFycmF5IG9mIGNhcGFiaWxpdHkgc2V0dGluZ3MKPj4gKyAgICAgICAgKi8KPj4gKyAgICAgICBz
+dHJ1Y3QgdHN0X2NhcCAqY2FwczsKPj4gICB9Owo+Pgo+PiAgIC8qCj4+IGRpZmYgLS1naXQgYS9s
+aWIvdHN0X2NhcGFiaWxpdHkuYyBiL2xpYi90c3RfY2FwYWJpbGl0eS5jCj4+IG5ldyBmaWxlIG1v
+ZGUgMTAwNjQ0Cj4+IGluZGV4IDAwMDAwMDAwMC4uZDIyOTQ5MWFlCj4+IC0tLSAvZGV2L251bGwK
+Pj4gKysrIGIvbGliL3RzdF9jYXBhYmlsaXR5LmMKPj4gQEAgLTAsMCArMSw3OCBAQAo+PiArLyog
+U1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIgKi8KPj4gKy8qCj4+ICsg
+KiBDb3B5cmlnaHQgKGMpIDIwMTkgUmljaGFyZCBQYWxldGhvcnBlPHJwYWxldGhvcnBlQHN1c2Uu
+Y29tPgo+PiArICovCj4+ICsKPj4gKyNkZWZpbmUgVFNUX05PX0RFRkFVTFRfTUFJTgo+PiArI2lu
+Y2x1ZGUgInRzdF90ZXN0LmgiCj4+ICsjaW5jbHVkZSAidHN0X2NhcGFiaWxpdHkuaCIKPj4gKwo+
+PiAraW50IHRzdF9jYXBnZXQoc3RydWN0IHRzdF9jYXBfdXNlcl9oZWFkZXIgKmhkciwKPj4gKyAg
+ICAgICAgICAgICAgc3RydWN0IHRzdF9jYXBfdXNlcl9kYXRhICpkYXRhKQo+PiArewo+PiArICAg
+ICAgIHJldHVybiB0c3Rfc3lzY2FsbChfX05SX2NhcGdldCwgaGRyLCBkYXRhKTsKPj4gK30KPj4g
+Kwo+PiAraW50IHRzdF9jYXBzZXQoc3RydWN0IHRzdF9jYXBfdXNlcl9oZWFkZXIgKmhkciwKPj4g
+KyAgICAgICAgICAgICAgY29uc3Qgc3RydWN0IHRzdF9jYXBfdXNlcl9kYXRhICpkYXRhKQo+PiAr
+ewo+PiArICAgICAgIHJldHVybiB0c3Rfc3lzY2FsbChfX05SX2NhcHNldCwgaGRyLCBkYXRhKTsK
+Pj4gK30KPj4gKwo+PiArdm9pZCB0c3RfY2FwX2FjdGlvbihzdHJ1Y3QgdHN0X2NhcCAqY2FwKQo+
+PiArewo+PiArICAgICAgIHN0cnVjdCB0c3RfY2FwX3VzZXJfaGVhZGVyIGhkciA9IHsKPj4gKyAg
+ICAgICAgICAgICAgIC52ZXJzaW9uID0gMHgyMDA4MDUyMiwKPj4gKyAgICAgICAgICAgICAgIC5w
+aWQgPSB0c3Rfc3lzY2FsbChfX05SX2dldHRpZCksCj4+ICsgICAgICAgfTsKPj4gKyAgICAgICBz
+dHJ1Y3QgdHN0X2NhcF91c2VyX2RhdGEgY3VyID0geyAwIH07Cj4+ICsgICAgICAgc3RydWN0IHRz
+dF9jYXBfdXNlcl9kYXRhIG5ldyA9IHsgMCB9Owo+PiArICAgICAgIHVpbnQzMl90IG1hc2sgPSBD
+QVBfVE9fTUFTSyhjYXAtPmlkKTsKPj4gKyAgICAgICB1aW50MzJfdCBhY3QgPSBjYXAtPmFjdGlv
+bjsKPj4gKwo+PiArICAgICAgIGlmICh0c3RfY2FwZ2V0KCZoZHIsJmN1cikpCj4+ICsgICAgICAg
+ICAgICAgICB0c3RfYnJrKFRCUk9LIHwgVFRFUlJOTywgInRzdF9jYXBnZXQoKSIpOwo+PiArCj4+
+ICsgICAgICAgbmV3ID0gY3VyOwo+PiArCj4+ICsgICAgICAgc3dpdGNoIChhY3QpIHsKPj4gKyAg
+ICAgICBjYXNlIFRTVF9EUk9QOgo+PiArICAgICAgICAgICAgICAgaWYgKGN1ci5lZmZlY3RpdmUm
+ICBtYXNrKSB7Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgIHRzdF9yZXMoVElORk8sICJEcm9w
+cGluZyAlcyglZCkiLAo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNhcC0+bmFt
+ZSwgY2FwLT5pZCk7Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgIG5ldy5lZmZlY3RpdmUmPSB+
+bWFzazsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgbmV3LnBlcm1pdHRlZCY9IH5tYXNrOwo+
+PiArICAgICAgICAgICAgICAgICAgICAgICBuZXcuaW5oZXJpdGFibGUmPSB+bWFzazsKPj4gKyAg
+ICAgICAgICAgICAgIH0KPj4gKyAgICAgICAgICAgICAgIGJyZWFrOwo+PiArICAgICAgIGNhc2Ug
+VFNUX1JFUVVJUkU6Cj4+ICsgICAgICAgICAgICAgICBpZiAoY3VyLnBlcm1pdHRlZCBeIG1hc2sp
+IHsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgdHN0X2JyayhUQ09ORiwgIk5lZWQgJXMoJWQp
+IiwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjYXAtPm5hbWUsIGNhcC0+aWQp
+Owo+PiArICAgICAgICAgICAgICAgfSBlbHNlIGlmIChjdXIuZWZmZWN0aXZlIF4gbWFzaykgewo+
+PiArICAgICAgICAgICAgICAgICAgICAgICB0c3RfcmVzKFRJTkZPLCAiUGVybWl0dGluZyAlcygl
+ZCkiLAo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNhcC0+bmFtZSwgY2FwLT5p
+ZCk7Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgIG5ldy5lZmZlY3RpdmUgfD0gbWFzazsKPj4g
+KyAgICAgICAgICAgICAgICAgICAgICAgbmV3LmluaGVyaXRhYmxlIHw9IG1hc2s7Cj4+ICsgICAg
+ICAgICAgICAgICB9Cj4+ICsgICAgICAgICAgICAgICBicmVhazsKPj4gKyAgICAgICBkZWZhdWx0
+Ogo+PiArICAgICAgICAgICAgICAgdHN0X2JyayhUQlJPSywgIlVucmVjb2duaXNlZCBhY3Rpb24g
+JWQiLCBjYXAtPmFjdGlvbik7Cj4+ICsgICAgICAgfQo+PiArCj4+ICsgICAgICAgaWYgKGN1ci5l
+ZmZlY3RpdmUgIT0gbmV3LmVmZmVjdGl2ZSkgewo+PiArICAgICAgICAgICAgICAgaWYgKHRzdF9j
+YXBzZXQoJmhkciwmbmV3KSkKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgdHN0X2JyayhUQlJP
+SyB8IFRFUlJOTywgInRzdF9jYXBzZXQoJXMpIiwgY2FwLT5uYW1lKTsKPiBJdCBkb2VzIG5vdCB3
+b3JrIGZvciB0aGlzIHNpbXBsZSBjYXBfdGVzdC5jLCBkaWQgSSBtaXNzIGFueXRoaW5nPwo+Cj4g
+IyB3aG9hbWkKPiByb290Cj4KPiAjIC4vY2FwX3Rlc3QKPiB0c3RfdGVzdC5jOjExMTE6IElORk86
+IFRpbWVvdXQgcGVyIHJ1biBpcyAwaCAwNW0gMDBzCj4gdHN0X2NhcGFiaWxpdHkuYzo0MjogSU5G
+TzogRHJvcHBpbmcgQ0FQX1NZU19BRE1JTigyMSkKPiB0c3RfY2FwYWJpbGl0eS5jOjY1OiBCUk9L
+OiB0c3RfY2Fwc2V0KENBUF9TWVNfQURNSU4pOiBFUEVSTQo+CkhpIExpCkkgaGF2ZSB0cmllZCBp
+dCBhbmQgaGF2ZSB0aGUgc2FtZSBmYWlsdXJlLiBUaGUgX0xJTlVYX0NBUEFCSUxJVFlfVkVSU0lP
+Tl8zIHNlZW0gbm90IHN1cHBvcnQgb24gbXkgc3lzdGVtIGNhdXNlcyBmYWlsLgpJZiBJIHVzZSBf
+TElOVVhfQ0FQQUJJTElUWV9WRVJTSU9OXzEsIGNhcF90ZXN0IHdpbGwgcGFzcy4gIEkgYW0gc3Rp
+bGwgbG9va2luZyBpbnRvIF9MSU5VWF9DQVBBQklMSVRZX1ZFUlNJT05fMyBkZXBlbmRlbmNlLgoK
+PiAjIC4vY2FwX3Rlc3QKPiB0c3RfdGVzdC5jOjExMTE6IElORk86IFRpbWVvdXQgcGVyIHJ1biBp
+cyAwaCAwNW0gMDBzCj4gdHN0X2NhcGFiaWxpdHkuYzo1MTogQ09ORjogTmVlZCBDQVBfU1lTX0FE
+TUlOKDIxKQo+Cj4gIyBjYXQgY2FwX3Rlc3QuYwo+ICNpbmNsdWRlICJ0c3RfdGVzdC5oIgo+ICNp
+bmNsdWRlICJsaW51eC9jYXBhYmlsaXR5LmgiCj4KPiBzdGF0aWMgdm9pZCBkb190ZXN0KHZvaWQp
+Cj4gewo+ICAgICAgICAgIHRzdF9yZXMoVFBBU1MsICJIZWxsbyIpOwo+IH0KPgo+IHN0YXRpYyBz
+dHJ1Y3QgdHN0X3Rlc3QgdGVzdCA9IHsKPiAgICAgICAgICAudGVzdF9hbGwgPSBkb190ZXN0LAo+
+ICAgICAgICAgIC5uZWVkc19yb290ID0gMSwKPiAgICAgICAgICAuY2FwcyA9IChzdHJ1Y3QgdHN0
+X2NhcCBbXSkgewo+IC8vICAgICAgICAgICAgICAgIFRTVF9DQVAoVFNUX0RST1AsIENBUF9TWVNf
+QURNSU4pLAo+ICAgICAgICAgICAgICAgICAgVFNUX0NBUChUU1RfUkVRVUlSRSwgQ0FQX1NZU19B
+RE1JTiksCj4gICAgICAgICAgICAgICAgICB7fSwKPiAgICAgICAgICB9LAo+IH07Cj4KCgoKCi0t
+IApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
