@@ -2,63 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 817679A7E0
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Aug 2019 08:55:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C28EC9A83C
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Aug 2019 09:09:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3C5973C1CF9
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Aug 2019 08:55:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7346E3C1D47
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Aug 2019 09:09:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id E4FE03C1770
- for <ltp@lists.linux.it>; Fri, 23 Aug 2019 08:55:40 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id D448B3C1770
+ for <ltp@lists.linux.it>; Fri, 23 Aug 2019 09:09:17 +0200 (CEST)
+Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5F6C86010BC
- for <ltp@lists.linux.it>; Fri, 23 Aug 2019 08:55:41 +0200 (CEST)
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com
- [209.85.221.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 4F6EF2CE905
- for <ltp@lists.linux.it>; Fri, 23 Aug 2019 06:55:37 +0000 (UTC)
-Received: by mail-vk1-f198.google.com with SMTP id d14so3359728vka.6
- for <ltp@lists.linux.it>; Thu, 22 Aug 2019 23:55:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=EO7oGFhkzPMeOceZ7xZoXsnFNUuCVmFoN6X4xIj+gns=;
- b=YcqkgsDvbq1sWXnxgbKhU3faRrkROhnN4seY82iHHTJ2wLzktTxoh+i+SwkrTBjw2Y
- eF59mPZ9FZFwNP7YEzqaQhgYQuLyBg6j66i1aYpieIdO5/GL5OAGBUS+2Y9CPJYPFxFw
- Yeu4hxJM8sFAssScuGjMc3aFbJIevyzFiiHQYYiD7PjLSSZxLjxLGRA5mDxqIc75/OJA
- PwbsK8atxUot1v0mH9H4IhkyewwTKhxRGv22g0snhiXliorD2BogI+2xeYlZvgzOXdKj
- h6QZ50w9L4CgGtRemHCkBMR56U61LHN6kQjdDvfJTd9TreRFzy9KdPObflb6RsfdxHK4
- +Ypw==
-X-Gm-Message-State: APjAAAVKqsCp3GumIqhxALp92apBo4cJINKirk/9mCcDN43Q1qNXLIRh
- 4IRdAu7yTcZfgSYYxpEE9B2RFTtgCJht3O2HNtXuRCNWQAe3F6BG7MWz/xiaymtH9gWQtNvi5D+
- uYp6/oA0XgQx+v6Li1h8kRKgxmCc=
-X-Received: by 2002:ab0:2818:: with SMTP id w24mr312107uap.89.1566543336569;
- Thu, 22 Aug 2019 23:55:36 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqwnVmU8IuG5p46wVRsnJM4qs0ckS2HZEooIg/3bhdwYw2BqR7P1QhTPOJsZfYYsSVTcUn8Oi+PRLA7hPikQoJk=
-X-Received: by 2002:ab0:2818:: with SMTP id w24mr312100uap.89.1566543336274;
- Thu, 22 Aug 2019 23:55:36 -0700 (PDT)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 75C4C1A014D5
+ for <ltp@lists.linux.it>; Fri, 23 Aug 2019 09:09:13 +0200 (CEST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+ [147.11.189.40])
+ by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id x7N78OP7008851
+ (version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL)
+ for <ltp@lists.linux.it>; Fri, 23 Aug 2019 00:09:00 -0700
+Received: from pek-lpg-core2.corp.ad.wrs.com (128.224.153.41) by
+ ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+ 14.3.468.0; Fri, 23 Aug 2019 00:08:42 -0700
+From: <zhe.he@windriver.com>
+To: <ltp@lists.linux.it>
+Date: Fri, 23 Aug 2019 15:08:41 +0800
+Message-ID: <1566544121-147769-1-git-send-email-zhe.he@windriver.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <1566541374-2225-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-In-Reply-To: <1566541374-2225-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 23 Aug 2019 14:55:25 +0800
-Message-ID: <CAEemH2fT1_ATcKB5bD9OvsnJP1vsRbib_MGyB1Bk_U=Ccd1VVg@mail.gmail.com>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/copy_file_range02: use .needs_tmpdir and
- MAX_LEN
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls: rt_sigwaitinfo01: Fix failure for MIPS
+ arches
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,22 +49,56 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Xu,
+From: He Zhe <zhe.he@windriver.com>
 
-Seems you have to apply Petr's patch first, then do a new
-modification. Because that patch fixes another compiling issue.
+rt_sigtimedwait01 fails as follow on MIPS arches
+rt_sigtimedwait01    1  TFAIL  :  .../sigwaitinfo01.c:58: test_empty_set
+(.../sigwaitinfo01.c: 148): Unexpected failure:
+TEST_ERRNO=EINVAL(22): Invalid argument
 
-[1] http://lists.linux.it/pipermail/ltp/2019-August/013239.html
+As this case purposely bypasses glibc, it should align with the size of kernel
+definition of sigset_t which is different from other arches.
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/mips/include/uapi/asm/signal.h#n15
 
---
-Regards,
-Li Wang
+This patch adds specific case for MIPS.
+
+Signed-off-by: He Zhe <zhe.he@windriver.com>
+---
+ testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c b/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c
+index 5a32ce1..5c2fa99 100644
+--- a/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c
++++ b/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c
+@@ -128,9 +128,16 @@ static int my_sigtimedwait(const sigset_t * set, siginfo_t * info,
+ static int my_rt_sigtimedwait(const sigset_t * set, siginfo_t * info,
+ 			      struct timespec *timeout)
+ {
+-
+-	/* The last argument is (number_of_signals)/(bits_per_byte), which are 64 and 8, resp. */
+-	return ltp_syscall(__NR_rt_sigtimedwait, set, info, timeout, 8);
++	/* The last argument is (number_of_signals)/(bits_per_byte), which are 64 and 8, resp,
++	 * except for MIPS which are 128 and 8, resp.
++	 */
++	return ltp_syscall(__NR_rt_sigtimedwait, set, info, timeout,
++#ifdef __mips__
++		16
++#else
++		8
++#endif
++		);
+ }
+ #endif
+ 
+-- 
+2.7.4
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
