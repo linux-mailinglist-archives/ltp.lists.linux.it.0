@@ -1,63 +1,50 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EAA39A8B7
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Aug 2019 09:25:16 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id AFD369A8C0
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Aug 2019 09:29:30 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AC8803C1D5D
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Aug 2019 09:25:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5E80C3C1D26
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Aug 2019 09:29:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id ADADD3C1770
- for <ltp@lists.linux.it>; Fri, 23 Aug 2019 09:25:11 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C52F46010DD
- for <ltp@lists.linux.it>; Fri, 23 Aug 2019 09:25:13 +0200 (CEST)
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com
- [209.85.221.199])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id A35D085536
- for <ltp@lists.linux.it>; Fri, 23 Aug 2019 07:25:09 +0000 (UTC)
-Received: by mail-vk1-f199.google.com with SMTP id x130so3368482vkc.19
- for <ltp@lists.linux.it>; Fri, 23 Aug 2019 00:25:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=HgmyPMN/HyIKU6+Qanf8J4EXmFa7kqI1IvXIVkSCP8k=;
- b=feZppGOjb+hnr+jXxi2hMsWuHCQQ0MweTqy5Ony+7aHiXvnp2NQzER21JdyFaLNNpw
- qu88XU5OmhjI3Og3s3Tnhco9m4XZPh/kP7W39d6Xl1maaAIKCC3+P8acxtNBRyhag/+1
- fmsXwH7PUl+TOiY1o2I59VOg4hYaYCxNVOXwxIhRShrEkXFwJcHDdoXH18+3jalQunSK
- WeQdAIjUJZBKPdGWQJs5ZnZ6ATMxFp7tg5WeZ0XYo2O/ChGR8GHm/PwVkzj/ZyZLJjmc
- mr5qYSyQEQKpYCitm5ljXMivehFifYsieCPc+jXeNbqsbfIq3EZ+39FP1sWNaBUegrTR
- XYNA==
-X-Gm-Message-State: APjAAAXntUz+gnx0fjLXqwFanU/9TywezojeBXgTkboLtwHMMh/7UVU5
- YrnRGe8xNtykqQK09XYaPza1y5I8mD8NMxqmkBeo323KZKtHmeJvyx6vzb61W3kF3Sh7oNmTlyK
- oPlKdITNCue47pU8xkbnDOGeux7w=
-X-Received: by 2002:a1f:3f0e:: with SMTP id m14mr1711818vka.91.1566545108878; 
- Fri, 23 Aug 2019 00:25:08 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqziH2q2ibst0m4N6UFFOKFtAgaZp/AZ+UrCk9TW6ZVlbcqhfieCKvtYcoN59FYXKC+Q/y9UU7o6jaD9YLu9I1Q=
-X-Received: by 2002:a1f:3f0e:: with SMTP id m14mr1711810vka.91.1566545108598; 
- Fri, 23 Aug 2019 00:25:08 -0700 (PDT)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 729E73C1770
+ for <ltp@lists.linux.it>; Fri, 23 Aug 2019 09:29:26 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 397AC601EA2
+ for <ltp@lists.linux.it>; Fri, 23 Aug 2019 09:29:24 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.64,420,1559491200"; d="scan'208";a="74149851"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 23 Aug 2019 15:29:22 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id 85FC34CE03FE;
+ Fri, 23 Aug 2019 15:29:19 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ id 14.3.439.0; Fri, 23 Aug 2019 15:29:20 +0800
+Message-ID: <5D5F95D3.2060004@cn.fujitsu.com>
+Date: Fri, 23 Aug 2019 15:29:23 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
+To: Li Wang <liwang@redhat.com>
 References: <1566541374-2225-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
  <CAEemH2fT1_ATcKB5bD9OvsnJP1vsRbib_MGyB1Bk_U=Ccd1VVg@mail.gmail.com>
  <5D5F922B.1050506@cn.fujitsu.com>
-In-Reply-To: <5D5F922B.1050506@cn.fujitsu.com>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 23 Aug 2019 15:24:57 +0800
-Message-ID: <CAEemH2eq2qf4ZfejymWVxAgxZrf6qBsyggW_gzkBPSCuYRzmfg@mail.gmail.com>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
-X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ <CAEemH2eq2qf4ZfejymWVxAgxZrf6qBsyggW_gzkBPSCuYRzmfg@mail.gmail.com>
+In-Reply-To: <CAEemH2eq2qf4ZfejymWVxAgxZrf6qBsyggW_gzkBPSCuYRzmfg@mail.gmail.com>
+X-Originating-IP: [10.167.220.84]
+X-yoursite-MailScanner-ID: 85FC34CE03FE.AFE21
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Status: Clean
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] syscalls/copy_file_range02: use .needs_tmpdir and
  MAX_LEN
 X-BeenThere: ltp@lists.linux.it
@@ -72,20 +59,22 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Xu,
+On 2019/08/23 15:24, Li Wang wrote:
 
-> Petr' patch looks ok but I don't know why it isn't merged on master branch.
+> Hi Xu,
+>
+>> Petr' patch looks ok but I don't know why it isn't merged on master branch.
+> Sorry for the delay, I have just merged that one.
+>
+OK.  I will send a v2 patch.
 
-Sorry for the delay, I have just merged that one.
 
--- 
-Regards,
-Li Wang
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
