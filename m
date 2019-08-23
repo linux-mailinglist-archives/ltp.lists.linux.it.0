@@ -2,63 +2,64 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ECB79A8B2
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Aug 2019 09:23:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EAA39A8B7
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Aug 2019 09:25:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E2AD83C1D44
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Aug 2019 09:23:27 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AC8803C1D5D
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Aug 2019 09:25:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 235533C1770
- for <ltp@lists.linux.it>; Fri, 23 Aug 2019 09:23:25 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id ADADD3C1770
+ for <ltp@lists.linux.it>; Fri, 23 Aug 2019 09:25:11 +0200 (CEST)
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id AB4762011AA
- for <ltp@lists.linux.it>; Fri, 23 Aug 2019 09:23:24 +0200 (CEST)
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com
- [209.85.221.198])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C52F46010DD
+ for <ltp@lists.linux.it>; Fri, 23 Aug 2019 09:25:13 +0200 (CEST)
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com
+ [209.85.221.199])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id B54D5369CA
- for <ltp@lists.linux.it>; Fri, 23 Aug 2019 07:23:22 +0000 (UTC)
-Received: by mail-vk1-f198.google.com with SMTP id v63so3348308vkb.18
- for <ltp@lists.linux.it>; Fri, 23 Aug 2019 00:23:22 -0700 (PDT)
+ by mx1.redhat.com (Postfix) with ESMTPS id A35D085536
+ for <ltp@lists.linux.it>; Fri, 23 Aug 2019 07:25:09 +0000 (UTC)
+Received: by mail-vk1-f199.google.com with SMTP id x130so3368482vkc.19
+ for <ltp@lists.linux.it>; Fri, 23 Aug 2019 00:25:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=0RGEtsd1b+mkbc3GCgyE+toe3aH+7rMtG5/ihiyflT4=;
- b=i6SrXRn+CGO3ZPIJWDjmFT7h//uOVABBiLI5WMEs/6YYDVaoQgLS2PvFL/G5aXlUKw
- +WeZyQtWKuLLKu+Q4Ty9BrGHblJ2YmjsGuJ4SjfYcD0564ts8Tsoaz0RrbhES+OEYBfu
- 3W3blnvSvMgqdYUPbA8DrB5fTqTMFYteeJNnWkHEWd3nhY0mTWH+Zm16xOJQe1DXKSzg
- kxSWByOFOKzT0r/Ua+uDH+d4IniVFpoIkVir2g1u904X3ZQtRoER00bkwnWo8Jn1ZSYw
- 3YxNpPrdCZQmCEYLca0zwP7g1y+5RjWRycjXekNVq+8s7KLSeW8ccskGGjMgV0tW6JP0
- LJBA==
-X-Gm-Message-State: APjAAAVQx6nY3BAHSHp9yEsaIhB1IX46jmhOyckXvRr0qQ+g68qrcjXQ
- jw9eanmdX1qU/hlHFby/5RfJYPzJFI7O0Fa1NZ7j1IGKyWVbpCJ+ncDc9lHUDC5AwERhk6g0Qa9
- Gi7dF3N55vSHc1g7nFRnmbNWL16k=
-X-Received: by 2002:ab0:73da:: with SMTP id m26mr1775099uaq.119.1566545001719; 
- Fri, 23 Aug 2019 00:23:21 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqzZYQRVckcWde1hjnJ1CjBKOAYhW8mi0VmTBxqFDzcJxgYy2Dxr2p29pjJxR/DzdFkDZRBkq/VBQt3L64A7wlQ=
-X-Received: by 2002:ab0:73da:: with SMTP id m26mr1775095uaq.119.1566545001432; 
- Fri, 23 Aug 2019 00:23:21 -0700 (PDT)
+ bh=HgmyPMN/HyIKU6+Qanf8J4EXmFa7kqI1IvXIVkSCP8k=;
+ b=feZppGOjb+hnr+jXxi2hMsWuHCQQ0MweTqy5Ony+7aHiXvnp2NQzER21JdyFaLNNpw
+ qu88XU5OmhjI3Og3s3Tnhco9m4XZPh/kP7W39d6Xl1maaAIKCC3+P8acxtNBRyhag/+1
+ fmsXwH7PUl+TOiY1o2I59VOg4hYaYCxNVOXwxIhRShrEkXFwJcHDdoXH18+3jalQunSK
+ WeQdAIjUJZBKPdGWQJs5ZnZ6ATMxFp7tg5WeZ0XYo2O/ChGR8GHm/PwVkzj/ZyZLJjmc
+ mr5qYSyQEQKpYCitm5ljXMivehFifYsieCPc+jXeNbqsbfIq3EZ+39FP1sWNaBUegrTR
+ XYNA==
+X-Gm-Message-State: APjAAAXntUz+gnx0fjLXqwFanU/9TywezojeBXgTkboLtwHMMh/7UVU5
+ YrnRGe8xNtykqQK09XYaPza1y5I8mD8NMxqmkBeo323KZKtHmeJvyx6vzb61W3kF3Sh7oNmTlyK
+ oPlKdITNCue47pU8xkbnDOGeux7w=
+X-Received: by 2002:a1f:3f0e:: with SMTP id m14mr1711818vka.91.1566545108878; 
+ Fri, 23 Aug 2019 00:25:08 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqziH2q2ibst0m4N6UFFOKFtAgaZp/AZ+UrCk9TW6ZVlbcqhfieCKvtYcoN59FYXKC+Q/y9UU7o6jaD9YLu9I1Q=
+X-Received: by 2002:a1f:3f0e:: with SMTP id m14mr1711810vka.91.1566545108598; 
+ Fri, 23 Aug 2019 00:25:08 -0700 (PDT)
 MIME-Version: 1.0
-References: <20190815083630.26975-1-pvorel@suse.cz>
-In-Reply-To: <20190815083630.26975-1-pvorel@suse.cz>
+References: <1566541374-2225-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <CAEemH2fT1_ATcKB5bD9OvsnJP1vsRbib_MGyB1Bk_U=Ccd1VVg@mail.gmail.com>
+ <5D5F922B.1050506@cn.fujitsu.com>
+In-Reply-To: <5D5F922B.1050506@cn.fujitsu.com>
 From: Li Wang <liwang@redhat.com>
-Date: Fri, 23 Aug 2019 15:23:10 +0800
-Message-ID: <CAEemH2dcWnuwDzTjguCYao=H+xFkUZ4BYKOiNYAGNGZo4JHA2Q@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+Date: Fri, 23 Aug 2019 15:24:57 +0800
+Message-ID: <CAEemH2eq2qf4ZfejymWVxAgxZrf6qBsyggW_gzkBPSCuYRzmfg@mail.gmail.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] lapi/fs.h: Replace MAX_LFS_FILESIZE constant with
- own implementation
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/copy_file_range02: use .needs_tmpdir and
+ MAX_LEN
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,7 +77,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Pushed. Thanks for the fix.
+Hi Xu,
+
+> Petr' patch looks ok but I don't know why it isn't merged on master branch.
+
+Sorry for the delay, I have just merged that one.
 
 -- 
 Regards,
