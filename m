@@ -1,64 +1,48 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43EAD9CFBA
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Aug 2019 14:42:16 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A1289CFBB
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Aug 2019 14:42:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C320F3C1D17
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Aug 2019 14:42:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 22AAE3C1CFC
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Aug 2019 14:42:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 2802A3C02A0
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id B8B0C3C02A0
  for <ltp@lists.linux.it>; Mon, 26 Aug 2019 14:42:12 +0200 (CEST)
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9BABF6021C7
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id CCC8F1A011EA
  for <ltp@lists.linux.it>; Mon, 26 Aug 2019 14:42:11 +0200 (CEST)
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
- [209.85.210.70])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+ [10.5.11.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 0CB3AC059B80
+ by mx1.redhat.com (Postfix) with ESMTPS id 95F6630832E1
  for <ltp@lists.linux.it>; Mon, 26 Aug 2019 12:42:10 +0000 (UTC)
-Received: by mail-ot1-f70.google.com with SMTP id t10so10039860otb.3
- for <ltp@lists.linux.it>; Mon, 26 Aug 2019 05:42:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=rmO0S8RuqcTEdmBd48DgdhAPtCZPh166aa5AqEL6g7U=;
- b=D3q5oVf5DBW+H3a6D8vMfNK7gU8LAcgeggw01SPmVvcD+MojR9HByVw6rowGvEGndw
- VWpTdolk4i8M7vRmFJBFu/E4LxUQDXzRQhhcXGr4a6x03004MSSGzbWD9302OFd8Q6vO
- ER4fRrALE7GVdUyPwPbyuFF9qr/CB6XEOPmrFQWsfyCYkkrYrCLdapZpL9cTsa1S++oG
- SxMhuoGXIUujb9omHXabFJhLOGAVaSfvV8MgtSWXPmObT4I0fTK4wtsULZZzmf8d5ksL
- hpEH7d7Lrk6jVYajLtWqHyMVpNbCEjLso39yNSnxNJpgwfxzCkTzS0h+eXerBgQs7wzc
- lE2Q==
-X-Gm-Message-State: APjAAAVSO0Ril/HxNn7cG0l0bFpxkda6uu70U7gPzoUJRbPx1sAmRdQo
- fN1HtuLK0ennzcvhlql6VM5LkxvXPFwWhi/Tg3pP4qub08jK1HfLRlQiYtqninKGe+x+9Gm8cCs
- eSYXcDX35iyxXTC3eiclvVm6GiE0=
-X-Received: by 2002:aca:3804:: with SMTP id f4mr11705422oia.144.1566823329292; 
- Mon, 26 Aug 2019 05:42:09 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqxuxr6Sdf6vIBEX6nWQ/dCyKpNJRNfLVPQck7OHX1sOqkEQuJbt4bxOsUTXCrluL4T0CGA5B3pi3KCVjjjIiw8=
-X-Received: by 2002:aca:3804:: with SMTP id f4mr11705396oia.144.1566823328835; 
- Mon, 26 Aug 2019 05:42:08 -0700 (PDT)
-MIME-Version: 1.0
-References: <20190808054513.31041-1-liwang@redhat.com>
-In-Reply-To: <20190808054513.31041-1-liwang@redhat.com>
+Received: from dhcp-3-207.nay.redhat.com (dhcp-3-207.nay.redhat.com
+ [10.66.3.207])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id C35D2600CE
+ for <ltp@lists.linux.it>; Mon, 26 Aug 2019 12:42:09 +0000 (UTC)
 From: Li Wang <liwang@redhat.com>
-Date: Mon, 26 Aug 2019 20:41:57 +0800
-Message-ID: <CAEemH2fLGt3oYdt6k5uN5pE+3LZQHQabJ+CG-Tj=zphWadjTVQ@mail.gmail.com>
-To: LTP List <ltp@lists.linux.it>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+To: ltp@lists.linux.it
+Date: Mon, 26 Aug 2019 20:42:05 +0800
+Message-Id: <20190826124205.14943-1-liwang@redhat.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+ (mx1.redhat.com [10.5.110.44]); Mon, 26 Aug 2019 12:42:10 +0000 (UTC)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] move_pages12: handle errno EBUSY for
- madvise(..., MADV_SOFT_OFFLINE)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] [COMMITTED] [PATCH] move_pages12: add comment for a new
+ regression
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,11 +59,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Pushed.
+Signed-off-by: Li Wang <liwang@redhat.com>
+---
+ .../kernel/syscalls/move_pages/move_pages12.c      | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
+diff --git a/testcases/kernel/syscalls/move_pages/move_pages12.c b/testcases/kernel/syscalls/move_pages/move_pages12.c
+index 5d7afad8e..c2927fb86 100644
+--- a/testcases/kernel/syscalls/move_pages/move_pages12.c
++++ b/testcases/kernel/syscalls/move_pages/move_pages12.c
+@@ -25,6 +25,7 @@
+  *   mm/hugetlb: take page table lock in follow_huge_pmd()
+  *
+  *  Test #2:
++ *   #2.1:
+  *   This is a regression test for the race condition, where move_pages()
+  *   and soft offline are called on a single hugetlb page concurrently.
+  *
+@@ -36,6 +37,19 @@
+  *
+  *   mm, hugetlb: use pte_present() instead of pmd_present() in
+  *   follow_huge_pmd()
++ *
++ *   #2.2:
++ *   This is also a regression test for an race condition causing SIGBUS
++ *   in hugepage migration/fault.
++ *
++ *   This bug was fixed by:
++ *
++ *   commit 4643d67e8cb0b3536ef0ab5cddd1cedc73fa14ad
++ *   Author: Mike Kravetz <mike.kravetz@oracle.com>
++ *   Date:   Tue Aug 13 15:38:00 2019 -0700
++ *
++ *   hugetlbfs: fix hugetlb page migration/fault race causing SIGBUS
++ *
+  */
+ 
+ #include <errno.h>
 -- 
-Regards,
-Li Wang
+2.20.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
