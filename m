@@ -1,40 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD7109D373
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Aug 2019 17:55:20 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2126F9D374
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Aug 2019 17:55:35 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3F4F53C1D17
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Aug 2019 17:55:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C0ED53C1D22
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Aug 2019 17:55:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 0634A3C071A
- for <ltp@lists.linux.it>; Mon, 26 Aug 2019 17:55:16 +0200 (CEST)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id D0A333C0E60
+ for <ltp@lists.linux.it>; Mon, 26 Aug 2019 17:55:31 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6398014016C2
- for <ltp@lists.linux.it>; Mon, 26 Aug 2019 17:55:16 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6E3AB1000DD9
+ for <ltp@lists.linux.it>; Mon, 26 Aug 2019 17:55:24 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id BB4A6AF65
- for <ltp@lists.linux.it>; Mon, 26 Aug 2019 15:55:15 +0000 (UTC)
-Message-ID: <1566834915.15851.12.camel@suse.de>
+ by mx1.suse.de (Postfix) with ESMTP id 656A2AE4D
+ for <ltp@lists.linux.it>; Mon, 26 Aug 2019 15:55:30 +0000 (UTC)
+Message-ID: <1566834929.15851.13.camel@suse.de>
 From: Clemens Famulla-Conrad <cfamullaconrad@suse.de>
 To: Cyril Hrubis <chrubis@suse.cz>, ltp@lists.linux.it
-Date: Mon, 26 Aug 2019 17:55:15 +0200
-In-Reply-To: <20190826140124.24681-5-chrubis@suse.cz>
+Date: Mon, 26 Aug 2019 17:55:29 +0200
+In-Reply-To: <20190826140124.24681-4-chrubis@suse.cz>
 References: <20190826140124.24681-1-chrubis@suse.cz>
- <20190826140124.24681-5-chrubis@suse.cz>
+ <20190826140124.24681-4-chrubis@suse.cz>
 X-Mailer: Evolution 3.26.6 
 Mime-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS,
- WEIRD_QUOTING autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 4/5] libs/libltpuinput: Add uinput library.
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 3/5] kernel/uevent: Add uevent02
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,252 +56,193 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Reviewed-by: Clemens Famulla-Conrad <cfamullaconrad@suse.de>
 
 On Mon, 2019-08-26 at 16:01 +0200, Cyril Hrubis wrote:
-> I to be used in the uevent03 test.
-> 
-> Also I will convert the uinput testcases to new library and make use
-> of
-> this library as well.
+> Similar to uevent01 but we create and remove a tun network card
+> instead.
 > 
 > Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 > ---
->  include/tst_uinput.h           |  48 +++++++++++
->  libs/libltpuinput/Makefile     |  12 +++
->  libs/libltpuinput/tst_uinput.c | 143
-> +++++++++++++++++++++++++++++++++
->  3 files changed, 203 insertions(+)
->  create mode 100644 include/tst_uinput.h
->  create mode 100644 libs/libltpuinput/Makefile
->  create mode 100644 libs/libltpuinput/tst_uinput.c
+>  runtest/uevent                      |   1 +
+>  testcases/kernel/uevents/.gitignore |   1 +
+>  testcases/kernel/uevents/uevent02.c | 143
+> ++++++++++++++++++++++++++++
+>  3 files changed, 145 insertions(+)
+>  create mode 100644 testcases/kernel/uevents/uevent02.c
 > 
-> diff --git a/include/tst_uinput.h b/include/tst_uinput.h
+> diff --git a/runtest/uevent b/runtest/uevent
+> index e9cdf26b8..30b1114a4 100644
+> --- a/runtest/uevent
+> +++ b/runtest/uevent
+> @@ -1 +1,2 @@
+>  uevent01 uevent01
+> +uevent02 uevent02
+> diff --git a/testcases/kernel/uevents/.gitignore
+> b/testcases/kernel/uevents/.gitignore
+> index 53d0b546a..0afc95534 100644
+> --- a/testcases/kernel/uevents/.gitignore
+> +++ b/testcases/kernel/uevents/.gitignore
+> @@ -1 +1,2 @@
+>  uevent01
+> +uevent02
+> diff --git a/testcases/kernel/uevents/uevent02.c
+> b/testcases/kernel/uevents/uevent02.c
 > new file mode 100644
-> index 000000000..dddbd9921
+> index 000000000..b94748c51
 > --- /dev/null
-> +++ b/include/tst_uinput.h
-> @@ -0,0 +1,48 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2019 Cyril Hrubis <chrubis@suse.cz>
-> + */
-> +
-> +#ifndef TST_UINPUT_H__
-> +#define TST_UINPUT_H__
-> +
-> +/**
-> + * Tries to open the uinput device.
-> + *
-> + * Returns file descriptor on success, -1 on failure.
-> + */
-> +int open_uinput(void);
-> +
-> +/**
-> + * Creates virtual input device.
-> + *
-> + * @fd File descriptor returned by open_uinput().
-> + */
-> +void create_input_device(int fd);
-> +
-> +/**
-> + * Parses /proc/bus/input/devices and returns the handlers strings
-> for our
-> + * virtual device, which is list of input devices that receive
-> events from the
-> + * device separated by whitestpaces.
-> + *
-> + * Returns newly allocated string, list of handlers separated by
-> whitespaces,
-> + * or NULL in a case of failure.
-> + */
-> +char *get_input_handlers(void);
-> +
-> +/**
-> + * Sets up the virtual device to appear as a mouse, this must be
-> called before
-> + * the call to create_input_device().
-> + *
-> + * @fd File descriptor as returned by open_uinput().
-> + */
-> +void setup_mouse_events(int fd);
-> +
-> +/**
-> + * Destroys virtual input device.
-> + *
-> + * @fd File descriptor returned by open_uinput().
-> + */
-> +void destroy_input_device(int fd);
-> +
-> +#endif	/* TST_UINPUT_H__ */
-> diff --git a/libs/libltpuinput/Makefile b/libs/libltpuinput/Makefile
-> new file mode 100644
-> index 000000000..dd2a6c096
-> --- /dev/null
-> +++ b/libs/libltpuinput/Makefile
-> @@ -0,0 +1,12 @@
-> +# SPDX-License-Identifier: GPL-2.0-or-later
-> +#
-> +# Copyright (C) Cyril Hrubis <chrubis@suse.cz>
-> +
-> +top_srcdir		?= ../..
-> +
-> +include $(top_srcdir)/include/mk/env_pre.mk
-> +
-> +LIB			:= libltpuinput.a
-> +
-> +include $(top_srcdir)/include/mk/lib.mk
-> +include $(top_srcdir)/include/mk/generic_leaf_target.mk
-> diff --git a/libs/libltpuinput/tst_uinput.c
-> b/libs/libltpuinput/tst_uinput.c
-> new file mode 100644
-> index 000000000..4b22fef2a
-> --- /dev/null
-> +++ b/libs/libltpuinput/tst_uinput.c
+> +++ b/testcases/kernel/uevents/uevent02.c
 > @@ -0,0 +1,143 @@
 > +// SPDX-License-Identifier: GPL-2.0-or-later
 > +/*
-> + * Copyright (c) 2015 Cedric Hnyda <chnyda@suse.com>
-> + * Copyright (c) 2019 Cyril Hrubis <chrubis@suse.cz>
+> + * Copyright (C) 2019 Cyril Hrubis <chrubis@suse.cz>
 > + */
 > +
-> +#include <linux/input.h>
-> +#include <linux/uinput.h>
-> +#include <stdio.h>
-> +#include <string.h>
+> +/*
+> + * Very simple uevent netlink socket test.
+> + *
+> + * We fork a child that listens for a kernel events while parents
+> creates and
+> + * removes a tun network device which should produce two several add
+> and remove
+> + * events.
+> + */
 > +
-> +#define TST_NO_DEFAULT_MAIN
+> +#include <stdio.h>
+> +#include <stdlib.h>
+> +#include <sys/wait.h>
+> +#include <linux/if.h>
+> +#include <linux/if_tun.h>
+> +
 > +#include "tst_test.h"
 > +
-> +#include "tst_uinput.h"
+> +#include "uevent.h"
 > +
-> +#define VIRTUAL_DEVICE "virtual-device-ltp"
+> +#define TUN_PATH "/dev/net/tun"
 > +
-> +static const char *uinput_paths[] = {
-> +	"/dev/input/uinput",
-> +	"/dev/uinput",
-> +};
-> +
-> +int open_uinput(void)
+> +static void generate_tun_uevents(void)
 > +{
-> +	unsigned int i;
-> +	int fd;
+> +	int fd = SAFE_OPEN(TUN_PATH, O_RDWR);
 > +
-> +	for (i = 0; i < ARRAY_SIZE(uinput_paths); i++) {
-> +		fd = open(uinput_paths[i], O_WRONLY | O_NONBLOCK);
+> +	struct ifreq ifr = {
+> +		.ifr_flags = IFF_TUN,
+> +		.ifr_name = "ltp-tun0",
+> +	};
 > +
-> +		if (fd > 0) {
-> +			tst_res(TINFO, "Found uinput dev at %s",
-> uinput_paths[i]);
-> +			return fd;
-> +		}
+> +	SAFE_IOCTL(fd, TUNSETIFF, (void*)&ifr);
 > +
-> +		if (fd < 0 && errno != ENOENT) {
-> +			tst_brk(TBROK | TERRNO, "open(%s)",
-> uinput_paths[i]);
-> +		}
-> +	}
+> +	SAFE_IOCTL(fd, TUNSETPERSIST, 0);
 > +
-> +	return -1;
-> +}
-> +
-> +#define HANDLERS_PREFIX "Handlers="
-> +
-> +static char *parse_handlers(char *line)
-> +{
-> +	char *handlers;
-> +
-> +	handlers = strstr(line, HANDLERS_PREFIX) +
-> sizeof(HANDLERS_PREFIX) - 1;
-> +
-> +	handlers[strlen(handlers) - 1] = 0;
-> +
-> +	return strdup(handlers);
-> +}
-> +
-> +char *get_input_handlers(void)
-> +{
-> +	FILE *file;
-> +	char line[1024];
-> +	int flag = 0;
-> +
-> +	file = fopen("/proc/bus/input/devices", "r");
-> +	if (!file)
-> +		return NULL;
-> +
-> +	while (fgets(line, sizeof(line), file)) {
-> +		if (strstr(line, "N: Name=\""VIRTUAL_DEVICE"\""))
-> +			flag = 1;
-> +
-> +		if (flag) {
-> +			if (line[0] == 'H')
-> +				return parse_handlers(line);
-> +
-> +			if (line[0] == '\n')
-> +				flag = 0;
-> +		}
-> +	}
-> +
-> +	fclose(file);
-> +	return NULL;
-> +}
-> +
-> +static int check_device(void)
-> +{
-> +	FILE *file;
-> +	char line[256];
-> +
-> +	file = fopen("/proc/bus/input/devices", "r");
-> +	if (!file)
-> +		return 0;
-> +
-> +	while (fgets(line, sizeof(line), file)) {
-> +		if (strstr(line, "Name=\""VIRTUAL_DEVICE"\""))
-> +			return 1;
-> +	}
-> +
-> +	fclose(file);
-> +
-> +	return 0;
-> +}
-> +
-> +void setup_mouse_events(int fd)
-> +{
-> +	SAFE_IOCTL(fd, UI_SET_EVBIT, EV_KEY);
-> +	SAFE_IOCTL(fd, UI_SET_KEYBIT, BTN_LEFT);
-> +	SAFE_IOCTL(fd, UI_SET_EVBIT, EV_REL);
-> +	SAFE_IOCTL(fd, UI_SET_RELBIT, REL_X);
-> +	SAFE_IOCTL(fd, UI_SET_RELBIT, REL_Y);
-> +}
-> +
-> +void destroy_input_device(int fd)
-> +{
-> +	SAFE_IOCTL(fd, UI_DEV_DESTROY, NULL);
 > +	SAFE_CLOSE(fd);
 > +}
 > +
-> +void create_input_device(int fd)
+> +static void verify_uevent(void)
 > +{
-> +	int nb;
-> +	struct uinput_user_dev uidev = {
-> +		.name = VIRTUAL_DEVICE,
-> +		.id = {
-> +			.bustype = BUS_USB,
-> +			.vendor = 0x1,
-> +			.product = 0x1,
-> +			.version = 1,
+> +	int pid, fd;
+> +
+> +	struct uevent_desc add = {
+> +		.msg = "add@/devices/virtual/net/ltp-tun0",
+> +		.value_cnt = 4,
+> +		.values = (const char*[]) {
+> +			"ACTION=add",
+> +			"DEVPATH=/devices/virtual/net/ltp-tun0",
+> +			"SUBSYSTEM=net",
+> +			"INTERFACE=ltp-tun0",
 > +		}
 > +	};
 > +
-> +	SAFE_WRITE(1, fd, &uidev, sizeof(uidev));
-> +	SAFE_IOCTL(fd, UI_DEV_CREATE, NULL);
+> +	struct uevent_desc add_rx = {
+> +		.msg = "add@/devices/virtual/net/ltp-tun0/queues/rx-
+> 0",
+> +		.value_cnt = 3,
+> +		.values = (const char*[]) {
+> +			"ACTION=add",
+> +			"DEVPATH=/devices/virtual/net/ltp-
+> tun0/queues/rx-0",
+> +			"SUBSYSTEM=queues",
+> +		}
+> +	};
 > +
-> +	for (nb = 100; nb > 0; nb--) {
-> +		if (check_device())
-> +			return;
-> +		usleep(10000);
+> +	struct uevent_desc add_tx = {
+> +		.msg = "add@/devices/virtual/net/ltp-tun0/queues/tx-
+> 0",
+> +		.value_cnt = 3,
+> +		.values = (const char*[]) {
+> +			"ACTION=add",
+> +			"DEVPATH=/devices/virtual/net/ltp-
+> tun0/queues/tx-0",
+> +			"SUBSYSTEM=queues",
+> +		}
+> +	};
+> +
+> +	struct uevent_desc rem_rx = {
+> +		.msg = "remove@/devices/virtual/net/ltp-
+> tun0/queues/rx-0",
+> +		.value_cnt = 3,
+> +		.values = (const char*[]) {
+> +			"ACTION=remove",
+> +			"DEVPATH=/devices/virtual/net/ltp-
+> tun0/queues/rx-0",
+> +			"SUBSYSTEM=queues",
+> +		}
+> +	};
+> +
+> +	struct uevent_desc rem_tx = {
+> +		.msg = "remove@/devices/virtual/net/ltp-
+> tun0/queues/tx-0",
+> +		.value_cnt = 3,
+> +		.values = (const char*[]) {
+> +			"ACTION=remove",
+> +			"DEVPATH=/devices/virtual/net/ltp-
+> tun0/queues/tx-0",
+> +			"SUBSYSTEM=queues",
+> +		}
+> +	};
+> +
+> +	struct uevent_desc rem = {
+> +		.msg = "remove@/devices/virtual/net/ltp-tun0",
+> +		.value_cnt = 4,
+> +		.values = (const char*[]) {
+> +			"ACTION=remove",
+> +			"DEVPATH=/devices/virtual/net/ltp-tun0",
+> +			"SUBSYSTEM=net",
+> +			"INTERFACE=ltp-tun0",
+> +		}
+> +	};
+> +
+> +	const struct uevent_desc *const uevents[] = {
+> +		&add,
+> +		&add_rx,
+> +		&add_tx,
+> +		&rem_rx,
+> +		&rem_tx,
+> +		&rem,
+> +		NULL
+> +	};
+> +
+> +	pid = SAFE_FORK();
+> +	if (!pid) {
+> +		fd = open_uevent_netlink();
+> +		TST_CHECKPOINT_WAKE(0);
+> +		wait_for_uevents(fd, uevents);
+> +		exit(0);
 > +	}
 > +
-> +	destroy_input_device(fd);
-> +	tst_brk(TBROK, "Failed to create device");
+> +	TST_CHECKPOINT_WAIT(0);
+> +
+> +	generate_tun_uevents();
+> +
+> +	wait_for_pid(pid);
 > +}
+> +
+> +static struct tst_test test = {
+> +	.test_all = verify_uevent,
+> +	.forks_child = 1,
+> +	.needs_tmpdir = 1,
+> +	.needs_checkpoints = 1,
+> +	.needs_drivers = (const char *const []) {
+> +		"tun",
+> +		NULL
+> +	},
+> +	.needs_root = 1
+> +};
 > -- 
 > 2.21.0
 > 
