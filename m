@@ -1,38 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13F4D9D134
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Aug 2019 16:01:30 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 45AD79D136
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Aug 2019 16:01:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C2EEB3C1C7B
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Aug 2019 16:01:29 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E30C63C1A4E
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Aug 2019 16:01:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id E6B853C0E60
- for <ltp@lists.linux.it>; Mon, 26 Aug 2019 16:01:25 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 580183C0E60
+ for <ltp@lists.linux.it>; Mon, 26 Aug 2019 16:01:26 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 82AED201346
- for <ltp@lists.linux.it>; Mon, 26 Aug 2019 16:01:25 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4F8D9600E36
+ for <ltp@lists.linux.it>; Mon, 26 Aug 2019 16:01:28 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id D95E9B066
- for <ltp@lists.linux.it>; Mon, 26 Aug 2019 14:01:24 +0000 (UTC)
+ by mx1.suse.de (Postfix) with ESMTP id 5CB58B07B
+ for <ltp@lists.linux.it>; Mon, 26 Aug 2019 14:01:25 +0000 (UTC)
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Mon, 26 Aug 2019 16:01:19 +0200
-Message-Id: <20190826140124.24681-1-chrubis@suse.cz>
+Date: Mon, 26 Aug 2019 16:01:20 +0200
+Message-Id: <20190826140124.24681-2-chrubis@suse.cz>
 X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20190826140124.24681-1-chrubis@suse.cz>
+References: <20190826140124.24681-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 0/5] Add basic test for uevent netlink socket
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 1/5] lib/tst_device: Export more functions.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,50 +51,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This patchset adds three basic test for uevent netlink socket.
+Export tst_attach_device() and tst_deteach_device() which will be later
+on used by a kernel netlink uevent tests.
 
-v3:
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+Reviewed-by: Clemens Famulla-Conrad <cfamullaconrad@suse.de>
+---
+ include/tst_device.h | 7 +++++++
+ lib/tst_device.c     | 8 ++++----
+ 2 files changed, 11 insertions(+), 4 deletions(-)
 
-Fixed all problems pointed out by Clemens.
-
-v2:
-
-Finished the input event test, now we match all events.
-
-*** BLURB HERE ***
-
-Cyril Hrubis (5):
-  lib/tst_device: Export more functions.
-  kernel/uevent: Add uevent01
-  kernel/uevent: Add uevent02
-  libs/libltpuinput: Add uinput library.
-  kernel/uevent: Add uevent03
-
- include/tst_device.h                |   7 +
- include/tst_uinput.h                |  48 ++++++
- lib/tst_device.c                    |   8 +-
- libs/libltpuinput/Makefile          |  12 ++
- libs/libltpuinput/tst_uinput.c      | 143 ++++++++++++++++
- runtest/uevent                      |   3 +
- scenario_groups/default             |   1 +
- testcases/kernel/uevents/.gitignore |   3 +
- testcases/kernel/uevents/Makefile   |  10 ++
- testcases/kernel/uevents/uevent.h   | 176 ++++++++++++++++++++
- testcases/kernel/uevents/uevent01.c |  98 +++++++++++
- testcases/kernel/uevents/uevent02.c | 143 ++++++++++++++++
- testcases/kernel/uevents/uevent03.c | 248 ++++++++++++++++++++++++++++
- 13 files changed, 896 insertions(+), 4 deletions(-)
- create mode 100644 include/tst_uinput.h
- create mode 100644 libs/libltpuinput/Makefile
- create mode 100644 libs/libltpuinput/tst_uinput.c
- create mode 100644 runtest/uevent
- create mode 100644 testcases/kernel/uevents/.gitignore
- create mode 100644 testcases/kernel/uevents/Makefile
- create mode 100644 testcases/kernel/uevents/uevent.h
- create mode 100644 testcases/kernel/uevents/uevent01.c
- create mode 100644 testcases/kernel/uevents/uevent02.c
- create mode 100644 testcases/kernel/uevents/uevent03.c
-
+diff --git a/include/tst_device.h b/include/tst_device.h
+index f0ddc3e93..c6e7b45b1 100644
+--- a/include/tst_device.h
++++ b/include/tst_device.h
+@@ -50,6 +50,13 @@ int tst_clear_device(const char *dev);
+  *
+  */
+ int tst_find_free_loopdev(const char *path, size_t path_len);
++
++
++int tst_attach_device(const char *dev_path, const char *file_path);
++
++
++int tst_detach_device(const char *dev_path);
++
+ /*
+  * Reads test block device stat file and returns the bytes written since the
+  * last call of this function.
+diff --git a/lib/tst_device.c b/lib/tst_device.c
+index 22abdef46..10f71901d 100644
+--- a/lib/tst_device.c
++++ b/lib/tst_device.c
+@@ -139,7 +139,7 @@ int tst_find_free_loopdev(char *path, size_t path_len)
+ 	return -1;
+ }
+ 
+-static int attach_device(const char *dev, const char *file)
++int tst_attach_device(const char *dev, const char *file)
+ {
+ 	int dev_fd, file_fd;
+ 	struct loop_info loopinfo;
+@@ -185,7 +185,7 @@ static int attach_device(const char *dev, const char *file)
+ 	return 0;
+ }
+ 
+-static int detach_device(const char *dev)
++int tst_detach_device(const char *dev)
+ {
+ 	int dev_fd, ret, i;
+ 
+@@ -284,7 +284,7 @@ const char *tst_acquire_device__(unsigned int size)
+ 	if (tst_find_free_loopdev(dev_path, sizeof(dev_path)) == -1)
+ 		return NULL;
+ 
+-	if (attach_device(dev_path, DEV_FILE))
++	if (tst_attach_device(dev_path, DEV_FILE))
+ 		return NULL;
+ 
+ 	device_acquired = 1;
+@@ -329,7 +329,7 @@ int tst_release_device(const char *dev)
+ 	 *
+ 	 * The file image is deleted in tst_rmdir();
+ 	 */
+-	ret = detach_device(dev);
++	ret = tst_detach_device(dev);
+ 
+ 	device_acquired = 0;
+ 
 -- 
 2.21.0
 
