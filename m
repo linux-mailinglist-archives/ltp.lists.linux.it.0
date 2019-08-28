@@ -1,41 +1,57 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 079EB9FC17
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Aug 2019 09:41:35 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id BD3799FC27
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Aug 2019 09:46:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 780143C1D30
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Aug 2019 09:41:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 700D33C1D1D
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Aug 2019 09:46:19 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id D38EE3C1CE4
- for <ltp@lists.linux.it>; Wed, 28 Aug 2019 09:41:30 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id AA75D3C1C95
+ for <ltp@lists.linux.it>; Wed, 28 Aug 2019 09:46:15 +0200 (CEST)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A67AC1001430
- for <ltp@lists.linux.it>; Wed, 28 Aug 2019 09:41:22 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id A9B4CAB98
- for <ltp@lists.linux.it>; Wed, 28 Aug 2019 07:41:28 +0000 (UTC)
-Message-ID: <1566978088.6539.16.camel@suse.de>
-From: Clemens Famulla-Conrad <cfamullaconrad@suse.de>
-To: Cyril Hrubis <chrubis@suse.cz>, ltp@lists.linux.it
-Date: Wed, 28 Aug 2019 09:41:28 +0200
-In-Reply-To: <20190826111024.19053-5-chrubis@suse.cz>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 201011A01D02
+ for <ltp@lists.linux.it>; Wed, 28 Aug 2019 09:46:13 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id F050F87638;
+ Wed, 28 Aug 2019 07:46:11 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D9D5D6060D;
+ Wed, 28 Aug 2019 07:46:11 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id BF71125540;
+ Wed, 28 Aug 2019 07:46:11 +0000 (UTC)
+Date: Wed, 28 Aug 2019 03:46:11 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
+To: cfamullaconrad@suse.com
+Message-ID: <2001459109.8602383.1566978371578.JavaMail.zimbra@redhat.com>
+In-Reply-To: <1566977183.6539.10.camel@suse.de>
 References: <20190826111024.19053-1-chrubis@suse.cz>
- <20190826111024.19053-5-chrubis@suse.cz>
-X-Mailer: Evolution 3.26.6 
-Mime-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+ <1492475067.8173800.1566829761941.JavaMail.zimbra@redhat.com>
+ <1566977183.6539.10.camel@suse.de>
+MIME-Version: 1.0
+X-Originating-IP: [10.40.204.161, 10.4.195.11]
+Thread-Topic: Basic eBPF tests
+Thread-Index: JsTwvk0g72Y7x9c/qNCT07alNizhiQ==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+ (mx1.redhat.com [10.5.110.26]); Wed, 28 Aug 2019 07:46:12 +0000 (UTC)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 4/4] BPF: Sanity check creating a program
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 0/4] Basic eBPF tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,234 +63,110 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: cfamullaconrad@suse.com
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Acked-by: Clemens Famulla-Conrad <cfamullaconrad@suse.de>
 
-On Mon, 2019-08-26 at 13:10 +0200, Cyril Hrubis wrote:
-> From: Richard Palethorpe <rpalethorpe@suse.com>
+----- Original Message -----
+> On Mon, 2019-08-26 at 10:29 -0400, Jan Stancek wrote:
+> > 
+> > ----- Original Message -----
+> > > I've ended up playing with the patchset and fixed a few loose ends
+> > > on
+> > > the map test and as I had the code at hand I decided to send v4
+> > > instead
+> > > of pointing out the mistakes in a review.
+> > > 
+> > > There were numerous small changes for the map test:
+> > > 
+> > > * Make sure the key buffer is sized exactly for the content
+> > > 
+> > > * Initialized the array/hash element value in test setup
+> > > 
+> > > * Made the code flow a bit more obvious, it was hard to tell which
+> > >   part was run for n == 0 and which for n == 1
+> > > 
+> > > Also it looks that for me the test that loads the eBPF program ends
+> > > up
+> > > with EPERM randomly at about 10th iteration both as unpriviledged
+> > > and
+> > > priviledged user, which is really strange.
+> > 
+> > There's one EPERM I can reproduce reliably with bpf_map test, which
+> > appears
+> > to originate from "bpf_charge_memlock".
+> > 
+> > There's a deferred component to map freeing, and unchange appears to
+> > be part of it:
+> >   bpf_map_release
+> >     bpf_map_put
+> >       INIT_WORK(&map->work, bpf_map_free_deferred);
+> >         (deferred) bpf_uncharge_memlock
+> > 
+> > When I lower max locked memory, it's easy to hit:
+> > # ulimit  -l 128; ./bpf_map01 -i 100
+> > ...
+> > bpf_map01.c:52: CONF: bpf() requires CAP_SYS_ADMIN on this system:
+> > EPERM
+> > 
+> > Can you try bumping max locked memory to some high value and check
+> > if that helps your case?
 > 
-> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
-> Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
-> ---
->  runtest/syscalls                           |   1 +
->  testcases/kernel/syscalls/bpf/.gitignore   |   1 +
->  testcases/kernel/syscalls/bpf/bpf_prog01.c | 162
-> +++++++++++++++++++++
->  3 files changed, 164 insertions(+)
->  create mode 100644 testcases/kernel/syscalls/bpf/bpf_prog01.c
+> # for i in 64 128 256 1024; do
+>     echo $i;
+>     ulimit -l $i;
+>     ./bpf_prog01 -i 100 |& grep -P 'passed|CONF';
+> done
 > 
-> diff --git a/runtest/syscalls b/runtest/syscalls
-> index 6ddfc2178..ec9f5ef6d 100644
-> --- a/runtest/syscalls
-> +++ b/runtest/syscalls
-> @@ -33,6 +33,7 @@ bind02 bind02
->  bind03 bind03
->  
->  bpf_map01 bpf_map01
-> +bpf_prog01 bpf_prog01
->  
->  brk01 brk01
->  
-> diff --git a/testcases/kernel/syscalls/bpf/.gitignore
-> b/testcases/kernel/syscalls/bpf/.gitignore
-> index f33532484..7eb5f7c92 100644
-> --- a/testcases/kernel/syscalls/bpf/.gitignore
-> +++ b/testcases/kernel/syscalls/bpf/.gitignore
-> @@ -1 +1,2 @@
->  bpf_map01
-> +bpf_prog01
-> diff --git a/testcases/kernel/syscalls/bpf/bpf_prog01.c
-> b/testcases/kernel/syscalls/bpf/bpf_prog01.c
-> new file mode 100644
-> index 000000000..135324efb
-> --- /dev/null
-> +++ b/testcases/kernel/syscalls/bpf/bpf_prog01.c
-> @@ -0,0 +1,162 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2019 Richard Palethorpe <rpalethorpe@suse.com>
-> + *
-> + * Trivial Extended Berkeley Packet Filter (eBPF) test.
-> + *
-> + * Sanity check loading and running bytecode.
-> + *
-> + * Test flow:
-> + * 1. Create array map
-> + * 2. Load eBPF program
-> + * 3. Attach program to socket
-> + * 4. Send packet on socket
-> + * 5. This should trigger eBPF program which writes to array map
-> + * 6. Verify array map was written to
-> + */
-> +
-> +#include <limits.h>
-> +#include <string.h>
-> +#include <stdio.h>
-> +
-> +#include "config.h"
-> +#include "tst_test.h"
-> +#include "lapi/socket.h"
-> +#include "lapi/bpf.h"
-> +
-> +const char MSG[] = "Ahoj!";
-> +static char *msg;
-> +
-> +/*
-> + * The following is a byte code template. We copy it to a guarded
-> buffer and
-> + * substitute the runtime value of our map file descriptor.
-> + *
-> + * r0 - r10 = registers 0 to 10
-> + * r0 = return code
-> + * r1 - r5 = scratch registers, used for function arguments
-> + * r6 - r9 = registers preserved across function calls
-> + * fp/r10 = stack frame pointer
-> + */
-> +const struct bpf_insn PROG[] = {
-> +	/* Load the map FD into r1 (place holder) */
-> +	BPF_LD_MAP_FD(BPF_REG_1, 0),
-> +	/* Put (key = 0) on stack and key ptr into r2 */
-> +	BPF_MOV64_REG(BPF_REG_2, BPF_REG_10),   /* r2 = fp */
-> +	BPF_ALU64_IMM(BPF_ADD, BPF_REG_2, -8),  /* r2 = r2 - 8 */
-> +	BPF_ST_MEM(BPF_DW, BPF_REG_2, 0, 0),    /* *r2 = 0 */
-                                                /* *(u64 * r2) = 0 */
-
-Is it possible to can call `BPF_FUNC_map_lookup_elem` with u32, like
-here[1]? Maybe that hint helps to see that BPF_DW more quickly then I
-did :)
-
-[1] https://github.com/torvalds/linux/blob/v4.20/samples/bpf/sock_examp
-le.c#L52
-
-> +	/* r0 = bpf_map_lookup_elem(r1, r2) */
-> +	BPF_EMIT_CALL(BPF_FUNC_map_lookup_elem),
-> +	/* if r0 == 0 goto exit */
-> +	BPF_JMP_IMM(BPF_JEQ, BPF_REG_0, 0, 3),
-> +	/* Set map[0] = 1 */
-> +	BPF_MOV64_REG(BPF_REG_1, BPF_REG_0),     /* r1 = r0 */
-> +	BPF_ST_MEM(BPF_DW, BPF_REG_1, 0, 1),     /* *r1 = 1 */
-> +	BPF_MOV64_IMM(BPF_REG_0, 0),             /* r0 = 0 */
-> +	BPF_EXIT_INSN(),		         /* return r0 */
-> +};
-> +
-> +static struct bpf_insn *prog;
-> +static char *log;
-> +static union bpf_attr *attr;
-> +
-> +int load_prog(int fd)
-> +{
-> +	prog[0] = BPF_LD_MAP_FD(BPF_REG_1, fd);
-> +
-> +	memset(attr, 0, sizeof(*attr));
-> +	attr->prog_type = BPF_PROG_TYPE_SOCKET_FILTER;
-> +	attr->insns = ptr_to_u64(prog);
-> +	attr->insn_cnt = ARRAY_SIZE(PROG);
-> +	attr->license = ptr_to_u64("GPL");
-> +	attr->log_buf = ptr_to_u64(log);
-> +	attr->log_size = BUFSIZ;
-> +	attr->log_level = 1;
-> +
-> +	TEST(bpf(BPF_PROG_LOAD, attr, sizeof(*attr)));
-> +	if (TST_RET == -1) {
-> +		if (log[0] != 0) {
-> +			tst_brk(TFAIL | TTERRNO,
-> +				"Failed verification: %s",
-> +				log);
-> +		} else {
-> +			tst_brk(TFAIL | TTERRNO, "Failed to load
-> program");
-> +		}
-> +	} else {
-> +		tst_res(TPASS, "Loaded program");
-> +	}
-> +
-> +	return TST_RET;
-> +}
-> +
-> +void setup(void)
-> +{
-> +	memcpy(prog, PROG, sizeof(PROG));
-> +	memcpy(msg, MSG, sizeof(MSG));
-> +}
-> +
-> +void run(void)
-> +{
-> +	int map_fd, prog_fd;
-> +	int sk[2];
-> +	uint32_t key = 0;
-> +	uint64_t val;
-> +
-> +	memset(attr, 0, sizeof(*attr));
-> +	attr->map_type = BPF_MAP_TYPE_ARRAY;
-> +	attr->key_size = 4;
-> +	attr->value_size = 8;
-> +	attr->max_entries = 1;
-> +
-> +	TEST(bpf(BPF_MAP_CREATE, attr, sizeof(*attr)));
-> +	if (TST_RET == -1) {
-> +		if (TST_ERR == EPERM) {
-> +			tst_brk(TCONF | TTERRNO,
-> +				"bpf() requires CAP_SYS_ADMIN on
-> this system");
-> +		} else {
-> +			tst_brk(TBROK | TTERRNO, "Failed to create
-> array map");
-> +		}
-> +	}
-> +	map_fd = TST_RET;
-> +
-> +	prog_fd = load_prog(map_fd);
-> +
-> +	SAFE_SOCKETPAIR(AF_UNIX, SOCK_DGRAM, 0, sk);
-> +	SAFE_SETSOCKOPT(sk[1], SOL_SOCKET, SO_ATTACH_BPF,
-> +			&prog_fd, sizeof(prog_fd));
-> +
-> +	SAFE_WRITE(1, sk[0], msg, sizeof(MSG));
-> +
-> +	memset(attr, 0, sizeof(*attr));
-> +	attr->map_fd = map_fd;
-> +	attr->key = ptr_to_u64(&key);
-> +	attr->value = ptr_to_u64(&val);
-> +
-> +	TEST(bpf(BPF_MAP_LOOKUP_ELEM, attr, sizeof(*attr)));
-> +	if (TST_RET == -1) {
-> +		tst_res(TFAIL | TTERRNO, "array map lookup");
-> +	} else if (val != 1) {
-> +		tst_res(TFAIL,
-> +			"val = %lu, but should be val = 1",
-> +			val);
-> +        } else {
-> +	        tst_res(TPASS, "val = 1");
-> +	}
-> +
-> +	SAFE_CLOSE(prog_fd);
-> +	SAFE_CLOSE(map_fd);
-> +	SAFE_CLOSE(sk[0]);
-> +	SAFE_CLOSE(sk[1]);
-> +}
-> +
-> +static struct tst_test test = {
-> +	.setup = setup,
-> +	.test_all = run,
-> +	.min_kver = "3.18",
-> +	.bufs = (struct tst_buffers []) {
-> +		{&log, .size = BUFSIZ},
-> +		{&prog, .size = sizeof(PROG)},
-> +		{&attr, .size = sizeof(*attr)},
-> +		{&msg, .size = sizeof(MSG)},
-> +		{},
-> +	}
-> +};
-> -- 
-> 2.21.0
+> 64
+> CONF: bpf() requires CAP_SYS_ADMIN on this system: EPERM
+> passed   16
+> 
+> 128
+> CONF: bpf() requires CAP_SYS_ADMIN on this system: EPERM
+> passed   16
+> 
+> 256
+> CONF: bpf() requires CAP_SYS_ADMIN on this system: EPERM
+> passed   32
+> 
+> 1024
+> CONF: bpf() requires CAP_SYS_ADMIN on this system: EPERM
+> passed   192
 > 
 > 
+> Which produce almost the same results.
+> Same approach with `bpf_map01` differs a lot. Sometimes all pass,
+> sometimes none.
+
+Seems to make difference for me on 5.2:
+
+# cat bench.sh; sh bench.sh 
+for i in 128 256 512 1024 4096 65536; do
+        echo $i;
+        ulimit -l $i;
+        ./bpf_prog01 -i 100 |& grep -P 'passed|CONF';
+        sleep 4;
+done
+
+128
+bpf_prog01.c:114: CONF: bpf() requires CAP_SYS_ADMIN on this system: EPERM
+passed   32
+256
+bpf_prog01.c:114: CONF: bpf() requires CAP_SYS_ADMIN on this system: EPERM
+passed   64
+512
+bpf_prog01.c:114: CONF: bpf() requires CAP_SYS_ADMIN on this system: EPERM
+passed   128
+1024
+passed   200
+4096
+passed   200
+65536
+passed   200
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
