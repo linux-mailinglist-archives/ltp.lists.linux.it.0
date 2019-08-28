@@ -2,68 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A6489FFAB
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Aug 2019 12:23:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD1ED9FFC8
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Aug 2019 12:25:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A28B63C1D30
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Aug 2019 12:23:11 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9B3783C1D00
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Aug 2019 12:25:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id B8FDE3C04F4
- for <ltp@lists.linux.it>; Wed, 28 Aug 2019 12:23:07 +0200 (CEST)
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 84BDF1A01CDE
- for <ltp@lists.linux.it>; Wed, 28 Aug 2019 12:23:06 +0200 (CEST)
-Received: by mail-pf1-x442.google.com with SMTP id q139so1411760pfc.13
- for <ltp@lists.linux.it>; Wed, 28 Aug 2019 03:23:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:mime-version:content-disposition;
- bh=y+6igPgMIOyoIHEbzJrg3oky+cnOgXxy3jd54a5jvgU=;
- b=u68L0TXOAgky8gA2yr1KzuDfZ6G61fi4/pqs4GaUGADVcxs5FqqNFpEfT58f57nwxB
- oYBxiMc1dh/cCoUiiU8bB7zDhN75M7AtmhCTD5yWQ4rqnZ1KXVCCI2+WGmhAFKktgf3p
- ZS52juf8fGCKMxKYjI2VBtH+YJo8cpP3nQEEmM0GhO6rh5hrL9Q7s74IeduSyoaVf0ts
- b3arUwtjv+WaE5/mSVKFrOxMKeyuGMDbcbtWLUHxObl2/CjCZwFU02PDB+nJB7G3n0uK
- QzHbwULavNhB0eq///YHRO+RbFII2Zjjx8pV56FhBxDvwyygW+ukNm9TEN1Mp7R77e2L
- 13wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
- :content-disposition;
- bh=y+6igPgMIOyoIHEbzJrg3oky+cnOgXxy3jd54a5jvgU=;
- b=fpiIFKSGf8yMaErXGW6MqzxQRg+d9EleQh057qx/CM1414lHFI45TN0HLVLdKAAeY4
- nBcrtuF7urUNRFVjBaV3gcNjhuG1e4Vm9ODx5TP/bKihERaBvejB1yF/gF679aIbDWVh
- qpTDCp/SMbWhl1lg4kOhGzz7X03oOg4EgPdtP59yoFtgazYb4XkVB/qEMzxIj34xxC95
- A2SL6YxxWgKRGPo/7xHKq6+27e5LVrvP+VPGQZJju3qLB4dzXQSA3UgppvZzYggDFiCM
- Y2tRJhdDq8lc1peYsgzZ0iu3dhmN5i+SKYZSKzFtZNvyAMu0sbdqXZYEzu+df6lII/Q7
- r3bg==
-X-Gm-Message-State: APjAAAXUsXuPTG2MiDlG2cqEzsKQEcdjSBKuz9RNUimpBpd5eIA1UOAM
- lNb5+BBtkJz1vSS8rkfxNKU=
-X-Google-Smtp-Source: APXvYqxSv/JRFoj1P1lsXV6gxmiwPuy5FDYyVeWT5lhBH+wXvYoKGL8mFpV7USfSuKOXESX//wAn5g==
-X-Received: by 2002:a17:90a:24ed:: with SMTP id
- i100mr3476839pje.47.1566987784844; 
- Wed, 28 Aug 2019 03:23:04 -0700 (PDT)
-Received: from localhost ([209.132.188.80])
- by smtp.gmail.com with ESMTPSA id b126sm3857167pfa.177.2019.08.28.03.23.03
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 28 Aug 2019 03:23:04 -0700 (PDT)
-Date: Wed, 28 Aug 2019 18:22:56 +0800
-From: Murphy Zhou <jencce.kernel@gmail.com>
-To: linux-nfs@vger.kernel.org, trond.myklebust@hammerspace.com
-Message-ID: <20190828102256.3nhyb2ngzitwd7az@XZHOUW.usersys.redhat.com>
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id C719C3C0E60
+ for <ltp@lists.linux.it>; Wed, 28 Aug 2019 12:25:40 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id CF5851001F41
+ for <ltp@lists.linux.it>; Wed, 28 Aug 2019 12:25:31 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.64,440,1559491200"; d="scan'208";a="74452325"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 28 Aug 2019 18:25:32 +0800
+Received: from G08CNEXCHPEKD03.g08.fujitsu.local (unknown [10.167.33.85])
+ by cn.fujitsu.com (Postfix) with ESMTP id E8B714CE032B
+ for <ltp@lists.linux.it>; Wed, 28 Aug 2019 18:25:29 +0800 (CST)
+Received: from [10.167.220.69] (10.167.220.69) by
+ G08CNEXCHPEKD03.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ id 14.3.439.0; Wed, 28 Aug 2019 18:25:31 +0800
+Message-ID: <5D66569A.6030909@cn.fujitsu.com>
+Date: Wed, 28 Aug 2019 18:25:30 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="gkp6ragylzfkgwea"
-Content-Disposition: inline
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+References: <1566987255-3010-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+In-Reply-To: <1566987255-3010-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Originating-IP: [10.167.220.69]
+X-yoursite-MailScanner-ID: E8B714CE032B.AD231
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] nfs-for-5.3-3 update "breaks" NFSv4 directIO somehow
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] runtest/syscalls: add set_mempolicy*
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,292 +55,50 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-
---gkp6ragylzfkgwea
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
 Hi,
 
-If write to file with O_DIRECT, then read it without O_DIRECT, read returns 0.
-From tshark output, looks like the READ call is missing.
+This patch set looks good to me.
+Just one comment, migrate_pages should be added before move_pages in 
+alphabetical order.
 
-LTP[1] dio tests spot this. Things work well before this update.
+Reviewed-by: Xiao Yang <ice_yangxiao@163.com>
 
-Bisect log is pointing to:
+Best Regards,
+Xiao Yang
+On 2019/08/28 18:14, Yang Xu wrote:
+> Since commit 55ee8a5ad ("syscalls: Add set_mempolicy numa tests"),
+> these cases have been added into runtests/numa, but forget to add it
+> in runtest/syscalls.
+>
+> Signed-off-by: Yang Xu<xuyang2018.jy@cn.fujitsu.com>
+> ---
+>   runtest/syscalls | 5 +++++
+>   1 file changed, 5 insertions(+)
+>
+> diff --git a/runtest/syscalls b/runtest/syscalls
+> index c41ba2a0d..1694ef147 100644
+> --- a/runtest/syscalls
+> +++ b/runtest/syscalls
+> @@ -1177,6 +1177,11 @@ setitimer01 setitimer01
+>   setitimer02 setitimer02
+>   setitimer03 setitimer03
+>
+> +set_mempolicy01 set_mempolicy01
+> +set_mempolicy02 set_mempolicy02
+> +set_mempolicy03 set_mempolicy03
+> +set_mempolicy04 set_mempolicy04
+> +
+>   setns01 setns01
+>   setns02 setns02
+>
 
-	commit 7e10cc25bfa0dd3602bbcf5cc9c759a90eb675dc
-	Author: Trond Myklebust <trond.myklebust@hammerspace.com>
-	Date:   Fri Aug 9 12:06:43 2019 -0400
-	
-	    NFS: Don't refresh attributes with mounted-on-file informatio
 
-With this commit reverted, the tests pass again.
-
-It's only about NFSv4(4.0 4.1 and 4.2), NFSv3 works well.
-
-Bisect log, outputs of tshark, sample test programme derived from
-LTP diotest02.c and a simple test script are attached.
-
-If this is an expected change, we will need to update the testcases.
-
-Thanks,
-Murphy
-
-[1] https://github.com/linux-test-project/ltp.git
-
---gkp6ragylzfkgwea
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment; filename="dio02.c"
-
-/*
- * LTP diotest02.c alt
-*/
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
-#include <sys/file.h>
-#include <sys/types.h>
-#include <sys/syscall.h>
-#include <errno.h>
-
-#define	BUFSIZE	4096
-#define LEN	30
-
-char filename[LEN];
-int bufsize = BUFSIZE;
-
-void fillbuf(char *buf, int count, char value)
-{
-	while (count > 0) {
-		strncpy(buf, &value, 1);
-		buf++;
-		count = count - 1;
-	}
-}
-
-/*
- * bufcmp: Compare two buffers
- * vbufcmp: Compare two buffers of two io arrays
-*/
-int bufcmp(char *b1, char *b2, int bsize)
-{
-	int i;
-
-	for (i = 0; i < bsize; i++) {
-		if (strncmp(&b1[i], &b2[i], 1)) {
-			fprintf(stderr,
-				"bufcmp: offset %d: Expected: 0x%x, got 0x%x\n",
-				i, b1[i], b2[i]);
-			return (-1);
-		}
-	}
-	return (0);
-}
-
-/*
- * runtest: write the data to the file. Read the data from the file and compare.
-*/
-int runtest(int fd_r, int fd_w)
-{
-	char *buf1;
-	char *buf2;
-	int i = 0, ret;
-
-	/* Allocate for buffers */
-	if ((buf1 = valloc(bufsize)) == 0) {
-		printf("valloc() buf1 failed: %s\n", strerror(errno));
-		return (-1);
-	}
-	if ((buf2 = valloc(bufsize)) == 0) {
-		printf("valloc() buf2 failed: %s\n", strerror(errno));
-		return (-1);
-	}
-
-	fillbuf(buf1, bufsize, i);
-#if 0
-	if (lseek(fd_w, i * bufsize, SEEK_SET) < 0) {
-		printf("lseek before write failed: %s\n", strerror(errno));
-		return (-1);
-	}
-#endif
-	ret = write(fd_w, buf1, bufsize);
-	if (ret < bufsize) {
-		printf("%d write failed: %s\n", ret, strerror(errno));
-		return (-1);
-	}
-#if 0
-	if (lseek(fd_r, i * bufsize, SEEK_SET) < 0) {
-		printf("lseek before read failed: %s", strerror(errno));
-		return (-1);
-	}
-#endif
-	ret = read(fd_r, buf2, bufsize);
-	if (ret < bufsize) {
-		printf("i %d ret %d read failed: %s\n", i, ret, strerror(errno));
-		return (-1);
-	}
-	if (bufcmp(buf1, buf2, bufsize) != 0) {
-		printf("read/write comparision failed");
-		return (-1);
-	}
-}
-
-int main(int argc, char *argv[])
-{
-	long offset = 0;	/* Offset. Default 0 */
-	int i, fd_r, fd_w;
-
-	/* Options */
-	sprintf(filename, "testdata-2.%ld", syscall(__NR_gettid));
-#if 0
-	/* Testblock-1: Read with Direct IO, Write without */
-	if ((fd_w = open(filename, O_WRONLY | O_CREAT, 0666)) < 0)
-		printf("open(%s, O_WRONLY..) failed\n", filename);
-	if ((fd_r = open(filename, O_DIRECT | O_RDONLY, 0666)) < 0)
-		printf("open(%s, O_DIRECT|O_RDONLY..) failed\n", filename);
-	if (runtest(fd_r, fd_w) < 0) {
-		printf("Read with Direct IO, Write without. FAIL\n");
-	} else
-		printf("Read with Direct IO, Write without. PASS\n");
-	close(fd_w);
-	close(fd_r);
-	unlink(filename);
-#endif
-	/* Testblock-2: Write with Direct IO, Read without */
-	if ((fd_w = open(filename, O_DIRECT | O_WRONLY | O_CREAT, 0666)) == -1)
-		printf(
-			 "open(%s, O_DIRECT|O_WRONLY..) failed\n", filename);
-	if ((fd_r = open(filename, O_RDONLY | O_CREAT, 0666)) == -1)
-		printf(
-			 "open(%s, O_RDONLY..) failed\n", filename);
-	if (runtest(fd_r, fd_w) < 0) {
-		printf("Write with Direct IO, Read without. FAIL\n");
-	} else
-		printf("Write with Direct IO, Read without. PASS\n");
-	close(fd_w);
-	close(fd_r);
-	unlink(filename);
-#if 0
-	/* Testblock-3: Read, Write with Direct IO. */
-	if ((fd_w = open(filename, O_DIRECT | O_WRONLY | O_CREAT, 0666)) == -1)
-		printf(
-			 "open(%s, O_DIRECT|O_WRONLY|O_CREAT, ..) failed\n",
-			 filename);
-	if ((fd_r = open(filename, O_DIRECT | O_RDONLY | O_CREAT, 0666)) == -1)
-		printf(
-			 "open(%s, O_DIRECT|O_RDONLY|O_CREAT, ..) failed\n",
-			 filename);
-	if (runtest(fd_r, fd_w) < 0) {
-		printf("Read, Write with Direct IO. FAIL\n");
-	} else
-		printf("Read, Write with Direct IO. PASS\n");
-	close(fd_w);
-	close(fd_r);
-	unlink(filename);
-#endif
-}
-
---gkp6ragylzfkgwea
-Content-Type: application/x-sh
-Content-Disposition: attachment; filename="test.sh"
-Content-Transfer-Encoding: quoted-printable
-
-#!/bin/bash=0Amkdir -p /nfsexport /nfsmnt=0Acp /etc/exports{,.backup}=0Aech=
-o "/nfsexport *(rw,no_root_squash)" > /etc/exports=0Asystemctl restart nfs-=
-server=0Asleep 90=0Aumount /nfsmnt=0Amount -t nfs -o vers=3D4.2 localhost:/=
-nfsexport /nfsmnt || exit=0Acd /nfsmnt=0Acp /root/dio02.c .=0Acc dio02.c=0A=
-tcpdump -U -s 9000 -i lo -w /root/dump.out.$$ port 2049 &=0Asleep 1=0A ./a.=
-out=0Asleep 1=0Akill -2 $!=0Acd=0Aumount /nfsmnt=0A
---gkp6ragylzfkgwea
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment; filename="fail.tshark"
-
-1 0 ::1 -> ::1 NFS 338 V4 Call OPEN DH: 0xcaa30fbb/
-2 0 ::1 -> ::1 NFS 442 V4 Reply (Call In 1) OPEN StateID: 0xdea3
-3 0 ::1 -> ::1 TCP 86 976 > nfs [ACK] Seq=253 Ack=357 Win=510 Len=0 TSval=1580593188 TSecr=1580593188
-4 0 ::1 -> ::1 NFS 286 V4 Call READ StateID: 0xfec3 Offset: 0 Len: 13320
-5 0 ::1 -> ::1 NFS 13514 V4 Reply (Call In 4)[Packet size limited during capture]
-6 0 ::1 -> ::1 TCP 86 976 > nfs [ACK] Seq=453 Ack=13785 Win=455 Len=0 TSval=1580593189 TSecr=1580593189
-7 0 ::1 -> ::1 NFS 262 V4 Call ACCESS FH: 0xcaa30fbb, [Check: RD MD XT XE]
-8 0 ::1 -> ::1 NFS 194 V4 Reply (Call In 7) ACCESS, [Allowed: RD MD XT XE]
-9 0 ::1 -> ::1 TCP 86 976 > nfs [ACK] Seq=629 Ack=13893 Win=512 Len=0 TSval=1580593190 TSecr=1580593190
-10 0 ::1 -> ::1 NFS 382 V4 Call[Malformed Packet]
-11 0 ::1 -> ::1 TCP 86 nfs > 976 [ACK] Seq=13893 Ack=925 Win=512 Len=0 TSval=1580593233 TSecr=1580593192
-12 0 ::1 -> ::1 NFS 470 V4 Reply (Call In 10) OPEN StateID: 0xe7d5 | LOCKT
-13 0 ::1 -> ::1 TCP 86 976 > nfs [ACK] Seq=925 Ack=14277 Win=509 Len=0 TSval=1580593252 TSecr=1580593252
-14 0 ::1 -> ::1 NFS 338 V4 Call OPEN DH: 0x1dfcdd98/
-15 0 ::1 -> ::1 TCP 86 nfs > 976 [ACK] Seq=14277 Ack=1177 Win=512 Len=0 TSval=1580593253 TSecr=1580593253
-16 0 ::1 -> ::1 NFS 406 V4 Reply (Call In 14) OPEN StateID: 0xe922
-17 0 ::1 -> ::1 NFS 4386 V4 Call WRITE StateID: 0xe278 Offset: 0 Len: 4096
-18 0 ::1 -> ::1 TCP 86 nfs > 976 [ACK] Seq=14597 Ack=5477 Win=512 Len=0 TSval=1580593254 TSecr=1580593254
-19 0 ::1 -> ::1 NFS 202 V4 Reply (Call In 17) WRITE
-20 0 ::1 -> ::1 NFS 286 V4 Call OPEN_DOWNGRADE
-21 0 ::1 -> ::1 TCP 86 nfs > 976 [ACK] Seq=14713 Ack=5677 Win=512 Len=0 TSval=1580593303 TSecr=1580593302
-22 0 ::1 -> ::1 NFS 202 V4 Reply (Call In 20) OPEN_DOWNGRADE
-23 0 ::1 -> ::1 NFS 294 V4 Call CLOSE StateID: 0xec8f
-24 0 ::1 -> ::1 TCP 86 nfs > 976 [ACK] Seq=14829 Ack=5885 Win=512 Len=0 TSval=1580593304 TSecr=1580593304
-25 0 ::1 -> ::1 NFS 266 V4 Reply (Call In 23) CLOSE
-26 0 ::1 -> ::1 NFS 266 V4 Call REMOVE DH: 0x72fff125/testdata-2.3006
-27 0 ::1 -> ::1 NFS 206 V4 Reply (Call In 26) REMOVE
-28 0 ::1 -> ::1 NFS 278 V4 Call CLOSE StateID: 0xdea3
-29 0 ::1 -> ::1 NFS 202 V4 Reply (Call In 28) CLOSE
-30 0 ::1 -> ::1 TCP 86 976 > nfs [ACK] Seq=6257 Ack=15245 Win=512 Len=0 TSval=1580593374 TSecr=1580593333
-
---gkp6ragylzfkgwea
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment; filename="pass.tshark"
-
-1 0 ::1 -> ::1 NFS 338 V4 Call OPEN DH: 0x9dd44c93/
-2 0 ::1 -> ::1 TCP 86 nfs > 984 [ACK] Seq=1 Ack=253 Win=511 Len=0 TSval=2084813185 TSecr=2084813185
-3 0 ::1 -> ::1 NFS 442 V4 Reply (Call In 1) OPEN StateID: 0x23a1
-4 0 ::1 -> ::1 TCP 86 984 > nfs [ACK] Seq=253 Ack=357 Win=510 Len=0 TSval=2084813185 TSecr=2084813185
-5 0 ::1 -> ::1 NFS 286 V4 Call READ StateID: 0x03c1 Offset: 0 Len: 13320
-6 0 ::1 -> ::1 TCP 86 nfs > 984 [ACK] Seq=357 Ack=453 Win=512 Len=0 TSval=2084813186 TSecr=2084813186
-7 0 ::1 -> ::1 NFS 13514 V4 Reply (Call In 5)[Packet size limited during capture]
-8 0 ::1 -> ::1 TCP 86 984 > nfs [ACK] Seq=453 Ack=13785 Win=455 Len=0 TSval=2084813186 TSecr=2084813186
-9 0 ::1 -> ::1 NFS 262 V4 Call ACCESS FH: 0x9dd44c93, [Check: RD MD XT XE]
-10 0 ::1 -> ::1 TCP 86 nfs > 984 [ACK] Seq=13785 Ack=629 Win=512 Len=0 TSval=2084813187 TSecr=2084813187
-11 0 ::1 -> ::1 NFS 194 V4 Reply (Call In 9) ACCESS, [Allowed: RD MD XT XE]
-12 0 ::1 -> ::1 TCP 86 984 > nfs [ACK] Seq=629 Ack=13893 Win=512 Len=0 TSval=2084813187 TSecr=2084813187
-13 0 ::1 -> ::1 NFS 382 V4 Call[Malformed Packet]
-14 0 ::1 -> ::1 NFS 470 V4 Reply (Call In 13) OPEN StateID: 0x1ad7 | LOCKT
-15 0 ::1 -> ::1 NFS 338 V4 Call OPEN DH: 0x2685228d/
-16 0 ::1 -> ::1 NFS 406 V4 Reply (Call In 15) OPEN StateID: 0x1420
-17 0 ::1 -> ::1 NFS 4386 V4 Call WRITE StateID: 0x1f7a Offset: 0 Len: 4096
-18 0 ::1 -> ::1 TCP 86 nfs > 984 [ACK] Seq=14597 Ack=5477 Win=512 Len=0 TSval=2084813269 TSecr=2084813229
-19 0 ::1 -> ::1 NFS 202 V4 Reply (Call In 17) WRITE
-20 0 ::1 -> ::1 NFS 286 V4 Call READ StateID: 0x1f7a Offset: 0 Len: 4096
-21 0 ::1 -> ::1 TCP 86 nfs > 984 [ACK] Seq=14713 Ack=5677 Win=512 Len=0 TSval=2084813299 TSecr=2084813299
-22 0 ::1 -> ::1 NFS 4290 V4 Reply (Call In 20) READ
-23 0 ::1 -> ::1 NFS 286 V4 Call OPEN_DOWNGRADE
-24 0 ::1 -> ::1 TCP 86 nfs > 984 [ACK] Seq=18917 Ack=5877 Win=512 Len=0 TSval=2084813300 TSecr=2084813300
-25 0 ::1 -> ::1 NFS 202 V4 Reply (Call In 23) OPEN_DOWNGRADE
-26 0 ::1 -> ::1 NFS 294 V4 Call CLOSE StateID: 0x118d
-27 0 ::1 -> ::1 TCP 86 nfs > 984 [ACK] Seq=19033 Ack=6085 Win=512 Len=0 TSval=2084813301 TSecr=2084813301
-28 0 ::1 -> ::1 NFS 266 V4 Reply (Call In 26) CLOSE
-29 0 ::1 -> ::1 NFS 266 V4 Call REMOVE DH: 0x8f59bce9/testdata-2.2547
-30 0 ::1 -> ::1 TCP 86 nfs > 984 [ACK] Seq=19213 Ack=6265 Win=512 Len=0 TSval=2084813302 TSecr=2084813301
-31 0 ::1 -> ::1 NFS 206 V4 Reply (Call In 29) REMOVE
-32 0 ::1 -> ::1 NFS 278 V4 Call CLOSE StateID: 0x23a1
-33 0 ::1 -> ::1 TCP 86 nfs > 984 [ACK] Seq=19333 Ack=6457 Win=512 Len=0 TSval=2084813324 TSecr=2084813324
-34 0 ::1 -> ::1 NFS 202 V4 Reply (Call In 32) CLOSE
-35 0 ::1 -> ::1 TCP 86 984 > nfs [ACK] Seq=6457 Ack=19449 Win=512 Len=0 TSval=2084813365 TSecr=2084813324
-
---gkp6ragylzfkgwea
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---gkp6ragylzfkgwea--
