@@ -1,42 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38E89A28BF
-	for <lists+linux-ltp@lfdr.de>; Thu, 29 Aug 2019 23:18:44 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D4C29A2A4B
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2019 00:50:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F05A63C2016
-	for <lists+linux-ltp@lfdr.de>; Thu, 29 Aug 2019 23:18:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 928BB3C201A
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2019 00:50:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 128513C1CFD
- for <ltp@lists.linux.it>; Thu, 29 Aug 2019 23:18:41 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id CED063C1C80
+ for <ltp@lists.linux.it>; Fri, 30 Aug 2019 00:50:38 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 7ADA01A007AA
- for <ltp@lists.linux.it>; Thu, 29 Aug 2019 23:18:41 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DA240200385
+ for <ltp@lists.linux.it>; Fri, 30 Aug 2019 00:50:37 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id A3104AF54;
- Thu, 29 Aug 2019 21:18:40 +0000 (UTC)
-Date: Thu, 29 Aug 2019 23:18:39 +0200
+ by mx1.suse.de (Postfix) with ESMTP id E8095B621
+ for <ltp@lists.linux.it>; Thu, 29 Aug 2019 22:50:36 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <20190829211839.GD5711@dell5510>
-References: <20190823094621.21747-1-rpalethorpe@suse.com>
- <20190823094621.21747-2-rpalethorpe@suse.com>
+To: ltp@lists.linux.it
+Date: Fri, 30 Aug 2019 00:50:29 +0200
+Message-Id: <20190829225029.29506-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.22.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190823094621.21747-2-rpalethorpe@suse.com>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 2/2] capability: library tests
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [COMMITTED][PATCH] tst_test.sh: Always return 0 from
+ _tst_require_root()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,35 +45,54 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: mmoese@suse.com, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Richie,
+8722680b6 ("tst_net.sh: Use _tst_require_root instead of TST_NEEDS_ROOT=1")
+is broken _tst_require_root() returns non zero value therefore
+tst_require_root() is called as well:
 
-> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
-> Reviewed-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+/opt/ltp/testcases/bin/if4-addr-change.sh: 102: /opt/ltp/testcases/bin/tst_net.sh: tst_require_root: not found
 
-> +++ b/lib/newlib_tests/tst_capability01.c
-> @@ -0,0 +1,51 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Copyright (c) 2019 Richard Palethorpe <rpalethorpe@suse.com>
-> + *
-> + * The user or file requires CAP_NET_RAW for this test to work.
-> + * e.g use "$ setcap cap_net_raw=pei tst_capability"
+While code should not expect functions returning always zero, in this
+case it's an unwanted side effect, therefore fix it by wrapping
+_tst_require_root() code with if clause.
 
-It'd be nice if our build system supported setting capabilities during make
-install. It's probably not worth of doing just for single LTP library test,
-but I still plan to implement 'make check' for lib/newlib_tests/ content,
-so this will have to be handled manually.
+Fixes: e7b804df6 ("shell: Add tst_security.sh helper")
+
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+Hi,
+
+sorry for this old bug and for overlooking this error in tst_net.sh
+change.
 
 Kind regards,
 Petr
+
+ testcases/lib/tst_test.sh | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+index f779cc471..e0b24c6b9 100644
+--- a/testcases/lib/tst_test.sh
++++ b/testcases/lib/tst_test.sh
+@@ -391,7 +391,9 @@ _tst_setup_timer()
+ 
+ _tst_require_root()
+ {
+-	[ "$(id -ru)" != 0 ] && tst_brk TCONF "Must be super/root for this test!"
++	if [ "$(id -ru)" != 0 ]; then
++		tst_brk TCONF "Must be super/root for this test!"
++	fi
+ }
+ 
+ tst_run()
+-- 
+2.22.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
