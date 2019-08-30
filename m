@@ -2,48 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57E9DA3478
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2019 11:51:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B7C7A352C
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2019 12:46:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D9EF83C2043
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2019 11:51:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CF2603C201D
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2019 12:46:14 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id F0EB73C04F4
- for <ltp@lists.linux.it>; Fri, 30 Aug 2019 11:50:58 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 58E121A03FEC
- for <ltp@lists.linux.it>; Fri, 30 Aug 2019 11:50:56 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.64,446,1559491200"; d="scan'208";a="74580262"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 30 Aug 2019 17:50:53 +0800
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id DE4034CE089F;
- Fri, 30 Aug 2019 17:50:51 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- id 14.3.439.0; Fri, 30 Aug 2019 17:50:51 +0800
-Message-ID: <5D68F179.3000402@cn.fujitsu.com>
-Date: Fri, 30 Aug 2019 17:50:49 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 552223C1D01
+ for <ltp@lists.linux.it>; Fri, 30 Aug 2019 12:46:13 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 84A43202981
+ for <ltp@lists.linux.it>; Fri, 30 Aug 2019 12:46:12 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 979AEB601;
+ Fri, 30 Aug 2019 10:46:11 +0000 (UTC)
+Date: Fri, 30 Aug 2019 12:46:10 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cristian Marussi <cristian.marussi@arm.com>
+Message-ID: <20190830104609.GA9330@dell5510>
+References: <20190829181146.20261-1-pvorel@suse.cz>
+ <CAEemH2dzn92GYwiw2tP101wNkYfM30rfL=cmPU+B1iH-8UWoDw@mail.gmail.com>
+ <20190830085036.GA27453@dell5510>
+ <9e518589-9c98-1513-2c19-bae0268b8a81@arm.com>
 MIME-Version: 1.0
-To: Xiao Yang <yangx.jy@cn.fujitsu.com>, Petr Vorel <pvorel@suse.cz>
-References: <1566987255-3010-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <20190829203826.GA5711@dell5510> <5D688449.3080906@cn.fujitsu.com>
-In-Reply-To: <5D688449.3080906@cn.fujitsu.com>
-X-Originating-IP: [10.167.220.84]
-X-yoursite-MailScanner-ID: DE4034CE089F.AE75F
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <9e518589-9c98-1513-2c19-bae0268b8a81@arm.com>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] runtest/syscalls: add set_mempolicy*
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] memcg_stress_test.sh: Respect LTP_TIMEOUT_MUL set
+ by user
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,66 +50,61 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-on 2019/08/30 10:04, Xiao Yang wrote:
+Hi Cristian,
 
-> On 2019/08/30 4:38, Petr Vorel wrote:
->> Hi,
->>> Since commit 55ee8a5ad ("syscalls: Add set_mempolicy numa tests"),
->>> these cases have been added into runtests/numa, but forget to add it
->>> in runtest/syscalls.
->>> Signed-off-by: Yang Xu<xuyang2018.jy@cn.fujitsu.com>
->> Reviewed-by: Petr Vorel<pvorel@suse.cz>
->>> ---
->>>    runtest/syscalls | 5 +++++
->>>    1 file changed, 5 insertions(+)
->>> diff --git a/runtest/syscalls b/runtest/syscalls
->>> index c41ba2a0d..1694ef147 100644
->>> --- a/runtest/syscalls
->>> +++ b/runtest/syscalls
->>> @@ -1177,6 +1177,11 @@ setitimer01 setitimer01
->>>    setitimer02 setitimer02
->>>    setitimer03 setitimer03
->>> +set_mempolicy01 set_mempolicy01
->>> +set_mempolicy02 set_mempolicy02
->>> +set_mempolicy03 set_mempolicy03
->>> +set_mempolicy04 set_mempolicy04
->>> +
->>>    setns01 setns01
->>>    setns02 setns02
->> Wouldn't be better to move all NUMA tests out of syscalls?
->> Syscalls are big already.
-> Hi Petr,
-> all NUMA tests actually verify the functionality of
-> syscalls(move_pages(2), set_mempolicy(2), etc)
-> so I think that they can be added into syscalls group.
-> PS: If someone want to run syscalls from LTP as many as possible, they
-> just need to run syscalls group directly.
-+1 , set_mempolicy syscall should belong to numa and syscall group.
+> On 30/08/2019 09:50, Petr Vorel wrote:
+> > Hi Li,
 
-> Best Regards,
-> Xiao Yang
->> BTW I'm looking forward to the new testrunner [1][2], which also solve problem
->> of runtest files :)
-Hi Petr
+> > Good point. Something like this could do it:
+> > -LTP_TIMEOUT_MUL=7
+> > +min_timeout=7
+> > +[ -z "$LTP_TIMEOUT_MUL" -o "$LTP_TIMEOUT_MUL" -lt $min_timeout ] && LTP_TIMEOUT_MUL=$min_timeout
 
-For new testrunner,  I think it is a good improvement to save test time by parallel running case.
-I am also looking forward to it.
-
->> Kind regards,
->> Petr
->> [1] https://people.kernel.org/metan/towards-parallel-kernel-test-runs
->> [2] https://github.com/metan-ucw/ltp/tree/master/docparse
->> .
-> .
+> > Unless we test only integers:
+> > +[ is_int "$LTP_TIMEOUT_MUL" -o "$LTP_TIMEOUT_MUL" -lt $min_timeout ] && LTP_TIMEOUT_MUL=$min_timeout
 
 
+> I would certainly introduce a check on the minimum allowed test-timeout and just stick to integers.
+> (is it really needed to worry for float multipliers ?)
+Not sure, but it'd be good to have it same for C and for shell. Otherwise
+working variable for C would fail on shell.
 
+> I also wonder if it is worth somehow put this minimum-enforce mechanism inside the framework itself
+> instead that hardcoding it in this specific test (unless you already mean to do it this way...
+> and I misunderstood)
+Yes, I was thinking about it as well.
+LTP_TIMEOUT_MUL should be reserved for users, tests should use LTP_TIMEOUT_MUL_MIN,
+check for LTP_TIMEOUT_MUL being higher than LTP_TIMEOUT_MUL_MIN would be in
+_tst_setup_timer(). Similar mechanism I introduced in 9d6a960d9 (VIRT_PERF_THRESHOLD_MIN).
+
+I wonder if it'd be useful to have some functionality in C (ltp_timeout_mul_min
+as a struct tst_test, default 1).
+
+> So that, roughly, in the test
+
+> LTP_TIMEOUT_MUL_MIN=7
+> LTP_TIMEOUT_MUL=${LTP_TIMEOUT_MUL:-7}
+
+> and somewhere in framework test initialization you enforce it (maybe with a warning for the user when overriding its setup)
+
+> [ -z "$LTP_TIMEOUT_MUL" -o "$LTP_TIMEOUT_MUL" -lt $LTP_TIMEOUT_MUL_MIN ] && LTP_TIMEOUT_MUL=$LTP_TIMEOUT_MUL_MIN
++1. Feel free to send a patch.
+
+> (but my LTP framework memories are a bit blurred now...so feel free to ignore if it is not feasible or practical)
+
+> Thanks
+
+> Cristian
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
