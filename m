@@ -1,43 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C865A3543
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2019 12:55:04 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id F1679A3548
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2019 12:57:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 236683C201E
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2019 12:55:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C4C243C201E
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2019 12:57:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 8B12C3C2014
- for <ltp@lists.linux.it>; Fri, 30 Aug 2019 12:55:02 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 336F73C2014
+ for <ltp@lists.linux.it>; Fri, 30 Aug 2019 12:57:32 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D8D141A05C8E
- for <ltp@lists.linux.it>; Fri, 30 Aug 2019 12:55:01 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 266CD200138
+ for <ltp@lists.linux.it>; Fri, 30 Aug 2019 12:57:31 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 1A144AB89;
- Fri, 30 Aug 2019 10:55:01 +0000 (UTC)
-Date: Fri, 30 Aug 2019 12:54:59 +0200
+ by mx1.suse.de (Postfix) with ESMTP id 551C1AB89;
+ Fri, 30 Aug 2019 10:57:31 +0000 (UTC)
+Date: Fri, 30 Aug 2019 12:57:29 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Xiao Yang <yangx.jy@cn.fujitsu.com>
-Message-ID: <20190830105459.GB9330@dell5510>
+Message-ID: <20190830105729.GC9330@dell5510>
 References: <1566987255-3010-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <1566987255-3010-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <20190829204149.GB5711@dell5510> <5D687F5A.80002@cn.fujitsu.com>
+ <20190829203826.GA5711@dell5510> <5D688449.3080906@cn.fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <5D687F5A.80002@cn.fujitsu.com>
+In-Reply-To: <5D688449.3080906@cn.fujitsu.com>
 User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] runtest/numa: add migrate_pages*
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] runtest/syscalls: add set_mempolicy*
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,21 +56,47 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Yang,
 
-> On 2019/08/30 4:41, Petr Vorel wrote:
-> > Hi Xu,
+> On 2019/08/30 4:38, Petr Vorel wrote:
+> > Hi,
 
-> > > Since migrate_pages must depend on numa, add it into
-> > > runtest/numa.
+> > > Since commit 55ee8a5ad ("syscalls: Add set_mempolicy numa tests"),
+> > > these cases have been added into runtests/numa, but forget to add it
+> > > in runtest/syscalls.
 > > > Signed-off-by: Yang Xu<xuyang2018.jy@cn.fujitsu.com>
-> > Thanks for the patch, merged.
+> > Reviewed-by: Petr Vorel<pvorel@suse.cz>
+> > > ---
+> > >   runtest/syscalls | 5 +++++
+> > >   1 file changed, 5 insertions(+)
+> > > diff --git a/runtest/syscalls b/runtest/syscalls
+> > > index c41ba2a0d..1694ef147 100644
+> > > --- a/runtest/syscalls
+> > > +++ b/runtest/syscalls
+> > > @@ -1177,6 +1177,11 @@ setitimer01 setitimer01
+> > >   setitimer02 setitimer02
+> > >   setitimer03 setitimer03
+> > > +set_mempolicy01 set_mempolicy01
+> > > +set_mempolicy02 set_mempolicy02
+> > > +set_mempolicy03 set_mempolicy03
+> > > +set_mempolicy04 set_mempolicy04
+> > > +
+> > >   setns01 setns01
+> > >   setns02 setns02
+> > Wouldn't be better to move all NUMA tests out of syscalls?
+> > Syscalls are big already.
 > Hi Petr,
 
-> Why don't sort numa tests alphabetically as my replied?
-I'm sorry. I overlooked it as you put your commend to 1st commit
-(this is a second commit). Feel free to fix it or I'll do it later today.
+> all NUMA tests actually verify the functionality of syscalls(move_pages(2),
+> set_mempolicy(2), etc)
+> so I think that they can be added into syscalls group.
 
-BTW I suggest also sort alphabetically Numa-testcases numa01.sh
-and rename it to numa_testcases numa01.sh
+> PS: If someone want to run syscalls from LTP as many as possible, they just
+> need to run syscalls group directly.
+OK, ack.
+
+PS: I'd prefer syscalls to be just includes of other runtests (otherwise we keep
+forgetting to add testcases), but that won't happen until docparse & new runner
+are released.
+
 
 Kind regards,
 Petr
