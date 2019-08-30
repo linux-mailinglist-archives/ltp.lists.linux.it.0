@@ -2,48 +2,62 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99B01A2C8F
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2019 04:05:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 314B4A2CE6
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2019 04:39:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5B67F3C201B
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2019 04:05:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 00E723C2019
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2019 04:39:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 7C2803C1CE4
- for <ltp@lists.linux.it>; Fri, 30 Aug 2019 04:05:00 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 01BEE200351
- for <ltp@lists.linux.it>; Fri, 30 Aug 2019 04:04:58 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.64,445,1559491200"; d="scan'208";a="74560414"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 30 Aug 2019 10:04:55 +0800
-Received: from G08CNEXCHPEKD03.g08.fujitsu.local (unknown [10.167.33.85])
- by cn.fujitsu.com (Postfix) with ESMTP id 58AD04CE088A;
- Fri, 30 Aug 2019 10:04:56 +0800 (CST)
-Received: from [10.167.220.69] (10.167.220.69) by
- G08CNEXCHPEKD03.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- id 14.3.439.0; Fri, 30 Aug 2019 10:04:58 +0800
-Message-ID: <5D688449.3080906@cn.fujitsu.com>
-Date: Fri, 30 Aug 2019 10:04:57 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 46DE63C1C80
+ for <ltp@lists.linux.it>; Fri, 30 Aug 2019 04:39:18 +0200 (CEST)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 92CCF100054E
+ for <ltp@lists.linux.it>; Fri, 30 Aug 2019 04:39:09 +0200 (CEST)
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
+ [209.85.167.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id 7231A2A09D4
+ for <ltp@lists.linux.it>; Fri, 30 Aug 2019 02:39:14 +0000 (UTC)
+Received: by mail-oi1-f198.google.com with SMTP id t22so2257326oij.17
+ for <ltp@lists.linux.it>; Thu, 29 Aug 2019 19:39:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=R8tuedvutsxt4rZs0Y9CA6eCdO1zKVddtmaszdQ89zo=;
+ b=Cs/8fvwQO4Y0EONA9aotf85Dyy8Ozfgrorj2dVks3hzoZ5BTjtWi0ZpM+BZLaS41pP
+ NM/BeQykAzqD0dmF1cqzituU+MVrlJkWR7A9pDUU99vu1ybuBBcGq+zQI7TW3aWxgk2a
+ E3uwBEvIBPslJLbOK7M2BjfA8fYvNmRdkg3j38MnjgUAA7bYKvu+BiDP6Z444HgyfYyb
+ 1cXhLLsif6LIaNhu0T+yJNL2yReYGUjxbBUzU/LKM1t7zD2otZqMcknxFttXMGIRW8m3
+ wRytpk6zWj/vF8IX8r20uToLDK2CiBLxDp4kpD6x7FwidN/YDhy3yuUJJU2ntrdKEIiZ
+ AeHw==
+X-Gm-Message-State: APjAAAUTnX/ha1onQuNeqvOnrO9CZKDFDx2vjjv0Od4BFFf6Rg3TqAFk
+ tfXuyQIXDl4+i44DogSFq3Mo1W8o9L13NSzjV5NM927QvsSL7lDdHY+ijbEc9LXd8OX9yaXmHdd
+ q3Blmjf1StJNUsvj8MFyGzf6EWAY=
+X-Received: by 2002:a9d:725b:: with SMTP id a27mr3740266otk.17.1567132753768; 
+ Thu, 29 Aug 2019 19:39:13 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqxSG/BN4QS9itl4acJjvfaxgQQIraqnISCT8sHFoP1GUozY6XYgaLbBIDy08BxD6j+pp9+Q7LLqptorAY7d2Cs=
+X-Received: by 2002:a9d:725b:: with SMTP id a27mr3740255otk.17.1567132753565; 
+ Thu, 29 Aug 2019 19:39:13 -0700 (PDT)
 MIME-Version: 1.0
+References: <20190829181146.20261-1-pvorel@suse.cz>
+In-Reply-To: <20190829181146.20261-1-pvorel@suse.cz>
+From: Li Wang <liwang@redhat.com>
+Date: Fri, 30 Aug 2019 10:39:02 +0800
+Message-ID: <CAEemH2dzn92GYwiw2tP101wNkYfM30rfL=cmPU+B1iH-8UWoDw@mail.gmail.com>
 To: Petr Vorel <pvorel@suse.cz>
-References: <1566987255-3010-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <20190829203826.GA5711@dell5510>
-In-Reply-To: <20190829203826.GA5711@dell5510>
-X-Originating-IP: [10.167.220.69]
-X-yoursite-MailScanner-ID: 58AD04CE088A.A99D3
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] runtest/syscalls: add set_mempolicy*
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] memcg_stress_test.sh: Respect LTP_TIMEOUT_MUL set
+ by user
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,65 +69,30 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 2019/08/30 4:38, Petr Vorel wrote:
-> Hi,
+On Fri, Aug 30, 2019 at 2:12 AM Petr Vorel <pvorel@suse.cz> wrote:
 >
->> Since commit 55ee8a5ad ("syscalls: Add set_mempolicy numa tests"),
->> these cases have been added into runtests/numa, but forget to add it
->> in runtest/syscalls.
->> Signed-off-by: Yang Xu<xuyang2018.jy@cn.fujitsu.com>
-> Reviewed-by: Petr Vorel<pvorel@suse.cz>
->> ---
->>   runtest/syscalls | 5 +++++
->>   1 file changed, 5 insertions(+)
->> diff --git a/runtest/syscalls b/runtest/syscalls
->> index c41ba2a0d..1694ef147 100644
->> --- a/runtest/syscalls
->> +++ b/runtest/syscalls
->> @@ -1177,6 +1177,11 @@ setitimer01 setitimer01
->>   setitimer02 setitimer02
->>   setitimer03 setitimer03
->> +set_mempolicy01 set_mempolicy01
->> +set_mempolicy02 set_mempolicy02
->> +set_mempolicy03 set_mempolicy03
->> +set_mempolicy04 set_mempolicy04
->> +
->>   setns01 setns01
->>   setns02 setns02
-> Wouldn't be better to move all NUMA tests out of syscalls?
-> Syscalls are big already.
-Hi Petr,
+> While it's good to increase the default LTP_TIMEOUT_MUL value, give user
+> a chance to change it.
 
-all NUMA tests actually verify the functionality of 
-syscalls(move_pages(2), set_mempolicy(2), etc)
-so I think that they can be added into syscalls group.
+It's a good proposal, but one thing we need to consider that there is
+possible to pass a small timeout value(<5mins) from the user. So what
+about set a condition judgment which only accepts time value which >=
+7?
 
-PS: If someone want to run syscalls from LTP as many as possible, they 
-just need to run syscalls group directly.
+>  # Each test case runs for 900 secs when everything fine
+>  # therefore the default 5 mins timeout is not enough.
 
-Best Regards,
-Xiao Yang
-> BTW I'm looking forward to the new testrunner [1][2], which also solve problem
-> of runtest files :)
->
-> Kind regards,
-> Petr
->
-> [1] https://people.kernel.org/metan/towards-parallel-kernel-test-runs
-> [2] https://github.com/metan-ucw/ltp/tree/master/docparse
->
->
-> .
->
+Here the code comments reminder this.
 
-
-
+-- 
+Regards,
+Li Wang
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
