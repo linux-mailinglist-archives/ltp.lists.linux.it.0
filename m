@@ -2,71 +2,44 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 930C1A3324
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2019 10:54:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F23F9A3360
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2019 11:07:35 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3085B3C2030
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2019 10:54:08 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B89EE3C2045
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Aug 2019 11:07:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 6E2173C1D01
- for <ltp@lists.linux.it>; Fri, 30 Aug 2019 10:54:05 +0200 (CEST)
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
- [IPv6:2a00:1450:4864:20::542])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6716A600BDC
- for <ltp@lists.linux.it>; Fri, 30 Aug 2019 10:54:04 +0200 (CEST)
-Received: by mail-ed1-x542.google.com with SMTP id l26so6547978edr.0
- for <ltp@lists.linux.it>; Fri, 30 Aug 2019 01:54:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:reply-to:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=piZUXA+JB0l5bOfcnDLPz+IDCljKhZP+x85JaS3o4F8=;
- b=OK0JL0Ws6OK4qPphWxcL9VZRczRZy2PDblbtQ+qhqDOoX3JqGPzMxLkHpieYIbk2zr
- QhS60g3d6jWm6wYocTw0FRhf7AAY1rGZnG463jWwVUDrl9p9u/qwLOenAnqkh/ajx1M7
- g/0Hi4O6iWf5cfQDPFNpmbXJXkId0i+zBWKRsu/zHGfuzvJUqAftFrDASJ72QZFKeZAX
- ICvc10Ysvhz7eM9BYTAGwoKsH/1NmnWbu5965WihSmn8t+yKIKw0YQE6GbsyWtxKpYJU
- aKAsweUzLeAWRzarv6sWlu5Fbg9JOebNlIrRibFO0w2WOlIKehaJzxagH98By4VhPzpy
- 7mCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:reply-to
- :references:mime-version:content-disposition:in-reply-to:user-agent;
- bh=piZUXA+JB0l5bOfcnDLPz+IDCljKhZP+x85JaS3o4F8=;
- b=Y+Y+cww2e2XDitfF6BqaWJHL3/Sd2PlLqtqqCrmoeoiwzHx0cOb3HMZ+8qEnvIu0Bd
- oDnxHYgYMluGIjbG6tuFqz5nFfoDnWyBmR26lmtoerSCI1UOu0mTUBgl7dyTWwJWUCX1
- 9CTPA1fd3oAVDSRnt8XES6cRPCurxjch3L1NZNuHf5cphlZeI/FTEU7UragCoAL4Rzhm
- HM211bM7f24qziXynTUcHZCr3WExq1nlvnmXU9SIuv9gH8g+88L5mVuRXdcX9bw3XSJH
- ghz9y/teN6AW9M3wCdyyNUm2wgSeaxf/dYaYhKbTxIsj9hNjUoqGFBL5Od6Bj2EM7zsg
- p4FQ==
-X-Gm-Message-State: APjAAAWZCfsxhX4J/OxuFdSMV8sxGE9WxNicIqnXRW/+lYls7ky7e0YV
- XINq3clVqsdL5G2JRi5eV8I=
-X-Google-Smtp-Source: APXvYqxbfuMKcYeLfZ0AAIZqPStLxNx+7JPaFpKCNqUZcBh8DDVAVLOOht/xlj9yMH81tFYjDAXrfg==
-X-Received: by 2002:a17:906:698f:: with SMTP id
- i15mr11846185ejr.247.1567155244020; 
- Fri, 30 Aug 2019 01:54:04 -0700 (PDT)
-Received: from dell5510 ([62.201.25.198])
- by smtp.gmail.com with ESMTPSA id o10sm712916ejn.73.2019.08.30.01.54.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Aug 2019 01:54:03 -0700 (PDT)
-Date: Fri, 30 Aug 2019 10:54:01 +0200
-From: Petr Vorel <petr.vorel@gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20190830085400.GA27375@dell5510>
-References: <20190829183110.23231-1-pvorel@suse.cz>
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id B68543C1D01
+ for <ltp@lists.linux.it>; Fri, 30 Aug 2019 11:07:31 +0200 (CEST)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id E2278200AF3
+ for <ltp@lists.linux.it>; Fri, 30 Aug 2019 11:07:30 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5F53B344;
+ Fri, 30 Aug 2019 02:07:29 -0700 (PDT)
+Received: from [10.1.197.50] (e120937-lin.cambridge.arm.com [10.1.197.50])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E147A3F718;
+ Fri, 30 Aug 2019 02:07:28 -0700 (PDT)
+To: Petr Vorel <pvorel@suse.cz>, Li Wang <liwang@redhat.com>
+References: <20190829181146.20261-1-pvorel@suse.cz>
+ <CAEemH2dzn92GYwiw2tP101wNkYfM30rfL=cmPU+B1iH-8UWoDw@mail.gmail.com>
+ <20190830085036.GA27453@dell5510>
+From: Cristian Marussi <cristian.marussi@arm.com>
+Message-ID: <9e518589-9c98-1513-2c19-bae0268b8a81@arm.com>
+Date: Fri, 30 Aug 2019 10:07:26 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190829183110.23231-1-pvorel@suse.cz>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+In-Reply-To: <20190830085036.GA27453@dell5510>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] net/if-mtu-change.sh: set longer timeout
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] memcg_stress_test.sh: Respect LTP_TIMEOUT_MUL set
+ by user
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,44 +51,80 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <petr.vorel@gmail.com>
-Cc: ltp@lists.linux.it
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi
 
-> Default CHANGE_INTERVAL 5s caused test to be killed after introducing
-> LTP_TIMEOUT_MUL to shell API.
+On 30/08/2019 09:50, Petr Vorel wrote:
+> Hi Li,
+> 
+> Good point. Something like this could do it:
+> -LTP_TIMEOUT_MUL=7
+> +min_timeout=7
+> +[ -z "$LTP_TIMEOUT_MUL" -o "$LTP_TIMEOUT_MUL" -lt $min_timeout ] && LTP_TIMEOUT_MUL=$min_timeout
+> 
+> Unless we test only integers:
+> +[ is_int "$LTP_TIMEOUT_MUL" -o "$LTP_TIMEOUT_MUL" -lt $min_timeout ] && LTP_TIMEOUT_MUL=$min_timeout
+> 
 
-> TODO: set LTP_TIMEOUT_MUL based on CHANGE_INTERVAL.
+I would certainly introduce a check on the minimum allowed test-timeout and just stick to integers.
+(is it really needed to worry for float multipliers ?)
 
-> Fixes: fbea02ab5 ("lib/tst_test.sh: setup timeout per test run for the
-> shell tests")
+I also wonder if it is worth somehow put this minimum-enforce mechanism inside the framework itself
+instead that hardcoding it in this specific test (unless you already mean to do it this way...
+and I misunderstood)
 
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
->  testcases/network/stress/interface/if-mtu-change.sh | 2 ++
->  1 file changed, 2 insertions(+)
+So that, roughly, in the test
 
-> diff --git a/testcases/network/stress/interface/if-mtu-change.sh b/testcases/network/stress/interface/if-mtu-change.sh
-> index 30c013214..5a05e99c9 100755
-> --- a/testcases/network/stress/interface/if-mtu-change.sh
-> +++ b/testcases/network/stress/interface/if-mtu-change.sh
-> @@ -5,6 +5,8 @@
->  # Copyright (c) International Business Machines  Corp., 2005
->  # Author: Mitsuru Chinen <mitch@jp.ibm.com>
+LTP_TIMEOUT_MUL_MIN=7
+LTP_TIMEOUT_MUL=${LTP_TIMEOUT_MUL:-7}
 
-> +LTP_TIMEOUT_MUL=${LTP_TIMEOUT_MUL:-2}
-This should wait, till we find a solution for int vs. float for shell [1]
-And check if user's value is not lower than minimal (2), as Li suggested in [1].
+and somewhere in framework test initialization you enforce it (maybe with a warning for the user when overriding its setup)
 
-Kind regards,
-Petr
+[ -z "$LTP_TIMEOUT_MUL" -o "$LTP_TIMEOUT_MUL" -lt $LTP_TIMEOUT_MUL_MIN ] && LTP_TIMEOUT_MUL=$LTP_TIMEOUT_MUL_MIN
 
-[1] https://patchwork.ozlabs.org/patch/1155460/#2250198
+(but my LTP framework memories are a bit blurred now...so feel free to ignore if it is not feasible or practical)
+
+Thanks
+
+Cristian
+
+> But that'd require using only integers, while C allows to use floating point
+> numbers :(. We can
+> 1) either live with the limitation of integers for shell (+ document it)
+> 2) or use awk or bc (but that's external dependency for shell tests (currently
+> tst_test.sh requires: cut, tr, wc; tst_net.sh requires awk and ip; so I'd be for
+> awk dependency; dependencies should be documented as well)
+> 3) write simple utility (tst_float_cmp.c) to compare strings for us
+> 
+> Of course, we can test only integers:
+> +[ is_int "$LTP_TIMEOUT_MUL" -o "$LTP_TIMEOUT_MUL" -lt $min_timeout ] && LTP_TIMEOUT_MUL=$min_timeout
+> 
+> Also, C code requires LTP_TIMEOUT_MUL > 1 in tst_set_timeout().
+> We don't have this check. Again, adding it brings problem with float number.
+> 
+> Kind regards,
+> Petr
+> 
+>> On Fri, Aug 30, 2019 at 2:12 AM Petr Vorel <pvorel@suse.cz> wrote:
+> 
+>>> While it's good to increase the default LTP_TIMEOUT_MUL value, give user
+>>> a chance to change it.
+> 
+>> It's a good proposal, but one thing we need to consider that there is
+>> possible to pass a small timeout value(<5mins) from the user. So what
+>> about set a condition judgment which only accepts time value which >=
+>> 7?
+> 
+>>>  # Each test case runs for 900 secs when everything fine
+>>>  # therefore the default 5 mins timeout is not enough.
+> 
+>> Here the code comments reminder this.
+> 
 
 
 -- 
