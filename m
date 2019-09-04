@@ -2,42 +2,76 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B90DA6B9E
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Sep 2019 16:35:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37511A7B11
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Sep 2019 08:01:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DA3F73C2107
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Sep 2019 16:35:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A75043C2100
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Sep 2019 08:01:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id CFE943C20BA
- for <ltp@lists.linux.it>; Tue,  3 Sep 2019 16:35:15 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 1EC813C20A7
+ for <ltp@lists.linux.it>; Wed,  4 Sep 2019 08:00:58 +0200 (CEST)
+Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C53B9200972
- for <ltp@lists.linux.it>; Tue,  3 Sep 2019 16:35:14 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 18C08ABC4;
- Tue,  3 Sep 2019 14:35:14 +0000 (UTC)
-Date: Tue, 3 Sep 2019 16:35:13 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Jinhui huang <huangjh.jy@cn.fujitsu.com>
-Message-ID: <20190903143513.GA14511@rei.lan>
-References: <1567514890-1216-1-git-send-email-huangjh.jy@cn.fujitsu.com>
- <1567514890-1216-2-git-send-email-huangjh.jy@cn.fujitsu.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1567514890-1216-2-git-send-email-huangjh.jy@cn.fujitsu.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4A047600626
+ for <ltp@lists.linux.it>; Wed,  4 Sep 2019 08:00:58 +0200 (CEST)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x846054X105979
+ for <ltp@lists.linux.it>; Wed, 4 Sep 2019 06:00:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id; s=corp-2019-08-05;
+ bh=hcTOTpuntaC22AjLGP7PL7S94BYBGBAJSqXVFwxczj8=;
+ b=eni9qVxwARrJJlkAY0vgtRKNDq+LQMOs914Rr9S033VlOGfZUZV6a/fKhvPONV5Gvc35
+ JRYFCwIw8aa8mteg24oZMQMnZU10pLvW1LSJOxvLYR0N9PwmeOy1i6clPF2oqKdGqUsw
+ cOW2HEJJwTadVH5OgrKxal4/hyc0GC1JORscF0W1omkTyeSg7U3MQYnQhE9LB17ha24E
+ w232LC5IPpGtnRSLErra5Ql0VlqXF+ylHX44kZWWjnRbte2/6ZF11LmjvSS6w8xgKrJ1
+ dvTRJhku0AHQktiRqGZ0TqWNBqYRX2pDHJbiZcw8H4xqC05qhkBwmICv30vE0HKcYi9P lg== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by userp2130.oracle.com with ESMTP id 2ut7kx805a-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <ltp@lists.linux.it>; Wed, 04 Sep 2019 06:00:55 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x845wRDS026151
+ for <ltp@lists.linux.it>; Wed, 4 Sep 2019 06:00:54 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by aserp3030.oracle.com with ESMTP id 2usu51eevm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <ltp@lists.linux.it>; Wed, 04 Sep 2019 06:00:54 +0000
+Received: from abhmp0004.oracle.com (abhmp0004.oracle.com [141.146.116.10])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x8460r7D021324
+ for <ltp@lists.linux.it>; Wed, 4 Sep 2019 06:00:54 GMT
+Received: from localhost.localdomain (/221.223.37.39)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 03 Sep 2019 23:00:52 -0700
+From: shuang.qiu@oracle.com
+To: ltp@lists.linux.it
+Date: Wed,  4 Sep 2019 14:00:23 +0800
+Message-Id: <1567576823-10080-1-git-send-email-shuang.qiu@oracle.com>
+X-Mailer: git-send-email 1.9.1
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9369
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=3
+ malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1906280000 definitions=main-1909040064
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9369
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=3 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1906280000
+ definitions=main-1909040064
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] uevents/uevent03.c: Check if "UI_GET_SYSNAME"
- is supported
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH] madvise09:Change PAGES size to the value more than 32
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,70 +83,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Signed-off-by: Jinhui huang <huangjh.jy@cn.fujitsu.com>
-> ---
->  testcases/kernel/uevents/uevent03.c | 15 +++++++++++++--
->  1 file changed, 13 insertions(+), 2 deletions(-)
-> 
-> diff --git a/testcases/kernel/uevents/uevent03.c b/testcases/kernel/uevents/uevent03.c
-> index 9b901dc..f676984 100644
-> --- a/testcases/kernel/uevents/uevent03.c
-> +++ b/testcases/kernel/uevents/uevent03.c
-> @@ -52,7 +52,7 @@ static void get_minor_major(char *device, char *minor, char *major, size_t buf_s
->  
->  static void verify_uevent(void)
->  {
-> -	int pid, fd;
-> +	int pid, fd, ret;
->  	char sysname[64];
->  	char add_msg[1024];
->  	char rem_msg[1024];
-> @@ -167,7 +167,18 @@ static void verify_uevent(void)
->  
->  	create_uinput_mouse();
->  
-> -	SAFE_IOCTL(mouse_fd, UI_GET_SYSNAME(sizeof(sysname)), sysname);
-> +	ret = ioctl(mouse_fd, UI_GET_SYSNAME(sizeof(sysname)), sysname);
-> +	if (ret < 0) {
-> +		if (errno == EINVAL) {
-> +			tst_brk(TCONF,
-> +				"kernel does not support UI_GET_SYSNAME");
-> +		} else {
-> +			tst_brk(TBROK,
-> +				"ioctl(%d, %s,...) failed",
-> +				mouse_fd, "UI_GET_SYSNAME");
-> +		}
-> +	}
+From: Shuang Qiu <shuang.qiu@oracle.com>
 
-I do wonder if it makes sense to add a fallback that reads the sysname
-from /proc/bus/input/devices.
+In upstream patch 1a61ab (mm: memcontrol: replace zone summing with lruvec_page_state()),
+it modify the lruvec state in batch,equal and less than 32 MADV_FREE pages will not trigger
+the account of lruvec_stat,and will not be free in memory pressure either.
+So the testcase may fail with:
+...
+madvise09.c:219: INFO: Memory hungry child 6178 started, try 10
+madvise09.c:254: INFO: Memory map: pppppppppppppppppppppppppppppppp
+madvise09.c:259: FAIL: No MADV_FREE page was freed on low memory
+...
+Change the PAGES to the value more than 32 can fix such issue.
 
-We do have the sysname as the last component of the SysFs= path.
+Signed-off-by: Shuang Qiu <shuang.qiu@oracle.com>
+---
+ testcases/kernel/syscalls/madvise/madvise09.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I guess that it's probably not worth of the effort.
-
->  	handlers = get_input_handlers();
->  
->  	tst_res(TINFO, "Sysname: %s", sysname);
-> -- 
-> 1.8.3.1
-> 
-> 
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
-
+diff --git a/testcases/kernel/syscalls/madvise/madvise09.c b/testcases/kernel/syscalls/madvise/madvise09.c
+index 01075f6..3759053 100644
+--- a/testcases/kernel/syscalls/madvise/madvise09.c
++++ b/testcases/kernel/syscalls/madvise/madvise09.c
+@@ -57,7 +57,7 @@ static int sleep_between_faults;
+ 
+ static int swap_accounting_enabled;
+ 
+-#define PAGES 32
++#define PAGES 64
+ #define TOUCHED_PAGE1 0
+ #define TOUCHED_PAGE2 10
+ 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+1.9.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
