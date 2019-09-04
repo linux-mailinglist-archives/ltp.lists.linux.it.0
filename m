@@ -2,49 +2,38 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AF51A7CD2
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Sep 2019 09:32:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06048A81EE
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Sep 2019 14:13:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8AAF73C2125
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Sep 2019 09:32:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9ED653C216C
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Sep 2019 14:13:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id D75D33C20A5
- for <ltp@lists.linux.it>; Wed,  4 Sep 2019 09:32:16 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 9A0C6600BE0
- for <ltp@lists.linux.it>; Wed,  4 Sep 2019 09:32:16 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.64,465,1559491200"; d="scan'208";a="74815023"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 04 Sep 2019 15:32:11 +0800
-Received: from G08CNEXCHPEKD03.g08.fujitsu.local (unknown [10.167.33.85])
- by cn.fujitsu.com (Postfix) with ESMTP id 2BBCE4CE14E7
- for <ltp@lists.linux.it>; Wed,  4 Sep 2019 15:32:09 +0800 (CST)
-Received: from [10.167.220.69] (10.167.220.69) by
- G08CNEXCHPEKD03.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- id 14.3.439.0; Wed, 4 Sep 2019 15:32:11 +0800
-Message-ID: <5D6F6878.1090902@cn.fujitsu.com>
-Date: Wed, 4 Sep 2019 15:32:08 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 5C7233C20A6
+ for <ltp@lists.linux.it>; Wed,  4 Sep 2019 14:12:59 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 34A301A00E62
+ for <ltp@lists.linux.it>; Wed,  4 Sep 2019 14:12:57 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id A4111AC7F;
+ Wed,  4 Sep 2019 12:12:56 +0000 (UTC)
+From: Richard Palethorpe <rpalethorpe@suse.com>
+To: ltp@lists.linux.it
+Date: Wed,  4 Sep 2019 14:11:46 +0200
+Message-Id: <20190904121147.26027-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.22.1
+In-Reply-To: <20190823094621.21747-1-rpalethorpe@suse.com>
+References: <20190823094621.21747-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-References: <1567581571-2303-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-In-Reply-To: <1567581571-2303-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Originating-IP: [10.167.220.69]
-X-yoursite-MailScanner-ID: 2BBCE4CE14E7.AE12D
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/move_pages: Remove obsolete
- move_pages08.c
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 1/2] capability: Introduce capability API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,232 +45,388 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 2019/09/04 15:19, Yang Xu wrote:
-> E2BIG was removed in 2.6.29, no one will test it with such an old
-> kernel. So I think we can remove this error tests.
-Hi,
+Allow users to easily ensure particular capabilities are either present or not
+present during testing without requiring libcap.
 
-It's reasonable to delete the quite old test.
-Reviewed-by: Xiao Yang <ice_yangxiao@163.com>
+Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+Reviewed-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Reviewed-by: Jan Stancek <jstancek@redhat.com>
+Reviewed-by: Li Wang <liwang@redhat.com>
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+---
 
-Best Regards,
-Xiao Yang
-> Signed-off-by: Yang Xu<xuyang2018.jy@cn.fujitsu.com>
-> ---
->   runtest/numa                                  |   1 -
->   runtest/syscalls                              |   1 -
->   .../kernel/syscalls/move_pages/.gitignore     |   1 -
->   .../kernel/syscalls/move_pages/move_pages08.c | 157 ------------------
->   4 files changed, 160 deletions(-)
->   delete mode 100644 testcases/kernel/syscalls/move_pages/move_pages08.c
->
-> diff --git a/runtest/numa b/runtest/numa
-> index 97ab5f076..7b9c2ae9d 100644
-> --- a/runtest/numa
-> +++ b/runtest/numa
-> @@ -9,7 +9,6 @@ move_pages04 move_pages04
->   move_pages05 move_pages05
->   move_pages06 move_pages06
->   move_pages07 move_pages07
-> -move_pages08 move_pages08
->   move_pages09 move_pages09
->   move_pages10 move_pages10
->   move_pages11 move_pages11
-> diff --git a/runtest/syscalls b/runtest/syscalls
-> index d2547b045..eb3295b9e 100644
-> --- a/runtest/syscalls
-> +++ b/runtest/syscalls
-> @@ -718,7 +718,6 @@ move_pages04 move_pages04
->   move_pages05 move_pages05
->   move_pages06 move_pages06
->   move_pages07 move_pages07
-> -move_pages08 move_pages08
->   move_pages09 move_pages09
->   move_pages10 move_pages10
->   move_pages11 move_pages11
-> diff --git a/testcases/kernel/syscalls/move_pages/.gitignore b/testcases/kernel/syscalls/move_pages/.gitignore
-> index 419829d5f..2d1785e62 100644
-> --- a/testcases/kernel/syscalls/move_pages/.gitignore
-> +++ b/testcases/kernel/syscalls/move_pages/.gitignore
-> @@ -5,7 +5,6 @@
->   /move_pages05
->   /move_pages06
->   /move_pages07
-> -/move_pages08
->   /move_pages09
->   /move_pages10
->   /move_pages11
-> diff --git a/testcases/kernel/syscalls/move_pages/move_pages08.c b/testcases/kernel/syscalls/move_pages/move_pages08.c
-> deleted file mode 100644
-> index e1bf64b77..000000000
-> --- a/testcases/kernel/syscalls/move_pages/move_pages08.c
-> +++ /dev/null
-> @@ -1,157 +0,0 @@
-> -/*
-> - *   Copyright (c) 2008 Vijay Kumar B.<vijaykumar@bravegnu.org>
-> - *
-> - *   Based on testcases/kernel/syscalls/waitpid/waitpid01.c
-> - *   Original copyright message:
-> - *
-> - *   Copyright (c) International Business Machines  Corp., 2001
-> - *
-> - *   This program is free software;  you can redistribute it and/or modify
-> - *   it under the terms of the GNU General Public License as published by
-> - *   the Free Software Foundation; either version 2 of the License, or
-> - *   (at your option) any later version.
-> - *
-> - *   This program is distributed in the hope that it will be useful,
-> - *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-> - *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-> - *   the GNU General Public License for more details.
-> - *
-> - *   You should have received a copy of the GNU General Public License
-> - *   along with this program;  if not, write to the Free Software
-> - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-> - */
-> -
-> -/*
-> - * NAME
-> - *	move_pages08.c
-> - *
-> - * DESCRIPTION
-> - *      Failure when the no. of pages is ULONG_MAX.
-> - *
-> - * ALGORITHM
-> - *
-> - *      1. Pass ULONG_MAX pages to move_pages().
-> - *      2. Check if errno is set to E2BIG.
-> - *
-> - * USAGE:<for command-line>
-> - *      move_pages08 [-c n] [-i n] [-I x] [-P x] [-t]
-> - *      where,  -c n : Run n copies concurrently.
-> - *              -i n : Execute test n times.
-> - *              -I x : Execute test for x seconds.
-> - *              -P x : Pause for x seconds between iterations.
-> - *              -t   : Turn on syscall timing.
-> - *
-> - * History
-> - *	05/2008 Vijay Kumar
-> - *		Initial Version.
-> - *
-> - * Restrictions
-> - *	kernel<  2.6.29
-> - */
-> -
-> -#include<sys/mman.h>
-> -#include<sys/types.h>
-> -#include<sys/wait.h>
-> -#include<unistd.h>
-> -#include<errno.h>
-> -#include<limits.h>
-> -#include "test.h"
-> -#include "move_pages_support.h"
-> -
-> -#define TEST_PAGES 2
-> -#define TEST_NODES 2
-> -
-> -static void setup(void);
-> -static void cleanup(void);
-> -
-> -char *TCID = "move_pages08";
-> -int TST_TOTAL = 1;
-> -
-> -int main(int argc, char **argv)
-> -{
-> -
-> -	tst_parse_opts(argc, argv, NULL, NULL);
-> -
-> -	setup();
-> -
-> -#ifdef HAVE_NUMA_V2
-> -	unsigned int i;
-> -	int lc;
-> -	unsigned int from_node;
-> -	unsigned int to_node;
-> -	int ret;
-> -
-> -	ret = get_allowed_nodes(NH_MEMS, 2,&from_node,&to_node);
-> -	if (ret<  0)
-> -		tst_brkm(TBROK | TERRNO, cleanup, "get_allowed_nodes: %d", ret);
-> -
-> -	/* check for looping state if -i option is given */
-> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
-> -		void *pages[TEST_PAGES] = { 0 };
-> -		int nodes[TEST_PAGES];
-> -		int status[TEST_PAGES];
-> -
-> -		/* reset tst_count in case we are looping */
-> -		tst_count = 0;
-> -
-> -		ret = alloc_pages_on_node(pages, TEST_PAGES, from_node);
-> -		if (ret == -1)
-> -			continue;
-> -
-> -		for (i = 0; i<  TEST_PAGES; i++)
-> -			nodes[i] = to_node;
-> -
-> -		ret = numa_move_pages(0, ULONG_MAX, pages, nodes,
-> -				      status, MPOL_MF_MOVE);
-> -		if (ret == -1&&  errno == E2BIG)
-> -			tst_resm(TPASS, "move_pages failed with "
-> -				 "E2BIG as expected");
-> -		else
-> -			tst_resm(TFAIL|TERRNO, "move pages did not fail "
-> -				 "with E2BIG ret: %d", ret);
-> -
-> -		free_pages(pages, TEST_PAGES);
-> -	}
-> -#else
-> -	tst_resm(TCONF, NUMA_ERROR_MSG);
-> -#endif
-> -
-> -	cleanup();
-> -	tst_exit();
-> -
-> -}
-> -
-> -/*
-> - * setup() - performs all ONE TIME setup for this test
-> - */
-> -static void setup(void)
-> -{
-> -	/*
-> -	 * commit 3140a2273009c01c27d316f35ab76a37e105fdd8
-> -	 * Author: Brice Goglin<Brice.Goglin@inria.fr>
-> -	 * Date:   Tue Jan 6 14:38:57 2009 -0800
-> -	 *     mm: rework do_pages_move() to work on page_sized chunks
-> -	 *
-> -	 * reworked do_pages_move() to work by page-sized chunks and removed E2BIG
-> -	 */
-> -	if ((tst_kvercmp(2, 6, 29))>= 0)
-> -		tst_brkm(TCONF, NULL, "move_pages: E2BIG was removed in "
-> -			 "commit 3140a227");
-> -
-> -	tst_sig(FORK, DEF_HANDLER, cleanup);
-> -
-> -	check_config(TEST_NODES);
-> -
-> -	/* Pause if that option was specified
-> -	 * TEST_PAUSE contains the code to fork the test with the -c option.
-> -	 */
-> -	TEST_PAUSE;
-> -}
-> -
-> -/*
-> - * cleanup() - performs all ONE TIME cleanup for this test at completion
-> - */
-> -static void cleanup(void)
-> -{
-> -
-> -}
+V4: Request capabilities before setup, but still perform drops after setup.
+    Also document this and add note about using tst_cap_action afterwards.
 
+ doc/test-writing-guidelines.txt |  85 ++++++++++++++++++++++++
+ include/lapi/capability.h       |  27 ++++++++
+ include/tst_capability.h        |  48 ++++++++++++++
+ include/tst_test.h              |   6 ++
+ lib/tst_capability.c            | 114 ++++++++++++++++++++++++++++++++
+ lib/tst_test.c                  |   6 ++
+ 6 files changed, 286 insertions(+)
+ create mode 100644 include/lapi/capability.h
+ create mode 100644 include/tst_capability.h
+ create mode 100644 lib/tst_capability.c
 
+diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
+index 1e933c49e..a735b43bb 100644
+--- a/doc/test-writing-guidelines.txt
++++ b/doc/test-writing-guidelines.txt
+@@ -1769,6 +1769,91 @@ setting up the size or struct iovec, which is allocated recursively including
+ the individual buffers as described by an '-1' terminated array of buffer
+ sizes.
+ 
++2.2.32 Adding and removing capabilities
++^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++
++Some tests may require the presence or absence of particular
++capabilities. Using the API provided by 'tst_capability.h' the test author can
++try to ensure that some capabilities are either present or absent during the
++test.
++
++For example; below we try to create a raw socket, which requires
++CAP_NET_ADMIN. During setup we should be able to do it, then during run it
++should be impossible. The LTP capability library will check before setup that
++we have this capability, then after setup it will drop it.
++
++[source,c]
++--------------------------------------------------------------------------------
++#include "tst_test.h"
++#include "tst_capability.h"
++#include "tst_safe_net.h"
++
++#include "lapi/socket.h"
++
++static void run(void)
++{
++	TEST(socket(AF_INET, SOCK_RAW, 1));
++	if (TST_RET > -1) {
++		tst_res(TFAIL, "Created raw socket");
++	} else if (TST_ERR != EPERM) {
++		tst_res(TBROK | TTERRNO,
++			"Failed to create socket for wrong reason");
++	} else {
++		tst_res(TPASS | TTERRNO, "Didn't create raw socket");
++	}
++}
++
++static void setup(void)
++{
++	TEST(socket(AF_INET, SOCK_RAW, 1));
++	if (TST_RET < 0)
++		tst_brk(TCONF | TTERRNO, "We don't have CAP_NET_RAW to begin with");
++
++	SAFE_CLOSE(TST_RET);
++}
++
++static struct tst_test test = {
++	.setup = setup,
++	.test_all = run,
++	.caps = (struct tst_cap []) {
++		TST_CAP(TST_CAP_REQ, CAP_NET_RAW),
++		TST_CAP(TST_CAP_DROP, CAP_NET_RAW),
++		{}
++	},
++};
++--------------------------------------------------------------------------------
++
++Look at the test struct at the bottom. We have filled in the 'caps' field with
++a NULL terminated array containing two 'tst_cap' structs. 'TST_CAP_REQ'
++actions are executed before setup and 'TST_CAP_DROP' are executed after
++setup. This means it is possible to both request and drop a capability.
++
++[source,c]
++--------------------------------------------------------------------------------
++static struct tst_test test = {
++	.test_all = run,
++	.caps = (struct tst_cap []) {
++		TST_CAP(TST_CAP_REQ, CAP_NET_RAW),
++		TST_CAP(TST_CAP_DROP, CAP_SYS_ADMIN),
++		{}
++	},
++};
++--------------------------------------------------------------------------------
++
++Here we request 'CAP_NET_RAW', but drop 'CAP_SYS_ADMIN'. If the capability is
++in the permitted set, but not the effective set, the library will try to
++permit it. If it is not in the permitted set, then it will fail with 'TCONF'.
++
++This API does not require 'libcap' to be installed. However it has limited
++features relative to 'libcap'. It only tries to add or remove capabilities
++from the effective set. This means that tests which need to spawn child
++processes may have difficulties ensuring the correct capabilities are
++available to the children (see the capabilities (7) manual pages).
++
++However a lot of problems can be solved by using 'tst_cap_action(struct
++tst_cap  *cap)' directly which can be called at any time. This also helps if
++you wish to drop a capability at the begining of setup.
++
+ 2.3 Writing a testcase in shell
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+diff --git a/include/lapi/capability.h b/include/lapi/capability.h
+new file mode 100644
+index 000000000..02d7a9fda
+--- /dev/null
++++ b/include/lapi/capability.h
+@@ -0,0 +1,27 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Copyright (c) 2019 Richard Palethorpe <rpalethorpe@suse.com>
++ */
++
++#ifndef LAPI_CAPABILITY_H
++#define LAPI_CAPABILITY_H
++
++#include "config.h"
++
++#ifdef HAVE_SYS_CAPABILITY_H
++# include <sys/capability.h>
++#endif
++
++#ifndef CAP_SYS_ADMIN
++# define CAP_SYS_ADMIN        21
++#endif
++
++#ifndef CAP_TO_INDEX
++# define CAP_TO_INDEX(x)     ((x) >> 5)
++#endif
++
++#ifndef CAP_TO_MASK
++# define CAP_TO_MASK(x)      (1 << ((x) & 31))
++#endif
++
++#endif
+diff --git a/include/tst_capability.h b/include/tst_capability.h
+new file mode 100644
+index 000000000..3f772589c
+--- /dev/null
++++ b/include/tst_capability.h
+@@ -0,0 +1,48 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Copyright (c) 2019 Richard Palethorpe <rpalethorpe@suse.com>
++ */
++/**
++ * @file tst_capability.h
++ *
++ * Limited capability operations without libcap.
++ */
++
++#ifndef TST_CAPABILITY_H
++#define TST_CAPABILITY_H
++
++#include <stdint.h>
++
++#include "lapi/capability.h"
++
++#define TST_CAP_DROP 1
++#define TST_CAP_REQ  (1 << 1)
++
++#define TST_CAP(action, capability) {action, capability, #capability}
++
++struct tst_cap_user_header {
++	uint32_t version;
++	int pid;
++};
++
++struct tst_cap_user_data {
++	uint32_t effective;
++	uint32_t permitted;
++	uint32_t inheritable;
++};
++
++struct tst_cap {
++	uint32_t action;
++	uint32_t id;
++	char *name;
++};
++
++int tst_capget(struct tst_cap_user_header *hdr,
++	       struct tst_cap_user_data *data);
++int tst_capset(struct tst_cap_user_header *hdr,
++	       const struct tst_cap_user_data *data);
++
++void tst_cap_action(struct tst_cap *cap);
++void tst_cap_setup(struct tst_cap *cap, unsigned int action_mask);
++
++#endif
+diff --git a/include/tst_test.h b/include/tst_test.h
+index cdeaf6ad0..84acf2c59 100644
+--- a/include/tst_test.h
++++ b/include/tst_test.h
+@@ -36,6 +36,7 @@
+ #include "tst_sys_conf.h"
+ #include "tst_coredump.h"
+ #include "tst_buffers.h"
++#include "tst_capability.h"
+ 
+ /*
+  * Reports testcase result.
+@@ -206,6 +207,11 @@ struct tst_test {
+ 	 * NULL-terminated array to be allocated buffers.
+ 	 */
+ 	struct tst_buffers *bufs;
++
++	/*
++	 * NULL-terminated array of capability settings
++	 */
++	struct tst_cap *caps;
+ };
+ 
+ /*
+diff --git a/lib/tst_capability.c b/lib/tst_capability.c
+new file mode 100644
+index 000000000..2b55849f7
+--- /dev/null
++++ b/lib/tst_capability.c
+@@ -0,0 +1,114 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2019 Richard Palethorpe <rpalethorpe@suse.com>
++ */
++
++#include <string.h>
++
++#define TST_NO_DEFAULT_MAIN
++#include "tst_test.h"
++#include "tst_capability.h"
++
++#include "lapi/syscalls.h"
++
++/**
++ * Get the capabilities as decided by hdr.
++ *
++ * Note that the memory pointed to by data should be large enough to store two
++ * structs.
++ */
++int tst_capget(struct tst_cap_user_header *hdr,
++	       struct tst_cap_user_data *data)
++{
++	return tst_syscall(__NR_capget, hdr, data);
++}
++
++/**
++ * Set the capabilities as decided by hdr and data
++ *
++ * Note that the memory pointed to by data should be large enough to store two
++ * structs.
++ */
++int tst_capset(struct tst_cap_user_header *hdr,
++	       const struct tst_cap_user_data *data)
++{
++	return tst_syscall(__NR_capset, hdr, data);
++}
++
++static void do_cap_drop(uint32_t *set, uint32_t mask, const struct tst_cap *cap)
++{
++	if (*set & mask) {
++		tst_res(TINFO, "Dropping %s(%d)", cap->name, cap->id);
++		*set &= ~mask;
++	}
++}
++
++static void do_cap_req(uint32_t *permitted, uint32_t *effective, uint32_t mask,
++		       const struct tst_cap *cap)
++{
++	if (!(*permitted & mask))
++		tst_brk(TCONF, "Need %s(%d)", cap->name, cap->id);
++
++	if (!(*effective & mask)) {
++		tst_res(TINFO, "Permitting %s(%d)", cap->name, cap->id);
++		*effective |= mask;
++	}
++}
++
++/**
++ * Add, check or remove capabilities
++ *
++ * Takes a NULL terminated array of structs which describe whether some
++ * capabilities are needed or not.
++ *
++ * It will attempt to drop or add capabilities to the effective set. It will
++ * try to detect if this is needed and whether it can or can't be done. If it
++ * clearly can not add a privilege to the effective set then it will return
++ * TCONF. However it may fail for some other reason and return TBROK.
++ *
++ * This only tries to change the effective set. Some tests may need to change
++ * the inheritable and ambient sets, so that child processes retain some
++ * capability.
++ */
++void tst_cap_action(struct tst_cap *cap)
++{
++	struct tst_cap_user_header hdr = {
++		.version = 0x20080522,
++		.pid = tst_syscall(__NR_gettid),
++	};
++	struct tst_cap_user_data cur[2] = { {0} };
++	struct tst_cap_user_data new[2] = { {0} };
++	uint32_t act = cap->action;
++	uint32_t *pE = &new[CAP_TO_INDEX(cap->id)].effective;
++	uint32_t *pP = &new[CAP_TO_INDEX(cap->id)].permitted;
++	uint32_t mask = CAP_TO_MASK(cap->id);
++
++	if (tst_capget(&hdr, cur))
++		tst_brk(TBROK | TTERRNO, "tst_capget()");
++
++	memcpy(new, cur, sizeof(new));
++
++	switch (act) {
++	case TST_CAP_DROP:
++		do_cap_drop(pE, mask, cap);
++		break;
++	case TST_CAP_REQ:
++		do_cap_req(pP, pE, mask, cap);
++		break;
++	default:
++		tst_brk(TBROK, "Unrecognised action %d", cap->action);
++	}
++
++	if (memcmp(cur, new, sizeof(new)) && tst_capset(&hdr, new))
++		tst_brk(TBROK | TERRNO, "tst_capset(%s)", cap->name);
++}
++
++void tst_cap_setup(struct tst_cap *caps, unsigned int action_mask)
++{
++	struct tst_cap *cap;
++
++	for (cap = caps; cap->action; cap++) {
++		if (cap->action & action_mask)
++			tst_cap_action(cap);
++	}
++}
+diff --git a/lib/tst_test.c b/lib/tst_test.c
+index 39f261472..81f6d28f8 100644
+--- a/lib/tst_test.c
++++ b/lib/tst_test.c
+@@ -891,11 +891,17 @@ static void do_test_setup(void)
+ {
+ 	main_pid = getpid();
+ 
++	if (tst_test->caps)
++		tst_cap_setup(tst_test->caps, TST_CAP_REQ);
++
+ 	if (tst_test->setup)
+ 		tst_test->setup();
+ 
+ 	if (main_pid != getpid())
+ 		tst_brk(TBROK, "Runaway child in setup()!");
++
++	if (tst_test->caps)
++		tst_cap_setup(tst_test->caps, TST_CAP_DROP);
+ }
+ 
+ static void do_cleanup(void)
+-- 
+2.22.1
 
 
 -- 
