@@ -1,75 +1,62 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A07A1AD228
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Sep 2019 05:20:06 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id CBCB1AD41D
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Sep 2019 09:47:04 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 455B03C1CF7
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Sep 2019 05:20:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5634D3C2099
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Sep 2019 09:47:04 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 99EE63C1C97
- for <ltp@lists.linux.it>; Mon,  9 Sep 2019 05:20:05 +0200 (CEST)
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id A2D913C2074
+ for <ltp@lists.linux.it>; Mon,  9 Sep 2019 09:47:01 +0200 (CEST)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CE11D200B29
+ for <ltp@lists.linux.it>; Mon,  9 Sep 2019 09:47:00 +0200 (CEST)
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
+ [209.85.210.72])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0168D60070D
- for <ltp@lists.linux.it>; Mon,  9 Sep 2019 05:20:07 +0200 (CEST)
-Received: by mail-pg1-x541.google.com with SMTP id n4so6971450pgv.2
- for <ltp@lists.linux.it>; Sun, 08 Sep 2019 20:20:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=PDMOKvnuHVKtK5q6amgpUvAYTQL7I1LWcmPCTMqDgd8=;
- b=MTHmDQrT/WA5HMwSQ0nnRXOrDwOrhjJL+yLD6cIZrA4VpD6WB2HypAL18IKoBGj+Bq
- VXV1lvZZiTOiKoQQRPndgdDE33oRNIWfWSkFBOm2iGVVLGsfS2rkdNWFT5yycXD2wrgh
- QeGZNmvOrxCIpUviqKb5uXBWek45XjP15qKxmA7tOkCyk4CmQJbm2JE8nlwwvtXZ5c4h
- j3ZZ7QXniqoBdc9/jJZHOSSRh3l4bUT1B/PcTbaay2SMlYWgLCeARWPQCtuXyqAUMCh1
- 3/epkkkOki71EG/5FeVcb8TKs7em+rMidaSLx+jN2pqZiqH8zeQBIRXPUFQTXJRuGao+
- d1QQ==
+ by mx1.redhat.com (Postfix) with ESMTPS id E86D9C044CC5
+ for <ltp@lists.linux.it>; Mon,  9 Sep 2019 07:46:58 +0000 (UTC)
+Received: by mail-ot1-f72.google.com with SMTP id c1so8239961otb.22
+ for <ltp@lists.linux.it>; Mon, 09 Sep 2019 00:46:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=PDMOKvnuHVKtK5q6amgpUvAYTQL7I1LWcmPCTMqDgd8=;
- b=KF1WzqCtCpJ4Sp1rLo/Da10lGEEa/7PLq1sybivCuZ+M3cxHN+7CLLzXtV1je1qtr7
- nZpPLgB+BrBsbKu8q4SPGcamNJoSlHjtmtMe893AjuUvsy86zyR82JlXbP/B/+KFhQ7g
- lMyUDhxULqzjUdeRYijG9WGeW74dbUqydd7lcQV+KRFsulLuXb8clrK3fAz6caFkfbxY
- 9wBtXlnmLBedxhdI/vaFZjI8cyCf+Z8J6G/elNUxpDXbRE8Y1L/cRCYg0P9hLDZQuZ05
- JOYg0LiWKXiOlrRzpafuRgqRyRBExYlP4mx6QAmi1HHstjoPREmYG0PHAHQMx4xgiwlw
- 3Ulg==
-X-Gm-Message-State: APjAAAWzuZwRve0NCU2xGNS/hMc42RvjEwKTA9s7AdGYktw6ZSgOf4Ej
- 4zeRCI7cuv2jD41b9bkM8ByTf4K2
-X-Google-Smtp-Source: APXvYqzFUWjx6Rm90BnwUlmH+QQaH0B7w8Cidabfpd7boQcD22KbBnHNWIWHSDZwH6ay62F+sevb+Q==
-X-Received: by 2002:a17:90a:1609:: with SMTP id
- n9mr3139481pja.64.1567999202788; 
- Sun, 08 Sep 2019 20:20:02 -0700 (PDT)
-Received: from localhost ([209.132.188.80])
- by smtp.gmail.com with ESMTPSA id i137sm12727127pgc.4.2019.09.08.20.20.01
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 08 Sep 2019 20:20:02 -0700 (PDT)
-Date: Mon, 9 Sep 2019 11:19:54 +0800
-From: Murphy Zhou <jencce.kernel@gmail.com>
-To: Trond Myklebust <trondmy@hammerspace.com>
-Message-ID: <20190909031954.7y6ajlwyojdbstcv@XZHOUW.usersys.redhat.com>
-References: <20190828102256.3nhyb2ngzitwd7az@XZHOUW.usersys.redhat.com>
- <00923c9f5d5a69e8225640abcf7ad54df2cb62d2.camel@hammerspace.com>
- <20190909023600.sxygdyclxm4ivllw@XZHOUW.usersys.redhat.com>
- <77a371f6d9c290de0cca00ff272ea831e0d124b8.camel@hammerspace.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=6Dx9xs1TBaGqp/T2KvAxQiQAbIjysYGkzkVMXSY4Gmg=;
+ b=UaRF80fGFmi9qQi/Ab2R3zNA+SSON6OZZp0N4afTrPtW843qzTCADCo5cphUY719Ya
+ 3ViMENocwyqwhNLJ7714aK/aOlU0bepviBaJlYQzoDntfopCF31BoV2GPxMoFW8v01xj
+ bKinoKTC/TZDodlUXls4ZhZ4Hswtv7mlQhfEPeApFxFStW2eTqWqMnuoD71JfpIWa1sb
+ V/rgcttCVKnE5MuiM8KvxQMQ6QJIaLg8Cs7CB5l8oJuicrvZu5vq2qn+H5n14XpunI3d
+ AU6YuZAnPvtkihCBwzqUtIDYkknsRPw3VIKzmiskmGAJiHaJLmJRhbgaLEM3pX28giJj
+ hoLg==
+X-Gm-Message-State: APjAAAWamHTVavvw3QclcBXAmOApv+s3k0fXiqw9oSMcfZRrpuYfWJRb
+ C4oMgoF15l8bAd903cPIlMK9DEvosNqI1TBwNZeH03Tu27g7wEtG7NSJujBMhbeFT165JMcUS7e
+ j0wzr9KsLQz7pOGDupk3yT2hwshU=
+X-Received: by 2002:a9d:7411:: with SMTP id n17mr17465749otk.118.1568015218285; 
+ Mon, 09 Sep 2019 00:46:58 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqzDs7dg5PgeETc0MaWXrpjWVqG9EID8cSzGbF8cZuHpUORM1xeOgAIE1mSwdBZ4GLt8KuXZPD0JTjWvRsjTbGg=
+X-Received: by 2002:a9d:7411:: with SMTP id n17mr17465731otk.118.1568015217794; 
+ Mon, 09 Sep 2019 00:46:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <77a371f6d9c290de0cca00ff272ea831e0d124b8.camel@hammerspace.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+References: <20190906130707.GA7515@rei.lan>
+In-Reply-To: <20190906130707.GA7515@rei.lan>
+From: Li Wang <liwang@redhat.com>
+Date: Mon, 9 Sep 2019 15:46:45 +0800
+Message-ID: <CAEemH2frzqyUmgm2mXTG3dusUtggwX4Y3oRBr34p+NCUJFW7_g@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] nfs-for-5.3-3 update "breaks" NFSv4 directIO somehow
+X-Spam-Status: No, score=-0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_PASS,
+ SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] LTP Release
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,153 +68,116 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0628927229=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Mon, Sep 09, 2019 at 02:58:35AM +0000, Trond Myklebust wrote:
-> On Mon, 2019-09-09 at 10:36 +0800, Murphy Zhou wrote:
-> > On Wed, Aug 28, 2019 at 03:32:25PM +0000, Trond Myklebust wrote:
-> > > On Wed, 2019-08-28 at 18:22 +0800, Murphy Zhou wrote:
-> > > > Hi,
-> > > > 
-> > > > If write to file with O_DIRECT, then read it without O_DIRECT,
-> > > > read
-> > > > returns 0.
-> > > > From tshark output, looks like the READ call is missing.
-> > > > 
-> > > > LTP[1] dio tests spot this. Things work well before this update.
-> > > > 
-> > > > Bisect log is pointing to:
-> > > > 
-> > > > 	commit 7e10cc25bfa0dd3602bbcf5cc9c759a90eb675dc
-> > > > 	Author: Trond Myklebust <trond.myklebust@hammerspace.com>
-> > > > 	Date:   Fri Aug 9 12:06:43 2019 -0400
-> > > > 	
-> > > > 	    NFS: Don't refresh attributes with mounted-on-file
-> > > > informatio
-> > > > 
-> > > > With this commit reverted, the tests pass again.
-> > > > 
-> > > > It's only about NFSv4(4.0 4.1 and 4.2), NFSv3 works well.
-> > > > 
-> > > > Bisect log, outputs of tshark, sample test programme derived from
-> > > > LTP diotest02.c and a simple test script are attached.
-> > > > 
-> > > > If this is an expected change, we will need to update the
-> > > > testcases.
-> > > 
-> > > That is not intentional, so thanks for reporting it! Does the
-> > > following
-> > > fix help?
-> > 
-> > Hi Trond,
-> > 
-> > Will you queue this fix for v5.3 ?
-> > 
-> > Thanks!
-> > 
-> 
-> It is already in 5.3-rc8: 
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=eb3d8f42231aec65b64b079dd17bd6c008a3fe29
+--===============0628927229==
+Content-Type: multipart/alternative; boundary="0000000000000f38e6059219fef5"
+
+--0000000000000f38e6059219fef5
+Content-Type: text/plain; charset="UTF-8"
+
+On Fri, Sep 6, 2019 at 9:07 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+
+> Hi!
+> As usually we should start prepare for a release somewhere at the end of
+> the September.
+>
+> I will try to review as much patches as possible next week, then I would
+> like to start the pre-release testing. So if there is something that
+> really should go in before the release let me know.
+>
+
+The one to print errno number.
+    [PATCH] tst_res: Print errno number in addition to error name
 
 
-Oh sorry.. I'll go to get some coffee. Checked that with this patch regression
-tests looks good.
+Some test failures:
+==============
 
-Thanks!
-M
+acct02 (s390x):
+acct02.c:174: INFO: Verifying using 'struct acct_v3'
+acct02.c:140: INFO: Number of accounting file entries tested: 2
+acct02.c:145: FAIL: acct() wrote incorrect file contents!
 
-> 
-> Cheers
->   Trond
-> 
-> > > 8<------------------------
-> > > From ce61618bc085d8cea8a614b5e1eb09e16ea8e036 Mon Sep 17 00:00:00
-> > > 2001
-> > > From: Trond Myklebust <trond.myklebust@hammerspace.com>
-> > > Date: Wed, 28 Aug 2019 11:26:13 -0400
-> > > Subject: [PATCH] NFS: Fix inode fileid checks in attribute
-> > > revalidation code
-> > > 
-> > > We want to throw out the attrbute if it refers to the mounted on
-> > > fileid,
-> > > and not the real fileid. However we do not want to block cache
-> > > consistency
-> > > updates from NFSv4 writes.
-> > > 
-> > > Reported-by: Murphy Zhou <jencce.kernel@gmail.com>
-> > > Fixes: 7e10cc25bfa0 ("NFS: Don't refresh attributes with mounted-
-> > > on-file...")
-> > > Signed-off-by: Trond Myklebust <trond.myklebust@hammerspace.com>
-> > > ---
-> > >  fs/nfs/inode.c | 14 ++++++++------
-> > >  1 file changed, 8 insertions(+), 6 deletions(-)
-> > > 
-> > > diff --git a/fs/nfs/inode.c b/fs/nfs/inode.c
-> > > index c764cfe456e5..d7e78b220cf6 100644
-> > > --- a/fs/nfs/inode.c
-> > > +++ b/fs/nfs/inode.c
-> > > @@ -1404,10 +1404,11 @@ static int
-> > > nfs_check_inode_attributes(struct inode *inode, struct nfs_fattr
-> > > *fat
-> > >  		return 0;
-> > >  
-> > >  	/* No fileid? Just exit */
-> > > -	if (!(fattr->valid & NFS_ATTR_FATTR_FILEID))
-> > > -		return 0;
-> > > +	if (!(fattr->valid & NFS_ATTR_FATTR_FILEID)) {
-> > > +		if (fattr->valid & NFS_ATTR_FATTR_MOUNTED_ON_FILEID)
-> > > +			return 0;
-> > >  	/* Has the inode gone and changed behind our back? */
-> > > -	if (nfsi->fileid != fattr->fileid) {
-> > > +	} else if (nfsi->fileid != fattr->fileid) {
-> > >  		/* Is this perhaps the mounted-on fileid? */
-> > >  		if ((fattr->valid & NFS_ATTR_FATTR_MOUNTED_ON_FILEID)
-> > > &&
-> > >  		    nfsi->fileid == fattr->mounted_on_fileid)
-> > > @@ -1808,10 +1809,11 @@ static int nfs_update_inode(struct inode
-> > > *inode, struct nfs_fattr *fattr)
-> > >  			atomic_read(&inode->i_count), fattr->valid);
-> > >  
-> > >  	/* No fileid? Just exit */
-> > > -	if (!(fattr->valid & NFS_ATTR_FATTR_FILEID))
-> > > -		return 0;
-> > > +	if (!(fattr->valid & NFS_ATTR_FATTR_FILEID)) {
-> > > +		if (fattr->valid & NFS_ATTR_FATTR_MOUNTED_ON_FILEID)
-> > > +			return 0;
-> > >  	/* Has the inode gone and changed behind our back? */
-> > > -	if (nfsi->fileid != fattr->fileid) {
-> > > +	} else if (nfsi->fileid != fattr->fileid) {
-> > >  		/* Is this perhaps the mounted-on fileid? */
-> > >  		if ((fattr->valid & NFS_ATTR_FATTR_MOUNTED_ON_FILEID)
-> > > &&
-> > >  		    nfsi->fileid == fattr->mounted_on_fileid)
-> > > -- 
-> > > 2.21.0
-> > > 
-> > > -- 
-> > > Trond Myklebust
-> > > Linux NFS client maintainer, Hammerspace
-> > > trond.myklebust@hammerspace.com
-> > > 
-> > > 
-> Trond Myklebust
-> CTO, Hammerspace Inc
-> 4300 El Camino Real, Suite 105
-> Los Altos, CA 94022
-> www.hammer.space
-> 
-> -- 
-> Trond Myklebust
-> Linux NFS client maintainer, Hammerspace
-> trond.myklebust@hammerspace.com
-> 
-> 
+timer_create01 (s390x, ppc64le, aarch64):
+timer_create01.c:48: INFO: Testing notification type: SIGEV_THREAD_ID
+timer_create01.c:93: PASS: Timer successfully created for CLOCK_REALTIME
+timer_create01.c:93: PASS: Timer successfully created for CLOCK_MONOTONIC
+timer_create01.c:93: PASS: Timer successfully created for
+CLOCK_PROCESS_CPUTIME_ID
+timer_create01.c:93: PASS: Timer successfully created for
+CLOCK_THREAD_CPUTIME_ID
+timer_create01.c:93: PASS: Timer successfully created for CLOCK_BOOTTIME
+timer_create01.c:87: FAIL: Failed to create timer for CLOCK_BOOTTIME_ALARM:
+???
+timer_create01.c:87: FAIL: Failed to create timer for CLOCK_REALTIME_ALARM:
+???
+timer_create01.c:93: PASS: Timer successfully created for CLOCK_TAI
+
+-- 
+Regards,
+Li Wang
+
+--0000000000000f38e6059219fef5
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Fri, Sep 6, 2019 at 9:07 PM Cyril Hrubis &lt;<a =
+href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a>&gt; w=
+rote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
+x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
+As usually we should start prepare for a release somewhere at the end of<br=
+>
+the September.<br>
+<br>
+I will try to review as much patches as possible next week, then I would<br=
+>
+like to start the pre-release testing. So if there is something that<br>
+really should go in before the release let me know.<br></blockquote><div><b=
+r></div><div><div class=3D"gmail_default" style=3D"font-size:small">The one=
+ to print errno number.</div></div><span class=3D"gmail_default" style=3D"f=
+ont-size:small">=C2=A0 =C2=A0 </span>[PATCH] tst_res: Print errno number in=
+ addition to error name</div><div><br></div><div><br></div><div><div class=
+=3D"gmail_default" style=3D"font-size:small">Some test failures:</div><div =
+class=3D"gmail_default" style=3D"font-size:small">=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D</div><div class=3D"gmail_default" style=3D"font-size:sma=
+ll"><br></div>acct02 (s390x)<span class=3D"gmail_default" style=3D"font-siz=
+e:small">:</span><br>acct02.c:174: INFO: Verifying using &#39;struct acct_v=
+3&#39;<br><span class=3D"gmail_default" style=3D"font-size:small"></span>ac=
+ct02.c:140: INFO: Number of accounting file entries tested: 2<br>acct02.c:1=
+45: FAIL: acct() wrote incorrect file contents!</div><div><br></div>timer_c=
+reate01 (s390x, ppc64<span class=3D"gmail_default" style=3D"font-size:small=
+">le</span>, aarch64)<span class=3D"gmail_default" style=3D"font-size:small=
+">:</span><div><div>timer_create01.c:48: INFO: Testing notification type: S=
+IGEV_THREAD_ID<br>timer_create01.c:93: PASS: Timer successfully created for=
+ CLOCK_REALTIME<br>timer_create01.c:93: PASS: Timer successfully created fo=
+r CLOCK_MONOTONIC<br>timer_create01.c:93: PASS: Timer successfully created =
+for CLOCK_PROCESS_CPUTIME_ID<br>timer_create01.c:93: PASS: Timer successful=
+ly created for CLOCK_THREAD_CPUTIME_ID<br>timer_create01.c:93: PASS: Timer =
+successfully created for CLOCK_BOOTTIME<br>timer_create01.c:87: FAIL: Faile=
+d to create timer for CLOCK_BOOTTIME_ALARM: ???<br>timer_create01.c:87: FAI=
+L: Failed to create timer for CLOCK_REALTIME_ALARM: ??? <br>timer_create01.=
+c:93: PASS: Timer successfully created for CLOCK_TAI<div><br></div>-- <br><=
+div dir=3D"ltr" class=3D"m_6342854980942340924m_5924523302898506160m_201864=
+5957931755355m_-6801971889439053821m_6699574307742023525m_24698309542011096=
+1gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br><=
+/div></div></div></div></div></div>
+
+--0000000000000f38e6059219fef5--
+
+--===============0628927229==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0628927229==--
