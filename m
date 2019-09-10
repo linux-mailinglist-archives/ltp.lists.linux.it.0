@@ -1,41 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA378AEB19
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Sep 2019 15:05:58 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id EF9FBAEB65
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Sep 2019 15:23:48 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 98FCB3C209D
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Sep 2019 15:05:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A68433C2096
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Sep 2019 15:23:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 407EF3C2083
- for <ltp@lists.linux.it>; Tue, 10 Sep 2019 15:05:57 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 3E3FB3C2075
+ for <ltp@lists.linux.it>; Tue, 10 Sep 2019 15:23:47 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id B4B4B1401178
- for <ltp@lists.linux.it>; Tue, 10 Sep 2019 15:05:56 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 05326200DC5
+ for <ltp@lists.linux.it>; Tue, 10 Sep 2019 15:23:45 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id ED246B71B;
- Tue, 10 Sep 2019 13:05:55 +0000 (UTC)
-Date: Tue, 10 Sep 2019 15:05:53 +0200
+ by mx1.suse.de (Postfix) with ESMTP id 4C3D1AC2C;
+ Tue, 10 Sep 2019 13:23:45 +0000 (UTC)
+Date: Tue, 10 Sep 2019 15:23:39 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20190910130549.GC18210@rei.lan>
-References: <20190906130707.GA7515@rei.lan>
- <CAEemH2frzqyUmgm2mXTG3dusUtggwX4Y3oRBr34p+NCUJFW7_g@mail.gmail.com>
+To: Jan Stancek <jstancek@redhat.com>
+Message-ID: <20190910132338.GB29865@rei>
+References: <20190905124504.24909-1-rpalethorpe@suse.com>
+ <496221419.11145941.1568120105161.JavaMail.zimbra@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEemH2frzqyUmgm2mXTG3dusUtggwX4Y3oRBr34p+NCUJFW7_g@mail.gmail.com>
+In-Reply-To: <496221419.11145941.1568120105161.JavaMail.zimbra@redhat.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] LTP Release
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] BPF: Regression test for 64bit arithmetic
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,49 +48,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> The one to print errno number.
->     [PATCH] tst_res: Print errno number in addition to error name
-
-Pushed the patch as it was, I do not think that reordering the
-statements was important enough.
-
-> Some test failures:
-> ==============
+> > Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+> > +static int load_prog(int fd)
+> > +{
+> > +	struct bpf_insn *prog;
+> > +	struct bpf_insn insn[] = {
+> > +		BPF_MOV64_IMM(BPF_REG_6, 1),            /* r6 = 1 */
+> > +
+> > +		BPF_LD_MAP_FD(BPF_REG_1, fd),	        /* r1 = &fd */
+> > +		BPF_MOV64_REG(BPF_REG_2, BPF_REG_10),   /* r2 = fp */
+> > +		BPF_ALU64_IMM(BPF_ADD, BPF_REG_2, -8),  /* r2 = r2 - 8 */
+> > +		BPF_ST_MEM(BPF_DW, BPF_REG_2, 0, 0),    /* *r2 = 0 */
+> > +		BPF_EMIT_CALL(BPF_FUNC_map_lookup_elem),
+> > +		BPF_JMP_IMM(BPF_JEQ, BPF_REG_0, 0, 17), /* if(!r0) goto exit */
 > 
-> acct02 (s390x):
-> acct02.c:174: INFO: Verifying using 'struct acct_v3'
-> acct02.c:140: INFO: Number of accounting file entries tested: 2
-> acct02.c:145: FAIL: acct() wrote incorrect file contents!
+> Patch looks good to me.
+> 
+> But I keep thinking if there's way to make it more obvious where
+> offset (e.g. 17) came from.
+> 
+> Idea 1: use multiple lines per instruction to denote length 
+>   BPF_LD_IMM64(BPF_REG_4,
+>                A64INT),
+> 
+> Idea 2: prefix commented instructions with offset
+>         /* 1: r3 = r0 */
+>         /* 2: r4 = 2^61 */
 
-I can reproduce it here as well, no idea what is wrong there. I guess
-that modifying the test to be more verbose, i.e. to print if we haven't
-matched the pid or if the contents of the structure were wrong would be
-a good start.
+I guess I like the Idea 2 better.
 
-> timer_create01 (s390x, ppc64le, aarch64):
-> timer_create01.c:48: INFO: Testing notification type: SIGEV_THREAD_ID
-> timer_create01.c:93: PASS: Timer successfully created for CLOCK_REALTIME
-> timer_create01.c:93: PASS: Timer successfully created for CLOCK_MONOTONIC
-> timer_create01.c:93: PASS: Timer successfully created for
-> CLOCK_PROCESS_CPUTIME_ID
-> timer_create01.c:93: PASS: Timer successfully created for
-> CLOCK_THREAD_CPUTIME_ID
-> timer_create01.c:93: PASS: Timer successfully created for CLOCK_BOOTTIME
-> timer_create01.c:87: FAIL: Failed to create timer for CLOCK_BOOTTIME_ALARM:
-> ???
-> timer_create01.c:87: FAIL: Failed to create timer for CLOCK_REALTIME_ALARM:
-> ???
-> timer_create01.c:93: PASS: Timer successfully created for CLOCK_TAI
+Another option would be having eBPF assembler included in the LTP build
+system. I guess that it may be useful later on and there seems to be one
+written in python:
 
-I'm pretty sure that we concluded that this is a kernel bug since it
-returns kernel internal errno.
+https://github.com/solarflarecom/ebpf_asm
+
+But for the short term I would go with adding the offset to the
+comments.
 
 -- 
 Cyril Hrubis
