@@ -1,49 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 330FEAE8CE
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Sep 2019 13:04:27 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id BC566AE9BA
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Sep 2019 13:57:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EAA1D3C2091
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Sep 2019 13:04:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 726643C2096
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Sep 2019 13:57:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 34CC93C13DE
- for <ltp@lists.linux.it>; Tue, 10 Sep 2019 12:20:39 +0200 (CEST)
-Received: from m15-64.126.com (m15-64.126.com [220.181.15.64])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id EA8A414002DB
- for <ltp@lists.linux.it>; Tue, 10 Sep 2019 12:20:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=MlBGC
- P3XxTh0kdJjX2pUbhkPLApKZQZsnfOz0mcA8NY=; b=VLi2p8VKrPuR1Xz2ymwOV
- COpY6quhdkRsiuUIO0JE/3rxwnlGLJFdvUeWBtv3oYVLYC+8633lHrspB//uU3y6
- K6ywj1XTbIurWQATGj/r5nHs7PdJpSXEG6uveNG6UWGdkOTy1VWS765i5suVqiDn
- dxzbXRBkmZiEkukdDlBDZ4=
-Received: from frequentemail$126.com ( [114.247.175.195] ) by
- ajax-webmail-wmsvr64 (Coremail) ; Tue, 10 Sep 2019 18:20:33 +0800 (CST)
-X-Originating-IP: [114.247.175.195]
-Date: Tue, 10 Sep 2019 18:20:33 +0800 (CST)
-From: frequent <frequentemail@126.com>
-To: ltp@lists.linux.it
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version XT5.0.10 build 20190724(ac680a23)
- Copyright (c) 2002-2019 www.mailtech.cn 126com
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id BC3E83C2076
+ for <ltp@lists.linux.it>; Tue, 10 Sep 2019 13:57:49 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 878421000CC6
+ for <ltp@lists.linux.it>; Tue, 10 Sep 2019 13:57:41 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 894A2ABCE;
+ Tue, 10 Sep 2019 11:57:47 +0000 (UTC)
+Date: Tue, 10 Sep 2019 13:57:44 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: frequent <frequentemail@126.com>
+Message-ID: <20190910115743.GA18210@rei.lan>
+References: <424f5bc4.776d.16d1ab07134.Coremail.frequentemail@126.com>
 MIME-Version: 1.0
-Message-ID: <424f5bc4.776d.16d1ab07134.Coremail.frequentemail@126.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: QMqowACnrxPzeHddiHZ1AA--.19680W
-X-CM-SenderInfo: 5iuh135hqwvzxdloqiyswou0bp/1tbiwRMsHFpD8WZn9gAAs9
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <424f5bc4.776d.16d1ab07134.Coremail.frequentemail@126.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,GB_FREEMAIL_DISPTO,HTML_MESSAGE,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-X-Mailman-Approved-At: Tue, 10 Sep 2019 13:04:24 +0200
-Subject: [LTP] [PATCH] buffer overflow detected ***: dup201 terminated
+X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] buffer overflow detected ***: dup201 terminated
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,171 +47,121 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0793307027=="
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0793307027==
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_111697_1331152497.1568110833971"
+Hi!
+> Issues related to this mail: https://github.com/linux-test-project/ltp/issues/570
 
-------=_Part_111697_1331152497.1568110833971
-Content-Type: text/plain; charset=GBK
-Content-Transfer-Encoding: base64
+You can just add "fixes: #570" instead somewhere in the patch text which
+will close the issue automatically if the patch is included in the
+repository.
 
-SXNzdWVzIHJlbGF0ZWQgdG8gdGhpcyBtYWlsOiBodHRwczovL2dpdGh1Yi5jb20vbGludXgtdGVz
-dC1wcm9qZWN0L2x0cC9pc3N1ZXMvNTcwCgoKQWNjb3JkaW5nIHRvIHRoZSBiYWN0cmFjZSBpbiB0
-aGUgaXNzdWUgZGVzY3JpcHRpb24sIHdlIGNvdWxkIGVhc2lseSBmaW5kIG91dCB0aGF0IHRoZSBw
-cm9ibGVtIGlzIGR1ZSB0byB0aGUgY29kZXMgaW4gZHVwMjAxLmMgIGxpbmUgODAgYW5kIDE0Mi4g
-CkFzIG1ldGFuLWN1dyBjb21tZW50ZWQsIHRoZSBsb29wIGF0IGxpbmUgMTQyIGlzIG9mIG5vIHVz
-ZSBhbmQgcHJvYmFibGVseSBpcyBhIGxlZnRvdmVyLiAgU28gd2UgY291bGQgc2FmZWx5IHJlbW92
-ZSB0aGVzZSBjb2Rlcy4gCgoKVGhpcyBwYXRjaCBkb2VzIDoKICAgICAgICAxKS4gIHJlbW92ZSB0
-aGUgbGVmdG92ZXIsIGFuZCBvZiBjb3Vyc2UsIHRoZSBpc3N1ZSA1NzAgd2lsbCBiZSBldmVudHVh
-bGx5IGdvIG92ZXIuCiAgICAgICAgMikuICByZW1vdmVkIHVudXNlZCBnbG9iYWwgdmFyaWFibGVz
-LgoKClRoZSBwYXRjaCBnb2VzIGFzOgoKCmRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5
-c2NhbGxzL2R1cDIvZHVwMjAxLmMgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2R1cDIvZHVw
-MjAxLmMKaW5kZXggNDUwN2FjMS4uNzYyYWQ4NiAxMDA2NDQKLS0tIGEvdGVzdGNhc2VzL2tlcm5l
-bC9zeXNjYWxscy9kdXAyL2R1cDIwMS5jCisrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMv
-ZHVwMi9kdXAyMDEuYwpAQCAtNzUsOSArNzUsNiBAQCBpbnQgbWF4ZmQ7CiBpbnQgZ29vZGZkID0g
-NTsKIGludCBiYWRmZCA9IC0xOwogaW50IG15c3Rkb3V0ID0gMDsKLWludCBmZCwgZmQxOwotaW50
-IG15cGlkOwotY2hhciBmbmFtZVsyMF07CgoKIHN0cnVjdCB0ZXN0X2Nhc2VfdCB7CiAgICAgICAg
-aW50ICpvZmQ7CkBAIC04NiwyMiArODMsMTkgQEAgc3RydWN0IHRlc3RfY2FzZV90IHsKICAgICAg
-ICB2b2lkICgqc2V0dXBmdW5jKSAoKTsKIH0gVENbXSA9IHsKICAgICAgICAvKiBGaXJzdCBmZCBh
-cmd1bWVudCBpcyBsZXNzIHRoYW4gMCAtIEVCQURGICovCi0gICAgICAgewotICAgICAgICZiYWRm
-ZCwgJmdvb2RmZCwgRUJBREYsIE5VTEx9LAotICAgICAgICAgICAvKiBGaXJzdCBmZCBhcmd1bWVu
-dCBpcyBnZXRkdGFibGVzaXplKCkgLSBFQkFERiAqLwotICAgICAgIHsKLSAgICAgICAmbWF4ZmQs
-ICZnb29kZmQsIEVCQURGLCBOVUxMfSwKLSAgICAgICAgICAgLyogU2Vjb25kIGZkIGFyZ3VtZW50
-IGlzIGxlc3MgdGhhbiAwIC0gRUJBREYgKi8KLSAgICAgICB7Ci0gICAgICAgJm15c3Rkb3V0LCAm
-YmFkZmQsIEVCQURGLCBOVUxMfSwKLSAgICAgICAgICAgLyogU2Vjb25kIGZkIGFyZ3VtZW50IGlz
-IGdldGR0YWJsZXNpemUoKSAtIEVCQURGICovCi0gICAgICAgewotJm15c3Rkb3V0LCAmbWF4ZmQs
-IEVCQURGLCBOVUxMfSx9OworICAgICAgIHsmYmFkZmQsICZnb29kZmQsIEVCQURGLCBOVUxMfSwK
-KyAgICAgICAvKiBGaXJzdCBmZCBhcmd1bWVudCBpcyBnZXRkdGFibGVzaXplKCkgLSBFQkFERiAq
-LworICAgICAgIHsmbWF4ZmQsICZnb29kZmQsIEVCQURGLCBOVUxMfSwKKyAgICAgICAvKiBTZWNv
-bmQgZmQgYXJndW1lbnQgaXMgbGVzcyB0aGFuIDAgLSBFQkFERiAqLworICAgICAgIHsmbXlzdGRv
-dXQsICZiYWRmZCwgRUJBREYsIE5VTEx9LAorICAgICAgIC8qIFNlY29uZCBmZCBhcmd1bWVudCBp
-cyBnZXRkdGFibGVzaXplKCkgLSBFQkFERiAqLworICAgICAgIHsmbXlzdGRvdXQsICZtYXhmZCwg
-RUJBREYsIE5VTEx9LAorfTsKCgogaW50IG1haW4oaW50IGFjLCBjaGFyICoqYXYpCiB7CiAgICAg
-ICAgaW50IGxjOwotICAgICAgIGludCBpLCBqOworICAgICAgIGludCBpOwoKCiAgICAgICAgdHN0
-X3BhcnNlX29wdHMoYWMsIGF2LCBOVUxMLCBOVUxMKTsKCgpAQCAtMTM3LDEyICsxMzEsNiBAQCBp
-bnQgbWFpbihpbnQgYWMsIGNoYXIgKiphdikKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBzdHJlcnJvcihUQ1tpXS5lcnJvcikpOwogICAgICAgICAgICAgICAgICAgICAg
-ICB9CiAgICAgICAgICAgICAgICB9Ci0gICAgICAgICAgICAgICAvKiBjbGVhbnVwIHRoaW5ncyBp
-biBjYXNlIHdlIGFyZSBsb29waW5nICovCi0gICAgICAgICAgICAgICBmb3IgKGogPSBmZDE7IGog
-PCBtYXhmZDsgaisrKSB7Ci0gICAgICAgICAgICAgICAgICAgICAgIHNwcmludGYoZm5hbWUsICJk
-dXAyMDEuJWQuJWQiLCBqLCBteXBpZCk7Ci0gICAgICAgICAgICAgICAgICAgICAgICh2b2lkKWNs
-b3NlKGopOwotICAgICAgICAgICAgICAgICAgICAgICAodm9pZCl1bmxpbmsoZm5hbWUpOwotICAg
-ICAgICAgICAgICAgfQogICAgICAgIH0KICAgICAgICBjbGVhbnVwKCk7CgoKQEAgLTE2Myw3ICsx
-NTEsNiBAQCB2b2lkIHNldHVwKHZvaWQpCgoKICAgICAgICAvKiBnZXQgc29tZSB0ZXN0IHNwZWNp
-ZmljIHZhbHVlcyAqLwogICAgICAgIG1heGZkID0gZ2V0ZHRhYmxlc2l6ZSgpOwotICAgICAgIG15
-cGlkID0gZ2V0cGlkKCk7CiB9CgoKIC8qCkBAIC0xNzIsNiArMTU5LDUgQEAgdm9pZCBzZXR1cCh2
-b2lkKQogICovCiB2b2lkIGNsZWFudXAodm9pZCkKIHsKLQogICAgICAgIHRzdF9ybWRpcigpOwog
-fQoK
-------=_Part_111697_1331152497.1568110833971
-Content-Type: text/html; charset=GBK
-Content-Transfer-Encoding: base64
+> According to the bactrace in the issue description, we could easily find out that the problem is due to the codes in dup201.c  line 80 and 142. 
+> As metan-cuw commented, the loop at line 142 is of no use and probablely is a leftover.  So we could safely remove these codes. 
+> 
+> This patch does :
+>         1).  remove the leftover, and of course, the issue 570 will be eventually go over.
+>         2).  removed unused global variables.
+> 
+> The patch goes as:
+  ^
+This is unnecessary.
 
-PGRpdiBzdHlsZT0ibGluZS1oZWlnaHQ6MS43O2NvbG9yOiMwMDAwMDA7Zm9udC1zaXplOjE0cHg7
-Zm9udC1mYW1pbHk6QXJpYWwiPjxkaXY+SXNzdWVzIHJlbGF0ZWQgdG8gdGhpcyBtYWlsOiZuYnNw
-OzxhIGhyZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS9saW51eC10ZXN0LXByb2plY3QvbHRwL2lzc3Vl
-cy81NzAiIF9zcmM9Imh0dHBzOi8vZ2l0aHViLmNvbS9saW51eC10ZXN0LXByb2plY3QvbHRwL2lz
-c3Vlcy81NzAiPmh0dHBzOi8vZ2l0aHViLmNvbS9saW51eC10ZXN0LXByb2plY3QvbHRwL2lzc3Vl
-cy81NzA8L2E+IDwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+QWNjb3JkaW5nIHRvIHRoZSBiYWN0
-cmFjZSBpbiB0aGUgaXNzdWUgZGVzY3JpcHRpb24sIHdlIGNvdWxkIGVhc2lseSBmaW5kIG91dCB0
-aGF0IHRoZSBwcm9ibGVtIGlzIGR1ZSB0byB0aGUgY29kZXMgaW4gZHVwMjAxLmMmbmJzcDsgbGlu
-ZSA4MCBhbmQgMTQyLiZuYnNwOzwvZGl2PjxkaXY+QXMgbWV0YW4tY3V3IGNvbW1lbnRlZCwgdGhl
-IGxvb3AgYXQgbGluZSAxNDIgaXMgb2Ygbm8gdXNlIGFuZCBwcm9iYWJsZWx5IGlzIGEgbGVmdG92
-ZXIuJm5ic3A7IFNvIHdlIGNvdWxkIHNhZmVseSByZW1vdmUgdGhlc2UgY29kZXMuJm5ic3A7PC9k
-aXY+PGRpdj48YnI+PC9kaXY+PGRpdj5UaGlzIHBhdGNoIGRvZXMgOjwvZGl2PjxkaXY+Jm5ic3A7
-ICZuYnNwOyAmbmJzcDsgJm5ic3A7IDEpLiZuYnNwOyByZW1vdmUgdGhlIGxlZnRvdmVyLCBhbmQg
-b2YgY291cnNlLCB0aGUgaXNzdWUgNTcwIHdpbGwgYmUgZXZlbnR1YWxseSBnbyBvdmVyLjwvZGl2
-PjxkaXY+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IDIpLiZuYnNwOyByZW1vdmVkIHVudXNl
-ZCBnbG9iYWwgdmFyaWFibGVzLjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+VGhlIHBhdGNoIGdv
-ZXMgYXM6PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj48ZGl2PmRpZmYgLS1naXQgYS90ZXN0Y2Fz
-ZXMva2VybmVsL3N5c2NhbGxzL2R1cDIvZHVwMjAxLmMgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2Nh
-bGxzL2R1cDIvZHVwMjAxLmM8L2Rpdj48ZGl2PmluZGV4IDQ1MDdhYzEuLjc2MmFkODYgMTAwNjQ0
-PC9kaXY+PGRpdj4tLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2R1cDIvZHVwMjAxLmM8
-L2Rpdj48ZGl2PisrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZHVwMi9kdXAyMDEuYzwv
-ZGl2PjxkaXY+QEAgLTc1LDkgKzc1LDYgQEAgaW50IG1heGZkOzwvZGl2PjxkaXY+Jm5ic3A7aW50
-IGdvb2RmZCA9IDU7PC9kaXY+PGRpdj4mbmJzcDtpbnQgYmFkZmQgPSAtMTs8L2Rpdj48ZGl2PiZu
-YnNwO2ludCBteXN0ZG91dCA9IDA7PC9kaXY+PGRpdj4taW50IGZkLCBmZDE7PC9kaXY+PGRpdj4t
-aW50IG15cGlkOzwvZGl2PjxkaXY+LWNoYXIgZm5hbWVbMjBdOzwvZGl2PjxkaXY+PGJyPjwvZGl2
-PjxkaXY+Jm5ic3A7c3RydWN0IHRlc3RfY2FzZV90IHs8L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDsg
-Jm5ic3A7ICZuYnNwOyBpbnQgKm9mZDs8L2Rpdj48ZGl2PkBAIC04NiwyMiArODMsMTkgQEAgc3Ry
-dWN0IHRlc3RfY2FzZV90IHs8L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyB2
-b2lkICgqc2V0dXBmdW5jKSAoKTs8L2Rpdj48ZGl2PiZuYnNwO30gVENbXSA9IHs8L2Rpdj48ZGl2
-PiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAvKiBGaXJzdCBmZCBhcmd1bWVudCBpcyBsZXNz
-IHRoYW4gMCAtIEVCQURGICovPC9kaXY+PGRpdj4tJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
-ezwvZGl2PjxkaXY+LSZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyZhbXA7YmFkZmQsICZhbXA7
-Z29vZGZkLCBFQkFERiwgTlVMTH0sPC9kaXY+PGRpdj4tJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
-c3A7ICZuYnNwOyAmbmJzcDsvKiBGaXJzdCBmZCBhcmd1bWVudCBpcyBnZXRkdGFibGVzaXplKCkg
-LSBFQkFERiAqLzwvZGl2PjxkaXY+LSZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO3s8L2Rpdj48
-ZGl2Pi0mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsmYW1wO21heGZkLCAmYW1wO2dvb2RmZCwg
-RUJBREYsIE5VTEx9LDwvZGl2PjxkaXY+LSZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
-cDsgJm5ic3A7LyogU2Vjb25kIGZkIGFyZ3VtZW50IGlzIGxlc3MgdGhhbiAwIC0gRUJBREYgKi88
-L2Rpdj48ZGl2Pi0mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDt7PC9kaXY+PGRpdj4tJm5ic3A7
-ICZuYnNwOyAmbmJzcDsgJm5ic3A7JmFtcDtteXN0ZG91dCwgJmFtcDtiYWRmZCwgRUJBREYsIE5V
-TEx9LDwvZGl2PjxkaXY+LSZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
-LyogU2Vjb25kIGZkIGFyZ3VtZW50IGlzIGdldGR0YWJsZXNpemUoKSAtIEVCQURGICovPC9kaXY+
-PGRpdj4tJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ezwvZGl2PjxkaXY+LSZhbXA7bXlzdGRv
-dXQsICZhbXA7bWF4ZmQsIEVCQURGLCBOVUxMfSx9OzwvZGl2PjxkaXY+KyZuYnNwOyAmbmJzcDsg
-Jm5ic3A7ICZuYnNwO3smYW1wO2JhZGZkLCAmYW1wO2dvb2RmZCwgRUJBREYsIE5VTEx9LDwvZGl2
-PjxkaXY+KyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOy8qIEZpcnN0IGZkIGFyZ3VtZW50IGlz
-IGdldGR0YWJsZXNpemUoKSAtIEVCQURGICovPC9kaXY+PGRpdj4rJm5ic3A7ICZuYnNwOyAmbmJz
-cDsgJm5ic3A7eyZhbXA7bWF4ZmQsICZhbXA7Z29vZGZkLCBFQkFERiwgTlVMTH0sPC9kaXY+PGRp
-dj4rJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7LyogU2Vjb25kIGZkIGFyZ3VtZW50IGlzIGxl
-c3MgdGhhbiAwIC0gRUJBREYgKi88L2Rpdj48ZGl2PismbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
-cDt7JmFtcDtteXN0ZG91dCwgJmFtcDtiYWRmZCwgRUJBREYsIE5VTEx9LDwvZGl2PjxkaXY+KyZu
-YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOy8qIFNlY29uZCBmZCBhcmd1bWVudCBpcyBnZXRkdGFi
-bGVzaXplKCkgLSBFQkFERiAqLzwvZGl2PjxkaXY+KyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
-O3smYW1wO215c3Rkb3V0LCAmYW1wO21heGZkLCBFQkFERiwgTlVMTH0sPC9kaXY+PGRpdj4rfTs8
-L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PiZuYnNwO2ludCBtYWluKGludCBhYywgY2hhciAqKmF2
-KTwvZGl2PjxkaXY+Jm5ic3A7ezwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
-IGludCBsYzs8L2Rpdj48ZGl2Pi0mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtpbnQgaSwgajs8
-L2Rpdj48ZGl2PismbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtpbnQgaTs8L2Rpdj48ZGl2Pjxi
-cj48L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyB0c3RfcGFyc2Vfb3B0cyhh
-YywgYXYsIE5VTEwsIE5VTEwpOzwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+QEAgLTEzNywxMiAr
-MTMxLDYgQEAgaW50IG1haW4oaW50IGFjLCBjaGFyICoqYXYpPC9kaXY+PGRpdj4mbmJzcDsgJm5i
-c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
-cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
-OyAmbmJzcDsgJm5ic3A7ICZuYnNwO3N0cmVycm9yKFRDW2ldLmVycm9yKSk7PC9kaXY+PGRpdj4m
-bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
-YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyB9PC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7ICZuYnNw
-OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IH08L2Rpdj48ZGl2Pi0mbmJzcDsg
-Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7LyogY2xlYW51
-cCB0aGluZ3MgaW4gY2FzZSB3ZSBhcmUgbG9vcGluZyAqLzwvZGl2PjxkaXY+LSZuYnNwOyAmbmJz
-cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtmb3IgKGogPSBmZDE7
-IGogJmx0OyBtYXhmZDsgaisrKSB7PC9kaXY+PGRpdj4tJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
-c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
-cDtzcHJpbnRmKGZuYW1lLCAiZHVwMjAxLiVkLiVkIiwgaiwgbXlwaWQpOzwvZGl2PjxkaXY+LSZu
-YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
-c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7KHZvaWQpY2xvc2Uoaik7PC9kaXY+PGRpdj4tJm5ic3A7
-ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
-Jm5ic3A7ICZuYnNwOyAmbmJzcDsodm9pZCl1bmxpbmsoZm5hbWUpOzwvZGl2PjxkaXY+LSZuYnNw
-OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDt9PC9kaXY+
-PGRpdj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgfTwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNw
-OyAmbmJzcDsgJm5ic3A7IGNsZWFudXAoKTs8L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PkBAIC0x
-NjMsNyArMTUxLDYgQEAgdm9pZCBzZXR1cCh2b2lkKTwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+
-Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IC8qIGdldCBzb21lIHRlc3Qgc3BlY2lmaWMgdmFs
-dWVzICovPC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgbWF4ZmQgPSBnZXRk
-dGFibGVzaXplKCk7PC9kaXY+PGRpdj4tJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7bXlwaWQg
-PSBnZXRwaWQoKTs8L2Rpdj48ZGl2PiZuYnNwO308L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PiZu
-YnNwOy8qPC9kaXY+PGRpdj5AQCAtMTcyLDYgKzE1OSw1IEBAIHZvaWQgc2V0dXAodm9pZCk8L2Rp
-dj48ZGl2PiZuYnNwOyAqLzwvZGl2PjxkaXY+Jm5ic3A7dm9pZCBjbGVhbnVwKHZvaWQpPC9kaXY+
-PGRpdj4mbmJzcDt7PC9kaXY+PGRpdj4tPC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAm
-bmJzcDsgdHN0X3JtZGlyKCk7PC9kaXY+PGRpdj4mbmJzcDt9PC9kaXY+PC9kaXY+PGRpdj48YnI+
-PC9kaXY+PC9kaXY+
-------=_Part_111697_1331152497.1568110833971--
+And you are missing the signed-off-by line here, see:
 
+https://www.kernel.org/doc/html/v4.17/process/submitting-patches.html#developer-s-certificate-of-origin-1-1
 
---===============0793307027==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> diff --git a/testcases/kernel/syscalls/dup2/dup201.c b/testcases/kernel/syscalls/dup2/dup201.c
+> index 4507ac1..762ad86 100644
+> --- a/testcases/kernel/syscalls/dup2/dup201.c
+> +++ b/testcases/kernel/syscalls/dup2/dup201.c
+> @@ -75,9 +75,6 @@ int maxfd;
+>  int goodfd = 5;
+>  int badfd = -1;
+>  int mystdout = 0;
+> -int fd, fd1;
+> -int mypid;
+> -char fname[20];
+> 
+> 
+>  struct test_case_t {
+>         int *ofd;
+> @@ -86,22 +83,19 @@ struct test_case_t {
+>         void (*setupfunc) ();
+>  } TC[] = {
+>         /* First fd argument is less than 0 - EBADF */
+> -       {
+> -       &badfd, &goodfd, EBADF, NULL},
+> -           /* First fd argument is getdtablesize() - EBADF */
+> -       {
+> -       &maxfd, &goodfd, EBADF, NULL},
+> -           /* Second fd argument is less than 0 - EBADF */
+> -       {
+> -       &mystdout, &badfd, EBADF, NULL},
+> -           /* Second fd argument is getdtablesize() - EBADF */
+> -       {
+> -&mystdout, &maxfd, EBADF, NULL},};
+> +       {&badfd, &goodfd, EBADF, NULL},
+> +       /* First fd argument is getdtablesize() - EBADF */
+> +       {&maxfd, &goodfd, EBADF, NULL},
+> +       /* Second fd argument is less than 0 - EBADF */
+> +       {&mystdout, &badfd, EBADF, NULL},
+> +       /* Second fd argument is getdtablesize() - EBADF */
+> +       {&mystdout, &maxfd, EBADF, NULL},
+> +};
+> 
+> 
+>  int main(int ac, char **av)
+>  {
+>         int lc;
+> -       int i, j;
+> +       int i;
+> 
+> 
+>         tst_parse_opts(ac, av, NULL, NULL);
+> 
+> 
+> @@ -137,12 +131,6 @@ int main(int ac, char **av)
+>                                          strerror(TC[i].error));
+>                         }
+>                 }
+> -               /* cleanup things in case we are looping */
+> -               for (j = fd1; j < maxfd; j++) {
+> -                       sprintf(fname, "dup201.%d.%d", j, mypid);
+> -                       (void)close(j);
+> -                       (void)unlink(fname);
+> -               }
+>         }
+>         cleanup();
+> 
+> 
+> @@ -163,7 +151,6 @@ void setup(void)
+> 
+> 
+>         /* get some test specific values */
+>         maxfd = getdtablesize();
+> -       mypid = getpid();
+>  }
+> 
+> 
+>  /*
+> @@ -172,6 +159,5 @@ void setup(void)
+>   */
+>  void cleanup(void)
+>  {
+> -
+>         tst_rmdir();
+>  }
 
+Otherwise the patch looks good.
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0793307027==--
-
