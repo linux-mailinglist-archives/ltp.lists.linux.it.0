@@ -1,51 +1,45 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56BD9AFC69
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Sep 2019 14:21:52 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 360B8AFD0B
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Sep 2019 14:47:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B93C63C20C6
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Sep 2019 14:21:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id ACC303C20C3
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Sep 2019 14:47:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 510C23C1481
- for <ltp@lists.linux.it>; Wed, 11 Sep 2019 14:21:48 +0200 (CEST)
-Received: from mail-m964.mail.126.com (mail-m964.mail.126.com [123.126.96.4])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id F1B5A1003AA0
- for <ltp@lists.linux.it>; Wed, 11 Sep 2019 14:21:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=tZg8a
- hPVN3ZRuhugSJha+KOyWsbPUuE3V78vYNwe2ik=; b=bmW/rig4nf+cudiRUggTm
- +h5LTLrDS++39imPMlZ7boH6zeZkfSWvirZ5Bm+fJ04yH7drJmz7r3i1+4udZuac
- uwfY3dSqAIAwSR50qZs+Se47l/njxEy093/SCfiUIvdKF3JkcU7dkIMTjN9WP9aa
- c7H7o8U1xVnx/ZyF+lLXeE=
-Received: from localhost.cn (unknown [114.247.175.195])
- by smtp9 (Coremail) with SMTP id NeRpCgCH2nrW5nhdpfZwAg--.1966S2;
- Wed, 11 Sep 2019 20:21:42 +0800 (CST)
-From: "Wu,Haiqiang" <frequentemail@126.com>
-To: frequentemail@126.com,
-	ltp@lists.linux.it
-Date: Wed, 11 Sep 2019 20:21:41 +0800
-Message-Id: <20190911122141.28113-1-frequentemail@126.com>
-X-Mailer: git-send-email 2.23.0
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 1BE213C0232
+ for <ltp@lists.linux.it>; Wed, 11 Sep 2019 14:47:17 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 05882201296
+ for <ltp@lists.linux.it>; Wed, 11 Sep 2019 14:47:15 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 13914B6BD;
+ Wed, 11 Sep 2019 12:47:15 +0000 (UTC)
+Date: Wed, 11 Sep 2019 14:47:14 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: "Xu, Yang/??? ???" <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20190911124714.GA21670@rei.lan>
+References: <20190802115046.GB27727@rei>
+ <1566282838-2980-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20190827092520.GA28859@dell5510> <20190827095858.GB28859@dell5510>
+ <20190827101644.GA30582@rei>
+ <05330771-04f6-0fe4-f99d-eb55ff8b733c@cn.fujitsu.com>
 MIME-Version: 1.0
-X-CM-TRANSID: NeRpCgCH2nrW5nhdpfZwAg--.1966S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CFWUWw15trWkGF1fXrWUurg_yoW8Ww4kpF
- 9Fvrs2vr4fJF1kAw40qws5ur1rJw45XF4xGF4jyw4fGr4xAF1UW34v9Fy2vasIqrZxW3yS
- yF4ktr4Fgw1rtaDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRqiihUUUUU=
-X-Originating-IP: [114.247.175.195]
-X-CM-SenderInfo: 5iuh135hqwvzxdloqiyswou0bp/1tbi7RYtHFpD8jnnEgAAst
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <05330771-04f6-0fe4-f99d-eb55ff8b733c@cn.fujitsu.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH] [Fixes]:#570
+X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] syscalls/statx04: use stx_attributes_mask
+ before test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,84 +51,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Wu,Haiqiang <frequentemail@126.com>
----
- testcases/kernel/syscalls/dup2/dup201.c | 24 +++++-------------------
- 1 file changed, 5 insertions(+), 19 deletions(-)
+Hi!
+> Do you mean use getxattr to ensure bitflags are enable or a functions test?
+> I am confused.
 
-diff --git a/testcases/kernel/syscalls/dup2/dup201.c b/testcases/kernel/syscalls/dup2/dup201.c
-index 4507ac19a..066428edf 100644
---- a/testcases/kernel/syscalls/dup2/dup201.c
-+++ b/testcases/kernel/syscalls/dup2/dup201.c
-@@ -75,9 +75,6 @@ int maxfd;
- int goodfd = 5;
- int badfd = -1;
- int mystdout = 0;
--int fd, fd1;
--int mypid;
--char fname[20];
- 
- struct test_case_t {
- 	int *ofd;
-@@ -86,17 +83,14 @@ struct test_case_t {
- 	void (*setupfunc) ();
- } TC[] = {
- 	/* First fd argument is less than 0 - EBADF */
--	{
--	&badfd, &goodfd, EBADF, NULL},
-+	{&badfd, &goodfd, EBADF, NULL},
- 	    /* First fd argument is getdtablesize() - EBADF */
--	{
--	&maxfd, &goodfd, EBADF, NULL},
-+	{&maxfd, &goodfd, EBADF, NULL},
- 	    /* Second fd argument is less than 0 - EBADF */
--	{
--	&mystdout, &badfd, EBADF, NULL},
-+	{&mystdout, &badfd, EBADF, NULL},
- 	    /* Second fd argument is getdtablesize() - EBADF */
--	{
--&mystdout, &maxfd, EBADF, NULL},};
-+	{&mystdout, &maxfd, EBADF, NULL},
-+};
- 
- int main(int ac, char **av)
- {
-@@ -137,12 +131,6 @@ int main(int ac, char **av)
- 					 strerror(TC[i].error));
- 			}
- 		}
--		/* cleanup things in case we are looping */
--		for (j = fd1; j < maxfd; j++) {
--			sprintf(fname, "dup201.%d.%d", j, mypid);
--			(void)close(j);
--			(void)unlink(fname);
--		}
- 	}
- 	cleanup();
- 
-@@ -163,7 +151,6 @@ void setup(void)
- 
- 	/* get some test specific values */
- 	maxfd = getdtablesize();
--	mypid = getpid();
- }
- 
- /*
-@@ -172,6 +159,5 @@ void setup(void)
-  */
- void cleanup(void)
- {
--
- 	tst_rmdir();
- }
+For a given filesystem the support for filling in these flags was added
+at some point to the kernel. If any kernel newer that this version fails
+to fill them up it's a bug.
+
+For ext2 it has been added in:
+
+commit 93bc420ed41df63a18ae794101f7cbf45226a6ef
+Author: yangerkun <yangerkun@huawei.com>
+Date:   Mon Feb 18 09:07:02 2019 +0800
+
+    ext2: support statx syscall
+
+Hence starting kernel 5.0 ext2 (with ext2 driver) has to set the mask.
+
+For ext4 it has been added in:
+
+commit 3209f68b3ca4667069923a325c88b21131bfdf9f
+Author: David Howells <dhowells@redhat.com>
+Date:   Fri Mar 31 18:32:17 2017 +0100
+
+	statx: Include a mask for stx_attributes in struct statx
+
+
+Hence for ext4 the flags should be enabled since kernel 4.11
+
+etc.
+
 -- 
-Wu,Haiqiang<frequentemail@126.com>
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
