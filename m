@@ -1,37 +1,53 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AD1CAF995
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Sep 2019 11:54:42 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FAEAAFA3C
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Sep 2019 12:22:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3B9CB3C2091
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Sep 2019 11:54:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C04353C20BE
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Sep 2019 12:22:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 4AD213C1481
- for <ltp@lists.linux.it>; Wed, 11 Sep 2019 11:54:40 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 168961002742
- for <ltp@lists.linux.it>; Wed, 11 Sep 2019 11:54:30 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 5585DAFB2;
- Wed, 11 Sep 2019 09:54:37 +0000 (UTC)
-From: Richard Palethorpe <rpalethorpe@suse.com>
-To: ltp@lists.linux.it
-Date: Wed, 11 Sep 2019 11:54:22 +0200
-Message-Id: <20190911095422.11767-1-rpalethorpe@suse.com>
-X-Mailer: git-send-email 2.22.1
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 466A13C1481
+ for <ltp@lists.linux.it>; Wed, 11 Sep 2019 12:22:46 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id A8F0E1A01A62
+ for <ltp@lists.linux.it>; Wed, 11 Sep 2019 12:22:43 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.64,492,1559491200"; d="scan'208,217";a="75302178"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 11 Sep 2019 18:22:39 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id C07CF4CE030A;
+ Wed, 11 Sep 2019 18:22:29 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ id 14.3.439.0; Wed, 11 Sep 2019 18:22:39 +0800
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <20190802115046.GB27727@rei>
+ <1566282838-2980-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20190827092520.GA28859@dell5510> <20190827095858.GB28859@dell5510>
+ <20190827101644.GA30582@rei>
+From: =?UTF-8?B?WHUsIFlhbmcv5b6QIOadqA==?= <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <05330771-04f6-0fe4-f99d-eb55ff8b733c@cn.fujitsu.com>
+Date: Wed, 11 Sep 2019 18:22:37 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+In-Reply-To: <20190827101644.GA30582@rei>
+X-Originating-IP: [10.167.220.84]
+X-yoursite-MailScanner-ID: C07CF4CE030A.A05EB
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=FROM_EXCESS_BASE64,
+ HTML_MESSAGE,KHOP_HELO_FCRDNS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v3] BPF: Regression test for 64bit arithmetic
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] syscalls/statx04: use stx_attributes_mask
+ before test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,299 +59,116 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: ltp@lists.linux.it
+Content-Type: multipart/mixed; boundary="===============0860865379=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
-Reviewed-by: Jan Stancek <jstancek@redhat.com>
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
----
+--===============0860865379==
+Content-Type: multipart/alternative;
+	boundary="------------DB9B89F4050BC66D8201F5BB"
 
-V3: Rebased on master and included line numbers in instructions
+--------------DB9B89F4050BC66D8201F5BB
+Content-Type: text/plain; charset="gbk"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Capability patch has not been applied to master at time of rebase.
 
- include/lapi/bpf.h                         |  27 +++
- runtest/syscalls                           |   1 +
- testcases/kernel/syscalls/bpf/.gitignore   |   1 +
- testcases/kernel/syscalls/bpf/bpf_prog02.c | 182 +++++++++++++++++++++
- 4 files changed, 211 insertions(+)
- create mode 100644 testcases/kernel/syscalls/bpf/bpf_prog02.c
+on 2019/08/27 18:16, Cyril Hrubis wrote:
 
-diff --git a/include/lapi/bpf.h b/include/lapi/bpf.h
-index 122eb5469..03073b45e 100644
---- a/include/lapi/bpf.h
-+++ b/include/lapi/bpf.h
-@@ -18,7 +18,9 @@
- /* Start copy from linux/bpf_(common).h */
- #define BPF_CLASS(code) ((code) & 0x07)
- #define		BPF_LD		0x00
-+#define		BPF_LDX		0x01
- #define		BPF_ST		0x02
-+#define		BPF_STX		0x03
- #define		BPF_JMP		0x05
- 
- #define BPF_SIZE(code)  ((code) & 0x18)
-@@ -30,6 +32,7 @@
- 
- #define BPF_OP(code)    ((code) & 0xf0)
- #define		BPF_ADD		0x00
-+#define		BPF_SUB		0x10
- 
- #define		BPF_JEQ		0x10
- 
-@@ -432,6 +435,14 @@ enum bpf_func_id {
- 
- /* Start copy from tools/include/filter.h */
- 
-+#define BPF_ALU64_REG(OP, DST, SRC)				\
-+	((struct bpf_insn) {					\
-+		.code  = BPF_ALU64 | BPF_OP(OP) | BPF_X,	\
-+		.dst_reg = DST,					\
-+		.src_reg = SRC,					\
-+		.off   = 0,					\
-+		.imm   = 0 })
-+
- #define BPF_ALU64_IMM(OP, DST, IMM)				\
- 	((struct bpf_insn) {					\
- 		.code  = BPF_ALU64 | BPF_OP(OP) | BPF_K,	\
-@@ -477,6 +488,22 @@ enum bpf_func_id {
- 		.off   = OFF,					\
- 		.imm   = IMM })
- 
-+#define BPF_LDX_MEM(SIZE, DST, SRC, OFF)			\
-+	((struct bpf_insn) {					\
-+		.code  = BPF_LDX | BPF_SIZE(SIZE) | BPF_MEM,	\
-+		.dst_reg = DST,					\
-+		.src_reg = SRC,					\
-+		.off   = OFF,					\
-+		.imm   = 0 })
-+
-+#define BPF_STX_MEM(SIZE, DST, SRC, OFF)			\
-+	((struct bpf_insn) {					\
-+		.code  = BPF_STX | BPF_SIZE(SIZE) | BPF_MEM,	\
-+		.dst_reg = DST,					\
-+		.src_reg = SRC,					\
-+		.off   = OFF,					\
-+		.imm   = 0 })
-+
- #define BPF_JMP_IMM(OP, DST, IMM, OFF)				\
- 	((struct bpf_insn) {					\
- 		.code  = BPF_JMP | BPF_OP(OP) | BPF_K,		\
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 874ae4d4f..4e6310193 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -34,6 +34,7 @@ bind03 bind03
- 
- bpf_map01 bpf_map01
- bpf_prog01 bpf_prog01
-+bpf_prog02 bpf_prog02
- 
- brk01 brk01
- 
-diff --git a/testcases/kernel/syscalls/bpf/.gitignore b/testcases/kernel/syscalls/bpf/.gitignore
-index 7eb5f7c92..1704f9841 100644
---- a/testcases/kernel/syscalls/bpf/.gitignore
-+++ b/testcases/kernel/syscalls/bpf/.gitignore
-@@ -1,2 +1,3 @@
- bpf_map01
- bpf_prog01
-+bpf_prog02
-diff --git a/testcases/kernel/syscalls/bpf/bpf_prog02.c b/testcases/kernel/syscalls/bpf/bpf_prog02.c
-new file mode 100644
-index 000000000..dc8b92f00
---- /dev/null
-+++ b/testcases/kernel/syscalls/bpf/bpf_prog02.c
-@@ -0,0 +1,182 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2019 Richard Palethorpe <rpalethorpe@suse.com>
-+ *
-+ * Check if eBPF can do arithmetic with 64bits. This targets a specific
-+ * regression which only effects unprivileged users who are subject to extra
-+ * pointer arithmetic checks during verification.
-+ *
-+ * Fixed by commit 3612af783cf52c74a031a2f11b82247b2599d3cd.
-+ * https://new.blog.cloudflare.com/ebpf-cant-count/
-+ *
-+ * This test is very similar in structure to bpf_prog01 which is better
-+ * annotated.
-+ */
-+
-+#include <limits.h>
-+#include <string.h>
-+#include <stdio.h>
-+
-+#include "config.h"
-+#include "tst_test.h"
-+#include "tst_capability.h"
-+#include "lapi/socket.h"
-+#include "lapi/bpf.h"
-+
-+#define A64INT (((uint64_t)1) << 60)
-+
-+const char MSG[] = "Ahoj!";
-+static char *msg;
-+
-+static char *log;
-+static uint32_t *key;
-+static uint64_t *val;
-+static union bpf_attr *attr;
-+
-+static int load_prog(int fd)
-+{
-+	struct bpf_insn *prog;
-+	struct bpf_insn insn[] = {
-+		BPF_MOV64_IMM(BPF_REG_6, 1),            /* 0: r6 = 1 */
-+
-+		BPF_LD_MAP_FD(BPF_REG_1, fd),	        /* 1: r1 = &fd */
-+		BPF_MOV64_REG(BPF_REG_2, BPF_REG_10),   /* 3: r2 = fp */
-+		BPF_ALU64_IMM(BPF_ADD, BPF_REG_2, -8),  /* 4: r2 = r2 - 8 */
-+		BPF_ST_MEM(BPF_DW, BPF_REG_2, 0, 0),    /* 5: *r2 = 0 */
-+		BPF_EMIT_CALL(BPF_FUNC_map_lookup_elem),/* 6: map_lookup_elem */
-+		BPF_JMP_IMM(BPF_JEQ, BPF_REG_0, 0, 17), /* 7: if(!r0) goto 25 */
-+		BPF_MOV64_REG(BPF_REG_3, BPF_REG_0),    /* 8: r3 = r0 */
-+		BPF_LD_IMM64(BPF_REG_4, A64INT),        /* 9: r4 = 2^61 */
-+		BPF_ALU64_REG(BPF_ADD, BPF_REG_4, BPF_REG_6), /* 11: r4 += r6 */
-+		BPF_STX_MEM(BPF_DW, BPF_REG_3, BPF_REG_4, 0), /* 12: *r3 = r4 */
-+
-+		BPF_LD_MAP_FD(BPF_REG_1, fd),	        /* 13: r1 = &fd */
-+		BPF_MOV64_REG(BPF_REG_2, BPF_REG_10),   /* 15: r2 = fp */
-+		BPF_ALU64_IMM(BPF_ADD, BPF_REG_2, -8),  /* 16: r2 = r2 - 8 */
-+		BPF_ST_MEM(BPF_DW, BPF_REG_2, 0, 1),    /* 17: *r2 = 1 */
-+		BPF_EMIT_CALL(BPF_FUNC_map_lookup_elem),/* 18: map_lookup_elem */
-+		BPF_JMP_IMM(BPF_JEQ, BPF_REG_0, 0, 5),  /* 19: if(!r0) goto 25 */
-+		BPF_MOV64_REG(BPF_REG_3, BPF_REG_0),    /* 20: r3 = r0 */
-+		BPF_LD_IMM64(BPF_REG_4, A64INT),        /* 21: r4 = 2^61 */
-+		BPF_ALU64_REG(BPF_SUB, BPF_REG_4, BPF_REG_6), /* 23: r4 -= r6 */
-+		BPF_STX_MEM(BPF_DW, BPF_REG_3, BPF_REG_4, 0), /* 24: *r3 = r4 */
-+
-+		BPF_MOV64_IMM(BPF_REG_0, 0),            /* 25: r0 = 0 */
-+		BPF_EXIT_INSN(),		        /* 26: return r0 */
-+	};
-+
-+	/* Leaks memory when -i is specified */
-+	prog = tst_alloc(sizeof(insn));
-+	memcpy(prog, insn, sizeof(insn));
-+
-+	memset(attr, 0, sizeof(*attr));
-+	attr->prog_type = BPF_PROG_TYPE_SOCKET_FILTER;
-+	attr->insns = ptr_to_u64(prog);
-+	attr->insn_cnt = ARRAY_SIZE(insn);
-+	attr->license = ptr_to_u64("GPL");
-+	attr->log_buf = ptr_to_u64(log);
-+	attr->log_size = BUFSIZ;
-+	attr->log_level = 1;
-+
-+	TEST(bpf(BPF_PROG_LOAD, attr, sizeof(*attr)));
-+	if (TST_RET == -1) {
-+		if (log[0] != 0) {
-+			tst_res(TINFO, "Verification log:");
-+			fputs(log, stderr);
-+			tst_brk(TBROK | TTERRNO, "Failed verification");
-+		} else {
-+			tst_brk(TBROK | TTERRNO, "Failed to load program");
-+		}
-+	}
-+
-+	return TST_RET;
-+}
-+
-+static void setup(void)
-+{
-+	memcpy(msg, MSG, sizeof(MSG));
-+}
-+
-+static void run(void)
-+{
-+	int map_fd, prog_fd;
-+	int sk[2];
-+
-+	memset(attr, 0, sizeof(*attr));
-+	attr->map_type = BPF_MAP_TYPE_ARRAY;
-+	attr->key_size = 4;
-+	attr->value_size = 8;
-+	attr->max_entries = 2;
-+
-+	TEST(bpf(BPF_MAP_CREATE, attr, sizeof(*attr)));
-+	if (TST_RET == -1) {
-+		if (TST_ERR == EPERM) {
-+			tst_brk(TCONF | TTERRNO,
-+				"bpf() requires CAP_SYS_ADMIN on this system");
-+		} else {
-+			tst_brk(TBROK | TTERRNO, "Failed to create array map");
-+		}
-+	}
-+	map_fd = TST_RET;
-+
-+	prog_fd = load_prog(map_fd);
-+
-+	SAFE_SOCKETPAIR(AF_UNIX, SOCK_DGRAM, 0, sk);
-+	SAFE_SETSOCKOPT(sk[1], SOL_SOCKET, SO_ATTACH_BPF,
-+			&prog_fd, sizeof(prog_fd));
-+
-+	SAFE_WRITE(1, sk[0], msg, sizeof(MSG));
-+
-+	memset(attr, 0, sizeof(*attr));
-+	attr->map_fd = map_fd;
-+	attr->key = ptr_to_u64(key);
-+	attr->value = ptr_to_u64(val);
-+	*key = 0;
-+
-+	TEST(bpf(BPF_MAP_LOOKUP_ELEM, attr, sizeof(*attr)));
-+	if (TST_RET == -1) {
-+		tst_res(TFAIL | TTERRNO, "array map lookup");
-+	} else if (*val != A64INT + 1) {
-+		tst_res(TFAIL,
-+			"val = %lu, but should be val = %lu + 1",
-+			*val, A64INT);
-+        } else {
-+	        tst_res(TPASS, "val = %lu + 1", A64INT);
-+	}
-+
-+	*key = 1;
-+
-+	TEST(bpf(BPF_MAP_LOOKUP_ELEM, attr, sizeof(*attr)));
-+	if (TST_RET == -1) {
-+		tst_res(TFAIL | TTERRNO, "array map lookup");
-+	} else if (*val != A64INT - 1) {
-+		tst_res(TFAIL,
-+			"val = %lu, but should be val = %lu - 1",
-+			*val, A64INT);
-+        } else {
-+	        tst_res(TPASS, "val = %lu - 1", A64INT);
-+	}
-+
-+	SAFE_CLOSE(prog_fd);
-+	SAFE_CLOSE(map_fd);
-+	SAFE_CLOSE(sk[0]);
-+	SAFE_CLOSE(sk[1]);
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.test_all = run,
-+	.min_kver = "3.18",
-+	.caps = (struct tst_cap []) {
-+		TST_CAP(TST_CAP_DROP, CAP_SYS_ADMIN),
-+		{}
-+	},
-+	.bufs = (struct tst_buffers []) {
-+		{&key, .size = sizeof(*key)},
-+		{&val, .size = sizeof(*val)},
-+		{&log, .size = BUFSIZ},
-+		{&attr, .size = sizeof(*attr)},
-+		{&msg, .size = sizeof(MSG)},
-+		{},
-+	}
-+};
--- 
-2.22.1
+> Hi!
+>> also Cyril noted on Github issue #557 [1]:
+>> "However I'm not sure that we should do this since kernel devs declared this to be bug after all."
+>>
+>> So maybe we should wait before applying it.
+>>
+>> @Cyril: can you please post link to discussion in LKML?
+> I've talked to Jan Kara in person while developing these tests, so there
+> is no track of this discussion.
+>
+> I guess that the best we can do here is to:
+>
+> * Apply this patch, since the test should generally check only for flags
+>    that are supported in the bitflag returned by the syscall
+>
+> * Add another test that checks that these bitflags are enabled for new
+>    enough kernels for certain set of filesystems
+
+Hi Cyril
+
+Do you mean use getxattr to ensure bitflags are enable or a functions test?
+I am confused.
+
+Thanks
+Yang Xu
+
+>
+
+
+
+--------------DB9B89F4050BC66D8201F5BB
+Content-Type: text/html; charset="gbk"
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=GBK">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">
+      <pre>on 2019/08/27 18:16, Cyril Hrubis wrote:</pre>
+    </div>
+    <blockquote type="cite" cite="mid:20190827101644.GA30582@rei">
+      <pre class="moz-quote-pre" wrap="">Hi!
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">also Cyril noted on Github issue #557 [1]:
+"However I'm not sure that we should do this since kernel devs declared this to be bug after all."
+
+So maybe we should wait before applying it.
+
+@Cyril: can you please post link to discussion in LKML?
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+I've talked to Jan Kara in person while developing these tests, so there
+is no track of this discussion.
+
+I guess that the best we can do here is to:
+
+* Apply this patch, since the test should generally check only for flags
+  that are supported in the bitflag returned by the syscall
+
+* Add another test that checks that these bitflags are enabled for new
+  enough kernels for certain set of filesystems</pre>
+    </blockquote>
+    <pre>Hi Cyril
+
+Do you mean use getxattr to ensure bitflags are enable or a functions test?
+I am confused.
+
+Thanks
+Yang Xu 
+</pre>
+    <blockquote type="cite" cite="mid:20190827101644.GA30582@rei">
+      <pre class="moz-quote-pre" wrap="">
+
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------DB9B89F4050BC66D8201F5BB--
+
+--===============0860865379==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0860865379==--
