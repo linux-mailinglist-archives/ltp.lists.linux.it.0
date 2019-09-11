@@ -1,50 +1,50 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D053AFC4D
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Sep 2019 14:13:55 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 56BD9AFC69
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Sep 2019 14:21:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E3E913C20A9
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Sep 2019 14:13:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B93C63C20C6
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Sep 2019 14:21:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 33B963C1481
- for <ltp@lists.linux.it>; Wed, 11 Sep 2019 14:13:50 +0200 (CEST)
-Received: from mail-m965.mail.126.com (mail-m965.mail.126.com [123.126.96.5])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id C7B7B2014BF
- for <ltp@lists.linux.it>; Wed, 11 Sep 2019 14:13:46 +0200 (CEST)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 510C23C1481
+ for <ltp@lists.linux.it>; Wed, 11 Sep 2019 14:21:48 +0200 (CEST)
+Received: from mail-m964.mail.126.com (mail-m964.mail.126.com [123.126.96.4])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id F1B5A1003AA0
+ for <ltp@lists.linux.it>; Wed, 11 Sep 2019 14:21:37 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=jQZI0
- S74JnvgqJBgZZymS71Szy75Z9lSAR0br+Va/kQ=; b=TSl8aMe/NTAF/vYLVJ6xV
- 72hFzdqDJgqOLm2zgrEleyni3gBhoVDPpLy0YirYjcR4kb9dQdvKgT/N1o1HmslD
- VfvFZ7UPJldGlD3E+pYJPK7mVsgHHddsAc8QTyBDHdLMgWfqyIkufQaPOeKXkyK/
- jreu4hGbpb5UWjT73oPJAY=
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=tZg8a
+ hPVN3ZRuhugSJha+KOyWsbPUuE3V78vYNwe2ik=; b=bmW/rig4nf+cudiRUggTm
+ +h5LTLrDS++39imPMlZ7boH6zeZkfSWvirZ5Bm+fJ04yH7drJmz7r3i1+4udZuac
+ uwfY3dSqAIAwSR50qZs+Se47l/njxEy093/SCfiUIvdKF3JkcU7dkIMTjN9WP9aa
+ c7H7o8U1xVnx/ZyF+lLXeE=
 Received: from localhost.cn (unknown [114.247.175.195])
- by smtp10 (Coremail) with SMTP id NuRpCgDnzlH15HhdVXwiMg--.3606S2;
- Wed, 11 Sep 2019 20:13:42 +0800 (CST)
+ by smtp9 (Coremail) with SMTP id NeRpCgCH2nrW5nhdpfZwAg--.1966S2;
+ Wed, 11 Sep 2019 20:21:42 +0800 (CST)
 From: "Wu,Haiqiang" <frequentemail@126.com>
 To: frequentemail@126.com,
 	ltp@lists.linux.it
-Date: Wed, 11 Sep 2019 20:13:39 +0800
-Message-Id: <20190911121339.1359-1-frequentemail@126.com>
+Date: Wed, 11 Sep 2019 20:21:41 +0800
+Message-Id: <20190911122141.28113-1-frequentemail@126.com>
 X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-X-CM-TRANSID: NuRpCgDnzlH15HhdVXwiMg--.3606S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr4rGryUKF15Kr45GF4Durg_yoW8WF48pF
- 9FvrZ2vr4fJF1kAw40qws5Cr1rJw45XF4xGF4jyw4fGr4xAF1UW3Wv9Fy2vas0grZxW3yS
- yF4ktr4Fgw1rtaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRhmiiUUUUU=
+X-CM-TRANSID: NeRpCgCH2nrW5nhdpfZwAg--.1966S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CFWUWw15trWkGF1fXrWUurg_yoW8Ww4kpF
+ 9Fvrs2vr4fJF1kAw40qws5ur1rJw45XF4xGF4jyw4fGr4xAF1UW34v9Fy2vasIqrZxW3yS
+ yF4ktr4Fgw1rtaDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRqiihUUUUU=
 X-Originating-IP: [114.247.175.195]
-X-CM-SenderInfo: 5iuh135hqwvzxdloqiyswou0bp/1tbi2hAtHFuwKPOJWAAAsa
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-CM-SenderInfo: 5iuh135hqwvzxdloqiyswou0bp/1tbi7RYtHFpD8jnnEgAAst
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
 Subject: [LTP] [PATCH] [Fixes]:#570
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -62,6 +62,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Signed-off-by: Wu,Haiqiang <frequentemail@126.com>
 ---
  testcases/kernel/syscalls/dup2/dup201.c | 24 +++++-------------------
  1 file changed, 5 insertions(+), 19 deletions(-)
