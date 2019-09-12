@@ -2,65 +2,55 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48EE3B06DD
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Sep 2019 04:51:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA52FB0723
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Sep 2019 05:28:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F21743C2085
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Sep 2019 04:51:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5B2D83C20A7
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Sep 2019 05:28:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 23F9B3C0507
- for <ltp@lists.linux.it>; Thu, 12 Sep 2019 04:51:38 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 922B86023D6
- for <ltp@lists.linux.it>; Thu, 12 Sep 2019 04:51:36 +0200 (CEST)
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
- [209.85.210.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 148EE2CE953
- for <ltp@lists.linux.it>; Thu, 12 Sep 2019 02:51:34 +0000 (UTC)
-Received: by mail-ot1-f72.google.com with SMTP id i19so7478447otc.16
- for <ltp@lists.linux.it>; Wed, 11 Sep 2019 19:51:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=CZ/fyZCQg+G0MJu1Ns9ItGf4InCr4RchnRxgrwOnlmE=;
- b=CtYCQ89MUdb11onGj+xZP2ev/vLZ0ovEbYPeYTSHTFuwx4850y/4FT4Foe802M7NaT
- k78zSS7aLPImexb6uDzvrPUqHm/8ahGdHuN2/T16Qo20E8wvMDYpPyy5D2BJ/xdJs15q
- EfdRdS1LNNHCz15ewLrnrEn3nECGyaQIjCIaQB26FbdokDuVvtTfdMT3RsKKVdVmVSzB
- 3A+gxW/47zZU7vRplpShfzKljoeFZ7Q7KfrnJlIEWryKtTeTiuBq5wBKoMKdxGOTcfni
- baVkoL899uKQCZ8LDrX+uvdGGsFZsp/ELSqltCG5+fQsZtnXnnU2/pakEZ7AcdrWAUNg
- t6Zw==
-X-Gm-Message-State: APjAAAXgGKp1ig4y0fViUMuaO0P1N+B3XJen2Lv5lu0CNE5MdnJQRTWc
- EGjjXiE88SEHd4EoPV/pnYENfPvOCDcQr8BcUaJch96UTRONkkrWe5efJgL5NuWPaMl2PF1nBPy
- 3chIbgPcfGX9LPh6rse3NGDcC6g0=
-X-Received: by 2002:aca:d846:: with SMTP id p67mr4029669oig.144.1568256693518; 
- Wed, 11 Sep 2019 19:51:33 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqw/ud7rWjIkPS5j5KGlyO0Vmv1AbxN8kia+uCx5hLzP+h9u1cWCKhZ6bVdVN4YHf0ULPnw26SMzx3wS2pvgybk=
-X-Received: by 2002:aca:d846:: with SMTP id p67mr4029656oig.144.1568256693152; 
- Wed, 11 Sep 2019 19:51:33 -0700 (PDT)
-MIME-Version: 1.0
-References: <1567576823-10080-1-git-send-email-shuang.qiu@oracle.com>
- <CAEemH2fiJkau0A3yQH+nHVPXMwtTzyV3_weTQRniZFR+EJqN_g@mail.gmail.com>
- <20190911111900.GA19244@rei.lan>
-In-Reply-To: <20190911111900.GA19244@rei.lan>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 12 Sep 2019 10:51:21 +0800
-Message-ID: <CAEemH2eMYmquWXAHXUuPQ1Li2DSfvHpV01O4GMQFZ0Z0s=8+hw@mail.gmail.com>
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id E57593C04F4
+ for <ltp@lists.linux.it>; Thu, 12 Sep 2019 05:28:42 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 1602C1A00CAF
+ for <ltp@lists.linux.it>; Thu, 12 Sep 2019 05:28:40 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.64,495,1559491200"; d="scan'208,217";a="75336736"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 12 Sep 2019 11:28:38 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id 53FB84CDFAC5;
+ Thu, 12 Sep 2019 11:28:28 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ id 14.3.439.0; Thu, 12 Sep 2019 11:28:36 +0800
 To: Cyril Hrubis <chrubis@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+References: <20190802115046.GB27727@rei>
+ <1566282838-2980-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20190827092520.GA28859@dell5510> <20190827095858.GB28859@dell5510>
+ <20190827101644.GA30582@rei>
+ <05330771-04f6-0fe4-f99d-eb55ff8b733c@cn.fujitsu.com>
+ <20190911124714.GA21670@rei.lan>
+From: =?UTF-8?B?WHUsIFlhbmcv5b6QIOadqA==?= <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <234dd7e2-8347-28f4-52d5-a1318f3f8efd@cn.fujitsu.com>
+Date: Thu, 12 Sep 2019 11:28:35 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.0
+MIME-Version: 1.0
+In-Reply-To: <20190911124714.GA21670@rei.lan>
+X-Originating-IP: [10.167.220.84]
+X-yoursite-MailScanner-ID: 53FB84CDFAC5.A12EB
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=FROM_EXCESS_BASE64,
+ HTML_MESSAGE,KHOP_HELO_FCRDNS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_PASS,
- SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] madvise09:Change PAGES size to the value more
- than 32
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] syscalls/statx04: use stx_attributes_mask
+ before test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,65 +62,155 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0358060247=="
+Cc: ltp@lists.linux.it
+Content-Type: multipart/mixed; boundary="===============0425559216=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0358060247==
-Content-Type: multipart/alternative; boundary="0000000000001ccf1c05925237bf"
+--===============0425559216==
+Content-Type: multipart/alternative;
+	boundary="------------61DBAE30D600C716F314101F"
 
---0000000000001ccf1c05925237bf
-Content-Type: text/plain; charset="UTF-8"
+--------------61DBAE30D600C716F314101F
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 11, 2019 at 7:19 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+
+on 2019/09/11 20:47, Cyril Hrubis wrote:
 
 > Hi!
-> > I'm not sure why 64 pages is a proper value? Can you explain more?
+>> Do you mean use getxattr to ensure bitflags are enable or a functions test?
+>> I am confused.
+> For a given filesystem the support for filling in these flags was added
+> at some point to the kernel. If any kernel newer that this version fails
+> to fill them up it's a bug.
 >
-> I've just talked to Michal Hocko and the conclusion is that we should
-> allocate several megabytes to avoid depending kernel implementation
-> details, which would mean allocating thousands of pages.
+> For ext2 it has been added in:
+>
+> commit 93bc420ed41df63a18ae794101f7cbf45226a6ef
+> Author: yangerkun <yangerkun@huawei.com>
+> Date:   Mon Feb 18 09:07:02 2019 +0800
+>
+>      ext2: support statx syscall
+>
+> Hence starting kernel 5.0 ext2 (with ext2 driver) has to set the mask.
+>
+> For ext4 it has been added in:
+>
+> commit 3209f68b3ca4667069923a325c88b21131bfdf9f
+> Author: David Howells <dhowells@redhat.com>
+> Date:   Fri Mar 31 18:32:17 2017 +0100
+>
+> 	statx: Include a mask for stx_attributes in struct statx
+>
+>
+> Hence for ext4 the flags should be enabled since kernel 4.11
+
+Hi Cyril
+
+Thanks, I see. It seems that kernel version check is useful for upstream kernel. But if an LTS linux distribution backports the commit
+93bc420 for ext2, this kernel version will make no sense.  I remember ltp has a discussion between EISDIR and EBDAF about
+copy_file_range[1]. Also ext2 should enable CONFIG_EXT2_FS_XATTR if we don't use ext4 instead of it.
+
+IMO, we don't need to add kernel enable version check for various filesystems because QA or user can find their system doesn't support
+these flags and report this to linux distribution vendor. So these flags may be supported on next release.
+
+If kernel enables these flags fails to fill them up it's a bug.  We can only give some comments  about their enabled commit information.
+So user can know it is a bug or a non-supported feature.
+
+ps: I have a question about min_kernel all the time. If a new feature(such as PR_CAP_AMBIENT ) is introduced since upstream kernel 4.3,
+but this feature is also backported on low version kernel on some linux distributions. What kind of situation can we use the min_kernel
+to distinguish it? what kind of situation we don't need? test-writing-guidelines.txt doesn't mention it.
+
+Thanks
+Yang Xu
+
+>
+> etc.
 >
 
-Sounds reasonable. Allocating thousands of pages must trigger the MADV_FREE
-page reclaiming.
 
-@shuang.qiu, Hi Shuang, would you mind to rewrite the patch, or should I do
-that?
 
--- 
-Regards,
-Li Wang
-
---0000000000001ccf1c05925237bf
+--------------61DBAE30D600C716F314101F
 Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Wed, Sep 11, 2019 at 7:19 PM Cyril Hrubis &lt;<a=
- href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a>&gt; =
-wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
-px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
-&gt; I&#39;m not sure why 64 pages is a proper value? Can you explain more?=
-<br>
-<br>
-I&#39;ve just talked to Michal Hocko and the conclusion is that we should<b=
-r>
-allocate several megabytes to avoid depending kernel implementation<br>
-details, which would mean allocating thousands of pages.<br></blockquote><d=
-iv><br></div><div><div class=3D"gmail_default">Sounds reasonable. Allocatin=
-g thousands of pages must trigger the=C2=A0MADV_FREE page reclaiming.</div>=
-</div><div><br></div></div><div class=3D"gmail_default" style=3D"font-size:=
-small">@shuang.qiu, Hi Shuang, would you mind to rewrite the patch, or shou=
-ld I do that?</div><div><br></div>-- <br><div dir=3D"ltr" class=3D"m_906340=
-6343708931987gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>=
-Li Wang<br></div></div></div></div>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">
+      <pre>on 2019/09/11 20:47, Cyril Hrubis wrote:</pre>
+    </div>
+    <blockquote type="cite" cite="mid:20190911124714.GA21670@rei.lan">
+      <pre class="moz-quote-pre" wrap="">Hi!
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">Do you mean use getxattr to ensure bitflags are enable or a functions test?
+I am confused.
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+For a given filesystem the support for filling in these flags was added
+at some point to the kernel. If any kernel newer that this version fails
+to fill them up it's a bug.
 
---0000000000001ccf1c05925237bf--
+For ext2 it has been added in:
 
---===============0358060247==
+commit 93bc420ed41df63a18ae794101f7cbf45226a6ef
+Author: yangerkun <a class="moz-txt-link-rfc2396E" href="mailto:yangerkun@huawei.com">&lt;yangerkun@huawei.com&gt;</a>
+Date:   Mon Feb 18 09:07:02 2019 +0800
+
+    ext2: support statx syscall
+
+Hence starting kernel 5.0 ext2 (with ext2 driver) has to set the mask.
+
+For ext4 it has been added in:
+
+commit 3209f68b3ca4667069923a325c88b21131bfdf9f
+Author: David Howells <a class="moz-txt-link-rfc2396E" href="mailto:dhowells@redhat.com">&lt;dhowells@redhat.com&gt;</a>
+Date:   Fri Mar 31 18:32:17 2017 +0100
+
+	statx: Include a mask for stx_attributes in struct statx
+
+
+Hence for ext4 the flags should be enabled since kernel 4.11</pre>
+    </blockquote>
+    <pre>Hi Cyril 
+</pre>
+    <pre>Thanks, I see. It seems that kernel version check is useful for upstream kernel. But if an LTS linux distribution backports the commit 
+93bc420 for ext2, this kernel version will make no sense.  I remember ltp has a discussion between EISDIR and EBDAF about 
+copy_file_range[1]. Also ext2 should enable CONFIG_EXT2_FS_XATTR if we don't use ext4 instead of it.  
+
+IMO, we don't need to add kernel enable version check for various filesystems because QA or user can find their system doesn't support
+these flags and report this to linux distribution vendor. So these flags may be supported on next release. 
+
+If kernel enables these flags fails to fill them up it's a bug.  We can only give some comments  about their enabled commit information. 
+So user can know it is a bug or a non-supported feature.
+
+ps: I have a question about min_kernel all the time. If a new feature(such as PR_CAP_AMBIENT ) is introduced since upstream kernel 4.3, 
+but this feature is also backported on low version kernel on some linux distributions. What kind of situation can we use the min_kernel 
+to distinguish it? what kind of situation we don't need? test-writing-guidelines.txt doesn't mention it.
+
+Thanks
+Yang Xu 
+</pre>
+    <blockquote type="cite" cite="mid:20190911124714.GA21670@rei.lan">
+      <pre class="moz-quote-pre" wrap="">
+
+etc.
+
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------61DBAE30D600C716F314101F--
+
+--===============0425559216==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -140,4 +220,4 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============0358060247==--
+--===============0425559216==--
