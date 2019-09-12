@@ -2,59 +2,59 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A160B0DDE
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Sep 2019 13:33:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4FA4B0DDF
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Sep 2019 13:33:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2D7E53C2091
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Sep 2019 13:33:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A252B3C20CE
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Sep 2019 13:33:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 96C883C0309
- for <ltp@lists.linux.it>; Thu, 12 Sep 2019 12:08:04 +0200 (CEST)
-Received: from m4a0041g.houston.softwaregrp.com
- (m4a0041g.houston.softwaregrp.com [15.124.2.87])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id AE6963C207F
+ for <ltp@lists.linux.it>; Thu, 12 Sep 2019 12:37:18 +0200 (CEST)
+Received: from m9a0003g.houston.softwaregrp.com
+ (m9a0003g.houston.softwaregrp.com [15.124.64.68])
  (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id BEB22101315B
- for <ltp@lists.linux.it>; Thu, 12 Sep 2019 12:07:49 +0200 (CEST)
-Received: FROM m4a0041g.houston.softwaregrp.com (15.120.17.147) BY
- m4a0041g.houston.softwaregrp.com WITH ESMTP; 
- Thu, 12 Sep 2019 10:06:06 +0000
-Received: from M4W0335.microfocus.com (2002:f78:1193::f78:1193) by
- M4W0335.microfocus.com (2002:f78:1193::f78:1193) with Microsoft SMTP Server
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D2BFC14088F4
+ for <ltp@lists.linux.it>; Thu, 12 Sep 2019 12:35:55 +0200 (CEST)
+Received: FROM m9a0003g.houston.softwaregrp.com (15.121.0.190) BY
+ m9a0003g.houston.softwaregrp.com WITH ESMTP; 
+ Thu, 12 Sep 2019 10:35:06 +0000
+Received: from M9W0067.microfocus.com (2002:f79:be::f79:be) by
+ M9W0067.microfocus.com (2002:f79:be::f79:be) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10; Thu, 12 Sep 2019 09:51:06 +0000
-Received: from NAM05-BY2-obe.outbound.protection.outlook.com (15.124.8.11) by
- M4W0335.microfocus.com (15.120.17.147) with Microsoft SMTP Server
+ 15.1.1591.10; Thu, 12 Sep 2019 10:16:43 +0000
+Received: from NAM03-BY2-obe.outbound.protection.outlook.com (15.124.72.12) by
+ M9W0067.microfocus.com (15.121.0.190) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10 via Frontend Transport; Thu, 12 Sep 2019 09:51:06 +0000
+ 15.1.1591.10 via Frontend Transport; Thu, 12 Sep 2019 10:16:43 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Oa03ZQij/EhQJJsJua/q1DaUAan5hfOWoI7abE6c3fz9wV+zc4Cr8vefb6ASWCdgCb+6zPRQqeLKzzctWrRv92jyGzoHM5p+kma6tBYvOJ0BkyPqArdkFT1SCoC0vlBb0KqFaM6CfVNYunHvocRPd47ISjkoTJ6zbYr7PvdraoUS2R3DiynMPQGp70Mltn1Wb0r/IoGPGlHji9btamJNlhqymlNr2O69VAgIE6p6s7IMCW1/30+qppuwT6nWAk7anX22Q8iHzPLdei3h0MaN6hxJFJlAjWB6qrVsoiAczPc0muH2dASKxc14XhuR8tus7mPWpI4t53Mmc4hM0egfXQ==
+ b=TUg8NUxJL7yc3tLLS0NW529K79oXXq4MMEZ63UVYIQkQTGBuU3KnzyhmvZN2+dnYbaAmsulkTFDJfeUc/KidrxEYWM8LzsOb/JpIUZjgd5wvLjOSxguP252X8MlqhaupyXZ0Pt4t72eYYxmbH2Vu6+2rDGkdxtCN5PUR9tqJH2N5jK3QIRWbNvXnEbrZdPhuJvHnur2SK1ehGktKy9KQZVsn7m3CINjr/gS/fzvZDa0s1JTfe6qTlkAhI0s9bHUPTUpr+UBK7duP2GBU52OKTXnhavBY+WnmZtEvNui1YHwj/CpS2FzfBUQqjmqUHtWolc+Ph6UbTM/Q5Qt7GoKyjQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=idhPhe6MbFeHJbQ9FA9tOSivyEWhioT5PVfUjRGTpyo=;
- b=BAgBVLlRqbyufDIBvvZsgkO6AFP/8FiaykegRKZPJ/Q2j81DtoZ+5ACBEI5dmX3GFiFoF1ULW+EgIJlBadhNget6jfjKWnwmGyBLTQswTiLk2bD+5897E8cJXGO2SnoCfv0fiFnKtTv73PNqvr20NgoWc+OLiIVBpnFgcuxWvCKlwr2wPJ3Tm/ehWRtpy11/w+ub2WL8IlYU9gF8Vr4chQx5Sk42wU/N6kyH1xIX9nOhTX2OE5d4OF8rvVgRfSdrOhPFP+bjAq33/AuYHXgROsLV6ccsQeXu2TqZj9vLqXn8E+jBGicq/dAHnuL3VhjNugDputSmcoYWcQjo3gEHcw==
+ bh=xxs1bsgTvhwJ0FAK9Fs3j3inJ3CtyBOkC4cbmQ6sN7g=;
+ b=VljhDanIh+ZsP/2pOK2dCzVkHj9WMcEqvtI8GxwTv8nMwELc8ZZgnnZVTSIPCtwReiou8XNqedkD4SHa6Gs9Dr/mi0ZH9rDbMOsFTo8q5aFOxCYmUIaWixHxnLIded8Dd9/etSCxOx7pAEdQtQYn0pf9ukGEcyQwRrwM+KFt8MlM2LyRrbrceD6VMS8jueDnygmGrFbv9MXp176hJc4vNMVtmkf4PNh+HKWiDc2JRstj8qqvTvvMhXOE0IbS4wU6uBYwU4vHUAsvs1dLkIcZ4GfnRlNT2/PDjaD9h2tnog5kHh081xMAz/aZPqMs638qGYSppP8mBl7s5w4lKDLuwQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Received: from CH2PR18MB3206.namprd18.prod.outlook.com (52.132.247.79) by
- CH2PR18MB3109.namprd18.prod.outlook.com (52.132.231.219) with Microsoft SMTP
+ CH2PR18MB3255.namprd18.prod.outlook.com (52.132.245.21) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2241.17; Thu, 12 Sep 2019 09:51:04 +0000
+ 15.20.2241.18; Thu, 12 Sep 2019 10:16:37 +0000
 Received: from CH2PR18MB3206.namprd18.prod.outlook.com
  ([fe80::d08b:9bf9:2af:2207]) by CH2PR18MB3206.namprd18.prod.outlook.com
  ([fe80::d08b:9bf9:2af:2207%4]) with mapi id 15.20.2241.018; Thu, 12 Sep 2019
- 09:51:04 +0000
+ 10:16:37 +0000
 From: Clemens Famulla-Conrad <cfamullaconrad@suse.com>
-To: "liwang@redhat.com" <liwang@redhat.com>
+To: "liwang@redhat.com" <liwang@redhat.com>, "cristian.marussi@arm.com"
+ <cristian.marussi@arm.com>
 Thread-Topic: [LTP] [PATCH] memcg_stress_test.sh: Respect LTP_TIMEOUT_MUL set
  by user
-Thread-Index: AQHVaU1TeJE6lGUN70ewINNFJ73YC6cnzJKA
-Date: Thu, 12 Sep 2019 09:51:04 +0000
-Message-ID: <1568281863.3621.15.camel@suse.com>
+Thread-Index: AQHVaU1TeJE6lGUN70ewINNFJ73YC6cnzfBtgAAFx4A=
+Date: Thu, 12 Sep 2019 10:16:37 +0000
+Message-ID: <1568283397.3621.23.camel@suse.com>
 References: <20190829181146.20261-1-pvorel@suse.cz>
  <CAEemH2dzn92GYwiw2tP101wNkYfM30rfL=cmPU+B1iH-8UWoDw@mail.gmail.com>
  <20190830085036.GA27453@dell5510>
@@ -63,7 +63,8 @@ References: <20190829181146.20261-1-pvorel@suse.cz>
  <CAEemH2ch1+asP7OKikqrM4Sea2f2xvVB4JPbUqDkm41cFJ+kdg@mail.gmail.com>
  <1568279073.3621.12.camel@suse.de>
  <CAEemH2cw+O5ZrZyQV5qy7wp6-h1SSinu3ENueRG7Gr--xJCRfA@mail.gmail.com>
-In-Reply-To: <CAEemH2cw+O5ZrZyQV5qy7wp6-h1SSinu3ENueRG7Gr--xJCRfA@mail.gmail.com>
+ <e07d08e2-df58-2114-0278-8f1e50f2ac3a@arm.com>
+In-Reply-To: <e07d08e2-df58-2114-0278-8f1e50f2ac3a@arm.com>
 Accept-Language: de-DE, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -72,39 +73,39 @@ authentication-results: spf=none (sender IP is )
  smtp.mailfrom=cfamullaconrad@suse.com; 
 x-originating-ip: [94.134.172.166]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: ccb65db1-d9b3-4c43-2f8a-08d73766ba15
+x-ms-office365-filtering-correlation-id: e6659779-ea8c-4b38-a2ed-08d7376a4c11
 x-microsoft-antispam: BCL:0; PCL:0;
  RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600166)(711020)(4605104)(1401327)(2017052603328)(7193020);
- SRVR:CH2PR18MB3109; 
-x-ms-traffictypediagnostic: CH2PR18MB3109:
-x-microsoft-antispam-prvs: <CH2PR18MB31095B1D89FEDF4E6E7EA0E4ADB00@CH2PR18MB3109.namprd18.prod.outlook.com>
+ SRVR:CH2PR18MB3255; 
+x-ms-traffictypediagnostic: CH2PR18MB3255:
+x-microsoft-antispam-prvs: <CH2PR18MB3255706D89B88131A8C9DAE7ADB00@CH2PR18MB3255.namprd18.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:10000;
 x-forefront-prvs: 01583E185C
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(4636009)(136003)(346002)(376002)(39860400002)(396003)(366004)(199004)(189003)(6916009)(229853002)(8936002)(305945005)(99286004)(36756003)(86362001)(53936002)(6512007)(5660300002)(6116002)(6436002)(5640700003)(6486002)(3846002)(54906003)(2351001)(7736002)(8676002)(1730700003)(6246003)(316002)(11346002)(446003)(14454004)(478600001)(2906002)(102836004)(76176011)(25786009)(4326008)(81166006)(81156014)(14444005)(256004)(486006)(6506007)(26005)(476003)(2616005)(186003)(2501003)(66066001)(71200400001)(71190400001)(64756008)(76116006)(91956017)(66946007)(66556008)(66476007)(66446008)(103116003);
- DIR:OUT; SFP:1102; SCL:1; SRVR:CH2PR18MB3109;
+ SFS:(10019020)(4636009)(376002)(136003)(396003)(39860400002)(346002)(366004)(199004)(189003)(99286004)(64756008)(66066001)(66556008)(476003)(446003)(11346002)(2616005)(66476007)(66446008)(4326008)(305945005)(256004)(14444005)(186003)(36756003)(66946007)(486006)(8676002)(81156014)(81166006)(14454004)(8936002)(6506007)(102836004)(25786009)(478600001)(3846002)(6116002)(2906002)(91956017)(86362001)(53936002)(6436002)(71190400001)(71200400001)(6512007)(2501003)(6486002)(103116003)(76176011)(7736002)(26005)(5660300002)(54906003)(76116006)(316002)(229853002)(110136005)(6246003);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:CH2PR18MB3255;
  H:CH2PR18MB3206.namprd18.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: suse.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: docsyFgomtJd5+ti4ilxR7Jny6KD4Pz9BLK6hbzdI/5/wSnV1nWVQsXt0vp/hY3yeK1OYXUb55iC5RUsymui9F9ez2QWSgVb79x1HYosV9SIw25o4jmqiE2h+auP5+cVdz7bQPJNqaqeFt3g6mAAvwJoLWgkiBcn7kHNMMeNI8hZ44AYx4x28bFYQKQIJ9+zHrE/ZHyosbL+iaq+gdi3ra9kmbcNiUAXdAWJQpOfWx3nWqJMh8JMzxhDVXES1RHjaHac6uE+4sZ2iNsR863oPitX0oe7+LsHd9fmhHisk90VAjHkAkG6+QGN5UbkWjs56+ZARlwniFSPNiBppY52D/4xUpHGv9B7QkO4k44ioFtA0+H4lovynPXKUOiZ/KL/LBnUHa119Rh8S776IoIB+02D5HlNRHaz88GXvm6roFM=
+x-microsoft-antispam-message-info: +DWcj8SO/Cj1DW9029x0RTp8aw4ESln89Y+NS6N65/3AWxCzBhkONv9HosG7NnQjRghgOfn0ModW46o5vgNPwQsyXf/od7pA78VLb2fA47AX9sukmtM4kFYIvUFPQ5uus4q5xgXXpeU+uU7fYCqyAUDxCDaMqCVoQ2fWQn4r/jgmmj9lO41i2CFttV9P1LLSuQxDhFw9m/cjPQCitzxjsvIAuae+023Q34E/BqdJeIiB/wsg3EUrgV/We5RQbYXu/Ulg8KOk8Ir32wqhnP99obooIgPr2cvKgYCiyeo7Ka12ALMX4A/kB0X0NLKfxLMtvYmKkhqb+GC02J6EsxuMo9itllYlDt0eNfjAJDu5vYIgAvUk/XwGHlags5YBT6e65eWWx+4gvfUvtmVbuLin5qs8uMMEx7DCFPRMEWZ5N7c=
 x-ms-exchange-transport-forked: True
-Content-ID: <4D19C7F7A7733E4BA74AFC9CC79A6384@namprd18.prod.outlook.com>
+Content-ID: <7D9EDEFE88EA7447920AD9A7CE6D57E2@namprd18.prod.outlook.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: ccb65db1-d9b3-4c43-2f8a-08d73766ba15
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Sep 2019 09:51:04.3167 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e6659779-ea8c-4b38-a2ed-08d7376a4c11
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Sep 2019 10:16:37.7100 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7tR5KOHffQXmNJ7P9qB4quX32OesCkUCLJagZHVK6m6QxtNFjCY5thGjYqMfOgqpAi0JoDvDBgqljGm3qVGS5A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR18MB3109
+X-MS-Exchange-CrossTenant-userprincipalname: sS/aEPwAwXWBO9fyU0/wHpjS5f9c7SIbo/nUXceQHYXyI2vGMiErGQU+2/WkhTpLdpG0c8cDoUitcbVq8BUUnQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR18MB3255
 X-OriginatorOrg: suse.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
 X-Mailman-Approved-At: Thu, 12 Sep 2019 13:33:15 +0200
 Subject: Re: [LTP] [PATCH] memcg_stress_test.sh: Respect LTP_TIMEOUT_MUL set
  by user
@@ -125,69 +126,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Thu, 2019-09-12 at 17:34 +0800, Li Wang wrote:
-> > > > > I also wonder if it is worth somehow put this minimum-enforce
-> > > > > mechanism inside the framework itself
-> > > > > instead that hardcoding it in this specific test (unless you
-> > > > > already mean to do it this way...
-> > > > > and I misunderstood)
-> > > > 
-> > > > Yes, I was thinking about it as well.
-> > > > LTP_TIMEOUT_MUL should be reserved for users, tests should use
-> > > > LTP_TIMEOUT_MUL_MIN,
-> > > > check for LTP_TIMEOUT_MUL being higher than LTP_TIMEOUT_MUL_MIN
-> > > > would be in
-> > > > _tst_setup_timer(). Similar mechanism I introduced in 9d6a960d9
-> > > > (VIRT_PERF_THRESHOLD_MIN).
-> > > 
-> > > +1 agree.
+On Thu, 2019-09-12 at 10:55 +0100, Cristian Marussi wrote:
+> Hi
+> 
+> > Hmm, what we want to do is:
 > > 
-> > I have a general question. What do we try to get with
-> > LTP_TIMEOUT_MUL_MIN? From my perspective, we try to set a minimum
-> > timeout value. Isn't it the value (struct tst_test*)->timeout ?
+> > If a testcase needs timeout value is larger than the default (300
+> > sec), we
+> > could only define a variable LTP_TIMEOUT_MUL_MIN in the test, then
+> > the
+> > _tst_setup_timer() will detect if LTP_TIMEOUT_MUL_MIN is valid and
+> > reset
+> > the minimum time for the test.
 > > 
+> > @Petr and @Cristian, If I misunderstand anything, please correct
+> > me.
 > 
-> Well, the (struct tst_test*)->timeout is the default minimum value to
-> set a
-> timeout, but for some test case(e.g memcg_stress_test.sh), they
-> required
-> time should be higher than the default. So as we discussed in the
-> above
-> mails, we're planning to introduce a new variable LTP_TIMEOUT_MUL_MIN
-> to
-> set as a new minimum value for test timeout. The operation will be
-> encapsulate in function  _tst_setup_timer().
+> my understanding was that:
 > 
+> - we should already be able to set a non default per-test timeout
+> using
+>   the existing global LTP_TIMEOUT_MUL (and we are)
 > 
+> - in this test we hardcoded such LTP_TIMEOUT_MUL to 7 because is the
+> minimum sane
+>   value for this test (less than 7 and it fails 100%)
 > 
-> > 
-> > I'm missing such configuration value for shell. Is there one?
-> > 
+> - we want to allow again the user to specify its own LTP_TIMEOUT_MUL
+> if he wants
+>   BUT also being able to enforce on a test by test basis a MINIMUM
+> allowed value:
+>   so we would define LTP_TIMEOUT_MUL_MIN=7 here, and then a user
+> would be free to 
+>   run LTP with a different global LTP_TIMEOUT_MUL but when running
+> this test
+>   
+>   + if LTP_TIMEOUT_MUL < LTP_TIMEOUT_MUL_MIN ===> use local
+> LTP_TIMEOUT_MUL_MIN
+>   + if LTP_TIMEOUT_MUL >= LTP_TIMEOUT_MUL_MIN  ===> use global
+> LTP_TIMEOUT_MUL
 > 
-> No, we don't have it so far.
+> This way you don't break specific tests' needs while allowing the
+> user to global reduce
+> run-time....now basically the user cannot enforce a higher timeout on
+> this test
+> using the global LTP_TIMEOUT_MUL even if it should be allowed to
+> since this wouldn't
+> break the test.
 > 
-> 
-> > 
-> > Or do we need to increase timeout in smaller steps and that is why
-> > we
-> > need this LTP_TIMEOUT_MUL_MIN?
-> > 
-> 
-> Hmm, what we want to do is:
-> 
-> If a testcase needs timeout value is larger than the default (300
-> sec), we
-> could only define a variable LTP_TIMEOUT_MUL_MIN in the test, then
-> the
-> _tst_setup_timer() will detect if LTP_TIMEOUT_MUL_MIN is valid and
-> reset
-> the minimum time for the test.
-> 
-> @Petr and @Cristian, If I misunderstand anything, please correct me.
+> ...unless I misunderstood too o_O :D
 
-So from what I understood now, we need to specify a minimum timeout and
-not a minimum timeout multiplier.
-And we already have it for c, but only miss it in shell, or?
+Thanks for explaining. That's how I understood the idea of
+LTP_TIMEOUT_MUL_MIN, too.
+
+But what I understood from current "c" approach is:
+We have a fixed (minimal) timeout value, specified in (struct
+tst_test*)->timeout, which can be adjusted by user with environment
+variable TST_TIMEOUT_MUL.
+This behavior is missing in shell.
+
+And if we now introduce a LTP_TIMEOUT_MUL_MIN, it doesn't make much
+sense, cause we have already a timeout min. So I think, we only need
+something to specify the default minimum timeout in seconds for shell
+(like we already do in c) and we are done.
+
+Thanks
+Clemens
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
