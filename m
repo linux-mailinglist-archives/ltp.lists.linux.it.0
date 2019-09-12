@@ -2,85 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E80BB0EA0
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Sep 2019 14:10:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B765B0EDD
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Sep 2019 14:29:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D99C23C20BA
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Sep 2019 14:10:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9FAEF3C20B9
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Sep 2019 14:29:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 8AD483C0507
- for <ltp@lists.linux.it>; Thu, 12 Sep 2019 14:10:04 +0200 (CEST)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 3D9073C0507
+ for <ltp@lists.linux.it>; Thu, 12 Sep 2019 14:29:52 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 923E9604C88
- for <ltp@lists.linux.it>; Thu, 12 Sep 2019 14:10:03 +0200 (CEST)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x8CC987l061743;
- Thu, 12 Sep 2019 12:10:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : subject : to :
- references : message-id : date : mime-version : in-reply-to : content-type
- : content-transfer-encoding; s=corp-2019-08-05;
- bh=saWAMvWpFH48MqK6rbD8gDkWTj5Qpa5Fok2rm5z/MJ4=;
- b=Dux84QDEbIAh8CAIGEpRY7il4difl3iD+4QPJaWgj/jbTVtfJkbTGIMq5tJvgXd8AgqP
- PCzLG4wk+65noe1yvCGi2hLAlFbfExthW9WDCVKZuYxcp01+rglyTlFXjEdYW1VEsc4e
- e14W9fx/yXhvRjCUmszia0WhmZHSYzdhvR4UIQ+gaQ5G+EmX7POIF5mic0keXf5rNTqb
- u05yZ4+g1TOpS6wE87COcBpz7UCAcIwWyHEP6W0fqzLX/BXJP5AUOBcdggO4eAerekbn
- nhoF1Pg8MqQ0byiQLjVzqvuz9AvmEYVeWBnWpwW6D4ZtSKaWnBCxc2xuW8l7yZr0+2Kr 6g== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by userp2120.oracle.com with ESMTP id 2uw1jkqy7w-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 12 Sep 2019 12:10:00 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x8CC7iM4021080;
- Thu, 12 Sep 2019 12:09:59 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by userp3020.oracle.com with ESMTP id 2uy33c6q71-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 12 Sep 2019 12:09:59 +0000
-Received: from abhmp0005.oracle.com (abhmp0005.oracle.com [141.146.116.11])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id x8CC9rQU007977;
- Thu, 12 Sep 2019 12:09:58 GMT
-Received: from ak.ru.oracle.com (/10.162.80.29)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 12 Sep 2019 05:09:53 -0700
-From: Alexey Kodanev <alexey.kodanev@oracle.com>
-To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
-References: <20190903141610.28887-1-pvorel@suse.cz>
- <20190903141610.28887-2-pvorel@suse.cz>
-Organization: Oracle Corporation
-Message-ID: <867402c7-9a38-9646-6936-1eb6988a48b8@oracle.com>
-Date: Thu, 12 Sep 2019 15:12:49 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 64C9661665B
+ for <ltp@lists.linux.it>; Thu, 12 Sep 2019 14:29:53 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id EB880ACC3;
+ Thu, 12 Sep 2019 12:29:49 +0000 (UTC)
+Date: Thu, 12 Sep 2019 14:29:48 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: "Xu, Yang/??? ???" <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20190912122948.GB7714@rei.lan>
+References: <1560250815-2308-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <5D2D681D.1050909@cn.fujitsu.com> <5D440CAA.9080701@cn.fujitsu.com>
+ <5D6CC86E.5020009@cn.fujitsu.com> <20190911133315.GA21378@rei.lan>
+ <5b2b7314-5d0a-1bc6-11ff-7088171b86e6@cn.fujitsu.com>
 MIME-Version: 1.0
-In-Reply-To: <20190903141610.28887-2-pvorel@suse.cz>
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9377
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=948
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1906280000 definitions=main-1909120131
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9377
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1906280000
- definitions=main-1909120131
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <5b2b7314-5d0a-1bc6-11ff-7088171b86e6@cn.fujitsu.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 1/7] tst_net.sh: enhance tst_add_ipaddr(),
- add tst_del_ipaddr()
+X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] cgroup_regression_test.sh: fix test_5 possible
+ mount failure because of cgroup hierarchy
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,41 +50,65 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Petr,
-On 03.09.2019 17:16, Petr Vorel wrote:
-> These changes are intended for easier handling with IP addresses
-> (not have to calculate dad for IPv6 when adding IP address).
-> Add -a IP and -s options to tst_add_ipaddr()
+Hi!
+> > I'm looking at the original reproducer at:
+> >
+> > https://lists.openvz.org/pipermail/devel/2009-January/016345.html
+> >
+> > And as far as I can tell the test_5() was never actually doing what it
+> > takes to reproduce the bug, as far as I can tell the test was bogus to
+> > begin with. The main point of the reproducer is that the cgroup is
+> > unmounted while there is task in the group, then remounted again. As we
+> > cannot unmount the cgroup these days I would just go for removing the
+> > test instead of applying band aid over the code.
 > 
-> tst_del_ipaddr() (which uses internally tst_add_ipaddr()) is defined
-> mainly for better code readability.
-...
->  
-> -	tst_res_ TINFO "set remote addr $(tst_ipaddr rhost)/$mask"
-> -	tst_rhost_run -c "ip addr add $(tst_ipaddr rhost)/$mask dev $iface $dad"
-> +	tst_res_ TINFO "set remote addr $addr"
-
-                         ^
-                  Should be $action here?
-
-> +	tst_rhost_run $rsafe -c "ip addr $action $addr dev $iface $dad"
-> +}
-> +
-> +# tst_del_ipaddr [ tst_add_ipaddr options ]
-> +# Delete IP address
-> +tst_del_ipaddr()
-> +{
-> +	tst_add_ipaddr -d $@
->  }
->  
->  # tst_restore_ipaddr [TYPE] [LINK]
+> Hi Cyril
 > 
+> why we can't unmount the cgroup these days?
 
+It's a bit more complicated, you can't decide on which controllers to
+put into your hierarchy as it's mounted already (by a systemd). You can
+mount them exactly the way systemd mounts them (a few controllers are
+put into combined hierarchies but most of them are separated) but to a
+different mount point. Also once controller is in use in v2 it cannot be
+used by v1, which is going to be problem soon. As we are in transition
+period between v1 and v2 doing anything portable with cgroups is going
+to be nightmare.
+
+>  From kernel commit 839ec545("cgroup: fix root_count when mount fails due to busy subsystem"),
+> it should be reproduced as the following step
+> 1)mount two subsystem(A and B) mntpoint
+> 2)mount one subsystem(A) mntpoint, it will get EBUSY error
+> 3)without kernel commit, kill this process and task is still in cgroup, kernel will call cgroup_kill_sb()
+> to decrement root_count, then kernel crashes.
+> 
+> Is it right?
+
+This does not seem to match the original reproducer but it may be
+another way how to reproduce the bug. Also I'm not sure that this
+reproducer makes sense, since the code in kernel has been rewritten
+completely since the 2.6 days. Generally I would say that we may need
+completely new tests for cgroups, but I doubt that we should make much
+effort for the v1 anyways. In the v2 you get all controllers in an
+unified hierachy and you can't mount them in a different way.
+
+If the only point is to get EBUSY on mount, then have a process exit
+while in the cgroup we should as well simplify the test. There is no
+point in mounting the subsystems together in the first step, as a matter
+of fact on modern distributions the test just checks that the two
+subsystems are mounted already then attempts to mount them combined,
+which fails. Why can't we mount the two controllers seperatelly in the
+case that nothing is mounted as well?
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
