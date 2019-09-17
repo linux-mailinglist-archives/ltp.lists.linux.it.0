@@ -1,55 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66891B4F08
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Sep 2019 15:21:39 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id CE8C7B4FCC
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Sep 2019 16:01:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D14243C20AE
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Sep 2019 15:21:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 942FE3C20AD
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Sep 2019 16:01:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 330FC3C20A0
- for <ltp@lists.linux.it>; Tue, 17 Sep 2019 15:21:35 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 6AA393C0051
+ for <ltp@lists.linux.it>; Tue, 17 Sep 2019 16:01:23 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D501310016E4
- for <ltp@lists.linux.it>; Tue, 17 Sep 2019 15:21:26 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id A70DA18C4294;
- Tue, 17 Sep 2019 13:21:30 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 973D3100EBA5;
- Tue, 17 Sep 2019 13:21:30 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 71D9A18089C8;
- Tue, 17 Sep 2019 13:21:30 +0000 (UTC)
-Date: Tue, 17 Sep 2019 09:21:30 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
-To: Vladut Magas <vladut.m@l4b-software.com>
-Message-ID: <2111602431.467047.1568726490174.JavaMail.zimbra@redhat.com>
-In-Reply-To: <VI1PR0101MB2557E0698D03D10A8A95D71BF08F0@VI1PR0101MB2557.eurprd01.prod.exchangelabs.com>
-References: <VI1PR0101MB2557E0698D03D10A8A95D71BF08F0@VI1PR0101MB2557.eurprd01.prod.exchangelabs.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 6B6C41A01526
+ for <ltp@lists.linux.it>; Tue, 17 Sep 2019 16:01:22 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 791AFAE47;
+ Tue, 17 Sep 2019 14:01:21 +0000 (UTC)
+Date: Tue, 17 Sep 2019 16:01:19 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20190917140119.GA20524@x230>
+References: <20190913205328.6049-1-pvorel@suse.cz> <20190917112230.GA28255@rei>
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.163, 10.4.195.20]
-Thread-Topic: Running kdump on Debian
-Thread-Index: AQHVbUUiuga5u2FoKEeIY2RjUkkomnXSYJjy
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2
- (mx1.redhat.com [10.5.110.62]); Tue, 17 Sep 2019 13:21:32 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20190917112230.GA28255@rei>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] Running kdump on Debian
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/acct02: Improve logging
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,59 +47,83 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it, Christian Amann <camann@protonmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Hi,
+
+> > Problem with s390 is caused by big endianess:
+> > ac_version != 3 (131)
+
+> Hmm, 131 == 83 hex, so there is one more bit turned on.
+
+> > I suspect a bug in UNPACK(), but don't know how to fix it.
+
+> Isn't UNPACK() used only for the timestamps?
+Yep, you're right.
+
+> The ac_version is a char, so this really looks like some strange kernel
+> bug.
+
+> > Failures on x86_64:
+> > * various recent kernels 5.2.9 / 5.3, 4.20 on Debian, using v3:
+> > acct02.c:222: INFO: Verifying using 'struct acct_v3'
+> > acct02.c:174: INFO: == loop 1 ==
+> > acct02.c:81: INFO: ac_comm != 'acct02_helper' ('acct02')
+> > acct02.c:174: INFO: == loop 2 ==
+> > acct02.c:81: INFO: ac_comm != 'acct02_helper' ('acct02')
+> > acct02.c:132: INFO: ac_exitcode != 65280 (0)
+> > acct02.c:140: INFO: ac_ppid != 18029 (18028)
+> > acct02.c:174: INFO: == loop 3 ==
+> > acct02.c:81: INFO: ac_comm != 'acct02_helper' ('acct02')
+> > acct02.c:132: INFO: ac_exitcode != 65280 (0)
+> > acct02.c:140: INFO: ac_ppid != 18029 (18028)
+> > acct02.c:187: INFO: Number of accounting file entries tested: 2
+> > acct02.c:191: FAIL: acct() wrote incorrect file contents!
+
+> > * 3.10 on CentOS using v3:
+> > acct02.c:82: INFO: ac_comm != 'acct02_helper' ('')
+> > acct02.c:88: INFO: ac_btime < 1568406976 (0)
+> > acct02.c:133: INFO: ac_exitcode != 32768 (0)
+> > acct02.c:141: INFO: ac_ppid != 19863 (0)
+> > acct02.c:147: INFO: ac_version != 3 (0)
+> > acct02.c:152: INFO: ac_pid < 1 (0)
+> > acct02.c:188: INFO: Number of accounting file entries tested: 0
+> > => this looks to be completely wrong.
+
+> > Other distros using various kernels (both old and recent) using struct
+> > acct_v3 works well, so the bug might be some specific kernel
+> > configuration.
+
+> That does look like the structure has been filled in by a kernel
+> incorrectly.
+
+...
+> > @@ -123,26 +170,27 @@ static void run(void)
+> >  	run_command();
+> >  	acct(NULL);
+
+> > -	entry_count = 0;
+> >  	do {
+> > +		tst_res(TINFO, "== loop %d ==", ++i);
+> > +
+
+> Maybe I would call this "== entry %d ==" or something like that.
+
+Sure, that's better, I'll change it.
+
+...
+> Otherwise the patch looks good, at least we can see now which checks
+> have failed.
+If nobody objects, I'll merge it with previous change.
 
 
------ Original Message -----
-> Hello,
-> 
-> I am trying to run the kdump testsuite on a Debian 9 distribution, but every
-> test fails with "vmcore NOT FOUND".
-> From what I understand, it is because /proc/vmcore is missing from my machine
-> configuration.
-> 
-> I have the "crashkernel=256M@128M" parameter inside /etc/default/grub, and
-> also nmi_watchdog=1.
-> I also have inside the kernel configuration:
-> CONFIG_PROC_VMCORE=y
-> CONFIG_DEBUG_INFO=y
-> CONFIG_KEXEC=y
-> CONFIG_CRASH_DUMP=y
-> and everything described in the documents as needed.
-> 
-> Also, for example, when trying to simulate with the SysRq it doesn't even
-> finish as at some point it hangs and you have to close and restart manually
-> the machine.
-> A snapshot is attached.
-
-Looks like kernel bug. If manual kdump doesn't work, then this is
-outside of scope for LTP.
-
-Panic is in virtualbox module, I'd try blacklisting it in kdump kernel,
-and also consider trying different kernel version(s).
-
-> 
-> Can anyone please offer some support for this?
-> Nothing I found on google worked until now!
-> 
-> Best regards,
-> 
-> Emanuel-Vladut Magas
-> 
-> L4B Software, Iasi, Romania
-> E-mail: vladut.m@l4b-software.com
-> 
-> 
-> 
-> 
-> --
-> Mailing list info: https://lists.linux.it/listinfo/ltp
-> 
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
