@@ -1,41 +1,46 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8C31B6085
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Sep 2019 11:40:46 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 76C7DB60B9
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Sep 2019 11:50:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1C05D3C20FA
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Sep 2019 11:40:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 40B173C20CB
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Sep 2019 11:50:28 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 0C53D3C2080
- for <ltp@lists.linux.it>; Wed, 18 Sep 2019 11:40:43 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id EB5C03C20BC
+ for <ltp@lists.linux.it>; Wed, 18 Sep 2019 11:50:26 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id DA2BC1A0177F
- for <ltp@lists.linux.it>; Wed, 18 Sep 2019 11:40:41 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E0484600929
+ for <ltp@lists.linux.it>; Wed, 18 Sep 2019 11:50:28 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id F4114AE4B;
- Wed, 18 Sep 2019 09:40:40 +0000 (UTC)
-Date: Wed, 18 Sep 2019 11:40:39 +0200
+ by mx1.suse.de (Postfix) with ESMTP id 6E383AE2F;
+ Wed, 18 Sep 2019 09:50:25 +0000 (UTC)
+Date: Wed, 18 Sep 2019 11:50:23 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: cfamullaconrad@suse.com
-Message-ID: <20190918094039.GB11711@x230>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <20190918095023.GA31233@x230>
 References: <20190913125823.17314-1-pvorel@suse.cz>
  <20190913125823.17314-3-pvorel@suse.cz>
- <1568629595.3028.13.camel@suse.de>
+ <CAEemH2f4oeSvN-p7xSzjo2ZFvndxjX2sQ+M9f6fYV_bN2ewn=A@mail.gmail.com>
+ <20190917165520.GA30320@x230>
+ <CAEemH2cHYS6jd4DCzJsy-vKLqShcFO6fU_-Rk=zxu=yD=7YLVg@mail.gmail.com>
+ <20190918082421.GA11711@x230>
+ <CAEemH2duVbDqZ3UG3aHi4rQPFr-g-yxy3q-Jfw8p+2KV9ta=Tw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1568629595.3028.13.camel@suse.de>
+In-Reply-To: <CAEemH2duVbDqZ3UG3aHi4rQPFr-g-yxy3q-Jfw8p+2KV9ta=Tw@mail.gmail.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v2 2/3] shell: Introduce TST_TIMEOUT variable
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -49,66 +54,46 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Clements,
+Hi Li,
 
-> Hi Petr,
-> only some small comments below.
+> On Wed, Sep 18, 2019 at 4:24 PM Petr Vorel <pvorel@suse.cz> wrote:
 
-> On Fri, 2019-09-13 at 14:58 +0200, Petr Vorel wrote:
-> > <snip>
-> > -2.3.2 Library variables
-> > -^^^^^^^^^^^^^^^^^^^^^^^
-> > +2.3.2 Library environment variables for shell
-> > +^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> > ...
 
-> >  Similarily to the C library various checks and preparations can be
-> > requested
-> >  simply by setting right '$TST_NEEDS_FOO'.
-> > @@ -2047,6 +2058,14 @@ simply by setting right '$TST_NEEDS_FOO'.
-> >                         the test (see below).
-> >  | 'TST_NEEDS_MODULE' | Test module name needed for the test (see
-> > below).
-> >  | 'TST_NEEDS_DRIVERS'| Checks kernel drivers support for the test.
-> > +| 'TST_TIMEOUT'      | Maximum timeout set for the test in sec. Must
-> > be float
+> > > So, maybe that could be as a reason to disable float support for
+> > > $LTP_TIMEOUT_MUL?
 
->       ^
-> I think TST_TIMEOUT isn't evaluated in c at all. There we have `(struct
-> tst_test*)->timeout` which is `int`,
-> tst_test*)->timeout (BTW it's *unsigned* int).
-Correct, thanks!
-This is a proposed description, which I'll post to v3.
-(using tst_test.timeout to be short enough, is that ok?):
-| 'TST_TIMEOUT'      | Maximum timeout set for the test in sec. Must be int >= 1,
-                       or -1 (special value to disable timeout), default is 300.
-                       Variable is meant be set in tests, not by user.
-                       It's equivalent of `tst_test.timeout` in C.
-| 'LTP_TIMEOUT_MUL'  | Multiply timeout, must be number >= 1 (> 1 is useful for
-                       slow machines to avoid unexpected timeout).
-                       Variable is also used in C tests.
-                       It's meant to be set by user, not in tests.
-...
-> > +	local sec
-> > +	if [ "$is_float" ]; then
-> > +		sec=`echo |awk '{printf("%d\n", '$TST_TIMEOUT' * 
+> > Maybe I'm missing something, therefore explaining the intent of the code.
+> > (int was handled in if tst_is_int "$LTP_TIMEOUT_MUL"; then):
 
->                           ^
->                           nit, space after |
-Sure :).
+> I'm not blaming the int/float judgment, there is no problem. My concern is:
 
-> > '$LTP_TIMEOUT_MUL')}'`
+> If the $LTP_TIMEOUT_MUL is float and awk command is missing, how things
+> will be going?
 
->                    ^
->                    + 0.5
-> In C implementation we round up. Maybe we should do the same in shell.
-Correct, thanks!
+> It will break at:
+>     tst_test_cmds awk
+> right?
+Yes. The concern is described in the commit message (but it should also be in
+wiki page I guess): you want float => you need awk. You don't have float, just
+set it as int (which will affect also C).
+Does it make sense? Is it useful?
 
+> Given that break on float number handling, why not declare only support
+> integer for $LTP_TIMEOUT_MUL?
+Sure, we can do it. But I propose to do it for C as well otherwise setup valid
+for C will be breaking shell. But that's a backward incompatibility change.
+That's why I suggested IMHO the least intrusive change (but maybe I'm wrong).
+Anyone else having strong opinion?
+
+> I hope I explained clearly this time, haha ;-)
+Sure, sorry to be slow :).
 
 Kind regards,
 Petr
