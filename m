@@ -2,62 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68C59B899B
-	for <lists+linux-ltp@lfdr.de>; Fri, 20 Sep 2019 05:00:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53826B9197
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Sep 2019 16:22:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2B5123C2169
-	for <lists+linux-ltp@lfdr.de>; Fri, 20 Sep 2019 05:00:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E40263C207D
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Sep 2019 16:22:11 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id F10813C210B
- for <ltp@lists.linux.it>; Fri, 20 Sep 2019 05:00:29 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 505F83C1833
+ for <ltp@lists.linux.it>; Fri, 20 Sep 2019 16:22:10 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BA0B4140148E
- for <ltp@lists.linux.it>; Fri, 20 Sep 2019 05:00:28 +0200 (CEST)
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id ABADB37E80
- for <ltp@lists.linux.it>; Fri, 20 Sep 2019 03:00:26 +0000 (UTC)
-Received: by mail-oi1-f197.google.com with SMTP id u64so362543oie.20
- for <ltp@lists.linux.it>; Thu, 19 Sep 2019 20:00:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=X7t50rF63bFX20F2hz8sgAzj1QVk1n2io87J3OnYe3k=;
- b=MExrcQqzsu9qZR8vXYNOtkbm5cJxhZQg5A7+ljFWp1L2e05tNdMoAq5y1nUrTQzCi0
- ph+VPh4vIusOluPN+VAAI4VvZxP+ayfZ2Nb8kA8Z7hXiU9yTlS1HI4qGkj7bXOJZkDQQ
- mWFBh59f9ud+IA5FK2+EPfHlzkG4KS7vvFpQzHEMnp4u8mddxh9HHjbTxj8CVlUeFmkh
- Tby6A5++Vy+j9zJVjrmTc4K3cQmjCzaytd7mcI+vDfAYyyLEkNOQH6bgSsUdug3gI/e+
- ukW6O5PoK5rpbIuFVPKjcGlmBaDppAfu5UXu3rFBlxVCqFOF1gw89u0ZJSJN/JzyycVW
- 2imQ==
-X-Gm-Message-State: APjAAAXSplmQ7JTZOhCHuTq7hXlBl94dqc3jlDghwym3ONAqx9vjByHl
- P2XXl4blG4CNyNJpJ4lMo0oiYTVWgrsR0F5AkN3iSnXJwReVn2nyEcyHCOWEcypHJX+W1aiHhXf
- r6alxgx/9g8bEi+cToZddPbrpbAU=
-X-Received: by 2002:a54:480d:: with SMTP id j13mr1056268oij.96.1568948426190; 
- Thu, 19 Sep 2019 20:00:26 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqwLbaFbJOEo9d0NoEhE8IOjHyXzrVP7emxbFql4/YKpRR+u5fBXK5ku/U/ZNAuDSE0DhcQgRx8KDN4QBth5SJo=
-X-Received: by 2002:a54:480d:: with SMTP id j13mr1056231oij.96.1568948425818; 
- Thu, 19 Sep 2019 20:00:25 -0700 (PDT)
-MIME-Version: 1.0
-References: <20190918053519.26244-1-liwang@redhat.com>
- <20190919100205.GA26642@rei>
-In-Reply-To: <20190919100205.GA26642@rei>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 20 Sep 2019 11:00:14 +0800
-Message-ID: <CAEemH2eD5fcYYcK06Jyp-bxOwO-tzk1zdLyruu5U-VfyouTXaA@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 0CFB21000D91
+ for <ltp@lists.linux.it>; Fri, 20 Sep 2019 16:22:00 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 00ED8AB9B;
+ Fri, 20 Sep 2019 14:22:06 +0000 (UTC)
+Message-ID: <1568989318.3024.25.camel@suse.de>
+From: Clemens Famulla-Conrad <cfamullaconrad@suse.de>
+To: Christian Lanig <clanig@suse.com>, ltp@lists.linux.it
+Date: Fri, 20 Sep 2019 16:21:58 +0200
+In-Reply-To: <ce675759672af52bea02c11d51bd7d10f0bcb5cb.1566500817.git.clanig@suse.com>
+References: <cover.1566500817.git.clanig@suse.com>
+ <ce675759672af52bea02c11d51bd7d10f0bcb5cb.1566500817.git.clanig@suse.com>
+X-Mailer: Evolution 3.26.6 
+Mime-Version: 1.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_PASS,
- SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH] tst_taint: TCONF when kernel is alreay tainted
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH v2 1/1] Add automated tests for shell lib
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,103 +47,79 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Chang Yin <cyin@redhat.com>, LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1712224988=="
+Reply-To: cfamullaconrad@suse.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1712224988==
-Content-Type: multipart/alternative; boundary="00000000000097b3110592f3451a"
-
---00000000000097b3110592f3451a
-Content-Type: text/plain; charset="UTF-8"
-
-On Thu, Sep 19, 2019 at 6:02 PM Cyril Hrubis <chrubis@suse.cz> wrote:
-
-> Hi!
-> > As the tst_taint_init comments described, If the tainted-flags are
-> already set
-> > by the kernel, there is no reason to continue and TCONF is generated.
-> But in
-> > the function achieve, it uses TBROK.
-> >
-> >   cmdline="cve-2017-17053"
-> >   tst_test.c:1096: INFO: Timeout per run is 0h 10m 00s
-> >   tst_taint.c:88: BROK: Kernel is already tainted: 536871424
->
-> There is a reason for generating TBROK, we do not want the test to be
-> skipped silently in this case. If kernel is tainted something went wrong
-> anyways and we are looking only for a specific flags.
->
-
-That's true. The TBROK can highlight the tainted kernel as a good reminder
-to the tester.
-
-But in a real testing situation, LTP sometimes not being run in the first,
-after we go here cve-2017-17053, the kernel very probably has already been
-tainted and reported by other tests. So this new TBROK will drive tester to
-double-check if something wrong as new.
-
-Imagine that, if there are many test cases invoke a tainted checking(e.g.
-TST_TAINT_W) in LTP, then all of them will be skipped and report TBORK on
-such tainted-kernel, that seems not to be friendly to the tester to review
-the result.
-
--- 
-Regards,
-Li Wang
-
---00000000000097b3110592f3451a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Thu, Sep 19, 2019 at 6:02 PM Cyril Hrubis &lt;<a=
- href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
-&gt; As the tst_taint_init comments described, If the tainted-flags are alr=
-eady set<br>
-&gt; by the kernel, there is no reason to continue and TCONF is generated. =
-But in<br>
-&gt; the function achieve, it uses TBROK.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0cmdline=3D&quot;cve-2017-17053&quot;<br>
-&gt;=C2=A0 =C2=A0tst_test.c:1096: INFO: Timeout per run is 0h 10m 00s<br>
-&gt;=C2=A0 =C2=A0tst_taint.c:88: BROK: Kernel is already tainted: 536871424=
-<br>
-<br>
-There is a reason for generating TBROK, we do not want the test to be<br>
-skipped silently in this case. If kernel is tainted something went wrong<br=
->
-anyways and we are looking only for a specific flags.<br></blockquote><div>=
-<br></div><div><div class=3D"gmail_default" style=3D"font-size:small">That&=
-#39;s true. The TBROK can highlight the tainted kernel as a good reminder t=
-o the tester.</div><div class=3D"gmail_default" style=3D"font-size:small"><=
-br></div><div class=3D"gmail_default" style=3D"font-size:small">But in a re=
-al testing situation, LTP sometimes not being run in the first, after we go=
- here cve-2017-17053, the kernel very probably has already been tainted and=
- reported by other tests. So this new TBROK will drive tester to double-che=
-ck if something wrong as new.=C2=A0</div></div><div class=3D"gmail_default"=
- style=3D"font-size:small"><br></div><div class=3D"gmail_default" style=3D"=
-font-size:small">Imagine that, if there are many test cases invoke a tainte=
-d checking(e.g. TST_TAINT_W) in LTP, then all of them will be skipped and r=
-eport TBORK on such tainted-kernel, that seems not to be friendly to the te=
-ster to review the result.</div></div><div><br></div>-- <br><div dir=3D"ltr=
-" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li=
- Wang<br></div></div></div></div>
-
---00000000000097b3110592f3451a--
-
---===============1712224988==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1712224988==--
+SGkgQ2hyaXN0aWFuLAoKVGhpcyB0ZXN0cyBhcmUgbmljZSEgTGV0cyBrZWVwIGdvaW5nIHdpdGgg
+aXQuCgpPbiBUaHUsIDIwMTktMDgtMjIgYXQgMjE6MTIgKzAyMDAsIENocmlzdGlhbiBMYW5pZyB3
+cm90ZToKPHNuaXA+Cj4gZGlmZiAtLWdpdCBhL2xpYi9uZXdsaWJfdGVzdHMvc2hlbGwvdGVzdF9z
+aF9uZXdsaWIuc2gKPiBiL2xpYi9uZXdsaWJfdGVzdHMvc2hlbGwvdGVzdF9zaF9uZXdsaWIuc2gK
+PiBuZXcgZmlsZSBtb2RlIDEwMDc1NQo+IGluZGV4IDAwMDAwMDAwMC4uNGFhMTk1NTViCj4gLS0t
+IC9kZXYvbnVsbAo+ICsrKyBiL2xpYi9uZXdsaWJfdGVzdHMvc2hlbGwvdGVzdF9zaF9uZXdsaWIu
+c2gKPiBAQCAtMCwwICsxLDEwMiBAQAo+ICsjIS9iaW4vc2gKPiArIwo+ICsjIFNQRFgtTGljZW5z
+ZS1JZGVudGlmaWVyOiBHUEwtMi4wLW9yLWxhdGVyCj4gKyMgKGMpIDIwMTkgU1VTRSBMTEMKPiAr
+Iwo+ICsjIEF1dGhvcjogQ2hyaXN0aWFuIExhbmlnIDxjbGFuaWdAc3VzZS5jb20+Cj4gKwo+ICtQ
+QVRIPSIke1BBVEh9OiQoZGlybmFtZSAkKHJlYWRsaW5rIC1mICQwKSkvLi4vLi4vLi4vdGVzdGNh
+c2VzL2xpYi8iCj4gK2lmIFsgLXogIiRUTVBESVIiIF07IHRoZW4KPiArCWV4cG9ydCBUTVBESVI9
+Ii90bXAiCj4gK2ZpCj4gK2NvbG9yX2JsdWU9J1wwMzNbMTszNG0nCj4gK2NvbG9yX2dyZWVuPSdc
+MDMzWzE7MzJtJwo+ICtjb2xvcl9yZWQ9J1wwMzNbMTszMW0nCj4gK3Jlc2V0X2F0dHI9J1wwMzNb
+MG0nCj4gK3RtcD0iJHtUTVBESVJ9L3NoX2xpYl90c3QtJHskfS8iCj4gK21rZGlyICR0bXAgfHwg
+Y2xlYW51cCAxCj4gK3BhcmVudF9kaXI9JChkaXJuYW1lICQocmVhZGxpbmsgLWYgJDApKS8KPiAr
+dG9vbGRpcj0ke3BhcmVudF9kaXJ9Ly4uLy4uLy4uL3Rvb2xzLwo+ICt0ZXN0ZGlyPSR7cGFyZW50
+X2Rpcn10ZXN0Y2FzZXMvCj4gK3RzdF9maWxlcz0kKGxzICR0ZXN0ZGlyKQo+ICsKPiArY2xlYW51
+cCgpCgpZb3UgdXNlIGNsZWFudXAgYXMgYSBkZWZhdWx0IGhhbmRsZXIgZm9yIGVycm9yIGhhbmRp
+bmcuCkZvciBpbnN0YW5jZSwgaWYgYSB0ZXN0IGRvZXNuJ3QgaGF2ZSBhIGAjIG91dHB1dDpgIHNl
+Y3Rpb24gd2Ugc2lsZW50bHkKcXVpdCB3aXRoIGV4aXRjb2RlIDEuIEkgd291bGQgbGlrZSB0byBi
+ZSBpbmZvcm1lZCBtb3JlIGFib3V0IHN1Y2gKZXJyb3JzLiBNYXliZSB3ZSBjb3VsZCBqdXN0IHBy
+aW50b3V0ICR0c3QgaWYgYCQhICE9IDBgLgoKPiArewo+ICsJWyAtZCAiJHRtcCIgXSAmJiBybSAt
+cmYgIiR0bXAiCj4gKwlleGl0ICQxCj4gK30KPiArCj4gK3ByaW50X2hlbHAoKQo+ICt7Cj4gKwlj
+YXQgPDxFT0YKPiArCj4gK+KUjOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgAo+IOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUkAo+ICvilIIgVGhpcyBTaGVsbCBzY3JpcHQg
+aXRlcmF0ZXMgb3ZlciB0ZXN0IGNhc2VzIGZvciB0aGUgbmV3IFNoZWxsCj4gbGlicmFyeSBhbmQg
+ICAgIOKUggo+ICvilIIgdmVyaWZpZXMgdGhlCj4gb3V0cHV0LiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIOKUggo+ICvilJTilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIAKPiDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lJgKPiArCj4gKwlVc2FnZToKPiArCQkkKGJhc2VuYW1lICQwKSBbVEVTVF9GSUxFXzFdIFtURVNU
+X0ZJTEVfMl0KPiArCj4gK0VPRgo+ICsJZXhpdCAwCj4gK30KPiArCj4gK3BhcnNlX3BhcmFtcygp
+Cj4gK3sKPiArCVsgLW4gIiQxIiBdICYmIHRzdF9maWxlcz0KPiArCXdoaWxlIFsgLW4gIiQxIiBd
+OyBkbwo+ICsJCWNhc2UgIiQxIiBpbgo+ICsJCQktLWhlbHApIHByaW50X2hlbHA7Owo+ICsJCQkt
+aCkgcHJpbnRfaGVscDs7Cj4gKwkJCS0qKQo+ICsJCQkJcHJpbnRmICJVbmtub3duIHBvc2l0aW9u
+YWwgcGFyYW1ldGVyCj4gJHsxfS5cbiIKPiArCQkJCWNsZWFudXAgMTs7Cj4gKwkJCSopIHRzdF9m
+aWxlcz0iJHRzdF9maWxlcyAkMSI7Owo+ICsJCWVzYWMKPiArCQlzaGlmdAo+ICsJZG9uZQo+ICt9
+Cj4gKwo+ICt2ZXJpZnlfb3V0cHV0KCkKPiArewo+ICsJaWYgWyAhIC1lICIke3Rlc3RkaXJ9JHRz
+dCIgXTsgdGhlbgo+ICsJCXByaW50ZiAiJHRzdCBub3QgZm91bmRcbiIKPiArCQljbGVhbnVwIDEK
+PiArCWZpCj4gKwo+ICsJJHt0b29sZGlyfWxvb2t1cF9zcGxpdF9jdXQucHkgLWYgJHt0ZXN0ZGly
+fSR0c3QgLWQgJHRtcCBcCj4gKwkJCS1zICcjIG91dHB1dDpcbicgLWMgJyMgezAsMX0nIHx8IGNs
+ZWFudXAgMQoKanVzdCBhbiBpZGVhLCBpbiBwZXJsICggSSdtIG5vdCBzdXJlIGlmIHdlIGhhdmUg
+cGVybCBhbHJlYWR5IGFzCmRlcGVuZGVuY3kpLiBNeSBmZWVsaW5nIGlzLCB0aGF0IGxvb2t1cF9z
+cGxpdF9jdXQucHkgaXMgdG8gbXVjaCBmb3IKdGhhdCB0YXNrLgoKY2F0ICR0ZXN0ZGlyJHRzdCB8
+IHBlcmwgLWUgJyRvID0gMDsgd2hpbGUgKDxTVERJTj4pIHtwcmludCBzdWJzdHIoJF8sCjIpIGlm
+ICRvOyAgJG8gPSAxIGlmIC9eIyBvdXRwdXQ6LzsgfScgPiAkdG1wJHt0c3R9ZXhwZWN0ZWRfb3V0
+cHV0Cgo+ICsKPiArCSIke3Rlc3RkaXJ9JHRzdCIgPiAiJHt0bXB9JHRzdC5hY3R1YWwiIHx8IGNs
+ZWFudXAgMQoKV2Ugc2hvdWxkIGtlZXAgZ29pbmcgb24gZmFpbGVkIHRlc3QuIFdlIG5lZWQgdGhp
+cyB0byB0ZXN0IHRpbWVvdXQKZnVuY3Rpb25hbGx5IG9yIGVycm9yIGhhbmRsaW5nLi4uCgo+ICsJ
+Y21wIC1zICIke3RtcH0kdHN0LmFjdHVhbCIgIiR7dG1wfSR7dHN0fV9vdXQvb3V0LjEiICYmCj4g
+cmV0dXJuIDAKPiArCXJldHVybiAxCj4gK30KPiArCj4gK3J1bl90ZXN0cygpCj4gK3sKPiArCXBh
+c3NfY250PTAKPiArCWZhaWxfY250PTAKPiArCXByaW50ZiAiXG4iCj4gKwlmb3IgdHN0IGluICR0
+c3RfZmlsZXM7IGRvCj4gKwkJaWYgdmVyaWZ5X291dHB1dDsgdGhlbgo+ICsJCQlwYXNzX2NudD0k
+KCgkcGFzc19jbnQgKyAxKSkKPiArCQkJcHJpbnRmICIke2NvbG9yX2dyZWVufVRQQVNTJHJlc2V0
+X2F0dHIKPiAke3RzdH1cbiIKPiArCQllbHNlCj4gKwkJCWZhaWxfY250PSQoKCRmYWlsX2NudCAr
+IDEpKQo+ICsJCQlwcmludGYgIiR7Y29sb3JfcmVkfVRGQUlMJHJlc2V0X2F0dHIKPiAke3RzdH1c
+biIKPiArCQkJcHJpbnRmICIke2NvbG9yX2JsdWV9RGlmZjoke3Jlc2V0X2F0dHJ9XG4iCj4gKwkJ
+CWRpZmYgLXUgIiR7dG1wfSR7dHN0fS5hY3R1YWwiIFwKPiArCQkJCQkiJHt0bXB9JHt0c3R9X291
+dC9vdXQuMSIKPiArCQkJcHJpbnRmICJcbiIKPiArCQlmaQo+ICsJZG9uZQo+ICsJcHJpbnRmICJc
+blN1bW1hcnk6XG4iCj4gKwlwcmludGYgIiR7Y29sb3JfcmVkfUZhaWxlZDokcmVzZXRfYXR0ciAk
+ZmFpbF9jbnRcbiIKPiArCXByaW50ZiAiJHtjb2xvcl9ncmVlbn1QYXNzZWQ6JHJlc2V0X2F0dHIg
+JHBhc3NfY250XG5cbiIKPiArCXJldHVybiAkZmFpbF9jbnQKPiArfQo+ICsKPiArcGFyc2VfcGFy
+YW1zICIkQCIKPiArcnVuX3Rlc3RzCj4gK2NsZWFudXAgJD8KPiAKPHNuaXA+CgpUaGFua3MKQ2xl
+bWVucwoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3Rp
+bmZvL2x0cAo=
