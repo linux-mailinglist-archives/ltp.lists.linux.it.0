@@ -2,51 +2,62 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DDB9B88DE
-	for <lists+linux-ltp@lfdr.de>; Fri, 20 Sep 2019 03:19:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68C59B899B
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Sep 2019 05:00:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F24983C2170
-	for <lists+linux-ltp@lfdr.de>; Fri, 20 Sep 2019 03:19:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2B5123C2169
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Sep 2019 05:00:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 21CB73C2096
- for <ltp@lists.linux.it>; Fri, 20 Sep 2019 03:19:19 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 44A01601F71
- for <ltp@lists.linux.it>; Fri, 20 Sep 2019 03:19:17 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.64,526,1559491200"; d="scan'208";a="75740542"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 20 Sep 2019 09:19:13 +0800
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id 7D7D04CDFCE9;
- Fri, 20 Sep 2019 09:19:10 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- id 14.3.439.0; Fri, 20 Sep 2019 09:19:10 +0800
-To: Petr Vorel <pvorel@suse.cz>
-References: <20190919094544.GA21345@rei>
- <1568889488-4032-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <20190919140931.GA14614@x230>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <02ed63c6-102d-4aeb-39db-b9ea8f561b9c@cn.fujitsu.com>
-Date: Fri, 20 Sep 2019 09:19:10 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id F10813C210B
+ for <ltp@lists.linux.it>; Fri, 20 Sep 2019 05:00:29 +0200 (CEST)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BA0B4140148E
+ for <ltp@lists.linux.it>; Fri, 20 Sep 2019 05:00:28 +0200 (CEST)
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
+ [209.85.167.197])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id ABADB37E80
+ for <ltp@lists.linux.it>; Fri, 20 Sep 2019 03:00:26 +0000 (UTC)
+Received: by mail-oi1-f197.google.com with SMTP id u64so362543oie.20
+ for <ltp@lists.linux.it>; Thu, 19 Sep 2019 20:00:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=X7t50rF63bFX20F2hz8sgAzj1QVk1n2io87J3OnYe3k=;
+ b=MExrcQqzsu9qZR8vXYNOtkbm5cJxhZQg5A7+ljFWp1L2e05tNdMoAq5y1nUrTQzCi0
+ ph+VPh4vIusOluPN+VAAI4VvZxP+ayfZ2Nb8kA8Z7hXiU9yTlS1HI4qGkj7bXOJZkDQQ
+ mWFBh59f9ud+IA5FK2+EPfHlzkG4KS7vvFpQzHEMnp4u8mddxh9HHjbTxj8CVlUeFmkh
+ Tby6A5++Vy+j9zJVjrmTc4K3cQmjCzaytd7mcI+vDfAYyyLEkNOQH6bgSsUdug3gI/e+
+ ukW6O5PoK5rpbIuFVPKjcGlmBaDppAfu5UXu3rFBlxVCqFOF1gw89u0ZJSJN/JzyycVW
+ 2imQ==
+X-Gm-Message-State: APjAAAXSplmQ7JTZOhCHuTq7hXlBl94dqc3jlDghwym3ONAqx9vjByHl
+ P2XXl4blG4CNyNJpJ4lMo0oiYTVWgrsR0F5AkN3iSnXJwReVn2nyEcyHCOWEcypHJX+W1aiHhXf
+ r6alxgx/9g8bEi+cToZddPbrpbAU=
+X-Received: by 2002:a54:480d:: with SMTP id j13mr1056268oij.96.1568948426190; 
+ Thu, 19 Sep 2019 20:00:26 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqwLbaFbJOEo9d0NoEhE8IOjHyXzrVP7emxbFql4/YKpRR+u5fBXK5ku/U/ZNAuDSE0DhcQgRx8KDN4QBth5SJo=
+X-Received: by 2002:a54:480d:: with SMTP id j13mr1056231oij.96.1568948425818; 
+ Thu, 19 Sep 2019 20:00:25 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190919140931.GA14614@x230>
-X-Originating-IP: [10.167.220.84]
-X-yoursite-MailScanner-ID: 7D7D04CDFCE9.AECDF
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+References: <20190918053519.26244-1-liwang@redhat.com>
+ <20190919100205.GA26642@rei>
+In-Reply-To: <20190919100205.GA26642@rei>
+From: Li Wang <liwang@redhat.com>
+Date: Fri, 20 Sep 2019 11:00:14 +0800
+Message-ID: <CAEemH2eD5fcYYcK06Jyp-bxOwO-tzk1zdLyruu5U-VfyouTXaA@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] cgroup_regression_test.sh: Remove obselte
- test_5
+X-Spam-Status: No, score=-0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_PASS,
+ SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH] tst_taint: TCONF when kernel is alreay tainted
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,40 +69,103 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: Chang Yin <cyin@redhat.com>, LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1712224988=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+--===============1712224988==
+Content-Type: multipart/alternative; boundary="00000000000097b3110592f3451a"
 
-on 2019/09/19 22:09, Petr Vorel wrote:
-> Hi Xu,
-> 
->> test_5 is a very old regresstion test and kernel code has been
->> rewritten completely since 2.6. No user will use such old kernel
->> code to test. So I think we can remove it.
-> 
->> Also rename test10 as test5, modify TST_CNT.
-> 
-> Merged, with additional note, why it's safe to remove it:
-> 
->      [ pvorel: test_5 is testing 839ec5452ebf ("cgroup: fix root_count when
->      mount fails due to busy subsystem") from v2.6.29-rc4 which fixes
->      e5f6a8609bab ("cgroups: make root_list contains active hierarchies
->      only") from v2.6.24-rc1. While there are still people testing LTP on
->      2.6.x, nobody should be using -rc version now. ]
-I think your wrote v2.6.24-rc1 unexpectedly. commit e5f6a8609bab fixes 
-the bug since v2.6.29-rc1 not v2.6.24-rc1. In addition to this typo, 
-this reason looks good to me.
+--00000000000097b3110592f3451a
+Content-Type: text/plain; charset="UTF-8"
 
-> 
-> Kind regards,
-> Petr
-> 
-> 
+On Thu, Sep 19, 2019 at 6:02 PM Cyril Hrubis <chrubis@suse.cz> wrote:
 
+> Hi!
+> > As the tst_taint_init comments described, If the tainted-flags are
+> already set
+> > by the kernel, there is no reason to continue and TCONF is generated.
+> But in
+> > the function achieve, it uses TBROK.
+> >
+> >   cmdline="cve-2017-17053"
+> >   tst_test.c:1096: INFO: Timeout per run is 0h 10m 00s
+> >   tst_taint.c:88: BROK: Kernel is already tainted: 536871424
+>
+> There is a reason for generating TBROK, we do not want the test to be
+> skipped silently in this case. If kernel is tainted something went wrong
+> anyways and we are looking only for a specific flags.
+>
+
+That's true. The TBROK can highlight the tainted kernel as a good reminder
+to the tester.
+
+But in a real testing situation, LTP sometimes not being run in the first,
+after we go here cve-2017-17053, the kernel very probably has already been
+tainted and reported by other tests. So this new TBROK will drive tester to
+double-check if something wrong as new.
+
+Imagine that, if there are many test cases invoke a tainted checking(e.g.
+TST_TAINT_W) in LTP, then all of them will be skipped and report TBORK on
+such tainted-kernel, that seems not to be friendly to the tester to review
+the result.
+
+-- 
+Regards,
+Li Wang
+
+--00000000000097b3110592f3451a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Thu, Sep 19, 2019 at 6:02 PM Cyril Hrubis &lt;<a=
+ href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
+ft:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
+&gt; As the tst_taint_init comments described, If the tainted-flags are alr=
+eady set<br>
+&gt; by the kernel, there is no reason to continue and TCONF is generated. =
+But in<br>
+&gt; the function achieve, it uses TBROK.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0cmdline=3D&quot;cve-2017-17053&quot;<br>
+&gt;=C2=A0 =C2=A0tst_test.c:1096: INFO: Timeout per run is 0h 10m 00s<br>
+&gt;=C2=A0 =C2=A0tst_taint.c:88: BROK: Kernel is already tainted: 536871424=
+<br>
+<br>
+There is a reason for generating TBROK, we do not want the test to be<br>
+skipped silently in this case. If kernel is tainted something went wrong<br=
+>
+anyways and we are looking only for a specific flags.<br></blockquote><div>=
+<br></div><div><div class=3D"gmail_default" style=3D"font-size:small">That&=
+#39;s true. The TBROK can highlight the tainted kernel as a good reminder t=
+o the tester.</div><div class=3D"gmail_default" style=3D"font-size:small"><=
+br></div><div class=3D"gmail_default" style=3D"font-size:small">But in a re=
+al testing situation, LTP sometimes not being run in the first, after we go=
+ here cve-2017-17053, the kernel very probably has already been tainted and=
+ reported by other tests. So this new TBROK will drive tester to double-che=
+ck if something wrong as new.=C2=A0</div></div><div class=3D"gmail_default"=
+ style=3D"font-size:small"><br></div><div class=3D"gmail_default" style=3D"=
+font-size:small">Imagine that, if there are many test cases invoke a tainte=
+d checking(e.g. TST_TAINT_W) in LTP, then all of them will be skipped and r=
+eport TBORK on such tainted-kernel, that seems not to be friendly to the te=
+ster to review the result.</div></div><div><br></div>-- <br><div dir=3D"ltr=
+" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li=
+ Wang<br></div></div></div></div>
+
+--00000000000097b3110592f3451a--
+
+--===============1712224988==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1712224988==--
