@@ -1,41 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC890BB821
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Sep 2019 17:39:15 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A1C7BB893
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Sep 2019 17:52:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9EFC53C2015
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Sep 2019 17:39:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 364BD3C2077
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Sep 2019 17:52:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 82C703C1C7E
- for <ltp@lists.linux.it>; Mon, 23 Sep 2019 17:39:13 +0200 (CEST)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 80EE83C1C86
+ for <ltp@lists.linux.it>; Mon, 23 Sep 2019 17:52:18 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7D78B6005E9
- for <ltp@lists.linux.it>; Mon, 23 Sep 2019 17:39:15 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C43111001749
+ for <ltp@lists.linux.it>; Mon, 23 Sep 2019 17:52:09 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 66FE5AD72;
- Mon, 23 Sep 2019 15:39:11 +0000 (UTC)
-Date: Mon, 23 Sep 2019 17:39:08 +0200
+ by mx1.suse.de (Postfix) with ESMTP id 1F8ABAE7F;
+ Mon, 23 Sep 2019 15:52:17 +0000 (UTC)
+Date: Mon, 23 Sep 2019 17:52:15 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Message-ID: <20190923153908.GA379@dell5510>
-References: <20190923003846.GB15734@shao2-debian>
- <871rw7l9dv.fsf@rpws.prws.suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <20190923155215.GA2531@dell5510>
+References: <20190923125914.2572-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <871rw7l9dv.fsf@rpws.prws.suse.cz>
+In-Reply-To: <20190923125914.2572-1-rpalethorpe@suse.com>
 User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] 12abeb544d: ltp.read_all_dev.fail
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] fzsync: Add reproducing race-conditions section
+ to docs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,38 +48,50 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Andy Lutomirski <luto@amacapital.net>, lkp@01.org,
- Andy Lutomirski <luto@kernel.org>, ltp@lists.linux.it,
- LKML <linux-kernel@vger.kernel.org>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi Richie,
 
-> > FYI, we noticed the following commit (built with gcc-7):
+> Give people some hint about how to do this with the Fuzzy Sync library. This
+> is really just a pointer. A full explanation would require way too much detail
+> for this document.
 
-> > commit: 12abeb544d548f55f56323fc6e5e6c0fb74f58e1 ("horrible test hack")
-> > https://kernel.googlesource.com/pub/scm/linux/kernel/git/luto/linux.git random/kill-it
+> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+Nice, thanks for caring about docs.
+Acked-by: Petr Vorel <pvorel@suse.cz>
+
+> ---
+>  doc/test-writing-guidelines.txt | 79 +++++++++++++++++++++++++++++++++
+>  1 file changed, 79 insertions(+)
+
+> diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
+> index a735b43bb..49cc92a27 100644
+> --- a/doc/test-writing-guidelines.txt
+> +++ b/doc/test-writing-guidelines.txt
+> @@ -1854,6 +1854,85 @@ However a lot of problems can be solved by using 'tst_cap_action(struct
+>  tst_cap  *cap)' directly which can be called at any time. This also helps if
+>  you wish to drop a capability at the begining of setup.
+
+> +2.2.33 Reproducing race-conditions
+> +^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> +
+> +If a bug is caused by two tasks in the kernel racing and you wish to create a
+> +regression test (or bug-fix validation test). The 'tst_fuzzy_sync.h' library
+> +should be used.
+Looks a bit strange to have this in 2 sentences (I'd write single one),
+but you're a native speaker, so you must know what is correct :).
 
 ...
-> > tst_test.c:1108: INFO: Timeout per run is 0h 05m 00s
-> > Test timeouted, sending SIGKILL!
-> > tst_test.c:1148: INFO: If you are running on slow machine, try exporting LTP_TIMEOUT_MUL > 1
-> > tst_test.c:1149: BROK: Test killed! (timeout?)
-
-> So perhaps this is caused by reads of /dev/random hanging?
-
-> At any rate,
-> I suppose this is intended to deliberately break something, so we can
-> ignore it.
-Yep, I'd ignore it, [1] really looks like the commit description "horrible test hack" :)
+> +Fuzzy sync synchronises 'run_a' and 'run_b', which act as barriers, so that
+> +niether thread can progress until the other has caught up with it. There is
+typo: niether => neither
 
 Kind regards,
 Petr
-
-[1] https://kernel.googlesource.com/pub/scm/linux/kernel/git/luto/linux.git/+/12abeb544d548f55f56323fc6e5e6c0fb74f58e1%5E%21/#F0
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
