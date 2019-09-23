@@ -1,47 +1,59 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2DEEBC612
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Sep 2019 12:58:12 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 17D28BC6C3
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Sep 2019 13:26:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1025A3C20A3
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Sep 2019 12:58:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BE48F3C20A6
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Sep 2019 13:26:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 30C773C1814
- for <ltp@lists.linux.it>; Tue, 24 Sep 2019 12:58:09 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id E82F53C1CF9
+ for <ltp@lists.linux.it>; Mon, 23 Sep 2019 20:10:57 +0200 (CEST)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5204A1000ACB
- for <ltp@lists.linux.it>; Tue, 24 Sep 2019 12:58:00 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 3D26614011A9
+ for <ltp@lists.linux.it>; Mon, 23 Sep 2019 20:10:56 +0200 (CEST)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id ADDFF46288;
- Tue, 24 Sep 2019 10:58:06 +0000 (UTC)
-Received: from dhcp-3-207.nay.redhat.com (dhcp-3-207.nay.redhat.com
- [10.66.3.207])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 6985B5D71C;
- Tue, 24 Sep 2019 10:58:05 +0000 (UTC)
-From: Li Wang <liwang@redhat.com>
-To: ltp@lists.linux.it
-Date: Tue, 24 Sep 2019 18:58:01 +0800
-Message-Id: <20190924105801.7616-1-liwang@redhat.com>
+ by mail.kernel.org (Postfix) with ESMTPSA id 8EC9520856
+ for <ltp@lists.linux.it>; Mon, 23 Sep 2019 18:10:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1569262254;
+ bh=KvD6fLRfhprsPZVrNJfg2XWPRxn7aB8JcuChWQAo+ds=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=IVINVMwHkmOGlL9HB6FsXvXgTEt4qN0WNsr4IiDVesseU4+3q7uCkMQcKNwpGdg2d
+ J3y8XC/51i2cJ9QJKID8vEcuEXNznBSaSAXO19DXUc7sb09owap0iaGKIboe/1ViLG
+ UAn0vEAhfyga9uRhfMhYmrPbiCT5n/Kofi2iKYh8=
+Received: by mail-wr1-f45.google.com with SMTP id r3so15051553wrj.6
+ for <ltp@lists.linux.it>; Mon, 23 Sep 2019 11:10:54 -0700 (PDT)
+X-Gm-Message-State: APjAAAXkbBnrI/A+L8qhbUXRrExn/bs4dOKgzJ6o8kdflVVUhYATljVP
+ o4e0wC+6BmP0L/D/RaBw26MvaUlHU6FA2UKSho5lHA==
+X-Google-Smtp-Source: APXvYqxMf22Qtxv28RvJGcXj21jvydzNhjpv9uM730jDDQc2vs1JXzrHu+IVI390PKNLgCUZzPg1mLn6U2pUMtf/oYU=
+X-Received: by 2002:a5d:4c92:: with SMTP id z18mr501724wrs.111.1569262253107; 
+ Mon, 23 Sep 2019 11:10:53 -0700 (PDT)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.29]); Tue, 24 Sep 2019 10:58:06 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+References: <20190923003846.GB15734@shao2-debian>
+ <871rw7l9dv.fsf@rpws.prws.suse.cz> <20190923153908.GA379@dell5510>
+In-Reply-To: <20190923153908.GA379@dell5510>
+From: Andy Lutomirski <luto@kernel.org>
+Date: Mon, 23 Sep 2019 11:10:41 -0700
+X-Gmail-Original-Message-ID: <CALCETrWCQyh=QkLU-Zcy7ijb8butWGddvPiuaPuu0-tLd+ur-w@mail.gmail.com>
+Message-ID: <CALCETrWCQyh=QkLU-Zcy7ijb8butWGddvPiuaPuu0-tLd+ur-w@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v3] fzsync: revoke thread_b if parent hits an
- accidental break
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+X-Mailman-Approved-At: Tue, 24 Sep 2019 13:26:36 +0200
+Subject: Re: [LTP] 12abeb544d: ltp.read_all_dev.fail
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,84 +65,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: LKP <lkp@01.org>, Andy Lutomirski <luto@kernel.org>, ltp@lists.linux.it,
+ LKML <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-We shouldn't rely entirely on the pair->exit flag in tst_fzsync_pair_cleanup()
-since there is possible to call tst_brk() at anyplace of thread_a, that will
-lead to timeout eventually because of thread_b(tst_fzsync_wait_b) fall into
-an infinite(no explicit condition to exit) loop.
+On Mon, Sep 23, 2019 at 8:39 AM Petr Vorel <pvorel@suse.cz> wrote:
+>
+> Hi,
+>
+> > > FYI, we noticed the following commit (built with gcc-7):
+>
+> > > commit: 12abeb544d548f55f56323fc6e5e6c0fb74f58e1 ("horrible test hack")
+> > > https://kernel.googlesource.com/pub/scm/linux/kernel/git/luto/linux.git random/kill-it
+>
+> ...
+> > > tst_test.c:1108: INFO: Timeout per run is 0h 05m 00s
+> > > Test timeouted, sending SIGKILL!
+> > > tst_test.c:1148: INFO: If you are running on slow machine, try exporting LTP_TIMEOUT_MUL > 1
+> > > tst_test.c:1149: BROK: Test killed! (timeout?)
+>
+> > So perhaps this is caused by reads of /dev/random hanging?
+>
+> > At any rate,
+> > I suppose this is intended to deliberately break something, so we can
+> > ignore it.
+> Yep, I'd ignore it, [1] really looks like the commit description "horrible test hack" :)
+>
 
-Thread_a path trace:
-  tst_brk()
-    cleanup()
-      tst_fzsync_pair_cleanup()
-        SAFE_PTHREAD_JOIN(pair->thread_b, NULL)
-        #Or pthread_cancel(pair->thread_b)
+Indeed.  I should have pushed this to my not-for-automated-testing tree.
 
-We fix the problem via a way to kill thread_b with pthread_cancel.
-
-Work-around: [commit 2e74d996: Check recvmmsg exists before entering fuzzy loop]
-Signed-off-by: Li Wang <liwang@redhat.com>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
-Cc: Cyril Hrubis <chrubis@suse.cz>
----
-
-Notes:
-    Patch V2: http://lists.linux.it/pipermail/ltp/2019-January/010489.html
-    Patch V1: http://lists.linux.it/pipermail/ltp/2019-January/010438.html
-
- include/tst_fuzzy_sync.h | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
-
-diff --git a/include/tst_fuzzy_sync.h b/include/tst_fuzzy_sync.h
-index f9a1947c7..152f779cb 100644
---- a/include/tst_fuzzy_sync.h
-+++ b/include/tst_fuzzy_sync.h
-@@ -63,6 +63,7 @@
- #include <time.h>
- #include <math.h>
- #include <stdlib.h>
-+#include <pthread.h>
- #include "tst_atomic.h"
- #include "tst_timer.h"
- #include "tst_safe_pthread.h"
-@@ -218,9 +219,13 @@ static void tst_fzsync_pair_init(struct tst_fzsync_pair *pair)
- static void tst_fzsync_pair_cleanup(struct tst_fzsync_pair *pair)
- {
- 	if (pair->thread_b) {
--		tst_atomic_store(1, &pair->exit);
--		SAFE_PTHREAD_JOIN(pair->thread_b, NULL);
--		pair->thread_b = 0;
-+		if (pair->exit == 1) {
-+			SAFE_PTHREAD_JOIN(pair->thread_b, NULL);
-+			pair->thread_b = 0;
-+		} else {
-+			pthread_cancel(pair->thread_b);
-+			pair->thread_b = 0;
-+		}
- 	}
- }
- 
-@@ -271,8 +276,11 @@ static void tst_fzsync_pair_reset(struct tst_fzsync_pair *pair,
- 	pair->a_cntr = 0;
- 	pair->b_cntr = 0;
- 	pair->exit = 0;
--	if (run_b)
-+	if (run_b) {
-+		pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
-+		pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
- 		SAFE_PTHREAD_CREATE(&pair->thread_b, 0, run_b, 0);
-+	}
- 
- 	pair->exec_time_start = (float)tst_timeout_remaining();
- }
--- 
-2.20.1
-
+--Andy
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
