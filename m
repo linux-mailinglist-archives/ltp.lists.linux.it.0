@@ -1,44 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05062BC6E8
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Sep 2019 13:32:43 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id EE716BC70F
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Sep 2019 13:44:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 985AD3C20A1
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Sep 2019 13:32:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A5E8A3C20AB
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Sep 2019 13:44:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 68E7C3C1CE6
- for <ltp@lists.linux.it>; Tue, 24 Sep 2019 13:32:38 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id ABFC83C1CE6
+ for <ltp@lists.linux.it>; Tue, 24 Sep 2019 13:44:27 +0200 (CEST)
 Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 88F976008A6
- for <ltp@lists.linux.it>; Tue, 24 Sep 2019 13:32:37 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id DB59814004FD
+ for <ltp@lists.linux.it>; Tue, 24 Sep 2019 13:44:26 +0200 (CEST)
 Received: from ubuntu.localdomain (unknown [37.156.92.209])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 310E29F837;
- Tue, 24 Sep 2019 11:32:36 +0000 (UTC)
+ by mail.jv-coder.de (Postfix) with ESMTPSA id D8B4E9F837;
+ Tue, 24 Sep 2019 11:44:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1569324756; bh=99SKvd2uSrunso1OvbO1N8YW3uPY5h0FmvEKGqpFfOA=;
+ t=1569325465; bh=99SKvd2uSrunso1OvbO1N8YW3uPY5h0FmvEKGqpFfOA=;
  h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=rW2cxgoUUQmyQ0A2y3u+YfDtBW2PIpRjQKo0us9dZgbJ10fNL+Xoce79Ldw+FkYU7
- K/yxwAcGplKdjwj5H1ehDCfsUW6alIjyHDkb+CwUVKnaiKbUcqEGV7KzYkNORLNzKh
- Stg110o+UzNM9TWoLjAoX1g58eOw0wivamT9PE3E=
+ b=pinIA49W4XJB6ht3mAta0l60cD3JEeFNfBGIlN2WUkbnSyY9gLsZn/Uytgmm5EiOD
+ N6qBUI7zsFlgzZ8EcJyOQ/a3XiK86lsYAzrMwiFR+Lpd8SBZBWiiabef9iI1pVWnB0
+ N/6+o0QfnAGGV9TPhanmuCJIBrFIOuCA1IuruQwE=
 From: Joerg Vehlow <lkml@jv-coder.de>
 To: ltp@lists.linux.it
-Date: Tue, 24 Sep 2019 13:32:26 +0200
-Message-Id: <20190924113226.59960-1-lkml@jv-coder.de>
+Date: Tue, 24 Sep 2019 13:44:12 +0200
+Message-Id: <20190924114412.61462-1-lkml@jv-coder.de>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] shm_test: Fix parameter passing to threads
+Subject: [LTP] [PATCH v2] shm_test: Fix parameter passing to threads
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
