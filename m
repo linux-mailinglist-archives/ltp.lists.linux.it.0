@@ -2,38 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 546BABC694
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Sep 2019 13:22:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05062BC6E8
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Sep 2019 13:32:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CE8633C2090
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Sep 2019 13:22:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 985AD3C20A1
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Sep 2019 13:32:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 2D5ED3C2039
- for <ltp@lists.linux.it>; Tue, 24 Sep 2019 13:22:09 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 68E7C3C1CE6
+ for <ltp@lists.linux.it>; Tue, 24 Sep 2019 13:32:38 +0200 (CEST)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7D6B760099F
- for <ltp@lists.linux.it>; Tue, 24 Sep 2019 13:22:10 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 0E1C0AE22
- for <ltp@lists.linux.it>; Tue, 24 Sep 2019 11:22:07 +0000 (UTC)
-Received: by localhost (Postfix, from userid 1000)
- id A50179E8A9; Tue, 24 Sep 2019 13:22:06 +0200 (CEST)
-From: Michael Moese <mmoese@suse.de>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 88F976008A6
+ for <ltp@lists.linux.it>; Tue, 24 Sep 2019 13:32:37 +0200 (CEST)
+Received: from ubuntu.localdomain (unknown [37.156.92.209])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 310E29F837;
+ Tue, 24 Sep 2019 11:32:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1569324756; bh=99SKvd2uSrunso1OvbO1N8YW3uPY5h0FmvEKGqpFfOA=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=rW2cxgoUUQmyQ0A2y3u+YfDtBW2PIpRjQKo0us9dZgbJ10fNL+Xoce79Ldw+FkYU7
+ K/yxwAcGplKdjwj5H1ehDCfsUW6alIjyHDkb+CwUVKnaiKbUcqEGV7KzYkNORLNzKh
+ Stg110o+UzNM9TWoLjAoX1g58eOw0wivamT9PE3E=
+From: Joerg Vehlow <lkml@jv-coder.de>
 To: ltp@lists.linux.it
-Date: Tue, 24 Sep 2019 13:21:59 +0200
-Message-Id: <20190924112159.18845-1-mmoese@suse.de>
-X-Mailer: git-send-email 2.23.0
+Date: Tue, 24 Sep 2019 13:32:26 +0200
+Message-Id: <20190924113226.59960-1-lkml@jv-coder.de>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] Add a regression test for cve-2017-15649
+Subject: [LTP] [PATCH] shm_test: Fix parameter passing to threads
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,257 +50,192 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-net/packet/af_packet.c in the Linux kernel before 4.13.6 allows local
-users to gain privileges via crafted system calls that trigger
-mishandling of packet_fanout data structures, because of a race
-condition (involving fanout_add and packet_do_bind) that leads to a
-use-after-free.
+From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 
-See https://ssd-disclosure.com/archives/3484 for more detail.
+The arguments to all threads were passed using a pointer to the same memory.
+So they all point to the same data, that is overriden by the main thread
+to prepare it for the next thread.
 
-Signed-off-by: Michael Moese <mmoese@suse.de>
+Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 ---
- runtest/cve                    |   1 +
- testcases/cve/.gitignore       |   1 +
- testcases/cve/Makefile         |   1 +
- testcases/cve/cve-2017-15649.c | 192 +++++++++++++++++++++++++++++++++
- 4 files changed, 195 insertions(+)
- create mode 100644 testcases/cve/cve-2017-15649.c
+ testcases/kernel/mem/mtest07/shm_test.c | 70 ++++++++++++-------------
+ 1 file changed, 35 insertions(+), 35 deletions(-)
 
-diff --git a/runtest/cve b/runtest/cve
-index 33c9196e0..6c0597e71 100644
---- a/runtest/cve
-+++ b/runtest/cve
-@@ -40,3 +40,4 @@ cve-2017-1000380 snd_timer01
- cve-2018-5803 sctp_big_chunk
- cve-2018-1000001 realpath01
- cve-2018-19854 crypto_user01
-+cve-2017-15649 cve-2017-15649
-diff --git a/testcases/cve/.gitignore b/testcases/cve/.gitignore
-index 01a3e4c8f..94415b4e4 100644
---- a/testcases/cve/.gitignore
-+++ b/testcases/cve/.gitignore
-@@ -10,3 +10,4 @@ stack_clash
- cve-2017-17052
- cve-2017-16939
- cve-2017-17053
-+cve-2017-15649
-diff --git a/testcases/cve/Makefile b/testcases/cve/Makefile
-index da44fff60..6cf3b5af9 100644
---- a/testcases/cve/Makefile
-+++ b/testcases/cve/Makefile
-@@ -46,5 +46,6 @@ cve-2017-17052:	CFLAGS += -pthread
- cve-2017-17053:	CFLAGS += -pthread
+diff --git a/testcases/kernel/mem/mtest07/shm_test.c b/testcases/kernel/mem/mtest07/shm_test.c
+index de91b7427..852c51b43 100644
+--- a/testcases/kernel/mem/mtest07/shm_test.c
++++ b/testcases/kernel/mem/mtest07/shm_test.c
+@@ -81,8 +81,16 @@ void noprintf(char *string, ...)
  
- cve-2015-3290:	CFLAGS += -pthread
-+cve-2017-15649: CFLAGS += -pthread
+ #define MAXT	30		/* default number of threads to create.               */
+ #define MAXR	1000		/* default number of repatetions to execute           */
+-#define WRITER  0		/* cause thread function to shmat and write           */
+-#define READER  1		/* cause thread function to shmat and read            */
++
++struct child_args
++{
++	pthread_t threadid;
++	int num_reps;
++	int shmkey;
++	int map_size;
++	int isReader;
++};
++
  
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/cve/cve-2017-15649.c b/testcases/cve/cve-2017-15649.c
-new file mode 100644
-index 000000000..c19b5bdd4
---- /dev/null
-+++ b/testcases/cve/cve-2017-15649.c
-@@ -0,0 +1,192 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ *   Copyright (c) 2019 Michael Moese <mmoese@suse.com>
-+ */
-+/* Regression test for CVE-2017-15649
-+ * based on the reproducer at https://ssd-disclosure.com/archives/3484
-+ *
-+ * net/packet/af_packet.c in the Linux kernel before 4.13.6 allows local users
-+ * to gain privileges via crafted system calls that trigger mishandling of
-+ * packet_fanout data structures, because of a race condition (involving
-+ * fanout_add and packet_do_bind) that leads to a use-after-free.
-+ *
-+ * Be careful! This test may crash your kernel!
-+ */
-+
-+#include <pthread.h>
-+#include <stdio.h>
-+#include <sched.h>
-+#include <string.h>
-+#include <time.h>
-+#include <net/if.h>
-+#include <sys/types.h>
-+#include <sys/socket.h>
-+
-+#include "tst_test.h"
-+#include "tst_taint.h"
-+#include "tst_safe_pthread.h"
-+#include "tst_fuzzy_sync.h"
-+#include "tst_capability.h"
-+#include "lapi/syscalls.h"
-+
-+#define TEST_RUNTIME 15 /* seconds */
-+
-+static struct tst_fzsync_pair fzsync_pair;
-+static int fd;
-+static struct ifreq ifr;
-+
-+struct sockaddr_ll {
-+	unsigned short	sll_family;
-+	short		sll_protocol;
-+	int		sll_ifindex;
-+	unsigned short	sll_hatype;
-+	unsigned char	sll_pkttype;
-+	unsigned char	sll_halen;
-+	unsigned char	sll_addr[8];
-+};
-+static struct sockaddr_ll addr;
-+
-+void *task1(void *unused)
-+{
-+	int fanout = 0x3;
-+
-+	if (tst_fzsync_run_a(&fzsync_pair)) {
-+		setsockopt(fd, 0x107, 18, &fanout, sizeof(fanout));
-+		tst_fzsync_end_race_a(&fzsync_pair);
-+	}
-+	return unused;
-+}
-+
-+void *task2(void *unused)
-+{
-+	if (tst_fzsync_run_b(&fzsync_pair)) {
-+		bind(fd, (struct sockaddr *)&addr, sizeof(addr));
-+		tst_fzsync_end_race_b(&fzsync_pair);
-+	}
-+	return unused;
-+}
-+
-+static int write_file(const char *file, const char *what, ...)
-+{
-+	char buf[1024];
-+	va_list args;
-+	int len;
-+	int my_fd;
-+
-+	va_start(args, what);
-+	vsnprintf(buf, sizeof(buf), what, args);
-+	va_end(args);
-+
-+	buf[sizeof(buf) - 1] = 0;
-+	len = strlen(buf);
-+
-+	my_fd = SAFE_OPEN(file, O_WRONLY | O_CLOEXEC);
-+
-+	SAFE_WRITE(1, my_fd, buf, len);
-+
-+	SAFE_CLOSE(my_fd);
-+
-+	return 0;
-+}
-+
-+static void setup(void)
-+{
-+	int real_uid = getuid();
-+	int real_gid = getgid();
-+
-+	tst_fzsync_pair_init(&fzsync_pair);
-+	tst_taint_init(TST_TAINT_W | TST_TAINT_D | TST_TAINT_L);
-+
-+	if (unshare(CLONE_NEWUSER) != 0) {
-+		printf("[!] unprivileged user namespaces are not available\n");
-+		perror("[-] unshare(CLONE_NEWUSER)");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	if (unshare(CLONE_NEWNET) != 0) {
-+		perror("[-] unshare(CLONE_NEWUSER)");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	if (write_file("/proc/self/setgroups", "deny")) {
-+		perror("[-] write_file(/proc/self/set_groups)");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	if (write_file("/proc/self/uid_map", "0 %d 1\n", real_uid)) {
-+		perror("[-] write_file(/proc/self/uid_map)");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	if (write_file("/proc/self/gid_map", "0 %d 1\n", real_gid)) {
-+		perror("[-] write_file(/proc/self/gid_map)");
-+		exit(EXIT_FAILURE);
-+	}
-+}
-+
-+
-+static void run(void)
-+{
-+	int index;
-+	struct timespec start, now;
-+	struct tst_cap_user_data before[2] = { {0} };
-+	struct tst_cap_user_data after[2] = { {0} };
-+
-+	struct tst_cap_user_header hdr = {
-+		.version = 0x20080522,
-+		.pid = tst_syscall(__NR_gettid),
-+	};
-+
-+	if (tst_capget(&hdr, before))
-+		tst_brk(TBROK | TTERRNO, "tst_capget()");
-+
-+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start);
-+
-+	while (1) {
-+		pthread_t thread1, thread2;
-+
-+
-+		fd = SAFE_SOCKET(AF_PACKET, SOCK_RAW, PF_PACKET);
-+
-+		strcpy((char *) &ifr.ifr_name, "lo");
-+		SAFE_IOCTL(fd, SIOCGIFINDEX, &ifr);
-+		index = ifr.ifr_ifindex;
-+
-+		SAFE_IOCTL(fd, SIOCGIFFLAGS, &ifr);
-+		ifr.ifr_flags &= ~(short) IFF_UP;
-+
-+		SAFE_IOCTL(fd, SIOCSIFFLAGS, &ifr);
-+
-+		addr.sll_family = AF_PACKET;
-+		addr.sll_protocol = 0x0;
-+		addr.sll_ifindex = index;
-+
-+		SAFE_PTHREAD_CREATE(&thread1, NULL, task1, NULL);
-+		SAFE_PTHREAD_CREATE(&thread2, NULL, task2, NULL);
-+		SAFE_PTHREAD_JOIN(thread1, NULL);
-+		SAFE_PTHREAD_JOIN(thread2, NULL);
-+
-+		SAFE_CLOSE(fd);
-+
-+		if (tst_capget(&hdr, after))
-+			tst_brk(TBROK | TTERRNO, "tst_capget()");
-+
-+		if (memcmp(before, after, sizeof(after)) || tst_taint_check())
-+			tst_res(TFAIL, "kernel is vulnerable");
-+
-+		clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &now);
-+		if ((now.tv_sec - start.tv_sec) > TEST_RUNTIME)
-+			tst_res(TPASS, "kernel seems to be not vulnerable");
-+	}
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.caps = (struct tst_cap []) {
-+		TST_CAP(TST_CAP_REQ, CAP_SYS_ADMIN),
-+		TST_CAP(TST_CAP_REQ, CAP_NET_RAW),
-+		TST_CAP(TST_CAP_DROP, CAP_SYS_ADMIN),
-+		{},
-+	},
-+};
+ /******************************************************************************/
+ /*								 	      */
+@@ -166,28 +174,25 @@ static int rm_shared_mem(key_t shm_id,	/* id of shared memory segment to be remo
+ /* Return:	exits with -1 on error, 0 on success                          */
+ /*									      */
+ /******************************************************************************/
+-static void *shmat_rd_wr(void *args)
++static void *shmat_rd_wr(void *vargs)
+ {				/* arguments to the thread function             */
+ 	int shmndx = 0;		/* index to the number of attach and detach   */
+ 	int index = 0;		/* index to the number of blocks touched      */
+-	int reader = 0;		/* this thread is a reader thread if set to 1 */
+ 	key_t shm_id = 0;	/* shared memory id                           */
+-	long *locargs =		/* local pointer to arguments                 */
+-	    (long *)args;
++	struct child_args *args = (struct child_args *)vargs;
+ 	volatile int exit_val = 0;	/* exit value of the pthread                  */
+ 	char *read_from_mem;	/* ptr to touch each (4096) block in memory   */
+ 	char *write_to_mem;	/* ptr to touch each (4096) block in memory   */
+ 	char *shmat_addr;	/* address of the attached memory             */
+ 	char buff;		/* temporary buffer                           */
+ 
+-	reader = (int)locargs[3];
+-	while (shmndx++ < (int)locargs[0]) {
++	while (shmndx++ < args->num_reps) {
+ 		dprt("pid[%d]: shmat_rd_wr(): locargs[1] = %#x\n",
+-		     getpid(), (int)locargs[1]);
++		     getpid(), args->shmkey);
+ 
+ 		/* get shared memory id */
+ 		if ((shm_id =
+-		     shmget((int)locargs[1], (int)locargs[2], IPC_CREAT | 0666))
++		     shmget(args->shmkey, args->map_size, IPC_CREAT | 0666))
+ 		    == -1) {
+ 			dprt("pid[%d]: shmat_rd_wr(): shmget failed\n",
+ 			     getpid());
+@@ -213,11 +218,11 @@ static void *shmat_rd_wr(void *args)
+ 			"pid[%d]: do_shmat_shmadt(): got shmat address = %#lx\n",
+ 			getpid(), (long)shmat_addr);
+ 
+-		if (!reader) {
++		if (args->isReader) {
+ 			/* write character 'Y' to that memory area */
+ 			index = 0;
+ 			write_to_mem = shmat_addr;
+-			while (index < (int)locargs[2]) {
++			while (index < args->num_reps) {
+ 				dprt("pid[%d]: do_shmat_shmatd(): write_to_mem = %#x\n", getpid(), write_to_mem);
+ 				*write_to_mem = 'Y';
+ 				index++;
+@@ -228,7 +233,7 @@ static void *shmat_rd_wr(void *args)
+ 			/* read from the memory area */
+ 			index = 0;
+ 			read_from_mem = shmat_addr;
+-			while (index < (int)locargs[2]) {
++			while (index < args->num_reps) {
+ 				buff = *read_from_mem;
+ 				index++;
+ 				read_from_mem++;
+@@ -272,12 +277,11 @@ int main(int argc,		/* number of input parameters                 */
+ 	int c;			/* command line options                       */
+ 	int num_thrd = MAXT;	/* number of threads to create                */
+ 	int num_reps = MAXR;	/* number of repatitions the test is run      */
+-	int thrd_ndx;		/* index into the array of thread ids         */
++	int i;
+ 	void *th_status;	/* exit status of LWP's                       */
+ 	int map_size;		/* size of the file mapped.                   */
+ 	int shmkey = 1969;	/* key used to generate shmid by shmget()     */
+-	pthread_t thrdid[30];	/* maxinum of 30 threads allowed              */
+-	long chld_args[4];	/* arguments to the thread function           */
++	struct child_args chld_args[30];	/* arguments to the thread function */
+ 	char *map_address = NULL;
+ 	/* address in memory of the mapped file       */
+ 	extern int optopt;	/* options to the program                     */
+@@ -299,7 +303,7 @@ int main(int argc,		/* number of input parameters                 */
+ 		case 't':
+ 			if ((num_thrd = atoi(optarg)) == 0)
+ 				OPT_MISSING(argv[0], optopt);
+-			else if (num_thrd < 0) {
++			else if (num_thrd < 0 || num_thrd > MAXT) {
+ 				fprintf(stdout,
+ 					"WARNING: bad argument. Using default\n");
+ 				num_thrd = MAXT;
+@@ -311,31 +315,27 @@ int main(int argc,		/* number of input parameters                 */
+ 		}
+ 	}
+ 
+-	chld_args[0] = num_reps;
+-
+-	for (thrd_ndx = 0; thrd_ndx < num_thrd; thrd_ndx += 2) {
++	for (i = 0; i < num_thrd; i += 2) {
+ 		srand(time(NULL) % 100);
+-		map_size =
+-		    (1 + (int)(1000.0 * rand() / (RAND_MAX + 1.0))) * 4096;
+-
+-		chld_args[1] = shmkey++;
+-		chld_args[2] = map_size;
++		map_size = (1 + (int)(1000.0 * rand() / (RAND_MAX + 1.0))) * 4096;
+ 
+ 		dprt("main(): thrd_ndx = %d map_address = %#x map_size = %d\n",
+-		     thrd_ndx, map_address, map_size);
+-
+-		chld_args[3] = WRITER;
++		     i, map_address, map_size);
+ 
++		chld_args[i].num_reps = num_reps;
++		chld_args[i].map_size = map_size;
++		chld_args[i].shmkey = shmkey++;
++		chld_args[i].isReader = 0;
+ 		if (pthread_create
+-		    (&thrdid[thrd_ndx], NULL, shmat_rd_wr, chld_args)) {
++		    (&chld_args[i].threadid, NULL, shmat_rd_wr, &chld_args[i])) {
+ 			perror("shmat_rd_wr(): pthread_create()");
+ 			exit(-1);
+ 		}
+ 
+-		chld_args[3] = READER;
+-
++		chld_args[i + 1] = chld_args[i];
++		chld_args[i + 1].isReader = 1;
+ 		if (pthread_create
+-		    (&thrdid[thrd_ndx + 1], NULL, shmat_rd_wr, chld_args)) {
++		    (&chld_args[i + 1].threadid, NULL, shmat_rd_wr, &chld_args[i + 1])) {
+ 			perror("shmat_rd_wr(): pthread_create()");
+ 			exit(-1);
+ 		}
+@@ -343,8 +343,8 @@ int main(int argc,		/* number of input parameters                 */
+ 
+ 	sync();
+ 
+-	for (thrd_ndx = 0; thrd_ndx < num_thrd; thrd_ndx++) {
+-		if (pthread_join(thrdid[thrd_ndx], &th_status) != 0) {
++	for (i = 0; i < num_thrd; i++) {
++		if (pthread_join(chld_args[i].threadid, &th_status) != 0) {
+ 			perror("shmat_rd_wr(): pthread_join()");
+ 			exit(-1);
+ 		} else {
+@@ -352,7 +352,7 @@ int main(int argc,		/* number of input parameters                 */
+ 			if (th_status == (void *)-1) {
+ 				fprintf(stderr,
+ 					"thread [%ld] - process exited with errors\n",
+-					(long)thrdid[thrd_ndx]);
++					(long)chld_args[i].threadid);
+ 				exit(-1);
+ 			}
+ 		}
 -- 
-2.23.0
+2.20.1
 
 
 -- 
