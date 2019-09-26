@@ -1,40 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D1DDBF2C1
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Sep 2019 14:17:50 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 69554BF2E2
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Sep 2019 14:25:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 385913C22CD
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Sep 2019 14:17:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 28BEE3C22CD
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Sep 2019 14:25:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id DB95A3C1E0F
- for <ltp@lists.linux.it>; Thu, 26 Sep 2019 14:17:47 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 33A9A3C1A9D
+ for <ltp@lists.linux.it>; Thu, 26 Sep 2019 14:25:48 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9DFD1602065
- for <ltp@lists.linux.it>; Thu, 26 Sep 2019 14:17:46 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id AE0BB600AAE
+ for <ltp@lists.linux.it>; Thu, 26 Sep 2019 14:25:50 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id C6D78B279;
- Thu, 26 Sep 2019 12:17:45 +0000 (UTC)
-Date: Thu, 26 Sep 2019 14:17:44 +0200
+ by mx1.suse.de (Postfix) with ESMTP id 534E4B251;
+ Thu, 26 Sep 2019 12:25:47 +0000 (UTC)
+Date: Thu, 26 Sep 2019 14:25:46 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Jan Stancek <jstancek@redhat.com>
-Message-ID: <20190926121744.GC13769@rei.lan>
-References: <a9fc2ff0c27317ae8ac2d56a819eeac5a281dd86.1569496399.git.jstancek@redhat.com>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <20190926122546.GA27993@rei>
+References: <20190925092958.125325-1-lkml@jv-coder.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <a9fc2ff0c27317ae8ac2d56a819eeac5a281dd86.1569496399.git.jstancek@redhat.com>
+In-Reply-To: <20190925092958.125325-1-lkml@jv-coder.de>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/bpf: auto bump RLIMIT_MEMLOCK
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] open_posix/conformance/clock/1.1: Deterministic
+ timing
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,30 +48,63 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> eBPF tests may fail (-EPERM) if max locked memory limit is too low.
-> User-space tools such as perf started increasing MELOCK limit to
-> avoid this problem.
+> On some systems the loop with 8 million iterations takes a very long time.
+> This patches changes it to busy loop for five seconds.
 > 
-> LTP follows same approach and will attempt to raise RLIMIT_MEMLOCK
-> if possible, otherwise prints an info message.
+> Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+> ---
+>  .../conformance/interfaces/clock/1-1.c                 | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
 > 
-> Link: http://lists.linux.it/pipermail/ltp/2019-August/013349.html
-> Link: https://lkml.org/lkml/2019/7/17/714
-> Signed-off-by: Jan Stancek <jstancek@redhat.com>
+> diff --git a/testcases/open_posix_testsuite/conformance/interfaces/clock/1-1.c b/testcases/open_posix_testsuite/conformance/interfaces/clock/1-1.c
+> index 9c48cd979..cce5beea9 100644
+> --- a/testcases/open_posix_testsuite/conformance/interfaces/clock/1-1.c
+> +++ b/testcases/open_posix_testsuite/conformance/interfaces/clock/1-1.c
+> @@ -17,20 +17,22 @@
+>  #include <time.h>
+>  #include <stdio.h>
+>  #include <unistd.h>
+> +#include <time.h>
+>  #include "posixtest.h"
+>  
+> -#define LARGENUMBER 8000000
+> +#define BUSY_LOOP_SECONDS 5
+>  int main(void)
+>  {
+>  	clock_t c1, c2;
+>  	double sec1, sec2;
+> -	int i;
+> +	time_t end;
+>  
+>  	c1 = clock();
+>  	sec1 = c1 / CLOCKS_PER_SEC;
+>  
+> -	for (i = 0; i < LARGENUMBER; i++) {
+> -		// keep busy so CPU time increases
+> +	end = time(NULL) + BUSY_LOOP_SECONDS;
+> +
+> +	while (end >= time(NULL)) {
+>  		clock();
+>  	}
 
-Looks good, acked.
+clock_gettime() with CLOCK_MONOTONIC would be better fit there, since
+the wall clock can be changed by ntp and generally is not guaranteed to
+be monotonic...
 
-Also have you had a look at the eBPF regression test?
-
-Do you mind if I push that before the release (with added call to adjust
-the memlock limit)?
+>  
+> -- 
+> 2.20.1
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
 
 -- 
 Cyril Hrubis
