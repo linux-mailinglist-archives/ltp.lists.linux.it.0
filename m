@@ -2,44 +2,45 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8B64BFD8D
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Sep 2019 05:12:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5171BFDAC
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Sep 2019 05:39:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 38F453C22F5
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Sep 2019 05:12:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 546093C2325
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Sep 2019 05:39:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 7AC343C1C7D
- for <ltp@lists.linux.it>; Fri, 27 Sep 2019 05:12:43 +0200 (CEST)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id A0E493C1C7E
+ for <ltp@lists.linux.it>; Fri, 27 Sep 2019 05:39:47 +0200 (CEST)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 5A7BD601038
- for <ltp@lists.linux.it>; Fri, 27 Sep 2019 05:12:39 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 109FC20075D
+ for <ltp@lists.linux.it>; Fri, 27 Sep 2019 05:39:44 +0200 (CEST)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2019 20:12:36 -0700
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 26 Sep 2019 20:39:41 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,553,1559545200"; d="scan'208";a="219626668"
+X-IronPort-AV: E=Sophos;i="5.64,553,1559545200"; d="scan'208";a="201879055"
 Received: from xpf-desktop.sh.intel.com ([10.239.13.102])
- by fmsmga002.fm.intel.com with ESMTP; 26 Sep 2019 20:12:35 -0700
+ by orsmga002.jf.intel.com with ESMTP; 26 Sep 2019 20:39:40 -0700
 From: Pengfei Xu <pengfei.xu@intel.com>
 To: ltp <ltp@lists.linux.it>, Pengfei Xu <pengfei.xu@intel.com>,
- Neri Ricardo <ricardo.neri@intel.com>, Su Heng <heng.su@intel.com>
-Date: Fri, 27 Sep 2019 11:19:30 +0800
-Message-Id: <20190927031930.27425-1-pengfei.xu@intel.com>
+ Neri Ricardo <ricardo.neri@intel.com>, Su Heng <heng.su@intel.com>,
+ Cyril Hrubis <chrubis@suse.cz>
+Date: Fri, 27 Sep 2019 11:46:35 +0800
+Message-Id: <20190927034635.28521-1-pengfei.xu@intel.com>
 X-Mailer: git-send-email 2.14.1
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH tbt_cases] umip_basic_test.c: update umip basic test
- for new kernel v5.4
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH] umip_basic_test.c: update umip basic test for new
+ kernel v5.4
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
