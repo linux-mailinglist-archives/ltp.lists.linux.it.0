@@ -1,41 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id F12C5C053E
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Sep 2019 14:34:51 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 00C5EC059A
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Sep 2019 14:48:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 273493C1D02
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Sep 2019 14:34:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 955DA3C1850
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Sep 2019 14:48:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 9977B3C0595
- for <ltp@lists.linux.it>; Fri, 27 Sep 2019 14:34:47 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id A5CDA3C1450
+ for <ltp@lists.linux.it>; Fri, 27 Sep 2019 14:48:39 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 2B218600469
- for <ltp@lists.linux.it>; Fri, 27 Sep 2019 14:34:48 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 656882009E9
+ for <ltp@lists.linux.it>; Fri, 27 Sep 2019 14:48:38 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id DF3A6B15E;
- Fri, 27 Sep 2019 12:34:45 +0000 (UTC)
-Date: Fri, 27 Sep 2019 14:34:44 +0200
+ by mx1.suse.de (Postfix) with ESMTP id A3C91B13E
+ for <ltp@lists.linux.it>; Fri, 27 Sep 2019 12:48:38 +0000 (UTC)
+Date: Fri, 27 Sep 2019 14:48:37 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20190927123444.GA28245@dell5510>
-References: <20190814121328.22999-1-chrubis@suse.cz>
+Message-ID: <20190927124837.GA28734@dell5510>
+References: <20190925094721.18932-1-chrubis@suse.cz>
+ <20190925135634.GA32581@dell5510> <20190927113826.GC17233@rei.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190814121328.22999-1-chrubis@suse.cz>
+In-Reply-To: <20190927113826.GC17233@rei.lan>
 User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/shmat03: Remove it from runtest/cve
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/acct02: Check read size.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,37 +48,20 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Davidlohr Bueso <dave@stgolabs.net>, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi Cyril,
 
-> The original POC[1] and CVE-2017-5669 are not tested by this test
-> anymore as it turned out that the CVE was bogus.
-Could you put the link, please? Is it this one?
-https://marc.info/?l=linux-mm&m=152510978123755&w=2
+> Hi!
+> I've just pushed this patch + one more special case for read_bytes == 0,
+> can you please give it a try and check that at least the test works
+> where it was working previously?
 
-> And the test became regression test for:
-
-> commit 8f89c007b6dec16a1793cb88de88fcc02117bbbc
-> Author: Davidlohr Bueso <dave@stgolabs.net>
-> Date:   Fri May 25 14:47:30 2018 -0700
-
->     ipc/shm: fix shmat() nil address after round-down when remapping
-
-> Hence we will keep the test but remove it from the CVE runtest file and adjust
-> the top level comment in the test code.
-
-> [1] https://bugzilla.kernel.org/attachment.cgi?id=252511
->     from https://bugzilla.kernel.org/show_bug.cgi?id=192931
-
-> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-> CC: Davidlohr Bueso <dave@stgolabs.net>
-Acked-by: Petr Vorel <pvorel@suse.cz>
-(based on https://marc.info/?l=linux-mm&m=152510978123755&w=2)
+Yep, confirm that it's working as expected :).
 
 Kind regards,
 Petr
