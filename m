@@ -2,39 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5842C23C9
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Sep 2019 16:59:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D816DC23CD
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Sep 2019 16:59:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6D2BC3C2315
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Sep 2019 16:59:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A32FF3C2318
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Sep 2019 16:59:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 112F43C17CE
- for <ltp@lists.linux.it>; Mon, 30 Sep 2019 16:59:29 +0200 (CEST)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 435AA3C1455
+ for <ltp@lists.linux.it>; Mon, 30 Sep 2019 16:59:30 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C932F100054B
- for <ltp@lists.linux.it>; Mon, 30 Sep 2019 16:59:20 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 5D4411A01199
+ for <ltp@lists.linux.it>; Mon, 30 Sep 2019 16:59:29 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id D5D43B182;
- Mon, 30 Sep 2019 14:59:28 +0000 (UTC)
+ by mx1.suse.de (Postfix) with ESMTP id 1052EB183;
+ Mon, 30 Sep 2019 14:59:29 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Mon, 30 Sep 2019 16:59:12 +0200
-Message-Id: <20190930145916.20465-2-pvorel@suse.cz>
+Date: Mon, 30 Sep 2019 16:59:13 +0200
+Message-Id: <20190930145916.20465-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20190930145916.20465-1-pvorel@suse.cz>
 References: <20190930145916.20465-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH v4 1/5] shell: Add tst_is_num()
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] [RFC PATCH v4 2/5] shell: Introduce TST_TIMEOUT variable,
+ add checks
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,57 +51,111 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Using grep -E, which more portable than using awk or anything else.
+to unify shell API with C API.
 
+TST_TIMEOUT should be set in tests only, it's equivalent
+of tst_test->timeout in C API.
+
+Add checks requiring both TST_TIMEOUT and LTP_TIMEOUT_MUL >= 1,
+that allow to set TST_TIMEOUT lower than the default 300 sec
+(might be useful for some case).
+
+LTP_TIMEOUT_MUL can be float, but will be ceiled to int.
+Using float would require awk/bc, which is unnecessary dependency
+and code complication (we do not care that much if it's multiplied
+precisely as far as the resulting timeout is never smaller than
+the precise calculation).
+
+Also added cut dependency to _tst_setup_timer(), but that's not
+a problem as it was already required for shell API in tst_run().
+
+Suggested-by: Clemens Famulla-Conrad <cfamullaconrad@suse.de>
 Reviewed-by: Li Wang <liwang@redhat.com>
 Reviewed-by: Clemens Famulla-Conrad <cfamullaconrad@suse.de>
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- doc/test-writing-guidelines.txt | 6 ++++++
- testcases/lib/tst_test.sh       | 7 ++++++-
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ doc/test-writing-guidelines.txt |  8 ++++++--
+ testcases/lib/tst_test.sh       | 32 ++++++++++++++++++++++++++++++--
+ 2 files changed, 36 insertions(+), 4 deletions(-)
 
 diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
-index cd0d28b8e..6643fc7c1 100644
+index 6643fc7c1..69da6c495 100644
 --- a/doc/test-writing-guidelines.txt
 +++ b/doc/test-writing-guidelines.txt
-@@ -2338,6 +2338,12 @@ Checking for integers
- tst_is_int "$FOO"
- -------------------------------------------------------------------------------
+@@ -2109,8 +2109,8 @@ tst_run
+ '$TST_TEST_DATA' can be used with '$TST_CNT'. If '$TST_TEST_DATA_IFS' not specified,
+ space as default value is used. Of course, it's possible to use separate functions.
  
-+Checking for integers and floating point numbers
-+++++++++++++++++++++++++++++++++++++++++++++++++
-+# returns zero if passed an integer or floating point number parameter, non-zero otherwise
-+tst_is_num "$FOO"
-+-------------------------------------------------------------------------------
-+
- Obtaining random numbers
- ++++++++++++++++++++++++
+-2.3.2 Library variables
+-^^^^^^^^^^^^^^^^^^^^^^^
++2.3.2 Library environment variables for shell
++^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
  
+ Similarily to the C library various checks and preparations can be requested
+ simply by setting right '$TST_NEEDS_FOO'.
+@@ -2126,6 +2126,10 @@ simply by setting right '$TST_NEEDS_FOO'.
+                        the test (see below).
+ | 'TST_NEEDS_MODULE' | Test module name needed for the test (see below).
+ | 'TST_NEEDS_DRIVERS'| Checks kernel drivers support for the test.
++| 'TST_TIMEOUT'      | Maximum timeout set for the test in sec. Must be int >= 1,
++                       or -1 (special value to disable timeout), default is 300.
++                       Variable is meant be set in tests, not by user.
++                       It's equivalent of `tst_test.timeout` in C.
+ |=============================================================================
+ 
+ NOTE: Network tests (see testcases/network/README.md) use additional variables
 diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-index e0b24c6b9..ca63745fd 100644
+index ca63745fd..977ffd97e 100644
 --- a/testcases/lib/tst_test.sh
 +++ b/testcases/lib/tst_test.sh
-@@ -1,6 +1,6 @@
- #!/bin/sh
- # SPDX-License-Identifier: GPL-2.0-or-later
--# Copyright (c) Linux Test Project, 2014-2018
-+# Copyright (c) Linux Test Project, 2014-2019
- # Author: Cyril Hrubis <chrubis@suse.cz>
- #
- # LTP test library for shell.
-@@ -344,6 +344,11 @@ tst_is_int()
- 	return $?
- }
+@@ -379,9 +379,37 @@ _tst_rescmp()
  
-+tst_is_num()
-+{
-+	echo "$1" | grep -Eq '^[-+]?[0-9]+\.?[0-9]*$'
-+}
-+
- tst_usage()
+ _tst_setup_timer()
  {
- 	if [ -n "$TST_USAGE" ]; then
++	TST_TIMEOUT=${TST_TIMEOUT:-300}
+ 	LTP_TIMEOUT_MUL=${LTP_TIMEOUT_MUL:-1}
+ 
+-	local sec=$((300 * LTP_TIMEOUT_MUL))
++	if [ "$TST_TIMEOUT" = -1 ]; then
++		tst_res TINFO "Timeout per run is disabled"
++		return
++	fi
++
++	local err="LTP_TIMEOUT_MUL must be number >= 1!"
++
++	tst_is_num "$LTP_TIMEOUT_MUL" || tst_brk TCONF "$err ($LTP_TIMEOUT_MUL)"
++
++	if ! tst_is_int "$LTP_TIMEOUT_MUL"; then
++		tst_test_cmds cut
++		LTP_TIMEOUT_MUL=$(echo "$LTP_TIMEOUT_MUL" | cut -d. -f1)
++		LTP_TIMEOUT_MUL=$((LTP_TIMEOUT_MUL+1))
++		tst_res TINFO "ceiling LTP_TIMEOUT_MUL to $LTP_TIMEOUT_MUL"
++	fi
++	[ "$LTP_TIMEOUT_MUL" -ge 1 ] || tst_brk TCONF "$err ($LTP_TIMEOUT_MUL)"
++
++	if ! tst_is_int "$TST_TIMEOUT" || [ "$TST_TIMEOUT" -lt 1 ]; then
++		tst_brk TBROK "TST_TIMEOUT must be int >= 1! ($TST_TIMEOUT)"
++	fi
++
++	local sec
++	if [ "$is_float" ]; then
++		sec=`echo | awk '{printf("%d\n", '$TST_TIMEOUT' * '$LTP_TIMEOUT_MUL'+ 0.5)}'`
++	else
++		sec=$((TST_TIMEOUT * LTP_TIMEOUT_MUL))
++	fi
++
+ 	local h=$((sec / 3600))
+ 	local m=$((sec / 60 % 60))
+ 	local s=$((sec % 60))
+@@ -418,7 +446,7 @@ tst_run()
+ 			NEEDS_CMDS|NEEDS_MODULE|MODPATH|DATAROOT);;
+ 			NEEDS_DRIVERS|FS_TYPE|MNTPOINT|MNT_PARAMS);;
+ 			IPV6|IPVER|TEST_DATA|TEST_DATA_IFS);;
+-			RETRY_FUNC|RETRY_FN_EXP_BACKOFF);;
++			RETRY_FUNC|RETRY_FN_EXP_BACKOFF|TIMEOUT);;
+ 			NET_MAX_PKT);;
+ 			*) tst_res TWARN "Reserved variable TST_$_tst_i used!";;
+ 			esac
 -- 
 2.23.0
 
