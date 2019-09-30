@@ -1,36 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80132C23DB
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Sep 2019 17:03:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A07FEC25F5
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Sep 2019 20:28:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 224303C1C80
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Sep 2019 17:03:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B92373C233B
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Sep 2019 20:28:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 2F7653C1455
- for <ltp@lists.linux.it>; Mon, 30 Sep 2019 17:03:27 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id C72883C0781
+ for <ltp@lists.linux.it>; Mon, 30 Sep 2019 20:28:02 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5E13D600AFF
- for <ltp@lists.linux.it>; Mon, 30 Sep 2019 17:03:28 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 9D901200B6F
+ for <ltp@lists.linux.it>; Mon, 30 Sep 2019 20:28:01 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 32C0FB16B
- for <ltp@lists.linux.it>; Mon, 30 Sep 2019 15:03:26 +0000 (UTC)
-From: Jorik Cronenberg <jcronenberg@suse.de>
-To: ltp@lists.linux.it
-Date: Mon, 30 Sep 2019 17:02:10 +0200
-Message-Id: <20190930150210.14949-1-jcronenberg@suse.de>
-X-Mailer: git-send-email 2.16.4
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+ by mx1.suse.de (Postfix) with ESMTP id 46D05AF5D;
+ Mon, 30 Sep 2019 18:28:00 +0000 (UTC)
+To: Petr Vorel <pvorel@suse.cz>, cfamullaconrad@suse.com
+References: <20181003113215.GB21139@dell5510>
+ <cover.1566500817.git.clanig@suse.com>
+ <ce675759672af52bea02c11d51bd7d10f0bcb5cb.1566500817.git.clanig@suse.com>
+ <20190919164151.GB20853@x230>
+From: Christian Lanig <clanig@suse.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=clanig@suse.com; keydata=
+ mDMEXAEU7RYJKwYBBAHaRw8BAQdANOkvcn8Z+w2HnKycnsVSpzK3N/3YEHJPChi0QQ8QIuq0
+ IUNocmlzdGlhbiBMYW5pZyA8Y2xhbmlnQHN1c2UuY29tPoiPBBMWCAA3FiEELCMlz9+8btpw
+ cP5sULrWNE4+V5MFAlwBFO0CGwMFCwkIBwIGFQoJCAsCAxYCAQIeAQIXgAAKCRBQutY0Tj5X
+ k4ErAPwIyjcY/CSgs/H4P7P3q6kclbE5tk2AQ/U0/UPvMR+KswD/XA130rUHgobAoLn6O6rj
+ 47QCcU/MX7HQWoHZfZ06vQm0IENocmlzdGlhbiBMYW5pZyA8Y2xhbmlnQHN1c2UuZGU+iI8E
+ ExYIADcWIQQsIyXP37xu2nBw/mxQutY0Tj5XkwUCXAEVmwIbAwULCQgHAgYVCgkICwIDFgIB
+ Ah4BAheAAAoJEFC61jROPleTTq4A/iePn5+FXArrWoQXAsHVx1yuwMZs0ue2A00UDckgfAZa
+ AQDUhpv/ipfWJP01x6EK+/T5ArxhhVQuB8Ks+HZR4fW3D7QnQ2hyaXN0aWFuIExhbmlnIDxj
+ aHJpc3RpYW5AbGFuaWcuZW1haWw+iI8EExYIADcWIQQsIyXP37xu2nBw/mxQutY0Tj5XkwUC
+ XAEWlgIbAwULCQgHAgYVCgkICwIDFgIBAh4BAheAAAoJEFC61jROPleT8o4A/3JN2rz8ExPC
+ Lb8qSKAvDWMhzCjyosOcp2nj7o/GIJUeAP97COx3Sw4oL/EJu+bkVekZJuTr5xg8if/qXjQC
+ 23I0Arg4BFwBFO0SCisGAQQBl1UBBQEBB0CEeXx/YmBx7pl1b9c8i8Hk2cPw8GMtiNhihQiG
+ xU8TcQMBCAeIeAQYFggAIBYhBCwjJc/fvG7acHD+bFC61jROPleTBQJcARTtAhsMAAoJEFC6
+ 1jROPleTa7kA/RwyvMYHuhB91enOSU/KzGsq9fOaKtjEcQtoT1Tp7XCNAP9SaGeaUJUvzyie
+ 8JSoJ9Jsy54XvP+AURgLKiSgCYZjAbkCDQRcBaUhARAArskHM+LRc5QmdPOvx/vCb0iwV2bT
+ k3jhezjKQyV4KdRBxbZchSyK7QBfmS4R/VLKZ/9M8stUFZMju7iR+ZsC4lEMInrO+TKUa69p
+ GkdT/TQfcnS4ErWbJ764dSbZjSg7Bb0NoRSveqcSXbdISqxAT3kf/f1OOgJwPpOZwZzfOyqE
+ YBfslq2LITxv4uhSlHFpjQRj6YBbhy5XgLsHs6U1jWLk9pGPT/3hYBw4pI423hBLW3Ju0C4R
+ cmERJESpQ16rCPsqDLUgp3uJh9eUkEW6sblBG/5sfBjqPBl4gpW+sUXt+4WTI9P8AVBDb6j8
+ L39fktalLi5MV7aNye8S6meA/ti365fuenRvv6cw/0pdvPn8jYJABIHRE9/JMOgzM4r3LGxL
+ 6aMyQ6UF3fDmPuP3IJ9rsvdiwqMMixE0gqy7QmELaFTe77Fkk9Ne5rFmTUY3eaXlyvS8R5nb
+ f/+ZzgApT8qV128Wg0p+9Vyr1YvHKJW35SdV3AoAP9oIueWqReg7HLGdzsX4U1bRaT/cgbmt
+ ZfCQpej+Hp/+SxSYfY6e1vjEh+GVupsQXGj3H8r38yJud2cJN01kj7xHpv1wiHKRoldCyXV8
+ tdL7vV1h8lVD9vrICfUix63teGizOgvlmDqWbC4ZtnxD2GSxXbt/l+w5zHYQ6khlpYKWm6TR
+ 6OibsnEAEQEAAYh4BBgWCAAgFiEELCMlz9+8btpwcP5sULrWNE4+V5MFAlwFpSECGwwACgkQ
+ ULrWNE4+V5NF3QEA+IXkQeMP6kQtdag19ml4CEJw1tyq9ZEli9leZDoiZ1ABAMys3J0tMU//
+ hyMeArNThZ0XiAlaDe1mM11RfpUljBgP
+Message-ID: <ce127270-9575-623b-2505-5975db0ea645@suse.com>
+Date: Mon, 30 Sep 2019 20:27:59 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <20190919164151.GB20853@x230>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] Port ptrace01.c to new library
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH v2 1/1] Add automated tests for shell lib
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,380 +80,19 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
-
-This is just a port of ptrace01.c. I wanted to make sure what I'm doing is right before porting the rest. I tried to make as little changes as possible so the test should be pretty much the same.
-
----
- testcases/kernel/syscalls/ptrace/ptrace01.c | 296 +++++++---------------------
- 1 file changed, 72 insertions(+), 224 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/ptrace/ptrace01.c b/testcases/kernel/syscalls/ptrace/ptrace01.c
-index 5a7ed5ffd..ab9ef35ee 100644
---- a/testcases/kernel/syscalls/ptrace/ptrace01.c
-+++ b/testcases/kernel/syscalls/ptrace/ptrace01.c
-@@ -1,36 +1,13 @@
--/*
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/* 
-  * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
-  *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-+ * Author:	Saji Kumar.V.R <saji.kumar@wipro.com>
-  *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-+ * Ported to new library:
-+ * 10/2019	Jorik Cronenberg <jcronenberg@suse.de>
-  *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-- *
-- */
--/**********************************************************
-- *
-- *    TEST IDENTIFIER	: ptrace01
-- *
-- *    EXECUTED BY	: anyone
-- *
-- *    TEST TITLE	: functionality test for ptrace(2)
-- *
-- *    TEST CASE TOTAL	: 2
-- *
-- *    AUTHOR		: Saji Kumar.V.R <saji.kumar@wipro.com>
-- *
-- *    SIGNALS
-- * 	Uses SIGUSR1 to pause before test if option set.
-- * 	(See the parse_opts(3) man page).
-- *
-- *    DESCRIPTION
-+ * DESCRIPTION
-  *	This test case tests the functionality of ptrace() for
-  *	PTRACE_TRACEME & PTRACE_KILL requests.
-  *	Here, we fork a child & the child does ptrace(PTRACE_TRACEME, ...).
-@@ -44,243 +21,114 @@
-  * 		In both cases, child should stop & notify parent on reception
-  * 		of SIGUSR2
-  *
-- * 	Setup:
-- * 	  Setup signal handling.
-- *	  Pause for SIGUSR1 if option specified.
-- *
-- * 	Test:
-- *	 Loop if the proper options are given.
-- *	 setup signal handler for SIGUSR2 signal
-- *	 fork a child
-- *
-- *	 CHILD:
-- *		setup signal handler for SIGUSR2 signal
-- *		call ptrace() with PTRACE_TRACEME request
-- *		send SIGUSR2 signal to self
-- *	 PARENT:
-- *		wait() for child.
-- *		if parent is notified when child gets a signal through wait(),
-- *		then
-- *			do  ptrace(PTRACE_KILL, ..) on child
-- * 			wait() for child to finish,
-- * 			if child exited abnormaly,
-- *				TEST passed
-- * 			else
-- * 				TEST failed
-- *		else
-- *			TEST failed
-- *
-- * 	Cleanup:
-- * 	  Print errno log and/or timing stats if options given
-- *
-- * USAGE:  <for command-line>
-- *  ptrace01 [-c n] [-e] [-i n] [-I x] [-P x] [-t] [-h] [-f] [-p]
-- *			where,  -c n : Run n copies concurrently.
-- *				-e   : Turn on errno logging.
-- *				-h   : Show help screen
-- *				-f   : Turn off functional testing
-- *				-i n : Execute test n times.
-- *				-I x : Execute test for x seconds.
-- *				-p   : Pause for SIGUSR1 before starting
-- *				-P x : Pause for x seconds between iterations.
-- *				-t   : Turn on syscall timing.
-- *
-- ****************************************************************/
-+ */
- 
-+#include <stdlib.h>
- #include <errno.h>
- #include <signal.h>
- #include <sys/wait.h>
--
- #include <config.h>
- #include "ptrace.h"
-+#include "tst_test.h"
- 
--#include "test.h"
--
--static void do_child(void);
--static void setup(void);
--static void cleanup(void);
--static void child_handler();
--static void parent_handler();
-+static int got_signal;
- 
--static int got_signal = 0;
--
--char *TCID = "ptrace01";
--static int i;			/* loop test case counter, shared with do_child */
--
--int TST_TOTAL = 2;
--
--int main(int ac, char **av)
-+void child_handler(void)
- {
--
--	int lc;
--	pid_t child_pid;
--	int status;
--	struct sigaction parent_act;
--
--	tst_parse_opts(ac, av, NULL, NULL);
--#ifdef UCLINUX
--	maybe_run_child(&do_child, "d", &i);
--#endif
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--
--		tst_count = 0;
--
--		for (i = 0; i < TST_TOTAL; ++i) {
--			got_signal = 0;
--
--			/* Setup signal handler for parent */
--			if (i == 1) {
--				parent_act.sa_handler = parent_handler;
--				parent_act.sa_flags = SA_RESTART;
--				sigemptyset(&parent_act.sa_mask);
--
--				if ((sigaction(SIGUSR2, &parent_act, NULL))
--				    == -1) {
--					tst_resm(TWARN, "sigaction() failed"
--						 " in parent");
--					continue;
--				}
--			}
--
--			switch (child_pid = FORK_OR_VFORK()) {
--
--			case -1:
--				/* fork() failed */
--				tst_resm(TFAIL, "fork() failed");
--				continue;
--
--			case 0:
--				/* Child */
--#ifdef UCLINUX
--				if (self_exec(av[0], "d", i) < 0) {
--					tst_resm(TFAIL, "self_exec failed");
--					continue;
--				}
--#else
--				do_child();
--#endif
--
--			default:
--				/* Parent */
--				if ((waitpid(child_pid, &status, 0)) < 0) {
--					tst_resm(TFAIL, "waitpid() failed");
--					continue;
--				}
--
--				/*
--				 * Check the exit status of child. If (it exits
--				 * normally with exit value 1) OR (child came
--				 * through signal handler), Test Failed
--				 */
--
--				if (((WIFEXITED(status)) &&
--				     (WEXITSTATUS(status))) ||
--				    (got_signal == 1)) {
--					tst_resm(TFAIL, "Test Failed");
--					continue;
--				} else {
--					/* Kill child */
--					if ((ptrace(PTRACE_KILL, child_pid,
--						    0, 0)) == -1) {
--						tst_resm(TFAIL, "Test Failed:"
--							 " Parent was not able to kill"
--							 " child");
--						continue;
--					}
--				}
--
--				if ((waitpid(child_pid, &status, 0)) < 0) {
--					tst_resm(TFAIL, "waitpid() failed");
--					continue;
--				}
--
--				if (WIFEXITED(status)) {
--					/* Child exits normally */
--					tst_resm(TFAIL, "Test failed");
--				} else {
--					tst_resm(TPASS, "Test Passed");
--				}
--
--			}
--		}
-+	if ((kill(getppid(), SIGUSR2)) == -1) {
-+		tst_res(TWARN, "kill() failed in child_handler()");
-+		exit(1);
- 	}
-+}
- 
--	/* cleanup and exit */
--	cleanup();
--	tst_exit();
--
-+void parent_handler(void)
-+{
-+	got_signal = 1;
- }
- 
--/* do_child() */
--void do_child(void)
-+void do_child(unsigned int i)
- {
- 	struct sigaction child_act;
- 
--	/* Setup signal handler for child */
--	if (i == 0) {
-+	if (i == 0)
- 		child_act.sa_handler = SIG_IGN;
--	} else {
-+	else
- 		child_act.sa_handler = child_handler;
--	}
-+
- 	child_act.sa_flags = SA_RESTART;
- 	sigemptyset(&child_act.sa_mask);
- 
- 	if ((sigaction(SIGUSR2, &child_act, NULL)) == -1) {
--		tst_resm(TWARN, "sigaction() failed in child");
-+		tst_res(TWARN, "sigaction() failed in child");
- 		exit(1);
- 	}
- 
- 	if ((ptrace(PTRACE_TRACEME, 0, 0, 0)) == -1) {
--		tst_resm(TWARN, "ptrace() failed in child");
-+		tst_res(TWARN, "ptrace() failed in child");
- 		exit(1);
- 	}
--	/* ensure that child bypasses signal handler */
- 	if ((kill(getpid(), SIGUSR2)) == -1) {
--		tst_resm(TWARN, "kill() failed in child");
-+		tst_res(TWARN, "kill() failed in child");
- 		exit(1);
- 	}
- 	exit(1);
- }
- 
--/* setup() - performs all ONE TIME setup for this test */
--void setup(void)
-+static void run(unsigned int i)
- {
- 
--	tst_sig(FORK, DEF_HANDLER, cleanup);
-+	pid_t child_pid;
-+	int status;
-+	struct sigaction parent_act;
- 
--	TEST_PAUSE;
-+#ifdef UCLINUX
-+	maybe_run_child(&do_child, "d", &i);
-+#endif
- 
--}
-+	got_signal = 0;
- 
--/*
-- *cleanup() -  performs all ONE TIME cleanup for this test at
-- *		completion or premature exit.
-- */
--void cleanup(void)
--{
-+	if (i == 1) {
-+		parent_act.sa_handler = parent_handler;
-+		parent_act.sa_flags = SA_RESTART;
-+		sigemptyset(&parent_act.sa_mask);
- 
--}
-+		if ((sigaction(SIGUSR2, &parent_act, NULL))
-+		    == -1) {
-+			tst_res(TWARN, "sigaction() failed in parent");
-+		}
-+	}
- 
--/*
-- * child_handler() - Signal handler for child
-- */
--void child_handler(void)
--{
-+	child_pid = SAFE_FORK();
- 
--	if ((kill(getppid(), SIGUSR2)) == -1) {
--		tst_resm(TWARN, "kill() failed in child_handler()");
--		exit(1);
--	}
--}
-+	if (child_pid != 0) {
- 
--/*
-- * parent_handler() - Signal handler for parent
-- */
--void parent_handler(void)
--{
-+		SAFE_WAITPID(child_pid, &status, 0);
- 
--	got_signal = 1;
-+		if (((WIFEXITED(status)) &&
-+		     (WEXITSTATUS(status))) ||
-+		    (got_signal == 1)) {
-+			tst_res(TFAIL, "Test Failed");
-+		} else {
-+			if ((ptrace(PTRACE_KILL, child_pid,
-+				    0, 0)) == -1) {
-+				tst_res(TFAIL,
-+						"Test Failed: Parent was not able to kill child");
-+			}
-+		}
-+
-+		SAFE_WAITPID(child_pid, &status, 0);
-+
-+		if (WIFEXITED(status))
-+			tst_res(TFAIL, "Test failed");
-+		else
-+			tst_res(TPASS, "Test Passed");
-+
-+	} else
-+		do_child(i);
- }
-+
-+static struct tst_test test = {
-+	.test = run,
-+	.tcnt = 2,
-+	.forks_child = 1,
-+};
--- 
-2.16.4
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkgUGV0ciBhbmQgQ2xlbWVucywKCnRoYW5rIHlvdSBmb3IgdGhlIHJlYXNvbmFibGUgY29tbWVu
+dHMgYW5kIHN1Z2dlc3Rpb25zLgoKSSBqdXN0IHdhbnQgdG8gdGVsbCB5b3UgdGhhdCBJIHdpbGwg
+bm90IGJlIGFibGUgdG8gd29yayBvbiB0aGlzIHVudGlsCm5leHQgd2Vlay4gSSBhcHByZWNpYXRl
+IHlvdXIgcGF0aWVuY2UgdmVyeSBtdWNoLgoKUmVnYXJkcywKCkNocmlzdGlhbgoKLS0gCkNocmlz
+dGlhbiBMYW5pZyAtIFNVU0UgRW5naW5lZXJpbmcgQXBwcmVudGljZQpTVVNFIExpbnV4IEdtYkgs
+IE1heGZlbGRzdHJhw59lIDUsIEQtOTA0MDkgTsO8cm5iZXJnClRlbDogKzQ5LTkxMS03NDA1My0w
+OyBGYXg6ICs0OS05MTEtNzQxNzc1NTsgIGh0dHBzOi8vd3d3LnN1c2UuY29tLwpHRjogRmVsaXgg
+SW1lbmTDtnJmZmVyLCBKYW5lIFNtaXRoYXJkLCBHcmFoYW0gTm9ydG9uLCBIUkIgMjEyODQgKEFH
+IE7DvHJuYmVyZykKCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4
+Lml0L2xpc3RpbmZvL2x0cAo=
