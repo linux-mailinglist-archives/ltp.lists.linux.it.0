@@ -2,40 +2,93 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3501CE496
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Oct 2019 16:03:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76F8FCE8C4
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Oct 2019 18:11:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 541D73C1C90
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Oct 2019 16:03:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CAEF83C2022
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Oct 2019 18:11:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id A9F183C1809
- for <ltp@lists.linux.it>; Mon,  7 Oct 2019 16:03:24 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id B0AF93C04FC
+ for <ltp@lists.linux.it>; Mon,  7 Oct 2019 18:11:13 +0200 (CEST)
+Received: from APC01-HK2-obe.outbound.protection.outlook.com
+ (mail-oln040092255087.outbound.protection.outlook.com [40.92.255.87])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E0FDE1A00F2D
- for <ltp@lists.linux.it>; Mon,  7 Oct 2019 16:03:23 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 0012FB12B;
- Mon,  7 Oct 2019 14:03:22 +0000 (UTC)
-Date: Mon, 7 Oct 2019 16:03:21 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: rasibley <rasibley@redhat.com>
-Message-ID: <20191007140321.GA23368@rei.lan>
-References: <20191004184436.30922-1-rasibley@redhat.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 3A463600A6C
+ for <ltp@lists.linux.it>; Mon,  7 Oct 2019 18:10:10 +0200 (CEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WYu8mu5uTOSOh6x1V/s0d58CAF4yJPAWIPfXY3068yPixzx0nu9DAK7/y0L1IbR9K7SiKIrK1bsyYKgotidQb4Jx3BPEbs77phUTebpzjI7bj7qFys4kBeU73t6YQGtRhiQoarsCVu8gefhpVJOF6ckRhPOaW68kD2AmEfBp34aJwMiW80As9VVXij2w23CBEvQ/s8dO2UPjdwu/mEJAX72/HeRPbQ1wowjH01pYWmPylX+ekzmGlZaJN3/1I66GHuQpEKrRa8Ri85j8knErbt29yU3nJZXvklGm7lsmbZOrkCkhPraC5pjvNxun/ZSTdPymK78pKpcHwsVnjUaadw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OeEhb50pcQp/Z38CcexqJ0QlO8nrl0uoi90oRal9Gjo=;
+ b=IXOLsGp5m1fpvLII+jAaSzv7VzpVoZxvS4VXHKP91aNP92hQ7Nhpz8CMD0zmgAlUrxwsYifZEKvcjuVmEwLjrCUICnrfhW6+RdvkVeCf5O93B7LwW7reHfANlfn/HhiIpk4pdkREj+7eJ6qFO/R3ZWSy361LMCL9r+q1HZNMQiBAiPV2iVkolOjPyZwtL+VmnuDOpoYNgef60cdKPq0oN9FkJhpk6WoisJVD926fEuJMK6wqw9EtdnqABgDmqRsoV7DxXuTkoKg+cgPtGq1C91e28ZimsxAlxJ1vav7fzTbEQXggyrioMeOq3KoE5qTQqFA4cKn3Yl8amKDK7lcTdA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OeEhb50pcQp/Z38CcexqJ0QlO8nrl0uoi90oRal9Gjo=;
+ b=p0tlhL9MS7HV0sbzNEP9Xu2FhJCmHBLWLcxUKfELpucFpinalPzya/7nN7EOFefAjjOZTMEJgutobXb8ye49lDyDFOdJ4cj2EAp5nVdRTUaF5HxQob+EZc4JXxMrQKMRav9WKw0g48WXfU9dFsIe4z58Fi9OL6Bed5rilMNwOtFeisO34QJg5zQchuL3PsSr/XPykCwSZFJgWguluHvYZ81t1edIaOTnXty1XilW8+vFwfhQXscuVAMioZGlW8s6R6Sw1No/H+phAQTmVOWV8sitdRKXatXSiXpdyDVj+gjE6kSoIIWa2u1u1uh+zhPWiU6XuiMw9QpcqlOTFLfl2Q==
+Received: from PU1APC01FT057.eop-APC01.prod.protection.outlook.com
+ (10.152.252.60) by PU1APC01HT043.eop-APC01.prod.protection.outlook.com
+ (10.152.253.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2327.20; Mon, 7 Oct
+ 2019 16:11:09 +0000
+Received: from MA1PR0101MB1815.INDPRD01.PROD.OUTLOOK.COM (10.152.252.54) by
+ PU1APC01FT057.mail.protection.outlook.com (10.152.253.7) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2327.20 via Frontend Transport; Mon, 7 Oct 2019 16:11:09 +0000
+Received: from MA1PR0101MB1815.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::21a3:a780:2f98:9145]) by MA1PR0101MB1815.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::21a3:a780:2f98:9145%11]) with mapi id 15.20.2327.023; Mon, 7 Oct 2019
+ 16:11:09 +0000
+From: Prabhakar Kushwaha <prabhakar.kushwaha@outlook.com>
+To: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Thread-Topic: LTP-cpuset test cases
+Thread-Index: AQHVfSnU9lv49DX3JUGFiwklFJfoZg==
+Date: Mon, 7 Oct 2019 16:11:09 +0000
+Message-ID: <MA1PR0101MB18158831A03644C622793C6B989B0@MA1PR0101MB1815.INDPRD01.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-clientproxiedby: BM1PR0101CA0036.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:1a::22) To MA1PR0101MB1815.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a00:2d::16)
+x-incomingtopheadermarker: OriginalChecksum:C37763B9013689B7CE65AF244E532C59231586B130EF1911447BBF06F4A568FA;
+ UpperCasedChecksum:82E217CC9209030739AC04035E9841E47374E4FF540D4ECF7FDE62B66F59548A;
+ SizeAsReceived:7307; Count:47
+x-ms-exchange-messagesentrepresentingtype: 1
+x-tmn: [qjZVMrDlPv4ECEnWAqkD3bItAPxaJTF2]
+x-microsoft-original-message-id: <535fa9fd-589d-f6e2-d083-320aeba15e93@outlook.com>
+x-ms-publictraffictype: Email
+x-incomingheadercount: 47
+x-eopattributedmessage: 0
+x-ms-traffictypediagnostic: PU1APC01HT043:
+x-ms-exchange-purlcount: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: M57VlRs9Ak4nC1iz660dCBw83AYg2zO8a50g7YoOlnBquDhOabAlTNoaGp6O4JQcakcA1TdR2Ba4Ny5R2k/r+PhhQXSUIrKl6ePesUfZmBxuywOfL+5g7amfQ0mcy+EX2RgQD5hBtsKLuw/UpIjKgU+Up0cudtGOOKKyn9Z6sWZQ30WwebgN+hn+b/SBFViHysz8KJc+094sqDjNiyBRxb5F19KECxJ148TpV/9YWEA=
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191004184436.30922-1-rasibley@redhat.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa2d25a6-ba75-42d9-4eae-08d74b40f702
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Oct 2019 16:11:09.2607 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Internet
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PU1APC01HT043
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] Update dynamic_debug grep check
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] LTP-cpuset test cases
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,49 +100,170 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0456822915=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> If running on debug kernel this check will fail on EDAC DEBUG messages,
-> update grep to ignore such cases like this.
+--===============0456822915==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MA1PR0101MB18158831A03644C622793C6B989B0MA1PR0101MB1815_"
 
-You are missing the Signed-off-by: line here, see:
+--_000_MA1PR0101MB18158831A03644C622793C6B989B0MA1PR0101MB1815_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-https://www.kernel.org/doc/html/v4.17/process/submitting-patches.html#developer-s-certificate-of-origin-1-1
+SGkgQWxsLA0KDQpJIGFtIHJ1bm5pbmcgTFRQIHRvIHRlc3QgY3B1c2V0IHRlc3QgY2FzZXMuIEkg
+aGF2ZSBjcmVhdGVkIG5ldyBjb21tYW5kIGZpbGUgYWZ0ZXIgY29weWluZyAyIGNvbW1hbmRzIGZy
+b20gcnVubHRwLg0KDQogIGNwdXNldF9sb2FkX2JhbGFuY2UgY3B1c2V0X2xvYWRfYmFsYW5jZV90
+ZXN0LnNoDQogIGNwdXNldF9iYXNlX29wcyBjcHVzZXRfYmFzZV9vcHNfdGVzdHNldC5zaA0KDQp3
+aXRoIGFib3ZlIHNlcXVlbmNlLCBjcmFzaCBpcyBoYXBwZW5pbmcNCg0KWzEwNTQ2LjU4NzQ2M10g
+V29ya3F1ZXVlOiBjZ3JvdXBfZGVzdHJveSBjc3Nfa2lsbGVkX3dvcmtfZm4NClsxMDU0Ni41OTI3
+NjJdIHBzdGF0ZTogODA0MDAwMDkgKE56Y3YgZGFpZiArUEFOIC1VQU8pDQpbMTA1NDYuNTk3NTUw
+XSBwYyA6IGJ1aWxkX3NjaGVkX2RvbWFpbnMrMHgyNDQvMHhiNDgNClsxMDU0Ni42MDIxNTRdIGxy
+IDogYnVpbGRfc2NoZWRfZG9tYWlucysweDIyOC8weGI0OA0KWzEwNTQ2LjYwNjc1N10gc3AgOiBm
+ZmZmMDAwMDMxZmMzYjcwDQpbMTA1NDYuNjEwMDU5XSB4Mjk6IGZmZmYwMDAwMzFmYzNiNzAgeDI4
+OiBmZmZmMDAwMDExNTdkNzMwDQpbMTA1NDYuNjE1MzU3XSB4Mjc6IGZmZmYwMDAwMTE1YTcwMDAg
+eDI2OiBmZmZmMDAwMDExMThkMDAwDQpbMTA1NDYuNjIwNjU1XSB4MjU6IDAwMDAwMDAwMDAwMDAw
+ZTAgeDI0OiAwMDAwMDAwMDAwMDAwMDAwDQpbMTA1NDYuNjI1OTUzXSB4MjM6IGZmZmYwMDAwMTEx
+OGRjODAgeDIyOiBmZmZmMDAwMDExNTdkNzMwDQpbMTA1NDYuNjMxMjUxXSB4MjE6IGZmZmY4MGJm
+NTQ3MjM5NDAgeDIwOiBmZmZmODBiZGVkM2FlZjAwDQpbMTA1NDYuNjM2NTQ5XSB4MTk6IGZmZmYw
+MDAwMTE1N2YxZTQgeDE4OiAwMDAwMDAwMDAwMDAwMDAwDQpbMTA1NDYuNjQxODQ4XSB4MTc6IDAw
+MDAwMDAwMDAwMDAwMDAgeDE2OiAwMDAwMDAwMDAwMDAwMDAwDQouNTQ2DQogIGtlcm5lbDpJbnRl
+cm5hbCBlcnJvcjogT29wczogOTYwMDAwMDcgWyMxXSBTTVANClsxMDU0Ni42NjE5MDVdIHgxMzog
+MDAwMDAwMDBmZmZmZmZmZiB4MTI6IGZmZmZmZmZmMDAwMDAwMDANClsxMDU0Ni42NjcyMDNdIHgx
+MTogMDAwMDAwMDAwMDAwMDAwMCB4MTA6IDAwMDAwMDAwMDAwMDAwMDANClsxMDU0Ni42NzI1MDFd
+IHg5IDogMDAwMDAwMDAwMDAwMDAwMCB4OCA6IGZmZmY4MGJkZWQ0NWMwMDANClsxMDU0Ni42Nzc3
+OTldIHg3IDogMDAwMDAwMDAwMDAwMDAwMCB4NiA6IDAwMDAwMDAwMDAwMDAwM2YNClsxMDU0Ni42
+ODMwOTddIHg1IDogMDAwMDAwMDAwMDAwMDA0MCB4NCA6IDAwMDAwMDAwMDAwMDAwMDANClsxMDU0
+Ni42ODgzOTVdIHgzIDogMDAwMDAwMDAwMDAwMDAwMCB4MiA6IDAwMDAwMDAwMDAwMDAwMDANClsx
+MDU0Ni42OTM2OTNdIHgxIDogZmZmZjAwMDAxMTE4ZGM4MCB4MCA6IDAwMDAwMDAwZmZmZmZmZmYN
+ClsxMDU0Ni42OTg5OTFdIENhbGwgdHJhY2U6DQpbMTA1NDYuNzAxNDI2XSAgYnVpbGRfc2NoZWRf
+ZG9tYWlucysweDI0NC8weGI0OA0KWzEwNTQ2LjcwNTY4NF0gIHBhcnRpdGlvbl9zY2hlZF9kb21h
+aW5zKzB4MWRjLzB4MmRjDQpbMTA1NDYuNzEwMzAwXSAgcmVidWlsZF9zY2hlZF9kb21haW5zX2xv
+Y2tlZCsweDY0LzB4YTgNClsxMDU0Ni43MTUxNjZdICB1cGRhdGVfZmxhZysweDE3NC8weDE5MA0K
+WzEwNTQ2LjcxODcyOV0gIGNwdXNldF9jc3Nfb2ZmbGluZSsweGIwLzB4YzgNClsxMDU0Ni43MjI3
+MjVdICBjc3Nfa2lsbGVkX3dvcmtfZm4rMHg1NC8weDExOA0KWzEwNTQ2LjcyNjgxMV0gIHByb2Nl
+c3Nfb25lX3dvcmsrMHgxYjQvMHgzZDgNClsxMDU0Ni43MzA4MDddICB3b3JrZXJfdGhyZWFkKzB4
+NGMvMHg0MjANClsxMDU0Ni43MzQ0NjNdICBrdGhyZWFkKzB4MTA4LzB4MTM4DQpbMTA1NDYuNzM3
+Njg1XSAgcmV0X2Zyb21fZm9yaysweDEwLzB4MTgNClsxMDU0Ni43NDEyNDldIENvZGU6IGFhMDAw
+M2UxIDEyODAwMDAwIGY4NjJkYWMyIGFhMDEwM2Y3IChmODYxNjg1NSkNClsxMDU0Ni43NDczMzBd
+IC0tLVsgZW5kIHRyYWNlIGM0ZjE0OTdmYjRhODYwYzggXS0tLQ0KDQoNClN0cmFuZ2VseSwgSWYg
+SSBydW4gc2VxdWVuY2UgWzFdIG9yIFsyXSBubyBjcmFzaCBpcyBoYXBwZW5pbmcNClsxXQ0KY3B1
+c2V0X2xvYWRfYmFsYW5jZSAgICAgY3B1c2V0X2xvYWRfYmFsYW5jZV90ZXN0LnNoDQpjcHVzZXRf
+bG9hZF9iYWxhbmNlICAgICBjcHVzZXRfbG9hZF9iYWxhbmNlX3Rlc3Quc2gNCg0KWzJdDQpjcHVz
+ZXRfbG9hZF9iYWxhbmNlICAgICBjcHVzZXRfbG9hZF9iYWxhbmNlX3Rlc3Quc2gNCmNwdXNldF9z
+Y2hlZF9kb21haW5zICAgIGNwdXNldF9zY2hlZF9kb21haW5zX3Rlc3Quc2gNCmNwdXNldF9ob3Rw
+bHVnICBjcHVzZXRfaG90cGx1Z190ZXN0LnNoDQoNCldoYXQgSSBjYW4gaW5mZXIgdGhhdCB0aGUg
+Y3B1c2V0X2xvYWRfYmFsYW5jZSwgY3B1c2V0X3NjaGVkX2RvbWFpbnMsIGNwdXNldF9ob3RwbHVn
+IGFyZSB1c2lnIGNwdXNldF9zZXQoKS4gV2hpbGUgY3B1c2V0X2Jhc2Vfb3BzIGRvZXNudCB1c2Ug
+Y3B1c2V0X3NldCgpLg0KQWxzbywgY29tYmluYXRpb24gb2YgY3B1c2V0X2xvYWRfYmFsYW5jZSB3
+aXRoIGFueSBjcHVzZXQgdGVzdHMgKm5vdCogdXNpbmcgY3B1c2V0X3NldCgpIGNhdXNpbmcgYWJv
+dmUgdHlwZSBvZiBjcmFzaC4NCg0KSSBoYXZlIHNlZW4gdGhpcyBjcmFzaCBvbiBMaW51eCA1LjA5
+IGFuZCA1LjQucmMwIGtlcm5lbC4NCg0KDQpBbnkgY2x1ZSB3aWxsIGhlbHAgbWUgaW4gbW92aW5n
+IGZvcndhcmQuDQoNCg0KaHR0cHM6Ly9naXRodWIuY29tL2xpbnV4LXRlc3QtcHJvamVjdC9sdHAu
+Z2l0DQp0b3AgY29tbWl0Og0KY29tbWl0IGZmM2M5NzgwNDM4MDQwYWI5NTVmZGY0MTY3ZmZhZTRl
+NjEyYTMxMWQgKEhFQUQgLT4gbWFzdGVyLCBvcmlnaW4vbWFzdGVyLCBvcmlnaW4vSEVBRCkNCkF1
+dGhvcjogUGV0ciBWb3JlbCA8cHZvcmVsQHN1c2UuY3o+PG1haWx0bzpwdm9yZWxAc3VzZS5jej4N
+CkRhdGU6ICAgV2VkIE9jdCAyIDEyOjUxOjA0IDIwMTkgKzAyMDANCg0KICAgIGxpYjogUmVwbGFj
+ZSBHUEwgdmVyYm9zZSB0ZXh0IGJ5IFNQRFggbGljZW5zZSBpZGVudGlmaWVyDQoNCiAgICBmcm9t
+IGxpYnJhcnkgc291cmNlcyBmb3IgbmV3IEFQSS4NCg0KICAgIFNpZ25lZC1vZmYtYnk6IFBldHIg
+Vm9yZWwgPHB2b3JlbEBzdXNlLmN6PjxtYWlsdG86cHZvcmVsQHN1c2UuY3o+DQoNCi0tcHJhYmhh
+a2FyDQoNCg0K
 
-Otherwise the patch is Ok.
+--_000_MA1PR0101MB18158831A03644C622793C6B989B0MA1PR0101MB1815_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <F81A8954BF97DB4F9590F8D58E98D301@INDPRD01.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
 
-> ---
->  testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh b/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh
-> index f39d67d0a..7f06c2488 100755
-> --- a/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh
-> +++ b/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh
-> @@ -127,7 +127,7 @@ ddebug_test()
->  	sed -i -e 1,`wc -l < ./dmesg.old`d ./dmesg.new
->  	if grep -q -e "Kernel panic" -e "Oops" -e "general protection fault" \
->  		-e "general protection handler: wrong gs" -e "\(XEN\) Panic" \
-> -		-e "fault" -e "warn" -e "BUG" ./dmesg.new ; then
-> +		-e "fault" -e "warn" -e "\<BUG\>" ./dmesg.new ; then
->  		tst_res TFAIL "Issues found in dmesg!"
->  	else
->  		tst_res TPASS "Dynamic debug OK"
-> -- 
-> 2.20.1
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5Pg0KPHA+PC9wPg0KPGRp
+diBjbGFzcz0ibW96LXRleHQtZmxvd2VkIiBzdHlsZT0iZm9udC1mYW1pbHk6IC1tb3otZml4ZWQ7
+DQogICAgICBmb250LXNpemU6IDE0cHg7IiBsYW5nPSJ4LXVuaWNvZGUiPg0KSGkgQWxsLCA8YnI+
+DQo8YnI+DQpJIGFtIHJ1bm5pbmcgTFRQIHRvIHRlc3QgY3B1c2V0IHRlc3QgY2FzZXMuIEkgaGF2
+ZSBjcmVhdGVkIG5ldyBjb21tYW5kIGZpbGUgYWZ0ZXIgY29weWluZyAyIGNvbW1hbmRzIGZyb20g
+cnVubHRwLg0KPGJyPg0KPGJyPg0KJm5ic3A7IGNwdXNldF9sb2FkX2JhbGFuY2UgY3B1c2V0X2xv
+YWRfYmFsYW5jZV90ZXN0LnNoIDxicj4NCiZuYnNwOyBjcHVzZXRfYmFzZV9vcHMgY3B1c2V0X2Jh
+c2Vfb3BzX3Rlc3RzZXQuc2ggPGJyPg0KPGJyPg0Kd2l0aCBhYm92ZSBzZXF1ZW5jZSwgY3Jhc2gg
+aXMgaGFwcGVuaW5nIDxicj4NCjxicj4NClsxMDU0Ni41ODc0NjNdIFdvcmtxdWV1ZTogY2dyb3Vw
+X2Rlc3Ryb3kgY3NzX2tpbGxlZF93b3JrX2ZuIDxicj4NClsxMDU0Ni41OTI3NjJdIHBzdGF0ZTog
+ODA0MDAwMDkgKE56Y3YgZGFpZiAmIzQzO1BBTiAtVUFPKSA8YnI+DQpbMTA1NDYuNTk3NTUwXSBw
+YyA6IGJ1aWxkX3NjaGVkX2RvbWFpbnMmIzQzOzB4MjQ0LzB4YjQ4IDxicj4NClsxMDU0Ni42MDIx
+NTRdIGxyIDogYnVpbGRfc2NoZWRfZG9tYWlucyYjNDM7MHgyMjgvMHhiNDggPGJyPg0KWzEwNTQ2
+LjYwNjc1N10gc3AgOiBmZmZmMDAwMDMxZmMzYjcwIDxicj4NClsxMDU0Ni42MTAwNTldIHgyOTog
+ZmZmZjAwMDAzMWZjM2I3MCB4Mjg6IGZmZmYwMDAwMTE1N2Q3MzAgPGJyPg0KWzEwNTQ2LjYxNTM1
+N10geDI3OiBmZmZmMDAwMDExNWE3MDAwIHgyNjogZmZmZjAwMDAxMTE4ZDAwMCA8YnI+DQpbMTA1
+NDYuNjIwNjU1XSB4MjU6IDAwMDAwMDAwMDAwMDAwZTAgeDI0OiAwMDAwMDAwMDAwMDAwMDAwIDxi
+cj4NClsxMDU0Ni42MjU5NTNdIHgyMzogZmZmZjAwMDAxMTE4ZGM4MCB4MjI6IGZmZmYwMDAwMTE1
+N2Q3MzAgPGJyPg0KWzEwNTQ2LjYzMTI1MV0geDIxOiBmZmZmODBiZjU0NzIzOTQwIHgyMDogZmZm
+ZjgwYmRlZDNhZWYwMCA8YnI+DQpbMTA1NDYuNjM2NTQ5XSB4MTk6IGZmZmYwMDAwMTE1N2YxZTQg
+eDE4OiAwMDAwMDAwMDAwMDAwMDAwIDxicj4NClsxMDU0Ni42NDE4NDhdIHgxNzogMDAwMDAwMDAw
+MDAwMDAwMCB4MTY6IDAwMDAwMDAwMDAwMDAwMDAgPGJyPg0KLjU0NiA8YnI+DQombmJzcDsga2Vy
+bmVsOkludGVybmFsIGVycm9yOiBPb3BzOiA5NjAwMDAwNyBbIzFdIFNNUCA8YnI+DQpbMTA1NDYu
+NjYxOTA1XSB4MTM6IDAwMDAwMDAwZmZmZmZmZmYgeDEyOiBmZmZmZmZmZjAwMDAwMDAwIDxicj4N
+ClsxMDU0Ni42NjcyMDNdIHgxMTogMDAwMDAwMDAwMDAwMDAwMCB4MTA6IDAwMDAwMDAwMDAwMDAw
+MDAgPGJyPg0KWzEwNTQ2LjY3MjUwMV0geDkgOiAwMDAwMDAwMDAwMDAwMDAwIHg4IDogZmZmZjgw
+YmRlZDQ1YzAwMCA8YnI+DQpbMTA1NDYuNjc3Nzk5XSB4NyA6IDAwMDAwMDAwMDAwMDAwMDAgeDYg
+OiAwMDAwMDAwMDAwMDAwMDNmIDxicj4NClsxMDU0Ni42ODMwOTddIHg1IDogMDAwMDAwMDAwMDAw
+MDA0MCB4NCA6IDAwMDAwMDAwMDAwMDAwMDAgPGJyPg0KWzEwNTQ2LjY4ODM5NV0geDMgOiAwMDAw
+MDAwMDAwMDAwMDAwIHgyIDogMDAwMDAwMDAwMDAwMDAwMCA8YnI+DQpbMTA1NDYuNjkzNjkzXSB4
+MSA6IGZmZmYwMDAwMTExOGRjODAgeDAgOiAwMDAwMDAwMGZmZmZmZmZmIDxicj4NClsxMDU0Ni42
+OTg5OTFdIENhbGwgdHJhY2U6IDxicj4NClsxMDU0Ni43MDE0MjZdJm5ic3A7IGJ1aWxkX3NjaGVk
+X2RvbWFpbnMmIzQzOzB4MjQ0LzB4YjQ4IDxicj4NClsxMDU0Ni43MDU2ODRdJm5ic3A7IHBhcnRp
+dGlvbl9zY2hlZF9kb21haW5zJiM0MzsweDFkYy8weDJkYyA8YnI+DQpbMTA1NDYuNzEwMzAwXSZu
+YnNwOyByZWJ1aWxkX3NjaGVkX2RvbWFpbnNfbG9ja2VkJiM0MzsweDY0LzB4YTggPGJyPg0KWzEw
+NTQ2LjcxNTE2Nl0mbmJzcDsgdXBkYXRlX2ZsYWcmIzQzOzB4MTc0LzB4MTkwIDxicj4NClsxMDU0
+Ni43MTg3MjldJm5ic3A7IGNwdXNldF9jc3Nfb2ZmbGluZSYjNDM7MHhiMC8weGM4IDxicj4NClsx
+MDU0Ni43MjI3MjVdJm5ic3A7IGNzc19raWxsZWRfd29ya19mbiYjNDM7MHg1NC8weDExOCA8YnI+
+DQpbMTA1NDYuNzI2ODExXSZuYnNwOyBwcm9jZXNzX29uZV93b3JrJiM0MzsweDFiNC8weDNkOCA8
+YnI+DQpbMTA1NDYuNzMwODA3XSZuYnNwOyB3b3JrZXJfdGhyZWFkJiM0MzsweDRjLzB4NDIwIDxi
+cj4NClsxMDU0Ni43MzQ0NjNdJm5ic3A7IGt0aHJlYWQmIzQzOzB4MTA4LzB4MTM4IDxicj4NClsx
+MDU0Ni43Mzc2ODVdJm5ic3A7IHJldF9mcm9tX2ZvcmsmIzQzOzB4MTAvMHgxOCA8YnI+DQpbMTA1
+NDYuNzQxMjQ5XSBDb2RlOiBhYTAwMDNlMSAxMjgwMDAwMCBmODYyZGFjMiBhYTAxMDNmNyAoZjg2
+MTY4NTUpIDxicj4NClsxMDU0Ni43NDczMzBdIC0tLVsgZW5kIHRyYWNlIGM0ZjE0OTdmYjRhODYw
+YzggXS0tLSA8YnI+DQo8YnI+DQo8YnI+DQpTdHJhbmdlbHksIElmIEkgcnVuIHNlcXVlbmNlIFsx
+XSBvciBbMl0gbm8gY3Jhc2ggaXMgaGFwcGVuaW5nIDxicj4NClsxXSA8YnI+DQpjcHVzZXRfbG9h
+ZF9iYWxhbmNlJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGNwdXNldF9sb2FkX2JhbGFuY2VfdGVz
+dC5zaCA8YnI+DQpjcHVzZXRfbG9hZF9iYWxhbmNlJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGNw
+dXNldF9sb2FkX2JhbGFuY2VfdGVzdC5zaCA8YnI+DQo8YnI+DQpbMl0gPGJyPg0KY3B1c2V0X2xv
+YWRfYmFsYW5jZSZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBjcHVzZXRfbG9hZF9iYWxhbmNlX3Rl
+c3Quc2ggPGJyPg0KY3B1c2V0X3NjaGVkX2RvbWFpbnMmbmJzcDsmbmJzcDsmbmJzcDsgY3B1c2V0
+X3NjaGVkX2RvbWFpbnNfdGVzdC5zaCA8YnI+DQpjcHVzZXRfaG90cGx1ZyZuYnNwOyBjcHVzZXRf
+aG90cGx1Z190ZXN0LnNoIDxicj4NCjxicj4NCldoYXQgSSBjYW4gaW5mZXIgdGhhdCB0aGUgY3B1
+c2V0X2xvYWRfYmFsYW5jZSwgY3B1c2V0X3NjaGVkX2RvbWFpbnMsIGNwdXNldF9ob3RwbHVnIGFy
+ZSB1c2lnIGNwdXNldF9zZXQoKS4gV2hpbGUgY3B1c2V0X2Jhc2Vfb3BzIGRvZXNudCB1c2UgY3B1
+c2V0X3NldCgpLg0KPGJyPg0KQWxzbywgY29tYmluYXRpb24gb2YgY3B1c2V0X2xvYWRfYmFsYW5j
+ZSB3aXRoIGFueSBjcHVzZXQgdGVzdHMgPGIgY2xhc3M9Im1vei10eHQtc3RhciI+DQo8c3BhbiBj
+bGFzcz0ibW96LXR4dC10YWciPio8L3NwYW4+bm90PHNwYW4gY2xhc3M9Im1vei10eHQtdGFnIj4q
+PC9zcGFuPjwvYj4gdXNpbmcgY3B1c2V0X3NldCgpIGNhdXNpbmcgYWJvdmUgdHlwZSBvZiBjcmFz
+aC4NCjxicj4NCjxicj4NCkkgaGF2ZSBzZWVuIHRoaXMgY3Jhc2ggb24gTGludXggNS4wOSBhbmQg
+NS40LnJjMCBrZXJuZWwuIDxicj4NCjxicj4NCjxicj4NCkFueSBjbHVlIHdpbGwgaGVscCBtZSBp
+biBtb3ZpbmcgZm9yd2FyZC4gPGJyPg0KPGJyPg0KPGJyPg0KPGEgY2xhc3M9Im1vei10eHQtbGlu
+ay1mcmVldGV4dCIgaHJlZj0iaHR0cHM6Ly9naXRodWIuY29tL2xpbnV4LXRlc3QtcHJvamVjdC9s
+dHAuZ2l0Ij5odHRwczovL2dpdGh1Yi5jb20vbGludXgtdGVzdC1wcm9qZWN0L2x0cC5naXQ8L2E+
+DQo8YnI+DQp0b3AgY29tbWl0OiA8YnI+DQpjb21taXQgZmYzYzk3ODA0MzgwNDBhYjk1NWZkZjQx
+NjdmZmFlNGU2MTJhMzExZCAoSEVBRCAtJmd0OyBtYXN0ZXIsIG9yaWdpbi9tYXN0ZXIsIG9yaWdp
+bi9IRUFEKQ0KPGJyPg0KQXV0aG9yOiBQZXRyIFZvcmVsIDxhIGNsYXNzPSJtb3otdHh0LWxpbmst
+cmZjMjM5NkUiIGhyZWY9Im1haWx0bzpwdm9yZWxAc3VzZS5jeiI+DQombHQ7cHZvcmVsQHN1c2Uu
+Y3omZ3Q7PC9hPiA8YnI+DQpEYXRlOiZuYnNwOyZuYnNwOyBXZWQgT2N0IDIgMTI6NTE6MDQgMjAx
+OSAmIzQzOzAyMDAgPGJyPg0KPGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7IGxpYjogUmVwbGFjZSBH
+UEwgdmVyYm9zZSB0ZXh0IGJ5IFNQRFggbGljZW5zZSBpZGVudGlmaWVyIDxicj4NCjxicj4NCiZu
+YnNwOyZuYnNwOyZuYnNwOyBmcm9tIGxpYnJhcnkgc291cmNlcyBmb3IgbmV3IEFQSS4gPGJyPg0K
+PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7IFNpZ25lZC1vZmYtYnk6IFBldHIgVm9yZWwgPGEgY2xh
+c3M9Im1vei10eHQtbGluay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOnB2b3JlbEBzdXNlLmN6Ij4N
+CiZsdDtwdm9yZWxAc3VzZS5jeiZndDs8L2E+IDxicj4NCjxicj4NCi0tcHJhYmhha2FyIDxicj4N
+Cjxicj4NCjxicj4NCjwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+--_000_MA1PR0101MB18158831A03644C622793C6B989B0MA1PR0101MB1815_--
+
+--===============0456822915==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0456822915==--
