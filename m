@@ -2,45 +2,44 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFB8ACF5BE
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Oct 2019 11:12:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B56FDCF5C0
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Oct 2019 11:12:26 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9A45A3C22D2
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Oct 2019 11:12:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 766FC3C2356
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Oct 2019 11:12:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 5618B3C12A1
- for <ltp@lists.linux.it>; Tue,  8 Oct 2019 11:01:22 +0200 (CEST)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 0F3FB3C12A1
+ for <ltp@lists.linux.it>; Tue,  8 Oct 2019 11:02:27 +0200 (CEST)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 698C8140173E
- for <ltp@lists.linux.it>; Tue,  8 Oct 2019 11:01:17 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 28BF26019F5
+ for <ltp@lists.linux.it>; Tue,  8 Oct 2019 11:02:24 +0200 (CEST)
 X-Amp-Result: UNKNOWN
 X-Amp-Original-Verdict: FILE UNKNOWN
 X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 08 Oct 2019 02:01:13 -0700
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 08 Oct 2019 02:02:22 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="5.67,270,1566889200"; 
- d="xz'?scan'208";a="192525975"
+ d="xz'?scan'208";a="205353973"
 Received: from shao2-debian.sh.intel.com (HELO localhost) ([10.239.13.6])
- by fmsmga008.fm.intel.com with ESMTP; 08 Oct 2019 02:01:08 -0700
-Date: Tue, 8 Oct 2019 17:00:51 +0800
+ by orsmga002.jf.intel.com with ESMTP; 08 Oct 2019 02:02:17 -0700
+Date: Tue, 8 Oct 2019 17:02:00 +0800
 From: kernel test robot <rong.a.chen@intel.com>
-To: Thomas Gleixner <tglx@linutronix.de>
-Message-ID: <20191008090051.GC9415@shao2-debian>
+To: Alexei Starovoitov <ast@kernel.org>
+Message-ID: <20191008090200.GD9415@shao2-debian>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="KN5l+BnMqAQyZLvT"
+Content-Type: multipart/mixed; boundary="JwB53PgKC5A7+0Ej"
 Content-Disposition: inline
 User-Agent: NeoMutt/20170113 (1.7.2)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Mailman-Approved-At: Tue, 08 Oct 2019 11:12:08 +0200
-Subject: [LTP] [mm/swap]  67d8662d2d: ltp.madvise01.fail
+Subject: [LTP] [bpf]  5cb2f57d87: ltp.bpf_prog01.fail
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,21 +56,21 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 
---KN5l+BnMqAQyZLvT
+--JwB53PgKC5A7+0Ej
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 
 FYI, we noticed the following commit (built with gcc-7):
 
-commit: 67d8662d2db619257554cef5b464014895102b95 ("mm/swap: Access struct pagevec remotely")
-https://git.kernel.org/cgit/linux/kernel/git/bigeasy/staging.git mm_swap
+commit: 5cb2f57d87d6b6295bf73d72279ad02988007bc9 ("bpf: process in-kernel BTF")
+https://git.kernel.org/cgit/linux/kernel/git/ast/bpf.git btf_vmlinux
 
 in testcase: ltp
 with following parameters:
 
 	disk: 1HDD
-	fs: ext4
-	test: syscalls_part4
+	fs: btrfs
+	test: syscalls_part1
 
 test-description: The LTP testsuite contains a collection of tools for testing the Linux kernel and related features.
 test-url: http://linux-test-project.github.io/
@@ -87,8 +86,8 @@ caused below changes (please refer to attached dmesg/kmsg for entire log/backtra
 If you fix the issue, kindly add following tag
 Reported-by: kernel test robot <rong.a.chen@intel.com>
 
-2019-10-08 00:55:34 ln -sf /usr/bin/genisoimage /usr/bin/mkisofs
-2019-10-08 00:55:34 ./runltp -f syscalls_part4 -d /fs/vda/tmpdir
+2019-10-08 09:44:51 ln -sf /usr/bin/genisoimage /usr/bin/mkisofs
+2019-10-08 09:44:51 ./runltp -f syscalls_part1 -d /fs/vda/tmpdir
 INFO: creating /lkp/benchmarks/ltp/output directory
 INFO: creating /lkp/benchmarks/ltp/results directory
 Checking for required user/group ids
@@ -113,10 +112,10 @@ SUPPORT_URL="https://www.debian.org/support"
 BUG_REPORT_URL="https://bugs.debian.org/"
 
 uname:
-Linux vm-snb-4G-65d32b273b58 5.4.0-rc1-00003-g67d8662d2db61 #1 SMP Mon Oct 7 07:58:06 CST 2019 x86_64 GNU/Linux
+Linux vm-snb-4G-a597cf1f9fd6 5.3.0-13208-g5cb2f57d87d6b #1 SMP Tue Oct 8 07:12:13 CST 2019 x86_64 GNU/Linux
 
 /proc/cmdline
-ip=::::vm-snb-4G-65d32b273b58::dhcp root=/dev/ram0 user=lkp job=/lkp/jobs/scheduled/vm-snb-4G-65d32b273b58/ltp-1HDD-ext4-syscalls_part4-debian-x86_64-2019-05-14.cgz-67d8662d2-20191008-19987-1llxwye-8.yaml ARCH=x86_64 kconfig=x86_64-rhel-7.6 branch=linux-devel/devel-hourly-2019100708 commit=67d8662d2db619257554cef5b464014895102b95 BOOT_IMAGE=/pkg/linux/x86_64-rhel-7.6/gcc-7/67d8662d2db619257554cef5b464014895102b95/vmlinuz-5.4.0-rc1-00003-g67d8662d2db61 max_uptime=3600 RESULT_ROOT=/result/ltp/1HDD-ext4-syscalls_part4/vm-snb-4G/debian-x86_64-2019-05-14.cgz/x86_64-rhel-7.6/gcc-7/67d8662d2db619257554cef5b464014895102b95/8 LKP_SERVER=inn debug apic=debug sysrq_always_enabled rcupdate.rcu_cpu_stall_timeout=100 net.ifnames=0 printk.devkmsg=on panic=-1 softlockup_panic=1 nmi_watchdog=panic oops=panic load_ramdisk=2 prompt_ramdisk=0 drbd.minor_count=8 systemd.log_level=err ignore_loglevel console=tty0 earlyprintk=ttyS0,115200 console=ttyS0,115200 vga=normal rw rcuperf.shutdown=0
+ip=::::vm-snb-4G-a597cf1f9fd6::dhcp root=/dev/ram0 user=lkp job=/lkp/jobs/scheduled/vm-snb-4G-a597cf1f9fd6/ltp-1HDD-btrfs-syscalls_part1-debian-x86_64-2019-05-14.cgz-5cb2f57d-20191008-19007-1ptmai9-3.yaml ARCH=x86_64 kconfig=x86_64-rhel-7.6 branch=linux-devel/devel-hourly-2019100713 commit=5cb2f57d87d6b6295bf73d72279ad02988007bc9 BOOT_IMAGE=/pkg/linux/x86_64-rhel-7.6/gcc-7/5cb2f57d87d6b6295bf73d72279ad02988007bc9/vmlinuz-5.3.0-13208-g5cb2f57d87d6b max_uptime=3600 RESULT_ROOT=/result/ltp/1HDD-btrfs-syscalls_part1/vm-snb-4G/debian-x86_64-2019-05-14.cgz/x86_64-rhel-7.6/gcc-7/5cb2f57d87d6b6295bf73d72279ad02988007bc9/3 LKP_SERVER=inn debug apic=debug sysrq_always_enabled rcupdate.rcu_cpu_stall_timeout=100 net.ifnames=0 printk.devkmsg=on panic=-1 softlockup_panic=1 nmi_watchdog=panic oops=panic load_ramdisk=2 prompt_ramdisk=0 drbd.minor_count=8 systemd.log_level=err ignore_loglevel console=tty0 earlyprintk=ttyS0,115200 console=ttyS0,115200 vga=normal rw rcuperf.shutdown=0
 
 Gnu C                  gcc (Debian 6.3.0-18+deb9u1) 6.3.0 20170516
 Clang                 
@@ -133,11 +132,11 @@ iproute2               iproute2-ss161212
 iputils                iputils-s20161105
 Kbd                    116:
 Sh-utils               8.26
-Modules Loaded         ext4 mbcache jbd2 dm_mod intel_rapl_msr intel_rapl_common crct10dif_pclmul crc32_pclmul crc32c_intel sr_mod ghash_clmulni_intel cdrom sg bochs_drm drm_vram_helper ttm ppdev drm_kms_helper ata_generic pata_acpi aesni_intel syscopyarea snd_pcm sysfillrect sysimgblt crypto_simd snd_timer snd cryptd glue_helper fb_sys_fops soundcore pcspkr drm joydev serio_raw ata_piix libata i2c_piix4 floppy parport_pc parport ip_tables
+Modules Loaded         btrfs xor zstd_decompress zstd_compress raid6_pq libcrc32c dm_mod intel_rapl_msr intel_rapl_common sr_mod cdrom crct10dif_pclmul sg ata_generic pata_acpi crc32_pclmul crc32c_intel ghash_clmulni_intel bochs_drm drm_vram_helper ttm ppdev drm_kms_helper syscopyarea sysfillrect snd_pcm sysimgblt fb_sys_fops snd_timer aesni_intel drm snd crypto_simd cryptd soundcore glue_helper pcspkr joydev serio_raw ata_piix libata i2c_piix4 parport_pc floppy parport ip_tables
 
 free reports:
               total        used        free      shared  buff/cache   available
-Mem:        4026760      284636     1585268       11608     2156856     1493916
+Mem:        4026748      271584     1598452       11624     2156712     1506880
 Swap:             0           0           0
 
 cpuinfo:
@@ -155,8 +154,8 @@ CPU family:            6
 Model:                 42
 Model name:            Intel Xeon E312xx (Sandy Bridge)
 Stepping:              1
-CPU MHz:               2893.028
-BogoMIPS:              5786.05
+CPU MHz:               2493.990
+BogoMIPS:              4987.98
 Hypervisor vendor:     KVM
 Virtualization type:   full
 L1d cache:             32K
@@ -172,57 +171,41 @@ SELinux mode: unknown
 no big block device was specified on commandline.
 Tests which require a big block device are disabled.
 You can specify it with option -z
-COMMAND:    /lkp/benchmarks/ltp/bin/ltp-pan   -e -S   -a 2231     -n 2231 -p -f /fs/vda/tmpdir/ltp-5VaMUvbWBn/alltests -l /lkp/benchmarks/ltp/results/LTP_RUN_ON-2019_10_08-00h_55m_34s.log  -C /lkp/benchmarks/ltp/output/LTP_RUN_ON-2019_10_08-00h_55m_34s.failed -T /lkp/benchmarks/ltp/output/LTP_RUN_ON-2019_10_08-00h_55m_34s.tconf
-LOG File: /lkp/benchmarks/ltp/results/LTP_RUN_ON-2019_10_08-00h_55m_34s.log
-FAILED COMMAND File: /lkp/benchmarks/ltp/output/LTP_RUN_ON-2019_10_08-00h_55m_34s.failed
-TCONF COMMAND File: /lkp/benchmarks/ltp/output/LTP_RUN_ON-2019_10_08-00h_55m_34s.tconf
+COMMAND:    /lkp/benchmarks/ltp/bin/ltp-pan   -e -S   -a 2239     -n 2239 -p -f /fs/vda/tmpdir/ltp-bEI9wpCoun/alltests -l /lkp/benchmarks/ltp/results/LTP_RUN_ON-2019_10_08-09h_44m_52s.log  -C /lkp/benchmarks/ltp/output/LTP_RUN_ON-2019_10_08-09h_44m_52s.failed -T /lkp/benchmarks/ltp/output/LTP_RUN_ON-2019_10_08-09h_44m_52s.tconf
+LOG File: /lkp/benchmarks/ltp/results/LTP_RUN_ON-2019_10_08-09h_44m_52s.log
+FAILED COMMAND File: /lkp/benchmarks/ltp/output/LTP_RUN_ON-2019_10_08-09h_44m_52s.failed
+TCONF COMMAND File: /lkp/benchmarks/ltp/output/LTP_RUN_ON-2019_10_08-09h_44m_52s.tconf
 Running tests.......
 
 <<<test_start>>>
-tag=madvise01 stime=1570467354
-cmdline="madvise01"
+tag=bpf_prog01 stime=1570499103
+cmdline="bpf_prog01"
 contacts=""
 analysis=exit
 <<<test_output>>>
+tst_buffers.c:55: INFO: Test is using guarded buffers
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-madvise01.c:112: PASS: madvise test for MADV_NORMAL PASSED
-madvise01.c:112: PASS: madvise test for MADV_RANDOM PASSED
-madvise01.c:112: PASS: madvise test for MADV_SEQUENTIAL PASSED
-madvise01.c:112: PASS: madvise test for MADV_WILLNEED PASSED
-madvise01.c:112: PASS: madvise test for MADV_DONTNEED PASSED
-madvise01.c:112: PASS: madvise test for MADV_REMOVE PASSED
-madvise01.c:112: PASS: madvise test for MADV_DONTFORK PASSED
-madvise01.c:112: PASS: madvise test for MADV_DOFORK PASSED
-madvise01.c:109: FAIL: madvise test for MADV_HWPOISON failed with return = -1, errno = 16 : ???
-madvise01.c:112: PASS: madvise test for MADV_MERGEABLE PASSED
-madvise01.c:112: PASS: madvise test for MADV_UNMERGEABLE PASSED
-madvise01.c:112: PASS: madvise test for MADV_HUGEPAGE PASSED
-madvise01.c:112: PASS: madvise test for MADV_NOHUGEPAGE PASSED
-madvise01.c:112: PASS: madvise test for MADV_DONTDUMP PASSED
-madvise01.c:112: PASS: madvise test for MADV_DODUMP PASSED
-madvise01.c:112: PASS: madvise test for MADV_FREE PASSED
-madvise01.c:112: PASS: madvise test for MADV_WIPEONFORK PASSED
-madvise01.c:112: PASS: madvise test for MADV_KEEPONFORK PASSED
+bpf_common.h:18: INFO: Raising RLIMIT_MEMLOCK to 327680
+bpf_prog01.c:85: FAIL: Failed verification: in-kernel BTF is malformed
+: EINVAL (22)
 
 Summary:
-passed   17
-failed   1
+passed   0
+failed   0
 skipped  0
 warnings 0
 <<<execution_status>>>
 initiation_status="ok"
 duration=0 termination_type=exited termination_id=1 corefile=no
-cutime=0 cstime=1
+cutime=0 cstime=0
 <<<test_end>>>
-
-
 
 
 To reproduce:
 
         # build kernel
 	cd linux
-	cp config-5.4.0-rc1-00003-g67d8662d2db61 .config
+	cp config-5.3.0-13208-g5cb2f57d87d6b .config
 	make HOSTCC=gcc-7 CC=gcc-7 ARCH=x86_64 olddefconfig prepare modules_prepare bzImage modules
 	make HOSTCC=gcc-7 CC=gcc-7 ARCH=x86_64 INSTALL_MOD_PATH=<mod-install-dir> modules_install
 	cd <mod-install-dir>
@@ -239,13 +222,13 @@ Thanks,
 Rong Chen
 
 
---KN5l+BnMqAQyZLvT
+--JwB53PgKC5A7+0Ej
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment; filename="config-5.4.0-rc1-00003-g67d8662d2db61"
+Content-Disposition: attachment; filename="config-5.3.0-13208-g5cb2f57d87d6b"
 
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86_64 5.4.0-rc1 Kernel Configuration
+# Linux/x86_64 5.3.0 Kernel Configuration
 #
 
 #
@@ -6164,7 +6147,6 @@ CONFIG_SDIO_UART=m
 #
 # CONFIG_MMC_DEBUG is not set
 CONFIG_MMC_SDHCI=m
-CONFIG_MMC_SDHCI_IO_ACCESSORS=y
 CONFIG_MMC_SDHCI_PCI=m
 CONFIG_MMC_RICOH_MMC=y
 CONFIG_MMC_SDHCI_ACPI=m
@@ -8441,7 +8423,7 @@ CONFIG_UNWINDER_ORC=y
 # CONFIG_UNWINDER_GUESS is not set
 # end of Kernel hacking
 
---KN5l+BnMqAQyZLvT
+--JwB53PgKC5A7+0Ej
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: attachment; filename=job-script
 
@@ -8459,12 +8441,12 @@ export_top_env()
 commit
 queue_at_least_once'
 	export queue='validate'
-	export testbox='vm-snb-4G-65d32b273b58'
+	export testbox='vm-snb-4G-a597cf1f9fd6'
 	export tbox_group='vm-snb-4G'
 	export nr_vm=64
-	export submit_id='5d9b66edd43ef14e130cab8c'
-	export job_file='/lkp/jobs/scheduled/vm-snb-4G-65d32b273b58/ltp-1HDD-ext4-syscalls_part4-debian-x86_64-2019-05-14.cgz-67d8662d2-20191008-19987-1llxwye-8.yaml'
-	export id='74526c0908c8cb8131530f5c33f3f7a52ca059ae'
+	export submit_id='5d9be9c5f257d84a3f6fa45c'
+	export job_file='/lkp/jobs/scheduled/vm-snb-4G-a597cf1f9fd6/ltp-1HDD-btrfs-syscalls_part1-debian-x86_64-2019-05-14.cgz-5cb2f57d-20191008-19007-1ptmai9-3.yaml'
+	export id='b7ea94da62558dc18090ec5ecfec76b4be8bbaf7'
 	export queuer_version='/lkp-src'
 	export arch='x86_64'
 	export model='qemu-system-x86_64 -enable-kvm -cpu SandyBridge'
@@ -8486,34 +8468,34 @@ CONFIG_CAN_VCAN=m
 CONFIG_IPV6_VTI=m
 CONFIG_MINIX_FS=m
 CONFIG_KVM_GUEST=y
-CONFIG_EXT4_FS'
-	export commit='67d8662d2db619257554cef5b464014895102b95'
+CONFIG_BTRFS_FS'
+	export commit='5cb2f57d87d6b6295bf73d72279ad02988007bc9'
 	export ssh_base_port=23032
 	export kconfig='x86_64-rhel-7.6'
 	export compiler='gcc-7'
 	export rootfs='debian-x86_64-2019-05-14.cgz'
-	export enqueue_time='2019-10-08 00:25:20 +0800'
-	export _id='5d9b66f1d43ef14e130cab8e'
-	export _rt='/result/ltp/1HDD-ext4-syscalls_part4/vm-snb-4G/debian-x86_64-2019-05-14.cgz/x86_64-rhel-7.6/gcc-7/67d8662d2db619257554cef5b464014895102b95'
+	export enqueue_time='2019-10-08 09:43:37 +0800'
+	export _id='5d9be9c9f257d84a3f6fa45d'
+	export _rt='/result/ltp/1HDD-btrfs-syscalls_part1/vm-snb-4G/debian-x86_64-2019-05-14.cgz/x86_64-rhel-7.6/gcc-7/5cb2f57d87d6b6295bf73d72279ad02988007bc9'
 	export user='lkp'
-	export head_commit='0079debeb88fe9d4e33e684961638f75ebf7323a'
+	export head_commit='0af8a89f918d401b63433a8f19cab95d4c3cb968'
 	export base_commit='da0c9ea146cbe92b832f1b0f694840ea8eb33cce'
-	export branch='linux-devel/devel-hourly-2019100708'
-	export result_root='/result/ltp/1HDD-ext4-syscalls_part4/vm-snb-4G/debian-x86_64-2019-05-14.cgz/x86_64-rhel-7.6/gcc-7/67d8662d2db619257554cef5b464014895102b95/8'
+	export branch='linux-devel/devel-hourly-2019100713'
+	export result_root='/result/ltp/1HDD-btrfs-syscalls_part1/vm-snb-4G/debian-x86_64-2019-05-14.cgz/x86_64-rhel-7.6/gcc-7/5cb2f57d87d6b6295bf73d72279ad02988007bc9/3'
 	export scheduler_version='/lkp/lkp/.src-20191007-222304'
 	export LKP_SERVER='inn'
 	export max_uptime=3600
 	export initrd='/osimage/debian/debian-x86_64-2019-05-14.cgz'
 	export bootloader_append='root=/dev/ram0
 user=lkp
-job=/lkp/jobs/scheduled/vm-snb-4G-65d32b273b58/ltp-1HDD-ext4-syscalls_part4-debian-x86_64-2019-05-14.cgz-67d8662d2-20191008-19987-1llxwye-8.yaml
+job=/lkp/jobs/scheduled/vm-snb-4G-a597cf1f9fd6/ltp-1HDD-btrfs-syscalls_part1-debian-x86_64-2019-05-14.cgz-5cb2f57d-20191008-19007-1ptmai9-3.yaml
 ARCH=x86_64
 kconfig=x86_64-rhel-7.6
-branch=linux-devel/devel-hourly-2019100708
-commit=67d8662d2db619257554cef5b464014895102b95
-BOOT_IMAGE=/pkg/linux/x86_64-rhel-7.6/gcc-7/67d8662d2db619257554cef5b464014895102b95/vmlinuz-5.4.0-rc1-00003-g67d8662d2db61
+branch=linux-devel/devel-hourly-2019100713
+commit=5cb2f57d87d6b6295bf73d72279ad02988007bc9
+BOOT_IMAGE=/pkg/linux/x86_64-rhel-7.6/gcc-7/5cb2f57d87d6b6295bf73d72279ad02988007bc9/vmlinuz-5.3.0-13208-g5cb2f57d87d6b
 max_uptime=3600
-RESULT_ROOT=/result/ltp/1HDD-ext4-syscalls_part4/vm-snb-4G/debian-x86_64-2019-05-14.cgz/x86_64-rhel-7.6/gcc-7/67d8662d2db619257554cef5b464014895102b95/8
+RESULT_ROOT=/result/ltp/1HDD-btrfs-syscalls_part1/vm-snb-4G/debian-x86_64-2019-05-14.cgz/x86_64-rhel-7.6/gcc-7/5cb2f57d87d6b6295bf73d72279ad02988007bc9/3
 LKP_SERVER=inn
 debug
 apic=debug
@@ -8535,18 +8517,18 @@ earlyprintk=ttyS0,115200
 console=ttyS0,115200
 vga=normal
 rw'
-	export modules_initrd='/pkg/linux/x86_64-rhel-7.6/gcc-7/67d8662d2db619257554cef5b464014895102b95/modules.cgz'
+	export modules_initrd='/pkg/linux/x86_64-rhel-7.6/gcc-7/5cb2f57d87d6b6295bf73d72279ad02988007bc9/modules.cgz'
 	export bm_initrd='/osimage/deps/debian-x86_64-2018-04-03.cgz/run-ipconfig_2018-04-03.cgz,/osimage/deps/debian-x86_64-2018-04-03.cgz/lkp_2019-08-05.cgz,/osimage/deps/debian-x86_64-2018-04-03.cgz/rsync-rootfs_2018-04-03.cgz,/osimage/deps/debian-x86_64-2018-04-03.cgz/fs_2019-10-03.cgz,/osimage/deps/debian-x86_64-2018-04-03.cgz/ltp_2019-10-06.cgz,/osimage/pkg/debian-x86_64-2018-04-03.cgz/ltp-x86_64-ff3c97804_2019-10-05.cgz'
 	export lkp_initrd='/osimage/user/lkp/lkp-x86_64.cgz'
 	export site='inn'
 	export LKP_CGI_PORT=80
 	export LKP_CIFS_PORT=139
-	export repeat_to=10
+	export repeat_to=6
 	export schedule_notify_address=
 	export queue_at_least_once=1
-	export kernel='/pkg/linux/x86_64-rhel-7.6/gcc-7/67d8662d2db619257554cef5b464014895102b95/vmlinuz-5.4.0-rc1-00003-g67d8662d2db61'
-	export dequeue_time='2019-10-08 00:54:46 +0800'
-	export job_initrd='/lkp/jobs/scheduled/vm-snb-4G-65d32b273b58/ltp-1HDD-ext4-syscalls_part4-debian-x86_64-2019-05-14.cgz-67d8662d2-20191008-19987-1llxwye-8.cgz'
+	export kernel='/pkg/linux/x86_64-rhel-7.6/gcc-7/5cb2f57d87d6b6295bf73d72279ad02988007bc9/vmlinuz-5.3.0-13208-g5cb2f57d87d6b'
+	export dequeue_time='2019-10-08 09:44:07 +0800'
+	export job_initrd='/lkp/jobs/scheduled/vm-snb-4G-a597cf1f9fd6/ltp-1HDD-btrfs-syscalls_part1-debian-x86_64-2019-05-14.cgz-5cb2f57d-20191008-19007-1ptmai9-3.cgz'
 
 	[ -n "$LKP_SRC" ] ||
 	export LKP_SRC=/lkp/${user:-lkp}/src
@@ -8564,7 +8546,7 @@ run_job()
 
 	run_setup nr_hdd=1 $LKP_SRC/setup/disk
 
-	run_setup fs='ext4' $LKP_SRC/setup/fs
+	run_setup fs='btrfs' $LKP_SRC/setup/fs
 
 	run_monitor $LKP_SRC/monitors/wrapper kmsg
 	run_monitor $LKP_SRC/monitors/wrapper heartbeat
@@ -8572,7 +8554,7 @@ run_job()
 	run_monitor $LKP_SRC/monitors/wrapper oom-killer
 	run_monitor $LKP_SRC/monitors/plain/watchdog
 
-	run_test test='syscalls_part4' $LKP_SRC/tests/wrapper ltp
+	run_test test='syscalls_part1' $LKP_SRC/tests/wrapper ltp
 }
 
 extract_stats()
@@ -8594,1863 +8576,1621 @@ extract_stats()
 
 "$@"
 
---KN5l+BnMqAQyZLvT
+--JwB53PgKC5A7+0Ej
 Content-Type: application/x-xz
 Content-Disposition: attachment; filename="dmesg.xz"
 Content-Transfer-Encoding: base64
 
-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
+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
-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
+/LVJ3DTG+b3WBVv4UOrCMeZ4fnRs1FjHB3J1kLMaTwlPnZUJsQUBFz3kFW7c4eMg6rLdnmxo
+5SDyKQFjnIWq3uODv4LTb6QchC222mN2PRxiJfW3pakfVZ633xWyn7hfULTzX1fPBT3dYyCY
+vZnny2pv6rb8ihCMRpa42hCQPSE+8b3pGjgZWZ9NEMjBbtxgGyUX6DZ+HsMneQNUMjWSa4iB
+hajCLRbJZeXHA6QY/rLWm8crExjg+K8B7UNWRM7KJuc+YZ017pqkGSE/5gV9ire1d7hxFRxJ
+r5ky3Urcf2Kz5Qh1d38X2W0yz0tkfQrnu62cCcBxPrPGKU9YSack7leLqHem2MitYosNigK6
+BpoLtg8HQxGH2q8SbMJKoUprrlGpKLBncaiNEPA7Aj9GLw/Lxo3Gey5RN67RvqBONQc7k9qU
+u5S+zCvsguCMaAeYGHKzspEDB1HClC3lc65DCoVqnVVc8rthU/D+HybeBKMJAb1BdUtZ8nPX
+yBh84Y17NVwMcgNvaSmREvDGglpvk/NUWX3uwv45IJitydtxnIq2nlfW8Is+XwmN+gL1enUf
+KEBV7a9I+3D6G30HExmD/n/+u/PAFoPNJJuI0swJUg1MTjXfD9YTvl8BGK4LMrU4qRs8pSaS
+FENYKsf3buJ9Ecqih61avnCc1yCkobe/ZRVt9xHk+tJL8Rk0mzGri/kHShSkQ4SJuUofHyaQ
+d221UyI5gfT7sTy8tcGedzhKxd/iYiwq5P1sJp2QA/Y2qZPh+zG4Lv5h7RdwP2Hw8fFl98CF
+xvE88vkq3Jq36CS4II5+Lhb4XJhERJuUD5KO31d2EsRtFD6IKS73n2K0Z178HyT7WD8Jcd6E
+9NEWfIyzwDxgH/ufWjpHGiVg44CeK16O617TH9U1q6fR3UEdmp8qCe6lkcJt9aSCYI+3eq9j
+c7o/51L5zPUryS8tam+7GpgR4qXiN3xTHUr4th1IqCiX5qaDDkMjF0aPGLYP5szulACALOHO
+xdUkqNASxyhCyS4n8qnBsWF19xYLaW9bYIlUPy+RvLx2kzdWM9uQaA7P8z3ZXHrpImBgwV2C
+1GG8TN2Xc91sjcjqb/HjwadA8Xo8K4gYOigr1uOJMtQs37tFertSThFdEdf135XJYj3u/Bfl
+yFTMocaXw5jTjeX88cqZNNXSu0Dd67MIArxv7EVF0uVe7GWGx5tCZYUiTSzbm9TM9An/7cKP
+rrYl0kVnHjprnYpepa2DMAlzchdGSE7BT4fdDzAnfll4bjsfHoZkw+dKWIkpOddEwmZzHBC7
+mB5wfF5aWXQRDLVx2GktKtFzgoHFQS2g7sovc9ukFKyDzfLp1A+Eitd8abnWfqXOSDXvVQf9
+aNfcSyjwtp/JxASgYOKda1OfwVmE7/JKugU9zJ6EqAK6YdjOSwqk4xY/Ch8t5B0z5jgorIFx
+mivMT0fo6t92r2xXLgT/iJxXjit9y8ZLSHt+HVtXAce/OS74IOnwQMNO6ZONLWG4YVSNi1xu
++GLlvxjr6db+CMfN/2at1OJiQQyQe4Vdm0CDiBKzr9ACbJfc7pXEkcZ6DPOuOkdaD978pm+V
+8Tmk2y4clisr8QBvbsFXHGbP3GdJ3ir6speES9USJ/IH4b0B8QQmn1WuspSbFMVCxm+u09xX
+C84hbxc6kPwgodlxWDsDUA5qMfklyWoecI5Raj7eFW7gr700IUs+xJ32XZphfn2V04dy5ege
+8L9k7AGva8iZQz3BXF9UDVjvrOL/Xre3pECgtYj5sfbNHK8n4EZGYvOYRMRdQgDAMBSxaKNW
+U1dKF7WVL7fRkSSb+Ct/Hrqo5KueTb4PQPTVCbCnNnS8tvceqhI6ixp+z9KJ7wVUy5Y7SbSa
+UhvkZiSDHq01Q8xHV0r+beGc5jgBXK2cRK7UM5a7yMk832OxP4lhiAVqwuCMhm4+WzZox9sS
+VKm/t/6D1bHtAQn+g39N7P2S14ZGqFkItiPJNT705nkFFmJp1f9IAtQl4hreZjb1OfbmkQp7
+u6GXVMs1Pqdriv0gudiL1jso2+yjV7YbCf74QsfqlyRaaku5QcUtFL4jzHPGMqcCNHCyQwdt
+9IbyFnlG9QUaj1DrV4SGtZwfM7JUHQ83l9g9CAW3nM9a0qYYiVfED4EYKSD+YZfKRCyeieVZ
+8x1X/2gM0bH5LGx5ERsOrAa8TDi9Wj+XnJ4ve+4jvrATWNVtWOz/+RBXbbKnQkNM9vcqB7yM
+/KsWbAGMyaxncvxtY7puaWGr5YC9Qji19wZEjBX3fmu54sSkmhzhRTIqrAGUnAA450yXWq0A
+laVqelLTsLSDllWBuIZqRlLVY1uACDq7oaq/l9sfPKW3tzdBNTxX/uPGmn1vloRLz+t9+pwe
+/HBACJ4VTrXcNxkvR03uZZBnSeWe6NVscIufZsWNDRn4zRAuexfsDVsbV6uMWY6G7MRjf6vj
+Muvrm3IxaMo5GyAu00BKtuJ//lKit5DkPGn8kJsfQ/zmspNMOxm62h3aKdqUkVslhsPschKa
+/XmTqygM7oBRfFpZbmfubbpVktIRn3Z4DHxTsvQPH6SL2RkHmGo8wHnsN9Z/trj1wDNUIMvW
+WlkkrEJEa/cVPzrVzeKdia3HUzKkrFmAODr4Mf41Kguq0W6U9sthYacr/98eI47EOZU7GGwu
+cvoijqOId1l6iiMJV8q69o6yjMKpFxWN76Qs7Pw81o82dDV50kQNM0V0OlKPjOELfj4s5Uf6
+nXopgTFvah1PCsX2vL+5WyBgS89Y5bu7NwR/HjFEJnmnOYBovRh8xmhRtsN8BdlexPCi0GF+
+IpKS6Csex1bFkMPoz86BEiTev+nJ1ElRGG28IZcjHSczP3r6loFqjlMmfsHHGjaeu+U75tml
+S/Y8XNGHQWS/PnUFSC3Ntjai7l+li2Bh96zvfR9qFwNzlWoEYmkSwIrv6Ka8JYhFb1sL3HXm
+qBB9MwR8E4gImgJBYsgIt+iAWFFLBg6NdBJYztMAhgmYdMFP+4YaKP1c0E2EUO5T4b5LYbZk
+ojHa3lycf0rVI5naqG27VOs0v9+HYK5T8ip80OgEAc0qrRwyURCEZ+t2hXuI43Xgcp/TM+3z
+Tu6bhyRRlSH05r4XH1nqA/iRWBE1c3zCYQdDlKUiAjYNUvgMvfnPpnhztuiB+daFSgGruYTp
+jN+xp8/xxJxlDoD/eDOm+62WQP2xfuuSG2kqn7M91B59Q4SCBm/rL/DYcSU4Q1XNIWHL8n94
+K7eFAEqQr2vvB9YSlfZu3s4pFUHMaun7p6zRU9N7GhvBHBxVEF1IDIRyM0ZXJ4QAzzd8wQ4C
+MbxcQmkD6W0hf/I5n4PTkNm3o4YUJLusoyjZgf3e4qiK9AN54utI7RFFTXJNbSOBXohq1uLL
+HWcog2l11psboRp+q618e4tUH0InHvuOlT4J/Jo5D8SMkB+cG87RtTngg4Um/qSgkHQEZ2wL
+6TsZfIR4lrmWMLKJOcV4Q6wdiL++bqG10zfX1EIqWpNHANwifvsTejiMHgQedkFCli47k+Ab
+6gog5eV0DgmGjVbCEmMTRPoebX871yLeJHb/6jW1Rq89Qa/GaMsTXRR3rLVghQLU8zaPxKGQ
+Mbyw8m7oZLfCJNQnH6jZMK1uo4cR8pC1iAQROjHVqk7mJeTD+bbb+cV168a/tbMne80GA9Bd
+V4VUkNVlGx78hE1hYumNx2Fk8wnvLfjQ7vkqY4f/BqM7LzY95BfIEgT3fV0BGF4bPkAPXspB
+pdJUJ615gPAwMllPBBk0+PscnifrssgNZqk+O41dipW4nkYgm97JTSKrAbmjXRJqENpQT+dC
+kp1ao+E8NIOVZUO20GebiKqpZl41ocVRSZsWCBk45VMcjyjeT5IzGgoFIl5dGd4bJXKCTqB8
+1VFUBQsBh2jlI8SYjEOglKbozxhSXN3rCIOUSR3g6irSfqNh1aRDJSDgiYHZ1Dn20ruzqdi2
+OPcwhV/1YoCIeZ6gvEtr6advMMqZdfQPDzmshTObXgNJOwWgyzs8oAg4FrFsbuROB4ycle2J
+JFUWbos9qMnsJgki5b8WlV22hYLAzIHkUKxKzS3zdJgwdRoZnW/doM2oBo8XN31423EPOiwO
+ku6mWhyG91UljkxlrNsML/AE/eHqkNgNQuax9D5Cl+IfS8GFNnMZTyYGoJMiFk53efAPiDuN
+A8+yp1X3HfYPOoctc2RzPdqsP2GhGMiiquY9jye219sGwa/PycdYiN0pfd7EYHpdZY8q0OEj
+q1XfDBXzlzZL87Ly/A/GZdzhsgFqL9tSsLFNiv8O30oGGPHnpPKK5B1sFz+t7iW3HyGUaZuJ
+p67lQ45K4ImKlQOZv/qg6Pwo4vRn03lMyfBrHbP7IknPf/VwnG6j73mvA8GQx/OSSzpiO/qj
++p/Ui1d25Avr++HpDmbC5AicTOabZmu8piyg4VK+EXvtsQQn3/Ho1UcO4iuQE7XV2B0lD6UX
+9xTf63UfZaMJn4ZlgUIC4QTahJsX7O3waSKd6PGlzDRI9x87mjozP10t6+/KA3W7iAj4vUUu
+BXIg4DFuk4Zru3/PhH95R6/P4ULdAWmuYzJShfyD0i2mFii/AYwmGGaF+PlTdzgvfKqOGrQA
+NNVVeWPEUsQPNJUgqbLPQQrjCpFLLWM3h9EXuS8C5mKz8ZooqMZoK4eoeTDupJ8FKH8/6Zrd
+7kMnHfJQhf7sIAGdzPHaseYpHXomu4ARtWx6JSuMESnsj11cJobtOq9dYLW8qLj4YjK9LXRG
+d8XoAmiS2gHu1VRyWEMYHnIn3oZZYJjefaC0baFh2o8SjIWmatu87RfYvTsWyHnxDysUJc8x
+p5mbuiPxWLWSh6H6/FtONaYyPy1LA7f4woZlwOqWISLwUvAj7+TmA3Faz7t9vhFaRV7R/GV7
+IsPvL2+e1pb7VcH1D04sKKwHKLsOL7M9eb2DfrIP6VeUjQR5kRe54hcnIIY1RrblXWCIZtH0
+Ot6Y1un6nUqPXy9VlzPCi8Ym6dSr6gjsiVEJfwmMiip3WVCF53nriGn34seM9LZf3lzmpTXk
+VG4Z4cc+Y31+hoPXosUqIqhlLW1Hgd476zfbAU4ByJ/0i3AjLlq576e4zfJW3t+5sQRkWSMF
+SC3jpnwl/hw86Wy29xwunCBiwBKPufiXjv3M2VEzAep6KYpsvaZyux1PUQz+ZZgcT8AJDr/Y
+H36mYPM5AqSpaeXw5SdpuRD6RKRvP+MzIxqdWU1FyjF3ZsaNAsJxI57PsisGp9z/tebYrpLZ
+UptdQXplPGUu3l2DLu2s5bQExAEXt8fIPEheNGoB2G8/2wiGXUGdTKDBQyx04EG4/ZQZFqx3
+kOYwYPpwGpULHmyTKQpQBXinhmUVVNbgxrZ8cGMmAVMdV6GkD6mThNt0xULJD9dEoXRFuE3T
+dQC9Yzp6ktEY87Y/KCnGFsdbZ34pN32ePAXDvT4Gcj765EkuBFr2NcqvS4hsSn9GSPHK4IfW
+nPamyz5Ouc12ZG3jhCAgdOPMZbGSN71MLjZB4fS/vPRU6SPNFgm91uAb6YVBFUKtir51pHix
+LEmYtmkEmm1Tfa5kpds98ryNW0N58YKhXb59XwlfggrhwUWXDBeo0V84hqy1qH/a2EdvBuB6
+m4rf1toZghPg3SlK48e1w0SLbLn0r5AS7/9AoEmn1Ku5aZnAJD94pvzR6wNdVCkq6pgB5sUQ
+EpWC3QK0v+psCoXN2zQWsLr2VL7ST9Wj0MOiEfRMG5zxaKedkkPak0emmy24WyhL8MTAfF/x
+KUe/lia46MT+iYT3rrXZLSFt4FUxlzeaRjYD0+Ei3LjUFI3qntliTGUfhl+sem6Vu+j6L+ne
+YyYUQNcRGLMAkMXcAXBhD/Qd9mbC4MAJuzXG23AIVqwNVqB080LqRVzYpzRvrpqtU5Yudzfe
+0jdYjnNnyQ/QibDv6QeMuRYdM1LH2PpPNC76XLnxrv393W8DfYTM5yl5aZdyYEyJM/Tq8PEx
+C2NU7a+XkdhXk/vUfOH8TMTgpDil2I+CJrHacyj+qA+bdV2ap1G0XlXyp4PMpV2sydEdqlfj
+smJhPEyFwJi7BP7QLjMzTk6/4hMw4oowRK7A5drwyhfPj3DWskqitnkA9CIMyXj0RCJesHio
+7oUdyynU/5DnSkiAjs4OUzKjMqYo8P0U97xCopreFvQdyBlh+9Ot1n8q57RYPQMC/0NsdCJY
+jRtK6/GF/yBFcgoWhQZVOguFrIaAkiaZC4lTejhfnWbLUdPdd8x+cCiB8KnJ87ZT45O/67J3
+hfQiypRGvYkOXESMaSF5mIzhnrYnSaQiMSVNZqyLVBCCT1FY0pQ87u8RPWkieHqPWB9Z+J1/
+N5NeQiCceKy3/rJ/MSrinbtvAKMlCO/ohLkQBV5IsL86ps08FBzoUBf8/BA7BL9Nh8xGsK07
+Pq5dKtlgXHjQZQiZn7U3nXaR9tOXa2IhJ44HOjO8OIcdEmACiLeAtJOTan3Cy+d4kjblL1iK
+EGl1sb0qL3mI5GStDY1hE4kN8jPSgRHTQ+7b7zEOBwBKst4EVilnn3goFhxa/mzt1gjiRYvA
+XAgFXdxN95osS1nDK0s157jjMEj/+6es9xWSD9twTPn8mBZ7ee+xor8kRFbHm8r3nFjk/qlR
+TFb/AUKMqAk9b06bt2Jd3oRvb4xaHAjb9vRRBP/sVLRBCEhezrh59HnWit9+mJ0FqOgjS/1I
+80IEc1dF11LL7WL62+lO6nHUOsEUdzGp1XOkJpM7kXkB2hVTcv29DIDBi5+vLN6Fw8N0TiKw
+R8DBjzzd5isNC/+ZOyPE+apTHE6Na1UCod8oQD35fDySIDETE02J+LLGP0bPJZZEK60Px9b7
+UtI/1f4rJAIMkfPRVBbrI7opIThol3GRiaGD1HVZ1x0e03AJIudYQBtyCbmdkGrklcJAVC93
+I1Z9yRO/N/AIbsiR/EEq01/A8R8we823jbTk5BmX2NBbxKv8jN12eIF2jNxPZGVbbAVpNsdn
+YwG0GRAM9qm+IU3aJWz5uCcsc15FeNo2UcOB569ygdGOV973FYbNHSbvdageI+NuRtAoGX39
++39cLhWU+5V/exsYGsvovj1F+51OkuG58tSZ/Openq9W0FM1DKJStPNT789/tjPRtroB6B3H
+DgQYYYnQj9WlUlNJRamNk21mRDzxeP6rjE9UgbedvkredJQkg0OK3SusWTDdQbP9Vm7R2fNb
+ICLo4BYnGrA0FyweL8LlCZ8j4mqAm1Y6bSJ8XbJ2YaRkbQU+T+fLPQVHEaNdnroXfUNYN2N8
+tL1YKkk9cfal9GYr+V2f6m7oeW5rCTz45YI95fEmOVIzpE0Qs2Y4iqAiYFK9Bl/urkQJ+kuY
+il7TsT+407Heen49NuJpM1m6+gMss0z9GZVNtUvxEKiJrzcZlYtHWGcSbNMBl8yHfS2BexyW
+5uYreyU0aFCdY6Fn2GqucANyIEls3ESE6SG7EsD8KJVeGJ4CHYmj90ncN46ZwgJArv371jMm
+gfVAEOlNbff2IHfOCFWcU+5NYfoG9k9Y3JDyvSos+BN7BeNhaUtmzjYBSrrfs3bogrzS7mVw
+brDiQ5OvWIaVWHP0AkUURz41hVOxSJpkRgR8pJ2KzdKd1wL/CDGKMWutCSqiMHawCe9X7JEZ
+c0Zc1GwVPv8pcGKT9pOaCzzCuKDetS9eUJPbO1ZS9V6smlgnfq1Wk0CULybafkbMEDJ6OMSF
+N3qLLbWxUiGbYGwAYc+CS61E4ae3Hnd0dhM+8W362wqxYtlfPr5W17eNSOXECKvfjl2GmQXn
+8BgUIdSuqjGYUBk7KT3rEpWwmKBaGNE3ibnVVzDHlYeD9FrHUEK1cobsNpzYnjMkiMx9bGB7
+yzxW2W8meu0bMXltsHKcYHVJ03QyHD2BfnL7IqV8BbTA0X6cEQ10hR2Ehvm67RV9Xv2j/Xib
+Hv085bYKvn8m2mjNc2LNH+jezZgNqHcNs95lbt1w5J7uFXPzYtSIA+pVKB1KxpfbS4RXIUvk
+FrK/OHdr7gjDonzV6DnBlgybRTYoLeQcSSYoRa43SzakpPvc3UXvLwxZPvlikAtQEi4RZcRr
+XuRtApj0NaxPFDOh8+WJdZfLkSXRR5xQSrDdmVrb8+1Pr7DK8PHXWLxWlim/4OSpoaannuvl
+Oqoc0is3hff1szyEDgWl2iTmUpB3l3q3VudNNEiSgctPDlYdRgLXug1v1befOpMwryc/WpjP
+BoRgmxYJS3rHv06d1eu7Vq0ZeurnGIBPPb79JSiNuR81H68hHkVkHI74Tb6z0xVpFkIrXycw
+uGBaWLs2eaJ26D7AQ7qjbPn1aN7XRMPUu0a8rhfR/VRXx1KJFKItfqQHaNC48lNZ9ZbLOSQ2
+jKfUgI2vV7XvK9DJGi2XoEM10lkh1kVguafq91gK2zfPRAQoQrWaDicTPXRVCb1yocGTtIOV
++mbNzRXUMQ3lWN7x1wa2JTbIXBu9rB9rLtUWnZUsL3RqTbMxHoNThgnRo4upcVvIbHoA05tV
+LIcxHQcXILbLtJpsyInciEWbghoWQ+GA+690g1AslG67dtBba1KTrVgDN3RBunvQisxLdEPi
+NccbrvZyu8LA79cjhd8sNWIOE2IhXS2mzNjJITYIAXShQYdwYKfyuD11tM4qIqA1u4tjpdM0
+8LnG6GWLLbtwPVpmeFWvZzbKCZMUKPJmu/WF+OeXRz1nRU6QVmVKHA9Hsj2rr4nztPXikDzF
+Du6R2zR5WrBpN4Uie95uNa6Ecm2T/gv2mwhhoSrvTyHlrLGQt2DtzSIC5XImtZ6/WHdh1wYC
+t3SsOEJn0RyhzVkGi2kYyA+n7snkdLMzqLHvPPvVMCQPMNbSwSy5408Z4J3/BkQSsimTMQkf
+qNhwXeWB79Rn+Kl2WzFWehF6kRjd5elOkOJK0rCiKONrS7Jo8OS/7kpTvuSKYwW9HGHikq2m
+4Hkbw4HlhGHbPc1Fk1OWV/7lMnXj2MSKIJvybKzij12gux9+f++v4gnI1jDZgLjaNzZEcA2j
+N64p1SlHVA9mF8TbHSGa8s89PUqtia/w/Wy5SOwR1BnVa8EoLMtEIkvt/UO4RzXiH3jyvMV6
+jGuXNtr6txmqFAcXcA85a6JAyo3YCmfNbm5IJ2WB0dzZAlsoAQGkRp7gsdBPniuPdSCwyvoE
+u+W0ra5dE+sEAUPhC8777GIMdVcppXptVmVxxAzZ+Y3w6n9mqzmtBH1W9FUee6cYCv4gk397
+DDqzElIPiXE3Dgstcdg/GxrvU7ObAekJjh2aBpEaeruE5fMZEFWzAJ3Ep2MqjZh87CHwBAhw
+9EqxpaAEr0W6tELHZXGnveN4VqZVTsmYUKE/vKIqw5NMr7K5R4SSE9tzhdJFPziBzxknkWvV
+epsiHkNUQTqA5/lvwlTx9yRmFMcrQyA78AboWj5iggzTZ2AByp2xCt3oL3+i0HjQ5iMQslEb
+bW62eodag9/F2oIu3n83ChMkVHxHnl42YHvY/jIXM1aLBafwF76MtHKY1xa+4B5+q8WUiycw
+0Xdh8JbKiQ+TeByWQCa9yPZZLPIo2vm6oPU3c9lKvyxwxP/j2C0gZlvGnB3M0sc90m2cWYbJ
+KbH9UnT2aOleh8lZiUupTGH0xCRjG88aM3ZUvD9UTBLDBCqhhctro3PPCTznKMhQclBayMnJ
+lz/euboOMz39hVqJbinpGz0JPQv6ohHeCqWUYVqfoA/89va3GrYS5BWPoURKIbpIyjOr0LSb
+CzNRiuCjfjrHgg8ryyo7TnRU8HWPdOwBxvG1GToKcRO1lc3pv/B9Ga1rTd8SlZ1IeHvOY1M8
+oUK1M09XU0tIhVrwq3VlQdWDs3+KlYYC6gBYOI1TW6FPuSvJUdrvmutFKIurgbk6W61EmdXD
+WrnrZ0Jj2AyPIDfBvg7NFH5p0qJP/YARDNeTjlTGHmcnIn078AkuaxS5cltDDxEb2zKFYIid
+BIKswe5k5KPc7F4o/aOvKPo0jcRkZEYQsagcBeDm80R/9BTxjfKohNdwDAphSLFfAxp+CMKt
+MWrUO/QmOEhvEwqiLpZ1cNH77kVmFZmahe/whyqT8O0LgtOctM5LS1GLlMJHPf+wNJbNl8JK
+x7Vs3Z9/AyuZ9seJUJZJlFPNE45FmTpC38LPj5LLIFyo50FHnkbv33RcsUc4e92JUz3DvDb8
+agJNBqL7VtkabvutA8CFZaheyqKkmCx7LRdDIIKA2K79F+S+P1/1yG+stee/RKIjEb9dg1zo
+m+/oqQ4yZS+zVB7g95YHqSVd5o91jgVQUF2yafAnFqx5WtVUwszEcXJlMMeuoIfDiqeqe5LJ
+YtW2lsVYDzAIyb6nWS2zKE1adMa/otKbyNXO1G+HhDLZPmlB6D7CqUH7kDYxZO+5bQ6ZZiBS
+OhjMJYcZgK7joZI6gOuP8Tgjh3MY8ijpEx5MJBlY+KmIKQhvVMh2thIolTQiqrXVhRTs2B2h
+ExxIKNGoIvK6DUTkg5v/K7C//G5rDucaBkHX/tMx7lIsBw7RJCV+aPRL2KRCHb9ePEzpSFNZ
+z6C/ErDamXfJZekvH35BQHhT+fkfIhedbBZ6P4wMHzRou0TdpeOtTA5evVTTBATJHIMcc+1Q
+23/Py70uDdS+iBz65y935G7Ti5wVJF6jcsVz5PhUFiMbxGnHrZM7sXzzRQvzQUSeFAQdX2ws
+dVH9CtZc1meDPWGoPUGWg6BJmgVVsnuDUJvkthepiF26R8r87rlP9rOPMi5iHRWYykml678i
+AT6hz//ZmjDxEkusz52eDw/HYf+h9NPDuoHfZGBMJk54DJQ8zO72GKPEd52p/0zONWv3lzxT
+DrL+CSUpGzZ1DcZlm6AOXtn6iYIIj3rPTesHDZWSyIobdwy4Whhl0MisyldXxv51HzNuZBl9
+aBNv3dQkIoGAMh0i5lDRddV02LIw67yfAaVPZxPlwWcIe9U4QkLGmoA9+fhnuBG31EXmRmxZ
+GZV6mD55pKra3uNmnvrwUT/NPhLfn9O14IP4pcAvaSVnL3onmKVU4kjhiwFLDWwkKKoGSTyU
+1/O+8tcXeFwuAVRH8cx47A9zs66up4X5R2LGEX3XqfuJ037IgeHcLSkjpg/+Y/aI9vLZRLH2
+bXS8DmSJ88Z+Ny32DKz8oXXLww5IVsgDGs6e7ajLCEFWPaYdGLjf3EkpTmbev+9JAM6d6ISa
+JXSC4rpWUO5fRuv9dTIBhABCUeotd3t7kQ3JgMJtOAuRug3CtNHXeE/dU1K/gMkmeLeVvkpE
+67lUACm2dfQmtd1ezPHm9lfh9cYZJlh1ZA9RU+ln1FDQ0k0Sc9UqVDpVpaJEs04xRGsgv+MW
+6WITvLhebGiTdeiiGQ3TLf7DXzS08S5Ap3tR3aeXgVxjVEPbptqJakukfWwPEHOJkCREas1D
+y7Rg3dYLf4o5bjRCLK1sDFBHBqOM9vxelGq7wm0OeQxqzT/NDO5eO9yIQx+CgcTRIr8IN/lZ
+vU4ZwyxW7MkixdsGOe3AQt0sW8LCPbkshiONPeLY/uCs5drukATaWOdzymKaSAXdeAmtECvE
+bTUegV0D6NMJDdGONCstuWKzB0eMyXGRTCXrGc1AS0PXljpG+oh5ihCFL/U/5M/b0EFkTVod
+H0tLJLFssxJo6ZlaEToZarCgwNWQoNcA/JpDpMavBT8BFNl90eTH3CvkmNlyPwC40QGl4k9o
+mh9bi93JvitrhnexnRuyABAhWjTGEW84u3FzPjLK5qZZbAg9+OdlOxmzSVigFVQafnKcx2Om
+wGUVVNWwD+QG1cE9TwOuzALZkFxqXeOZRmxJ9HZUSnjZEPzG3MxC13NtBWimLHCWQg1JsUgm
+jsrq/VJDqO2Py4j48d/Ae3LCv8sgwT0ZcHmpYRXq6KdUS6B6a+cFEHp/+w98G/NyR4ZWdzte
+bp4mRVUlAPl87kpJo+UF7F2OOUALNP+KGEagaOB0y1lxHAPFVZ58CU1+TqwyGgPs5kxekBVF
+HMz2WKwmwonyHlFZahSIGLF/IxwuMmxKhcZwrYwiI5FM7N0R/svNTkwM7DQPYrpfZfED0qG+
+nCe2dQuEO/qt7mrEmUcy/3EZ0qBAhaMN6UnT27jxG1iJybcuQqDqRWBrRTXPxtrJU5k3RA5v
+VE6UHRLd10LOEZiSOhH2K1wsOuHZkJXeEASav80HVoK+KxZDoPA+fJHviiI54PVF5IxDHWai
+KsxDa01ZYcse+y0f3txgmKxnu4KNRvuQaWUO+/jneSLlIx+qzQmNq5BZUjln2qXdKTGgalF6
+IaTxp+zZEKfrjkBrevOeEbSCL391oyPsi200eI/slrlElkm4MNrgYbPY2f0tktEvfbZHXJl1
+RvRq7ziHiGkzl33IU8Kml259FAJEuaCcDRFiSxsPOwn/GLnWArHIEb+NYdZz9F4wrCpQQSm5
+tGE8Z63UbGm5BDUvhg7qDruWWgzxxsC4O/G7slQ6xWTQrcWcmQElRgobUp0dg66G65V/LSYL
+kkbz+j5R5wHUSTWh+FKfZYunJWfxpri2rkUIOJXWSGiwHXl7FvCOUZIm+pc8X9atGoqc2siW
+vC82xzbuMs0l7nJhn2BzXqaOQkr85wxax1Q2lA1ORtHSTHzoa+gFyxFLOpDKD37nRqX1XryE
+vAilBFC2142sbg4WmZ8P7mhTtslpBKaAoKe0dG+2MiCcUuY3/Nkn9sJbjZWThYaRz9yn92WT
+no7UYLOPUKU+DQIX+Oo6QZPwab+RflG2uN+vQXmtqSqEc6eIOJHfGWCDthfXtjtL6XbNpfpq
+sSZjlG8fV+68uxqO3Q81ZEtrULqmqETFUCRDM/NahTie6ke4sudC3OX7O42BiTDbWOn99Bgc
+wb0QaVIv0RtcPfrEiLN5DR871X1pKSJIYTcpacbZIlUbYAnpjEtmux7Mm2qgvAVpHtNjXmpH
+Kxh6BSTkRTtN0T7UUQYHOKObyCJAQIwk/bLAVNtmYmjb0RphNkcyXW7MgVrEU63aUP86v+bm
+0uChEpphr9LPqbLuBQxuFtcoM/gTFCTmrB8jF79ZX4PjzopYETWKZAetaz+mDXdlwYqSl01T
+XQd7yYoeq65P8ectJIhCGSBU6k4gil+kH8FNSY7g0nbBzbVb2X7m7YZCcQpUnxK81MGDDA5F
+pXohEh2t7ZuJcACq8n/RY/enfzeL+6EfkWEtVok9uuRotug7jLo9A5psmApfZTna+MEi2x06
+0SNOInvfwthSpybshV16WJ2/T3vKjjZu3Qjwm/wyqmZngcRJ2KujZCezHtlG1uXvMV0f2Tlh
+4W2MWQ29+yqDATRjhq6lt+THtOjLqn4KC/8cddXmQr5fWhREvkODu6Vr0P+ET4rsltbNa6uj
+l7BQsq4EruEdbeDSZkKdX5Vqu5yHkvE0Bv/vDyZoGiHrEUyZOHDhINwFziw/OQ1vD1Y0Cru7
+hWpgy/i5r58kOicon+ynENIKdkYRdG3T/BHbVvHiEcGibpMcTajxz8Anz5Cz25Twz0aH8fms
+Qm9idBITzjufLGMDC4+32tTjgPiarWCCIPb1upUZnxUo3TOT4qySzCICqHwtToK6W8Qhxtvq
+1Hgh11pUwXpU7n3YrmQmLrXvQb9oWfaT02NzSjD4f2F+hNzcFXBVtmre7ktarh7mbinBXPEF
+Lh5U4/QPfc1YUfGNuEDkSFg6Zzs37dIT8mhYc09JOOmnj+ZiDes3YhMUx+s6A6GtMcurpjUg
+HDFPV1QZUVaQ22vUfaFLueTwIg82BNOcRAsHncwmMk3M0CjMF+TWdlUIZVP7d+prTIVSGsr7
+FxcktU/uR6sY9YM53MOKLJA+Rp8+KCDkS8oVVeoM1CnBj7PhLBk2KG547epgU10/Vt0PBfwn
+70+ss5l2GEE2YCX0SucOh04erH614RGp6h5co6pEaj8VZz7hj9giaO+NkIrPaDM8MgENmcAx
+R6AMr+yca92oo0Gl/j6ssxTeK+7S94unykxKE64jZ9O8LWkRDXi+fIvNXJXx0KxgECUHYpCc
+Vq7y5j7BAXM+aWcV61V8h/qRXGNVMukQv42n2BXB8HYZnxYlMRT91mnefaUShcSTjAsU1Sfu
+54hDLjSXuGVn/WX8fk8pvlPCDRH427qbZXEQm3JAwbn7uw6i3WYc0W1nJ/cj7dHgvvWeQ/MP
+O4SJjQj/YiyI0LMFz9dQTzIYMXdO3wG7FnS4E0v7UUu5Rvg8Ncc+KicmQXJy4H1aylQt1iGE
+gOkoNzBIDqXDxuwCBUluLezOp88BMPgBRF+EwJQntJ1KD552XNT03UNnuE6ds/UE3egCJbRj
+/KvYuodaHNwFWBEkFUSshui+ISDwKsPraJKR5F/tRtS3xWcBAAgATGKgxL2KjkVJJhWIYPD/
+qE7fmFOpR/LLDr+LcwBLcYqyJq2qB2VqRl4qlpzPZSYsDmb+WT717Qy3nwRAFVlY9zX4pB6d
+gKDTBrTAMWCGv3MAd+TbfRVliU1QfQIXU6H3xS4cw0tREdm/H9L2PTOyC8kM+6WXzofJ/Z+y
+CWnBjRpe9qZoN/Wkh8erKrvWiwSH5L88XjdmmazIE1AZf2lPK0x3FCFdbDIvCqAGUP5nECxO
+sUEQASvFUICeEHMo2svozr0xMfKtsO/XHLt1S5jwOR+bDqBWzIQ5uTb6haVNs58JbbDqYAR6
+KKn5ivwkqDeUFzdiiP9Ul5IviuX3P8cCmhx2a/bhNjHYr0jdecvxRtycOfjFnRkYm07w18r0
+Zoj+CbJjMCNNDjvUyQk+qxHL59DAGtkYDCgkglVDgtzHhJfWBb/QPwLbTwX9/p3eoaLmB+Ep
+r/7jU4tF7KIEQyjo7e+ezSp3esQ2g/LcgvoFjd1qrBjilJwVbTp8oOOukdOR8qJu3ktPAz+s
+39PPWyseFC/fNOWyyj7CUrFbqzmcPFeV7Sz/eMmBdhOxbfAWfV4vDTihwWVcHrJ/ho3a72hr
+oeMqjRuEMndGfBpunDpkDme3Q++4oc6++dUcAx9X5MxzC6M5LHvKCyRF6AjmWm1aQfAU0KjH
+OhTQ6KCFkezKCywXdt7hE/qW4psdDwG81hNEuJ7O+M7oXDQ2rKg+fekZPWZ8Bz7UYQDpxGn1
+qdNqQJhSjUErA22U2WcoMUuolBU5d8aeQWqYIa16UBYIZ6wt+udfpoD7okB6ewDLNKXu8r1e
+1gIemMVtGgf6Sghq9+9k9ugflmjWbS4iSz4AnNnbzo9MjiLgXWoVfNwFsyWnr9TzWjvYAMLc
+u4K5+jzxwHOA/1LhDoAsvEJjhEGadT+VQr85gl6ktyuTmaITwjcZWJOtlEgVS82zW6D7kafC
+memkF9GyJiASe4jLhPs+jqjoFP4hYBGogHlFXZJUKDfidyr0y9bYyaOK1j9+tVVWglQL3GBw
+faeKTIH+EbDM2YdwtwaIDmu6vdTNIg0TGq+Ug2xmoIAHOQUSihZj7bkiqx+vMgYXNU+UbUgX
+HLlpB3qunWe+z/Avx6I29HEmrVGKU4r8eQzsijukKw6d+RZPxKgDqj+81Q6vT1sATuY5DZOY
+o8UCHP/+5TN3Gi6f2bEeJ5PA8ycdB7WLGEpv8kjeKf5lx2eKm1RU5sUQaFc3EkeGXY2l46Hc
+yuEg1tEHmNZKU84m+HzM8pfWv7dSVWOW52pPeQsBc0NDQaPV91BaABucbWXv9FDeA3PFQj1b
+ZWWpFNWodWO2sxO6rNh02/ba3uxCv4ntmHzQ+nTEys0nTMM/v38L6IK865V+1jXuF9IhbPjl
++hAXzMV10Ja7sKCXapczMJ4khX5M8dXuiDKbIYXTeqy8JcRJz6vyZTmBbJM/Xi/iYoGpS6zz
+m65N+/0KK79syHB/cjL4e0fqJ+fk/wZ5o7CwGjpg4J+KqgJ736VrqfVx/PYWEGJJgvJcITJy
+JkwToiu8xJylLHQLNNSSMoeFZJ+ToSDTQZ786SeH2apJtVktr71994ZWoo1f8R6GtzfRt1E1
+V2UEm56GLE90udAKJbC8RudufE2EGGgo3SADWYnFIGW485GS0kDEYgffV0RTFFnRAziArKsx
+KmE0RfBmojszb8eqJ6wWE/sOvSMWNfItZxVGKN9as+1jXDDndLLA5TAtVgo1W59djVnewXXW
+njexKsKKsHgIWBtmShBWOPZGeHNtGtr3cVNbgNg8WdYgD191+EG2y9qd1bauCtzbGRoBw6XI
+CM3ngyLoEsoxo5uWI+NCeHRcp6o+iI+tg60piN5grSHTzxUhKdMmTzEYQry76WjiAfcyShP8
+BO0HoDPFuWdv7uvaErqse9xfVccsq4A3TuYbxIdIK8GOIucenvT5yUpTFKmeYgFLm0Z3AfR4
+ljJtWT89CZL/aa2Ej5VWGPkP3F9Q8/3h9oCajYZdU23J1U7dYsCeuwAxWca9SzhVCPcvctTX
+vUufB/LYDp069WCkj5HDB/zNQ8hOdb/jZG7dplayIzlYbj+n5gVfjSuk4dJGGq/CXaxQy4Jf
+T8icg0rFHFSFV8q/F9nNLB+VnssEfenHNdHQVYubtjWZelM7fDpZJdr4MrLFqZuePWDXigl0
+fM1KeKxJpEYcZt/LodzfHw2rF2Dr4S+nD5M03J88RqgGiGKdNEegjWN9cynHO7MRMceZXwTy
+XLDwmZA6RuGUXsd8sZ/RYwZ4nFY4Qyg/CW/KsYr1Gu5pbRHnbcr97mX8ofsIbrrCvgaEwIFc
+9cSQNA3scur5iK02yRrKrEE0IFkKA7wh6iJ7i2j0V2LghYjcCDFtTVkOpz/4BolgXdmON6J1
+wXQBlfzxn4SXzzpEQwYCbZxiwfr9SVkYUUZHyroRf5J0jlpzIr57qkbyrP4lw2IiJXUcLzwZ
+c+WEs01gQzBGdu31u0lyuQ0NKEOfcZsG/3AZ/fTRgB9UQGF8aWZLYLIm0dlMsBFnK4ktmEel
+CgxRUHAqZhW5Xt/fTFp0dt8CM/dRKMUQ+pWdEuxpNZpnMVfsGKfZPfU2L/Gw7mcbAZD6fKTf
+2tA0YeS6JkyjfOLNQfD7OX+tan+tv456oAPe2w/QLU32VAxmM9O6ZVak2L2ue32+oaaEENaY
+nNgfIRUdYqDVi58NwFm/+D8Wrpus4+uNDiF980zh1lSINs1imysGF3GrHMVB2qvzgLMdLfQ+
+7e9IhU+JchCWcZvFuk4pw09SLbbGyyyAaC7Xo/oYnAL6XuHcFlQ65WZS2wnAUyTGU+xzrfLq
+TSB2jNSdqdBg2iV3qW0RVvBaBDxLUhgccDa5hksedy4b5jHZ/nGevBWtP+kVXTKDinH0YDb6
+useU4rhtywADw5vx13+gQAMYMjJTZqM3W/EZxpOvzqHzEnN6E9kPaUaemlrD2zY0HGW6/uqg
++32rNHIaqATazKKz7CypwDXbkO3OEPqXOWp9sfYX2MEabZGQiY371eo+8sKzETSM/1Ig8rEL
+vPOS58XZx0mtR85O0Ynz9iY6kGtbYkQ7iEW/EccPZNfzpzHyMItVfuzGNaQgWb+sywGSFb0M
+U9JUuY4vJT5chzmmHbbBz4ROFol3rqx2ODpe3BwV/N+QlVL6lIB5WH0ZuqwMS7l5W1c0cqif
+Hl35cSLpOSqqmMyEmIEIGc6WX0b7g56Y6AH7wUTc56MO2s3ta6TQyellyjtxCxrW/Cnno5+C
+5ZxTuxHkqX6VXXplQyv9soohACj7dyTJ8PqP4RvwsfCfog94r9gYHgiwrjqducyGQWGkBW2C
+1MlkkgPiWSsCd99IafuK4w6voBGMND/6r8Ibu2kAsqDnNLn2ulOmqPY3pq25GMQ7da3dY1b0
+V3jGc86YMXDk0dYxNnv5kSio7HjLEuowrk6WF0Opw5y7dOyC9mJ8E5qcDHTdQZ/AGZ6ynYmQ
+NU/r+pUHlkaYGxzDVyV8kF6aJpT8DrnbLYeudwAoB0E7RNGzS6v5Ac+BJht5hGcyL5ACwc2z
+uhZXiz0Dmq1D0FWFFPebALFewLdQShMXIhXUe1dRCRhbIe+qupz7IlY7gKx1Gj2RIxhRszRM
+NrccK3x1yDPpjBCug8DDDt7lU9AO41gbMdy9dbDm025iilORG7jrLzYKHEA8sten1fvjCPVg
+AKX/jF5pIi5A7zlaqq53lnT6tkE5lAKZxMyaN9S2EJ+nL8eQYPovZa0r4xO3d3rHUcUxt4IF
+J8QWkMhVxgj+l+zdRLx4jkQ3vRH3j7Gx5IEXvdhRjJcD2xGaTssA9eJuNH+c5sYfwBAblnI4
+7kihYUpfRhspRnxlXHp+w4uYJVvImtj969VhpDCdBjDKeYUA+p5F6xUYZUPp5+4+8BUgHFWu
+OvafZyL731wcBTa0NaWVZYyS57rg3HpMzfzYJUyxj8WFeDAlbQMQpbAl7tzajWlwmO46b3m2
+U/b0/jcoWd9qNAOQ5iPkiUuRHpKwNYL68JoJadnXYi/9LrMowpJlPCj81PffPW40LQ0B6tAh
+wnNo5M4CthbOuroMf2c+WI7GV7dmFQ9TmJ5rSz/oRV0ZLuH+OnxagxIQdjOeO2OaXb5jeyqB
+4fwIHIm7zPyVhDYi3gwhl6KFDbcxTtGDgnySeXpXoQ9c3x8ubjobxuiPkgCtLeP/JI1BUZ/E
+PRF+UHd5Mih2gUS0nseRGG7jnZuuC0cahWihlf2/OuVhQrcrv2OA+DI1Flutwchg67VB2zSM
+HfWgD1kflKEzE41h3LOOqV2gJ/h9N2Vq/hwEAdjak8mDKNN6Kqp3Y+WRxqtzZ3cbIfjTc4SZ
+/14AJ2v5okJ7uUfhgbhOcLvJ/os+YMH29e6Jrcb/kFuSEOSmA+7gS0qALrPrZ35OLB/7b0MI
+bSPM0z78g2wUBLhfMrjNWSKBOwLauILuaLzmFAepnriCdHc2gszByWK2KRaJa0bDPnXi+8NT
+jwGIS4AMY7wDcecaBOp3ivy5v2fDnn41MZAFhsGXWyJBysGFA9Po9eZk0buQ22DNlKCZqj3P
+H5XTzdsuc+Gv+ARwAG8CfQB5riGa8cmz2wO8EwcgbNhAN1jnia2N8r+iSMRRt9D7/dkXuirZ
+W7Dev9IdlyFmpOtRb8ztJovSCiNNJm7ozYBpsNGvIEJ4T7mWrHK8aY6V6sBCaA3kGkoNefEM
+Bg/qp792ljryJQ7I9s+HCvWC00tjhjP29TiiX0paJBbFvlSa235bj+0guhvJ4nP96mdiDUI+
+afXRVMabvOYOHy5/XejWid/9spUShQDnD4Smq8Bj+AfsCB2Y01Z4wrIVCl+G1Urn+u9iM+DW
+oyyplsPXMUFHXfEq/lxfmVje9yK3ylMdsqt0zD7nuyjlwbdhQa7QqIV045f651xudigaPq/V
+PkbaYW4YpX6i2omi8zpxumeaMvH6eXyKQjF9n7Dakqw91MB8yKcqIbz15w/T0U4zIASX3TDb
+IZLZHZ5GA6xt1X+pFbOD7qP6kR82i6SY17NR5oa+66GTEHE04kK+QES8umFxmEq01Cf2Ajkk
+p5jb2RccuojfVFe1TXOdBVyAOE2auOw7lhkE2OoEi6ptzvQ5eIxP9R6xA4qwkJsKE1Buxj1l
+pv9v+rlD8AXuFglOAq46Z33CRfO2XePOHPSKe3em9kYVIp/chE3htj/TImQUTFoPABeysZhF
+7k+iGeJjUfYQiEtAUX5WzMYhYBCl6dijlY9LsD32F5nzQpeFgmG0VbFav8Cvd7Ancxt+e1LC
+qwefwTXzlhCjCJB3leOsw3Gff1CkTnHJ5Hzg+7Qq89gwZJiI6C0kxPhgqjkViuKTRcxrwUC6
+JqCeGGcZ3Hy3QF1LJpTYVElT9npHg4ju/s/f+7ysP1qMTEkH5aR12ojzJbX3Qz3B1nkENj8O
+RHNo7d+1eVsa7mS3/eHjcWZ6tSeIXyeguO9EgGbxjiA8P5E70enKitXqxyMk7KapIRUd72oe
+nU88Dstu0qU0puCzZMzjfKtisoRr0N47dammO2U0gRs7rSSs1CiPhUdzIOFeNYLDJ+QWCEcJ
+Q8DHknemOBMT7MP9PdzRwEfhxutbWahgM9olaHGaHbRDyR3/Bm1s2Fyezm6kPe1m2dSA2HVb
+YpR32euwtWQIneDx/ylhbnapadXNAp3YOgUNWEYFmZcXVj/K6ECvrAZeO9ya6+OXTs19jN+T
+0GNmCO/ODm7GgLZ5xvY6nWP/aTAeoKsjgP8yAVJe7Xu6r7EKO4F0eE+Zpfz/Y6BPrVlQlvnZ
+lKp5lIiWNScNCkEKsg/6I6dsCYqE05JhjiwgWoeRxVyCbBXHi0lAVOSplZBQ6g9CheZIZOGK
+S/lmm7gkJGdMgPYHzUkdRPwK5T686ESQlnRdWKst6BH0rrOUuCOBs9ug29T/jxXtypO1gLzE
+mgVslRcepaX5a46GCe/pSO43/YXe+brHera5RmI48edzE9FxVeq4jemMRME67zVcvXbF7Qpn
+BD1RfJGTdiOUB+Y/u2pi+5GTnCHbJDzNM+z6asqAyCST7EYWP6EPOymEbr3Cqo3YTwKhS9LQ
+lmOZGlaAFQQSu21sbnLQR86sgzltPq7LWk2rXrJQvYxM3j9zB9JjvFhCnUba7HIcoVH4LZ7s
+mInZ7lCIYpw2tenDXRFQwJDo/KnO9jhYmkR9KYKDBpPxPtIOs+QETWrYGz+g9cYf1XW40JXs
+7iQCtdI5m9X59SBMHq2YkMa+H/C3kmr2LouDFVoBMRNammwQhc9s4Zsls4kMjeIMGquTN38g
+15hmFMd9JIL00ZsiODFnp0CyOQvFk9q53nth2/Y/6RcAL4PLCcFeJh92bHsfXJ1ReZNZFyya
+3LFCchvH7Ys6PIy6l5WFa+bHAKIsQnINXzzbeuzD4nde4igyzNy+dlzNx11PJt7gC/FVO61N
+x5iGV72SLv59LyB0qKtsWAp47XJ7bs++XrznAOoOmb4VozFuV94HVEO58zRTBZMQc5lEg0Kf
+15u6S6d8SWPDq5QEW8P9FfB8A1CtQyT7IVZqjsJK05S2F2wMNMiyQl6g4JU506CmyZ+JsW7S
+VyATI5qCK6Jp/xni8ne+VfvjxaX1qqAjsuJmcTpi0pe3keSOctAKqGyOAHvSEo6oiis9IIdC
+xi5XMbzNXzfNylJ6QHSmQ45Q1ZG/uYpH3C8zfcFLvUwOcPw5BEMwSRujVM2YeIrlbkZ+x9lb
+1Dlmidaa6gSivYix8PqBwnCuoE2/ZHxTkkNTMvCcWSZQbEJaLyDD1POMXngG7wxVHiAXY6xh
+ymapyp099vueXoJ7sE07G8/pPTxSN65YLNmlrU5d7Zqpu9xSamSIhCtS8pWjWKcBFF4FWDxZ
+89mwUR2I46gdnYNPb4LoqT3qWgF94Z/fmW9jihYUELOjQmc758YH367ma8TgT3ajXeDGPs1k
+cwoYOut+fKRVrhpl8vT7QMVREN3upW6j8vivDF/XKg8ZfLk0ctCPOmAgMRhX9RgmaTfqQXA7
+OAofrjpJlaVKV2jxrHLN/oYr1gxcVmQuLwASn+OpsrBkafRXXEpRmuY0DIbzapZ5mQjEVT7s
+I8e8QYC9VHw7SMR9h+BHqpuyqO06HZ88dI1u7sRmcA6rpDqmLj/G9GIWQlZLtmKSh73bG/x7
+YpsRf+2qX1tArRi3bPPMDG1IZWNo1/uPoH3TSQ1CmAACqY1u4QS9DeCthUSgF7347NEknU5L
+kRlccGmdAsuKTYGCd5x6KK8voYJ76GlTtBO6MfoN86rVz+L1I/gS7pdMoyyChnYGzU5vvHBc
+TZBZ+Pr2hPz519+uIM5ItVBXzMUl+53qTGtB6DVFDrUGT8bvWIIklvq7JRnMvHzqkf7enMdf
+TZT/Y46BGE6ap8VD+OJiUyiDFc+GUcKjfYkA6dDf+tl9y0L88k/LrCH0B5OA0fNNeAe7X02e
+I9PXKSxiEJar+IcCEYGhqsDHhDHcgxPKRpFv7pvxa2tf/V2IE5pDOceWQeI88F7oizhDwwXQ
+paaGVYIrbfLJ1EH1InA0L+X7cIhSK7jXbrJ0x4F7+JzM1gunJDxGwH7zqvgFo9MBBgce1bXf
+9kc9f847hgW9dC12jU6y594cgwYCuD6q5+cwKEssZNTl22vE+vIKWFZ8b7lQOIuko+lkeFHU
+pGOBAqB+cX7NTvQCazJzOxI1QsnsLP2LusF7D5sLlsAjKv4Q7vcTr2lQ7wKNRYAm9vHqELzR
+1Y25KfKzjjhdvcQ/aMFwmY3Ehz0raIX/J+9zCyD229M1to7AovVaSw7aP0hO7OzL9vn2MCIt
+aB2gN9hDv2ehoLKye080RznKJnwQBP9TwO/N5OZxaoaCVoQGp192CxFZ/229/Ab2IgFOqwH5
+Tcz+REsHKKePCYIF6nBIx1Ybi6YVVKzCoCc3GGgLtnCQM3x3hs5KcVOLUc7R7dSMQzacDcHE
+vlpmT01BcCZkkUloAEOe/YQlx1kO8TeM62M6D+QBr77H44zh1KxUYE7K+9jC9QZcCCGNdkwq
+rLIud9dQ75g4och39ymN+kBMqpnLRYFhVYSXOKfpnPPyF/+iJhgJawoNbXC7ytWjGfJuJbtC
+Srs4X1mUb0/YrRR8lkVY6s0TFmcQOtD3bn0JketgPT5iSOlWUinYte7UosC6axjQ+jscjC9b
+G1wz4GkX1eBcVsnfF7zrWjs3HTTaAmkTn4Z8JDaodeuxu5/bPyjtRlyBMtP7Tf6Ul3eLAxvN
+Ni8zyBzq15JAwoYLHjS4LlsJMV5+bLLbIhc1t8eDavq5StHwpGQR1qlzymN71nqdiD0s2XTB
+JH7/zl5Zp7j82aEvJuhDAKb4sFtOGaxo5ANtNTP/sm6xl8svlDZUtk7OIVfoFxjSgAiOfLkm
+mV01fF13K3HSTFvSukP0fWF4UkCLw8AEHqPBS+7DUiGErTUJGkTMY8jqaiJHFX9vOuy2USCD
+TQUD0UdfWNAe+Zkkug+AI9/jYDbu3r4I7+rSiCbJxHbmGKZuA1H2SVnbWYGl8e7EwIAfpO7j
+xninBz7csaWOtK8z3UouIR5/uyOAqD+tfVz5C7V+HxdYBTADIsPYJWWn0tyK4H1RicSl7oWJ
+ep56+TqlKqGMWKlXQ6cVM4IwudHlJvcXGKi/vlpSkMchaBufF8uFBTWl41h8lz/cTFeucPm6
+k++3wqzSyAVX+Wt4wzvNI8ZkkqJ0eVh4p8AErd0NkcN5MAKewd/47b2sVrlU9/u7xvDlKZD4
+oQM/LZ6DwGF2d4HzzXlVgyQ8BrbXIadkFamw05BDSRuxyrB6vo9oFMUKUgPjrggt5J8dZ2t0
+lG1P5ZuxQz3WoTlgbQwcWcUyBaMpLBprht9cx4GOJcBSpgjFrWMQhdlrNnfC2PtddiXx5xWr
+lakhn96REL6L/PHC0d95R/gxxiDLkH6SaxtBX2LuzncMtNhHTLflpvm+otAdNJILLK84tSW4
+jLnyPYqdk+XJfoOrC7/Kwy5J7vjmrDccxAhVoFEKvhbhQ7xoD0Oaum/nmc+PbxnLudFRU+lb
+RXMiiuopC9qO34cH1JaBnz/DqvzUIv3YOR/YWabA8PJMmIV1NKY3x3lsT4c3g4NZlh5nCEZg
+IYcfTcxjYBqN9NMrtws5p7zpmBFZGj31b0NezpZJbotjnKJQXyVIKphE1rJICWyXTipPdaLX
+jea8TDULdWAns+pDGiWtMWyclpu68TI0T6lnJibxW9FKNI3YqDhwdb7QgYUDY1z7GBa5quem
+mUag/cGZSc1ZhRcx7dYkBJi4VF6gDy9GifKBJ92N2MRC5dzftHxNPLlpzaBilGE1Ixcfx/3S
+v9LnHAJB3W6X1z1+P5rqw+rD5KRPuRbW6simAlVsECdQ5e2LOBrPUQ5yVN/+7ofgsxKiRH91
+DcyZplA7FWFjsdbPXXV3ARObL0nfOSB/a5EmTrvCEjc2gQcYAZ1tuiUplA3Ok4dvFvUQyg+R
+GzVbGu7qCm4ZeyKTGGBqAHE2naP6k+79OD7vQqRy21Y0lzS03cxXjbgkxrFujxbLFFMj8+0Z
+G6fUNAAlrgQIM3MG+dDq5zVNPGxr6Xx+aMilNBdccTYAuE5SGdpv0GZMhI9Yiiht76tkgeEV
+cXK3YV/j4TWVupwX06QhE5iP6v4Z6Gqut7NgjIbUZrsNkdqhaQpqewuQQlesV0jupEc/C061
+8ovkvABGSullSi0NuHpZUx1hJSLC9vRYkX9RV/zO69nL2e3AGXP89Vvs+cowWoT29MbYIfvn
+WKqqyTilmlg87oU1Q6N55rrPJIOnp8J1pqZetVkd1XQHOsOiHfzDjudz7weB+lAVdSAnVAa1
++O1x4Z3V0yL7ZBQICn65fUNDRypmnsIEzaPhnyOT+AaaJ3uiTT9FJSsJjteL8d/pcAGp/gau
+z0enrfbi8vqPFErXeNIc6Jj3Ko4o+pytROmqEwdrMtgtsImfDWNWiFWyiWRrvhsE5KL9Ot3x
+ijt8PUrQ1OeX8r+WyOn0xRX6uPYb1VBBtvB9nyoMkgnfyJLErctUD1ZU0JSTn/Q/gVx22Ilj
++QNw10V04ovwr+Brszm39qKsqIPwcCthbuWTCe0NuWpDfqxX+4wBL/8U0G/IDIRbyFrDkyrD
+eboaif2dC4Stzzz22qG4hllgvkjHTb3qK5uQMQv/whWBSQkFMKn+6rWS6EuIlTYPFYWHjXFt
+28dCf1uEfcEilGxsX7AmLlp/9nfwe/BvuA4FK6a/gRDtelFj/mElQczXDohWonhEOECcXHZr
+Zfs1I+BGCOKXf13U39PmaBiBC50WX9ViPT3r3Fmf506iwNLCrJZAjRbFQ6IWIB5Q6v+/Vksa
+f2Gx4A2MM9hFMTo8ksOELlEwI9X2TSsF/qmT1l6qs6j1NORPzvH6t3G+n7m1WFrhGCoqd+9K
+ZrEZwJ1W7h3+7LaxFaqubdyDXAit1NoEmCHWeNfymRyv4DL3IEZhOyFZip2lXS8Vf50mjuGe
+GxkTLH8eJEt+Bg0SBxuHVnyF4ZvSSwQ9Ey69IUXy/hbKpCzPvW5Oea3gm3L5SnFLPHCufwDy
+G/jeDsvX01uGtkcAdxdzxxduDns45DLUK+p0bMfn3w5OVQwvo39Sdr7HzPZIL4r0s+j3OWqP
+EvjyOCqqHbI7hs1GU48wS28OmdxcCpRtbr7LsSCfjkJeACSzQHkTPEVWTwb2ekEtogzKWuW3
+Vq//Xg8leJ6MhKgAwALCYyQF0RHA6fpOAW7d/nRxSzx1hXKusYCvzDedKtFvQjKskG1hKjqJ
+C+VAT6E9pSU4kDsdR4rvyJOel6Ki2XT26R4WjgAi6ZGwTOtVUEcrPMW2XkQfw5kwzdJtBmqC
+Who7SqmCCi8ja8gI0r8Pg6pwNf2fXHvPfwxC+JboGeiRxHr8ddvtUohQFDGP3zfH54/UL9oH
+49/zLPCBdtZfLzBIn6R2+MBNhlMtoJ5vnxdOshy+U5qQ3Uc5AJTKpuKbhwMKn9QyQ20nr4Er
+Qz6GsmPbtcZl47DSUZcqwtgzaC+l2f15oZyX3y1ZnBwJ00W0naNNdXeA21SgzG1HCbeI58st
+ZiOb2k0eRS923xQ4qZgur5vWSzskkIiAtLxcTZcIPUNg6yFDdDaWrenyrLwBThK6ClKSib0+
+9aH4cvXmENBpUaAKBRk8xYeu2OyKztRAOIui1SOKD9n2JvbaDAI485r25AMG1gv4vQ9PY6v0
+wEZL2Z9zxLfU6OFmNsdZn8wcOBkapfVyKWTvlACiNndobuT6x5yEIPE9nwYKgW2kaXtXKZdU
++pi5QaTpoxH3GTLqyLJlq0CVFu7bJQ41vyzgcaDryUZkmqBUQhoaTdDwvjlWDVsjwWuiF52X
+ubGmmh4R9vKUAj6fIZqEwLW9w/gnY2mQLCoUEjgogKJhddCdYLGZZHbCXqnR8dLjC3LZk7oK
+7zcksnZU3Dcm6uT/vvmRAk39CJlONdaqy4DE/Q1oooELPvG82sWFQ0LAKJLfkVGXNTM/Bej1
+9CWyiLYX+O2xtaT76IFfA169VdV+5kF55cx3cZh79uoRR9kdLLn9yE1y7U9MvceC9xV9j5Sg
+KoOBTzT309xjdq4jUXhPetD8OG+nDh5rx6f3SZ1Lz24j5jByvITYcKfaTSPC4ACzUYPuvVrw
+rO/zrpQrZGIJQNdlbzJC3MLickdG9neQXDuthly0Mm9+4QYiWIcxUrvCREQwO80oWEJAmvO/
+GZt/xen3rRmOjpzj9M05aW52QYZBL4l5GNezNgswR5wloQJh6i5dIJMGoNoWGRXYX1htUG2d
+eflUn+i81dBHG+92TLULHRd/5yPtDxjRLSl7LXru3EZjJrR+GSIoK717vYhxshEMqhJr6qRG
+yoeqADOf2pLQL6F1bm4ni8n4TzXRMP++UPUPO16HF7vQmgp/QxuzH+r1CN3woZxG9oDMH7dq
+A6TNcCqp/AXHW2CbQJpUvq3eUoN+VFaPqEkVJkpdeNYn+cvuJAtbrCt2SAr4rfGA8gEbVhvX
+R2U2e0UHQOOfghCxsIc4KMAnp9sMs9oZnNYYvhHl1IqvKvbsd1RxGPuk/u+OqmTLSxeuB4wS
+sXrjsrxOTA1yJ4z5V8U5vsoQpBgc8XBZxZfvYiH9BLNHqGZN9yRqBVbeJaNAsgBZK4VEe2vH
+hO1Pr2xfSopKhvVp7O+M3YBMLPQ+e2JlQfzK70TX0S0cx76hWm+hJ8x/zo0I31xkGRfiFlWj
+04bf16dk8YMOWIT0Nb5fFJ6trzgMI091RcMy9HgXdN9TO5KScOLsbNnvkNAssHTokTR8/6zh
+r9mf6NA9chaxpKTmH4GbSkA4ituu3GH3BVcHcYi4J5xyRYPLR8u1XAOwkSRmIWjrT/WM4xNS
+iL9OuNUALT/eAXpBvAomN86mkz607moGjG4yobSjEIQy2Pm9Zom3eBFrH7vJyhI+83x8HUaO
+zW7DmHnjk0rf+cPXxo9YGM1xVvdINDXMe636/GbARcBHRuns4VyOP/bEGr9xdJFJ2dFi9hkG
+lKl8m9SDTzawj0tS3DYLB1FVQMHr8wIyTojds7vVN2iyJ5FTKBvjEMumUZzO9C93mojQVHfY
+Rz7LaTkUo7vMKXabKxW0VAju5eFA+jxqSyzGdwCUKDS90fm8hxuleQdkyS1GiJM23UeBUvuY
+uw8MY3U3VlmpDoX0MSa4QdvIDZL0eoL8jh+7I89r9hARPrcXvQryR4padFafBSULkZyQaCVn
+mb09GdKLz8n0vHxmxKM4MIQRwoE30G1ZOKTAfgam1p8oEKTyYT9ANdXxxniFjefVKyT0Z9tJ
+iaHWNAHYjdOgnsZdta4WWQUtla/vpLPw4VypJRGXppaDi02Okv0c5r1MIiH/si+s870fzGv/
+7/GyIsvyYSyGDVUcFOjsXCiykuL2L0ynmyJ8eH2Uo6nglFKLGEq8AihKIGnfsAMrnDw0uMsl
+1TziaZreK3DKvmMYxq0y9udWuqyQ3x677Opv8MWNArUDM6zj1t19stTk0Fze+WLR7+NM721p
+Ry461YUaHRxxblwJtXV3AOMBQ9SjGdb9B8aYiJmztiC3awmCfdNu7M7RUect90fV/mXmm8rR
+jZ6BEqXTKYxfi2ZqbSXSSyywaUlJ2Jd1T6tCIr+xTLmmfvQtDzkPUQLt8ARVTR7ik35el+bc
+J0L3O3EySlqInxprcCGILGq/d3HZDEjR3LgYZxpaEtkov9AvngpQneI0+VvGx9WRxhmrbPas
+zkpVP87mZFdiPonyfVwmQA41zwnTZQlYCFugHkgxI746zoaCByvMjIRpaN+tW2L0r8sToPec
+g+QZnvJcpora79uHWFJXqDs16pEclJRjXZdWRIJXcx6ZLSKaTXN9EtgWX7Z3qbQtdoWki3bQ
+Z/avpJYmzJLeQkL3xmYouexcOzgLLF1//2TQXhJQlR/EHMCDGmDwwk7c1JtAFIzR6YRquOQt
+9qeBEb6yxWlNPIvPh62AzbOrMzDOUo/79shAo/FC0cXDQG+PqBZ7A5A/fv+sJCJ6ImLbWsD8
+xHREIwSq0GjpEpzcoV0D9vJdYGGHk4JUE8mWyMOtBKJHlhj75JU4mzkaELd/YavUlAwbLDjE
+HDXngXTHYyKRefSehdnUEYnot9f+YDSmG+5cpnPLxKs5B/TSTXztXlVatD6oMfsiwzZiFVnH
+Q//5q7zfOByaa7ObmChuNdL7KuAV/+oy3pa3lNIO+/+Gw85fNtmZ42yD4CrNj7+5LQVF+KNi
+a7sz2uSFqTrfYA8uKOynxvcWtvqd2r8iRDrHweSygoG8Jsm/LAHRyFkxuAVfeDuhABA8oP7L
+5g9Qr7iem6qcW06DXRUPq0BMcv6GVAtHL0I9zqJ1uN90yy5+9ORLi+C4qU6DqDhf4G+nhGgi
+ib99LnlGaxDKGg/DVtABoR2wih701pBEI4JOyIvDxtzi3O98qhq4Zf+jjv6lfu1bBaQZkIT1
+h4X/KTnd+ol3Bhhcueu9ip8W24TSSUo7aGETNZbTtVasTy4mnBOwJSG2MDoBbMTWJRqyl+5N
+TLhpG2MYHZ64oIDxs7nph/yUbpBhs0q7aVpkb6svbZIpSEJFDjHEGJhu04j1QrnKNnFdT28N
+SYH6EmJ9VqHx4BLPH1/QxAyaQzYyfwpN1geD9qawCxfkZ/ISRksao/qAOnW8E+Py5B9Jdk/V
+XSgCFJKlHDAlKMYYnmtPUvKe8wBGTwza2N2Wli08JVecEaVr2R21Oo8AxEfeuSE0CGI8fox+
+hG8gCp0yRi8rmpWQU32J9WePEwZAowBOv/B8KRjvJ1GsDhuPfSGLnet1HFA+IdnfeNF8eV/N
+aRMZ0PKu3OYmcjsI80kUfAxPljH6Nhy5M7EA+PBtVuGPqomps2UvNDdNkz6gaK1slAvM9+yf
+BNoe2gJ9yQpU/R1KrfVE+9kc6xW0iv5BKMZlkxu8cBETMNTHJJ1gfsY2WVttoTV+q2jbxyTb
+VoF4sTheNiY7mEziDrAZRbPVHeWJ3OWQvTZ6oNDNRKeyifbTNF26Ai8k9EsOLzralefdWsHz
+j83tjId22mMUVr4nOC0L2GTm/TB8Mrjg1ZUttu3A+OYPowEj6iMh1lRd/0HtvKtMR2IjGuez
+NNVsehgMFNJW4dFyQGwPhuOugA9K70AGLQ0R7FWHHlIjQ2M432CJhNoeLdC5P6QgBYzfurXl
+vkZFZRArSgPzq9R3Iz+n420txtWko2TuFURzahQ9mVSV772JCaMWLTRvRBIXBv6utBdi05Av
+9b3ghVQIZ6WzP/xiXZmsIJSFTYdXG9DHU7Jki+Y5/QAjbT6PpkKvER91IedGVN9tbkruqoZf
+PwH8uJYk8Z97OBvEgTdwVrbAVZTzit8XNCDVGrNJ1rs3Ag+qdq/l/ydZyAl2UVGE30dEKDSx
+ZHZFnBE7tivcUSHAmPm2vU89QL9oOk0Ig85pW08SOvVk5lZydKlpCmWHsz97hQQ4F/dOG9qi
+n2ebu+zg+nn/sGP67CCQaREkeDAXOXooCqyMf0QdupgzNvzdBIWsOK2PkiqLjY5fb2prQbfI
+ymBnzSXuWugBJM0+y9rrgBXODS1Y67HwBbNci6oCCU+ZWTwJarIX4I5U/O3I4YCws2nXSWmt
+7y5AeanFKvVZLN4vFPAU0jgNfpKO8cQ69n/4RbZIvuHxfhv1CwCnzatzNdUIFCond3SJ7KAQ
+RC/r7rtt1gvgkTKEXWqFIfEv3r2pdGaOZDLLdpG7Xp/FjkSWOKs0d4Pof5iPYOEiqefVea/a
+89aBYmp6gvaSoda8mqi9mxEB+WN9i4UtEGSNlTZGbTQA/V8fAHFhWXG17hR99NdPzUGIu0A3
+gWNMxyVrxpJ/eK0e//K8v48fKP5FyHM5Vbq95Ca5kQAmgYdPm+Vkkm2Nxp+pgDoRbpvi3RI+
+qJh++/lPaPNQGLK03Uc/pYlGVSfeR9J2Che5NIZEbIx3KrxZe3jW1y0di7VhV9imCZYGeFPA
+uvxXr1ZAvqmkXvU8KA9q8tn+MlAz3RYIb56NmrkDcCYqpwU3oeXqycAQLvJ0pGWxkILsNxD0
+M6t4IBymrtKyOjMxsI1tnf8fXcxfwYN7wSJPKJadbku6d05En7IVA0jiYd8hzj1xt7nD+qPu
+CeckS6SKXQRRkBl5lYkC7oCxi1WFJu1oxGUpyPBfg/X6droRZj2w6DXkmSvbDpaTSFE/QhYp
+IhHniUj/NRl+6o875ajz110TWnoNyE1wwxQNCT8urwtaabVIye2g12MU9EU91l8mF3nxp3sT
+vKFxUjf6AcupZlnLFUrTLcn6UZ/XT/PVc7Q13lpGTlk4ax+Q4uetys+eINaLFlCkV4F1hiQK
+NBGWvzXLVWUGkGqUXMcipuSW3LZz7X7ycEz/kqnNDgntTZ/fvBEoKHV1NoSAhminhmtUC9v2
+72uLe55zOh5lB/KiwgC2koHengrVZPiCDr1c87C7Fwmv4QR5x3jtgmX126jjOY6005XBFzl7
+tomlWZ2NJZtg8K2EI0VSlt8NJ8bftOaanp/172H+0bTlAdDfB4xEmyms0VyzWQi7quYURjDr
+KjcqqZ4Sq7H2juJWC0HCuxz3r6kTek+RgTL7GYExu856C4R30WnW7Nso2wIbI+htqPrH/BX8
+uYGUnRsblABRH7HxxU72gGcV2MUiNXo3VKeFXIk3StMdCfMKjhOq5ZCl2M9bsoz8oHQZZiIH
+QVw/RbLbwJrX+++kyndiTvCPlSzSRjYlYoxP7y7leCS0zKyrh+606bDtc7dPkWiyKmLqGPW1
+UUJ1JVPAYtHtKjp/wYVogg3HTuCOmek1v76Hsk6Z350suzL02Zr3OmFsMQh33y6oauw7LpLK
+lCEWjG59mLmdgRN8NszhFKZj3dqV5DPUrYuQxduUDHrcoPktBvH0u4fXqa82zR6+pmnAll75
+vbxdWRruHD1wN0rm3Zq7MVykYRrCzbE9Eq1rwCSAdvMu/zP+tDiB+1m5RGlSizScZ+XeKRPv
+mRJm4Fc0rEhK4vYhDQJj3ry3mP9Uz+1pj55Ke6kz19DB3HDefA75NNIPePiGIF7DcDqizmL0
+aeEyIqXn9RbLhKuR57W8B8nh4lvwvkg7WTBxZFW/trbQrtqivYZ4zxcgfrkKehn4s39oG3dI
+h7+ZRGE7X5hsei+s5I3O3mO+fjTeoyJCEiA+uwsgv4y8BGHLh2tBj3sdWjtt8Up3jbKeJaL0
+OevPqHYzkjVmll2OyxvVgkS7Dw8icc686dnBNH1rxt0zLzyRPRI51y4eQ/FYldKxU/i9UlxO
+vLHKAGYk681EkvHaozlwRjMcn1xhUyfFq5CxXJdNBbZWucASLQ8Elwga99tMKYe7/Z1RHamU
+Zidd1vLO5i7GVAhmfIIeF7oECNuujeHatPJb+K9FZOlWTXtGFrMwAipr83sQfNAvwg5MrX3V
+9UWgs5T03/gdlYl/k9j1nJerNXKCAnrFYo9Oo98gpdbKH3EV38v6Lmj2auIBdKHqh6+q0+/n
+eGtAT8j6SJB3KijnNfGPdv+3mmKfjzwCecC56Lrjpxou5f7AL2K2Gt4BD7qOqUAO7fmXRx9X
+QlpwThGPb2JCuLowtWc4olEPkpx8j7X4zigR+HUA0BBQbk67nsQdFeJyVKGndqf6mNhn7b8Q
+qZ3DMTURtzofil5Q6hgHc52nUBOct7WW/c9Rn40K93779Lc2M6+glP6lDpUxuemvO3JOyJAL
+xR5kq60WmmR/jNos+JCRNkWeLFdmQ4f8MA/OQTPQOqtO3EVu9RaCtqRXt8k8jGzLA37MyW1r
+cFatR7ZMLgDwZjvBGjujyMkrlDQkWY6KmZRi/psDTW2nljIu+mrrjwcIIoSxhEIjGKjgVtvj
+MhAbNXCkclYFohP/K0vXScEf+bTOACxIFNcGepM+VQA+nh4vgpOVDKZxEMOH6mBlWjvW9WSj
+dn6Ig+OBWMy80tSKX27eP84eq13mJIZ9utEkdfxB6Sl/LV6+aD3zcoWSDN3Q0j5bQMo98BxN
+ndrV5f57bEhVd6oJKFvl7O9lKvuDFuwrHxJRsgmnqlEtQ2MP3JJPbx9FygYvBHgEQku/sbA5
+UdRN/IthiWTQFssIorAWQgsMrw2ETzvqCJoEclFacmdbdA71K1dRkpl2oGFiXTHEJUGePkyu
+lqbM+UK385hM39DPKHxy+wosIurYF/IeqrEqux1poZ/WfgFG9kmgGvvMAqKUjG54w7ivXxvP
+0FkS2IY2DZtvkVa2ja4BhJ21gkwMMIL3N1rq6ZSLK5WhBspv1e+H29XjKT3vedyvPuY8JZo/
+4AVxvxFmwL16nSamyFDp2GxwrVV4L6rAqwdSG/Qfj5xlM4/sMBdH5eEN0Izb51JJN+PSDx8T
+HJlX2+ACK0tD5hPYGEnRqAypA6gTSrOTKEKQMpmFT5b6VwpvdnFBuF2fTIJwMiwRl28LWJ0U
+BzD+umi9zolWR2TBB5FR+pQ0N0mXyDWqyZvqeCKM0VEg/XR6vW294z5j6ekvh1+k1kwOXHDx
+g3gZMnzZt8k97/rionUujDhwLV3KIy54MpBhRrRdejknKSWJZyNvuDkWhYzOsnZ8KbFHYkqL
+DsF5Vw+UKDyC1TdRk35IpjuX0j+laALQ4hCOZyZVI6EwHwAFkgj6QTbt11gMFpdFYUJS8fGv
+wHtYr5DlBpXHV6Hpv5McM9CkqZ8RrQSLubf/s7fw/nng4okhGDM0VQ2qJLfNv5tc0GQHCj3d
+tLtT0cjj7zb7eMnT+NL/42O5F1HsH1KgzK/IK/lA3Ayb67bypyffCq5s9nPBFl4P23xv5dQb
+TzsH6n3D1BFvCjdqPdVfH3CRD7VN8LewkpSEzuj90rKFw9CxXOLVr4KyWgs+/IcZMnr4ateW
+tE9ZGwCYbKFoVweOsx2ceMXfKwoqbOmLmAtVrQrOz8ZxEuAeDJVwMOwblLFZxtcKrhuxlwS6
+dDY+mkVehX65dTqmGdEBOfNjVJYswk8dljUN9EnsFCUyPt7GGjbH9zbfHQ4lJbnvAoWD+8Mn
+MGWQoGARNLC8N10iJiczbKhCETmFlzGOE5QvPKvLQ8aPA6JgIIW3mcwCj4iZnQq6jjhcW9w9
+yVU07nxYEPcBSQo3+uqXtGVdNmBNfQZ42ljnVR2EFpLhL0sLUl2LREc9gF6Es3+/SBeWw9r4
+FUot2C37+eQLK0MD0T4a+NeMLnPYpIdxS2xxNIzJUjSP1T3acy72veZ98vUipCV3igCxYspF
+V0yQ6LAQg7XTeiVCfhg7/GygCQt6/jcUUqv0AkyE1M8GtNReeOZq4NMKW23rJUPpeUzMuYZT
+vakB/r/+vUv0GOlkhymfl7S8s4IVEh+U8qxunutLcn/GkZuYxsGz3BcRg0KiQ10grcXn/1aw
+5PO7Yq4LyrT02lHRkA7hKGApAr1Rxd6RSB1Y+IwvZugz2AszSR3n1rfxFOmz4/5+jM587Seq
+cFdPZHDtx12SkDuV2BeiBrqUl5Yx5j68JMivN9dvgF9k/qdj1atMjAjhHlPQsXzgw3evXJJp
+TW7F0DEJftsZVra7v9oJa4I2TbuBHoVIiUKHotPY9lN0y20DuDxyytoct6s/9LSjCfJffEpB
+HrK85o0bVNzWE9mCyooIsAQQ4sEQ1fmKWofLlnSzBPL1nd7Y4tsQQd9UC8UNFR3wP8gFVVTt
+grRVlS2W3g6S3b4HW4BfWC2Hc8kUkUrhaGuSiEr06RfFLHStroqkPgE0fmGmJrZ+nNqWTYnJ
+IO3PWqh6QKbdnz9qbQ3btSC4i6rQe+DHp/1iBwUKLF8NeHnoTz2cQyiYhJnqnocn6OsuV0P6
+rqg6cABFIziTVqjxBGNDInEGqbC2Qs17Jh3Czw7YuoX7W/f5M7BU03+ijz73pveMiN0p7vFo
+fCykIjEDowpb/20goxhVQ4Ug4Pv8diYIC4LVKqjPAtfTLgWxWnvO9+OiEApZ0ic+EKnU9V8M
+fOz4MfRGDNgua8+PykqPltWXC61zF3dNNtNHsbssiOMH3Cn3Timdon1wODLM8ws0VQV3fUXK
+Ilu+fvE3L+NUmy9pPG4VxqmzGtG8kQ1sN01DVEKdNlJtHus5a1/fIhHmq9KpLXT6rnEPNV7T
+serfAbeeVrTHFgjkuWHrupXRs1WWb7q06bCB2pr92MKyJ5Lg3kRxuWKN+ivA70+M99J/9az/
+O05CbV0vGqoNFvovgUlmoOYBxkrAhx4+jW0GS4nS3kE1M8kPeYuO2LXZK+ehuZrFf7mI/+Qj
+kiifOds+UzqUq/miKZJeTD1N2a9w6jLleuDKvYaQgJB6Cf+wMAoIrHEr5DpIAEvue0srgOry
+nL1OIA57ZqsuuhQqvYFh/Gce+lkRpKvduNo56p/f09bY34uD78YNSwZdGSSde2SYnf9Sa4Er
+wiw9gPu3r4lycnAGkBpMqHfTtvklymW31FRK/bNA5loIf1/hvkXzS8/kfYH58S4wQ1xb2/yX
+xAWVMybC7UZZ6vZL/Zc7eQSe9eXEPMFeKs0FboxApUFweCtFV5vBqp0Ouqm6+sNcZV+uLt5f
+fT5VGTd9WrNSt28oSkNVdhVpfv9HoCtFS8yZEe18rbTt8n8xxZA2NCmE5ib+iyMIta/NEWOf
+koBwvL2ir8mHIn1Fch7mU5nNwhnbsELzaWa+bqzRqKVDljRJP6V8Fykp656VSHlpqoM0QYdf
+QhlmwtqURrGy+txcYyQNNso7q2uqyLm+eCnIO9eMkVpdFfJnaR7tEU0i1a4pDYwi7Bum2XBm
+TCTB1HEmIEaPmru7v8gnubGqtQwkU272TR0cJtiOQSexsR83NgZ2g8MYXPm8U2Cyibwr5fMZ
+ObvExCjgHJa2CqcjAAWLW8dAqRFtm2J856W0CrvrKXNM0Ys316C9GNy+iriRex6j0nwbFTBn
+y4dy+rLR1e0/wZW0HUM7AMrSRIEplOZjF4AKS2/GQxY6tzRAnOKbZNrdukbgThLQyHj9Sk3J
+H15KJ+J3017rsAGpNpu2ZVXQSAu+8ttosgGdi23JjXVCtyOJSIBZXiCCJAgU3Ywu7jnBq59r
+OdKJnX8nhH58qkGW7i28u81npGu6rJRZpBANDQBYeDSEstjub+aWqaG6cV131ZTsqIP6qcM8
+a+r9yv/gxJt1/w1D9taaBJgjx41tBx7vI1EvbDXn1Z/Lr1BgwbqnmHDL17w825nyYleo0T+o
+uj+HvigDaRwMJqCgKTPWG3ON4AkS8M/irERd04XiY9YQFgbWqAwHxTeT9ctEt/x61dkG8QJK
+cVv3Gi7aTjZgSjmhXAgRlCPniQyxjrLe8uvg6NY9R9ileIL+TYv1PcOCixNK5YZybnvXrbjL
+fMjSMB9gTU6in8YrYjgf2yK6fC3AFZDbNAJ6jgTbOkpimbtQctRcR7KPmjUb5Qfq+9+9Oknc
+N99UGSI7YmyGiUG0l9N9gBEQrg5xYREtWFNKZi9mCd7nuns1KRSq1RnwU45ILdB9P3OrP+Ls
+ylBxY8gMlflquSil0WDpjUdI6q87z5iYK+lvaaQ+5SM6eJ0tds1TFGdYW9OdG3/S3jFPU0ys
+iYvdmdN0g+EMFvKjXsHq0BIN59i+Sey77Agmf6bjXD/tlYOnwwtpKrelsBDd2mWJ0QETUsJH
+IeVNvMdwiOUjsSBnX2CDK6fZamuj037/JKmjbv2Scg13f2jmMtrHqUeze6A1oQ3bpxEA2Qcy
+ED4AtOrx3L2YWCOLM32cVb34zJBEy6BZo8dFnKnA2cYCe/NOFTSPbQgk6nIBREix2rggZZQ9
+FT02KPVn2YxKqT5X6L7rrVEDub6hzeRzpUQ54gII8RfYzbC4tGtAYmeRZ3KpD00mpaaA+HuI
+1GjLt+iuwn4XF6bQ7NM+K0I5sizHWcxN/smvSzp0sxBInXaXQZoMRV02phB8VwhWiG5vfGn2
+rShvHHzq0DK1u2HWFFDRBLcg09aaK0m6c9N3j0lIR+VEoK7XkDp0qZ+o0U+OBukZrsTHYsHB
+b3hZxdbpUyZ8FthuAOWwsgg4xbg6mA2OSY4i0TVw26bA5W6lBj0u7ODMQWXngkGT1XEN8LG1
+epaA1TnFr6rhPMEfuigb+yZBkjMfOkPNDNzHLaeONGvMMl6Z5oglzo4BEo2271YZjEPoeu0L
+ltQl1m6pAOqlgLcNOm8TUrOBvGxPQs5uWcxZ/mgYaA+/rfUwcodl7eZ/IQXg7qHa52iVjj4J
+Z+92Ux3YrASKxxrmjf2oeO+BrGMJXJ5XWYM02iw9I58zx9EQ5dN21lUqoBz+bKLgBTW4GFSF
+zMMBldv9PRILsuVMOwL3eV5b/negh5B5Fc+XsIjTBRVJxgG/FVreWU/d8wGYAZY1/xS3AN6K
+Yd/ajf/JhJ4QySCBBVNBCbChAnZGyyWuSSj3/w7ENtJ6P/oA0Tg/amfXVE5lbOmIW8+TxUjo
+GaUBX+iahFzkHwT6TdPB2OFazLS7j0w+HSj8K5rbbAJELyhXdg5ReOtL5Pvp4QX2B6SAoBSR
+Zq8egBMY9jg+MaVIH+uhrL5+rFdmkChMcyu+HKtzrMxC42LLycuOpasXBAtDlQuc0YEdbdUt
+8EJBVxwLRy0YDHFOw7X1FY6lc+q/0Xry33gnGWlBtSZlHH05iAlrux+HCCZDkr80AQ7d3NdD
+lw1NsXUzgWcfv6BBnwlvab2oUKGzAGoCUUPIUyi9cvwtNYDtQoEdDyZqMKCnoh5x1NPun1or
+2Z7frmCE8ml4Dapfz39B/qEJ61zZcTY+cMXcd9EKpj1LLGSzymFiW+h6PwDoihVj9Z3y226j
+x3w3twWhbqgutZe2FXjK/jEZw0qSYqW2txkXJxxbvHOUjZBbGuGjqPxY/kX5+FVF70tPd82y
+IitEyN+FZQfBPl8NVcvNvJVt9CxDsffZC2lSDbubgsA2dva0KM08PRgwf0BdmNqLDMEYCmcf
+Sph6nQF3voBGSMzqCiGgs1Hk+9/ib/JiC8wqmPYcYXPG/wBGcqGk3aQOVVCpgiNssG4nrogh
+3ulrrt2iX4Fb0pMcuXTWZZhDoRBoPk7L70NaDOI0rO3qjbYfng+93hdNlgxk2S6VY7U5bsM9
+VYpnvnQXqKMfm/mURz+NvPLOK956nlBuaVIN/fUoPeG/OjQopc6mz/xHPUXRt/Jq5Fyp22Lb
+YWXO+v6Ph4nXAoviEInFZetznnSlEskwx+5BdaMq2DadfZwDvtGCXQHF4e3mY3ztCSOdrOLt
+cUG4KheueT4pekrOOUndjC8qtYeoDeobUkeH0ZwTzTIESHpApi6XDqsxvBvMe/JpLDu9dduL
+6CDF71rzmArciIdlEv0zIEpmuy5S4PasjVt/m7O09NCiN9SyEp01eKcEtpD1WVW5b/L9fdoH
+ermnoedboi+jKi2fGIeBIpZdkav/7G5s9qP4OPbDoMP8a0QVelRiUPnKcm//fETwbcjdBHXr
+83vta2e+sXawLWl2qH9s0fLyFukjehKTyw5HQXRFwYKdj9j/OiPrgJVj9WlsNn0o79+XVgLe
+js2E7Zte7o+hztNlOVvoqBXU+GMtZ/kNTSHPc2PHtMMFMEq5Xt+865+PKcoczaG/rxuFbhN8
+hoTEF30kKcEBCd09DQMGwzTmoqLKoQNDFb1WzYBqIYTgN18cNebQIvhVqxgwOVeP5C4/l5i5
++rSzNP2K+n/Iasi3ncxxsqyZ22OjItfI9lTti3509XU5+Y/dAGzRafZ7QUp1t1iVWx2Sv+kY
+WmHv1VQOCbjxXiHZETuBQWW+9DL3FNBtf60Vmu/d//kmw/ggYriPC3nwukXWQKDZR7dyRjkO
+2B3cZxpzPw4UAOvb8zxiIjkDU/bK9D3m03fm6d6F81DdRrmZzHXCd0ySIVIeeNtbl7cVp7HF
+FxSOpqz66cuC7MWlz63WdWHaLW/dMouOYXcAePVhvqyxzeFhuyV4y03ebKkUANAEw5dJEG88
+toNGdqzRiARNPikDKtXfmc7MkKi26nBQ4n9ckIKCoQ1fgTny1IlQtj2hhSgyPlLV2APbWSXX
+OTbYpVVav3laqLj3CKM/CWm/MxyHVsAvVRm7+SJb7C1CFQuesfuz/9saDzrMmJAkcdbL6Ucs
+6CaqsMgxSd/mOXdpfpTWHQBHFRwtO1o3Z/UIlMsb+0VjGoTzn3di8hMdb9TiGRTyiOhaye41
+i4/OgnKnnyMVZ15ZaLGCl9gscDCY7tU/Oe27IZ66pN47u4Ze1oGkCsoDBcalozcw8l89TEaz
+CB9cNkV/7UfvaaNV070UMNzjbYqlGThP35JEjn/amvuiInobXkZ4rMePxwxlKo6OvFtFWlcF
+s7kihBTIq26lTz0WQzs6KxzW5JBobueU0H9EE43QJhPZIHIM2s8si7AH9Xv5BY2Jt6+Ya0Ng
+jmXHNw3NwBjl0OdfJgJOUU8QZeImum0I5NPUSa9bFzOAIzdSyHK7gCMuEew3NHaWtskxkfXp
+l45RpnnyFyL44RMLUbm1pG6Zre+4ksRXInSRk01PFah8hZUS8jYnoyFanSswvELEF9wMcko2
+2mKDhbM51bUj9TxrnTNU10zNarPlDEnBp5pKXjquXCNN/6FkoJKt55j1yOub/hin4pTXLxtg
+AvWN2shU3jv1E61ePxO946kqfj4+1DbVA/xTd3WYO9JRQ6uxxWyJsKTBnRN4gtSUrvphP3/6
+4wNdm1n7DKG5r9zlWiOilzs8N9/cljnPRwaWxnmA9/J5NNBU54Zx6ceeh28R788lmM8rVMCt
+E1QoozdbaHiLGJJ2lGVk0URZjmTGUTjj1KzG7M2PaNH4vIhE7NCiVxVx/wmhVohuVJKRVAfR
+K0BNY2ShWlnsRADS7NEG02VnAro6nE3dVIFnd76hWCXgD+gxHXwNsBLha+FKLltr0zDff9bX
+GS87Kv57jg2Iwh734qWyVhkyI2W+To18vZZIf8xTJohnXmyVbDkQuWNXE2y2XF2N3cjyrMlm
+GAag0O0Rbd8iBpSM7M+gFHUcvGb5o1v9BkMoEsf3I82AyzgB6Nz6SERg9+6RIgq7ruAjGNxj
+KX/pG09JXTSbQu+ls6H2eg4/EikQAa9qdUppwAHkujg7Jq0CGS0nfSsyDD24zKhPYEAk3M09
+spCqRyupsXANqCjfCWHpBeokaxoLQkRAOgXH+dNCOr2s/FDFiBm9qC/wf6U9aHBORG+172EV
+JEpZPvCXSW1vUT41IXrNHzFyLvejwRZ+1+ADGmXLO63MvO5thM+VGuGIzpEeeYWBu0SJKbzk
+XW0fMkPUbqU+i+bb/t6TvC0m9obZk8ZJR0STD0WrPZaujoQgCCPHtMu7EUwN7FMDh/bWeZF2
+MJePMWbBluQPnlG2Qmhp+y10VmfSnwbRnIuGWH44Qucj7BqJWfzjhKVK93SkrJ8ynWN1Jtny
+Y6HP/MLfATD+kUYpZLYjCgkBPXR9IYQDN72pOayDa0VTIxpMJrGuw29KKsk4uOM8pCSwUS9T
+vTa82neiezvqotrdI+M+ae0OJoxfAF4UOKKbRf9Qg++dtOuQGb/PhrGbr1YDpG9tZ8pCalNi
+dFVnvHgsIDHGIIrrRK9aUSE7QKyyQ8T6oqDoU9aGONmOh8xpQ54UGzouDhTnw7zAxDOJKwll
+N/88+c5CcdIULlknxa28fIqbYYzc0d2q5zHo6Lw4FQmy6S1qoaOQG0abb3KOlLzxonizwGGz
+Gz5xMF+986aXTE+Ewgvr6XYYBieb/O/JO/xuJZGESuYotjIkhGNIj24uC7fqSPFA1GbMQQht
+DC84g1GuY2pHfRqn1yZRsz5daalGhF7Pyk/beDrAfV7BvNkTst6/bVYNZEr+8o3pweuyTRZ8
+YzNMjGnEjbXz5P+0BYYIhMXFHL0z47qd0Z+mXFq9ls8yhnCfU5a6dPwwpuQ+StAfL/rCEZlr
+fumZgljic/Ym2sR3p7d1Ig1SXGxNhBps5C+gNlXtlKX7U0UczNijvYi6VtayHZCyb10ZEOHP
+nMkT/Y5iYvHgiKwvknszjm3Gt3kO0wnkER00TL6885MJfDzSF5xB1fHtAiYmzxgSkrCijVfM
+wI33+56IHAPVhOKOD5EU0QA3ag7QJop63FSizK64CcrI67hpXGpQ/crpNNimkIdR44X3mYk6
+H8Dq7KdfjQFjp8yqRrpeMOc+ZR+UgpzeOxjjuQQuq4EDPDTrSgpBplbvdme2Livmv4QSXvAK
+mLvQXCaP7/n0SY1+MYfNOJ3lJoDwOz/BmWt9Gf/X7KLJhHjBxTLu/sjSQfRa8/2BV5O6bD/U
+3n3RraEzDz86Nr/fjbGLTEWxTSpOdVJgirATOCIuyGRRDmHb6GVTBWdGD6e4QowU0JZMZSYm
+V9zOk7ySEC8lmHIfWd1O0VaqdYQ3rYwgSEemqPkGYy1fhtwwCSBoI1soTccmAbm1qCVXKxtK
+XcgHZ+mcj1RAqVLGSgoKAXbuBdSu7fZ77GlURhQv4Kxfn8to082wvkzzOzaPF9N5TBq3VGrR
+U5sTOIsoVPwxR234Q67NM+9rzxQljfp6PB7kguaXuSRn1yfjksbQT6k3d2Spuwu0rsHUTQx+
+lWHVyNHsAjF+d4iiRvYGmKZEX7YAuD6xLw4MVVn+AFSu7MVKklIeCJWrmqKjzb3lOGthV5o4
+Kpf33/9Ez9GwYEadjZjntCNYpZcO/SyJ9aIdV4kJObI78QgWB6Wr7tWAXz07pi3cEihFfGza
+l1/C5biRqK2hWTJO64tIDO3adAI92xbDwngvK8k6fVgAjNMRnGPpCiPdWqCDI8G7j73rUq62
+eh+Tw51nrFpEt7RXiEXNMrcfteWzXG+EWSBh+dYDLKTpx+2HamPjC8TsWKZr4nU1kDAiN9Fm
+91xCD+I3ywgRUQyuHXAud8/Fdp1ovRRXsddQ8Oad3h2UIG7pEvZMTqws9lOfgxGVi6ZcvEt6
+WdukseRg1k79rL0Xip4operlSNdjZGTSGcDir99zJK3oxZXQShXwMlX6JqZ2bJrfl6WMVFmi
+Qz9RJi2qLA+NCk8F/RxEDIshnrMxtf83Eouz/uOqZwO8xY8KRLzTOyZFPtMUEo9JqDLqjOl1
+Tbq8N+2PRxlKmmWSts+If0ilizaZCgLSv1vBvtireDJPdrds+71xOUu8IFGyI/JmARDdbPF8
+734ZuzmM4Eg999BWonfkLyvWCl78zZQLmuS2D8hb9vozc8c7mR87gTpTeH2pa2y9EJ0KzazD
+1vAvEsfQHUJTE2tYib4/cPAi/OsF9NK/EpbXxU5eyvrokJY2/eNt5AK4cOJAZY1sYlhO95p2
+c6VJcG7QnJEuiFY3W+b/QNDGL9rK+3HcEWKAksDrj79jhwL0MSx9sr03Kd48eyPU4JfdMtvt
+fypfRTnGM7KYtUujaCLa37kIi+WICPnnLK3hU8pSZnVSQ3fEbRQfNF1y/gyMd/j0yc239esQ
+enOdiYxQArhAgJitEV9je9E6WcAZPD1HG058e7gSOm/qV2jyizNMlx7suxaedM0s9RKZkOVZ
+eMalWaJEXHob10vo4s5rX0LDvbR9/gUdLIW3CI/tXNLY/iAr1TbkjrYOJVycXExYxn9Y2Vao
+KfEvjGKHXLvcBuf0p2DUo7wJUYpkVWFhV8Gx6b5uciiIwGGU9vJ6r4aNTTWEn9s36SsRKUnv
+nCr9OV+f18nh3BrwYKRr0Q++YfvRmFQ27PYRTRtyksTBpjNyKdrswDM3/FGk3eBTS+w1VYN6
+o9+nCLrLr7vHVnJClI+/4v5CJuoAWLmUqDqt7Lt1FA6MSNJOZl40q1P+VHaGGXeLCK80hy1h
+Oqjewy5qTDveNfCGy7uIknZJIyCpllrJrLjFH5+Q7vPdRF2NKuel0YI+jGK/46I9k4t6CsvL
+w3YOGgczvy1eqmmu77NP3k3RzKcUO/cc3WMD9p5+L141DMNuQNw8S/Fomx8eFV1acAqMEKSx
+t5FqkCPlr46JNj306KdNyVB9MOqt3R3znDkiBr4vYtWdTmxGQ7gEk8aorlhuX0TF4Y3VC8QX
+liCBT+p66po58SZaH6jhai56+aLGZ8vo+hAxi66xi5PedctpjzqdaUacNgPL+vU194JkE6tY
+A3/0M40Rg1ZzPHb41IBU950mbAQoDcWPH0A7fCikdptrQ9KefnZ1jFmc39OYllj3RtXecdKh
+wmj5eju0hhtbcPTd/w/M5uRFVR5WmQOg1T4qmft4BxHvaTuM7IrW0NlbrNnbZ9119fFIWQwX
+0mKyVwybGzkIdRMzexPHEdm3FVp78q5T+u7eERLTFfYEEZ4EEuXX3PGlfBeaBlE9mkoyJD9C
+PnhlkUkEg8dGv3IK4mlg4Kri+b/IZHj/oQSaB34ZZYNx6CfvwOD0Hsxg6j1ZmkzDqrfXRygv
+vpX7RHhWl6QyyqaIbfowhHtubjcMJT6SC6X2c4tULOrCa97EMl4siMeXr8NacghhzHipPZYv
+lAhBWRjNJwMWOPxQg11QqBOOWUIBhsP3bPNT0AqSbdJsw6AaWh3u+1HdrLjZLwGAHAXjsf+c
+AvocawQ7MqILwqLwmY50KQ6ST4YqvYWzDDU/xOKHxT25FoklMRdw4KCtoYtzPcvzhzhev9ab
+l7d+Tn03ShFefeT+3kFsp+W/7/trSHsmNlmZAUhjfqLEaJ0Nyv5BwUoiLem81nn5aXnBvOx5
+xcIOswjvNg8U51Gj4tykiVt0yA090IBsDWWVk1ypO/jwUcEZqMXwLHttnPRLRat9UiXge/Oy
+o48OhpFIWCuwwTd0WshgvO8wigR/qCbX+zuTk4LZ7n4ChzusiuGWlAlAuKO+5evym4e9N1ac
+seQ8itG2lgNYGfr2gRjtoyFCTD9Vc3ZihT8L09mEecaHrEyloB1SLweUIia2VTjrNE11mlGR
+0Zp0F9AWyW1yW7B/GmPLPnddeNw8yRO2gF+Opn+ezRtbNHB5H1CwkJmTb8isGbhqHVw0i5u5
+pBx06RZZo5UhePrLqSGVtwe3uOzCous8JIIfIH1zCwlyQ5exv53lsJLOUUvpGuh62ZiOhA7H
+XP3dU7YbAIqJ7pPIvY+6ZroQoecI+MGgM8IB34oZL5+e5oGLTdYYituzwJcgGU9gLk9HyoIL
+Gjv6u0vUL5k6WzUJtvkTevOegnlcd22KOXcUXqsYyyP9LuPzg2qXDXt5vo5WkdsPFCdlAAbz
+oVnG039qrxra/cXi8rlgIRswwc1exbKJmi28dtEM8FFcTemG+xjEHhlzLlVvZH3mNf02LJU3
+yZJ1RLIV0rGwMWKPdSZt+lr4geQW1gptaUMpkZu/84URHTe+WEubiAPLE6GrXOJRv1g4tIBw
+T8doM74lI6Vn0ajIcYh32MXYQllwJVXyJiFknUPrSDbMQPco4RdFIh+91thceYOdAgCQA5sU
+Qe1NC9Ev+3g+7UwUeCpsWQOYnLSPN2FHrY2JhD65OHkX6SyZeAXChzxCxia9tnr/Hb6yxGSN
+yJZVMgy7M3lh9iMoWF3hJNUtiaQn5qGvjJtv1u62IkNrzH56II5u1PANZVCQKxlwuNpFPODM
+SkFZZY9X1ogEF31z07Pxw9zsD/AZz2kD3vQQr3ybhDgQ0HfwnPNDfDYV9cjjGa9NvfXXxNiw
+uf3CaOfN52KgaOSMuBhZlXC/R2+HOM9KPiOQv5emy5zZKV3o6IVzm8/vSQKZ19G+plVV65PF
+LqazhtmXADLxm6GcfhkkEacyU3MZrAQZrwKIJ2dVEfdubdWBw+khbotglwqmiuqdRQPykD3t
+HqMXSGe1g0+rwljfpN+nhw4FAb3AmnDc/yS7LyPa+Krkv2RfJi6bNYk95EtKZIy4bPHj55uB
+n+3kxFelatE/q8f+sDSUeY/BN+fzUBBArk1if9AE/gishiJARtQ7N7xoguPbLbdU8nJJtc+B
+3BncuCLgUGW6W3tPEN0QEnsmQxTSZsFfgeIbBkbBMtrVAuOY9C3IoKaQWYPme88Z5Kujke7I
+DkYj6N1xhkFn0VuS6txFdZOyP7IQx4fBHPK2P68jM4tvu5iVYoMUqZPVsz9/fco9YUQWWGDX
+5z2a/Huwd/9qH7m/l2zEAtcjrkCZQT3MyxZcjL6Sj6lNGuwEbIlRavj/Mpvp886k/5+zT6KS
+Cnerwv/H0yq+V/ROK9jYAXG79HsqtXrTwQXv/G+EN6ZXYBT5nFHj4GHbJ8YhM3qMz8qyIErC
+YmrcELaCPIpWmnCxII0VYNoVUqXW7rpjYjrBMGMX8p+gj0SVmyQr6k72zuXD2mAv/tvba3Ct
+p6ak42gkoo81DepjhDBZkH3MijvgWg0UOHqmKTT4nqI+H556bVxJHhxspzohviAw5vpiOG2r
+YmCiHMbPR5vnoPXojV7fqFNsiBkKqVj6uuzMdZ8h/b0dd5ktRihLm9evJb8Kvjs+9hL0qnkh
+NywY/iTffGht9qgn+N5atJWK1vrVuVJHF4lDZQIW6k2rGZ+JMkcXz+UAvEeE5Ar+sft09yqA
+J5PFf4IDLOeCrFiG0NNflTD/BA4Mr00Y7KlvF5ReeWNvsu9CzpCxpe0vy1XRPQjNyEI0HC5f
+UGkYs74A+MOrfGXr/DwQK0vtd/g7PkAHWM1MrCntsgKtJxIVFZOQJfa7nWlMF1XVDFeidsFW
+m0vtlL1HpWVoOpWjgVq56LMDSJwA7zz+lSbqcBI7RUDIjlkUqSo91336f7Rxau9DpBYRaflN
+MICX6juSoWNaMQefMHJDl2YK+HPgEMiD5ZD4AdaB2ohiEeR2TkDtRHhCeRBZzeHSyiM8OeNv
+j2qau+2ExFha1DDz7jpXlIkmiF2us8jbwQIHJTmNE06EnpaHW+ULTihjwneNWUPLaq52NqtM
+5sfdL3kRYUiUHH/fRRBVcKFA1CtGhbTn6iL5WOR4+6S8BvCxVaZTci280uo9MdzuWmp7xy3v
+kyCNx6V5CA+zIbbQ0qoHXgO68leHC3ntvq+t2hMqmd2KHcBMWqvDUzIZRJTICPYlE+FELvgY
+IykSUVvsEmL/YyEdxNuPNKyVjfEeuPd+BPvEx83NGCbsdqZ9l+DCKC01nt/Vikb3WUbqbCKr
+4l8C/txsqoMyW2x8VUxU3/fZpWQqgWLBzmd11kgYLbU+phNbKu+2DJw6jwHpj825UKUydFr2
+P5DMMRnd+SjQ20AQXmVnRDVrdOX5YZhxtH3kdzvla4k7Gyvv893OEKfVNY/t+PAzo/fEDxdq
+nt2gTcrmA+1D1g+7QiscRV2XFWFkIGvmpX8gUYHYUKN2qN23EYlrAEdKIraBQPAGlXY4FBT7
+3l3BRKApvkFHxgBGipLYqnkNlkEKu/WOYf7PYew1AK+7NSCPGwiQxIBeJ7pfKtsqjBVKa6Fv
+K1CNTXLatTvNna/oE9oZYXaRBNqLJiLI+U3s1GLs0Z8hEEUwxWAgAZEHVt7Afv1inIyJU77r
+hkiOijS1kV1kinxWS+VsBqHdP/OJF5836kH2Z82Nzhw7a/RQ3wjgHK0SQ7Iw6Zkb9sDedwtW
+QNnEbxMAdTE+p1/iETX1eB2d3frGORZ2V8YhIz1NKf8Xlpa0aNvJiGniIT1QlgpxISDSa6Eo
+yMy6YgW7kY7088MiNGZRXzRQNcUMmXctYt8KLnN8kP1Xx/9l3zEoJUBYhAIxXXIejZu6N9Pj
+b0sdth9qkFvzONy+sTrrNJ41KppwJ/0u/V0buqRfsB8RlXgkZ4AxMeiu9N9uA+ia8cw3ztRG
+rAOaTRUEM6ur7ycLPnb1KcXSJ+J4D1uhmGBMmtlXLH5dRJEHnckHdKxxks32QtzhQezyKawF
+7a+DbB2gPG3lzPLPU8IcPbfgcVT4cYQCOjGKBnGejvwjE0jIj6JSNKiE7e1vtJYBziczFy8T
+ttg+6xhDnUrrNcteZp+HBbFXeGeYJFe+WSsXyuKyNIixQ3eYzMGhYvGQ89PtTAKsbIpUafyI
+xaQx3MAE89eTKIdP5fBFgIN2ba858LLYw5HeLlBLPfTsyr7uVCC1WDFsBHryA5HrgrMAhVv+
+Y5NGH5Xj/jO9JeDW6No4/0otdAzRT3EEG68ZUu/zaxcXNzj+kwzfrWrjpceHW4d7Ri5d/5IX
+ZNbF87qbhJ8JStBepyAUhBjHDsFdbUQcQ4fMxhcveWqZEDD+j25E6dozJ6//XsHevtw3msTZ
+cWFeOaxULLM3TlOzYweZkxMFt21kcY4FNj7PwmvP0jIlUn2jertafYKtMC8KSyyXl7LSzk+j
+uQKVue+Zxe0ACQSs7Wbw5STTFM7fNvWuc82HANwBDkEkIH74eI6Zbqs9/BBLAha4c40ungdB
+sNwSxZyFnxvfBcPSyqO3O38qUC8tcuYO/4xt51kwxKWNPz53DH0nImA23dva/DuGnAI6ovF+
+Jb+9kp4NAAYRbVzadh2a4YJneC5XXP/Lx0SDmWRPDWy3o5K/xbMN+aNSRRE6rTgxMIx4AKbS
+HQMTVGZ+fNwNPsyDShUI+6Kg++HjgL9fwzfK6gIewRC3lsaBLnAQbzoworo6/zOUpS7JsmD+
+nF1rcVUsihIr3SLjQqHWWWO9RAYNOiJ9TWrCfWOeO0oCKIQQHVIdMPN2I9D3Bd69afAUpBr/
+qIcf77HH4adzJV8nk39TeqP4hDUPYe2M42WI87CCCF9AaU7rqmnkYhkle362JPHZ80VMJwlC
+TtBw1GMgWMq4uICPH73wOEly9IRZhl96wjXDgWK5wQJUmZjEHKgdnG9CKmNCNNvY04dEcGfi
+8XXhLmjR8/4fy11NWfpaZLaKLbePJ4kCTKbwV744YKgY7ajCWnIyMNbheg6zuWNd4JdKMNC5
+6v8tmtls3V8X2bQsQlexBna3g4LQn9+1NOOUKCFyDSu/bNkU8XAq33UBjWdyOmIA8IYTP57N
+KPufa6l/kHcbM8sbHt157q9WWeWVNdyhuZdxxQc1hRkCSHgLqfGmFZ4eDnfI7ScRtIW7Lh6m
+A9bf/xDsIvvRlZJOjq4EhoZ9bOwj2Ln0vD1yjKA/4rHINjUFTGtDuqtDx2YjS3Z1vkhwmkeE
+t544f4FpKW5WhD76llUT/fc8XOrlslGR1wN+GxEBIpkjw27kz36VKNd5NT2XLP6m3kcI6Mfs
+jYuohzwm1x1nWxr6eQOCcpESWDmCiA7axHHxs0ae7LIlDnwMmWsgElbiU3c/SCfks4g9M3l7
+tq+Zts+T+F9sHBxqZqvTdaR8bOXPjgAvm7RNnOTxCBjHHqxNSpKRCOj4J0VGSeU7dP214xrE
+AWg1MVKa7Wwx/NY9lNsvnnofaCf1aIYHYWaVq5UYOjUNWwjGmMeXBXYRXOkGHm17Hy9nJWl3
+10Enj2ZreGHqEwTvjjUhivYANTVzaJzTE7DdhLJngtJ0p3gmejbLHmjSnF/pd7B8OkjI7HdU
+41MHIaX80G9N9HyvYvTfQUxoYXjsMDrdaPe2hPmmtyixkZ1RqNfkETfdBsTKi24nRur1St/+
+v6ticDlsAmVG7fdewDn9wmN0hHquhvf0kVg40PBo/0DDrhlbgdsUEayIPZAML5kTR39omT4b
+hj8Ih7Mt+Gr4XW0kWhmpgM1s+cuQHwWrPM6TN0u6UFal/UxAmNMnAhu/sPcjhULIVz72wbkU
+7Z9GCWdHqOWKlTisw9vo3Y49w2KPoVOarITmwDsWcaPDA8ygUQnFu2ETFNwH6fZO7q1l3KAT
+PYaLnm/fB0+0CrBf/F+Rnc9s7bQN0GRXdAkdVLlSIuJ58iHzf+ulLE3sA2ECqjODt/gpCw1g
+WK6+PDQ3xHwHrlyCukiRbVQ+5G0IM51cDqOashAlILLnu+Ekga3pMn5xzSPvUSirp0MSgKd1
+8/GCIR6HTcSqpYyUgBstGZg9bPn5CTnXU6VDhBRA9AR3frV96hdO3X6SDZCKZeuSwtIcxkNo
+x0j5VSEJZ1r5YW231q/rWUIpiHfgFzlfXgA5Sckf8iekRZyxje5sUr9Pz5eB/TMCTFEoSDwO
+84IJY7rHiVn+UXYuXej7auU3zIToFMtZeSeLIVCDdfTw6UQlqEZYSeisGL2XEAcWEgg4c13O
+3nRWCKu9wEnniaPgrm70ls5jYpEt2AnwJg58aQ5X/B/Ai9yKBQzoUNZpELXoJ8L0fWLno6d2
+IQGHOftG4dxNHVLUgYV5wX/etZ/Xr5Ndp3LfvqgnwwoaPs5FfSlbzXhh9nqshFh8trg73NGH
+PPTyfJ4Yq9T5zConHRGOMsm9C8BwqsBZMAzHOeNNeVl41Ytao3saWiQptfo2Vj1LIFnpA3b1
+I+NTUz894EYzdso6AIYYUdRAT426YrpRUOuwFlRVofEp73V+Sj1an91X24Aiafy34sJZJKmI
+/oIqw35si2CNnimoKExrZpCqWcyRSPiruAKd1ylEwrdk5X/MKgMHSJ1mw4jZGPKkl5erSoPk
+OlHR7d4Djn1SNZO/mSzdVFy2xpTfScdkUKNEHO3DjS/XFDnbLessq8Kn2UQCRfpwH3N7bs5b
+r7ATGJIhFVGQmkvWQkgZck0ZFRFGK7e3tS3rjIyFq6bPzvMQjt898wHTJr+BFwoi6PmzvMRL
+70+V1cF+nY/Th9klZDcaZR8UmLwXdu2naZ8auJy5q+J1eHoi4cO5OYBdB7x5rv8pWrKl1hos
+IGHBChi8j4tene0BdvXaJdU7pECBxz/9Afe4O55yggHi6+IBORUjOzoCyF6Jfr+EeulfwaFv
+vZslJweT2qkw25ai9dKuFfZeWUdE030TVTY71FnJQAyhERzra8XlS5dzWwMx6ORgLfBR6N4x
+JeFHrQeXY+pTJavxpqY4D5SqLbVppUfN4LytwR0BwCsny+4QDk+VaWalw2VZ0kD2ywKVb4YI
+WBgPt6xIryGR7FyqBaCtUQAfIT9iJ6jeATnYQBg0PUCD0OB9a1TSKs2/l4H9I5N/vQNsODYW
+KJKeZryztwk8YE9cB1AQHtE3cc3H9hVF5ZwVRucuguPgjXTnsJ0e3ZCqcuUMt+yMgHo8ZC2p
+NxzcEFIBuU2A6iBnm7GGxFwjtp4O0kv5NefQeO6cdLGP63A12x7p1FIDlXaQCxDl9SnkrNES
+e14RvCKYjVE4dYZYTwkOwMpRwVdjvqukHiXMPK7qAvkrvaekkNBqgvWjoBeL3ym96Oqt74rv
+nfZQaWGH4CIgJRDJ7scc/+ZO7kKl4C71jTabmYzXAONJrNbdJfX6sdpIngVjYq0/paIIkNOm
+l3OaeaXIOwEs8tTuUHpsvjkCK6o2Xqh4OCFfIpAiLo1fRHW1ohg+kVQD5Uillwg0B9Ps12Y2
+mSydmn3FaD0SA1uwBxUEwrG5KozU8OdxMbfVuYN0taet6fVYvvTqkrEnE9HeV/riBNuDbmnX
+RQCWJGqIU9GCq9qy6qaU7E24ayNlrVWZzmeiSHu+WNidph5qYds6DMTdcdsVuT6b0j1RS0q9
+ouCvZgRM91Wr/q7dlDZCruiIGHA/SrPiXGyNzoMLhZhFt6kv56J5wSp/cC43DL/269cvZguZ
+WYeCTWpk8vTBn08dK/hqE/xwMq4hKXvCdc3bYfPqKvr+J0kPqOva06JXnfnHcZnl99of15Zr
+LkcqrWiM8oWLQbdlIcJwHhXnF8j1nskdayNIa9kSL4/vGqIFlrs5aCKdheiAX7qwODsm12Tm
+18Is/QyCkh2jsiWKs+2ExnjiycdjhwcJX2GKddOALupC6T8NfsXolSNOKhZQJ5mWQmLUH+Hb
+n0xaoWKPjfsOYxAo1sW15LOJ722JVLuF2aTA1OCsdNv5jCbWNqCe/RQ3sDdWBYHumyQcK+hk
+vulJdalYSbGAjl4sxOyBkIcJIKpmc/lE7kCIQi6ueYQnSiIsp/en878oGeNlcniKDz9O50pp
+CxHZn7W2ug6p15rhUL7OsHgJ0vhSgGJpeYRSgkGA3N9VRCu6hZQqDlrNU0UhuYYBTKTHVg4t
+88rDcOOxG3I46Z83LOAeyUjYi7Omzp/oOXSkA5MtC0M5I9wG8UcoqipH2mclatM5llDhpZLG
+Fp2xQ98K6XfZZjg196tyt+Kh4gBzzZOksmQoJeCTzQva5oRndXB8eO379HCBIlCEjfl+pc02
+1DjcNK/NBtt+A1zHjPnyKp4ku6Yn+ngrSifOl/rU8VVhUPcZzvDF9+PxdDuCu3hSlR53BJZd
+c1VjhQrgbiXcS2NEmtFxutOGD0iS27v7VS9aY9KDY6vu1AAIO79MAOICCTGV3pbufGAhU8JH
+K3xDqBwJAUHKNpK2+2OPAiXmE3nzDtmeTWsiXwiHX9SBZpQxnQgChdFUlAUpFJlEaBditLpj
+KZS6zRDb20kwym0iWR79GwfN0V4+oKteIQshsMUwaCFukIoa32gaUQMnGzXC5zJKWB6jJaHU
+aWTve52ugdmlBkzFEXM566pCD92DCUmbIVtvBP6/d+/q4dsJgK6Feqz0b2BjPNrqWoCMishh
+Zp5mpgogYEWLIZCWSgTz/2ZJxZakxgOwcFH7rRL/rGIUhfPrv6aaXF4fBrIvzpiQNojO4Sxs
+HU6gXuPOiNBqu2zuiHFQgVtpRRXWcGVRq38o7S9eXAdp4XiJoo+eNVGjp+yn/0lnvnpB3ZCI
+7bYSGIxBtXFrEeALHrPMLAlJkgvkUa5BFfCwNKxy5aZvQ0wyVJNdN+mMAf3Nbqxx4ZStv5zZ
+pjNrGmfUvrjXzjW5bYt+amIePFCndf7ox1OjV8JQA434beCo0AdEH8iTEM0ooOQXufBZoNb5
+cvqOZo6f0v0F5aNqspiyajwl6zWlHhjLNNLLWmlNHoyE/Cr/fFM9F8otrMFY1IR4ElnC7rAo
+xKsJKEFJQ8xo9vcR6BH8h6sjKxQP9H9MorP+6SO03yUJ6Ir+gzJoNkYa8nIT6cpjWL+qFbGH
+Aq3lfxlo3kZyVa9gswsSJ/0rlyD5NYQC6MG9MPQL4ZpBQ60T+yKzco2A+WikNYuuWkxv3lBc
+nGr2jgCrD2lcy2n+LVCj7JPjS5m+9rkG5z+zIQt5BymdsqeioQj9wiMZXjISIFwdqLwNvnqf
+YGUBE8iZz9k7XbRmxvn1O97il/RgwGlmGAxicqP3cfNCskUxAXVmoRxiWXH/wuTbO0lnNVUA
+T9KFUrETqBAc9nxIdFM1v10o2qlkpWgD5qLLW1jT6caGvF9YFoCtRMglHBC99sOIMUbR8Q05
+RXJsNXdtcBZrAvLF04LqDIsJT57TC245eMbKyG5tmtTdBAc47jcgLjZec4XNctqP58UC/Jdh
+UNNfUMGYvyEUH/GzwDuIJ/HbJmVpAVz6QihapXDPAwHBquNMdybbJwz1iON5W+X/yAkc6en+
+3xJATekmohYnYNa2BoMyt6CiynyWvbjlNcjmCUZr/STPY4faWgy7CiJjvTLEmj5l6lbdngCs
+TSSLRyY+2WLrg5X2QJPLZOv9yEpsMu/s1INub9FXe+yYTUWhRA+FqsGQRBsRkFJzP/vkRBfs
+vCdlzXdBu1Jqqy8md+1IxwJcowmf3nPE4GYJZ8KI2cLT4uzpfsUC5DdHGx8rmcXTLvqtE5fV
+WFSnGF+9ruA10pk0TgbaoZs9A33bZAOqykoMsnQkq4ZtLWW3ZeDQB6yle19QBoQlluzF+aXG
+Zh7CW8rNaDR4YUa9SD9I4MdS0EE+8fAJsK8E+dXsVK+Gg6oZMs/P4cnVhJW5o+ppgqwVes3X
+UjZsd7TSCCWyl+DtA2Y/hNnFR4KCLM8jsfZCCP5IgEQyFREbl/G8LneRuKt/LqgqvfA2/7kq
+eqvviqOGmdAdyF1+XbBHHsNJ8pgOC4tHhSVFT4OLgzP/gm5Qhqj2bg1uv3pZIRtRoCVZnay5
+6ESkTNi2ICcHYt4E0Q3HiLqtdG6+RR1x1+Ukc0Bu2CKdXJFStjK3h+m80X4RCeJ8kVmrw6LL
+W7xbO604b+h4yMW5tLjN1yAJN/QDcOnhXI9wtlC2G58e1jwBTm7qhDHY2vD/BWZwPpO0FTmc
+T8+yQSOW9FdlUjJ4wh1XfVj710SL6qcjqa2P8OhoibQFALpmbq4Aj2msMqa4oa0pvEJckHfe
+qqvXGRpzoxNuHVk0qRgzPMAMwher3KSXAOFIE6g2dGDblT/9yq10r/PO+PmXfz6mjXLErK+W
+1t43ODAp9zSQpmZzfAzQ5f5tStub0BaviQJLM35xlVEyzRTnp0R3NFBq9gXogSt8YK11KKvw
+ax2+RktND+bK96BZWW4njCiam5JqzNezATQLCnw7Utuqtpc6BIzq7BCBVPE2KQiL8n5SgcWX
+jq3FwwxxWkhB93qKn+m1GSEoZQwGVtufsKa9a6/O9AfgqdxAe5NqlDAQ+WZefnqZpy3O79vK
+oWaTVzb6RkS/8LUuPveNPdHzL6gjoshKB3j4zRMU8fQIejzoOFkEVnv51BJhtrb5DLzSMxZn
+yH9Dw62EttjfiuAKeKxaBMd4DlTRAbAfE/TEcdYdfUMmM0wNijmCaVQPaCwf+sA/qsEod+tK
+sYQM1CyUje0qyt9WgdsKue07rLskPreXOIDWVZ37phF9zMSg4AgXPd/vUIMjATYTjPZ3GKSG
+4itrJ89HQDXJXsJSxG/26Z0lG9/0Br1C/uNzVX9vM8KaMuMJ+ue2SpAGgQY85YVRMtmieHuP
+w7JgdxCI0JKlZ2EaASmZ9IQwCK08pTfuTvh2wMs8M4ZFur9g9Rkny7wIFvMNZVF5S89TRiUr
+Zjjb3idlBdA7C6nZdgsinkoBckIvN0zKmqHVxjbOntJx0Mz8bJRfCPewOBWY1bHUOQRqESqn
+nGiruvgIkNyMvTdmDxhCApjlIfhjolBzQ8rZJEVUWzIMQk+6mIUv5+Mwsq4nxGHnBa4qUJu6
+wOa+BWTzwmFL9bIp7+5J7VSXJZ6ly5ca4Ie+JmCURiMyN0sKYI0CrtJV3O/gyz8beu2/hLVh
+9TMSBdCqHelt65/XHniswaHe3wLVS6iWYYm9xT6qq3Dk7wTIj3VB0xfYoI0a9hOC4yPt5vHM
+PhM6JpLwlrvc71QtgOY8gdtET5QGVEEi5zrNI1/Se4ieMW5prET3zXU9S4boSaSdWaPiCAJU
+wyHoo0CWVltUkHRCiFveMGD1bbNwGWREWuKUD6poZ5834QFPrKY5864fOtNIEyEtrdT7sAW1
+f6JO/fjMMNDuuNS6etKAf+5TxOSRH/61kLkRACiOHEpVUy8Dw/pfMv4VswhzUXcv34BuiY2U
+CK5zXj2k17wpbmzWrexVF1q+3jPZMYA6dqnpd6tkBjOiYVBkSH362Ffq4qYUdV485IuaJ3dR
+kZhGG4bh3Jrc2LG+T2OducFQQ2fCYf6nc4gLA0KkNl0Ckb5RPHb25gy97kjTobnc2QEmq8m1
+R7DiWu4owF5Pp0SnfD2rH2NWanvxYGvdavXX/+2taxnxZ+PvIIW6NnY1qw08Cmg+HApjYGJU
+APean173X7MXZw2mVyVQCdR4Jg/XIUsA+mlXl9TIKyKJR8v33k1uWF9cCZH9r0/eBXh1H5f1
+5ueYtYwMfgwfTIdNxqsTFK1qEatlEuOM2N8MgINlLO3ZXiauKlUYmeajd2yhuLciI53ULq2d
+AackHmcGL6SYJYF6fiO+CxaJ1dsRAnxYoHut4mTjM45ns0tNjY96KHPSmzasQvBDBufgP+om
+XKVkWSR9QVkmMfUZ/qJYGgfAtu+TgvGMLE/eSq8Btmcij62dfwD3Uk/9is53w4bGv6MtVW/R
+d/W1HhcG6mTcsDPU5I5SvnPJe690cFhRPjsuIpwLVrkW2UUxA/H6zuc90L5Wd+r+sBjcdRFB
+FepOJNjqqqDck5gGp3cNaA++9jrpJ2A0sfmBDbV+D73yCjI+Q41HfMAI0WzgV9IHklLpdxeQ
+mywIdCRH2hlGHIGZOSYE356qpM+hHKazk+pC2obZ3xP5m+FCOIwBw38Y4ZKhcSalxBiT55Ca
+Ilr+vvnIEJXig4KGCNNwbSsmC50wAGmwvrd2mfRD2IB2c8xpnkh7ehAOCehfgMpVOH/HTzJb
+V1nVn85aU2skebftQuLZc+WJzZ3gi8fQnLnaAWYfH5HTUzor/1cLnaw3SAodfGKahI4Se4/2
+DzSgCbHpsETexwZKir5bijZ6lHZqZy03bEnOqXPz7tOD7taYXzBGbcYORocMnbjgGpUMPMRO
+xzePU1USLah+riUxvygKhQJJfGQbqZWeMdIW+DggtIcHx+wuP8eIUfqQuiFA34HUpOG1KJm5
+Hbx16O+AFLPznLO8k+cbhdsMNehVGUkcHXa0WqT4RHCXWeKAvEelps+fFI0jtqzy2XbS2zPp
+MKJPAVqe/lddz9Gd24fo75WsRa61HMIY4slRA+oQNSKMnFI5GTiDBLYrRSBst4SKi6eP8q5f
+9E/C+t2OoxZ4Dthoq5ymsRpT3IyGTsbjhuysh70kMD2d4SedfuknQqE5veClMQvaXvY2eDIx
+qY/11yXxEgW21wYmpEeTYWFJb8t+MEl+pKc3NnX1pGFIiXnSyOTN54UyW2u7KuRfMcU5y/0A
+ru30gdIMaw5ozX7gqG+dwzXl032PKqqe2Oz29AfWuLuuTZl0vxXVn7lM+eKO2Ku/OKKWTdMA
+uFy4oKiRkGza5oRbmctt2zNtrbeQcngYyVjdaThUrD5s/Sn0PEXNuiFYKC/gUt66DLQuE87P
+9TOLz6X2c/vJruzeND2k6pZ7+06M9WxVOEcwf7Rdh5QxX/CYgXkJWAJAkUHGFxn8Xz/v/+SJ
+ZRQTG/AIoEBQvvcCZ26rIqnx5mfIx912QyboPhgWjZmflHXGlreVdwc69+eteE8Z2wYubzyQ
+pGo61LloB7oQ0EVuZzVHKhRMCK77upKyIQe3AlWMcNTTjlZfGYnggjwXpBeVxLWGId35J5WO
+Re+/T1M0OgMy0cmcRKZAS58Vl3xmHn4BDB52dppQb7I+W5hQUOIr7pYuMfNgJL70HtRwvmYp
+C5pDHoTgwkmk45hPsRQC3fHhJbN9hzhPA3Qyd5gqV/8OBxaP+5kYOzQxK7gT7a6qiIOIp+Qo
+r/8U2quR08G2mncvjescW6ZypL/mu/ckI87iZBC36kfGFpQianNdzBYmlRo7CRi6iUvrqWo1
+SDC2EmT7xr5wc4YDTclCxtu9DaqxlxYe1WVRSnitNJ1Ne6BEYDtI2NLgHaD9MOmsdW2sfHmJ
+SiZUlIHYd6mIPeX+K9cXmIMcGl0UQ3VPjIajycnfSGlwKYMDCOGYPPQYN01FCbVSTJ0t8Ky+
+xfBhhtaglZs8/i8MDBtLUf5jiCwcnV1NsdFg5z9WAVoR7505vMb9ggGMnk1CAEo3RLxzsvBk
+Uqe86hx4UC3bCbfEGde7AaPdLBO/d8HEChVjypcTCctMMDqLrtFcTk13OLz491IO2YAwI9Bm
+/sJoJoQLLVHW0aIKC2vnD5RcnlE+4tW/nv7i6uCjGMfZmYnEUl/WWgEjQDk8LZaRx48L8t6Y
+caXfHmFeeCGbnWBPGTuxpiCk5m+CokYTEL5/eZY8mCoJ0Ef2GPc3x6/53gO+sKhj1r3XeAI6
+6MfPZQw+QuQxxNRZcq7i9gbHiRqa8/81OJjLXiqpa7m7d3U2btKDx9gH974jB/NG43DItBft
+ddJ96RMG/BfA2hFxBhx6pRjTyXPkIkARNojZHKDvYjfJDt2uSMYwQIFIZKK4t8tXgtdwe0xV
+THph90CTZA1BwnKDRVHcBPRp1SkwBYlCsotI9lhZjhRnO7CG8ghomTKsvm4RQ/egu+L/HCmg
+1vNB6sy5tisvat7SjwFp/6bwbA0JoQ0RNjFmaErKzy++9Pxkei1MBUFZFVfbYw+zr44qffB4
++GWndQZLPKJs5VixYuO43jbfAq2cDhogAZRysjCOSDfHUai5iJI10pqsQHTWP75PLgLcWkJP
+7yABTqOav1TxTMyNebXbHiO6l+VlXjA5ZZVqTdXdi+Pb6tMcizmh79PPWVIWBzPM7z+Mejr0
+fL0Be9oeL5DnJQEPZGYJf4KUXsthtO3diml4kdcBGnweoApyHr8fEtrUMqePmuI7bXaI7Ob/
+biNDv6qJg6pWAj8ReziuhKulYEV42qnbgyyuJeAm6h4wxaYNxR2pFwxA1erqGUcEJINFznxB
+dUMM0aq9mGxR6dIbDgOU+jXY78HVkkeda8jpM+RTTElikfQhLOWcDjRiTQeGMvBc2g8lj3re
+RfSfRBhs7az6PVmI2pkcudp4SZoZ8qedM03DNz+bowvqDQeUw9ge/NcE3yK/DYRLPR0z5Svs
+BbfWYH2KjpiyPpp4aCDwny7YwuO+KNbOCdmJnYWOqTDcblNjPThd/8yLJO6imBPkDo22jPB+
+Ao/iFXQprpc9nCNduBasm09OtGxUHZ2b7OAK2R63gqbLDEaNcwqB/hUM1FPa6TLHHUYUpGz5
+/X8AdkHYMqUFtDw8t1attpuTioT/5qFnj/dZl8suVkYDpbzS7bBgki2/Bol51rI3ToFgWPKk
+vQGyhlDhjRFiSTfiYd0gJsjZhDVCfGuJ2IhfVcy34IfEkRLksAui/Lm6oMWIqczQN6RssaC2
+habfebkGaQlOv5ckVX1s3KqOIwxxW0ZSNLrblsuhQjBvV1+8aKOJqUmhA6E2JcPa0p/AQKKA
+rn/c5KT7saiyS0BtgF026E8/poXwOKfncL2YtX5zU7d81Mm7eRS6msxpl0H+kiM9azEbvwos
+fVtTXXwoKwHpxL1qmVIpj3C6CKeVCqPaznDtWCr0Hy3RDT8DaotLpiyQVxIehSQxONNJp+Pb
+n1hiHt2q79wObJ1UV1VcH2H/i0Dl1wFhUkiXUWRfXuNhYm1wML5642mWXAAuXsoSJSSoICf+
+9Ub2CBj/WAc9JrxWrp5V0N3bN2i7ZbRW4f1KhgGuSA5x4ZZbx3TYjZkxHt8fDhClZwKQ8SIU
+RpjiyRW04LM4LvwVBUiBBPGISsArDyaDVTvv6TtOukkPkH78yGCYwsLfAC+AKqoqWWoh1enH
+JTshYZHG03TBHWrDVz+TQ3db9MMgzuIWT7/aGl/wOn3elDummeKoGMJCdV9nPiSd6JFVIOCk
+XbeDQLpm+QpMp5HUo8qctBD8iRmgy7O91Y7Qpvk138nnhjrs5NCFuUrKumRDMUrfqA7ePwGc
+W+iPm8vueY48bXt6D76divC3a8sQEmTjRxFolGXWhMveYT2vJdNrn1pdm5mJBwCpsRFn9zKM
+mylyHyD4b22lmC8VI2AD7KNNHkz4g7ATEaDTme1nCvSjWhjAGIL59hSlspo1mToQHuyje29n
+ZImld4ni7Y31P4yOwc8vXTh36oJkrppeXVZtAUjT7hprb/79QsdlGEbKHOBAiME2oTN6k6WJ
+1PaTMt+dUdifq0pItXvQX5lxnrRzdQbvqlykypN4FQQJ3FMIw4puBMiwuXyon7MFykMdKWIK
+T+5I6IxjeuTn1iZSqwicB/A67G/kAtMWtx1F1RW18K5dns3BhrlDHQv6h645Gl0CSNRHm4it
+5CGYXepw+8NmbYACsHaMLhJeCx2Va46JywswgNmPWjIGcUiIFGgRRQ4ed2E2HpR9ddM8eNKc
+LM99akfyKDUWFTeDk8986X41wu7u2hWw3Pwi8khpBvrJpOWAvzq+XXQIvvwG54N8VNZ94YM1
+E9opz3sUUI7HJxGVRJknFIce7/Jks3zfnqEOKeOThiWpeXXV4ATsqjsvJMalcHlddEMRNx4c
+IpAqh1rmqTpIUHFJM63q5s7Vtok3TIrSo0IUIh7kGqt/Fl6xnx9DTqWVmyNXiZ6fiQsvJy/Y
+Vn/s0TSvTpSzJta4MZft7pIafDkJEt5rM4cEec66+YdhGaD2OQF2UKozNe6TkKOc0Stwl5Rn
+2J5pYSsRUlXNi3EygzqI3sx6DeKEdy16IM44gtKyU/we15Qwvs5nS9f9QShsw20sNePqDwFX
+TriAjaoyXRGL/NuJuLSf0nOk5SBs+ui1bTW1/S59WCNSxh1vV+dNt8WESoHozNWs6mHoW54Y
+0FbRKijycB69Q6YiwSiWQtEZUrQjJlh9V4NR49Ucfz7SKi2zJjCiwtZGshezJPGBqOhwx4Jq
+rhGM7B2DgnDsgvasx5uB9PHf1njEkPy38Qx7eZg3LeE/ll7dS918xAmKLns7juLiKdb/+wEv
+OnftIegaEYvZl+RTnqT6u0pfo+Hj2sIRCTduzTatOeNx1p/e4xXylal8KEfFkU+TBw1WtiZQ
+C5+FtZuJRuXjH+bNnJEcGkkul6+deHSQhTZLzOpYqtPsEp6CRJNY/TqUqjSV0jyrdVXJfN/k
+5c2yzkwT8VP6ULQV/+TrLjcEeQLgm347kXa4UbARKTp78vStiRxwv1aA/dsuoGQzPL0Bh5kX
+gftlPozXb5rrf6rZ1lVzxeXiiOH63aNfA29OBTSV05ASlaxm+qNthW/AJ1TxXfrZYgRugJS2
+I2GINz3QJIGsyY+1mhKhsm8o21x7MUTpW1hxHLbGChG4uhNC/8duHln2pDyb9fgcZSz+z8NR
+Jm9rAfqNB6kswKccbV+nUu0+ZQkxLPVWL+AeLCO9pvNIKURBSw9S1L9L0lVzDSl/LfQbcvvU
+AKy4ySu9fnnQcVE16dQOXSq53B8DTELpxagaGkVMv6dMDncyE2kcm+iS2i87t8HpBrd7BN+1
+ZNJhEYtwd7IJdVqQUIrTmEWNEFRGlb7N0heZrd33AOY3jvuhveMCAqo/cuVirEDDdFS6Rnc3
+RDGIDB8gJO/04AtjL0TVKigakZuHiKhI74/4n4oDRRBEruxYO78qv/46J+DccGBbDft2qCjD
+59jMrBCWKPRVKg9BjveN6oSbg3Dc+QBH1R3DrVcbMvUif+qUI9aqxkdI3naN0DtLErbh5kFb
+zqk238+WtaKORCwtjN7ClHMv20+bqiG1/RBhGGw8u1T1vKUQiY/TBMdWV5WmJN4bsLP3pzYI
+igYX2/KMc1aJjyDdhgTzbBjEDQP1Na5ouRJudIDRDfaP3FjQF4NtgZxZrDJdZeU509BoMe20
+AhB7T3ntOn8JqcxCNyJt1HWrKzD6NkH1WxgrfOb2qb8NHXofDtRbDI1v4sSmBNMBknyKoSEP
+fQfjiPiICimMIFBkfplBZXD8dzGAWOhT9PjnydUU8uFiU0iuWASKFMJzIIPKJUMgw6zuDXdT
+aGFlwrFAj722ZYTS2Jr8kyOLKFuuxkXSjoFgCA2EBdlT5LCrE8vwqMr3CgZATd8Q+Av2AKR+
+Jatsq1KaaE9bzah5RhtUqY75tSXzXxndHMySBXnYtS5Y8vtJUxLK3/vsiRsu8TBpnjC3Gkkg
+XWIts9TOsJqHHO7eUNBAdtQZ89jH5rvVDo+ejhw3tjFFHC1vUK6G+rxWeJVM4eKl6V7ashNy
+jQYvWeV7xU4VJb4tvsv5ofGel64tFDj4tZxNOEgTWvqayWXSiol65YOVm7Foa3T8uubBXxZc
+c8j9eKvl6Hq0Bu+nrdV9NWx6Ae9rpUr+ruSWiJyxctapvHBeYl62bK96nwwQ1YwVLqSEhyPx
+OBh+vdLX/zUPuQFG/AZx6HPbXscrT31qeS+XRvHo12nO+uTs7o21iPd3/aDMBE8bzxpiU3qK
+rDCKUvaeITG29xFfYGZaQyI8K+0y3x5O6qeoq0N/p4Mtw5SIIeWEcsiS+cA+NRYc4H3DMcsL
+lh/55xLSQgB2lWqWtJT9E8WIQi2xzraKn0jscHVV/lgddas5OQU1hYMOylyM/Kcas20CDuMW
+VhD9Yqb7vxDszLptSKVrsEO3nrFnFEzqEfGtQmzr6wi6BSoLhR37icufjHefeK9ECODbl2Bp
+QOyKrzVu/BBim2t7TbLVSTDCZmcj2H5XJk0RCTUShnHm/tJC2VGtHwRzLuaQJm2gsxC0pbv/
+gfX9r0jtExJ2xaR/hgr5TRH0cuIQc67eJDAyR9/guZ2jzuk0V8+7Dw1GdgHHaIVUyqzahiQW
+dvFgEY7BV37Mz2TVkSi89TMj/uT70KuFfONXRIFEx9+8iaoBWt0EPEE+vKiLnEeXs2vuHM9c
+tyj/x0rseGmgxuBfFsoLnHNYGWeuw/4va0EnLaZz+oc1IcKhO9y/dkPxOdHdoiBuhazOs7dA
+KVAAOCVJEnM+HwWZF6sIRGlfaiMwLtJggNxd5TmoqqkXxPsTd0nUlUh5Z4G0V1BnjBcG6kMy
+KvuJMvVp9H+IlGRWD6iURHNDjeur+i4khOFN6nQtIMwYllNpeApB4pu58A7UiC8YCXHZOQ34
+AygOipDnogrD334euEPh1bYWO5vyy2RptRr8l8lAvlH7ld6XKVe4w7DoenDLAL/Yx3nqDR7s
+MXeVppmQAc6/DW5Ih5hthOhJqtEbbaKmCnNA+O/EB49Wd3JXOTl11FaymE3pobXh2n2z3pgS
+uUOcTJEtwMYpaLzW9LwcYrSzEYG7M/lFY3M28x93VYGMK365+yy1xdMeqVI69YZNAafD4OB2
+OeyjiuSgFMi3cj1Q7+IkNQAzQbSucSgGbXZ6OawY09fFPE6NpMvaHzQXKyiGrWQZa9msK14c
+rcOcZnJuUzPsb8TvRrb8rFK2UrX4+Ve3IDSOOshhC994iWuzz+1b9t81krn+YKD2GXOWL9zZ
+aueZMT9p9n7wdjA8e8iGsnLTnA/V4I90mr81lrsz+ekOw/Xgj2VyiKFQO9W85cOZcT7duWGU
+2QHgkxc6Mf1efHTE19uRznK6qFiwOe1BXq0HU/OuCMjRysQL9NRyCX2AIBO/UgIKBh5yFMU8
++iyAkZyKkRLZBi2WWOVmVkHScBsYWHrFgfBNOtWmFRBGPRhA1CYxU57JtzBEoO31KUMLtFU5
+tI7NQkn6zGxkHUiF8GgYqHkAWi9tTh4aZ8Fb8OLo97bWt3rEnmC0cmzfVnc11lEPzhRVfmce
+4jbz3TDFnH75GQ0XygoPnzlieaEc7iKPP8sQr4LUMKVPPTVXtiWRMaQLQLSLzE3zv9HQIULf
+6bLE2wQSsaGI1sZAXJ//rJwYqy9X9jloUR+bcJjQtVhURGkY3RkdYAk4izCErXkJSWsoEJs7
+OQUaI6TKkCVhZ/EmUB6ULArHta2BCZKXgeWqpvozcD2XY6gFbj7GJ6cWQeysyfXR0NjJl8GQ
+PYOAfqZ8CTRx2K/g/tVitDQVRNdPJh58XIBhmRcGi81lnoPV8+u5+AOXihORROriDVx7O5Cg
+Cs5lYxz5ON7IF1v0UH4tUJyActgphx9lErjyCWbgm5WVKAwZlFbQ2Zvma3fT75KM6byjnTZz
+IXgxfOHEqWLdXP8PvGj1DqSRHOr5xLyejeCcOE0/Z+JA2QDBo5HOsTGDRy+bIvsyV8UPFMCr
+bbGNCzvc5wzvhfLdwxKpQ8p+H7I+nmOWC/BPvY3V3VR3yuicv1OJbB3yn9fTN88L05JMwekZ
+EaqWy4SvVAJY7l/uZJY8bnnifuwhZjnGfN/hWby3z097Ew9g7yKEtqln8hWd3UftVQckNfvO
+mkFp/jXRLiJFn6caYMcoFbFkI6wHSJ+uRqbAl8GYEYUp+857j8+6s1AyqoNduVt5K56Dh0OA
+z7JQKY/K3s5sllIoSoOfBh6CSZ4+QYGrrrMG8SmxZNxH65+FBQA9ASA9IMm3/TDMDvmgcJzk
+7mvzy5Af6QNM8D+E98Gy5s0UDn+gt3jkizESuzZcOR6U7nSIvZKDli2J2kkhbaxA6JOXkDrc
+k29u2c+ERAvECcRwQ25PwJzutRpscK/pGQKFbeGmzXUg5MRikWfQLPOzi4hQE98X4u9w0AC9
+Fn0TexDN0ZsLOXsd99tP9/As4WBFjvkVrmeWlpSdStTwRq1KyqK/tYHLWdL3k14MD5FTeXXo
+Job5QddQ6aeBSh/k/KE+1lqik0tdlr5m3sr31IEO1GlAbqpJXmXQvkOGr+BY+WFRDhseVs+W
+UW7rxXF044ZHkXuePFOQ17M1WI5JEyrAC5EBL2M1pR9iRNc3Mnx1jg2pY+FXM9bqNs/2fJtL
+nDvz7cyN7YTJ8yu5AC3NNDzbEJKPiOBdL4cZopcf2ML7diG2eE0vUIZy+vgPn3KC/CCbEvQR
+6LTJy/J7gwH+w0AHExO7m9evJuZycGKy7JbZ/Q0U/voXpCo5sNgdZAiGS3nbZ4kljyEbhyLG
+xzsQpR0NieLmlBpvwyhQJM3p3X0VjUlpZUxluwgheMvS7m80foMid0OR4u2uUXsKNWIMP4by
+B8rU0vEWIJl9NJ2lzC3/obovKoVJsUR2IlWVQaxr8H4Db4Cgm2uFWb9urwV12OGwxxHhhCig
+Ugk1/UCtuQEeQdz80Ka9EWMVCWdN9z9nOVcjFHhXkLHGyAQ/Ym6oT/SYQ6ip0mNOMx4MDH/M
+8aWF7+l2d76uJeb0zIuKW8OvsYWgGjSkFTwe1/sdLwiJx0ScuLRQ6nwhEJ6x5rODmiFisT8o
+dkOd67s5PemQYKZxaYo78ZZ+CaRdXau6HpoKtYfuYxFc0fgzyeBwHVo+RdTzFars+GU/VM8j
+F7MXU2azCtA28PBfzgp8cZhvsWes0VPAWTW4kuu/yS3+FP6hoxa1XWLb3fxbUfKSDnL9QQMl
+AgWqOvS1afDOVEuEj2/SzSVSq8R+ma/p8kvniyKKXinA73w8ArdWPpM+rK9HWgNBMEoPOPv7
+mkJNC5ja8Z83tOoYbm4cZQvm7z01BSVC2YUX6KXL9nHguVQ7T7TtZHsiDDo9W73oMnOZ+WiZ
+ugwHssUvTsLJM3nwHMdcbwtTnQxETEa6hnjfkvtugUjGwnw+DZ1vigL+LocCBgCd3bJbmP6Z
+CIQxq8trP+v0JPLwwc8wX9MqATcqqTJz+Xh/sFK8vxrW8W/82IFOU99SvRo/eSfKQVu7Px6H
+TcDd7x7XVxQ6lCVu0ktoS3iSYGgeWlkMDFjLUWdUrPdhLnOcmMJJs1biWJZlBDlZheruW0/j
+auIXVwhct7pGZel37lIZi6BnfXUyefMxaU6eo51JNLjp1t15CmtFeG3fvNxCBuuSABsVkrzG
+dIkyh81vVo+Y7Y6ZReeZiDYaAEoAZMZUdMbaKUPQciW30dR393Od6J1Jb8YATRlEj+s4RXgn
+IPk/PGw0yovOqd+7gSTa8NuJoPmXni4tGvN6SXAFko7rH0Z9HXNHzkeOU8e5HaVquSDR29LF
+1XKeoR4Ak0eDm4tnL3Oavs6h6uu94lzXITOXe2ftNXvziFX+8s6hpKQvHSoNEq0jAUBlbhdd
+F4mWBAu4G7+OMHCFDCZsf/x+sNvZpT7OTvHoD3UaI6X0Bt0SZhvh8P+VwwnWqT/rBcM49OQ1
+lCAopFnK1FrwgayAD5AYPYqHGzu3kgxD//PXMh3N2AtoAjlJV+BaerA67g9OQtLLbaMLzLSJ
+J6Kqcb0TZ6+L0mp+S6NK9VTszO6O9DQZHMjSLrnJkY3cAmNnhmglCM7xwcI1O5nvzOy80m7B
+QqVccarZpQKngdrlCMnaCZNDHC+cVrrdn7WP6MwwGMvt2rHJORs7aL1ZN9T475HGlVmHPox0
+H/POpAyGwxBdyus0ZvGDuq/CLlhZSpWGgzPYlWAs4c1m41FYQhfChnCKVSQkniZxyh8BBFMy
+95BqQkYVuE5CYGDFTn99tBFDwD7eueQ4Z0TgP09og/b3JdlmlpKKtkt4cC/XEDEK/ynK+/2A
+1t0frFp1iMjl7jX0xnNWVnkWpFqGA4hy5a1xbHebhoq+DSPkWUJr+WOT5E/B5Cy7YUqbKaIi
+5vJtq8VGDEWCn/z/2zpsO3+uwArLdTEaq1UI6Cp2NmKp4JCxBfHgx/ENRTNrRMzdY5jIfs+2
+2IHXOzF/fX702DjSP3UR8UEbiORnUid2a3bKyVDSWHqeqqeJB3oSoMV8CLQm5tKgdYcHK/6i
+9Zm01R9Cr08dzl/pgKenL9Qwt5yhjmddVUM5Tpbgu57p5bnewnsHgtO/0fyNGBNM04gO+q6g
+OfJ6kUlOZOYZVPJDzK0p9qFL5nL2lcksdSVKUkIMBRdi4nzhch9rw5A0eeEC3esbqH8Fo8g7
+xxL722+79O3smby85ihopQAGYENG2xh9ZGhlhLzGvFU6DnIFuyHxjqbMgYdqxxCSmdJs4rj4
+n8pPrcVlvZ96saJGjQZTdEXrroWJopvY1ENB0fl1lXSGDB1bm895MGsk/s4BgS/THUoudy+E
+grctx+LZBEfytD4Nbzhhxf2+FM5/NYdyaa0GtawE9SYpjRxgJGwLJ/8ZihL46/ZakQKT4wKA
+PSlcnyPFw7EoaTvIfiWeW6yYhwjeHIoJU1hd02xkzBguKyHGgyOu2mDjP0YGecDbAWBkBVhs
+msKY2WzgFZIlbG4qkRvs44+JQd6t9x9r4jh8idIhoZvw/ZEDDPk2HnPNv2cPnBHmNto7V0J6
+mTjMB/5l7qh5FNYfAWvmykP3seIWEFpGVCMvtUp/J5D9o1v8rv0d6GFyRWe7CPueCVlkHy2Q
+Gxlc1C55vr+0dwZbNB8e1hO1aBQlojzGRdK817zPj0orz/re//gYH1+hKyg64CVnFypWL5h3
+wbu94tTwz927+IjvjxL3YgmDOgKYJnIgZtp/t1Qdh0wbCN1Uqf42hATrcOqgI8cn5h/Sg0FF
+xK2S1dXTw82FmEiOe2kmO/Wh4R9Cck50wdNY8HAss6FmS7+9US5I1u1YotLpVzgxvY79kYI0
+dlKXH+EkI4yzF50lFZuPOwVE2Xv42Ak3pP6gUyW4/Poh9r8n+KZBMVR/FIFLDm4q8AIhQAl3
+CWENAoDeVg+WRFH3OeMjQZELm9XFzcc84s2IfDgo/7OhyMCxg/WDnRsGa/zX4+BFtt5MpMcs
+BVBKmFAMnFaV3Xw05t7kvNneZJQDXdxjbUcx1mhm8L+W7ZH3HbQUBz9RsmQfvsU+T/MAG1Ro
+RUqzjuQ7LqDa1T7MT6kUROkH+GRGBPDJd9pbogWffkg5TcnWYwZr9W+04bcUT7aDfxwtxxgR
+/waEvAdB7ZM1PbhPQRk1hjRH7rzY5q7QcjhcSqfWnotdswKE5I/hDbyb/WUExc+JgFdZdtGR
+CIrlCcHwuBZYMNWanWooaG4iVMyjQt4+QA8lJuuMlFnlPKejUuB4mGnK8XqlMfLZWMPInmou
+rmGg9NWHGnUe87OMmcAo3zBbcjAa/q3nCldk9gInWri4tCT+4YfaWNUczaIX1ZIvOTEY/WmP
+hAUYEXR2ETgEqJzcJZPsbN2xFnT4tX8/A8eSPts3QMJa8odToP1YIvMFKmIa9zSzFIxuOI6F
+wyOA2u7d99eRzgwoPlU1vzzD0qIbJaoY/1vQMqbOXl46Gdu49ypZkGsaweeGfgrMgEQvwJwm
+KQIvGzd6Eg7W8TYC8qFkt3B2ir6lmVogInu72Y5pO2391PZf0n2d28vj1rEI04b3bUkSO7CK
+JTqMsPNdlnfXCoGKLI0qoN3CXSvR6bM9q2BJjmMtAA0byDCKyH5HrH1ntddXOYFUHWURLu1y
+GK7OfYB8407G7RUkHaeY2CmrjD2iieKjAqp0l9UnQ/Huj42adMfNXOfYY7XoJQZA9MI3Bhwb
+CzH1ril5HDwUVfjfBbdSmVt0kCjrH5/QHIqneFE40fapZcIEH8R0ZYQUXjmVh3IkwcJuR7BI
+AnjFctxfZevyOhtu+zqc3X22wjor5dnAtqlVD5P0ulUjGkl4Omslhb2o+TxJf72R6YAHAr0R
+trBDEU8WL4l2TuEPA4LJaEUDyfWt3LppSaQ+S/6kSwBkxq6jAp4VEBsmbVBiXhhhoCwq5YPw
+6fZRdLHK/Q5ipwWsryvYg4eao/yzZLoBbujS+y33uIimjC9R2W7VVSESbh1yCTIxBCMSbIMr
+Z766SdXFqfQAvVpiOHDlx39ZCZSlsV+T3qIUNOAAhFe01KFCXxJm6J2FxFQqB37t0yyJ/FMI
+c5irYxpOYi0EZFskyl1FeN/bNzC88XAGL3MyCCytirqTj9dB98gDl4ryd6MBJmCy9WfywV5x
+hYxO4NfUC9fHWIJxTPvbuS3F6TNchneCD6KZDOBl3A4ah8py0thCOYWu/7cgDoT1Tdz5k9de
+ns1kWLP8VG/63q4oRLim54fDYCtpxzfE+Kbe2fFfiKyM/lmoFcK9vgGq4wvVNvLqNE9fvqKc
+4Qw9P9XO3RTpShfTGUAxhdLhifm4NB2UDvsDxxNd+scz/ztWSj5C/I70LwRRP+887pn2V56D
+fRvs6T8sR3Q8oBnH/uVmvY5XO/SxV5ZRoV/091ctsVfH5z0Ik0E6Rx8qyTBdBGMvyjLzXdO+
+BV63KeksBuIbPxw/m5QxYRpRiRN+NQZkdo6u3A5UEdlf2uK0cy215wFYykKaJB4ja7Gcftgr
+kIN16bKRdvsSs7e2f+rVXFhMSHM7X71JQdfjpHpVKSUH2cD2Y7Awe9618ONgNSJEVa1qFTAW
+bLwX2+hITOpLkQVgJp1ucuwtb02vbknmDDVQCmPtki3YmyLEfKr/KQvAIfr4sqKm2VDnJdSy
++nSc6UZu1KKG0QK11d9a93p9SMqWNJL8tLCkLQuVX7fqMAt4frKlTCxlzzt9LF2IjZoR3rrD
+//htYVbyNvshA9Ob8jjHGvJs3H+e8RuYh4bUQnpCvaxRRdjYoKe9OB1AB9/ob3HY3G0DPYr+
+QkTnp9BMWKw/dUbQqwCoZBFayJATTi9YDww3FyrkiRGnopfd+3SuCiPz1IofSPPyVnD8ZX6E
+o2MSZKyBUfrWqU2V8s+F2otk5a3AtymlAI5MNuNiutBjGKEz69KSoDlAPEWEBYivnm+LUC5f
+UHRsbLa07Hjw9fuA5fvG5k8NynByJI1FYlJTKUimmp+C3ZUSzxrvDeMcvsO7GR2XRxvq9AmT
+aJqLzUnK+5tsF4NeAF4CFlA9e4GkZXGnKOTzxaUV1rD9scJ7b/Z/2JpulNZfcqtejo0S0v91
+wsa8TkL1+/0P54qYf9R1drWRgrGdsArAR+6gl0Gf572br93faLc7aeChhFn1ZsE02QY9U+mU
+Bmw9pC4EEKot8vDn3fK2UnawBmGNZDn+ZoBUl/AqXKzi0chJgshGRQ8P02BOa+W/p/fSzQQJ
+Ocu/BQuV/EEvlv9fmaGN1JQfizEzyQ5RvhkE4zYflOwUu1JN0k9PWKwryboiZ9rQfcYNNb9j
+IucUWhG/MiNyFoH3hL2XlMxEKyxMcGVTgT6VIJyjV0YoGyhaHPho/Drfyj0rBC9GeEw9bUr+
+qkRNwMygMJJuDTKnOXWDSQdPwD7oAtdyVoRfjJ0S4KzPFjQk9qGe1JpmAWB6LDFimvtk/y1C
+GuXCnz95hqa2X4/aiMUF2DMoT3vnih1O/GyzI9b5g/dpRDIbZ1bYR1d2qYbUBxXIYBL1JP2r
+IxaAVUXCIIPAzbHoD0FL3Mv74kMHECrFNHaV0zKfIh68bdlqviRFozt2zQSvelt6SW7xFgBA
+bIedU74tdwaXhDSewKMkOZpnQaOeWGuk5Lpcy9zd9E5Spr297O4Snk/NhtmoF3bkcm3nLGVG
+GeFe428XP9OaMvsSUUmiXZklmrPLha2sgiDXljNpVTaEyLDf9s3A1jp/0AiNtXKTsj+99qhm
+rcRs4g6E4AZV3Ze/Gjd09tYqInF3IiucSgwY2Fwki4k7Dq4VFMR68mqQPv8dT2noUX1mj0Ny
+5JEv7tnDd2ax8EK2r659fNaUmVEGnWw1kzzVhxgOMui9vP7gv2k5C9Aektd/SWGoE7FOwbCX
+7T3yDJN52Z3x/S/rW9qWAoyVhINxjenoFMLPKR3oSypuveEMf6/gf4a8ARj23+DqiST6CvbT
+OFfR+Q8BZkO8No6WOP0gkrDWyf8ENdlxauLz+OQ5hOB8NVje4usNRfoAhoM1+eZLf+crAQzS
+3EHFn06tLi1ddyf2f56faITOrWCf5ZiIUkFVnCVe/deajEE7vM/JZVPgC5pE7tpvcrpXUX3g
+ZsbkdMriD3xBXBp+Fkt1H7qr6YIP/O02XLzFTfh4oDFVh4x0zdykRpMbSyUqAW9eFyOfClv3
+QrSFCBW798mcE/Qx2UcNqPjrEmG/Xtb9JgioVTQRrt4ZiTfMeHFKpCCBBpQA13Ve/RzDNeEk
+/yzChcRAmZDjb8jjhGDO81vL2rZKse7q3rWglfsRio7yV/VAAtu3LSA+DZfooKc3t+2BNFLO
+ZLk0RG9j76IIL9hqRpzWCUCLLiqsuHkugiOl026J1FMAJnXM6MAKC5xGoY9WnMfeAFuyB1lA
+3+LKSqy3QsPGQgbK6qoBU8ieYTlIHwUgVozIwUdsEm1Oma3H6VfC5YPedc6USyhwHoXU+Eeh
+jpMt6s3g/BwFPVsAkBhrBcs3B+nGD8+G/ZeopD1x10LgqK9hg8OcWU344B57U0xLcVKIZL7h
+LQVFPprdnh2X8zOhnlDMI/NcM0Q/SvkO3fsbQTDvtADzLpQNHLFNXvkrSopxdxgsOhzm1/5H
+eFiMPNJfvJ/ulffRMFFZhSMSHQN9d56IyqSU4fOTXo53uQ/8MMZH5FmHFM02uknTjxzIfrYe
+KWmnsZFJiMIKwPYzfdYOuO0TcfVPUOLW/KmHdb4Dki1BMLMWLzK7I/n5vrZAFhxIJVxrapDx
+N/AGOKgcEd19shMiB1MGXLh43hDybUGhzyBftS4mq78rXAdMgyS1UhbjIZmg1C1utnQaXk6t
+jnMlpfQ5V0FwOIyTsnojPQCsn4Cq2lCoNp3nKTrTDF0fLrlAyliaFigK76WfpyAd6EwEj8++
+8CGoxIbo9x4sVLrarmIZyV37rGlJ/EZJxmYuPdvl1yS8ubmZHcCcrrGXQiqMW1VPNveDFLW6
+0IV4W8/YlE685spIbLwbjSD30kUBUGNy+p5R+mi74jGV8lBdhd+Iu7AzROpi8jVkIvM273eM
+omVxFfK7wxITofsFlQpG1nhQR5r5vTPll8PXz9h7qEp7yI+/XYUHmCSWjornzw3V3nixtBDU
+fTavqt0ZX7TSo+EZkU98C6DbGKQVkMAHDKIzLRszkAKnhqg3euGQQCdP30c3xHyXNZbvWb7H
+ag9nJqlvAEuLOuxDD1fspUvHA4ywwCj0C7C/hB180Agg0v2poApIoRoPZ6AX1EDvYbHXj1F5
+kWfjOoSgNOiB+SP78Yr2aQ7qGwb7jDqKCqsujjTGe5FHhkxZPBoP6xAK9AXVUiVLAQW5yptR
+CBg/sVQ85GJzen6I5tR+pyAPbTdLfyQdkWN08Dj2vOBl5+dge92xvxIkb4yw4ysk/pth+8Tq
+9rUW6MylFLXURKTAluTSi8rwFbfSRothW+KLsNN+VK9M+J14ajCFSxk1ZnHnhDlfGaG9IFpo
+PlQd0lMlz0vzLUEtHP+dsXLDnt2DgKvBf81n1K2NKkH2vXuYv0P9vCWpag+oPflel+RyzUWA
+TmZ2ew0MgpsX9FRg74N+k0f7F3B49J90rJCCxpEqp38xVcl5XMFBxkuWWyh3etjQGreoFtKd
+n6kHKWW4CUTyjCf6wH3IGadG2ziRN+SqbuLGMyBl4k+mOBkFbco0x03PcrHLkYp2e/QKPLwc
+hRY1eeIAZPHU4sZQI8LxILXcTR3TnbYeY/r+/Zen50LlCwJcc+KWvIyzG0QgIeFOYf9kvxMS
+k6SxU6UQfWzNbBhRGFNfXLGIbmwAqjS9OUrncaECxVvEtKAC/XKV2yAlWhKF97FzR6QNR7N/
+OwtQuZG/m2UlJeQ99rVGBx12J4TAcI2BHA+4ejsepdTRybpWBcqhb8Rc9wf8pFiENf0fbECR
+UDwLA0+//dAwPz+9CXvIh6D8vZt3ecscXUjzXlzXHED7KiLn1ThUDjJW5DRlOZZRNAARagfa
+CfzEKUipcic93O9kDazuXEUGMGfELvXLIIzq4Q5pzfoVBH6+t9AjwW+wvV2/T24RwJCKVTU3
+b0F2b1QaiaYYiuEo6ELH66vZxDOrTmZa2M+6zkgUXILUu+wv8HQV1j4K1TIMdW4e50ASuKya
+GVlcMr2vQEbADuOGFxDlhQv9FdIkQneEq2XGU5nm1/QnpEflRLMWXWKCAvA0medj8azEmQcL
+LflVIaJQSyTbKaU2a+kaT2lSiXns1SlBPc4KMxjuTgvMkt53TzrOhd1DBmC8LB/rWPYD0dC2
+69EVu+xehWzIUV+pe0QJTAFYIfr6hxVdMUgr8L1cNg45BTVMeeY5Ub6fZczj2IrmRm5TlXoo
+OfH5Po3YBrestv4Hl+ZRQkwP3l0Kt6Uty32+JLCEss4wBddHpRJiXJgUSG3RmqPvCm79fFaR
+l4j7p1PJ511l/R1/UXiRogXI0Ps2OtzmyTdHoOF1WqSH6rB9JxZ5WLmVeVLMghJl9wCtdwnd
+ahR4+n7vjqkcK8HxEVLAeFjbOjlRTXjkKwO8Aj0+zGbUx1pgeXJ5qwJbrbi8aclI98jf3Xaw
+LfBb224V3oSJBmkHzdGeNgTpVTFO9evNgfXg3OgosbXCeA8SuwtriSIeU6Peria+RdqXWpD2
++8xMcqz8jCAd36b7jfo66HRsCks+UWnEeB/AOzIG2LApis3XCtbe/Sgj8zMrzVOL73JblcOk
+2qdYgJB2OaRFmwqjDMdyt38DPoDqsSXzlwrg5G1nyQloZH2mR6JdwMCcUpye2rPlsBpoi/WD
+9fApBIOexYCd/oxSON7Gaj6/h5+DbZkTFAaxj+Tn7Sg69ZbhiVO99spBnRDbfr4b3hn6kndi
+kVjt1NSCG0xShD0bohk/mjw8348mYKj9Hv9I3FtSEktFLP0r5bBjuIFAb/eX+k1GprXlM5oa
+G86VobkenXzz8rw84vjDttBA/oXjJ8+obd/IePlM2N6YlRNjooQljyxllfXs8typtIJMWM9u
+PIpR9l0lj+J61ecjKoCRoTze4liPgBQ+sjKIEFvRWriq6ORCg9ykfKr0RRL8NHQzMMI4QMqC
+8Poiqewo4Kx8Oz7EMJcCLcFypN4kATUOY/09SWgDWG5YMeEfLWqpwpbZmRUSZhcWYRSUmJrs
+nu2Qbw9aGvZ/65tFi4DDeOlOwWnfnqkxwMqc000VT6XdZH06boh48IiwHZ3LoAQe+fqz8yWV
+zDY44nz3XSsqjyLGRb0IxeIixgZSa+vZdmS1o9uug/NxdqWXhJMW5ct3RPn7zzJeHYsYdGPC
+KKrQI8YUa0mVGYcXEBkv8LO0Oe/M7bcvEqV/Iw+RHKehvD7wxW0s8KidXsOFmlOf86gnyM1r
+ccfpSI7s9sf/3xlsgqoiknLSQlzX13j1MT/4aZ76Ds5BHefL43P7uOrD5NAtADwoJUI6nCig
+MrmdQk8VCO/73kIyEE/sQr3H9Xu2DB+YTCfSl6VHWcEqZzcuaazXAxxgiXqsgRPz0O0g60hz
+hHoxNN06SJOUODdfpW5rtIIywutNyKmmk72s4nj6tsbizdpEnjYsAOjo2NYErn3RQpYkqb90
+CxZ0ZRZsA4wNpOoM3TFujVxZbKSY8w8dJiCzjIuNQs4Wj3c70bIBK1znogDlHxyxAI0meH4c
+/0/P4oSaLfyJGwWXEHEsMLQ0IZcmjfBnosUcAAc2xZF0ZdibleLIOiLEtN8wSOJzseuTy/Os
+8CcrILlxSPd8dPtQ3SsbwHbR0L+ZySoQtaztVV74VL6Zflisy4dibrWlowmdmgkcTZ4JOej/
+HqgZSPl6Kr5OVrr/nkUDo8LdeFFSqyGcXGNoT1gqR7M9+AbrutWLDYaDItUnoolSsLj/+DvP
+7gefginyWrmMg19HNFFb+rjtMWF4eY3/tYjoVINgNMOMN1JcvjO5h4X/GVeWnTrgol/SzCoR
+ED9h50BkjTLZQSzhw7pix3EGC13aFzW8GDko+dEjy2D9INNTMOsEkDF4mdegh1zOcQypyIDQ
+yfkGxIxcc4zqjQPD/9n21x8BuEE3ptcl4582Q4CPv6UgvGge8CW8oa3pHuPz3bsNRpGa82Dr
+lACp7zyGfqPtXyTQBgoFET+YpXhDXcPhEIb3s11Py+oYwwLppdE3U+JnpD37UiOiUniY8P6g
+R9a89+k4iaAij8TT+toh9n/Rr0X9KdqN2YsbG1sbAS8JjEWpw2UwdcjIXcCbOePnahNiyYWH
+sr5FHr5gZIruXKMU706RdDYq0a1Ec/G3EfhSUjTanERJ7SKj45yg/0KiIoNGd5JEWlKl3ZaX
+YznpsuGucPIQV9enCeA0ei6x5jHgzEwB9zOiE0XQLWsipxkSAF1cl0MiR1CXchgrFmTSNnft
+NycsOwW9tHP12551F+7KiZkgUSRdXaYFd5ngRetUKhjwfRR+N39dOkTVNTIYMZ/IADtHKu9z
+jUzp9MKl5SGZUdmTFFLQvtCKdnqdndx2KIoa8ahzdDurFBJzzaFAMm98tj5Wi3AQ25apwFDK
+9QF9/XsSXTWhlXq6tDSEH+5JX/3v2BFanptjA3G92/sOnQCxRsDcbgzbor3mKzhf8nS+qtkx
+rjz72o6v32iD6KdINqmklj4qMRwpi6U6Js7+15DqNdcx60nKjBi91fwm3S0QE/dqzBdDb15V
+T9E4Ynbm9U2Sh9B3Bx1e7GUbfyYzbqShB6zRoex9wFw1bdI29CCd8IyqGX55NdFnGBWR1yfq
+8MTnlzaj2zO9/Y/PBp7ha7HlQh7sU6oqQ9sNTvS6dSkvNEADFv4pGwj9mR2kKKspfH3s4XRe
+HaFF+pEEfiOoFJxX5nPk6Io8bZRfks16eBb4Rn0SB4y5RmCkpLOehHO4QAYNgtLuCYiMIR2y
+HhKS+5SDbJozcMsbuaY13t1w15M8ZeuVaZploNQJHb/OisZsdtb+MMyAtlU0m9jSyJamK7lq
+FiTJy7iDBL64Jm2ektxcc96CgERqSfRWbZKq+ma/GBx6PYflzr8nNw2nhyoYOalj0UoA6E71
+cb4HFbIyGqFCfL9oOl4Q02f1k9SUMWGqcNkRJNOzHU4lzjRtRnvsPqmxyIPwOFGcnL2qMf1J
+FYkQHuCkKskY8cKI1q85hUfGGWzzAxVCU2K7pUjQnxtnvPEAKn7RWnJQFrNloK7Q8Hpd375x
+nDVZzbkKmVwvD344gh9KHp66kOxSoVTLqwEJPU5YAQZOgvBPCC6tbK7jTtZ0HI9PD6LL36M0
+C8Mqy6YpnrX467Z2/2YNSzwSNBoOmaR+chkiT3MEQa/68w1HamDcjddCW9LalXEPRuB6OcQX
+WXID7mR5ITuvsBToJ6gV5W8QqiRQmo1DmM1VG6h3l4ZtYH4eGG7aZOUxt5Q9zJY4k50mGmjp
+gXN1ilIZxgpGkvCkk9EHEasUqYpq6yUv4fC4c4pQumOmx/BDT7Glg+flnXDqQ4eh/aXQS+0V
+mCMRiRByjrz0RBffrRn3j8oaLEkDaygdioh7GsggFotmu+FPgpQfNysTo+4z6WVCRl4dyq0g
+nW1e5/5yNIpF/tkGpazxEW329rCvx6AN3m/a32aJnjRkV9TABov/R/slZiC69vHeoLIl38kw
+QjYjx4hPHxkxPTajrUjEW1RZTmy+ySS48tqdzBymuzQkxiRpgvYKW76qXkt/lTAT07f6P2+b
+NvMvwiWquDmHw40xY4Jg+QqMYvCQYewGR5ZFQeXYwgExnyRauBXPHC1XQGTdz8YEMYduusCq
+uwicfwqMJjirrLDweHf/GxS/8U3b9k+eYgvShQyo+5xT37/sASkSnOw/gQKl0XYL0ebMyYL/
+U6yGL/S2aLeUfnkqZJjeH/cCRsvUcoGt9Xi2R+mmtSL+mVUU0DJHi1P5JG8BYl+wkSgg3Cnt
+TwTHtpyn8QnUgEf6eAyTPTfHhCjBokUKbLMIkba0uTkHVEkWKD8tQ77t73XkJ7IQ4Xam7sA/
+P3//FG6de7KGyJSKrX+zanmj9Phb2AHDpmrYkErlOpzHezfVN3GCYukRVyhZpQLjGluQDWhZ
+xIImkuAmPiEds6eGhudlvwkR3MrwVzxYTGSaRs8o1+hRbwf3bxyIBgkds+1pxsijnBfwVAXi
+43DcdPPVgCfySj8kvlkYq3HXZYY4ox3vm0elvzye07wO61UWHwTyl8bToUHXCqUdlNuummgF
+5IidUe6P4C0BEkjV8MSIafCNuEsiK8k+a1X1sW5GrQHsH2tz1KpxmAdQ7g7Yjjqf9e3Eyh75
+71ufKg4NjOS9Blb/oki27TzqVmGYO9niA149WIT1JTty3+uucjdCn9Qjwnmzqm7Yct4t/Ycr
+wi6s6XqVpjYve+C8lxEdZZ6tw/IGKIYYDFE4FDf00fQvkt32J8mG2Y/8M0XWAHTpXLGMIQLQ
+vMks3+NWGPKEfzz8iPHoHxBE0uYXMLN60pnOXjw+8hq8dClaGWfW+yDF86eaCrvf/F79nqt2
+Da0RCkoIO3zh+AOMziHXjr3jRhrCihAxHmttNIzy9NSUfcAuvExpdZ64GvND66+Sdsehqb5w
+a/8AHw755lQynBTSmVqbogKAY+6N9ONh+JFzlQ+nG0ItPfNC8opCioOn+qj2uOX7gQCQJPQz
+prTtJPGOWhVD1/8cwB5xDuZrXC+wmpmpT57Vf9emd2inq0HEwQcLCpU5fdmwMVcZKKJBnTi3
+hnSh7VORKWMPBzwsjTcb0+myaeUPDnb8YIbITpIgLvO9SF83J5u5gFuLpV68Gkez2C7EAmwg
+vAfMecsykv+Go1rpjq13GAy30sN4WvKIGqS+Gsf5aF6g8VuMaKVyHdWeDRKpLmrLiZ/VMxAk
+/Gzn2y2tVKtzbOGUXRwr72lI5n7GHWhD+EofvrlVKEAfmYkFAoyr/m3PHqPOwMwpKE1RtwDT
+OPouhP/7YGqSKt8sklQ5ZRhKdDcFB1CRXEwhef+bxOGCqTW7AXSWSfFX/nyuH4RAXggsG3/J
+4vr3Ub1CSTt6UvdVW/GIoVxQ1MsbKrb53aExBzdlTBxACbnuC8kUvP+0STJR+eN/lKA9m3Bm
+JLZaGg2TTz7sodmSfWTNJ7zg4PmhQPHNT453Uke0oeVmYVlNuxLZGYX/RPnwGEaUswbCZENF
+Oe/VDmWFZGzzr+wBwg5mdOX0kIiKuit/7RuO4TJUuh7myCWxguaIck2pK6bxkAYVRHW7u9vt
+3BXtoyEoU6b3maVTc6hTMfxQFvsKYgMLLe5zHuLVuVtm2nK+21AqdE2O2d42kOkFlyJEo8q4
+UJmI51YBbAvmstkX3qgTi55sLNxS01xkGVTn8I+YMpeR76yLhR7WMXG3jmMYZWy36D8T/zt7
+s9mdR/8moB55NLv50Bz3pzsMxxknZPD1995WW639LqIctqGW5nKG0K1dRLteDVW4h2rGKuRM
+ylUdmePioTntatSZD+g70F0aSQvVQPvZDh3V0VEKJoIa0bkAz8sHX5Btxs8vRHUHtzG/Mj9n
+PhL8BFlyE0DxDaGWqR5UTMRqZMWfu7+XcJgx7ltjeRXP+MWo29SGay9wS9hStOE7tqDpu0iZ
+nuK7rQ0rAgZ58ObxDvmxorRRPNC0Dpdyy8LMPxW997Mmq8ufDwigjSHar+uTNN3JA7AEK1US
+4P5cuS5RL2xMNEKf60KUZKH9v9PZEnIiFdGVw3oqi6OSMyV9oiBe6LH8azvlNRD9boRScC8x
+pwO+Dm7vlIqDOBowfcXjM+eY1HI3ytJGI8w/QmA57+us8zYITTc3LpVo9FDrJKMECWGS/iKV
+bzUVUfKCqxbH+TH12i2vEmcZwhjxn5LgkHHygJ7gRBv3noMpg4z7ZNDuttGDJwY8mTs5YI35
+h6PJLSDQqBPIeqDnumatDokys/80DPxMx5AFgNlrhwcxAv2/n8mXvozD4pYqX4yUGiN4c3Jh
+j/PRbgkX4LERe2gY+s+z30D0dbWG5zKRx7TCHeMcaRU5nrZB29HotK2tREupfqYXASJfO2IA
+dSaVLkyh4iCQE1XoE07LFRSDaxxdT7JyGdSfeeqcTva7cE9J1MQ22zuDJnAGyyjUpzPyAZPH
+eDCmRDXT5N/r9JS47NKEPYUNz39p8Uwe1yRSFqrc6RbIJe/oksbtpyV5BoHrmJ3gw11fymxs
+vEzM2Wt4i1z1VSxfpCvqknIGaOoyR5E4wSKgoxD3YSoneaTnDNMkk6sRo89upirvx6bPrqzY
+fPZqUuCPI/Uci2vw4pj/TKKuRFzyCsp4/F7CaSJe9UI0soyydEyauGaY32VzUQaAgsp7zFh4
+rjgslvPj5lV4T7NF+tBhq2I9KKJ7ZiMNPWu2PV2HmrDrcPa70Z4GGjQvRWbtLRZpvI+20EzE
+qS6tSpHhu9TnJjzTLvvqKsEGg2tvFaP0b6R9fPRlvEwxUlbIM2+UkiRrx8tmSYU7znLespZy
+QW0P4KtUpwiyNqbFZm0x1zvdoubeFRtfLSGaCTaF/MuaQB4FdTobLYzF78SX3TtBjvOn6cyH
+kTRLnkL31Bp24SDh26yine0i4a0vjdSAxjpBMqiYlJqo7EOuTH7LMofrNasTXK4LZUhpMQki
+Oz5j0aTeSoecImdfAwKCK8CqY88RLvK9ivlNTCZKG+BdU7NYwtKxz6Vz2t/3knwSQSyQp+mo
+KVZeJge6JZ7LSL3tRS34OZDkygpH0YsuC1LUAqW58MqaVJ9++8tBi9tseZzl849tsZzbCSKa
+G8+i0YZzwYITRGnjQ1ZrFfLbcZk0O+SeRBlCVq5D1jTCIM3M7bm5EL+5b/EAhfaUtcirT9Ck
+yodu64BXJ60KHVxY+dvjff9LRDn2Pj3NkChCXa8h0zm6+GUYACPSRPuEeYEP/DWCjV5vLQU3
+xf8B+ScltG/b8yPdWlpayPH/tt2iIeXrdWOM9osqxwWQwxjZA9jLQ8LvZ7PhOZr4IELVa06+
+ItP5u3eOVlPsnwoVZOGnWLDQ69PIMjt6KRSv+eEmRrWkBpF42v6k7uuuyxLSsU0gN0x8m2y5
+MjGbULs+wq9nnsbtu9mP4UAxZGY4ylyjTXn+vK3I4qGQ7g0QcV57dpeIdMNo/X/n771qkyMs
+h8aka2tnNsMiP/855w8zti2DnkcUaK/dGEumDRH/QhC1PwoWmLuDJY9XbVmHWXvZzOWRRQMy
+K7LWS4NtDmYEXzlLgOA0ByckFytGpqpRAHgpxKPyaf9w+vl3chTM5vFfEFQghgYnGVqk6Ku+
+2rhRrdPxGixHLngGPVBJRzq0S3y6FnCooqyDWH1g0IT7Jh5yzzxz8jb03X98Aweaz62wbARc
+OPuU7dv842FxYWOoteEB6HNdtsmPq6cSZAXujlbktt9tISkDVhoHkYtuudqUxvskpmdcIXxt
+t9EJ4fjkCoDc35YYAZo6PncAZvDufa4R28Cmvl4LAr8ucnkfHrRZ0scozk2FYEIoTXp/JYN1
+q8K6AtERYNH9XlhfFRKoD9ZwTLP4uYoGBiO1NJxYjKavdedta+NIypxpjvrQXkupbnltq+z1
+m08YtL1RJyt7k/G67bghmhlrQbPZToakpVLClRN02v8WXrnYpiEvyRrPlJPJZ89vAxa1is1M
++6fYOm9HFRKiO3+VaW3CyVqC8FuR+b7TvXPC6mjEgzlRkJtLvqWhyhF/wU8ZkbJZePZcq4uD
+EsW9XHdXojS0I3z7m4xsbWpvnm4j2n08+nRXXjaVge+CKYj+0fzL+/bK+Yh8l5BY/i2Gt7xi
+TSV+XwOt6znwSA2sN8FMNm1vEOnVBp/W2N//VZdM3MYXX/rwyx4fNHW4ozmvWqqHZxo4ALk4
+NifsH5ctT94ZHbv52W4sRW6foW7JDqLpoFI3dpz0IZUfu4Gs43pyMpgN0WLRq6mYbaqnidEP
+vSjXxR9+qCbDXveVDKA6UU43bYM8tykYSiiK5yw/kOck6SDenLm899LPvDSaCmnqvBQ/erSh
+bGAsdGIVRp3SSX/Urltp+ydmGRBSQNQySaE9l70qZon4mQK8Y1fki/lqmN0QFnEmrfTPC1S8
+wTeqBFkOapHDP3BmWn+w4KdQje0/bTwokXTmAaf1+1CJbeiQ+N95dl6O+wH15R+zKRFTWOUu
+vuqhPUb1BKSYFkLu+8cGcw2tkeN1AzmkvJ8WmWwIiu/H/0LZA6r591YRYskvo85GZaN61hFk
++CPQaxjhFxWxrmM0rknhdXZG5/oSrSLJVcLovNm3vVPTObrYFQ57Y43dS2had+ptzUlCPQeX
+OEU4Ce15LPAoA0msA4xmYxGp34zmQO7A7hikpiEXSSEgaeVxYekC422k9oLqU5WHOKt5/0vM
+8jbfZSxEvxk0lHSoMeVzhGBrwH4MLZD8hBrL+q8u+ix7vhr8LRigBIC1ywfjQCiKY7leo5kl
+l8D8Rk2zpbefn7pAZHveFlfp38SzZHRP+6lxbeDGKc4NUa0nYnAwAkyAu2Ise9t2BTM5p8Vl
+VMMQmFztA0hjyBbDe8qEvOexAUlmwWHeBaLxf0R0fYCCVRYj4NS2scAfW2WePi/PR4lOEHDQ
+oASPhhRZxxMsWRq4s5uuzvVhgrtkfFB0uYaRZmKgiDRFp92+LP45kmWyZaKYgcnwV+R57GWk
+xCajLgVCEGb8EpHP1+yOYLk8KOf2OjgKBHSTFr6Tm1Dkjd2g5MfatwmnPXEr+zL5/zXT3jzx
+Kny4lg3h2TfNepwbJFxssLTIT/eemsPHHDjEFhsvHjk/F1A+32YNSTOVlmBvBvsYQUCbqCML
+h9YoOdjdErKtI4ixcNOoqk3U5GtBF2xq3yqREqBQlYWs50gNgK0UWaFf3+m/qMD8J4YiJUEp
+TuC3z7gwrnCcuonbK8szuFiBCKY93oPSZfOmHbQN16fDCCMHr+wRsiPVsiCJwF+/XK70akk4
+/UTBZ8Nw5rcbmoAryk3lH59nqwO/kxb/BNQ43n/JqZvrPfpnlkrGWMpKQXCdvuSCPG8VeydJ
+7RIFqhLfSmWt717O88/tvaXpL20NM42OxGwRcSleHwehSU1gXD4RI0VicnLwU+fgY4I4iyvi
+zUIvOmTzkZHHziAAAdLjVq23WO70TKSzoJ0SoqoZPerxIgFDFn69Uivi6PbUcsasLPnSTzgG
+aZqfoI7zy7F7VHKDuYwlczGJEa1Mx/agWi3vIBeRDyDXpm2FTafE3lk2znP+BJsdEAe8FRH3
+dxYM+RwVr8KNzya7nVuJvvSmzY5wMIgmEZ6wlpknOzDUUVNgr9EK+jWkwI3Mwsre+9gvLy8i
+6zr7OIoOXasWv9fGjDwItd/NMTBB/lMCLlgbWl88GdmjM4MJul9hGXn1v3GH4s1Gn7tlEA/E
+B3EnhKbzLr4PLv1nHWhnclXe314m4mvWT0dT7jurxGEt8RG6GwDw22pjcePDQCf2j/lS8Q3z
+DVFUO6SuiiF0KL2RKKYPyV3vlmtIdSsTXBVudxknvPNb3v0Km22AjMpAWZqQQh2Bpy7G2kCL
+Zu7EPzNUxF8ojQiK5BIOrJzg3bhKbGR9a/tNjpI8GkueCmwIw8FcZt+OMwSl93MO5y6xN8Cx
+p7GWgBdmxTYWQxecDUSXG5H8iEhdeuRdG3HTMgo1Jn61xJHUg2Za4K2B1W6gMOq+OQsxOyfV
+7MLAr2qdDk+bxG5G+BFiOkWMVF7SOOQoGANE5f564x961ouWA6GVazN2s0c/1bTnfPzr2Xqu
+hkmBG/9dG/0Sco5WYp7Z0V9xkW2Wk+4/TmKa+uLqCzGcqlHXVlX8cxPvkfSUcAbCIxvojuCQ
+9oyYgmERqKooTIQMcm/IF32NxEA2IWrIo6jj96QBckbH+2N2ZfD2Z6KADU/2v6E5vNEWADTH
+DPu4/ooTQUGMTCoDMaRmupXepvzjZy587T5uEZg6Zx2Uj/yoxw8XtyZoDjdXOst9RPVbbeQl
+rrpjsNaVeNYOtShAVH5fWpFc+uxiliBxHOMfXZV8pL3ekJV6/zt7qZahvupw3Bq+Q3XtG/Pc
+ufXFcmQBpxOzQbRo7O5EiWMxj2It+IIWiL81gbbAZ2TytL0gAFZQZT0FFtUOr5577XfsMSd1
+0hGolOKBL4ERj53NWxVDr9X4B7knnPoSJH4sHSDYh/eR7AEPsTxHgk1Czku6RZ3JL+y9mF11
+kztipgJU0kWHELlYkRdtH3wqvZU3RgeENNlRwdKWcbcHg/BdBdhX2AfN7nJ+oxsVH/Ck5HLk
+IacluclxnXQDQV3kjX8Tr7AJjdM93g+Y/TvhPvh/NJbMSLu6uR7EtgM1wdpMRHlparknS8QT
+Y/8HWR6+/mRfVbPuxJjsKDW/mxkOdzeNjYk9zho7MX4XyXtSj/o7NLuWy1apqMm9lGl6uRmm
++Z39oCNI09+Zvd+Y7gZlDuGaAR4yn3Cf3j6TmNIvYrUn7sxtlLqw4d3clQVrZTFDi06adepO
+/ziZZ4BlZUXxUtcuKClDdjBV2PlNjzF9GDZ1a4/NpYKaVeiZmCGq1qfW7dUFuFHafjwTa6MD
+XiZJ5Nci0+uaSTttkibBNldxxNq7AZInCDRd2UojQCLu1WuuRF7/33qEhMlzK4x43743Vk+s
+Qyw71PJNFkvT2facGmVES2+bZVWwnoOfn4XXPJKQFxaYkITvgVV8OdzeFuADvYeu/CSJk5Ex
+OnthMb1O97BnOs6He6OMyGnEuB62gfE2BTGom04E4g6Phtjq/MkLFLIvqYH+A450794B+X91
+3rYOEX+sKddAJ89z6gZ4280LKrfCCx24QCEKckuuFaGu11YLFY4VCGDIIpR+K5UHe4E/z6wt
+zbL78SZIZDcr7iXuH7HIScYk///lKSRsy83EzQPN5sruUZ7G05a2G8fFSZ7Af3YUjA1j3iLW
+T8HJ/T5+OOSZnhLd7V0bOHtFevGZjrMkE+UNAtu4zAMPY6yVROkIkSUuxlOJd3CCELyRzQuj
+xgpZW0akwqvSJfz6c1EPxYdi1/uXDwsf5Tuo/LdSWJEz0LyJcrYh+gaRONisV9/s5wJRffvx
+M0sqMzwaDXdL9OnAV9FZR+SOjxmfqHhG/nbHFDWWb0oPSqwQ0c6P8taaeWHf6Ye0+7Ds0FFa
+kEdfynxxq7P6MiXY53K4KHlqYcBiwkhknga5HVvLWIFbqgOEBtW9ptZGzSXRVgUFVA86hKMq
+fohCHg5SyCjaE+wvMlTmYKHu2ZAMnnck17Zxg/5ULs2Q/F44e6i8Gsk7IAWO8FMooxq/WMHc
+YbyV22jTQQ+5H66SLAcHSC7j7xfF4tagLuhUsv5ZN97rrMWRXONbyqHK0JkYMr7GX6Y5gO7e
+mLSCdx8MybsT36YQLU3S2dH6aLtbNElfw1TiJCZ/YY/XISCv9TaLYba7X/766gJ6H7qd4ccN
+W0sTAEP0Vct4FAt4Ors2VapQHgPN4a3SK4Tez+iYSfiVDS7X67gjOC9BgsBNc557FWJQ77K0
+8xMZm7Fsxkk4JvGNU/zaO14fKTGhaqYTLAXR/l7a//7tfb5P4iLNVabvz//InaIiqPV5ZZc9
+jcp+b7zXOTQDr6aIL2iWsD/c8wYvQ1XyFpd4gUsSCTIxJtuN+O7Qc9LGr/M9hMm9xX5SVz7K
+pii2FpNvtIqZUxQIOBOeBGC8qWjT6pVYiDhmbT5RSXPvNjsub8HBiDo4vlY0iVuJwvu9CHsc
+zYYyp3Kctm5AFSxy5xsNovLoX3DbR3RUcGD6wV3jWjW/GSliUSj/nqaYY0n6bO9VoE4srXZq
+DcfvHSpo2w7KC0eD4kbHQns7Jahrfa24MnVOddGZzwOMohNtypyc8V0korb2tVHPBdYKbpKu
+T76hQM14Yhngcg4bAPdv/9J/rKsU5bVIDUVGKlXHWVbFFkbyw1dVchY6dLSX6fklxRAnhdMA
+etJK8hYBqz+b/pRVwPuGZ7JWMlekqySrg9o0wMawEfbEYily5LeOhAD0lHLhiieYVKmsPCRk
+hhfbxccFc56icyp/0OE1UK+0xsM1vCx7vbTOIIGilOp6mzwPPPpk0an0ljOarhWCs5QnBuNw
+Cv7MmoOD6jqayvYHIF0GKBcHLDbRSTNrFqvdcQCt4clptTKqgS7xRBqmSKjF4bnCz9Ce9JBX
+tUCxhjNk2vJejwdJN8/LiEw0ryXOp5ylQe92ZUD2onJWHAo+GJ8EqgrFKuUZiyQNrUh5myDP
+548V5xcMrWpb25vFMCEMH4jRx3nUyr6xx8K3uDy82yhfjBIyjNr1UrLWIgXq/PbVUBCiDjCC
+azccYsOS04zwhq9NpKD38jTCYq2eX5pV/uYwlXzJoLD1T+SBkGCt20sBjB8zpj63Kjq1aJHa
+/t61WAcToWLQK6jrj7HNAcgCjO6RMe6rAU84GoBuha6FpR+8plQibGs68aJ8vWz3flVJf7pt
+OdWYhHdaNHz3H0w2omKZEE8qMOuq/AxmgPXcaqdmEEXAAdD5RtBXIEKHPr+/RUmyi8hCKdnp
+TUZ82fCieklKvls1fdNTKZx/rF8tqt1jkB0OwGYyYoGMk8qI2/pmAcUif+foNCQ2YTkZGGGN
+YOH8l5q+ExsBODrpLO20kP/LfYTGIWiD7g72LihssNUiLfh7sSrFYdWrogSKfNPolgp48aDS
+U7kO0cZpHAawhHojRk8DhNODMnxhzwCSex7hGM6izgk9siLKPptOp3RD8qVlK3S5cJyYjdv0
+LHVYerEBKRYJOgKkBoAARvmkuf3ElCvg2/zXAMMGU/gYKuTrTBPQvPEMFFAu2Sz3P4Rfg7uc
+6MChRg9xUGDVvc+3R8nz2F+IllHb+p+0J1I7FZpPpMDdft5oDBXD55YWQs8Bb2x3f0K0Ao9V
+nMqo1U+6AuTxaJ2uU0NGNW7Q/pTaQMekGMRC6NhpPmzoZDoKbZUqpnHX6VSQXJbnBpewcBnZ
+ebFogsGBo66/LDD97c6g7no/th4U0xgm9CT0S06okrD4Zk2aUsZmOlLGeqUEWaKPcy/LiIl/
+5Ajzb8nXAy4Y8MLDt9Rtt5PtS+yqHMQDdDABhxBOdQ72RNJG8KIe2q+Sgtnscb9MUN3p3yBi
+AKVrIBxujGvP0HaJ9gDLKUmb6DrOfSpIhOJl4yuwKEcdS+qBMvOvRxJirAtCxPpwwcqQQJAz
+lRyCUp+VakoGCNqt7ondmu5KuaUiusYN+CaWLlaqsjs8Cqeq5CknSXIaYo6nlQ1wz9NGe0s6
+GPMa2eQ/XVCaIevWwrqU5MTTak7CEEPy8UFM20NKAMgRgBp0Fhz/wdQgVa0tu5TPKyql1RCD
+vNG8XL16+x01WzDBID0FhLGgVoRyQZm/Qy/vxIrk7DAix5AfwzgDa9nOWdDoF/lY/zZdT4+R
+AVUhNT6e/V6l5m1kPBc8Q3LCnufsTxYVG0N/Is7hj+Rnb1elwldd9tt+YkYxh7ELkGU1Hr10
+62//1VVtU8wcf7/Ns+KrZ9Cj92bCzkBprlCfXh/BNt628i4DXk5/IfOifsE5wUdcdJNAv5TX
+lqc6WHZ5bd/eSj+xkJkLsUuPOl1dPtxAhfawhpQ2vRNDukYl8J4BFYHshGYBPph5CtIR4w9R
+hAFA4XoQc2n8koox/zmGMmBobYfetswcJTIKFQRc4s7avHX5HOSwmlMiGdCr08IpJxrvK6/a
+asxsQRt22bvtXTqB7cM33LA2cuUV6pHCtSy4/br2zSXdn1TPNQmdFY3QwURDtlZ3pukhjulL
+Ca/H99XiABb2DuzoobGukfk02VkPHDkCeusa8JRtBO6u2YYs9WnzrV0sSV4J/OQ4mCl1yXsH
+qWNMe7bqZpnoL385t/Oj1/tzChsRfaPqWxkmvb0+RKy4BMmTYpNVtt6gYwYtEVpkLHfwOX9U
+GujjiP0hCr0at3Mgq5tabBzRZrbxBNo1UPQjfD2ySRfssZMYGHvTckhhnFO0prjuPQAjfdaA
+uCcbxlqCVfEHjHwizKidVKQhkoGfZnx0BpMNJGyaufbYcYTcmT1yJpfTnKjGP1L+w0sLEMOG
+vg04H8qAWZfs2r43mMLgIFdnkjrihTgCCIYTfqpRBt9xP53fXHii/WvVI6gED+oBYyGd/8mR
+DUfg7E492P2+5tmSr2QPMvIBgprXUjdSpcz27D72kKlzmzufOtfSS+dJLHJOVK3o4dsuLDFc
+yS+qK4VikuOg4DTIn+rsI4AJ9Ja5H7Q8itSFROsPl4bkCGooZNAgV831afQ+f7K7Q3EnG27s
+WcBjl9O2zfbkjiSxCiXcLYyzSIV7Prct3oNQYAA6Zf+EH1rI/4evBXSM8Lf17M9IPWkXlhhL
+xPeJ0QSmyqBVse3jqhKl6SdtHZ7d3+p73zKS+lD7qcRXMQkEkVqIhNue28gzHo/K1iNaDNzc
+GHwz2kdtvBy5Lr2io0nUGT1sTV4RPXiq5irYfXV3kMcy+6FmCg333trBkBQk5FiMaZWhp8Ip
+SR4FUYYugDBL3DbRz2W0T4m90nOoT7I3ncxB8eNIdwo3d2lKd8CpHhwv1k1RYIeSjaBqFdG4
+ZBh6pKJaoqWLmNc0lY88K2NvMwH9AqxsIEkkBGklhsZqLYKcZSYA99Rcrxgw31TUjPi4CDFu
+F6sbf4gBYFL6eGbaCdPu04BLnMdrFViqCFCi8COyON78OBlG7JZZNeqAYX3csXS8nXaAa1HC
+hQ7v4ukyocX9TXoTkGjht6ApZf1J07RXMPl0Ct9xU40bTxlP/+GKbbg+NNZHF9qSkO9trx59
+84PwoS6llxk4Y4wQIfXABdRsEsfMVYJdU2iwRTFUtXOwKsVryHxEUKDayPMPH9/RR4vqq6LK
+kkdTPxHx9eWKrXGP/rCarMaPRlTRSoUo8p0eO8k8UoCGdLcbIDcQTyVYpiIZ8mWjqpL2G5es
+jlnsRiBMoB+ohoozPUaAOVsQfmx7AJV0bVntfV3/WyADAUEPUGOkFfef4lkMtVZhDB0F1pnO
+PEdNhgz0WS0Hiy6ASMxx6bFo6mL6Wvb+JkA6MUETK7vQY7yMhw1pEhzG7MTgh0IcpQARoTwu
+AI/n0ho2xLK0a7pTnSNPqDizZTfnsH5yUmxeB1F6XX5jOtKqnaepi4t7z6pNwFnJ6fNqgwwJ
+fzUAffeHLeNzu8bBPTqEjVLiwPNG+0dZxrmziA3MsE7UxouE4cEmRb5MNyIiAYH59V2yG6Rg
+cZvuRHk2/KrwpU+y5YWimBEgEnCosC4jDmX9Vq+A9YJP/Tygo0L3JK82RIBmzJe4et5cShz/
+SVgHu7Qnkso5C0j3Y8u0FjBgzjjbtiv9UDy44BxCSev3RX23zE87w1Z9pTl6PsINvxSjF2CW
++5tLjrPRT+1xJLlug263EDTfMvKmIeebfXWNE5ZH4CAOGvJXXJIOpoCzetf5vyq4CjKDV4CX
+FViKHuOEI7XpGj9rnL3V6wc92jmq5RZprma3Zv8CAe7/8qJ3CG6pwpGz1u2rYn4w6nLOU6Y4
+NXaJiTywJ0s/UIJTaySRIIZkFyBbLUQtgmmHM3cRgGcbg61xC60z8A/ehgKb7awu5LvcvX9v
+/N6fqPHy2zBSj96sNF0SmTI3xHydK25XycSYNYGo/bkOwsj1YTg9p2l1Sstj92LSkqI4NDRz
+hNWrukn9pCQA+5G3+txCd/EcBjkV6iw+UzJ8AQX8FhCD2/lw+EMKS6ZBqBG7Sy2tPPOWSUS0
+VWmK1kt5lsQLX+EPuq1Vnx1GOC2Xtz7Q0p/2nW/48IwuJbs+pN7MOUKXo57BpHOBK3Oa+V3L
+ieT439HIXZHn2ZrFqc0ddmbcZG/T014iEt5e7tsSECwO8y3CzT0LqTAbYrysDxabgHqmirEv
+MxOGfyRArMDQ6VTmwepgiG0HmwPdv00dgVUJkEYp2M3vr9aM9RlJi0rkHXBczmUH+RkWex+D
+4ErLeRiDxAWLhb0jSDgsgwe4KLuydvAI5sukydTqoSKb4/GA+i7vhiNA6CLUx8O0yKHLjvvx
+NyuOud/DKEptPlLzzMJyd1DbK0TeahA/VlJMAawBXl8jN31Z3yfiXNPSWDgH6/azPBiV9WoV
+2ZxUId59YaQbJYvFyEfAYCbkKkv5b1z/b5SbQahFbH2oXSh3CqVoI0LxBI7uc0fbc78HEj4B
+rOB8SJQTHtVpjHFgWlHudSv9MFlMtrp/8RiC94+umMCfP5DyxeyZB9lk6ZVNqzpAxMxeVQnA
+63DpTgb2/nMgQppJtVZ7jEcENPAnI+jBBxNrbLkRX5cY9azW5nwtXWQlvwHulNqSj5UF8lbe
+gD8vfjs3uwIDSQq9uBWiCSPq4XkbRwuYKvf9/coJ84/qxrRs9SscL32yiSeoCqstOdMYWqbX
+/PVdBZFDiCRQINrXwCD1tq4BATYjKPTBivZ9AlLPep21v6zD0vEIRYz4MXnB8dGfrZ5a4Yw2
+97/QmU2+9+nMKTjDhB3R1/Bx93Vky2sqYvSobQ6y9BXwIe+mpvAlV9dbN3lCoSik5X6xQCvV
+folrcDmHx0S+VlIWAtLqYaiXnOTR/vD48PzGKDgRD67J0NhlISbz0M6uZ/M9vPVvLZXceDJG
+toMoqkSX4WB5XTMY0TFeaQxJPZR7lS95W3i//UW8mWxzom7FAYjINQe+ctAmCNZ8gSlyG56h
+TmfYhTjZMGhpmRFbi02Y1/1+soo7A9f4WiT3c8Tf8/gnbOoxB/FuOLyMfWJGK4kPyHy6VMsH
+/PKRPdQYve7umqp+5jvZRrwclaTYd1avvffFVGhEB4nnGl10cfmg/af5t+b2aQEO7g5qsy08
+65KXWvtzqYe8/XtysBlF0l+xy36R19ihHKZ4888PlJuA0BuLv1nMaxOTUjGBzAcE2uk2ox62
+QEcsRoZt3Rnspw+GbKsZ6k5DLsX0QVzP8targlrgqQf67HiRbWVoViS6HBHWqK5KJ9fe7LWu
+3770OZflnWMTOBrU3+urL8yUPsuRkrgNaETg3E1LUzT7qjMb0IlpKeLq6d0Xtl8d1tAOdxoi
+UHyQQJv+jCBFrg6x8Y4KFnOfPzRUI2YtXqKk29c0LKPXRabgCYkVR7qZ009jVyMli/KLWvue
+eqUG/eEl2TNLibZqZkBURrw0lugfF1YR35rMBzFYMQQLZsBrmANDIVs8KskmmfN0CS/BMQDL
+o32HciKMddIXGzMs3xMul6WRO6Y0ZvlT9KhpPZ33rHlySgtXT2byM9tklkkQjPZ652TsJaIR
++xE/Kb+JaNEqFsUQT1HSIMu9X0DD++bcaTzrK99F4GEBQ7zm3wFqADzX3BL+ZPcQbcpFG3OK
+ggLjZzNZicFdJLgog+ESRtQombQGBIHdn/P3FcW8bPzr/T3bmvddEwk9vUFo1FeXH/O50CL1
+U4Wa6fgiER4hjBE+EmRSN2/w1amIgK/2/ZIGau62aYIh5CdPaBLnwt3mnR0uQRk+zfHdBqdR
+I0ooWkpDaB+boVAkGaSs7oh1O+T03Ol44UQ2ii/RzUZRMJFdUC4dSLY+EVGxLDHwegdn5wE+
+Q8Hc8tXBx6zYsecldZ5ln1pvD/wI9TIQjv3hHcID8imljFDHNKk+3eCtoE3bemyqRGFBwmYX
+Lq2qaMiC7TUlKem5joz73/SMD4ArPK9GBig3YHme/Q9thhk9E57xX5dg9ieahTnaNUq1VFV7
+edT4rwdRupvKoXKoB105Z0eaiNAbYLWbluw3hFU1e89X8l64ynYJkECVkqZk4IUu1teUHrC8
+K1SBkWqSOnSGuwoytF70MyTmIei5E4jfQSsd1P/MsVIn/98jpzYdb98yerPWLy1qsRzQwROG
+vD4vvKHv8njFJpY45/kQbc2sCLWlJXTKD3GlaRJffL7eddrTpI8GiakHULTTNOQH23FLQBdl
+thDjrZeF9G4gIl8Ek35O9maVP6RWiydUBwx8W6FL4xRFLigXLbna3RupZifZGFsUAdnmyDwG
+M49A4Vo+atn/cqfwtFWvXdpm49cvs0mW0SKVDwDJFxvLDEfRV9p2eMCKoRcIDAaPHobE3uPx
+OrWKY4poMLlG/aMrm+bdmZw0JeosyewXLhf6PBCxgHmgkDPizR26IE51ywzSavLVNKY15dsX
+9Pzg6eE2eBcVMUY+SrjAQUD30RgR6tiRXxVJTMQtp1rIWyMgrG7hoqsZ/LqSsuxb/5CrJN1R
+Jp2qLSdK6Ns5xBSEYZU/sfhwSHlJ6XezJmeJ0Izp/9oGE1za5J0d8co/9VXApqyzThi+laxA
+RoEEOA1arw5/OOku9SHpp+JQWb5pAFM6hE214sfOPlSVsw1vnY6XI3bGARDAr9JBoVJma81r
+KL0EyIrQVj93GX2xi7h0Iu+0nw8JJId19IzisddZFtazTMthAdKJOP2mBX6Vq4MLPpOaJy6z
+5o3q/gxkx0pCnIuSc66JccCz6iFw+EC4/IbvM4Ci0i4PKEwFtYY2wp/ontNshjzwCOE9hxgo
+nKS5gSotetrgOwUciq2qWTmK8BZrL0KFnczei8Mik2//C4xjLs4puwoSDRKwToY5IJtG8CXp
+hf3QOZs7UQ2/2/rZAGvOmQMl7D+kAo0dwG6lVkQEfU9ei/37hkUisULcMMR02AAi5KqWdFVY
+sp2l6CgDYW4MLAFVEyEX15jGCR3735ic+rH41wTw130kkO9dT4PxouQUaxvWzE1TmJmD9z75
+PB8syahNivVsfab8PA6N6rr1NVVmzPtyVRmSUnyvypylJJrL4azFtMrnRFjMFpECQUWS6gIk
+k00ypMA0sNfX+affb0otJ2bLWIKy0e/nq9z6lvWcdH2QsHX+WYOWvpnNNJutDexpKplAeo7i
+BfLGqIUK3Xe3V8znktFm8kgfudaz0jJrGKIEWEThwSzrKpL8e7QbrWt/mqK9l6kAUdWL+dRK
+q8OjUmYhk2xeeBf06rdnVnvcK5TS13DOIhVtecRC4Yn9R2vvEj0K0CnBdrvBz4BwhkBwZwg0
+zr+HiLOrM8lgzKkCp368ZiLRVCTMchHbDWQiaRkixrIVWVtBhDviVDbtbKiKRLspVb8Hs311
+fSA9Js7flyfJLmA3ToMJMf6NFQEieLSUrXwXWs4cpwJTgMXnjkGlwOu0sIfb/MaCtKB3l1VV
+Twvi//4F5J/LrLbIK4h2l3fygQ73UiafBEWUVWrNjtxTduw4SIaFEEKqnEeb5VcltE5ThdC+
+HCKHk6TAtXZAPDcWdnnvbmj5cxgo9wuSi9u3gBTv2UMbtcBxJni4ZOYCrs+JjiRMfca3nlJw
+p/zT+3kN+15V2O5RpXf6ATsUrzYFl3PWuQ3wF9eCrr6karjWROBDSJZxH+BJMKjtNY//IamS
+UXUZ5oTRxUwUJo0mifwebKRI7YHWdXR8b41iGrwJd1gHFFc97LYZL0qorBndPd7HG32ohRuo
+b6gufJbI2vD8yuukBg4FtRA5CNsKRD0ImLoyJ9XfnnYlv6KvpIBY3jXXYha51LEqDcyNR0A5
+MtV9tbCAAzoTxjlVVHd9j7wV/uH2oj0fPDtsgJ9RVNY1AEvDktqOJ27QPhgk0ue6ZMAzgBoC
+1EeY3yEwpP76TJ9DiMmDCbJyyqjIYCwsY9tj290X8AjVW1lC+mIfRwFvouDfoaL7YhOAP+Af
+M/tp8n2Yxh68zWxr8QEQjA6SOw5yE5MybP8AjbAKL5vZnMX2OgplVH5BUWagyohALMKncw5S
+4QgTFbuKPvn4N/9vIAOexLZEoVSrTPv3BTOmcpRwCtJG8gGIIFAmaAjkmVC1DRDbjWPTMc1W
+lhNkuaU9Bw9uUz6R9a6Eg5a1+k/MVEyKklNlr7azNOW6ErqSrx2Yk9XJkWXrtQiKWdIi8OZt
+EtgJMSMq0Adm5U8FACCkqybH9q3uPevUW3NMA9jc891N0MLQxYID6Q1ThoEpszmKxmbQmCjC
+lpHxFn9uX4L9ob1mmv0iC/xZK6OiCzByAhOH4XZWDX1wiz22tLFeDrYWROs+bMaDkVS73O7a
+WjWQ2MYGpGArzBQsYIKUzdDabm1NSfhjnd44eySG+TFXlRZHGxzCYczWYKF6O6posUB7Nx82
+AoxKDKSIvMml26zLRGh/MAy6SYDYIK8u9F9IkcYjP8Gw0xpK+CCiV/7Aga4jUBeyEMr333Wr
+d6kbx0LyW8H6Jfd/t6+/XAsXDXB8O55SbvX8m7T8XE/Wo/7gHxUtFxuTzkAlJaLwBfady1K5
+8vkLt4YfQ8BhrxkHko5PJeaOZhvvQ1VuQxihI2Aos26Cr0TUpawLlL1NfLpBd1ym38aVNZdQ
+2NjqBSPgOKVlL6+Vxz0YQghp3AYRSqIysb0ETuVYEXoCxO2irlqKiuC3lU+U1O2+K8cwJbhA
+CoZQyIG3SOKyPVmXvBnq3ROs4AMpnsE/qa+oQQwIX/1xawPoCrUgi7hUGnrpcU0FePnCdRJ9
+TeaVDBWA2BC/QUyBwTUZD9eRZAdnz//0HW/4LPCLXGpd070xpMKdIZuvYcVKuxiYa524Mtqm
+4dWXbYEGFD5HIYiphYppw9gu4gNABnjhpO2kZOLuRvB5TdREsbOPWqBcU4+TOOJB8/8q3YgL
+//MdRTOFoEDC4q7AOhgZo8qNaKB1hilMTN8nido5apv9muCnSfgWB9zocQmz5pCTJ+H8M8NU
+YXPE+PfmZIyrqymU5qJhxblSeHPh7ACN8/12qA4MQohu0Ir3JtOz7TUv+pu6eO6BCNdK7Wp8
+ODbS/UHhRdc4U+x0yTaoNkzUIgC1AyfWeSGVZmAp/RYeZo7EKDwCT7dTyBf1fxbNQ79WIBIG
+rFa8quHYdsTzqs8veqR+jMwGueUmBZhKxwzA2zUMhugr9xveGvIXo2Yyc0juxG8z+qif9aeC
+ZmX7C8Ylwt+XA6H9l4W3qut1aPSPrGULnmOiZHR/NrpMxYMPTMAOh5jwgWynf1ZH+sJPnOB6
+9R9SuCFuQ3ToaNS0ayNct5eLWV9B7M30TITNQDlLP7vrU9EMwaEzCmsOYAq5XVjzno/10Rqp
+OmeX1RshJYKK+gBH6kSTMZfEcqwjjHNUP7yNFu7PclQ57J8BC9YkqEPjE2EHST5d34TEvsv2
+hPwWtrtj0tykea00pnkK91V5hn0cijjEMKO1urHmQk+6ewKLojQg9wSwnr30qdGRAerkAGTT
+iqctGcMnl058F0cEPYB2l5l/fyzrRtY53lJh7TzX+MR/PppNUMdmUJgwjRknfe5KnQoPZhfw
+8mfXpR6ynewHd3qEHlF2Q29g+EC6t1EUkd5mVtMp9tk/qM8XP+PW7rpgMXH4MxFEFyiqUw/G
+N60UkIVNPEE2z0Ux9lQbkgz656/kiqEV5j5wQoyYQLFNqfFE1I0rhj5uAk7kfqCwbAOfc2tV
+fBUlo2mp/9yPK+rXnZ/EsWby9Sl4QY+m0dcNZE/RiaJUram1BVqRRZo3RqCmb6ZRgDu+nCco
+Pr/j08Fo5eSyro5IfjcgzLyoXJf4bcjoarJIlYRyVBdvEp2mIrUS/ow2dkCBH3vkZR1AqFMk
+feaGXjw488C6e3BBpaM2U+UhkdEVeThsvwddmUeFaBG88ENYelE7dXV+7g0RUP21FP86xNUZ
+P4G5tIsfnQhjhBsIe1RXw1pMKWIw0cz3MPhzAuXBKCpHfVSCw76iyyDxtzehtxBMRJBpqxtL
+JHiVvVrKxLbP28xK3YGzQ8+b4hQKGGkWrr3sW4TIMH4vDtqbd4GP8T2VDakP17s25KObLyZ6
+7WAgiBMJEShEA5OXZIueLc+46XcBnRDOt/S+oW1emSiDJeWaWip0siWnzMM8Vdwh71f4DBj9
+864c7c+VJ8kr4a3fvlZZlFp8I7yfKMfricSar1Ehs0MY1dQIAXQjprD3TVYJ4d+NRx9HQj+4
+132m+W3OyM0EiVDaek/A/qIq/xEXRBlbIX8WLV9Vs8SswgUQSMBETW0ANIhHk8dpS4lVOeHe
+MvmNqf9RQm3Ly93EjykBL5My8/AWA9CIpVOqsHTFlRo+3Bv8YkgakQdnd//pRUeLwPkB4LB7
+0/wh9NRnJ1hEgGxFQW2uhezi81iQPUKszuDXJvICxBbwur8pualT/NztuPJImpmyUcojKVmi
+y2Emjozro6ZmpUt6hlyUKAJox6Z9akfFoUZ6GRUw+9hb4qHDRk4A4YmhAL6mK7u+gkLQNqNS
+W+zUKh9FiUaGhdWhUWqqE3CCSElLJ/gIjhBPq2FWen+EHudmWiAKW5LP41A0f6rvQTzqrxuA
+9xdDjbs8Rd7+TUzc45sKkcyJ14DCyFGdacdHJHgpzJrHSVdGZL17hst4is5ndBgq/S8uDvv6
+UB3xOigzmJWcAhHI+IqBXBu6QICyS3Ny/FQqtWKi5mT6Z6GzN4xDQpVapCSvq+4l5nVGBvw0
+f6Z8q8iGGIo9GA7zBujP0fPp2BVUGoNslx4Tue1t8pJtWX1rVpgQmnqgyVQSRRVsdw0acHEj
+ehrJKxmHqqnByPbU2kcbY72+tnEyKbWtAC1kieSeSs0Bg82GXfwbx6NRDE1gsePIDUQUl87L
+Hx0M0EcyJUVUHzJRpMQTTacSbAkgIb0TWiI/P0uniDzTpk4to195TziOYMliHW1dqG3bj2+H
+QbS2M8h8je9MJuFjDe6xiFFS0xSoLee9nhdQRwqcTDhs413V1t6ShjF7qnIM52Vk1fQksQIe
+d8UIdHFSzSlIGp/rKVc4yiisowsVeuXZ4QY16hWQjP3TZL3LmrWmh9UtsUP9iRkUG/C+2He5
+x76Uh+DV/N+1sxydNFBI2rn2QwXnP9ggPeOXCxRZg2bL5KHQ4JM+TgYWK71eqczpr7z+3pXo
+WGqilgCgQP2h7W/rCTf7bkb/kgKKaZpcbiMSrMyX4Tnl7wxmGPcgbN5KMczegxrEJIcjoXOL
+rYy7ugcNUaY8ag/yACmwGB7XczxSzZpufxc6bKkCNYcAm5nBmwYH10mT12/iTel2BZAMdRn2
+ddRoY5qRQHPkhiaw+V+EEbMw16fbeNiAAKiuANFh7i7SNTXu/I/OurVyd3Zt6dYehcxoprux
+ufnCEJUJAag7lYisk/VO8BhQigt4UN2H56jraTYp+MUclNCPUzmttSBiWHCiK1fqALMMjVWJ
+2iX/1htIXyfLTMI+hhV/T77YOavHeFET8jOYQ8djmtwbHUFNwz/0kZ8DzzZSjRkpxUj13OsZ
+kIUSNEbIlpkcrLZpv8zyqidpgbOSwPWwGTz0JcUVtygsWoFdAewbyutaTgAl1sTbHsHaN6B0
++zu93z8/tYooeiy7GMuvqsiphcrNhv+le7gEljQvkcTEU9Guh9lUwmhSzpmFiT2tywwoP+S3
+g6uiU2ugGjfDiA08m6bAgcmTgNUNXVtXeG/rl0CIpDLxZR8TAkp4HjR2tEuoBRhPegoahnta
+ETemSOAmhecBC8cKdN4K4Tj3RGSc8AnrksxO8NJGpnLLM5CmcZKk3FBU+I+cURELS5J9EVpV
+jvW0LwkD+/OMa+D/dpz+mAFOX+bPf1uOt2B1rbcGGSTv53taxfnQmyCoSfMTgYgHZZNLGq/k
+MNfpxM4vlhsdI0ndu+aHsjuhuGyE4R4dilsI9n/FJwHsIyLEq/A8ry7YqPUuGWNWZazvxzXo
+6qxNxNnasQ+g6e0SiJsH8IM8hmb+oXia9zUIwN2JeEmgmSdrw61WZdWo9OyHj75315jJZ+aF
+c6TIfkcT1D6jweM1I7vNX9GTndLfSAS62HPYfdesu+xUBsmPALO2ugvKFUwWWrjUtF76OfPQ
+u8cw6xGmOVgFVm+VG7rGYGgCFnMbi4DOQ5LVizEYrbXx6Kevm2pXylG+oM6Jqv4Cj62/p9zu
+9cD/orU3iQgdt++eumR69yy3KawlypIZAfLhvkCt08P6dmwFZQpQHyuE92qwtNZfH69Unvlj
+moZeUvEW373dx5Mqnf8Hmk/OGEgvFKk0pfSDbLnZb6S5a2JXKvl6CfNg1Qd/u9ktqqJzCwCY
+cTxnd2/oG4uZ+nnZCMmBCCK2Y6xcYD6RZtp+xFJnHQOjTNlx0dDC2Xuy2kU2xoGkCQteapgD
+BsqCnx42bwTWi1JT5+TtwTaT4YV6IwH+3CNACnh0l47QeqaPH9mS3vx6pX1m1dzSdirv5Bo+
+YBFlYsIYE08ketMTTWiS5B/EokBNEmXXc8tqtHYI3ZrylOW4vjtjqM0rcTOU3us+ltaBVcar
+8iEaYMP8u7w/a5cMhc4TWzSn4m/qpaiPe7VeCKXR3/Zvd6WVBMdNAGh87669D8LmjIML7Mr9
+lz6E2qoZ51o8KewgIBh94XLCO0C64CTLM7PwhrL3knGRGZBXoJKuxC54NJ455nARyiFFzknc
+/h7Gb4gzAA6K+Fy8sht+d0UL1Z4KiDLfPWf2wDPYUp2a6RLNuPGi56mHd8/xhHTJyP33k0If
+o/NTwobLoPMA+aztThdN210g2N0pwsmjfXcjE/EAKuAmdqdI/8UkAtutTDN0CAnZyoJhgbmN
+bIOfNw+fIDfiqkh6lPkNB47DB70MzPiQIbeFWDOUN8qMq3xnyqpA5C75Wq3jhzGz5xxp/3su
+83AQ2ehRRWRuhQPtPa37FfUREUjGYwdw+kdwhSNz7BCmYGqhpXKC74oJZnjyc2HbEO4paBHe
+wHmU6HoWejZcGBvfA4IBBkv1m2jPnH6G30jd1/5bWQfGcfiIwoCSG/yvZEcLwjrroWM6Cwa8
+tmCESgVjVEpTdFRdIPDCuYmyKeNxSKXUF1QXQDk/sGMb2nItBMC0ZiAvRfOJnXo2BKD7Kdle
+qg+D82yNJiw8GRoNiL8toEmZHNbYmUnKK6ukOk6lHgmJ1v+sRUqRmug55Y9qim/tBvg+I1G4
+Supduuadp6SZ+XlDj4rlueEG/9cp5Ln0QDw3PrycsLWkMD9GPIBdfdLctLua8iaPIA1np+Sq
+scSbiyrtnJp5+opr/DJTioNW5eJZE9+K6w8VPVmTzShP4/xDf5y3Z8VsUYlFndIh/rN6mTZJ
+tgzBeKPJXzrZfkuZWDImLE3JUmocUgMBSvRC77iZ1XO+DhVID14RZ053gA/XSMn1ApRJKPdN
+MhaNORrsTKuQmIiUInw3a5HT3kLJnKTxsIduCmJnRFncMLEI7LdXXvbSz1MXHRzQcHHTTiv+
+QVou8491hpT7DU4QWGswYuDKN5DzCSOGHjhRAB3sTffEgET1TMfinA0RXk8szoJJm3yGPLMz
+lHNnidenLr9ICgWy5yQN0kdlTj5hoWXlbvzChl8mXjY0x4K5yM0RciRMXWS4Fni8oL6ck76v
+xEF3ofnlWzXIH6DWFMhcRbi/NGlSIxeExNB+oTCmNhiDIT76P/i1q9gESpVqmg9/dWs7rsS+
+3Hu9QtEiGqJsckv4Ej55SiedxEYew4EMGueJ/9uDJHUD+Ie+HWU7oVNtxEuATVHTTQER7Qh1
+OJaG7KQGB/KaDDthqsZl5bCxNK8clSIIgKXhOKQYwXiWpYs5NYDMAzRFV0L9cOYlEQ9Hj87u
+eGTcqss/UAkN/DIp9eXteW+DACfNARuHC2orzkT66UGy+kJrgklsvFnsOTRviCRMxBaRl2rc
+BtA2vbb+FmqW3tDIZEgcdx+AAiQXMCs3W4RG238JLXgXUAEcUwiQg6k8XUdQv2kFRln0+LKA
+Q0SxZnC2uXs3VQNMO3nxCNyME4CbmpbElJqRFCQhIJgpWW2k4P60QOJ8Nq7WPtY01avKBzmK
+rpmFcMiV/tuMzg9jWHZ2T/21zq00NoaDwFo5pPcsB+PBlso4bsQgR1t+XdRJLRKWtBPX4Act
+g3P54demv5tfsL/7IsXxdKIxV0NFpOcz+dJp4u+qs8RBFSkBKu0lprDiAHGXahODEO40nrVw
+Yx6sRMHNacCU2JcxLMCONkTChHBRIvi5js2HuficMCPAYpzbXD8aK/+MZwj3LssmrvlUTsmt
+ebCIxOwyGCyfs4jzGQ2ov17AVNTVtyPEEbh4OOtjJEavVIzl9UoIFeo321CWCH0amn59YN6v
+gNvKZtyzd9viB5ucKZYOyJ67+hHZdhe+R+XQ2otgJ6b52/ArbBvtxDre7hcOJTxTDWcQh2V9
+XVtMS9BlQ16hk37lEexRHkBi+/L7fp07sK0zy1QMxP8LNi3LeT1NN2KTagwG/bqdW4efIpTG
+MM9SQsuHXRRJUeRLPbuzEOg93Ozncak76Ug1PBQr+ykEIKaTbV4biCniadiHWMJylhxAcJ06
+0lwsvByblySTEdONSx+i4JDjetNp1MolvI8qrv1E0vS8QHvq89h3M2dEbv58oB97ftxpST7K
+pN6qsew9KTYdE8yN1D7/SmPy2pCg3xtCZ3DbS59UVwMcv++szuKHfX6SJVvypG3i+ZeeWv9N
+NbNUMCx3/j8dJ+zpZHybJS95tarnfDgVU8XsKCGOiKfKKzQ8lF4r1B52cE08FlqDXS86TNKF
+k/EKnL8yz5ksHhvijUQ/SuVpmTh3KRLr9gi480j8z8A+GUScXqeZMHQCpCwhiligUgcWJiFo
+jFaMMOKRGhMas5u9jwpijIeiVdHySAfQONGjD2lvGsBmPqTaMReODLEqTKR7by4kMawmNHZy
+pHPf4cseUsDzAo1RTikhDULzNda4fnMsif1k3//BC+9uREpUsrkx3JDVKSp1/P3DDlqaB2xX
+dhEOirDxE3ZjSpIzPlEuwF7EdQNJNckfOTPZ4F6yVSyD+UA0zd4hY9oJt9WWbZ1/OSt2+na8
+54MqIJgQcIBCc0DrMO35eg+X0ZQ2XtB4W6TAGVissqlEHL8eDEGUWtg2L0Dy86MOX76VR1p+
+iOTU4299v5jq352wIcc0KF12DLuxpSXj/zFFPigTXVMY0puxmbifH5weJso1tF9mtw3PVwUX
+WZ9OWBOvQQsdCBMp+FWyTGrO8XEkJht3JfwiMm4DHkpY+ftZJeLimyTY36xVyThYhekIYZhr
+AC3qDTuTRd4t0/q2kSI75T71Brq6qWcsz81wyKp+a2tWVvpgDmlpkSMUT4fRQ1kfiAmKt2S1
+Y9p57h+8kmbn88w/cu4HKBR9ic+SFgiwmdcB7Cw20o0s5DEFd+g749ZdsCSkfkn4e5cxNffP
+ielptCjmKW/zKCG4kGlBKvNjl3MXkTXAYKFepgBYA3gxXTJ+twwUqPWjGMWeYCzCkeiQb4wt
+DsDxBX4H586vJiQVamGaAsOw8c1CJ/xo7r6DTGKQ+i5Orb4GVY2meCt73p8aEgkeTB+WEczj
+ks4dHAqQ0thSwfrk/6XfXLgzt0pVWmmkZZX4+N/7NzHehHq8J8KFOLS0AfMevtSsXW8HEG8M
+rjOq88sg1S1VTH5kVqMrpMeSBU9ww96OKJAxs/9o2U+57pWS4Gdc3maudB82G8RQAW6ulR88
+QlQ+ZcevZCqOCzT9UVH2q4eml5WqQfMXlMolDq7UVPmJkAlbIfT7qjXS8ehhz8S9dKWaIxJW
+RJtwt85KipamsSXTbi1VMHuICjJnJQV3iTo164KrsuY36ofKbTCP4z/Rz9/AlE6ajQwLl0TQ
+Nk34qAs0WSR4OcgU5RIZJRAUHydWrTNaaQFzlk7CT9LRh9kf+PNOeTiNzn1vMJ6VU19s/6Dp
+KPbwx8RiK8xCs7LG4TTS4ioTucTblBcXo/cHTccbQaUlBeX1WxyyRVYVo2hXYNcZShQmu+h3
++oUnHUhHge+m2ndLlSsb71a4+qUbYhE3Im8QuIslXjdNT3NwmdceBn0GRzHwiWj+YbU9OY2h
+1fQ/O/OSZoRQ74oggj1oHB2Q3t/PxYFtCkhYudMHy+WdCgwq37C3i54BeXI/GM579if5V66s
+qGuPDPiyO+q3/QlBaUUsy+Kk/Q+c5I8KtTwax0NOAcMwSwyY2/vJlkvaA78ERHTg26LpU/Dw
+I8ADRSKjmE+pdXKDNdFBE7LyZSP5nIPmMm5dYcSAb2kVjDW/2c6hN8h9EnX+tIMWZzscY3gN
+FmzDE8vBbLlfYn8p3CZcwyY5eTObi5ROxi2Zde9+o2wxwyMEl+R+tgPoAzHnLUEp3UO9YF2l
+p9N6KrQ5CDJj045KSI9um/TC6+47APPaleW6LrGm6KWxBHVUHg1jSibCyZJxIA/3lbCT99tl
+E47Swq4eY8Y0my4D9m9Q2K6vwxVkA1Gq3WSwttfs3hzRe8hTxFKfhwoXsxVJC7pnOOsKAbGP
+DLXAm2/yZTPW/lkT4MPfhYgjIRsOMhffvETq6PQpdgm8U174qcBxH1dC69Gi8SWBWUK6K0LF
+vMu+yZpixlaHYQfSBMz30zms67JQFFDUUrf38RwcKLxumFtWSxeIZY48L38dxfPwUA/tBq+r
+APMlZSJC4WneiDd1zk7yBkAnFLpABCtFD4dHHUQCPAz7H3GoWVPwuROPIaDMPcMLnDO77a+q
+MDoeSG3HFt6fcOe49/ug3JS45nM4UKf1toAAx3SoS3s1bwJazDaKx/a9Y0iGMgj3M5NIglBD
+egefDibNZwKTOScvhbw7pP8/vNU16QLcYDNTWU2xWbFMGeZdw5eS2fRYNqneRCVBrz/M8k7X
+UP9k8gxmdw0dvu5iDsnarOL5liZs+bjJt9yIRWlh787TBKVk7aXAOTnpeSqpzPeJoSd+ellx
+XH5XUEN0OEAymK/80dRB6xyKERCfXT8uEej8v9XDii0McJCH0CO/jkyIlqRn+dc+HfpKWveG
+kvfVhruEGQpXH8ZqJ0riCcbpqrakK9keQjhCRH06DQ5s3v+q+Ross4BYy76gZTCrmyPzTKjJ
+VUYa9QMubReYxrvtvC6w/BY7qA885E6479KjEVZXIh4Lg/svMc7yl4MiTMHAPvBOeAuFIfrv
+N16zxAcYnB28iiAG4ivfQGULngWdqp5tXNq8kr5xtKJNne3o1nTVkt0cNu04ZTeZ9qT2jBHU
+oaSxtXz8GxvolEnV3em0w+OeNWY3ZL8pwwEpIippIw2rY32deMhS3wqjHyKs7M+AJ1mS3ErY
+ft9uCCQvMOk4HYY1hdkwVTqkdXdSl3RRLO1EDafCoFeabOEXle5WyqAc4XhaUx76skCelss9
+tXiBjCbU4WBopaiuAgL/iAhbVTbu5thHpmOH8DC4m3Y2T2ZEfp1+jr5d3uSGO8AE/eWFzkN3
+RsKipYI26ylM5iBOFRokL8MFsjUNdNHpb1P+iDSWlRIsguMiJ4BGl3IK6SgdlSj00Dii2SXu
+fUdXFHr9KBskjGW4VxyAMDQOqHcXBWrk08p70N6JIq7j/cEX6zrJyXHvKVLVR2cBr1iYnm10
+U/moTFEuQKZiX1oI8Jd899UKRsGSQmGRxjy890eum9DOAnB9Ix6PjdW15jVkRhg+ZVNXRErK
+tfa1Tr+fGc+wf8Ofu51Omnlb2hsRDsbgJf5xtvliXTyaX1dxOlTPC8ymPQyvOfLz8CmHuOgY
+/Z9L76FH0NF4S0TAcYEHVRrglVfBKJmIrZlUX6S2hrfdeLBwafVXR4Xmc6C8/0RT41ppqul9
+YV3SZtY8HiSZNHubdtwid7d2r20nBp4pUtRxDx95suXD/CW54ERoX6v2xPaiH/pWyLwhUJBz
+dCmxIiJ+GPJSbK0b7OdJ6VsyZqgfcYeaMo0dwCGoP9dQYzjTtjsL42D3YG87va+cgPErJNGT
+mtOiqqtYLNZSEPf6W6JIMo3zorVtVUwGehcIs5XvPOm0BIvW9yxVvIU1G7RGR2UDblfWAXJD
+kiT6+ixunuufLKVYriNo5QYJplap0jqQioLngEbwLrFwln3/+lU/FUFlnw7J+XKp2no/7ZZU
+GYjNImWfvsRN7m025faMV3UfasfXM+xXH+2GzRhD0+zXnMjWanmRbNjcoqn54F+Jr0Xd4IX2
+FBCZmq45RPxiq/zsscxr2JoRNaBo1ZkARALicLgNp2ny/U6jexjSiXpWLFoOBOTEBt2tBENK
+fzCTafWaulg+9VFnecM+Jm+r09RiGWLXNhtcCdDWD+CbApPegG1+qhMdJBETAkUUKimEhs9c
+DX+X9DWs4FrQsT8BYvbV7hnctI0KFw+ZICM2GcK6qWzaC+gq/tfNH7ML3HZPI8UuvMV5Mut8
+jXYVY32+tae5TrKy6OWD1ano/gg1NUbfZGbMh31giVhOwHMFQ25oI47HPJkkW5J+097YRxyb
+Feeut+T+zvtuAjAxofecM0OAEEhnSa/Qm5ds1ovY55rjV1P3ki6QFYiLI+E2cCWNhTkG7ffQ
+qiEZeyTDaktI6NmLC5wc+oeqOo1BwE2+WMgfsdQwZOCWrEw8AktoXShEOEf7RMm1Y/qKQPM3
+SbDmzrZzdcM28Ob4iil6/B82YE+OxeDWOE8DqbAE48uWFNinar8jEF4Wgw7zjgdrzOrQkjbr
+eGKskCziyhoazkD9SGLk4MoDojNslw0NBNN6mv613WSymnGiWE7pPnyNu7wh7toFxIcg0AAc
+xtiz656luYkLi7EqE9RMQ7Ioe7+BOmm5lrk9IQboQNm4MDzdM0K5pmVi8YKlOB6G1aH4dAa1
+dJZlYCOEvSOZiNeG2yBYsfdtgBotUr6a9E3GurQBMmBXOyGWgUb7VasxrYgCoc2dQqr/eLmy
+qRM5KL3PEgIninokiP6ewmOxmGwqwdO1KjHttA1+mkfAko6PcwDnE141QdTrFUX0gbR6+58R
+HGPMgzYjz+0063CaqhQv7KLdLOtpfnyRcoqzFnP+dexeu0FNQGZQPztUa66s09oJ8SrGjCUt
+UjZPitU62HScAYHAJUIALbYh1SDmZWyIfnQWmu1Yqqdrb59rgLbfsOZWLPh/+T8ZFuNi3j8V
+ZTjb9aED297kbE48f5uisuM7ZlXUYJ0rH19lExr4PNvAgvuKO28wOL7co+ndoXAWldMjAiBB
+IjlodxEvZUduZazeOGj3pOH9pAutAxvjBooQ22tF8cScGzhGWKRX87h5RqZWHKNCGqgT0VQ+
+JbT/rEx4v/WaiEQkBiJ6K54uGzRh4MPenRen+gtjuXys0Mrh6IYxTZC+cMMfCcCMUoGtXeLk
+N3BE5qgpyIMBBGpJOYcq2k3x/bg4G39bXsN77iZnuB6DIEar1aSyk7OyzH8bWWumJN+vFrkc
+y6P77ZHCceLRzcISmYC4J4RpPd6LnLIUVU5qyrlD/wyqZk0JF+Ns8E+/ZZdashQl/6vK5xDI
+9aJLxPgZllu12XtKELjMeVwKxCY861NQgvX7qePAmhrddz+VVerhee6jy2uGAFExZqcsQ6B8
+NR7V6+W3uq2Wa4Jen73ApXGkMNSK39CJKyMTlzkpaDgf2vM2Fvk06Foh+o8u1qiGu/soSvXn
+ne71k6C3PkJM3rGkq/88oQF7v52ucg4FKv5HJs4Kul27OBOMbNd8qwUNMgvOel53sGFqp19R
+uW/OxicZUqCVwv3sD6Z9fKR92SvzzvURMw9bZQ6aeU+2x2rOGvpGcRzrAWqS6DxzgsAC0QUa
+cxe1VDopsLShvhyTfYsuist51nUt41rNTGemKtFQ/50rXUEjja+JhrbBkNWQMLoSU3XUexLT
+Luo9DCZu7tRrLMu9UDaAbqctD8CnVSk22pyZX2aNOSsM0PMOmdtKwm7T3ka5gfto8ORiU3Xi
+LqMKywJhvITypgDNiDxfRzM7oZSbm3YRka5BJBrxnBmttcOCFhtUucSm0vGm1cKRoRJLSceM
+t50iIcSavimeOMJ+XaE//3wxJiX7w3SBybvr00IRI5npwNfimj66bt0YJkdeX75F3LaYfX7P
+uzft/JBaWDdoUZtFMfG0RosGJrdzX5ijJLYdDeCsgxR+a42hn5fXkafY+4R57WxJyvFrsVDg
+nJSxqE153D44f80+VvgtuRw1fYx6RlXOOdUkpjVabD57hIn7f30NRXzNnq76JcUasSbedEBK
+bjqMtnCSuEFlQwltt6akdEmI8/DgjPQFdiMgQ2LT/KmeGz6jDgQ7AXLpRGvfSCDcj+jjUnNd
+1mcZMW3XFkNaD0NiOldtZgEthfKoryAABAzWV/d8AZOBb3iGMIXRu9nfio5tp8XdhQb3XDfL
+YJB/VUZbxi9bUNJD2+bG9PCp7BZrAncmbWQVOge6JI0KQcpK2wZrvrkAkzPLnWN/E8mfuqxP
+eSRF4LlLK0LYv8U3K6j9EnMLmbi+myh5vxEx/AsftmzpI4+Vl+aHjEOKTSW/PfYXs0q7vxe3
+Jap0jvYYCMJlwc/gnEHSpn5slEEOSi3tf0XqoZCYx5zGI9qMG9nSR1Bz0lmhHP8GO7MTCOUX
+807IeRHS2ZAvp6LnJ+YvfI9PxxdOT8tn9SxTPeYUKu/kgY4tGyNMgMWSOIkl/gwo+PkFIri4
+naB1o1YdDChU3ylOupAf8Ehq6o+B2nLgpkSp2NbZoLxhxfVcmgYAKVVqlAKUBrGdgY0G9SkC
+FR1FEcwchv1evPa8sim3Zp+dY1IMAYROUXWai/PSOy2uNwOhWszf+Rmi6nKXKaHOG213QCIT
+cE8haVKy9R7rMy4+vevfBnqh++NoClliNkPYzCWeYGUTlKo4Xhmsf8YYPXo0NDTN7lV5DX+1
+5GNPMx4+vZHShBnwGlzOmmMdThEdE3G98acmwom9hhAb+KL5HQNePOXYoCNRH4ah7R2jMJmK
+/yojyT3CG3Xp5iU2eSChkKNs4rCA/sigi1vklkMEaPJVpzjSy9McY7B0+Ic2BnQ95/uTsI9+
+OnIUTqQfgKOeiymq/1vKwFdKzwWr26sESG/RNRFOQwDPURVzTdiCN8Fh4bS0ZkSy0pHiSqzM
+Ko71vx1Qtyc5ZHjSH3uTYE9F+EoOoF64sbJk0k5mcdr1sE/u3jqA3SUPiYoZp+PuViepTcf3
+pmXvZkU/DpmF94Y2TCq/OF4o/du0+I77bYQy+v7rbLDNOrDhmvr0+AImJtpMMBnOXTrkZxU3
+FzVYgeogfmz/Fcf70rZlB3Cf+awuCzVP2dOoZBHvw4Z+QJQE5sOpjq5h2ybuGnM8Ju24NeeZ
+eyvt0cDQ7afe6HFSFY1dAJtYa6or9Tuc/+4B9WqP444AR/1gSlJUa9yp+eaBaj4m8Hupjls4
+JSwBdJ87+aXr0894P0IES4khk9IcdvyosbsyKwW66ZsRPL4nppQuLu2942x58m/fyyuohBZ+
+6LEnIFwZJjn3n3U1gMGLhOzB7rjYnZthLk3+LaBjyaTOmR3dLdaDPnAKil29NXjSI7e5sMv/
+3IOukZZrMCbgN9snGE59WzU1sCOxIJn2ZPi47G1Klp+cQxAYB/KDuyIraBbGM6m1ShWwILwr
+IAssz7xIFDubek1nDIThr5z+oAoDuoYvrdGSyiEBI+leYI3NLu2m8yEZThNx1UOyullRTuz1
++2qE62t28N7dGruJZ6pqWgBoLl02WxqM3cTtehfEcY70BMzvk53IQHFPsydjKuoFARgCNVL8
+bmkcs71oT2M48KIrI57dUFu98if+f4DcqpwU4Wzb7fAlZQtv8ssy5S4MLWMKYEQPuCeUz0Mu
+2Yip8AOebi6DfBU2undlhNpdLZFBYAytIIRsnWn/Ax3PmsHAFbSjFM1zYfP0eVMZasWcscTQ
+TB+dY5sM6nNEQkyzQtmNlPbHJKH63jV8Thx1pGiDYL7ZgGVkqkRYiiXRjquZUs4MJDN3d0Qo
+BhjM+2s0dQJSUdophaN02wICZx4WnUAWZWER8LyZrqBGw61DTDRhCuce1W1RTBa81UKek6PB
+1YRStrh8dn79nINMfOrxo/UrmKdmZGShLIkxACzbp1dNBAGg9JcC+7vUA6VIM/pJOIK/MOxO
+f7SpfbPhDB3lTG8Rsf8R8dktowZBmnLVIQrIseshw0CNzxDo+IJ5o8X21U+WdDXXLsbfFKZV
+pcy92gIA23RDkEOXT6OmOX4+2zSTDXwF99Y+1Mz67g1EK5B3vu2OzJQWU0V42EbDk3rUFx/q
+ANUPhzqikAIXUZ3U8UrlREeB9uxzELZsgbp247idvxt+twCLpTVZNqfD2yHWLjI6gmMh0j3I
+BV2Y35zUH7gda4V/Busw44d2fxvEeDsMclFHdh5GMQ5E+8IF4wBodrCYd9gTb3a17Kt63GmD
+0xlkFU3Mqdk0e+eLoo4yX7ukMKBnlJmFMkHEmlUCOzImRrcFF7iqVQ1rrw8WRdMLwcWFV4y5
+A/oFjYxPL5ULLtftZmldZ3gy48hkftB1MhcdPBdYjmSrx0ie3jQJGDy/ToOGA97i21FBw5BT
+xG/93fvnITlvOQQJsYWKNRX9URoNm6CvjDLZgvJS+e17NPtrxn1LXLUz35BPIhXKwAMe14Qp
+i4eRPOqQjpstnZjfpl0orbzuuj6tn6yRC0fj8wt2Aa02Jiq/dZlyZiWUbcXKg4oMPavcBXZR
+DxRHwMvzkU/K5fBksU1BeCG5DWWHrdBVoQTCHIBGAX6fb+QUl90ZQH5t4ZOXiTR7Kv4Sqd7t
+nYG0/i03/jCg4POn4KsgRIVaDfq3xk/vFjLQ/pAXbxFKwmU1Q40KMWeAmizhQuGMr/hdEEoU
+uwikYEZdeI/u/z9COfWJVjdOqKKmFJUZBHQASueakaxjPKthkbCon2M122vIxxZayUXZtKAh
+F5krIeGz7EFr6ZfMgvSGnJ0HsUAqIDCXCJHW9puqg0DlSrszsptxBk9qj8z/xVVaxae9qwDg
+YGXH99Qbc8UuVa5b2sYr+4QDeFBqkdcOFxWuAd9N4mcjAcCJ6egSJR/3QmmOvspoHXq8gADk
+2hla/I3WOQvkC61aP/R0Ec6EN90nEYlWyinwLhFoO2D/NYTg4rDH/S5eK+cTtuJVllqEFy+F
+wxWGNIVRE2YZx+hyIT1Eq2zi4gF9x8Py3JR6MdAifw17Fvzz/DOFE2Jbt2bCqb9P2193RDFZ
+X35SoNBCunwBLESPAhvS05bmS1T9AvwEBeHC9bCmRPFRLiJAA0nErfTxto3cgNgWPx/u1cVg
+Kg5D4kTE24ADZ6Q4GYxrHccpj18E80AztqUu+dKL4ybYDaQfDf3VmKgQ0UHltjfYnpQGbQW7
+5fUX/+Sb/YFTMDS0/I2ZlnlEJ9mqj/uBdRXxcAo3oJePLBq6mh+1P5NFwMoc4j4Z8Cff4Xj/
+4zm+QzVGN04sVv5glJiypQQvhLGjDl8sb7YRUbvTU4KHxmd5nX8XbEbeBHosNP2mBB16rAU+
+ZKITqbwexlLXC9NoEON7ab6QkwPHtW8owDmooN12+13c36PCu+WwFU2PMsDUJq3jFqaftvHy
+GueotwgtXyBwXFxl75rDWP7/jiyqG1+JbqSoI32c7cF6NOQeOO+bVugczQDnwpBYdMGDGnAJ
+ka5hNYgMqjjwKja4Fjg77lN37b1Vpiv5UpYHWOtD1RGpbtpyXMm5hhR6KumOQuA4X+lzZM6e
+UTKZ5kONNm6tBYeIOqZddpQjz3mvwafhrOFaoMs1wXgxVvTVJ6IJhHm7DfnClgZVOOQl1CVG
+1J24UhbVP1smnK2zCdEABlP08fVZjqdABugDAWR054JxDQfp5wLvs0BPi/nnkFzT/ShFO6AQ
+9h6H1mO57xWU5NenKyYhgLHspiGvW/TmxDvluKPP+CFFWtvD0+Ar9D2j6auyLid3+pAugZoE
+/OS9L78k0ZDmK+DIAO+C5u1P/FiruxOyc+EjJnm+XFnDq5Js74q+JHOvbG9MTFPLU/YPdJ6r
+M0Hg8ljEpcrqtuP3bOU3J6CC+wG4DKfmj7nMjn87rZ+l1Zy4jaNV4Y9RZff8wGWUYNCAYl/s
+01/JuxTKVz0qbKTDErJANqm6xqFGKNww3jGG6K84R9nH05L3mr45o4054MaxVqRB3dO1ieQ3
+obeOsKtd5afcZ0+VgDIXP6IOHdVW+4/2hFZ1ILZWw2ZatX33pIFd3+Weimql0LrSKQBLHFrD
+eBms2az4aHNJB4syM5+IA8qSVOor0Rx/GOY33mmGYsoQSm7kBtjxJMVO6YzpJp3bmezK7fek
+Kpbc8ABpWy7fn3LgWXFbC2zGsXFtng/YrQTVUrwYvyl6Sh0qF1Jw017cgTQ+dBI1rmYrudqe
+gN5+EiY8WtHWvcEuz8cR6K9aQNXtXh6RdIDoTLwBJxiMxAxSLP+Thqvv63xeKvKqEwI1Th5m
+5vHG8U9+LR9nRDTvWljdUlOPYSYcJPbRIBWhz/hs2adfS2vwlB5qcdcvp5WKGeHk4vvLkeY9
+gN06L3AU3kw42Jt8/2odUsb3ZndwpJpAIeIqjczG4r/y/fa88bCabOKu4rdr4kMbcba3E5t/
+T25/oRIwBO/P7QBzLQgigHqLJfbjYTe+b69JGTtesZR0hUuk173IT470sVjp9RfmZ7ZRP21b
+QirEUUj8NOVpVcB9sM2eUz65RDJEYmkh4hEJwnElWGXgRDOQd52r6Q/E7cfpG4zky3K7oMK8
+4Gnv7bRRDgBIHaNwSvI0UUe/oLCh8jQpkX3tApHPGxEFE/HrkF/pO885XwkqRgwACEWjTIgK
+h6Uew5UDC9Ug+RUs9uSKZa9McX9QYH5+v95UpIaYVhj9Oe8szKrEACacQi/Ls4g5lieSsZe5
+vwrrQ46NJpb5/20cCUCxXFqqJiZu3n2S7610B12bRAIsDvIAeTHLWFh71IfF23akwcijMrAS
+Aqu53kuAyMlJSRLxdvNEHbwwa2+/Y7dWMH/I++bv8mHYmdUmwzgN2BlnF9F4pIkL2465/nzw
+jFjBBgm7ml4NQQNN6QOgZfz8+2sJ2FN9gy04FG5mLSzouGsjdKkA4M/HTxZGZmb5hvGFwk6V
+Zgh7pvjJBsVYOMzCysZTlXM8tTFBJefhvuypxvI3chbY0R8PalO7OIdmKiA2ZMFa0OJ84ayY
+RhyvyVQx6KAIvhPGySqqN8+y7b5q/WJVPDOWx1w16vEFsr2F80xJcwwmiNklCk+tJRUo7i+t
+UsINrIX0BVRaX+uCVJY3kEPZzh8CpXs7qZW43u0vz+Uate5QFE9h+s28YbleSmfDgt33AETO
+HfB61pC1e9NGP5NHGM2LJ+M66g+FCAjYEjU9cwzPqtWix3j3BUGVekaCRpxkGJQOSbsqGDY1
+M2ldsOZKkqv3maDYoAJMjElkth0qxzZbuBH4nI9pLDTNV+fcNGm8+LUcJRdhfjuV9jaYIXtH
+qFg5SwNriASMS9XrZ7HzC3AYW035fTVDFss/l01S8lmgJw/kQOZa0U86L4L7YjRRyJFe1Wkj
+DpSrlAFUymYMiUQOMw2fTZUdEIhbhZui0qGzcGBEy2GU44NsUk6MtYg6V538y7X9/sTznHUZ
+zVd20UHGfig7SZCqUSstHb+PDDTMhUpWzVWsEbus66aeJ3GmPTImkZT+xuuluEtGiRHAJJ2F
+E7lqV/u3dGhqZjLyEatQfOO+2B1vtOIwh1nq0kMO3VDOTrgrb6Xebm1fbOLFRColjxzv8ll7
+GwSotOR4SpGflWisjmNO4fX0kp87lm4Y9T7AliZd/NGK3cMz2mEnsbisO66C8xLKtYZ6UDOE
+754Q0UwxmwrFvmX53zOcznjSbhB4PCP4nZLpiMsKtvQjtgzlid61wPe62Cme9itafTm9jJJH
+Pgk/+lhEMfMSj3ae3orfTMXzKS1oGUiGERSiBlLRyQBrAoaxOjNdkET4yqy+m5PW+cajrKnx
+ecl6DYGkMODvx5MXhuMgIqjmLs8OqA6L2a83UPiELjOcVni5E9btC6S1MEntF5I/Ejas4Wm3
+jU6jAwKUh4fHYezxV/lWzM/MPQqzSY8rOjSydG0Yt6nDCVkAYNRRHuu6G1zzo9MIxfftne8K
+82ROeJKH8NId44I6tbfJTi+v6fBuYeWfE8kCPRWEnOFJU48hDI9H5ShZQW8r/Cq1xRDtsdUK
+uyGz0v9TuFw+UAp/mv2xPfWGTrrlrz1uNjBX55QWxupmVvACnlyBvqWR9M/0MNtnrIFKBZgm
+Hw63UhEyhhevkZ6PFQjsadlVRR8djED897RdiY7Oca3Fj9XNjQ/l7BSqCyInVkiye3dd0nho
+aeS/xv6bYKstE7gyLLYPApstyJy5KPsH1NJrzFsxjD1Ugd2f7WD0/SCf+SoQHJF0LdRL46pr
+fBTZ1g0Cfvo8KeZtd49Fn5h3mf0fAJASl5hWbQvUpfXuqy2jRbWPwsXJjJHPi2sqb7zVgdCS
+hx8L9l9tS+5ZtCFpVHxU5cv6gRtitaEcW2EUeit5ubWy2c15ZUd8Y06XDuplDpA+t+VRawbC
+iqdVUK6LQtnnNhiNzhhodQ46of+vcLT8NqykMKWPUtJ8iQvIDZoy1rHyqjon4tIESdESdq0n
+pGpIBmBBohxGdbCypvrvsk5BhqjzF3YjTanl8BP9l58R5/Hwr3GBO4upZGjdWIPOcEwVfA8x
+NSw1pSgcAsB25zn3Irb1JLGzJ02nzlCri4zoUsFBSYoofqQuXrpOD6UqTgtNNdh9xkWb60Pn
+MtlV+0zUD4Ioj9LGb1fvDlqAh1Nykm9Dg8HerDSG5fpzpq6bNir46WXRZi1wJ1O3S//qIHIi
+ZZODSbkdMmhtc95UbSX+Rultt3YkgBdglcx7XwDajwjP8vwzTSlel4oYEUjEobyf+4Ia4nBj
+IR3KKx16K5p23axhk4mZpZzX1bVWq2H+It2Gt9DFHQa75Kj0RHw4DsbQoEMc/G73C91NQMiS
+oBcOe6847IjtlA8iYdq/jliEkS8wHh7ACDfRcC6rlr2sHBeRcHnr4XwZ0ElKqyMivxo55Pop
+PdApjT8GxTD51MYhX1fNVEOi19QUtwESmBQ5eIIxQKcKkmMTgx1kYL1OqA0OaBj+JsXP3hDK
+6lGlRdTqTPLBrGppYLl5OveQCWvZWkv6ZDfG5CZzqr/n5HIZCirp/BB4eVpwjSIP6ayRj3AH
+jPFAqO67rdaikgil9fLi7t8JzwAHg+ZbqBJrvQ3IOpR8+DE6ZgxHToY5MXr8O3/UafIMQ/iA
+Bn9wqjvlDZpAiccbhIiAtdntkWMhRjlMj2JnvAlz4PhR2iiTcGHiD1DWPDEvJevQ24CCw2De
+0uspxHglMZd7SJE0nknn0+TuE976ZVJYRokk2YzWlPPB9nvnxHLKsl9F+dOHKQGrYWINemTg
+nXxy/c9xZMhZNrtMvqdrAYTThK7a/8QrqICYkupImhouXs4R4ERt0nsu4oibYghR/IOU6kG1
+8u2yUywMuYY71zUzqmwaKrqPvl3bnJbrMtr/8f8dcyCE99yjwZhqBVy2nWwBBId24SLhu7WV
+6wWgglwtht6iUi0ihNxEJgx5DMKZcEnZ47a+kc7oD4T+mEG6NWNZpvlvyHLvfZtyCaw25GcE
+IELdrQAwUbbR10W75EatOPvjlT1CoXzeGuL7lPzLyVoYi+9Y+jjvMSj802wsy206mCJcD6K2
+eXQ0h17bQo9qw+BjR6X99Vwo/gXF/PrWsaHH9+BLM2FsPYipJcdk6CIswtV5b6BNSCDvbwvW
+dzAMWx4+f+Z47jouDKR2V88vKdlZm53FfbX8GpTvwHTSy1J6VI604QtbGTYU6FXOOE3uwF5B
+hrqAwJbEKQk2M/68MkSWl5l/vkJXR1jKm4U2sOjw0Df0MDOoOp/O8/DSAH8Uued5Vv9PbirK
+6BTLPj0dnGJKbrIYsmpqr/X5nZMjyE7ZOWvDgxaoRM8E5ypgkqt9lAs69aCXbT54QlDNR+2K
+eCEdKL7q6zoWnWu/Gsh5hRpHLcuBH+SdgDzwPCN6GK/ZIhQ8161bi/CpqcmDhnCA57AI4UZD
+I6BZGQJeXOXO8DUD4BVp4PWpgQ5dY+NdWopDID61ehEad1Eukk3uWmXKb7fHz0rXsZwnEeS5
+T7zFI7h8k4eWdnNjpd02kiVSLqzMtWsFgbLpKij/6NZ2v2pN5ovXhmxm1GmrH6uGSvNZquPz
+ADdD9SW/hf5x2Y4oF62MNrNwaoiadmfuUxPXlxj5L2GHEyOojicoYVL0TLy+ZWblQYJBIyd9
+gtJDQhOV7npJK4OQr7oyOaYidF8ESenhxLTemc2dl/uy16LxBoENuzWafjO2GjMt55A4kKjj
+H/x0tD7hKhS2DIKjQUEMtODswCAVGy583ekzn6cqV0yLrpA6JM20U8rLlQXpWnNJIgzSYXLY
+UFkbq+sP3I9gEnKaTeQxi5mGWY3wNPYtAW9AbmUsA3+apuWiqAZJu9jQo+C16RrsOsqdcSV1
+Y+8rNQq15cRl72tRLES2pLBah+4jYGD/ZGt85NtmLchNlYpIDag017czZNK6KAyrD6mpKjK4
+iCTIthxGfUfyhnOmqtm2z8pBZlyUklrNkbD9CUmLcSOmlXPsZ+olMa7hUqmQ5crGy6iwL/uJ
+WoIwBhZKVmCGE3/Kvtg3SAEKNeoNTpwhnfvpSdqQ9NFnuIucHxERKfXTAAJSdvgHsL+PaMJg
+2c2Kd7vf3TUUTmPvVPl3DMEoYlVVoencNMdi1Prsb8/BlCgh9DSmruQIZpP5DVGilMa2uM+p
+5yFZDGbRi+9hIHKyohJdSLtxfzX0pxKmCSP7dmO1gDdETniON8sAVs3CnBthVHT2EiGTlRME
+/pQptOq4N8KLPiQeCz45BSR0sx1EpAIpBu1MeByO7srbnk+/rtX4MVkaRuwJw5R5kb1V3QGA
+5cg5Pi56GClVONzmWyKCCRqCwagy2kYhu16mpwaxgiXXyVJp82IF5FnA2fOKEtB3B1aoILED
+Vi9BXEaB2htvr1EJi12d9+w5pia/A9Zd2IOTNw9Rg/VM6YSNzJuqnTmEDN299ZgdaTbFtp+i
+t5VCXJwdFC6g/UI/6LICMcf54ZGsMniX0DhqbCJPp2fiXB4KHkLMCOZZ/wcvIjqJeFYoBPcd
+jvKF2jYaHD38WY8FsFas7e3QWy74dbzZFL3rN5zeU9Q3ES3qswh+tAEHg8FCuAyFyNc6Glk1
+db/QTSttJ+G2SSHZaQHY9wW60U3S75SHg6tuH8+Jaj9UJFmYYmLTJ+29ZNd1nHusR8Pn0DME
+obSH+8uhBxs5O3q9gj99TvjgTzJFjyvvVKp9likOaa2wayWiwH666TfGB4d8XACW+Ra98u2Q
+icx4vuhe8adSpOsvrQjsYGgqiKif8qNP22sxoH6AmgT8fN/HbQWk6gYRJc/ELap55P1y/hK5
+JvLAdJjnJRE/8mESSI28F3csqASW6LcjY9sUWf7JDNstYeUbNKJDgwAYzK3YQJcofSjXdwNT
+RaJT3+eB7WmIlcpnCibGwaij4cDeFdnNDQf/T2WY3eO26gxPF1Oob8FdhrcFZiOamj57qWal
+D4ybYBDksDO04imNwKULeiGT7oYFdkbb3bnh4lsa9ccdG4Drvok5LIAEWrMJgipC2vNh8vUS
+M1/2e2pLBwy6OAw9I5Lzgykp0ruK9Tc/w6NbMKDYBc8lHOWmIVCEiAHbuQedmq7iL6hg22Yl
+c+/WFE001RctxTDn6XtZgfWW14MaQUPzuZwU0ORWNA/wS7w5I4xwuGEZ2UNkJcZ7fE+PHGv0
+xA5Q/I1s41/bz0eU4GnCiIHvW/lNp5J94L7vJCjmM7pw4dsy8yTWLs3VW+yGGxmTwlkr+a9a
+ZatOdiv0ZjWYoblekaL9LA8tLj3NJCEZvknGAqy6SsHW5Fez6TpLFxe/FXACV/jRS1T3gLSE
+tREuL4JvU0CWeJEqz0nVOlhKwUJ93O6K0Fl+2i65i6OceoRZv677su1f7/Jkfv7OQJT7FlV4
+YOP4ZIn3sIeun2r/Wt6MlvAx+W4Hcvy/40f3GigvRQ83RyiCK6bSLA+gO5OFaNBedqgqmdzU
+nML4UoLI4BKP2mFIRU7MOlbVh5A/IYpHz+1AptoKa0HC4RooWW5ByarEPaUC2JERP/KJXJ/9
+ji/M9GQJbXxDAQa2uFaJfQhY+PjfaG1vkvE5abn11nwd/9Azo/8HZ//tj2dMiOkk1mHi7UYW
+ROmLUmTSNmOHuB04fuTgZFWNE8Ey4yKBWfCUffD9LxRyOmsS3QmCrfrwqnmqsHsyOPw6EByi
+e9g2g+WdW4S8R4OnNVaStCSQvBnqumbVXBJxyE8F0wMJMHoh3gVEwAWcj0hJFZLrSmdKKD/L
+ATep5P/Z/OJMFabieuZ3iJXV1hrbmVU/WxxUw/spB8HQoWlwaATeV7dJd7O+adZI3ji3o5FL
+7+GOvVEdrJnI+5+TYqli5KB/+DHnRIM1rd5TzhxrigU06RYf1ZCdchMByzxM3XNksB5uPWNj
+9/9HfnBckKji2hqFDT6Hou0LmtxpGJdQJ9SSgF0LfYdkspgsmTlEOcmy1aT0ILPV7a49FdXo
+G4WNqEa/dE0dZhMWEgBx5kWMQmPP0h0aHQpsvORpo/7HDyeOt+cwV04XkWKeZLPfBIXrsePA
+XSSd4gT0CLQnFY6Tw4546zzwUb0iITqGXUsxH4L7Jih1wXMMeYlmcScjK20FyHVG2obP71jx
+UKrn+VKIT/g41sEu1tPwOFXU+0XlZ0kpNlgnBgI9aAu4bwGRO9nOQN+wjIkvVHUYUcgXahou
+QGTv3cvi3udBpA1aMRNrr0cxwriiBvos5eRr9+y07Afzxii9QUuqcttQBEJSR7Z5mUARM2Xr
+KSUzcxu/DkBay4TR/sEFFS3IUCgQrUvaijo3Y+ANMrOrY6I0ptJ71qxfXWX96e37y2WLEO4E
+3DItmJVYN++ofPXW/aOekwkhOl1PhpZt5slJ77WUnnjzR9aKFW92PIXXKaT990kWKRrHz5/W
+Y+FD5iqwU4D8BF35m2Mf2UohcikFzxBLUjqNgQnz4EO8F9to5r36+Nm5AWSa6uJa4wwM+xpI
+XWxCkCM84pMmcTttVsPhZvpqM8j7rO3BtC2qPvFxyATqej3Jcul1y0fhWxN8eX4URqZK4OWC
+wJY4BVRKwWIly5nr8+ZoKE8tSdUhqYjdW2mQM72MbYAfoamMSFHsyIG0KFGSAAf9ghkz4lx7
+VVP7v4pU9iMSx13YqZsf4KGx/bzZ1ktq86zYFfWhwisCiFUFmaeqe9N59kE0VLp9xaRLCfnF
+1yIHDqlP1pqClNbr8j14oPVPZSkyqyvOCfetIGKM/TfHq51vdmGAPoRmJ/feChwH+ls0AsjG
+b6S+h3rRnx6Gz0Cv0GxVwoF4bVu57PparrpOInOUKZMFq8G/+gMn8yHoiaMB2ijn3lIjF6PD
+EEFlCSM1wc4JFvQABZwLUEuULgVJlse0Txw5ONqh8UM6to+f2qUcvI9RKHxQh9i25bFoRn4C
+U2TilS1uMA/cantWcPu1wywkZgoscqRUmVkp3tKvLvnQCEFk4kXAXPfImrAdkub5HebwjXVA
+ICrkNmWf38LlrolCg4w7din8ar+2nnMTsXep3uY4y5Cm/fuf8PP8PPnzW/dB0b/jFy9wgEWX
+a301cS9SIBeNZj24bGqoiAq4+LePOC3NpWwNk8q2vX+p6dpEcx/Po08jJC8Mc8ziaPndRDyq
+uoU8cs6sK8Cd4yPLsnXi88jHcDASvw7HVaVLDGMra0sYxDj9BmFoednDzk6PitfG1YwfJlXH
+lRZX/+690qyOhJY9YaNtaKEWhRG+jjQ+2BUvOsTvDZ3p/SR7QOvclFlu+Bhxm8KXCWFF1ubt
+hJAHQAIuRB6wW9dSoWz+PF7IeF9+TUzJv/E89oytd2K7WtshZzgqh/RB+FKUcxDK2J82mQx5
+sCZdQ3nM7tM8/lh13tqQHIUJP3WidWps85+tNuhO62AmSRlBFk0B0GG4/y3Te4lSh0ge2zJM
+5aCKwpA49/pu8RIvIS05gVYweAnde2a6Xiy/OglFd4nf2stKUzpcfiL82pMMGsw+2KfztWO0
+Iy5iCHExl1w8uSpnTjfvZ55njmDbigzR9DUFPsBsKn2Sj+NfAw3CB5elJY/iSN1JN4phrQdk
+ffjACpg7/APyrYZoJrJuAhTrJ7MFLxgscQUUKYxg279KhpzzecW1lmWICW+Hcs+cqsNLnuzf
+jAbFMVR5WSykQDvekI8+S9sws/EoR4XM/efCg2dyy9qcxMSLWQMoUZ2P0tZ3H6LA22DBXV0x
+e7qan6d58zcgTVZA63/ehfTHT81jgwNQ4FZqxT1PqvS23ihVGj+6mx/gTjJSyXtsbD6RJwPo
+6B3sMtVmvvdmDiQpeinCYX6fqkh2JM5raulPHqbeP5UeA5Vf/cIN2Cb7zT/c+my/rX2AG27q
++tuRk2GPp4NBKRxiJlCCcdd7GPDQS7qPSta8pMVGRs9nT87pQWP9A1D12YzbEd13uc9KpxLy
+RfWUAq3oJfe0LpEbBYuT26pdgc7zMWWLaWNWk7fSlbo8g/dUlF2zNbGRHZqBzc4747LHKRKT
+sLWqrK9XaPyANtR5uFi3b3YrRa7gM8KijkYQ+4JyQf72vaB6h/9UfCsskDLYZrqQrdQzHMpf
+9uocItTXeS0kdZfAjHbnLA3KudQ/Ju1AB+R73pnDo2jbBQOeyBSDsNjQr63M3g8c0ASIC6yR
+1Z/BqYFAz5xAxAYnx6yF3cwBaBJ/PuiN/qAhuopI7A1N7SS68gvn5lvYrHyi+1y3yjFgykjO
+8OnoQDr8vve8PqfRzK1ghbDZ5uRNQewuWxsAqDfmaC9XfvlaTS5npDE6gjZEjACmGrwSHbvN
+2nATUf9pCBe1aW5VDuFatZ9kPlGmu9U3YtOEOr1M92IPfUJuvE9Nu4qfh6JPtFHN+HCodmJ0
+2Nn6bSznJwUzAGYTihfTDAkyaFt8FyoeCOrL2C2Xh48DSdidDI5a283HT2H6mUwtNu+7NzBE
+6rxC+6Blh+/D+zf9CuTvj+wk4zDTpni5ZwVrIeSkcK6E9hi3VViApDbEsK9nAk0xosgCeKsT
+ucuuj3iA23PcaO1sYKgo/sdr7mTmgeCO6ZMfy2yapVvrqKrN5XRPN4VBYNoRQP9ZuweFvyV9
+z4RVZ4XXeD7j/v1JqPNUnS62Kz08F5rmq8HfvQLUJ5T/uzY9NC+IAbZmcogCebu61mg+1HjE
+sQXKy7d5xcPrq828SBjzZhqhcqdK5Hl/oiOLPrOWM0J4M4WYJ3kiZ+83cORGc7fgvo0KScRX
+WBZ2/+EgJll6ihkzlvXjZ4drxu+4bmrrtlXm68s3+U4dHhnRgG+tH7xutIwHJre05HeaFC5k
+c0jxU0hPjcAsRd3gW6eI5HOrsw0h8mby3bQdh5o9fTFoTyJOjT84vyJQin1TPkpvUcstgbsd
+Ut1LAtwbaH5W6GIgd3KaOauB13ogBljUAL00nwlcZySorMRUrxp5Y67M3fbjVSW1Bm2U3Kqe
+hYQfIYs03AnFNhOhVGmMNjzWQosxnXz4a3jtub0c/NKF8DzgELZeN0qi1okR1Q+b2u4YfBS2
+ooZ3WcKvYSwlESMaQe5SHK1S0i2cNnbGpsAaRpeB9UO4DRKoPEfQURQSliVFUZ7mEResrACr
+5du/sbPceDjiRBYWuCw7qv1Z1NP0sFkzATYbt4ICzc52XWMBl1Ly2bTcV5rlC8SqU/2lCnAc
+QYfw0vniNnGSFBSrzFSriz7KJacW/aEsNwfkypexULktUqs/8hAraYmg4DUeh0ji5QvlOWK0
+Z0naSnQmSixgKNDIeotQ3oacb0C2HAjSZhwwPxn9WuSwY00ZwQGF6aPWtyUaPxIeIrriwtQ9
+WrGhattYf4d3+97/VXK1tS/bHWAAZ20L8qSIRHIF7awTio8uXKMLqr2/CZm/aVqY93KeKiKV
+GFqinitvwB4V4/77z/WDfNaEIWkCe1l2ZugPBTLE3ZnhVGxAkTzbWH/DtqhSwmICpp6kWCp3
+y3733/6zYRdzpkXl7CT4TFyMx1PdH4RpCE37lbvJYC8EUFN8/Ej8DN1punqgtm8/DvkIM+3v
+hqumuWeErU8tMVYWkjTcOPAHdk1BdHzl1V9LejmuAHyEy887nebfFLJjyhx+gBU8j7rKNVlh
+Pgv2HS81SP+kMDtR/Wa5i/OSPdA6mXXeqpo948TqPh9tHPsIdK3RQVCKyL11LUhdoj/w5yE3
+kpDnUGE5IjSRrnG1R5IHVAZu/9orv2LflSFriLBmzKjH1/OkYtPS336NXlA9DYKWkcRgSVpS
+DgNqRNR7wAfWL57Usd7O+bXXgBQYXfCYGqqVeBMejuwOcs/h+1eqohOmt6PxW7tagWwbmcCc
+OIQBN7at9Ru0nMUEmu7nDGwuiCiXX3IcZ5BEZblmfJUKBK4coF7wqjwOm6209rSeH+FMfB4Q
+NHdFYjT7pKSF5pGyAarPpiudGVNI2UsVuJqnOtF6131lY45ml62T2uA6cAHkDEMecce86+69
+oBqWxE5hdScb8k+jd/hvcUkQJQxLtT+IC1/vv3Vh6dkO/gJkN+PjvhFvYV6pbrcBGc5IPGTu
+ckZ+Zqh/AAAmNgKqYF8O6gAB76MFjPkmE1VC27HEZ/sCAAAAAARZWg==
 
---KN5l+BnMqAQyZLvT
+--JwB53PgKC5A7+0Ej
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: attachment; filename=ltp
 
-2019-10-08 00:55:34 ln -sf /usr/bin/genisoimage /usr/bin/mkisofs
-2019-10-08 00:55:34 ./runltp -f syscalls_part4 -d /fs/vda/tmpdir
+2019-10-08 09:44:51 ln -sf /usr/bin/genisoimage /usr/bin/mkisofs
+2019-10-08 09:44:51 ./runltp -f syscalls_part1 -d /fs/vda/tmpdir
 INFO: creating /lkp/benchmarks/ltp/output directory
 INFO: creating /lkp/benchmarks/ltp/results directory
 Checking for required user/group ids
@@ -10475,10 +10215,10 @@ SUPPORT_URL="https://www.debian.org/support"
 BUG_REPORT_URL="https://bugs.debian.org/"
 
 uname:
-Linux vm-snb-4G-65d32b273b58 5.4.0-rc1-00003-g67d8662d2db61 #1 SMP Mon Oct 7 07:58:06 CST 2019 x86_64 GNU/Linux
+Linux vm-snb-4G-a597cf1f9fd6 5.3.0-13208-g5cb2f57d87d6b #1 SMP Tue Oct 8 07:12:13 CST 2019 x86_64 GNU/Linux
 
 /proc/cmdline
-ip=::::vm-snb-4G-65d32b273b58::dhcp root=/dev/ram0 user=lkp job=/lkp/jobs/scheduled/vm-snb-4G-65d32b273b58/ltp-1HDD-ext4-syscalls_part4-debian-x86_64-2019-05-14.cgz-67d8662d2-20191008-19987-1llxwye-8.yaml ARCH=x86_64 kconfig=x86_64-rhel-7.6 branch=linux-devel/devel-hourly-2019100708 commit=67d8662d2db619257554cef5b464014895102b95 BOOT_IMAGE=/pkg/linux/x86_64-rhel-7.6/gcc-7/67d8662d2db619257554cef5b464014895102b95/vmlinuz-5.4.0-rc1-00003-g67d8662d2db61 max_uptime=3600 RESULT_ROOT=/result/ltp/1HDD-ext4-syscalls_part4/vm-snb-4G/debian-x86_64-2019-05-14.cgz/x86_64-rhel-7.6/gcc-7/67d8662d2db619257554cef5b464014895102b95/8 LKP_SERVER=inn debug apic=debug sysrq_always_enabled rcupdate.rcu_cpu_stall_timeout=100 net.ifnames=0 printk.devkmsg=on panic=-1 softlockup_panic=1 nmi_watchdog=panic oops=panic load_ramdisk=2 prompt_ramdisk=0 drbd.minor_count=8 systemd.log_level=err ignore_loglevel console=tty0 earlyprintk=ttyS0,115200 console=ttyS0,115200 vga=normal rw rcuperf.shutdown=0
+ip=::::vm-snb-4G-a597cf1f9fd6::dhcp root=/dev/ram0 user=lkp job=/lkp/jobs/scheduled/vm-snb-4G-a597cf1f9fd6/ltp-1HDD-btrfs-syscalls_part1-debian-x86_64-2019-05-14.cgz-5cb2f57d-20191008-19007-1ptmai9-3.yaml ARCH=x86_64 kconfig=x86_64-rhel-7.6 branch=linux-devel/devel-hourly-2019100713 commit=5cb2f57d87d6b6295bf73d72279ad02988007bc9 BOOT_IMAGE=/pkg/linux/x86_64-rhel-7.6/gcc-7/5cb2f57d87d6b6295bf73d72279ad02988007bc9/vmlinuz-5.3.0-13208-g5cb2f57d87d6b max_uptime=3600 RESULT_ROOT=/result/ltp/1HDD-btrfs-syscalls_part1/vm-snb-4G/debian-x86_64-2019-05-14.cgz/x86_64-rhel-7.6/gcc-7/5cb2f57d87d6b6295bf73d72279ad02988007bc9/3 LKP_SERVER=inn debug apic=debug sysrq_always_enabled rcupdate.rcu_cpu_stall_timeout=100 net.ifnames=0 printk.devkmsg=on panic=-1 softlockup_panic=1 nmi_watchdog=panic oops=panic load_ramdisk=2 prompt_ramdisk=0 drbd.minor_count=8 systemd.log_level=err ignore_loglevel console=tty0 earlyprintk=ttyS0,115200 console=ttyS0,115200 vga=normal rw rcuperf.shutdown=0
 
 Gnu C                  gcc (Debian 6.3.0-18+deb9u1) 6.3.0 20170516
 Clang                 
@@ -10495,11 +10235,11 @@ iproute2               iproute2-ss161212
 iputils                iputils-s20161105
 Kbd                    116:
 Sh-utils               8.26
-Modules Loaded         ext4 mbcache jbd2 dm_mod intel_rapl_msr intel_rapl_common crct10dif_pclmul crc32_pclmul crc32c_intel sr_mod ghash_clmulni_intel cdrom sg bochs_drm drm_vram_helper ttm ppdev drm_kms_helper ata_generic pata_acpi aesni_intel syscopyarea snd_pcm sysfillrect sysimgblt crypto_simd snd_timer snd cryptd glue_helper fb_sys_fops soundcore pcspkr drm joydev serio_raw ata_piix libata i2c_piix4 floppy parport_pc parport ip_tables
+Modules Loaded         btrfs xor zstd_decompress zstd_compress raid6_pq libcrc32c dm_mod intel_rapl_msr intel_rapl_common sr_mod cdrom crct10dif_pclmul sg ata_generic pata_acpi crc32_pclmul crc32c_intel ghash_clmulni_intel bochs_drm drm_vram_helper ttm ppdev drm_kms_helper syscopyarea sysfillrect snd_pcm sysimgblt fb_sys_fops snd_timer aesni_intel drm snd crypto_simd cryptd soundcore glue_helper pcspkr joydev serio_raw ata_piix libata i2c_piix4 parport_pc floppy parport ip_tables
 
 free reports:
               total        used        free      shared  buff/cache   available
-Mem:        4026760      284636     1585268       11608     2156856     1493916
+Mem:        4026748      271584     1598452       11624     2156712     1506880
 Swap:             0           0           0
 
 cpuinfo:
@@ -10517,8 +10257,8 @@ CPU family:            6
 Model:                 42
 Model name:            Intel Xeon E312xx (Sandy Bridge)
 Stepping:              1
-CPU MHz:               2893.028
-BogoMIPS:              5786.05
+CPU MHz:               2493.990
+BogoMIPS:              4987.98
 Hypervisor vendor:     KVM
 Virtualization type:   full
 L1d cache:             32K
@@ -10534,22 +10274,23 @@ SELinux mode: unknown
 no big block device was specified on commandline.
 Tests which require a big block device are disabled.
 You can specify it with option -z
-COMMAND:    /lkp/benchmarks/ltp/bin/ltp-pan   -e -S   -a 2231     -n 2231 -p -f /fs/vda/tmpdir/ltp-5VaMUvbWBn/alltests -l /lkp/benchmarks/ltp/results/LTP_RUN_ON-2019_10_08-00h_55m_34s.log  -C /lkp/benchmarks/ltp/output/LTP_RUN_ON-2019_10_08-00h_55m_34s.failed -T /lkp/benchmarks/ltp/output/LTP_RUN_ON-2019_10_08-00h_55m_34s.tconf
-LOG File: /lkp/benchmarks/ltp/results/LTP_RUN_ON-2019_10_08-00h_55m_34s.log
-FAILED COMMAND File: /lkp/benchmarks/ltp/output/LTP_RUN_ON-2019_10_08-00h_55m_34s.failed
-TCONF COMMAND File: /lkp/benchmarks/ltp/output/LTP_RUN_ON-2019_10_08-00h_55m_34s.tconf
+COMMAND:    /lkp/benchmarks/ltp/bin/ltp-pan   -e -S   -a 2239     -n 2239 -p -f /fs/vda/tmpdir/ltp-bEI9wpCoun/alltests -l /lkp/benchmarks/ltp/results/LTP_RUN_ON-2019_10_08-09h_44m_52s.log  -C /lkp/benchmarks/ltp/output/LTP_RUN_ON-2019_10_08-09h_44m_52s.failed -T /lkp/benchmarks/ltp/output/LTP_RUN_ON-2019_10_08-09h_44m_52s.tconf
+LOG File: /lkp/benchmarks/ltp/results/LTP_RUN_ON-2019_10_08-09h_44m_52s.log
+FAILED COMMAND File: /lkp/benchmarks/ltp/output/LTP_RUN_ON-2019_10_08-09h_44m_52s.failed
+TCONF COMMAND File: /lkp/benchmarks/ltp/output/LTP_RUN_ON-2019_10_08-09h_44m_52s.tconf
 Running tests.......
 <<<test_start>>>
-tag=msgget01 stime=1570467336
-cmdline="msgget01"
+tag=abort01 stime=1570499094
+cmdline="abort01"
 contacts=""
 analysis=exit
 <<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-msgget01.c:45: PASS: message received = message sent
+abort01.c:57: PASS: abort() dumped core
+abort01.c:60: PASS: abort() raised SIGIOT
 
 Summary:
-passed   1
+passed   2
 failed   0
 skipped  0
 warnings 0
@@ -10559,18 +10300,18 @@ duration=0 termination_type=exited termination_id=0 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=msgget02 stime=1570467336
-cmdline="msgget02"
+tag=accept01 stime=1570499094
+cmdline="accept01"
 contacts=""
 analysis=exit
 <<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-msgget02.c:57: PASS: msgget() failed as expected: EEXIST (17)
-msgget02.c:57: PASS: msgget() failed as expected: ENOENT (2)
-msgget02.c:57: PASS: msgget() failed as expected: ENOENT (2)
-msgget02.c:57: PASS: msgget() failed as expected: EACCES (13)
-msgget02.c:57: PASS: msgget() failed as expected: EACCES (13)
-msgget02.c:57: PASS: msgget() failed as expected: EACCES (13)
+accept01.c:112: PASS: bad file descriptor successful: EBADF (9)
+accept01.c:112: PASS: fd is not socket successful: ENOTSOCK (88)
+accept01.c:112: PASS: invalid socket buffer successful: EINVAL (22)
+accept01.c:112: PASS: invalid salen successful: EINVAL (22)
+accept01.c:112: PASS: no queued connections successful: EINVAL (22)
+accept01.c:112: PASS: UDP accept successful: EOPNOTSUPP (95)
 
 Summary:
 passed   6
@@ -10583,134 +10324,15 @@ duration=0 termination_type=exited termination_id=0 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=msgget03 stime=1570467336
-cmdline="msgget03"
+tag=accept02 stime=1570499094
+cmdline="accept02"
 contacts=""
 analysis=exit
 <<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-msgget03.c:60: INFO: The maximum number of message queues (32000) reached
-msgget03.c:34: PASS: msgget() failed as expected: ENOSPC (28)
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=4
-<<<test_end>>>
-<<<test_start>>>
-tag=msgrcv01 stime=1570467336
-cmdline="msgrcv01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-msgrcv01    1  TPASS  :  message received = message sent
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=msgrcv02 stime=1570467336
-cmdline="msgrcv02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-msgrcv02    1  TPASS  :  expected failure - errno = 13 : Permission denied
-msgrcv02    2  TPASS  :  expected failure - errno = 14 : Bad address
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=msgrcv03 stime=1570467336
-cmdline="msgrcv03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-msgrcv03    1  TPASS  :  expected failure - errno = 22 : Invalid argument
-msgrcv03    2  TPASS  :  expected failure - errno = 22 : Invalid argument
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=msgrcv04 stime=1570467336
-cmdline="msgrcv04"
-contacts=""
-analysis=exit
-<<<test_output>>>
-msgrcv04    1  TPASS  :  expected failure - errno = 7 : Argument list too long
-msgrcv04    2  TPASS  :  expected failure - errno = 42 : No message of desired type
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=msgrcv05 stime=1570467336
-cmdline="msgrcv05"
-contacts=""
-analysis=exit
-<<<test_output>>>
-msgrcv05    1  TPASS  :  got EINTR as expected
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=msgrcv06 stime=1570467336
-cmdline="msgrcv06"
-contacts=""
-analysis=exit
-<<<test_output>>>
-msgrcv06    1  TPASS  :  expected failure - errno = 43 : Identifier removed
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=msgrcv07 stime=1570467336
-cmdline="msgrcv07"
-contacts=""
-analysis=exit
-<<<test_output>>>
-msgrcv07    1  TPASS  :  test MSG_EXCEPT success
-msgrcv07    2  TPASS  :  test MSG_NOERROR success
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=msgrcv08 stime=1570467336
-cmdline="msgrcv08"
-contacts=""
-analysis=exit
-<<<test_output>>>
-msgrcv08    1  TCONF  :  msgrcv08.c:116: not works when compiled as 64-bit application.
-msgrcv08    2  TCONF  :  msgrcv08.c:116: Remaining cases not appropriate for configuration
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=32 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=msgsnd01 stime=1570467336
-cmdline="msgsnd01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-msgsnd01.c:40: PASS: queue bytes and number of queues matched
+tst_buffers.c:55: INFO: Test is using guarded buffers
+accept02.c:127: INFO: Starting listener on port: 37693
+accept02.c:71: PASS: Multicast group was not copied: EADDRNOTAVAIL (99)
 
 Summary:
 passed   1
@@ -10723,1252 +10345,17 @@ duration=0 termination_type=exited termination_id=0 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=msgsnd02 stime=1570467336
-cmdline="msgsnd02"
+tag=accept4_01 stime=1570499094
+cmdline="accept4_01"
 contacts=""
 analysis=exit
 <<<test_output>>>
+tst_buffers.c:55: INFO: Test is using guarded buffers
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-msgsnd02.c:71: PASS: msgsnd() failed as expected: EACCES (13)
-msgsnd02.c:71: PASS: msgsnd() failed as expected: EFAULT (14)
-msgsnd02.c:71: PASS: msgsnd() failed as expected: EINVAL (22)
-msgsnd02.c:71: PASS: msgsnd() failed as expected: EINVAL (22)
-msgsnd02.c:71: PASS: msgsnd() failed as expected: EINVAL (22)
-msgsnd02.c:71: PASS: msgsnd() failed as expected: EINVAL (22)
-
-Summary:
-passed   6
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=msgsnd05 stime=1570467336
-cmdline="msgsnd05"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-msgsnd05.c:51: PASS: msgsnd() failed as expected: EAGAIN/EWOULDBLOCK (11)
-msgsnd05.c:51: PASS: msgsnd() failed as expected: EINTR (4)
-
-Summary:
-passed   2
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=msgsnd06 stime=1570467336
-cmdline="msgsnd06"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-msgsnd06.c:38: PASS: msgsnd() failed as expected: EIDRM (43)
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=msync01 stime=1570467336
-cmdline="msync01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-msync01     1  TPASS  :  Functionality of msync() successful
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=msync02 stime=1570467336
-cmdline="msync02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-msync02     1  TPASS  :  Functionality of msync successful
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=msync03 stime=1570467336
-cmdline="msync03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-msync03     1  TPASS  :  msync failed as expected: TEST_ERRNO=EBUSY(16): Device or resource busy
-msync03     2  TPASS  :  msync failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
-msync03     3  TPASS  :  msync failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
-msync03     4  TPASS  :  msync failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
-msync03     5  TPASS  :  msync failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
-msync03     6  TPASS  :  msync failed as expected: TEST_ERRNO=ENOMEM(12): Cannot allocate memory
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=msync04 stime=1570467336
-cmdline="msync04"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
-tst_supported_fs_types.c:60: INFO: Kernel supports ext2
-tst_supported_fs_types.c:44: INFO: mkfs.ext2 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports ext3
-tst_supported_fs_types.c:44: INFO: mkfs.ext3 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports ext4
-tst_supported_fs_types.c:44: INFO: mkfs.ext4 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports xfs
-tst_supported_fs_types.c:44: INFO: mkfs.xfs does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports btrfs
-tst_supported_fs_types.c:44: INFO: mkfs.btrfs does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports vfat
-tst_supported_fs_types.c:44: INFO: mkfs.vfat does exist
-tst_supported_fs_types.c:92: INFO: FUSE does support exfat
-tst_supported_fs_types.c:44: INFO: mkfs.exfat does exist
-tst_supported_fs_types.c:92: INFO: FUSE does support ntfs
-tst_supported_fs_types.c:44: INFO: mkfs.ntfs does exist
-tst_test.c:1179: INFO: Testing on ext2
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-msync04.c:71: PASS: msync() working correctly
-tst_test.c:1179: INFO: Testing on ext3
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-msync04.c:71: PASS: msync() working correctly
-tst_test.c:1179: INFO: Testing on ext4
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-msync04.c:71: PASS: msync() working correctly
-tst_test.c:1179: INFO: Testing on xfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with xfs opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-msync04.c:71: PASS: msync() working correctly
-tst_test.c:1179: INFO: Testing on btrfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with btrfs opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-msync04.c:71: PASS: msync() working correctly
-tst_test.c:1179: INFO: Testing on vfat
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-msync04.c:71: PASS: msync() working correctly
-tst_test.c:1179: INFO: Testing on exfat
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with exfat opts='' extra opts=''
-safe_macros.c:743: INFO: Trying FUSE...
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-msync04.c:71: PASS: msync() working correctly
-tst_test.c:1179: INFO: Testing on ntfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ntfs opts='' extra opts=''
-The partition start sector was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-The number of sectors per track was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-The number of heads was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
-Windows will not be able to boot from this device.
-safe_macros.c:743: INFO: Trying FUSE...
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-msync04.c:71: PASS: msync() working correctly
-
-Summary:
-passed   8
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=7 termination_type=exited termination_id=0 corefile=no
-cutime=7 cstime=74
-<<<test_end>>>
-<<<test_start>>>
-tag=munlock01 stime=1570467343
-cmdline="munlock01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-munlock01    1  TPASS  :  test 0 passed length = 1
-munlock01    2  TPASS  :  test 1 passed length = 1024
-munlock01    3  TPASS  :  test 2 passed length = 1048576
-munlock01    4  TPASS  :  test 3 passed length = 10485760
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=munlock02 stime=1570467343
-cmdline="munlock02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-munlock02    1  TPASS  :  expected failure - errno = 12 : Cannot allocate memory
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=munlockall01 stime=1570467343
-cmdline="munlockall01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-munlockall01    1  TPASS  :  munlockall() passed with return=0 
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=munmap01 stime=1570467343
-cmdline="munmap01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-munmap01    1  TPASS  :  Functionality of munmap() successful
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=munmap02 stime=1570467343
-cmdline="munmap02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-munmap02    1  TPASS  :  Functionality of munmap() successful
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=munmap03 stime=1570467343
-cmdline="munmap03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-munmap03    1  TPASS  :  failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
-munmap03    2  TPASS  :  failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
-munmap03    3  TPASS  :  failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=nanosleep01 stime=1570467343
-cmdline="nanosleep01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_timer_test.c:345: INFO: CLOCK_MONOTONIC resolution 1ns
-tst_timer_test.c:357: INFO: prctl(PR_GET_TIMERSLACK) = 50us
-tst_timer_test.c:264: INFO: nanosleep() sleeping for 1000us 500 iterations, threshold 450.01us
-tst_timer_test.c:307: INFO: min 1062us, max 1124us, median 1064us, trunc mean 1066.36us (discarded 25)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: nanosleep() sleeping for 2000us 500 iterations, threshold 450.01us
-tst_timer_test.c:307: INFO: min 2059us, max 2145us, median 2065us, trunc mean 2068.04us (discarded 25)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: nanosleep() sleeping for 5000us 300 iterations, threshold 450.04us
-tst_timer_test.c:307: INFO: min 5064us, max 5229us, median 5079us, trunc mean 5077.94us (discarded 15)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: nanosleep() sleeping for 10000us 100 iterations, threshold 450.33us
-tst_timer_test.c:307: INFO: min 10024us, max 10232us, median 10061us, trunc mean 10068.63us (discarded 5)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: nanosleep() sleeping for 25000us 50 iterations, threshold 451.29us
-tst_timer_test.c:307: INFO: min 25030us, max 25120us, median 25063us, trunc mean 25069.62us (discarded 2)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: nanosleep() sleeping for 100000us 10 iterations, threshold 537.00us
-tst_timer_test.c:307: INFO: min 100082us, max 100131us, median 100095us, trunc mean 100097.00us (discarded 1)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: nanosleep() sleeping for 1000000us 2 iterations, threshold 4400.00us
-tst_timer_test.c:307: INFO: min 1000090us, max 1000096us, median 1000090us, trunc mean 1000090.00us (discarded 1)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-
-Summary:
-passed   7
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=8 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=nanosleep02 stime=1570467351
-cmdline="nanosleep02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-nanosleep02.c:57: PASS: nanosleep() returned -1, set errno to EINTR
-nanosleep02.c:73: PASS: nanosleep() slept for 1000086us, remaining time difference 74us
-
-Summary:
-passed   2
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=1 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=nanosleep04 stime=1570467352
-cmdline="nanosleep04"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-nanosleep04.c:45: PASS: nanosleep() failed with EINVAL
-nanosleep04.c:45: PASS: nanosleep() failed with EINVAL
-nanosleep04.c:45: PASS: nanosleep() failed with EINVAL
-
-Summary:
-passed   3
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=nftw01 stime=1570467352
-cmdline="nftw01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-nftw01      1  TPASS  :  Test block 0
-nftw01      2  TPASS  :  Test block 1
-nftw01      3  TPASS  :  Test block 2
-nftw01      4  TPASS  :  Test block 3
-nftw01      5  TPASS  :  Test block 4
-nftw01      6  TPASS  :  Test block 5
-nftw01      7  TPASS  :  Test block 6
-nftw01      8  TPASS  :  Test block 7
-nftw01      9  TPASS  :  Test block 8
-nftw01     10  TPASS  :  Test block 9
-nftw01     11  TPASS  :  Test block 10
-nftw01     12  TPASS  :  Test block 11
-nftw01     13  TPASS  :  Test block 12
-nftw01     14  TPASS  :  Test block 13
-nftw01     15  TPASS  :  Test block 14
-nftw01     16  TPASS  :  Test block 15
-nftw01     17  TPASS  :  Test block 16
-nftw01     18  TPASS  :  Test block 17
-nftw01     19  TPASS  :  Test block 18
-nftw01     20  TPASS  :  Test block 19
-nftw01     21  TPASS  :  Test block 20
-nftw01     22  TPASS  :  Test block 21
-nftw01     23  TPASS  :  Test block 22
-nftw01     24  TPASS  :  Test block 23
-nftw01     25  TPASS  :  Test block 24
-nftw01     26  TPASS  :  Test block 25
-nftw01     27  TPASS  :  Test block 26
-nftw01     28  TPASS  :  Test block 27
-nftw01     29  TPASS  :  Test block 28
-nftw01     30  TPASS  :  Test block 29
-nftw01     31  TPASS  :  Test passed
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=nftw6401 stime=1570467352
-cmdline="nftw6401"
-contacts=""
-analysis=exit
-<<<test_output>>>
-nftw6401    1  TPASS  :  Test block 0
-nftw6401    2  TPASS  :  Test block 1
-nftw6401    3  TPASS  :  Test block 2
-nftw6401    4  TPASS  :  Test block 3
-nftw6401    5  TPASS  :  Test block 4
-nftw6401    6  TPASS  :  Test block 5
-nftw6401    7  TPASS  :  Test block 6
-nftw6401    8  TPASS  :  Test block 7
-nftw6401    9  TPASS  :  Test block 8
-nftw6401   10  TPASS  :  Test block 9
-nftw6401   11  TPASS  :  Test block 10
-nftw6401   12  TPASS  :  Test block 11
-nftw6401   13  TPASS  :  Test block 12
-nftw6401   14  TPASS  :  Test block 13
-nftw6401   15  TPASS  :  Test block 14
-nftw6401   16  TPASS  :  Test block 15
-nftw6401   17  TPASS  :  Test block 16
-nftw6401   18  TPASS  :  Test block 17
-nftw6401   19  TPASS  :  Test block 18
-nftw6401   20  TPASS  :  Test block 19
-nftw6401   21  TPASS  :  Test block 20
-nftw6401   22  TPASS  :  Test block 21
-nftw6401   23  TPASS  :  Test block 22
-nftw6401   24  TPASS  :  Test block 23
-nftw6401   25  TPASS  :  Test block 24
-nftw6401   26  TPASS  :  Test block 25
-nftw6401   27  TPASS  :  Test block 26
-nftw6401   28  TPASS  :  Test block 27
-nftw6401   29  TPASS  :  Test block 28
-nftw6401   30  TPASS  :  Test block 29
-nftw6401   31  TPASS  :  Test passed
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=nice01 stime=1570467352
-cmdline="nice01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-nice01.c:48: PASS: nice(-12) passed
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=nice02 stime=1570467352
-cmdline="nice02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-nice02.c:46: PASS: nice(50) passed
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=nice03 stime=1570467352
-cmdline="nice03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-nice03.c:47: PASS: nice(2) passed
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=nice04 stime=1570467352
-cmdline="nice04"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-nice04.c:34: PASS: nice(-10) failed with EPERM
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=open01 stime=1570467352
-cmdline="open01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-open01.c:59: PASS: Sticky bit is set as expected
-open01.c:59: PASS: Directory bit is set as expected
-
-Summary:
-passed   2
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=open01A stime=1570467352
-cmdline="symlink01 -T open01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-open01      1  TPASS  :  open(2) with (O_CREAT | O_RDWR) to create object file through symbolic link file and all writes, reads, and lseeks are ok
-open01      2  TPASS  :  open(2) with O_RDWR of existing  object file through symbolic link file and all writes, reads, and lseeks are ok
-open01      3  TPASS  :  open(2) with (O_CREAT | O_EXCL) error  is caught when creating object file through symbolic link file
-open01      4  TPASS  :  open(2) error with O_RDWR is caught when processing symbolic link file which points at no object file
-open01      5  TPASS  :  Nested symbolic link access condition caught.  ELOOP is returned
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=open02 stime=1570467352
-cmdline="open02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-open02.c:66: PASS: open() failed as expected: ENOENT (2)
-open02.c:66: PASS: open() failed as expected: EPERM (1)
-
-Summary:
-passed   2
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=open03 stime=1570467352
-cmdline="open03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-open03      1  TPASS  :  open(tfile_2658, O_RDWR|O_CREAT,0700) returned 7
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=open04 stime=1570467352
-cmdline="open04"
-contacts=""
-analysis=exit
-<<<test_output>>>
-open04      1  TPASS  :  call returned expected EMFILE error
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=2
-<<<test_end>>>
-<<<test_start>>>
-tag=open05 stime=1570467352
-cmdline="open05"
-contacts=""
-analysis=exit
-<<<test_output>>>
-open05      1  TPASS  :  open returned expected EACCES error
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=open06 stime=1570467352
-cmdline="open06"
-contacts=""
-analysis=exit
-<<<test_output>>>
-open06      1  TPASS  :  call returned expected ENXIO error
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=open07 stime=1570467352
-cmdline="open07"
-contacts=""
-analysis=exit
-<<<test_output>>>
-open07      1  TPASS  :  open returned expected ELOOP error
-open07      2  TPASS  :  open returned expected ELOOP error
-open07      3  TPASS  :  open returned expected ELOOP error
-open07      4  TPASS  :  open returned expected ELOOP error
-open07      5  TPASS  :  open succeeded as expected
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=open08 stime=1570467352
-cmdline="open08"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-open08.c:84: PASS: expected failure - errno = 17 : File exists
-open08.c:84: PASS: expected failure - errno = 21 : Is a directory
-open08.c:84: PASS: expected failure - errno = 20 : Not a directory
-open08.c:84: PASS: expected failure - errno = 36 : File name too long
-open08.c:84: PASS: expected failure - errno = 13 : Permission denied
-open08.c:84: PASS: expected failure - errno = 14 : Bad address
-
-Summary:
-passed   6
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=open09 stime=1570467352
-cmdline="open09"
-contacts=""
-analysis=exit
-<<<test_output>>>
-open09      1  TPASS  :  Test passed in O_WRONLY.
-open09      2  TPASS  :  Test passed in O_RDONLY.
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=open10 stime=1570467352
-cmdline="open10"
-contacts=""
-analysis=exit
-<<<test_output>>>
-open10      1  TPASS  :  Test passed in block0.
-open10      2  TPASS  :  Test passed in block1.
-open10      3  TPASS  :  Test passed in block2.
-open10      4  TPASS  :  Test passed in block3.
-open10      5  TPASS  :  Test passed.
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=open11 stime=1570467352
-cmdline="open11"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-open11.c:289: PASS: Open regular file O_RDONLY
-open11.c:289: PASS: Open regular file O_WRONLY
-open11.c:289: PASS: Open regular file O_RDWR
-open11.c:289: PASS: Open regular file O_RDWR | O_SYNC
-open11.c:289: PASS: Open regular file O_RDWR | O_TRUNC
-open11.c:289: PASS: Open dir O_RDONLY
-open11.c:289: PASS: Open dir O_RDWR, expect EISDIR
-open11.c:289: PASS: Open regular file O_DIRECTORY, expect ENOTDIR
-open11.c:289: PASS: Open hard link file O_RDONLY
-open11.c:289: PASS: Open hard link file O_WRONLY
-open11.c:289: PASS: Open hard link file O_RDWR
-open11.c:289: PASS: Open sym link file O_RDONLY
-open11.c:289: PASS: Open sym link file O_WRONLY
-open11.c:289: PASS: Open sym link file O_RDWR
-open11.c:289: PASS: Open sym link dir O_RDONLY
-open11.c:289: PASS: Open sym link dir O_WRONLY, expect EISDIR
-open11.c:289: PASS: Open sym link dir O_RDWR, expect EISDIR
-open11.c:289: PASS: Open device special file O_RDONLY
-open11.c:289: PASS: Open device special file O_WRONLY
-open11.c:289: PASS: Open device special file O_RDWR
-open11.c:289: PASS: Open non-existing regular file in existing dir
-open11.c:289: PASS: Open link file O_RDONLY | O_CREAT
-open11.c:289: PASS: Open symlink file O_RDONLY | O_CREAT
-open11.c:289: PASS: Open regular file O_RDONLY | O_CREAT
-open11.c:289: PASS: Open symlink dir O_RDONLY | O_CREAT, expect EISDIR
-open11.c:289: PASS: Open dir O_RDONLY | O_CREAT, expect EISDIR
-open11.c:289: PASS: Open regular file O_RDONLY | O_TRUNC, behaviour is undefined but should not oops or hang
-open11.c:289: PASS: Open regular file(non-empty) O_RDONLY | O_TRUNC, behaviour is undefined but should not oops or hang
-
-Summary:
-passed   28
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=open12 stime=1570467352
-cmdline="open12"
-contacts=""
-analysis=exit
-<<<test_output>>>
-mke2fs 1.43.4 (31-Jan-2017)
-open12      0  TINFO  :  Using test device LTP_DEV='/dev/loop0'
-open12      0  TINFO  :  Formatting /dev/loop0 with ext2 opts='' extra opts=''
-open12      1  TPASS  :  test O_APPEND for open success
-open12      2  TPASS  :  test O_NOATIME for open success
-open12      3  TPASS  :  test O_CLOEXEC for open success
-open12      4  TPASS  :  test O_LARGEFILE for open success
-<<<execution_status>>>
-initiation_status="ok"
-duration=2 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=2
-<<<test_end>>>
-<<<test_start>>>
-tag=open13 stime=1570467354
-cmdline="open13"
-contacts=""
-analysis=exit
-<<<test_output>>>
-open13      1  TPASS  :  read(2) failed with EBADF
-open13      2  TPASS  :  write(2) failed with EBADF
-open13      3  TPASS  :  fchmod(2) failed with EBADF
-open13      4  TPASS  :  fchown(2) failed with EBADF
-open13      5  TPASS  :  fgetxattr(2) failed with EBADF
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=open14 stime=1570467354
-cmdline="open14"
-contacts=""
-analysis=exit
-<<<test_output>>>
-open14      0  TINFO  :  creating a file with O_TMPFILE flag
-open14      0  TINFO  :  writing data to the file
-open14      0  TINFO  :  file size is '4096'
-open14      0  TINFO  :  looking for the file in '.'
-open14      0  TINFO  :  file not found, OK
-open14      0  TINFO  :  renaming '/fs/vda/tmpdir/ltp-5VaMUvbWBn/opeeUf4FX/#16515079 (deleted)' -> 'tmpfile'
-open14      0  TINFO  :  found a file: tmpfile
-open14      1  TPASS  :  single file tests passed
-open14      0  TINFO  :  create files in multiple directories
-open14      0  TINFO  :  removing test directories
-open14      0  TINFO  :  writing/reading temporary files
-open14      0  TINFO  :  closing temporary files
-open14      2  TPASS  :  multiple files tests passed
-open14      0  TINFO  :  create multiple directories, link files into them
-open14      0  TINFO  :  and check file permissions
-open14      0  TINFO  :  remove files, directories
-open14      3  TPASS  :  file permission tests passed
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=2
-<<<test_end>>>
-<<<test_start>>>
-tag=openat01 stime=1570467354
-cmdline="openat01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-openat01    1  TPASS  :  openat() returned -1: TEST_ERRNO=SUCCESS(0): Success
-openat01    2  TPASS  :  openat() returned -1: TEST_ERRNO=SUCCESS(0): Success
-openat01    3  TPASS  :  openat() returned -1: TEST_ERRNO=ENOTDIR(20): Not a directory
-openat01    4  TPASS  :  openat() returned -1: TEST_ERRNO=EBADF(9): Bad file descriptor
-openat01    5  TPASS  :  openat() returned -1: TEST_ERRNO=SUCCESS(0): Success
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=openat02 stime=1570467354
-cmdline="openat02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-openat02    1  TPASS  :  test O_APPEND for openat success
-openat02    2  TPASS  :  test O_CLOEXEC for openat success
-openat02    3  TPASS  :  test O_LARGEFILE for openat success
-openat02    4  TCONF  :  openat02.c:237: test O_NOATIME flag for openat needs filesystems which are mounted without noatime and relatime
-openat02    5  TPASS  :  test O_NOFOLLOW for openat success
-openat02    6  TPASS  :  test O_TRUNC for openat success
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=openat03 stime=1570467354
-cmdline="openat03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-openat03    0  TINFO  :  creating a file with O_TMPFILE flag
-openat03    0  TINFO  :  writing data to the file
-openat03    0  TINFO  :  file size is '4096'
-openat03    0  TINFO  :  looking for the file in '.'
-openat03    0  TINFO  :  file not found, OK
-openat03    0  TINFO  :  renaming '/fs/vda/tmpdir/ltp-5VaMUvbWBn/opereUcz0/#16515079 (deleted)' -> 'tmpfile'
-openat03    0  TINFO  :  found a file: tmpfile
-openat03    1  TPASS  :  single file tests passed
-openat03    0  TINFO  :  create files in multiple directories
-openat03    0  TINFO  :  removing test directories
-openat03    0  TINFO  :  writing/reading temporary files
-openat03    0  TINFO  :  closing temporary files
-openat03    2  TPASS  :  multiple files tests passed
-openat03    0  TINFO  :  create multiple directories, link files into them
-openat03    0  TINFO  :  and check file permissions
-openat03    0  TINFO  :  remove files, directories
-openat03    3  TPASS  :  file permission tests passed
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=mincore01 stime=1570467354
-cmdline="mincore01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-mincore01    1  TPASS  :  failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
-mincore01    2  TPASS  :  failed as expected: TEST_ERRNO=EFAULT(14): Bad address
-mincore01    3  TPASS  :  failed as expected: TEST_ERRNO=ENOMEM(12): Cannot allocate memory
-mincore01    4  TPASS  :  failed as expected: TEST_ERRNO=ENOMEM(12): Cannot allocate memory
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=mincore02 stime=1570467354
-cmdline="mincore02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-mincore02    1  TPASS  :  4 pages locked, 4 pages in-core
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=madvise01 stime=1570467354
-cmdline="madvise01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-madvise01.c:112: PASS: madvise test for MADV_NORMAL PASSED
-madvise01.c:112: PASS: madvise test for MADV_RANDOM PASSED
-madvise01.c:112: PASS: madvise test for MADV_SEQUENTIAL PASSED
-madvise01.c:112: PASS: madvise test for MADV_WILLNEED PASSED
-madvise01.c:112: PASS: madvise test for MADV_DONTNEED PASSED
-madvise01.c:112: PASS: madvise test for MADV_REMOVE PASSED
-madvise01.c:112: PASS: madvise test for MADV_DONTFORK PASSED
-madvise01.c:112: PASS: madvise test for MADV_DOFORK PASSED
-madvise01.c:109: FAIL: madvise test for MADV_HWPOISON failed with return = -1, errno = 16 : ???
-madvise01.c:112: PASS: madvise test for MADV_MERGEABLE PASSED
-madvise01.c:112: PASS: madvise test for MADV_UNMERGEABLE PASSED
-madvise01.c:112: PASS: madvise test for MADV_HUGEPAGE PASSED
-madvise01.c:112: PASS: madvise test for MADV_NOHUGEPAGE PASSED
-madvise01.c:112: PASS: madvise test for MADV_DONTDUMP PASSED
-madvise01.c:112: PASS: madvise test for MADV_DODUMP PASSED
-madvise01.c:112: PASS: madvise test for MADV_FREE PASSED
-madvise01.c:112: PASS: madvise test for MADV_WIPEONFORK PASSED
-madvise01.c:112: PASS: madvise test for MADV_KEEPONFORK PASSED
-
-Summary:
-passed   17
-failed   1
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=1 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=madvise02 stime=1570467354
-cmdline="madvise02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-madvise02.c:180: PASS: MADV_NORMAL failed as expected: EINVAL (22)
-madvise02.c:180: PASS: MADV_NORMAL failed as expected: EINVAL (22)
-madvise02.c:180: PASS: MADV_REMOVE failed as expected: EINVAL (22)
-madvise02.c:180: PASS: MADV_DONTNEED failed as expected: EINVAL (22)
-madvise02.c:173: CONF: MADV_MERGEABLE is not supported
-madvise02.c:173: CONF: MADV_UNMERGEABLE is not supported
-madvise02.c:180: PASS: MADV_NORMAL failed as expected: ENOMEM (12)
-madvise02.c:180: PASS: MADV_WILLNEED failed as expected: ENOMEM (12)
-madvise02.c:173: CONF: MADV_WILLNEED is not supported
-madvise02.c:180: PASS: MADV_FREE failed as expected: EINVAL (22)
-madvise02.c:180: PASS: MADV_WIPEONFORK failed as expected: EINVAL (22)
-madvise02.c:180: PASS: MADV_WIPEONFORK shared_anon failed as expected: EINVAL (22)
-madvise02.c:180: PASS: MADV_WIPEONFORK private file backed failed as expected: EINVAL (22)
-
-Summary:
-passed   10
-failed   0
-skipped  3
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=madvise05 stime=1570467354
-cmdline="madvise05"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-madvise05.c:38: PASS: issue has not been reproduced
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=madvise06 stime=1570467354
-cmdline="madvise06"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-madvise06.c:53: INFO: dropping caches
-madvise06.c:64: CONF: System swap is too small (838860800 bytes needed)
-
-Summary:
-passed   0
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=32 corefile=no
-cutime=0 cstime=7
-<<<test_end>>>
-<<<test_start>>>
-tag=madvise07 stime=1570467354
-cmdline="madvise07"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-madvise07.c:45: INFO: mmap(0, 4096, PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0)
-madvise07.c:54: INFO: madvise(0x7f62e8bf1000, 4096, MADV_HWPOISON)
-madvise07.c:60: FAIL: Could not poison memory: EBUSY (16)
-
-Summary:
-passed   0
-failed   1
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=1 termination_type=exited termination_id=1 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=madvise08 stime=1570467355
-cmdline="madvise08"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-madvise08.c:78: INFO: Temporary core pattern is '/fs/vda/tmpdir/ltp-5VaMUvbWBn/7lJGNn/dump-%p'
-madvise08.c:117: INFO: Dump file should be dump-2703
-madvise08.c:201: PASS: madvise(..., MADV_DONTDUMP)
-madvise08.c:117: INFO: Dump file should be dump-2704
-madvise08.c:205: PASS: madvise(..., MADV_DODUMP)
-
-Summary:
-passed   2
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=madvise09 stime=1570467355
-cmdline="madvise09"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-madvise09.c:319: CONF: MADV_FREE does not work without swap
-
-Summary:
-passed   0
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=32 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=madvise10 stime=1570467355
-cmdline="madvise10"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-madvise10.c:134: INFO: MADV_WIPEONFORK zeroes memory in child
-madvise10.c:108: PASS: madvise(0x7fae55ef0000, 16384, 0x0)
-madvise10.c:108: PASS: madvise(0x7fae55ef0000, 16384, 0x12)
-madvise10.c:89: PASS: In PID 2709, Matched expected pattern
-madvise10.c:134: INFO: MADV_WIPEONFORK with zero length does nothing
-madvise10.c:108: PASS: madvise(0x7fae55ef0000, 0, 0x0)
-madvise10.c:108: PASS: madvise(0x7fae55ef0000, 0, 0x12)
-madvise10.c:89: PASS: In PID 2710, Matched expected pattern
-madvise10.c:134: INFO: MADV_WIPEONFORK zeroes memory in grand-child
-madvise10.c:108: PASS: madvise(0x7fae55ef0000, 16384, 0x0)
-madvise10.c:108: PASS: madvise(0x7fae55ef0000, 16384, 0x12)
-madvise10.c:89: PASS: In PID 2712, Matched expected pattern
-madvise10.c:134: INFO: MADV_KEEPONFORK will undo MADV_WIPEONFORK
-madvise10.c:108: PASS: madvise(0x7fae55ef0000, 16384, 0x12)
-madvise10.c:108: PASS: madvise(0x7fae55ef0000, 16384, 0x13)
-madvise10.c:89: PASS: In PID 2713, Matched expected pattern
-
-Summary:
-passed   12
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=newuname01 stime=1570467355
-cmdline="newuname01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-newuname01    1  TPASS  :  newuname call succeed: return value = 0 
-newuname01    0  TINFO  :  This system is Linux
-newuname01    0  TINFO  :  The system infomation is :
-newuname01    0  TINFO  :  System is Linux on x86_64 hardware
-newuname01    0  TINFO  :  Nodename is vm-snb-4G-65d32b273b58
-newuname01    0  TINFO  :  Version is 5.4.0-rc1-00003-g67d8662d2db61, #1 SMP Mon Oct 7 07:58:06 CST 2019
-newuname01    0  TINFO  :  Domainname is (none) 
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pathconf01 stime=1570467355
-cmdline="pathconf01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pathconf01    1  TPASS  :  pathconf(/fs/vda/tmpdir/ltp-5VaMUvbWBn/patqpYGFn, _PC_LINK_MAX) returned 65000
-pathconf01    2  TPASS  :  pathconf(/fs/vda/tmpdir/ltp-5VaMUvbWBn/patqpYGFn, _PC_NAME_MAX) returned 255
-pathconf01    3  TPASS  :  pathconf(/fs/vda/tmpdir/ltp-5VaMUvbWBn/patqpYGFn, _PC_PATH_MAX) returned 4096
-pathconf01    4  TPASS  :  pathconf(/fs/vda/tmpdir/ltp-5VaMUvbWBn/patqpYGFn, _PC_PIPE_BUF) returned 4096
-pathconf01    5  TPASS  :  pathconf(/fs/vda/tmpdir/ltp-5VaMUvbWBn/patqpYGFn, _PC_CHOWN_RESTRICTED) returned 1
-pathconf01    6  TPASS  :  pathconf(/fs/vda/tmpdir/ltp-5VaMUvbWBn/patqpYGFn, _PC_NO_TRUNC) returned 1
-pathconf01    7  TPASS  :  pathconf(/fs/vda/tmpdir/ltp-5VaMUvbWBn/patqpYGFn, (null)) returned 65000
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=pause01 stime=1570467355
-cmdline="pause01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pause01.c:24: PASS: pause() interrupted with EINTR
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pause02 stime=1570467355
-cmdline="pause02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pause02     1  TPASS  :  pause was interrupted correctly
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pause03 stime=1570467355
-cmdline="pause03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pause03     1  TPASS  :  pause() did not return after SIGKILL
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=personality01 stime=1570467355
-cmdline="personality01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-personality01    1  TPASS  :  personality(PER_LINUX)
-personality01    0  TINFO  :  Child process returned TPASS
-personality01    1  TPASS  :  personality(PER_LINUX_32BIT)
-personality01    0  TINFO  :  Child process returned TPASS
-personality01    1  TPASS  :  personality(PER_SVR4)
-personality01    0  TINFO  :  Child process returned TPASS
-personality01    1  TPASS  :  personality(PER_SVR3)
-personality01    0  TINFO  :  Child process returned TPASS
-personality01    1  TPASS  :  personality(PER_SCOSVR3)
-personality01    0  TINFO  :  Child process returned TPASS
-personality01    1  TPASS  :  personality(PER_OSR5)
-personality01    0  TINFO  :  Child process returned TPASS
-personality01    1  TPASS  :  personality(PER_WYSEV386)
-personality01    0  TINFO  :  Child process returned TPASS
-personality01    1  TPASS  :  personality(PER_ISCR4)
-personality01    0  TINFO  :  Child process returned TPASS
-personality01    1  TPASS  :  personality(PER_BSD)
-personality01    0  TINFO  :  Child process returned TPASS
-personality01    1  TPASS  :  personality(PER_XENIX)
-personality01    0  TINFO  :  Child process returned TPASS
-personality01    1  TPASS  :  personality(PER_LINUX32)
-personality01    0  TINFO  :  Child process returned TPASS
-personality01    1  TPASS  :  personality(PER_IRIX32)
-personality01    0  TINFO  :  Child process returned TPASS
-personality01    1  TPASS  :  personality(PER_IRIXN32)
-personality01    0  TINFO  :  Child process returned TPASS
-personality01    1  TPASS  :  personality(PER_IRIX64)
-personality01    0  TINFO  :  Child process returned TPASS
-personality01    1  TPASS  :  personality(PER_RISCOS)
-personality01    0  TINFO  :  Child process returned TPASS
-personality01    1  TPASS  :  personality(PER_SOLARIS)
-personality01    0  TINFO  :  Child process returned TPASS
-personality01    1  TPASS  :  personality(PER_UW7)
-personality01    0  TINFO  :  Child process returned TPASS
-personality01    1  TPASS  :  personality(PER_OSF4)
-personality01    0  TINFO  :  Child process returned TPASS
-personality01    1  TPASS  :  personality(PER_HPUX)
-personality01    0  TINFO  :  Child process returned TPASS
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=personality02 stime=1570467355
-cmdline="personality02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-personality02    1  TPASS  :  Timeout wasn't modified
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pidfd_send_signal01 stime=1570467355
-cmdline="pidfd_send_signal01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pidfd_send_signal.h:23: INFO: Testing syscall(__NR_pidfd_send_signal)
-pidfd_send_signal01.c:29: PASS: Received correct signal and data!
-pidfd_send_signal01.c:65: PASS: pidfd_send_signal() behaved like rt_sigqueueinfo()
-
-Summary:
-passed   2
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=pidfd_send_signal02 stime=1570467355
-cmdline="pidfd_send_signal02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pidfd_send_signal.h:23: INFO: Testing syscall(__NR_pidfd_send_signal)
-pidfd_send_signal02.c:63: PASS: pidfd_send_signal() failed as expected: EINVAL (22)
-pidfd_send_signal.h:23: INFO: Testing syscall(__NR_pidfd_send_signal)
-pidfd_send_signal02.c:63: PASS: pidfd_send_signal() failed as expected: EBADF (9)
-pidfd_send_signal.h:23: INFO: Testing syscall(__NR_pidfd_send_signal)
-pidfd_send_signal02.c:63: PASS: pidfd_send_signal() failed as expected: EINVAL (22)
-pidfd_send_signal.h:23: INFO: Testing syscall(__NR_pidfd_send_signal)
-pidfd_send_signal02.c:63: PASS: pidfd_send_signal() failed as expected: EPERM (1)
+accept4_01.c:156: PASS: Close-on-exec 0, nonblock 0
+accept4_01.c:156: PASS: Close-on-exec 1, nonblock 0
+accept4_01.c:156: PASS: Close-on-exec 0, nonblock 1
+accept4_01.c:156: PASS: Close-on-exec 1, nonblock 1
 
 Summary:
 passed   4
@@ -11981,2816 +10368,245 @@ duration=0 termination_type=exited termination_id=0 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=pidfd_send_signal03 stime=1570467355
-cmdline="pidfd_send_signal03"
+tag=access01 stime=1570499094
+cmdline="access01"
 contacts=""
 analysis=exit
 <<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pidfd_send_signal.h:23: INFO: Testing syscall(__NR_pidfd_send_signal)
-pidfd_send_signal03.c:99: PASS: Did not send signal to wrong process with same PID!
+access01.c:243: PASS: access(accessfile_rwx, F_OK) as root
+access01.c:243: PASS: access(accessfile_rwx, F_OK) as nobody
+access01.c:243: PASS: access(accessfile_rwx, X_OK) as root
+access01.c:243: PASS: access(accessfile_rwx, X_OK) as nobody
+access01.c:243: PASS: access(accessfile_rwx, W_OK) as root
+access01.c:243: PASS: access(accessfile_rwx, W_OK) as nobody
+access01.c:243: PASS: access(accessfile_rwx, R_OK) as root
+access01.c:243: PASS: access(accessfile_rwx, R_OK) as nobody
+access01.c:243: PASS: access(accessfile_rwx, R_OK|W_OK) as root
+access01.c:243: PASS: access(accessfile_rwx, R_OK|W_OK) as nobody
+access01.c:243: PASS: access(accessfile_rwx, R_OK|X_OK) as root
+access01.c:243: PASS: access(accessfile_rwx, R_OK|X_OK) as nobody
+access01.c:243: PASS: access(accessfile_rwx, W_OK|X_OK) as root
+access01.c:243: PASS: access(accessfile_rwx, W_OK|X_OK) as nobody
+access01.c:243: PASS: access(accessfile_rwx, R_OK|W_OK|X_OK) as root
+access01.c:243: PASS: access(accessfile_rwx, R_OK|W_OK|X_OK) as nobody
+access01.c:243: PASS: access(accessfile_x, X_OK) as root
+access01.c:243: PASS: access(accessfile_x, X_OK) as nobody
+access01.c:243: PASS: access(accessfile_w, W_OK) as root
+access01.c:243: PASS: access(accessfile_w, W_OK) as nobody
+access01.c:243: PASS: access(accessfile_r, R_OK) as root
+access01.c:243: PASS: access(accessfile_r, R_OK) as nobody
+access01.c:263: PASS: access(accessfile_r, X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessfile_r, X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessfile_r, W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessfile_w, R_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessfile_w, X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessfile_w, X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessfile_x, R_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessfile_x, W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessfile_r, W_OK|X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessfile_r, W_OK|X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessfile_r, R_OK|X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessfile_r, R_OK|X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessfile_r, R_OK|W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessfile_r, R_OK|W_OK|X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessfile_r, R_OK|W_OK|X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessfile_w, W_OK|X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessfile_w, W_OK|X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessfile_w, R_OK|X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessfile_w, R_OK|X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessfile_w, R_OK|W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessfile_w, R_OK|W_OK|X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessfile_w, R_OK|W_OK|X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessfile_x, W_OK|X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessfile_x, R_OK|X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessfile_x, R_OK|W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessfile_x, R_OK|W_OK|X_OK) as nobody: EACCES (13)
+access01.c:243: PASS: access(accessfile_r, W_OK) as root
+access01.c:243: PASS: access(accessfile_r, R_OK|W_OK) as root
+access01.c:243: PASS: access(accessfile_w, R_OK) as root
+access01.c:243: PASS: access(accessfile_w, R_OK|W_OK) as root
+access01.c:243: PASS: access(accessfile_x, R_OK) as root
+access01.c:243: PASS: access(accessfile_x, W_OK) as root
+access01.c:243: PASS: access(accessfile_x, R_OK|W_OK) as root
+access01.c:243: PASS: access(accessdir_r/accessfile_r, F_OK) as root
+access01.c:243: PASS: access(accessdir_r/accessfile_r, R_OK) as root
+access01.c:243: PASS: access(accessdir_r/accessfile_r, W_OK) as root
+access01.c:243: PASS: access(accessdir_r/accessfile_w, F_OK) as root
+access01.c:243: PASS: access(accessdir_r/accessfile_w, R_OK) as root
+access01.c:243: PASS: access(accessdir_r/accessfile_w, W_OK) as root
+access01.c:243: PASS: access(accessdir_r/accessfile_x, F_OK) as root
+access01.c:243: PASS: access(accessdir_r/accessfile_x, R_OK) as root
+access01.c:243: PASS: access(accessdir_r/accessfile_x, W_OK) as root
+access01.c:243: PASS: access(accessdir_r/accessfile_x, X_OK) as root
+access01.c:243: PASS: access(accessdir_w/accessfile_r, F_OK) as root
+access01.c:243: PASS: access(accessdir_w/accessfile_r, R_OK) as root
+access01.c:243: PASS: access(accessdir_w/accessfile_r, W_OK) as root
+access01.c:243: PASS: access(accessdir_w/accessfile_w, F_OK) as root
+access01.c:243: PASS: access(accessdir_w/accessfile_w, R_OK) as root
+access01.c:243: PASS: access(accessdir_w/accessfile_w, W_OK) as root
+access01.c:243: PASS: access(accessdir_w/accessfile_x, F_OK) as root
+access01.c:243: PASS: access(accessdir_w/accessfile_x, R_OK) as root
+access01.c:243: PASS: access(accessdir_w/accessfile_x, W_OK) as root
+access01.c:243: PASS: access(accessdir_w/accessfile_x, X_OK) as root
+access01.c:243: PASS: access(accessdir_x/accessfile_r, F_OK) as root
+access01.c:243: PASS: access(accessdir_x/accessfile_r, F_OK) as nobody
+access01.c:243: PASS: access(accessdir_x/accessfile_r, R_OK) as root
+access01.c:243: PASS: access(accessdir_x/accessfile_r, R_OK) as nobody
+access01.c:243: PASS: access(accessdir_x/accessfile_r, W_OK) as root
+access01.c:243: PASS: access(accessdir_x/accessfile_w, F_OK) as root
+access01.c:243: PASS: access(accessdir_x/accessfile_w, F_OK) as nobody
+access01.c:243: PASS: access(accessdir_x/accessfile_w, R_OK) as root
+access01.c:243: PASS: access(accessdir_x/accessfile_w, W_OK) as root
+access01.c:243: PASS: access(accessdir_x/accessfile_w, W_OK) as nobody
+access01.c:243: PASS: access(accessdir_x/accessfile_x, F_OK) as root
+access01.c:243: PASS: access(accessdir_x/accessfile_x, F_OK) as nobody
+access01.c:243: PASS: access(accessdir_x/accessfile_x, R_OK) as root
+access01.c:243: PASS: access(accessdir_x/accessfile_x, W_OK) as root
+access01.c:243: PASS: access(accessdir_x/accessfile_x, X_OK) as root
+access01.c:243: PASS: access(accessdir_x/accessfile_x, X_OK) as nobody
+access01.c:243: PASS: access(accessdir_rw/accessfile_r, F_OK) as root
+access01.c:243: PASS: access(accessdir_rw/accessfile_r, R_OK) as root
+access01.c:243: PASS: access(accessdir_rw/accessfile_r, W_OK) as root
+access01.c:243: PASS: access(accessdir_rw/accessfile_w, F_OK) as root
+access01.c:243: PASS: access(accessdir_rw/accessfile_w, R_OK) as root
+access01.c:243: PASS: access(accessdir_rw/accessfile_w, W_OK) as root
+access01.c:243: PASS: access(accessdir_rw/accessfile_x, F_OK) as root
+access01.c:243: PASS: access(accessdir_rw/accessfile_x, R_OK) as root
+access01.c:243: PASS: access(accessdir_rw/accessfile_x, W_OK) as root
+access01.c:243: PASS: access(accessdir_rw/accessfile_x, X_OK) as root
+access01.c:243: PASS: access(accessdir_rx/accessfile_r, F_OK) as root
+access01.c:243: PASS: access(accessdir_rx/accessfile_r, F_OK) as nobody
+access01.c:243: PASS: access(accessdir_rx/accessfile_r, R_OK) as root
+access01.c:243: PASS: access(accessdir_rx/accessfile_r, R_OK) as nobody
+access01.c:243: PASS: access(accessdir_rx/accessfile_r, W_OK) as root
+access01.c:243: PASS: access(accessdir_rx/accessfile_w, F_OK) as root
+access01.c:243: PASS: access(accessdir_rx/accessfile_w, F_OK) as nobody
+access01.c:243: PASS: access(accessdir_rx/accessfile_w, R_OK) as root
+access01.c:243: PASS: access(accessdir_rx/accessfile_w, W_OK) as root
+access01.c:243: PASS: access(accessdir_rx/accessfile_w, W_OK) as nobody
+access01.c:243: PASS: access(accessdir_rx/accessfile_x, F_OK) as root
+access01.c:243: PASS: access(accessdir_rx/accessfile_x, F_OK) as nobody
+access01.c:243: PASS: access(accessdir_rx/accessfile_x, R_OK) as root
+access01.c:243: PASS: access(accessdir_rx/accessfile_x, W_OK) as root
+access01.c:243: PASS: access(accessdir_rx/accessfile_x, X_OK) as root
+access01.c:243: PASS: access(accessdir_rx/accessfile_x, X_OK) as nobody
+access01.c:243: PASS: access(accessdir_wx/accessfile_r, F_OK) as root
+access01.c:243: PASS: access(accessdir_wx/accessfile_r, F_OK) as nobody
+access01.c:243: PASS: access(accessdir_wx/accessfile_r, R_OK) as root
+access01.c:243: PASS: access(accessdir_wx/accessfile_r, R_OK) as nobody
+access01.c:243: PASS: access(accessdir_wx/accessfile_r, W_OK) as root
+access01.c:243: PASS: access(accessdir_wx/accessfile_w, F_OK) as root
+access01.c:243: PASS: access(accessdir_wx/accessfile_w, F_OK) as nobody
+access01.c:243: PASS: access(accessdir_wx/accessfile_w, R_OK) as root
+access01.c:243: PASS: access(accessdir_wx/accessfile_w, W_OK) as root
+access01.c:243: PASS: access(accessdir_wx/accessfile_w, W_OK) as nobody
+access01.c:243: PASS: access(accessdir_wx/accessfile_x, F_OK) as root
+access01.c:243: PASS: access(accessdir_wx/accessfile_x, F_OK) as nobody
+access01.c:243: PASS: access(accessdir_wx/accessfile_x, R_OK) as root
+access01.c:243: PASS: access(accessdir_wx/accessfile_x, W_OK) as root
+access01.c:243: PASS: access(accessdir_wx/accessfile_x, X_OK) as root
+access01.c:243: PASS: access(accessdir_wx/accessfile_x, X_OK) as nobody
+access01.c:263: PASS: access(accessdir_r/accessfile_r, F_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_r/accessfile_r, R_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_r/accessfile_r, W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_r/accessfile_r, X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessdir_r/accessfile_r, X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_r/accessfile_w, F_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_r/accessfile_w, R_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_r/accessfile_w, W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_r/accessfile_w, X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessdir_r/accessfile_w, X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_r/accessfile_x, F_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_r/accessfile_x, R_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_r/accessfile_x, W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_r/accessfile_x, X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_w/accessfile_r, F_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_w/accessfile_r, R_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_w/accessfile_r, W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_w/accessfile_r, X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessdir_w/accessfile_r, X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_w/accessfile_w, F_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_w/accessfile_w, R_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_w/accessfile_w, W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_w/accessfile_w, X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessdir_w/accessfile_w, X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_w/accessfile_x, F_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_w/accessfile_x, R_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_w/accessfile_x, W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_w/accessfile_x, X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_x/accessfile_r, W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_x/accessfile_r, X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessdir_x/accessfile_r, X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_x/accessfile_w, R_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_x/accessfile_w, X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessdir_x/accessfile_w, X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_x/accessfile_x, R_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_x/accessfile_x, W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_rw/accessfile_r, F_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_rw/accessfile_r, R_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_rw/accessfile_r, W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_rw/accessfile_r, X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessdir_rw/accessfile_r, X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_rw/accessfile_w, F_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_rw/accessfile_w, R_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_rw/accessfile_w, W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_rw/accessfile_w, X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessdir_rw/accessfile_w, X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_rw/accessfile_x, F_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_rw/accessfile_x, R_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_rw/accessfile_x, W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_rw/accessfile_x, X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_rx/accessfile_r, W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_rx/accessfile_r, X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessdir_rx/accessfile_r, X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_rx/accessfile_w, R_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_rx/accessfile_w, X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessdir_rx/accessfile_w, X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_rx/accessfile_x, R_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_rx/accessfile_x, W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_wx/accessfile_r, W_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_wx/accessfile_r, X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessdir_wx/accessfile_r, X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_wx/accessfile_w, R_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_wx/accessfile_w, X_OK) as root: EACCES (13)
+access01.c:263: PASS: access(accessdir_wx/accessfile_w, X_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_wx/accessfile_x, R_OK) as nobody: EACCES (13)
+access01.c:263: PASS: access(accessdir_wx/accessfile_x, W_OK) as nobody: EACCES (13)
 
 Summary:
-passed   1
+passed   199
 failed   0
 skipped  0
 warnings 0
 <<<execution_status>>>
 initiation_status="ok"
 duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pipe01 stime=1570467355
-cmdline="pipe01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pipe01.c:48: PASS: pipe() functionality is correct
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pipe02 stime=1570467355
-cmdline="pipe02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pipe02.c:86: PASS: Child killed by SIGPIPE
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pipe03 stime=1570467355
-cmdline="pipe03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pipe03.c:30: PASS: expected failure writing to read end of pipe: EBADF (9)
-pipe03.c:39: PASS: expected failure reading from write end of pipe: EBADF (9)
-
-Summary:
-passed   2
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pipe04 stime=1570467355
-cmdline="pipe04"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pipe04      1  TPASS  :  Child 1 killed while writing to a pipe
-pipe04      2  TPASS  :  Child 2 killed while writing to a pipe
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pipe05 stime=1570467355
-cmdline="pipe05"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pipe05      1  TPASS  :  expected failure - errno = 14 : Bad address
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pipe06 stime=1570467355
-cmdline="pipe06"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pipe06      1  TPASS  :  failed with EMFILE
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=pipe07 stime=1570467355
-cmdline="pipe07"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pipe07      0  TINFO  :  Found 7 files open
-pipe07      1  TPASS  :  Opened 508 pipes
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pipe08 stime=1570467355
-cmdline="pipe08"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pipe08      1  TPASS  :  got expected SIGPIPE signal
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pipe09 stime=1570467355
-cmdline="pipe09"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pipe09      1  TPASS  :  functionality appears to be correct
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pipe10 stime=1570467355
-cmdline="pipe10"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pipe10      1  TPASS  :  functionality is correct
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pipe11 stime=1570467355
-cmdline="pipe11"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pipe11.c:70: INFO: Reading 4096 per each of 1 children
-pipe11.c:50: PASS: Child 2773 read pipe buffer correctly
-pipe11.c:70: INFO: Reading 2048 per each of 2 children
-pipe11.c:50: PASS: Child 2774 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2775 read pipe buffer correctly
-pipe11.c:70: INFO: Reading 1365 per each of 3 children
-pipe11.c:50: PASS: Child 2776 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2777 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2778 read pipe buffer correctly
-pipe11.c:70: INFO: Reading 1024 per each of 4 children
-pipe11.c:50: PASS: Child 2781 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2779 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2780 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2782 read pipe buffer correctly
-pipe11.c:70: INFO: Reading 409 per each of 10 children
-pipe11.c:50: PASS: Child 2788 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2787 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2783 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2784 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2785 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2786 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2789 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2790 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2791 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2792 read pipe buffer correctly
-pipe11.c:70: INFO: Reading 81 per each of 50 children
-pipe11.c:50: PASS: Child 2826 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2828 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2827 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2823 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2806 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2818 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2819 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2820 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2821 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2822 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2825 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2824 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2807 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2805 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2808 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2809 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2804 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2810 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2803 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2811 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2812 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2802 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2813 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2795 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2814 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2815 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2816 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2829 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2817 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2830 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2831 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2796 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2832 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2833 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2797 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2834 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2836 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2798 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2837 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2839 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2799 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2841 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2800 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2840 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2801 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2835 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2838 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2842 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2793 read pipe buffer correctly
-pipe11.c:50: PASS: Child 2794 read pipe buffer correctly
-
-Summary:
-passed   70
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pipe2_01 stime=1570467355
-cmdline="pipe2_01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pipe2_01    1  TPASS  :  pipe2(O_CLOEXEC) PASSED
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=pipe2_02 stime=1570467355
-cmdline="pipe2_02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pipe2_02    1  TPASS  :  pipe2(O_NONBLOCK) PASSED
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pivot_root01 stime=1570467355
-cmdline="pivot_root01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pivot_root01.c:158: PASS: pivot_root succeeded
-pivot_root01.c:173: PASS: pivot_root failed as expectedly: EBUSY (16)
-pivot_root01.c:173: PASS: pivot_root failed as expectedly: EINVAL (22)
-pivot_root01.c:173: PASS: pivot_root failed as expectedly: ENOTDIR (20)
-pivot_root01.c:173: PASS: pivot_root failed as expectedly: EPERM (1)
-
-Summary:
-passed   5
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=poll01 stime=1570467355
-cmdline="poll01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-poll01.c:42: PASS: poll() POLLOUT
-poll01.c:69: PASS: poll() POLLIN
-
-Summary:
-passed   2
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=poll02 stime=1570467355
-cmdline="poll02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_timer_test.c:345: INFO: CLOCK_MONOTONIC resolution 1ns
-tst_timer_test.c:357: INFO: prctl(PR_GET_TIMERSLACK) = 50us
-tst_timer_test.c:264: INFO: poll() sleeping for 1000us 500 iterations, threshold 450.01us
-tst_timer_test.c:307: INFO: min 1030us, max 1132us, median 1066us, trunc mean 1068.42us (discarded 25)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: poll() sleeping for 2000us 500 iterations, threshold 450.01us
-tst_timer_test.c:307: INFO: min 2022us, max 2222us, median 2085us, trunc mean 2081.42us (discarded 25)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: poll() sleeping for 5000us 300 iterations, threshold 450.04us
-tst_timer_test.c:307: INFO: min 5025us, max 8689us, median 5087us, trunc mean 5140.51us (discarded 15)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: poll() sleeping for 10000us 100 iterations, threshold 450.33us
-tst_timer_test.c:307: INFO: min 10038us, max 13845us, median 10088us, trunc mean 10270.22us (discarded 5)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: poll() sleeping for 25000us 50 iterations, threshold 451.29us
-tst_timer_test.c:307: INFO: min 25051us, max 27446us, median 25113us, trunc mean 25493.67us (discarded 2)
-tst_timer_test.c:310: FAIL: poll() slept for too long
-
- Time: us | Frequency
---------------------------------------------------------------------------------
-    25051 | ********************************************************************
-    25178 | *******
-    25305 | 
-    25432 | **-
-    25559 | **-
-    25686 | ****+
-    25813 | 
-    25940 | **-
-    26067 | ****+
-    26194 | 
-    26321 | *******
-    26448 | **-
-    26575 | ****+
-    26702 | **-
-    26829 | ****+
-    26956 | **-
-    27083 | 
-    27210 | 
-    27337 | **-
---------------------------------------------------------------------------------
-    127us | 1 sample = 2.34483 '*', 4.68966 '+', 9.37931 '-', non-zero '.'
-
-tst_timer_test.c:264: INFO: poll() sleeping for 100000us 10 iterations, threshold 537.00us
-tst_timer_test.c:307: INFO: min 100120us, max 102028us, median 100248us, trunc mean 100471.78us (discarded 1)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: poll() sleeping for 1000000us 2 iterations, threshold 4400.00us
-tst_timer_test.c:307: INFO: min 1001041us, max 1002933us, median 1001041us, trunc mean 1001041.00us (discarded 1)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-
-Summary:
-passed   6
-failed   1
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=8 termination_type=exited termination_id=1 corefile=no
-cutime=0 cstime=2
-<<<test_end>>>
-<<<test_start>>>
-tag=ppoll01 stime=1570467363
-cmdline="ppoll01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-ppoll01.c:212: INFO: case NORMAL
-ppoll01.c:243: PASS: revents=0x0005
-ppoll01.c:249: PASS: ret: 1
-ppoll01.c:212: INFO: case MASK_SIGNAL
-ppoll01.c:249: PASS: ret: 0
-ppoll01.c:212: INFO: case TIMEOUT
-ppoll01.c:249: PASS: ret: 0
-ppoll01.c:212: INFO: case FD_ALREADY_CLOSED
-ppoll01.c:243: PASS: revents=0x0020
-ppoll01.c:249: PASS: ret: 1
-ppoll01.c:212: INFO: case SEND_SIGINT
-ppoll01.c:252: PASS: ret: -1, errno: EINTR (4)
-ppoll01.c:212: INFO: case SEND_SIGINT_RACE_TEST
-ppoll01.c:252: PASS: ret: -1, errno: EINTR (4)
-ppoll01.c:212: INFO: case INVALID_NFDS
-ppoll01.c:252: PASS: ret: -1, errno: EINVAL (22)
-ppoll01.c:212: INFO: case INVALID_FDS
-ppoll01.c:252: PASS: ret: -1, errno: EFAULT (14)
-
-Summary:
-passed   10
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=1 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=prctl01 stime=1570467364
-cmdline="prctl01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-prctl01.c:25: PASS: prctl(PR_SET_PDEATHSIG) succeeded
-prctl01.c:35: PASS: prctl(PR_GET_PDEATHSIG) got expected death signal
-
-Summary:
-passed   2
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=prctl02 stime=1570467364
-cmdline="prctl02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-prctl02.c:39: PASS: prctl() failed as expected: EINVAL (22)
-prctl02.c:39: PASS: prctl() failed as expected: EINVAL (22)
-
-Summary:
-passed   2
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=prctl03 stime=1570467364
-cmdline="prctl03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-prctl03.c:73: PASS: prctl(PR_SET_CHILD_SUBREAPER) succeeded
-prctl03.c:46: PASS: prctl(PR_GET_CHILD_SUBREAPER) got expected 0
-prctl03.c:88: PASS: PPID of orphaned process was reparented
-prctl03.c:101: PASS: wait() got orphaned process, pid 2898, status 0
-prctl03.c:108: PASS: received SIGCHLD from orphaned process
-prctl03.c:46: PASS: prctl(PR_GET_CHILD_SUBREAPER) got expected 1
-
-Summary:
-passed   6
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=prctl04 stime=1570467364
-cmdline="prctl04"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-prctl04.c:213: INFO: kernel support PR_GET/SET_SECCOMP
-prctl04.c:125: PASS: prctl(PR_SET_SECCOMP) sets SECCOMP_MODE_STRICT succeed
-prctl04.c:197: PASS: SECCOMP_MODE_STRICT doesn't permit GET_SECCOMP call
-prctl04.c:133: PASS: SECCOMP_MODE_STRICT permits read(2) write(2) and _exit(2)
-prctl04.c:197: PASS: SECCOMP_MODE_STRICT doesn't permit close(2)
-prctl04.c:165: PASS: prctl(PR_SET_SECCOMP) sets SECCOMP_MODE_FILTER succeed
-prctl04.c:197: PASS: SECCOMP_MODE_FILTER doestn't permit GET_SECCOMP call
-prctl04.c:171: PASS: SECCOMP_MODE_FILTER permits close(2)
-prctl04.c:197: PASS: SECCOMP_MODE_FILTER doesn't permit exit()
-prctl04.c:95: PASS: SECCOMP_MODE_FILTER permits fork(2)
-prctl04.c:102: PASS: SECCOMP_MODE_FILTER has been inherited by child
-
-Summary:
-passed   10
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=prctl05 stime=1570467364
-cmdline="prctl05"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-prctl05.c:55: PASS: prctl(PR_SET_NAME, 'prctl05_test') succeeded
-prctl05.c:69: PASS: prctl(PR_GET_NAME) succeeded, thread name is prctl05_test
-prctl05.c:40: PASS: /proc/self/task/2910/comm sets to prctl05_test
-prctl05.c:40: PASS: /proc/self/comm sets to prctl05_test
-prctl05.c:55: PASS: prctl(PR_SET_NAME, 'prctl05_test_xxxxx') succeeded
-prctl05.c:69: PASS: prctl(PR_GET_NAME) succeeded, thread name is prctl05_test_xx
-prctl05.c:40: PASS: /proc/self/task/2910/comm sets to prctl05_test_xx
-prctl05.c:40: PASS: /proc/self/comm sets to prctl05_test_xx
-
-Summary:
-passed   8
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=prctl06 stime=1570467364
-cmdline="prctl06"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-prctl06.c:89: INFO: kernel supports PR_GET/SET_NO_NEW_PRIVS
-prctl06.h:56: PASS: parent prctl(PR_GET_NO_NEW_PRIVS) expected 0 got 0
-prctl06.h:44: PASS: parent /proc/self/status NoNewPrivs field expected 0 got 0
-prctl06.c:40: PASS: prctl(PR_SET_NO_NEW_PRIVS) succeeded
-prctl06.h:56: PASS: After fork, child process prctl(PR_GET_NO_NEW_PRIVS) expected 1 got 1
-prctl06.h:44: PASS: After fork, child process /proc/self/status NoNewPrivs field expected 1 got 1
-prctl06.h:56: PASS: After execve, child process prctl(PR_GET_NO_NEW_PRIVS) expected 1 got 1
-prctl06.h:44: PASS: After execve, child process /proc/self/status NoNewPrivs field expected 1 got 1
-prctl06_execve.c:32: PASS: After execve, child process getegid() returns nobody, it doesn't gain root privileges
-prctl06_execve.c:42: PASS: After execve, child process geteuid() returns nobody, it doesn't gain root privileges
-prctl06.h:56: PASS: parent process prctl(PR_GET_NO_NEW_PRIVS) expected 1 got 1
-prctl06.h:44: PASS: parent process /proc/self/status NoNewPrivs field expected 1 got 1
-prctl06.h:56: PASS: After execve, parent process prctl(PR_GET_NO_NEW_PRIVS) expected 1 got 1
-prctl06.h:44: PASS: After execve, parent process /proc/self/status NoNewPrivs field expected 1 got 1
-prctl06_execve.c:32: PASS: After execve, parent process getegid() returns nobody, it doesn't gain root privileges
-prctl06_execve.c:42: PASS: After execve, parent process geteuid() returns nobody, it doesn't gain root privileges
-
-Summary:
-passed   15
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=6
-<<<test_end>>>
-<<<test_start>>>
-tag=prctl07 stime=1570467364
-cmdline="prctl07"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-prctl07.c:180: INFO: kernel supports PR_CAP_AMBIENT
-prctl07.c:64: PASS: At the beginning, CapAmb in /proc/self/status doesn't have CAP_NET_BIND_SERVICE
-prctl07.c:86: PASS: PR_CAP_AMBIENT_RAISE failed with EPERM on non-inheritable cap
-prctl07.c:86: PASS: PR_CAP_AMBIENT_RAISE failed with EPERM on non-permitted cap
-prctl07.c:86: PASS: PR_CAP_AMBIENT_RAISE failed with EPERM because of NO_RAISE_SECBIT set
-prctl07.c:74: PASS: PR_CAP_AMBIENT_RAISE CAP_NET_BIND_SERVICE succeeded
-prctl07.c:74: PASS: PR_CAP_AMBIENT_RAISE CAP_NET_BIND_SERIVCE twice succeeded
-prctl07.c:60: PASS: After PR_CAP_AMBIENT_RAISE, CapAmb in /proc/self/status has CAP_NET_BIND_SERVICE
-prctl07.c:99: PASS: PR_CAP_AMBIENT_IS_SET CAP_NET_BIND_SERVICE was in AmbientCap
-prctl07.c:102: PASS: PR_CAP_AMBIENT_IS_SET CAP_NET_RAW was not in AmbientCap
-prctl07.c:114: PASS: PR_CAP_AMBIENT_LOWER CAP_NET_RAW(it wasn't in ambient set) succeeded
-prctl07.c:114: PASS: PR_CAP_AMBIENT_LOWER CAP_NET_BIND_SERVICE(it was in ambient set) succeeded
-prctl07.c:64: PASS: After PR_CAP_AMBIENT_LORWER, CapAmb in /proc/self/status doesn't have CAP_NET_BIND_SERVICE
-prctl07.c:161: INFO: raise cap for clear
-prctl07.c:164: PASS: PR_CAP_AMBIENT_CLEAR ALL succeeded
-prctl07.c:50: PASS: After PR_CAP_AMBIENT_CLEAN_ALL, /proc/self/status CapAmb has been clear as 0
-
-Summary:
-passed   14
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pread01 stime=1570467364
-cmdline="pread01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pread01     1  TPASS  :  Functionality of pread() is correct
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pread01_64 stime=1570467364
-cmdline="pread01_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pread01     1  TPASS  :  Functionality of pread() is correct
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pread02 stime=1570467364
-cmdline="pread02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pread02     1  TPASS  :  pread() fails, file descriptor is a PIPE or FIFO, errno:29
-pread02     2  TPASS  :  pread() fails, specified offset is -ve or invalid, errno:22
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pread02_64 stime=1570467364
-cmdline="pread02_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pread02     1  TPASS  :  pread() fails, file descriptor is a PIPE or FIFO, errno:29
-pread02     2  TPASS  :  pread() fails, specified offset is -ve or invalid, errno:22
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pread03 stime=1570467364
-cmdline="pread03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pread03     1  TPASS  :  pread() fails with expected error EISDIR errno:21
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pread03_64 stime=1570467364
-cmdline="pread03_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pread03     1  TPASS  :  pread() fails with expected error EISDIR errno:21
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=preadv01 stime=1570467364
-cmdline="preadv01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_buffers.c:55: INFO: Test is using guarded buffers
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv01.c:81: PASS: Preadv(2) read 64 bytes successfully with content 'a' expectedly
-preadv01.c:81: PASS: Preadv(2) read 64 bytes successfully with content 'a' expectedly
-preadv01.c:81: PASS: Preadv(2) read 32 bytes successfully with content 'b' expectedly
-
-Summary:
-passed   3
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=preadv01_64 stime=1570467364
-cmdline="preadv01_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_buffers.c:55: INFO: Test is using guarded buffers
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv01.c:81: PASS: Preadv(2) read 64 bytes successfully with content 'a' expectedly
-preadv01.c:81: PASS: Preadv(2) read 64 bytes successfully with content 'a' expectedly
-preadv01.c:81: PASS: Preadv(2) read 32 bytes successfully with content 'b' expectedly
-
-Summary:
-passed   3
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=preadv02 stime=1570467364
-cmdline="preadv02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv02.c:89: PASS: preadv() failed as expected: EINVAL (22)
-preadv02.c:89: PASS: preadv() failed as expected: EINVAL (22)
-preadv02.c:89: PASS: preadv() failed as expected: EINVAL (22)
-preadv02.c:89: PASS: preadv() failed as expected: EFAULT (14)
-preadv02.c:89: PASS: preadv() failed as expected: EBADF (9)
-preadv02.c:89: PASS: preadv() failed as expected: EBADF (9)
-preadv02.c:89: PASS: preadv() failed as expected: EISDIR (21)
-preadv02.c:89: PASS: preadv() failed as expected: ESPIPE (29)
-
-Summary:
-passed   8
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=preadv02_64 stime=1570467364
-cmdline="preadv02_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv02.c:89: PASS: preadv() failed as expected: EINVAL (22)
-preadv02.c:89: PASS: preadv() failed as expected: EINVAL (22)
-preadv02.c:89: PASS: preadv() failed as expected: EINVAL (22)
-preadv02.c:89: PASS: preadv() failed as expected: EFAULT (14)
-preadv02.c:89: PASS: preadv() failed as expected: EBADF (9)
-preadv02.c:89: PASS: preadv() failed as expected: EBADF (9)
-preadv02.c:89: PASS: preadv() failed as expected: EISDIR (21)
-preadv02.c:89: PASS: preadv() failed as expected: ESPIPE (29)
-
-Summary:
-passed   8
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=preadv03 stime=1570467364
-cmdline="preadv03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
-tst_supported_fs_types.c:60: INFO: Kernel supports ext2
-tst_supported_fs_types.c:44: INFO: mkfs.ext2 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports ext3
-tst_supported_fs_types.c:44: INFO: mkfs.ext3 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports ext4
-tst_supported_fs_types.c:44: INFO: mkfs.ext4 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports xfs
-tst_supported_fs_types.c:44: INFO: mkfs.xfs does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports btrfs
-tst_supported_fs_types.c:44: INFO: mkfs.btrfs does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports vfat
-tst_supported_fs_types.c:44: INFO: mkfs.vfat does exist
-tst_supported_fs_types.c:92: INFO: FUSE does support exfat
-tst_supported_fs_types.c:44: INFO: mkfs.exfat does exist
-tst_supported_fs_types.c:92: INFO: FUSE does support ntfs
-tst_supported_fs_types.c:44: INFO: mkfs.ntfs does exist
-tst_test.c:1179: INFO: Testing on ext2
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv03.c:102: INFO: Using block size 512
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'b' expectedly
-tst_test.c:1179: INFO: Testing on ext3
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv03.c:102: INFO: Using block size 512
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'b' expectedly
-tst_test.c:1179: INFO: Testing on ext4
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv03.c:102: INFO: Using block size 512
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'b' expectedly
-tst_test.c:1179: INFO: Testing on xfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with xfs opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv03.c:102: INFO: Using block size 512
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'b' expectedly
-tst_test.c:1179: INFO: Testing on btrfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with btrfs opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv03.c:102: INFO: Using block size 512
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'b' expectedly
-tst_test.c:1179: INFO: Testing on vfat
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv03.c:102: INFO: Using block size 512
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'b' expectedly
-tst_test.c:1179: INFO: Testing on exfat
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with exfat opts='' extra opts=''
-safe_macros.c:743: INFO: Trying FUSE...
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv03.c:102: INFO: Using block size 512
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'b' expectedly
-tst_test.c:1179: INFO: Testing on ntfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ntfs opts='' extra opts=''
-The partition start sector was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-The number of sectors per track was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-The number of heads was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
-Windows will not be able to boot from this device.
-safe_macros.c:743: INFO: Trying FUSE...
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv03.c:102: INFO: Using block size 512
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'b' expectedly
-
-Summary:
-passed   24
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=5 termination_type=exited termination_id=0 corefile=no
-cutime=12 cstime=106
-<<<test_end>>>
-<<<test_start>>>
-tag=preadv03_64 stime=1570467369
-cmdline="preadv03_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
-tst_supported_fs_types.c:60: INFO: Kernel supports ext2
-tst_supported_fs_types.c:44: INFO: mkfs.ext2 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports ext3
-tst_supported_fs_types.c:44: INFO: mkfs.ext3 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports ext4
-tst_supported_fs_types.c:44: INFO: mkfs.ext4 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports xfs
-tst_supported_fs_types.c:44: INFO: mkfs.xfs does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports btrfs
-tst_supported_fs_types.c:44: INFO: mkfs.btrfs does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports vfat
-tst_supported_fs_types.c:44: INFO: mkfs.vfat does exist
-tst_supported_fs_types.c:92: INFO: FUSE does support exfat
-tst_supported_fs_types.c:44: INFO: mkfs.exfat does exist
-tst_supported_fs_types.c:92: INFO: FUSE does support ntfs
-tst_supported_fs_types.c:44: INFO: mkfs.ntfs does exist
-tst_test.c:1179: INFO: Testing on ext2
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv03.c:102: INFO: Using block size 512
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'b' expectedly
-tst_test.c:1179: INFO: Testing on ext3
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv03.c:102: INFO: Using block size 512
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'b' expectedly
-tst_test.c:1179: INFO: Testing on ext4
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv03.c:102: INFO: Using block size 512
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'b' expectedly
-tst_test.c:1179: INFO: Testing on xfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with xfs opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv03.c:102: INFO: Using block size 512
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'b' expectedly
-tst_test.c:1179: INFO: Testing on btrfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with btrfs opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv03.c:102: INFO: Using block size 512
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'b' expectedly
-tst_test.c:1179: INFO: Testing on vfat
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv03.c:102: INFO: Using block size 512
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'b' expectedly
-tst_test.c:1179: INFO: Testing on exfat
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with exfat opts='' extra opts=''
-safe_macros.c:743: INFO: Trying FUSE...
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv03.c:102: INFO: Using block size 512
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'b' expectedly
-tst_test.c:1179: INFO: Testing on ntfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ntfs opts='' extra opts=''
-The partition start sector was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-The number of sectors per track was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-The number of heads was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
-Windows will not be able to boot from this device.
-safe_macros.c:743: INFO: Trying FUSE...
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv03.c:102: INFO: Using block size 512
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'a' expectedly
-preadv03.c:88: PASS: preadv(O_DIRECT) read 512 bytes successfully with content 'b' expectedly
-
-Summary:
-passed   24
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=5 termination_type=exited termination_id=0 corefile=no
-cutime=9 cstime=116
-<<<test_end>>>
-<<<test_start>>>
-tag=preadv201 stime=1570467374
-cmdline="preadv201"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv201.c:91: PASS: preadv2() read 64 bytes with content 'a' expectedly
-preadv201.c:91: PASS: preadv2() read 64 bytes with content 'a' expectedly
-preadv201.c:91: PASS: preadv2() read 32 bytes with content 'b' expectedly
-preadv201.c:91: PASS: preadv2() read 64 bytes with content 'a' expectedly
-preadv201.c:91: PASS: preadv2() read 64 bytes with content 'a' expectedly
-preadv201.c:91: PASS: preadv2() read 64 bytes with content 'b' expectedly
-
-Summary:
-passed   6
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=preadv201_64 stime=1570467374
-cmdline="preadv201_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv201.c:91: PASS: preadv2() read 64 bytes with content 'a' expectedly
-preadv201.c:91: PASS: preadv2() read 64 bytes with content 'a' expectedly
-preadv201.c:91: PASS: preadv2() read 32 bytes with content 'b' expectedly
-preadv201.c:91: PASS: preadv2() read 64 bytes with content 'a' expectedly
-preadv201.c:91: PASS: preadv2() read 64 bytes with content 'a' expectedly
-preadv201.c:91: PASS: preadv2() read 64 bytes with content 'b' expectedly
-
-Summary:
-passed   6
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=preadv202 stime=1570467374
-cmdline="preadv202"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv202.c:82: PASS: preadv2() failed as expected: EINVAL (22)
-preadv202.c:82: PASS: preadv2() failed as expected: EINVAL (22)
-preadv202.c:82: PASS: preadv2() failed as expected: EOPNOTSUPP (95)
-preadv202.c:82: PASS: preadv2() failed as expected: EFAULT (14)
-preadv202.c:82: PASS: preadv2() failed as expected: EBADF (9)
-preadv202.c:82: PASS: preadv2() failed as expected: EBADF (9)
-preadv202.c:82: PASS: preadv2() failed as expected: EISDIR (21)
-preadv202.c:82: PASS: preadv2() failed as expected: ESPIPE (29)
-
-Summary:
-passed   8
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=preadv202_64 stime=1570467374
-cmdline="preadv202_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv202.c:82: PASS: preadv2() failed as expected: EINVAL (22)
-preadv202.c:82: PASS: preadv2() failed as expected: EINVAL (22)
-preadv202.c:82: PASS: preadv2() failed as expected: EOPNOTSUPP (95)
-preadv202.c:82: PASS: preadv2() failed as expected: EFAULT (14)
-preadv202.c:82: PASS: preadv2() failed as expected: EBADF (9)
-preadv202.c:82: PASS: preadv2() failed as expected: EBADF (9)
-preadv202.c:82: PASS: preadv2() failed as expected: EISDIR (21)
-preadv202.c:82: PASS: preadv2() failed as expected: ESPIPE (29)
-
-Summary:
-passed   8
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=preadv203 stime=1570467374
-cmdline="preadv203"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
-tst_supported_fs_types.c:60: INFO: Kernel supports ext2
-tst_supported_fs_types.c:44: INFO: mkfs.ext2 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports ext3
-tst_supported_fs_types.c:44: INFO: mkfs.ext3 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports ext4
-tst_supported_fs_types.c:44: INFO: mkfs.ext4 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports xfs
-tst_supported_fs_types.c:44: INFO: mkfs.xfs does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports btrfs
-tst_supported_fs_types.c:44: INFO: mkfs.btrfs does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports vfat
-tst_supported_fs_types.c:44: INFO: mkfs.vfat does exist
-tst_supported_fs_types.c:92: INFO: FUSE does support exfat
-tst_supported_fs_types.c:44: INFO: mkfs.exfat does exist
-tst_supported_fs_types.c:92: INFO: FUSE does support ntfs
-tst_supported_fs_types.c:44: INFO: mkfs.ntfs does exist
-tst_test.c:1179: INFO: Testing on ext2
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv203.c:145: INFO: Number of full_reads 704698, short reads 10, zero len reads 0, EAGAIN(s) 22398
-preadv203.c:194: INFO: Cache dropped 36 times
-preadv203.c:180: INFO: Number of writes 739140
-preadv203.c:223: PASS: Got some EAGAIN
-tst_test.c:1179: INFO: Testing on ext3
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv203.c:145: INFO: Number of full_reads 1128585, short reads 10, zero len reads 0, EAGAIN(s) 18189
-preadv203.c:194: INFO: Cache dropped 55 times
-preadv203.c:180: INFO: Number of writes 866940
-preadv203.c:223: PASS: Got some EAGAIN
-tst_test.c:1179: INFO: Testing on ext4
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv203.c:145: INFO: Number of full_reads 1101106, short reads 10, zero len reads 0, EAGAIN(s) 12337
-preadv203.c:194: INFO: Cache dropped 65 times
-preadv203.c:180: INFO: Number of writes 999960
-preadv203.c:223: PASS: Got some EAGAIN
-tst_test.c:1179: INFO: Testing on xfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with xfs opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv203.c:145: INFO: Number of full_reads 1062102, short reads 10, zero len reads 0, EAGAIN(s) 31005
-preadv203.c:180: INFO: Number of writes 1217760
-preadv203.c:194: INFO: Cache dropped 71 times
-preadv203.c:223: PASS: Got some EAGAIN
-tst_test.c:1179: INFO: Testing on btrfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with btrfs opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv203.c:145: INFO: Number of full_reads 8269, short reads 10, zero len reads 0, EAGAIN(s) 79321
-preadv203.c:194: INFO: Cache dropped 3 times
-preadv203.c:180: INFO: Number of writes 3360
-preadv203.c:223: PASS: Got some EAGAIN
-tst_test.c:1179: INFO: Testing on vfat
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv203.c:238: CONF: preadv2(): EOPNOTSUPP (95)
-tst_test.c:1179: INFO: Testing on exfat
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with exfat opts='' extra opts=''
-safe_macros.c:743: INFO: Trying FUSE...
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv203.c:238: CONF: preadv2(): EOPNOTSUPP (95)
-tst_test.c:1179: INFO: Testing on ntfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ntfs opts='' extra opts=''
-The partition start sector was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-The number of sectors per track was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-The number of heads was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
-Windows will not be able to boot from this device.
-safe_macros.c:743: INFO: Trying FUSE...
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv203.c:238: CONF: preadv2(): EOPNOTSUPP (95)
-
-Summary:
-passed   5
-failed   0
-skipped  3
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=33 termination_type=exited termination_id=0 corefile=no
-cutime=315 cstime=3588
-<<<test_end>>>
-<<<test_start>>>
-tag=preadv203_64 stime=1570467407
-cmdline="preadv203_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
-tst_supported_fs_types.c:60: INFO: Kernel supports ext2
-tst_supported_fs_types.c:44: INFO: mkfs.ext2 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports ext3
-tst_supported_fs_types.c:44: INFO: mkfs.ext3 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports ext4
-tst_supported_fs_types.c:44: INFO: mkfs.ext4 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports xfs
-tst_supported_fs_types.c:44: INFO: mkfs.xfs does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports btrfs
-tst_supported_fs_types.c:44: INFO: mkfs.btrfs does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports vfat
-tst_supported_fs_types.c:44: INFO: mkfs.vfat does exist
-tst_supported_fs_types.c:92: INFO: FUSE does support exfat
-tst_supported_fs_types.c:44: INFO: mkfs.exfat does exist
-tst_supported_fs_types.c:92: INFO: FUSE does support ntfs
-tst_supported_fs_types.c:44: INFO: mkfs.ntfs does exist
-tst_test.c:1179: INFO: Testing on ext2
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv203.c:145: INFO: Number of full_reads 1032404, short reads 10, zero len reads 0, EAGAIN(s) 10540
-preadv203.c:180: INFO: Number of writes 1018860
-preadv203.c:194: INFO: Cache dropped 60 times
-preadv203.c:223: PASS: Got some EAGAIN
-tst_test.c:1179: INFO: Testing on ext3
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv203.c:145: INFO: Number of full_reads 995637, short reads 10, zero len reads 0, EAGAIN(s) 1622
-preadv203.c:194: INFO: Cache dropped 56 times
-preadv203.c:180: INFO: Number of writes 908100
-preadv203.c:223: PASS: Got some EAGAIN
-tst_test.c:1179: INFO: Testing on ext4
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv203.c:145: INFO: Number of full_reads 1142628, short reads 10, zero len reads 0, EAGAIN(s) 43443
-preadv203.c:180: INFO: Number of writes 977460
-preadv203.c:194: INFO: Cache dropped 67 times
-preadv203.c:223: PASS: Got some EAGAIN
-tst_test.c:1179: INFO: Testing on xfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with xfs opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv203.c:145: INFO: Number of full_reads 997691, short reads 10, zero len reads 0, EAGAIN(s) 24302
-preadv203.c:180: INFO: Number of writes 1129020
-preadv203.c:194: INFO: Cache dropped 67 times
-preadv203.c:223: PASS: Got some EAGAIN
-tst_test.c:1179: INFO: Testing on btrfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with btrfs opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv203.c:145: INFO: Number of full_reads 10046, short reads 10, zero len reads 0, EAGAIN(s) 146032
-preadv203.c:180: INFO: Number of writes 11400
-preadv203.c:194: INFO: Cache dropped 25 times
-preadv203.c:223: PASS: Got some EAGAIN
-tst_test.c:1179: INFO: Testing on vfat
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv203.c:238: CONF: preadv2(): EOPNOTSUPP (95)
-tst_test.c:1179: INFO: Testing on exfat
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with exfat opts='' extra opts=''
-safe_macros.c:743: INFO: Trying FUSE...
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv203.c:238: CONF: preadv2(): EOPNOTSUPP (95)
-tst_test.c:1179: INFO: Testing on ntfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ntfs opts='' extra opts=''
-The partition start sector was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-The number of sectors per track was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-The number of heads was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
-Windows will not be able to boot from this device.
-safe_macros.c:743: INFO: Trying FUSE...
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-preadv203.c:238: CONF: preadv2(): EOPNOTSUPP (95)
-
-Summary:
-passed   5
-failed   0
-skipped  3
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=36 termination_type=exited termination_id=0 corefile=no
-cutime=363 cstime=4099
-<<<test_end>>>
-<<<test_start>>>
-tag=profil01 stime=1570467443
-cmdline="profil01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-profil01    0  TINFO  :  buf[0x404c]=29
-profil01    0  TINFO  :  buf[0x4050]=51
-profil01    0  TINFO  :  buf[0x4054]=1
-profil01    0  TINFO  :  buf[0x4064]=1
-profil01    0  TINFO  :  buf[0x407e]=2
-profil01    0  TINFO  :  buf[0x4094]=1
-profil01    0  TINFO  :  buf[0x414e]=34
-profil01    0  TINFO  :  buf[0x4158]=29
-profil01    0  TINFO  :  buf[0x415c]=49
-profil01    0  TINFO  :  buf[0x4166]=27
-profil01    0  TINFO  :  buf[0x416a]=29
-profil01    0  TINFO  :  buf[0x416e]=1
-profil01    0  TINFO  :  buf[0x4172]=87
-profil01    0  TINFO  :  buf[0x4176]=17
-profil01    0  TINFO  :  buf[0x417e]=27
-profil01    0  TINFO  :  buf[0x418c]=30
-profil01    0  TINFO  :  buf[0x419c]=23
-profil01    0  TINFO  :  buf[0x41a0]=16
-profil01    0  TINFO  :  buf[0x41a2]=28
-profil01    0  TINFO  :  buf[0x41a6]=16
-profil01    1  TPASS  :  profil recorded some data
-<<<execution_status>>>
-initiation_status="ok"
-duration=5 termination_type=exited termination_id=0 corefile=no
-cutime=498 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=process_vm_readv01 stime=1570467448
-cmdline="process_vm01 -r"
-contacts=""
-analysis=exit
-<<<test_output>>>
-process_vm_readv    0  TINFO  :  test_sane_params
-process_vm_readv    1  TPASS  :  expected ret success - returned value = 4096
-process_vm_readv    0  TINFO  :  test_flags, flags=-2147483647
-process_vm_readv    2  TPASS  :  expected ret success - returned value = -1
-process_vm_readv    3  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_readv    0  TINFO  :  test_flags, flags=-1
-process_vm_readv    4  TPASS  :  expected ret success - returned value = -1
-process_vm_readv    5  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_readv    0  TINFO  :  test_flags, flags=1
-process_vm_readv    6  TPASS  :  expected ret success - returned value = -1
-process_vm_readv    7  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_readv    0  TINFO  :  test_flags, flags=2147483647
-process_vm_readv    8  TPASS  :  expected ret success - returned value = -1
-process_vm_readv    9  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_readv    0  TINFO  :  test_flags, flags=0
-process_vm_readv   10  TPASS  :  expected ret success - returned value = 4096
-process_vm_readv    0  TINFO  :  test_iov_len_overflow
-process_vm_readv   11  TPASS  :  expected ret success - returned value = -1
-process_vm_readv   12  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_readv    0  TINFO  :  test_iov_invalid - lvec->iov_base
-process_vm_readv   13  TPASS  :  expected ret success - returned value = -1
-process_vm_readv   14  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-process_vm_readv    0  TINFO  :  test_iov_invalid - rvec->iov_base
-process_vm_readv   15  TPASS  :  expected ret success - returned value = -1
-process_vm_readv   16  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-process_vm_readv    0  TINFO  :  test_iov_invalid - lvec
-process_vm_readv   17  TPASS  :  expected ret success - returned value = -1
-process_vm_readv   18  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-process_vm_readv    0  TINFO  :  test_iov_invalid - rvec
-process_vm_readv   19  TPASS  :  expected ret success - returned value = -1
-process_vm_readv   20  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-process_vm_readv    0  TINFO  :  test_invalid_pid
-process_vm_readv   21  TPASS  :  expected ret success - returned value = -1
-process_vm_readv   22  TPASS  :  expected failure: TEST_ERRNO=ESRCH(3): No such process
-process_vm_readv   23  TPASS  :  expected ret success - returned value = -1
-process_vm_readv   24  TPASS  :  expected failure: TEST_ERRNO=ESRCH(3): No such process
-process_vm_readv    0  TINFO  :  test_invalid_perm
-process_vm_readv   25  TPASS  :  expected ret success - returned value = -1
-process_vm_readv   26  TPASS  :  expected failure: TEST_ERRNO=EPERM(1): Operation not permitted
-process_vm_readv    0  TINFO  :  test_sane_params
-process_vm_readv    1  TPASS  :  expected ret success - returned value = 4096
-process_vm_readv    0  TINFO  :  test_flags, flags=-2147483647
-process_vm_readv    2  TPASS  :  expected ret success - returned value = -1
-process_vm_readv    3  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_readv    0  TINFO  :  test_flags, flags=-1
-process_vm_readv    4  TPASS  :  expected ret success - returned value = -1
-process_vm_readv    5  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_readv    0  TINFO  :  test_flags, flags=1
-process_vm_readv    6  TPASS  :  expected ret success - returned value = -1
-process_vm_readv    7  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_readv    0  TINFO  :  test_flags, flags=2147483647
-process_vm_readv    8  TPASS  :  expected ret success - returned value = -1
-process_vm_readv    9  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_readv    0  TINFO  :  test_flags, flags=0
-process_vm_readv   10  TPASS  :  expected ret success - returned value = 4096
-process_vm_readv    0  TINFO  :  test_iov_len_overflow
-process_vm_readv   11  TPASS  :  expected ret success - returned value = -1
-process_vm_readv   12  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_readv    0  TINFO  :  test_iov_invalid - lvec->iov_base
-process_vm_readv   13  TPASS  :  expected ret success - returned value = -1
-process_vm_readv   14  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-process_vm_readv    0  TINFO  :  test_iov_invalid - rvec->iov_base
-process_vm_readv   15  TPASS  :  expected ret success - returned value = -1
-process_vm_readv   16  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-process_vm_readv    0  TINFO  :  test_iov_invalid - lvec
-process_vm_readv   17  TPASS  :  expected ret success - returned value = -1
-process_vm_readv   18  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-process_vm_readv    0  TINFO  :  test_iov_invalid - rvec
-process_vm_readv   19  TPASS  :  expected ret success - returned value = -1
-process_vm_readv   20  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-process_vm_readv    0  TINFO  :  test_invalid_pid
-process_vm_readv   21  TPASS  :  expected ret success - returned value = -1
-process_vm_readv   22  TPASS  :  expected failure: TEST_ERRNO=ESRCH(3): No such process
-process_vm_readv   23  TPASS  :  expected ret success - returned value = -1
-process_vm_readv   24  TPASS  :  expected failure: TEST_ERRNO=ESRCH(3): No such process
-process_vm_readv    0  TINFO  :  test_invalid_perm
-process_vm_readv    0  TINFO  :  test_invalid_protection lvec
-process_vm_readv   25  TPASS  :  expected ret success - returned value = -1
-process_vm_readv   26  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-process_vm_readv    0  TINFO  :  test_invalid_protection rvec
-process_vm_readv   27  TPASS  :  expected ret success - returned value = -1
-process_vm_readv   28  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=process_vm_readv02 stime=1570467448
-cmdline="process_vm_readv02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-process_vm_readv02    0  TINFO  :  child 1: reading string from same memory location.
-process_vm_readv02    1  TPASS  :  expected string received.
-process_vm_readv02    0  TINFO  :  child 0: memory allocated and initialized.
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=process_vm_readv03 stime=1570467448
-cmdline="process_vm_readv03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-process_vm_readv03    0  TINFO  :  child 1: 10 remote iovecs received.
-process_vm_readv03    0  TINFO  :  child 1: 4 local iovecs initialized.
-process_vm_readv03    1  TPASS  :  child 1: all bytes are correctly received.
-process_vm_readv03    0  TINFO  :  child 0: 10 iovecs allocated and initialized.
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=process_vm_writev01 stime=1570467448
-cmdline="process_vm01 -w"
-contacts=""
-analysis=exit
-<<<test_output>>>
-process_vm_writev    0  TINFO  :  test_sane_params
-process_vm_writev    1  TPASS  :  expected ret success - returned value = 4096
-process_vm_writev    0  TINFO  :  test_flags, flags=-2147483647
-process_vm_writev    2  TPASS  :  expected ret success - returned value = -1
-process_vm_writev    3  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_writev    0  TINFO  :  test_flags, flags=-1
-process_vm_writev    4  TPASS  :  expected ret success - returned value = -1
-process_vm_writev    5  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_writev    0  TINFO  :  test_flags, flags=1
-process_vm_writev    6  TPASS  :  expected ret success - returned value = -1
-process_vm_writev    7  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_writev    0  TINFO  :  test_flags, flags=2147483647
-process_vm_writev    8  TPASS  :  expected ret success - returned value = -1
-process_vm_writev    9  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_writev    0  TINFO  :  test_flags, flags=0
-process_vm_writev   10  TPASS  :  expected ret success - returned value = 4096
-process_vm_writev    0  TINFO  :  test_iov_len_overflow
-process_vm_writev   11  TPASS  :  expected ret success - returned value = -1
-process_vm_writev   12  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_writev    0  TINFO  :  test_iov_invalid - lvec->iov_base
-process_vm_writev   13  TPASS  :  expected ret success - returned value = -1
-process_vm_writev   14  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-process_vm_writev    0  TINFO  :  test_iov_invalid - rvec->iov_base
-process_vm_writev   15  TPASS  :  expected ret success - returned value = -1
-process_vm_writev   16  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-process_vm_writev    0  TINFO  :  test_iov_invalid - lvec
-process_vm_writev   17  TPASS  :  expected ret success - returned value = -1
-process_vm_writev   18  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-process_vm_writev    0  TINFO  :  test_iov_invalid - rvec
-process_vm_writev   19  TPASS  :  expected ret success - returned value = -1
-process_vm_writev   20  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-process_vm_writev    0  TINFO  :  test_invalid_pid
-process_vm_writev   21  TPASS  :  expected ret success - returned value = -1
-process_vm_writev   22  TPASS  :  expected failure: TEST_ERRNO=ESRCH(3): No such process
-process_vm_writev   23  TPASS  :  expected ret success - returned value = -1
-process_vm_writev   24  TPASS  :  expected failure: TEST_ERRNO=ESRCH(3): No such process
-process_vm_writev    0  TINFO  :  test_invalid_perm
-process_vm_writev   25  TPASS  :  expected ret success - returned value = -1
-process_vm_writev   26  TPASS  :  expected failure: TEST_ERRNO=EPERM(1): Operation not permitted
-process_vm_writev    0  TINFO  :  test_sane_params
-process_vm_writev    1  TPASS  :  expected ret success - returned value = 4096
-process_vm_writev    0  TINFO  :  test_flags, flags=-2147483647
-process_vm_writev    2  TPASS  :  expected ret success - returned value = -1
-process_vm_writev    3  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_writev    0  TINFO  :  test_flags, flags=-1
-process_vm_writev    4  TPASS  :  expected ret success - returned value = -1
-process_vm_writev    5  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_writev    0  TINFO  :  test_flags, flags=1
-process_vm_writev    6  TPASS  :  expected ret success - returned value = -1
-process_vm_writev    7  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_writev    0  TINFO  :  test_flags, flags=2147483647
-process_vm_writev    8  TPASS  :  expected ret success - returned value = -1
-process_vm_writev    9  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_writev    0  TINFO  :  test_flags, flags=0
-process_vm_writev   10  TPASS  :  expected ret success - returned value = 4096
-process_vm_writev    0  TINFO  :  test_iov_len_overflow
-process_vm_writev   11  TPASS  :  expected ret success - returned value = -1
-process_vm_writev   12  TPASS  :  expected failure: TEST_ERRNO=EINVAL(22): Invalid argument
-process_vm_writev    0  TINFO  :  test_iov_invalid - lvec->iov_base
-process_vm_writev   13  TPASS  :  expected ret success - returned value = -1
-process_vm_writev   14  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-process_vm_writev    0  TINFO  :  test_iov_invalid - rvec->iov_base
-process_vm_writev   15  TPASS  :  expected ret success - returned value = -1
-process_vm_writev   16  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-process_vm_writev    0  TINFO  :  test_iov_invalid - lvec
-process_vm_writev   17  TPASS  :  expected ret success - returned value = -1
-process_vm_writev   18  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-process_vm_writev    0  TINFO  :  test_iov_invalid - rvec
-process_vm_writev   19  TPASS  :  expected ret success - returned value = -1
-process_vm_writev   20  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-process_vm_writev    0  TINFO  :  test_invalid_pid
-process_vm_writev   21  TPASS  :  expected ret success - returned value = -1
-process_vm_writev   22  TPASS  :  expected failure: TEST_ERRNO=ESRCH(3): No such process
-process_vm_writev   23  TPASS  :  expected ret success - returned value = -1
-process_vm_writev   24  TPASS  :  expected failure: TEST_ERRNO=ESRCH(3): No such process
-process_vm_writev    0  TINFO  :  test_invalid_perm
-process_vm_writev    0  TINFO  :  test_invalid_protection lvec
-process_vm_writev   25  TPASS  :  expected ret success - returned value = -1
-process_vm_writev   26  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-process_vm_writev    0  TINFO  :  test_invalid_protection rvec
-process_vm_writev   27  TPASS  :  expected ret success - returned value = -1
-process_vm_writev   28  TPASS  :  expected failure: TEST_ERRNO=EFAULT(14): Bad address
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=process_vm_writev02 stime=1570467448
-cmdline="process_vm_writev02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-process_vm_writev02    0  TINFO  :  child 2: write to the same memory location.
-process_vm_writev02    0  TINFO  :  child 0: memory allocated.
-process_vm_writev02    1  TPASS  :  child 0: all bytes are expected.
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=prot_hsymlinks stime=1570467448
-cmdline="prot_hsymlinks"
-contacts=""
-analysis=exit
-<<<test_output>>>
-prot_hsymlinks    0  TINFO  :   --- HARDLINKS AND SYMLINKS RESTRICTIONS TEST ---
-
-prot_hsymlinks    1  TPASS  :  Expect: can follow symlink '.../link_1', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks    2  TPASS  :  Expect: can follow symlink '.../link_1', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks    3  TPASS  :  Expect: can follow symlink '.../link_2', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks    4  TPASS  :  Expect: can follow symlink '.../link_2', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks    5  TPASS  :  Expect: can follow symlink '.../tmp_root/link_3', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks    6  TPASS  :  Expect: can follow symlink '.../tmp_root/link_3', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks    7  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_4', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks    8  TPASS  :  Expect: can follow symlink '.../tmp_root/link_4', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks    9  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_5', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks   10  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_5', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks   11  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_6', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks   12  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_6', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks   13  TPASS  :  Expect: can create hardlink '.../root.hs' to '.../link_7', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks   14  TPASS  :  Expect: can't create hardlink '.../root.hs' to '.../link_8', owner 'root', curr.user 'hsym', w(0)
-prot_hsymlinks   15  TPASS  :  Expect: can create hardlink '.../root.hs' to '.../tmp_root/link_9', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks   16  TPASS  :  Expect: can't create hardlink '.../root.hs' to '.../tmp_root/link_10', owner 'root', curr.user 'hsym', w(0)
-prot_hsymlinks   17  TPASS  :  Expect: can create hardlink '.../root.hs' to '.../tmp_hsym/link_11', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks   18  TPASS  :  Expect: can't create hardlink '.../root.hs' to '.../tmp_hsym/link_12', owner 'root', curr.user 'hsym', w(0)
-prot_hsymlinks   19  TPASS  :  Expect: can follow symlink '.../link_13', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   20  TPASS  :  Expect: can follow symlink '.../link_13', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   21  TPASS  :  Expect: can follow symlink '.../link_14', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   22  TPASS  :  Expect: can follow symlink '.../link_14', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   23  TPASS  :  Expect: can follow symlink '.../tmp_root/link_15', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   24  TPASS  :  Expect: can follow symlink '.../tmp_root/link_15', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   25  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_16', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   26  TPASS  :  Expect: can follow symlink '.../tmp_root/link_16', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   27  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_17', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks   28  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_17', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks   29  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_18', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks   30  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_18', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks   31  TPASS  :  Expect: can create hardlink '.../root.hs_w' to '.../link_19', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks   32  TPASS  :  Expect: can create hardlink '.../root.hs_w' to '.../link_20', owner 'root', curr.user 'hsym', w(1)
-prot_hsymlinks   33  TPASS  :  Expect: can create hardlink '.../root.hs_w' to '.../tmp_root/link_21', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks   34  TPASS  :  Expect: can create hardlink '.../root.hs_w' to '.../tmp_root/link_22', owner 'root', curr.user 'hsym', w(1)
-prot_hsymlinks   35  TPASS  :  Expect: can create hardlink '.../root.hs_w' to '.../tmp_hsym/link_23', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks   36  TPASS  :  Expect: can create hardlink '.../root.hs_w' to '.../tmp_hsym/link_24', owner 'root', curr.user 'hsym', w(1)
-prot_hsymlinks   37  TPASS  :  Expect: can follow symlink '.../link_25', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   38  TPASS  :  Expect: can follow symlink '.../link_25', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   39  TPASS  :  Expect: can follow symlink '.../link_26', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   40  TPASS  :  Expect: can follow symlink '.../link_26', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   41  TPASS  :  Expect: can follow symlink '.../tmp_root/link_27', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   42  TPASS  :  Expect: can follow symlink '.../tmp_root/link_27', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   43  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_28', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   44  TPASS  :  Expect: can follow symlink '.../tmp_root/link_28', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   45  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_29', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks   46  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_29', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks   47  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_30', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks   48  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_30', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks   49  TPASS  :  Expect: can follow symlink '.../link_31', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   50  TPASS  :  Expect: can follow symlink '.../link_31', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   51  TPASS  :  Expect: can follow symlink '.../link_32', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   52  TPASS  :  Expect: can follow symlink '.../link_32', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   53  TPASS  :  Expect: can follow symlink '.../tmp_root/link_33', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   54  TPASS  :  Expect: can follow symlink '.../tmp_root/link_33', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   55  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_34', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   56  TPASS  :  Expect: can follow symlink '.../tmp_root/link_34', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   57  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_35', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks   58  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_35', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks   59  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_36', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks   60  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_36', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks   61  TPASS  :  Expect: can create hardlink '.../root/local_root.hs' to '.../link_37', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks   62  TPASS  :  Expect: can't create hardlink '.../root/local_root.hs' to '.../link_38', owner 'root', curr.user 'hsym', w(0)
-prot_hsymlinks   63  TPASS  :  Expect: can create hardlink '.../root/local_root.hs' to '.../tmp_root/link_39', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks   64  TPASS  :  Expect: can't create hardlink '.../root/local_root.hs' to '.../tmp_root/link_40', owner 'root', curr.user 'hsym', w(0)
-prot_hsymlinks   65  TPASS  :  Expect: can create hardlink '.../root/local_root.hs' to '.../tmp_hsym/link_41', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks   66  TPASS  :  Expect: can't create hardlink '.../root/local_root.hs' to '.../tmp_hsym/link_42', owner 'root', curr.user 'hsym', w(0)
-prot_hsymlinks   67  TPASS  :  Expect: can follow symlink '.../link_43', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   68  TPASS  :  Expect: can follow symlink '.../link_43', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   69  TPASS  :  Expect: can follow symlink '.../link_44', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   70  TPASS  :  Expect: can follow symlink '.../link_44', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   71  TPASS  :  Expect: can follow symlink '.../tmp_root/link_45', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   72  TPASS  :  Expect: can follow symlink '.../tmp_root/link_45', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   73  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_46', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   74  TPASS  :  Expect: can follow symlink '.../tmp_root/link_46', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   75  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_47', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks   76  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_47', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks   77  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_48', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks   78  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_48', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks   79  TPASS  :  Expect: can create hardlink '.../tmp_root/root.hs' to '.../link_49', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks   80  TPASS  :  Expect: can't create hardlink '.../tmp_root/root.hs' to '.../link_50', owner 'root', curr.user 'hsym', w(0)
-prot_hsymlinks   81  TPASS  :  Expect: can create hardlink '.../tmp_root/root.hs' to '.../tmp_root/link_51', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks   82  TPASS  :  Expect: can't create hardlink '.../tmp_root/root.hs' to '.../tmp_root/link_52', owner 'root', curr.user 'hsym', w(0)
-prot_hsymlinks   83  TPASS  :  Expect: can create hardlink '.../tmp_root/root.hs' to '.../tmp_hsym/link_53', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks   84  TPASS  :  Expect: can't create hardlink '.../tmp_root/root.hs' to '.../tmp_hsym/link_54', owner 'root', curr.user 'hsym', w(0)
-prot_hsymlinks   85  TPASS  :  Expect: can follow symlink '.../link_55', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   86  TPASS  :  Expect: can follow symlink '.../link_55', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   87  TPASS  :  Expect: can follow symlink '.../link_56', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   88  TPASS  :  Expect: can follow symlink '.../link_56', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   89  TPASS  :  Expect: can follow symlink '.../tmp_root/link_57', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   90  TPASS  :  Expect: can follow symlink '.../tmp_root/link_57', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   91  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_58', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks   92  TPASS  :  Expect: can follow symlink '.../tmp_root/link_58', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks   93  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_59', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks   94  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_59', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks   95  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_60', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks   96  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_60', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks   97  TPASS  :  Expect: can create hardlink '.../tmp_root/root.hs_w' to '.../link_61', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks   98  TPASS  :  Expect: can create hardlink '.../tmp_root/root.hs_w' to '.../link_62', owner 'root', curr.user 'hsym', w(1)
-prot_hsymlinks   99  TPASS  :  Expect: can create hardlink '.../tmp_root/root.hs_w' to '.../tmp_root/link_63', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks  100  TPASS  :  Expect: can create hardlink '.../tmp_root/root.hs_w' to '.../tmp_root/link_64', owner 'root', curr.user 'hsym', w(1)
-prot_hsymlinks  101  TPASS  :  Expect: can create hardlink '.../tmp_root/root.hs_w' to '.../tmp_hsym/link_65', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks  102  TPASS  :  Expect: can create hardlink '.../tmp_root/root.hs_w' to '.../tmp_hsym/link_66', owner 'root', curr.user 'hsym', w(1)
-prot_hsymlinks  103  TPASS  :  Expect: can follow symlink '.../link_67', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  104  TPASS  :  Expect: can follow symlink '.../link_67', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  105  TPASS  :  Expect: can follow symlink '.../link_68', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  106  TPASS  :  Expect: can follow symlink '.../link_68', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  107  TPASS  :  Expect: can follow symlink '.../tmp_root/link_69', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  108  TPASS  :  Expect: can follow symlink '.../tmp_root/link_69', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  109  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_70', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  110  TPASS  :  Expect: can follow symlink '.../tmp_root/link_70', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  111  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_71', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  112  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_71', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  113  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_72', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  114  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_72', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  115  TPASS  :  Expect: can follow symlink '.../link_73', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  116  TPASS  :  Expect: can follow symlink '.../link_73', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  117  TPASS  :  Expect: can follow symlink '.../link_74', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  118  TPASS  :  Expect: can follow symlink '.../link_74', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  119  TPASS  :  Expect: can follow symlink '.../tmp_root/link_75', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  120  TPASS  :  Expect: can follow symlink '.../tmp_root/link_75', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  121  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_76', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  122  TPASS  :  Expect: can follow symlink '.../tmp_root/link_76', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  123  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_77', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  124  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_77', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  125  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_78', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  126  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_78', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  127  TPASS  :  Expect: can create hardlink '.../tmp_root/root/local_root.hs' to '.../link_79', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks  128  TPASS  :  Expect: can't create hardlink '.../tmp_root/root/local_root.hs' to '.../link_80', owner 'root', curr.user 'hsym', w(0)
-prot_hsymlinks  129  TPASS  :  Expect: can create hardlink '.../tmp_root/root/local_root.hs' to '.../tmp_root/link_81', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks  130  TPASS  :  Expect: can't create hardlink '.../tmp_root/root/local_root.hs' to '.../tmp_root/link_82', owner 'root', curr.user 'hsym', w(0)
-prot_hsymlinks  131  TPASS  :  Expect: can create hardlink '.../tmp_root/root/local_root.hs' to '.../tmp_hsym/link_83', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks  132  TPASS  :  Expect: can't create hardlink '.../tmp_root/root/local_root.hs' to '.../tmp_hsym/link_84', owner 'root', curr.user 'hsym', w(0)
-prot_hsymlinks  133  TPASS  :  Expect: can follow symlink '.../link_85', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  134  TPASS  :  Expect: can follow symlink '.../link_85', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  135  TPASS  :  Expect: can follow symlink '.../link_86', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  136  TPASS  :  Expect: can follow symlink '.../link_86', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  137  TPASS  :  Expect: can follow symlink '.../tmp_root/link_87', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  138  TPASS  :  Expect: can follow symlink '.../tmp_root/link_87', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  139  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_88', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  140  TPASS  :  Expect: can follow symlink '.../tmp_root/link_88', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  141  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_89', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  142  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_89', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  143  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_90', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  144  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_90', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  145  TPASS  :  Expect: can create hardlink '.../tmp_hsym/root.hs' to '.../link_91', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks  146  TPASS  :  Expect: can't create hardlink '.../tmp_hsym/root.hs' to '.../link_92', owner 'root', curr.user 'hsym', w(0)
-prot_hsymlinks  147  TPASS  :  Expect: can create hardlink '.../tmp_hsym/root.hs' to '.../tmp_root/link_93', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks  148  TPASS  :  Expect: can't create hardlink '.../tmp_hsym/root.hs' to '.../tmp_root/link_94', owner 'root', curr.user 'hsym', w(0)
-prot_hsymlinks  149  TPASS  :  Expect: can create hardlink '.../tmp_hsym/root.hs' to '.../tmp_hsym/link_95', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks  150  TPASS  :  Expect: can't create hardlink '.../tmp_hsym/root.hs' to '.../tmp_hsym/link_96', owner 'root', curr.user 'hsym', w(0)
-prot_hsymlinks  151  TPASS  :  Expect: can follow symlink '.../link_97', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  152  TPASS  :  Expect: can follow symlink '.../link_97', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  153  TPASS  :  Expect: can follow symlink '.../link_98', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  154  TPASS  :  Expect: can follow symlink '.../link_98', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  155  TPASS  :  Expect: can follow symlink '.../tmp_root/link_99', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  156  TPASS  :  Expect: can follow symlink '.../tmp_root/link_99', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  157  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_100', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  158  TPASS  :  Expect: can follow symlink '.../tmp_root/link_100', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  159  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_101', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  160  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_101', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  161  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_102', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  162  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_102', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  163  TPASS  :  Expect: can create hardlink '.../tmp_hsym/root.hs_w' to '.../link_103', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks  164  TPASS  :  Expect: can create hardlink '.../tmp_hsym/root.hs_w' to '.../link_104', owner 'root', curr.user 'hsym', w(1)
-prot_hsymlinks  165  TPASS  :  Expect: can create hardlink '.../tmp_hsym/root.hs_w' to '.../tmp_root/link_105', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks  166  TPASS  :  Expect: can create hardlink '.../tmp_hsym/root.hs_w' to '.../tmp_root/link_106', owner 'root', curr.user 'hsym', w(1)
-prot_hsymlinks  167  TPASS  :  Expect: can create hardlink '.../tmp_hsym/root.hs_w' to '.../tmp_hsym/link_107', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks  168  TPASS  :  Expect: can create hardlink '.../tmp_hsym/root.hs_w' to '.../tmp_hsym/link_108', owner 'root', curr.user 'hsym', w(1)
-prot_hsymlinks  169  TPASS  :  Expect: can follow symlink '.../link_109', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  170  TPASS  :  Expect: can follow symlink '.../link_109', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  171  TPASS  :  Expect: can follow symlink '.../link_110', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  172  TPASS  :  Expect: can follow symlink '.../link_110', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  173  TPASS  :  Expect: can follow symlink '.../tmp_root/link_111', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  174  TPASS  :  Expect: can follow symlink '.../tmp_root/link_111', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  175  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_112', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  176  TPASS  :  Expect: can follow symlink '.../tmp_root/link_112', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  177  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_113', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  178  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_113', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  179  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_114', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  180  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_114', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  181  TPASS  :  Expect: can follow symlink '.../link_115', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  182  TPASS  :  Expect: can follow symlink '.../link_115', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  183  TPASS  :  Expect: can follow symlink '.../link_116', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  184  TPASS  :  Expect: can follow symlink '.../link_116', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  185  TPASS  :  Expect: can follow symlink '.../tmp_root/link_117', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  186  TPASS  :  Expect: can follow symlink '.../tmp_root/link_117', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  187  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_118', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  188  TPASS  :  Expect: can follow symlink '.../tmp_root/link_118', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  189  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_119', owner 'root', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  190  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_119', owner 'root', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  191  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_120', owner 'hsym', src.owner 'root', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  192  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_120', owner 'hsym', src.owner 'root', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  193  TPASS  :  Expect: can create hardlink '.../tmp_hsym/root/local_root.hs' to '.../link_121', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks  194  TPASS  :  Expect: can't create hardlink '.../tmp_hsym/root/local_root.hs' to '.../link_122', owner 'root', curr.user 'hsym', w(0)
-prot_hsymlinks  195  TPASS  :  Expect: can create hardlink '.../tmp_hsym/root/local_root.hs' to '.../tmp_root/link_123', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks  196  TPASS  :  Expect: can't create hardlink '.../tmp_hsym/root/local_root.hs' to '.../tmp_root/link_124', owner 'root', curr.user 'hsym', w(0)
-prot_hsymlinks  197  TPASS  :  Expect: can create hardlink '.../tmp_hsym/root/local_root.hs' to '.../tmp_hsym/link_125', owner 'root', curr.user 'root', w(1)
-prot_hsymlinks  198  TPASS  :  Expect: can't create hardlink '.../tmp_hsym/root/local_root.hs' to '.../tmp_hsym/link_126', owner 'root', curr.user 'hsym', w(0)
-prot_hsymlinks  199  TPASS  :  Expect: can follow symlink '.../link_127', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  200  TPASS  :  Expect: can follow symlink '.../link_127', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  201  TPASS  :  Expect: can follow symlink '.../link_128', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  202  TPASS  :  Expect: can follow symlink '.../link_128', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  203  TPASS  :  Expect: can follow symlink '.../tmp_root/link_129', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  204  TPASS  :  Expect: can follow symlink '.../tmp_root/link_129', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  205  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_130', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  206  TPASS  :  Expect: can follow symlink '.../tmp_root/link_130', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  207  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_131', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  208  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_131', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  209  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_132', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  210  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_132', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  211  TPASS  :  Expect: can create hardlink '.../hsym.hs' to '.../link_133', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  212  TPASS  :  Expect: can create hardlink '.../hsym.hs' to '.../link_134', owner 'hsym', curr.user 'hsym', w(1)
-prot_hsymlinks  213  TPASS  :  Expect: can create hardlink '.../hsym.hs' to '.../tmp_root/link_135', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  214  TPASS  :  Expect: can create hardlink '.../hsym.hs' to '.../tmp_root/link_136', owner 'hsym', curr.user 'hsym', w(1)
-prot_hsymlinks  215  TPASS  :  Expect: can create hardlink '.../hsym.hs' to '.../tmp_hsym/link_137', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  216  TPASS  :  Expect: can create hardlink '.../hsym.hs' to '.../tmp_hsym/link_138', owner 'hsym', curr.user 'hsym', w(1)
-prot_hsymlinks  217  TPASS  :  Expect: can follow symlink '.../link_139', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  218  TPASS  :  Expect: can follow symlink '.../link_139', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  219  TPASS  :  Expect: can follow symlink '.../link_140', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  220  TPASS  :  Expect: can follow symlink '.../link_140', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  221  TPASS  :  Expect: can follow symlink '.../tmp_root/link_141', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  222  TPASS  :  Expect: can follow symlink '.../tmp_root/link_141', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  223  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_142', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  224  TPASS  :  Expect: can follow symlink '.../tmp_root/link_142', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  225  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_143', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  226  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_143', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  227  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_144', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  228  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_144', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  229  TPASS  :  Expect: can create hardlink '.../hsym.hs_w' to '.../link_145', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  230  TPASS  :  Expect: can create hardlink '.../hsym.hs_w' to '.../link_146', owner 'hsym', curr.user 'hsym', w(0)
-prot_hsymlinks  231  TPASS  :  Expect: can create hardlink '.../hsym.hs_w' to '.../tmp_root/link_147', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  232  TPASS  :  Expect: can create hardlink '.../hsym.hs_w' to '.../tmp_root/link_148', owner 'hsym', curr.user 'hsym', w(0)
-prot_hsymlinks  233  TPASS  :  Expect: can create hardlink '.../hsym.hs_w' to '.../tmp_hsym/link_149', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  234  TPASS  :  Expect: can create hardlink '.../hsym.hs_w' to '.../tmp_hsym/link_150', owner 'hsym', curr.user 'hsym', w(0)
-prot_hsymlinks  235  TPASS  :  Expect: can follow symlink '.../link_151', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  236  TPASS  :  Expect: can follow symlink '.../link_151', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  237  TPASS  :  Expect: can follow symlink '.../link_152', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  238  TPASS  :  Expect: can follow symlink '.../link_152', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  239  TPASS  :  Expect: can follow symlink '.../tmp_root/link_153', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  240  TPASS  :  Expect: can follow symlink '.../tmp_root/link_153', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  241  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_154', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  242  TPASS  :  Expect: can follow symlink '.../tmp_root/link_154', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  243  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_155', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  244  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_155', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  245  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_156', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  246  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_156', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  247  TPASS  :  Expect: can follow symlink '.../link_157', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  248  TPASS  :  Expect: can follow symlink '.../link_157', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  249  TPASS  :  Expect: can follow symlink '.../link_158', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  250  TPASS  :  Expect: can follow symlink '.../link_158', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  251  TPASS  :  Expect: can follow symlink '.../tmp_root/link_159', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  252  TPASS  :  Expect: can follow symlink '.../tmp_root/link_159', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  253  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_160', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  254  TPASS  :  Expect: can follow symlink '.../tmp_root/link_160', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  255  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_161', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  256  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_161', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  257  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_162', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  258  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_162', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  259  TPASS  :  Expect: can create hardlink '.../hsym/local_hsym.hs' to '.../link_163', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  260  TPASS  :  Expect: can create hardlink '.../hsym/local_hsym.hs' to '.../link_164', owner 'hsym', curr.user 'hsym', w(1)
-prot_hsymlinks  261  TPASS  :  Expect: can create hardlink '.../hsym/local_hsym.hs' to '.../tmp_root/link_165', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  262  TPASS  :  Expect: can create hardlink '.../hsym/local_hsym.hs' to '.../tmp_root/link_166', owner 'hsym', curr.user 'hsym', w(1)
-prot_hsymlinks  263  TPASS  :  Expect: can create hardlink '.../hsym/local_hsym.hs' to '.../tmp_hsym/link_167', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  264  TPASS  :  Expect: can create hardlink '.../hsym/local_hsym.hs' to '.../tmp_hsym/link_168', owner 'hsym', curr.user 'hsym', w(1)
-prot_hsymlinks  265  TPASS  :  Expect: can follow symlink '.../link_169', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  266  TPASS  :  Expect: can follow symlink '.../link_169', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  267  TPASS  :  Expect: can follow symlink '.../link_170', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  268  TPASS  :  Expect: can follow symlink '.../link_170', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  269  TPASS  :  Expect: can follow symlink '.../tmp_root/link_171', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  270  TPASS  :  Expect: can follow symlink '.../tmp_root/link_171', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  271  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_172', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  272  TPASS  :  Expect: can follow symlink '.../tmp_root/link_172', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  273  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_173', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  274  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_173', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  275  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_174', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  276  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_174', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  277  TPASS  :  Expect: can create hardlink '.../tmp_root/hsym.hs' to '.../link_175', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  278  TPASS  :  Expect: can create hardlink '.../tmp_root/hsym.hs' to '.../link_176', owner 'hsym', curr.user 'hsym', w(1)
-prot_hsymlinks  279  TPASS  :  Expect: can create hardlink '.../tmp_root/hsym.hs' to '.../tmp_root/link_177', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  280  TPASS  :  Expect: can create hardlink '.../tmp_root/hsym.hs' to '.../tmp_root/link_178', owner 'hsym', curr.user 'hsym', w(1)
-prot_hsymlinks  281  TPASS  :  Expect: can create hardlink '.../tmp_root/hsym.hs' to '.../tmp_hsym/link_179', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  282  TPASS  :  Expect: can create hardlink '.../tmp_root/hsym.hs' to '.../tmp_hsym/link_180', owner 'hsym', curr.user 'hsym', w(1)
-prot_hsymlinks  283  TPASS  :  Expect: can follow symlink '.../link_181', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  284  TPASS  :  Expect: can follow symlink '.../link_181', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  285  TPASS  :  Expect: can follow symlink '.../link_182', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  286  TPASS  :  Expect: can follow symlink '.../link_182', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  287  TPASS  :  Expect: can follow symlink '.../tmp_root/link_183', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  288  TPASS  :  Expect: can follow symlink '.../tmp_root/link_183', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  289  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_184', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  290  TPASS  :  Expect: can follow symlink '.../tmp_root/link_184', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  291  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_185', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  292  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_185', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  293  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_186', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  294  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_186', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  295  TPASS  :  Expect: can create hardlink '.../tmp_root/hsym.hs_w' to '.../link_187', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  296  TPASS  :  Expect: can create hardlink '.../tmp_root/hsym.hs_w' to '.../link_188', owner 'hsym', curr.user 'hsym', w(0)
-prot_hsymlinks  297  TPASS  :  Expect: can create hardlink '.../tmp_root/hsym.hs_w' to '.../tmp_root/link_189', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  298  TPASS  :  Expect: can create hardlink '.../tmp_root/hsym.hs_w' to '.../tmp_root/link_190', owner 'hsym', curr.user 'hsym', w(0)
-prot_hsymlinks  299  TPASS  :  Expect: can create hardlink '.../tmp_root/hsym.hs_w' to '.../tmp_hsym/link_191', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  300  TPASS  :  Expect: can create hardlink '.../tmp_root/hsym.hs_w' to '.../tmp_hsym/link_192', owner 'hsym', curr.user 'hsym', w(0)
-prot_hsymlinks  301  TPASS  :  Expect: can follow symlink '.../link_193', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  302  TPASS  :  Expect: can follow symlink '.../link_193', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  303  TPASS  :  Expect: can follow symlink '.../link_194', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  304  TPASS  :  Expect: can follow symlink '.../link_194', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  305  TPASS  :  Expect: can follow symlink '.../tmp_root/link_195', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  306  TPASS  :  Expect: can follow symlink '.../tmp_root/link_195', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  307  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_196', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  308  TPASS  :  Expect: can follow symlink '.../tmp_root/link_196', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  309  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_197', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  310  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_197', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  311  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_198', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  312  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_198', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  313  TPASS  :  Expect: can follow symlink '.../link_199', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  314  TPASS  :  Expect: can follow symlink '.../link_199', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  315  TPASS  :  Expect: can follow symlink '.../link_200', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  316  TPASS  :  Expect: can follow symlink '.../link_200', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  317  TPASS  :  Expect: can follow symlink '.../tmp_root/link_201', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  318  TPASS  :  Expect: can follow symlink '.../tmp_root/link_201', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  319  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_202', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  320  TPASS  :  Expect: can follow symlink '.../tmp_root/link_202', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  321  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_203', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  322  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_203', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  323  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_204', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  324  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_204', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  325  TPASS  :  Expect: can create hardlink '.../tmp_root/hsym/local_hsym.hs' to '.../link_205', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  326  TPASS  :  Expect: can create hardlink '.../tmp_root/hsym/local_hsym.hs' to '.../link_206', owner 'hsym', curr.user 'hsym', w(1)
-prot_hsymlinks  327  TPASS  :  Expect: can create hardlink '.../tmp_root/hsym/local_hsym.hs' to '.../tmp_root/link_207', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  328  TPASS  :  Expect: can create hardlink '.../tmp_root/hsym/local_hsym.hs' to '.../tmp_root/link_208', owner 'hsym', curr.user 'hsym', w(1)
-prot_hsymlinks  329  TPASS  :  Expect: can create hardlink '.../tmp_root/hsym/local_hsym.hs' to '.../tmp_hsym/link_209', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  330  TPASS  :  Expect: can create hardlink '.../tmp_root/hsym/local_hsym.hs' to '.../tmp_hsym/link_210', owner 'hsym', curr.user 'hsym', w(1)
-prot_hsymlinks  331  TPASS  :  Expect: can follow symlink '.../link_211', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  332  TPASS  :  Expect: can follow symlink '.../link_211', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  333  TPASS  :  Expect: can follow symlink '.../link_212', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  334  TPASS  :  Expect: can follow symlink '.../link_212', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  335  TPASS  :  Expect: can follow symlink '.../tmp_root/link_213', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  336  TPASS  :  Expect: can follow symlink '.../tmp_root/link_213', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  337  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_214', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  338  TPASS  :  Expect: can follow symlink '.../tmp_root/link_214', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  339  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_215', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  340  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_215', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  341  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_216', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  342  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_216', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  343  TPASS  :  Expect: can create hardlink '.../tmp_hsym/hsym.hs' to '.../link_217', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  344  TPASS  :  Expect: can create hardlink '.../tmp_hsym/hsym.hs' to '.../link_218', owner 'hsym', curr.user 'hsym', w(1)
-prot_hsymlinks  345  TPASS  :  Expect: can create hardlink '.../tmp_hsym/hsym.hs' to '.../tmp_root/link_219', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  346  TPASS  :  Expect: can create hardlink '.../tmp_hsym/hsym.hs' to '.../tmp_root/link_220', owner 'hsym', curr.user 'hsym', w(1)
-prot_hsymlinks  347  TPASS  :  Expect: can create hardlink '.../tmp_hsym/hsym.hs' to '.../tmp_hsym/link_221', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  348  TPASS  :  Expect: can create hardlink '.../tmp_hsym/hsym.hs' to '.../tmp_hsym/link_222', owner 'hsym', curr.user 'hsym', w(1)
-prot_hsymlinks  349  TPASS  :  Expect: can follow symlink '.../link_223', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  350  TPASS  :  Expect: can follow symlink '.../link_223', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  351  TPASS  :  Expect: can follow symlink '.../link_224', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  352  TPASS  :  Expect: can follow symlink '.../link_224', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  353  TPASS  :  Expect: can follow symlink '.../tmp_root/link_225', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  354  TPASS  :  Expect: can follow symlink '.../tmp_root/link_225', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  355  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_226', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  356  TPASS  :  Expect: can follow symlink '.../tmp_root/link_226', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  357  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_227', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  358  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_227', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  359  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_228', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  360  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_228', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  361  TPASS  :  Expect: can create hardlink '.../tmp_hsym/hsym.hs_w' to '.../link_229', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  362  TPASS  :  Expect: can create hardlink '.../tmp_hsym/hsym.hs_w' to '.../link_230', owner 'hsym', curr.user 'hsym', w(0)
-prot_hsymlinks  363  TPASS  :  Expect: can create hardlink '.../tmp_hsym/hsym.hs_w' to '.../tmp_root/link_231', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  364  TPASS  :  Expect: can create hardlink '.../tmp_hsym/hsym.hs_w' to '.../tmp_root/link_232', owner 'hsym', curr.user 'hsym', w(0)
-prot_hsymlinks  365  TPASS  :  Expect: can create hardlink '.../tmp_hsym/hsym.hs_w' to '.../tmp_hsym/link_233', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  366  TPASS  :  Expect: can create hardlink '.../tmp_hsym/hsym.hs_w' to '.../tmp_hsym/link_234', owner 'hsym', curr.user 'hsym', w(0)
-prot_hsymlinks  367  TPASS  :  Expect: can follow symlink '.../link_235', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  368  TPASS  :  Expect: can follow symlink '.../link_235', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  369  TPASS  :  Expect: can follow symlink '.../link_236', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  370  TPASS  :  Expect: can follow symlink '.../link_236', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  371  TPASS  :  Expect: can follow symlink '.../tmp_root/link_237', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  372  TPASS  :  Expect: can follow symlink '.../tmp_root/link_237', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  373  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_238', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  374  TPASS  :  Expect: can follow symlink '.../tmp_root/link_238', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  375  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_239', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  376  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_239', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  377  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_240', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  378  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_240', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  379  TPASS  :  Expect: can follow symlink '.../link_241', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  380  TPASS  :  Expect: can follow symlink '.../link_241', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  381  TPASS  :  Expect: can follow symlink '.../link_242', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  382  TPASS  :  Expect: can follow symlink '.../link_242', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  383  TPASS  :  Expect: can follow symlink '.../tmp_root/link_243', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  384  TPASS  :  Expect: can follow symlink '.../tmp_root/link_243', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  385  TPASS  :  Expect: can't follow symlink '.../tmp_root/link_244', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'root'
-prot_hsymlinks  386  TPASS  :  Expect: can follow symlink '.../tmp_root/link_244', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'root'
-prot_hsymlinks  387  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_245', owner 'root', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  388  TPASS  :  Expect: can't follow symlink '.../tmp_hsym/link_245', owner 'root', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  389  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_246', owner 'hsym', src.owner 'hsym', curr.user 'root', dir.owner 'hsym'
-prot_hsymlinks  390  TPASS  :  Expect: can follow symlink '.../tmp_hsym/link_246', owner 'hsym', src.owner 'hsym', curr.user 'hsym', dir.owner 'hsym'
-prot_hsymlinks  391  TPASS  :  Expect: can create hardlink '.../tmp_hsym/hsym/local_hsym.hs' to '.../link_247', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  392  TPASS  :  Expect: can create userdel: hsym mail spool (/var/mail/hsym) not found
-userdel: hsym home directory (/home/hsym) not found
-hardlink '.../tmp_hsym/hsym/local_hsym.hs' to '.../link_248', owner 'hsym', curr.user 'hsym', w(1)
-prot_hsymlinks  393  TPASS  :  Expect: can create hardlink '.../tmp_hsym/hsym/local_hsym.hs' to '.../tmp_root/link_249', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  394  TPASS  :  Expect: can create hardlink '.../tmp_hsym/hsym/local_hsym.hs' to '.../tmp_root/link_250', owner 'hsym', curr.user 'hsym', w(1)
-prot_hsymlinks  395  TPASS  :  Expect: can create hardlink '.../tmp_hsym/hsym/local_hsym.hs' to '.../tmp_hsym/link_251', owner 'hsym', curr.user 'root', w(1)
-prot_hsymlinks  396  TPASS  :  Expect: can create hardlink '.../tmp_hsym/hsym/local_hsym.hs' to '.../tmp_hsym/link_252', owner 'hsym', curr.user 'hsym', w(1)
-prot_hsymlinks    0  TINFO  :  All test-cases have been completed, summary:
- - symlinks  test:	PASS
- - hardlinks test:	PASS
-prot_hsymlinks    0  TINFO  :  Disable protected hardlinks mode back
-prot_hsymlinks    0  TINFO  :  Disable protected symlinks mode back
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=2 cstime=5
-<<<test_end>>>
-<<<test_start>>>
-tag=dirtyc0w stime=1570467448
-cmdline="dirtyc0w"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-dirtyc0w.c:91: PASS: Bug not reproduced
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=2 termination_type=exited termination_id=0 corefile=no
-cutime=16 cstime=65
-<<<test_end>>>
-<<<test_start>>>
-tag=pselect01 stime=1570467450
-cmdline="pselect01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_timer_test.c:345: INFO: CLOCK_MONOTONIC resolution 1ns
-tst_timer_test.c:357: INFO: prctl(PR_GET_TIMERSLACK) = 50us
-tst_timer_test.c:264: INFO: pselect() sleeping for 1000us 500 iterations, threshold 450.01us
-tst_timer_test.c:285: INFO: Found 1 outliners in [10734,10734] range
-tst_timer_test.c:307: INFO: min 1011us, max 10734us, median 1065us, trunc mean 1128.32us (discarded 25)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: pselect() sleeping for 2000us 500 iterations, threshold 450.01us
-tst_timer_test.c:307: INFO: min 2017us, max 8963us, median 2084us, trunc mean 2187.46us (discarded 25)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: pselect() sleeping for 5000us 300 iterations, threshold 450.04us
-tst_timer_test.c:307: INFO: min 5031us, max 10000us, median 5089us, trunc mean 5308.93us (discarded 15)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: pselect() sleeping for 10000us 100 iterations, threshold 450.33us
-tst_timer_test.c:307: INFO: min 10069us, max 14309us, median 10109us, trunc mean 10387.78us (discarded 5)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: pselect() sleeping for 25000us 50 iterations, threshold 451.29us
-tst_timer_test.c:307: INFO: min 25065us, max 25147us, median 25109us, trunc mean 25104.31us (discarded 2)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: pselect() sleeping for 100000us 10 iterations, threshold 537.00us
-tst_timer_test.c:307: INFO: min 100138us, max 100172us, median 100143us, trunc mean 100143.33us (discarded 1)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: pselect() sleeping for 1000000us 2 iterations, threshold 4400.00us
-tst_timer_test.c:307: INFO: min 1000866us, max 1001045us, median 1000866us, trunc mean 1000866.00us (discarded 1)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-
-Summary:
-passed   7
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=8 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=pselect01_64 stime=1570467458
-cmdline="pselect01_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_timer_test.c:345: INFO: CLOCK_MONOTONIC resolution 1ns
-tst_timer_test.c:357: INFO: prctl(PR_GET_TIMERSLACK) = 50us
-tst_timer_test.c:264: INFO: pselect() sleeping for 1000us 500 iterations, threshold 450.01us
-tst_timer_test.c:307: INFO: min 1044us, max 4855us, median 1087us, trunc mean 1088.00us (discarded 25)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: pselect() sleeping for 2000us 500 iterations, threshold 450.01us
-tst_timer_test.c:307: INFO: min 2065us, max 4360us, median 2087us, trunc mean 2087.70us (discarded 25)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: pselect() sleeping for 5000us 300 iterations, threshold 450.04us
-tst_timer_test.c:307: INFO: min 5069us, max 10076us, median 5089us, trunc mean 5091.18us (discarded 15)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: pselect() sleeping for 10000us 100 iterations, threshold 450.33us
-tst_timer_test.c:307: INFO: min 10073us, max 13219us, median 10090us, trunc mean 10090.72us (discarded 5)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: pselect() sleeping for 25000us 50 iterations, threshold 451.29us
-tst_timer_test.c:307: INFO: min 25082us, max 25232us, median 25103us, trunc mean 25105.46us (discarded 2)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: pselect() sleeping for 100000us 10 iterations, threshold 537.00us
-tst_timer_test.c:307: INFO: min 100131us, max 100196us, median 100140us, trunc mean 100141.89us (discarded 1)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: pselect() sleeping for 1000000us 2 iterations, threshold 4400.00us
-tst_timer_test.c:307: INFO: min 1001065us, max 1001121us, median 1001065us, trunc mean 1001065.00us (discarded 1)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-
-Summary:
-passed   7
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=9 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=3
-<<<test_end>>>
-<<<test_start>>>
-tag=pselect02 stime=1570467467
-cmdline="pselect02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pselect02    1  TPASS  :  pselect() failed as expected: TEST_ERRNO=EBADF(9): Bad file descriptor
-pselect02    2  TPASS  :  pselect() failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
-pselect02    3  TPASS  :  pselect() failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pselect02_64 stime=1570467467
-cmdline="pselect02_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pselect02_64    1  TPASS  :  pselect() failed as expected: TEST_ERRNO=EBADF(9): Bad file descriptor
-pselect02_64    2  TPASS  :  pselect() failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
-pselect02_64    3  TPASS  :  pselect() failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pselect03 stime=1570467467
-cmdline="pselect03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pselect03.c:31: PASS: pselect() succeeded retval=0
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pselect03_64 stime=1570467467
-cmdline="pselect03_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pselect03.c:31: PASS: pselect() succeeded retval=0
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=ptrace01 stime=1570467467
-cmdline="ptrace01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-ptrace01    1  TPASS  :  Test Passed
-ptrace01    2  TPASS  :  Test Passed
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=ptrace02 stime=1570467467
-cmdline="ptrace02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-ptrace02    1  TPASS  :  Test Passed
-ptrace02    2  TPASS  :  Test Passed
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=ptrace03 stime=1570467467
-cmdline="ptrace03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-ptrace03    1  TCONF  :  ptrace03.c:137: this kernel allows to trace init
-ptrace03    2  TPASS  :  Test Passed
-ptrace03    3  TPASS  :  Test Passed
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=ptrace04 stime=1570467467
-cmdline="ptrace04"
-contacts=""
-analysis=exit
-<<<test_output>>>
-ptrace04    1  TCONF  :  ptrace04.c:105: test not supported for your arch (yet)
-ptrace04    2  TCONF  :  ptrace04.c:105: Remaining cases not appropriate for configuration
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=32 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=ptrace05 stime=1570467467
-cmdline="ptrace05"
-contacts=""
-analysis=exit
-<<<test_output>>>
-ptrace05    0  TINFO  :  [child] Sending kill(.., 0)
-ptrace05    1  TPASS  :  kill(.., 0) exited with 0, as expected.
-ptrace05    2  TPASS  :  Stopped as expected
-ptrace05    3  TPASS  :  Stopped as expected
-ptrace05    4  TPASS  :  Stopped as expected
-ptrace05    5  TPASS  :  Stopped as expected
-ptrace05    6  TPASS  :  Stopped as expected
-ptrace05    7  TPASS  :  Stopped as expected
-ptrace05    8  TPASS  :  Stopped as expected
-ptrace05    9  TPASS  :  Stopped as expected
-ptrace05   10  TPASS  :  Killed with SIGKILL, as expected.
-ptrace05   11  TPASS  :  Stopped as expected
-ptrace05   12  TPASS  :  Stopped as expected
-ptrace05   13  TPASS  :  Stopped as expected
-ptrace05   14  TPASS  :  Stopped as expected
-ptrace05   15  TPASS  :  Stopped as expected
-ptrace05   16  TPASS  :  Stopped as expected
-ptrace05   17  TPASS  :  Stopped as expected
-ptrace05   18  TPASS  :  Stopped as expected
-ptrace05   19  TPASS  :  Stopped as expected
-ptrace05   20  TPASS  :  Stopped as expected
-ptrace05   21  TPASS  :  Stopped as expected
-ptrace05   22  TPASS  :  Stopped as expected
-ptrace05   23  TPASS  :  Stopped as expected
-ptrace05   24  TPASS  :  Stopped as expected
-ptrace05   25  TPASS  :  Stopped as expected
-ptrace05   26  TPASS  :  Stopped as expected
-ptrace05   27  TPASS  :  Stopped as expected
-ptrace05   28  TPASS  :  Stopped as expected
-ptrace05   29  TPASS  :  Stopped as expected
-ptrace05   30  TPASS  :  Stopped as expected
-ptrace05   31  TPASS  :  Stopped as expected
-ptrace05   32  TPASS  :  Stopped as expected
-ptrace05   33  TPASS  :  Stopped as expected
-ptrace05   34  TPASS  :  Stopped as expected
-ptrace05   35  TPASS  :  Stopped as expected
-ptrace05   36  TPASS  :  Stopped as expected
-ptrace05   37  TPASS  :  Stopped as expected
-ptrace05   38  TPASS  :  Stopped as expected
-ptrace05   39  TPASS  :  Stopped as expected
-ptrace05   40  TPASS  :  Stopped as expected
-ptrace05   41  TPASS  :  Stopped as expected
-ptrace05   42  TPASS  :  Stopped as expected
-ptrace05   43  TPASS  :  Stopped as expected
-ptrace05   44  TPASS  :  Stopped as expected
-ptrace05   45  TPASS  :  Stopped as expected
-ptrace05   46  TPASS  :  Stopped as expected
-ptrace05   47  TPASS  :  Stopped as expected
-ptrace05   48  TPASS  :  Stopped as expected
-ptrace05   49  TPASS  :  Stopped as expected
-ptrace05   50  TPASS  :  Stopped as expected
-ptrace05   51  TPASS  :  Stopped as expected
-ptrace05   52  TPASS  :  Stopped as expected
-ptrace05   53  TPASS  :  Stopped as expected
-ptrace05   54  TPASS  :  Stopped as expected
-ptrace05   55  TPASS  :  Stopped as expected
-ptrace05   56  TPASS  :  Stopped as expected
-ptrace05   57  TPASS  :  Stopped as expected
-ptrace05   58  TPASS  :  Stopped as expected
-ptrace05   59  TPASS  :  Stopped as expected
-ptrace05   60  TPASS  :  Stopped as expected
-ptrace05   61  TPASS  :  Stopped as expected
-ptrace05   62  TPASS  :  Stopped as expected
-ptrace05   63  TPASS  :  Stopped as expected
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=ptrace07 stime=1570467467
-cmdline="ptrace07"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-ptrace07.c:138: INFO: PTRACE_SETREGSET with reserved bits failed with EINVAL
-ptrace07.c:161: INFO: test child 3863 exited, retcode: 0
-ptrace07.c:174: PASS: wasn't able to set invalid FPU state
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=1 termination_type=exited termination_id=0 corefile=no
-cutime=212 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pwrite01 stime=1570467468
-cmdline="pwrite01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pwrite01    1  TPASS  :  Functionality of pwrite() successful
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pwrite02 stime=1570467468
-cmdline="pwrite02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwrite02.c:91: PASS: pwrite failed as expected: ESPIPE (29)
-pwrite02.c:91: PASS: pwrite failed as expected: EINVAL (22)
-pwrite02.c:91: PASS: pwrite failed as expected: EBADF (9)
-pwrite02.c:91: PASS: pwrite failed as expected: EBADF (9)
-pwrite02.c:91: PASS: pwrite failed as expected: EFAULT (14)
-
-Summary:
-passed   5
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=pwrite03 stime=1570467468
-cmdline="pwrite03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwrite03.c:25: PASS: pwrite(fd, NULL, 0) == 0
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pwrite04 stime=1570467468
-cmdline="pwrite04"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pwrite04    1  TPASS  :  O_APPEND test passed.
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pwrite01_64 stime=1570467468
-cmdline="pwrite01_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pwrite01    1  TPASS  :  Functionality of pwrite() successful
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pwrite02_64 stime=1570467468
-cmdline="pwrite02_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwrite02.c:91: PASS: pwrite failed as expected: ESPIPE (29)
-pwrite02.c:91: PASS: pwrite failed as expected: EINVAL (22)
-pwrite02.c:91: PASS: pwrite failed as expected: EBADF (9)
-pwrite02.c:91: PASS: pwrite failed as expected: EBADF (9)
-pwrite02.c:91: PASS: pwrite failed as expected: EFAULT (14)
-
-Summary:
-passed   5
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pwrite03_64 stime=1570467468
-cmdline="pwrite03_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwrite03.c:25: PASS: pwrite(fd, NULL, 0) == 0
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pwrite04_64 stime=1570467468
-cmdline="pwrite04_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-pwrite04    1  TPASS  :  O_APPEND test passed.
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pwritev01 stime=1570467468
-cmdline="pwritev01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev01.c:85: PASS: writev() wrote 64 bytes successfully with content 'a' expectedly 
-pwritev01.c:85: PASS: writev() wrote 64 bytes successfully with content 'a' expectedly 
-pwritev01.c:85: PASS: writev() wrote 64 bytes successfully with content 'a' expectedly 
-
-Summary:
-passed   3
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pwritev01_64 stime=1570467468
-cmdline="pwritev01_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev01.c:85: PASS: writev() wrote 64 bytes successfully with content 'a' expectedly 
-pwritev01.c:85: PASS: writev() wrote 64 bytes successfully with content 'a' expectedly 
-pwritev01.c:85: PASS: writev() wrote 64 bytes successfully with content 'a' expectedly 
-
-Summary:
-passed   3
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pwritev02 stime=1570467468
-cmdline="pwritev02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev02.c:84: PASS: pwritev() failed as expected: EINVAL (22)
-pwritev02.c:84: PASS: pwritev() failed as expected: EINVAL (22)
-pwritev02.c:84: PASS: pwritev() failed as expected: EINVAL (22)
-pwritev02.c:84: PASS: pwritev() failed as expected: EFAULT (14)
-pwritev02.c:84: PASS: pwritev() failed as expected: EBADF (9)
-pwritev02.c:84: PASS: pwritev() failed as expected: EBADF (9)
-pwritev02.c:84: PASS: pwritev() failed as expected: ESPIPE (29)
-
-Summary:
-passed   7
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pwritev02_64 stime=1570467468
-cmdline="pwritev02_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev02.c:84: PASS: pwritev() failed as expected: EINVAL (22)
-pwritev02.c:84: PASS: pwritev() failed as expected: EINVAL (22)
-pwritev02.c:84: PASS: pwritev() failed as expected: EINVAL (22)
-pwritev02.c:84: PASS: pwritev() failed as expected: EFAULT (14)
-pwritev02.c:84: PASS: pwritev() failed as expected: EBADF (9)
-pwritev02.c:84: PASS: pwritev() failed as expected: EBADF (9)
-pwritev02.c:84: PASS: pwritev() failed as expected: ESPIPE (29)
-
-Summary:
-passed   7
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=pwritev03 stime=1570467468
-cmdline="pwritev03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
-tst_supported_fs_types.c:60: INFO: Kernel supports ext2
-tst_supported_fs_types.c:44: INFO: mkfs.ext2 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports ext3
-tst_supported_fs_types.c:44: INFO: mkfs.ext3 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports ext4
-tst_supported_fs_types.c:44: INFO: mkfs.ext4 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports xfs
-tst_supported_fs_types.c:44: INFO: mkfs.xfs does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports btrfs
-tst_supported_fs_types.c:44: INFO: mkfs.btrfs does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports vfat
-tst_supported_fs_types.c:44: INFO: mkfs.vfat does exist
-tst_supported_fs_types.c:92: INFO: FUSE does support exfat
-tst_supported_fs_types.c:44: INFO: mkfs.exfat does exist
-tst_supported_fs_types.c:92: INFO: FUSE does support ntfs
-tst_supported_fs_types.c:44: INFO: mkfs.ntfs does exist
-tst_test.c:1179: INFO: Testing on ext2
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev03.c:101: INFO: Using block size 512
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-tst_test.c:1179: INFO: Testing on ext3
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev03.c:101: INFO: Using block size 512
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-tst_test.c:1179: INFO: Testing on ext4
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev03.c:101: INFO: Using block size 512
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-tst_test.c:1179: INFO: Testing on xfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with xfs opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev03.c:101: INFO: Using block size 512
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-tst_test.c:1179: INFO: Testing on btrfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with btrfs opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev03.c:101: INFO: Using block size 512
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-tst_test.c:1179: INFO: Testing on vfat
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev03.c:101: INFO: Using block size 512
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-tst_test.c:1179: INFO: Testing on exfat
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with exfat opts='' extra opts=''
-safe_macros.c:743: INFO: Trying FUSE...
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev03.c:101: INFO: Using block size 512
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-tst_test.c:1179: INFO: Testing on ntfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ntfs opts='' extra opts=''
-The partition start sector was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-The number of sectors per track was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-The number of heads was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
-Windows will not be able to boot from this device.
-safe_macros.c:743: INFO: Trying FUSE...
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev03.c:101: INFO: Using block size 512
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-
-Summary:
-passed   24
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=5 termination_type=exited termination_id=0 corefile=no
-cutime=11 cstime=107
-<<<test_end>>>
-<<<test_start>>>
-tag=pwritev03_64 stime=1570467473
-cmdline="pwritev03_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
-tst_supported_fs_types.c:60: INFO: Kernel supports ext2
-tst_supported_fs_types.c:44: INFO: mkfs.ext2 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports ext3
-tst_supported_fs_types.c:44: INFO: mkfs.ext3 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports ext4
-tst_supported_fs_types.c:44: INFO: mkfs.ext4 does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports xfs
-tst_supported_fs_types.c:44: INFO: mkfs.xfs does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports btrfs
-tst_supported_fs_types.c:44: INFO: mkfs.btrfs does exist
-tst_supported_fs_types.c:60: INFO: Kernel supports vfat
-tst_supported_fs_types.c:44: INFO: mkfs.vfat does exist
-tst_supported_fs_types.c:92: INFO: FUSE does support exfat
-tst_supported_fs_types.c:44: INFO: mkfs.exfat does exist
-tst_supported_fs_types.c:92: INFO: FUSE does support ntfs
-tst_supported_fs_types.c:44: INFO: mkfs.ntfs does exist
-tst_test.c:1179: INFO: Testing on ext2
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev03.c:101: INFO: Using block size 512
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-tst_test.c:1179: INFO: Testing on ext3
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev03.c:101: INFO: Using block size 512
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-tst_test.c:1179: INFO: Testing on ext4
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev03.c:101: INFO: Using block size 512
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-tst_test.c:1179: INFO: Testing on xfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with xfs opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev03.c:101: INFO: Using block size 512
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-tst_test.c:1179: INFO: Testing on btrfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with btrfs opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev03.c:101: INFO: Using block size 512
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-tst_test.c:1179: INFO: Testing on vfat
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev03.c:101: INFO: Using block size 512
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-tst_test.c:1179: INFO: Testing on exfat
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with exfat opts='' extra opts=''
-safe_macros.c:743: INFO: Trying FUSE...
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev03.c:101: INFO: Using block size 512
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-tst_test.c:1179: INFO: Testing on ntfs
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ntfs opts='' extra opts=''
-The partition start sector was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-The number of sectors per track was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-The number of heads was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
-To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
-Windows will not be able to boot from this device.
-safe_macros.c:743: INFO: Trying FUSE...
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev03.c:101: INFO: Using block size 512
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-pwritev03.c:87: PASS: pwritev(O_DIRECT) wrote 512 bytes successfully with content 'a' expectedly 
-
-Summary:
-passed   24
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=6 termination_type=exited termination_id=0 corefile=no
-cutime=8 cstime=114
-<<<test_end>>>
-<<<test_start>>>
-tag=pwritev201 stime=1570467479
-cmdline="pwritev201"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev201.c:96: PASS: pwritev2() wrote 64 bytes successfully with content 'a' expectedly 
-pwritev201.c:96: PASS: pwritev2() wrote 64 bytes successfully with content 'a' expectedly 
-pwritev201.c:96: PASS: pwritev2() wrote 64 bytes successfully with content 'a' expectedly 
-pwritev201.c:96: PASS: pwritev2() wrote 64 bytes successfully with content 'a' expectedly 
-pwritev201.c:96: PASS: pwritev2() wrote 64 bytes successfully with content 'a' expectedly 
-pwritev201.c:96: PASS: pwritev2() wrote 64 bytes successfully with content 'a' expectedly 
-
-Summary:
-passed   6
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pwritev201_64 stime=1570467479
-cmdline="pwritev201_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev201.c:96: PASS: pwritev2() wrote 64 bytes successfully with content 'a' expectedly 
-pwritev201.c:96: PASS: pwritev2() wrote 64 bytes successfully with content 'a' expectedly 
-pwritev201.c:96: PASS: pwritev2() wrote 64 bytes successfully with content 'a' expectedly 
-pwritev201.c:96: PASS: pwritev2() wrote 64 bytes successfully with content 'a' expectedly 
-pwritev201.c:96: PASS: pwritev2() wrote 64 bytes successfully with content 'a' expectedly 
-pwritev201.c:96: PASS: pwritev2() wrote 64 bytes successfully with content 'a' expectedly 
-
-Summary:
-passed   6
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pwritev202 stime=1570467479
-cmdline="pwritev202"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev202.c:78: PASS: pwritev2() failed as expected: EINVAL (22)
-pwritev202.c:78: PASS: pwritev2() failed as expected: EINVAL (22)
-pwritev202.c:78: PASS: pwritev2() failed as expected: EOPNOTSUPP (95)
-pwritev202.c:78: PASS: pwritev2() failed as expected: EFAULT (14)
-pwritev202.c:78: PASS: pwritev2() failed as expected: EBADF (9)
-pwritev202.c:78: PASS: pwritev2() failed as expected: EBADF (9)
-pwritev202.c:78: PASS: pwritev2() failed as expected: ESPIPE (29)
-
-Summary:
-passed   7
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=pwritev202_64 stime=1570467479
-cmdline="pwritev202_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-pwritev202.c:78: PASS: pwritev2() failed as expected: EINVAL (22)
-pwritev202.c:78: PASS: pwritev2() failed as expected: EINVAL (22)
-pwritev202.c:78: PASS: pwritev2() failed as expected: EOPNOTSUPP (95)
-pwritev202.c:78: PASS: pwritev2() failed as expected: EFAULT (14)
-pwritev202.c:78: PASS: pwritev2() failed as expected: EBADF (9)
-pwritev202.c:78: PASS: pwritev2() failed as expected: EBADF (9)
-pwritev202.c:78: PASS: pwritev2() failed as expected: ESPIPE (29)
-
-Summary:
-passed   7
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=quotactl01 stime=1570467479
-cmdline="quotactl01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-quotactl01.c:190: PASS: quotactl succeeded to turn on quota for user
-quotactl01.c:190: PASS: quotactl succeeded to set disk quota limit for user
-quotactl01.c:190: PASS: quotactl succeeded to get disk quota limit for user
-quotactl01.c:190: PASS: quotactl succeeded to set information about quotafile for user
-quotactl01.c:190: PASS: quotactl succeeded to get information about quotafile for user
-quotactl01.c:190: PASS: quotactl succeeded to get quota format for user
-quotactl01.c:190: PASS: quotactl succeeded to update quota usages for user
-quotactl01.c:190: PASS: quotactl succeeded to turn off quota for user
-quotactl01.c:190: PASS: quotactl succeeded to turn on quota for group
-quotactl01.c:190: PASS: quotactl succeeded to set disk quota limit for group
-quotactl01.c:190: PASS: quotactl succeeded to set disk quota limit for group
-quotactl01.c:190: PASS: quotactl succeeded to set information about quotafile for group
-quotactl01.c:190: PASS: quotactl succeeded to get information about quotafile for group
-quotactl01.c:190: PASS: quotactl succeeded to get quota format for group
-quotactl01.c:190: PASS: quotactl succeeded to update quota usages for group
-quotactl01.c:190: PASS: quotactl succeeded to turn off quota for group
+cutime=1 cstime=2
+<<<test_end>>>
+<<<test_start>>>
+tag=access02 stime=1570499094
+cmdline="access02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+access02.c:144: PASS: access(file_f, F_OK) as root behaviour is correct.
+access02.c:144: PASS: access(file_f, F_OK) as nobody behaviour is correct.
+access02.c:144: PASS: access(file_r, R_OK) as root behaviour is correct.
+access02.c:144: PASS: access(file_r, R_OK) as nobody behaviour is correct.
+access02.c:144: PASS: access(file_w, W_OK) as root behaviour is correct.
+access02.c:144: PASS: access(file_w, W_OK) as nobody behaviour is correct.
+access02.c:144: PASS: access(file_x, X_OK) as root behaviour is correct.
+access02.c:144: PASS: access(file_x, X_OK) as nobody behaviour is correct.
+access02.c:144: PASS: access(symlink_f, F_OK) as root behaviour is correct.
+access02.c:144: PASS: access(symlink_f, F_OK) as nobody behaviour is correct.
+access02.c:144: PASS: access(symlink_r, R_OK) as root behaviour is correct.
+access02.c:144: PASS: access(symlink_r, R_OK) as nobody behaviour is correct.
+access02.c:144: PASS: access(symlink_w, W_OK) as root behaviour is correct.
+access02.c:144: PASS: access(symlink_w, W_OK) as nobody behaviour is correct.
+access02.c:144: PASS: access(symlink_x, X_OK) as root behaviour is correct.
+access02.c:144: PASS: access(symlink_x, X_OK) as nobody behaviour is correct.
 
 Summary:
 passed   16
@@ -14799,118 +10615,24 @@ skipped  0
 warnings 0
 <<<execution_status>>>
 initiation_status="ok"
-duration=1 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=3
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=1 cstime=1
 <<<test_end>>>
 <<<test_start>>>
-tag=quotactl02 stime=1570467480
-cmdline="quotactl02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:772: CONF: This system didn't support quota or xfs quota
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=32 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=quotactl03 stime=1570467480
-cmdline="quotactl03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:772: CONF: This system didn't support quota or xfs quota
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=32 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=read01 stime=1570467480
-cmdline="read01"
+tag=access03 stime=1570499094
+cmdline="access03"
 contacts=""
 analysis=exit
 <<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-read01.c:24: PASS: read(2) returned 512
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=read02 stime=1570467480
-cmdline="read02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-read02.c:86: PASS: read() failed as expected: EBADF (9)
-read02.c:86: PASS: read() failed as expected: EISDIR (21)
-read02.c:86: PASS: read() failed as expected: EFAULT (14)
-read02.c:86: PASS: read() failed as expected: EINVAL (22)
-read02.c:86: PASS: read() failed as expected: EINVAL (22)
-
-Summary:
-passed   5
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=read03 stime=1570467480
-cmdline="read03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-read03      1  TPASS  :  read() succeded in setting errno to EAGAIN
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=read04 stime=1570467480
-cmdline="read04"
-contacts=""
-analysis=exit
-<<<test_output>>>
-read04      1  TPASS  :  functionality of read() is correct
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=readahead01 stime=1570467480
-cmdline="readahead01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-readahead01.c:56: INFO: test_bad_fd -1
-readahead01.c:28: PASS: expected ret success - returned value = -1
-readahead01.c:39: PASS: expected failure: EBADF (9)
-readahead01.c:61: INFO: test_bad_fd O_WRONLY
-readahead01.c:28: PASS: expected ret success - returned value = -1
-readahead01.c:39: PASS: expected failure: EBADF (9)
-readahead01.c:78: INFO: test_invalid_fd pipe
-readahead01.c:28: PASS: expected ret success - returned value = -1
-readahead01.c:39: PASS: expected failure: EINVAL (22)
-readahead01.c:86: INFO: test_invalid_fd socket
-readahead01.c:28: PASS: expected ret success - returned value = -1
-readahead01.c:39: PASS: expected failure: EINVAL (22)
+access03.c:47: PASS: access(0xffffffffffffffff, F_OK) as root: EFAULT (14)
+access03.c:47: PASS: access(0xffffffffffffffff, F_OK) as nobody: EFAULT (14)
+access03.c:47: PASS: access(0xffffffffffffffff, R_OK) as root: EFAULT (14)
+access03.c:47: PASS: access(0xffffffffffffffff, R_OK) as nobody: EFAULT (14)
+access03.c:47: PASS: access(0xffffffffffffffff, W_OK) as root: EFAULT (14)
+access03.c:47: PASS: access(0xffffffffffffffff, W_OK) as nobody: EFAULT (14)
+access03.c:47: PASS: access(0xffffffffffffffff, X_OK) as root: EFAULT (14)
+access03.c:47: PASS: access(0xffffffffffffffff, X_OK) as nobody: EFAULT (14)
 
 Summary:
 passed   8
@@ -14923,76 +10645,24 @@ duration=0 termination_type=exited termination_id=0 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=readahead02 stime=1570467480
-cmdline="readahead02"
+tag=access04 stime=1570499094
+cmdline="access04"
 contacts=""
 analysis=exit
 <<<test_output>>>
-tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
-tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
-mke2fs 1.43.4 (31-Jan-2017)
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-readahead02.c:388: INFO: readahead length: 2097152
-readahead02.c:226: INFO: Test #0: readahead on file
-readahead02.c:131: INFO: creating test file of size: 67108864
-readahead02.c:245: INFO: read_testfile(0)
-readahead02.c:256: INFO: read_testfile(1)
-readahead02.c:180: INFO: readahead calls made: 32
-readahead02.c:186: PASS: offset is still at 0 as expected
-readahead02.c:290: INFO: read_testfile(0) took: 67533 usec
-readahead02.c:291: INFO: read_testfile(1) took: 52071 usec
-readahead02.c:293: INFO: read_testfile(0) read: 67108864 bytes
-readahead02.c:295: INFO: read_testfile(1) read: 0 bytes
-readahead02.c:298: PASS: readahead saved some I/O
-readahead02.c:306: INFO: cache can hold at least: 140664 kB
-readahead02.c:307: INFO: read_testfile(0) used cache: 134836 kB
-readahead02.c:308: INFO: read_testfile(1) used cache: 84804 kB
-readahead02.c:316: PASS: using cache as expected
-readahead02.c:226: INFO: Test #1: readahead on overlayfs file
-readahead02.c:131: INFO: creating test file of size: 67108864
-readahead02.c:245: INFO: read_testfile(0)
-readahead02.c:256: INFO: read_testfile(1)
-readahead02.c:180: INFO: readahead calls made: 32
-readahead02.c:186: PASS: offset is still at 0 as expected
-readahead02.c:290: INFO: read_testfile(0) took: 71910 usec
-readahead02.c:291: INFO: read_testfile(1) took: 56162 usec
-readahead02.c:293: INFO: read_testfile(0) read: 67108864 bytes
-readahead02.c:295: INFO: read_testfile(1) read: 0 bytes
-readahead02.c:298: PASS: readahead saved some I/O
-readahead02.c:306: INFO: cache can hold at least: 266160 kB
-readahead02.c:307: INFO: read_testfile(0) used cache: 134392 kB
-readahead02.c:308: INFO: read_testfile(1) used cache: 83988 kB
-readahead02.c:316: PASS: using cache as expected
-readahead02.c:226: INFO: Test #2: POSIX_FADV_WILLNEED on file
-readahead02.c:131: INFO: creating test file of size: 67108864
-readahead02.c:245: INFO: read_testfile(0)
-readahead02.c:256: INFO: read_testfile(1)
-readahead02.c:180: INFO: readahead calls made: 32
-readahead02.c:186: PASS: offset is still at 0 as expected
-readahead02.c:290: INFO: read_testfile(0) took: 84048 usec
-readahead02.c:291: INFO: read_testfile(1) took: 67416 usec
-readahead02.c:293: INFO: read_testfile(0) read: 67108864 bytes
-readahead02.c:295: INFO: read_testfile(1) read: 0 bytes
-readahead02.c:298: PASS: readahead saved some I/O
-readahead02.c:306: INFO: cache can hold at least: 266160 kB
-readahead02.c:307: INFO: read_testfile(0) used cache: 134328 kB
-readahead02.c:308: INFO: read_testfile(1) used cache: 73260 kB
-readahead02.c:316: PASS: using cache as expected
-readahead02.c:226: INFO: Test #3: POSIX_FADV_WILLNEED on overlayfs file
-readahead02.c:131: INFO: creating test file of size: 67108864
-readahead02.c:245: INFO: read_testfile(0)
-readahead02.c:256: INFO: read_testfile(1)
-readahead02.c:180: INFO: readahead calls made: 32
-readahead02.c:186: PASS: offset is still at 0 as expected
-readahead02.c:290: INFO: read_testfile(0) took: 76080 usec
-readahead02.c:291: INFO: read_testfile(1) took: 58286 usec
-readahead02.c:293: INFO: read_testfile(0) read: 67108864 bytes
-readahead02.c:295: INFO: read_testfile(1) read: 0 bytes
-readahead02.c:298: PASS: readahead saved some I/O
-readahead02.c:306: INFO: cache can hold at least: 266160 kB
-readahead02.c:307: INFO: read_testfile(0) used cache: 134620 kB
-readahead02.c:308: INFO: read_testfile(1) used cache: 81900 kB
-readahead02.c:316: PASS: using cache as expected
+access04.c:75: PASS: access as root failed expectedly: EINVAL (22)
+access04.c:75: PASS: access as nobody failed expectedly: EINVAL (22)
+access04.c:75: PASS: access as root failed expectedly: ENOENT (2)
+access04.c:75: PASS: access as nobody failed expectedly: ENOENT (2)
+access04.c:75: PASS: access as root failed expectedly: ENAMETOOLONG (36)
+access04.c:75: PASS: access as nobody failed expectedly: ENAMETOOLONG (36)
+access04.c:75: PASS: access as root failed expectedly: ENOTDIR (20)
+access04.c:75: PASS: access as nobody failed expectedly: ENOTDIR (20)
+access04.c:75: PASS: access as root failed expectedly: ELOOP (40)
+access04.c:75: PASS: access as nobody failed expectedly: ELOOP (40)
+access04.c:75: PASS: access as root failed expectedly: EROFS (30)
+access04.c:75: PASS: access as nobody failed expectedly: EROFS (30)
 
 Summary:
 passed   12
@@ -15001,60 +10671,167 @@ skipped  0
 warnings 0
 <<<execution_status>>>
 initiation_status="ok"
-duration=5 termination_type=exited termination_id=0 corefile=no
-cutime=4 cstime=162
-<<<test_end>>>
-<<<test_start>>>
-tag=readdir01 stime=1570467485
-cmdline="readdir01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-readdir01    1  TPASS  :  found all 10 that were created
-<<<execution_status>>>
-initiation_status="ok"
 duration=0 termination_type=exited termination_id=0 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=readdir21 stime=1570467485
-cmdline="readdir21"
+tag=acct01 stime=1570499094
+cmdline="acct01"
 contacts=""
 analysis=exit
 <<<test_output>>>
-readdir21    1  TCONF  :  readdir21.c:122: syscall(-1) __NR_readdir not supported on your arch
-readdir21    2  TCONF  :  readdir21.c:122: Remaining cases not appropriate for configuration
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=32 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=readlink01A stime=1570467485
-cmdline="symlink01 -T readlink01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-readlink01    1  TPASS  :  Reading of symbolic link file contents checks out ok
-readlink01    2  TPASS  :  Reading of symbolic link file contents checks out ok
-readlink01    3  TPASS  :  Reading a symbolic link which exceeds maximum pathname error is caught
-readlink01    4  TPASS  :  Reading a nonsymbolic link file error condition is caught.  EINVAL is returned
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+acct01.c:113: PASS: acct() failed as expected: EISDIR (21)
+acct01.c:113: PASS: acct() failed as expected: EACCES (13)
+acct01.c:113: PASS: acct() failed as expected: ENOENT (2)
+acct01.c:113: PASS: acct() failed as expected: ENOTDIR (20)
+acct01.c:113: PASS: acct() failed as expected: EPERM (1)
+acct01.c:113: PASS: acct() failed as expected: EPERM (1)
+acct01.c:113: PASS: acct() failed as expected: ELOOP (40)
+acct01.c:113: PASS: acct() failed as expected: ENAMETOOLONG (36)
+acct01.c:113: PASS: acct() failed as expected: EROFS (30)
+
+Summary:
+passed   9
+failed   0
+skipped  0
+warnings 0
 <<<execution_status>>>
 initiation_status="ok"
 duration=0 termination_type=exited termination_id=0 corefile=no
 cutime=0 cstime=1
 <<<test_end>>>
 <<<test_start>>>
-tag=readlink01 stime=1570467485
-cmdline="readlink01"
+tag=acct02 stime=1570499094
+cmdline="acct02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_kconfig.c:62: INFO: Parsing kernel config '/proc/config.gz'
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+tst_kconfig.c:62: INFO: Parsing kernel config '/proc/config.gz'
+acct02.c:239: INFO: Verifying using 'struct acct_v3'
+acct02.c:192: INFO: == entry 1 ==
+acct02.c:82: INFO: ac_comm != 'acct02_helper' ('wait')
+acct02.c:88: INFO: ac_btime < 1570499094 (1570499093)
+acct02.c:133: INFO: ac_exitcode != 32768 (15872)
+acct02.c:141: INFO: ac_ppid != 2553 (2128)
+acct02.c:192: INFO: == entry 2 ==
+acct02.c:82: INFO: ac_comm != 'acct02_helper' ('date')
+acct02.c:133: INFO: ac_exitcode != 32768 (0)
+acct02.c:141: INFO: ac_ppid != 2553 (2128)
+acct02.c:192: INFO: == entry 3 ==
+acct02.c:82: INFO: ac_comm != 'acct02_helper' ('cat')
+acct02.c:133: INFO: ac_exitcode != 32768 (0)
+acct02.c:141: INFO: ac_ppid != 2553 (2128)
+acct02.c:192: INFO: == entry 4 ==
+acct02.c:204: INFO: Number of accounting file entries tested: 4
+acct02.c:209: PASS: acct() wrote correct file contents!
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=1 termination_type=exited termination_id=0 corefile=no
+cutime=1 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=add_key01 stime=1570499095
+cmdline="add_key01"
 contacts=""
 analysis=exit
 <<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-readlink01.c:64: INFO: Running test as root
-readlink01.c:46: PASS: readlink() functionality on 'slink_file' was correct
-readlink01.c:55: INFO: Running test as nobody
-readlink01.c:46: PASS: readlink() functionality on 'slink_file' was correct
+add_key01.c:21: PASS: add_key call succeeded
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=add_key02 stime=1570499095
+cmdline="add_key02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+add_key02.c:59: PASS: received expected EFAULT with key type 'asymmetric'
+add_key02.c:59: PASS: received expected EFAULT with key type 'cifs.idmap'
+add_key02.c:59: PASS: received expected EFAULT with key type 'cifs.spnego'
+add_key02.c:59: PASS: received expected EFAULT with key type 'pkcs7_test'
+add_key02.c:59: PASS: received expected EFAULT with key type 'rxrpc'
+add_key02.c:59: PASS: received expected EFAULT with key type 'rxrpc_s'
+add_key02.c:59: PASS: received expected EFAULT with key type 'user'
+add_key02.c:59: PASS: received expected EFAULT with key type 'logon'
+
+Summary:
+passed   8
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=add_key03 stime=1570499095
+cmdline="add_key03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+add_key03.c:80: PASS: expectedly could not create another user's keyrings
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=add_key04 stime=1570499095
+cmdline="add_key04"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+tst_buffers.c:55: INFO: Test is using guarded buffers
+add_key04.c:71: PASS: didn't crash while filling keyring
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=adjtimex01 stime=1570499095
+cmdline="adjtimex01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_buffers.c:55: INFO: Test is using guarded buffers
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+adjtimex01.c:24: PASS: adjtimex() with mode 0x403f 
+adjtimex01.c:34: PASS: adjtimex() with mode 0x8001 
 
 Summary:
 passed   2
@@ -15067,568 +10844,43 @@ duration=0 termination_type=exited termination_id=0 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=readlink03 stime=1570467485
-cmdline="readlink03"
+tag=adjtimex02 stime=1570499095
+cmdline="adjtimex02"
 contacts=""
 analysis=exit
 <<<test_output>>>
+tst_buffers.c:55: INFO: Test is using guarded buffers
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-readlink03.c:86: PASS: readlink() failed as expected: EACCES (13)
-readlink03.c:86: PASS: readlink() failed as expected: EINVAL (22)
-readlink03.c:86: PASS: readlink() failed as expected: EINVAL (22)
-readlink03.c:86: PASS: readlink() failed as expected: ENAMETOOLONG (36)
-readlink03.c:86: PASS: readlink() failed as expected: ENOENT (2)
-readlink03.c:86: PASS: readlink() failed as expected: ENOTDIR (20)
-readlink03.c:86: PASS: readlink() failed as expected: ELOOP (40)
-readlink03.c:86: PASS: readlink() failed as expected: EFAULT (14)
-
-Summary:
-passed   8
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=readlinkat01 stime=1570467485
-cmdline="readlinkat01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-readlinkat01    1  TPASS  :  readlinkat() returned 13: TEST_ERRNO=SUCCESS(0): Success
-readlinkat01    2  TPASS  :  readlinkat() returned 13: TEST_ERRNO=SUCCESS(0): Success
-readlinkat01    3  TPASS  :  readlinkat() returned -1: TEST_ERRNO=ENOTDIR(20): Not a directory
-readlinkat01    4  TPASS  :  readlinkat() returned -1: TEST_ERRNO=EBADF(9): Bad file descriptor
-readlinkat01    5  TPASS  :  readlinkat() returned 13: TEST_ERRNO=SUCCESS(0): Success
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=readlinkat02 stime=1570467485
-cmdline="readlinkat02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-readlinkat02    1  TPASS  :  readlinkat failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
-readlinkat02    2  TPASS  :  readlinkat failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
-readlinkat02    3  TPASS  :  readlinkat failed as expected: TEST_ERRNO=ENOTDIR(20): Not a directory
-readlinkat02    4  TPASS  :  readlinkat failed as expected: TEST_ERRNO=ENOTDIR(20): Not a directory
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=readv01 stime=1570467485
-cmdline="readv01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-readv01     1  TPASS  :  readv read 0 io vectors
-readv01     2  TPASS  :  readv passed reading 64 bytes followed by two NULL vectors
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=readv02 stime=1570467485
-cmdline="readv02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-readv02     1  TPASS  :  got EINVAL
-readv02     2  TPASS  :  got EFAULT
-readv02     3  TPASS  :  got EBADF
-readv02     4  TPASS  :  got EINVAL
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=readv03 stime=1570467485
-cmdline="readv03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-readv03     1  TPASS  :  got EISDIR
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=realpath01 stime=1570467485
-cmdline="realpath01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-realpath01.c:30: FAIL: returned unexpected errno: SUCCESS (0)
-
-Summary:
-passed   0
-failed   1
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=1 corefile=no
-cutime=1 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=reboot01 stime=1570467485
-cmdline="reboot01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-reboot01    1  TPASS  :  reboot(2) Passed for option LINUX_REBOOT_CMD_CAD_ON
-reboot01    2  TPASS  :  reboot(2) Passed for option LINUX_REBOOT_CMD_CAD_OFF
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=reboot02 stime=1570467485
-cmdline="reboot02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-reboot02    1  TPASS  :  reboot(2) expected failure; Got errno - EINVAL : Invalid flag
-reboot02    1  TPASS  :  reboot(2) expected failure; Got errno - EPERM  : Permission denied
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=recv01 stime=1570467485
-cmdline="recv01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-recv01      1  TPASS  :  bad file descriptor successful
-recv01      2  TPASS  :  invalid socket successful
-recv01      3  TPASS  :  invalid recv buffer successful
-recv01      4  TPASS  :  invalid MSG_OOB flag set successful
-recv01      5  TPASS  :  invalid MSG_ERRQUEUE flag set successful
-<<<execution_status>>>
-initiation_status="ok"
-duration=1 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=recvfrom01 stime=1570467486
-cmdline="recvfrom01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-recvfrom01    1  TPASS  :  bad file descriptor successful
-recvfrom01    2  TPASS  :  invalid socket successful
-recvfrom01    3  TPASS  :  invalid socket buffer successful
-recvfrom01    4  TPASS  :  invalid socket addr length successful
-recvfrom01    5  TPASS  :  invalid recv buffer successful
-recvfrom01    6  TPASS  :  invalid MSG_OOB flag set successful
-recvfrom01    7  TPASS  :  invalid MSG_ERRQUEUE flag set successful
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=recvmsg01 stime=1570467486
-cmdline="recvmsg01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-recvmsg01    1  TPASS  :  bad file descriptor successful
-recvmsg01    2  TPASS  :  invalid socket successful
-recvmsg01    3  TPASS  :  invalid socket buffer successful
-recvmsg01    4  TPASS  :  invalid socket length successful
-recvmsg01    5  TPASS  :  invalid recv buffer successful
-recvmsg01    6  TPASS  :  invalid iovec buffer successful
-recvmsg01    7  TPASS  :  invalid iovec count successful
-recvmsg01    8  TPASS  :  rights reception successful
-recvmsg01    9  TPASS  :  invalid MSG_OOB flag set successful
-recvmsg01   10  TPASS  :  invalid MSG_ERRQUEUE flag set successful
-recvmsg01   11  TPASS  :  invalid cmsg length successful
-recvmsg01   12  TPASS  :  large cmesg length successful
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=recvmsg02 stime=1570467486
-cmdline="recvmsg02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-recvmsg02.c:76: INFO: received 25 bytes
-recvmsg02.c:79: PASS: recvmsg(..., MSG_PEEK) works fine
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=recvmsg03 stime=1570467486
-cmdline="recvmsg03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-recvmsg03.c:38: CONF: rds was not supported
-
-Summary:
-passed   0
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=32 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=remap_file_pages01 stime=1570467486
-cmdline="remap_file_pages01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-remap_file_pages01    1  TPASS  :  Non-Linear shm file OK
-remap_file_pages01    2  TPASS  :  Non-Linear /tmp/ file OK
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=2
-<<<test_end>>>
-<<<test_start>>>
-tag=remap_file_pages02 stime=1570467486
-cmdline="remap_file_pages02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-remap_file_pages02.c:86: PASS: remap_file_pages(2) start is not valid MAP_SHARED mapping: EINVAL (22)
-remap_file_pages02.c:86: PASS: remap_file_pages(2) start is invalid: EINVAL (22)
-remap_file_pages02.c:86: PASS: remap_file_pages(2) size is invalid: EINVAL (22)
-remap_file_pages02.c:86: PASS: remap_file_pages(2) prot is invalid: EINVAL (22)
+adjtimex02.c:79: PASS: adjtimex() error 14 : EFAULT (14)
+adjtimex02.c:79: PASS: adjtimex() error 22 : EINVAL (22)
+adjtimex02.c:79: PASS: adjtimex() error 22 : EINVAL (22)
+adjtimex02.c:79: PASS: adjtimex() error 1 : EPERM (1)
+adjtimex02.c:38: CONF: this kernel normalizes buf.offset value if it is outside the acceptable range.
+adjtimex02.c:38: CONF: this kernel normalizes buf.offset value if it is outside the acceptable range.
 
 Summary:
 passed   4
 failed   0
-skipped  0
+skipped  2
 warnings 0
 <<<execution_status>>>
 initiation_status="ok"
 duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=removexattr01 stime=1570467486
-cmdline="removexattr01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-removexattr01    1  TPASS  :  removexattr() succeeded
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=removexattr02 stime=1570467486
-cmdline="removexattr02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-removexattr02    1  TPASS  :  removexattr() failed as expected: TEST_ERRNO=ENODATA(61): No data available
-removexattr02    2  TPASS  :  removexattr() failed as expected: TEST_ERRNO=ENOENT(2): No such file or directory
-removexattr02    3  TPASS  :  removexattr() failed as expected: TEST_ERRNO=EFAULT(14): Bad address
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=rename01 stime=1570467486
-cmdline="rename01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rename01    1  TPASS  :  functionality is correct for renaming a file
-rename01    2  TPASS  :  functionality is correct for renaming a directory
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rename01A stime=1570467486
-cmdline="symlink01 -T rename01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rename01    1  TPASS  :  rename(3) of symbolic link file name which points at no object file is ok
-rename01    2  TPASS  :  rename(3) of symbolic link file name which points at object file is ok
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rename02 stime=1570467486
-cmdline="rename02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rename02    1  TPASS  :  rename(./tfile_4236, ./rnfile_4236) returned 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rename03 stime=1570467486
-cmdline="rename03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rename03    1  TPASS  :  functionality is correct for renaming a file
-rename03    2  TPASS  :  functionality is correct for renaming a directory
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rename04 stime=1570467486
-cmdline="rename04"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rename04    1  TPASS  :  rename() returned ENOTEMPTY
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rename05 stime=1570467486
-cmdline="rename05"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rename05    1  TPASS  :  rename() returned EISDIR
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rename06 stime=1570467486
-cmdline="rename06"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rename06    1  TPASS  :  rename() returned EINVAL
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rename07 stime=1570467486
-cmdline="rename07"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rename07    1  TPASS  :  rename() returned ENOTDIR
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rename08 stime=1570467486
-cmdline="rename08"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rename08    1  TPASS  :  expected failure - errno = 14 : Bad address
-rename08    2  TPASS  :  expected failure - errno = 14 : Bad address
-rename08    3  TPASS  :  expected failure - errno = 14 : Bad address
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rename09 stime=1570467486
-cmdline="rename09"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rename09    1  TPASS  :  rename() returned EACCES
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rename10 stime=1570467486
-cmdline="rename10"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rename10    1  TPASS  :  expected failure - errno = 36 : File name too long
-rename10    2  TPASS  :  expected failure - errno = 2 : No such file or directory
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rename11 stime=1570467486
-cmdline="rename11"
-contacts=""
-analysis=exit
-<<<test_output>>>
-mke2fs 1.43.4 (31-Jan-2017)
-rename11    0  TINFO  :  Using test device LTP_DEV='/dev/loop0'
-rename11    0  TINFO  :  Formatting /dev/loop0 with ext2 opts='' extra opts=''
-rename11    0  TINFO  :  Failed reach the subdirs limit on EXT2/EXT3/EXT4 filesystem
-rename11    1  TPASS  :  failed as expected: TEST_ERRNO=ELOOP(40): Too many levels of symbolic links
-rename11    2  TPASS  :  failed as expected: TEST_ERRNO=EROFS(30): Read-only file system
-rename11    3  TCONF  :  rename11.c:167: EMLINK test is not appropriate
-<<<execution_status>>>
-initiation_status="ok"
-duration=5 termination_type=exited termination_id=0 corefile=no
-cutime=17 cstime=296
-<<<test_end>>>
-<<<test_start>>>
-tag=rename12 stime=1570467491
-cmdline="rename12"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rename12    1  TPASS  :  rename returned EPERM or EACCES
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rename13 stime=1570467491
-cmdline="rename13"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rename13    1  TPASS  :  functionality of rename() is correct
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rename14 stime=1570467491
-cmdline="rename14"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rename14    1  TPASS  :  Test Passed
-<<<execution_status>>>
-initiation_status="ok"
-duration=5 termination_type=exited termination_id=0 corefile=no
-cutime=41 cstime=915
-<<<test_end>>>
-<<<test_start>>>
-tag=renameat01 stime=1570467496
-cmdline="renameat01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-mke2fs 1.43.4 (31-Jan-2017)
-renameat01    0  TINFO  :  Using test device LTP_DEV='/dev/loop0'
-renameat01    0  TINFO  :  Formatting /dev/loop0 with ext2 opts='' extra opts=''
-renameat01    0  TINFO  :  Failed reach the subdirs limit on EXT2/EXT3/EXT4 filesystem
-renameat01    1  TPASS  :  renameat() returned the expected value: TEST_ERRNO=SUCCESS(0): Success
-renameat01    2  TPASS  :  renameat() returned the expected value: TEST_ERRNO=SUCCESS(0): Success
-renameat01    3  TPASS  :  renameat() returned the expected value: TEST_ERRNO=SUCCESS(0): Success
-renameat01    4  TPASS  :  renameat() returned the expected value: TEST_ERRNO=EBADF(9): Bad file descriptor
-renameat01    5  TPASS  :  renameat() returned the expected value: TEST_ERRNO=ENOTDIR(20): Not a directory
-renameat01    6  TPASS  :  renameat() returned the expected value: TEST_ERRNO=ELOOP(40): Too many levels of symbolic links
-renameat01    7  TPASS  :  renameat() returned the expected value: TEST_ERRNO=EROFS(30): Read-only file system
-renameat01    8  TCONF  :  renameat01.c:200: EMLINK test is not appropriate
-<<<execution_status>>>
-initiation_status="ok"
-duration=3 termination_type=exited termination_id=0 corefile=no
-cutime=10 cstime=229
-<<<test_end>>>
-<<<test_start>>>
-tag=renameat201 stime=1570467499
-cmdline="renameat201"
-contacts=""
-analysis=exit
-<<<test_output>>>
-renameat201    1  TPASS  :  renameat2() returned the expected value: TEST_ERRNO=EEXIST(17): File exists
-renameat201    2  TPASS  :  renameat2() returned the expected value: TEST_ERRNO=SUCCESS(0): Success
-renameat201    3  TPASS  :  renameat2() returned the expected value: TEST_ERRNO=ENOENT(2): No such file or directory
-renameat201    4  TPASS  :  renameat2() returned the expected value: TEST_ERRNO=SUCCESS(0): Success
-renameat201    5  TPASS  :  renameat2() returned the expected value: TEST_ERRNO=EINVAL(22): Invalid argument
-renameat201    6  TPASS  :  renameat2() returned the expected value: TEST_ERRNO=EINVAL(22): Invalid argument
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=renameat202 stime=1570467499
-cmdline="renameat202 -i 10"
-contacts=""
-analysis=exit
-<<<test_output>>>
-renameat202    1  TPASS  :  renameat2() test passed
-renameat202    1  TPASS  :  renameat2() test passed
-renameat202    1  TPASS  :  renameat2() test passed
-renameat202    1  TPASS  :  renameat2() test passed
-renameat202    1  TPASS  :  renameat2() test passed
-renameat202    1  TPASS  :  renameat2() test passed
-renameat202    1  TPASS  :  renameat2() test passed
-renameat202    1  TPASS  :  renameat2() test passed
-renameat202    1  TPASS  :  renameat2() test passed
-renameat202    1  TPASS  :  renameat2() test passed
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=request_key01 stime=1570467499
-cmdline="request_key01"
+tag=alarm02 stime=1570499095
+cmdline="alarm02"
 contacts=""
 analysis=exit
 <<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-request_key01.c:39: PASS: request_key() succeed
+alarm02.c:62: PASS: alarm(2147483647) returned 2147483647 as expected for value INT_MAX
+alarm02.c:62: PASS: alarm(2147483647) returned 2147483647 as expected for value UINT_MAX/2
+alarm02.c:62: PASS: alarm(1073741823) returned 1073741823 as expected for value UINT_MAX/4
 
 Summary:
-passed   1
+passed   3
 failed   0
 skipped  0
 warnings 0
@@ -15638,15 +10890,35 @@ duration=0 termination_type=exited termination_id=0 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=request_key02 stime=1570467499
-cmdline="request_key02"
+tag=alarm03 stime=1570499095
+cmdline="alarm03"
 contacts=""
 analysis=exit
 <<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-request_key02.c:53: PASS: request_key() failed expectly: ENOKEY (126)
-request_key02.c:53: PASS: request_key() failed expectly: EKEYREVOKED (128)
-request_key02.c:53: PASS: request_key() failed expectly: EKEYEXPIRED (127)
+alarm03.c:50: PASS: alarm(100), fork, alarm(0) parent's alarm returned 100
+alarm03.c:37: PASS: alarm(100), fork, alarm(0) child's alarm returned 0
+
+Summary:
+passed   2
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=alarm05 stime=1570499095
+cmdline="alarm05"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+alarm05.c:32: PASS: alarm() returned zero
+alarm05.c:38: PASS: alarm() returned remainder correctly
+alarm05.c:45: PASS: alarm handler fired once
 
 Summary:
 passed   3
@@ -15656,39 +10928,80 @@ warnings 0
 <<<execution_status>>>
 initiation_status="ok"
 duration=2 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=alarm06 stime=1570499097
+cmdline="alarm06"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+alarm06.c:54: PASS: Received 0 alarms
+alarm06.c:57: PASS: alarm(0) returned 1
+
+Summary:
+passed   2
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=3 termination_type=exited termination_id=0 corefile=no
 cutime=1 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=request_key03 stime=1570467501
-cmdline="request_key03"
+tag=alarm07 stime=1570499100
+cmdline="alarm07"
 contacts=""
 analysis=exit
 <<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-request_key03.c:142: PASS: didn't crash while updating key of type 'encrypted'
-request_key03.c:156: PASS: didn't crash while requesting key of type 'encrypted'
-request_key03.c:65: CONF: kernel doesn't support key type 'trusted'
-request_key03.c:142: PASS: didn't crash while updating key of type 'user'
-request_key03.c:156: PASS: didn't crash while requesting key of type 'user'
+alarm07.c:43: PASS: Got 1 sigalarm in parent
+alarm07.c:32: PASS: alarm() request cleared in child
 
 Summary:
-passed   4
+passed   2
 failed   0
-skipped  1
+skipped  0
 warnings 0
 <<<execution_status>>>
 initiation_status="ok"
-duration=2 termination_type=exited termination_id=0 corefile=no
-cutime=3 cstime=19
+duration=3 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=request_key04 stime=1570467503
-cmdline="request_key04"
+tag=bind01 stime=1570499103
+cmdline="bind01"
 contacts=""
 analysis=exit
 <<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-request_key04.c:66: PASS: request_key() failed with EACCES as expected
+bind01.c:57: PASS: invalid salen successful
+bind01.c:57: PASS: invalid socket successful
+bind01.c:57: PASS: INADDR_ANYPORT successful
+bind01.c:57: PASS: UNIX-domain of current directory successful
+bind01.c:57: PASS: non-local address successful
+
+Summary:
+passed   5
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=bind02 stime=1570499103
+cmdline="bind02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+bind02.c:60: INFO: Switching credentials to user: nobody, group: nogroup
+bind02.c:45: PASS: bind() failed as expected: EACCES (13)
 
 Summary:
 passed   1
@@ -15701,14 +11014,106 @@ duration=0 termination_type=exited termination_id=0 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=request_key05 stime=1570467503
-cmdline="request_key05"
+tag=bind03 stime=1570499103
+cmdline="bind03"
 contacts=""
 analysis=exit
 <<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-request_key05.c:25: INFO: Requesting dead key
-request_key05.c:29: PASS: No crash after 256 attempts
+bind03.c:64: PASS: bind() failed with EINVAL as expected
+bind03.c:82: PASS: bind() failed with EADDRINUSE as expected
+
+Summary:
+passed   2
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=bpf_map01 stime=1570499103
+cmdline="bpf_map01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_buffers.c:55: INFO: Test is using guarded buffers
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+bpf_common.h:18: INFO: Raising RLIMIT_MEMLOCK to 327680
+bpf_map01.c:64: PASS: Created hash map
+bpf_map01.c:82: PASS: Empty hash map lookup: ENOENT (2)
+bpf_map01.c:116: PASS: Update hash map element
+bpf_map01.c:134: PASS: hash map lookup
+bpf_map01.c:64: PASS: Created array map
+bpf_map01.c:116: PASS: Update array map element
+bpf_map01.c:134: PASS: array map lookup
+
+Summary:
+passed   7
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=bpf_prog01 stime=1570499103
+cmdline="bpf_prog01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_buffers.c:55: INFO: Test is using guarded buffers
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+bpf_common.h:18: INFO: Raising RLIMIT_MEMLOCK to 327680
+bpf_prog01.c:85: FAIL: Failed verification: in-kernel BTF is malformed
+: EINVAL (22)
+
+Summary:
+passed   0
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=1 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=bpf_prog02 stime=1570499103
+cmdline="bpf_prog02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_buffers.c:55: INFO: Test is using guarded buffers
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+bpf_common.h:18: INFO: Raising RLIMIT_MEMLOCK to 327680
+tst_capability.c:29: INFO: Dropping CAP_SYS_ADMIN(21)
+bpf_prog02.c:86: INFO: Verification log:
+in-kernel BTF is malformed
+bpf_prog02.c:88: BROK: Failed verification: EINVAL (22)
+
+Summary:
+passed   0
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=2 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=brk01 stime=1570499103
+cmdline="brk01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+brk01.c:55: PASS: brk() works fine
 
 Summary:
 passed   1
@@ -15721,13 +11126,123 @@ duration=0 termination_type=exited termination_id=0 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=rmdir01 stime=1570467503
-cmdline="rmdir01"
+tag=capget01 stime=1570499103
+cmdline="capget01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+capget01    1  TPASS  :  capget() returned 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=capget02 stime=1570499103
+cmdline="capget02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+capget02    1  TPASS  :  capget failed as expected: TEST_ERRNO=EFAULT(14): Bad address
+capget02    2  TPASS  :  capget failed as expected: TEST_ERRNO=EFAULT(14): Bad address
+capget02    3  TPASS  :  capget failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
+capget02    4  TPASS  :  capget failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
+capget02    5  TPASS  :  capget failed as expected: TEST_ERRNO=ESRCH(3): No such process
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=capset01 stime=1570499103
+cmdline="capset01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+capset01    1  TPASS  :  capset() returned 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=capset02 stime=1570499103
+cmdline="capset02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+capset02    1  TPASS  :  capset() returned -1, errno: EFAULT
+capset02    2  TPASS  :  capset() returned -1, errno: EFAULT
+capset02    3  TPASS  :  capset() returned -1, errno: EINVAL
+capset02    4  TPASS  :  capset() returned -1, errno: EPERM
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=cacheflush01 stime=1570499103
+cmdline="cacheflush01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+cacheflush01    1  TCONF  :  cacheflush01.c:134: syscall(-1) __NR_cacheflush not supported on your arch
+cacheflush01    2  TCONF  :  cacheflush01.c:134: Remaining cases not appropriate for configuration
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=32 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=chdir01 stime=1570499103
+cmdline="chdir01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chdir01     0  TINFO  :  Found file .
+chdir01     0  TINFO  :  Found file ..
+chdir01     0  TINFO  :  Found file chdirtest
+chdir01     1  TPASS  :  failed as expected with ENOTDIR
+chdir01     2  TPASS  :  failed as expected with ELOOP
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chdir01A stime=1570499103
+cmdline="symlink01 -T chdir01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chdir01     1  TPASS  :  chdir(2) to object file location through symbolic link file is ok
+chdir01     2  TPASS  :  chdir(2) to non-existent object file location through symbolic link file failed as expected
+chdir01     3  TPASS  :  Nested symbolic link access condition caught.  ELOOP is returned
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chdir02 stime=1570499103
+cmdline="chdir02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chdir02     1  TPASS  :  chdir(/) returned 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chdir03 stime=1570499103
+cmdline="chdir03"
 contacts=""
 analysis=exit
 <<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-rmdir01.c:33: PASS: rmdir(testdir) success
+chdir03.c:48: PASS: chdir() failed expectedly: EACCES (13)
 
 Summary:
 passed   1
@@ -15740,21 +11255,130 @@ duration=0 termination_type=exited termination_id=0 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=rmdir02 stime=1570467503
-cmdline="rmdir02"
+tag=chdir04 stime=1570499103
+cmdline="chdir04"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chdir04     1  TPASS  :  failed as expected: TEST_ERRNO=ENAMETOOLONG(36): File name too long
+chdir04     2  TPASS  :  failed as expected: TEST_ERRNO=ENOENT(2): No such file or directory
+chdir04     3  TPASS  :  failed as expected: TEST_ERRNO=EFAULT(14): Bad address
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chmod01 stime=1570499103
+cmdline="chmod01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chmod01     1  TPASS  :  Functionality of chmod(testfile, 0) successful
+chmod01     2  TPASS  :  Functionality of chmod(testfile, 07) successful
+chmod01     3  TPASS  :  Functionality of chmod(testfile, 070) successful
+chmod01     4  TPASS  :  Functionality of chmod(testfile, 0700) successful
+chmod01     5  TPASS  :  Functionality of chmod(testfile, 0777) successful
+chmod01     6  TPASS  :  Functionality of chmod(testfile, 02777) successful
+chmod01     7  TPASS  :  Functionality of chmod(testfile, 04777) successful
+chmod01     8  TPASS  :  Functionality of chmod(testfile, 06777) successful
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chmod01A stime=1570499103
+cmdline="symlink01 -T chmod01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chmod01     1  TPASS  :  chmod(2) of object file permissions through symbolic link file is ok
+chmod01     2  TPASS  :  chmod(2) error when accessing non-existent object through symbolic link is caught
+chmod01     3  TPASS  :  Nested symbolic link access condition caught.  ELOOP is returned
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chmod02 stime=1570499103
+cmdline="chmod02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chmod02     1  TPASS  :  chmod(test_file, 0) returned 0
+chmod02     2  TPASS  :  chmod(test_file, 07) returned 0
+chmod02     3  TPASS  :  chmod(test_file, 070) returned 0
+chmod02     4  TPASS  :  chmod(test_file, 0700) returned 0
+chmod02     5  TPASS  :  chmod(test_file, 0777) returned 0
+chmod02     6  TPASS  :  chmod(test_file, 02777) returned 0
+chmod02     7  TPASS  :  chmod(test_file, 04777) returned 0
+chmod02     8  TPASS  :  chmod(test_file, 06777) returned 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chmod03 stime=1570499103
+cmdline="chmod03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chmod03     1  TPASS  :  Functionality of chmod(testfile, 01777) successful
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chmod04 stime=1570499103
+cmdline="chmod04"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chmod04     1  TPASS  :  Functionality of chmod(testdir_4, 01777) successful
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=chmod05 stime=1570499103
+cmdline="chmod05"
 contacts=""
 analysis=exit
 <<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-rmdir02.c:92: PASS: rmdir() failed as expected: ENOTEMPTY (39)
-rmdir02.c:92: PASS: rmdir() failed as expected: ENAMETOOLONG (36)
-rmdir02.c:92: PASS: rmdir() failed as expected: ENOENT (2)
-rmdir02.c:92: PASS: rmdir() failed as expected: ENOTDIR (20)
-rmdir02.c:92: PASS: rmdir() failed as expected: EFAULT (14)
-rmdir02.c:92: PASS: rmdir() failed as expected: ELOOP (40)
-rmdir02.c:92: PASS: rmdir() failed as expected: EROFS (30)
-rmdir02.c:92: PASS: rmdir() failed as expected: EBUSY (16)
-rmdir02.c:92: PASS: rmdir() failed as expected: EINVAL (22)
+chmod05.c:65: PASS: Functionality of chmod(testdir, 043777) successful
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=1 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chmod06 stime=1570499103
+cmdline="chmod06"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+chmod06.c:86: PASS: chmod failed as expected: EPERM (1)
+chmod06.c:86: PASS: chmod failed as expected: EACCES (13)
+chmod06.c:86: PASS: chmod failed as expected: EFAULT (14)
+chmod06.c:86: PASS: chmod failed as expected: EFAULT (14)
+chmod06.c:86: PASS: chmod failed as expected: ENAMETOOLONG (36)
+chmod06.c:86: PASS: chmod failed as expected: ENOENT (2)
+chmod06.c:86: PASS: chmod failed as expected: ENOTDIR (20)
+chmod06.c:86: PASS: chmod failed as expected: EROFS (30)
+chmod06.c:86: PASS: chmod failed as expected: ELOOP (40)
 
 Summary:
 passed   9
@@ -15767,2771 +11391,13 @@ duration=0 termination_type=exited termination_id=0 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=rmdir03 stime=1570467503
-cmdline="rmdir03"
+tag=chmod07 stime=1570499103
+cmdline="chmod07"
 contacts=""
 analysis=exit
 <<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-rmdir03.c:55: PASS: rmdir() got expected errno: EPERM (1)
-rmdir03.c:61: PASS: rmdir() got expected errno: EACCES (13)
-
-Summary:
-passed   2
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rmdir03A stime=1570467503
-cmdline="symlink01 -T rmdir03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rmdir03     1  TPASS  :  rmdir(2) of object file through symbolic link file failed as expected
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rt_sigaction01 stime=1570467503
-cmdline="rt_sigaction01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rt_sigaction01    0  TINFO  :  signal: 34 
-rt_sigaction01    1  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 34
-
-rt_sigaction01    0  TINFO  :  signal: 34 
-rt_sigaction01    2  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 34
-
-rt_sigaction01    0  TINFO  :  signal: 34 
-rt_sigaction01    3  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 34
-
-rt_sigaction01    0  TINFO  :  signal: 34 
-rt_sigaction01    4  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 34
-
-rt_sigaction01    0  TINFO  :  signal: 34 
-rt_sigaction01    5  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 34
-
-rt_sigaction01    0  TINFO  :  signal: 35 
-rt_sigaction01    6  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 35
-
-rt_sigaction01    0  TINFO  :  signal: 35 
-rt_sigaction01    7  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 35
-
-rt_sigaction01    0  TINFO  :  signal: 35 
-rt_sigaction01    8  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 35
-
-rt_sigaction01    0  TINFO  :  signal: 35 
-rt_sigaction01    9  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 35
-
-rt_sigaction01    0  TINFO  :  signal: 35 
-rt_sigaction01   10  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 35
-
-rt_sigaction01    0  TINFO  :  signal: 36 
-rt_sigaction01   11  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 36
-
-rt_sigaction01    0  TINFO  :  signal: 36 
-rt_sigaction01   12  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 36
-
-rt_sigaction01    0  TINFO  :  signal: 36 
-rt_sigaction01   13  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 36
-
-rt_sigaction01    0  TINFO  :  signal: 36 
-rt_sigaction01   14  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 36
-
-rt_sigaction01    0  TINFO  :  signal: 36 
-rt_sigaction01   15  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 36
-
-rt_sigaction01    0  TINFO  :  signal: 37 
-rt_sigaction01   16  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 37
-
-rt_sigaction01    0  TINFO  :  signal: 37 
-rt_sigaction01   17  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 37
-
-rt_sigaction01    0  TINFO  :  signal: 37 
-rt_sigaction01   18  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 37
-
-rt_sigaction01    0  TINFO  :  signal: 37 
-rt_sigaction01   19  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 37
-
-rt_sigaction01    0  TINFO  :  signal: 37 
-rt_sigaction01   20  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 37
-
-rt_sigaction01    0  TINFO  :  signal: 38 
-rt_sigaction01   21  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 38
-
-rt_sigaction01    0  TINFO  :  signal: 38 
-rt_sigaction01   22  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 38
-
-rt_sigaction01    0  TINFO  :  signal: 38 
-rt_sigaction01   23  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 38
-
-rt_sigaction01    0  TINFO  :  signal: 38 
-rt_sigaction01   24  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 38
-
-rt_sigaction01    0  TINFO  :  signal: 38 
-rt_sigaction01   25  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 38
-
-rt_sigaction01    0  TINFO  :  signal: 39 
-rt_sigaction01   26  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 39
-
-rt_sigaction01    0  TINFO  :  signal: 39 
-rt_sigaction01   27  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 39
-
-rt_sigaction01    0  TINFO  :  signal: 39 
-rt_sigaction01   28  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 39
-
-rt_sigaction01    0  TINFO  :  signal: 39 
-rt_sigaction01   29  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 39
-
-rt_sigaction01    0  TINFO  :  signal: 39 
-rt_sigaction01   30  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 39
-
-rt_sigaction01    0  TINFO  :  signal: 40 
-rt_sigaction01   31  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 40
-
-rt_sigaction01    0  TINFO  :  signal: 40 
-rt_sigaction01   32  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 40
-
-rt_sigaction01    0  TINFO  :  signal: 40 
-rt_sigaction01   33  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 40
-
-rt_sigaction01    0  TINFO  :  signal: 40 
-rt_sigaction01   34  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 40
-
-rt_sigaction01    0  TINFO  :  signal: 40 
-rt_sigaction01   35  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 40
-
-rt_sigaction01    0  TINFO  :  signal: 41 
-rt_sigaction01   36  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 41
-
-rt_sigaction01    0  TINFO  :  signal: 41 
-rt_sigaction01   37  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 41
-
-rt_sigaction01    0  TINFO  :  signal: 41 
-rt_sigaction01   38  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 41
-
-rt_sigaction01    0  TINFO  :  signal: 41 
-rt_sigaction01   39  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 41
-
-rt_sigaction01    0  TINFO  :  signal: 41 
-rt_sigaction01   40  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 41
-
-rt_sigaction01    0  TINFO  :  signal: 42 
-rt_sigaction01   41  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 42
-
-rt_sigaction01    0  TINFO  :  signal: 42 
-rt_sigaction01   42  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 42
-
-rt_sigaction01    0  TINFO  :  signal: 42 
-rt_sigaction01   43  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 42
-
-rt_sigaction01    0  TINFO  :  signal: 42 
-rt_sigaction01   44  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 42
-
-rt_sigaction01    0  TINFO  :  signal: 42 
-rt_sigaction01   45  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 42
-
-rt_sigaction01    0  TINFO  :  signal: 43 
-rt_sigaction01   46  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 43
-
-rt_sigaction01    0  TINFO  :  signal: 43 
-rt_sigaction01   47  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 43
-
-rt_sigaction01    0  TINFO  :  signal: 43 
-rt_sigaction01   48  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 43
-
-rt_sigaction01    0  TINFO  :  signal: 43 
-rt_sigaction01   49  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 43
-
-rt_sigaction01    0  TINFO  :  signal: 43 
-rt_sigaction01   50  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 43
-
-rt_sigaction01    0  TINFO  :  signal: 44 
-rt_sigaction01   51  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 44
-
-rt_sigaction01    0  TINFO  :  signal: 44 
-rt_sigaction01   52  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 44
-
-rt_sigaction01    0  TINFO  :  signal: 44 
-rt_sigaction01   53  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 44
-
-rt_sigaction01    0  TINFO  :  signal: 44 
-rt_sigaction01   54  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 44
-
-rt_sigaction01    0  TINFO  :  signal: 44 
-rt_sigaction01   55  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 44
-
-rt_sigaction01    0  TINFO  :  signal: 45 
-rt_sigaction01   56  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 45
-
-rt_sigaction01    0  TINFO  :  signal: 45 
-rt_sigaction01   57  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 45
-
-rt_sigaction01    0  TINFO  :  signal: 45 
-rt_sigaction01   58  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 45
-
-rt_sigaction01    0  TINFO  :  signal: 45 
-rt_sigaction01   59  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 45
-
-rt_sigaction01    0  TINFO  :  signal: 45 
-rt_sigaction01   60  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 45
-
-rt_sigaction01    0  TINFO  :  signal: 46 
-rt_sigaction01   61  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 46
-
-rt_sigaction01    0  TINFO  :  signal: 46 
-rt_sigaction01   62  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 46
-
-rt_sigaction01    0  TINFO  :  signal: 46 
-rt_sigaction01   63  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 46
-
-rt_sigaction01    0  TINFO  :  signal: 46 
-rt_sigaction01   64  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 46
-
-rt_sigaction01    0  TINFO  :  signal: 46 
-rt_sigaction01   65  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 46
-
-rt_sigaction01    0  TINFO  :  signal: 47 
-rt_sigaction01   66  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 47
-
-rt_sigaction01    0  TINFO  :  signal: 47 
-rt_sigaction01   67  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 47
-
-rt_sigaction01    0  TINFO  :  signal: 47 
-rt_sigaction01   68  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 47
-
-rt_sigaction01    0  TINFO  :  signal: 47 
-rt_sigaction01   69  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 47
-
-rt_sigaction01    0  TINFO  :  signal: 47 
-rt_sigaction01   70  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 47
-
-rt_sigaction01    0  TINFO  :  signal: 48 
-rt_sigaction01   71  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 48
-
-rt_sigaction01    0  TINFO  :  signal: 48 
-rt_sigaction01   72  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 48
-
-rt_sigaction01    0  TINFO  :  signal: 48 
-rt_sigaction01   73  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 48
-
-rt_sigaction01    0  TINFO  :  signal: 48 
-rt_sigaction01   74  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 48
-
-rt_sigaction01    0  TINFO  :  signal: 48 
-rt_sigaction01   75  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 48
-
-rt_sigaction01    0  TINFO  :  signal: 49 
-rt_sigaction01   76  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 49
-
-rt_sigaction01    0  TINFO  :  signal: 49 
-rt_sigaction01   77  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 49
-
-rt_sigaction01    0  TINFO  :  signal: 49 
-rt_sigaction01   78  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 49
-
-rt_sigaction01    0  TINFO  :  signal: 49 
-rt_sigaction01   79  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 49
-
-rt_sigaction01    0  TINFO  :  signal: 49 
-rt_sigaction01   80  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 49
-
-rt_sigaction01    0  TINFO  :  signal: 50 
-rt_sigaction01   81  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 50
-
-rt_sigaction01    0  TINFO  :  signal: 50 
-rt_sigaction01   82  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 50
-
-rt_sigaction01    0  TINFO  :  signal: 50 
-rt_sigaction01   83  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 50
-
-rt_sigaction01    0  TINFO  :  signal: 50 
-rt_sigaction01   84  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 50
-
-rt_sigaction01    0  TINFO  :  signal: 50 
-rt_sigaction01   85  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 50
-
-rt_sigaction01    0  TINFO  :  signal: 51 
-rt_sigaction01   86  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 51
-
-rt_sigaction01    0  TINFO  :  signal: 51 
-rt_sigaction01   87  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 51
-
-rt_sigaction01    0  TINFO  :  signal: 51 
-rt_sigaction01   88  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 51
-
-rt_sigaction01    0  TINFO  :  signal: 51 
-rt_sigaction01   89  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 51
-
-rt_sigaction01    0  TINFO  :  signal: 51 
-rt_sigaction01   90  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 51
-
-rt_sigaction01    0  TINFO  :  signal: 52 
-rt_sigaction01   91  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 52
-
-rt_sigaction01    0  TINFO  :  signal: 52 
-rt_sigaction01   92  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 52
-
-rt_sigaction01    0  TINFO  :  signal: 52 
-rt_sigaction01   93  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 52
-
-rt_sigaction01    0  TINFO  :  signal: 52 
-rt_sigaction01   94  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 52
-
-rt_sigaction01    0  TINFO  :  signal: 52 
-rt_sigaction01   95  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 52
-
-rt_sigaction01    0  TINFO  :  signal: 53 
-rt_sigaction01   96  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 53
-
-rt_sigaction01    0  TINFO  :  signal: 53 
-rt_sigaction01   97  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 53
-
-rt_sigaction01    0  TINFO  :  signal: 53 
-rt_sigaction01   98  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 53
-
-rt_sigaction01    0  TINFO  :  signal: 53 
-rt_sigaction01   99  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 53
-
-rt_sigaction01    0  TINFO  :  signal: 53 
-rt_sigaction01  100  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 53
-
-rt_sigaction01    0  TINFO  :  signal: 54 
-rt_sigaction01  101  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 54
-
-rt_sigaction01    0  TINFO  :  signal: 54 
-rt_sigaction01  102  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 54
-
-rt_sigaction01    0  TINFO  :  signal: 54 
-rt_sigaction01  103  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 54
-
-rt_sigaction01    0  TINFO  :  signal: 54 
-rt_sigaction01  104  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 54
-
-rt_sigaction01    0  TINFO  :  signal: 54 
-rt_sigaction01  105  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 54
-
-rt_sigaction01    0  TINFO  :  signal: 55 
-rt_sigaction01  106  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 55
-
-rt_sigaction01    0  TINFO  :  signal: 55 
-rt_sigaction01  107  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 55
-
-rt_sigaction01    0  TINFO  :  signal: 55 
-rt_sigaction01  108  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 55
-
-rt_sigaction01    0  TINFO  :  signal: 55 
-rt_sigaction01  109  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 55
-
-rt_sigaction01    0  TINFO  :  signal: 55 
-rt_sigaction01  110  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 55
-
-rt_sigaction01    0  TINFO  :  signal: 56 
-rt_sigaction01  111  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 56
-
-rt_sigaction01    0  TINFO  :  signal: 56 
-rt_sigaction01  112  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 56
-
-rt_sigaction01    0  TINFO  :  signal: 56 
-rt_sigaction01  113  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 56
-
-rt_sigaction01    0  TINFO  :  signal: 56 
-rt_sigaction01  114  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 56
-
-rt_sigaction01    0  TINFO  :  signal: 56 
-rt_sigaction01  115  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 56
-
-rt_sigaction01    0  TINFO  :  signal: 57 
-rt_sigaction01  116  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 57
-
-rt_sigaction01    0  TINFO  :  signal: 57 
-rt_sigaction01  117  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 57
-
-rt_sigaction01    0  TINFO  :  signal: 57 
-rt_sigaction01  118  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 57
-
-rt_sigaction01    0  TINFO  :  signal: 57 
-rt_sigaction01  119  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 57
-
-rt_sigaction01    0  TINFO  :  signal: 57 
-rt_sigaction01  120  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 57
-
-rt_sigaction01    0  TINFO  :  signal: 58 
-rt_sigaction01  121  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 58
-
-rt_sigaction01    0  TINFO  :  signal: 58 
-rt_sigaction01  122  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 58
-
-rt_sigaction01    0  TINFO  :  signal: 58 
-rt_sigaction01  123  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 58
-
-rt_sigaction01    0  TINFO  :  signal: 58 
-rt_sigaction01  124  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 58
-
-rt_sigaction01    0  TINFO  :  signal: 58 
-rt_sigaction01  125  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 58
-
-rt_sigaction01    0  TINFO  :  signal: 59 
-rt_sigaction01  126  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 59
-
-rt_sigaction01    0  TINFO  :  signal: 59 
-rt_sigaction01  127  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 59
-
-rt_sigaction01    0  TINFO  :  signal: 59 
-rt_sigaction01  128  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 59
-
-rt_sigaction01    0  TINFO  :  signal: 59 
-rt_sigaction01  129  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 59
-
-rt_sigaction01    0  TINFO  :  signal: 59 
-rt_sigaction01  130  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 59
-
-rt_sigaction01    0  TINFO  :  signal: 60 
-rt_sigaction01  131  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 60
-
-rt_sigaction01    0  TINFO  :  signal: 60 
-rt_sigaction01  132  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 60
-
-rt_sigaction01    0  TINFO  :  signal: 60 
-rt_sigaction01  133  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 60
-
-rt_sigaction01    0  TINFO  :  signal: 60 
-rt_sigaction01  134  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 60
-
-rt_sigaction01    0  TINFO  :  signal: 60 
-rt_sigaction01  135  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 60
-
-rt_sigaction01    0  TINFO  :  signal: 61 
-rt_sigaction01  136  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 61
-
-rt_sigaction01    0  TINFO  :  signal: 61 
-rt_sigaction01  137  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 61
-
-rt_sigaction01    0  TINFO  :  signal: 61 
-rt_sigaction01  138  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 61
-
-rt_sigaction01    0  TINFO  :  signal: 61 
-rt_sigaction01  139  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 61
-
-rt_sigaction01    0  TINFO  :  signal: 61 
-rt_sigaction01  140  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 61
-
-rt_sigaction01    0  TINFO  :  signal: 62 
-rt_sigaction01  141  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 62
-
-rt_sigaction01    0  TINFO  :  signal: 62 
-rt_sigaction01  142  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 62
-
-rt_sigaction01    0  TINFO  :  signal: 62 
-rt_sigaction01  143  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 62
-
-rt_sigaction01    0  TINFO  :  signal: 62 
-rt_sigaction01  144  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 62
-
-rt_sigaction01    0  TINFO  :  signal: 62 
-rt_sigaction01  145  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 62
-
-rt_sigaction01    0  TINFO  :  signal: 63 
-rt_sigaction01  146  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 63
-
-rt_sigaction01    0  TINFO  :  signal: 63 
-rt_sigaction01  147  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 63
-
-rt_sigaction01    0  TINFO  :  signal: 63 
-rt_sigaction01  148  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 63
-
-rt_sigaction01    0  TINFO  :  signal: 63 
-rt_sigaction01  149  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 63
-
-rt_sigaction01    0  TINFO  :  signal: 63 
-rt_sigaction01  150  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 63
-
-rt_sigaction01    0  TINFO  :  signal: 64 
-rt_sigaction01  151  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 64
-
-rt_sigaction01    0  TINFO  :  signal: 64 
-rt_sigaction01  152  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 64
-
-rt_sigaction01    0  TINFO  :  signal: 64 
-rt_sigaction01  153  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 64
-
-rt_sigaction01    0  TINFO  :  signal: 64 
-rt_sigaction01  154  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 64
-
-rt_sigaction01    0  TINFO  :  signal: 64 
-rt_sigaction01  155  TPASS  :  rt_sigaction call succeeded: result = 0 
-rt_sigaction01    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction01    0  TINFO  :  Signal Handler Called with signal number 64
-
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rt_sigaction02 stime=1570467503
-cmdline="rt_sigaction02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rt_sigaction02    0  TINFO  :  Signal 34
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02    1  TPASS  :  rt_sigaction02 failure with sig: 34 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02    2  TPASS  :  rt_sigaction02 failure with sig: 34 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02    3  TPASS  :  rt_sigaction02 failure with sig: 34 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02    4  TPASS  :  rt_sigaction02 failure with sig: 34 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02    5  TPASS  :  rt_sigaction02 failure with sig: 34 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 35
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02    6  TPASS  :  rt_sigaction02 failure with sig: 35 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02    7  TPASS  :  rt_sigaction02 failure with sig: 35 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02    8  TPASS  :  rt_sigaction02 failure with sig: 35 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02    9  TPASS  :  rt_sigaction02 failure with sig: 35 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02   10  TPASS  :  rt_sigaction02 failure with sig: 35 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 36
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   11  TPASS  :  rt_sigaction02 failure with sig: 36 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02   12  TPASS  :  rt_sigaction02 failure with sig: 36 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   13  TPASS  :  rt_sigaction02 failure with sig: 36 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   14  TPASS  :  rt_sigaction02 failure with sig: 36 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02   15  TPASS  :  rt_sigaction02 failure with sig: 36 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 37
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   16  TPASS  :  rt_sigaction02 failure with sig: 37 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02   17  TPASS  :  rt_sigaction02 failure with sig: 37 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   18  TPASS  :  rt_sigaction02 failure with sig: 37 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   19  TPASS  :  rt_sigaction02 failure with sig: 37 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02   20  TPASS  :  rt_sigaction02 failure with sig: 37 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 38
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   21  TPASS  :  rt_sigaction02 failure with sig: 38 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02   22  TPASS  :  rt_sigaction02 failure with sig: 38 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   23  TPASS  :  rt_sigaction02 failure with sig: 38 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   24  TPASS  :  rt_sigaction02 failure with sig: 38 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02   25  TPASS  :  rt_sigaction02 failure with sig: 38 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 39
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   26  TPASS  :  rt_sigaction02 failure with sig: 39 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02   27  TPASS  :  rt_sigaction02 failure with sig: 39 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   28  TPASS  :  rt_sigaction02 failure with sig: 39 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   29  TPASS  :  rt_sigaction02 failure with sig: 39 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02   30  TPASS  :  rt_sigaction02 failure with sig: 39 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 40
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   31  TPASS  :  rt_sigaction02 failure with sig: 40 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02   32  TPASS  :  rt_sigaction02 failure with sig: 40 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   33  TPASS  :  rt_sigaction02 failure with sig: 40 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   34  TPASS  :  rt_sigaction02 failure with sig: 40 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02   35  TPASS  :  rt_sigaction02 failure with sig: 40 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 41
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   36  TPASS  :  rt_sigaction02 failure with sig: 41 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02   37  TPASS  :  rt_sigaction02 failure with sig: 41 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   38  TPASS  :  rt_sigaction02 failure with sig: 41 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   39  TPASS  :  rt_sigaction02 failure with sig: 41 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02   40  TPASS  :  rt_sigaction02 failure with sig: 41 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 42
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   41  TPASS  :  rt_sigaction02 failure with sig: 42 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02   42  TPASS  :  rt_sigaction02 failure with sig: 42 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   43  TPASS  :  rt_sigaction02 failure with sig: 42 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   44  TPASS  :  rt_sigaction02 failure with sig: 42 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02   45  TPASS  :  rt_sigaction02 failure with sig: 42 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 43
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   46  TPASS  :  rt_sigaction02 failure with sig: 43 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02   47  TPASS  :  rt_sigaction02 failure with sig: 43 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   48  TPASS  :  rt_sigaction02 failure with sig: 43 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   49  TPASS  :  rt_sigaction02 failure with sig: 43 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02   50  TPASS  :  rt_sigaction02 failure with sig: 43 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 44
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   51  TPASS  :  rt_sigaction02 failure with sig: 44 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02   52  TPASS  :  rt_sigaction02 failure with sig: 44 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   53  TPASS  :  rt_sigaction02 failure with sig: 44 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   54  TPASS  :  rt_sigaction02 failure with sig: 44 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02   55  TPASS  :  rt_sigaction02 failure with sig: 44 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 45
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   56  TPASS  :  rt_sigaction02 failure with sig: 45 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02   57  TPASS  :  rt_sigaction02 failure with sig: 45 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   58  TPASS  :  rt_sigaction02 failure with sig: 45 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   59  TPASS  :  rt_sigaction02 failure with sig: 45 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02   60  TPASS  :  rt_sigaction02 failure with sig: 45 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 46
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   61  TPASS  :  rt_sigaction02 failure with sig: 46 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02   62  TPASS  :  rt_sigaction02 failure with sig: 46 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   63  TPASS  :  rt_sigaction02 failure with sig: 46 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   64  TPASS  :  rt_sigaction02 failure with sig: 46 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02   65  TPASS  :  rt_sigaction02 failure with sig: 46 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 47
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   66  TPASS  :  rt_sigaction02 failure with sig: 47 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02   67  TPASS  :  rt_sigaction02 failure with sig: 47 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   68  TPASS  :  rt_sigaction02 failure with sig: 47 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   69  TPASS  :  rt_sigaction02 failure with sig: 47 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02   70  TPASS  :  rt_sigaction02 failure with sig: 47 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 48
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   71  TPASS  :  rt_sigaction02 failure with sig: 48 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02   72  TPASS  :  rt_sigaction02 failure with sig: 48 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   73  TPASS  :  rt_sigaction02 failure with sig: 48 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   74  TPASS  :  rt_sigaction02 failure with sig: 48 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02   75  TPASS  :  rt_sigaction02 failure with sig: 48 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 49
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   76  TPASS  :  rt_sigaction02 failure with sig: 49 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02   77  TPASS  :  rt_sigaction02 failure with sig: 49 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   78  TPASS  :  rt_sigaction02 failure with sig: 49 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   79  TPASS  :  rt_sigaction02 failure with sig: 49 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02   80  TPASS  :  rt_sigaction02 failure with sig: 49 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 50
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   81  TPASS  :  rt_sigaction02 failure with sig: 50 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02   82  TPASS  :  rt_sigaction02 failure with sig: 50 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   83  TPASS  :  rt_sigaction02 failure with sig: 50 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   84  TPASS  :  rt_sigaction02 failure with sig: 50 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02   85  TPASS  :  rt_sigaction02 failure with sig: 50 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 51
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   86  TPASS  :  rt_sigaction02 failure with sig: 51 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02   87  TPASS  :  rt_sigaction02 failure with sig: 51 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   88  TPASS  :  rt_sigaction02 failure with sig: 51 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   89  TPASS  :  rt_sigaction02 failure with sig: 51 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02   90  TPASS  :  rt_sigaction02 failure with sig: 51 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 52
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   91  TPASS  :  rt_sigaction02 failure with sig: 52 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02   92  TPASS  :  rt_sigaction02 failure with sig: 52 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   93  TPASS  :  rt_sigaction02 failure with sig: 52 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   94  TPASS  :  rt_sigaction02 failure with sig: 52 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02   95  TPASS  :  rt_sigaction02 failure with sig: 52 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 53
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   96  TPASS  :  rt_sigaction02 failure with sig: 53 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02   97  TPASS  :  rt_sigaction02 failure with sig: 53 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   98  TPASS  :  rt_sigaction02 failure with sig: 53 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02   99  TPASS  :  rt_sigaction02 failure with sig: 53 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02  100  TPASS  :  rt_sigaction02 failure with sig: 53 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 54
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  101  TPASS  :  rt_sigaction02 failure with sig: 54 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02  102  TPASS  :  rt_sigaction02 failure with sig: 54 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  103  TPASS  :  rt_sigaction02 failure with sig: 54 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  104  TPASS  :  rt_sigaction02 failure with sig: 54 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02  105  TPASS  :  rt_sigaction02 failure with sig: 54 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 55
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  106  TPASS  :  rt_sigaction02 failure with sig: 55 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02  107  TPASS  :  rt_sigaction02 failure with sig: 55 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  108  TPASS  :  rt_sigaction02 failure with sig: 55 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  109  TPASS  :  rt_sigaction02 failure with sig: 55 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02  110  TPASS  :  rt_sigaction02 failure with sig: 55 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 56
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  111  TPASS  :  rt_sigaction02 failure with sig: 56 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02  112  TPASS  :  rt_sigaction02 failure with sig: 56 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  113  TPASS  :  rt_sigaction02 failure with sig: 56 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  114  TPASS  :  rt_sigaction02 failure with sig: 56 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02  115  TPASS  :  rt_sigaction02 failure with sig: 56 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 57
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  116  TPASS  :  rt_sigaction02 failure with sig: 57 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02  117  TPASS  :  rt_sigaction02 failure with sig: 57 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  118  TPASS  :  rt_sigaction02 failure with sig: 57 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  119  TPASS  :  rt_sigaction02 failure with sig: 57 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02  120  TPASS  :  rt_sigaction02 failure with sig: 57 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 58
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  121  TPASS  :  rt_sigaction02 failure with sig: 58 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02  122  TPASS  :  rt_sigaction02 failure with sig: 58 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  123  TPASS  :  rt_sigaction02 failure with sig: 58 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  124  TPASS  :  rt_sigaction02 failure with sig: 58 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02  125  TPASS  :  rt_sigaction02 failure with sig: 58 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 59
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  126  TPASS  :  rt_sigaction02 failure with sig: 59 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02  127  TPASS  :  rt_sigaction02 failure with sig: 59 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  128  TPASS  :  rt_sigaction02 failure with sig: 59 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  129  TPASS  :  rt_sigaction02 failure with sig: 59 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02  130  TPASS  :  rt_sigaction02 failure with sig: 59 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 60
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  131  TPASS  :  rt_sigaction02 failure with sig: 60 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02  132  TPASS  :  rt_sigaction02 failure with sig: 60 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  133  TPASS  :  rt_sigaction02 failure with sig: 60 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  134  TPASS  :  rt_sigaction02 failure with sig: 60 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02  135  TPASS  :  rt_sigaction02 failure with sig: 60 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 61
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  136  TPASS  :  rt_sigaction02 failure with sig: 61 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02  137  TPASS  :  rt_sigaction02 failure with sig: 61 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  138  TPASS  :  rt_sigaction02 failure with sig: 61 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  139  TPASS  :  rt_sigaction02 failure with sig: 61 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02  140  TPASS  :  rt_sigaction02 failure with sig: 61 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 62
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  141  TPASS  :  rt_sigaction02 failure with sig: 62 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02  142  TPASS  :  rt_sigaction02 failure with sig: 62 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  143  TPASS  :  rt_sigaction02 failure with sig: 62 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  144  TPASS  :  rt_sigaction02 failure with sig: 62 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02  145  TPASS  :  rt_sigaction02 failure with sig: 62 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 63
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  146  TPASS  :  rt_sigaction02 failure with sig: 63 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02  147  TPASS  :  rt_sigaction02 failure with sig: 63 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  148  TPASS  :  rt_sigaction02 failure with sig: 63 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  149  TPASS  :  rt_sigaction02 failure with sig: 63 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02  150  TPASS  :  rt_sigaction02 failure with sig: 63 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  Signal 64
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  151  TPASS  :  rt_sigaction02 failure with sig: 64 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction02  152  TPASS  :  rt_sigaction02 failure with sig: 64 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  153  TPASS  :  rt_sigaction02 failure with sig: 64 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction02  154  TPASS  :  rt_sigaction02 failure with sig: 64 as expected errno  = EFAULT : Bad address
-rt_sigaction02    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction02  155  TPASS  :  rt_sigaction02 failure with sig: 64 as expected errno  = EFAULT : Bad address
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=rt_sigaction03 stime=1570467503
-cmdline="rt_sigaction03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rt_sigaction03    0  TINFO  :  Signal 34
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03    1  TPASS  :  rt_sigaction03 failure with sig: 34 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03    2  TPASS  :  rt_sigaction03 failure with sig: 34 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03    3  TPASS  :  rt_sigaction03 failure with sig: 34 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03    4  TPASS  :  rt_sigaction03 failure with sig: 34 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03    5  TPASS  :  rt_sigaction03 failure with sig: 34 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 35
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03    6  TPASS  :  rt_sigaction03 failure with sig: 35 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03    7  TPASS  :  rt_sigaction03 failure with sig: 35 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03    8  TPASS  :  rt_sigaction03 failure with sig: 35 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03    9  TPASS  :  rt_sigaction03 failure with sig: 35 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03   10  TPASS  :  rt_sigaction03 failure with sig: 35 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 36
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   11  TPASS  :  rt_sigaction03 failure with sig: 36 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03   12  TPASS  :  rt_sigaction03 failure with sig: 36 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   13  TPASS  :  rt_sigaction03 failure with sig: 36 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   14  TPASS  :  rt_sigaction03 failure with sig: 36 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03   15  TPASS  :  rt_sigaction03 failure with sig: 36 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 37
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   16  TPASS  :  rt_sigaction03 failure with sig: 37 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03   17  TPASS  :  rt_sigaction03 failure with sig: 37 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   18  TPASS  :  rt_sigaction03 failure with sig: 37 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   19  TPASS  :  rt_sigaction03 failure with sig: 37 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03   20  TPASS  :  rt_sigaction03 failure with sig: 37 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 38
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   21  TPASS  :  rt_sigaction03 failure with sig: 38 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03   22  TPASS  :  rt_sigaction03 failure with sig: 38 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   23  TPASS  :  rt_sigaction03 failure with sig: 38 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   24  TPASS  :  rt_sigaction03 failure with sig: 38 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03   25  TPASS  :  rt_sigaction03 failure with sig: 38 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 39
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   26  TPASS  :  rt_sigaction03 failure with sig: 39 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03   27  TPASS  :  rt_sigaction03 failure with sig: 39 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   28  TPASS  :  rt_sigaction03 failure with sig: 39 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   29  TPASS  :  rt_sigaction03 failure with sig: 39 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03   30  TPASS  :  rt_sigaction03 failure with sig: 39 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 40
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   31  TPASS  :  rt_sigaction03 failure with sig: 40 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03   32  TPASS  :  rt_sigaction03 failure with sig: 40 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   33  TPASS  :  rt_sigaction03 failure with sig: 40 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   34  TPASS  :  rt_sigaction03 failure with sig: 40 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03   35  TPASS  :  rt_sigaction03 failure with sig: 40 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 41
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   36  TPASS  :  rt_sigaction03 failure with sig: 41 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03   37  TPASS  :  rt_sigaction03 failure with sig: 41 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   38  TPASS  :  rt_sigaction03 failure with sig: 41 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   39  TPASS  :  rt_sigaction03 failure with sig: 41 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03   40  TPASS  :  rt_sigaction03 failure with sig: 41 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 42
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   41  TPASS  :  rt_sigaction03 failure with sig: 42 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03   42  TPASS  :  rt_sigaction03 failure with sig: 42 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   43  TPASS  :  rt_sigaction03 failure with sig: 42 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   44  TPASS  :  rt_sigaction03 failure with sig: 42 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03   45  TPASS  :  rt_sigaction03 failure with sig: 42 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 43
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   46  TPASS  :  rt_sigaction03 failure with sig: 43 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03   47  TPASS  :  rt_sigaction03 failure with sig: 43 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   48  TPASS  :  rt_sigaction03 failure with sig: 43 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   49  TPASS  :  rt_sigaction03 failure with sig: 43 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03   50  TPASS  :  rt_sigaction03 failure with sig: 43 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 44
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   51  TPASS  :  rt_sigaction03 failure with sig: 44 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03   52  TPASS  :  rt_sigaction03 failure with sig: 44 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   53  TPASS  :  rt_sigaction03 failure with sig: 44 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   54  TPASS  :  rt_sigaction03 failure with sig: 44 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03   55  TPASS  :  rt_sigaction03 failure with sig: 44 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 45
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   56  TPASS  :  rt_sigaction03 failure with sig: 45 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03   57  TPASS  :  rt_sigaction03 failure with sig: 45 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   58  TPASS  :  rt_sigaction03 failure with sig: 45 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   59  TPASS  :  rt_sigaction03 failure with sig: 45 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03   60  TPASS  :  rt_sigaction03 failure with sig: 45 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 46
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   61  TPASS  :  rt_sigaction03 failure with sig: 46 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03   62  TPASS  :  rt_sigaction03 failure with sig: 46 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   63  TPASS  :  rt_sigaction03 failure with sig: 46 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   64  TPASS  :  rt_sigaction03 failure with sig: 46 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03   65  TPASS  :  rt_sigaction03 failure with sig: 46 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 47
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   66  TPASS  :  rt_sigaction03 failure with sig: 47 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03   67  TPASS  :  rt_sigaction03 failure with sig: 47 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   68  TPASS  :  rt_sigaction03 failure with sig: 47 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   69  TPASS  :  rt_sigaction03 failure with sig: 47 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03   70  TPASS  :  rt_sigaction03 failure with sig: 47 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 48
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   71  TPASS  :  rt_sigaction03 failure with sig: 48 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03   72  TPASS  :  rt_sigaction03 failure with sig: 48 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   73  TPASS  :  rt_sigaction03 failure with sig: 48 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   74  TPASS  :  rt_sigaction03 failure with sig: 48 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03   75  TPASS  :  rt_sigaction03 failure with sig: 48 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 49
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   76  TPASS  :  rt_sigaction03 failure with sig: 49 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03   77  TPASS  :  rt_sigaction03 failure with sig: 49 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   78  TPASS  :  rt_sigaction03 failure with sig: 49 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   79  TPASS  :  rt_sigaction03 failure with sig: 49 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03   80  TPASS  :  rt_sigaction03 failure with sig: 49 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 50
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   81  TPASS  :  rt_sigaction03 failure with sig: 50 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03   82  TPASS  :  rt_sigaction03 failure with sig: 50 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   83  TPASS  :  rt_sigaction03 failure with sig: 50 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   84  TPASS  :  rt_sigaction03 failure with sig: 50 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03   85  TPASS  :  rt_sigaction03 failure with sig: 50 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 51
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   86  TPASS  :  rt_sigaction03 failure with sig: 51 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03   87  TPASS  :  rt_sigaction03 failure with sig: 51 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   88  TPASS  :  rt_sigaction03 failure with sig: 51 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   89  TPASS  :  rt_sigaction03 failure with sig: 51 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03   90  TPASS  :  rt_sigaction03 failure with sig: 51 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 52
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   91  TPASS  :  rt_sigaction03 failure with sig: 52 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03   92  TPASS  :  rt_sigaction03 failure with sig: 52 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   93  TPASS  :  rt_sigaction03 failure with sig: 52 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   94  TPASS  :  rt_sigaction03 failure with sig: 52 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03   95  TPASS  :  rt_sigaction03 failure with sig: 52 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 53
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   96  TPASS  :  rt_sigaction03 failure with sig: 53 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03   97  TPASS  :  rt_sigaction03 failure with sig: 53 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   98  TPASS  :  rt_sigaction03 failure with sig: 53 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03   99  TPASS  :  rt_sigaction03 failure with sig: 53 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03  100  TPASS  :  rt_sigaction03 failure with sig: 53 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 54
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  101  TPASS  :  rt_sigaction03 failure with sig: 54 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03  102  TPASS  :  rt_sigaction03 failure with sig: 54 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  103  TPASS  :  rt_sigaction03 failure with sig: 54 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  104  TPASS  :  rt_sigaction03 failure with sig: 54 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03  105  TPASS  :  rt_sigaction03 failure with sig: 54 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 55
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  106  TPASS  :  rt_sigaction03 failure with sig: 55 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03  107  TPASS  :  rt_sigaction03 failure with sig: 55 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  108  TPASS  :  rt_sigaction03 failure with sig: 55 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  109  TPASS  :  rt_sigaction03 failure with sig: 55 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03  110  TPASS  :  rt_sigaction03 failure with sig: 55 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 56
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  111  TPASS  :  rt_sigaction03 failure with sig: 56 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03  112  TPASS  :  rt_sigaction03 failure with sig: 56 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  113  TPASS  :  rt_sigaction03 failure with sig: 56 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  114  TPASS  :  rt_sigaction03 failure with sig: 56 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03  115  TPASS  :  rt_sigaction03 failure with sig: 56 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 57
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  116  TPASS  :  rt_sigaction03 failure with sig: 57 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03  117  TPASS  :  rt_sigaction03 failure with sig: 57 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  118  TPASS  :  rt_sigaction03 failure with sig: 57 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  119  TPASS  :  rt_sigaction03 failure with sig: 57 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03  120  TPASS  :  rt_sigaction03 failure with sig: 57 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 58
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  121  TPASS  :  rt_sigaction03 failure with sig: 58 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03  122  TPASS  :  rt_sigaction03 failure with sig: 58 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  123  TPASS  :  rt_sigaction03 failure with sig: 58 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  124  TPASS  :  rt_sigaction03 failure with sig: 58 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03  125  TPASS  :  rt_sigaction03 failure with sig: 58 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 59
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  126  TPASS  :  rt_sigaction03 failure with sig: 59 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03  127  TPASS  :  rt_sigaction03 failure with sig: 59 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  128  TPASS  :  rt_sigaction03 failure with sig: 59 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  129  TPASS  :  rt_sigaction03 failure with sig: 59 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03  130  TPASS  :  rt_sigaction03 failure with sig: 59 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 60
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  131  TPASS  :  rt_sigaction03 failure with sig: 60 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03  132  TPASS  :  rt_sigaction03 failure with sig: 60 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  133  TPASS  :  rt_sigaction03 failure with sig: 60 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  134  TPASS  :  rt_sigaction03 failure with sig: 60 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03  135  TPASS  :  rt_sigaction03 failure with sig: 60 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 61
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  136  TPASS  :  rt_sigaction03 failure with sig: 61 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03  137  TPASS  :  rt_sigaction03 failure with sig: 61 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  138  TPASS  :  rt_sigaction03 failure with sig: 61 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  139  TPASS  :  rt_sigaction03 failure with sig: 61 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03  140  TPASS  :  rt_sigaction03 failure with sig: 61 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 62
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  141  TPASS  :  rt_sigaction03 failure with sig: 62 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03  142  TPASS  :  rt_sigaction03 failure with sig: 62 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  143  TPASS  :  rt_sigaction03 failure with sig: 62 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  144  TPASS  :  rt_sigaction03 failure with sig: 62 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03  145  TPASS  :  rt_sigaction03 failure with sig: 62 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 63
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  146  TPASS  :  rt_sigaction03 failure with sig: 63 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03  147  TPASS  :  rt_sigaction03 failure with sig: 63 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  148  TPASS  :  rt_sigaction03 failure with sig: 63 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  149  TPASS  :  rt_sigaction03 failure with sig: 63 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03  150  TPASS  :  rt_sigaction03 failure with sig: 63 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  Signal 64
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  151  TPASS  :  rt_sigaction03 failure with sig: 64 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND 
-rt_sigaction03  152  TPASS  :  rt_sigaction03 failure with sig: 64 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  153  TPASS  :  rt_sigaction03 failure with sig: 64 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_RESETHAND|SA_SIGINFO 
-rt_sigaction03  154  TPASS  :  rt_sigaction03 failure with sig: 64 as expected errno  = EINVAL : Invalid argument
-rt_sigaction03    0  TINFO  :  sa.sa_flags = SA_NOMASK 
-rt_sigaction03  155  TPASS  :  rt_sigaction03 failure with sig: 64 as expected errno  = EINVAL : Invalid argument
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rt_sigprocmask01 stime=1570467503
-cmdline="rt_sigprocmask01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rt_sigprocmask01    1  TPASS  :  rt_sigprocmask functionality passed
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rt_sigprocmask02 stime=1570467503
-cmdline="rt_sigprocmask02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rt_sigprocmask02    1  TPASS  :  Got expected errno: TEST_ERRNO=EINVAL(22): Invalid argument
-rt_sigprocmask02    2  TPASS  :  Got expected errno: TEST_ERRNO=EFAULT(14): Bad address
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rt_sigqueueinfo01 stime=1570467503
-cmdline="rt_sigqueueinfo01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 00m 20s
-rt_sigqueueinfo01.c:37: PASS: Received correct signal and data!
-rt_sigqueueinfo01.c:78: PASS: rt_sigqueueinfo() was successful!
-
-Summary:
-passed   2
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rt_sigsuspend01 stime=1570467503
-cmdline="rt_sigsuspend01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-rt_sigsuspend01.c:49: PASS: rt_sigsuspend() returned with -1 and EINTR
-rt_sigsuspend01.c:58: PASS: signal mask preserved
-
-Summary:
-passed   2
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=1 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rt_sigtimedwait01 stime=1570467504
-cmdline="rt_sigtimedwait01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-rt_sigtimedwait01    0  TINFO  :  0x560a9c3b01e0, 10
-rt_sigtimedwait01    1  TPASS  :  Test passed
-rt_sigtimedwait01    0  TINFO  :  0x560a9c3b01e0, 10
-rt_sigtimedwait01    2  TPASS  :  Test passed
-rt_sigtimedwait01    0  TINFO  :  0x560a9c3b01e0, 10
-rt_sigtimedwait01    3  TPASS  :  Test passed
-rt_sigtimedwait01    3  TPASS  :  sigwaitinfo restored the original mask
-rt_sigtimedwait01    0  TINFO  :  0x560a9c3b01e0, 10
-rt_sigtimedwait01    4  TPASS  :  Test passed
-rt_sigtimedwait01    0  TINFO  :  0x560a9c3b01e0, 10
-rt_sigtimedwait01    5  TPASS  :  Test passed
-rt_sigtimedwait01    5  TPASS  :  sigwaitinfo restored the original mask
-rt_sigtimedwait01    0  TINFO  :  0x560a9c3b01e0, 10
-rt_sigtimedwait01    6  TPASS  :  Test passed
-rt_sigtimedwait01    0  TINFO  :  0x560a9c3b01e0, 10
-rt_sigtimedwait01    7  TPASS  :  Test passed
-rt_sigtimedwait01    0  TINFO  :  0x560a9c3b01e0, 10
-rt_sigtimedwait01    8  TPASS  :  Test passed
-rt_sigtimedwait01    0  TINFO  :  0x560a9c3b01e0, 0
-rt_sigtimedwait01    9  TPASS  :  Test passed
-rt_sigtimedwait01    0  TINFO  :  0x560a9c3b01e0, 12
-rt_sigtimedwait01   10  TPASS  :  Test passed
-rt_sigtimedwait01   10  TPASS  :  sigwaitinfo restored the original mask
-rt_sigtimedwait01    0  TINFO  :  0x560a9c3b01e0, 12
-rt_sigtimedwait01   11  TPASS  :  Test passed
-rt_sigtimedwait01    0  TINFO  :  0x560a9c3b01e0, 15
-rt_sigtimedwait01   12  TPASS  :  Test passed
-rt_sigtimedwait01   12  TPASS  :  sigwaitinfo restored the original mask
-rt_sigtimedwait01    0  TINFO  :  0x560a9c3b01e0, -1
-rt_sigtimedwait01   13  TPASS  :  Test passed
-rt_sigtimedwait01   13  TPASS  :  Test passed
-rt_sigtimedwait01   13  TPASS  :  sigwaitinfo restored the original mask
-<<<execution_status>>>
-initiation_status="ok"
-duration=2 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=rt_tgsigqueueinfo01 stime=1570467506
-cmdline="rt_tgsigqueueinfo01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-rt_tgsigqueueinfo01.c:65: PASS: Test signal to self succeeded
-rt_tgsigqueueinfo01.c:96: PASS: Test signal to different thread succeeded
-rt_tgsigqueueinfo01.c:96: PASS: Test signal to different thread succeeded
-
-Summary:
-passed   3
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sbrk01 stime=1570467506
-cmdline="sbrk01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sbrk01      1  TPASS  :  sbrk - Increase by 8192 bytes returned 0x564923208000
-sbrk01      2  TPASS  :  sbrk - Increase by -8192 bytes returned 0x56492320a000
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sbrk02 stime=1570467506
-cmdline="sbrk02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sbrk02      0  TINFO  :  setup() bailing inc: 4143972352, ret: 0xffffffffffffffff, sbrk: 0x56a78348b000: errno=ENOMEM(12): Cannot allocate memory
-sbrk02      1  TPASS  :  sbrk(4143972352) failed as expected: TEST_ERRNO=ENOMEM(12): Cannot allocate memory
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sbrk03 stime=1570467506
-cmdline="sbrk03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-sbrk03.c:63: CONF: Only works in 32bit on s390 series system
-
-Summary:
-passed   0
-failed   0
-skipped  1
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=32 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_get_priority_max01 stime=1570467506
-cmdline="sched_get_priority_max01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_get_priority_max01    1  TPASS  :  Test for SCHED_OTHER Passed
-sched_get_priority_max01    2  TPASS  :  Test for SCHED_FIFO Passed
-sched_get_priority_max01    3  TPASS  :  Test for SCHED_RR Passed
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_get_priority_max02 stime=1570467506
-cmdline="sched_get_priority_max02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_get_priority_max02    1  TPASS  :  Test Passed, Got EINVAL
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_get_priority_min01 stime=1570467506
-cmdline="sched_get_priority_min01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_get_priority_min01    1  TPASS  :  Test for SCHED_OTHER Passed
-sched_get_priority_min01    2  TPASS  :  Test for SCHED_FIFO Passed
-sched_get_priority_min01    3  TPASS  :  Test for SCHED_RR Passed
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_get_priority_min02 stime=1570467506
-cmdline="sched_get_priority_min02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_get_priority_min02    1  TPASS  :  Test Passed, Got EINVAL
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_getparam01 stime=1570467506
-cmdline="sched_getparam01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_getparam01    1  TPASS  :  sched_getparam() returned 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_getparam02 stime=1570467506
-cmdline="sched_getparam02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_getparam02    1  TPASS  :  Test Passed
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_getparam03 stime=1570467506
-cmdline="sched_getparam03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_getparam03    1  TPASS  :  expected failure; Got ESRCH
-sched_getparam03    2  TPASS  :  expected failure; Got EINVAL
-sched_getparam03    3  TPASS  :  expected failure; Got EINVAL
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_rr_get_interval01 stime=1570467506
-cmdline="sched_rr_get_interval01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_rr_get_interval01    1  TPASS  :  sched_rr_get_interval() returned 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_rr_get_interval02 stime=1570467506
-cmdline="sched_rr_get_interval02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_rr_get_interval02    1  TPASS  :  Test passed
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_rr_get_interval03 stime=1570467506
-cmdline="sched_rr_get_interval03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_rr_get_interval03    1  TPASS  :  Test Passed
-sched_rr_get_interval03    2  TPASS  :  Test Passed
-sched_rr_get_interval03    3  TPASS  :  Test Passed
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_setparam01 stime=1570467506
-cmdline="sched_setparam01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_setparam01    1  TPASS  :  sched_setparam() returned 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_setparam02 stime=1570467506
-cmdline="sched_setparam02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_setparam02    1  TPASS  :  Test with policy SCHED_FIFO Passed
-sched_setparam02    2  TPASS  :  Test with policy SCHED_RR Passed
-sched_setparam02    3  TPASS  :  Test with SCHED_OTHER Passed
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_setparam03 stime=1570467506
-cmdline="sched_setparam03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_setparam03    1  TPASS  :  Test Passed
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_setparam04 stime=1570467506
-cmdline="sched_setparam04"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_setparam04    1  TPASS  :  expected failure; Got ESRCH
-sched_setparam04    2  TPASS  :  expected failure; Got EINVAL
-sched_setparam04    3  TPASS  :  expected failure; Got EINVAL
-sched_setparam04    4  TPASS  :  expected failure; Got EINVAL
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_setparam05 stime=1570467506
-cmdline="sched_setparam05"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_setparam05    1  TPASS  :  Test passed, Got EPERM
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_getscheduler01 stime=1570467506
-cmdline="sched_getscheduler01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_getscheduler01    1  TPASS  :  policy value returned is correct
-sched_getscheduler01    2  TPASS  :  policy value returned is correct
-sched_getscheduler01    3  TPASS  :  policy value returned is correct
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_getscheduler02 stime=1570467506
-cmdline="sched_getscheduler02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_getscheduler02    1  TPASS  :  call failed with ESRCH
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_setscheduler01 stime=1570467506
-cmdline="sched_setscheduler01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_setscheduler01    1  TPASS  :  expected failure - errno = 3 : No such process
-sched_setscheduler01    2  TPASS  :  expected failure - errno = 22 : Invalid argument
-sched_setscheduler01    3  TPASS  :  expected failure - errno = 14 : Bad address
-sched_setscheduler01    4  TPASS  :  expected failure - errno = 22 : Invalid argument
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_setscheduler02 stime=1570467506
-cmdline="sched_setscheduler02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_setscheduler02    1  TPASS  :  got EPERM
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_setscheduler03 stime=1570467506
-cmdline="sched_setscheduler03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-sched_setscheduler03.c:64: INFO: rlimit rlim_cur=0
-sched_setscheduler03.c:66: INFO: rlimit rlim_max=0
-sched_setscheduler03.c:74: INFO: Setting rlim_cur to 19
-sched_setscheduler03.c:76: INFO: Setting rlim_max to 19
-sched_setscheduler03.c:64: INFO: rlimit rlim_cur=19
-sched_setscheduler03.c:66: INFO: rlimit rlim_max=19
-sched_setscheduler03.c:131: INFO: Setting init sched policy to SCHED_OTHER
-sched_setscheduler03.c:139: INFO: Setting euid to nobody to drop privilege
-sched_setscheduler03.c:153: INFO: forked pid is 5302
-sched_setscheduler03.c:97: INFO: Verifying case[1]: policy = 0, priority = 0
-sched_setscheduler03.c:105: PASS: case[1] succeeded
-sched_setscheduler03.c:153: INFO: forked pid is 5303
-sched_setscheduler03.c:97: INFO: Verifying case[2]: policy = 3, priority = 0
-sched_setscheduler03.c:105: PASS: case[2] succeeded
-sched_setscheduler03.c:153: INFO: forked pid is 5304
-sched_setscheduler03.c:97: INFO: Verifying case[3]: policy = 5, priority = 0
-sched_setscheduler03.c:105: PASS: case[3] succeeded
-
-Summary:
-passed   3
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_yield01 stime=1570467506
-cmdline="sched_yield01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_yield01    1  TPASS  :  sched_yield() call succeeded
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_setaffinity01 stime=1570467506
-cmdline="sched_setaffinity01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-sched_setaffinity01.c:83: PASS: sched_setaffinity() failed: EFAULT (14)
-sched_setaffinity01.c:83: PASS: sched_setaffinity() failed: EINVAL (22)
-sched_setaffinity01.c:83: PASS: sched_setaffinity() failed: ESRCH (3)
-sched_setaffinity01.c:83: PASS: sched_setaffinity() failed: EPERM (1)
-
-Summary:
-passed   4
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_getaffinity01 stime=1570467506
-cmdline="sched_getaffinity01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-sched_getaffinity01.c:88: INFO: system has 2 processor(s).
-sched_getaffinity01.c:76: PASS: cpuset size = 128, enabled cpus 2
-sched_getaffinity01.c:39: PASS: sched_getaffinity() failed: EFAULT (14)
-sched_getaffinity01.c:39: PASS: sched_getaffinity() failed: EINVAL (22)
-sched_getaffinity01.c:39: PASS: sched_getaffinity() failed: ESRCH (3)
-
-Summary:
-passed   4
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_setattr01 stime=1570467506
-cmdline="sched_setattr01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_setattr01    1  TPASS  :  sched_setattr() works as expected: TEST_ERRNO=SUCCESS(0): Success
-sched_setattr01    2  TPASS  :  sched_setattr() works as expected: TEST_ERRNO=ESRCH(3): No such process
-sched_setattr01    3  TPASS  :  sched_setattr() works as expected: TEST_ERRNO=EINVAL(22): Invalid argument
-sched_setattr01    4  TPASS  :  sched_setattr() works as expected: TEST_ERRNO=EINVAL(22): Invalid argument
-<<<execution_status>>>
-initiation_status="ok"
-duration=1 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_getattr01 stime=1570467507
-cmdline="sched_getattr01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_getattr01    1  TPASS  :  attributes were read back correctly
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sched_getattr02 stime=1570467507
-cmdline="sched_getattr02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sched_getattr02    1  TPASS  :  sched_getattr() failed expectedly: TEST_ERRNO=ESRCH(3): No such process
-sched_getattr02    2  TPASS  :  sched_getattr() failed expectedly: TEST_ERRNO=EINVAL(22): Invalid argument
-sched_getattr02    3  TPASS  :  sched_getattr() failed expectedly: TEST_ERRNO=EINVAL(22): Invalid argument
-sched_getattr02    4  TPASS  :  sched_getattr() failed expectedly: TEST_ERRNO=EINVAL(22): Invalid argument
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=select01 stime=1570467507
-cmdline="select01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-select01    1  TPASS  :  select(4, &Readfds, 0, 0, &timeout) timeout = 0 usecs
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=select02 stime=1570467507
-cmdline="select02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-select02    1  TPASS  :  select(5, &Readfds, &Writefds, 0, &timeout) timeout = 0 usecs
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=select03 stime=1570467507
-cmdline="select03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-select03    1  TPASS  :  select(5, &Readfds, &Writefds, 0, &timeout) timeout = 0 usecs
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=select04 stime=1570467507
-cmdline="select04"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_timer_test.c:345: INFO: CLOCK_MONOTONIC resolution 1ns
-tst_timer_test.c:357: INFO: prctl(PR_GET_TIMERSLACK) = 50us
-select_var.h:66: INFO: Testing libc select()
-tst_timer_test.c:264: INFO: select() sleeping for 1000us 500 iterations, threshold 450.01us
-tst_timer_test.c:307: INFO: min 1027us, max 4496us, median 1069us, trunc mean 1135.77us (discarded 25)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: select() sleeping for 2000us 500 iterations, threshold 450.01us
-tst_timer_test.c:307: INFO: min 2011us, max 5529us, median 2073us, trunc mean 2176.11us (discarded 25)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: select() sleeping for 5000us 300 iterations, threshold 450.04us
-tst_timer_test.c:307: INFO: min 5030us, max 9267us, median 5083us, trunc mean 5289.43us (discarded 15)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: select() sleeping for 10000us 100 iterations, threshold 450.33us
-tst_timer_test.c:307: INFO: min 10023us, max 12176us, median 10076us, trunc mean 10291.04us (discarded 5)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: select() sleeping for 25000us 50 iterations, threshold 451.29us
-tst_timer_test.c:307: INFO: min 25052us, max 27402us, median 25115us, trunc mean 25445.96us (discarded 2)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: select() sleeping for 100000us 10 iterations, threshold 537.00us
-tst_timer_test.c:307: INFO: min 100042us, max 100333us, median 100142us, trunc mean 100148.78us (discarded 1)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: select() sleeping for 1000000us 2 iterations, threshold 4400.00us
-tst_timer_test.c:307: INFO: min 1001042us, max 1001046us, median 1001042us, trunc mean 1001042.00us (discarded 1)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_timer_test.c:345: INFO: CLOCK_MONOTONIC resolution 1ns
-tst_timer_test.c:357: INFO: prctl(PR_GET_TIMERSLACK) = 50us
-select_var.h:69: INFO: Testing SYS_select syscall
-tst_timer_test.c:264: INFO: select() sleeping for 1000us 500 iterations, threshold 450.01us
-tst_timer_test.c:307: INFO: min 1030us, max 4963us, median 1086us, trunc mean 1084.38us (discarded 25)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: select() sleeping for 2000us 500 iterations, threshold 450.01us
-tst_timer_test.c:307: INFO: min 2024us, max 5956us, median 2086us, trunc mean 2085.87us (discarded 25)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: select() sleeping for 5000us 300 iterations, threshold 450.04us
-tst_timer_test.c:307: INFO: min 5068us, max 7845us, median 5087us, trunc mean 5087.50us (discarded 15)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: select() sleeping for 10000us 100 iterations, threshold 450.33us
-tst_timer_test.c:307: INFO: min 10070us, max 13284us, median 10088us, trunc mean 10089.17us (discarded 5)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: select() sleeping for 25000us 50 iterations, threshold 451.29us
-tst_timer_test.c:307: INFO: min 25061us, max 25133us, median 25089us, trunc mean 25089.69us (discarded 2)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: select() sleeping for 100000us 10 iterations, threshold 537.00us
-tst_timer_test.c:307: INFO: min 100142us, max 100200us, median 100159us, trunc mean 100162.22us (discarded 1)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: select() sleeping for 1000000us 2 iterations, threshold 4400.00us
-tst_timer_test.c:307: INFO: min 1001071us, max 1001124us, median 1001071us, trunc mean 1001071.00us (discarded 1)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_timer_test.c:345: INFO: CLOCK_MONOTONIC resolution 1ns
-tst_timer_test.c:357: INFO: prctl(PR_GET_TIMERSLACK) = 50us
-select_var.h:72: INFO: Testing SYS_pselect6 syscall
-tst_timer_test.c:264: INFO: select() sleeping for 1000us 500 iterations, threshold 450.01us
-tst_timer_test.c:307: INFO: min 1045us, max 9083us, median 1087us, trunc mean 1087.89us (discarded 25)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: select() sleeping for 2000us 500 iterations, threshold 450.01us
-tst_timer_test.c:307: INFO: min 2063us, max 11593us, median 2087us, trunc mean 2090.12us (discarded 25)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: select() sleeping for 5000us 300 iterations, threshold 450.04us
-tst_timer_test.c:307: INFO: min 5072us, max 8247us, median 5088us, trunc mean 5092.07us (discarded 15)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: select() sleeping for 10000us 100 iterations, threshold 450.33us
-tst_timer_test.c:307: INFO: min 10065us, max 12385us, median 10093us, trunc mean 10098.28us (discarded 5)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: select() sleeping for 25000us 50 iterations, threshold 451.29us
-tst_timer_test.c:307: INFO: min 25076us, max 25156us, median 25094us, trunc mean 25099.60us (discarded 2)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: select() sleeping for 100000us 10 iterations, threshold 537.00us
-tst_timer_test.c:307: INFO: min 100139us, max 100187us, median 100169us, trunc mean 100163.78us (discarded 1)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_timer_test.c:264: INFO: select() sleeping for 1000000us 2 iterations, threshold 4400.00us
-tst_timer_test.c:307: INFO: min 1001055us, max 1001072us, median 1001055us, trunc mean 1001055.00us (discarded 1)
-tst_timer_test.c:322: PASS: Measured times are within thresholds
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_timer_test.c:345: INFO: CLOCK_MONOTONIC resolution 1ns
-tst_timer_test.c:357: INFO: prctl(PR_GET_TIMERSLACK) = 50us
-select_var.h:75: INFO: Testing SYS__newselect syscall
-tst_timer_test.c:264: INFO: select() sleeping for 1000us 500 iterations, threshold 450.01us
-select_var.h:52: CONF: syscall(-1) __NR__newselect not supported
-
-Summary:
-passed   21
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=25 termination_type=exited termination_id=0 corefile=no
-cutime=2 cstime=6
-<<<test_end>>>
-<<<test_start>>>
-tag=semctl01 stime=1570467532
-cmdline="semctl01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-semctl01    1  TPASS  :  buf.sem_nsems and buf.sem_perm.mode are correct
-semctl01    2  TPASS  :  buf.sem_perm.mode is correct
-semctl01    3  TPASS  :  semaphores have expected values
-semctl01    4  TPASS  :  number of sleeping processes is correct
-semctl01    5  TPASS  :  last pid value is correct
-semctl01    6  TPASS  :  semaphore value is correct
-semctl01    7  TPASS  :  number of sleeping processes is correct
-semctl01    8  TPASS  :  semaphore values are correct
-semctl01    9  TPASS  :  semaphore value is correct
-semctl01   10  TPASS  :  the highest index is correct
-semctl01   11  TPASS  :  number of semaphore sets is correct
-semctl01   12  TPASS  :  id of the semaphore set is correct
-semctl01   13  TPASS  :  semaphore appears to be removed
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=semctl02 stime=1570467532
-cmdline="semctl02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-semctl02    1  TPASS  :  expected failure - errno = 13 : Permission denied
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=semctl03 stime=1570467532
-cmdline="semctl03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-semctl03    1  TPASS  :  expected failure - errno = 22 : Invalid argument
-semctl03    2  TPASS  :  expected failure - errno = 22 : Invalid argument
-semctl03    3  TPASS  :  expected failure - errno = 14 : Bad address
-semctl03    4  TPASS  :  expected failure - errno = 14 : Bad address
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=semctl04 stime=1570467532
-cmdline="semctl04"
-contacts=""
-analysis=exit
-<<<test_output>>>
-semctl04    1  TPASS  :  expected failure - errno = 1 : Operation not permitted
-semctl04    2  TPASS  :  expected failure - errno = 1 : Operation not permitted
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=semctl05 stime=1570467532
-cmdline="semctl05"
-contacts=""
-analysis=exit
-<<<test_output>>>
-semctl05    1  TPASS  :  expected failure - errno = 34 : Numerical result out of range
-semctl05    2  TPASS  :  expected failure - errno = 34 : Numerical result out of range
-semctl05    3  TPASS  :  expected failure - errno = 34 : Numerical result out of range
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=semctl06 stime=1570467532
-cmdline="semctl06"
-contacts=""
-analysis=exit
-<<<test_output>>>
-semctl06    1  TPASS  :  semctl06 ran successfully!
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=semctl07 stime=1570467532
-cmdline="semctl07"
-contacts=""
-analysis=exit
-<<<test_output>>>
-semctl07    1  TPASS  :  semctl07 ran successfully!
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=semget01 stime=1570467532
-cmdline="semget01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-semget01    1  TPASS  :  basic semaphore values are okay
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=semget02 stime=1570467532
-cmdline="semget02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-semget02    1  TPASS  :  expected failure - errno = 13 : Permission denied
-semget02    2  TPASS  :  expected failure - errno = 17 : File exists
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=semget03 stime=1570467532
-cmdline="semget03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-semget03    1  TPASS  :  expected failure - errno = 2 : No such file or directory
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=semget05 stime=1570467532
-cmdline="semget05"
-contacts=""
-analysis=exit
-<<<test_output>>>
-semget05    1  TPASS  :  expected failure - errno = 28 : No space left on device
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=2 cstime=5
-<<<test_end>>>
-<<<test_start>>>
-tag=semget06 stime=1570467532
-cmdline="semget06"
-contacts=""
-analysis=exit
-<<<test_output>>>
-semget06    1  TPASS  :  expected failure - errno = 22 : Invalid argument
-semget06    2  TPASS  :  expected failure - errno = 22 : Invalid argument
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=semop01 stime=1570467532
-cmdline="semop01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-semop01     1  TPASS  :  semaphore values are correct
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=semop02 stime=1570467532
-cmdline="semop02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-semop02     1  TPASS  :  semop failed as expected: TEST_ERRNO=E2BIG(7): Argument list too long
-semop02     2  TPASS  :  semop failed as expected: TEST_ERRNO=EACCES(13): Permission denied
-semop02     3  TPASS  :  semop failed as expected: TEST_ERRNO=EFAULT(14): Bad address
-semop02     4  TPASS  :  semop failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
-semop02     5  TPASS  :  semop failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
-semop02     6  TPASS  :  semop failed as expected: TEST_ERRNO=ERANGE(34): Numerical result out of range
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=semop03 stime=1570467532
-cmdline="semop03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-semop03     1  TPASS  :  expected failure - errno = 27 : File too large
-semop03     2  TPASS  :  expected failure - errno = 27 : File too large
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=semop04 stime=1570467532
-cmdline="semop04"
-contacts=""
-analysis=exit
-<<<test_output>>>
-semop04     1  TPASS  :  expected failure - errno = 11 : Resource temporarily unavailable
-semop04     2  TPASS  :  expected failure - errno = 11 : Resource temporarily unavailable
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=semop05 stime=1570467532
-cmdline="semop05"
-contacts=""
-analysis=exit
-<<<test_output>>>
-semop05     1  TPASS  :  expected failure - errno = 43 : Identifier removed
-semop05     1  TPASS  :  expected failure - errno = 43 : Identifier removed
-semop05     1  TPASS  :  expected failure - errno = 4 : Interrupted system call
-semop05     1  TPASS  :  expected failure - errno = 4 : Interrupted system call
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=send01 stime=1570467532
-cmdline="send01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-send01      1  TPASS  :  bad file descriptor successful
-send01      2  TPASS  :  invalid socket successful
-send01      3  TPASS  :  invalid send buffer successful
-send01      4  TPASS  :  UDP message too big successful
-send01      5  TPASS  :  local endpoint shutdown successful
-send01      6  TPASS  :  invalid flags set successful
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sendfile02 stime=1570467532
-cmdline="sendfile02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendfile02    1  TPASS  :  functionality of sendfile() is correct
-sendfile02    2  TPASS  :  functionality of sendfile() is correct
-sendfile02    3  TPASS  :  functionality of sendfile() is correct
-sendfile02    4  TPASS  :  functionality of sendfile() is correct
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sendfile02_64 stime=1570467532
-cmdline="sendfile02_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendfile02_64    1  TPASS  :  functionality of sendfile() is correct
-sendfile02_64    2  TPASS  :  functionality of sendfile() is correct
-sendfile02_64    3  TPASS  :  functionality of sendfile() is correct
-sendfile02_64    4  TPASS  :  functionality of sendfile() is correct
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=sendfile03 stime=1570467532
-cmdline="sendfile03"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendfile03    1  TPASS  :  sendfile() returned 9 : Bad file descriptor
-sendfile03    2  TPASS  :  sendfile() returned 9 : Bad file descriptor
-sendfile03    3  TPASS  :  sendfile() returned 9 : Bad file descriptor
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sendfile03_64 stime=1570467532
-cmdline="sendfile03_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendfile03_64    1  TPASS  :  sendfile() returned 9 : Bad file descriptor
-sendfile03_64    2  TPASS  :  sendfile() returned 9 : Bad file descriptor
-sendfile03_64    3  TPASS  :  sendfile() returned 9 : Bad file descriptor
-<<<execution_status>>>
-initiation_status="ok"
-duration=1 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sendfile04 stime=1570467533
-cmdline="sendfile04"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendfile04    1  TPASS  :  sendfile() returned 14 : Bad address
-sendfile04    2  TPASS  :  sendfile() returned 14 : Bad address
-sendfile04    3  TPASS  :  sendfile() returned 14 : Bad address
-sendfile04    4  TPASS  :  sendfile() returned 14 : Bad address
-sendfile04    5  TPASS  :  sendfile() returned 14 : Bad address
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sendfile04_64 stime=1570467533
-cmdline="sendfile04_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendfile04_64    1  TPASS  :  sendfile() returned 14 : Bad address
-sendfile04_64    2  TPASS  :  sendfile() returned 14 : Bad address
-sendfile04_64    3  TPASS  :  sendfile() returned 14 : Bad address
-sendfile04_64    4  TPASS  :  sendfile() returned 14 : Bad address
-sendfile04_64    5  TPASS  :  sendfile() returned 14 : Bad address
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sendfile05 stime=1570467533
-cmdline="sendfile05"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendfile05    1  TPASS  :  sendfile() returned 22 : Invalid argument
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=sendfile05_64 stime=1570467533
-cmdline="sendfile05_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendfile05_64    1  TPASS  :  sendfile() returned 22 : Invalid argument
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sendfile06 stime=1570467533
-cmdline="sendfile06"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendfile06    1  TPASS  :  functionality of sendfile() is correct
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sendfile06_64 stime=1570467533
-cmdline="sendfile06_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendfile06_64    1  TPASS  :  functionality of sendfile() is correct
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sendfile07 stime=1570467533
-cmdline="sendfile07"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendfile07    1  TPASS  :  sendfile() returned 11 : Resource temporarily unavailable
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sendfile07_64 stime=1570467533
-cmdline="sendfile07_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendfile07_64    1  TPASS  :  sendfile() returned 11 : Resource temporarily unavailable
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sendfile08 stime=1570467533
-cmdline="sendfile08"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendfile08    1  TPASS  :  sendfile(2) copies data correctly
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sendfile08_64 stime=1570467533
-cmdline="sendfile08_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendfile08_64    1  TPASS  :  sendfile(2) copies data correctly
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=1
-<<<test_end>>>
-<<<test_start>>>
-tag=sendfile09 stime=1570467533
-cmdline="sendfile09"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendfile09    1  TPASS  :  Test sendfile(2) with offset at 0
-sendfile09    2  TPASS  :  Test sendfile(2) with offset at 3GB
-<<<execution_status>>>
-initiation_status="ok"
-duration=11 termination_type=exited termination_id=0 corefile=no
-cutime=1 cstime=286
-<<<test_end>>>
-<<<test_start>>>
-tag=sendfile09_64 stime=1570467544
-cmdline="sendfile09_64"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendfile09_64    1  TPASS  :  Test sendfile(2) with offset at 0
-sendfile09_64    2  TPASS  :  Test sendfile(2) with offset at 3GB
-<<<execution_status>>>
-initiation_status="ok"
-duration=10 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=286
-<<<test_end>>>
-<<<test_start>>>
-tag=sendmsg01 stime=1570467554
-cmdline="sendmsg01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendmsg01    1  TPASS  :  bad file descriptor successful
-sendmsg01    2  TPASS  :  invalid socket successful
-sendmsg01    3  TPASS  :  invalid send buffer successful
-sendmsg01    4  TPASS  :  connected TCP successful
-sendmsg01    5  TPASS  :  not connected TCP successful
-sendmsg01    6  TPASS  :  invalid to buffer length successful
-sendmsg01    7  TPASS  :  invalid to buffer successful
-sendmsg01    8  TPASS  :  UDP message too big successful
-sendmsg01    9  TPASS  :  local endpoint shutdown successful
-sendmsg01   10  TPASS  :  invalid iovec pointer successful
-sendmsg01   11  TPASS  :  invalid msghdr pointer successful
-sendmsg01   12  TPASS  :  rights passing successful
-sendmsg01   13  TPASS  :  invalid flags set successful
-sendmsg01   14  TPASS  :  invalid cmsg length successful
-sendmsg01   15  TPASS  :  invalid cmsg pointer successful
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sendmsg02 stime=1570467554
-cmdline="sendmsg02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendmsg02    1  TPASS  :  finished after 15 seconds
-<<<execution_status>>>
-initiation_status="ok"
-duration=15 termination_type=exited termination_id=0 corefile=no
-cutime=359 cstime=2511
-<<<test_end>>>
-<<<test_start>>>
-tag=sendmmsg01 stime=1570467569
-cmdline="sendmmsg01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_buffers.c:55: INFO: Test is using guarded buffers
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-sendmmsg_var.h:50: INFO: Testing direct sendmmsg and recvmmsg syscalls
-sendmmsg01.c:60: PASS: First message received successfully
-sendmmsg01.c:65: PASS: Second message received successfully
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-sendmmsg_var.h:53: INFO: Testing libc sendmmsg and recvmmsg syscalls
-sendmmsg01.c:60: PASS: First message received successfully
-sendmmsg01.c:65: PASS: Second message received successfully
-
-Summary:
-passed   4
-failed   0
-skipped  0
-warnings 0
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sendto01 stime=1570467569
-cmdline="sendto01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-sendto01    1  TPASS  :  bad file descriptor successful
-sendto01    2  TPASS  :  invalid socket successful
-sendto01    3  TPASS  :  invalid send buffer successful
-sendto01    4  TPASS  :  connected TCP successful
-sendto01    5  TPASS  :  not connected TCP successful
-sendto01    6  TPASS  :  invalid to buffer length successful
-sendto01    7  TPASS  :  invalid to buffer successful
-sendto01    8  TPASS  :  UDP message too big successful
-sendto01    9  TPASS  :  local endpoint shutdown successful
-sendto01   10  TPASS  :  invalid flags set successful
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=0 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=sendto02 stime=1570467569
-cmdline="sendto02"
-contacts=""
-analysis=exit
-<<<test_output>>>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-sendto02.c:68: PASS: sendto(fd, NULL, ...) failed expectedly: EFAULT (14)
+chmod07.c:59: PASS: Functionality of chmod(testfile, 01777) successful
 
 Summary:
 passed   1
@@ -18544,14 +11410,1385 @@ duration=0 termination_type=exited termination_id=0 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=set_mempolicy01 stime=1570467569
-cmdline="set_mempolicy01"
+tag=chown01 stime=1570499103
+cmdline="chown01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chown01     1  TPASS  :  chown(t_2651, 0,0) returned 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chown01_16 stime=1570499103
+cmdline="chown01_16"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chown01_16    1  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/chown/../utils/compat_16.h:168: 16-bit version of chown() is not supported on your platform
+chown01_16    2  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/chown/../utils/compat_16.h:168: Remaining cases not appropriate for configuration
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=32 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chown02 stime=1570499103
+cmdline="chown02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chown02     1  TPASS  :  chown(testfile1, ..) succeeded
+chown02     2  TPASS  :  chown(testfile2, ..) succeeded
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chown02_16 stime=1570499103
+cmdline="chown02_16"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chown02_16    1  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/chown/../utils/compat_16.h:168: 16-bit version of chown() is not supported on your platform
+chown02_16    2  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/chown/../utils/compat_16.h:168: Remaining cases not appropriate for configuration
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=32 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chown03 stime=1570499103
+cmdline="chown03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chown03     1  TPASS  :  chown(testfile, ..) was successful
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chown03_16 stime=1570499103
+cmdline="chown03_16"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chown03_16    1  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/chown/../utils/compat_16.h:168: 16-bit version of chown() is not supported on your platform
+chown03_16    2  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/chown/../utils/compat_16.h:168: Remaining cases not appropriate for configuration
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=32 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chown04 stime=1570499103
+cmdline="chown04"
+contacts=""
+analysis=exit
+<<<test_output>>>
+mke2fs 1.43.4 (31-Jan-2017)
+chown04     0  TINFO  :  Using test device LTP_DEV='/dev/loop0'
+chown04     0  TINFO  :  Formatting /dev/loop0 with ext2 opts='' extra opts=''
+chown04     1  TPASS  :  chown failed: TEST_ERRNO=EPERM(1): Operation not permitted
+chown04     2  TPASS  :  chown failed: TEST_ERRNO=EACCES(13): Permission denied
+chown04     3  TPASS  :  chown failed: TEST_ERRNO=EFAULT(14): Bad address
+chown04     4  TPASS  :  chown failed: TEST_ERRNO=ENAMETOOLONG(36): File name too long
+chown04     5  TPASS  :  chown failed: TEST_ERRNO=ENOENT(2): No such file or directory
+chown04     6  TPASS  :  chown failed: TEST_ERRNO=ENOTDIR(20): Not a directory
+chown04     7  TPASS  :  chown failed: TEST_ERRNO=ELOOP(40): Too many levels of symbolic links
+chown04     8  TPASS  :  chown failed: TEST_ERRNO=EROFS(30): Read-only file system
+<<<execution_status>>>
+initiation_status="ok"
+duration=2 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=2
+<<<test_end>>>
+<<<test_start>>>
+tag=chown04_16 stime=1570499105
+cmdline="chown04_16"
+contacts=""
+analysis=exit
+<<<test_output>>>
+mke2fs 1.43.4 (31-Jan-2017)
+chown04_16    0  TINFO  :  Using test device LTP_DEV='/dev/loop0'
+chown04_16    0  TINFO  :  Formatting /dev/loop0 with ext2 opts='' extra opts=''
+chown04_16    1  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/chown/../utils/compat_16.h:168: 16-bit version of chown() is not supported on your platform
+chown04_16    2  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/chown/../utils/compat_16.h:168: Remaining cases not appropriate for configuration
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=32 corefile=no
+cutime=1 cstime=2
+<<<test_end>>>
+<<<test_start>>>
+tag=chown05 stime=1570499105
+cmdline="chown05"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chown05     1  TPASS  :  chown succeeded
+chown05     2  TPASS  :  chown succeeded
+chown05     3  TPASS  :  chown succeeded
+chown05     4  TPASS  :  chown succeeded
+chown05     5  TPASS  :  chown succeeded
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chown05_16 stime=1570499105
+cmdline="chown05_16"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chown05_16    1  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/chown/../utils/compat_16.h:168: 16-bit version of chown() is not supported on your platform
+chown05_16    2  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/chown/../utils/compat_16.h:168: Remaining cases not appropriate for configuration
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=32 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chroot01 stime=1570499105
+cmdline="chroot01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chroot01    1  TPASS  :  chroot set errno to EPERM.
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chroot02 stime=1570499105
+cmdline="chroot02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chroot02    1  TPASS  :  chroot functionality correct
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chroot03 stime=1570499105
+cmdline="chroot03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chroot03    1  TPASS  :  failed as expected: TEST_ERRNO=ENAMETOOLONG(36): File name too long
+chroot03    2  TPASS  :  failed as expected: TEST_ERRNO=ENOTDIR(20): Not a directory
+chroot03    3  TPASS  :  failed as expected: TEST_ERRNO=ENOENT(2): No such file or directory
+chroot03    4  TPASS  :  failed as expected: TEST_ERRNO=EFAULT(14): Bad address
+chroot03    5  TPASS  :  failed as expected: TEST_ERRNO=ELOOP(40): Too many levels of symbolic links
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=chroot04 stime=1570499105
+cmdline="chroot04"
+contacts=""
+analysis=exit
+<<<test_output>>>
+chroot04    1  TPASS  :  got EACCESS as expected
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=clock_adjtime01 stime=1570499105
+cmdline="clock_adjtime01"
 contacts=""
 analysis=exit
 <<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_numa.c:191: INFO: Found 1 NUMA memory nodes
-set_mempolicy01.c:38: CONF: Test requires at least two NUMA memory nodes
+clock_adjtime.h:57: INFO: GET
+             mode: 0
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 439611(us)
+clock_adjtime.h:57: INFO: SET
+             mode: 32769
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 439661(us)
+clock_adjtime.h:57: INFO: VERIFY
+             mode: 0
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 439691(us)
+clock_adjtime01.c:163: PASS: clock_adjtime(): success (mode=8001)
+clock_adjtime.h:57: INFO: GET
+             mode: 0
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 439760(us)
+clock_adjtime.h:57: INFO: SET
+             mode: 40961
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 439789(us)
+clock_adjtime.h:57: INFO: VERIFY
+             mode: 0
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 439818(us)
+clock_adjtime01.c:163: PASS: clock_adjtime(): success (mode=a001)
+clock_adjtime.h:57: INFO: GET
+             mode: 0
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 439873(us)
+clock_adjtime.h:57: INFO: SET
+             mode: 16447
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 439902(us)
+clock_adjtime.h:57: INFO: VERIFY
+             mode: 0
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 439936(us)
+clock_adjtime01.c:163: PASS: clock_adjtime(): success (mode=403f)
+clock_adjtime.h:57: INFO: GET
+             mode: 0
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 440010(us)
+clock_adjtime.h:57: INFO: SET
+             mode: 1
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 440040(us)
+clock_adjtime.h:57: INFO: VERIFY
+             mode: 0
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 440072(us)
+clock_adjtime01.c:163: PASS: clock_adjtime(): success (mode=1)
+clock_adjtime.h:57: INFO: GET
+             mode: 0
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 440127(us)
+clock_adjtime.h:57: INFO: SET
+             mode: 2
+           offset: 0
+        frequency: 100
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 440155(us)
+clock_adjtime.h:57: INFO: VERIFY
+             mode: 0
+           offset: 0
+        frequency: 100
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 440184(us)
+clock_adjtime01.c:163: PASS: clock_adjtime(): success (mode=2)
+clock_adjtime.h:57: INFO: GET
+             mode: 0
+           offset: 0
+        frequency: 100
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 440242(us)
+clock_adjtime.h:57: INFO: SET
+             mode: 4
+           offset: 0
+        frequency: 100
+         maxerror: 16000100
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 440270(us)
+clock_adjtime.h:57: INFO: VERIFY
+             mode: 0
+           offset: 0
+        frequency: 100
+         maxerror: 16000100
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 440297(us)
+clock_adjtime01.c:163: PASS: clock_adjtime(): success (mode=4)
+clock_adjtime.h:57: INFO: GET
+             mode: 0
+           offset: 0
+        frequency: 100
+         maxerror: 16000100
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 440352(us)
+clock_adjtime.h:57: INFO: SET
+             mode: 8
+           offset: 0
+        frequency: 100
+         maxerror: 16000100
+         esterror: 16000100
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 440379(us)
+clock_adjtime.h:57: INFO: VERIFY
+             mode: 0
+           offset: 0
+        frequency: 100
+         maxerror: 16000100
+         esterror: 16000100
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 440411(us)
+clock_adjtime01.c:163: PASS: clock_adjtime(): success (mode=8)
+clock_adjtime.h:57: INFO: GET
+             mode: 0
+           offset: 0
+        frequency: 100
+         maxerror: 16000100
+         esterror: 16000100
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 440466(us)
+clock_adjtime.h:57: INFO: SET
+             mode: 32
+           offset: 0
+        frequency: 100
+         maxerror: 16000100
+         esterror: 16000100
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 440494(us)
+clock_adjtime.h:57: INFO: VERIFY
+             mode: 0
+           offset: 0
+        frequency: 100
+         maxerror: 16000100
+         esterror: 16000100
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 440524(us)
+clock_adjtime01.c:163: PASS: clock_adjtime(): success (mode=20)
+clock_adjtime.h:57: INFO: GET
+             mode: 0
+           offset: 0
+        frequency: 100
+         maxerror: 16000100
+         esterror: 16000100
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 440575(us)
+clock_adjtime.h:57: INFO: SET
+             mode: 16384
+           offset: 0
+        frequency: 100
+         maxerror: 16000100
+         esterror: 16000100
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 11000
+         raw time: 1570499105(s) 440601(us)
+clock_adjtime.h:57: INFO: VERIFY
+             mode: 0
+           offset: 0
+        frequency: 100
+         maxerror: 16000100
+         esterror: 16000100
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 11000
+         raw time: 1570499105(s) 440631(us)
+clock_adjtime01.c:163: PASS: clock_adjtime(): success (mode=4000)
+
+Summary:
+passed   9
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=clock_adjtime02 stime=1570499105
+cmdline="clock_adjtime02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+clock_adjtime.h:57: INFO: GET
+             mode: 0
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 449120(us)
+clock_adjtime.h:57: INFO: TEST
+             mode: 0
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 449120(us)
+clock_adjtime02.c:168: PASS: clock_adjtime(): failed as expected (mode=0x0, uid=0)
+clock_adjtime.h:57: INFO: GET
+             mode: 0
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 449226(us)
+clock_adjtime.h:57: INFO: TEST
+             mode: 0
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 449226(us)
+clock_adjtime02.c:168: PASS: clock_adjtime(): failed as expected (mode=0x0, uid=0)
+clock_adjtime.h:57: INFO: GET
+             mode: 0
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 449311(us)
+clock_adjtime02.c:168: PASS: clock_adjtime(): failed as expected (mode=0x403f, uid=0)
+clock_adjtime.h:57: INFO: GET
+             mode: 0
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 449374(us)
+clock_adjtime.h:57: INFO: TEST
+             mode: 16384
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 8999
+         raw time: 1570499105(s) 449374(us)
+clock_adjtime02.c:168: PASS: clock_adjtime(): failed as expected (mode=0x4000, uid=0)
+clock_adjtime.h:57: INFO: GET
+             mode: 0
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 449458(us)
+clock_adjtime.h:57: INFO: TEST
+             mode: 16384
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 11001
+         raw time: 1570499105(s) 449458(us)
+clock_adjtime02.c:168: PASS: clock_adjtime(): failed as expected (mode=0x4000, uid=0)
+clock_adjtime.h:57: INFO: GET
+             mode: 0
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 449537(us)
+clock_adjtime.h:57: INFO: TEST
+             mode: 16447
+           offset: 0
+        frequency: 0
+         maxerror: 16000000
+         esterror: 16000000
+           status: 64 (0x40)
+    time_constant: 10
+        precision: 1
+        tolerance: 32768000
+             tick: 10000
+         raw time: 1570499105(s) 449537(us)
+clock_adjtime02.c:168: PASS: clock_adjtime(): failed as expected (mode=0x403f, uid=65534)
+
+Summary:
+passed   6
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=clock_getres01 stime=1570499105
+cmdline="clock_getres01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_buffers.c:55: INFO: Test is using guarded buffers
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+clock_getres01.c:47: INFO: Testing variant: default (vdso or syscall)
+clock_getres01.c:81: PASS: clock_getres(REALTIME, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(MONOTONIC, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(PROCESS_CPUTIME_ID, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(THREAD_CPUTIME_ID, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(CLOCK_MONOTONIC_RAW, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(CLOCK_REALTIME_COARSE, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(CLOCK_MONOTONIC_COARSE, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(CLOCK_BOOTTIME, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(CLOCK_REALTIME_ALARM, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(CLOCK_BOOTTIME_ALARM, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(-1, ...) succeeded
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+clock_getres01.c:47: INFO: Testing variant: syscall
+clock_getres01.c:81: PASS: clock_getres(REALTIME, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(MONOTONIC, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(PROCESS_CPUTIME_ID, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(THREAD_CPUTIME_ID, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(CLOCK_MONOTONIC_RAW, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(CLOCK_REALTIME_COARSE, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(CLOCK_MONOTONIC_COARSE, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(CLOCK_BOOTTIME, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(CLOCK_REALTIME_ALARM, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(CLOCK_BOOTTIME_ALARM, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(-1, ...) succeeded
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+clock_getres01.c:47: INFO: Testing variant: syscall with NULL res parameter
+clock_getres01.c:81: PASS: clock_getres(REALTIME, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(MONOTONIC, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(PROCESS_CPUTIME_ID, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(THREAD_CPUTIME_ID, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(CLOCK_MONOTONIC_RAW, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(CLOCK_REALTIME_COARSE, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(CLOCK_MONOTONIC_COARSE, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(CLOCK_BOOTTIME, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(CLOCK_REALTIME_ALARM, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(CLOCK_BOOTTIME_ALARM, ...) succeeded
+clock_getres01.c:81: PASS: clock_getres(-1, ...) succeeded
+
+Summary:
+passed   33
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=clock_nanosleep01 stime=1570499105
+cmdline="clock_nanosleep01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+clock_nanosleep01.c:90: INFO: case NORMAL
+clock_nanosleep01.c:131: PASS: returned EINVAL (22)
+clock_nanosleep01.c:90: INFO: case NORMAL
+clock_nanosleep01.c:131: PASS: returned EINVAL (22)
+clock_nanosleep01.c:90: INFO: case NORMAL
+clock_nanosleep01.c:131: PASS: returned EINVAL (22)
+clock_nanosleep01.c:90: INFO: case SEND_SIGINT
+clock_nanosleep01.c:106: INFO: remain time: 9s 499855690ns
+clock_nanosleep01.c:131: PASS: returned EINTR (4)
+
+Summary:
+passed   4
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=clock_nanosleep02 stime=1570499105
+cmdline="clock_nanosleep02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+tst_timer_test.c:345: INFO: CLOCK_MONOTONIC resolution 1ns
+tst_timer_test.c:357: INFO: prctl(PR_GET_TIMERSLACK) = 50us
+tst_timer_test.c:264: INFO: clock_nanosleep() sleeping for 1000us 500 iterations, threshold 450.01us
+tst_timer_test.c:307: INFO: min 1073us, max 1145us, median 1088us, trunc mean 1088.08us (discarded 25)
+tst_timer_test.c:322: PASS: Measured times are within thresholds
+tst_timer_test.c:264: INFO: clock_nanosleep() sleeping for 2000us 500 iterations, threshold 450.01us
+tst_timer_test.c:307: INFO: min 2070us, max 2883us, median 2088us, trunc mean 2087.98us (discarded 25)
+tst_timer_test.c:322: PASS: Measured times are within thresholds
+tst_timer_test.c:264: INFO: clock_nanosleep() sleeping for 5000us 300 iterations, threshold 450.04us
+tst_timer_test.c:307: INFO: min 5067us, max 9080us, median 5091us, trunc mean 5089.99us (discarded 15)
+tst_timer_test.c:322: PASS: Measured times are within thresholds
+tst_timer_test.c:264: INFO: clock_nanosleep() sleeping for 10000us 100 iterations, threshold 450.33us
+tst_timer_test.c:307: INFO: min 10067us, max 10754us, median 10091us, trunc mean 10090.79us (discarded 5)
+tst_timer_test.c:322: PASS: Measured times are within thresholds
+tst_timer_test.c:264: INFO: clock_nanosleep() sleeping for 25000us 50 iterations, threshold 451.29us
+tst_timer_test.c:307: INFO: min 25090us, max 25121us, median 25097us, trunc mean 25097.56us (discarded 2)
+tst_timer_test.c:322: PASS: Measured times are within thresholds
+tst_timer_test.c:264: INFO: clock_nanosleep() sleeping for 100000us 10 iterations, threshold 537.00us
+tst_timer_test.c:307: INFO: min 100094us, max 100114us, median 100107us, trunc mean 100105.44us (discarded 1)
+tst_timer_test.c:322: PASS: Measured times are within thresholds
+tst_timer_test.c:264: INFO: clock_nanosleep() sleeping for 1000000us 2 iterations, threshold 4400.00us
+tst_timer_test.c:307: INFO: min 1000107us, max 1000110us, median 1000107us, trunc mean 1000107.00us (discarded 1)
+tst_timer_test.c:322: PASS: Measured times are within thresholds
+
+Summary:
+passed   7
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=9 termination_type=exited termination_id=0 corefile=no
+cutime=1 cstime=2
+<<<test_end>>>
+<<<test_start>>>
+tag=clock_nanosleep2_01 stime=1570499114
+cmdline="clock_nanosleep2_01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+clock_nanosleep2_01.c:40: PASS: clock_nanosleep2() passed
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=clock_gettime01 stime=1570499114
+cmdline="clock_gettime01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+clock_gettime01.c:124: PASS: clock_gettime(2): clock CLOCK_REALTIME (syscall) passed
+clock_gettime01.c:124: PASS: clock_gettime(2): clock CLOCK_REALTIME (vDSO or syscall) passed
+clock_gettime01.c:124: PASS: clock_gettime(2): clock CLOCK_MONOTONIC (syscall) passed
+clock_gettime01.c:124: PASS: clock_gettime(2): clock CLOCK_MONOTONIC (vDSO or syscall) passed
+clock_gettime01.c:124: PASS: clock_gettime(2): clock CLOCK_PROCESS_CPUTIME_ID (syscall) passed
+clock_gettime01.c:124: PASS: clock_gettime(2): clock CLOCK_PROCESS_CPUTIME_ID (vDSO or syscall) passed
+clock_gettime01.c:124: PASS: clock_gettime(2): clock CLOCK_THREAD_CPUTIME_ID (syscall) passed
+clock_gettime01.c:124: PASS: clock_gettime(2): clock CLOCK_THREAD_CPUTIME_ID (vDSO or syscall) passed
+clock_gettime01.c:124: PASS: clock_gettime(2): clock CLOCK_REALTIME_COARSE (syscall) passed
+clock_gettime01.c:124: PASS: clock_gettime(2): clock CLOCK_REALTIME_COARSE (vDSO or syscall) passed
+clock_gettime01.c:124: PASS: clock_gettime(2): clock CLOCK_MONOTONIC_COARSE (syscall) passed
+clock_gettime01.c:124: PASS: clock_gettime(2): clock CLOCK_MONOTONIC_COARSE (vDSO or syscall) passed
+clock_gettime01.c:124: PASS: clock_gettime(2): clock CLOCK_MONOTONIC_RAW (syscall) passed
+clock_gettime01.c:124: PASS: clock_gettime(2): clock CLOCK_MONOTONIC_RAW (vDSO or syscall) passed
+clock_gettime01.c:124: PASS: clock_gettime(2): clock CLOCK_BOOTTIME (syscall) passed
+clock_gettime01.c:124: PASS: clock_gettime(2): clock CLOCK_BOOTTIME (vDSO or syscall) passed
+
+Summary:
+passed   16
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=clock_gettime02 stime=1570499114
+cmdline="clock_gettime02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+clock_gettime02.c:111: PASS: clock_gettime(2): clock UNKNOWN/INVALID failed as expected: EINVAL (22)
+clock_gettime02.c:111: PASS: clock_gettime(2): clock UNKNOWN/INVALID failed as expected: EINVAL (22)
+clock_gettime02.c:111: PASS: clock_gettime(2): clock CLOCK_REALTIME failed as expected: EFAULT (14)
+clock_gettime02.c:111: PASS: clock_gettime(2): clock CLOCK_MONOTONIC failed as expected: EFAULT (14)
+clock_gettime02.c:111: PASS: clock_gettime(2): clock CLOCK_PROCESS_CPUTIME_ID failed as expected: EFAULT (14)
+clock_gettime02.c:111: PASS: clock_gettime(2): clock CLOCK_THREAD_CPUTIME_ID failed as expected: EFAULT (14)
+clock_gettime02.c:111: PASS: clock_gettime(2): clock CLOCK_REALTIME_COARSE failed as expected: EFAULT (14)
+clock_gettime02.c:111: PASS: clock_gettime(2): clock CLOCK_MONOTONIC_COARSE failed as expected: EFAULT (14)
+clock_gettime02.c:111: PASS: clock_gettime(2): clock CLOCK_MONOTONIC_RAW failed as expected: EFAULT (14)
+clock_gettime02.c:111: PASS: clock_gettime(2): clock CLOCK_BOOTTIME failed as expected: EFAULT (14)
+
+Summary:
+passed   10
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=leapsec01 stime=1570499114
+cmdline="leapsec01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+leapsec01.c:130: INFO: test start at 09:45:14.480138363
+leapsec01.c:100: INFO: now is     09:45:14.480240765
+leapsec01.c:104: INFO: sleep until 09:45:15.480240765
+leapsec01.c:112: INFO: now is     09:45:15.480345046
+leapsec01.c:115: INFO: hrtimer early expiration is not detected.
+leapsec01.c:138: INFO: scheduling leap second 08:00:00.000000000
+leapsec01.c:144: INFO: setting time to        07:59:58.000000000
+leapsec01.c:88: INFO: 07:59:58.003534000 adjtimex: clock synchronized
+leapsec01.c:88: INFO: 07:59:58.003581000 adjtimex: clock synchronized
+leapsec01.c:88: INFO: 07:59:58.003591000 adjtimex: clock synchronized
+leapsec01.c:88: INFO: 07:59:58.003601000 adjtimex: clock synchronized
+leapsec01.c:88: INFO: 07:59:58.503678000 adjtimex: clock synchronized
+leapsec01.c:88: INFO: 07:59:59.003830000 adjtimex: insert leap second
+leapsec01.c:88: INFO: 07:59:59.503986000 adjtimex: insert leap second
+leapsec01.c:88: INFO: 07:59:59.006014000 adjtimex: leap second in progress
+leapsec01.c:88: INFO: 07:59:59.506124000 adjtimex: leap second in progress
+leapsec01.c:88: INFO: 08:00:00.006268000 adjtimex: leap second has occurred
+leapsec01.c:88: INFO: 08:00:00.506417000 adjtimex: leap second has occurred
+leapsec01.c:88: INFO: 08:00:01.006529000 adjtimex: leap second has occurred
+leapsec01.c:88: INFO: 08:00:01.506663000 adjtimex: leap second has occurred
+leapsec01.c:88: INFO: 08:00:02.006787000 adjtimex: leap second has occurred
+leapsec01.c:100: INFO: now is     08:00:02.506927976
+leapsec01.c:104: INFO: sleep until 08:00:03.506927976
+leapsec01.c:112: INFO: now is     08:00:03.508207847
+leapsec01.c:115: INFO: hrtimer early expiration is not detected.
+leapsec01.c:88: INFO: 08:00:03.508249000 adjtimex: leap second has occurred
+leapsec01.c:88: INFO: 08:00:03.508318000 adjtimex: clock synchronized
+leapsec01.c:170: INFO: restoring time to 09:45:19.988490729
+leapsec01.c:100: INFO: now is     09:45:19.989188577
+leapsec01.c:104: INFO: sleep until 09:45:20.989188577
+leapsec01.c:112: INFO: now is     09:45:20.989264697
+leapsec01.c:115: INFO: hrtimer early expiration is not detected.
+leapsec01.c:177: PASS: No errors were reported during this test!
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=6 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=clock_settime01 stime=1570499120
+cmdline="clock_settime01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_buffers.c:55: INFO: Test is using guarded buffers
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+clock_settime01.c:46: PASS: clock_settime(2): was able to advance time
+clock_settime01.c:64: PASS: clock_settime(2): was able to recede time
+
+Summary:
+passed   2
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=1 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=clock_settime02 stime=1570499121
+cmdline="clock_settime02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+clock_settime02.c:124: PASS: clock_settime(CLOCK_REALTIME): failed as expected: EFAULT (14)
+clock_settime02.c:124: PASS: clock_settime(CLOCK_REALTIME): failed as expected: EINVAL (22)
+clock_settime02.c:124: PASS: clock_settime(CLOCK_REALTIME): failed as expected: EINVAL (22)
+clock_settime02.c:124: PASS: clock_settime(CLOCK_REALTIME): failed as expected: EINVAL (22)
+clock_settime02.c:124: PASS: clock_settime(CLOCK_MONOTONIC): failed as expected: EINVAL (22)
+clock_settime02.c:124: PASS: clock_settime(UNKNOWN/INVALID): failed as expected: EINVAL (22)
+clock_settime02.c:124: PASS: clock_settime(UNKNOWN/INVALID): failed as expected: EINVAL (22)
+clock_settime02.c:124: PASS: clock_settime(CLOCK_MONOTONIC_COARSE): failed as expected: EINVAL (22)
+clock_settime02.c:124: PASS: clock_settime(CLOCK_MONOTONIC_RAW): failed as expected: EINVAL (22)
+clock_settime02.c:124: PASS: clock_settime(CLOCK_BOOTTIME): failed as expected: EINVAL (22)
+clock_settime02.c:124: PASS: clock_settime(CLOCK_PROCESS_CPUTIME_ID): failed as expected: EINVAL (22)
+clock_settime02.c:124: PASS: clock_settime(CLOCK_THREAD_CPUTIME_ID): failed as expected: EINVAL (22)
+
+Summary:
+passed   12
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=clone01 stime=1570499121
+cmdline="clone01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+clone01     1  TPASS  :  clone returned 2775
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=clone02 stime=1570499121
+cmdline="clone02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+clone02     1  TPASS  :  Test Passed
+clone02     2  TPASS  :  Test Passed
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=clone03 stime=1570499121
+cmdline="clone03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+clone03     1  TPASS  :  Test passed
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=clone04 stime=1570499121
+cmdline="clone04"
+contacts=""
+analysis=exit
+<<<test_output>>>
+clone04     1  TPASS  :  expected failure; Got EINVAL
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=clone05 stime=1570499121
+cmdline="clone05"
+contacts=""
+analysis=exit
+<<<test_output>>>
+clone05     1  TPASS  :  Test Passed
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=clone06 stime=1570499121
+cmdline="clone06"
+contacts=""
+analysis=exit
+<<<test_output>>>
+clone06     1  TPASS  :  Test Passed
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=clone07 stime=1570499121
+cmdline="clone07"
+contacts=""
+analysis=exit
+<<<test_output>>>
+clone07     1  TPASS  :  Use of return() in child did not cause SIGSEGV
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=clone08 stime=1570499121
+cmdline="clone08"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+clone08.c:71: INFO: running CLONE_PARENT
+clone08.c:115: PASS: clone and forked child has the same parent
+clone08.c:71: INFO: running CLONE_CHILD_SETTID
+clone08.c:133: PASS: clone() correctly set ctid
+clone08.c:71: INFO: running CLONE_PARENT_SETTID
+clone08.c:143: PASS: clone() correctly set ptid
+clone08.c:71: INFO: running CLONE_THREAD
+clone08.c:222: PASS: clone has the same thread id
+clone08.c:212: PASS: futex exit on ctid change, ctid: 0
+
+Summary:
+passed   5
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=clone09 stime=1570499121
+cmdline="clone09"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+clone09.c:60: INFO: create clone in a new netns with 'CLONE_NEWNET' flag
+clone09.c:83: PASS: sysctl params differ in new netns
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=close01 stime=1570499121
+cmdline="close01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+close01     1  TPASS  :  file appears closed
+close01     2  TPASS  :  pipe appears closed
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=close02 stime=1570499121
+cmdline="close02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+close02     1  TPASS  :  call returned EBADF
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=close08 stime=1570499121
+cmdline="close08"
+contacts=""
+analysis=exit
+<<<test_output>>>
+close08     1  TPASS  :  close(tfile_2801) returned 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=confstr01 stime=1570499121
+cmdline="confstr01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+confstr01    1  TPASS  :  confstr PATH = '/bin:/usr/bin'
+confstr01    2  TPASS  :  confstr XBS5_ILP32_OFF32_CFLAGS = ''
+confstr01    3  TPASS  :  confstr XBS5_ILP32_OFF32_LDFLAGS = ''
+confstr01    4  TPASS  :  confstr XBS5_ILP32_OFF32_LIBS = ''
+confstr01    5  TPASS  :  confstr XBS5_ILP32_OFF32_LINTFLAGS = ''
+confstr01    6  TPASS  :  confstr XBS5_ILP32_OFFBIG_CFLAGS = ''
+confstr01    7  TPASS  :  confstr XBS5_ILP32_OFFBIG_LDFLAGS = ''
+confstr01    8  TPASS  :  confstr XBS5_ILP32_OFFBIG_LIBS = ''
+confstr01    9  TPASS  :  confstr XBS5_ILP32_OFFBIG_LINTFLAGS = ''
+confstr01   10  TPASS  :  confstr XBS5_LP64_OFF64_CFLAGS = '-m64'
+confstr01   11  TPASS  :  confstr XBS5_LP64_OFF64_LDFLAGS = '-m64'
+confstr01   12  TPASS  :  confstr XBS5_LP64_OFF64_LIBS = ''
+confstr01   13  TPASS  :  confstr XBS5_LP64_OFF64_LINTFLAGS = ''
+confstr01   14  TPASS  :  confstr XBS5_LPBIG_OFFBIG_CFLAGS = ''
+confstr01   15  TPASS  :  confstr XBS5_LPBIG_OFFBIG_LDFLAGS = ''
+confstr01   16  TPASS  :  confstr XBS5_LPBIG_OFFBIG_LIBS = ''
+confstr01   17  TPASS  :  confstr XBS5_LPBIG_OFFBIG_LINTFLAGS = ''
+confstr01   18  TPASS  :  confstr GNU_LIBC_VERSION = 'glibc 2.24'
+confstr01   19  TPASS  :  confstr GNU_LIBPTHREAD_VERSION = 'NPTL 2.24'
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=connect01 stime=1570499121
+cmdline="connect01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+connect01    1  TPASS  :  bad file descriptor successful
+connect01    2  TPASS  :  invalid socket buffer successful
+connect01    3  TPASS  :  invalid salen successful
+connect01    4  TPASS  :  invalid socket successful
+connect01    5  TPASS  :  already connected successful
+connect01    6  TPASS  :  connection refused successful
+connect01    7  TPASS  :  invalid address family successful
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=creat01 stime=1570499121
+cmdline="creat01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+creat01.c:50: PASS: creat() truncated file to 0 bytes
+creat01.c:55: PASS: file was created and written to successfully
+creat01.c:60: PASS: read failed expectedly: EBADF (9)
+creat01.c:50: PASS: creat() truncated file to 0 bytes
+creat01.c:55: PASS: file was created and written to successfully
+creat01.c:60: PASS: read failed expectedly: EBADF (9)
+
+Summary:
+passed   6
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=creat03 stime=1570499121
+cmdline="creat03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+creat03.c:36: INFO: Created file has mode = 0100674
+creat03.c:41: PASS: save text bit cleared
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=1 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=creat04 stime=1570499121
+cmdline="creat04"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+creat04.c:49: PASS: call failed with EACCES as expected
+creat04.c:49: PASS: call failed with EACCES as expected
+
+Summary:
+passed   2
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=creat05 stime=1570499121
+cmdline="creat05"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+creat05.c:49: INFO: getdtablesize() = 1024
+creat05.c:59: INFO: Opened additional #1017 fds
+creat05.c:36: PASS: creat() failed with EMFILE
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=4
+<<<test_end>>>
+<<<test_start>>>
+tag=creat06 stime=1570499121
+cmdline="creat06"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+creat06.c:105: PASS: got expected failure: EISDIR (21)
+creat06.c:105: PASS: got expected failure: ENAMETOOLONG (36)
+creat06.c:105: PASS: got expected failure: ENOENT (2)
+creat06.c:105: PASS: got expected failure: ENOTDIR (20)
+creat06.c:105: PASS: got expected failure: EFAULT (14)
+creat06.c:105: PASS: got expected failure: EACCES (13)
+creat06.c:105: PASS: got expected failure: ELOOP (40)
+creat06.c:105: PASS: got expected failure: EROFS (30)
+
+Summary:
+passed   8
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=creat07 stime=1570499121
+cmdline="creat07"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+creat07.c:42: PASS: creat() received EXTBSY
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=creat08 stime=1570499121
+cmdline="creat08"
+contacts=""
+analysis=exit
+<<<test_output>>>
+creat08     1  TPASS  :  Test passed in block0.
+creat08     2  TPASS  :  Test passed in block1.
+creat08     3  TPASS  :  Test passed in block2.
+creat08     4  TPASS  :  Test passed in block3
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=delete_module01 stime=1570499121
+cmdline="delete_module01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+tst_module.c:70: CONF: Failed to find module 'dummy_del_mod.ko'
 
 Summary:
 passed   0
@@ -18564,14 +12801,41 @@ duration=0 termination_type=exited termination_id=32 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=set_mempolicy02 stime=1570467569
-cmdline="set_mempolicy02"
+tag=delete_module02 stime=1570499121
+cmdline="delete_module02"
 contacts=""
 analysis=exit
 <<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_numa.c:191: INFO: Found 1 NUMA memory nodes
-set_mempolicy02.c:39: CONF: Test requires at least two NUMA memory nodes
+delete_module02.c:65: INFO: test nonexistent module
+delete_module02.c:70: PASS: delete_module() failed as expected: ENOENT (2)
+delete_module02.c:65: INFO: test null terminated module name
+delete_module02.c:70: PASS: delete_module() failed as expected: ENOENT (2)
+delete_module02.c:65: INFO: test module name outside program's accessible address space
+delete_module02.c:70: PASS: delete_module() failed as expected: EFAULT (14)
+delete_module02.c:65: INFO: test long module name
+delete_module02.c:70: PASS: delete_module() failed as expected: ENOENT (2)
+delete_module02.c:65: INFO: test non-superuser
+delete_module02.c:70: PASS: delete_module() failed as expected: EPERM (1)
+
+Summary:
+passed   5
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=delete_module03 stime=1570499121
+cmdline="delete_module03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+tst_module.c:70: CONF: Failed to find module 'dummy_del_mod.ko'
 
 Summary:
 passed   0
@@ -18584,8 +12848,1034 @@ duration=0 termination_type=exited termination_id=32 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=set_mempolicy03 stime=1570467569
-cmdline="set_mempolicy03"
+tag=dup01 stime=1570499121
+cmdline="dup01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+dup01       1  TPASS  :  dup(dupfile) returned 8
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=dup02 stime=1570499121
+cmdline="dup02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+dup02       1  TPASS  :  dup failed as expected with EBADF
+dup02       2  TPASS  :  dup failed as expected with EBADF
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=dup03 stime=1570499121
+cmdline="dup03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+dup03       1  TPASS  :  dup failed as expected with EMFILE
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=dup04 stime=1570499121
+cmdline="dup04"
+contacts=""
+analysis=exit
+<<<test_output>>>
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=dup05 stime=1570499121
+cmdline="dup05"
+contacts=""
+analysis=exit
+<<<test_output>>>
+dup05       1  TPASS  :  dup returned 8
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=dup06 stime=1570499121
+cmdline="dup06"
+contacts=""
+analysis=exit
+<<<test_output>>>
+dup06       1  TPASS  :  Test passed.
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=1 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=dup07 stime=1570499121
+cmdline="dup07"
+contacts=""
+analysis=exit
+<<<test_output>>>
+dup07       1  TPASS  :  Passed in read mode.
+dup07       2  TPASS  :  Passed in write mode.
+dup07       3  TPASS  :  Passed in read/write mode.
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=dup201 stime=1570499121
+cmdline="dup201"
+contacts=""
+analysis=exit
+<<<test_output>>>
+dup201      1  TPASS  :  failed as expected - errno = 9 : Bad file descriptor
+dup201      2  TPASS  :  failed as expected - errno = 9 : Bad file descriptor
+dup201      3  TPASS  :  failed as expected - errno = 9 : Bad file descriptor
+dup201      4  TPASS  :  failed as expected - errno = 9 : Bad file descriptor
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=dup202 stime=1570499121
+cmdline="dup202"
+contacts=""
+analysis=exit
+<<<test_output>>>
+dup202      1  TPASS  :  fstat shows new and old modes are the same
+dup202      2  TPASS  :  fstat shows new and old modes are the same
+dup202      3  TPASS  :  fstat shows new and old modes are the same
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=dup203 stime=1570499121
+cmdline="dup203"
+contacts=""
+analysis=exit
+<<<test_output>>>
+dup203      0  TINFO  :  Enter block 1
+dup203      0  TINFO  :  Test duping over an open fd
+dup203      1  TPASS  :  dup2 test 1 functionality is correct
+dup203      0  TINFO  :  Exit block 1
+dup203      0  TINFO  :  Enter block 2
+dup203      0  TINFO  :  Test close on exec flag
+dup203      2  TPASS  :  dup2 test 2 functionality is correct
+dup203      0  TINFO  :  Exit block 2
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=dup204 stime=1570499121
+cmdline="dup204"
+contacts=""
+analysis=exit
+<<<test_output>>>
+dup204      1  TPASS  :  original and duped inodes are the same
+dup204      2  TPASS  :  original and duped inodes are the same
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=dup205 stime=1570499121
+cmdline="dup205"
+contacts=""
+analysis=exit
+<<<test_output>>>
+dup205      1  TPASS  :  Test passed.
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=dup3_01 stime=1570499121
+cmdline="dup3_01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+dup3_01     1  TPASS  :  dup3(O_CLOEXEC) PASSED
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=dup3_02 stime=1570499121
+cmdline="dup3_02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+dup3_02     1  TPASS  :  dup3 failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
+dup3_02     2  TPASS  :  dup3 failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
+dup3_02     3  TPASS  :  dup3 failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=epoll_create1_01 stime=1570499121
+cmdline="epoll_create1_01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+epoll_create1_01.c:46: PASS: epoll_create1(EPOLL_CLOEXEC) PASSED
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=epoll01 stime=1570499121
+cmdline="epoll-ltp"
+contacts=""
+analysis=exit
+<<<test_output>>>
+epoll01     0  TINFO  :  testing if epoll() system call works
+epoll01     0  TINFO  :  gettimeofday() works
+epoll01     0  TINFO  :  random number seeded with gettimeofday() [seed = 549516] works
+epoll01     0  TINFO  :  Testing epoll_create
+epoll01     1  TPASS  :  epoll_create with negative set size
+epoll01     2  TPASS  :  epoll_create with large set size (size = 2147483647)
+epoll01     3  TPASS  :  epoll_create with large set size (size = 2147483646)
+epoll01     4  TPASS  :  epoll_create with large set size (size = 2147483645)
+epoll01     5  TPASS  :  epoll_create with large set size (size = 2147483644)
+epoll01     6  TPASS  :  epoll_create with large set size (size = 2147483643)
+epoll01     7  TPASS  :  epoll_create with large set size (size = 2147483642)
+epoll01     8  TPASS  :  epoll_create with large set size (size = 2147483641)
+epoll01     9  TPASS  :  epoll_create with large set size (size = 2147483640)
+epoll01    10  TPASS  :  epoll_create with large set size (size = 2147483639)
+epoll01    11  TPASS  :  epoll_create with large set size (size = 2147483638)
+epoll01    12  TPASS  :  epoll_create with large set size (size = 2147483637)
+epoll01    13  TPASS  :  epoll_create with large set size (size = 2147483636)
+epoll01    14  TPASS  :  epoll_create with large set size (size = 2147483635)
+epoll01    15  TPASS  :  epoll_create with large set size (size = 2147483634)
+epoll01    16  TPASS  :  epoll_create with large set size (size = 2147483633)
+epoll01    17  TPASS  :  epoll_create with large set size (size = 2147483632)
+epoll01    18  TPASS  :  epoll_create with random large set size (size = 790083294)
+epoll01    19  TPASS  :  epoll_create with random large set size (size = 428109501)
+epoll01    20  TPASS  :  epoll_create with random large set size (size = 774050194)
+epoll01    21  TPASS  :  epoll_create with random large set size (size = 1127867743)
+epoll01    22  TPASS  :  epoll_create with random large set size (size = 1638337718)
+epoll01    23  TPASS  :  epoll_create with random large set size (size = 1422758903)
+epoll01    24  TPASS  :  epoll_create with random large set size (size = 1585116455)
+epoll01    25  TPASS  :  epoll_create with random large set size (size = 1297987575)
+epoll01    26  TPASS  :  epoll_create with random large set size (size = 1291792448)
+epoll01    27  TPASS  :  epoll_create with random large set size (size = 1952824260)
+epoll01    28  TPASS  :  epoll_create with random large set size (size = 1382583835)
+epoll01    29  TPASS  :  epoll_create with random large set size (size = 524853617)
+epoll01    30  TPASS  :  epoll_create with random large set size (size = 211743846)
+epoll01    31  TPASS  :  epoll_create with random large set size (size = 1524433203)
+epoll01    32  TPASS  :  epoll_create with random large set size (size = 1674607454)
+epoll01    33  TPASS  :  epoll_create with random large set size (size = 1125074)
+epoll01     0  TINFO  :  Summary: Of 33 tests, epoll_create failed 0 (100% passed).
+epoll01     0  TINFO  :  Testing epoll_ctl
+epoll01     0  TINFO  :  Summary: Of 13824 tests, epoll_ctl failed 0 (100% passed).
+<<<execution_status>>>
+initiation_status="ok"
+duration=3 termination_type=exited termination_id=0 corefile=no
+cutime=116 cstime=77
+<<<test_end>>>
+<<<test_start>>>
+tag=epoll_ctl01 stime=1570499124
+cmdline="epoll_ctl01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+epoll_ctl01.c:119: PASS: epoll_ctl() succeeds with op 1
+epoll_ctl01.c:119: PASS: epoll_ctl() succeeds with op 3
+epoll_ctl01.c:119: PASS: epoll_ctl() succeeds with op 2
+
+Summary:
+passed   3
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=epoll_ctl02 stime=1570499124
+cmdline="epoll_ctl02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+epoll_ctl02.c:101: PASS: epoll_ctl() fails as expected: EBADF (9)
+epoll_ctl02.c:101: PASS: epoll_ctl() fails as expected: EBADF (9)
+epoll_ctl02.c:101: PASS: epoll_ctl() fails as expected: EINVAL (22)
+epoll_ctl02.c:101: PASS: epoll_ctl() fails as expected: EINVAL (22)
+epoll_ctl02.c:101: PASS: epoll_ctl() fails as expected: ENOENT (2)
+epoll_ctl02.c:101: PASS: epoll_ctl() fails as expected: ENOENT (2)
+epoll_ctl02.c:101: PASS: epoll_ctl() fails as expected: EEXIST (17)
+
+Summary:
+passed   7
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=epoll_wait01 stime=1570499124
+cmdline="epoll_wait01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+epoll_wait01.c:46: INFO: Pipe buffer size is 65536 bytes
+epoll_wait01.c:128: PASS: epoll_wait() epollout
+epoll_wait01.c:166: PASS: epoll_wait() epollin
+epoll_wait01.c:213: PASS: epoll_wait() epollio
+
+Summary:
+passed   3
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=epoll_wait02 stime=1570499124
+cmdline="epoll_wait02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+tst_timer_test.c:345: INFO: CLOCK_MONOTONIC resolution 1ns
+tst_timer_test.c:357: INFO: prctl(PR_GET_TIMERSLACK) = 50us
+tst_timer_test.c:264: INFO: epoll_wait() sleeping for 1000us 500 iterations, threshold 450.01us
+tst_timer_test.c:307: INFO: min 1027us, max 4756us, median 1085us, trunc mean 1224.80us (discarded 25)
+tst_timer_test.c:322: PASS: Measured times are within thresholds
+tst_timer_test.c:264: INFO: epoll_wait() sleeping for 2000us 500 iterations, threshold 450.01us
+tst_timer_test.c:307: INFO: min 2019us, max 4625us, median 2136us, trunc mean 2329.14us (discarded 25)
+tst_timer_test.c:322: PASS: Measured times are within thresholds
+tst_timer_test.c:264: INFO: epoll_wait() sleeping for 5000us 300 iterations, threshold 450.04us
+tst_timer_test.c:307: INFO: min 5019us, max 8628us, median 5086us, trunc mean 5251.68us (discarded 15)
+tst_timer_test.c:322: PASS: Measured times are within thresholds
+tst_timer_test.c:264: INFO: epoll_wait() sleeping for 10000us 100 iterations, threshold 450.33us
+tst_timer_test.c:307: INFO: min 10022us, max 12156us, median 10094us, trunc mean 10296.22us (discarded 5)
+tst_timer_test.c:322: PASS: Measured times are within thresholds
+tst_timer_test.c:264: INFO: epoll_wait() sleeping for 25000us 50 iterations, threshold 451.29us
+tst_timer_test.c:307: INFO: min 25063us, max 27316us, median 25088us, trunc mean 25236.81us (discarded 2)
+tst_timer_test.c:322: PASS: Measured times are within thresholds
+tst_timer_test.c:264: INFO: epoll_wait() sleeping for 100000us 10 iterations, threshold 537.00us
+tst_timer_test.c:307: INFO: min 100116us, max 100180us, median 100151us, trunc mean 100154.78us (discarded 1)
+tst_timer_test.c:322: PASS: Measured times are within thresholds
+tst_timer_test.c:264: INFO: epoll_wait() sleeping for 1000000us 2 iterations, threshold 4400.00us
+tst_timer_test.c:307: INFO: min 1001067us, max 1001078us, median 1001067us, trunc mean 1001067.00us (discarded 1)
+tst_timer_test.c:322: PASS: Measured times are within thresholds
+
+Summary:
+passed   7
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=9 termination_type=exited termination_id=0 corefile=no
+cutime=2 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=epoll_wait03 stime=1570499133
+cmdline="epoll_wait03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+epoll_wait03    1  TPASS  :  epoll_wait() fails as expected: TEST_ERRNO=EBADF(9): Bad file descriptor
+epoll_wait03    2  TPASS  :  epoll_wait() fails as expected: TEST_ERRNO=EINVAL(22): Invalid argument
+epoll_wait03    3  TPASS  :  epoll_wait() fails as expected: TEST_ERRNO=EINVAL(22): Invalid argument
+epoll_wait03    4  TPASS  :  epoll_wait() fails as expected: TEST_ERRNO=EINVAL(22): Invalid argument
+epoll_wait03    5  TPASS  :  epoll_wait() fails as expected: TEST_ERRNO=EFAULT(14): Bad address
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=epoll_pwait01 stime=1570499133
+cmdline="epoll_pwait01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+epoll_pwait01    1  TPASS  :  epoll_pwait(sigmask) blocked signal
+epoll_pwait01    0  TINFO  :  Child process returned TPASS
+epoll_pwait01    2  TPASS  :  epoll_wait() failed as expected: TEST_ERRNO=EINTR(4): Interrupted system call
+epoll_pwait01    0  TINFO  :  Child process returned TPASS
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=eventfd01 stime=1570499133
+cmdline="eventfd01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+eventfd01    1  TPASS  :  counter value matches required
+eventfd01    2  TPASS  :  read failed with EAGAIN as expected
+eventfd01    3  TPASS  :  counter value matches required
+eventfd01    4  TPASS  :  write failed with EAGAIN as expected
+eventfd01    5  TPASS  :  read failed with EINVAL as expected
+eventfd01    6  TPASS  :  write failed with EINVAL as expected
+eventfd01    7  TPASS  :  write failed with EINVAL as expected
+eventfd01    8  TPASS  :  fd is set in readfds
+eventfd01    9  TPASS  :  fd is not set in readfds
+eventfd01   10  TPASS  :  fd is set in writefds
+eventfd01   11  TPASS  :  fd is not set in writefds
+eventfd01    1  TPASS  :  counter value matches required
+eventfd01    2  TPASS  :  read failed with EAGAIN as expected
+eventfd01    3  TPASS  :  counter value matches required
+eventfd01    4  TPASS  :  write failed with EAGAIN as expected
+eventfd01    5  TPASS  :  read failed with EINVAL as expected
+eventfd01    6  TPASS  :  write failed with EINVAL as expected
+eventfd01    7  TPASS  :  write failed with EINVAL as expected
+eventfd01    8  TPASS  :  fd is set in readfds
+eventfd01    9  TPASS  :  fd is not set in readfds
+eventfd01   10  TPASS  :  fd is set in writefds
+eventfd01   11  TPASS  :  fd is not set in writefds
+eventfd01   12  TPASS  :  counter value write from child successful
+eventfd01   13  TPASS  :  read fd set as expected
+eventfd01   14  TPASS  :  POLLERR occurred as expected
+eventfd01   15  TPASS  :  overflow occurred as expected
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=eventfd2_01 stime=1570499133
+cmdline="eventfd2_01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+eventfd2_01    1  TPASS  :  eventfd2(EFD_CLOEXEC) Passed
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=eventfd2_02 stime=1570499133
+cmdline="eventfd2_02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+eventfd2_02    1  TPASS  :  eventfd2(EFD_NONBLOCK) PASSED
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=eventfd2_03 stime=1570499133
+cmdline="eventfd2_03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+[16731] posting 1 on 8
+[16731] waiting on 7
+[16731] wait completed on 7: count=1
+[16731] posting 1 on 8
+[16731] waiting on 7
+[16731] wait completed on 7: count=1
+[16731] posting 5 on 8
+[16731] waiting 5 times on 7
+[16731] wait completed on 7: count=1
+[16731] wait completed on 7: count=1
+[16731] wait completed on 7: count=1
+[16731] wait completed on 7: count=1
+[16731] wait completed on 7: count=1
+[16730] posting 1 on 7
+[16730] waiting on 8
+[16730] wait completed on 8: count=1
+[16730] posting 1 on 7
+[16730] waiting on 8
+[16730] wait completed on 8: count=1
+[16730] posting 5 on 7
+[16730] waiting 5 times on 8
+[16730] wait completed on 8: count=1
+[16730] wait completed on 8: count=1
+[16730] wait completed on 8: count=1
+[16730] wait completed on 8: count=1
+[16730] wait completed on 8: count=1
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=execl01 stime=1570499133
+cmdline="execl01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+execl01_child.c:20: PASS: execl01_child executed
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=execle01 stime=1570499133
+cmdline="execle01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+execle01_child.c:34: PASS: execle01_child executed
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=execlp01 stime=1570499133
+cmdline="execlp01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+execlp01_child.c:20: PASS: execlp01_child executed
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=execv01 stime=1570499133
+cmdline="execv01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+execv01_child.c:23: PASS: execv01_child executed
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=execve01 stime=1570499133
+cmdline="execve01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+execve01_child.c:34: PASS: execve01_child executed
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=execve02 stime=1570499133
+cmdline="execve02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+execve02.c:54: PASS: execve() failed expectedly: EACCES (13)
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=execve03 stime=1570499133
+cmdline="execve03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+execve03.c:124: PASS: execve failed as expected: ENAMETOOLONG (36)
+execve03.c:124: PASS: execve failed as expected: ENOENT (2)
+execve03.c:124: PASS: execve failed as expected: ENOTDIR (20)
+execve03.c:124: PASS: execve failed as expected: EFAULT (14)
+execve03.c:124: PASS: execve failed as expected: EACCES (13)
+execve03.c:124: PASS: execve failed as expected: ENOEXEC (8)
+
+Summary:
+passed   6
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=execve04 stime=1570499133
+cmdline="execve04"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+execve04.c:50: PASS: execve failed as expected: ETXTBSY (26)
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=execve05 stime=1570499133
+cmdline="execve05 -i 5 -n 32"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+execve_child.c:22: PASS: argv[1] is canary, expected 'canary'
+
+Summary:
+passed   160
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=5 cstime=5
+<<<test_end>>>
+<<<test_start>>>
+tag=execvp01 stime=1570499133
+cmdline="execvp01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+execvp01_child.c:20: PASS: execvp01_child executed
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=execveat01 stime=1570499133
+cmdline="execveat01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+execveat_child.c:17: PASS: execveat_child run as expected
+execveat_child.c:17: PASS: execveat_child run as expected
+execveat_child.c:17: PASS: execveat_child run as expected
+execveat_child.c:17: PASS: execveat_child run as expected
+
+Summary:
+passed   4
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=execveat02 stime=1570499133
+cmdline="execveat02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+execveat02.c:64: PASS: execveat() fails as expected: EBADF (9)
+execveat02.c:64: PASS: execveat() fails as expected: EINVAL (22)
+execveat02.c:64: PASS: execveat() fails as expected: ELOOP (40)
+execveat02.c:64: PASS: execveat() fails as expected: ENOTDIR (20)
+
+Summary:
+passed   4
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=execveat03 stime=1570499133
+cmdline="execveat03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+execveat_child.c:17: PASS: execveat_child run as expected
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=1 termination_type=exited termination_id=0 corefile=no
+cutime=1 cstime=3
+<<<test_end>>>
+<<<test_start>>>
+tag=exit01 stime=1570499134
+cmdline="exit01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+exit01      1  TPASS  :  exit() test PASSED
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=exit02 stime=1570499134
+cmdline="exit02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+exit02.c:46: PASS: File written by child read back correctly
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=exit_group01 stime=1570499134
+cmdline="exit_group01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+exit_group01    1  TPASS  :  exit_group() succeeded
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=faccessat01 stime=1570499134
+cmdline="faccessat01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+faccessat01    1  TPASS  :  faccessat() returned the expected  errno 0: Success
+faccessat01    2  TPASS  :  faccessat() returned the expected  errno 0: Success
+faccessat01    3  TPASS  :  faccessat() returned the expected  errno 20: Not a directory
+faccessat01    4  TPASS  :  faccessat() returned the expected  errno 9: Bad file descriptor
+faccessat01    5  TPASS  :  faccessat() returned the expected  errno 0: Success
+faccessat01    6  TPASS  :  faccessat() returned the expected  errno 0: Success
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fallocate01 stime=1570499134
+cmdline="fallocate01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fallocate01    1  TPASS  :  fallocate(7, 0, 49152, 4096) returned 0
+fallocate01    2  TPASS  :  write operation on fallocated(7, 0, 49152, 4096) returned 1
+fallocate01    3  TPASS  :  fallocate(8, 1, 49152, 4096) returned 0
+fallocate01    4  TPASS  :  write operation on fallocated(8, 1, 49152, 4096) returned 1
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fallocate02 stime=1570499134
+cmdline="fallocate02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fallocate02    1  TPASS  :  fallocate(test_file1:7, 1, 0, 1024) returned 9: TEST_ERRNO=EBADF(9): Bad file descriptor
+fallocate02    2  TPASS  :  fallocate(test_file2:8, 1, -1024, 1024) returned 22: TEST_ERRNO=EINVAL(22): Invalid argument
+fallocate02    3  TPASS  :  fallocate(test_file2:8, 1, 1024, -1024) returned 22: TEST_ERRNO=EINVAL(22): Invalid argument
+fallocate02    4  TPASS  :  fallocate(test_file2:8, 1, 12288, 0) returned 22: TEST_ERRNO=EINVAL(22): Invalid argument
+fallocate02    5  TPASS  :  fallocate(test_file2:8, 1, 12288, -1024) returned 22: TEST_ERRNO=EINVAL(22): Invalid argument
+fallocate02    6  TPASS  :  fallocate(test_file2:8, 1, -24576, 1024) returned 22: TEST_ERRNO=EINVAL(22): Invalid argument
+fallocate02    7  TPASS  :  fallocate(test_file2:8, 1, 9223372036854774784, 1024) returned 27: TEST_ERRNO=EFBIG(27): File too large
+fallocate02    8  TPASS  :  fallocate(test_file2:8, 1, 1024, 9223372036854774784) returned 27: TEST_ERRNO=EFBIG(27): File too large
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fallocate03 stime=1570499134
+cmdline="fallocate03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fallocate03    1  TPASS  :  fallocate(tfile_sparse_16966, 0, 8192, 4096) returned 0
+fallocate03    2  TPASS  :  fallocate(tfile_sparse_16966, 0, 49152, 4096) returned 0
+fallocate03    3  TPASS  :  fallocate(tfile_sparse_16966, 0, 69632, 4096) returned 0
+fallocate03    4  TPASS  :  fallocate(tfile_sparse_16966, 0, 102400, 4096) returned 0
+fallocate03    5  TPASS  :  fallocate(tfile_sparse_16966, 1, 8192, 4096) returned 0
+fallocate03    6  TPASS  :  fallocate(tfile_sparse_16966, 1, 49152, 4096) returned 0
+fallocate03    7  TPASS  :  fallocate(tfile_sparse_16966, 1, 77824, 4096) returned 0
+fallocate03    8  TPASS  :  fallocate(tfile_sparse_16966, 1, 106496, 4096) returned 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fallocate04 stime=1570499134
+cmdline="fallocate04"
 contacts=""
 analysis=exit
 <<<test_output>>>
@@ -18607,51 +13897,131 @@ tst_supported_fs_types.c:44: INFO: mkfs.exfat does exist
 tst_supported_fs_types.c:92: INFO: FUSE does support ntfs
 tst_supported_fs_types.c:44: INFO: mkfs.ntfs does exist
 tst_test.c:1179: INFO: Testing on ext2
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_numa.c:191: INFO: Found 1 NUMA memory nodes
-set_mempolicy03.c:37: CONF: Test requires at least two NUMA memory nodes
+fallocate04.c:82: INFO: allocate '3072' bytes
+fallocate04.c:86: CONF: fallocate() not supported
 tst_test.c:1179: INFO: Testing on ext3
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_numa.c:191: INFO: Found 1 NUMA memory nodes
-set_mempolicy03.c:37: CONF: Test requires at least two NUMA memory nodes
+fallocate04.c:82: INFO: allocate '3072' bytes
+fallocate04.c:86: CONF: fallocate() not supported
 tst_test.c:1179: INFO: Testing on ext4
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_numa.c:191: INFO: Found 1 NUMA memory nodes
-set_mempolicy03.c:37: CONF: Test requires at least two NUMA memory nodes
+fallocate04.c:82: INFO: allocate '3072' bytes
+fallocate04.c:96: PASS: test-case succeeded
+fallocate04.c:103: INFO: read allocated file size '3072'
+fallocate04.c:104: INFO: make a hole with FALLOC_FL_PUNCH_HOLE
+fallocate04.c:120: INFO: check that file has a hole with lseek(,,SEEK_HOLE)
+fallocate04.c:137: INFO: found a hole at '1024' offset
+fallocate04.c:143: INFO: allocated file size before '3072' and after '2048'
+fallocate04.c:66: INFO: reading the file, compare with expected buffer
+fallocate04.c:154: PASS: test-case succeeded
+fallocate04.c:159: INFO: zeroing file space with FALLOC_FL_ZERO_RANGE
+fallocate04.c:168: INFO: read current allocated file size '2048'
+fallocate04.c:185: INFO: allocated file size before '2048' and after '3072'
+fallocate04.c:66: INFO: reading the file, compare with expected buffer
+fallocate04.c:196: PASS: test-case succeeded
+fallocate04.c:201: INFO: collapsing file space with FALLOC_FL_COLLAPSE_RANGE
+fallocate04.c:205: INFO: read current allocated file size '3072'
+fallocate04.c:219: INFO: allocated file size before '3072' and after '2048'
+fallocate04.c:66: INFO: reading the file, compare with expected buffer
+fallocate04.c:236: PASS: test-case succeeded
+fallocate04.c:241: INFO: inserting space with FALLOC_FL_INSERT_RANGE
+fallocate04.c:245: INFO: read current allocated file size '2048'
+fallocate04.c:263: INFO: allocated file size before '2048' and after '3072'
+fallocate04.c:66: INFO: reading the file, compare with expected buffer
+fallocate04.c:274: PASS: test-case succeeded
 tst_test.c:1179: INFO: Testing on xfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with xfs opts='' extra opts=''
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_numa.c:191: INFO: Found 1 NUMA memory nodes
-set_mempolicy03.c:37: CONF: Test requires at least two NUMA memory nodes
+fallocate04.c:82: INFO: allocate '12288' bytes
+fallocate04.c:96: PASS: test-case succeeded
+fallocate04.c:103: INFO: read allocated file size '12288'
+fallocate04.c:104: INFO: make a hole with FALLOC_FL_PUNCH_HOLE
+fallocate04.c:120: INFO: check that file has a hole with lseek(,,SEEK_HOLE)
+fallocate04.c:137: INFO: found a hole at '4096' offset
+fallocate04.c:143: INFO: allocated file size before '12288' and after '8192'
+fallocate04.c:66: INFO: reading the file, compare with expected buffer
+fallocate04.c:154: PASS: test-case succeeded
+fallocate04.c:159: INFO: zeroing file space with FALLOC_FL_ZERO_RANGE
+fallocate04.c:168: INFO: read current allocated file size '8192'
+fallocate04.c:185: INFO: allocated file size before '8192' and after '12288'
+fallocate04.c:66: INFO: reading the file, compare with expected buffer
+fallocate04.c:196: PASS: test-case succeeded
+fallocate04.c:201: INFO: collapsing file space with FALLOC_FL_COLLAPSE_RANGE
+fallocate04.c:205: INFO: read current allocated file size '12288'
+fallocate04.c:219: INFO: allocated file size before '12288' and after '8192'
+fallocate04.c:66: INFO: reading the file, compare with expected buffer
+fallocate04.c:236: PASS: test-case succeeded
+fallocate04.c:241: INFO: inserting space with FALLOC_FL_INSERT_RANGE
+fallocate04.c:245: INFO: read current allocated file size '8192'
+fallocate04.c:263: INFO: allocated file size before '8192' and after '12288'
+fallocate04.c:66: INFO: reading the file, compare with expected buffer
+fallocate04.c:274: PASS: test-case succeeded
 tst_test.c:1179: INFO: Testing on btrfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with btrfs opts='' extra opts=''
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_numa.c:191: INFO: Found 1 NUMA memory nodes
-set_mempolicy03.c:37: CONF: Test requires at least two NUMA memory nodes
+fallocate04.c:82: INFO: allocate '12288' bytes
+fallocate04.c:96: PASS: test-case succeeded
+fallocate04.c:103: INFO: read allocated file size '12288'
+fallocate04.c:104: INFO: make a hole with FALLOC_FL_PUNCH_HOLE
+fallocate04.c:120: INFO: check that file has a hole with lseek(,,SEEK_HOLE)
+fallocate04.c:137: INFO: found a hole at '4096' offset
+fallocate04.c:143: INFO: allocated file size before '12288' and after '8192'
+fallocate04.c:66: INFO: reading the file, compare with expected buffer
+fallocate04.c:154: PASS: test-case succeeded
+fallocate04.c:159: INFO: zeroing file space with FALLOC_FL_ZERO_RANGE
+fallocate04.c:168: INFO: read current allocated file size '8192'
+fallocate04.c:185: INFO: allocated file size before '8192' and after '12288'
+fallocate04.c:66: INFO: reading the file, compare with expected buffer
+fallocate04.c:196: PASS: test-case succeeded
+fallocate04.c:201: INFO: collapsing file space with FALLOC_FL_COLLAPSE_RANGE
+fallocate04.c:205: INFO: read current allocated file size '12288'
+fallocate04.c:211: CONF: FALLOC_FL_COLLAPSE_RANGE not supported
 tst_test.c:1179: INFO: Testing on vfat
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_numa.c:191: INFO: Found 1 NUMA memory nodes
-set_mempolicy03.c:37: CONF: Test requires at least two NUMA memory nodes
+fallocate04.c:82: INFO: allocate '12288' bytes
+fallocate04.c:96: PASS: test-case succeeded
+fallocate04.c:103: INFO: read allocated file size '12288'
+fallocate04.c:104: INFO: make a hole with FALLOC_FL_PUNCH_HOLE
+fallocate04.c:115: CONF: FALLOC_FL_PUNCH_HOLE not supported
 tst_test.c:1179: INFO: Testing on exfat
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with exfat opts='' extra opts=''
+safe_macros.c:743: INFO: Trying FUSE...
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_numa.c:191: INFO: Found 1 NUMA memory nodes
-set_mempolicy03.c:37: CONF: Test requires at least two NUMA memory nodes
+fallocate04.c:82: INFO: allocate '12288' bytes
+fallocate04.c:86: CONF: fallocate() not supported
 tst_test.c:1179: INFO: Testing on ntfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ntfs opts='' extra opts=''
+The partition start sector was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+The number of sectors per track was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+The number of heads was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
+Windows will not be able to boot from this device.
+safe_macros.c:743: INFO: Trying FUSE...
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_numa.c:191: INFO: Found 1 NUMA memory nodes
-set_mempolicy03.c:37: CONF: Test requires at least two NUMA memory nodes
+fallocate04.c:82: INFO: allocate '12288' bytes
+fallocate04.c:86: CONF: fallocate() not supported
 
 Summary:
-passed   0
+passed   14
 failed   0
-skipped  8
+skipped  6
 warnings 0
 <<<execution_status>>>
 initiation_status="ok"
-duration=0 termination_type=exited termination_id=32 corefile=no
-cutime=1 cstime=2
+duration=6 termination_type=exited termination_id=0 corefile=no
+cutime=8 cstime=136
 <<<test_end>>>
 <<<test_start>>>
-tag=set_mempolicy04 stime=1570467569
-cmdline="set_mempolicy04"
+tag=fallocate05 stime=1570499140
+cmdline="fallocate05"
 contacts=""
 analysis=exit
 <<<test_output>>>
@@ -18673,98 +14043,2294 @@ tst_supported_fs_types.c:44: INFO: mkfs.exfat does exist
 tst_supported_fs_types.c:92: INFO: FUSE does support ntfs
 tst_supported_fs_types.c:44: INFO: mkfs.ntfs does exist
 tst_test.c:1179: INFO: Testing on ext2
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_numa.c:191: INFO: Found 1 NUMA memory nodes
-set_mempolicy04.c:48: CONF: Test requires at least two NUMA memory nodes
+fallocate05.c:34: CONF: fallocate() not supported: EOPNOTSUPP (95)
 tst_test.c:1179: INFO: Testing on ext3
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_numa.c:191: INFO: Found 1 NUMA memory nodes
-set_mempolicy04.c:48: CONF: Test requires at least two NUMA memory nodes
+fallocate05.c:34: CONF: fallocate() not supported: EOPNOTSUPP (95)
 tst_test.c:1179: INFO: Testing on ext4
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_numa.c:191: INFO: Found 1 NUMA memory nodes
-set_mempolicy04.c:48: CONF: Test requires at least two NUMA memory nodes
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file0 size 21710183
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file1 size 8070086
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file2 size 3971177
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file3 size 36915315
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file4 size 70310993
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file5 size 4807935
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file6 size 90739786
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file7 size 76896492
+tst_fill_fs.c:49: INFO: write(): ENOSPC (28)
+fallocate05.c:50: PASS: write() wrote 8192 bytes
+fallocate05.c:59: PASS: fallocate() on full FS: ENOSPC (28)
+fallocate05.c:68: PASS: fallocate(FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE)
+fallocate05.c:74: PASS: write()
 tst_test.c:1179: INFO: Testing on xfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with xfs opts='' extra opts=''
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_numa.c:191: INFO: Found 1 NUMA memory nodes
-set_mempolicy04.c:48: CONF: Test requires at least two NUMA memory nodes
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file0 size 21710183
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file1 size 8070086
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file2 size 3971177
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file3 size 36915315
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file4 size 70310993
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file5 size 4807935
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file6 size 90739786
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file7 size 76896492
+tst_fill_fs.c:49: INFO: write(): ENOSPC (28)
+fallocate05.c:50: PASS: write() wrote 8192 bytes
+fallocate05.c:59: PASS: fallocate() on full FS: ENOSPC (28)
+fallocate05.c:68: PASS: fallocate(FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE)
+fallocate05.c:74: PASS: write()
 tst_test.c:1179: INFO: Testing on btrfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with btrfs opts='' extra opts=''
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_numa.c:191: INFO: Found 1 NUMA memory nodes
-set_mempolicy04.c:48: CONF: Test requires at least two NUMA memory nodes
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file0 size 21710183
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file1 size 8070086
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file2 size 3971177
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file3 size 36915315
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file4 size 70310993
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file5 size 4807935
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file6 size 90739786
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file7 size 76896492
+tst_fill_fs.c:49: INFO: write(): ENOSPC (28)
+fallocate05.c:50: PASS: write() wrote 8192 bytes
+fallocate05.c:59: PASS: fallocate() on full FS: ENOSPC (28)
+fallocate05.c:68: PASS: fallocate(FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE)
+fallocate05.c:74: PASS: write()
 tst_test.c:1179: INFO: Testing on vfat
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_numa.c:191: INFO: Found 1 NUMA memory nodes
-set_mempolicy04.c:48: CONF: Test requires at least two NUMA memory nodes
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file0 size 21710183
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file1 size 8070086
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file2 size 3971177
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file3 size 36915315
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file4 size 70310993
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file5 size 4807935
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file6 size 90739786
+tst_fill_fs.c:29: INFO: Creating file mntpoint/file7 size 76896492
+tst_fill_fs.c:49: INFO: write(): ENOSPC (28)
+fallocate05.c:50: PASS: write() wrote 8192 bytes
+fallocate05.c:59: PASS: fallocate() on full FS: ENOSPC (28)
+fallocate05.c:64: CONF: fallocate(FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE)
 tst_test.c:1179: INFO: Testing on exfat
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with exfat opts='' extra opts=''
+safe_macros.c:743: INFO: Trying FUSE...
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_numa.c:191: INFO: Found 1 NUMA memory nodes
-set_mempolicy04.c:48: CONF: Test requires at least two NUMA memory nodes
+fallocate05.c:34: CONF: fallocate() not supported: EOPNOTSUPP (95)
 tst_test.c:1179: INFO: Testing on ntfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ntfs opts='' extra opts=''
+The partition start sector was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+The number of sectors per track was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+The number of heads was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
+Windows will not be able to boot from this device.
+safe_macros.c:743: INFO: Trying FUSE...
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_numa.c:191: INFO: Found 1 NUMA memory nodes
-set_mempolicy04.c:48: CONF: Test requires at least two NUMA memory nodes
+fallocate05.c:34: CONF: fallocate() not supported: EOPNOTSUPP (95)
 
 Summary:
-passed   0
+passed   14
 failed   0
-skipped  8
+skipped  5
 warnings 0
 <<<execution_status>>>
 initiation_status="ok"
-duration=0 termination_type=exited termination_id=32 corefile=no
-cutime=1 cstime=2
+duration=13 termination_type=exited termination_id=0 corefile=no
+cutime=18 cstime=263
 <<<test_end>>>
 <<<test_start>>>
-tag=set_robust_list01 stime=1570467569
-cmdline="set_robust_list01"
+tag=fsetxattr01 stime=1570499153
+cmdline="fsetxattr01"
 contacts=""
 analysis=exit
 <<<test_output>>>
-set_robust_list01    1  TPASS  :  set_robust_list: retval = -1 (expected -1), errno = 22 (expected 22)
-set_robust_list01    2  TPASS  :  set_robust_list: retval = 0 (expected 0), errno = 0 (expected 0)
+tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
+tst_supported_fs_types.c:60: INFO: Kernel supports ext2
+tst_supported_fs_types.c:44: INFO: mkfs.ext2 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports ext3
+tst_supported_fs_types.c:44: INFO: mkfs.ext3 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports ext4
+tst_supported_fs_types.c:44: INFO: mkfs.ext4 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports xfs
+tst_supported_fs_types.c:44: INFO: mkfs.xfs does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports btrfs
+tst_supported_fs_types.c:44: INFO: mkfs.btrfs does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports vfat
+tst_supported_fs_types.c:44: INFO: mkfs.vfat does exist
+tst_supported_fs_types.c:92: INFO: FUSE does support exfat
+tst_supported_fs_types.c:44: INFO: mkfs.exfat does exist
+tst_supported_fs_types.c:92: INFO: FUSE does support ntfs
+tst_supported_fs_types.c:44: INFO: mkfs.ntfs does exist
+tst_test.c:1179: INFO: Testing on ext2
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EINVAL (22)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: ENODATA (61)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: ERANGE (34)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: E2BIG (7)
+fsetxattr01.c:164: PASS: fsetxattr(2) passed
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EEXIST (17)
+fsetxattr01.c:164: PASS: fsetxattr(2) passed
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: ERANGE (34)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EFAULT (14)
+tst_test.c:1179: INFO: Testing on ext3
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EINVAL (22)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: ENODATA (61)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: ERANGE (34)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: E2BIG (7)
+fsetxattr01.c:164: PASS: fsetxattr(2) passed
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EEXIST (17)
+fsetxattr01.c:164: PASS: fsetxattr(2) passed
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: ERANGE (34)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EFAULT (14)
+tst_test.c:1179: INFO: Testing on ext4
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EINVAL (22)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: ENODATA (61)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: ERANGE (34)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: E2BIG (7)
+fsetxattr01.c:164: PASS: fsetxattr(2) passed
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EEXIST (17)
+fsetxattr01.c:164: PASS: fsetxattr(2) passed
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: ERANGE (34)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EFAULT (14)
+tst_test.c:1179: INFO: Testing on xfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with xfs opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EINVAL (22)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: ENODATA (61)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: ERANGE (34)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: E2BIG (7)
+fsetxattr01.c:164: PASS: fsetxattr(2) passed
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EEXIST (17)
+fsetxattr01.c:164: PASS: fsetxattr(2) passed
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: ERANGE (34)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EFAULT (14)
+tst_test.c:1179: INFO: Testing on btrfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with btrfs opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EINVAL (22)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: ENODATA (61)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: ERANGE (34)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: E2BIG (7)
+fsetxattr01.c:164: PASS: fsetxattr(2) passed
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EEXIST (17)
+fsetxattr01.c:164: PASS: fsetxattr(2) passed
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: ERANGE (34)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EFAULT (14)
+tst_test.c:1179: INFO: Testing on vfat
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EINVAL (22)
+fsetxattr01.c:150: CONF: fsetxattr(2) not supported
+tst_test.c:1179: INFO: Testing on exfat
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with exfat opts='' extra opts=''
+safe_macros.c:743: INFO: Trying FUSE...
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EINVAL (22)
+fsetxattr01.c:150: CONF: fsetxattr(2) not supported
+tst_test.c:1179: INFO: Testing on ntfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ntfs opts='' extra opts=''
+The partition start sector was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+The number of sectors per track was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+The number of heads was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
+Windows will not be able to boot from this device.
+safe_macros.c:743: INFO: Trying FUSE...
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EINVAL (22)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: ENODATA (61)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: ERANGE (34)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: E2BIG (7)
+fsetxattr01.c:164: PASS: fsetxattr(2) passed
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EEXIST (17)
+fsetxattr01.c:164: PASS: fsetxattr(2) passed
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: ERANGE (34)
+fsetxattr01.c:186: PASS: fsetxattr(2) failed: EFAULT (14)
+
+Summary:
+passed   56
+failed   0
+skipped  2
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=9 termination_type=exited termination_id=0 corefile=no
+cutime=11 cstime=127
+<<<test_end>>>
+<<<test_start>>>
+tag=fsetxattr02 stime=1570499162
+cmdline="fsetxattr02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsetxattr02.c:170: PASS: fsetxattr(2) on testfile passed
+fsetxattr02.c:170: PASS: fsetxattr(2) on testdir passed
+fsetxattr02.c:192: PASS: fsetxattr(2) on symlink failed: EEXIST (17)
+fsetxattr02.c:192: PASS: fsetxattr(2) on fifo failed: EPERM (1)
+fsetxattr02.c:192: PASS: fsetxattr(2) on chr failed: EPERM (1)
+fsetxattr02.c:192: PASS: fsetxattr(2) on blk failed: EPERM (1)
+fsetxattr02.c:192: PASS: fsetxattr(2) on sock failed: EPERM (1)
+
+Summary:
+passed   7
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=posix_fadvise01 stime=1570499162
+cmdline="                     posix_fadvise01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+posix_fadvise01.c:55: PASS: call succeeded expectedly
+posix_fadvise01.c:55: PASS: call succeeded expectedly
+posix_fadvise01.c:55: PASS: call succeeded expectedly
+posix_fadvise01.c:55: PASS: call succeeded expectedly
+posix_fadvise01.c:55: PASS: call succeeded expectedly
+posix_fadvise01.c:55: PASS: call succeeded expectedly
+
+Summary:
+passed   6
+failed   0
+skipped  0
+warnings 0
 <<<execution_status>>>
 initiation_status="ok"
 duration=0 termination_type=exited termination_id=0 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=set_thread_area01 stime=1570467569
-cmdline="set_thread_area01"
+tag=posix_fadvise01_64 stime=1570499162
+cmdline="               posix_fadvise01_64"
 contacts=""
 analysis=exit
 <<<test_output>>>
-set_thread_area_01    1  TCONF  :  set_thread_area01.c:77: syscall(205) tests[i].syscall not supported on your arch
-set_thread_area_01    2  TCONF  :  set_thread_area01.c:77: Remaining cases not appropriate for configuration
-<<<execution_status>>>
-initiation_status="ok"
-duration=0 termination_type=exited termination_id=32 corefile=no
-cutime=0 cstime=0
-<<<test_end>>>
-<<<test_start>>>
-tag=set_tid_address01 stime=1570467569
-cmdline="set_tid_address01"
-contacts=""
-analysis=exit
-<<<test_output>>>
-set_tid_address01    1  TPASS  :  set_tid_address call succeeded:  as expected 5719
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+posix_fadvise01.c:55: PASS: call succeeded expectedly
+posix_fadvise01.c:55: PASS: call succeeded expectedly
+posix_fadvise01.c:55: PASS: call succeeded expectedly
+posix_fadvise01.c:55: PASS: call succeeded expectedly
+posix_fadvise01.c:55: PASS: call succeeded expectedly
+posix_fadvise01.c:55: PASS: call succeeded expectedly
+
+Summary:
+passed   6
+failed   0
+skipped  0
+warnings 0
 <<<execution_status>>>
 initiation_status="ok"
 duration=0 termination_type=exited termination_id=0 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=setdomainname01 stime=1570467569
-cmdline="setdomainname01"
+tag=posix_fadvise02 stime=1570499162
+cmdline="                     posix_fadvise02"
 contacts=""
 analysis=exit
 <<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-setdomainname.h:36: INFO: Testing libc setdomainname()
-setdomainname01.c:26: PASS: setdomainname() succeed
+posix_fadvise02.c:60: PASS: expected failure - returned value = 9 : EBADF
+posix_fadvise02.c:60: PASS: expected failure - returned value = 9 : EBADF
+posix_fadvise02.c:60: PASS: expected failure - returned value = 9 : EBADF
+posix_fadvise02.c:60: PASS: expected failure - returned value = 9 : EBADF
+posix_fadvise02.c:60: PASS: expected failure - returned value = 9 : EBADF
+posix_fadvise02.c:60: PASS: expected failure - returned value = 9 : EBADF
+
+Summary:
+passed   6
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=posix_fadvise02_64 stime=1570499162
+cmdline="               posix_fadvise02_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-setdomainname.h:39: INFO: Testing __NR_setdomainname syscall
-setdomainname01.c:26: PASS: setdomainname() succeed
+posix_fadvise02.c:60: PASS: expected failure - returned value = 9 : EBADF
+posix_fadvise02.c:60: PASS: expected failure - returned value = 9 : EBADF
+posix_fadvise02.c:60: PASS: expected failure - returned value = 9 : EBADF
+posix_fadvise02.c:60: PASS: expected failure - returned value = 9 : EBADF
+posix_fadvise02.c:60: PASS: expected failure - returned value = 9 : EBADF
+posix_fadvise02.c:60: PASS: expected failure - returned value = 9 : EBADF
+
+Summary:
+passed   6
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=1 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=posix_fadvise03 stime=1570499163
+cmdline="                     posix_fadvise03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+posix_fadvise03.c:87: PASS: skipping defined - advise = 0
+posix_fadvise03.c:87: PASS: skipping defined - advise = 1
+posix_fadvise03.c:87: PASS: skipping defined - advise = 2
+posix_fadvise03.c:87: PASS: skipping defined - advise = 3
+posix_fadvise03.c:87: PASS: skipping defined - advise = 4
+posix_fadvise03.c:87: PASS: skipping defined - advise = 5
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 6 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 7 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 8 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 9 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 10 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 11 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 12 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 13 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 14 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 15 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 16 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 17 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 18 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 19 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 20 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 21 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 22 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 23 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 24 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 25 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 26 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 27 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 28 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 29 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 30 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 31 : EINVAL
+
+Summary:
+passed   32
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=posix_fadvise03_64 stime=1570499163
+cmdline="               posix_fadvise03_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+posix_fadvise03.c:87: PASS: skipping defined - advise = 0
+posix_fadvise03.c:87: PASS: skipping defined - advise = 1
+posix_fadvise03.c:87: PASS: skipping defined - advise = 2
+posix_fadvise03.c:87: PASS: skipping defined - advise = 3
+posix_fadvise03.c:87: PASS: skipping defined - advise = 4
+posix_fadvise03.c:87: PASS: skipping defined - advise = 5
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 6 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 7 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 8 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 9 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 10 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 11 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 12 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 13 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 14 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 15 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 16 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 17 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 18 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 19 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 20 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 21 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 22 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 23 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 24 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 25 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 26 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 27 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 28 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 29 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 30 : EINVAL
+posix_fadvise03.c:105: PASS: expected failure - returned value = 22, advise = 31 : EINVAL
+
+Summary:
+passed   32
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=posix_fadvise04 stime=1570499163
+cmdline="                     posix_fadvise04"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+posix_fadvise04.c:60: PASS: expected failure - returned value = 29 : ESPIPE
+posix_fadvise04.c:60: PASS: expected failure - returned value = 29 : ESPIPE
+posix_fadvise04.c:60: PASS: expected failure - returned value = 29 : ESPIPE
+posix_fadvise04.c:60: PASS: expected failure - returned value = 29 : ESPIPE
+posix_fadvise04.c:60: PASS: expected failure - returned value = 29 : ESPIPE
+posix_fadvise04.c:60: PASS: expected failure - returned value = 29 : ESPIPE
+
+Summary:
+passed   6
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=posix_fadvise04_64 stime=1570499163
+cmdline="               posix_fadvise04_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+posix_fadvise04.c:60: PASS: expected failure - returned value = 29 : ESPIPE
+posix_fadvise04.c:60: PASS: expected failure - returned value = 29 : ESPIPE
+posix_fadvise04.c:60: PASS: expected failure - returned value = 29 : ESPIPE
+posix_fadvise04.c:60: PASS: expected failure - returned value = 29 : ESPIPE
+posix_fadvise04.c:60: PASS: expected failure - returned value = 29 : ESPIPE
+posix_fadvise04.c:60: PASS: expected failure - returned value = 29 : ESPIPE
+
+Summary:
+passed   6
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fchdir01 stime=1570499163
+cmdline="fchdir01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fchdir01    1  TPASS  :  fchdir call succeeded
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fchdir02 stime=1570499163
+cmdline="fchdir02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fchdir02    1  TPASS  :  failed as expected with EBADF
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fchdir03 stime=1570499163
+cmdline="fchdir03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fchdir03.c:42: PASS: fchdir() failed expectedly: EACCES (13)
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=fchmod01 stime=1570499163
+cmdline="fchmod01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fchmod01.c:42: PASS: Functionality of fchmod(7, 0) successful
+fchmod01.c:42: PASS: Functionality of fchmod(7, 07) successful
+fchmod01.c:42: PASS: Functionality of fchmod(7, 070) successful
+fchmod01.c:42: PASS: Functionality of fchmod(7, 0700) successful
+fchmod01.c:42: PASS: Functionality of fchmod(7, 0777) successful
+fchmod01.c:42: PASS: Functionality of fchmod(7, 02777) successful
+fchmod01.c:42: PASS: Functionality of fchmod(7, 04777) successful
+fchmod01.c:42: PASS: Functionality of fchmod(7, 06777) successful
+
+Summary:
+passed   8
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fchmod02 stime=1570499163
+cmdline="fchmod02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fchmod02.c:44: PASS: Functionality of fchmod(7, 01777) Successful
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fchmod03 stime=1570499163
+cmdline="fchmod03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fchmod03    1  TPASS  :  Functionality of fchmod(7, 01777) successful
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fchmod04 stime=1570499163
+cmdline="fchmod04"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fchmod04    1  TPASS  :  Functionality of fchmod(7, 01777) successful
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fchmod05 stime=1570499163
+cmdline="fchmod05"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fchmod05.c:46: PASS: Functionality of fchmod(7, 043777) successful
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fchmod06 stime=1570499163
+cmdline="fchmod06"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fchmod06.c:48: PASS: fchmod() failed expectedly: EPERM (1)
+fchmod06.c:48: PASS: fchmod() failed expectedly: EBADF (9)
+fchmod06.c:48: PASS: fchmod() failed expectedly: EROFS (30)
+
+Summary:
+passed   3
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fchmodat01 stime=1570499163
+cmdline="fchmodat01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fchmodat01    1  TPASS  :  fchmodat() returned the expected  errno 0: Success
+fchmodat01    2  TPASS  :  fchmodat() returned the expected  errno 0: Success
+fchmodat01    3  TPASS  :  fchmodat() returned the expected  errno 20: Not a directory
+fchmodat01    4  TPASS  :  fchmodat() returned the expected  errno 9: Bad file descriptor
+fchmodat01    5  TPASS  :  fchmodat() returned the expected  errno 0: Success
+fchmodat01    6  TPASS  :  fchmodat() returned the expected  errno 0: Success
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fchown01 stime=1570499163
+cmdline="fchown01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fchown01    1  TPASS  :  fchown(fd, geteuid(), getegid()) returned 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fchown01_16 stime=1570499163
+cmdline="fchown01_16"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fchown01_16    1  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/fchown/../utils/compat_16.h:158: 16-bit version of fchown() is not supported on your platform
+fchown01_16    2  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/fchown/../utils/compat_16.h:158: Remaining cases not appropriate for configuration
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=32 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fchown02 stime=1570499163
+cmdline="fchown02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fchown02    1  TPASS  :  fchown() on testfile1 succeeds : Setuid/Setgid bits cleared
+fchown02    2  TPASS  :  fchown() on testfile2 succeeds : Setgid bit not cleared
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=1 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fchown02_16 stime=1570499163
+cmdline="fchown02_16"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fchown02_16    1  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/fchown/../utils/compat_16.h:158: 16-bit version of fchown() is not supported on your platform
+fchown02_16    2  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/fchown/../utils/compat_16.h:158: Remaining cases not appropriate for configuration
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=32 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=fchown03 stime=1570499163
+cmdline="fchown03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fchown03    1  TPASS  :  fchown() on testfile succeeds: Setuid/gid bits cleared
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fchown03_16 stime=1570499163
+cmdline="fchown03_16"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fchown03_16    1  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/fchown/../utils/compat_16.h:158: 16-bit version of fchown() is not supported on your platform
+fchown03_16    2  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/fchown/../utils/compat_16.h:158: Remaining cases not appropriate for configuration
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=32 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fchown04 stime=1570499163
+cmdline="fchown04"
+contacts=""
+analysis=exit
+<<<test_output>>>
+mke2fs 1.43.4 (31-Jan-2017)
+fchown04    0  TINFO  :  Using test device LTP_DEV='/dev/loop0'
+fchown04    0  TINFO  :  Formatting /dev/loop0 with ext2 opts='' extra opts=''
+fchown04    1  TPASS  :  fchown failed as expected: TEST_ERRNO=EPERM(1): Operation not permitted
+fchown04    2  TPASS  :  fchown failed as expected: TEST_ERRNO=EBADF(9): Bad file descriptor
+fchown04    3  TPASS  :  fchown failed as expected: TEST_ERRNO=EROFS(30): Read-only file system
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=2
+<<<test_end>>>
+<<<test_start>>>
+tag=fchown04_16 stime=1570499163
+cmdline="fchown04_16"
+contacts=""
+analysis=exit
+<<<test_output>>>
+mke2fs 1.43.4 (31-Jan-2017)
+fchown04_16    0  TINFO  :  Using test device LTP_DEV='/dev/loop0'
+fchown04_16    0  TINFO  :  Formatting /dev/loop0 with ext2 opts='' extra opts=''
+fchown04_16    1  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/fchown/../utils/compat_16.h:158: 16-bit version of fchown() is not supported on your platform
+fchown04_16    2  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/fchown/../utils/compat_16.h:158: Remaining cases not appropriate for configuration
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=32 corefile=no
+cutime=0 cstime=3
+<<<test_end>>>
+<<<test_start>>>
+tag=fchown05 stime=1570499163
+cmdline="fchown05"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fchown05    1  TPASS  :  fchown() succeeds to Change Owner/Group ids of testfile
+fchown05    2  TPASS  :  fchown() succeeds to Change Owner id only of testfile
+fchown05    3  TPASS  :  fchown() succeeds to Change Owner id only of testfile
+fchown05    4  TPASS  :  fchown() succeeds to Change Group id only of testfile
+fchown05    5  TPASS  :  fchown() succeeds to Change Group id only of testfile
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=fchown05_16 stime=1570499163
+cmdline="fchown05_16"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fchown05_16    1  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/fchown/../utils/compat_16.h:158: 16-bit version of fchown() is not supported on your platform
+fchown05_16    2  TCONF  :  /tmp/build-ltp/ltp/testcases/kernel/syscalls/fchown/../utils/compat_16.h:158: Remaining cases not appropriate for configuration
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=32 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fchownat01 stime=1570499163
+cmdline="fchownat01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fchownat01    1  TPASS  :  fchownat() returned the expected errno 0: Success: TEST_ERRNO=SUCCESS(0): Success
+fchownat01    2  TPASS  :  fchownat() returned the expected errno -1: Not a directory: TEST_ERRNO=ENOTDIR(20): Not a directory
+fchownat01    3  TPASS  :  fchownat() returned the expected errno -1: Bad file descriptor: TEST_ERRNO=EBADF(9): Bad file descriptor
+fchownat01    4  TPASS  :  fchownat() returned the expected errno -1: Invalid argument: TEST_ERRNO=EINVAL(22): Invalid argument
+fchownat01    5  TPASS  :  fchownat() returned the expected errno 0: Success: TEST_ERRNO=SUCCESS(0): Success
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fchownat02 stime=1570499163
+cmdline="fchownat02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fchownat02    1  TPASS  :  fchownat() test AT_SYMLINK_NOFOLLOW success
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl01 stime=1570499163
+cmdline="fcntl01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl01_64 stime=1570499163
+cmdline="fcntl01_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl02 stime=1570499163
+cmdline="fcntl02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fcntl02.c:42: PASS: fcntl(fcntl02_17475, F_DUPFD, 0) returned 8
+fcntl02.c:42: PASS: fcntl(fcntl02_17475, F_DUPFD, 1) returned 8
+fcntl02.c:42: PASS: fcntl(fcntl02_17475, F_DUPFD, 2) returned 8
+fcntl02.c:42: PASS: fcntl(fcntl02_17475, F_DUPFD, 3) returned 8
+fcntl02.c:42: PASS: fcntl(fcntl02_17475, F_DUPFD, 10) returned 10
+fcntl02.c:42: PASS: fcntl(fcntl02_17475, F_DUPFD, 100) returned 100
+
+Summary:
+passed   6
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl02_64 stime=1570499163
+cmdline="fcntl02_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fcntl02.c:42: PASS: fcntl(fcntl02_17477, F_DUPFD, 0) returned 8
+fcntl02.c:42: PASS: fcntl(fcntl02_17477, F_DUPFD, 1) returned 8
+fcntl02.c:42: PASS: fcntl(fcntl02_17477, F_DUPFD, 2) returned 8
+fcntl02.c:42: PASS: fcntl(fcntl02_17477, F_DUPFD, 3) returned 8
+fcntl02.c:42: PASS: fcntl(fcntl02_17477, F_DUPFD, 10) returned 10
+fcntl02.c:42: PASS: fcntl(fcntl02_17477, F_DUPFD, 100) returned 100
+
+Summary:
+passed   6
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl03 stime=1570499163
+cmdline="fcntl03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fcntl03.c:33: PASS: fcntl(fcntl03_17479, F_GETFD, 0) returned 0
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl03_64 stime=1570499163
+cmdline="fcntl03_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fcntl03.c:33: PASS: fcntl(fcntl03_17481, F_GETFD, 0) returned 0
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl04 stime=1570499163
+cmdline="fcntl04"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fcntl04.c:39: PASS: fcntl(fcntl04_17483, F_GETFL, 0) returned 8002
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl04_64 stime=1570499163
+cmdline="fcntl04_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fcntl04.c:39: PASS: fcntl(fcntl04_17485, F_GETFL, 0) returned 8002
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl05 stime=1570499163
+cmdline="fcntl05"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl05     1  TPASS  :  fcntl returned 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl05_64 stime=1570499163
+cmdline="fcntl05_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl05     1  TPASS  :  fcntl returned 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl06 stime=1570499163
+cmdline="fcntl06"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl06     1  TCONF  :  fcntl06.c:109: system doesn't have LINUX_LOCK_FILE_REGION support
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=32 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl06_64 stime=1570499163
+cmdline="fcntl06_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl06     1  TCONF  :  fcntl06.c:109: system doesn't have LINUX_LOCK_FILE_REGION support
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=32 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl07 stime=1570499163
+cmdline="fcntl07"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl07     1  TPASS  :  regular file CLOEXEC fd was closed after exec()
+fcntl07     2  TPASS  :  pipe (write end) CLOEXEC fd was closed after exec()
+fcntl07     3  TPASS  :  pipe (read end) CLOEXEC fd was closed after exec()
+fcntl07     4  TPASS  :  fifo CLOEXEC fd was closed after exec()
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl07_64 stime=1570499163
+cmdline="fcntl07_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl07     1  TPASS  :  regular file CLOEXEC fd was closed after exec()
+fcntl07     2  TPASS  :  pipe (write end) CLOEXEC fd was closed after exec()
+fcntl07     3  TPASS  :  pipe (read end) CLOEXEC fd was closed after exec()
+fcntl07     4  TPASS  :  fifo CLOEXEC fd was closed after exec()
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl08 stime=1570499163
+cmdline="fcntl08"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl08     1  TPASS  :  fcntl returned 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl08_64 stime=1570499163
+cmdline="fcntl08_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl08     1  TPASS  :  fcntl returned 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=1 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl09 stime=1570499163
+cmdline="fcntl09"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl09     1  TPASS  :  fcntl(./file_17502, F_SETLK, &flocks) flocks.l_type = F_WRLCK returned 0
+fcntl09     2  TPASS  :  fcntl(./file_17502, F_SETLK, &flocks) flocks.l_type = F_UNLCK returned 0
+fcntl09     1  TPASS  :  fcntl(./file_17502, F_SETLK, &flocks) flocks.l_type = F_RDLCK returned 0
+fcntl09     2  TPASS  :  fcntl(./file_17502, F_SETLK, &flocks) flocks.l_type = F_UNLCK returned 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl09_64 stime=1570499163
+cmdline="fcntl09_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl09     1  TPASS  :  fcntl(./file_17503, F_SETLK, &flocks) flocks.l_type = F_WRLCK returned 0
+fcntl09     2  TPASS  :  fcntl(./file_17503, F_SETLK, &flocks) flocks.l_type = F_UNLCK returned 0
+fcntl09     1  TPASS  :  fcntl(./file_17503, F_SETLK, &flocks) flocks.l_type = F_RDLCK returned 0
+fcntl09     2  TPASS  :  fcntl(./file_17503, F_SETLK, &flocks) flocks.l_type = F_UNLCK returned 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl10 stime=1570499163
+cmdline="fcntl10"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl10     1  TPASS  :  fcntl(tfile_17504, F_SETLKW, &flocks) flocks.l_type = F_WRLCK returned 0
+fcntl10     2  TPASS  :  fcntl(tfile_17504, F_SETLKW, &flocks) flocks.l_type = F_UNLCK returned 0
+fcntl10     1  TPASS  :  fcntl(tfile_17504, F_SETLKW, &flocks) flocks.l_type = F_RDLCK returned 0
+fcntl10     2  TPASS  :  fcntl(tfile_17504, F_SETLKW, &flocks) flocks.l_type = F_UNLCK returned 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl10_64 stime=1570499163
+cmdline="fcntl10_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl10     1  TPASS  :  fcntl(tfile_17505, F_SETLKW, &flocks) flocks.l_type = F_WRLCK returned 0
+fcntl10     2  TPASS  :  fcntl(tfile_17505, F_SETLKW, &flocks) flocks.l_type = F_UNLCK returned 0
+fcntl10     1  TPASS  :  fcntl(tfile_17505, F_SETLKW, &flocks) flocks.l_type = F_RDLCK returned 0
+fcntl10     2  TPASS  :  fcntl(tfile_17505, F_SETLKW, &flocks) flocks.l_type = F_UNLCK returned 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl11 stime=1570499163
+cmdline="fcntl11"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl11     0  TINFO  :  Enter block 1
+fcntl11     0  TINFO  :  Exit block 1
+fcntl11     0  TINFO  :  Enter block 2
+fcntl11     0  TINFO  :  Exit block 2
+fcntl11     0  TINFO  :  Enter block 3
+fcntl11     0  TINFO  :  Exit block 3
+fcntl11     0  TINFO  :  Enter block 4
+fcntl11     0  TINFO  :  Exit block 4
+fcntl11     0  TINFO  :  Enter block 5
+fcntl11     0  TINFO  :  Exit block 5
+fcntl11     0  TINFO  :  Enter block 6
+fcntl11     0  TINFO  :  Exit block 6
+fcntl11     0  TINFO  :  Enter block 7
+fcntl11     0  TINFO  :  Exit block 7
+fcntl11     0  TINFO  :  Enter block 8
+fcntl11     0  TINFO  :  Exit block 8
+fcntl11     0  TINFO  :  Enter block 9
+fcntl11     0  TINFO  :  Exit block 9
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl11_64 stime=1570499163
+cmdline="fcntl11_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl11     0  TINFO  :  Enter block 1
+fcntl11     0  TINFO  :  Exit block 1
+fcntl11     0  TINFO  :  Enter block 2
+fcntl11     0  TINFO  :  Exit block 2
+fcntl11     0  TINFO  :  Enter block 3
+fcntl11     0  TINFO  :  Exit block 3
+fcntl11     0  TINFO  :  Enter block 4
+fcntl11     0  TINFO  :  Exit block 4
+fcntl11     0  TINFO  :  Enter block 5
+fcntl11     0  TINFO  :  Exit block 5
+fcntl11     0  TINFO  :  Enter block 6
+fcntl11     0  TINFO  :  Exit block 6
+fcntl11     0  TINFO  :  Enter block 7
+fcntl11     0  TINFO  :  Exit block 7
+fcntl11     0  TINFO  :  Enter block 8
+fcntl11     0  TINFO  :  Exit block 8
+fcntl11     0  TINFO  :  Enter block 9
+fcntl11     0  TINFO  :  Exit block 9
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl12 stime=1570499163
+cmdline="fcntl12"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl12     0  TINFO  :  Test for errno EMFILE
+fcntl12     1  TPASS  :  block 1 PASSED
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl12_64 stime=1570499163
+cmdline="fcntl12_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl12     0  TINFO  :  Test for errno EMFILE
+fcntl12     1  TPASS  :  block 1 PASSED
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl13 stime=1570499163
+cmdline="fcntl13"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl13     1  TPASS  :  got EINVAL
+fcntl13     2  TPASS  :  F_SETLK: got EFAULT
+fcntl13     3  TPASS  :  F_SETLKW: got EFAULT
+fcntl13     4  TPASS  :  F_GETLK: got EFAULT
+fcntl13     5  TPASS  :  got EINVAL
+fcntl13     6  TPASS  :  got EBADFD
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl13_64 stime=1570499163
+cmdline="fcntl13_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl13     1  TPASS  :  got EINVAL
+fcntl13     2  TPASS  :  F_SETLK: got EFAULT
+fcntl13     3  TPASS  :  F_SETLKW: got EFAULT
+fcntl13     4  TPASS  :  F_GETLK: got EFAULT
+fcntl13     5  TPASS  :  got EINVAL
+fcntl13     6  TPASS  :  got EBADFD
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl14 stime=1570499163
+cmdline="fcntl14"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl14     0  TINFO  :  Enter block 1: without mandatory locking
+fcntl14     1  TPASS  :  testcase:1 PASSED
+fcntl14     2  TPASS  :  testcase:2 PASSED
+fcntl14     3  TPASS  :  testcase:3 PASSED
+fcntl14     4  TPASS  :  testcase:4 PASSED
+fcntl14     5  TPASS  :  testcase:5 PASSED
+fcntl14     6  TPASS  :  testcase:6 PASSED
+fcntl14     7  TPASS  :  testcase:7 PASSED
+fcntl14     8  TPASS  :  testcase:8 PASSED
+fcntl14     9  TPASS  :  testcase:9 PASSED
+fcntl14    10  TPASS  :  testcase:10 PASSED
+fcntl14    11  TPASS  :  testcase:11 PASSED
+fcntl14    12  TPASS  :  testcase:12 PASSED
+fcntl14    13  TPASS  :  testcase:13 PASSED
+fcntl14    14  TPASS  :  testcase:14 PASSED
+fcntl14    15  TPASS  :  testcase:15 PASSED
+fcntl14    16  TPASS  :  testcase:16 PASSED
+fcntl14    17  TPASS  :  testcase:17 PASSED
+fcntl14    18  TPASS  :  testcase:18 PASSED
+fcntl14    19  TPASS  :  testcase:19 PASSED
+fcntl14    20  TPASS  :  testcase:20 PASSED
+fcntl14    21  TPASS  :  testcase:21 PASSED
+fcntl14    22  TPASS  :  testcase:22 PASSED
+fcntl14    23  TPASS  :  testcase:23 PASSED
+fcntl14    24  TPASS  :  testcase:24 PASSED
+fcntl14    25  TPASS  :  testcase:25 PASSED
+fcntl14    26  TPASS  :  testcase:26 PASSED
+fcntl14    27  TPASS  :  testcase:27 PASSED
+fcntl14    28  TPASS  :  testcase:28 PASSED
+fcntl14    29  TPASS  :  testcase:29 PASSED
+fcntl14    30  TPASS  :  testcase:30 PASSED
+fcntl14    31  TPASS  :  testcase:31 PASSED
+fcntl14    32  TPASS  :  testcase:32 PASSED
+fcntl14    33  TPASS  :  testcase:33 PASSED
+fcntl14    34  TPASS  :  testcase:34 PASSED
+fcntl14    35  TPASS  :  testcase:35 PASSED
+fcntl14    36  TPASS  :  testcase:36 PASSED
+fcntl14    37  TPASS  :  Block 1, test 1 PASSED
+fcntl14    38  TPASS  :  testcase:37 PASSED
+fcntl14    39  TPASS  :  testcase:38 PASSED
+fcntl14    40  TPASS  :  testcase:39 PASSED
+fcntl14    41  TPASS  :  testcase:40 PASSED
+fcntl14    42  TPASS  :  testcase:41 PASSED
+fcntl14    43  TPASS  :  testcase:42 PASSED
+fcntl14    44  TPASS  :  testcase:43 PASSED
+fcntl14    45  TPASS  :  testcase:44 PASSED
+fcntl14    46  TPASS  :  testcase:45 PASSED
+fcntl14    47  TPASS  :  Block 1, test 2 PASSED
+fcntl14     0  TINFO  :  Exit block 1
+fcntl14     0  TINFO  :  Enter block 2: with mandatory locking
+fcntl14    48  TPASS  :  testcase:1 PASSED
+fcntl14    49  TPASS  :  testcase:2 PASSED
+fcntl14    50  TPASS  :  testcase:3 PASSED
+fcntl14    51  TPASS  :  testcase:4 PASSED
+fcntl14    52  TPASS  :  testcase:5 PASSED
+fcntl14    53  TPASS  :  testcase:6 PASSED
+fcntl14    54  TPASS  :  testcase:7 PASSED
+fcntl14    55  TPASS  :  testcase:8 PASSED
+fcntl14    56  TPASS  :  testcase:9 PASSED
+fcntl14    57  TPASS  :  testcase:10 PASSED
+fcntl14    58  TPASS  :  testcase:11 PASSED
+fcntl14    59  TPASS  :  testcase:12 PASSED
+fcntl14    60  TPASS  :  testcase:13 PASSED
+fcntl14    61  TPASS  :  testcase:14 PASSED
+fcntl14    62  TPASS  :  testcase:15 PASSED
+fcntl14    63  TPASS  :  testcase:16 PASSED
+fcntl14    64  TPASS  :  testcase:17 PASSED
+fcntl14    65  TPASS  :  testcase:18 PASSED
+fcntl14    66  TPASS  :  testcase:19 PASSED
+fcntl14    67  TPASS  :  testcase:20 PASSED
+fcntl14    68  TPASS  :  testcase:21 PASSED
+fcntl14    69  TPASS  :  testcase:22 PASSED
+fcntl14    70  TPASS  :  testcase:23 PASSED
+fcntl14    71  TPASS  :  testcase:24 PASSED
+fcntl14    72  TPASS  :  testcase:25 PASSED
+fcntl14    73  TPASS  :  testcase:26 PASSED
+fcntl14    74  TPASS  :  testcase:27 PASSED
+fcntl14    75  TPASS  :  testcase:28 PASSED
+fcntl14    76  TPASS  :  testcase:29 PASSED
+fcntl14    77  TPASS  :  testcase:30 PASSED
+fcntl14    78  TPASS  :  testcase:31 PASSED
+fcntl14    79  TPASS  :  testcase:32 PASSED
+fcntl14    80  TPASS  :  testcase:33 PASSED
+fcntl14    81  TPASS  :  testcase:34 PASSED
+fcntl14    82  TPASS  :  testcase:35 PASSED
+fcntl14    83  TPASS  :  testcase:36 PASSED
+fcntl14    84  TPASS  :  Block 2, test 1 PASSED
+fcntl14    85  TPASS  :  testcase:37 PASSED
+fcntl14    86  TPASS  :  testcase:38 PASSED
+fcntl14    87  TPASS  :  testcase:39 PASSED
+fcntl14    88  TPASS  :  testcase:40 PASSED
+fcntl14    89  TPASS  :  testcase:41 PASSED
+fcntl14    90  TPASS  :  testcase:42 PASSED
+fcntl14    91  TPASS  :  testcase:43 PASSED
+fcntl14    92  TPASS  :  testcase:44 PASSED
+fcntl14    93  TPASS  :  testcase:45 PASSED
+fcntl14    94  TPASS  :  Block 2, test 2 PASSED
+fcntl14     0  TINFO  :  Exit block 2
+fcntl14     0  TINFO  :  Enter block 3
+fcntl14    95  TPASS  :  Test with negative whence locking PASSED
+fcntl14     0  TINFO  :  Exit block 3
+fcntl14     0  TINFO  :  Enter block 4
+fcntl14    96  TPASS  :  Test of locks on file PASSED
+fcntl14     0  TINFO  :  Exit block 4
+<<<execution_status>>>
+initiation_status="ok"
+duration=6 termination_type=exited termination_id=0 corefile=no
+cutime=3 cstime=2
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl14_64 stime=1570499169
+cmdline="fcntl14_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl14     0  TINFO  :  Enter block 1: without mandatory locking
+fcntl14     1  TPASS  :  testcase:1 PASSED
+fcntl14     2  TPASS  :  testcase:2 PASSED
+fcntl14     3  TPASS  :  testcase:3 PASSED
+fcntl14     4  TPASS  :  testcase:4 PASSED
+fcntl14     5  TPASS  :  testcase:5 PASSED
+fcntl14     6  TPASS  :  testcase:6 PASSED
+fcntl14     7  TPASS  :  testcase:7 PASSED
+fcntl14     8  TPASS  :  testcase:8 PASSED
+fcntl14     9  TPASS  :  testcase:9 PASSED
+fcntl14    10  TPASS  :  testcase:10 PASSED
+fcntl14    11  TPASS  :  testcase:11 PASSED
+fcntl14    12  TPASS  :  testcase:12 PASSED
+fcntl14    13  TPASS  :  testcase:13 PASSED
+fcntl14    14  TPASS  :  testcase:14 PASSED
+fcntl14    15  TPASS  :  testcase:15 PASSED
+fcntl14    16  TPASS  :  testcase:16 PASSED
+fcntl14    17  TPASS  :  testcase:17 PASSED
+fcntl14    18  TPASS  :  testcase:18 PASSED
+fcntl14    19  TPASS  :  testcase:19 PASSED
+fcntl14    20  TPASS  :  testcase:20 PASSED
+fcntl14    21  TPASS  :  testcase:21 PASSED
+fcntl14    22  TPASS  :  testcase:22 PASSED
+fcntl14    23  TPASS  :  testcase:23 PASSED
+fcntl14    24  TPASS  :  testcase:24 PASSED
+fcntl14    25  TPASS  :  testcase:25 PASSED
+fcntl14    26  TPASS  :  testcase:26 PASSED
+fcntl14    27  TPASS  :  testcase:27 PASSED
+fcntl14    28  TPASS  :  testcase:28 PASSED
+fcntl14    29  TPASS  :  testcase:29 PASSED
+fcntl14    30  TPASS  :  testcase:30 PASSED
+fcntl14    31  TPASS  :  testcase:31 PASSED
+fcntl14    32  TPASS  :  testcase:32 PASSED
+fcntl14    33  TPASS  :  testcase:33 PASSED
+fcntl14    34  TPASS  :  testcase:34 PASSED
+fcntl14    35  TPASS  :  testcase:35 PASSED
+fcntl14    36  TPASS  :  testcase:36 PASSED
+fcntl14    37  TPASS  :  Block 1, test 1 PASSED
+fcntl14    38  TPASS  :  testcase:37 PASSED
+fcntl14    39  TPASS  :  testcase:38 PASSED
+fcntl14    40  TPASS  :  testcase:39 PASSED
+fcntl14    41  TPASS  :  testcase:40 PASSED
+fcntl14    42  TPASS  :  testcase:41 PASSED
+fcntl14    43  TPASS  :  testcase:42 PASSED
+fcntl14    44  TPASS  :  testcase:43 PASSED
+fcntl14    45  TPASS  :  testcase:44 PASSED
+fcntl14    46  TPASS  :  testcase:45 PASSED
+fcntl14    47  TPASS  :  Block 1, test 2 PASSED
+fcntl14     0  TINFO  :  Exit block 1
+fcntl14     0  TINFO  :  Enter block 2: with mandatory locking
+fcntl14    48  TPASS  :  testcase:1 PASSED
+fcntl14    49  TPASS  :  testcase:2 PASSED
+fcntl14    50  TPASS  :  testcase:3 PASSED
+fcntl14    51  TPASS  :  testcase:4 PASSED
+fcntl14    52  TPASS  :  testcase:5 PASSED
+fcntl14    53  TPASS  :  testcase:6 PASSED
+fcntl14    54  TPASS  :  testcase:7 PASSED
+fcntl14    55  TPASS  :  testcase:8 PASSED
+fcntl14    56  TPASS  :  testcase:9 PASSED
+fcntl14    57  TPASS  :  testcase:10 PASSED
+fcntl14    58  TPASS  :  testcase:11 PASSED
+fcntl14    59  TPASS  :  testcase:12 PASSED
+fcntl14    60  TPASS  :  testcase:13 PASSED
+fcntl14    61  TPASS  :  testcase:14 PASSED
+fcntl14    62  TPASS  :  testcase:15 PASSED
+fcntl14    63  TPASS  :  testcase:16 PASSED
+fcntl14    64  TPASS  :  testcase:17 PASSED
+fcntl14    65  TPASS  :  testcase:18 PASSED
+fcntl14    66  TPASS  :  testcase:19 PASSED
+fcntl14    67  TPASS  :  testcase:20 PASSED
+fcntl14    68  TPASS  :  testcase:21 PASSED
+fcntl14    69  TPASS  :  testcase:22 PASSED
+fcntl14    70  TPASS  :  testcase:23 PASSED
+fcntl14    71  TPASS  :  testcase:24 PASSED
+fcntl14    72  TPASS  :  testcase:25 PASSED
+fcntl14    73  TPASS  :  testcase:26 PASSED
+fcntl14    74  TPASS  :  testcase:27 PASSED
+fcntl14    75  TPASS  :  testcase:28 PASSED
+fcntl14    76  TPASS  :  testcase:29 PASSED
+fcntl14    77  TPASS  :  testcase:30 PASSED
+fcntl14    78  TPASS  :  testcase:31 PASSED
+fcntl14    79  TPASS  :  testcase:32 PASSED
+fcntl14    80  TPASS  :  testcase:33 PASSED
+fcntl14    81  TPASS  :  testcase:34 PASSED
+fcntl14    82  TPASS  :  testcase:35 PASSED
+fcntl14    83  TPASS  :  testcase:36 PASSED
+fcntl14    84  TPASS  :  Block 2, test 1 PASSED
+fcntl14    85  TPASS  :  testcase:37 PASSED
+fcntl14    86  TPASS  :  testcase:38 PASSED
+fcntl14    87  TPASS  :  testcase:39 PASSED
+fcntl14    88  TPASS  :  testcase:40 PASSED
+fcntl14    89  TPASS  :  testcase:41 PASSED
+fcntl14    90  TPASS  :  testcase:42 PASSED
+fcntl14    91  TPASS  :  testcase:43 PASSED
+fcntl14    92  TPASS  :  testcase:44 PASSED
+fcntl14    93  TPASS  :  testcase:45 PASSED
+fcntl14    94  TPASS  :  Block 2, test 2 PASSED
+fcntl14     0  TINFO  :  Exit block 2
+fcntl14     0  TINFO  :  Enter block 3
+fcntl14    95  TPASS  :  Test with negative whence locking PASSED
+fcntl14     0  TINFO  :  Exit block 3
+fcntl14     0  TINFO  :  Enter block 4
+fcntl14    96  TPASS  :  Test of locks on file PASSED
+fcntl14     0  TINFO  :  Exit block 4
+<<<execution_status>>>
+initiation_status="ok"
+duration=5 termination_type=exited termination_id=0 corefile=no
+cutime=2 cstime=3
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl15 stime=1570499174
+cmdline="fcntl15"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl15     1  TPASS  :  Test 1: test with "dup" PASSED
+fcntl15     0  TINFO  :  Failed to record test working dir
+fcntl15     2  TPASS  :  Test 2: test with "open" PASSED
+fcntl15     0  TINFO  :  Failed to record test working dir
+fcntl15     3  TPASS  :  Test 3: test with "fork" PASSED
+<<<execution_status>>>
+initiation_status="ok"
+duration=10 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl15_64 stime=1570499184
+cmdline="fcntl15_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl15     1  TPASS  :  Test 1: test with "dup" PASSED
+fcntl15     0  TINFO  :  Failed to record test working dir
+fcntl15     2  TPASS  :  Test 2: test with "open" PASSED
+fcntl15     0  TINFO  :  Failed to record test working dir
+fcntl15     3  TPASS  :  Test 3: test with "fork" PASSED
+<<<execution_status>>>
+initiation_status="ok"
+duration=10 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl16 stime=1570499194
+cmdline="fcntl16"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl16     0  TINFO  :  Entering block 1
+fcntl16     0  TINFO  :  Test case 1: without manadatory locking PASSED
+fcntl16     0  TINFO  :  Exiting block 1
+fcntl16     0  TINFO  :  Entering block 2
+fcntl16     0  TINFO  :  Test case 2: with mandatory record locking PASSED
+fcntl16     0  TINFO  :  Exiting block 2
+fcntl16     0  TINFO  :  Entering block 3
+fcntl16     0  TINFO  :  Test case 3: mandatory locking with NODELAY PASSED
+fcntl16     0  TINFO  :  Exiting block 3
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl16_64 stime=1570499194
+cmdline="fcntl16_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl16     0  TINFO  :  Entering block 1
+fcntl16     0  TINFO  :  Test case 1: without manadatory locking PASSED
+fcntl16     0  TINFO  :  Exiting block 1
+fcntl16     0  TINFO  :  Entering block 2
+fcntl16     0  TINFO  :  Test case 2: with mandatory record locking PASSED
+fcntl16     0  TINFO  :  Exiting block 2
+fcntl16     0  TINFO  :  Entering block 3
+fcntl16     0  TINFO  :  Test case 3: mandatory locking with NODELAY PASSED
+fcntl16     0  TINFO  :  Exiting block 3
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl17 stime=1570499194
+cmdline="fcntl17"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl17     0  TINFO  :  Enter preparation phase
+fcntl17     0  TINFO  :  child 3 starting
+fcntl17     0  TINFO  :  child 3 pid 17923 locked
+fcntl17     0  TINFO  :  child 3 resuming
+fcntl17     0  TINFO  :  child 3 lockw err 35
+fcntl17     0  TINFO  :  child 3 exiting
+fcntl17     0  TINFO  :  child 2 starting
+fcntl17     0  TINFO  :  child 2 pid 17922 locked
+fcntl17     0  TINFO  :  child 2 resuming
+fcntl17     0  TINFO  :  child 2 lockw locked
+fcntl17     0  TINFO  :  child 2 exiting
+fcntl17     0  TINFO  :  child 1 starting
+fcntl17     0  TINFO  :  child 1 pid 17921 locked
+fcntl17     0  TINFO  :  child 1 resuming
+fcntl17     0  TINFO  :  child 1 unlocked
+fcntl17     0  TINFO  :  child 1 exiting
+fcntl17     0  TINFO  :  Exit preparation phase
+fcntl17     0  TINFO  :  Enter block 1
+fcntl17     1  TPASS  :  Block 1 PASSED
+fcntl17     0  TINFO  :  Exit block 1
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl17_64 stime=1570499194
+cmdline="fcntl17_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl17     0  TINFO  :  Enter preparation phase
+fcntl17     0  TINFO  :  child 1 starting
+fcntl17     0  TINFO  :  child 1 pid 17925 locked
+fcntl17     0  TINFO  :  child 1 resuming
+fcntl17     0  TINFO  :  child 1 unlocked
+fcntl17     0  TINFO  :  child 1 exiting
+fcntl17     0  TINFO  :  child 3 starting
+fcntl17     0  TINFO  :  child 3 pid 17927 locked
+fcntl17     0  TINFO  :  child 3 resuming
+fcntl17     0  TINFO  :  child 3 lockw err 35
+fcntl17     0  TINFO  :  child 3 exiting
+fcntl17     0  TINFO  :  child 2 starting
+fcntl17     0  TINFO  :  child 2 pid 17926 locked
+fcntl17     0  TINFO  :  child 2 resuming
+fcntl17     0  TINFO  :  child 2 lockw locked
+fcntl17     0  TINFO  :  child 2 exiting
+fcntl17     0  TINFO  :  Exit preparation phase
+fcntl17     0  TINFO  :  Enter block 1
+fcntl17     1  TPASS  :  Block 1 PASSED
+fcntl17     0  TINFO  :  Exit block 1
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl18 stime=1570499194
+cmdline="fcntl18"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl18     0  TINFO  :  Enter block 1
+fcntl18     1  TPASS  :  Test F_GETLK: for errno EFAULT PASSED
+fcntl18     0  TINFO  :  Block 1 PASSED
+fcntl18     0  TINFO  :  Exit block 1
+fcntl18     0  TINFO  :  Enter block 2
+fcntl18     2  TPASS  :  Test F_GETLK64: for errno EFAULT PASSED
+fcntl18     0  TINFO  :  Block 2 PASSED
+fcntl18     0  TINFO  :  Exit block 2
+fcntl18     0  TINFO  :  Enter block 3
+fcntl18     3  TPASS  :  Test for errno EINVAL PASSED
+fcntl18     0  TINFO  :  Block 3 PASSED
+fcntl18     0  TINFO  :  Exit block 3
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=1 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl18_64 stime=1570499194
+cmdline="fcntl18_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl18     0  TINFO  :  Enter block 1
+fcntl18     1  TPASS  :  Test F_GETLK: for errno EFAULT PASSED
+fcntl18     0  TINFO  :  Block 1 PASSED
+fcntl18     0  TINFO  :  Exit block 1
+fcntl18     0  TINFO  :  Enter block 2
+fcntl18     2  TPASS  :  Test F_GETLK64: for errno EFAULT PASSED
+fcntl18     0  TINFO  :  Block 2 PASSED
+fcntl18     0  TINFO  :  Exit block 2
+fcntl18     0  TINFO  :  Enter block 3
+fcntl18     3  TPASS  :  Test for errno EINVAL PASSED
+fcntl18     0  TINFO  :  Block 3 PASSED
+fcntl18     0  TINFO  :  Exit block 3
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl19 stime=1570499194
+cmdline="fcntl19"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl19     0  TINFO  :  Enter block 1
+fcntl19     0  TINFO  :  Test block 1: PASSED
+fcntl19     0  TINFO  :  Exit block 1
+fcntl19     0  TINFO  :  Enter block 2
+fcntl19     0  TINFO  :  Test block 2: PASSED
+fcntl19     0  TINFO  :  Exit block 2
+fcntl19     0  TINFO  :  Enter block 3
+fcntl19     0  TINFO  :  Test block 3: PASSED
+fcntl19     0  TINFO  :  Exit block 3
+fcntl19     0  TINFO  :  Enter blcok 4
+fcntl19     0  TINFO  :  Test block 4: PASSED
+fcntl19     0  TINFO  :  Exit block 4
+fcntl19     0  TINFO  :  Enter block 5
+fcntl19     0  TINFO  :  Test block 5: PASSED
+fcntl19     0  TINFO  :  Exit block 5
+fcntl19     0  TINFO  :  Enter block 6
+fcntl19     0  TINFO  :  Test block 6: PASSED
+fcntl19     0  TINFO  :  Exit block 6
+fcntl19     0  TINFO  :  Enter block 7
+fcntl19     0  TINFO  :  Test block 7: PASSED
+fcntl19     0  TINFO  :  Exit block 7
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl19_64 stime=1570499194
+cmdline="fcntl19_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl19     0  TINFO  :  Enter block 1
+fcntl19     0  TINFO  :  Test block 1: PASSED
+fcntl19     0  TINFO  :  Exit block 1
+fcntl19     0  TINFO  :  Enter block 2
+fcntl19     0  TINFO  :  Test block 2: PASSED
+fcntl19     0  TINFO  :  Exit block 2
+fcntl19     0  TINFO  :  Enter block 3
+fcntl19     0  TINFO  :  Test block 3: PASSED
+fcntl19     0  TINFO  :  Exit block 3
+fcntl19     0  TINFO  :  Enter blcok 4
+fcntl19     0  TINFO  :  Test block 4: PASSED
+fcntl19     0  TINFO  :  Exit block 4
+fcntl19     0  TINFO  :  Enter block 5
+fcntl19     0  TINFO  :  Test block 5: PASSED
+fcntl19     0  TINFO  :  Exit block 5
+fcntl19     0  TINFO  :  Enter block 6
+fcntl19     0  TINFO  :  Test block 6: PASSED
+fcntl19     0  TINFO  :  Exit block 6
+fcntl19     0  TINFO  :  Enter block 7
+fcntl19     0  TINFO  :  Test block 7: PASSED
+fcntl19     0  TINFO  :  Exit block 7
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl20 stime=1570499194
+cmdline="fcntl20"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl20     0  TINFO  :  Enter block 1
+fcntl20     0  TINFO  :  Test block 1: PASSED
+fcntl20     0  TINFO  :  Exit block 1
+fcntl20     0  TINFO  :  Enter block 2
+fcntl20     0  TINFO  :  Test block 2: PASSED
+fcntl20     0  TINFO  :  Exit block 2
+fcntl20     0  TINFO  :  Enter block 3
+fcntl20     0  TINFO  :  Test block 3: PASSED
+fcntl20     0  TINFO  :  Exit block 3
+fcntl20     0  TINFO  :  Enter blcok 4
+fcntl20     0  TINFO  :  Test block 4: PASSED
+fcntl20     0  TINFO  :  Exit block 4
+fcntl20     0  TINFO  :  Enter block 5
+fcntl20     0  TINFO  :  Test block 5: PASSED
+fcntl20     0  TINFO  :  Exit block 5
+fcntl20     0  TINFO  :  Enter block 6
+fcntl20     0  TINFO  :  Test block 6: PASSED
+fcntl20     0  TINFO  :  Exit block 6
+fcntl20     0  TINFO  :  Enter block 7
+fcntl20     0  TINFO  :  Test block 7: PASSED
+fcntl20     0  TINFO  :  Exit block 7
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl20_64 stime=1570499194
+cmdline="fcntl20_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl20     0  TINFO  :  Enter block 1
+fcntl20     0  TINFO  :  Test block 1: PASSED
+fcntl20     0  TINFO  :  Exit block 1
+fcntl20     0  TINFO  :  Enter block 2
+fcntl20     0  TINFO  :  Test block 2: PASSED
+fcntl20     0  TINFO  :  Exit block 2
+fcntl20     0  TINFO  :  Enter block 3
+fcntl20     0  TINFO  :  Test block 3: PASSED
+fcntl20     0  TINFO  :  Exit block 3
+fcntl20     0  TINFO  :  Enter blcok 4
+fcntl20     0  TINFO  :  Test block 4: PASSED
+fcntl20     0  TINFO  :  Exit block 4
+fcntl20     0  TINFO  :  Enter block 5
+fcntl20     0  TINFO  :  Test block 5: PASSED
+fcntl20     0  TINFO  :  Exit block 5
+fcntl20     0  TINFO  :  Enter block 6
+fcntl20     0  TINFO  :  Test block 6: PASSED
+fcntl20     0  TINFO  :  Exit block 6
+fcntl20     0  TINFO  :  Enter block 7
+fcntl20     0  TINFO  :  Test block 7: PASSED
+fcntl20     0  TINFO  :  Exit block 7
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl21 stime=1570499194
+cmdline="fcntl21"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl21     0  TINFO  :  Enter block 1
+fcntl21     0  TINFO  :  Test block 1: PASSED
+fcntl21     0  TINFO  :  Exit block 1
+fcntl21     0  TINFO  :  Enter block 2
+fcntl21     0  TINFO  :  Test block 2: PASSED
+fcntl21     0  TINFO  :  Exit block 2
+fcntl21     0  TINFO  :  Enter block 3
+fcntl21     0  TINFO  :  Test block 3 : PASSED
+fcntl21     0  TINFO  :  Exit block 3
+fcntl21     0  TINFO  :  Enter block 4
+fcntl21     0  TINFO  :  Test block 4: PASSED
+fcntl21     0  TINFO  :  Exit block 4
+fcntl21     0  TINFO  :  Enter block 5
+fcntl21     0  TINFO  :  Test block 5: PASSED
+fcntl21     0  TINFO  :  Exit block 5
+fcntl21     0  TINFO  :  Enter block 6
+fcntl21     0  TINFO  :  Test block 6 PASSED
+fcntl21     0  TINFO  :  Exit block 6
+fcntl21     0  TINFO  :  Enter block 7
+fcntl21     0  TINFO  :  Test block 7: PASSED
+fcntl21     0  TINFO  :  Exit block 7
+fcntl21     0  TINFO  :  Enter block 8
+fcntl21     0  TINFO  :  Test block 8: PASSED
+fcntl21     0  TINFO  :  Exit block 8
+fcntl21     0  TINFO  :  Enter block 9
+fcntl21     0  TINFO  :  Test block 9: PASSED
+fcntl21     0  TINFO  :  Exit block 9
+fcntl21     0  TINFO  :  Enter block 10
+fcntl21     0  TINFO  :  Test block 10: PASSED
+fcntl21     0  TINFO  :  Exit block 10
+fcntl21     0  TINFO  :  Enter block 11
+fcntl21     0  TINFO  :  Test block 11: PASSED
+fcntl21     0  TINFO  :  Exit block 11
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl21_64 stime=1570499194
+cmdline="fcntl21_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl21     0  TINFO  :  Enter block 1
+fcntl21     0  TINFO  :  Test block 1: PASSED
+fcntl21     0  TINFO  :  Exit block 1
+fcntl21     0  TINFO  :  Enter block 2
+fcntl21     0  TINFO  :  Test block 2: PASSED
+fcntl21     0  TINFO  :  Exit block 2
+fcntl21     0  TINFO  :  Enter block 3
+fcntl21     0  TINFO  :  Test block 3 : PASSED
+fcntl21     0  TINFO  :  Exit block 3
+fcntl21     0  TINFO  :  Enter block 4
+fcntl21     0  TINFO  :  Test block 4: PASSED
+fcntl21     0  TINFO  :  Exit block 4
+fcntl21     0  TINFO  :  Enter block 5
+fcntl21     0  TINFO  :  Test block 5: PASSED
+fcntl21     0  TINFO  :  Exit block 5
+fcntl21     0  TINFO  :  Enter block 6
+fcntl21     0  TINFO  :  Test block 6 PASSED
+fcntl21     0  TINFO  :  Exit block 6
+fcntl21     0  TINFO  :  Enter block 7
+fcntl21     0  TINFO  :  Test block 7: PASSED
+fcntl21     0  TINFO  :  Exit block 7
+fcntl21     0  TINFO  :  Enter block 8
+fcntl21     0  TINFO  :  Test block 8: PASSED
+fcntl21     0  TINFO  :  Exit block 8
+fcntl21     0  TINFO  :  Enter block 9
+fcntl21     0  TINFO  :  Test block 9: PASSED
+fcntl21     0  TINFO  :  Exit block 9
+fcntl21     0  TINFO  :  Enter block 10
+fcntl21     0  TINFO  :  Test block 10: PASSED
+fcntl21     0  TINFO  :  Exit block 10
+fcntl21     0  TINFO  :  Enter block 11
+fcntl21     0  TINFO  :  Test block 11: PASSED
+fcntl21     0  TINFO  :  Exit block 11
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl22 stime=1570499194
+cmdline="fcntl22"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl22     1  TPASS  :  fcntl() fails with expected error EAGAIN errno:11
+fcntl22     0  TINFO  :  Child process returned TPASS
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl22_64 stime=1570499194
+cmdline="fcntl22_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl22     1  TPASS  :  fcntl() fails with expected error EAGAIN errno:11
+fcntl22     0  TINFO  :  Child process returned TPASS
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl23 stime=1570499194
+cmdline="fcntl23"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl23     1  TPASS  :  fcntl(tfile_17948, F_SETLEASE, F_RDLCK)
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl23_64 stime=1570499194
+cmdline="fcntl23_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl23     1  TPASS  :  fcntl(tfile_17949, F_SETLEASE, F_RDLCK)
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl24 stime=1570499194
+cmdline="fcntl24"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl24     1  TPASS  :  fcntl(tfile_17950, F_SETLEASE, F_WRLCK)
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl24_64 stime=1570499194
+cmdline="fcntl24_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl24     1  TPASS  :  fcntl(tfile_17951, F_SETLEASE, F_WRLCK)
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl25 stime=1570499194
+cmdline="fcntl25"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl25     1  TPASS  :  fcntl(tfile_17952, F_SETLEASE, F_WRLCK)
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl25_64 stime=1570499194
+cmdline="fcntl25_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl25     1  TPASS  :  fcntl(tfile_17953, F_SETLEASE, F_WRLCK)
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl26 stime=1570499194
+cmdline="fcntl26"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl26     1  TPASS  :  fcntl(tfile_17954, F_SETLEASE, F_WRLCK)
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl26_64 stime=1570499194
+cmdline="fcntl26_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl26     1  TPASS  :  fcntl(tfile_17955, F_SETLEASE, F_WRLCK)
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl27 stime=1570499194
+cmdline="fcntl27"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl27     1  TPASS  :  fcntl(fd, F_SETLEASE, F_RDLCK) succeeded
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl27_64 stime=1570499194
+cmdline="fcntl27_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl27     1  TPASS  :  fcntl(fd, F_SETLEASE, F_RDLCK) succeeded
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl28 stime=1570499194
+cmdline="fcntl28"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl28     1  TPASS  :  fcntl(fd, F_SETLEASE, F_RDLCK) succeeded
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl28_64 stime=1570499194
+cmdline="fcntl28_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl28     1  TPASS  :  fcntl(fd, F_SETLEASE, F_RDLCK) succeeded
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl29 stime=1570499194
+cmdline="fcntl29"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl29     1  TPASS  :  fcntl test F_DUPFD_CLOEXEC success
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl29_64 stime=1570499194
+cmdline="fcntl29_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl29     1  TPASS  :  fcntl test F_DUPFD_CLOEXEC success
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=1 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl30 stime=1570499194
+cmdline="fcntl30"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl30     0  TINFO  :  orig_pipe_size: 65536 new_pipe_size: 131072
+fcntl30     1  TPASS  :  fcntl test F_GETPIPE_SZand F_SETPIPE_SZ success
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl30_64 stime=1570499194
+cmdline="fcntl30_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl30     0  TINFO  :  orig_pipe_size: 65536 new_pipe_size: 131072
+fcntl30     1  TPASS  :  fcntl test F_GETPIPE_SZand F_SETPIPE_SZ success
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl31 stime=1570499194
+cmdline="fcntl31"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl31     0  TINFO  :  default io events signal is SIGIO
+fcntl31     1  TPASS  :  fcntl test F_GETOWN, F_SETOWN for process ID success
+fcntl31     0  TINFO  :  default io events signal is SIGIO
+fcntl31     2  TPASS  :  fcntl test F_GETOWN, F_SETOWN for process group ID success
+fcntl31     0  TINFO  :  default io events signal is SIGIO
+fcntl31     3  TPASS  :  fcntl test F_GETOWN_EX, F_SETOWN_EX for thread ID success
+fcntl31     0  TINFO  :  default io events signal is SIGIO
+fcntl31     4  TPASS  :  fcntl test F_GETOWN_EX, F_SETOWN_EX for process ID success
+fcntl31     0  TINFO  :  default io events signal is SIGIO
+fcntl31     5  TPASS  :  fcntl test F_GETOWN_EX, F_SETOWN_EX for process group ID success
+<<<execution_status>>>
+initiation_status="ok"
+duration=1 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl31_64 stime=1570499195
+cmdline="fcntl31_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl31     0  TINFO  :  default io events signal is SIGIO
+fcntl31     1  TPASS  :  fcntl test F_GETOWN, F_SETOWN for process ID success
+fcntl31     0  TINFO  :  default io events signal is SIGIO
+fcntl31     2  TPASS  :  fcntl test F_GETOWN, F_SETOWN for process group ID success
+fcntl31     0  TINFO  :  default io events signal is SIGIO
+fcntl31     3  TPASS  :  fcntl test F_GETOWN_EX, F_SETOWN_EX for thread ID success
+fcntl31     0  TINFO  :  default io events signal is SIGIO
+fcntl31     4  TPASS  :  fcntl test F_GETOWN_EX, F_SETOWN_EX for process ID success
+fcntl31     0  TINFO  :  default io events signal is SIGIO
+fcntl31     5  TPASS  :  fcntl test F_GETOWN_EX, F_SETOWN_EX for process group ID success
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl32 stime=1570499195
+cmdline="fcntl32"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl32     1  TPASS  :  fcntl(F_SETLEASE, F_WRLCK) failed as expected: TEST_ERRNO=EAGAIN/EWOULDBLOCK(11): Resource temporarily unavailable
+fcntl32     2  TPASS  :  fcntl(F_SETLEASE, F_WRLCK) failed as expected: TEST_ERRNO=EAGAIN/EWOULDBLOCK(11): Resource temporarily unavailable
+fcntl32     3  TPASS  :  fcntl(F_SETLEASE, F_WRLCK) failed as expected: TEST_ERRNO=EAGAIN/EWOULDBLOCK(11): Resource temporarily unavailable
+fcntl32     4  TPASS  :  fcntl(F_SETLEASE, F_WRLCK) failed as expected: TEST_ERRNO=EAGAIN/EWOULDBLOCK(11): Resource temporarily unavailable
+fcntl32     5  TPASS  :  fcntl(F_SETLEASE, F_WRLCK) failed as expected: TEST_ERRNO=EAGAIN/EWOULDBLOCK(11): Resource temporarily unavailable
+fcntl32     6  TPASS  :  fcntl(F_SETLEASE, F_WRLCK) failed as expected: TEST_ERRNO=EAGAIN/EWOULDBLOCK(11): Resource temporarily unavailable
+fcntl32     7  TPASS  :  fcntl(F_SETLEASE, F_WRLCK) failed as expected: TEST_ERRNO=EAGAIN/EWOULDBLOCK(11): Resource temporarily unavailable
+fcntl32     8  TPASS  :  fcntl(F_SETLEASE, F_WRLCK) failed as expected: TEST_ERRNO=EAGAIN/EWOULDBLOCK(11): Resource temporarily unavailable
+fcntl32     9  TPASS  :  fcntl(F_SETLEASE, F_WRLCK) failed as expected: TEST_ERRNO=EAGAIN/EWOULDBLOCK(11): Resource temporarily unavailable
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl32_64 stime=1570499195
+cmdline="fcntl32_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fcntl32     1  TPASS  :  fcntl(F_SETLEASE, F_WRLCK) failed as expected: TEST_ERRNO=EAGAIN/EWOULDBLOCK(11): Resource temporarily unavailable
+fcntl32     2  TPASS  :  fcntl(F_SETLEASE, F_WRLCK) failed as expected: TEST_ERRNO=EAGAIN/EWOULDBLOCK(11): Resource temporarily unavailable
+fcntl32     3  TPASS  :  fcntl(F_SETLEASE, F_WRLCK) failed as expected: TEST_ERRNO=EAGAIN/EWOULDBLOCK(11): Resource temporarily unavailable
+fcntl32     4  TPASS  :  fcntl(F_SETLEASE, F_WRLCK) failed as expected: TEST_ERRNO=EAGAIN/EWOULDBLOCK(11): Resource temporarily unavailable
+fcntl32     5  TPASS  :  fcntl(F_SETLEASE, F_WRLCK) failed as expected: TEST_ERRNO=EAGAIN/EWOULDBLOCK(11): Resource temporarily unavailable
+fcntl32     6  TPASS  :  fcntl(F_SETLEASE, F_WRLCK) failed as expected: TEST_ERRNO=EAGAIN/EWOULDBLOCK(11): Resource temporarily unavailable
+fcntl32     7  TPASS  :  fcntl(F_SETLEASE, F_WRLCK) failed as expected: TEST_ERRNO=EAGAIN/EWOULDBLOCK(11): Resource temporarily unavailable
+fcntl32     8  TPASS  :  fcntl(F_SETLEASE, F_WRLCK) failed as expected: TEST_ERRNO=EAGAIN/EWOULDBLOCK(11): Resource temporarily unavailable
+fcntl32     9  TPASS  :  fcntl(F_SETLEASE, F_WRLCK) failed as expected: TEST_ERRNO=EAGAIN/EWOULDBLOCK(11): Resource temporarily unavailable
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl33 stime=1570499195
+cmdline="fcntl33"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fcntl33.c:206: PASS: open(O_RDONLY) conflicts with fcntl(F_SETLEASE, F_WRLCK), unblocked within 5s
+fcntl33.c:206: PASS: open(O_WRONLY) conflicts with fcntl(F_SETLEASE, F_WRLCK), unblocked within 5s
+fcntl33.c:206: PASS: open(O_RDWR) conflicts with fcntl(F_SETLEASE, F_WRLCK), unblocked within 5s
+fcntl33.c:206: PASS: truncate() conflicts with fcntl(F_SETLEASE, F_WRLCK), unblocked within 5s
+fcntl33.c:206: PASS: open(O_WRONLY) conflicts with fcntl(F_SETLEASE, F_RDLCK), unblocked within 5s
+fcntl33.c:206: PASS: open(O_RDWR) conflicts with fcntl(F_SETLEASE, F_RDLCK), unblocked within 5s
+fcntl33.c:206: PASS: truncate() conflicts with fcntl(F_SETLEASE, F_RDLCK), unblocked within 5s
+
+Summary:
+passed   7
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl33_64 stime=1570499195
+cmdline="fcntl33_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fcntl33.c:206: PASS: open(O_RDONLY) conflicts with fcntl(F_SETLEASE, F_WRLCK), unblocked within 5s
+fcntl33.c:206: PASS: open(O_WRONLY) conflicts with fcntl(F_SETLEASE, F_WRLCK), unblocked within 5s
+fcntl33.c:206: PASS: open(O_RDWR) conflicts with fcntl(F_SETLEASE, F_WRLCK), unblocked within 5s
+fcntl33.c:206: PASS: truncate() conflicts with fcntl(F_SETLEASE, F_WRLCK), unblocked within 5s
+fcntl33.c:206: PASS: open(O_WRONLY) conflicts with fcntl(F_SETLEASE, F_RDLCK), unblocked within 5s
+fcntl33.c:206: PASS: open(O_RDWR) conflicts with fcntl(F_SETLEASE, F_RDLCK), unblocked within 5s
+fcntl33.c:206: PASS: truncate() conflicts with fcntl(F_SETLEASE, F_RDLCK), unblocked within 5s
+
+Summary:
+passed   7
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl34 stime=1570499195
+cmdline="fcntl34"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fcntl34.c:90: INFO: write to a file inside threads with OFD locks
+fcntl34.c:36: INFO: spawning '6' threads
+fcntl34.c:45: INFO: waiting for '6' threads
+fcntl34.c:99: INFO: verifying file's data
+fcntl34.c:127: PASS: OFD locks synchronized access between threads
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=1 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl34_64 stime=1570499195
+cmdline="fcntl34_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fcntl34.c:90: INFO: write to a file inside threads with OFD locks
+fcntl34.c:36: INFO: spawning '6' threads
+fcntl34.c:45: INFO: waiting for '6' threads
+fcntl34.c:99: INFO: verifying file's data
+fcntl34.c:127: PASS: OFD locks synchronized access between threads
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl35 stime=1570499195
+cmdline="fcntl35"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fcntl35.c:89: PASS: an unprivileged user init the capacity of a pipe to 4096 successfully
+fcntl35.c:89: PASS: a privileged user init the capacity of a pipe to 65536 successfully
 
 Summary:
 passed   2
@@ -18777,30 +16343,1476 @@ duration=0 termination_type=exited termination_id=0 corefile=no
 cutime=0 cstime=0
 <<<test_end>>>
 <<<test_start>>>
-tag=setdomainname02 stime=1570467569
-cmdline="setdomainname02"
+tag=fcntl35_64 stime=1570499195
+cmdline="fcntl35_64"
 contacts=""
 analysis=exit
 <<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-setdomainname.h:36: INFO: Testing libc setdomainname()
-setdomainname02.c:32: INFO: testing len == -1
-setdomainname02.c:44: PASS: expected failure: EINVAL (22)
-setdomainname02.c:32: INFO: testing len > allowed maximum
-setdomainname02.c:44: PASS: expected failure: EINVAL (22)
-setdomainname02.c:32: INFO: testing name == NULL
-setdomainname02.c:44: PASS: expected failure: EFAULT (14)
+fcntl35.c:89: PASS: an unprivileged user init the capacity of a pipe to 4096 successfully
+fcntl35.c:89: PASS: a privileged user init the capacity of a pipe to 65536 successfully
+
+Summary:
+passed   2
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl36 stime=1570499195
+cmdline="fcntl36"
+contacts=""
+analysis=exit
+<<<test_output>>>
 tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-setdomainname.h:39: INFO: Testing __NR_setdomainname syscall
-setdomainname02.c:32: INFO: testing len == -1
-setdomainname02.c:44: PASS: expected failure: EINVAL (22)
-setdomainname02.c:32: INFO: testing len > allowed maximum
-setdomainname02.c:44: PASS: expected failure: EINVAL (22)
-setdomainname02.c:32: INFO: testing name == NULL
-setdomainname02.c:44: PASS: expected failure: EFAULT (14)
+fcntl36.c:289: INFO: OFD read lock vs OFD write lock
+fcntl36.c:367: PASS: Access between threads synchronized
+fcntl36.c:289: INFO: OFD write lock vs POSIX write lock
+fcntl36.c:367: PASS: Access between threads synchronized
+fcntl36.c:289: INFO: OFD read lock vs POSIX write lock
+fcntl36.c:367: PASS: Access between threads synchronized
+fcntl36.c:289: INFO: OFD write lock vs POSIX read lock
+fcntl36.c:367: PASS: Access between threads synchronized
+fcntl36.c:289: INFO: OFD write lock vs OFD write lock
+fcntl36.c:367: PASS: Access between threads synchronized
+fcntl36.c:289: INFO: OFD r/w lock vs POSIX write lock
+fcntl36.c:367: PASS: Access between threads synchronized
+fcntl36.c:289: INFO: OFD r/w lock vs POSIX read lock
+fcntl36.c:367: PASS: Access between threads synchronized
+
+Summary:
+passed   7
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=7 termination_type=exited termination_id=0 corefile=no
+cutime=490 cstime=727
+<<<test_end>>>
+<<<test_start>>>
+tag=fcntl36_64 stime=1570499202
+cmdline="fcntl36_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fcntl36.c:289: INFO: OFD read lock vs OFD write lock
+fcntl36.c:367: PASS: Access between threads synchronized
+fcntl36.c:289: INFO: OFD write lock vs POSIX write lock
+fcntl36.c:367: PASS: Access between threads synchronized
+fcntl36.c:289: INFO: OFD read lock vs POSIX write lock
+fcntl36.c:367: PASS: Access between threads synchronized
+fcntl36.c:289: INFO: OFD write lock vs POSIX read lock
+fcntl36.c:367: PASS: Access between threads synchronized
+fcntl36.c:289: INFO: OFD write lock vs OFD write lock
+fcntl36.c:367: PASS: Access between threads synchronized
+fcntl36.c:289: INFO: OFD r/w lock vs POSIX write lock
+fcntl36.c:367: PASS: Access between threads synchronized
+fcntl36.c:289: INFO: OFD r/w lock vs POSIX read lock
+fcntl36.c:367: PASS: Access between threads synchronized
+
+Summary:
+passed   7
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=7 termination_type=exited termination_id=0 corefile=no
+cutime=492 cstime=745
+<<<test_end>>>
+<<<test_start>>>
+tag=fdatasync01 stime=1570499209
+cmdline="fdatasync01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fdatasync01    1  TPASS  :  fdatasync() successful
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fdatasync02 stime=1570499209
+cmdline="fdatasync02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fdatasync02    1  TPASS  :  Expected failure for invalid file descriptor, errno: 9
+fdatasync02    2  TPASS  :  Expected failure for file descriptor to a special file, errno: 22
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=1 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fdatasync03 stime=1570499209
+cmdline="fdatasync03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
+tst_supported_fs_types.c:60: INFO: Kernel supports ext2
+tst_supported_fs_types.c:44: INFO: mkfs.ext2 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports ext3
+tst_supported_fs_types.c:44: INFO: mkfs.ext3 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports ext4
+tst_supported_fs_types.c:44: INFO: mkfs.ext4 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports xfs
+tst_supported_fs_types.c:44: INFO: mkfs.xfs does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports btrfs
+tst_supported_fs_types.c:44: INFO: mkfs.btrfs does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports vfat
+tst_supported_fs_types.c:44: INFO: mkfs.vfat does exist
+tst_supported_fs_types.c:92: INFO: FUSE does support exfat
+tst_supported_fs_types.c:44: INFO: mkfs.exfat does exist
+tst_supported_fs_types.c:92: INFO: FUSE does support ntfs
+tst_supported_fs_types.c:44: INFO: mkfs.ntfs does exist
+tst_test.c:1179: INFO: Testing on ext2
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fdatasync03.c:49: PASS: Test file data synced to device
+tst_test.c:1179: INFO: Testing on ext3
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fdatasync03.c:49: PASS: Test file data synced to device
+tst_test.c:1179: INFO: Testing on ext4
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fdatasync03.c:49: PASS: Test file data synced to device
+tst_test.c:1179: INFO: Testing on xfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with xfs opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fdatasync03.c:49: PASS: Test file data synced to device
+tst_test.c:1179: INFO: Testing on btrfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with btrfs opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fdatasync03.c:49: PASS: Test file data synced to device
+tst_test.c:1179: INFO: Testing on vfat
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fdatasync03.c:49: PASS: Test file data synced to device
+tst_test.c:1179: INFO: Testing on exfat
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with exfat opts='' extra opts=''
+safe_macros.c:743: INFO: Trying FUSE...
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fdatasync03.c:49: PASS: Test file data synced to device
+tst_test.c:1179: INFO: Testing on ntfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ntfs opts='' extra opts=''
+The partition start sector was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+The number of sectors per track was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+The number of heads was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
+Windows will not be able to boot from this device.
+safe_macros.c:743: INFO: Trying FUSE...
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fdatasync03.c:49: PASS: Test file data synced to device
+
+Summary:
+passed   8
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=7 termination_type=exited termination_id=0 corefile=no
+cutime=9 cstime=149
+<<<test_end>>>
+<<<test_start>>>
+tag=fgetxattr01 stime=1570499216
+cmdline="fgetxattr01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
+tst_supported_fs_types.c:60: INFO: Kernel supports ext2
+tst_supported_fs_types.c:44: INFO: mkfs.ext2 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports ext3
+tst_supported_fs_types.c:44: INFO: mkfs.ext3 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports ext4
+tst_supported_fs_types.c:44: INFO: mkfs.ext4 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports xfs
+tst_supported_fs_types.c:44: INFO: mkfs.xfs does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports btrfs
+tst_supported_fs_types.c:44: INFO: mkfs.btrfs does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports vfat
+tst_supported_fs_types.c:44: INFO: mkfs.vfat does exist
+tst_supported_fs_types.c:92: INFO: FUSE does support exfat
+tst_supported_fs_types.c:44: INFO: mkfs.exfat does exist
+tst_supported_fs_types.c:92: INFO: FUSE does support ntfs
+tst_supported_fs_types.c:44: INFO: mkfs.ntfs does exist
+tst_test.c:1179: INFO: Testing on ext2
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fgetxattr01.c:102: PASS: fgetxattr(2) passed: ENODATA (61)
+fgetxattr01.c:102: PASS: fgetxattr(2) passed: ERANGE (34)
+fgetxattr01.c:88: PASS: fgetxattr(2) passed
+fgetxattr01.c:98: PASS: got the right value
+fgetxattr01.c:102: PASS: fgetxattr(2) passed: SUCCESS (0)
+tst_test.c:1179: INFO: Testing on ext3
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fgetxattr01.c:102: PASS: fgetxattr(2) passed: ENODATA (61)
+fgetxattr01.c:102: PASS: fgetxattr(2) passed: ERANGE (34)
+fgetxattr01.c:88: PASS: fgetxattr(2) passed
+fgetxattr01.c:98: PASS: got the right value
+fgetxattr01.c:102: PASS: fgetxattr(2) passed: SUCCESS (0)
+tst_test.c:1179: INFO: Testing on ext4
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fgetxattr01.c:102: PASS: fgetxattr(2) passed: ENODATA (61)
+fgetxattr01.c:102: PASS: fgetxattr(2) passed: ERANGE (34)
+fgetxattr01.c:88: PASS: fgetxattr(2) passed
+fgetxattr01.c:98: PASS: got the right value
+fgetxattr01.c:102: PASS: fgetxattr(2) passed: SUCCESS (0)
+tst_test.c:1179: INFO: Testing on xfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with xfs opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fgetxattr01.c:102: PASS: fgetxattr(2) passed: ENODATA (61)
+fgetxattr01.c:102: PASS: fgetxattr(2) passed: ERANGE (34)
+fgetxattr01.c:88: PASS: fgetxattr(2) passed
+fgetxattr01.c:98: PASS: got the right value
+fgetxattr01.c:102: PASS: fgetxattr(2) passed: SUCCESS (0)
+tst_test.c:1179: INFO: Testing on btrfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with btrfs opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fgetxattr01.c:102: PASS: fgetxattr(2) passed: ENODATA (61)
+fgetxattr01.c:102: PASS: fgetxattr(2) passed: ERANGE (34)
+fgetxattr01.c:88: PASS: fgetxattr(2) passed
+fgetxattr01.c:98: PASS: got the right value
+fgetxattr01.c:102: PASS: fgetxattr(2) passed: SUCCESS (0)
+tst_test.c:1179: INFO: Testing on vfat
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+safe_macros.c:921: CONF: fgetxattr01.c:122: no xattr support in fs or mounted without user_xattr option
+tst_test.c:1179: INFO: Testing on exfat
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with exfat opts='' extra opts=''
+safe_macros.c:743: INFO: Trying FUSE...
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+safe_macros.c:921: CONF: fgetxattr01.c:122: no xattr support in fs or mounted without user_xattr option
+tst_test.c:1179: INFO: Testing on ntfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ntfs opts='' extra opts=''
+The partition start sector was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+The number of sectors per track was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+The number of heads was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
+Windows will not be able to boot from this device.
+safe_macros.c:743: INFO: Trying FUSE...
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fgetxattr01.c:102: PASS: fgetxattr(2) passed: ENODATA (61)
+fgetxattr01.c:102: PASS: fgetxattr(2) passed: ERANGE (34)
+fgetxattr01.c:88: PASS: fgetxattr(2) passed
+fgetxattr01.c:98: PASS: got the right value
+fgetxattr01.c:102: PASS: fgetxattr(2) passed: SUCCESS (0)
+
+Summary:
+passed   30
+failed   0
+skipped  2
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=5 termination_type=exited termination_id=0 corefile=no
+cutime=9 cstime=114
+<<<test_end>>>
+<<<test_start>>>
+tag=fgetxattr02 stime=1570499221
+cmdline="fgetxattr02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fgetxattr02.c:174: PASS: fgetxattr(2) on testfile passed
+fgetxattr02.c:188: PASS: fgetxattr(2) on testfile got the right value
+fgetxattr02.c:201: PASS: fgetxattr(2) on testfile passed: SUCCESS (0)
+fgetxattr02.c:174: PASS: fgetxattr(2) on testdir passed
+fgetxattr02.c:188: PASS: fgetxattr(2) on testdir got the right value
+fgetxattr02.c:201: PASS: fgetxattr(2) on testdir passed: SUCCESS (0)
+fgetxattr02.c:174: PASS: fgetxattr(2) on symlink passed
+fgetxattr02.c:188: PASS: fgetxattr(2) on symlink got the right value
+fgetxattr02.c:201: PASS: fgetxattr(2) on symlink passed: SUCCESS (0)
+fgetxattr02.c:201: PASS: fgetxattr(2) on fifo passed: ENODATA (61)
+fgetxattr02.c:201: PASS: fgetxattr(2) on chr passed: ENODATA (61)
+fgetxattr02.c:201: PASS: fgetxattr(2) on blk passed: ENODATA (61)
+fgetxattr02.c:201: PASS: fgetxattr(2) on sock passed: ENODATA (61)
+
+Summary:
+passed   13
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fgetxattr03 stime=1570499221
+cmdline="fgetxattr03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fgetxattr03.c:41: PASS: fgetxattr(2) returned correct value
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=flistxattr01 stime=1570499221
+cmdline="flistxattr01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+flistxattr01.c:64: PASS: flistxattr() succeeded
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=flistxattr02 stime=1570499221
+cmdline="flistxattr02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+flistxattr02.c:67: PASS: flistxattr() failed as expected: ERANGE (34)
+flistxattr02.c:67: PASS: flistxattr() failed as expected: EBADF (9)
+
+Summary:
+passed   2
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=flistxattr03 stime=1570499221
+cmdline="flistxattr03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+flistxattr03.c:53: PASS: flistxattr() succeed with suitable buffer
+flistxattr03.c:53: PASS: flistxattr() succeed with suitable buffer
+
+Summary:
+passed   2
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=1 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=flock01 stime=1570499221
+cmdline="flock01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+flock01.c:35: PASS: flock() succeeded with Shared Lock
+flock01.c:35: PASS: flock() succeeded with Unlock
+flock01.c:35: PASS: flock() succeeded with Exclusive Lock
+
+Summary:
+passed   3
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=flock02 stime=1570499221
+cmdline="flock02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+flock02.c:46: PASS: flock() failed expectedly: EBADF (9)
+flock02.c:46: PASS: flock() failed expectedly: EINVAL (22)
+flock02.c:46: PASS: flock() failed expectedly: EINVAL (22)
+
+Summary:
+passed   3
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=flock03 stime=1570499221
+cmdline="flock03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+flock03.c:74: PASS: Parent: Initial attempt to flock() passed
+flock03.c:39: PASS: CHILD: File locked by parent unlocked
+flock03.c:48: PASS: Locking after unlock passed
+
+Summary:
+passed   3
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=flock04 stime=1570499221
+cmdline="flock04"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+flock04.c:61: PASS: Parent had shared lock
+flock04.c:36: PASS:  Child acquiring shared lock got 0
+flock04.c:39: PASS:  Child acquiring exclusive lock got -1
+flock04.c:61: PASS: Parent had exclusive lock
+flock04.c:39: PASS:  Child acquiring shared lock got -1
+flock04.c:39: PASS:  Child acquiring exclusive lock got -1
 
 Summary:
 passed   6
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=flock06 stime=1570499221
+cmdline="flock06"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+flock06.c:31: PASS: First attempt to flock() passed
+flock06.c:36: PASS: Second attempt to flock() denied: EAGAIN/EWOULDBLOCK (11)
+flock06.c:44: PASS: Unlocked fd1
+flock06.c:50: PASS: Third attempt to flock() succeeded
+
+Summary:
+passed   4
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fmtmsg01 stime=1570499221
+cmdline="fmtmsg01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fmtms01     1  TPASS  :  Test passed
+fmtms01     2  TPASS  :  Test passed
+fmtms01     3  TPASS  :  Test passed
+fmtms01     4  TPASS  :  Test passed
+fmtms01     5  TPASS  :  Test passed
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fork01 stime=1570499221
+cmdline="fork01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fork01      1  TPASS  :  fork() returned 18596
+fork01      2  TPASS  :  child pid and fork() return agree: 18596
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fork02 stime=1570499221
+cmdline="fork02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fork02      0  TINFO  :  Inside parent
+fork02      0  TINFO  :  exit status of wait 0
+fork02      1  TPASS  :  test 1 PASSED
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fork03 stime=1570499221
+cmdline="fork03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fork03      0  TINFO  :  process id in parent of child from fork : 18600
+fork03      1  TPASS  :  test 1 PASSED
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fork04 stime=1570499221
+cmdline="fork04"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fork04      1  TPASS  :  Env var TERM unchanged after fork(): vt220
+fork04      2  TPASS  :  Env var NoTSetzWq unchanged after fork(): getenv() does not find variable set
+fork04      3  TPASS  :  Env var TESTPROG unchanged after fork(): FRKTCS04
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=fork05 stime=1570499221
+cmdline="fork05"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fork05      0  TINFO  :  %fs test only for ix86
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fork06 stime=1570499221
+cmdline="fork06"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fork06      0  TINFO  :  tries 1000
+fork06      0  TINFO  :  successes 1000
+fork06      0  TINFO  :  failures 0
+fork06      0  TINFO  :  There were no children to wait for
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=6 cstime=4
+<<<test_end>>>
+<<<test_start>>>
+tag=fork07 stime=1570499221
+cmdline="fork07"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fork07      0  TINFO  :  Forking 100 children
+fork07      0  TINFO  :  Forked all 100 children, now collecting
+fork07      0  TINFO  :  Collected all 100 children
+fork07      1  TPASS  :  100/100 children read correctly from an inheritted fd
+<<<execution_status>>>
+initiation_status="ok"
+duration=1 termination_type=exited termination_id=0 corefile=no
+cutime=1 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fork08 stime=1570499223
+cmdline="fork08"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fork08      0  TINFO  :  parent forksval: 1
+fork08      0  TINFO  :  second child got char: b
+fork08      1  TPASS  :  Test passed in childnumber 2
+fork08      0  TINFO  :  parent forksval: 1
+fork08      0  TINFO  :  parent forksval: 2
+fork08      0  TINFO  :  exit status of wait  expected 0 got 0
+fork08      1  TPASS  :  parent test PASSED
+fork08      0  TINFO  :  exit status of wait  expected 0 got 0
+fork08      2  TPASS  :  parent test PASSED
+fork08      0  TINFO  :  exit status of wait  expected 0 got 0
+fork08      3  TPASS  :  parent test PASSED
+fork08      0  TINFO  :  Number of processes forked is 2
+<<<execution_status>>>
+initiation_status="ok"
+duration=1 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=fork09 stime=1570499224
+cmdline="fork09"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fork09      0  TINFO  :  OPEN_MAX is 1024
+fork09      0  TINFO  :  first file descriptor is 7 
+fork09      0  TINFO  :  Parent reporting 1023 files open
+fork09      0  TINFO  :  Child opened new file #1023
+fork09      0  TINFO  :  OPEN_MAX is 1024
+fork09      0  TINFO  :  first file descriptor is 7 
+fork09      0  TINFO  :  Parent reporting 1023 files open
+fork09      1  TPASS  :  test 1 PASSED
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=1 cstime=5
+<<<test_end>>>
+<<<test_start>>>
+tag=fork10 stime=1570499224
+cmdline="fork10"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fork10      0  TINFO  :  fork child A
+fork10      1  TPASS  :  test 1 PASSED
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fork11 stime=1570499224
+cmdline="fork11"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fork11      1  TPASS  :  fork test passed, 100 processes
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=fork13 stime=1570499224
+cmdline="fork13 -i 1000000"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fork13      1  TPASS  :  1000000 pids forked, all passed
+<<<execution_status>>>
+initiation_status="ok"
+duration=168 termination_type=exited termination_id=0 corefile=no
+cutime=10367 cstime=6868
+<<<test_end>>>
+<<<test_start>>>
+tag=fork14 stime=1570499392
+cmdline="fork14"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fork14      1  TPASS  :  fork failed as expected.
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=4 cstime=32
+<<<test_end>>>
+<<<test_start>>>
+tag=fpathconf01 stime=1570499392
+cmdline="fpathconf01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fpathconf01    1  TPASS  :  fpathconf(fd, _PC_MAX_CANON) returned 255
+fpathconf01    2  TPASS  :  fpathconf(fd, _PC_MAX_INPUT) returned 255
+fpathconf01    3  TPASS  :  fpathconf(fd, _PC_VDISABLE) returned 0
+fpathconf01    4  TPASS  :  fpathconf(fd, _PC_LINK_MAX) returned 127
+fpathconf01    5  TPASS  :  fpathconf(fd, _PC_NAME_MAX) returned 255
+fpathconf01    6  TPASS  :  fpathconf(fd, _PC_PATH_MAX) returned 4096
+fpathconf01    7  TPASS  :  fpathconf(fd, _PC_PIPE_BUF) returned 4096
+fpathconf01    8  TPASS  :  fpathconf(fd, _PC_CHOWN_RESTRICTED) returned 1
+fpathconf01    9  TPASS  :  fpathconf(fd, _PC_NO_TRUNC) returned 1
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fremovexattr01 stime=1570499392
+cmdline="fremovexattr01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
+tst_supported_fs_types.c:60: INFO: Kernel supports ext2
+tst_supported_fs_types.c:44: INFO: mkfs.ext2 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports ext3
+tst_supported_fs_types.c:44: INFO: mkfs.ext3 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports ext4
+tst_supported_fs_types.c:44: INFO: mkfs.ext4 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports xfs
+tst_supported_fs_types.c:44: INFO: mkfs.xfs does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports btrfs
+tst_supported_fs_types.c:44: INFO: mkfs.btrfs does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports vfat
+tst_supported_fs_types.c:44: INFO: mkfs.vfat does exist
+tst_supported_fs_types.c:92: INFO: FUSE does support exfat
+tst_supported_fs_types.c:44: INFO: mkfs.exfat does exist
+tst_supported_fs_types.c:92: INFO: FUSE does support ntfs
+tst_supported_fs_types.c:44: INFO: mkfs.ntfs does exist
+tst_test.c:1179: INFO: Testing on ext2
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fremovexattr01.c:66: PASS: fremovexattr(2) removed attribute as expected
+tst_test.c:1179: INFO: Testing on ext3
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fremovexattr01.c:66: PASS: fremovexattr(2) removed attribute as expected
+tst_test.c:1179: INFO: Testing on ext4
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fremovexattr01.c:66: PASS: fremovexattr(2) removed attribute as expected
+tst_test.c:1179: INFO: Testing on xfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with xfs opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fremovexattr01.c:66: PASS: fremovexattr(2) removed attribute as expected
+tst_test.c:1179: INFO: Testing on btrfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with btrfs opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fremovexattr01.c:66: PASS: fremovexattr(2) removed attribute as expected
+tst_test.c:1179: INFO: Testing on vfat
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fremovexattr01.c:82: CONF: fremovexattr(2) not supported
+tst_test.c:1179: INFO: Testing on exfat
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with exfat opts='' extra opts=''
+safe_macros.c:743: INFO: Trying FUSE...
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fremovexattr01.c:82: CONF: fremovexattr(2) not supported
+tst_test.c:1179: INFO: Testing on ntfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ntfs opts='' extra opts=''
+The partition start sector was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+The number of sectors per track was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+The number of heads was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
+Windows will not be able to boot from this device.
+safe_macros.c:743: INFO: Trying FUSE...
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fremovexattr01.c:66: PASS: fremovexattr(2) removed attribute as expected
+
+Summary:
+passed   6
+failed   0
+skipped  2
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=6 termination_type=exited termination_id=0 corefile=no
+cutime=9 cstime=117
+<<<test_end>>>
+<<<test_start>>>
+tag=fremovexattr02 stime=1570499398
+cmdline="fremovexattr02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
+tst_supported_fs_types.c:60: INFO: Kernel supports ext2
+tst_supported_fs_types.c:44: INFO: mkfs.ext2 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports ext3
+tst_supported_fs_types.c:44: INFO: mkfs.ext3 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports ext4
+tst_supported_fs_types.c:44: INFO: mkfs.ext4 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports xfs
+tst_supported_fs_types.c:44: INFO: mkfs.xfs does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports btrfs
+tst_supported_fs_types.c:44: INFO: mkfs.btrfs does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports vfat
+tst_supported_fs_types.c:44: INFO: mkfs.vfat does exist
+tst_supported_fs_types.c:92: INFO: FUSE does support exfat
+tst_supported_fs_types.c:44: INFO: mkfs.exfat does exist
+tst_supported_fs_types.c:92: INFO: FUSE does support ntfs
+tst_supported_fs_types.c:44: INFO: mkfs.ntfs does exist
+tst_test.c:1179: INFO: Testing on ext2
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fremovexattr02.c:73: PASS: fremovexattr(2) failed expectedly: ENODATA (61)
+fremovexattr02.c:73: PASS: fremovexattr(2) failed expectedly: EBADF (9)
+fremovexattr02.c:73: PASS: fremovexattr(2) failed expectedly: EFAULT (14)
+tst_test.c:1179: INFO: Testing on ext3
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fremovexattr02.c:73: PASS: fremovexattr(2) failed expectedly: ENODATA (61)
+fremovexattr02.c:73: PASS: fremovexattr(2) failed expectedly: EBADF (9)
+fremovexattr02.c:73: PASS: fremovexattr(2) failed expectedly: EFAULT (14)
+tst_test.c:1179: INFO: Testing on ext4
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fremovexattr02.c:73: PASS: fremovexattr(2) failed expectedly: ENODATA (61)
+fremovexattr02.c:73: PASS: fremovexattr(2) failed expectedly: EBADF (9)
+fremovexattr02.c:73: PASS: fremovexattr(2) failed expectedly: EFAULT (14)
+tst_test.c:1179: INFO: Testing on xfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with xfs opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fremovexattr02.c:73: PASS: fremovexattr(2) failed expectedly: ENODATA (61)
+fremovexattr02.c:73: PASS: fremovexattr(2) failed expectedly: EBADF (9)
+fremovexattr02.c:73: PASS: fremovexattr(2) failed expectedly: EFAULT (14)
+tst_test.c:1179: INFO: Testing on btrfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with btrfs opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fremovexattr02.c:73: PASS: fremovexattr(2) failed expectedly: ENODATA (61)
+fremovexattr02.c:73: PASS: fremovexattr(2) failed expectedly: EBADF (9)
+fremovexattr02.c:73: PASS: fremovexattr(2) failed expectedly: EFAULT (14)
+tst_test.c:1179: INFO: Testing on vfat
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fremovexattr02.c:68: CONF: fremovexattr(2) not supported
+tst_test.c:1179: INFO: Testing on exfat
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with exfat opts='' extra opts=''
+safe_macros.c:743: INFO: Trying FUSE...
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fremovexattr02.c:68: CONF: fremovexattr(2) not supported
+tst_test.c:1179: INFO: Testing on ntfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ntfs opts='' extra opts=''
+The partition start sector was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+The number of sectors per track was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+The number of heads was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
+Windows will not be able to boot from this device.
+safe_macros.c:743: INFO: Trying FUSE...
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fremovexattr02.c:73: PASS: fremovexattr(2) failed expectedly: ENODATA (61)
+fremovexattr02.c:73: PASS: fremovexattr(2) failed expectedly: EBADF (9)
+fremovexattr02.c:73: PASS: fremovexattr(2) failed expectedly: EFAULT (14)
+
+Summary:
+passed   18
+failed   0
+skipped  2
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=6 termination_type=exited termination_id=0 corefile=no
+cutime=10 cstime=131
+<<<test_end>>>
+<<<test_start>>>
+tag=fstat02 stime=1570499404
+cmdline="fstat02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fstat02.c:67: PASS: fstat() reported correct values.
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fstat02_64 stime=1570499404
+cmdline="fstat02_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fstat02.c:67: PASS: fstat() reported correct values.
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fstat03 stime=1570499404
+cmdline="fstat03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fstat03.c:49: PASS: fstat() fails with expected error EBADF
+fstat03.c:49: PASS: fstat() fails with expected error EFAULT
+
+Summary:
+passed   2
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fstat03_64 stime=1570499404
+cmdline="fstat03_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fstat03.c:49: PASS: fstat() fails with expected error EBADF
+fstat03.c:49: PASS: fstat() fails with expected error EFAULT
+
+Summary:
+passed   2
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fstatat01 stime=1570499404
+cmdline="fstatat01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fstatat01    1  TPASS  :  fstatat failed as expected: TEST_ERRNO=SUCCESS(0): Success
+fstatat01    2  TPASS  :  fstatat failed as expected: TEST_ERRNO=SUCCESS(0): Success
+fstatat01    3  TPASS  :  fstatat failed as expected: TEST_ERRNO=ENOTDIR(20): Not a directory
+fstatat01    4  TPASS  :  fstatat failed as expected: TEST_ERRNO=EBADF(9): Bad file descriptor
+fstatat01    5  TPASS  :  fstatat failed as expected: TEST_ERRNO=EINVAL(22): Invalid argument
+fstatat01    6  TPASS  :  fstatat failed as expected: TEST_ERRNO=SUCCESS(0): Success
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=1 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fstatfs01 stime=1570499404
+cmdline="fstatfs01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fstatfs01    1  TPASS  :  fstatfs() on a file - f_type=9123683e
+fstatfs01    2  TPASS  :  fstatfs() on a pipe - f_type=50495045
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=fstatfs01_64 stime=1570499404
+cmdline="fstatfs01_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fstatfs01    1  TPASS  :  fstatfs() on a file - f_type=9123683e
+fstatfs01    2  TPASS  :  fstatfs() on a pipe - f_type=50495045
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fstatfs02 stime=1570499404
+cmdline="fstatfs02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fstatfs02    1  TPASS  :  expected failure - errno = 9 : Bad file descriptor
+fstatfs02    2  TPASS  :  expected failure - errno = 14 : Bad address
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fstatfs02_64 stime=1570499404
+cmdline="fstatfs02_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fstatfs02    1  TPASS  :  expected failure - errno = 9 : Bad file descriptor
+fstatfs02    2  TPASS  :  expected failure - errno = 14 : Bad address
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fsync01 stime=1570499404
+cmdline="fsync01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
+tst_supported_fs_types.c:60: INFO: Kernel supports ext2
+tst_supported_fs_types.c:44: INFO: mkfs.ext2 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports ext3
+tst_supported_fs_types.c:44: INFO: mkfs.ext3 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports ext4
+tst_supported_fs_types.c:44: INFO: mkfs.ext4 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports xfs
+tst_supported_fs_types.c:44: INFO: mkfs.xfs does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports btrfs
+tst_supported_fs_types.c:44: INFO: mkfs.btrfs does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports vfat
+tst_supported_fs_types.c:44: INFO: mkfs.vfat does exist
+tst_supported_fs_types.c:92: INFO: FUSE does support exfat
+tst_supported_fs_types.c:44: INFO: mkfs.exfat does exist
+tst_supported_fs_types.c:92: INFO: FUSE does support ntfs
+tst_supported_fs_types.c:44: INFO: mkfs.ntfs does exist
+tst_test.c:1179: INFO: Testing on ext2
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+tst_test.c:1179: INFO: Testing on ext3
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+tst_test.c:1179: INFO: Testing on ext4
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+tst_test.c:1179: INFO: Testing on xfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with xfs opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+tst_test.c:1179: INFO: Testing on btrfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with btrfs opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+tst_test.c:1179: INFO: Testing on vfat
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+tst_test.c:1179: INFO: Testing on exfat
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with exfat opts='' extra opts=''
+safe_macros.c:743: INFO: Trying FUSE...
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+tst_test.c:1179: INFO: Testing on ntfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ntfs opts='' extra opts=''
+The partition start sector was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+The number of sectors per track was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+The number of heads was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
+Windows will not be able to boot from this device.
+safe_macros.c:743: INFO: Trying FUSE...
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+fsync01.c:30: PASS: fsync() returned 0
+
+Summary:
+passed   80
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=7 termination_type=exited termination_id=0 corefile=no
+cutime=11 cstime=132
+<<<test_end>>>
+<<<test_start>>>
+tag=fsync02 stime=1570499411
+cmdline="fsync02"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fsync02     1  TPASS  :  fsync succeeded in an acceptable amount of time
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=3
+<<<test_end>>>
+<<<test_start>>>
+tag=fsync03 stime=1570499411
+cmdline="fsync03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+fsync03     1  TPASS  :  expected failure - errno = 9 : Bad file descriptor
+fsync03     2  TPASS  :  expected failure - errno = 22 : Invalid argument
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=fsync04 stime=1570499411
+cmdline="fsync04"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
+tst_supported_fs_types.c:60: INFO: Kernel supports ext2
+tst_supported_fs_types.c:44: INFO: mkfs.ext2 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports ext3
+tst_supported_fs_types.c:44: INFO: mkfs.ext3 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports ext4
+tst_supported_fs_types.c:44: INFO: mkfs.ext4 does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports xfs
+tst_supported_fs_types.c:44: INFO: mkfs.xfs does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports btrfs
+tst_supported_fs_types.c:44: INFO: mkfs.btrfs does exist
+tst_supported_fs_types.c:60: INFO: Kernel supports vfat
+tst_supported_fs_types.c:44: INFO: mkfs.vfat does exist
+tst_supported_fs_types.c:92: INFO: FUSE does support exfat
+tst_supported_fs_types.c:44: INFO: mkfs.exfat does exist
+tst_supported_fs_types.c:92: INFO: FUSE does support ntfs
+tst_supported_fs_types.c:44: INFO: mkfs.ntfs does exist
+tst_test.c:1179: INFO: Testing on ext2
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsync04.c:49: PASS: Test file synced to device
+tst_test.c:1179: INFO: Testing on ext3
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsync04.c:49: PASS: Test file synced to device
+tst_test.c:1179: INFO: Testing on ext4
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsync04.c:49: PASS: Test file synced to device
+tst_test.c:1179: INFO: Testing on xfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with xfs opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsync04.c:49: PASS: Test file synced to device
+tst_test.c:1179: INFO: Testing on btrfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with btrfs opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsync04.c:49: PASS: Test file synced to device
+tst_test.c:1179: INFO: Testing on vfat
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsync04.c:49: PASS: Test file synced to device
+tst_test.c:1179: INFO: Testing on exfat
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with exfat opts='' extra opts=''
+safe_macros.c:743: INFO: Trying FUSE...
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsync04.c:49: PASS: Test file synced to device
+tst_test.c:1179: INFO: Testing on ntfs
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ntfs opts='' extra opts=''
+The partition start sector was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+The number of sectors per track was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+The number of heads was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
+Windows will not be able to boot from this device.
+safe_macros.c:743: INFO: Trying FUSE...
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+fsync04.c:49: PASS: Test file synced to device
+
+Summary:
+passed   8
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=10 termination_type=exited termination_id=0 corefile=no
+cutime=10 cstime=207
+<<<test_end>>>
+<<<test_start>>>
+tag=ftruncate01 stime=1570499421
+cmdline="ftruncate01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+ftruncate01.c:65: INFO: Truncated length smaller than file size
+ftruncate01.c:60: PASS: ftruncate() succeeded
+ftruncate01.c:74: INFO: Truncated length exceeds file size
+ftruncate01.c:60: PASS: ftruncate() succeeded
+
+Summary:
+passed   2
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=ftruncate01_64 stime=1570499421
+cmdline="ftruncate01_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+ftruncate01.c:65: INFO: Truncated length smaller than file size
+ftruncate01.c:60: PASS: ftruncate() succeeded
+ftruncate01.c:74: INFO: Truncated length exceeds file size
+ftruncate01.c:60: PASS: ftruncate() succeeded
+
+Summary:
+passed   2
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=ftruncate03 stime=1570499421
+cmdline="ftruncate03"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+ftruncate03.c:57: PASS: ftruncate() failed expectedly: EINVAL (22)
+ftruncate03.c:57: PASS: ftruncate() failed expectedly: EINVAL (22)
+ftruncate03.c:57: PASS: ftruncate() failed expectedly: EINVAL (22)
+ftruncate03.c:57: PASS: ftruncate() failed expectedly: EBADF (9)
+
+Summary:
+passed   4
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=1 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=ftruncate03_64 stime=1570499422
+cmdline="ftruncate03_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+ftruncate03.c:57: PASS: ftruncate() failed expectedly: EINVAL (22)
+ftruncate03.c:57: PASS: ftruncate() failed expectedly: EINVAL (22)
+ftruncate03.c:57: PASS: ftruncate() failed expectedly: EINVAL (22)
+ftruncate03.c:57: PASS: ftruncate() failed expectedly: EBADF (9)
+
+Summary:
+passed   4
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=1
+<<<test_end>>>
+<<<test_start>>>
+tag=ftruncate04 stime=1570499422
+cmdline="ftruncate04"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+ftruncate04.c:116: INFO: Child locks file
+ftruncate04.c:60: PASS: ftruncate() offset before lock failed with EAGAIN
+ftruncate04.c:60: PASS: ftruncate() offset in lock failed with EAGAIN
+ftruncate04.c:84: PASS: ftruncate() offset after lock succeded
+ftruncate04.c:127: INFO: Child unlocks file
+ftruncate04.c:84: PASS: ftruncate() offset in lock succeded
+ftruncate04.c:84: PASS: ftruncate() offset before lock succeded
+ftruncate04.c:84: PASS: ftruncate() offset after lock succeded
+
+Summary:
+passed   6
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=6
+<<<test_end>>>
+<<<test_start>>>
+tag=ftruncate04_64 stime=1570499422
+cmdline="ftruncate04_64"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_device.c:238: INFO: Using test device LTP_DEV='/dev/loop0'
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
+mke2fs 1.43.4 (31-Jan-2017)
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+ftruncate04.c:116: INFO: Child locks file
+ftruncate04.c:60: PASS: ftruncate() offset before lock failed with EAGAIN
+ftruncate04.c:60: PASS: ftruncate() offset in lock failed with EAGAIN
+ftruncate04.c:84: PASS: ftruncate() offset after lock succeded
+ftruncate04.c:127: INFO: Child unlocks file
+ftruncate04.c:84: PASS: ftruncate() offset in lock succeded
+ftruncate04.c:84: PASS: ftruncate() offset before lock succeded
+ftruncate04.c:84: PASS: ftruncate() offset after lock succeded
+
+Summary:
+passed   6
+failed   0
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status="ok"
+duration=1 termination_type=exited termination_id=0 corefile=no
+cutime=1 cstime=5
+<<<test_end>>>
+<<<test_start>>>
+tag=futimesat01 stime=1570499423
+cmdline="futimesat01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+futimesat01    1  TPASS  :  futimesat() returned expected errno: TEST_ERRNO=SUCCESS(0): Success
+futimesat01    2  TPASS  :  futimesat() returned expected errno: TEST_ERRNO=SUCCESS(0): Success
+futimesat01    3  TPASS  :  futimesat() returned expected errno: TEST_ERRNO=ENOTDIR(20): Not a directory
+futimesat01    4  TPASS  :  futimesat() returned expected errno: TEST_ERRNO=EBADF(9): Bad file descriptor
+futimesat01    5  TPASS  :  futimesat() returned expected errno: TEST_ERRNO=SUCCESS(0): Success
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=getcontext01 stime=1570499423
+cmdline="getcontext01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+getcontext01    1  TPASS  :  getcontext passed
+<<<execution_status>>>
+initiation_status="ok"
+duration=0 termination_type=exited termination_id=0 corefile=no
+cutime=0 cstime=0
+<<<test_end>>>
+<<<test_start>>>
+tag=getcpu01 stime=1570499423
+cmdline="getcpu01"
+contacts=""
+analysis=exit
+<<<test_output>>>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+getcpu01.c:152: PASS: getcpu() returned proper cpuid:1, node id:0
+
+Summary:
+passed   1
 failed   0
 skipped  0
 warnings 0
@@ -18820,7 +17832,7 @@ LTP Version: 20190930-6-gff3c97804
        ###############################################################
 
 
---KN5l+BnMqAQyZLvT
+--JwB53PgKC5A7+0Ej
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -18830,4 +17842,4 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---KN5l+BnMqAQyZLvT--
+--JwB53PgKC5A7+0Ej--
