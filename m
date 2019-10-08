@@ -1,38 +1,43 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77DB8CFB6C
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Oct 2019 15:36:58 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3909BCFC38
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Oct 2019 16:20:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 269D53C22CD
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Oct 2019 15:36:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2BDCC3C22D5
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Oct 2019 16:20:04 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id ECC693C0D1F
- for <ltp@lists.linux.it>; Tue,  8 Oct 2019 15:36:53 +0200 (CEST)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 1EF313C04F9
+ for <ltp@lists.linux.it>; Tue,  8 Oct 2019 16:20:01 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0777514016B5
- for <ltp@lists.linux.it>; Tue,  8 Oct 2019 15:36:51 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7FFE51001262
+ for <ltp@lists.linux.it>; Tue,  8 Oct 2019 16:18:39 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 59D01B187;
- Tue,  8 Oct 2019 13:36:51 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue,  8 Oct 2019 15:36:34 +0200
-Message-Id: <20191008133634.12369-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.23.0
+ by mx1.suse.de (Postfix) with ESMTP id 35B00AECB;
+ Tue,  8 Oct 2019 14:19:59 +0000 (UTC)
+Date: Tue, 8 Oct 2019 16:19:57 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Yu Xu <xuyu@linux.alibaba.com>
+Message-ID: <20191008141956.GA17636@rei.lan>
+References: <9b3247beedd55b5a2c2ef638b26416d175775c77.1550815364.git.xuyu@linux.alibaba.com>
+ <20190404091051.GA20565@rei.lan>
+ <d9f667f7-f836-8918-2a3a-180e37c9e2a0@linux.alibaba.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <d9f667f7-f836-8918-2a3a-180e37c9e2a0@linux.alibaba.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] pkeys: Fix uclibc build caused by conflicting
- signature
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] controllers/cgroup_regression_test.sh: mitigate
+ potential mount error
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,85 +49,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-UmVtb3Zpbmcgc3RhdGljIGZpeGVzIHRoZSBwcm9ibGVtLgoKdUNsaWJjIGRlZmluZXMgcGtleV97
-YWxsb2MsZnJlZSxtcHJvdGVjdH0gc2lnbmF0dXJlcyBpbgo8Yml0cy9tbWFuLXNoYXJlZC5oPiwg
-d2hpY2ggaXMgaW5jbHVkZWQgYnkgPGJpdHMvbW1hbi1saW51eC5oPi4gQmVjYXVzZQppdCBkb2Vz
-IG5vdCBpbXBsZW1lbnQgdGhlbSwgb3VyIGltcGxlbWVudGF0aW9uIHNpZ25hdHVyZSBjb25mbGlj
-dHMsIGFzCml0IHVzZXMgc3RhdGljLiBBZGQgJ2x0cF8nIHByZWZpeCB0byBvdXIgaGVscGVyIGZ1
-bmN0aW9ucyAoc3VnZ2VzdGVkIGJ5IEphbikuCgpGaXhlZCBidWlsZCBlcnJvcjoKSW4gZmlsZSBp
-bmNsdWRlZCBmcm9tIHBrZXkwMS5jOjMyOjA6CnBrZXkuaDoxODoxOTogZXJyb3I6IHN0YXRpYyBk
-ZWNsYXJhdGlvbiBvZiDigJhwa2V5X21wcm90ZWN04oCZIGZvbGxvd3Mgbm9uLXN0YXRpYyBkZWNs
-YXJhdGlvbgogc3RhdGljIGlubGluZSBpbnQgcGtleV9tcHJvdGVjdCh2b2lkICphZGRyLCBzaXpl
-X3QgbGVuLCBpbnQgcHJvdCwgaW50IHBrZXkpCiAgICAgICAgICAgICAgICAgICBeCkluIGZpbGUg
-aW5jbHVkZWQgZnJvbSAvb3B0L2JyLXRlc3QtcGtnL2JyLWFybS1mdWxsL2hvc3QvYXJtLWJ1aWxk
-cm9vdC1saW51eC11Y2xpYmNnbnVlYWJpL3N5c3Jvb3QvdXNyL2luY2x1ZGUvYml0cy9tbWFuLWxp
-bnV4Lmg6MTE1OjAsCiAgICAgICAgICAgICAgICAgZnJvbSAvb3B0L2JyLXRlc3QtcGtnL2JyLWFy
-bS1mdWxsL2hvc3QvYXJtLWJ1aWxkcm9vdC1saW51eC11Y2xpYmNnbnVlYWJpL3N5c3Jvb3QvdXNy
-L2luY2x1ZGUvYml0cy9tbWFuLmg6NDAsCiAgICAgICAgICAgICAgICAgZnJvbSAvb3B0L2JyLXRl
-c3QtcGtnL2JyLWFybS1mdWxsL2hvc3QvYXJtLWJ1aWxkcm9vdC1saW51eC11Y2xpYmNnbnVlYWJp
-L3N5c3Jvb3QvdXNyL2luY2x1ZGUvc3lzL21tYW4uaDo0MSwKICAgICAgICAgICAgICAgICBmcm9t
-IHBrZXkwMS5jOjI5Ogovb3B0L2JyLXRlc3QtcGtnL2JyLWFybS1mdWxsL2hvc3QvYXJtLWJ1aWxk
-cm9vdC1saW51eC11Y2xpYmNnbnVlYWJpL3N5c3Jvb3QvdXNyL2luY2x1ZGUvYml0cy9tbWFuLXNo
-YXJlZC5oOjczOjU6IG5vdGU6IHByZXZpb3VzIGRlY2xhcmF0aW9uIG9mIOKAmHBrZXlfbXByb3Rl
-Y3TigJkgd2FzIGhlcmUKIGludCBwa2V5X21wcm90ZWN0ICh2b2lkICpfX2FkZHIsIHNpemVfdCBf
-X2xlbiwgaW50IF9fcHJvdCwgaW50IF9fcGtleSkgX19USFJPVzsKICAgICBeCkluIGZpbGUgaW5j
-bHVkZWQgZnJvbSBwa2V5MDEuYzozMjowOgoKRm91bmQgd2l0aCB0ZXN0LXBrZyB0b29sIGZyb20g
-QnVpbGRyb290IGRpc3RyaWJ1dGlvbi4KCkZpeGVzOiA5MGMyZGM4OWYgKCJwa2V5OiBhZGQgdGVz
-dCBmb3IgbWVtb3J5IHByb3RlY3Rpb24ga2V5cyIpCgpSZXBvcnRlZC1ieTogUGV0ciBWb3JlbCA8
-cGV0ci52b3JlbEBnbWFpbC5jb20+ClN1Z2dlc3RlZC1ieTogSmFuIFN0YW5jZWsgPGpzdGFuY2Vr
-QHJlZGhhdC5jb20+ClNpZ25lZC1vZmYtYnk6IFBldHIgVm9yZWwgPHB2b3JlbEBzdXNlLmN6Pgot
-LS0KIHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcGtleXMvcGtleS5oICAgfCAxNSArKysrKysr
-KysrLS0tLS0KIHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcGtleXMvcGtleTAxLmMgfCAgNCAr
-Ky0tCiAyIGZpbGVzIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pCgpk
-aWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9wa2V5cy9wa2V5LmggYi90ZXN0
-Y2FzZXMva2VybmVsL3N5c2NhbGxzL3BrZXlzL3BrZXkuaAppbmRleCBkNjIzMjQ0ZWIuLjNjMTIw
-NDk3OCAxMDA2NDQKLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9wa2V5cy9wa2V5LmgK
-KysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9wa2V5cy9wa2V5LmgKQEAgLTEsNiArMSw3
-IEBACiAvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vci1sYXRlcgogLyoKICAq
-IENvcHlyaWdodCAoYykgMjAxOSBSZWQgSGF0LCBJbmMuCisgKiBDb3B5cmlnaHQgKGMpIExpbnV4
-IFRlc3QgUHJvamVjdCwgMjAxOQogICovCiAKICNpZm5kZWYgUEtFWVNfSApAQCAtMTUsMjUgKzE2
-LDI5IEBACiAjZW5kaWYKIAogI2lmbmRlZiBIQVZFX1BLRVlfTVBST1RFQ1QKLXN0YXRpYyBpbmxp
-bmUgaW50IHBrZXlfbXByb3RlY3Qodm9pZCAqYWRkciwgc2l6ZV90IGxlbiwgaW50IHByb3QsIGlu
-dCBwa2V5KQoraW5saW5lIGludCBsdHBfcGtleV9tcHJvdGVjdCh2b2lkICphZGRyLCBzaXplX3Qg
-bGVuLCBpbnQgcHJvdCwgaW50IHBrZXkpCiB7CiAJcmV0dXJuIHRzdF9zeXNjYWxsKF9fTlJfcGtl
-eV9tcHJvdGVjdCwgYWRkciwgbGVuLCBwcm90LCBwa2V5KTsKIH0KIAotc3RhdGljIGlubGluZSBp
-bnQgcGtleV9hbGxvYyh1bnNpZ25lZCBpbnQgZmxhZ3MsIHVuc2lnbmVkIGludCBhY2Nlc3Nfcmln
-aHRzKQoraW5saW5lIGludCBsdHBfcGtleV9hbGxvYyh1bnNpZ25lZCBpbnQgZmxhZ3MsIHVuc2ln
-bmVkIGludCBhY2Nlc3NfcmlnaHRzKQogewogCXJldHVybiB0c3Rfc3lzY2FsbChfX05SX3BrZXlf
-YWxsb2MsIGZsYWdzLCBhY2Nlc3NfcmlnaHRzKTsKIH0KIAotc3RhdGljIGlubGluZSBpbnQgcGtl
-eV9mcmVlKGludCBwa2V5KQoraW5saW5lIGludCBsdHBfcGtleV9mcmVlKGludCBwa2V5KQogewog
-CXJldHVybiB0c3Rfc3lzY2FsbChfX05SX3BrZXlfZnJlZSwgcGtleSk7CiB9CisjZWxzZQorI2Rl
-ZmluZSBsdHBfcGtleV9hbGxvYyBwa2V5X2FsbG9jCisjZGVmaW5lIGx0cF9wa2V5X2ZyZWUgcGtl
-eV9mcmVlCisjZGVmaW5lIGx0cF9wa2V5X21wcm90ZWN0IHBrZXlfbXByb3RlY3QKICNlbmRpZiAv
-KiBIQVZFX1BLRVlfTVBST1RFQ1QgKi8KIAogc3RhdGljIGlubGluZSB2b2lkIGNoZWNrX3BrZXlf
-c3VwcG9ydCh2b2lkKQogewotCWludCBwa2V5ID0gcGtleV9hbGxvYygwLCAwKTsKKwlpbnQgcGtl
-eSA9IGx0cF9wa2V5X2FsbG9jKDAsIDApOwogCiAJaWYgKHBrZXkgPT0gLTEpIHsKIAkJaWYgKGVy
-cm5vID09IEVOT1NZUykKQEAgLTQ0LDcgKzQ5LDcgQEAgc3RhdGljIGlubGluZSB2b2lkIGNoZWNr
-X3BrZXlfc3VwcG9ydCh2b2lkKQogCQkJdHN0X2JyayhUQ09ORiwgInBrZXlzIGFyZSBub3QgYXZh
-aWxhYmxlIGZvciB0ZXN0Iik7CiAJfQogCi0JcGtleV9mcmVlKHBrZXkpOworCWx0cF9wa2V5X2Zy
-ZWUocGtleSk7CiB9CiAKICNlbmRpZiAvKiBQS0VZU19IICovCmRpZmYgLS1naXQgYS90ZXN0Y2Fz
-ZXMva2VybmVsL3N5c2NhbGxzL3BrZXlzL3BrZXkwMS5jIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNj
-YWxscy9wa2V5cy9wa2V5MDEuYwppbmRleCBiNmI3ZTVjYmEuLjIxYjk4YjI0MiAxMDA2NDQKLS0t
-IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9wa2V5cy9wa2V5MDEuYworKysgYi90ZXN0Y2Fz
-ZXMva2VybmVsL3N5c2NhbGxzL3BrZXlzL3BrZXkwMS5jCkBAIC0xNjIsNyArMTYyLDcgQEAgc3Rh
-dGljIHZvaWQgcGtleV90ZXN0KHN0cnVjdCB0Y2FzZSAqdGMsIHN0cnVjdCBtbWFwX3BhcmFtICpt
-cGEpCiAJCXRzdF9icmsoVEJST0sgfCBURVJSTk8sICJwa2V5X2FsbG9jIGZhaWxlZCIpOwogCiAJ
-dHN0X3JlcyhUSU5GTywgIlNldCAlcyBvbiAoJXMpIGJ1ZmZlciIsIHRjLT5uYW1lLCBmbGFnX3Rv
-X3N0cihtcGEtPmZsYWdzKSk7Ci0JaWYgKHBrZXlfbXByb3RlY3QoYnVmZmVyLCBzaXplLCBtcGEt
-PnByb3QsIHBrZXkpID09IC0xKQorCWlmIChsdHBfcGtleV9tcHJvdGVjdChidWZmZXIsIHNpemUs
-IG1wYS0+cHJvdCwgcGtleSkgPT0gLTEpCiAJCXRzdF9icmsoVEJST0sgfCBURVJSTk8sICJwa2V5
-X21wcm90ZWN0IGZhaWxlZCIpOwogCiAJcGlkID0gU0FGRV9GT1JLKCk7CkBAIC0xODksNyArMTg5
-LDcgQEAgc3RhdGljIHZvaWQgcGtleV90ZXN0KHN0cnVjdCB0Y2FzZSAqdGMsIHN0cnVjdCBtbWFw
-X3BhcmFtICptcGEpCiAgICAgICAgICAgICAgICAgdHN0X3JlcyhURkFJTCwgIkNoaWxkOiAlcyIs
-IHRzdF9zdHJzdGF0dXMoc3RhdHVzKSk7CiAKIAl0c3RfcmVzKFRJTkZPLCAiUmVtb3ZlICVzIGZy
-b20gdGhlIGJ1ZmZlciIsIHRjLT5uYW1lKTsKLQlpZiAocGtleV9tcHJvdGVjdChidWZmZXIsIHNp
-emUsIG1wYS0+cHJvdCwgMHgwKSA9PSAtMSkKKwlpZiAobHRwX3BrZXlfbXByb3RlY3QoYnVmZmVy
-LCBzaXplLCBtcGEtPnByb3QsIDB4MCkgPT0gLTEpCiAJCXRzdF9icmsoVEJST0sgfCBURVJSTk8s
-ICJwa2V5X21wcm90ZWN0IGZhaWxlZCIpOwogCiAJc3dpdGNoIChtcGEtPnByb3QpIHsKLS0gCjIu
-MjMuMAoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0
-aW5mby9sdHAK
+Hi!
+> > There is always better solution than sprinking the code with sleeps,
+> > here we can retry the mount instead, which would be faster and more
+> 
+> thanks for your kind reply!
+> 
+> retry mount cannot help here(at least for the current kernel), because 
+> `umount cgroup/` **immediately** after `rmdir cgroup/0` corrupts the 
+> cgroup_root refcnt, and it will always cause the subsequent remount 
+> failure(s) whenever remounting overlapping controllers later.
+> 
+> so I simply put a sleep between between `umount cgroup/` and `rmdir 
+> cgroup/0` to synchronize them.  <- any good idea to this point?
+> 
+> and attach the related kernel issue again:
+> https://marc.info/?t=155021167400005&r=1&w=2
+
+We are not working around kernel bugs in tests.
+
+Too bad that it seems that nobody is interested in fixing the v1 cgroup
+API. I guess this is a signal that we should stop using it as fast as
+possible and migrate to v2.
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
