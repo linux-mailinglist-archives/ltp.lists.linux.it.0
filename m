@@ -2,55 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38ABED09F9
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Oct 2019 10:36:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A303D0A7F
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Oct 2019 11:02:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9F75E3C207C
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Oct 2019 10:36:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CFC2B3C2081
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Oct 2019 11:02:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 9E0DA3C134D
- for <ltp@lists.linux.it>; Wed,  9 Oct 2019 10:36:19 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 3C5443C2022
+ for <ltp@lists.linux.it>; Wed,  9 Oct 2019 11:02:57 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B9338200074
- for <ltp@lists.linux.it>; Wed,  9 Oct 2019 10:36:18 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 3B37A87F07;
- Wed,  9 Oct 2019 08:36:17 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 320B319C69;
- Wed,  9 Oct 2019 08:36:17 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 297674E589;
- Wed,  9 Oct 2019 08:36:17 +0000 (UTC)
-Date: Wed, 9 Oct 2019 04:36:16 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <1365327078.5308904.1570610176976.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20191008151624.19815-1-chrubis@suse.cz>
-References: <20191008151624.19815-1-chrubis@suse.cz>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4D4A01A01479
+ for <ltp@lists.linux.it>; Wed,  9 Oct 2019 11:02:55 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 74242AAB0;
+ Wed,  9 Oct 2019 09:02:55 +0000 (UTC)
+Date: Wed, 9 Oct 2019 11:02:54 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Jan Stancek <jstancek@redhat.com>
+Message-ID: <20191009090253.GA17201@dell5510>
+References: <20191009063928.27270-1-pvorel@suse.cz>
+ <1403093401.5306645.1570609073953.JavaMail.zimbra@redhat.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.40.204.157, 10.4.195.27]
-Thread-Topic: syscalls/copy_file_range02: Add check for pipe
-Thread-Index: 8KItfruFCk5/nnABLtsZTih7dGVZUA==
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2
- (mx1.redhat.com [10.5.110.71]); Wed, 09 Oct 2019 08:36:17 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <1403093401.5306645.1570609073953.JavaMail.zimbra@redhat.com>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/copy_file_range02: Add check for pipe
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] pkeys: Fix uclibc build caused by conflicting
+ signature
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,28 +48,24 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Hi Jan,
 
------ Original Message -----
-> From: "Cyril Hrubis" <chrubis@suse.cz>
-> To: ltp@lists.linux.it
-> Sent: Tuesday, 8 October, 2019 5:16:24 PM
-> Subject: [LTP] [PATCH] syscalls/copy_file_range02: Add check for pipe
-> 
-> The original patch that was adding this fell under a table:
-> 
-> http://patchwork.ozlabs.org/patch/1112976/
-> 
-> I guess there is no harm checking that we get EINVAL for pipe as well,
-> or does anyone disagree?
+> ----- Original Message -----
+> > Removing static fixes the problem.
 
-Do you know what is kernel behaviour prior to commit 11cbfb10775a ?
-Does it pass/fail/crash/different errno?
+> This comment seems out of place for current patch,
+> rest looks good to me.
+Good point, thanks. Pushed without this comment.
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
