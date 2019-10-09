@@ -1,72 +1,45 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20399D0B0E
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Oct 2019 11:26:19 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 73C96D0CD4
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Oct 2019 12:29:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C1F243C207E
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Oct 2019 11:26:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A38963C2278
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Oct 2019 12:29:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id A40A33C1045
- for <ltp@lists.linux.it>; Wed,  9 Oct 2019 11:26:17 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 09482601E81
- for <ltp@lists.linux.it>; Wed,  9 Oct 2019 11:26:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1570613175;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=um8vd8OyljV6sH+F/hC+kbshCqBK2qBYev/jAiSTRx0=;
- b=aJqbvBHBaM/vHI1R2oJFewQ/2RLUEHaIiuwzxZ2FZNmM5Ltb+eKzWmvRUFX+OJ+WOPJF/Q
- cTNAMDGD5ooJvo2AoXZZC4uZHXwTWDY7ZwdigLuxqvGWXIPcF7GGid7BZf2OXcwKfe185v
- NH6G219BDxzUik7XvM0dOyVlMI6a20A=
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
- [209.85.210.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-317-MDimOQABOC2KsN4JNFSnow-1; Wed, 09 Oct 2019 05:26:12 -0400
-Received: by mail-ot1-f69.google.com with SMTP id i8so831026otc.19
- for <ltp@lists.linux.it>; Wed, 09 Oct 2019 02:26:11 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=iHBSJqEvmVR3rJ548kPP4aygXdSAoJJ28NAcoW+mweE=;
- b=hQ2EaQRE01Ull6dcja9ScH4L8BKhvetvpqW2stdWRDj1Z9go8lVx63IRggc1oaXEcD
- Y0jTNUVB7P4NuK6TlF8c51eJrZNbvOB0czZyqFiePzK5PR1zJLl3CNlzVOFFa3CfXhTq
- rGuRyJ7L8fdB8mIUEFI6RK/8QtyS+Oe0l14F9M3bcQXY9HgBF54PU8R5SW2C6oTd/i2v
- kVGCI6ZewAhHMKTy3iGhftmM6gcjuvSpRWbmF9XwOPMN1af28Lbu9x/bn+aWqJx9xDrU
- T5DsPbmPJfo10nFbrAu/J6DHrMVxi+Uo9qYlFk3MHTqq3dCjJzm0skgOxSGTEDwe/xSw
- 6q+Q==
-X-Gm-Message-State: APjAAAVk/w4AoN0mh49Hsw6mIztJDtbdYAaT9589sLw+kAFofiN3FYsk
- bGFkNstBXdG7KmyjX8K12lqwIBHwM3vBf5qRFJIzDHgsod+nDp99RO9153dURZwQpFj7bmhhI1u
- mF3i3xZ5pxwqK+Yrof9iC0ZofjR4=
-X-Received: by 2002:aca:72cf:: with SMTP id p198mr1373430oic.153.1570613170935; 
- Wed, 09 Oct 2019 02:26:10 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqzM2vUVUeG2xEjzdhG4xdlaQS11ulGbWh8H1zjhTXGD1CyVNvubuuirf1yn3D4DnHKIKcN0NmNKz7M/UUdI9u4=
-X-Received: by 2002:aca:72cf:: with SMTP id p198mr1373419oic.153.1570613170681; 
- Wed, 09 Oct 2019 02:26:10 -0700 (PDT)
-MIME-Version: 1.0
-References: <20190926093921.21247-1-liwang@redhat.com>
- <20191008125625.GA6180@dell5510>
-In-Reply-To: <20191008125625.GA6180@dell5510>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 9 Oct 2019 17:25:59 +0800
-Message-ID: <CAEemH2f+MFs9dq4WaG5FCQcVW=TL5u0YYfqRJUkBf=gFtNqNew@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-X-MC-Unique: MDimOQABOC2KsN4JNFSnow-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 012983C203D
+ for <ltp@lists.linux.it>; Wed,  9 Oct 2019 12:29:54 +0200 (CEST)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1B226200B66
+ for <ltp@lists.linux.it>; Wed,  9 Oct 2019 12:29:53 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+ [10.5.11.22])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id 0FA6310C092E
+ for <ltp@lists.linux.it>; Wed,  9 Oct 2019 10:29:52 +0000 (UTC)
+Received: from dustball.brq.redhat.com (unknown [10.43.17.163])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 86E401001B30
+ for <ltp@lists.linux.it>; Wed,  9 Oct 2019 10:29:51 +0000 (UTC)
+From: Jan Stancek <jstancek@redhat.com>
+To: ltp@lists.linux.it
+Date: Wed,  9 Oct 2019 12:29:48 +0200
+Message-Id: <26d555b1d9deddb5a6f0a93a7c7d3b00e8abc1ff.1570616598.git.jstancek@redhat.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2
+ (mx1.redhat.com [10.5.110.66]); Wed, 09 Oct 2019 10:29:52 +0000 (UTC)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [Patch v4.1] fzsync: revoke thread_b if parent hits
- accidental break
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH] read_all: retry to queue work for any worker
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,125 +51,93 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>, LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1035854979=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1035854979==
-Content-Type: multipart/alternative; boundary="0000000000001e50d6059476e01f"
+read_all is currently retrying only for short time period and it's
+retrying to queue for same worker. If that worker is busy, it easily
+hits timeout.
 
---0000000000001e50d6059476e01f
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+For example 'kernel_page_tables' on aarch64 can take long time to open/read:
+  # time dd if=/sys/kernel/debug/kernel_page_tables of=/dev/null count=1 bs=1024
+  1+0 records in
+  1+0 records out
+  1024 bytes (1.0 kB, 1.0 KiB) copied, 13.0531 s, 0.1 kB/s
 
-On Tue, Oct 8, 2019 at 8:56 PM Petr Vorel <pvorel@suse.cz> wrote:
+  real    0m13.066s
+  user    0m0.000s
+  sys     0m13.059s
 
-> Hi LI,
->
-> > We shouldn't rely entirely on the pair->exit flag in
-> tst_fzsync_pair_cleanup()
-> > since there is possible to call tst_brk() at anyplace of thread_a, that
-> will
-> > lead to timeout eventually because of thread_b(tst_fzsync_wait_b) fall
-> into
-> > an infinite(no explicit condition to exit) loop.
->
-> > Thread_a path trace:
-> >   tst_brk()
-> >     cleanup()
-> >       tst_fzsync_pair_cleanup()
-> >         SAFE_PTHREAD_JOIN(pair->thread_b, NULL)
-> >         #Or pthread_cancel(pair->thread_b)
->
-> > We fix the problem via a way to kill thread_b with pthread_cancel. With
-> new
-> > thread wrapper involves enabling thread cancel at the start of the
-> thread B,
-> > then do asynchronous cancellation in tst_fzsync_pair_cleanup if
-> pair->exit
-> > is not being set to 1.
->
-> > Workaround: [commit 2e74d996: Check recvmmsg exists before entering
-> fuzzy loop]
-> > Signed-off-by: Li Wang <liwang@redhat.com>
-> > Cc: Richard Palethorpe <rpalethorpe@suse.com>
-> > Cc: Cyril Hrubis <chrubis@suse.cz>
-> > Acked-by: Richard Palethorpe <rpalethorpe@suse.com>
-> Reviewed-by: Petr Vorel <pvorel@suse.cz>
->
+Rather than retrying to queue for specific worker, pick any that can accept
+the work and keep trying until we succeed or hit test timeout.
 
-Pushed. Thanks for the review.
+Signed-off-by: Jan Stancek <jstancek@redhat.com>
+---
+ testcases/kernel/fs/read_all/read_all.c | 31 +++++++++++++++++++++++++++++--
+ 1 file changed, 29 insertions(+), 2 deletions(-)
 
---=20
-Regards,
-Li Wang
-
---0000000000001e50d6059476e01f
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Tue, Oct 8, 2019 at 8:56 PM Petr Vorel &lt;<a hr=
-ef=3D"mailto:pvorel@suse.cz">pvorel@suse.cz</a>&gt; wrote:<br></div><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1p=
-x solid rgb(204,204,204);padding-left:1ex">Hi LI,<br>
-<br>
-&gt; We shouldn&#39;t rely entirely on the pair-&gt;exit flag in tst_fzsync=
-_pair_cleanup()<br>
-&gt; since there is possible to call tst_brk() at anyplace of thread_a, tha=
-t will<br>
-&gt; lead to timeout eventually because of thread_b(tst_fzsync_wait_b) fall=
- into<br>
-&gt; an infinite(no explicit condition to exit) loop.<br>
-<br>
-&gt; Thread_a path trace:<br>
-&gt;=C2=A0 =C2=A0tst_brk()<br>
-&gt;=C2=A0 =C2=A0 =C2=A0cleanup()<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_fzsync_pair_cleanup()<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_PTHREAD_JOIN(pair-&gt;thread_b, =
-NULL)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#Or pthread_cancel(pair-&gt;thread_b)=
-<br>
-<br>
-&gt; We fix the problem via a way to kill thread_b with pthread_cancel. Wit=
-h new<br>
-&gt; thread wrapper involves enabling thread cancel at the start of the thr=
-ead B,<br>
-&gt; then do asynchronous cancellation in tst_fzsync_pair_cleanup if pair-&=
-gt;exit<br>
-&gt; is not being set to 1.<br>
-<br>
-&gt; Workaround: [commit 2e74d996: Check recvmmsg exists before entering fu=
-zzy loop]<br>
-&gt; Signed-off-by: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com" target=
-=3D"_blank">liwang@redhat.com</a>&gt;<br>
-&gt; Cc: Richard Palethorpe &lt;<a href=3D"mailto:rpalethorpe@suse.com" tar=
-get=3D"_blank">rpalethorpe@suse.com</a>&gt;<br>
-&gt; Cc: Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz" target=3D"_bla=
-nk">chrubis@suse.cz</a>&gt;<br>
-&gt; Acked-by: Richard Palethorpe &lt;<a href=3D"mailto:rpalethorpe@suse.co=
-m" target=3D"_blank">rpalethorpe@suse.com</a>&gt;<br>
-Reviewed-by: Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz" target=3D"_bl=
-ank">pvorel@suse.cz</a>&gt;<br></blockquote><div><br></div><div class=3D"gm=
-ail_default" style=3D"font-size:small">Pushed. Thanks for the review.</div>=
-</div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div=
- dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div=
->
-
---0000000000001e50d6059476e01f--
-
-
---===============1035854979==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/testcases/kernel/fs/read_all/read_all.c b/testcases/kernel/fs/read_all/read_all.c
+index 3dac20e02638..4bce4521ace7 100644
+--- a/testcases/kernel/fs/read_all/read_all.c
++++ b/testcases/kernel/fs/read_all/read_all.c
+@@ -282,6 +282,33 @@ static void spawn_workers(void)
+ 	}
+ }
+ 
++static void work_push_retry(int worker, const char *buf)
++{
++	int i, ret, worker_min, worker_max;
++
++	if (worker < 0) {
++		/* pick any, try -worker first */
++		worker_min = worker * (-1);
++		worker_max = worker_count;
++	} else {
++		/* keep trying worker */
++		worker_min = worker;
++		worker_max = worker + 1;
++	}
++	i = worker_min;
++
++	for (;;) {
++		ret = queue_push(workers[i].q, buf);
++		if (ret == 1)
++			break;
++
++		if (++i >= worker_max) {
++			i = worker_min;
++			usleep(100000);
++		}
++	}
++}
++
+ static void stop_workers(void)
+ {
+ 	const char stop_code[1] = { '\0' };
+@@ -292,7 +319,7 @@ static void stop_workers(void)
+ 
+ 	for (i = 0; i < worker_count; i++) {
+ 		if (workers[i].q)
+-			TST_RETRY_FUNC(queue_push(workers[i].q, stop_code), 1);
++			work_push_retry(i, stop_code);
+ 	}
+ 
+ 	for (i = 0; i < worker_count; i++) {
+@@ -310,7 +337,7 @@ static void rep_sched_work(const char *path, int rep)
+ 	for (i = j = 0; i < rep; i++, j++) {
+ 		if (j >= worker_count)
+ 			j = 0;
+-		TST_RETRY_FUNC(queue_push(workers[j].q, path), 1);
++		work_push_retry(-j, path);
+ 	}
+ }
+ 
+-- 
+1.8.3.1
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1035854979==--
-
