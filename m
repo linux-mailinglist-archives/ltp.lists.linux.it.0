@@ -2,40 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18771D11D0
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Oct 2019 16:54:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B23CBD1248
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Oct 2019 17:20:44 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 820933C224B
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Oct 2019 16:54:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E437E3C2268
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Oct 2019 17:20:43 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 057913C0B92
- for <ltp@lists.linux.it>; Wed,  9 Oct 2019 16:54:19 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id D28543C2208
+ for <ltp@lists.linux.it>; Wed,  9 Oct 2019 17:20:39 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id F2B801401451
- for <ltp@lists.linux.it>; Wed,  9 Oct 2019 16:54:18 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A52AD2011D3
+ for <ltp@lists.linux.it>; Wed,  9 Oct 2019 17:20:37 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id C4390AD6D;
- Wed,  9 Oct 2019 14:54:17 +0000 (UTC)
-Date: Wed, 9 Oct 2019 16:54:16 +0200
+ by mx1.suse.de (Postfix) with ESMTP id BFE7BB190;
+ Wed,  9 Oct 2019 15:20:36 +0000 (UTC)
+Date: Wed, 9 Oct 2019 17:20:35 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Dmitry Vyukov <dvyukov@google.com>
-Message-ID: <20191009145416.GA5014@rei.lan>
-References: <20191009142446.6997-1-rpalethorpe@suse.com>
- <CACT4Y+b0tTAQ0r_2gCVjjRh--Xwv=aLzh6MY=ciXMMrK+cAQsA@mail.gmail.com>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <20191009152035.GA15291@rei.lan>
+References: <20190917101706.10013-1-mdoucha@suse.cz>
+ <20190917101706.10013-2-mdoucha@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CACT4Y+b0tTAQ0r_2gCVjjRh--Xwv=aLzh6MY=ciXMMrK+cAQsA@mail.gmail.com>
+In-Reply-To: <20190917101706.10013-2-mdoucha@suse.cz>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH] LTP Wrapper for Syzkaller reproducers
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] Update syscalls/fsync03 to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,45 +48,220 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: automated-testing@yoctoproject.org, kernelci@groups.io,
- George Kennedy <george.kennedy@oracle.com>,
- syzkaller <syzkaller@googlegroups.com>,
- "open list : KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
- Cyril Hrubis <chrubis@suse.com>, shuah <shuah@kernel.org>, ltp@lists.linux.it,
- Richard Palethorpe <richard.palethorpe@suse.com>
+Cc: Martin Doucha <mdoucha@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> I don't have prior experience with LTP tests, but from reading the
-> code it looks reasonable to me.
+> Signed-off-by: Martin Doucha <mdoucha@suse.com>
+> ---
+>  testcases/kernel/syscalls/fsync/fsync03.c | 152 +++++-----------------
+>  1 file changed, 34 insertions(+), 118 deletions(-)
 > 
-> I assume that .needs_tmpdir = 1 ensures that each test runs in its own
-> new temp dir, which is later removed.
+> diff --git a/testcases/kernel/syscalls/fsync/fsync03.c b/testcases/kernel/syscalls/fsync/fsync03.c
+> index 60d15f429..82fd52070 100644
+> --- a/testcases/kernel/syscalls/fsync/fsync03.c
+> +++ b/testcases/kernel/syscalls/fsync/fsync03.c
+> @@ -1,141 +1,57 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+>  /*
+> - *
+> - *   Copyright (c) International Business Machines  Corp., 2001
+> - *
+> - *   This program is free software;  you can redistribute it and/or modify
+> - *   it under the terms of the GNU General Public License as published by
+> - *   the Free Software Foundation; either version 2 of the License, or
+> - *   (at your option) any later version.
+> - *
+> - *   This program is distributed in the hope that it will be useful,
+> - *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+> - *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+> - *   the GNU General Public License for more details.
+> - *
+> - *   You should have received a copy of the GNU General Public License
+> - *   along with this program;  if not, write to the Free Software
+> - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+> + *   Copyright (c) Wayne Boyer, International Business Machines  Corp., 2001
+> + *   Copyright (c) 2019 Martin Doucha <mdoucha@suse.cz>
+>   */
+>  
+>  /*
+> - * NAME
+> - *	fsync03.c
+> - *
+> - * DESCRIPTION
+> - *	Testcase to check that fsync(2) sets errno correctly.
+> - *
+> - * ALGORITHM
+> - *	1. Call fsync() with an invalid fd, and test for EBADF.
+> - *	2. Call fsync() on a pipe(fd), and expect EINVAL.
+> - *
+> - * USAGE:  <for command-line>
+> - *  fsync03 [-c n] [-e] [-i n] [-I x] [-P x] [-t]
+> - *     where,  -c n : Run n copies concurrently.
+> - *             -e   : Turn on errno logging.
+> - *             -i n : Execute test n times.
+> - *             -I x : Execute test for x seconds.
+> - *             -P x : Pause for x seconds between iterations.
+> - *             -t   : Turn on syscall timing.
+> - *
+> - * HISTORY
+> - *	07/2001 Ported by Wayne Boyer
+> - *
+> - * RESTRICTIONS
+> - *	NONE
+> + * Test Description:
+> + *  Testcase to check that fsync(2) sets errno correctly.
+> + *  1. Call fsync() with an invalid fd, and test for EBADF.
+> + *  2. Call fsync() on a pipe(fd), and expect EINVAL.
+>   */
+>  
+>  #include <unistd.h>
+>  #include <errno.h>
+> -#include "test.h"
+> -#include "safe_macros.h"
+> +#include "tst_test.h"
+>  
+> -void setup(void);
+> -void cleanup(void);
+> +static int pfd[2];		/* fd's for the pipe() call in setup()  */
+> +static int bfd = -1;		/* an invalid fd                        */
+                                  ^
+				  I would say that these two comments
+				  are overcommenting.
 
-Indeed, it's removed recursively by the test library.
+> -int fd[2];			/* fd's for the pipe() call in setup()  */
+> -int pfd;			/* holds the value for fd[1]            */
+> -int bfd = -1;			/* an invalid fd                        */
+> -
+> -struct test_case_t {
+> +struct test_case {
+>  	int *fd;
+>  	int error;
+>  } TC[] = {
+>  	/* EBADF - fd is invalid (-1) */
+> -	{
+> -	&bfd, EBADF},
+> -	    /* EINVAL - fsync() on pipe should not succeed. */
+> -	{
+> -	&pfd, EINVAL}
+> +	{&bfd, EBADF},
+> +	/* EINVAL - fsync() on pipe should not succeed. */
+> +	{pfd, EINVAL}
+>  };
+>  
+> -char *TCID = "fsync03";
+> -int TST_TOTAL = 2;
+> -
+> -int main(int ac, char **av)
+> -{
+> -	int lc;
+> -	int i;
+> -
+> -	tst_parse_opts(ac, av, NULL, NULL);
+> -
+> -	setup();
+> -
+> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
+> -
+> -		tst_count = 0;
+> +static void test_fsync(unsigned int n) {
+> +	struct test_case *tc = TC + n;
 
-> I've stared for a while at "rem / exec_time_start < 0.98" trying to
-> understand what is that tst_timeout_remaining() returns that we want
-> to kill that process when the ratio is < 0.98... provided that we
-> convert 1 to float but not the other var. I failed to come up with the
-> answer. I have potential answers for "<0.02" and ">0.98". But I assume
-> you know what you are doing :)
+This opening curly brace should be on a separate line for functions. We
+do follow the LKML coding style in LTP, see:
 
-The tst_timeout_remaining() returns remaining test timeout, so at test
-start it returns something close to 300 seconds, since that is a default
-for a LTP tests, so this would probably kill a process quite fast, if
-I'm reading right, after a bit more than five seconds. I guess that this
-is something intended for a quick v1 hack rather than for later use.
+https://www.kernel.org/doc/html/v4.10/process/coding-style.html
 
-> Re tst_res(TINFO, "Timeout; killing reproducer"). Not sure how much it
-> pollutes output on 3000 tests. If it is, it can make sense to remove
-> it. Lots of tests run forever, killing it is not something of
-> particular interest generally.
+You can also use checkpatch script for identifying common problems:
 
-I guess so.
+https://github.com/torvalds/linux/blob/master/scripts/checkpatch.pl
+
+> -		/* loop through the test cases */
+> -		for (i = 0; i < TST_TOTAL; i++) {
+> -
+> -			TEST(fsync(*(TC[i].fd)));
+> -
+> -			if (TEST_RETURN != -1) {
+> -				tst_resm(TFAIL, "call succeeded unexpectedly");
+> -				continue;
+> -			}
+> -
+> -			if (TEST_ERRNO == TC[i].error) {
+> -				tst_resm(TPASS, "expected failure - "
+> -					 "errno = %d : %s", TEST_ERRNO,
+> -					 strerror(TEST_ERRNO));
+> -			} else {
+> -				tst_resm(TFAIL, "unexpected error - %d : %s - "
+> -					 "expected %d", TEST_ERRNO,
+> -					 strerror(TEST_ERRNO), TC[i].error);
+> -			}
+> -		}
+> +	if (!fsync(*tc->fd)) {
+> +		tst_res(TFAIL, "fsync() succeeded unexpectedly");
+> +	} else if (errno != tc->error) {
+> +		tst_res(TFAIL | TERRNO, "Unexpected error");
+> +	} else {
+> +		tst_res(TPASS, "fsync() failed as expected");
+>  	}
+
+I would be a bit more pedantic with the return value, i.e. check that
+the failure returns exactly -1 as described in the manual page.
+
+> -	cleanup();
+> -
+> -	tst_exit();
+>  }
+>  
+> -/*
+> - * setup() - performs all ONE TIME setup for this test.
+> - */
+> -void setup(void)
+> -{
+> -
+> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+> -
+> -	TEST_PAUSE;
+> -
+> -	/* make a temporary directory and cd to it */
+> -	tst_tmpdir();
+> -
+> -	SAFE_PIPE(cleanup, fd);
+> -
+> -	pfd = fd[1];
+> +static void setup(void) {
+> +	SAFE_PIPE(pfd);
+>  }
+>  
+> -/*
+> - * cleanup() - performs all ONE TIME cleanup for this test at
+> - *	       completion or premature exit.
+> - */
+> -void cleanup(void)
+> -{
+> -
+> -	/* delete the test directory created in setup() */
+> -	tst_rmdir();
+> -
+> +static void cleanup(void) {
+> +	close(pfd[0]);
+> +	close(pfd[1]);
+>  }
+> +
+> +static struct tst_test test = {
+> +	.test = test_fsync,
+> +	.tcnt = ARRAY_SIZE(TC),
+> +	.setup = setup,
+> +	.cleanup = cleanup
+> +};
+> -- 
+> 2.22.1
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
 
 -- 
 Cyril Hrubis
