@@ -2,46 +2,63 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A21E6D2277
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Oct 2019 10:18:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 060C8D22D5
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Oct 2019 10:33:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 488F43C1CA2
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Oct 2019 10:18:03 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C362A3C1CA2
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Oct 2019 10:33:38 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 67FDE3C0B87
- for <ltp@lists.linux.it>; Thu, 10 Oct 2019 10:18:00 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 6E54F3C0B98
+ for <ltp@lists.linux.it>; Thu, 10 Oct 2019 10:33:37 +0200 (CEST)
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 7A3C520127C
- for <ltp@lists.linux.it>; Thu, 10 Oct 2019 10:18:00 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 772FB1401A97
+ for <ltp@lists.linux.it>; Thu, 10 Oct 2019 10:33:36 +0200 (CEST)
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
+ [209.85.167.199])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 1C72410DCC9D
- for <ltp@lists.linux.it>; Thu, 10 Oct 2019 08:17:59 +0000 (UTC)
-Received: from dhcp-0-148.nay.redhat.com (dhcp-0-148.nay.redhat.com
- [10.66.0.148])
- by smtp.corp.redhat.com (Postfix) with ESMTP id CBB23196B2;
- Thu, 10 Oct 2019 08:17:57 +0000 (UTC)
-From: Ping Fang <pifang@redhat.com>
-To: ltp@lists.linux.it
-Date: Thu, 10 Oct 2019 16:17:52 +0800
-Message-Id: <20191010081752.11334-1-pifang@redhat.com>
+ by mx1.redhat.com (Postfix) with ESMTPS id 9D54211A2D
+ for <ltp@lists.linux.it>; Thu, 10 Oct 2019 08:33:34 +0000 (UTC)
+Received: by mail-oi1-f199.google.com with SMTP id b2so2413534oie.21
+ for <ltp@lists.linux.it>; Thu, 10 Oct 2019 01:33:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=UyBgGviTtUHYXIz5oD2ZoZj9KvVd/ddmmuYUKV7TQ+M=;
+ b=Qo5Q/tc7VL7HcmE7qQ/vlQt640pM90YARi9/wv9QznEfLzWGSX3m5eWhjW7nT6Navh
+ AEAwO9bLEn9qKMZ4Is+uEg7b9IWtqVsJXVIHTSRMPXjgytE+JFdyYIkcIv3+AMmrw/Hx
+ u2BVRxN2jVMHB4vDp209ZVP1xk6NibRHB1xjUgKDpjFapaSJwu+y2ZoPSX7Nnvwvs3gz
+ jDfQyahkPoSsR/WxQN1U7g7yEVUX7JAdwPiSHfj4vkUbWth7WmZd0ewXJYXSlJtuKlIb
+ 2Cr1KOapb39Vs7206aiRU76hh/iKoMM8vRNE0XD0wY+SdS4auOiJEu3h/1nc0mo3yzEB
+ C/Mw==
+X-Gm-Message-State: APjAAAWR7QTAbaDQu5OKcITdw9ULlcpLZTb5KRusxgmmXp7RCbW56hyN
+ ONRBGE9w7KIBMaLTVt3b2vqw996UN1yyu78HQ8SYNcNavjVmoDtylb5KZ4m0HCBsE4KMPRqTpik
+ 1JcvvQd37udsqGfa6SBkZOYpD2W4=
+X-Received: by 2002:a9d:5907:: with SMTP id t7mr6495173oth.118.1570696414163; 
+ Thu, 10 Oct 2019 01:33:34 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqztxa/juoQZzEh9g2hhYxpl6jtkD9N6qpnXksGXTVN2A0hpecpdaebmvvhX1TDHuO9yMlF9FBdYP2rSV9UDbTg=
+X-Received: by 2002:a9d:5907:: with SMTP id t7mr6495156oth.118.1570696413914; 
+ Thu, 10 Oct 2019 01:33:33 -0700 (PDT)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2
- (mx1.redhat.com [10.5.110.64]); Thu, 10 Oct 2019 08:17:59 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+References: <20191010081752.11334-1-pifang@redhat.com>
+In-Reply-To: <20191010081752.11334-1-pifang@redhat.com>
+From: Li Wang <liwan@redhat.com>
+Date: Thu, 10 Oct 2019 16:33:20 +0800
+Message-ID: <CAEemH2dNjGXpw87wLqLc8jcEoT_Zc6yap4CfjPxmU=y1JyZ9oA@mail.gmail.com>
+To: Ping Fang <pifang@redhat.com>, Cyril Hrubis <chrubis@suse.cz>,
+ Petr Vorel <pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] acct: fix version check on big endian system
+X-Spam-Status: No, score=-0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_PASS,
+ SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] acct: fix version check on big endian system
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,69 +70,124 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: liwan@redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1295289735=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+--===============1295289735==
+Content-Type: multipart/alternative; boundary="000000000000cd424b05948a415f"
+
+--000000000000cd424b05948a415f
+Content-Type: text/plain; charset="UTF-8"
+
+Ping Fang <pifang@redhat.com> wrote:
+
 ac_version = ACCT_VERION | ACCT_BYTEORDER
-which is 0x83 (131) on big endian system.
+> which is 0x83 (131) on big endian system.
+>
+> failure output:
+> tst_kconfig.c:62: INFO: Parsing kernel config
+> '/boot/config-4.18.0-147.el8.s390x'
+> tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
+> tst_kconfig.c:62: INFO: Parsing kernel config
+> '/boot/config-4.18.0-147.el8.s390x'
+> acct02.c:239: INFO: Verifying using 'struct acct_v3'
+> acct02.c:192: INFO: == entry 1 ==
+> acct02.c:147: INFO: ac_version != 3 (131)
+> acct02.c:192: INFO: == entry 2 ==
+> acct02.c:82: INFO: ac_comm != 'acct02_helper' ('acct02')
+> acct02.c:133: INFO: ac_exitcode != 32768 (0)
+> acct02.c:141: INFO: ac_ppid != 34501 (34500)
+> acct02.c:147: INFO: ac_version != 3 (131)
+> acct02.c:182: FAIL: end of file reached
+>
 
-failure output:
-tst_kconfig.c:62: INFO: Parsing kernel config
-'/boot/config-4.18.0-147.el8.s390x'
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-tst_kconfig.c:62: INFO: Parsing kernel config
-'/boot/config-4.18.0-147.el8.s390x'
-acct02.c:239: INFO: Verifying using 'struct acct_v3'
-acct02.c:192: INFO: == entry 1 ==
-acct02.c:147: INFO: ac_version != 3 (131)
-acct02.c:192: INFO: == entry 2 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('acct02')
-acct02.c:133: INFO: ac_exitcode != 32768 (0)
-acct02.c:141: INFO: ac_ppid != 34501 (34500)
-acct02.c:147: INFO: ac_version != 3 (131)
-acct02.c:182: FAIL: end of file reached
+I'm wondering that is there any necessary to use do{}...while loop for
+entry many times? Since the verify_acct() only check the dummy
+program(acct02_helper) accounting struct. So in the error logs, we could
+see some meaningless data(acct02) in entry 2.
 
-Signed-off-by: Ping Fang <pifang@redhat.com>
----
- include/lapi/acct.h                     | 5 +++++
- testcases/kernel/syscalls/acct/acct02.c | 2 +-
- 2 files changed, 6 insertions(+), 1 deletion(-)
+    acct02.c:192: INFO: == entry 2 ==
+    acct02.c:82: INFO: ac_comm != 'acct02_helper' ('acct02')
+    acct02.c:133: INFO: ac_exitcode != 32768 (0)
+    acct02.c:141: INFO: ac_ppid != 34501 (34500)
 
-diff --git a/include/lapi/acct.h b/include/lapi/acct.h
-index ebd65bbf4..c81b78b44 100644
---- a/include/lapi/acct.h
-+++ b/include/lapi/acct.h
-@@ -64,6 +64,11 @@ enum {
- 	ACORE = 0x08,
- 	AXSIG = 0x10
- };
-+# if __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
-+# define ACCT_BYTEORDER  0x80
-+# elif __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
-+# define ACCT_BYTEORDER  0x00
-+# endif
- #endif /* HAVE_STRUCT_ACCT_V3 */
- 
- #endif /* LAPI_ACCT_H */
-diff --git a/testcases/kernel/syscalls/acct/acct02.c b/testcases/kernel/syscalls/acct/acct02.c
-index 7c2a27046..4d95aafec 100644
---- a/testcases/kernel/syscalls/acct/acct02.c
-+++ b/testcases/kernel/syscalls/acct/acct02.c
-@@ -142,7 +142,7 @@ static int verify_acct(void *acc, int elap_time)
- 		ret = 1;
- 	}
- 
--	if (ACCT_MEMBER_V3(ac_version) != 3) {
-+	if (ACCT_MEMBER_V3(ac_version) != (3 | ACCT_BYTEORDER)) {
- 		tst_res(TINFO, "ac_version != 3 (%d)",
- 			ACCT_MEMBER_V3(ac_version));
- 		ret = 1;
+This needs to be fixed in a separate patch.
+
+
+> Signed-off-by: Ping Fang <pifang@redhat.com>
+>
+
+The patch itself looks good. Ack.
+
 -- 
-2.21.0
+Regards,
+Li Wang
+
+--000000000000cd424b05948a415f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><div class=3D"gmail_quote"><div dir=3D"ltr" c=
+lass=3D"gmail_attr">Ping Fang &lt;<a href=3D"mailto:pifang@redhat.com">pifa=
+ng@redhat.com</a>&gt; wrote:<br></div><div dir=3D"ltr" class=3D"gmail_attr"=
+><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.=
+8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">ac_version =3D=
+ ACCT_VERION | ACCT_BYTEORDER<br>
+which is 0x83 (131) on big endian system.<br>
+<br>
+failure output:<br>
+tst_kconfig.c:62: INFO: Parsing kernel config<br>
+&#39;/boot/config-4.18.0-147.el8.s390x&#39;<br>
+tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s<br>
+tst_kconfig.c:62: INFO: Parsing kernel config<br>
+&#39;/boot/config-4.18.0-147.el8.s390x&#39;<br>
+acct02.c:239: INFO: Verifying using &#39;struct acct_v3&#39;<br>
+acct02.c:192: INFO: =3D=3D entry 1 =3D=3D<br>
+acct02.c:147: INFO: ac_version !=3D 3 (131)<br>
+<span class=3D"gmail_default" style=3D"font-size:small"></span>acct02.c:192=
+: INFO: =3D=3D entry 2 =3D=3D<br>
+acct02.c:82: INFO: ac_comm !=3D &#39;acct02_helper&#39; (&#39;acct02&#39;)<=
+br>
+acct02.c:133: INFO: ac_exitcode !=3D 32768 (0)<br>
+acct02.c:141: INFO: ac_ppid !=3D 34501 (34500)<br>
+acct02.c:147: INFO: ac_version !=3D 3 (131)<br>
+acct02.c:182: FAIL: end of file reached<br></blockquote><div><br></div><div=
+><div class=3D"gmail_default" style=3D"font-size:small">I&#39;m wondering t=
+hat is there any necessary to use do{}...while loop for entry many times? S=
+ince the verify_acct() only check the dummy program(acct02_helper) accounti=
+ng struct. So in the error logs, we could see some meaningless data(acct02)=
+ in entry 2.</div></div><div class=3D"gmail_default" style=3D"font-size:sma=
+ll"><br></div><div class=3D"gmail_default" style=3D"font-size:small">=C2=A0=
+ =C2=A0=C2=A0<span class=3D"gmail_default"></span>acct02.c:192: INFO: =3D=
+=3D entry 2 =3D=3D</div><div class=3D"gmail_default" style=3D"font-size:sma=
+ll">=C2=A0 =C2=A0 acct02.c:82: INFO: ac_comm !=3D &#39;acct02_helper&#39; (=
+&#39;acct02&#39;)<br>=C2=A0 =C2=A0 acct02.c:133: INFO: ac_exitcode !=3D 327=
+68 (0)<br>=C2=A0 =C2=A0 acct02.c:141: INFO: ac_ppid !=3D 34501 (34500)<br><=
+/div><div class=3D"gmail_default" style=3D"font-size:small"><br></div><div =
+class=3D"gmail_default" style=3D"font-size:small">This needs to be fixed=C2=
+=A0in a separate patch.</div><div>=C2=A0<br></div><blockquote class=3D"gmai=
+l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
+4,204);padding-left:1ex">
+Signed-off-by: Ping Fang &lt;<a href=3D"mailto:pifang@redhat.com" target=3D=
+"_blank">pifang@redhat.com</a>&gt;<br></blockquote><div><br></div><div clas=
+s=3D"gmail_default" style=3D"font-size:small">The patch itself looks good. =
+Ack.</div><div class=3D"gmail_default" style=3D"font-size:small"><br></div>=
+</div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><d=
+iv><div dir=3D"ltr">Regards,<br>Li Wang<br></div></div></div></div></div>
+
+--000000000000cd424b05948a415f--
+
+--===============1295289735==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1295289735==--
