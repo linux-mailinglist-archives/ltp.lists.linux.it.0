@@ -2,38 +2,38 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4B46D27B7
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Oct 2019 13:06:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF97DD27EB
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Oct 2019 13:26:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3E4E73C22C9
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Oct 2019 13:06:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DEA313C22CB
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Oct 2019 13:26:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id EAD6F3C0794
- for <ltp@lists.linux.it>; Thu, 10 Oct 2019 13:06:06 +0200 (CEST)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id CFA133C0DFD
+ for <ltp@lists.linux.it>; Thu, 10 Oct 2019 13:26:46 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D6DDC201350
- for <ltp@lists.linux.it>; Thu, 10 Oct 2019 13:06:05 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2C3DE1000B40
+ for <ltp@lists.linux.it>; Thu, 10 Oct 2019 13:25:08 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id D249AAC4A;
- Thu, 10 Oct 2019 11:06:04 +0000 (UTC)
-Date: Thu, 10 Oct 2019 13:06:02 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
+ by mx1.suse.de (Postfix) with ESMTP id 0E430AC4A;
+ Thu, 10 Oct 2019 11:26:45 +0000 (UTC)
+Date: Thu, 10 Oct 2019 13:26:42 +0200
+From: Petr Vorel <pvorel@suse.cz>
 To: Ping Fang <pifang@redhat.com>
-Message-ID: <20191010110602.GB2508@rei.lan>
+Message-ID: <20191010112642.GA21498@dell5510>
 References: <20191010081752.11334-1-pifang@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20191010081752.11334-1-pifang@redhat.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+User-Agent: Mutt/1.11.3 (2019-02-01)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v2] acct: fix version check on big endian system
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -46,16 +46,18 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: liwan@redhat.com, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
+Hi Ping,
+
 > ac_version = ACCT_VERION | ACCT_BYTEORDER
 > which is 0x83 (131) on big endian system.
-> 
+
 > failure output:
 > tst_kconfig.c:62: INFO: Parsing kernel config
 > '/boot/config-4.18.0-147.el8.s390x'
@@ -72,14 +74,13 @@ Hi!
 > acct02.c:147: INFO: ac_version != 3 (131)
 > acct02.c:182: FAIL: end of file reached
 
-Looks good, acked.
+> Signed-off-by: Ping Fang <pifang@redhat.com>
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
-Also please consider a patch to the man 5 acct, it says that the version
-is always set to 3 for acct_v3 structure.
+Thanks for fixing the issue.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
