@@ -1,43 +1,38 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E95CFD40AB
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 15:10:48 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C40CD410D
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 15:25:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 168813C227B
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 15:10:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 43D843C1814
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 15:25:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 1A5793C0E60
- for <ltp@lists.linux.it>; Fri, 11 Oct 2019 15:10:44 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 0DF813C1454
+ for <ltp@lists.linux.it>; Fri, 11 Oct 2019 15:24:43 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 260BA602353
- for <ltp@lists.linux.it>; Fri, 11 Oct 2019 15:10:42 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 5C442140125C
+ for <ltp@lists.linux.it>; Fri, 11 Oct 2019 15:24:43 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 56049B668;
- Fri, 11 Oct 2019 13:10:42 +0000 (UTC)
-Date: Fri, 11 Oct 2019 15:10:41 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: cfamullaconrad@suse.com
-Message-ID: <20191011131041.GA18363@rei>
-References: <20191011090737.17997-1-lkml@jv-coder.de>
- <20191011100604.GA11441@dell5510>
- <1570799029.4238.15.camel@suse.de>
+ by mx1.suse.de (Postfix) with ESMTP id B9DA5AD95;
+ Fri, 11 Oct 2019 13:24:42 +0000 (UTC)
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Fri, 11 Oct 2019 15:24:25 +0200
+Message-Id: <20191011132433.24197-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1570799029.4238.15.camel@suse.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] Rename tst_test_* to tst_require_*
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v5 0/8] net/route: rewrite route-change-{dst, gw,
+ if} into new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,23 +44,71 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> If we use needs or require ? Hard question - when I search for synonyms
-> from one or the other, I don't see a big different. Without looking on
-> the impact, require sounds also more descriptive.
+Hi,
 
-There is about thousand of uses of *NEEDS_FOO and *needs_foo in the new
-library tests, so renaming to tst_needs_foo would be the least painful.
+changes v4->v5:
+addressed these Alexey's requests:
+* tst_ipadd_un() now handles both host_id and net_id, with
+-h MIN,MAX, -n MIN,MAX
+(instead of -b, -f, -n which handled only host_id)
+
+* add -q to tst_add_ipaddr() (silence test output)
+
+* introduce EXPECT_{FAIL,PASS}_BRK() to shell API and use it to stop
+test on first error.
+
+@Cyril the only commit for you: "shell: Introduce EXPECT_{FAIL,PASS}_BRK()"
+
+Kind regards,
+Petr
+
+Petr Vorel (8):
+  tst_net.sh: enhance tst_add_ipaddr(), add tst_del_ipaddr()
+  tst_net.sh: Add -p option to return prefix in tst_ipaddr_un()
+  tst_net.sh: Add -h -n options to tst_ipaddr_un()
+  net: Add tst_ipaddr_un.sh test
+  shell: Introduce EXPECT_{FAIL,PASS}_BRK()
+  network/route: Rewrite route{4,6}-change-dst into new shell API
+  network/route: Rewrite route{4,6}-change-gw into new shell API
+  network/route: Rewrite route{4,6}-change-if into new API
+
+ doc/test-writing-guidelines.txt               |   5 +-
+ lib/newlib_tests/shell/net/tst_ipaddr_un.sh   | 167 +++++++++
+ runtest/net_stress.route                      |  15 +-
+ testcases/lib/tst_net.sh                      | 173 +++++++---
+ testcases/lib/tst_test.sh                     |  34 +-
+ .../network/stress/route/00_Descriptions.txt  |  54 +--
+ .../network/stress/route/route-change-dst.sh  |  34 ++
+ .../network/stress/route/route-change-gw.sh   |  39 +++
+ .../network/stress/route/route-change-if.sh   |  90 +++++
+ testcases/network/stress/route/route-lib.sh   |  17 +
+ .../network/stress/route/route4-change-dst    | 276 ---------------
+ .../network/stress/route/route4-change-gw     | 292 ----------------
+ .../network/stress/route/route4-change-if     | 324 ------------------
+ .../network/stress/route/route6-change-dst    | 272 ---------------
+ .../network/stress/route/route6-change-gw     | 292 ----------------
+ .../network/stress/route/route6-change-if     | 323 -----------------
+ 16 files changed, 528 insertions(+), 1879 deletions(-)
+ create mode 100755 lib/newlib_tests/shell/net/tst_ipaddr_un.sh
+ create mode 100755 testcases/network/stress/route/route-change-dst.sh
+ create mode 100755 testcases/network/stress/route/route-change-gw.sh
+ create mode 100755 testcases/network/stress/route/route-change-if.sh
+ create mode 100644 testcases/network/stress/route/route-lib.sh
+ delete mode 100644 testcases/network/stress/route/route4-change-dst
+ delete mode 100644 testcases/network/stress/route/route4-change-gw
+ delete mode 100644 testcases/network/stress/route/route4-change-if
+ delete mode 100644 testcases/network/stress/route/route6-change-dst
+ delete mode 100644 testcases/network/stress/route/route6-change-gw
+ delete mode 100644 testcases/network/stress/route/route6-change-if
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.23.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
