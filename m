@@ -2,43 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACE8FD4149
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 15:31:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2261D4180
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 15:39:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1E17B3C2284
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 15:31:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4094A3C2278
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 15:39:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 3B1FD3C1453
- for <ltp@lists.linux.it>; Fri, 11 Oct 2019 15:31:48 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 701003C1480
+ for <ltp@lists.linux.it>; Fri, 11 Oct 2019 15:39:37 +0200 (CEST)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 2739E1A01931
- for <ltp@lists.linux.it>; Fri, 11 Oct 2019 15:31:47 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 7AA89B5AB;
- Fri, 11 Oct 2019 13:31:47 +0000 (UTC)
-Date: Fri, 11 Oct 2019 15:31:46 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20191011133129.GA23391@dell5510>
-References: <20191011095442.10541-1-pvorel@suse.cz>
- <20191011095442.10541-4-pvorel@suse.cz>
- <1570797394.4238.7.camel@suse.de> <20191011125413.GA30000@dell5510>
- <20191011125648.GF2591@rei>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 98529200A03
+ for <ltp@lists.linux.it>; Fri, 11 Oct 2019 15:39:36 +0200 (CEST)
+Received: from [10.61.40.7] (unknown [37.156.92.209])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 057F19F62F;
+ Fri, 11 Oct 2019 13:39:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1570801174; bh=ywPqnmdKdV2a3hpYw4Al1eplyPslUHP3LxMXTXJreok=;
+ h=Subject:To:From:Message-ID:Date:MIME-Version;
+ b=ZwqhcglEpHE9pcHkDf+la9rMuxKBYQIsBlGjx1c+HUJojqm6ee5v11dBghKLMp7mC
+ 9W4RcpNfSJ0G+KzukbrV102OIo+jAncXyJZ9jQq9/UCLG1pFl9goaufJ/KS50sCdxf
+ P7BtJZnKW/8JeQW470JIRqmvhS2ZGqOzIJqWt61M=
+To: cfamullaconrad@suse.com, Petr Vorel <pvorel@suse.cz>
+References: <20191011090737.17997-1-lkml@jv-coder.de>
+ <20191011100604.GA11441@dell5510> <1570799029.4238.15.camel@suse.de>
+From: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <2dc10bff-8a64-0054-269a-d9d748f10943@jv-coder.de>
+Date: Fri, 11 Oct 2019 15:39:33 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191011125648.GF2591@rei>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+In-Reply-To: <1570799029.4238.15.camel@suse.de>
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5 3/5] shell: Add timeout shell API tests
+Subject: Re: [LTP] Rename tst_test_* to tst_require_*
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,83 +54,40 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: cfamullaconrad@suse.com, ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: ltp@lists.linux.it
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
-
-> > timeout02 1 TCONF: LTP_TIMEOUT_MUL must be number >= 1! (0)
-> > BTW I wonder if TBROK shouldn't be used instead of TCONF.
-> > Anybody strong opinion?
-
-> If we fail to run a test because user passed wrong input data it has to
-> be TBROK because TCONF can end up unnoticed.
-+1.
-
-I'd like to merge v5 with following diff:
-Please let me know if anything else is problematic.
-
-Kind regards,
-Petr
-
-diff --git lib/newlib_tests/shell/test_timeout.sh lib/newlib_tests/shell/test_timeout.sh
-index 2cbc66412..948c7f02d 100755
---- lib/newlib_tests/shell/test_timeout.sh
-+++ lib/newlib_tests/shell/test_timeout.sh
-@@ -1,6 +1,6 @@
- #!/bin/sh
- 
--PATH="$(dirname $0)/../../../testcases/lib/:$PATH"
-+PATH="$(dirname $0):$(dirname $0)/../../../testcases/lib/:$PATH"
- 
- DATA="
- timeout01.sh||0
-@@ -9,6 +9,11 @@ timeout02.sh|foo|32
- timeout02.sh|2|0
- timeout02.sh|1.1|0
- timeout02.sh|-10|32
-+
-+timeout01.sh|2|0
-+timeout02.sh|-1.1|32
-+timeout02.sh|-10.1|32
-+timeout02.sh|-0.1|0
- "
- 
- echo "Testing timeout in shell API"
-@@ -21,7 +26,7 @@ for i in $DATA; do
- 	exp_exit=$(echo $i | cut -d'|' -f3)
- 
- 	echo "=== $test (LTP_TIMEOUT_MUL='$timeout') ==="
--	LTP_TIMEOUT_MUL=$timeout ./$file
-+	LTP_TIMEOUT_MUL=$timeout $file
- 	ret=$?
- 	if [ $ret -ne $exp_exit ]; then
- 		echo "FAILED (exit code: $ret, expected $exp_exit)"
-diff --git testcases/lib/tst_test.sh testcases/lib/tst_test.sh
-index 8713c1cdd..d8071cb10 100644
---- testcases/lib/tst_test.sh
-+++ testcases/lib/tst_test.sh
-@@ -389,14 +389,14 @@ _tst_setup_timer()
- 
- 	local err="LTP_TIMEOUT_MUL must be number >= 1!"
- 
--	tst_is_num "$LTP_TIMEOUT_MUL" || tst_brk TCONF "$err ($LTP_TIMEOUT_MUL)"
-+	tst_is_num "$LTP_TIMEOUT_MUL" || tst_brk TBROK "$err ($LTP_TIMEOUT_MUL)"
- 
- 	if ! tst_is_int "$LTP_TIMEOUT_MUL"; then
- 		LTP_TIMEOUT_MUL=$(echo "$LTP_TIMEOUT_MUL" | cut -d. -f1)
- 		LTP_TIMEOUT_MUL=$((LTP_TIMEOUT_MUL+1))
- 		tst_res TINFO "ceiling LTP_TIMEOUT_MUL to $LTP_TIMEOUT_MUL"
- 	fi
--	[ "$LTP_TIMEOUT_MUL" -ge 1 ] || tst_brk TCONF "$err ($LTP_TIMEOUT_MUL)"
-+	[ "$LTP_TIMEOUT_MUL" -ge 1 ] || tst_brk TBROK "$err ($LTP_TIMEOUT_MUL)"
- 
- 	if ! tst_is_int "$TST_TIMEOUT" || [ "$TST_TIMEOUT" -lt 1 ]; then
- 		tst_brk TBROK "TST_TIMEOUT must be int >= 1! ($TST_TIMEOUT)"
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+Cj4gT24gRnJpLCAyMDE5LTEwLTExIGF0IDEyOjA2ICswMjAwLCBQZXRyIFZvcmVsIHdyb3RlOgo+
+PiBIaSwKPj4KPj4gQ2M6IExpIGFuZCBDbGVtZW5zCj4+Cj4+PiB0aGVzZSBwYXRjaGVzIHJlbmFt
+ZSB0c3RfdGVzdF8qIHRvIHRzdF9yZXF1aXJlXyosIHRvIGJldHRlcgo+Pj4gZGVzY3JpYmUKPj4+
+IHRoZWlyIHVzZS4gVGhlcmUgaXMgYWxzbyB0c3RfcmVxdWlyZV9yb290LCB0aGF0IGhhcyB0aGUg
+c2FtZQo+Pj4gYmVoYXZpb3I6IEl0IGFsc28gY2FsbHMgdHN0X2JyayBpbiBjYXNlIG9mIGEgZmFp
+bGluZyByZXF1aXJlbWVudC4KPj4+IFlvdSBjYW4gYWxzbyBnZXQgdGhpcyBwYXRjaCBmcm9tIHRo
+ZSBmb2xsb3dpbmcgcmVwbzoKPj4+IGh0dHBzOi8vZ2l0aHViLmNvbS9Nb2ZYL2x0cC9jb21taXRz
+L3JlbmFtZV90c3RfdGVzdC10c3RfcmVxdWlyZQo+PiBzb3JyeSBmb3Igbm90IHRoaW5raW5nIGZp
+cnN0LCBJIHdvbmRlciBpZiB3ZSB3YW50IHRvIHN5bmMKPj4gdHN0X3Rlc3RfKiAoZnVuY3Rpb24g
+bmFtZSkgdnMgJFRTVF9ORUVEU18qICh0ZXN0IEFQSSB2YXJpYWJsZSBuYW1lKSwKPj4gZS5nLjog
+dHN0X3JlcXVpcmVfZHJpdmVycyAkVFNUX05FRURTX0RSSVZFUlMKPiBJIGZ1bGx5IGFncmVlIHdp
+dGggUGV0ciB0aGF0IHdlIG11c3QgYmUgY29uc2lzdGVudCBpbiBuYW1pbmcgYmV0d2Vlbgo+IHZh
+cmlhYmxlLSBhbmQgZnVuY3Rpb24tbmFtZS4KQWN0dWFsbHkgSSBhbSBtb3JlIHdpdGggY3lyaWwn
+cyByZWFzb25pbmcsIHRoYXQgb25lIGlzIG1ldGFkYXRhIGFuZCBvbmUgCmlzIGZ1bmN0aW9uIGNh
+bGwgaGVyZS4KSXQgd2Fzbid0IGNvbnNpc3RlbnQgaW4gdGhlIHBhc3QuIFRoZSByZXF1aXJlIGlz
+IG1vcmUgbGlrZSBhbiBpbXBlcmF0aXZlIApoZXJlIGFuZCB0aGUgbmVlZHMgaXMKZGVzY3JpcHRp
+dmUuCkknbSBhbHNvIG5vIG5hdGl2ZSBzcGVha2VyLCBidXQgaW4gbXkgb3Bpbm9uIG5lZWRpbmcg
+YSBjb21tYW5kIHNvdW5kcyBhIApiaXQgc3RyYW5nZS4KT25lIHRoaW5nIEkgZm91bmQgaXMgdGhh
+dCBhIG5lZWQgaXMgcmVxdWlyZWQgZm9yIGxpdmluZywgd2hpbGUgYSAKcmVxdWlyZW1lbnQgbXVz
+dCBiZQpmdWxmaWxsZWQsIGZvciBzb21ldGhpbmcgdG8gaGFwcGVuLiBXaXRoIHRoaXMgZGVmaW5p
+dGlvbiByZXF1aXJlbWVudCAKZml0cy4gVGhlcmUgaXMgYWxzbyB0aGUgdGVybQpyZXF1aWVyZW1l
+bnQgaW4gc29mdHdhcmUgZW5naW5lZXJpbmcgYW5kIG5vIHRlcm0gIm5lZWRtZW50IgoKQnV0IHN0
+cmFuZ2VseSBJIHN0aWxsIGhhdmUgbm8gcHJvYmxlbSB3aXRoIFRTVF9ORUVEU18qLCBidXQgSSB3
+b3VsZCBhbHNvIApiZSBvayB3aXRoClRTVF9SRVFVSVJFU18uIEFjdHVhbGx5IEknZCBwcm9wYWJs
+eSBjaG9zZSBpdCwgaWYgSSB3YXMgZGVzaWduaW5nIHRoZSAKbGlicmFyeS4KCkkgZG8gbm90IHJl
+YWxseSBsaWtlIHJlbmFtaW5nIHRzdF90ZXN0XyogdG8gdGVzdF9uZWVkc18qLiBOZWVkcyBkb2Vz
+IG5vdCAKc291bmQKc3Ryb25nIGVub3VnaCB0byBtZSBpbiB0aGF0IGNvbnRleHQuwqAgQnV0IEkg
+anVzdCBtYWRlIGEgcXVpY2sgc2VhcmNoIGZvciAKIm5lZWRzXyIKYW5kIHRoZXJlIGlzIHNvIG11
+Y2ggbmVlZHMgaW4gdGhlIGMgbGlicmFyeSBhcyB3ZWxsLCB0aGF0IHRvdWNoaW5nIGFsbCAKb2Yg
+dGhpcyBpcyBtYXliZQp0byBtdWNoLgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xp
+c3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
