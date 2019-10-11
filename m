@@ -2,41 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B864D41F9
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 16:00:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 408EAD4200
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 16:01:33 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DD0503C223B
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 16:00:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CD0053C1508
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 16:01:32 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id C591D3C1421
- for <ltp@lists.linux.it>; Fri, 11 Oct 2019 16:00:20 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 3D2DC3C1421
+ for <ltp@lists.linux.it>; Fri, 11 Oct 2019 16:01:29 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A45A11A019B3
- for <ltp@lists.linux.it>; Fri, 11 Oct 2019 16:00:19 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B12242013F3
+ for <ltp@lists.linux.it>; Fri, 11 Oct 2019 16:01:28 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 68611B5F4;
- Fri, 11 Oct 2019 14:00:18 +0000 (UTC)
-Date: Fri, 11 Oct 2019 16:00:16 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20191011140015.GA27627@dell5510>
-References: <20191011090737.17997-1-lkml@jv-coder.de>
- <20191011100604.GA11441@dell5510>
- <1570799029.4238.15.camel@suse.de> <20191011131041.GA18363@rei>
+ by mx1.suse.de (Postfix) with ESMTP id DC3CAB623;
+ Fri, 11 Oct 2019 14:01:27 +0000 (UTC)
+Date: Fri, 11 Oct 2019 16:01:26 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <20191011140126.GA19822@rei.lan>
+References: <20191011132433.24197-1-pvorel@suse.cz>
+ <20191011132433.24197-6-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20191011131041.GA18363@rei>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+In-Reply-To: <20191011132433.24197-6-pvorel@suse.cz>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] Rename tst_test_* to tst_require_*
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v5 5/8] shell: Introduce EXPECT_{FAIL,PASS}_BRK()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,32 +47,18 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: cfamullaconrad@suse.com, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi!
+Looks good, acked.
 
-> > If we use needs or require ? Hard question - when I search for synonyms
-> > from one or the other, I don't see a big different. Without looking on
-> > the impact, require sounds also more descriptive.
-
-> There is about thousand of uses of *NEEDS_FOO and *needs_foo in the new
-> library tests, so renaming to tst_needs_foo would be the least painful.
-+1.
-
-Sorry for starting such a big discussion just about API naming.
-I care about these things, because good docs and consistent API are less
-important than good quality code, but helps new users.
-
-Thank you for all your input, I agree with points other raised, but getting it
-right would be to intrusive change (touching every test is a bit too much).
-
-Kind regards,
-Petr
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
