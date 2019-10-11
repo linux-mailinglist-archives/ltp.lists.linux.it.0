@@ -2,39 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CD77D3CD1
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 11:55:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 235A8D3CFA
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 12:06:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 25CA43C229E
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 11:55:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 69E013C229F
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 12:06:11 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id A6BF23C1452
- for <ltp@lists.linux.it>; Fri, 11 Oct 2019 11:54:55 +0200 (CEST)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 88DCB3C1452
+ for <ltp@lists.linux.it>; Fri, 11 Oct 2019 12:06:08 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 51B5E1001991
- for <ltp@lists.linux.it>; Fri, 11 Oct 2019 11:53:10 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2CFA71000C0B
+ for <ltp@lists.linux.it>; Fri, 11 Oct 2019 12:04:22 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id D400BB2BF;
- Fri, 11 Oct 2019 09:54:53 +0000 (UTC)
+ by mx1.suse.de (Postfix) with ESMTP id 8D1C7AD09;
+ Fri, 11 Oct 2019 10:06:07 +0000 (UTC)
+Date: Fri, 11 Oct 2019 12:06:06 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Fri, 11 Oct 2019 11:54:42 +0200
-Message-Id: <20191011095442.10541-6-pvorel@suse.cz>
-X-Mailer: git-send-email 2.23.0
-In-Reply-To: <20191011095442.10541-1-pvorel@suse.cz>
-References: <20191011095442.10541-1-pvorel@suse.cz>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <20191011100604.GA11441@dell5510>
+References: <20191011090737.17997-1-lkml@jv-coder.de>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20191011090737.17997-1-lkml@jv-coder.de>
+User-Agent: Mutt/1.11.3 (2019-02-01)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v5 5/5] net/if-mtu-change.sh: set TST_TIMEOUT
+Subject: Re: [LTP] Rename tst_test_* to tst_require_*
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,47 +46,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The default setup (100 * 5 seconds just for sleep) is longer than default timeout.
-30 sec for each iteration should be more than enough as a default.
+Hi,
 
-Fixes: fbea02ab5 ("lib/tst_test.sh: setup timeout per test run for the shell tests")
+Cc: Li and Clemens
 
-Reviewed-by: Li Wang <liwang@redhat.com>
-Reviewed-by: Clemens Famulla-Conrad <cfamullaconrad@suse.de>
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- testcases/network/stress/interface/if-mtu-change.sh | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> these patches rename tst_test_* to tst_require_*, to better describe
+> their use. There is also tst_require_root, that has the same
+> behavior: It also calls tst_brk in case of a failing requirement.
 
-diff --git a/testcases/network/stress/interface/if-mtu-change.sh b/testcases/network/stress/interface/if-mtu-change.sh
-index 30c013214..b945fb6ce 100755
---- a/testcases/network/stress/interface/if-mtu-change.sh
-+++ b/testcases/network/stress/interface/if-mtu-change.sh
-@@ -1,6 +1,6 @@
- #!/bin/sh
- # SPDX-License-Identifier: GPL-2.0-or-later
--# Copyright (c) 2017-2018 Petr Vorel <pvorel@suse.cz>
-+# Copyright (c) 2017-2019 Petr Vorel <pvorel@suse.cz>
- # Copyright (c) 2015-2017 Oracle and/or its affiliates. All Rights Reserved.
- # Copyright (c) International Business Machines  Corp., 2005
- # Author: Mitsuru Chinen <mitch@jp.ibm.com>
-@@ -13,6 +13,8 @@ TST_CLEANUP="do_cleanup"
- # The interval of the mtu change [second]
- CHANGE_INTERVAL=${CHANGE_INTERVAL:-5}
- 
-+TST_TIMEOUT=$(((CHANGE_INTERVAL + 30) * MTU_CHANGE_TIMES))
-+
- # The array of the value which MTU is changed into sequentially
- # 552 - net.ipv4.route.min_pmtu
- CHANGE_VALUES="784 1142 552 1500 552 1500 552 748 552 1142 1500"
--- 
-2.23.0
+> You can also get this patch from the following repo:
+> https://github.com/MofX/ltp/commits/rename_tst_test-tst_require
 
+sorry for not thinking first, I wonder if we want to sync
+tst_test_* (function name) vs $TST_NEEDS_* (test API variable name),
+e.g.: tst_require_drivers $TST_NEEDS_DRIVERS
+
+i.e. either of these:
+s/tst_test_/tst_needs_/
+s/TST_NEEDS_/TST_REQUIRE_/
+
+I consider *require* as more descriptive than *needs*,
+but changing to *require* would require more work :).
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
