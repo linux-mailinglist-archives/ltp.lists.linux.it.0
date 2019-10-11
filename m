@@ -2,39 +2,38 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3C33D4114
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 15:25:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33DA3D410E
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 15:25:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1CC1A3C22AD
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 15:25:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F25123C147F
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 15:25:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id A5E233C1CF5
- for <ltp@lists.linux.it>; Fri, 11 Oct 2019 15:24:43 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 4B5103C1447
+ for <ltp@lists.linux.it>; Fri, 11 Oct 2019 15:24:44 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6ABA6600C88
- for <ltp@lists.linux.it>; Fri, 11 Oct 2019 15:24:43 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 0E746201189
+ for <ltp@lists.linux.it>; Fri, 11 Oct 2019 15:24:44 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 27FE9B552;
+ by mx1.suse.de (Postfix) with ESMTP id 425F1B560;
  Fri, 11 Oct 2019 13:24:43 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 11 Oct 2019 15:24:29 +0200
-Message-Id: <20191011132433.24197-5-pvorel@suse.cz>
+Date: Fri, 11 Oct 2019 15:24:30 +0200
+Message-Id: <20191011132433.24197-6-pvorel@suse.cz>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20191011132433.24197-1-pvorel@suse.cz>
 References: <20191011132433.24197-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v5 4/8] net: Add tst_ipaddr_un.sh test
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v5 5/8] shell: Introduce EXPECT_{FAIL,PASS}_BRK()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,187 +50,97 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Testing tst_ipaddr_un() function from network shell API (tst_net.sh).
-
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- lib/newlib_tests/shell/net/tst_ipaddr_un.sh | 167 ++++++++++++++++++++
- 1 file changed, 167 insertions(+)
- create mode 100755 lib/newlib_tests/shell/net/tst_ipaddr_un.sh
+ doc/test-writing-guidelines.txt |  5 ++++-
+ testcases/lib/tst_test.sh       | 34 +++++++++++++++++++++++++++++----
+ 2 files changed, 34 insertions(+), 5 deletions(-)
 
-diff --git a/lib/newlib_tests/shell/net/tst_ipaddr_un.sh b/lib/newlib_tests/shell/net/tst_ipaddr_un.sh
-new file mode 100755
-index 000000000..a9d95f975
---- /dev/null
-+++ b/lib/newlib_tests/shell/net/tst_ipaddr_un.sh
-@@ -0,0 +1,167 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2019 Petr Vorel <pvorel@suse.cz>
+diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
+index 6da87baa7..722472800 100644
+--- a/doc/test-writing-guidelines.txt
++++ b/doc/test-writing-guidelines.txt
+@@ -2428,7 +2428,7 @@ Note the '>' is escaped with '\', this causes that the '>' and filename are
+ passed to the 'ROD' function as parameters and the 'ROD' function contains
+ code to split '$@' on '>' and redirects the output to the file.
+ 
+-EXPECT_PASS and EXPECT_FAIL
++EXPECT_PASS{,_BRK} and EXPECT_FAIL{,_BRK}
+ +++++++++++++++++++++++++++
+ 
+ [source,sh]
+@@ -2443,6 +2443,9 @@ and 'tst_resm TFAIL' otherwise. 'EXPECT_FAIL' does vice versa.
+ Output redirection rules are the same as for the 'ROD' function. In addition
+ to that, 'EXPECT_FAIL' always redirects the command's stderr to '/dev/null'.
+ 
++There are also 'EXPECT_PASS_BRK' and 'EXPECT_FAIL_BRK', which works the same way
++except breaking a test when unexpected action happen.
 +
-+TST_TESTFUNC=do_test
-+TST_CNT=2
-+TST_NEEDS_CMDS="cut"
+ tst_kvcmp
+ +++++++++
+ 
+diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+index e0b24c6b9..6b9374b2b 100644
+--- a/testcases/lib/tst_test.sh
++++ b/testcases/lib/tst_test.sh
+@@ -139,27 +139,53 @@ ROD()
+ 	fi
+ }
+ 
+-EXPECT_PASS()
++_tst_expect_pass()
+ {
++	local fnc="$1"
++	shift
 +
-+PATH="$(dirname $0)/../../../../testcases/lib/:$PATH"
+ 	tst_rod "$@"
+ 	if [ $? -eq 0 ]; then
+ 		tst_res TPASS "$@ passed as expected"
+ 	else
+-		tst_res TFAIL "$@ failed unexpectedly"
++		$fnc TFAIL "$@ failed unexpectedly"
+ 	fi
+ }
+ 
+-EXPECT_FAIL()
++_tst_expect_fail()
+ {
++	local fnc="$1"
++	shift
 +
-+RHOST="foo"
-+. tst_net.sh
-+
-+IPV4_DATA="
-+0 0|10.23.0.0
-+0 1|10.23.0.1
-+1 0|10.23.1.0
-+1 1|10.23.1.1
-+1 2|10.23.1.2
-+2 2|10.23.2.2
-+1 3|10.23.1.3
-+3 3|10.23.3.3
-+1 128|10.23.1.128
-+128 128|10.23.128.128
-+1 254|10.23.1.254
-+254 254|10.23.254.254
-+1 255|10.23.1.255
-+255 255|10.23.255.255
-+1 256|10.23.1.0
-+256 256|10.23.0.0
-+1 257|10.23.1.1
-+257 257|10.23.1.1
-+
-+-c 0|10.23.0.2
-+-c 0 lhost|10.23.0.2
-+-c 0 rhost|10.23.0.1
-+
-+-c 1|10.23.0.2
-+-c 1 rhost|10.23.0.1
-+-c 2|10.23.0.4
-+-c 2 rhost|10.23.0.3
-+-c 127|10.23.0.254
-+-c 127 rhost|10.23.0.253
-+-c 128|10.23.1.2
-+-c 128 rhost|10.23.1.1
-+-c 254|10.23.1.254
-+-c 254 rhost|10.23.1.253
-+-c 255|10.23.2.2
-+-c 255 rhost|10.23.2.1
-+
-+-c 0 -h1,255|10.23.0.2
-+-c 0 -h1,255 rhost|10.23.0.1
-+-c 1 -h1,255|10.23.0.2
-+-c 1 -h1,255 rhost|10.23.0.1
-+-c 127 -h1,255|10.23.0.254
-+-c 127 -h1,255 rhost|10.23.0.253
-+-c 128 -h1,255|10.23.1.1
-+-c 128 -h1,255 rhost|10.23.0.255
-+-c 255 -h1,255|10.23.1.255
-+-c 255 -h1,255 rhost|10.23.1.254
-+-c 256 -h1,255|10.23.2.2
-+-c 256 -h1,255 rhost|10.23.2.1
-+
-+-c1 -h 2,8 -n 2,8|10.23.2.3
-+-c1 -h 2,8 -n 2,8 rhost|10.23.2.2
-+-c2 -h 2,8 -n 2,8|10.23.2.5
-+-c2 -h 2,8 -n 2,8 rhost|10.23.2.4
-+
-+-c1 -n 22,44|10.23.22.2
-+-c1 -n 22,44 rhost|10.23.22.1
-+-c2 -n 22,44|10.23.22.4
-+-c2 -n 22,44 rhost|10.23.22.3
-+"
-+
-+IPV6_DATA="
-+0 0|fd00:23::
-+0 1|fd00:23::1
-+1 0|fd00:23:1::
-+1 1|fd00:23:1::1
-+1 2|fd00:23:1::2
-+2 2|fd00:23:2::2
-+1 3|fd00:23:1::3
-+3 3|fd00:23:3::3
-+1 32767|fd00:23:1::7fff
-+32767 32767|fd00:23:7fff::7fff
-+1 65534|fd00:23:1::fffe
-+65534 65534|fd00:23:fffe::fffe
-+1 65535|fd00:23:1::ffff
-+65535 65535|fd00:23:ffff::ffff
-+1 65536|fd00:23:1::
-+65536 65536|fd00:23::
-+1 65537|fd00:23:1::1
-+65537 65537|fd00:23:1::1
-+
-+-c 0|fd00:23::2
-+-c 0 lhost|fd00:23::2
-+-c 0 rhost|fd00:23::1
-+
-+-c 1|fd00:23::2
-+-c 1 rhost|fd00:23::1
-+-c 2|fd00:23::4
-+-c 2 rhost|fd00:23::3
-+-c 32767|fd00:23::fffe
-+-c 32767 rhost|fd00:23::fffd
-+-c 32768|fd00:23:1::2
-+-c 32768 rhost|fd00:23:1::1
-+-c 65534|fd00:23:1::fffe
-+-c 65534 rhost|fd00:23:1::fffd
-+-c 65535|fd00:23:2::2
-+-c 65535 rhost|fd00:23:2::1
-+
-+-c 0 -h1,65535|fd00:23::2
-+-c 0 -h1,65535 rhost|fd00:23::1
-+-c 1 -h1,65535|fd00:23::2
-+-c 1 -h1,65535 rhost|fd00:23::1
-+-c 32767 -h1,65535|fd00:23::fffe
-+-c 32767 -h1,65535 rhost|fd00:23::fffd
-+-c 32768 -h1,65535|fd00:23:1::1
-+-c 32768 -h1,65535 rhost|fd00:23::ffff
-+-c 65535 -h1,65535|fd00:23:1::ffff
-+-c 65535 -h1,65535 rhost|fd00:23:1::fffe
-+-c 65536 -h1,65535|fd00:23:2::2
-+-c 65536 -h1,65535 rhost|fd00:23:2::1
-+
-+-c1 -h 2,8 -n 2,8|fd00:23:2::3
-+-c1 -h 2,8 -n 2,8 rhost|fd00:23:2::2
-+-c2 -h 2,8 -n 2,8|fd00:23:2::5
-+-c2 -h 2,8 -n 2,8 rhost|fd00:23:2::4
-+
-+-c1 -n 22,44|fd00:23:16::2
-+-c1 -n 22,44 rhost|fd00:23:16::1
-+-c2 -n 22,44|fd00:23:16::4
-+-c2 -n 22,44 rhost|fd00:23:16::3
-+"
-+
-+test_tst_ipaddr_un()
+ 	# redirect stderr since we expect the command to fail
+ 	tst_rod "$@" 2> /dev/null
+ 	if [ $? -ne 0 ]; then
+ 		tst_res TPASS "$@ failed as expected"
+ 	else
+-		tst_res TFAIL "$@ passed unexpectedly"
++		$fnc TFAIL "$@ passed unexpectedly"
+ 	fi
+ }
+ 
++EXPECT_PASS()
 +{
-+	local data cmd i result
-+	local var="$1"
-+
-+	tst_res TINFO "Testing for IPv${TST_IPVER}, data: \$$var"
-+
-+	eval data="\$$var"
-+	IFS="
-+"
-+	for i in $data; do
-+		cmd="tst_ipaddr_un $(echo $i | cut -d'|' -f 1)"
-+		result="$(echo $i | cut -d'|' -f 2)"
-+		tst_res TINFO "testing $cmd"
-+		EXPECT_PASS "[ '$(eval $cmd)' = '$result' ]"
-+	done
++	_tst_expect_pass tst_res "$@"
 +}
 +
-+do_test2()
++EXPECT_PASS_BRK()
 +{
-+	test_tst_ipaddr_un "IPV${TST_IPVER}_DATA"
++	_tst_expect_pass tst_brk "$@"
 +}
 +
-+do_test()
++EXPECT_FAIL()
 +{
-+	case $1 in
-+	 1) TST_IPV6= TST_IPVER=4 do_test2;;
-+	 2) TST_IPV6=6 TST_IPVER=6 do_test2;;
-+	esac
++	_tst_expect_fail tst_res "$@"
 +}
 +
-+tst_run
++EXPECT_FAIL_BRK()
++{
++	_tst_expect_fail tst_brk "$@"
++}
++
+ TST_RETRY_FN_EXP_BACKOFF()
+ {
+ 	local tst_fun="$1"
 -- 
 2.23.0
 
