@@ -1,41 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA34FD3F99
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 14:36:22 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0013FD3F9B
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 14:36:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1AEE93C2278
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 14:36:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B72473C228E
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 14:36:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 17D1C3C144F
- for <ltp@lists.linux.it>; Fri, 11 Oct 2019 14:36:17 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTP id 8A6EB3C144F
+ for <ltp@lists.linux.it>; Fri, 11 Oct 2019 14:36:36 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 759551000C3F
- for <ltp@lists.linux.it>; Fri, 11 Oct 2019 14:34:30 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 767121000D1A
+ for <ltp@lists.linux.it>; Fri, 11 Oct 2019 14:34:49 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id C72A6B4C1;
- Fri, 11 Oct 2019 12:36:15 +0000 (UTC)
-Date: Fri, 11 Oct 2019 14:36:15 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20191011123614.GD2591@rei>
-References: <20191011090737.17997-1-lkml@jv-coder.de>
- <20191011100604.GA11441@dell5510>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191011100604.GA11441@dell5510>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+ by mx1.suse.de (Postfix) with ESMTP id E644EACC3;
+ Fri, 11 Oct 2019 12:36:34 +0000 (UTC)
+Message-ID: <1570797394.4238.7.camel@suse.de>
+From: Clemens Famulla-Conrad <cfamullaconrad@suse.de>
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+Date: Fri, 11 Oct 2019 14:36:34 +0200
+In-Reply-To: <20191011095442.10541-4-pvorel@suse.cz>
+References: <20191011095442.10541-1-pvorel@suse.cz>
+ <20191011095442.10541-4-pvorel@suse.cz>
+X-Mailer: Evolution 3.26.6 
+Mime-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] Rename tst_test_* to tst_require_*
+Subject: Re: [LTP] [PATCH v5 3/5] shell: Add timeout shell API tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,40 +46,122 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Reply-To: cfamullaconrad@suse.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > these patches rename tst_test_* to tst_require_*, to better describe
-> > their use. There is also tst_require_root, that has the same
-> > behavior: It also calls tst_brk in case of a failing requirement.
+On Fri, 2019-10-11 at 11:54 +0200, Petr Vorel wrote:
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+>  lib/newlib_tests/shell/test_timeout.sh | 36
+> ++++++++++++++++++++++++++
+>  lib/newlib_tests/shell/timeout01.sh    | 13 ++++++++++
+>  lib/newlib_tests/shell/timeout02.sh    | 13 ++++++++++
+>  3 files changed, 62 insertions(+)
+>  create mode 100755 lib/newlib_tests/shell/test_timeout.sh
+>  create mode 100755 lib/newlib_tests/shell/timeout01.sh
+>  create mode 100755 lib/newlib_tests/shell/timeout02.sh
 > 
-> > You can also get this patch from the following repo:
-> > https://github.com/MofX/ltp/commits/rename_tst_test-tst_require
-> 
-> sorry for not thinking first, I wonder if we want to sync
-> tst_test_* (function name) vs $TST_NEEDS_* (test API variable name),
-> e.g.: tst_require_drivers $TST_NEEDS_DRIVERS
-> 
-> i.e. either of these:
-> s/tst_test_/tst_needs_/
-> s/TST_NEEDS_/TST_REQUIRE_/
+> diff --git a/lib/newlib_tests/shell/test_timeout.sh
+> b/lib/newlib_tests/shell/test_timeout.sh
+> new file mode 100755
+> index 000000000..2cbc66412
+> --- /dev/null
+> +++ b/lib/newlib_tests/shell/test_timeout.sh
+> @@ -0,0 +1,36 @@
+> +#!/bin/sh
+> +
+> +PATH="$(dirname $0)/../../../testcases/lib/:$PATH"
+> +
+> +DATA="
+> +timeout01.sh||0
 
-I guess that I started bike-shedding here, I should have been silent I
-guess...
+We only check if the lib doesn't produce any error, but we do not 
+check if timeout is really unlimited. But I think we can do so when 
+the shell-test-framework will be introduced and we can check for 
+"TINFO: Timeout per run is disabled" output.
 
-I do consider this names to mean something different in the contexts,
-i.e. "needs" is something that is expressed in metadata, while "require"
-is part of a function name. But hey I'm by no means native speaker, so
-who know, and also I would prefer to work on the actual code, which is
-more fruitful than API renames.
+> +timeout02.sh||0
+> +timeout02.sh|foo|32
+> +timeout02.sh|2|0
+> +timeout02.sh|1.1|0
+> +timeout02.sh|-10|32
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+I think it is worth to add these tests as well:
+
+timeout01.sh|2|0
+timeout02.sh|-1.1|32
+timeout02.sh|-10.1|32
+timeout02.sh|-0.1|0
+
+> +"
+> +
+> +echo "Testing timeout in shell API"
+> +echo
+> +
+> +failed=0
+> +for i in $DATA; do
+> +	file=$(echo $i | cut -d'|' -f1)
+> +	timeout=$(echo $i | cut -d'|' -f2)
+> +	exp_exit=$(echo $i | cut -d'|' -f3)
+> +
+> +	echo "=== $test (LTP_TIMEOUT_MUL='$timeout') ==="
+> +	LTP_TIMEOUT_MUL=$timeout ./$file
+> +	ret=$?
+> +	if [ $ret -ne $exp_exit ]; then
+> +		echo "FAILED (exit code: $ret, expected $exp_exit)"
+> +		failed=$((failed+1))
+> +	else
+> +		echo "PASSED"
+> +	fi
+> +	echo
+> +done
+> +
+> +echo "Failed tests: $failed"
+> +exit $failed
+> diff --git a/lib/newlib_tests/shell/timeout01.sh
+> b/lib/newlib_tests/shell/timeout01.sh
+> new file mode 100755
+> index 000000000..ab7428a2d
+> --- /dev/null
+> +++ b/lib/newlib_tests/shell/timeout01.sh
+> @@ -0,0 +1,13 @@
+> +#!/bin/sh
+> +
+> +TST_TESTFUNC=do_test
+> +
+> +TST_TIMEOUT=-1
+> +. tst_test.sh
+> +
+> +do_test()
+> +{
+> +	tst_res TPASS "timeout $TST_TIMEOUT set"
+> +}
+> +
+> +tst_run
+> diff --git a/lib/newlib_tests/shell/timeout02.sh
+> b/lib/newlib_tests/shell/timeout02.sh
+> new file mode 100755
+> index 000000000..73af09125
+> --- /dev/null
+> +++ b/lib/newlib_tests/shell/timeout02.sh
+> @@ -0,0 +1,13 @@
+> +#!/bin/sh
+> +
+> +TST_TESTFUNC=do_test
+> +
+> +TST_TIMEOUT=2
+> +. tst_test.sh
+> +
+> +do_test()
+> +{
+> +	tst_res TPASS "timeout $TST_TIMEOUT set
+> (LTP_TIMEOUT_MUL='$LTP_TIMEOUT_MUL')"
+> +}
+> +
+> +tst_run
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
