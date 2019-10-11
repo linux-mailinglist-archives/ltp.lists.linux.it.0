@@ -1,44 +1,38 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D256D3C53
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 11:30:42 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 783A1D3CCD
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 11:55:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EA54F3C14EE
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 11:30:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 232993C1814
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Oct 2019 11:55:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 141DF3C0DFD
- for <ltp@lists.linux.it>; Fri, 11 Oct 2019 11:30:41 +0200 (CEST)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 364913C1452
+ for <ltp@lists.linux.it>; Fri, 11 Oct 2019 11:54:54 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8B1FB601278
- for <ltp@lists.linux.it>; Fri, 11 Oct 2019 11:30:40 +0200 (CEST)
-Received: from ubuntu.localdomain (unknown [37.156.92.209])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 460049F66F;
- Fri, 11 Oct 2019 09:30:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1570786239; bh=9ON6Xja3z0/3Y9Dlo8aA3Sj05IgF1/ZQCfIRLVfoouU=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=i2qD3P2uJw2sBam9bQFdTQ8tLSv6721d+WJAyhhu9BQetFVxnIaU2EikmWmvAotzk
- eGhZCOI/ZznYhG8wztK7Ydz5EA+0K2+3/ZtVFMdQWGC8Z9l0oF2ydWbMNWsc9ZPi6p
- /Sp8sM2cQAeN3ClPH92dbiK9k1DMdXVMwEGgxcIE=
-From: Joerg Vehlow <lkml@jv-coder.de>
-To: ltp@lists.linux.it,
-	chrubis@suse.cz
-Date: Fri, 11 Oct 2019 11:30:32 +0200
-Message-Id: <20191011093032.30386-1-lkml@jv-coder.de>
-X-Mailer: git-send-email 2.20.1
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 742B4600D20
+ for <ltp@lists.linux.it>; Fri, 11 Oct 2019 11:53:18 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 4C00BADDD;
+ Fri, 11 Oct 2019 09:54:53 +0000 (UTC)
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Fri, 11 Oct 2019 11:54:37 +0200
+Message-Id: <20191011095442.10541-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v3] shm_test: Fix parameter passing to threads
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v5 0/5] shell: Introduce TST_TIMEOUT variable
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,197 +44,101 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+Hi,
 
-Changes to v2:
-- Corrected variable for reader and writer loop num_reps -> map_size
-- Removed useless cast for vargs
-- REnamed isReader -> is_reader
+hopefully the latest version.
 
-The arguments to all threads were passed using a pointer to the same memory.
-So they all point to the same data, that is overriden by the main thread
-to prepare it for the next thread.
+Changes v4->v5:
+* remove float related code (left from v3)
+* remove "tst_test_cmds cut" check from tst_test.sh (there is check for
+cut and other later => it should be probably removed as well, but as a
+separate patch) (Cyril)
+* remove unneeded IFS from test (Cyril)
+* mention ceiling LTP_TIMEOUT_MUL in doc/user-guide.txt
 
-Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
----
- testcases/kernel/mem/mtest07/shm_test.c | 70 ++++++++++++-------------
- 1 file changed, 35 insertions(+), 35 deletions(-)
+Here is the diff:
+diff --git doc/user-guide.txt doc/user-guide.txt
+index 8913c3221..7f6334ec2 100644
+--- doc/user-guide.txt
++++ doc/user-guide.txt
+@@ -15,7 +15,7 @@ For running LTP network tests see `testcases/network/README.md`.
+                           'n' or '0': never colorize.
+ | 'LTP_TIMEOUT_MUL'     | Multiply timeout, must be number >= 1 (> 1 is useful for
+                           slow machines to avoid unexpected timeout).
+-                          Variable is also used in shell tests.
++                          Variable is also used in shell tests, but here ceiled to int.
+ | 'PATH'                | It's required to addjust path:
+                           `PATH="$PATH:$LTPROOT/testcases/bin"`
+ | 'TMPDIR'              | Base directory for template directory, which is required by C tests
+diff --git lib/newlib_tests/shell/test_timeout.sh lib/newlib_tests/shell/test_timeout.sh
+index 7e296f9e9..2cbc66412 100755
+--- lib/newlib_tests/shell/test_timeout.sh
++++ lib/newlib_tests/shell/test_timeout.sh
+@@ -15,8 +15,6 @@ echo "Testing timeout in shell API"
+ echo
+ 
+ failed=0
+-IFS="
+-"
+ for i in $DATA; do
+ 	file=$(echo $i | cut -d'|' -f1)
+ 	timeout=$(echo $i | cut -d'|' -f2)
+diff --git testcases/lib/tst_test.sh testcases/lib/tst_test.sh
+index 977ffd97e..8713c1cdd 100644
+--- testcases/lib/tst_test.sh
++++ testcases/lib/tst_test.sh
+@@ -392,7 +392,6 @@ _tst_setup_timer()
+ 	tst_is_num "$LTP_TIMEOUT_MUL" || tst_brk TCONF "$err ($LTP_TIMEOUT_MUL)"
+ 
+ 	if ! tst_is_int "$LTP_TIMEOUT_MUL"; then
+-		tst_test_cmds cut
+ 		LTP_TIMEOUT_MUL=$(echo "$LTP_TIMEOUT_MUL" | cut -d. -f1)
+ 		LTP_TIMEOUT_MUL=$((LTP_TIMEOUT_MUL+1))
+ 		tst_res TINFO "ceiling LTP_TIMEOUT_MUL to $LTP_TIMEOUT_MUL"
+@@ -403,13 +402,7 @@ _tst_setup_timer()
+ 		tst_brk TBROK "TST_TIMEOUT must be int >= 1! ($TST_TIMEOUT)"
+ 	fi
+ 
+-	local sec
+-	if [ "$is_float" ]; then
+-		sec=`echo | awk '{printf("%d\n", '$TST_TIMEOUT' * '$LTP_TIMEOUT_MUL'+ 0.5)}'`
+-	else
+-		sec=$((TST_TIMEOUT * LTP_TIMEOUT_MUL))
+-	fi
+-
++	local sec=$((TST_TIMEOUT * LTP_TIMEOUT_MUL))
+ 	local h=$((sec / 3600))
+ 	local m=$((sec / 60 % 60))
+ 	local s=$((sec % 60))
 
-diff --git a/testcases/kernel/mem/mtest07/shm_test.c b/testcases/kernel/mem/mtest07/shm_test.c
-index de91b7427..6d4d016a8 100644
---- a/testcases/kernel/mem/mtest07/shm_test.c
-+++ b/testcases/kernel/mem/mtest07/shm_test.c
-@@ -81,8 +81,16 @@ void noprintf(char *string, ...)
- 
- #define MAXT	30		/* default number of threads to create.               */
- #define MAXR	1000		/* default number of repatetions to execute           */
--#define WRITER  0		/* cause thread function to shmat and write           */
--#define READER  1		/* cause thread function to shmat and read            */
-+
-+struct child_args
-+{
-+	pthread_t threadid;
-+	int num_reps;
-+	int shmkey;
-+	int map_size;
-+	int is_reader;
-+};
-+
- 
- /******************************************************************************/
- /*								 	      */
-@@ -166,28 +174,25 @@ static int rm_shared_mem(key_t shm_id,	/* id of shared memory segment to be remo
- /* Return:	exits with -1 on error, 0 on success                          */
- /*									      */
- /******************************************************************************/
--static void *shmat_rd_wr(void *args)
-+static void *shmat_rd_wr(void *vargs)
- {				/* arguments to the thread function             */
- 	int shmndx = 0;		/* index to the number of attach and detach   */
- 	int index = 0;		/* index to the number of blocks touched      */
--	int reader = 0;		/* this thread is a reader thread if set to 1 */
- 	key_t shm_id = 0;	/* shared memory id                           */
--	long *locargs =		/* local pointer to arguments                 */
--	    (long *)args;
-+	struct child_args *args = vargs;
- 	volatile int exit_val = 0;	/* exit value of the pthread                  */
- 	char *read_from_mem;	/* ptr to touch each (4096) block in memory   */
- 	char *write_to_mem;	/* ptr to touch each (4096) block in memory   */
- 	char *shmat_addr;	/* address of the attached memory             */
- 	char buff;		/* temporary buffer                           */
- 
--	reader = (int)locargs[3];
--	while (shmndx++ < (int)locargs[0]) {
-+	while (shmndx++ < args->num_reps) {
- 		dprt("pid[%d]: shmat_rd_wr(): locargs[1] = %#x\n",
--		     getpid(), (int)locargs[1]);
-+		     getpid(), args->shmkey);
- 
- 		/* get shared memory id */
- 		if ((shm_id =
--		     shmget((int)locargs[1], (int)locargs[2], IPC_CREAT | 0666))
-+		     shmget(args->shmkey, args->map_size, IPC_CREAT | 0666))
- 		    == -1) {
- 			dprt("pid[%d]: shmat_rd_wr(): shmget failed\n",
- 			     getpid());
-@@ -213,11 +218,11 @@ static void *shmat_rd_wr(void *args)
- 			"pid[%d]: do_shmat_shmadt(): got shmat address = %#lx\n",
- 			getpid(), (long)shmat_addr);
- 
--		if (!reader) {
-+		if (args->is_reader) {
- 			/* write character 'Y' to that memory area */
- 			index = 0;
- 			write_to_mem = shmat_addr;
--			while (index < (int)locargs[2]) {
-+			while (index < args->map_size) {
- 				dprt("pid[%d]: do_shmat_shmatd(): write_to_mem = %#x\n", getpid(), write_to_mem);
- 				*write_to_mem = 'Y';
- 				index++;
-@@ -228,7 +233,7 @@ static void *shmat_rd_wr(void *args)
- 			/* read from the memory area */
- 			index = 0;
- 			read_from_mem = shmat_addr;
--			while (index < (int)locargs[2]) {
-+			while (index < args->map_size) {
- 				buff = *read_from_mem;
- 				index++;
- 				read_from_mem++;
-@@ -272,12 +277,11 @@ int main(int argc,		/* number of input parameters                 */
- 	int c;			/* command line options                       */
- 	int num_thrd = MAXT;	/* number of threads to create                */
- 	int num_reps = MAXR;	/* number of repatitions the test is run      */
--	int thrd_ndx;		/* index into the array of thread ids         */
-+	int i;
- 	void *th_status;	/* exit status of LWP's                       */
- 	int map_size;		/* size of the file mapped.                   */
- 	int shmkey = 1969;	/* key used to generate shmid by shmget()     */
--	pthread_t thrdid[30];	/* maxinum of 30 threads allowed              */
--	long chld_args[4];	/* arguments to the thread function           */
-+	struct child_args chld_args[30];	/* arguments to the thread function */
- 	char *map_address = NULL;
- 	/* address in memory of the mapped file       */
- 	extern int optopt;	/* options to the program                     */
-@@ -299,7 +303,7 @@ int main(int argc,		/* number of input parameters                 */
- 		case 't':
- 			if ((num_thrd = atoi(optarg)) == 0)
- 				OPT_MISSING(argv[0], optopt);
--			else if (num_thrd < 0) {
-+			else if (num_thrd < 0 || num_thrd > MAXT) {
- 				fprintf(stdout,
- 					"WARNING: bad argument. Using default\n");
- 				num_thrd = MAXT;
-@@ -311,31 +315,27 @@ int main(int argc,		/* number of input parameters                 */
- 		}
- 	}
- 
--	chld_args[0] = num_reps;
--
--	for (thrd_ndx = 0; thrd_ndx < num_thrd; thrd_ndx += 2) {
-+	for (i = 0; i < num_thrd; i += 2) {
- 		srand(time(NULL) % 100);
--		map_size =
--		    (1 + (int)(1000.0 * rand() / (RAND_MAX + 1.0))) * 4096;
--
--		chld_args[1] = shmkey++;
--		chld_args[2] = map_size;
-+		map_size = (1 + (int)(1000.0 * rand() / (RAND_MAX + 1.0))) * 4096;
- 
- 		dprt("main(): thrd_ndx = %d map_address = %#x map_size = %d\n",
--		     thrd_ndx, map_address, map_size);
--
--		chld_args[3] = WRITER;
-+		     i, map_address, map_size);
- 
-+		chld_args[i].num_reps = num_reps;
-+		chld_args[i].map_size = map_size;
-+		chld_args[i].shmkey = shmkey++;
-+		chld_args[i].is_reader = 0;
- 		if (pthread_create
--		    (&thrdid[thrd_ndx], NULL, shmat_rd_wr, chld_args)) {
-+		    (&chld_args[i].threadid, NULL, shmat_rd_wr, &chld_args[i])) {
- 			perror("shmat_rd_wr(): pthread_create()");
- 			exit(-1);
- 		}
- 
--		chld_args[3] = READER;
--
-+		chld_args[i + 1] = chld_args[i];
-+		chld_args[i + 1].is_reader = 1;
- 		if (pthread_create
--		    (&thrdid[thrd_ndx + 1], NULL, shmat_rd_wr, chld_args)) {
-+		    (&chld_args[i + 1].threadid, NULL, shmat_rd_wr, &chld_args[i + 1])) {
- 			perror("shmat_rd_wr(): pthread_create()");
- 			exit(-1);
- 		}
-@@ -343,8 +343,8 @@ int main(int argc,		/* number of input parameters                 */
- 
- 	sync();
- 
--	for (thrd_ndx = 0; thrd_ndx < num_thrd; thrd_ndx++) {
--		if (pthread_join(thrdid[thrd_ndx], &th_status) != 0) {
-+	for (i = 0; i < num_thrd; i++) {
-+		if (pthread_join(chld_args[i].threadid, &th_status) != 0) {
- 			perror("shmat_rd_wr(): pthread_join()");
- 			exit(-1);
- 		} else {
-@@ -352,7 +352,7 @@ int main(int argc,		/* number of input parameters                 */
- 			if (th_status == (void *)-1) {
- 				fprintf(stderr,
- 					"thread [%ld] - process exited with errors\n",
--					(long)thrdid[thrd_ndx]);
-+					(long)chld_args[i].threadid);
- 				exit(-1);
- 			}
- 		}
+
+Petr Vorel (5):
+  shell: Add tst_is_num()
+  shell: Introduce TST_TIMEOUT variable, add checks
+  shell: Add timeout shell API tests
+  memcg_stress_test.sh: use TST_TIMEOUT (replace LTP_TIMEOUT_MUL)
+  net/if-mtu-change.sh: set TST_TIMEOUT
+
+ doc/test-writing-guidelines.txt               | 14 ++++++--
+ doc/user-guide.txt                            |  2 +-
+ lib/newlib_tests/shell/test_timeout.sh        | 36 +++++++++++++++++++
+ lib/newlib_tests/shell/timeout01.sh           | 13 +++++++
+ lib/newlib_tests/shell/timeout02.sh           | 13 +++++++
+ .../memcg/stress/memcg_stress_test.sh         |  2 +-
+ testcases/lib/tst_test.sh                     | 32 +++++++++++++++--
+ .../network/stress/interface/if-mtu-change.sh |  4 ++-
+ 8 files changed, 108 insertions(+), 8 deletions(-)
+ create mode 100755 lib/newlib_tests/shell/test_timeout.sh
+ create mode 100755 lib/newlib_tests/shell/timeout01.sh
+ create mode 100755 lib/newlib_tests/shell/timeout02.sh
+
 -- 
-2.20.1
+2.23.0
 
 
 -- 
