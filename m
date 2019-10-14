@@ -1,41 +1,38 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9C30D5FFC
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Oct 2019 12:22:34 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A4E59D612E
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Oct 2019 13:23:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9A6B53C229B
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Oct 2019 12:22:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3E9883C229F
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Oct 2019 13:23:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 4BF5A3C228E
- for <ltp@lists.linux.it>; Mon, 14 Oct 2019 12:22:33 +0200 (CEST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id EDA883C2292
+ for <ltp@lists.linux.it>; Mon, 14 Oct 2019 13:23:13 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 185251A00904
- for <ltp@lists.linux.it>; Mon, 14 Oct 2019 12:22:31 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 205A160123E
+ for <ltp@lists.linux.it>; Mon, 14 Oct 2019 13:23:12 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 35917B750;
- Mon, 14 Oct 2019 10:22:31 +0000 (UTC)
-Date: Mon, 14 Oct 2019 12:22:29 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Michael Moese <mmoese@suse.de>
-Message-ID: <20191014102228.GA31459@dell5510>
-References: <20190924112159.18845-1-mmoese@suse.de>
+ by mx1.suse.de (Postfix) with ESMTP id 55D97ADAB
+ for <ltp@lists.linux.it>; Mon, 14 Oct 2019 11:23:12 +0000 (UTC)
+From: Cyril Hrubis <metan@ucw.cz>
+To: ltp@lists.linux.it
+Date: Mon, 14 Oct 2019 13:23:07 +0200
+Message-Id: <20191014112309.24376-1-metan@ucw.cz>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190924112159.18845-1-mmoese@suse.de>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] Add a regression test for cve-2017-15649
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/2] Add support for a test tags
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,86 +44,78 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+From: Cyril Hrubis <chrubis@suse.cz>
 
-...
-> +void *task1(void *unused)
-> +{
-> +	int fanout = 0x3;
-> +
-> +	if (tst_fzsync_run_a(&fzsync_pair)) {
-> +		setsockopt(fd, 0x107, 18, &fanout, sizeof(fanout));
-> +		tst_fzsync_end_race_a(&fzsync_pair);
-> +	}
-This is a bit different usage of fuzzy sync than docs and other tests do.
-As you don't need to run tst_fzsync_pair_reset(&fzsync_pair, task2) here
-a warning is issued. If this is a correct usage, we might want to define
-tst_fzsync_pair_reset() as inline to avoid the warning.
+This is a newest version of the test tags, first patch adds a support
+for test tags to a test library, the second one annotates tests with
+tags. Not everything is annotated at the moment but fair amount of tests
+is included.
 
-..
-> +static void run(void)
-> +{
-...
-> +	while (1) {
-> +		pthread_t thread1, thread2;
-> +
-> +
-> +		fd = SAFE_SOCKET(AF_PACKET, SOCK_RAW, PF_PACKET);
-> +
-> +		strcpy((char *) &ifr.ifr_name, "lo");
-> +		SAFE_IOCTL(fd, SIOCGIFINDEX, &ifr);
-> +		index = ifr.ifr_ifindex;
-> +
-> +		SAFE_IOCTL(fd, SIOCGIFFLAGS, &ifr);
-> +		ifr.ifr_flags &= ~(short) IFF_UP;
-> +
-> +		SAFE_IOCTL(fd, SIOCSIFFLAGS, &ifr);
-> +
-> +		addr.sll_family = AF_PACKET;
-> +		addr.sll_protocol = 0x0;
-> +		addr.sll_ifindex = index;
-> +
-> +		SAFE_PTHREAD_CREATE(&thread1, NULL, task1, NULL);
-> +		SAFE_PTHREAD_CREATE(&thread2, NULL, task2, NULL);
-> +		SAFE_PTHREAD_JOIN(thread1, NULL);
-> +		SAFE_PTHREAD_JOIN(thread2, NULL);
-> +
-> +		SAFE_CLOSE(fd);
-> +
-> +		if (tst_capget(&hdr, after))
-> +			tst_brk(TBROK | TTERRNO, "tst_capget()");
-> +
-> +		if (memcmp(before, after, sizeof(after)) || tst_taint_check())
-> +			tst_res(TFAIL, "kernel is vulnerable");
-> +
-> +		clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &now);
-> +		if ((now.tv_sec - start.tv_sec) > TEST_RUNTIME)
-> +			tst_res(TPASS, "kernel seems to be not vulnerable");
-You miss return/break here or it's an infinite loop :).
+These patches are also a stepping stone for the test metadata project
+that will allow us to do much more than this. You can have a look at:
 
-> +	}
-> +}
-> +
-> +static struct tst_test test = {
-> +	.test_all = run,
-> +	.setup = setup,
-> +	.caps = (struct tst_cap []) {
-> +		TST_CAP(TST_CAP_REQ, CAP_SYS_ADMIN),
-> +		TST_CAP(TST_CAP_REQ, CAP_NET_RAW),
-> +		TST_CAP(TST_CAP_DROP, CAP_SYS_ADMIN),
-> +		{},
-> +	},
-> +};
+https://github.com/metan-ucw/ltp/tree/master/docparse
 
-Kind regards,
-Petr
+Also if you run a make in the docparse directory it will generate test
+metadata along with a single html page with nice test metadata
+description.
+
+While the whole project is work-in-progress, the test tags are finished
+and may add a value even without the rest of the changes, see the first
+commit for details.
+
+Cyril Hrubis (2):
+  lib: Add support for test tags
+  testcases/kernel: Add tags
+
+ include/tst_test.h                            | 10 +++
+ lib/tst_test.c                                | 77 +++++++++++++++++--
+ testcases/cve/cve-2014-0196.c                 |  5 ++
+ testcases/cve/cve-2015-3290.c                 |  5 ++
+ testcases/cve/cve-2016-10044.c                |  5 ++
+ testcases/cve/cve-2016-7042.c                 |  5 ++
+ testcases/cve/cve-2016-7117.c                 |  5 ++
+ testcases/cve/cve-2017-16939.c                |  5 ++
+ testcases/cve/cve-2017-17052.c                |  5 ++
+ testcases/cve/cve-2017-17053.c                |  5 ++
+ testcases/cve/cve-2017-2618.c                 |  5 ++
+ testcases/cve/cve-2017-2671.c                 |  5 ++
+ testcases/cve/meltdown.c                      |  6 +-
+ testcases/cve/stack_clash.c                   |  4 +
+ testcases/kernel/crypto/af_alg01.c            |  5 ++
+ testcases/kernel/crypto/af_alg02.c            |  5 ++
+ testcases/kernel/crypto/af_alg03.c            |  4 +
+ testcases/kernel/crypto/af_alg04.c            |  4 +
+ testcases/kernel/crypto/af_alg05.c            |  8 +-
+ testcases/kernel/crypto/af_alg06.c            |  4 +
+ testcases/kernel/crypto/crypto_user01.c       |  6 ++
+ testcases/kernel/crypto/crypto_user02.c       |  4 +
+ testcases/kernel/crypto/pcrypt_aead01.c       |  5 ++
+ testcases/kernel/sound/snd_timer01.c          |  6 ++
+ testcases/kernel/syscalls/accept/accept02.c   |  5 ++
+ testcases/kernel/syscalls/acct/acct02.c       |  4 +
+ testcases/kernel/syscalls/add_key/add_key02.c |  5 ++
+ testcases/kernel/syscalls/bpf/bpf_prog02.c    |  4 +
+ .../syscalls/futex/futex_cmp_requeue02.c      |  5 ++
+ testcases/kernel/syscalls/keyctl/keyctl02.c   |  4 +
+ testcases/kernel/syscalls/keyctl/keyctl04.c   |  5 ++
+ testcases/kernel/syscalls/keyctl/keyctl05.c   |  4 +
+ .../kernel/syscalls/move_pages/move_pages12.c |  6 ++
+ .../kernel/syscalls/realpath/realpath01.c     |  4 +
+ .../syscalls/request_key/request_key05.c      |  4 +
+ testcases/kernel/syscalls/sbrk/sbrk03.c       |  4 +
+ testcases/kernel/syscalls/sendto/sendto02.c   |  4 +
+ .../kernel/syscalls/setrlimit/setrlimit06.c   |  4 +
+ 38 files changed, 251 insertions(+), 9 deletions(-)
+
+-- 
+2.21.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
