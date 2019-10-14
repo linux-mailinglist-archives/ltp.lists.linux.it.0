@@ -2,70 +2,59 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6749D5B67
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Oct 2019 08:31:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FF04D5C7B
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Oct 2019 09:29:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 789A23C2278
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Oct 2019 08:31:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 57FC63C234D
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Oct 2019 09:29:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 7196A3C14EE
- for <ltp@lists.linux.it>; Mon, 14 Oct 2019 08:31:32 +0200 (CEST)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 26BAA3C14EE
+ for <ltp@lists.linux.it>; Mon, 14 Oct 2019 09:29:02 +0200 (CEST)
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DC196200BA4
- for <ltp@lists.linux.it>; Mon, 14 Oct 2019 08:31:29 +0200 (CEST)
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
- [209.85.167.199])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6E36B1000A9E
+ for <ltp@lists.linux.it>; Mon, 14 Oct 2019 09:29:01 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 0058A8553B
- for <ltp@lists.linux.it>; Mon, 14 Oct 2019 06:31:27 +0000 (UTC)
-Received: by mail-oi1-f199.google.com with SMTP id x125so9364572oig.7
- for <ltp@lists.linux.it>; Sun, 13 Oct 2019 23:31:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=NbCogG/0Lxvs96BrG5A1BQkO4Dw7ljpmgZaSEpXKkOM=;
- b=cDGbGohnVoB6tQbSqHp/LtJqrjhGnZRxfS5rvInTJMLUIKjkAPL1KvSa6ckDKhuKs4
- /rBc2mKmbAI9Y2G9IX9163RZLjD2ANSAkxRLuoT8qQCbxmnGCU1xLAvfCD3EchXj812i
- dD6F8fkPMdwdUtKNKC0zAlgciQFItlpKdDDeZH8zMqoiLV6Fluu3h3c0i9xuIM9c4d0Y
- 7KHLj5VJ5x7h4x4gbJxQVp+vtrO0+2sqODV+fr8Py6nsloXOOlbchrpqP9aJHBJ8ItOY
- /vkbnqFZv41Nx7E06UpliBnpwpdNYo5OEYMElPPvHTF7sYIIg2Nhq+lwt2ti3rgUae3l
- fKDw==
-X-Gm-Message-State: APjAAAVkQYq1x30KVJSG5MVUHZ7Ei5Hx4wfXLUBie8VIoAkBJ5kGtRWq
- ZkDtnIOuuAWiB7WgjVw6vk+axenrFsgBD0yDGdxAV5puaR13a60+fN+fgLUrbn4RrZZnQ9RKD2n
- q+TAZYWeXgXCFu+gaCnP/EcUnFXo=
-X-Received: by 2002:a54:480a:: with SMTP id j10mr22153255oij.138.1571034686505; 
- Sun, 13 Oct 2019 23:31:26 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqwPi9xHUu82oKwR3+U318Bf+uIFFMIrZtgN3zntuiVRdA+7zTSG1nZHE3OMDqd4gZEfOY6fnMOXjbcHQpJNChU=
-X-Received: by 2002:a54:480a:: with SMTP id j10mr22153234oij.138.1571034686136; 
- Sun, 13 Oct 2019 23:31:26 -0700 (PDT)
+ by mx1.redhat.com (Postfix) with ESMTPS id 5F246308FC4D;
+ Mon, 14 Oct 2019 07:28:59 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 53F025DA2C;
+ Mon, 14 Oct 2019 07:28:59 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2BE654EA6E;
+ Mon, 14 Oct 2019 07:28:59 +0000 (UTC)
+Date: Mon, 14 Oct 2019 03:28:59 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
+To: CKI Project <cki-project@redhat.com>, andreyknvl@google.com, 
+ LTP List <ltp@lists.linux.it>
+Message-ID: <805988176.6044584.1571038139105.JavaMail.zimbra@redhat.com>
+In-Reply-To: <cki.B4A567748F.PFM8G4WKXI@redhat.com>
+References: <cki.B4A567748F.PFM8G4WKXI@redhat.com>
 MIME-Version: 1.0
-References: <26d555b1d9deddb5a6f0a93a7c7d3b00e8abc1ff.1570616598.git.jstancek@redhat.com>
- <8c5d507fd19bc3110561ed1c666b7ac47442e09e.1570632125.git.jstancek@redhat.com>
- <CAEemH2d82pP2mwHnw42h-17HipGsVeYesfzg7o4axvCiRKU0=Q@mail.gmail.com>
- <CAEemH2eYc1VVtavWKTE-x1gqY6q7qyMVZ-bETXJytPkdvHJriw@mail.gmail.com>
- <1445930938.5951899.1570861051806.JavaMail.zimbra@redhat.com>
- <CAEemH2f2_5wNfNB=a-+=E+KevFOVvjCQ0sjBEG-eS27dwQxarw@mail.gmail.com>
- <23965038.5952515.1570862960195.JavaMail.zimbra@redhat.com>
- <CAEemH2cuxbW55Y_mv9t0u7PEJyQVr9dgtZVFrDYKLi51MSsLmg@mail.gmail.com>
- <1498901254.5980601.1570953247355.JavaMail.zimbra@redhat.com>
-In-Reply-To: <1498901254.5980601.1570953247355.JavaMail.zimbra@redhat.com>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 14 Oct 2019 14:31:14 +0800
-Message-ID: <CAEemH2cCi5y9PPKnynF5DMwV4Wiyx1jYCvqpTTa-duBNH1CbFw@mail.gmail.com>
-To: Jan Stancek <jstancek@redhat.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Originating-IP: [10.43.17.163, 10.4.195.7]
+Thread-Topic: =?utf-8?B?4p2MIEZBSUw6?= Test report for kernel
+ 5.4.0-rc2-d6c2c23.cki (stable-next)
+Thread-Index: I1iuqhveSXTk+4892N8PIoGCTDH8iQ==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+ (mx1.redhat.com [10.5.110.43]); Mon, 14 Oct 2019 07:28:59 +0000 (UTC)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_PASS,
- SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] read_all: retry to queue work for any worker
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] 
+ =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E4?=
+ =?utf-8?q?=2E0-rc2-d6c2c23=2Ecki_=28stable-next=29?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,173 +66,33 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1010060903=="
+Cc: Memory Management <mm-qe@redhat.com>,
+ Linux Stable maillist <stable@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1010060903==
-Content-Type: multipart/alternative; boundary="00000000000065c0570594d9049d"
-
---00000000000065c0570594d9049d
-Content-Type: text/plain; charset="UTF-8"
-
-On Sun, Oct 13, 2019 at 3:54 PM Jan Stancek <jstancek@redhat.com> wrote:
-
->
->
-> ----- Original Message -----
-> > On Sat, Oct 12, 2019 at 2:49 PM Jan Stancek <jstancek@redhat.com> wrote:
-> >
-> > > ...
-> > > > > > Base on your patch, I'm thinking to achieve a new macro
-> > > TST_INFILOOP_FUNC
-> > > > > > which can repeat the @FUNC infinitely. Do you feel it satisfies
-> your
-> > > > > > requirements to some degree or meaningful to LTP?
-> > > > >
-> > > > > I'm OK with concept. I'd like more some variation of *RETRY* for
-> name.
-> > > > > Comments below.
-> > > > >
-> > > >
-> > > > Thanks, what about naming: TST_INFI_RETRY_FUNC?
-> > >
-> > > Or just keep TST_RETRY_FUNC and add parameter to it?
-> > >
-> >
-> > Sounds better, we could add parameter @INFI to control the retry as a
-> knob.
-> >
-> > /* @INFI - 1: retry infinitely, 0: retry in limit times */
-> >
-> > #define TST_RETRY_FUNC(FUNC, ERET, INFI) \
-> >         TST_RETRY_FN_EXP_BACKOFF(FUNC, ERET, 1, INFI)
->
-> Other option is we use directly TST_RETRY_FN_EXP_BACKOFF.
->
-
-I'm ok for either. I will have a try when I get a chance since mkswap01.sh
-sometimes timed out in the one-second retrying.
-
-
->
-> >
-> >
-> > > >
-> > > > And do you mind use it to replace your function work_push_retry()? I
-> know
-> > > > it may be not smarter than work_push_retry() but it looks tiny for
-> code.
-> > >
-> > > It may need some wrapper, because work_push_retry() may be passing
-> > > different
-> > > argument to function on each retry, which was one of reasons for the
-> patch.
-> > >
-> >
-> > I was not meaning to hack the work_push_retry() function, I mean to
-> change
-> > your patch as below after we improve the TST_RETRY_FUNC.
->
-> Why not? Wouldn't we get better performance if we don't wait on specific
-> worker
-> to complete?
->
-Well, right! You can merge this patch as it is.
-
--- 
-Regards,
-Li Wang
-
---00000000000065c0570594d9049d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Sun, Oct 13, 2019 at 3:54 PM Jan Stancek &lt;<a =
-href=3D"mailto:jstancek@redhat.com">jstancek@redhat.com</a>&gt; wrote:<br><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
-rder-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
-<br>
------ Original Message -----<br>
-&gt; On Sat, Oct 12, 2019 at 2:49 PM Jan Stancek &lt;<a href=3D"mailto:jsta=
-ncek@redhat.com" target=3D"_blank">jstancek@redhat.com</a>&gt; wrote:<br>
-&gt; <br>
-&gt; &gt; ...<br>
-&gt; &gt; &gt; &gt; &gt; Base on your patch, I&#39;m thinking to achieve a =
-new macro<br>
-&gt; &gt; TST_INFILOOP_FUNC<br>
-&gt; &gt; &gt; &gt; &gt; which can repeat the @FUNC infinitely. Do you feel=
- it satisfies your<br>
-&gt; &gt; &gt; &gt; &gt; requirements to some degree or meaningful to LTP?<=
-br>
-&gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; I&#39;m OK with concept. I&#39;d like more some variati=
-on of *RETRY* for name.<br>
-&gt; &gt; &gt; &gt; Comments below.<br>
-&gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; Thanks, what about naming: TST_INFI_RETRY_FUNC?<br>
-&gt; &gt;<br>
-&gt; &gt; Or just keep TST_RETRY_FUNC and add parameter to it?<br>
-&gt; &gt;<br>
-&gt; <br>
-&gt; Sounds better, we could add parameter @INFI to control the retry as a =
-knob.<br>
-&gt; <br>
-&gt; /* @INFI - 1: retry infinitely, 0: retry in limit times */<br>
-&gt; <br>
-&gt; #define TST_RETRY_FUNC(FUNC, ERET, INFI) \<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0TST_RETRY_FN_EXP_BACKOFF(FUNC, ERET, =
-1, INFI)<br>
-<br>
-Other option is we use directly TST_RETRY_FN_EXP_BACKOFF.<br></blockquote><=
-div><br></div><div><div class=3D"gmail_default" style=3D"font-size:small">I=
-&#39;m ok for either. I will have a try when I get a chance since=C2=A0mksw=
-ap01.sh sometimes timed out in the one-second retrying.</div></div><div>=C2=
-=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-&gt; <br>
-&gt; <br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; And do you mind use it to replace your function work_push_re=
-try()? I know<br>
-&gt; &gt; &gt; it may be not smarter than work_push_retry() but it looks ti=
-ny for code.<br>
-&gt; &gt;<br>
-&gt; &gt; It may need some wrapper, because work_push_retry() may be passin=
-g<br>
-&gt; &gt; different<br>
-&gt; &gt; argument to function on each retry, which was one of reasons for =
-the patch.<br>
-&gt; &gt;<br>
-&gt; <br>
-&gt; I was not meaning to hack the work_push_retry() function, I mean to ch=
-ange<br>
-&gt; your patch as below after we improve the TST_RETRY_FUNC.<br>
-<br>
-Why not? Wouldn&#39;t we get better performance if we don&#39;t wait on spe=
-cific worker<br>
-to complete?<br>
-</blockquote></div><div class=3D"gmail_default" style=3D"font-size:small"><=
-/div><div><div class=3D"gmail_default" style=3D"font-size:small">Well, righ=
-t!  You can merge this patch as it is.=C2=A0</div></div><div><br></div>-- <=
-br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards=
-,<br></div><div>Li Wang<br></div></div></div></div>
-
---00000000000065c0570594d9049d--
-
---===============1010060903==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1010060903==--
+CgotLS0tLSBPcmlnaW5hbCBNZXNzYWdlIC0tLS0tCj4gCj4gSGVsbG8sCj4gCj4gV2UgcmFuIGF1
+dG9tYXRlZCB0ZXN0cyBvbiBhIHJlY2VudCBjb21taXQgZnJvbSB0aGlzIGtlcm5lbCB0cmVlOgo+
+IAo+ICAgICAgICBLZXJuZWwgcmVwbzoKPiAgICAgICAgZ2l0Oi8vZ2l0Lmtlcm5lbC5vcmcvcHVi
+L3NjbS9saW51eC9rZXJuZWwvZ2l0L3Nhc2hhbC9saW51eC1zdGFibGUuZ2l0Cj4gICAgICAgICAg
+ICAgQ29tbWl0OiBkNmMyYzIzYTI5ZjQgLSBNZXJnZSBicmFuY2ggJ3N0YWJsZS1uZXh0JyBvZgo+
+ICAgICAgICAgICAgIHNzaDovL2NodWJieWJveDovaG9tZS9zYXNoYS9kYXRhL25leHQgaW50byBz
+dGFibGUtbmV4dAo+IAo+IFRoZSByZXN1bHRzIG9mIHRoZXNlIGF1dG9tYXRlZCB0ZXN0cyBhcmUg
+cHJvdmlkZWQgYmVsb3cuCj4gCj4gICAgIE92ZXJhbGwgcmVzdWx0OiBGQUlMRUQgKHNlZSBkZXRh
+aWxzIGJlbG93KQo+ICAgICAgICAgICAgICBNZXJnZTogT0sKPiAgICAgICAgICAgIENvbXBpbGU6
+IE9LCj4gICAgICAgICAgICAgIFRlc3RzOiBGQUlMRUQKPiAKPiBBbGwga2VybmVsIGJpbmFyaWVz
+LCBjb25maWcgZmlsZXMsIGFuZCBsb2dzIGFyZSBhdmFpbGFibGUgZm9yIGRvd25sb2FkIGhlcmU6
+Cj4gCj4gICBodHRwczovL2FydGlmYWN0cy5ja2ktcHJvamVjdC5vcmcvcGlwZWxpbmVzLzIyMzU2
+Mwo+IAo+IE9uZSBvciBtb3JlIGtlcm5lbCB0ZXN0cyBmYWlsZWQ6Cj4gCj4gICAgIGFhcmNoNjQ6
+Cj4gICAgICAg4p2MIExUUDogb3BlbnBvc2l4IHRlc3Qgc3VpdGUKPiAKClRlc3QgWzFdIGlzIHBh
+c3NpbmcgdmFsdWUgY2xvc2UgdG8gTE9OR19NQVgsIHdoaWNoIG9uIGFybTY0IGlzIG5vdyB0cmVh
+dGVkIGFzIHRhZ2dlZCB1c2Vyc3BhY2UgcHRyOgogIDA1N2QzMzg5MTA4ZSAoIm1tOiB1bnRhZyB1
+c2VyIHBvaW50ZXJzIHBhc3NlZCB0byBtZW1vcnkgc3lzY2FsbHMiKQoKQW5kIG5vdyBzZWVtcyB0
+byBoaXQgb3ZlcmZsb3cgY2hlY2sgYWZ0ZXIgc2lnbiBleHRlbnNpb24gKEVJTlZBTCkuClRlc3Qg
+c2hvdWxkIHByb2JhYmx5IGZpbmQgZGlmZmVyZW50IHdheSB0byBjaG9vc2UgaW52YWxpZCBwb2lu
+dGVyLgoKWzFdIGh0dHBzOi8vZ2l0aHViLmNvbS9saW51eC10ZXN0LXByb2plY3QvbHRwL2Jsb2Iv
+bWFzdGVyL3Rlc3RjYXNlcy9vcGVuX3Bvc2l4X3Rlc3RzdWl0ZS9jb25mb3JtYW5jZS9pbnRlcmZh
+Y2VzL21sb2NrLzgtMS5jCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGlu
+dXguaXQvbGlzdGluZm8vbHRwCg==
