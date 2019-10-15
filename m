@@ -1,44 +1,53 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39724D79B9
-	for <lists+linux-ltp@lfdr.de>; Tue, 15 Oct 2019 17:27:03 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AAA7D7AF7
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Oct 2019 18:15:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id ABB7A3C22D3
-	for <lists+linux-ltp@lfdr.de>; Tue, 15 Oct 2019 17:27:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 55CD73C2218
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Oct 2019 18:15:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 1734A3C1CBA
- for <ltp@lists.linux.it>; Tue, 15 Oct 2019 17:26:58 +0200 (CEST)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 30ADE14017D0
- for <ltp@lists.linux.it>; Tue, 15 Oct 2019 17:26:56 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2791C28;
- Tue, 15 Oct 2019 08:26:55 -0700 (PDT)
-Received: from arrakis.emea.arm.com (arrakis.cambridge.arm.com [10.1.196.49])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id
- A50A33F718; Tue, 15 Oct 2019 08:26:53 -0700 (PDT)
-Date: Tue, 15 Oct 2019 16:26:51 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Will Deacon <will@kernel.org>
-Message-ID: <20191015152651.GG13874@arrakis.emea.arm.com>
+ by picard.linux.it (Postfix) with ESMTP id 2F5933C2092
+ for <ltp@lists.linux.it>; Tue, 15 Oct 2019 18:15:03 +0200 (CEST)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 4D93F1401171
+ for <ltp@lists.linux.it>; Tue, 15 Oct 2019 18:15:01 +0200 (CEST)
+Received: from willie-the-truck (236.31.169.217.in-addr.arpa [217.169.31.236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id B605220640;
+ Tue, 15 Oct 2019 16:14:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1571156099;
+ bh=bCurKKXOqiSNNQ+pAh3MmodNUfnccOS8f0vT+9z5B1Q=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=JaQvNWAThhTW+Bl6esKy1t061hiE51EyoZsWttzZHXbBeBwDOBgk/Zrhw/nEL0F5I
+ x0lCtc72vHum3TJylgwCfSUm1U1SpSZdkZ96ASOW/ULbl691SmefIudQKVCW+5kFJB
+ F7jaqdOvXC5qsvbRJDWoXht9fA3U7LEfLvp0Q40o=
+Date: Tue, 15 Oct 2019 17:14:54 +0100
+From: Will Deacon <will@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Message-ID: <20191015161453.lllrp2gfwa5evd46@willie-the-truck>
 References: <cki.B4A567748F.PFM8G4WKXI@redhat.com>
  <805988176.6044584.1571038139105.JavaMail.zimbra@redhat.com>
  <CAAeHK+zxFWvCOgTYrMuD-oHJAFMn5DVYmQ6-RvU8NrapSz01mQ@mail.gmail.com>
  <20191014162651.GF19200@arrakis.emea.arm.com>
  <20191014213332.mmq7narumxtkqumt@willie-the-truck>
+ <20191015152651.GG13874@arrakis.emea.arm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20191014213332.mmq7narumxtkqumt@willie-the-truck>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20191015152651.GG13874@arrakis.emea.arm.com>
+User-Agent: NeoMutt/20170113 (1.7.2)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
 Subject: Re: [LTP] 
  =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E4?=
@@ -59,123 +68,129 @@ Cc: Szabolcs Nagy <szabolcs.nagy@arm.com>,
  Linux Stable maillist <stable@vger.kernel.org>,
  Dave P Martin <Dave.Martin@arm.com>, CKI Project <cki-project@redhat.com>,
  Vincenzo Frascino <vincenzo.frascino@arm.com>, LTP List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-QWRkaW5nIFN6YWJvbGNzIGFuZCBEYXZlIGZyb20gQVJNIGFzIHdlJ3ZlIGRpc2N1c3NlZCB0aGlz
-IGludGVybmFsbHkKYnJpZWZseSBidXQgd2Ugc2hvdWxkIGluY2x1ZGUgdGhlIHdpZGVyIGF1ZGll
-bmNlLgoKT24gTW9uLCBPY3QgMTQsIDIwMTkgYXQgMTA6MzM6MzJQTSArMDEwMCwgV2lsbCBEZWFj
-b24gd3JvdGU6Cj4gT24gTW9uLCBPY3QgMTQsIDIwMTkgYXQgMDU6MjY6NTFQTSArMDEwMCwgQ2F0
-YWxpbiBNYXJpbmFzIHdyb3RlOgo+ID4gT24gTW9uLCBPY3QgMTQsIDIwMTkgYXQgMDI6NTQ6MTdQ
-TSArMDIwMCwgQW5kcmV5IEtvbm92YWxvdiB3cm90ZToKPiA+ID4gT24gTW9uLCBPY3QgMTQsIDIw
-MTkgYXQgOToyOSBBTSBKYW4gU3RhbmNlayA8anN0YW5jZWtAcmVkaGF0LmNvbT4gd3JvdGU6Cj4g
-PiA+ID4gPiBXZSByYW4gYXV0b21hdGVkIHRlc3RzIG9uIGEgcmVjZW50IGNvbW1pdCBmcm9tIHRo
-aXMga2VybmVsIHRyZWU6Cj4gPiA+ID4gPgo+ID4gPiA+ID4gICAgICAgIEtlcm5lbCByZXBvOgo+
-ID4gPiA+ID4gICAgICAgIGdpdDovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGludXgva2VybmVs
-L2dpdC9zYXNoYWwvbGludXgtc3RhYmxlLmdpdAo+ID4gPiA+ID4gICAgICAgICAgICAgQ29tbWl0
-OiBkNmMyYzIzYTI5ZjQgLSBNZXJnZSBicmFuY2ggJ3N0YWJsZS1uZXh0JyBvZgo+ID4gPiA+ID4g
-ICAgICAgICAgICAgc3NoOi8vY2h1YmJ5Ym94Oi9ob21lL3Nhc2hhL2RhdGEvbmV4dCBpbnRvIHN0
-YWJsZS1uZXh0Cj4gPiA+ID4gPgo+ID4gPiA+ID4gVGhlIHJlc3VsdHMgb2YgdGhlc2UgYXV0b21h
-dGVkIHRlc3RzIGFyZSBwcm92aWRlZCBiZWxvdy4KPiA+ID4gPiA+Cj4gPiA+ID4gPiAgICAgT3Zl
-cmFsbCByZXN1bHQ6IEZBSUxFRCAoc2VlIGRldGFpbHMgYmVsb3cpCj4gPiA+ID4gPiAgICAgICAg
-ICAgICAgTWVyZ2U6IE9LCj4gPiA+ID4gPiAgICAgICAgICAgIENvbXBpbGU6IE9LCj4gPiA+ID4g
-PiAgICAgICAgICAgICAgVGVzdHM6IEZBSUxFRAo+ID4gPiA+ID4KPiA+ID4gPiA+IEFsbCBrZXJu
-ZWwgYmluYXJpZXMsIGNvbmZpZyBmaWxlcywgYW5kIGxvZ3MgYXJlIGF2YWlsYWJsZSBmb3IgZG93
-bmxvYWQgaGVyZToKPiA+ID4gPiA+Cj4gPiA+ID4gPiAgIGh0dHBzOi8vYXJ0aWZhY3RzLmNraS1w
-cm9qZWN0Lm9yZy9waXBlbGluZXMvMjIzNTYzCj4gPiA+ID4gPgo+ID4gPiA+ID4gT25lIG9yIG1v
-cmUga2VybmVsIHRlc3RzIGZhaWxlZDoKPiA+ID4gPiA+Cj4gPiA+ID4gPiAgICAgYWFyY2g2NDoK
-PiA+ID4gPiA+ICAgICAgIOKdjCBMVFA6IG9wZW5wb3NpeCB0ZXN0IHN1aXRlCj4gPiA+ID4gPgo+
-ID4gPiA+Cj4gPiA+ID4gVGVzdCBbMV0gaXMgcGFzc2luZyB2YWx1ZSBjbG9zZSB0byBMT05HX01B
-WCwgd2hpY2ggb24gYXJtNjQgaXMgbm93IHRyZWF0ZWQgYXMgdGFnZ2VkIHVzZXJzcGFjZSBwdHI6
-Cj4gPiA+ID4gICAwNTdkMzM4OTEwOGUgKCJtbTogdW50YWcgdXNlciBwb2ludGVycyBwYXNzZWQg
-dG8gbWVtb3J5IHN5c2NhbGxzIikKPiA+ID4gPgo+ID4gPiA+IEFuZCBub3cgc2VlbXMgdG8gaGl0
-IG92ZXJmbG93IGNoZWNrIGFmdGVyIHNpZ24gZXh0ZW5zaW9uIChFSU5WQUwpLgo+ID4gPiA+IFRl
-c3Qgc2hvdWxkIHByb2JhYmx5IGZpbmQgZGlmZmVyZW50IHdheSB0byBjaG9vc2UgaW52YWxpZCBw
-b2ludGVyLgo+ID4gPiA+Cj4gPiA+ID4gWzFdIGh0dHBzOi8vZ2l0aHViLmNvbS9saW51eC10ZXN0
-LXByb2plY3QvbHRwL2Jsb2IvbWFzdGVyL3Rlc3RjYXNlcy9vcGVuX3Bvc2l4X3Rlc3RzdWl0ZS9j
-b25mb3JtYW5jZS9pbnRlcmZhY2VzL21sb2NrLzgtMS5jCj4gPiA+IAo+ID4gPiBQZXIgRG9jdW1l
-bnRhdGlvbi9hcm02NC90YWdnZWQtYWRkcmVzcy1hYmkucnN0IHdlIG5vdyBoYXZlOgo+ID4gPiAK
-PiA+ID4gVXNlciBhZGRyZXNzZXMgbm90IGFjY2Vzc2VkIGJ5IHRoZSBrZXJuZWwgYnV0IHVzZWQg
-Zm9yIGFkZHJlc3Mgc3BhY2UKPiA+ID4gbWFuYWdlbWVudCAoZS5nLiBgYG1tYXAoKWBgLCBgYG1w
-cm90ZWN0KClgYCwgYGBtYWR2aXNlKClgYCkuIFRoZSB1c2UKPiA+ID4gb2YgdmFsaWQgdGFnZ2Vk
-IHBvaW50ZXJzIGluIHRoaXMgY29udGV4dCBpcyBhbHdheXMgYWxsb3dlZC4KPiA+ID4gCj4gPiA+
-IEhvd2V2ZXIgdGhpcyBicmVha3MgdGhlIHRlc3QgYWJvdmUuCj4gPiAKPiA+IFNvIHRoZSBwcm9i
-bGVtIGlzIHRoYXQgdXNlciBzcGFjZSBwYXNzZXMgYSAweDdmZmZfZmZmZl9mZmZmX2YwMDAgc3Rh
-cnQKPiA+IGFkZHJlc3MgYW5kIHVudGFnZ2VkX2FkZHIgc2lnbi1leHRlbmRzIGl0IHRvIDB4ZmZm
-Zl9mZmZmX2ZmZmZfZjAwMC4gVGhlCj4gPiBzdWJzZXF1ZW50IGNoZWNrIGluIGFwcGx5X3ZtYV9s
-b2NrX2ZsYWdzKCkgZmluZHMgdGhhdCBzdGFydCtQQUdFX1NJWkUgaXMKPiA+IHNtYWxsZXIgdGhh
-biBzdGFydCwgaGVuY2UgLUVJTlZBTCBpbnN0ZWFkIG9mIC1FTk9NRU0uCj4gPiAKPiA+ID4gV2hh
-dCBkbyB5b3UgdGhpbmsgd2Ugc2hvdWxkIGRvIGhlcmU/Cj4gPiAKPiA+IEl0IGlzIGFuIEFCSSBi
-cmVhayBhcyB0aGUgbWFuIHBhZ2UgY2xlYXJseSBzdGF0ZXMgdGhhdCB0aGUgYWJvdmUgY2FzZQo+
-ID4gc2hvdWxkIHJldHVybiAtRU5PTUVNLgo+IAo+IEFsdGhvdWdoIEkgYWdyZWUgd2l0aCB5b3Vy
-IGFuYWx5c2lzLCBJIGFsc28gdGhvdWdodCB0aGF0IHRoZXNlIHNvcnRzIG9mCj4gQUJJIGJyZWFr
-cyAoY2hhbmdlcyBpbiBlcnJvciBjb2Rlcykgd2VyZSB1bmZvcnR1bmF0ZWx5IGNvbW1vbiBzbyB3
-ZQo+IHNob3VsZG4ndCB0aHJvdyB0aGUgYmFieSBvdXQgd2l0aCB0aGUgYmF0aCB3YXRlciBoZXJl
-Lgo+IAo+ID4gVGhlIG9wdGlvbnMgSSBzZWU6Cj4gPiAKPiA+IDEuIFJldmVydCBjb21taXQgMDU3
-ZDMzODkxMDhlIGFuZCB0cnkgYWdhaW4gdG8gZG9jdW1lbnQgdGhhdCB0aGUgbWVtb3J5Cj4gPiAg
-ICBzeXNjYWxscyBkbyBub3Qgc3VwcG9ydCB0YWdnZWQgcG9pbnRlcnMKPiA+IAo+ID4gMi4gQ2hh
-bmdlIHVudGFnZ2VkX2FkZHIoKSB0byBvbmx5IDAtZXh0ZW5kIGZyb20gYml0IDU1IG9yIGxlYXZl
-IHRoZQo+ID4gICAgdGFnIHVuY2hhbmdlZCBpZiBiaXQgNTUgaXMgMS4gV2UgY291bGQgbWFzayBv
-dXQgdGhlIHRhZyAoMCByYXRoZXIKPiA+ICAgIHRoYW4gc2lnbi1leHRlbmQpIGJ1dCBpZiB3ZSBo
-YWQgYW4gbWxvY2sgdGVzdCBwYXNzaW5nIFVMT05HX01BU0ssCj4gPiAgICB0aGVuIHdlIGdldCAt
-RU5PTUVNIGluc3RlYWQgb2YgLUVJTlZBTAo+ID4gCj4gPiAzLiBNYWtlIHVudGFnZ2VkX2FkZHIo
-KSBkZXBlbmQgb24gdGhlIFRJRl9UQUdHRURfQUREUiBiaXQgYW5kIHdlIG9ubHkKPiA+ICAgIGJy
-ZWFrIHRoZSBBQkkgZm9yIGFwcGxpY2F0aW9ucyBvcHRpbmcgaW4gdG8gdGhpcyBuZXcgQUJJLiBX
-ZSBkaWQgbG9vawo+ID4gICAgYXQgdGhpcyBidXQgdGhlIHB0cmFjZShQRUVLL1BPS0VfREFUQSkg
-bmVlZHMgYSBiaXQgbW9yZSB0aGlua2luZyBvbgo+ID4gICAgd2hldGhlciB3ZSBjaGVjayB0aGUg
-cHRyYWNlJ2QgcHJvY2VzcyBvciB0aGUgZGVidWdnZXIgZmxhZ3MKPiA+IAo+ID4gNC4gTGVhdmUg
-dGhpbmdzIGFzIHRoZXkgYXJlLCBjb25zaWRlciB0aGUgYWRkcmVzcyBzcGFjZSA1Ni1iaXQgYW5k
-Cj4gPiAgICBjaGFuZ2UgdGhlIHRlc3QgdG8gbm90IHVzZSBMT05HX01BWCBvbiBhcm02NC4gVGhp
-cyBuZWVkcyB0byBiZSBwYXNzZWQKPiA+ICAgIGJ5IHRoZSBzcGFyYyBndXlzIHNpbmNlIHRoZXkg
-cHJvYmFibHkgaGF2ZSBhIHNpbWlsYXIgaXNzdWUKPiAKPiBJJ20gaW4gZmF2b3VyIG9mICgyKSBv
-ciAoNCkgYXMgbG9uZyBhcyB0aGVyZSdzIGFsc28gYW4gdXBkYXRlIHRvIHRoZSBkb2NzLgoKV2l0
-aCAoNCkgd2UnZCBzdGFydCBkaWZmZXJpbmcgZnJvbSBvdGhlciBhcmNoaXRlY3R1cmVzIHN1cHBv
-cnRlZCBieQpMaW51eC4gVGhpcyB3b3JrcyBpZiB3ZSBjb25zaWRlciB0aGUgdGVzdCB0byBiZSBi
-cm9rZW4uIEhvd2V2ZXIsIHJlYWRpbmcKdGhlIG1sb2NrIG1hbiBwYWdlOgoKICAgICAgIEVJTlZB
-TCBUaGUgcmVzdWx0IG9mIHRoZSBhZGRpdGlvbiBhZGRyK2xlbiB3YXMgbGVzcyB0aGFuIGFkZHIK
-ICAgICAgIChlLmcuLCB0aGUgYWRkaXRpb24gbWF5IGhhdmUgcmVzdWx0ZWQgaW4gYW4gb3ZlcmZs
-b3cpLgoKICAgICAgIEVOT01FTSBTb21lIG9mIHRoZSBzcGVjaWZpZWQgYWRkcmVzcyByYW5nZSBk
-b2VzIG5vdCBjb3JyZXNwb25kIHRvCiAgICAgICBtYXBwZWQgcGFnZXMgaW4gdGhlIGFkZHJlc3Mg
-c3BhY2Ugb2YgdGhlIHByb2Nlc3MuCgpUaGVyZSBpcyBubyBtZW50aW9uIG9mIEVJTlZBTCBvdXRz
-aWRlIHRoZSBUQVNLX1NJWkUsIHNlZW1zIHRvIGZhbGwgbW9yZQp3aXRoaW4gdGhlIEVOT01FTSBk
-ZXNjcmlwdGlvbiBhYm92ZS4KCj4gPiBJdCdzIHNsaWdodGx5IGFubm95aW5nIHRvIGZpbmQgdGhp
-cyBub3cuIFdlIGRpZCBydW4gKHBhcnQgb2YpIExUUCBidXQgSQo+ID4gZ3Vlc3Mgd2UgbmV2ZXIg
-cnVuIHRoZSBQT1NJWCBjb25mb3JtYW5jZSB0ZXN0cy4KPiAKPiBZZXMsIGFuZCB0aGlzIHN0dWZm
-IHdhcyBpbiBsaW51eC1uZXh0IGZvciBhIHdoaWxlIHNvIGl0J3Mgd29ycnlpbmcgdGhhdAo+IGtl
-cm5lbGNpIGRpZG4ndCBzcG90IGl0IGVpdGhlci4gSG1tLgoKRm9yIHNvbWUgcmVhc29uIHRoZSBt
-bG9jayB0ZXN0IHdhcyBza2lwcGVkIGFyb3VuZCB0aGUgdGltZSB3ZSBwdXNoZWQgdGhlClRCSSBw
-YXRjaGVzIGludG8gLW5leHQ6CgpodHRwczovL3FhLXJlcG9ydHMubGluYXJvLm9yZy9sa2Z0L2xp
-bnV4LW5leHQtb2UvdGVzdHMvbHRwLW9wZW4tcG9zaXgtdGVzdHMvbWxvY2tfOC0xPyZwYWdlPTIK
-CkludGVybmFsbHkgSSBkb24ndCB0aGluayB3ZSd2ZSBjb25maWd1cmVkIExUUCB3aXRoCi0td2l0
-aC1vcGVuLXBvc2l4LXRlc3RzdWl0ZSwgc28gdGhpcyBleHBsYWlucyB3aHkgd2UgbWlzc2VkIGl0
-LgoKPiA+IE15IHByZWZlcmVuY2UgaXMgMiB3aXRoIGEgcXVpY2sgYXR0ZW1wdCBiZWxvdy4gVGhp
-cyBiYXNpY2FsbHkgbWVhbnMKPiA+IGNsZWFyIHRoZSB0YWcgaWYgaXQgcmVzZW1ibGVzIGEgdmFs
-aWQgKHRhZ2dlZCkgdXNlciBwb2ludGVyLCBvdGhlcndpc2UKPiA+IGRvbid0IHRvdWNoIGl0IChi
-aXQgNTUgc2V0IGFsd2F5cyBtZWFucyBhbiBpbnZhbGlkIHVzZXIgcG9pbnRlcikuIE5vdAo+ID4g
-c3VyZSBob3cgdGhlIGdlbmVyYXRlZCBjb2RlIHdpbGwgbG9vayBsaWtlIGJ1dCB3ZSBjb3VsZCBw
-cm9iYWJseSBkbwo+ID4gc29tZXRoaW5nIGJldHRlciBpbiBhc3NlbWJseSBkaXJlY3RseS4KWy4u
-Ll0KPiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm02NC9pbmNsdWRlL2FzbS9tZW1vcnkuaCBiL2FyY2gv
-YXJtNjQvaW5jbHVkZS9hc20vbWVtb3J5LmgKPiBpbmRleCBiNjFiNTBiZjY4YjEuLmMyM2M0NzM2
-MDY2NCAxMDA2NDQKPiAtLS0gYS9hcmNoL2FybTY0L2luY2x1ZGUvYXNtL21lbW9yeS5oCj4gKysr
-IGIvYXJjaC9hcm02NC9pbmNsdWRlL2FzbS9tZW1vcnkuaAo+IEBAIC0yMTUsMTIgKzIxNSwxOCBA
-QCBzdGF0aWMgaW5saW5lIHVuc2lnbmVkIGxvbmcga2FzbHJfb2Zmc2V0KHZvaWQpCj4gICAqIHVw
-IHdpdGggYSB0YWdnZWQgdXNlcmxhbmQgcG9pbnRlci4gQ2xlYXIgdGhlIHRhZyB0byBnZXQgYSBz
-YW5lIHBvaW50ZXIgdG8KPiAgICogcGFzcyBvbiB0byBhY2Nlc3Nfb2soKSwgZm9yIGluc3RhbmNl
-Lgo+ICAgKi8KPiAtI2RlZmluZSB1bnRhZ2dlZF9hZGRyKGFkZHIpCVwKPiArI2RlZmluZSBfX3Vu
-dGFnZ2VkX2FkZHIoYWRkcikJXAo+ICAJKChfX2ZvcmNlIF9fdHlwZW9mX18oYWRkcikpc2lnbl9l
-eHRlbmQ2NCgoX19mb3JjZSB1NjQpKGFkZHIpLCA1NSkpCj4gIAo+ICsjZGVmaW5lIHVudGFnZ2Vk
-X2FkZHIoYWRkcikJKHsJCQkJCVwKPiArCXU2NCBfX2FkZHIgPSAoX19mb3JjZSB1NjQpYWRkcjsJ
-CQkJCVwKPiArCV9fYWRkciAmPSBfX3VudGFnZ2VkX2FkZHIoX19hZGRyKTsJCQkJXAo+ICsJKF9f
-Zm9yY2UgX190eXBlb2ZfXyhhZGRyKSlfX2FkZHI7CQkJCVwKPiArfSkKPiArCj4gICNpZmRlZiBD
-T05GSUdfS0FTQU5fU1dfVEFHUwo+ICAjZGVmaW5lIF9fdGFnX3NoaWZ0ZWQodGFnKQkoKHU2NCko
-dGFnKSA8PCA1NikKPiAtI2RlZmluZSBfX3RhZ19yZXNldChhZGRyKQl1bnRhZ2dlZF9hZGRyKGFk
-ZHIpCj4gKyNkZWZpbmUgX190YWdfcmVzZXQoYWRkcikJX191bnRhZ2dlZF9hZGRyKGFkZHIpCj4g
-ICNkZWZpbmUgX190YWdfZ2V0KGFkZHIpCQkoX191OCkoKHU2NCkoYWRkcikgPj4gNTYpCj4gICNl
-bHNlCj4gICNkZWZpbmUgX190YWdfc2hpZnRlZCh0YWcpCTBVTAoKVGhpcyB3b3JrcyBmb3IgbWUu
-IFN6YWJvbGNzIGFsc28gc3VnZ2VzdGVkIGp1c3QgemVyb2luZyB0aGUgdG9wIGJ5dGUgYnV0Cndl
-IHdvdWxkbid0IGNhdGNoIHRoZSBvdmVyZmxvdyBFSU5WQUwgY2FzZSBhYm92ZSwgc28gSSdkIHJh
-dGhlciBvbmx5Cm1hc2sgdGhlIHRhZyBvdXQgaWYgaXQgd2FzIGEgdXNlciBhZGRyZXNzIChpLmUu
-IGJpdCA1NSBpcyAwKS4KCi0tIApDYXRhbGluCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBz
-Oi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+On Tue, Oct 15, 2019 at 04:26:51PM +0100, Catalin Marinas wrote:
+> On Mon, Oct 14, 2019 at 10:33:32PM +0100, Will Deacon wrote:
+> > On Mon, Oct 14, 2019 at 05:26:51PM +0100, Catalin Marinas wrote:
+> > > On Mon, Oct 14, 2019 at 02:54:17PM +0200, Andrey Konovalov wrote:
+> > > > What do you think we should do here?
+> > > 
+> > > It is an ABI break as the man page clearly states that the above case
+> > > should return -ENOMEM.
+> > 
+> > Although I agree with your analysis, I also thought that these sorts of
+> > ABI breaks (changes in error codes) were unfortunately common so we
+> > shouldn't throw the baby out with the bath water here.
+> > 
+> > > The options I see:
+> > > 
+> > > 1. Revert commit 057d3389108e and try again to document that the memory
+> > >    syscalls do not support tagged pointers
+> > > 
+> > > 2. Change untagged_addr() to only 0-extend from bit 55 or leave the
+> > >    tag unchanged if bit 55 is 1. We could mask out the tag (0 rather
+> > >    than sign-extend) but if we had an mlock test passing ULONG_MASK,
+> > >    then we get -ENOMEM instead of -EINVAL
+> > > 
+> > > 3. Make untagged_addr() depend on the TIF_TAGGED_ADDR bit and we only
+> > >    break the ABI for applications opting in to this new ABI. We did look
+> > >    at this but the ptrace(PEEK/POKE_DATA) needs a bit more thinking on
+> > >    whether we check the ptrace'd process or the debugger flags
+> > > 
+> > > 4. Leave things as they are, consider the address space 56-bit and
+> > >    change the test to not use LONG_MAX on arm64. This needs to be passed
+> > >    by the sparc guys since they probably have a similar issue
+> > 
+> > I'm in favour of (2) or (4) as long as there's also an update to the docs.
+> 
+> With (4) we'd start differing from other architectures supported by
+> Linux. This works if we consider the test to be broken. However, reading
+> the mlock man page:
+> 
+>        EINVAL The result of the addition addr+len was less than addr
+>        (e.g., the addition may have resulted in an overflow).
+> 
+>        ENOMEM Some of the specified address range does not correspond to
+>        mapped pages in the address space of the process.
+> 
+> There is no mention of EINVAL outside the TASK_SIZE, seems to fall more
+> within the ENOMEM description above.
+
+Sorry, I was being too vague in my wording. What I was trying to say is I'm
+ok with (2) or (4), but either way we need to update our ABI documentation
+under Documentation/arm64/. I personally don't think userspace will care
+about EINVAL vs ENOMEM because the kernel is already horribly unreliable
+when it comes to keeping error codes stable, which is why I think we could
+get away with (4). For example, Jan (who reported this issue) wrote this
+change to LTP last year for one of the mmap tests:
+
+https://github.com/linux-test-project/ltp/commit/e7bab61882847609be3132a2f0d94f7469ff5d3e
+
+The fact that we have tagging at all already means that we differ from
+many other architectures.
+
+> > > It's slightly annoying to find this now. We did run (part of) LTP but I
+> > > guess we never run the POSIX conformance tests.
+> > 
+> > Yes, and this stuff was in linux-next for a while so it's worrying that
+> > kernelci didn't spot it either. Hmm.
+> 
+> For some reason the mlock test was skipped around the time we pushed the
+> TBI patches into -next:
+> 
+> https://qa-reports.linaro.org/lkft/linux-next-oe/tests/ltp-open-posix-tests/mlock_8-1?&page=2
+
+Coincidence?
+
+> Internally I don't think we've configured LTP with
+> --with-open-posix-testsuite, so this explains why we missed it.
+
+Ok, hopefully you can fix that now.
+
+> > > My preference is 2 with a quick attempt below. This basically means
+> > > clear the tag if it resembles a valid (tagged) user pointer, otherwise
+> > > don't touch it (bit 55 set always means an invalid user pointer). Not
+> > > sure how the generated code will look like but we could probably do
+> > > something better in assembly directly.
+> [...]
+> > diff --git a/arch/arm64/include/asm/memory.h b/arch/arm64/include/asm/memory.h
+> > index b61b50bf68b1..c23c47360664 100644
+> > --- a/arch/arm64/include/asm/memory.h
+> > +++ b/arch/arm64/include/asm/memory.h
+> > @@ -215,12 +215,18 @@ static inline unsigned long kaslr_offset(void)
+> >   * up with a tagged userland pointer. Clear the tag to get a sane pointer to
+> >   * pass on to access_ok(), for instance.
+> >   */
+> > -#define untagged_addr(addr)	\
+> > +#define __untagged_addr(addr)	\
+> >  	((__force __typeof__(addr))sign_extend64((__force u64)(addr), 55))
+> >  
+> > +#define untagged_addr(addr)	({					\
+> > +	u64 __addr = (__force u64)addr;					\
+> > +	__addr &= __untagged_addr(__addr);				\
+> > +	(__force __typeof__(addr))__addr;				\
+> > +})
+> > +
+> >  #ifdef CONFIG_KASAN_SW_TAGS
+> >  #define __tag_shifted(tag)	((u64)(tag) << 56)
+> > -#define __tag_reset(addr)	untagged_addr(addr)
+> > +#define __tag_reset(addr)	__untagged_addr(addr)
+> >  #define __tag_get(addr)		(__u8)((u64)(addr) >> 56)
+> >  #else
+> >  #define __tag_shifted(tag)	0UL
+> 
+> This works for me. Szabolcs also suggested just zeroing the top byte but
+> we wouldn't catch the overflow EINVAL case above, so I'd rather only
+> mask the tag out if it was a user address (i.e. bit 55 is 0).
+
+I'll spin it as a proper patch while we decide whether we want to do
+anything.
+
+Will
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
