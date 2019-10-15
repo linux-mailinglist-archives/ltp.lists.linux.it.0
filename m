@@ -1,46 +1,72 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8EB5D688F
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Oct 2019 19:35:52 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D9B5D6E66
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Oct 2019 06:55:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 619563C23AD
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Oct 2019 19:35:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E10773C2210
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Oct 2019 06:55:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 8A7103C2347
- for <ltp@lists.linux.it>; Mon, 14 Oct 2019 18:26:58 +0200 (CEST)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id D6C976008EF
- for <ltp@lists.linux.it>; Mon, 14 Oct 2019 18:26:56 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CF9C828;
- Mon, 14 Oct 2019 09:26:54 -0700 (PDT)
-Received: from arrakis.emea.arm.com (arrakis.cambridge.arm.com [10.1.196.49])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id
- 9621A3F718; Mon, 14 Oct 2019 09:26:53 -0700 (PDT)
-Date: Mon, 14 Oct 2019 17:26:51 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Andrey Konovalov <andreyknvl@google.com>
-Message-ID: <20191014162651.GF19200@arrakis.emea.arm.com>
-References: <cki.B4A567748F.PFM8G4WKXI@redhat.com>
- <805988176.6044584.1571038139105.JavaMail.zimbra@redhat.com>
- <CAAeHK+zxFWvCOgTYrMuD-oHJAFMn5DVYmQ6-RvU8NrapSz01mQ@mail.gmail.com>
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 6B0DB3C0428
+ for <ltp@lists.linux.it>; Tue, 15 Oct 2019 06:55:16 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 6499D200961
+ for <ltp@lists.linux.it>; Tue, 15 Oct 2019 06:55:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1571115313;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=pCQOT5Cg8XaNnOjW4BomL6ngiJyNpYzUM9eNj+LwvUA=;
+ b=EftcQtcQ4HO1TiLo2bkxmU1s+Ovl+wd82K+M7ORgW/MvojnpaQQnfcO0yvl7lTFuXCe4bB
+ 8oAFlXMPrq0yny/38CeqmS7u6Tf967aAgQr/7Z2XEEFioOtjNH5TYj7JmD79x1B2KEsCge
+ 14RX3yDnCnKCxnY5P1m6e+yS2b++Th0=
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
+ [209.85.210.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-173-QHBL1GjhNdmWewQjX_elGA-1; Tue, 15 Oct 2019 00:55:10 -0400
+Received: by mail-ot1-f72.google.com with SMTP id h13so8664706otk.20
+ for <ltp@lists.linux.it>; Mon, 14 Oct 2019 21:55:10 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=gRm4lMELu8F1k3Z0Y/1GblGGnCoPTX32SvXrkEOwlvc=;
+ b=gDw07bouI29hqXIQoiSm08LFQo1Z2SRD+U3xAIGixF35xXFeYmJHUFnlDeEJWQnX9j
+ LHeiC1WokrUVw970NQ985x1ke6aCoA8VZ4nEwI7ARiOl9yocb8ZasHEV5NiCNHbxirxT
+ W+m6E9z540TuiAqQZIG7/vWx801sreyOeSjkHtOzok/+VBjPCarUELQ3ldVaS9RSTIuc
+ geMZm1EwwOQ+VLpUzGXDpy99Ajo1dN80oELW1w4qA8VO/KIZaP4TEwx8qajyjQYPWgtf
+ zuQS8JGMIhxz/oBlnqwDS/mvqOCtvftsEZXENsOnKJsp1tM5pMrSDVTBAhgiOGp4Cnwz
+ H5GQ==
+X-Gm-Message-State: APjAAAWnqdinEjYGKIY2GlHfBvQkInqCkiYIDXFUfeCrQQlGNrLJQW0i
+ MnL1jGCDWSogAHbfkVl3OeIgi4NWiZhTSAXCEEYFE6Ck7e1418pMJVeoBZaL7BagV5NpaavBxG7
+ o1q6vO9e1WJADye3Qbl6FBPGe3IQ=
+X-Received: by 2002:a9d:61cd:: with SMTP id h13mr17476100otk.264.1571115310059; 
+ Mon, 14 Oct 2019 21:55:10 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqyc5/8XYFIzOoLwplE8CrTXy3rktFeuy98FR68Vam6Awtsj9AlL9L45pEvb9CLqDFLM1FLpnx2A6b/RCwsc8uU=
+X-Received: by 2002:a9d:61cd:: with SMTP id h13mr17476073otk.264.1571115309675; 
+ Mon, 14 Oct 2019 21:55:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAAeHK+zxFWvCOgTYrMuD-oHJAFMn5DVYmQ6-RvU8NrapSz01mQ@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+References: <20191014112522.24548-1-chrubis@suse.cz>
+ <20191014112522.24548-3-chrubis@suse.cz>
+In-Reply-To: <20191014112522.24548-3-chrubis@suse.cz>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 15 Oct 2019 12:54:58 +0800
+Message-ID: <CAEemH2f0ZXYEwsvcxWhdE33EzLJKr=EeeG91Uq_8rBZOsx57NQ@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-MC-Unique: QHBL1GjhNdmWewQjX_elGA-1
+X-Mimecast-Spam-Score: 0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-X-Mailman-Approved-At: Mon, 14 Oct 2019 19:35:39 +0200
-Subject: Re: [LTP] 
- =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E4?=
- =?utf-8?q?=2E0-rc2-d6c2c23=2Ecki_=28stable-next=29?=
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] testcases/kernel: Add linux git and CVE tags
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,92 +78,87 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Memory Management <mm-qe@redhat.com>,
- Linux Stable maillist <stable@vger.kernel.org>,
- CKI Project <cki-project@redhat.com>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will@kernel.org>,
- LTP List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0006788705=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-KyBXaWxsCgpPbiBNb24sIE9jdCAxNCwgMjAxOSBhdCAwMjo1NDoxN1BNICswMjAwLCBBbmRyZXkg
-S29ub3ZhbG92IHdyb3RlOgo+IE9uIE1vbiwgT2N0IDE0LCAyMDE5IGF0IDk6MjkgQU0gSmFuIFN0
-YW5jZWsgPGpzdGFuY2VrQHJlZGhhdC5jb20+IHdyb3RlOgo+ID4gPiBXZSByYW4gYXV0b21hdGVk
-IHRlc3RzIG9uIGEgcmVjZW50IGNvbW1pdCBmcm9tIHRoaXMga2VybmVsIHRyZWU6Cj4gPiA+Cj4g
-PiA+ICAgICAgICBLZXJuZWwgcmVwbzoKPiA+ID4gICAgICAgIGdpdDovL2dpdC5rZXJuZWwub3Jn
-L3B1Yi9zY20vbGludXgva2VybmVsL2dpdC9zYXNoYWwvbGludXgtc3RhYmxlLmdpdAo+ID4gPiAg
-ICAgICAgICAgICBDb21taXQ6IGQ2YzJjMjNhMjlmNCAtIE1lcmdlIGJyYW5jaCAnc3RhYmxlLW5l
-eHQnIG9mCj4gPiA+ICAgICAgICAgICAgIHNzaDovL2NodWJieWJveDovaG9tZS9zYXNoYS9kYXRh
-L25leHQgaW50byBzdGFibGUtbmV4dAo+ID4gPgo+ID4gPiBUaGUgcmVzdWx0cyBvZiB0aGVzZSBh
-dXRvbWF0ZWQgdGVzdHMgYXJlIHByb3ZpZGVkIGJlbG93Lgo+ID4gPgo+ID4gPiAgICAgT3ZlcmFs
-bCByZXN1bHQ6IEZBSUxFRCAoc2VlIGRldGFpbHMgYmVsb3cpCj4gPiA+ICAgICAgICAgICAgICBN
-ZXJnZTogT0sKPiA+ID4gICAgICAgICAgICBDb21waWxlOiBPSwo+ID4gPiAgICAgICAgICAgICAg
-VGVzdHM6IEZBSUxFRAo+ID4gPgo+ID4gPiBBbGwga2VybmVsIGJpbmFyaWVzLCBjb25maWcgZmls
-ZXMsIGFuZCBsb2dzIGFyZSBhdmFpbGFibGUgZm9yIGRvd25sb2FkIGhlcmU6Cj4gPiA+Cj4gPiA+
-ICAgaHR0cHM6Ly9hcnRpZmFjdHMuY2tpLXByb2plY3Qub3JnL3BpcGVsaW5lcy8yMjM1NjMKPiA+
-ID4KPiA+ID4gT25lIG9yIG1vcmUga2VybmVsIHRlc3RzIGZhaWxlZDoKPiA+ID4KPiA+ID4gICAg
-IGFhcmNoNjQ6Cj4gPiA+ICAgICAgIOKdjCBMVFA6IG9wZW5wb3NpeCB0ZXN0IHN1aXRlCj4gPiA+
-Cj4gPgo+ID4gVGVzdCBbMV0gaXMgcGFzc2luZyB2YWx1ZSBjbG9zZSB0byBMT05HX01BWCwgd2hp
-Y2ggb24gYXJtNjQgaXMgbm93IHRyZWF0ZWQgYXMgdGFnZ2VkIHVzZXJzcGFjZSBwdHI6Cj4gPiAg
-IDA1N2QzMzg5MTA4ZSAoIm1tOiB1bnRhZyB1c2VyIHBvaW50ZXJzIHBhc3NlZCB0byBtZW1vcnkg
-c3lzY2FsbHMiKQo+ID4KPiA+IEFuZCBub3cgc2VlbXMgdG8gaGl0IG92ZXJmbG93IGNoZWNrIGFm
-dGVyIHNpZ24gZXh0ZW5zaW9uIChFSU5WQUwpLgo+ID4gVGVzdCBzaG91bGQgcHJvYmFibHkgZmlu
-ZCBkaWZmZXJlbnQgd2F5IHRvIGNob29zZSBpbnZhbGlkIHBvaW50ZXIuCj4gPgo+ID4gWzFdIGh0
-dHBzOi8vZ2l0aHViLmNvbS9saW51eC10ZXN0LXByb2plY3QvbHRwL2Jsb2IvbWFzdGVyL3Rlc3Rj
-YXNlcy9vcGVuX3Bvc2l4X3Rlc3RzdWl0ZS9jb25mb3JtYW5jZS9pbnRlcmZhY2VzL21sb2NrLzgt
-MS5jCj4gCj4gUGVyIERvY3VtZW50YXRpb24vYXJtNjQvdGFnZ2VkLWFkZHJlc3MtYWJpLnJzdCB3
-ZSBub3cgaGF2ZToKPiAKPiBVc2VyIGFkZHJlc3NlcyBub3QgYWNjZXNzZWQgYnkgdGhlIGtlcm5l
-bCBidXQgdXNlZCBmb3IgYWRkcmVzcyBzcGFjZQo+IG1hbmFnZW1lbnQgKGUuZy4gYGBtbWFwKClg
-YCwgYGBtcHJvdGVjdCgpYGAsIGBgbWFkdmlzZSgpYGApLiBUaGUgdXNlCj4gb2YgdmFsaWQgdGFn
-Z2VkIHBvaW50ZXJzIGluIHRoaXMgY29udGV4dCBpcyBhbHdheXMgYWxsb3dlZC4KPiAKPiBIb3dl
-dmVyIHRoaXMgYnJlYWtzIHRoZSB0ZXN0IGFib3ZlLgoKU28gdGhlIHByb2JsZW0gaXMgdGhhdCB1
-c2VyIHNwYWNlIHBhc3NlcyBhIDB4N2ZmZl9mZmZmX2ZmZmZfZjAwMCBzdGFydAphZGRyZXNzIGFu
-ZCB1bnRhZ2dlZF9hZGRyIHNpZ24tZXh0ZW5kcyBpdCB0byAweGZmZmZfZmZmZl9mZmZmX2YwMDAu
-IFRoZQpzdWJzZXF1ZW50IGNoZWNrIGluIGFwcGx5X3ZtYV9sb2NrX2ZsYWdzKCkgZmluZHMgdGhh
-dCBzdGFydCtQQUdFX1NJWkUgaXMKc21hbGxlciB0aGFuIHN0YXJ0LCBoZW5jZSAtRUlOVkFMIGlu
-c3RlYWQgb2YgLUVOT01FTS4KCj4gV2hhdCBkbyB5b3UgdGhpbmsgd2Ugc2hvdWxkIGRvIGhlcmU/
-CgpJdCBpcyBhbiBBQkkgYnJlYWsgYXMgdGhlIG1hbiBwYWdlIGNsZWFybHkgc3RhdGVzIHRoYXQg
-dGhlIGFib3ZlIGNhc2UKc2hvdWxkIHJldHVybiAtRU5PTUVNLiBUaGUgb3B0aW9ucyBJIHNlZToK
-CjEuIFJldmVydCBjb21taXQgMDU3ZDMzODkxMDhlIGFuZCB0cnkgYWdhaW4gdG8gZG9jdW1lbnQg
-dGhhdCB0aGUgbWVtb3J5CiAgIHN5c2NhbGxzIGRvIG5vdCBzdXBwb3J0IHRhZ2dlZCBwb2ludGVy
-cwoKMi4gQ2hhbmdlIHVudGFnZ2VkX2FkZHIoKSB0byBvbmx5IDAtZXh0ZW5kIGZyb20gYml0IDU1
-IG9yIGxlYXZlIHRoZQogICB0YWcgdW5jaGFuZ2VkIGlmIGJpdCA1NSBpcyAxLiBXZSBjb3VsZCBt
-YXNrIG91dCB0aGUgdGFnICgwIHJhdGhlcgogICB0aGFuIHNpZ24tZXh0ZW5kKSBidXQgaWYgd2Ug
-aGFkIGFuIG1sb2NrIHRlc3QgcGFzc2luZyBVTE9OR19NQVNLLAogICB0aGVuIHdlIGdldCAtRU5P
-TUVNIGluc3RlYWQgb2YgLUVJTlZBTAoKMy4gTWFrZSB1bnRhZ2dlZF9hZGRyKCkgZGVwZW5kIG9u
-IHRoZSBUSUZfVEFHR0VEX0FERFIgYml0IGFuZCB3ZSBvbmx5CiAgIGJyZWFrIHRoZSBBQkkgZm9y
-IGFwcGxpY2F0aW9ucyBvcHRpbmcgaW4gdG8gdGhpcyBuZXcgQUJJLiBXZSBkaWQgbG9vawogICBh
-dCB0aGlzIGJ1dCB0aGUgcHRyYWNlKFBFRUsvUE9LRV9EQVRBKSBuZWVkcyBhIGJpdCBtb3JlIHRo
-aW5raW5nIG9uCiAgIHdoZXRoZXIgd2UgY2hlY2sgdGhlIHB0cmFjZSdkIHByb2Nlc3Mgb3IgdGhl
-IGRlYnVnZ2VyIGZsYWdzCgo0LiBMZWF2ZSB0aGluZ3MgYXMgdGhleSBhcmUsIGNvbnNpZGVyIHRo
-ZSBhZGRyZXNzIHNwYWNlIDU2LWJpdCBhbmQKICAgY2hhbmdlIHRoZSB0ZXN0IHRvIG5vdCB1c2Ug
-TE9OR19NQVggb24gYXJtNjQuIFRoaXMgbmVlZHMgdG8gYmUgcGFzc2VkCiAgIGJ5IHRoZSBzcGFy
-YyBndXlzIHNpbmNlIHRoZXkgcHJvYmFibHkgaGF2ZSBhIHNpbWlsYXIgaXNzdWUKCkl0J3Mgc2xp
-Z2h0bHkgYW5ub3lpbmcgdG8gZmluZCB0aGlzIG5vdy4gV2UgZGlkIHJ1biAocGFydCBvZikgTFRQ
-IGJ1dCBJCmd1ZXNzIHdlIG5ldmVyIHJ1biB0aGUgUE9TSVggY29uZm9ybWFuY2UgdGVzdHMuCgpN
-eSBwcmVmZXJlbmNlIGlzIDIgd2l0aCBhIHF1aWNrIGF0dGVtcHQgYmVsb3cuIFRoaXMgYmFzaWNh
-bGx5IG1lYW5zCmNsZWFyIHRoZSB0YWcgaWYgaXQgcmVzZW1ibGVzIGEgdmFsaWQgKHRhZ2dlZCkg
-dXNlciBwb2ludGVyLCBvdGhlcndpc2UKZG9uJ3QgdG91Y2ggaXQgKGJpdCA1NSBzZXQgYWx3YXlz
-IG1lYW5zIGFuIGludmFsaWQgdXNlciBwb2ludGVyKS4gTm90CnN1cmUgaG93IHRoZSBnZW5lcmF0
-ZWQgY29kZSB3aWxsIGxvb2sgbGlrZSBidXQgd2UgY291bGQgcHJvYmFibHkgZG8Kc29tZXRoaW5n
-IGJldHRlciBpbiBhc3NlbWJseSBkaXJlY3RseS4KCi0tLS0tLS0tLTg8LS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLQpkaWZmIC0tZ2l0IGEvYXJjaC9hcm02NC9pbmNsdWRlL2FzbS9tZW1v
-cnkuaCBiL2FyY2gvYXJtNjQvaW5jbHVkZS9hc20vbWVtb3J5LmgKaW5kZXggYjYxYjUwYmY2OGIx
-Li42YjM2ZDA4MGE2MzMgMTAwNjQ0Ci0tLSBhL2FyY2gvYXJtNjQvaW5jbHVkZS9hc20vbWVtb3J5
-LmgKKysrIGIvYXJjaC9hcm02NC9pbmNsdWRlL2FzbS9tZW1vcnkuaApAQCAtMjE1LDEyICsyMTUs
-MTUgQEAgc3RhdGljIGlubGluZSB1bnNpZ25lZCBsb25nIGthc2xyX29mZnNldCh2b2lkKQogICog
-dXAgd2l0aCBhIHRhZ2dlZCB1c2VybGFuZCBwb2ludGVyLiBDbGVhciB0aGUgdGFnIHRvIGdldCBh
-IHNhbmUgcG9pbnRlciB0bwogICogcGFzcyBvbiB0byBhY2Nlc3Nfb2soKSwgZm9yIGluc3RhbmNl
-LgogICovCi0jZGVmaW5lIHVudGFnZ2VkX2FkZHIoYWRkcikJXAorI2RlZmluZSBfX3VudGFnZ2Vk
-X2FkZHIoYWRkcikJXAogCSgoX19mb3JjZSBfX3R5cGVvZl9fKGFkZHIpKXNpZ25fZXh0ZW5kNjQo
-KF9fZm9yY2UgdTY0KShhZGRyKSwgNTUpKQogCisjZGVmaW5lIHVudGFnZ2VkX2FkZHIoYWRkcikJ
-XAorCSgoX19mb3JjZSB1NjQpKGFkZHIpICYgQklUKDU1KSA/IChhZGRyKSA6IF9fdW50YWdnZWRf
-YWRkcihhZGRyKSkKKwogI2lmZGVmIENPTkZJR19LQVNBTl9TV19UQUdTCiAjZGVmaW5lIF9fdGFn
-X3NoaWZ0ZWQodGFnKQkoKHU2NCkodGFnKSA8PCA1NikKLSNkZWZpbmUgX190YWdfcmVzZXQoYWRk
-cikJdW50YWdnZWRfYWRkcihhZGRyKQorI2RlZmluZSBfX3RhZ19yZXNldChhZGRyKQlfX3VudGFn
-Z2VkX2FkZHIoYWRkcikKICNkZWZpbmUgX190YWdfZ2V0KGFkZHIpCQkoX191OCkoKHU2NCkoYWRk
-cikgPj4gNTYpCiAjZWxzZQogI2RlZmluZSBfX3RhZ19zaGlmdGVkKHRhZykJMFVMCgotLSAKQ2F0
-YWxpbgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3Rp
-bmZvL2x0cAo=
+--===============0006788705==
+Content-Type: multipart/alternative; boundary="000000000000ef78050594ebc9d8"
+
+--000000000000ef78050594ebc9d8
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Cyril Hrubis <chrubis@suse.cz> wrote:
+
+
+>
+> diff --git a/testcases/cve/cve-2014-0196.c b/testcases/cve/cve-2014-0196.=
+c
+> index 6997fffe4..012cbb7cd 100644
+> --- a/testcases/cve/cve-2014-0196.c
+> +++ b/testcases/cve/cve-2014-0196.c
+> @@ -141,4 +141,9 @@ static struct tst_test test =3D {
+>         .setup =3D setup,
+>         .cleanup =3D cleanup,
+>         .test_all =3D run,
+> +       .tags =3D (const struct tst_tag[]) {
+> +               {"linux-git", "4291086b1f08"},
+> +               {"CVE", "2014-0196"},
+> +               {}
+>
+
+Some of the tests use {NULL, NULL} to terminate tag array but some not,
+maybe we need to keep consistent in usage.
+
+--=20
+Regards,
+Li Wang
+
+--000000000000ef78050594ebc9d8
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz" target=3D=
+"_blank">chrubis@suse.cz</a>&gt; wrote:<br></div></div><div class=3D"gmail_=
+quote"><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+diff --git a/testcases/cve/cve-2014-0196.c b/testcases/cve/cve-2014-0196.c<=
+br>
+index 6997fffe4..012cbb7cd 100644<br>
+--- a/testcases/cve/cve-2014-0196.c<br>
++++ b/testcases/cve/cve-2014-0196.c<br>
+@@ -141,4 +141,9 @@ static struct tst_test test =3D {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .setup =3D setup,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .cleanup =3D cleanup,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .test_all =3D run,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0.tags =3D (const struct tst_tag[]) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{&quot;linux-git&qu=
+ot;, &quot;4291086b1f08&quot;},<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{&quot;CVE&quot;, &=
+quot;2014-0196&quot;},<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{}<br></blockquote>=
+<div><br></div><div><div class=3D"gmail_default" style=3D"">Some of the tes=
+ts use {NULL, NULL} to terminate tag array but some not, maybe we need to=
+=C2=A0keep consistent in usage.</div></div></div><div><br></div>-- <br><div=
+ dir=3D"ltr"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div>=
+</div></div></div>
+
+--000000000000ef78050594ebc9d8--
+
+
+--===============0006788705==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0006788705==--
+
