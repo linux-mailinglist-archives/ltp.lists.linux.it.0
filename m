@@ -2,42 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC916D9A61
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Oct 2019 21:43:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7816D9C53
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Oct 2019 23:15:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6B7243C176C
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Oct 2019 21:43:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DE7223C22B6
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Oct 2019 23:15:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 430023C1443
- for <ltp@lists.linux.it>; Wed, 16 Oct 2019 21:43:51 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 1169C3C1410
+ for <ltp@lists.linux.it>; Wed, 16 Oct 2019 23:15:13 +0200 (CEST)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4EE09218CF2B
- for <ltp@lists.linux.it>; Wed, 16 Oct 2019 21:43:50 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 800EBAFAF
- for <ltp@lists.linux.it>; Wed, 16 Oct 2019 19:43:50 +0000 (UTC)
-Date: Wed, 16 Oct 2019 21:43:48 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20191016194348.GA4308@dell5510>
-References: <20191014112522.24548-1-chrubis@suse.cz>
- <20191014112522.24548-2-chrubis@suse.cz>
- <20191016133039.GA6842@dell5510> <20191016144624.GB19517@rei.lan>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 856BD1B7182E
+ for <ltp@lists.linux.it>; Wed, 16 Oct 2019 23:15:13 +0200 (CEST)
+Received: by mail-wm1-x343.google.com with SMTP id 3so295505wmi.3
+ for <ltp@lists.linux.it>; Wed, 16 Oct 2019 14:15:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=iXKSFHwmY0WSjXKSLXF4mpnlru7ODpAT2sBekhKh+BE=;
+ b=R/T2RUgBM0lgK1TBZ9l+Iy729ILh96XkK1rI1estUq8/vDJawkMGjvotR3L45L5TO6
+ jB9xZsTvwVr74yibmyFbpKa5m/st8a9rbWGGfWrKjiNZ8UHh3IPIxOxPmFCW0E982L1J
+ CAzZnA+uMVMX6Czco26NayIFQGLAfPSOj4cz1Y4b00lg9xsrArtVZOQv0o5u8X7zVYXF
+ ygU3NcztpkjPl1whkp27CDYoJzgIa5c8nuGqArTYFKR3MY81dXFmJ5pzJW7GKoDRuMA1
+ bJRbGlBMSQ2ey/I4XqnPIjjc5MaUBEIYeghFkX0xM2IiSZ9+nQhm3uHN9Odup3WcC3KJ
+ kcVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=iXKSFHwmY0WSjXKSLXF4mpnlru7ODpAT2sBekhKh+BE=;
+ b=P7kDo0yLGrrId2hfSCx1xBDWWE59uDnWawiIVMNCgDRtsKbqcuJzmQB7VTuvOfM6hQ
+ 5eFzxJqq15L5k7W0eP+gHZ63PkP78SWlf2xaj+yn9toxUftyg7DPVbp5SXTE0t2vOr55
+ 4k6yWpAD8q4vOZ6fwJoPusZ7Iqk/iM7moxDRONtvIoBWyjCS5XHYMZQ6I+hWFFRsJgcU
+ Yfqb75S/YWzI+vg0NahaY07Fbo4XGZMbV0M+fu/TQWTux83aDr7cVEZjhuVfeMrQKzfK
+ wWkgYTqLMrekrZ4M2M8lk4hyxqdPhiq6/0cGHy6jJCw2mUPLcjQoqIL2sd+3CvoenTNx
+ DKyw==
+X-Gm-Message-State: APjAAAW8ib9LtJYXMSXiCOzIeU1k0ESKxQ+IClpK8b1io+oFX9SBKjs5
+ HDnw58c6HUgIWiXjjXEMSX1Ic2r/6Z0=
+X-Google-Smtp-Source: APXvYqy1n2f29q0IedmBIAkpvcQozKYUg3TOeMOes5SoieeZpE+jRYb/7Gl2kb/vaLmAJXIdEMLM6w==
+X-Received: by 2002:a1c:e10a:: with SMTP id y10mr5037864wmg.29.1571260512820; 
+ Wed, 16 Oct 2019 14:15:12 -0700 (PDT)
+Received: from dell5510.arch.suse.de ([178.21.189.11])
+ by smtp.gmail.com with ESMTPSA id y13sm80024wrg.8.2019.10.16.14.15.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Oct 2019 14:15:12 -0700 (PDT)
+From: Petr Vorel <petr.vorel@gmail.com>
+To: ltp@lists.linux.it
+Date: Wed, 16 Oct 2019 23:15:01 +0200
+Message-Id: <20191016211501.3777-1-petr.vorel@gmail.com>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191016144624.GB19517@rei.lan>
-User-Agent: Mutt/1.11.3 (2019-02-01)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] lib: Add support for test tags
+Subject: [LTP] [PATCH 1/1] fanotify: Fix missing __kernel_fsid_t definition
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,33 +74,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+which is missing at least on musl which doesn't have FAN_REPORT_FID
+support.
 
-> > > +	if (tags) {
-> > > +		for (i = 0; tags[i].name; i++) {
-> > > +			if (!strcmp(tags[i].name, "CVE"))
-> > > +				printf(CVE_DB_URL "%s\n", tags[i].value);
-> > > +			else if (!strcmp(tags[i].name, "linux-git"))
-> > Not sure if it's worth of defining some enums instead of "CVE", "linux-git"
-> > (would catch typos).
+Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
+---
+ testcases/kernel/syscalls/fanotify/fanotify.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-> I wanted to avoid enums because they are not flexible enough. The plan
-> here is that docparse would do sanity checks on test metadata and fail
-> the compilation if it founds typos there. With the checks in the
-> docparse tool we can easily check for tags that looks like typos, i.e.
-> check the levenshtein distance from all known tags and print a nice
-> looking error message...
-OK, sounds good :).
+diff --git a/testcases/kernel/syscalls/fanotify/fanotify.h b/testcases/kernel/syscalls/fanotify/fanotify.h
+index 1c7623d3b..01a2d52bd 100644
+--- a/testcases/kernel/syscalls/fanotify/fanotify.h
++++ b/testcases/kernel/syscalls/fanotify/fanotify.h
+@@ -35,6 +35,10 @@
+ #include <errno.h>
+ #include <fcntl.h>
+ 
++#if !defined(FAN_REPORT_FID) && defined(HAVE_NAME_TO_HANDLE_AT)
++#include <asm/posix_types.h> // __kernel_fsid_t
++#endif
++
+ #if defined(HAVE_SYS_FANOTIFY_H)
+ 
+ #include <sys/fanotify.h>
+-- 
+2.23.0
 
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
