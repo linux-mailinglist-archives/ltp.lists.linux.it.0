@@ -2,67 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7816D9C53
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Oct 2019 23:15:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68AD1D9D80
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Oct 2019 23:30:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DE7223C22B6
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Oct 2019 23:15:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 32AAB3C1814
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Oct 2019 23:30:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 1169C3C1410
- for <ltp@lists.linux.it>; Wed, 16 Oct 2019 23:15:13 +0200 (CEST)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 02E463C144F
+ for <ltp@lists.linux.it>; Wed, 16 Oct 2019 23:30:08 +0200 (CEST)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 856BD1B7182E
- for <ltp@lists.linux.it>; Wed, 16 Oct 2019 23:15:13 +0200 (CEST)
-Received: by mail-wm1-x343.google.com with SMTP id 3so295505wmi.3
- for <ltp@lists.linux.it>; Wed, 16 Oct 2019 14:15:13 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 14DE4222459E
+ for <ltp@lists.linux.it>; Wed, 16 Oct 2019 23:30:08 +0200 (CEST)
+Received: by mail-wr1-x444.google.com with SMTP id y19so29688959wrd.3
+ for <ltp@lists.linux.it>; Wed, 16 Oct 2019 14:30:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=iXKSFHwmY0WSjXKSLXF4mpnlru7ODpAT2sBekhKh+BE=;
- b=R/T2RUgBM0lgK1TBZ9l+Iy729ILh96XkK1rI1estUq8/vDJawkMGjvotR3L45L5TO6
- jB9xZsTvwVr74yibmyFbpKa5m/st8a9rbWGGfWrKjiNZ8UHh3IPIxOxPmFCW0E982L1J
- CAzZnA+uMVMX6Czco26NayIFQGLAfPSOj4cz1Y4b00lg9xsrArtVZOQv0o5u8X7zVYXF
- ygU3NcztpkjPl1whkp27CDYoJzgIa5c8nuGqArTYFKR3MY81dXFmJ5pzJW7GKoDRuMA1
- bJRbGlBMSQ2ey/I4XqnPIjjc5MaUBEIYeghFkX0xM2IiSZ9+nQhm3uHN9Odup3WcC3KJ
- kcVw==
+ bh=buLPMfKyIw4C4PiWym2iWFBid3jfzj0S/nyMOqW7reE=;
+ b=CYUtgcJSKOwO4KCQtbj0/5NpBIkStUFM+fhM/7S3irOs8ftwOC2ktLFkQnaq3N8jTl
+ GH2M3wQjxjuS9bj+wUxJJzMwGwrOshwQoA1FboQkIo/bSUNzRgYIhoJ5U95NUaaqGdwy
+ pGWclqZCI7gWih5uopfK2xlpz6Vp3nkQmApeUsZ0bL9C0yyMcpjude1R76pH3+sJPOt6
+ U5Z+Zxs9ICpBM1XZVqEVRkp3rBHs5HOtbreOxveh/PXm93GKpYvsK9LeBi0dZE7qVtB8
+ D33rvyvPSNsfHtw0hBZ3wjyH6IQYr13ZTifCkPqj+yh8nTTQGuIoz8rBQUAjIQiOC7Sv
+ fkYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=iXKSFHwmY0WSjXKSLXF4mpnlru7ODpAT2sBekhKh+BE=;
- b=P7kDo0yLGrrId2hfSCx1xBDWWE59uDnWawiIVMNCgDRtsKbqcuJzmQB7VTuvOfM6hQ
- 5eFzxJqq15L5k7W0eP+gHZ63PkP78SWlf2xaj+yn9toxUftyg7DPVbp5SXTE0t2vOr55
- 4k6yWpAD8q4vOZ6fwJoPusZ7Iqk/iM7moxDRONtvIoBWyjCS5XHYMZQ6I+hWFFRsJgcU
- Yfqb75S/YWzI+vg0NahaY07Fbo4XGZMbV0M+fu/TQWTux83aDr7cVEZjhuVfeMrQKzfK
- wWkgYTqLMrekrZ4M2M8lk4hyxqdPhiq6/0cGHy6jJCw2mUPLcjQoqIL2sd+3CvoenTNx
- DKyw==
-X-Gm-Message-State: APjAAAW8ib9LtJYXMSXiCOzIeU1k0ESKxQ+IClpK8b1io+oFX9SBKjs5
- HDnw58c6HUgIWiXjjXEMSX1Ic2r/6Z0=
-X-Google-Smtp-Source: APXvYqy1n2f29q0IedmBIAkpvcQozKYUg3TOeMOes5SoieeZpE+jRYb/7Gl2kb/vaLmAJXIdEMLM6w==
-X-Received: by 2002:a1c:e10a:: with SMTP id y10mr5037864wmg.29.1571260512820; 
- Wed, 16 Oct 2019 14:15:12 -0700 (PDT)
+ bh=buLPMfKyIw4C4PiWym2iWFBid3jfzj0S/nyMOqW7reE=;
+ b=kRpjmU8ZTQQKFQwfV/7RvXq7MmXW3w1KH75oQerC/pLqttDVyfv5F3TXNN9hpuuuX6
+ ZtQQ+J7oQ3NcyIHUWBFV4UNk5yeiiAu8rYAtu0lgm35eXJBo+R2+mwbF9QYV5duPvy1M
+ XLOORq4uNXlwvLA7E55vmKpXo8BayogeelCoxKAEda3qREx5dM6L7ka/1yTggDxe4cHq
+ W2lzzG07IUEJLOGQzEQ0hefT4x6Bk7f+Lp27D4lM4wa5yGI1DGlmLGcqwasKWzHcA0s3
+ Cmj65hrs9dw/uP6E/cM3JcplSursxYBGPKLLNEF7dcn0HjC4uMOhwseA7syfGmcmNMBf
+ A6Eg==
+X-Gm-Message-State: APjAAAWcjXj+bcSnw//wWKDADI6fLKzxAG75QAVuEqFI6w7wx7CB9mON
+ NJMWjxaWBcytxSYN0u4hMQqzx3cOSMQ=
+X-Google-Smtp-Source: APXvYqyz62xaMpOWONBoU23bhmdJoY568jLxm3D2AzBLHkFRam/BAFsJodP6AhsuZjKz6KNzHjLEFA==
+X-Received: by 2002:adf:fa88:: with SMTP id h8mr4363456wrr.89.1571261407350;
+ Wed, 16 Oct 2019 14:30:07 -0700 (PDT)
 Received: from dell5510.arch.suse.de ([178.21.189.11])
- by smtp.gmail.com with ESMTPSA id y13sm80024wrg.8.2019.10.16.14.15.11
+ by smtp.gmail.com with ESMTPSA id d4sm80362wrq.22.2019.10.16.14.30.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Oct 2019 14:15:12 -0700 (PDT)
+ Wed, 16 Oct 2019 14:30:06 -0700 (PDT)
 From: Petr Vorel <petr.vorel@gmail.com>
 To: ltp@lists.linux.it
-Date: Wed, 16 Oct 2019 23:15:01 +0200
-Message-Id: <20191016211501.3777-1-petr.vorel@gmail.com>
+Date: Wed, 16 Oct 2019 23:30:01 +0200
+Message-Id: <20191016213001.23047-1-petr.vorel@gmail.com>
 X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/1] fanotify: Fix missing __kernel_fsid_t definition
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/1] setxattr03: define _GNU_SOURCE to fix build on
+ musl
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,29 +80,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-which is missing at least on musl which doesn't have FAN_REPORT_FID
-support.
+From: Petr Vorel <pvorel@suse.cz>
+
+musl defines loff_t in <fcntl.h> (already included) and guard it under _GNU_SOURCE.
+NOTE: glibc and others define it in <sys/types.h>
 
 Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
 ---
- testcases/kernel/syscalls/fanotify/fanotify.h | 4 ++++
- 1 file changed, 4 insertions(+)
+ testcases/kernel/syscalls/setxattr/setxattr03.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify.h b/testcases/kernel/syscalls/fanotify/fanotify.h
-index 1c7623d3b..01a2d52bd 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify.h
-+++ b/testcases/kernel/syscalls/fanotify/fanotify.h
-@@ -35,6 +35,10 @@
- #include <errno.h>
- #include <fcntl.h>
+diff --git a/testcases/kernel/syscalls/setxattr/setxattr03.c b/testcases/kernel/syscalls/setxattr/setxattr03.c
+index bb511d5ba..58ee0f880 100644
+--- a/testcases/kernel/syscalls/setxattr/setxattr03.c
++++ b/testcases/kernel/syscalls/setxattr/setxattr03.c
+@@ -13,6 +13,7 @@
+  *    -1 and set errno to EPERM
+  */
  
-+#if !defined(FAN_REPORT_FID) && defined(HAVE_NAME_TO_HANDLE_AT)
-+#include <asm/posix_types.h> // __kernel_fsid_t
-+#endif
-+
- #if defined(HAVE_SYS_FANOTIFY_H)
- 
- #include <sys/fanotify.h>
++#define _GNU_SOURCE
+ #include "config.h"
+ #include <sys/ioctl.h>
+ #include <sys/types.h>
 -- 
 2.23.0
 
