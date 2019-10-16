@@ -2,49 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B896D9458
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Oct 2019 16:52:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1207FD9474
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Oct 2019 16:56:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 048C93C2267
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Oct 2019 16:52:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C425D3C2267
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Oct 2019 16:56:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id A2E0B3C1808
- for <ltp@lists.linux.it>; Wed, 16 Oct 2019 16:52:46 +0200 (CEST)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id C8BDE1400E71
- for <ltp@lists.linux.it>; Wed, 16 Oct 2019 16:52:43 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 95525142F;
- Wed, 16 Oct 2019 07:52:42 -0700 (PDT)
-Received: from arrakis.emea.arm.com (unknown [10.1.196.49])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F26FC3F68E;
- Wed, 16 Oct 2019 07:52:40 -0700 (PDT)
-Date: Wed, 16 Oct 2019 15:52:38 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Dave Martin <Dave.Martin@arm.com>
-Message-ID: <20191016145238.GL49619@arrakis.emea.arm.com>
-References: <cki.B4A567748F.PFM8G4WKXI@redhat.com>
- <805988176.6044584.1571038139105.JavaMail.zimbra@redhat.com>
- <CAAeHK+zxFWvCOgTYrMuD-oHJAFMn5DVYmQ6-RvU8NrapSz01mQ@mail.gmail.com>
- <20191014162651.GF19200@arrakis.emea.arm.com>
- <20191014213332.mmq7narumxtkqumt@willie-the-truck>
- <20191015152651.GG13874@arrakis.emea.arm.com>
- <20191015161453.lllrp2gfwa5evd46@willie-the-truck>
- <20191016042933.bemrrurjbghuiw73@willie-the-truck>
- <20191016144422.GZ27757@arm.com>
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 015C93C1860
+ for <ltp@lists.linux.it>; Wed, 16 Oct 2019 16:56:15 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D688A14011BF
+ for <ltp@lists.linux.it>; Wed, 16 Oct 2019 16:56:12 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 3C1E5B30D;
+ Wed, 16 Oct 2019 14:56:12 +0000 (UTC)
+Date: Wed, 16 Oct 2019 16:56:11 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <20191016145610.GC19517@rei.lan>
+References: <20191007110859.25316-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20191016144422.GZ27757@arm.com>
+In-Reply-To: <20191007110859.25316-1-rpalethorpe@suse.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] ? FAIL: Test report for kernel 5.4.0-rc2-d6c2c23.cki
- (stable-next)
+Subject: Re: [LTP] [PATCH] bpf_prog03: Add regression test for sign
+ extension bug
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,58 +48,18 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Szabolcs Nagy <Szabolcs.Nagy@arm.com>,
- Andrey Konovalov <andreyknvl@google.com>, Memory Management <mm-qe@redhat.com>,
- Linux Stable maillist <stable@vger.kernel.org>,
- CKI Project <cki-project@redhat.com>,
- Vincenzo Frascino <Vincenzo.Frascino@arm.com>, Will Deacon <will@kernel.org>,
- LTP List <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed, Oct 16, 2019 at 03:44:25PM +0100, Dave P Martin wrote:
-> On Wed, Oct 16, 2019 at 05:29:33AM +0100, Will Deacon wrote:
-> > diff --git a/arch/arm64/include/asm/memory.h b/arch/arm64/include/asm/memory.h
-> > index b61b50bf68b1..c23c47360664 100644
-> > --- a/arch/arm64/include/asm/memory.h
-> > +++ b/arch/arm64/include/asm/memory.h
-> > @@ -215,12 +215,18 @@ static inline unsigned long kaslr_offset(void)
-> >   * up with a tagged userland pointer. Clear the tag to get a sane pointer to
-> >   * pass on to access_ok(), for instance.
-> >   */
-> > -#define untagged_addr(addr)	\
-> > +#define __untagged_addr(addr)	\
-> >  	((__force __typeof__(addr))sign_extend64((__force u64)(addr), 55))
-> >  
-> > +#define untagged_addr(addr)	({					\
-> 
-> Having the same informal name ("untagged") for two different address
-> representations seems like a recipe for confusion.  Can we rename one of
-> them?  (Say, untagged_address_if_user()?)
-
-I agree it's confusing. We can rename the __* one but the other is
-spread around the kernel (it can be done, though as a subsequent
-exercise; untagged_uaddr?).
-
-> > +	__addr &= __untagged_addr(__addr);				\
-> > +	(__force __typeof__(addr))__addr;				\
-> > +})
-> 
-> Is there any reason why we can't just have
-> 
-> #define untagged_addr ((__force __typeof__(addr))(	\
-> 	(__force u64)(addr) & GENMASK_ULL(63, 56)))
-
-I guess you meant ~GENMASK_ULL(63,56) or GENMASK_ULL(55,0).
-
-This changes the overflow case for mlock() which would return -ENOMEM
-instead of -EINVAL (not sure we have a test for it though). Does it
-matter?
+Hi!
+Applied, thanks.
 
 -- 
-Catalin
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
