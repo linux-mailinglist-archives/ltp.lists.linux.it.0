@@ -1,43 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67089DADC7
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Oct 2019 15:04:12 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 22C27DAF15
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Oct 2019 16:04:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 91F073C235A
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Oct 2019 15:04:11 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A1A7D3C22FE
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Oct 2019 16:04:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 03E593C2305
- for <ltp@lists.linux.it>; Thu, 17 Oct 2019 15:04:06 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 556C23C22CB
+ for <ltp@lists.linux.it>; Thu, 17 Oct 2019 16:04:20 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A103E1400265
- for <ltp@lists.linux.it>; Thu, 17 Oct 2019 15:04:06 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 75DFA20103C
+ for <ltp@lists.linux.it>; Thu, 17 Oct 2019 16:04:19 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 7B0C2B671;
- Thu, 17 Oct 2019 13:04:05 +0000 (UTC)
-Date: Thu, 17 Oct 2019 15:04:02 +0200
+ by mx1.suse.de (Postfix) with ESMTP id B5D7DB5F5;
+ Thu, 17 Oct 2019 14:04:18 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
-To: Alexey Kodanev <alexey.kodanev@oracle.com>
-Message-ID: <20191017130401.GA21484@dell5510>
-References: <20191011132433.24197-1-pvorel@suse.cz>
- <f5b4a42f-fb20-e085-1250-c0e2b171c01f@oracle.com>
+To: ltp@lists.linux.it
+Date: Thu, 17 Oct 2019 16:04:10 +0200
+Message-Id: <20191017140410.6810-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <f5b4a42f-fb20-e085-1250-c0e2b171c01f@oracle.com>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5 0/8] net/route: rewrite route-change-{dst, gw,
- if} into new API
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [COMMITTED][PATCH] tst_net.sh: Don't require root when netns
+ was setup externally
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,36 +45,45 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Alexey,
++ also don't require ip in that case.
++ remove unneeded '='
 
-> On 11.10.2019 16:24, Petr Vorel wrote:
-> > Hi,
+Fixes: e38d7c439 ("test_net.sh: Check for ip command")
 
-> > changes v4->v5:
-> > addressed these Alexey's requests:
-> > * tst_ipadd_un() now handles both host_id and net_id, with
-> > -h MIN,MAX, -n MIN,MAX
-> > (instead of -b, -f, -n which handled only host_id)
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ testcases/lib/tst_net.sh | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-> > * add -q to tst_add_ipaddr() (silence test output)
+diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
+index 4be1bc0fc..2741d9bca 100644
+--- a/testcases/lib/tst_net.sh
++++ b/testcases/lib/tst_net.sh
+@@ -108,12 +108,12 @@ tst_require_root_()
+ 
+ init_ltp_netspace()
+ {
+-	tst_test_cmds ip
+-	tst_require_root_
+-
+-	local pid=
++	local pid
+ 
+ 	if [ ! -f /var/run/netns/ltp_ns -a -z "$LTP_NETNS" ]; then
++		tst_test_cmds ip
++		tst_require_root_
++
+ 		ROD ip li add name ltp_ns_veth1 type veth peer name ltp_ns_veth2
+ 		pid="$(ROD ns_create net,mnt)"
+ 		mkdir -p /var/run/netns
+-- 
+2.23.0
 
-> > * introduce EXPECT_{FAIL,PASS}_BRK() to shell API and use it to stop
-> > test on first error.
-
-> The patches look great, thanks Petr!
-Finally merged :).
-Thanks a lot for many patient reviews and suggestions.
-I'll send another version of C netlink based tests.
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
