@@ -1,69 +1,64 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68AD1D9D80
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Oct 2019 23:30:10 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 23B4CDA38F
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Oct 2019 04:19:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 32AAB3C1814
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Oct 2019 23:30:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9449C3C1865
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Oct 2019 04:19:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 02E463C144F
- for <ltp@lists.linux.it>; Wed, 16 Oct 2019 23:30:08 +0200 (CEST)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id DA82C3C147F
+ for <ltp@lists.linux.it>; Thu, 17 Oct 2019 04:18:56 +0200 (CEST)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 69A436018AD
+ for <ltp@lists.linux.it>; Thu, 17 Oct 2019 04:18:56 +0200 (CEST)
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
+ [209.85.210.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 14DE4222459E
- for <ltp@lists.linux.it>; Wed, 16 Oct 2019 23:30:08 +0200 (CEST)
-Received: by mail-wr1-x444.google.com with SMTP id y19so29688959wrd.3
- for <ltp@lists.linux.it>; Wed, 16 Oct 2019 14:30:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=buLPMfKyIw4C4PiWym2iWFBid3jfzj0S/nyMOqW7reE=;
- b=CYUtgcJSKOwO4KCQtbj0/5NpBIkStUFM+fhM/7S3irOs8ftwOC2ktLFkQnaq3N8jTl
- GH2M3wQjxjuS9bj+wUxJJzMwGwrOshwQoA1FboQkIo/bSUNzRgYIhoJ5U95NUaaqGdwy
- pGWclqZCI7gWih5uopfK2xlpz6Vp3nkQmApeUsZ0bL9C0yyMcpjude1R76pH3+sJPOt6
- U5Z+Zxs9ICpBM1XZVqEVRkp3rBHs5HOtbreOxveh/PXm93GKpYvsK9LeBi0dZE7qVtB8
- D33rvyvPSNsfHtw0hBZ3wjyH6IQYr13ZTifCkPqj+yh8nTTQGuIoz8rBQUAjIQiOC7Sv
- fkYQ==
+ by mx1.redhat.com (Postfix) with ESMTPS id 619E08553A
+ for <ltp@lists.linux.it>; Thu, 17 Oct 2019 02:18:54 +0000 (UTC)
+Received: by mail-ot1-f71.google.com with SMTP id t14so402561otd.9
+ for <ltp@lists.linux.it>; Wed, 16 Oct 2019 19:18:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=buLPMfKyIw4C4PiWym2iWFBid3jfzj0S/nyMOqW7reE=;
- b=kRpjmU8ZTQQKFQwfV/7RvXq7MmXW3w1KH75oQerC/pLqttDVyfv5F3TXNN9hpuuuX6
- ZtQQ+J7oQ3NcyIHUWBFV4UNk5yeiiAu8rYAtu0lgm35eXJBo+R2+mwbF9QYV5duPvy1M
- XLOORq4uNXlwvLA7E55vmKpXo8BayogeelCoxKAEda3qREx5dM6L7ka/1yTggDxe4cHq
- W2lzzG07IUEJLOGQzEQ0hefT4x6Bk7f+Lp27D4lM4wa5yGI1DGlmLGcqwasKWzHcA0s3
- Cmj65hrs9dw/uP6E/cM3JcplSursxYBGPKLLNEF7dcn0HjC4uMOhwseA7syfGmcmNMBf
- A6Eg==
-X-Gm-Message-State: APjAAAWcjXj+bcSnw//wWKDADI6fLKzxAG75QAVuEqFI6w7wx7CB9mON
- NJMWjxaWBcytxSYN0u4hMQqzx3cOSMQ=
-X-Google-Smtp-Source: APXvYqyz62xaMpOWONBoU23bhmdJoY568jLxm3D2AzBLHkFRam/BAFsJodP6AhsuZjKz6KNzHjLEFA==
-X-Received: by 2002:adf:fa88:: with SMTP id h8mr4363456wrr.89.1571261407350;
- Wed, 16 Oct 2019 14:30:07 -0700 (PDT)
-Received: from dell5510.arch.suse.de ([178.21.189.11])
- by smtp.gmail.com with ESMTPSA id d4sm80362wrq.22.2019.10.16.14.30.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Oct 2019 14:30:06 -0700 (PDT)
-From: Petr Vorel <petr.vorel@gmail.com>
-To: ltp@lists.linux.it
-Date: Wed, 16 Oct 2019 23:30:01 +0200
-Message-Id: <20191016213001.23047-1-petr.vorel@gmail.com>
-X-Mailer: git-send-email 2.23.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=4c14el76bzNpoUdYq6BqoIGrxJdquRcAOmO4mnifzTY=;
+ b=o4Zv1BjUxL4iydtSKsAQNnepGr1wx5ZHV4aSItsTudWcE/2CThtSjp87/Lqe4gqyQl
+ OAVbPY5b/ZlzoK4XrqLufHDJ0Bs2KQ+2j3o5VM+dB2WcE+pvIUDLuqbWqLqGSM396SfF
+ fHvk4E+x1tO4P+s3HsMC2DfGvIrceFQhia1doO6DIT/DpDbZCb1v+wNZzQtEOzGLYAUQ
+ RmJr/ifSaNu55DY7Lo3CWP/xtMvplvdd7Gu39fZLkNs71QBkP5FjW1XO519gtm1FM2nI
+ 82Eh50vpFoyP1qibgWtusMEOEPZe5hFrSxbWBsAmgUGdWHeSU/sbjXYlXmwc/nqs7JQC
+ TEVA==
+X-Gm-Message-State: APjAAAVpRttIp+mzuRGtCszuEcPnbLD0R7C9mpRkvaxGzUyudwdYn+LG
+ LHVGoiUtmYDqjpitAb8Cmd/bR4ApQhzeAq3IU5FM4dVm+hJnCktYu3g6D1B6KYD1duUdo4Rw9Ts
+ 51buRLFmiV0atLgFuBLxkF552MPI=
+X-Received: by 2002:a9d:5907:: with SMTP id t7mr996815oth.118.1571278733940;
+ Wed, 16 Oct 2019 19:18:53 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqw+Dz2Q4KWXaTPuGOwcjO15dSfzIgbl1fC+g1OoNAMbGVsyBg33VgPEa0ktgiCgjmwTCLz9nU1Av4JnBAwAPe8=
+X-Received: by 2002:a9d:5907:: with SMTP id t7mr996802oth.118.1571278733664;
+ Wed, 16 Oct 2019 19:18:53 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+References: <20191016080146.18657-1-liwang@redhat.com>
+ <87pnixvwkh.fsf@rpws.prws.suse.cz>
+In-Reply-To: <87pnixvwkh.fsf@rpws.prws.suse.cz>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 17 Oct 2019 10:18:42 +0800
+Message-ID: <CAEemH2f=HUpkCKMDyTf-Tv04P-YfjMHzXTG-ieF9i9TXXNo9jQ@mail.gmail.com>
+To: Richard Palethorpe <rpalethorpe@suse.de>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/1] setxattr03: define _GNU_SOURCE to fix build on
- musl
+X-Spam-Status: No, score=-0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_PASS,
+ SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] include: undefine _LINUX_TYPES_H if including
+ old sys/capability.h
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,36 +70,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>,
+ Richard Palethorpe <richard.palethorpe@suse.com>
+Content-Type: multipart/mixed; boundary="===============1404940809=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Petr Vorel <pvorel@suse.cz>
+--===============1404940809==
+Content-Type: multipart/alternative; boundary="000000000000c3884a059511d678"
 
-musl defines loff_t in <fcntl.h> (already included) and guard it under _GNU_SOURCE.
-NOTE: glibc and others define it in <sys/types.h>
+--000000000000c3884a059511d678
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
----
- testcases/kernel/syscalls/setxattr/setxattr03.c | 1 +
- 1 file changed, 1 insertion(+)
+> Ack.
+>
+Pushed. Thanks for review.
 
-diff --git a/testcases/kernel/syscalls/setxattr/setxattr03.c b/testcases/kernel/syscalls/setxattr/setxattr03.c
-index bb511d5ba..58ee0f880 100644
---- a/testcases/kernel/syscalls/setxattr/setxattr03.c
-+++ b/testcases/kernel/syscalls/setxattr/setxattr03.c
-@@ -13,6 +13,7 @@
-  *    -1 and set errno to EPERM
-  */
- 
-+#define _GNU_SOURCE
- #include "config.h"
- #include <sys/ioctl.h>
- #include <sys/types.h>
 -- 
-2.23.0
+Regards,
+Li Wang
+
+--000000000000c3884a059511d678
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div>=C2=A0</div><blockquote cl=
+ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid=
+ rgb(204,204,204);padding-left:1ex">
+Ack.<br>
+</blockquote></div><div class=3D"gmail_default" style=3D"font-size:small"><=
+/div><div class=3D"gmail_default" style=3D"font-size:small">Pushed. Thanks =
+for review.</div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_sign=
+ature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div>=
+</div></div>
+
+--000000000000c3884a059511d678--
+
+--===============1404940809==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1404940809==--
