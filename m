@@ -2,57 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA2B2DC64B
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Oct 2019 15:39:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AB3CDC66A
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Oct 2019 15:45:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 789A33C23C1
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Oct 2019 15:39:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 393583C23B4
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Oct 2019 15:45:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 982FC3C23AD
- for <ltp@lists.linux.it>; Fri, 18 Oct 2019 15:39:44 +0200 (CEST)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 21DE63C129F
+ for <ltp@lists.linux.it>; Fri, 18 Oct 2019 15:45:29 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 979C7200C81
- for <ltp@lists.linux.it>; Fri, 18 Oct 2019 15:39:43 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
- [10.5.11.16])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id CF0862DD98;
- Fri, 18 Oct 2019 13:39:41 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C5CFF5C1B5;
- Fri, 18 Oct 2019 13:39:41 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id BDD2F1808878;
- Fri, 18 Oct 2019 13:39:41 +0000 (UTC)
-Date: Fri, 18 Oct 2019 09:39:41 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <1403291253.6979626.1571405981736.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20191018133733.GA31681@dell5510>
-References: <2e51e5453562001b5b6992ccc897d9177e6673ca.1571053661.git.jstancek@redhat.com>
- <20191018133733.GA31681@dell5510>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0E130600FBF
+ for <ltp@lists.linux.it>; Fri, 18 Oct 2019 15:45:27 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 4E46FAD35;
+ Fri, 18 Oct 2019 13:45:27 +0000 (UTC)
+Date: Fri, 18 Oct 2019 15:45:26 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Jan Stancek <jstancek@redhat.com>
+Message-ID: <20191018134525.GA2589@dell5510>
+References: <c8843f2f4a325e820d030d9c7c36d7624f1baa82.1571393044.git.jstancek@redhat.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.163, 10.4.195.7]
-Thread-Topic: mlock_8-1, munlock_10-1: don't use LONG_MAX as invalid pointer
-Thread-Index: iVXigk1YNIpfhIeF+RuvYI2JVR/TlA==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.38]); Fri, 18 Oct 2019 13:39:41 +0000 (UTC)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <c8843f2f4a325e820d030d9c7c36d7624f1baa82.1571393044.git.jstancek@redhat.com>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] mlock_8-1,
- munlock_10-1: don't use LONG_MAX as invalid pointer
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] lsmod01.sh: retry test couple times to lower
+ false positives
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,32 +47,30 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Hi Jan,
 
------ Original Message -----
-> Hi Jan,
-> 
-> > arm64 kernel with commit 057d3389108e ("mm: untag user pointers passed to
-> > memory syscalls") will assume this is tagged user pointer and will
-> > attempt to clear first byte. This leads to test hitting different error
-> > (EINVAL instead of ENOMEM).
-> 
-> > Add a helper function which provides invalid/unused pointer from user
-> > address space.
-> 
-> > Signed-off-by: Jan Stancek <jstancek@redhat.com>
-> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+...
+>  	if [ "$lsmod_output" != "$modules_output" ]; then
+> -		tst_res TFAIL "lsmod output different from /proc/modules."
+> +		tst_res TINFO "lsmod output different from /proc/modules."
 
-Thanks, discussion in:
-  http://lists.linux.it/pipermail/ltp/2019-October/013993.html
-is still going, so maybe this will be fixed on kernel side
-after all.
+>  		echo "$lsmod_output" > temp1
+>  		echo "$modules_output" > temp2
+>  		diff temp1 temp2
+Also this code could be wrapped with
+if tst_cmd_available diff; then
 
+(I wouldn't add it to TST_NEEDS_CMDS)
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
