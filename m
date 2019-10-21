@@ -2,65 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65CB6DE6A9
-	for <lists+linux-ltp@lfdr.de>; Mon, 21 Oct 2019 10:36:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD4A5DE80C
+	for <lists+linux-ltp@lfdr.de>; Mon, 21 Oct 2019 11:28:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 09B0C3C250D
-	for <lists+linux-ltp@lfdr.de>; Mon, 21 Oct 2019 10:36:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7D5933C2656
+	for <lists+linux-ltp@lfdr.de>; Mon, 21 Oct 2019 11:28:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id EDB9B3C250D
- for <ltp@lists.linux.it>; Mon, 21 Oct 2019 10:14:47 +0200 (CEST)
-Received: from alexa-out-tai-02.qualcomm.com (alexa-out-tai-02.qualcomm.com
- [103.229.16.227])
- (using TLSv1.2 with cipher AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 294B01400DDC
- for <ltp@lists.linux.it>; Mon, 21 Oct 2019 10:14:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=qti.qualcomm.com; i=@qti.qualcomm.com; q=dns/txt;
- s=qcdkim; t=1571645686; x=1603181686;
- h=from:to:subject:date:message-id:mime-version;
- bh=hTcleDrMUjU16IuIHi+0/0/+kluNcOvbR18gGglmc3E=;
- b=IzChR6IsWC7DQT38887tgWmhZRT8nYC+LPtm1zEEqOKX1HDKXFPRlfd2
- wl3+VsLM7Q++R1q1Y8vI7atfFSS3029MR0hgmWBGffeQXz+i/xhdcDW7D
- 3ftOe8roonCQ/ABBsdEQdjej4BuX7LazPMr2cJTq7y7RkoopKIXbK38rQ E=;
-Received: from ironmsg03-tai.qualcomm.com ([10.249.140.8])
- by alexa-out-tai-02.qualcomm.com with ESMTP; 21 Oct 2019 16:14:42 +0800
-IronPort-SDR: yl9nxltyX4QC0k3N3g4evwJ2zwVwIB1M+EpfVG8gcZGtvR+dWAMCqHg2mZWLuCDNO0WdTxyt//
- ztUy8V8s7iJzr1ftef9aLKKove+UiGbuM=
-Received: from aptaiexm02b.ap.qualcomm.com ([10.249.150.12])
- by ironmsg03-tai.qualcomm.com with ESMTP/TLS/AES256-SHA;
- 21 Oct 2019 16:14:39 +0800
-Received: from aptaiexm02f.ap.qualcomm.com (10.249.150.16) by
- aptaiexm02b.ap.qualcomm.com (10.249.150.12) with Microsoft SMTP Server (TLS)
- id 15.0.1473.3; Mon, 21 Oct 2019 16:14:37 +0800
-Received: from aptaiexm02f.ap.qualcomm.com ([fe80::4152:1436:e436:faa1]) by
- aptaiexm02f.ap.qualcomm.com ([fe80::4152:1436:e436:faa1%19]) with mapi id
- 15.00.1473.005; Mon, 21 Oct 2019 16:14:37 +0800
-From: Xiang Li <lixian@qti.qualcomm.com>
-To: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Thread-Topic: Bug report in read_all.c
-Thread-Index: AdWH2/TI3veigLkQQXO52r6YDaCyhQ==
-Date: Mon, 21 Oct 2019 08:14:37 +0000
-Message-ID: <0641c15377874db893088e4f65102ec6@aptaiexm02f.ap.qualcomm.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.249.136.10]
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id AA4A13C229F
+ for <ltp@lists.linux.it>; Mon, 21 Oct 2019 11:28:51 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id DB97D10009CB
+ for <ltp@lists.linux.it>; Mon, 21 Oct 2019 11:28:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1571650128;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=YGz+URwFjl8sCLibWppD6VGctYaBEPCgDMW9XqTm3wE=;
+ b=GPIwNDRKe9C87M3a9Idtm18Ycd1J5bhAsf7DOIpBUzY4rh+ehwE92jGkfIJw4SPLRE9XJj
+ txE0CfXy+hLFZaVl5xb9tjCY/5CoOjQUBphvHhdeF31RSgnssYVYklRbC3rNzz6u9gZuNF
+ nXSZCXogFU09d2nND2rOfTowWHL6Q/4=
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
+ [209.85.210.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-333-J1k_C12_MQqiC_IJaqEKig-1; Mon, 21 Oct 2019 05:28:44 -0400
+Received: by mail-ot1-f72.google.com with SMTP id x20so6392668otk.12
+ for <ltp@lists.linux.it>; Mon, 21 Oct 2019 02:28:44 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=wK2umzb2P51lzHFCXdEwQ3SStYcAGlGY8lnV8cT2yXo=;
+ b=BT247JDwUIGAVSR0wvshA0w9t4wIvSM4mF+tb6fenDreUWlW7+Cxdx6RKL5gWQuxP/
+ Ckilhu45WXqQjPmlUmahZI6i1/qupWe+AA2cxAZ91oNJIk+CEHV5oMVwUGzuSuudGT8Q
+ gEkjd1qIlWygs7/9U0A+3wMBwUmg5FAJNK4NMmB6dka366HQZIMu/yZ1/aGu9g9iVSSH
+ 4LAtp7n167/D2N/bvIA2O9eHBFKxW0Hg80uIGkbL04RMgiiVxUwQg9zCziKr3fLwb/5x
+ 3lQaQ6XWHbVwZdiyJmnRl5l+bMKIg0njIyJaeXrFo0BQtti5CVL7WcXXMn8n3+Cx8b0Q
+ sgWQ==
+X-Gm-Message-State: APjAAAUXRcoLtLfMWxsTcsOfzdfP5GfjpRjuBct8VCEj4Wm49OxBoHsg
+ SVlZ7NLEFeq3dvzuyiC2TVUF1+EW1Ztczyo5X+p1jUIf1Zc1/GEzQSdkIl++FcuQFCqWS6eDfvH
+ xB+DY+2nrSd1NgI0lTJc1CPHUb+E=
+X-Received: by 2002:a9d:4d90:: with SMTP id u16mr7092019otk.26.1571650123772; 
+ Mon, 21 Oct 2019 02:28:43 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqwuswMeqU0DfJ5ROUePL0WgAkY5TShu6h9fucFQxLGlWPoNEUq8yoZKtUSIxcabJt3tAuarzKKkRGuP+FQ2zLo=
+X-Received: by 2002:a9d:4d90:: with SMTP id u16mr7092007otk.26.1571650123537; 
+ Mon, 21 Oct 2019 02:28:43 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+References: <20191018124502.25599-1-cfamullaconrad@suse.de>
+ <20191018124502.25599-5-cfamullaconrad@suse.de>
+In-Reply-To: <20191018124502.25599-5-cfamullaconrad@suse.de>
+From: Li Wang <liwang@redhat.com>
+Date: Mon, 21 Oct 2019 17:28:31 +0800
+Message-ID: <CAEemH2c_JVy0jPs96uMfZ0nJjnoGsyhDvLjHy9UJ0tXyc5KNzQ@mail.gmail.com>
+To: Clemens Famulla-Conrad <cfamullaconrad@suse.de>
+X-MC-Unique: J1k_C12_MQqiC_IJaqEKig-1
+X-Mimecast-Spam-Score: 0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-X-Mailman-Approved-At: Mon, 21 Oct 2019 10:36:53 +0200
-Subject: [LTP] Bug report in read_all.c
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 4/5] Add newlib shell test for
+ tst_multiply_timeout()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,160 +78,191 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1548208118=="
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1579088004=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1548208118==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_0641c15377874db893088e4f65102ec6aptaiexm02fapqualcommco_"
+--===============1579088004==
+Content-Type: multipart/alternative; boundary="000000000000533e2a0595684f62"
 
---_000_0641c15377874db893088e4f65102ec6aptaiexm02fapqualcommco_
-Content-Type: text/plain; charset="us-ascii"
+--000000000000533e2a0595684f62
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Fri, Oct 18, 2019 at 8:45 PM Clemens Famulla-Conrad <
+cfamullaconrad@suse.de> wrote:
 
-I would like to report a bug I found lately in LTP testcase source code.
-The bug is located at: https://github.com/linux-test-project/ltp/blob/maste=
-r/testcases/kernel/fs/read_all/read_all.c#L123
-This bug may cause the read_all testcase terminated unexpectedly before the=
- reading thread complete its job.
-
-In the source code, at the end of the function queue_pop(), it stores i + 1=
- into the q->front to update the front indicator.
-But under some circumstances it will store 16384 which is the default lengt=
-h of the queue size.
-When this happens, the next time queue_pop() is called, it will perform a r=
-ead action that overstep the array boundary which is q->data[16384].
-If the value stored there is 0, the queue_pop() will immediately return 0 a=
-nd the whole testcase is broken.
-This happens when there is a whole file path stores exactly at the end of t=
-he data array. In this situation, i equals 16383 when while() ends.
-
-Modifying i + 1 to (i + 1) % QUEUE_SIZE at the source code Line#123 can eas=
-ily fix it.
-This bug is not triggered on every machine because the files are different =
-between target machine.
-Adjust the length of the QUEUE_SIZE will help you reproduce this bug.
-
-
-Regards,
-Xiang
-
-
---_000_0641c15377874db893088e4f65102ec6aptaiexm02fapqualcommco_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+> Simple test for different kinds of calls from tst_multiply_timeout()
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hi,<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">I would like to report a bug I found lately in LTP t=
-estcase source code.<o:p></o:p></p>
-<p class=3D"MsoNormal">The bug is located at: <a href=3D"https://github.com=
-/linux-test-project/ltp/blob/master/testcases/kernel/fs/read_all/read_all.c=
-#L123">
-https://github.com/linux-test-project/ltp/blob/master/testcases/kernel/fs/r=
-ead_all/read_all.c#L123</a>
-<o:p></o:p></p>
-<p class=3D"MsoNormal">This bug may cause the read_all testcase terminated =
-unexpectedly before the reading thread complete its job.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">In the source code, at the end of the function <b>qu=
-eue_pop()</b>, it stores i &#43; 1 into the q-&gt;front to update the front=
- indicator.
-<o:p></o:p></p>
-<p class=3D"MsoNormal">But under some circumstances it will store 16384 whi=
-ch is the default length of the queue size.<o:p></o:p></p>
-<p class=3D"MsoNormal">When this happens, the next time <b>queue_pop()</b> =
-is called, it will perform a read action that overstep the array boundary w=
-hich is q-&gt;data[16384].<o:p></o:p></p>
-<p class=3D"MsoNormal">If the value stored there is 0, the <b>queue_pop()</=
-b> will immediately return 0 and the whole testcase is broken.<o:p></o:p></=
-p>
-<p class=3D"MsoNormal">This happens when there is a whole file path stores =
-exactly at the end of the
-<b>data</b> array. In this situation, i equals 16383 when while() ends.<o:p=
-></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Modifying i &#43; 1 to (i &#43; 1) % QUEUE_SIZE at t=
-he source code Line#123 can easily fix it.<o:p></o:p></p>
-<p class=3D"MsoNormal">This bug is not triggered on every machine because t=
-he files are different between target machine.
-<o:p></o:p></p>
-<p class=3D"MsoNormal">Adjust the length of the QUEUE_SIZE will help you re=
-produce this bug.
-<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
-<p class=3D"MsoNormal">Xiang<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</body>
-</html>
 
---_000_0641c15377874db893088e4f65102ec6aptaiexm02fapqualcommco_--
+Patch 4/5 and 5/5 needs "Signed-off-by: ..." tag, otherwise LGTM.
+    Reviewed-by: Li Wang <liwang@redhat.com>
 
---===============1548208118==
+---
+>  lib/newlib_tests/shell/test_timeout_mul.sh | 43
+> ++++++++++++++++++++++++++++++
+>  1 file changed, 43 insertions(+)
+>  create mode 100755 lib/newlib_tests/shell/test_timeout_mul.sh
+>
+> diff --git a/lib/newlib_tests/shell/test_timeout_mul.sh
+> b/lib/newlib_tests/shell/test_timeout_mul.sh
+> new file mode 100755
+> index 000000000..6682e5d66
+> --- /dev/null
+> +++ b/lib/newlib_tests/shell/test_timeout_mul.sh
+> @@ -0,0 +1,43 @@
+> +#!/bin/sh
+> +# SPDX-License-Identifier: GPL-2.0-or-later
+> +# Copyright (c) 2019 Clemens Famulla-Conrad <cfamullaconrad@suse.de>
+> +
+> +TST_TESTFUNC=3Ddo_test
+> +. tst_test.sh
+> +
+> +
+> +call_it()
+> +{
+> +       local SAVE_MUL=3D${LTP_TIMEOUT_MUL}
+> +       $1
+> +       eval "exp_value=3D\$$2"
+> +       if [ "$exp_value" -ne "$3" ]; then
+> +               tst_brk TBROK "LTP_TIMEOUT_MUL=3D$SAVE_MUL $1 ($exp_value=
+ !=3D
+> $3)"
+> +       else
+> +               tst_res TPASS "LTP_TIMEOUT_MUL=3D$SAVE_MUL $1 ($exp_value=
+ =3D=3D
+> $3)"
+> +       fi
+> +}
+> +
+> +do_test()
+> +{
+> +       LTP_TIMEOUT_MUL=3D2
+> +       local sec=3D1
+> +
+> +       call_it 'tst_multiply_timeout sec' 'sec' 2
+> +
+> +       sec=3D1
+> +       LTP_TIMEOUT_MUL=3D"1.5"
+> +       call_it 'tst_multiply_timeout sec' 'sec' 2
+> +
+> +       sec=3D1
+> +       LTP_TIMEOUT_MUL=3D0.5
+> +       call_it 'tst_multiply_timeout sec' 'sec' 1
+> +
+> +       sec=3D1
+> +       LTP_TIMEOUT_MUL=3D2
+> +       call_it 'tst_multiply_timeout sec' 'sec' 2
+> +       call_it 'tst_multiply_timeout sec' 'sec' 4
+> +       call_it 'tst_multiply_timeout sec' 'sec' 8
+> +}
+> +
+> +tst_run
+> --
+> 2.16.4
+>
+>
+
+--=20
+Regards,
+Li Wang
+
+--000000000000533e2a0595684f62
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Fri, Oct 18, 2019 at 8:45 PM Clemens Famulla-Con=
+rad &lt;<a href=3D"mailto:cfamullaconrad@suse.de">cfamullaconrad@suse.de</a=
+>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
+ 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Sim=
+ple test for different kinds of calls from tst_multiply_timeout()<br></bloc=
+kquote><div><br></div><div class=3D"gmail_default" style=3D"font-size:small=
+">Patch 4/5 and 5/5 needs &quot;Signed-off-by: ...&quot; tag, otherwise LGT=
+M.</div><div class=3D"gmail_default" style=3D"font-size:small">=C2=A0 =C2=
+=A0 Reviewed-by: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com">liwang@re=
+dhat.com</a>&gt;</div><div class=3D"gmail_default" style=3D"font-size:small=
+"><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
+.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+---<br>
+=C2=A0lib/newlib_tests/shell/test_timeout_mul.sh | 43 +++++++++++++++++++++=
++++++++++<br>
+=C2=A01 file changed, 43 insertions(+)<br>
+=C2=A0create mode 100755 lib/newlib_tests/shell/test_timeout_mul.sh<br>
+<br>
+diff --git a/lib/newlib_tests/shell/test_timeout_mul.sh b/lib/newlib_tests/=
+shell/test_timeout_mul.sh<br>
+new file mode 100755<br>
+index 000000000..6682e5d66<br>
+--- /dev/null<br>
++++ b/lib/newlib_tests/shell/test_timeout_mul.sh<br>
+@@ -0,0 +1,43 @@<br>
++#!/bin/sh<br>
++# SPDX-License-Identifier: GPL-2.0-or-later<br>
++# Copyright (c) 2019 Clemens Famulla-Conrad &lt;<a href=3D"mailto:cfamulla=
+conrad@suse.de" target=3D"_blank">cfamullaconrad@suse.de</a>&gt;<br>
++<br>
++TST_TESTFUNC=3Ddo_test<br>
++. tst_test.sh<br>
++<br>
++<br>
++call_it()<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0local SAVE_MUL=3D${LTP_TIMEOUT_MUL}<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0$1<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0eval &quot;exp_value=3D\$$2&quot;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if [ &quot;$exp_value&quot; -ne &quot;$3&quot; =
+]; then<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_brk TBROK &quot=
+;LTP_TIMEOUT_MUL=3D$SAVE_MUL $1 ($exp_value !=3D $3)&quot;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0else<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res TPASS &quot=
+;LTP_TIMEOUT_MUL=3D$SAVE_MUL $1 ($exp_value =3D=3D $3)&quot;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0fi<br>
++}<br>
++<br>
++do_test()<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0LTP_TIMEOUT_MUL=3D2<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0local sec=3D1<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0call_it &#39;tst_multiply_timeout sec&#39; &#39=
+;sec&#39; 2<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0sec=3D1<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0LTP_TIMEOUT_MUL=3D&quot;1.5&quot;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0call_it &#39;tst_multiply_timeout sec&#39; &#39=
+;sec&#39; 2<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0sec=3D1<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0LTP_TIMEOUT_MUL=3D0.5<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0call_it &#39;tst_multiply_timeout sec&#39; &#39=
+;sec&#39; 1<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0sec=3D1<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0LTP_TIMEOUT_MUL=3D2<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0call_it &#39;tst_multiply_timeout sec&#39; &#39=
+;sec&#39; 2<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0call_it &#39;tst_multiply_timeout sec&#39; &#39=
+;sec&#39; 4<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0call_it &#39;tst_multiply_timeout sec&#39; &#39=
+;sec&#39; 8<br>
++}<br>
++<br>
++tst_run<br>
+-- <br>
+2.16.4<br>
+<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
+Wang<br></div></div></div></div>
+
+--000000000000533e2a0595684f62--
+
+
+--===============1579088004==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -235,4 +272,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============1548208118==--
+--===============1579088004==--
+
