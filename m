@@ -1,41 +1,50 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE508DFD91
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Oct 2019 08:13:39 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id D27FADFDBC
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Oct 2019 08:37:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5920E3C234D
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Oct 2019 08:13:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 56C7C3C2304
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Oct 2019 08:37:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 4CD583C22D5
- for <ltp@lists.linux.it>; Tue, 22 Oct 2019 08:13:34 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 468531A01068
- for <ltp@lists.linux.it>; Tue, 22 Oct 2019 08:13:32 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id C7BDEB3B5;
- Tue, 22 Oct 2019 06:13:31 +0000 (UTC)
-Date: Tue, 22 Oct 2019 08:13:29 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <20191022061328.GA9267@dell5510>
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id A40863C1865
+ for <ltp@lists.linux.it>; Tue, 22 Oct 2019 08:37:41 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id EBBDF600A0D
+ for <ltp@lists.linux.it>; Tue, 22 Oct 2019 08:37:38 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.67,326,1566835200"; d="scan'208,217";a="77307973"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 22 Oct 2019 14:37:33 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id 9DB3C4B6EC87;
+ Tue, 22 Oct 2019 14:29:40 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ id 14.3.439.0; Tue, 22 Oct 2019 14:37:38 +0800
+To: Petr Vorel <pvorel@suse.cz>
 References: <20190930093627.30159-1-pvorel@suse.cz>
  <f9121245-60e5-5dfe-4b17-47b38c0f5ff4@cn.fujitsu.com>
+ <20191022061328.GA9267@dell5510>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <92e994a3-321f-1ef0-8b81-4262f317a461@cn.fujitsu.com>
+Date: Tue, 22 Oct 2019 14:37:30 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <f9121245-60e5-5dfe-4b17-47b38c0f5ff4@cn.fujitsu.com>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+In-Reply-To: <20191022061328.GA9267@dell5510>
+X-Originating-IP: [10.167.220.84]
+X-yoursite-MailScanner-ID: 9DB3C4B6EC87.A14F1
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=HTML_MESSAGE, KHOP_HELO_FCRDNS,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v2] syscalls/copy_file_range02: skip if cross-fs
  isn't supported
 X-BeenThere: ltp@lists.linux.it
@@ -49,148 +58,562 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: linux-fsdevel@vger.kernel.org, ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1282444331=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgWHUsIG90aGVycywKClsgQ2MgQW1pciBhbmQgbGludXgtZnNkZXZlbCBdLgoKPiBvbiAyMDE5
-LzA5LzMwIDE3OjM2LCBQZXRyIFZvcmVsIHdyb3RlOgoKPiA+IGNvcHlfZmlsZV9yYW5nZTAyIHdh
-cyB3cml0dGVuIHRvIHZlcmlmeSBjb3B5X2ZpbGVfcmFuZ2UoKSB2NS4zIGNoYW5nZXMuCj4gPiBE
-ZXRlY3QgaXQgdmlhIGNyb3NzLWZpbGVzeXN0ZW0gY29weV9maWxlX3JhbmdlKCkgZnVuY3Rpb25h
-bGl0eSwgc28gdGhhdCB3ZQo+ID4gY292ZXIgYWxzbyBiYWNrcG9ydHMgdG8gc3RhYmxlL2VudGVy
-cHJpc2UgZGlzdHJvIGtlcm5lbHMgKGlmIGJhY2twb3J0ZWQsCj4gPiBpdCBzaG91bGQgYmUgd2l0
-aCBhbGwgdGhvc2UgQVBJIGZpeGVzKS4KCj4gPiBNaXNzaW5nIHRoZXNlIEFQSSBmaXhlcyBpcyBk
-ZXRlY3RlZCBieSBlcnJubyBjaGFuZ2VzIGludHJvZHVjZWQgYnkKPiA+IFRoaXMgZml4ZXMgZXJy
-b3JzIGNhdXNlZCBieSBjb21taXRzIGZyb20gdjUuMy1yYzE6Cj4gPiA1ZGFlMjIyYTVmZjAgKCJ2
-ZnM6IGFsbG93IGNvcHlfZmlsZV9yYW5nZSB0byBjb3B5IGFjcm9zcyBkZXZpY2VzIikKPiA+IDk2
-ZTZlOGY0YTY4ZCAoInZmczogYWRkIG1pc3NpbmcgY2hlY2tzIHRvIGNvcHlfZmlsZV9yYW5nZSIp
-Cgo+ID4gVGhpcyBjaGVjayByZXF1aXJlcyB0byBwdXQgYmFjayBpbnRvIGNvcHlfZmlsZV9yYW5n
-ZTAyIC5tb3VudF9kZXZpY2UgPSAxCj4gPiBhbmQgLm1udHBvaW50ID0gTU5UUE9JTlQgKGJ1dCAu
-YWxsX2ZpbGVzeXN0ZW1zID0gMSBpcyBvYnZpb3VzbHkgbm90IG5lZWRlZCkuCgo+IEhpIFBldHIK
-PiAgICBXaHkgd2UgbXVzdCBwdXQgYmFjayAubW91bnRfZGV2aWNlIGFuZCAubW50cG9pbnQgPSBN
-TlRQT0lOVD8KCj4gY29weV9maWxlX3JhbmdlMDIgd2FzIG5vdCBvbmx5IHdyaXR0ZW4gdG8gdmVy
-aWZ5IGNvcHlfZmlsZV9yYW5nZSgpIHY1LjMgY2hhbmdlcwo+IGFuZCBpdCBhbHNvIHRlc3RzIG90
-aGVyIGVycm9ycyBiZWZvcmUgdjUuMy4KVGhpcyBmaXggd2FzIGJhc2VkIG9uIEFtaXIncyBzdWdn
-ZXN0aW9uIFsxXSwgaGUgc3RhdGVzIHRoZSBvcHBvc2l0ZToKCklJVUMsIGNvcHlfZmlsZV9yYW5n
-ZTAyIHdhcyB3cml0dGVuIGFmdGVyIHY1LjMgY2hhbmdlcyB0byB2ZXJpZnkgdGhhdApjb3B5X2Zp
-bGVfcmFuZ2UKc3RheXMgdW5icm9rZW4uCkFzIHN1Y2gsIEkgd291bGQgc3VnZ2VzdCB0aGF0IHlv
-dSBjaGVjayBpZiBrZXJuZWwgc3VwcG9ydHMgY3Jvc3MtZnMgY29weSwgbGlrZQpjb3B5X2ZpbGVf
-cmFuZ2UwMSBkb2VzIGFuZCBpZiBpdCBkb2Vzbid0LCBza2lwIHRoZSB0ZXN0IGVudGlyZWx5LgpJ
-ZiBzb21lIG9uZSBldmVyIGJhY2twb3J0cyBjcm9zcy1mcyBjb3B5IHRvIGFueSBkaXN0cm8gc3Rh
-YmxlIGtlcm5lbCwgdGhlbiBvbmUKd291bGQgYmV0dGVyIGFsc28gYmFja2twb3J0IGFsbCBvZiB0
-aG9zZSBBUEkgZml4ZXMsIG90aGVyd2lzZSB0ZXN0IHdpbGwgZmFpbC4KCgo+IEkgdGhpbmsgY3Jv
-c3MtZmlsZXN5c3RlbSBjb3B5X2ZpbGVfcmFuZ2UgaXMgYSBrZXJuZWwgYWN0aW9uIGNoYW5nZSBh
-bmQgdGhlbiBJCj4gcHV0IGl0IGludG8gY29weV9maWxlX3JhbmdlMDEuYy4gU28gY29weV9maWxl
-X3JhbmdlMDIuYyBkb2Vzbid0IHRlc3QgRVhERVYgZXJyb3IgLgoKPiBBbHNvIHNpbmNlIGNvbW1p
-dCB2NS4zLXJjMSB0d28gY29tbWl0LCBpbW11dGFibGUgZmlsZShFUEVSTSnvvIxzd2FwIGZpbGUo
-RVRYVEJTWSnvvIwKPiBvdmVybGFwaW5nIHJhbmdlKEVJTlZBTCksIG1heCBsZW5ndGggbGVuZ2h0
-KEVPVkVSRkxPVyksbWF4IGZpbGUgc2l6ZShFRkJJRykgdGhlc2UKPiBjaGVjayBoYXZlIGJlZW4g
-YWRkLiBCdXQgb3RoZXIgZXJyb3JzIHN0aWxsIGV4aXN0ZWQgYmVmb3JlIHRoaXMgdHdvIGNvbW1p
-dHMgc3VjaCBhczoKPiBjb3B5IGNvbnRlbnRzIHRvIGZpbGUgb3BlbiBhcyByZWFkb25seSAqICAg
-IC0+IEVCQURGCgo+IE5vdywgYmVmb3JlIHY1LjMtcmMxLCBjb3B5X2ZpbGVfcmFuZ2UwMi5jICBp
-cyBub3RydW4gdGhhdCB3ZSBkb24ndCBkbyBlcnJvciBjaGVjay4KPiBJdCBpcyB1bnJlYXNvbmFi
-bGUuClNvLCBkbyB5b3Ugc3VnZ2VzdCB0byB0ZXN0IEVCQURGIGZvciBhbGwgdmVyc2lvbnM/IE9y
-IHNvbWV0aGluZyBlbHNlPwoKPiBwczoKPiBjb3B5X2ZpbGVfcmFuZ2UgbmV3ZXN0IG1hbi1wYWdl
-cwo+IGh0dHBzOi8vZ2l0aHViLmNvbS9ta2Vycmlzay9tYW4tcGFnZXMvY29tbWl0Lzg4ZTc1ZTJj
-NTZhNjhlYWY4ZmNmNjYyYTYzYjgwMmZkZjc3YTQwMTcKWWVwLCBBbWlyIHBsYW5uZWQgdG8gZml4
-IGl0IDopLgoKPiBUaGFua3MKPiBZYW5nIFh1CgpbMV0gaHR0cDovL2xpc3RzLmxpbnV4Lml0L3Bp
-cGVybWFpbC9sdHAvMjAxOS1TZXB0ZW1iZXIvMDEzNjk3Lmh0bWwKCj4gPiArIFJlbW92ZSBmZXcg
-dW51c2VkIGltcG9ydHMuCgo+ID4gU3VnZ2VzdGVkLWJ5OiBBbWlyIEdvbGRzdGVpbiA8YW1pcjcz
-aWxAZ21haWwuY29tPgo+ID4gU2lnbmVkLW9mZi1ieTogUGV0ciBWb3JlbCA8cHZvcmVsQHN1c2Uu
-Y3o+Cj4gPiAtLS0KPiA+IENoYW5nZXMgdjEtPnYyOgo+ID4gcGFzcyB0aGUgc291cmNlIGFuZCBk
-ZXN0aW5hdGlvbiBhcyBwYXJhbWV0ZXJzIHRvCj4gPiB2ZXJpZnlfY3Jvc3NfZnNfY29weV9zdXBw
-b3J0KCksIHJlbW92ZSBib2d1cyBzZXR1cCBjaGVja3MKPiA+IChTdWdnZXN0ZWQgYnkgQ3lyaWwp
-LgoKPiA+IEtpbmQgcmVnYXJkcywKPiA+IFBldHIKCj4gPiAgIC4uLi9jb3B5X2ZpbGVfcmFuZ2Uv
-Y29weV9maWxlX3JhbmdlLmggICAgICAgICB8IDIzICsrKysrKysrKysrKysrKystLS0KPiA+ICAg
-Li4uL2NvcHlfZmlsZV9yYW5nZS9jb3B5X2ZpbGVfcmFuZ2UwMS5jICAgICAgIHwgMjIgKystLS0t
-LS0tLS0tLS0tLS0tCj4gPiAgIC4uLi9jb3B5X2ZpbGVfcmFuZ2UvY29weV9maWxlX3JhbmdlMDIu
-YyAgICAgICB8IDExICsrKysrKysrLQo+ID4gICAzIGZpbGVzIGNoYW5nZWQsIDMyIGluc2VydGlv
-bnMoKyksIDI0IGRlbGV0aW9ucygtKQoKPiA+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVs
-L3N5c2NhbGxzL2NvcHlfZmlsZV9yYW5nZS9jb3B5X2ZpbGVfcmFuZ2UuaCBiL3Rlc3RjYXNlcy9r
-ZXJuZWwvc3lzY2FsbHMvY29weV9maWxlX3JhbmdlL2NvcHlfZmlsZV9yYW5nZS5oCj4gPiBpbmRl
-eCA0MGQwNWQ2NTMuLjFkODBhYjBmNyAxMDA2NDQKPiA+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwv
-c3lzY2FsbHMvY29weV9maWxlX3JhbmdlL2NvcHlfZmlsZV9yYW5nZS5oCj4gPiArKysgYi90ZXN0
-Y2FzZXMva2VybmVsL3N5c2NhbGxzL2NvcHlfZmlsZV9yYW5nZS9jb3B5X2ZpbGVfcmFuZ2UuaAo+
-ID4gQEAgLTcsOSArNyw3IEBACj4gPiAgICNpZm5kZWYgX19DT1BZX0ZJTEVfUkFOR0VfSF9fCj4g
-PiAgICNkZWZpbmUgX19DT1BZX0ZJTEVfUkFOR0VfSF9fCj4gPiAtI2luY2x1ZGUgPHN0ZGJvb2wu
-aD4KPiA+IC0jaW5jbHVkZSA8dW5pc3RkLmg+Cj4gPiAtI2luY2x1ZGUgPHN5cy9zeXNtYWNyb3Mu
-aD4KPiA+ICsjaW5jbHVkZSA8c3RkaW8uaD4KPiA+ICAgI2luY2x1ZGUgImxhcGkvc3lzY2FsbHMu
-aCIKPiA+ICAgI2luY2x1ZGUgImxhcGkvZnMuaCIKPiA+IEBAIC02Miw0ICs2MCwyMyBAQCBzdGF0
-aWMgaW50IHN5c19jb3B5X2ZpbGVfcmFuZ2UoaW50IGZkX2luLCBsb2ZmX3QgKm9mZl9pbiwKPiA+
-ICAgCXJldHVybiAtMTsKPiA+ICAgfQo+ID4gK3N0YXRpYyBpbmxpbmUgaW50IHZlcmlmeV9jcm9z
-c19mc19jb3B5X3N1cHBvcnQoY29uc3QgY2hhciAqcGF0aF9pbiwgY29uc3QgY2hhciAqcGF0aF9v
-dXQpCj4gPiArewo+ID4gKwlpbnQgaSwgZmQsIGZkX3Rlc3Q7Cj4gPiArCj4gPiArCWZkID0gU0FG
-RV9PUEVOKHBhdGhfaW4sIE9fUkRXUiB8IE9fQ1JFQVQsIDA2NjQpOwo+ID4gKwkvKiBXcml0aW5n
-IHBhZ2Vfc2l6ZSAqIDQgb2YgZGF0YSBpbnRvIHRlc3QgZmlsZSAqLwo+ID4gKwlmb3IgKGkgPSAw
-OyBpIDwgKGludCkoZ2V0cGFnZXNpemUoKSAqIDQpOyBpKyspCj4gPiArCQlTQUZFX1dSSVRFKDEs
-IGZkLCBDT05URU5ULCBDT05UU0laRSk7Cj4gPiArCj4gPiArCWZkX3Rlc3QgPSBTQUZFX09QRU4o
-cGF0aF9vdXQsIE9fUkRXUiB8IE9fQ1JFQVQsIDA2NjQpOwo+ID4gKwlURVNUKHN5c19jb3B5X2Zp
-bGVfcmFuZ2UoZmQsIDAsIGZkX3Rlc3QsIDAsIENPTlRTSVpFLCAwKSk7Cj4gPiArCj4gPiArCVNB
-RkVfQ0xPU0UoZmRfdGVzdCk7Cj4gPiArCXJlbW92ZShGSUxFX01OVEVEX1BBVEgpOwo+ID4gKwlT
-QUZFX0NMT1NFKGZkKTsKPiA+ICsKPiA+ICsJcmV0dXJuIFRTVF9FUlIgPT0gRVhERVYgPyAwIDog
-MTsKPiA+ICt9Cj4gPiArCj4gPiAgICNlbmRpZiAvKiBfX0NPUFlfRklMRV9SQU5HRV9IX18gKi8K
-PiA+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2NvcHlfZmlsZV9yYW5n
-ZS9jb3B5X2ZpbGVfcmFuZ2UwMS5jIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9jb3B5X2Zp
-bGVfcmFuZ2UvY29weV9maWxlX3JhbmdlMDEuYwo+ID4gaW5kZXggZWM1NWU1ZGExLi42MDk3Yzg1
-YjMgMTAwNjQ0Cj4gPiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2NvcHlfZmlsZV9y
-YW5nZS9jb3B5X2ZpbGVfcmFuZ2UwMS5jCj4gPiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2Nh
-bGxzL2NvcHlfZmlsZV9yYW5nZS9jb3B5X2ZpbGVfcmFuZ2UwMS5jCj4gPiBAQCAtMTYsOCArMTYs
-NiBAQAo+ID4gICAjZGVmaW5lIF9HTlVfU09VUkNFCj4gPiAtI2luY2x1ZGUgPHN0ZGlvLmg+Cj4g
-PiAtI2luY2x1ZGUgPHN0ZGxpYi5oPgo+ID4gICAjaW5jbHVkZSAidHN0X3Rlc3QuaCIKPiA+ICAg
-I2luY2x1ZGUgInRzdF9zYWZlX3N0ZGlvLmgiCj4gPiAgICNpbmNsdWRlICJjb3B5X2ZpbGVfcmFu
-Z2UuaCIKPiA+IEBAIC0xNzksNyArMTc3LDcgQEAgc3RhdGljIHZvaWQgY29weV9maWxlX3Jhbmdl
-X3ZlcmlmeSh1bnNpZ25lZCBpbnQgbikKPiA+ICAgCWlmICh0Yy0+ZmxhZ3MgJiYgIWNyb3NzX3N1
-cCkgewo+ID4gICAJCXRzdF9yZXMoVENPTkYsCj4gPiAtCQkJImNvcHlfZmlsZV9yYW5nZSBkb2Vz
-bid0IHN1cHBvcnQgY3Jvc3MtZGV2aWNlLCBza2lwIGl0Iik7Cj4gPiArCQkJImNvcHlfZmlsZV9y
-YW5nZSgpIGRvZXNuJ3Qgc3VwcG9ydCBjcm9zcy1kZXZpY2UsIHNraXAgaXQiKTsKPiA+ICAgCQly
-ZXR1cm47Cj4gPiAgIAl9Cj4gPiBAQCAtMjE1LDI1ICsyMTMsOSBAQCBzdGF0aWMgdm9pZCBjb3B5
-X2ZpbGVfcmFuZ2VfdmVyaWZ5KHVuc2lnbmVkIGludCBuKQo+ID4gICBzdGF0aWMgdm9pZCBzZXR1
-cCh2b2lkKQo+ID4gICB7Cj4gPiAtCWludCBpLCBmZCwgZmRfdGVzdDsKPiA+IC0KPiA+ICAgCXN5
-c2NhbGxfaW5mbygpOwo+ID4gLQo+ID4gICAJcGFnZV9zaXplID0gZ2V0cGFnZXNpemUoKTsKPiA+
-IC0JY3Jvc3Nfc3VwID0gMTsKPiA+IC0JZmQgPSBTQUZFX09QRU4oRklMRV9TUkNfUEFUSCwgT19S
-RFdSIHwgT19DUkVBVCwgMDY2NCk7Cj4gPiAtCS8qIFdyaXRpbmcgcGFnZV9zaXplICogNCBvZiBk
-YXRhIGludG8gdGVzdCBmaWxlICovCj4gPiAtCWZvciAoaSA9IDA7IGkgPCAoaW50KShwYWdlX3Np
-emUgKiA0KTsgaSsrKQo+ID4gLQkJU0FGRV9XUklURSgxLCBmZCwgQ09OVEVOVCwgQ09OVFNJWkUp
-Owo+ID4gLQo+ID4gLQlmZF90ZXN0ID0gU0FGRV9PUEVOKEZJTEVfTU5URURfUEFUSCwgT19SRFdS
-IHwgT19DUkVBVCwgMDY2NCk7Cj4gPiAtCVRFU1Qoc3lzX2NvcHlfZmlsZV9yYW5nZShmZCwgMCwg
-ZmRfdGVzdCwgMCwgQ09OVFNJWkUsIDApKTsKPiA+IC0JaWYgKFRTVF9FUlIgPT0gRVhERVYpCj4g
-PiAtCQljcm9zc19zdXAgPSAwOwo+ID4gLQo+ID4gLQlTQUZFX0NMT1NFKGZkX3Rlc3QpOwo+ID4g
-LQlyZW1vdmUoRklMRV9NTlRFRF9QQVRIKTsKPiA+IC0JU0FGRV9DTE9TRShmZCk7Cj4gPiArCWNy
-b3NzX3N1cCA9IHZlcmlmeV9jcm9zc19mc19jb3B5X3N1cHBvcnQoRklMRV9TUkNfUEFUSCwgRklM
-RV9NTlRFRF9QQVRIKTsKPiA+ICAgfQo+ID4gICBzdGF0aWMgdm9pZCBjbGVhbnVwKHZvaWQpCj4g
-PiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9jb3B5X2ZpbGVfcmFuZ2Uv
-Y29weV9maWxlX3JhbmdlMDIuYyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvY29weV9maWxl
-X3JhbmdlL2NvcHlfZmlsZV9yYW5nZTAyLmMKPiA+IGluZGV4IGQ2ZTg0M2VlNC4uNmUzODVhZGJk
-IDEwMDY0NAo+ID4gLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9jb3B5X2ZpbGVfcmFu
-Z2UvY29weV9maWxlX3JhbmdlMDIuYwo+ID4gKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxs
-cy9jb3B5X2ZpbGVfcmFuZ2UvY29weV9maWxlX3JhbmdlMDIuYwo+ID4gQEAgLTQ5LDYgKzQ5LDcg
-QEAgc3RhdGljIGludCBmZF9ibGtkZXY7Cj4gPiAgIHN0YXRpYyBpbnQgZmRfY2hyZGV2Owo+ID4g
-ICBzdGF0aWMgaW50IGZkX2ZpZm87Cj4gPiAgIHN0YXRpYyBpbnQgZmRfY29weTsKPiA+ICtzdGF0
-aWMgaW50IG5lZWRfdW5saW5rOwo+ID4gICBzdGF0aWMgaW50IGNoYXR0cl9pX25zdXA7Cj4gPiAg
-IHN0YXRpYyBpbnQgc3dhcF9uc3VwOwo+ID4gQEAgLTE2MCw3ICsxNjEsOCBAQCBzdGF0aWMgdm9p
-ZCBjbGVhbnVwKHZvaWQpCj4gPiAgIAkJU0FGRV9DTE9TRShmZF9kdXApOwo+ID4gICAJaWYgKGZk
-X2NvcHkgPiAwKQo+ID4gICAJCVNBRkVfQ0xPU0UoZmRfY29weSk7Cj4gPiAtCVNBRkVfVU5MSU5L
-KEZJTEVfRklGTyk7Cj4gPiArCWlmIChuZWVkX3VubGluayA+IDApCj4gPiArCQlTQUZFX1VOTElO
-SyhGSUxFX0ZJRk8pOwo+ID4gICB9Cj4gPiAgIHN0YXRpYyB2b2lkIHNldHVwKHZvaWQpCj4gPiBA
-QCAtMTY4LDYgKzE3MCwxMCBAQCBzdGF0aWMgdm9pZCBzZXR1cCh2b2lkKQo+ID4gICAJc3lzY2Fs
-bF9pbmZvKCk7Cj4gPiAgIAljaGFyIGRldl9wYXRoWzEwMjRdOwo+ID4gKwlpZiAoIXZlcmlmeV9j
-cm9zc19mc19jb3B5X3N1cHBvcnQoRklMRV9TUkNfUEFUSCwgRklMRV9NTlRFRF9QQVRIKSkKPiA+
-ICsJCXRzdF9icmsoVENPTkYsCj4gPiArCQkJImNvcHlfZmlsZV9yYW5nZSgpIGRvZXNuJ3Qgc3Vw
-cG9ydCBjcm9zcy1kZXZpY2UsIHNraXAgaXQiKTsKPiA+ICsKPiA+ICAgCWlmIChhY2Nlc3MoRklM
-RV9ESVJfUEFUSCwgRl9PSykgPT0gLTEpCj4gPiAgIAkJU0FGRV9NS0RJUihGSUxFX0RJUl9QQVRI
-LCAwNzc3KTsKPiA+ICAgCS8qCj4gPiBAQCAtMTc3LDYgKzE4Myw3IEBAIHN0YXRpYyB2b2lkIHNl
-dHVwKHZvaWQpCj4gPiAgIAlsb29wX2Rldm4gPSB0c3RfZmluZF9mcmVlX2xvb3BkZXYoZGV2X3Bh
-dGgsIHNpemVvZihkZXZfcGF0aCkpOwo+ID4gICAJU0FGRV9NS05PRChGSUxFX0ZJRk8sIFNfSUZJ
-Rk8gfCAwNzc3LCAwKTsKPiA+ICsJbmVlZF91bmxpbmsgPSAxOwo+ID4gICAJZmRfc3JjICAgID0g
-U0FGRV9PUEVOKEZJTEVfU1JDX1BBVEgsIE9fUkRXUiB8IE9fQ1JFQVQsIDA2NjQpOwo+ID4gICAJ
-ZmRfZGVzdCAgID0gU0FGRV9PUEVOKEZJTEVfREVTVF9QQVRILCBPX1JEV1IgfCBPX0NSRUFULCAw
-NjY0KTsKPiA+IEBAIC0yMjMsNiArMjMwLDggQEAgc3RhdGljIHN0cnVjdCB0c3RfdGVzdCB0ZXN0
-ID0gewo+ID4gICAJLnRjbnQgPSBBUlJBWV9TSVpFKHRjYXNlcyksCj4gPiAgIAkuc2V0dXAgPSBz
-ZXR1cCwKPiA+ICAgCS5jbGVhbnVwID0gY2xlYW51cCwKPiA+ICsJLm1vdW50X2RldmljZSA9IDEs
-Cj4gPiArCS5tbnRwb2ludCA9IE1OVFBPSU5ULAo+ID4gICAJLm5lZWRzX3Jvb3QgPSAxLAo+ID4g
-ICAJLm5lZWRzX3RtcGRpciA9IDEsCj4gPiAgIAkudGVzdF92YXJpYW50cyA9IFRFU1RfVkFSSUFO
-VFMsCgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0
-aW5mby9sdHAK
+--===============1282444331==
+Content-Type: multipart/alternative;
+	boundary="------------B87A09CB16F69472D583E9DF"
+
+--------------B87A09CB16F69472D583E9DF
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+on 2019/10/22 14:14, Petr Vorel wrote:
+
+> Hi Xu, others,
+>
+> [ Cc Amir and linux-fsdevel ].
+>
+>> on 2019/09/30 17:36, Petr Vorel wrote:
+>>> copy_file_range02 was written to verify copy_file_range() v5.3 changes.
+>>> Detect it via cross-filesystem copy_file_range() functionality, so that we
+>>> cover also backports to stable/enterprise distro kernels (if backported,
+>>> it should be with all those API fixes).
+>>> Missing these API fixes is detected by errno changes introduced by
+>>> This fixes errors caused by commits from v5.3-rc1:
+>>> 5dae222a5ff0 ("vfs: allow copy_file_range to copy across devices")
+>>> 96e6e8f4a68d ("vfs: add missing checks to copy_file_range")
+>>> This check requires to put back into copy_file_range02 .mount_device = 1
+>>> and .mntpoint = MNTPOINT (but .all_filesystems = 1 is obviously not needed).
+>> Hi Petr
+>>     Why we must put back .mount_device and .mntpoint = MNTPOINT?
+>> copy_file_range02 was not only written to verify copy_file_range() v5.3 changes
+>> and it also tests other errors before v5.3.
+> This fix was based on Amir's suggestion [1], he states the opposite:
+>
+> IIUC, copy_file_range02 was written after v5.3 changes to verify that
+> copy_file_range
+> stays unbroken.
+> As such, I would suggest that you check if kernel supports cross-fs copy, like
+> copy_file_range01 does and if it doesn't, skip the test entirely.
+> If some one ever backports cross-fs copy to any distro stable kernel, then one
+> would better also backkport all of those API fixes, otherwise test will fail.
+
+Hi Petr
+
+In copy_file_range01, I split it into two tests(not cross-filesytem test and cross-filesystem test)
+         {FILE_DEST_PATH,  0, "non cross-device"},
+         {FILE_MNTED_PATH, 1, "cross-device"},
+
+if kernel doesn't support cross-fs copy, the second test skips and the first still can run.
+
+So for copy_file_range02, it should be same but not for entire test.
+
+>
+>
+>> I think cross-filesystem copy_file_range is a kernel action change and then I
+>> put it into copy_file_range01.c. So copy_file_range02.c doesn't test EXDEV error .
+>> Also since commit v5.3-rc1 two commit, immutable file(EPERM)，swap file(ETXTBSY)，
+>> overlaping range(EINVAL), max length lenght(EOVERFLOW),max file size(EFBIG) these
+>> check have been add. But other errors still existed before this two commits such as:
+>> copy contents to file open as readonly *    -> EBADF
+>> Now, before v5.3-rc1, copy_file_range02.c  is notrun that we don't do error check.
+>> It is unreasonable.
+> So, do you suggest to test EBADF for all versions? Or something else?
+
+Yes.  I think we can use cross_sup flag to decide whether test immutable file(EPERM)，swap file(ETXTBSY)，
+overlaping range(EINVAL), max length lenght(EOVERFLOW),max file size(EFBIG). If  cross_sup
+is equal to 1, test them. If not, don't test them as your patch do but not for all errors.
+
+But for other errors, I think we can still test them for all versions such as pipe, char,and block dev.
+
+>
+>> ps:
+>> copy_file_range newest man-pages
+>> https://github.com/mkerrisk/man-pages/commit/88e75e2c56a68eaf8fcf662a63b802fdf77a4017
+> Yep, Amir planned to fix it :).
+>
+>> Thanks
+>> Yang Xu
+> [1] http://lists.linux.it/pipermail/ltp/2019-September/013697.html
+>
+>>> + Remove few unused imports.
+>>> Suggested-by: Amir Goldstein <amir73il@gmail.com>
+>>> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+>>> ---
+>>> Changes v1->v2:
+>>> pass the source and destination as parameters to
+>>> verify_cross_fs_copy_support(), remove bogus setup checks
+>>> (Suggested by Cyril).
+>>> Kind regards,
+>>> Petr
+>>>    .../copy_file_range/copy_file_range.h         | 23 ++++++++++++++++---
+>>>    .../copy_file_range/copy_file_range01.c       | 22 ++----------------
+>>>    .../copy_file_range/copy_file_range02.c       | 11 ++++++++-
+>>>    3 files changed, 32 insertions(+), 24 deletions(-)
+>>> diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range.h b/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
+>>> index 40d05d653..1d80ab0f7 100644
+>>> --- a/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
+>>> +++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
+>>> @@ -7,9 +7,7 @@
+>>>    #ifndef __COPY_FILE_RANGE_H__
+>>>    #define __COPY_FILE_RANGE_H__
+>>> -#include <stdbool.h>
+>>> -#include <unistd.h>
+>>> -#include <sys/sysmacros.h>
+>>> +#include <stdio.h>
+>>>    #include "lapi/syscalls.h"
+>>>    #include "lapi/fs.h"
+>>> @@ -62,4 +60,23 @@ static int sys_copy_file_range(int fd_in, loff_t *off_in,
+>>>    	return -1;
+>>>    }
+>>> +static inline int verify_cross_fs_copy_support(const char *path_in, const char *path_out)
+>>> +{
+>>> +	int i, fd, fd_test;
+>>> +
+>>> +	fd = SAFE_OPEN(path_in, O_RDWR | O_CREAT, 0664);
+>>> +	/* Writing page_size * 4 of data into test file */
+>>> +	for (i = 0; i < (int)(getpagesize() * 4); i++)
+>>> +		SAFE_WRITE(1, fd, CONTENT, CONTSIZE);
+>>> +
+>>> +	fd_test = SAFE_OPEN(path_out, O_RDWR | O_CREAT, 0664);
+>>> +	TEST(sys_copy_file_range(fd, 0, fd_test, 0, CONTSIZE, 0));
+>>> +
+>>> +	SAFE_CLOSE(fd_test);
+>>> +	remove(FILE_MNTED_PATH);
+>>> +	SAFE_CLOSE(fd);
+>>> +
+>>> +	return TST_ERR == EXDEV ? 0 : 1;
+>>> +}
+>>> +
+>>>    #endif /* __COPY_FILE_RANGE_H__ */
+>>> diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range01.c b/testcases/kernel/syscalls/copy_file_range/copy_file_range01.c
+>>> index ec55e5da1..6097c85b3 100644
+>>> --- a/testcases/kernel/syscalls/copy_file_range/copy_file_range01.c
+>>> +++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range01.c
+>>> @@ -16,8 +16,6 @@
+>>>    #define _GNU_SOURCE
+>>> -#include <stdio.h>
+>>> -#include <stdlib.h>
+>>>    #include "tst_test.h"
+>>>    #include "tst_safe_stdio.h"
+>>>    #include "copy_file_range.h"
+>>> @@ -179,7 +177,7 @@ static void copy_file_range_verify(unsigned int n)
+>>>    	if (tc->flags && !cross_sup) {
+>>>    		tst_res(TCONF,
+>>> -			"copy_file_range doesn't support cross-device, skip it");
+>>> +			"copy_file_range() doesn't support cross-device, skip it");
+>>>    		return;
+>>>    	}
+>>> @@ -215,25 +213,9 @@ static void copy_file_range_verify(unsigned int n)
+>>>    static void setup(void)
+>>>    {
+>>> -	int i, fd, fd_test;
+>>> -
+>>>    	syscall_info();
+>>> -
+>>>    	page_size = getpagesize();
+>>> -	cross_sup = 1;
+>>> -	fd = SAFE_OPEN(FILE_SRC_PATH, O_RDWR | O_CREAT, 0664);
+>>> -	/* Writing page_size * 4 of data into test file */
+>>> -	for (i = 0; i < (int)(page_size * 4); i++)
+>>> -		SAFE_WRITE(1, fd, CONTENT, CONTSIZE);
+>>> -
+>>> -	fd_test = SAFE_OPEN(FILE_MNTED_PATH, O_RDWR | O_CREAT, 0664);
+>>> -	TEST(sys_copy_file_range(fd, 0, fd_test, 0, CONTSIZE, 0));
+>>> -	if (TST_ERR == EXDEV)
+>>> -		cross_sup = 0;
+>>> -
+>>> -	SAFE_CLOSE(fd_test);
+>>> -	remove(FILE_MNTED_PATH);
+>>> -	SAFE_CLOSE(fd);
+>>> +	cross_sup = verify_cross_fs_copy_support(FILE_SRC_PATH, FILE_MNTED_PATH);
+>>>    }
+>>>    static void cleanup(void)
+>>> diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+>>> index d6e843ee4..6e385adbd 100644
+>>> --- a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+>>> +++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+>>> @@ -49,6 +49,7 @@ static int fd_blkdev;
+>>>    static int fd_chrdev;
+>>>    static int fd_fifo;
+>>>    static int fd_copy;
+>>> +static int need_unlink;
+>>>    static int chattr_i_nsup;
+>>>    static int swap_nsup;
+>>> @@ -160,7 +161,8 @@ static void cleanup(void)
+>>>    		SAFE_CLOSE(fd_dup);
+>>>    	if (fd_copy > 0)
+>>>    		SAFE_CLOSE(fd_copy);
+>>> -	SAFE_UNLINK(FILE_FIFO);
+>>> +	if (need_unlink > 0)
+>>> +		SAFE_UNLINK(FILE_FIFO);
+>>>    }
+>>>    static void setup(void)
+>>> @@ -168,6 +170,10 @@ static void setup(void)
+>>>    	syscall_info();
+>>>    	char dev_path[1024];
+>>> +	if (!verify_cross_fs_copy_support(FILE_SRC_PATH, FILE_MNTED_PATH))
+>>> +		tst_brk(TCONF,
+>>> +			"copy_file_range() doesn't support cross-device, skip it");
+>>> +
+>>>    	if (access(FILE_DIR_PATH, F_OK) == -1)
+>>>    		SAFE_MKDIR(FILE_DIR_PATH, 0777);
+>>>    	/*
+>>> @@ -177,6 +183,7 @@ static void setup(void)
+>>>    	loop_devn = tst_find_free_loopdev(dev_path, sizeof(dev_path));
+>>>    	SAFE_MKNOD(FILE_FIFO, S_IFIFO | 0777, 0);
+>>> +	need_unlink = 1;
+>>>    	fd_src    = SAFE_OPEN(FILE_SRC_PATH, O_RDWR | O_CREAT, 0664);
+>>>    	fd_dest   = SAFE_OPEN(FILE_DEST_PATH, O_RDWR | O_CREAT, 0664);
+>>> @@ -223,6 +230,8 @@ static struct tst_test test = {
+>>>    	.tcnt = ARRAY_SIZE(tcases),
+>>>    	.setup = setup,
+>>>    	.cleanup = cleanup,
+>>> +	.mount_device = 1,
+>>> +	.mntpoint = MNTPOINT,
+>>>    	.needs_root = 1,
+>>>    	.needs_tmpdir = 1,
+>>>    	.test_variants = TEST_VARIANTS,
+>
+>
+>
+
+
+
+--------------B87A09CB16F69472D583E9DF
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">
+      <pre>on 2019/10/22 14:14, Petr Vorel wrote:</pre>
+    </div>
+    <blockquote type="cite" cite="mid:20191022061328.GA9267@dell5510">
+      <pre class="moz-quote-pre" wrap="">Hi Xu, others,
+
+[ Cc Amir and linux-fsdevel ].
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">on 2019/09/30 17:36, Petr Vorel wrote:
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">copy_file_range02 was written to verify copy_file_range() v5.3 changes.
+Detect it via cross-filesystem copy_file_range() functionality, so that we
+cover also backports to stable/enterprise distro kernels (if backported,
+it should be with all those API fixes).
+</pre>
+        </blockquote>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">Missing these API fixes is detected by errno changes introduced by
+This fixes errors caused by commits from v5.3-rc1:
+5dae222a5ff0 ("vfs: allow copy_file_range to copy across devices")
+96e6e8f4a68d ("vfs: add missing checks to copy_file_range")
+</pre>
+        </blockquote>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">This check requires to put back into copy_file_range02 .mount_device = 1
+and .mntpoint = MNTPOINT (but .all_filesystems = 1 is obviously not needed).
+</pre>
+        </blockquote>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">Hi Petr
+   Why we must put back .mount_device and .mntpoint = MNTPOINT?
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">copy_file_range02 was not only written to verify copy_file_range() v5.3 changes
+and it also tests other errors before v5.3.
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">This fix was based on Amir's suggestion [1], he states the opposite:
+
+IIUC, copy_file_range02 was written after v5.3 changes to verify that
+copy_file_range
+stays unbroken.
+As such, I would suggest that you check if kernel supports cross-fs copy, like
+copy_file_range01 does and if it doesn't, skip the test entirely.
+If some one ever backports cross-fs copy to any distro stable kernel, then one
+would better also backkport all of those API fixes, otherwise test will fail.</pre>
+    </blockquote>
+    <pre>Hi Petr</pre>
+    <pre>In copy_file_range01, I split it into two tests(not cross-filesytem test and cross-filesystem test)
+        {FILE_DEST_PATH,  0, "non cross-device"},
+        {FILE_MNTED_PATH, 1, "cross-device"},</pre>
+    <pre>if kernel doesn't support cross-fs copy, the second test skips and the first still can run. </pre>
+    <pre>So for copy_file_range02, it should be same but not for entire test.</pre>
+    <blockquote type="cite" cite="mid:20191022061328.GA9267@dell5510">
+      <pre class="moz-quote-pre" wrap="">
+
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">I think cross-filesystem copy_file_range is a kernel action change and then I
+put it into copy_file_range01.c. So copy_file_range02.c doesn't test EXDEV error .
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">Also since commit v5.3-rc1 two commit, immutable file(EPERM)，swap file(ETXTBSY)，
+overlaping range(EINVAL), max length lenght(EOVERFLOW),max file size(EFBIG) these
+check have been add. But other errors still existed before this two commits such as:
+copy contents to file open as readonly *    -&gt; EBADF
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">Now, before v5.3-rc1, copy_file_range02.c  is notrun that we don't do error check.
+It is unreasonable.
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">So, do you suggest to test EBADF for all versions? Or something else?</pre>
+    </blockquote>
+    <pre>Yes.  I think we can use cross_sup flag to decide whether test immutable file(EPERM)，swap file(ETXTBSY)，
+overlaping range(EINVAL), max length lenght(EOVERFLOW),max file size(EFBIG). If  cross_sup
+is equal to 1, test them. If not, don't test them as your patch do but not for all errors.</pre>
+    <pre>But for other errors, I think we can still test them for all versions such as pipe, char,and block dev.</pre>
+    <blockquote type="cite" cite="mid:20191022061328.GA9267@dell5510">
+      <pre class="moz-quote-pre" wrap="">
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">ps:
+copy_file_range newest man-pages
+<a class="moz-txt-link-freetext" href="https://github.com/mkerrisk/man-pages/commit/88e75e2c56a68eaf8fcf662a63b802fdf77a4017">https://github.com/mkerrisk/man-pages/commit/88e75e2c56a68eaf8fcf662a63b802fdf77a4017</a>
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">Yep, Amir planned to fix it :).
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">Thanks
+Yang Xu
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+[1] <a class="moz-txt-link-freetext" href="http://lists.linux.it/pipermail/ltp/2019-September/013697.html">http://lists.linux.it/pipermail/ltp/2019-September/013697.html</a>
+
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">+ Remove few unused imports.
+</pre>
+        </blockquote>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">Suggested-by: Amir Goldstein <a class="moz-txt-link-rfc2396E" href="mailto:amir73il@gmail.com">&lt;amir73il@gmail.com&gt;</a>
+Signed-off-by: Petr Vorel <a class="moz-txt-link-rfc2396E" href="mailto:pvorel@suse.cz">&lt;pvorel@suse.cz&gt;</a>
+---
+Changes v1-&gt;v2:
+pass the source and destination as parameters to
+verify_cross_fs_copy_support(), remove bogus setup checks
+(Suggested by Cyril).
+</pre>
+        </blockquote>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">Kind regards,
+Petr
+</pre>
+        </blockquote>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">  .../copy_file_range/copy_file_range.h         | 23 ++++++++++++++++---
+  .../copy_file_range/copy_file_range01.c       | 22 ++----------------
+  .../copy_file_range/copy_file_range02.c       | 11 ++++++++-
+  3 files changed, 32 insertions(+), 24 deletions(-)
+</pre>
+        </blockquote>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range.h b/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
+index 40d05d653..1d80ab0f7 100644
+--- a/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
++++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range.h
+@@ -7,9 +7,7 @@
+  #ifndef __COPY_FILE_RANGE_H__
+  #define __COPY_FILE_RANGE_H__
+-#include &lt;stdbool.h&gt;
+-#include &lt;unistd.h&gt;
+-#include &lt;sys/sysmacros.h&gt;
++#include &lt;stdio.h&gt;
+  #include "lapi/syscalls.h"
+  #include "lapi/fs.h"
+@@ -62,4 +60,23 @@ static int sys_copy_file_range(int fd_in, loff_t *off_in,
+  	return -1;
+  }
++static inline int verify_cross_fs_copy_support(const char *path_in, const char *path_out)
++{
++	int i, fd, fd_test;
++
++	fd = SAFE_OPEN(path_in, O_RDWR | O_CREAT, 0664);
++	/* Writing page_size * 4 of data into test file */
++	for (i = 0; i &lt; (int)(getpagesize() * 4); i++)
++		SAFE_WRITE(1, fd, CONTENT, CONTSIZE);
++
++	fd_test = SAFE_OPEN(path_out, O_RDWR | O_CREAT, 0664);
++	TEST(sys_copy_file_range(fd, 0, fd_test, 0, CONTSIZE, 0));
++
++	SAFE_CLOSE(fd_test);
++	remove(FILE_MNTED_PATH);
++	SAFE_CLOSE(fd);
++
++	return TST_ERR == EXDEV ? 0 : 1;
++}
++
+  #endif /* __COPY_FILE_RANGE_H__ */
+diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range01.c b/testcases/kernel/syscalls/copy_file_range/copy_file_range01.c
+index ec55e5da1..6097c85b3 100644
+--- a/testcases/kernel/syscalls/copy_file_range/copy_file_range01.c
++++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range01.c
+@@ -16,8 +16,6 @@
+  #define _GNU_SOURCE
+-#include &lt;stdio.h&gt;
+-#include &lt;stdlib.h&gt;
+  #include "tst_test.h"
+  #include "tst_safe_stdio.h"
+  #include "copy_file_range.h"
+@@ -179,7 +177,7 @@ static void copy_file_range_verify(unsigned int n)
+  	if (tc-&gt;flags &amp;&amp; !cross_sup) {
+  		tst_res(TCONF,
+-			"copy_file_range doesn't support cross-device, skip it");
++			"copy_file_range() doesn't support cross-device, skip it");
+  		return;
+  	}
+@@ -215,25 +213,9 @@ static void copy_file_range_verify(unsigned int n)
+  static void setup(void)
+  {
+-	int i, fd, fd_test;
+-
+  	syscall_info();
+-
+  	page_size = getpagesize();
+-	cross_sup = 1;
+-	fd = SAFE_OPEN(FILE_SRC_PATH, O_RDWR | O_CREAT, 0664);
+-	/* Writing page_size * 4 of data into test file */
+-	for (i = 0; i &lt; (int)(page_size * 4); i++)
+-		SAFE_WRITE(1, fd, CONTENT, CONTSIZE);
+-
+-	fd_test = SAFE_OPEN(FILE_MNTED_PATH, O_RDWR | O_CREAT, 0664);
+-	TEST(sys_copy_file_range(fd, 0, fd_test, 0, CONTSIZE, 0));
+-	if (TST_ERR == EXDEV)
+-		cross_sup = 0;
+-
+-	SAFE_CLOSE(fd_test);
+-	remove(FILE_MNTED_PATH);
+-	SAFE_CLOSE(fd);
++	cross_sup = verify_cross_fs_copy_support(FILE_SRC_PATH, FILE_MNTED_PATH);
+  }
+  static void cleanup(void)
+diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+index d6e843ee4..6e385adbd 100644
+--- a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
++++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+@@ -49,6 +49,7 @@ static int fd_blkdev;
+  static int fd_chrdev;
+  static int fd_fifo;
+  static int fd_copy;
++static int need_unlink;
+  static int chattr_i_nsup;
+  static int swap_nsup;
+@@ -160,7 +161,8 @@ static void cleanup(void)
+  		SAFE_CLOSE(fd_dup);
+  	if (fd_copy &gt; 0)
+  		SAFE_CLOSE(fd_copy);
+-	SAFE_UNLINK(FILE_FIFO);
++	if (need_unlink &gt; 0)
++		SAFE_UNLINK(FILE_FIFO);
+  }
+  static void setup(void)
+@@ -168,6 +170,10 @@ static void setup(void)
+  	syscall_info();
+  	char dev_path[1024];
++	if (!verify_cross_fs_copy_support(FILE_SRC_PATH, FILE_MNTED_PATH))
++		tst_brk(TCONF,
++			"copy_file_range() doesn't support cross-device, skip it");
++
+  	if (access(FILE_DIR_PATH, F_OK) == -1)
+  		SAFE_MKDIR(FILE_DIR_PATH, 0777);
+  	/*
+@@ -177,6 +183,7 @@ static void setup(void)
+  	loop_devn = tst_find_free_loopdev(dev_path, sizeof(dev_path));
+  	SAFE_MKNOD(FILE_FIFO, S_IFIFO | 0777, 0);
++	need_unlink = 1;
+  	fd_src    = SAFE_OPEN(FILE_SRC_PATH, O_RDWR | O_CREAT, 0664);
+  	fd_dest   = SAFE_OPEN(FILE_DEST_PATH, O_RDWR | O_CREAT, 0664);
+@@ -223,6 +230,8 @@ static struct tst_test test = {
+  	.tcnt = ARRAY_SIZE(tcases),
+  	.setup = setup,
+  	.cleanup = cleanup,
++	.mount_device = 1,
++	.mntpoint = MNTPOINT,
+  	.needs_root = 1,
+  	.needs_tmpdir = 1,
+  	.test_variants = TEST_VARIANTS,
+</pre>
+        </blockquote>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+
+
+
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------B87A09CB16F69472D583E9DF--
+
+--===============1282444331==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1282444331==--
