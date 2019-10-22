@@ -2,69 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0541CDFE00
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Oct 2019 09:10:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF16EDFF0C
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Oct 2019 10:08:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 55A6C3C22C3
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Oct 2019 09:10:36 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E3AA33C22B8
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Oct 2019 10:08:38 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 84F313C0B88
- for <ltp@lists.linux.it>; Tue, 22 Oct 2019 09:10:30 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id D83681000A96
- for <ltp@lists.linux.it>; Tue, 22 Oct 2019 09:10:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1571728227;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=xLp8i2VwLYayB3PFeOogwZ2PznNMiR86dbhqLB4QDcI=;
- b=fcWkJDcL9dDRLUCU6x+kuQCP66AjT0eS0FlkBEmtFF31/KB9YnEn7PO84P8kFkOQuCuZjq
- eMWIBfaDh3SIF4DAQSmRkDEmmCFp47oM9inhY16U9SzJkjwOtpPw0w/u8Jw8MdOeTTBeuY
- BAN4AJMB5oAIVnsQc9HhfRQayg1/ZKs=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-302-1ImbHy_YNjmiFkxwc9rAgw-1; Tue, 22 Oct 2019 03:10:24 -0400
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 667473C1CA2
+ for <ltp@lists.linux.it>; Tue, 22 Oct 2019 10:08:34 +0200 (CEST)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A15FF1005509;
- Tue, 22 Oct 2019 07:10:23 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 9737A60A9F;
- Tue, 22 Oct 2019 07:10:23 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 894A218089DC;
- Tue, 22 Oct 2019 07:10:23 +0000 (UTC)
-Date: Tue, 22 Oct 2019 03:10:23 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <1931638600.8070217.1571728223473.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20191018134525.GA2589@dell5510>
-References: <c8843f2f4a325e820d030d9c7c36d7624f1baa82.1571393044.git.jstancek@redhat.com>
- <20191018134525.GA2589@dell5510>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8EB04600A1C
+ for <ltp@lists.linux.it>; Tue, 22 Oct 2019 10:08:33 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id E26AFB04C;
+ Tue, 22 Oct 2019 08:08:32 +0000 (UTC)
+Date: Tue, 22 Oct 2019 10:08:31 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Clemens Famulla-Conrad <cfamullaconrad@suse.de>
+Message-ID: <20191022080830.GA17235@dell5510>
+References: <20191018124502.25599-1-cfamullaconrad@suse.de>
+ <20191018124502.25599-5-cfamullaconrad@suse.de>
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.163, 10.4.195.8]
-Thread-Topic: lsmod01.sh: retry test couple times to lower false positives
-Thread-Index: gl8prJDWrYPBAt/rKHZt5gVnoJn42g==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-MC-Unique: 1ImbHy_YNjmiFkxwc9rAgw-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20191018124502.25599-5-cfamullaconrad@suse.de>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] lsmod01.sh: retry test couple times to lower
- false positives
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 4/5] Add newlib shell test for
+ tst_multiply_timeout()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,30 +49,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Hi,
 
+> +do_test()
+> +{
+> +	LTP_TIMEOUT_MUL=2
+> +	local sec=1
+> +
+> +	call_it 'tst_multiply_timeout sec' 'sec' 2
+still some issue with this patchset. Making the function private
+(_tst_multiply_timeout), we obviously get warning:
+test_timeout_mul 1 TWARN: Private variable or function _tst_multiply_timeout used!
 
------ Original Message -----
-> Hi Jan,
-> 
-> ...
-> >  	if [ "$lsmod_output" != "$modules_output" ]; then
-> > -		tst_res TFAIL "lsmod output different from /proc/modules."
-> > +		tst_res TINFO "lsmod output different from /proc/modules."
-> 
-> >  		echo "$lsmod_output" > temp1
-> >  		echo "$modules_output" > temp2
-> >  		diff temp1 temp2
-> Also this code could be wrapped with
-> if tst_cmd_available diff; then
+Unless we want to to add some special variable for library tests
+(i.e. TST_IGNORE_WARN), the function cannot be used directly
 
-Added this as well and pushed.
+I suggest to push the patchset change to use float (not to be postponed even
+more), but without this patchset. Tests should be later added.
 
+Kind regards,
+Petr
+
+> +	sec=1
+> +	LTP_TIMEOUT_MUL="1.5"
+> +	call_it 'tst_multiply_timeout sec' 'sec' 2
+> +
+> +	sec=1
+> +	LTP_TIMEOUT_MUL=0.5
+> +	call_it 'tst_multiply_timeout sec' 'sec' 1
+> +
+> +	sec=1
+> +	LTP_TIMEOUT_MUL=2
+> +	call_it 'tst_multiply_timeout sec' 'sec' 2
+> +	call_it 'tst_multiply_timeout sec' 'sec' 4
+> +	call_it 'tst_multiply_timeout sec' 'sec' 8
+> +}
+> +
+> +tst_run
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
