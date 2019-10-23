@@ -1,46 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A05CE1F72
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Oct 2019 17:38:10 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 124C7E2023
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Oct 2019 18:06:48 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2B6DE3C1CA9
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Oct 2019 17:38:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 35DD73C2271
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Oct 2019 18:06:47 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 0AC7D3C1C89
- for <ltp@lists.linux.it>; Wed, 23 Oct 2019 17:38:06 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 3302E3C1C8D
+ for <ltp@lists.linux.it>; Wed, 23 Oct 2019 18:06:43 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A5E661A00CD3
- for <ltp@lists.linux.it>; Wed, 23 Oct 2019 17:38:05 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 37C27600B7F
+ for <ltp@lists.linux.it>; Wed, 23 Oct 2019 18:06:41 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id F27B5BC1F;
- Wed, 23 Oct 2019 15:38:04 +0000 (UTC)
-Date: Wed, 23 Oct 2019 17:38:03 +0200
+ by mx1.suse.de (Postfix) with ESMTP id 9DF7BAFE8;
+ Wed, 23 Oct 2019 16:06:41 +0000 (UTC)
+Date: Wed, 23 Oct 2019 18:06:40 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Thadeu Lima de Souza Cascardo <cascardo@canonical.com>
-Message-ID: <20191023153802.GB12897@rei>
-References: <cb6173ec393a23949ec40c9747fc7f75fed2591f.1571838908.git.jstancek@redhat.com>
- <1714198769.8739783.1571839133168.JavaMail.zimbra@redhat.com>
- <20191023140408.GC4055@calabresa>
- <6089b924-8dbe-c43d-72d9-a4086a13b0d5@suse.cz>
- <20191023143510.GA10116@rei> <20191023145640.GD4055@calabresa>
- <20191023153631.GA12897@rei>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <20191023160640.GA17663@rei>
+References: <20191022140757.29713-1-chrubis@suse.cz>
+ <20191022140757.29713-2-chrubis@suse.cz>
+ <CAEemH2eCpbAuU2xYNtiv9Wq4VwHJE2dZRXnO9v+2H=1=JQJUXQ@mail.gmail.com>
+ <1270016842.8517878.1571817492480.JavaMail.zimbra@redhat.com>
+ <CAEemH2f2D4PjaMaOE_ADUqg5igEi97nHBsH6A7qXtO-2KO7btg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20191023153631.GA12897@rei>
+In-Reply-To: <CAEemH2f2D4PjaMaOE_ADUqg5igEi97nHBsH6A7qXtO-2KO7btg@mail.gmail.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] timer_create01: accept kernel ENOTSUPP
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/2] lib: Add support for test tags
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,36 +50,66 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> I would disagree, if you check latest POSIX it has:
+> Sorry, thanks for the reminder.
+> [I copied the below code to gmail, it always lost the indent]
 > 
-> [ENOTSUP]
->     The implementation does not support the creation of a timer attached
->     to the CPU-time clock that is specified by clock_id and associated
->     with a process or thread different from the process or thread
->     invoking timer_create().
+> static void print_failure_hints(void)
+> {
+>         unsigned int i;
+>         int hint_printed = 0;
+>         const struct tst_tag *tags = tst_test->tags;
 > 
-> https://pubs.opengroup.org/onlinepubs/9699919799/
+>         if (!tags)
+>                 return;
 > 
-> So the implementation is required to return ENOTSUPP in certain cases
-                                               ^
-					       And again, should have
-					       been ENOTSUP!
-> anyways so applying it to CLOCK_REALTIME_ALARM and
-> CLOCK_BOOTTIME_ALARM certainly makes sense.
+>         for (i = 0; tags[i].name; i++) {
+>                 if (!strcmp(tags[i].name, "linux-git")) {
+>                         if (hint_printed != 1) {
+>                                 hint_printed = 1;
+>                                 print_colored("\nHINT: ");
+>                                 printf("You _MAY_ be missing kernel fixes,
+> see:\n\n");
+>                         }
 > 
-> -- 
-> Cyril Hrubis
-> chrubis@suse.cz
+>                         printf(LINUX_GIT_URL "%s\n", tags[i].value);
+>                 } else if (!strcmp(tags[i].name, "CVE")) {
+>                          if (hint_printed != 2) {
+>                                  hint_printed = 2;
+>                                  print_colored("\nHINT: ");
+>                                  printf("You _MAY_ be vunerable to CVE(s),
+> see:\n\n");
+>                           }
 > 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+>                         printf(CVE_DB_URL "%s\n", tags[i].value);
+
+This would produce intermixed CVE and linux-git lines unless the tags
+are sorted correctly in the source code, I do not want to depend on the
+order hence the two loops.
+
+>                 } else {
+>                         print_colored("\nERROR: ");
+>                         printf("tags[%d].name should be linux-git or
+> CVE\n", i);
+>                         return;
+
+I've tried to explain to pvorel already that this is a wrong place to
+assert the tag names. If nothing else this piece of code will be rarely
+triggered and the error would end up ignored.
+
+I plan to assert the tag names in the docparse tool that will build the
+test metadata during the LTP build, so that wrong metadata will actually
+fail the LTP build.
+
+>                 }
+>         }
+> }
 
 -- 
 Cyril Hrubis
