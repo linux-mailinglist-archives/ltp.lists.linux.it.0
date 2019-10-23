@@ -2,41 +2,45 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E09DAE13CD
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Oct 2019 10:11:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D11EDE14EE
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Oct 2019 11:00:38 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9DA943C2296
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Oct 2019 10:11:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 914FC3C22A7
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Oct 2019 11:00:38 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 6430B3C220B
- for <ltp@lists.linux.it>; Wed, 23 Oct 2019 10:11:49 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 76FAA600D0D
- for <ltp@lists.linux.it>; Wed, 23 Oct 2019 10:11:47 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 34004BB82;
- Wed, 23 Oct 2019 08:11:47 +0000 (UTC)
-References: <0641c15377874db893088e4f65102ec6@aptaiexm02f.ap.qualcomm.com>
- <20191022121222.GA15798@rei>
- <382857de8dca46e996b06ceb482cb911@apsanexr02f.ap.qualcomm.com>
-User-agent: mu4e 1.2.0; emacs 26.3
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Xiang Li <lixian@qti.qualcomm.com>
-In-reply-to: <382857de8dca46e996b06ceb482cb911@apsanexr02f.ap.qualcomm.com>
-Date: Wed, 23 Oct 2019 10:11:47 +0200
-Message-ID: <87d0enop8c.fsf@rpws.prws.suse.cz>
+ by picard.linux.it (Postfix) with ESMTP id 4AB653C2297
+ for <ltp@lists.linux.it>; Wed, 23 Oct 2019 11:00:37 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 93AAB600D43
+ for <ltp@lists.linux.it>; Wed, 23 Oct 2019 11:00:33 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.68,220,1569254400"; d="scan'208";a="77359689"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 23 Oct 2019 17:00:25 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id BCB5D4CE150B;
+ Wed, 23 Oct 2019 16:52:32 +0800 (CST)
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ (TLS) id 14.3.439.0; Wed, 23 Oct 2019 17:00:25 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Wed, 23 Oct 2019 17:00:25 +0800
+Message-ID: <1571821231-3846-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
+X-Originating-IP: [10.167.220.84]
+X-yoursite-MailScanner-ID: BCB5D4CE150B.ADB5A
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
 X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] Bug report in read_all.c
+Subject: [LTP] [PATCH v2 0/6] optimize quotactl test code
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,50 +52,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: jack@suse.cz
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
-
-Xiang Li <lixian@qti.qualcomm.com> writes:
-
-> Hi,
->
-> Thanks for Richard's suggestion. I've put it in the patch.
-> Please check the attached patch file for review.
-
-Thanks, LGTM.
-
-However please do not send patches as attachments; we like to respond
-with review comments inline.
-
->
-> Regards,
-> Xiang
->
->
-> -----Original Message-----
-> From: Cyril Hrubis <chrubis@suse.cz> 
-> Sent: Tuesday, October 22, 2019 8:12 PM
-> To: Xiang Li <lixian@qti.qualcomm.com>
-> Cc: ltp@lists.linux.it
-> Subject: [EXT] Re: [LTP] Bug report in read_all.c
->
-> Hi!
->> Modifying i + 1 to (i + 1) % QUEUE_SIZE at the source code Line#123 can easily fix it.
->> This bug is not triggered on every machine because the files are different between target machine.
->> Adjust the length of the QUEUE_SIZE will help you reproduce this bug.
->
-> Can you send a patch that I can apply (ideally with the suggestion from Ritchie as well)?
-
-
--- 
-Thank you,
-Richard.
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SSBjbGVhbnVwIHRoZSBxdW90YWN0bCBjb2RlIGFuZCBhZGQgcHJvamVjdCBxdW90YSB0ZXN0IGZv
+ciBxdW90YWN0bC4KVGhhbmtzIHRvIEphbiBLYXJhIHdpdGggc3VwcG9ydCBhYm91dCBxdW90YS4K
+CgotLS0tLS0tLS0tLS0KdjEtPnYyOgpmb3IgcXVvdGFjdGwwMi5jLCBhZGQgZ3JvdXAgcXVvdGEg
+dGVzdCBhbmQgYWRkIFFfWFFVVE9BUk0gdGVzdAoKYWRkIHF1b3RhY3RsMDQuYyBhbmQgYWRkIHF1
+b3RhMDUuYyB0byB0ZXN0IHByb2plY3QgcXVvdGEuCi0tLS0tLS0tLS0tLQoKWWFuZyBYdSAoNik6
+CiAgc3lzY2FsbHMvcXVvdGFjdGw6IERvbid0IHVzZSBsdHAtcXVvdGEubTQKICBtNC9sdHAteGZz
+X3F1b3RhLm00OiBSZW1vdmUgdXNlbGVzcyBsdHDigJR4ZnNfcXVvdGEubTQKICBzeXNjYWxscy9x
+dW90YWN0bDAxLmM6IEFkZCBRX0dFVE5FWFFVT1RBIHRlc3QKICBzeXNjYWxscy9xdW90YWN0bDAy
+LmM6IEFkZCBRX1hHRVRRU1RBVFYgYW5kIFFfWFFVT1RBUk0gdGVzdAogIHN5c2NhbGxzL3F1b3Rh
+Y3RsMDQ6IGFkZCBwcm9qZWN0IHF1b3RhIHRlc3QgZm9yIG5vbi14ZnMgZmlsZXN5c3RlbQogIHN5
+c2NhbGxzL3F1b3RhY3RsMDU6IGFkZCBwcm9qZWN0IHF1b3RhIHRlc3QgZm9yIHhmcyBmaWxlc3lz
+dGVtCgogY29uZmlndXJlLmFjICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAy
+ICstCiBpbmNsdWRlL2xhcGkvcXVvdGFjdGwuaCAgICAgICAgICAgICAgICAgICAgICAgfCAgMzUg
+KystCiBtNC9sdHAtcXVvdGEubTQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgMzYg
+Ky0tCiBtNC9sdHAteGZzX3F1b3RhLm00ICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgMjMg
+LS0KIHJ1bnRlc3Qvc3lzY2FsbHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgMiAr
+CiB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3F1b3RhY3RsLy5naXRpZ25vcmUgfCAgIDIgKwog
+Li4uL2tlcm5lbC9zeXNjYWxscy9xdW90YWN0bC9xdW90YWN0bDAxLmMgICAgIHwgMTMzICsrKysr
+LS0tLQogLi4uL2tlcm5lbC9zeXNjYWxscy9xdW90YWN0bC9xdW90YWN0bDAyLmMgICAgIHwgMjE4
+ICsrKysrKysrKysrLS0tCiAuLi4va2VybmVsL3N5c2NhbGxzL3F1b3RhY3RsL3F1b3RhY3RsMDMu
+YyAgICAgfCAgMjIgKy0KIC4uLi9rZXJuZWwvc3lzY2FsbHMvcXVvdGFjdGwvcXVvdGFjdGwwNC5j
+ICAgICB8IDE1OSArKysrKysrKysrCiAuLi4va2VybmVsL3N5c2NhbGxzL3F1b3RhY3RsL3F1b3Rh
+Y3RsMDUuYyAgICAgfCAyNzYgKysrKysrKysrKysrKysrKysrCiAxMSBmaWxlcyBjaGFuZ2VkLCA3
+MjcgaW5zZXJ0aW9ucygrKSwgMTgxIGRlbGV0aW9ucygtKQogZGVsZXRlIG1vZGUgMTAwNjQ0IG00
+L2x0cC14ZnNfcXVvdGEubTQKIGNyZWF0ZSBtb2RlIDEwMDY0NCB0ZXN0Y2FzZXMva2VybmVsL3N5
+c2NhbGxzL3F1b3RhY3RsL3F1b3RhY3RsMDQuYwogY3JlYXRlIG1vZGUgMTAwNjQ0IHRlc3RjYXNl
+cy9rZXJuZWwvc3lzY2FsbHMvcXVvdGFjdGwvcXVvdGFjdGwwNS5jCgotLSAKMi4xOC4wCgoKCgot
+LSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRw
+Cg==
