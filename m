@@ -1,40 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8DBFE2FEC
-	for <lists+linux-ltp@lfdr.de>; Thu, 24 Oct 2019 13:05:09 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id EB906E321C
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Oct 2019 14:18:57 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 472583C237D
-	for <lists+linux-ltp@lfdr.de>; Thu, 24 Oct 2019 13:05:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2FAD03C238D
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Oct 2019 14:18:57 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id DD8303C2354
- for <ltp@lists.linux.it>; Thu, 24 Oct 2019 13:05:05 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 3ED883C236A
+ for <ltp@lists.linux.it>; Thu, 24 Oct 2019 14:18:53 +0200 (CEST)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C356D14001E8
- for <ltp@lists.linux.it>; Thu, 24 Oct 2019 13:05:04 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 15DDA1400BC7
+ for <ltp@lists.linux.it>; Thu, 24 Oct 2019 14:18:51 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id E0B65B1F8
- for <ltp@lists.linux.it>; Thu, 24 Oct 2019 11:05:03 +0000 (UTC)
-Date: Thu, 24 Oct 2019 13:05:02 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20191024110502.GA27782@rei.lan>
-References: <20191024090753.16789-1-pvorel@suse.cz>
+ by mx1.suse.de (Postfix) with ESMTP id E1D47B186;
+ Thu, 24 Oct 2019 12:18:50 +0000 (UTC)
+Date: Thu, 24 Oct 2019 14:18:48 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Nayna <nayna@linux.vnet.ibm.com>, Mimi Zohar <zohar@linux.ibm.com>,
+ Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>
+Message-ID: <20191024121848.GA5908@dell5510>
+References: <1558041162.3971.2.camel@linux.ibm.com>
+ <fccc3abd-f3ce-fdb1-55d7-c18ce116446c@linux.vnet.ibm.com>
+ <20190517150456.GA11796@dell5510>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20191024090753.16789-1-pvorel@suse.cz>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20190517150456.GA11796@dell5510>
+User-Agent: Mutt/1.11.3 (2019-02-01)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH] Delete New ext4 features tests and ffsb tool
+Subject: Re: [LTP] [PATCH] ima: skip verifying TPM 2.0 PCR values
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,41 +50,28 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+ linux-integrity <linux-integrity@vger.kernel.org>,
+ Piotr =?iso-8859-2?Q?Kr=F3l?= <piotr.krol@3mdeb.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> The main reason is that these tests [1] (contributed in 2009)
-> are mostly outdated and irrelevant. According to Theodore Y. Tso [2]
-> and Jan Kara [3] the only partly valid tests are
-> ext4_nsec_timestamps_test.sh and ext4_subdir_limit_test.sh,
-> but even these would be better to migrate to xfstests,
-> which Yong Sun is planning to do.
-> 
-> Also, some of the tests weren't in any runtest file anyway
-> (ext4-alloc-test.sh, ext4_inode_version_test.sh,
-> ext4_journal_checksum.sh, ext4_online_defrag_test.sh)
-> 
-> ffsb tool was used only in these New ext4 features tests.
-> 
-> [1] http://ext4.wiki.kernel.org/index.php/New_ext4_features
-> [2] https://marc.info/?l=linux-fsdevel&m=157187153211649&w=2
-> [3] https://marc.info/?l=linux-ext4&m=157190318618555&w=2
-> 
-> Closes: #560
+Hi all,
 
-Acked.
+I wonder what to do with this patch "ima: skip verifying TPM 2.0 PCR values" [1].
+Is it a correct way to differentiate between TPM 1.2 and TPM 2.0?
+Or something else should be applied?
 
-The ffsb adds quite a bit of complexity to the LTP build with a very
-little added value. As far as the meaningful parts of the ext4 suite
-would be migrated to xfstests everyone should be happy about this.
+How is the work on TPM 2.0 Linux sysfs interface?
+But even it's done in near future, we'd still need some way for older kernels.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+Kind regards,
+Petr
+
+[1] https://patchwork.ozlabs.org/patch/1100733/
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
