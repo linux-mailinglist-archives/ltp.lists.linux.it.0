@@ -2,43 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C0A8E227D
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Oct 2019 20:28:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5545BE286A
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Oct 2019 04:45:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 21B7E3C2216
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Oct 2019 20:28:56 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F3B8B3C1CB4
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Oct 2019 04:45:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id AC7D13C134F
- for <ltp@lists.linux.it>; Wed, 23 Oct 2019 20:28:51 +0200 (CEST)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 9D0EC3C1C89
+ for <ltp@lists.linux.it>; Thu, 24 Oct 2019 04:45:47 +0200 (CEST)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 448B66005E6
- for <ltp@lists.linux.it>; Wed, 23 Oct 2019 20:28:49 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id B8082AE89;
- Wed, 23 Oct 2019 18:28:48 +0000 (UTC)
-Date: Wed, 23 Oct 2019 20:28:47 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Jan Stancek <jstancek@redhat.com>
-Message-ID: <20191023182845.GA2863@x230>
-References: <c8843f2f4a325e820d030d9c7c36d7624f1baa82.1571393044.git.jstancek@redhat.com>
- <20191023121901.GA25868@dell5510>
- <463301336.8732968.1571837306503.JavaMail.zimbra@redhat.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E94C3140133B
+ for <ltp@lists.linux.it>; Thu, 24 Oct 2019 04:45:44 +0200 (CEST)
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
+ [209.85.210.70])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id 9460737E79
+ for <ltp@lists.linux.it>; Thu, 24 Oct 2019 02:45:42 +0000 (UTC)
+Received: by mail-ot1-f70.google.com with SMTP id r5so12464045otn.22
+ for <ltp@lists.linux.it>; Wed, 23 Oct 2019 19:45:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=x2kNTHKFOIib4OVm/LiaoANG1CMMNKoT1rU53YRamNU=;
+ b=dRrS3/fecJfU6uhO7831rbzkwxGC+WdIwnaGA+OTCqKjmWLpm2Lhb0mDLNpWUyb1wS
+ Uj9VcxCchFUNKayfv5AyOPbM+lc3f8kE6Sz8KAhzz4MjAtuZSkBOc3CyeTn2blff3Zi5
+ SE95A9noX95o3gfs18f/gZuxnoEIwd81ARBqm8LaMS8jkvmkGB914fOURnKpLBAD18Fn
+ mGg2Xc3r9+HyIdc4YswjXlGnkkfjU4q4ip1tTJdFJhGghIeoWrW9iUiaHgwbYHsVl8+I
+ d7gOPqehSdj67uhK/DTU1IhF9eUaVyC/PaCGsXQ9g4eIL4p/JxhmB41PyKO7jztMdPTi
+ pH5w==
+X-Gm-Message-State: APjAAAVE1mnQA7SUMGpf1BE8zRzqOlejx3uKMaooyNsJQjW0mcOQxtXZ
+ Iui4PGK5SR1Lww4QozTIQyPjoLL1rmOOLEo9tKxGqJhRH9xCusv6ObCKAkHw59BJjWCQ2BAPCQI
+ obGGNwHfzfOGQRNEJE4DLKujKono=
+X-Received: by 2002:a9d:5907:: with SMTP id t7mr9379226oth.118.1571885141953; 
+ Wed, 23 Oct 2019 19:45:41 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqxHI9EIbkF2wFmz5BR9WkPC9wFcpuZY2YXDd8QaOrXEq5Az2K/YKhPJrL6m8eTJTZTj6tVHcgIownfFiFSH4lQ=
+X-Received: by 2002:a9d:5907:: with SMTP id t7mr9379204oth.118.1571885141394; 
+ Wed, 23 Oct 2019 19:45:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <463301336.8732968.1571837306503.JavaMail.zimbra@redhat.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+References: <20191022140757.29713-1-chrubis@suse.cz>
+ <20191022140757.29713-2-chrubis@suse.cz>
+ <CAEemH2eCpbAuU2xYNtiv9Wq4VwHJE2dZRXnO9v+2H=1=JQJUXQ@mail.gmail.com>
+ <1270016842.8517878.1571817492480.JavaMail.zimbra@redhat.com>
+ <CAEemH2f2D4PjaMaOE_ADUqg5igEi97nHBsH6A7qXtO-2KO7btg@mail.gmail.com>
+ <20191023160640.GA17663@rei>
+In-Reply-To: <20191023160640.GA17663@rei>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 24 Oct 2019 10:45:30 +0800
+Message-ID: <CAEemH2fFhEwuDXbmJ7mN-L_wjidz0XX1wXhMMVX1o_UPcQnjHA@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] lsmod01.sh: retry test couple times to lower
- false positives
+X-Spam-Status: No, score=-0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_PASS,
+ SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/2] lib: Add support for test tags
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,58 +74,204 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============2000430007=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Jan,
+--===============2000430007==
+Content-Type: multipart/alternative; boundary="0000000000007b289b05959f07c7"
 
-> > > -	tst_res TPASS "'lsmod' passed."
-> > > +lsmod_test()
-> > > +{
-> > > +	for i in $(seq 1 5); do
-> > > +		if lsmod_matches_proc_modules; then
-> > > +			tst_res TPASS "'lsmod' passed."
-> > > +			return
-> > > +		fi
-> > > +		tst_res TINFO "Trying again"
-> > > +		sleep 1
-> > > +	done
-> > This is similar pattern to TST_RETRY_FUNC()/TST_RETRY_FN_EXP_BACKOFF()
-> > (for both shell and C). I wonder if we also have use for TPASS/TFAIL
-> > instead of just TBROK and specifying number of tries instead of time to be
-> > setup.
+--0000000000007b289b05959f07c7
+Content-Type: text/plain; charset="UTF-8"
 
-> I think TFAIL fits more here, it's outcome of what we are testing.
-> TBROK in my mind is failure unrelated to subject of test.
-I express myself wrong. Sure, I meant to have TPASS/TFAIL,
-just to use some helper function instead of writing the wrapper in the test.
+On Thu, Oct 24, 2019 at 12:06 AM Cyril Hrubis <chrubis@suse.cz> wrote:
 
-> But functionally TST_RETRY_FUNC should work too. 
+> Hi!
+> > Sorry, thanks for the reminder.
+> > [I copied the below code to gmail, it always lost the indent]
+> >
+> > static void print_failure_hints(void)
+> > {
+> >         unsigned int i;
+> >         int hint_printed = 0;
+> >         const struct tst_tag *tags = tst_test->tags;
+> >
+> >         if (!tags)
+> >                 return;
+> >
+> >         for (i = 0; tags[i].name; i++) {
+> >                 if (!strcmp(tags[i].name, "linux-git")) {
+> >                         if (hint_printed != 1) {
+> >                                 hint_printed = 1;
+> >                                 print_colored("\nHINT: ");
+> >                                 printf("You _MAY_ be missing kernel
+> fixes,
+> > see:\n\n");
+> >                         }
+> >
+> >                         printf(LINUX_GIT_URL "%s\n", tags[i].value);
+> >                 } else if (!strcmp(tags[i].name, "CVE")) {
+> >                          if (hint_printed != 2) {
+> >                                  hint_printed = 2;
+> >                                  print_colored("\nHINT: ");
+> >                                  printf("You _MAY_ be vunerable to
+> CVE(s),
+> > see:\n\n");
+> >                           }
+> >
+> >                         printf(CVE_DB_URL "%s\n", tags[i].value);
+>
+> This would produce intermixed CVE and linux-git lines unless the tags
+> are sorted correctly in the source code, I do not want to depend on the
+> order hence the two loops.
+>
 
-> > C and shell usage is a bit different, so maybe
-> > TST_RETRY_FUNC()/TST_RETRY_FN_EXP_BACKOFF() doesn't make much sense for shell
+Yes. But personally I suggest the tags sorted in order. I'm OK with two
+loops, it depends on you.
 
-> I see it used in mkswap01.sh and numa01.sh.
-Sorry, I searched just TST_RETRY_FN_EXP_BACKOFF.
-Correct, TST_RETRY_FUNC is used there.
 
-> I wonder if we need to TBROK in TST_RETRY_FUNC(). We could just return
-> what the FUNC returns and let the test decide.
-> TST_RETRY_FUNC_BRK() could be a wrapper that TBROKs on timeout.
-That could work (apart from the fact it diverges the functionality from C).
-+ there could be the third one, which TPASS/TFAIL (instead of nothing/TBROK).
+>
+> >                 } else {
+> >                         print_colored("\nERROR: ");
+> >                         printf("tags[%d].name should be linux-git or
+> > CVE\n", i);
+> >                         return;
+>
+> I've tried to explain to pvorel already that this is a wrong place to
+> assert the tag names. If nothing else this piece of code will be rarely
+> triggered and the error would end up ignored.
+>
 
-But this should be based on TST_RETRY_FN_EXP_BACKOFF (TST_RETRY_FUNC is reusing
-TST_RETRY_FN_EXP_BACKOFF) + add also TST_RETRY_FUNC wrappers.
+Agree, it seems like too late to see this error in a test fails.
 
-Do we need similar functionality in C?
 
-Kind regards,
-Petr
+>
+> I plan to assert the tag names in the docparse tool that will build the
+> test metadata during the LTP build, so that wrong metadata will actually
+> fail the LTP build.
+>
+
+Cool~ That sounds better.
+
+Reviewed-by: Li Wang <liwang@redhat.com>
+
+-- 
+Regards,
+Li Wang
+
+--0000000000007b289b05959f07c7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Thu, Oct 24, 2019 at 12:06 AM Cyril Hrubis &lt;<=
+a href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><=
+blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
+eft:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
+&gt; Sorry, thanks for the reminder.<br>
+&gt; [I copied the below code to gmail, it always lost the indent]<br>
+&gt; <br>
+&gt; static void print_failure_hints(void)<br>
+&gt; {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int i;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int hint_printed =3D 0;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0const struct tst_tag *tags =3D tst_te=
+st-&gt;tags;<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!tags)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<b=
+r>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; tags[i].name; i++) {<br=
+>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!strc=
+mp(tags[i].name, &quot;linux-git&quot;)) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0if (hint_printed !=3D 1) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0hint_printed =3D 1;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0print_colored(&quot;\nHINT:=
+ &quot;);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0printf(&quot;You _MAY_ be m=
+issing kernel fixes,<br>
+&gt; see:\n\n&quot;);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0printf(LINUX_GIT_URL &quot;%s\n&quot;, tags[i].value);<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} else if=
+ (!strcmp(tags[i].name, &quot;CVE&quot;)) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 if (hint_printed !=3D 2) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 hint_printed =3D 2;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 print_colored(&quot;\nHINT=
+: &quot;);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 printf(&quot;You _MAY_ be =
+vunerable to CVE(s),<br>
+&gt; see:\n\n&quot;);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0printf(CVE_DB_URL &quot;%s\n&quot;, tags[i].value);<br>
+<br>
+This would produce intermixed CVE and linux-git lines unless the tags<br>
+are sorted correctly in the source code, I do not want to depend on the<br>
+order hence the two loops.<br></blockquote><div><br></div><div><div class=
+=3D"gmail_default" style=3D"font-size:small">Yes. But personally I suggest =
+the tags sorted in order. I&#39;m OK with two loops, it depends on you.</di=
+v></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:=
+0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0print_colored(&quot;\nERROR: &quot;);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0printf(&quot;tags[%d].name should be linux-git or<br>
+&gt; CVE\n&quot;, i);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0return;<br>
+<br>
+I&#39;ve tried to explain to pvorel already that this is a wrong place to<b=
+r>
+assert the tag names. If nothing else this piece of code will be rarely<br>
+triggered and the error would end up ignored.<br></blockquote><div><br></di=
+v><div><div class=3D"gmail_default" style=3D"font-size:small">Agree, it see=
+ms like too late to see this error in a test fails.</div></div><div>=C2=A0<=
+/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
+rder-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+I plan to assert the tag names in the docparse tool that will build the<br>
+test metadata during the LTP build, so that wrong metadata will actually<br=
+>
+fail the LTP build.<br></blockquote><div><br></div><div><div class=3D"gmail=
+_default" style=3D"font-size:small">Cool~ That sounds better.</div></div><d=
+iv class=3D"gmail_default" style=3D"font-size:small"><br></div><div class=
+=3D"gmail_default" style=3D"font-size:small">Reviewed-by: Li Wang &lt;<a hr=
+ef=3D"mailto:liwang@redhat.com">liwang@redhat.com</a>&gt;</div></div><div><=
+br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"=
+><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--0000000000007b289b05959f07c7--
+
+--===============2000430007==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============2000430007==--
