@@ -2,83 +2,46 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BEA5E40AC
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Oct 2019 02:47:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4540EE4154
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Oct 2019 04:00:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 47AFF3C237E
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Oct 2019 02:47:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1F0703C2369
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Oct 2019 04:00:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 3835C3C2152
- for <ltp@lists.linux.it>; Fri, 25 Oct 2019 02:47:12 +0200 (CEST)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2F50E1400C6B
- for <ltp@lists.linux.it>; Fri, 25 Oct 2019 02:47:10 +0200 (CEST)
-Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x9P0ga8k058609
- for <ltp@lists.linux.it>; Thu, 24 Oct 2019 20:47:08 -0400
-Received: from e06smtp03.uk.ibm.com (e06smtp03.uk.ibm.com [195.75.94.99])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2vukqgw815-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <ltp@lists.linux.it>; Thu, 24 Oct 2019 20:47:08 -0400
-Received: from localhost
- by e06smtp03.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <ltp@lists.linux.it> from <zohar@linux.ibm.com>;
- Fri, 25 Oct 2019 01:47:06 +0100
-Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
- by e06smtp03.uk.ibm.com (192.168.101.133) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Fri, 25 Oct 2019 01:47:03 +0100
-Received: from d06av21.portsmouth.uk.ibm.com (d06av21.portsmouth.uk.ibm.com
- [9.149.105.232])
- by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x9P0l2cJ34865272
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 25 Oct 2019 00:47:02 GMT
-Received: from d06av21.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7782052054;
- Fri, 25 Oct 2019 00:47:02 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.80.206.19])
- by d06av21.portsmouth.uk.ibm.com (Postfix) with ESMTP id 2CB9152052;
- Fri, 25 Oct 2019 00:47:01 +0000 (GMT)
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Jerry Snitselaar <jsnitsel@redhat.com>, Jarkko Sakkinen
- <jarkko.sakkinen@linux.intel.com>
-Date: Thu, 24 Oct 2019 20:47:00 -0400
-In-Reply-To: <20191024213842.c6cl4tlnsi56pgcy@cantor>
-References: <1558041162.3971.2.camel@linux.ibm.com>
- <fccc3abd-f3ce-fdb1-55d7-c18ce116446c@linux.vnet.ibm.com>
- <20190517150456.GA11796@dell5510> <20191024121848.GA5908@dell5510>
- <20191024172023.GA7948@linux.intel.com>
- <20191024213842.c6cl4tlnsi56pgcy@cantor>
-X-Mailer: Evolution 3.20.5 (3.20.5-1.fc24) 
-Mime-Version: 1.0
-X-TM-AS-GCONF: 00
-x-cbid: 19102500-0012-0000-0000-0000035D2A2A
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19102500-0013-0000-0000-000021985EC6
-Message-Id: <1571964420.5173.12.camel@linux.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-10-24_13:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1908290000 definitions=main-1910250006
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id A807E3C185E
+ for <ltp@lists.linux.it>; Fri, 25 Oct 2019 04:00:12 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 0E7EB600903
+ for <ltp@lists.linux.it>; Fri, 25 Oct 2019 04:00:10 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.68,226,1569254400"; d="scan'208";a="77448622"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 25 Oct 2019 10:00:08 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id 064E14CE164C;
+ Fri, 25 Oct 2019 09:52:13 +0800 (CST)
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ (TLS) id 14.3.439.0; Fri, 25 Oct 2019 10:00:09 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <chrubis@suse.cz>, <pvorel@suse.cz>
+Date: Fri, 25 Oct 2019 09:59:40 +0800
+Message-ID: <1571968780-4810-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
+MIME-Version: 1.0
+X-Originating-IP: [10.167.220.84]
+X-yoursite-MailScanner-ID: 064E14CE164C.AC9D1
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] ima: skip verifying TPM 2.0 PCR values
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/copy_file_range02: skip new error tests if
+ cross-fs isn't supported
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,113 +53,101 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Nayna <nayna@linux.vnet.ibm.com>,
- ltp@lists.linux.it, Peter Huewe <peterhuewe@gmx.de>,
- linux-integrity <linux-integrity@vger.kernel.org>,
- Piotr =?ISO-8859-1?Q?Kr=F3l?= <piotr.krol@3mdeb.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Thu, 2019-10-24 at 14:38 -0700, Jerry Snitselaar wrote:
-> On Thu Oct 24 19, Jarkko Sakkinen wrote:
-> >On Thu, Oct 24, 2019 at 02:18:48PM +0200, Petr Vorel wrote:
-> >> Hi all,
-> >>
-> >> I wonder what to do with this patch "ima: skip verifying TPM 2.0 PCR values" [1].
-> >> Is it a correct way to differentiate between TPM 1.2 and TPM 2.0?
-> >> Or something else should be applied?
-> >>
-> >> How is the work on TPM 2.0 Linux sysfs interface?
-> >> But even it's done in near future, we'd still need some way for older kernels.
-> >>
-> >> Kind regards,
-> >> Petr
-> >>
-> >> [1] https://patchwork.ozlabs.org/patch/1100733/
-> >
-> >version_major sysfs file would be acceptable if someone wants to proceed
-> >and send such patch.
-> >
-> >Also replicants for durations and timeouts files would make sense for
-> >TPM 2.0.
-> >
-> >/Jarkko
-> 
-> Is it as simple as doing this?
-> 
-> diff --git a/drivers/char/tpm/tpm-sysfs.c b/drivers/char/tpm/tpm-sysfs.c
-> index edfa89160010..fd8eb8d8945c 100644
-> --- a/drivers/char/tpm/tpm-sysfs.c
-> +++ b/drivers/char/tpm/tpm-sysfs.c
-> @@ -309,7 +309,17 @@ static ssize_t timeouts_show(struct device *dev, struct device_attribute *attr,
->  }
->  static DEVICE_ATTR_RO(timeouts);
->  
-> -static struct attribute *tpm_dev_attrs[] = {
-> +static ssize_t version_major_show(struct device *dev,
-> +                                 struct device_attribute *attr, char *buf)
-> +{
-> +       struct tpm_chip *chip = to_tpm_chip(dev);
-> +
-> +       return sprintf(buf, "TPM%s\n", chip->flags & TPM_CHIP_FLAG_TPM2
-> +                      ? "2.0" : "1.2");
-> +}
-> +static DEVICE_ATTR_RO(version_major);
-> +
-> +static struct attribute *tpm12_dev_attrs[] = {
->         &dev_attr_pubek.attr,
->         &dev_attr_pcrs.attr,
->         &dev_attr_enabled.attr,
-> @@ -320,18 +330,28 @@ static struct attribute *tpm_dev_attrs[] = {
->         &dev_attr_cancel.attr,
->         &dev_attr_durations.attr,
->         &dev_attr_timeouts.attr,
-> +       &dev_attr_version_major.attr,
->         NULL,
->  };
->  
+We should not skip the whole error test if cross-fs isn't support because
+old errors should be tested on all version. Even we use .mount_device = 1
+and .mntpoint = MNTPOINT, the src and dest file are still in tmp directory
+instead of mntpoint.
 
-The TPM version seems to be included in "dev_attr_caps.attr".
+ps: I doubt whether we should skip new error test because it indeed exposed this
+unreasonable copy_file_range behavior of the user.
 
-> -static const struct attribute_group tpm_dev_group = {
-> -       .attrs = tpm_dev_attrs,
-> +static struct attribute *tpm20_dev_attrs[] = {
-> +       &dev_attr_version_major.attr,
-> +       NULL
-> +};
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+---
+ .../copy_file_range/copy_file_range02.c       | 39 +++++++++++--------
+ 1 file changed, 22 insertions(+), 17 deletions(-)
 
-This should work, but wouldn't exporting this information under
-security/tpmX, like the binary_bios_measurements, be a lot easier to
-find and use?
+diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+index a55de4111..e4159cad7 100644
+--- a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
++++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
+@@ -55,6 +55,7 @@ static int need_unlink;
+ 
+ static int chattr_i_nsup;
+ static int swap_nsup;
++static int cross_sup;
+ static int loop_devn;
+ 
+ static struct tcase {
+@@ -63,21 +64,22 @@ static struct tcase {
+ 	int	exp_err;
+ 	loff_t     len;
+ 	const char *tname;
++	int     new_error;
+ } tcases[] = {
+-	{&fd_rdonly,	0,	EBADF,		CONTSIZE,	"readonly file"},
+-	{&fd_dir,	0,	EISDIR,		CONTSIZE,	"directory"},
+-	{&fd_append,	0,	EBADF,		CONTSIZE,	"append to file"},
+-	{&fd_closed,	0,	EBADF,		CONTSIZE,	"closed file descriptor"},
+-	{&fd_dest,	-1,	EINVAL,		CONTSIZE,	"invalid flags"},
+-	{&fd_immutable,	0,	EPERM,		CONTSIZE,	"immutable file"},
+-	{&fd_swapfile,	0,	ETXTBSY,	CONTSIZE,	"swap file"},
+-	{&fd_dup,	0,	EINVAL,		CONTSIZE/2,	"overlaping range"},
+-	{&fd_blkdev,	0,	EINVAL,		CONTSIZE,	"block device"},
+-	{&fd_chrdev,	0,	EINVAL,		CONTSIZE,	"char device"},
+-	{&fd_fifo,	0,	EINVAL,		CONTSIZE,	"fifo"},
+-	{&fd_pipe[0],	0,	EINVAL,		CONTSIZE,	"pipe"},
+-	{&fd_copy,	0,	EOVERFLOW,	ULLONG_MAX,	"max length lenght"},
+-	{&fd_copy,	0,	EFBIG,		MIN_OFF,	"max file size"},
++	{&fd_rdonly,	0,	EBADF,		CONTSIZE,	"readonly file",	0},
++	{&fd_dir,	0,	EISDIR,		CONTSIZE,	"directory",	0},
++	{&fd_append,	0,	EBADF,		CONTSIZE,	"append to file",	0},
++	{&fd_closed,	0,	EBADF,		CONTSIZE,	"closed file descriptor",	0},
++	{&fd_dest,	-1,	EINVAL,		CONTSIZE,	"invalid flags",	0},
++	{&fd_immutable,	0,	EPERM,		CONTSIZE,	"immutable file",	1},
++	{&fd_swapfile,	0,	ETXTBSY,	CONTSIZE,	"swap file",	1},
++	{&fd_dup,	0,	EINVAL,		CONTSIZE/2,	"overlaping range",	1},
++	{&fd_blkdev,	0,	EINVAL,		CONTSIZE,	"block device", 	0},
++	{&fd_chrdev,	0,	EINVAL,		CONTSIZE,	"char device",	0},
++	{&fd_fifo,	0,	EINVAL,		CONTSIZE,	"fifo", 	0},
++	{&fd_pipe[0],	0,	EINVAL,		CONTSIZE,	"pipe", 	0},
++	{&fd_copy,	0,	EOVERFLOW,	ULLONG_MAX,	"max length lenght", 	1},
++	{&fd_copy,	0,	EFBIG,		MIN_OFF,	"max file size", 	1},
+ };
+ 
+ static int run_command(char *command, char *option, char *file)
+@@ -105,6 +107,11 @@ static void verify_copy_file_range(unsigned int n)
+ 
+ 	tst_res(TINFO, "Test #%d: %s", n, tc->tname);
+ 
++	if (tc->new_error && !cross_sup) {
++		tst_res(TCONF,
++			"copy_file_range() doesn't support cross-device, skip it");
++		return;
++	}
+ 	if (tc->copy_to_fd == &fd_immutable && chattr_i_nsup) {
+ 		tst_res(TCONF, "filesystem doesn't support chattr +i, skip it");
+ 		return;
+@@ -178,9 +185,7 @@ static void setup(void)
+ 	syscall_info();
+ 	char dev_path[1024];
+ 
+-	if (!verify_cross_fs_copy_support(FILE_SRC_PATH, FILE_MNTED_PATH))
+-		tst_brk(TCONF,
+-			"copy_file_range() doesn't support cross-device, skip it");
++	cross_sup = verify_cross_fs_copy_support(FILE_SRC_PATH, FILE_MNTED_PATH);
+ 
+ 	if (access(FILE_DIR_PATH, F_OK) == -1)
+ 		SAFE_MKDIR(FILE_DIR_PATH, 0777);
+-- 
+2.18.0
 
-Mimi
 
-> +
-> +static const struct attribute_group tpm12_dev_group = {
-> +       .attrs = tpm12_dev_attrs,
-> +};
-> +
-> +static const struct attribute_group tpm20_dev_group = {
-> +       .attrs = tpm20_dev_attrs,
->  };
->  
->  void tpm_sysfs_add_device(struct tpm_chip *chip)
->  {
-> -       if (chip->flags & TPM_CHIP_FLAG_TPM2)
-> -               return;
-> -
->         WARN_ON(chip->groups_cnt != 0);
-> -       chip->groups[chip->groups_cnt++] = &tpm_dev_group;
-> +       if (chip->flags & TPM_CHIP_FLAG_TPM2)
-> +               chip->groups[chip->groups_cnt++] = &tpm20_dev_group;
-> +       else
-> +               chip->groups[chip->groups_cnt++] = &tpm12_dev_group;
->  }
-> 
-> 
-> Did a quick test on 2 systems here.
 
 
 -- 
