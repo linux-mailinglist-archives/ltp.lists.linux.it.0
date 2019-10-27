@@ -2,85 +2,61 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85CC9E4F1B
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Oct 2019 16:29:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 069FFE6128
+	for <lists+linux-ltp@lfdr.de>; Sun, 27 Oct 2019 07:50:38 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B9E7B3C22BF
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Oct 2019 16:29:33 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4970C3C22C6
+	for <lists+linux-ltp@lfdr.de>; Sun, 27 Oct 2019 07:50:37 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 5A7FF3C2262
- for <ltp@lists.linux.it>; Fri, 25 Oct 2019 16:29:30 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [205.139.110.120])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id CA5D8600BC4
- for <ltp@lists.linux.it>; Fri, 25 Oct 2019 16:29:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1572013762;
- h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=iKhhUZoR3ETcndZCkdmFNE8ChoQ3VU6czGoP+SADhxw=;
- b=P5XJXKgsOHVK4xh44yYOKaZPzUk6KD+zpszWNB7R4rU1HhxTEGCYcXF9wrXICC4QiVynx2
- pw6vFCwPL9hXEUEyoMxmVEdV/65SpEOFh+gO8XxA77U4kRBFw/b26vQshVjzlZTteGMdr0
- Uk0CAUpQre931PPrlB3648/1ZQm26UU=
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-223-JiluvlwcPB-uUSI8H6beeA-1; Fri, 25 Oct 2019 10:13:49 -0400
-Received: by mail-pf1-f199.google.com with SMTP id y191so1985434pfg.17
- for <ltp@lists.linux.it>; Fri, 25 Oct 2019 07:13:48 -0700 (PDT)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 19D563C0B8F
+ for <ltp@lists.linux.it>; Sun, 27 Oct 2019 07:50:33 +0100 (CET)
+Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
+ [IPv6:2a00:1450:4864:20::141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 325421A0066F
+ for <ltp@lists.linux.it>; Sun, 27 Oct 2019 07:50:33 +0100 (CET)
+Received: by mail-lf1-x141.google.com with SMTP id 195so5370562lfj.6
+ for <ltp@lists.linux.it>; Sat, 26 Oct 2019 23:50:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=/AqYigvbvoqryExHFEWJtEDJ9fqQnf8cNT4zJvRDNVE=;
+ b=QvdCKqxeApX/Sp/h6lT7cS2kXtR27eYj3UUhVadH492liJdEEV++SyS6PnjsOLw+e7
+ eqfArx9SpXE05dax5INJkfIIE3M9Jts5N+4eJuhtUeBoxemxOIHH2mGJ9vxnhEl4QVCS
+ brnE6JikmmF5n9QJDQPhTfsShsGvAe8dFvlruzs2KJsOgVzWdfkoIIWUYBtouZd9Sa5q
+ uDmLcCFItd5Xqb0DH+GYefGEeRdd+nI5wPzfRItTD0NRD5fphLv6urXKOdpdTtCs7vvz
+ TjgFwIwqmA53wxzzO/wIiwHVbe9DoCsI2+6lW5Y5wLPUMNwQCP3fOk+ov4u1djo4/vY4
+ yQEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:reply-to
- :references:mime-version:content-disposition:in-reply-to:user-agent;
- bh=X+e8SRli7RIXuNIpLGcbbLLRwOMtP8b1dDWnVykEWd8=;
- b=UfNxrC6eAW/bFQjZtW4caRCM2dBmSwg9Iv67rbRCW1CCAc/wObSPMROp+aZ2b5ij8Z
- A/I4tIR/bL5S/Tmmg31o/G8pNWZJ0gLjxOqiHveAS+OmFRorZz+Qfin1dwGOYqe9z+d1
- as3MbDe3x2n1vxHh5setAHRNyApHV6DI7JhgtOgqIY3jgU/S/Hu0/1yCTt+5yZ1JxRfO
- 1/Y8ECDHdGhfoeNiN6UBgu7yHtigdsCUm6t84QdcssvsjtTDtP5deNSN5/02U7udN4TO
- OMLi/vBoSw9eLmIYzZIJzOvxTEyBCB55rmoGeZL5zzK9UZRW8SoC0rE+MEtKCTYa6utt
- SpVg==
-X-Gm-Message-State: APjAAAUuzBIc4wFRsu03L9aU+ZbIR4ftToJTMABHYq9WCosdiqljQ6Ac
- RIt2jYF4Z1P5ptlqsNsPHAClYUhbob78BiDTDpaFpc+boGGKFmrX2IsF4ko+Eh5EScWKr7b0EeS
- 4F5/ESYUg5rY=
-X-Received: by 2002:a17:902:930b:: with SMTP id
- bc11mr4112130plb.284.1572012828061; 
- Fri, 25 Oct 2019 07:13:48 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqw9k9KnbOJwB4/FRHSgZ+Ocoy9VruYqrc0rVKQ5nE7UqMIMmehiCscqeRU+ui7pdmzchKD1EA==
-X-Received: by 2002:a17:902:930b:: with SMTP id
- bc11mr4112101plb.284.1572012827821; 
- Fri, 25 Oct 2019 07:13:47 -0700 (PDT)
-Received: from localhost (ip70-163-223-149.ph.ph.cox.net. [70.163.223.149])
- by smtp.gmail.com with ESMTPSA id 27sm2661444pgx.23.2019.10.25.07.13.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Oct 2019 07:13:46 -0700 (PDT)
-Date: Fri, 25 Oct 2019 07:13:45 -0700
-From: Jerry Snitselaar <jsnitsel@redhat.com>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20191025141345.46ifshskk2vpxi2t@cantor>
-References: <1558041162.3971.2.camel@linux.ibm.com>
- <fccc3abd-f3ce-fdb1-55d7-c18ce116446c@linux.vnet.ibm.com>
- <20190517150456.GA11796@dell5510> <20191024121848.GA5908@dell5510>
- <20191024172023.GA7948@linux.intel.com>
- <20191024213842.c6cl4tlnsi56pgcy@cantor>
- <1571964420.5173.12.camel@linux.ibm.com>
- <20191025021159.dt7ifgnebnke6ca7@cantor>
- <20191025085617.GA13329@x230>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=/AqYigvbvoqryExHFEWJtEDJ9fqQnf8cNT4zJvRDNVE=;
+ b=PXhigKBkBlUakWlye5nLw1KBq6Ult+5cnfM2VXxeQxNqN2htzssXFxnpOXzyTNkCGh
+ gMG3OH+2fWo2ZLjDBD7wzosvPxHFj3kRWJpZteNcvxuQDuZGJGR3WDjHYTZsISbak4OT
+ dZSW2zr/s+KatundI1SpWwrmmRoZQ1ophRySm7CLsvdwBFPlLFYgPPk5fzP6pK+qSBx+
+ cmaMfiENYsaKLTNGKk2FgbXN5Kt3k31QA+nQ+/LGSQ7Q3kUVOn6mZUCkxvCWd081I0iN
+ PdJNA47cPmvE57oHuUfJyGQq0gWZQ9L9ze4+bfwvIfR2YzVmreteTYW14qnqRBlfPSTT
+ 2gsg==
+X-Gm-Message-State: APjAAAUZi8CG6ooD1z4XOcOmo4ERYG/jcJoKex/lfIgxpPmDsqb+SbA2
+ 0DPk4uDEQfAAQkcaOEJxuS0M/mQ+sYKHMPrupmp40GH6iB8=
+X-Google-Smtp-Source: APXvYqzpG7LSYra6k96g3HpTEDMB6EQ6GKoD9nP7C1PKuv8KP0CmqMUlsqzZorjiCdCz2XEUvgIe74aoW2eBRIG+pCM=
+X-Received: by 2002:a05:6512:51a:: with SMTP id
+ o26mr7482492lfb.132.1572159031940; 
+ Sat, 26 Oct 2019 23:50:31 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20191025085617.GA13329@x230>
-User-Agent: NeoMutt/20180716
-X-MC-Unique: JiluvlwcPB-uUSI8H6beeA-1
-X-Mimecast-Spam-Score: 0
-Content-Disposition: inline
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Sun, 27 Oct 2019 12:20:19 +0530
+Message-ID: <CA+G9fYvdOcsqZ8M4VfOinnGGiacSL9rms5cnSkPK-cuZKNNP=w@mail.gmail.com>
+To: ltp@lists.linux.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] ima: skip verifying TPM 2.0 PCR values
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] LTP: mtest06: mmap1.c:204: BROK: mmap((nil), 2147483648, 3, 34,
+ -1, 0) failed: ENOMEM (12)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,40 +68,70 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Jerry Snitselaar <jsnitsel@redhat.com>
-Cc: Nayna <nayna@linux.vnet.ibm.com>,
- Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, ltp@lists.linux.it,
- linux-integrity <linux-integrity@vger.kernel.org>,
- Mimi Zohar <zohar@linux.ibm.com>, Peter Huewe <peterhuewe@gmx.de>,
- Piotr =?utf-8?B?S3LDs2w=?= <piotr.krol@3mdeb.com>
+Cc: lkft-triage@lists.linaro.org, Carlos Hernandez <ceh@ti.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Fri Oct 25 19, Petr Vorel wrote:
->Hi,
->
->> /sys/kernel/security/tpmX/major_version (on fedora and rhel at least, is it elsewhere on other distros?)
->
->> versus
->
->> /sys/class/tpm/tpmX/major_version
->
->Is it more HW related (/sys/class/tpm/tpmX) or LSM related
->(/sys/kernel/security/tpmX)?
->I guess /sys/kernel/security/tpmX might be better.
->
+LTP new release 20190930 mm test cases mtest06 started failing always
+on beagle board x15 and intermittent failure on i386,
+mmap1.c:204: BROK: mmap((nil),2147483648,3,34,-1,0) failed: ENOMEM (12)
 
-I think it is HW related since it is describing the
-TCG version that the chip implements.
+Do you notice this failure ?
 
->Thanks for implementing this, I'll try to test it soon.
->
->Kind regards,
->Petr
+Strace output:
+---------------------
+[pid   383] mmap2(NULL, 2147483648, PROT_READ|PROT_WRITE,
+MAP_PRIVATE|MAP_ANONYMOUS, -1, 0 <unfinished ...>
+[pid   382] waitpid(383,  <unfinished ...>
+[pid   383] <... mmap2 resumed> )       = -1 ENOMEM (Cannot allocate memory)
+[pid   383] write(2, \"mmap1.c:204: \BROK: \mm\"..., 83mmap1.c:204:
+BROK: mmap((nil),2147483648,3,34,-1,0) failed: ENOMEM (12)
+) = 83
 
+Device under test:
+-------------------------
+Architecture :  ARMv7 (32 bits)
+Processor Family : AM5728
+CPU model : DRA752-GP ES2.0
+Cores : 2 x Cortex-A15
+
+full test log:
+-----------------
+https://lkft.validation.linaro.org/scheduler/job/980108#L1676
+https://lkft.validation.linaro.org/scheduler/job/980109#L1228
+
+LTP version:
+https://github.com/linux-test-project/ltp/releases/tag/20190930
+
+Test case description:
+------------------------------
+/*
+* Test: Spawn 2 threads. First thread maps, writes and unmaps
+* an area. Second thread tries to read from it. Second thread
+* races against first thread. There is no synchronization
+* between threads, but each mmap/munmap increases a counter
+* that is checked to determine when has read occurred. If a read
+* hit SIGSEGV in between mmap/munmap it is a failure. If a read
+* between mmap/munmap worked, then its value must match expected
+* value.
+*
+* Can trigger panics/stalls since at least 4.14 on some arches:
+* fc8efd2ddfed ("mm/memory.c: do_fault: avoid usage of stale vm_area_struct")
+* Can trigger user-space stalls on aarch64:
+* 7a30df49f63a ("mm: mmu_gather: remove __tlb_reset_range() for force flush")
+* https://lore.kernel.org/linux-mm/1817839533.20996552.1557065445233.JavaMail.zimbra@redhat.com
+* Can trigger "still mapped when deleted" BUG at mm/filemap.c:171, on
+aarch64 since 4.20
+* e1b98fa31664 ("locking/rwsem: Add missing ACQUIRE to read_slowpath
+exit when queue is empty")
+* 99143f82a255 ("lcoking/rwsem: Add missing ACQUIRE to read_slowpath
+sleep loop")
+*/
+
+Best regards
+Naresh Kamboju
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
