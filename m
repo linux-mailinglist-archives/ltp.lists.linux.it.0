@@ -2,66 +2,45 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2A36E61D8
-	for <lists+linux-ltp@lfdr.de>; Sun, 27 Oct 2019 10:32:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39780E6CB1
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Oct 2019 08:07:36 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B055D3C22A1
-	for <lists+linux-ltp@lfdr.de>; Sun, 27 Oct 2019 10:32:33 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A9D373C21DC
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Oct 2019 08:07:35 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id A2EB13C2298
- for <ltp@lists.linux.it>; Sun, 27 Oct 2019 10:32:32 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 5B17C1A004C9
- for <ltp@lists.linux.it>; Sun, 27 Oct 2019 10:32:30 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1572168748;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Brt12eroTnBSuocOIrOnaBRgY6eEG5OTxhduVRLWoHo=;
- b=Foy+IQiBFA5qr0yw7PF5LDliG5lExjfOPaClud28h6u+OvrA3sGi06YDkX0BzjqTI3wVjx
- bUgQfySiHccCHandGy8VOh4aYRMpDVsG/UAtVBR62L9+FAQnDyrDe/UQIcn0nzMvGEHG+W
- MHXMIq8ptmlEDbA3epz2/e6X8V/nsYE=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-394-xLzG1hxvNamOpilH46Ypcw-1; Sun, 27 Oct 2019 05:32:24 -0400
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A891E801E56;
- Sun, 27 Oct 2019 09:32:23 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A040E90AB;
- Sun, 27 Oct 2019 09:32:23 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8D04D1808878;
- Sun, 27 Oct 2019 09:32:23 +0000 (UTC)
-Date: Sun, 27 Oct 2019 05:32:23 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
-To: Naresh Kamboju <naresh.kamboju@linaro.org>, LTP List <ltp@lists.linux.it>
-Message-ID: <2111263587.9218283.1572168743324.JavaMail.zimbra@redhat.com>
-In-Reply-To: <CA+G9fYurG8gSO+xFc5LJvLMrqTyHG85oxH9=pSQ1LmPCa6PkqQ@mail.gmail.com>
-References: <cki.61C56EFD16.AR8ITWHB7P@redhat.com>
- <CA+G9fYurG8gSO+xFc5LJvLMrqTyHG85oxH9=pSQ1LmPCa6PkqQ@mail.gmail.com>
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 9B95C3C1CAE
+ for <ltp@lists.linux.it>; Mon, 28 Oct 2019 08:07:33 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 6658B1400752
+ for <ltp@lists.linux.it>; Mon, 28 Oct 2019 08:07:30 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.68,239,1569254400"; d="scan'208";a="77573300"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 28 Oct 2019 15:07:26 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id CB83A4CE150E
+ for <ltp@lists.linux.it>; Mon, 28 Oct 2019 14:59:26 +0800 (CST)
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ (TLS) id 14.3.439.0; Mon, 28 Oct 2019 15:07:24 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Mon, 28 Oct 2019 15:07:19 +0800
+Message-ID: <1572246439-3006-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.163, 10.4.195.1]
-Thread-Topic: =?utf-8?B?4p2MIEZBSUw6?= Stable queue: queue-5.3
-Thread-Index: gNe4i/TBRrbrR5tiA3xma7jiYmwpjA==
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-MC-Unique: xLzG1hxvNamOpilH46Ypcw-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-yoursite-MailScanner-ID: CB83A4CE150E.A0585
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] =?utf-8?b?4p2MIEZBSUw6IFN0YWJsZSBxdWV1ZTogcXVldWUtNS4z?=
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/quotactl06: Add new testcase
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,55 +52,236 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Memory Management <mm-qe@redhat.com>, CKI Project <cki-project@redhat.com>,
- Linux Stable maillist <stable@vger.kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-CgotLS0tLSBPcmlnaW5hbCBNZXNzYWdlIC0tLS0tCj4gSGkgSmFuLAo+IAo+IE9uIFN1biwgMjcg
-T2N0IDIwMTkgYXQgMDQ6MDQsIENLSSBQcm9qZWN0IDxja2ktcHJvamVjdEByZWRoYXQuY29tPiB3
-cm90ZToKPiA+Cj4gPgo+ID4gSGVsbG8sCj4gPgo+ID4gV2UgcmFuIGF1dG9tYXRlZCB0ZXN0cyBv
-biBhIHBhdGNoc2V0IHRoYXQgd2FzIHByb3Bvc2VkIGZvciBtZXJnaW5nIGludG8KPiA+IHRoaXMK
-PiA+IGtlcm5lbCB0cmVlLiBUaGUgcGF0Y2hlcyB3ZXJlIGFwcGxpZWQgdG86Cj4gPgo+ID4gICAg
-ICAgIEtlcm5lbCByZXBvOgo+ID4gICAgICAgIGh0dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3Nj
-bS9saW51eC9rZXJuZWwvZ2l0L3N0YWJsZS9saW51eC5naXQKPiA+ICAgICAgICAgICAgIENvbW1p
-dDogMzY1ZGFiNjFmNzRlIC0gTGludXggNS4zLjcKPiA+Cj4gPiBUaGUgcmVzdWx0cyBvZiB0aGVz
-ZSBhdXRvbWF0ZWQgdGVzdHMgYXJlIHByb3ZpZGVkIGJlbG93Lgo+ID4KPiA+ICAgICBPdmVyYWxs
-IHJlc3VsdDogRkFJTEVEIChzZWUgZGV0YWlscyBiZWxvdykKPiA+ICAgICAgICAgICAgICBNZXJn
-ZTogT0sKPiA+ICAgICAgICAgICAgQ29tcGlsZTogT0sKPiA+ICAgICAgICAgICAgICBUZXN0czog
-RkFJTEVECj4gPgo+ID4gQWxsIGtlcm5lbCBiaW5hcmllcywgY29uZmlnIGZpbGVzLCBhbmQgbG9n
-cyBhcmUgYXZhaWxhYmxlIGZvciBkb3dubG9hZAo+ID4gaGVyZToKPiA+Cj4gPiAgIGh0dHBzOi8v
-YXJ0aWZhY3RzLmNraS1wcm9qZWN0Lm9yZy9waXBlbGluZXMvMjQ5NTc2Cj4gPgo+ID4gT25lIG9y
-IG1vcmUga2VybmVsIHRlc3RzIGZhaWxlZDoKPiA+Cj4gPiAgICAgeDg2XzY0Ogo+ID4gICAgICDi
-nYwgTFRQIGxpdGUKPiAKPiBJIHNlZSB0aGVzZSB0aHJlZSBmYWlsdXJlcyBmcm9tIHRoZSBsb2dz
-LAoKW0NDIExUUCBsaXN0XQoKPiAKPiBMVFAgc3lzY2FsbHM6Cj4gZmFsbG9jYXRlMDUgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRkFJTCAgICAgICAxCgp0c3RfbWtmcy5j
-Ojg5OiBJTkZPOiBGb3JtYXR0aW5nIC9kZXYvbG9vcDAgd2l0aCBleHQ0IG9wdHM9JycgZXh0cmEg
-b3B0cz0nJwpta2UyZnMgMS40NS4zICgxNC1KdWwtMjAxOSkKdHN0X3Rlc3QuYzoxMTE2OiBJTkZP
-OiBUaW1lb3V0IHBlciBydW4gaXMgMGggMDVtIDAwcwp0c3RfZmlsbF9mcy5jOjI5OiBJTkZPOiBD
-cmVhdGluZyBmaWxlIG1udHBvaW50L2ZpbGUwIHNpemUgMjE3MTAxODMKdHN0X2ZpbGxfZnMuYzoy
-OTogSU5GTzogQ3JlYXRpbmcgZmlsZSBtbnRwb2ludC9maWxlMSBzaXplIDgwNzAwODYKdHN0X2Zp
-bGxfZnMuYzoyOTogSU5GTzogQ3JlYXRpbmcgZmlsZSBtbnRwb2ludC9maWxlMiBzaXplIDM5NzEx
-NzcKdHN0X2ZpbGxfZnMuYzoyOTogSU5GTzogQ3JlYXRpbmcgZmlsZSBtbnRwb2ludC9maWxlMyBz
-aXplIDM2OTE1MzE1CnRzdF9maWxsX2ZzLmM6Mjk6IElORk86IENyZWF0aW5nIGZpbGUgbW50cG9p
-bnQvZmlsZTQgc2l6ZSA3MDMxMDk5Mwp0c3RfZmlsbF9mcy5jOjI5OiBJTkZPOiBDcmVhdGluZyBm
-aWxlIG1udHBvaW50L2ZpbGU1IHNpemUgNDgwNzkzNQp0c3RfZmlsbF9mcy5jOjI5OiBJTkZPOiBD
-cmVhdGluZyBmaWxlIG1udHBvaW50L2ZpbGU2IHNpemUgOTA3Mzk3ODYKdHN0X2ZpbGxfZnMuYzoy
-OTogSU5GTzogQ3JlYXRpbmcgZmlsZSBtbnRwb2ludC9maWxlNyBzaXplIDc2ODk2NDkyCnRzdF9m
-aWxsX2ZzLmM6NDk6IElORk86IHdyaXRlKCk6IEVOT1NQQyAoMjgpCmZhbGxvY2F0ZTA1LmM6NTA6
-IFBBU1M6IHdyaXRlKCkgd3JvdGUgODE5MiBieXRlcwpmYWxsb2NhdGUwNS5jOjU0OiBGQUlMOiBm
-YWxsb2NhdGUoKSBzdWNjZWVkZWQgdW5leHBlY3RlZGx5CgpTbywgdGVzdCBmaWxsZWQgZmlsZXN5
-c3RlbSBhbmQgZmFsbG9jYXRlKCkgc3VjY2VlZGVkIGFueXdheS4KCj4gCj4gTFRQIG1tOgo+IG9v
-bTAzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEZBSUwgICAg
-ICAgMgo+IG9vbTA1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IEZBSUwgICAgICAgMgoKVGhpcyBsb29rcyBsaWtlIHRlc3QgaXNzdWUuIHN5c3RlbWQgb24gRmVk
-b3JhMzEgc3RhcnRlZCB1c2luZyBjZ3JvdXAyIGV4Y2x1c2l2ZWx5OgogIGNncm91cDIgb24gL3N5
-cy9mcy9jZ3JvdXAgdHlwZSBjZ3JvdXAyIChydyxub3N1aWQsbm9kZXYsbm9leGVjLHJlbGF0aW1l
-LHNlY2xhYmVsLG5zZGVsZWdhdGUpCgpUZXN0cyBhcmUgdHJ5aW5nIHRvIG1vdW50IHNpbmdsZSBo
-aWVyYXJjaHkgb24gY2dyb3VwMToKW3BpZCAyODM5MzNdIDA0OjU3OjI2IG1rZGlyKCIvZGV2L2Nn
-cm91cCIsIDA3NzcpID0gMApbcGlkIDI4MzkzM10gMDQ6NTc6MjYgbW91bnQoIm1lbWNnIiwgIi9k
-ZXYvY2dyb3VwIiwgImNncm91cCIsIDAsICJtZW1vcnkiKSA9IC0xIEVCVVNZIChEZXZpY2Ugb3Ig
-cmVzb3VyY2UgYnVzeSkKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGlu
-dXguaXQvbGlzdGluZm8vbHRwCg==
+Check various errnos for the quotactl().
+
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+---
+ runtest/syscalls                              |   1 +
+ testcases/kernel/syscalls/quotactl/.gitignore |   1 +
+ .../kernel/syscalls/quotactl/quotactl06.c     | 183 ++++++++++++++++++
+ 3 files changed, 185 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/quotactl/quotactl06.c
+
+diff --git a/runtest/syscalls b/runtest/syscalls
+index f2c7b0daf..3e98163a6 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -955,6 +955,7 @@ quotactl02 quotactl02
+ quotactl03 quotactl03
+ quotactl04 quotactl04
+ quotactl05 quotactl05
++quotactl96 quotactl06
+ 
+ read01 read01
+ read02 read02
+diff --git a/testcases/kernel/syscalls/quotactl/.gitignore b/testcases/kernel/syscalls/quotactl/.gitignore
+index 6fe62fbf7..12896d6ad 100644
+--- a/testcases/kernel/syscalls/quotactl/.gitignore
++++ b/testcases/kernel/syscalls/quotactl/.gitignore
+@@ -3,3 +3,4 @@
+ /quotactl03
+ /quotactl04
+ /quotactl05
++/quotactl06
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl06.c b/testcases/kernel/syscalls/quotactl/quotactl06.c
+new file mode 100644
+index 000000000..c6f93233f
+--- /dev/null
++++ b/testcases/kernel/syscalls/quotactl/quotactl06.c
+@@ -0,0 +1,183 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2019 FUJITSU LIMITED. All rights reserved.
++ * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
++ *
++ * Tests basic error handling of the quotactl syscall.
++ * Description:
++ * 1) quotactl fails with EACCES when cmd is Q_QUOTAON and addr
++ * existed but not a regular file.
++ * 2) quotaclt fails with ENOENT when the file specified by special
++ * or addr does not exist.
++ * 3) quotactl fails with EBUSTY when  cmd is Q_QUOTAON and another
++ * Q_QUOTAON had already been performed.
++ * 4) quotactl fails with EFAULT when addr or special is invalid.
++ * 5) quotactl fails with EINVAL when cmd or type is invalid.
++ * 6) quotactl fails with ENOTBLK when special is not a block device.
++ * 7) quotactl fails with ESRCH when no disk quota is found for the
++ * indicated user and quotas have not been turned on for this fs.
++ * 8) quotactl fails with ESRCH when cmd is Q_QUOTAON, but the quota
++ * format was not found.
++ * 9) quotactl fails with ESRCH when cmd is Q_GETNEXTQUOTA, but there
++ * is no ID greater than or equal to id that has an active quota.
++ * 10) quotactl fails with ERANGE when cmd is Q_SETQUOTA, but the
++ * specified limits are out of the range allowed by the quota format.
++ * 11) quotactl fails with EPERM when the caller lacked the required
++ * privilege (CAP_SYS_ADMIN) for the specified operation.
++ */
++#include <errno.h>
++#include <sys/quota.h>
++#include "tst_test.h"
++#include "lapi/quotactl.h"
++#include "tst_capability.h"
++
++#define OPTION_INVALID 999
++#define QFMT_VFS_V0     2
++#define USRPATH MNTPOINT "/aquota.user"
++#define FMTID QFMT_VFS_V0
++
++#define MNTPOINT "mntpoint"
++#define TESTDIR1 MNTPOINT "/testdir1"
++#define TESTDIR2 MNTPOINT "/testdir2"
++
++static int32_t fmt_id = FMTID;
++static int32_t fmt_invalid = 999;
++static int test_invalid;
++static int test_id;
++static struct dqblk set_dq = {
++	.dqb_bsoftlimit = 100,
++	.dqb_valid = QIF_BLIMITS
++};
++
++static struct dqblk set_dqmax = {
++	.dqb_bsoftlimit = 0x7fffffffffffffffLL,  /* 2^63-1 */
++	.dqb_valid = QIF_BLIMITS
++};
++
++struct tst_cap dropadmin = {
++	.action = TST_CAP_DROP,
++	.id = CAP_SYS_ADMIN,
++	.name = "CAP_SYS_ADMIN",
++};
++
++struct tst_cap needadmin = {
++	.action = TST_CAP_REQ,
++	.id = CAP_SYS_ADMIN,
++	.name = "CAP_SYS_ADMIN",
++};
++
++static struct tcase {
++	int cmd;
++	int *id;
++	void *addr;
++	int exp_err;
++	int on_flag;
++} tcases[] = {
++	{QCMD(Q_QUOTAON, USRQUOTA), &fmt_id, TESTDIR1, EACCES, 0 },
++	{QCMD(Q_QUOTAON, USRQUOTA), &fmt_id, TESTDIR2, ENOENT, 0},
++	{QCMD(Q_QUOTAON, USRQUOTA), &fmt_id, USRPATH, EBUSY, 1},
++	{QCMD(Q_SETQUOTA, USRQUOTA), &fmt_id, NULL, EFAULT, 1},
++	{QCMD(OPTION_INVALID, USRQUOTA), &fmt_id, USRPATH, EINVAL, 0},
++	{QCMD(Q_QUOTAON, USRQUOTA), &fmt_id, USRPATH, ENOTBLK, 0},
++	{QCMD(Q_SETQUOTA, USRQUOTA), &test_id, &set_dq, ESRCH, 0},
++	{QCMD(Q_QUOTAON, USRQUOTA), &fmt_invalid, USRPATH, ESRCH, 0},
++	{QCMD(Q_GETNEXTQUOTA, USRQUOTA), &test_invalid, USRPATH, ESRCH, 0},
++	{QCMD(Q_SETQUOTA, USRQUOTA), &test_id, &set_dqmax, ERANGE, 1},
++	{QCMD(Q_QUOTAON, USRQUOTA), &fmt_id, USRPATH, EPERM, 0},
++};
++
++static void verify_quotactl(unsigned int n)
++{
++	struct tcase *tc = &tcases[n];
++	int quota_on = 0;
++	int drop_flag = 0;
++
++	if (!tc->addr)
++		tc->addr = tst_get_bad_addr(NULL);
++	if (tc->on_flag) {
++		TEST(quotactl(QCMD(Q_QUOTAON, USRQUOTA), tst_device->dev, FMTID, USRPATH));
++		if (TST_RET == -1)
++			tst_res(TFAIL,
++				"quotactl with Q_QUOTAON returned %ld", TST_RET);
++		quota_on = 1;
++	}
++
++	if (tc->exp_err == EPERM) {
++		tst_cap_action(&dropadmin);
++		drop_flag = 1;
++	}
++
++	if (tc->exp_err == ENOTBLK)
++		TEST(quotactl(tc->cmd, "/dev/null", *tc->id, tc->addr));
++	else
++		TEST(quotactl(tc->cmd, tst_device->dev, *tc->id, tc->addr));
++	if (TST_RET == -1) {
++		if (tc->exp_err == TST_ERR) {
++			tst_res(TPASS | TTERRNO,
++				"quotactl failed as expected");
++		} else if (*tc->id == test_invalid && tc->exp_err == EINVAL) {
++			tst_res(TFAIL,
++				"quotactl Q_GETNEXTQUOTA option is not supported.");
++		} else {
++			tst_res(TFAIL | TTERRNO,
++				"quotactl failed unexpectedly; expected %s, but got",
++			tst_strerrno(tc->exp_err));
++		}
++	} else {
++		tst_res(TFAIL, "quotactl returned wrong value: %ld", TST_RET);
++	}
++
++	if (quota_on) {
++		TEST(quotactl(QCMD(Q_QUOTAOFF, USRQUOTA), tst_device->dev, FMTID, USRPATH));
++		if (TST_RET == -1)
++			tst_res(TFAIL,
++				"quotactl with Q_QUOTAOFF returned %ld", TST_RET);
++		quota_on = 0;
++	}
++
++	if (drop_flag) {
++		tst_cap_action(&needadmin);
++		drop_flag = 0;
++	}
++}
++
++static void setup(void)
++{
++	const char *const cmd[] = {"quotacheck", "-uF", "vfsv0", MNTPOINT, NULL};
++	int ret;
++
++	ret = tst_run_cmd(cmd, NULL, NULL, 1);
++	switch (ret) {
++	case 0:
++		break;
++	case 255:
++		tst_brk(TBROK, "quotacheck binary not installed");
++		break;
++	default:
++		tst_brk(TBROK, "quotacheck exited with %i", ret);
++	}
++
++	if (access(USRPATH, F_OK) == -1)
++		tst_brk(TFAIL | TERRNO, "user quotafile didn't exist");
++
++	SAFE_MKDIR(TESTDIR1, 0666);
++	test_id = geteuid();
++	test_invalid = test_id + 1;
++}
++
++static const char *kconfigs[] = {
++	"CONFIG_QFMT_V2",
++	NULL
++};
++
++static struct tst_test test = {
++	.setup = setup,
++	.needs_kconfigs = kconfigs,
++	.tcnt = ARRAY_SIZE(tcases),
++	.test = verify_quotactl,
++	.dev_fs_type = "ext4",
++	.mntpoint = MNTPOINT,
++	.mount_device = 1,
++	.mnt_data = "usrquota",
++	.needs_root = 1,
++};
+-- 
+2.18.0
+
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
