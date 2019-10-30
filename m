@@ -1,50 +1,50 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D91ECE9954
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Oct 2019 10:41:10 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id F06E1E995E
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Oct 2019 10:46:02 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 86F793C22AA
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Oct 2019 10:41:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C25E53C22A3
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Oct 2019 10:46:02 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 4C6273C1CB4
- for <ltp@lists.linux.it>; Wed, 30 Oct 2019 10:41:08 +0100 (CET)
-Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
- [IPv6:2a00:1450:4864:20::242])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id A3EA43C1CA6
+ for <ltp@lists.linux.it>; Wed, 30 Oct 2019 10:46:00 +0100 (CET)
+Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
+ [IPv6:2a00:1450:4864:20::141])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0EF9A600D78
- for <ltp@lists.linux.it>; Wed, 30 Oct 2019 10:41:06 +0100 (CET)
-Received: by mail-lj1-x242.google.com with SMTP id m9so1856338ljh.8
- for <ltp@lists.linux.it>; Wed, 30 Oct 2019 02:41:06 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C06D1601CB3
+ for <ltp@lists.linux.it>; Wed, 30 Oct 2019 10:45:59 +0100 (CET)
+Received: by mail-lf1-x141.google.com with SMTP id y127so1043200lfc.0
+ for <ltp@lists.linux.it>; Wed, 30 Oct 2019 02:45:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=H8iAs9zilQ5KRfoYOSf05hG+t/fzbv9GMYNsO50OI60=;
- b=LeJnGnmjAUILfYnO7djyJCm/tQwzHMYLlQ+AoJICHppFlO1Ipmvmme+jegC2yVkZdW
- 2zQQABy16RD8Od/i4NRLwxnmy2JUfUYfefww6+QqmlARE1g3PogYCLBfQYJUzm+8tSBt
- JW7cuJXuMUryZQvj7MykSFLhUYcDcJ00XlX2c+60gzcoF0ticj+9AobjqRq1G53BRyuD
- ojCl1I4j7uWEOWsJZ6/khcmU16czbPQafuiEEJOq+hshldPAZofWRkZ04ErMIVNUgeZ3
- rM0JiqHMZZbFHEbZKWutqRBlwJOA9hH2gTNky0Lq6wO5pFT12ixXQh/lsAN3uW9LU8to
- Rhrw==
+ :cc; bh=E9gbKrhlz8CeUISj1JKezUjfPaaADLcfo2ApwM1SAo4=;
+ b=d74IFIu9GVf63AMl55JyNWYpBGu4dv9ZTsi79iumbi5DvTZZchRI7gr1PFh0J0GaPJ
+ h77a1uMm0QFbY5Blfry3O/EmUv21ZWCZS8pi8k06mKHUIddv8S1SwADkEx5Sz5VDFAbC
+ 1E9nAi5gJh4Itg2bcpa9JmSn7dyzyx/RBIb/U7RXqCMAyTMmYoF7cOYGXElhIkJP49cW
+ ui/5c5rBglo5a/EqTn4aQGJH8FmDhph0WNZnln2W64ttl7XW6umjmadvZPyEtCnB1OYc
+ lPaPeIY60zNxmNW6Pk9kJPArubEBrwwvG4/YnaeNjWM6BLj0naJUpgS/DU63dsGIjYDz
+ 45RA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=H8iAs9zilQ5KRfoYOSf05hG+t/fzbv9GMYNsO50OI60=;
- b=CA9cKvTUfAWI//ob2HUx6nJWOR5qjLJRjPNrag4untaYFj0T3QZjSzuQi+EU49i9j/
- /QtyJtx85X4pMs4/CEwcPQ/x491RNgnPrfJbCyFv/dv2briZ4zQtSkfMkoWdELauzX0T
- RhoAtVE/E6JudFvzZCEcKHMwO5GLC4He5xUyU+N17DupYx7//yPJuZdrtN4BrBGYDzzt
- Ojm3ZNPtNnp7SWryz/4LJMGrj5bSsMlo+s//y23uEOL2ROT2KKNE2X9meVGRrGWRbY3O
- DfFNtzzNSyifjydOLEmP1y7btE84OEOxE14Fj32xmX4K86jY3AOvF567jGJF9tfRE51b
- YRYA==
-X-Gm-Message-State: APjAAAVr7HtWDl3tgjAH44B+gP59szZLW5MmwqPE5fkW+BiyRKGQ7XDU
- WI4YNXGpQazNJo5HSW8F4urirK8JJ9AgikuZYD0Br9lhru4=
-X-Google-Smtp-Source: APXvYqwcpKGWjqDXNXwrqz3GuD4ANRR36oXaS1gWuvzsS506rOy+5caHLv+RwsWFLM4fljFx2vGebqOmS+ulAyfWPoE=
-X-Received: by 2002:a2e:3919:: with SMTP id g25mr6009894lja.232.1572428466034; 
- Wed, 30 Oct 2019 02:41:06 -0700 (PDT)
+ bh=E9gbKrhlz8CeUISj1JKezUjfPaaADLcfo2ApwM1SAo4=;
+ b=AWI0Zop+QToymPzfFVQqyDMs/Oua2rYfzyG6+dRUPKgCJK0vKah9lfqUEsAz1QXnc2
+ P0VBSU4JMRNp9+Ts76jiJvO2dEl916oBA1WbmaMXoH8KBioV6UZkBrwD8qoktvjgvvQ6
+ gNf5vrvjXE/UC6I6S6GfSTuSUJKhrzsRGKOk73rp0uNfZPsh/jIhfeutPEKjF/OeJY3G
+ BeiCkbUpScwD56/e+vnZYmdBcGB8C7bQvtiDaGFeafV5F2yrXzJkAFtTPBtqqzKlDF9u
+ FzsbHj/Yttvev4EfyiOjMqXIMDSHOhk3MorHPOR1nYcqbPlJISGJigqEtXS/oFqVdqMd
+ IAOQ==
+X-Gm-Message-State: APjAAAX59lJBd+74OiD+UvQ+cScvpHd4kczqn+/+Ux9PIT6N9imfcZx/
+ SnzgZRFIlcv2H5QXSp80N3ijYNu5DFBx/HZTD9Zr/JJLjx8=
+X-Google-Smtp-Source: APXvYqzlztgPe09z10aru/r016pvqGb7avgjg9aNdaIveuC0zZ9rN+y9d/h6bmKGgsRKQrY77ax/Aohz6YDRZdj0PFo=
+X-Received: by 2002:a05:6512:409:: with SMTP id u9mr5547088lfk.0.1572428758984; 
+ Wed, 30 Oct 2019 02:45:58 -0700 (PDT)
 MIME-Version: 1.0
 References: <1560161596-30156-1-git-send-email-sumit.garg@linaro.org>
  <20190929132749.GB73158@casparzhang.com>
@@ -52,16 +52,17 @@ References: <1560161596-30156-1-git-send-email-sumit.garg@linaro.org>
  <20191016025405.GA86846@casparzhang.com>
  <CAFA6WYNCHNyPb=GX-jLDHc2m=NGxH-Pgi10Dvvbc65stnV5VMA@mail.gmail.com>
  <20191017073653.GA2590@casparzhang.com>
-In-Reply-To: <20191017073653.GA2590@casparzhang.com>
+ <CA+G9fYst7ZgkUE0+3YXx0o=ZW+XsxD6AFOpnZHwixBrgr43LJA@mail.gmail.com>
+In-Reply-To: <CA+G9fYst7ZgkUE0+3YXx0o=ZW+XsxD6AFOpnZHwixBrgr43LJA@mail.gmail.com>
 From: Sumit Garg <sumit.garg@linaro.org>
-Date: Wed, 30 Oct 2019 15:10:54 +0530
-Message-ID: <CAFA6WYMz51agYiT5L2fby5C-e-aEjdnpoOk8KUKSVryBh64UZQ@mail.gmail.com>
-To: Caspar Zhang <caspar@casparzhang.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+Date: Wed, 30 Oct 2019 15:15:47 +0530
+Message-ID: <CAFA6WYO_xaOqYmyx39OpvJDmjoMi_Cqn09t9+orvTbO2Lrzt-A@mail.gmail.com>
+To: Naresh Kamboju <naresh.kamboju@linaro.org>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v4] syscalls/sync_file_range: add partial file
  sync test-cases
 X-BeenThere: ltp@lists.linux.it
@@ -75,331 +76,106 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: joseph.qi@linux.alibaba.com, LTP List <ltp@lists.linux.it>
+Cc: lkft-triage@lists.linaro.org, LTP List <ltp@lists.linux.it>,
+ joseph.qi@linux.alibaba.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Caspar,
+Hi Naresh,
 
-Sorry for the late reply. I was busy with some other stuff along with
-Diwali holidays last week in India. So now I got a chance to dig
-deeper into this issue.
-
-On Thu, 17 Oct 2019 at 13:07, Caspar Zhang <caspar@casparzhang.com> wrote:
+On Tue, 29 Oct 2019 at 11:39, Naresh Kamboju <naresh.kamboju@linaro.org> wrote:
 >
-> On Wed, Oct 16, 2019 at 11:53:48AM +0530, Sumit Garg wrote:
-> > Hi Caspar,
+> Hi Caspar and Sumit,
+>
+> > > > > > We encountered test failure in the second case in a debug kernel,
+> > > > > > reproducible about once out of 20 times run.
+> > > > >
+> > > > > Interesting case. Can you share results after applying below patch?
+> > > >
+> > > > Tested this patch, no TFAIL occured in debug kernel after 200+ times
+> > > > run, looks good to me. Thanks! Please add my
+> > >
+> > > From these results, the reason for the failure that you reported
+> > > earlier seems to be writes to the device during "tst_fill_fd()"
+> > > operation (they were found negligible/zero with normal kernel). But
+> > > it's strange to know that you didn't get any TFAIL after the patch as
+> > > I expected "Sync equals write" to fail.
+> > >
+> > > So can you also put following debug print and share logs of your test run?
 > >
-> > On Wed, 16 Oct 2019 at 08:24, Caspar Zhang <caspar@casparzhang.com> wrote:
-> > >
-> > > Hi Sumit,
-> > >
-> > > On Fri, Oct 04, 2019 at 01:03:19PM +0530, Sumit Garg wrote:
-> > > > Hi Caspar,
-> > > >
-> > > > On Sun, 29 Sep 2019 at 18:58, Caspar Zhang <caspar@casparzhang.com> wrote:
-> > > > >
-> > > > > Hi Sumit,
-> > > > >
-> > > > > On Mon, Jun 10, 2019 at 03:43:16PM +0530, Sumit Garg wrote:
-> > > > >
-> > > > > <snip>
-> > > > >
-> > > > > >
-> > > > > > -     if (written >= FILE_SIZE)
-> > > > > > +     if ((written >= tc->exp_sync_size) &&
-> > > > > > +         (written <= (tc->exp_sync_size + tc->exp_sync_size/10)))
-> > > > >
-> > > > > May I ask why it is +1/10 of expected sync_size as upper bound here,
-> > > > > since it looks like a magic number to me.
-> > > >
-> > > > It was an outcome of discussion here [1]. The reason being to test
-> > > > that only particular portion of file is written to device for whom
-> > > > sync has been invoked and +1/10 as upper bound to incorporate for any
-> > > > metadata.
-> > >
-> > > I see, thanks for explanation.
-> > >
-> > > >
-> > > > [1] https://patchwork.ozlabs.org/patch/1051647/
-> > > >
-> > > > >
-> > > > > We encountered test failure in the second case in a debug kernel,
-> > > > > reproducible about once out of 20 times run.
-> > > >
-> > > > Interesting case. Can you share results after applying below patch?
-> > >
-> > > Tested this patch, no TFAIL occured in debug kernel after 200+ times
-> > > run, looks good to me. Thanks! Please add my
+> > Retested with debug print, during my 1000-times run, pre-sync remains 0
+> > in all the other fs types except only ext4. For ext4 cases, pre-sync
+> > could be non-zero, e.g.:
 > >
-> > From these results, the reason for the failure that you reported
-> > earlier seems to be writes to the device during "tst_fill_fd()"
-> > operation (they were found negligible/zero with normal kernel). But
-> > it's strange to know that you didn't get any TFAIL after the patch as
-> > I expected "Sync equals write" to fail.
+> >     Sync equals write: Synced 33554432, expected 33554432, pre-sync 0
+> >     Sync inside of write: Synced 17301504, expected 16777216, pre-sync 1308672
+> >     Sync overlaps with write: Synced 8650752, expected 8388608, pre-sync 1310720
 > >
-> > So can you also put following debug print and share logs of your test run?
+> > Note that pre-sync could be non-zero in `equals writes` case sometimes
+> > too, like another round below:
+> >
+> >     Sync equals write: Synced 34078720, expected 33554432, pre-sync 260096
+> >     Sync inside of write: Synced 17039360, expected 16777216, pre-sync 4980736
+> >     Sync overlaps with write: Synced 8912896, expected 8388608, pre-sync 1048576
+> >
+> > Such non-zero situation in ext4 case is reproducible ~10% of my
+> > 1000-times run.
 >
-> Retested with debug print, during my 1000-times run, pre-sync remains 0
-> in all the other fs types except only ext4. For ext4 cases, pre-sync
-> could be non-zero, e.g.:
->
->     Sync equals write: Synced 33554432, expected 33554432, pre-sync 0
->     Sync inside of write: Synced 17301504, expected 16777216, pre-sync 1308672
->     Sync overlaps with write: Synced 8650752, expected 8388608, pre-sync 1310720
->
-> Note that pre-sync could be non-zero in `equals writes` case sometimes
-> too, like another round below:
->
->     Sync equals write: Synced 34078720, expected 33554432, pre-sync 260096
->     Sync inside of write: Synced 17039360, expected 16777216, pre-sync 4980736
->     Sync overlaps with write: Synced 8912896, expected 8388608, pre-sync 1048576
->
-> Such non-zero situation in ext4 case is reproducible ~10% of my
-> 1000-times run.
+> sync_file_range02 test failure reproduced on mainline and stable rc branches
+> 5.3, 4.19, 4.14 on arm64 and arm devices while testing on ext4.
 >
 
-Thanks for your testing results. I am able to root-cause this issue.
+Can you test again with the fix proposed here [1]?
 
-This issue seems to be caused by left over writes from previous test
-runs that are queued up for writes to the device during current test
-run leading to over-estimation of synced data to the device causing
-the failures that you have reported.
-
-So to avoid those left over writes from estimation, following
-additional call to "sync()" is required:
-
-diff --git a/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-b/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-index eb08143c3..c66dbd8d2 100644
---- a/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-+++ b/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-@@ -48,6 +48,8 @@ static void verify_sync_file_range(struct testcase *tc)
-
-        lseek(fd, tc->write_off, SEEK_SET);
-
-+       sync();
-+
-        tst_dev_bytes_written(tst_device->dev);
-
-        tst_fill_fd(fd, 0, TST_MB, tc->write_size_mb);
-
-Try to apply this fix at your end and let me know if you still observe
-any further failures with this test-case.
+[1] http://lists.linux.it/pipermail/ltp/2019-October/014157.html
 
 -Sumit
 
-> Thanks,
-> Caspar
+> output log,
+> --------------
+> tst_test.c:1179: INFO: Testing on ext2
+> tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
+> mke2fs 1.43.8 (1-Jan-2018)
+> tst_test.c:1118: INFO: Timeout per run is 0h 15m 00s
+> sync_file_range02.c:71: PASS: Sync equals write
+> sync_file_range02.c:71: PASS: Sync inside of write
+> sync_file_range02.c:71: PASS: Sync overlaps with write
+> tst_test.c:1179: INFO: Testing on ext3
+> tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
+> mke2fs 1.43.8 (1-Jan-2018)
+> Listened to connection for namespace 'tlxc' done
+> [ 1349.061989] EXT4-fs (loop0): mounting ext3 file system using the
+> ext4 subsystem
+> [ 1349.099564] EXT4-fs (loop0): mounted filesystem with ordered data
+> mode. Opts: (null)
+> tst_test.c:1118: INFO: Timeout per run is 0h 15m 00s
+> sync_file_range02.c:71: PASS: Sync equals write
+> Listened to connection for namespace 'tlxc' done
+> sync_file_range02.c:71: PASS: Sync inside of write
+> sync_file_range02.c:71: PASS: Sync overlaps with write
+> tst_test.c:1179: INFO: Testing on ext4
+> tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
+> mke2fs 1.43.8 (1-Jan-2018)
+> [ 1362.579639] EXT4-fs (loop0): mounted filesystem with ordered data
+> mode. Opts: (null)
+> tst_test.c:1118: INFO: Timeout per run is 0h 15m 00s
+> sync_file_range02.c:74: FAIL: Sync equals write: Synced 36960256,
+> expected 33554432
+> Listened to connection for namespace 'tlxc' done
+> sync_file_range02.c:74: FAIL: Sync inside of write: Synced 20185088,
+> expected 16777216
+> sync_file_range02.c:71: PASS: Sync overlaps with write
+> Summary:
+> passed   7
+> failed   2
 >
+> Full output log,
+> --------------------
+> https://lkft.validation.linaro.org/scheduler/job/983166#L15067
 >
->
->
-> >
-> > --- a/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-> > +++ b/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-> > @@ -68,6 +68,8 @@ static void verify_sync_file_range(struct testcase *tc)
-> >
-> >         SAFE_CLOSE(fd);
-> >
-> > +       printf("%s: Synced %li, expected %li, pre-sync %li\n",
-> > +               tc->desc, written, tc->exp_sync_size, written_pre);
-> >         if ((written >= tc->exp_sync_size) &&
-> >             (written <= (tc->exp_sync_size + tc->exp_sync_size/10)))
-> >                 tst_res(TPASS, "%s", tc->desc);
-> >
-> > -Sumit
-> >
-> > >
-> > > Reviewed-by: Caspar Zhang <caspar@linux.alibaba.com>
-> > >
-> > > directly if you're going to make a formal patch later.
-> > >
-> > > Thanks,
-> > > Caspar
-> > >
-> > > >
-> > > > diff --git a/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-> > > > b/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-> > > > index eb08143..1bc1a44 100644
-> > > > --- a/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-> > > > +++ b/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-> > > > @@ -42,7 +42,7 @@ struct testcase {
-> > > >  static void verify_sync_file_range(struct testcase *tc)
-> > > >  {
-> > > >         int fd;
-> > > > -       unsigned long written;
-> > > > +       unsigned long written, written_pre;
-> > > >
-> > > >         fd = SAFE_OPEN(tc->fname, O_RDWR|O_CREAT, MODE);
-> > > >
-> > > > @@ -52,6 +52,8 @@ static void verify_sync_file_range(struct testcase *tc)
-> > > >
-> > > >         tst_fill_fd(fd, 0, TST_MB, tc->write_size_mb);
-> > > >
-> > > > +       written_pre = tst_dev_bytes_written(tst_device->dev);
-> > > > +
-> > > >         TEST(sync_file_range(fd, tc->sync_off, tc->sync_size,
-> > > >                              SYNC_FILE_RANGE_WAIT_BEFORE |
-> > > >                              SYNC_FILE_RANGE_WRITE |
-> > > > @@ -70,8 +72,8 @@ static void verify_sync_file_range(struct testcase *tc)
-> > > >             (written <= (tc->exp_sync_size + tc->exp_sync_size/10)))
-> > > >                 tst_res(TPASS, "%s", tc->desc);
-> > > >         else
-> > > > -               tst_res(TFAIL, "%s: Synced %li, expected %li", tc->desc,
-> > > > -                       written, tc->exp_sync_size);
-> > > > +               tst_res(TFAIL, "%s: Synced %li, expected %li, pre-sync %li",
-> > > > +                       tc->desc, written, tc->exp_sync_size, written_pre);
-> > > >  }
-> > > >
-> > > >  static struct testcase testcases[] = {
-> > > >
-> > > > -Sumit
-> > > >
-> > > > >
-> > > > > The reason is unclear yet, however my guess is that more pages could be
-> > > > > written to disk in a debug kernel than a release kernel.
-> > > > >
-> > > > > My codes and config as below:
-> > > > >
-> > > > > tree: https://github.com/alibaba/cloud-kernel :: ck-4.19.67 branch;
-> > > > > config: https://github.com/alibaba/cloud-kernel/blob/master/config-4.19.y-x86_64-debug
-> > > > >
-> > > > > If you like you can build a test kernel on a KVM guest and try to
-> > > > > reproduce, or just run a RHEL8 kernel I guess (@Li Wang, you can have a
-> > > > > try on RHEL8 debug kernel if possible).
-> > > > >
-> > > > > a sample output:
-> > > > >
-> > > > > tst_device.c:87: INFO: Found free device 0 '/dev/loop0'
-> > > > > tst_supported_fs_types.c:60: INFO: Kernel supports ext2
-> > > > > tst_supported_fs_types.c:44: INFO: mkfs.ext2 does exist
-> > > > > tst_supported_fs_types.c:60: INFO: Kernel supports ext3
-> > > > > tst_supported_fs_types.c:44: INFO: mkfs.ext3 does exist
-> > > > > tst_supported_fs_types.c:60: INFO: Kernel supports ext4
-> > > > > tst_supported_fs_types.c:44: INFO: mkfs.ext4 does exist
-> > > > > tst_supported_fs_types.c:60: INFO: Kernel supports xfs
-> > > > > tst_supported_fs_types.c:44: INFO: mkfs.xfs does exist
-> > > > > tst_supported_fs_types.c:60: INFO: Kernel supports btrfs
-> > > > > tst_supported_fs_types.c:44: INFO: mkfs.btrfs does exist
-> > > > > tst_supported_fs_types.c:60: INFO: Kernel supports vfat
-> > > > > tst_supported_fs_types.c:44: INFO: mkfs.vfat does exist
-> > > > > tst_supported_fs_types.c:83: INFO: Filesystem exfat is not supported
-> > > > > tst_supported_fs_types.c:83: INFO: Filesystem ntfs is not supported
-> > > > > tst_test.c:1179: INFO: Testing on ext2
-> > > > > tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
-> > > > > mke2fs 1.43.5 (04-Aug-2017)
-> > > > > tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-> > > > > sync_file_range02.c:71: PASS: Sync equals write
-> > > > > sync_file_range02.c:71: PASS: Sync inside of write
-> > > > > sync_file_range02.c:71: PASS: Sync overlaps with write
-> > > > > tst_test.c:1179: INFO: Testing on ext3
-> > > > > tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext3 opts='' extra opts=''
-> > > > > mke2fs 1.43.5 (04-Aug-2017)
-> > > > > tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-> > > > > sync_file_range02.c:71: PASS: Sync equals write
-> > > > > sync_file_range02.c:71: PASS: Sync inside of write
-> > > > > sync_file_range02.c:71: PASS: Sync overlaps with write
-> > > > > tst_test.c:1179: INFO: Testing on ext4
-> > > > > tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
-> > > > > mke2fs 1.43.5 (04-Aug-2017)
-> > > > > tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-> > > > > sync_file_range02.c:71: PASS: Sync equals write
-> > > > > sync_file_range02.c:74: FAIL: Sync inside of write: Synced 19658752, expected 16777216
-> > > > >                         ^^^^
-> > > > > sync_file_range02.c:71: PASS: Sync overlaps with write
-> > > > > tst_test.c:1179: INFO: Testing on xfs
-> > > > > tst_mkfs.c:90: INFO: Formatting /dev/loop0 with xfs opts='' extra opts=''
-> > > > > tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-> > > > > sync_file_range02.c:71: PASS: Sync equals write
-> > > > > sync_file_range02.c:71: PASS: Sync inside of write
-> > > > > sync_file_range02.c:71: PASS: Sync overlaps with write
-> > > > > tst_test.c:1179: INFO: Testing on btrfs
-> > > > > tst_mkfs.c:90: INFO: Formatting /dev/loop0 with btrfs opts='' extra opts=''
-> > > > > tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-> > > > > sync_file_range02.c:71: PASS: Sync equals write
-> > > > > sync_file_range02.c:71: PASS: Sync inside of write
-> > > > > sync_file_range02.c:71: PASS: Sync overlaps with write
-> > > > > tst_test.c:1179: INFO: Testing on vfat
-> > > > > tst_mkfs.c:90: INFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
-> > > > > tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-> > > > > sync_file_range02.c:111: INFO: Pre-filling file
-> > > > > sync_file_range02.c:71: PASS: Sync equals write
-> > > > > sync_file_range02.c:71: PASS: Sync inside of write
-> > > > > sync_file_range02.c:71: PASS: Sync overlaps with write
-> > > > >
-> > > > > Summary:
-> > > > > passed   17
-> > > > > failed   1
-> > > > > skipped  0
-> > > > > warnings 0
-> > > > >
-> > > > > Any thoughts would be appreicated.
-> > > > >
-> > > > > Thanks,
-> > > > > Caspar
-> > > > >
-> > > > >
-> > > > > >               tst_res(TPASS, "Test file range synced to device");
-> > > > > >       else
-> > > > > > -             tst_res(TFAIL, "Synced %li, expected %i", written, FILE_SIZE);
-> > > > > > +             tst_res(TFAIL, "Synced %li, expected %li", written,
-> > > > > > +                     tc->exp_sync_size);
-> > > > > > +}
-> > > > > > +
-> > > > > > +static struct testcase testcases[] = {
-> > > > > > +     { FNAME1, 0, FILE_SZ, FILE_SZ, 0, FILE_SZ_MB },
-> > > > > > +     { FNAME2, FILE_SZ/4, FILE_SZ/2, FILE_SZ/2, 0, FILE_SZ_MB },
-> > > > > > +     { FNAME3, FILE_SZ/4, FILE_SZ/2, FILE_SZ/4, FILE_SZ/2, FILE_SZ_MB/4 },
-> > > > > > +};
-> > > > > > +
-> > > > > > +static void run(unsigned int i)
-> > > > > > +{
-> > > > > > +     verify_sync_file_range(&testcases[i]);
-> > > > > >  }
-> > > > > >
-> > > > > >  static void setup(void)
-> > > > > >  {
-> > > > > >       if (!check_sync_file_range())
-> > > > > >               tst_brk(TCONF, "sync_file_range() not supported");
-> > > > > > +
-> > > > > > +     if (!strcmp(tst_device->fs_type, "vfat")) {
-> > > > > > +             tst_res(TINFO, "Pre-filling file");
-> > > > > > +             tst_fill_file(FNAME3, 0, TST_MB, FILE_SZ_MB);
-> > > > > > +             sync();
-> > > > > > +     }
-> > > > > >  }
-> > > > > >
-> > > > > >  static struct tst_test test = {
-> > > > > > +     .tcnt = ARRAY_SIZE(testcases),
-> > > > > >       .needs_root = 1,
-> > > > > >       .mount_device = 1,
-> > > > > >       .all_filesystems = 1,
-> > > > > >       .mntpoint = MNTPOINT,
-> > > > > >       .setup = setup,
-> > > > > > -     .test_all = verify_sync_file_range,
-> > > > > > +     .test = run,
-> > > > > >  };
-> > > > > > --
-> > > > > > 2.7.4
-> > > > > >
-> > > > > >
-> > > > > > --
-> > > > > > Mailing list info: https://lists.linux.it/listinfo/ltp
-> > > > >
-> > > > > --
-> > > > >         Thanks,
-> > > > >         Caspar
-> > >
-> > > --
-> > >         Thanks,
-> > >         Caspar
->
-> --
->         Thanks,
->         Caspar
+> - Naresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
