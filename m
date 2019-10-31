@@ -1,38 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13B5EEAC47
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 10:06:09 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D56EEAC5A
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 10:09:39 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D963A3C22AB
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 10:06:08 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2D5493C22C9
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 10:09:39 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id A3D053C0737
- for <ltp@lists.linux.it>; Thu, 31 Oct 2019 10:06:06 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id B7CE43C229C
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2019 10:09:36 +0100 (CET)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id DA8181000DB2
- for <ltp@lists.linux.it>; Thu, 31 Oct 2019 10:06:05 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 839A01001195
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2019 10:09:36 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 22AABAF7A;
- Thu, 31 Oct 2019 09:06:05 +0000 (UTC)
-Date: Thu, 31 Oct 2019 10:06:03 +0100
+ by mx1.suse.de (Postfix) with ESMTP id DE223B63D;
+ Thu, 31 Oct 2019 09:09:35 +0000 (UTC)
+Date: Thu, 31 Oct 2019 10:09:34 +0100
 From: Petr Vorel <pvorel@suse.cz>
 To: Jan Stancek <jstancek@redhat.com>
-Message-ID: <20191031090603.GA15784@dell5510>
+Message-ID: <20191031090934.GB15784@dell5510>
 References: <20190925094721.18932-1-chrubis@suse.cz>
  <20190925135634.GA32581@dell5510>
  <575273995.9684474.1572426415443.JavaMail.zimbra@redhat.com>
  <1665612504.9724602.1572440600772.JavaMail.zimbra@redhat.com>
  <20191030144649.GA25642@dell5510>
  <116299070.9793183.1572457283737.JavaMail.zimbra@redhat.com>
+ <CAEemH2dO95d2_CZyMpE4fM8CcC+p0ou9XfA43sS9fX0LmQBWoQ@mail.gmail.com>
+ <2003376860.9886044.1572511989903.JavaMail.zimbra@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <116299070.9793183.1572457283737.JavaMail.zimbra@redhat.com>
+In-Reply-To: <2003376860.9886044.1572511989903.JavaMail.zimbra@redhat.com>
 User-Agent: Mutt/1.11.3 (2019-02-01)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
@@ -52,7 +55,7 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
@@ -60,28 +63,33 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Jan,
 
-> > Hm, did you reproduce it on 4.18 (rhel8)?
+> > How much time of the ac_btime shaking to be tolerated is proper?
 
-> Above was RHEL7. Do you expect different outcome on RHEL8?
-> I was looking at upstream sources too and it looked similar.
-I know it was RHEL7. Good it's not affected by old kernel code,
-but rather by overloaded host. Agree, that some tolerance is needed.
+> I wanted to go with 1 sec:
 
-> Anyway, I don't think this part is an issue, test will skip it
-> because "comm" doesn't match.
+> @@ -83,7 +83,7 @@ static int verify_acct(void *acc, int elap_time)
+>                 ret = 1;
+>         }
 
-> We can tweak 'ac_btime' condition, but I think the test will remain
-> race-y in environments with higher steal time:
+> -       if (ACCT_MEMBER(ac_btime) < start_time) {
+> +       if (ACCT_MEMBER(ac_btime) + 1 < start_time) {
+>                 tst_res(TINFO, "ac_btime < %d (%d)", start_time,
+>                         ACCT_MEMBER(ac_btime));
+>                 ret = 1;
 
-> acct02.c:239: INFO: Verifying using 'struct acct_v3'
-> acct02.c:192: INFO: == entry 1 ==
-> acct02.c:127: INFO: elap_time/clock_ticks >= 2 (236/100: 2.00)
-> acct02.c:192: INFO: == entry 2 ==
-> acct02.c:82: INFO: ac_comm != 'acct02_helper' ('acct02')
-> acct02.c:127: INFO: elap_time/clock_ticks >= 2 (236/100: 2.00)
-> acct02.c:133: INFO: ac_exitcode != 32768 (0)
-> acct02.c:141: INFO: ac_ppid != 43213 (43212)
-> acct02.c:182: FAIL: end of file reached
+Ack.
+
+> > > race-y in environments with higher steal time:
+
+
+> > I'm sorry, what does it mean here?
+
+> I was referring to failed check below. s390 is scarce resource
+> and when over-committed, sleeps are less consistent.
+> E.g. sleep(1) taking 2+ seconds:
+>   nanosleep({1, 0}, NULL) = 0 <1.926617>
+
+Lol :)
 
 Kind regards,
 Petr
