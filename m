@@ -1,57 +1,66 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A23AFEAC86
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 10:26:48 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C616EAC8C
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 10:32:10 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 722DB3C22C3
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 10:26:48 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5B5AE3C22DD
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 10:32:10 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id DFBF43C229C
- for <ltp@lists.linux.it>; Thu, 31 Oct 2019 10:26:46 +0100 (CET)
-Received: from smtpproxy21.qq.com (smtpbg701.qq.com [203.205.195.86])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 2D9993C229F
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2019 10:32:08 +0100 (CET)
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 70FFD14016CF
- for <ltp@lists.linux.it>; Thu, 31 Oct 2019 10:26:43 +0100 (CET)
-X-QQ-GoodBg: 2
-X-QQ-SSF: 0040000000000060
-X-QQ-FEAT: v8BDFsVY6zJvuZWYtCorCbF+0kaZP/wB9CaD5U3c6hKzsR6arfPyrNJjnVyfl
- o5aUd9MUGjOpkuBA+9iVd9z+q4r/vozMdLqzQLy/4fygm1ptXTLVkZlxBHM57w2Eo1yuxVW
- +h9JEJ222Xb3Ue3rUI9BUFqMNGKYNr78H+lXm08zNaSyIVaVfa8RpdiOhhPKoVFsdmDRaBB
- dxudhbP6aLzyOTAaG7mo3Coa1ehwkM9eevqyw935vOgA7Z4F/7mv69OZ+eMzApiwONEgqnh
- A5Dm/rST3cAtg0/lzePyi5Fv4aQL6ZhNrngzjwA3sy4K5UekNNNzgTIbVF88TjHZQmuAOFZ
- nzUftMFCsM9ugAyBcCKKNI2OhGC4Q==
-X-QQ-BUSINESS-ORIGIN: 2
-X-Originating-IP: 117.136.24.249
-X-QQ-STYLE: 
-X-QQ-mid: bizmailvip36t1572513967t62338
-From: "=?utf-8?B?bGltaW5neXU=?=" <limingyu@deepin.com>
-To: "=?utf-8?B?TFRQIExpc3Q=?=" <ltp@lists.linux.it>
-Mime-Version: 1.0
-Date: Thu, 31 Oct 2019 17:26:07 +0800
-X-Priority: 3
-Message-ID: <tencent_4D69C182358CFFEA3F0A95F7@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
- id ; Thu, 31 Oct 2019 17:26:08 +0800 (CST)
-Feedback-ID: bizmailvip:deepin.com:qybgforeign:qybgforeign6
-X-QQ-Bgrelay: 1
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 80692601F53
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2019 10:32:07 +0100 (CET)
+Received: by mail-lj1-x22b.google.com with SMTP id a21so5820928ljh.9
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2019 02:32:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ul+1p6kbKVH3FWizOiqgu8AKZkDkTtsbDBqXAJYLbf0=;
+ b=iao+fWE6P7Hht75ULJG4A4ln75ObLBzndzjfkFuh4SBPnIaOaUv0vvzz+KTfEDPBEn
+ 3EQWi9DyPldrAmHlPTJavANo2pFyXzKAJntisMJCkWue2OqLbRKYBqsR90gWN5SfnivI
+ o0wf73r+EWdK/xZ4803l3Dc/hGx5sXOzscXox44J3GLY4M9x0ICZHAj/lTrBbEx7V9kL
+ 78NEHd6IPLMEknTWYNBBebCeoMpTovb2Z2wEg/RyanMLclfJTLwFDOSIcTGfibmysbC4
+ UyLfjGL8zJ2fvsSkvhn/zS4Vi5eLKQGggkC4WumJCvcWZvohsvUxTfIUWmgCh2ASj+hs
+ sbdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ul+1p6kbKVH3FWizOiqgu8AKZkDkTtsbDBqXAJYLbf0=;
+ b=kQapagReucCaFhovrO54ZovKx3oytZsjXPQf4AkZPXmGzkDZuZ+JvMakRY3Zl9DFBX
+ 7horvdsY/4EE6dSGuodiLNvY2sL/Wnv19q6Gy1UM04GFspGjoFajCfABehBYKWjJxoI7
+ L9YqAj8MNhT1r+K14syxzBzqhkwiTtjQyMfwFpMtapKBqkf55zQGb0ThSIjFrkGmIu6C
+ nK3L4NNsLVUGut/FAE5GqrUHgEuwI0L+i0Yuzv/HZTlhwQwTnbQeaI7PrU5oCV1aBeVA
+ laszYLWltFinJTd+I0RMfiJ0OU9+VzaWIA9xOZg1RHLfg8aTG7kDbhUS9l8XJYUpn1/k
+ r34w==
+X-Gm-Message-State: APjAAAXgt9ok1RZpQNVBL8OrpxSxEpSreeVoeSIKAfrrcB0jXeqqckOy
+ Ju962wKIQfHmYn4Dns/+CCvzyV1kO2NY/WpeqdzrJA==
+X-Google-Smtp-Source: APXvYqyylGZw81ADuyExFNtOW1/GdQpmLBC9W0dsu+bHOgZcGBQzLzGKsdBNuADOFnjuczP9I10rfhY1hBIhGKPCECA=
+X-Received: by 2002:a2e:814b:: with SMTP id t11mr3557784ljg.20.1572514326762; 
+ Thu, 31 Oct 2019 02:32:06 -0700 (PDT)
+MIME-Version: 1.0
+References: <CA+G9fYv+-dz11fSjMNt8SHaAhRpu1F=8MF7ieS4ZASAwDzH7Eg@mail.gmail.com>
+ <1277217234.9839643.1572476520526.JavaMail.zimbra@redhat.com>
+In-Reply-To: <1277217234.9839643.1572476520526.JavaMail.zimbra@redhat.com>
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Thu, 31 Oct 2019 15:01:55 +0530
+Message-ID: <CA+G9fYvOrBPW-8pEDayhNaT1J6g1c4z-_zO3V+G1K5xAMb-T3w@mail.gmail.com>
+To: Jan Stancek <jstancek@redhat.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=1.4 required=7.0 tests=FORGED_SPF_HELO,
- FROM_EXCESS_BASE64,HTML_MESSAGE,HTML_OBFUSCATE_05_10,KHOP_HELO_FCRDNS,
- MSGID_FROM_MTA_HEADER, SPF_HELO_PASS, SPF_NONE autolearn=disabled version=3.4.0
-X-Spam-Level: *
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] Unable to run eventfd test,
- even the libaio-dev installed on debian 10.
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] LTP: accept02: BROK: accept02.c:52: setsockopt(6, 0, 42,
+ 0xffff9c56df78, 136) failed: ENODEV (19)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,172 +72,52 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: =?utf-8?B?5rSq5rWp?= <honghao@linuxdeepin.com>
-Content-Type: multipart/mixed; boundary="===============1735533986=="
+Cc: camann@suse.com, lkft-triage@lists.linaro.org,
+ LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This is a multi-part message in MIME format.
+Hi Jan,
 
---===============1735533986==
-Content-Type: multipart/alternative;
-	boundary="----=_NextPart_5DBAA8AF_0A0E8780_04270780"
-Content-Transfer-Encoding: 8Bit
+On Thu, 31 Oct 2019 at 04:32, Jan Stancek <jstancek@redhat.com> wrote:
+>
+>
+>
+> ----- Original Message -----
+> > LTP syscall accept02 test failed intermittently on hikey arm64 device,
+> > qemu_x86_64 and qemu_i386.
+> >
+> > Do you see this intermittent failure at your end ?
+>
+> I'm not. What does the network look like on these systems?
+> Is there a default route? Is 224.0.0.0 reachable?
+>
+> Can you check with?
+>
+> # ip route
+> # ip route get 224.0.0.0
 
-This is a multi-part message in MIME format.
+on qemu_x86_64,
 
-------=_NextPart_5DBAA8AF_0A0E8780_04270780
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-
-V2hlbiBJIHRyeSB0byBydW4gZXZlbnRmZCB0ZXN0Y2FzZSB1bmRlciB0ZXN0Y2FzZXMva2Vy
-bmVsL3N5c2NhbGxzLCBpdCB0dXJucyBvdXQgdGhhdCBJIHNob3VsZCBpbnN0YWxsIGxpYmFp
-by1kZXYgcGFja2FnZXMuIEJ1dCBpdCBkaWRuJ3QgaGVscHMgd2hlbiBJIERPIGluc3RhbGxl
-ZCB0aGUgcGFja2FnZS4NCg0KDQpsZWVtZWFuc0BkZWVwaW46L21lZGlhL2xlZW1lYW5zL2xl
-YXJuaW5nL0dpdHByb2plY3RzL2x0cC90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2V2ZW50
-ZmQkIGRwa2cgLWwgfCBncmVwIGxpYmFpb2lpICBsaWJhaW8tZGV2OmFtZDY0ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAwLjMuMTEyLTMgICAgICAgICAgICAgICAgICAgICAgICAgICBh
-bWQ2NCAgICAgICAgTGludXgga2VybmVsIEFJTyBhY2Nlc3MgbGlicmFyeSAtIGRldmVsb3Bt
-ZW50IGZpbGVzDQppaSAgbGliYWlvMTphbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgMC4zLjExMi0zICAgICAgICAgICAgICAgICAgICAgICAgICAgYW1kNjQgICAgICAgIExp
-bnV4IGtlcm5lbCBBSU8gYWNjZXNzIGxpYnJhcnkgLSBzaGFyZWQgbGlicmFyeQ0KbGVlbWVh
-bnNAZGVlcGluOi9tZWRpYS9sZWVtZWFucy9sZWFybmluZy9HaXRwcm9qZWN0cy9sdHAvdGVz
-dGNhc2VzL2tlcm5lbC9zeXNjYWxscy9ldmVudGZkJCBtYWtlICYmIHN1ZG8gLi9ldmVudGZk
-MDEgDQptYWtlIC1DICIvbWVkaWEvbGVlbWVhbnMvbGVhcm5pbmcvR2l0cHJvamVjdHMvbHRw
-L2xpYiIgLWYgIi9tZWRpYS9sZWVtZWFucy9sZWFybmluZy9HaXRwcm9qZWN0cy9sdHAvbGli
-L01ha2VmaWxlIiBhbGwNCm1ha2VbMV06IOi/m+WFpeebruW9leKAnC9tZWRpYS9sZWVtZWFu
-cy9sZWFybmluZy9HaXRwcm9qZWN0cy9sdHAvbGli4oCdDQptYWtlWzJdOiDov5vlhaXnm67l
-vZXigJwvbWVkaWEvbGVlbWVhbnMvbGVhcm5pbmcvR2l0cHJvamVjdHMvbHRwL2xpYi90ZXN0
-c+KAnQ0KbWFrZVsyXTog5a+54oCcYWxs4oCd5peg6ZyA5YGa5Lu75L2V5LqL44CCDQptYWtl
-WzJdOiDnprvlvIDnm67lvZXigJwvbWVkaWEvbGVlbWVhbnMvbGVhcm5pbmcvR2l0cHJvamVj
-dHMvbHRwL2xpYi90ZXN0c+KAnQ0KbWFrZVsyXTog6L+b5YWl55uu5b2V4oCcL21lZGlhL2xl
-ZW1lYW5zL2xlYXJuaW5nL0dpdHByb2plY3RzL2x0cC9saWIvbmV3bGliX3Rlc3Rz4oCdDQpt
-YWtlWzJdOiDlr7nigJxhbGzigJ3ml6DpnIDlgZrku7vkvZXkuovjgIINCm1ha2VbMl06IOem
-u+W8gOebruW9leKAnC9tZWRpYS9sZWVtZWFucy9sZWFybmluZy9HaXRwcm9qZWN0cy9sdHAv
-bGliL25ld2xpYl90ZXN0c+KAnQ0KbWFrZVsxXTog56a75byA55uu5b2V4oCcL21lZGlhL2xl
-ZW1lYW5zL2xlYXJuaW5nL0dpdHByb2plY3RzL2x0cC9saWLigJ0NCmV2ZW50ZmQwMSAgICAx
-ICBUQ09ORiAgOiAgZXZlbnRmZDAxLmM6NzMzOiB0ZXN0IHJlcXVpcmVzIGxpYmFpbyBhbmQg
-aXQncyBkZXZlbG9wbWVudCBwYWNrYWdlcw0KZXZlbnRmZDAxICAgIDIgIFRDT05GICA6ICBl
-dmVudGZkMDEuYzo3MzM6IFJlbWFpbmluZyBjYXNlcyBub3QgYXBwcm9wcmlhdGUgZm9yIGNv
-bmZpZ3VyYXRpb24NCg0KDQoNCkFmdGVyIGdvIHRocm91Z2ggdGhlIGludGVybmV0LCBpdCB0
-dXJucyBvdXQgdGhhdCBJIG5lZWQgY29uZmRlZnMuaCB3aGljaCBpcyBnZW5lcmF0ZWQgYnkg
-dGhlIGNvbmZpZ3VyZSBzY3JpcHQuIEkgdHJpZWQgcmUtcnVuIHRoZSBjb25maWd1cmUgYnV0
-IGl0IGRpZG4ndCBoZWxwcyB0b28uIEkgY2FuJ3QgZmluZCB0aGUgZ2VuZXJhdGVkIGNvbmZk
-ZWYuaCENCg0KDQpBbnlib2R5IGhhdmUgYW55IGlkZWFzLCBwbGVhc2U/DQoNCg0KDQoNCi0t
-LS0tLS0tLS0tLS0tLS0tLQ0KDQrmrabmsYnmt7HkuYvluqbnp5HmioDmnInpmZDlhazlj7gN
-Cld1aGFuIERlZXBpbiBUZWNobm9sb2d5IENvLiwgTHRkLg0KDQrjgIDjgIDmnY7mmI7lrofj
-gIDjgIBMZWVtZWFucw0KDQrmrabmsYnvvJrmrabmsYnluILlhYnosLflpKfpgZM3N+WPt+WF
-ieiwt+mHkeiejea4r0IxOOagizbmpbwgDQrljJfkuqzvvJrljJfkuqzluILopb/ln47ljLrm
-lrDooZflj6PlpJblpKfooZcyOOWPt+mZouaZruWkqeW+t+iDnELluqc2MDPlrqQNCuS4iua1
-t++8muS4iua1t+W4gumVv+WugeWMuuaEmuWbrei3r+e7v+WcsOWVhuWKoeWkp+WOpjE2MTDl
-rqQNCg0KDQrlrpjnvZHvvJp3d3cuZGVlcGluLm9yZ+OAgOOAgOWumOWNmu+8mua3seW6puaT
-jeS9nOezu+e7nw==
-
-------=_NextPart_5DBAA8AF_0A0E8780_04270780
-Content-Type: text/html;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-
-PGRpdj5XaGVuIEkgdHJ5IHRvIHJ1biBldmVudGZkIHRlc3RjYXNlIHVuZGVyIHRlc3RjYXNl
-cy9rZXJuZWwvc3lzY2FsbHMsIGl0IHR1cm5zIG91dCB0aGF0IEkgc2hvdWxkIGluc3RhbGwg
-bGliYWlvLWRldiBwYWNrYWdlcy4gQnV0IGl0IGRpZG4ndCBoZWxwcyB3aGVuIEkgRE8gaW5z
-dGFsbGVkIHRoZSBwYWNrYWdlLjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+PGRpdj5sZWVt
-ZWFuc0BkZWVwaW46L21lZGlhL2xlZW1lYW5zL2xlYXJuaW5nL0dpdHByb2plY3RzL2x0cC90
-ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2V2ZW50ZmQkIGRwa2cgLWwgfCBncmVwIGxpYmFp
-b2lpJm5ic3A7IGxpYmFpby1kZXY6YW1kNjQmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
-Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
-OyAmbmJzcDsgMC4zLjExMi0zJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
-bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
-ICZuYnNwO2FtZDY0Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IExpbnV4IGtlcm5lbCBB
-SU8gYWNjZXNzIGxpYnJhcnkgLSBkZXZlbG9wbWVudCBmaWxlczwvZGl2PjxkaXY+aWkmbmJz
-cDsgbGliYWlvMTphbWQ2NCZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
-c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
-bmJzcDsgJm5ic3A7MC4zLjExMi0zJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
-OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
-c3A7ICZuYnNwO2FtZDY0Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IExpbnV4IGtlcm5l
-bCBBSU8gYWNjZXNzIGxpYnJhcnkgLSBzaGFyZWQgbGlicmFyeTwvZGl2PjxkaXY+bGVlbWVh
-bnNAZGVlcGluOi9tZWRpYS9sZWVtZWFucy9sZWFybmluZy9HaXRwcm9qZWN0cy9sdHAvdGVz
-dGNhc2VzL2tlcm5lbC9zeXNjYWxscy9ldmVudGZkJCBtYWtlICZhbXA7JmFtcDsgc3VkbyAu
-L2V2ZW50ZmQwMSZuYnNwOzwvZGl2PjxkaXY+bWFrZSAtQyAiL21lZGlhL2xlZW1lYW5zL2xl
-YXJuaW5nL0dpdHByb2plY3RzL2x0cC9saWIiIC1mICIvbWVkaWEvbGVlbWVhbnMvbGVhcm5p
-bmcvR2l0cHJvamVjdHMvbHRwL2xpYi9NYWtlZmlsZSIgYWxsPC9kaXY+PGRpdj5tYWtlWzFd
-OiDov5vlhaXnm67lvZXigJwvbWVkaWEvbGVlbWVhbnMvbGVhcm5pbmcvR2l0cHJvamVjdHMv
-bHRwL2xpYuKAnTwvZGl2PjxkaXY+bWFrZVsyXTog6L+b5YWl55uu5b2V4oCcL21lZGlhL2xl
-ZW1lYW5zL2xlYXJuaW5nL0dpdHByb2plY3RzL2x0cC9saWIvdGVzdHPigJ08L2Rpdj48ZGl2
-Pm1ha2VbMl06IOWvueKAnGFsbOKAneaXoOmcgOWBmuS7u+S9leS6i+OAgjwvZGl2PjxkaXY+
-bWFrZVsyXTog56a75byA55uu5b2V4oCcL21lZGlhL2xlZW1lYW5zL2xlYXJuaW5nL0dpdHBy
-b2plY3RzL2x0cC9saWIvdGVzdHPigJ08L2Rpdj48ZGl2Pm1ha2VbMl06IOi/m+WFpeebruW9
-leKAnC9tZWRpYS9sZWVtZWFucy9sZWFybmluZy9HaXRwcm9qZWN0cy9sdHAvbGliL25ld2xp
-Yl90ZXN0c+KAnTwvZGl2PjxkaXY+bWFrZVsyXTog5a+54oCcYWxs4oCd5peg6ZyA5YGa5Lu7
-5L2V5LqL44CCPC9kaXY+PGRpdj5tYWtlWzJdOiDnprvlvIDnm67lvZXigJwvbWVkaWEvbGVl
-bWVhbnMvbGVhcm5pbmcvR2l0cHJvamVjdHMvbHRwL2xpYi9uZXdsaWJfdGVzdHPigJ08L2Rp
-dj48ZGl2Pm1ha2VbMV06IOemu+W8gOebruW9leKAnC9tZWRpYS9sZWVtZWFucy9sZWFybmlu
-Zy9HaXRwcm9qZWN0cy9sdHAvbGli4oCdPC9kaXY+PGRpdj5ldmVudGZkMDEmbmJzcDsgJm5i
-c3A7IDEmbmJzcDsgVENPTkYmbmJzcDsgOiZuYnNwOyBldmVudGZkMDEuYzo3MzM6IHRlc3Qg
-cmVxdWlyZXMgbGliYWlvIGFuZCBpdCdzIGRldmVsb3BtZW50IHBhY2thZ2VzPC9kaXY+PGRp
-dj5ldmVudGZkMDEmbmJzcDsgJm5ic3A7IDImbmJzcDsgVENPTkYmbmJzcDsgOiZuYnNwOyBl
-dmVudGZkMDEuYzo3MzM6IFJlbWFpbmluZyBjYXNlcyBub3QgYXBwcm9wcmlhdGUgZm9yIGNv
-bmZpZ3VyYXRpb248L2Rpdj48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PkFmdGVyIGdvIHRo
-cm91Z2ggdGhlIGludGVybmV0LCBpdCB0dXJucyBvdXQgdGhhdCBJIG5lZWQgY29uZmRlZnMu
-aCB3aGljaCBpcyBnZW5lcmF0ZWQgYnkgdGhlIGNvbmZpZ3VyZSBzY3JpcHQuIEkgdHJpZWQg
-cmUtcnVuIHRoZSBjb25maWd1cmUgYnV0IGl0IGRpZG4ndCBoZWxwcyB0b28uIEkgY2FuJ3Qg
-ZmluZCB0aGUgZ2VuZXJhdGVkIGNvbmZkZWYuaCE8L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2
-PkFueWJvZHkgaGF2ZSBhbnkgaWRlYXMsIHBsZWFzZT88L2Rpdj48ZGl2PjxzaWduIHNpZ25p
-ZD0iMSI+PGRpdiBzdHlsZT0iY29sb3I6IzkwOTA5MDtmb250LWZhbWlseTpBcmlhbCBOYXJy
-b3c7Zm9udC1zaXplOjEycHgiPjxicj48YnI+PGJyPjxicj4tLS0tLS0tLS0tLS0tLS0tLS08
-L2Rpdj48ZGl2IHN0eWxlPSJmb250LXNpemU6MTRweDtmb250LWZhbWlseTpWZXJkYW5hO2Nv
-bG9yOiMwMDA7Ij48ZGl2PjxkaXYgc3R5bGU9ImJhY2tncm91bmQ6IHJnYigyNTQsIDI1NCwg
-MjU0KTsgcGFkZGluZzogMHB4IDI1cHg7IGJvcmRlci1yYWRpdXM6IDVweDsgYm9yZGVyOiAx
-cHggc29saWQgcmdiKDIwNCwgMjA0LCAyMDQpOyB3aWR0aDogMzUwcHg7Ij48ZGl2IHN0eWxl
-PSJiYWNrZ3JvdW5kLWltYWdlOiBpbml0aWFsOyBiYWNrZ3JvdW5kLXBvc2l0aW9uOiBpbml0
-aWFsOyBiYWNrZ3JvdW5kLXNpemU6IGluaXRpYWw7IGJhY2tncm91bmQtcmVwZWF0OiBpbml0
-aWFsOyBiYWNrZ3JvdW5kLWF0dGFjaG1lbnQ6IGluaXRpYWw7IGJhY2tncm91bmQtb3JpZ2lu
-OiBpbml0aWFsOyBiYWNrZ3JvdW5kLWNsaXA6IGluaXRpYWw7IHBhZGRpbmc6IDBweCAyNXB4
-OyBib3JkZXItcmFkaXVzOiA1cHg7IGJvcmRlcjogMXB4IHNvbGlkIHJnYigyMDQsIDIwNCwg
-MjA0KTsgd2lkdGg6IDM1MHB4OyI+PHAgc3R5bGU9ImZvbnQtZmFtaWx5OiBWZXJkYW5hOyI+
-PGZvbnQgc2l6ZT0iNCI+PGI+5q2m5rGJ5rex5LmL5bqm56eR5oqA5pyJ6ZmQ5YWs5Y+4PC9i
-PjwvZm9udD48YnI+PHNwYW4gc3R5bGU9ImZvbnQtd2VpZ2h0OiBib2xkOyI+PGZvbnQgc2l6
-ZT0iMSI+V3VoYW4gRGVlcGluIFRlY2hub2xvZ3kgQ28uLCBMdGQuPC9mb250Pjwvc3Bhbj48
-L3A+PHAgc3R5bGU9IiI+PGZvbnQgc2l6ZT0iNCIgc3R5bGU9IiI+PGZvbnQgZmFjZT0iVmVy
-ZGFuYSI+44CA44CAPC9mb250Pjxmb250IHN0eWxlPSIiPjxmb250IGZhY2U9IlZlcmRhbmEi
-PuadjuaYjuWuhzwvZm9udD48Zm9udCBmYWNlPSJWZXJkYW5hIiBzaXplPSIyIj7jgIDjgIBM
-ZWVtZWFuczwvZm9udD48L2ZvbnQ+PC9mb250PjwvcD48cCBzdHlsZT0iZm9udC1mYW1pbHk6
-IFZlcmRhbmE7Ij48Zm9udCBzaXplPSIyIj48c3BhbiBzdHlsZT0iY29sb3I6IHJnYigxMjgs
-IDEyOCwgMTI4KTsiPjxmb250IGNvbG9yPSIjMDAwMDAwIj7mrabmsYnvvJo8L2ZvbnQ+5q2m
-5rGJ5biC5YWJ6LC35aSn6YGTNzflj7flhYnosLfph5Hono3muK9CMTjmoIs25qW8Jm5ic3A7
-PGJyPjxmb250IGNvbG9yPSIjMzMzMzMzIj7ljJfkuqzvvJo8L2ZvbnQ+5YyX5Lqs5biC6KW/
-5Z+O5Yy65paw6KGX5Y+j5aSW5aSn6KGXMjjlj7fpmaLmma7lpKnlvrfog5xC5bqnNjAz5a6k
-PGJyPjxmb250IGNvbG9yPSIjMzMzMzMzIj7kuIrmtbfvvJo8L2ZvbnQ+PC9zcGFuPjwvZm9u
-dD48c3BhbiBzdHlsZT0iY29sb3I6IHJnYigxMjgsIDEyOCwgMTI4KTsgZm9udC1zaXplOiBz
-bWFsbDsiPuS4iua1t+W4gumVv+WugeWMuuaEmuWbrei3r+e7v+WcsOWVhuWKoeWkp+WOpjE2
-MTDlrqQ8L3NwYW4+PC9wPjwvZGl2PjxwIHN0eWxlPSJmb250LWZhbWlseTogVmVyZGFuYTsg
-YmFja2dyb3VuZC1jb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyI+PGZvbnQgc2l6ZT0iMiI+
-5a6Y572R77yaPGEgdGFyZ2V0PSJfYmxhbmsiIGhyZWY9Imh0dHA6Ly93d3cuZGVlcGluLm9y
-Zy8iIHN0eWxlPSJvdXRsaW5lOiBub25lOyBjb2xvcjogcmdiKDAsIDk2LCAxNDUpOyI+d3d3
-LmRlZXBpbi5vcmc8L2E+44CA44CA5a6Y5Y2a77yaPGEgaHJlZj0iaHR0cDovL3dlaWJvLmNv
-bS9saW51eGRlZXBpbm5ldyIgdGFyZ2V0PSJfYmxhbmsiIHN0eWxlPSJvdXRsaW5lOiBub25l
-OyBjb2xvcjogcmdiKDAsIDk2LCAxNDUpOyI+5rex5bqm5pON5L2c57O757ufPC9hPjwvZm9u
-dD48L3A+PC9kaXY+PC9kaXY+DQo8L2Rpdj48L3NpZ24+PC9kaXY+PGRpdj4mbmJzcDs8L2Rp
-dj48ZGl2PjxpbmNsdWRldGFpbD48IS0tPCFbZW5kaWZdLS0+PC9pbmNsdWRldGFpbD48L2Rp
-dj4=
-
-------=_NextPart_5DBAA8AF_0A0E8780_04270780--
++ ip route
++ ip route get 224.0.0.0
+RTNETLINK answers: Network is unreachable
 
 
+on hickey device,
++ ip route
+default via 10.66.16.1 dev eth0 proto dhcp metric 100
+10.66.16.0/23 dev eth0 proto kernel scope link src 10.66.16.28 metric 100
++ ip route get 224.0.0.0
+multicast 224.0.0.0 dev eth0 src 10.66.16.28 uid 0
+cache <mc>
 
+Link,
+https://lkft.validation.linaro.org/scheduler/job/987925#L609
 
---===============1735533986==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+- Naresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1735533986==--
-
-
-
