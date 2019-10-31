@@ -2,73 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 684C7EABD9
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 09:53:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35032EAC03
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 09:58:58 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0F1673C22DD
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 09:53:19 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 04C823C22C0
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 09:58:58 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id EF92D3C229E
- for <ltp@lists.linux.it>; Thu, 31 Oct 2019 09:53:16 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [207.211.31.120])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 2ECE0201117
- for <ltp@lists.linux.it>; Thu, 31 Oct 2019 09:53:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1572511994;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=92TQn/G0mCmtkrmZnwIBMp+VBc/A2w3tKt/K8JPUtr8=;
- b=hLn/7mef0J4FEmpGy79FP0gUNxrhFXgpnIOvpHHbKVaZfQViSxDZWUxUqgmFJIJVetG2Vr
- l6ny0PGc/F6/TU5Be9+OnMfeorkJo1c3g/tZGYzhqJ4rfPzK69Vn5/LWIQlTIfy+/ITDjM
- 92IZRxCdaUjmabkA7JvkmOUDigK2DCY=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-25-AsUslSbgOLSgb5PJyCtNPw-1; Thu, 31 Oct 2019 04:53:11 -0400
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
- [10.5.11.16])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 33ECD1800D55;
- Thu, 31 Oct 2019 08:53:10 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2BEA05C1BB;
- Thu, 31 Oct 2019 08:53:10 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 20DA24BB5B;
- Thu, 31 Oct 2019 08:53:10 +0000 (UTC)
-Date: Thu, 31 Oct 2019 04:53:09 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <2003376860.9886044.1572511989903.JavaMail.zimbra@redhat.com>
-In-Reply-To: <CAEemH2dO95d2_CZyMpE4fM8CcC+p0ou9XfA43sS9fX0LmQBWoQ@mail.gmail.com>
-References: <20190925094721.18932-1-chrubis@suse.cz>
- <20190925135634.GA32581@dell5510>
- <575273995.9684474.1572426415443.JavaMail.zimbra@redhat.com>
- <1665612504.9724602.1572440600772.JavaMail.zimbra@redhat.com>
- <20191030144649.GA25642@dell5510>
- <116299070.9793183.1572457283737.JavaMail.zimbra@redhat.com>
- <CAEemH2dO95d2_CZyMpE4fM8CcC+p0ou9XfA43sS9fX0LmQBWoQ@mail.gmail.com>
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id EFABA3C1C8A
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2019 09:58:55 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 9B74110011AA
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2019 09:58:52 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.68,250,1569254400"; d="scan'208";a="77736912"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 31 Oct 2019 16:58:48 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id 1E07A4CE1514
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2019 16:50:48 +0800 (CST)
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ (TLS) id 14.3.439.0; Thu, 31 Oct 2019 16:58:45 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Thu, 31 Oct 2019 16:59:07 +0800
+Message-ID: <1572512347-30116-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <1572007183-13661-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+References: <1572007183-13661-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.163, 10.4.195.3]
-Thread-Topic: syscalls/acct02: Check read size.
-Thread-Index: 2QmZA8vpmYil2+EH2u5h6kwzplE/DQ==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-MC-Unique: AsUslSbgOLSgb5PJyCtNPw-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-yoursite-MailScanner-ID: 1E07A4CE1514.AB9B1
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/acct02: Check read size.
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] syscalls/prctl02: add more error tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,61 +54,217 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 
------ Original Message -----
-> > Above was RHEL7. Do you expect different outcome on RHEL8?
-> > I was looking at upstream sources too and it looked similar.
-> >
-> > Anyway, I don't think this part is an issue, test will skip it
-> > because "comm" doesn't match.
-> >
-> > We can tweak 'ac_btime' condition, but I think the test will remain
-> >
-> 
-> How much time of the ac_btime shaking to be tolerated is proper?
+------
+v1->v2:
+1. add EACCES tests
+2. remove ENOSYS, if kernel doesn't support option, it reports EINVAL.
+ use ltp-prctl.m4 to distinguish.
+------
+---
+ include/lapi/prctl.h                      |  10 +++
+ m4/ltp-prctl.m4                           |   3 +-
+ testcases/kernel/syscalls/prctl/prctl02.c | 104 ++++++++++++++++++++--
+ 3 files changed, 110 insertions(+), 7 deletions(-)
 
-I wanted to go with 1 sec:
-
-@@ -83,7 +83,7 @@ static int verify_acct(void *acc, int elap_time)
-                ret = 1;
-        }
+diff --git a/include/lapi/prctl.h b/include/lapi/prctl.h
+index 8ee492259..ea52ecac3 100644
+--- a/include/lapi/prctl.h
++++ b/include/lapi/prctl.h
+@@ -29,6 +29,11 @@
+ # define PR_GET_NO_NEW_PRIVS 39
+ #endif
  
--       if (ACCT_MEMBER(ac_btime) < start_time) {
-+       if (ACCT_MEMBER(ac_btime) + 1 < start_time) {
-                tst_res(TINFO, "ac_btime < %d (%d)", start_time,
-                        ACCT_MEMBER(ac_btime));
-                ret = 1;
++#ifndef PR_SET_THP_DISABLE
++# define PR_SET_THP_DISABLE 41
++# define PR_GET_THP_DISABLE 42
++#endif
++
+ #ifndef PR_CAP_AMBIENT
+ # define PR_CAP_AMBIENT             47
+ # define PR_CAP_AMBIENT_IS_SET      1
+@@ -37,4 +42,9 @@
+ # define PR_CAP_AMBIENT_CLEAR_ALL   4
+ #endif
+ 
++#ifndef PR_GET_SPECULATION_CTRL
++# define PR_GET_SPECULATION_CTRL 52
++# define PR_SET_SPECULATION_CTRL 53
++#endif
++
+ #endif /* LAPI_PRCTL_H__ */
+diff --git a/m4/ltp-prctl.m4 b/m4/ltp-prctl.m4
+index e429db8fe..b592789ee 100644
+--- a/m4/ltp-prctl.m4
++++ b/m4/ltp-prctl.m4
+@@ -4,7 +4,8 @@ dnl Author: Ngie Cooper <yaneurabeya@gmail.com>
+ 
+ AC_DEFUN([LTP_CHECK_PRCTL_SUPPORT],[
+ AC_CHECK_HEADERS(sys/prctl.h,[
+-	AC_CHECK_DECLS([PR_CAPBSET_DROP, PR_CAPBSET_READ], [],[],[
++	AC_CHECK_DECLS([PR_CAPBSET_DROP, PR_CAPBSET_READ, PR_CAP_AMBIENT,
++PR_SET_NO_NEW_PRIVS, PR_GET_SPECULATION_CTRL, PR_SET_THP_DISABLE], [],[],[
+ #include <sys/prctl.h>
+ ]) dnl AC_CHECK_DECLS
+ ])]
+diff --git a/testcases/kernel/syscalls/prctl/prctl02.c b/testcases/kernel/syscalls/prctl/prctl02.c
+index ec45911fd..1798c4bd5 100644
+--- a/testcases/kernel/syscalls/prctl/prctl02.c
++++ b/testcases/kernel/syscalls/prctl/prctl02.c
+@@ -4,32 +4,116 @@
+  *
+  * 1) prctl() fails with EINVAL when an invalid value is given for option
+  * 2) prctl() fails with EINVAL when option is PR_SET_PDEATHSIG & arg2 is
+- * not zero or a valid signal number
++ * not zero or a valid signal number.
++ * 3) prctl() fails with EINVAL when option is PR_SET_DUMPABLE & arg2 is
++ * neither SUID_DUMP_DISABLE nor SUID_DUMP_USER.
++ * 4) prctl() fails with EFAULT when arg2 is an invalid address.
++ * 5) prctl() fails with EFAULT when option is PR_SET_SECCOMP & arg2 is
++ * SECCOMP_MODE_FILTER & arg3 is an invalid address.
++ * 6) prctl() fails with EACCES when option is PR_SET_SECCOMP & arg2 is
++ * SECCOMP_MODE_FILTER & the process does not have the CAP_SYS_ADMIN
++ * capability.
++ * 7) prctl() fails with EINVAL when option is PR_SET_TIMING & arg2 is not
++ * not PR_TIMING_STATISTICAL.
++ * 8,9) prctl() fails with EINVAL when option is PR_SET_NO_NEW_PRIVS & arg2
++ * is not equal to 1 or arg3 is nonzero.
++ * 10) prctl() fails with EINVAL when options is PR_GET_NO_NEW_PRIVS & arg2,
++ * arg3, arg4, or arg5 is nonzero.
++ * 11) prctl() fails with EINVAL when options is PR_SET_THP_DISABLE & arg3,
++ * arg4, arg5 is non-zero.
++ * 12) prctl() fails with EINVAL when options is PR_GET_THP_DISABLE & arg2,
++ * arg3, arg4, or arg5 is nonzero.
++ * 13) prctl() fails with EINVAL when options is PR_CAP_AMBIENT & an unused
++ * argument such as arg4 is nonzero.
++ * 14) prctl() fails with EINVAL when option is PR_GET_SPECULATION_CTRL and
++ * unused arguments is nonzero.
++ * 15) prctl() fails with EPERM when option is PR_SET_SECUREBITS and the
++ * caller does not have the CAP_SETPCAP capability.
++ * 16) prctl() fails with EPERM when option is PR_CAPBSET_DROP and the caller
++ * does not have the CAP_SETPCAP capability.
+  */
+ 
+ #include <errno.h>
+ #include <signal.h>
+ #include <sys/prctl.h>
+-
++#include <linux/filter.h>
++#include <unistd.h>
++#include <stdlib.h>
++#include <stddef.h>
++#include "config.h"
++#include "lapi/prctl.h"
++#include "lapi/seccomp.h"
++#include "lapi/syscalls.h"
+ #include "tst_test.h"
++#include "tst_capability.h"
+ 
+ #define OPTION_INVALID 999
+ #define INVALID_ARG 999
+ 
++static const struct sock_filter  strict_filter[] = {
++	BPF_STMT(BPF_LD | BPF_W | BPF_ABS, (offsetof (struct seccomp_data, nr))),
++
++	BPF_JUMP(BPF_JMP | BPF_JEQ, __NR_close, 5, 0),
++	BPF_JUMP(BPF_JMP | BPF_JEQ, __NR_exit,  4, 0),
++	BPF_JUMP(BPF_JMP | BPF_JEQ, __NR_wait4, 3, 0),
++	BPF_JUMP(BPF_JMP | BPF_JEQ, __NR_write, 2, 0),
++	BPF_JUMP(BPF_JMP | BPF_JEQ, __NR_clone, 1, 0),
++
++	BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_KILL),
++	BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ALLOW)
++};
++
++static const struct sock_fprog  strict = {
++	.len = (unsigned short)ARRAY_SIZE(strict_filter),
++	.filter = (struct sock_filter *)strict_filter
++};
++
+ static struct tcase {
+ 	int option;
+ 	unsigned long arg2;
++	unsigned long arg3;
+ 	int exp_errno;
++	int bad_addr;
+ } tcases[] = {
+-	{OPTION_INVALID, 0, EINVAL},
+-	{PR_SET_PDEATHSIG, INVALID_ARG, EINVAL},
++	{OPTION_INVALID, 0, 0, EINVAL, 0},
++	{PR_SET_PDEATHSIG, INVALID_ARG, 0, EINVAL, 0},
++	{PR_SET_DUMPABLE, 2, 0, EINVAL, 0},
++	{PR_SET_NAME, 0, 0, EFAULT, 1},
++	{PR_SET_SECCOMP, 2, 0, EFAULT, 1},
++	{PR_SET_SECCOMP, 2, 2, EACCES, 0},
++	{PR_SET_TIMING, 1, 0, EINVAL, 0},
++#ifdef HAVE_DECL_PR_SET_NO_NEW_PRIVS
++	{PR_SET_NO_NEW_PRIVS, 0, 0, EINVAL, 0},
++	{PR_SET_NO_NEW_PRIVS, 1, 1, EINVAL, 0},
++	{PR_GET_NO_NEW_PRIVS, 1, 0, EINVAL, 0},
++#endif
++#ifdef HAVE_DECL_PR_SET_THP_DISABLE
++	{PR_SET_THP_DISABLE, 0, 1, EINVAL, 0},
++	{PR_GET_THP_DISABLE, 1, 0, EINVAL, 0},
++#endif
++#ifdef HAVE_DECL_PR_CAP_AMBIENT
++	{PR_CAP_AMBIENT, 2, 1, EINVAL, 0},
++#endif
++#ifdef HAVE_DECL_PR_GET_SPECULATION_CTR
++	{PR_GET_SPECULATION_CTRL, 1, 0, EINVAL, 0},
++#endif
++	{PR_SET_SECUREBITS, 0, 0, EPERM, 0},
++	{PR_CAPBSET_DROP, 1, 0, EPERM, 0},
+ };
+ 
+ static void verify_prctl(unsigned int n)
+ {
+ 	struct tcase *tc = &tcases[n];
+ 
+-	TEST(prctl(tc->option, tc->arg2));
++	if (tc->arg3 == 2)
++		tc->arg3 = (unsigned long)&strict;
++	if (tc->bad_addr) {
++		if (tc->arg2)
++			tc->arg3 = (unsigned long)tst_get_bad_addr(NULL);
++		else
++			tc->arg2 = (unsigned long)tst_get_bad_addr(NULL);
++	}
++	TEST(prctl(tc->option, tc->arg2, tc->arg3));
+ 	if (TST_RET == 0) {
+ 		tst_res(TFAIL, "prctl() succeeded unexpectedly");
+ 		return;
+@@ -38,7 +122,10 @@ static void verify_prctl(unsigned int n)
+ 	if (tc->exp_errno == TST_ERR) {
+ 		tst_res(TPASS | TTERRNO, "prctl() failed as expected");
+ 	} else {
+-		tst_res(TFAIL | TTERRNO, "prctl() failed unexpectedly, expected %s",
++		if (tc->option == PR_SET_SECCOMP && TST_ERR == EINVAL)
++			tst_res(TCONF, "current system was not built with CONFIG_SECCOMP.");
++		else
++			tst_res(TFAIL | TTERRNO, "prctl() failed unexpectedly, expected %s",
+ 				tst_strerrno(tc->exp_errno));
+ 	}
+ }
+@@ -46,4 +133,9 @@ static void verify_prctl(unsigned int n)
+ static struct tst_test test = {
+ 	.tcnt = ARRAY_SIZE(tcases),
+ 	.test = verify_prctl,
++	.caps = (struct tst_cap []) {
++		TST_CAP(TST_CAP_DROP, CAP_SYS_ADMIN),
++		TST_CAP(TST_CAP_DROP, CAP_SETPCAP),
++		{}
++	},
+ };
+-- 
+2.18.0
 
-> 
-> > race-y in environments with higher steal time:
-> >
-> 
-> I'm sorry, what does it mean here?
 
-I was referring to failed check below. s390 is scarce resource
-and when over-committed, sleeps are less consistent.
-E.g. sleep(1) taking 2+ seconds:
-  nanosleep({1, 0}, NULL) = 0 <1.926617>
-
-> 
-> 
-> 
-> >
-> > acct02.c:239: INFO: Verifying using 'struct acct_v3'
-> > acct02.c:192: INFO: == entry 1 ==
-> > acct02.c:127: INFO: elap_time/clock_ticks >= 2 (236/100: 2.00)
-> > acct02.c:192: INFO: == entry 2 ==
-> > acct02.c:82: INFO: ac_comm != 'acct02_helper' ('acct02')
-> > acct02.c:127: INFO: elap_time/clock_ticks >= 2 (236/100: 2.00)
-> > acct02.c:133: INFO: ac_exitcode != 32768 (0)
-> > acct02.c:141: INFO: ac_ppid != 43213 (43212)
-> > acct02.c:182: FAIL: end of file reached
 
 
 -- 
