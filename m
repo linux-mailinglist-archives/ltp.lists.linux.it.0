@@ -1,41 +1,72 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB392EAAFC
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 08:36:09 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8947FEAB78
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 09:17:57 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DC88A3C234E
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 08:36:08 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4CB1F3C22BC
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 09:17:57 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 1620F3C13E4
- for <ltp@lists.linux.it>; Thu, 31 Oct 2019 08:36:02 +0100 (CET)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 66E1A200D00
- for <ltp@lists.linux.it>; Thu, 31 Oct 2019 08:36:01 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id E035EAC53;
- Thu, 31 Oct 2019 07:35:59 +0000 (UTC)
-Date: Thu, 31 Oct 2019 08:35:58 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Jorik Cronenberg <jcronenberg@suse.de>
-Message-ID: <20191031073557.GA9065@dell5510>
-References: <20191030141617.31446-1-jcronenberg@suse.de>
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id BF47C3C1C8A
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2019 09:17:55 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id E5A4314016B0
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2019 09:17:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1572509872;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=mQAR55gmuCuOsc38fAhZimZdKxkZEVeEZg/YCXc3Pfc=;
+ b=JPbLAr6GxGHzlBwKF0UdjIC2y3DY0V4PMy/10AO5tcyGWvot2zfQrzYS/fU98gti/NOcwX
+ ylQhjcNUh6CgIf2VS6jesTRRKiPLYmPz/i/WC8lVhSEEoJe3Z4JAtD+2USL5pth0Sp1+5g
+ c/lZhmk/PACkIDlbDeevFEY/w81r/GE=
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-377-_inDIGcpNNu_lSE2I1mCMw-1; Thu, 31 Oct 2019 04:17:47 -0400
+Received: by mail-oi1-f200.google.com with SMTP id 67so3237340oid.16
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2019 01:17:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=D9TRCIdm7NxUe9XuX0RFSV3tNC8K7IyCDBvdHYwaAU4=;
+ b=aDIRseG1Nrvt8FBmsEnRQY4qw+9LxKkMm5La8Dz3BS3ZewTPFJv4yYYeR48GfIQ11h
+ Itqucz1eTNu7+iIiPtIol3PrIfofNA/TK0Xmn1ZioAYLlZAGzbc7BBS3NdsTKZuQBONd
+ fkdXy0CKcpjSIHz0kgVOLNYEjoFwr7+B/1HGIxEG+MLOS/hFWBSL41dQ3LJisMpVrkeu
+ gdnhiFEQFeDw1L8/fWFoO4pPnvzE6quKpNlDPEL0oJja+nNVnPCi2YpnHDAb1zlAxJ54
+ coWqhzmfRO7ZvgJn/9EZVPaV7tELG7Y/g0fH0gCIkOuLNaxePgzM9w+rP4nFml/ELXTB
+ 6BlQ==
+X-Gm-Message-State: APjAAAV3G0Pz7a9bGFb1iR9wvxt6DDoiPYZsUvMRU9AzFUHx3CVWIvW9
+ kI6ay/8dL9AfroRDoMmYmH2dgk22TN2RHaubZ1QpvQ0is1AauEzarr8IdsUf2aR+R4sGu8TSpQE
+ dykFWgBE4HExkMqf5w0thgHBYH7M=
+X-Received: by 2002:aca:3c86:: with SMTP id j128mr2929684oia.153.1572509866632; 
+ Thu, 31 Oct 2019 01:17:46 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqxj5vvgGF9/OILJP4y6qFBO4hYjzBEGRPgH90znqOV3DuwVgWmYXgYyKtiC+4vdh8GR2dtNN79+XikDLp/zg6I=
+X-Received: by 2002:aca:3c86:: with SMTP id j128mr2929670oia.153.1572509866362; 
+ Thu, 31 Oct 2019 01:17:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191030141617.31446-1-jcronenberg@suse.de>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+References: <20191031064451.14966-1-tesheng@andestech.com>
+In-Reply-To: <20191031064451.14966-1-tesheng@andestech.com>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 31 Oct 2019 16:17:34 +0800
+Message-ID: <CAEemH2dOwoE2YMXn-+Ugb=-3=V5b-Q-X0KU+xDdRogWF-5ViWQ@mail.gmail.com>
+To: Eric Lin <tesheng@andestech.com>
+X-MC-Unique: _inDIGcpNNu_lSE2I1mCMw-1
+X-Mimecast-Spam-Score: 0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] Port ptrace01 to new library
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] hugetlb: Initialize orig_shmmax and orig_shmmni
+ value
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,160 +78,208 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: alankao@andestech.com, LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1992533036=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgSm9yaWssCgo+IFBvcnRlZCBwdHJhY2UwMSB0byB0aGUgbmV3IGxpYnJhcnkKCj4gU2lnbmVk
-LW9mZi1ieTogSm9yaWsgQ3JvbmVuYmVyZyA8amNyb25lbmJlcmdAc3VzZS5kZT4KUmV2aWV3ZWQt
-Ynk6IFBldHIgVm9yZWwgPHB2b3JlbEBzdXNlLmN6PgoKR29vZCB3b3JrLCBhbG1vc3QgcmVhZHku
-IEkgc3VnZ2VzdCBzb21lIGNoYW5nZXMuCj4gLS0tCj4gIHRlc3RjYXNlcy9rZXJuZWwvc3lzY2Fs
-bHMvcHRyYWNlL3B0cmFjZTAxLmMgfCAyOTYgKysrKysrLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+
-ICAxIGZpbGUgY2hhbmdlZCwgNjMgaW5zZXJ0aW9ucygrKSwgMjMzIGRlbGV0aW9ucygtKQoKPiAg
-djI6IEltcGxlbWVudGVkIGNoYW5nZXMgc3VnZ2VzdGVkIGJ5IEN5cmlsLgoKPiBkaWZmIC0tZ2l0
-IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9wdHJhY2UvcHRyYWNlMDEuYyBiL3Rlc3RjYXNl
-cy9rZXJuZWwvc3lzY2FsbHMvcHRyYWNlL3B0cmFjZTAxLmMKLi4uCj4gLSAqICAgIERFU0NSSVBU
-SU9OCj4gKyAqIERFU0NSSVBUSU9OCj4gICAqCVRoaXMgdGVzdCBjYXNlIHRlc3RzIHRoZSBmdW5j
-dGlvbmFsaXR5IG9mIHB0cmFjZSgpIGZvcgo+ICAgKglQVFJBQ0VfVFJBQ0VNRSAmIFBUUkFDRV9L
-SUxMIHJlcXVlc3RzLgo+ICAgKglIZXJlLCB3ZSBmb3JrIGEgY2hpbGQgJiB0aGUgY2hpbGQgZG9l
-cyBwdHJhY2UoUFRSQUNFX1RSQUNFTUUsIC4uLikuCj4gQEAgLTM5LDI0OCArMTYsMTAxIEBACj4g
-ICAqCXRvIGtpbGwgdGhlIGNoaWxkLiBBZ2FpbiBwYXJlbnQgd2FpdCgpIGZvciBjaGlsZCB0byBm
-aW5pc2guCj4gICAqCUlmIGNoaWxkIGZpbmlzaGVkIGFibm9ybWFsbHksIHRlc3QgcGFzc2VzLgo+
-ICAgKgkJV2UgdGVzdCB0d28gY2FzZXMKPiAtICogCQkJMSkgQnkgdGVsbGluZyBjaGlsZCB0byBp
-Z25vcmUgU0lHVVNSMiBzaWduYWwKPiAtICogCQkJMikgQnkgaW5zdGFsbGluZyBhIHNpZ25hbCBo
-YW5kbGVyIGZvciBjaGlsZCBmb3IgU0lHVVNSMgo+IC0gKiAJCUluIGJvdGggY2FzZXMsIGNoaWxk
-IHNob3VsZCBzdG9wICYgbm90aWZ5IHBhcmVudCBvbiByZWNlcHRpb24KPiAtICogCQlvZiBTSUdV
-U1IyCj4gLSAqCj4gLSAqIAlTZXR1cDoKPiAtICogCSAgU2V0dXAgc2lnbmFsIGhhbmRsaW5nLgo+
-IC0gKgkgIFBhdXNlIGZvciBTSUdVU1IxIGlmIG9wdGlvbiBzcGVjaWZpZWQuCj4gKyAqCQkJMSkg
-QnkgdGVsbGluZyBjaGlsZCB0byBpZ25vcmUgU0lHVVNSMiBzaWduYWwKPiArICoJCQkyKSBCeSBp
-bnN0YWxsaW5nIGEgc2lnbmFsIGhhbmRsZXIgZm9yIGNoaWxkIGZvciBTSUdVU1IyCj4gKyAqCQlJ
-biBib3RoIGNhc2VzLCBjaGlsZCBzaG91bGQgc3RvcCAmIG5vdGlmeSBwYXJlbnQgb24gcmVjZXB0
-aW9uCj4gKyAqCQlvZiBTSUdVU1IyCgpSZXdvcmQgYW5kIHJlZm9ybWF0dGluZyB0aGUgdGVzdCBk
-ZXNjcmlwdGlvbiBhbmQgcmVtb3ZlICJERVNDUklQVElPTiIsIGFkZGVkCnlvdXIgY29weXJpZ2h0
-IChhY3R1YWxseSBJIGRvbid0IGxpa2UgdXNpbmcgdGhhdCBkYXRlIGluIHBvcnRlZCB0byBuZXcg
-bGlicmFyeSwKd2UgaGF2ZSBnaXQgdGhlc2UgZGF5cywgdGhpcyB3YXMgdXNlZCAxMC0yMCB5ZWFy
-cyBhZ28sIGJ1dCB0aGF0J3MganVzdCBteSBvcGluaW9uKToKCi8vIFNQRFgtTGljZW5zZS1JZGVu
-dGlmaWVyOiBHUEwtMi4wCi8qCiAqIENvcHlyaWdodCAoYykgV2lwcm8gVGVjaG5vbG9naWVzIEx0
-ZCwgMjAwMi4gIEFsbCBSaWdodHMgUmVzZXJ2ZWQuCiAqIENvcHlyaWdodCAoYykgMjAxOSBKb3Jp
-ayBDcm9uZW5iZXJnIDxqY3JvbmVuYmVyZ0BzdXNlLmRlPgogKgogKiBBdXRob3I6CVNhamkgS3Vt
-YXIuVi5SIDxzYWppLmt1bWFyQHdpcHJvLmNvbT4KICogUG9ydGVkIHRvIG5ldyBsaWJyYXJ5Ogog
-KiAxMC8yMDE5CUpvcmlrIENyb25lbmJlcmcgPGpjcm9uZW5iZXJnQHN1c2UuZGU+CiAqCiAqIFRl
-c3QgdGhlIGZ1bmN0aW9uYWxpdHkgb2YgcHRyYWNlKCkgZm9yIFBUUkFDRV9UUkFDRU1FICYgUFRS
-QUNFX0tJTEwgcmVxdWVzdHMuCiAqIEZvcmtlZCBjaGlsZCBkb2VzIHB0cmFjZShQVFJBQ0VfVFJB
-Q0VNRSwgLi4uKS4KICogVGhlbiBhIHNpZ25hbCBpcyBkZWxpdmVyZWQgdG8gdGhlIGNoaWxkIGFu
-ZCB2ZXJpZmllZCB0aGF0IHBhcmVudAogKiBpcyBub3RpZmllZCB2aWEgd2FpdCgpLgogKiBBZnRl
-ciBwYXJlbnQgZG9lcyBwdHJhY2UoUFRSQUNFX0tJTEwsIC4uKSB0byBraWxsIHRoZSBjaGlsZAog
-KiBhbmQgcGFyZW50IHdhaXQoKSBmb3IgY2hpbGQgdG8gZmluaXNoLgogKiBUZXN0IHBhc3NlcyBp
-ZiBjaGlsZCBmaW5pc2hlZCBhYm5vcm1hbGx5LgogKgogKiBUZXN0aW5nIHR3byBjYXNlczoKICog
-MSkgY2hpbGQgaWdub3JlIFNJR1VTUjIgc2lnbmFsCiAqIDIpIHVzaW5nIGEgc2lnbmFsIGhhbmRs
-ZXIgZm9yIGNoaWxkIGZvciBTSUdVU1IyCiAqIEluIGJvdGggY2FzZXMsIGNoaWxkIHNob3VsZCBz
-dG9wICYgbm90aWZ5IHBhcmVudCBvbiByZWNlcHRpb24gb2YgU0lHVVNSMi4KICovCgouLi4KPiAr
-c3RhdGljIHZvaWQgY2hpbGRfaGFuZGxlcih2b2lkKQo+ICB7Cj4gKwlTQUZFX0tJTEwoZ2V0cHBp
-ZCgpLCBTSUdVU1IyKTsKPiArfQpZb3UgZ2V0IGEgd2FybmluZzogYXNzaWdubWVudCB0byDigJhf
-X3NpZ2hhbmRsZXJfdOKAmSB7YWthIOKAmHZvaWQgKCopKGludCnigJl9IGZyb20KaW5jb21wYXRp
-YmxlIHBvaW50ZXIgdHlwZSDigJh2b2lkICgqKSh2b2lkKeKAmSBbLVdpbmNvbXBhdGlibGUtcG9p
-bnRlci10eXBlc10KCldlIHRyeSB0byBhdm9pZCB3YXJuaW5ncywgc28gdXNlOgpzdGF0aWMgdm9p
-ZCBjaGlsZF9oYW5kbGVyKGludCBzaWcgTFRQX0FUVFJJQlVURV9VTlVTRUQpCgouLi4KPiArc3Rh
-dGljIHZvaWQgcGFyZW50X2hhbmRsZXIodm9pZCkKPiArewo+ICsJZ290X3NpZ25hbCA9IDE7Cj4g
-IH0KVGhlIHNhbWUgaGVyZToKc3RhdGljIHZvaWQgcGFyZW50X2hhbmRsZXIoaW50IHNpZyBMVFBf
-QVRUUklCVVRFX1VOVVNFRCkKCj4gLS8qIGRvX2NoaWxkKCkgKi8KPiAtdm9pZCBkb19jaGlsZCh2
-b2lkKQo+ICtzdGF0aWMgdm9pZCBkb19jaGlsZCh1bnNpZ25lZCBpbnQgaSkKPiAgewo+ICAJc3Ry
-dWN0IHNpZ2FjdGlvbiBjaGlsZF9hY3Q7Cgo+IC0JLyogU2V0dXAgc2lnbmFsIGhhbmRsZXIgZm9y
-IGNoaWxkICovCj4gLQlpZiAoaSA9PSAwKSB7Cj4gKwlpZiAoaSA9PSAwKQo+ICAJCWNoaWxkX2Fj
-dC5zYV9oYW5kbGVyID0gU0lHX0lHTjsKPiAtCX0gZWxzZSB7Cj4gKwllbHNlCj4gIAkJY2hpbGRf
-YWN0LnNhX2hhbmRsZXIgPSBjaGlsZF9oYW5kbGVyOwo+IC0JfQo+ICsKPiAgCWNoaWxkX2FjdC5z
-YV9mbGFncyA9IFNBX1JFU1RBUlQ7Cj4gIAlzaWdlbXB0eXNldCgmY2hpbGRfYWN0LnNhX21hc2sp
-OwoKPiAtCWlmICgoc2lnYWN0aW9uKFNJR1VTUjIsICZjaGlsZF9hY3QsIE5VTEwpKSA9PSAtMSkg
-ewo+IC0JCXRzdF9yZXNtKFRXQVJOLCAic2lnYWN0aW9uKCkgZmFpbGVkIGluIGNoaWxkIik7Cj4g
-LQkJZXhpdCgxKTsKPiAtCX0KPiArCVNBRkVfU0lHQUNUSU9OKFNJR1VTUjIsICZjaGlsZF9hY3Qs
-IE5VTEwpOwoKPiAgCWlmICgocHRyYWNlKFBUUkFDRV9UUkFDRU1FLCAwLCAwLCAwKSkgPT0gLTEp
-IHsKPiAtCQl0c3RfcmVzbShUV0FSTiwgInB0cmFjZSgpIGZhaWxlZCBpbiBjaGlsZCIpOwo+IC0J
-CWV4aXQoMSk7Cj4gLQl9Cj4gLQkvKiBlbnN1cmUgdGhhdCBjaGlsZCBieXBhc3NlcyBzaWduYWwg
-aGFuZGxlciAqLwo+IC0JaWYgKChraWxsKGdldHBpZCgpLCBTSUdVU1IyKSkgPT0gLTEpIHsKPiAt
-CQl0c3RfcmVzbShUV0FSTiwgImtpbGwoKSBmYWlsZWQgaW4gY2hpbGQiKTsKPiArCQl0c3RfcmVz
-KFRXQVJOLCAicHRyYWNlKCkgZmFpbGVkIGluIGNoaWxkIik7Cj4gIAkJZXhpdCgxKTsKPiAgCX0K
-PiArCVNBRkVfS0lMTChnZXRwaWQoKSwgU0lHVVNSMik7Cj4gIAlleGl0KDEpOwo+ICB9Cgo+IC0v
-KiBzZXR1cCgpIC0gcGVyZm9ybXMgYWxsIE9ORSBUSU1FIHNldHVwIGZvciB0aGlzIHRlc3QgKi8K
-PiAtdm9pZCBzZXR1cCh2b2lkKQo+ICtzdGF0aWMgdm9pZCBydW4odW5zaWduZWQgaW50IGkpCj4g
-IHsKPiArCXBpZF90IGNoaWxkX3BpZDsKPiArCWludCBzdGF0dXM7Cj4gKwlzdHJ1Y3Qgc2lnYWN0
-aW9uIHBhcmVudF9hY3Q7Cgo+IC0JdHN0X3NpZyhGT1JLLCBERUZfSEFORExFUiwgY2xlYW51cCk7
-Cj4gKwlnb3Rfc2lnbmFsID0gMDsKCj4gLQlURVNUX1BBVVNFOwo+ICsJaWYgKGkgPT0gMSkgewo+
-ICsJCXBhcmVudF9hY3Quc2FfaGFuZGxlciA9IHBhcmVudF9oYW5kbGVyOwo+ICsJCXBhcmVudF9h
-Y3Quc2FfZmxhZ3MgPSBTQV9SRVNUQVJUOwo+ICsJCXNpZ2VtcHR5c2V0KCZwYXJlbnRfYWN0LnNh
-X21hc2spOwoKPiAtfQo+ICsJCVNBRkVfU0lHQUNUSU9OKFNJR1VTUjIsICZwYXJlbnRfYWN0LCBO
-VUxMKTsKPiArCX0KCj4gLS8qCj4gLSAqY2xlYW51cCgpIC0gIHBlcmZvcm1zIGFsbCBPTkUgVElN
-RSBjbGVhbnVwIGZvciB0aGlzIHRlc3QgYXQKPiAtICoJCWNvbXBsZXRpb24gb3IgcHJlbWF0dXJl
-IGV4aXQuCj4gLSAqLwo+IC12b2lkIGNsZWFudXAodm9pZCkKPiAtewo+ICsJY2hpbGRfcGlkID0g
-U0FGRV9GT1JLKCk7Cgo+IC19Cj4gKwlpZiAoIWNoaWxkX3BpZCkKPiArCQlkb19jaGlsZChpKTsK
-Cj4gLS8qCj4gLSAqIGNoaWxkX2hhbmRsZXIoKSAtIFNpZ25hbCBoYW5kbGVyIGZvciBjaGlsZAo+
-IC0gKi8KPiAtdm9pZCBjaGlsZF9oYW5kbGVyKHZvaWQpCj4gLXsKPiArCVNBRkVfV0FJVFBJRChj
-aGlsZF9waWQsICZzdGF0dXMsIDApOwoKPiAtCWlmICgoa2lsbChnZXRwcGlkKCksIFNJR1VTUjIp
-KSA9PSAtMSkgewo+IC0JCXRzdF9yZXNtKFRXQVJOLCAia2lsbCgpIGZhaWxlZCBpbiBjaGlsZF9o
-YW5kbGVyKCkiKTsKPiAtCQlleGl0KDEpOwo+ICsJaWYgKCgoV0lGRVhJVEVEKHN0YXR1cykpCj4g
-KwkJJiYgKFdFWElUU1RBVFVTKHN0YXR1cykpKQo+ICsJCSB8fCAoZ290X3NpZ25hbCA9PSAxKSkg
-ewo+ICsJCXRzdF9yZXMoVEZBSUwsICJUZXN0IEZhaWxlZCIpOwo+ICsJfSBlbHNlIHsKPiArCQlp
-ZiAoKHB0cmFjZShQVFJBQ0VfS0lMTCwgY2hpbGRfcGlkLCAwLCAwKSkgPT0gLTEpIHsKPiArCQkJ
-dHN0X3JlcyhURkFJTCB8IFRFUlJOTywKPiArCQkJICAgICJwdHJhY2UoUFRSQUNFX0tJTEwsICVp
-LCAwLCAwKSBmYWlsZWQiLAo+ICsJCQkJY2hpbGRfcGlkKTsKCkFsc28gc29tZSBjb2RlIHNpbXBs
-aWZpY2F0aW9uOgoJaWYgKCgoV0lGRVhJVEVEKHN0YXR1cykpICYmIChXRVhJVFNUQVRVUyhzdGF0
-dXMpKSkKCQkgfHwgKGdvdF9zaWduYWwgPT0gMSkpCgkJdHN0X3JlcyhURkFJTCwgIlRlc3QgRmFp
-bGVkIik7CgllbHNlIGlmICgocHRyYWNlKFBUUkFDRV9LSUxMLCBjaGlsZF9waWQsIDAsIDApKSA9
-PSAtMSkKCQl0c3RfcmVzKFRGQUlMIHwgVEVSUk5PLCAicHRyYWNlKFBUUkFDRV9LSUxMLCAlaSwg
-MCwgMCkgZmFpbGVkIiwKCQkJCWNoaWxkX3BpZCk7CgpCZWxvdyBpcyB0aGUgZmluYWwgZGlmZiBJ
-IHN1Z2dlc3QgdG8gYXBwbHkuCgpLaW5kIHJlZ2FyZHMsClBldHIKCmRpZmYgLS1naXQgdGVzdGNh
-c2VzL2tlcm5lbC9zeXNjYWxscy9wdHJhY2UvcHRyYWNlMDEuYyB0ZXN0Y2FzZXMva2VybmVsL3N5
-c2NhbGxzL3B0cmFjZS9wdHJhY2UwMS5jCmluZGV4IDlmYTM2NWQ3Ni4uNTI2YmYyMDYwIDEwMDY0
-NAotLS0gdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9wdHJhY2UvcHRyYWNlMDEuYworKysgdGVz
-dGNhc2VzL2tlcm5lbC9zeXNjYWxscy9wdHJhY2UvcHRyYWNlMDEuYwpAQCAtMSwyNiArMSwyNCBA
-QAogLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAKIC8qCiAgKiBDb3B5cmlnaHQg
-KGMpIFdpcHJvIFRlY2hub2xvZ2llcyBMdGQsIDIwMDIuICBBbGwgUmlnaHRzIFJlc2VydmVkLgor
-ICogQ29weXJpZ2h0IChjKSAyMDE5IEpvcmlrIENyb25lbmJlcmcgPGpjcm9uZW5iZXJnQHN1c2Uu
-ZGU+CiAgKgogICogQXV0aG9yOglTYWppIEt1bWFyLlYuUiA8c2FqaS5rdW1hckB3aXByby5jb20+
-Ci0gKgogICogUG9ydGVkIHRvIG5ldyBsaWJyYXJ5OgogICogMTAvMjAxOQlKb3JpayBDcm9uZW5i
-ZXJnIDxqY3JvbmVuYmVyZ0BzdXNlLmRlPgogICoKLSAqIERFU0NSSVBUSU9OCi0gKglUaGlzIHRl
-c3QgY2FzZSB0ZXN0cyB0aGUgZnVuY3Rpb25hbGl0eSBvZiBwdHJhY2UoKSBmb3IKLSAqCVBUUkFD
-RV9UUkFDRU1FICYgUFRSQUNFX0tJTEwgcmVxdWVzdHMuCi0gKglIZXJlLCB3ZSBmb3JrIGEgY2hp
-bGQgJiB0aGUgY2hpbGQgZG9lcyBwdHJhY2UoUFRSQUNFX1RSQUNFTUUsIC4uLikuCi0gKglUaGVu
-IGEgc2lnbmFsIGlzIGRlbGl2ZXJlZCB0byB0aGUgY2hpbGQgJiB2ZXJpZmllZCB0aGF0IHBhcmVu
-dAotICoJaXMgbm90aWZpZWQgdmlhIHdhaXQoKS4gdGhlbiBwYXJlbnQgZG9lcyBwdHJhY2UoUFRS
-QUNFX0tJTEwsIC4uKQotICoJdG8ga2lsbCB0aGUgY2hpbGQuIEFnYWluIHBhcmVudCB3YWl0KCkg
-Zm9yIGNoaWxkIHRvIGZpbmlzaC4KLSAqCUlmIGNoaWxkIGZpbmlzaGVkIGFibm9ybWFsbHksIHRl
-c3QgcGFzc2VzLgotICoJCVdlIHRlc3QgdHdvIGNhc2VzCi0gKgkJCTEpIEJ5IHRlbGxpbmcgY2hp
-bGQgdG8gaWdub3JlIFNJR1VTUjIgc2lnbmFsCi0gKgkJCTIpIEJ5IGluc3RhbGxpbmcgYSBzaWdu
-YWwgaGFuZGxlciBmb3IgY2hpbGQgZm9yIFNJR1VTUjIKLSAqCQlJbiBib3RoIGNhc2VzLCBjaGls
-ZCBzaG91bGQgc3RvcCAmIG5vdGlmeSBwYXJlbnQgb24gcmVjZXB0aW9uCi0gKgkJb2YgU0lHVVNS
-MgorICogVGVzdCB0aGUgZnVuY3Rpb25hbGl0eSBvZiBwdHJhY2UoKSBmb3IgUFRSQUNFX1RSQUNF
-TUUgJiBQVFJBQ0VfS0lMTCByZXF1ZXN0cy4KKyAqIEZvcmtlZCBjaGlsZCBkb2VzIHB0cmFjZShQ
-VFJBQ0VfVFJBQ0VNRSwgLi4uKS4KKyAqIFRoZW4gYSBzaWduYWwgaXMgZGVsaXZlcmVkIHRvIHRo
-ZSBjaGlsZCBhbmQgdmVyaWZpZWQgdGhhdCBwYXJlbnQKKyAqIGlzIG5vdGlmaWVkIHZpYSB3YWl0
-KCkuCisgKiBBZnRlciBwYXJlbnQgZG9lcyBwdHJhY2UoUFRSQUNFX0tJTEwsIC4uKSB0byBraWxs
-IHRoZSBjaGlsZAorICogYW5kIHBhcmVudCB3YWl0KCkgZm9yIGNoaWxkIHRvIGZpbmlzaC4KKyAq
-IFRlc3QgcGFzc2VzIGlmIGNoaWxkIGZpbmlzaGVkIGFibm9ybWFsbHkuCiAgKgorICogVGVzdGlu
-ZyB0d28gY2FzZXM6CisgKiAxKSBjaGlsZCBpZ25vcmUgU0lHVVNSMiBzaWduYWwKKyAqIDIpIHVz
-aW5nIGEgc2lnbmFsIGhhbmRsZXIgZm9yIGNoaWxkIGZvciBTSUdVU1IyCisgKiBJbiBib3RoIGNh
-c2VzLCBjaGlsZCBzaG91bGQgc3RvcCAmIG5vdGlmeSBwYXJlbnQgb24gcmVjZXB0aW9uIG9mIFNJ
-R1VTUjIuCiAgKi8KIAogI2luY2x1ZGUgPHN0ZGxpYi5oPgpAQCAtMzMsMTIgKzMxLDEyIEBACiAK
-IHN0YXRpYyB2b2xhdGlsZSBpbnQgZ290X3NpZ25hbDsKIAotc3RhdGljIHZvaWQgY2hpbGRfaGFu
-ZGxlcih2b2lkKQorc3RhdGljIHZvaWQgY2hpbGRfaGFuZGxlcihpbnQgc2lnIExUUF9BVFRSSUJV
-VEVfVU5VU0VEKQogewogCVNBRkVfS0lMTChnZXRwcGlkKCksIFNJR1VTUjIpOwogfQogCi1zdGF0
-aWMgdm9pZCBwYXJlbnRfaGFuZGxlcih2b2lkKQorc3RhdGljIHZvaWQgcGFyZW50X2hhbmRsZXIo
-aW50IHNpZyBMVFBfQVRUUklCVVRFX1VOVVNFRCkKIHsKIAlnb3Rfc2lnbmFsID0gMTsKIH0KQEAg
-LTc3LDcgKzc1LDYgQEAgc3RhdGljIHZvaWQgcnVuKHVuc2lnbmVkIGludCBpKQogCQlwYXJlbnRf
-YWN0LnNhX2hhbmRsZXIgPSBwYXJlbnRfaGFuZGxlcjsKIAkJcGFyZW50X2FjdC5zYV9mbGFncyA9
-IFNBX1JFU1RBUlQ7CiAJCXNpZ2VtcHR5c2V0KCZwYXJlbnRfYWN0LnNhX21hc2spOwotCiAJCVNB
-RkVfU0lHQUNUSU9OKFNJR1VTUjIsICZwYXJlbnRfYWN0LCBOVUxMKTsKIAl9CiAKQEAgLTg4LDE3
-ICs4NSwxMiBAQCBzdGF0aWMgdm9pZCBydW4odW5zaWduZWQgaW50IGkpCiAKIAlTQUZFX1dBSVRQ
-SUQoY2hpbGRfcGlkLCAmc3RhdHVzLCAwKTsKIAotCWlmICgoKFdJRkVYSVRFRChzdGF0dXMpKQot
-CQkmJiAoV0VYSVRTVEFUVVMoc3RhdHVzKSkpCi0JCSB8fCAoZ290X3NpZ25hbCA9PSAxKSkgewor
-CWlmICgoKFdJRkVYSVRFRChzdGF0dXMpKSAmJiAoV0VYSVRTVEFUVVMoc3RhdHVzKSkpCisJCSB8
-fCAoZ290X3NpZ25hbCA9PSAxKSkKIAkJdHN0X3JlcyhURkFJTCwgIlRlc3QgRmFpbGVkIik7Ci0J
-fSBlbHNlIHsKLQkJaWYgKChwdHJhY2UoUFRSQUNFX0tJTEwsIGNoaWxkX3BpZCwgMCwgMCkpID09
-IC0xKSB7Ci0JCQl0c3RfcmVzKFRGQUlMIHwgVEVSUk5PLAotCQkJICAgICJwdHJhY2UoUFRSQUNF
-X0tJTEwsICVpLCAwLCAwKSBmYWlsZWQiLAorCWVsc2UgaWYgKChwdHJhY2UoUFRSQUNFX0tJTEws
-IGNoaWxkX3BpZCwgMCwgMCkpID09IC0xKQorCQl0c3RfcmVzKFRGQUlMIHwgVEVSUk5PLCAicHRy
-YWNlKFBUUkFDRV9LSUxMLCAlaSwgMCwgMCkgZmFpbGVkIiwKIAkJCQljaGlsZF9waWQpOwotCQl9
-Ci0JfQogCiAJU0FGRV9XQUlUUElEKGNoaWxkX3BpZCwgJnN0YXR1cywgMCk7CiAKCi0tIApNYWls
-aW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+--===============1992533036==
+Content-Type: multipart/alternative; boundary="000000000000fd9f840596307b3b"
+
+--000000000000fd9f840596307b3b
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Oct 31, 2019 at 2:45 PM Eric Lin <tesheng@andestech.com> wrote:
+
+> When doing save_nr_hugepages() in setup() and there
+> is no Huge page support in system, it will call
+> cleanup() and write wrong orig_shmmax and orig_shmmni
+> value back to file.
+>
+> To fix it, we initialize the orig_shmmax and
+> orig_shmmni to -1 and check it in cleanup().
+>
+> Signed-off-by: Eric Lin <tesheng@andestech.com>
+>
+Reviewed-by: Li Wang <liwang@redhat.com>
+
+
+> ---
+>  testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat04.c   | 5 +++--
+>  testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c | 5 +++--
+>  2 files changed, 6 insertions(+), 4 deletions(-)
+>
+> diff --git a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat04.c
+> b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat04.c
+> index d375810cb..c76e4167f 100644
+> --- a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat04.c
+> +++ b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat04.c
+> @@ -38,7 +38,7 @@
+>  static long huge_free;
+>  static long huge_free2;
+>  static long hugepages;
+> -static long orig_shmmax, new_shmmax;
+> +static long orig_shmmax =3D -1, new_shmmax;
+>
+>  static void shared_hugepage(void);
+>
+> @@ -106,7 +106,8 @@ static void setup(void)
+>  static void cleanup(void)
+>  {
+>         restore_nr_hugepages();
+> -       SAFE_FILE_PRINTF(PATH_SHMMAX, "%ld", orig_shmmax);
+> +       if (orig_shmmax !=3D -1)
+> +               SAFE_FILE_PRINTF(PATH_SHMMAX, "%ld", orig_shmmax);
+>  }
+>
+>  static struct tst_test test =3D {
+> diff --git a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c
+> b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c
+> index d5255228b..f2ecc465d 100644
+> --- a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c
+> +++ b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c
+> @@ -39,7 +39,7 @@ static int num_shms;
+>  static int shm_id_arr[MAXIDS];
+>
+>  static long hugepages =3D 128;
+> -static long orig_shmmni;
+> +static long orig_shmmni =3D -1;
+>  static struct tst_option options[] =3D {
+>         {"s:", &nr_opt, "-s   num  Set the number of the been allocated
+> hugepages"},
+>         {NULL, NULL, NULL}
+> @@ -105,7 +105,8 @@ static void cleanup(void)
+>         for (i =3D 0; i < num_shms; i++)
+>                 rm_shm(shm_id_arr[i]);
+>
+> -       FILE_PRINTF(PATH_SHMMNI, "%ld", orig_shmmni);
+> +       if (orig_shmmni !=3D -1)
+> +               FILE_PRINTF(PATH_SHMMNI, "%ld", orig_shmmni);
+>         restore_nr_hugepages();
+>  }
+>
+> --
+> 2.17.0
+>
+>
+> --
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+>
+
+
+--=20
+Regards,
+Li Wang
+
+--000000000000fd9f840596307b3b
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Thu, Oct 31, 2019 at 2:45 PM Eric Lin &lt;<a hre=
+f=3D"mailto:tesheng@andestech.com">tesheng@andestech.com</a>&gt; wrote:<br>=
+</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
+order-left:1px solid rgb(204,204,204);padding-left:1ex">When doing save_nr_=
+hugepages() in setup() and there<br>
+is no Huge page support in system, it will call<br>
+cleanup() and write wrong orig_shmmax and orig_shmmni<br>
+value back to file.<br>
+<br>
+To fix it, we initialize the orig_shmmax and<br>
+orig_shmmni to -1 and check it in cleanup().<br>
+<br>
+Signed-off-by: Eric Lin &lt;<a href=3D"mailto:tesheng@andestech.com" target=
+=3D"_blank">tesheng@andestech.com</a>&gt;<br></blockquote><div><span class=
+=3D"gmail_default" style=3D"font-size:small">Reviewed-by: Li Wang &lt;<a hr=
+ef=3D"mailto:liwang@redhat.com">liwang@redhat.com</a>&gt;</span></div><div>=
+<span class=3D"gmail_default" style=3D"font-size:small"></span>=C2=A0</div>=
+<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
+left:1px solid rgb(204,204,204);padding-left:1ex">
+---<br>
+=C2=A0testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat04.c=C2=A0 =C2=A0| 5 =
++++--<br>
+=C2=A0testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c | 5 +++--<br>
+=C2=A02 files changed, 6 insertions(+), 4 deletions(-)<br>
+<br>
+diff --git a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat04.c b/testcas=
+es/kernel/mem/hugetlb/hugeshmat/hugeshmat04.c<br>
+index d375810cb..c76e4167f 100644<br>
+--- a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat04.c<br>
++++ b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat04.c<br>
+@@ -38,7 +38,7 @@<br>
+=C2=A0static long huge_free;<br>
+=C2=A0static long huge_free2;<br>
+=C2=A0static long hugepages;<br>
+-static long orig_shmmax, new_shmmax;<br>
++static long orig_shmmax =3D -1, new_shmmax;<br>
+<br>
+=C2=A0static void shared_hugepage(void);<br>
+<br>
+@@ -106,7 +106,8 @@ static void setup(void)<br>
+=C2=A0static void cleanup(void)<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 restore_nr_hugepages();<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_FILE_PRINTF(PATH_SHMMAX, &quot;%ld&quot;, =
+orig_shmmax);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (orig_shmmax !=3D -1)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_FILE_PRINTF(PA=
+TH_SHMMAX, &quot;%ld&quot;, orig_shmmax);<br>
+=C2=A0}<br>
+<br>
+=C2=A0static struct tst_test test =3D {<br>
+diff --git a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c b/testc=
+ases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c<br>
+index d5255228b..f2ecc465d 100644<br>
+--- a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c<br>
++++ b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c<br>
+@@ -39,7 +39,7 @@ static int num_shms;<br>
+=C2=A0static int shm_id_arr[MAXIDS];<br>
+<br>
+=C2=A0static long hugepages =3D 128;<br>
+-static long orig_shmmni;<br>
++static long orig_shmmni =3D -1;<br>
+=C2=A0static struct tst_option options[] =3D {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 {&quot;s:&quot;, &amp;nr_opt, &quot;-s=C2=A0 =
+=C2=A0num=C2=A0 Set the number of the been allocated hugepages&quot;},<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 {NULL, NULL, NULL}<br>
+@@ -105,7 +105,8 @@ static void cleanup(void)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 for (i =3D 0; i &lt; num_shms; i++)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 rm_shm(shm_id_arr[i=
+]);<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0FILE_PRINTF(PATH_SHMMNI, &quot;%ld&quot;, orig_=
+shmmni);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (orig_shmmni !=3D -1)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0FILE_PRINTF(PATH_SH=
+MMNI, &quot;%ld&quot;, orig_shmmni);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 restore_nr_hugepages();<br>
+=C2=A0}<br>
+<br>
+-- <br>
+2.17.0<br>
+<br>
+<br>
+-- <br>
+Mailing list info: <a href=3D"https://lists.linux.it/listinfo/ltp" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.linux.it/listinfo/ltp</a><br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
+Wang<br></div></div></div></div>
+
+--000000000000fd9f840596307b3b--
+
+
+--===============1992533036==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1992533036==--
+
