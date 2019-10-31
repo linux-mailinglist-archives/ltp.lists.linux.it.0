@@ -1,64 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A33BBEB1A5
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 14:53:10 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E462EB20B
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 15:02:55 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 37A053C2348
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 14:53:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C49813C2345
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 15:02:54 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 12B473C229E
- for <ltp@lists.linux.it>; Thu, 31 Oct 2019 14:53:06 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 4C2CB601019
- for <ltp@lists.linux.it>; Thu, 31 Oct 2019 14:53:04 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1572529983;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=YxzgHaFf3oZ7yhNjpAbmC6CIzjTd4s0sN6Z43Mm3Ik4=;
- b=UMRBDeAbM9OOqBp/TpeEa7vORsTKL4lD5uicjmg9qm0VCgeGjBEX7U3GFRJwuHA2uJh6Yw
- 7dIbGRuRvWIbFJ2kDsigSGixZI1qBA2LFYA2RqGx8Xy5K/v8Rv97Tf8oq6cE2jw2BZWw4/
- sAogSumLwruQIMpPq/5rcI0XfrQvD8s=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-225-i8RcWEfTOhGmuJh-V17Dtw-1; Thu, 31 Oct 2019 09:52:59 -0400
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
- [10.5.11.16])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 887413C147F
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2019 15:02:50 +0100 (CET)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 855341800D55;
- Thu, 31 Oct 2019 13:52:58 +0000 (UTC)
-Received: from localhost.localdomain (ovpn-121-15.rdu2.redhat.com
- [10.10.121.15])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B0D345C1BB;
- Thu, 31 Oct 2019 13:52:57 +0000 (UTC)
-To: Petr Vorel <pvorel@suse.cz>
-References: <f0844da9-2ed8-ee52-121d-ab97df7aff81@redhat.com>
- <20191031131026.GA27945@dell5510>
-From: Rachel Sibley <rasibley@redhat.com>
-Message-ID: <9a8bed00-e2e3-7fc9-1c94-ad900a8e083c@redhat.com>
-Date: Thu, 31 Oct 2019 09:52:57 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C5EE8201151
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2019 15:02:49 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 2742BB21D;
+ Thu, 31 Oct 2019 14:02:49 +0000 (UTC)
+Date: Thu, 31 Oct 2019 15:02:47 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20191031140247.GA6011@dell5510>
+References: <1571821231-3846-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <1571821231-3846-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 MIME-Version: 1.0
-In-Reply-To: <20191031131026.GA27945@dell5510>
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-MC-Unique: i8RcWEfTOhGmuJh-V17Dtw-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <1571821231-3846-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] Send CKI test reports to LTP list ?
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/6] syscalls/quotactl: Don't use ltp-quota.m4
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,42 +47,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: jack@suse.cz, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Thanks for the feedback everyone ! We will enable this soon.
+Hi Xu,
 
--Rachel
+> Current quotactl01.c has logic problem. There is no relation between
+> Q_GETINFO and quota format. The format should depend on quotacheck -F and
+> kernel config such as CONFIG_QFMT_V1 or CONFIG_QFMT_V2(most linux distributions
+> use the v2).
 
-On 10/31/19 9:10 AM, Petr Vorel wrote:
-> Hi Rachel,
->
->> Hello,
->> As part of the CKI project [1] we are responsible for testing upstream
->> kernels, you may have been cc'd
->> on some of our reports in the past :-)
->> We test from a recent commit from ltp versus using the latest stable version
->> to be able to pull in recent
->> fixes and new cases as needed. We update about once a month, and test out
->> changes before merging.
->> We were hoping we could start cc'ing the LTP ML on failures going forward to
->> help troubleshoot and
->> review new failures as we find them in CKI. This would also help promote
->> better collaboration between
->> CKI and LTP upstream community. Curious to know your thoughts on this and if
->> your ok with this approach?
-> +1. Thanks!
->
->> Thanks!
->> Rachel
-> Kind regards,
-> Petr
->
->> [1] https://cki-project.org/
+> Q_GETINFO cmd was introduced since Linux 2.4.22, we don't need to
+> check it now.  Also, specfiy quota format to QFMT_VFS_V0 by quotacheck
+> -F and check CONFIG_QFMT_V2 in kernel config to avoid issue such as#189[1].
+> So in quotactl01.c, we don't need to use the macro of ltp-quota.m4.
+> In quotactl0[2-3].c, we don't need to check very basic header <sys/quota.h>
+> (it was introdued in glibc since 1997). Remove quota version macro.
 
+> Don't remove ltp-quota.m4 because I will rewrite it to detect
+> if_nextdqblk struct for Q_GETNEXTQUOTA cmd on the coming patch.
+I'm going to merge 1st and 2nd commit as these are obviously ok.
+With one change: I'll remove ltp-quota.m4, I see no problem to remove it in 1st
+commit and later introduce different macro with the same name.
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
