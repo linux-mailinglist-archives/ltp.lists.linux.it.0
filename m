@@ -1,44 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1EE5EB607
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 18:22:59 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6192FEBD6C
+	for <lists+linux-ltp@lfdr.de>; Fri,  1 Nov 2019 07:03:37 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 499313C234C
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Oct 2019 18:22:59 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C9AE23C249D
+	for <lists+linux-ltp@lfdr.de>; Fri,  1 Nov 2019 07:03:36 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 5969C3C1815
- for <ltp@lists.linux.it>; Thu, 31 Oct 2019 18:22:55 +0100 (CET)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id ABF271A013C2
- for <ltp@lists.linux.it>; Thu, 31 Oct 2019 18:22:53 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C50F11FB;
- Thu, 31 Oct 2019 10:22:51 -0700 (PDT)
-Received: from arm.com (e112269-lin.cambridge.arm.com [10.1.194.43])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DFE213F6C4;
- Thu, 31 Oct 2019 10:22:48 -0700 (PDT)
-Date: Thu, 31 Oct 2019 17:22:43 +0000
-From: Steven Price <steven.price@arm.com>
-To: lkp report check <lkp@intel.com>
-Message-ID: <20191031172241.GA54073@arm.com>
-References: <20191028135910.33253-13-steven.price@arm.com>
- <20191031151510.GA16405@xsang-OptiPlex-9020>
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 9408F3C2419
+ for <ltp@lists.linux.it>; Fri,  1 Nov 2019 07:03:30 +0100 (CET)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C80F5600664
+ for <ltp@lists.linux.it>; Fri,  1 Nov 2019 07:03:29 +0100 (CET)
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
+ [209.85.167.197])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id 9D277C05A1C0
+ for <ltp@lists.linux.it>; Fri,  1 Nov 2019 06:03:27 +0000 (UTC)
+Received: by mail-oi1-f197.google.com with SMTP id t185so5532515oif.13
+ for <ltp@lists.linux.it>; Thu, 31 Oct 2019 23:03:27 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=fg1wUxVMAwkjyPRT7WbgQ1MpTRC7TqlCpb7LnXWpOOM=;
+ b=TsX1DUSyYrzmcGv/9in375vA+dSjNMtTx8sRMVYjqKflDxHxs9mIUtyP95PNZQyov2
+ j05sgtKbhgi2UZQZ29Qfe4i5+RR6g0Vl3VBGCcN4EuWdnasg/7hSfP0v+0t61a3sYCI2
+ b0beYIxP2AVd31IQ5ZY5LcwFbbcWeQ0avYj3yD2OlP+cDU99iICPAjR+ffXAO2V8ukwE
+ /y/aBzYEm6wOjbjqxzcKJNhfxKx4+ahEEqAfrCBTK8aaU4H8R4gPfnPr0AG+V1Pi4U9C
+ qVzFVdzKZsJuRIzZ0a9sm1+05H3dKp26fYsQ1UmWLWhSH8vdhA2oFxQcD9LwbbITjnx+
+ hyKw==
+X-Gm-Message-State: APjAAAU3i0xWhC3MtryHGm8y5yJ9/lfLXR71LVyIX9vo0/k5/NMaEQeh
+ u/Bg+myz+q2DCny+qxM99xN9DUa7L2WS2JkQW52JE+hKQmULgs74sN0j4nPiev2vXZDppFhyOZM
+ uO2CjIY6odHDTtkkZDB5Ap3ZzvL0=
+X-Received: by 2002:aca:3c86:: with SMTP id j128mr2436124oia.153.1572588207116; 
+ Thu, 31 Oct 2019 23:03:27 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqynXpqC/qbIB+UU7LGUsBLIGguTJKvn8JrcMp67tCRE1s4TfcT5Q+nlVZN6gWwIc9jXC7B36LSB+2Hhsy2d0jY=
+X-Received: by 2002:aca:3c86:: with SMTP id j128mr2436097oia.153.1572588206465; 
+ Thu, 31 Oct 2019 23:03:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191031151510.GA16405@xsang-OptiPlex-9020>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+References: <20190925094721.18932-1-chrubis@suse.cz>
+ <20190925135634.GA32581@dell5510>
+ <575273995.9684474.1572426415443.JavaMail.zimbra@redhat.com>
+ <1665612504.9724602.1572440600772.JavaMail.zimbra@redhat.com>
+ <20191030144649.GA25642@dell5510>
+ <116299070.9793183.1572457283737.JavaMail.zimbra@redhat.com>
+ <CAEemH2dO95d2_CZyMpE4fM8CcC+p0ou9XfA43sS9fX0LmQBWoQ@mail.gmail.com>
+ <2003376860.9886044.1572511989903.JavaMail.zimbra@redhat.com>
+In-Reply-To: <2003376860.9886044.1572511989903.JavaMail.zimbra@redhat.com>
+From: Li Wang <liwang@redhat.com>
+Date: Fri, 1 Nov 2019 14:03:15 +0800
+Message-ID: <CAEemH2eT1aAujLbt7HtuBo1gpE2OadYFuBCf5fiaVKxboj7TtQ@mail.gmail.com>
+To: Jan Stancek <jstancek@redhat.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [mm] 9343f6818b: BUG:kernel_NULL_pointer_dereference,
- address
+X-Spam-Status: No, score=-0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_PASS,
+ SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/acct02: Check read size.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,120 +76,173 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Mark Rutland <Mark.Rutland@arm.com>, Peter Zijlstra <peterz@infradead.org>,
- Catalin Marinas <Catalin.Marinas@arm.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>, Zong Li <zong.li@sifive.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Will Deacon <will@kernel.org>, "Liang,
- Kan" <kan.liang@linux.intel.com>, "x86@kernel.org" <x86@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, "ltp@lists.linux.it" <ltp@lists.linux.it>,
- Arnd Bergmann <arnd@arndb.de>, "lkp@lists.01.org" <lkp@lists.01.org>,
- =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Ard Biesheuvel <ard.biesheuvel@linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============2034442921=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Thu, Oct 31, 2019 at 03:15:10PM +0000, kernel test robot wrote:
-> FYI, we noticed the following commit (built with gcc-7):
-> 
-> commit: 9343f6818bb98cf0c982bfff6ed89b2c7176bcf9 ("[PATCH v14 12/22] mm: pagewalk: Allow walking without vma")
-> url: https://github.com/0day-ci/linux/commits/Steven-Price/Generic-page-walk-and-ptdump/20191030-085205
-> 
-[...]
-> 
-> [   36.010874] BUG: kernel NULL pointer dereference, address: 0000000000000053
-> [   36.012644] #PF: supervisor read access in kernel mode
-> [   36.014074] #PF: error_code(0x0000) - not-present page
-> [   36.015481] PGD 0 P4D 0 
-> [   36.016433] Oops: 0000 [#1] SMP PTI
-> [   36.017561] CPU: 1 PID: 2376 Comm: mmap12 Not tainted 5.4.0-rc5-00046-g9343f6818bb98 #1
-> [   36.019340] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.10.2-1 04/01/2014
-> [   36.021250] RIP: 0010:pagemap_pmd_range+0x5ae/0x7b0
+--===============2034442921==
+Content-Type: multipart/alternative; boundary="0000000000006cca50059642b9b3"
 
-So it looks like this has broken /proc/<pid>/pagemap because we can now
-call the callbacks with a NULL vma if the region passed into
-walk_page_range is (partially) outside the VMA range.
+--0000000000006cca50059642b9b3
+Content-Type: text/plain; charset="UTF-8"
 
-Somehow, in this situation, there is a region which has a PMD entry but
-no corresponding VMA. So the pmd_entry callback is called but with
-walk->vma==NULL.
+On Thu, Oct 31, 2019 at 4:53 PM Jan Stancek <jstancek@redhat.com> wrote:
 
-The options for fixing this seem to be:
- a) Make the pagemap callback robust against a PMD entry without a VMA.
-    For example treating it as a hole (as it would have been before this
-    patch):
+>
+> ----- Original Message -----
+> > > Above was RHEL7. Do you expect different outcome on RHEL8?
+> > > I was looking at upstream sources too and it looked similar.
+> > >
+> > > Anyway, I don't think this part is an issue, test will skip it
+> > > because "comm" doesn't match.
+> > >
+> > > We can tweak 'ac_btime' condition, but I think the test will remain
+> > >
+> >
+> > How much time of the ac_btime shaking to be tolerated is proper?
+>
+> I wanted to go with 1 sec:
+>
 
----8<---
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index 9442631fd4af..b6d819c4bbb2 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -1369,6 +1369,9 @@ static int pagemap_pmd_range(pmd_t *pmdp, unsigned long addr, unsigned long end,
- 	pte_t *pte, *orig_pte;
- 	int err = 0;
- 
-+	if (!vma)
-+		return pagemap_pte_hole(addr, end, walk);
-+
- #ifdef CONFIG_TRANSPARENT_HUGEPAGE
- 	ptl = pmd_trans_huge_lock(pmdp, vma);
- 	if (ptl) {
----8<---
+I'm ok with that. Seems no better way so far.
 
- b) Provide a flag (or another function) for walk_page_range() which
-    restores the previous behaviour. Only those users that want to walk
-    ranges without VMAs would then need to deal with NULL-vma returns.
 
----8<---
-diff --git a/include/linux/pagewalk.h b/include/linux/pagewalk.h
-index 12004b097eae..519258e8fffa 100644
---- a/include/linux/pagewalk.h
-+++ b/include/linux/pagewalk.h
-@@ -61,6 +61,7 @@ struct mm_walk {
- 	const struct mm_walk_ops *ops;
- 	struct mm_struct *mm;
- 	struct vm_area_struct *vma;
-+	bool ignore_vma;
- 	void *private;
- };
+>
+> @@ -83,7 +83,7 @@ static int verify_acct(void *acc, int elap_time)
+>                 ret = 1;
+>         }
+>
+> -       if (ACCT_MEMBER(ac_btime) < start_time) {
+> +       if (ACCT_MEMBER(ac_btime) + 1 < start_time) {
+>                 tst_res(TINFO, "ac_btime < %d (%d)", start_time,
+>                         ACCT_MEMBER(ac_btime));
+>                 ret = 1;
+>
+> >
+> > > race-y in environments with higher steal time:
+> > >
+> >
+> > I'm sorry, what does it mean here?
+>
+> I was referring to failed check below. s390 is scarce resource
+> and when over-committed, sleeps are less consistent.
+> E.g. sleep(1) taking 2+ seconds:
+>   nanosleep({1, 0}, NULL) = 0 <1.926617>
+>
 
-diff --git a/mm/pagewalk.c b/mm/pagewalk.c
-index 4139e9163aee..f2fccbc3cba8 100644
---- a/mm/pagewalk.c
-+++ b/mm/pagewalk.c
-@@ -38,7 +38,7 @@ static int walk_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
- 	do {
- again:
- 		next = pmd_addr_end(addr, end);
--		if (pmd_none(*pmd)) {
-+		if (pmd_none(*pmd) || (!walk->vma && walk->ignore_vma)) {
- 			if (ops->pte_hole)
- 				err = ops->pte_hole(addr, next, walk);
- 			if (err)
-@@ -89,7 +89,7 @@ static int walk_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
- 	do {
-  again:
- 		next = pud_addr_end(addr, end);
--		if (pud_none(*pud)) {
-+		if (pud_none(*pud) || (!walk->vma && !walk->ignore_vma)) {
- 			if (ops->pte_hole)
- 				err = ops->pte_hole(addr, next, walk);
- 			if (err)
----8<---
+Okay.
 
-I'm currently inclined towards the latter because I don't want to have
-to try to audit all existing users in case there's anything similar
-lurking in another user of walk_page_range().
+>
+> >
+> >
+> >
+> > >
+> > > acct02.c:239: INFO: Verifying using 'struct acct_v3'
+> > > acct02.c:192: INFO: == entry 1 ==
+> > > acct02.c:127: INFO: elap_time/clock_ticks >= 2 (236/100: 2.00)
+> > > acct02.c:192: INFO: == entry 2 ==
+> > > acct02.c:82: INFO: ac_comm != 'acct02_helper' ('acct02')
+> > > acct02.c:127: INFO: elap_time/clock_ticks >= 2 (236/100: 2.00)
+> > > acct02.c:133: INFO: ac_exitcode != 32768 (0)
+> > > acct02.c:141: INFO: ac_ppid != 43213 (43212)
+> > > acct02.c:182: FAIL: end of file reached
+>
 
-Steve
+
+-- 
+Regards,
+Li Wang
+
+--0000000000006cca50059642b9b3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Thu, Oct 31, 2019 at 4:53 PM Jan Stancek &lt;<a =
+href=3D"mailto:jstancek@redhat.com">jstancek@redhat.com</a>&gt; wrote:<br><=
+/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
+rder-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
+----- Original Message -----<br>
+&gt; &gt; Above was RHEL7. Do you expect different outcome on RHEL8?<br>
+&gt; &gt; I was looking at upstream sources too and it looked similar.<br>
+&gt; &gt;<br>
+&gt; &gt; Anyway, I don&#39;t think this part is an issue, test will skip i=
+t<br>
+&gt; &gt; because &quot;comm&quot; doesn&#39;t match.<br>
+&gt; &gt;<br>
+&gt; &gt; We can tweak &#39;ac_btime&#39; condition, but I think the test w=
+ill remain<br>
+&gt; &gt;<br>
+&gt; <br>
+&gt; How much time of the ac_btime shaking to be tolerated is proper?<br>
+<br>
+I wanted to go with 1 sec:<br></blockquote><div><br></div><div><div class=
+=3D"gmail_default" style=3D"font-size:small">I&#39;m ok with that. Seems no=
+ better way so far.</div></div><div>=C2=A0</div><blockquote class=3D"gmail_=
+quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
+204);padding-left:1ex">
+<br>
+@@ -83,7 +83,7 @@ static int verify_acct(void *acc, int elap_time)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D 1;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0if (ACCT_MEMBER(ac_btime) &lt; start_time) {<br=
+>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (ACCT_MEMBER(ac_btime) + 1 &lt; start_time) =
+{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_res(TINFO, &quo=
+t;ac_btime &lt; %d (%d)&quot;, start_time,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 ACCT_MEMBER(ac_btime));<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D 1;<br>
+<br>
+&gt; <br>
+&gt; &gt; race-y in environments with higher steal time:<br>
+&gt; &gt;<br>
+&gt; <br>
+&gt; I&#39;m sorry, what does it mean here?<br>
+<br>
+I was referring to failed check below. s390 is scarce resource<br>
+and when over-committed, sleeps are less consistent.<br>
+E.g. sleep(1) taking 2+ seconds:<br>
+=C2=A0 nanosleep({1, 0}, NULL) =3D 0 &lt;1.926617&gt;<br></blockquote><div>=
+<br></div><div class=3D"gmail_default" style=3D"font-size:small">Okay.</div=
+><div class=3D"gmail_default" style=3D"font-size:small"></div><blockquote c=
+lass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px soli=
+d rgb(204,204,204);padding-left:1ex">
+<br>
+&gt; <br>
+&gt; <br>
+&gt; <br>
+&gt; &gt;<br>
+&gt; &gt; acct02.c:239: INFO: Verifying using &#39;struct acct_v3&#39;<br>
+&gt; &gt; acct02.c:192: INFO: =3D=3D entry 1 =3D=3D<br>
+&gt; &gt; acct02.c:127: INFO: elap_time/clock_ticks &gt;=3D 2 (236/100: 2.0=
+0)<br>
+&gt; &gt; acct02.c:192: INFO: =3D=3D entry 2 =3D=3D<br>
+&gt; &gt; acct02.c:82: INFO: ac_comm !=3D &#39;acct02_helper&#39; (&#39;acc=
+t02&#39;)<br>
+&gt; &gt; acct02.c:127: INFO: elap_time/clock_ticks &gt;=3D 2 (236/100: 2.0=
+0)<br>
+&gt; &gt; acct02.c:133: INFO: ac_exitcode !=3D 32768 (0)<br>
+&gt; &gt; acct02.c:141: INFO: ac_ppid !=3D 43213 (43212)<br>
+&gt; &gt; acct02.c:182: FAIL: end of file reached<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
+Wang<br></div></div></div></div>
+
+--0000000000006cca50059642b9b3--
+
+--===============2034442921==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============2034442921==--
