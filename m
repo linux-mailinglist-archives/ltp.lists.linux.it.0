@@ -1,48 +1,48 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70627EC34E
-	for <lists+linux-ltp@lfdr.de>; Fri,  1 Nov 2019 13:56:26 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 50727EC355
+	for <lists+linux-ltp@lfdr.de>; Fri,  1 Nov 2019 13:59:20 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2DEF23C2407
-	for <lists+linux-ltp@lfdr.de>; Fri,  1 Nov 2019 13:56:26 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 00A0D3C23FB
+	for <lists+linux-ltp@lfdr.de>; Fri,  1 Nov 2019 13:59:20 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 33F5E3C2420
- for <ltp@lists.linux.it>; Fri,  1 Nov 2019 13:55:57 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 573473C23EE
+ for <ltp@lists.linux.it>; Fri,  1 Nov 2019 13:59:18 +0100 (CET)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id E288E1400536
- for <ltp@lists.linux.it>; Fri,  1 Nov 2019 13:55:53 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.68,254,1569254400"; d="scan'208";a="77795801"
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id C31CD601240
+ for <ltp@lists.linux.it>; Fri,  1 Nov 2019 13:59:14 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.68,254,1569254400"; d="scan'208";a="77795907"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 01 Nov 2019 20:55:51 +0800
+ by heian.cn.fujitsu.com with ESMTP; 01 Nov 2019 20:59:10 +0800
 Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id C5C9841B7076;
- Fri,  1 Nov 2019 20:47:46 +0800 (CST)
+ by cn.fujitsu.com (Postfix) with ESMTP id 5DA7941B7076;
+ Fri,  1 Nov 2019 20:51:07 +0800 (CST)
 Received: from localhost.localdomain (10.167.220.84) by
  G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Fri, 1 Nov 2019 20:55:47 +0800
+ (TLS) id 14.3.439.0; Fri, 1 Nov 2019 20:59:07 +0800
 From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 To: <pvorel@suse.cz>
-Date: Fri, 1 Nov 2019 20:55:59 +0800
-Message-ID: <1572612959-20577-6-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+Date: Fri, 1 Nov 2019 20:59:30 +0800
+Message-ID: <1572613170-20757-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1572612959-20577-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-References: <20191031152646.GA7078@dell5510>
- <1572612959-20577-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+In-Reply-To: <20191101084933.GA14639@dell5510>
+References: <20191101084933.GA14639@dell5510>
 MIME-Version: 1.0
 X-Originating-IP: [10.167.220.84]
-X-yoursite-MailScanner-ID: C5C9841B7076.ADEFC
+X-yoursite-MailScanner-ID: 5DA7941B7076.AD5E0
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 5/5] syscalls/quotactl06: Add new testcase
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v3] syscalls/prctl02: add more error tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,227 +60,207 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Check various errnos for the quotactl().
+------
+v2->v3:
+1.add missing <linux/capability.h>
+------
 
 Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 ---
- runtest/syscalls                              |   1 +
- testcases/kernel/syscalls/quotactl/.gitignore |   1 +
- .../kernel/syscalls/quotactl/quotactl06.c     | 183 ++++++++++++++++++
- 3 files changed, 185 insertions(+)
- create mode 100644 testcases/kernel/syscalls/quotactl/quotactl06.c
+ include/lapi/prctl.h                      |  10 +++
+ m4/ltp-prctl.m4                           |   3 +-
+ testcases/kernel/syscalls/prctl/prctl02.c | 105 ++++++++++++++++++++--
+ 3 files changed, 111 insertions(+), 7 deletions(-)
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index f2c7b0daf..93b7a3f78 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -955,6 +955,7 @@ quotactl02 quotactl02
- quotactl03 quotactl03
- quotactl04 quotactl04
- quotactl05 quotactl05
-+quotactl06 quotactl06
+diff --git a/include/lapi/prctl.h b/include/lapi/prctl.h
+index 8ee492259..ea52ecac3 100644
+--- a/include/lapi/prctl.h
++++ b/include/lapi/prctl.h
+@@ -29,6 +29,11 @@
+ # define PR_GET_NO_NEW_PRIVS 39
+ #endif
  
- read01 read01
- read02 read02
-diff --git a/testcases/kernel/syscalls/quotactl/.gitignore b/testcases/kernel/syscalls/quotactl/.gitignore
-index 9621e7717..b9a015654 100644
---- a/testcases/kernel/syscalls/quotactl/.gitignore
-+++ b/testcases/kernel/syscalls/quotactl/.gitignore
-@@ -3,4 +3,5 @@
- /quotactl03
- /quotactl04
- /quotactl05
-+/quotactl06
++#ifndef PR_SET_THP_DISABLE
++# define PR_SET_THP_DISABLE 41
++# define PR_GET_THP_DISABLE 42
++#endif
++
+ #ifndef PR_CAP_AMBIENT
+ # define PR_CAP_AMBIENT             47
+ # define PR_CAP_AMBIENT_IS_SET      1
+@@ -37,4 +42,9 @@
+ # define PR_CAP_AMBIENT_CLEAR_ALL   4
+ #endif
  
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl06.c b/testcases/kernel/syscalls/quotactl/quotactl06.c
-new file mode 100644
-index 000000000..9c98bfde7
---- /dev/null
-+++ b/testcases/kernel/syscalls/quotactl/quotactl06.c
-@@ -0,0 +1,183 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2019 FUJITSU LIMITED. All rights reserved.
-+ * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-+ *
-+ * Tests basic error handling of the quotactl syscall.
-+ * Description:
-+ * 1) quotactl fails with EACCES when cmd is Q_QUOTAON and addr
-+ * existed but not a regular file.
-+ * 2) quotaclt fails with ENOENT when the file specified by special
-+ * or addr does not exist.
-+ * 3) quotactl fails with EBUSTY when  cmd is Q_QUOTAON and another
-+ * Q_QUOTAON had already been performed.
-+ * 4) quotactl fails with EFAULT when addr or special is invalid.
-+ * 5) quotactl fails with EINVAL when cmd or type is invalid.
-+ * 6) quotactl fails with ENOTBLK when special is not a block device.
-+ * 7) quotactl fails with ESRCH when no disk quota is found for the
-+ * indicated user and quotas have not been turned on for this fs.
-+ * 8) quotactl fails with ESRCH when cmd is Q_QUOTAON, but the quota
-+ * format was not found.
-+ * 9) quotactl fails with ESRCH when cmd is Q_GETNEXTQUOTA, but there
-+ * is no ID greater than or equal to id that has an active quota.
-+ * 10) quotactl fails with ERANGE when cmd is Q_SETQUOTA, but the
-+ * specified limits are out of the range allowed by the quota format.
-+ * 11) quotactl fails with EPERM when the caller lacked the required
-+ * privilege (CAP_SYS_ADMIN) for the specified operation.
-+ */
-+#include <errno.h>
-+#include <sys/quota.h>
-+#include "tst_test.h"
-+#include "lapi/quotactl.h"
++#ifndef PR_GET_SPECULATION_CTRL
++# define PR_GET_SPECULATION_CTRL 52
++# define PR_SET_SPECULATION_CTRL 53
++#endif
++
+ #endif /* LAPI_PRCTL_H__ */
+diff --git a/m4/ltp-prctl.m4 b/m4/ltp-prctl.m4
+index e429db8fe..b592789ee 100644
+--- a/m4/ltp-prctl.m4
++++ b/m4/ltp-prctl.m4
+@@ -4,7 +4,8 @@ dnl Author: Ngie Cooper <yaneurabeya@gmail.com>
+ 
+ AC_DEFUN([LTP_CHECK_PRCTL_SUPPORT],[
+ AC_CHECK_HEADERS(sys/prctl.h,[
+-	AC_CHECK_DECLS([PR_CAPBSET_DROP, PR_CAPBSET_READ], [],[],[
++	AC_CHECK_DECLS([PR_CAPBSET_DROP, PR_CAPBSET_READ, PR_CAP_AMBIENT,
++PR_SET_NO_NEW_PRIVS, PR_GET_SPECULATION_CTRL, PR_SET_THP_DISABLE], [],[],[
+ #include <sys/prctl.h>
+ ]) dnl AC_CHECK_DECLS
+ ])]
+diff --git a/testcases/kernel/syscalls/prctl/prctl02.c b/testcases/kernel/syscalls/prctl/prctl02.c
+index ec45911fd..2e0bbf1dc 100644
+--- a/testcases/kernel/syscalls/prctl/prctl02.c
++++ b/testcases/kernel/syscalls/prctl/prctl02.c
+@@ -4,32 +4,117 @@
+  *
+  * 1) prctl() fails with EINVAL when an invalid value is given for option
+  * 2) prctl() fails with EINVAL when option is PR_SET_PDEATHSIG & arg2 is
+- * not zero or a valid signal number
++ * not zero or a valid signal number.
++ * 3) prctl() fails with EINVAL when option is PR_SET_DUMPABLE & arg2 is
++ * neither SUID_DUMP_DISABLE nor SUID_DUMP_USER.
++ * 4) prctl() fails with EFAULT when arg2 is an invalid address.
++ * 5) prctl() fails with EFAULT when option is PR_SET_SECCOMP & arg2 is
++ * SECCOMP_MODE_FILTER & arg3 is an invalid address.
++ * 6) prctl() fails with EACCES when option is PR_SET_SECCOMP & arg2 is
++ * SECCOMP_MODE_FILTER & the process does not have the CAP_SYS_ADMIN
++ * capability.
++ * 7) prctl() fails with EINVAL when option is PR_SET_TIMING & arg2 is not
++ * not PR_TIMING_STATISTICAL.
++ * 8,9) prctl() fails with EINVAL when option is PR_SET_NO_NEW_PRIVS & arg2
++ * is not equal to 1 or arg3 is nonzero.
++ * 10) prctl() fails with EINVAL when options is PR_GET_NO_NEW_PRIVS & arg2,
++ * arg3, arg4, or arg5 is nonzero.
++ * 11) prctl() fails with EINVAL when options is PR_SET_THP_DISABLE & arg3,
++ * arg4, arg5 is non-zero.
++ * 12) prctl() fails with EINVAL when options is PR_GET_THP_DISABLE & arg2,
++ * arg3, arg4, or arg5 is nonzero.
++ * 13) prctl() fails with EINVAL when options is PR_CAP_AMBIENT & an unused
++ * argument such as arg4 is nonzero.
++ * 14) prctl() fails with EINVAL when option is PR_GET_SPECULATION_CTRL and
++ * unused arguments is nonzero.
++ * 15) prctl() fails with EPERM when option is PR_SET_SECUREBITS and the
++ * caller does not have the CAP_SETPCAP capability.
++ * 16) prctl() fails with EPERM when option is PR_CAPBSET_DROP and the caller
++ * does not have the CAP_SETPCAP capability.
+  */
+ 
+ #include <errno.h>
+ #include <signal.h>
+ #include <sys/prctl.h>
+-
++#include <linux/filter.h>
++#include <linux/capability.h>
++#include <unistd.h>
++#include <stdlib.h>
++#include <stddef.h>
++#include "config.h"
++#include "lapi/prctl.h"
++#include "lapi/seccomp.h"
++#include "lapi/syscalls.h"
+ #include "tst_test.h"
 +#include "tst_capability.h"
+ 
+ #define OPTION_INVALID 999
+ #define INVALID_ARG 999
+ 
++static const struct sock_filter  strict_filter[] = {
++	BPF_STMT(BPF_LD | BPF_W | BPF_ABS, (offsetof (struct seccomp_data, nr))),
 +
-+#define OPTION_INVALID 999
-+#define QFMT_VFS_V0     2
-+#define USRPATH MNTPOINT "/aquota.user"
-+#define FMTID QFMT_VFS_V0
++	BPF_JUMP(BPF_JMP | BPF_JEQ, __NR_close, 5, 0),
++	BPF_JUMP(BPF_JMP | BPF_JEQ, __NR_exit,  4, 0),
++	BPF_JUMP(BPF_JMP | BPF_JEQ, __NR_wait4, 3, 0),
++	BPF_JUMP(BPF_JMP | BPF_JEQ, __NR_write, 2, 0),
++	BPF_JUMP(BPF_JMP | BPF_JEQ, __NR_clone, 1, 0),
 +
-+#define MNTPOINT "mntpoint"
-+#define TESTDIR1 MNTPOINT "/testdir1"
-+#define TESTDIR2 MNTPOINT "/testdir2"
-+
-+static int32_t fmt_id = FMTID;
-+static int32_t fmt_invalid = 999;
-+static int test_invalid;
-+static int test_id;
-+static struct dqblk set_dq = {
-+	.dqb_bsoftlimit = 100,
-+	.dqb_valid = QIF_BLIMITS
++	BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_KILL),
++	BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ALLOW)
 +};
 +
-+static struct dqblk set_dqmax = {
-+	.dqb_bsoftlimit = 0x7fffffffffffffffLL,  /* 2^63-1 */
-+	.dqb_valid = QIF_BLIMITS
++static const struct sock_fprog  strict = {
++	.len = (unsigned short)ARRAY_SIZE(strict_filter),
++	.filter = (struct sock_filter *)strict_filter
 +};
 +
-+struct tst_cap dropadmin = {
-+	.action = TST_CAP_DROP,
-+	.id = CAP_SYS_ADMIN,
-+	.name = "CAP_SYS_ADMIN",
-+};
-+
-+struct tst_cap needadmin = {
-+	.action = TST_CAP_REQ,
-+	.id = CAP_SYS_ADMIN,
-+	.name = "CAP_SYS_ADMIN",
-+};
-+
-+static struct tcase {
-+	int cmd;
-+	int *id;
-+	void *addr;
-+	int exp_err;
-+	int on_flag;
-+} tcases[] = {
-+	{QCMD(Q_QUOTAON, USRQUOTA), &fmt_id, TESTDIR1, EACCES, 0 },
-+	{QCMD(Q_QUOTAON, USRQUOTA), &fmt_id, TESTDIR2, ENOENT, 0},
-+	{QCMD(Q_QUOTAON, USRQUOTA), &fmt_id, USRPATH, EBUSY, 1},
-+	{QCMD(Q_SETQUOTA, USRQUOTA), &fmt_id, NULL, EFAULT, 1},
-+	{QCMD(OPTION_INVALID, USRQUOTA), &fmt_id, USRPATH, EINVAL, 0},
-+	{QCMD(Q_QUOTAON, USRQUOTA), &fmt_id, USRPATH, ENOTBLK, 0},
-+	{QCMD(Q_SETQUOTA, USRQUOTA), &test_id, &set_dq, ESRCH, 0},
-+	{QCMD(Q_QUOTAON, USRQUOTA), &fmt_invalid, USRPATH, ESRCH, 0},
-+	{QCMD(Q_GETNEXTQUOTA, USRQUOTA), &test_invalid, USRPATH, ESRCH, 0},
-+	{QCMD(Q_SETQUOTA, USRQUOTA), &test_id, &set_dqmax, ERANGE, 1},
-+	{QCMD(Q_QUOTAON, USRQUOTA), &fmt_id, USRPATH, EPERM, 0},
-+};
-+
-+static void verify_quotactl(unsigned int n)
-+{
-+	struct tcase *tc = &tcases[n];
-+	int quota_on = 0;
-+	int drop_flag = 0;
-+
-+	if (!tc->addr)
-+		tc->addr = tst_get_bad_addr(NULL);
-+	if (tc->on_flag) {
-+		TEST(quotactl(QCMD(Q_QUOTAON, USRQUOTA), tst_device->dev, FMTID, USRPATH));
-+		if (TST_RET == -1)
-+			tst_brk(TBROK,
-+				"quotactl with Q_QUOTAON returned %ld", TST_RET);
-+		quota_on = 1;
+ static struct tcase {
+ 	int option;
+ 	unsigned long arg2;
++	unsigned long arg3;
+ 	int exp_errno;
++	int bad_addr;
+ } tcases[] = {
+-	{OPTION_INVALID, 0, EINVAL},
+-	{PR_SET_PDEATHSIG, INVALID_ARG, EINVAL},
++	{OPTION_INVALID, 0, 0, EINVAL, 0},
++	{PR_SET_PDEATHSIG, INVALID_ARG, 0, EINVAL, 0},
++	{PR_SET_DUMPABLE, 2, 0, EINVAL, 0},
++	{PR_SET_NAME, 0, 0, EFAULT, 1},
++	{PR_SET_SECCOMP, 2, 0, EFAULT, 1},
++	{PR_SET_SECCOMP, 2, 2, EACCES, 0},
++	{PR_SET_TIMING, 1, 0, EINVAL, 0},
++#ifdef HAVE_DECL_PR_SET_NO_NEW_PRIVS
++	{PR_SET_NO_NEW_PRIVS, 0, 0, EINVAL, 0},
++	{PR_SET_NO_NEW_PRIVS, 1, 1, EINVAL, 0},
++	{PR_GET_NO_NEW_PRIVS, 1, 0, EINVAL, 0},
++#endif
++#ifdef HAVE_DECL_PR_SET_THP_DISABLE
++	{PR_SET_THP_DISABLE, 0, 1, EINVAL, 0},
++	{PR_GET_THP_DISABLE, 1, 0, EINVAL, 0},
++#endif
++#ifdef HAVE_DECL_PR_CAP_AMBIENT
++	{PR_CAP_AMBIENT, 2, 1, EINVAL, 0},
++#endif
++#ifdef HAVE_DECL_PR_GET_SPECULATION_CTR
++	{PR_GET_SPECULATION_CTRL, 1, 0, EINVAL, 0},
++#endif
++	{PR_SET_SECUREBITS, 0, 0, EPERM, 0},
++	{PR_CAPBSET_DROP, 1, 0, EPERM, 0},
+ };
+ 
+ static void verify_prctl(unsigned int n)
+ {
+ 	struct tcase *tc = &tcases[n];
+ 
+-	TEST(prctl(tc->option, tc->arg2));
++	if (tc->arg3 == 2)
++		tc->arg3 = (unsigned long)&strict;
++	if (tc->bad_addr) {
++		if (tc->arg2)
++			tc->arg3 = (unsigned long)tst_get_bad_addr(NULL);
++		else
++			tc->arg2 = (unsigned long)tst_get_bad_addr(NULL);
 +	}
-+
-+	if (tc->exp_err == EPERM) {
-+		tst_cap_action(&dropadmin);
-+		drop_flag = 1;
-+	}
-+
-+	if (tc->exp_err == ENOTBLK)
-+		TEST(quotactl(tc->cmd, "/dev/null", *tc->id, tc->addr));
-+	else
-+		TEST(quotactl(tc->cmd, tst_device->dev, *tc->id, tc->addr));
-+	if (TST_RET == -1) {
-+		if (tc->exp_err == TST_ERR) {
-+			tst_res(TPASS | TTERRNO,
-+				"quotactl failed as expected");
-+		} else if (*tc->id == test_invalid && tc->exp_err == EINVAL) {
-+			tst_res(TFAIL,
-+				"quotactl Q_GETNEXTQUOTA option is not supported.");
-+		} else {
-+			tst_res(TFAIL | TTERRNO,
-+				"quotactl failed unexpectedly; expected %s, but got",
-+				tst_strerrno(tc->exp_err));
-+		}
-+	} else {
-+		tst_res(TFAIL, "quotactl returned wrong value: %ld", TST_RET);
-+	}
-+
-+	if (quota_on) {
-+		TEST(quotactl(QCMD(Q_QUOTAOFF, USRQUOTA), tst_device->dev, FMTID, USRPATH));
-+		if (TST_RET == -1)
-+			tst_brk(TBROK,
-+				"quotactl with Q_QUOTAOFF returned %ld", TST_RET);
-+		quota_on = 0;
-+	}
-+
-+	if (drop_flag) {
-+		tst_cap_action(&needadmin);
-+		drop_flag = 0;
-+	}
-+}
-+
-+static void setup(void)
-+{
-+	const char *const cmd[] = {"quotacheck", "-uF", "vfsv0", MNTPOINT, NULL};
-+	int ret;
-+
-+	ret = tst_run_cmd(cmd, NULL, NULL, 1);
-+	switch (ret) {
-+	case 0:
-+		break;
-+	case 255:
-+		tst_brk(TBROK, "quotacheck binary not installed");
-+		break;
-+	default:
-+		tst_brk(TBROK, "quotacheck exited with %i", ret);
-+	}
-+
-+	if (access(USRPATH, F_OK) == -1)
-+		tst_brk(TFAIL | TERRNO, "user quotafile didn't exist");
-+
-+	SAFE_MKDIR(TESTDIR1, 0666);
-+	test_id = geteuid();
-+	test_invalid = test_id + 1;
-+}
-+
-+static const char *kconfigs[] = {
-+	"CONFIG_QFMT_V2",
-+	NULL
-+};
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.needs_kconfigs = kconfigs,
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.test = verify_quotactl,
-+	.dev_fs_type = "ext4",
-+	.mntpoint = MNTPOINT,
-+	.mount_device = 1,
-+	.mnt_data = "usrquota",
-+	.needs_root = 1,
-+};
++	TEST(prctl(tc->option, tc->arg2, tc->arg3));
+ 	if (TST_RET == 0) {
+ 		tst_res(TFAIL, "prctl() succeeded unexpectedly");
+ 		return;
+@@ -38,7 +123,10 @@ static void verify_prctl(unsigned int n)
+ 	if (tc->exp_errno == TST_ERR) {
+ 		tst_res(TPASS | TTERRNO, "prctl() failed as expected");
+ 	} else {
+-		tst_res(TFAIL | TTERRNO, "prctl() failed unexpectedly, expected %s",
++		if (tc->option == PR_SET_SECCOMP && TST_ERR == EINVAL)
++			tst_res(TCONF, "current system was not built with CONFIG_SECCOMP.");
++		else
++			tst_res(TFAIL | TTERRNO, "prctl() failed unexpectedly, expected %s",
+ 				tst_strerrno(tc->exp_errno));
+ 	}
+ }
+@@ -46,4 +134,9 @@ static void verify_prctl(unsigned int n)
+ static struct tst_test test = {
+ 	.tcnt = ARRAY_SIZE(tcases),
+ 	.test = verify_prctl,
++	.caps = (struct tst_cap []) {
++		TST_CAP(TST_CAP_DROP, CAP_SYS_ADMIN),
++		TST_CAP(TST_CAP_DROP, CAP_SETPCAP),
++		{}
++	},
+ };
 -- 
 2.18.0
 
