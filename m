@@ -1,71 +1,54 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A15CCEE2DE
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Nov 2019 15:50:40 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 017F3EE2FB
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Nov 2019 15:59:59 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 28AAC3C24E1
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Nov 2019 15:50:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 99F3A3C24E6
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Nov 2019 15:59:58 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 643653C2355
- for <ltp@lists.linux.it>; Mon,  4 Nov 2019 15:50:35 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [205.139.110.120])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 68B7C600BA2
- for <ltp@lists.linux.it>; Mon,  4 Nov 2019 15:50:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1572879031;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=YjrW/se+HWaAAET6Xa+xSzqodkS7rnCXuLFF/34zp9M=;
- b=KnHp4O/ZU3XRQ0Xkc+oQ6qrnNMGq4OMRBJYYXe83+X3eZvAT0fP6WQgNM0RY/Nj50Oh41u
- jo3yzrLNoyg8BIIppC+n5blWhNaB9Vyct0J1SI/C9Ws4ND/eG8ikXj9akLA+J32hhWnvXK
- daLvLt/9tsv1pP3meg1Oh/BpnAexniA=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-438-g1ypLtrwM9iklXhZqRrOLA-1; Mon, 04 Nov 2019 09:50:26 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 680833C240B
+ for <ltp@lists.linux.it>; Mon,  4 Nov 2019 15:59:54 +0100 (CET)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CAB4B1800D53;
- Mon,  4 Nov 2019 14:50:25 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C1FFF5D6C5;
- Mon,  4 Nov 2019 14:50:25 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id B6F4118095FF;
- Mon,  4 Nov 2019 14:50:25 +0000 (UTC)
-Date: Mon, 4 Nov 2019 09:50:25 -0500 (EST)
-From: Jan Stancek <jstancek@redhat.com>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>, rpalethorpe@suse.com
-Message-ID: <1850082269.10349939.1572879025707.JavaMail.zimbra@redhat.com>
-In-Reply-To: <623915519.10305094.1572866731625.JavaMail.zimbra@redhat.com>
-References: <008a677b-644d-615f-6c4f-0961af928700@cn.fujitsu.com>
- <1706711917.10302442.1572864628434.JavaMail.zimbra@redhat.com>
- <77525b33-67e5-2cfd-e735-6fc9485087e4@cn.fujitsu.com>
- <623915519.10305094.1572866731625.JavaMail.zimbra@redhat.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 80C9F600C21
+ for <ltp@lists.linux.it>; Mon,  4 Nov 2019 15:59:53 +0100 (CET)
+Received: from localhost (unknown [62.119.166.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 5AF6E21D7F;
+ Mon,  4 Nov 2019 14:59:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1572879591;
+ bh=4DM6PsVNusVwUXpvzXvmTrY1JRmZq07AfglvQsNWuDI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=izAGyOFkCY9FsTpZBGaRHf0qnEd7WX44JLuBknCFkhnUGbHwpnrCz7mSNciXMvPRy
+ 83GSqSmyoIF+MN78AEJvMOsyEpDkP2u6hWCXbaTYnHqBXZespraAz3S9RA1c7MOBqA
+ Kqm8avdiINBAZ2gcfb+NcUmznvPESeNtiEJe7wFE=
+Date: Mon, 4 Nov 2019 15:59:47 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Jan Stancek <jstancek@redhat.com>
+Message-ID: <20191104145947.GA2211991@kroah.com>
+References: <cki.1210A7ECB0.BD9Q3APV4K@redhat.com>
+ <2029139028.10333037.1572874551626.JavaMail.zimbra@redhat.com>
+ <20191104135135.GA2162401@kroah.com>
+ <1341418315.10342806.1572877690830.JavaMail.zimbra@redhat.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.163, 10.4.195.5]
-Thread-Topic: question about the EPERM error of LTP bpf test
-Thread-Index: J1KQewlNzS9B9tFpkG3F3h9/YML+kamHekc+
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-MC-Unique: g1ypLtrwM9iklXhZqRrOLA-1
-X-Mimecast-Spam-Score: 0
+Content-Disposition: inline
+In-Reply-To: <1341418315.10342806.1572877690830.JavaMail.zimbra@redhat.com>
+User-Agent: Mutt/1.12.2 (2019-09-21)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] question about the EPERM error of LTP bpf test
+Subject: Re: [LTP] 
+ =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E3?=
+ =?utf-8?q?=2E9-rc1-dfe283e=2Ecki_=28stable=29?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,56 +60,58 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Memory Management <mm-qe@redhat.com>,
+ Linux Stable maillist <stable@vger.kernel.org>,
+ Jaroslav Kysela <jkysela@redhat.com>, CKI Project <cki-project@redhat.com>,
+ LTP Mailing List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-
------ Original Message -----
-> 
-> 
-> ----- Original Message -----
-> > 
-> > on 2019/11/04 18:50, Jan Stancek wrote:
-> > 
-> > >
-> > > ----- Original Message -----
-> > >> Hi All
-> > >>
-> > >> Now, I test bpf_prog02 and bpf_prog03 in my
-> > >> system(4.18.0-107.el8.x86_64).
-> > >>
-> > >> #./bpf_prog03
-> > >> tst_buffers.c:55: INFO: Test is using guarded buffers
-> > >> tst_test.c:1137: INFO: Timeout per run is 0h 05m 00s
-> > >> bpf_common.h:18: INFO: Raising RLIMIT_MEMLOCK to 262143
-> > >> tst_capability.c:29: INFO: Dropping CAP_SYS_ADMIN(21)
-> > >> bpf_common.h:37: CONF: bpf() requires CAP_SYS_ADMIN on this system:
-> > >> EPERM
-> > >> (1)
-> > >> #
-> > >>
-> > >> Jan Stancek has added rlimit_bump_memlock function to avoid EPERM errno,
-> > >> but I still can meet this problem every time even though I have
-> > >> increased
-> > >> BPF_MEMLOCK_ADD limit.
-> > > This is likely not related to rlimit. Can you check if unprivileged bpf
-> > > is
-> > > allowed:
-> > >    cat /proc/sys/kernel/unprivileged_bpf_disabled
-> > 
-> > Hi Jan
-> > 
-> > Thanks for your quick reply. this value in my system is 1.
-> > unprivileged bpf isn't allowed. Do we need to check it before run in case?
-> 
-> Yes, we should check that and TCONF, or better still run test without
-> dropping CAP_SYS_ADMIN.
-
-I added a hint to TCONF message, to have a look at unprivileged_bpf_disabled.
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gTW9uLCBOb3YgMDQsIDIwMTkgYXQgMDk6Mjg6MTBBTSAtMDUwMCwgSmFuIFN0YW5jZWsgd3Jv
+dGU6Cj4gCj4gCj4gLS0tLS0gT3JpZ2luYWwgTWVzc2FnZSAtLS0tLQo+ID4gT24gTW9uLCBOb3Yg
+MDQsIDIwMTkgYXQgMDg6MzU6NTFBTSAtMDUwMCwgSmFuIFN0YW5jZWsgd3JvdGU6Cj4gPiA+IAo+
+ID4gPiAKPiA+ID4gLS0tLS0gT3JpZ2luYWwgTWVzc2FnZSAtLS0tLQo+ID4gPiA+IAo+ID4gPiA+
+IEhlbGxvLAo+ID4gPiA+IAo+ID4gPiA+IFdlIHJhbiBhdXRvbWF0ZWQgdGVzdHMgb24gYSByZWNl
+bnQgY29tbWl0IGZyb20gdGhpcyBrZXJuZWwgdHJlZToKPiA+ID4gPiAKPiA+ID4gPiAgICAgICAg
+S2VybmVsIHJlcG86Cj4gPiA+ID4gICAgICAgIGdpdDovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20v
+bGludXgva2VybmVsL2dpdC9zdGFibGUvbGludXgtc3RhYmxlLXJjLmdpdAo+ID4gPiA+ICAgICAg
+ICAgICAgIENvbW1pdDogZGZlMjgzZTlmZGFjIC0gTGludXggNS4zLjktcmMxCj4gPiA+ID4gCj4g
+PiA+ID4gVGhlIHJlc3VsdHMgb2YgdGhlc2UgYXV0b21hdGVkIHRlc3RzIGFyZSBwcm92aWRlZCBi
+ZWxvdy4KPiA+ID4gPiAKPiA+ID4gPiAgICAgT3ZlcmFsbCByZXN1bHQ6IEZBSUxFRCAoc2VlIGRl
+dGFpbHMgYmVsb3cpCj4gPiA+ID4gICAgICAgICAgICAgIE1lcmdlOiBPSwo+ID4gPiA+ICAgICAg
+ICAgICAgQ29tcGlsZTogT0sKPiA+ID4gPiAgICAgICAgICAgICAgVGVzdHM6IEZBSUxFRAo+ID4g
+PiA+IAo+ID4gPiA+IEFsbCBrZXJuZWwgYmluYXJpZXMsIGNvbmZpZyBmaWxlcywgYW5kIGxvZ3Mg
+YXJlIGF2YWlsYWJsZSBmb3IgZG93bmxvYWQKPiA+ID4gPiBoZXJlOgo+ID4gPiA+IAo+ID4gPiA+
+ICAgaHR0cHM6Ly9hcnRpZmFjdHMuY2tpLXByb2plY3Qub3JnL3BpcGVsaW5lcy8yNjIzODAKPiA+
+ID4gPiAKPiA+ID4gPiBPbmUgb3IgbW9yZSBrZXJuZWwgdGVzdHMgZmFpbGVkOgo+ID4gPiA+IAo+
+ID4gPiA+ICAgICB4ODZfNjQ6Cj4gPiA+ID4gICAgICDinYwgTFRQIGxpdGUKPiA+ID4gPgo+ID4g
+PiAKPiA+ID4gTm90IGEgNS4zIC1zdGFibGUgcmVncmVzc2lvbi4KPiA+ID4gCj4gPiA+IEZhaWx1
+cmUgY29tZXMgZnJvbSB0ZXN0IHRoYXQgc2FuaXR5IGNoZWNrcyBhbGwgL3Byb2MgZmlsZXMgYnkg
+ZG9pbmcKPiA+ID4gMWsgcmVhZCBmcm9tIGVhY2guIFRoZXJlIGFyZSBjb3VwbGUgaXNzdWVzIGl0
+IGhpdHMgd3J0LiBzbmRfaGRhXyouCj4gPiA+IAo+ID4gPiBFeGFtcGxlIHJlcHJvZHVjZXI6Cj4g
+PiA+ICAgZGQgaWY9L3N5cy9rZXJuZWwvZGVidWcvcmVnbWFwL2hkYXVkaW9DMEQzLWhkYXVkaW8v
+YWNjZXNzIG9mPW91dC50eHQKPiA+ID4gICBjb3VudD0xIGJzPTEwMjQgaWZsYWc9bm9uYmxvY2sK
+PiA+IAo+ID4gVGhhdCdzIG5vdCBhIHByb2MgZmlsZSA6KQo+IAo+IFJpZ2h0LiBJdCdzIHNhbWUg
+dGVzdCB0aGF0J3MgdXNlZCBmb3IgL3Byb2MgdG9vLgo+IAo+ID4gCj4gPiA+IEl0J3Mgc2xvdyBh
+bmQgdHJpZ2dlcnMgc29mdCBsb2NrdXBzIFsxXS4gQW5kIGl0IGFsc28gcmVxdWlyZXMgbG90Cj4g
+PiA+IG9mIG1lbW9yeSwgdHJpZ2dlcmluZyBPT01zIG9uIHNtYWxsZXIgVk1zOgo+ID4gPiAweDAw
+MDAwMDAwMjRmMDQzN2ItMHgwMDAwMDAwMDFhMzJiMWM4IDEwNzM3NDU5MjAgc2VxX3JlYWQrMHgx
+MzEvMHg0MDAKPiA+ID4gcGFnZXM9MjYyMTQ0IHZtYWxsb2MgdnBhZ2VzIE4wPTI2MjE0NAo+ID4g
+PiAKPiA+ID4gSSdtIGxlYW5pbmcgdG93YXJkcyBza2lwcGluZyBhbGwgcmVnbWFwIGVudHJpZXMg
+aW4gdGhpcyB0ZXN0Lgo+ID4gPiBDb21tZW50cyBhcmUgd2VsY29tZWQuCj4gPiAKPiA+IFJhbmRv
+bWx5IHBva2luZyBhcm91bmQgaW4gZGVidWdmcyBpcyBhIHN1cmUgd2F5IHRvIGNhdXNlIGNyYXNo
+ZXMgYW5kCj4gPiBtYWpvciBwcm9ibGVtcy4gIEFsc28sIGRlYnVnZnMgZmlsZXMgYXJlIE5PVCBz
+dGFibGUgYW5kIG9ubHkgZm9yCj4gPiBkZWJ1Z2dpbmcgYW5kIHNob3VsZCBuZXZlciBiZSBlbmFi
+bGVkIG9uICJyZWFsIiBzeXN0ZW1zLgo+ID4gCj4gPiBTbyB3aGF0IGV4YWN0bHkgaXMgdGhlIHRl
+c3QgdHJ5aW5nIHRvIGRvIGhlcmU/Cj4gCj4gSXQncyAodW5wcml2aWxlZ2VkKSB1c2VyIHRyeWlu
+ZyB0byBvcGVuL3JlYWQgYW55dGhpbmcgaXQgY2FuICgvcHJvYywgL3N5cykKPiB0byBzZWUgaWYg
+dGhhdCB0cmlnZ2VycyBhbnl0aGluZyBiYWQuCj4gCj4gSXQgY2FuIHJ1biBhcyBwcml2aWxlZ2Vk
+IHVzZXIgdG9vLCB3aGljaCB3YXMgdGhlIGNhc2UgYWJvdmUuCgpTdXJlLCB5b3UgY2FuIGRvIHRv
+bnMgb2YgYmFkIHRoaW5ncyBhcyByb290IHBva2luZyBhcm91bmQgaW4gc3lzZnMsCmRlYnVnZnMs
+IGFuZCBwcm9jZnMuICBXaGF0IGV4YWN0bHkgYXJlIHlvdSB0cnlpbmcgdG8gZG8sIGJyZWFrIHRo
+ZQpzeXN0ZW0/CgpUaGF0IHNvdW5kcyBsaWtlIGEgaG9ycmlibGUgdGVzdCB0aGF0IGlzIGp1c3Qg
+c2V0dGluZyBpdHNlbGYgdXAgdG8gbG9jawp0aGUgc3lzdGVtIHVwLCB5b3Ugc2hvdWxkIHJldmlz
+aXQgaXQuLi4KCnRoYW5rcywKCmdyZWcgay1oCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBz
+Oi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
