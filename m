@@ -1,69 +1,37 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59454EDDA8
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Nov 2019 12:25:41 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E0A6EE077
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Nov 2019 13:52:42 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id ED04F3C2438
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Nov 2019 12:25:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 00C463C2434
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Nov 2019 13:52:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 019093C2095
- for <ltp@lists.linux.it>; Mon,  4 Nov 2019 12:25:37 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 7AD6C1400DC2
- for <ltp@lists.linux.it>; Mon,  4 Nov 2019 12:25:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1572866734;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ONp8+RVr/oDo/UVvwKNZ6CO1eA3H4JTekDDEYeitULE=;
- b=JjVRt3OGmd6Arpt310RFU+JZ1Nc1KcdXjcbHALLEvZbIWj7XhExLzy0+cthX0pVMcJ5vrM
- rRqQgTt2hNIIpA2r0ubU6j+gJrcsZ3uC2qxRADjt4GYELmxaiv0QcJje4sylGOjPpJTxDo
- og4JarNxCCLHN8XnftpN/kIZ3piKH6Y=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-14-IgjOXMYeMfGhl9Sl635bUw-1; Mon, 04 Nov 2019 06:25:32 -0500
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 8C4B33C23ED
+ for <ltp@lists.linux.it>; Mon,  4 Nov 2019 13:52:38 +0100 (CET)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DDFB18017DD;
- Mon,  4 Nov 2019 11:25:31 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D5B071001B23;
- Mon,  4 Nov 2019 11:25:31 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id CD36518095FF;
- Mon,  4 Nov 2019 11:25:31 +0000 (UTC)
-Date: Mon, 4 Nov 2019 06:25:31 -0500 (EST)
-From: Jan Stancek <jstancek@redhat.com>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <623915519.10305094.1572866731625.JavaMail.zimbra@redhat.com>
-In-Reply-To: <77525b33-67e5-2cfd-e735-6fc9485087e4@cn.fujitsu.com>
-References: <008a677b-644d-615f-6c4f-0961af928700@cn.fujitsu.com>
- <1706711917.10302442.1572864628434.JavaMail.zimbra@redhat.com>
- <77525b33-67e5-2cfd-e735-6fc9485087e4@cn.fujitsu.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 82A8B6009AE
+ for <ltp@lists.linux.it>; Mon,  4 Nov 2019 13:52:37 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 8DE23B16C
+ for <ltp@lists.linux.it>; Mon,  4 Nov 2019 12:52:36 +0000 (UTC)
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Mon,  4 Nov 2019 13:52:27 +0100
+Message-Id: <20191104125228.17173-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.163, 10.4.195.27]
-Thread-Topic: question about the EPERM error of LTP bpf test
-Thread-Index: J1KQewlNzS9B9tFpkG3F3h9/YML+kQ==
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-MC-Unique: IgjOXMYeMfGhl9Sl635bUw-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] question about the EPERM error of LTP bpf test
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/1] Fix zram01.sh
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,74 +43,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+The compression ratio check in zram01.sh is completely broken:
+- It uses `free -m` to *guess* zram memory usage which is distorted by all
+  other processes running on the system.
+- It calculates memory usage backwards ($before - $after; which should
+  produce a negative value if the two values weren't nonsense).
+- It mixes bytes with megabytes when calculating the final ratio.
 
+Here's a patch to calculate the compression ratio correctly using sysfs memory
+usage statistics for each zram device. I currently calculate it as
+$bytes_written / $mm_stat_compr_data_size.
 
------ Original Message -----
-> 
-> on 2019/11/04 18:50, Jan Stancek wrote:
-> 
-> >
-> > ----- Original Message -----
-> >> Hi All
-> >>
-> >> Now, I test bpf_prog02 and bpf_prog03 in my system(4.18.0-107.el8.x86_64).
-> >>
-> >> #./bpf_prog03
-> >> tst_buffers.c:55: INFO: Test is using guarded buffers
-> >> tst_test.c:1137: INFO: Timeout per run is 0h 05m 00s
-> >> bpf_common.h:18: INFO: Raising RLIMIT_MEMLOCK to 262143
-> >> tst_capability.c:29: INFO: Dropping CAP_SYS_ADMIN(21)
-> >> bpf_common.h:37: CONF: bpf() requires CAP_SYS_ADMIN on this system: EPERM
-> >> (1)
-> >> #
-> >>
-> >> Jan Stancek has added rlimit_bump_memlock function to avoid EPERM errno,
-> >> but I still can meet this problem every time even though I have increased
-> >> BPF_MEMLOCK_ADD limit.
-> > This is likely not related to rlimit. Can you check if unprivileged bpf is
-> > allowed:
-> >    cat /proc/sys/kernel/unprivileged_bpf_disabled
-> 
-> Hi Jan
-> 
-> Thanks for your quick reply. this value in my system is 1.
-> unprivileged bpf isn't allowed. Do we need to check it before run in case?
+One question for debate is whether I should use a different formula:
+- $bytes_written / $mm_stat_mem_used_total
+  (mem_used_total includes internal zram memory management overhead)
+- $mm_stat_orig_data_size / $mm_stat_compr_data_size
+  (zram01.sh fills the zram device with binary zeroes so the data will be
+  compacted even before compression; orig_data_size << bytes_written)
+- $mm_stat_orig_data_size / $mm_stat_mem_used_total)
+  (this could easily produce ratio <100% due to page compacting)
+See https://www.kernel.org/doc/Documentation/blockdev/zram.txt
 
-Yes, we should check that and TCONF, or better still run test without
-dropping CAP_SYS_ADMIN.
+The mm_stat sysfs file is available since kernel 4.1. Unfortunately,
+I couldn't test the TCONF branch when mm_stat doesn't exist because there's
+no SLE release with kernel version between 3.14 and 4.1.
 
-> 
-> >
-> >> How can I run the two cases normally? Also, this error log(requires
-> >> CAP_SYS_ADMIN on this system: EPERM
-> >> ) makes me confused in this situation(because case drops CAP_SYS_ADMIN,
-> >> but
-> >> log reports need CAP_SYS_ADMIN)
-> >> and I think we may change it into "require CAP_SYS_ADMIN or max locked
-> >> memory
-> >> limit is too low".
-> >>
-> >> Or, can I keep CAP_SYS_ADMIN cap in bpf_prog02/[3]?
-> >>
-> >>
-> >> Thanks
-> >> Yang Xu
-> >>    
-> >>
-> >>
-> >>
-> >>
-> >
-> >
-> 
-> 
-> 
+Verifcation run: https://openqa.suse.de/tests/3552880#step/zram01/6
+
+Martin Doucha (1):
+  Fix compression ratio calculation in zram01
+
+ .../kernel/device-drivers/zram/zram01.sh      | 36 +++++++++----------
+ 1 file changed, 16 insertions(+), 20 deletions(-)
+
+-- 
+2.23.0
 
 
 -- 
