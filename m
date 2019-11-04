@@ -1,74 +1,63 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0A00EE3B8
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Nov 2019 16:25:31 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id BF850EE3CF
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Nov 2019 16:30:14 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 500C03C252F
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Nov 2019 16:25:31 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7BD983C24E4
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Nov 2019 16:30:14 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 781543C2421
- for <ltp@lists.linux.it>; Mon,  4 Nov 2019 16:25:27 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id EA15A600BA2
- for <ltp@lists.linux.it>; Mon,  4 Nov 2019 16:25:26 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1572881125;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=3QZRirfuUhsdXG9rrswqF3RwKnBGY5m5ab7OcFpaYpA=;
- b=eaXme6/hLcm8WuNtabftvahgtO8J22WDONriK1YqHvn6DQ1wTTV/VWBWycsyLS2YzEafUA
- FHpSzDp9MdZStkzmIQrUPOklrIN8+0z0KU9wfv6GrCzN1qypTilvo8wPoEuQzTnQ83vawN
- weHZl+8TBNYnvfkdin5TvxiHQNk6QVE=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-91-0Ejf54GUMYmPnVTUBPnmdw-1; Mon, 04 Nov 2019 10:25:23 -0500
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 082F73C2421
+ for <ltp@lists.linux.it>; Mon,  4 Nov 2019 16:30:09 +0100 (CET)
+Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
+ [IPv6:2a00:1450:4864:20::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8CA971800D53;
- Mon,  4 Nov 2019 15:25:22 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7D27A100164D;
- Mon,  4 Nov 2019 15:25:21 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4193C18095FF;
- Mon,  4 Nov 2019 15:25:21 +0000 (UTC)
-Date: Mon, 4 Nov 2019 10:25:21 -0500 (EST)
-From: Jan Stancek <jstancek@redhat.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Message-ID: <251943262.10356408.1572881121044.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20191104145947.GA2211991@kroah.com>
-References: <cki.1210A7ECB0.BD9Q3APV4K@redhat.com>
- <2029139028.10333037.1572874551626.JavaMail.zimbra@redhat.com>
- <20191104135135.GA2162401@kroah.com>
- <1341418315.10342806.1572877690830.JavaMail.zimbra@redhat.com>
- <20191104145947.GA2211991@kroah.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 18EFA2000DE
+ for <ltp@lists.linux.it>; Mon,  4 Nov 2019 16:30:09 +0100 (CET)
+Received: by mail-lj1-x241.google.com with SMTP id q2so11540396ljg.7
+ for <ltp@lists.linux.it>; Mon, 04 Nov 2019 07:30:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=L4OTsx6tnYmHWpBfCCw4iK88aVxkKO6H7TUh4ieonNw=;
+ b=rNofkVl0Lg909dYZ8wkd6rPoyp89RE8jaEDwEKNO4wqKB+3uUcsQ1GyDvwVFNPN83h
+ OGjOFwQ4/1DkgkuwYJkqFzuOesPhh8RUmTXrczpcO/BxGKh1mt2pWwLUesVC5LxYRbBl
+ f5b5Nd7AYq5WmDljHm1t5yA0ed2jVsO3jbGvmMaEu1Di9TDpy4eHZ95uSxKXZUv+PCNE
+ SZIfxQPe6Vsstb5bu2tide9mA7QrShWsb4BUyDLnawvI67xhcnC4pykJ07NJR2/m97Qb
+ T3YG5EGTRRnPME4rwWNk7hnY5ZeuY8qHbCjdzvua9EkcwdFV7YtsoUQGqQRJuhUQhOgM
+ rdAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=L4OTsx6tnYmHWpBfCCw4iK88aVxkKO6H7TUh4ieonNw=;
+ b=mfls5x2p8YP2gi/3C8PRGBoxBZphqf2fA74R0BLFZSHQ/s89zxFotlSLqC4V0QMP/F
+ I921a3NQ2BY2YIzupx49WTxI3Tri26yOX8A2YRIBY/y3G0JUU7wfSqDJOC035J9f8aCk
+ ZoYbkghQ8OrQ9FzYCdabz3UsTug/mU9wF96YnYBb2H5bVLwkX64jeqBP7CLiFA45UjDr
+ lqo1RAU5FWXW0AphSpltgo+zBOV0adbxARK0Ca5GnIjYeLRoapn6cvEoEj5YRkhuy//W
+ xOaOz+iMNeiekZbabFXHNj7uuIeUoNh70RTgjOvVllkSzhQGrNh4C2tF0ZoimMG0fa4Q
+ wT3g==
+X-Gm-Message-State: APjAAAWD6+UOtUGqW5sNzpFycDxIchnSselFM70CGkGFR5K1w6eBUiaW
+ wy07XRo4CGKggoVxKsPzFpfEI8cW0TI9mcGsRIAf6A==
+X-Google-Smtp-Source: APXvYqyEv8vi9hG7WzF1wHMTs8PW3UAq9vOBSFdPj3A6YWe0sq7LExCZ4L4fAzCqbZNJ8iKFjw7dMUHx7UeS0puOrS4=
+X-Received: by 2002:a2e:814b:: with SMTP id t11mr19923634ljg.20.1572881408192; 
+ Mon, 04 Nov 2019 07:30:08 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.163, 10.4.195.18]
-Thread-Topic: =?utf-8?B?4p2MIEZBSUw6?= Test report for kernel
- 5.3.9-rc1-dfe283e.cki (stable)
-Thread-Index: h70YfNCWRy5RPDBYtaoKLKwlyBv/kg==
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-MC-Unique: 0Ejf54GUMYmPnVTUBPnmdw-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Mon, 4 Nov 2019 20:59:56 +0530
+Message-ID: <CA+G9fYsWTFQZTHXUDPToaepnKGBoh61SsA_8SHcYgYZXN_L+mg@mail.gmail.com>
+To: linux- stable <stable@vger.kernel.org>, Netdev <netdev@vger.kernel.org>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] 
- =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E3?=
- =?utf-8?q?=2E9-rc1-dfe283e=2Ecki_=28stable=29?=
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] stable-rc-5.3.9-rc1: regressions detected -
+ remove_proc_entry: removing non-empty directory 'net/dev_snmp6',
+ leaking at least 'lo'
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,66 +69,130 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, Memory Management <mm-qe@redhat.com>,
- Linux Stable maillist <stable@vger.kernel.org>,
- Jaroslav Kysela <jkysela@redhat.com>, CKI Project <cki-project@redhat.com>,
- LTP Mailing List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Sasha Levin <sashal@kernel.org>, mmarhefk@redhat.com,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
+ Basil Eljuse <Basil.Eljuse@arm.com>, LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Ci0tLS0tIE9yaWdpbmFsIE1lc3NhZ2UgLS0tLS0KPiBPbiBNb24sIE5vdiAwNCwgMjAxOSBhdCAw
-OToyODoxMEFNIC0wNTAwLCBKYW4gU3RhbmNlayB3cm90ZToKPiA+IAo+ID4gCj4gPiAtLS0tLSBP
-cmlnaW5hbCBNZXNzYWdlIC0tLS0tCj4gPiA+IE9uIE1vbiwgTm92IDA0LCAyMDE5IGF0IDA4OjM1
-OjUxQU0gLTA1MDAsIEphbiBTdGFuY2VrIHdyb3RlOgo+ID4gPiA+IAo+ID4gPiA+IAo+ID4gPiA+
-IC0tLS0tIE9yaWdpbmFsIE1lc3NhZ2UgLS0tLS0KPiA+ID4gPiA+IAo+ID4gPiA+ID4gSGVsbG8s
-Cj4gPiA+ID4gPiAKPiA+ID4gPiA+IFdlIHJhbiBhdXRvbWF0ZWQgdGVzdHMgb24gYSByZWNlbnQg
-Y29tbWl0IGZyb20gdGhpcyBrZXJuZWwgdHJlZToKPiA+ID4gPiA+IAo+ID4gPiA+ID4gICAgICAg
-IEtlcm5lbCByZXBvOgo+ID4gPiA+ID4gICAgICAgIGdpdDovL2dpdC5rZXJuZWwub3JnL3B1Yi9z
-Y20vbGludXgva2VybmVsL2dpdC9zdGFibGUvbGludXgtc3RhYmxlLXJjLmdpdAo+ID4gPiA+ID4g
-ICAgICAgICAgICAgQ29tbWl0OiBkZmUyODNlOWZkYWMgLSBMaW51eCA1LjMuOS1yYzEKPiA+ID4g
-PiA+IAo+ID4gPiA+ID4gVGhlIHJlc3VsdHMgb2YgdGhlc2UgYXV0b21hdGVkIHRlc3RzIGFyZSBw
-cm92aWRlZCBiZWxvdy4KPiA+ID4gPiA+IAo+ID4gPiA+ID4gICAgIE92ZXJhbGwgcmVzdWx0OiBG
-QUlMRUQgKHNlZSBkZXRhaWxzIGJlbG93KQo+ID4gPiA+ID4gICAgICAgICAgICAgIE1lcmdlOiBP
-Swo+ID4gPiA+ID4gICAgICAgICAgICBDb21waWxlOiBPSwo+ID4gPiA+ID4gICAgICAgICAgICAg
-IFRlc3RzOiBGQUlMRUQKPiA+ID4gPiA+IAo+ID4gPiA+ID4gQWxsIGtlcm5lbCBiaW5hcmllcywg
-Y29uZmlnIGZpbGVzLCBhbmQgbG9ncyBhcmUgYXZhaWxhYmxlIGZvcgo+ID4gPiA+ID4gZG93bmxv
-YWQKPiA+ID4gPiA+IGhlcmU6Cj4gPiA+ID4gPiAKPiA+ID4gPiA+ICAgaHR0cHM6Ly9hcnRpZmFj
-dHMuY2tpLXByb2plY3Qub3JnL3BpcGVsaW5lcy8yNjIzODAKPiA+ID4gPiA+IAo+ID4gPiA+ID4g
-T25lIG9yIG1vcmUga2VybmVsIHRlc3RzIGZhaWxlZDoKPiA+ID4gPiA+IAo+ID4gPiA+ID4gICAg
-IHg4Nl82NDoKPiA+ID4gPiA+ICAgICAg4p2MIExUUCBsaXRlCj4gPiA+ID4gPgo+ID4gPiA+IAo+
-ID4gPiA+IE5vdCBhIDUuMyAtc3RhYmxlIHJlZ3Jlc3Npb24uCj4gPiA+ID4gCj4gPiA+ID4gRmFp
-bHVyZSBjb21lcyBmcm9tIHRlc3QgdGhhdCBzYW5pdHkgY2hlY2tzIGFsbCAvcHJvYyBmaWxlcyBi
-eSBkb2luZwo+ID4gPiA+IDFrIHJlYWQgZnJvbSBlYWNoLiBUaGVyZSBhcmUgY291cGxlIGlzc3Vl
-cyBpdCBoaXRzIHdydC4gc25kX2hkYV8qLgo+ID4gPiA+IAo+ID4gPiA+IEV4YW1wbGUgcmVwcm9k
-dWNlcjoKPiA+ID4gPiAgIGRkIGlmPS9zeXMva2VybmVsL2RlYnVnL3JlZ21hcC9oZGF1ZGlvQzBE
-My1oZGF1ZGlvL2FjY2VzcyBvZj1vdXQudHh0Cj4gPiA+ID4gICBjb3VudD0xIGJzPTEwMjQgaWZs
-YWc9bm9uYmxvY2sKPiA+ID4gCj4gPiA+IFRoYXQncyBub3QgYSBwcm9jIGZpbGUgOikKPiA+IAo+
-ID4gUmlnaHQuIEl0J3Mgc2FtZSB0ZXN0IHRoYXQncyB1c2VkIGZvciAvcHJvYyB0b28uCj4gPiAK
-PiA+ID4gCj4gPiA+ID4gSXQncyBzbG93IGFuZCB0cmlnZ2VycyBzb2Z0IGxvY2t1cHMgWzFdLiBB
-bmQgaXQgYWxzbyByZXF1aXJlcyBsb3QKPiA+ID4gPiBvZiBtZW1vcnksIHRyaWdnZXJpbmcgT09N
-cyBvbiBzbWFsbGVyIFZNczoKPiA+ID4gPiAweDAwMDAwMDAwMjRmMDQzN2ItMHgwMDAwMDAwMDFh
-MzJiMWM4IDEwNzM3NDU5MjAgc2VxX3JlYWQrMHgxMzEvMHg0MDAKPiA+ID4gPiBwYWdlcz0yNjIx
-NDQgdm1hbGxvYyB2cGFnZXMgTjA9MjYyMTQ0Cj4gPiA+ID4gCj4gPiA+ID4gSSdtIGxlYW5pbmcg
-dG93YXJkcyBza2lwcGluZyBhbGwgcmVnbWFwIGVudHJpZXMgaW4gdGhpcyB0ZXN0Lgo+ID4gPiA+
-IENvbW1lbnRzIGFyZSB3ZWxjb21lZC4KPiA+ID4gCj4gPiA+IFJhbmRvbWx5IHBva2luZyBhcm91
-bmQgaW4gZGVidWdmcyBpcyBhIHN1cmUgd2F5IHRvIGNhdXNlIGNyYXNoZXMgYW5kCj4gPiA+IG1h
-am9yIHByb2JsZW1zLiAgQWxzbywgZGVidWdmcyBmaWxlcyBhcmUgTk9UIHN0YWJsZSBhbmQgb25s
-eSBmb3IKPiA+ID4gZGVidWdnaW5nIGFuZCBzaG91bGQgbmV2ZXIgYmUgZW5hYmxlZCBvbiAicmVh
-bCIgc3lzdGVtcy4KPiA+ID4gCj4gPiA+IFNvIHdoYXQgZXhhY3RseSBpcyB0aGUgdGVzdCB0cnlp
-bmcgdG8gZG8gaGVyZT8KPiA+IAo+ID4gSXQncyAodW5wcml2aWxlZ2VkKSB1c2VyIHRyeWluZyB0
-byBvcGVuL3JlYWQgYW55dGhpbmcgaXQgY2FuICgvcHJvYywgL3N5cykKPiA+IHRvIHNlZSBpZiB0
-aGF0IHRyaWdnZXJzIGFueXRoaW5nIGJhZC4KPiA+IAo+ID4gSXQgY2FuIHJ1biBhcyBwcml2aWxl
-Z2VkIHVzZXIgdG9vLCB3aGljaCB3YXMgdGhlIGNhc2UgYWJvdmUuCj4gCj4gU3VyZSwgeW91IGNh
-biBkbyB0b25zIG9mIGJhZCB0aGluZ3MgYXMgcm9vdCBwb2tpbmcgYXJvdW5kIGluIHN5c2ZzLAo+
-IGRlYnVnZnMsIGFuZCBwcm9jZnMuICBXaGF0IGV4YWN0bHkgYXJlIHlvdSB0cnlpbmcgdG8gZG8s
-IGJyZWFrIHRoZQo+IHN5c3RlbT8KCldlIGFyZSB0YWxraW5nIGFib3V0IHJlYWQtb25seSBoZXJl
-LiBJcyBpdCB1bnJlYXNvbmFibGUgdG8gZXhwZWN0CnRoYXQgcm9vdCBjYW4gcmVhZCBhbGwgL3By
-b2MgZW50cmllcyB3aXRob3V0IGNyYXNoaW5nIHRoZSBzeXN0ZW0/CgpTb21lIGVudHJpZXMgYXJl
-IHJlYWRhYmxlIG9ubHkgYnkgcm9vdC4gU28gYW4gdW5wcml2aWxlZ2VkIHVzZXIKd2lsbCBza2lw
-IGNvbnNpZGVyYWJsZSBudW1iZXIgb2YgZW50cmllczoKLXItLS0tLS0tLS4gMSByb290IHJvb3Qg
-MCBOb3YgIDQgMTY6MTMgL3Byb2Mvc2xhYmluZm8KCj4gVGhhdCBzb3VuZHMgbGlrZSBhIGhvcnJp
-YmxlIHRlc3QgdGhhdCBpcyBqdXN0IHNldHRpbmcgaXRzZWxmIHVwIHRvIGxvY2sKPiB0aGUgc3lz
-dGVtIHVwLCB5b3Ugc2hvdWxkIHJldmlzaXQgaXQuLi4KCgotLSAKTWFpbGluZyBsaXN0IGluZm86
-IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Linux stable rc 5.3 branch running LTP reported following test failures.
+While investigating these failures I have found this kernel warning
+from boot console.
+Please find detailed LTP output log in the bottom of this email.
+
+List of regression test cases:
+  ltp-containers-tests:
+    * netns_breakns_ip_ipv6_ioctl
+    * netns_breakns_ip_ipv6_netlink
+    * netns_breakns_ns_exec_ipv6_ioctl
+    * netns_breakns_ns_exec_ipv6_netlink
+    * netns_comm_ip_ipv6_ioctl
+    * netns_comm_ip_ipv6_netlink
+    * netns_comm_ns_exec_ipv6_ioctl
+    * netns_comm_ns_exec_ipv6_netlink
+
+dmesg log:
+[    0.000000] Linux version 5.3.9-rc1 (oe-user@oe-host) (gcc version
+7.3.0 (GCC)) #1 SMP PREEMPT Mon Nov 4 12:14:24 UTC 2019
+[    0.000000] Machine model: ARM Juno development board (r2)
+...
+[    3.670227] ------------[ cut here ]------------
+[    3.674887] remove_proc_entry: removing non-empty directory
+'net/dev_snmp6', leaking at least 'lo'
+[    3.684183] WARNING: CPU: 1 PID: 1 at
+/usr/src/kernel/fs/proc/generic.c:684 remove_proc_entry+0x194/0x1a8
+[    3.693658] Modules linked in:
+[    3.696687] CPU: 1 PID: 1 Comm: swapper/0 Not tainted 5.3.9-rc1 #1
+[    3.702806] Hardware name: ARM Juno development board (r2) (DT)
+[    3.708669] pstate: 40000005 (nZcv daif -PAN -UAO)
+[    3.713414] pc : remove_proc_entry+0x194/0x1a8
+[    3.717814] lr : remove_proc_entry+0x194/0x1a8
+[    3.722213] sp : ffff00001003bbe0
+[    3.725494] x29: ffff00001003bbe0 x28: ffff0000119cddc0
+[    3.730757] x27: ffff000012256000 x26: ffff00001220b000
+[    3.736019] x25: ffff00001220a000 x24: ffff000012209000
+[    3.741280] x23: ffff8009754a6b00 x22: ffff800973a536db
+[    3.746541] x21: ffff800973a53600 x20: ffff000011f8f000
+[    3.751803] x19: ffff8009754a6bdb x18: ffffffffffffffff
+[    3.757065] x17: 0000000000000007 x16: 0000000000000000
+[    3.762326] x15: ffff000011f8f848 x14: ffff80097396f108
+[    3.767588] x13: ffff80097396f107 x12: ffff000012268b70
+[    3.772849] x11: ffff000012268000 x10: 0000000000000028
+[    3.778111] x9 : 0000000000000000 x8 : ffff000011f8f848
+[    3.783372] x7 : 00000000b2722639 x6 : ffff000011f93000
+[    3.788634] x5 : 0000000000000000 x4 : ffff800975dd8000
+[    3.793895] x3 : ffff000011f90000 x2 : 0000000000000000
+[    3.799157] x1 : 43129acc141cb700 x0 : 0000000000000000
+[    3.804419] Call trace:
+[    3.806841]  remove_proc_entry+0x194/0x1a8
+[    3.810900]  ipv6_proc_exit_net+0x38/0x58
+[    3.814872]  ops_exit_list.isra.1+0x54/0x88
+[    3.819013]  unregister_pernet_operations+0xec/0x150
+[    3.823929]  unregister_pernet_subsys+0x34/0x48
+[    3.828416]  ipv6_misc_proc_exit+0x1c/0x28
+[    3.832473]  inet6_init+0x2a4/0x33c
+[    3.835929]  do_one_initcall+0x94/0x458
+[    3.839727]  kernel_init_freeable+0x484/0x52c
+[    3.844043]  kernel_init+0x18/0x110
+[    3.847498]  ret_from_fork+0x10/0x1c
+[    3.851037] irq event stamp: 255276
+[    3.854492] hardirqs last  enabled at (255275):
+[<ffff00001104f828>] _raw_spin_unlock_irq+0x38/0x78
+[    3.863453] hardirqs last disabled at (255276):
+[<ffff0000100a5a14>] debug_exception_enter+0xac/0xe8
+[    3.872498] softirqs last  enabled at (255270):
+[<ffff00001008210c>] __do_softirq+0x474/0x580
+[    3.880943] softirqs last disabled at (255259):
+[<ffff0000101018e4>] irq_exit+0x144/0x150
+[    3.889044] ---[ end trace 6cbc85548f1f4bc5 ]---
+
+...
+LTP test trimmed output,
+
+RTNETLINK answers: Operation not supported
+netns_breakns_ns_exec_ipv6_netlink 1 TBROK: adding address to veth0 failed
+tee: /proc/sys/net/ipv6/conf/veth0/accept_dad: No such file or directory
+tee: /proc/sys/net/ipv6/conf/veth0/accept_ra: No such file or directory
+tee: /proc/sys/net/ipv6/conf/veth1/accept_dad: No such file or directory
+tee: /proc/sys/net/ipv6/conf/veth1/accept_ra: No such file or directory
+No support for INET6 on this system.
+netns_breakns_ns_exec_ipv6_ioctl 1 TBROK: adding address to veth0 failed
+netns_breakns_ip_ipv6_netlink 1 TBROK: adding address to veth0 failed
+netns_breakns_ip_ipv6_ioctl 1 TBROK: adding address to veth0 failed
+netns_comm_ns_exec_ipv6_netlink 1 TBROK: adding address to veth0 failed
+netns_comm_ns_exec_ipv6_ioctl 1 TBROK: adding address to veth0 failed
+netns_comm_ip_ipv6_netlink 1 TBROK: adding address to veth0 failed
+netns_comm_ip_ipv6_ioctl 1 TBROK: adding address to veth0 failed
+
+metadata:
+  git branch: linux-5.3.y
+  git repo: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+  git commit: ff21af282725ae2ebc3ac4298513816f760c929e
+  git describe: v5.3.8-160-gff21af282725
+  make_kernelversion: 5.3.9-rc1
+  kernel-config:
+http://snapshots.linaro.org/openembedded/lkft/lkft/sumo/juno/lkft/linux-stable-rc-5.3/35/config
+  kernel-defconfig:
+http://snapshots.linaro.org/openembedded/lkft/lkft/sumo/juno/lkft/linux-stable-rc-5.3/35/defconfig
+  build-url: https://ci.linaro.org/job/openembedded-lkft-linux-stable-rc-5.3/DISTRO=lkft,MACHINE=juno,label=docker-lkft/35/
+  build-location:
+http://snapshots.linaro.org/openembedded/lkft/lkft/sumo/juno/lkft/linux-stable-rc-5.3/35
+
+We are investigating this problem.
+
+Full test logs,
+https://qa-reports.linaro.org/lkft/linux-stable-rc-5.3-oe/build/v5.3.8-160-gff21af282725/testrun/991864/log
+https://qa-reports.linaro.org/lkft/linux-stable-rc-5.3-oe/build/v5.3.8-160-gff21af282725/testrun/991901/log
+https://qa-reports.linaro.org/lkft/linux-stable-rc-5.3-oe/build/v5.3.8-160-gff21af282725/testrun/991922/log
+https://qa-reports.linaro.org/lkft/linux-stable-rc-5.3-oe/build/v5.3.8-160-gff21af282725/testrun/991884/log
+https://qa-reports.linaro.org/lkft/linux-stable-rc-5.3-oe/build/v5.3.8-160-gff21af282725/testrun/991846/log
+
+--
+Linaro LKFT
+https://lkft.linaro.org/
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
