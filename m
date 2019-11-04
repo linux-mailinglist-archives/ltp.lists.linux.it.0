@@ -2,57 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70729EE594
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Nov 2019 18:09:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FAEEEE59E
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Nov 2019 18:13:38 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3A7883C269D
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Nov 2019 18:09:32 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1D7D13C2509
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Nov 2019 18:13:38 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 4C7FD3C2579
- for <ltp@lists.linux.it>; Mon,  4 Nov 2019 18:09:23 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id C4B131A0015C
- for <ltp@lists.linux.it>; Mon,  4 Nov 2019 18:09:22 +0100 (CET)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id CC9DA3C2426
+ for <ltp@lists.linux.it>; Mon,  4 Nov 2019 18:13:29 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 1E5F71400BE0
+ for <ltp@lists.linux.it>; Mon,  4 Nov 2019 18:13:28 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1572887361;
+ s=mimecast20190719; t=1572887607;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:content-type:content-type:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=wqbGPbVPNu4nH/ZaSFEmfCbLBOVqCd7k/T4zJSsaz74=;
- b=FUQUzmakLcXp4BKwNdjGnqn1FVhU8/AFDoDBmsTi54YbjORiPguSFHs7Cam8DfN9d4i0IZ
- PKJkEiukab2FaIBpt1eNmPTK5p6UdEaHo/eDhWUmglaHlzXLF2audMtEkngmMAw2Ex5AKD
- yHPdj/ZRShsy6O3wcVIPJmqSKhYg/PI=
+ bh=DGtp9OxGgQfYwCb3siy3+oXDeZPxdDGNqz9BpEOw/KU=;
+ b=NXpJODoZrqAZGbDvb3M2S8r84B6mWal+UFpBlmdSG/9PjItJdge7um7X2bO7KFknX+Cw1t
+ 4oYZZBtlIbiFMOq2LRKXrnkDm+6/VLzfREs7KMXxflkV9HgcMoe3FcIDd80MvFuosmqnb6
+ jd9unZegojXEmrpBTmOr20qyKN7zWDA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-117-Pu2Ye8ypPF6omcxOH9HPiw-1; Mon, 04 Nov 2019 12:09:19 -0500
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
+ us-mta-331-gSlXpJ9kNqmcAykTCpxkhA-1; Mon, 04 Nov 2019 12:13:24 -0500
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 97D991800D53
- for <ltp@lists.linux.it>; Mon,  4 Nov 2019 17:09:18 +0000 (UTC)
-Received: from dustball.brq.redhat.com (unknown [10.43.17.163])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 20B2D5DA66
- for <ltp@lists.linux.it>; Mon,  4 Nov 2019 17:09:17 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 87B79800C73;
+ Mon,  4 Nov 2019 17:13:23 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 79C0160E1C;
+ Mon,  4 Nov 2019 17:13:23 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6E5FA4BB5C;
+ Mon,  4 Nov 2019 17:13:23 +0000 (UTC)
+Date: Mon, 4 Nov 2019 12:13:23 -0500 (EST)
 From: Jan Stancek <jstancek@redhat.com>
-To: ltp@lists.linux.it
-Date: Mon,  4 Nov 2019 18:09:08 +0100
-Message-Id: <ca8367553e721a5ef39491dc37d606877d51cfa7.1572887015.git.jstancek@redhat.com>
-In-Reply-To: <2086f9d5a3ce152780833993e6e21d3fbd074441.1572887015.git.jstancek@redhat.com>
-References: <2086f9d5a3ce152780833993e6e21d3fbd074441.1572887015.git.jstancek@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-MC-Unique: Pu2Ye8ypPF6omcxOH9HPiw-1
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <865262542.10390848.1572887603246.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20191104160951.GB5683@rei.lan>
+References: <4e93b0d943960d957b71bdb998b33ad30424b07c.1572881777.git.jstancek@redhat.com>
+ <20191104155900.GA5683@rei.lan> <20191104160951.GB5683@rei.lan>
+MIME-Version: 1.0
+X-Originating-IP: [10.43.17.163, 10.4.195.3]
+Thread-Topic: read_all_sys: skip debugfs
+Thread-Index: N3qNjSbowugGYtZZ6ILZor9W3bOEYA==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-MC-Unique: gSlXpJ9kNqmcAykTCpxkhA-1
 X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] read_all_sys: skip debugfs
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] read_all_sys: skip debugfs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,36 +75,54 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-MIME-Version: 1.0
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-debugfs is meant for debugging, it exposes also device registers
-and can pretty much do anything:
-  https://lore.kernel.org/linux-arm-kernel/1507592549.3785589.1570404050459.JavaMail.zimbra@redhat.com/
-  https://lore.kernel.org/stable/2029139028.10333037.1572874551626.JavaMail.zimbra@redhat.com/
 
-Signed-off-by: Jan Stancek <jstancek@redhat.com>
----
- testcases/kernel/fs/read_all/read_all.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/testcases/kernel/fs/read_all/read_all.c b/testcases/kernel/fs/read_all/read_all.c
-index cef55e20d671..8e83009a5d4d 100644
---- a/testcases/kernel/fs/read_all/read_all.c
-+++ b/testcases/kernel/fs/read_all/read_all.c
-@@ -83,6 +83,7 @@ static char *drop_privs;
- 
- static char *blacklist[] = {
- 	"/sys/power/wakeup_count",
-+	"/sys/kernel/debug/*",
- };
- static unsigned int blacklist_sz = ARRAY_SIZE(blacklist);
- 
--- 
-1.8.3.1
+----- Original Message -----
+> Hi!
+> > >  read_all_dev read_all -d /dev -p -q -r 10
+> > >  read_all_proc read_all -d /proc -q -r 10
+> > > -read_all_sys read_all -d /sys -q -r 10 -e /sys/power/wakeup_count
+> > > +read_all_sys read_all -d /sys -q -r 10 -e /sys/power/wakeup_count -e
+> > > '/sys/kernel/debug/*'
+> > 
+> > Do we even support multiple parameters for the same option?
+> > 
+> > I looked that the library code and I would say that we will replace the
+> > value with each iteration which means that we will effectively use the
+> > last one.
+> 
+> Maybe we should even catch the case where user passed one option twice with:
+
+Or WARN that option might be overwritten. Anyway, it sounds like good idea.
+
+> 
+> diff --git a/lib/tst_test.c b/lib/tst_test.c
+> index c7b46d0d5..e1c841585 100644
+> --- a/lib/tst_test.c
+> +++ b/lib/tst_test.c
+> @@ -468,6 +468,9 @@ static void parse_topt(unsigned int topts_len, int opt,
+> char *optarg)
+>         if (i >= topts_len)
+>                 tst_brk(TBROK, "Invalid option '%c' (should not happen)",
+>                 opt);
+>  
+> +       if (*(toptions[i].arg))
+> +               tst_brk(TBROK, "Option already set!");
+> +
+>         *(toptions[i].arg) = optarg ? optarg : "";
+>  }
+> 
+> 
+> --
+> Cyril Hrubis
+> chrubis@suse.cz
+> 
 
 
 -- 
