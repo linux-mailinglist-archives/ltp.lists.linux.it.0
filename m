@@ -2,55 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E036FECBF7
-	for <lists+linux-ltp@lfdr.de>; Sat,  2 Nov 2019 00:39:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC5E5ED8A7
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Nov 2019 06:40:53 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4A86E3C239E
-	for <lists+linux-ltp@lfdr.de>; Sat,  2 Nov 2019 00:39:42 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6B99F3C2474
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Nov 2019 06:40:53 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 944993C229A
- for <ltp@lists.linux.it>; Sat,  2 Nov 2019 00:39:37 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 6ED2660086D
- for <ltp@lists.linux.it>; Sat,  2 Nov 2019 00:39:35 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1572651574;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=oBYEba37giIKH0qY+jTL36ZcV1ZjewOiLdyycI6S+wo=;
- b=KIBkRnjc4w/IxRsIWo9fXO4OzR6gRdJz6nLEimLCo13ugGW0QoP091dN+GUUusxgFmi/JC
- LXJ+efuZhRJJabPKilulelgp2/KNiv8nJ/V018hVpSreVqCVt4nv2KetGg1MvWHd3uJjR5
- NAltAbHyLCg9dcPOKCUSqYm1w5Jsu8M=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-258-S09mapU2PbqGuKTDDtkcjQ-1; Fri, 01 Nov 2019 19:39:32 -0400
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B746F107ACC0;
- Fri,  1 Nov 2019 23:39:30 +0000 (UTC)
-Received: from dustball.brq.redhat.com (unknown [10.43.17.163])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 8D6605D6B7;
- Fri,  1 Nov 2019 23:39:28 +0000 (UTC)
-From: Jan Stancek <jstancek@redhat.com>
-To: linux-kernel@vger.kernel.org
-Date: Sat,  2 Nov 2019 00:39:24 +0100
-Message-Id: <a87876829697e1b3c63601b1401a07af79eddae6.1572651216.git.jstancek@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-MC-Unique: S09mapU2PbqGuKTDDtkcjQ-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id B2E473C176C
+ for <ltp@lists.linux.it>; Mon,  4 Nov 2019 06:40:49 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 11A401A00643
+ for <ltp@lists.linux.it>; Mon,  4 Nov 2019 06:40:46 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.68,266,1569254400"; d="scan'208,217";a="77878562"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 04 Nov 2019 13:40:42 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id 88B5641B7076;
+ Mon,  4 Nov 2019 13:32:40 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ id 14.3.439.0; Mon, 4 Nov 2019 13:40:44 +0800
+To: Petr Vorel <pvorel@suse.cz>, <ltp@lists.linux.it>
+References: <20191101073528.GA22452@dell5510>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <332232ad-3b46-332d-c917-3175ff56868d@cn.fujitsu.com>
+Date: Mon, 4 Nov 2019 13:40:44 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.0
+MIME-Version: 1.0
+In-Reply-To: <20191101073528.GA22452@dell5510>
+X-Originating-IP: [10.167.220.84]
+X-yoursite-MailScanner-ID: 88B5641B7076.AB245
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=HTML_MESSAGE, KHOP_HELO_FCRDNS,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] kernel: use ktime_get_real_ts64() to calculate
- acct.ac_btime
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [RFC] Remove {config.h,config.mk,features.mk,}.default ?
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,96 +54,136 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: kstewart@linuxfoundation.org, gregkh@linuxfoundation.org,
- rfontana@redhat.com, viro@zeniv.linux.org.uk, tglx@linutronix.de,
- ltp@lists.linux.it
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0075954343=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-fill_ac() calculates process creation time from current time as:
-   ac->ac_btime = get_seconds() - elapsed
+--===============0075954343==
+Content-Type: multipart/alternative;
+	boundary="------------7BD96FFE33301EC96BAC1837"
 
-get_seconds() doesn't accumulate nanoseconds as regular time getters.
-This creates race for user-space (e.g. LTP acct02), which typically
-uses gettimeofday(), because process creation time sometimes appear
-to be dated 'in past':
+--------------7BD96FFE33301EC96BAC1837
+Content-Type: text/plain; charset="gbk"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-    acct("myfile");
-    time_t start_time = time(NULL);
-    if (fork()==0) {
-        sleep(1);
-        exit(0);
-    }
-    waitpid(NULL);
-    acct(NULL);
 
-    // acct.ac_btime == 1572616777
-    // start_time == 1572616778
+on 2019/11/01 15:35, Petr Vorel wrote:
 
-Testing: 10 hours of LTP acct02 on s390x with CONFIG_HZ=100,
-         test failed on unpatched kernel in 15 minutes
+> Hi,
+>
+> I wonder if anybody uses include/config.h.default, include/mk/config.mk.default,
+> include/mk/features.mk.default. Is it their purpose for people who, for some
+> reason can't run ./configure? (I wonder who'd need it) Can we just drop them?
 
-Signed-off-by: Jan Stancek <jstancek@redhat.com>
-Cc: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Kate Stewart <kstewart@linuxfoundation.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Cc: Richard Fontana <rfontana@redhat.com>
----
- kernel/acct.c   | 4 +++-
- kernel/tsacct.c | 4 +++-
- 2 files changed, 6 insertions(+), 2 deletions(-)
+Hi Petr
 
-diff --git a/kernel/acct.c b/kernel/acct.c
-index 81f9831a7859..991c898160cd 100644
---- a/kernel/acct.c
-+++ b/kernel/acct.c
-@@ -417,6 +417,7 @@ static void fill_ac(acct_t *ac)
- 	struct pacct_struct *pacct = &current->signal->pacct;
- 	u64 elapsed, run_time;
- 	struct tty_struct *tty;
-+	struct timespec64 ts;
- 
- 	/*
- 	 * Fill the accounting struct with the needed info as recorded
-@@ -448,7 +449,8 @@ static void fill_ac(acct_t *ac)
- 	}
- #endif
- 	do_div(elapsed, AHZ);
--	ac->ac_btime = get_seconds() - elapsed;
-+	ktime_get_real_ts64(&ts);
-+	ac->ac_btime = ts.tv_sec - elapsed;
- #if ACCT_VERSION==2
- 	ac->ac_ahz = AHZ;
- #endif
-diff --git a/kernel/tsacct.c b/kernel/tsacct.c
-index 7be3e7530841..4d10854255ab 100644
---- a/kernel/tsacct.c
-+++ b/kernel/tsacct.c
-@@ -24,6 +24,7 @@ void bacct_add_tsk(struct user_namespace *user_ns,
- 	const struct cred *tcred;
- 	u64 utime, stime, utimescaled, stimescaled;
- 	u64 delta;
-+	struct timespec64 ts;
- 
- 	BUILD_BUG_ON(TS_COMM_LEN < TASK_COMM_LEN);
- 
-@@ -34,7 +35,8 @@ void bacct_add_tsk(struct user_namespace *user_ns,
- 	stats->ac_etime = delta;
- 	/* Convert to seconds for btime */
- 	do_div(delta, USEC_PER_SEC);
--	stats->ac_btime = get_seconds() - delta;
-+	ktime_get_real_ts64(&ts);
-+	stats->ac_btime = ts.tv_sec - delta;
- 	if (thread_group_leader(tsk)) {
- 		stats->ac_exitcode = tsk->exit_code;
- 		if (tsk->flags & PF_FORKNOEXEC)
--- 
-1.8.3.1
+Yes. Reading LTP/INSTALL[1], these files are used when we don't use autoconf.
+as below:
+Using autoconf (preferred):
+	$ make autotools # This must be run from "$TOP_SRCDIR"!
+	$ test -d "$TOP_BUILDDIR" || mkdir -p "$TOP_BUILDDIR"
+	$ cd "$TOP_BUILDDIR" && "$TOP_SRCDIR/configure" \
+	  # [configure args go here, e.g. CC=$CC, LDFLAGS=$LDFLAGS, etc]
+
+Not using autoconf:
+
+	$ test -d "$TOP_BUILDDIR" || mkdir -p "$TOP_BUILDDIR"
+	$ cp "$TOP_SRCDIR/include/config.h.default" \
+	     "$TOP_BUILDDIR/include/config.h"
+	$ cp "$TOP_SRCDIR/include/mk/config.mk.default" \
+	     "$TOP_BUILDDIR/include/mk/config.mk"
+	$ cp "$TOP_SRCDIR/include/mk/features.mk.default" \
+	     "$TOP_BUILDDIR/include/mk/features.mk"
+
+[1]https://github.com/linux-test-project/ltp/blob/master/INSTAL
+
+ps:IMO, I don't use these files. Now most distributions have auotconf and we can remove these files.
+
+Thanks
+Yang Xu
+
+>
+> include/config.h.default is out of sync with include/config.h.in;
+> include/mk/config.mk.default and include/mk/features.mk.default are synced.
+>
+> Kind regards,
+> Petr
+>
+
+
+
+--------------7BD96FFE33301EC96BAC1837
+Content-Type: text/html; charset="gbk"
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=GBK">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">
+      <pre>on 2019/11/01 15:35, Petr Vorel wrote:</pre>
+    </div>
+    <blockquote type="cite" cite="mid:20191101073528.GA22452@dell5510">
+      <pre class="moz-quote-pre" wrap="">Hi,
+
+I wonder if anybody uses include/config.h.default, include/mk/config.mk.default,
+include/mk/features.mk.default. Is it their purpose for people who, for some
+reason can't run ./configure? (I wonder who'd need it) Can we just drop them?</pre>
+    </blockquote>
+    <pre>Hi Petr</pre>
+    <pre>Yes. Reading LTP/INSTALL[1], these files are used when we don't use autoconf.
+as below:
+Using autoconf (preferred):
+	$ make autotools # This must be run from "$TOP_SRCDIR"!
+	$ test -d "$TOP_BUILDDIR" || mkdir -p "$TOP_BUILDDIR"
+	$ cd "$TOP_BUILDDIR" &amp;&amp; "$TOP_SRCDIR/configure" \
+	  # [configure args go here, e.g. CC=$CC, LDFLAGS=$LDFLAGS, etc]
+
+Not using autoconf:
+
+	$ test -d "$TOP_BUILDDIR" || mkdir -p "$TOP_BUILDDIR"
+	$ cp "$TOP_SRCDIR/include/config.h.default" \
+	     "$TOP_BUILDDIR/include/config.h"
+	$ cp "$TOP_SRCDIR/include/mk/config.mk.default" \
+	     "$TOP_BUILDDIR/include/mk/config.mk"
+	$ cp "$TOP_SRCDIR/include/mk/features.mk.default" \
+	     "$TOP_BUILDDIR/include/mk/features.mk"
+
+</pre>
+    <pre>[1]<a class="moz-txt-link-freetext" href="https://github.com/linux-test-project/ltp/blob/master/INSTAL">https://github.com/linux-test-project/ltp/blob/master/INSTAL</a>
+
+ps:IMO, I don't use these files. Now most distributions have auotconf and we can remove these files.
+
+Thanks
+Yang Xu
+</pre>
+    <blockquote type="cite" cite="mid:20191101073528.GA22452@dell5510">
+      <pre class="moz-quote-pre" wrap="">
+
+include/config.h.default is out of sync with include/config.h.in;
+include/mk/config.mk.default and include/mk/features.mk.default are synced.
+
+Kind regards,
+Petr
+
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------7BD96FFE33301EC96BAC1837--
+
+--===============0075954343==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0075954343==--
