@@ -1,43 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 227DAEF726
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 Nov 2019 09:23:29 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B2EC1EF75F
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 Nov 2019 09:39:20 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D5CCD3C22CD
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 Nov 2019 09:23:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 622E13C22CD
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 Nov 2019 09:39:20 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 0BECF3C2214
- for <ltp@lists.linux.it>; Tue,  5 Nov 2019 09:23:26 +0100 (CET)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id F1CFE3C22AC
+ for <ltp@lists.linux.it>; Tue,  5 Nov 2019 09:39:17 +0100 (CET)
+Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
+ [IPv6:2a00:1450:4864:20::143])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B9B881A00FFF
- for <ltp@lists.linux.it>; Tue,  5 Nov 2019 09:23:25 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 09085B187;
- Tue,  5 Nov 2019 08:23:25 +0000 (UTC)
-Date: Tue, 5 Nov 2019 09:23:23 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20191105082322.GA16218@dell5510>
-References: <20191104125228.17173-1-mdoucha@suse.cz>
- <20191104125228.17173-2-mdoucha@suse.cz>
- <20191104151647.GA15477@dell5510>
- <7c68a69d-8edd-d4d5-de1d-39d2cb8e4f03@suse.cz>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 58EEB1000C1E
+ for <ltp@lists.linux.it>; Tue,  5 Nov 2019 09:39:17 +0100 (CET)
+Received: by mail-lf1-x143.google.com with SMTP id j5so14423579lfh.10
+ for <ltp@lists.linux.it>; Tue, 05 Nov 2019 00:39:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=gdzE+6c0X0YWGdBkPcVhB+2E6S0ZBzl2+HXJPyALIxo=;
+ b=QoZchN2MlJxPPnfv5ip5jv0Yo/GI7K8lFrh8GppZAg2NoF2W82BYVVKtg8unjTzK05
+ 4A0/STOOVg6Egqgg2JuVCqqBEcfeh8NoH3qWwBjLn6uodEGKQjeQYBqWIu2+5LkIRfmT
+ hQxINtSoOnQ/95nXgsgY99s0YJ1IM3csCK0Pu81y1dzf0mVQctc4eBzgUpfzjMK6noVN
+ +kZk15IkAKk8cw48vsn+fnOdniu1sAarADDlbsGSw8dBSugzLiv3uLKCJz0bKszhTKBr
+ 0z0vo2oYlJ4OeOLYxptMxI1fv0ziGoDQ6+VwZazbe++mjuPb5pvg2Z1akOSS8oHzTVHr
+ e/ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=gdzE+6c0X0YWGdBkPcVhB+2E6S0ZBzl2+HXJPyALIxo=;
+ b=UJZNstJrMcH8URDTha5LvNddtwgqXC2Cu+uDgE/Kop394d43/ihijlYxpZHzCkZNPn
+ RnXxfsAMdQIbM9bv39a3JheLoqYgs1bD2EdZfXoTDBvByXj3imniTD2+wU/UWlWByyEn
+ zjX5imp/GhKP1WD/j4v6D0S34RSLxXWkNBz4PzKtAjbLA1oWgZ7OetRB/ioIM1TrZD4c
+ cEmmgUkBUaXBHX/NMCNZ5Dr2FR0RgdAzhC0NQg3+FcY3w4JRbe2nVvdWy3iiIzJsLHJ5
+ O6uJTLfO449Cpcj+mtpr9KLkxJBcz01zIozwzQk2FzQhJFiIEGYfK4yLTeSByFLVdgJd
+ kIVQ==
+X-Gm-Message-State: APjAAAX6t6XnXicorjgyi4XzDGHli/z3Jw3MCLFiIUelkwzKNh7Wa2Wo
+ uXYa9D6COhALdxFRDTp3tWbRbGbVjOMSU2L+h3HNJA==
+X-Google-Smtp-Source: APXvYqxqx8NSYnV4wfLrSehgFQT8UMqVuaihF8wIQXecappLCoFsidLTOfL7TBdEsLOE2/tRXfW1vIiqXg3kPMs383U=
+X-Received: by 2002:ac2:5930:: with SMTP id v16mr1088027lfi.67.1572943156625; 
+ Tue, 05 Nov 2019 00:39:16 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <7c68a69d-8edd-d4d5-de1d-39d2cb8e4f03@suse.cz>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+References: <CA+G9fYsWTFQZTHXUDPToaepnKGBoh61SsA_8SHcYgYZXN_L+mg@mail.gmail.com>
+ <CA+G9fYu+6A3pYQGs2rydYtHNSCf1t9+OTRqrZeCbpc2ARLx2zA@mail.gmail.com>
+ <20191105073459.GB2588562@kroah.com>
+ <CA+G9fYvau-CY8eeXM=atzQBjYbmUPg78MXu_GNjCyKDkW_CcVQ@mail.gmail.com>
+ <20191105080614.GB2611856@kroah.com>
+In-Reply-To: <20191105080614.GB2611856@kroah.com>
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Tue, 5 Nov 2019 14:09:05 +0530
+Message-ID: <CA+G9fYtWc+6XzWZtG76T7+TdF+tAyUqJPQT8-ykZRTy1sCgEPQ@mail.gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] Fix compression ratio calculation in zram01
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] stable-rc-5.3.9-rc1: regressions detected -
+ remove_proc_entry: removing non-empty directory 'net/dev_snmp6',
+ leaking at least 'lo'
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,42 +76,52 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: Sasha Levin <sashal@kernel.org>, mmarhefk@redhat.com,
+ Netdev <netdev@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ lkft-triage@lists.linaro.org, "David S. Miller" <davem@davemloft.net>,
+ linux- stable <stable@vger.kernel.org>, Basil Eljuse <Basil.Eljuse@arm.com>,
+ maheshb@google.com, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Martin,
+On Tue, 5 Nov 2019 at 13:36, Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+> > > > These reported failures got fixed on latest stable-rc 5.3.y after
+> > > > dropping a patch [1].
+> > >
+> > > What is the subject of the patch?
+> >
+> > blackhole_netdev: fix syzkaller reported issue
+> > upstream commit b0818f80c8c1bc215bba276bd61c216014fab23b
+>
+> That commit is not in any stable queue or tree at the moment, are you
+> sure this is still an issue?
 
-> On 11/4/19 4:16 PM, Petr Vorel wrote:
-> > I wonder if /sys/block/zram0/mm_stat is missing whether it can be on any other
-> > zram<id>. Is it it's presence file system specific? Shouldn't we just quit whole
-> > test wit tst_brk TCONF.
+Since it has been dropped, the issue is gone now.
 
-> If /sys/block/zram0/mm_stat is missing then all /sys/block/zram*/mm_stat
-> files should be missing. But I don't want to terminate the test there
-> because the remaining 3 write tests could still find a regression. So
-> print a TCONF message on the first pass and silently skip the remaining
-> compression ratio checks.
-Do you mean that dd filling zram could find a regression?
+>
+> > > > The kernel warning is also gone now.
+> > > >
+> > > > metadata:
+> > > >   git branch: linux-5.3.y
+> > > >   git repo: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+> > > >   git commit: 75c9913bbf6e9e64cb669236571e6af45cddfd68
+> > >
+> > > The -rc tree is rebased all the time, can I get a "real" subject line to
+> > > get a chance to figure out what you are trying to refer to here?
+> >
+> > Linux 5.3.9-rc1 is good candidate on branch linux-5.3.y and
+> > linux-stable-rc tree.
+>
+> I can not parse this, what do you mean?
 
-I'm asking because it's a bit strange to have test,
-which doesn't lead to any result (TPASS/TFAIL/TBROK/TCONF), which will be
+linux-stable-rc linux-5.3.y branch and make kernel version 5.3.9-rc1
+is been tested and
+no regresion found.
 
-If this part is also a test, maybe following TINFO should be changed to TPASS.
-+ Also new shell API allows to use loop in API (code simplify), but that
-requires for each run to produce a result.
-
-
-> I was also thinking about checking whether the write test filled the
-> test file at least up to 50% of memory limit if mm_stat doesn't exist.
-> But it'd mostly add unnecessary complexity.
-Agree.
-
-Kind regards,
-Petr
+- Naresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
