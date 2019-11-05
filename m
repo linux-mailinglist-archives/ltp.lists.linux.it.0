@@ -2,69 +2,65 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A2BCEF244
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 Nov 2019 01:54:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5468EEF464
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 Nov 2019 05:14:54 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 912213C2598
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 Nov 2019 01:54:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0A1933C2509
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 Nov 2019 05:14:54 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 20AE03C1CA4
- for <ltp@lists.linux.it>; Tue,  5 Nov 2019 01:53:58 +0100 (CET)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
+ by picard.linux.it (Postfix) with ESMTP id D7FBE3C24DF
+ for <ltp@lists.linux.it>; Tue,  5 Nov 2019 05:14:51 +0100 (CET)
+Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
+ [IPv6:2a00:1450:4864:20::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 910551A0100E
- for <ltp@lists.linux.it>; Tue,  5 Nov 2019 01:53:57 +0100 (CET)
-Received: by mail-wr1-x442.google.com with SMTP id a15so19262043wrf.9
- for <ltp@lists.linux.it>; Mon, 04 Nov 2019 16:53:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=lgaPH/p38PXhg7aPp8RnvQ3dNQTWWWF+byKXYa1Z/Dw=;
- b=LPmryqQDXvuNcc2EmX6neLVVvwzLYwRkGsNirdEvjhyJmKPGlmm2Ce5TmJsJWnL4Ss
- HcJeyiiFg01dxDDMbCWZP/VNymMVlCOgWg3s3qPDEHPqCwN0CV3IJ2KdnRuYTQTBy0TL
- MjTK+SGXv/y1NJ3UyDaJnKByEbeLINbyuXMJ3aKaQ/qXtjPOZvIj1MvCQGNJwilBDfeZ
- 7/eq/PbY/OcMLdGfKBF3sZ0rDVySEtCzyZuaBNa65GSLXnmSXlut5qftSpXc0CICCV5C
- FKXEnJeaQXtfhnVp2XW90V8DaBQArDGQNaPu6QfFDCzz/MZSdXhyg4recfBPH/QRByDV
- fJog==
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 3BAA21B61C49
+ for <ltp@lists.linux.it>; Tue,  5 Nov 2019 05:14:51 +0100 (CET)
+Received: by mail-lj1-x242.google.com with SMTP id q2so13580102ljg.7
+ for <ltp@lists.linux.it>; Mon, 04 Nov 2019 20:14:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=8KB+te/nLoebcMQPIFtuyG/ym5HSoU7PnWgKfaQPNOE=;
+ b=gTNyTkL5COxLe6mqgrHi3rTaVdO7kVoZQp01mpmI55r12uEYKWt0QJBX1E1p6C7I/l
+ btHxbM50pwDG3wpnQ4m55tveqmvQ1sU5LCVbxLPyjMIU9VEwz3awilFHSrwSMLMemOxD
+ xZdsRRLzbw0IXm8mE+KQJgsw2PDAQsDawCM/GfZbY2Ngk2PT/DmZ5yMBSeOEhZhHnW3z
+ MsxM4eyGrq/S5zZ0ni7q91iHMVNxC9hqketMuY6Htr4dFoOrStv+OUpYCQxCH05MM9VO
+ uWtuu4oEU7pecgxvZXUb23Dg+KEIWLE9/QL+qmKP0blqSuXFGFdtZ9VDSzywwSQUClpW
+ 378g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=lgaPH/p38PXhg7aPp8RnvQ3dNQTWWWF+byKXYa1Z/Dw=;
- b=d/Kb1E/67EYjDx17S5xPXDFQndWRJqHc7WN0TUnVh4yXkzJS4mF6hVw6LxjjJeS16J
- yvF7qp8Ysc63gefPHXljCr/V+TDl7UbwEgtHCd4xkRM1UYjM+WILhqMfAbZ2NeGzUjaL
- LBH5DHaw6h92f+F1TlqVHt5wrESSHcupgXNZ3eRHS4IYoy1HHBs6AjIHZ+tb0kGZSXRk
- Ko9cPiJXEK3x0Na0Nn7uAtlQ46cies7KPyO1Xt90B2WyaVDPxWCsPcZESEJg+A7eIL3T
- t+rrPbMmfxhw3RshFKbGuekEa3HjMZbWaSJNdwQHyShvu7/K97nf88kCFUC38rA0eZOE
- xQ/w==
-X-Gm-Message-State: APjAAAV5Q9FQ4nW4VRw1cMDlTcsFPAjAeKwjV5Aun3njFvNMzXIYIac7
- G3bZ1gARQ9cEjVosAulJYEVV+5l+xek=
-X-Google-Smtp-Source: APXvYqxoayCM4zY0VSlDQJiqhelCK+XirgHZsSbsJ6qSg6e7jkd3NApd3A+okYb3OH0G2jByiDKO2w==
-X-Received: by 2002:adf:c786:: with SMTP id l6mr21288248wrg.45.1572915236853; 
- Mon, 04 Nov 2019 16:53:56 -0800 (PST)
-Received: from localhost.localdomain ([62.201.25.198])
- by smtp.gmail.com with ESMTPSA id g69sm20002476wme.31.2019.11.04.16.53.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Nov 2019 16:53:56 -0800 (PST)
-From: Petr Vorel <petr.vorel@gmail.com>
-To: ltp@lists.linux.it
-Date: Tue,  5 Nov 2019 01:53:41 +0100
-Message-Id: <20191105005341.19033-3-petr.vorel@gmail.com>
-X-Mailer: git-send-email 2.24.0.rc2
-In-Reply-To: <20191105005341.19033-1-petr.vorel@gmail.com>
-References: <20191105005341.19033-1-petr.vorel@gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=8KB+te/nLoebcMQPIFtuyG/ym5HSoU7PnWgKfaQPNOE=;
+ b=Q9FZtUJpY8iMuDu3e+6CzH5/L+yE7fvmglniMg2cgl/m2L08nz3nITAVSWkNZR4x5v
+ id6DOSRk/vwOWd7nJD1UBEH22ih4N2kHdFll/CCsdn8xmol/g7nXlW39xFhoE5wjYqui
+ FovRkzBAHU7eoRzaSZL4SokL5R1oVOHUkKNPZf8fSTnJdKgldEOiZ3CXtXERoWsmidN/
+ zIW1YRm/3DWck6T3nvOmFj5MSrw9KYOMYB5I/FjJZA1+15OomGvk36XLSzGc3kbwRhv5
+ 6YAWyBhD9C1ONrUYu9BOEvxPG6Y/9PPHFU9AHv0SNpcM6t4oS53ixQdYjoidzyzXq7Na
+ CmKA==
+X-Gm-Message-State: APjAAAV2/MVVZjLUih+XF9AJrw2ST3LI5uPPM/eUEXqq6iTCohofIgFb
+ 6MLOTr7CVSzrwgBMn2Gh845FER2wtvLYV6INk3ytOw==
+X-Google-Smtp-Source: APXvYqzo8BCoI5pHogfN3mp2CXgLWA5a2xI0z1nWrz3rcFHdAQqHlzKc7jtT22WecxPiwuhFxoupOIdodhQEymY8ey0=
+X-Received: by 2002:a2e:888a:: with SMTP id k10mr10715245lji.195.1572927290338; 
+ Mon, 04 Nov 2019 20:14:50 -0800 (PST)
 MIME-Version: 1.0
+References: <CA+G9fYsWTFQZTHXUDPToaepnKGBoh61SsA_8SHcYgYZXN_L+mg@mail.gmail.com>
+In-Reply-To: <CA+G9fYsWTFQZTHXUDPToaepnKGBoh61SsA_8SHcYgYZXN_L+mg@mail.gmail.com>
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Tue, 5 Nov 2019 09:44:39 +0530
+Message-ID: <CA+G9fYu+6A3pYQGs2rydYtHNSCf1t9+OTRqrZeCbpc2ARLx2zA@mail.gmail.com>
+To: Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] fanotify: Rename fanotify_event_info_fid struct
+Subject: Re: [LTP] stable-rc-5.3.9-rc1: regressions detected -
+ remove_proc_entry: removing non-empty directory 'net/dev_snmp6',
+ leaking at least 'lo'
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,93 +72,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: mmarhefk@redhat.com, Netdev <netdev@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
+ linux- stable <stable@vger.kernel.org>, Basil Eljuse <Basil.Eljuse@arm.com>,
+ LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-VG8gZml4IGJ1aWxkIG9uIG11c2wsIHdoaWNoIGFsc28gZGVmaW5lcyBmYW5vdGlmeV9ldmVudF9p
-bmZvX2ZpZCwKYnV0IHVzZXMgZnNpZF90IHR5cGUgZm9yIGZzaWQgaW5zdGVhZCBvZiBfX2tlcm5l
-bF9mc2lkX3QuCgpUaGlzIGZpeGVzIGVycm9yczoKCmZhbm90aWZ5MTMuYzogSW4gZnVuY3Rpb24g
-4oCYZG9fdGVzdOKAmToKZmFub3RpZnkxMy5jOjI3ODoyMDogZXJyb3I6IOKAmGZzaWRfdOKAmSB7
-YWthIOKAmHN0cnVjdCBfX2ZzaWRfdOKAmX0gaGFzIG5vIG1lbWJlciBuYW1lZCDigJh2YWzigJk7
-IGRpZCB5b3UgbWVhbiDigJhfX3ZhbOKAmT8KICAgIGV2ZW50X2ZpZC0+ZnNpZC52YWxbMF0sCiAg
-ICAgICAgICAgICAgICAgICAgXn5+Ci4uLy4uLy4uLy4uL2luY2x1ZGUvdHN0X3Rlc3QuaDo0OTo1
-Mzogbm90ZTogaW4gZGVmaW5pdGlvbiBvZiBtYWNybyDigJh0c3RfcmVz4oCZCiAgdHN0X3Jlc18o
-X19GSUxFX18sIF9fTElORV9fLCAodHR5cGUpLCAoYXJnX2ZtdCksICMjX19WQV9BUkdTX18pCiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXn5+fn5+
-fn5+fn4KZmFub3RpZnkxMy5jOjI3OToyMDogZXJyb3I6IOKAmGZzaWRfdOKAmSB7YWthIOKAmHN0
-cnVjdCBfX2ZzaWRfdOKAmX0gaGFzIG5vIG1lbWJlciBuYW1lZCDigJh2YWzigJk7IGRpZCB5b3Ug
-bWVhbiDigJhfX3ZhbOKAmT8KICAgIGV2ZW50X2ZpZC0+ZnNpZC52YWxbMV0sCgptdXNsICh1bmxp
-a2UgZ2xpYmMgYW5kIHVjbGliYy1uZykgZGVmaW5lcyBmYW5vdGlmeV9ldmVudF9pbmZvX2ZpZCBp
-bgpmYW5vdGlmeS5oIGFuZCB1c2VzIGZzaWRfdCBhcyB0eXBlIGZvciBmYW5vdGlmeV9ldmVudF9p
-bmZvX2ZpZC5mc2lkCm1lbWJlciwgd2hpY2ggZGVmaW5lcyBfX3ZhbFsyXSAodW5saWtlIHZhbFsy
-XSBpbiBfX2tlcm5lbF9mc2lkX3QpLgoKLyogbXVzbCAoaW5jbHVkZS9zeXMvZmFub3RpZnkuaCkg
-Ki8Kc3RydWN0IGZhbm90aWZ5X2V2ZW50X2luZm9fZmlkIHsKCXN0cnVjdCBmYW5vdGlmeV9ldmVu
-dF9pbmZvX2hlYWRlciBoZHI7Cglmc2lkX3QgZnNpZDsKCXVuc2lnbmVkIGNoYXIgaGFuZGxlW107
-Cn07Ci8qIG11c2wgKGluY2x1ZGUvc3lzL3N0YXRmcy5oKSAqLwp0eXBlZGVmIHN0cnVjdCBfX2Zz
-aWRfdCB7CglpbnQgX192YWxbMl07Cn0gZnNpZF90OwoKLyoga2VybmVsIChpbmNsdWRlL3VhcGkv
-bGludXgvZmFub3RpZnkuaCkgKi8Kc3RydWN0IGZhbm90aWZ5X2V2ZW50X2luZm9fZmlkIHsKCXN0
-cnVjdCBmYW5vdGlmeV9ldmVudF9pbmZvX2hlYWRlciBoZHI7CglfX2tlcm5lbF9mc2lkX3QgZnNp
-ZDsKCS8qCgkgKiBGb2xsb3dpbmcgaXMgYW4gb3BhcXVlIHN0cnVjdCBmaWxlX2hhbmRsZSB0aGF0
-IGNhbiBiZSBwYXNzZWQgYXMKCSAqIGFuIGFyZ3VtZW50IHRvIG9wZW5fYnlfaGFuZGxlX2F0KDIp
-LgoJICovCgl1bnNpZ25lZCBjaGFyIGhhbmRsZVswXTsKfTsKLyoga2VybmVsIGluY2x1ZGUvdWFw
-aS9hc20tZ2VuZXJpYy9wb3NpeF90eXBlcy5oICovCnR5cGVkZWYgc3RydWN0IHsKCWludAl2YWxb
-Ml07Cn0gX19rZXJuZWxfZnNpZF90OwoKU2lnbmVkLW9mZi1ieTogUGV0ciBWb3JlbCA8cGV0ci52
-b3JlbEBnbWFpbC5jb20+Ci0tLQogdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9m
-YW5vdGlmeS5oICAgfCA2ICsrLS0tLQogdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlm
-eS9mYW5vdGlmeTEzLmMgfCA0ICsrLS0KIHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZmFub3Rp
-ZnkvZmFub3RpZnkxNS5jIHwgNCArKy0tCiAzIGZpbGVzIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygr
-KSwgOCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxz
-L2Zhbm90aWZ5L2Zhbm90aWZ5LmggYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5
-L2Zhbm90aWZ5LmgKaW5kZXggNTYzYTRlYjViLi5mYWFjMTc4Y2YgMTAwNjQ0Ci0tLSBhL3Rlc3Rj
-YXNlcy9rZXJuZWwvc3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkuaAorKysgYi90ZXN0Y2FzZXMv
-a2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5L2Zhbm90aWZ5LmgKQEAgLTEzMywxNyArMTMzLDE1IEBA
-IHN0cnVjdCBmYW5vdGlmeV9ldmVudF9pbmZvX2hlYWRlciB7CiAJdWludDhfdCBwYWQ7CiAJdWlu
-dDE2X3QgbGVuOwogfTsKKyNlbmRpZiAvKiAhIEZBTl9SRVBPUlRfRklEICovCiAKICNpZmRlZiBI
-QVZFX05BTUVfVE9fSEFORExFX0FUCi1zdHJ1Y3QgZmFub3RpZnlfZXZlbnRfaW5mb19maWQgewor
-c3RydWN0IGxhcGlfZmFub3RpZnlfZXZlbnRfaW5mb19maWQgewogCXN0cnVjdCBmYW5vdGlmeV9l
-dmVudF9pbmZvX2hlYWRlciBoZHI7CiAJX19rZXJuZWxfZnNpZF90IGZzaWQ7CiAJdW5zaWduZWQg
-Y2hhciBoYW5kbGVbMF07CiB9OwotI2VuZGlmIC8qIEhBVkVfTkFNRV9UT19IQU5ETEVfQVQgKi8K
-LSNlbmRpZiAvKiAhIEZBTl9SRVBPUlRfRklEICovCiAKLSNpZmRlZiBIQVZFX05BTUVfVE9fSEFO
-RExFX0FUCiAvKgogICogSGVscGVyIGZ1bmN0aW9uIHVzZWQgdG8gb2J0YWluIGZzaWQgYW5kIGZp
-bGVfaGFuZGxlIGZvciBhIGdpdmVuIHBhdGguCiAgKiBVc2VkIGJ5IHRlc3QgZmlsZXMgY29ycmVs
-YXRlZCB0byBGQU5fUkVQT1JUX0ZJRCBmdW5jdGlvbmFsaXR5LgpkaWZmIC0tZ2l0IGEvdGVzdGNh
-c2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeTEzLmMgYi90ZXN0Y2FzZXMva2Vy
-bmVsL3N5c2NhbGxzL2Zhbm90aWZ5L2Zhbm90aWZ5MTMuYwppbmRleCAwMzA3MzQyODUuLmUwY2U4
-ODdlNyAxMDA2NDQKLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5v
-dGlmeTEzLmMKKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlm
-eTEzLmMKQEAgLTE1OSw3ICsxNTksNyBAQCBzdGF0aWMgdm9pZCBkb190ZXN0KHVuc2lnbmVkIGlu
-dCBudW1iZXIpCiAKIAlzdHJ1Y3QgZmlsZV9oYW5kbGUgKmV2ZW50X2ZpbGVfaGFuZGxlOwogCXN0
-cnVjdCBmYW5vdGlmeV9ldmVudF9tZXRhZGF0YSAqbWV0YWRhdGE7Ci0Jc3RydWN0IGZhbm90aWZ5
-X2V2ZW50X2luZm9fZmlkICpldmVudF9maWQ7CisJc3RydWN0IGxhcGlfZmFub3RpZnlfZXZlbnRf
-aW5mb19maWQgKmV2ZW50X2ZpZDsKIAlzdHJ1Y3QgdGVzdF9jYXNlX3QgKnRjID0gJnRlc3RfY2Fz
-ZXNbbnVtYmVyXTsKIAlzdHJ1Y3QgZmFub3RpZnlfbWFya190eXBlICptYXJrID0gJnRjLT5tYXJr
-OwogCkBAIC0yMDcsNyArMjA3LDcgQEAgc3RhdGljIHZvaWQgZG9fdGVzdCh1bnNpZ25lZCBpbnQg
-bnVtYmVyKQogCWZvciAoaSA9IDAsIG1ldGFkYXRhID0gKHN0cnVjdCBmYW5vdGlmeV9ldmVudF9t
-ZXRhZGF0YSAqKSBldmVudHNfYnVmOwogCQlGQU5fRVZFTlRfT0sobWV0YWRhdGEsIGxlbik7CiAJ
-CW1ldGFkYXRhID0gRkFOX0VWRU5UX05FWFQobWV0YWRhdGEsIGxlbiksIGkrKykgewotCQlldmVu
-dF9maWQgPSAoc3RydWN0IGZhbm90aWZ5X2V2ZW50X2luZm9fZmlkICopIChtZXRhZGF0YSArIDEp
-OworCQlldmVudF9maWQgPSAoc3RydWN0IGxhcGlfZmFub3RpZnlfZXZlbnRfaW5mb19maWQgKikg
-KG1ldGFkYXRhICsgMSk7CiAJCWV2ZW50X2ZpbGVfaGFuZGxlID0gKHN0cnVjdCBmaWxlX2hhbmRs
-ZSAqKSBldmVudF9maWQtPmhhbmRsZTsKIAogCQkvKiBGaWxlIGRlc2NyaXB0b3IgaXMgcmVkdW5k
-YW50IHdpdGggRkFOX1JFUE9SVF9GSUQgKi8KZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwv
-c3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkxNS5jIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxs
-cy9mYW5vdGlmeS9mYW5vdGlmeTE1LmMKaW5kZXggZTllOTI2MDc4Li5lOWYxZmY3MGQgMTAwNjQ0
-Ci0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkxNS5jCisr
-KyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkxNS5jCkBAIC01
-Myw3ICs1Myw3IEBAIHN0YXRpYyB2b2lkIGRvX3Rlc3Qodm9pZCkKIAogCXN0cnVjdCBmaWxlX2hh
-bmRsZSAqZXZlbnRfZmlsZV9oYW5kbGU7CiAJc3RydWN0IGZhbm90aWZ5X2V2ZW50X21ldGFkYXRh
-ICptZXRhZGF0YTsKLQlzdHJ1Y3QgZmFub3RpZnlfZXZlbnRfaW5mb19maWQgKmV2ZW50X2ZpZDsK
-KwlzdHJ1Y3QgbGFwaV9mYW5vdGlmeV9ldmVudF9pbmZvX2ZpZCAqZXZlbnRfZmlkOwogCiAJaWYg
-KGZhbm90aWZ5X21hcmsoZmFub3RpZnlfZmQsIEZBTl9NQVJLX0FERCB8IEZBTl9NQVJLX0ZJTEVT
-WVNURU0sCiAJCQkJRkFOX0NSRUFURSB8IEZBTl9ERUxFVEUgfCBGQU5fQVRUUklCIHwKQEAgLTEy
-NSw3ICsxMjUsNyBAQCBzdGF0aWMgdm9pZCBkb190ZXN0KHZvaWQpCiAJZm9yIChpID0gMCwgbWV0
-YWRhdGEgPSAoc3RydWN0IGZhbm90aWZ5X2V2ZW50X21ldGFkYXRhICopIGV2ZW50c19idWY7CiAJ
-CUZBTl9FVkVOVF9PSyhtZXRhZGF0YSwgbGVuKTsKIAkJbWV0YWRhdGEgPSBGQU5fRVZFTlRfTkVY
-VChtZXRhZGF0YSxsZW4pLCBpKyspIHsKLQkJZXZlbnRfZmlkID0gKHN0cnVjdCBmYW5vdGlmeV9l
-dmVudF9pbmZvX2ZpZCAqKSAobWV0YWRhdGEgKyAxKTsKKwkJZXZlbnRfZmlkID0gKHN0cnVjdCBs
-YXBpX2Zhbm90aWZ5X2V2ZW50X2luZm9fZmlkICopIChtZXRhZGF0YSArIDEpOwogCQlldmVudF9m
-aWxlX2hhbmRsZSA9IChzdHJ1Y3QgZmlsZV9oYW5kbGUgKikgZXZlbnRfZmlkLT5oYW5kbGU7CiAK
-IAkJaWYgKGkgPj0gY291bnQpIHsKLS0gCjIuMjQuMC5yYzIKCgotLSAKTWFpbGluZyBsaXN0IGlu
-Zm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Hi Sasha and Greg,
+
+On Mon, 4 Nov 2019 at 20:59, Naresh Kamboju <naresh.kamboju@linaro.org> wrote:
+>
+> Linux stable rc 5.3 branch running LTP reported following test failures.
+> While investigating these failures I have found this kernel warning
+> from boot console.
+> Please find detailed LTP output log in the bottom of this email.
+>
+> List of regression test cases:
+>   ltp-containers-tests:
+>     * netns_breakns_ip_ipv6_ioctl
+>     * netns_breakns_ip_ipv6_netlink
+>     * netns_breakns_ns_exec_ipv6_ioctl
+>     * netns_breakns_ns_exec_ipv6_netlink
+>     * netns_comm_ip_ipv6_ioctl
+>     * netns_comm_ip_ipv6_netlink
+>     * netns_comm_ns_exec_ipv6_ioctl
+>     * netns_comm_ns_exec_ipv6_netlink
+
+These reported failures got fixed on latest stable-rc 5.3.y after
+dropping a patch [1].
+The kernel warning is also gone now.
+
+metadata:
+  git branch: linux-5.3.y
+  git repo: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+  git commit: 75c9913bbf6e9e64cb669236571e6af45cddfd68
+
+ref:
+[PATCH AUTOSEL 5.3 12/33] blackhole_netdev: fix syzkaller reported issue
+[1] https://lkml.org/lkml/2019/10/25/794
+
+Best regards
+Naresh Kamboju
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
