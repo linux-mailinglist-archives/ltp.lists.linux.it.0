@@ -1,48 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6A28F29E9
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Nov 2019 09:56:28 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id F0C9EF2C84
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Nov 2019 11:33:16 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 464CC3C2033
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Nov 2019 09:56:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6402A3C207C
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Nov 2019 11:33:16 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 1C34B3C1CF1
- for <ltp@lists.linux.it>; Thu,  7 Nov 2019 09:56:26 +0100 (CET)
-Received: from Galois.linutronix.de (Galois.linutronix.de
- [IPv6:2a0a:51c0:0:12e:550::1])
- (using TLSv1.2 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 0B1F23C1CF5
+ for <ltp@lists.linux.it>; Thu,  7 Nov 2019 11:33:13 +0100 (CET)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6CDBA1001952
- for <ltp@lists.linux.it>; Thu,  7 Nov 2019 09:56:25 +0100 (CET)
-Received: from p5b06da22.dip0.t-ipconnect.de ([91.6.218.34]
- helo=nanos.glx-home)
- by Galois.linutronix.de with esmtpsa (TLS1.2:DHE_RSA_AES_256_CBC_SHA256:256)
- (Exim 4.80) (envelope-from <tglx@linutronix.de>)
- id 1iSdaU-0001WD-DO; Thu, 07 Nov 2019 09:56:18 +0100
-Date: Thu, 7 Nov 2019 09:56:12 +0100 (CET)
-From: Thomas Gleixner <tglx@linutronix.de>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CBD7D201681
+ for <ltp@lists.linux.it>; Thu,  7 Nov 2019 11:33:12 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 663E9B554;
+ Thu,  7 Nov 2019 10:33:11 +0000 (UTC)
+References: <4647b3bced96c66c040078a32c13dab65558816d.1572956488.git.jstancek@redhat.com>
+ <87o8xpdw0l.fsf@rpws.prws.suse.cz>
+ <2124877733.10763434.1573054117742.JavaMail.zimbra@redhat.com>
+User-agent: mu4e 1.2.0; emacs 26.3
+From: Richard Palethorpe <rpalethorpe@suse.de>
 To: Jan Stancek <jstancek@redhat.com>
-In-Reply-To: <a87876829697e1b3c63601b1401a07af79eddae6.1572651216.git.jstancek@redhat.com>
-Message-ID: <alpine.DEB.2.21.1911051304420.17054@nanos.tec.linutronix.de>
-References: <a87876829697e1b3c63601b1401a07af79eddae6.1572651216.git.jstancek@redhat.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+In-reply-to: <2124877733.10763434.1573054117742.JavaMail.zimbra@redhat.com>
+Date: Thu, 07 Nov 2019 11:33:11 +0100
+Message-ID: <87lfssdli0.fsf@rpws.prws.suse.cz>
 MIME-Version: 1.0
-X-Linutronix-Spam-Score: -1.0
-X-Linutronix-Spam-Level: -
-X-Linutronix-Spam-Status: No , -1.0 points, 5.0 required, ALL_TRUSTED=-1,
- SHORTCIRCUIT=-0.0001
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] kernel: use ktime_get_real_ts64() to calculate
- acct.ac_btime
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/2] read_all: move blacklist to source
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,88 +47,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Peter Zijlstra <peterz@infradead.org>, Greg KH <gregkh@linuxfoundation.org>,
- LKML <linux-kernel@vger.kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
- Ingo Molnar <mingo@kernel.org>, ltp@lists.linux.it
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Jan,
+Hello,
 
-The subsystem prefix for acct is surely not 'kernel.'. Try:
+Jan Stancek <jstancek@redhat.com> writes:
 
- git log --oneline kernel/acct.c
+> ----- Original Message -----
+>> > +static char *blacklist[] = {
+>> > +	NULL, /* reserved for -e parameter */
+>> > +	"/sys/power/wakeup_count",
+>> > +};
+>>
+>> The problem with this is that it is only required if we are running as a
+>> privileged user. If -p is specified then it would be a bug if nobody can
+>> read from any of these files.
+>>
+>> So I guess we could disable the builtin blacklist if drop_privs (switch
+>> to nobody) is specified
+>
+> Good point. I just saw your reply that you plan to send a patch, thank
+> you.
 
-On Sat, 2 Nov 2019, Jan Stancek wrote:
-> diff --git a/kernel/acct.c b/kernel/acct.c
-> index 81f9831a7859..991c898160cd 100644
-> --- a/kernel/acct.c
-> +++ b/kernel/acct.c
-> @@ -417,6 +417,7 @@ static void fill_ac(acct_t *ac)
->  	struct pacct_struct *pacct = &current->signal->pacct;
->  	u64 elapsed, run_time;
->  	struct tty_struct *tty;
-> +	struct timespec64 ts;
->  
->  	/*
->  	 * Fill the accounting struct with the needed info as recorded
-> @@ -448,7 +449,8 @@ static void fill_ac(acct_t *ac)
->  	}
->  #endif
->  	do_div(elapsed, AHZ);
-> -	ac->ac_btime = get_seconds() - elapsed;
-> +	ktime_get_real_ts64(&ts);
-> +	ac->ac_btime = ts.tv_sec - elapsed;
+Thanks!
 
-So the calculation goes like this:
+>
+>> and run this test twice on /sys with and without
+>> -p.
+>
+> greg-kh wasn't very happy to hear about privileged runs in the other thread.
+> He was suggesting whitelist approach, but I don't know how we would keep it
+> up to date, deal with different configs, etc.
 
-   runtime = ktime_get_ns() - current->...->start_time;
-
-   elapsed = ns_to_ahz(runtime)
-   
-   elapsed /= AHZ	-> runtime in seconds
-   
-And then you retrieve the current wall time and just use the seconds
-portion for building the delta. That still can fail in corner cases when
-the runtime to seconds conversion does not have truncation in the
-conversions and the timespec nanoseconds part is close to 1e9.
-
-There is another issue related to suspend. If the system suspends then
-runtime is accurate vs. clock MONOTONIC, but the offset between clock
-MONOTONIC and clock REALTIME is not longer the same due to the
-suspend/resume which has the same issue as what you are trying to solve
-because
-
-   runtime = totaltime - time_in_suspend
-
-so your ac_btime will be off by time_in_suspend.
-
-Something like this should work:
-
-   runtime = ktime_get_ns() - current->...->start_time;
-   ....
-   runtime_boot = ktime_get_boot_ns() - current->...->real_start_time;
-   start_ns = ktime_get_real_ns() - runtime_boot;
-   start_s = startns / NSEC_PER_SEC;
-
-current->...->real_start_time is clearly a misnomer as it suggests
-CLOCK_REALTIME at first sight ...
-
-But it would be way simpler just to store the CLOCK_REALTIME start time
-along with BOOT and MONOTONIC and just get rid of all these horrible
-calculations which are bound to be wrong.
-
-Peter?
-
-Thanks,
-
-	tglx
-
-   
-
-
+--
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
