@@ -1,41 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 151BCF2DE0
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Nov 2019 13:04:00 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A9831F2E02
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Nov 2019 13:15:26 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 500C03C2216
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Nov 2019 13:03:59 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1D3733C2219
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Nov 2019 13:15:26 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id C03913C1D3E
- for <ltp@lists.linux.it>; Thu,  7 Nov 2019 13:03:55 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 1D0C53C1D57
+ for <ltp@lists.linux.it>; Thu,  7 Nov 2019 13:15:22 +0100 (CET)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2F281601CC1
- for <ltp@lists.linux.it>; Thu,  7 Nov 2019 13:03:54 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id AA81910019CC
+ for <ltp@lists.linux.it>; Thu,  7 Nov 2019 13:15:21 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 68B9DB049;
- Thu,  7 Nov 2019 12:03:54 +0000 (UTC)
-Date: Thu, 7 Nov 2019 13:03:53 +0100
+ by mx1.suse.de (Postfix) with ESMTP id 01DA8AE0C;
+ Thu,  7 Nov 2019 12:15:21 +0000 (UTC)
+Date: Thu, 7 Nov 2019 13:15:20 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Jan Stancek <jstancek@redhat.com>
-Message-ID: <20191107120353.GB22352@rei.lan>
+Message-ID: <20191107121520.GC22352@rei.lan>
 References: <48e9d0f8ed25dd69dc97fe31c4446a30cd990b06.1572954996.git.jstancek@redhat.com>
  <598814762.10700788.1573034381847.JavaMail.zimbra@redhat.com>
- <20191107113929.GA22352@rei.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20191107113929.GA22352@rei.lan>
+In-Reply-To: <598814762.10700788.1573034381847.JavaMail.zimbra@redhat.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH/RFC] tst_process_state_wait: wait for schedstats
  to settle when state == S
 X-BeenThere: ltp@lists.linux.it
@@ -56,31 +56,18 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > hb->lock is locked at this point, and requeue takes it too, so I'm not
-> > sure what makes it fail. I've seen testcase fail in at least
-> > 2 different ways now. Here's the other one:
-> 
-> Looking at the test shouldn't we wait for the processes to be sleeping
-> after the futex_cmp_requeue() syscall?
-> 
-> i.e.
-> 
-> diff --git a/testcases/kernel/syscalls/futex/futex_cmp_requeue01.c b/testcases/kernel/syscalls/futex/futex_cmp_requeue01.c
-> index f5264c2ba..41f5e88a6 100644
-> --- a/testcases/kernel/syscalls/futex/futex_cmp_requeue01.c
-> +++ b/testcases/kernel/syscalls/futex/futex_cmp_requeue01.c
-> @@ -71,6 +71,9 @@ static void verify_futex_cmp_requeue(unsigned int n)
->                         TST_RET, exp_ret);
->         }
-> 
-> +       for (i = 0; i < tc->num_waiters; i++)
-> +               TST_PROCESS_STATE_WAIT(pid[i], 'S');
-> +
->         num_requeues = futex_wake(&futexes[1], tc->num_waiters, 0);
->         num_waits = futex_wake(&futexes[0], tc->num_waiters, 0);
+> hb->lock is locked at this point, and requeue takes it too, so I'm not
+> sure what makes it fail. I've seen testcase fail in at least
+> 2 different ways now. Here's the other one:
 
-And this obviously wouldn't work since we are waking up some of them in
-a subset of the testcases.
+Here is another theory, some of the processes may be sleeping in a
+different place in the kernel, somewhere between the fork() and the
+futex(), and hence we think that they have been suspended on the futex
+but aren't.
+
+I guess that what we can do is to put a counter in a piece of shared
+memory and increment it from each child just before the futex_wait()
+call and wait in the parent until the counter reached num_waiters.
 
 -- 
 Cyril Hrubis
