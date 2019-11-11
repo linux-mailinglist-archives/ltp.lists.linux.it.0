@@ -2,68 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46DC1F78CD
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 Nov 2019 17:30:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61E0EF78D3
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 Nov 2019 17:32:03 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 07BDC3C1815
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 Nov 2019 17:30:34 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2E4663C2351
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 Nov 2019 17:32:03 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 9B4123C0FE7
- for <ltp@lists.linux.it>; Mon, 11 Nov 2019 17:30:32 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 79201140181C
- for <ltp@lists.linux.it>; Mon, 11 Nov 2019 17:30:31 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1573489830;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=bxtiHhhckPO0Ez6hryldOZDHVKwepCUzzpuSqMQIBnQ=;
- b=NzcUpMn2LLDMsUUEEpD6cL/f7vP7tyjH6IdOy5+wI4lcPhWnsoC9C4iHuXVGtUwoCl2Axb
- 48t4pS37hAxGXph042zlJAp7F7qtWd/HCjnc9QLkVU47MgD1N8O+iqvlBsRJwIbw2oQHLC
- AAI6BPV+brg7gwECEFaQdnHbxDlhSow=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-361-RxRvtZXkNaC2U7Lsof2o_Q-1; Mon, 11 Nov 2019 11:30:28 -0500
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 9E4693C0FE7
+ for <ltp@lists.linux.it>; Mon, 11 Nov 2019 17:31:58 +0100 (CET)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C09501005509;
- Mon, 11 Nov 2019 16:30:27 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id BA1EF600CC;
- Mon, 11 Nov 2019 16:30:27 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 661924BB5B;
- Mon, 11 Nov 2019 16:30:27 +0000 (UTC)
-Date: Mon, 11 Nov 2019 11:30:26 -0500 (EST)
-From: Jan Stancek <jstancek@redhat.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <1059626680.11523678.1573489826970.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20191111150928.GA16894@rei.lan>
-References: <18ef4352ad8e03719e5bd470825d912569813aa4.1573476808.git.jstancek@redhat.com>
- <20191111150928.GA16894@rei.lan>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 71B40601E93
+ for <ltp@lists.linux.it>; Mon, 11 Nov 2019 17:31:56 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 7BB49ABF6;
+ Mon, 11 Nov 2019 16:31:56 +0000 (UTC)
+Date: Mon, 11 Nov 2019 17:31:50 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20191111163144.GB16894@rei.lan>
+References: <20191108142434.GA5913@rei>
+ <1573462752-6679-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.163, 10.4.195.4]
-Thread-Topic: futex_cmp_requeue01: fix test expectations
-Thread-Index: oGOdgVVlEUSwOHgq2X9UcKzVbTDsDw==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-MC-Unique: RxRvtZXkNaC2U7Lsof2o_Q-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <1573462752-6679-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] futex_cmp_requeue01: fix test expectations
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4] syscalls/prctl02: add more error tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,79 +54,120 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Hi!
+> +static const struct sock_fprog strict = {
+> +	.len = (unsigned short)ARRAY_SIZE(strict_filter),
+> +	.filter = (struct sock_filter *)strict_filter
+> +};
+> +
+> +static const struct sock_fprog *strict_addr = &strict;
 
+This should be:
 
------ Original Message -----
-> Shouldn't these be volatile? Or does the tst_atomic_load() guarantee
-> that compiler knows that it could be changed from a different process?
+static unsigned long strict_addr = (unsigned long)&strict;
 
-That should be implied. Our fallback functions issue compiler barriers too.
+> +static unsigned long bad_addr;
+> +static unsigned long num_0;
+> +static unsigned long num_1 = 1;
+> +static unsigned long num_2 = 2;
+> +static unsigned long num_invalid = 999;
+>  
+>  static struct tcase {
+>  	int option;
+> -	unsigned long arg2;
+> +	unsigned long *arg2;
+> +	unsigned long *arg3;
+>  	int exp_errno;
+>  } tcases[] = {
+> -	{OPTION_INVALID, 0, EINVAL},
+> -	{PR_SET_PDEATHSIG, INVALID_ARG, EINVAL},
+> +	{OPTION_INVALID, &num_1, &num_0, EINVAL},
+> +	{PR_SET_PDEATHSIG, &num_invalid, &num_0, EINVAL},
+> +	{PR_SET_DUMPABLE, &num_2, &num_0, EINVAL},
+> +	{PR_SET_NAME, &bad_addr, &num_0, EFAULT},
+> +	{PR_SET_SECCOMP, &num_2, &bad_addr, EFAULT},
+> +	{PR_SET_SECCOMP, &num_2, &strict_addr, EACCES},
+> +	{PR_SET_TIMING, &num_1, &num_0, EINVAL},
+> +#ifdef HAVE_DECL_PR_SET_NO_NEW_PRIVS
+> +	{PR_SET_NO_NEW_PRIVS, &num_0, &num_0, EINVAL},
+> +	{PR_SET_NO_NEW_PRIVS, &num_1, &num_0, EINVAL},
+> +	{PR_GET_NO_NEW_PRIVS, &num_1, &num_0, EINVAL},
+> +#endif
+> +#ifdef HAVE_DECL_PR_SET_THP_DISABLE
+> +	{PR_SET_THP_DISABLE, &num_0, &num_1, EINVAL},
+> +	{PR_GET_THP_DISABLE, &num_1, &num_1, EINVAL},
+> +#endif
+> +#ifdef HAVE_DECL_PR_CAP_AMBIENT
+> +	{PR_CAP_AMBIENT, &num_2, &num_1, EINVAL},
+> +#endif
+> +#ifdef HAVE_DECL_PR_GET_SPECULATION_CTRL
+> +	{PR_GET_SPECULATION_CTRL, &num_1, &num_0, EINVAL},
+> +#endif
 
+Why the ifdefs, you have even added a fallback definitions into the lapi
+header?
+
+The usuall way how to deal with these is to:
+
+1) Add fallback definitions to lapi
+2) Ensure these tests does not fail on older kernels
+
+   We do expect EINVAL in these cases anyways, which is what we would
+   get if the prctl() option is unknown to the kernel anyways, so here
+   we can just get rid of these ifdefs and things should work fine.
+
+> +	{PR_SET_SECUREBITS, &num_0, &num_0, EPERM},
+> +	{PR_CAPBSET_DROP, &num_1, &num_0, EPERM},
+>  };
+>  
+>  static void verify_prctl(unsigned int n)
+>  {
+>  	struct tcase *tc = &tcases[n];
+>  
+> -	TEST(prctl(tc->option, tc->arg2));
+> +	TEST(prctl(tc->option, *tc->arg2, *tc->arg3));
+>  	if (TST_RET == 0) {
+>  		tst_res(TFAIL, "prctl() succeeded unexpectedly");
+>  		return;
+>  	}
+>  
+>  	if (tc->exp_errno == TST_ERR) {
+> -		tst_res(TPASS | TTERRNO, "prctl() failed as expected");
+> +		tst_res(TPASS | TTERRNO, "prctl() %d failed as expected", tc->option);
+>  	} else {
+> -		tst_res(TFAIL | TTERRNO, "prctl() failed unexpectedly, expected %s",
+> +		if (tc->option == PR_SET_SECCOMP && TST_ERR == EINVAL)
+> +			tst_res(TCONF, "current system was not built with CONFIG_SECCOMP.");
+> +		else
+> +			tst_res(TFAIL | TTERRNO, "prctl() failed unexpectedly, expected %s",
+>  				tst_strerrno(tc->exp_errno));
+>  	}
+>  }
+>  
+> +static void setup(void)
+> +{
+> +	bad_addr = (unsigned long)tst_get_bad_addr(NULL);
+> +}
+> +
+>  static struct tst_test test = {
+> +	.setup = setup,
+>  	.tcnt = ARRAY_SIZE(tcases),
+>  	.test = verify_prctl,
+> +	.caps = (struct tst_cap []) {
+> +		TST_CAP(TST_CAP_DROP, CAP_SYS_ADMIN),
+> +		TST_CAP(TST_CAP_DROP, CAP_SETPCAP),
+> +		{}
+> +	},
+>  };
+> -- 
+> 2.18.0
 > 
-> >  static struct tcase {
-> >  	int num_waiters;
-> > @@ -37,14 +38,28 @@ static struct tcase {
-> >  
-> >  static void do_child(void)
-> >  {
-> > -	struct timespec usec = tst_ms_to_timespec(2000);
-> > +	int max_sleep_ms = 5000, slept_for_ms = 0;
 > 
-> We do have a tst_multiply_timeout() in the test library now, shouldn't
-> we use it for the max_sleep_ms here as well?
 > 
-> Also if we do that it would make sense to keep the timeout in global and
-> initialize it in the parent, that would save us some runtime.
 
-OK, I can add that.
-
-> >  	num_requeues = futex_wake(&futexes[1], tc->num_waiters, 0);
-> >  	num_waits = futex_wake(&futexes[0], tc->num_waiters, 0);
-> >  
-> >  	for (i = 0; i < tc->num_waiters; i++) {
-> > +		tst_atomic_store(1, test_done);
-> 
-> What's the point of storing the value in the loop, shouldn't it suffice
-> to do it once before the loop?
-
-Yes. I previously used kill() here for each child. When I changed that
-I forgot to move it out of loop.
-
-> 
-> >  		SAFE_WAITPID(pid[i], &status, 0);
-> >  		if (WIFEXITED(status) && !WEXITSTATUS(status))
-> >  			num_total++;
-> >  	}
-> >  
-> > +	tst_res(TINFO, "children woken, futex0: %d, futex1: %d, "
-> > +		"spurious wakeups: %d",
-> > +		num_waits, num_requeues, tst_atomic_load(spurious));
-> 
-> I guess that we do not need atomic access once all the children are
-> waited for.
-
-Strictly no, but it seems more consistent. I don't think we care about
-performance impact of it.
-
-> >  
-> >  static void cleanup(void)
-> >  {
-> >  	if (futexes)
-> >  		SAFE_MUNMAP((void *)futexes, sizeof(futex_t) * 2);
-> > +	if (spurious)
-> > +		SAFE_MUNMAP((void *)spurious, sizeof(int) * 2);
-> 
-> Can't we just use a single page? It should be large enough for both
-> futexes and counters...
-> 
-> I guess that we can as well define a structure with all the parameters
-> so that we do only a single mmap() later on.
-
-I'll put it into single struct and single mmap.
-
-Thanks,
-Jan
-
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
