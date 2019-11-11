@@ -1,85 +1,61 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E487F6C3E
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 Nov 2019 02:26:44 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BE80F6F65
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 Nov 2019 09:05:49 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1B2443C2026
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 Nov 2019 02:26:44 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A03383C183D
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 Nov 2019 09:05:48 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 405663C1CED
- for <ltp@lists.linux.it>; Mon, 11 Nov 2019 02:26:42 +0100 (CET)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 001453C176C
+ for <ltp@lists.linux.it>; Mon, 11 Nov 2019 09:05:46 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 3848F1000D88
+ for <ltp@lists.linux.it>; Mon, 11 Nov 2019 09:05:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1573459544;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=I97qEvwu2AGIh2L+Z4KuH4DoAnc+4Mz0VfwDgpyxVJY=;
+ b=AeVfBfbc3AZ1TPDxCp1mMaS5GwzmbchxbtCKvsM/TdX+DNIFYnYYr0mWGMakauA1WlxYqm
+ Mh7MtVmgqAekmFrLiI9+NYRVCNnLRPH7dFqoyvkCCEzibQ0Vr+atf3aFrPiPpfZxEiroaD
+ MjHBZALuYfV9fyOS1vr0d14McM2yr2Y=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-284-mbh_s45GN8e-a-Q6qNAZVQ-1; Mon, 11 Nov 2019 03:05:43 -0500
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id F087114016FA
- for <ltp@lists.linux.it>; Mon, 11 Nov 2019 02:26:41 +0100 (CET)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xAB1O9GW089143;
- Mon, 11 Nov 2019 01:26:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2019-08-05;
- bh=rfHdU6/XNEaBywpxAH8t9QCjQ+pIBE8zfhrbaRJmplw=;
- b=QkWoTUzvtNRpdnRIMcpv//Ny6sAc+cat0JxoLpIaQKJh2JEDqZ0CUQTNfneOELaOREvT
- ksf4YKg20Lp5LR0MusZpDxX8OQV9HexLVERN5xw/hIJyx8GtxxEeBWsu7EwGI2LJjxZ8
- LTs9Hn2B/tFrK3ne81nAHEfVdYd/1gymyiSbsaYX7Si8tIHOThu5WKjyXmG5Blxeh4LB
- ijrt3/HEx87aNmWXhjNoQR9cfvBbrEiXchhbOUIM+fkNxcIRYwED2znn+S7cF8oTJC/N
- 4bZxy8xCKq9BMTuVUPv9QTVtdWS7YHTjDE6Vm+akNCfV3b1Yngx6sXAM2DxneSQmqvdQ Kw== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by userp2120.oracle.com with ESMTP id 2w5p3qc27x-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 11 Nov 2019 01:26:28 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xAB1MswV097958;
- Mon, 11 Nov 2019 01:26:27 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by aserp3020.oracle.com with ESMTP id 2w66ytnuta-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 11 Nov 2019 01:26:27 +0000
-Received: from abhmp0015.oracle.com (abhmp0015.oracle.com [141.146.116.21])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id xAB1QH9C001225;
- Mon, 11 Nov 2019 01:26:17 GMT
-Received: from localhost (/67.169.218.210)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Sun, 10 Nov 2019 17:26:16 -0800
-Date: Sun, 10 Nov 2019 17:26:14 -0800
-From: "Darrick J. Wong" <darrick.wong@oracle.com>
-To: Jan Stancek <jstancek@redhat.com>
-Message-ID: <20191111012614.GC6235@magnolia>
-References: <CA+G9fYtmA5F174nTAtyshr03wkSqMS7+7NTDuJMd_DhJF6a4pw@mail.gmail.com>
- <852514139.11036267.1573172443439.JavaMail.zimbra@redhat.com>
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 33016801E65
+ for <ltp@lists.linux.it>; Mon, 11 Nov 2019 08:05:42 +0000 (UTC)
+Received: from [172.54.37.191] (cpt-1013.paas.prod.upshift.rdu2.redhat.com
+ [10.0.19.28])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 29FBE5D6A3;
+ Mon, 11 Nov 2019 08:05:36 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <852514139.11036267.1573172443439.JavaMail.zimbra@redhat.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9437
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1910280000 definitions=main-1911110010
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9437
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1910280000
- definitions=main-1911110010
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+From: CKI Project <cki-project@redhat.com>
+To: 
+Date: Mon, 11 Nov 2019 08:05:36 -0000
+Message-ID: <cki.ECB352932E.9FL0Q68EC2@redhat.com>
+X-Gitlab-Pipeline-ID: 277487
+X-Gitlab-Url: https://xci32.lab.eng.rdu2.redhat.com
+X-Gitlab-Path: /cki-project/cki-pipeline/pipelines/277487
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-MC-Unique: mbh_s45GN8e-a-Q6qNAZVQ-1
+X-Mimecast-Spam-Score: 0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] LTP: diotest4.c:476: read to read-only space. returns 0:
- Success
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: [LTP] =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E4?=
+ =?utf-8?q?=2E0-rc6-dd89262=2Ecki_=28mainline=2Ekernel=2Eorg=29?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,97 +67,87 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Theodore Ts'o <tytso@mit.edu>, Arnd Bergmann <arnd@arndb.de>,
- open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
- Christoph Hellwig <hch@infradead.org>,
- Linux-Next Mailing List <linux-next@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
- linux-fsdevel@vger.kernel.org, linux-ext4 <linux-ext4@vger.kernel.org>,
- LTP List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Memory Management <mm-qe@redhat.com>, Milos Malik <mmalik@redhat.com>,
+ Ondrej Mosnacek <omosnace@redhat.com>, LTP Mailing List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-[add the other iomap maintainer to cc]
-[add the ext4 list to cc since they just added iomap directio support]
-[add the ext4 maintainer for the same reason]
-
-On Thu, Nov 07, 2019 at 07:20:43PM -0500, Jan Stancek wrote:
-> 
-> 
-> ----- Original Message -----
-> > LTP test case dio04 test failed on 32bit kernel running linux next
-> > 20191107 kernel.
-> > Linux version 5.4.0-rc6-next-20191107.
-> > 
-> > diotest4    1  TPASS  :  Negative Offset
-> > diotest4    2  TPASS  :  removed
-> > diotest4    3  TPASS  :  Odd count of read and write
-> > diotest4    4  TPASS  :  Read beyond the file size
-> > diotest4    5  TPASS  :  Invalid file descriptor
-> > diotest4    6  TPASS  :  Out of range file descriptor
-> > diotest4    7  TPASS  :  Closed file descriptor
-> > diotest4    8  TPASS  :  removed
-> > diotest4    9  TCONF  :  diotest4.c:345: Direct I/O on /dev/null is
-> > not supported
-> > diotest4   10  TPASS  :  read, write to a mmaped file
-> > diotest4   11  TPASS  :  read, write to an unmapped file
-> > diotest4   12  TPASS  :  read from file not open for reading
-> > diotest4   13  TPASS  :  write to file not open for writing
-> > diotest4   14  TPASS  :  read, write with non-aligned buffer
-> > diotest4   15  TFAIL  :  diotest4.c:476: read to read-only space.
-> > returns 0: Success
-> > diotest4   16  TFAIL  :  diotest4.c:180: read, write buffer in read-only
-> > space
-> > diotest4   17  TFAIL  :  diotest4.c:114: read allows  nonexistant
-> > space. returns 0: Success
-> > diotest4   18  TFAIL  :  diotest4.c:129: write allows  nonexistant
-> > space.returns -1: Invalid argument
-> > diotest4   19  TFAIL  :  diotest4.c:180: read, write in non-existant space
-> > diotest4   20  TPASS  :  read, write for file with O_SYNC
-> > diotest4    0  TINFO  :  2/15 test blocks failed
-> 
-> Smaller reproducer for 32-bit system and ext4 is:
->   openat(AT_FDCWD, "testdata-4.5918", O_RDWR|O_DIRECT) = 4
->   mmap2(NULL, 4096, PROT_READ, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb7f7b000
->   read(4, 0xb7f7b000, 4096)              = 0 // expects -EFAULT
-> 
-> Problem appears to be conversion in ternary operator at
-> iomap_dio_bio_actor() return. Test passes for me with
-> following tweak:
-
-I can't do a whole lot with a code snippet that lacks a proper SOB
-header.
-
-> diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
-> index 2f88d64c2a4d..8615b1f78389 100644
-> --- a/fs/iomap/direct-io.c
-> +++ b/fs/iomap/direct-io.c
-> @@ -318,7 +318,7 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
->                 if (pad)
->                         iomap_dio_zero(dio, iomap, pos, fs_block_size - pad);
->         }
-> -       return copied ? copied : ret;
-> +       return copied ? (loff_t) copied : ret;
-
-I'm a little confused on this proposed fix -- why does casting size_t
-(aka unsigned long) to loff_t (long long) on a 32-bit system change the
-test outcome?  Does this same diotest4 failure happen with XFS?  I ask
-because XFS has been using iomap for directio for ages.
-
-AFAICT @copied is a simple byte counter, and the other variable @n that
-gets added to @copied is also a simple byte counter -- nobody should
-ever be trying to stuff a negative value in there?
-
-(Or is this a bug with the ext4 code that calls iomap_dio_rw?)
-
---D
-
->  }
-> 
->  static loff_t
-> 
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+CkhlbGxvLAoKV2UgcmFuIGF1dG9tYXRlZCB0ZXN0cyBvbiBhIHJlY2VudCBjb21taXQgZnJvbSB0
+aGlzIGtlcm5lbCB0cmVlOgoKICAgICAgIEtlcm5lbCByZXBvOiBodHRwczovL2dpdC5rZXJuZWwu
+b3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dpdC90b3J2YWxkcy9saW51eC5naXQKICAgICAgICAg
+ICAgQ29tbWl0OiBkZDg5MjYyNWQwZTIgLSBNZXJnZSB0YWcgJ3N0YWdpbmctNS40LXJjNycgb2Yg
+Z2l0Oi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L2dyZWdraC9zdGFn
+aW5nCgpUaGUgcmVzdWx0cyBvZiB0aGVzZSBhdXRvbWF0ZWQgdGVzdHMgYXJlIHByb3ZpZGVkIGJl
+bG93LgoKICAgIE92ZXJhbGwgcmVzdWx0OiBGQUlMRUQgKHNlZSBkZXRhaWxzIGJlbG93KQogICAg
+ICAgICAgICAgTWVyZ2U6IE9LCiAgICAgICAgICAgQ29tcGlsZTogT0sKICAgICAgICAgICAgIFRl
+c3RzOiBGQUlMRUQKCkFsbCBrZXJuZWwgYmluYXJpZXMsIGNvbmZpZyBmaWxlcywgYW5kIGxvZ3Mg
+YXJlIGF2YWlsYWJsZSBmb3IgZG93bmxvYWQgaGVyZToKCiAgaHR0cHM6Ly9hcnRpZmFjdHMuY2tp
+LXByb2plY3Qub3JnL3BpcGVsaW5lcy8yNzc0ODcKCk9uZSBvciBtb3JlIGtlcm5lbCB0ZXN0cyBm
+YWlsZWQ6CgogICAgeDg2XzY0OgogICAgIOKdjCBzZWxpbnV4LXBvbGljeTogc2VyZ2UtdGVzdHN1
+aXRlCiAgICAg4p2MIExUUCBsaXRlCgpXZSBob3BlIHRoYXQgdGhlc2UgbG9ncyBjYW4gaGVscCB5
+b3UgZmluZCB0aGUgcHJvYmxlbSBxdWlja2x5LiBGb3IgdGhlIGZ1bGwKZGV0YWlsIG9uIG91ciB0
+ZXN0aW5nIHByb2NlZHVyZXMsIHBsZWFzZSBzY3JvbGwgdG8gdGhlIGJvdHRvbSBvZiB0aGlzIG1l
+c3NhZ2UuCgpQbGVhc2UgcmVwbHkgdG8gdGhpcyBlbWFpbCBpZiB5b3UgaGF2ZSBhbnkgcXVlc3Rp
+b25zIGFib3V0IHRoZSB0ZXN0cyB0aGF0IHdlCnJhbiBvciBpZiB5b3UgaGF2ZSBhbnkgc3VnZ2Vz
+dGlvbnMgb24gaG93IHRvIG1ha2UgZnV0dXJlIHRlc3RzIG1vcmUgZWZmZWN0aXZlLgoKICAgICAg
+ICAsLS4gICAsLS4KICAgICAgICggQyApICggSyApICBDb250aW51b3VzCiAgICAgICAgYC0nLC0u
+YC0nICAgS2VybmVsCiAgICAgICAgICAoIEkgKSAgICAgSW50ZWdyYXRpb24KICAgICAgICAgICBg
+LScKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCgpDb21waWxlIHRlc3RpbmcKLS0tLS0tLS0tLS0tLS0t
+CgpXZSBjb21waWxlZCB0aGUga2VybmVsIGZvciAxIGFyY2hpdGVjdHVyZToKCiAgICB4ODZfNjQ6
+CiAgICAgIG1ha2Ugb3B0aW9uczogLWozMCBJTlNUQUxMX01PRF9TVFJJUD0xIHRhcmd6LXBrZwoK
+CkhhcmR3YXJlIHRlc3RpbmcKLS0tLS0tLS0tLS0tLS0tLQpXZSBib290ZWQgZWFjaCBrZXJuZWwg
+YW5kIHJhbiB0aGUgZm9sbG93aW5nIHRlc3RzOgoKICB4ODZfNjQ6CiAgICBIb3N0IDE6CgogICAg
+ICAg4pqhIEludGVybmFsIGluZnJhc3RydWN0dXJlIGlzc3VlcyBwcmV2ZW50ZWQgb25lIG9yIG1v
+cmUgdGVzdHMgKG1hcmtlZAogICAgICAgd2l0aCDimqHimqHimqEpIGZyb20gcnVubmluZyBvbiB0
+aGlzIGFyY2hpdGVjdHVyZS4KICAgICAgIFRoaXMgaXMgbm90IHRoZSBmYXVsdCBvZiB0aGUga2Vy
+bmVsIHRoYXQgd2FzIHRlc3RlZC4KCiAgICAgICDinIUgQm9vdCB0ZXN0CiAgICAgICDinIUgeGZz
+dGVzdHM6IGV4dDQKICAgICAgIOKchSB4ZnN0ZXN0czogeGZzCiAgICAgICDinYwgc2VsaW51eC1w
+b2xpY3k6IHNlcmdlLXRlc3RzdWl0ZQogICAgICAg4pyFIGx2bSB0aGlucCBzYW5pdHkKICAgICAg
+IOKchSBzdG9yYWdlOiBzb2Z0d2FyZSBSQUlEIHRlc3RpbmcKICAgICAgIPCfmqcg4pyFIElPTU1V
+IGJvb3QgdGVzdAogICAgICAg8J+apyDimqHimqHimqEgU3RvcmFnZSBibGt0ZXN0cwoKICAgIEhv
+c3QgMjoKICAgICAgIOKchSBCb290IHRlc3QKICAgICAgIPCfmqcg4pyFIElQTUkgZHJpdmVyIHRl
+c3QKICAgICAgIPCfmqcg4pyFIElQTUl0b29sIGxvb3Agc3RyZXNzIHRlc3QKCiAgICBIb3N0IDM6
+CiAgICAgICDinIUgQm9vdCB0ZXN0CiAgICAgICDinIUgUG9kbWFuIHN5c3RlbSBpbnRlZ3JhdGlv
+biB0ZXN0IChhcyByb290KQogICAgICAg4pyFIFBvZG1hbiBzeXN0ZW0gaW50ZWdyYXRpb24gdGVz
+dCAoYXMgdXNlcikKICAgICAgIOKdjCBMVFAgbGl0ZQogICAgICAg4pyFIExvb3BkZXYgU2FuaXR5
+CiAgICAgICDinIUganZtIHRlc3Qgc3VpdGUKICAgICAgIOKchSBNZW1vcnkgZnVuY3Rpb246IG1l
+bWZkX2NyZWF0ZQogICAgICAg4pyFIE1lbW9yeSBmdW5jdGlvbjoga2FzbHIKICAgICAgIOKchSBB
+TVRVIChBYnN0cmFjdCBNYWNoaW5lIFRlc3QgVXRpbGl0eSkKICAgICAgIOKchSBMVFA6IG9wZW5w
+b3NpeCB0ZXN0IHN1aXRlCiAgICAgICDinIUgTmV0d29ya2luZyBicmlkZ2U6IHNhbml0eQogICAg
+ICAg4pyFIEV0aGVybmV0IGRyaXZlcnMgc2FuaXR5CiAgICAgICDinIUgTmV0d29ya2luZyBNQUNz
+ZWM6IHNhbml0eQogICAgICAg4pyFIE5ldHdvcmtpbmcgc29ja2V0OiBmdXp6CiAgICAgICDinIUg
+TmV0d29ya2luZyBzY3RwLWF1dGg6IHNvY2tvcHRzIHRlc3QKICAgICAgIOKchSBOZXR3b3JraW5n
+OiBpZ21wIGNvbmZvcm1hbmNlIHRlc3QKICAgICAgIOKchSBOZXR3b3JraW5nIHJvdXRlOiBwbXR1
+CiAgICAgICDinIUgTmV0d29ya2luZyByb3V0ZV9mdW5jOiBsb2NhbAogICAgICAg4pyFIE5ldHdv
+cmtpbmcgcm91dGVfZnVuYzogZm9yd2FyZAogICAgICAg4pyFIE5ldHdvcmtpbmcgVENQOiBrZWVw
+YWxpdmUgdGVzdAogICAgICAg4pyFIE5ldHdvcmtpbmcgVURQOiBzb2NrZXQKICAgICAgIOKchSBO
+ZXR3b3JraW5nIHR1bm5lbDogZ2VuZXZlIGJhc2ljIHRlc3QKICAgICAgIOKchSBOZXR3b3JraW5n
+IHR1bm5lbDogZ3JlIGJhc2ljCiAgICAgICDinIUgTDJUUCBiYXNpYyB0ZXN0CiAgICAgICDinIUg
+TmV0d29ya2luZyB0dW5uZWw6IHZ4bGFuIGJhc2ljCiAgICAgICDinIUgTmV0d29ya2luZyBpcHNl
+YzogYmFzaWMgbmV0bnMgdHJhbnNwb3J0CiAgICAgICDinIUgTmV0d29ya2luZyBpcHNlYzogYmFz
+aWMgbmV0bnMgdHVubmVsCiAgICAgICDinIUgYXVkaXQ6IGF1ZGl0IHRlc3RzdWl0ZSB0ZXN0CiAg
+ICAgICDinIUgaHR0cGQ6IG1vZF9zc2wgc21va2Ugc2FuaXR5CiAgICAgICDinIUgaW90b3A6IHNh
+bml0eQogICAgICAg4pyFIHR1bmVkOiB0dW5lLXByb2Nlc3Nlcy10aHJvdWdoLXBlcmYKICAgICAg
+IOKchSBwY2l1dGlsczogc2FuaXR5IHNtb2tlIHRlc3QKICAgICAgIOKchSBBTFNBIFBDTSBsb29w
+YmFjayB0ZXN0CiAgICAgICDinIUgQUxTQSBDb250cm9sIChtaXhlcikgVXNlcnNwYWNlIEVsZW1l
+bnQgdGVzdAogICAgICAg4pyFIFVzZXggLSB2ZXJzaW9uIDEuOS0yOQogICAgICAg4pyFIHN0b3Jh
+Z2U6IFNDU0kgVlBECiAgICAgICDinIUgc3RyZXNzOiBzdHJlc3MtbmcKICAgICAgIOKchSB0cmFj
+ZTogZnRyYWNlL3RyYWNlcgogICAgICAg8J+apyDinIUgQ0lGUyBDb25uZWN0YXRob24KICAgICAg
+IPCfmqcg4pyFIFBPU0lYIHBqZC1mc3Rlc3Qgc3VpdGVzCiAgICAgICDwn5qnIOKchSBOZXR3b3Jr
+aW5nIHZuaWM6IGlwdmxhbi9iYXNpYwogICAgICAg8J+apyDinIUgc3RvcmFnZTogZG0vY29tbW9u
+CgogIFRlc3Qgc291cmNlczogaHR0cHM6Ly9naXRodWIuY29tL0NLSS1wcm9qZWN0L3Rlc3RzLWJl
+YWtlcgogICAg8J+SmiBQdWxsIHJlcXVlc3RzIGFyZSB3ZWxjb21lIGZvciBuZXcgdGVzdHMgb3Ig
+aW1wcm92ZW1lbnRzIHRvIGV4aXN0aW5nIHRlc3RzIQoKV2FpdmVkIHRlc3RzCi0tLS0tLS0tLS0t
+LQpJZiB0aGUgdGVzdCBydW4gaW5jbHVkZWQgd2FpdmVkIHRlc3RzLCB0aGV5IGFyZSBtYXJrZWQg
+d2l0aCDwn5qnLiBTdWNoIHRlc3RzIGFyZQpleGVjdXRlZCBidXQgdGhlaXIgcmVzdWx0cyBhcmUg
+bm90IHRha2VuIGludG8gYWNjb3VudC4gVGVzdHMgYXJlIHdhaXZlZCB3aGVuCnRoZWlyIHJlc3Vs
+dHMgYXJlIG5vdCByZWxpYWJsZSBlbm91Z2gsIGUuZy4gd2hlbiB0aGV5J3JlIGp1c3QgaW50cm9k
+dWNlZCBvciBhcmUKYmVpbmcgZml4ZWQuCgpUZXN0aW5nIHRpbWVvdXQKLS0tLS0tLS0tLS0tLS0t
+CldlIGFpbSB0byBwcm92aWRlIGEgcmVwb3J0IHdpdGhpbiByZWFzb25hYmxlIHRpbWVmcmFtZS4g
+VGVzdHMgdGhhdCBoYXZlbid0CmZpbmlzaGVkIHJ1bm5pbmcgYXJlIG1hcmtlZCB3aXRoIOKPsS4g
+UmVwb3J0cyBmb3Igbm9uLXVwc3RyZWFtIGtlcm5lbHMgaGF2ZQphIEJlYWtlciByZWNpcGUgbGlu
+a2VkIHRvIG5leHQgdG8gZWFjaCBob3N0LgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6
+Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
