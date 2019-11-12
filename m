@@ -2,41 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0A7DF90A6
-	for <lists+linux-ltp@lfdr.de>; Tue, 12 Nov 2019 14:30:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 958BAF9140
+	for <lists+linux-ltp@lfdr.de>; Tue, 12 Nov 2019 15:00:32 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 49ACF3C2642
-	for <lists+linux-ltp@lfdr.de>; Tue, 12 Nov 2019 14:30:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 117F63C264C
+	for <lists+linux-ltp@lfdr.de>; Tue, 12 Nov 2019 15:00:32 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id F262A3C2635
- for <ltp@lists.linux.it>; Tue, 12 Nov 2019 14:30:21 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTP id 4F9183C25F2
+ for <ltp@lists.linux.it>; Tue, 12 Nov 2019 15:00:27 +0100 (CET)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 10FAD1001957
- for <ltp@lists.linux.it>; Tue, 12 Nov 2019 14:30:20 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 80BDE1001897
+ for <ltp@lists.linux.it>; Tue, 12 Nov 2019 15:00:26 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 398DBB28F;
- Tue, 12 Nov 2019 13:30:20 +0000 (UTC)
-Date: Tue, 12 Nov 2019 14:30:18 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Jan Stancek <jstancek@redhat.com>
-Message-ID: <20191112133018.GA11433@dell5510>
-References: <95d94fede00533a07fc604de3252636b094fc8f8.1573550061.git.jstancek@redhat.com>
- <20191112123744.GA760@dell5510>
- <1574856631.11670519.1573563157342.JavaMail.zimbra@redhat.com>
+ by mx1.suse.de (Postfix) with ESMTP id B1DEBB4B1;
+ Tue, 12 Nov 2019 14:00:25 +0000 (UTC)
+References: <20191107153458.16917-1-rpalethorpe@suse.com>
+ <20191107153458.16917-2-rpalethorpe@suse.com>
+ <CACT4Y+aYVH=e+ZJhF2b-b92dkJZwjnPP4keup509twcQqK+wMg@mail.gmail.com>
+ <CAEemH2eVR4U8dHR6anmirX_X5Y3hXKgL4cHxekeVXH_wSHnnpA@mail.gmail.com>
+User-agent: mu4e 1.2.0; emacs 26.3
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Li Wang <liwang@redhat.com>
+In-reply-to: <CAEemH2eVR4U8dHR6anmirX_X5Y3hXKgL4cHxekeVXH_wSHnnpA@mail.gmail.com>
+Date: Tue, 12 Nov 2019 15:00:25 +0100
+Message-ID: <87ftitdwjq.fsf@rpws.prws.suse.cz>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1574856631.11670519.1573563157342.JavaMail.zimbra@redhat.com>
-User-Agent: Mutt/1.11.3 (2019-02-01)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] acct02: relax ac_btime checks
+Subject: Re: [LTP] [PATCH 1/2] Wrapper for Syzkaller reproducers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,172 +48,51 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Reply-To: rpalethorpe@suse.de
+Cc: Dmitry Vyukov <dvyukov@google.com>, syzkaller <syzkaller@googlegroups.com>,
+ LTP List <ltp@lists.linux.it>, Richard Palethorpe <rpalethorpe@suse.com>,
+ automated-testing@yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Jan,
+Hello,
 
-> > > ac_btime is calculated back from current time and isn't accurate.
-> > > Problems include nanoseconds accumulation (lags behind gettimeofday),
-> > > suspend/resume isn't taken into account and any adjtime() (like DST
-> > > change) will cause ac_btime to jump as well.
+Li Wang <liwang@redhat.com> writes:
 
-> > > Relax the condition to ~2h around gettimeofday value at start of
-> > > the test. That should be enough to cover usual DST time jumps.
+>
+>
+> Just to try build it in LTP and hit errors:
+>
+> # cd ltp-new/
+> # make autotools
+> # ./configure --with-syzkaller-repros
+> # make -j32
+> ...
+> error: pathspec '/root/ltp-new/testcases/linux-arts' did not match any
+> file(s) known to git
+> make[3]: *** [/root/ltp-new/testcases/kernel/syzkaller-repros/Makefile:26:
+> /root/ltp-new/testcases/linux-arts/syzkaller-repros/linux] Error 1
+> make[3]: Leaving directory '/root/ltp-new/testcases/kernel/syzkaller-repros'
+> make[2]: *** [../../include/mk/generic_trunk_target.inc:93: all] Error 2
+> make[2]: Leaving directory '/root/ltp-new/testcases/kernel'
+> make[1]: *** [../include/mk/generic_trunk_target.inc:93: all] Error 2
+> make[1]: Leaving directory '/root/ltp-new/testcases'
+> make: *** [Makefile:108: testcases-all] Error 2
+>
+>
 
-> > > Signed-off-by: Jan Stancek <jstancek@redhat.com>
-> > Reviewed-by: Petr Vorel <pvorel@suse.cz>
-> > Tested-by: Petr Vorel <pvorel@suse.cz>
-> > on both 390x and intel.
+What happens if you try to pull the git submodule manually?
 
-> > LGTM, although on in intel I got quite a lot of entries:
+i.e. do git submodule update --init testcases/linux-arts
 
-> > acct02.c:202: INFO: Number of accounting file entries tested: 159
+It looks like it failed on the line where it gets the submodule, so I am
+wondering if you have an old git version?
 
-> That could be normal if there was something running in the background.
-> Do you have full output? What was the ac_comm string in those entries?
-
-OK, this is caused only by compiling LTP on background.
-Thus not relevant to us.
-
-Just if you're curious, sending part of output with 530 entries.
-
-Kind regards,
-Petr
-
-tst_kconfig.c:62: INFO: Parsing kernel config '/proc/config.gz'
-tst_test.c:1215: INFO: Timeout per run is 0h 05m 00s
-tst_kconfig.c:62: INFO: Parsing kernel config '/proc/config.gz'
-acct02.c:238: INFO: Verifying using 'struct acct_v3'
-acct02.c:191: INFO: == entry 1 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('cc1')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (256)
-acct02.c:139: INFO: ac_ppid != 755 (760)
-acct02.c:191: INFO: == entry 2 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('gcc')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (256)
-acct02.c:139: INFO: ac_ppid != 755 (759)
-acct02.c:191: INFO: == entry 3 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('configure')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (256)
-acct02.c:139: INFO: ac_ppid != 755 (393)
-acct02.c:191: INFO: == entry 4 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('grep')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (0)
-acct02.c:139: INFO: ac_ppid != 755 (393)
-acct02.c:191: INFO: == entry 5 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('cat')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (0)
-acct02.c:139: INFO: ac_ppid != 755 (393)
-acct02.c:191: INFO: == entry 6 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('mv')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (0)
-acct02.c:139: INFO: ac_ppid != 755 (393)
-acct02.c:191: INFO: == entry 7 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('sed')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (0)
-acct02.c:139: INFO: ac_ppid != 755 (393)
-acct02.c:191: INFO: == entry 8 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('rm')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (0)
-acct02.c:139: INFO: ac_ppid != 755 (393)
-acct02.c:191: INFO: == entry 9 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('grep')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (0)
-acct02.c:139: INFO: ac_ppid != 755 (768)
-acct02.c:191: INFO: == entry 10 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('configure')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (0)
-acct02.c:139: INFO: ac_ppid != 755 (393)
-acct02.c:191: INFO: == entry 11 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('configure')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (0)
-acct02.c:139: INFO: ac_ppid != 755 (393)
-
-...
-acct02.c:191: INFO: == entry 522 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('configure')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (0)
-acct02.c:139: INFO: ac_ppid != 755 (1285)
-acct02.c:191: INFO: == entry 523 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('cat')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (0)
-acct02.c:139: INFO: ac_ppid != 755 (393)
-acct02.c:191: INFO: == entry 524 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('configure')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (0)
-acct02.c:139: INFO: ac_ppid != 755 (1290)
-acct02.c:191: INFO: == entry 525 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('sed')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (0)
-acct02.c:139: INFO: ac_ppid != 755 (1292)
-acct02.c:191: INFO: == entry 526 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('configure')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (0)
-acct02.c:139: INFO: ac_ppid != 755 (1290)
-acct02.c:191: INFO: == entry 527 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('configure')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (0)
-acct02.c:139: INFO: ac_ppid != 755 (393)
-acct02.c:191: INFO: == entry 528 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('cat')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (0)
-acct02.c:139: INFO: ac_ppid != 755 (393)
-acct02.c:191: INFO: == entry 529 ==
-acct02.c:82: INFO: ac_comm != 'acct02_helper' ('rm')
-acct02.c:98: INFO: ac_uid != 0 (1000)
-acct02.c:104: INFO: ac_gid != 0 (100)
-acct02.c:131: INFO: ac_exitcode != 32768 (0)
-acct02.c:139: INFO: ac_ppid != 755 (393)
-acct02.c:191: INFO: == entry 530 ==
-acct02.c:202: INFO: Number of accounting file entries tested: 530
-acct02.c:208: PASS: acct() wrote correct file contents!
-
-Summary:
-passed   1
-failed   0
-skipped  0
-warnings 0
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
