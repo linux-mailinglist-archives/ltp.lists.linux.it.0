@@ -1,61 +1,56 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37382FB919
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Nov 2019 20:47:49 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8110DFB941
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Nov 2019 20:58:56 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C7CBD3C20B6
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Nov 2019 20:47:48 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3C51E3C22A3
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Nov 2019 20:58:56 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id E438B3C17A1
- for <ltp@lists.linux.it>; Wed, 13 Nov 2019 20:47:45 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id DDEF31A010F3
- for <ltp@lists.linux.it>; Wed, 13 Nov 2019 20:47:44 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 07AE93C2022
+ for <ltp@lists.linux.it>; Wed, 13 Nov 2019 20:58:55 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 46CA31A0116B
+ for <ltp@lists.linux.it>; Wed, 13 Nov 2019 20:58:53 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1573674463;
+ s=mimecast20190719; t=1573675132;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ to:to:cc:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding;
- bh=wUTveo4ebU8B65XzvCuPIiGcfBl/ITbnEaM1X0w9dv8=;
- b=D2rMKrkrTPVMg5vFgqU8QTv6O/UiF1tUFbACt/CJ12d59g/RQeC0tFRl9HbHhUQV8eRVpH
- Wkjn86fUoXjkhPi5Rpv8UnJvvNYH5yt61HaLLP3bwMlgzvRT9C0mxKGgCF4XxD/LD5TV7C
- 5FH6InpPbTVv3bv6HX1YQESlas9eViw=
+ bh=cis1gt23Rc0JrJEyXXrkRn1EJZNnD1PrEYKSnAd17Io=;
+ b=Jrz9HKN52RgkpAmo/acaiD+eWWXIHM5vUICAkWHPlMn6S0dQONQ6j0yIA7i+s1iOfRk7zE
+ dclYvdOQq0rmTzQ1W1SPWOAlr6jvDCM3bJi2dQSC9LTEMNgbuftswSqc2l9h3u35rdSDeD
+ C7P5GP+5pSrKgp1jV/ynVZPeGfpdy7g=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-413-ytI2K212PwGKs5uYHQPrVA-1; Wed, 13 Nov 2019 14:47:41 -0500
+ us-mta-238-hkiw3-zoNNun7JIe0lBeUQ-1; Wed, 13 Nov 2019 14:58:51 -0500
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
  [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 585918F00D9
- for <ltp@lists.linux.it>; Wed, 13 Nov 2019 19:47:40 +0000 (UTC)
-Received: from [172.54.68.183] (cpt-1032.paas.prod.upshift.rdu2.redhat.com
- [10.0.19.55])
- by smtp.corp.redhat.com (Postfix) with ESMTP id CD74E808E6;
- Wed, 13 Nov 2019 19:47:32 +0000 (UTC)
-MIME-Version: 1.0
-From: CKI Project <cki-project@redhat.com>
-To: skt-results-master@redhat.com, labbott@redhat.com, jforbes@redhat.com,
- jcline@redhat.com
-Date: Wed, 13 Nov 2019 19:47:31 -0000
-Message-ID: <cki.0.8DBA9TRM0T@redhat.com>
-X-Gitlab-Pipeline-ID: 282059
-X-Gitlab-Url: https://xci32.lab.eng.rdu2.redhat.com
-X-Gitlab-Path: /cki-project/brew-pipeline/pipelines/282059
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 69CB218B5F72
+ for <ltp@lists.linux.it>; Wed, 13 Nov 2019 19:58:50 +0000 (UTC)
+Received: from dustball.usersys.redhat.com (unknown [10.43.17.163])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id E4EB881766
+ for <ltp@lists.linux.it>; Wed, 13 Nov 2019 19:58:49 +0000 (UTC)
+From: Jan Stancek <jstancek@redhat.com>
+To: ltp@lists.linux.it
+Date: Wed, 13 Nov 2019 20:58:38 +0100
+Message-Id: <51aabb2e4680d830b5ba7b7623e0c7697bcb6338.1573675056.git.jstancek@redhat.com>
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-MC-Unique: ytI2K212PwGKs5uYHQPrVA-1
+X-MC-Unique: hkiw3-zoNNun7JIe0lBeUQ-1
 X-Mimecast-Spam-Score: 0
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E3?=
- =?utf-8?q?=2E11-200=2Efc30_=28fedora-30=29?=
+Subject: [LTP] [PATCH] mbind04: terminate child processes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,134 +62,59 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Memory Management <mm-qe@redhat.com>,
- William Gomeringer <wgomeringer@redhat.com>,
- LTP Mailing List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGVsbG8gamZvcmJlcywKCldlIHJhbiBhdXRvbWF0ZWQgdGVzdHMgb24gYSBrZXJuZWwgYnVpbGQg
-dGhhdCB5b3Ugc2VudCB0byBLb2ppOgoKICAgIEtlcm5lbCBwYWNrYWdlOiBrZXJuZWwtNS4zLjEx
-LTIwMC5mYzMwCiAgICAgICAgIEtvamkgdGFzazogaHR0cHM6Ly9rb2ppLmZlZG9yYXByb2plY3Qu
-b3JnL2tvamkvdGFza2luZm8/dGFza0lEPTM4OTQ4NzM1CgpUaGUgcmVzdWx0cyBvZiB0aGVzZSBh
-dXRvbWF0ZWQgdGVzdHMgYXJlIHByb3ZpZGVkIGJlbG93LgoKICAgIE92ZXJhbGwgcmVzdWx0OiBG
-QUlMRUQgKHNlZSBkZXRhaWxzIGJlbG93KQogICAgICAgICAgICAgVGVzdHM6IEZBSUxFRAoKT25l
-IG9yIG1vcmUga2VybmVsIHRlc3RzIGZhaWxlZDoKCiAgICBwcGM2NGxlOgogICAgIOKdjCB4ZnN0
-ZXN0czogZXh0NAogICAgIOKdjCBMVFAgbGl0ZQoKICAgIHg4Nl82NDoKICAgICDinYwgTWVtb3J5
-IGZ1bmN0aW9uOiBrYXNscgoKCiAgICBQaXBlbGluZTogaHR0cHM6Ly94Y2kzMi5sYWIuZW5nLnJk
-dTIucmVkaGF0LmNvbS9ja2ktcHJvamVjdC9icmV3LXBpcGVsaW5lL3BpcGVsaW5lcy8yODIwNTkK
-CldlIGhvcGUgdGhhdCB0aGVzZSBsb2dzIGNhbiBoZWxwIHlvdSBmaW5kIHRoZSBwcm9ibGVtIHF1
-aWNrbHkuIEZvciB0aGUgZnVsbApkZXRhaWwgb24gb3VyIHRlc3RpbmcgcHJvY2VkdXJlcywgcGxl
-YXNlIHNjcm9sbCB0byB0aGUgYm90dG9tIG9mIHRoaXMgbWVzc2FnZS4KClBsZWFzZSByZXBseSB0
-byB0aGlzIGVtYWlsIGlmIHlvdSBoYXZlIGFueSBxdWVzdGlvbnMgYWJvdXQgdGhlIHRlc3RzIHRo
-YXQgd2UKcmFuIG9yIGlmIHlvdSBoYXZlIGFueSBzdWdnZXN0aW9ucyBvbiBob3cgdG8gbWFrZSBm
-dXR1cmUgdGVzdHMgbW9yZSBlZmZlY3RpdmUuCgogICAgICAgICwtLiAgICwtLgogICAgICAgKCBD
-ICkgKCBLICkgIENvbnRpbnVvdXMKICAgICAgICBgLScsLS5gLScgICBLZXJuZWwKICAgICAgICAg
-ICggSSApICAgICBJbnRlZ3JhdGlvbgogICAgICAgICAgIGAtJwpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KCkhhcmR3YXJlIHRlc3RpbmcKLS0tLS0tLS0tLS0tLS0tLQpBbGwgdGhlIHRlc3Rpbmcgam9i
-cyBhcmUgbGlzdGVkIGhlcmU6CgogIGh0dHBzOi8vYmVha2VyLmVuZ2luZWVyaW5nLnJlZGhhdC5j
-b20vam9icy8/am9ic2VhcmNoLTAudGFibGU9V2hpdGVib2FyZCZqb2JzZWFyY2gtMC5vcGVyYXRp
-b249Y29udGFpbnMmam9ic2VhcmNoLTAudmFsdWU9Y2tpJTQwZ2l0bGFiJTNBMjgyMDU5CgpXZSBi
-b290ZWQgZWFjaCBrZXJuZWwgYW5kIHJhbiB0aGUgZm9sbG93aW5nIHRlc3RzOgoKICBhYXJjaDY0
-OgogICAgSG9zdCAxOiBodHRwczovL2JlYWtlci5lbmdpbmVlcmluZy5yZWRoYXQuY29tL3JlY2lw
-ZXMvNzU2MzQ4MwogICAgICAg4pyFIEJvb3QgdGVzdAogICAgICAg4pyFIHhmc3Rlc3RzOiBleHQ0
-CiAgICAgICDinIUgeGZzdGVzdHM6IHhmcwogICAgICAg4pyFIGx2bSB0aGlucCBzYW5pdHkKICAg
-ICAgIOKchSBzdG9yYWdlOiBzb2Z0d2FyZSBSQUlEIHRlc3RpbmcKICAgICAgIPCfmqcg4pyFIFN0
-b3JhZ2UgYmxrdGVzdHMKCiAgICBIb3N0IDI6IGh0dHBzOi8vYmVha2VyLmVuZ2luZWVyaW5nLnJl
-ZGhhdC5jb20vcmVjaXBlcy83NTY2NTQ2CiAgICAgICDinIUgQm9vdCB0ZXN0CiAgICAgICDinIUg
-TFRQIGxpdGUKICAgICAgIOKchSBMb29wZGV2IFNhbml0eQogICAgICAg4pyFIE1lbW9yeSBmdW5j
-dGlvbjogbWVtZmRfY3JlYXRlCiAgICAgICDinIUgTWVtb3J5IGZ1bmN0aW9uOiBrYXNscgogICAg
-ICAg4pyFIEFNVFUgKEFic3RyYWN0IE1hY2hpbmUgVGVzdCBVdGlsaXR5KQogICAgICAg4pyFIExU
-UDogb3BlbnBvc2l4IHRlc3Qgc3VpdGUKICAgICAgIOKchSBOZXR3b3JraW5nIGJyaWRnZTogc2Fu
-aXR5CiAgICAgICDinIUgRXRoZXJuZXQgZHJpdmVycyBzYW5pdHkKICAgICAgIOKchSBOZXR3b3Jr
-aW5nIE1BQ3NlYzogc2FuaXR5CiAgICAgICDinIUgTmV0d29ya2luZyBzb2NrZXQ6IGZ1enoKICAg
-ICAgIOKchSBOZXR3b3JraW5nIHNjdHAtYXV0aDogc29ja29wdHMgdGVzdAogICAgICAg4pyFIE5l
-dHdvcmtpbmc6IGlnbXAgY29uZm9ybWFuY2UgdGVzdAogICAgICAg4pyFIE5ldHdvcmtpbmcgcm91
-dGU6IHBtdHUKICAgICAgIOKchSBOZXR3b3JraW5nIHJvdXRlX2Z1bmM6IGxvY2FsCiAgICAgICDi
-nIUgTmV0d29ya2luZyByb3V0ZV9mdW5jOiBmb3J3YXJkCiAgICAgICDinIUgTmV0d29ya2luZyBU
-Q1A6IGtlZXBhbGl2ZSB0ZXN0CiAgICAgICDinIUgTmV0d29ya2luZyBVRFA6IHNvY2tldAogICAg
-ICAg4pyFIE5ldHdvcmtpbmcgdHVubmVsOiBnZW5ldmUgYmFzaWMgdGVzdAogICAgICAg4pyFIE5l
-dHdvcmtpbmcgdHVubmVsOiBncmUgYmFzaWMKICAgICAgIOKchSBMMlRQIGJhc2ljIHRlc3QKICAg
-ICAgIOKchSBOZXR3b3JraW5nIHR1bm5lbDogdnhsYW4gYmFzaWMKICAgICAgIOKchSBOZXR3b3Jr
-aW5nIGlwc2VjOiBiYXNpYyBuZXRucyB0cmFuc3BvcnQKICAgICAgIOKchSBOZXR3b3JraW5nIGlw
-c2VjOiBiYXNpYyBuZXRucyB0dW5uZWwKICAgICAgIOKchSBBTFNBIFBDTSBsb29wYmFjayB0ZXN0
-CiAgICAgICDinIUgQUxTQSBDb250cm9sIChtaXhlcikgVXNlcnNwYWNlIEVsZW1lbnQgdGVzdAog
-ICAgICAg4pyFIFVzZXggLSB2ZXJzaW9uIDEuOS0yOQogICAgICAg4pyFIHN0b3JhZ2U6IFNDU0kg
-VlBECiAgICAgICDinIUgdHJhY2U6IGZ0cmFjZS90cmFjZXIKICAgICAgIPCfmqcg4pyFIENJRlMg
-Q29ubmVjdGF0aG9uCiAgICAgICDwn5qnIOKchSBQT1NJWCBwamQtZnN0ZXN0IHN1aXRlcwogICAg
-ICAg8J+apyDinIUgTmV0d29ya2luZyB2bmljOiBpcHZsYW4vYmFzaWMKICAgICAgIPCfmqcg4pyF
-IHN0b3JhZ2U6IGRtL2NvbW1vbgoKICBwcGM2NGxlOgogICAgSG9zdCAxOiBodHRwczovL2JlYWtl
-ci5lbmdpbmVlcmluZy5yZWRoYXQuY29tL3JlY2lwZXMvNzU2MzQ4NQogICAgICAg4pyFIEJvb3Qg
-dGVzdAogICAgICAg4p2MIHhmc3Rlc3RzOiBleHQ0CiAgICAgICDinIUgeGZzdGVzdHM6IHhmcwog
-ICAgICAg4pyFIGx2bSB0aGlucCBzYW5pdHkKICAgICAgIOKchSBzdG9yYWdlOiBzb2Z0d2FyZSBS
-QUlEIHRlc3RpbmcKICAgICAgIPCfmqcg4pyFIFN0b3JhZ2UgYmxrdGVzdHMKCiAgICBIb3N0IDI6
-IGh0dHBzOi8vYmVha2VyLmVuZ2luZWVyaW5nLnJlZGhhdC5jb20vcmVjaXBlcy83NTYzNDg0Cgog
-ICAgICAg4pqhIEludGVybmFsIGluZnJhc3RydWN0dXJlIGlzc3VlcyBwcmV2ZW50ZWQgb25lIG9y
-IG1vcmUgdGVzdHMgKG1hcmtlZAogICAgICAgd2l0aCDimqHimqHimqEpIGZyb20gcnVubmluZyBv
-biB0aGlzIGFyY2hpdGVjdHVyZS4KICAgICAgIFRoaXMgaXMgbm90IHRoZSBmYXVsdCBvZiB0aGUg
-a2VybmVsIHRoYXQgd2FzIHRlc3RlZC4KCiAgICAgICDinIUgQm9vdCB0ZXN0CiAgICAgICDinYwg
-TFRQIGxpdGUKICAgICAgIOKchSBMb29wZGV2IFNhbml0eQogICAgICAg4pyFIE1lbW9yeSBmdW5j
-dGlvbjogbWVtZmRfY3JlYXRlCiAgICAgICDinIUgTWVtb3J5IGZ1bmN0aW9uOiBrYXNscgogICAg
-ICAg4pyFIEFNVFUgKEFic3RyYWN0IE1hY2hpbmUgVGVzdCBVdGlsaXR5KQogICAgICAg4pyFIExU
-UDogb3BlbnBvc2l4IHRlc3Qgc3VpdGUKICAgICAgIOKchSBOZXR3b3JraW5nIGJyaWRnZTogc2Fu
-aXR5CiAgICAgICDinIUgRXRoZXJuZXQgZHJpdmVycyBzYW5pdHkKICAgICAgIOKchSBOZXR3b3Jr
-aW5nIE1BQ3NlYzogc2FuaXR5CiAgICAgICDinIUgTmV0d29ya2luZyBzb2NrZXQ6IGZ1enoKICAg
-ICAgIOKchSBOZXR3b3JraW5nIHNjdHAtYXV0aDogc29ja29wdHMgdGVzdAogICAgICAg4pyFIE5l
-dHdvcmtpbmcgcm91dGU6IHBtdHUKICAgICAgIOKchSBOZXR3b3JraW5nIHJvdXRlX2Z1bmM6IGxv
-Y2FsCiAgICAgICDinIUgTmV0d29ya2luZyByb3V0ZV9mdW5jOiBmb3J3YXJkCiAgICAgICDinIUg
-TmV0d29ya2luZyBUQ1A6IGtlZXBhbGl2ZSB0ZXN0CiAgICAgICDinIUgTmV0d29ya2luZyBVRFA6
-IHNvY2tldAogICAgICAg4pyFIE5ldHdvcmtpbmcgdHVubmVsOiBnZW5ldmUgYmFzaWMgdGVzdAog
-ICAgICAg4pyFIE5ldHdvcmtpbmcgdHVubmVsOiBncmUgYmFzaWMKICAgICAgIOKchSBMMlRQIGJh
-c2ljIHRlc3QKICAgICAgIOKchSBOZXR3b3JraW5nIHR1bm5lbDogdnhsYW4gYmFzaWMKICAgICAg
-IOKchSBOZXR3b3JraW5nIGlwc2VjOiBiYXNpYyBuZXRucyB0dW5uZWwKICAgICAgIOKchSBBTFNB
-IFBDTSBsb29wYmFjayB0ZXN0CiAgICAgICDinIUgQUxTQSBDb250cm9sIChtaXhlcikgVXNlcnNw
-YWNlIEVsZW1lbnQgdGVzdAogICAgICAg4pyFIFVzZXggLSB2ZXJzaW9uIDEuOS0yOQogICAgICAg
-4pyFIHRyYWNlOiBmdHJhY2UvdHJhY2VyCiAgICAgICDwn5qnIOKchSBDSUZTIENvbm5lY3RhdGhv
-bgogICAgICAg8J+apyDimqHimqHimqEgUE9TSVggcGpkLWZzdGVzdCBzdWl0ZXMKICAgICAgIPCf
-mqcg4pyFIE5ldHdvcmtpbmcgdm5pYzogaXB2bGFuL2Jhc2ljCiAgICAgICDwn5qnIOKchSBzdG9y
-YWdlOiBkbS9jb21tb24KCiAgeDg2XzY0OgogICAgSG9zdCAxOiBodHRwczovL2JlYWtlci5lbmdp
-bmVlcmluZy5yZWRoYXQuY29tL3JlY2lwZXMvNzU2MzQ4MQogICAgICAg4pyFIEJvb3QgdGVzdAog
-ICAgICAg4pyFIHhmc3Rlc3RzOiBleHQ0CiAgICAgICDinIUgeGZzdGVzdHM6IHhmcwogICAgICAg
-4pyFIGx2bSB0aGlucCBzYW5pdHkKICAgICAgIOKchSBzdG9yYWdlOiBzb2Z0d2FyZSBSQUlEIHRl
-c3RpbmcKICAgICAgIPCfmqcg4p2MIElPTU1VIGJvb3QgdGVzdAogICAgICAg8J+apyDinIUgU3Rv
-cmFnZSBibGt0ZXN0cwoKICAgIEhvc3QgMjogaHR0cHM6Ly9iZWFrZXIuZW5naW5lZXJpbmcucmVk
-aGF0LmNvbS9yZWNpcGVzLzc1NjM0ODAKICAgICAgIOKchSBCb290IHRlc3QKICAgICAgIOKchSBM
-VFAgbGl0ZQogICAgICAg4pyFIExvb3BkZXYgU2FuaXR5CiAgICAgICDinIUgTWVtb3J5IGZ1bmN0
-aW9uOiBtZW1mZF9jcmVhdGUKICAgICAgIOKdjCBNZW1vcnkgZnVuY3Rpb246IGthc2xyCiAgICAg
-ICDinIUgQU1UVSAoQWJzdHJhY3QgTWFjaGluZSBUZXN0IFV0aWxpdHkpCiAgICAgICDinIUgTFRQ
-OiBvcGVucG9zaXggdGVzdCBzdWl0ZQogICAgICAg4pyFIE5ldHdvcmtpbmcgYnJpZGdlOiBzYW5p
-dHkKICAgICAgIOKchSBFdGhlcm5ldCBkcml2ZXJzIHNhbml0eQogICAgICAg4pyFIE5ldHdvcmtp
-bmcgTUFDc2VjOiBzYW5pdHkKICAgICAgIOKchSBOZXR3b3JraW5nIHNvY2tldDogZnV6egogICAg
-ICAg4pyFIE5ldHdvcmtpbmcgc2N0cC1hdXRoOiBzb2Nrb3B0cyB0ZXN0CiAgICAgICDinIUgTmV0
-d29ya2luZzogaWdtcCBjb25mb3JtYW5jZSB0ZXN0CiAgICAgICDinIUgTmV0d29ya2luZyByb3V0
-ZTogcG10dQogICAgICAg4pyFIE5ldHdvcmtpbmcgcm91dGVfZnVuYzogbG9jYWwKICAgICAgIOKc
-hSBOZXR3b3JraW5nIHJvdXRlX2Z1bmM6IGZvcndhcmQKICAgICAgIOKchSBOZXR3b3JraW5nIFRD
-UDoga2VlcGFsaXZlIHRlc3QKICAgICAgIOKchSBOZXR3b3JraW5nIFVEUDogc29ja2V0CiAgICAg
-ICDinIUgTmV0d29ya2luZyB0dW5uZWw6IGdlbmV2ZSBiYXNpYyB0ZXN0CiAgICAgICDinIUgTmV0
-d29ya2luZyB0dW5uZWw6IGdyZSBiYXNpYwogICAgICAg4pyFIEwyVFAgYmFzaWMgdGVzdAogICAg
-ICAg4pyFIE5ldHdvcmtpbmcgdHVubmVsOiB2eGxhbiBiYXNpYwogICAgICAg4pyFIE5ldHdvcmtp
-bmcgaXBzZWM6IGJhc2ljIG5ldG5zIHRyYW5zcG9ydAogICAgICAg4pyFIE5ldHdvcmtpbmcgaXBz
-ZWM6IGJhc2ljIG5ldG5zIHR1bm5lbAogICAgICAg4pyFIHBjaXV0aWxzOiBzYW5pdHkgc21va2Ug
-dGVzdAogICAgICAg4pyFIEFMU0EgUENNIGxvb3BiYWNrIHRlc3QKICAgICAgIOKchSBBTFNBIENv
-bnRyb2wgKG1peGVyKSBVc2Vyc3BhY2UgRWxlbWVudCB0ZXN0CiAgICAgICDinIUgVXNleCAtIHZl
-cnNpb24gMS45LTI5CiAgICAgICDinIUgc3RvcmFnZTogU0NTSSBWUEQKICAgICAgIOKchSBzdHJl
-c3M6IHN0cmVzcy1uZwogICAgICAg4pyFIHRyYWNlOiBmdHJhY2UvdHJhY2VyCiAgICAgICDwn5qn
-IOKchSBDSUZTIENvbm5lY3RhdGhvbgogICAgICAg8J+apyDinIUgUE9TSVggcGpkLWZzdGVzdCBz
-dWl0ZXMKICAgICAgIPCfmqcg4pyFIE5ldHdvcmtpbmcgdm5pYzogaXB2bGFuL2Jhc2ljCiAgICAg
-ICDwn5qnIOKchSBzdG9yYWdlOiBkbS9jb21tb24KCiAgVGVzdCBzb3VyY2VzOiBodHRwczovL2dp
-dGh1Yi5jb20vQ0tJLXByb2plY3QvdGVzdHMtYmVha2VyCiAgICDwn5KaIFB1bGwgcmVxdWVzdHMg
-YXJlIHdlbGNvbWUgZm9yIG5ldyB0ZXN0cyBvciBpbXByb3ZlbWVudHMgdG8gZXhpc3RpbmcgdGVz
-dHMhCgpXYWl2ZWQgdGVzdHMKLS0tLS0tLS0tLS0tCklmIHRoZSB0ZXN0IHJ1biBpbmNsdWRlZCB3
-YWl2ZWQgdGVzdHMsIHRoZXkgYXJlIG1hcmtlZCB3aXRoIPCfmqcuIFN1Y2ggdGVzdHMgYXJlCmV4
-ZWN1dGVkIGJ1dCB0aGVpciByZXN1bHRzIGFyZSBub3QgdGFrZW4gaW50byBhY2NvdW50LiBUZXN0
-cyBhcmUgd2FpdmVkIHdoZW4KdGhlaXIgcmVzdWx0cyBhcmUgbm90IHJlbGlhYmxlIGVub3VnaCwg
-ZS5nLiB3aGVuIHRoZXkncmUganVzdCBpbnRyb2R1Y2VkIG9yIGFyZQpiZWluZyBmaXhlZC4KClRl
-c3RpbmcgdGltZW91dAotLS0tLS0tLS0tLS0tLS0KV2UgYWltIHRvIHByb3ZpZGUgYSByZXBvcnQg
-d2l0aGluIHJlYXNvbmFibGUgdGltZWZyYW1lLiBUZXN0cyB0aGF0IGhhdmVuJ3QKZmluaXNoZWQg
-cnVubmluZyBhcmUgbWFya2VkIHdpdGgg4o+xLiBSZXBvcnRzIGZvciBub24tdXBzdHJlYW0ga2Vy
-bmVscyBoYXZlCmEgQmVha2VyIHJlY2lwZSBsaW5rZWQgdG8gbmV4dCB0byBlYWNoIGhvc3QuCgoK
-LS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0
-cAo=
+verify_policy() forks a child, which continues to run
+pass end of function and into same loop in verify_mbind()
+as parent, effectively creating fork bomb. With 2 nodes,
+there's 45 forked children. With 4 nodes, 765 processes.
+
+Terminate child process at the end of verify_policy();
+
+Signed-off-by: Jan Stancek <jstancek@redhat.com>
+---
+ testcases/kernel/syscalls/mbind/mbind04.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/testcases/kernel/syscalls/mbind/mbind04.c b/testcases/kernel/syscalls/mbind/mbind04.c
+index 6a7a2a2321a8..aaad8a988bad 100644
+--- a/testcases/kernel/syscalls/mbind/mbind04.c
++++ b/testcases/kernel/syscalls/mbind/mbind04.c
+@@ -47,6 +47,7 @@ static void verify_policy(unsigned int node, int mode, unsigned flag)
+ 	struct bitmask *bm = numa_allocate_nodemask();
+ 	unsigned int i;
+ 	void *ptr;
++	pid_t child;
+ 	unsigned long size = PAGES_ALLOCATED * page_size;
+ 
+ 	numa_bitmask_setbit(bm, node);
+@@ -69,7 +70,8 @@ static void verify_policy(unsigned int node, int mode, unsigned flag)
+ 
+ 	const char *prefix = "child: ";
+ 
+-	if (SAFE_FORK()) {
++	child = SAFE_FORK();
++	if (child) {
+ 		prefix = "parent: ";
+ 		tst_reap_children();
+ 	}
+@@ -104,6 +106,9 @@ static void verify_policy(unsigned int node, int mode, unsigned flag)
+ 
+ 	if (fail)
+ 		tst_nodemap_print_counters(nodes);
++
++	if (!child)
++		exit(0);
+ }
+ 
+ static const int modes[] = {
+-- 
+1.8.3.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
