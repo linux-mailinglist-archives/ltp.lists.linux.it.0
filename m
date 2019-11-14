@@ -2,67 +2,65 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96113FCF4D
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Nov 2019 21:11:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52C98FD03B
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Nov 2019 22:20:20 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E82DE3C1CAB
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Nov 2019 21:11:20 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 99DB53C1CAB
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Nov 2019 22:20:19 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 738233C02C3
- for <ltp@lists.linux.it>; Thu, 14 Nov 2019 21:11:14 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id A408F1A00EA1
- for <ltp@lists.linux.it>; Thu, 14 Nov 2019 21:11:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1573762271;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VTSMW7yiszdsz9+obyoZO8enMubl8X2pXKrcjl0PUMI=;
- b=TxTyrN9ZExxoycdWx5XlYHU/ui9PTx8Yj9lbrVf5CK8ONDu9SveWFYU/AhEvpYK0MGP7Lf
- DB+IibyRkpJoCWrOlpZ43wk9ymYszX/nSpvW8Y6LURIXzRiCvCLnpyNLe924dtrinNT7/3
- 4RBptn+w0XEU46aW3vgC0ISJ2w8hBEo=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-355-40nTPR-8OIWJANFhu8z5Yw-1; Thu, 14 Nov 2019 15:11:08 -0500
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 52F8F3C038C
+ for <ltp@lists.linux.it>; Thu, 14 Nov 2019 22:20:15 +0100 (CET)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 66D7CDB60;
- Thu, 14 Nov 2019 20:11:05 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5779C60BE1;
- Thu, 14 Nov 2019 20:11:05 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id B2F454BB5C;
- Thu, 14 Nov 2019 20:11:04 +0000 (UTC)
-Date: Thu, 14 Nov 2019 15:11:04 -0500 (EST)
-From: Jan Stancek <jstancek@redhat.com>
-To: Naresh Kamboju <naresh.kamboju@linaro.org>, Arnd Bergmann <arnd@arndb.de>
-Message-ID: <247236994.12271471.1573762264445.JavaMail.zimbra@redhat.com>
-In-Reply-To: <CA+G9fYtpOaYDoUEzQuYxmKJLFH2GDvK3ipWienn-zHDB+nOMbg@mail.gmail.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 0274B602716
+ for <ltp@lists.linux.it>; Thu, 14 Nov 2019 22:20:13 +0100 (CET)
+Received: from mail-qk1-f182.google.com ([209.85.222.182]) by
+ mrelayeu.kundenserver.de (mreue012 [212.227.15.129]) with ESMTPSA (Nemesis)
+ id 1MsrV2-1hcAY037FY-00tAKg for <ltp@lists.linux.it>; Thu, 14 Nov 2019
+ 22:20:12 +0100
+Received: by mail-qk1-f182.google.com with SMTP id h15so6317684qka.13
+ for <ltp@lists.linux.it>; Thu, 14 Nov 2019 13:20:12 -0800 (PST)
+X-Gm-Message-State: APjAAAUF0v7uC5bpsOpjnI7UdP03o0hyEPPlp0QK/mXEoLqB7ePdAX1K
+ oPtMNjsm2vLYCYnt4WCMrWErJkSxbgTKS+6MByo=
+X-Google-Smtp-Source: APXvYqwvbGGKgaEN2tVT8M3pORFRK5eVYAq7cO7ucFJgWS2Va7T/mC1UOJ5BKzS9tiqZXRDKKHfpMIlCIiEZKkBvWEc=
+X-Received: by 2002:a37:44d:: with SMTP id 74mr9203611qke.3.1573766411510;
+ Thu, 14 Nov 2019 13:20:11 -0800 (PST)
+MIME-Version: 1.0
 References: <20191114193132.5de921a7@canb.auug.org.au>
  <CA+G9fYtpOaYDoUEzQuYxmKJLFH2GDvK3ipWienn-zHDB+nOMbg@mail.gmail.com>
-MIME-Version: 1.0
-X-Originating-IP: [10.40.204.254, 10.4.195.5]
-Thread-Topic: linux-next: Tree for Nov 14
-Thread-Index: YqTkoYhDRfL/aNkJZ5JfFnjXrrr8Bg==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-MC-Unique: 40nTPR-8OIWJANFhu8z5Yw-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+ <247236994.12271471.1573762264445.JavaMail.zimbra@redhat.com>
+In-Reply-To: <247236994.12271471.1573762264445.JavaMail.zimbra@redhat.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Thu, 14 Nov 2019 22:19:55 +0100
+X-Gmail-Original-Message-ID: <CAK8P3a3tS+WAHj9SP7MhLq27-RTt0ExXjqiRA1uizhKsMe9hdg@mail.gmail.com>
+Message-ID: <CAK8P3a3tS+WAHj9SP7MhLq27-RTt0ExXjqiRA1uizhKsMe9hdg@mail.gmail.com>
+To: Jan Stancek <jstancek@redhat.com>
+X-Provags-ID: V03:K1:h0e+P82CzfWVrj7q0jfUJRNch067TK49tm0YvwC3AvXUXRzz+F0
+ Uh8gatwgyK7GuApiGkXwnOc6Ki7mn283z1zbiM0ozcK0Nf0LMKAddFvxBzx2mbWdYAnfAwc
+ SwwsoeoMsL2urRjG3LuPM7mg0wiZu4N/7bZTXFiBGlo7aZ9ES3/dXm1kG3eTMW0kk93zAES
+ M/j0VPQpnL706Gm8P4aPw==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:4doJRbwZfyw=:Z00Q8DoXJu+OL54pLFJ7XJ
+ lNFemTvO9Cov+1SCLoy5IoAi9C4Jrw9XvwKetx6VI9SWnP3/Fg8unzi/FnRhFYEl2RyakrY8v
+ SKYIWpHXRUV5cPWJMU7ey40MsXi/UIFFh0aEHsdyfmFar0VdXv0i9zCYoRDPljfkSyU5k8MYf
+ M4IiT271hMrbSMN5svKh1smITJLL3MFU2NQa7/VjknL/6Rd/s3hmYx1i3ArSoJemkUfqZIqm3
+ +K/fGAfd+OGrYZU6LHQirFZYdv337oH4feGUSrngIBC9xaS1SSH/nrwUn/mriAY0DTIVncc1K
+ vNX8uUmEpQcz2YMEyIl0pTiZLwd9gG5m42sMhibr3eaBQSxvZu12YWWjc4pV2DtAQuvHunwV5
+ /bAeC0+fM5yo+6wwQqeOTbyKDThDMJ98iAtDa/oEDC6XtWDR+xWlKDZiXI+RBjExB/4sjpPak
+ gQ0nY2NVL7b4bfmAikyvvjTzy2jOLsfGhFGImWAwK7b4IGOpvyT3XqmwKlb9GCo8FU1EClka0
+ fCCBch6y0jLOaHplN/9axY9RTPcnC70N38gQG/pjkK4y460sTqX7f9COR16zct4/wHtxGC2Rn
+ hNa4rqE8zKAIUPA9Ei+Enc8jwgY3F4ZPeg2tDwgcAxKQ4HRe1a/P8/C4xEsDyis8GqRvOHNrv
+ 98Ahnm6SBVF/aZ5z7HiiSLmb4iH7dn+N2Z1kRv/kUOBmHSru5zrWkB2ptrQlrywVibCBiMkCn
+ Lg5ShHSTB7nw7oIOieoSI4DrYxX8IXUbjKNE3I6XE6oHxWr081HwgPNjrTYRtsl+z+gZpBTW7
+ 51CGiKarZ5oD5shSCr6s02kSmpjk7SloVfQxXcaCFkbaPkKmsTNJndAqIc9C0daPJ31G2sl2o
+ 3WhaUbyf5NyKQhFaty1w==
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] linux-next: Tree for Nov 14
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -78,33 +76,38 @@ List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
 Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
  Daniel Lezcano <daniel.lezcano@linaro.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- lkft-triage@lists.linaro.org, Mark Brown <broonie@kernel.org>,
- John Stultz <john.stultz@linaro.org>,
+ lkft-triage@lists.linaro.org,
  Linux Next Mailing List <linux-next@vger.kernel.org>,
- Dmitry Vyukov <dvyukov@google.com>, linux-clk@vger.kernel.org,
+ John Stultz <john.stultz@linaro.org>, Mark Brown <broonie@kernel.org>,
+ Dmitry Vyukov <dvyukov@google.com>, linux-clk <linux-clk@vger.kernel.org>,
  LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-CgotLS0tLSBPcmlnaW5hbCBNZXNzYWdlIC0tLS0tCj4gT24gVGh1LCAxNCBOb3YgMjAxOSBhdCAx
-NDowMSwgU3RlcGhlbiBSb3Rod2VsbCA8c2ZyQGNhbmIuYXV1Zy5vcmcuYXU+IHdyb3RlOgo+ID4K
-PiA+IEhpIGFsbCwKPiA+IENoYW5nZXMgc2luY2UgMjAxOTExMTM6Cj4gPiBUaGUgeTIwMzggdHJl
-ZSBnYWluZWQgYSBidWlsZCBmYWlsdXJlIGZvciB3aGljaCBJIGFwcGxpZWQgYSBwYXRjaC4KPiA8
-dHJpbT4KPiA+IFRoZSBha3BtLWN1cnJlbnQgdHJlZSBnYWluZWQgYSBjb25mbGljdCBhZ2FpbnN0
-IHRoZSB5MjAzOCB0cmVlLgo+ID4KPiA+IE5vbi1tZXJnZSBjb21taXRzIChyZWxhdGl2ZSB0byBM
-aW51cycgdHJlZSk6IDEwMzg4Cj4gPiAgOTIzOCBmaWxlcyBjaGFuZ2VkLCAzOTczNTcgaW5zZXJ0
-aW9ucygrKSwgMTc0MTcxIGRlbGV0aW9ucygtKQo+IAo+IFJlc3VsdHMgZnJvbSBMaW5hcm/igJlz
-IHRlc3QgZmFybS4KPiBSZWdyZXNzaW9ucyBkZXRlY3RlZCBvbiB4ODZfNjQsIGFuZCBpMzg2Lgo+
-IAo+IExUUCBzeXNjYWxscyBzZXR0aW1lb2ZkYXkwMS8wMiBmYWlsZWQgb24geDg2XzY0IGFuZCBp
-Mzg2IHJ1bm5pbmcKPiA1LjQuMC1yYzctbmV4dC0yMDE5MTExNC4KPiAKPiBGb2xsb3dpbmcgIGx0
-cC1zeXNjYWxscy10ZXN0cyBmYWlsZWQuCj4gICAgICogc2V0dGltZW9mZGF5MDEKPiAgICAgKiBz
-ZXR0aW1lb2ZkYXkwMgo+ICAgICAqIHN0aW1lMDEKPiAgICAgKiBzdGltZTAyCgpMb29rcyBsaWtl
-IHR5cG8gaW4KYWRkZTc0MzA2YTRiICgieTIwMzg6IHRpbWU6IGF2b2lkIHRpbWVzcGVjIHVzYWdl
-IGluIHNldHRpbWVvZmRheSgpIikKCi0gICAgICAgICAgICAgICBpZiAoIXRpbWV2YWxfdmFsaWQo
-JnVzZXJfdHYpKQorICAgICAgICAgICAgICAgaWYgKHR2LT50dl91c2VjID4gVVNFQ19QRVJfU0VD
-KQoKd2FzIGxpa2VseSBtZWFudCBhczoKCi0gICAgICAgICAgICAgICBpZiAoIXRpbWV2YWxfdmFs
-aWQoJnVzZXJfdHYpKQorICAgICAgICAgICAgICAgaWYgKG5ld190cy50dl9uc2VjID4gVVNFQ19Q
-RVJfU0VDKQoKc2luY2UgdHYgaXMgdXNlciBwb2ludGVyLgoKCi0tIApNYWlsaW5nIGxpc3QgaW5m
-bzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+T24gVGh1LCBOb3YgMTQsIDIwMTkgYXQgOToxMSBQTSBKYW4gU3RhbmNlayA8anN0YW5jZWtAcmVk
+aGF0LmNvbT4gd3JvdGU6Cj4KPgo+Cj4gLS0tLS0gT3JpZ2luYWwgTWVzc2FnZSAtLS0tLQo+ID4g
+T24gVGh1LCAxNCBOb3YgMjAxOSBhdCAxNDowMSwgU3RlcGhlbiBSb3Rod2VsbCA8c2ZyQGNhbmIu
+YXV1Zy5vcmcuYXU+IHdyb3RlOgo+ID4gPgo+ID4gPiBIaSBhbGwsCj4gPiA+IENoYW5nZXMgc2lu
+Y2UgMjAxOTExMTM6Cj4gPiA+IFRoZSB5MjAzOCB0cmVlIGdhaW5lZCBhIGJ1aWxkIGZhaWx1cmUg
+Zm9yIHdoaWNoIEkgYXBwbGllZCBhIHBhdGNoLgo+ID4gPHRyaW0+Cj4gPiA+IFRoZSBha3BtLWN1
+cnJlbnQgdHJlZSBnYWluZWQgYSBjb25mbGljdCBhZ2FpbnN0IHRoZSB5MjAzOCB0cmVlLgo+ID4g
+Pgo+ID4gPiBOb24tbWVyZ2UgY29tbWl0cyAocmVsYXRpdmUgdG8gTGludXMnIHRyZWUpOiAxMDM4
+OAo+ID4gPiAgOTIzOCBmaWxlcyBjaGFuZ2VkLCAzOTczNTcgaW5zZXJ0aW9ucygrKSwgMTc0MTcx
+IGRlbGV0aW9ucygtKQo+ID4KPiA+IFJlc3VsdHMgZnJvbSBMaW5hcm/igJlzIHRlc3QgZmFybS4K
+PiA+IFJlZ3Jlc3Npb25zIGRldGVjdGVkIG9uIHg4Nl82NCwgYW5kIGkzODYuCj4gPgo+ID4gTFRQ
+IHN5c2NhbGxzIHNldHRpbWVvZmRheTAxLzAyIGZhaWxlZCBvbiB4ODZfNjQgYW5kIGkzODYgcnVu
+bmluZwo+ID4gNS40LjAtcmM3LW5leHQtMjAxOTExMTQuCj4gPgo+ID4gRm9sbG93aW5nICBsdHAt
+c3lzY2FsbHMtdGVzdHMgZmFpbGVkLgo+ID4gICAgICogc2V0dGltZW9mZGF5MDEKPiA+ICAgICAq
+IHNldHRpbWVvZmRheTAyCj4gPiAgICAgKiBzdGltZTAxCj4gPiAgICAgKiBzdGltZTAyCj4KPiBM
+b29rcyBsaWtlIHR5cG8gaW4KPiBhZGRlNzQzMDZhNGIgKCJ5MjAzODogdGltZTogYXZvaWQgdGlt
+ZXNwZWMgdXNhZ2UgaW4gc2V0dGltZW9mZGF5KCkiKQo+Cj4gLSAgICAgICAgICAgICAgIGlmICgh
+dGltZXZhbF92YWxpZCgmdXNlcl90dikpCj4gKyAgICAgICAgICAgICAgIGlmICh0di0+dHZfdXNl
+YyA+IFVTRUNfUEVSX1NFQykKPgo+IHdhcyBsaWtlbHkgbWVhbnQgYXM6Cj4KPiAtICAgICAgICAg
+ICAgICAgaWYgKCF0aW1ldmFsX3ZhbGlkKCZ1c2VyX3R2KSkKPiArICAgICAgICAgICAgICAgaWYg
+KG5ld190cy50dl9uc2VjID4gVVNFQ19QRVJfU0VDKQo+Cj4gc2luY2UgdHYgaXMgdXNlciBwb2lu
+dGVyLgo+CgpJIGhhdmUgdXBsb2FkZWQgYSBmaXhlZCB2ZXJzaW9uLCBzb3JyeSBmb3IgdGhlIGJy
+ZWFrYWdlLiBUaGUgbmV3IHZlcnNpb24gYWxzbwphZGRyZXNzZXMgdGhlIGJ1aWxkIGZhaWx1cmUg
+dGhhdCBTdGVwaGVuIHJlcG9ydGVkLgoKICAgICAgICBBcm5kCgotLSAKTWFpbGluZyBsaXN0IGlu
+Zm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
