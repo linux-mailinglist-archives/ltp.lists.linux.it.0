@@ -1,69 +1,61 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C076FE907
-	for <lists+linux-ltp@lfdr.de>; Sat, 16 Nov 2019 01:20:22 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BCA7FEA7B
+	for <lists+linux-ltp@lfdr.de>; Sat, 16 Nov 2019 05:04:48 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8FAAD3C2392
-	for <lists+linux-ltp@lfdr.de>; Sat, 16 Nov 2019 01:20:21 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 133273C238F
+	for <lists+linux-ltp@lfdr.de>; Sat, 16 Nov 2019 05:04:48 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 9D8C23C089F
- for <ltp@lists.linux.it>; Sat, 16 Nov 2019 01:20:16 +0100 (CET)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 394273C0823
+ for <ltp@lists.linux.it>; Sat, 16 Nov 2019 05:04:42 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id D574B600E25
+ for <ltp@lists.linux.it>; Sat, 16 Nov 2019 05:04:41 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1573877079;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=E98VoxtMbA6isISeWmt0eeRi0DvZtTllO9q3nsRpSKc=;
+ b=W7WpT8CK2ErNYsWpc8ctp0NZFzlnrIknNqH3YVlGk5qSOqCOfMD+ciu/2WnOUntlAEihJN
+ XnrR5ruHVbBMuI/ILyPviRciVbpcbWCBsKJwpqIaMKf4HZQ4n7g6uozph/ZQFx3sEUm1gJ
+ gIOJ3+39IiXJLKf1RmLfVnvgiYM95cs=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-170-2VooDi6-PLmnCWFzYW9eXA-1; Fri, 15 Nov 2019 23:04:38 -0500
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+ [10.5.11.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 357152010E4
- for <ltp@lists.linux.it>; Sat, 16 Nov 2019 01:20:16 +0100 (CET)
-Received: by mail-wr1-x443.google.com with SMTP id f2so12770999wrs.11
- for <ltp@lists.linux.it>; Fri, 15 Nov 2019 16:20:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=NC1Fv+sSIoi6coquzu9RO8dFk426sGHnkaMrnNFtNNc=;
- b=Z1eZonxu1JWDlBQ4dzxlyh5P4npsAhh16JnhEyaGhHoihmCoCDLicdo2mxA7astcPf
- VYYRF/PS75T6EJDLeebEPrwv+2ppZ/MDj0kRAE4gl38dt98BMmJ2yoBpF39u5kK8uZ/Z
- rVe8Y7Vr92D+zB9v0bsMPIEdlBaUis13kFo6xahtnSqq46DtGQZwsrxCRZPN0g+czNte
- hNnxnLEF5jvOyaP3TX7OyTkp7Yjwj0FjDgJRLQDVeIJ4eYSwAlMRPMmEVxNblste5JBY
- AF9OmhDsYpTeVBI2+TLJsheCs9xcG/C0Z7bCb1QmyESDNBcn/m/Bdb8PaRpE1jneKHWp
- HRgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=NC1Fv+sSIoi6coquzu9RO8dFk426sGHnkaMrnNFtNNc=;
- b=klF9vN9xSghpCmtM6JKyGn8VisVLwMBk+/80wV3pZXNgVbxQ1zTnHCjy3ap96J86QQ
- gbegE0FUijqkmzBlG/hnDK2VPZHQQTtdIIwLQ0V5uX0gYOb7nm7qdUtv7HnpOANPSal7
- aC8hAJsnDrolQSnV6K00hYMIhGeNQWPKgC6NxxzO4+Y9eooXsTrlribywZvwysYvM8Ff
- wu+pqHj+hEYO1q8IokgF/FYZs8g2DSfNO59LDzKCxxkDhj5bnw8K2/OQUWDi/l9QLLN0
- xgxYjSEYjdHfnuJCvSPzz6WLdbqz/zo4pPDaciCmmSP3ZD3xS1VnvFgE2398b7YH/ylN
- Rxsw==
-X-Gm-Message-State: APjAAAV8vZ+FRXoBjVhoeENol7v0TYAdApUQ1zXsrH6TIfl21bXOpvK+
- sL+Ptt9NUOO5IgEr9XXKDmTzZXl9
-X-Google-Smtp-Source: APXvYqyir3UagXXqPDvKqw0YAiF8bO78ya+QO5cPxv+Hfwx//zzkW4R7aluCj4pXmha4xMHKLfJfwQ==
-X-Received: by 2002:adf:eb48:: with SMTP id u8mr18082863wrn.225.1573863615439; 
- Fri, 15 Nov 2019 16:20:15 -0800 (PST)
-Received: from localhost.localdomain ([62.201.25.198])
- by smtp.gmail.com with ESMTPSA id b15sm12977526wrx.77.2019.11.15.16.20.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Nov 2019 16:20:14 -0800 (PST)
-From: Petr Vorel <petr.vorel@gmail.com>
-To: ltp@lists.linux.it
-Date: Sat, 16 Nov 2019 01:20:03 +0100
-Message-Id: <20191116002003.13013-1-petr.vorel@gmail.com>
-X-Mailer: git-send-email 2.24.0
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 50EA9800A02
+ for <ltp@lists.linux.it>; Sat, 16 Nov 2019 04:04:37 +0000 (UTC)
+Received: from [172.54.30.180] (cpt-1008.paas.prod.upshift.rdu2.redhat.com
+ [10.0.19.15])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id C351E60556;
+ Sat, 16 Nov 2019 04:04:31 +0000 (UTC)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+From: CKI Project <cki-project@redhat.com>
+To: 
+Date: Sat, 16 Nov 2019 04:04:30 -0000
+Message-ID: <cki.492ED7396B.CQPXHDBTDS@redhat.com>
+X-Gitlab-Pipeline-ID: 287844
+X-Gitlab-Url: https://xci32.lab.eng.rdu2.redhat.com
+X-Gitlab-Path: /cki-project/cki-pipeline/pipelines/287844
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-MC-Unique: 2VooDi6-PLmnCWFzYW9eXA-1
+X-Mimecast-Spam-Score: 0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/1] fanotify: Fix for musl
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E4?=
+ =?utf-8?q?=2E0-rc7-875fef4=2Ecki_=28mainline=2Ekernel=2Eorg=29?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,85 +67,94 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Memory Management <mm-qe@redhat.com>, LTP Mailing List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-FSID_VAL_MEMBER() wrapper was meant to be only for struct
-fanotify_event_info_fid, it was used also for struct event_t
-(which has also __kernel_fsid_t fsid, but shouldn't be redefined).
-
-This caused error on recent musl v1.1.23 (with f67b3c17),
-which has struct fanotify_event_info_fid.
-
-Fixes: 0498fc0a8 ("fanotify: Detect val vs. __val
-fanotify_event_info_fid.fsid member")
-
-Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
----
-Hi,
-
-I'm sorry, one more error sneaked in.
-I accidentally tested it on toolchains which has older musl release.
-
-Helper should have obvious name to show it's just for fanotify_event_info_fid,
-but something like EVENT_INFO_FID_FSID_VAL_MEMBER() is too long.
-Posting just in case you prefer renaming (fanotify.h is getting a bit
-complicated).
-
-NOTE: I also find in various uclibc arch dependent kernel_types.h headers
-libc/sysdeps/linux/x86_64/bits/kernel_types.h (19 of 29 archs)
-typedef struct {
-#ifdef __USE_ALL
-	int val[2];
-#else
-	int __val[2];
-#endif
-} __kernel_fsid_t;
-
-which would suggest we need also detection and helper for general
-__kernel_fsid_t usage. But I'd ignore it unless anybody reports it's
-really needed. I haven't found whether __USE_ALL is set as default, but
-I expect it so.
-
-Kind regards,
-Petr
-
- testcases/kernel/syscalls/fanotify/fanotify.h   | 1 +
- testcases/kernel/syscalls/fanotify/fanotify13.c | 4 ++--
- 2 files changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify.h b/testcases/kernel/syscalls/fanotify/fanotify.h
-index 5370e30bb..9c98aaa1d 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify.h
-+++ b/testcases/kernel/syscalls/fanotify/fanotify.h
-@@ -143,6 +143,7 @@ struct fanotify_event_info_fid {
- };
- #endif /* HAVE_STRUCT_FANOTIFY_EVENT_INFO_FID */
- 
-+/* NOTE: only for struct fanotify_event_info_fid */
- #ifdef HAVE_STRUCT_FANOTIFY_EVENT_INFO_FID_FSID___VAL
- # define FSID_VAL_MEMBER(fsid, i) (fsid.__val[i])
- #else
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify13.c b/testcases/kernel/syscalls/fanotify/fanotify13.c
-index 26212ab62..3d8de6009 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify13.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify13.c
-@@ -130,8 +130,8 @@ static int setup_marks(unsigned int fd, struct test_case_t *tc)
- 					"kernel");
- 				return 1;
- 			} else if (errno == ENODEV &&
--					!FSID_VAL_MEMBER(event_set[i].fsid, 0) &&
--					!FSID_VAL_MEMBER(event_set[i].fsid, 1)) {
-+					!event_set[i].fsid.val[0] &&
-+					!event_set[i].fsid.val[1]) {
- 				tst_res(TCONF,
- 					"FAN_REPORT_FID not supported on "
- 					"filesystem type %s",
--- 
-2.24.0
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+CkhlbGxvLAoKV2UgcmFuIGF1dG9tYXRlZCB0ZXN0cyBvbiBhIHJlY2VudCBjb21taXQgZnJvbSB0
+aGlzIGtlcm5lbCB0cmVlOgoKICAgICAgIEtlcm5lbCByZXBvOiBodHRwczovL2dpdC5rZXJuZWwu
+b3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dpdC90b3J2YWxkcy9saW51eC5naXQKICAgICAgICAg
+ICAgQ29tbWl0OiA4NzVmZWY0OTNmMjEgLSBNZXJnZSB0YWcgJ2NlcGgtZm9yLTUuNC1yYzgnIG9m
+IGdpdDovL2dpdGh1Yi5jb20vY2VwaC9jZXBoLWNsaWVudAoKVGhlIHJlc3VsdHMgb2YgdGhlc2Ug
+YXV0b21hdGVkIHRlc3RzIGFyZSBwcm92aWRlZCBiZWxvdy4KCiAgICBPdmVyYWxsIHJlc3VsdDog
+RkFJTEVEIChzZWUgZGV0YWlscyBiZWxvdykKICAgICAgICAgICAgIE1lcmdlOiBPSwogICAgICAg
+ICAgIENvbXBpbGU6IE9LCiAgICAgICAgICAgICBUZXN0czogRkFJTEVECgpBbGwga2VybmVsIGJp
+bmFyaWVzLCBjb25maWcgZmlsZXMsIGFuZCBsb2dzIGFyZSBhdmFpbGFibGUgZm9yIGRvd25sb2Fk
+IGhlcmU6CgogIGh0dHBzOi8vYXJ0aWZhY3RzLmNraS1wcm9qZWN0Lm9yZy9waXBlbGluZXMvMjg3
+ODQ0CgpPbmUgb3IgbW9yZSBrZXJuZWwgdGVzdHMgZmFpbGVkOgoKICAgIHg4Nl82NDoKICAgICDi
+nYwgTFRQIGxpdGUKICAgICDinYwgTG9vcGRldiBTYW5pdHkKCldlIGhvcGUgdGhhdCB0aGVzZSBs
+b2dzIGNhbiBoZWxwIHlvdSBmaW5kIHRoZSBwcm9ibGVtIHF1aWNrbHkuIEZvciB0aGUgZnVsbApk
+ZXRhaWwgb24gb3VyIHRlc3RpbmcgcHJvY2VkdXJlcywgcGxlYXNlIHNjcm9sbCB0byB0aGUgYm90
+dG9tIG9mIHRoaXMgbWVzc2FnZS4KClBsZWFzZSByZXBseSB0byB0aGlzIGVtYWlsIGlmIHlvdSBo
+YXZlIGFueSBxdWVzdGlvbnMgYWJvdXQgdGhlIHRlc3RzIHRoYXQgd2UKcmFuIG9yIGlmIHlvdSBo
+YXZlIGFueSBzdWdnZXN0aW9ucyBvbiBob3cgdG8gbWFrZSBmdXR1cmUgdGVzdHMgbW9yZSBlZmZl
+Y3RpdmUuCgogICAgICAgICwtLiAgICwtLgogICAgICAgKCBDICkgKCBLICkgIENvbnRpbnVvdXMK
+ICAgICAgICBgLScsLS5gLScgICBLZXJuZWwKICAgICAgICAgICggSSApICAgICBJbnRlZ3JhdGlv
+bgogICAgICAgICAgIGAtJwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KCkNvbXBpbGUgdGVzdGluZwot
+LS0tLS0tLS0tLS0tLS0KCldlIGNvbXBpbGVkIHRoZSBrZXJuZWwgZm9yIDEgYXJjaGl0ZWN0dXJl
+OgoKICAgIHg4Nl82NDoKICAgICAgbWFrZSBvcHRpb25zOiAtajMwIElOU1RBTExfTU9EX1NUUklQ
+PTEgdGFyZ3otcGtnCgoKSGFyZHdhcmUgdGVzdGluZwotLS0tLS0tLS0tLS0tLS0tCldlIGJvb3Rl
+ZCBlYWNoIGtlcm5lbCBhbmQgcmFuIHRoZSBmb2xsb3dpbmcgdGVzdHM6CgogIHg4Nl82NDoKICAg
+IEhvc3QgMToKICAgICAgIOKchSBCb290IHRlc3QKICAgICAgIOKchSBQb2RtYW4gc3lzdGVtIGlu
+dGVncmF0aW9uIHRlc3QgKGFzIHJvb3QpCiAgICAgICDinIUgUG9kbWFuIHN5c3RlbSBpbnRlZ3Jh
+dGlvbiB0ZXN0IChhcyB1c2VyKQogICAgICAg4p2MIExUUCBsaXRlCiAgICAgICDinYwgTG9vcGRl
+diBTYW5pdHkKICAgICAgIOKchSBqdm0gdGVzdCBzdWl0ZQogICAgICAg4pyFIE1lbW9yeSBmdW5j
+dGlvbjogbWVtZmRfY3JlYXRlCiAgICAgICDimqHimqHimqEgTWVtb3J5IGZ1bmN0aW9uOiBrYXNs
+cgogICAgICAg4pqh4pqh4pqhIEFNVFUgKEFic3RyYWN0IE1hY2hpbmUgVGVzdCBVdGlsaXR5KQog
+ICAgICAg4pqh4pqh4pqhIExUUDogb3BlbnBvc2l4IHRlc3Qgc3VpdGUKICAgICAgIOKaoeKaoeKa
+oSBOZXR3b3JraW5nIGJyaWRnZTogc2FuaXR5CiAgICAgICDimqHimqHimqEgRXRoZXJuZXQgZHJp
+dmVycyBzYW5pdHkKICAgICAgIOKaoeKaoeKaoSBOZXR3b3JraW5nIE1BQ3NlYzogc2FuaXR5CiAg
+ICAgICDimqHimqHimqEgTmV0d29ya2luZyBzb2NrZXQ6IGZ1enoKICAgICAgIOKaoeKaoeKaoSBO
+ZXR3b3JraW5nIHNjdHAtYXV0aDogc29ja29wdHMgdGVzdAogICAgICAg4pqh4pqh4pqhIE5ldHdv
+cmtpbmc6IGlnbXAgY29uZm9ybWFuY2UgdGVzdAogICAgICAg4pqh4pqh4pqhIE5ldHdvcmtpbmcg
+cm91dGU6IHBtdHUKICAgICAgIOKaoeKaoeKaoSBOZXR3b3JraW5nIHJvdXRlX2Z1bmM6IGxvY2Fs
+CiAgICAgICDimqHimqHimqEgTmV0d29ya2luZyByb3V0ZV9mdW5jOiBmb3J3YXJkCiAgICAgICDi
+mqHimqHimqEgTmV0d29ya2luZyBUQ1A6IGtlZXBhbGl2ZSB0ZXN0CiAgICAgICDimqHimqHimqEg
+TmV0d29ya2luZyBVRFA6IHNvY2tldAogICAgICAg4pqh4pqh4pqhIE5ldHdvcmtpbmcgdHVubmVs
+OiBnZW5ldmUgYmFzaWMgdGVzdAogICAgICAg4pqh4pqh4pqhIE5ldHdvcmtpbmcgdHVubmVsOiBn
+cmUgYmFzaWMKICAgICAgIOKaoeKaoeKaoSBMMlRQIGJhc2ljIHRlc3QKICAgICAgIOKaoeKaoeKa
+oSBOZXR3b3JraW5nIHR1bm5lbDogdnhsYW4gYmFzaWMKICAgICAgIOKaoeKaoeKaoSBOZXR3b3Jr
+aW5nIGlwc2VjOiBiYXNpYyBuZXRucyB0cmFuc3BvcnQKICAgICAgIOKaoeKaoeKaoSBOZXR3b3Jr
+aW5nIGlwc2VjOiBiYXNpYyBuZXRucyB0dW5uZWwKICAgICAgIOKaoeKaoeKaoSBhdWRpdDogYXVk
+aXQgdGVzdHN1aXRlIHRlc3QKICAgICAgIOKaoeKaoeKaoSBodHRwZDogbW9kX3NzbCBzbW9rZSBz
+YW5pdHkKICAgICAgIOKaoeKaoeKaoSBpb3RvcDogc2FuaXR5CiAgICAgICDimqHimqHimqEgdHVu
+ZWQ6IHR1bmUtcHJvY2Vzc2VzLXRocm91Z2gtcGVyZgogICAgICAg4pqh4pqh4pqhIHBjaXV0aWxz
+OiBzYW5pdHkgc21va2UgdGVzdAogICAgICAg4pqh4pqh4pqhIEFMU0EgUENNIGxvb3BiYWNrIHRl
+c3QKICAgICAgIOKaoeKaoeKaoSBBTFNBIENvbnRyb2wgKG1peGVyKSBVc2Vyc3BhY2UgRWxlbWVu
+dCB0ZXN0CiAgICAgICDimqHimqHimqEgVXNleCAtIHZlcnNpb24gMS45LTI5CiAgICAgICDimqHi
+mqHimqEgc3RvcmFnZTogU0NTSSBWUEQKICAgICAgIOKaoeKaoeKaoSBzdHJlc3M6IHN0cmVzcy1u
+ZwogICAgICAg4pqh4pqh4pqhIHRyYWNlOiBmdHJhY2UvdHJhY2VyCiAgICAgICDwn5qnIOKaoeKa
+oeKaoSBDSUZTIENvbm5lY3RhdGhvbgogICAgICAg8J+apyDimqHimqHimqEgUE9TSVggcGpkLWZz
+dGVzdCBzdWl0ZXMKICAgICAgIPCfmqcg4pqh4pqh4pqhIE5ldHdvcmtpbmcgdm5pYzogaXB2bGFu
+L2Jhc2ljCiAgICAgICDwn5qnIOKaoeKaoeKaoSBzdG9yYWdlOiBkbS9jb21tb24KCiAgICBIb3N0
+IDI6CiAgICAgICDinIUgQm9vdCB0ZXN0CiAgICAgICDinIUgU3RvcmFnZSBTQU4gZGV2aWNlIHN0
+cmVzcyAtIG1wdDNzYXMgZHJpdmVyCgogICAgSG9zdCAzOgogICAgICAg4pyFIEJvb3QgdGVzdAog
+ICAgICAg8J+apyDinIUgSVBNSSBkcml2ZXIgdGVzdAogICAgICAg8J+apyDinIUgSVBNSXRvb2wg
+bG9vcCBzdHJlc3MgdGVzdAoKICAgIEhvc3QgNDoKICAgICAgIOKchSBCb290IHRlc3QKICAgICAg
+IOKchSBTdG9yYWdlIFNBTiBkZXZpY2Ugc3RyZXNzIC0gbWVnYXJhaWRfc2FzCgogICAgSG9zdCA1
+OgoKICAgICAgIOKaoSBJbnRlcm5hbCBpbmZyYXN0cnVjdHVyZSBpc3N1ZXMgcHJldmVudGVkIG9u
+ZSBvciBtb3JlIHRlc3RzIChtYXJrZWQKICAgICAgIHdpdGgg4pqh4pqh4pqhKSBmcm9tIHJ1bm5p
+bmcgb24gdGhpcyBhcmNoaXRlY3R1cmUuCiAgICAgICBUaGlzIGlzIG5vdCB0aGUgZmF1bHQgb2Yg
+dGhlIGtlcm5lbCB0aGF0IHdhcyB0ZXN0ZWQuCgogICAgICAg4pqh4pqh4pqhIEJvb3QgdGVzdAog
+ICAgICAg4pqh4pqh4pqhIHhmc3Rlc3RzOiBleHQ0CiAgICAgICDimqHimqHimqEgeGZzdGVzdHM6
+IHhmcwogICAgICAg4pqh4pqh4pqhIGx2bSB0aGlucCBzYW5pdHkKICAgICAgIOKaoeKaoeKaoSBz
+dG9yYWdlOiBzb2Z0d2FyZSBSQUlEIHRlc3RpbmcKICAgICAgIPCfmqcg4pqh4pqh4pqhIElPTU1V
+IGJvb3QgdGVzdAogICAgICAg8J+apyDimqHimqHimqEgc2VsaW51eC1wb2xpY3k6IHNlcmdlLXRl
+c3RzdWl0ZQogICAgICAg8J+apyDimqHimqHimqEgcG93ZXItbWFuYWdlbWVudDogY3B1cG93ZXIv
+c2FuaXR5IHRlc3QKICAgICAgIPCfmqcg4pqh4pqh4pqhIFN0b3JhZ2UgYmxrdGVzdHMKCiAgVGVz
+dCBzb3VyY2VzOiBodHRwczovL2dpdGh1Yi5jb20vQ0tJLXByb2plY3QvdGVzdHMtYmVha2VyCiAg
+ICDwn5KaIFB1bGwgcmVxdWVzdHMgYXJlIHdlbGNvbWUgZm9yIG5ldyB0ZXN0cyBvciBpbXByb3Zl
+bWVudHMgdG8gZXhpc3RpbmcgdGVzdHMhCgpXYWl2ZWQgdGVzdHMKLS0tLS0tLS0tLS0tCklmIHRo
+ZSB0ZXN0IHJ1biBpbmNsdWRlZCB3YWl2ZWQgdGVzdHMsIHRoZXkgYXJlIG1hcmtlZCB3aXRoIPCf
+mqcuIFN1Y2ggdGVzdHMgYXJlCmV4ZWN1dGVkIGJ1dCB0aGVpciByZXN1bHRzIGFyZSBub3QgdGFr
+ZW4gaW50byBhY2NvdW50LiBUZXN0cyBhcmUgd2FpdmVkIHdoZW4KdGhlaXIgcmVzdWx0cyBhcmUg
+bm90IHJlbGlhYmxlIGVub3VnaCwgZS5nLiB3aGVuIHRoZXkncmUganVzdCBpbnRyb2R1Y2VkIG9y
+IGFyZQpiZWluZyBmaXhlZC4KClRlc3RpbmcgdGltZW91dAotLS0tLS0tLS0tLS0tLS0KV2UgYWlt
+IHRvIHByb3ZpZGUgYSByZXBvcnQgd2l0aGluIHJlYXNvbmFibGUgdGltZWZyYW1lLiBUZXN0cyB0
+aGF0IGhhdmVuJ3QKZmluaXNoZWQgcnVubmluZyBhcmUgbWFya2VkIHdpdGgg4o+xLiBSZXBvcnRz
+IGZvciBub24tdXBzdHJlYW0ga2VybmVscyBoYXZlCmEgQmVha2VyIHJlY2lwZSBsaW5rZWQgdG8g
+bmV4dCB0byBlYWNoIGhvc3QuCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3Rz
+LmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
