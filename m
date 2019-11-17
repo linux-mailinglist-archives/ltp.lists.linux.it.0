@@ -2,66 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03E2EFF452
-	for <lists+linux-ltp@lfdr.de>; Sat, 16 Nov 2019 18:23:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C55FFF8B5
+	for <lists+linux-ltp@lfdr.de>; Sun, 17 Nov 2019 11:04:06 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9AA373C2452
-	for <lists+linux-ltp@lfdr.de>; Sat, 16 Nov 2019 18:23:08 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A2ED13C1CAD
+	for <lists+linux-ltp@lfdr.de>; Sun, 17 Nov 2019 11:04:05 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 4EBFA3C242B
- for <ltp@lists.linux.it>; Sat, 16 Nov 2019 18:23:06 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [207.211.31.120])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 377391400E14
- for <ltp@lists.linux.it>; Sat, 16 Nov 2019 18:23:05 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1573924983;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=z2Za4Zqtha9jgQlwsU/N2ojl8tVppPO1qXMfMitD200=;
- b=csI4D1Dn8OSsZLUxqJSx6b+JxrSNujNQh4YjVX5U5c7NRuUI9YjOPfhfnjE3G6XtT11G6i
- 76jqw/+eLjCfEqHrKTBZZUdHp3Zn5iDBmCEYUk0++rhsTBmp/PWY0uR8W4mClGllchYDU/
- lWfhBDi2vAJSwVEsefPFX9/ddShBKW8=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-99-Y-XJSxGLMvyhybKxYY2EjQ-1; Sat, 16 Nov 2019 12:22:59 -0500
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 96BEE3C1C9A
+ for <ltp@lists.linux.it>; Sun, 17 Nov 2019 11:04:04 +0100 (CET)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 29AE0477;
- Sat, 16 Nov 2019 17:22:58 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E68F600C6;
- Sat, 16 Nov 2019 17:22:58 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id C62C04BB5B;
- Sat, 16 Nov 2019 17:22:57 +0000 (UTC)
-Date: Sat, 16 Nov 2019 12:22:57 -0500 (EST)
-From: Jan Stancek <jstancek@redhat.com>
-To: Petr Vorel <petr.vorel@gmail.com>
-Message-ID: <977310824.12699736.1573924977430.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20191116002003.13013-1-petr.vorel@gmail.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 3286D1A014F1
+ for <ltp@lists.linux.it>; Sun, 17 Nov 2019 11:04:04 +0100 (CET)
+Received: by mail-wm1-x343.google.com with SMTP id 8so15525809wmo.0
+ for <ltp@lists.linux.it>; Sun, 17 Nov 2019 02:04:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:reply-to:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=NojNExrtWL/nf0PKQfW7eBMS4z5mhvLKhbYhuyNWCeI=;
+ b=FpOhk58gIycfCz7eAJ4oBDRi+33CMM/5wi5KGUUgHug+g5/fKmSj2eHLcmBePlr74k
+ kl/HnU2MkSUPDFsWgfGYUfJT5/q3tWC5zo5RsHcr+D3hfs25HRj6W66gE6cza1nznLF4
+ BTjU+bhrXHUxQOltXwcfVKbXrJn+bhD4rtsE577fvmMOJS15+WOXxzKzErAbC8kZHf3v
+ SUxeLe0WsHlQQ8ZWKfCt6vGL7P39XEYVSrYBXI1NMAXchDAUepbR5xi2iUPRsNThPzAJ
+ ZFrvfySdPfmyX9y6oSnFCSPmmrtFjeKIpylcmteAFqXjTe+xYPCYNezY+252oIeW+jTU
+ WFlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:reply-to
+ :references:mime-version:content-disposition:in-reply-to:user-agent;
+ bh=NojNExrtWL/nf0PKQfW7eBMS4z5mhvLKhbYhuyNWCeI=;
+ b=PwfEVJzNQNj5I/TRsBhjlJFrrMdM2a80zQde777bb0YjAXK7yzpJJxIuf8lf1IqUz5
+ kxeLZhPAz0f0NRmEzvYu0QSHs5kvIirkLRTXybjILXLryTYrQUTQ9t77Z16tTaw0CN9f
+ MAZgGNDdBgNAifC8uSQX/1C9stkUAMubsUwmxWQJxkKNzEuP0LZN5O5DHDvZfK8YxHXp
+ mbYFAOAFG2nZg/eaeFtEgiiHq3g+PnggTPKqFV/UJ5LJipJFWbWfT7/wuFDwzEvzKOZO
+ K9jj8gB/DWLJjpqKlOd6/UhAo4Lgytm/U9qxEjszAXWaX3sOPlcF//bMCjkfirtXxTQJ
+ /WCg==
+X-Gm-Message-State: APjAAAVCf+DC3IgJENNeo0TfRtCsuFmr9bm9Oys4yLf+gU/38u3pvwYP
+ ITIwJBxlwxu8ztJAOE6UCzM=
+X-Google-Smtp-Source: APXvYqysK8EYyihIcthQc4c3C4ijWtXzbj1EJP8zZjzTwo781KzAV6KNsTvR+yPeOSwAgQR8DotHNg==
+X-Received: by 2002:a1c:3d08:: with SMTP id k8mr22349362wma.119.1573985043828; 
+ Sun, 17 Nov 2019 02:04:03 -0800 (PST)
+Received: from x230 ([62.201.25.198])
+ by smtp.gmail.com with ESMTPSA id b186sm15704364wmb.21.2019.11.17.02.04.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 17 Nov 2019 02:04:03 -0800 (PST)
+Date: Sun, 17 Nov 2019 11:04:01 +0100
+From: Petr Vorel <petr.vorel@gmail.com>
+To: Jan Stancek <jstancek@redhat.com>
+Message-ID: <20191117100401.GB22986@x230>
 References: <20191116002003.13013-1-petr.vorel@gmail.com>
+ <977310824.12699736.1573924977430.JavaMail.zimbra@redhat.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.40.204.45, 10.4.195.20]
-Thread-Topic: fanotify: Fix for musl
-Thread-Index: 85HnNcHI5frKOfqbQJl5vQ1HIHpUJQ==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-MC-Unique: Y-XJSxGLMvyhybKxYY2EjQ-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <977310824.12699736.1573924977430.JavaMail.zimbra@redhat.com>
+User-Agent: Mutt/1.12.2 (2019-09-21)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 1/1] fanotify: Fix for musl
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -74,32 +79,41 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <petr.vorel@gmail.com>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Hi Jan,
 
+> ----- Original Message -----
+> > FSID_VAL_MEMBER() wrapper was meant to be only for struct
+> > fanotify_event_info_fid, it was used also for struct event_t
+> > (which has also __kernel_fsid_t fsid, but shouldn't be redefined).
 
------ Original Message -----
-> FSID_VAL_MEMBER() wrapper was meant to be only for struct
-> fanotify_event_info_fid, it was used also for struct event_t
-> (which has also __kernel_fsid_t fsid, but shouldn't be redefined).
-> 
-> This caused error on recent musl v1.1.23 (with f67b3c17),
-> which has struct fanotify_event_info_fid.
-> 
-> Fixes: 0498fc0a8 ("fanotify: Detect val vs. __val
-> fanotify_event_info_fid.fsid member")
-> 
-> Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
+> > This caused error on recent musl v1.1.23 (with f67b3c17),
+> > which has struct fanotify_event_info_fid.
 
-If it's needed for __kernel_fsid_t we'll need to come up with better names.
-This basically reverts part of previous patch, which looks ok to me.
+> > Fixes: 0498fc0a8 ("fanotify: Detect val vs. __val
+> > fanotify_event_info_fid.fsid member")
 
-Acked-by: Jan Stancek <jstancek@redhat.com>
+> > Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
 
+> If it's needed for __kernel_fsid_t we'll need to come up with better names.
++1. But hope this is not needed.
+
+> This basically reverts part of previous patch, which looks ok to me.
+Yep. I'll add this to commit message, to be obvious.
+
+> Acked-by: Jan Stancek <jstancek@redhat.com>
+
+Thanks for your review.
+I'll wait with merge till Monday (if Cyril has some comments).
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
