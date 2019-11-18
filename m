@@ -1,42 +1,56 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09F201007AF
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Nov 2019 15:54:29 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FA531007C4
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Nov 2019 16:00:11 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B19103C1D57
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Nov 2019 15:54:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id EAC143C181B
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Nov 2019 16:00:10 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 696F33C0638
- for <ltp@lists.linux.it>; Mon, 18 Nov 2019 15:54:24 +0100 (CET)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id DDCAA3C078F
+ for <ltp@lists.linux.it>; Mon, 18 Nov 2019 16:00:09 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [205.139.110.61])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 2AC1D60069F
+ for <ltp@lists.linux.it>; Mon, 18 Nov 2019 16:00:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1574089207;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=vaa/mw52jnCpQYnahuXb+ih9CaZ4u4pPCdD/rBwDrb0=;
+ b=MPVwizGEyoOeRyElMZidwkGg+qO84bCi16KaBpwves3QPPgy+cqA2UPjSXmfLspTxxFYrJ
+ syp9VUiJOHAI++CoWJR7VzenjetqGXviyGiVcOvemqeMWF5Lan6FMt/UdEajo9tlVE3dxS
+ HhAFYWtJl/iJGPvMZw+DNv5OqGKKVPk=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-306-nkUYQlV6Nka8U0JoI3ZNyA-1; Mon, 18 Nov 2019 10:00:05 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B1B3E2014F3
- for <ltp@lists.linux.it>; Mon, 18 Nov 2019 15:54:22 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id A90B7AC75
- for <ltp@lists.linux.it>; Mon, 18 Nov 2019 14:54:20 +0000 (UTC)
-Date: Mon, 18 Nov 2019 15:54:19 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Clemens Famulla-Conrad <cfamullaconrad@suse.de>
-Message-ID: <20191118145419.GA26714@dell5510>
-References: <20191118105735.15012-1-cfamullaconrad@suse.de>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191118105735.15012-1-cfamullaconrad@suse.de>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 823328E02F9
+ for <ltp@lists.linux.it>; Mon, 18 Nov 2019 15:00:04 +0000 (UTC)
+Received: from dustball.usersys.redhat.com (unknown [10.43.17.163])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id E5FBA646D7
+ for <ltp@lists.linux.it>; Mon, 18 Nov 2019 15:00:03 +0000 (UTC)
+From: Jan Stancek <jstancek@redhat.com>
+To: ltp@lists.linux.it
+Date: Mon, 18 Nov 2019 15:59:54 +0100
+Message-Id: <cover.1574087532.git.jstancek@redhat.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-MC-Unique: nkUYQlV6Nka8U0JoI3ZNyA-1
+X-Mimecast-Spam-Score: 0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] travis: add ppc64le and s390x builds (issue:
- #615)
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/3] perf_event_open02 tweaks
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,37 +62,41 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Clemens,
+Motivation for this series is patch 3, because this test
+fails pretty reliably on Pentium4 systems.
 
-thanks a lot!
-> Travis started to support ppc64le and s390x
-> https://blog.travis-ci.com/2019-11-12-multi-cpu-architecture-ibm-power-ibm-z
+I talked to Jiri Olsa (one of perf maintainers) and he had his
+reservations about how test determines number of HW counters -
+by looking at time_enabled/time_running. One idea was to create
+a single group and keep adding hw events to it until it fails.
+This however didn't work on Pentium4 system either and it failed
+on 2nd event. He also pointed out, that test will always succeed
+when number of hw counter is over-estimated.
 
-> This patch enable ppc64le and s390x build on debian:stable.
+I found one workaround, which seems to work on both Pentium4
+and more recent CPUs. It replaces comparison of absolute values
+with comparison of increments (see patch 3 for details).
 
-> Remove `-i` switch from docker command as it isn't needed and caused
-> trouble running docker 'The input device is not a tty'.
-Interesting. Indeed, fails with -i. Don't remember, why I needed it.
+Question about validity of this test remains, but workaround in
+patch 3 at least should not make things worse.
 
-LGTM, I'd just move these 2 jobs higher (above fedora), as these builds are not
-usual so have higher priority to find a bug.
-Change ppc64le to to debian:testing (we already have stable build for ppc64le
-cross compilation).
+Jan Stancek (3):
+  perf_event_open02: migrate to newlib
+  perf_event_open02: make do_work() run for specified time
+  perf_event_open02: workaround for Pentium4
 
-Something like: 
-https://travis-ci.org/pevik/ltp/builds/613539454
-https://github.com/pevik/ltp/commit/2b69957b5838eb9f27e65ba172a71c24f15af6bd
-(No need to resend a patch, both can do during merge.)
+ .../syscalls/perf_event_open/perf_event_open02.c   | 402 +++++++++------------
+ 1 file changed, 168 insertions(+), 234 deletions(-)
 
-Kind regards,
-Petr
+-- 
+1.8.3.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
