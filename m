@@ -2,70 +2,84 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FE881025DB
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Nov 2019 15:04:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47821102693
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Nov 2019 15:24:49 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2DD423C2219
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Nov 2019 15:04:13 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1784C3C2219
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Nov 2019 15:24:49 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 003773C184E
- for <ltp@lists.linux.it>; Tue, 19 Nov 2019 15:04:08 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id D96732016BD
- for <ltp@lists.linux.it>; Tue, 19 Nov 2019 15:04:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1574172246;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=OhFCsA47CvUWzzjmPG0EzJvAMM5yJfYLHyjzxt2GxiE=;
- b=Q/vpiv8/nGyjqz0N4Bio6YZ5ZHuYA4vU3ttTryKLNoLHU3kPLSSRiPJoFJxl8/Re02NTuZ
- CdOCuNw+vml69XirbE8V7oZeR/eOBCjnvw7et4Q018o/v8h1+rrICLb3xMg+9EA9Mm5nPR
- /NMCfh4IzyG5lf1QkkSAxwMmIZU9cQw=
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
- [209.85.210.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-219-IBhhDav9OzaBNLtQ4sf1VQ-1; Tue, 19 Nov 2019 09:04:02 -0500
-Received: by mail-ot1-f70.google.com with SMTP id b110so3848830otc.15
- for <ltp@lists.linux.it>; Tue, 19 Nov 2019 06:04:01 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Ugwk8UIy6/Sh4oy+x6442tpIZ5muBU8z/ERhKWccXwI=;
- b=TXxT72Ajc4GAflQCVUHRwSZHo3WBrzAv3dO+/5ILnxQ290yrzaPvBFkjEi+LP1V7sw
- P+vopQXKoThOQYHSnAkuHjX7lwfGOjk03qFejREPd1CHnytG5m9lQYm+YmhOFUUhwTWa
- YCJq+fYU++k54MxfAM9Zh1flTjkR72xDhmdkgOwJH7v3VAHPwYKLpnxBQCWVWP3CKfkl
- fsztxcHSudXojKX6CESbzc6Q0hy9rIgoD4q8ZvF1uPhSB7zZXL973AYghW0XfyYMJBml
- LP3gjAovH9IMVra31dwjemb94+178qwWQmlRG4ch9UK1xEUqwLSved/RlsMLEQ0/r94R
- LVug==
-X-Gm-Message-State: APjAAAV93AeLq8CK7l1IOYT79Mz+R4c3dRjxIBzsY5B9mdv8fpmf+k+o
- TkNAdXo3UToBx62bPpb2jPeEMRfcGYgnrDdzJnsPD7a/rU2bJHCsn3DipI2qiQBaZP2nu/rgA1U
- J/QlhDRLUW7LFI81RWvBWrZy7dfc=
-X-Received: by 2002:a9d:7b50:: with SMTP id f16mr3880405oto.264.1574172241317; 
- Tue, 19 Nov 2019 06:04:01 -0800 (PST)
-X-Google-Smtp-Source: APXvYqy702VlzVksLwKsf4tp+h5evauG8vXJEZKfSoFz7eDH2w9XRUaCJVok28Bz9og/VgzsEjgKCYLMoj9ZrDY4MtQ=
-X-Received: by 2002:a9d:7b50:: with SMTP id f16mr3880355oto.264.1574172240742; 
- Tue, 19 Nov 2019 06:04:00 -0800 (PST)
-MIME-Version: 1.0
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 915D73C1448
+ for <ltp@lists.linux.it>; Tue, 19 Nov 2019 15:24:47 +0100 (CET)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 35BCC1000BE3
+ for <ltp@lists.linux.it>; Tue, 19 Nov 2019 15:24:45 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 457BFAEF9;
+ Tue, 19 Nov 2019 14:24:45 +0000 (UTC)
+To: Li Wang <liwang@redhat.com>, Jan Stancek <jstancek@redhat.com>
 References: <20191119094156.20348-1-liwang@redhat.com>
  <1860355560.12961927.1574161647388.JavaMail.zimbra@redhat.com>
-In-Reply-To: <1860355560.12961927.1574161647388.JavaMail.zimbra@redhat.com>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 19 Nov 2019 22:03:48 +0800
-Message-ID: <CAEemH2cN8qv_YpsFKJazcOKEvgfjXpacZOV_Er-0bjK86=6VpQ@mail.gmail.com>
-To: Jan Stancek <jstancek@redhat.com>
-X-MC-Unique: IBhhDav9OzaBNLtQ4sf1VQ-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+ <CAEemH2cN8qv_YpsFKJazcOKEvgfjXpacZOV_Er-0bjK86=6VpQ@mail.gmail.com>
+From: Martin Doucha <mdoucha@suse.cz>
+Autocrypt: addr=mdoucha@suse.cz; keydata=
+ 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
+Message-ID: <c9d278e6-5700-6c16-019b-1770a6ede0ff@suse.cz>
+Date: Tue, 19 Nov 2019 15:24:44 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
+MIME-Version: 1.0
+In-Reply-To: <CAEemH2cN8qv_YpsFKJazcOKEvgfjXpacZOV_Er-0bjK86=6VpQ@mail.gmail.com>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] tst_fill_fs: enhance the filesystem filling
  routine
 X-BeenThere: ltp@lists.linux.it
@@ -80,115 +94,27 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1192292313=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1192292313==
-Content-Type: multipart/alternative; boundary="00000000000039aa8a0597b389c5"
-
---00000000000039aa8a0597b389c5
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Nov 19, 2019 at 7:07 PM Jan Stancek <jstancek@redhat.com> wrote:
-
->
->
-> ----- Original Message -----
-> > -             while (len) {
-> > +             while (len >=3D fi.f_bsize) {
->
-> Let's say f_bsize is 512, and len is 1023. We hit ENOSPC for 1023,
-> len for next round is 511. Loop ends, but we never tried write with
-> f_bsize or smaller value.
->
-> I think we should try len < fi.f_bsize at least once.
->
-
-Good point. At least for len =3D fi.f_bsize.
-
-
->
-> >                       ret =3D write(fd, buf, MIN(len, sizeof(buf)));
-> >
-> >                       if (ret < 0) {
-> > +                             if (errno =3D=3D ENOSPC) {
-> > +                                     len /=3D 2;
-> > +                                     continue;
-> > +                             }
->
-> The return below (in original code) doesn't appear to be reachable now.
->
-
-Yes, but it doesn't make much sense there, maybe we could remove that part
-directly?
-
---=20
-Regards,
-Li Wang
-
---00000000000039aa8a0597b389c5
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Tue, Nov 19, 2019 at 7:07 PM Jan Stancek &lt;<a =
-href=3D"mailto:jstancek@redhat.com">jstancek@redhat.com</a>&gt; wrote:<br><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
-rder-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
-<br>
------ Original Message -----<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0while (len) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0while (len &gt;=3D fi=
-.f_bsize) {<br>
-<br>
-Let&#39;s say f_bsize is 512, and len is 1023. We hit ENOSPC for 1023,<br>
-len for next round is 511. Loop ends, but we never tried write with<br>
-f_bsize or smaller value.<br>
-<br>
-I think we should try len &lt; fi.f_bsize at least once.<br></blockquote><d=
-iv><br></div><div><div class=3D"gmail_default" style=3D"font-size:small">Go=
-od point. At least for len =3D fi.f_bsize.</div></div><div>=C2=A0</div><blo=
-ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
-:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0ret =3D write(fd, buf, MIN(len, sizeof(buf)));<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0if (ret &lt; 0) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (errno =3D=3D ENOSPC) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0len /=3D 2;<=
-br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0continue;<br=
->
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-<br>
-The return below (in original code) doesn&#39;t appear to be reachable now.=
-<br></blockquote><div><br></div><div class=3D"gmail_default" style=3D"font-=
-size:small">Yes, but it doesn&#39;t make much sense there, maybe we could r=
-emove that part directly?</div></div><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
-Wang<br></div></div></div></div>
-
---00000000000039aa8a0597b389c5--
-
-
---===============1192292313==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1192292313==--
-
+T24gMTEvMTkvMTkgMzowMyBQTSwgTGkgV2FuZyB3cm90ZToKPiBPbiBUdWUsIE5vdiAxOSwgMjAx
+OSBhdCA3OjA3IFBNIEphbiBTdGFuY2VrIDxqc3RhbmNla0ByZWRoYXQuY29tCj4gPG1haWx0bzpq
+c3RhbmNla0ByZWRoYXQuY29tPj4gd3JvdGU6Cj4gCj4gICAgIC0tLS0tIE9yaWdpbmFsIE1lc3Nh
+Z2UgLS0tLS0KPiAgICAgPiAtwqAgwqAgwqAgwqAgwqAgwqAgwqB3aGlsZSAobGVuKSB7Cj4gICAg
+ID4gK8KgIMKgIMKgIMKgIMKgIMKgIMKgd2hpbGUgKGxlbiA+PSBmaS5mX2JzaXplKSB7Cj4gCj4g
+ICAgIExldCdzIHNheSBmX2JzaXplIGlzIDUxMiwgYW5kIGxlbiBpcyAxMDIzLiBXZSBoaXQgRU5P
+U1BDIGZvciAxMDIzLAo+ICAgICBsZW4gZm9yIG5leHQgcm91bmQgaXMgNTExLiBMb29wIGVuZHMs
+IGJ1dCB3ZSBuZXZlciB0cmllZCB3cml0ZSB3aXRoCj4gICAgIGZfYnNpemUgb3Igc21hbGxlciB2
+YWx1ZS4KPiAKPiAgICAgSSB0aGluayB3ZSBzaG91bGQgdHJ5IGxlbiA8IGZpLmZfYnNpemUgYXQg
+bGVhc3Qgb25jZS4KPiAKPiAKPiBHb29kIHBvaW50LiBBdCBsZWFzdCBmb3IgbGVuID0gZmkuZl9i
+c2l6ZS4KCllvdSBkb24ndCBuZWVkIHRvIHJlZHVjZSB0aGUgd3JpdGUgc2l6ZSBpbiB0aGUgZmly
+c3QgcGxhY2UuIEtlcm5lbCB3aWxsCmhhcHBpbHkgZG8gc2hvcnQgd3JpdGVzIGZvciB5b3UgaWYg
+dGhlIGZpbGUgc3lzdGVtIHNvbWVob3cgZmluZHMgc29tZQpmcmVlIGJsb2Nrcy4gVGhlIG1vcmUg
+aW1wb3J0YW50IHF1ZXN0aW9uIGlzIGhvdyB0byB0cmlnZ2VyIGdhcmJhZ2UKY29sbGVjdGlvbiBv
+ZiBpbnRlcm5hbCBmaWxlIHN5c3RlbSBib29rLWtlZXBpbmcgZGF0YS4KCi0tIApNYXJ0aW4gRG91
+Y2hhICAgbWRvdWNoYUBzdXNlLmN6ClFBIEVuZ2luZWVyIGZvciBTb2Z0d2FyZSBNYWludGVuYW5j
+ZQpTVVNFIExJTlVYLCBzLnIuby4KQ09SU08gSUlhCktyaXppa292YSAxNDgvMzQKMTg2IDAwIFBy
+YWd1ZSA4CkN6ZWNoIFJlcHVibGljCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlz
+dHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
