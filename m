@@ -1,70 +1,66 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E82E101595
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Nov 2019 06:45:58 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id BAC6A101B87
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Nov 2019 09:13:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 428CA3C2272
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Nov 2019 06:45:58 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 263E33C22A3
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Nov 2019 09:13:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 5601B3C131B
- for <ltp@lists.linux.it>; Tue, 19 Nov 2019 06:45:54 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [205.139.110.120])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 8AF4F1402C52
- for <ltp@lists.linux.it>; Tue, 19 Nov 2019 06:45:52 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id CCD203C220E
+ for <ltp@lists.linux.it>; Tue, 19 Nov 2019 09:13:40 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 4CA16201673
+ for <ltp@lists.linux.it>; Tue, 19 Nov 2019 09:13:39 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1574142351;
+ s=mimecast20190719; t=1574151218;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=/IUoztfMTdkzLEV2FRak0FGB2RFUxxdkd6xY9KQKPqQ=;
- b=UOeXx/FHt6VN/Z3ukSipTjkMOuq27hPeo9uSnTBQ0G9UELmV2BXaMHATrPF1S2SQkTJv5s
- 2bYG2vSt8ddyXgpJm8LHUHPnTAStvHcWOUvfs+vzt7VSfn+hllD42K3ab1wZ+WRt+Ql+64
- o+VPmHzRaQm6jOHD4NZyjQNiYCwN60M=
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
- [209.85.210.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-354-licmJSdIMLSvSDK89fBlBA-1; Tue, 19 Nov 2019 00:45:47 -0500
-Received: by mail-ot1-f69.google.com with SMTP id 60so11414931otd.19
- for <ltp@lists.linux.it>; Mon, 18 Nov 2019 21:45:47 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=6+m3kGCrvhnGg/mzAgyNxmZXTSffZmx47wYysBTtYy8=;
- b=CG+5QRGS2lyK6L50xocmBbG8m0WpwDYhRZLuBAkEfJLYaykEYpkcnhsZLtHMxyC+CP
- S6LaV7pt58bfu1Xgo32DoTnhquLewcdC+WlRhSL4Lgj9FJ3VH0zPZYR5wMj1zKQZuhQ5
- Qys+zN1LhIGfyH02Fw/Uf+qfzKRXDkLWCgAluf7ssiUYx25ASl6Ryq/P1MkIi0gHbvTg
- CESLShdjBOshg2VCAD3Exo3sqpNxD2uwYa9TPZiLutJs6iitmn9zMWiy4Rv8VyokQ0o6
- L6uvlbg/1bbdBRetTP3IzHbXG9z+aqPoHIDAkNOilNBexZedydekwj3m4O5v4sfH9nDe
- w95g==
-X-Gm-Message-State: APjAAAVXfibDJb4M8JvnhEc3C+jcJ324gK/3Eva7g6wGEIsBLsUA9nZH
- 3hRpYQNlj7vlbqHZsHdUxJxVXFNIFUAAu4zjYYONmUfJb1YfhpzP9hzNh5+1xCkQkB3lpgcVI5d
- s1nrMwPtSvIqEiWeOUSYt4tOo1Ug=
-X-Received: by 2002:aca:ad03:: with SMTP id w3mr2430972oie.96.1574142346878;
- Mon, 18 Nov 2019 21:45:46 -0800 (PST)
-X-Google-Smtp-Source: APXvYqylSeDWf9vDj3c8VN2hJqyrk+Dm1aDFBvkzXf7hGaa4M0GmR5TuTtWgzvCug4u0PCANfL0au+z1kMNHiwC19bM=
-X-Received: by 2002:aca:ad03:: with SMTP id w3mr2430954oie.96.1574142346612;
- Mon, 18 Nov 2019 21:45:46 -0800 (PST)
-MIME-Version: 1.0
+ bh=fa6ZW381PvcCckYG6ZEC3LiraKSH5NPZyr7ngYuCB+w=;
+ b=VMC6503gWrPONi5dxwyCxX17MnUWk5ZaaEXyXAXkTgZFGeOZ/4YGfzzd9rUq7Vvt3q/PL7
+ u4dc3RP9Rg9lczy+7TcSuGS27NgXjDy1W23WSwId6NpvvSgemPsYjvfXL8LTbcFvc81MEP
+ 8UJt86yi1c3YmP4FNLm34VFw4fRD8YQ=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-395-5UcZlPwSOTidbHYmPcob2Q-1; Tue, 19 Nov 2019 03:13:34 -0500
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8AFBD800686;
+ Tue, 19 Nov 2019 08:13:33 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 805025E24D;
+ Tue, 19 Nov 2019 08:13:33 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id E7B524BB5C;
+ Tue, 19 Nov 2019 08:13:32 +0000 (UTC)
+Date: Tue, 19 Nov 2019 03:13:32 -0500 (EST)
+From: Jan Stancek <jstancek@redhat.com>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <1824199572.12930798.1574151212869.JavaMail.zimbra@redhat.com>
+In-Reply-To: <CAEemH2eu8HcQ90+BxUL0Hu+No6P5je4xC3oqVSU_ZnwMXEG=7Q@mail.gmail.com>
 References: <d8ad4bab26557fdf70e7ebc3f771bbb37ae889d7.1574093242.git.jstancek@redhat.com>
- <202fcb5a-c110-abdf-c305-7a0f5b6c1efc@suse.cz>
-In-Reply-To: <202fcb5a-c110-abdf-c305-7a0f5b6c1efc@suse.cz>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 19 Nov 2019 13:45:35 +0800
-Message-ID: <CAEemH2cDVF6Hv=KUmFo8eF2fdgvQqdMTmwZPnwRRffhDTFa-tw@mail.gmail.com>
-To: Martin Doucha <mdoucha@suse.cz>
-X-MC-Unique: licmJSdIMLSvSDK89fBlBA-1
+ <CAEemH2eu8HcQ90+BxUL0Hu+No6P5je4xC3oqVSU_ZnwMXEG=7Q@mail.gmail.com>
+MIME-Version: 1.0
+X-Originating-IP: [10.40.204.103, 10.4.195.5]
+Thread-Topic: fallocate05: increase FALLOCATE_SIZE
+Thread-Index: RRljs9Vb+OfqOw5K0Pjb0t3uyQe08g==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-MC-Unique: 5UcZlPwSOTidbHYmPcob2Q-1
 X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] fallocate05: increase FALLOCATE_SIZE
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -78,86 +74,75 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0316005980=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0316005980==
-Content-Type: multipart/alternative; boundary="0000000000006576ed0597ac9373"
 
---0000000000006576ed0597ac9373
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 19, 2019 at 12:19 AM Martin Doucha <mdoucha@suse.cz> wrote:
+----- Original Message -----
+> Another patch I was thinking is to enhance the tst_fill_fs routine, which
+> as Eric suggested, makes more reliably to get to a full filesystem.
+> Something like what xfstest does to cut the trial write size in half and
+> try again until the size is less than the filesystem block size.
+> 
+> Comments?
 
-> On 11/18/19 5:08 PM, Jan Stancek wrote:
-> > write() returning ENOSPC doesn't guarantee that filesystem after
-> > some internal book-keeping, flushing, finishing transactions, etc.
-> > won't still find some extra space.
+fallocate05 seems to be the only test using it, but in general I think we
+can do that too. Assuming this alone would be reliable, is there any
+advantage of running test with small FALLOCATE_SIZE?
+
+> 
+> --- a/lib/tst_fill_fs.c
+> +++ b/lib/tst_fill_fs.c
+> @@ -6,6 +6,7 @@
+>  #include <errno.h>
+>  #include <stdio.h>
+>  #include <stdlib.h>
+> +#include <sys/statvfs.h>
+> 
+>  #define TST_NO_DEFAULT_MAIN
+>  #include "tst_test.h"
+> @@ -19,6 +20,8 @@ void tst_fill_fs(const char *path, int verbose)
+>         size_t len;
+>         ssize_t ret;
+>         int fd;
+> +       struct statvfs fi;
+> +       statvfs(path, &fi);
+> 
+>         for (;;) {
+>                 len = random() % (1024 * 102400);
+> @@ -41,6 +44,12 @@ void tst_fill_fs(const char *path, int verbose)
+>                         ret = write(fd, buf, MIN(len, sizeof(buf)));
+> 
+>                         if (ret < 0) {
+> +                               if (errno == ENOSPC) {
+> +                                       len /= 2;
+> +                                       if (len >= fi.f_bsize)
+> +                                               continue;
+> +                               }
+> +
+>                                 SAFE_CLOSE(fd);
+> 
+>                                 if (errno != ENOSPC)
+> 
+> 
+> 
 > >
 > > Increase FALLOCATE_SIZE to minimize chance of hitting sporadic
 > > failures when that happens.
->
-> We're planning to rewrite fallocate05 this week and FALLOCATE_SIZE will
-> be removed entirely. The test must use a multiple of the real file
-> system block size, otherwise it'll test different things on different
-> platforms.
->
+> >
+> > Thanks to Carlos Maiolino and Eric Sandeen for their comments
+> > and suggestions.
+> >
+> > Fixes #610
+> > Signed-off-by: Jan Stancek <jstancek@redhat.com>
+> >
+> Reviewed-by: Li Wang <liwang@redhat.com>
 
-Sounds good. Thanks!
-
-But it'd be better to merge Jan's patch first because there will still need
-time for new patch reviewing.
-
---=20
-Regards,
-Li Wang
-
---0000000000006576ed0597ac9373
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Tue, Nov 19, 2019 at 12:19 AM Martin Doucha &lt;=
-<a href=3D"mailto:mdoucha@suse.cz">mdoucha@suse.cz</a>&gt; wrote:<br></div>=
-<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
-left:1px solid rgb(204,204,204);padding-left:1ex">On 11/18/19 5:08 PM, Jan =
-Stancek wrote:<br>
-&gt; write() returning ENOSPC doesn&#39;t guarantee that filesystem after<b=
-r>
-&gt; some internal book-keeping, flushing, finishing transactions, etc.<br>
-&gt; won&#39;t still find some extra space.<br>
-&gt; <br>
-&gt; Increase FALLOCATE_SIZE to minimize chance of hitting sporadic<br>
-&gt; failures when that happens.<br>
-<br>
-We&#39;re planning to rewrite fallocate05 this week and FALLOCATE_SIZE will=
-<br>
-be removed entirely. The test must use a multiple of the real file<br>
-system block size, otherwise it&#39;ll test different things on different<b=
-r>
-platforms.<br></blockquote><div><br></div><div><div class=3D"gmail_default"=
- style=3D"font-size:small">Sounds good. Thanks!</div><div class=3D"gmail_de=
-fault" style=3D"font-size:small"><br></div><div class=3D"gmail_default" sty=
-le=3D"font-size:small">But it&#39;d be better to merge Jan&#39;s patch firs=
-t because there will still need time for new patch reviewing.</div></div></=
-div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div d=
-ir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
-
---0000000000006576ed0597ac9373--
-
-
---===============0316005980==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Thanks, I pushed this patch for now. 
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0316005980==--
-
