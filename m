@@ -2,51 +2,56 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7895D10349E
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Nov 2019 07:54:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C160D103521
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Nov 2019 08:23:56 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 26BD23C2386
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Nov 2019 07:54:25 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 881583C1CF5
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Nov 2019 08:23:56 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 6C4D93C1814
- for <ltp@lists.linux.it>; Wed, 20 Nov 2019 07:54:20 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 0B761608A71
- for <ltp@lists.linux.it>; Wed, 20 Nov 2019 07:54:18 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.69,220,1571673600"; d="scan'208,217";a="78781048"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 20 Nov 2019 14:54:13 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id ADDA04B6EC6D;
- Wed, 20 Nov 2019 14:45:55 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1395.4; Wed, 20 Nov 2019 14:54:12 +0800
-To: <ltp@lists.linux.it>, <chrubis@suse.cz>
-References: <20191115163517.GB25964@rei.lan>
- <1574044495-2813-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <71e855bf-62c8-5ee1-e8d2-6753459571f7@cn.fujitsu.com>
-Date: Wed, 20 Nov 2019 14:54:11 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id C18A33C1814
+ for <ltp@lists.linux.it>; Wed, 20 Nov 2019 08:23:54 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
+ [205.139.110.61])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 3C89120109D
+ for <ltp@lists.linux.it>; Wed, 20 Nov 2019 08:23:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1574234632;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=aeQOj+9/Bb2l4VlHde3/4ENjvf1ZwDGvVR9kHtJU1mE=;
+ b=aiA9D3P0xdCMUoCy7m615Aw06i2N+f+xgtEYU2fMtYNYX6jSso9S7UeTOaQfcciY+CGgAW
+ eMf6fzNgb0yhKhmO8n0yNavG4Yv/mCd3LmHPzOy6WfNb0Ko0qVoVPYOqwIbZjeBbiEXHSh
+ ZHT99tu9B1SEwLuznzPGBexn/uE3Q0E=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-340-d9caF7a5MrCnfasy3om1Vw-1; Wed, 20 Nov 2019 02:23:50 -0500
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+ [10.5.11.22])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B3C891005509;
+ Wed, 20 Nov 2019 07:23:49 +0000 (UTC)
+Received: from localhost.localdomain.com (unknown [10.66.81.246])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 606F21000328;
+ Wed, 20 Nov 2019 07:23:48 +0000 (UTC)
+From: Li Wang <liwang@redhat.com>
+To: ltp@lists.linux.it
+Date: Wed, 20 Nov 2019 15:23:11 +0800
+Message-Id: <20191120072311.32333-1-liwang@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <1574044495-2813-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: ADDA04B6EC6D.AF5FF
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=HTML_MESSAGE, KHOP_HELO_FCRDNS,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-MC-Unique: d9caF7a5MrCnfasy3om1Vw-1
+X-Mimecast-Spam-Score: 0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v6 1/2] lib/tst_timer_test: move test setup
- function before PR_GET_TIMERSLACK
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] tst_fill_fs: enhance the filesystem filling routine
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,139 +63,71 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1193941896=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1193941896==
-Content-Type: multipart/alternative;
-	boundary="------------9D2B4A3DE75F646CB9128B42"
+Do more tries with size in half when write() getting ENOSPC, until the size
+is less than the filesystem block size. Though we can't really fill a filesystem
+full, this could make the routine more robust.
 
---------------9D2B4A3DE75F646CB9128B42
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Hi Cyril
-
-  I think this patch can be merged if it is ok.
-
-Thanks
-Yang Xu
-
-> Move test setup function before PR_GET_TIMERSLACK in timer setup function so
-> that the library includes the newly set timerslack in the calculation.
->
-> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-> Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
-> ---
->   lib/tst_timer_test.c | 8 +++-----
->   1 file changed, 3 insertions(+), 5 deletions(-)
->
-> diff --git a/lib/tst_timer_test.c b/lib/tst_timer_test.c
-> index f6459e5c0..13e9deff2 100644
-> --- a/lib/tst_timer_test.c
-> +++ b/lib/tst_timer_test.c
-> @@ -340,6 +340,9 @@ static void timer_setup(void)
->   	struct timespec t;
->   	int ret;
->   
-> +	if (setup)
-> +		setup();
-> +
->   	tst_clock_getres(CLOCK_MONOTONIC, &t);
->   
->   	tst_res(TINFO, "CLOCK_MONOTONIC resolution %lins", (long)t.tv_nsec);
-> @@ -360,16 +363,11 @@ static void timer_setup(void)
->   	tst_res(TINFO, "PR_GET_TIMERSLACK not defined, using %uus",
->   		timerslack);
->   #endif /* PR_GET_TIMERSLACK */
-> -
->   	parse_timer_opts();
->   
->   	samples = SAFE_MALLOC(sizeof(long long) * MAX(MAX_SAMPLES, sample_cnt));
-> -
->   	if (set_latency() < 0)
->   		tst_res(TINFO, "Failed to set zero latency constraint: %m");
-> -
-> -	if (setup)
-> -		setup();
->   }
->   
->   static void timer_cleanup(void)
-
-
-
---------------9D2B4A3DE75F646CB9128B42
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <pre>Hi Cyril</pre>
-    <pre> I think this patch can be merged if it is ok.</pre>
-    <pre>Thanks
-Yang Xu
-</pre>
-    <blockquote type="cite"
-      cite="mid:1574044495-2813-1-git-send-email-xuyang2018.jy@cn.fujitsu.com">
-      <pre class="moz-quote-pre" wrap="">Move test setup function before PR_GET_TIMERSLACK in timer setup function so
-that the library includes the newly set timerslack in the calculation.
-
-Signed-off-by: Yang Xu <a class="moz-txt-link-rfc2396E" href="mailto:xuyang2018.jy@cn.fujitsu.com">&lt;xuyang2018.jy@cn.fujitsu.com&gt;</a>
-Reviewed-by: Cyril Hrubis <a class="moz-txt-link-rfc2396E" href="mailto:chrubis@suse.cz">&lt;chrubis@suse.cz&gt;</a>
+Signed-off-by: Li Wang <liwang@redhat.com>
+Cc: Jan Stancek <jstancek@redhat.com>
+Cc: Martin Doucha <mdoucha@suse.cz>
 ---
- lib/tst_timer_test.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ lib/tst_fill_fs.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/lib/tst_timer_test.c b/lib/tst_timer_test.c
-index f6459e5c0..13e9deff2 100644
---- a/lib/tst_timer_test.c
-+++ b/lib/tst_timer_test.c
-@@ -340,6 +340,9 @@ static void timer_setup(void)
- 	struct timespec t;
- 	int ret;
+diff --git a/lib/tst_fill_fs.c b/lib/tst_fill_fs.c
+index 4003dce97..3015c066e 100644
+--- a/lib/tst_fill_fs.c
++++ b/lib/tst_fill_fs.c
+@@ -6,6 +6,7 @@
+ #include <errno.h>
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <sys/statvfs.h>
  
-+	if (setup)
-+		setup();
+ #define TST_NO_DEFAULT_MAIN
+ #include "tst_test.h"
+@@ -19,6 +20,8 @@ void tst_fill_fs(const char *path, int verbose)
+ 	size_t len;
+ 	ssize_t ret;
+ 	int fd;
++	struct statvfs fi;
++	statvfs(path, &fi);
+ 
+ 	for (;;) {
+ 		len = random() % (1024 * 102400);
+@@ -37,17 +40,20 @@ void tst_fill_fs(const char *path, int verbose)
+ 			return;
+ 		}
+ 
+-		while (len) {
++		while (len >= fi.f_bsize/2) {
+ 			ret = write(fd, buf, MIN(len, sizeof(buf)));
+ 
+ 			if (ret < 0) {
++				if (errno == ENOSPC) {
++					SAFE_FSYNC(fd);
++					len /= 2;
++					continue;
++				}
 +
- 	tst_clock_getres(CLOCK_MONOTONIC, &amp;t);
+ 				SAFE_CLOSE(fd);
  
- 	tst_res(TINFO, "CLOCK_MONOTONIC resolution %lins", (long)t.tv_nsec);
-@@ -360,16 +363,11 @@ static void timer_setup(void)
- 	tst_res(TINFO, "PR_GET_TIMERSLACK not defined, using %uus",
- 		timerslack);
- #endif /* PR_GET_TIMERSLACK */
+ 				if (errno != ENOSPC)
+ 					tst_brk(TBROK | TERRNO, "write()");
 -
- 	parse_timer_opts();
+-				tst_res(TINFO | TERRNO, "write()");
+-				return;
+ 			}
  
- 	samples = SAFE_MALLOC(sizeof(long long) * MAX(MAX_SAMPLES, sample_cnt));
--
- 	if (set_latency() &lt; 0)
- 		tst_res(TINFO, "Failed to set zero latency constraint: %m");
--
--	if (setup)
--		setup();
- }
- 
- static void timer_cleanup(void)
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------9D2B4A3DE75F646CB9128B42--
-
---===============1193941896==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+ 			len -= ret;
+-- 
+2.20.1
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1193941896==--
