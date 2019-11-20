@@ -1,47 +1,62 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D134B103673
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Nov 2019 10:14:41 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2068E103885
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Nov 2019 12:17:57 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 914BE3C203D
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Nov 2019 10:14:41 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C4F3F3C1D33
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Nov 2019 12:17:56 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 22EC23C2022
- for <ltp@lists.linux.it>; Wed, 20 Nov 2019 10:14:00 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 8EB361400200
- for <ltp@lists.linux.it>; Wed, 20 Nov 2019 10:13:57 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.69,221,1571673600"; d="scan'208";a="78787342"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 20 Nov 2019 17:13:53 +0800
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id 0EEC24CE1BEC
- for <ltp@lists.linux.it>; Wed, 20 Nov 2019 17:05:37 +0800 (CST)
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Wed, 20 Nov 2019 17:13:53 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Wed, 20 Nov 2019 17:13:36 +0800
-Message-ID: <1574241216-15168-6-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1574241216-15168-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-References: <1574241216-15168-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 878A53C14F0
+ for <ltp@lists.linux.it>; Wed, 20 Nov 2019 12:17:54 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
+ [205.139.110.61])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 7BE0D60069E
+ for <ltp@lists.linux.it>; Wed, 20 Nov 2019 12:17:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1574248671;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=5p/DvzCluJivU+NrxbhZCdFrubnWPh3i5sly7HqcZ1k=;
+ b=Y6VS0vGmqGFpkCLsV+uhhe0soeu/DJPrgzLTRHwKhpc++gZFohsepcT8KquVUIr89kanx9
+ +gKqRj+sbOCBxxRjV+uKF6MOa8CeQtoxLPLDB3hoiFfcotI5BA+5pttQBufKd2F7VSGTmt
+ SFcHml5MjZ0DF3ziYkBVmcWJLur5Vto=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-120-409PgtwAP-aWJCe0-pz0bw-1; Wed, 20 Nov 2019 06:17:42 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2C4C5107ACC5;
+ Wed, 20 Nov 2019 11:17:41 +0000 (UTC)
+Received: from [172.54.93.16] (cpt-1055.paas.prod.upshift.rdu2.redhat.com
+ [10.0.19.82])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id C116E54563;
+ Wed, 20 Nov 2019 11:17:35 +0000 (UTC)
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-yoursite-MailScanner-ID: 0EEC24CE1BEC.AF4D8
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+From: CKI Project <cki-project@redhat.com>
+To: Linux Stable maillist <stable@vger.kernel.org>
+Date: Wed, 20 Nov 2019 11:17:35 -0000
+Message-ID: <cki.6D94BD5731.3IAGHB25D8@redhat.com>
+X-Gitlab-Pipeline-ID: 296781
+X-Gitlab-Url: https://xci32.lab.eng.rdu2.redhat.com
+X-Gitlab-Path: /cki-project/cki-pipeline/pipelines/296781
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-MC-Unique: 409PgtwAP-aWJCe0-pz0bw-1
+X-Mimecast-Spam-Score: 0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 5/5] syscalls/quotactl06: Add new error testcase
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E4?=
+ =?utf-8?q?=2E0-rc8-4b17a56=2Ecki_=28stable-next=29?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,247 +68,148 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Memory Management <mm-qe@redhat.com>, LTP Mailing List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- runtest/syscalls                              |   1 +
- testcases/kernel/syscalls/quotactl/.gitignore |   1 +
- .../kernel/syscalls/quotactl/quotactl06.c     | 196 ++++++++++++++++++
- 3 files changed, 198 insertions(+)
- create mode 100644 testcases/kernel/syscalls/quotactl/quotactl06.c
-
-diff --git a/runtest/syscalls b/runtest/syscalls
-index b6bf67c38..9bbde8c41 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -956,6 +956,7 @@ quotactl02 quotactl02
- quotactl03 quotactl03
- quotactl04 quotactl04
- quotactl05 quotactl05
-+quotactl06 quotactl06
- 
- read01 read01
- read02 read02
-diff --git a/testcases/kernel/syscalls/quotactl/.gitignore b/testcases/kernel/syscalls/quotactl/.gitignore
-index 6fe62fbf7..12896d6ad 100644
---- a/testcases/kernel/syscalls/quotactl/.gitignore
-+++ b/testcases/kernel/syscalls/quotactl/.gitignore
-@@ -3,3 +3,4 @@
- /quotactl03
- /quotactl04
- /quotactl05
-+/quotactl06
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl06.c b/testcases/kernel/syscalls/quotactl/quotactl06.c
-new file mode 100644
-index 000000000..0d7efe38b
---- /dev/null
-+++ b/testcases/kernel/syscalls/quotactl/quotactl06.c
-@@ -0,0 +1,196 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2019 FUJITSU LIMITED. All rights reserved.
-+ * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-+ *
-+ * Tests basic error handling of the quotactl syscall.
-+ * Description:
-+ * 1) quotactl fails with EACCES when cmd is Q_QUOTAON and addr
-+ * existed but not a regular file.
-+ * 2) quotaclt fails with ENOENT when the file specified by special
-+ * or addr does not exist.
-+ * 3) quotactl fails with EBUSTY when  cmd is Q_QUOTAON and another
-+ * Q_QUOTAON had already been performed.
-+ * 4) quotactl fails with EFAULT when addr or special is invalid.
-+ * 5) quotactl fails with EINVAL when cmd or type is invalid.
-+ * 6) quotactl fails with ENOTBLK when special is not a block device.
-+ * 7) quotactl fails with ESRCH when no disk quota is found for the
-+ * indicated user and quotas have not been turned on for this fs.
-+ * 8) quotactl fails with ESRCH when cmd is Q_QUOTAON, but the quota
-+ * format was not found.
-+ * 9) quotactl fails with ESRCH when cmd is Q_GETNEXTQUOTA, but there
-+ * is no ID greater than or equal to id that has an active quota.
-+ * 10) quotactl fails with ERANGE when cmd is Q_SETQUOTA, but the
-+ * specified limits are out of the range allowed by the quota format.
-+ * 11) quotactl fails with EPERM when the caller lacked the required
-+ * privilege (CAP_SYS_ADMIN) for the specified operation.
-+ */
-+#include <errno.h>
-+#include <sys/quota.h>
-+#include "tst_test.h"
-+#include "lapi/quotactl.h"
-+#include "tst_capability.h"
-+
-+#define OPTION_INVALID 999
-+#define QFMT_VFS_V0     2
-+#define USRPATH MNTPOINT "/aquota.user"
-+#define FMTID QFMT_VFS_V0
-+
-+#define MNTPOINT "mntpoint"
-+#define TESTDIR1 MNTPOINT "/testdir1"
-+#define TESTDIR2 MNTPOINT "/testdir2"
-+
-+static int32_t fmt_id = FMTID;
-+static int32_t fmt_invalid = 999;
-+static int test_invalid;
-+static int test_id;
-+static int getnextquota_nsup;
-+
-+static struct if_nextdqblk res_ndq;
-+static struct dqblk set_dq = {
-+	.dqb_bsoftlimit = 100,
-+	.dqb_valid = QIF_BLIMITS
-+};
-+
-+static struct dqblk set_dqmax = {
-+	.dqb_bsoftlimit = 0x7fffffffffffffffLL,  /* 2^63-1 */
-+	.dqb_valid = QIF_BLIMITS
-+};
-+
-+struct tst_cap dropadmin = {
-+	.action = TST_CAP_DROP,
-+	.id = CAP_SYS_ADMIN,
-+	.name = "CAP_SYS_ADMIN",
-+};
-+
-+struct tst_cap needadmin = {
-+	.action = TST_CAP_REQ,
-+	.id = CAP_SYS_ADMIN,
-+	.name = "CAP_SYS_ADMIN",
-+};
-+
-+static struct tcase {
-+	int cmd;
-+	int *id;
-+	void *addr;
-+	int exp_err;
-+	int on_flag;
-+} tcases[] = {
-+	{QCMD(Q_QUOTAON, USRQUOTA), &fmt_id, TESTDIR1, EACCES, 0},
-+	{QCMD(Q_QUOTAON, USRQUOTA), &fmt_id, TESTDIR2, ENOENT, 0},
-+	{QCMD(Q_QUOTAON, USRQUOTA), &fmt_id, USRPATH, EBUSY, 1},
-+	{QCMD(Q_SETQUOTA, USRQUOTA), &fmt_id, NULL, EFAULT, 1},
-+	{QCMD(OPTION_INVALID, USRQUOTA), &fmt_id, USRPATH, EINVAL, 0},
-+	{QCMD(Q_QUOTAON, USRQUOTA), &fmt_id, USRPATH, ENOTBLK, 0},
-+	{QCMD(Q_SETQUOTA, USRQUOTA), &test_id, &set_dq, ESRCH, 0},
-+	{QCMD(Q_QUOTAON, USRQUOTA), &fmt_invalid, USRPATH, ESRCH, 0},
-+	{QCMD(Q_GETNEXTQUOTA, USRQUOTA), &test_invalid, USRPATH, ESRCH, 0},
-+	{QCMD(Q_SETQUOTA, USRQUOTA), &test_id, &set_dqmax, ERANGE, 1},
-+	{QCMD(Q_QUOTAON, USRQUOTA), &fmt_id, USRPATH, EPERM, 0},
-+};
-+
-+static void verify_quotactl(unsigned int n)
-+{
-+	struct tcase *tc = &tcases[n];
-+	int quota_on = 0;
-+	int drop_flag = 0;
-+
-+	if (tc->cmd == QCMD(Q_GETNEXTQUOTA, USRQUOTA) && getnextquota_nsup) {
-+		tst_res(TCONF, "current system doesn't support Q_GETNEXTQUOTA, skip it");
-+		return;
-+	}
-+
-+	if (tc->on_flag) {
-+		TEST(quotactl(QCMD(Q_QUOTAON, USRQUOTA), tst_device->dev, FMTID, USRPATH));
-+		if (TST_RET == -1)
-+			tst_brk(TBROK,
-+				"quotactl with Q_QUOTAON returned %ld", TST_RET);
-+		quota_on = 1;
-+	}
-+
-+	if (tc->exp_err == EPERM) {
-+		tst_cap_action(&dropadmin);
-+		drop_flag = 1;
-+	}
-+
-+	if (tc->exp_err == ENOTBLK)
-+		TEST(quotactl(tc->cmd, "/dev/null", *tc->id, tc->addr));
-+	else
-+		TEST(quotactl(tc->cmd, tst_device->dev, *tc->id, tc->addr));
-+	if (TST_RET == -1) {
-+		if (tc->exp_err == TST_ERR) {
-+			tst_res(TPASS | TTERRNO, "quotactl failed as expected");
-+		} else {
-+			tst_res(TFAIL | TTERRNO,
-+				"quotactl failed unexpectedly; expected %s, but got",
-+				tst_strerrno(tc->exp_err));
-+		}
-+	} else {
-+		tst_res(TFAIL, "quotactl returned wrong value: %ld", TST_RET);
-+	}
-+
-+	if (quota_on) {
-+		TEST(quotactl(QCMD(Q_QUOTAOFF, USRQUOTA), tst_device->dev, FMTID, USRPATH));
-+		if (TST_RET == -1)
-+			tst_brk(TBROK,
-+				"quotactl with Q_QUOTAOFF returned %ld", TST_RET);
-+		quota_on = 0;
-+	}
-+
-+	if (drop_flag) {
-+		tst_cap_action(&needadmin);
-+		drop_flag = 0;
-+	}
-+}
-+
-+static void setup(void)
-+{
-+	const char *const cmd[] = {"quotacheck", "-uF", "vfsv0", MNTPOINT, NULL};
-+	int ret;
-+	unsigned int i;
-+
-+	ret = tst_run_cmd(cmd, NULL, NULL, 1);
-+	switch (ret) {
-+	case 0:
-+		break;
-+	case 255:
-+		tst_brk(TBROK, "quotacheck binary not installed");
-+		break;
-+	default:
-+		tst_brk(TBROK, "quotacheck exited with %i", ret);
-+	}
-+
-+	if (access(USRPATH, F_OK) == -1)
-+		tst_brk(TFAIL | TERRNO, "user quotafile didn't exist");
-+
-+	SAFE_MKDIR(TESTDIR1, 0666);
-+	test_id = geteuid();
-+	test_invalid = test_id + 1;
-+
-+	TEST(quotactl(QCMD(Q_GETNEXTQUOTA, USRQUOTA), tst_device->dev,
-+		test_id, (void *) &res_ndq));
-+	if (TST_ERR == EINVAL || TST_ERR == ENOSYS)
-+		getnextquota_nsup = 1;
-+
-+	for (i = 0; i < ARRAY_SIZE(tcases); i++) {
-+		if (!tcases[i].addr)
-+			tcases[i].addr = tst_get_bad_addr(NULL);
-+	}
-+}
-+
-+static const char *kconfigs[] = {
-+	"CONFIG_QFMT_V2",
-+	NULL
-+};
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.needs_kconfigs = kconfigs,
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.test = verify_quotactl,
-+	.dev_fs_type = "ext4",
-+	.mntpoint = MNTPOINT,
-+	.mount_device = 1,
-+	.mnt_data = "usrquota",
-+	.needs_root = 1,
-+};
--- 
-2.18.0
-
-
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+CkhlbGxvLAoKV2UgcmFuIGF1dG9tYXRlZCB0ZXN0cyBvbiBhIHJlY2VudCBjb21taXQgZnJvbSB0
+aGlzIGtlcm5lbCB0cmVlOgoKICAgICAgIEtlcm5lbCByZXBvOiBnaXQ6Ly9naXQua2VybmVsLm9y
+Zy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvc2FzaGFsL2xpbnV4LXN0YWJsZS5naXQKICAgICAg
+ICAgICAgQ29tbWl0OiA0YjE3YTU2NzA4ZDkgLSBrY292OiByZW1vdGUgY292ZXJhZ2Ugc3VwcG9y
+dAoKVGhlIHJlc3VsdHMgb2YgdGhlc2UgYXV0b21hdGVkIHRlc3RzIGFyZSBwcm92aWRlZCBiZWxv
+dy4KCiAgICBPdmVyYWxsIHJlc3VsdDogRkFJTEVEIChzZWUgZGV0YWlscyBiZWxvdykKICAgICAg
+ICAgICAgIE1lcmdlOiBPSwogICAgICAgICAgIENvbXBpbGU6IE9LCiAgICAgICAgICAgICBUZXN0
+czogRkFJTEVECgpBbGwga2VybmVsIGJpbmFyaWVzLCBjb25maWcgZmlsZXMsIGFuZCBsb2dzIGFy
+ZSBhdmFpbGFibGUgZm9yIGRvd25sb2FkIGhlcmU6CgogIGh0dHBzOi8vYXJ0aWZhY3RzLmNraS1w
+cm9qZWN0Lm9yZy9waXBlbGluZXMvMjk2NzgxCgpPbmUgb3IgbW9yZSBrZXJuZWwgdGVzdHMgZmFp
+bGVkOgoKICAgIHBwYzY0bGU6CiAgICAg4p2MIExUUCBsaXRlCiAgICAg4p2MIHhmc3Rlc3RzOiBl
+eHQ0CgpXZSBob3BlIHRoYXQgdGhlc2UgbG9ncyBjYW4gaGVscCB5b3UgZmluZCB0aGUgcHJvYmxl
+bSBxdWlja2x5LiBGb3IgdGhlIGZ1bGwKZGV0YWlsIG9uIG91ciB0ZXN0aW5nIHByb2NlZHVyZXMs
+IHBsZWFzZSBzY3JvbGwgdG8gdGhlIGJvdHRvbSBvZiB0aGlzIG1lc3NhZ2UuCgpQbGVhc2UgcmVw
+bHkgdG8gdGhpcyBlbWFpbCBpZiB5b3UgaGF2ZSBhbnkgcXVlc3Rpb25zIGFib3V0IHRoZSB0ZXN0
+cyB0aGF0IHdlCnJhbiBvciBpZiB5b3UgaGF2ZSBhbnkgc3VnZ2VzdGlvbnMgb24gaG93IHRvIG1h
+a2UgZnV0dXJlIHRlc3RzIG1vcmUgZWZmZWN0aXZlLgoKICAgICAgICAsLS4gICAsLS4KICAgICAg
+ICggQyApICggSyApICBDb250aW51b3VzCiAgICAgICAgYC0nLC0uYC0nICAgS2VybmVsCiAgICAg
+ICAgICAoIEkgKSAgICAgSW50ZWdyYXRpb24KICAgICAgICAgICBgLScKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCgpDb21waWxlIHRlc3RpbmcKLS0tLS0tLS0tLS0tLS0tCgpXZSBjb21waWxlZCB0aGUg
+a2VybmVsIGZvciAzIGFyY2hpdGVjdHVyZXM6CgogICAgYWFyY2g2NDoKICAgICAgbWFrZSBvcHRp
+b25zOiAtajMwIElOU1RBTExfTU9EX1NUUklQPTEgdGFyZ3otcGtnCgogICAgcHBjNjRsZToKICAg
+ICAgbWFrZSBvcHRpb25zOiAtajMwIElOU1RBTExfTU9EX1NUUklQPTEgdGFyZ3otcGtnCgogICAg
+eDg2XzY0OgogICAgICBtYWtlIG9wdGlvbnM6IC1qMzAgSU5TVEFMTF9NT0RfU1RSSVA9MSB0YXJn
+ei1wa2cKCgpIYXJkd2FyZSB0ZXN0aW5nCi0tLS0tLS0tLS0tLS0tLS0KV2UgYm9vdGVkIGVhY2gg
+a2VybmVsIGFuZCByYW4gdGhlIGZvbGxvd2luZyB0ZXN0czoKCiAgYWFyY2g2NDoKICAgIEhvc3Qg
+MToKICAgICAgIOKchSBCb290IHRlc3QKICAgICAgIOKchSBQb2RtYW4gc3lzdGVtIGludGVncmF0
+aW9uIHRlc3QgKGFzIHJvb3QpCiAgICAgICDinIUgUG9kbWFuIHN5c3RlbSBpbnRlZ3JhdGlvbiB0
+ZXN0IChhcyB1c2VyKQogICAgICAg4pyFIExUUCBsaXRlCiAgICAgICDinIUgTG9vcGRldiBTYW5p
+dHkKICAgICAgIOKchSBqdm0gdGVzdCBzdWl0ZQogICAgICAg4pyFIE1lbW9yeSBmdW5jdGlvbjog
+bWVtZmRfY3JlYXRlCiAgICAgICDinIUgTWVtb3J5IGZ1bmN0aW9uOiBrYXNscgogICAgICAg4pyF
+IEFNVFUgKEFic3RyYWN0IE1hY2hpbmUgVGVzdCBVdGlsaXR5KQogICAgICAg4pyFIExUUDogb3Bl
+bnBvc2l4IHRlc3Qgc3VpdGUKICAgICAgIOKchSBOZXR3b3JraW5nIGJyaWRnZTogc2FuaXR5CiAg
+ICAgICDinIUgRXRoZXJuZXQgZHJpdmVycyBzYW5pdHkKICAgICAgIOKchSBOZXR3b3JraW5nIE1B
+Q3NlYzogc2FuaXR5CiAgICAgICDinIUgTmV0d29ya2luZyBzb2NrZXQ6IGZ1enoKICAgICAgIOKc
+hSBOZXR3b3JraW5nIHNjdHAtYXV0aDogc29ja29wdHMgdGVzdAogICAgICAg4pyFIE5ldHdvcmtp
+bmc6IGlnbXAgY29uZm9ybWFuY2UgdGVzdAogICAgICAg4pyFIE5ldHdvcmtpbmcgcm91dGU6IHBt
+dHUKICAgICAgIOKchSBOZXR3b3JraW5nIHJvdXRlX2Z1bmM6IGxvY2FsCiAgICAgICDinIUgTmV0
+d29ya2luZyByb3V0ZV9mdW5jOiBmb3J3YXJkCiAgICAgICDinIUgTmV0d29ya2luZyBUQ1A6IGtl
+ZXBhbGl2ZSB0ZXN0CiAgICAgICDinIUgTmV0d29ya2luZyBVRFA6IHNvY2tldAogICAgICAg4pyF
+IE5ldHdvcmtpbmcgdHVubmVsOiBnZW5ldmUgYmFzaWMgdGVzdAogICAgICAg4pyFIE5ldHdvcmtp
+bmcgdHVubmVsOiBncmUgYmFzaWMKICAgICAgIOKchSBMMlRQIGJhc2ljIHRlc3QKICAgICAgIOKc
+hSBOZXR3b3JraW5nIHR1bm5lbDogdnhsYW4gYmFzaWMKICAgICAgIOKchSBOZXR3b3JraW5nIGlw
+c2VjOiBiYXNpYyBuZXRucyB0cmFuc3BvcnQKICAgICAgIOKchSBOZXR3b3JraW5nIGlwc2VjOiBi
+YXNpYyBuZXRucyB0dW5uZWwKICAgICAgIOKchSBhdWRpdDogYXVkaXQgdGVzdHN1aXRlIHRlc3QK
+ICAgICAgIOKchSBodHRwZDogbW9kX3NzbCBzbW9rZSBzYW5pdHkKICAgICAgIOKchSBpb3RvcDog
+c2FuaXR5CiAgICAgICDinIUgdHVuZWQ6IHR1bmUtcHJvY2Vzc2VzLXRocm91Z2gtcGVyZgogICAg
+ICAg4pyFIEFMU0EgUENNIGxvb3BiYWNrIHRlc3QKICAgICAgIOKchSBBTFNBIENvbnRyb2wgKG1p
+eGVyKSBVc2Vyc3BhY2UgRWxlbWVudCB0ZXN0CiAgICAgICDinIUgVXNleCAtIHZlcnNpb24gMS45
+LTI5CiAgICAgICDinIUgc3RvcmFnZTogU0NTSSBWUEQKICAgICAgIOKchSBzdHJlc3M6IHN0cmVz
+cy1uZwogICAgICAg4pyFIHRyYWNlOiBmdHJhY2UvdHJhY2VyCiAgICAgICDwn5qnIOKchSBDSUZT
+IENvbm5lY3RhdGhvbgogICAgICAg8J+apyDinIUgUE9TSVggcGpkLWZzdGVzdCBzdWl0ZXMKICAg
+ICAgIPCfmqcg4pyFIE5ldHdvcmtpbmcgdm5pYzogaXB2bGFuL2Jhc2ljCiAgICAgICDwn5qnIOKc
+hSBzdG9yYWdlOiBkbS9jb21tb24KCiAgICBIb3N0IDI6CiAgICAgICDinIUgQm9vdCB0ZXN0CiAg
+ICAgICDinIUgeGZzdGVzdHM6IGV4dDQKICAgICAgIOKchSB4ZnN0ZXN0czogeGZzCiAgICAgICDi
+nIUgbHZtIHRoaW5wIHNhbml0eQogICAgICAg4pyFIHN0b3JhZ2U6IHNvZnR3YXJlIFJBSUQgdGVz
+dGluZwogICAgICAg8J+apyDinIUgc2VsaW51eC1wb2xpY3k6IHNlcmdlLXRlc3RzdWl0ZQogICAg
+ICAg8J+apyDinIUgU3RvcmFnZSBibGt0ZXN0cwoKICBwcGM2NGxlOgogICAgSG9zdCAxOgogICAg
+ICAg4pyFIEJvb3QgdGVzdAogICAgICAg4pyFIFBvZG1hbiBzeXN0ZW0gaW50ZWdyYXRpb24gdGVz
+dCAoYXMgcm9vdCkKICAgICAgIOKchSBQb2RtYW4gc3lzdGVtIGludGVncmF0aW9uIHRlc3QgKGFz
+IHVzZXIpCiAgICAgICDinYwgTFRQIGxpdGUKICAgICAgIOKchSBMb29wZGV2IFNhbml0eQogICAg
+ICAg4pyFIGp2bSB0ZXN0IHN1aXRlCiAgICAgICDinIUgTWVtb3J5IGZ1bmN0aW9uOiBtZW1mZF9j
+cmVhdGUKICAgICAgIOKchSBNZW1vcnkgZnVuY3Rpb246IGthc2xyCiAgICAgICDinIUgQU1UVSAo
+QWJzdHJhY3QgTWFjaGluZSBUZXN0IFV0aWxpdHkpCiAgICAgICDinIUgTFRQOiBvcGVucG9zaXgg
+dGVzdCBzdWl0ZQogICAgICAg4pyFIE5ldHdvcmtpbmcgYnJpZGdlOiBzYW5pdHkKICAgICAgIOKc
+hSBFdGhlcm5ldCBkcml2ZXJzIHNhbml0eQogICAgICAg4pyFIE5ldHdvcmtpbmcgTUFDc2VjOiBz
+YW5pdHkKICAgICAgIOKchSBOZXR3b3JraW5nIHNvY2tldDogZnV6egogICAgICAg4pyFIE5ldHdv
+cmtpbmcgc2N0cC1hdXRoOiBzb2Nrb3B0cyB0ZXN0CiAgICAgICDinIUgTmV0d29ya2luZyByb3V0
+ZTogcG10dQogICAgICAg4pyFIE5ldHdvcmtpbmcgcm91dGVfZnVuYzogbG9jYWwKICAgICAgIOKc
+hSBOZXR3b3JraW5nIHJvdXRlX2Z1bmM6IGZvcndhcmQKICAgICAgIOKchSBOZXR3b3JraW5nIFRD
+UDoga2VlcGFsaXZlIHRlc3QKICAgICAgIOKchSBOZXR3b3JraW5nIFVEUDogc29ja2V0CiAgICAg
+ICDinIUgTmV0d29ya2luZyB0dW5uZWw6IGdlbmV2ZSBiYXNpYyB0ZXN0CiAgICAgICDinIUgTmV0
+d29ya2luZyB0dW5uZWw6IGdyZSBiYXNpYwogICAgICAg4pyFIEwyVFAgYmFzaWMgdGVzdAogICAg
+ICAg4pyFIE5ldHdvcmtpbmcgdHVubmVsOiB2eGxhbiBiYXNpYwogICAgICAg4pyFIE5ldHdvcmtp
+bmcgaXBzZWM6IGJhc2ljIG5ldG5zIHR1bm5lbAogICAgICAg4pyFIGF1ZGl0OiBhdWRpdCB0ZXN0
+c3VpdGUgdGVzdAogICAgICAg4pyFIGh0dHBkOiBtb2Rfc3NsIHNtb2tlIHNhbml0eQogICAgICAg
+4pyFIGlvdG9wOiBzYW5pdHkKICAgICAgIOKchSB0dW5lZDogdHVuZS1wcm9jZXNzZXMtdGhyb3Vn
+aC1wZXJmCiAgICAgICDinIUgQUxTQSBQQ00gbG9vcGJhY2sgdGVzdAogICAgICAg4pyFIEFMU0Eg
+Q29udHJvbCAobWl4ZXIpIFVzZXJzcGFjZSBFbGVtZW50IHRlc3QKICAgICAgIOKchSBVc2V4IC0g
+dmVyc2lvbiAxLjktMjkKICAgICAgIOKchSB0cmFjZTogZnRyYWNlL3RyYWNlcgogICAgICAg8J+a
+pyDinIUgQ0lGUyBDb25uZWN0YXRob24KICAgICAgIPCfmqcg4pyFIFBPU0lYIHBqZC1mc3Rlc3Qg
+c3VpdGVzCiAgICAgICDwn5qnIOKchSBOZXR3b3JraW5nIHZuaWM6IGlwdmxhbi9iYXNpYwogICAg
+ICAg8J+apyDinIUgc3RvcmFnZTogZG0vY29tbW9uCgogICAgSG9zdCAyOgogICAgICAg4pyFIEJv
+b3QgdGVzdAogICAgICAg4p2MIHhmc3Rlc3RzOiBleHQ0CiAgICAgICDinIUgeGZzdGVzdHM6IHhm
+cwogICAgICAg4pyFIGx2bSB0aGlucCBzYW5pdHkKICAgICAgIOKchSBzdG9yYWdlOiBzb2Z0d2Fy
+ZSBSQUlEIHRlc3RpbmcKICAgICAgIPCfmqcg4pyFIHNlbGludXgtcG9saWN5OiBzZXJnZS10ZXN0
+c3VpdGUKICAgICAgIPCfmqcg4pyFIFN0b3JhZ2UgYmxrdGVzdHMKCiAgeDg2XzY0OgogICAgSG9z
+dCAxOgogICAgICAg4pyFIEJvb3QgdGVzdAogICAgICAg4pyFIFBvZG1hbiBzeXN0ZW0gaW50ZWdy
+YXRpb24gdGVzdCAoYXMgcm9vdCkKICAgICAgIOKchSBQb2RtYW4gc3lzdGVtIGludGVncmF0aW9u
+IHRlc3QgKGFzIHVzZXIpCiAgICAgICDinIUgTFRQIGxpdGUKICAgICAgIOKchSBMb29wZGV2IFNh
+bml0eQogICAgICAg4pyFIGp2bSB0ZXN0IHN1aXRlCiAgICAgICDinIUgTWVtb3J5IGZ1bmN0aW9u
+OiBtZW1mZF9jcmVhdGUKICAgICAgIOKchSBNZW1vcnkgZnVuY3Rpb246IGthc2xyCiAgICAgICDi
+nIUgQU1UVSAoQWJzdHJhY3QgTWFjaGluZSBUZXN0IFV0aWxpdHkpCiAgICAgICDinIUgTFRQOiBv
+cGVucG9zaXggdGVzdCBzdWl0ZQogICAgICAg4pyFIE5ldHdvcmtpbmcgYnJpZGdlOiBzYW5pdHkK
+ICAgICAgIOKchSBFdGhlcm5ldCBkcml2ZXJzIHNhbml0eQogICAgICAg4pyFIE5ldHdvcmtpbmcg
+TUFDc2VjOiBzYW5pdHkKICAgICAgIOKchSBOZXR3b3JraW5nIHNvY2tldDogZnV6egogICAgICAg
+4pyFIE5ldHdvcmtpbmcgc2N0cC1hdXRoOiBzb2Nrb3B0cyB0ZXN0CiAgICAgICDinIUgTmV0d29y
+a2luZzogaWdtcCBjb25mb3JtYW5jZSB0ZXN0CiAgICAgICDinIUgTmV0d29ya2luZyByb3V0ZTog
+cG10dQogICAgICAg4pyFIE5ldHdvcmtpbmcgcm91dGVfZnVuYzogbG9jYWwKICAgICAgIOKchSBO
+ZXR3b3JraW5nIHJvdXRlX2Z1bmM6IGZvcndhcmQKICAgICAgIOKchSBOZXR3b3JraW5nIFRDUDog
+a2VlcGFsaXZlIHRlc3QKICAgICAgIOKchSBOZXR3b3JraW5nIFVEUDogc29ja2V0CiAgICAgICDi
+nIUgTmV0d29ya2luZyB0dW5uZWw6IGdlbmV2ZSBiYXNpYyB0ZXN0CiAgICAgICDinIUgTmV0d29y
+a2luZyB0dW5uZWw6IGdyZSBiYXNpYwogICAgICAg4pyFIEwyVFAgYmFzaWMgdGVzdAogICAgICAg
+4pyFIE5ldHdvcmtpbmcgdHVubmVsOiB2eGxhbiBiYXNpYwogICAgICAg4pyFIE5ldHdvcmtpbmcg
+aXBzZWM6IGJhc2ljIG5ldG5zIHRyYW5zcG9ydAogICAgICAg4pyFIE5ldHdvcmtpbmcgaXBzZWM6
+IGJhc2ljIG5ldG5zIHR1bm5lbAogICAgICAg4pyFIGF1ZGl0OiBhdWRpdCB0ZXN0c3VpdGUgdGVz
+dAogICAgICAg4pyFIGh0dHBkOiBtb2Rfc3NsIHNtb2tlIHNhbml0eQogICAgICAg4pyFIGlvdG9w
+OiBzYW5pdHkKICAgICAgIOKchSB0dW5lZDogdHVuZS1wcm9jZXNzZXMtdGhyb3VnaC1wZXJmCiAg
+ICAgICDinIUgcGNpdXRpbHM6IHNhbml0eSBzbW9rZSB0ZXN0CiAgICAgICDinIUgQUxTQSBQQ00g
+bG9vcGJhY2sgdGVzdAogICAgICAg4pyFIEFMU0EgQ29udHJvbCAobWl4ZXIpIFVzZXJzcGFjZSBF
+bGVtZW50IHRlc3QKICAgICAgIOKchSBVc2V4IC0gdmVyc2lvbiAxLjktMjkKICAgICAgIOKchSBz
+dG9yYWdlOiBTQ1NJIFZQRAogICAgICAg4pyFIHN0cmVzczogc3RyZXNzLW5nCiAgICAgICDinIUg
+dHJhY2U6IGZ0cmFjZS90cmFjZXIKICAgICAgIPCfmqcg4pyFIENJRlMgQ29ubmVjdGF0aG9uCiAg
+ICAgICDwn5qnIOKchSBQT1NJWCBwamQtZnN0ZXN0IHN1aXRlcwogICAgICAg8J+apyDinIUgTmV0
+d29ya2luZyB2bmljOiBpcHZsYW4vYmFzaWMKICAgICAgIPCfmqcg4pyFIHN0b3JhZ2U6IGRtL2Nv
+bW1vbgoKICAgIEhvc3QgMjoKICAgICAgIOKchSBCb290IHRlc3QKICAgICAgIOKchSBTdG9yYWdl
+IFNBTiBkZXZpY2Ugc3RyZXNzIC0gbXB0M3NhcyBkcml2ZXIKCiAgICBIb3N0IDM6CiAgICAgICDi
+nIUgQm9vdCB0ZXN0CiAgICAgICDwn5qnIOKchSBJUE1JIGRyaXZlciB0ZXN0CiAgICAgICDwn5qn
+IOKchSBJUE1JdG9vbCBsb29wIHN0cmVzcyB0ZXN0CgogICAgSG9zdCA0OgogICAgICAg4pyFIEJv
+b3QgdGVzdAogICAgICAg4pyFIHhmc3Rlc3RzOiBleHQ0CiAgICAgICDinIUgeGZzdGVzdHM6IHhm
+cwogICAgICAg4pyFIGx2bSB0aGlucCBzYW5pdHkKICAgICAgIOKchSBzdG9yYWdlOiBzb2Z0d2Fy
+ZSBSQUlEIHRlc3RpbmcKICAgICAgIPCfmqcg4pyFIElPTU1VIGJvb3QgdGVzdAogICAgICAg8J+a
+pyDinIUgc2VsaW51eC1wb2xpY3k6IHNlcmdlLXRlc3RzdWl0ZQogICAgICAg8J+apyDinIUgU3Rv
+cmFnZSBibGt0ZXN0cwoKICAgIEhvc3QgNToKICAgICAgIOKchSBCb290IHRlc3QKICAgICAgIOKc
+hSBTdG9yYWdlIFNBTiBkZXZpY2Ugc3RyZXNzIC0gbWVnYXJhaWRfc2FzCgogIFRlc3Qgc291cmNl
+czogaHR0cHM6Ly9naXRodWIuY29tL0NLSS1wcm9qZWN0L3Rlc3RzLWJlYWtlcgogICAg8J+SmiBQ
+dWxsIHJlcXVlc3RzIGFyZSB3ZWxjb21lIGZvciBuZXcgdGVzdHMgb3IgaW1wcm92ZW1lbnRzIHRv
+IGV4aXN0aW5nIHRlc3RzIQoKV2FpdmVkIHRlc3RzCi0tLS0tLS0tLS0tLQpJZiB0aGUgdGVzdCBy
+dW4gaW5jbHVkZWQgd2FpdmVkIHRlc3RzLCB0aGV5IGFyZSBtYXJrZWQgd2l0aCDwn5qnLiBTdWNo
+IHRlc3RzIGFyZQpleGVjdXRlZCBidXQgdGhlaXIgcmVzdWx0cyBhcmUgbm90IHRha2VuIGludG8g
+YWNjb3VudC4gVGVzdHMgYXJlIHdhaXZlZCB3aGVuCnRoZWlyIHJlc3VsdHMgYXJlIG5vdCByZWxp
+YWJsZSBlbm91Z2gsIGUuZy4gd2hlbiB0aGV5J3JlIGp1c3QgaW50cm9kdWNlZCBvciBhcmUKYmVp
+bmcgZml4ZWQuCgpUZXN0aW5nIHRpbWVvdXQKLS0tLS0tLS0tLS0tLS0tCldlIGFpbSB0byBwcm92
+aWRlIGEgcmVwb3J0IHdpdGhpbiByZWFzb25hYmxlIHRpbWVmcmFtZS4gVGVzdHMgdGhhdCBoYXZl
+bid0CmZpbmlzaGVkIHJ1bm5pbmcgYXJlIG1hcmtlZCB3aXRoIOKPsS4gUmVwb3J0cyBmb3Igbm9u
+LXVwc3RyZWFtIGtlcm5lbHMgaGF2ZQphIEJlYWtlciByZWNpcGUgbGlua2VkIHRvIG5leHQgdG8g
+ZWFjaCBob3N0LgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5p
+dC9saXN0aW5mby9sdHAK
