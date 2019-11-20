@@ -2,60 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 879A4102AD4
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Nov 2019 18:31:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D79410317E
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Nov 2019 03:19:38 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 39ABE3C2241
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Nov 2019 18:31:53 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C71E93C22AE
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Nov 2019 03:19:37 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 520793C184E
- for <ltp@lists.linux.it>; Tue, 19 Nov 2019 18:31:50 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [205.139.110.61])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 17CCF1003741
- for <ltp@lists.linux.it>; Tue, 19 Nov 2019 18:31:49 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id F369C3C13DE
+ for <ltp@lists.linux.it>; Wed, 20 Nov 2019 03:19:33 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id A8AC220096F
+ for <ltp@lists.linux.it>; Wed, 20 Nov 2019 03:19:32 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1574184708;
+ s=mimecast20190719; t=1574216370;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=IOB50JkMPxsoyyrHElydYjLy1d4YRSfkHYQ7QFNd66U=;
- b=fn0AdQ5zd0f1MAZefkv5GBfkQjhaHuxpTo2HaNJEWQi3fkaMplxg+ixRbLG9wfOIBris+t
- Gw5xihNWdoDHpSJ7CZV1JoeuCaFVCEHD+z60pa0VtIok5//RVl9OxR59mwwhrh704TFS9s
- Cntgqhj3uWS1B9Kq66NwjLYfVtTKLNo=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-284-0dPb-27MM0i6_EUlW5b6Dw-1; Tue, 19 Nov 2019 12:31:44 -0500
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B3ADCB0FB2;
- Tue, 19 Nov 2019 17:31:43 +0000 (UTC)
-Received: from [172.54.93.16] (cpt-1055.paas.prod.upshift.rdu2.redhat.com
- [10.0.19.82])
- by smtp.corp.redhat.com (Postfix) with ESMTP id DEFDD6055F;
- Tue, 19 Nov 2019 17:31:34 +0000 (UTC)
+ in-reply-to:in-reply-to:references:references;
+ bh=kEjwpvNO5/HKPNbjgQTaXUSgfm8fEH40Zu4c5ofTb7c=;
+ b=EMyYKUK+BU+erCMMc5X6Cuwc1Bmj3QuTtYQp3bGqzwKujCqGDl/tY8g2+ieyP+HmCH/isW
+ Ak0Bd8w2ccwluUwlD0OnJ710T6DtAj139zaMXNpiZ7pIKhU92EsDGJQK4TSgVoxbJZz5Uk
+ 4KJJU9lOKxWaPTazfyFDLLrz/QBV0A8=
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-101-Z-qOD3VcOGyPMVbL79BdxA-1; Tue, 19 Nov 2019 21:19:27 -0500
+Received: by mail-oi1-f200.google.com with SMTP id k145so11768105oih.12
+ for <ltp@lists.linux.it>; Tue, 19 Nov 2019 18:19:26 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=8+LqVXfmVl9TBfsNuvFnWIueizydqAGqiCAi+IKhlkE=;
+ b=EWrhTZPXaa1y7tx1ljmtsLgqjHYbRaZoVhZU2XOKLWe6QcVzdTH92wBNtrruMUaAZb
+ eVRL0lYI44wPReXcXvmzZAj4pnDUxpgCaQOlpcdFUlsObmL/fjdsz/lBVwipwxUQtWJ3
+ h9/jA++Z7GMp6u1OxRzcDCVaNbYi7Ih6UEJPbDWgPcR+vPPLa8b1LXHecGG59j92Oi28
+ xHEAGhyv/0oNDjJKDCbVt8PoOOdU3QhSH32n4FXzideGQQ2BGXTOHPkpmXbc7bYGZt4+
+ QEiobCeGoox9VK2z+IV1FZ0ZWiBAKEQ1den5AY4vDxpBoCHdJV+Btk0/1Ye1QMeHMOzG
+ hIFA==
+X-Gm-Message-State: APjAAAXwfrS+CRrxA8tm4VLtXvHsj4WEfBz4DRwAv+frJVfkKyYC7NMf
+ kKXSaY9MmN9qrpq6r93zMuevVu/4xuNfO92CiCgFfEjTuInqaM9PbrNN2Lh/y3sLCgIet1paVsF
+ CPjcCcr44YgCc8UbWWllBpgWzvfU=
+X-Received: by 2002:aca:4a84:: with SMTP id x126mr567182oia.47.1574216366405; 
+ Tue, 19 Nov 2019 18:19:26 -0800 (PST)
+X-Google-Smtp-Source: APXvYqzRuRaE5eRk9orBWkZKe8rlo5HQ9Fuzq63k1VTFNUupXeoXldzd7StvrdHw/5Q/UdPZ/E/qRtUCnlmHEbTqfxc=
+X-Received: by 2002:aca:4a84:: with SMTP id x126mr567169oia.47.1574216366151; 
+ Tue, 19 Nov 2019 18:19:26 -0800 (PST)
 MIME-Version: 1.0
-From: CKI Project <cki-project@redhat.com>
-To: Linux Stable maillist <stable@vger.kernel.org>
-Date: Tue, 19 Nov 2019 17:31:34 -0000
-Message-ID: <cki.6DBB2EB133.PTTL8ZNEDM@redhat.com>
-X-Gitlab-Pipeline-ID: 295147
-X-Gitlab-Url: https://xci32.lab.eng.rdu2.redhat.com
-X-Gitlab-Path: /cki-project/cki-pipeline/pipelines/295147
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-MC-Unique: 0dPb-27MM0i6_EUlW5b6Dw-1
+References: <20191119094156.20348-1-liwang@redhat.com>
+ <1860355560.12961927.1574161647388.JavaMail.zimbra@redhat.com>
+ <CAEemH2cN8qv_YpsFKJazcOKEvgfjXpacZOV_Er-0bjK86=6VpQ@mail.gmail.com>
+ <c9d278e6-5700-6c16-019b-1770a6ede0ff@suse.cz>
+In-Reply-To: <c9d278e6-5700-6c16-019b-1770a6ede0ff@suse.cz>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 20 Nov 2019 10:19:15 +0800
+Message-ID: <CAEemH2dZCm5MVyhzWiFKVK-jt+UUw65u5CRFk-moUVUgpDHHWg@mail.gmail.com>
+To: Martin Doucha <mdoucha@suse.cz>
+X-MC-Unique: Z-qOD3VcOGyPMVbL79BdxA-1
 X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E3?=
- =?utf-8?q?=2E12-rc1-6d539b8=2Ecki_=28stable=29?=
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] tst_fill_fs: enhance the filesystem filling
+ routine
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,148 +79,119 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Zorro Lang <zlong@redhat.com>, Memory Management <mm-qe@redhat.com>,
- LTP Mailing List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1526388948=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-CkhlbGxvLAoKV2UgcmFuIGF1dG9tYXRlZCB0ZXN0cyBvbiBhIHJlY2VudCBjb21taXQgZnJvbSB0
-aGlzIGtlcm5lbCB0cmVlOgoKICAgICAgIEtlcm5lbCByZXBvOiBnaXQ6Ly9naXQua2VybmVsLm9y
-Zy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvc3RhYmxlL2xpbnV4LXN0YWJsZS1yYy5naXQKICAg
-ICAgICAgICAgQ29tbWl0OiA2ZDUzOWI4ZjA5N2IgLSBMaW51eCA1LjMuMTItcmMxCgpUaGUgcmVz
-dWx0cyBvZiB0aGVzZSBhdXRvbWF0ZWQgdGVzdHMgYXJlIHByb3ZpZGVkIGJlbG93LgoKICAgIE92
-ZXJhbGwgcmVzdWx0OiBGQUlMRUQgKHNlZSBkZXRhaWxzIGJlbG93KQogICAgICAgICAgICAgTWVy
-Z2U6IE9LCiAgICAgICAgICAgQ29tcGlsZTogT0sKICAgICAgICAgICAgIFRlc3RzOiBGQUlMRUQK
-CkFsbCBrZXJuZWwgYmluYXJpZXMsIGNvbmZpZyBmaWxlcywgYW5kIGxvZ3MgYXJlIGF2YWlsYWJs
-ZSBmb3IgZG93bmxvYWQgaGVyZToKCiAgaHR0cHM6Ly9hcnRpZmFjdHMuY2tpLXByb2plY3Qub3Jn
-L3BpcGVsaW5lcy8yOTUxNDcKCk9uZSBvciBtb3JlIGtlcm5lbCB0ZXN0cyBmYWlsZWQ6CgogICAg
-eDg2XzY0OgogICAgIOKdjCBMVFAgbGl0ZQoKV2UgaG9wZSB0aGF0IHRoZXNlIGxvZ3MgY2FuIGhl
-bHAgeW91IGZpbmQgdGhlIHByb2JsZW0gcXVpY2tseS4gRm9yIHRoZSBmdWxsCmRldGFpbCBvbiBv
-dXIgdGVzdGluZyBwcm9jZWR1cmVzLCBwbGVhc2Ugc2Nyb2xsIHRvIHRoZSBib3R0b20gb2YgdGhp
-cyBtZXNzYWdlLgoKUGxlYXNlIHJlcGx5IHRvIHRoaXMgZW1haWwgaWYgeW91IGhhdmUgYW55IHF1
-ZXN0aW9ucyBhYm91dCB0aGUgdGVzdHMgdGhhdCB3ZQpyYW4gb3IgaWYgeW91IGhhdmUgYW55IHN1
-Z2dlc3Rpb25zIG9uIGhvdyB0byBtYWtlIGZ1dHVyZSB0ZXN0cyBtb3JlIGVmZmVjdGl2ZS4KCiAg
-ICAgICAgLC0uICAgLC0uCiAgICAgICAoIEMgKSAoIEsgKSAgQ29udGludW91cwogICAgICAgIGAt
-JywtLmAtJyAgIEtlcm5lbAogICAgICAgICAgKCBJICkgICAgIEludGVncmF0aW9uCiAgICAgICAg
-ICAgYC0nCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwoKQ29tcGlsZSB0ZXN0aW5nCi0tLS0tLS0tLS0t
-LS0tLQoKV2UgY29tcGlsZWQgdGhlIGtlcm5lbCBmb3IgMyBhcmNoaXRlY3R1cmVzOgoKICAgIGFh
-cmNoNjQ6CiAgICAgIG1ha2Ugb3B0aW9uczogLWozMCBJTlNUQUxMX01PRF9TVFJJUD0xIHRhcmd6
-LXBrZwoKICAgIHBwYzY0bGU6CiAgICAgIG1ha2Ugb3B0aW9uczogLWozMCBJTlNUQUxMX01PRF9T
-VFJJUD0xIHRhcmd6LXBrZwoKICAgIHg4Nl82NDoKICAgICAgbWFrZSBvcHRpb25zOiAtajMwIElO
-U1RBTExfTU9EX1NUUklQPTEgdGFyZ3otcGtnCgoKSGFyZHdhcmUgdGVzdGluZwotLS0tLS0tLS0t
-LS0tLS0tCldlIGJvb3RlZCBlYWNoIGtlcm5lbCBhbmQgcmFuIHRoZSBmb2xsb3dpbmcgdGVzdHM6
-CgogIGFhcmNoNjQ6CiAgICBIb3N0IDE6CiAgICAgICDinIUgQm9vdCB0ZXN0CiAgICAgICDinIUg
-eGZzdGVzdHM6IGV4dDQKICAgICAgIOKchSB4ZnN0ZXN0czogeGZzCiAgICAgICDinIUgbHZtIHRo
-aW5wIHNhbml0eQogICAgICAg4pyFIHN0b3JhZ2U6IHNvZnR3YXJlIFJBSUQgdGVzdGluZwogICAg
-ICAg8J+apyDinIUgc2VsaW51eC1wb2xpY3k6IHNlcmdlLXRlc3RzdWl0ZQogICAgICAg8J+apyDi
-nIUgU3RvcmFnZSBibGt0ZXN0cwoKICAgIEhvc3QgMjoKICAgICAgIOKchSBCb290IHRlc3QKICAg
-ICAgIOKchSBQb2RtYW4gc3lzdGVtIGludGVncmF0aW9uIHRlc3QgKGFzIHJvb3QpCiAgICAgICDi
-nIUgUG9kbWFuIHN5c3RlbSBpbnRlZ3JhdGlvbiB0ZXN0IChhcyB1c2VyKQogICAgICAg4pyFIExU
-UCBsaXRlCiAgICAgICDinIUgTG9vcGRldiBTYW5pdHkKICAgICAgIOKchSBqdm0gdGVzdCBzdWl0
-ZQogICAgICAg4pyFIE1lbW9yeSBmdW5jdGlvbjogbWVtZmRfY3JlYXRlCiAgICAgICDinIUgTWVt
-b3J5IGZ1bmN0aW9uOiBrYXNscgogICAgICAg4pyFIEFNVFUgKEFic3RyYWN0IE1hY2hpbmUgVGVz
-dCBVdGlsaXR5KQogICAgICAg4pyFIExUUDogb3BlbnBvc2l4IHRlc3Qgc3VpdGUKICAgICAgIOKc
-hSBOZXR3b3JraW5nIGJyaWRnZTogc2FuaXR5CiAgICAgICDinIUgRXRoZXJuZXQgZHJpdmVycyBz
-YW5pdHkKICAgICAgIOKchSBOZXR3b3JraW5nIE1BQ3NlYzogc2FuaXR5CiAgICAgICDinIUgTmV0
-d29ya2luZyBzb2NrZXQ6IGZ1enoKICAgICAgIOKchSBOZXR3b3JraW5nIHNjdHAtYXV0aDogc29j
-a29wdHMgdGVzdAogICAgICAg4pyFIE5ldHdvcmtpbmc6IGlnbXAgY29uZm9ybWFuY2UgdGVzdAog
-ICAgICAg4pyFIE5ldHdvcmtpbmcgcm91dGU6IHBtdHUKICAgICAgIOKchSBOZXR3b3JraW5nIHJv
-dXRlX2Z1bmM6IGxvY2FsCiAgICAgICDinIUgTmV0d29ya2luZyByb3V0ZV9mdW5jOiBmb3J3YXJk
-CiAgICAgICDinIUgTmV0d29ya2luZyBUQ1A6IGtlZXBhbGl2ZSB0ZXN0CiAgICAgICDinIUgTmV0
-d29ya2luZyBVRFA6IHNvY2tldAogICAgICAg4pyFIE5ldHdvcmtpbmcgdHVubmVsOiBnZW5ldmUg
-YmFzaWMgdGVzdAogICAgICAg4pyFIE5ldHdvcmtpbmcgdHVubmVsOiBncmUgYmFzaWMKICAgICAg
-IOKchSBMMlRQIGJhc2ljIHRlc3QKICAgICAgIOKchSBOZXR3b3JraW5nIHR1bm5lbDogdnhsYW4g
-YmFzaWMKICAgICAgIOKchSBOZXR3b3JraW5nIGlwc2VjOiBiYXNpYyBuZXRucyB0cmFuc3BvcnQK
-ICAgICAgIOKchSBOZXR3b3JraW5nIGlwc2VjOiBiYXNpYyBuZXRucyB0dW5uZWwKICAgICAgIOKc
-hSBhdWRpdDogYXVkaXQgdGVzdHN1aXRlIHRlc3QKICAgICAgIOKchSBodHRwZDogbW9kX3NzbCBz
-bW9rZSBzYW5pdHkKICAgICAgIOKchSBpb3RvcDogc2FuaXR5CiAgICAgICDinIUgdHVuZWQ6IHR1
-bmUtcHJvY2Vzc2VzLXRocm91Z2gtcGVyZgogICAgICAg4pyFIEFMU0EgUENNIGxvb3BiYWNrIHRl
-c3QKICAgICAgIOKchSBBTFNBIENvbnRyb2wgKG1peGVyKSBVc2Vyc3BhY2UgRWxlbWVudCB0ZXN0
-CiAgICAgICDinIUgVXNleCAtIHZlcnNpb24gMS45LTI5CiAgICAgICDinIUgc3RvcmFnZTogU0NT
-SSBWUEQKICAgICAgIOKchSBzdHJlc3M6IHN0cmVzcy1uZwogICAgICAg4pyFIHRyYWNlOiBmdHJh
-Y2UvdHJhY2VyCiAgICAgICDwn5qnIOKchSBDSUZTIENvbm5lY3RhdGhvbgogICAgICAg8J+apyDi
-nIUgUE9TSVggcGpkLWZzdGVzdCBzdWl0ZXMKICAgICAgIPCfmqcg4pyFIE5ldHdvcmtpbmcgdm5p
-YzogaXB2bGFuL2Jhc2ljCiAgICAgICDwn5qnIOKchSBzdG9yYWdlOiBkbS9jb21tb24KCiAgcHBj
-NjRsZToKICAgIEhvc3QgMToKICAgICAgIOKchSBCb290IHRlc3QKICAgICAgIOKchSB4ZnN0ZXN0
-czogZXh0NAogICAgICAg4pyFIHhmc3Rlc3RzOiB4ZnMKICAgICAgIOKchSBsdm0gdGhpbnAgc2Fu
-aXR5CiAgICAgICDinIUgc3RvcmFnZTogc29mdHdhcmUgUkFJRCB0ZXN0aW5nCiAgICAgICDwn5qn
-IOKchSBzZWxpbnV4LXBvbGljeTogc2VyZ2UtdGVzdHN1aXRlCiAgICAgICDwn5qnIOKchSBTdG9y
-YWdlIGJsa3Rlc3RzCgogICAgSG9zdCAyOgogICAgICAg4pyFIEJvb3QgdGVzdAogICAgICAg4pyF
-IFBvZG1hbiBzeXN0ZW0gaW50ZWdyYXRpb24gdGVzdCAoYXMgcm9vdCkKICAgICAgIOKchSBQb2Rt
-YW4gc3lzdGVtIGludGVncmF0aW9uIHRlc3QgKGFzIHVzZXIpCiAgICAgICDinIUgTFRQIGxpdGUK
-ICAgICAgIOKchSBMb29wZGV2IFNhbml0eQogICAgICAg4pyFIGp2bSB0ZXN0IHN1aXRlCiAgICAg
-ICDinIUgTWVtb3J5IGZ1bmN0aW9uOiBtZW1mZF9jcmVhdGUKICAgICAgIOKchSBNZW1vcnkgZnVu
-Y3Rpb246IGthc2xyCiAgICAgICDinIUgQU1UVSAoQWJzdHJhY3QgTWFjaGluZSBUZXN0IFV0aWxp
-dHkpCiAgICAgICDinIUgTFRQOiBvcGVucG9zaXggdGVzdCBzdWl0ZQogICAgICAg4pyFIE5ldHdv
-cmtpbmcgYnJpZGdlOiBzYW5pdHkKICAgICAgIOKchSBFdGhlcm5ldCBkcml2ZXJzIHNhbml0eQog
-ICAgICAg4pyFIE5ldHdvcmtpbmcgTUFDc2VjOiBzYW5pdHkKICAgICAgIOKchSBOZXR3b3JraW5n
-IHNvY2tldDogZnV6egogICAgICAg4pyFIE5ldHdvcmtpbmcgc2N0cC1hdXRoOiBzb2Nrb3B0cyB0
-ZXN0CiAgICAgICDinIUgTmV0d29ya2luZyByb3V0ZTogcG10dQogICAgICAg4pyFIE5ldHdvcmtp
-bmcgcm91dGVfZnVuYzogbG9jYWwKICAgICAgIOKchSBOZXR3b3JraW5nIHJvdXRlX2Z1bmM6IGZv
-cndhcmQKICAgICAgIOKchSBOZXR3b3JraW5nIFRDUDoga2VlcGFsaXZlIHRlc3QKICAgICAgIOKc
-hSBOZXR3b3JraW5nIFVEUDogc29ja2V0CiAgICAgICDinIUgTmV0d29ya2luZyB0dW5uZWw6IGdl
-bmV2ZSBiYXNpYyB0ZXN0CiAgICAgICDinIUgTmV0d29ya2luZyB0dW5uZWw6IGdyZSBiYXNpYwog
-ICAgICAg4pyFIEwyVFAgYmFzaWMgdGVzdAogICAgICAg4pyFIE5ldHdvcmtpbmcgdHVubmVsOiB2
-eGxhbiBiYXNpYwogICAgICAg4pyFIE5ldHdvcmtpbmcgaXBzZWM6IGJhc2ljIG5ldG5zIHR1bm5l
-bAogICAgICAg4pyFIGF1ZGl0OiBhdWRpdCB0ZXN0c3VpdGUgdGVzdAogICAgICAg4pyFIGh0dHBk
-OiBtb2Rfc3NsIHNtb2tlIHNhbml0eQogICAgICAg4pyFIGlvdG9wOiBzYW5pdHkKICAgICAgIOKc
-hSB0dW5lZDogdHVuZS1wcm9jZXNzZXMtdGhyb3VnaC1wZXJmCiAgICAgICDinIUgQUxTQSBQQ00g
-bG9vcGJhY2sgdGVzdAogICAgICAg4pyFIEFMU0EgQ29udHJvbCAobWl4ZXIpIFVzZXJzcGFjZSBF
-bGVtZW50IHRlc3QKICAgICAgIOKchSBVc2V4IC0gdmVyc2lvbiAxLjktMjkKICAgICAgIOKchSB0
-cmFjZTogZnRyYWNlL3RyYWNlcgogICAgICAg8J+apyDinIUgQ0lGUyBDb25uZWN0YXRob24KICAg
-ICAgIPCfmqcg4pyFIFBPU0lYIHBqZC1mc3Rlc3Qgc3VpdGVzCiAgICAgICDwn5qnIOKchSBOZXR3
-b3JraW5nIHZuaWM6IGlwdmxhbi9iYXNpYwogICAgICAg8J+apyDinIUgc3RvcmFnZTogZG0vY29t
-bW9uCgogIHg4Nl82NDoKICAgIEhvc3QgMToKICAgICAgIOKchSBCb290IHRlc3QKICAgICAgIOKc
-hSBQb2RtYW4gc3lzdGVtIGludGVncmF0aW9uIHRlc3QgKGFzIHJvb3QpCiAgICAgICDinIUgUG9k
-bWFuIHN5c3RlbSBpbnRlZ3JhdGlvbiB0ZXN0IChhcyB1c2VyKQogICAgICAg4p2MIExUUCBsaXRl
-CiAgICAgICDinIUgTG9vcGRldiBTYW5pdHkKICAgICAgIOKchSBqdm0gdGVzdCBzdWl0ZQogICAg
-ICAg4pyFIE1lbW9yeSBmdW5jdGlvbjogbWVtZmRfY3JlYXRlCiAgICAgICDinIUgTWVtb3J5IGZ1
-bmN0aW9uOiBrYXNscgogICAgICAg4pyFIEFNVFUgKEFic3RyYWN0IE1hY2hpbmUgVGVzdCBVdGls
-aXR5KQogICAgICAg4pyFIExUUDogb3BlbnBvc2l4IHRlc3Qgc3VpdGUKICAgICAgIOKchSBOZXR3
-b3JraW5nIGJyaWRnZTogc2FuaXR5CiAgICAgICDinIUgRXRoZXJuZXQgZHJpdmVycyBzYW5pdHkK
-ICAgICAgIOKchSBOZXR3b3JraW5nIE1BQ3NlYzogc2FuaXR5CiAgICAgICDinIUgTmV0d29ya2lu
-ZyBzb2NrZXQ6IGZ1enoKICAgICAgIOKchSBOZXR3b3JraW5nIHNjdHAtYXV0aDogc29ja29wdHMg
-dGVzdAogICAgICAg4pyFIE5ldHdvcmtpbmc6IGlnbXAgY29uZm9ybWFuY2UgdGVzdAogICAgICAg
-4pyFIE5ldHdvcmtpbmcgcm91dGU6IHBtdHUKICAgICAgIOKchSBOZXR3b3JraW5nIHJvdXRlX2Z1
-bmM6IGxvY2FsCiAgICAgICDinIUgTmV0d29ya2luZyByb3V0ZV9mdW5jOiBmb3J3YXJkCiAgICAg
-ICDinIUgTmV0d29ya2luZyBUQ1A6IGtlZXBhbGl2ZSB0ZXN0CiAgICAgICDinIUgTmV0d29ya2lu
-ZyBVRFA6IHNvY2tldAogICAgICAg4pyFIE5ldHdvcmtpbmcgdHVubmVsOiBnZW5ldmUgYmFzaWMg
-dGVzdAogICAgICAg4pyFIE5ldHdvcmtpbmcgdHVubmVsOiBncmUgYmFzaWMKICAgICAgIOKchSBM
-MlRQIGJhc2ljIHRlc3QKICAgICAgIOKchSBOZXR3b3JraW5nIHR1bm5lbDogdnhsYW4gYmFzaWMK
-ICAgICAgIOKchSBOZXR3b3JraW5nIGlwc2VjOiBiYXNpYyBuZXRucyB0cmFuc3BvcnQKICAgICAg
-IOKchSBOZXR3b3JraW5nIGlwc2VjOiBiYXNpYyBuZXRucyB0dW5uZWwKICAgICAgIOKchSBhdWRp
-dDogYXVkaXQgdGVzdHN1aXRlIHRlc3QKICAgICAgIOKchSBodHRwZDogbW9kX3NzbCBzbW9rZSBz
-YW5pdHkKICAgICAgIOKchSBpb3RvcDogc2FuaXR5CiAgICAgICDinIUgdHVuZWQ6IHR1bmUtcHJv
-Y2Vzc2VzLXRocm91Z2gtcGVyZgogICAgICAg4pyFIHBjaXV0aWxzOiBzYW5pdHkgc21va2UgdGVz
-dAogICAgICAg4pyFIEFMU0EgUENNIGxvb3BiYWNrIHRlc3QKICAgICAgIOKchSBBTFNBIENvbnRy
-b2wgKG1peGVyKSBVc2Vyc3BhY2UgRWxlbWVudCB0ZXN0CiAgICAgICDinIUgVXNleCAtIHZlcnNp
-b24gMS45LTI5CiAgICAgICDinIUgc3RvcmFnZTogU0NTSSBWUEQKICAgICAgIOKchSBzdHJlc3M6
-IHN0cmVzcy1uZwogICAgICAg4pyFIHRyYWNlOiBmdHJhY2UvdHJhY2VyCiAgICAgICDwn5qnIOKc
-hSBDSUZTIENvbm5lY3RhdGhvbgogICAgICAg8J+apyDinYwgUE9TSVggcGpkLWZzdGVzdCBzdWl0
-ZXMKICAgICAgIPCfmqcg4pyFIE5ldHdvcmtpbmcgdm5pYzogaXB2bGFuL2Jhc2ljCiAgICAgICDw
-n5qnIOKchSBzdG9yYWdlOiBkbS9jb21tb24KCiAgICBIb3N0IDI6CiAgICAgICDinIUgQm9vdCB0
-ZXN0CiAgICAgICDinIUgU3RvcmFnZSBTQU4gZGV2aWNlIHN0cmVzcyAtIG1wdDNzYXMgZHJpdmVy
-CgogICAgSG9zdCAzOgogICAgICAg4pyFIEJvb3QgdGVzdAogICAgICAg4pyFIHhmc3Rlc3RzOiBl
-eHQ0CiAgICAgICDinIUgeGZzdGVzdHM6IHhmcwogICAgICAg4pyFIGx2bSB0aGlucCBzYW5pdHkK
-ICAgICAgIOKchSBzdG9yYWdlOiBzb2Z0d2FyZSBSQUlEIHRlc3RpbmcKICAgICAgIPCfmqcg4pyF
-IElPTU1VIGJvb3QgdGVzdAogICAgICAg8J+apyDinIUgc2VsaW51eC1wb2xpY3k6IHNlcmdlLXRl
-c3RzdWl0ZQogICAgICAg8J+apyDinIUgU3RvcmFnZSBibGt0ZXN0cwoKICAgIEhvc3QgNDoKICAg
-ICAgIOKchSBCb290IHRlc3QKICAgICAgIPCfmqcg4pyFIElQTUkgZHJpdmVyIHRlc3QKICAgICAg
-IPCfmqcg4pyFIElQTUl0b29sIGxvb3Agc3RyZXNzIHRlc3QKCiAgICBIb3N0IDU6CiAgICAgICDi
-nIUgQm9vdCB0ZXN0CiAgICAgICDinIUgU3RvcmFnZSBTQU4gZGV2aWNlIHN0cmVzcyAtIG1lZ2Fy
-YWlkX3NhcwoKICBUZXN0IHNvdXJjZXM6IGh0dHBzOi8vZ2l0aHViLmNvbS9DS0ktcHJvamVjdC90
-ZXN0cy1iZWFrZXIKICAgIPCfkpogUHVsbCByZXF1ZXN0cyBhcmUgd2VsY29tZSBmb3IgbmV3IHRl
-c3RzIG9yIGltcHJvdmVtZW50cyB0byBleGlzdGluZyB0ZXN0cyEKCldhaXZlZCB0ZXN0cwotLS0t
-LS0tLS0tLS0KSWYgdGhlIHRlc3QgcnVuIGluY2x1ZGVkIHdhaXZlZCB0ZXN0cywgdGhleSBhcmUg
-bWFya2VkIHdpdGgg8J+apy4gU3VjaCB0ZXN0cyBhcmUKZXhlY3V0ZWQgYnV0IHRoZWlyIHJlc3Vs
-dHMgYXJlIG5vdCB0YWtlbiBpbnRvIGFjY291bnQuIFRlc3RzIGFyZSB3YWl2ZWQgd2hlbgp0aGVp
-ciByZXN1bHRzIGFyZSBub3QgcmVsaWFibGUgZW5vdWdoLCBlLmcuIHdoZW4gdGhleSdyZSBqdXN0
-IGludHJvZHVjZWQgb3IgYXJlCmJlaW5nIGZpeGVkLgoKVGVzdGluZyB0aW1lb3V0Ci0tLS0tLS0t
-LS0tLS0tLQpXZSBhaW0gdG8gcHJvdmlkZSBhIHJlcG9ydCB3aXRoaW4gcmVhc29uYWJsZSB0aW1l
-ZnJhbWUuIFRlc3RzIHRoYXQgaGF2ZW4ndApmaW5pc2hlZCBydW5uaW5nIGFyZSBtYXJrZWQgd2l0
-aCDij7EuIFJlcG9ydHMgZm9yIG5vbi11cHN0cmVhbSBrZXJuZWxzIGhhdmUKYSBCZWFrZXIgcmVj
-aXBlIGxpbmtlZCB0byBuZXh0IHRvIGVhY2ggaG9zdC4KCgotLSAKTWFpbGluZyBsaXN0IGluZm86
-IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+--===============1526388948==
+Content-Type: multipart/alternative; boundary="0000000000004e124d0597bdcfe6"
+
+--0000000000004e124d0597bdcfe6
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Nov 19, 2019 at 10:24 PM Martin Doucha <mdoucha@suse.cz> wrote:
+
+> On 11/19/19 3:03 PM, Li Wang wrote:
+> > On Tue, Nov 19, 2019 at 7:07 PM Jan Stancek <jstancek@redhat.com
+> > <mailto:jstancek@redhat.com>> wrote:
+> >
+> >     ----- Original Message -----
+> >     > -             while (len) {
+> >     > +             while (len >=3D fi.f_bsize) {
+> >
+> >     Let's say f_bsize is 512, and len is 1023. We hit ENOSPC for 1023,
+> >     len for next round is 511. Loop ends, but we never tried write with
+> >     f_bsize or smaller value.
+> >
+> >     I think we should try len < fi.f_bsize at least once.
+> >
+> >
+> > Good point. At least for len =3D fi.f_bsize.
+>
+> You don't need to reduce the write size in the first place. Kernel will
+> happily do short writes for you if the file system somehow finds some
+>
+
+You're probably right, but here I just want to enhance the tst_fill_fs
+routine, it obviously couldn't  be guaranteed way to perfectly fill a
+filesystem, this action from userspace is what I can think of.
+
+
+> free blocks. The more important question is how to trigger garbage
+> collection of internal file system book-keeping data.
+>
+
+Okay. I'm not good at FS issues. Or, do you have a better idea for that?
+
+--=20
+Regards,
+Li Wang
+
+--0000000000004e124d0597bdcfe6
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Tue, Nov 19, 2019 at 10:24 PM Martin Doucha &lt;=
+<a href=3D"mailto:mdoucha@suse.cz">mdoucha@suse.cz</a>&gt; wrote:<br></div>=
+<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
+left:1px solid rgb(204,204,204);padding-left:1ex">On 11/19/19 3:03 PM, Li W=
+ang wrote:<br>
+&gt; On Tue, Nov 19, 2019 at 7:07 PM Jan Stancek &lt;<a href=3D"mailto:jsta=
+ncek@redhat.com" target=3D"_blank">jstancek@redhat.com</a><br>
+&gt; &lt;mailto:<a href=3D"mailto:jstancek@redhat.com" target=3D"_blank">js=
+tancek@redhat.com</a>&gt;&gt; wrote:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0----- Original Message -----<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0while (len) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0while (len &gt;=3D fi.f_bsize) {<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Let&#39;s say f_bsize is 512, and len is 1023. We h=
+it ENOSPC for 1023,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0len for next round is 511. Loop ends, but we never =
+tried write with<br>
+&gt;=C2=A0 =C2=A0 =C2=A0f_bsize or smaller value.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0I think we should try len &lt; fi.f_bsize at least =
+once.<br>
+&gt; <br>
+&gt; <br>
+&gt; Good point. At least for len =3D fi.f_bsize.<br>
+<br>
+You don&#39;t need to reduce the write size in the first place. Kernel will=
+<br>
+happily do short writes for you if the file system somehow finds some<br></=
+blockquote><div><br></div><div><div class=3D"gmail_default" style=3D"">You&=
+#39;re probably right, but here I just want to enhance the tst_fill_fs rout=
+ine, it obviously couldn&#39;t=C2=A0 be guaranteed way to perfectly fill a =
+filesystem, this action from userspace is what I can think of.</div></div><=
+div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
+px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+free blocks. The more important question is how to trigger garbage<br>
+collection of internal file system book-keeping data.<br></blockquote><div>=
+<br></div><div><div class=3D"gmail_default" style=3D"font-size:small">Okay.=
+ I&#39;m not good at FS issues. Or, do you have a better idea for that?</di=
+v></div></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signatu=
+re"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></d=
+iv></div>
+
+--0000000000004e124d0597bdcfe6--
+
+
+--===============1526388948==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1526388948==--
+
