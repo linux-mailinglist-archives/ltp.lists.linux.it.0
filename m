@@ -2,68 +2,46 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13E5A104D69
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Nov 2019 09:10:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF7F6104DC3
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Nov 2019 09:21:23 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CFC303C1CED
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Nov 2019 09:10:27 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C00FF3C1CA3
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Nov 2019 09:21:23 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id C933C3C1C8B
- for <ltp@lists.linux.it>; Thu, 21 Nov 2019 09:10:25 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [205.139.110.120])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 274B9616E3A
- for <ltp@lists.linux.it>; Thu, 21 Nov 2019 09:10:24 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1574323823;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=5uklTWxrYGTxrCEzrRxcfhwcOrzWnUMidq2+skvxSqg=;
- b=YlAf0tlJRKKSNMBWoZWvwzc9z5H0KNlLdK5S+AVT5OFNMVupxfH5tgX6E64wbqjWWP6Z5y
- rzLFTdXjpeueCX+yd2NO073E/li/tdrYLxcvOFrY48IB0haMS3Qn2PZZq3g6sRdt7E6CDh
- U2qIaV6DDx9nYYtp+Zdh/g3hVnSfFgQ=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-362-2HEF5-H7NV6ciWmGAaVbrw-1; Thu, 21 Nov 2019 03:10:19 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 24BDD3C04F9
+ for <ltp@lists.linux.it>; Thu, 21 Nov 2019 09:21:22 +0100 (CET)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 771E41005509;
- Thu, 21 Nov 2019 08:10:18 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6C0B05D713;
- Thu, 21 Nov 2019 08:10:18 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5E3E41809563;
- Thu, 21 Nov 2019 08:10:18 +0000 (UTC)
-Date: Thu, 21 Nov 2019 03:10:18 -0500 (EST)
-From: Jan Stancek <jstancek@redhat.com>
-To: Cyril Hrubis <chrubis@suse.cz>, Li Wang <liwang@redhat.com>
-Message-ID: <1973085176.13281191.1574323818330.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20191120112230.GB14963@rei.lan>
-References: <1a623a82dfac64c8a6f9805c197fa72cb5e6f046.1574159295.git.jstancek@redhat.com>
- <20191120112230.GB14963@rei.lan>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 08350100EFA0
+ for <ltp@lists.linux.it>; Thu, 21 Nov 2019 09:21:20 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 2E061AF21;
+ Thu, 21 Nov 2019 08:21:20 +0000 (UTC)
+Date: Thu, 21 Nov 2019 09:21:18 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20191121082118.GA14920@dell5510>
+References: <1574241216-15168-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <1574241216-15168-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20191120151244.GA28197@dell5510> <20191120151610.GB28197@dell5510>
+ <efb495a4-1071-68fd-d5a2-7597646228e1@cn.fujitsu.com>
+ <20191121051022.GA59487@x230>
+ <46954cdf-042b-fffd-583d-b1494d7747dd@cn.fujitsu.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.163, 10.4.195.17]
-Thread-Topic: don't pass NULL to strcmp in safe_mount
-Thread-Index: KdeEfdqkJrvNIMmk2xGrb58yQXFpOA==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-MC-Unique: 2HEF5-H7NV6ciWmGAaVbrw-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <46954cdf-042b-fffd-583d-b1494d7747dd@cn.fujitsu.com>
+User-Agent: Mutt/1.12.2 (2019-09-21)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] lib: don't pass NULL to strcmp in safe_mount
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 1/5] syscalls/quotactl01: Add Q_GETNEXTQUOTA
+ test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,18 +53,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
------ Original Message -----
-> Hi!
-> Thanks for fixing this, acked.
+Hi Xu,
 
-Pushed.
+> Yes. I check <sys/quota.h> and <sys/prctl.h> on musl libc[1] and they don't include linux header files.
+> So I think checking both kernel and libc headers on other libc(musl,bionic) is meaningful.
+But in single C file we decide only on one of these two.
+It's a similar problem as testing raw syscall or libc wrapper (which we already
+solved with .test_variants).
+NOTE: Bionic has generate it's headers from linux headers.
 
+> ps: If our travis-ci has a target with musl, I think it will be better. I don't know whether possible.
+It's here. But it requires some more fixes (in a meantime files are deleted),
+so I'll post it once it's everything fixed
+https://github.com/pevik/ltp/commits/travis/musl
+https://travis-ci.org/pevik/ltp/builds/614575796
+
+There is also CI on LTP on all glibc/uclibc-ng/musl in Buildroot
+http://autobuild.buildroot.net/index.php?reason=ltp-testsuite-20190930
+
++ There are other CI based on yocto/openembedded on glibc/uclibc-ng/musl
+
+> [1]http://git.musl-libc.org/cgit/musl/tree/include/sys/quota.h
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
