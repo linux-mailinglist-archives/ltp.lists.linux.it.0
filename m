@@ -1,69 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56507104E4D
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Nov 2019 09:48:32 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 046B3104EA6
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Nov 2019 10:01:29 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 24B343C1CA3
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Nov 2019 09:48:32 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id ADB873C1CA4
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Nov 2019 10:01:28 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id C4F8E3C0738
- for <ltp@lists.linux.it>; Thu, 21 Nov 2019 09:48:29 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 5D686601D5A
- for <ltp@lists.linux.it>; Thu, 21 Nov 2019 09:48:28 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id CFBD63C1C86
+ for <ltp@lists.linux.it>; Thu, 21 Nov 2019 10:01:26 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 3577C20A6DD
+ for <ltp@lists.linux.it>; Thu, 21 Nov 2019 10:01:25 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1574326107;
+ s=mimecast20190719; t=1574326884;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=v3B6GPBrKaWILXGumZIC2Oo/HazyPwHf3bj9o36IRys=;
- b=GrriIby7HlXdDvtjUsdwUORHWLjnwRJ8WnUlXj6S+dmXgX7isq0r5q5RYm5PB+7SYK5LkY
- 56xMqbSxSQxDwF1XqmaD8FBfmMZeCQ4It6O/hakdJxW8KZmMNgHvzGrKxYdN0qGV+6CTPL
- 7GhdaJOSJo2gUrJX+S/rrxqPPkSALS4=
+ bh=RyfDluXa/65dIGVcouxeBOTcm5lQP2BH0z/kvpk4lEg=;
+ b=X0ZLZAZeS+83KP+l8nA9R2VaUFz0HE7IPYrRNQvgPSG6cd/2iQ7JvbmBF90CKjalnu696m
+ MhrOmvAKg8JPOEER0rCFxK/Bwg36zw3XkFSgDeNqnzpWPTadH1kv38BNn5QCHy6dniKg+5
+ 1xx6Lqt2iiHV5SDHJK4/6nkQY9niKn0=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-420-5Xlj6qUcNmaSxJ3LkwLx0w-1; Thu, 21 Nov 2019 03:48:25 -0500
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
+ us-mta-286-s93QfdyoOWWDokLV0EwG3w-1; Thu, 21 Nov 2019 04:01:17 -0500
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+ [10.5.11.11])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8E169107ACC5;
- Thu, 21 Nov 2019 08:48:24 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 48449477;
+ Thu, 21 Nov 2019 09:01:16 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 84519348C6;
- Thu, 21 Nov 2019 08:48:24 +0000 (UTC)
+ (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 3BE4C60BC3;
+ Thu, 21 Nov 2019 09:01:16 +0000 (UTC)
 Received: from zmail17.collab.prod.int.phx2.redhat.com
  (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7B0494BB5B;
- Thu, 21 Nov 2019 08:48:24 +0000 (UTC)
-Date: Thu, 21 Nov 2019 03:48:24 -0500 (EST)
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2634E1809563;
+ Thu, 21 Nov 2019 09:01:16 +0000 (UTC)
+Date: Thu, 21 Nov 2019 04:01:15 -0500 (EST)
 From: Jan Stancek <jstancek@redhat.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <820987732.13285590.1574326104465.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20191120123339.GE14963@rei.lan>
-References: <cover.1574087532.git.jstancek@redhat.com>
- <5b0f2a837117f3af1351d8b3da357cacecaa1463.1574087532.git.jstancek@redhat.com>
- <20191120123339.GE14963@rei.lan>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <1893160007.13287158.1574326875945.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20191120151244.GA28197@dell5510>
+References: <1574241216-15168-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <1574241216-15168-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20191120151244.GA28197@dell5510>
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.163, 10.4.195.30]
-Thread-Topic: perf_event_open02: make do_work() run for specified time
-Thread-Index: Ka6xz1m6j12bZF5xEl7rxPI1Jigt4g==
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-MC-Unique: 5Xlj6qUcNmaSxJ3LkwLx0w-1
+X-Originating-IP: [10.43.17.163, 10.4.195.21]
+Thread-Topic: syscalls/quotactl01: Add Q_GETNEXTQUOTA test
+Thread-Index: D3AkaVk1DYl4LugZR2jzA95OBAnjTw==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-MC-Unique: s93QfdyoOWWDokLV0EwG3w-1
 X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/3] perf_event_open02: make do_work() run for
- specified time
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 1/5] syscalls/quotactl01: Add Q_GETNEXTQUOTA
+ test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,40 +84,14 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 
+
 ----- Original Message -----
-> > -static void do_work(void)
-> > +void alarm_handler(int sig LTP_ATTRIBUTE_UNUSED)
-> 
-> static void ?
+> @Jan, @Cyril: Do we want to generally avoid loading <linux/types.h> if not
+> really needed?
 
-Yes
-
-> 
-> > +{
-> > +	work_done = 1;
-> > +}
-> > +
-> > +static void do_work(int time_ms)
-> >  {
-> >  	int i;
-> > +	struct sigaction sa;
-> > +	struct itimerval val;
-> >  
-> > -	for (i = 0; i < LOOPS; ++i)
-> > -		asm volatile (""::"g" (i));
-> > -}
-> > +	work_done = 0;
-> > +	memset(&val, 0, sizeof(val));
-> > +	val.it_value.tv_sec = time_ms / 1000;
-> > +	val.it_value.tv_usec = (time_ms % 1000) * 1000;
-> >  
-> > +	sa.sa_handler = alarm_handler;
-> > +	sa.sa_flags = SA_RESETHAND;
-> > +	SAFE_SIGACTION(SIGALRM, &sa, NULL);
-> 
-> I would have set up the signal handler just once in the test setup.
-
-I'll move it.
+Yes, we generally try to avoid including kernel headers. Our style-guide says
+"Don't use +linux/+ headers if at all possible". uapi on older distros
+was more prone to cause LTP build errors.
 
 
 -- 
