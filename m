@@ -1,42 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 311EE1071B2
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 Nov 2019 12:49:48 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id D4B5D10730F
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 Nov 2019 14:24:07 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 00CAC3C2266
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 Nov 2019 12:49:48 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6DBC63C2271
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 Nov 2019 14:24:07 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 84C713C2241
- for <ltp@lists.linux.it>; Fri, 22 Nov 2019 12:49:45 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id A6ACE3C224B
+ for <ltp@lists.linux.it>; Fri, 22 Nov 2019 14:24:05 +0100 (CET)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 482FD10013BA
- for <ltp@lists.linux.it>; Fri, 22 Nov 2019 12:49:43 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id BF3DE601A82
+ for <ltp@lists.linux.it>; Fri, 22 Nov 2019 14:24:04 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id B84C7B131;
- Fri, 22 Nov 2019 11:49:42 +0000 (UTC)
-Date: Fri, 22 Nov 2019 12:49:41 +0100
+ by mx1.suse.de (Postfix) with ESMTP id 729D0AC44
+ for <ltp@lists.linux.it>; Fri, 22 Nov 2019 13:24:03 +0000 (UTC)
+Date: Fri, 22 Nov 2019 14:24:02 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Alexey Kodanev <alexey.kodanev@oracle.com>
-Message-ID: <20191122114941.GB19146@rei.lan>
-References: <20191122100508.21265-1-chrubis@suse.cz>
- <5c00ffaa-c639-52d9-6305-edc7790e1769@oracle.com>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <20191122132401.GC19146@rei.lan>
+References: <20191122094000.8799-1-mdoucha@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <5c00ffaa-c639-52d9-6305-edc7790e1769@oracle.com>
+In-Reply-To: <20191122094000.8799-1-mdoucha@suse.cz>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [COMMITTED] [PATCH] network/sctp_big_chunk: Add linux git
- tag
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] Fix TBROK usage in timer tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,26 +53,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> >  testcases/network/sctp/sctp_big_chunk.c | 6 +++++-
-> >  1 file changed, 5 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/testcases/network/sctp/sctp_big_chunk.c b/testcases/network/sctp/sctp_big_chunk.c
-> > index 4ebdcb20f..ceb91c5b9 100644
-> > --- a/testcases/network/sctp/sctp_big_chunk.c
-> > +++ b/testcases/network/sctp/sctp_big_chunk.c
-> > @@ -182,5 +182,9 @@ static struct tst_test test = {
-> >  	.setup = setup,
-> >  	.forks_child = 1,
-> >  	.test_all = run,
-> > -	.options = options
-> > +	.options = options,
-> > +	.tags = (const struct tst_tag[]) {
-> > +		{"linux-git", "07f2c7ab6f8d"},
-> 
-> And {"CVE", "2018-5803"}, will add to the tags.
-
-Feel free to push that change, I had no idea since there is no CVE in
-the test description either.
+Applied, thanks.
 
 -- 
 Cyril Hrubis
