@@ -2,39 +2,48 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8AEE108EE1
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Nov 2019 14:30:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77697108F26
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Nov 2019 14:48:18 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 826723C2241
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Nov 2019 14:30:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3078C3C224B
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Nov 2019 14:48:18 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 8EDE33C1CBD
- for <ltp@lists.linux.it>; Mon, 25 Nov 2019 14:30:00 +0100 (CET)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id E662E3C21DD
+ for <ltp@lists.linux.it>; Mon, 25 Nov 2019 14:48:15 +0100 (CET)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 105DE201121
- for <ltp@lists.linux.it>; Mon, 25 Nov 2019 14:29:58 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 69DBEAE68;
- Mon, 25 Nov 2019 13:29:58 +0000 (UTC)
-Date: Mon, 25 Nov 2019 14:29:57 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <20191125132957.GC8703@rei.lan>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 5F2161401133
+ for <ltp@lists.linux.it>; Mon, 25 Nov 2019 14:48:15 +0100 (CET)
+Received: from [10.61.40.7] (unknown [37.156.92.209])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id C83F29F655;
+ Mon, 25 Nov 2019 13:48:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1574689693; bh=A9IVCN+5Ch+dDFUr3CNI3TeaGt5a0028rhDly1nCcjQ=;
+ h=Subject:To:From:Message-ID:Date:MIME-Version;
+ b=tWdgCYxxuHdOLHZT1dkaniptw6A0FqGYOTythSb3HYZ31oFTjwpxmXkjrw9z4SMhN
+ 8l5zjgip7rnHc8LickBnzwLhR9eoMYEyTzkt4Op7RWZXA8dgv5hhLQZXiKChQ59NHS
+ Zj51GMNeMvtJjA+qwByOvCPW+Aa/+8OfJUblQQKs=
+To: Cyril Hrubis <chrubis@suse.cz>
 References: <20191106073621.58738-1-lkml@jv-coder.de>
  <365bdf26-4e52-2159-17cd-52f2fb22e7fd@jv-coder.de>
+ <20191125132957.GC8703@rei.lan>
+From: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <2e5756af-d7ef-7919-da6b-46e7fbf3cb66@jv-coder.de>
+Date: Mon, 25 Nov 2019 14:48:13 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <365bdf26-4e52-2159-17cd-52f2fb22e7fd@jv-coder.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+In-Reply-To: <20191125132957.GC8703@rei.lan>
+Content-Language: en-US
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] memcg_lib/memcg_process: Better synchronization
  of signal USR1
 X-BeenThere: ltp@lists.linux.it
@@ -49,37 +58,28 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Actually this does not work like this, because some of the
-> tests trigger the oom killer and TEST_CHECKPOINT_WAIT calling
-> tst_checkpoint uses ROD. Is it ok to directly call
-> 
-> tst_checkpoint wait 10000 "1"
-> 
-> and ignore the result here?
-
-Wouldn't that delay the test for too long?
-
-The default timeout for checkpoints is probably too big.
-
-This problem is quite tricky to get right I guess. Maybe we can watch
-/proc/[pid]/statm for increase data + stack memory.
-
-> BTW: Is there no such thing like TST_CHECKPOINT in the new
-> shell test library?
-
-It does not seem to be there, but these shell functions are just
-wrappers that do check the tst_checkpoint return value, which would be
-fairly easy to add.
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkgQ3lyaWwsCgo+IEhpIQo+PiBBY3R1YWxseSB0aGlzIGRvZXMgbm90IHdvcmsgbGlrZSB0aGlz
+LCBiZWNhdXNlIHNvbWUgb2YgdGhlCj4+IHRlc3RzIHRyaWdnZXIgdGhlIG9vbSBraWxsZXIgYW5k
+IFRFU1RfQ0hFQ0tQT0lOVF9XQUlUIGNhbGxpbmcKPj4gdHN0X2NoZWNrcG9pbnQgdXNlcyBST0Qu
+IElzIGl0IG9rIHRvIGRpcmVjdGx5IGNhbGwKPj4KPj4gdHN0X2NoZWNrcG9pbnQgd2FpdCAxMDAw
+MCAiMSIKPj4KPj4gYW5kIGlnbm9yZSB0aGUgcmVzdWx0IGhlcmU/Cj4gV291bGRuJ3QgdGhhdCBk
+ZWxheSB0aGUgdGVzdCBmb3IgdG9vIGxvbmc/Cj4KPiBUaGUgZGVmYXVsdCB0aW1lb3V0IGZvciBj
+aGVja3BvaW50cyBpcyBwcm9iYWJseSB0b28gYmlnLgo+Cj4gVGhpcyBwcm9ibGVtIGlzIHF1aXRl
+IHRyaWNreSB0byBnZXQgcmlnaHQgSSBndWVzcy4gTWF5YmUgd2UgY2FuIHdhdGNoCj4gL3Byb2Mv
+W3BpZF0vc3RhdG0gZm9yIGluY3JlYXNlIGRhdGEgKyBzdGFjayBtZW1vcnkuClRoZSB0aW1lb3V0
+IGlzIHNwZWNpZmllZCBvbiB0aGUgY29tbWFuZCBsaW5lICh0aGUgMTAwMDApIGluIG1zLgpXZSBy
+dW4gdGhlIHRlc3Qgd2l0aCB0aW1lb3V0PTEwMDAgbm93IGFuZCBpdCB3b3JrcyBmaW5lLiBJdCBp
+cyBzaW1wbGVyIAp0aGFuIHRoaW5raW5nIGFib3V0IGFueQpvdGhlciBzeW5jaHJvbml6YXRpb24g
+dGVjaG5pcXVlLiBUaGUgYWRkaXRvbmFsIHdhaXQgYWRkcyBsZXNzIHRoYW4gMzAgCmZvciBhbGwg
+dGVzdHMsIHRoYXQgdXNlIG1lbWNnX3Byb2Nlc3MuCj4+IEJUVzogSXMgdGhlcmUgbm8gc3VjaCB0
+aGluZyBsaWtlIFRTVF9DSEVDS1BPSU5UIGluIHRoZSBuZXcKPj4gc2hlbGwgdGVzdCBsaWJyYXJ5
+Pwo+IEl0IGRvZXMgbm90IHNlZW0gdG8gYmUgdGhlcmUsIGJ1dCB0aGVzZSBzaGVsbCBmdW5jdGlv
+bnMgYXJlIGp1c3QKPiB3cmFwcGVycyB0aGF0IGRvIGNoZWNrIHRoZSB0c3RfY2hlY2twb2ludCBy
+ZXR1cm4gdmFsdWUsIHdoaWNoIHdvdWxkIGJlCj4gZmFpcmx5IGVhc3kgdG8gYWRkLgpJIGp1c3Qg
+d29uZGVyZWQgaWYgSSBkaWRuJ3Qgc2VlIGl0CgpKw7ZyZwoKLS0gCk1haWxpbmcgbGlzdCBpbmZv
+OiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
