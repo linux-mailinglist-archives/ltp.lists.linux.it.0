@@ -1,55 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05EE8109E1F
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 Nov 2019 13:39:19 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A40A0109E32
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 Nov 2019 13:42:49 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BEDE13C207C
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 Nov 2019 13:39:18 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5EA8F3C2092
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 Nov 2019 13:42:49 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 068873C1454
- for <ltp@lists.linux.it>; Tue, 26 Nov 2019 13:39:13 +0100 (CET)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 3B2EB3C1C71
+ for <ltp@lists.linux.it>; Tue, 26 Nov 2019 13:42:46 +0100 (CET)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 063A31A011DB
- for <ltp@lists.linux.it>; Tue, 26 Nov 2019 13:39:12 +0100 (CET)
-Received: from [10.61.40.7] (unknown [37.156.92.209])
- by mail.jv-coder.de (Postfix) with ESMTPSA id CEE2A9F655;
- Tue, 26 Nov 2019 12:39:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1574771951; bh=dJkiNWDRBuzO4MrYwGPo/oXqarMdgd+ql0TmO2ee+2Y=;
- h=Subject:To:From:Message-ID:Date:MIME-Version;
- b=py/XmCrwTUijsdhMS/b18JXApbcorl4AlD51XKWdDsmAi72Vy+JK2K4yluyt/OIas
- A4cWzxy9QEpyVsYDbg75cm+fqOxflkPSn+dtjdlwxGK6EoDmc2nHuCEHKFSU2bsVtG
- EqMZl7YaLkWFdUHiPNO8sKEGsji3D5+ksvUh/isI=
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <20191106073621.58738-1-lkml@jv-coder.de>
- <365bdf26-4e52-2159-17cd-52f2fb22e7fd@jv-coder.de>
- <20191125132957.GC8703@rei.lan>
- <2e5756af-d7ef-7919-da6b-46e7fbf3cb66@jv-coder.de>
- <20191125153245.GA15129@rei.lan>
- <5f914dce-92b7-9070-6230-d76b73d7da34@jv-coder.de>
- <20191126121038.GC16922@rei.lan>
-From: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <42d40727-f631-39ff-fdc0-576e13336a4d@jv-coder.de>
-Date: Tue, 26 Nov 2019 13:39:11 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 176E91401737
+ for <ltp@lists.linux.it>; Tue, 26 Nov 2019 13:42:45 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 5A14CB39E;
+ Tue, 26 Nov 2019 12:42:45 +0000 (UTC)
+Date: Tue, 26 Nov 2019 13:42:43 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.de>
+Message-ID: <20191126124243.GA10841@dell5510>
+References: <20191107153458.16917-1-rpalethorpe@suse.com>
+ <20191107153458.16917-2-rpalethorpe@suse.com>
+ <CAEemH2f=_oGD8Zo=EDE6D096EEP=jCjzEUPOszJ7W7j8vbV7XA@mail.gmail.com>
+ <87zhgjc4ie.fsf@rpws.prws.suse.cz>
 MIME-Version: 1.0
-In-Reply-To: <20191126121038.GC16922@rei.lan>
-Content-Language: en-US
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <87zhgjc4ie.fsf@rpws.prws.suse.cz>
+User-Agent: Mutt/1.12.2 (2019-09-21)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] memcg_lib/memcg_process: Better synchronization
- of signal USR1
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [Automated-testing] [PATCH 1/2] Wrapper for Syzkaller
+ reproducers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,44 +50,53 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: syzkaller <syzkaller@googlegroups.com>, LTP List <ltp@lists.linux.it>,
+ automated-testing@yoctoproject.org, Richard Palethorpe <rpalethorpe@suse.com>,
+ Dmitry Vyukov <dvyukov@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-
->> Yes 30 seconds. Why shouldn't that be not acceptable? It is nothing compared
->> to the runtime of other tests.
-> I have written a blog post that partly applies to this case, see:
->
-> https://people.kernel.org/metan/why-sleep-is-almost-never-acceptable-in-tests
-I know where you are coming from and it is basically the same as my own 
-opinion.
-The difference is: When I look at ltp I see a runtime of more than 6 
-hours, looking at the
-controller test alone it is more than 4 hours. This puts 30 seconds into 
-a very differenet
-perspective than looking at only syscall tests. (In the testrun I looked 
-at it is around 13 minutes).
-That is why I don't care about 30 seconds in this case.
-
->
-> So the problem is that sometimes the program has not finished handling
-> the first signal and we are sending another, right?
->
-> I guess that the proper solution would be avoding the signals in the
-> first place. I guess that we can estabilish two-way communication with
-> fifos, which would also mean that we would get notified as fast as the
-> child dies as well.
-Correct. Using fifos is probably a viable solution, but it would require 
-library work,
-because otherwise the overhead is way too big.
-Another thing I can think of is extending tst_checkpoint wait to also 
-watch a process
-and stop waiting, if that process dies. This would be the simplest way 
-to get good
-synchronization and get rid of the sleep.
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGksCgo+ID4+ICtBQ19BUkdfV0lUSChbc3l6a2FsbGVyLXJlcHJvc10sCj4gPj4gKyAgW0FDX0hF
+TFBfU1RSSU5HKFstLXdpdGgtc3l6a2FsbGVyLXJlcHJvc10sCj4gPj4gKyAgICBbY29tcGlsZSBh
+bmQgaW5zdGFsbCBTeXprYWxsZXIgcmVwcm9kdWNlcnMgKGRlZmF1bHQ9bm8pXSldLAo+ID4+ICsg
+IFt3aXRoX3N5emthbGxlcl9yZXByb3M9JHdpdGh2YWxdCgoKPiA+IFRvIHN0cmljdGx5LCB0aGUg
+W2FjdGlvbi1pZi1ub3QtZ2l2ZW5dIHNob3VsZCBiZSBhZGRlZCB0b28/Cgo+IFdlcmUgdGhlIG90
+aGVyICd3aXRoJyBvcHRpb25zIHVwZGF0ZWQgcmVjZW50bHkgdG8gaGF2ZSB0aGF0PyBJIGp1c3QK
+PiBjb3BpZWQgdGhpcyBmcm9tIHRoZSBvdGhlciBvcHRpb25zLgpZZXAsIHlvdSdsbCBqdXN0IGFk
+ZApbd2l0aF9zeXprYWxsZXJfcmVwcm9zPW5vXQoobG9va2luZyBhdCB0aGUgZGVmYXVsdCBvZmYs
+IHByb2JhYmx5IHNhZmVyIGZvciB0aGUgc3RhcnQpCgo+ID4+IGRpZmYgLS1naXQgYS90ZXN0Y2Fz
+ZXMva2VybmVsL01ha2VmaWxlIGIvdGVzdGNhc2VzL2tlcm5lbC9NYWtlZmlsZQo+ID4+IGluZGV4
+IDMzMTliMzE2My4uMDE1MGNmYjRmIDEwMDY0NAo+ID4+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwv
+TWFrZWZpbGUKPiA+PiArKysgYi90ZXN0Y2FzZXMva2VybmVsL01ha2VmaWxlCj4gPj4gQEAgLTUz
+LDYgKzUzLDcgQEAgU1VCRElSUyAgICAgICAgICAgICAgICAgICAgICAgKz0gY29ubmVjdG9ycyBc
+Cj4gPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgc2NoZWQgXAo+ID4+ICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHNlY3VyaXR5IFwKPiA+PiAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBzb3VuZCBcCj4gPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgc3l6a2FsbGVyLXJlcHJv
+cyBcCj4gPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgdHJhY2luZyBcCj4gPj4gICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgdWV2ZW50cyBcCgo+ID4+ICsjIFNvbWUgdXNlZnVsIGNvbXBp
+bGVyIGZsYWdzIGZvciB0aGUgTFRQIHdpbGwgY2F1c2UgcHJvYmxlbXMgd2l0aCB0aGUKPiA+PiAr
+IyBzeXprYWxsZXIgcmVwcm9zIHNvIHRoZSByZXByb3MgaGF2ZSBzZXBlcmF0ZSBmbGFncwo+ID4+
+ICtTWVpLQUxMRVJfQ0ZMQUdTID89IC1wdGhyZWFkCj4gPj4gK1NZWktBTExFUl9SRVBST1MgPSAk
+KHN1YnN0Cj4gPj4gJChhYnNfdG9wX3NyY2RpciksJChhYnNfdG9wX2J1aWxkZGlyKSwkKFNZWktB
+TExFUl9SRVBST1NfU1JDUzouYz0pKQo+ID4+ICskKFNZWktBTExFUl9SRVBST1MpOiAlOiAlLmMK
+PiA+PiArICAgICAgIC1AaWYgZ3JlcCAtcSAiX19OUl9tbWFwMiIgJF47IHRoZW4gXAo+ID4+ICsg
+ICAgICAgICAgICAgICBNMzI9Ii1tMzIiOyBcCgoKPiA+IEkgZ290IGNvbXBpbGluZyBlcnJvcnMg
+b24gczM5MHg6Cj4gPiAgIGdjYzogZXJyb3I6IHVucmVjb2duaXplZCBjb21tYW5kIGxpbmUgb3B0
+aW9uIOKAmC1tMzLigJk7IGRpZCB5b3UgbWVhbgo+ID4g4oCYLW0zMeKAmT8KCj4gSSBoYXZlIG9u
+bHkgdHJpZWQgdGhlc2Ugb24geDg2XzY0IHNvIGZhciBhbmQgSSB0aGluayB0aGF0IGlzIGFsbCB3
+ZSBjYW4KPiBzdXBwb3J0IHRvIGJlZ2luIHdpdGguCgpNYXliZSBmaWx0ZXIgaXQgb3V0IGluIHRl
+c3RjYXNlcy9rZXJuZWwvTWFrZWZpbGUgd2l0aCBzb21ldGhpbmcgbGlrZSB0aGlzOgppZm5lcSAo
+LCQoZmlsdGVyICQoSE9TVF9DUFUpLHg4NiB4ODZfNjQpKQpGSUxURVJfT1VUX0RJUlMgKz0gc3l6
+a2FsbGVyLXJlcHJvcwplbmRpZgoKPiA+IE15IG90aGVyIGNvbmNlcm4gaXMgc3l6a2FsbGVyIChJ
+IGd1ZXNzIG1heWJlKSBoYXZlIHNvbWUgcGFja2FnZQo+ID4gZGVwZW5kZW5jaWVzLCBhbmQgdGhh
+dCB3aWxsIGJyZWFrIHRoZSBjb21waWxlciBwaGFzZSBvbiB0aGUgZW1iZWRkZWQKPiA+IHN5c3Rl
+bS4KCj4gVGhpcyBpcyB0cnVlLCB0aGUgcmVwcm9kdWNlcnMgZG8gaGF2ZSBkZXBlbmRlbmNpZXMg
+YW5kIGl0IHNlZW1zIHRvIHZhcnkKPiAocmFuZG9tbHkgdmlldyBzb21lIG9mIHRoZSBDIGZpbGVz
+KS4gSG93ZXZlciB0aGlzIGlzIG9uZSBvZiB0aGUgcmVhc29ucwo+IHdoeSB0aGV5IGFyZSBvbmx5
+IGluc3RhbGxlZCBpZiAtLXdpdGgtc3l6a2FsbGVyLXJlcHJvcyBpcyBzZXQuCk1heWJlIGxhdGVy
+IHdlIG1hbmFnZSB0byBnZW5lcmF0ZSBhdXRvdG9vbHMgY29uZmlnIGJhc2VkIG9uIHBrZy1jb25m
+aWcuCgpLaW5kIHJlZ2FyZHMsClBldHIKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9s
+aXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
