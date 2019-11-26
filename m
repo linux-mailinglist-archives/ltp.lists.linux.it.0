@@ -2,69 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3AE8109A16
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 Nov 2019 09:19:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CA6E109C53
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 Nov 2019 11:32:18 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 682413C23E6
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 Nov 2019 09:19:02 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1C9543C23EE
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 Nov 2019 11:32:18 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id CE6063C1813
- for <ltp@lists.linux.it>; Tue, 26 Nov 2019 09:18:52 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 8F32014060A4
- for <ltp@lists.linux.it>; Tue, 26 Nov 2019 09:18:51 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1574756329;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=syZOrmtcSkNGo6rOw6by2dIWYTm1JBeMaCEU0P99Sck=;
- b=a0U/o2R3T3yqRLXEukINeegwfsIVtwh34NaYmENJVHNg1pp72d5sZhr0mFHCY5/zz2Pepi
- HgpeYbUcC3xD6dydWdXsYNWFMwpbCjJ9Uf6Z+GFsMsm87iRhTCdaBCD9IWk1pO2iiuobpr
- gy3VhgA5P8bYLTeOZAjLTQFkEVMFL2o=
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
- [209.85.210.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-42-VK4vZvG9PHuxuDj3MyI6sw-1; Tue, 26 Nov 2019 03:18:48 -0500
-Received: by mail-ot1-f71.google.com with SMTP id a10so4199299oto.14
- for <ltp@lists.linux.it>; Tue, 26 Nov 2019 00:18:48 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=syZOrmtcSkNGo6rOw6by2dIWYTm1JBeMaCEU0P99Sck=;
- b=HP9yEyoMhQTdjz2qa5Ik6nRI1ztP5i3/Wt1MTg9XSUubwVa/HvWrSvql4oYjrBtY3r
- /5SKKN7e3xLjlITxEPg4qHx8YAcog1fggyYeVQNQKs9uKMljor1b4QDsrXlungCGiqLw
- xZr1HTmNxrOPt/77Fw1Gh5MqUp8Tsk4moIKuI+5HWZbv0yIYaou0FzTm5cYn6eLwAv2v
- PmW8NExvjwtzGkBYo+eGAGTV9qvQgjY3lWc2nmLhweLZh676KQsSx7o27n/tmC5V7N+T
- PIYJYNuRlK7ZAl8Pk25t7lLCL/XhQRi46TH/pWUewz9UqlbzWoel9DoShBAzIanCJJnL
- o4ZA==
-X-Gm-Message-State: APjAAAUeCcfcscgCv3AAq0zF96FoJ061wOgfC02KuPOyPzL08arFZmDG
- Bz558rmXQfWXVZN2W/a4mcBxveOy1Pewhw3xqvX+O33/XEvu1BDGA7RZN2dYMdW5dDgZXOBnl6V
- np84Ni93S51oPveGECI32+nankVA=
-X-Received: by 2002:a9d:8d2:: with SMTP id 76mr24389630otf.17.1574756327531;
- Tue, 26 Nov 2019 00:18:47 -0800 (PST)
-X-Google-Smtp-Source: APXvYqz2FGlSN3JAswdpsbbjn9md1iBQQU8sjh4lvyWj/YvQGNJRDAT0fsa7DIfx7Rsu9xuRWZqmWFkpt91pP/7gmc8=
-X-Received: by 2002:a9d:8d2:: with SMTP id 76mr24389616otf.17.1574756327217;
- Tue, 26 Nov 2019 00:18:47 -0800 (PST)
-MIME-Version: 1.0
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 2F4C13C1C89
+ for <ltp@lists.linux.it>; Tue, 26 Nov 2019 11:32:13 +0100 (CET)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 52F65600F06
+ for <ltp@lists.linux.it>; Tue, 26 Nov 2019 11:32:11 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 37D3BB3D0;
+ Tue, 26 Nov 2019 10:32:10 +0000 (UTC)
 References: <20191107153458.16917-1-rpalethorpe@suse.com>
  <20191107153458.16917-2-rpalethorpe@suse.com>
-In-Reply-To: <20191107153458.16917-2-rpalethorpe@suse.com>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 26 Nov 2019 16:18:36 +0800
-Message-ID: <CAEemH2f=_oGD8Zo=EDE6D096EEP=jCjzEUPOszJ7W7j8vbV7XA@mail.gmail.com>
-To: Richard Palethorpe <rpalethorpe@suse.com>
-X-MC-Unique: VK4vZvG9PHuxuDj3MyI6sw-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+ <CAEemH2f=_oGD8Zo=EDE6D096EEP=jCjzEUPOszJ7W7j8vbV7XA@mail.gmail.com>
+User-agent: mu4e 1.2.0; emacs 26.3
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Li Wang <liwang@redhat.com>
+In-reply-to: <CAEemH2f=_oGD8Zo=EDE6D096EEP=jCjzEUPOszJ7W7j8vbV7XA@mail.gmail.com>
+Date: Tue, 26 Nov 2019 11:32:09 +0100
+Message-ID: <87zhgjc4ie.fsf@rpws.prws.suse.cz>
+MIME-Version: 1.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 1/2] Wrapper for Syzkaller reproducers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -77,302 +48,110 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Dmitry Vyukov <dvyukov@google.com>, syzkaller <syzkaller@googlegroups.com>,
- automated-testing@yoctoproject.org, LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0667053979=="
+Reply-To: rpalethorpe@suse.de
+Cc: automated-testing@yoctoproject.org, syzkaller <syzkaller@googlegroups.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Richard Palethorpe <rpalethorpe@suse.com>,
+ LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0667053979==
-Content-Type: multipart/alternative; boundary="0000000000007dfbd005983b87a4"
-
---0000000000007dfbd005983b87a4
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Richard,
-
-Some more queries below.
-
-On Thu, Nov 7, 2019 at 11:36 PM Richard Palethorpe <rpalethorpe@suse.com>
-wrote:
-
-> Allows one to run the Syzkaller reproducers as part of the LTP.
->
-> ...
->
-> +AC_ARG_WITH([syzkaller-repros],
-> +  [AC_HELP_STRING([--with-syzkaller-repros],
-> +    [compile and install Syzkaller reproducers (default=3Dno)])],
-> +  [with_syzkaller_repros=3D$withval]
->
-
-To strictly, the [action-if-not-given] should be added too?
-
-
-> +)
-> +if test "x$with_syzkaller_repros" =3D xyes; then
-> +    AC_SUBST([WITH_SYZKALLER_REPROS],["yes"])
-> +else
-> +    AC_SUBST([WITH_SYZKALLER_REPROS],["no"])
-> +fi
-> ...
-> diff --git a/runtest/.gitignore b/runtest/.gitignore
-> new file mode 100644
-> index 000000000..2ae05bfac
-> --- /dev/null
-> +++ b/runtest/.gitignore
-> @@ -0,0 +1 @@
-> +syzkaller*
->
-
-Why adding syzkaller* in here?
-
-
-> diff --git a/testcases/kernel/Makefile b/testcases/kernel/Makefile
-> index 3319b3163..0150cfb4f 100644
-> --- a/testcases/kernel/Makefile
-> +++ b/testcases/kernel/Makefile
-> @@ -53,6 +53,7 @@ SUBDIRS                       +=3D connectors \
->                            sched \
->                            security \
->                            sound \
-> +                          syzkaller-repros \
->                            tracing \
->                            uevents \
->
-> diff --git a/testcases/kernel/syzkaller-repros/.gitignore
-> b/testcases/kernel/syzkaller-repros/.gitignore
-> new file mode 100644
-> index 000000000..dbda1c71f
-> --- /dev/null
-> +++ b/testcases/kernel/syzkaller-repros/.gitignore
-> @@ -0,0 +1 @@
-> +syzwrap
-> diff --git a/testcases/kernel/syzkaller-repros/Makefile
-> b/testcases/kernel/syzkaller-repros/Makefile
-> new file mode 100644
-> ...
-> +# Some useful compiler flags for the LTP will cause problems with the
-> +# syzkaller repros so the repros have seperate flags
-> +SYZKALLER_CFLAGS ?=3D -pthread
-> +SYZKALLER_REPROS =3D $(subst
-> $(abs_top_srcdir),$(abs_top_builddir),$(SYZKALLER_REPROS_SRCS:.c=3D))
-> +$(SYZKALLER_REPROS): %: %.c
-> +       -@if grep -q "__NR_mmap2" $^; then \
-> +               M32=3D"-m32"; \
->
-
-I got compiling errors on s390x:
-  gcc: error: unrecognized command line option =E2=80=98-m32=E2=80=99; did =
-you mean =E2=80=98-m31=E2=80=99?
-
-My other concern is syzkaller (I guess maybe) have some package
-dependencies, and that will break the compiler phase on the embedded system=
-.
-
-
-> ....
-> +       while (!waitpid(pid, &status, WNOHANG)) {
-> +               rem =3D tst_timeout_remaining();
-> +
-> +               if (!sent_kill && rem / exec_time_start < 0.5) {
-> +                       tst_res(TINFO, "Timeout; killing reproducer");
-> +
-> +                       TEST(kill(pid, SIGKILL));
-> +                       if (TST_RET =3D=3D -1)
-> +                               tst_res(TWARN | TTERRNO, "kill() failed")=
-;
-> +                       else
-> +                               sent_kill =3D 1;
-> +               }
-> +
-> +               usleep(backoff);
-> +               backoff =3D MIN(2 * backoff, 1000000);
-> +       }
->
-
-Force to kill a timeout test process is fine, but one thing makes me
-worried is that we don't do any cleanup work(e.g. release hugepage, devices
-or other resources) for the children, that very probably causes many
-additional issues in the next testing and not easy to reproduce it in a new
-run.
-
-
-> +
-> +       if (tst_taint_check()) {
-> +               tst_res(TFAIL, "Kernel is tainted");
-> +       } else {
-> +               tst_res(TPASS, "Kernel is not tainted");
-> +       }
-
-
-If this is the only condition to judge if all tests pass or not, we may
-miss some test failure logs after running, unless we don't care about that.
-
-Btw, I can't even finish one round for the test then system panic there.
-
---=20
-Regards,
-Li Wang
-
---0000000000007dfbd005983b87a4
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Hi Richard,</div><div class=3D"gmail_default" style=3D"font-s=
-ize:small"><br></div><div class=3D"gmail_default" style=3D"font-size:small"=
->Some more queries below.</div></div><br><div class=3D"gmail_quote"><div di=
-r=3D"ltr" class=3D"gmail_attr">On Thu, Nov 7, 2019 at 11:36 PM Richard Pale=
-thorpe &lt;<a href=3D"mailto:rpalethorpe@suse.com" target=3D"_blank">rpalet=
-horpe@suse.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" st=
-yle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padd=
-ing-left:1ex">Allows one to run the Syzkaller reproducers as part of the LT=
-P.<br>
-<br>
-<span class=3D"gmail_default" style=3D"font-size:small">...</span><br>
-<br>
-+AC_ARG_WITH([syzkaller-repros],<br>
-+=C2=A0 [AC_HELP_STRING([--with-syzkaller-repros],<br>
-+=C2=A0 =C2=A0 [compile and install Syzkaller reproducers (default=3Dno)])]=
-,<br>
-+=C2=A0 [with_syzkaller_repros=3D$withval]<br></blockquote><div><br></div><=
-div><div class=3D"gmail_default" style=3D"font-size:small">To strictly, the=
-=C2=A0[action-if-not-given] should be added too?</div></div><div>=C2=A0</di=
-v><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;borde=
-r-left:1px solid rgb(204,204,204);padding-left:1ex">
-+)<br>
-+if test &quot;x$with_syzkaller_repros&quot; =3D xyes; then<br>
-+=C2=A0 =C2=A0 AC_SUBST([WITH_SYZKALLER_REPROS],[&quot;yes&quot;])<br>
-+else<br>
-+=C2=A0 =C2=A0 AC_SUBST([WITH_SYZKALLER_REPROS],[&quot;no&quot;])<br>
-+fi<br>
-<span class=3D"gmail_default" style=3D"font-size:small">...</span><br>
-diff --git a/runtest/.gitignore b/runtest/.gitignore<br>
-new file mode 100644<br>
-index 000000000..2ae05bfac<br>
---- /dev/null<br>
-+++ b/runtest/.gitignore<br>
-@@ -0,0 +1 @@<br>
-+syzkaller*<br></blockquote><div><br></div><div><div class=3D"gmail_default=
-" style=3D"font-size:small">Why adding syzkaller* in here?</div></div><div>=
-=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
-.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-diff --git a/testcases/kernel/Makefile b/testcases/kernel/Makefile<br>
-index 3319b3163..0150cfb4f 100644<br>
---- a/testcases/kernel/Makefile<br>
-+++ b/testcases/kernel/Makefile<br>
-@@ -53,6 +53,7 @@ SUBDIRS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+=3D connectors \<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0sched \<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0security \<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0sound \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 syzkaller-repros \<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0tracing \<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0uevents \<br>
-<br>
-diff --git a/testcases/kernel/syzkaller-repros/.gitignore b/testcases/kerne=
-l/syzkaller-repros/.gitignore<br>
-new file mode 100644<br>
-index 000000000..dbda1c71f<br>
---- /dev/null<br>
-+++ b/testcases/kernel/syzkaller-repros/.gitignore<br>
-@@ -0,0 +1 @@<br>
-+syzwrap<br>
-diff --git a/testcases/kernel/syzkaller-repros/Makefile b/testcases/kernel/=
-syzkaller-repros/Makefile<br>
-new file mode 100644<br>
-<span class=3D"gmail_default" style=3D"font-size:small">...</span><br>
-+# Some useful compiler flags for the LTP will cause problems with the<br>
-+# syzkaller repros so the repros have seperate flags<br>
-+SYZKALLER_CFLAGS ?=3D -pthread<br>
-+SYZKALLER_REPROS =3D $(subst $(abs_top_srcdir),$(abs_top_builddir),$(SYZKA=
-LLER_REPROS_SRCS:.c=3D))<br>
-+$(SYZKALLER_REPROS): %: %.c<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0-@if grep -q &quot;__NR_mmap2&quot; $^; then \<=
-br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0M32=3D&quot;-m32&qu=
-ot;; \<br></blockquote><div><br></div><div><div class=3D"gmail_default" sty=
-le=3D"font-size:small">I got compiling errors on s390x:</div><div class=3D"=
-gmail_default" style=3D"font-size:small">=C2=A0 gcc: error: unrecognized co=
-mmand line option =E2=80=98-m32=E2=80=99; did you mean =E2=80=98-m31=E2=80=
-=99?</div></div><div class=3D"gmail_default" style=3D"font-size:small"><br>=
-</div><div class=3D"gmail_default" style=3D"font-size:small">My other conce=
-rn is=C2=A0syzkaller (I guess maybe) have some package dependencies, and th=
-at will break the compiler phase on the embedded system.</div><div>=C2=A0</=
-div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
-der-left:1px solid rgb(204,204,204);padding-left:1ex">
-<span class=3D"gmail_default" style=3D"font-size:small">....</span><br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0while (!waitpid(pid, &amp;status, WNOHANG)) {<b=
-r>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rem =3D tst_timeout=
-_remaining();<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!sent_kill &amp=
-;&amp; rem / exec_time_start &lt; 0.5) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0tst_res(TINFO, &quot;Timeout; killing reproducer&quot;);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0TEST(kill(pid, SIGKILL));<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0if (TST_RET =3D=3D -1)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TWARN | TTERRNO, &quot;kill()=
- failed&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0else<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0sent_kill =3D 1;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0usleep(backoff);<br=
->
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0backoff =3D MIN(2 *=
- backoff, 1000000);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br></blockquote><div><br></div><div><div clas=
-s=3D"gmail_default" style=3D"font-size:small">Force to kill a timeout test =
-process is fine, but one thing makes me worried is that we don&#39;t do any=
- cleanup work(e.g. release hugepage, devices or other resources) for the ch=
-ildren, that very probably causes many additional issues in the next testin=
-g and not easy to reproduce it in a new run.</div></div><div>=C2=A0</div><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex">
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (tst_taint_check()) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TFAIL, &quo=
-t;Kernel is tainted&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TPASS, &quo=
-t;Kernel is not tainted&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}</blockquote><div><br></div><div><div class=3D=
-"gmail_default" style=3D"font-size:small">If this is the only condition to =
-judge if all tests pass or not, we may miss some test failure logs after ru=
-nning, unless we don&#39;t care about that.</div><br></div><div><div class=
-=3D"gmail_default" style=3D"font-size:small">Btw, I can&#39;t even finish o=
-ne round for the test then system panic there.=C2=A0</div></div></div><div>=
-<br></div>-- <br><div dir=3D"ltr"><div dir=3D"ltr"><div>Regards,<br></div><=
-div>Li Wang<br></div></div></div></div>
-
---0000000000007dfbd005983b87a4--
-
-
---===============0667053979==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0667053979==--
-
+SGVsbG8sCgpMaSBXYW5nIDxsaXdhbmdAcmVkaGF0LmNvbT4gd3JpdGVzOgoKPiBIaSBSaWNoYXJk
+LAo+Cj4gU29tZSBtb3JlIHF1ZXJpZXMgYmVsb3cuCj4KPiBPbiBUaHUsIE5vdiA3LCAyMDE5IGF0
+IDExOjM2IFBNIFJpY2hhcmQgUGFsZXRob3JwZSA8cnBhbGV0aG9ycGVAc3VzZS5jb20+Cj4gd3Jv
+dGU6Cj4KPj4gQWxsb3dzIG9uZSB0byBydW4gdGhlIFN5emthbGxlciByZXByb2R1Y2VycyBhcyBw
+YXJ0IG9mIHRoZSBMVFAuCj4+Cj4+IC4uLgo+Pgo+PiArQUNfQVJHX1dJVEgoW3N5emthbGxlci1y
+ZXByb3NdLAo+PiArICBbQUNfSEVMUF9TVFJJTkcoWy0td2l0aC1zeXprYWxsZXItcmVwcm9zXSwK
+Pj4gKyAgICBbY29tcGlsZSBhbmQgaW5zdGFsbCBTeXprYWxsZXIgcmVwcm9kdWNlcnMgKGRlZmF1
+bHQ9bm8pXSldLAo+PiArICBbd2l0aF9zeXprYWxsZXJfcmVwcm9zPSR3aXRodmFsXQo+Pgo+Cj4g
+VG8gc3RyaWN0bHksIHRoZSBbYWN0aW9uLWlmLW5vdC1naXZlbl0gc2hvdWxkIGJlIGFkZGVkIHRv
+bz8KCldlcmUgdGhlIG90aGVyICd3aXRoJyBvcHRpb25zIHVwZGF0ZWQgcmVjZW50bHkgdG8gaGF2
+ZSB0aGF0PyBJIGp1c3QKY29waWVkIHRoaXMgZnJvbSB0aGUgb3RoZXIgb3B0aW9ucy4KCj4KPgo+
+PiArKQo+PiAraWYgdGVzdCAieCR3aXRoX3N5emthbGxlcl9yZXByb3MiID0geHllczsgdGhlbgo+
+PiArICAgIEFDX1NVQlNUKFtXSVRIX1NZWktBTExFUl9SRVBST1NdLFsieWVzIl0pCj4+ICtlbHNl
+Cj4+ICsgICAgQUNfU1VCU1QoW1dJVEhfU1laS0FMTEVSX1JFUFJPU10sWyJubyJdKQo+PiArZmkK
+Pj4gLi4uCj4+IGRpZmYgLS1naXQgYS9ydW50ZXN0Ly5naXRpZ25vcmUgYi9ydW50ZXN0Ly5naXRp
+Z25vcmUKPj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPj4gaW5kZXggMDAwMDAwMDAwLi4yYWUwNWJm
+YWMKPj4gLS0tIC9kZXYvbnVsbAo+PiArKysgYi9ydW50ZXN0Ly5naXRpZ25vcmUKPj4gQEAgLTAs
+MCArMSBAQAo+PiArc3l6a2FsbGVyKgo+Pgo+Cj4gV2h5IGFkZGluZyBzeXprYWxsZXIqIGluIGhl
+cmU/CgpUaGUgcnVudGVzdCBmaWxlcyBhcmUgYXV0b21hdGljYWxseSBnZW5lcmF0ZWQuCgo+Cj4K
+Pj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvTWFrZWZpbGUgYi90ZXN0Y2FzZXMva2Vy
+bmVsL01ha2VmaWxlCj4+IGluZGV4IDMzMTliMzE2My4uMDE1MGNmYjRmIDEwMDY0NAo+PiAtLS0g
+YS90ZXN0Y2FzZXMva2VybmVsL01ha2VmaWxlCj4+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvTWFr
+ZWZpbGUKPj4gQEAgLTUzLDYgKzUzLDcgQEAgU1VCRElSUyAgICAgICAgICAgICAgICAgICAgICAg
+Kz0gY29ubmVjdG9ycyBcCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNjaGVkIFwKPj4g
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgc2VjdXJpdHkgXAo+PiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBzb3VuZCBcCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgIHN5emthbGxl
+ci1yZXByb3MgXAo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICB0cmFjaW5nIFwKPj4gICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgdWV2ZW50cyBcCj4+Cj4+IGRpZmYgLS1naXQgYS90ZXN0
+Y2FzZXMva2VybmVsL3N5emthbGxlci1yZXByb3MvLmdpdGlnbm9yZQo+PiBiL3Rlc3RjYXNlcy9r
+ZXJuZWwvc3l6a2FsbGVyLXJlcHJvcy8uZ2l0aWdub3JlCj4+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0
+Cj4+IGluZGV4IDAwMDAwMDAwMC4uZGJkYTFjNzFmCj4+IC0tLSAvZGV2L251bGwKPj4gKysrIGIv
+dGVzdGNhc2VzL2tlcm5lbC9zeXprYWxsZXItcmVwcm9zLy5naXRpZ25vcmUKPj4gQEAgLTAsMCAr
+MSBAQAo+PiArc3l6d3JhcAo+PiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXprYWxs
+ZXItcmVwcm9zL01ha2VmaWxlCj4+IGIvdGVzdGNhc2VzL2tlcm5lbC9zeXprYWxsZXItcmVwcm9z
+L01ha2VmaWxlCj4+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4+IC4uLgo+PiArIyBTb21lIHVzZWZ1
+bCBjb21waWxlciBmbGFncyBmb3IgdGhlIExUUCB3aWxsIGNhdXNlIHByb2JsZW1zIHdpdGggdGhl
+Cj4+ICsjIHN5emthbGxlciByZXByb3Mgc28gdGhlIHJlcHJvcyBoYXZlIHNlcGVyYXRlIGZsYWdz
+Cj4+ICtTWVpLQUxMRVJfQ0ZMQUdTID89IC1wdGhyZWFkCj4+ICtTWVpLQUxMRVJfUkVQUk9TID0g
+JChzdWJzdAo+PiAkKGFic190b3Bfc3JjZGlyKSwkKGFic190b3BfYnVpbGRkaXIpLCQoU1laS0FM
+TEVSX1JFUFJPU19TUkNTOi5jPSkpCj4+ICskKFNZWktBTExFUl9SRVBST1MpOiAlOiAlLmMKPj4g
+KyAgICAgICAtQGlmIGdyZXAgLXEgIl9fTlJfbW1hcDIiICReOyB0aGVuIFwKPj4gKyAgICAgICAg
+ICAgICAgIE0zMj0iLW0zMiI7IFwKPj4KPgo+IEkgZ290IGNvbXBpbGluZyBlcnJvcnMgb24gczM5
+MHg6Cj4gICBnY2M6IGVycm9yOiB1bnJlY29nbml6ZWQgY29tbWFuZCBsaW5lIG9wdGlvbiDigJgt
+bTMy4oCZOyBkaWQgeW91IG1lYW4KPiDigJgtbTMx4oCZPwoKSSBoYXZlIG9ubHkgdHJpZWQgdGhl
+c2Ugb24geDg2XzY0IHNvIGZhciBhbmQgSSB0aGluayB0aGF0IGlzIGFsbCB3ZSBjYW4Kc3VwcG9y
+dCB0byBiZWdpbiB3aXRoLgoKPgo+IE15IG90aGVyIGNvbmNlcm4gaXMgc3l6a2FsbGVyIChJIGd1
+ZXNzIG1heWJlKSBoYXZlIHNvbWUgcGFja2FnZQo+IGRlcGVuZGVuY2llcywgYW5kIHRoYXQgd2ls
+bCBicmVhayB0aGUgY29tcGlsZXIgcGhhc2Ugb24gdGhlIGVtYmVkZGVkCj4gc3lzdGVtLgoKVGhp
+cyBpcyB0cnVlLCB0aGUgcmVwcm9kdWNlcnMgZG8gaGF2ZSBkZXBlbmRlbmNpZXMgYW5kIGl0IHNl
+ZW1zIHRvIHZhcnkKKHJhbmRvbWx5IHZpZXcgc29tZSBvZiB0aGUgQyBmaWxlcykuIEhvd2V2ZXIg
+dGhpcyBpcyBvbmUgb2YgdGhlIHJlYXNvbnMKd2h5IHRoZXkgYXJlIG9ubHkgaW5zdGFsbGVkIGlm
+IC0td2l0aC1zeXprYWxsZXItcmVwcm9zIGlzIHNldC4KCj4KPgo+PiAuLi4uCj4+ICsgICAgICAg
+d2hpbGUgKCF3YWl0cGlkKHBpZCwgJnN0YXR1cywgV05PSEFORykpIHsKPj4gKyAgICAgICAgICAg
+ICAgIHJlbSA9IHRzdF90aW1lb3V0X3JlbWFpbmluZygpOwo+PiArCj4+ICsgICAgICAgICAgICAg
+ICBpZiAoIXNlbnRfa2lsbCAmJiByZW0gLyBleGVjX3RpbWVfc3RhcnQgPCAwLjUpIHsKPj4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgdHN0X3JlcyhUSU5GTywgIlRpbWVvdXQ7IGtpbGxpbmcgcmVw
+cm9kdWNlciIpOwo+PiArCj4+ICsgICAgICAgICAgICAgICAgICAgICAgIFRFU1Qoa2lsbChwaWQs
+IFNJR0tJTEwpKTsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgaWYgKFRTVF9SRVQgPT0gLTEp
+Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdHN0X3JlcyhUV0FSTiB8IFRURVJS
+Tk8sICJraWxsKCkgZmFpbGVkIik7Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgIGVsc2UKPj4g
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZW50X2tpbGwgPSAxOwo+PiArICAgICAg
+ICAgICAgICAgfQo+PiArCj4+ICsgICAgICAgICAgICAgICB1c2xlZXAoYmFja29mZik7Cj4+ICsg
+ICAgICAgICAgICAgICBiYWNrb2ZmID0gTUlOKDIgKiBiYWNrb2ZmLCAxMDAwMDAwKTsKPj4gKyAg
+ICAgICB9Cj4+Cj4KPiBGb3JjZSB0byBraWxsIGEgdGltZW91dCB0ZXN0IHByb2Nlc3MgaXMgZmlu
+ZSwgYnV0IG9uZSB0aGluZyBtYWtlcyBtZQo+IHdvcnJpZWQgaXMgdGhhdCB3ZSBkb24ndCBkbyBh
+bnkgY2xlYW51cCB3b3JrKGUuZy4gcmVsZWFzZSBodWdlcGFnZSwgZGV2aWNlcwo+IG9yIG90aGVy
+IHJlc291cmNlcykgZm9yIHRoZSBjaGlsZHJlbiwgdGhhdCB2ZXJ5IHByb2JhYmx5IGNhdXNlcyBt
+YW55Cj4gYWRkaXRpb25hbCBpc3N1ZXMgaW4gdGhlIG5leHQgdGVzdGluZyBhbmQgbm90IGVhc3kg
+dG8gcmVwcm9kdWNlIGl0IGluIGEgbmV3Cj4gcnVuLgoKVGhlIHJlcHJvZHVjZXIgaXRzZWxmIHNo
+b3VsZCBjbGVhciB1cCBzb21lIG9mIHRoaXMuIEl0IGlzIGFsc28gcG9zc2libGUKdG8gcmVnZW5l
+cmF0ZSB0aGUgcmVwcm9kdWNlcnMgd2l0aCBtb3JlIHNhbmRib3hpbmcgQUZBSUNULiBIb3dldmVy
+IHRoZQpzYW5kYm94aW5nIGl0c2VsZiBoYXMgc29tZSByZXF1aXJlbWVudHMuCgpJIGRvbid0IGtu
+b3cgaG93IHdlIGNvdWxkIHBvc3NpYmx5IGNsZWFudXAgYWZ0ZXIgZXZlcnkgcmVwcm9kdWNlciwK
+ZXhjZXB0IGJ5IHRha2luZyBhIGNvbXBsZXRlIHNuYXBzaG90IG9mIHRoZSBzeXN0ZW0gYW5kIHJl
+dmVydGluZyB0bwppdC4gV2hpY2ggaXMgd2hhdCBJIHJlY29tbWVuZCBkb2luZyBpbiB0aGUgUkVB
+RE1FLgoKVGhpcyBpcyBhbm90aGVyIHJlYXNvbiBmb3IgdGhlIC0td2l0aC1zeXprYWxsZXItcmVw
+cm9zIGZsYWcuIFRoZSB0ZXN0CnJ1bm5lciBtdXN0IGRvIGV4dHJhIHdvcmsgY29tcGFyZWQgdG8g
+bm9ybWFsIExUUCB0ZXN0cy4gSSdtIGFsc28gbm90CnN1cmUgaXQgd291bGQgYmUgc2FmZSB0byBy
+dW4gdGhlc2Ugb24gYmFyZW1ldGFsIHVubGVzcyB5b3UgcmVnZW5lcmF0ZQp0aGVtIHdpdGggdGhl
+IGV4dHJhIHNhbmRib3hpbmcuCgo+Cj4KPj4gKwo+PiArICAgICAgIGlmICh0c3RfdGFpbnRfY2hl
+Y2soKSkgewo+PiArICAgICAgICAgICAgICAgdHN0X3JlcyhURkFJTCwgIktlcm5lbCBpcyB0YWlu
+dGVkIik7Cj4+ICsgICAgICAgfSBlbHNlIHsKPj4gKyAgICAgICAgICAgICAgIHRzdF9yZXMoVFBB
+U1MsICJLZXJuZWwgaXMgbm90IHRhaW50ZWQiKTsKPj4gKyAgICAgICB9Cj4KPgo+IElmIHRoaXMg
+aXMgdGhlIG9ubHkgY29uZGl0aW9uIHRvIGp1ZGdlIGlmIGFsbCB0ZXN0cyBwYXNzIG9yIG5vdCwg
+d2UgbWF5Cj4gbWlzcyBzb21lIHRlc3QgZmFpbHVyZSBsb2dzIGFmdGVyIHJ1bm5pbmcsIHVubGVz
+cyB3ZSBkb24ndCBjYXJlIGFib3V0Cj4gdGhhdC4KClRoZXkgcHJvZHVjZSBhIGxvdCBvZiBvdXRw
+dXQsIHNvbWUgb2YgaXQgbWlnaHQgYmUgdXNlZnVsIGZvciByZXR1cm5pbmcKVENPTkYgKGxpa2Ug
+d2hlbiBzYW5kYm94aW5nIGlzIGVuYWJsZWQgaW4gc3l6d3JhcCBhbmQgdGhpcyBzdG9wcyBuZXR3
+b3JrCmRldmljZXMgZnJvbSBiZWluZyBjcmVhdGVkKS4gSG93ZXZlciBJIHRoaW5rIGl0IGlzIG1v
+cmUgaW1wb3J0YW50IHRvCnByb3ZpZGUgc29tZSBiYXNpYyBmdW5jdGlvbmFsaXR5IHRoYW4gd29y
+ayBvbiBzdHVmZiBsaWtlIHRoaXMuCgo+Cj4gQnR3LCBJIGNhbid0IGV2ZW4gZmluaXNoIG9uZSBy
+b3VuZCBmb3IgdGhlIHRlc3QgdGhlbiBzeXN0ZW0gcGFuaWMgdGhlcmUuCgpTYW1lLiBUaGVyZSBh
+cmUgYSBsb3Qgb2YgcmVwcm9kdWNlcnMgZm9yIHVuc29sdmVkIGJ1Z3MsIHBsdXMgc29tZSBvZgp0
+aGVtIHByb2JhYmx5IHNob3VsZG4ndCBiZSBydW4gYXMgcm9vdCB3aXRob3V0IHRoZSBleHRyYSBz
+YW5kYm94aW5nLiBTbwp0aGV5IHdpbGwgY3Jhc2ggdGhlIHN5c3RlbSBqdXN0IGJ5IHJhbmRvbWx5
+IGRlbGV0aW5nIG9yIG92ZXJ3cml0aW5nCnN0dWZmLgoKLS0KVGhhbmsgeW91LApSaWNoYXJkLgoK
+LS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0
+cAo=
