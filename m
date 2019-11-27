@@ -1,75 +1,90 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AC9710AF61
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Nov 2019 13:10:47 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id CF03C10B14C
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Nov 2019 15:29:13 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7F5783C22C7
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Nov 2019 13:10:46 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6C3733C2359
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Nov 2019 15:29:13 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 534993C0300
- for <ltp@lists.linux.it>; Wed, 27 Nov 2019 13:10:42 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id B399860066C
- for <ltp@lists.linux.it>; Wed, 27 Nov 2019 13:10:41 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1574856640;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=aRWTWtdkHK2qw511rEtFjCummSacIc90wyuuD0MDTOc=;
- b=HwpUt0dN7HAb7bK6r/Tv7lPkTqEYSZLah6n/792IidN6QicdyKPmETnk1LehL/QaUxy1ZZ
- T/doTjMutCECOOudSwFqTNZJxAmzdIofv2ED3OKFyonzA5L3SBqfdQJ+UtAPOj0Fth7H7M
- /JikMQFLuieNcacAJ0lY73pSUu+E3Xg=
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
- [209.85.210.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-427-crnqw2K9OieK2ycfI1-2XQ-1; Wed, 27 Nov 2019 07:10:38 -0500
-Received: by mail-ot1-f69.google.com with SMTP id i13so11771512otc.0
- for <ltp@lists.linux.it>; Wed, 27 Nov 2019 04:10:38 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=582Dwpn+el2i0MsS9R+2696/0TMr+U2nDnD7kO4r6mg=;
- b=aHsHZ1ZTByp07Q4D2eJgkjO6vI1Do6rU4qaUXjSJNXbL63JsWcNYzXI2l8rZlxC5ic
- BMHIzSSJ9lGtFk8yh7aUUXxi/v9Y5SajDaG8m2UNp2328Wvo3pgSJJVokr5Il8/WarZ/
- NSdU+MpT+01gQVcnfjx2mGhbT+w3s9VqOGRhYbHBetFOICDlQHkM2eacYeSSBhIeaG3p
- Ey34JWbFAunCXH7SXOu3OsJvo9FFTQnKJgUaBzLY+cKtOsdfYniVjGHaFl92U/pxkYVJ
- BE+NqHHJTpcQ0xx5YkaAPWBfFLKABnCmXt+yRIUI+A5RW5wzLJce32WwLDd2c07zE6yZ
- j/EQ==
-X-Gm-Message-State: APjAAAUblab714cvFKfeyln/Xcg2+pST+Fv1WcHgGi7Y78KjB77nSFx3
- H7JiRjSOk0Zxg9V64Ypn+Fm30YcnriGCwefBKdGmnFhiNUtJ91T6gtjQRbaa2PEQ9wSOBHBOftr
- Vb0yH4WDh/Et4P8Zx2J/nVB3sPOY=
-X-Received: by 2002:a9d:7b50:: with SMTP id f16mr3358530oto.264.1574856636413; 
- Wed, 27 Nov 2019 04:10:36 -0800 (PST)
-X-Google-Smtp-Source: APXvYqxX4hDcPXEWWGR3K8kHMcgUnVyt/d/ElmQynKIxsD7EL1aiHBXHbS5Z6rctCglreyCVzmPIEFrMrBzpdTSGRHk=
-X-Received: by 2002:a9d:7b50:: with SMTP id f16mr3358494oto.264.1574856636069; 
- Wed, 27 Nov 2019 04:10:36 -0800 (PST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id D11E13C2262
+ for <ltp@lists.linux.it>; Wed, 27 Nov 2019 15:29:08 +0100 (CET)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id B5E9E601091
+ for <ltp@lists.linux.it>; Wed, 27 Nov 2019 15:29:07 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 3E398B1AF;
+ Wed, 27 Nov 2019 14:29:06 +0000 (UTC)
+From: Martin Doucha <mdoucha@suse.cz>
+To: Li Wang <liwang@redhat.com>
+References: <20191119094156.20348-1-liwang@redhat.com>
+ <1860355560.12961927.1574161647388.JavaMail.zimbra@redhat.com>
+ <CAEemH2cN8qv_YpsFKJazcOKEvgfjXpacZOV_Er-0bjK86=6VpQ@mail.gmail.com>
+ <c9d278e6-5700-6c16-019b-1770a6ede0ff@suse.cz>
+ <CAEemH2dZCm5MVyhzWiFKVK-jt+UUw65u5CRFk-moUVUgpDHHWg@mail.gmail.com>
+ <d76d2ad2-f302-3cd5-0c9f-5d96a6a4bd55@suse.cz>
+Autocrypt: addr=mdoucha@suse.cz; keydata=
+ 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
+Message-ID: <986ec24a-0318-8217-52eb-816bbec5fb75@suse.cz>
+Date: Wed, 27 Nov 2019 15:29:05 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-References: <cki.0.PFTG7HN9XB@redhat.com>
- <20191126133713.25674-1-prarit@redhat.com>
- <b46363e7-b60e-8316-07b9-be6032b0ae01@redhat.com>
-In-Reply-To: <b46363e7-b60e-8316-07b9-be6032b0ae01@redhat.com>
-From: Li Wang <liwan@redhat.com>
-Date: Wed, 27 Nov 2019 20:10:24 +0800
-Message-ID: <CAEemH2fU6dgunAuvoEjygKq=EMD2PfRW9rLEyENdtwEVwNbPyQ@mail.gmail.com>
-To: Rachel Sibley <rasibley@redhat.com>, Jan Stancek <jstancek@redhat.com>
-X-MC-Unique: crnqw2K9OieK2ycfI1-2XQ-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+In-Reply-To: <d76d2ad2-f302-3cd5-0c9f-5d96a6a4bd55@suse.cz>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] 
-	=?utf-8?b?4p2MIEZBSUw6IFJlOiBbUkhFTDguMiBCWiAxNzczNzc0XSB4?=
-	=?utf-8?q?86/quirks=3A_Disable_HPET_on_Intel_Coffe_Lake_platforms?=
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] tst_fill_fs: enhance the filesystem filling
+ routine
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,242 +96,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Prarit Bhargava <prarit@redhat.com>, rhkernel-list@redhat.com,
- mm-qe <mm-qe@redhat.com>, skt-results-master@redhat.com,
- David Arcari <darcari@redhat.com>, CKI <cki-project@redhat.com>,
- LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0214116147=="
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0214116147==
-Content-Type: multipart/alternative; boundary="0000000000005dbd2f059852e2be"
+Hello,
+here's something fun which I've discovered while playing with
+fallocate05 test on XFS:
+- fallocate(x blocks)
+- tst_fill_fs()
+- write(x blocks) - OK
+- write(1 block) - ENOSPC
+- fallocate(1 block) - OK
+- write(1 block) - OK
+- fallocate(1 block) - ENOSPC
 
---0000000000005dbd2f059852e2be
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Somehow, fallocate() can find another free block on XFS which wasn't
+available to write() at first. But then that block becomes write()able.
 
-Rachel Sibley <rasibley@redhat.com> wrote:
-
-> ...
-> >>
-> >>      Pipeline:
-> https://xci32.lab.eng.rdu2.redhat.com/cki-project/cki-pipeline/pipelines/=
-308034
-> >>
-> >> One or more kernel tests failed:
-> >>
-> >>      s390x:
-> >>       =E2=9D=8C LTP lite
-> >
-> > This MUST be a failure due to some other reason.  This patch only affec=
-ts
-> > HPET timers on Intel x86_64 Coffee Lake platforms.
->
-> I'm seeing it fail on other patches as well, MM-QE can you take a look ?
-> Is this a known issue ?
->
-> Thanks,
-> Rachel
->
-> <<<test_start>>>
-> tag=3Dmtest01w stime=3D1574715697
-> cmdline=3D"mtest01 -p80 -w"
-> contacts=3D""
-> analysis=3Dexit
-> <<<test_output>>>
-> tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s
-> mtest01.c:134: INFO: Filling up 80% of free ram which is 5868864 kbytes
-> mtest01.c:149: INFO: ... child 38289 starting
-> mtest01.c:149: INFO: ... child 38288 starting
-> mtest01.c:208: WARN: the remaininig time is not enough for testing
-> mtest01.c:218: FAIL: kbytes allocated (and written to) less than
-> expected 5868864
-> Test timeouted, sending SIGKILL!
->
-
-The root cause is that children's memory allocating is still ongoing, but
-the remaining time is in an emergency, so parent break from the while loop
-and try to stop children, obviously, it doesn't have enough time to wait
-for the process status change to 'T'.
-
-        TST_PROCESS_STATE_WAIT(pid_list[i], 'T');
-        kill(pid_list[i], SIGCONT);
-
-My proposal patch to fix this problem as:
-
---- a/testcases/kernel/mem/mtest01/mtest01.c
-+++ b/testcases/kernel/mem/mtest01/mtest01.c
-@@ -216,11 +216,17 @@ static void mem_test(void)
-        if (children_done < pid_cntr) {
-                tst_res(TFAIL, "kbytes allocated %sless than expected %llu"=
-,
-                                write_msg, alloc_maxbytes / 1024);
--       } else {
--               tst_res(TPASS, "%llu kbytes allocated %s",
--                               alloc_maxbytes / 1024, write_msg);
-+
-+               for (i =3D 0; i < pid_cntr; i++) {
-+                       kill(pid_list[i], SIGKILL);
-+               }
-+
-+               return;
-        }
-
-+       tst_res(TPASS, "%llu kbytes allocated %s",
-+                       alloc_maxbytes / 1024, write_msg);
-+
-        for (i =3D 0; i < pid_cntr; i++) {
-                TST_PROCESS_STATE_WAIT(pid_list[i], 'T');
-                kill(pid_list[i], SIGCONT);
-
-
-
-> tst_test.c:1158: INFO: If you are running on slow machine, try exporting
-> LTP_TIMEOUT_MUL > 1
-> tst_test.c:1159: BROK: Test killed! (timeout?)
->
-> Summary:
-> passed   0
-> failed   1
-> skipped  0
-> warnings 1
-> <<<execution_status>>>
-> initiation_status=3D"ok"
-> duration=3D314 termination_type=3Dexited termination_id=3D7 corefile=3Dno
-> cutime=3D1 cstime=3D3
-> <<<test_end>>>
->
-> >
-> > P.
-> >
->
->
-
---=20
-Regards,
-Li Wang
-
---0000000000005dbd2f059852e2be
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><div class=3D"gmail_quote"><div dir=3D"ltr" c=
-lass=3D"gmail_attr">Rachel Sibley &lt;<a href=3D"mailto:rasibley@redhat.com=
-">rasibley@redhat.com</a>&gt; wrote:</div><blockquote class=3D"gmail_quote"=
- style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);p=
-adding-left:1ex"><span class=3D"gmail_default" style=3D"font-size:small">..=
-.</span><br>
-&gt;&gt;<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 Pipeline: <a href=3D"https://xci32.lab.eng.rdu=
-2.redhat.com/cki-project/cki-pipeline/pipelines/308034" rel=3D"noreferrer" =
-target=3D"_blank">https://xci32.lab.eng.rdu2.redhat.com/cki-project/cki-pip=
-eline/pipelines/308034</a><br>
-&gt;&gt;<br>
-&gt;&gt; One or more kernel tests failed:<br>
-&gt;&gt;<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 s390x:<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0=E2=9D=8C LTP lite<br>
-&gt; <br>
-&gt; This MUST be a failure due to some other reason.=C2=A0 This patch only=
- affects<br>
-&gt; HPET timers on Intel x86_64 Coffee Lake platforms.<br>
-<br>
-I&#39;m seeing it fail on other patches as well, MM-QE can you take a look =
-?<br>
-Is this a known issue ?<br>
-<br>
-Thanks,<br>
-Rachel<br>
-<br>
-&lt;&lt;&lt;test_start&gt;&gt;&gt;<br>
-tag=3Dmtest01w stime=3D1574715697<br>
-cmdline=3D&quot;mtest01 -p80 -w&quot;<br>
-contacts=3D&quot;&quot;<br>
-analysis=3Dexit<br>
-&lt;&lt;&lt;test_output&gt;&gt;&gt;<br>
-tst_test.c:1118: INFO: Timeout per run is 0h 05m 00s<br>
-mtest01.c:134: INFO: Filling up 80% of free ram which is 5868864 kbytes<br>
-mtest01.c:149: INFO: ... child 38289 starting<br>
-mtest01.c:149: INFO: ... child 38288 starting<br>
-mtest01.c:208: WARN: the remaininig time is not enough for testing<br>
-mtest01.c:218: FAIL: kbytes allocated (and written to) less than <br>
-expected 5868864<br>
-Test timeouted, sending SIGKILL!<br></blockquote><div><br></div><div><div c=
-lass=3D"gmail_default" style=3D"font-size:small">The root cause is that chi=
-ldren&#39;s memory allocating is still ongoing, but the remaining time is i=
-n an emergency, so parent=C2=A0break from the while loop and try to stop ch=
-ildren, obviously, it doesn&#39;t have enough time to wait for the process =
-status change to &#39;T&#39;.=C2=A0</div><div class=3D"gmail_default" style=
-=3D"font-size:small"><br></div>=09=09<span class=3D"gmail_default" style=3D=
-"font-size:small">=C2=A0 =C2=A0 =C2=A0 =C2=A0 </span>TST_PROCESS_STATE_WAIT=
-(pid_list[i], &#39;T&#39;);<br>=09=09<span class=3D"gmail_default" style=3D=
-"font-size:small">=C2=A0 =C2=A0 =C2=A0 =C2=A0 </span>kill(pid_list[i], SIGC=
-ONT);<br></div><div><br></div><div><div class=3D"gmail_default" style=3D"fo=
-nt-size:small">My proposal patch to fix this problem as:</div><div class=3D=
-"gmail_default" style=3D"font-size:small"><br></div>--- a/testcases/kernel/=
-mem/mtest01/mtest01.c<br>+++ b/testcases/kernel/mem/mtest01/mtest01.c<br>@@=
- -216,11 +216,17 @@ static void mem_test(void)<br>=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 if (children_done &lt; pid_cntr) {<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 tst_res(TFAIL, &quot;kbytes allocated %sless than =
-expected %llu&quot;,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 write_msg, a=
-lloc_maxbytes / 1024);<br>- =C2=A0 =C2=A0 =C2=A0 } else {<br>- =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_res(TPASS, &quot;%llu kbytes all=
-ocated %s&quot;,<br>- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 alloc_maxbytes / 1024,=
- write_msg);<br>+<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 for=
- (i =3D 0; i &lt; pid_cntr; i++) {<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 kill(pid_list[i], SIGKILL);<br>+ =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>+<br>+ =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return;<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 }=
-<br>=C2=A0<br>+ =C2=A0 =C2=A0 =C2=A0 tst_res(TPASS, &quot;%llu kbytes alloc=
-ated %s&quot;,<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 alloc_maxbytes / 1024, write_msg);<br>+<br>=C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 for (i =3D 0; i &lt; pid_cntr; i++) {<br>=C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 TST_PROCESS_STATE_WAIT(pid_list[i=
-], &#39;T&#39;);<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- kill(pid_list[i], SIGCONT);<br><br></div><div>=C2=A0</div><blockquote clas=
-s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
-gb(204,204,204);padding-left:1ex">
-tst_test.c:1158: INFO: If you are running on slow machine, try exporting <b=
-r>
-LTP_TIMEOUT_MUL &gt; 1<br>
-tst_test.c:1159: BROK: Test killed! (timeout?)<br>
-<br>
-Summary:<br>
-passed=C2=A0 =C2=A00<br>
-failed=C2=A0 =C2=A01<br>
-skipped=C2=A0 0<br>
-warnings 1<br>
-&lt;&lt;&lt;execution_status&gt;&gt;&gt;<br>
-initiation_status=3D&quot;ok&quot;<br>
-duration=3D314 termination_type=3Dexited termination_id=3D7 corefile=3Dno<b=
-r>
-cutime=3D1 cstime=3D3<br>
-&lt;&lt;&lt;test_end&gt;&gt;&gt;<br>
-<br>
-&gt; <br>
-&gt; P.<br>
-&gt; <br>
-<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><div><div dir=3D"ltr">Regards,<=
-br>Li Wang<br></div></div></div></div></div>
-
---0000000000005dbd2f059852e2be--
-
-
---===============0214116147==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+Martin Doucha   mdoucha@suse.cz
+QA Engineer for Software Maintenance
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0214116147==--
-
