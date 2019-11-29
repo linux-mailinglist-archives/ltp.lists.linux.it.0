@@ -2,68 +2,86 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8328B10D595
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Nov 2019 13:17:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A06B10D7DB
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Nov 2019 16:25:29 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 459DD3C226C
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Nov 2019 13:17:11 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8F8413C2399
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Nov 2019 16:25:28 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id E5E503C2078
- for <ltp@lists.linux.it>; Fri, 29 Nov 2019 13:17:05 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [205.139.110.61])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id D7D93604835
- for <ltp@lists.linux.it>; Fri, 29 Nov 2019 13:17:04 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1575029823;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=xRpJo1QJkNt2IEf0Mb5LggH5SEsarg95LV85cF6wEdU=;
- b=gq9MDO9HbVo5A2c/u7VeN5bNq954ouz+kkK8MXPpVMeyXG0v25jm3NNEObPVanf6Q134BA
- bfI6t4+ABm0e7hDnldErrlRoxWBQ5/QR//m8iieOzR0hLzjNkAurD41srKXgLrvfOPFZa0
- HCvJtP5rvAZz/3k042lS+BJncMu7KVg=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-298-vUSK4aXlNimYTr6nQPmQwg-1; Fri, 29 Nov 2019 07:16:49 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 8FBC33C1414
+ for <ltp@lists.linux.it>; Fri, 29 Nov 2019 16:25:24 +0100 (CET)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0EFB58017D9
- for <ltp@lists.linux.it>; Fri, 29 Nov 2019 12:16:49 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 065635D6D4
- for <ltp@lists.linux.it>; Fri, 29 Nov 2019 12:16:49 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id F16534BB5B;
- Fri, 29 Nov 2019 12:16:48 +0000 (UTC)
-Date: Fri, 29 Nov 2019 07:16:48 -0500 (EST)
-From: Jan Stancek <jstancek@redhat.com>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <615998340.14360504.1575029808785.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20191128045525.15454-1-liwang@redhat.com>
-References: <20191128045525.15454-1-liwang@redhat.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D0EB51A0BC59
+ for <ltp@lists.linux.it>; Fri, 29 Nov 2019 16:25:22 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 5D528B3B1;
+ Fri, 29 Nov 2019 15:25:22 +0000 (UTC)
+To: Jan Stancek <jstancek@redhat.com>
+References: <20191128093610.6903-1-mdoucha@suse.cz>
+ <20191128093610.6903-2-mdoucha@suse.cz>
+ <26933665.14359191.1575028896043.JavaMail.zimbra@redhat.com>
+From: Martin Doucha <mdoucha@suse.cz>
+Autocrypt: addr=mdoucha@suse.cz; keydata=
+ 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
+Message-ID: <0e1a3d0e-a154-8469-6e04-a954740a4a61@suse.cz>
+Date: Fri, 29 Nov 2019 16:25:21 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.163, 10.4.195.11]
-Thread-Topic: mtest01: correct the ALLOC_THRESHOLD definition on s390x
-Thread-Index: BxN0gR9JqnK9Zhaoayf8tYuZLECGkQ==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-MC-Unique: vUSK4aXlNimYTr6nQPmQwg-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+In-Reply-To: <26933665.14359191.1575028896043.JavaMail.zimbra@redhat.com>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] mtest01: correct the ALLOC_THRESHOLD definition
- on s390x
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] Use real FS block size in fallocate05
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,30 +99,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-
-
------ Original Message -----
-> mtest01 hits a problem on s390x platform. The situation is that if children's
-> memory allocating is ongoing and the test remaining time is in an emergency,
-> the
-> parent will break from the while loop and try to revoke children, obviously,
-> it
-> doesn't have enough time to wait for the children's status change to 'T'.
-> Then it
-> occurs timeout issue as below:
+On 11/29/19 1:01 PM, Jan Stancek wrote:
+>> +			tst_res(TCONF | TTERRNO, "fallocate() not supported");
 > 
->   mtest01.c:134: INFO: Filling up 80% of free ram which is 5868864 kbytes
->   mtest01.c:149: INFO: ... child 38289 starting
->   mtest01.c:149: INFO: ... child 38288 starting
->   mtest01.c:208: WARN: the remaininig time is not enough for testing
->   mtest01.c:218: FAIL: kbytes allocated (and written to) less than expected
->   5868864
->   Test timeouted, sending SIGKILL!
+> tst_brk would make more sense here. If we fail here we can end the test.
 
-Acked-by: Jan Stancek <jstancek@redhat.com>
+No. tst_brk() will terminate the whole test on the first usual test case
+(Ext2) and skip all the other file systems that do support fallocate().
 
-I/O on that system looks painfully slow, if it can't fill ~5G of swap in 5 minutes.
+> I don't understand why there is need to find minimum value that can
+> satisfy this check. It looks like we are testing tst_fill_fs() more
+> than fallocate().
+> 
+> In other words, what is wrong with current test? Is the problem that
+> FALLOCATE_SIZE (1M) is not aligned on all platforms? Or is the test
+> invalid with FALLOCATE_SIZE that big? Or both?
 
+I don't like to blindly rely on the assumption that block size is always
+a power of 2 and smaller than some magic number. Getting the real block
+size is trivial. The only real question is how many free blocks do we
+allow on a "full" file system in our tests. 1MB is just 16 blocks on
+PPC64 so the magic number isn't particularly big anyway.
+
+I've implemented the rest of your suggestions and I'll resubmit later
+next week.
+
+-- 
+Martin Doucha   mdoucha@suse.cz
+QA Engineer for Software Maintenance
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
