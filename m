@@ -2,68 +2,84 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B1E110D193
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Nov 2019 07:50:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED05910D37E
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Nov 2019 10:55:01 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C23F03C22B6
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Nov 2019 07:50:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5F9E33C2399
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Nov 2019 10:55:01 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 598FF3C0EAF
- for <ltp@lists.linux.it>; Fri, 29 Nov 2019 07:49:59 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 4D348616E13
- for <ltp@lists.linux.it>; Fri, 29 Nov 2019 07:49:57 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1575010196;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=wI98LFLosQxsDkr4aVE+iv7UXWic3lh7dFluIzmhGgw=;
- b=gzmzacM5BHJGAa1TvCgtAspszqAR6+tq9gfPIBOBBuf6t1kdwSwEavCicnRgKIeELjSwjQ
- QhtAVarHgQVwRtHzs5b5xGKtO3hz9TABkXTGC0L2boiMXXn82o4rCHgWERiMhN9qVGAdIm
- 3bt2YZRZLjuyWBfjpv3aDleMvRPSVVQ=
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
- [209.85.167.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-421-79HFlFUAMP2VPEmXdqh5QQ-1; Fri, 29 Nov 2019 01:49:54 -0500
-Received: by mail-oi1-f199.google.com with SMTP id 25so9467741oij.19
- for <ltp@lists.linux.it>; Thu, 28 Nov 2019 22:49:54 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=cNZURBwyRIEpFphodwFffFs10a0pO06KruZTJkfwobo=;
- b=P1v290P3qq1BiaoPw0LfSHmszeW/G6JJVRUS2DWHIIvvi9bLDnqY/k9TXyG/9xuQLQ
- 5Bn0g9MftQARDjn9BBxeCnTKD4YrQDSnKjoShhH3BUy2MuqKVzE335DVp5txceoXPvM5
- 22+wCiHcIgOB1bQUeZM0fRxayG9aM6Rjjujpi4AN9wS0q3fW7KFMvyjwv45CaQJznaiE
- 65dVAmLFmGrDPbUVBW/5rb1PozNMxQl0mCAh2Sjft1yASwoitNO79ZKOVthQFEaOUPES
- D1iSdAVYITq0CST4BgKNi1eNO9J9jDXxsl9Kz26rf+p80qErCRnYzebSjzvc+Y2AR6fs
- gXoA==
-X-Gm-Message-State: APjAAAUGnlhli66/zJ4EYnlcBJ17x6AyW2hRcKHcrEdBywBw3d4VWT10
- b6VHVpkiv3r3L5HpREd1OH8u2Npmg0BfWT2Ylqt1LpFiRVNGywrsTiN250nIYD+Ds3kxfdNF+8M
- maqXqBZrCAXO0S+bzOdxSkhW99GQ=
-X-Received: by 2002:a9d:a2f:: with SMTP id 44mr3278379otg.264.1575010193801;
- Thu, 28 Nov 2019 22:49:53 -0800 (PST)
-X-Google-Smtp-Source: APXvYqyFco9D95H8vDX5fhUBCX/S91532ShVwTKa95CQYoW/7EcprhimR+4xgJh8kfSeGW8y+LXlkZhZtc0Q1vzXbV0=
-X-Received: by 2002:a9d:a2f:: with SMTP id 44mr3278360otg.264.1575010193220;
- Thu, 28 Nov 2019 22:49:53 -0800 (PST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 98B7A3C2078
+ for <ltp@lists.linux.it>; Fri, 29 Nov 2019 10:54:57 +0100 (CET)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 5AF9714052C1
+ for <ltp@lists.linux.it>; Fri, 29 Nov 2019 10:54:56 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id E8C4EADC8
+ for <ltp@lists.linux.it>; Fri, 29 Nov 2019 09:54:54 +0000 (UTC)
+To: Petr Vorel <pvorel@suse.cz>
+References: <20191128093610.6903-1-mdoucha@suse.cz>
+ <20191128093610.6903-2-mdoucha@suse.cz> <20191128174733.GA5202@dell5510>
+From: Martin Doucha <mdoucha@suse.cz>
+Autocrypt: addr=mdoucha@suse.cz; keydata=
+ mQINBF1D6M0BEAC5BHC0NuN/v+UBXDYuwuYeAJA4leuKz0H76YBevziJKUtnzMsBA+GT9vdH
+ bs60wdsTbBJ1XqmQ/HWDPBV0OIGox195GSZQFblKOY1YoFXV6cv9Kyw4LyYeqozRhGx8NuE8
+ +qC62nuV97k7GgiDE8onWfPd7wsLBdavZO7qgxRTqbjnf/hReHCPqcts3QEYaLaL5eCfW9gY
+ 6m8wGuF3k7xg7z591dkI7Xfu5rB5IhFcZGLIc+Q1RNEYz+OBP+MnNUSrGPdbFOIgd2jyYRFR
+ npj+OkrPFaZvteQvj8GCwPv/HIStRM9gW6RTGIVw2fTMGGCQb2Jp7Fq51GkKIECRnlhQVJ11
+ CIndtWP8p2NoxcWA0GH1Y1jjWcV+YvbtflFTQAwsJ5wIiZYvaHhN8VQlS5o1wCjSjPSAzlId
+ XaN3BqM0w2su/dH9EqVZsGee04U2ZqNfrRmGfUICW6XDZRP2ozlJEKHNO0ZZqRt5bjFaelAf
+ X1MgkyDFUikAkstZ6MErt89DlegUNo6GQqAYtk5675HXUbIND0l9foKGvAjuPA+xf3is2Uqj
+ XC5+DtswSOh3UV+3I8QEB1nTnq1qq9yswbT0vrnwiRw0F4jNCsbSXkTUeIb+kcJp10Ov4TeM
+ 4jzV1tNtinI3U9eB4sMj165EAFO4B25/6e7c0jFDHVvwcOZKZQARAQABtB9NYXJ0aW4gRG91
+ Y2hhIDxtZG91Y2hhQHN1c2UuY3o+iQJUBBMBCAA+FiEEFQyxgp89HCoFzxM584srZkRBd9kF
+ Al1D6M0CGyMFCQlmAYAFCwkIBwIGFQoJCAsCBBYCAwECHgECF4AACgkQ84srZkRBd9lXJw//
+ d/9S4ZYfjqAlZnVVsr6lKxkZ9bpK5HafnPITkNVmAsOTFndUAwyu2TEGCv5yedGfedFOcFy7
+ JWdDhqNkPg2xLUhEf37T/rmoWxW7PrLKx+D1ewiSIyfFAQQBJD/6RjTLfRPUQQLCEyZ31Y50
+ 6xoGMx21YM2jq7RByKzYR01Bs5u96av5kGR5wNqb2jh/E0Fo1jiPvLSn7HKYY0UEjOEafkmj
+ mfUnlBKwbHBbHOOegNlGPHMdil4RlaxRufL6OgSdKM0Dk81ctlUK3C2prmEAN9hPpwi/aDfP
+ IcfJ6GN3EMaMPmfCr1YavuD3bGfyIU7bjUyPQfADbFFybPJ2BLVc0T9qAQqI7r2nkI99zqTC
+ Cd7bZYXvNVgUTKtxhapsZ++1+UI7XJ6rwmS5kmE56bNugIXrB+84ROoqlWp4ZHZ2Bm5b96o8
+ uiDcCKfoj+bh9PAdGPqaL3GCAKyP6ApbEIU5FQLawTdVBCeINNplLjePnZ6aY/LTny8fOZpp
+ FJwP6+TuEOzXLOKgtfVDWW5mpyxQhSw+hES1o+IqTY8UN1vCSw6EwuFRA3fpMkC5L38sL0EE
+ 3gAh1+CT1krfE3pdL+pL3LAJc2DJXc14mF1DH2hdz0Dy8yucc76ypHqJAHPgPc+qidYq3b09
+ EpWloNx1yZ1YH/UtEx+TtJBo0fvPhrABbG25Ag0EXUPozQEQAL81/TIX7o/+C+8SnyIHm71Z
+ e0dDpXXREkQMmrrYbLE7DiFpXK+1JVm39mESmEIIZORyMVGLkG49wXsfTxVkFdk4IRjRNyXz
+ wSkzo7CF1ORC4Jo0CtumNDyIU464uDHdK91AOWW2OwlTfcsUgA5PKM3w4HPbc4MBd/u6YX5Q
+ 8HSBWbLrxNE59BBbyUBFeLiLzr0afnyvPPYc2nMIw8TxcA1UfsQz1uBHq8XE2/XjoSUoThhB
+ qGdQlWWRGBI/rElz7IJhwbRx+cw5Lgxc9JRG63gelMGLHHAgRiTrajalJXJQA9oDDUk/Qunc
+ 2wh2MkUafJfvOR4U1YM+dTCc78+xSuG57/aatdkI1iRuyJbkM1MfvSVnmWr69JytGc/ZlDCm
+ CdwV8OCTX7zZL+1xfQXBSmuHkbe68j3Mk41ZWegi95RAu5mCvCeDjv2ki+Snez4p3USkY0R4
+ lVDKNnmCy9ZZrR/YHXgj+sDi2hRB05VT27NayMWB8ywMuD1bxV93NhZKx3/JliQyCDg9fUBc
+ 5aLG51Has+y16AdcN8XYeFAOL8K/36PNeTAS4vlYZPPiIja4fD/VUswO8jns713ZxTWPou+v
+ 0pV/5jykprWwIy+jNv6Dbor/JKjcG0GxnHb8U0xMIFv4/DIqzOG1pkERR+Hmg7YvpIlVokfo
+ Hkvu5qs5xOrzABEBAAGJAjwEGAEIACYWIQQVDLGCnz0cKgXPEznziytmREF32QUCXUPozQIb
+ DAUJCWYBgAAKCRDziytmREF32XWvD/0fuW2SC3dOOk1XhHua2JOezT1HQpxyFpCNPESRoL8N
+ J1PCMyDWO4l7NhsAGbqCfA6a7XpsYpD3VC8kIZk/P3JOFM11OSUszK/pSUdiKuaURy6TAxFZ
+ 3FO9OZ016uJuBQ8J9qdpvcGRtNnyL9gOmvSWkUV4mHokJeQ4CFWV5A38vg1EGpR49UOm6RhH
+ LDyXxng1uJ58RuaXRAUvM/RG0vg7O2+4TP/IelhKGIYtNc4louyPZEAjaXJ3eNt4Selo5RFe
+ uCl8/k6dNvUc3ZWUxd5CISdwn0GsVbCBnpYDhPgoCEbP30Sr+Jdo8asicZ3XUhQ0aPFLb7D0
+ IMfRwEkXUK0LvwnBJ2hTtLZRxrqusibeRSj14j0xAuEsDZD3VbMD7fnlTDSyjdY0ghHygq/5
+ YchPWWq+T2P32r/hxymkw0EiQptA13TElxj13Pbc2hP+e0SoEKFkHfyb63rik3dlPmxGk5eM
+ Rz4zFhW8KQ9+zrae5rL/6vwz3d/MpEeOmDm9uutE6xyzXRl/RxeFZ8P7KlACXWm7VjSyc74E
+ eCNL6GOOeqzE77fDcBf4HvNGn8w7IX/FvNzmu78wzT2MDwMi8ug8T4KEKzIYUIRibe7cl0LG
+ 2dSj02pOT7E5/x4gKQB/OZqnTTQxJ0OL8BJKNFeSYqaMzKFKiYaArwuFkGnCknwh5A==
+Message-ID: <a0d815a5-ef91-d982-b660-623b0316c98a@suse.cz>
+Date: Fri, 29 Nov 2019 10:54:54 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-References: <20191128163147.4377-1-mdoucha@suse.cz>
-In-Reply-To: <20191128163147.4377-1-mdoucha@suse.cz>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 29 Nov 2019 14:49:42 +0800
-Message-ID: <CAEemH2ecHFwkTi3eFsc=McU0xJmDA5D9bn2ntuKzbqLTtLz7rA@mail.gmail.com>
-To: Martin Doucha <mdoucha@suse.cz>
-X-MC-Unique: 79HFlFUAMP2VPEmXdqh5QQ-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+In-Reply-To: <20191128174733.GA5202@dell5510>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] Unshare KSM pages before setting max_page_sharing
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] Use real FS block size in fallocate05
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,68 +91,68 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0641760790=="
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0641760790==
-Content-Type: multipart/alternative; boundary="00000000000015c348059876a3c2"
+On 11/28/19 6:47 PM, Petr Vorel wrote:
+> Hi Martin,
+> 
+> Looks ok to me.
+> 
+> BTW there is change on results on some of my VM:
+> 
+> Old version:
+> tst_test.c:1169: INFO: Testing on ext4
+> tst_mkfs.c:89: INFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
+> mke2fs 1.43.8 (1-Jan-2018)
+> tst_test.c:1106: INFO: Timeout per run is 0h 05m 00s
+> tst_fill_fs.c:29: INFO: Creating file mntpoint/file0 size 21710183
+> tst_fill_fs.c:29: INFO: Creating file mntpoint/file1 size 8070086
+> tst_fill_fs.c:29: INFO: Creating file mntpoint/file2 size 3971177
+> tst_fill_fs.c:29: INFO: Creating file mntpoint/file3 size 36915315
+> tst_fill_fs.c:29: INFO: Creating file mntpoint/file4 size 70310993
+> tst_fill_fs.c:29: INFO: Creating file mntpoint/file5 size 4807935
+> tst_fill_fs.c:29: INFO: Creating file mntpoint/file6 size 90739786
+> tst_fill_fs.c:29: INFO: Creating file mntpoint/file7 size 76896492
+> tst_fill_fs.c:49: INFO: write(): ENOSPC
+> fallocate05.c:50: PASS: write() wrote 8192 bytes
+> fallocate05.c:59: PASS: fallocate() on full FS: ENOSPC
+> fallocate05.c:68: PASS: fallocate(FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE)
+> fallocate05.c:74: PASS: write()
+> 
+> With your patch:
+> ...
+> tst_fill_fs.c:49: INFO: write(): ENOSPC (28)
+> fallocate05.c:67: PASS: write() wrote 16384 bytes
+> fallocate05.c:73: FAIL: fallocate() succeeded unexpectedly
+> 
+> Maybe it's correct (previous version didn't catch a problem),
+> not really sure.
 
---00000000000015c348059876a3c2
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Your VM seems to use 1KB blocks in the ext4 test partition. It's
+probably the same quirk as I've documented for XFS in the patch. I'd
+like some more opinions on how to deal with it:
+- improve tst_fill_fs() and make sure that fallocate(1 block) always
+fails after it?
+- set some reasonable minimum size where fallocate() must fail on full
+FS but allow fallocate() to pass with smaller allocation requests?
+- drop that one fallocate() fail check entirely because it's too unreliable?
 
-On Fri, Nov 29, 2019 at 12:32 AM Martin Doucha <mdoucha@suse.cz> wrote:
+> + there are few simple warnings:
 
-> Setting max_page_sharing is possible only when there are no KSM shared
-> pages
-> in the system. Otherwise writing to max_page_sharing SysFS file will fail
-> with EBUSY.
->
-> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+I'll resubmit after we agree on a solution to the above problem.
 
-Acked-by: Li Wang <liwang@redhat.com>
-
---=20
-Regards,
-Li Wang
-
---00000000000015c348059876a3c2
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Fri, Nov 29, 2019 at 12:32 AM Martin Doucha &lt;=
-<a href=3D"mailto:mdoucha@suse.cz">mdoucha@suse.cz</a>&gt; wrote:<br></div>=
-<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
-left:1px solid rgb(204,204,204);padding-left:1ex">Setting max_page_sharing =
-is possible only when there are no KSM shared pages<br>
-in the system. Otherwise writing to max_page_sharing SysFS file will fail<b=
-r>
-with EBUSY.<br>
-<br>
-Signed-off-by: Martin Doucha &lt;<a href=3D"mailto:mdoucha@suse.cz" target=
-=3D"_blank">mdoucha@suse.cz</a>&gt;=C2=A0</blockquote><div><span class=3D"g=
-mail_default" style=3D"font-size:small">Acked-by: Li Wang &lt;<a href=3D"ma=
-ilto:liwang@redhat.com">liwang@redhat.com</a>&gt;</span></div><div><span cl=
-ass=3D"gmail_default" style=3D"font-size:small"></span>=C2=A0</div></div>--=
- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regar=
-ds,<br></div><div>Li Wang<br></div></div></div></div>
-
---00000000000015c348059876a3c2--
-
-
---===============0641760790==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+Martin Doucha   mdoucha@suse.cz
+QA Engineer for Software Maintenance
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0641760790==--
-
