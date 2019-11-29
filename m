@@ -2,39 +2,58 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38CC010CEBF
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Nov 2019 20:14:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EC6C10D09A
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Nov 2019 04:20:05 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DE7F33C2219
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Nov 2019 20:14:51 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 83BB73C23FB
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Nov 2019 04:20:04 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 30C523C1815
- for <ltp@lists.linux.it>; Thu, 28 Nov 2019 20:14:48 +0100 (CET)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 6F56E3C0888
+ for <ltp@lists.linux.it>; Fri, 29 Nov 2019 04:19:58 +0100 (CET)
+Received: from m12-14.163.com (m12-14.163.com [220.181.12.14])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C4E6C1400B90
- for <ltp@lists.linux.it>; Thu, 28 Nov 2019 20:14:44 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id EE608AF24;
- Thu, 28 Nov 2019 19:14:43 +0000 (UTC)
-Date: Thu, 28 Nov 2019 20:14:42 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Zorro Lang <zlang@redhat.com>
-Message-ID: <20191128191442.GB5202@dell5510>
-References: <20191128173532.6468-1-zlang@redhat.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A1DD5601CFE
+ for <ltp@lists.linux.it>; Fri, 29 Nov 2019 04:19:55 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=bsy4r
+ sxi7x8vjB4Uap+wBrCk/U8AoiVUWNWo+30KTN8=; b=nrE1vxARWFDR9+jsLX8CZ
+ CiUfteRBiMr2Als7olhBaFE/J7GJOb4Cr8MjIiDWNMw+BI/9OEZCghiVwvbWfPpo
+ 6IRrhu9E5oB9Ed5TuBeRhApPHSsoJhiVOTSh5HW1bFReaK906EioXGTmyi8Bgf2X
+ LXtpDFigXeA9J+jXWhurG0=
+Received: from [192.168.1.133] (unknown [112.25.212.39])
+ by smtp10 (Coremail) with SMTP id DsCowADX3alWjuBdQAdnEw--.12S2;
+ Fri, 29 Nov 2019 11:19:52 +0800 (CST)
+To: Li Wang <liwang@redhat.com>, Jan Stancek <jstancek@redhat.com>
+References: <20191128082945.6495-1-liwang@redhat.com>
+ <1766813779.14211710.1574930105928.JavaMail.zimbra@redhat.com>
+ <CAEemH2cW+XUARCzyreQQgJnd1HSV506JEn4rt=oGyezXRtLKFw@mail.gmail.com>
+From: Xiao Yang <ice_yangxiao@163.com>
+Message-ID: <16eba1ee-8b23-13c5-f496-3758c2b29fc8@163.com>
+Date: Fri, 29 Nov 2019 11:19:49 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191128173532.6468-1-zlang@redhat.com>
-User-Agent: Mutt/1.12.2 (2019-09-21)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+In-Reply-To: <CAEemH2cW+XUARCzyreQQgJnd1HSV506JEn4rt=oGyezXRtLKFw@mail.gmail.com>
+Content-Language: en-US
+X-CM-TRANSID: DsCowADX3alWjuBdQAdnEw--.12S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Wr4rtF1kWryxtryDZFWkZwb_yoWkJFc_C3
+ W2yrn7W3yjyr1rCa17Ja92vr1SkayxXrWFk3W5Kr1fXa9rGr1xGrsYya1UJw1rWrs5W34S
+ kr45JFn0g3y5CjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU8EfO7UUUUU==
+X-Originating-IP: [112.25.212.39]
+X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/1tbiOxl8XlXln6j8EwAAso
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/newmount: new test case for new mount API
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [COMMITTED PATCH] mmap1: include lapi/abisize.h header
+ file
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,140 +65,182 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: linux-fsdevel@vger.kernel.org, ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Zhijun Wang <zhijwang@redhat.com>, LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1759122291=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Zorro,
+This is a multi-part message in MIME format.
+--===============1759122291==
+Content-Type: multipart/alternative;
+ boundary="------------C9E074A81DF775466AF0E202"
+Content-Language: en-US
 
-> Linux supports new mount syscalls from 5.2, so add new test cases
-> to cover these new API. This newmount01 case make sure new API -
-> fsopen(), fsconfig(), fsmount() and move_mount() can mount a
-> filesystem, then can be unmounted.
-Thanks for writing test for recently added kernel functionality.
-This is important.
-Test itself looks ok to me.
-There are few code style differences (note below), but that's not important.
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+This is a multi-part message in MIME format.
+--------------C9E074A81DF775466AF0E202
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-BTW I thought it'd be nice to use more filesystems via .all_filesystems = 1 [1]
-but at least it breaks nfs. And IMHO we don't have blacklist support for
-.all_filesystems.
+On 11/28/19 4:37 PM, Li Wang wrote:
+>
+>
+> On Thu, Nov 28, 2019 at 4:35 PM Jan Stancek <jstancek@redhat.com 
+> <mailto:jstancek@redhat.com>> wrote:
+>
+>
+>     ----- Original Message -----
+>     > To get rid of this BROK on i686:
+>     >  mmap1.c:204: BROK: mmap((nil),2147483648,3,34,-1,0) failed:
+>     ENOMEM (12)
+>     >
+>     > Reported-by: Zhijun Wang <zhijwang@redhat.com
+>     <mailto:zhijwang@redhat.com>>
+>     > Signed-off-by: Li Wang <liwang@redhat.com
+>     <mailto:liwang@redhat.com>>
+>     > ---
+>     >  testcases/kernel/mem/mtest06/mmap1.c | 1 +
+>     >  1 file changed, 1 insertion(+)
+>     >
+>     > diff --git a/testcases/kernel/mem/mtest06/mmap1.c
+>     > b/testcases/kernel/mem/mtest06/mmap1.c
+>     > index c5417444f..5c7d3df2f 100644
+>     > --- a/testcases/kernel/mem/mtest06/mmap1.c
+>     > +++ b/testcases/kernel/mem/mtest06/mmap1.c
+>     > @@ -30,6 +30,7 @@
+>     >  #include <stdlib.h>
+>     >  #include "lapi/abisize.h"
+>     >  #include "tst_test.h"
+>     > +#include "lapi/abisize.h"
+>
+>     This sounds familiar:
+>       74d9fe32fda9 ("mtest06/mmap1: add missing lapi/abisize.h include")
+>
+>
+> Ah, sorry I was blind for missing this commit. Seems I just git 
+> pull&push my patch.
 
->  configure.ac                                  |   4 +
->  include/lapi/newmount.h                       | 106 +++++++++++++
->  include/lapi/syscalls/aarch64.in              |   4 +
->  include/lapi/syscalls/powerpc64.in            |   4 +
->  include/lapi/syscalls/s390x.in                |   4 +
->  include/lapi/syscalls/x86_64.in               |   4 +
-In final version we'd want to add syscall numbers for all archs.
+Hi Li,
 
-...
-> +++ b/include/lapi/newmount.h
-> @@ -0,0 +1,106 @@
-> +/*
-> + * Copyright (C) 2019 Red Hat, Inc.  All rights reserved.
-> + *
-> + * This program is free software; you can redistribute it and/or
-> + * modify it under the terms of the GNU General Public License as
-> + * published by the Free Software Foundation; either version 2 of
-> + * the License, or (at your option) any later version.
-> + *
-> + * This program is distributed in the hope that it would be useful,
-> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> + * GNU General Public License for more details.
-> + *
-> + * You should have received a copy of the GNU General Public License
-> + * along with this program; if not, write the Free Software Foundation,
-> + * Inc.,  51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-> + */
-Use SPDX license identifier instead of verbose GPL everywhere (including headers
-and makefiles; we don't want any HISTORY: text, but feel free to add Author:
-your name).
-> +
-> +#ifndef __NEWMOUNT_H__
-> +#define __NEWMOUNT_H__
-Double underscore at the beginning and end (__FOO_H__) is IMHO reserved for library
-(use NEWMOUNT_H__).
-...
+Perhaps, you should git revert the duplicated patch. :-)
 
-> diff --git a/m4/ltp-fsconfig.m4 b/m4/ltp-fsconfig.m4
-> new file mode 100644
-> index 000000000..397027f1b
-> --- /dev/null
-> +++ b/m4/ltp-fsconfig.m4
-> @@ -0,0 +1,7 @@
-> +dnl SPDX-License-Identifier: GPL-2.0-or-later
-> +dnl Copyright (C) 2019 Red Hat, Inc. All Rights Reserved.
-> +
-> +AC_DEFUN([LTP_CHECK_FSCONFIG],[
-> +AC_CHECK_FUNCS(fsconfig,,)
-> +AC_CHECK_HEADER(sys/mount.h,,,)
-> +])
-> diff --git a/m4/ltp-fsmount.m4 b/m4/ltp-fsmount.m4
-> new file mode 100644
-> index 000000000..ee32ef713
-> --- /dev/null
-> +++ b/m4/ltp-fsmount.m4
-> @@ -0,0 +1,7 @@
-> +dnl SPDX-License-Identifier: GPL-2.0-or-later
-> +dnl Copyright (C) 2019 Red Hat, Inc. All Rights Reserved.
-> +
-> +AC_DEFUN([LTP_CHECK_FSMOUNT],[
-> +AC_CHECK_FUNCS(fsmount,,)
-> +AC_CHECK_HEADER(sys/mount.h,,,)
-> +])
-> diff --git a/m4/ltp-fsopen.m4 b/m4/ltp-fsopen.m4
-> new file mode 100644
-> index 000000000..6e23d437d
-> --- /dev/null
-> +++ b/m4/ltp-fsopen.m4
-> @@ -0,0 +1,7 @@
-> +dnl SPDX-License-Identifier: GPL-2.0-or-later
-> +dnl Copyright (C) 2019 Red Hat, Inc. All Rights Reserved.
-> +
-> +AC_DEFUN([LTP_CHECK_FSOPEN],[
-> +AC_CHECK_FUNCS(fsopen,,)
-> +AC_CHECK_HEADER(sys/mount.h,,,)
-> +])
-> diff --git a/m4/ltp-move_mount.m4 b/m4/ltp-move_mount.m4
-> new file mode 100644
-> index 000000000..d6bfd82e9
-> --- /dev/null
-> +++ b/m4/ltp-move_mount.m4
-> @@ -0,0 +1,7 @@
-> +dnl SPDX-License-Identifier: GPL-2.0-or-later
-> +dnl Copyright (C) 2019 Red Hat, Inc. All Rights Reserved.
-> +
-> +AC_DEFUN([LTP_CHECK_MOVE_MOUNT],[
-> +AC_CHECK_FUNCS(move_mount,,)
-> +AC_CHECK_HEADER(sys/mount.h,,,)
-> +])
-As all of these require <sys/mount.h>, I'd add them into single file
-m4/ltp-newmount.m4.
-BTW it might take a time before it get into <sys/mount.h>, they're now just <linux/mount.h> (even in musl, which is unlike glic fast with porting new things).
+Thanks
 
-...
-> +++ b/testcases/kernel/syscalls/newmount/Makefile
-...
-> +
-> +top_srcdir		?= ../../../..
-> +
-> +include $(top_srcdir)/include/mk/testcases.mk
-> +
-> +CFLAGS			+= -D_GNU_SOURCE
-Is _GNU_SOURCE needed?
-> +
-> +include $(top_srcdir)/include/mk/generic_leaf_target.mk
+Xiao Yang
 
-Kind regards,
-Petr
+>
+> -- 
+> Regards,
+> Li Wang
+>
 
-[1] https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelines#2215-testing-with-a-block-device
+--------------C9E074A81DF775466AF0E202
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">On 11/28/19 4:37 PM, Li Wang wrote:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CAEemH2cW+XUARCzyreQQgJnd1HSV506JEn4rt=oGyezXRtLKFw@mail.gmail.com">
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <div dir="ltr">
+        <div dir="ltr">
+          <div class="gmail_default" style="font-size:small"><br>
+          </div>
+        </div>
+        <br>
+        <div class="gmail_quote">
+          <div dir="ltr" class="gmail_attr">On Thu, Nov 28, 2019 at 4:35
+            PM Jan Stancek &lt;<a href="mailto:jstancek@redhat.com"
+              moz-do-not-send="true">jstancek@redhat.com</a>&gt; wrote:<br>
+          </div>
+          <blockquote class="gmail_quote" style="margin:0px 0px 0px
+            0.8ex;border-left:1px solid
+            rgb(204,204,204);padding-left:1ex"><br>
+            ----- Original Message -----<br>
+            &gt; To get rid of this BROK on i686:<br>
+            &gt;  mmap1.c:204: BROK: mmap((nil),2147483648,3,34,-1,0)
+            failed: ENOMEM (12)<br>
+            &gt; <br>
+            &gt; Reported-by: Zhijun Wang &lt;<a
+              href="mailto:zhijwang@redhat.com" target="_blank"
+              moz-do-not-send="true">zhijwang@redhat.com</a>&gt;<br>
+            &gt; Signed-off-by: Li Wang &lt;<a
+              href="mailto:liwang@redhat.com" target="_blank"
+              moz-do-not-send="true">liwang@redhat.com</a>&gt;<br>
+            &gt; ---<br>
+            &gt;  testcases/kernel/mem/mtest06/mmap1.c | 1 +<br>
+            &gt;  1 file changed, 1 insertion(+)<br>
+            &gt; <br>
+            &gt; diff --git a/testcases/kernel/mem/mtest06/mmap1.c<br>
+            &gt; b/testcases/kernel/mem/mtest06/mmap1.c<br>
+            &gt; index c5417444f..5c7d3df2f 100644<br>
+            &gt; --- a/testcases/kernel/mem/mtest06/mmap1.c<br>
+            &gt; +++ b/testcases/kernel/mem/mtest06/mmap1.c<br>
+            &gt; @@ -30,6 +30,7 @@<br>
+            &gt;  #include &lt;stdlib.h&gt;<br>
+            &gt;  #include "lapi/abisize.h"<br>
+            &gt;  #include "tst_test.h"<br>
+            &gt; +#include "lapi/abisize.h"<br>
+            <br>
+            This sounds familiar:<br>
+              74d9fe32fda9 ("mtest06/mmap1: add missing lapi/abisize.h
+            include")<br>
+          </blockquote>
+          <div><br>
+          </div>
+          <div class="gmail_default" style="font-size:small">Ah, sorry I
+            was blind for missing this commit. Seems I just git
+            pull&amp;push my patch.</div>
+        </div>
+      </div>
+    </blockquote>
+    <p>Hi Li,</p>
+    <p>Perhaps, you should git revert the duplicated patch. <span
+        class="moz-smiley-s1"><span>:-)</span></span><br>
+    </p>
+    <p>Thanks</p>
+    <p>Xiao Yang<br>
+    </p>
+    <blockquote type="cite"
+cite="mid:CAEemH2cW+XUARCzyreQQgJnd1HSV506JEn4rt=oGyezXRtLKFw@mail.gmail.com">
+      <div dir="ltr">
+        <div><br>
+        </div>
+        -- <br>
+        <div dir="ltr" class="gmail_signature">
+          <div dir="ltr">
+            <div>Regards,<br>
+            </div>
+            <div>Li Wang<br>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------C9E074A81DF775466AF0E202--
+
+
+--===============1759122291==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1759122291==--
+
