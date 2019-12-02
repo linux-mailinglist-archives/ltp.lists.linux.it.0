@@ -1,70 +1,55 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 488C310E4ED
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Dec 2019 04:57:36 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A56E710E58C
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Dec 2019 06:46:55 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 18C873C2463
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Dec 2019 04:57:36 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3999A3C2507
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Dec 2019 06:46:55 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id BD0133C242E
- for <ltp@lists.linux.it>; Mon,  2 Dec 2019 04:57:31 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id A30201000B09
- for <ltp@lists.linux.it>; Mon,  2 Dec 2019 04:57:30 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1575259048;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Pyv8nRtXP0tP2BH+Vpc6psKvSry1ra/9SZ3Fv2xBADc=;
- b=Crp5WF6OGI+jYozF+ULegCJU/HqW0xXsjDb1YdnfghgLnqcmr38fchL8VrdpGVxdiZCS4h
- g/CB5yFuBtTqhjfIL8AF42uxTOyxKXS8kFERPhVBENP0FqkYrRDjRW1t0Ibo0GLlnX1vrq
- ELAAJKH80KnfXG6rH4o5TKrVaS37FgI=
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
- [209.85.167.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-401-kMupi3xYO9OkMzmVly_0oA-1; Sun, 01 Dec 2019 22:57:27 -0500
-Received: by mail-oi1-f198.google.com with SMTP id z143so17709066oia.20
- for <ltp@lists.linux.it>; Sun, 01 Dec 2019 19:57:27 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=p5rZUsZaXQ284nixUN+dLUviiXuVVk1mVMz6K6QORsk=;
- b=Xit7uf2QPQMAWgttrHzwCOcU2BRN2hJC3vU58NcNaMQvfNX+nXg6HEknvBch3MUzHS
- VHz2OSev+k5bbz2xcjN3d+FmD+FmIInyNvTCoS1hP58auQUA9uYlV3TB3/QO4b4okkzv
- dw4wfLD8o6EXuf/16l8JIbdj5PyfOuJ/slFFC0AA/pEjhJqMpUr5xQ7oIxOUqFWIaVB7
- GIoqZyIi0sx4ZsPxsT6CQcAWpANKLzafXBcjekp8qzC9SKAzI7L8uncZRO6qGXbbKMW4
- NI1QvOVGy8ISq9ABUZwpBs/I8u4E/Z94r98boS65ydq4b0MSCA48Cb6FYxRDELw3S6ay
- LZrQ==
-X-Gm-Message-State: APjAAAWaR8onCm1cc2/HQJlFXQ/+Jed/+Ask4/2yUFwmSpaFdDbRUKnU
- WFRrfFWcaVqA/ASZtt6nA2BN/nrHmXB24cP+UpQkQSp6avIC+eXMyQHvHq/01qKVBD7THnLPAWz
- +FWUbjza/tX+LPTQjnZZCsjra7sM=
-X-Received: by 2002:a54:4f8e:: with SMTP id g14mr21659636oiy.144.1575259046787; 
- Sun, 01 Dec 2019 19:57:26 -0800 (PST)
-X-Google-Smtp-Source: APXvYqwrwmOz+2XGeFHW+dhgf72zWH4VK+6jBBalbkseqjYxkFPFywf/K2+OhmvYCY/kt5tGnnF3uA9dtSij9GdqVXQ=
-X-Received: by 2002:a54:4f8e:: with SMTP id g14mr21659632oiy.144.1575259046531; 
- Sun, 01 Dec 2019 19:57:26 -0800 (PST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 499EF3C22B6
+ for <ltp@lists.linux.it>; Mon,  2 Dec 2019 06:46:50 +0100 (CET)
+Received: from ozlabs.org (ozlabs.org [203.11.71.1])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 95D6460069E
+ for <ltp@lists.linux.it>; Mon,  2 Dec 2019 06:46:47 +0100 (CET)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 47RDdG73XDz9sNx;
+ Mon,  2 Dec 2019 16:46:42 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ellerman.id.au;
+ s=201909; t=1575265603;
+ bh=B+FQnkVuwPIY8u8J60CbDV7Nb4472pZsaQxisci+JSo=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=Z7SpYTKusmHLF4lnxPzcpbGwT0kxZvJAMjCJho3IXex6tvW9ESDUO30zW19WrkSy0
+ IzYC0fU5ZPnchkm9BeZVU7ji7d5yFA1GK0LhEgu/0SzQwxJOr1MwH3jO9q5dj3Freg
+ bufmW2abuna36hd2+bmbkclX5BLIGKMePgukT/uOm7wd/SfhUqhRcAxCrOks4SOn7j
+ mGjpJtzxamYSDajIOVHqsbxIhZR1m+L+qfa7WBOHxP375CyPuTalilXs+p+Vt3Rm1o
+ FxDPz+z54luIqMOArnZtPaES01q5ztYQYHbqhERdoSYnHIHVAWZsQOPOau3+Pnl7pO
+ ESnibXzHnEzbQ==
+From: Michael Ellerman <mpe@ellerman.id.au>
+To: Jan Stancek <jstancek@redhat.com>, CKI Project <cki-project@redhat.com>
+In-Reply-To: <1738119916.14437244.1575151003345.JavaMail.zimbra@redhat.com>
+References: <cki.6C6A189643.3T2ZUWEMOI@redhat.com>
+ <1738119916.14437244.1575151003345.JavaMail.zimbra@redhat.com>
+Date: Mon, 02 Dec 2019 16:46:40 +1100
+Message-ID: <8736e3ffen.fsf@mpe.ellerman.id.au>
 MIME-Version: 1.0
-References: <20191128163147.4377-1-mdoucha@suse.cz>
- <20191202032936.GA32335@dell5510>
-In-Reply-To: <20191202032936.GA32335@dell5510>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 2 Dec 2019 11:57:15 +0800
-Message-ID: <CAEemH2d03WLKxJNap2fzMPhEoVQH3EkEQGgwTVCOZxuf+-fOZA@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-X-MC-Unique: kMupi3xYO9OkMzmVly_0oA-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] Unshare KSM pages before setting max_page_sharing
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] 
+ =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E3?=
+ =?utf-8?q?=2E13-3b5f971=2Ecki_=28stable-queue=29?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,121 +61,120 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0956137061=="
+Cc: Memory Management <mm-qe@redhat.com>, linuxppc-dev@lists.ozlabs.org,
+ LTP Mailing List <ltp@lists.linux.it>,
+ Linux Stable maillist <stable@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0956137061==
-Content-Type: multipart/alternative; boundary="000000000000e5faf40598b09314"
-
---000000000000e5faf40598b09314
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Dec 2, 2019 at 11:29 AM Petr Vorel <pvorel@suse.cz> wrote:
-
-> Hi Martin,
->
-> > Setting max_page_sharing is possible only when there are no KSM shared
-> pages
-> > in the system. Otherwise writing to max_page_sharing SysFS file will fa=
-il
-> > with EBUSY.
->
-> Reviewed-by: Petr Vorel <pvorel@suse.cz>
->
-
-Pushed.
-
->
-> Good catch!
->
-> BTW at least ksm01 will fail on VM host with running VMs,
-> but that's another story not related to this patch.
->
-
-AFAIK, KSM is mainly designed for VMs pages merging. It seems the LTP ksm
-test can't run in parallel too, they are suggested to be the only test
-without any other ksm-test running in the background. Because ksmd does not
-distinguish which process the pages belong to, it just does merging and
-counting work in total for the whole system.
-
-If we run ./ksm01 & ./ksm01, it will also fail like below I think.
-
-
->
-> mem.c:251: FAIL: pages_shared is not 1 but 3629.
-> mem.c:251: FAIL: pages_sharing is not 98302 but 113789.
-> mem.c:251: FAIL: pages_volatile is not 0 but 12.
-> mem.c:251: FAIL: pages_unshared is not 1 but 48519.
->
-
-
---=20
-Regards,
-Li Wang
-
---000000000000e5faf40598b09314
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Mon, Dec 2, 2019 at 11:29 AM Petr Vorel &lt;<a h=
-ref=3D"mailto:pvorel@suse.cz">pvorel@suse.cz</a>&gt; wrote:<br></div><block=
-quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
-px solid rgb(204,204,204);padding-left:1ex">Hi Martin,<br>
-<br>
-&gt; Setting max_page_sharing is possible only when there are no KSM shared=
- pages<br>
-&gt; in the system. Otherwise writing to max_page_sharing SysFS file will f=
-ail<br>
-&gt; with EBUSY.<br>
-<br>
-Reviewed-by: Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz" target=3D"_bl=
-ank">pvorel@suse.cz</a>&gt;<br></blockquote><div><br></div><div class=3D"gm=
-ail_default" style=3D"font-size:small">Pushed.</div><div class=3D"gmail_def=
-ault" style=3D"font-size:small"></div><blockquote class=3D"gmail_quote" sty=
-le=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddi=
-ng-left:1ex">
-<br>
-Good catch!<br>
-<br>
-BTW at least ksm01 will fail on VM host with running VMs,<br>
-but that&#39;s another story not related to this patch.<br></blockquote><di=
-v><br></div><div><div class=3D"gmail_default" style=3D"font-size:small">AFA=
-IK, KSM is mainly designed=C2=A0for VMs pages merging. It seems the LTP ksm=
- test can&#39;t run in parallel too, they are suggested to be the only test=
- without any other ksm-test running in the background. Because ksmd does no=
-t distinguish=C2=A0which process the pages belong to, it just does merging=
-=C2=A0and counting work in total for the whole system.</div></div><div clas=
-s=3D"gmail_default" style=3D"font-size:small"><br></div><div class=3D"gmail=
-_default" style=3D"font-size:small">If we run ./ksm01 &amp; ./ksm01, it wil=
-l also fail like below I think.</div><div>=C2=A0</div><blockquote class=3D"=
-gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(20=
-4,204,204);padding-left:1ex">
-<br>
-mem.c:251: FAIL: pages_shared is not 1 but 3629.<br>
-mem.c:251: FAIL: pages_sharing is not 98302 but 113789.<br>
-mem.c:251: FAIL: pages_volatile is not 0 but 12.<br>
-mem.c:251: FAIL: pages_unshared is not 1 but 48519.<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
-Wang<br></div></div></div></div>
-
---000000000000e5faf40598b09314--
-
-
---===============0956137061==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0956137061==--
-
+SGkgSmFuLAoKSmFuIFN0YW5jZWsgPGpzdGFuY2VrQHJlZGhhdC5jb20+IHdyaXRlczoKPiAtLS0t
+LSBPcmlnaW5hbCBNZXNzYWdlIC0tLS0tCj4+IAo+PiBIZWxsbywKPj4gCj4+IFdlIHJhbiBhdXRv
+bWF0ZWQgdGVzdHMgb24gYSByZWNlbnQgY29tbWl0IGZyb20gdGhpcyBrZXJuZWwgdHJlZToKPj4g
+Cj4+ICAgICAgICBLZXJuZWwgcmVwbzoKPj4gICAgICAgIGdpdDovL2dpdC5rZXJuZWwub3JnL3B1
+Yi9zY20vbGludXgva2VybmVsL2dpdC9zdGFibGUvc3RhYmxlLXF1ZXVlLmdpdAo+PiAgICAgICAg
+ICAgICBDb21taXQ6IDNiNWY5NzEzOWFjYyAtIEtWTTogUFBDOiBCb29rM1MgSFY6IEZsdXNoIGxp
+bmsgc3RhY2sgb24KPj4gICAgICAgICAgICAgZ3Vlc3QgZXhpdCB0byBob3N0IGtlcm5lbAoKSSBj
+YW4ndCBmaW5kIHRoaXMgY29tbWl0LCBJIGFzc3VtZSBpdCdzIHJvdWdobHkgdGhlIHNhbWUgYXM6
+CgogIGh0dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L3N0YWJs
+ZS9saW51eC1zdGFibGUtcmMuZ2l0L2NvbW1pdC8/aD1saW51eC01LjMueSZpZD0wODE1Zjc1Zjkw
+MTc4YmM3ZTE5MzNjZjBkMGM4MThiNWYzZjVhMjBjCgo+PiBUaGUgcmVzdWx0cyBvZiB0aGVzZSBh
+dXRvbWF0ZWQgdGVzdHMgYXJlIHByb3ZpZGVkIGJlbG93Lgo+PiAKPj4gICAgIE92ZXJhbGwgcmVz
+dWx0OiBGQUlMRUQgKHNlZSBkZXRhaWxzIGJlbG93KQo+PiAgICAgICAgICAgICAgTWVyZ2U6IE9L
+Cj4+ICAgICAgICAgICAgQ29tcGlsZTogT0sKPj4gICAgICAgICAgICAgIFRlc3RzOiBGQUlMRUQK
+Pj4gCj4+IEFsbCBrZXJuZWwgYmluYXJpZXMsIGNvbmZpZyBmaWxlcywgYW5kIGxvZ3MgYXJlIGF2
+YWlsYWJsZSBmb3IgZG93bmxvYWQgaGVyZToKPj4gCj4+ICAgaHR0cHM6Ly9hcnRpZmFjdHMuY2tp
+LXByb2plY3Qub3JnL3BpcGVsaW5lcy8zMTQzNDQKPj4gCj4+IE9uZSBvciBtb3JlIGtlcm5lbCB0
+ZXN0cyBmYWlsZWQ6Cj4+IAo+PiAgICAgcHBjNjRsZToKPj4gICAgICDinYwgTFRQCj4KPiBJIHN1
+c3BlY3Qga2VybmVsIGJ1Zy4KCkxvb2tzIHRoYXQgd2F5LCBidXQgSSBjYW4ndCByZXByb2R1Y2Ug
+aXQgb24gYSBtYWNoaW5lIGhlcmUuCgpJIGhhdmUgdGhlIHNhbWUgQ1BVIHJldmlzaW9uIGFuZCBh
+bSBib290aW5nIHRoZSBleGFjdCBrZXJuZWwgYmluYXJ5ICYKbW9kdWxlcyBsaW5rZWQgYWJvdmUu
+Cgo+IFRoZXJlIHdlcmUgY291cGxlIG9mICdtYXRoJyBydW50ZXN0IHJlbGF0ZWQgZmFpbHVyZXMg
+aW4gcmVjZW50IGNvdXBsZSBkYXlzLgo+IEluIGFsbCBjYXNlcywgc29tZSBkYXRhIGZpbGUgdXNl
+ZCBieSB0ZXN0IHdhcyBtaXNzaW5nLiBQcmVzdW1hYmx5IGJlY2F1c2UKPiBiaW5hcnkgdGhhdCBn
+ZW5lcmF0ZXMgaXQgY3Jhc2hlZC4KPgo+IEkgbWFuYWdlZCB0byByZXByb2R1Y2Ugb25lIGZhaWx1
+cmUgd2l0aCB0aGlzIENLSSBidWlsZCwgd2hpY2ggSSBiZWxpZXZlCj4gaXMgdGhlIHNhbWUgcHJv
+YmxlbS4KPgo+IFdlIGNyYXNoIGVhcmx5IGR1cmluZyBsb2FkLCBiZWZvcmUgYW55IExUUCBjb2Rl
+IHJ1bnM6Cj4KPiAoZ2RiKSByCj4gU3RhcnRpbmcgcHJvZ3JhbTogL21udC90ZXN0YXJlYS9sdHAv
+dGVzdGNhc2VzL2Jpbi9nZW5hc2luCgpXaGF0IGlzIHRoaXMgL21udC90ZXN0YXJlYT8gTG9va3Mg
+bGlrZSBpdCdzIHNldHVwIGJ5IHNvbWUgb2YgdGhlIGJlYWtlcgpzY3JpcHRzIG9yIHNvbWV0aGlu
+Zz8KCkknbSBydW5uaW5nIExUUCBvdXQgb2YgL2hvbWUsIHdoaWNoIGlzIGV4dDQgZGlyZWN0bHkg
+b24gZGlzay4KCkkgdHJpZWQgZ2V0dGluZyB0aGUgdGVzdHMtYmVha2VyIHN0dWZmIHdvcmtpbmcg
+b24gbXkgbWFjaGluZSwgYnV0IEkKY291bGRuJ3QgZmluZCBhbGwgdGhlIGxpYnJhcmllcyBhbmQg
+c28gb24gaXQgcmVxdWlyZXMuCgoKPiBQcm9ncmFtIHJlY2VpdmVkIHNpZ25hbCBTSUdCVVMsIEJ1
+cyBlcnJvci4KPiBkbF9tYWluIChwaGRyPTB4MTAwMDAwNDAsIHBobnVtPTxvcHRpbWl6ZWQgb3V0
+PiwgdXNlcl9lbnRyeT0weDdmZmZmZmZmZTc2MCwgYXV4dj08b3B0aW1pemVkIG91dD4pIGF0IHJ0
+bGQuYzoxMzYyCj4gMTM2MiAgICAgICAgc3dpdGNoIChwaC0+cF90eXBlKQo+IChnZGIpIGJ0Cj4g
+IzAgIGRsX21haW4gKHBoZHI9MHgxMDAwMDA0MCwgcGhudW09PG9wdGltaXplZCBvdXQ+LCB1c2Vy
+X2VudHJ5PTB4N2ZmZmZmZmZlNzYwLCBhdXh2PTxvcHRpbWl6ZWQgb3V0PikgYXQgcnRsZC5jOjEz
+NjIKPiAjMSAgMHgwMDAwN2ZmZmY3ZmNmM2M4IGluIF9kbF9zeXNkZXBfc3RhcnQgKHN0YXJ0X2Fy
+Z3B0cj08b3B0aW1pemVkIG91dD4sIGRsX21haW49MHg3ZmZmZjdmYjM3YjAgPGRsX21haW4+KSBh
+dCAuLi9lbGYvZGwtc3lzZGVwLmM6MjUzCj4gIzIgIDB4MDAwMDdmZmZmN2ZiMWQxYyBpbiBfZGxf
+c3RhcnRfZmluYWwgKGFyZz1hcmdAZW50cnk9MHg3ZmZmZmZmZmVlMjAsIGluZm89aW5mb0BlbnRy
+eT0weDdmZmZmZmZmZTg3MCkgYXQgcnRsZC5jOjQ0NQo+ICMzICAweDAwMDA3ZmZmZjdmYjJmNWMg
+aW4gX2RsX3N0YXJ0IChhcmc9MHg3ZmZmZmZmZmVlMjApIGF0IHJ0bGQuYzo1MzcKPiAjNCAgMHgw
+MDAwN2ZmZmY3ZmIxNGQ4IGluIF9zdGFydCAoKSBmcm9tIC9saWI2NC9sZDY0LnNvLjIKPiAoZ2Ri
+KSBmIDAKPiAjMCAgZGxfbWFpbiAocGhkcj0weDEwMDAwMDQwLCBwaG51bT08b3B0aW1pemVkIG91
+dD4sIHVzZXJfZW50cnk9MHg3ZmZmZmZmZmU3NjAsIGF1eHY9PG9wdGltaXplZCBvdXQ+KSBhdCBy
+dGxkLmM6MTM2Mgo+IDEzNjIgICAgICAgIHN3aXRjaCAocGgtPnBfdHlwZSkKPiAoZ2RiKSBsCj4g
+MTM1NyAgICAgIC8qIEFuZCBpdCB3YXMgb3BlbmVkIGRpcmVjdGx5LiAgKi8KPiAxMzU4ICAgICAg
+KyttYWluX21hcC0+bF9kaXJlY3Rfb3BlbmNvdW50Owo+IDEzNTkKPiAxMzYwICAgICAgLyogU2Nh
+biB0aGUgcHJvZ3JhbSBoZWFkZXIgdGFibGUgZm9yIHRoZSBkeW5hbWljIHNlY3Rpb24uICAqLwo+
+IDEzNjEgICAgICBmb3IgKHBoID0gcGhkcjsgcGggPCAmcGhkcltwaG51bV07ICsrcGgpCj4gMTM2
+MiAgICAgICAgc3dpdGNoIChwaC0+cF90eXBlKQo+IDEzNjMgICAgICAgICAgewo+IDEzNjQgICAg
+ICAgICAgY2FzZSBQVF9QSERSOgo+IDEzNjUgICAgICAgICAgICAvKiBGaW5kIG91dCB0aGUgbG9h
+ZCBhZGRyZXNzLiAgKi8KPiAxMzY2ICAgICAgICAgICAgbWFpbl9tYXAtPmxfYWRkciA9IChFbGZX
+KEFkZHIpKSBwaGRyIC0gcGgtPnBfdmFkZHI7Cj4KPiAoZ2RiKSBwIHBoCj4gJDEgPSAoY29uc3Qg
+RWxmNjRfUGhkciAqKSAweDEwMDAwMDQwCj4KPiAoZ2RiKSBwICpwaAo+IENhbm5vdCBhY2Nlc3Mg
+bWVtb3J5IGF0IGFkZHJlc3MgMHgxMDAwMDA0MAo+Cj4gKGdkYikgaW5mbyBwcm9jIG1hcAo+IHBy
+b2Nlc3MgMTExMDY3MAo+IE1hcHBlZCBhZGRyZXNzIHNwYWNlczoKPgo+ICAgICAgICAgICBTdGFy
+dCBBZGRyICAgICAgICAgICBFbmQgQWRkciAgICAgICBTaXplICAgICBPZmZzZXQgb2JqZmlsZQo+
+ICAgICAgICAgICAweDEwMDAwMDAwICAgICAgICAgMHgxMDAxMDAwMCAgICAweDEwMDAwICAgICAg
+ICAweDAgL21udC90ZXN0YXJlYS9sdHAvdGVzdGNhc2VzL2Jpbi9nZW5hc2luCj4gICAgICAgICAg
+IDB4MTAwMTAwMDAgICAgICAgICAweDEwMDMwMDAwICAgIDB4MjAwMDAgICAgICAgIDB4MCAvbW50
+L3Rlc3RhcmVhL2x0cC90ZXN0Y2FzZXMvYmluL2dlbmFzaW4KPiAgICAgICAweDdmZmZmN2Y5MDAw
+MCAgICAgMHg3ZmZmZjdmYjAwMDAgICAgMHgyMDAwMCAgICAgICAgMHgwIFt2ZHNvXQo+ICAgICAg
+IDB4N2ZmZmY3ZmIwMDAwICAgICAweDdmZmZmN2ZlMDAwMCAgICAweDMwMDAwICAgICAgICAweDAg
+L3Vzci9saWI2NC9sZC0yLjMwLnNvCj4gICAgICAgMHg3ZmZmZjdmZTAwMDAgICAgIDB4N2ZmZmY4
+MDAwMDAwICAgIDB4MjAwMDAgICAgMHgyMDAwMCAvdXNyL2xpYjY0L2xkLTIuMzAuc28KPiAgICAg
+ICAweDdmZmZmZmZkMDAwMCAgICAgMHg4MDAwMDAwMDAwMDAgICAgMHgzMDAwMCAgICAgICAgMHgw
+IFtzdGFja10KPgo+IChnZGIpIHgvMXggMHgxMDAwMDA0MAo+IDB4MTAwMDAwNDA6ICAgICBDYW5u
+b3QgYWNjZXNzIG1lbW9yeSBhdCBhZGRyZXNzIDB4MTAwMDAwNDAKClllYWggdGhhdCdzIHdlaXJk
+LgoKPiAjIC9tbnQvdGVzdGFyZWEvbHRwL3Rlc3RjYXNlcy9iaW4vZ2VuYXNpbgo+IEJ1cyBlcnJv
+ciAoY29yZSBkdW1wZWQpCj4KPiBIb3dldmVyLCBhcyBzb29uIGFzIEkgY29weSB0aGF0IGJpbmFy
+eSBzb21ld2hlcmUgZWxzZSwgaXQgd29ya3MgZmluZToKPgo+ICMgY3AgL21udC90ZXN0YXJlYS9s
+dHAvdGVzdGNhc2VzL2Jpbi9nZW5hc2luIC90bXAKPiAjIC90bXAvZ2VuYXNpbgo+ICMgZWNobyAk
+Pwo+IDAKCklzIC90bXAgYSByZWFsIGRpc2sgb3IgdG1wZnM/CgpjaGVlcnMKCj4gIyBjcCAvbW50
+L3Rlc3RhcmVhL2x0cC90ZXN0Y2FzZXMvYmluL2dlbmFzaW4gL21udC90ZXN0YXJlYS9sdHAvdGVz
+dGNhc2VzL2Jpbi9nZW5hc2luMgo+ICMgL21udC90ZXN0YXJlYS9sdHAvdGVzdGNhc2VzL2Jpbi9n
+ZW5hc2luMgo+ICMgZWNobyAkPwo+IDAKPgo+ICMgL21udC90ZXN0YXJlYS9sdHAvdGVzdGNhc2Vz
+L2Jpbi9nZW5hc2luCj4gQnVzIGVycm9yIChjb3JlIGR1bXBlZCkKPgo+ICMgZGlmZiAvbW50L3Rl
+c3RhcmVhL2x0cC90ZXN0Y2FzZXMvYmluL2dlbmFzaW4gL21udC90ZXN0YXJlYS9sdHAvdGVzdGNh
+c2VzL2Jpbi9nZW5hc2luMjsgZWNobyAkPwo+IDAKPgo+ICMgbHNjcHUKPiBBcmNoaXRlY3R1cmU6
+ICAgICAgICAgICAgICAgICAgICBwcGM2NGxlCj4gQnl0ZSBPcmRlcjogICAgICAgICAgICAgICAg
+ICAgICAgTGl0dGxlIEVuZGlhbgo+IENQVShzKTogICAgICAgICAgICAgICAgICAgICAgICAgIDE2
+MAo+IE9uLWxpbmUgQ1BVKHMpIGxpc3Q6ICAgICAgICAgICAgIDAtMTU5Cj4gVGhyZWFkKHMpIHBl
+ciBjb3JlOiAgICAgICAgICAgICAgNAo+IENvcmUocykgcGVyIHNvY2tldDogICAgICAgICAgICAg
+IDIwCj4gU29ja2V0KHMpOiAgICAgICAgICAgICAgICAgICAgICAgMgo+IE5VTUEgbm9kZShzKTog
+ICAgICAgICAgICAgICAgICAgIDIKPiBNb2RlbDogICAgICAgICAgICAgICAgICAgICAgICAgICAy
+LjIgKHB2ciAwMDRlIDEyMDIpCj4gTW9kZWwgbmFtZTogICAgICAgICAgICAgICAgICAgICAgUE9X
+RVI5LCBhbHRpdmVjIHN1cHBvcnRlZAo+IEZyZXF1ZW5jeSBib29zdDogICAgICAgICAgICAgICAg
+IGVuYWJsZWQKPiBDUFUgbWF4IE1IejogICAgICAgICAgICAgICAgICAgICAzODAwLjAwMDAKPiBD
+UFUgbWluIE1IejogICAgICAgICAgICAgICAgICAgICAyMTY2LjAwMDAKPiBMMWQgY2FjaGU6ICAg
+ICAgICAgICAgICAgICAgICAgICAxLjMgTWlCCj4gTDFpIGNhY2hlOiAgICAgICAgICAgICAgICAg
+ICAgICAgMS4zIE1pQgo+IEwyIGNhY2hlOiAgICAgICAgICAgICAgICAgICAgICAgIDEwIE1pQgo+
+IEwzIGNhY2hlOiAgICAgICAgICAgICAgICAgICAgICAgIDIwMCBNaUIKPiBOVU1BIG5vZGUwIENQ
+VShzKTogICAgICAgICAgICAgICAwLTc5Cj4gTlVNQSBub2RlOCBDUFUocyk6ICAgICAgICAgICAg
+ICAgODAtMTU5Cj4gVnVsbmVyYWJpbGl0eSBJdGxiIG11bHRpaGl0OiAgICAgTm90IGFmZmVjdGVk
+Cj4gVnVsbmVyYWJpbGl0eSBMMXRmOiAgICAgICAgICAgICAgTm90IGFmZmVjdGVkCj4gVnVsbmVy
+YWJpbGl0eSBNZHM6ICAgICAgICAgICAgICAgTm90IGFmZmVjdGVkCj4gVnVsbmVyYWJpbGl0eSBN
+ZWx0ZG93bjogICAgICAgICAgTWl0aWdhdGlvbjsgUkZJIEZsdXNoLCBMMUQgcHJpdmF0ZSBwZXIg
+dGhyZWFkCj4gVnVsbmVyYWJpbGl0eSBTcGVjIHN0b3JlIGJ5cGFzczogTWl0aWdhdGlvbjsgS2Vy
+bmVsIGVudHJ5L2V4aXQgYmFycmllciAoZWllaW8pCj4gVnVsbmVyYWJpbGl0eSBTcGVjdHJlIHYx
+OiAgICAgICAgTWl0aWdhdGlvbjsgX191c2VyIHBvaW50ZXIgc2FuaXRpemF0aW9uLCBvcmkzMSBz
+cGVjdWxhdGlvbiBiYXJyaWVyIGVuYWJsZWQKPiBWdWxuZXJhYmlsaXR5IFNwZWN0cmUgdjI6ICAg
+ICAgICBNaXRpZ2F0aW9uOyBJbmRpcmVjdCBicmFuY2ggY2FjaGUgZGlzYWJsZWQsIFNvZnR3YXJl
+IGxpbmsgc3RhY2sgZmx1c2gKPiBWdWxuZXJhYmlsaXR5IFRzeCBhc3luYyBhYm9ydDogICBOb3Qg
+YWZmZWN0ZWQKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9s
+aXN0aW5mby9sdHAK
