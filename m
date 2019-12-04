@@ -2,37 +2,87 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CE4E11294F
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 11:31:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21427112967
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 11:38:23 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B6E1F3C250D
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 11:31:47 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 68EE53C24FF
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 11:38:22 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 3AFEE3C2271
- for <ltp@lists.linux.it>; Wed,  4 Dec 2019 11:31:43 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 7CB3F3C249E
+ for <ltp@lists.linux.it>; Wed,  4 Dec 2019 11:38:20 +0100 (CET)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 62DA16021B0
- for <ltp@lists.linux.it>; Wed,  4 Dec 2019 11:31:39 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9ADC260244C
+ for <ltp@lists.linux.it>; Wed,  4 Dec 2019 11:38:19 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 7F668B249;
- Wed,  4 Dec 2019 10:31:38 +0000 (UTC)
-From: Richard Palethorpe <rpalethorpe@suse.com>
-To: ltp@lists.linux.it
-Date: Wed,  4 Dec 2019 11:31:20 +0100
-Message-Id: <20191204103120.29440-1-rpalethorpe@suse.com>
-X-Mailer: git-send-email 2.23.0
+ by mx1.suse.de (Postfix) with ESMTP id E0FD2B210;
+ Wed,  4 Dec 2019 10:38:18 +0000 (UTC)
+To: Jan Stancek <jstancek@redhat.com>
+References: <20191128093610.6903-1-mdoucha@suse.cz>
+ <20191128093610.6903-2-mdoucha@suse.cz>
+ <26933665.14359191.1575028896043.JavaMail.zimbra@redhat.com>
+ <0e1a3d0e-a154-8469-6e04-a954740a4a61@suse.cz>
+ <1057914729.14405454.1575044248773.JavaMail.zimbra@redhat.com>
+From: Martin Doucha <mdoucha@suse.cz>
+Autocrypt: addr=mdoucha@suse.cz; keydata=
+ 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
+Message-ID: <0c8a52b4-0c71-4efa-f58a-66524055e32a@suse.cz>
+Date: Wed, 4 Dec 2019 11:38:18 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+In-Reply-To: <1057914729.14405454.1575044248773.JavaMail.zimbra@redhat.com>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] Wrapper for Syzkaller reproducers
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] Use real FS block size in fallocate05
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,432 +94,54 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: syzkaller <syzkaller@googlegroups.com>,
- Richard Palethorpe <rpalethorpe@suse.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Allows one to run the Syzkaller reproducers as part of the LTP.
+On 11/29/19 5:17 PM, Jan Stancek wrote:
+>> No. tst_brk() will terminate the whole test on the first usual test case
+>> (Ext2) and skip all the other file systems that do support fallocate().
+> 
+> It shouldn't. tst_brk() does call exit() for test process, but
+> .all_filesystems spawns new process for each fs.
 
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
----
+You're right, I'll use tst_brk(TCONF, ...) then.
 
-V2:
+>> I don't like to blindly rely on the assumption that block size is always
+>> a power of 2 and smaller than some magic number. Getting the real block
+>> size is trivial. The only real question is how many free blocks do we
+>> allow on a "full" file system in our tests. 1MB is just 16 blocks on
+>> PPC64 so the magic number isn't particularly big anyway.
+> 
+> OK, let's assume 16 is enough. Can we use that value also for ENOSPC check?
+>   TEST(fallocate(fd, 0, bufsize, 2 * statbuf.st_blksize));
 
-* Will now refuse to compile on anything other than x86_64, because I haven't
-  tested them on anything else.
+I think it might be better to change the test scenario a bit:
+1. fallocate(FALLOCATE_BLOCKS * blocksize)
+2. tst_fill_fs()
+3. write(FALLOCATE_BLOCKS * blocksize)
+4. repeat fallocate(blocksize) until we get ENOSPC
+5. write() into all blocks allocated in step 4
+6. check that another write() will get ENOSPC
+7. test fallocate(PUNCH_HOLE | KEEP_SIZE)
 
-* Hopefully fixed problem with submodule not being found because I didn't
-  include a commit reference.
+This should get us around the issue with tst_fill_fs() and still
+properly validate that fallocate() handles full FS gracefully.
 
-* Added explicity 'no' value if --with-syzkaller-repros is not present
+The only remaining issue is whether it's correct for Btrfs to only
+release blocks when you deallocate the whole file. I still haven't heard
+back from our Btrfs dev.
 
-* Reduced the default timeout in the test to 20 seconds. I found this allows
-  me to complete testing in reasonable time.
-
- .gitmodules                                  |   4 +
- configure.ac                                 |  12 ++
- include/mk/features.mk.in                    |   2 +
- runtest/.gitignore                           |   1 +
- testcases/kernel/Makefile                    |   1 +
- testcases/kernel/syzkaller-repros/.gitignore |   1 +
- testcases/kernel/syzkaller-repros/Makefile   | 105 +++++++++++++++
- testcases/kernel/syzkaller-repros/README.md  |  45 +++++++
- testcases/kernel/syzkaller-repros/syzwrap.c  | 134 +++++++++++++++++++
- testcases/linux-arts                         |   1 +
- 10 files changed, 306 insertions(+)
- create mode 100644 runtest/.gitignore
- create mode 100644 testcases/kernel/syzkaller-repros/.gitignore
- create mode 100644 testcases/kernel/syzkaller-repros/Makefile
- create mode 100644 testcases/kernel/syzkaller-repros/README.md
- create mode 100644 testcases/kernel/syzkaller-repros/syzwrap.c
- create mode 160000 testcases/linux-arts
-
-diff --git a/.gitmodules b/.gitmodules
-index 1c9e9c38a..2b9e836e6 100644
---- a/.gitmodules
-+++ b/.gitmodules
-@@ -1,3 +1,7 @@
- [submodule "testcases/kernel/mce-test"]
- 	path = testcases/kernel/mce-test
- 	url = git://git.kernel.org/pub/scm/linux/kernel/git/gong.chen/mce-test.git
-+[submodule "testcases/linux-arts"]
-+	path = testcases/linux-arts
-+	url = https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-arts.git
-+	shallow = true
-diff --git a/configure.ac b/configure.ac
-index 50d14967d..c8ae42121 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -187,6 +187,18 @@ else
-     AC_SUBST([WITH_OPEN_POSIX_TESTSUITE],["no"])
- fi
- 
-+AC_ARG_WITH([syzkaller-repros],
-+  [AC_HELP_STRING([--with-syzkaller-repros],
-+    [compile and install Syzkaller reproducers (default=no)])],
-+  [with_syzkaller_repros=$withval]
-+  [with_syzkaller_repros=no]
-+)
-+if test "x$with_syzkaller_repros" = xyes; then
-+    AC_SUBST([WITH_SYZKALLER_REPROS],["yes"])
-+else
-+    AC_SUBST([WITH_SYZKALLER_REPROS],["no"])
-+fi
-+
- # TODO: testcases/realtime requires bash and python.
- AC_ARG_WITH([realtime-testsuite],
-   [AC_HELP_STRING([--with-realtime-testsuite],
-diff --git a/include/mk/features.mk.in b/include/mk/features.mk.in
-index 8e561b738..3ab7f4721 100644
---- a/include/mk/features.mk.in
-+++ b/include/mk/features.mk.in
-@@ -47,3 +47,5 @@ WITH_REALTIME_TESTSUITE		:= no
- else
- WITH_REALTIME_TESTSUITE		:= @WITH_REALTIME_TESTSUITE@
- endif
-+
-+WITH_SYZKALLER_REPROS		:= @WITH_SYZKALLER_REPROS@
-diff --git a/runtest/.gitignore b/runtest/.gitignore
-new file mode 100644
-index 000000000..2ae05bfac
---- /dev/null
-+++ b/runtest/.gitignore
-@@ -0,0 +1 @@
-+syzkaller*
-diff --git a/testcases/kernel/Makefile b/testcases/kernel/Makefile
-index 3319b3163..0150cfb4f 100644
---- a/testcases/kernel/Makefile
-+++ b/testcases/kernel/Makefile
-@@ -53,6 +53,7 @@ SUBDIRS			+= connectors \
- 			   sched \
- 			   security \
- 			   sound \
-+			   syzkaller-repros \
- 			   tracing \
- 			   uevents \
- 
-diff --git a/testcases/kernel/syzkaller-repros/.gitignore b/testcases/kernel/syzkaller-repros/.gitignore
-new file mode 100644
-index 000000000..dbda1c71f
---- /dev/null
-+++ b/testcases/kernel/syzkaller-repros/.gitignore
-@@ -0,0 +1 @@
-+syzwrap
-diff --git a/testcases/kernel/syzkaller-repros/Makefile b/testcases/kernel/syzkaller-repros/Makefile
-new file mode 100644
-index 000000000..a3acf9647
---- /dev/null
-+++ b/testcases/kernel/syzkaller-repros/Makefile
-@@ -0,0 +1,105 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2019 Linux Test Project
-+
-+top_srcdir		?= ../../..
-+
-+include $(top_srcdir)/include/mk/testcases.mk
-+
-+CFLAGS			+= -D_GNU_SOURCE
-+
-+ifeq ($(WITH_SYZKALLER_REPROS),yes)
-+
-+# This is mainly due to the -m32 flag, but there could be other problems.
-+ifneq ($(HOST_CPU), x86_64))
-+$(error "We currently only support building the Syzkaller reproducers on x86_64")
-+endif
-+
-+# The number of reproducers in each runtest file
-+SYZKALLER_RUNFILES_SIZE ?= 100
-+
-+# Extra arguments to pass to syzwrap. Uncomment the below to add some
-+# sandboxing.
-+# SYZWRAP_ARGS ?= -s
-+
-+# Location where reproducers are installed
-+SYZKALLER_INSTALL_DIR ?= $(abspath $(DESTDIR)/$(prefix)/testcases/bin)
-+
-+# If the reproducers directory is missing then we automatically clone the repo.
-+# We then have to call make recursively to revaluate the targets
-+SYZKALLER_REPROS_DIR ?= $(abs_top_srcdir)/testcases/linux-arts/syzkaller-repros/linux
-+$(SYZKALLER_REPROS_DIR):
-+	git submodule update --init $(abs_top_srcdir)/testcases/linux-arts
-+	$(MAKE) syzkaller_runfiles
-+
-+SYZKALLER_REPROS_SRCS = $(wildcard $(SYZKALLER_REPROS_DIR)/*.c)
-+
-+# Some useful compiler flags for the LTP will cause problems with the
-+# syzkaller repros so the repros have seperate flags
-+SYZKALLER_CFLAGS ?= -pthread
-+SYZKALLER_REPROS = $(subst $(abs_top_srcdir),$(abs_top_builddir),$(SYZKALLER_REPROS_SRCS:.c=))
-+$(SYZKALLER_REPROS): %: %.c
-+	-@if grep -q "__NR_mmap2" $^; then \
-+		M32="-m32"; \
-+	fi; \
-+	$(CC) $(SYZKALLER_CFLAGS) $$M32 $(SYZKALLER_LDFLAGS) $^ -o $@; \
-+	echo $(CC) $(SYZKALLER_CFLAGS) $$M32 $(SYZKALLER_LDFLAGS) $^ -o $@;
-+
-+# Generate the names of the runtest files. This uses Shell arithmetic to
-+# calculate how many runtest files there will be.
-+define SYZKALLER_RUNFILES !=
-+	n=$(words $(SYZKALLER_REPROS));
-+	m=$(SYZKALLER_RUNFILES_SIZE);
-+	i=$$(( $$n / $$m + ($$n % $$m > 0) ));
-+	while test $$i -gt 0;
-+	do
-+		echo $(top_srcdir)/runtest/syzkaller$$i;
-+		i=$$(($$i - 1));
-+	done
-+endef
-+
-+# Get the index part of a runtest files name
-+syz_n = $(subst $(top_srcdir)/runtest/syzkaller,,$(1))
-+syz_m = $(SYZKALLER_RUNFILES_SIZE)
-+# Gives the index of the first reproducer in a runtest file
-+syz_i = $(shell echo $$((($(call syz_n,$(1)) - 1) * $(2) + 1)))
-+# Gives the index of the last reproducer in a runtest file
-+syz_j = $(shell echo $$(( $(call syz_i,$(1),$(2)) + $(2) - 1 )))
-+# Gvien a runtest file name, get the reproducers it should contain
-+syz_wordlist = $(wordlist $(call syz_i,$(1),$(syz_m)),$(call syz_j,$(1),$(syz_m)),$(SYZKALLER_REPROS))
-+
-+define syz_runfile_line
-+$(notdir $(exe)) syzwrap $(SYZWRAP_ARGS) -d $(SYZKALLER_INSTALL_DIR) -n $(notdir $(exe))
-+
-+endef
-+
-+# Generate the runtest files based on the reproducer names and batch size.
-+$(SYZKALLER_RUNFILES): $(SYZKALLER_REPROS)
-+	@echo "Writing $@"
-+	$(file >$@)
-+	$(foreach exe,$(call syz_wordlist,$@),$(file >>$@,$(syz_runfile_line)))
-+
-+.PHONY: syzkaller_runfiles
-+syzkaller_runfiles: $(SYZKALLER_RUNFILES) | $(SYZKALLER_REPROS_DIR)
-+
-+all: $(SYZKALLER_RUNFILES) | $(SYZKALLER_REPROS_DIR)
-+
-+# There are too many reproducers to pass all at once to rm, so we just pass
-+# one at a time
-+syzkaller_clean:
-+	$(foreach f, $(SYZKALLER_REPROS), $(RM) $(f))
-+CLEAN_DEPS += syzkaller_clean
-+CLEAN_TARGETS += $(SYZKALLER_RUNFILES)
-+
-+INSTALL_MODE ?= 0775
-+
-+# For some reason part of the path is missing if we just try to install these
-+# by adding them to INSTALL_FILES
-+SYZKALLER_REPROS_INSTALLED := $(subst $(SYZKALLER_REPROS_DIR),$(SYZKALLER_INSTALL_DIR),$(SYZKALLER_REPROS))
-+$(SYZKALLER_REPROS_INSTALLED): $(SYZKALLER_INSTALL_DIR)/%: $(SYZKALLER_REPROS_DIR)/%
-+	install -m $(INSTALL_MODE) -T $< $@
-+
-+install: $(SYZKALLER_REPROS_INSTALLED)
-+
-+endif
-+
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syzkaller-repros/README.md b/testcases/kernel/syzkaller-repros/README.md
-new file mode 100644
-index 000000000..2c88efd01
---- /dev/null
-+++ b/testcases/kernel/syzkaller-repros/README.md
-@@ -0,0 +1,45 @@
-+# LTP wrapper for Syzkaller reproducers
-+
-+This allows you to run the autogenerated C bug reproducers from the Syzkaller
-+fuzzer within the LTP framework. Meaning that you may use an existing test
-+runner compatible with the LTP (with some constraints, see below).
-+
-+## Instructions
-+
-+1. Run `ltp/configure` with `--with-syzkaller-repros`.
-+2. Build and install the LTP as normal.
-+3. Run one or more of syzkallerN runtest files where N is a number.
-+
-+Make will automatically download the reproducers into `testcases/linux-arts`
-+using git-submodule if necessary.
-+
-+By default each runtest file contains 100 reproducers. You may change this by
-+overriding `SYZKALLER_RUNFILES_SIZE`.
-+
-+Extra parameters can be sent to syzwrap using `SYZWRAP_ARGS`. See `syzwrap
-+-h`.
-+
-+## Kernel Requirements
-+
-+It is strongly recommended that you use KASAN and other debugging kernel
-+features. See the Syzkaller documentation for the configuration you should
-+use.
-+
-+## Test Runner Requirements
-+
-+Unlike most LTP tests these reproducers can leave your system in a broken
-+state even if no bug is triggered.
-+
-+You will need to:
-+
-+A) Reboot the SUT
-+B) Reset at least the root filesystem to a known good state
-+
-+Every time syzwrap fails. 
-+
-+If syzwrap fails with TBROK or fails to run at all, then you probably need to
-+reset the system and rerun that test. If a test fails with TFAIL, you may also
-+want to run it once again with a clean state.
-+
-+It might be the case that some reproducers write to random devices or do other
-+things which can effect the outside world.
-diff --git a/testcases/kernel/syzkaller-repros/syzwrap.c b/testcases/kernel/syzkaller-repros/syzwrap.c
-new file mode 100644
-index 000000000..c8c95e750
---- /dev/null
-+++ b/testcases/kernel/syzkaller-repros/syzwrap.c
-@@ -0,0 +1,134 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2019 Richard Palethorpe <rpalethorpe@suse.com>
-+ *
-+ * Run a single reproducer generated by the Syzkaller fuzzer.
-+ */
-+
-+#include <sys/types.h>
-+#include <sys/wait.h>
-+#include <sys/prctl.h>
-+#include <sched.h>
-+#include <signal.h>
-+#include <stdio.h>
-+#include <pwd.h>
-+
-+#include "tst_test.h"
-+#include "tst_taint.h"
-+#include "tst_safe_stdio.h"
-+
-+#define SANDBOX_HELP "\n"\
-+	"-s\t Add some sandboxing around the reproducer. This will prevent some\n"\
-+	"\t reproducers from creating network devices and thus prevent them from\n"\
-+	"\t working. However it will also prevent some reproducers from trashing\n"\
-+	"\t the system using root privileges. Note that you may generate the\n"\
-+	"\t reproducers with various types of sandboxing built in using\n"\
-+	"\t syz-reprolist"
-+
-+static char *dir;
-+static char *name;
-+static char *path;
-+
-+static char *sandbox;
-+
-+static struct tst_option options[] = {
-+	{"d:", &dir, "\n-d PATH\t Mandatory directory containing reproducers"},
-+	{"n:", &name, "-n NAME\t Mandatory executable name of reproducer"},
-+	{"s", &sandbox, SANDBOX_HELP},
-+	{NULL, NULL, NULL}
-+};
-+
-+static void become_nobody(void)
-+{
-+	struct passwd *pw;
-+	int gid, uid;
-+
-+	setgroups(0, NULL);
-+
-+	pw = getpwnam("nobody");
-+	if (pw) {
-+		gid = pw->pw_gid;
-+		uid = pw->pw_uid;
-+	} else {
-+		gid = 65534;
-+		uid = 65534;
-+	}
-+
-+	SAFE_SETREGID(gid, gid);
-+	SAFE_SETREUID(uid, uid);
-+}
-+
-+static void setup(void)
-+{
-+	tst_taint_init(TST_TAINT_W | TST_TAINT_D | TST_TAINT_L);
-+
-+	if (!dir)
-+		tst_brk(TBROK, "No reproducer directory specified");
-+
-+	if (!name)
-+		tst_brk(TBROK, "No reproducer name specified");
-+
-+	tst_res(TINFO, "https://syzkaller.appspot.com/bug?id=%s", name);
-+
-+	SAFE_ASPRINTF(&path, "%s/%s", dir, name);
-+	tst_res(TINFO, "%s", path);
-+}
-+
-+static void run(void)
-+{
-+	unsigned int backoff = 100;
-+	int rem, status, sent_kill = 0;
-+	float exec_time_start = (float)tst_timeout_remaining();
-+	int pid;
-+
-+	if (sandbox)
-+		SAFE_UNSHARE(CLONE_NEWPID);
-+
-+	pid = SAFE_FORK();
-+	if (!pid) {
-+		if (sandbox) {
-+			SAFE_UNSHARE(CLONE_NEWNET);
-+			become_nobody();
-+		}
-+
-+		if (prctl(PR_SET_DUMPABLE, 1, 0, 0, 0)) {
-+			tst_res(TWARN | TERRNO,
-+				"Failed to set dumpable; won't be able to open /proc/self/*");
-+		}
-+
-+		execl(path, name, NULL);
-+		tst_brk(TBROK | TERRNO, "Failed to exec reproducer");
-+	}
-+
-+	while (!waitpid(pid, &status, WNOHANG)) {
-+		rem = tst_timeout_remaining();
-+
-+		if (!sent_kill && rem / exec_time_start < 0.5) {
-+			tst_res(TINFO, "Timeout; killing reproducer");
-+
-+			TEST(kill(pid, SIGKILL));
-+			if (TST_RET == -1)
-+				tst_res(TWARN | TTERRNO, "kill() failed");
-+			else
-+				sent_kill = 1;
-+		}
-+
-+		usleep(backoff);
-+		backoff = MIN(2 * backoff, 1000000);
-+	}
-+
-+	if (tst_taint_check()) {
-+		tst_res(TFAIL, "Kernel is tainted");
-+	} else {
-+		tst_res(TPASS, "Kernel is not tainted");
-+	}
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.test_all = run,
-+	.options = options,
-+	.needs_tmpdir = 1,
-+	.forks_child = 1,
-+	.timeout = 20
-+};
-diff --git a/testcases/linux-arts b/testcases/linux-arts
-new file mode 160000
-index 000000000..07759b820
---- /dev/null
-+++ b/testcases/linux-arts
-@@ -0,0 +1 @@
-+Subproject commit 07759b820a9cbf01333d861d8eb2613b20d1ede4
 -- 
-2.23.0
-
+Martin Doucha   mdoucha@suse.cz
+QA Engineer for Software Maintenance
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
