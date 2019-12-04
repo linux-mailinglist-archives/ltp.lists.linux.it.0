@@ -2,56 +2,84 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1688112DD6
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 15:57:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B8A0112E12
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 16:11:41 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7E9B43C24CC
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 15:57:45 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B87843C24BC
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 16:11:40 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id E22153C2466
- for <ltp@lists.linux.it>; Wed,  4 Dec 2019 15:57:40 +0100 (CET)
-Received: from m12-18.163.com (m12-18.163.com [220.181.12.18])
- (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTP id 462243C235D
+ for <ltp@lists.linux.it>; Wed,  4 Dec 2019 16:11:36 +0100 (CET)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 78069200C62
- for <ltp@lists.linux.it>; Wed,  4 Dec 2019 15:57:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=bYUOg
- ZoptS6bBKCnAyvzes8+p5o1rRw5pZSBL9etS8U=; b=lQYZ9rr92D1OsCM+eyq1u
- /yoVHbLoO9wB4MLi8LVkP8O7LzIHwX6TMHGeTleEWksoWu2+/bhfhxefnP+75gei
- mFRgEDq+yhViLHAPjbQ1KgmjyBLINpJx9T9EmLpP5EQdFz+0N7As68gnN+Za9HKG
- AUW3vkTk5EIYh3EwaOHfWA=
-Received: from [192.168.0.10] (unknown [183.210.46.147])
- by smtp14 (Coremail) with SMTP id EsCowACXnnJYyedd28i6KQ--.1352S2;
- Wed, 04 Dec 2019 22:57:29 +0800 (CST)
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>, ltp@lists.linux.it
-References: <1575457056-10022-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-From: Xiao Yang <ice_yangxiao@163.com>
-Message-ID: <8c735de2-8022-1df2-6ce5-ee4dabe77767@163.com>
-Date: Wed, 4 Dec 2019 22:57:28 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 82F9220E76F
+ for <ltp@lists.linux.it>; Wed,  4 Dec 2019 16:11:35 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id A04F0AFA7;
+ Wed,  4 Dec 2019 15:11:34 +0000 (UTC)
+To: Xiao Yang <ice_yangxiao@163.com>
+References: <20191202101943.17335-1-ice_yangxiao@163.com>
+From: Martin Doucha <mdoucha@suse.cz>
+Autocrypt: addr=mdoucha@suse.cz; keydata=
+ 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
+Message-ID: <7b7c1e8a-1db1-bf9f-96ff-01803416120e@suse.cz>
+Date: Wed, 4 Dec 2019 16:11:34 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-In-Reply-To: <1575457056-10022-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+In-Reply-To: <20191202101943.17335-1-ice_yangxiao@163.com>
 Content-Language: en-US
-X-CM-TRANSID: EsCowACXnnJYyedd28i6KQ--.1352S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJw1fXrW3JFy5uw1UGFyUJrb_yoWrKry8pF
- nrGF4rZayfJF18ur43J3W5CFs5W34jg3WUGr1UKr1UGFnxJrZ5tr4aga4Igr4I9FZ5Xa4r
- ZFWxWr4ftw1jgFJanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jD4SrUUUUU=
-X-Originating-IP: [183.210.46.147]
-X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/1tbiMxmBXlXl0yX+dQAAs4
 X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/quotactl07: add regresstion test for
- Q_XQTUOTARM
+Subject: Re: [LTP] [PATCH] cpuhotplug05.sh: Rewrite test case
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,92 +91,84 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgWWFuZywKCk9uIDEyLzQvMTkgNjo1NyBQTSwgWWFuZyBYdSB3cm90ZToKPiBUaGlzIGlzIGEg
-cmVncmVzc3Rpb24gdGVzdCB0byBjaGVjayBRX1hRVU9UQVJNICB3aGV0aGVyIGhhcwo+IHF1b3Rh
-IGZsYWdzIGNoZWNrLgo+Cj4gU2lnbmVkLW9mZi1ieTogWWFuZyBYdSA8eHV5YW5nMjAxOC5qeUBj
-bi5mdWppdHN1LmNvbT4KPiAtLS0KPiAgIGluY2x1ZGUvbGFwaS9xdW90YWN0bC5oICAgICAgICAg
-ICAgICAgICAgICAgICB8ICA0ICsKPiAgIHJ1bnRlc3Qvc3lzY2FsbHMgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICB8ICAxICsKPiAgIHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcXVvdGFj
-dGwvLmdpdGlnbm9yZSB8ICAxICsKPiAgIC4uLi9rZXJuZWwvc3lzY2FsbHMvcXVvdGFjdGwvcXVv
-dGFjdGwwNy5jICAgICB8IDg5ICsrKysrKysrKysrKysrKysrKysKPiAgIDQgZmlsZXMgY2hhbmdl
-ZCwgOTUgaW5zZXJ0aW9ucygrKQo+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IHRlc3RjYXNlcy9rZXJu
-ZWwvc3lzY2FsbHMvcXVvdGFjdGwvcXVvdGFjdGwwNy5jCj4KPiBkaWZmIC0tZ2l0IGEvaW5jbHVk
-ZS9sYXBpL3F1b3RhY3RsLmggYi9pbmNsdWRlL2xhcGkvcXVvdGFjdGwuaAo+IGluZGV4IGQzMjIz
-Yjg2My4uYzFlYzlkNmUxIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvbGFwaS9xdW90YWN0bC5oCj4g
-KysrIGIvaW5jbHVkZS9sYXBpL3F1b3RhY3RsLmgKPiBAQCAtNTksNiArNTksMTAgQEAgc3RydWN0
-IGZzX3F1b3RhX3N0YXR2IHsKPiAgICMgZGVmaW5lIFBSSlFVT1RBIDIKPiAgICNlbmRpZgo+ICAg
-Cj4gKyNpZm5kZWYgUV9YUVVPVEFSTQo+ICsjIGRlZmluZSBRX1hRVU9UQVJNIFhRTV9DTUQoNikK
-PiArI2VuZGlmCj4gKwo+ICAgI2lmbmRlZiBRX1hHRVRRU1RBVFYKPiAgICMgZGVmaW5lIFFfWEdF
-VFFTVEFUViBYUU1fQ01EKDgpCj4gICAjZW5kaWYKPiBkaWZmIC0tZ2l0IGEvcnVudGVzdC9zeXNj
-YWxscyBiL3J1bnRlc3Qvc3lzY2FsbHMKPiBpbmRleCAxNWRiZDk5NzEuLjBmNzVjZjNmNiAxMDA2
-NDQKPiAtLS0gYS9ydW50ZXN0L3N5c2NhbGxzCj4gKysrIGIvcnVudGVzdC9zeXNjYWxscwo+IEBA
-IC05NTgsNiArOTU4LDcgQEAgcXVvdGFjdGwwMyBxdW90YWN0bDAzCj4gICBxdW90YWN0bDA0IHF1
-b3RhY3RsMDQKPiAgIHF1b3RhY3RsMDUgcXVvdGFjdGwwNQo+ICAgcXVvdGFjdGwwNiBxdW90YWN0
-bDA2Cj4gK3F1b3RhY3RsMDcgcXVvdGFjdGwwNwo+ICAgCj4gICByZWFkMDEgcmVhZDAxCj4gICBy
-ZWFkMDIgcmVhZDAyCj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcXVv
-dGFjdGwvLmdpdGlnbm9yZSBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcXVvdGFjdGwvLmdp
-dGlnbm9yZQo+IGluZGV4IDEyODk2ZDZhZC4uOGQyZWY5NGQ5IDEwMDY0NAo+IC0tLSBhL3Rlc3Rj
-YXNlcy9rZXJuZWwvc3lzY2FsbHMvcXVvdGFjdGwvLmdpdGlnbm9yZQo+ICsrKyBiL3Rlc3RjYXNl
-cy9rZXJuZWwvc3lzY2FsbHMvcXVvdGFjdGwvLmdpdGlnbm9yZQo+IEBAIC00LDMgKzQsNCBAQAo+
-ICAgL3F1b3RhY3RsMDQKPiAgIC9xdW90YWN0bDA1Cj4gICAvcXVvdGFjdGwwNgo+ICsvcXVvdGFj
-dGwwNwo+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3F1b3RhY3RsL3F1
-b3RhY3RsMDcuYyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcXVvdGFjdGwvcXVvdGFjdGww
-Ny5jCj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiBpbmRleCAwMDAwMDAwMDAuLjA3NmRiMGJmZQo+
-IC0tLSAvZGV2L251bGwKPiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3F1b3RhY3Rs
-L3F1b3RhY3RsMDcuYwo+IEBAIC0wLDAgKzEsODkgQEAKPiArLy8gU1BEWC1MaWNlbnNlLUlkZW50
-aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIKPiArLyoKPiArICogQ29weXJpZ2h0IChjKSAyMDE5IEZV
-SklUU1UgTElNSVRFRC4gQWxsIHJpZ2h0cyByZXNlcnZlZC4KPiArICogQXV0aG9yOiBZYW5nIFh1
-IDx4dXlhbmcyMDE4Lmp5QGNuLmZ1aml0c3UuY29tPgo+ICsgKgo+ICsgKiBUaGlzIGlzIGEgcmVn
-cmVzc3Rpb24gdGVzdCBmb3Iga2VybmVsIGNvbW1pdCAzZGQ0ZDQwYjQyMDgKPiArICogKCJ4ZnM6
-IFNhbml0eSBjaGVjayBmbGFncyBvZiBRX1hRVU9UQVJNIGNhbGwiKS4KPiArICovCj4gKwo+ICsj
-aW5jbHVkZSAiY29uZmlnLmgiCj4gKyNpbmNsdWRlIDxlcnJuby5oPgo+ICsjaW5jbHVkZSA8dW5p
-c3RkLmg+Cj4gKyNpbmNsdWRlIDxzdGRpby5oPgo+ICsjaW5jbHVkZSA8c3lzL3F1b3RhLmg+Cj4g
-KyNpbmNsdWRlICJsYXBpL3F1b3RhY3RsLmgiCj4gKyNpbmNsdWRlICJ0c3RfdGVzdC5oIgo+ICsK
-PiArI2lmZGVmIEhBVkVfWEZTX1hRTV9ICj4gKyMgaW5jbHVkZSA8eGZzL3hxbS5oPgo+ICsKPiAr
-I2RlZmluZSBNTlRQT0lOVCAgICAibW50cG9pbnQiCj4gKwo+ICtzdGF0aWMgdWludDMyX3QgcWZs
-YWdfYWNjdCA9IFhGU19RVU9UQV9VRFFfQUNDVDsKPiArc3RhdGljIGludCB0ZXN0X2lkOwo+ICtz
-dGF0aWMgaW50IHhxdW90YXJtX25zdXA7Cj4gK3N0YXRpYyB1bnNpZ25lZCBpbnQgdmFsaWRfdHlw
-ZSA9IDE7Cj4gK3N0YXRpYyB1bnNpZ25lZCBpbnQgaW52YWxpZF90eXBlID0gOTsKPiArCj4gK3N0
-YXRpYyB2b2lkIHZlcmlmeV9xdW90YSh2b2lkKQo+ICt7Cj4gKwlpZiAoeHF1b3Rhcm1fbnN1cCkg
-ewo+ICsJCXRzdF9yZXMoVENPTkYsCj4gKwkJCSJjdXJyZW50IHN5c3RlbSBkb2Vzbid0IHN1cHBv
-cnQgUV9YUVVPVEFSTSwgc2tpcCBpdCIpOwo+ICsJCXJldHVybjsKPiArCX0KPiArCj4gKwlTQUZF
-X01PVU5UKHRzdF9kZXZpY2UtPmRldiwgTU5UUE9JTlQsIHRzdF9kZXZpY2UtPmZzX3R5cGUsIDAs
-ICJxdW90YSIpOwo+ICsKPiArCVRFU1QocXVvdGFjdGwoUUNNRChRX1hRVU9UQU9GRiwgVVNSUVVP
-VEEpLCB0c3RfZGV2aWNlLT5kZXYsIHRlc3RfaWQsICh2b2lkICopJnFmbGFnX2FjY3QpKTsKPiAr
-CWlmIChUU1RfUkVUID09IC0xKQo+ICsJCXRzdF9icmsoVEJST0sgfCBUVEVSUk5PLCAicXVvdGFj
-dGwgd2l0aCBRX1hRVU9UQU9GRiBmYWlsZWQiKTsKSXMgaXQgcG9zc2libGUgdG8gZ2l0IHJpZCBv
-ZiBRX1hRVU9UQU9GRiBhbmQgY2FsbCBRX1hRVU9UQVJNIHdpdGggCmludmFsaWRfdHlwZSBkaXJl
-Y3RseT8KPiArCj4gKwlURVNUKHF1b3RhY3RsKFFDTUQoUV9YUVVPVEFSTSwgVVNSUVVPVEEpLCB0
-c3RfZGV2aWNlLT5kZXYsIHRlc3RfaWQsICh2b2lkICopJmludmFsaWRfdHlwZSkpOwo+ICsJaWYg
-KFRTVF9FUlIgPT0gRUlOVkFMKQo+ICsJCXRzdF9yZXMoVFBBU1MsICJRX1hRVU9UQVJNIGhhcyBx
-dW90YSB0eXBlIGNoZWNrIik7Cj4gKwllbHNlCj4gKwkJdHN0X3JlcyhURkFJTCwgIlFfWFFVT1RB
-Uk0gZG9lc24ndCBoYXZlIHF1b3RhIHR5cGUgY2hlY2siKTsKPiArCj4gKwlTQUZFX1VNT1VOVChN
-TlRQT0lOVCk7Cj4gK30KPiArCj4gK3N0YXRpYyB2b2lkIHNldHVwKHZvaWQpCj4gK3sKPiArCXRl
-c3RfaWQgPSBnZXRldWlkKCk7CgpJcyB0ZXN0X2lkIG5lY2Vzc2FyeT/CoCBJdCBzZWVtcyB0byBi
-ZSBpZ25vcmVkIGJ5IGJvdGggUV9YUVVPVEFPRkYgYW5kIApRX1hRVU9UQVJNLgoKPiArCj4gKwlT
-QUZFX01PVU5UKHRzdF9kZXZpY2UtPmRldiwgTU5UUE9JTlQsIHRzdF9kZXZpY2UtPmZzX3R5cGUs
-IDAsICJxdW90YSIpOwo+ICsKPiArCVRFU1QocXVvdGFjdGwoUUNNRChRX1hRVU9UQU9GRiwgVVNS
-UVVPVEEpLCB0c3RfZGV2aWNlLT5kZXYsIHRlc3RfaWQsICh2b2lkICopJnFmbGFnX2FjY3QpKTsK
-PiArCWlmIChUU1RfUkVUID09IC0xKQo+ICsJCXRzdF9icmsoVEJST0sgfCBUVEVSUk5PLCAicXVv
-dGFjdGwgd2l0aCBRX1hRVU9UQU9GRiBmYWlsZWQiKTsKPiArCj4gKwlURVNUKHF1b3RhY3RsKFFD
-TUQoUV9YUVVPVEFSTSwgVVNSUVVPVEEpLCB0c3RfZGV2aWNlLT5kZXYsIHRlc3RfaWQsICh2b2lk
-ICopJnZhbGlkX3R5cGUpKTsKPiArCWlmIChUU1RfRVJSID09IEVJTlZBTCkKPiArCQl4cXVvdGFy
-bV9uc3VwID0gMTsKSXMgeHF1b3Rhcm1fbnN1cCB2YXJpYWJsZSBkdXBsaWNhdGVkPyBpdCBzZWVt
-cyBzaW1wbGVyIHRvIHJlcG9ydCBUQ09ORiBoZXJlLgo+ICsKPiArCVNBRkVfVU1PVU5UKE1OVFBP
-SU5UKTsKCldoeSBkbyB5b3UgbmVlZCB0byBtb3VudCBhbmQgdGhlbiB1bW91bnQ/CgpDb3VsZCB3
-ZSBjYWxsIFFfWFFVT1RBT04gaWYgeW91IGhhdmUgdG8gdHVybiBvbiB1c3JxdW90YSBhZ2Fpbj8K
-CgpCZXN0IFJlZ2FyZHMsCgpYaWFvIFlhbmcKCj4gK30KPiArCj4gK3N0YXRpYyBjb25zdCBjaGFy
-ICprY29uZmlnc1tdID0gewo+ICsJIkNPTkZJR19YRlNfUVVPVEEiLAo+ICsJTlVMTAo+ICt9Owo+
-ICsKPiArc3RhdGljIHN0cnVjdCB0c3RfdGVzdCB0ZXN0ID0gewo+ICsJLnNldHVwID0gc2V0dXAs
-Cj4gKwkubmVlZHNfcm9vdCA9IDEsCj4gKwkubmVlZHNfa2NvbmZpZ3MgPSBrY29uZmlncywKPiAr
-CS50ZXN0X2FsbCA9IHZlcmlmeV9xdW90YSwKPiArCS5mb3JtYXRfZGV2aWNlID0gMSwKPiArCS5k
-ZXZfZnNfdHlwZSA9ICJ4ZnMiLAo+ICsJLm1udHBvaW50ID0gTU5UUE9JTlQsCj4gKwkudGFncyA9
-IChjb25zdCBzdHJ1Y3QgdHN0X3RhZ1tdKSB7Cj4gKwkJeyJsaW51eC1naXQiLCAiM2RkNGQ0MGI0
-MjA4In0sCj4gKwkJe30KPiArCX0KPiArfTsKPiArI2Vsc2UKPiArCVRTVF9URVNUX1RDT05GKCJT
-eXN0ZW0gZG9lc24ndCBoYXZlIDx4ZnMveHFtLmg+Iik7Cj4gKyNlbmRpZgoKCi0tIApNYWlsaW5n
-IGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+On 12/2/19 11:19 AM, Xiao Yang wrote:
+> +do_test()
+> +{
+
+First of all, your patch changes the test scenario. The original
+scenario is this:
+(setup) Deactivate selected CPU
+1. Check that load statistics are zero or empty for selected CPU
+2. Activate selected CPU
+3. Check that load statistics are valid for selected CPU
+4. Deactivate selected CPU
+(cleanup) Activate selected CPU
+
+I have a few kernel builds where step 3 correctly detects regression.
+
+Your changed scenario looks like this:
+1. Activate selected CPU
+2. Check that load statistics are non-zero for selected CPU
+3. Deactivate selected CPU
+4. Check that load statistics are empty for selected CPU
+(cleanup) Return selected CPU back to original state
+
+Your new scenario has two problems:
+
+- You have to run at least two test loops to verify that reactivating a
+CPU doesn't break /proc/stat entries.
+
+- You only check that load statistics are non-zero. This works with sar
+because the program already normalizes load statistics for you. But it
+won't detect the regression mentioned above because the bug sets one of
+the entries to something absurdly high. This will confuse sar enough to
+print all load values as 0 but it'll pass your checks.
+
+In addition to checking that at least some values are non-zero, you need
+to check a few more things:
+- Call `getconf CLK_TCK` to find /proc/stat timer resolution
+- Calculate system uptime in seconds
+- Check that sum of all /proc/stat values for selected CPU is less than
+or equal to (timer resolution * (uptime+1))
+- Also consider doing the above check for all CPUs to increase test
+coverage.
+
+> +	for field in $(seq 2 11); do
+> +		field_value=$(grep "^cpu${cpu_num}" /proc/stat | awk "{print \$$field}")
+> +		[ "$field_value" != "0" ] && passed=1
+>  	done
+>  
+> -	if [ $check_passed -eq 0 ]; then
+> -		tst_resm TFAIL "No change in the CPU statistics"
+> -		tst_exit
+> +	if [ $passed -eq 0 ]; then
+> +		tst_res TFAIL \
+> +			"all field of online cpu{cpu_num} shows zero in /proc/stat"
+> +		return 1
+>  	fi
+
+It'd be better to write this check (including the upper bound check
+explained above) entirely in Awk.
+
+if ! awk "[test script]" /proc/stat; then
+	tst_res TFAIL ...
+	return 1
+fi
+
+-- 
+Martin Doucha   mdoucha@suse.cz
+QA Engineer for Software Maintenance
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
