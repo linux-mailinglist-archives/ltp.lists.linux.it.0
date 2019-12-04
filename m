@@ -2,46 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A33461129AA
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 11:57:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F7D91129DD
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 12:11:01 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 435503C2510
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 11:57:41 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4EE8B3C2500
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 12:11:01 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 4F38B3C2399
- for <ltp@lists.linux.it>; Wed,  4 Dec 2019 11:57:36 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id E45DA6012CC
- for <ltp@lists.linux.it>; Wed,  4 Dec 2019 11:57:34 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.69,277,1571673600"; d="scan'208";a="79585217"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 04 Dec 2019 18:57:30 +0800
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id 2223E4CE1646
- for <ltp@lists.linux.it>; Wed,  4 Dec 2019 18:49:02 +0800 (CST)
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Wed, 4 Dec 2019 18:57:29 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Wed, 4 Dec 2019 18:57:36 +0800
-Message-ID: <1575457056-10022-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id EAA1A3C2439
+ for <ltp@lists.linux.it>; Wed,  4 Dec 2019 12:10:58 +0100 (CET)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 786561A03FDF
+ for <ltp@lists.linux.it>; Wed,  4 Dec 2019 12:10:57 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id B7DA0B18D;
+ Wed,  4 Dec 2019 11:10:56 +0000 (UTC)
+Date: Wed, 4 Dec 2019 12:10:56 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <20191204111056.GB32161@rei.lan>
+References: <20191128084506.7587-1-liwang@redhat.com>
+ <20191203104917.GA2844@rei>
+ <CAEemH2d0KJ_oi7j5sjcT=uUo28crB_hCs-gJzvWhczvKOG-mdA@mail.gmail.com>
+ <CAEemH2doR7C6J4ROgLw=cJsWfH2-6y8-YwDwdGM8coH6ovM6_Q@mail.gmail.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-yoursite-MailScanner-ID: 2223E4CE1646.AD058
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <CAEemH2doR7C6J4ROgLw=cJsWfH2-6y8-YwDwdGM8coH6ovM6_Q@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] syscalls/quotactl07: add regresstion test for
- Q_XQTUOTARM
+X-Spam-Status: No, score=0.7 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ PDS_BTC_ID, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] lib: add tst_request_hugepages
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,159 +50,42 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This is a regresstion test to check Q_XQUOTARM  whether has
-quota flags check.
+Hi!
+> > if the .needs_hugepages is set to an expected number, we should verify
+> > strictly if the system can provide that.
+> >
+> 
+> Oh, I guess maybe I misunderstand your suggestion here. you mean just to
+> let .needs_hugepages = 1 but not set an expected number, right? if so, that
+> will more easy to achieve.
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- include/lapi/quotactl.h                       |  4 +
- runtest/syscalls                              |  1 +
- testcases/kernel/syscalls/quotactl/.gitignore |  1 +
- .../kernel/syscalls/quotactl/quotactl07.c     | 89 +++++++++++++++++++
- 4 files changed, 95 insertions(+)
- create mode 100644 testcases/kernel/syscalls/quotactl/quotactl07.c
+We do have tests that needs more than 1 hugepage, there are tests that
+do numa migration so we likely need the needs_hugepages to be unsigned
+integer that represents the number of required hugepages.
 
-diff --git a/include/lapi/quotactl.h b/include/lapi/quotactl.h
-index d3223b863..c1ec9d6e1 100644
---- a/include/lapi/quotactl.h
-+++ b/include/lapi/quotactl.h
-@@ -59,6 +59,10 @@ struct fs_quota_statv {
- # define PRJQUOTA 2
- #endif
- 
-+#ifndef Q_XQUOTARM
-+# define Q_XQUOTARM XQM_CMD(6)
-+#endif
-+
- #ifndef Q_XGETQSTATV
- # define Q_XGETQSTATV XQM_CMD(8)
- #endif
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 15dbd9971..0f75cf3f6 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -958,6 +958,7 @@ quotactl03 quotactl03
- quotactl04 quotactl04
- quotactl05 quotactl05
- quotactl06 quotactl06
-+quotactl07 quotactl07
- 
- read01 read01
- read02 read02
-diff --git a/testcases/kernel/syscalls/quotactl/.gitignore b/testcases/kernel/syscalls/quotactl/.gitignore
-index 12896d6ad..8d2ef94d9 100644
---- a/testcases/kernel/syscalls/quotactl/.gitignore
-+++ b/testcases/kernel/syscalls/quotactl/.gitignore
-@@ -4,3 +4,4 @@
- /quotactl04
- /quotactl05
- /quotactl06
-+/quotactl07
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl07.c b/testcases/kernel/syscalls/quotactl/quotactl07.c
-new file mode 100644
-index 000000000..076db0bfe
---- /dev/null
-+++ b/testcases/kernel/syscalls/quotactl/quotactl07.c
-@@ -0,0 +1,89 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2019 FUJITSU LIMITED. All rights reserved.
-+ * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-+ *
-+ * This is a regresstion test for kernel commit 3dd4d40b4208
-+ * ("xfs: Sanity check flags of Q_XQUOTARM call").
-+ */
-+
-+#include "config.h"
-+#include <errno.h>
-+#include <unistd.h>
-+#include <stdio.h>
-+#include <sys/quota.h>
-+#include "lapi/quotactl.h"
-+#include "tst_test.h"
-+
-+#ifdef HAVE_XFS_XQM_H
-+# include <xfs/xqm.h>
-+
-+#define MNTPOINT    "mntpoint"
-+
-+static uint32_t qflag_acct = XFS_QUOTA_UDQ_ACCT;
-+static int test_id;
-+static int xquotarm_nsup;
-+static unsigned int valid_type = 1;
-+static unsigned int invalid_type = 9;
-+
-+static void verify_quota(void)
-+{
-+	if (xquotarm_nsup) {
-+		tst_res(TCONF,
-+			"current system doesn't support Q_XQUOTARM, skip it");
-+		return;
-+	}
-+
-+	SAFE_MOUNT(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, "quota");
-+
-+	TEST(quotactl(QCMD(Q_XQUOTAOFF, USRQUOTA), tst_device->dev, test_id, (void *)&qflag_acct));
-+	if (TST_RET == -1)
-+		tst_brk(TBROK | TTERRNO, "quotactl with Q_XQUOTAOFF failed");
-+
-+	TEST(quotactl(QCMD(Q_XQUOTARM, USRQUOTA), tst_device->dev, test_id, (void *)&invalid_type));
-+	if (TST_ERR == EINVAL)
-+		tst_res(TPASS, "Q_XQUOTARM has quota type check");
-+	else
-+		tst_res(TFAIL, "Q_XQUOTARM doesn't have quota type check");
-+
-+	SAFE_UMOUNT(MNTPOINT);
-+}
-+
-+static void setup(void)
-+{
-+	test_id = geteuid();
-+
-+	SAFE_MOUNT(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, "quota");
-+
-+	TEST(quotactl(QCMD(Q_XQUOTAOFF, USRQUOTA), tst_device->dev, test_id, (void *)&qflag_acct));
-+	if (TST_RET == -1)
-+		tst_brk(TBROK | TTERRNO, "quotactl with Q_XQUOTAOFF failed");
-+
-+	TEST(quotactl(QCMD(Q_XQUOTARM, USRQUOTA), tst_device->dev, test_id, (void *)&valid_type));
-+	if (TST_ERR == EINVAL)
-+		xquotarm_nsup = 1;
-+
-+	SAFE_UMOUNT(MNTPOINT);
-+}
-+
-+static const char *kconfigs[] = {
-+	"CONFIG_XFS_QUOTA",
-+	NULL
-+};
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.needs_root = 1,
-+	.needs_kconfigs = kconfigs,
-+	.test_all = verify_quota,
-+	.format_device = 1,
-+	.dev_fs_type = "xfs",
-+	.mntpoint = MNTPOINT,
-+	.tags = (const struct tst_tag[]) {
-+		{"linux-git", "3dd4d40b4208"},
-+		{}
-+	}
-+};
-+#else
-+	TST_TEST_TCONF("System doesn't have <xfs/xqm.h>");
-+#endif
+> >> Also this fails to cleanup after itself, we have to restore the system
+> >> after the test, which is one more reason why we need .needs_hugepages in
+> >> the tst_test structure because the test library can cleanup after the
+> >> test with that.
+> >>
+> >
+> > Agree, I will add the save/restore part for this.
+> >
+> 
+> Or just go with .save_restore in the testcase?
+
+I guess that best option would be to call tst_sys_conf_save_str() in the
+test library if we decided to change the nr_hugepages file.
+
 -- 
-2.18.0
-
-
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
