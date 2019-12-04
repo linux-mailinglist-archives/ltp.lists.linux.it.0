@@ -1,46 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 052F4112430
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 09:12:55 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id D642C112451
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 09:18:36 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 72EDA3C2516
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 09:12:54 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6A15F3C250D
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 09:18:36 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id A8ABA3C2383
- for <ltp@lists.linux.it>; Wed,  4 Dec 2019 09:12:50 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 7FCF4100159B
- for <ltp@lists.linux.it>; Wed,  4 Dec 2019 09:12:46 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.69,276,1571673600"; d="scan'208,223";a="79571861"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 04 Dec 2019 16:12:43 +0800
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id 583194CE1C0A
- for <ltp@lists.linux.it>; Wed,  4 Dec 2019 16:04:13 +0800 (CST)
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Wed, 4 Dec 2019 16:12:41 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Wed, 4 Dec 2019 16:12:46 +0800
-Message-ID: <1575447166-7813-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 9F31D3C23DF
+ for <ltp@lists.linux.it>; Wed,  4 Dec 2019 09:18:31 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 28574601890
+ for <ltp@lists.linux.it>; Wed,  4 Dec 2019 09:18:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1575447509;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Kln9bTRM88rOH9XNgyOqW2POVap1DkdUcpikqALovvg=;
+ b=Sza4HKnBtz2HUphC01nczo4xsSkpG7/vI9orv6t0+XvTGwMz6aw7JDGO3/gS/mvu7fDbZ/
+ 5jxtm15oedpeYR85P8vaeWz6p1+mckgS2uPHS0UeXoe/1iKjHeaO5zH7gw4mw1GlQbC1IX
+ mMMtlYtiBxhbTksfKjvIvi0V/ubx1dQ=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-232-CxSctQxENd25Qf7T29R53w-1; Wed, 04 Dec 2019 03:18:27 -0500
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+ [10.5.11.16])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BC87D800D4C;
+ Wed,  4 Dec 2019 08:18:26 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B49E85C1B0;
+ Wed,  4 Dec 2019 08:18:26 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9B32E5BC03;
+ Wed,  4 Dec 2019 08:18:26 +0000 (UTC)
+Date: Wed, 4 Dec 2019 03:18:26 -0500 (EST)
+From: Jan Stancek <jstancek@redhat.com>
+To: CKI Project <cki-project@redhat.com>
+Message-ID: <2014617876.14947317.1575447506379.JavaMail.zimbra@redhat.com>
+In-Reply-To: <cki.E29F90E1D2.DNJBK7BQCI@redhat.com>
+References: <cki.E29F90E1D2.DNJBK7BQCI@redhat.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-yoursite-MailScanner-ID: 583194CE1C0A.AF9CD
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Originating-IP: [10.43.17.163, 10.4.195.21]
+Thread-Topic: =?utf-8?B?4p2MIEZBSUw6?= Test report for kernel
+ 5.3.14-a8a1bb9.cki (stable-queue)
+Thread-Index: gVawCuvmigoaW2KLXrng0YJd6pk3Qg==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-MC-Unique: CxSctQxENd25Qf7T29R53w-1
+X-Mimecast-Spam-Score: 0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH] Remove duplicated ".needs_tmpdir=1" when using
- equivalent flags
+X-Spam-Status: No, score=0.6 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PDS_BTC_ID,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] 
+ =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E3?=
+ =?utf-8?q?=2E14-a8a1bb9=2Ecki_=28stable-queue=29?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,674 +77,81 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Memory Management <mm-qe@redhat.com>, LTP Mailing List <ltp@lists.linux.it>,
+ Linux Stable maillist <stable@vger.kernel.org>,
+ William Gomeringer <wgomeringer@redhat.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From ltp library code, when we have used these flags(".needs_device"
-".mntpoint" ".resource_file" ".needs_checkpoints" ".format_device"
-"mount_device" ".all_filesystems"), we don't need to set ".needs_tmpdir=1".
-So remove it.
-
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- doc/test-writing-guidelines.txt                              | 5 ++++-
- lib/newlib_tests/tst_device.c                                | 1 -
- testcases/kernel/fs/fs_fill/fs_fill.c                        | 1 -
- testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c       | 1 -
- testcases/kernel/security/dirtyc0w/dirtyc0w.c                | 1 -
- testcases/kernel/syscalls/access/access04.c                  | 1 -
- testcases/kernel/syscalls/acct/acct01.c                      | 1 -
- .../kernel/syscalls/copy_file_range/copy_file_range01.c      | 1 -
- .../kernel/syscalls/copy_file_range/copy_file_range02.c      | 1 -
- testcases/kernel/syscalls/creat/creat06.c                    | 1 -
- testcases/kernel/syscalls/execveat/execveat03.c              | 1 -
- testcases/kernel/syscalls/fallocate/fallocate04.c            | 1 -
- testcases/kernel/syscalls/fallocate/fallocate05.c            | 1 -
- testcases/kernel/syscalls/fanotify/fanotify01.c              | 1 -
- testcases/kernel/syscalls/fanotify/fanotify05.c              | 1 -
- testcases/kernel/syscalls/fanotify/fanotify06.c              | 1 -
- testcases/kernel/syscalls/fanotify/fanotify10.c              | 1 -
- testcases/kernel/syscalls/fanotify/fanotify15.c              | 1 -
- testcases/kernel/syscalls/fcntl/fcntl33.c                    | 1 -
- testcases/kernel/syscalls/fgetxattr/fgetxattr01.c            | 1 -
- testcases/kernel/syscalls/flock/flock03.c                    | 1 -
- testcases/kernel/syscalls/fremovexattr/fremovexattr01.c      | 1 -
- testcases/kernel/syscalls/fremovexattr/fremovexattr02.c      | 1 -
- testcases/kernel/syscalls/fsetxattr/fsetxattr01.c            | 1 -
- testcases/kernel/syscalls/fsync/fsync01.c                    | 1 -
- testcases/kernel/syscalls/ftruncate/ftruncate04.c            | 1 -
- testcases/kernel/syscalls/getxattr/getxattr04.c              | 1 -
- testcases/kernel/syscalls/inotify/inotify03.c                | 1 -
- testcases/kernel/syscalls/inotify/inotify07.c                | 1 -
- testcases/kernel/syscalls/inotify/inotify08.c                | 1 -
- testcases/kernel/syscalls/ioctl/ioctl04.c                    | 1 -
- testcases/kernel/syscalls/lremovexattr/lremovexattr01.c      | 1 -
- testcases/kernel/syscalls/mkdir/mkdir03.c                    | 1 -
- testcases/kernel/syscalls/msync/msync04.c                    | 1 -
- testcases/kernel/syscalls/preadv2/preadv203.c                | 1 -
- testcases/kernel/syscalls/quotactl/quotactl01.c              | 1 -
- testcases/kernel/syscalls/quotactl/quotactl02.c              | 1 -
- testcases/kernel/syscalls/quotactl/quotactl03.c              | 1 -
- testcases/kernel/syscalls/quotactl/quotactl04.c              | 1 -
- testcases/kernel/syscalls/quotactl/quotactl05.c              | 1 -
- testcases/kernel/syscalls/readahead/readahead02.c            | 1 -
- testcases/kernel/syscalls/statx/statx01.c                    | 1 -
- testcases/kernel/syscalls/statx/statx04.c                    | 1 -
- testcases/kernel/syscalls/statx/statx06.c                    | 1 -
- testcases/kernel/syscalls/umount/umount01.c                  | 1 -
- testcases/kernel/syscalls/umount/umount02.c                  | 1 -
- testcases/kernel/syscalls/umount/umount03.c                  | 1 -
- testcases/kernel/uevents/uevent01.c                          | 1 -
- testcases/kernel/uevents/uevent02.c                          | 1 -
- testcases/kernel/uevents/uevent03.c                          | 1 -
- 50 files changed, 4 insertions(+), 50 deletions(-)
-
-diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
-index 546bb7a49..29b0e5db2 100644
---- a/doc/test-writing-guidelines.txt
-+++ b/doc/test-writing-guidelines.txt
-@@ -493,7 +493,10 @@ this needed.
- 
- If '.needs_tmpdir' is set to '1' in the 'struct tst_test' unique test
- temporary is created and it's set as the test working directory. Tests *MUST
--NOT* create temporary files outside that directory.
-+NOT* create temporary files outside that directory. If we have used one of
-+these flags(".needs_device" ".mntpoint" ".resource_file" ".needs_checkpoints"
-+".format_device" "mount_device" ".all_filesystems"), we don't need to set
-+'.needs_tmpdir' again because these flags also will create temporary directory.
- 
- IMPORTANT: Close all file descriptors (that point to files in test temporary
-            directory, even the unlinked ones) either in the 'test()' function
-diff --git a/lib/newlib_tests/tst_device.c b/lib/newlib_tests/tst_device.c
-index 6058b3928..1344495b3 100644
---- a/lib/newlib_tests/tst_device.c
-+++ b/lib/newlib_tests/tst_device.c
-@@ -32,7 +32,6 @@ static void do_test(void)
- }
- 
- static struct tst_test test = {
--	.needs_tmpdir = 1,
- 	.needs_device = 1,
- 	.dev_min_size = 300,
- 	.test_all = do_test,
-diff --git a/testcases/kernel/fs/fs_fill/fs_fill.c b/testcases/kernel/fs/fs_fill/fs_fill.c
-index 2604a1c63..66b3974fc 100644
---- a/testcases/kernel/fs/fs_fill/fs_fill.c
-+++ b/testcases/kernel/fs/fs_fill/fs_fill.c
-@@ -110,7 +110,6 @@ static void cleanup(void)
- 
- static struct tst_test test = {
- 	.needs_root = 1,
--	.needs_tmpdir = 1,
- 	.mount_device = 1,
- 	.mntpoint = MNTPOINT,
- 	.all_filesystems = 1,
-diff --git a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c
-index 9353564e4..f7ac881bc 100644
---- a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c
-+++ b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c
-@@ -333,7 +333,6 @@ void cleanup(void)
- static struct tst_test test = {
- 	.needs_root = 1,
- 	.forks_child = 1,
--	.needs_tmpdir = 1,
- 	.options = options,
- 	.setup = setup,
- 	.cleanup = cleanup,
-diff --git a/testcases/kernel/security/dirtyc0w/dirtyc0w.c b/testcases/kernel/security/dirtyc0w/dirtyc0w.c
-index e7857037d..a0a81b6ed 100644
---- a/testcases/kernel/security/dirtyc0w/dirtyc0w.c
-+++ b/testcases/kernel/security/dirtyc0w/dirtyc0w.c
-@@ -92,7 +92,6 @@ void dirtyc0w_test(void)
- }
- 
- static struct tst_test test = {
--	.needs_tmpdir = 1,
- 	.needs_checkpoints = 1,
- 	.forks_child = 1,
- 	.needs_root = 1,
-diff --git a/testcases/kernel/syscalls/access/access04.c b/testcases/kernel/syscalls/access/access04.c
-index 68cbff509..328be1b73 100644
---- a/testcases/kernel/syscalls/access/access04.c
-+++ b/testcases/kernel/syscalls/access/access04.c
-@@ -110,7 +110,6 @@ static void setup(void)
- 
- static struct tst_test test = {
- 	.tcnt = ARRAY_SIZE(tcases),
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- 	.forks_child = 1,
- 	.needs_rofs = 1,
-diff --git a/testcases/kernel/syscalls/acct/acct01.c b/testcases/kernel/syscalls/acct/acct01.c
-index ec570017b..c161d2a2c 100644
---- a/testcases/kernel/syscalls/acct/acct01.c
-+++ b/testcases/kernel/syscalls/acct/acct01.c
-@@ -120,7 +120,6 @@ static void verify_acct(unsigned int nr)
- 
- static struct tst_test test = {
- 	.needs_root = 1,
--	.needs_tmpdir = 1,
- 	.mntpoint = "mntpoint",
- 	.needs_rofs = 1,
- 	.tcnt = ARRAY_SIZE(tcases),
-diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range01.c b/testcases/kernel/syscalls/copy_file_range/copy_file_range01.c
-index 6097c85b3..7d27007a3 100644
---- a/testcases/kernel/syscalls/copy_file_range/copy_file_range01.c
-+++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range01.c
-@@ -227,7 +227,6 @@ static struct tst_test test = {
- 	.setup = setup,
- 	.cleanup = cleanup,
- 	.tcnt = ARRAY_SIZE(tcases),
--	.needs_tmpdir = 1,
- 	.mount_device = 1,
- 	.mntpoint = MNTPOINT,
- 	.all_filesystems = 1,
-diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
-index e4159cad7..c09766fe6 100644
---- a/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
-+++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range02.c
-@@ -248,6 +248,5 @@ static struct tst_test test = {
- 	.mount_device = 1,
- 	.mntpoint = MNTPOINT,
- 	.needs_root = 1,
--	.needs_tmpdir = 1,
- 	.test_variants = TEST_VARIANTS,
- };
-diff --git a/testcases/kernel/syscalls/creat/creat06.c b/testcases/kernel/syscalls/creat/creat06.c
-index 880159b3f..5c82e4757 100644
---- a/testcases/kernel/syscalls/creat/creat06.c
-+++ b/testcases/kernel/syscalls/creat/creat06.c
-@@ -153,7 +153,6 @@ static struct tst_test test = {
- 	.test = verify_creat,
- 	.needs_root = 1,
- 	.needs_rofs = 1,
--	.needs_tmpdir = 1,
- 	.mntpoint = "mntpoint",
- 	.setup = setup,
- };
-diff --git a/testcases/kernel/syscalls/execveat/execveat03.c b/testcases/kernel/syscalls/execveat/execveat03.c
-index b0d9033e3..27247e664 100644
---- a/testcases/kernel/syscalls/execveat/execveat03.c
-+++ b/testcases/kernel/syscalls/execveat/execveat03.c
-@@ -75,7 +75,6 @@ static const char *const resource_files[] = {
- 
- static struct tst_test test = {
- 	.needs_root = 1,
--	.needs_tmpdir = 1,
- 	.mount_device = 1,
- 	.needs_overlay = 1,
- 	.mntpoint = mntpoint,
-diff --git a/testcases/kernel/syscalls/fallocate/fallocate04.c b/testcases/kernel/syscalls/fallocate/fallocate04.c
-index 936d0d1b0..1901502c2 100644
---- a/testcases/kernel/syscalls/fallocate/fallocate04.c
-+++ b/testcases/kernel/syscalls/fallocate/fallocate04.c
-@@ -310,6 +310,5 @@ static struct tst_test test = {
- 	.mount_device = 1,
- 	.mntpoint = MNTPOINT,
- 	.all_filesystems = 1,
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- };
-diff --git a/testcases/kernel/syscalls/fallocate/fallocate05.c b/testcases/kernel/syscalls/fallocate/fallocate05.c
-index 17034e5b1..3639ac57a 100644
---- a/testcases/kernel/syscalls/fallocate/fallocate05.c
-+++ b/testcases/kernel/syscalls/fallocate/fallocate05.c
-@@ -84,7 +84,6 @@ static void cleanup(void)
- 
- static struct tst_test test = {
- 	.needs_root = 1,
--	.needs_tmpdir = 1,
- 	.mount_device = 1,
- 	.mntpoint = MNTPOINT,
- 	.all_filesystems = 1,
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify01.c b/testcases/kernel/syscalls/fanotify/fanotify01.c
-index 44966dce5..03e453f41 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify01.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify01.c
-@@ -379,7 +379,6 @@ static struct tst_test test = {
- 	.tcnt = ARRAY_SIZE(tcases),
- 	.setup = setup,
- 	.cleanup = cleanup,
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- 	.mount_device = 1,
- 	.mntpoint = MOUNT_PATH,
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify05.c b/testcases/kernel/syscalls/fanotify/fanotify05.c
-index 112295709..e53cc333a 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify05.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify05.c
-@@ -127,7 +127,6 @@ static struct tst_test test = {
- 	.setup = setup,
- 	.cleanup = cleanup,
- 	.needs_root = 1,
--	.needs_tmpdir = 1,
- 	.mount_device = 1,
- 	.mntpoint = MOUNT_PATH,
- };
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify06.c b/testcases/kernel/syscalls/fanotify/fanotify06.c
-index 4e6977954..99e312a4f 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify06.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify06.c
-@@ -252,7 +252,6 @@ static struct tst_test test = {
- 	.tcnt = ARRAY_SIZE(tcases),
- 	.setup = setup,
- 	.cleanup = cleanup,
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- 	.mount_device = 1,
- 	.mntpoint = mntpoint,
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify10.c b/testcases/kernel/syscalls/fanotify/fanotify10.c
-index 1d1712e98..ef0807761 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify10.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify10.c
-@@ -440,7 +440,6 @@ static struct tst_test test = {
- 	.cleanup = cleanup,
- 	.mount_device = 1,
- 	.mntpoint = MOUNT_PATH,
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- 	.forks_child = 1,
- 	.resource_files = resource_files,
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify15.c b/testcases/kernel/syscalls/fanotify/fanotify15.c
-index 48ed368ae..e0d513025 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify15.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify15.c
-@@ -233,7 +233,6 @@ static void do_cleanup(void)
- 
- static struct tst_test test = {
- 	.needs_root = 1,
--	.needs_tmpdir = 1,
- 	.mount_device = 1,
- 	.mntpoint = MOUNT_POINT,
- 	.all_filesystems = 1,
-diff --git a/testcases/kernel/syscalls/fcntl/fcntl33.c b/testcases/kernel/syscalls/fcntl/fcntl33.c
-index 804a718e9..70d5ec5ff 100644
---- a/testcases/kernel/syscalls/fcntl/fcntl33.c
-+++ b/testcases/kernel/syscalls/fcntl/fcntl33.c
-@@ -226,7 +226,6 @@ static void cleanup(void)
- static struct tst_test test = {
- 	.forks_child = 1,
- 	.needs_root = 1,
--	.needs_tmpdir = 1,
- 	.needs_checkpoints = 1,
- 	.tcnt = ARRAY_SIZE(test_cases),
- 	.setup = setup,
-diff --git a/testcases/kernel/syscalls/fgetxattr/fgetxattr01.c b/testcases/kernel/syscalls/fgetxattr/fgetxattr01.c
-index 227e090ea..35c46a1c3 100644
---- a/testcases/kernel/syscalls/fgetxattr/fgetxattr01.c
-+++ b/testcases/kernel/syscalls/fgetxattr/fgetxattr01.c
-@@ -141,7 +141,6 @@ static struct tst_test test = {
- 	.mntpoint = MNTPOINT,
- 	.mount_device = 1,
- 	.all_filesystems = 1,
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- };
- 
-diff --git a/testcases/kernel/syscalls/flock/flock03.c b/testcases/kernel/syscalls/flock/flock03.c
-index 57dcc5f5c..92e21a6a1 100644
---- a/testcases/kernel/syscalls/flock/flock03.c
-+++ b/testcases/kernel/syscalls/flock/flock03.c
-@@ -92,7 +92,6 @@ static void setup(void)
- static struct tst_test test = {
- 	.test_all = verify_flock,
- 	.needs_checkpoints = 1,
--	.needs_tmpdir = 1,
- 	.forks_child = 1,
- 	.setup = setup,
- };
-diff --git a/testcases/kernel/syscalls/fremovexattr/fremovexattr01.c b/testcases/kernel/syscalls/fremovexattr/fremovexattr01.c
-index a3ea1aa2b..907d210d1 100644
---- a/testcases/kernel/syscalls/fremovexattr/fremovexattr01.c
-+++ b/testcases/kernel/syscalls/fremovexattr/fremovexattr01.c
-@@ -89,7 +89,6 @@ static struct tst_test test = {
- 	.mntpoint = MNTPOINT,
- 	.mount_device = 1,
- 	.all_filesystems = 1,
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- };
- 
-diff --git a/testcases/kernel/syscalls/fremovexattr/fremovexattr02.c b/testcases/kernel/syscalls/fremovexattr/fremovexattr02.c
-index 534179eae..eb106a8fa 100644
---- a/testcases/kernel/syscalls/fremovexattr/fremovexattr02.c
-+++ b/testcases/kernel/syscalls/fremovexattr/fremovexattr02.c
-@@ -112,7 +112,6 @@ static struct tst_test test = {
- 	.mntpoint = MNTPOINT,
- 	.mount_device = 1,
- 	.all_filesystems = 1,
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- };
- 
-diff --git a/testcases/kernel/syscalls/fsetxattr/fsetxattr01.c b/testcases/kernel/syscalls/fsetxattr/fsetxattr01.c
-index b37dba57b..ffec8104f 100644
---- a/testcases/kernel/syscalls/fsetxattr/fsetxattr01.c
-+++ b/testcases/kernel/syscalls/fsetxattr/fsetxattr01.c
-@@ -221,7 +221,6 @@ static struct tst_test test = {
- 	.mntpoint = MNTPOINT,
- 	.mount_device = 1,
- 	.all_filesystems = 1,
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- };
- 
-diff --git a/testcases/kernel/syscalls/fsync/fsync01.c b/testcases/kernel/syscalls/fsync/fsync01.c
-index 9af38dce0..4e2281b05 100644
---- a/testcases/kernel/syscalls/fsync/fsync01.c
-+++ b/testcases/kernel/syscalls/fsync/fsync01.c
-@@ -47,7 +47,6 @@ static struct tst_test test = {
- 	.cleanup = cleanup,
- 	.setup = setup,
- 	.test_all = verify_fsync,
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- 	.mount_device = 1,
- 	.mntpoint = "mntpoint",
-diff --git a/testcases/kernel/syscalls/ftruncate/ftruncate04.c b/testcases/kernel/syscalls/ftruncate/ftruncate04.c
-index 53d395d1f..ad5c7bbb9 100644
---- a/testcases/kernel/syscalls/ftruncate/ftruncate04.c
-+++ b/testcases/kernel/syscalls/ftruncate/ftruncate04.c
-@@ -171,7 +171,6 @@ static struct tst_test test = {
- 	.test_all = verify_ftruncate,
- 	.setup = setup,
- 	.needs_checkpoints = 1,
--	.needs_tmpdir = 1,
- 	.forks_child = 1,
- 	.mount_device = 1,
- 	.needs_root = 1,
-diff --git a/testcases/kernel/syscalls/getxattr/getxattr04.c b/testcases/kernel/syscalls/getxattr/getxattr04.c
-index 0ac83775a..e64f2a1f1 100644
---- a/testcases/kernel/syscalls/getxattr/getxattr04.c
-+++ b/testcases/kernel/syscalls/getxattr/getxattr04.c
-@@ -106,7 +106,6 @@ static void setup(void)
- }
- 
- static struct tst_test test = {
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- 	.mount_device = 1,
- 	.dev_fs_type = "xfs",
-diff --git a/testcases/kernel/syscalls/inotify/inotify03.c b/testcases/kernel/syscalls/inotify/inotify03.c
-index 1b4685204..01a115546 100644
---- a/testcases/kernel/syscalls/inotify/inotify03.c
-+++ b/testcases/kernel/syscalls/inotify/inotify03.c
-@@ -168,7 +168,6 @@ static void cleanup(void)
- 
- static struct tst_test test = {
- 	.needs_root = 1,
--	.needs_tmpdir = 1,
- 	.format_device = 1,
- 	.setup = setup,
- 	.cleanup = cleanup,
-diff --git a/testcases/kernel/syscalls/inotify/inotify07.c b/testcases/kernel/syscalls/inotify/inotify07.c
-index a4894ffc7..a496489ac 100644
---- a/testcases/kernel/syscalls/inotify/inotify07.c
-+++ b/testcases/kernel/syscalls/inotify/inotify07.c
-@@ -179,7 +179,6 @@ static void cleanup(void)
- 
- static struct tst_test test = {
- 	.needs_root = 1,
--	.needs_tmpdir = 1,
- 	.mount_device = 1,
- 	.needs_overlay = 1,
- 	.mntpoint = mntpoint,
-diff --git a/testcases/kernel/syscalls/inotify/inotify08.c b/testcases/kernel/syscalls/inotify/inotify08.c
-index 41bb5157f..6a4278cba 100644
---- a/testcases/kernel/syscalls/inotify/inotify08.c
-+++ b/testcases/kernel/syscalls/inotify/inotify08.c
-@@ -173,7 +173,6 @@ static void cleanup(void)
- 
- static struct tst_test test = {
- 	.needs_root = 1,
--	.needs_tmpdir = 1,
- 	.mount_device = 1,
- 	.needs_overlay = 1,
- 	.mntpoint = mntpoint,
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl04.c b/testcases/kernel/syscalls/ioctl/ioctl04.c
-index efbe9ce53..353114cc0 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl04.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl04.c
-@@ -81,7 +81,6 @@ static void cleanup(void)
- }
- 
- static struct tst_test test = {
--	.needs_tmpdir = 1,
- 	.format_device = 1,
- 	.needs_root = 1,
- 	.setup = setup,
-diff --git a/testcases/kernel/syscalls/lremovexattr/lremovexattr01.c b/testcases/kernel/syscalls/lremovexattr/lremovexattr01.c
-index 26194f114..0c19c62ac 100644
---- a/testcases/kernel/syscalls/lremovexattr/lremovexattr01.c
-+++ b/testcases/kernel/syscalls/lremovexattr/lremovexattr01.c
-@@ -121,7 +121,6 @@ static struct tst_test test = {
- 	.mntpoint = MNTPOINT,
- 	.mount_device = 1,
- 	.all_filesystems = 1,
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- };
- 
-diff --git a/testcases/kernel/syscalls/mkdir/mkdir03.c b/testcases/kernel/syscalls/mkdir/mkdir03.c
-index 5428cc70d..d5141bb64 100644
---- a/testcases/kernel/syscalls/mkdir/mkdir03.c
-+++ b/testcases/kernel/syscalls/mkdir/mkdir03.c
-@@ -87,7 +87,6 @@ static void setup(void)
- 
- static struct tst_test test = {
- 	.tcnt = ARRAY_SIZE(TC),
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- 	.needs_rofs = 1,
- 	.mntpoint = MNT_POINT,
-diff --git a/testcases/kernel/syscalls/msync/msync04.c b/testcases/kernel/syscalls/msync/msync04.c
-index 04ad1379b..dad07b264 100644
---- a/testcases/kernel/syscalls/msync/msync04.c
-+++ b/testcases/kernel/syscalls/msync/msync04.c
-@@ -93,7 +93,6 @@ static struct tst_test test = {
- 	.test_all = test_msync,
- 	.setup = setup,
- 	.cleanup = cleanup,
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- 	.mntpoint = "msync04",
- 	.mount_device = 1,
-diff --git a/testcases/kernel/syscalls/preadv2/preadv203.c b/testcases/kernel/syscalls/preadv2/preadv203.c
-index 91618f5f5..47c46d526 100644
---- a/testcases/kernel/syscalls/preadv2/preadv203.c
-+++ b/testcases/kernel/syscalls/preadv2/preadv203.c
-@@ -279,6 +279,5 @@ static struct tst_test test = {
- 	.mntpoint = MNTPOINT,
- 	.mount_device = 1,
- 	.all_filesystems = 1,
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- };
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl01.c b/testcases/kernel/syscalls/quotactl/quotactl01.c
-index d33ed3bde..ede61d7e4 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl01.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl01.c
-@@ -226,7 +226,6 @@ static const char *kconfigs[] = {
- };
- 
- static struct tst_test test = {
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- 	.needs_kconfigs = kconfigs,
- 	.test = verify_quota,
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl02.c b/testcases/kernel/syscalls/quotactl/quotactl02.c
-index 07ce8ab47..cd8a0c388 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl02.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl02.c
-@@ -141,7 +141,6 @@ static void verify_quota(unsigned int n)
- }
- 
- static struct tst_test test = {
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- 	.needs_kconfigs = kconfigs,
- 	.test = verify_quota,
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl03.c b/testcases/kernel/syscalls/quotactl/quotactl03.c
-index e2a0448d8..d95719521 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl03.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl03.c
-@@ -70,7 +70,6 @@ static const char *kconfigs[] = {
- };
- 
- static struct tst_test test = {
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- 	.needs_kconfigs = kconfigs,
- 	.test_all = verify_quota,
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl04.c b/testcases/kernel/syscalls/quotactl/quotactl04.c
-index b4581e2f9..8dab83da0 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl04.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl04.c
-@@ -148,7 +148,6 @@ static const char *kconfigs[] = {
- };
- 
- static struct tst_test test = {
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- 	.needs_kconfigs = kconfigs,
- 	.min_kver = "4.10", /* commit 689c958cbe6b (ext4: add project quota support) */
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl05.c b/testcases/kernel/syscalls/quotactl/quotactl05.c
-index 8fa07f739..af5a164e4 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl05.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl05.c
-@@ -98,7 +98,6 @@ static void verify_quota(unsigned int n)
- }
- 
- static struct tst_test test = {
--	.needs_tmpdir = 1,
- 	.needs_root = 1,
- 	.needs_kconfigs = kconfigs,
- 	.test = verify_quota,
-diff --git a/testcases/kernel/syscalls/readahead/readahead02.c b/testcases/kernel/syscalls/readahead/readahead02.c
-index 56739be28..fb06be755 100644
---- a/testcases/kernel/syscalls/readahead/readahead02.c
-+++ b/testcases/kernel/syscalls/readahead/readahead02.c
-@@ -401,7 +401,6 @@ static void cleanup(void)
- 
- static struct tst_test test = {
- 	.needs_root = 1,
--	.needs_tmpdir = 1,
- 	.mount_device = 1,
- 	.mntpoint = mntpoint,
- 	.setup = setup,
-diff --git a/testcases/kernel/syscalls/statx/statx01.c b/testcases/kernel/syscalls/statx/statx01.c
-index c3ba94394..4f9d58282 100644
---- a/testcases/kernel/syscalls/statx/statx01.c
-+++ b/testcases/kernel/syscalls/statx/statx01.c
-@@ -165,5 +165,4 @@ static struct tst_test test = {
- 	.needs_devfs = 1,
- 	.mntpoint = MNTPOINT,
- 	.needs_root = 1,
--	.needs_tmpdir = 1,
- };
-diff --git a/testcases/kernel/syscalls/statx/statx04.c b/testcases/kernel/syscalls/statx/statx04.c
-index 71de734f5..f8350ed2d 100644
---- a/testcases/kernel/syscalls/statx/statx04.c
-+++ b/testcases/kernel/syscalls/statx/statx04.c
-@@ -180,7 +180,6 @@ static struct tst_test test = {
- 	.needs_root = 1,
- 	.all_filesystems = 1,
- 	.mount_device = 1,
--	.needs_tmpdir = 1,
- 	.mntpoint = MOUNT_POINT,
- 	.min_kver = "4.11",
- };
-diff --git a/testcases/kernel/syscalls/statx/statx06.c b/testcases/kernel/syscalls/statx/statx06.c
-index 831f73092..0469d66c5 100644
---- a/testcases/kernel/syscalls/statx/statx06.c
-+++ b/testcases/kernel/syscalls/statx/statx06.c
-@@ -169,7 +169,6 @@ static struct tst_test test = {
- 	.test = test_statx,
- 	.min_kver = "4.11",
- 	.needs_root = 1,
--	.needs_tmpdir = 1,
- 	.mntpoint = MOUNT_POINT,
- 	.mount_device = 1,
- 	.dev_fs_type = "ext4",
-diff --git a/testcases/kernel/syscalls/umount/umount01.c b/testcases/kernel/syscalls/umount/umount01.c
-index fb5384434..d05296dce 100644
---- a/testcases/kernel/syscalls/umount/umount01.c
-+++ b/testcases/kernel/syscalls/umount/umount01.c
-@@ -53,7 +53,6 @@ static void cleanup(void)
- 
- static struct tst_test test = {
- 	.needs_root = 1,
--	.needs_tmpdir = 1,
- 	.format_device = 1,
- 	.setup = setup,
- 	.cleanup = cleanup,
-diff --git a/testcases/kernel/syscalls/umount/umount02.c b/testcases/kernel/syscalls/umount/umount02.c
-index cd67aa6d2..34a38c998 100644
---- a/testcases/kernel/syscalls/umount/umount02.c
-+++ b/testcases/kernel/syscalls/umount/umount02.c
-@@ -81,7 +81,6 @@ static void cleanup(void)
- static struct tst_test test = {
- 	.tcnt = ARRAY_SIZE(tcases),
- 	.needs_root = 1,
--	.needs_tmpdir = 1,
- 	.format_device = 1,
- 	.setup = setup,
- 	.cleanup = cleanup,
-diff --git a/testcases/kernel/syscalls/umount/umount03.c b/testcases/kernel/syscalls/umount/umount03.c
-index 28309a305..1cef06fa1 100644
---- a/testcases/kernel/syscalls/umount/umount03.c
-+++ b/testcases/kernel/syscalls/umount/umount03.c
-@@ -58,7 +58,6 @@ static void cleanup(void)
- 
- static struct tst_test test = {
- 	.needs_root = 1,
--	.needs_tmpdir = 1,
- 	.format_device = 1,
- 	.setup = setup,
- 	.cleanup = cleanup,
-diff --git a/testcases/kernel/uevents/uevent01.c b/testcases/kernel/uevents/uevent01.c
-index 0dd1344a7..5c65556c9 100644
---- a/testcases/kernel/uevents/uevent01.c
-+++ b/testcases/kernel/uevents/uevent01.c
-@@ -88,7 +88,6 @@ static void verify_uevent(void)
- static struct tst_test test = {
- 	.test_all = verify_uevent,
- 	.forks_child = 1,
--	.needs_tmpdir = 1,
- 	.needs_checkpoints = 1,
- 	.needs_drivers = (const char *const []) {
- 		"loop",
-diff --git a/testcases/kernel/uevents/uevent02.c b/testcases/kernel/uevents/uevent02.c
-index 9dd4cd65b..ce0cf757d 100644
---- a/testcases/kernel/uevents/uevent02.c
-+++ b/testcases/kernel/uevents/uevent02.c
-@@ -134,7 +134,6 @@ static void verify_uevent(void)
- static struct tst_test test = {
- 	.test_all = verify_uevent,
- 	.forks_child = 1,
--	.needs_tmpdir = 1,
- 	.needs_checkpoints = 1,
- 	.needs_drivers = (const char *const []) {
- 		"tun",
-diff --git a/testcases/kernel/uevents/uevent03.c b/testcases/kernel/uevents/uevent03.c
-index 6eda86067..ed15fea93 100644
---- a/testcases/kernel/uevents/uevent03.c
-+++ b/testcases/kernel/uevents/uevent03.c
-@@ -234,7 +234,6 @@ static void verify_uevent(void)
- static struct tst_test test = {
- 	.test_all = verify_uevent,
- 	.forks_child = 1,
--	.needs_tmpdir = 1,
- 	.needs_checkpoints = 1,
- 	.needs_drivers = (const char *const[]) {
- 		"uinput",
--- 
-2.18.0
-
-
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+Ci0tLS0tIE9yaWdpbmFsIE1lc3NhZ2UgLS0tLS0KPiAKPiBIZWxsbywKPiAKPiBXZSByYW4gYXV0
+b21hdGVkIHRlc3RzIG9uIGEgcmVjZW50IGNvbW1pdCBmcm9tIHRoaXMga2VybmVsIHRyZWU6Cj4g
+Cj4gICAgICAgIEtlcm5lbCByZXBvOgo+ICAgICAgICBnaXQ6Ly9naXQua2VybmVsLm9yZy9wdWIv
+c2NtL2xpbnV4L2tlcm5lbC9naXQvc3RhYmxlL3N0YWJsZS1xdWV1ZS5naXQKPiAgICAgICAgICAg
+ICBDb21taXQ6IGE4YTFiYjliNjMxNSAtIHBsYXRmb3JtL3g4NjogaHAtd21pOiBGaXggQUNQSSBl
+cnJvcnMKPiAgICAgICAgICAgICBjYXVzZWQgYnkgcGFzc2luZyAwIGFzIGlucHV0IHNpemUKPiAK
+PiBUaGUgcmVzdWx0cyBvZiB0aGVzZSBhdXRvbWF0ZWQgdGVzdHMgYXJlIHByb3ZpZGVkIGJlbG93
+Lgo+IAo+ICAgICBPdmVyYWxsIHJlc3VsdDogRkFJTEVEIChzZWUgZGV0YWlscyBiZWxvdykKPiAg
+ICAgICAgICAgICAgTWVyZ2U6IE9LCj4gICAgICAgICAgICBDb21waWxlOiBPSwo+ICAgICAgICAg
+ICAgICBUZXN0czogRkFJTEVECj4gCj4gQWxsIGtlcm5lbCBiaW5hcmllcywgY29uZmlnIGZpbGVz
+LCBhbmQgbG9ncyBhcmUgYXZhaWxhYmxlIGZvciBkb3dubG9hZCBoZXJlOgo+IAo+ICAgaHR0cHM6
+Ly9hcnRpZmFjdHMuY2tpLXByb2plY3Qub3JnL3BpcGVsaW5lcy8zMjIwODkKPiAKPiBPbmUgb3Ig
+bW9yZSBrZXJuZWwgdGVzdHMgZmFpbGVkOgo+IAo+ICAgICB4ODZfNjQ6Cj4gICAgICDinYwgTFRQ
+Cj4gICAgICDinYwgQm9vdCB0ZXN0Cj4gICAgICDinYwgQm9vdCB0ZXN0Cj4gCgpCb290IHRlc3Rz
+IGxvb2sgbGlrZSBmYWxzZSBwb3NpdGl2ZXMuIExUUCBoaXQga2VybmVsIG9vcHM6CiAgaHR0cHM6
+Ly9hcnRpZmFjdHMuY2tpLXByb2plY3Qub3JnL3BpcGVsaW5lcy8zMjIwODkvbG9ncy94ODZfNjRf
+aG9zdF8xX2NvbnNvbGUubG9nCgpbIDI0MTguNzM5NDQwXSBMVFA6IHN0YXJ0aW5nIHJlcXVlc3Rf
+a2V5MDEgClsgMjQxOC43NDI3OTldIExUUDogc3RhcnRpbmcgcmVxdWVzdF9rZXkwMiAKWyAyNDIw
+Ljc0OTA0Ml0gTFRQOiBzdGFydGluZyByZXF1ZXN0X2tleTAzIApbIDI0MjAuNzUxNjM1XSBlbmNy
+eXB0ZWRfa2V5OiBrZXl3b3JkICd1cGRhdGUnIG5vdCBhbGxvd2VkIHdoZW4gY2FsbGVkIGZyb20g
+Lmluc3RhbnRpYXRlIG1ldGhvZCAKWyAyNDIwLjg3NzA5MF0gZW5jcnlwdGVkX2tleToga2V5d29y
+ZCAndXBkYXRlJyBub3QgYWxsb3dlZCB3aGVuIGNhbGxlZCBmcm9tIC5pbnN0YW50aWF0ZSBtZXRo
+b2QgClsgMjQyMC44Nzk3MDBdIGVuY3J5cHRlZF9rZXk6IGtleXdvcmQgJ3VwZGF0ZScgbm90IGFs
+bG93ZWQgd2hlbiBjYWxsZWQgZnJvbSAuaW5zdGFudGlhdGUgbWV0aG9kIAouLi4KWyAyNDIxLjE0
+NzY1OV0gZ2VuZXJhbCBwcm90ZWN0aW9uIGZhdWx0OiAwMDAwIFsjMV0gU01QIFBUSSAKWyAyNDIx
+LjE0ODg4NF0gQ1BVOiAwIFBJRDogNDM5ODE0IENvbW06IHJlcXVlc3Rfa2V5MDMgVGFpbnRlZDog
+RyAgICAgICAgVyAgICAgICAgIDUuMy4xNC1hOGExYmI5LmNraSAjMSAKWyAyNDIxLjE1MDkxNl0g
+SGFyZHdhcmUgbmFtZTogUmVkIEhhdCBLVk0sIEJJT1MgMC41LjEgMDEvMDEvMjAxMSAKWyAyNDIx
+LjE1MjE5OV0gUklQOiAwMDEwOmttZW1fY2FjaGVfYWxsb2MrMHg3NS8weDIyMCAKWyAyNDIxLjE1
+MzI0NF0gQ29kZTogMDEgMDAgMDAgNGMgOGIgNDUgMDAgNjUgNDkgOGIgNTAgMDggNjUgNGMgMDMg
+MDUgZDkgZWYgZDQgNGIgNGQgOGIgMjAgNGQgODUgZTQgMGYgODQgNzEgMDEgMDAgMDAgOGIgNWQg
+MjAgNDggOGIgN2QgMDAgNGMgMDEgZTMgPDQ4PiAzMyAxYiA0OCAzMyA5ZCA3MCAwMSAwMCAwMCA0
+MCBmNiBjNyAwZiAwZiA4NSA2ZSAwMSAwMCAwMCA0OCA4ZCAKWyAyNDIxLjE1NzM3MF0gUlNQOiAw
+MDE4OmZmZmZhMjJhODBhZTNkMzAgRUZMQUdTOiAwMDAxMDI4MiAKWyAyNDIxLjE1ODUzMF0gUkFY
+OiAwMDAwMDAwMDAwMDAwMDAwIFJCWDogYmI4NmQwZWI1M2FhNjM2NyBSQ1g6IDAwMDAwMDAwMDAw
+MDAzZjkgClsgMjQyMS4xNjAxMDhdIFJEWDogMDAwMDAwMDAwMDAxY2RhZCBSU0k6IDAwMDAwMDAw
+MDAwMDBkYzAgUkRJOiAwMDAwMDAwMDAwMDJkNjgwIApbIDI0MjEuMTYxNjc1XSBSQlA6IGZmZmY4
+ZDdjM2IwMWFlMDAgUjA4OiBmZmZmOGQ3YzNiYTJkNjgwIFIwOTogMDAwMDAwMDAzZjAxMDAwMCAK
+WyAyNDIxLjE2MzI3NV0gUjEwOiAwMDAwMDAwMDAwMDAwMDA0IFIxMTogMDAwMDAwMDA2MzczNjU2
+NCBSMTI6IGJiODZkMGViNTNhYTYzNjcgClsgMjQyMS4xNjQ4NTRdIFIxMzogMDAwMDAwMDAwMDAw
+MGRjMCBSMTQ6IGZmZmZmZmZmYjQ0MjQ0N2IgUjE1OiBmZmZmOGQ3YzNiMDFhZTAwIApbIDI0MjEu
+MTY2NDQ5XSBGUzogIDAwMDA3ZjBjZTUzNjg2MDAoMDAwMCkgR1M6ZmZmZjhkN2MzYmEwMDAwMCgw
+MDAwKSBrbmxHUzowMDAwMDAwMDAwMDAwMDAwIApbIDI0MjEuMTY4MjI1XSBDUzogIDAwMTAgRFM6
+IDAwMDAgRVM6IDAwMDAgQ1IwOiAwMDAwMDAwMDgwMDUwMDMzIApbIDI0MjEuMTY5NTA4XSBDUjI6
+IDAwMDA3ZmIzZTU5ZjgzODAgQ1IzOiAwMDAwMDAwMTM5NzJlMDA1IENSNDogMDAwMDAwMDAwMDc2
+MDZmMCAKWyAyNDIxLjE3MTA3M10gRFIwOiAwMDAwMDAwMDAwMDAwMDAwIERSMTogMDAwMDAwMDAw
+MDAwMDAwMCBEUjI6IDAwMDAwMDAwMDAwMDAwMDAgClsgMjQyMS4xNzI2NjBdIERSMzogMDAwMDAw
+MDAwMDAwMDAwMCBEUjY6IDAwMDAwMDAwZmZmZTBmZjAgRFI3OiAwMDAwMDAwMDAwMDAwNDAwIApb
+IDI0MjEuMTc0MjIyXSBQS1JVOiA1NTU1NTU1NCAKWyAyNDIxLjE3NDg1MV0gQ2FsbCBUcmFjZTog
+ClsgMjQyMS4xNzU0MTBdICBrZXlfYWxsb2MrMHgxMmIvMHg0NTAgClsgMjQyMS4xNzYxNzVdICBy
+ZXF1ZXN0X2tleV9hbmRfbGluaysweDI1Ni8weDZhMCAKWyAyNDIxLjE3NzE0Nl0gID8ga2V5cmlu
+Z19hbGxvYysweDcwLzB4NzAgClsgMjQyMS4xNzgwMDVdICA/IGtleV9kZWZhdWx0X2NtcCsweDIw
+LzB4MjAgClsgMjQyMS4xNzg4ODJdICBfX3g2NF9zeXNfcmVxdWVzdF9rZXkrMHhmNC8weDE5MCAK
+WyAyNDIxLjE3OTg1Nl0gIGRvX3N5c2NhbGxfNjQrMHg1Zi8weDFhMCAKWyAyNDIxLjE4MDY5NV0g
+IGVudHJ5X1NZU0NBTExfNjRfYWZ0ZXJfaHdmcmFtZSsweDQ0LzB4YTkgClsgMjQyMS4xODE4MTRd
+IFJJUDogMDAzMzoweDdmMGNlNTI5YTFhZCAKWyAyNDIxLjE4MjYyNF0gQ29kZTogMDAgYzMgNjYg
+MmUgMGYgMWYgODQgMDAgMDAgMDAgMDAgMDAgOTAgZjMgMGYgMWUgZmEgNDggODkgZjggNDggODkg
+ZjcgNDggODkgZDYgNDggODkgY2EgNGQgODkgYzIgNGQgODkgYzggNGMgOGIgNGMgMjQgMDggMGYg
+MDUgPDQ4PiAzZCAwMSBmMCBmZiBmZiA3MyAwMSBjMyA0OCA4YiAwZCBhYiA1YyAwYyAwMCBmNyBk
+OCA2NCA4OSAwMSA0OCAKWyAyNDIxLjE4Njc0OV0gUlNQOiAwMDJiOjAwMDA3ZmZmNjFiNzdhZjgg
+RUZMQUdTOiAwMDAwMDI0NiBPUklHX1JBWDogMDAwMDAwMDAwMDAwMDBmOSAKWyAyNDIxLjE4ODQw
+N10gUkFYOiBmZmZmZmZmZmZmZmZmZmRhIFJCWDogMDAwMDdmMGNlNTM2ODU4MCBSQ1g6IDAwMDA3
+ZjBjZTUyOWExYWQgClsgMjQyMS4xODk5OTRdIFJEWDogMDAwMDAwMDAwMDQxMzJlMiBSU0k6IDAw
+MDAwMDAwMDA0MTMyYzUgUkRJOiAwMDAwMDAwMDAwNDEzMzY3IApbIDI0MjEuMTkxNTc2XSBSQlA6
+IDAwMDAwMDAwMjY0N2QwNjkgUjA4OiAwMDAwMDAwMDAwMDAwMDAwIFIwOTogMDAwMDAwMDAwMDAw
+MDAwMCAKWyAyNDIxLjE5MzE0NV0gUjEwOiAwMDAwMDAwMGZmZmZmZmZkIFIxMTogMDAwMDAwMDAw
+MDAwMDI0NiBSMTI6IDAwMDAwMDAwMDAwNmI2MDUgClsgMjQyMS4xOTQ3MzBdIFIxMzogMDAwMDAw
+MDAwMDQxMzM2NyBSMTQ6IDAwMDAwMDAwMDAwMTg2YTAgUjE1OiAwMDAwMDAwMDAwMDA0M2ZiIAo8
+Zm9sbG93ZWQgYnkgbW9yZSBjYWxsIHRyYWNlcz4KCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0
+dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
