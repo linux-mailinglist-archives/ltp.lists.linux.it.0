@@ -2,84 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D0D711267F
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 10:07:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAB50112741
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 10:27:22 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AD7C33C2519
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 10:07:13 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 463C33C2513
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Dec 2019 10:27:22 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 6DEA33C245B
- for <ltp@lists.linux.it>; Wed,  4 Dec 2019 10:07:09 +0100 (CET)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A667D6008C4
- for <ltp@lists.linux.it>; Wed,  4 Dec 2019 10:07:07 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 7D085AD2C
- for <ltp@lists.linux.it>; Wed,  4 Dec 2019 09:07:05 +0000 (UTC)
-To: Petr Vorel <pvorel@suse.cz>
-References: <20191128163147.4377-1-mdoucha@suse.cz>
- <20191202032936.GA32335@dell5510>
-From: Martin Doucha <mdoucha@suse.cz>
-Autocrypt: addr=mdoucha@suse.cz; keydata=
- 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
-Message-ID: <b4489aba-9f59-ff44-e2b3-3af6d9cd3cb1@suse.cz>
-Date: Wed, 4 Dec 2019 10:07:04 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 4A3873C2477
+ for <ltp@lists.linux.it>; Wed,  4 Dec 2019 10:27:17 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 811A2209D34
+ for <ltp@lists.linux.it>; Wed,  4 Dec 2019 10:27:16 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1575451634;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=mTPhqKFCMoq0RE8B/bZ/+VboLeluqZt7mIUzJ/ekvJY=;
+ b=br2igavxUJnSFPmpyfR6j3uFV9DQzeTjLRGBVOCuQvDZO/WcS4jXN28VhSInnZ5q7Yhit0
+ yMy7NST9mzJ3z0QR3hUXaUkybxrYxik8WUZyxb0plT5/VB7nLJ4yLYbLn6rcYVoehXC4Hu
+ zxhM7T+epr41lEjHsJpGF2C2YSpQ4yc=
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
+ [209.85.167.198]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-337-H7SsJfgBN6-zQemSSXwYGg-1; Wed, 04 Dec 2019 04:27:11 -0500
+Received: by mail-oi1-f198.google.com with SMTP id y7so3323592oie.13
+ for <ltp@lists.linux.it>; Wed, 04 Dec 2019 01:27:11 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Yzz8EkLMUnEMeoAMFbx4luGYYHpFrfNqmiRtWcaFXqM=;
+ b=WfJh9no4JdzUPTdctg+oRL4g2mLN9TvMQPwyi/NVU3eUWU6kX4PJfUi69PV5bdhFUU
+ 3i0FssoZbXopca1Y4Y0WvSA60GfDl2s4mhvGydPFbn2JA+D/2oUEsRF7LAQQOJXIP8Bm
+ wcnZrWjKjlX3jHVapHrv44hvS4Q+hdb/i1XaneSIy4hLYtWcErlZha3tubDudTtFV/b3
+ RliK0sXMf6yS6Oq1QOgm5PMnRWSx8L+vx6ISygHLyxB80ueZ60Uy76rV8/NgTSVScgOs
+ uQO2H0iVikIgquoW/rz/ptJx3blz9zdKexk0Ore2i3KHAEMUeDlk5PCClJwY4zJC4Wby
+ i7dg==
+X-Gm-Message-State: APjAAAUqW50erb7Wg3nLmEdS+7Z51o+IZD6VobZtTfQSH/zhWthEluPz
+ gUoW7HC+0gp1UsavUoJU6vcBSmFgVBi8kFMTOqC72EYzCFGYnycj5U9WZUo4scNbESue/lNxJFj
+ PRZy28EHlK4MEcAdLfuldxfquqV8=
+X-Received: by 2002:aca:aad8:: with SMTP id t207mr1669971oie.138.1575451630411; 
+ Wed, 04 Dec 2019 01:27:10 -0800 (PST)
+X-Google-Smtp-Source: APXvYqwFTnA8wjlfZkA6fyqvyH5sgICGIONgoQ7aSHoLQ+7NfkqI+TDuWdzKhA9xUd9r1BgxEUFweqE+dqOKMU2+X5Y=
+X-Received: by 2002:aca:aad8:: with SMTP id t207mr1669968oie.138.1575451630200; 
+ Wed, 04 Dec 2019 01:27:10 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20191202032936.GA32335@dell5510>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+References: <20191128084506.7587-1-liwang@redhat.com>
+ <20191203104917.GA2844@rei>
+ <CAEemH2d0KJ_oi7j5sjcT=uUo28crB_hCs-gJzvWhczvKOG-mdA@mail.gmail.com>
+In-Reply-To: <CAEemH2d0KJ_oi7j5sjcT=uUo28crB_hCs-gJzvWhczvKOG-mdA@mail.gmail.com>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 4 Dec 2019 17:26:59 +0800
+Message-ID: <CAEemH2doR7C6J4ROgLw=cJsWfH2-6y8-YwDwdGM8coH6ovM6_Q@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-MC-Unique: H7SsJfgBN6-zQemSSXwYGg-1
+X-Mimecast-Spam-Score: 0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.6 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,PDS_BTC_ID,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] Unshare KSM pages before setting max_page_sharing
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] lib: add tst_request_hugepages
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,35 +78,93 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0826915313=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 12/2/19 4:29 AM, Petr Vorel wrote:
-> BTW at least ksm01 will fail on VM host with running VMs,
-> but that's another story not related to this patch.
-> 
-> mem.c:251: FAIL: pages_shared is not 1 but 3629.
-> mem.c:251: FAIL: pages_sharing is not 98302 but 113789.
-> mem.c:251: FAIL: pages_volatile is not 0 but 12.
-> mem.c:251: FAIL: pages_unshared is not 1 but 48519.
+--===============0826915313==
+Content-Type: multipart/alternative; boundary="000000000000c787c10598dd6a27"
 
-I'm aware of other KSM tests failing but the failures are rare and quite
-random so they'll be tricky to debug. The snippet you've sent looks like
-interference from another process running on the same VM but the
-failures I see in OpenQA look like some sort of race condition in kernel
-itself.
+--000000000000c787c10598dd6a27
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
--- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+On Wed, Dec 4, 2019 at 2:40 PM Li Wang <liwang@redhat.com> wrote:
+
+> ...
+> if the .needs_hugepages is set to an expected number, we should verify
+> strictly if the system can provide that.
+>
+
+Oh, I guess maybe I misunderstand your suggestion here. you mean just to
+let .needs_hugepages =3D 1 but not set an expected number, right? if so, th=
+at
+will more easy to achieve.
+
+
+>
+>> Also this fails to cleanup after itself, we have to restore the system
+>> after the test, which is one more reason why we need .needs_hugepages in
+>> the tst_test structure because the test library can cleanup after the
+>> test with that.
+>>
+>
+> Agree, I will add the save/restore part for this.
+>
+
+Or just go with .save_restore in the testcase?
+
+--=20
+Regards,
+Li Wang
+
+--000000000000c787c10598dd6a27
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div cl=
+ass=3D"gmail_default" style=3D"font-size:small"><br></div></div><br><div cl=
+ass=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Dec 4, 20=
+19 at 2:40 PM Li Wang &lt;<a href=3D"mailto:liwang@redhat.com">liwang@redha=
+t.com</a>&gt; wrote:</div><blockquote class=3D"gmail_quote" style=3D"margin=
+:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"=
+><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-size:small">..=
+.</div><div class=3D"gmail_quote"><div><div style=3D"font-size:small">if th=
+e=C2=A0.needs_hugepages is set to an expected number, we should verify stri=
+ctly if the system can provide that.</div></div></div></div></blockquote><d=
+iv><br></div><div><div class=3D"gmail_default" style=3D"font-size:small">Oh=
+, I guess maybe I misunderstand your suggestion here. you mean just to let =
+.needs_hugepages =3D 1 but not set an expected number, right? if so, that w=
+ill more easy to achieve.</div></div><div>=C2=A0</div><blockquote class=3D"=
+gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(20=
+4,204,204);padding-left:1ex"><div dir=3D"ltr"><div class=3D"gmail_quote"><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
+ft:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+Also this fails to cleanup after itself, we have to restore the system<br>
+after the test, which is one more reason why we need .needs_hugepages in<br=
+>
+the tst_test structure because the test library can cleanup after the<br>
+test with that.<br></blockquote><div><br></div></div><div style=3D"font-siz=
+e:small">Agree, I will add the save/restore part for this.</div></div></blo=
+ckquote><div><br></div><div class=3D"gmail_default" style=3D"font-size:smal=
+l">Or just go with .save_restore in the testcase?=C2=A0</div></div><div><br=
+></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><=
+div>Regards,<br></div><div>Li Wang<br></div></div></div></div></div></div>
+
+--000000000000c787c10598dd6a27--
+
+
+--===============0826915313==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0826915313==--
+
