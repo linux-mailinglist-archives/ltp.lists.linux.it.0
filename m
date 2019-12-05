@@ -2,50 +2,45 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id F41ED113A4C
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Dec 2019 04:18:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23A7D113BA2
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Dec 2019 07:17:52 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9610C3C249B
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Dec 2019 04:18:59 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 40D813C2561
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Dec 2019 07:17:51 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id C899B3C2467
- for <ltp@lists.linux.it>; Thu,  5 Dec 2019 04:18:54 +0100 (CET)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 4726D3C23AF
+ for <ltp@lists.linux.it>; Thu,  5 Dec 2019 07:17:47 +0100 (CET)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 521636022BF
- for <ltp@lists.linux.it>; Thu,  5 Dec 2019 04:18:51 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.69,279,1571673600"; d="scan'208";a="79615890"
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 633486009FA
+ for <ltp@lists.linux.it>; Thu,  5 Dec 2019 07:17:44 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.69,279,1571673600"; d="scan'208";a="79624675"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 05 Dec 2019 11:18:48 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 1C2384CE1646;
- Thu,  5 Dec 2019 11:10:12 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1395.4; Thu, 5 Dec 2019 11:18:41 +0800
-To: Xiao Yang <ice_yangxiao@163.com>, <ltp@lists.linux.it>
-References: <1575457056-10022-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <8c735de2-8022-1df2-6ce5-ee4dabe77767@163.com>
+ by heian.cn.fujitsu.com with ESMTP; 05 Dec 2019 14:17:39 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id 0F18C4CE1C07;
+ Thu,  5 Dec 2019 14:09:10 +0800 (CST)
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ (TLS) id 14.3.439.0; Thu, 5 Dec 2019 14:17:39 +0800
 From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <de1c1667-9535-b122-e76c-66d42d88dc1f@cn.fujitsu.com>
-Date: Thu, 5 Dec 2019 11:18:38 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+To: <ice_yangxiao@163.com>
+Date: Thu, 5 Dec 2019 14:17:44 +0800
+Message-ID: <1575526664-25738-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-In-Reply-To: <8c735de2-8022-1df2-6ce5-ee4dabe77767@163.com>
 X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 1C2384CE1646.AC883
+X-yoursite-MailScanner-ID: 0F18C4CE1C07.ACD10
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/quotactl07: add regresstion test for
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] syscalls/quotactl07: add regresstion test for
  Q_XQTUOTARM
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -58,142 +53,147 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-CkhpIFhpYW8KCm9uIDIwMTkvMTIvMDQgMjI6NTcsIFhpYW8gWWFuZyB3cm90ZToKPiBIaSBZYW5n
-LAo+IAo+IE9uIDEyLzQvMTkgNjo1NyBQTSwgWWFuZyBYdSB3cm90ZToKPj4gVGhpcyBpcyBhIHJl
-Z3Jlc3N0aW9uIHRlc3QgdG8gY2hlY2sgUV9YUVVPVEFSTcKgIHdoZXRoZXIgaGFzCj4+IHF1b3Rh
-IGZsYWdzIGNoZWNrLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBZYW5nIFh1IDx4dXlhbmcyMDE4Lmp5
-QGNuLmZ1aml0c3UuY29tPgo+PiAtLS0KPj4gwqAgaW5jbHVkZS9sYXBpL3F1b3RhY3RsLmjCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgNCArCj4+IMKgIHJ1
-bnRlc3Qvc3lzY2FsbHPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIHzCoCAxICsKPj4gwqAgdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9x
-dW90YWN0bC8uZ2l0aWdub3JlIHzCoCAxICsKPj4gwqAgLi4uL2tlcm5lbC9zeXNjYWxscy9xdW90
-YWN0bC9xdW90YWN0bDA3LmPCoMKgwqDCoCB8IDg5ICsrKysrKysrKysrKysrKysrKysKPj4gwqAg
-NCBmaWxlcyBjaGFuZ2VkLCA5NSBpbnNlcnRpb25zKCspCj4+IMKgIGNyZWF0ZSBtb2RlIDEwMDY0
-NCB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3F1b3RhY3RsL3F1b3RhY3RsMDcuYwo+Pgo+PiBk
-aWZmIC0tZ2l0IGEvaW5jbHVkZS9sYXBpL3F1b3RhY3RsLmggYi9pbmNsdWRlL2xhcGkvcXVvdGFj
-dGwuaAo+PiBpbmRleCBkMzIyM2I4NjMuLmMxZWM5ZDZlMSAxMDA2NDQKPj4gLS0tIGEvaW5jbHVk
-ZS9sYXBpL3F1b3RhY3RsLmgKPj4gKysrIGIvaW5jbHVkZS9sYXBpL3F1b3RhY3RsLmgKPj4gQEAg
-LTU5LDYgKzU5LDEwIEBAIHN0cnVjdCBmc19xdW90YV9zdGF0diB7Cj4+IMKgICMgZGVmaW5lIFBS
-SlFVT1RBIDIKPj4gwqAgI2VuZGlmCj4+ICsjaWZuZGVmIFFfWFFVT1RBUk0KPj4gKyMgZGVmaW5l
-IFFfWFFVT1RBUk0gWFFNX0NNRCg2KQo+PiArI2VuZGlmCj4+ICsKPj4gwqAgI2lmbmRlZiBRX1hH
-RVRRU1RBVFYKPj4gwqAgIyBkZWZpbmUgUV9YR0VUUVNUQVRWIFhRTV9DTUQoOCkKPj4gwqAgI2Vu
-ZGlmCj4+IGRpZmYgLS1naXQgYS9ydW50ZXN0L3N5c2NhbGxzIGIvcnVudGVzdC9zeXNjYWxscwo+
-PiBpbmRleCAxNWRiZDk5NzEuLjBmNzVjZjNmNiAxMDA2NDQKPj4gLS0tIGEvcnVudGVzdC9zeXNj
-YWxscwo+PiArKysgYi9ydW50ZXN0L3N5c2NhbGxzCj4+IEBAIC05NTgsNiArOTU4LDcgQEAgcXVv
-dGFjdGwwMyBxdW90YWN0bDAzCj4+IMKgIHF1b3RhY3RsMDQgcXVvdGFjdGwwNAo+PiDCoCBxdW90
-YWN0bDA1IHF1b3RhY3RsMDUKPj4gwqAgcXVvdGFjdGwwNiBxdW90YWN0bDA2Cj4+ICtxdW90YWN0
-bDA3IHF1b3RhY3RsMDcKPj4gwqAgcmVhZDAxIHJlYWQwMQo+PiDCoCByZWFkMDIgcmVhZDAyCj4+
-IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3F1b3RhY3RsLy5naXRpZ25v
-cmUgCj4+IGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9xdW90YWN0bC8uZ2l0aWdub3JlCj4+
-IGluZGV4IDEyODk2ZDZhZC4uOGQyZWY5NGQ5IDEwMDY0NAo+PiAtLS0gYS90ZXN0Y2FzZXMva2Vy
-bmVsL3N5c2NhbGxzL3F1b3RhY3RsLy5naXRpZ25vcmUKPj4gKysrIGIvdGVzdGNhc2VzL2tlcm5l
-bC9zeXNjYWxscy9xdW90YWN0bC8uZ2l0aWdub3JlCj4+IEBAIC00LDMgKzQsNCBAQAo+PiDCoCAv
-cXVvdGFjdGwwNAo+PiDCoCAvcXVvdGFjdGwwNQo+PiDCoCAvcXVvdGFjdGwwNgo+PiArL3F1b3Rh
-Y3RsMDcKPj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcXVvdGFjdGwv
-cXVvdGFjdGwwNy5jIAo+PiBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcXVvdGFjdGwvcXVv
-dGFjdGwwNy5jCj4+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4+IGluZGV4IDAwMDAwMDAwMC4uMDc2
-ZGIwYmZlCj4+IC0tLSAvZGV2L251bGwKPj4gKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxs
-cy9xdW90YWN0bC9xdW90YWN0bDA3LmMKPj4gQEAgLTAsMCArMSw4OSBAQAo+PiArLy8gU1BEWC1M
-aWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIKPj4gKy8qCj4+ICsgKiBDb3B5cmln
-aHQgKGMpIDIwMTkgRlVKSVRTVSBMSU1JVEVELiBBbGwgcmlnaHRzIHJlc2VydmVkLgo+PiArICog
-QXV0aG9yOiBZYW5nIFh1IDx4dXlhbmcyMDE4Lmp5QGNuLmZ1aml0c3UuY29tPgo+PiArICoKPj4g
-KyAqIFRoaXMgaXMgYSByZWdyZXNzdGlvbiB0ZXN0IGZvciBrZXJuZWwgY29tbWl0IDNkZDRkNDBi
-NDIwOAo+PiArICogKCJ4ZnM6IFNhbml0eSBjaGVjayBmbGFncyBvZiBRX1hRVU9UQVJNIGNhbGwi
-KS4KPj4gKyAqLwo+PiArCj4+ICsjaW5jbHVkZSAiY29uZmlnLmgiCj4+ICsjaW5jbHVkZSA8ZXJy
-bm8uaD4KPj4gKyNpbmNsdWRlIDx1bmlzdGQuaD4KPj4gKyNpbmNsdWRlIDxzdGRpby5oPgo+PiAr
-I2luY2x1ZGUgPHN5cy9xdW90YS5oPgo+PiArI2luY2x1ZGUgImxhcGkvcXVvdGFjdGwuaCIKPj4g
-KyNpbmNsdWRlICJ0c3RfdGVzdC5oIgo+PiArCj4+ICsjaWZkZWYgSEFWRV9YRlNfWFFNX0gKPj4g
-KyMgaW5jbHVkZSA8eGZzL3hxbS5oPgo+PiArCj4+ICsjZGVmaW5lIE1OVFBPSU5UwqDCoMKgICJt
-bnRwb2ludCIKPj4gKwo+PiArc3RhdGljIHVpbnQzMl90IHFmbGFnX2FjY3QgPSBYRlNfUVVPVEFf
-VURRX0FDQ1Q7Cj4+ICtzdGF0aWMgaW50IHRlc3RfaWQ7Cj4+ICtzdGF0aWMgaW50IHhxdW90YXJt
-X25zdXA7Cj4+ICtzdGF0aWMgdW5zaWduZWQgaW50IHZhbGlkX3R5cGUgPSAxOwo+PiArc3RhdGlj
-IHVuc2lnbmVkIGludCBpbnZhbGlkX3R5cGUgPSA5Owo+PiArCj4+ICtzdGF0aWMgdm9pZCB2ZXJp
-ZnlfcXVvdGEodm9pZCkKPj4gK3sKPj4gK8KgwqDCoCBpZiAoeHF1b3Rhcm1fbnN1cCkgewo+PiAr
-wqDCoMKgwqDCoMKgwqAgdHN0X3JlcyhUQ09ORiwKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-ImN1cnJlbnQgc3lzdGVtIGRvZXNuJ3Qgc3VwcG9ydCBRX1hRVU9UQVJNLCBza2lwIGl0Iik7Cj4+
-ICvCoMKgwqDCoMKgwqDCoCByZXR1cm47Cj4+ICvCoMKgwqAgfQo+PiArCj4+ICvCoMKgwqAgU0FG
-RV9NT1VOVCh0c3RfZGV2aWNlLT5kZXYsIE1OVFBPSU5ULCB0c3RfZGV2aWNlLT5mc190eXBlLCAw
-LCAKPj4gInF1b3RhIik7Cj4+ICsKPj4gK8KgwqDCoCBURVNUKHF1b3RhY3RsKFFDTUQoUV9YUVVP
-VEFPRkYsIFVTUlFVT1RBKSwgdHN0X2RldmljZS0+ZGV2LCAKPj4gdGVzdF9pZCwgKHZvaWQgKikm
-cWZsYWdfYWNjdCkpOwo+PiArwqDCoMKgIGlmIChUU1RfUkVUID09IC0xKQo+PiArwqDCoMKgwqDC
-oMKgwqAgdHN0X2JyayhUQlJPSyB8IFRURVJSTk8sICJxdW90YWN0bCB3aXRoIFFfWFFVT1RBT0ZG
-IGZhaWxlZCIpOwo+IElzIGl0IHBvc3NpYmxlIHRvIGdpdCByaWQgb2YgUV9YUVVPVEFPRkYgYW5k
-IGNhbGwgUV9YUVVPVEFSTSB3aXRoIAo+IGludmFsaWRfdHlwZSBkaXJlY3RseT8KIEZyb20gbWFu
-LXBhZ2VzLCBiZWZvcmUgd2UgdXNlIFFfWFFVT1RBUk0gLCBxdW90YXMgbXVzdCBoYXZlIGFscmVh
-ZHkgCmJlZW4gdHVybmVkIG9mZi4gSWYgd2UgZG9uJ3QgdXNlIHR1cm5vZmYsIGl0IHdpbGwgcmVw
-b3J0IEVJTlZBTCBidXQgbm90IAp3ZSB3YW50ZWQgIkVJTlZBTCIuICBhcyBiZWxvdzoKLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpkaWZmIC0t
-Z2l0IGEvZnMveGZzL3hmc19xdW90YW9wcy5jIGIvZnMveGZzL3hmc19xdW90YW9wcy5jCmluZGV4
-IGM3ZGUxN2RlZWFlNi4uMDA2YzY5ODVhNTI4IDEwMDY0NAotLS0gYS9mcy94ZnMveGZzX3F1b3Rh
-b3BzLmMKKysrIGIvZnMveGZzL3hmc19xdW90YW9wcy5jCkBAIC0xNjQsOCArMTY0LDEwIEBAIHhm
-c19xdW90YV9lbmFibGUoCgogICAgICAgICBpZiAoc2JfcmRvbmx5KHNiKSkKICAgICAgICAgICAg
-ICAgICByZXR1cm4gLUVST0ZTOwotICAgICAgIGlmICghWEZTX0lTX1FVT1RBX1JVTk5JTkcobXAp
-KQorICAgICAgIGlmICghWEZTX0lTX1FVT1RBX1JVTk5JTkcobXApKSB7CisgICAgICAgICAgICAg
-ICBwcmludGsoInh1eWFuZyBxdW90YSBpcyBubyBydW5uaW5nXG4iKTsKICAgICAgICAgICAgICAg
-ICByZXR1cm4gLUVOT1NZUzsKKyAgICAgICB9CgogICAgICAgICByZXR1cm4geGZzX3FtX3NjYWxs
-X3F1b3Rhb24obXAsIHhmc19xdW90YV9mbGFncyh1ZmxhZ3MpKTsKICB9CkBAIC0xOTgsMTIgKzIw
-MCwxNSBAQCB4ZnNfZnNfcm1feHF1b3RhKAogICAgICAgICBpZiAoc2JfcmRvbmx5KHNiKSkKICAg
-ICAgICAgICAgICAgICByZXR1cm4gLUVST0ZTOwoKLSAgICAgICBpZiAoWEZTX0lTX1FVT1RBX09O
-KG1wKSkKKyAgICAgICBpZiAoWEZTX0lTX1FVT1RBX09OKG1wKSkgeworICAgICAgICAgICAgICAg
-cHJpbnRrKCJ4dXlhbmcgcm0gcXVvdGFcbiIpOwogICAgICAgICAgICAgICAgIHJldHVybiAtRUlO
-VkFMOworICAgICAgIH0KCi0gICAgICAgaWYgKHVmbGFncyAmIH4oRlNfVVNFUl9RVU9UQSB8IEZT
-X0dST1VQX1FVT1RBIHwgRlNfUFJPSl9RVU9UQSkpCisgICAgICAgaWYgKHVmbGFncyAmIH4oRlNf
-VVNFUl9RVU9UQSB8IEZTX0dST1VQX1FVT1RBIHwgRlNfUFJPSl9RVU9UQSkpIHsKKyAgICAgICAg
-ICAgICAgIHByaW50aygieHV5YW5nIGZsYWcgY2hlY2tcbiIpOwogICAgICAgICAgICAgICAgIHJl
-dHVybiAtRUlOVkFMOwotCisgICAgICAgfQogICAgICAgICBpZiAodWZsYWdzICYgRlNfVVNFUl9R
-VU9UQSkKICAgICAgICAgICAgICAgICBmbGFncyB8PSBYRlNfRFFfVVNFUjsKICAgICAgICAgaWYg
-KHVmbGFncyAmIEZTX0dST1VQX1FVT1RBKQoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQppdCB3aWxsIHJlcG9ydCAieHV5YW5nIHJtIHF1b3Rh
-IiBiZWNhdXNlIHF1b3RhIGFjY3QgaXMgb24uCgpTbyBJIHRoaW5rIGl0IGlzIGltcG9zc2libGUg
-ZXhjZXB0IHdlIG1vdW50IHdpdGhvdXQgcXVvdGEgb3B0aW9uLiBCdXQgaXQgCmlzIG1lYW5pbmds
-ZXNzKHdpdGhvdXQgcXVvdGEgZmVhdHVyZSB0byB1c2UgUV9YUVVPVEFSTSkuIEkgcHJlZmVyIHRv
-IHVzZSAKbXkgb2xkIHdheS4gV2hhdCBkbyB5b3UgdGhpbmsgYWJvdXQgaXQ/CgoKPj4gKwo+PiAr
-wqDCoMKgIFRFU1QocXVvdGFjdGwoUUNNRChRX1hRVU9UQVJNLCBVU1JRVU9UQSksIHRzdF9kZXZp
-Y2UtPmRldiwgCj4+IHRlc3RfaWQsICh2b2lkICopJmludmFsaWRfdHlwZSkpOwo+PiArwqDCoMKg
-IGlmIChUU1RfRVJSID09IEVJTlZBTCkKPj4gK8KgwqDCoMKgwqDCoMKgIHRzdF9yZXMoVFBBU1Ms
-ICJRX1hRVU9UQVJNIGhhcyBxdW90YSB0eXBlIGNoZWNrIik7Cj4+ICvCoMKgwqAgZWxzZQo+PiAr
-wqDCoMKgwqDCoMKgwqAgdHN0X3JlcyhURkFJTCwgIlFfWFFVT1RBUk0gZG9lc24ndCBoYXZlIHF1
-b3RhIHR5cGUgY2hlY2siKTsKPj4gKwo+PiArwqDCoMKgIFNBRkVfVU1PVU5UKE1OVFBPSU5UKTsK
-Pj4gK30KPj4gKwo+PiArc3RhdGljIHZvaWQgc2V0dXAodm9pZCkKPj4gK3sKPj4gK8KgwqDCoCB0
-ZXN0X2lkID0gZ2V0ZXVpZCgpOwo+IAo+IElzIHRlc3RfaWQgbmVjZXNzYXJ5P8KgIEl0IHNlZW1z
-IHRvIGJlIGlnbm9yZWQgYnkgYm90aCBRX1hRVU9UQU9GRiBhbmQgCj4gUV9YUVVPVEFSTS4KSXQg
-aXMgdW5uZWNlc3NhcnkuICBGcm9tIG1hbi1wYWdlcyBvciBrZXJuZWwgc291cmNlIGNvZGUsIHRo
-aXMgaWQgCmFyZ3VtZW50IGlzIGluZ29yZWQuIEkgd2lsbCB1c2UgMCBpbnN0ZWFkIG9mIGl0Lgo+
-IAo+PiArCj4+ICvCoMKgwqAgU0FGRV9NT1VOVCh0c3RfZGV2aWNlLT5kZXYsIE1OVFBPSU5ULCB0
-c3RfZGV2aWNlLT5mc190eXBlLCAwLCAKPj4gInF1b3RhIik7Cj4+ICsKPj4gK8KgwqDCoCBURVNU
-KHF1b3RhY3RsKFFDTUQoUV9YUVVPVEFPRkYsIFVTUlFVT1RBKSwgdHN0X2RldmljZS0+ZGV2LCAK
-Pj4gdGVzdF9pZCwgKHZvaWQgKikmcWZsYWdfYWNjdCkpOwo+PiArwqDCoMKgIGlmIChUU1RfUkVU
-ID09IC0xKQo+PiArwqDCoMKgwqDCoMKgwqAgdHN0X2JyayhUQlJPSyB8IFRURVJSTk8sICJxdW90
-YWN0bCB3aXRoIFFfWFFVT1RBT0ZGIGZhaWxlZCIpOwo+PiArCj4+ICvCoMKgwqAgVEVTVChxdW90
-YWN0bChRQ01EKFFfWFFVT1RBUk0sIFVTUlFVT1RBKSwgdHN0X2RldmljZS0+ZGV2LCAKPj4gdGVz
-dF9pZCwgKHZvaWQgKikmdmFsaWRfdHlwZSkpOwo+PiArwqDCoMKgIGlmIChUU1RfRVJSID09IEVJ
-TlZBTCkKPj4gK8KgwqDCoMKgwqDCoMKgIHhxdW90YXJtX25zdXAgPSAxOwo+IElzIHhxdW90YXJt
-X25zdXAgdmFyaWFibGUgZHVwbGljYXRlZD8gaXQgc2VlbXMgc2ltcGxlciB0byByZXBvcnQgVENP
-TkYgCj4gaGVyZS4KWWVzLiBJIHdpbGwgcmVwb3J0IFRDT05GIGhlcmUuIEFsc28sIEkgd2lsbCBh
-ZGQgU0FGRV9VTU9VTlQgd2hlbiB3ZSB1c2UgClFfWFFVT1RBT0ZGIGZhaWxlZC4KPj4gKwo+PiAr
-wqDCoMKgIFNBRkVfVU1PVU5UKE1OVFBPSU5UKTsKPiAKPiBXaHkgZG8geW91IG5lZWQgdG8gbW91
-bnQgYW5kIHRoZW4gdW1vdW50Pwo+IAo+IENvdWxkIHdlIGNhbGwgUV9YUVVPVEFPTiBpZiB5b3Ug
-aGF2ZSB0byB0dXJuIG9uIHVzcnF1b3RhIGFnYWluPwo+IApBdCB0aGUgYmVnaW5uaW5nICwgSSBh
-bHNvIHdhbnQgdG8gdXNlIFFfWFFVT1RBT04gdG8gdHVybiBvbiB1c3JxdW90YSAKYWdhaW4uIEJ1
-dCBmcm9tIGtlcm5lbCBjb2RlLCB3aGVuIHdlIGNhbGwgUV9YUVVPVEFPTiwgaXQgd2lsbCB1c2Ug
-ClhGU19JU19RVU9UQV9SVU5OSU5HIG1hY3JvIHRvIGNoZWNrIHdoZXRoZXIgdGhlcmUgaGF2ZSBx
-dW90YSBhY2N0LiBJZiAKbm90LCBpdCB3aWxsIHJlcG9ydCBFTk9TWVMuIFNvLCBJIGdpdmUgdXAg
-dXNpbmcgUV9YUVVPVEFPTiBhbmQgdXNlIAptb3VudC91bW91bnQuCgpUaGFua3MKWWFuZyBYdQo+
-IAo+IEJlc3QgUmVnYXJkcywKPiAKPiBYaWFvIFlhbmcKPiAKPj4gK30KPj4gKwo+PiArc3RhdGlj
-IGNvbnN0IGNoYXIgKmtjb25maWdzW10gPSB7Cj4+ICvCoMKgwqAgIkNPTkZJR19YRlNfUVVPVEEi
-LAo+PiArwqDCoMKgIE5VTEwKPj4gK307Cj4+ICsKPj4gK3N0YXRpYyBzdHJ1Y3QgdHN0X3Rlc3Qg
-dGVzdCA9IHsKPj4gK8KgwqDCoCAuc2V0dXAgPSBzZXR1cCwKPj4gK8KgwqDCoCAubmVlZHNfcm9v
-dCA9IDEsCj4+ICvCoMKgwqAgLm5lZWRzX2tjb25maWdzID0ga2NvbmZpZ3MsCj4+ICvCoMKgwqAg
-LnRlc3RfYWxsID0gdmVyaWZ5X3F1b3RhLAo+PiArwqDCoMKgIC5mb3JtYXRfZGV2aWNlID0gMSwK
-Pj4gK8KgwqDCoCAuZGV2X2ZzX3R5cGUgPSAieGZzIiwKPj4gK8KgwqDCoCAubW50cG9pbnQgPSBN
-TlRQT0lOVCwKPj4gK8KgwqDCoCAudGFncyA9IChjb25zdCBzdHJ1Y3QgdHN0X3RhZ1tdKSB7Cj4+
-ICvCoMKgwqDCoMKgwqDCoCB7ImxpbnV4LWdpdCIsICIzZGQ0ZDQwYjQyMDgifSwKPj4gK8KgwqDC
-oMKgwqDCoMKgIHt9Cj4+ICvCoMKgwqAgfQo+PiArfTsKPj4gKyNlbHNlCj4+ICvCoMKgwqAgVFNU
-X1RFU1RfVENPTkYoIlN5c3RlbSBkb2Vzbid0IGhhdmUgPHhmcy94cW0uaD4iKTsKPj4gKyNlbmRp
-Zgo+IAo+IAo+IAoKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXgu
-aXQvbGlzdGluZm8vbHRwCg==
+This is a regresstion test to check Q_XQUOTARM  whether has
+quota flags check.
+
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+
+---------------------
+1.Simplify test code
+2.add comment for invalid_type,
+---------------------
+---
+ include/lapi/quotactl.h                       |  4 ++
+ runtest/syscalls                              |  1 +
+ testcases/kernel/syscalls/quotactl/.gitignore |  1 +
+ .../kernel/syscalls/quotactl/quotactl07.c     | 71 +++++++++++++++++++
+ 4 files changed, 77 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/quotactl/quotactl07.c
+
+diff --git a/include/lapi/quotactl.h b/include/lapi/quotactl.h
+index d3223b863..c1ec9d6e1 100644
+--- a/include/lapi/quotactl.h
++++ b/include/lapi/quotactl.h
+@@ -59,6 +59,10 @@ struct fs_quota_statv {
+ # define PRJQUOTA 2
+ #endif
+ 
++#ifndef Q_XQUOTARM
++# define Q_XQUOTARM XQM_CMD(6)
++#endif
++
+ #ifndef Q_XGETQSTATV
+ # define Q_XGETQSTATV XQM_CMD(8)
+ #endif
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 15dbd9971..0f75cf3f6 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -958,6 +958,7 @@ quotactl03 quotactl03
+ quotactl04 quotactl04
+ quotactl05 quotactl05
+ quotactl06 quotactl06
++quotactl07 quotactl07
+ 
+ read01 read01
+ read02 read02
+diff --git a/testcases/kernel/syscalls/quotactl/.gitignore b/testcases/kernel/syscalls/quotactl/.gitignore
+index 12896d6ad..8d2ef94d9 100644
+--- a/testcases/kernel/syscalls/quotactl/.gitignore
++++ b/testcases/kernel/syscalls/quotactl/.gitignore
+@@ -4,3 +4,4 @@
+ /quotactl04
+ /quotactl05
+ /quotactl06
++/quotactl07
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl07.c b/testcases/kernel/syscalls/quotactl/quotactl07.c
+new file mode 100644
+index 000000000..cd9f629ea
+--- /dev/null
++++ b/testcases/kernel/syscalls/quotactl/quotactl07.c
+@@ -0,0 +1,71 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2019 FUJITSU LIMITED. All rights reserved.
++ * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
++ *
++ * This is a regresstion test for kernel commit 3dd4d40b4208
++ * ("xfs: Sanity check flags of Q_XQUOTARM call").
++ */
++
++#include "config.h"
++#include <errno.h>
++#include <unistd.h>
++#include <stdio.h>
++#include <sys/quota.h>
++#include "lapi/quotactl.h"
++#include "tst_test.h"
++
++#ifdef HAVE_XFS_XQM_H
++# include <xfs/xqm.h>
++
++#define MNTPOINT    "mntpoint"
++
++static uint32_t qflag_acct = XFS_QUOTA_UDQ_ACCT;
++static unsigned int valid_type = XFS_USER_QUOTA;
++/*Include a valid quota type to avoid other EINVAL error*/
++static unsigned int invalid_type = XFS_GROUP_QUOTA << 1 | XFS_USER_QUOTA;
++
++static void verify_quota(void)
++{
++	TEST(quotactl(QCMD(Q_XQUOTARM, USRQUOTA), tst_device->dev, 0, (void *)&invalid_type));
++	if (TST_ERR == EINVAL)
++		tst_res(TPASS, "Q_XQUOTARM has quota type check");
++	else
++		tst_res(TFAIL, "Q_XQUOTARM doesn't have quota type check");
++}
++
++static void setup(void)
++{
++	TEST(quotactl(QCMD(Q_XQUOTAOFF, USRQUOTA), tst_device->dev, 0, (void *)&qflag_acct));
++	if (TST_RET == -1)
++		tst_brk(TBROK | TTERRNO, "quotactl with Q_XQUOTAOFF failed");
++
++	TEST(quotactl(QCMD(Q_XQUOTARM, USRQUOTA), tst_device->dev, 0, (void *)&valid_type));
++	if (TST_ERR == EINVAL) {
++		tst_res(TCONF, "current system doesn't support Q_XQUOTARM, skip it");
++		return;
++	}
++}
++
++static const char *kconfigs[] = {
++	"CONFIG_XFS_QUOTA",
++	NULL
++};
++
++static struct tst_test test = {
++	.setup = setup,
++	.needs_root = 1,
++	.needs_kconfigs = kconfigs,
++	.test_all = verify_quota,
++	.mount_device = 1,
++	.dev_fs_type = "xfs",
++	.mnt_data = "usrquota",
++	.mntpoint = MNTPOINT,
++	.tags = (const struct tst_tag[]) {
++		{"linux-git", "3dd4d40b4208"},
++		{}
++	}
++};
++#else
++	TST_TEST_TCONF("System doesn't have <xfs/xqm.h>");
++#endif
+-- 
+2.18.0
+
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
