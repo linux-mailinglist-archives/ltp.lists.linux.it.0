@@ -2,55 +2,45 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D9D5113C54
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Dec 2019 08:27:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F3B9113CA0
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Dec 2019 08:55:48 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B723C3C2561
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Dec 2019 08:27:54 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 400503C2444
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Dec 2019 08:55:48 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 9E2B03C236A
- for <ltp@lists.linux.it>; Thu,  5 Dec 2019 08:27:48 +0100 (CET)
-Received: from mail-m971.mail.163.com (mail-m971.mail.163.com [123.126.97.1])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id AF18E2010EF
- for <ltp@lists.linux.it>; Thu,  5 Dec 2019 08:27:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=qF1/B
- gBnXSzOg1lNLHBHGM+3m0z6VHDLb5t3/EePA1U=; b=Rw+KUNwNR4TRXWGGipXBl
- xWDUnKh/XFOfJOvphe+8QRZLQ4WvnUs0zuuM8nPILFjrtc5f/8RNqIsSMDSmkMqU
- Kx0kOBvd/WEwNycFmzwIywovaB8YXRUU2wL9bDWglBf+J6gHuJQ5EzArA3lA24qt
- UN1KN7ZOtQlRWgELn6978E=
-Received: from [172.20.10.4] (unknown [122.194.0.221])
- by smtp1 (Coremail) with SMTP id GdxpCgAXSmBssehdqWz1AQ--.127S2;
- Thu, 05 Dec 2019 15:27:40 +0800 (CST)
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>, ltp@lists.linux.it
-References: <1575457056-10022-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <8c735de2-8022-1df2-6ce5-ee4dabe77767@163.com>
- <de1c1667-9535-b122-e76c-66d42d88dc1f@cn.fujitsu.com>
-From: Xiao Yang <ice_yangxiao@163.com>
-Message-ID: <8688f941-2aba-df89-def6-e4d22aa041fd@163.com>
-Date: Thu, 5 Dec 2019 15:27:39 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 03C6E3C23AF
+ for <ltp@lists.linux.it>; Thu,  5 Dec 2019 08:55:42 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 2B62A1013175
+ for <ltp@lists.linux.it>; Thu,  5 Dec 2019 08:55:40 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.69,280,1571673600"; d="scan'208";a="79630947"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 05 Dec 2019 15:55:36 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
+ by cn.fujitsu.com (Postfix) with ESMTP id E476A4CE1BED
+ for <ltp@lists.linux.it>; Thu,  5 Dec 2019 15:47:00 +0800 (CST)
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ (TLS) id 14.3.439.0; Thu, 5 Dec 2019 15:55:30 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Thu, 5 Dec 2019 15:55:37 +0800
+Message-ID: <1575532537-27105-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-In-Reply-To: <de1c1667-9535-b122-e76c-66d42d88dc1f@cn.fujitsu.com>
-Content-Language: en-US
-X-CM-TRANSID: GdxpCgAXSmBssehdqWz1AQ--.127S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxKF13uFyxJFyrJF4xKw17ZFb_yoW3Xr4UpF
- nxGF4avFyxJr1UCr42q3WY9FsYq34jgr18Cr18Gr1kGrnFyF93Jr1aqa409ry7ZrWrua4r
- ZF4xWF4fGw1YgFDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jB9a9UUUUU=
-X-Originating-IP: [122.194.0.221]
-X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/1tbiOxaCXlXloDN1KwAAsM
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-yoursite-MailScanner-ID: E476A4CE1BED.AEFC5
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/quotactl07: add regresstion test for
- Q_XQTUOTARM
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/userfaultfd01: Always require CAP_SYS_PTRACE
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,155 +52,69 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Ck9uIDEyLzUvMTkgMTE6MTggQU0sIFlhbmcgWHUgd3JvdGU6Cj4KPiBIaSBYaWFvCj4KPiBvbiAy
-MDE5LzEyLzA0IDIyOjU3LCBYaWFvIFlhbmcgd3JvdGU6Cj4+IEhpIFlhbmcsCj4+Cj4+IE9uIDEy
-LzQvMTkgNjo1NyBQTSwgWWFuZyBYdSB3cm90ZToKPj4+IFRoaXMgaXMgYSByZWdyZXNzdGlvbiB0
-ZXN0IHRvIGNoZWNrIFFfWFFVT1RBUk3CoCB3aGV0aGVyIGhhcwo+Pj4gcXVvdGEgZmxhZ3MgY2hl
-Y2suCj4+Pgo+Pj4gU2lnbmVkLW9mZi1ieTogWWFuZyBYdSA8eHV5YW5nMjAxOC5qeUBjbi5mdWpp
-dHN1LmNvbT4KPj4+IC0tLQo+Pj4gwqAgaW5jbHVkZS9sYXBpL3F1b3RhY3RsLmjCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgNCArCj4+PiDCoCBydW50ZXN0
-L3N5c2NhbGxzwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCB8wqAgMSArCj4+PiDCoCB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3F1b3Rh
-Y3RsLy5naXRpZ25vcmUgfMKgIDEgKwo+Pj4gwqAgLi4uL2tlcm5lbC9zeXNjYWxscy9xdW90YWN0
-bC9xdW90YWN0bDA3LmPCoMKgwqDCoCB8IDg5IAo+Pj4gKysrKysrKysrKysrKysrKysrKwo+Pj4g
-wqAgNCBmaWxlcyBjaGFuZ2VkLCA5NSBpbnNlcnRpb25zKCspCj4+PiDCoCBjcmVhdGUgbW9kZSAx
-MDA2NDQgdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9xdW90YWN0bC9xdW90YWN0bDA3LmMKPj4+
-Cj4+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9sYXBpL3F1b3RhY3RsLmggYi9pbmNsdWRlL2xhcGkv
-cXVvdGFjdGwuaAo+Pj4gaW5kZXggZDMyMjNiODYzLi5jMWVjOWQ2ZTEgMTAwNjQ0Cj4+PiAtLS0g
-YS9pbmNsdWRlL2xhcGkvcXVvdGFjdGwuaAo+Pj4gKysrIGIvaW5jbHVkZS9sYXBpL3F1b3RhY3Rs
-LmgKPj4+IEBAIC01OSw2ICs1OSwxMCBAQCBzdHJ1Y3QgZnNfcXVvdGFfc3RhdHYgewo+Pj4gwqAg
-IyBkZWZpbmUgUFJKUVVPVEEgMgo+Pj4gwqAgI2VuZGlmCj4+PiArI2lmbmRlZiBRX1hRVU9UQVJN
-Cj4+PiArIyBkZWZpbmUgUV9YUVVPVEFSTSBYUU1fQ01EKDYpCj4+PiArI2VuZGlmCj4+PiArCj4+
-PiDCoCAjaWZuZGVmIFFfWEdFVFFTVEFUVgo+Pj4gwqAgIyBkZWZpbmUgUV9YR0VUUVNUQVRWIFhR
-TV9DTUQoOCkKPj4+IMKgICNlbmRpZgo+Pj4gZGlmZiAtLWdpdCBhL3J1bnRlc3Qvc3lzY2FsbHMg
-Yi9ydW50ZXN0L3N5c2NhbGxzCj4+PiBpbmRleCAxNWRiZDk5NzEuLjBmNzVjZjNmNiAxMDA2NDQK
-Pj4+IC0tLSBhL3J1bnRlc3Qvc3lzY2FsbHMKPj4+ICsrKyBiL3J1bnRlc3Qvc3lzY2FsbHMKPj4+
-IEBAIC05NTgsNiArOTU4LDcgQEAgcXVvdGFjdGwwMyBxdW90YWN0bDAzCj4+PiDCoCBxdW90YWN0
-bDA0IHF1b3RhY3RsMDQKPj4+IMKgIHF1b3RhY3RsMDUgcXVvdGFjdGwwNQo+Pj4gwqAgcXVvdGFj
-dGwwNiBxdW90YWN0bDA2Cj4+PiArcXVvdGFjdGwwNyBxdW90YWN0bDA3Cj4+PiDCoCByZWFkMDEg
-cmVhZDAxCj4+PiDCoCByZWFkMDIgcmVhZDAyCj4+PiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tl
-cm5lbC9zeXNjYWxscy9xdW90YWN0bC8uZ2l0aWdub3JlIAo+Pj4gYi90ZXN0Y2FzZXMva2VybmVs
-L3N5c2NhbGxzL3F1b3RhY3RsLy5naXRpZ25vcmUKPj4+IGluZGV4IDEyODk2ZDZhZC4uOGQyZWY5
-NGQ5IDEwMDY0NAo+Pj4gLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9xdW90YWN0bC8u
-Z2l0aWdub3JlCj4+PiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3F1b3RhY3RsLy5n
-aXRpZ25vcmUKPj4+IEBAIC00LDMgKzQsNCBAQAo+Pj4gwqAgL3F1b3RhY3RsMDQKPj4+IMKgIC9x
-dW90YWN0bDA1Cj4+PiDCoCAvcXVvdGFjdGwwNgo+Pj4gKy9xdW90YWN0bDA3Cj4+PiBkaWZmIC0t
-Z2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9xdW90YWN0bC9xdW90YWN0bDA3LmMgCj4+
-PiBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcXVvdGFjdGwvcXVvdGFjdGwwNy5jCj4+PiBu
-ZXcgZmlsZSBtb2RlIDEwMDY0NAo+Pj4gaW5kZXggMDAwMDAwMDAwLi4wNzZkYjBiZmUKPj4+IC0t
-LSAvZGV2L251bGwKPj4+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcXVvdGFjdGwv
-cXVvdGFjdGwwNy5jCj4+PiBAQCAtMCwwICsxLDg5IEBACj4+PiArLy8gU1BEWC1MaWNlbnNlLUlk
-ZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIKPj4+ICsvKgo+Pj4gKyAqIENvcHlyaWdodCAoYykg
-MjAxOSBGVUpJVFNVIExJTUlURUQuIEFsbCByaWdodHMgcmVzZXJ2ZWQuCj4+PiArICogQXV0aG9y
-OiBZYW5nIFh1IDx4dXlhbmcyMDE4Lmp5QGNuLmZ1aml0c3UuY29tPgo+Pj4gKyAqCj4+PiArICog
-VGhpcyBpcyBhIHJlZ3Jlc3N0aW9uIHRlc3QgZm9yIGtlcm5lbCBjb21taXQgM2RkNGQ0MGI0MjA4
-Cj4+PiArICogKCJ4ZnM6IFNhbml0eSBjaGVjayBmbGFncyBvZiBRX1hRVU9UQVJNIGNhbGwiKS4K
-Pj4+ICsgKi8KPj4+ICsKPj4+ICsjaW5jbHVkZSAiY29uZmlnLmgiCj4+PiArI2luY2x1ZGUgPGVy
-cm5vLmg+Cj4+PiArI2luY2x1ZGUgPHVuaXN0ZC5oPgo+Pj4gKyNpbmNsdWRlIDxzdGRpby5oPgo+
-Pj4gKyNpbmNsdWRlIDxzeXMvcXVvdGEuaD4KPj4+ICsjaW5jbHVkZSAibGFwaS9xdW90YWN0bC5o
-Igo+Pj4gKyNpbmNsdWRlICJ0c3RfdGVzdC5oIgo+Pj4gKwo+Pj4gKyNpZmRlZiBIQVZFX1hGU19Y
-UU1fSAo+Pj4gKyMgaW5jbHVkZSA8eGZzL3hxbS5oPgo+Pj4gKwo+Pj4gKyNkZWZpbmUgTU5UUE9J
-TlTCoMKgwqAgIm1udHBvaW50Igo+Pj4gKwo+Pj4gK3N0YXRpYyB1aW50MzJfdCBxZmxhZ19hY2N0
-ID0gWEZTX1FVT1RBX1VEUV9BQ0NUOwo+Pj4gK3N0YXRpYyBpbnQgdGVzdF9pZDsKPj4+ICtzdGF0
-aWMgaW50IHhxdW90YXJtX25zdXA7Cj4+PiArc3RhdGljIHVuc2lnbmVkIGludCB2YWxpZF90eXBl
-ID0gMTsKPj4+ICtzdGF0aWMgdW5zaWduZWQgaW50IGludmFsaWRfdHlwZSA9IDk7Cj4+PiArCj4+
-PiArc3RhdGljIHZvaWQgdmVyaWZ5X3F1b3RhKHZvaWQpCj4+PiArewo+Pj4gK8KgwqDCoCBpZiAo
-eHF1b3Rhcm1fbnN1cCkgewo+Pj4gK8KgwqDCoMKgwqDCoMKgIHRzdF9yZXMoVENPTkYsCj4+PiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAiY3VycmVudCBzeXN0ZW0gZG9lc24ndCBzdXBwb3J0IFFf
-WFFVT1RBUk0sIHNraXAgaXQiKTsKPj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm47Cj4+PiArwqDC
-oMKgIH0KPj4+ICsKPj4+ICvCoMKgwqAgU0FGRV9NT1VOVCh0c3RfZGV2aWNlLT5kZXYsIE1OVFBP
-SU5ULCB0c3RfZGV2aWNlLT5mc190eXBlLCAwLCAKPj4+ICJxdW90YSIpOwo+Pj4gKwo+Pj4gK8Kg
-wqDCoCBURVNUKHF1b3RhY3RsKFFDTUQoUV9YUVVPVEFPRkYsIFVTUlFVT1RBKSwgdHN0X2Rldmlj
-ZS0+ZGV2LCAKPj4+IHRlc3RfaWQsICh2b2lkICopJnFmbGFnX2FjY3QpKTsKPj4+ICvCoMKgwqAg
-aWYgKFRTVF9SRVQgPT0gLTEpCj4+PiArwqDCoMKgwqDCoMKgwqAgdHN0X2JyayhUQlJPSyB8IFRU
-RVJSTk8sICJxdW90YWN0bCB3aXRoIFFfWFFVT1RBT0ZGIGZhaWxlZCIpOwo+PiBJcyBpdCBwb3Nz
-aWJsZSB0byBnaXQgcmlkIG9mIFFfWFFVT1RBT0ZGIGFuZCBjYWxsIFFfWFFVT1RBUk0gd2l0aCAK
-Pj4gaW52YWxpZF90eXBlIGRpcmVjdGx5Pwo+IEZyb20gbWFuLXBhZ2VzLCBiZWZvcmUgd2UgdXNl
-IFFfWFFVT1RBUk0gLCBxdW90YXMgbXVzdCBoYXZlIGFscmVhZHkgCj4gYmVlbiB0dXJuZWQgb2Zm
-LiBJZiB3ZSBkb24ndCB1c2UgdHVybm9mZiwgaXQgd2lsbCByZXBvcnQgRUlOVkFMIGJ1dCAKPiBu
-b3Qgd2Ugd2FudGVkICJFSU5WQUwiLsKgIGFzIGJlbG93Ogo+IC0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPiBkaWZmIC0tZ2l0IGEvZnMveGZz
-L3hmc19xdW90YW9wcy5jIGIvZnMveGZzL3hmc19xdW90YW9wcy5jCj4gaW5kZXggYzdkZTE3ZGVl
-YWU2Li4wMDZjNjk4NWE1MjggMTAwNjQ0Cj4gLS0tIGEvZnMveGZzL3hmc19xdW90YW9wcy5jCj4g
-KysrIGIvZnMveGZzL3hmc19xdW90YW9wcy5jCj4gQEAgLTE2NCw4ICsxNjQsMTAgQEAgeGZzX3F1
-b3RhX2VuYWJsZSgKPgo+IMKgwqDCoMKgwqDCoMKgIGlmIChzYl9yZG9ubHkoc2IpKQo+IMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVST0ZTOwo+IC3CoMKgwqDCoMKgwqAg
-aWYgKCFYRlNfSVNfUVVPVEFfUlVOTklORyhtcCkpCj4gK8KgwqDCoMKgwqDCoCBpZiAoIVhGU19J
-U19RVU9UQV9SVU5OSU5HKG1wKSkgewo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBy
-aW50aygieHV5YW5nIHF1b3RhIGlzIG5vIHJ1bm5pbmdcbiIpOwo+IMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCByZXR1cm4gLUVOT1NZUzsKPiArwqDCoMKgwqDCoMKgIH0KPgo+IMKgwqDC
-oMKgwqDCoMKgIHJldHVybiB4ZnNfcW1fc2NhbGxfcXVvdGFvbihtcCwgeGZzX3F1b3RhX2ZsYWdz
-KHVmbGFncykpOwo+IMKgfQo+IEBAIC0xOTgsMTIgKzIwMCwxNSBAQCB4ZnNfZnNfcm1feHF1b3Rh
-KAo+IMKgwqDCoMKgwqDCoMKgIGlmIChzYl9yZG9ubHkoc2IpKQo+IMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCByZXR1cm4gLUVST0ZTOwo+Cj4gLcKgwqDCoMKgwqDCoCBpZiAoWEZTX0lT
-X1FVT1RBX09OKG1wKSkKPiArwqDCoMKgwqDCoMKgIGlmIChYRlNfSVNfUVVPVEFfT04obXApKSB7
-Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcHJpbnRrKCJ4dXlhbmcgcm0gcXVvdGFc
-biIpOwo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVJTlZBTDsKPiAr
-wqDCoMKgwqDCoMKgIH0KPgo+IC3CoMKgwqDCoMKgwqAgaWYgKHVmbGFncyAmIH4oRlNfVVNFUl9R
-VU9UQSB8IEZTX0dST1VQX1FVT1RBIHwgRlNfUFJPSl9RVU9UQSkpCj4gK8KgwqDCoMKgwqDCoCBp
-ZiAodWZsYWdzICYgfihGU19VU0VSX1FVT1RBIHwgRlNfR1JPVVBfUVVPVEEgfCBGU19QUk9KX1FV
-T1RBKSkgewo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHByaW50aygieHV5YW5nIGZs
-YWcgY2hlY2tcbiIpOwo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVJ
-TlZBTDsKPiAtCj4gK8KgwqDCoMKgwqDCoCB9Cj4gwqDCoMKgwqDCoMKgwqAgaWYgKHVmbGFncyAm
-IEZTX1VTRVJfUVVPVEEpCj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGZsYWdzIHw9
-IFhGU19EUV9VU0VSOwo+IMKgwqDCoMKgwqDCoMKgIGlmICh1ZmxhZ3MgJiBGU19HUk9VUF9RVU9U
-QSkKPgo+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0KPiBpdCB3aWxsIHJlcG9ydCAieHV5YW5nIHJtIHF1b3RhIiBiZWNhdXNlIHF1b3RhIGFj
-Y3QgaXMgb24uCj4KPiBTbyBJIHRoaW5rIGl0IGlzIGltcG9zc2libGUgZXhjZXB0IHdlIG1vdW50
-IHdpdGhvdXQgcXVvdGEgb3B0aW9uLiBCdXQgCj4gaXQgaXMgbWVhbmluZ2xlc3Mod2l0aG91dCBx
-dW90YSBmZWF0dXJlIHRvIHVzZSBRX1hRVU9UQVJNKS4gSSBwcmVmZXIgCj4gdG8gdXNlIG15IG9s
-ZCB3YXkuIFdoYXQgZG8geW91IHRoaW5rIGFib3V0IGl0PwoKSGkgWHUsCgoKU29ycnkgZm9yIHRo
-ZSBsYXRlIHJlcGx5LsKgIEl0IHNlZW1zIHRoYXQgeW91IHVuZGVyc3Rvb2Qgd2hhdCBJIG1lYW4u
-CgplLmcuIE1ha2Ugc2V0dXAgc3RhZ2UgZG8gbW91bnQgYW5kIFFfWFFVT1RBT0ZGIGFuZCB0aGVu
-IG9ubHkgY2FsbAoKUV9YUVVPVEFSTSBpbiB2ZXJpZnlfcXVvdGEoKSBhcyB5b3UgdjIgcGF0Y2gg
-ZG9lcy4KCgpUaGFua3MsCgpYaWFvIFlhbmcKCj4KPgo+Pj4gKwo+Pj4gK8KgwqDCoCBURVNUKHF1
-b3RhY3RsKFFDTUQoUV9YUVVPVEFSTSwgVVNSUVVPVEEpLCB0c3RfZGV2aWNlLT5kZXYsIAo+Pj4g
-dGVzdF9pZCwgKHZvaWQgKikmaW52YWxpZF90eXBlKSk7Cj4+PiArwqDCoMKgIGlmIChUU1RfRVJS
-ID09IEVJTlZBTCkKPj4+ICvCoMKgwqDCoMKgwqDCoCB0c3RfcmVzKFRQQVNTLCAiUV9YUVVPVEFS
-TSBoYXMgcXVvdGEgdHlwZSBjaGVjayIpOwo+Pj4gK8KgwqDCoCBlbHNlCj4+PiArwqDCoMKgwqDC
-oMKgwqAgdHN0X3JlcyhURkFJTCwgIlFfWFFVT1RBUk0gZG9lc24ndCBoYXZlIHF1b3RhIHR5cGUg
-Y2hlY2siKTsKPj4+ICsKPj4+ICvCoMKgwqAgU0FGRV9VTU9VTlQoTU5UUE9JTlQpOwo+Pj4gK30K
-Pj4+ICsKPj4+ICtzdGF0aWMgdm9pZCBzZXR1cCh2b2lkKQo+Pj4gK3sKPj4+ICvCoMKgwqAgdGVz
-dF9pZCA9IGdldGV1aWQoKTsKPj4KPj4gSXMgdGVzdF9pZCBuZWNlc3Nhcnk/wqAgSXQgc2VlbXMg
-dG8gYmUgaWdub3JlZCBieSBib3RoIFFfWFFVT1RBT0ZGIGFuZCAKPj4gUV9YUVVPVEFSTS4KPiBJ
-dCBpcyB1bm5lY2Vzc2FyeS7CoCBGcm9tIG1hbi1wYWdlcyBvciBrZXJuZWwgc291cmNlIGNvZGUs
-IHRoaXMgaWQgCj4gYXJndW1lbnQgaXMgaW5nb3JlZC4gSSB3aWxsIHVzZSAwIGluc3RlYWQgb2Yg
-aXQuCj4+Cj4+PiArCj4+PiArwqDCoMKgIFNBRkVfTU9VTlQodHN0X2RldmljZS0+ZGV2LCBNTlRQ
-T0lOVCwgdHN0X2RldmljZS0+ZnNfdHlwZSwgMCwgCj4+PiAicXVvdGEiKTsKPj4+ICsKPj4+ICvC
-oMKgwqAgVEVTVChxdW90YWN0bChRQ01EKFFfWFFVT1RBT0ZGLCBVU1JRVU9UQSksIHRzdF9kZXZp
-Y2UtPmRldiwgCj4+PiB0ZXN0X2lkLCAodm9pZCAqKSZxZmxhZ19hY2N0KSk7Cj4+PiArwqDCoMKg
-IGlmIChUU1RfUkVUID09IC0xKQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHRzdF9icmsoVEJST0sgfCBU
-VEVSUk5PLCAicXVvdGFjdGwgd2l0aCBRX1hRVU9UQU9GRiBmYWlsZWQiKTsKPj4+ICsKPj4+ICvC
-oMKgwqAgVEVTVChxdW90YWN0bChRQ01EKFFfWFFVT1RBUk0sIFVTUlFVT1RBKSwgdHN0X2Rldmlj
-ZS0+ZGV2LCAKPj4+IHRlc3RfaWQsICh2b2lkICopJnZhbGlkX3R5cGUpKTsKPj4+ICvCoMKgwqAg
-aWYgKFRTVF9FUlIgPT0gRUlOVkFMKQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHhxdW90YXJtX25zdXAg
-PSAxOwo+PiBJcyB4cXVvdGFybV9uc3VwIHZhcmlhYmxlIGR1cGxpY2F0ZWQ/IGl0IHNlZW1zIHNp
-bXBsZXIgdG8gcmVwb3J0IAo+PiBUQ09ORiBoZXJlLgo+IFllcy4gSSB3aWxsIHJlcG9ydCBUQ09O
-RiBoZXJlLiBBbHNvLCBJIHdpbGwgYWRkIFNBRkVfVU1PVU5UIHdoZW4gd2UgCj4gdXNlIFFfWFFV
-T1RBT0ZGIGZhaWxlZC4KPj4+ICsKPj4+ICvCoMKgwqAgU0FGRV9VTU9VTlQoTU5UUE9JTlQpOwo+
-Pgo+PiBXaHkgZG8geW91IG5lZWQgdG8gbW91bnQgYW5kIHRoZW4gdW1vdW50Pwo+Pgo+PiBDb3Vs
-ZCB3ZSBjYWxsIFFfWFFVT1RBT04gaWYgeW91IGhhdmUgdG8gdHVybiBvbiB1c3JxdW90YSBhZ2Fp
-bj8KPj4KPiBBdCB0aGUgYmVnaW5uaW5nICwgSSBhbHNvIHdhbnQgdG8gdXNlIFFfWFFVT1RBT04g
-dG8gdHVybiBvbiB1c3JxdW90YSAKPiBhZ2Fpbi4gQnV0IGZyb20ga2VybmVsIGNvZGUsIHdoZW4g
-d2UgY2FsbCBRX1hRVU9UQU9OLCBpdCB3aWxsIHVzZSAKPiBYRlNfSVNfUVVPVEFfUlVOTklORyBt
-YWNybyB0byBjaGVjayB3aGV0aGVyIHRoZXJlIGhhdmUgcXVvdGEgYWNjdC4gSWYgCj4gbm90LCBp
-dCB3aWxsIHJlcG9ydCBFTk9TWVMuIFNvLCBJIGdpdmUgdXAgdXNpbmcgUV9YUVVPVEFPTiBhbmQg
-dXNlIAo+IG1vdW50L3Vtb3VudC4KPgo+IFRoYW5rcwo+IFlhbmcgWHUKPj4KPj4gQmVzdCBSZWdh
-cmRzLAo+Pgo+PiBYaWFvIFlhbmcKPj4KPj4+ICt9Cj4+PiArCj4+PiArc3RhdGljIGNvbnN0IGNo
-YXIgKmtjb25maWdzW10gPSB7Cj4+PiArwqDCoMKgICJDT05GSUdfWEZTX1FVT1RBIiwKPj4+ICvC
-oMKgwqAgTlVMTAo+Pj4gK307Cj4+PiArCj4+PiArc3RhdGljIHN0cnVjdCB0c3RfdGVzdCB0ZXN0
-ID0gewo+Pj4gK8KgwqDCoCAuc2V0dXAgPSBzZXR1cCwKPj4+ICvCoMKgwqAgLm5lZWRzX3Jvb3Qg
-PSAxLAo+Pj4gK8KgwqDCoCAubmVlZHNfa2NvbmZpZ3MgPSBrY29uZmlncywKPj4+ICvCoMKgwqAg
-LnRlc3RfYWxsID0gdmVyaWZ5X3F1b3RhLAo+Pj4gK8KgwqDCoCAuZm9ybWF0X2RldmljZSA9IDEs
-Cj4+PiArwqDCoMKgIC5kZXZfZnNfdHlwZSA9ICJ4ZnMiLAo+Pj4gK8KgwqDCoCAubW50cG9pbnQg
-PSBNTlRQT0lOVCwKPj4+ICvCoMKgwqAgLnRhZ3MgPSAoY29uc3Qgc3RydWN0IHRzdF90YWdbXSkg
-ewo+Pj4gK8KgwqDCoMKgwqDCoMKgIHsibGludXgtZ2l0IiwgIjNkZDRkNDBiNDIwOCJ9LAo+Pj4g
-K8KgwqDCoMKgwqDCoMKgIHt9Cj4+PiArwqDCoMKgIH0KPj4+ICt9Owo+Pj4gKyNlbHNlCj4+PiAr
-wqDCoMKgIFRTVF9URVNUX1RDT05GKCJTeXN0ZW0gZG9lc24ndCBoYXZlIDx4ZnMveHFtLmg+Iik7
-Cj4+PiArI2VuZGlmCj4+Cj4+Cj4+Cj4KCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8v
-bGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Since commit cefdca0a86be ("userfaultfd/sysctl: add vm.unprivileged_userfaultfd").
+, it adds a global sysctl knob "vm.unprivileged_userfaultfd" to control whether
+unprivileged users can use the userfaultfd system calls.  Set this to 1 to allow
+unprivileged users to use the userfaultfd system calls, or set this to 0 to
+restrict userfaultfd to only privileged users (with SYS_CAP_PTRACE capability).The
+default value is 1. In order to use userfaultfd always, require CAP_SYS_PTRACE.
+
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+---
+ include/lapi/capability.h                             | 4 ++++
+ testcases/kernel/syscalls/userfaultfd/userfaultfd01.c | 7 ++++++-
+ 2 files changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/include/lapi/capability.h b/include/lapi/capability.h
+index 8833f0605..06c3f4921 100644
+--- a/include/lapi/capability.h
++++ b/include/lapi/capability.h
+@@ -24,6 +24,10 @@
+ # define CAP_NET_RAW          13
+ #endif
+ 
++#ifndef CAP_SYS_PTRACE
++# define CAP_SYS_PTRACE       19
++#endif
++
+ #ifndef CAP_SYS_ADMIN
+ # define CAP_SYS_ADMIN        21
+ #endif
+diff --git a/testcases/kernel/syscalls/userfaultfd/userfaultfd01.c b/testcases/kernel/syscalls/userfaultfd/userfaultfd01.c
+index a5e142209..74d2d2253 100644
+--- a/testcases/kernel/syscalls/userfaultfd/userfaultfd01.c
++++ b/testcases/kernel/syscalls/userfaultfd/userfaultfd01.c
+@@ -19,6 +19,7 @@
+ #include "tst_safe_macros.h"
+ #include "tst_safe_pthread.h"
+ #include "lapi/syscalls.h"
++#include "lapi/capability.h"
+ 
+ static int page_size;
+ static char *page;
+@@ -114,7 +115,11 @@ static void run(void)
+ static struct tst_test test = {
+ 	.test_all = run,
+ 	.min_kver = "4.3",
+-	.timeout = 20
++	.timeout = 20,
++	.caps = (struct tst_cap []) {
++		TST_CAP(TST_CAP_REQ, CAP_SYS_PTRACE),
++		{}
++	}
+ };
+ 
+ #else
+-- 
+2.18.0
+
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
