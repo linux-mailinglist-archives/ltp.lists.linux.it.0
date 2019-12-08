@@ -1,51 +1,90 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ED74116A75
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Dec 2019 11:03:46 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A8E1116A77
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Dec 2019 11:03:53 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 148D33C2387
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Dec 2019 11:03:46 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1C5363C2356
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Dec 2019 11:03:53 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 2695D3C089D
- for <ltp@lists.linux.it>; Sat,  7 Dec 2019 01:09:34 +0100 (CET)
-Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTP id 610A43C0151
+ for <ltp@lists.linux.it>; Sun,  8 Dec 2019 21:30:36 +0100 (CET)
+Received: from sandeen.net (sandeen.net [63.231.237.45])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 551061A00E7A
+ for <ltp@lists.linux.it>; Sun,  8 Dec 2019 21:30:36 +0100 (CET)
+Received: from [10.0.0.4] (erlite [10.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id CEC081A00F63
- for <ltp@lists.linux.it>; Sat,  7 Dec 2019 01:09:33 +0100 (CET)
-Received: from [IPv6:2a01:e0a:2a2:1590:3130:d4af:7a6d:562c] (unknown
- [IPv6:2a01:e0a:2a2:1590:3130:d4af:7a6d:562c])
- by smtp3-g21.free.fr (Postfix) with ESMTP id 8FAC913F89C;
- Sat,  7 Dec 2019 01:09:17 +0100 (CET)
+ by sandeen.net (Postfix) with ESMTPSA id 15E034A0;
+ Sun,  8 Dec 2019 14:30:34 -0600 (CST)
+To: dftxbs3e <dftxbs3e@free.fr>, Jan Stancek <jstancek@redhat.com>,
+ linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, hch@infradead.org,
+ darrick.wong@oracle.com, linuxppc-dev@lists.ozlabs.org,
+ Memory Management <mm-qe@redhat.com>, LTP Mailing List <ltp@lists.linux.it>,
+ CKI Project <cki-project@redhat.com>, Michael Ellerman <mpe@ellerman.id.au>
 References: <9c0af967-4916-4e8b-e77f-087515793d77@free.fr>
-To: Jan Stancek <jstancek@redhat.com>, linux-xfs@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, hch@infradead.org, darrick.wong@oracle.com,
- linuxppc-dev@lists.ozlabs.org, Memory Management <mm-qe@redhat.com>,
- LTP Mailing List <ltp@lists.linux.it>, CKI Project <cki-project@redhat.com>,
- Michael Ellerman <mpe@ellerman.id.au>
-From: dftxbs3e <dftxbs3e@free.fr>
-X-Forwarded-Message-Id: <9c0af967-4916-4e8b-e77f-087515793d77@free.fr>
-Message-ID: <e9a171cc-6827-5c43-092a-9dcd8a997b5a@free.fr>
-Date: Sat, 7 Dec 2019 01:09:17 +0100
-User-Agent: Mozilla/5.0 (X11; Linux ppc64le; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
+ <e9a171cc-6827-5c43-092a-9dcd8a997b5a@free.fr>
+From: Eric Sandeen <sandeen@sandeen.net>
+Autocrypt: addr=sandeen@sandeen.net; prefer-encrypt=mutual; keydata=
+ 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 pA==
+Message-ID: <f874ea14-becc-9c4b-2f2f-351573e6a751@sandeen.net>
+Date: Sun, 8 Dec 2019 14:30:33 -0600
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.3.0
 MIME-Version: 1.0
-In-Reply-To: <9c0af967-4916-4e8b-e77f-087515793d77@free.fr>
+In-Reply-To: <e9a171cc-6827-5c43-092a-9dcd8a997b5a@free.fr>
 Content-Language: en-US
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=1.6 required=7.0 tests=FREEMAIL_FROM,
- HK_RANDOM_ENVFROM,HK_RANDOM_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-X-Spam-Level: *
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
 X-Mailman-Approved-At: Mon, 09 Dec 2019 11:03:41 +0100
-Subject: [LTP] [bug] userspace hitting sporadic SIGBUS on xfs (Power9,
+Subject: Re: [LTP] [bug] userspace hitting sporadic SIGBUS on xfs (Power9,
  ppc64le), v4.19 and later
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -58,164 +97,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello!
 
-I am very happy that someone has found this issue.
 
-I have been suffering from rather random SIGBUS errors in similar
-conditions described by the author.
+On 12/6/19 6:09 PM, dftxbs3e wrote:
+> Hello!
+> 
+> I am very happy that someone has found this issue.
+> 
+> I have been suffering from rather random SIGBUS errors in similar
+> conditions described by the author.
+> 
+> I don't have much troubleshooting information to provide, however, I hit
+> the issue regularly so I could investigate during that.
+> 
+> How do you debug such an issue? I tried a debugger etc. but besides
+> crashing with SIGBUS, I couldnt get any other meaningful information.
 
-I don't have much troubleshooting information to provide, however, I hit
-the issue regularly so I could investigate during that.
+You may want to test the patch Christoph sent on the original thread for
+this issue.
 
-How do you debug such an issue? I tried a debugger etc. but besides
-crashing with SIGBUS, I couldnt get any other meaningful information.
-
-dftxbs3e
-
-On 12/3/19 1:50 PM, Jan Stancek wrote:
-> Hi,
->
-> (This bug report is summary from thread [1] with some additions)
->
-> User-space binaries on Power9 ppc64le (with 64k pages) on xfs
-> filesystem are sporadically hitting SIGBUS:
->
-> ---------- 8< ----------
-> (gdb) r
-> Starting program: /mnt/testarea/ltp/testcases/bin/genasin
->
-> Program received signal SIGBUS, Bus error.
-> dl_main (phdr=0x10000040, phnum=<optimized out>, user_entry=0x7fffffffe760, auxv=<optimized out>) at rtld.c:1362
-> 1362        switch (ph->p_type)
->
-> (gdb) p ph
-> $1 = (const Elf64_Phdr *) 0x10000040
->
-> (gdb) p *ph
-> Cannot access memory at address 0x10000040
->
-> (gdb) info proc map
-> process 1110670
-> Mapped address spaces:
->
->             Start Addr           End Addr       Size     Offset objfile
->             0x10000000         0x10010000    0x10000        0x0 /mnt/testarea/ltp/testcases/bin/genasin
->             0x10010000         0x10030000    0x20000        0x0 /mnt/testarea/ltp/testcases/bin/genasin
->         0x7ffff7f90000     0x7ffff7fb0000    0x20000        0x0 [vdso]
->         0x7ffff7fb0000     0x7ffff7fe0000    0x30000        0x0 /usr/lib64/ld-2.30.so
->         0x7ffff7fe0000     0x7ffff8000000    0x20000    0x20000 /usr/lib64/ld-2.30.so
->         0x7ffffffd0000     0x800000000000    0x30000        0x0 [stack]
->
-> (gdb) x/1x 0x10000040
-> 0x10000040:     Cannot access memory at address 0x10000040
-> ---------- >8 ----------
->
-> When this happens the binary continues to hit SIGBUS until page
-> is released, for example by: echo 3 > /proc/sys/vm/drop_caches
->
-> The issue goes back to at least v4.19.
->
-> I can semi-reliably reproduce it with LTP is installed to /mnt/testarea/ltp by:
-> while [ True ]; do
->           echo 3 > /proc/sys/vm/drop_caches
->           rm -f /mnt/testarea/ltp/results/RUNTEST.log /mnt/testarea/ltp/output/RUNTEST.run.log
->           ./runltp -p -d results -l RUNTEST.log -o RUNTEST.run.log -f math
->           grep FAIL /mnt/testarea/ltp/results/RUNTEST.log && exit 1
-> done
->
-> and some stress activity in other terminal (e.g. kernel build).
-> Sometimes in minutes, sometimes in hours. It is not reliable
-> enough to get meaningful bisect results.
->
-> My theory is that there's a race in iomap. There appear to be
-> interleaved calls to iomap_set_range_uptodate() for same page
-> with varying offset and length. Each call sees bitmap as _not_
-> entirely "uptodate" and hence doesn't call SetPageUptodate().
-> Even though each bit in bitmap ends up uptodate by the time
-> all calls finish.
->
-> For example, with following traces:
->
-> iomap_set_range_uptodate()
-> ...
->           if (uptodate && !PageError(page))
->                   SetPageUptodate(page);
-> +
-> +       if (mycheck(page)) {
-> +               trace_printk("page: %px, iop: %px, uptodate: %d, !PageError(page): %d, flags: %lx\n", page, iop, uptodate, !PageError(page), page->flags);
-> +               trace_printk("first: %u, last: %u, off: %u, len: %u, i: %u\n", first, last, off, len, i);
-> +       }
->
-> I get:
->            genacos-18471 [057] ....   162.465730: iomap_readpages: mapping: c000003f185a1ab0
->            genacos-18471 [057] ....   162.465732: iomap_page_create: iomap_page_create page: c00c00000fe26180, page->private: 0000000000000000, iop: c000003fc70a19c0, flags: 3ffff800000001
->            genacos-18471 [057] ....   162.465736: iomap_set_range_uptodate: page: c00c00000fe26180, iop: c000003fc70a19c0, uptodate: 0, !PageError(page): 1, flags: 3ffff800002001
->            genacos-18471 [057] ....   162.465736: iomap_set_range_uptodate: first: 1, last: 14, off: 4096, len: 57344, i: 16
->             <idle>-0     [060] ..s.   162.534862: iomap_set_range_uptodate: page: c00c00000fe26180, iop: c000003fc70a19c0, uptodate: 0, !PageError(page): 1, flags: 3ffff800002081
->             <idle>-0     [061] ..s.   162.534862: iomap_set_range_uptodate: page: c00c00000fe26180, iop: c000003fc70a19c0, uptodate: 0, !PageError(page): 1, flags: 3ffff800002081
->             <idle>-0     [060] ..s.   162.534864: iomap_set_range_uptodate: first: 0, last: 0, off: 0, len: 4096, i: 16
->             <idle>-0     [061] ..s.   162.534864: iomap_set_range_uptodate: first: 15, last: 15, off: 61440, len: 4096, i: 16
->
-> This page doesn't have Uptodate flag set, which leads to filemap_fault()
-> returning VM_FAULT_SIGBUS:
->
-> crash> p/x ((struct page *) 0xc00c00000fe26180)->flags
-> $1 = 0x3ffff800002032
->
-> crash> kmem -g 0x3ffff800002032
-> FLAGS: 3ffff800002032
->     PAGE-FLAG       BIT  VALUE
->     PG_error          1  0000002
->     PG_dirty          4  0000010
->     PG_lru            5  0000020
->     PG_private_2     13  0002000
->     PG_fscache       13  0002000
->     PG_savepinned     4  0000010
->     PG_double_map    13  0002000
->
-> But iomap_page->uptodate in page->private suggests all bits are uptodate:
->
-> crash> p/x ((struct page *) 0xc00c00000fe26180)->private
-> $2 = 0xc000003fc70a19c0
->
-> crash> p/x ((struct iomap_page *) 0xc000003fc70a19c0)->uptodate
-> $3 = {0xffff, 0x0}
->
->
-> It appears (after ~4 hours) that I can avoid the problem if I split
-> the loop so that bits are checked only after all updates are made.
-> Not sure if this correct approach, or just making it less reproducible:
->
-> diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
-> index e25901ae3ff4..abe37031c93d 100644
-> --- a/fs/iomap/buffered-io.c
-> +++ b/fs/iomap/buffered-io.c
-> @@ -131,7 +131,11 @@ iomap_set_range_uptodate(struct page *page, unsigned off, unsigned len)
->                   for (i = 0; i < PAGE_SIZE / i_blocksize(inode); i++) {
->                           if (i >= first && i <= last)
->                                   set_bit(i, iop->uptodate);
-> -                       else if (!test_bit(i, iop->uptodate))
-> +               }
-> +               for (i = 0; i < PAGE_SIZE / i_blocksize(inode); i++) {
-> +                       if (i >= first && i <= last)
-> +                               continue;
-> +                       if (!test_bit(i, iop->uptodate))
->                                   uptodate = false;
->                   }
->           }
->
-> Thanks,
-> Jan
->
-> [1] https://lore.kernel.org/stable/1420623640.14527843.1575289859701.JavaMail.zimbra@redhat.com/T/#u
->
->
+-Eric
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
