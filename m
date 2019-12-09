@@ -2,43 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60957116706
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Dec 2019 07:41:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6945D116793
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Dec 2019 08:37:19 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A0F103C2383
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Dec 2019 07:41:32 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DAFE13C2332
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Dec 2019 08:37:18 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id F26613C2095
- for <ltp@lists.linux.it>; Mon,  9 Dec 2019 07:41:27 +0100 (CET)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id EE06D3C1D95
+ for <ltp@lists.linux.it>; Mon,  9 Dec 2019 08:37:16 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 62EEF6012DE
+ for <ltp@lists.linux.it>; Mon,  9 Dec 2019 08:37:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1575877028;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=rj/40+Ni8SRd7cpe7p7g7aqJGtJMe66r3Pz4JHIZr3k=;
+ b=haY4sMAfGgz3AV2aTDj6wbfWJozwU6/S736AkiA+g/V0235AfU5Bfosj4JdJeMwZEXmHul
+ 2I+2lp9nMYVtqufc9cyCd6yleb+JLUNLw5Treb0PCQgaLtrWt3syo2vknmuTWiidsSmTkZ
+ qU17vtIniQ/Upc/bL9LkgW3S0mYPfF0=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-316-iPTEGhJOPOqzKm72Z9GK0Q-1; Mon, 09 Dec 2019 02:37:04 -0500
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E19581401B34
- for <ltp@lists.linux.it>; Mon,  9 Dec 2019 07:41:26 +0100 (CET)
-Received: from ubuntu.localdomain (unknown [37.156.92.209])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 6456E9F7F0;
- Mon,  9 Dec 2019 06:41:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1575873685; bh=BsAEfcvYEf+di37t/3jwoC2mpXb97JTJbZozMJtZP/Y=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=RQWx0cfXsuLG2yrt5L95S/2C8ChogAT02H02mah1AekHkHfuJ0Po2XkiGapPKl74e
- e/y4BTh3jIs0a205CH8H8ghfhwGGVic8ojuda2W6TvHII2DeuyGfE6f8LZ/gRMMHWL
- jjK+tKHdxWybheudD1/2mLYWs82nmfsEsS+LBlOY=
-From: Joerg Vehlow <lkml@jv-coder.de>
-To: ltp@lists.linux.it,
-	chrubis@suse.cz
-Date: Mon,  9 Dec 2019 07:41:10 +0100
-Message-Id: <20191209064110.67975-1-lkml@jv-coder.de>
-X-Mailer: git-send-email 2.20.1
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DBD66800D5B;
+ Mon,  9 Dec 2019 07:37:03 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9F30A5D6A7;
+ Mon,  9 Dec 2019 07:37:03 +0000 (UTC)
+Received: from zmail21.collab.prod.int.phx2.redhat.com
+ (zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5F22918089C8;
+ Mon,  9 Dec 2019 07:37:03 +0000 (UTC)
+Date: Mon, 9 Dec 2019 02:37:03 -0500 (EST)
+From: Zirong Lang <zlang@redhat.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <2129381829.39694312.1575877023126.JavaMail.zimbra@redhat.com>
+In-Reply-To: <b59bb33a-205a-581b-91ac-c1e05e92ca93@cn.fujitsu.com>
+References: <20191208141617.21925-1-zlang@redhat.com>
+ <b59bb33a-205a-581b-91ac-c1e05e92ca93@cn.fujitsu.com>
 MIME-Version: 1.0
+X-Originating-IP: [10.72.12.160, 10.4.195.25]
+Thread-Topic: syscalls/newmount: new test case for new mount API
+Thread-Index: l+VYs7zfbLywLa+ZCiWn5lu0x1+fbw==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-MC-Unique: iPTEGhJOPOqzKm72Z9GK0Q-1
+X-Mimecast-Spam-Score: 0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
-X-Virus-Status: Clean
-Subject: [LTP] [PATCH] lib: Add fifo library
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] syscalls/newmount: new test case for new mount
+ API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,470 +76,218 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: linux-fsdevel@vger.kernel.org, ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
-
-This is a proposal for a fifo library that can be used to synchronize
-tests internally, e.g. between a shell script and c program or between forks.
-If the proposal is accepted, I will also add documentation.
-
-The library allows an arbitrary number of fifos to be created. The only requirement
-is that the test needs TST_NEEDS_TMPDIR=1.
-Reading and writing to the fifo is also a synchronization point.
-
-Each fifo requires two queues: One for sending a message to the other process
-and the second one is used for receive acknowledgement. Otherwise two messages
-can be received at the same time, if the sender sends them too fast, before the receiver
-has closed its file handle.
-
-Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
----
- include/tst_fifo.h                      |  12 +++
- lib/newlib_tests/.gitignore             |   2 +
- lib/newlib_tests/shell/tst_fifo_test.sh |  56 ++++++++++++
- lib/newlib_tests/tst_fifo.c             |  51 +++++++++++
- lib/newlib_tests/tst_fifo_proc.c        |  42 +++++++++
- lib/tst_fifo.c                          | 115 ++++++++++++++++++++++++
- testcases/Makefile                      |   2 +-
- testcases/lib/tst_fifo.sh               |  58 ++++++++++++
- testcases/lib/tst_test.sh               |   4 +-
- 9 files changed, 340 insertions(+), 2 deletions(-)
- create mode 100644 include/tst_fifo.h
- create mode 100644 lib/newlib_tests/shell/tst_fifo_test.sh
- create mode 100644 lib/newlib_tests/tst_fifo.c
- create mode 100644 lib/newlib_tests/tst_fifo_proc.c
- create mode 100644 lib/tst_fifo.c
- create mode 100644 testcases/lib/tst_fifo.sh
-
-diff --git a/include/tst_fifo.h b/include/tst_fifo.h
-new file mode 100644
-index 000000000..f5f61dee7
---- /dev/null
-+++ b/include/tst_fifo.h
-@@ -0,0 +1,12 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2019 Joerg Vehlow <joerg.vehlow@aox-tech.de>
-+ */
-+
-+void tst_fifo_init(void);
-+
-+void tst_fifo_create(const char *name);
-+void tst_fifo_destroy(const char *name);
-+
-+void tst_fifo_send(const char *name, const char *data);
-+int tst_fifo_receive(const char *name, char *data, int maxlen);
-\ No newline at end of file
-diff --git a/lib/newlib_tests/.gitignore b/lib/newlib_tests/.gitignore
-index d4aa4935f..1d887e0ab 100644
---- a/lib/newlib_tests/.gitignore
-+++ b/lib/newlib_tests/.gitignore
-@@ -17,6 +17,8 @@ test16
- tst_capability01
- tst_capability02
- tst_device
-+tst_fifo
-+tst_fifo_proc
- tst_safe_fileops
- tst_res_hexd
- tst_strstatus
-diff --git a/lib/newlib_tests/shell/tst_fifo_test.sh b/lib/newlib_tests/shell/tst_fifo_test.sh
-new file mode 100644
-index 000000000..f124a5f0a
---- /dev/null
-+++ b/lib/newlib_tests/shell/tst_fifo_test.sh
-@@ -0,0 +1,56 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2019 Joerg Vehlow <joerg.vehlow@aox-tech.de>
-+
-+TST_TESTFUNC=do_test
-+TST_NEEDS_FIFO=1
-+TST_NEEDS_TMPDIR=1
-+
-+. tst_test.sh
-+
-+S2P="fifo_shell_to_proc"
-+P2S="fifo_proc_to_shell"
-+
-+do_test()
-+{
-+    tst_fifo_create $S2P
-+    tst_fifo_create $P2S
-+
-+    tst_fifo_proc &
-+    pid=$!
-+
-+    tst_fifo_send $S2P "init message"
-+    tst_res TPASS "init message send"
-+
-+    tst_fifo_send $S2P "second init message"
-+    tst_res TPASS "second init message send"
-+
-+    data=$(tst_fifo_receive $P2S)
-+    if [ "$data" == "answer 1" ]; then
-+        tst_res TPASS "Received first expected answer"
-+    else
-+        tst_res TFAIL "First expected answer mismatch ('$data')"
-+    fi
-+
-+    data=$(tst_fifo_receive $P2S)
-+    if [ "$data" == "answer 2" ]; then
-+        tst_res TPASS "Received second expected answer"
-+    else
-+        tst_res TFAIL "Second expected answer mismatch ('$data')"
-+    fi
-+
-+    data=$(tst_fifo_receive $P2S)
-+    if [ "$data" == "answer 3" ]; then
-+        tst_res TPASS "Received third expected answer"
-+    else
-+        tst_res TFAIL "Third expected answer mismatch ('$data')"
-+    fi
-+
-+    tst_res TINFO "Waiting for tst_fifo_proc to terminate"
-+    wait $pid
-+
-+    tst_res TPASS "All tests passed"
-+}
-+
-+
-+tst_run
-\ No newline at end of file
-diff --git a/lib/newlib_tests/tst_fifo.c b/lib/newlib_tests/tst_fifo.c
-new file mode 100644
-index 000000000..c7d68cb08
---- /dev/null
-+++ b/lib/newlib_tests/tst_fifo.c
-@@ -0,0 +1,51 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2019 Joerg Vehlow <joerg.vehlow@aox-tech.de>
-+ */
-+
-+#include "tst_test.h"
-+#include "tst_fifo.h"
-+
-+#define MSG_P2C "AbcD"
-+#define MSG_C2P "Hello World"
-+
-+static void do_setup(void)
-+{
-+    tst_fifo_init();
-+}
-+
-+static void do_test(void)
-+{
-+    tst_fifo_create("p2c");
-+    tst_fifo_create("c2p");
-+
-+    pid_t pid = SAFE_FORK();
-+    if (pid == 0) {
-+        char data[sizeof(MSG_P2C)];
-+        if (tst_fifo_receive("p2c", data, sizeof(data)) != strlen(MSG_P2C))
-+            tst_res(TFAIL, "Child did not receive expected length");
-+        if (strcmp(data, MSG_P2C) != 0)
-+            tst_res(TFAIL, "Child did not receive expected value ('%s' != '%s')", MSG_P2C, data);
-+        else
-+            tst_res(TPASS, "Child received expected value");
-+        
-+        tst_fifo_send("c2p", MSG_C2P);
-+    } else {
-+        tst_fifo_send("p2c", MSG_P2C);
-+
-+        char data[sizeof(MSG_C2P)];
-+        if (tst_fifo_receive("c2p", data, sizeof(data)) != strlen(MSG_C2P))
-+            tst_res(TFAIL, "Parent did not receive expected length");
-+        if (strcmp(data, MSG_C2P) != 0)
-+            tst_res(TFAIL, "Parent did not receive expected value ('%s' != '%s')", MSG_C2P, data);
-+        else
-+            tst_res(TPASS, "Parent received expected value");
-+    }
-+}
-+
-+static struct tst_test test = {
-+    .needs_tmpdir = 1,
-+    .forks_child = 1,
-+    .setup = do_setup,
-+	.test_all = do_test
-+};
-diff --git a/lib/newlib_tests/tst_fifo_proc.c b/lib/newlib_tests/tst_fifo_proc.c
-new file mode 100644
-index 000000000..bd9604741
---- /dev/null
-+++ b/lib/newlib_tests/tst_fifo_proc.c
-@@ -0,0 +1,42 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2019 Joerg Vehlow <joerg.vehlow@aox-tech.de>
-+ */
-+
-+
-+#define TST_NO_DEFAULT_MAIN
-+#include "tst_test.h"
-+#include "tst_fifo.h"
-+
-+#define S2P "fifo_shell_to_proc"
-+#define P2S "fifo_proc_to_shell"
-+
-+int main()
-+{
-+    char data[128];
-+
-+    TCID = "tst_fifo_proc";
-+
-+    tst_fifo_init();
-+
-+    tst_fifo_receive(S2P, data, sizeof(data));
-+    tst_res(strcmp(data, "init message") == 0 ? TPASS : TFAIL,
-+            "Received expected init message (%s)", data);
-+
-+    // Wait a bit for asynchronous access to pipe
-+    sleep(1);
-+
-+    tst_fifo_receive(S2P, data, sizeof(data));
-+    tst_res(strcmp(data, "second init message") == 0 ? TPASS : TFAIL,
-+            "Received expected second init message");
-+
-+    tst_fifo_send(P2S, "answer 1");
-+    sleep(1);
-+    tst_fifo_send(P2S, "answer 2");
-+    sleep(1);
-+    tst_fifo_send(P2S, "answer 3");
-+
-+    tst_res(TPASS, "All tests passed");
-+
-+    return 0;
-+}
-\ No newline at end of file
-diff --git a/lib/tst_fifo.c b/lib/tst_fifo.c
-new file mode 100644
-index 000000000..7d139624b
---- /dev/null
-+++ b/lib/tst_fifo.c
-@@ -0,0 +1,115 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2019 Joerg Vehlow <joerg.vehlow@aox-tech.de>
-+ */
-+#define _GNU_SOURCE
-+#include <stddef.h>
-+#include <stdlib.h>
-+#include <stdio.h>
-+#include <unistd.h>
-+#include <sys/types.h>
-+#include <sys/stat.h>
-+
-+#define TST_NO_DEFAULT_MAIN
-+#include "tst_test.h"
-+#include "old_tmpdir.h"
-+#include "tst_fifo.h"
-+
-+#ifndef PATH_MAX
-+#ifdef MAXPATHLEN
-+#define PATH_MAX	MAXPATHLEN
-+#else
-+#define PATH_MAX	1024
-+#endif
-+#endif
-+
-+#define FIFO_ENV_VAR "LTP_FIFO_PATH"
-+
-+static char *FIFO_DIR = NULL;
-+
-+#define INIT_FIFO_FUNCTION(req_mode, ack_mode) \
-+    char path_req[PATH_MAX]; \
-+    char path_ack[PATH_MAX]; \
-+    if (!FIFO_DIR) \
-+        tst_brk(TBROK, "you must call tst_fifo_init first"); \
-+    snprintf(path_req, sizeof(path_req), "%s/tst_fifo_%s.req", FIFO_DIR, name); \
-+    snprintf(path_ack, sizeof(path_ack), "%s/tst_fifo_%s.ack", FIFO_DIR, name);
-+    //if (required_mode && access(path, required_mode)) \
-+     //   tst_brk(TBROK, "cannot access '%s'", path);
-+
-+void tst_fifo_init(void)
-+{
-+    if (tst_tmpdir_created()) {
-+        FIFO_DIR = tst_get_tmpdir();
-+        setenv(FIFO_ENV_VAR, FIFO_DIR, 1);
-+    } else {
-+        FIFO_DIR = getenv(FIFO_ENV_VAR);
-+    }
-+
-+    if (!FIFO_DIR)
-+        tst_brk(TBROK, "no tempdir and " FIFO_ENV_VAR " not set");
-+}
-+
-+void tst_fifo_create(const char *name)
-+{
-+    INIT_FIFO_FUNCTION(0, 0);
-+
-+    if (mkfifo(path_req, S_IRWXU | S_IRWXG | S_IRWXO)) 
-+        tst_brk(TBROK, "mkfifo(%s) failed with %s", path_req, tst_strerrno(errno));
-+
-+    if (mkfifo(path_ack, S_IRWXU | S_IRWXG | S_IRWXO)) 
-+        tst_brk(TBROK, "mkfifo(%s) failed with %s", path_ack, tst_strerrno(errno));
-+}
-+
-+void tst_fifo_destroy(const char *name)
-+{
-+    INIT_FIFO_FUNCTION(R_OK | W_OK, R_OK | W_OK);
-+
-+    if (remove(path_req))
-+        tst_brk(TBROK, "unable to remove fifo '%s'", path_req);
-+    if (remove(path_ack))
-+        tst_brk(TBROK, "unable to remove fifo '%s'", path_ack);
-+}
-+
-+void tst_fifo_send(const char *name, const char *data)
-+{
-+    int fd;
-+    char ack[2];
-+    INIT_FIFO_FUNCTION(W_OK, R_OK);
-+
-+    fd = SAFE_OPEN(path_req, O_WRONLY);
-+    SAFE_WRITE(1, fd, data, strlen(data));
-+    SAFE_CLOSE(fd);
-+
-+    fd = SAFE_OPEN(path_ack, O_RDONLY);
-+    SAFE_READ(1, fd, ack, 2);
-+    SAFE_CLOSE(fd);
-+}
-+
-+int tst_fifo_receive(const char *name, char *data, int maxlen)
-+{
-+    int fd;
-+    int nbyte;
-+    int pos;
-+    INIT_FIFO_FUNCTION(R_OK, W_OK);
-+
-+    fd = SAFE_OPEN(path_req, O_RDONLY);
-+    pos = 0;
-+    while (1) {
-+        nbyte = SAFE_READ(0, fd, data + pos, maxlen - pos);
-+        if (nbyte == 0)
-+            break;
-+        pos += nbyte;
-+        if (pos == maxlen)
-+            tst_brk(TBROK, "buffer is not big enough");
-+    }
-+
-+    SAFE_CLOSE(fd);
-+
-+    fd = SAFE_OPEN(path_ack, O_WRONLY);
-+    SAFE_WRITE(1, fd, "OK", 2);
-+    SAFE_CLOSE(fd);
-+
-+    data[pos] = 0;
-+    return pos;
-+}
-diff --git a/testcases/Makefile b/testcases/Makefile
-index b04e6309f..47c110972 100644
---- a/testcases/Makefile
-+++ b/testcases/Makefile
-@@ -28,7 +28,7 @@ include $(top_srcdir)/include/mk/env_pre.mk
- # 1. kdump shouldn't be compiled by default, because it's runtime based and
- #    WILL crash the build host (the tests need to be fixed to just build, not
- #    run).
--FILTER_OUT_DIRS		:= kdump
-+FILTER_OUT_DIRS		:= kdump open_posix_testsuite realtime kernel network misc
- 
- ifneq ($(WITH_OPEN_POSIX_TESTSUITE),yes)
- FILTER_OUT_DIRS		+= open_posix_testsuite
-diff --git a/testcases/lib/tst_fifo.sh b/testcases/lib/tst_fifo.sh
-new file mode 100644
-index 000000000..922b24059
---- /dev/null
-+++ b/testcases/lib/tst_fifo.sh
-@@ -0,0 +1,58 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2019 Joerg Vehlow <joerg.vehlow@aox-tech.de>
-+
-+[ "$TST_NEEDS_TMPDIR" != 1 ] && tst_brk TCONF "fifo library requires TST_NEEDS_TMPDIR=1"
-+[ -z "$TST_TMPDIR" ] && tst_brk TCONF "TST_TMPDIR is not supposed to be empty"
-+
-+export LTP_FIFO_PATH="$TST_TMPDIR"
-+
-+tst_fifo_create()
-+{
-+    [ $# -ne 1 ] && tst_brk TBROK "tst_fifo_create expects 1 parameter"
-+    local _tst_path_req="${TST_TMPDIR}/tst_fifo_$1.req"
-+    local _tst_path_ack="${TST_TMPDIR}/tst_fifo_$1.ack"
-+
-+    mkfifo "$_tst_path_req" || tst_brk TBROK "unable to create fifo '$_tst_path_req'"
-+    mkfifo "$_tst_path_ack" || tst_brk TBROK "unable to create fifo '$_tst_path_ack'"
-+}
-+
-+tst_fifo_destroy()
-+{
-+    [ $# -ne 1 ] && tst_brk TBROK "tst_fifo_destroy expects 1 parameter"
-+    local _tst_path_req="${TST_TMPDIR}/tst_fifo_$1.req"
-+    local _tst_path_ack="${TST_TMPDIR}/tst_fifo_$1.ack"
-+
-+    [ -p "$_tst_path_req" ] || tst_brk TBROK "tst_fifo_destroy fifo '$_tst_path_req' does not exist"
-+    [ -p "$_tst_path_ack" ] || tst_brk TBROK "tst_fifo_destroy fifo '$_tst_path_ack' does not exist"
-+
-+    rm "$_tst_path_req"  || tst_brk TBROK "unable to destroy fifo '$_tst_path_req'"
-+    rm "$_tst_path_ack"  || tst_brk TBROK "unable to destroy fifo '$_tst_path_ack'"
-+}
-+
-+tst_fifo_send()
-+{
-+    [ $# -ne 2 ] && tst_brk TBROK "tst_fifo_send expects 2 parameters"
-+    local _tst_path_req="${TST_TMPDIR}/tst_fifo_$1.req"
-+    local _tst_path_ack="${TST_TMPDIR}/tst_fifo_$1.ack"
-+    local _tst_msg="$2"
-+
-+    [ -p "$_tst_path_req" ] || tst_brk TBROK "tst_fifo_send fifo '$_tst_path_req' does not exist"
-+    [ -p "$_tst_path_ack" ] || tst_brk TBROK "tst_fifo_send fifo '$_tst_path_ack' does not exist"
-+
-+    echo -n "$_tst_msg" > "$_tst_path_req"
-+    cat "$_tst_path_ack" > /dev/null
-+}
-+
-+tst_fifo_receive()
-+{
-+    [ $# -ne 1 ] && tst_brk TBROK "tst_fifo_receive expects 1 parameter"
-+    local _tst_path_req="${TST_TMPDIR}/tst_fifo_$1.req"
-+    local _tst_path_ack="${TST_TMPDIR}/tst_fifo_$1.ack"
-+
-+    [ -p "$_tst_path_req" ] || tst_brk TBROK "tst_fifo_receive fifo '$_tst_path_req' does not exist"
-+    [ -p "$_tst_path_ack" ] || tst_brk TBROK "tst_fifo_receive fifo '$_tst_path_ack' does not exist"
-+
-+    cat "$_tst_path_req"
-+    echo -n "OK" > "$_tst_path_ack"
-+}
-diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-index 70c1ef2e3..2352c5eea 100644
---- a/testcases/lib/tst_test.sh
-+++ b/testcases/lib/tst_test.sh
-@@ -479,7 +479,7 @@ tst_run()
- 			NEEDS_DRIVERS|FS_TYPE|MNTPOINT|MNT_PARAMS);;
- 			IPV6|IPVER|TEST_DATA|TEST_DATA_IFS);;
- 			RETRY_FUNC|RETRY_FN_EXP_BACKOFF|TIMEOUT);;
--			NET_MAX_PKT);;
-+			NET_MAX_PKT|NEEDS_FIFO);;
- 			*) tst_res TWARN "Reserved variable TST_$_tst_i used!";;
- 			esac
- 		done
-@@ -537,6 +537,8 @@ tst_run()
- 		cd "$TST_TMPDIR"
- 	fi
- 
-+	[ "$TST_NEEDS_FIFO" = 1 ] && . tst_fifo.sh
-+
- 	TST_MNTPOINT="${TST_MNTPOINT:-mntpoint}"
- 	if [ "$TST_NEEDS_DEVICE" = 1 ]; then
- 		if [ -z ${TST_TMPDIR} ]; then
--- 
-2.20.1
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+CgotLS0tLSDljp/lp4vpgq7ku7YgLS0tLS0KPiDlj5Hku7bkuro6ICJZYW5nIFh1IiA8eHV5YW5n
+MjAxOC5qeUBjbi5mdWppdHN1LmNvbT4KPiDmlLbku7bkuro6ICJab3JybyBMYW5nIiA8emxhbmdA
+cmVkaGF0LmNvbT4sIGx0cEBsaXN0cy5saW51eC5pdAo+IOaKhOmAgTogbGludXgtZnNkZXZlbEB2
+Z2VyLmtlcm5lbC5vcmcKPiDlj5HpgIHml7bpl7Q6IOaYn+acn+S4gCwgMjAxOeW5tCAxMiDmnIgg
+MDnml6Ug5LiL5Y2IIDEyOjQ5OjMyCj4g5Li76aKYOiBSZTogW0xUUF0gW1BBVENIIHYyXSBzeXNj
+YWxscy9uZXdtb3VudDogbmV3IHRlc3QgY2FzZSBmb3IgbmV3IG1vdW50IEFQSQo+IAo+IAo+IEhp
+IFpvcnJvCj4gCj4gT04gMjAxOS8xMi8wOCAyMjoxNiwgWm9ycm8gTGFuZyB3cm90ZToKPiA+IAo+
+ID4gZGlmZiAtLWdpdCBhL2NvbmZpZ3VyZS5hYyBiL2NvbmZpZ3VyZS5hYwo+ID4gaW5kZXggNTBk
+MTQ5NjdkLi4yOGY4NDBjNTEgMTAwNjQ0Cj4gPiAtLS0gYS9jb25maWd1cmUuYWMKPiA+ICsrKyBi
+L2NvbmZpZ3VyZS5hYwo+ID4gQEAgLTIyOSw2ICsyMjksNyBAQCBMVFBfQ0hFQ0tfTUFEVklTRQo+
+ID4gICBMVFBfQ0hFQ0tfTUtEVEVNUAo+ID4gICBMVFBfQ0hFQ0tfTU1TR0hEUgo+ID4gICBMVFBf
+Q0hFQ0tfTVJFTUFQX0ZJWEVECj4gPiArTFRQX0NIRUNLX05FV01PVU5UCj4gPiAgIExUUF9DSEVD
+S19OT01NVV9MSU5VWAo+ID4gICBMVFBfQ0hFQ0tfUEVSRl9FVkVOVAo+ID4gICBMVFBfQ0hFQ0tf
+UFJDVExfU1VQUE9SVAo+ID4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGFwaS9uZXdtb3VudC5oIGIv
+aW5jbHVkZS9sYXBpL25ld21vdW50LmgKPiA+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4gPiBpbmRl
+eCAwMDAwMDAwMDAuLjZiNzg3ZmU3ZAo+ID4gLS0tIC9kZXYvbnVsbAo+ID4gKysrIGIvaW5jbHVk
+ZS9sYXBpL25ld21vdW50LmgKPiA+IEBAIC0wLDAgKzEsODkgQEAKPiA+ICsvLyBTUERYLUxpY2Vu
+c2UtSWRlbnRpZmllcjogR1BMLTIuMC1vci1sYXRlcgo+ID4gKy8qCj4gPiArICogQ29weXJpZ2h0
+IChDKSAyMDE5IFJlZCBIYXQsIEluYy4gIEFsbCByaWdodHMgcmVzZXJ2ZWQuCj4gPiArICogQXV0
+aG9yOiBab3JybyBMYW5nIDx6bGFuZ0ByZWRoYXQuY29tPgo+ID4gKyAqLwo+ID4gKwo+ID4gKyNp
+Zm5kZWYgTkVXTU9VTlRfSF9fCj4gPiArI2RlZmluZSBORVdNT1VOVF9IX18KPiA+ICsKPiA+ICsj
+aW5jbHVkZSA8c3RkaW50Lmg+Cj4gPiArI2luY2x1ZGUgPHVuaXN0ZC5oPgo+ID4gKyNpbmNsdWRl
+ICJjb25maWcuaCIKPiA+ICsjaW5jbHVkZSAibGFwaS9zeXNjYWxscy5oIgo+ID4gKwo+ID4gKyNp
+ZiAhZGVmaW5lZChIQVZFX05FV01PVU5UKQo+IFdoeSB1c2UgSFZBRV9ORVdNT1VOVD8KCk9oLCBt
+eSBtaXN0YWtlLiBJIHdyb3RlIEhBVkVfTkVXTU9VTlQgd2l0aCBDSEVDS19ORVdNT1VOVCB0b2dl
+dGhlci4gSSBzaG91bGQgdXNlCkhBVkVfRlNPUEVOLCBIQVZFX0ZTQ09ORklHIGV0Yy4KClRoYW5r
+cywKWm9ycm8KCj4gPiArc3RhdGljIGlubGluZSBpbnQgZnNvcGVuKGNvbnN0IGNoYXIgKmZzX25h
+bWUsIHVuc2lnbmVkIGludCBmbGFncykKPiA+ICt7Cj4gPiArCXJldHVybiB0c3Rfc3lzY2FsbChf
+X05SX2Zzb3BlbiwgZnNfbmFtZSwgZmxhZ3MpOwo+ID4gK30KPiA+ICsKPiA+ICsvKgo+ID4gKyAq
+IGZzb3BlbigpIGZsYWdzLgo+ID4gKyAqLwo+ID4gKyNkZWZpbmUgRlNPUEVOX0NMT0VYRUMJCTB4
+MDAwMDAwMDEKPiA+ICsKPiA+ICtzdGF0aWMgaW5saW5lIGludCBmc2NvbmZpZyhpbnQgZnNmZCwg
+dW5zaWduZWQgaW50IGNtZCwKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICBjb25zdCBj
+aGFyICprZXksIGNvbnN0IHZvaWQgKnZhbCwgaW50IGF1eCkKPiA+ICt7Cj4gPiArCXJldHVybiB0
+c3Rfc3lzY2FsbChfX05SX2ZzY29uZmlnLCBmc2ZkLCBjbWQsIGtleSwgdmFsLCBhdXgpOwo+ID4g
+K30KPiA+ICsKPiA+ICsvKgo+ID4gKyAqIFRoZSB0eXBlIG9mIGZzY29uZmlnKCkgY2FsbCBtYWRl
+Lgo+ID4gKyAqLwo+ID4gK2VudW0gZnNjb25maWdfY29tbWFuZCB7Cj4gPiArCUZTQ09ORklHX1NF
+VF9GTEFHCT0gMCwgICAgLyogU2V0IHBhcmFtZXRlciwgc3VwcGx5aW5nIG5vIHZhbHVlICovCj4g
+PiArCUZTQ09ORklHX1NFVF9TVFJJTkcJPSAxLCAgICAvKiBTZXQgcGFyYW1ldGVyLCBzdXBwbHlp
+bmcgYSBzdHJpbmcgdmFsdWUgKi8KPiA+ICsJRlNDT05GSUdfU0VUX0JJTkFSWQk9IDIsICAgIC8q
+IFNldCBwYXJhbWV0ZXIsIHN1cHBseWluZyBhIGJpbmFyeSBibG9iCj4gPiB2YWx1ZSAqLwo+ID4g
+KwlGU0NPTkZJR19TRVRfUEFUSAk9IDMsICAgIC8qIFNldCBwYXJhbWV0ZXIsIHN1cHBseWluZyBh
+biBvYmplY3QgYnkgcGF0aAo+ID4gKi8KPiA+ICsJRlNDT05GSUdfU0VUX1BBVEhfRU1QVFkJPSA0
+LCAgICAvKiBTZXQgcGFyYW1ldGVyLCBzdXBwbHlpbmcgYW4gb2JqZWN0IGJ5Cj4gPiAoZW1wdHkp
+IHBhdGggKi8KPiA+ICsJRlNDT05GSUdfU0VUX0ZECQk9IDUsICAgIC8qIFNldCBwYXJhbWV0ZXIs
+IHN1cHBseWluZyBhbiBvYmplY3QgYnkgZmQgKi8KPiA+ICsJRlNDT05GSUdfQ01EX0NSRUFURQk9
+IDYsICAgIC8qIEludm9rZSBzdXBlcmJsb2NrIGNyZWF0aW9uICovCj4gPiArCUZTQ09ORklHX0NN
+RF9SRUNPTkZJR1VSRSA9IDcsICAgLyogSW52b2tlIHN1cGVyYmxvY2sgcmVjb25maWd1cmF0aW9u
+ICovCj4gPiArfTsKPiA+ICsKPiA+ICtzdGF0aWMgaW5saW5lIGludCBmc21vdW50KGludCBmc2Zk
+LCB1bnNpZ25lZCBpbnQgZmxhZ3MsIHVuc2lnbmVkIGludAo+ID4gbXNfZmxhZ3MpCj4gPiArewo+
+ID4gKwlyZXR1cm4gdHN0X3N5c2NhbGwoX19OUl9mc21vdW50LCBmc2ZkLCBmbGFncywgbXNfZmxh
+Z3MpOwo+ID4gK30KPiA+ICsKPiA+ICsvKgo+ID4gKyAqIGZzbW91bnQoKSBmbGFncy4KPiA+ICsg
+Ki8KPiA+ICsjZGVmaW5lIEZTTU9VTlRfQ0xPRVhFQwkJMHgwMDAwMDAwMQo+ID4gKwo+ID4gKy8q
+Cj4gPiArICogTW91bnQgYXR0cmlidXRlcy4KPiA+ICsgKi8KPiA+ICsjZGVmaW5lIE1PVU5UX0FU
+VFJfUkRPTkxZCTB4MDAwMDAwMDEgLyogTW91bnQgcmVhZC1vbmx5ICovCj4gPiArI2RlZmluZSBN
+T1VOVF9BVFRSX05PU1VJRAkweDAwMDAwMDAyIC8qIElnbm9yZSBzdWlkIGFuZCBzZ2lkIGJpdHMg
+Ki8KPiA+ICsjZGVmaW5lIE1PVU5UX0FUVFJfTk9ERVYJMHgwMDAwMDAwNCAvKiBEaXNhbGxvdyBh
+Y2Nlc3MgdG8gZGV2aWNlIHNwZWNpYWwKPiA+IGZpbGVzICovCj4gPiArI2RlZmluZSBNT1VOVF9B
+VFRSX05PRVhFQwkweDAwMDAwMDA4IC8qIERpc2FsbG93IHByb2dyYW0gZXhlY3V0aW9uICovCj4g
+PiArI2RlZmluZSBNT1VOVF9BVFRSX19BVElNRQkweDAwMDAwMDcwIC8qIFNldHRpbmcgb24gaG93
+IGF0aW1lIHNob3VsZCBiZQo+ID4gdXBkYXRlZCAqLwo+ID4gKyNkZWZpbmUgTU9VTlRfQVRUUl9S
+RUxBVElNRQkweDAwMDAwMDAwIC8qIC0gVXBkYXRlIGF0aW1lIHJlbGF0aXZlIHRvCj4gPiBtdGlt
+ZS9jdGltZS4gKi8KPiA+ICsjZGVmaW5lIE1PVU5UX0FUVFJfTk9BVElNRQkweDAwMDAwMDEwIC8q
+IC0gRG8gbm90IHVwZGF0ZSBhY2Nlc3MgdGltZXMuICovCj4gPiArI2RlZmluZSBNT1VOVF9BVFRS
+X1NUUklDVEFUSU1FCTB4MDAwMDAwMjAgLyogLSBBbHdheXMgcGVyZm9ybSBhdGltZQo+ID4gdXBk
+YXRlcyAqLwo+ID4gKyNkZWZpbmUgTU9VTlRfQVRUUl9OT0RJUkFUSU1FCTB4MDAwMDAwODAgLyog
+RG8gbm90IHVwZGF0ZSBkaXJlY3RvcnkgYWNjZXNzCj4gPiB0aW1lcyAqLwo+ID4gKwo+ID4gK3N0
+YXRpYyBpbmxpbmUgaW50IG1vdmVfbW91bnQoaW50IGZyb21fZGZkLCBjb25zdCBjaGFyICpmcm9t
+X3BhdGhuYW1lLAo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW50IHRvX2RmZCwg
+Y29uc3QgY2hhciAqdG9fcGF0aG5hbWUsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICB1bnNpZ25lZCBpbnQgZmxhZ3MpCj4gPiArewo+ID4gKwlyZXR1cm4gdHN0X3N5c2NhbGwoX19O
+Ul9tb3ZlX21vdW50LCBmcm9tX2RmZCwgZnJvbV9wYXRobmFtZSwgdG9fZGZkLAo+ID4gKwkgICAg
+ICAgICAgICAgICAgICAgdG9fcGF0aG5hbWUsIGZsYWdzKTsKPiA+ICt9Cj4gPiArCj4gPiArLyoK
+PiA+ICsgKiBtb3ZlX21vdW50KCkgZmxhZ3MuCj4gPiArICovCj4gPiArI2RlZmluZSBNT1ZFX01P
+VU5UX0ZfU1lNTElOS1MJCTB4MDAwMDAwMDEgLyogRm9sbG93IHN5bWxpbmtzIG9uIGZyb20gcGF0
+aAo+ID4gKi8KPiA+ICsjZGVmaW5lIE1PVkVfTU9VTlRfRl9BVVRPTU9VTlRTCQkweDAwMDAwMDAy
+IC8qIEZvbGxvdyBhdXRvbW91bnRzIG9uIGZyb20KPiA+IHBhdGggKi8KPiA+ICsjZGVmaW5lIE1P
+VkVfTU9VTlRfRl9FTVBUWV9QQVRICQkweDAwMDAwMDA0IC8qIEVtcHR5IGZyb20gcGF0aCBwZXJt
+aXR0ZWQKPiA+ICovCj4gPiArI2RlZmluZSBNT1ZFX01PVU5UX1RfU1lNTElOS1MJCTB4MDAwMDAw
+MTAgLyogRm9sbG93IHN5bWxpbmtzIG9uIHRvIHBhdGggKi8KPiA+ICsjZGVmaW5lIE1PVkVfTU9V
+TlRfVF9BVVRPTU9VTlRTCQkweDAwMDAwMDIwIC8qIEZvbGxvdyBhdXRvbW91bnRzIG9uIHRvCj4g
+PiBwYXRoICovCj4gPiArI2RlZmluZSBNT1ZFX01PVU5UX1RfRU1QVFlfUEFUSAkJMHgwMDAwMDA0
+MCAvKiBFbXB0eSB0byBwYXRoIHBlcm1pdHRlZCAqLwo+ID4gKyNkZWZpbmUgTU9WRV9NT1VOVF9f
+TUFTSwkJMHgwMDAwMDA3Nwo+ID4gKwo+ID4gKyNlbmRpZiAvKiBIQVZFX05FV01PVU5UICovCj4g
+PiArI2VuZGlmIC8qIE5FV01PVU5UX0hfXyAqLwo+ID4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGFw
+aS9zeXNjYWxscy9hYXJjaDY0LmluCj4gPiBiL2luY2x1ZGUvbGFwaS9zeXNjYWxscy9hYXJjaDY0
+LmluCj4gPiBpbmRleCAwZTAwNjQxYmMuLjViOWUxZDlhNCAxMDA2NDQKPiA+IC0tLSBhL2luY2x1
+ZGUvbGFwaS9zeXNjYWxscy9hYXJjaDY0LmluCj4gPiArKysgYi9pbmNsdWRlL2xhcGkvc3lzY2Fs
+bHMvYWFyY2g2NC5pbgo+ID4gQEAgLTI3MCw0ICsyNzAsOCBAQCBwa2V5X21wcm90ZWN0IDI4OAo+
+ID4gICBwa2V5X2FsbG9jIDI4OQo+ID4gICBwa2V5X2ZyZWUgMjkwCj4gPiAgIHBpZGZkX3NlbmRf
+c2lnbmFsIDQyNAo+ID4gK21vdmVfbW91bnQgNDI5Cj4gPiArZnNvcGVuIDQzMAo+ID4gK2ZzY29u
+ZmlnIDQzMQo+ID4gK2ZzbW91bnQgNDMyCj4gPiAgIF9zeXNjdGwgMTA3OAo+ID4gZGlmZiAtLWdp
+dCBhL2luY2x1ZGUvbGFwaS9zeXNjYWxscy9wb3dlcnBjNjQuaW4KPiA+IGIvaW5jbHVkZS9sYXBp
+L3N5c2NhbGxzL3Bvd2VycGM2NC5pbgo+ID4gaW5kZXggNjYwMTY1ZDdhLi4zYWFlZDY0ZTAgMTAw
+NjQ0Cj4gPiAtLS0gYS9pbmNsdWRlL2xhcGkvc3lzY2FsbHMvcG93ZXJwYzY0LmluCj4gPiArKysg
+Yi9pbmNsdWRlL2xhcGkvc3lzY2FsbHMvcG93ZXJwYzY0LmluCj4gPiBAQCAtMzU5LDMgKzM1OSw3
+IEBAIHBpZGZkX3NlbmRfc2lnbmFsIDQyNAo+ID4gICBwa2V5X21wcm90ZWN0IDM4Ngo+ID4gICBw
+a2V5X2FsbG9jIDM4NAo+ID4gICBwa2V5X2ZyZWUgMzg1Cj4gPiArbW92ZV9tb3VudCA0MjkKPiA+
+ICtmc29wZW4gNDMwCj4gPiArZnNjb25maWcgNDMxCj4gPiArZnNtb3VudCA0MzIKPiA+IGRpZmYg
+LS1naXQgYS9pbmNsdWRlL2xhcGkvc3lzY2FsbHMvczM5MHguaW4KPiA+IGIvaW5jbHVkZS9sYXBp
+L3N5c2NhbGxzL3MzOTB4LmluCj4gPiBpbmRleCA3ZDYzMmQxZGMuLmJkNDI3NTU1YSAxMDA2NDQK
+PiA+IC0tLSBhL2luY2x1ZGUvbGFwaS9zeXNjYWxscy9zMzkweC5pbgo+ID4gKysrIGIvaW5jbHVk
+ZS9sYXBpL3N5c2NhbGxzL3MzOTB4LmluCj4gPiBAQCAtMzQxLDMgKzM0MSw3IEBAIHBrZXlfbXBy
+b3RlY3QgMzg0Cj4gPiAgIHBrZXlfYWxsb2MgMzg1Cj4gPiAgIHBrZXlfZnJlZSAzODYKPiA+ICAg
+cGlkZmRfc2VuZF9zaWduYWwgNDI0Cj4gPiArbW92ZV9tb3VudCA0MjkKPiA+ICtmc29wZW4gNDMw
+Cj4gPiArZnNjb25maWcgNDMxCj4gPiArZnNtb3VudCA0MzIKPiA+IGRpZmYgLS1naXQgYS9pbmNs
+dWRlL2xhcGkvc3lzY2FsbHMveDg2XzY0LmluCj4gPiBiL2luY2x1ZGUvbGFwaS9zeXNjYWxscy94
+ODZfNjQuaW4KPiA+IGluZGV4IGIxY2JkNGYyZi4uOTRmMGI1NjJlIDEwMDY0NAo+ID4gLS0tIGEv
+aW5jbHVkZS9sYXBpL3N5c2NhbGxzL3g4Nl82NC5pbgo+ID4gKysrIGIvaW5jbHVkZS9sYXBpL3N5
+c2NhbGxzL3g4Nl82NC5pbgo+ID4gQEAgLTMyMCwzICszMjAsNyBAQCBwa2V5X2FsbG9jIDMzMAo+
+ID4gICBwa2V5X2ZyZWUgMzMxCj4gPiAgIHN0YXR4IDMzMgo+ID4gICBwaWRmZF9zZW5kX3NpZ25h
+bCA0MjQKPiA+ICttb3ZlX21vdW50IDQyOQo+ID4gK2Zzb3BlbiA0MzAKPiA+ICtmc2NvbmZpZyA0
+MzEKPiA+ICtmc21vdW50IDQzMgo+ID4gZGlmZiAtLWdpdCBhL200L2x0cC1uZXdtb3VudC5tNCBi
+L200L2x0cC1uZXdtb3VudC5tNAo+ID4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiA+IGluZGV4IDAw
+MDAwMDAwMC4uZTEzYTZmMGIxCj4gPiAtLS0gL2Rldi9udWxsCj4gPiArKysgYi9tNC9sdHAtbmV3
+bW91bnQubTQKPiA+IEBAIC0wLDAgKzEsMTAgQEAKPiA+ICtkbmwgU1BEWC1MaWNlbnNlLUlkZW50
+aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIKPiA+ICtkbmwgQ29weXJpZ2h0IChDKSAyMDE5IFJlZCBI
+YXQsIEluYy4gQWxsIFJpZ2h0cyBSZXNlcnZlZC4KPiA+ICsKPiA+ICtBQ19ERUZVTihbTFRQX0NI
+RUNLX05FV01PVU5UXSxbCj4gPiArQUNfQ0hFQ0tfRlVOQ1MoZnNvcGVuLCwpCj4gPiArQUNfQ0hF
+Q0tfRlVOQ1MoZnNjb25maWcsLCkKPiA+ICtBQ19DSEVDS19GVU5DUyhmc21vdW50LCwpCj4gPiAr
+QUNfQ0hFQ0tfRlVOQ1MobW92ZV9tb3VudCwsKQo+ID4gK0FDX0NIRUNLX0hFQURFUihzeXMvbW91
+bnQuaCwsLCkKPiA+ICtdKQo+IFlvdSB1c2UgbTQgdG8gY2hlY2sgdGhlbS4gQnV0IGl0IHNlZW1z
+IHRoYXQgeW91IGRvbid0IHVzZSB0aG9zZSBtYWNyb3MKPiBpbiB5b3VyIGNhc2VzLgo+ID4gZGlm
+ZiAtLWdpdCBhL3J1bnRlc3Qvc3lzY2FsbHMgYi9ydW50ZXN0L3N5c2NhbGxzCj4gPiBpbmRleCAx
+NWRiZDk5NzEuLmZhYzFjNjJkMiAxMDA2NDQKPiA+IC0tLSBhL3J1bnRlc3Qvc3lzY2FsbHMKPiA+
+ICsrKyBiL3J1bnRlc3Qvc3lzY2FsbHMKPiA+IEBAIC03OTQsNiArNzk0LDggQEAgbmFub3NsZWVw
+MDEgbmFub3NsZWVwMDEKPiA+ICAgbmFub3NsZWVwMDIgbmFub3NsZWVwMDIKPiA+ICAgbmFub3Ns
+ZWVwMDQgbmFub3NsZWVwMDQKPiA+ICAgCj4gPiArbmV3bW91bnQwMSBuZXdtb3VudDAxCj4gPiAr
+Cj4gPiAgIG5mdHcwMSBuZnR3MDEKPiA+ICAgbmZ0dzY0MDEgbmZ0dzY0MDEKPiA+ICAgCj4gPiBk
+aWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9uZXdtb3VudC8uZ2l0aWdub3Jl
+Cj4gPiBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvbmV3bW91bnQvLmdpdGlnbm9yZQo+ID4g
+bmV3IGZpbGUgbW9kZSAxMDA2NDQKPiA+IGluZGV4IDAwMDAwMDAwMC4uZGM3OGVkZDViCj4gPiAt
+LS0gL2Rldi9udWxsCj4gPiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL25ld21vdW50
+Ly5naXRpZ25vcmUKPiA+IEBAIC0wLDAgKzEgQEAKPiA+ICsvbmV3bW91bnQwMQo+ID4gZGlmZiAt
+LWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvbmV3bW91bnQvTWFrZWZpbGUKPiA+IGIv
+dGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9uZXdtb3VudC9NYWtlZmlsZQo+ID4gbmV3IGZpbGUg
+bW9kZSAxMDA2NDQKPiA+IGluZGV4IDAwMDAwMDAwMC4uN2QwOTIwZGY2Cj4gPiAtLS0gL2Rldi9u
+dWxsCj4gPiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL25ld21vdW50L01ha2VmaWxl
+Cj4gPiBAQCAtMCwwICsxLDkgQEAKPiA+ICsjIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwt
+Mi4wLW9yLWxhdGVyCj4gPiArIwo+ID4gKyMgQ29weXJpZ2h0IChDKSAyMDE5IFJlZCBIYXQsIElu
+Yy4gIEFsbCByaWdodHMgcmVzZXJ2ZWQuCj4gPiArCj4gPiArdG9wX3NyY2RpcgkJPz0gLi4vLi4v
+Li4vLi4KPiA+ICsKPiA+ICtpbmNsdWRlICQodG9wX3NyY2RpcikvaW5jbHVkZS9tay90ZXN0Y2Fz
+ZXMubWsKPiA+ICsKPiA+ICtpbmNsdWRlICQodG9wX3NyY2RpcikvaW5jbHVkZS9tay9nZW5lcmlj
+X2xlYWZfdGFyZ2V0Lm1rCj4gPiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxs
+cy9uZXdtb3VudC9uZXdtb3VudDAxLmMKPiA+IGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9u
+ZXdtb3VudC9uZXdtb3VudDAxLmMKPiA+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4gPiBpbmRleCAw
+MDAwMDAwMDAuLjQ2NGVjYjY5OQo+ID4gLS0tIC9kZXYvbnVsbAo+ID4gKysrIGIvdGVzdGNhc2Vz
+L2tlcm5lbC9zeXNjYWxscy9uZXdtb3VudC9uZXdtb3VudDAxLmMKPiA+IEBAIC0wLDAgKzEsMTE0
+IEBACj4gPiArLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIKPiA+
+ICsvKgo+ID4gKyAqIENvcHlyaWdodCAoQykgMjAxOSBSZWQgSGF0LCBJbmMuICBBbGwgcmlnaHRz
+IHJlc2VydmVkLgo+ID4gKyAqIEF1dGhvcjogWm9ycm8gTGFuZyA8emxhbmdAcmVkaGF0LmNvbT4K
+PiA+ICsgKgo+ID4gKyAqIFVzZSBuZXcgbW91bnQgQVBJIChmc29wZW4sIGZzY29uZmlnLCBmc21v
+dW50LCBtb3ZlX21vdW50KSB0byBtb3VudAo+ID4gKyAqIGEgZmlsZXN5c3RlbSB3aXRob3V0IGFu
+eSBzcGVjaWZpZWQgbW91bnQgb3B0aW9ucy4KPiA+ICsgKi8KPiA+ICsKPiA+ICsjaW5jbHVkZSA8
+c3RkaW8uaD4KPiA+ICsjaW5jbHVkZSA8c3RkbGliLmg+Cj4gPiArI2luY2x1ZGUgPHVuaXN0ZC5o
+Pgo+ID4gKyNpbmNsdWRlIDxlcnJuby5oPgo+ID4gKyNpbmNsdWRlIDxzeXMvbW91bnQuaD4KPiA+
+ICsKPiA+ICsjaW5jbHVkZSAidHN0X3Rlc3QuaCIKPiA+ICsjaW5jbHVkZSAidHN0X3NhZmVfbWFj
+cm9zLmgiCj4gInRzdF90ZXN0LmgiIGhhcyBpbmNsdWRlZCAidHN0X3NhZmVfbWFjcm9zLmgiCj4g
+PiArI2luY2x1ZGUgImxhcGkvbmV3bW91bnQuaCIKPiA+ICsKPiA+ICsjZGVmaW5lIExJTkVMRU5H
+VEggMjU2Cj4gPiArI2RlZmluZSBNTlRQT0lOVCAibmV3bW91bnRfcG9pbnQiCj4gPiArc3RhdGlj
+IGludCBzZmQsIG1mZDsKPiA+ICtzdGF0aWMgaW50IGlzX21vdW50ZWQgPSAwOwo+IHN0YXRpYyBp
+bnQgc2ZkLCBtZmQsIGlzX21vdW50ZWQ7CgoKCj4gPiArCj4gPiArc3RhdGljIGludCBpc21vdW50
+KGNoYXIgKm1udHBvaW50KQo+ID4gK3sKPiA+ICsJaW50IHJldCA9IDA7Cj4gPiArCUZJTEUgKmZp
+bGU7Cj4gPiArCWNoYXIgbGluZVtMSU5FTEVOR1RIXTsKPiA+ICsKPiA+ICsJZmlsZSA9IGZvcGVu
+KCIvcHJvYy9tb3VudHMiLCAiciIpOwo+ID4gKwlpZiAoZmlsZSA9PSBOVUxMKQo+ID4gKwkJdHN0
+X2JyayhURkFJTCB8IFRURVJSTk8sICJPcGVuIC9wcm9jL21vdW50cyBmYWlsZWQiKTsKPiA+ICsK
+PiA+ICsJd2hpbGUgKGZnZXRzKGxpbmUsIExJTkVMRU5HVEgsIGZpbGUpICE9IE5VTEwpIHsKPiA+
+ICsJCWlmIChzdHJzdHIobGluZSwgbW50cG9pbnQpICE9IE5VTEwpIHsKPiA+ICsJCQlyZXQgPSAx
+Owo+ID4gKwkJCWJyZWFrOwo+ID4gKwkJfQo+ID4gKwl9Cj4gPiArCWZjbG9zZShmaWxlKTsKPiA+
+ICsJcmV0dXJuIHJldDsKPiA+ICt9Cj4gPiArCj4gPiArc3RhdGljIHZvaWQgY2xlYW51cCh2b2lk
+KQo+ID4gK3sKPiA+ICsJaWYgKGlzX21vdW50ZWQpIHsKPiA+ICsJCVRFU1QodHN0X3Vtb3VudChN
+TlRQT0lOVCkpOwo+ID4gKwkJaWYgKFRTVF9SRVQgIT0gMCkKPiA+ICsJCQl0c3RfYnJrKFRGQUlM
+IHwgVFRFUlJOTywgInVtb3VudCBmYWlsZWQgaW4gY2xlYW51cCIpOwo+ID4gKwl9Cj4gPiArfQo+
+ID4gKwo+ID4gK3N0YXRpYyB2b2lkIHRlc3RfbmV3bW91bnQodm9pZCkKPiA+ICt7Cj4gPiArCVRF
+U1QoZnNvcGVuKHRzdF9kZXZpY2UtPmZzX3R5cGUsIEZTT1BFTl9DTE9FWEVDKSk7Cj4gPiArCWlm
+IChUU1RfUkVUIDwgMCkgewo+ID4gKwkJdHN0X2JyayhURkFJTCB8IFRURVJSTk8sCj4gPiArCQkg
+ICAgICAgICJmc29wZW4gJXMiLCB0c3RfZGV2aWNlLT5mc190eXBlKTsKPiA+ICsJfQo+ID4gKwlz
+ZmQgPSBUU1RfUkVUOwo+ID4gKwl0c3RfcmVzKFRQQVNTLCAiZnNvcGVuICVzIiwgdHN0X2Rldmlj
+ZS0+ZnNfdHlwZSk7Cj4gPiArCj4gPiArCVRFU1QoZnNjb25maWcoc2ZkLCBGU0NPTkZJR19TRVRf
+U1RSSU5HLCAic291cmNlIiwgdHN0X2RldmljZS0+ZGV2LCAwKSk7Cj4gPiArCWlmIChUU1RfUkVU
+IDwgMCkgewo+ID4gKwkJdHN0X2JyayhURkFJTCB8IFRURVJSTk8sCj4gPiArCQkgICAgICAgICJm
+c2NvbmZpZyBzZXQgc291cmNlIHRvICVzIiwgdHN0X2RldmljZS0+ZGV2KTsKPiA+ICsJfQo+ID4g
+Kwl0c3RfcmVzKFRQQVNTLCAiZnNjb25maWcgc2V0IHNvdXJjZSB0byAlcyIsIHRzdF9kZXZpY2Ut
+PmRldik7Cj4gPiArCj4gPiArCj4gPiArCVRFU1QoZnNjb25maWcoc2ZkLCBGU0NPTkZJR19DTURf
+Q1JFQVRFLCBOVUxMLCBOVUxMLCAwKSk7Cj4gPiArCWlmIChUU1RfUkVUIDwgMCkgewo+ID4gKwkJ
+dHN0X2JyayhURkFJTCB8IFRURVJSTk8sCj4gPiArCQkgICAgICAgICJmc2NvbmZpZyBjcmVhdGUg
+c3VwZXJibG9jayIpOwo+ID4gKwl9Cj4gPiArCXRzdF9yZXMoVFBBU1MsICJmc2NvbmZpZyBjcmVh
+dGUgc3VwZXJibG9jayIpOwo+ID4gKwo+ID4gKwlURVNUKGZzbW91bnQoc2ZkLCBGU01PVU5UX0NM
+T0VYRUMsIDApKTsKPiA+ICsJaWYgKFRTVF9SRVQgPCAwKSB7Cj4gPiArCQl0c3RfYnJrKFRGQUlM
+IHwgVFRFUlJOTywgImZzbW91bnQiKTsKPiA+ICsJfQo+ID4gKwltZmQgPSBUU1RfUkVUOwo+ID4g
+Kwl0c3RfcmVzKFRQQVNTLCAiZnNtb3VudCIpOwo+ID4gKwlTQUZFX0NMT1NFKHNmZCk7Cj4gPiAr
+Cj4gPiArCVRFU1QobW92ZV9tb3VudChtZmQsICIiLCBBVF9GRENXRCwgTU5UUE9JTlQsIE1PVkVf
+TU9VTlRfRl9FTVBUWV9QQVRIKSk7Cj4gPiArCWlmIChUU1RfUkVUIDwgMCkgewo+ID4gKwkJdHN0
+X2JyayhURkFJTCB8IFRURVJSTk8sICJtb3ZlX21vdW50IGF0dGFjaCB0byBtb3VudCBwb2ludCIp
+Owo+ID4gKwl9Cj4gPiArCWlzX21vdW50ZWQgPSAxOwo+ID4gKwl0c3RfcmVzKFRQQVNTLCAibW92
+ZV9tb3VudCBhdHRhY2ggdG8gbW91bnQgcG9pbnQiKTsKPiA+ICsJU0FGRV9DTE9TRShtZmQpOwo+
+ID4gKwo+ID4gKwlpZiAoaXNtb3VudChNTlRQT0lOVCkpIHsKPiA+ICsJCXRzdF9yZXMoVFBBU1Ms
+ICJuZXcgbW91bnQgd29ya3MiKTsKPiA+ICsJCVRFU1QodHN0X3Vtb3VudChNTlRQT0lOVCkpOwo+
+ID4gKwkJaWYgKFRTVF9SRVQgIT0gMCkKPiA+ICsJCQl0c3RfYnJrKFRGQUlMIHwgVFRFUlJOTywg
+InVtb3VudCBmYWlsZWQiKTsKPiA+ICsJCWlzX21vdW50ZWQgPSAwOwo+IGNsZWFudXAgYWxzbyBk
+b2VzIHVtb3VudCBvcGVyYXRpb24uIE1heWJlIHdlIGNhbiBjYWxsIGl0IGluIGhlcmUuCj4gPiAr
+CX0gZWxzZSB7Cj4gPiArCQl0c3RfcmVzKFRGQUlMLCAibmV3IG1vdW50IGZhaWxzIik7Cj4gPiAr
+CX0KPiA+ICt9Cj4gPiArCj4gPiArc3RhdGljIHN0cnVjdCB0c3RfdGVzdCB0ZXN0ID0gewo+ID4g
+KwkudGVzdF9hbGwJPSB0ZXN0X25ld21vdW50LAo+ID4gKwkuY2xlYW51cAk9IGNsZWFudXAsCj4g
+PiArCS5uZWVkc19yb290CT0gMSwKPiA+ICsJLm1udHBvaW50CT0gTU5UUE9JTlQsCj4gPiArCS5u
+ZWVkc19kZXZpY2UJPSAxLAo+IEluIGx0cCBsaWJyYXJ5IGNvZGUsIGlmIHlvdSBzZXBlY2lmeSAi
+Zm9ybWF0X2RldmljZSA9IDEiLCBpdCB3aWxsIGF1dG8KPiBzZXQgIm5lZWRzX2RldmljZSA9IDEi
+LiBTbyByZW1vdmUgaXQuCj4gCj4gPiArCS5mb3JtYXRfZGV2aWNlCT0gMSwKPiA+ICsJLmFsbF9m
+aWxlc3lzdGVtcyA9IDEsCj4gPiArfTsKPiA+IAo+IAo+IAo+IAoKCi0tIApNYWlsaW5nIGxpc3Qg
+aW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
