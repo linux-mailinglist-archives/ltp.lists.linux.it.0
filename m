@@ -1,72 +1,43 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA584116815
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Dec 2019 09:26:56 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A3E9D11697D
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Dec 2019 10:37:18 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4531E3C2380
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Dec 2019 09:26:56 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 571983C237D
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Dec 2019 10:37:18 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 7308F3C1D95
- for <ltp@lists.linux.it>; Mon,  9 Dec 2019 09:26:50 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 2A21E6015B2
- for <ltp@lists.linux.it>; Mon,  9 Dec 2019 09:26:49 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1575880008;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=xuQftgKLhIdfbe43m9PaVlygiTsJJ2gGUjVhGbD1VTM=;
- b=JhhP0HRpLHb/+ubPnNwToEoILbSOQ+xFAH3VHp0BZzz8f+Mup4pWRFDTFRczBreZ96g33y
- OirWuUwBZoDDWtjRB3bOQ+cQ1Yj5x9roZTQBUz3eYm7PFy+cltdObbsA+Rh4S1kLw5VOy8
- RPEfFPdLwkS4kEUHpLCGGgRNmphmnZM=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-20-LYEmGze7OVu4X7zepRIt7g-1; Mon, 09 Dec 2019 03:26:41 -0500
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id AA7253C22D3
+ for <ltp@lists.linux.it>; Mon,  9 Dec 2019 10:37:13 +0100 (CET)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A580C801E7A;
- Mon,  9 Dec 2019 08:26:39 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 69C1C60BE1;
- Mon,  9 Dec 2019 08:26:39 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id BC9DA18089C8;
- Mon,  9 Dec 2019 08:26:38 +0000 (UTC)
-Date: Mon, 9 Dec 2019 03:26:38 -0500 (EST)
-From: Jan Stancek <jstancek@redhat.com>
-To: dftxbs3e <dftxbs3e@free.fr>
-Message-ID: <35957501.15762152.1575879998305.JavaMail.zimbra@redhat.com>
-In-Reply-To: <f874ea14-becc-9c4b-2f2f-351573e6a751@sandeen.net>
-References: <9c0af967-4916-4e8b-e77f-087515793d77@free.fr>
- <e9a171cc-6827-5c43-092a-9dcd8a997b5a@free.fr>
- <f874ea14-becc-9c4b-2f2f-351573e6a751@sandeen.net>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 0228D6008E5
+ for <ltp@lists.linux.it>; Mon,  9 Dec 2019 10:37:11 +0100 (CET)
+Received: from ubuntu.localdomain (unknown [37.156.92.209])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id C17839F856;
+ Mon,  9 Dec 2019 09:37:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1575884230; bh=Vgxt2mFidPEDJaFg4VNXPpdjFRzIL/T0TXomV+on8oA=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=L56JhxckcmC/VL4c3D5kmPvTMM068KXva4mz/r2/fQq0BzW0F/mam/F70qClG72kL
+ xvrSii8og2nzlxRbjT8pIAqHM9H1OFH/Stc6Pi/Y/sEdIwfJmdL0apNONFyIL/lnnR
+ l5sIlcVXGuorkcXBdBVk0I0EZKbUVEY/TKMUUUbg=
+From: Joerg Vehlow <lkml@jv-coder.de>
+To: ltp@lists.linux.it
+Date: Mon,  9 Dec 2019 10:36:59 +0100
+Message-Id: <20191209093659.31996-1-lkml@jv-coder.de>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.163, 10.4.195.30]
-Thread-Topic: userspace hitting sporadic SIGBUS on xfs (Power9, ppc64le),
- v4.19 and later
-Thread-Index: Dxe2axPz7lr/TlY+65kmscNpeXn5Kw==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-MC-Unique: LYEmGze7OVu4X7zepRIt7g-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
-X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [bug] userspace hitting sporadic SIGBUS on xfs (Power9,
- ppc64le), v4.19 and later
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Status: Clean
+Subject: [LTP] [PATCH] isofs: Convert to new library
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,44 +49,254 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: hch@infradead.org, darrick wong <darrick.wong@oracle.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Memory Management <mm-qe@redhat.com>,
- Eric Sandeen <sandeen@sandeen.net>, linux-xfs@vger.kernel.org,
- CKI Project <cki-project@redhat.com>, linux-fsdevel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, LTP Mailing List <ltp@lists.linux.it>
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 
------ Original Message -----
-> 
-> 
-> On 12/6/19 6:09 PM, dftxbs3e wrote:
-> > Hello!
-> > 
-> > I am very happy that someone has found this issue.
-> > 
-> > I have been suffering from rather random SIGBUS errors in similar
-> > conditions described by the author.
-> > 
-> > I don't have much troubleshooting information to provide, however, I hit
-> > the issue regularly so I could investigate during that.
-> > 
-> > How do you debug such an issue? I tried a debugger etc. but besides
-> > crashing with SIGBUS, I couldnt get any other meaningful information.
+Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+---
+ testcases/kernel/fs/iso9660/isofs.sh | 193 ++++++++++-----------------
+ 1 file changed, 71 insertions(+), 122 deletions(-)
 
-If it's same issue, you could check if dropping caches helps.
-Figure out what page is it with crash or systemtap and look at page->flags
-and ((struct iomap_page *)page->private)->uptodate bitmap.
-
-> 
-> You may want to test the patch Christoph sent on the original thread for
-> this issue.
-
-Or v5.5-rc1, Christoph's patch has been merged:
-  1cea335d1db1 ("iomap: fix sub-page uptodate handling")
+diff --git a/testcases/kernel/fs/iso9660/isofs.sh b/testcases/kernel/fs/iso9660/isofs.sh
+index 5f90354d9..43a079a14 100755
+--- a/testcases/kernel/fs/iso9660/isofs.sh
++++ b/testcases/kernel/fs/iso9660/isofs.sh
+@@ -1,21 +1,6 @@
+ #!/bin/sh
+-#
++# SPDX-License-Identifier: GPL-2.0-or-later
+ # Copyright (c) International Business Machines  Corp., 2003
+-#
+-# This program is free software; you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 2 of the License, or
+-# (at your option) any later version.
+-#
+-# This program is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License along
+-# with this program; if not, write to the Free Software Foundation, Inc.,
+-# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-#
+ # Written by Prakash Narayana (prakashn@us.ibm.com)
+ # and Michael Reed (mreed10@us.ibm.com)
+ #
+@@ -24,40 +9,25 @@
+ # mounts the ISO9660 file system with different mount options.
+ #
+ 
+-TCID=isofs
+-TST_TOTAL=77
+-. test.sh
++TST_NEEDS_CMDS="mkisofs"
++TST_NEEDS_TMPDIR=1
++TST_TESTFUNC=do_test
+ 
+-NO_CLEANUP=""
++. tst_test.sh
+ 
+-usage()
+-{
+-	echo "USAGE: $0 <optional> -n -h"
+-	exit
+-}
+-
+-cleanup()
+-{
+-	if [ "$NO_CLEANUP" = "no" ]; then
+-		tst_resm TINFO "Temporary directory $PWD was not removed"
+-	else
+-		tst_rmdir
+-	fi
+-}
+-
+-max_depth=3
+-max_dirs=4
++MAX_DEPTH=3
++MAX_DIRS=4
+ 
+ gen_fs_tree()
+ {
+ 	local cur_path="$1"
+ 	local cur_depth="$2"
+ 
+-	if [ "$cur_depth" -gt "$max_depth" ]; then
++	if [ "$cur_depth" -gt "$MAX_DEPTH" ]; then
+ 		return
+ 	fi
+ 
+-	for i in $(seq 1 $max_dirs); do
++	for i in $(seq 1 $MAX_DIRS); do
+ 		local new_path="$cur_path/subdir_$i"
+ 
+ 		mkdir -p "$new_path"
+@@ -68,94 +38,73 @@ gen_fs_tree()
+ 	done
+ }
+ 
+-while getopts :hnd: arg; do
+-	case $arg in
+-	h)
+-		echo ""
+-		echo "n - The directories created will not be removed"
+-		echo "h - Help options"
+-		echo ""
+-		usage
+-		echo ""
+-		;;
+-	n)
+-		NO_CLEANUP="no"
+-		;;
+-	esac
+-done
+-
+-tst_require_root
+-
+-tst_tmpdir
+-TST_CLEANUP=cleanup
+-
+-MNT_POINT="$PWD/mnt"
+-MAKE_FILE_SYS_DIR="$PWD/files"
+-
+-mkdir -p -m 777 $MNT_POINT
+-mkdir -p $MAKE_FILE_SYS_DIR
+-
+-# Generated directories and files
+-mkdir -p $MAKE_FILE_SYS_DIR
+-gen_fs_tree "$MAKE_FILE_SYS_DIR" 1
+-
+-# Make ISO9660 file system with different options.
+-# Mount the ISO9660 file system with different mount options.
+-
+-tst_require_cmds mkisofs
+-
+-for mkisofs_opt in \
+-	" " \
+-	"-J" \
+-	"-hfs -D" \
+-	" -R " \
+-	"-R -J" \
+-	"-f -l -D -J -allow-leading-dots -R" \
+-	"-allow-lowercase -allow-multidot -iso-level 3 -f -l -D -J -allow-leading-dots -R"
+-do
+-	rm -f isofs.iso
+-	mkisofs -o isofs.iso -quiet $mkisofs_opt $MAKE_FILE_SYS_DIR 2> /dev/null
+-	if [ $? -eq 0 ]; then
+-		tst_resm TPASS \
+-			"mkisofs -o isofs.iso -quiet $mkisofs_opt $MAKE_FILE_SYS_DIR"
+-	else
+-		tst_resm TFAIL \
+-			tst_resm TFAIL "mkisofs -o isofs.iso -quiet $mkisofs_opt $MAKE_FILE_SYS_DIR"
+-		continue
+-	fi
++do_test() {
++	local mnt_point="$PWD/mnt"
++	local make_file_sys_dir="$PWD/files"
++
++	mkdir -p -m 777 $mnt_point
++	mkdir -p $make_file_sys_dir
++
++	# Generated directories and files
++	mkdir -p $make_file_sys_dir
++	gen_fs_tree "$make_file_sys_dir" 1
++
++	# Make ISO9660 file system with different options.
++	# Mount the ISO9660 file system with different mount options.
+ 
+-	for mount_opt in \
+-		"loop" \
+-		"loop,norock" \
+-		"loop,nojoliet" \
+-		"loop,block=512,unhide" \
+-		"loop,block=1024,cruft" \
+-		"loop,block=2048,nocompress" \
+-		"loop,check=strict,map=off,gid=bin,uid=bin" \
+-		"loop,check=strict,map=acorn,gid=bin,uid=bin" \
+-		"loop,check=relaxed,map=normal" \
+-		"loop,block=512,unhide,session=2"
+-		# "loop,sbsector=32"
++	for mkisofs_opt in \
++		" " \
++		"-J" \
++		"-hfs -D" \
++		" -R " \
++		"-R -J" \
++		"-f -l -D -J -allow-leading-dots -R" \
++		"-allow-lowercase -allow-multidot -iso-level 3 -f -l -D -J -allow-leading-dots -R"
+ 	do
+-		mount -t iso9660 -o $mount_opt isofs.iso $MNT_POINT
+-		if [ $? -ne 0 ]; then
++		rm -f isofs.iso
++		mkisofs -o isofs.iso -quiet $mkisofs_opt $make_file_sys_dir 2> /dev/null
++		if [ $? -eq 0 ]; then
++			tst_res TPASS \
++				"mkisofs -o isofs.iso -quiet $mkisofs_opt $make_file_sys_dir"
++		else
+ 			tst_resm TFAIL \
+-				"mount -t iso9660 -o $mount_opt isofs.iso $MNT_POINT"
++				tst_res TFAIL "mkisofs -o isofs.iso -quiet $mkisofs_opt $make_file_sys_dir"
+ 			continue
+ 		fi
+ 
+-		ls -lR $MNT_POINT > /dev/null
+-		if [ $? -ne 0 ]; then
+-			tst_resm TFAIL "ls -lR $MNT_POINT"
+-		fi
+-
+-		umount $MNT_POINT
+-		if [ $? -ne 0 ]; then
+-			tst_brkm TFAIL "umount $MNT_POINT"
+-		fi
+-
+-		tst_resm TPASS "mount/umount with \"$mount_opt\" options"
++		for mount_opt in \
++			"loop" \
++			"loop,norock" \
++			"loop,nojoliet" \
++			"loop,block=512,unhide" \
++			"loop,block=1024,cruft" \
++			"loop,block=2048,nocompress" \
++			"loop,check=strict,map=off,gid=bin,uid=bin" \
++			"loop,check=strict,map=acorn,gid=bin,uid=bin" \
++			"loop,check=relaxed,map=normal" \
++			"loop,block=512,unhide,session=2"
++			# "loop,sbsector=32"
++		do
++			mount -t iso9660 -o $mount_opt isofs.iso $mnt_point
++			if [ $? -ne 0 ]; then
++				tst_res TFAIL \
++					"mount -t iso9660 -o $mount_opt isofs.iso $mnt_point"
++				continue
++			fi
++
++			ls -lR $mnt_point > /dev/null
++			if [ $? -ne 0 ]; then
++				tst_res TFAIL "ls -lR $mnt_point"
++			fi
++
++			umount $mnt_point
++			if [ $? -ne 0 ]; then
++				tst_brk TFAIL "umount $mnt_point"
++			fi
++
++			tst_res TPASS "mount/umount with \"$mount_opt\" options"
++		done
+ 	done
+-done
++}
+ 
+-tst_exit
++tst_run
+-- 
+2.20.1
 
 
 -- 
