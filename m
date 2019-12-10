@@ -1,40 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88B6D118CAC
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Dec 2019 16:37:28 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E91D118CBD
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Dec 2019 16:38:30 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3029D3C2261
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Dec 2019 16:37:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5DFD83C220F
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Dec 2019 16:38:30 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 4F1683C17A1
- for <ltp@lists.linux.it>; Tue, 10 Dec 2019 16:37:26 +0100 (CET)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 7C0EA3C0638
+ for <ltp@lists.linux.it>; Tue, 10 Dec 2019 16:38:28 +0100 (CET)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 6EFE01A0098F
- for <ltp@lists.linux.it>; Tue, 10 Dec 2019 16:37:25 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E90551401B4A
+ for <ltp@lists.linux.it>; Tue, 10 Dec 2019 16:38:27 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 8723BB226;
- Tue, 10 Dec 2019 15:37:24 +0000 (UTC)
-Date: Tue, 10 Dec 2019 16:37:22 +0100
+ by mx1.suse.de (Postfix) with ESMTP id 97607AF3E;
+ Tue, 10 Dec 2019 15:38:26 +0000 (UTC)
+Date: Tue, 10 Dec 2019 16:38:25 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
-Message-ID: <20191210153722.GB30547@rei.lan>
+Message-ID: <20191210153825.GC30547@rei.lan>
 References: <1576012458-31108-1-git-send-email-zhufy.jy@cn.fujitsu.com>
+ <1576012458-31108-2-git-send-email-zhufy.jy@cn.fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1576012458-31108-1-git-send-email-zhufy.jy@cn.fujitsu.com>
+In-Reply-To: <1576012458-31108-2-git-send-email-zhufy.jy@cn.fujitsu.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/3] syscalls/llseek01: convert to new library
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/3] syscalls/llseek02: convert to new library
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,14 +55,11 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-I've added your Signed-off-by here, see:
+Same as the previous one plus I have changed the SAFE_CLOSE() in setup
+to just close(), because the SAFE_CLOSE() resets the file descriptor to
+-1.
 
-https://www.kernel.org/doc/html/v4.17/process/submitting-patches.html#sign-your-work-the-developer-s-certificate-of-origin
-
-Please don't forget to sign your patches from now on.
-
-I've also fixed some trailing and misplaced whitespaces and pushed,
-thanks.
+And pushed, thanks.
 
 -- 
 Cyril Hrubis
