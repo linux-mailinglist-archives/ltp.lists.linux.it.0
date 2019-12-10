@@ -2,44 +2,45 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83B471181A8
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Dec 2019 09:04:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08BC41181A9
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Dec 2019 09:04:50 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 397683C22C7
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Dec 2019 09:04:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A92E73C2272
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Dec 2019 09:04:49 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 765753C22B6
- for <ltp@lists.linux.it>; Tue, 10 Dec 2019 09:04:31 +0100 (CET)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id A32DD3C22BE
+ for <ltp@lists.linux.it>; Tue, 10 Dec 2019 09:04:35 +0100 (CET)
 Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id F028A100157F
- for <ltp@lists.linux.it>; Tue, 10 Dec 2019 09:04:28 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0EA861401708
+ for <ltp@lists.linux.it>; Tue, 10 Dec 2019 09:04:34 +0100 (CET)
 Received: from ubuntu.localdomain (unknown [37.156.92.209])
- by mail.jv-coder.de (Postfix) with ESMTPSA id DD93F9F891;
- Tue, 10 Dec 2019 08:04:27 +0000 (UTC)
+ by mail.jv-coder.de (Postfix) with ESMTPSA id E8FC69F891;
+ Tue, 10 Dec 2019 08:04:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1575965068; bh=6+GbKgpeImVILA08XKtEPIqupJhOVJZWXrmYlk0yXRQ=;
+ t=1575965074; bh=64R0GNWOtyNq04TKD+GoaQthliC0ChBlvB4Qq/wLzws=;
  h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=nH/PibKVy6hrJbDgII7eHbHj44xvM9D2VEANyjVZ8yk1acPjQlTPpVIElGtZpWgUV
- oknA/uHAC6VQtRcIBlUUPdO80ypox+89+RDwNNH+pJqxwo1pihdHLZaykQDTgcpPi/
- 8bAdtCaDkNX8fXcP2ixl3FDLV35B7Jqhv8MRB2HY=
+ b=VQRl20FS6XQJLZlWdW8dzt1jzZq5UOimSC2btlLQgvLuCTJjWXHHiPkvmzTZEK9WH
+ o11q1u9tM+JDyrtup022j4kQWTGiPTzEq9V4Mc4lBW7vdHbR4DfHS43AIeCQea1Nho
+ v/d5n+Slu4IN2Q4TsnEwAj3Cg8rw97wsJDvexj5w=
 From: Joerg Vehlow <lkml@jv-coder.de>
 To: ltp@lists.linux.it
-Date: Tue, 10 Dec 2019 09:04:17 +0100
-Message-Id: <20191210080419.128773-2-lkml@jv-coder.de>
+Date: Tue, 10 Dec 2019 09:04:18 +0100
+Message-Id: <20191210080419.128773-3-lkml@jv-coder.de>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191210080419.128773-1-lkml@jv-coder.de>
 References: <20191210080419.128773-1-lkml@jv-coder.de>
 MIME-Version: 1.0
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v4 1/3] tst_test.sh: Add tst_require_module command
+Subject: [LTP] [PATCH v4 2/3] tst_test.sh: Make public tst_require_root
+ command public
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,86 +60,112 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 
-Adds a new library function tst_require_module, that can be used, when a
-test needs a module dynamically at runtime
+If a test requires root only under certain circumstances, TST_NEEDS_ROOT
+is not sufficient, because it always requires root.
 
 Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 ---
- doc/test-writing-guidelines.txt |  3 +++
- testcases/lib/tst_test.sh       | 39 +++++++++++++++++++--------------
- 2 files changed, 25 insertions(+), 17 deletions(-)
+ doc/test-writing-guidelines.txt |  3 ++-
+ testcases/lib/tst_net.sh        | 12 ++----------
+ testcases/lib/tst_security.sh   |  4 ++--
+ testcases/lib/tst_test.sh       |  4 ++--
+ 4 files changed, 8 insertions(+), 15 deletions(-)
 
 diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
-index 546bb7a49..3360f0920 100644
+index 3360f0920..d0c49dc9c 100644
 --- a/doc/test-writing-guidelines.txt
 +++ b/doc/test-writing-guidelines.txt
-@@ -2184,6 +2184,9 @@ module in a few possible paths.
- If module was found the path to it will be stored into '$TST_MODPATH'
- variable, if module wasn't found the test will exit with 'TCONF'.
+@@ -2118,7 +2118,8 @@ simply by setting right '$TST_NEEDS_FOO'.
+ [options="header"]
+ |=============================================================================
+ | Variable name      | Action done
+-| 'TST_NEEDS_ROOT'   | Exit the test with 'TCONF' unless executed under root
++| 'TST_NEEDS_ROOT'   | Exit the test with 'TCONF' unless executed under root.
++|                    | Alternatively the tst_require_root command can be used
+ | 'TST_NEEDS_TMPDIR' | Create test temporary directory and cd into it.
+ | 'TST_NEEDS_DEVICE' | Prepare test temporary device, the path to testing
+                        device is stored in '$TST_DEVICE' variable.
+diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
+index 59ceb3352..dd0c712c3 100644
+--- a/testcases/lib/tst_net.sh
++++ b/testcases/lib/tst_net.sh
+@@ -97,14 +97,6 @@ tst_brk_()
+ {
+ 	[ -z "$TST_USE_LEGACY_API" ] && tst_brk $@ || tst_brkm $@
+ }
+-tst_require_root_()
+-{
+-	if [ -z "$TST_USE_LEGACY_API" ]; then
+-		_tst_require_root
+-	else
+-		tst_require_root
+-	fi
+-}
  
-+Alternatively the 'tst_require_module()' function can be used to do the same
-+at runtime.
-+
- 2.3.3 Optional command line parameters
- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ init_ltp_netspace()
+ {
+@@ -112,7 +104,7 @@ init_ltp_netspace()
+ 
+ 	if [ ! -f /var/run/netns/ltp_ns -a -z "$LTP_NETNS" ]; then
+ 		tst_require_cmds ip
+-		tst_require_root_
++		tst_require_root
+ 
+ 		ROD ip li add name ltp_ns_veth1 type veth peer name ltp_ns_veth2
+ 		pid="$(ROD ns_create net,mnt)"
+@@ -577,7 +569,7 @@ tst_del_ipaddr()
+ tst_restore_ipaddr()
+ {
+ 	tst_require_cmds ip
+-	tst_require_root_
++	tst_require_root
+ 
+ 	local type="${1:-lhost}"
+ 	local link_num="${2:-0}"
+diff --git a/testcases/lib/tst_security.sh b/testcases/lib/tst_security.sh
+index 7d033bbc5..af7c81bb5 100644
+--- a/testcases/lib/tst_security.sh
++++ b/testcases/lib/tst_security.sh
+@@ -95,7 +95,7 @@ tst_selinux_used_profile()
+ tst_disable_apparmor()
+ {
+ 	tst_res TINFO "trying to disable AppArmor (requires super/root)"
+-	_tst_require_root
++	tst_require_root
+ 
+ 	local f="aa-teardown"
+ 	local action
+@@ -115,7 +115,7 @@ tst_disable_apparmor()
+ tst_disable_selinux()
+ {
+ 	tst_res TINFO "trying to disable SELinux (requires super/root)"
+-	_tst_require_root
++	tst_require_root
+ 
+ 	local f="$(_tst_get_enforce)"
  
 diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-index 70c1ef2e3..afee6aac5 100644
+index afee6aac5..c93ab7dbe 100644
 --- a/testcases/lib/tst_test.sh
 +++ b/testcases/lib/tst_test.sh
-@@ -461,6 +461,27 @@ _tst_require_root()
- 	fi
+@@ -454,7 +454,7 @@ _tst_setup_timer()
+ 	_tst_setup_timer_pid=$!
  }
  
-+tst_require_module()
-+{
-+	local _tst_module=$1
-+
-+	for tst_module in "$_tst_module" \
-+	                  "$LTPROOT/testcases/bin/$_tst_module" \
-+	                  "$TST_STARTWD/$_tst_module"; do
-+
-+			if [ -f "$tst_module" ]; then
-+				TST_MODPATH="$tst_module"
-+				break
-+			fi
-+	done
-+	
-+	if [ -n "$TST_MODPATH" ]; then
-+		tst_res TINFO "Found module at '$TST_MODPATH'"
-+	else
-+		tst_brk TCONF "Failed to find module '$_tst_module'"
-+	fi
-+}
-+
- tst_run()
+-_tst_require_root()
++tst_require_root()
  {
- 	local _tst_i
-@@ -552,23 +573,7 @@ tst_run()
- 		TST_DEVICE_FLAG=1
+ 	if [ "$(id -ru)" != 0 ]; then
+ 		tst_brk TCONF "Must be super/root for this test!"
+@@ -529,7 +529,7 @@ tst_run()
+ 		tst_brk TBROK "Number of iterations (-i) must be > 0"
  	fi
  
--	if [ -n "$TST_NEEDS_MODULE" ]; then
--		for tst_module in "$TST_NEEDS_MODULE" \
--		                  "$LTPROOT/testcases/bin/$TST_NEEDS_MODULE" \
--		                  "$TST_STARTWD/$TST_NEEDS_MODULE"; do
--
--				if [ -f "$tst_module" ]; then
--					TST_MODPATH="$tst_module"
--					break
--				fi
--		done
--
--		if [ -z "$TST_MODPATH" ]; then
--			tst_brk TCONF "Failed to find module '$TST_NEEDS_MODULE'"
--		else
--			tst_res TINFO "Found module at '$TST_MODPATH'"
--		fi
--	fi
-+	[ -n "$TST_NEEDS_MODULE" ] && tst_require_module "$TST_NEEDS_MODULE"
+-	[ "$TST_NEEDS_ROOT" = 1 ] && _tst_require_root
++	[ "$TST_NEEDS_ROOT" = 1 ] && tst_require_root
  
- 	if [ -n "$TST_SETUP" ]; then
- 		$TST_SETUP
+ 	[ "$TST_DISABLE_APPARMOR" = 1 ] && tst_disable_apparmor
+ 	[ "$TST_DISABLE_SELINUX" = 1 ] && tst_disable_selinux
 -- 
 2.20.1
 
