@@ -2,42 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4592A118171
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Dec 2019 08:38:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88DE41181A7
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Dec 2019 09:04:31 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CB6183C220A
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Dec 2019 08:38:14 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E9FD33C22CB
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Dec 2019 09:04:30 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id AD7953C13E0
- for <ltp@lists.linux.it>; Tue, 10 Dec 2019 08:38:13 +0100 (CET)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 38C2F3C17A1
+ for <ltp@lists.linux.it>; Tue, 10 Dec 2019 09:04:26 +0100 (CET)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id AB69E6011A9
- for <ltp@lists.linux.it>; Tue, 10 Dec 2019 08:38:12 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id BA1F2AD2C;
- Tue, 10 Dec 2019 07:38:10 +0000 (UTC)
-Date: Tue, 10 Dec 2019 08:38:09 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <20191210073808.GA4143@dell5510>
-References: <20191209064110.67975-1-lkml@jv-coder.de>
- <20191209222557.GA31054@dell5510>
- <79cfa9ef-b122-b2e1-4051-e16eff04d6be@jv-coder.de>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 44A4614012D6
+ for <ltp@lists.linux.it>; Tue, 10 Dec 2019 09:04:26 +0100 (CET)
+Received: from ubuntu.localdomain (unknown [37.156.92.209])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id AA5E79F7F0
+ for <ltp@lists.linux.it>; Tue, 10 Dec 2019 08:04:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1575965064; bh=450iD61qPB2lP4yMNY3VcYWEVSikFYbGDVDc8wOfse0=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=ZQCNaqcW/GKDmM1+WjTrgzf8yOZQ3eNO339lspSPApioSxBOpcRlKgsLSHRc7TEFm
+ g8+X4CwLFAajBytpo325vXwstnP1btYFWQsLC7fH8XcSU637CRAoDrlNHprubxrh0e
+ VY3hGElAkIyYpkj7YSU6V7cARUIr76s5EWaR9M1M=
+From: Joerg Vehlow <lkml@jv-coder.de>
+To: ltp@lists.linux.it
+Date: Tue, 10 Dec 2019 09:04:16 +0100
+Message-Id: <20191210080419.128773-1-lkml@jv-coder.de>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <79cfa9ef-b122-b2e1-4051-e16eff04d6be@jv-coder.de>
-User-Agent: Mutt/1.12.2 (2019-09-21)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] lib: Add fifo library
+Subject: [LTP] [PATCH v4] lsmod01: Add kernel module
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,77 +50,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
-Content-Type: text/plain; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Joerg,
+Now that the naming debate for tst_needs vs. tst_require is done, I post the patch,
+that started all of it again.
 
-> > > +#ifndef PATH_MAX
-> > > +#ifdef MAXPATHLEN
-> > > +#define PATH_MAX	MAXPATHLEN
-> > > +#else
-> > > +#define PATH_MAX	1024
-> > > +#endif
-> > > +#endif
-> > Hm, this is copy paste from old tests (all use test.h, even quite new a=
-nd clean tests/tst_tmpdir_test.c).
-> > I wonder if this is still relevant, can't we use #include <limits.h>?
-> Right, if there is nothing against using limits.h, I'll change it. I just
-> used other code for reference for my code.
-I don't know the purpose of this code (anybody knows?), but unless there is=
- good
-reason for it, I'd be for using <limits.h>.
+This patch adds a dummy module to lsmod01, to make the test run successfully,
+if no modules are loaded at the time of test execution.
 
-> > > +++ b/testcases/Makefile
-> > > @@ -28,7 +28,7 @@ include $(top_srcdir)/include/mk/env_pre.mk
-> > >   # 1. kdump shouldn't be compiled by default, because it's runtime b=
-ased and
-> > >   #    WILL crash the build host (the tests need to be fixed to just =
-build, not
-> > >   #    run).
-> > > -FILTER_OUT_DIRS		:=3D kdump
-> > > +FILTER_OUT_DIRS		:=3D kdump open_posix_testsuite realtime kernel net=
-work misc
-> > I guess this is unrelated change for your debug.
-> Damn... This happens to me all the time, it's time for configure switches=
- ;)
-Yep, I have it on my todo list, but haven't forced to do it. Feel free to
-implement it.
-https://github.com/linux-test-project/ltp/issues/617
+To have no impact on the test requirements, when modules are already loaded,
+the root test and module search has to be done conditionally.
+Therefor the library had to be extended/modified to add tst_require_root
+and tst_require_module.
 
-> > > +[ "$TST_NEEDS_TMPDIR" !=3D 1 ] && tst_brk TCONF "fifo library requir=
-es TST_NEEDS_TMPDIR=3D1"
-> > If we apply https://patchwork.ozlabs.org/patch/1206399/, it should be
-> > $TST_NEEDS_TMPDIR=3D1
-> I don't get it? The path you linked seems unrelated to me and did you mean
-> [=A0 "$TST_NEEDS_TMPDIR" =3D 1 ] || ... ?
-> > +	[ "$TST_NEEDS_FIFO" =3D 1 ] && . tst_fifo.sh
-> > I'd load it at the top, just below
-> > . tst_ansi_color.sh
-> > . tst_security.sh
-> The way I implemented it, I can't load it at the top, because tst_fifo.sh
-> requires
-> TST_TMPDIR to be already set, when it is included.
-Right, sorry. BTW, am I missing something or you don't use this variable in
-shell? I see it ony defined in tst_fifo.sh, then you use $TST_TMPDIR.
-(+ defined and used in tst_fifo.c)
-+ local _tst_path_req=3D"${TST_TMPDIR}/tst_fifo_$1.req"
-So what is the purpose of the variable in shell?
 
-And maybe the test for $TST_TMPDIR might not be needed (it's not supposed t=
-o be
-used without tst_test.sh, but there is no harm to have it (maybe the error
-message should be something like "tst_test.sh is part of shell API and shou=
-ldn't
-be loaded separately").
+ doc/test-writing-guidelines.txt        |  6 ++++-
+ testcases/commands/.gitignore          |  1 +
+ testcases/commands/lsmod/Makefile      | 15 ++++++++++++
+ testcases/commands/lsmod/lsmod01.sh    | 33 ++++++++++++++++++++++++++
+ testcases/commands/lsmod/ltp_lsmod01.c | 28 ++++++++++++++++++++++
+ testcases/lib/tst_net.sh               | 12 ++--------
+ testcases/lib/tst_security.sh          |  4 ++--
+ testcases/lib/tst_test.sh              | 43 +++++++++++++++++++---------------
+ 8 files changed, 110 insertions(+), 32 deletions(-)
 
-Kind regards,
-Petr
 
--- =
 
+
+-- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
