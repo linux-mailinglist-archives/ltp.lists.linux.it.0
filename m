@@ -1,49 +1,56 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2333311A50B
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Dec 2019 08:26:04 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id CED9111AB0F
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Dec 2019 13:37:29 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DE3FF3C1D8A
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Dec 2019 08:26:03 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 905FD3C1CA2
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Dec 2019 13:37:29 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 717C03C2398
- for <ltp@lists.linux.it>; Wed, 11 Dec 2019 08:25:54 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 06C721A03FCD
- for <ltp@lists.linux.it>; Wed, 11 Dec 2019 08:25:52 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.69,301,1571673600"; d="scan'208";a="80011848"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 11 Dec 2019 15:25:50 +0800
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (unknown [10.167.33.83])
- by cn.fujitsu.com (Postfix) with ESMTP id EC1CA4CE1A0C
- for <ltp@lists.linux.it>; Wed, 11 Dec 2019 15:17:14 +0800 (CST)
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Wed, 11 Dec 2019 15:25:47 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Wed, 11 Dec 2019 15:25:59 +0800
-Message-ID: <1576049159-14014-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1576049159-14014-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-References: <1576049159-14014-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-yoursite-MailScanner-ID: EC1CA4CE1A0C.A3642
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id E17A43C18F7
+ for <ltp@lists.linux.it>; Wed, 11 Dec 2019 13:37:27 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 534DE6005D7
+ for <ltp@lists.linux.it>; Wed, 11 Dec 2019 13:37:26 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1576067845;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=bwzV0W9lR8GpNbqWsQgBtDujlctSFPirUqsfzr//Y3Q=;
+ b=BSl7BF8MCZE07zw1hfnMnxPjSTDi9kIsn7pr/mMbyD+9o5cbLEMpBs6B6B+sltLH/VsjXS
+ A/DZrctFcVo1UGd08zM6aWKgMFC4SdgHIGtM7Czki/4Q/FCJRbAA9X9Q4qsd6OK5kW0tVR
+ 03IkADR7EQqrVb9iQt8ktyRagPM9yRU=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-410-mF8tlbo7Pzyj7MK1SeGnEQ-1; Wed, 11 Dec 2019 07:37:22 -0500
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 63AE61883527;
+ Wed, 11 Dec 2019 12:37:21 +0000 (UTC)
+Received: from dustball.usersys.redhat.com (unknown [10.43.17.163])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id B684D63BA9;
+ Wed, 11 Dec 2019 12:37:20 +0000 (UTC)
+From: Jan Stancek <jstancek@redhat.com>
+To: ltp@lists.linux.it
+Date: Wed, 11 Dec 2019 13:37:14 +0100
+Message-Id: <ebbe6cc68c39a619b6ea4a1e217c52c5d3e8b525.1576067278.git.jstancek@redhat.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-MC-Unique: mF8tlbo7Pzyj7MK1SeGnEQ-1
+X-Mimecast-Spam-Score: 0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] syscalls/capget02: Cleanup & convert to new
- library
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v3] futex_cmp_requeue01: cope with spurious wakeups
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,300 +62,251 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-It also adds a check for whether kernel returns preferred linux
-capability version when we use a bad version.
+There are couple problems:
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+1. Keeping same uaddr1 value across requeue leads to a side-effect.
+If there is a signal or spurious wakeup, futex_wait() operation can
+be restarted (by kernel) with same input parameters. Which means that
+process requeued for uaddr2, goes back to queueing for uaddr1. Such
+use case is currently not valid as it is expected that uaddr1 value
+changes, so that any late waiter can notice it and goes back with
+-EWOULDBLOCK (-EAGAIN).
+
+2. Test doesn't expect possibility of spurious wakeups, which can
+impact how many processes end up on futex0/futex1.
+
+Change futex value before requeue, so child processes can observe
+spurious wakeups.
+
+Change child process, such that it always sleeps, to guarantee that
+TST_PROCESS_STATE_WAIT() will always succeed finding it.
+
+Change default timeout to 5 seconds. Spawning 1000 process on slower
+systems was getting close to 1 second. This doesn't affect runtime in
+PASS-ing case.
+
+Count spurious wakeups and relax test conditions which can be affected.
+
+Signed-off-by: Jan Stancek <jstancek@redhat.com>
 ---
- testcases/kernel/syscalls/capget/capget02.c | 245 ++++++--------------
- 1 file changed, 73 insertions(+), 172 deletions(-)
+ .../kernel/syscalls/futex/futex_cmp_requeue01.c    | 128 ++++++++++++++++-----
+ 1 file changed, 100 insertions(+), 28 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/capget/capget02.c b/testcases/kernel/syscalls/capget/capget02.c
-index e8d237779..42c76a011 100644
---- a/testcases/kernel/syscalls/capget/capget02.c
-+++ b/testcases/kernel/syscalls/capget/capget02.c
-@@ -1,199 +1,100 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-- *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-- *
-+ * Author: Saji Kumar.V.R <saji.kumar@wipro.com>
-+ *
-+ * Tests basic error handling of the capget syscall.
-+ * 1) capget() fails with errno set to EFAULT if an invalid address
-+ * is given for header.
-+ * 2) capget() fails with errno set to EFAULT if an invalid address
-+ * is given for data
-+ * 3) capget() fails with errno set to EINVAL if an invalid value
-+ * is given for header->version
-+ * 4) capget() fails with errno set to EINVAL if header->pid < 0
-+ * 5) capget() fails with errno set to ESRCH if the process with
-+ *  pid, header->pid does not exist.
-  */
--/**********************************************************
-- *
-- *    TEST IDENTIFIER	: capget02
-- *
-- *    EXECUTED BY	: anyone
-- *
-- *    TEST TITLE	: Tests for error conditions.
-- *
-- *    TEST CASE TOTAL	: 5
-- *
-- *    AUTHOR		: Saji Kumar.V.R <saji.kumar@wipro.com>
-- *
-- *    SIGNALS
-- * 	Uses SIGUSR1 to pause before test if option set.
-- * 	(See the parse_opts(3) man page).
-- *
-- *    DESCRIPTION
-- *	Verify that
-- *	1) capget() fails with errno set to EFAULT if an invalid address
-- *	   is given for header
-- *	2) capget() fails with errno set to EFAULT if an invalid address
-- *	   is given for data
-- *	3) capget() fails with errno set to EINVAL if an invalid value
-- *	   is given for header->version
-- *	4) capget() fails with errno set to EINVAL if header->pid < 0
-- *	5) capget() fails with errno set to ESRCH if the process with
-- *	   pid, header->pid does not exit
-- *
-- *
-- * 	Setup:
-- * 	  Setup signal handling.
-- *	  Pause for SIGUSR1 if option specified.
-- *
-- * 	Test:
-- *	 Loop if the proper options are given.
-- * 	  call capget with proper arguments
-- *	  if capget() fails with expected errno
-- *		Test passed
-- *	  Otherwise
-- *		Test failed
-- *
-- * 	Cleanup:
-- * 	  Print errno log and/or timing stats if options given
-- *
-- * USAGE:  <for command-line>
-- * capget02 [-c n] [-e] [-i n] [-I x] [-P x] [-t] [-h] [-f] [-p]
-- *			where,  -c n : Run n copies concurrently.
-- *				-e   : Turn on errno logging.
-- *				-h   : Show help screen
-- *				-f   : Turn off functional testing
-- *				-i n : Execute test n times.
-- *				-I x : Execute test for x seconds.
-- *				-p   : Pause for SIGUSR1 before starting
-- *				-P x : Pause for x seconds between iterations.
-- *				-t   : Turn on syscall timing.
-- *
-- ****************************************************************/
+Changes in v3:
+- following the discussion, check also lower limits of requeued
+  and woken up processes.
+  Expected range for num_requeues is:
+    (tc->set_requeues - spurious, tc->set_requeues)
+  Expected range for woken up processes is:
+    (tc->set_wakes - spurious, tc->set_wakes + spurious)
+
+diff --git a/testcases/kernel/syscalls/futex/futex_cmp_requeue01.c b/testcases/kernel/syscalls/futex/futex_cmp_requeue01.c
+index f5264c2ba26f..a2e899b8d441 100644
+--- a/testcases/kernel/syscalls/futex/futex_cmp_requeue01.c
++++ b/testcases/kernel/syscalls/futex/futex_cmp_requeue01.c
+@@ -19,7 +19,14 @@
+ #include "tst_test.h"
+ #include "futextest.h"
  
--#include <errno.h>
--#include "test.h"
-+#include <sys/types.h>
-+#include "tst_test.h"
- #include "lapi/syscalls.h"
--
--/**************************************************************************/
--/*                                                                        */
--/*   Some archs do not have the manpage documented sys/capability.h file, */
--/*   and require the use of the line below                                */
--
- #include <linux/capability.h>
+-static futex_t *futexes;
++struct shared_data {
++	futex_t futexes[2];
++	int spurious;
++	int test_done;
++};
++
++static struct shared_data *sd;
++static int max_sleep_ms;
  
--/*   If you are having issues with including this file and have the sys/  */
--/*   version, then you may want to try switching to it. -Robbie W.        */
--/**************************************************************************/
--
--static void setup();
--static void cleanup();
--static void test_setup(int);
--
--char *TCID = "capget02";
--
--static struct __user_cap_header_struct header;
-+static struct __user_cap_header_struct header, bad_version_header, bad_pid_header, unused_pid_header;
- static struct __user_cap_data_struct data;
+ static struct tcase {
+ 	int num_waiters;
+@@ -37,24 +44,42 @@ static struct tcase {
  
--struct test_case_t {
-+static struct tcase {
- 	cap_user_header_t headerp;
- 	cap_user_data_t datap;
--	int exp_errno;
--	char *errdesc;
--} test_cases[] = {
--#ifndef UCLINUX
--	/* Skip since uClinux does not implement memory protection */
--	{
--	(cap_user_header_t) - 1, &data, EFAULT, "EFAULT"}, {
--	&header, (cap_user_data_t) - 1, EFAULT, "EFAULT"},
--#endif
--	{
--	&header, &data, EINVAL, "EINVAL"}, {
--	&header, &data, EINVAL, "EINVAL"}, {
--	&header, &data, ESRCH, "ESRCH"}
-+	int exp_err;
-+	int reset_flag;
-+	char *message;
-+} tcases[] = {
-+	{NULL, &data, EFAULT, 0, "Test bad address header"},
-+	{&header, NULL, EFAULT, 0, "Test bad address data"},
-+	{&bad_version_header, &data, EINVAL, 1, "Test bad version"},
-+	{&bad_pid_header, &data, EINVAL, 0, "Test bad pid"},
-+	{&unused_pid_header, &data, ESRCH, 0, "Test unused pid"},
- };
- 
--int TST_TOTAL = sizeof(test_cases) / sizeof(test_cases[0]);
--
--int main(int ac, char **av)
-+static void verify_capget(unsigned int n)
+ static void do_child(void)
  {
-+	struct tcase *tc = &tcases[n];
- 
--	int lc, i;
--
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--
--		tst_count = 0;
--
--		for (i = 0; i < TST_TOTAL; ++i) {
--			test_setup(i);
--			TEST(ltp_syscall(__NR_capget, test_cases[i].headerp,
--				     test_cases[i].datap));
--
--			if (TEST_RETURN == -1 &&
--			    TEST_ERRNO == test_cases[i].exp_errno) {
--				tst_resm(TPASS | TTERRNO,
--					 "capget failed as expected");
--			} else {
--				tst_resm(TFAIL | TTERRNO,
--					 "capget failed unexpectedly (%ld)",
--					 TEST_RETURN);
--			}
--		}
-+	tst_res(TINFO, "%s", tc->message);
-+	TEST(tst_syscall(__NR_capget, tc->headerp, tc->datap));
-+	if (TST_RET == 0) {
-+		tst_res(TFAIL, "capget() succeed unexpectedly");
-+		return;
+-	struct timespec usec = tst_ms_to_timespec(2000);
++	int slept_for_ms = 0;
++	struct timespec usec = tst_ms_to_timespec(max_sleep_ms);
+ 	int pid = getpid();
++	int ret = 0;
++
++	if (futex_wait(&sd->futexes[0], sd->futexes[0], &usec, 0) == -1) {
++		if (errno == EAGAIN) {
++			/* spurious wakeup or signal */
++			tst_atomic_inc(&sd->spurious);
++		} else {
++			tst_res(TFAIL | TERRNO, "process %d wasn't woken up",
++				pid);
++			ret = 1;
++		}
 +	}
-+	if (TST_ERR == tc->exp_err)
-+		tst_res(TPASS | TTERRNO, "capget() failed as expected");
-+	else
-+		tst_res(TFAIL | TTERRNO, "capget() expected %s got ",
-+			tst_strerrno(tc->exp_err));
+ 
+-	if (!futex_wait(&futexes[0], futexes[0], &usec, 0))
+-		exit(0);
++	/* make sure TST_PROCESS_STATE_WAIT() can always succeed */
++	while (!tst_atomic_load(&sd->test_done)
++		&& (slept_for_ms < max_sleep_ms)) {
++		usleep(50000);
++		slept_for_ms += 50;
++	}
+ 
+-	tst_res(TINFO | TERRNO, "process %d wasn't woken up", pid);
+-	exit(1);
++	exit(ret);
+ }
+ 
+ static void verify_futex_cmp_requeue(unsigned int n)
+ {
+ 	int num_requeues = 0, num_waits = 0, num_total = 0;
+-	int i, status;
++	int i, status, spurious, woken_up;
+ 	struct tcase *tc = &tcases[n];
+ 	int pid[tc->num_waiters];
+ 	int exp_ret = tc->set_wakes + tc->set_requeues;
+ 
++	tst_atomic_store(0, &sd->spurious);
++	tst_atomic_store(0, &sd->test_done);
+ 	for (i = 0; i < tc->num_waiters; i++) {
+ 		pid[i] = SAFE_FORK();
+ 		if (!pid[i])
+@@ -64,61 +89,108 @@ static void verify_futex_cmp_requeue(unsigned int n)
+ 	for (i = 0; i < tc->num_waiters; i++)
+ 		TST_PROCESS_STATE_WAIT(pid[i], 'S');
+ 
+-	TEST(futex_cmp_requeue(&futexes[0], futexes[0], &futexes[1],
+-	     tc->set_wakes, tc->set_requeues, 0));
+-	if (TST_RET != exp_ret) {
+-		tst_res(TFAIL, "futex_cmp_requeue() returned %ld, expected %d",
++	tst_res(TINFO, "Test %d: waiters: %d, wakes: %d, requeues: %d",
++		n, tc->num_waiters, tc->set_wakes, tc->set_requeues);
 +
 +	/*
-+	 * When an unsupported version value is specified, it will
-+	 * return the kernel preferred value of _LINUX_CAPABILITY_VERSION_?.
-+	 * Since linux 2.6.26, version 3 is default. We use it.
++	 * change futex value, so any spurious wakeups or signals after
++	 * this point get bounced back to userspace.
 +	 */
-+	if (tc->reset_flag) {
-+		if (tc->headerp->version == 0x20080522)
-+			tc->headerp->version = 0;
-+		else
-+			tst_res(TFAIL, "kernel doesn't return preferred linux"
-+				" capability version when using bad version");
- 	}
--
--	cleanup();
--
--	tst_exit();
--
- }
- 
--/* setup() - performs all ONE TIME setup for this test */
--void setup(void)
-+static void setup(void)
- {
-+	unsigned int i, pid;
- 
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
-+	pid = getpid();
- 
--	TEST_PAUSE;
-+	header.version = 0x19980330;
-+	header.pid = pid;
- 
--}
-+	bad_version_header.version = 0;
-+	bad_version_header.pid = pid;
- 
--/*
-- *cleanup() -  performs all ONE TIME cleanup for this test at
-- *		completion or premature exit.
-- */
--void cleanup(void)
--{
--}
-+	bad_pid_header.version = 0x19980330;
-+	bad_pid_header.pid = -1;
- 
--void test_setup(int i)
--{
--#ifdef UCLINUX
--	i = i + 2;
--#endif
--	switch (i) {
-+	unused_pid_header.version = 0x19980330;
-+	unused_pid_header.pid = tst_get_unused_pid();
- 
--	case 0:
--		break;
--	case 1:
--		header.version = _LINUX_CAPABILITY_VERSION;
--		header.pid = getpid();
--		break;
--	case 2:
--		header.version = 0;
--		header.pid = getpid();
--		break;
--	case 3:
--		header.version = _LINUX_CAPABILITY_VERSION;
--		header.pid = -1;
--		break;
--	case 4:
--		header.version = _LINUX_CAPABILITY_VERSION;
--		header.pid = tst_get_unused_pid(cleanup);
--		break;
-+	for (i = 0; i < ARRAY_SIZE(tcases); i++) {
-+		if (!tcases[i].headerp)
-+			tcases[i].headerp = tst_get_bad_addr(NULL);
-+		if (!tcases[i].datap)
-+			tcases[i].datap = tst_get_bad_addr(NULL);
- 	}
- }
++	sd->futexes[0]++;
++	sd->futexes[1]++;
 +
-+static struct tst_test test = {
-+	.setup = setup,
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.test = verify_capget,
-+};
++	/*
++	 * Wakes up a maximum of tc->set_wakes waiters. tc->set_requeues
++	 * specifies an upper limit on the number of waiters that are requeued.
++	 * Returns the total number of waiters that were woken up or requeued.
++	 */
++	TEST(futex_cmp_requeue(&sd->futexes[0], sd->futexes[0], &sd->futexes[1],
++		tc->set_wakes, tc->set_requeues, 0));
++
++	/* Fail if more than requested wakes + requeues were returned */
++	if (TST_RET > exp_ret) {
++		tst_res(TFAIL, "futex_cmp_requeue() returned %ld, expected <= %d",
+ 			TST_RET, exp_ret);
++	} else {
++		tst_res(TINFO, "futex_cmp_requeue() returned %ld", TST_RET);
+ 	}
+ 
+-	num_requeues = futex_wake(&futexes[1], tc->num_waiters, 0);
+-	num_waits = futex_wake(&futexes[0], tc->num_waiters, 0);
++	num_requeues = futex_wake(&sd->futexes[1], tc->num_waiters, 0);
++	num_waits = futex_wake(&sd->futexes[0], tc->num_waiters, 0);
+ 
++	tst_atomic_store(1, &sd->test_done);
+ 	for (i = 0; i < tc->num_waiters; i++) {
+ 		SAFE_WAITPID(pid[i], &status, 0);
+ 		if (WIFEXITED(status) && !WEXITSTATUS(status))
+ 			num_total++;
+ 	}
+ 
++	spurious = tst_atomic_load(&sd->spurious);
++	tst_res(TINFO, "children woken, futex0: %d, futex1: %d, "
++		"spurious wakeups: %d",
++		num_waits, num_requeues, spurious);
++
++	/* Fail if any waiter timed out */
+ 	if (num_total != tc->num_waiters) {
+ 		tst_res(TFAIL, "%d waiters were not woken up normally",
+ 			tc->num_waiters - num_total);
+ 		return;
+ 	}
+ 
+-	if (num_requeues != tc->set_requeues) {
++	/*
++	 * num_requeues should be in range:
++	 *     (tc->set_requeues - spurious, tc->set_requeues)
++	 *
++	 * Fewer processes than requested can be requeued at futex1
++	 * if some woke up spuriously. Finding more processes than
++	 * requested at futex1 is always a failure.
++	 */
++	if ((num_requeues < tc->set_requeues - spurious)
++		|| (num_requeues > tc->set_requeues)) {
+ 		tst_res(TFAIL,
+-			"futex_cmp_requeue() requeues %d waiters, expected %d",
+-			num_requeues, tc->set_requeues);
++			"requeued %d waiters, expected range: (%d, %d)",
++			num_requeues, tc->set_requeues - spurious,
++			tc->set_requeues);
+ 		return;
+ 	}
+ 
+-	if (tc->num_waiters - num_requeues - num_waits != tc->set_wakes) {
++	/*
++	 * woken_up = (TST_RET - num_requeues) should be in range:
++	 *     (tc->set_wakes - spurious, tc->set_wakes + spurious)
++	 *
++	 * Fewer processes than requested can be woken up, if some of
++	 * them woke up spuriously before requeue. More processes than
++	 * requested may appear to be woken up, if some woke up
++	 * spuriously after requeue.
++	 */
++	woken_up = TST_RET - num_requeues;
++	if ((woken_up < tc->set_wakes - spurious)
++		|| (woken_up > tc->set_wakes + spurious)) {
+ 		tst_res(TFAIL,
+-			"futex_cmp_requeue() woke up %d waiters, expected %d",
+-			tc->num_waiters - num_requeues - num_waits,
+-			tc->set_wakes);
++			"woken up %d, expected range (%d, %d)",
++			woken_up, tc->set_wakes - spurious,
++			tc->set_wakes + spurious);
+ 		return;
+ 	}
+ 
+-	tst_res(TPASS,
+-		"futex_cmp_requeue() woke up %d waiters and requeued %d waiters",
+-		tc->set_wakes, tc->set_requeues);
++	tst_res(TPASS, "futex_cmp_requeue()");
+ }
+ 
+ static void setup(void)
+ {
+-	futexes = SAFE_MMAP(NULL, sizeof(futex_t) * 2, PROT_READ | PROT_WRITE,
++	max_sleep_ms = tst_multiply_timeout(5000);
++
++	sd = SAFE_MMAP(NULL, sizeof(*sd), PROT_READ | PROT_WRITE,
+ 			    MAP_ANONYMOUS | MAP_SHARED, -1, 0);
+ 
+-	futexes[0] = FUTEX_INITIALIZER;
+-	futexes[1] = FUTEX_INITIALIZER + 1;
++	sd->futexes[0] = FUTEX_INITIALIZER;
++	sd->futexes[1] = FUTEX_INITIALIZER + 1000;
+ }
+ 
+ static void cleanup(void)
+ {
+-	if (futexes)
+-		SAFE_MUNMAP((void *)futexes, sizeof(futex_t) * 2);
++	if (sd)
++		SAFE_MUNMAP((void *)sd, sizeof(*sd));
+ }
+ 
+ static struct tst_test test = {
 -- 
-2.18.0
-
-
+1.8.3.1
 
 
 -- 
