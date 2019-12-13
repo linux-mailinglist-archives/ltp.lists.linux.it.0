@@ -1,42 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2648111E6D4
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Dec 2019 16:39:38 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id DEAB111E6DC
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Dec 2019 16:40:32 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CC3023C23A4
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Dec 2019 16:39:37 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B13903C23B0
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Dec 2019 16:40:32 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 951AC3C2397
- for <ltp@lists.linux.it>; Fri, 13 Dec 2019 16:39:36 +0100 (CET)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 1621A3C239A
+ for <ltp@lists.linux.it>; Fri, 13 Dec 2019 16:40:31 +0100 (CET)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 47DA22003B8
- for <ltp@lists.linux.it>; Fri, 13 Dec 2019 16:39:35 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C69871419AC4
+ for <ltp@lists.linux.it>; Fri, 13 Dec 2019 16:40:30 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 58EA6B1B4
- for <ltp@lists.linux.it>; Fri, 13 Dec 2019 15:39:35 +0000 (UTC)
-Date: Fri, 13 Dec 2019 16:39:33 +0100
+ by mx1.suse.de (Postfix) with ESMTP id 2A691AFD8
+ for <ltp@lists.linux.it>; Fri, 13 Dec 2019 15:40:30 +0000 (UTC)
+Date: Fri, 13 Dec 2019 16:40:28 +0100
 From: Petr Vorel <pvorel@suse.cz>
 To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20191213153933.GB8241@dell5510>
+Message-ID: <20191213154028.GC8241@dell5510>
 References: <20191126120241.5460-1-mdoucha@suse.cz>
- <20191126120241.5460-3-mdoucha@suse.cz>
+ <20191126120241.5460-4-mdoucha@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20191126120241.5460-3-mdoucha@suse.cz>
+In-Reply-To: <20191126120241.5460-4-mdoucha@suse.cz>
 User-Agent: Mutt/1.12.2 (2019-09-21)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/3] Port test_1_to_1_initmsg_connect (SCTP) to
- new API
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 3/3] Split SCTP initmsg test into two test cases
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,19 +56,17 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Martin,
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-Thanks for the rewrite!
+> The original test allocates 65535 output streams which may fail on older
+> kernels due to lack of memory. Split the test into two test cases:
+> - allocate 10 output streams and accept no errors (functional test)
+> - allocate 65535 output streams and accept ENOMEM (stress test)
 
-...
-> +++ b/utils/sctp/func_tests/test_1_to_1_initmsg_connect.c
-...
-> -	tst_resm(TPASS, "connect() with init timeout set to 0 - SUCCESS");
-> +	if (TST_RET != msglen) {
-> +		tst_res(TFAIL | TTERRNO, "recv() failed");
-> +	} else {
-> +		tst_res(TPASS, "connect() with init timeout set to 0 - SUCCESS");
-If you don't mind, I'd remove " - SUCCESS" from the message before merge.
-> +	}
+> Also clean up some unnecessary code and check that the test message is
+> transferred correctly.
+
+Great idea, thanks for implementing it.
+
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
 Kind regards,
 Petr
