@@ -1,41 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D15011E6B5
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Dec 2019 16:37:32 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2648111E6D4
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Dec 2019 16:39:38 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F017B3C23BF
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Dec 2019 16:37:31 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id CC3023C23A4
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Dec 2019 16:39:37 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 0041F3C1C8B
- for <ltp@lists.linux.it>; Fri, 13 Dec 2019 16:37:27 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 951AC3C2397
+ for <ltp@lists.linux.it>; Fri, 13 Dec 2019 16:39:36 +0100 (CET)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 9BBAC1000B35
- for <ltp@lists.linux.it>; Fri, 13 Dec 2019 16:37:26 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 47DA22003B8
+ for <ltp@lists.linux.it>; Fri, 13 Dec 2019 16:39:35 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id EF9CCAF55
- for <ltp@lists.linux.it>; Fri, 13 Dec 2019 15:37:25 +0000 (UTC)
-Date: Fri, 13 Dec 2019 16:37:24 +0100
+ by mx1.suse.de (Postfix) with ESMTP id 58EA6B1B4
+ for <ltp@lists.linux.it>; Fri, 13 Dec 2019 15:39:35 +0000 (UTC)
+Date: Fri, 13 Dec 2019 16:39:33 +0100
 From: Petr Vorel <pvorel@suse.cz>
 To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20191213153724.GA8241@dell5510>
+Message-ID: <20191213153933.GB8241@dell5510>
 References: <20191126120241.5460-1-mdoucha@suse.cz>
- <20191126120241.5460-2-mdoucha@suse.cz>
+ <20191126120241.5460-3-mdoucha@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20191126120241.5460-2-mdoucha@suse.cz>
+In-Reply-To: <20191126120241.5460-3-mdoucha@suse.cz>
 User-Agent: Mutt/1.12.2 (2019-09-21)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/3] Add SAFE_ACCEPT() to LTP safe net library
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/3] Port test_1_to_1_initmsg_connect (SCTP) to
+ new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,8 +57,19 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Martin,
 
-LGTM.
 Reviewed-by: Petr Vorel <pvorel@suse.cz>
+Thanks for the rewrite!
+
+...
+> +++ b/utils/sctp/func_tests/test_1_to_1_initmsg_connect.c
+...
+> -	tst_resm(TPASS, "connect() with init timeout set to 0 - SUCCESS");
+> +	if (TST_RET != msglen) {
+> +		tst_res(TFAIL | TTERRNO, "recv() failed");
+> +	} else {
+> +		tst_res(TPASS, "connect() with init timeout set to 0 - SUCCESS");
+If you don't mind, I'd remove " - SUCCESS" from the message before merge.
+> +	}
 
 Kind regards,
 Petr
