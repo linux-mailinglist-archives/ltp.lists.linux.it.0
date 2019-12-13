@@ -1,60 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9873E11CD46
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Dec 2019 13:35:28 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E56A11E000
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Dec 2019 09:55:29 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 50B323C237E
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Dec 2019 13:35:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D1E5B3C2272
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Dec 2019 09:55:28 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 8CF373C243A
- for <ltp@lists.linux.it>; Thu, 12 Dec 2019 13:35:19 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 8633D100608D
- for <ltp@lists.linux.it>; Thu, 12 Dec 2019 13:35:19 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1576154117;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=qkgGw3DJPz+0GEMHaAZw+YbItUVwxArSNyXIqCIz14o=;
- b=FOTTwcjnay6UKU50ViV8LuprxOGWd71PaRSLllWEfV8bt7K2iINdJk+yZn6XVFtB3vXZ33
- 0aHG+7XVdGJZX8rCMfa6jJkbkI7DPd9Gw4IJIJub3zsT/OSGwWDYWAuTX6h5BGUk/EESkT
- AIFrcVTXpioE1tTIZV42Pxt5/oRxdnc=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-440-L3mFZ0lANeGxjm_Q-Tc2PQ-1; Thu, 12 Dec 2019 07:35:16 -0500
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id C64933C136E
+ for <ltp@lists.linux.it>; Fri, 13 Dec 2019 09:55:26 +0100 (CET)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4A9911005516
- for <ltp@lists.linux.it>; Thu, 12 Dec 2019 12:35:15 +0000 (UTC)
-Received: from dustball.usersys.redhat.com (unknown [10.43.17.163])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 9B7D15D9C9;
- Thu, 12 Dec 2019 12:35:14 +0000 (UTC)
-From: Jan Stancek <jstancek@redhat.com>
-To: ltp@lists.linux.it
-Date: Thu, 12 Dec 2019 13:35:04 +0100
-Message-Id: <853f6938da5d133800dc6bf1d490937b50c2e059.1576154034.git.jstancek@redhat.com>
-In-Reply-To: <cd51199b87580a138fa9c7669e61bdb7611ab204.1576154034.git.jstancek@redhat.com>
-References: <cd51199b87580a138fa9c7669e61bdb7611ab204.1576154034.git.jstancek@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-MC-Unique: L3mFZ0lANeGxjm_Q-Tc2PQ-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 32A631BCF374
+ for <ltp@lists.linux.it>; Fri, 13 Dec 2019 09:55:24 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 8FE5AAE3F;
+ Fri, 13 Dec 2019 08:55:23 +0000 (UTC)
+Date: Fri, 13 Dec 2019 09:55:21 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Steve Dickson <SteveD@redhat.com>
+Message-ID: <20191213085521.GA29513@dell5510>
+References: <20191117131151.GA20302@x230> <20191210215304.GA473173@x230>
+ <9566e015-27d1-8baf-e1c6-7b914923714c@RedHat.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <9566e015-27d1-8baf-e1c6-7b914923714c@RedHat.com>
+User-Agent: Mutt/1.12.2 (2019-09-21)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] statx07: handle ETIMEDOUT when rpcbind.socket is
- not started
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [Libtirpc-devel] Validity of RPC tests in LTP
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,51 +47,73 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-MIME-Version: 1.0
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it, kukuk@suse.com, Daniel Gryniewicz <dang@redhat.com>,
+ libtirpc-devel@lists.sourceforge.net
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Recent Fedora distros (kernel-5.3.7-301.fc31.x86_64,
-nfs-utils-2.4.1-1.rc1.fc31.x86_64), by default don't start rpcbind
-service, where rpcbind.socket is a dependency.
+Hi Steve,
 
-This leads to test failing with ETIMEDOUT:
-  # ./statx07
-  tst_test.c:1215: INFO: Timeout per run is 0h 05m 00s
-  statx07.c:149: BROK: mount() nfs failed: ETIMEDOUT (110)
+[Cc: Cyril, LTP mailing list, and some people connected to RPC libraries]
 
-  # systemctl start rpcbind.socket
-  # ./statx07
-  tst_test.c:1215: INFO: Timeout per run is 0h 05m 00s
-  statx07.c:148: CONF: nfs server not set up?: EOPNOTSUPP (95)
+> Sorry... I was on PTO...
+Not a problem, I know you're busy anyway.
 
-Watch for ETIMEDOUT as well.
+> The tests look fine to me... Should be included in the libtirpc git tree?
+Hm, IMHO this is better to be part of LTP, so other RPC implementations can be
+tested with it.
 
-Fixes: #622
-Signed-off-by: Jan Stancek <jstancek@redhat.com>
----
- testcases/kernel/syscalls/statx/statx07.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+According to README [1] [2] [3] LTP rpc tests contains:
 
-diff --git a/testcases/kernel/syscalls/statx/statx07.c b/testcases/kernel/syscalls/statx/statx07.c
-index a18f253bc7d4..ec1cdd19087b 100644
---- a/testcases/kernel/syscalls/statx/statx07.c
-+++ b/testcases/kernel/syscalls/statx/statx07.c
-@@ -144,7 +144,8 @@ static void setup(void)
- 		tst_brk(TBROK | TST_ERR, "failed to exportfs");
- 
- 	if (mount(server_path, CLI_PATH, "nfs", 0, "addr=127.0.0.1")) {
--		if (errno == EOPNOTSUPP || errno == ECONNREFUSED)
-+		if (errno == EOPNOTSUPP || errno == ECONNREFUSED
-+			|| errno == ETIMEDOUT)
- 			tst_brk(TCONF | TERRNO, "nfs server not set up?");
- 		tst_brk(TBROK | TERRNO, "mount() nfs failed");
- 	}
--- 
-1.8.3.1
+* basic client-server RPC tests (testcases/network/rpc/basic_tests)
+Looking at the code testing rpcinfo, rup, rusers, rusersd, requiring .rhosts
+setup => quite outdated but some might still useful to test.
+I'd appreciate some feedback to know whether this code is worth of cleanup.
+IMHO this code is not interesting for libtirpc at all.
 
+* SUN RPC and TI-RPC tests (testcases/network/rpc/rpc-tirpc)
+Code originally written by Cyril Lacabanne in 2007 and later adopted for LTP.
+IMHO it can be used to test any SUN RPC implementation. Although not sure if
+there is nowadays any other implementation than libtirpc widely used, it still
+can be used with:
+  * glibc (it has deprecated it's implementation in 2.26, the
+--enable-obsolete-rpc switch existed in 2.16, which is kind of deprecation,
+but older glibc could be used or new one with RPC still enabled).
+  * rpcsvc-proto [4] (Thorsten's rpcsvc-proto also recommends
+libtirpc, but maybe somebody still uses it)
+  * ntirpc [5] (libtirpc fork ntirpc has been packaged for some major distros
+(at least Debian/Ubuntu, Fedora, Gentoo). LTP code doesn't support ntirpc, but
+it'd be trivial to to allow to use it [6].
+  * Maybe there are other SUN RPC implementations I'm not aware of
+
+If there ever is just a libtirpc as SUN RPC implementation for Linux distros
+I'd be for moving this code to LTP. But code quality is bad, it for sure
+requires some cleanup in either case.
+
+ATM it uses LTP legacy shell API in rpc_test.sh [7] wrapper and no LTP API in C
+code (which contains a lot of duplicity). For the case of moving code into
+libtirpc LTP dependencies would be easily removed. In case of staying in LTP
+(again, IMHO better, but I might be wrong) I'd be for using new LTP API,
+which would cleanup C code a lot [8].
+
+Besides that libtirpc itself might deserve some unit testing code.
+
+Any comments are welcome.
+
+Kind regards,
+Petr
+
+[1] https://github.com/linux-test-project/ltp/tree/master/testcases/network/rpc
+[2] https://github.com/linux-test-project/ltp/tree/master/testcases/network/rpc/basic_tests
+[3] https://github.com/linux-test-project/ltp/tree/master/testcases/network/rpc/rpc-tirpc
+[4] https://github.com/thkukuk/rpcsvc-proto
+[5] https://github.com/nfs-ganesha/ntirpc
+[6] https://github.com/linux-test-project/ltp/blob/master/include/lapi/rpc.h
+[7] https://github.com/linux-test-project/ltp/blob/master/testcases/network/rpc/rpc-tirpc/rpc_test.sh
+[8] https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelines#22-writing-a-test-in-c
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
