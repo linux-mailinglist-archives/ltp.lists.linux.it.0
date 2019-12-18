@@ -1,49 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F288B1246A4
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2019 13:18:48 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7819F1247D6
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2019 14:15:41 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E64053C243F
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2019 13:18:47 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B999A3C243E
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2019 14:15:40 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id C96623C2275
- for <ltp@lists.linux.it>; Wed, 18 Dec 2019 13:18:43 +0100 (CET)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id C71933C038C
+ for <ltp@lists.linux.it>; Wed, 18 Dec 2019 14:15:35 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id F0078600444
- for <ltp@lists.linux.it>; Wed, 18 Dec 2019 13:18:42 +0100 (CET)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2019 04:18:34 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,329,1571727600"; 
- d="scan'208,223";a="240772174"
-Received: from xpf-desktop.sh.intel.com ([10.239.13.102])
- by fmsmga004.fm.intel.com with ESMTP; 18 Dec 2019 04:18:33 -0800
-From: Pengfei Xu <pengfei.xu@intel.com>
-To: ltp <ltp@lists.linux.it>, Pengfei Xu <pengfei.xu@intel.com>,
- Neri Ricardo <ricardo.neri@intel.com>, Su Heng <heng.su@intel.com>,
- Kasten Robert <robert.a.kasten@intel.com>, Cyril Hrubis <chrubis@suse.cz>
-Date: Wed, 18 Dec 2019 20:25:04 +0800
-Message-Id: <20191218122504.9985-2-pengfei.xu@intel.com>
-X-Mailer: git-send-email 2.14.1
-In-Reply-To: <20191218122504.9985-1-pengfei.xu@intel.com>
-References: <20191218122504.9985-1-pengfei.xu@intel.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D1DBA1A014B0
+ for <ltp@lists.linux.it>; Wed, 18 Dec 2019 14:15:34 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id C9780ACA0;
+ Wed, 18 Dec 2019 13:15:33 +0000 (UTC)
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Wed, 18 Dec 2019 14:15:33 +0100
+Message-Id: <20191218131533.15323-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.24.0
+In-Reply-To: <461386048.17251961.1576663655809.JavaMail.zimbra@redhat.com>
+References: <461386048.17251961.1576663655809.JavaMail.zimbra@redhat.com>
+MIME-Version: 1.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] umip_basic_test.c: improve kconfig check to avoid
- umip wrong abort case
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v3] Use real FS block size in fallocate05
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,37 +45,232 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From v5.5 main line, umip kconfig changed from "CONFIG_X86_INTEL_UMIP=y"
-to "CONFIG_X86_UMIP=y".
-We could use "CONFIG_X86_INTEL_UMIP|CONFIG_X86_UMIP=y" to check kconfig
-CONFIG_X86_INTEL_UMIP=y(old kernel) or CONFIG_X86_UMIP=y(new kernel) for umip.
+fallocate() behavior depends on whether the file range is aligned to full
+blocks. Make sure that the test always uses aligned file range so that
+the test is consistent across platforms.
 
-Signed-off-by: Pengfei Xu <pengfei.xu@intel.com>
+Also use the TEST() macro to prevent errno pollution and increase test device
+size to avoid weird edge cases that don't happen in the real world.
+
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
- testcases/kernel/security/umip/umip_basic_test.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/testcases/kernel/security/umip/umip_basic_test.c b/testcases/kernel/security/umip/umip_basic_test.c
-index 1baa26c52..24eca8890 100644
---- a/testcases/kernel/security/umip/umip_basic_test.c
-+++ b/testcases/kernel/security/umip/umip_basic_test.c
-@@ -171,7 +171,7 @@ static struct tst_test test = {
- 	.forks_child = 1,
- 	.test = verify_umip_instruction,
- 	.needs_kconfigs = (const char *[]){
--		"CONFIG_X86_INTEL_UMIP=y",
-+		"CONFIG_X86_INTEL_UMIP|CONFIG_X86_UMIP=y",
- 		NULL
- 	},
+Using fixed-size buffer in fallocate05 caused some failures in the past
+due to allocation requests being misaligned with actual file system blocks.
+Btrfs in particular will treat misaligned allocation as regular write()
+and apply copy-on-write to partially allocated blocks even on the first real
+write().
+
+While that behavior is somewhat surprising, it does make sense. Fix the error
+by using multiples of real block size in fallocate() and write().
+
+I'll also write another fallocate() test later for checking FS behavior
+on intentionally misaligned allocation. But this fix can be committed before
+that.
+
+Changes since v1:
+- XFS keeps some free blocks even when write() failed with ENOSPC. Repeat
+  fallocate() until it gets ENOSPC, too.
+- Deallocate only part of the file.
+- Add description of test scenario in the header comment.
+- Increase test device size to 1GB to avoid unrealistic Btrfs edge cases.
+
+Changes since v2:
+- Deallocate whole file on Btrfs, otherwise the PUNCH_HOLE check will fail.
+  Btrfs deallocates only complete file extents by design.
+
+ .../kernel/syscalls/fallocate/fallocate05.c   | 116 ++++++++++++++----
+ 1 file changed, 89 insertions(+), 27 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/fallocate/fallocate05.c b/testcases/kernel/syscalls/fallocate/fallocate05.c
+index 17034e5b1..34faabbe8 100644
+--- a/testcases/kernel/syscalls/fallocate/fallocate05.c
++++ b/testcases/kernel/syscalls/fallocate/fallocate05.c
+@@ -1,75 +1,134 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) 2017 Cyril Hrubis <chrubis@suse.cz>
++ * Copyright (c) 2019 SUSE LLC <mdoucha@suse.cz>
+  */
+ 
+ /*
+  * Tests that writing to fallocated file works when filesystem is full.
++ * Test scenario:
++ * - fallocate() some empty blocks
++ * - fill the filesystem
++ * - write() into the preallocated space
++ * - try to fallocate() more blocks until we get ENOSPC
++ * - write() into the extra allocated space
++ * - deallocate part of the file
++ * - write() to the end of file to check that some blocks were freed
+  */
+ 
+ #define _GNU_SOURCE
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include <errno.h>
++#include <string.h>
+ #include <fcntl.h>
+ #include "tst_test.h"
+ #include "lapi/fallocate.h"
+ 
+ #define MNTPOINT "mntpoint"
+-#define FALLOCATE_SIZE (1024*1024)
++#define FALLOCATE_BLOCKS 16
++#define DEALLOCATE_BLOCKS 4
+ #define TESTED_FLAGS "fallocate(FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE)"
+ 
+ static int fd;
++static char *buf = NULL;
+ 
+ static void run(void)
+ {
+-	char buf[FALLOCATE_SIZE];
+-	ssize_t ret;
++	long bufsize, extsize, tmp;
++	blksize_t blocksize;
++	struct stat statbuf;
+ 
+ 	fd = SAFE_OPEN(MNTPOINT "/test_file", O_WRONLY | O_CREAT);
+ 
+-	if (fallocate(fd, 0, 0, FALLOCATE_SIZE)) {
+-		if (errno == EOPNOTSUPP) {
+-			tst_res(TCONF | TERRNO, "fallocate() not supported");
++	/*
++	 * Use real FS block size, otherwise fallocate() call will test
++	 * different things on different platforms
++	 */
++	SAFE_FSTAT(fd, &statbuf);
++	blocksize = statbuf.st_blksize;
++	bufsize = FALLOCATE_BLOCKS * blocksize;
++	buf = realloc(buf, bufsize);
++
++	if (!buf) {
++		SAFE_CLOSE(fd);
++		tst_brk(TBROK, "Buffer allocation failed");
++	}
++
++	TEST(fallocate(fd, 0, 0, bufsize));
++
++	if (TST_RET) {
++		if (TST_ERR == ENOTSUP) {
+ 			SAFE_CLOSE(fd);
+-			return;
++			tst_brk(TCONF | TTERRNO, "fallocate() not supported");
+ 		}
+ 
+-		tst_brk(TBROK | TERRNO,
+-			"fallocate(fd, 0, 0, %i)", FALLOCATE_SIZE);
++		tst_brk(TBROK | TTERRNO, "fallocate(fd, 0, 0, %ld)", bufsize);
+ 	}
+ 
+ 	tst_fill_fs(MNTPOINT, 1);
+ 
+-	ret = write(fd, buf, sizeof(buf));
++	TEST(write(fd, buf, bufsize));
+ 
+-	if (ret < 0)
+-		tst_res(TFAIL | TERRNO, "write() failed unexpectedly");
++	if (TST_RET < 0)
++		tst_res(TFAIL | TTERRNO, "write() failed unexpectedly");
++	else if (TST_RET != bufsize)
++		tst_res(TFAIL,
++			"Short write(): %ld bytes (expected %zu)",
++			TST_RET, bufsize);
+ 	else
+-		tst_res(TPASS, "write() wrote %zu bytes", ret);
++		tst_res(TPASS, "write() wrote %ld bytes", TST_RET);
++
++	/*
++	 * Some file systems may still have a few extra blocks that can be
++	 * allocated.
++	 */
++	for (TST_RET = 0, extsize = 0; !TST_RET; extsize += blocksize) {
++		TEST(fallocate(fd, 0, bufsize + extsize, blocksize));
++	}
++
++	if (TST_RET != -1)
++		tst_brk(TFAIL, "Invalid fallocate() return value %ld",
++			TST_RET);
+ 
+-	ret = fallocate(fd, 0, FALLOCATE_SIZE, FALLOCATE_SIZE);
+-	if (ret != -1)
+-		tst_brk(TFAIL, "fallocate() succeeded unexpectedly");
++	if (TST_ERR != ENOSPC)
++		tst_brk(TFAIL | TTERRNO, "fallocate() should fail with ENOSPC");
+ 
+-	if (errno != ENOSPC)
+-		tst_brk(TFAIL | TERRNO, "fallocate() should fail with ENOSPC");
++	/* The loop above always counts 1 more block than it should. */
++	extsize -= blocksize;
++	tst_res(TINFO, "fallocate()d %ld extra blocks on full FS",
++		extsize / blocksize);
+ 
+-	tst_res(TPASS | TERRNO, "fallocate() on full FS");
++	for (tmp = extsize; tmp > 0; tmp -= TST_RET) {
++		TEST(write(fd, buf, MIN(bufsize, tmp)));
+ 
+-	ret = fallocate(fd, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE, 0, FALLOCATE_SIZE);
+-	if (ret == -1) {
+-		if (errno == EOPNOTSUPP)
++		if (TST_RET <= 0)
++			tst_brk(TFAIL | TTERRNO, "write() failed unexpectedly");
++	}
++
++	tst_res(TPASS, "fallocate() on full FS");
++
++	/* Btrfs deallocates only complete extents, not individual blocks */
++	if (!strcmp(tst_device->fs_type, "btrfs")) {
++		tmp = bufsize + extsize;
++	} else {
++		tmp = DEALLOCATE_BLOCKS * blocksize;
++	}
++
++	TEST(fallocate(fd, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE, 0,
++		tmp));
++
++	if (TST_RET == -1) {
++		if (TST_ERR == ENOTSUP)
+ 			tst_brk(TCONF, TESTED_FLAGS);
+ 
+-		tst_brk(TBROK | TERRNO, TESTED_FLAGS);
++		tst_brk(TBROK | TTERRNO, TESTED_FLAGS);
+ 	}
+ 	tst_res(TPASS, TESTED_FLAGS);
+ 
+-	ret = write(fd, buf, 10);
+-	if (ret == -1)
+-		tst_res(TFAIL | TERRNO, "write()");
++	TEST(write(fd, buf, 10));
++	if (TST_RET == -1)
++		tst_res(TFAIL | TTERRNO, "write()");
+ 	else
+ 		tst_res(TPASS, "write()");
+ 
+@@ -80,12 +139,15 @@ static void cleanup(void)
+ {
+ 	if (fd > 0)
+ 		SAFE_CLOSE(fd);
++
++	free(buf);
+ }
+ 
+ static struct tst_test test = {
  	.needs_root = 1,
+ 	.needs_tmpdir = 1,
+ 	.mount_device = 1,
++	.dev_min_size = 1024,
+ 	.mntpoint = MNTPOINT,
+ 	.all_filesystems = 1,
+ 	.cleanup = cleanup,
 -- 
-2.14.1
+2.24.0
 
 
 -- 
