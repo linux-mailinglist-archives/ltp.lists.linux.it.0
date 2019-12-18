@@ -1,39 +1,86 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7819F1247D6
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2019 14:15:41 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CC741249EA
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2019 15:42:41 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B999A3C243E
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2019 14:15:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 982DE3C22C8
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2019 15:42:40 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id C71933C038C
- for <ltp@lists.linux.it>; Wed, 18 Dec 2019 14:15:35 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id DE4023C0039
+ for <ltp@lists.linux.it>; Wed, 18 Dec 2019 15:42:36 +0100 (CET)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D1DBA1A014B0
- for <ltp@lists.linux.it>; Wed, 18 Dec 2019 14:15:34 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id C9780ACA0;
- Wed, 18 Dec 2019 13:15:33 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
-To: ltp@lists.linux.it
-Date: Wed, 18 Dec 2019 14:15:33 +0100
-Message-Id: <20191218131533.15323-1-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.24.0
-In-Reply-To: <461386048.17251961.1576663655809.JavaMail.zimbra@redhat.com>
-References: <461386048.17251961.1576663655809.JavaMail.zimbra@redhat.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DBF6D600131
+ for <ltp@lists.linux.it>; Wed, 18 Dec 2019 15:42:35 +0100 (CET)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xBIEd0Wb058301;
+ Wed, 18 Dec 2019 14:42:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2019-08-05;
+ bh=TQBxceOSqQ33qtgSjx+DqEuerxVvfbjd1Fqol4pEQxU=;
+ b=V45BzDBN65pHDj05OXhhnzekfR0lGmjwXcZjqpdCcHcMhi59tr9+Z6WCMOckF0Rnr8if
+ jd8PWq019oZQoJ256oDRadudAv2uBkGT7wR58KKYH0nZjY+HNjyCwifKTIoOI/9NaIPw
+ BhLGe0FEGRX0HYY69tjeftG7yAe/xUKV6QTMjkuHuETmB3LX2KHLkencu5hRJxh9PJAi
+ kNXvX/HvD6iWcFQR7tNV/azZpo+5O6UgwjVJFFl7inG039va5T8H+pDtMfa8brJN2YSM
+ ExtRACmfiQ9lwFbBp9tam8prALgApoABf9aaJ7TjJYjoAT/hhVfAf6cidyGYpTmESPAy dw== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by userp2120.oracle.com with ESMTP id 2wvrcrdxd2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 18 Dec 2019 14:42:32 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xBIEdAiN140131;
+ Wed, 18 Dec 2019 14:42:31 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+ by aserp3030.oracle.com with ESMTP id 2wyedp4uhh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 18 Dec 2019 14:42:31 +0000
+Received: from abhmp0014.oracle.com (abhmp0014.oracle.com [141.146.116.20])
+ by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id xBIEgS63003346;
+ Wed, 18 Dec 2019 14:42:31 GMT
+Received: from ak.ru.oracle.com (/10.162.80.29)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 18 Dec 2019 06:42:28 -0800
+To: Petr Vorel <pvorel@suse.cz>
+References: <20191217171918.10237-1-alexey.kodanev@oracle.com>
+ <20191217171918.10237-2-alexey.kodanev@oracle.com>
+ <20191218084406.GA10966@dell5510>
+From: Alexey Kodanev <alexey.kodanev@oracle.com>
+Message-ID: <f0aad696-82a5-fb06-0517-a437d95ae2e7@oracle.com>
+Date: Wed, 18 Dec 2019 17:46:30 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+In-Reply-To: <20191218084406.GA10966@dell5510>
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9474
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1911140001 definitions=main-1912180122
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9474
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1911140001
+ definitions=main-1912180122
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v3] Use real FS block size in fallocate05
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 2/2] network/iptables: add new test for
+ iptables-tranlsate and nft
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,232 +92,41 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-fallocate() behavior depends on whether the file range is aligned to full
-blocks. Make sure that the test always uses aligned file range so that
-the test is consistent across platforms.
+On 18.12.2019 11:44, Petr Vorel wrote:
+> Hi Alexey,
+> 
+> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> one more fix below.
+> 
+...
+>> +. iptables_lib.sh
+>> +. tst_test.sh
+>> +
+>> +cleanup_tables=0
+> cleanup_table=0
+> 
+> Otherwise it fails:
+> nft01 1 TCONF: 'nft' not found
+> /opt/ltp/testcases/bin/nft01.sh: line 37: [: -eq: unary operator expected> 
+> + nit (code style comments, feel free to ignore):
+> 
+> 1) I'd use empty variable instead of 0 (and [ "$cleanup_chain" = 1 ]),
+> we discuss it with previous patches.
+> 
+> 2) I'd move TST_CNT=6 to iptables_lib.sh (if test function adds more tests, all
+> iptables_lib.sh uses would have to update it). Maybe all but these could be
+> there: TST_SETUP, TST_CLEANUP and use_iptables.
+> 
+> 3) I'd move cleanup_table and cleanup_chain below use_iptables
+> (or use_iptables below, just to have all 3 variables together).
 
-Also use the TEST() macro to prevent errno pollution and increase test device
-size to avoid weird edge cases that don't happen in the real world.
-
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
-
-Using fixed-size buffer in fallocate05 caused some failures in the past
-due to allocation requests being misaligned with actual file system blocks.
-Btrfs in particular will treat misaligned allocation as regular write()
-and apply copy-on-write to partially allocated blocks even on the first real
-write().
-
-While that behavior is somewhat surprising, it does make sense. Fix the error
-by using multiples of real block size in fallocate() and write().
-
-I'll also write another fallocate() test later for checking FS behavior
-on intentionally misaligned allocation. But this fix can be committed before
-that.
-
-Changes since v1:
-- XFS keeps some free blocks even when write() failed with ENOSPC. Repeat
-  fallocate() until it gets ENOSPC, too.
-- Deallocate only part of the file.
-- Add description of test scenario in the header comment.
-- Increase test device size to 1GB to avoid unrealistic Btrfs edge cases.
-
-Changes since v2:
-- Deallocate whole file on Btrfs, otherwise the PUNCH_HOLE check will fail.
-  Btrfs deallocates only complete file extents by design.
-
- .../kernel/syscalls/fallocate/fallocate05.c   | 116 ++++++++++++++----
- 1 file changed, 89 insertions(+), 27 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/fallocate/fallocate05.c b/testcases/kernel/syscalls/fallocate/fallocate05.c
-index 17034e5b1..34faabbe8 100644
---- a/testcases/kernel/syscalls/fallocate/fallocate05.c
-+++ b/testcases/kernel/syscalls/fallocate/fallocate05.c
-@@ -1,75 +1,134 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2017 Cyril Hrubis <chrubis@suse.cz>
-+ * Copyright (c) 2019 SUSE LLC <mdoucha@suse.cz>
-  */
- 
- /*
-  * Tests that writing to fallocated file works when filesystem is full.
-+ * Test scenario:
-+ * - fallocate() some empty blocks
-+ * - fill the filesystem
-+ * - write() into the preallocated space
-+ * - try to fallocate() more blocks until we get ENOSPC
-+ * - write() into the extra allocated space
-+ * - deallocate part of the file
-+ * - write() to the end of file to check that some blocks were freed
-  */
- 
- #define _GNU_SOURCE
- 
- #include <stdio.h>
- #include <stdlib.h>
--#include <errno.h>
-+#include <string.h>
- #include <fcntl.h>
- #include "tst_test.h"
- #include "lapi/fallocate.h"
- 
- #define MNTPOINT "mntpoint"
--#define FALLOCATE_SIZE (1024*1024)
-+#define FALLOCATE_BLOCKS 16
-+#define DEALLOCATE_BLOCKS 4
- #define TESTED_FLAGS "fallocate(FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE)"
- 
- static int fd;
-+static char *buf = NULL;
- 
- static void run(void)
- {
--	char buf[FALLOCATE_SIZE];
--	ssize_t ret;
-+	long bufsize, extsize, tmp;
-+	blksize_t blocksize;
-+	struct stat statbuf;
- 
- 	fd = SAFE_OPEN(MNTPOINT "/test_file", O_WRONLY | O_CREAT);
- 
--	if (fallocate(fd, 0, 0, FALLOCATE_SIZE)) {
--		if (errno == EOPNOTSUPP) {
--			tst_res(TCONF | TERRNO, "fallocate() not supported");
-+	/*
-+	 * Use real FS block size, otherwise fallocate() call will test
-+	 * different things on different platforms
-+	 */
-+	SAFE_FSTAT(fd, &statbuf);
-+	blocksize = statbuf.st_blksize;
-+	bufsize = FALLOCATE_BLOCKS * blocksize;
-+	buf = realloc(buf, bufsize);
-+
-+	if (!buf) {
-+		SAFE_CLOSE(fd);
-+		tst_brk(TBROK, "Buffer allocation failed");
-+	}
-+
-+	TEST(fallocate(fd, 0, 0, bufsize));
-+
-+	if (TST_RET) {
-+		if (TST_ERR == ENOTSUP) {
- 			SAFE_CLOSE(fd);
--			return;
-+			tst_brk(TCONF | TTERRNO, "fallocate() not supported");
- 		}
- 
--		tst_brk(TBROK | TERRNO,
--			"fallocate(fd, 0, 0, %i)", FALLOCATE_SIZE);
-+		tst_brk(TBROK | TTERRNO, "fallocate(fd, 0, 0, %ld)", bufsize);
- 	}
- 
- 	tst_fill_fs(MNTPOINT, 1);
- 
--	ret = write(fd, buf, sizeof(buf));
-+	TEST(write(fd, buf, bufsize));
- 
--	if (ret < 0)
--		tst_res(TFAIL | TERRNO, "write() failed unexpectedly");
-+	if (TST_RET < 0)
-+		tst_res(TFAIL | TTERRNO, "write() failed unexpectedly");
-+	else if (TST_RET != bufsize)
-+		tst_res(TFAIL,
-+			"Short write(): %ld bytes (expected %zu)",
-+			TST_RET, bufsize);
- 	else
--		tst_res(TPASS, "write() wrote %zu bytes", ret);
-+		tst_res(TPASS, "write() wrote %ld bytes", TST_RET);
-+
-+	/*
-+	 * Some file systems may still have a few extra blocks that can be
-+	 * allocated.
-+	 */
-+	for (TST_RET = 0, extsize = 0; !TST_RET; extsize += blocksize) {
-+		TEST(fallocate(fd, 0, bufsize + extsize, blocksize));
-+	}
-+
-+	if (TST_RET != -1)
-+		tst_brk(TFAIL, "Invalid fallocate() return value %ld",
-+			TST_RET);
- 
--	ret = fallocate(fd, 0, FALLOCATE_SIZE, FALLOCATE_SIZE);
--	if (ret != -1)
--		tst_brk(TFAIL, "fallocate() succeeded unexpectedly");
-+	if (TST_ERR != ENOSPC)
-+		tst_brk(TFAIL | TTERRNO, "fallocate() should fail with ENOSPC");
- 
--	if (errno != ENOSPC)
--		tst_brk(TFAIL | TERRNO, "fallocate() should fail with ENOSPC");
-+	/* The loop above always counts 1 more block than it should. */
-+	extsize -= blocksize;
-+	tst_res(TINFO, "fallocate()d %ld extra blocks on full FS",
-+		extsize / blocksize);
- 
--	tst_res(TPASS | TERRNO, "fallocate() on full FS");
-+	for (tmp = extsize; tmp > 0; tmp -= TST_RET) {
-+		TEST(write(fd, buf, MIN(bufsize, tmp)));
- 
--	ret = fallocate(fd, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE, 0, FALLOCATE_SIZE);
--	if (ret == -1) {
--		if (errno == EOPNOTSUPP)
-+		if (TST_RET <= 0)
-+			tst_brk(TFAIL | TTERRNO, "write() failed unexpectedly");
-+	}
-+
-+	tst_res(TPASS, "fallocate() on full FS");
-+
-+	/* Btrfs deallocates only complete extents, not individual blocks */
-+	if (!strcmp(tst_device->fs_type, "btrfs")) {
-+		tmp = bufsize + extsize;
-+	} else {
-+		tmp = DEALLOCATE_BLOCKS * blocksize;
-+	}
-+
-+	TEST(fallocate(fd, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE, 0,
-+		tmp));
-+
-+	if (TST_RET == -1) {
-+		if (TST_ERR == ENOTSUP)
- 			tst_brk(TCONF, TESTED_FLAGS);
- 
--		tst_brk(TBROK | TERRNO, TESTED_FLAGS);
-+		tst_brk(TBROK | TTERRNO, TESTED_FLAGS);
- 	}
- 	tst_res(TPASS, TESTED_FLAGS);
- 
--	ret = write(fd, buf, 10);
--	if (ret == -1)
--		tst_res(TFAIL | TERRNO, "write()");
-+	TEST(write(fd, buf, 10));
-+	if (TST_RET == -1)
-+		tst_res(TFAIL | TTERRNO, "write()");
- 	else
- 		tst_res(TPASS, "write()");
- 
-@@ -80,12 +139,15 @@ static void cleanup(void)
- {
- 	if (fd > 0)
- 		SAFE_CLOSE(fd);
-+
-+	free(buf);
- }
- 
- static struct tst_test test = {
- 	.needs_root = 1,
- 	.needs_tmpdir = 1,
- 	.mount_device = 1,
-+	.dev_min_size = 1024,
- 	.mntpoint = MNTPOINT,
- 	.all_filesystems = 1,
- 	.cleanup = cleanup,
--- 
-2.24.0
+Thanks Petr! Fixed them and applied the patches.
 
 
 -- 
