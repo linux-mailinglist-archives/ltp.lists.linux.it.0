@@ -2,56 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58ABE1241A4
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2019 09:28:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ECA8124218
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2019 09:44:12 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EA5B33C2374
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2019 09:28:45 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 50DC33C22C7
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Dec 2019 09:44:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 0D2223C133E
- for <ltp@lists.linux.it>; Wed, 18 Dec 2019 09:28:41 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 6C62214012A9
- for <ltp@lists.linux.it>; Wed, 18 Dec 2019 09:28:40 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1576657718;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=je3+0M14UKwFwuMk1FdtFOCbvWFxe38lbVitILVqCxo=;
- b=ZLo7xgyle1WJ2siK7MYlfDgXDAKOSgaZg36SjI37myc8r5prRMc0A53hfB3jby//tFPEey
- tRlnSrZw/JzdPEa+7SvEY665sMNq6KHPB3LNmXoaRLb24c9/cLU0oENjoXku2hzVU1J4e0
- uKhQ0oqUaJ0uESIminVIchY1o7C5AbI=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-181-2XCc6x0mPk2XiudeNZAdbg-1; Wed, 18 Dec 2019 03:28:35 -0500
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
- [10.5.11.16])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 77FFB3C2092
+ for <ltp@lists.linux.it>; Wed, 18 Dec 2019 09:44:10 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 05B30DBA3;
- Wed, 18 Dec 2019 08:28:34 +0000 (UTC)
-Received: from localhost.localdomain.com (unknown [10.66.81.246])
- by smtp.corp.redhat.com (Postfix) with ESMTP id EB47B5C28D;
- Wed, 18 Dec 2019 08:28:32 +0000 (UTC)
-From: Li Wang <liwang@redhat.com>
-To: ltp@lists.linux.it
-Date: Wed, 18 Dec 2019 16:28:26 +0800
-Message-Id: <20191218082826.25083-1-liwang@redhat.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BD2BC1401A27
+ for <ltp@lists.linux.it>; Wed, 18 Dec 2019 09:44:09 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 72D75AB71;
+ Wed, 18 Dec 2019 08:44:08 +0000 (UTC)
+Date: Wed, 18 Dec 2019 09:44:06 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Alexey Kodanev <alexey.kodanev@oracle.com>
+Message-ID: <20191218084406.GA10966@dell5510>
+References: <20191217171918.10237-1-alexey.kodanev@oracle.com>
+ <20191217171918.10237-2-alexey.kodanev@oracle.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-MC-Unique: 2XCc6x0mPk2XiudeNZAdbg-1
-X-Mimecast-Spam-Score: 0
+Content-Disposition: inline
+In-Reply-To: <20191217171918.10237-2-alexey.kodanev@oracle.com>
+User-Agent: Mutt/1.12.2 (2019-09-21)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH RFC] sync_file_range02: remove the toplimit of write
- back
+Subject: Re: [LTP] [PATCH v2 2/2] network/iptables: add new test for
+ iptables-tranlsate and nft
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,67 +49,58 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Test tries to sync a range of $BYTES bytes, and then makes sure that
-between $BYTES and $BYTES+10% was written to disk. But sometimes, more
-than $BYTES+10% hit the disk: "Synced 39843840, expected 33554432" so
-it failed as below.
+Hi Alexey,
 
-  tst_test.c:1179: INFO: Testing on ext4
-  sync_file_range02.c:74: FAIL: Sync equals write: Synced 39843840,
-                          expected 33554432
-  sync_file_range02.c:74: FAIL: Sync inside of write: Synced 18612224,
-                          expected 16777216
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+one more fix below.
 
-From FS dev's view:
+> +++ b/testcases/network/iptables/nft01.sh
+> @@ -0,0 +1,41 @@
+> +#!/bin/sh
+> +# SPDX-License-Identifier: GPL-2.0-or-later
+> +# Copyright (c) 2019 Oracle and/or its affiliates. All Rights Reserved.
+> +
+> +TST_CNT=6
+> +TST_SETUP="do_setup"
+> +TST_TESTFUNC="test"
+> +TST_CLEANUP="do_cleanup"
+> +TST_NEEDS_TMPDIR=1
+> +TST_NEEDS_ROOT=1
+> +TST_NEEDS_CMDS="nft iptables-translate grep ping telnet"
+> +TST_NEEDS_DRIVERS="nf_tables"
+> +use_iptables=0
+> +
+> +. iptables_lib.sh
+> +. tst_test.sh
+> +
+> +cleanup_tables=0
+cleanup_table=0
 
-" The test's assumptions are fundamentally false; it thinks it can look
-at IO counters (tst_dev_bytes_written) for a disk before and after a
-system call, and attribute all of the IO seen to the system call that
-was made - this isn't necessarily correct. Other processes may generate
-IO in the background.
+Otherwise it fails:
+nft01 1 TCONF: 'nft' not found
+/opt/ltp/testcases/bin/nft01.sh: line 37: [: -eq: unary operator expected
 
-ext4 defers a lot of IO on a freshly made filesystem to the kernel -
-for example it will initialize the journal and inode tables after the
-mount, and this will cause extra IO.
++ nit (code style comments, feel free to ignore):
 
-Creating ext4 filesystems with the options: "-E lazy_itable_init=0,
-lazy_journal_init=0" might help.
+1) I'd use empty variable instead of 0 (and [ "$cleanup_chain" = 1 ]),
+we discuss it with previous patches.
 
-Another option would be to raise the threshold. Essentially, the report
-here is that the test is failing because the filesystem wrote "too much"
-as a result of the sync. How much is "too much?" ..."
+2) I'd move TST_CNT=6 to iptables_lib.sh (if test function adds more tests, all
+iptables_lib.sh uses would have to update it). Maybe all but these could be
+there: TST_SETUP, TST_CLEANUP and use_iptables.
 
-Let's remove the toplimit of write back, and think as long as we synced
-at least the expected amount, the test passes. The +10% limit seems arbitrary.
+3) I'd move cleanup_table and cleanup_chain below use_iptables
+(or use_iptables below, just to have all 3 variables together).
 
-Signed-off-by: Li Wang <liwang@redhat.com>
-Cc: Sumit Garg <sumit.garg@linaro.org>
----
- testcases/kernel/syscalls/sync_file_range/sync_file_range02.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c b/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-index eb08143c3..643be14fa 100644
---- a/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-+++ b/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-@@ -66,8 +66,7 @@ static void verify_sync_file_range(struct testcase *tc)
- 
- 	SAFE_CLOSE(fd);
- 
--	if ((written >= tc->exp_sync_size) &&
--	    (written <= (tc->exp_sync_size + tc->exp_sync_size/10)))
-+	if ((written >= tc->exp_sync_size))
- 		tst_res(TPASS, "%s", tc->desc);
- 	else
- 		tst_res(TFAIL, "%s: Synced %li, expected %li", tc->desc,
--- 
-2.20.1
-
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
