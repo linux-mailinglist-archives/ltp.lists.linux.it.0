@@ -1,48 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEEFC12630D
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Dec 2019 14:13:01 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B3DD01263CB
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Dec 2019 14:43:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 90AAD3C2385
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Dec 2019 14:13:01 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 62F623C23B5
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Dec 2019 14:43:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 45AF73C2382
- for <ltp@lists.linux.it>; Thu, 19 Dec 2019 14:12:31 +0100 (CET)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id BE9403C2382
+ for <ltp@lists.linux.it>; Thu, 19 Dec 2019 14:43:11 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id B0DF0600207
+ for <ltp@lists.linux.it>; Thu, 19 Dec 2019 14:43:10 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1576762989;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=t5ceRSSTnKM+cRv9CWX7OMeubgKu6cOpJW4fUxmB7bQ=;
+ b=KRK7yJ/Tf0Jlr9YTgqkL+XfRXmbsCE5jjHNwUcatNcnfI3tUebKkaeXl9zdYLOl2Cu1IPX
+ 3j3r+CfSFEe4jLsZX4OIP3xvL4QCKeFuGqmnJycRKVGvGCB5kVzppoxeSGKYG9TMmR8YoU
+ nUZ4rchF1ke6ObEudkBXEP55cO4bFME=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-319-G9YC2D8KOZunx5-wUObPzw-1; Thu, 19 Dec 2019 08:43:05 -0500
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 67451600F5B
- for <ltp@lists.linux.it>; Thu, 19 Dec 2019 14:12:30 +0100 (CET)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 19 Dec 2019 05:12:28 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,332,1571727600"; d="scan'208";a="390529923"
-Received: from xpf-desktop.sh.intel.com ([10.239.13.102])
- by orsmga005.jf.intel.com with ESMTP; 19 Dec 2019 05:12:27 -0800
-From: Pengfei Xu <pengfei.xu@intel.com>
-To: ltp <ltp@lists.linux.it>, Pengfei Xu <pengfei.xu@intel.com>,
- Neri Ricardo <ricardo.neri@intel.com>, Su Heng <heng.su@intel.com>,
- Cyril Hrubis <chrubis@suse.cz>
-Date: Thu, 19 Dec 2019 21:18:55 +0800
-Message-Id: <20191219131855.28799-4-pengfei.xu@intel.com>
-X-Mailer: git-send-email 2.14.1
-In-Reply-To: <20191219131855.28799-1-pengfei.xu@intel.com>
-References: <20191219131855.28799-1-pengfei.xu@intel.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 32D99107ACCC;
+ Thu, 19 Dec 2019 13:43:04 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 29DE468897;
+ Thu, 19 Dec 2019 13:43:03 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id C092F1809567;
+ Thu, 19 Dec 2019 13:43:03 +0000 (UTC)
+Date: Thu, 19 Dec 2019 08:43:03 -0500 (EST)
+From: Jan Stancek <jstancek@redhat.com>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <391203935.17412269.1576762983583.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20191219095050.26106-1-pvorel@suse.cz>
+References: <20191219095050.26106-1-pvorel@suse.cz>
+MIME-Version: 1.0
+X-Originating-IP: [10.43.17.163, 10.4.195.21]
+Thread-Topic: tst_test.sh: Add return value to _tst_expect_{fail, pass}
+Thread-Index: AfTK4c95a5N35mIoTXzsHUmD+XfRAQ==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-MC-Unique: G9YC2D8KOZunx5-wUObPzw-1
+X-Mimecast-Spam-Score: 0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 4/4] lib: add any kconfig to match the expected
- value function document
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] tst_test.sh: Add return value to
+ _tst_expect_{fail, pass}
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,34 +74,25 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-MIME-Version: 1.0
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Pengfei Xu <pengfei.xu@intel.com>
----
- doc/test-writing-guidelines.txt | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
-index 79d857fea..e64ff8716 100644
---- a/doc/test-writing-guidelines.txt
-+++ b/doc/test-writing-guidelines.txt
-@@ -1590,7 +1590,9 @@ aborted with 'TCONF' if any of the required options were not set.
- #include "tst_test.h"
- 
- static const char *kconfigs[] = {
--	"CONFIG_X86_INTEL_UMIP",
-+	"CONFIG_EXT4_FS=y",
-+	"CONFIG_MMU",
-+	"CONFIG_X86_INTEL_UMIP|CONFIG_X86_UMIP=y",
- 	NULL
- };
- 
--- 
-2.14.1
+
+----- Original Message -----
+> +It's possible to detect whether expected value happened:
+> +[source,sh]
+> +-------------------------------------------------------------------------------
+> +if ! EXPECT_PASS command arg1 2\> /dev/null; then
+> +	continue
+> +fi
+> +-------------------------------------------------------------------------------
+> +
+
+Looks useful, ack.
 
 
 -- 
