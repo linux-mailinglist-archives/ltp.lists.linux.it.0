@@ -1,37 +1,37 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D54C1275B9
-	for <lists+linux-ltp@lfdr.de>; Fri, 20 Dec 2019 07:29:12 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B21B127613
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Dec 2019 08:03:18 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 146853C20B6
-	for <lists+linux-ltp@lfdr.de>; Fri, 20 Dec 2019 07:29:12 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0DA3B3C243C
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Dec 2019 08:03:18 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id CF83E3C1809
- for <ltp@lists.linux.it>; Fri, 20 Dec 2019 07:29:09 +0100 (CET)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by picard.linux.it (Postfix) with ESMTP id A80863C1443
+ for <ltp@lists.linux.it>; Fri, 20 Dec 2019 08:03:14 +0100 (CET)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 673501A01995
- for <ltp@lists.linux.it>; Fri, 20 Dec 2019 07:29:06 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D2E551A023DA
+ for <ltp@lists.linux.it>; Fri, 20 Dec 2019 08:03:11 +0100 (CET)
 X-Amp-Result: UNKNOWN
 X-Amp-Original-Verdict: FILE UNKNOWN
 X-Amp-File-Uploaded: False
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 19 Dec 2019 22:29:04 -0800
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 19 Dec 2019 23:02:56 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,334,1571727600"; d="scan'208";a="210721970"
+X-IronPort-AV: E=Sophos;i="5.69,334,1571727600"; d="scan'208";a="210728937"
 Received: from xpf-desktop.sh.intel.com (HELO xpf-desktop) ([10.239.13.102])
- by orsmga008.jf.intel.com with ESMTP; 19 Dec 2019 22:29:03 -0800
-Date: Fri, 20 Dec 2019 14:35:34 +0800
+ by orsmga008.jf.intel.com with ESMTP; 19 Dec 2019 23:02:55 -0800
+Date: Fri, 20 Dec 2019 15:09:26 +0800
 From: Pengfei Xu <pengfei.xu@intel.com>
 To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <20191220063534.pcfqrdjjtqzuwnzc@xpf-desktop>
+Message-ID: <20191220070926.i4jknfoo6pdhersl@xpf-desktop>
 References: <20191219131855.28799-1-pengfei.xu@intel.com>
  <20191219131855.28799-4-pengfei.xu@intel.com>
  <9ac02979-d8ec-4a11-7705-bb484dd79a20@cn.fujitsu.com>
@@ -67,32 +67,22 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Xu,
-  Thanks for your comment.
-  I will try to fix it and send the patch.
+  Due to memory copy, there is some bit and display issue in last string.
+
+  So for your question, for CONFIG_A|CONFIG_B without expect value, maybe y
+  or m.
+  We could add it with below style:
+  "CONFIG_A|CONFIG_B|NA", and add it into guidelines, NA will not be solved,
+  actually you could fill with any string after last '|'.
+  Is it ok?
 
   Thanks!
-  BR.
 
 On 2019-12-20 at 14:00:00 +0800, Yang Xu wrote:
 > Hi Pengfei
 > > Hi Xu,
 > > 
 > > 
-> > On 2019-12-20 at 13:37:21 +0800, Yang Xu wrote:
-> > > 
-> > > Hi Pengfei
-> > > 
-> > > on 2019/12/19 21:18, Pengfei Xu wrote:
-> > > > Signed-off-by: Pengfei Xu <pengfei.xu@intel.com>
-> > > > ---
-> > > >    doc/test-writing-guidelines.txt | 4 +++-
-> > > >    1 file changed, 3 insertions(+), 1 deletion(-)
-> > > > 
-> > > > diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
-> > > > index 79d857fea..e64ff8716 100644
-> > > > --- a/doc/test-writing-guidelines.txt
-> > > > +++ b/doc/test-writing-guidelines.txt
-> > > > @@ -1590,7 +1590,9 @@ aborted with 'TCONF' if any of the required options were not set.
 > > > Before your patch, I know we can use the following two formats kconfigs
 > > > CONFIG_A
 > > > CONFIG_A=y/m/v
