@@ -1,75 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4332B12D6D7
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 Dec 2019 08:41:24 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B131212D743
+	for <lists+linux-ltp@lfdr.de>; Tue, 31 Dec 2019 10:05:49 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AF5073C239D
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 Dec 2019 08:41:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2C8F33C238F
+	for <lists+linux-ltp@lfdr.de>; Tue, 31 Dec 2019 10:05:49 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 473053C18F9
- for <ltp@lists.linux.it>; Tue, 31 Dec 2019 08:41:19 +0100 (CET)
-Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
- [IPv6:2a00:1450:4864:20::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id CA6D91A02417
- for <ltp@lists.linux.it>; Tue, 31 Dec 2019 08:41:18 +0100 (CET)
-Received: by mail-lj1-x244.google.com with SMTP id l2so35573452lja.6
- for <ltp@lists.linux.it>; Mon, 30 Dec 2019 23:41:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=NF8xGzMvdZfpgzra58jQGRelnsYZWlWOPYEvG4u8o7Q=;
- b=oz/YgTjNj9/wtn4+Xcnm8sMd2su2adoOl9yTjJOVBjoS7PeMi/PFFVtZvBLBWxWZh0
- c0wHSqt2iS/a1Bv5gaoDMYERLfyv/4lv7s2sHi2Zi3vSte2M8tQ5bKE4CdMA1ub7LoRi
- TtIv1LDXfDED99Av0VtjDKYnsiQgkGcF/Wggtv1jzIcV/ABqCGKh96aoghiSsMPuqW63
- u8gLnzQXBu/+IP7dsqOuGQ/S/CTp6/xqE8Un9b0RWfNEi/qiO3R7UyxulVdKApSj51Ie
- GaSuhr9HalzUYyk5xJWLRV4eLxICWDznhtNlDl2dp6OWUuaG5KhFhSZW21kX7FdgE8E3
- Jn1w==
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 75FC93C180B
+ for <ltp@lists.linux.it>; Tue, 31 Dec 2019 10:05:43 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 78A6810028B5
+ for <ltp@lists.linux.it>; Tue, 31 Dec 2019 10:05:41 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1577783139;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=nQzD2u47FgrI28vmHUQzuJs0A9fTD8GvW9Vl/nRECac=;
+ b=MUuMjZaQpTqeP/1BfPmzG/YoKtQgtCz560iZvjp0jzk4wJVepW+myUpXTkAcX/PnMJvgYl
+ dlvWQ/gBCOio3Agz9S283L+xDU4TqfTxXfsu7fZLyKWglZsxi8yCghZTogQoAFDilPHCn2
+ RO2MCcLjfkkRbLJe8ZDZ7J96qGHkKUg=
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-141-EcwxeFXMOsG2rTRPs_ByPg-1; Tue, 31 Dec 2019 04:05:36 -0500
+Received: by mail-oi1-f200.google.com with SMTP id m127so4368330oig.19
+ for <ltp@lists.linux.it>; Tue, 31 Dec 2019 01:05:36 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=NF8xGzMvdZfpgzra58jQGRelnsYZWlWOPYEvG4u8o7Q=;
- b=nXgV9QKHG+WhF+33c+scAawWFRoEORbpAQwhmhS4qcN9jOAOTE7RMW+VYrgoW/sXoY
- lrTaZ3/tPlfZwUNURjBvuhfXMbQRi1pia8OI9QXfFZ4BkryDDlq3jGoeqBCL/2xIlZIo
- HUCUrHur8lm+mJ8IwZ/+5bfxhHUUWHjOUV3QWaf3YK9H0E4hh3HzAUEN+trlZk272WQU
- 6f6OmeQoMgLQyuW/DjEQkguU99LnvVzdsReoVJ9uUlqOIJuqF8N+oAR98is+9AEAGbgn
- VvMYw5vIMVbUNKgLmpYuanT+LMgFg+mFEYuXG/JRQ2Yp0eb7bbWIkHUwKCrxXOUHHYAA
- vnEg==
-X-Gm-Message-State: APjAAAXh6LpOfPX4MoJVKIPnuSXULqGG95PzivqSP4B9uYY5omS66+5y
- PS9oCSlA5JLT0LOKYNG0kZqoV7qp53nKwsVJGFyu7A==
-X-Google-Smtp-Source: APXvYqxshIKSHSgDbWy65y+vjW3Yl1h4/oQmeMulXa7b5P/r5foOTiXmL8JEmz8VBDcGC+OkDq538PxVfHedXYmdIkY=
-X-Received: by 2002:a2e:8316:: with SMTP id a22mr584539ljh.141.1577778077975; 
- Mon, 30 Dec 2019 23:41:17 -0800 (PST)
+ :message-id:subject:to:cc;
+ bh=MjZhMW4xzHrJjSy4XQwQJHZpe2w7rVUOB8fke+HXjUs=;
+ b=pgF9HJDVobUsz+eVv5ImeFony+7vjC/yV7Dfs4Hd08DHiY4qhBGKNZf93kws7YWjpV
+ 38IY1T7KpNreRr1qmDXGU+rXPQbQ3aXc7zmBZrRVBg3GQCoWwtJSpLGYzIitDV55e8p+
+ P4MDw0Geq35cLt3mRJ2o4pGcoXVhOffVU+j2OrqJhzN7lTpt7lugReChM0Y2moM1vqHC
+ VkufzsmDFmplCk0M83P77Zevgb7rlNIV3AVznOUQt85FPcPEOYxu7K5SFob7teYvyW+g
+ 2coDYJ4hx7qqtqR+fFSd5+4q64AQae1qF8VqG40WAPEmG81s8lf/JJHkux7gx2sgKeVi
+ JmgQ==
+X-Gm-Message-State: APjAAAWodyJXSTCx1NjsXhNgkfXq8Q2yqBsW8IqIOQKOTwZ/o7plmPKz
+ 28+kl7ZawHZ2zj8giB0m6lvLMhOTofXUyC5SDUo7AbKIaxZDlBEsLsbtmTyaTo6rP3WELo4292C
+ 5S1XKJahMNKkUnCRgCxWS63fK0f0=
+X-Received: by 2002:a05:6830:1cd3:: with SMTP id
+ p19mr75145832otg.118.1577783135647; 
+ Tue, 31 Dec 2019 01:05:35 -0800 (PST)
+X-Google-Smtp-Source: APXvYqxNhvVUNiRqNGRkXIv+IBAiOFnpcHGiyjsISvGbdzoNGUGAYkColBTocg7MfhCImud7HBQ+P5PQX8dgPuZyPbY=
+X-Received: by 2002:a05:6830:1cd3:: with SMTP id
+ p19mr75145809otg.118.1577783135453; 
+ Tue, 31 Dec 2019 01:05:35 -0800 (PST)
 MIME-Version: 1.0
-References: <20191218082826.25083-1-liwang@redhat.com>
- <2104821569.17247635.1576661091375.JavaMail.zimbra@redhat.com>
- <CAFA6WYN1ssqCzCqvT=9=DLjZdQz8OnH7+YBi8VGo7XLRdNLyvg@mail.gmail.com>
- <CAEemH2eRhmozt5OiT6z-YBjJUBNaGZgQVQRh40hNpKcq2d4-aw@mail.gmail.com>
- <CAFA6WYOBbH8UbwrK1f3ZQjGuqHJqGZxhQ-N0w1mpBHz0bnPG1w@mail.gmail.com>
- <CAEemH2eXvZB9uCuZFsc2uMAt5k2F_gfgXCqch58juMsJn4Gr4w@mail.gmail.com>
- <CAEemH2coGZGjFLhHzeR4JJYWpERGypjRdXRQ2dO0f1=Drh2KOg@mail.gmail.com>
- <23f8d05b-efff-56ba-b5d8-f99046e5619c@cn.fujitsu.com>
- <CAEemH2dyHSS20Lf9neVfY6voN-EO60_MQdXjb0Xjy9VsDfbZwA@mail.gmail.com>
- <d3baf4e5-66cb-6288-6742-0f7d1dc89090@cn.fujitsu.com>
- <CAEemH2fE=+6qi8P8wu6CDOkS1NOCWTTTmKeSBiRDWiu0qGhTOw@mail.gmail.com>
-In-Reply-To: <CAEemH2fE=+6qi8P8wu6CDOkS1NOCWTTTmKeSBiRDWiu0qGhTOw@mail.gmail.com>
-From: Sumit Garg <sumit.garg@linaro.org>
-Date: Tue, 31 Dec 2019 13:11:05 +0530
-Message-ID: <CAFA6WYMvkbZYEzDv_3WYDMNx4kMeY1Zp0VYi8wx0bpDAZh93Fg@mail.gmail.com>
-To: Li Wang <liwang@redhat.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+References: <1577775768-134223-1-git-send-email-zhe.he@windriver.com>
+In-Reply-To: <1577775768-134223-1-git-send-email-zhe.he@windriver.com>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 31 Dec 2019 17:05:24 +0800
+Message-ID: <CAEemH2fjzJmerA+_BvGnGKBpStw9YAWWdze8RW4fzahg+NoTMw@mail.gmail.com>
+To: zhe.he@windriver.com
+X-MC-Unique: EcwxeFXMOsG2rTRPs_ByPg-1
+X-Mimecast-Spam-Score: 0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH RFC] sync_file_range02: remove the toplimit of
- write back
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] nm01: Remove prefix zeros of the addresses
+ output by nm before comparing
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,47 +80,157 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Caspar Zhang <caspar@linux.alibaba.com>, LTP List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1393148435=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gVHVlLCAzMSBEZWMgMjAxOSBhdCAxMzowMiwgTGkgV2FuZyA8bGl3YW5nQHJlZGhhdC5jb20+
-IHdyb3RlOgo+Cj4KPgo+IE9uIFR1ZSwgRGVjIDMxLCAyMDE5IGF0IDM6MDUgUE0gWWFuZyBYdSA8
-eHV5YW5nMjAxOC5qeUBjbi5mdWppdHN1LmNvbT4gd3JvdGU6Cj4+Cj4+IC4uLgo+PiA+PiAgICAg
-SSBoYXZlIHRyaWVkIHRoaXMgZm9yIG1hbnkgZGlmZmVyZW50IHN5c3RlbXMsIGFuZCBpdCBkb2Vz
-bid0IGhpdAo+PiA+PiAgICAgdGhlIGZhaWx1cmUgYXQgbGVhc3Qgb25lIHRpbWUuIFNvIGlmIG5v
-IG1vcmUgY29tbWVudHMsIEkgd291bGQKPj4gPj4gICAgIG1lcmdlIHRoZSBwYXRjaCBhcyBiZWxv
-dyBpbiB0aGUgbmV4dCBzdGVwLgo+PiA+Cj4+ID4gICAgIEkgaGF2ZSBhIHF1ZXN0aW9uLndlIG11
-c3QgY2FsbCBzeW5jKCk/IEkgdGhpbmsgc3luY2ZzIGlzIG1vcmUgYWNjdXJhdGUuCj4+ID4KPj4g
-Pgo+PiA+IEhlcmUgd2UgdXNlIHN5bmMoKSBpcyB0byBtYWtlIGZzIG1ldGFkYXRhL2NhY2hlIGJl
-aW5nIHdyaXR0ZW4gYmFjawo+PiA+IGJlZm9yZSB0ZXN0aW5nIGJlY2F1c2UgdGhlcmUgaXMgbm8g
-b2J0YWluYWJsZSBmaWxlIGRlc2NyaXB0b3IgJ2ZkJyBmb3IKPj4gPiB0aGUgZXh0NCBkZWZlcnJl
-ZCBJTyAoZS5nLiBpbml0aWFsaXplIHRoZSBqb3VybmFsIGFuZCBpbm9kZSB0YWJsZXMpLgo+Cj4K
-Pj4KPj4gSSBzZWUuIEZvciBvdGhlciB0ZXN0IGNhc2VzIHVzaW5nIHRzdF9kZXZfYnl0ZXNfd3Jp
-dHRlbiBhcGkgc3VjaCBhcwo+PiBmZGF0YXN5bmMwMy5jLCAgd2UgYWxzbyBuZWVkIHRvIGNhbGwg
-c3luYygpIHRvIG1ha2UgdGhpcyB3cml0dGVuIHZhbHVlCj4+IG1vcmUgYWNjdXJhdGUuICBXaGF0
-IGRvIHlvdSB0aGluayBhYm91dCBpdO+8nwo+Cj4KPiBHb29kIHBvaW50LiBJIHRoaW5rIHdlIHNo
-b3VsZCB0YWtlIGNhcmUgb2YgdGhlbSBhcyB3ZSBkbyBmb3Igc3luY19maWxlX3JhbmdlMDIgdG9v
-LiBJdCB3aWxsIG1vcmUgZWFzaWx5IHJlcG9ydCBmYWlsIGluIHRoZSBjYXNlIG9mIGEgc2l0dWF0
-aW9uIHRoYXQgc3luY2VkIGRhdGEgaXMgbGVzcyB0aGFuIGV4cGVjdGVkLgo+Cj4gJCBnaXQgZ3Jl
-cCB0c3RfZGV2X2J5dGVzX3dyaXR0ZW4KPiBrZXJuZWwvc3lzY2FsbHMvZmRhdGFzeW5jL2ZkYXRh
-c3luYzAzLmM6ICAgICAgICB0c3RfZGV2X2J5dGVzX3dyaXR0ZW4odHN0X2RldmljZS0+ZGV2KTsK
-PiBrZXJuZWwvc3lzY2FsbHMvZmRhdGFzeW5jL2ZkYXRhc3luYzAzLmM6ICAgICAgICB3cml0dGVu
-ID0gdHN0X2Rldl9ieXRlc193cml0dGVuKHRzdF9kZXZpY2UtPmRldik7Cj4ga2VybmVsL3N5c2Nh
-bGxzL2ZzeW5jL2ZzeW5jMDQuYzogICAgICAgIHRzdF9kZXZfYnl0ZXNfd3JpdHRlbih0c3RfZGV2
-aWNlLT5kZXYpOwo+IGtlcm5lbC9zeXNjYWxscy9mc3luYy9mc3luYzA0LmM6ICAgICAgICB3cml0
-dGVuID0gdHN0X2Rldl9ieXRlc193cml0dGVuKHRzdF9kZXZpY2UtPmRldik7Cj4ga2VybmVsL3N5
-c2NhbGxzL3N5bmMvc3luYzAzLmM6ICB0c3RfZGV2X2J5dGVzX3dyaXR0ZW4odHN0X2RldmljZS0+
-ZGV2KTsKPiBrZXJuZWwvc3lzY2FsbHMvc3luYy9zeW5jMDMuYzogIHdyaXR0ZW4gPSB0c3RfZGV2
-X2J5dGVzX3dyaXR0ZW4odHN0X2RldmljZS0+ZGV2KTsKPiBrZXJuZWwvc3lzY2FsbHMvc3luY19m
-aWxlX3JhbmdlL3N5bmNfZmlsZV9yYW5nZTAyLmM6ICAgIHRzdF9kZXZfYnl0ZXNfd3JpdHRlbih0
-c3RfZGV2aWNlLT5kZXYpOwo+IGtlcm5lbC9zeXNjYWxscy9zeW5jX2ZpbGVfcmFuZ2Uvc3luY19m
-aWxlX3JhbmdlMDIuYzogICAgd3JpdHRlbiA9IHRzdF9kZXZfYnl0ZXNfd3JpdHRlbih0c3RfZGV2
-aWNlLT5kZXYpOwo+IGtlcm5lbC9zeXNjYWxscy9zeW5jZnMvc3luY2ZzMDEuYzogICAgICB0c3Rf
-ZGV2X2J5dGVzX3dyaXR0ZW4odHN0X2RldmljZS0+ZGV2KTsKPiBrZXJuZWwvc3lzY2FsbHMvc3lu
-Y2ZzL3N5bmNmczAxLmM6ICAgICAgd3JpdHRlbiA9IHRzdF9kZXZfYnl0ZXNfd3JpdHRlbih0c3Rf
-ZGV2aWNlLT5kZXYpOwo+CgpBZ3JlZS4KCi1TdW1pdAoKPiAtLQo+IFJlZ2FyZHMsCj4gTGkgV2Fu
-ZwoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZv
-L2x0cAo=
+--===============1393148435==
+Content-Type: multipart/alternative; boundary="00000000000052b510059afc43b7"
+
+--00000000000052b510059afc43b7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Dec 31, 2019 at 3:03 PM <zhe.he@windriver.com> wrote:
+
+> From: He Zhe <zhe.he@windriver.com>
+>
+> The latest nm v2.33.1.20191208 outputs symbols addresses without prefix
+> zeros
+> for "nm -f posix", which causes the following error.
+> nm01 5 TFAIL: Got wrong format with -f bsd
+>
+> Let's remove the prefix zeros before comparing.
+>
+> Signed-off-by: He Zhe <zhe.he@windriver.com>
+>
+Reviewed-by: Li Wang <liwang@redhat.com>
+
+
+> ---
+> v2:
+> Add boundary mark to RE pattern to exactly cover the prefix zeros
+> Add one more temp file to contain trimmed output
+>
+>  testcases/commands/nm/nm01.sh | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/testcases/commands/nm/nm01.sh b/testcases/commands/nm/nm01.s=
+h
+> index 30c41bd..fd9d3d9 100755
+> --- a/testcases/commands/nm/nm01.sh
+> +++ b/testcases/commands/nm/nm01.sh
+> @@ -84,8 +84,11 @@ test5()
+>         EXPECT_PASS $NM -f bsd $TST_DATAROOT/f1 \> nm_bsd.out
+>         EXPECT_PASS $NM -f posix $TST_DATAROOT/f1 \> nm_posix.out
+>
+> -       ROD awk '{print $3 $2 $1}' nm_bsd.out \> nm1.out
+> -       ROD awk '{print $1 $2 $3}' nm_posix.out \> nm2.out
+> +       ROD awk '{print gensub(/\y(0+)([0-9a-fA-F]+)\y/, "\\2", "g")}'
+> nm_bsd.out \> trimmed_nm_bsd.out
+> +       ROD awk '{print gensub(/\y(0+)([0-9a-fA-F]+)\y/, "\\2", "g")}'
+> nm_posix.out \> trimmed_nm_posix.out
+> +
+> +       ROD awk '{print $3 $2 $1}' trimmed_nm_bsd.out \> nm1.out
+> +       ROD awk '{print $1 $2 $3}' trimmed_nm_posix.out \> nm2.out
+>
+>         if diff nm1.out nm2.out > /dev/null; then
+>                 tst_res TPASS "Got BSD format with -f bsd"
+> --
+> 2.7.4
+>
+>
+
+--=20
+Regards,
+Li Wang
+
+--00000000000052b510059afc43b7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Tue, Dec 31, 2019 at 3:03 PM &lt;<a href=3D"mail=
+to:zhe.he@windriver.com">zhe.he@windriver.com</a>&gt; wrote:<br></div><bloc=
+kquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:=
+1px solid rgb(204,204,204);padding-left:1ex">From: He Zhe &lt;<a href=3D"ma=
+ilto:zhe.he@windriver.com" target=3D"_blank">zhe.he@windriver.com</a>&gt;<b=
+r>
+<br>
+The latest nm v2.33.1.20191208 outputs symbols addresses without prefix zer=
+os<br>
+for &quot;nm -f posix&quot;, which causes the following error.<br>
+nm01 5 TFAIL: Got wrong format with -f bsd<br>
+<br>
+Let&#39;s remove the prefix zeros before comparing.<br>
+<br>
+Signed-off-by: He Zhe &lt;<a href=3D"mailto:zhe.he@windriver.com" target=3D=
+"_blank">zhe.he@windriver.com</a>&gt;<br></blockquote><div><span class=3D"g=
+mail_default" style=3D"font-size:small">Reviewed-by: Li Wang &lt;<a href=3D=
+"mailto:liwang@redhat.com">liwang@redhat.com</a>&gt;</span></div><div><span=
+ class=3D"gmail_default" style=3D"font-size:small"></span>=C2=A0</div><bloc=
+kquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:=
+1px solid rgb(204,204,204);padding-left:1ex">
+---<br>
+v2:<br>
+Add boundary mark to RE pattern to exactly cover the prefix zeros<br>
+Add one more temp file to contain trimmed output<br>
+<br>
+=C2=A0testcases/commands/nm/nm01.sh | 7 +++++--<br>
+=C2=A01 file changed, 5 insertions(+), 2 deletions(-)<br>
+<br>
+diff --git a/testcases/commands/nm/nm01.sh b/testcases/commands/nm/nm01.sh<=
+br>
+index 30c41bd..fd9d3d9 100755<br>
+--- a/testcases/commands/nm/nm01.sh<br>
++++ b/testcases/commands/nm/nm01.sh<br>
+@@ -84,8 +84,11 @@ test5()<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 EXPECT_PASS $NM -f bsd $TST_DATAROOT/f1 \&gt; n=
+m_bsd.out<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 EXPECT_PASS $NM -f posix $TST_DATAROOT/f1 \&gt;=
+ nm_posix.out<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0ROD awk &#39;{print $3 $2 $1}&#39; nm_bsd.out \=
+&gt; nm1.out<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0ROD awk &#39;{print $1 $2 $3}&#39; nm_posix.out=
+ \&gt; nm2.out<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0ROD awk &#39;{print gensub(/\y(0+)([0-9a-fA-F]+=
+)\y/, &quot;\\2&quot;, &quot;g&quot;)}&#39; nm_bsd.out \&gt; trimmed_nm_bsd=
+.out<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0ROD awk &#39;{print gensub(/\y(0+)([0-9a-fA-F]+=
+)\y/, &quot;\\2&quot;, &quot;g&quot;)}&#39; nm_posix.out \&gt; trimmed_nm_p=
+osix.out<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0ROD awk &#39;{print $3 $2 $1}&#39; trimmed_nm_b=
+sd.out \&gt; nm1.out<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0ROD awk &#39;{print $1 $2 $3}&#39; trimmed_nm_p=
+osix.out \&gt; nm2.out<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if diff nm1.out nm2.out &gt; /dev/null; then<br=
+>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_res TPASS &quot=
+;Got BSD format with -f bsd&quot;<br>
+-- <br>
+2.7.4<br>
+<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
+Wang<br></div></div></div></div>
+
+--00000000000052b510059afc43b7--
+
+
+--===============1393148435==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1393148435==--
+
