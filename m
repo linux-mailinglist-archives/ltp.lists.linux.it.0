@@ -1,49 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C64D12E19A
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Jan 2020 03:10:07 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 11C3B12E30C
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Jan 2020 07:31:43 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E847E3C2431
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Jan 2020 03:10:06 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id CB72E3C246B
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Jan 2020 07:31:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 4F86C3C23B2
- for <ltp@lists.linux.it>; Thu,  2 Jan 2020 03:10:02 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id D2E1B140138D
- for <ltp@lists.linux.it>; Thu,  2 Jan 2020 03:10:00 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.69,385,1571673600"; d="scan'208";a="81223493"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 02 Jan 2020 10:09:58 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id A20D44CE3B63;
- Thu,  2 Jan 2020 10:00:58 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1395.4; Thu, 2 Jan 2020 10:09:49 +0800
-To: Li Wang <liwang@redhat.com>
-References: <20200102015236.7400-1-liwang@redhat.com>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <b2b1b91e-4813-a281-6f56-0924d21bb103@cn.fujitsu.com>
-Date: Thu, 2 Jan 2020 10:09:47 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 7442C3C2270
+ for <ltp@lists.linux.it>; Thu,  2 Jan 2020 07:31:39 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 48897201266
+ for <ltp@lists.linux.it>; Thu,  2 Jan 2020 07:31:37 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1577946696;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=SeIx53dMVmAl8tjRAHQKtzI1siyRxklea6Lb77s04Mk=;
+ b=PLWkgxMD1LFAVBVEsPs6xf0Am1/HnxUyOekdtAV6XvSzSvlhfS4YPhzqScLUeUi/6Mytxu
+ pgHsnzZJjpVGioIgFBe3hygvggY49Tm4tQdw1cS+ERfG7opFTh9yNKeXcHPbO/Ch6eVCKr
+ ut5LXKnjdjjPT8KOles5N7sUzkNB7OA=
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
+ [209.85.167.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-234-xxzpfkUUMLmC4G6CK--UIQ-1; Thu, 02 Jan 2020 01:31:34 -0500
+Received: by mail-oi1-f199.google.com with SMTP id n130so10344278oib.5
+ for <ltp@lists.linux.it>; Wed, 01 Jan 2020 22:31:34 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=mkJTnQnW7hy3o8LK0Kvq3J6ktP0DAFeSjyyhuZcufyY=;
+ b=Gbiba/rfUf8ioTEJK54VXGL8D/Klpc3U2r8UkoVADYsYvqORQV86PMLH3kSOIDe1Ke
+ SidXP6Pu4XjQ+c9IdS+glY9ncrIoW/wVfm5pezqdNIn4j+fxT2e96ENs0zZLLyGohVMk
+ tqzUGsuJXHEDAuhV/1n4SYV2uh5dLmKWVIRmQ9EVGhZhb2LdYOmetNMHxh6umElyOJ6R
+ FnuNvpDqlGNByWTJulR8ruGWYrHg/xNVFbIH/Bcb7vT+HHvWy+lk4diI+D6vY80sMfXb
+ Yd0kn9KtDFE0ru+1wdsMfSx6EYPwD92qHAAjzSJpu/apEy/19bIJsEQD8osJU+HjoLsG
+ Uw0g==
+X-Gm-Message-State: APjAAAVUp7F+jDYg3k0rzfbSvf7kG4hM6kxOQcnKMNwjLdA+SBatkXIm
+ HNBZjNXP/CnMizv4o2aQUFfgPYDftFxwKiINuHzONK4dh6MDGtwLdlDIGrjURlWToWR1eJVfsgK
+ WloY4QUlCuhrD/thf/gQnVJngoRk=
+X-Received: by 2002:a9d:7:: with SMTP id 7mr85423474ota.26.1577946693469;
+ Wed, 01 Jan 2020 22:31:33 -0800 (PST)
+X-Google-Smtp-Source: APXvYqznFfWsNq4aPlMMeknh/PQma6v4pl6eWgHirgIM0jJ8eOzG8RWZ3R0FjfG37sHB2qVl6t0rhPWNOZD9U5Z+SA8=
+X-Received: by 2002:a9d:7:: with SMTP id 7mr85423455ota.26.1577946693215; Wed,
+ 01 Jan 2020 22:31:33 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20200102015236.7400-1-liwang@redhat.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: A20D44CE3B63.AE0CE
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+References: <20200102015236.7400-1-liwang@redhat.com>
+ <b2b1b91e-4813-a281-6f56-0924d21bb103@cn.fujitsu.com>
+In-Reply-To: <b2b1b91e-4813-a281-6f56-0924d21bb103@cn.fujitsu.com>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 2 Jan 2020 14:31:22 +0800
+Message-ID: <CAEemH2cPJnbNeLRNmHPoGDjh5y_i6YicYPOyM7Vu+AM9t09Kyg@mail.gmail.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+X-MC-Unique: xxzpfkUUMLmC4G6CK--UIQ-1
+X-Mimecast-Spam-Score: 0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH COMMITTED] tst_device: do sync() before reading
  test block device stat file
 X-BeenThere: ltp@lists.linux.it
@@ -57,88 +79,97 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1172446263=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+--===============1172446263==
+Content-Type: multipart/alternative; boundary="0000000000001fca1b059b22588b"
+
+--0000000000001fca1b059b22588b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Jan 2, 2020 at 10:10 AM Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+wrote:
+
+>
+>
+> Hi Li
+> > To avoid FS deferred IO metadata/cache interferes test result, so we
+> > do sync simply before the tst_dev_bytes_written invocation.
+> >
+> Looks good, acked. Also, I think we can mention it in
+> doc/test-writing-guidelines.txt when using this api.
+>
+
+Ok, I will append one line as:
+--- a/doc/test-writing-guidelines.txt
++++ b/doc/test-writing-guidelines.txt
+@@ -1072,7 +1072,9 @@ unsigned long tst_dev_bytes_written(const char *dev);
+ --------------------------------------------------------------------------=
+-----
+
+ This function reads test block device stat file (/sys/block/<device>/stat)
+and
+-returns the bytes written since the last invocation of this function.
++returns the bytes written since the last invocation of this function. To
+avoid
++FS deferred IO metadata/cache interferes the test result, we suggest doing
+sync()
++before the tst_dev_bytes_written first invocation.
+
+--=20
+Regards,
+Li Wang
+
+--0000000000001fca1b059b22588b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Thu, Jan 2, 2020 at 10:10 AM Yang Xu &lt;<a href=
+=3D"mailto:xuyang2018.jy@cn.fujitsu.com">xuyang2018.jy@cn.fujitsu.com</a>&g=
+t; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
+x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
+<br>
+Hi Li<br>
+&gt; To avoid FS deferred IO metadata/cache interferes test result, so we<b=
+r>
+&gt; do sync simply before the tst_dev_bytes_written invocation.<br>
+&gt; <br>
+Looks good, acked. Also, I think we can mention it in <br>
+doc/test-writing-guidelines.txt when using this api.<br></blockquote><div><=
+br></div><div class=3D"gmail_default" style=3D"font-size:small">Ok, I will =
+append one line as:</div><div class=3D"gmail_default" style=3D"font-size:sm=
+all"></div><div class=3D"gmail_default" style=3D"font-size:small">--- a/doc=
+/test-writing-guidelines.txt<br>+++ b/doc/test-writing-guidelines.txt<br>@@=
+ -1072,7 +1072,9 @@ unsigned long tst_dev_bytes_written(const char *dev);<b=
+r>=C2=A0-------------------------------------------------------------------=
+------------<br>=C2=A0<br>=C2=A0This function reads test block device stat =
+file (/sys/block/&lt;device&gt;/stat) and<br>-returns the bytes written sin=
+ce the last invocation of this function.<br>+returns the bytes written sinc=
+e the last invocation of this function. To avoid<br>+FS deferred IO metadat=
+a/cache interferes the test result, we suggest doing sync()<br>+before the =
+tst_dev_bytes_written first invocation.<br></div><div class=3D"gmail_defaul=
+t" style=3D"font-size:small"><br></div></div>-- <br><div dir=3D"ltr" class=
+=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<b=
+r></div></div></div></div>
+
+--0000000000001fca1b059b22588b--
 
 
-Hi Li
-> To avoid FS deferred IO metadata/cache interferes test result, so we
-> do sync simply before the tst_dev_bytes_written invocation.
-> 
-Looks good, acked. Also, I think we can mention it in 
-doc/test-writing-guidelines.txt when using this api.
-
-Best Regards
-Yang Xu
-> Signed-off-by: Li Wang <liwang@redhat.com>
-> Cc: Sumit Garg <sumit.garg@linaro.org>
-> Cc: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-> ---
->   testcases/kernel/syscalls/fdatasync/fdatasync03.c | 2 ++
->   testcases/kernel/syscalls/fsync/fsync04.c         | 2 ++
->   testcases/kernel/syscalls/sync/sync03.c           | 2 ++
->   testcases/kernel/syscalls/syncfs/syncfs01.c       | 2 ++
->   4 files changed, 8 insertions(+)
-> 
-> diff --git a/testcases/kernel/syscalls/fdatasync/fdatasync03.c b/testcases/kernel/syscalls/fdatasync/fdatasync03.c
-> index ee50e75c9..032ac4b58 100644
-> --- a/testcases/kernel/syscalls/fdatasync/fdatasync03.c
-> +++ b/testcases/kernel/syscalls/fdatasync/fdatasync03.c
-> @@ -32,6 +32,8 @@ static void verify_fdatasync(void)
->   
->   	fd = SAFE_OPEN(FNAME, O_RDWR|O_CREAT, MODE);
->   
-> +	sync();
-> +
->   	tst_dev_bytes_written(tst_device->dev);
->   
->   	tst_fill_fd(fd, 0, TST_MB, FILE_SIZE_MB);
-> diff --git a/testcases/kernel/syscalls/fsync/fsync04.c b/testcases/kernel/syscalls/fsync/fsync04.c
-> index c67fc5692..3c1f45e94 100644
-> --- a/testcases/kernel/syscalls/fsync/fsync04.c
-> +++ b/testcases/kernel/syscalls/fsync/fsync04.c
-> @@ -32,6 +32,8 @@ static void verify_fsync(void)
->   
->   	fd = SAFE_OPEN(FNAME, O_RDWR|O_CREAT, MODE);
->   
-> +	sync();
-> +
->   	tst_dev_bytes_written(tst_device->dev);
->   
->   	tst_fill_fd(fd, 0, TST_MB, FILE_SIZE_MB);
-> diff --git a/testcases/kernel/syscalls/sync/sync03.c b/testcases/kernel/syscalls/sync/sync03.c
-> index a6f72d2ed..085ccfdeb 100644
-> --- a/testcases/kernel/syscalls/sync/sync03.c
-> +++ b/testcases/kernel/syscalls/sync/sync03.c
-> @@ -32,6 +32,8 @@ static void verify_sync(void)
->   
->   	fd = SAFE_OPEN(FNAME, O_RDWR|O_CREAT, MODE);
->   
-> +	sync();
-> +
->   	tst_dev_bytes_written(tst_device->dev);
->   
->   	tst_fill_fd(fd, 0, TST_MB, FILE_SIZE_MB);
-> diff --git a/testcases/kernel/syscalls/syncfs/syncfs01.c b/testcases/kernel/syscalls/syncfs/syncfs01.c
-> index 051a19ea6..3cf404450 100644
-> --- a/testcases/kernel/syscalls/syncfs/syncfs01.c
-> +++ b/testcases/kernel/syscalls/syncfs/syncfs01.c
-> @@ -33,6 +33,8 @@ static void verify_syncfs(void)
->   
->   	fd = SAFE_OPEN(FNAME, O_RDWR|O_CREAT, MODE);
->   
-> +	sync();
-> +
->   	tst_dev_bytes_written(tst_device->dev);
->   
->   	tst_fill_fd(fd, 0, TST_MB, FILE_SIZE_MB);
-> 
-
+--===============1172446263==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1172446263==--
+
