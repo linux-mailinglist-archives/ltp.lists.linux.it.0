@@ -1,58 +1,51 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9FC512E18C
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Jan 2020 02:52:52 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id C287D12E190
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Jan 2020 02:59:25 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C004F3C23D2
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Jan 2020 02:52:51 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 92EF13C23D6
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Jan 2020 02:59:25 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 8A9413C23B2
- for <ltp@lists.linux.it>; Thu,  2 Jan 2020 02:52:48 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
- [207.211.31.81])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id C6BA6200058
- for <ltp@lists.linux.it>; Thu,  2 Jan 2020 02:52:47 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1577929966;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=TJE2mjbiCgkXD5LrQ1St4lwAlp1yULAwSFqrXpPtjU4=;
- b=APzW4iPVIwc3Om5LvFaS5LpWCag+gvdpFrPUBI1bpzHOIW4cNH3wIPIeHAwY1neUViPE7w
- LR1ecGhYuOe8C+oCjXzHZYRr9HSNPY/G+Y5aCOGUoXUBTUCCVevznGYCUh0FXXyJsPxSTg
- Qy4f4o6Fytond9bW9iSNgHRbm6VbHWE=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-71-7hjMjtJhP1GIJnn9o3_6nQ-1; Wed, 01 Jan 2020 20:52:44 -0500
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3E4CADB60;
- Thu,  2 Jan 2020 01:52:43 +0000 (UTC)
-Received: from localhost.localdomain.com (unknown [10.66.81.246])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B2FA119C5B;
- Thu,  2 Jan 2020 01:52:41 +0000 (UTC)
-From: Li Wang <liwang@redhat.com>
-To: ltp@lists.linux.it
-Date: Thu,  2 Jan 2020 09:52:36 +0800
-Message-Id: <20200102015236.7400-1-liwang@redhat.com>
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 88EB03C23B4
+ for <ltp@lists.linux.it>; Thu,  2 Jan 2020 02:59:22 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id A02BD600D15
+ for <ltp@lists.linux.it>; Thu,  2 Jan 2020 02:59:20 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.69,385,1571673600"; d="scan'208";a="81221620"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 02 Jan 2020 09:59:17 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id A001F49E9320;
+ Thu,  2 Jan 2020 09:50:21 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1395.4; Thu, 2 Jan 2020 09:59:12 +0800
+To: =?UTF-8?B?5peg5YWE5byf5LiN56+u55CD?= <695331215@qq.com>
+References: <tencent_89CAA885596D056C7E2299802BF6D3E62B08@qq.com>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <ca2b9208-17eb-a6f2-eefb-73bedbf6af9b@cn.fujitsu.com>
+Date: Thu, 2 Jan 2020 09:59:10 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-MC-Unique: 7hjMjtJhP1GIJnn9o3_6nQ-1
-X-Mimecast-Spam-Score: 0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+In-Reply-To: <tencent_89CAA885596D056C7E2299802BF6D3E62B08@qq.com>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: A001F49E9320.AABA6
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH COMMITTED] tst_device: do sync() before reading test
- block device stat file
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] ./runltp always stop in restarting syslog daemon
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,79 +57,25 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: ltp <ltp@lists.linux.it>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="gb18030"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-To avoid FS deferred IO metadata/cache interferes test result, so we
-do sync simply before the tst_dev_bytes_written invocation.
-
-Signed-off-by: Li Wang <liwang@redhat.com>
-Cc: Sumit Garg <sumit.garg@linaro.org>
-Cc: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- testcases/kernel/syscalls/fdatasync/fdatasync03.c | 2 ++
- testcases/kernel/syscalls/fsync/fsync04.c         | 2 ++
- testcases/kernel/syscalls/sync/sync03.c           | 2 ++
- testcases/kernel/syscalls/syncfs/syncfs01.c       | 2 ++
- 4 files changed, 8 insertions(+)
-
-diff --git a/testcases/kernel/syscalls/fdatasync/fdatasync03.c b/testcases/kernel/syscalls/fdatasync/fdatasync03.c
-index ee50e75c9..032ac4b58 100644
---- a/testcases/kernel/syscalls/fdatasync/fdatasync03.c
-+++ b/testcases/kernel/syscalls/fdatasync/fdatasync03.c
-@@ -32,6 +32,8 @@ static void verify_fdatasync(void)
- 
- 	fd = SAFE_OPEN(FNAME, O_RDWR|O_CREAT, MODE);
- 
-+	sync();
-+
- 	tst_dev_bytes_written(tst_device->dev);
- 
- 	tst_fill_fd(fd, 0, TST_MB, FILE_SIZE_MB);
-diff --git a/testcases/kernel/syscalls/fsync/fsync04.c b/testcases/kernel/syscalls/fsync/fsync04.c
-index c67fc5692..3c1f45e94 100644
---- a/testcases/kernel/syscalls/fsync/fsync04.c
-+++ b/testcases/kernel/syscalls/fsync/fsync04.c
-@@ -32,6 +32,8 @@ static void verify_fsync(void)
- 
- 	fd = SAFE_OPEN(FNAME, O_RDWR|O_CREAT, MODE);
- 
-+	sync();
-+
- 	tst_dev_bytes_written(tst_device->dev);
- 
- 	tst_fill_fd(fd, 0, TST_MB, FILE_SIZE_MB);
-diff --git a/testcases/kernel/syscalls/sync/sync03.c b/testcases/kernel/syscalls/sync/sync03.c
-index a6f72d2ed..085ccfdeb 100644
---- a/testcases/kernel/syscalls/sync/sync03.c
-+++ b/testcases/kernel/syscalls/sync/sync03.c
-@@ -32,6 +32,8 @@ static void verify_sync(void)
- 
- 	fd = SAFE_OPEN(FNAME, O_RDWR|O_CREAT, MODE);
- 
-+	sync();
-+
- 	tst_dev_bytes_written(tst_device->dev);
- 
- 	tst_fill_fd(fd, 0, TST_MB, FILE_SIZE_MB);
-diff --git a/testcases/kernel/syscalls/syncfs/syncfs01.c b/testcases/kernel/syscalls/syncfs/syncfs01.c
-index 051a19ea6..3cf404450 100644
---- a/testcases/kernel/syscalls/syncfs/syncfs01.c
-+++ b/testcases/kernel/syscalls/syncfs/syncfs01.c
-@@ -33,6 +33,8 @@ static void verify_syncfs(void)
- 
- 	fd = SAFE_OPEN(FNAME, O_RDWR|O_CREAT, MODE);
- 
-+	sync();
-+
- 	tst_dev_bytes_written(tst_device->dev);
- 
- 	tst_fill_fd(fd, 0, TST_MB, FILE_SIZE_MB);
--- 
-2.20.1
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+CkhpPiBIaSwKPiBJIHVzZSBsdHAtZnVsbC0yMDE5MDkzMC50YXIuYnoygTCEMiBydW4gaW4gVWJ1
+bnR1IDE2LjA0LjYgTFRTICwgdGhlIGtlcm5lbCAKPiB2ZXJzaW9uIGlzgTCEMjQuNC4wLTE3MC1n
+ZW5lcmljLiBNeSBsaW51eCBpcyB1c2luZyBWYWdyYW50IGluIG1hY09zLgo+IEl0IGFsd2F5cyBz
+dG9wIGluIFtzeXNsb2cwMYEwhDIggTCEMiAwgTCEMiBUSU5GT4EwhDIgOoEwhDIgcmVzdGFydGlu
+ZyBzeXNsb2cgZGFlbW9uXS4KPiBJIGRvbid0IGtub3cgaG93IHRvIHRyb3VibGVzaG9vdCB0aGlz
+IGNhdXNlLiBUaGFua3MgZm9yIHlvdXIgaGVscC4KPiAKPiAKPiAKTW9udGhzIGFnbywgSSBtZXQg
+dGhlIHNhbWUgaXNzdWUuIFRoaXMgcG9sa2l0IHBhdGNoKHBrdHR5YWdlbnQ6IApwb2xraXQtYWdl
+bnQtaGVscGVyLTEgdGltZW91dCBsZWF2ZXMgdHR5IGVjaG8gZGlzYWJsZSkgbGVhZHMgc2Vydmlj
+ZSAKYWN0aW9ucyhzdWNoIGFzIHJlc3RhcnQpIGRvbid0IHN0b3AgaWYgY29udHJvbGxpbmcgdGVy
+bWluYWwgY2FuIG5vdCBiZSAKZm91bmQuIFRoZSBzZXJ2aWNlIGFjdGlvbiBoYXMgYmVlbiBleGVj
+dXRlZCBzdWNjZXNzZnVsbHksIGJ1dCBwcm9jZXNzIApzdGlsbCBhbHNvIGhhbmdzLgpwb2xraXQg
+cmVsYXRlZCBpc3N1ZSB1cmw6Cmh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9wb2xraXQv
+cG9sa2l0L2lzc3Vlcy84NQoKZml4IHBhdGNoIHVybDoKaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0
+b3Aub3JnL3BvbGtpdC9wb2xraXQvY29tbWl0Lzc1YzhiOGFmYWE4ZTFmYmEwZWZiNjNjM2M3YjY2
+YjViNWY3MTNhMzUKCkJlc3QgUmVnYXJkcwpZYW5nIFh1CgoKCi0tIApNYWlsaW5nIGxpc3QgaW5m
+bzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
