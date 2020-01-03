@@ -2,55 +2,59 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E003612FBE3
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jan 2020 18:59:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 874AE12FCB9
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jan 2020 19:48:08 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AE9643C2453
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jan 2020 18:59:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 307553C2454
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jan 2020 19:48:08 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 7D45F3C2445
- for <ltp@lists.linux.it>; Fri,  3 Jan 2020 18:59:22 +0100 (CET)
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id CDCBD3C2430
+ for <ltp@lists.linux.it>; Fri,  3 Jan 2020 19:48:05 +0100 (CET)
+Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
+ [IPv6:2a00:1450:4864:20::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 82AF0600541
- for <ltp@lists.linux.it>; Fri,  3 Jan 2020 18:59:21 +0100 (CET)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 003HsKBL140532;
- Fri, 3 Jan 2020 17:59:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : from : to :
- cc : references : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2019-08-05;
- bh=/JwT8VnXv0DLdnc9vQddzFn7cLiMx0VDOrPpPrNsZMY=;
- b=cQ7ts0+p2nTTbBMhfwqWcA9+bOKgdOlH80uuGDZW4s1Go3Rha1lOSI+xRXsgZe5Lu25b
- AA3WkWHl+HkhgG1xxIWnHU2GFRKpxNfef1UXSPNIaVnMLkcF7FLsVVJ0RKEa/IeBR5q0
- kTnyB5qqhUimT4mhAKtBhntrrZ7bTmP9jCX0AfqCTtcOMw1TNBkz/gsiBzGj6Huu0uey
- JGxGHiT2OU5Y3eP0lwUw/IwgRm+T2WgfLLsILuKOluXFpq1+fLyUhtd11CbWhVk7LNp0
- 9SPP78V1bLgtnmE61dnGgHPW3zZgx7KPvE11g3ifU5JkoE0oD0/IfP2G6VWjpG67hUDz Xw== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by aserp2120.oracle.com with ESMTP id 2x5y0pwg0y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 03 Jan 2020 17:59:02 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 003HrQt0092250;
- Fri, 3 Jan 2020 17:57:01 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by aserp3030.oracle.com with ESMTP id 2x9jm7sdax-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 03 Jan 2020 17:57:01 +0000
-Received: from abhmp0014.oracle.com (abhmp0014.oracle.com [141.146.116.20])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 003HuskY026134;
- Fri, 3 Jan 2020 17:56:55 GMT
-Received: from [192.168.1.206] (/71.63.128.209)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Fri, 03 Jan 2020 09:56:54 -0800
-From: Mike Kravetz <mike.kravetz@oracle.com>
-To: Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5A1AE1000445
+ for <ltp@lists.linux.it>; Fri,  3 Jan 2020 19:48:05 +0100 (CET)
+Received: by mail-lj1-x243.google.com with SMTP id y6so36750574lji.0
+ for <ltp@lists.linux.it>; Fri, 03 Jan 2020 10:48:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=09Fhb5KJtdVXpuTOxj9n6AxgCLlTa7iHkIeQIqz8ZXQ=;
+ b=gQn987UynqGEaSDi7PzqcZnNE24GYhuSwEuB8jnz/K2ht/y/6Y4Eaq+5ZrqWLDJKFm
+ DLfYiRceU9rAJ/iKZ+Kcq3FhJfAejLiEOsXP6+apzeqFfjISklQkC5r1Z/2//zpdza/L
+ 28M2GzAciQMj90SjWNUCeoNq+D6s1/JuCsIig=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=09Fhb5KJtdVXpuTOxj9n6AxgCLlTa7iHkIeQIqz8ZXQ=;
+ b=NqqdJUWhK8xzXZXd5+uhSydcUm67v2N+0CCUNFa46yNktwqgVv/B1A92NlOVme+0+h
+ DtZ5oQQf2QBDfHV1rJwWWyFBebQsrcQ5Uk13+wvoGHCadxY0qFQc3ul8Yd5qVkVmWfZI
+ NSv0JYfPwoThN/0jUAAKj74OYksAx654eokORkNsuWjg6YxXz47URHBPIA62jy0iAAnF
+ 3DuMpZnytkauiPa+pVBI19/f4X54kbJca9Wvn7CCvPiqpiIX0/rVLDk4XRACUqxW+VK7
+ BAl8f00EY3b6kW0l/4c6TtQSF1pTsUBFo9Xo+QFu2hrbTr3gOcoWfG2a2bJFusi0lY5C
+ NklQ==
+X-Gm-Message-State: APjAAAXsJiG3QI165fgFc1Fj688+TZ2gx6Sq1Nws3GxqkE0eQh3CpUnx
+ 2TAfE3GtdESRvwfPvpBtm9rlMfElc6Y=
+X-Google-Smtp-Source: APXvYqz+XDdk6OynZ/o59RXYMR3rVbKzf2KAcEIpt5RZa9OUONhD5IfRo//4GUBXq8v5RoIhMw0RYQ==
+X-Received: by 2002:a2e:8316:: with SMTP id a22mr2091029ljh.141.1578077284350; 
+ Fri, 03 Jan 2020 10:48:04 -0800 (PST)
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com.
+ [209.85.208.174])
+ by smtp.gmail.com with ESMTPSA id q17sm24992970ljg.23.2020.01.03.10.48.03
+ for <ltp@lists.linux.it>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 03 Jan 2020 10:48:04 -0800 (PST)
+Received: by mail-lj1-f174.google.com with SMTP id y4so30418582ljj.9
+ for <ltp@lists.linux.it>; Fri, 03 Jan 2020 10:48:03 -0800 (PST)
+X-Received: by 2002:a2e:9ad8:: with SMTP id p24mr53118229ljj.148.1578076856282; 
+ Fri, 03 Jan 2020 10:40:56 -0800 (PST)
+MIME-Version: 1.0
 References: <20200102215829.911231638@linuxfoundation.org>
  <CA+G9fYuPkOGKbeQ0FKKx4H0Bs-nRHALsFtwyRw0Rt5DoOCvRHg@mail.gmail.com>
  <CAK8P3a1+Srey_7cUd0xfaO8HdMv5tkUcs6DeDXzcUKkUD-DnGQ@mail.gmail.com>
@@ -58,33 +62,19 @@ References: <20200102215829.911231638@linuxfoundation.org>
  <20200103154518.GB1064304@kroah.com>
  <CAK8P3a00SpVfSE5oL8_F_8jHdg_8A5fyEKH_DWNyPToxack=zA@mail.gmail.com>
  <a2fc8b36-c512-b6dd-7349-dfb551e348b6@oracle.com>
-Message-ID: <8283b231-f6e8-876f-7094-d3265096ab9a@oracle.com>
-Date: Fri, 3 Jan 2020 09:56:52 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.1
-MIME-Version: 1.0
-In-Reply-To: <a2fc8b36-c512-b6dd-7349-dfb551e348b6@oracle.com>
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9489
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1911140001 definitions=main-2001030164
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9489
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1911140001
- definitions=main-2001030164
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+ <8283b231-f6e8-876f-7094-d3265096ab9a@oracle.com>
+In-Reply-To: <8283b231-f6e8-876f-7094-d3265096ab9a@oracle.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 3 Jan 2020 10:40:40 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wjvWTFn=C3mT5wA=mtOwXw44U+OHLVxk5DCe4v+7nOvKg@mail.gmail.com>
+Message-ID: <CAHk-=wjvWTFn=C3mT5wA=mtOwXw44U+OHLVxk5DCe4v+7nOvKg@mail.gmail.com>
+To: Mike Kravetz <mike.kravetz@oracle.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 5.4 000/191] 5.4.8-stable review
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -98,8 +88,8 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: Sasha Levin <sashal@kernel.org>, David Howells <dhowells@redhat.com>,
- Ben Hutchings <ben.hutchings@codethink.co.uk>,
- Linus Torvalds <torvalds@linux-foundation.org>, LTP List <ltp@lists.linux.it>,
+ Ben Hutchings <ben.hutchings@codethink.co.uk>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, LTP List <ltp@lists.linux.it>,
  open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
  patches@kernelci.org, Chengguang Xu <cgxu519@mykernel.net>,
  John Stultz <john.stultz@linaro.org>, linux- stable <stable@vger.kernel.org>,
@@ -110,57 +100,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 1/3/20 9:33 AM, Mike Kravetz wrote:
-> On 1/3/20 7:56 AM, Arnd Bergmann wrote:
->> On Fri, Jan 3, 2020 at 4:45 PM Greg Kroah-Hartman
->> <gregkh@linuxfoundation.org> wrote:
->>> On Fri, Jan 03, 2020 at 04:29:56PM +0100, Arnd Bergmann wrote:
->>>> On Fri, Jan 3, 2020 at 4:25 PM Arnd Bergmann <arnd@arndb.de> wrote:
->>>>>
->>>>> On Fri, Jan 3, 2020 at 4:03 PM Naresh Kamboju <naresh.kamboju@linaro.org> wrote:
->>>>>>
->>>>>> On Fri, 3 Jan 2020 at 03:42, Greg Kroah-Hartman
->>>>>> <gregkh@linuxfoundation.org> wrote:
->>>>>
->>>>> -ENOENT is what you get when hugetlbfs is not mounted, so this hints to
->>>>>
->>>>> 8fc312b32b2  mm/hugetlbfs: fix error handling when setting up mounts
->>>>>
->>>>> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git/commit/?h=linux-5.4.y&id=3f549fb42a39bea3b29c0fc12afee53c4a01bec9
->>>>
->>>> I see that Mike Kravetz suggested not putting this patch into stable in
->>>>
->>>> https://lore.kernel.org/lkml/befca227-cb8a-8f47-617d-e3bf9972bfec@oracle.com/
->>>>
->>>> but it was picked through the autosel mechanism later.
->>>
->>> So does that mean that Linus's tree shows this LTP failure as well?
->>
->> Yes, according to
->> https://qa-reports.linaro.org/lkft/linux-mainline-oe/tests/ltp-syscalls-tests/memfd_create04
->> mainline has the same testcase failure, it started happening between
->> v5.4-10135-gc3bfc5dd73c6 and v5.4-10271-g596cf45cbf6e, when the patch
->> was originally merged into 5.5-rc1.
->>
->>> This does seem to fix a real issue, as shown by the LTP test noticing
->>> it, so should the error code value be fixed in Linus's tree?
->>
->> No idea what to conclude from the testcase failure, let's see if Mike has
->> any suggestions.
->>
-> 
-> Thanks for isolating to this patch!
-> 
-> There are dependencies between arch specific code and arch independent code
-> during the setup of hugetlb sizes/mounts.  Let me take a closer look at the
-> arm64 code and get access to a system for debug.
+On Fri, Jan 3, 2020 at 9:59 AM Mike Kravetz <mike.kravetz@oracle.com> wrote:
+>
+> Before I started investigating, Jan Stancek found and fixed the issue.
+>
+> http://lkml.kernel.org/r/a14b944b6e5e207d2f84f43227c98ed1f68290a2.1578072927.git.jstancek@redhat.com
 
-Before I started investigating, Jan Stancek found and fixed the issue.
+Applied upstream as commit 15f0ec941f4f ("mm/hugetlbfs: fix
+for_each_hstate() loop in init_hugetlbfs_fs()").
 
-http://lkml.kernel.org/r/a14b944b6e5e207d2f84f43227c98ed1f68290a2.1578072927.git.jstancek@redhat.com
+I didn't add a cc: stable, because the original didn't have one, and
+the "Fixes:" tag should make it happen.
 
--- 
-Mike Kravetz
+               Linus
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
