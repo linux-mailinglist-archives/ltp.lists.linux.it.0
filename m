@@ -2,42 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9138312F9DE
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jan 2020 16:34:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7A4A12F9F0
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jan 2020 16:45:26 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 328B73C244D
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jan 2020 16:34:15 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id ABCDC3C244D
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jan 2020 16:45:26 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id A695D3C2432
- for <ltp@lists.linux.it>; Fri,  3 Jan 2020 16:34:13 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 73C963C2437
+ for <ltp@lists.linux.it>; Fri,  3 Jan 2020 16:45:24 +0100 (CET)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0FE11600A46
- for <ltp@lists.linux.it>; Fri,  3 Jan 2020 16:34:08 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 33E41AE2D;
- Fri,  3 Jan 2020 15:34:08 +0000 (UTC)
-Date: Fri, 3 Jan 2020 16:34:06 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it, linux-fsdevel@vger.kernel.org
-Message-ID: <20200103153406.GA22990@dell5510>
-References: <20191209160227.16125-1-zlang@redhat.com>
- <20191226072338.GH14328@dhcp-12-102.nay.redhat.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 78A16140148D
+ for <ltp@lists.linux.it>; Fri,  3 Jan 2020 16:45:23 +0100 (CET)
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
+ [83.86.89.107])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 255AC21734;
+ Fri,  3 Jan 2020 15:45:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1578066320;
+ bh=iq1Twbqj7FIJKJlRQnhfVitva3hiAIvKZgahrbTOPeY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=DUXQWZE0hh32tb6Qnaqv50moEJfXYD2EUDfklpYH2wiiP/FOWq2s3UtkOCJfHl7ad
+ GLGYcuLyLMaNyDiBnBhE2FD1DDy8VdRBPJJEPI8NiFML6E30M140sC5jcW7ASm/7af
+ K3q7vy9b7oBqtOKWAlmjVeodC0axBXP3FQl+Gbmc=
+Date: Fri, 3 Jan 2020 16:45:18 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Arnd Bergmann <arnd@arndb.de>
+Message-ID: <20200103154518.GB1064304@kroah.com>
+References: <20200102215829.911231638@linuxfoundation.org>
+ <CA+G9fYuPkOGKbeQ0FKKx4H0Bs-nRHALsFtwyRw0Rt5DoOCvRHg@mail.gmail.com>
+ <CAK8P3a1+Srey_7cUd0xfaO8HdMv5tkUcs6DeDXzcUKkUD-DnGQ@mail.gmail.com>
+ <CAK8P3a24EkUXTu-K2c-5B3w-LZwY7zNcX0dZixb3gd59vRw_Kw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20191226072338.GH14328@dhcp-12-102.nay.redhat.com>
-User-Agent: Mutt/1.12.2 (2019-09-21)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+In-Reply-To: <CAK8P3a24EkUXTu-K2c-5B3w-LZwY7zNcX0dZixb3gd59vRw_Kw@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] syscalls/newmount: new test case for new mount
- API
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 5.4 000/191] 5.4.8-stable review
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,96 +58,47 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Al Viro <viro@zeniv.linux.org.uk>, David Howells <dhowells@redhat.com>,
+ Ben Hutchings <ben.hutchings@codethink.co.uk>, Sasha Levin <sashal@kernel.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>, LTP List <ltp@lists.linux.it>,
+ open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
+ patches@kernelci.org, Chengguang Xu <cgxu519@mykernel.net>,
+ John Stultz <john.stultz@linaro.org>, linux- stable <stable@vger.kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>, Mike Kravetz <mike.kravetz@oracle.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Zorro,
-
-> > V3 test passed on ext2/3/4 and xfs[1], on upstream mainline kernel. Thanks
-> > all your review points:)
-> > But I have a question, how to test other filesystems, likes nfs, cifs?
-
-> Ping.
-
-> It's been several weeks passed. Is there more review points?
-Sorry for a delay, that's how it works in open source projects (we're also
-just contributors).
-But you could speed up the review yourself, if you have carefully read reviews
-and address suggestions :).
-
-I like you use .all_filesystems = 1 as I suggested in [1], but I warned that it
-breaks nfs.
-newmount01.c:58: FAIL: fsopen ntfs: ENODEV (19)
-
-Fortunately this does not need any patch for filtering nfs as TST_FS_SKIP_FUSE
-is enough for it - add this to struct tst_test:
-.dev_fs_flags = TST_FS_SKIP_FUSE
-
-Not sure if just fsopen() is affected, but it probably does not make sense to test
-just fsopen() and fsconfig().
-
-There are some issues Xu found in v2 [2], which you didn't address:
-
-> > +AC_DEFUN([LTP_CHECK_NEWMOUNT],[
-> > +AC_CHECK_FUNCS(fsopen,,)
-> > +AC_CHECK_FUNCS(fsconfig,,)
-> > +AC_CHECK_FUNCS(fsmount,,)
-> > +AC_CHECK_FUNCS(move_mount,,)
-> > +AC_CHECK_HEADER(sys/mount.h,,,)
-> > +])
-> You use m4 to check them. But it seems that you don't use those macros
-> in your cases.
-> + I told you in v1 to move AC_CHECK_FUNCS and AC_CHECK_HEADER into configure.ac
-> (there is sorted list you add things you need), we use m4/ltp-*.m4 files only
-> for complex checks.
+On Fri, Jan 03, 2020 at 04:29:56PM +0100, Arnd Bergmann wrote:
+> On Fri, Jan 3, 2020 at 4:25 PM Arnd Bergmann <arnd@arndb.de> wrote:
+> >
+> > On Fri, Jan 3, 2020 at 4:03 PM Naresh Kamboju <naresh.kamboju@linaro.org> wrote:
+> > >
+> > > On Fri, 3 Jan 2020 at 03:42, Greg Kroah-Hartman
+> > > <gregkh@linuxfoundation.org> wrote:
+> >
+> > -ENOENT is what you get when hugetlbfs is not mounted, so this hints to
+> >
+> > 8fc312b32b2  mm/hugetlbfs: fix error handling when setting up mounts
+> >
+> > https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git/commit/?h=linux-5.4.y&id=3f549fb42a39bea3b29c0fc12afee53c4a01bec9
 > 
-> > +#include "tst_safe_macros.h"
-> "tst_test.h" has included "tst_safe_macros.h"
-=> simply just remove it.
+> I see that Mike Kravetz suggested not putting this patch into stable in
+> 
+> https://lore.kernel.org/lkml/befca227-cb8a-8f47-617d-e3bf9972bfec@oracle.com/
+> 
+> but it was picked through the autosel mechanism later.
 
-> > +static int sfd, mfd;
-> > +static int is_mounted = 0;
-> static int sfd, mfd, is_mounted;
-(static is always 0).
+So does that mean that Linus's tree shows this LTP failure as well?
 
-There are also Cyril's suggestions and objections [3]:
+This does seem to fix a real issue, as shown by the LTP test noticing
+it, so should the error code value be fixed in Linus's tree?
 
-> > +static void setup(void)
-> > +{
-> > +	SAFE_MKFS(tst_device->dev, tst_device->fs_type, NULL, NULL);
->
-> Why aren't we just setting .format_device in the test structure?
+thanks,
 
-> > +static void cleanup(void)
-> > +{
-> > +	if (mount_flag == 1) {
-> > +		TEST(tst_umount(MNTPOINT));
-> > +		if (TST_RET != 0)
-> > +			tst_brk(TBROK | TTERRNO, "umount failed");
->
-> The library already produces TWARN if we fail to umount the device, so I
-> would say that there is no need to TBROK here, the TBROK will be
-> converted to TWARN anyways since it's in the cleanup...
-
-He also noted, that umount must be done in test:
-> > +	SAFE_CLOSE(mfd);
-> We have to umount the device here, otherwise it would be mounted for
-> each test iteration with -i.
-
-Another reason for tst_umount() in test is for me that it looks a bit strange
-for me to perform testing in cleanup function.
-
-+ his objections against else blocks and struct test_cases (I fully agree with it).
-
-[1] https://lists.linux.it/pipermail/ltp/2019-November/014619.html
-[2] https://lists.linux.it/pipermail/ltp/2019-December/014702.html
-[3] https://lists.linux.it/pipermail/ltp/2019-December/014654.html
-
-Kind regards,
-Petr
+greg k-h
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
