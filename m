@@ -1,53 +1,65 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16338130F39
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jan 2020 10:10:25 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 42A48130F46
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jan 2020 10:16:41 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8460A3C24AB
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jan 2020 10:10:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id CABED3C24AD
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jan 2020 10:16:40 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id AFDDE3C2460
- for <ltp@lists.linux.it>; Mon,  6 Jan 2020 10:10:20 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 86CC22010F7
- for <ltp@lists.linux.it>; Mon,  6 Jan 2020 10:10:17 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.69,401,1571673600"; d="scan'208";a="81372785"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 06 Jan 2020 17:10:15 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 757D1406AB15;
- Mon,  6 Jan 2020 17:01:11 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1395.4; Mon, 6 Jan 2020 17:10:10 +0800
-To: Li Wang <liwang@redhat.com>
-References: <1576641763-18305-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <CAEemH2eKbbXjonuiKMdHcRda98hJikmGW4=YtWft0-1QAj0oBQ@mail.gmail.com>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <8a1a9b95-5c42-2176-857a-e3c36fa42b55@cn.fujitsu.com>
-Date: Mon, 6 Jan 2020 17:10:09 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id E6C213C2463
+ for <ltp@lists.linux.it>; Mon,  6 Jan 2020 10:16:36 +0100 (CET)
+Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
+ [IPv6:2a00:1450:4864:20::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 2B86C600BB2
+ for <ltp@lists.linux.it>; Mon,  6 Jan 2020 10:16:36 +0100 (CET)
+Received: by mail-lj1-x241.google.com with SMTP id l2so50200873lja.6
+ for <ltp@lists.linux.it>; Mon, 06 Jan 2020 01:16:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=/PwnthFt5Goi+BRxXbq1ROtP9cYWVnL0NQYzGLAAw2s=;
+ b=Be5SVWw1wd6HPy+fWjJqgRruz0gFOTqVo19EeQKBMnUL9OW9rWmvMCkIZpTKsFoF06
+ aRKrDhFJyGy5U+k17+QozT8zNAokCeVulc3GcBEcEhMd5TEMp4beQVDdXpkGstRKnlgA
+ Y9JN7P29Eio1gxBAGaj8RAWKhRe5eeJRxq8OJ0mWVvyt/q9TMq5QRTWknChdA7xZ0ZrT
+ npKwz0MfqQJuA6LSEhnxf9ufKLrGosZY5SMugPqKgBHgxum2qVBQ+VDI0ToWa6Pq3qlG
+ oy+t2yPa8ShN7A8gpBr2jgjbE8bVtI/j++j5sQpa58mx0p9ZDpHzNd5wS4xfpaJXYwNq
+ bGJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=/PwnthFt5Goi+BRxXbq1ROtP9cYWVnL0NQYzGLAAw2s=;
+ b=lhLJiXyHOScVUNxgsOqFIMx/60koHbFVCnAaQx4Aq4ItAXuoASOEPls9Le+dgVfD47
+ 5dW6YoF88HWpm3wh0Tf0xBlCQSNPMkTxY1o6T+ibIynVt4RvOrbyRyg0Q+yPjPjMrWwx
+ X0beyVQurFtPmMzhW8cZWtuurv47xLpVidt5HgWBILTF0ggYEYPrU69Gy+AHqxeqztfM
+ hzPrwa2rifos1pDZmlFZjaq7x3xHX795ko+Y41GymEfR4hiqGz9kRdLf/1YT6F18+FvO
+ qAI91CH8Ka/A3Aqgc31NZZ5Y3Qywa5RD73g6KI4/OYRM7xKJ4vzmtz2QAPa39Yks/l2X
+ MXbQ==
+X-Gm-Message-State: APjAAAVkKhv9HJ1HKaoOfsmY98H7PRje04eXWp109hUokdVBaToK7KY0
+ 2PM8WzFZa7eE89yFMKQYion8ySxjvienbD3Lp3+2fvSdfgI=
+X-Google-Smtp-Source: APXvYqwCpQnp1uvARxWqcrp0R1qcM+iC/XRujk3p0ddu5YNvl/XSwTIa/OXM+BFeXqt/AGGQnNu5OCfuUpucGez3roU=
+X-Received: by 2002:a2e:85cd:: with SMTP id h13mr57837770ljj.191.1578302195566; 
+ Mon, 06 Jan 2020 01:16:35 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <CAEemH2eKbbXjonuiKMdHcRda98hJikmGW4=YtWft0-1QAj0oBQ@mail.gmail.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 757D1406AB15.AAA3A
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+References: <1578299418-4961-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+In-Reply-To: <1578299418-4961-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+From: Sumit Garg <sumit.garg@linaro.org>
+Date: Mon, 6 Jan 2020 14:46:24 +0530
+Message-ID: <CAFA6WYMqnwT_m+hY8nO_w=EH3nSDL+hpxqBQKgp0gN2BsV-f6w@mail.gmail.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] syscalls/userfaultfd01: add hint about
- unprivileged_userfaultfd
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] tst_dev_bytes_written: parsing /proc/diskstats
+ instead of sys file
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,70 +72,82 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgTGkKPiAKPiAKPiBPbiBXZWQsIERlYyAxOCwgMjAxOSBhdCAxMjowMiBQTSBZYW5nIFh1IDx4
-dXlhbmcyMDE4Lmp5QGNuLmZ1aml0c3UuY29tIAo+IDxtYWlsdG86eHV5YW5nMjAxOC5qeUBjbi5m
-dWppdHN1LmNvbT4+IHdyb3RlOgo+IAo+ICAgICBTaW5jZSBjb21taXQgY2VmZGNhMGE4NmJlICgi
-dXNlcmZhdWx0ZmQvc3lzY3RsOiBhZGQKPiAgICAgdm0udW5wcml2aWxlZ2VkX3VzZXJmYXVsdGZk
-IikuCj4gICAgICwgaXQgYWRkcyBhIGdsb2JhbCBzeXNjdGwga25vYiAidm0udW5wcml2aWxlZ2Vk
-X3VzZXJmYXVsdGZkIiB0bwo+ICAgICBjb250cm9sIHdoZXRoZXIKPiAgICAgdW5wcml2aWxlZ2Vk
-IHVzZXJzIGNhbiB1c2UgdGhlIHVzZXJmYXVsdGZkIHN5c3RlbSBjYWxscy4gU2V0IHRoaXMgdG8K
-PiAgICAgMSB0byBhbGxvdwo+ICAgICB1bnByaXZpbGVnZWQgdXNlcnMgdG8gdXNlIHRoZSB1c2Vy
-ZmF1bHRmZCBzeXN0ZW0gY2FsbHMsIG9yIHNldCB0aGlzCj4gICAgIHRvIDAgdG8KPiAgICAgcmVz
-dHJpY3QgdXNlcmZhdWx0ZmQgdG8gb25seSBwcml2aWxlZ2VkIHVzZXJzICh3aXRoIFNZU19DQVBf
-UFRSQUNFCj4gICAgIGNhcGFiaWxpdHkpLiBUaGUKPiAgICAgZGVmYXVsdCB2YWx1ZSBpcyAxLiBB
-ZGQgaGludCBhYm91dCBpdC4KPiAKPiAKPiBDYW4gd2UgZG8gdGhlICJ2bS51bnByaXZpbGVnZWRf
-dXNlcmZhdWx0ZmQiIGNoZWNrIGluIHRoZSBzZXR1cCgpIGFuZCBkbyAKPiBzZXQgdG8gMSBpZiBp
-dCBleGlzdHM/CkkgcmVtZW1iZXJlZCBKYW4gU3RhbmNlayBoYXMgYSBwYXRjaCBhYm91dCBicGYg
-aGludCBhYm91dCAKdW5wcml2aWxlZ2VkX2JwZl9kaXNhYmxlZCwgSSBkbyBhcyBzYW1lIGFzIHRo
-YXQgcGF0Y2ggZGlkLgoKQWxzbywgbW9udGggYWdvcyBhYm91dCBhY2N0MDIgZGlzY3Vzc2lvbiwg
-Q3lyaWwgcG9pbnRzIGFib3V0IGFkanVzdGluZwp0aGUgdGhyZXNob2xkIHZhbHVlIG9mIHJlc3Vt
-ZSBhbmQgc3VwcGVuZCB0byBtYWtlIGNhc2UgcGFzc2VzLgoKU28sIEkgaGF2ZSBhIHF1ZXN0aW9u
-IHRoYXQgd2UgaGF2ZSB1bmlmaWVkIHN0YW5kYXJkcyBhYm91dCB0aGVzZSBjYXNlcwooYnBmLCBh
-Y2N0MDIsIGFmZmVjdGVkIGJ5IHN5c2N0bCk/IFJlcG9ydCBUQ09ORiBvciBtb2RpZnkgYXJndW1l
-bnQgdG8KbWFrZSBjYXNlIHBhc3Nlcz8KCkBDeXJpbCBhbmQgQEphbiBTdGFuY2VrIFdoYXQgZG8g
-eW91IHRoaW5rIGFib3V0IGl0PwoKPiBBbmQgbWF5YmXCoHdlIG5lZWQgbW9yZSB0ZXN0cyBmb3Ig
-dGhlIGdsb2JhbCBzeXNjdGwga25vYiAKPiAidm0udW5wcml2aWxlZ2VkX3VzZXJmYXVsdGZkIi5F
-ZXZlbiB0aG91Z2ggd2UgZG9uJ3QgaGF2ZSBjYXNlIHRvIHRlc3QgdW5wcml2aWxlZ2VkX2JwZl9k
-aXNhYmxlZC4gSSAKc3RpbGwgdGhpbmsgdGVzdGluZyB1bnByaXZpbGVnZWRfdXNlcmZhdWx0ZmQg
-aXMgbWVhbmluZ2Z1bCBhbmQgd2UgY2FuIApiZWdpbiB3aXRoIGl0LgoKQmVzdCBSZWdhcmRzCllh
-bmcgWHUKPiAKPiAKPiAgICAgU2lnbmVkLW9mZi1ieTogWWFuZyBYdSA8eHV5YW5nMjAxOC5qeUBj
-bi5mdWppdHN1LmNvbQo+ICAgICA8bWFpbHRvOnh1eWFuZzIwMTguanlAY24uZnVqaXRzdS5jb20+
-Pgo+ICAgICAtLS0KPiAgICAgIMKgLi4uL3N5c2NhbGxzL3VzZXJmYXVsdGZkL3VzZXJmYXVsdGZk
-MDEuY8KgIMKgIMKgIHwgMTkgKysrKysrKysrKysrKy0tLS0tLQo+ICAgICAgwqAxIGZpbGUgY2hh
-bmdlZCwgMTMgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKPiAKPiAgICAgZGlmZiAtLWdp
-dCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvdXNlcmZhdWx0ZmQvdXNlcmZhdWx0ZmQwMS5j
-Cj4gICAgIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy91c2VyZmF1bHRmZC91c2VyZmF1bHRm
-ZDAxLmMKPiAgICAgaW5kZXggYTVlMTQyMjA5Li40ZTE3OGI0ZjggMTAwNjQ0Cj4gICAgIC0tLSBh
-L3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvdXNlcmZhdWx0ZmQvdXNlcmZhdWx0ZmQwMS5jCj4g
-ICAgICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvdXNlcmZhdWx0ZmQvdXNlcmZhdWx0
-ZmQwMS5jCj4gICAgIEBAIC04MiwxMiArODIsMTkgQEAgc3RhdGljIHZvaWQgcnVuKHZvaWQpCj4g
-Cj4gICAgICDCoCDCoCDCoCDCoCBzZXRfcGFnZXMoKTsKPiAKPiAgICAgLcKgIMKgIMKgIMKgdWZm
-ZCA9IHN5c191c2VyZmF1bHRmZChPX0NMT0VYRUMgfCBPX05PTkJMT0NLKTsKPiAgICAgLQo+ICAg
-ICAtwqAgwqAgwqAgwqBpZiAodWZmZCA9PSAtMSkKPiAgICAgLcKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgdHN0X2JyayhUQlJPSyB8IFRFUlJOTywKPiAgICAgLcKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIkNvdWxkIG5vdCBjcmVhdGUgdXNlcmZhdWx0IGZpbGUgZGVzY3JpcHRvciIp
-Owo+ICAgICAtCj4gICAgICvCoCDCoCDCoCDCoFRFU1Qoc3lzX3VzZXJmYXVsdGZkKE9fQ0xPRVhF
-QyB8IE9fTk9OQkxPQ0spKTsKPiAgICAgKwo+ICAgICArwqAgwqAgwqAgwqBpZiAoVFNUX1JFVCA9
-PSAtMSkgewo+ICAgICArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBpZiAoVFNUX0VSUiA9PSBFUEVS
-TSkgewo+ICAgICArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqB0c3RfcmVzKFRD
-T05GLCAiSGludDogY2hlY2sKPiAgICAgL3Byb2Mvc3lzL3ZtL3VucHJpdmlsZWdlZF91c2VyZmF1
-bHRmZCIpOwo+ICAgICArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqB0c3RfYnJr
-KFRDT05GIHwgVFRFUlJOTywKPiAgICAgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgInVzZXJmYXVsdGZkKCkgcmVxdWlyZXMKPiAgICAgQ0FQX1NZU19QVFJB
-Q0Ugb24gdGhpcyBzeXN0ZW0iKTsKPiAgICAgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgfSBlbHNl
-Cj4gICAgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHRzdF9icmsoVEJST0sg
-fCBUVEVSUk5PLAo+ICAgICArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAiQ291bGQgbm90IGNyZWF0ZSB1c2VyZmF1bHQgZmlsZQo+ICAgICBkZXNjcmlwdG9y
-Iik7Cj4gICAgICvCoCDCoCDCoCDCoH0KPiAgICAgKwo+ICAgICArwqAgwqAgwqAgwqB1ZmZkID0g
-VFNUX1JFVDsKPiAgICAgIMKgIMKgIMKgIMKgIHVmZmRpb19hcGkuYXBpID0gVUZGRF9BUEk7Cj4g
-ICAgICDCoCDCoCDCoCDCoCB1ZmZkaW9fYXBpLmZlYXR1cmVzID0gMDsKPiAgICAgIMKgIMKgIMKg
-IMKgIFNBRkVfSU9DVEwodWZmZCwgVUZGRElPX0FQSSwgJnVmZmRpb19hcGkpOwo+ICAgICAtLSAK
-PiAgICAgMi4xOC4wCj4gCj4gCj4gCj4gCj4gICAgIC0tIAo+ICAgICBNYWlsaW5nIGxpc3QgaW5m
-bzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAKPiAKPiAKPiAKPiAtLSAKPiBS
-ZWdhcmRzLAo+IExpIFdhbmcKCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3Rz
-LmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+On Mon, 6 Jan 2020 at 14:00, Yang Xu <xuyang2018.jy@cn.fujitsu.com> wrote:
+>
+> Now, tst_dev_bytes_written api can get the whole disk stat correctly(such as /dev/sda),
+> but can not get partition stat correctly(such as /dev/sda5).
+> fail as below:
+> export LTP_DEV=/dev/sda5
+> tst_device.c:388: CONF: Test device stat file: /sys/block/sda5/stat not found
+>
+> To fix this, use /proc/diskstats to parse instead of /sys/block/<devices>/stat.
+> Data format as same as diskstats_show function in kernel genhd.c[1].
+>
+> Also, add hint when loop driver doesn't support blk-mq[2]. So that, user can export
+> LTP_DEV to test.
+>
+> [1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/block/genhd.c
+> [2]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=b5dd2f60
+>
+> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+> ---
+>  lib/tst_device.c | 26 ++++++++++++--------------
+>  1 file changed, 12 insertions(+), 14 deletions(-)
+>
+
+Reviewed-by: Sumit Garg <sumit.garg@linaro.org>
+
+> diff --git a/lib/tst_device.c b/lib/tst_device.c
+> index 10f71901d..ad764a38d 100644
+> --- a/lib/tst_device.c
+> +++ b/lib/tst_device.c
+> @@ -375,24 +375,22 @@ int tst_umount(const char *path)
+>
+>  unsigned long tst_dev_bytes_written(const char *dev)
+>  {
+> -       struct stat st;
+> -       unsigned long dev_sec_write = 0, dev_bytes_written, io_ticks = 0;
+> -       char dev_stat_path[1024];
+> -
+> -       snprintf(dev_stat_path, sizeof(dev_stat_path), "/sys/block/%s/stat",
+> -                strrchr(dev, '/') + 1);
+> +       unsigned long dev_sec_write = 0, dev_bytes_written;
+> +       unsigned int io_ticks = 0;
+> +       char fmt[1024];
+>
+> -       if (stat(dev_stat_path, &st) != 0)
+> -               tst_brkm(TCONF, NULL, "Test device stat file: %s not found",
+> -                        dev_stat_path);
+> +       sprintf(fmt, "%%*4d %%*7d %s %%*lu %%*lu %%*lu %%*u %%*lu %%*lu %%lu %%*u %%*u %%u",
+> +                       strrchr(dev, '/') + 1);
+>
+> -       SAFE_FILE_SCANF(NULL, dev_stat_path,
+> -                       "%*s %*s %*s %*s %*s %*s %lu %*s %*s %lu",
+> -                       &dev_sec_write, &io_ticks);
+> +       SAFE_FILE_LINES_SCANF(NULL, "/proc/diskstats", fmt, &dev_sec_write, &io_ticks);
+>
+> +       /* If we create block device by attaching a free loop device, loop driver
+> +        * needs to support blk-mq(commit b5dd2f6047c), so that kernel can get I/O
+> +        * statistics about loop device.
+> +        */
+>         if (!io_ticks)
+> -               tst_brkm(TCONF, NULL, "Test device stat file: %s broken",
+> -                        dev_stat_path);
+> +               tst_brkm(TCONF, NULL, "io_ticks on test device %s is always 0, "
+> +                               "export LTP_DEV to test", dev);
+>
+>         dev_bytes_written = (dev_sec_write - prev_dev_sec_write) * 512;
+>
+> --
+> 2.18.0
+>
+>
+>
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
