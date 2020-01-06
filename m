@@ -1,52 +1,65 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66AE2130DFE
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jan 2020 08:33:24 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id DDFDB130E3C
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jan 2020 08:58:05 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1683A3C245E
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jan 2020 08:33:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 832CB3C2463
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jan 2020 08:58:05 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 4832C3C23B2
- for <ltp@lists.linux.it>; Mon,  6 Jan 2020 08:33:21 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id CF0701401435
- for <ltp@lists.linux.it>; Mon,  6 Jan 2020 08:33:19 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.69,401,1571673600"; d="scan'208";a="81360960"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 06 Jan 2020 15:33:15 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 799C349E932F
- for <ltp@lists.linux.it>; Mon,  6 Jan 2020 15:24:16 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1395.4; Mon, 6 Jan 2020 15:32:49 +0800
-To: <ltp@lists.linux.it>
-References: <1576641763-18305-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <0ec6817b-8b78-40ac-11c3-39ab4c1c87a7@cn.fujitsu.com>
-Date: Mon, 6 Jan 2020 15:32:48 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 3E4863C2452
+ for <ltp@lists.linux.it>; Mon,  6 Jan 2020 08:58:03 +0100 (CET)
+Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
+ [IPv6:2a00:1450:4864:20::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 0878C200C0B
+ for <ltp@lists.linux.it>; Mon,  6 Jan 2020 08:58:02 +0100 (CET)
+Received: by mail-lj1-x244.google.com with SMTP id h23so50017622ljc.8
+ for <ltp@lists.linux.it>; Sun, 05 Jan 2020 23:58:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=BOddFa5zG7yyusHUSKgdHjatzfaewg8F6jxLkvjjCLo=;
+ b=I47z+NIxpP0mU1yftp31KUDgvnNz4jh9s6jfo4YXdlGKT74kw6FG8eyzHR85uulo7U
+ 7OdtdYK7/J2U9HPEm/sxKBKMMpC0VRSTTJhDoXbOv3LMZYm7vKmGpzh0khxPATeenWHl
+ zDWjjFcdcHgidmB+j7HaO5zPGOyvQ5su9U3rVY2Rmd1zef1kXK482qqImy7Mz14BeXZK
+ rF0H+yUAIUu3z612y+CgZHrYP4tiaI7vwedQkElKloLhaetq2tvyJFLj0joGzSknKO/P
+ 2NWiltaJIALRz6FLh+iZC6laO7Wi+Bd7Or4q982qG96t/zADEGI4cMFMjpL6kA1MfRLi
+ tXDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=BOddFa5zG7yyusHUSKgdHjatzfaewg8F6jxLkvjjCLo=;
+ b=UgPC76QLAaLhVgkIaUE8QLAKJguQ3lTTH6/eIDq2E9lgkqNVp8DqtMd4GbnBGaALUx
+ ME7sbKesUhOqEuAuCL+q1mn8UT237w61ioCg9X4FN/GmMcjysIIyeWbi71pkFL3doP5D
+ UC/dQVPqQTcyfXKaSTr+da+ccS/wiGSv3Lzare/ET24+3GScI553uwAS0MewXUlXg2pB
+ c+mdfrhQzQQUIiI7PSRKgLR4y9sxczu7+mfQTsPftkeaLMYcIVFuvZvFWWRcomemFKwx
+ wnXYWGXHvq5F8S2iDUYDueWt+V0y+n+4QJX+yQXArBmVopFXb6keTsKT2XffAFRDqz14
+ woUw==
+X-Gm-Message-State: APjAAAUENKRfZi8KULgFjl3tPFejtkfvEPIwoaUEeGARYmSvgbnyVmye
+ 3039t67a82spzlSB34ZiIlG13KSQwbtgMw0qRi0bpRV8M9g=
+X-Google-Smtp-Source: APXvYqw3ewLeh7hv9oEi/oY6Lp1RTA4MUT7ZeS8l/vxeXpPjbWGFwK69nt/EFGQB2A0d9cGoUd3FHjaKxUnySLnxqjY=
+X-Received: by 2002:a2e:9687:: with SMTP id q7mr51390639lji.232.1578297482224; 
+ Sun, 05 Jan 2020 23:58:02 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <1576641763-18305-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 799C349E932F.AFE2C
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+References: <1578289125-2491-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+In-Reply-To: <1578289125-2491-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+From: Sumit Garg <sumit.garg@linaro.org>
+Date: Mon, 6 Jan 2020 13:27:50 +0530
+Message-ID: <CAFA6WYOPWBeu75DEopZF=+ZWf-QmGZXj0zcL1GTG7S8ZYq5Xbw@mail.gmail.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] syscalls/userfaultfd01: add hint about
- unprivileged_userfaultfd
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] tst_dev_bytes_written: parsing /proc/diskstats
+ instead of sys file
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,58 +71,94 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi
-Ping.
-> Since commit cefdca0a86be ("userfaultfd/sysctl: add vm.unprivileged_userfaultfd").
-> , it adds a global sysctl knob "vm.unprivileged_userfaultfd" to control whether
-> unprivileged users can use the userfaultfd system calls. Set this to 1 to allow
-> unprivileged users to use the userfaultfd system calls, or set this to 0 to
-> restrict userfaultfd to only privileged users (with SYS_CAP_PTRACE capability). The
-> default value is 1. Add hint about it.
-> 
+On Mon, 6 Jan 2020 at 11:09, Yang Xu <xuyang2018.jy@cn.fujitsu.com> wrote:
+>
+> Now, tst_dev_bytes_written api can get the whole disk stat correctly(such as /dev/sda),
+> but can not get partition stat correctly(such as /dev/sda5).
+> fail as below:
+> export LTP_DEV=/dev/sda5
+> tst_device.c:388: CONF: Test device stat file: /sys/block/sda5/stat not found
+>
+> To fix this, use /proc/diskstats to parse instead of /sys/block/<devices>/stat.
+> Data format as same as diskstats_show function in kernel genhd.c[1].
+>
+> Also, add hint when loop driver doesn't support blk-mq[2]. So that, user can export
+> LTP_DEV to test.
+>
+> [1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/block/genhd.c
+> [2]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=b5dd2f60
+>
 > Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 > ---
->   .../syscalls/userfaultfd/userfaultfd01.c      | 19 +++++++++++++------
->   1 file changed, 13 insertions(+), 6 deletions(-)
-> 
-> diff --git a/testcases/kernel/syscalls/userfaultfd/userfaultfd01.c b/testcases/kernel/syscalls/userfaultfd/userfaultfd01.c
-> index a5e142209..4e178b4f8 100644
-> --- a/testcases/kernel/syscalls/userfaultfd/userfaultfd01.c
-> +++ b/testcases/kernel/syscalls/userfaultfd/userfaultfd01.c
-> @@ -82,12 +82,19 @@ static void run(void)
->   
->   	set_pages();
->   
-> -	uffd = sys_userfaultfd(O_CLOEXEC | O_NONBLOCK);
-> -
-> -	if (uffd == -1)
-> -		tst_brk(TBROK | TERRNO,
-> -			"Could not create userfault file descriptor");
-> -
-> +	TEST(sys_userfaultfd(O_CLOEXEC | O_NONBLOCK));
-> +
-> +	if (TST_RET == -1) {
-> +		if (TST_ERR == EPERM) {
-> +			tst_res(TCONF, "Hint: check /proc/sys/vm/unprivileged_userfaultfd");
-> +			tst_brk(TCONF | TTERRNO,
-> +				"userfaultfd() requires CAP_SYS_PTRACE on this system");
-> +		} else
-> +			tst_brk(TBROK | TTERRNO,
-> +				"Could not create userfault file descriptor");
-> +	}
-> +
-> +	uffd = TST_RET;
->   	uffdio_api.api = UFFD_API;
->   	uffdio_api.features = 0;
->   	SAFE_IOCTL(uffd, UFFDIO_API, &uffdio_api);
-> 
+>  lib/tst_device.c | 26 ++++++++++++--------------
+>  1 file changed, 12 insertions(+), 14 deletions(-)
+>
 
+Overall patch looks good to me but with minor comments below.
 
+> diff --git a/lib/tst_device.c b/lib/tst_device.c
+> index 10f71901d..58877c810 100644
+> --- a/lib/tst_device.c
+> +++ b/lib/tst_device.c
+> @@ -375,24 +375,22 @@ int tst_umount(const char *path)
+>
+>  unsigned long tst_dev_bytes_written(const char *dev)
+>  {
+> -       struct stat st;
+> -       unsigned long dev_sec_write = 0, dev_bytes_written, io_ticks = 0;
+> -       char dev_stat_path[1024];
+> -
+> -       snprintf(dev_stat_path, sizeof(dev_stat_path), "/sys/block/%s/stat",
+> -                strrchr(dev, '/') + 1);
+> +       unsigned long dev_sec_write = 0, dev_bytes_written;
+> +       unsigned int io_ticks = 0;
+> +       char fmt[1024];
+>
+> -       if (stat(dev_stat_path, &st) != 0)
+> -               tst_brkm(TCONF, NULL, "Test device stat file: %s not found",
+> -                        dev_stat_path);
+> +       sprintf(fmt, "%%*4d %%*7d %s %%*lu %%*lu %%*lu %%*u %%*lu %%*lu %%lu %%*u %%*u %%u",
+> +                       strrchr(dev, '/') + 1);
+>
+> -       SAFE_FILE_SCANF(NULL, dev_stat_path,
+> -                       "%*s %*s %*s %*s %*s %*s %lu %*s %*s %lu",
+> -                       &dev_sec_write, &io_ticks);
+> +       FILE_LINES_SCANF(NULL, "/proc/diskstats", fmt, &dev_sec_write, &io_ticks);
+
+Shouldn't we use SAFE_FILE_LINES_SCANF() here?
+
+>
+> +       /* If we create block device by attaching a free loop device, loop driver
+> +        * needs to support blk-mq(commit b5dd2f6047c), so that kernel can get I/O
+> +        * statistics about loop device.
+> +        */
+>         if (!io_ticks)
+> -               tst_brkm(TCONF, NULL, "Test device stat file: %s broken",
+> -                        dev_stat_path);
+> +               tst_brkm(TCONF, NULL, "Test device %s io_ticks is always 0, "
+> +                               "exporting LTP_DEV to test", dev);
+
+s/exporting/export/
+
+-Sumit
+
+>
+>         dev_bytes_written = (dev_sec_write - prev_dev_sec_write) * 512;
+>
+> --
+> 2.18.0
+>
+>
+>
+>
+> --
+> Mailing list info: https://lists.linux.it/listinfo/ltp
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
