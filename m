@@ -1,56 +1,49 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A25513018B
-	for <lists+linux-ltp@lfdr.de>; Sat,  4 Jan 2020 10:06:15 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DD1D130D38
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jan 2020 06:39:52 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B8CA13C23F5
-	for <lists+linux-ltp@lfdr.de>; Sat,  4 Jan 2020 10:06:14 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id CCBB63C2496
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jan 2020 06:39:51 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 4B7283C23E4
- for <ltp@lists.linux.it>; Sat,  4 Jan 2020 10:06:13 +0100 (CET)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 520031000CE7
- for <ltp@lists.linux.it>; Sat,  4 Jan 2020 10:06:11 +0100 (CET)
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9876D2464E;
- Sat,  4 Jan 2020 09:06:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1578128769;
- bh=MHDULSZzfbYAw761SebMDzHsX+7nHNjvGFgET6+nwGc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=R6bJdEMmHaIUoKdghC/bYEEgRfD85nyPldA7HwhFLXraqYVd1QQ9XLJ4QsuRgzQtk
- RnEKxtx8UeXxfx8IjsBCMK9HdIVGemqSb57rvh3nHV8LWI+IGayTSmM8jkMTqGYIfm
- r3OLYM4+IvS2cspA6+yWsNuRwTl/zVhmXe/nYWf8=
-Date: Sat, 4 Jan 2020 10:06:06 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Mike Kravetz <mike.kravetz@oracle.com>
-Message-ID: <20200104090606.GA1249964@kroah.com>
-References: <20200102215829.911231638@linuxfoundation.org>
- <CA+G9fYuPkOGKbeQ0FKKx4H0Bs-nRHALsFtwyRw0Rt5DoOCvRHg@mail.gmail.com>
- <CAK8P3a1+Srey_7cUd0xfaO8HdMv5tkUcs6DeDXzcUKkUD-DnGQ@mail.gmail.com>
- <CAK8P3a24EkUXTu-K2c-5B3w-LZwY7zNcX0dZixb3gd59vRw_Kw@mail.gmail.com>
- <20200103154518.GB1064304@kroah.com>
- <CAK8P3a00SpVfSE5oL8_F_8jHdg_8A5fyEKH_DWNyPToxack=zA@mail.gmail.com>
- <a2fc8b36-c512-b6dd-7349-dfb551e348b6@oracle.com>
- <8283b231-f6e8-876f-7094-d3265096ab9a@oracle.com>
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 578433C23B2
+ for <ltp@lists.linux.it>; Mon,  6 Jan 2020 06:39:47 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 53FFB1400DD5
+ for <ltp@lists.linux.it>; Mon,  6 Jan 2020 06:39:45 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.69,401,1571673600"; d="scan'208";a="81335043"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 06 Jan 2020 13:39:41 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 4DB9349E9327
+ for <ltp@lists.linux.it>; Mon,  6 Jan 2020 13:30:41 +0800 (CST)
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.83) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1395.4; Mon, 6 Jan 2020 13:39:38 +0800
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ (TLS) id 14.3.439.0; Mon, 6 Jan 2020 13:39:37 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Mon, 6 Jan 2020 13:38:45 +0800
+Message-ID: <1578289125-2491-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <8283b231-f6e8-876f-7094-d3265096ab9a@oracle.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-yoursite-MailScanner-ID: 4DB9349E9327.AD4D2
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 5.4 000/191] 5.4.8-stable review
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH] tst_dev_bytes_written: parsing /proc/diskstats
+ instead of sys file
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,73 +55,77 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, David Howells <dhowells@redhat.com>,
- Ben Hutchings <ben.hutchings@codethink.co.uk>, Arnd Bergmann <arnd@arndb.de>,
- Shuah Khan <shuah@kernel.org>, LTP List <ltp@lists.linux.it>,
- open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
- patches@kernelci.org, Chengguang Xu <cgxu519@mykernel.net>,
- John Stultz <john.stultz@linaro.org>, linux- stable <stable@vger.kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Guenter Roeck <linux@roeck-us.net>, Al Viro <viro@zeniv.linux.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Fri, Jan 03, 2020 at 09:56:52AM -0800, Mike Kravetz wrote:
-> On 1/3/20 9:33 AM, Mike Kravetz wrote:
-> > On 1/3/20 7:56 AM, Arnd Bergmann wrote:
-> >> On Fri, Jan 3, 2020 at 4:45 PM Greg Kroah-Hartman
-> >> <gregkh@linuxfoundation.org> wrote:
-> >>> On Fri, Jan 03, 2020 at 04:29:56PM +0100, Arnd Bergmann wrote:
-> >>>> On Fri, Jan 3, 2020 at 4:25 PM Arnd Bergmann <arnd@arndb.de> wrote:
-> >>>>>
-> >>>>> On Fri, Jan 3, 2020 at 4:03 PM Naresh Kamboju <naresh.kamboju@linaro.org> wrote:
-> >>>>>>
-> >>>>>> On Fri, 3 Jan 2020 at 03:42, Greg Kroah-Hartman
-> >>>>>> <gregkh@linuxfoundation.org> wrote:
-> >>>>>
-> >>>>> -ENOENT is what you get when hugetlbfs is not mounted, so this hints to
-> >>>>>
-> >>>>> 8fc312b32b2  mm/hugetlbfs: fix error handling when setting up mounts
-> >>>>>
-> >>>>> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git/commit/?h=linux-5.4.y&id=3f549fb42a39bea3b29c0fc12afee53c4a01bec9
-> >>>>
-> >>>> I see that Mike Kravetz suggested not putting this patch into stable in
-> >>>>
-> >>>> https://lore.kernel.org/lkml/befca227-cb8a-8f47-617d-e3bf9972bfec@oracle.com/
-> >>>>
-> >>>> but it was picked through the autosel mechanism later.
-> >>>
-> >>> So does that mean that Linus's tree shows this LTP failure as well?
-> >>
-> >> Yes, according to
-> >> https://qa-reports.linaro.org/lkft/linux-mainline-oe/tests/ltp-syscalls-tests/memfd_create04
-> >> mainline has the same testcase failure, it started happening between
-> >> v5.4-10135-gc3bfc5dd73c6 and v5.4-10271-g596cf45cbf6e, when the patch
-> >> was originally merged into 5.5-rc1.
-> >>
-> >>> This does seem to fix a real issue, as shown by the LTP test noticing
-> >>> it, so should the error code value be fixed in Linus's tree?
-> >>
-> >> No idea what to conclude from the testcase failure, let's see if Mike has
-> >> any suggestions.
-> >>
-> > 
-> > Thanks for isolating to this patch!
-> > 
-> > There are dependencies between arch specific code and arch independent code
-> > during the setup of hugetlb sizes/mounts.  Let me take a closer look at the
-> > arm64 code and get access to a system for debug.
-> 
-> Before I started investigating, Jan Stancek found and fixed the issue.
-> 
-> http://lkml.kernel.org/r/a14b944b6e5e207d2f84f43227c98ed1f68290a2.1578072927.git.jstancek@redhat.com
+Now, tst_dev_bytes_written api can get the whole disk stat correctly(such as /dev/sda),
+but can not get partition stat correctly(such as /dev/sda5).
+fail as below:
+export LTP_DEV=/dev/sda5
+tst_device.c:388: CONF: Test device stat file: /sys/block/sda5/stat not found
 
-Great, thanks for this, now queued up.
+To fix this, use /proc/diskstats to parse instead of /sys/block/<devices>/stat.
+Data format as same as diskstats_show function in kernel genhd.c[1].
 
-greg k-h
+Also, add hint when loop driver doesn't support blk-mq[2]. So that, user can export
+LTP_DEV to test.
+
+[1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/block/genhd.c
+[2]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=b5dd2f60
+
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+---
+ lib/tst_device.c | 26 ++++++++++++--------------
+ 1 file changed, 12 insertions(+), 14 deletions(-)
+
+diff --git a/lib/tst_device.c b/lib/tst_device.c
+index 10f71901d..58877c810 100644
+--- a/lib/tst_device.c
++++ b/lib/tst_device.c
+@@ -375,24 +375,22 @@ int tst_umount(const char *path)
+ 
+ unsigned long tst_dev_bytes_written(const char *dev)
+ {
+-	struct stat st;
+-	unsigned long dev_sec_write = 0, dev_bytes_written, io_ticks = 0;
+-	char dev_stat_path[1024];
+-
+-	snprintf(dev_stat_path, sizeof(dev_stat_path), "/sys/block/%s/stat",
+-		 strrchr(dev, '/') + 1);
++	unsigned long dev_sec_write = 0, dev_bytes_written;
++	unsigned int io_ticks = 0;
++	char fmt[1024];
+ 
+-	if (stat(dev_stat_path, &st) != 0)
+-		tst_brkm(TCONF, NULL, "Test device stat file: %s not found",
+-			 dev_stat_path);
++	sprintf(fmt, "%%*4d %%*7d %s %%*lu %%*lu %%*lu %%*u %%*lu %%*lu %%lu %%*u %%*u %%u",
++			strrchr(dev, '/') + 1);
+ 
+-	SAFE_FILE_SCANF(NULL, dev_stat_path,
+-			"%*s %*s %*s %*s %*s %*s %lu %*s %*s %lu",
+-			&dev_sec_write, &io_ticks);
++	FILE_LINES_SCANF(NULL, "/proc/diskstats", fmt, &dev_sec_write, &io_ticks);
+ 
++	/* If we create block device by attaching a free loop device, loop driver
++	 * needs to support blk-mq(commit b5dd2f6047c), so that kernel can get I/O
++	 * statistics about loop device.
++	 */
+ 	if (!io_ticks)
+-		tst_brkm(TCONF, NULL, "Test device stat file: %s broken",
+-			 dev_stat_path);
++		tst_brkm(TCONF, NULL, "Test device %s io_ticks is always 0, "
++				"exporting LTP_DEV to test", dev);
+ 
+ 	dev_bytes_written = (dev_sec_write - prev_dev_sec_write) * 512;
+ 
+-- 
+2.18.0
+
+
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
