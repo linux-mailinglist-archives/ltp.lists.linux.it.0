@@ -2,25 +2,25 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BA55132A6F
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Jan 2020 16:50:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA473132AC1
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Jan 2020 17:09:12 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C6C803C2685
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Jan 2020 16:50:46 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9A2B23C274D
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Jan 2020 17:09:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 448B33C267B
- for <ltp@lists.linux.it>; Tue,  7 Jan 2020 16:50:45 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 0E4103C2743
+ for <ltp@lists.linux.it>; Tue,  7 Jan 2020 17:09:10 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A00C51001364
- for <ltp@lists.linux.it>; Tue,  7 Jan 2020 16:50:44 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 5D2B81A014D8
+ for <ltp@lists.linux.it>; Tue,  7 Jan 2020 17:09:09 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id CCD7AAEFD;
- Tue,  7 Jan 2020 15:50:43 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id AD92DAEEE;
+ Tue,  7 Jan 2020 16:09:08 +0000 (UTC)
 To: Cyril Hrubis <chrubis@suse.cz>
 References: <461386048.17251961.1576663655809.JavaMail.zimbra@redhat.com>
  <20191218131533.15323-1-mdoucha@suse.cz> <20200107152108.GA27182@rei.lan>
@@ -68,18 +68,18 @@ Autocrypt: addr=mdoucha@suse.cz; keydata=
  Rz4zFhW8KQ9+zrae5rL/6vwz3d/MpEeOmDm9uutE6xyzXRl/RxeFZ8P7KlACXWm7VjSyc74E
  eCNL6GOOeqzE77fDcBf4HvNGn8w7IX/FvNzmu78wzT2MDwMi8ug8T4KEKzIYUIRibe7cl0LG
  2dSj02pOT7E5/x4gKQB/OZqnTTQxJ0OL8BJKNFeSYqaMzKFKiYaArwuFkGnCknwh5A==
-Message-ID: <6f2c4482-9a8f-1b14-be18-10b486576f13@suse.cz>
-Date: Tue, 7 Jan 2020 16:50:43 +0100
+Message-ID: <c0d44447-8bd2-8dbe-b865-3323ad6bb5b0@suse.cz>
+Date: Tue, 7 Jan 2020 17:09:08 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.3.1
 MIME-Version: 1.0
 In-Reply-To: <20200107152108.GA27182@rei.lan>
 Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v3] Use real FS block size in fallocate05
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -92,26 +92,62 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: wqu@suse.com, dsterba@suse.com, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 On 1/7/20 4:21 PM, Cyril Hrubis wrote:
-> Hi!
->> Changes since v1:
->> - Increase test device size to 1GB to avoid unrealistic Btrfs edge cases.
+>> +	bufsize = FALLOCATE_BLOCKS * blocksize;
+>> +	buf = realloc(buf, bufsize);
+>> +
+>> +	if (!buf) {
+>> +		SAFE_CLOSE(fd);
+>> +		tst_brk(TBROK, "Buffer allocation failed");
+>> +	}
 > 
-> Do we really need 1GB here? That quadruples the runtime. Aren't we good
-> with just 512MB, that would just double it?
+> Why realloc()? Each filesystem is tested in separately forked process so
+> buf can't be anything but NULL here.
+> 
+> So this should just simply be SAFE_MALLOC() and this piece of code, the
+> part that gets the blocksize and allocates the buffer should be moved
+> into the test setup() function that is executed also once per
+> filesystem. And the free should be in the test cleanup().
+> 
+> That way we would allocate the buffer only once if the test was executed
+> with -i option.
 
-I guess that's a question for Btrfs devs, so let's ask them.
+Where is this control flow documented? When some behavior is not
+documented, I assume it may change without notice and write my code so
+that it will work in every case.
 
-We're trying to test fallocate()/write() on various file systems (both
-space allocation and deallocation). What's the minimum block device size
-where Btrfs will use the same code paths as in real-world use cases?
-mkfs.btrfs is called without --mixed.
+>> -	tst_res(TPASS | TERRNO, "fallocate() on full FS");
+>> +	for (tmp = extsize; tmp > 0; tmp -= TST_RET) {
+>> +		TEST(write(fd, buf, MIN(bufsize, tmp)));
+>>  
+>> -	ret = fallocate(fd, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE, 0, FALLOCATE_SIZE);
+>> -	if (ret == -1) {
+>> -		if (errno == EOPNOTSUPP)
+>> +		if (TST_RET <= 0)
+>> +			tst_brk(TFAIL | TTERRNO, "write() failed unexpectedly");
+> 
+> tst_brk(TFAIL, is not allowed at the moment, see:
+> 
+> https://github.com/linux-test-project/ltp/issues/462
+> 
+> The only current solution is to tst_res() + return
+> 
+> Also shouldn't we check for the write size here as well?
+
+I'll fix the tst_brk().
+
+The code above will either fill the extra allocated space to the last
+byte, or hit the tst_brk(). No other result is possible. I don't want to
+pedantically check for short writes because we're not testing write() here.
+
+I'll implement the rest of your suggestions and resubmit when we get a
+reply from Btrfs devs.
 
 -- 
 Martin Doucha   mdoucha@suse.cz
