@@ -2,40 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2C66132344
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Jan 2020 11:11:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B435113258E
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Jan 2020 13:02:34 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A99ED3C2366
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Jan 2020 11:11:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 51BC53C2365
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Jan 2020 13:02:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 21BC13C234E
- for <ltp@lists.linux.it>; Tue,  7 Jan 2020 11:11:22 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id E57A53C234E
+ for <ltp@lists.linux.it>; Tue,  7 Jan 2020 13:02:31 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 0C9CA6567A4
- for <ltp@lists.linux.it>; Tue,  7 Jan 2020 11:11:21 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 2BE3E1A014A2
+ for <ltp@lists.linux.it>; Tue,  7 Jan 2020 13:02:30 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 1CCD3B248;
- Tue,  7 Jan 2020 10:11:21 +0000 (UTC)
-Date: Tue, 7 Jan 2020 11:11:19 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 6878EB071;
+ Tue,  7 Jan 2020 12:02:30 +0000 (UTC)
+Date: Tue, 7 Jan 2020 13:02:24 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20200107101119.GA22967@rei.lan>
-References: <20200107071324.29492-1-liwang@redhat.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20200107120224.GA26408@rei.lan>
+References: <1576049159-14014-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200107071324.29492-1-liwang@redhat.com>
+In-Reply-To: <1576049159-14014-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] tst_device: add new tst_dev_sync
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] syscalls/capget01: Cleanup & convert to new
+ library
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,17 +54,39 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
->  This function reads test block device stat file (/sys/block/<device>/stat) and
-> -returns the bytes written since the last invocation of this function.
-> +returns the bytes written since the last invocation of this function. To avoid
-> +FS deferred IO metadata/cache interferes the result, we suggest doing "syncfs"
-                                 |   interfecence    |
+Pushed with following changes:
 
-> +before the tst_dev_bytes_written first invocation. And an inline function named
-> +tst_dev_sync is created for that intention.
+diff --git a/testcases/kernel/syscalls/capget/capget01.c b/testcases/kernel/syscalls/capget/capget01.c
+index 743e307c5..bc8bd7ce7 100644
+--- a/testcases/kernel/syscalls/capget/capget01.c
++++ b/testcases/kernel/syscalls/capget/capget01.c
+@@ -31,18 +31,18 @@ static void verify_capget(unsigned int n)
+                .pid = pid,
+        };
+ 
+-       struct __user_cap_data_struct data;
++       struct __user_cap_data_struct data[2];
+ 
+        tst_res(TINFO, "%s", tc->message);
+ 
+-       TEST(tst_syscall(__NR_capget, &hdr, &data));
++       TEST(tst_syscall(__NR_capget, &hdr, data));
+        if (TST_RET == 0)
+                tst_res(TPASS, "capget() returned %ld", TST_RET);
+        else
+                tst_res(TFAIL | TTERRNO, "Test Failed, capget() returned %ld",
+                                TST_RET);
+ 
+-       if (data.effective & 1 << CAP_NET_RAW)
++       if (data[0].effective & 1 << CAP_NET_RAW)
+                tst_res(TFAIL, "capget() gets CAP_NET_RAW unexpectedly in pE");
+        else
+                tst_res(TPASS, "capget() doesn't get CAP_NET_RAW as expected in PE");
 
-Other than this it looks good to me, thanks for doing this, acked.
 
+The version 2 and 3 are 64 bit capabilities, hence we have to pass array of cap_struct_data instead.
+
+Otherwise this is a nice improvement on the testcase, thanks.
 
 -- 
 Cyril Hrubis
