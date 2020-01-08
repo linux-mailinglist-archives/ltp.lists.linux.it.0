@@ -2,43 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D029E1340B7
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 Jan 2020 12:41:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40B3813410F
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 Jan 2020 12:45:52 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7A2203C2512
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 Jan 2020 12:41:48 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B84FE3C24FE
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 Jan 2020 12:45:51 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 310293C246E
- for <ltp@lists.linux.it>; Wed,  8 Jan 2020 12:41:43 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 563EA3C24D3
+ for <ltp@lists.linux.it>; Wed,  8 Jan 2020 12:45:48 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 2255B600FB3
- for <ltp@lists.linux.it>; Wed,  8 Jan 2020 12:41:42 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8FAA460141E
+ for <ltp@lists.linux.it>; Wed,  8 Jan 2020 12:45:47 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 6F0D2B13C;
- Wed,  8 Jan 2020 11:41:42 +0000 (UTC)
-Date: Wed, 8 Jan 2020 12:41:41 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20200108114141.GB17272@rei.lan>
+ by mx2.suse.de (Postfix) with ESMTP id 03021ABED;
+ Wed,  8 Jan 2020 11:45:47 +0000 (UTC)
+Date: Wed, 8 Jan 2020 12:45:45 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20200108114545.GA28867@dell5510>
 References: <20200107071324.29492-1-liwang@redhat.com>
  <20200107101119.GA22967@rei.lan>
  <CAEemH2fmmQ2a0EVHoqkMwMOjy5EZoiNT+02yYRz-TnWpTQ__0A@mail.gmail.com>
  <20200108112537.GA22954@dell5510> <20200108113535.GA17272@rei.lan>
  <CAEemH2dZ0pVqpaecjO06stw8RiK-hmSUWwo=kndm3EsvoXCW2w@mail.gmail.com>
+ <20200108114141.GB17272@rei.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEemH2dZ0pVqpaecjO06stw8RiK-hmSUWwo=kndm3EsvoXCW2w@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+In-Reply-To: <20200108114141.GB17272@rei.lan>
+User-Agent: Mutt/1.12.2 (2019-09-21)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] tst_device: add new tst_dev_sync
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -51,21 +51,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi
-> Btw I just pushed a simple fix to include unistd.h, it seems not works.
+Hi Li, Cyril,
 
-You would need to define _GNU_SOURCE at the top of each test that uses
-it otherwise the definition is not exposed.
+> Hi
+> > Btw I just pushed a simple fix to include unistd.h, it seems not works.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+> You would need to define _GNU_SOURCE at the top of each test that uses
+> it otherwise the definition is not exposed.
+Yep :(. I join to Cyril's vote for raw syscall.
+BTW please test it with travis or locally build.sh script (which adds
+-Werror=implicit-function-declaration).
+
+I guess we should work on travis CI integration so we don't have to push it to
+travis manually [1].
+
+Kind regards,
+Petr
+
+[1] https://github.com/linux-test-project/ltp/issues/599
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
