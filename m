@@ -1,43 +1,53 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F217132B10
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Jan 2020 17:29:39 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id CFDA4133925
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 Jan 2020 03:35:10 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1B0903C27D6
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Jan 2020 17:29:39 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 95D493C258E
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 Jan 2020 03:35:10 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 3A38E3C2357
- for <ltp@lists.linux.it>; Tue,  7 Jan 2020 17:29:36 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 3A66260047C
- for <ltp@lists.linux.it>; Tue,  7 Jan 2020 17:29:35 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 5C2AEB00D;
- Tue,  7 Jan 2020 16:29:35 +0000 (UTC)
-Date: Tue, 7 Jan 2020 17:29:34 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20200107162933.GA2193@rei.lan>
-References: <461386048.17251961.1576663655809.JavaMail.zimbra@redhat.com>
- <20191218131533.15323-1-mdoucha@suse.cz>
- <20200107152108.GA27182@rei.lan>
- <c0d44447-8bd2-8dbe-b865-3323ad6bb5b0@suse.cz>
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 83DDE3C246E
+ for <ltp@lists.linux.it>; Wed,  8 Jan 2020 03:35:07 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 4ADEA1A00A39
+ for <ltp@lists.linux.it>; Wed,  8 Jan 2020 03:35:05 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.69,408,1571673600"; d="scan'208";a="81466428"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 08 Jan 2020 10:35:01 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 0112349E932C;
+ Wed,  8 Jan 2020 10:26:01 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1395.4; Wed, 8 Jan 2020 10:34:59 +0800
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <1576049159-14014-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20200107120224.GA26408@rei.lan> <20200107122604.GC26408@rei.lan>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <d10b9b79-1ab2-ba62-e67b-2262b5a8f2b1@cn.fujitsu.com>
+Date: Wed, 8 Jan 2020 10:34:59 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <c0d44447-8bd2-8dbe-b865-3323ad6bb5b0@suse.cz>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+In-Reply-To: <20200107122604.GC26408@rei.lan>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 0112349E932C.A0954
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] Use real FS block size in fallocate05
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] syscalls/capget01: Cleanup & convert to new
+ library
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,65 +60,29 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > Why realloc()? Each filesystem is tested in separately forked process so
-> > buf can't be anything but NULL here.
-> > 
-> > So this should just simply be SAFE_MALLOC() and this piece of code, the
-> > part that gets the blocksize and allocates the buffer should be moved
-> > into the test setup() function that is executed also once per
-> > filesystem. And the free should be in the test cleanup().
-> > 
-> > That way we would allocate the buffer only once if the test was executed
-> > with -i option.
-> 
-> Where is this control flow documented? When some behavior is not
-> documented, I assume it may change without notice and write my code so
-> that it will work in every case.
+Hi Cyril
+> Hi!
+> Also btw, we do not cover the case with pid == 0 now, which should
+> return the capabilities for the calling thread. I guess that we can run
+> the capget01 verify function twice, once for pid == getpid() and once
+> for pid == 0.
+>Sorry, I didn't notice this before.
+I double read capget/capset man-pages and refer to kernel code.
+pid = 0 that it indeed returns the the capabilities for the calling 
+thread. I will add it.
+Also, for capget syscall, it can get the  capabilities for any existed 
+process. I think we should also test this by using child process in a 
+new case like capset04.c.
 
-Unfortunately at the moment only in the lib/tst_test.c source code.
+Best Regards
+Yang Xu
 
-I want to write down a design document for the library, that would
-explain the more complicated parts and decisions, but I'm not sure when
-I will get to that.
 
-> >> -	tst_res(TPASS | TERRNO, "fallocate() on full FS");
-> >> +	for (tmp = extsize; tmp > 0; tmp -= TST_RET) {
-> >> +		TEST(write(fd, buf, MIN(bufsize, tmp)));
-> >>  
-> >> -	ret = fallocate(fd, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE, 0, FALLOCATE_SIZE);
-> >> -	if (ret == -1) {
-> >> -		if (errno == EOPNOTSUPP)
-> >> +		if (TST_RET <= 0)
-> >> +			tst_brk(TFAIL | TTERRNO, "write() failed unexpectedly");
-> > 
-> > tst_brk(TFAIL, is not allowed at the moment, see:
-> > 
-> > https://github.com/linux-test-project/ltp/issues/462
-> > 
-> > The only current solution is to tst_res() + return
-> > 
-> > Also shouldn't we check for the write size here as well?
-> 
-> I'll fix the tst_brk().
-> 
-> The code above will either fill the extra allocated space to the last
-> byte, or hit the tst_brk(). No other result is possible. I don't want to
-> pedantically check for short writes because we're not testing write() here.
-> 
-> I'll implement the rest of your suggestions and resubmit when we get a
-> reply from Btrfs devs.
-
-Ok, thanks.
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
