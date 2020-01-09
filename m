@@ -2,39 +2,56 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D9FC135641
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2020 10:52:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C087C13564F
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2020 10:56:35 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 05FB13C24AF
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2020 10:52:45 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 779D43C2468
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2020 10:56:32 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 3ACAA3C2459
- for <ltp@lists.linux.it>; Thu,  9 Jan 2020 10:52:41 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B36C91000A28
- for <ltp@lists.linux.it>; Thu,  9 Jan 2020 10:52:40 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 39870C21D;
- Thu,  9 Jan 2020 09:52:40 +0000 (UTC)
-Date: Thu, 9 Jan 2020 10:52:39 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20200109095239.GB31981@rei.lan>
-References: <20200109071510.11223-1-liwang@redhat.com>
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 321363C2270
+ for <ltp@lists.linux.it>; Thu,  9 Jan 2020 10:56:28 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 9F5A16019F9
+ for <ltp@lists.linux.it>; Thu,  9 Jan 2020 10:56:25 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.69,413,1571673600"; d="scan'208";a="81540635"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 09 Jan 2020 17:56:21 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 597E649E9338;
+ Thu,  9 Jan 2020 17:47:21 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1395.4; Thu, 9 Jan 2020 17:56:21 +0800
+To: Petr Vorel <pvorel@suse.cz>
+References: <20200107071324.29492-1-liwang@redhat.com>
+ <20200107101119.GA22967@rei.lan>
+ <CAEemH2fmmQ2a0EVHoqkMwMOjy5EZoiNT+02yYRz-TnWpTQ__0A@mail.gmail.com>
+ <20200108112537.GA22954@dell5510> <20200108113535.GA17272@rei.lan>
+ <CAEemH2dZ0pVqpaecjO06stw8RiK-hmSUWwo=kndm3EsvoXCW2w@mail.gmail.com>
+ <20200108114141.GB17272@rei.lan> <20200108114545.GA28867@dell5510>
+ <5518d8cd-7d35-8c65-e881-5f49c73dc379@cn.fujitsu.com>
+ <20200109084627.GA19145@dell5510>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <b429ce24-037f-6717-23bd-5b044891c62a@cn.fujitsu.com>
+Date: Thu, 9 Jan 2020 17:56:21 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200109071510.11223-1-liwang@redhat.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+In-Reply-To: <20200109084627.GA19145@dell5510>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 597E649E9338.AB6B3
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] tst_device: use raw syscall in the tst_device.h
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] tst_device: add new tst_dev_sync
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,53 +63,45 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
+Cc: LTP List <ltp@lists.linux.it>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> +#define _GNU_SOURCE
->  #include <unistd.h>
-> +#include <sys/syscall.h>
+Hi Petr
+> Hi Xu,
+> 
+>>> I guess we should work on travis CI integration so we don't have to push it to
+>>> travis manually [1].
+>> Do we have a tool or a function that
+>> when this pushing patch complie succeeded, then merge successfully or reject
+>> auto because of fail. Like gerrit.
+> Well, we have patchwork and his REST API [2] (IMHO lightweight than gerrit, but
+> needs to be setup). More info is at #599 [2].
+> 
+>> Or, pushing patch compiler on travis CI first, then merged into ltp master.
+> 
+>> If not, it seems that we can only try on our own ltp fork(Usually, I do it
+>> when I write a new case or cleanup)
+> That's what I want to automate. It will probably needs some special github account,
+> but we have it for travis anyway.
+Thanks for your info. If this can realize, it will be great.
 
-Defining _GNU_SOURCE anywhere but at the top of the test source is
-meaningless. It has to be defined before we include any libc headers
-otherwise it's ignored.
+ps: When I have free time, I will read them in detail.
 
->  struct tst_device {
->  	const char *dev;
-> @@ -75,9 +77,9 @@ int tst_detach_device(const char *dev_path);
->   * simply before the tst_dev_bytes_written invocation. For easy to use,
->   * we create this inline function tst_dev_sync.
->   */
-> -static inline void tst_dev_sync(int fd)
-> +static inline int tst_dev_sync(int fd)
->  {
-> -	syncfs(fd);
-> +	return syscall(__NR_syncfs, fd);
->  }
->  
->  /*
-> diff --git a/testcases/kernel/syscalls/fadvise/posix_fadvise01.c b/testcases/kernel/syscalls/fadvise/posix_fadvise01.c
-> index 2af040840..f5d7ca8ac 100644
-> --- a/testcases/kernel/syscalls/fadvise/posix_fadvise01.c
-> +++ b/testcases/kernel/syscalls/fadvise/posix_fadvise01.c
-> @@ -20,6 +20,7 @@
->   *	None
->   */
->  
-> +#define _GNU_SOURCE
->  #define _XOPEN_SOURCE 600
->  #include <fcntl.h>
+Best Regards
+Yang Xu
+> 
+> Kind regards,
+> Petr
+> 
+> [1] https://github.com/linux-test-project/ltp/issues/599
+> [2] https://patchwork.readthedocs.io/en/latest/api/rest/
+> 
+> 
 
-Why do we need the _GNU_SOURCE here? We switched to a syscall() in the
-header, hence we do not need the syncfs() prototype anymore.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
