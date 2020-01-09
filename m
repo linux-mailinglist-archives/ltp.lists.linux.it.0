@@ -2,48 +2,56 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC1C4135373
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2020 08:00:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F0DC135397
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2020 08:15:28 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 398333C249A
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2020 08:00:35 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A20703C24A4
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2020 08:15:27 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 094E63C242C
- for <ltp@lists.linux.it>; Thu,  9 Jan 2020 08:00:25 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 2CA7060102A
- for <ltp@lists.linux.it>; Thu,  9 Jan 2020 08:00:20 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.69,412,1571673600"; d="scan'208";a="81521961"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 09 Jan 2020 15:00:18 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id E730249E933E;
- Thu,  9 Jan 2020 14:51:15 +0800 (CST)
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.83) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1395.4; Thu, 9 Jan 2020 15:00:17 +0800
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Thu, 9 Jan 2020 15:00:14 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <chrubis@suse.cz>
-Date: Thu, 9 Jan 2020 15:00:17 +0800
-Message-ID: <1578553217-29510-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id A38693C242C
+ for <ltp@lists.linux.it>; Thu,  9 Jan 2020 08:15:23 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 0FC901000F62
+ for <ltp@lists.linux.it>; Thu,  9 Jan 2020 08:15:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1578554121;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=eSUxzxzSlCfxkyenzSSvFWoe3It52MT7pE0h9oa+OYk=;
+ b=JVEAecAyZlrlQCFIq4F+KUPiIoZ2vnYNCkngdVSaZY29w7qZvpKp5+X/FftPuBu3sbdOlo
+ cykFmaTUSvh/Zl7/zJSCzssYIxzQc4VJK2dLfJhKHa7kdeSLixp6coltwIajpHturIxfgX
+ PewnhzatawUb0IDc4/cTFgXZkMUmwLg=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-263-rmiCRaAqNn-m3BvgDQSLuQ-1; Thu, 09 Jan 2020 02:15:17 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0B34A100550E;
+ Thu,  9 Jan 2020 07:15:16 +0000 (UTC)
+Received: from localhost.localdomain.com (unknown [10.66.81.246])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id B47FB272A3;
+ Thu,  9 Jan 2020 07:15:13 +0000 (UTC)
+From: Li Wang <liwang@redhat.com>
+To: ltp@lists.linux.it
+Date: Thu,  9 Jan 2020 15:15:10 +0800
+Message-Id: <20200109071510.11223-1-liwang@redhat.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-yoursite-MailScanner-ID: E730249E933E.AEDAD
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-MC-Unique: rmiCRaAqNn-m3BvgDQSLuQ-1
+X-Mimecast-Spam-Score: 0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] syscalls/capget02: Use pid=0 instead of getpid()
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH] tst_device: use raw syscall in the tst_device.h
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,48 +63,127 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Since pid=0 returns the capabilities for the calling thread,
-we can remove getpid and use pid=0 instead of it. Also we
-can cover this test point.
+To follow up commit 447c223dba538efc7be23edc.
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Signed-off-by: Li Wang <liwang@redhat.com>
+Tested-by: Li Wang <liwang@redhat.com>
+Cc: Petr Vorel <pvorel@suse.cz>
+Cc: Cyril Hrubis <chrubis@suse.cz>
 ---
- testcases/kernel/syscalls/capget/capget02.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ include/tst_device.h                                | 6 ++++--
+ testcases/kernel/syscalls/fadvise/posix_fadvise01.c | 1 +
+ testcases/kernel/syscalls/fadvise/posix_fadvise02.c | 1 +
+ testcases/kernel/syscalls/fadvise/posix_fadvise03.c | 1 +
+ testcases/kernel/syscalls/fadvise/posix_fadvise04.c | 1 +
+ testcases/kernel/syscalls/fstat/fstat03.c           | 1 +
+ testcases/kernel/syscalls/pwrite/pwrite02.c         | 1 +
+ 7 files changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/capget/capget02.c b/testcases/kernel/syscalls/capget/capget02.c
-index 42c76a011..0a23700b9 100644
---- a/testcases/kernel/syscalls/capget/capget02.c
-+++ b/testcases/kernel/syscalls/capget/capget02.c
-@@ -69,15 +69,13 @@ static void verify_capget(unsigned int n)
+diff --git a/include/tst_device.h b/include/tst_device.h
+index f277afd77..b4067be52 100644
+--- a/include/tst_device.h
++++ b/include/tst_device.h
+@@ -18,7 +18,9 @@
+ #ifndef TST_DEVICE_H__
+ #define TST_DEVICE_H__
  
- static void setup(void)
++#define _GNU_SOURCE
+ #include <unistd.h>
++#include <sys/syscall.h>
+ 
+ struct tst_device {
+ 	const char *dev;
+@@ -75,9 +77,9 @@ int tst_detach_device(const char *dev_path);
+  * simply before the tst_dev_bytes_written invocation. For easy to use,
+  * we create this inline function tst_dev_sync.
+  */
+-static inline void tst_dev_sync(int fd)
++static inline int tst_dev_sync(int fd)
  {
--	unsigned int i, pid;
--
--	pid = getpid();
-+	unsigned int i;
+-	syncfs(fd);
++	return syscall(__NR_syncfs, fd);
+ }
  
- 	header.version = 0x19980330;
--	header.pid = pid;
-+	header.pid = 0;
+ /*
+diff --git a/testcases/kernel/syscalls/fadvise/posix_fadvise01.c b/testcases/kernel/syscalls/fadvise/posix_fadvise01.c
+index 2af040840..f5d7ca8ac 100644
+--- a/testcases/kernel/syscalls/fadvise/posix_fadvise01.c
++++ b/testcases/kernel/syscalls/fadvise/posix_fadvise01.c
+@@ -20,6 +20,7 @@
+  *	None
+  */
  
- 	bad_version_header.version = 0;
--	bad_version_header.pid = pid;
-+	bad_version_header.pid = 0;
++#define _GNU_SOURCE
+ #define _XOPEN_SOURCE 600
+ #include <fcntl.h>
  
- 	bad_pid_header.version = 0x19980330;
- 	bad_pid_header.pid = -1;
+diff --git a/testcases/kernel/syscalls/fadvise/posix_fadvise02.c b/testcases/kernel/syscalls/fadvise/posix_fadvise02.c
+index d533a7953..899f58af8 100644
+--- a/testcases/kernel/syscalls/fadvise/posix_fadvise02.c
++++ b/testcases/kernel/syscalls/fadvise/posix_fadvise02.c
+@@ -20,6 +20,7 @@
+  *	None
+  */
+ 
++#define _GNU_SOURCE
+ #define _XOPEN_SOURCE 600
+ #include <fcntl.h>
+ #include <unistd.h>
+diff --git a/testcases/kernel/syscalls/fadvise/posix_fadvise03.c b/testcases/kernel/syscalls/fadvise/posix_fadvise03.c
+index 5bada5f3d..efd3ab378 100644
+--- a/testcases/kernel/syscalls/fadvise/posix_fadvise03.c
++++ b/testcases/kernel/syscalls/fadvise/posix_fadvise03.c
+@@ -20,6 +20,7 @@
+  *	None
+  */
+ 
++#define _GNU_SOURCE
+ #define _XOPEN_SOURCE 600
+ #include <fcntl.h>
+ #include <unistd.h>
+diff --git a/testcases/kernel/syscalls/fadvise/posix_fadvise04.c b/testcases/kernel/syscalls/fadvise/posix_fadvise04.c
+index d8d8fb601..58162c6fb 100644
+--- a/testcases/kernel/syscalls/fadvise/posix_fadvise04.c
++++ b/testcases/kernel/syscalls/fadvise/posix_fadvise04.c
+@@ -20,6 +20,7 @@
+  *	None
+  */
+ 
++#define _GNU_SOURCE
+ #define _XOPEN_SOURCE 600
+ #include <fcntl.h>
+ #include <unistd.h>
+diff --git a/testcases/kernel/syscalls/fstat/fstat03.c b/testcases/kernel/syscalls/fstat/fstat03.c
+index 68fae43df..51637cdd7 100644
+--- a/testcases/kernel/syscalls/fstat/fstat03.c
++++ b/testcases/kernel/syscalls/fstat/fstat03.c
+@@ -13,6 +13,7 @@
+  *    -> EFAULT (or receive signal SIGSEGV)
+  */
+ 
++#define _GNU_SOURCE
+ #include <errno.h>
+ #include <stdlib.h>
+ #include <unistd.h>
+diff --git a/testcases/kernel/syscalls/pwrite/pwrite02.c b/testcases/kernel/syscalls/pwrite/pwrite02.c
+index 056d44da2..4582d4e94 100644
+--- a/testcases/kernel/syscalls/pwrite/pwrite02.c
++++ b/testcases/kernel/syscalls/pwrite/pwrite02.c
+@@ -18,6 +18,7 @@
+  *      accessible address space, returns EFAULT.
+  */
+ 
++#define _GNU_SOURCE
+ #define _XOPEN_SOURCE 500
+ 
+ #include <errno.h>
 -- 
-2.18.0
-
-
+2.20.1
 
 
 -- 
