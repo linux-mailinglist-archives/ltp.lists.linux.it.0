@@ -2,43 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C55A61359C6
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2020 14:11:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E377135B12
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2020 15:09:13 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 955EB3C247A
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2020 14:11:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 315193C2470
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jan 2020 15:09:13 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 0647A3C23D9
- for <ltp@lists.linux.it>; Thu,  9 Jan 2020 14:11:02 +0100 (CET)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id D4FB73C23CB
+ for <ltp@lists.linux.it>; Thu,  9 Jan 2020 15:09:11 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C75CF1000CE8
- for <ltp@lists.linux.it>; Thu,  9 Jan 2020 14:11:01 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 4838914019D1
+ for <ltp@lists.linux.it>; Thu,  9 Jan 2020 15:09:10 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 65D9FB278E;
- Thu,  9 Jan 2020 13:10:57 +0000 (UTC)
-Date: Thu, 9 Jan 2020 14:10:56 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 8DCC4B2E2B;
+ Thu,  9 Jan 2020 14:08:54 +0000 (UTC)
+Date: Thu, 9 Jan 2020 15:08:53 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20200109131056.GC22952@rei.lan>
-References: <20200109071510.11223-1-liwang@redhat.com>
- <20200109095239.GB31981@rei.lan>
- <CAEemH2eBO5WywEvBJKyEpVCky05CHp-JpwpFUSgAUjTx8GAKtQ@mail.gmail.com>
- <20200109125615.GA11609@dell5510>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20200109140853.GB27225@rei.lan>
+References: <20200108134807.27001-1-chrubis@suse.cz>
+ <278a5c21-348e-5fd8-f33f-82e267028710@cn.fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200109125615.GA11609@dell5510>
+In-Reply-To: <278a5c21-348e-5fd8-f33f-82e267028710@cn.fujitsu.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] tst_device: use raw syscall in the tst_device.h
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] tst_device: Scan /sys/block/* for stat file
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,56 +47,53 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > But shouldn't we define the _GNU_SOURCE for syscall()?  Otherwise,
-> > the _XOPEN_SOURCE 600 definitions will take effect and makes the compiler
-> > print new errors[1].
-> Correct, syscall() requires _GNU_SOURCE and <unistd.h>.
+> > The current tst_dev_bytes_written() function works only for simple cases
+> > where the block device is not divided into partitions. This patch fixes
+> > that scannning the sysfiles for pattern /sys/block/*/devname/stat.
+> > 
+> > Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+> > CC: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+> > CC: Sumit Garg <sumit.garg@linaro.org>
+> > ---
+> >   lib/tst_device.c | 33 ++++++++++++++++++++++++++++-----
+> >   1 file changed, 28 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/lib/tst_device.c b/lib/tst_device.c
+> > index 10f71901d..aca769559 100644
+> > --- a/lib/tst_device.c
+> > +++ b/lib/tst_device.c
+> > @@ -373,16 +373,39 @@ int tst_umount(const char *path)
+> >   	return -1;
+> >   }
+> >   
+> > +int find_stat_file(const char *dev, char *path, size_t path_len)
+> > +{
+> > +	const char *devname = strrchr(dev, '/') + 1;
+> > +
+> > +	snprintf(path, path_len, "/sys/block/%s/stat", devname);
+> > +
+> > +	if (!access(path, F_OK))
+> > +		return 1;
+> > +
+> > +	DIR *dir = SAFE_OPENDIR(NULL, "/sys/block/");
+> > +	struct dirent *ent;
+> > +
+> > +	while ((ent = readdir(dir))) {
+> > +		snprintf(path, path_len, "/sys/block/%s/%s/stat", ent->d_name, devname);
+> > +
+> > +		fprintf(stderr, "%s\n", path);
+> > +
+> It will make many noise when using .all_filesystem and we can remove it. 
+> Other than, it looks good to me.
 
-Not really, it's guarded by _USE_MISC which is enabled by default and
-disabled by _XOPEN_SOURCE.
-
-Looks like the manual page is outdated at least.
-
-> + Not sure if <sys/syscall.h> should be used (as it's in your patch or
-> lapi/syscalls.h.
-
-Well, given that syncfs is old enough (2.6.39) either should work.
-
-> > Here I feel a little confused, or do we need to delete the _XOPEN_SOURCE
-> > definition directly for the test posix_fadvise01.c?
-> 
-> > [1]:
-> > gcc -Werror=implicit-function-declaration -g -O2 -fno-strict-aliasing -pipe
-> > -Wall -W -Wold-style-definition
-> >  -I/root/ltp2/testcases/kernel/syscalls/fadvise
-> > -I/root/ltp2/testcases/kernel/syscalls/fadvise/../utils
-> > -I../../../../include -I../../../../include -I../../../../include/old/
-> > -L../../../../lib  posix_fadvise01.c   -lltp -o posix_fadvise01
-> > In file included from ../../../../include/tst_test.h:22,
-> >                  from posix_fadvise01.c:31:
-> > ../../../../include/tst_device.h: In function ???tst_dev_sync???:
-> > ../../../../include/tst_device.h:82:9: error: implicit declaration of
-> > function ???syscall???; did you mean ???strcoll????
-> > [-Werror=implicit-function-declaration]
-> >   return syscall(__NR_syncfs, fd);
-> >          ^~~~~~~
-> >          strcoll
-> 
-> + Our syscall numbers in include/lapi/syscalls/ are outdated (syncfs is not at
-> least in include/lapi/syscalls/sparc{64,}.in and
-> include/lapi/syscalls/x86_64.in).
-
-The lapi/syscall.h includes sys/syscall.h so it's probably not a
-problem, since there are no distribution that are missing syncfs in the
-system headers. Note that we are only adding fallback definitions there
-and if present the system values take precedence.
+That's forgotten debug print, I should have removed that before sending.
 
 -- 
 Cyril Hrubis
