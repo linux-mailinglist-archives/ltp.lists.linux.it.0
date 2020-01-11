@@ -2,60 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21ED9137B69
-	for <lists+linux-ltp@lfdr.de>; Sat, 11 Jan 2020 05:47:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58FE3138244
+	for <lists+linux-ltp@lfdr.de>; Sat, 11 Jan 2020 17:09:10 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DDB983C24E2
-	for <lists+linux-ltp@lfdr.de>; Sat, 11 Jan 2020 05:47:17 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 780983C23B0
+	for <lists+linux-ltp@lfdr.de>; Sat, 11 Jan 2020 17:09:09 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id F1B503C24BC
- for <ltp@lists.linux.it>; Sat, 11 Jan 2020 05:47:15 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [207.211.31.120])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 4A30860096F
- for <ltp@lists.linux.it>; Sat, 11 Jan 2020 05:47:13 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 6C9813C2390
+ for <ltp@lists.linux.it>; Sat, 11 Jan 2020 17:09:08 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id ADD9E200395
+ for <ltp@lists.linux.it>; Sat, 11 Jan 2020 17:09:05 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1578718031;
+ s=mimecast20190719; t=1578758944;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=0o2+Pz4M0Fkk7j9ITwdCQ4B3Z/8fR0kq/lGVVlqj/Fc=;
- b=eyenF9DCXGDKXUbQZt8tSNldXoOCl1oYZWEXmGyJ/+HimFkcb6AB2v3gcj/cEjPClgkmPS
- KrbOKlGibKNSim4qTD4O0LqGO8jc16a5BwBTTbJw10BA1tfFiku7Ey1DLOUBEkTRs0M3aC
- LtfN+zrGp0cEuxevCjmw9yo/8No9A6E=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-357-sYgcNdv0Pr63_VK6n1t6TA-1; Fri, 10 Jan 2020 23:47:09 -0500
-X-MC-Unique: sYgcNdv0Pr63_VK6n1t6TA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ECB46107ACC4;
- Sat, 11 Jan 2020 04:47:07 +0000 (UTC)
-Received: from [172.54.91.90] (cpt-1046.paas.prod.upshift.rdu2.redhat.com
- [10.0.19.73])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 4C5865DA60;
- Sat, 11 Jan 2020 04:47:02 +0000 (UTC)
+ in-reply-to:in-reply-to:references:references;
+ bh=Y/UGvKBgoJwGiq8sUxGcyCY/TXBJj3w/7389a9fGg8Y=;
+ b=HyqSpbCRNj2XCDY4WQw/ODkuXcnbz9SR987SsbD4l8gHKRefwtzUGFNw8Hx5I5skUacQcM
+ ZOILww9Otuir1ickkfVaWVWG8Sm8HLovY4H611VXn4eTKHsL8QCv9JvxtWF+/X4XXZljqk
+ b5ZSYOP6gLO80tgsVBaf7wwnEwt9svU=
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-322-rLG_Ri19NoynpDZcpqKK0g-1; Sat, 11 Jan 2020 11:08:59 -0500
+Received: by mail-oi1-f200.google.com with SMTP id q204so2117942oic.12
+ for <ltp@lists.linux.it>; Sat, 11 Jan 2020 08:08:59 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=mTHyKhNPyRlZXCyUGzWLNqLBeR6xV435TeMmYqukn+E=;
+ b=NDnLis+ONgF4Q34W/4KjSH+qx4rJZOHbeQ/2Tr00dWK8+r3Ae43X3yK8pAatJEYX50
+ HOBmQl5bVgxnc7+QXpPNv65vdw881/cyAHI19Ja3ivXjvL0KaMs7bwsmkBpgtfAg65IY
+ qp6PoRnCO/IPvb/FCnJNkwYWj/dAmErXzboq2vsJtf9X7Ypp0ko0yzMhXb6GLuyIBC1F
+ dbxv4VZRogGsk+Q/siWPZ31jSgWx+I1qw5dUd5CIDM8OZIfqFRPFoQC0Guh/FCG++Qol
+ BNm3uMxjH+7X27eeYjItNR8tzHD1DYfgCkD2wn96DvLR6KZV2Nxj/wlULySMDVMot2yu
+ Ygvg==
+X-Gm-Message-State: APjAAAWHnHa5DFe4BwJynaPTUqBWjUym7K/HcuvMSAsk4OMwi6xNLlax
+ C+hPuf2NZoLSuFFkjbpSNZ7IESluGQXU6hO9OqFmnVO3P2KeesIHV3TU1NXF9+jeUG0eQoqKVws
+ Rg818jDaqy0vUNLZ3M6+gpzoMM14=
+X-Received: by 2002:a9d:7:: with SMTP id 7mr6822560ota.26.1578758938695;
+ Sat, 11 Jan 2020 08:08:58 -0800 (PST)
+X-Google-Smtp-Source: APXvYqzRG0o3eB8gSwozkTtw0bo8hqRpz5HZD8+yVhMEGsBGQHgDG8yisgULAQOk15W3VbjSCyqnotZ/njPbhrjhmM8=
+X-Received: by 2002:a9d:7:: with SMTP id 7mr6822540ota.26.1578758938437; Sat,
+ 11 Jan 2020 08:08:58 -0800 (PST)
 MIME-Version: 1.0
-From: CKI Project <cki-project@redhat.com>
-To: Linux Stable maillist <stable@vger.kernel.org>
-Date: Sat, 11 Jan 2020 04:47:01 -0000
-Message-ID: <cki.4D5FABAF36.OR1DC5U2IE@redhat.com>
-X-Gitlab-Pipeline-ID: 375737
-X-Gitlab-Url: https://xci32.lab.eng.rdu2.redhat.com
-X-Gitlab-Path: /cki-project/cki-pipeline/pipelines/375737
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+References: <20200110151443.212842-1-pvorel@suse.cz>
+In-Reply-To: <20200110151443.212842-1-pvorel@suse.cz>
+From: Li Wang <liwang@redhat.com>
+Date: Sat, 11 Jan 2020 17:08:46 +0100
+Message-ID: <CAEemH2fHz9NEcy9_zDpEQUGTRrx_j0zceY7zwAE9_j1Xgqx8+Q@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+X-MC-Unique: rLG_Ri19NoynpDZcpqKK0g-1
+X-Mimecast-Spam-Score: 0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E4?=
- =?utf-8?q?=2E11-rc1-ba0685a=2Ecki_=28stable=29?=
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] tst_device: use raw syscall in the
+ tst_device.h
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,229 +76,331 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jianwen Ji <jiji@redhat.com>, Hangbin Liu <haliu@redhat.com>,
- Memory Management <mm-qe@redhat.com>, Jianlin Shi <jishi@redhat.com>,
- LTP Mailing List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0211303909=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-CkhlbGxvLAoKV2UgcmFuIGF1dG9tYXRlZCB0ZXN0cyBvbiBhIHJlY2VudCBjb21taXQgZnJvbSB0
-aGlzIGtlcm5lbCB0cmVlOgoKICAgICAgIEtlcm5lbCByZXBvOiBnaXQ6Ly9naXQua2VybmVsLm9y
-Zy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvc3RhYmxlL2xpbnV4LXN0YWJsZS1yYy5naXQKICAg
-ICAgICAgICAgQ29tbWl0OiBiYTA2ODVhNzJmMTAgLSBMaW51eCA1LjQuMTEtcmMxCgpUaGUgcmVz
-dWx0cyBvZiB0aGVzZSBhdXRvbWF0ZWQgdGVzdHMgYXJlIHByb3ZpZGVkIGJlbG93LgoKICAgIE92
-ZXJhbGwgcmVzdWx0OiBGQUlMRUQgKHNlZSBkZXRhaWxzIGJlbG93KQogICAgICAgICAgICAgTWVy
-Z2U6IE9LCiAgICAgICAgICAgQ29tcGlsZTogT0sKICAgICAgICAgICAgIFRlc3RzOiBGQUlMRUQK
-CkFsbCBrZXJuZWwgYmluYXJpZXMsIGNvbmZpZyBmaWxlcywgYW5kIGxvZ3MgYXJlIGF2YWlsYWJs
-ZSBmb3IgZG93bmxvYWQgaGVyZToKCiAgaHR0cHM6Ly9hcnRpZmFjdHMuY2tpLXByb2plY3Qub3Jn
-L3BpcGVsaW5lcy8zNzU3MzcKCk9uZSBvciBtb3JlIGtlcm5lbCB0ZXN0cyBmYWlsZWQ6CgogICAg
-YWFyY2g2NDoKICAgICDinYwgTmV0d29ya2luZyB0dW5uZWw6IGdlbmV2ZSBiYXNpYyB0ZXN0CiAg
-ICAg4p2MIE5ldHdvcmtpbmcgdHVubmVsOiBncmUgYmFzaWMKICAgICDinYwgTmV0d29ya2luZyB0
-dW5uZWw6IHZ4bGFuIGJhc2ljCgogICAgeDg2XzY0OgogICAgIOKdjCBOZXR3b3JraW5nIHJvdXRl
-X2Z1bmM6IGxvY2FsCiAgICAg4p2MIE5ldHdvcmtpbmcgdHVubmVsOiBnZW5ldmUgYmFzaWMgdGVz
-dAogICAgIOKdjCBOZXR3b3JraW5nIHR1bm5lbDogZ3JlIGJhc2ljCiAgICAg4p2MIExUUAoKV2Ug
-aG9wZSB0aGF0IHRoZXNlIGxvZ3MgY2FuIGhlbHAgeW91IGZpbmQgdGhlIHByb2JsZW0gcXVpY2ts
-eS4gRm9yIHRoZSBmdWxsCmRldGFpbCBvbiBvdXIgdGVzdGluZyBwcm9jZWR1cmVzLCBwbGVhc2Ug
-c2Nyb2xsIHRvIHRoZSBib3R0b20gb2YgdGhpcyBtZXNzYWdlLgoKUGxlYXNlIHJlcGx5IHRvIHRo
-aXMgZW1haWwgaWYgeW91IGhhdmUgYW55IHF1ZXN0aW9ucyBhYm91dCB0aGUgdGVzdHMgdGhhdCB3
-ZQpyYW4gb3IgaWYgeW91IGhhdmUgYW55IHN1Z2dlc3Rpb25zIG9uIGhvdyB0byBtYWtlIGZ1dHVy
-ZSB0ZXN0cyBtb3JlIGVmZmVjdGl2ZS4KCiAgICAgICAgLC0uICAgLC0uCiAgICAgICAoIEMgKSAo
-IEsgKSAgQ29udGludW91cwogICAgICAgIGAtJywtLmAtJyAgIEtlcm5lbAogICAgICAgICAgKCBJ
-ICkgICAgIEludGVncmF0aW9uCiAgICAgICAgICAgYC0nCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwoK
-Q29tcGlsZSB0ZXN0aW5nCi0tLS0tLS0tLS0tLS0tLQoKV2UgY29tcGlsZWQgdGhlIGtlcm5lbCBm
-b3IgMyBhcmNoaXRlY3R1cmVzOgoKICAgIGFhcmNoNjQ6CiAgICAgIG1ha2Ugb3B0aW9uczogLWoz
-MCBJTlNUQUxMX01PRF9TVFJJUD0xIHRhcmd6LXBrZwoKICAgIHBwYzY0bGU6CiAgICAgIG1ha2Ug
-b3B0aW9uczogLWozMCBJTlNUQUxMX01PRF9TVFJJUD0xIHRhcmd6LXBrZwoKICAgIHg4Nl82NDoK
-ICAgICAgbWFrZSBvcHRpb25zOiAtajMwIElOU1RBTExfTU9EX1NUUklQPTEgdGFyZ3otcGtnCgoK
-SGFyZHdhcmUgdGVzdGluZwotLS0tLS0tLS0tLS0tLS0tCldlIGJvb3RlZCBlYWNoIGtlcm5lbCBh
-bmQgcmFuIHRoZSBmb2xsb3dpbmcgdGVzdHM6CgogIGFhcmNoNjQ6CiAgICBIb3N0IDE6CgogICAg
-ICAg4pqhIEludGVybmFsIGluZnJhc3RydWN0dXJlIGlzc3VlcyBwcmV2ZW50ZWQgb25lIG9yIG1v
-cmUgdGVzdHMgKG1hcmtlZAogICAgICAgd2l0aCDimqHimqHimqEpIGZyb20gcnVubmluZyBvbiB0
-aGlzIGFyY2hpdGVjdHVyZS4KICAgICAgIFRoaXMgaXMgbm90IHRoZSBmYXVsdCBvZiB0aGUga2Vy
-bmVsIHRoYXQgd2FzIHRlc3RlZC4KCiAgICAgICDinIUgQm9vdCB0ZXN0CiAgICAgICDinIUgUG9k
-bWFuIHN5c3RlbSBpbnRlZ3JhdGlvbiB0ZXN0IChhcyByb290KQogICAgICAg4pyFIFBvZG1hbiBz
-eXN0ZW0gaW50ZWdyYXRpb24gdGVzdCAoYXMgdXNlcikKICAgICAgIOKchSBMVFAKICAgICAgIOKc
-hSBMb29wZGV2IFNhbml0eQogICAgICAg4pyFIE1lbW9yeSBmdW5jdGlvbjogbWVtZmRfY3JlYXRl
-CiAgICAgICDinIUgQU1UVSAoQWJzdHJhY3QgTWFjaGluZSBUZXN0IFV0aWxpdHkpCiAgICAgICDi
-nIUgTmV0d29ya2luZyBicmlkZ2U6IHNhbml0eQogICAgICAg4pyFIEV0aGVybmV0IGRyaXZlcnMg
-c2FuaXR5CiAgICAgICDinIUgTmV0d29ya2luZyBNQUNzZWM6IHNhbml0eQogICAgICAg4pyFIE5l
-dHdvcmtpbmcgc29ja2V0OiBmdXp6CiAgICAgICDinIUgTmV0d29ya2luZyBzY3RwLWF1dGg6IHNv
-Y2tvcHRzIHRlc3QKICAgICAgIOKaoeKaoeKaoSBOZXR3b3JraW5nOiBpZ21wIGNvbmZvcm1hbmNl
-IHRlc3QKICAgICAgIOKchSBOZXR3b3JraW5nIHJvdXRlOiBwbXR1CiAgICAgICDinIUgTmV0d29y
-a2luZyByb3V0ZV9mdW5jOiBsb2NhbAogICAgICAg4pyFIE5ldHdvcmtpbmcgcm91dGVfZnVuYzog
-Zm9yd2FyZAogICAgICAg4pyFIE5ldHdvcmtpbmcgVENQOiBrZWVwYWxpdmUgdGVzdAogICAgICAg
-4pyFIE5ldHdvcmtpbmcgVURQOiBzb2NrZXQKICAgICAgIOKdjCBOZXR3b3JraW5nIHR1bm5lbDog
-Z2VuZXZlIGJhc2ljIHRlc3QKICAgICAgIOKdjCBOZXR3b3JraW5nIHR1bm5lbDogZ3JlIGJhc2lj
-CiAgICAgICDimqHimqHimqEgTDJUUCBiYXNpYyB0ZXN0CiAgICAgICDinYwgTmV0d29ya2luZyB0
-dW5uZWw6IHZ4bGFuIGJhc2ljCiAgICAgICDinIUgTmV0d29ya2luZyBpcHNlYzogYmFzaWMgbmV0
-bnMgdHJhbnNwb3J0CiAgICAgICDinIUgTmV0d29ya2luZyBpcHNlYzogYmFzaWMgbmV0bnMgdHVu
-bmVsCiAgICAgICDinIUgYXVkaXQ6IGF1ZGl0IHRlc3RzdWl0ZSB0ZXN0CiAgICAgICDinIUgaHR0
-cGQ6IG1vZF9zc2wgc21va2Ugc2FuaXR5CiAgICAgICDinIUgdHVuZWQ6IHR1bmUtcHJvY2Vzc2Vz
-LXRocm91Z2gtcGVyZgogICAgICAg4pyFIEFMU0EgUENNIGxvb3BiYWNrIHRlc3QKICAgICAgIOKc
-hSBBTFNBIENvbnRyb2wgKG1peGVyKSBVc2Vyc3BhY2UgRWxlbWVudCB0ZXN0CiAgICAgICDinIUg
-c3RvcmFnZTogU0NTSSBWUEQKICAgICAgIOKchSB0cmFjZTogZnRyYWNlL3RyYWNlcgogICAgICAg
-8J+apyDinIUgQ0lGUyBDb25uZWN0YXRob24KICAgICAgIPCfmqcg4pyFIFBPU0lYIHBqZC1mc3Rl
-c3Qgc3VpdGVzCiAgICAgICDwn5qnIOKaoeKaoeKaoSBqdm0gdGVzdCBzdWl0ZQogICAgICAg8J+a
-pyDinIUgTWVtb3J5IGZ1bmN0aW9uOiBrYXNscgogICAgICAg8J+apyDinIUgTFRQOiBvcGVucG9z
-aXggdGVzdCBzdWl0ZQogICAgICAg8J+apyDinIUgTmV0d29ya2luZyB2bmljOiBpcHZsYW4vYmFz
-aWMKICAgICAgIPCfmqcg4pyFIGlvdG9wOiBzYW5pdHkKICAgICAgIPCfmqcg4pyFIFVzZXggLSB2
-ZXJzaW9uIDEuOS0yOQogICAgICAg8J+apyDinIUgc3RvcmFnZTogZG0vY29tbW9uCgogICAgSG9z
-dCAyOgogICAgICAg4pyFIEJvb3QgdGVzdAogICAgICAg4pyFIHhmc3Rlc3RzOiBleHQ0CiAgICAg
-ICDinIUgeGZzdGVzdHM6IHhmcwogICAgICAg4pyFIHNlbGludXgtcG9saWN5OiBzZXJnZS10ZXN0
-c3VpdGUKICAgICAgIOKchSBsdm0gdGhpbnAgc2FuaXR5CiAgICAgICDinIUgc3RvcmFnZTogc29m
-dHdhcmUgUkFJRCB0ZXN0aW5nCiAgICAgICDinIUgc3RyZXNzOiBzdHJlc3MtbmcKICAgICAgIPCf
-mqcg4pyFIElQTUkgZHJpdmVyIHRlc3QKICAgICAgIPCfmqcg4pyFIElQTUl0b29sIGxvb3Agc3Ry
-ZXNzIHRlc3QKICAgICAgIPCfmqcg4pyFIFN0b3JhZ2UgYmxrdGVzdHMKCiAgICBIb3N0IDM6CiAg
-ICAgICDinIUgQm9vdCB0ZXN0CiAgICAgICDinIUgUG9kbWFuIHN5c3RlbSBpbnRlZ3JhdGlvbiB0
-ZXN0IChhcyByb290KQogICAgICAg4o+xICBQb2RtYW4gc3lzdGVtIGludGVncmF0aW9uIHRlc3Qg
-KGFzIHVzZXIpCiAgICAgICDij7EgIExUUAogICAgICAg4o+xICBMb29wZGV2IFNhbml0eQogICAg
-ICAg4o+xICBNZW1vcnkgZnVuY3Rpb246IG1lbWZkX2NyZWF0ZQogICAgICAg4o+xICBBTVRVIChB
-YnN0cmFjdCBNYWNoaW5lIFRlc3QgVXRpbGl0eSkKICAgICAgIOKPsSAgTmV0d29ya2luZyBicmlk
-Z2U6IHNhbml0eQogICAgICAg4o+xICBFdGhlcm5ldCBkcml2ZXJzIHNhbml0eQogICAgICAg4o+x
-ICBOZXR3b3JraW5nIE1BQ3NlYzogc2FuaXR5CiAgICAgICDij7EgIE5ldHdvcmtpbmcgc29ja2V0
-OiBmdXp6CiAgICAgICDij7EgIE5ldHdvcmtpbmcgc2N0cC1hdXRoOiBzb2Nrb3B0cyB0ZXN0CiAg
-ICAgICDij7EgIE5ldHdvcmtpbmc6IGlnbXAgY29uZm9ybWFuY2UgdGVzdAogICAgICAg4o+xICBO
-ZXR3b3JraW5nIHJvdXRlOiBwbXR1CiAgICAgICDij7EgIE5ldHdvcmtpbmcgcm91dGVfZnVuYzog
-bG9jYWwKICAgICAgIOKPsSAgTmV0d29ya2luZyByb3V0ZV9mdW5jOiBmb3J3YXJkCiAgICAgICDi
-j7EgIE5ldHdvcmtpbmcgVENQOiBrZWVwYWxpdmUgdGVzdAogICAgICAg4o+xICBOZXR3b3JraW5n
-IFVEUDogc29ja2V0CiAgICAgICDij7EgIE5ldHdvcmtpbmcgdHVubmVsOiBnZW5ldmUgYmFzaWMg
-dGVzdAogICAgICAg4o+xICBOZXR3b3JraW5nIHR1bm5lbDogZ3JlIGJhc2ljCiAgICAgICDij7Eg
-IEwyVFAgYmFzaWMgdGVzdAogICAgICAg4o+xICBOZXR3b3JraW5nIHR1bm5lbDogdnhsYW4gYmFz
-aWMKICAgICAgIOKPsSAgTmV0d29ya2luZyBpcHNlYzogYmFzaWMgbmV0bnMgdHJhbnNwb3J0CiAg
-ICAgICDij7EgIE5ldHdvcmtpbmcgaXBzZWM6IGJhc2ljIG5ldG5zIHR1bm5lbAogICAgICAg4o+x
-ICBhdWRpdDogYXVkaXQgdGVzdHN1aXRlIHRlc3QKICAgICAgIOKPsSAgaHR0cGQ6IG1vZF9zc2wg
-c21va2Ugc2FuaXR5CiAgICAgICDij7EgIHR1bmVkOiB0dW5lLXByb2Nlc3Nlcy10aHJvdWdoLXBl
-cmYKICAgICAgIOKPsSAgQUxTQSBQQ00gbG9vcGJhY2sgdGVzdAogICAgICAg4o+xICBBTFNBIENv
-bnRyb2wgKG1peGVyKSBVc2Vyc3BhY2UgRWxlbWVudCB0ZXN0CiAgICAgICDij7EgIHN0b3JhZ2U6
-IFNDU0kgVlBECiAgICAgICDij7EgIHRyYWNlOiBmdHJhY2UvdHJhY2VyCiAgICAgICDij7EgIENJ
-RlMgQ29ubmVjdGF0aG9uCiAgICAgICDij7EgIFBPU0lYIHBqZC1mc3Rlc3Qgc3VpdGVzCiAgICAg
-ICDij7EgIGp2bSB0ZXN0IHN1aXRlCiAgICAgICDij7EgIE1lbW9yeSBmdW5jdGlvbjoga2FzbHIK
-ICAgICAgIOKPsSAgTFRQOiBvcGVucG9zaXggdGVzdCBzdWl0ZQogICAgICAg4o+xICBOZXR3b3Jr
-aW5nIHZuaWM6IGlwdmxhbi9iYXNpYwogICAgICAg4o+xICBpb3RvcDogc2FuaXR5CiAgICAgICDi
-j7EgIFVzZXggLSB2ZXJzaW9uIDEuOS0yOQogICAgICAg4o+xICBzdG9yYWdlOiBkbS9jb21tb24K
-CiAgcHBjNjRsZToKICAgIEhvc3QgMToKICAgICAgIOKchSBCb290IHRlc3QKICAgICAgIOKchSBQ
-b2RtYW4gc3lzdGVtIGludGVncmF0aW9uIHRlc3QgKGFzIHJvb3QpCiAgICAgICDinIUgUG9kbWFu
-IHN5c3RlbSBpbnRlZ3JhdGlvbiB0ZXN0IChhcyB1c2VyKQogICAgICAg4pyFIExUUAogICAgICAg
-4pyFIExvb3BkZXYgU2FuaXR5CiAgICAgICDinIUgTWVtb3J5IGZ1bmN0aW9uOiBtZW1mZF9jcmVh
-dGUKICAgICAgIOKchSBBTVRVIChBYnN0cmFjdCBNYWNoaW5lIFRlc3QgVXRpbGl0eSkKICAgICAg
-IOKchSBOZXR3b3JraW5nIGJyaWRnZTogc2FuaXR5CiAgICAgICDinIUgRXRoZXJuZXQgZHJpdmVy
-cyBzYW5pdHkKICAgICAgIOKchSBOZXR3b3JraW5nIE1BQ3NlYzogc2FuaXR5CiAgICAgICDinIUg
-TmV0d29ya2luZyBzb2NrZXQ6IGZ1enoKICAgICAgIOKchSBOZXR3b3JraW5nIHNjdHAtYXV0aDog
-c29ja29wdHMgdGVzdAogICAgICAg4pyFIE5ldHdvcmtpbmcgcm91dGU6IHBtdHUKICAgICAgIOKc
-hSBOZXR3b3JraW5nIHJvdXRlX2Z1bmM6IGxvY2FsCiAgICAgICDinIUgTmV0d29ya2luZyByb3V0
-ZV9mdW5jOiBmb3J3YXJkCiAgICAgICDinIUgTmV0d29ya2luZyBUQ1A6IGtlZXBhbGl2ZSB0ZXN0
-CiAgICAgICDinIUgTmV0d29ya2luZyBVRFA6IHNvY2tldAogICAgICAg4pyFIE5ldHdvcmtpbmcg
-dHVubmVsOiBnZW5ldmUgYmFzaWMgdGVzdAogICAgICAg4pyFIE5ldHdvcmtpbmcgdHVubmVsOiBn
-cmUgYmFzaWMKICAgICAgIOKchSBMMlRQIGJhc2ljIHRlc3QKICAgICAgIOKchSBOZXR3b3JraW5n
-IHR1bm5lbDogdnhsYW4gYmFzaWMKICAgICAgIOKchSBOZXR3b3JraW5nIGlwc2VjOiBiYXNpYyBu
-ZXRucyB0dW5uZWwKICAgICAgIOKchSBhdWRpdDogYXVkaXQgdGVzdHN1aXRlIHRlc3QKICAgICAg
-IOKchSBodHRwZDogbW9kX3NzbCBzbW9rZSBzYW5pdHkKICAgICAgIOKchSB0dW5lZDogdHVuZS1w
-cm9jZXNzZXMtdGhyb3VnaC1wZXJmCiAgICAgICDinIUgQUxTQSBQQ00gbG9vcGJhY2sgdGVzdAog
-ICAgICAg4pyFIEFMU0EgQ29udHJvbCAobWl4ZXIpIFVzZXJzcGFjZSBFbGVtZW50IHRlc3QKICAg
-ICAgIOKchSB0cmFjZTogZnRyYWNlL3RyYWNlcgogICAgICAg8J+apyDinIUgQ0lGUyBDb25uZWN0
-YXRob24KICAgICAgIPCfmqcg4pyFIFBPU0lYIHBqZC1mc3Rlc3Qgc3VpdGVzCiAgICAgICDwn5qn
-IOKchSBqdm0gdGVzdCBzdWl0ZQogICAgICAg8J+apyDinIUgTWVtb3J5IGZ1bmN0aW9uOiBrYXNs
-cgogICAgICAg8J+apyDinIUgTFRQOiBvcGVucG9zaXggdGVzdCBzdWl0ZQogICAgICAg8J+apyDi
-nIUgTmV0d29ya2luZyB2bmljOiBpcHZsYW4vYmFzaWMKICAgICAgIPCfmqcg4pyFIGlvdG9wOiBz
-YW5pdHkKICAgICAgIPCfmqcg4pyFIFVzZXggLSB2ZXJzaW9uIDEuOS0yOQogICAgICAg8J+apyDi
-nIUgc3RvcmFnZTogZG0vY29tbW9uCgogICAgSG9zdCAyOgogICAgICAg4pyFIEJvb3QgdGVzdAog
-ICAgICAg4pyFIHhmc3Rlc3RzOiBleHQ0CiAgICAgICDinIUgeGZzdGVzdHM6IHhmcwogICAgICAg
-4pyFIHNlbGludXgtcG9saWN5OiBzZXJnZS10ZXN0c3VpdGUKICAgICAgIOKchSBsdm0gdGhpbnAg
-c2FuaXR5CiAgICAgICDinIUgc3RvcmFnZTogc29mdHdhcmUgUkFJRCB0ZXN0aW5nCiAgICAgICDw
-n5qnIOKchSBJUE1JIGRyaXZlciB0ZXN0CiAgICAgICDwn5qnIOKchSBJUE1JdG9vbCBsb29wIHN0
-cmVzcyB0ZXN0CiAgICAgICDwn5qnIOKchSBTdG9yYWdlIGJsa3Rlc3RzCgogIHg4Nl82NDoKICAg
-IEhvc3QgMToKICAgICAgIOKchSBCb290IHRlc3QKICAgICAgIOKchSBTdG9yYWdlIFNBTiBkZXZp
-Y2Ugc3RyZXNzIC0gbWVnYXJhaWRfc2FzCgogICAgSG9zdCAyOgoKICAgICAgIOKaoSBJbnRlcm5h
-bCBpbmZyYXN0cnVjdHVyZSBpc3N1ZXMgcHJldmVudGVkIG9uZSBvciBtb3JlIHRlc3RzIChtYXJr
-ZWQKICAgICAgIHdpdGgg4pqh4pqh4pqhKSBmcm9tIHJ1bm5pbmcgb24gdGhpcyBhcmNoaXRlY3R1
-cmUuCiAgICAgICBUaGlzIGlzIG5vdCB0aGUgZmF1bHQgb2YgdGhlIGtlcm5lbCB0aGF0IHdhcyB0
-ZXN0ZWQuCgogICAgICAg4pyFIEJvb3QgdGVzdAogICAgICAg4pyFIFBvZG1hbiBzeXN0ZW0gaW50
-ZWdyYXRpb24gdGVzdCAoYXMgcm9vdCkKICAgICAgIOKchSBQb2RtYW4gc3lzdGVtIGludGVncmF0
-aW9uIHRlc3QgKGFzIHVzZXIpCiAgICAgICDinIUgTFRQCiAgICAgICDinIUgTG9vcGRldiBTYW5p
-dHkKICAgICAgIOKchSBNZW1vcnkgZnVuY3Rpb246IG1lbWZkX2NyZWF0ZQogICAgICAg4pyFIEFN
-VFUgKEFic3RyYWN0IE1hY2hpbmUgVGVzdCBVdGlsaXR5KQogICAgICAg4pyFIE5ldHdvcmtpbmcg
-YnJpZGdlOiBzYW5pdHkKICAgICAgIOKchSBFdGhlcm5ldCBkcml2ZXJzIHNhbml0eQogICAgICAg
-4pyFIE5ldHdvcmtpbmcgTUFDc2VjOiBzYW5pdHkKICAgICAgIOKchSBOZXR3b3JraW5nIHNvY2tl
-dDogZnV6egogICAgICAg4pyFIE5ldHdvcmtpbmcgc2N0cC1hdXRoOiBzb2Nrb3B0cyB0ZXN0CiAg
-ICAgICDinIUgTmV0d29ya2luZzogaWdtcCBjb25mb3JtYW5jZSB0ZXN0CiAgICAgICDinIUgTmV0
-d29ya2luZyByb3V0ZTogcG10dQogICAgICAg4p2MIE5ldHdvcmtpbmcgcm91dGVfZnVuYzogbG9j
-YWwKICAgICAgIOKchSBOZXR3b3JraW5nIHJvdXRlX2Z1bmM6IGZvcndhcmQKICAgICAgIOKchSBO
-ZXR3b3JraW5nIFRDUDoga2VlcGFsaXZlIHRlc3QKICAgICAgIOKchSBOZXR3b3JraW5nIFVEUDog
-c29ja2V0CiAgICAgICDinYwgTmV0d29ya2luZyB0dW5uZWw6IGdlbmV2ZSBiYXNpYyB0ZXN0CiAg
-ICAgICDinYwgTmV0d29ya2luZyB0dW5uZWw6IGdyZSBiYXNpYwogICAgICAg4pyFIEwyVFAgYmFz
-aWMgdGVzdAogICAgICAg4pqh4pqh4pqhIE5ldHdvcmtpbmcgdHVubmVsOiB2eGxhbiBiYXNpYwog
-ICAgICAg4pqh4pqh4pqhIE5ldHdvcmtpbmcgaXBzZWM6IGJhc2ljIG5ldG5zIHRyYW5zcG9ydAog
-ICAgICAg4pqh4pqh4pqhIE5ldHdvcmtpbmcgaXBzZWM6IGJhc2ljIG5ldG5zIHR1bm5lbAogICAg
-ICAg4pqh4pqh4pqhIGF1ZGl0OiBhdWRpdCB0ZXN0c3VpdGUgdGVzdAogICAgICAg4pqh4pqh4pqh
-IGh0dHBkOiBtb2Rfc3NsIHNtb2tlIHNhbml0eQogICAgICAg4pqh4pqh4pqhIHR1bmVkOiB0dW5l
-LXByb2Nlc3Nlcy10aHJvdWdoLXBlcmYKICAgICAgIOKaoeKaoeKaoSBwY2l1dGlsczogc2FuaXR5
-IHNtb2tlIHRlc3QKICAgICAgIOKaoeKaoeKaoSBBTFNBIFBDTSBsb29wYmFjayB0ZXN0CiAgICAg
-ICDimqHimqHimqEgQUxTQSBDb250cm9sIChtaXhlcikgVXNlcnNwYWNlIEVsZW1lbnQgdGVzdAog
-ICAgICAg4pqh4pqh4pqhIHN0b3JhZ2U6IFNDU0kgVlBECiAgICAgICDimqHimqHimqEgdHJhY2U6
-IGZ0cmFjZS90cmFjZXIKICAgICAgIPCfmqcg4pqh4pqh4pqhIENJRlMgQ29ubmVjdGF0aG9uCiAg
-ICAgICDwn5qnIOKaoeKaoeKaoSBQT1NJWCBwamQtZnN0ZXN0IHN1aXRlcwogICAgICAg8J+apyDi
-mqHimqHimqEganZtIHRlc3Qgc3VpdGUKICAgICAgIPCfmqcg4pqh4pqh4pqhIE1lbW9yeSBmdW5j
-dGlvbjoga2FzbHIKICAgICAgIPCfmqcg4pqh4pqh4pqhIExUUDogb3BlbnBvc2l4IHRlc3Qgc3Vp
-dGUKICAgICAgIPCfmqcg4pqh4pqh4pqhIE5ldHdvcmtpbmcgdm5pYzogaXB2bGFuL2Jhc2ljCiAg
-ICAgICDwn5qnIOKaoeKaoeKaoSBpb3RvcDogc2FuaXR5CiAgICAgICDwn5qnIOKaoeKaoeKaoSBV
-c2V4IC0gdmVyc2lvbiAxLjktMjkKICAgICAgIPCfmqcg4pqh4pqh4pqhIHN0b3JhZ2U6IGRtL2Nv
-bW1vbgoKICAgIEhvc3QgMzoKCiAgICAgICDimqEgSW50ZXJuYWwgaW5mcmFzdHJ1Y3R1cmUgaXNz
-dWVzIHByZXZlbnRlZCBvbmUgb3IgbW9yZSB0ZXN0cyAobWFya2VkCiAgICAgICB3aXRoIOKaoeKa
-oeKaoSkgZnJvbSBydW5uaW5nIG9uIHRoaXMgYXJjaGl0ZWN0dXJlLgogICAgICAgVGhpcyBpcyBu
-b3QgdGhlIGZhdWx0IG9mIHRoZSBrZXJuZWwgdGhhdCB3YXMgdGVzdGVkLgoKICAgICAgIOKchSBC
-b290IHRlc3QKICAgICAgIOKchSB4ZnN0ZXN0czogZXh0NAogICAgICAg4pyFIHhmc3Rlc3RzOiB4
-ZnMKICAgICAgIOKchSBzZWxpbnV4LXBvbGljeTogc2VyZ2UtdGVzdHN1aXRlCiAgICAgICDinIUg
-bHZtIHRoaW5wIHNhbml0eQogICAgICAg4pyFIHN0b3JhZ2U6IHNvZnR3YXJlIFJBSUQgdGVzdGlu
-ZwogICAgICAg4pyFIHN0cmVzczogc3RyZXNzLW5nCiAgICAgICDwn5qnIOKchSBJT01NVSBib290
-IHRlc3QKICAgICAgIPCfmqcg4pyFIElQTUkgZHJpdmVyIHRlc3QKICAgICAgIPCfmqcg4p2MIElQ
-TUl0b29sIGxvb3Agc3RyZXNzIHRlc3QKICAgICAgIPCfmqcg4pqh4pqh4pqhIHBvd2VyLW1hbmFn
-ZW1lbnQ6IGNwdXBvd2VyL3Nhbml0eSB0ZXN0CiAgICAgICDwn5qnIOKchSBTdG9yYWdlIGJsa3Rl
-c3RzCgogICAgSG9zdCA0OgogICAgICAg4pyFIEJvb3QgdGVzdAogICAgICAg4pyFIFN0b3JhZ2Ug
-U0FOIGRldmljZSBzdHJlc3MgLSBtcHQzc2FzIGRyaXZlcgoKICAgIEhvc3QgNToKCiAgICAgICDi
-mqEgSW50ZXJuYWwgaW5mcmFzdHJ1Y3R1cmUgaXNzdWVzIHByZXZlbnRlZCBvbmUgb3IgbW9yZSB0
-ZXN0cyAobWFya2VkCiAgICAgICB3aXRoIOKaoeKaoeKaoSkgZnJvbSBydW5uaW5nIG9uIHRoaXMg
-YXJjaGl0ZWN0dXJlLgogICAgICAgVGhpcyBpcyBub3QgdGhlIGZhdWx0IG9mIHRoZSBrZXJuZWwg
-dGhhdCB3YXMgdGVzdGVkLgoKICAgICAgIOKchSBCb290IHRlc3QKICAgICAgIOKchSBQb2RtYW4g
-c3lzdGVtIGludGVncmF0aW9uIHRlc3QgKGFzIHJvb3QpCiAgICAgICDinIUgUG9kbWFuIHN5c3Rl
-bSBpbnRlZ3JhdGlvbiB0ZXN0IChhcyB1c2VyKQogICAgICAg4p2MIExUUAogICAgICAg4pyFIExv
-b3BkZXYgU2FuaXR5CiAgICAgICDinIUgTWVtb3J5IGZ1bmN0aW9uOiBtZW1mZF9jcmVhdGUKICAg
-ICAgIOKchSBBTVRVIChBYnN0cmFjdCBNYWNoaW5lIFRlc3QgVXRpbGl0eSkKICAgICAgIOKchSBO
-ZXR3b3JraW5nIGJyaWRnZTogc2FuaXR5CiAgICAgICDinIUgRXRoZXJuZXQgZHJpdmVycyBzYW5p
-dHkKICAgICAgIOKchSBOZXR3b3JraW5nIE1BQ3NlYzogc2FuaXR5CiAgICAgICDinIUgTmV0d29y
-a2luZyBzb2NrZXQ6IGZ1enoKICAgICAgIOKchSBOZXR3b3JraW5nIHNjdHAtYXV0aDogc29ja29w
-dHMgdGVzdAogICAgICAg4pqh4pqh4pqhIE5ldHdvcmtpbmc6IGlnbXAgY29uZm9ybWFuY2UgdGVz
-dAogICAgICAg4pyFIE5ldHdvcmtpbmcgcm91dGU6IHBtdHUKICAgICAgIOKchSBOZXR3b3JraW5n
-IHJvdXRlX2Z1bmM6IGxvY2FsCiAgICAgICDinIUgTmV0d29ya2luZyByb3V0ZV9mdW5jOiBmb3J3
-YXJkCiAgICAgICDij7EgIE5ldHdvcmtpbmcgVENQOiBrZWVwYWxpdmUgdGVzdAogICAgICAg4o+x
-ICBOZXR3b3JraW5nIFVEUDogc29ja2V0CiAgICAgICDij7EgIE5ldHdvcmtpbmcgdHVubmVsOiBn
-ZW5ldmUgYmFzaWMgdGVzdAogICAgICAg4o+xICBOZXR3b3JraW5nIHR1bm5lbDogZ3JlIGJhc2lj
-CiAgICAgICDij7EgIEwyVFAgYmFzaWMgdGVzdAogICAgICAg4o+xICBOZXR3b3JraW5nIHR1bm5l
-bDogdnhsYW4gYmFzaWMKICAgICAgIOKPsSAgTmV0d29ya2luZyBpcHNlYzogYmFzaWMgbmV0bnMg
-dHJhbnNwb3J0CiAgICAgICDij7EgIE5ldHdvcmtpbmcgaXBzZWM6IGJhc2ljIG5ldG5zIHR1bm5l
-bAogICAgICAg4o+xICBhdWRpdDogYXVkaXQgdGVzdHN1aXRlIHRlc3QKICAgICAgIOKPsSAgaHR0
-cGQ6IG1vZF9zc2wgc21va2Ugc2FuaXR5CiAgICAgICDij7EgIHR1bmVkOiB0dW5lLXByb2Nlc3Nl
-cy10aHJvdWdoLXBlcmYKICAgICAgIOKPsSAgcGNpdXRpbHM6IHNhbml0eSBzbW9rZSB0ZXN0CiAg
-ICAgICDij7EgIEFMU0EgUENNIGxvb3BiYWNrIHRlc3QKICAgICAgIOKPsSAgQUxTQSBDb250cm9s
-IChtaXhlcikgVXNlcnNwYWNlIEVsZW1lbnQgdGVzdAogICAgICAg4o+xICBzdG9yYWdlOiBTQ1NJ
-IFZQRAogICAgICAg4o+xICB0cmFjZTogZnRyYWNlL3RyYWNlcgogICAgICAg4o+xICBDSUZTIENv
-bm5lY3RhdGhvbgogICAgICAg4o+xICBQT1NJWCBwamQtZnN0ZXN0IHN1aXRlcwogICAgICAg4o+x
-ICBqdm0gdGVzdCBzdWl0ZQogICAgICAg4o+xICBNZW1vcnkgZnVuY3Rpb246IGthc2xyCiAgICAg
-ICDij7EgIExUUDogb3BlbnBvc2l4IHRlc3Qgc3VpdGUKICAgICAgIOKPsSAgTmV0d29ya2luZyB2
-bmljOiBpcHZsYW4vYmFzaWMKICAgICAgIOKPsSAgaW90b3A6IHNhbml0eQogICAgICAg4o+xICBV
-c2V4IC0gdmVyc2lvbiAxLjktMjkKICAgICAgIOKPsSAgc3RvcmFnZTogZG0vY29tbW9uCgogIFRl
-c3Qgc291cmNlczogaHR0cHM6Ly9naXRodWIuY29tL0NLSS1wcm9qZWN0L3Rlc3RzLWJlYWtlcgog
-ICAg8J+SmiBQdWxsIHJlcXVlc3RzIGFyZSB3ZWxjb21lIGZvciBuZXcgdGVzdHMgb3IgaW1wcm92
-ZW1lbnRzIHRvIGV4aXN0aW5nIHRlc3RzIQoKV2FpdmVkIHRlc3RzCi0tLS0tLS0tLS0tLQpJZiB0
-aGUgdGVzdCBydW4gaW5jbHVkZWQgd2FpdmVkIHRlc3RzLCB0aGV5IGFyZSBtYXJrZWQgd2l0aCDw
-n5qnLiBTdWNoIHRlc3RzIGFyZQpleGVjdXRlZCBidXQgdGhlaXIgcmVzdWx0cyBhcmUgbm90IHRh
-a2VuIGludG8gYWNjb3VudC4gVGVzdHMgYXJlIHdhaXZlZCB3aGVuCnRoZWlyIHJlc3VsdHMgYXJl
-IG5vdCByZWxpYWJsZSBlbm91Z2gsIGUuZy4gd2hlbiB0aGV5J3JlIGp1c3QgaW50cm9kdWNlZCBv
-ciBhcmUKYmVpbmcgZml4ZWQuCgpUZXN0aW5nIHRpbWVvdXQKLS0tLS0tLS0tLS0tLS0tCldlIGFp
-bSB0byBwcm92aWRlIGEgcmVwb3J0IHdpdGhpbiByZWFzb25hYmxlIHRpbWVmcmFtZS4gVGVzdHMg
-dGhhdCBoYXZlbid0CmZpbmlzaGVkIHJ1bm5pbmcgYXJlIG1hcmtlZCB3aXRoIOKPsS4gUmVwb3J0
-cyBmb3Igbm9uLXVwc3RyZWFtIGtlcm5lbHMgaGF2ZQphIEJlYWtlciByZWNpcGUgbGlua2VkIHRv
-IG5leHQgdG8gZWFjaCBob3N0LgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0
-cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+--===============0211303909==
+Content-Type: multipart/alternative; boundary="000000000000b64dd7059bdf754e"
+
+--000000000000b64dd7059bdf754e
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Thanks Petr for help doing this, I'm on the way to visit Brno. Not
+convenient to connect internet until next week.
+
+--  sending by my ph1 phone.
+
+On Fri, Jan 10, 2020, 16:14 Petr Vorel <pvorel@suse.cz> wrote:
+
+> From: Li Wang <liwang@redhat.com>
+>
+> To follow up commit 447c223db ("tst_device: include unistd.h").
+>
+> Reported-by: Petr Vorel <pvorel@suse.cz>
+> Suggested-by: Cyril Hrubis <chrubis@suse.cz>
+> Signed-off-by: Li Wang <liwang@redhat.com>
+> Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+> [pvorel: Removed _XOPEN_SOURCE from affected tests to really fix
+> the issue and aren't needed]
+> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> Tested-by: Petr Vorel <pvorel@suse.cz>
+>
+> Fixes: eca0fa3c3 ("tst_device: add new tst_dev_sync")
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> Hi,
+>
+> tested on
+> https://travis-ci.org/pevik/ltp/builds/635305638
+>
+> Please anybody ack and merge, so we can move on with merging other
+> things before git freeze.
+>
+> NOTE: Debian failures are caused by bug in libtirpc 1.2.5,
+> will be fixed by https://patchwork.ozlabs.org/patch/1216506/
+>
+> Kind regards,
+> Petr
+>
+>  include/tst_device.h                                | 5 +++--
+>  testcases/kernel/syscalls/fadvise/posix_fadvise01.c | 1 -
+>  testcases/kernel/syscalls/fadvise/posix_fadvise02.c | 1 -
+>  testcases/kernel/syscalls/fadvise/posix_fadvise03.c | 1 -
+>  testcases/kernel/syscalls/fadvise/posix_fadvise04.c | 1 -
+>  testcases/kernel/syscalls/pwrite/pwrite02.c         | 2 --
+>  6 files changed, 3 insertions(+), 8 deletions(-)
+>
+> diff --git a/include/tst_device.h b/include/tst_device.h
+> index f277afd77..3db5275c9 100644
+> --- a/include/tst_device.h
+> +++ b/include/tst_device.h
+> @@ -19,6 +19,7 @@
+>  #define TST_DEVICE_H__
+>
+>  #include <unistd.h>
+> +#include <sys/syscall.h>
+>
+>  struct tst_device {
+>         const char *dev;
+> @@ -75,9 +76,9 @@ int tst_detach_device(const char *dev_path);
+>   * simply before the tst_dev_bytes_written invocation. For easy to use,
+>   * we create this inline function tst_dev_sync.
+>   */
+> -static inline void tst_dev_sync(int fd)
+> +static inline int tst_dev_sync(int fd)
+>  {
+> -       syncfs(fd);
+> +       return syscall(__NR_syncfs, fd);
+>  }
+>
+>  /*
+> diff --git a/testcases/kernel/syscalls/fadvise/posix_fadvise01.c
+> b/testcases/kernel/syscalls/fadvise/posix_fadvise01.c
+> index 2af040840..71e6454d8 100644
+> --- a/testcases/kernel/syscalls/fadvise/posix_fadvise01.c
+> +++ b/testcases/kernel/syscalls/fadvise/posix_fadvise01.c
+> @@ -20,7 +20,6 @@
+>   *     None
+>   */
+>
+> -#define _XOPEN_SOURCE 600
+>  #include <fcntl.h>
+>
+>  #include <unistd.h>
+> diff --git a/testcases/kernel/syscalls/fadvise/posix_fadvise02.c
+> b/testcases/kernel/syscalls/fadvise/posix_fadvise02.c
+> index d533a7953..303f776e4 100644
+> --- a/testcases/kernel/syscalls/fadvise/posix_fadvise02.c
+> +++ b/testcases/kernel/syscalls/fadvise/posix_fadvise02.c
+> @@ -20,7 +20,6 @@
+>   *     None
+>   */
+>
+> -#define _XOPEN_SOURCE 600
+>  #include <fcntl.h>
+>  #include <unistd.h>
+>  #include <signal.h>
+> diff --git a/testcases/kernel/syscalls/fadvise/posix_fadvise03.c
+> b/testcases/kernel/syscalls/fadvise/posix_fadvise03.c
+> index 5bada5f3d..98d8d2930 100644
+> --- a/testcases/kernel/syscalls/fadvise/posix_fadvise03.c
+> +++ b/testcases/kernel/syscalls/fadvise/posix_fadvise03.c
+> @@ -20,7 +20,6 @@
+>   *     None
+>   */
+>
+> -#define _XOPEN_SOURCE 600
+>  #include <fcntl.h>
+>  #include <unistd.h>
+>  #include <signal.h>
+> diff --git a/testcases/kernel/syscalls/fadvise/posix_fadvise04.c
+> b/testcases/kernel/syscalls/fadvise/posix_fadvise04.c
+> index d8d8fb601..f389a219b 100644
+> --- a/testcases/kernel/syscalls/fadvise/posix_fadvise04.c
+> +++ b/testcases/kernel/syscalls/fadvise/posix_fadvise04.c
+> @@ -20,7 +20,6 @@
+>   *     None
+>   */
+>
+> -#define _XOPEN_SOURCE 600
+>  #include <fcntl.h>
+>  #include <unistd.h>
+>  #include <signal.h>
+> diff --git a/testcases/kernel/syscalls/pwrite/pwrite02.c
+> b/testcases/kernel/syscalls/pwrite/pwrite02.c
+> index 056d44da2..221904cd7 100644
+> --- a/testcases/kernel/syscalls/pwrite/pwrite02.c
+> +++ b/testcases/kernel/syscalls/pwrite/pwrite02.c
+> @@ -18,8 +18,6 @@
+>   *      accessible address space, returns EFAULT.
+>   */
+>
+> -#define _XOPEN_SOURCE 500
+> -
+>  #include <errno.h>
+>  #include <unistd.h>
+>  #include <string.h>
+> --
+> 2.24.0
+>
+>
+
+--000000000000b64dd7059bdf754e
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div>Thanks Petr for help doing this, I&#39;m on the way =
+to visit Brno. Not convenient to connect internet until next week.</div><di=
+v dir=3D"auto"><br></div><div dir=3D"auto">--=C2=A0 sending by my ph1 phone=
+.</div><div dir=3D"auto"><br><div class=3D"gmail_quote" dir=3D"auto"><div d=
+ir=3D"ltr" class=3D"gmail_attr">On Fri, Jan 10, 2020, 16:14 Petr Vorel &lt;=
+<a href=3D"mailto:pvorel@suse.cz">pvorel@suse.cz</a>&gt; wrote:<br></div><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px =
+#ccc solid;padding-left:1ex">From: Li Wang &lt;<a href=3D"mailto:liwang@red=
+hat.com" target=3D"_blank" rel=3D"noreferrer">liwang@redhat.com</a>&gt;<br>
+<br>
+To follow up commit 447c223db (&quot;tst_device: include unistd.h&quot;).<b=
+r>
+<br>
+Reported-by: Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz" target=3D"_bl=
+ank" rel=3D"noreferrer">pvorel@suse.cz</a>&gt;<br>
+Suggested-by: Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz" target=3D=
+"_blank" rel=3D"noreferrer">chrubis@suse.cz</a>&gt;<br>
+Signed-off-by: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com" target=3D"_=
+blank" rel=3D"noreferrer">liwang@redhat.com</a>&gt;<br>
+Reviewed-by: Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz" target=3D"=
+_blank" rel=3D"noreferrer">chrubis@suse.cz</a>&gt;<br>
+[pvorel: Removed _XOPEN_SOURCE from affected tests to really fix<br>
+the issue and aren&#39;t needed]<br>
+Reviewed-by: Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz" target=3D"_bl=
+ank" rel=3D"noreferrer">pvorel@suse.cz</a>&gt;<br>
+Tested-by: Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz" target=3D"_blan=
+k" rel=3D"noreferrer">pvorel@suse.cz</a>&gt;<br>
+<br>
+Fixes: eca0fa3c3 (&quot;tst_device: add new tst_dev_sync&quot;)<br>
+Signed-off-by: Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz" target=3D"_=
+blank" rel=3D"noreferrer">pvorel@suse.cz</a>&gt;<br>
+---<br>
+Hi,<br>
+<br>
+tested on<br>
+<a href=3D"https://travis-ci.org/pevik/ltp/builds/635305638" rel=3D"norefer=
+rer noreferrer" target=3D"_blank">https://travis-ci.org/pevik/ltp/builds/63=
+5305638</a><br>
+<br>
+Please anybody ack and merge, so we can move on with merging other<br>
+things before git freeze.<br>
+<br>
+NOTE: Debian failures are caused by bug in libtirpc 1.2.5,<br>
+will be fixed by <a href=3D"https://patchwork.ozlabs.org/patch/1216506/" re=
+l=3D"noreferrer noreferrer" target=3D"_blank">https://patchwork.ozlabs.org/=
+patch/1216506/</a><br>
+<br>
+Kind regards,<br>
+Petr<br>
+<br>
+=C2=A0include/tst_device.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 5 +++--<br=
+>
+=C2=A0testcases/kernel/syscalls/fadvise/posix_fadvise01.c | 1 -<br>
+=C2=A0testcases/kernel/syscalls/fadvise/posix_fadvise02.c | 1 -<br>
+=C2=A0testcases/kernel/syscalls/fadvise/posix_fadvise03.c | 1 -<br>
+=C2=A0testcases/kernel/syscalls/fadvise/posix_fadvise04.c | 1 -<br>
+=C2=A0testcases/kernel/syscalls/pwrite/pwrite02.c=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0| 2 --<br>
+=C2=A06 files changed, 3 insertions(+), 8 deletions(-)<br>
+<br>
+diff --git a/include/tst_device.h b/include/tst_device.h<br>
+index f277afd77..3db5275c9 100644<br>
+--- a/include/tst_device.h<br>
++++ b/include/tst_device.h<br>
+@@ -19,6 +19,7 @@<br>
+=C2=A0#define TST_DEVICE_H__<br>
+<br>
+=C2=A0#include &lt;unistd.h&gt;<br>
++#include &lt;sys/syscall.h&gt;<br>
+<br>
+=C2=A0struct tst_device {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 const char *dev;<br>
+@@ -75,9 +76,9 @@ int tst_detach_device(const char *dev_path);<br>
+=C2=A0 * simply before the tst_dev_bytes_written invocation. For easy to us=
+e,<br>
+=C2=A0 * we create this inline function tst_dev_sync.<br>
+=C2=A0 */<br>
+-static inline void tst_dev_sync(int fd)<br>
++static inline int tst_dev_sync(int fd)<br>
+=C2=A0{<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0syncfs(fd);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return syscall(__NR_syncfs, fd);<br>
+=C2=A0}<br>
+<br>
+=C2=A0/*<br>
+diff --git a/testcases/kernel/syscalls/fadvise/posix_fadvise01.c b/testcase=
+s/kernel/syscalls/fadvise/posix_fadvise01.c<br>
+index 2af040840..71e6454d8 100644<br>
+--- a/testcases/kernel/syscalls/fadvise/posix_fadvise01.c<br>
++++ b/testcases/kernel/syscalls/fadvise/posix_fadvise01.c<br>
+@@ -20,7 +20,6 @@<br>
+=C2=A0 *=C2=A0 =C2=A0 =C2=A0None<br>
+=C2=A0 */<br>
+<br>
+-#define _XOPEN_SOURCE 600<br>
+=C2=A0#include &lt;fcntl.h&gt;<br>
+<br>
+=C2=A0#include &lt;unistd.h&gt;<br>
+diff --git a/testcases/kernel/syscalls/fadvise/posix_fadvise02.c b/testcase=
+s/kernel/syscalls/fadvise/posix_fadvise02.c<br>
+index d533a7953..303f776e4 100644<br>
+--- a/testcases/kernel/syscalls/fadvise/posix_fadvise02.c<br>
++++ b/testcases/kernel/syscalls/fadvise/posix_fadvise02.c<br>
+@@ -20,7 +20,6 @@<br>
+=C2=A0 *=C2=A0 =C2=A0 =C2=A0None<br>
+=C2=A0 */<br>
+<br>
+-#define _XOPEN_SOURCE 600<br>
+=C2=A0#include &lt;fcntl.h&gt;<br>
+=C2=A0#include &lt;unistd.h&gt;<br>
+=C2=A0#include &lt;signal.h&gt;<br>
+diff --git a/testcases/kernel/syscalls/fadvise/posix_fadvise03.c b/testcase=
+s/kernel/syscalls/fadvise/posix_fadvise03.c<br>
+index 5bada5f3d..98d8d2930 100644<br>
+--- a/testcases/kernel/syscalls/fadvise/posix_fadvise03.c<br>
++++ b/testcases/kernel/syscalls/fadvise/posix_fadvise03.c<br>
+@@ -20,7 +20,6 @@<br>
+=C2=A0 *=C2=A0 =C2=A0 =C2=A0None<br>
+=C2=A0 */<br>
+<br>
+-#define _XOPEN_SOURCE 600<br>
+=C2=A0#include &lt;fcntl.h&gt;<br>
+=C2=A0#include &lt;unistd.h&gt;<br>
+=C2=A0#include &lt;signal.h&gt;<br>
+diff --git a/testcases/kernel/syscalls/fadvise/posix_fadvise04.c b/testcase=
+s/kernel/syscalls/fadvise/posix_fadvise04.c<br>
+index d8d8fb601..f389a219b 100644<br>
+--- a/testcases/kernel/syscalls/fadvise/posix_fadvise04.c<br>
++++ b/testcases/kernel/syscalls/fadvise/posix_fadvise04.c<br>
+@@ -20,7 +20,6 @@<br>
+=C2=A0 *=C2=A0 =C2=A0 =C2=A0None<br>
+=C2=A0 */<br>
+<br>
+-#define _XOPEN_SOURCE 600<br>
+=C2=A0#include &lt;fcntl.h&gt;<br>
+=C2=A0#include &lt;unistd.h&gt;<br>
+=C2=A0#include &lt;signal.h&gt;<br>
+diff --git a/testcases/kernel/syscalls/pwrite/pwrite02.c b/testcases/kernel=
+/syscalls/pwrite/pwrite02.c<br>
+index 056d44da2..221904cd7 100644<br>
+--- a/testcases/kernel/syscalls/pwrite/pwrite02.c<br>
++++ b/testcases/kernel/syscalls/pwrite/pwrite02.c<br>
+@@ -18,8 +18,6 @@<br>
+=C2=A0 *=C2=A0 =C2=A0 =C2=A0 accessible address space, returns EFAULT.<br>
+=C2=A0 */<br>
+<br>
+-#define _XOPEN_SOURCE 500<br>
+-<br>
+=C2=A0#include &lt;errno.h&gt;<br>
+=C2=A0#include &lt;unistd.h&gt;<br>
+=C2=A0#include &lt;string.h&gt;<br>
+-- <br>
+2.24.0<br>
+<br>
+</blockquote></div></div></div>
+
+--000000000000b64dd7059bdf754e--
+
+
+--===============0211303909==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0211303909==--
+
