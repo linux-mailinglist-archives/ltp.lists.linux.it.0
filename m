@@ -2,30 +2,32 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AC831390ED
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Jan 2020 13:16:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3C8713921F
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 Jan 2020 14:25:38 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B66DB3C2496
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Jan 2020 13:16:30 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 083353C24A4
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 Jan 2020 14:25:38 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id EF1113C1115
- for <ltp@lists.linux.it>; Mon, 13 Jan 2020 13:16:25 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTP id 5478C3C0ECB
+ for <ltp@lists.linux.it>; Mon, 13 Jan 2020 14:25:34 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3A5D86013B7
- for <ltp@lists.linux.it>; Mon, 13 Jan 2020 13:16:24 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id EA24F6008DF
+ for <ltp@lists.linux.it>; Mon, 13 Jan 2020 14:25:33 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 0FBFBAC1C;
- Mon, 13 Jan 2020 12:16:24 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id 3BAC3AC44;
+ Mon, 13 Jan 2020 13:25:33 +0000 (UTC)
+To: Qu WenRuo <wqu@suse.com>, Cyril Hrubis <chrubis@suse.cz>
 References: <461386048.17251961.1576663655809.JavaMail.zimbra@redhat.com>
  <20191218131533.15323-1-mdoucha@suse.cz> <20200107152108.GA27182@rei.lan>
  <6f2c4482-9a8f-1b14-be18-10b486576f13@suse.cz>
+ <e684c55a-5973-af77-ff24-2dfc6a1f67b1@suse.cz>
+ <4da4e1ec-d5dc-06e2-bea8-280533f5d022@suse.com>
+From: Martin Doucha <mdoucha@suse.cz>
 Autocrypt: addr=mdoucha@suse.cz; keydata=
  mQINBF1D6M0BEAC5BHC0NuN/v+UBXDYuwuYeAJA4leuKz0H76YBevziJKUtnzMsBA+GT9vdH
  bs60wdsTbBJ1XqmQ/HWDPBV0OIGox195GSZQFblKOY1YoFXV6cv9Kyw4LyYeqozRhGx8NuE8
@@ -69,12 +71,12 @@ Autocrypt: addr=mdoucha@suse.cz; keydata=
  Rz4zFhW8KQ9+zrae5rL/6vwz3d/MpEeOmDm9uutE6xyzXRl/RxeFZ8P7KlACXWm7VjSyc74E
  eCNL6GOOeqzE77fDcBf4HvNGn8w7IX/FvNzmu78wzT2MDwMi8ug8T4KEKzIYUIRibe7cl0LG
  2dSj02pOT7E5/x4gKQB/OZqnTTQxJ0OL8BJKNFeSYqaMzKFKiYaArwuFkGnCknwh5A==
-Message-ID: <e684c55a-5973-af77-ff24-2dfc6a1f67b1@suse.cz>
-Date: Mon, 13 Jan 2020 13:16:23 +0100
+Message-ID: <f3211331-b7ec-4d14-7f3b-d8fb5c72c1fe@suse.cz>
+Date: Mon, 13 Jan 2020 14:25:32 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.3.1
 MIME-Version: 1.0
-In-Reply-To: <6f2c4482-9a8f-1b14-be18-10b486576f13@suse.cz>
+In-Reply-To: <4da4e1ec-d5dc-06e2-bea8-280533f5d022@suse.com>
 Content-Language: en-US
 X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
@@ -93,35 +95,36 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: wqu@suse.com, dsterba@suse.com, ltp@lists.linux.it
+Cc: David Sterba <DSterba@suse.com>, "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello, dear Btrfs devs,
-we know that you're busy fixing bugs and implementing new features but
-could you spare a minute to answer a question that'll help us improve
-Btrfs test coverage in LTP?
+On 1/13/20 2:16 PM, Qu WenRuo wrote:
+> Just a small tip, btrfs defaults to data CoW, and unlike other CoW fs
+> (like xfs), btrfs has an extent booking behavior, that even only part of
+> a large extent (e.g 128MiB) is referred, the whole extent will not be freed.
 
-We'd like to include the improved fallocate() test in the new LTP
-release which is planned for early next week. See the question below:
+I know, I reported the bug where we discussed this.
 
-On 1/7/20 4:50 PM, Martin Doucha wrote:
-> On 1/7/20 4:21 PM, Cyril Hrubis wrote:
->> Hi!
->>> Changes since v1:
->>> - Increase test device size to 1GB to avoid unrealistic Btrfs edge cases.
->>
->> Do we really need 1GB here? That quadruples the runtime. Aren't we good
->> with just 512MB, that would just double it?
+>>> What's the minimum block device size
+>>> where Btrfs will use the same code paths as in real-world use cases?
 > 
-> I guess that's a question for Btrfs devs, so let's ask them.
+> Mkfs.btrfs no longer enables --mixed for small fs.
 > 
-> We're trying to test fallocate()/write() on various file systems (both
-> space allocation and deallocation). What's the minimum block device size
-> where Btrfs will use the same code paths as in real-world use cases?
-> mkfs.btrfs is called without --mixed.
+> But btrfs still has a pretty complex minimal device size, it depends on
+> profile (-m and -d options).
+> 
+> If LTP guys want to be safe for single device, it needs 256MiB for
+> `mkfs.btrfs -m dup -d dup` to run successfully.
+> 
+> If only default case (-m dup -d single) is needed, then 128MiB is enough.
+
+Sorry but my question was not about the minimum for mkfs. My question
+was about the minimum device size so that the kernel driver will use the
+same block allocation logic as on a 100GB+ partition (instead of some
+special case allocation logic for tiny block devices).
 
 -- 
 Martin Doucha   mdoucha@suse.cz
