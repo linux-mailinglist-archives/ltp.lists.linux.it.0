@@ -2,28 +2,30 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DFAA13A26C
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jan 2020 09:00:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9E7D13A29D
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jan 2020 09:14:56 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E03F53C2353
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jan 2020 09:00:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 55A503C23A3
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jan 2020 09:14:56 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 0FDCF3C0ECB
- for <ltp@lists.linux.it>; Tue, 14 Jan 2020 09:00:19 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 25F6C3C2033
+ for <ltp@lists.linux.it>; Tue, 14 Jan 2020 09:14:52 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 14DC7100199A
- for <ltp@lists.linux.it>; Tue, 14 Jan 2020 09:00:18 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A9F8610019D3
+ for <ltp@lists.linux.it>; Tue, 14 Jan 2020 09:14:51 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 08D62AB7F
- for <ltp@lists.linux.it>; Tue, 14 Jan 2020 08:00:18 +0000 (UTC)
-Date: Tue, 14 Jan 2020 09:00:16 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 1E139AC50;
+ Tue, 14 Jan 2020 08:14:51 +0000 (UTC)
+Date: Tue, 14 Jan 2020 09:14:49 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Message-ID: <20200114080016.GA3468@dell5510>
+To: Zorro Lang <zlang@redhat.com>, Cyril Hrubis <chrubis@suse.cz>,
+ Jan Stancek <jstancek@redhat.com>, Li Wang <liwang@redhat.com>
+Message-ID: <20200114081449.GB3468@dell5510>
 References: <20191209160227.16125-1-zlang@redhat.com>
  <20191226072338.GH14328@dhcp-12-102.nay.redhat.com>
  <20200113153141.GA14282@dhcp-12-102.nay.redhat.com>
@@ -50,6 +52,7 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
@@ -57,21 +60,25 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Zorro,
 
-> > Ping.
-
 > > It's been several weeks passed. Is there more review points?
 
 > ping again ... is there anything block this patch review?
-Yes, preparing a release and generally lack of time (we don't work on LTP full
-time). FYI: patch queue [1]. You can help review other patches, so that pile
-gets smaller.
+Here are my comments to your v3 review [1]. Some of them are now irrelevant
+as you're fixed them in v3 (Cyril ones from v1).
 
-Thanks for your patience and your help to LTP.
+So it might be just .dev_fs_flags = TST_FS_SKIP_FUSE and tiny style fixes like
+is_mounted = 0. I wanted to fix them myself and merge, but didn't find a time.
+Sending v4 where you fix/implement suggestions generally helps speedup merging
+(as I already told you) :).
+
+The real question is whether to merge this before release. I'd like it to be in
+the release, but it depends on other maintainers opinion.
+Cyril, Jan, Li? WDYT?
 
 Kind regards,
 Petr
 
-[1] https://patchwork.ozlabs.org/project/ltp/list/
+[1] https://patchwork.ozlabs.org/patch/1206389/#2333978
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
