@@ -2,40 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A45F613AD3B
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jan 2020 16:13:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FF2D13AF44
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jan 2020 17:25:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 34C1D3C2364
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jan 2020 16:13:41 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2EDDA3C05ED
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jan 2020 17:25:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 29EE53C0637
- for <ltp@lists.linux.it>; Tue, 14 Jan 2020 16:13:37 +0100 (CET)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 57FE53C05ED
+ for <ltp@lists.linux.it>; Tue, 14 Jan 2020 17:25:39 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 898606013A0
- for <ltp@lists.linux.it>; Tue, 14 Jan 2020 16:13:36 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 453851401B66
+ for <ltp@lists.linux.it>; Tue, 14 Jan 2020 17:25:38 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 2114AAB7D
- for <ltp@lists.linux.it>; Tue, 14 Jan 2020 15:13:34 +0000 (UTC)
-Date: Tue, 14 Jan 2020 16:13:33 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 90EBEACA3;
+ Tue, 14 Jan 2020 16:25:38 +0000 (UTC)
+Date: Tue, 14 Jan 2020 17:25:37 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20200114151333.GA9508@rei>
-References: <20200113142424.25663-1-mdoucha@suse.cz>
- <20200114132744.GA10869@rei> <20200114145932.GA5979@dell5510>
+To: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
+Message-ID: <20200114162537.GB9508@rei>
+References: <1576012458-31108-1-git-send-email-zhufy.jy@cn.fujitsu.com>
+ <1576012458-31108-3-git-send-email-zhufy.jy@cn.fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200114145932.GA5979@dell5510>
+In-Reply-To: <1576012458-31108-3-git-send-email-zhufy.jy@cn.fujitsu.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4] Use real FS block size in fallocate05
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 3/3] syscalls/llseek02: convert to new library and
+ add SEEK_SET test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,12 +56,10 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > Pushed with minor changes, thanks.
-> Cyril, you pushed it as your commit :(.
-
-Well that is likely because I had to rebase it, it didn't apply cleanly.
-However the signed-off-by lists Martin which is what I care about. I do
-not care that much about the git metadata.
+I've rewritten the test so that it uses test structure, because the
+functions for different seek tests were nearly the same. I've also fixed
+a few problems, for instance there is no reason for the test to require
+root and pushed, thanks.
 
 -- 
 Cyril Hrubis
