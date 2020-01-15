@@ -2,59 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76E1D13B95B
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jan 2020 07:06:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D37ED13BB80
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jan 2020 09:52:37 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 21A853C248F
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jan 2020 07:06:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 340AF3C18F5
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jan 2020 09:52:37 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 38F553C1814
- for <ltp@lists.linux.it>; Wed, 15 Jan 2020 07:06:36 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id BE99C1A01A4B
- for <ltp@lists.linux.it>; Wed, 15 Jan 2020 07:06:34 +0100 (CET)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 9C8173C1814
+ for <ltp@lists.linux.it>; Wed, 15 Jan 2020 09:52:32 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [205.139.110.61])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 60CA31400DBF
+ for <ltp@lists.linux.it>; Wed, 15 Jan 2020 09:52:30 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1579068392;
+ s=mimecast20190719; t=1579078349;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=Ki0s9mm66ZJVDUTfkwl5ca4w0GSyzCLveAMlY93SCZY=;
- b=RqsuaMPwKFIc6Y6GL7eJM8Qi/dx/lOrKDklqViJsH7KbDHFGdu2XyRcOrkw4Wdg/J5xJfA
- cDZNIdTClE9gai5RCEhOm9EMNR0eK0GVicg/gvJ2Yn3PVA12MqY7gQEeR230/0FnhOs2f6
- L3HOlVh5F+9l3OP/B3vCN9LGmRFMleM=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=BBAsAFuHz8fyxMLPMqZ32eoIeY3vRGEnreS4g64aAKM=;
+ b=TLiLUDO4DRDvXXKoo0QS2vFCOImalUNY8Xlp/dkStr5SHFNrqiw8/CGP/mcw0faECqLizJ
+ WwoHIcQjhTmyffPEoGZ5IhtDqTiWH9gOQWTsIxO6YUTjPXy7VDO07K0mQHQMBwpdRAQin+
+ 69UGe18j8uGH+wuEzSLYVdI5s3lMqJA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-63-LjP8K600OUK-jkJkQOFWXQ-1; Wed, 15 Jan 2020 01:06:27 -0500
-X-MC-Unique: LjP8K600OUK-jkJkQOFWXQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
+ us-mta-116-LOlA6svOOMeNiP72Q3WnJA-1; Wed, 15 Jan 2020 03:52:22 -0500
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CC6D7800D4C;
- Wed, 15 Jan 2020 06:06:26 +0000 (UTC)
-Received: from [172.54.91.90] (cpt-1046.paas.prod.upshift.rdu2.redhat.com
- [10.0.19.73])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B2AE010372F6;
- Wed, 15 Jan 2020 06:06:16 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E9E3D10054E3;
+ Wed, 15 Jan 2020 08:52:20 +0000 (UTC)
+Received: from localhost (dhcp-12-102.nay.redhat.com [10.66.12.102])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 02BA060BE0;
+ Wed, 15 Jan 2020 08:52:17 +0000 (UTC)
+Date: Wed, 15 Jan 2020 17:01:26 +0800
+From: Zorro Lang <zlang@redhat.com>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <20200115090125.GE14282@dhcp-12-102.nay.redhat.com>
+Mail-Followup-To: Petr Vorel <pvorel@suse.cz>,
+ Cyril Hrubis <chrubis@suse.cz>, Jan Stancek <jstancek@redhat.com>,
+ Li Wang <liwang@redhat.com>, ltp@lists.linux.it
+References: <20191209160227.16125-1-zlang@redhat.com>
+ <20191226072338.GH14328@dhcp-12-102.nay.redhat.com>
+ <20200113153141.GA14282@dhcp-12-102.nay.redhat.com>
+ <20200114081449.GB3468@dell5510>
+ <20200114093633.GD14282@dhcp-12-102.nay.redhat.com>
+ <20200114095804.GA9211@dell5510>
 MIME-Version: 1.0
-From: CKI Project <cki-project@redhat.com>
-To: Linux Stable maillist <stable@vger.kernel.org>
-Date: Wed, 15 Jan 2020 06:06:16 -0000
-Message-ID: <cki.04B50782AB.76013V5U5A@redhat.com>
-X-Gitlab-Pipeline-ID: 382907
-X-Gitlab-Url: https://xci32.lab.eng.rdu2.redhat.com
-X-Gitlab-Path: /cki-project/cki-pipeline/pipelines/382907
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+In-Reply-To: <20200114095804.GA9211@dell5510>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-MC-Unique: LOlA6svOOMeNiP72Q3WnJA-1
+X-Mimecast-Spam-Score: 0
+Content-Disposition: inline
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E4?=
- =?utf-8?q?=2E12-rc1-5c903e1=2Ecki_=28stable=29?=
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] syscalls/newmount: new test case for new mount
+ API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,178 +76,130 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jianwen Ji <jiji@redhat.com>, Hangbin Liu <haliu@redhat.com>,
- Memory Management <mm-qe@redhat.com>, Jianlin Shi <jishi@redhat.com>,
- LTP Mailing List <ltp@lists.linux.it>,
- William Gomeringer <wgomeringer@redhat.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-CkhlbGxvLAoKV2UgcmFuIGF1dG9tYXRlZCB0ZXN0cyBvbiBhIHJlY2VudCBjb21taXQgZnJvbSB0
-aGlzIGtlcm5lbCB0cmVlOgoKICAgICAgIEtlcm5lbCByZXBvOiBnaXQ6Ly9naXQua2VybmVsLm9y
-Zy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvc3RhYmxlL2xpbnV4LXN0YWJsZS1yYy5naXQKICAg
-ICAgICAgICAgQ29tbWl0OiA1YzkwM2UxMDgzNGQgLSBMaW51eCA1LjQuMTItcmMxCgpUaGUgcmVz
-dWx0cyBvZiB0aGVzZSBhdXRvbWF0ZWQgdGVzdHMgYXJlIHByb3ZpZGVkIGJlbG93LgoKICAgIE92
-ZXJhbGwgcmVzdWx0OiBGQUlMRUQgKHNlZSBkZXRhaWxzIGJlbG93KQogICAgICAgICAgICAgTWVy
-Z2U6IE9LCiAgICAgICAgICAgQ29tcGlsZTogT0sKICAgICAgICAgICAgIFRlc3RzOiBGQUlMRUQK
-CkFsbCBrZXJuZWwgYmluYXJpZXMsIGNvbmZpZyBmaWxlcywgYW5kIGxvZ3MgYXJlIGF2YWlsYWJs
-ZSBmb3IgZG93bmxvYWQgaGVyZToKCiAgaHR0cHM6Ly9hcnRpZmFjdHMuY2tpLXByb2plY3Qub3Jn
-L3BpcGVsaW5lcy8zODI5MDcKCk9uZSBvciBtb3JlIGtlcm5lbCB0ZXN0cyBmYWlsZWQ6CgogICAg
-cHBjNjRsZToKICAgICDinYwgTFRQCgogICAgYWFyY2g2NDoKICAgICDinYwgTmV0d29ya2luZyBy
-b3V0ZV9mdW5jOiBsb2NhbAogICAgIOKdjCBOZXR3b3JraW5nIHR1bm5lbDogZ2VuZXZlIGJhc2lj
-IHRlc3QKICAgICDinYwgTmV0d29ya2luZyB0dW5uZWw6IGdyZSBiYXNpYwogICAgIOKdjCBOZXR3
-b3JraW5nIHR1bm5lbDogdnhsYW4gYmFzaWMKCldlIGhvcGUgdGhhdCB0aGVzZSBsb2dzIGNhbiBo
-ZWxwIHlvdSBmaW5kIHRoZSBwcm9ibGVtIHF1aWNrbHkuIEZvciB0aGUgZnVsbApkZXRhaWwgb24g
-b3VyIHRlc3RpbmcgcHJvY2VkdXJlcywgcGxlYXNlIHNjcm9sbCB0byB0aGUgYm90dG9tIG9mIHRo
-aXMgbWVzc2FnZS4KClBsZWFzZSByZXBseSB0byB0aGlzIGVtYWlsIGlmIHlvdSBoYXZlIGFueSBx
-dWVzdGlvbnMgYWJvdXQgdGhlIHRlc3RzIHRoYXQgd2UKcmFuIG9yIGlmIHlvdSBoYXZlIGFueSBz
-dWdnZXN0aW9ucyBvbiBob3cgdG8gbWFrZSBmdXR1cmUgdGVzdHMgbW9yZSBlZmZlY3RpdmUuCgog
-ICAgICAgICwtLiAgICwtLgogICAgICAgKCBDICkgKCBLICkgIENvbnRpbnVvdXMKICAgICAgICBg
-LScsLS5gLScgICBLZXJuZWwKICAgICAgICAgICggSSApICAgICBJbnRlZ3JhdGlvbgogICAgICAg
-ICAgIGAtJwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KCkNvbXBpbGUgdGVzdGluZwotLS0tLS0tLS0t
-LS0tLS0KCldlIGNvbXBpbGVkIHRoZSBrZXJuZWwgZm9yIDMgYXJjaGl0ZWN0dXJlczoKCiAgICBh
-YXJjaDY0OgogICAgICBtYWtlIG9wdGlvbnM6IC1qMzAgSU5TVEFMTF9NT0RfU1RSSVA9MSB0YXJn
-ei1wa2cKCiAgICBwcGM2NGxlOgogICAgICBtYWtlIG9wdGlvbnM6IC1qMzAgSU5TVEFMTF9NT0Rf
-U1RSSVA9MSB0YXJnei1wa2cKCiAgICB4ODZfNjQ6CiAgICAgIG1ha2Ugb3B0aW9uczogLWozMCBJ
-TlNUQUxMX01PRF9TVFJJUD0xIHRhcmd6LXBrZwoKCkhhcmR3YXJlIHRlc3RpbmcKLS0tLS0tLS0t
-LS0tLS0tLQpXZSBib290ZWQgZWFjaCBrZXJuZWwgYW5kIHJhbiB0aGUgZm9sbG93aW5nIHRlc3Rz
-OgoKICBhYXJjaDY0OgogICAgSG9zdCAxOgoKICAgICAgIOKaoSBJbnRlcm5hbCBpbmZyYXN0cnVj
-dHVyZSBpc3N1ZXMgcHJldmVudGVkIG9uZSBvciBtb3JlIHRlc3RzIChtYXJrZWQKICAgICAgIHdp
-dGgg4pqh4pqh4pqhKSBmcm9tIHJ1bm5pbmcgb24gdGhpcyBhcmNoaXRlY3R1cmUuCiAgICAgICBU
-aGlzIGlzIG5vdCB0aGUgZmF1bHQgb2YgdGhlIGtlcm5lbCB0aGF0IHdhcyB0ZXN0ZWQuCgogICAg
-ICAg4pyFIEJvb3QgdGVzdAogICAgICAg4pyFIHhmc3Rlc3RzOiBleHQ0CiAgICAgICDinIUgeGZz
-dGVzdHM6IHhmcwogICAgICAg4pyFIHNlbGludXgtcG9saWN5OiBzZXJnZS10ZXN0c3VpdGUKICAg
-ICAgIOKchSBsdm0gdGhpbnAgc2FuaXR5CiAgICAgICDinIUgc3RvcmFnZTogc29mdHdhcmUgUkFJ
-RCB0ZXN0aW5nCiAgICAgICDinIUgc3RyZXNzOiBzdHJlc3MtbmcKICAgICAgIPCfmqcg4pqh4pqh
-4pqhIElQTUkgZHJpdmVyIHRlc3QKICAgICAgIPCfmqcg4pyFIElQTUl0b29sIGxvb3Agc3RyZXNz
-IHRlc3QKICAgICAgIPCfmqcg4pyFIFN0b3JhZ2UgYmxrdGVzdHMKCiAgICBIb3N0IDI6CiAgICAg
-ICDinIUgQm9vdCB0ZXN0CiAgICAgICDinIUgUG9kbWFuIHN5c3RlbSBpbnRlZ3JhdGlvbiB0ZXN0
-IChhcyByb290KQogICAgICAg4pyFIFBvZG1hbiBzeXN0ZW0gaW50ZWdyYXRpb24gdGVzdCAoYXMg
-dXNlcikKICAgICAgIOKchSBMVFAKICAgICAgIOKchSBMb29wZGV2IFNhbml0eQogICAgICAg4pyF
-IE1lbW9yeSBmdW5jdGlvbjogbWVtZmRfY3JlYXRlCiAgICAgICDinIUgQU1UVSAoQWJzdHJhY3Qg
-TWFjaGluZSBUZXN0IFV0aWxpdHkpCiAgICAgICDinIUgTmV0d29ya2luZyBicmlkZ2U6IHNhbml0
-eQogICAgICAg4pyFIEV0aGVybmV0IGRyaXZlcnMgc2FuaXR5CiAgICAgICDinIUgTmV0d29ya2lu
-ZyBNQUNzZWM6IHNhbml0eQogICAgICAg4pyFIE5ldHdvcmtpbmcgc29ja2V0OiBmdXp6CiAgICAg
-ICDinIUgTmV0d29ya2luZyBzY3RwLWF1dGg6IHNvY2tvcHRzIHRlc3QKICAgICAgIOKchSBOZXR3
-b3JraW5nOiBpZ21wIGNvbmZvcm1hbmNlIHRlc3QKICAgICAgIOKchSBOZXR3b3JraW5nIHJvdXRl
-OiBwbXR1CiAgICAgICDinYwgTmV0d29ya2luZyByb3V0ZV9mdW5jOiBsb2NhbAogICAgICAg4pyF
-IE5ldHdvcmtpbmcgcm91dGVfZnVuYzogZm9yd2FyZAogICAgICAg4pyFIE5ldHdvcmtpbmcgVENQ
-OiBrZWVwYWxpdmUgdGVzdAogICAgICAg4pyFIE5ldHdvcmtpbmcgVURQOiBzb2NrZXQKICAgICAg
-IOKdjCBOZXR3b3JraW5nIHR1bm5lbDogZ2VuZXZlIGJhc2ljIHRlc3QKICAgICAgIOKdjCBOZXR3
-b3JraW5nIHR1bm5lbDogZ3JlIGJhc2ljCiAgICAgICDinIUgTDJUUCBiYXNpYyB0ZXN0CiAgICAg
-ICDinYwgTmV0d29ya2luZyB0dW5uZWw6IHZ4bGFuIGJhc2ljCiAgICAgICDinIUgTmV0d29ya2lu
-ZyBpcHNlYzogYmFzaWMgbmV0bnMgdHJhbnNwb3J0CiAgICAgICDinIUgTmV0d29ya2luZyBpcHNl
-YzogYmFzaWMgbmV0bnMgdHVubmVsCiAgICAgICDinIUgYXVkaXQ6IGF1ZGl0IHRlc3RzdWl0ZSB0
-ZXN0CiAgICAgICDinIUgaHR0cGQ6IG1vZF9zc2wgc21va2Ugc2FuaXR5CiAgICAgICDinIUgdHVu
-ZWQ6IHR1bmUtcHJvY2Vzc2VzLXRocm91Z2gtcGVyZgogICAgICAg4pyFIEFMU0EgUENNIGxvb3Bi
-YWNrIHRlc3QKICAgICAgIOKchSBBTFNBIENvbnRyb2wgKG1peGVyKSBVc2Vyc3BhY2UgRWxlbWVu
-dCB0ZXN0CiAgICAgICDinIUgc3RvcmFnZTogU0NTSSBWUEQKICAgICAgIOKchSB0cmFjZTogZnRy
-YWNlL3RyYWNlcgogICAgICAg8J+apyDinIUgQ0lGUyBDb25uZWN0YXRob24KICAgICAgIPCfmqcg
-4pyFIFBPU0lYIHBqZC1mc3Rlc3Qgc3VpdGVzCiAgICAgICDwn5qnIOKchSBqdm0gdGVzdCBzdWl0
-ZQogICAgICAg8J+apyDinIUgTWVtb3J5IGZ1bmN0aW9uOiBrYXNscgogICAgICAg8J+apyDinIUg
-TFRQOiBvcGVucG9zaXggdGVzdCBzdWl0ZQogICAgICAg8J+apyDinIUgTmV0d29ya2luZyB2bmlj
-OiBpcHZsYW4vYmFzaWMKICAgICAgIPCfmqcg4pyFIGlvdG9wOiBzYW5pdHkKICAgICAgIOKPsSAg
-VXNleCAtIHZlcnNpb24gMS45LTI5CiAgICAgICDij7EgIHN0b3JhZ2U6IGRtL2NvbW1vbgoKICBw
-cGM2NGxlOgogICAgSG9zdCAxOgogICAgICAg4pyFIEJvb3QgdGVzdAogICAgICAg4pyFIFBvZG1h
-biBzeXN0ZW0gaW50ZWdyYXRpb24gdGVzdCAoYXMgcm9vdCkKICAgICAgIOKchSBQb2RtYW4gc3lz
-dGVtIGludGVncmF0aW9uIHRlc3QgKGFzIHVzZXIpCiAgICAgICDinYwgTFRQCiAgICAgICDinIUg
-TG9vcGRldiBTYW5pdHkKICAgICAgIOKchSBNZW1vcnkgZnVuY3Rpb246IG1lbWZkX2NyZWF0ZQog
-ICAgICAg4pyFIEFNVFUgKEFic3RyYWN0IE1hY2hpbmUgVGVzdCBVdGlsaXR5KQogICAgICAg4pyF
-IE5ldHdvcmtpbmcgYnJpZGdlOiBzYW5pdHkKICAgICAgIOKchSBFdGhlcm5ldCBkcml2ZXJzIHNh
-bml0eQogICAgICAg4pyFIE5ldHdvcmtpbmcgTUFDc2VjOiBzYW5pdHkKICAgICAgIOKchSBOZXR3
-b3JraW5nIHNvY2tldDogZnV6egogICAgICAg4pyFIE5ldHdvcmtpbmcgc2N0cC1hdXRoOiBzb2Nr
-b3B0cyB0ZXN0CiAgICAgICDinIUgTmV0d29ya2luZyByb3V0ZTogcG10dQogICAgICAg4pyFIE5l
-dHdvcmtpbmcgcm91dGVfZnVuYzogbG9jYWwKICAgICAgIOKchSBOZXR3b3JraW5nIHJvdXRlX2Z1
-bmM6IGZvcndhcmQKICAgICAgIOKchSBOZXR3b3JraW5nIFRDUDoga2VlcGFsaXZlIHRlc3QKICAg
-ICAgIOKchSBOZXR3b3JraW5nIFVEUDogc29ja2V0CiAgICAgICDinIUgTmV0d29ya2luZyB0dW5u
-ZWw6IGdlbmV2ZSBiYXNpYyB0ZXN0CiAgICAgICDinIUgTmV0d29ya2luZyB0dW5uZWw6IGdyZSBi
-YXNpYwogICAgICAg4pyFIEwyVFAgYmFzaWMgdGVzdAogICAgICAg4pyFIE5ldHdvcmtpbmcgdHVu
-bmVsOiB2eGxhbiBiYXNpYwogICAgICAg4pyFIE5ldHdvcmtpbmcgaXBzZWM6IGJhc2ljIG5ldG5z
-IHR1bm5lbAogICAgICAg4pyFIGF1ZGl0OiBhdWRpdCB0ZXN0c3VpdGUgdGVzdAogICAgICAg4pyF
-IGh0dHBkOiBtb2Rfc3NsIHNtb2tlIHNhbml0eQogICAgICAg4pyFIHR1bmVkOiB0dW5lLXByb2Nl
-c3Nlcy10aHJvdWdoLXBlcmYKICAgICAgIOKchSBBTFNBIFBDTSBsb29wYmFjayB0ZXN0CiAgICAg
-ICDinIUgQUxTQSBDb250cm9sIChtaXhlcikgVXNlcnNwYWNlIEVsZW1lbnQgdGVzdAogICAgICAg
-4pyFIHRyYWNlOiBmdHJhY2UvdHJhY2VyCiAgICAgICDwn5qnIOKchSBDSUZTIENvbm5lY3RhdGhv
-bgogICAgICAg8J+apyDinIUgUE9TSVggcGpkLWZzdGVzdCBzdWl0ZXMKICAgICAgIPCfmqcg4pyF
-IGp2bSB0ZXN0IHN1aXRlCiAgICAgICDwn5qnIOKchSBNZW1vcnkgZnVuY3Rpb246IGthc2xyCiAg
-ICAgICDwn5qnIOKchSBMVFA6IG9wZW5wb3NpeCB0ZXN0IHN1aXRlCiAgICAgICDwn5qnIOKchSBO
-ZXR3b3JraW5nIHZuaWM6IGlwdmxhbi9iYXNpYwogICAgICAg8J+apyDinIUgaW90b3A6IHNhbml0
-eQogICAgICAg8J+apyDinIUgVXNleCAtIHZlcnNpb24gMS45LTI5CiAgICAgICDwn5qnIOKchSBz
-dG9yYWdlOiBkbS9jb21tb24KCiAgICBIb3N0IDI6CiAgICAgICDinIUgQm9vdCB0ZXN0CiAgICAg
-ICDinIUgeGZzdGVzdHM6IGV4dDQKICAgICAgIOKchSB4ZnN0ZXN0czogeGZzCiAgICAgICDinIUg
-c2VsaW51eC1wb2xpY3k6IHNlcmdlLXRlc3RzdWl0ZQogICAgICAg4pyFIGx2bSB0aGlucCBzYW5p
-dHkKICAgICAgIOKchSBzdG9yYWdlOiBzb2Z0d2FyZSBSQUlEIHRlc3RpbmcKICAgICAgIPCfmqcg
-4pyFIElQTUkgZHJpdmVyIHRlc3QKICAgICAgIPCfmqcg4pyFIElQTUl0b29sIGxvb3Agc3RyZXNz
-IHRlc3QKICAgICAgIPCfmqcg4pyFIFN0b3JhZ2UgYmxrdGVzdHMKCiAgeDg2XzY0OgogICAgSG9z
-dCAxOgoKICAgICAgIOKaoSBJbnRlcm5hbCBpbmZyYXN0cnVjdHVyZSBpc3N1ZXMgcHJldmVudGVk
-IG9uZSBvciBtb3JlIHRlc3RzIChtYXJrZWQKICAgICAgIHdpdGgg4pqh4pqh4pqhKSBmcm9tIHJ1
-bm5pbmcgb24gdGhpcyBhcmNoaXRlY3R1cmUuCiAgICAgICBUaGlzIGlzIG5vdCB0aGUgZmF1bHQg
-b2YgdGhlIGtlcm5lbCB0aGF0IHdhcyB0ZXN0ZWQuCgogICAgICAg4pyFIEJvb3QgdGVzdAogICAg
-ICAg4pyFIHhmc3Rlc3RzOiBleHQ0CiAgICAgICDinIUgeGZzdGVzdHM6IHhmcwogICAgICAg4pyF
-IHNlbGludXgtcG9saWN5OiBzZXJnZS10ZXN0c3VpdGUKICAgICAgIOKchSBsdm0gdGhpbnAgc2Fu
-aXR5CiAgICAgICDinIUgc3RvcmFnZTogc29mdHdhcmUgUkFJRCB0ZXN0aW5nCiAgICAgICDinIUg
-c3RyZXNzOiBzdHJlc3MtbmcKICAgICAgIPCfmqcg4p2MIElPTU1VIGJvb3QgdGVzdAogICAgICAg
-8J+apyDinIUgSVBNSSBkcml2ZXIgdGVzdAogICAgICAg8J+apyDinIUgSVBNSXRvb2wgbG9vcCBz
-dHJlc3MgdGVzdAogICAgICAg8J+apyDimqHimqHimqEgcG93ZXItbWFuYWdlbWVudDogY3B1cG93
-ZXIvc2FuaXR5IHRlc3QKICAgICAgIPCfmqcg4pyFIFN0b3JhZ2UgYmxrdGVzdHMKCiAgICBIb3N0
-IDI6CgogICAgICAg4pqhIEludGVybmFsIGluZnJhc3RydWN0dXJlIGlzc3VlcyBwcmV2ZW50ZWQg
-b25lIG9yIG1vcmUgdGVzdHMgKG1hcmtlZAogICAgICAgd2l0aCDimqHimqHimqEpIGZyb20gcnVu
-bmluZyBvbiB0aGlzIGFyY2hpdGVjdHVyZS4KICAgICAgIFRoaXMgaXMgbm90IHRoZSBmYXVsdCBv
-ZiB0aGUga2VybmVsIHRoYXQgd2FzIHRlc3RlZC4KCiAgICAgICDimqHimqHimqEgQm9vdCB0ZXN0
-CiAgICAgICDimqHimqHimqEgU3RvcmFnZSBTQU4gZGV2aWNlIHN0cmVzcyAtIG1wdDNzYXMgZHJp
-dmVyCgogICAgSG9zdCAzOgogICAgICAg4pyFIEJvb3QgdGVzdAogICAgICAg4pyFIFBvZG1hbiBz
-eXN0ZW0gaW50ZWdyYXRpb24gdGVzdCAoYXMgcm9vdCkKICAgICAgIOKchSBQb2RtYW4gc3lzdGVt
-IGludGVncmF0aW9uIHRlc3QgKGFzIHVzZXIpCiAgICAgICDinIUgTFRQCiAgICAgICDinIUgTG9v
-cGRldiBTYW5pdHkKICAgICAgIOKchSBNZW1vcnkgZnVuY3Rpb246IG1lbWZkX2NyZWF0ZQogICAg
-ICAg4pyFIEFNVFUgKEFic3RyYWN0IE1hY2hpbmUgVGVzdCBVdGlsaXR5KQogICAgICAg4pyFIE5l
-dHdvcmtpbmcgYnJpZGdlOiBzYW5pdHkKICAgICAgIOKchSBFdGhlcm5ldCBkcml2ZXJzIHNhbml0
-eQogICAgICAg4pyFIE5ldHdvcmtpbmcgTUFDc2VjOiBzYW5pdHkKICAgICAgIOKchSBOZXR3b3Jr
-aW5nIHNvY2tldDogZnV6egogICAgICAg4pyFIE5ldHdvcmtpbmcgc2N0cC1hdXRoOiBzb2Nrb3B0
-cyB0ZXN0CiAgICAgICDinIUgTmV0d29ya2luZzogaWdtcCBjb25mb3JtYW5jZSB0ZXN0CiAgICAg
-ICDinIUgTmV0d29ya2luZyByb3V0ZTogcG10dQogICAgICAg4pyFIE5ldHdvcmtpbmcgcm91dGVf
-ZnVuYzogbG9jYWwKICAgICAgIOKchSBOZXR3b3JraW5nIHJvdXRlX2Z1bmM6IGZvcndhcmQKICAg
-ICAgIOKchSBOZXR3b3JraW5nIFRDUDoga2VlcGFsaXZlIHRlc3QKICAgICAgIOKchSBOZXR3b3Jr
-aW5nIFVEUDogc29ja2V0CiAgICAgICDinIUgTmV0d29ya2luZyB0dW5uZWw6IGdlbmV2ZSBiYXNp
-YyB0ZXN0CiAgICAgICDinIUgTmV0d29ya2luZyB0dW5uZWw6IGdyZSBiYXNpYwogICAgICAg4pyF
-IEwyVFAgYmFzaWMgdGVzdAogICAgICAg4pyFIE5ldHdvcmtpbmcgdHVubmVsOiB2eGxhbiBiYXNp
-YwogICAgICAg4pyFIE5ldHdvcmtpbmcgaXBzZWM6IGJhc2ljIG5ldG5zIHRyYW5zcG9ydAogICAg
-ICAg4pyFIE5ldHdvcmtpbmcgaXBzZWM6IGJhc2ljIG5ldG5zIHR1bm5lbAogICAgICAg4pyFIGF1
-ZGl0OiBhdWRpdCB0ZXN0c3VpdGUgdGVzdAogICAgICAg4pyFIGh0dHBkOiBtb2Rfc3NsIHNtb2tl
-IHNhbml0eQogICAgICAg4pyFIHR1bmVkOiB0dW5lLXByb2Nlc3Nlcy10aHJvdWdoLXBlcmYKICAg
-ICAgIOKchSBwY2l1dGlsczogc2FuaXR5IHNtb2tlIHRlc3QKICAgICAgIOKchSBBTFNBIFBDTSBs
-b29wYmFjayB0ZXN0CiAgICAgICDinIUgQUxTQSBDb250cm9sIChtaXhlcikgVXNlcnNwYWNlIEVs
-ZW1lbnQgdGVzdAogICAgICAg4pyFIHN0b3JhZ2U6IFNDU0kgVlBECiAgICAgICDinIUgdHJhY2U6
-IGZ0cmFjZS90cmFjZXIKICAgICAgIPCfmqcg4pyFIENJRlMgQ29ubmVjdGF0aG9uCiAgICAgICDw
-n5qnIOKchSBQT1NJWCBwamQtZnN0ZXN0IHN1aXRlcwogICAgICAg8J+apyDinIUganZtIHRlc3Qg
-c3VpdGUKICAgICAgIPCfmqcg4pyFIE1lbW9yeSBmdW5jdGlvbjoga2FzbHIKICAgICAgIPCfmqcg
-4pyFIExUUDogb3BlbnBvc2l4IHRlc3Qgc3VpdGUKICAgICAgIPCfmqcg4pyFIE5ldHdvcmtpbmcg
-dm5pYzogaXB2bGFuL2Jhc2ljCiAgICAgICDwn5qnIOKchSBpb3RvcDogc2FuaXR5CiAgICAgICDw
-n5qnIOKchSBVc2V4IC0gdmVyc2lvbiAxLjktMjkKICAgICAgIPCfmqcg4pyFIHN0b3JhZ2U6IGRt
-L2NvbW1vbgoKICAgIEhvc3QgNDoKCiAgICAgICDimqEgSW50ZXJuYWwgaW5mcmFzdHJ1Y3R1cmUg
-aXNzdWVzIHByZXZlbnRlZCBvbmUgb3IgbW9yZSB0ZXN0cyAobWFya2VkCiAgICAgICB3aXRoIOKa
-oeKaoeKaoSkgZnJvbSBydW5uaW5nIG9uIHRoaXMgYXJjaGl0ZWN0dXJlLgogICAgICAgVGhpcyBp
-cyBub3QgdGhlIGZhdWx0IG9mIHRoZSBrZXJuZWwgdGhhdCB3YXMgdGVzdGVkLgoKICAgICAgIOKa
-oeKaoeKaoSBCb290IHRlc3QKICAgICAgIOKaoeKaoeKaoSBTdG9yYWdlIFNBTiBkZXZpY2Ugc3Ry
-ZXNzIC0gbWVnYXJhaWRfc2FzCgogICAgSG9zdCA1OgogICAgICAg4pyFIEJvb3QgdGVzdAogICAg
-ICAg4pyFIFN0b3JhZ2UgU0FOIGRldmljZSBzdHJlc3MgLSBtcHQzc2FzIGRyaXZlcgoKICAgIEhv
-c3QgNjoKCiAgICAgICDimqEgSW50ZXJuYWwgaW5mcmFzdHJ1Y3R1cmUgaXNzdWVzIHByZXZlbnRl
-ZCBvbmUgb3IgbW9yZSB0ZXN0cyAobWFya2VkCiAgICAgICB3aXRoIOKaoeKaoeKaoSkgZnJvbSBy
-dW5uaW5nIG9uIHRoaXMgYXJjaGl0ZWN0dXJlLgogICAgICAgVGhpcyBpcyBub3QgdGhlIGZhdWx0
-IG9mIHRoZSBrZXJuZWwgdGhhdCB3YXMgdGVzdGVkLgoKICAgICAgIOKaoeKaoeKaoSBCb290IHRl
-c3QKICAgICAgIOKaoeKaoeKaoSBTdG9yYWdlIFNBTiBkZXZpY2Ugc3RyZXNzIC0gbWVnYXJhaWRf
-c2FzCgogIFRlc3Qgc291cmNlczogaHR0cHM6Ly9naXRodWIuY29tL0NLSS1wcm9qZWN0L3Rlc3Rz
-LWJlYWtlcgogICAg8J+SmiBQdWxsIHJlcXVlc3RzIGFyZSB3ZWxjb21lIGZvciBuZXcgdGVzdHMg
-b3IgaW1wcm92ZW1lbnRzIHRvIGV4aXN0aW5nIHRlc3RzIQoKV2FpdmVkIHRlc3RzCi0tLS0tLS0t
-LS0tLQpJZiB0aGUgdGVzdCBydW4gaW5jbHVkZWQgd2FpdmVkIHRlc3RzLCB0aGV5IGFyZSBtYXJr
-ZWQgd2l0aCDwn5qnLiBTdWNoIHRlc3RzIGFyZQpleGVjdXRlZCBidXQgdGhlaXIgcmVzdWx0cyBh
-cmUgbm90IHRha2VuIGludG8gYWNjb3VudC4gVGVzdHMgYXJlIHdhaXZlZCB3aGVuCnRoZWlyIHJl
-c3VsdHMgYXJlIG5vdCByZWxpYWJsZSBlbm91Z2gsIGUuZy4gd2hlbiB0aGV5J3JlIGp1c3QgaW50
-cm9kdWNlZCBvciBhcmUKYmVpbmcgZml4ZWQuCgpUZXN0aW5nIHRpbWVvdXQKLS0tLS0tLS0tLS0t
-LS0tCldlIGFpbSB0byBwcm92aWRlIGEgcmVwb3J0IHdpdGhpbiByZWFzb25hYmxlIHRpbWVmcmFt
-ZS4gVGVzdHMgdGhhdCBoYXZlbid0CmZpbmlzaGVkIHJ1bm5pbmcgYXJlIG1hcmtlZCB3aXRoIOKP
-sS4gUmVwb3J0cyBmb3Igbm9uLXVwc3RyZWFtIGtlcm5lbHMgaGF2ZQphIEJlYWtlciByZWNpcGUg
-bGlua2VkIHRvIG5leHQgdG8gZWFjaCBob3N0LgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0
-cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+On Tue, Jan 14, 2020 at 10:58:04AM +0100, Petr Vorel wrote:
+> Hi Zorro,
+> 
+> > > > ping again ... is there anything block this patch review?
+> > > Here are my comments to your v3 review [1]. Some of them are now irrelevant
+> > > as you're fixed them in v3 (Cyril ones from v1).
+> 
+> > Wow, now I know why I didn't get any response for such long time. The emails
+> > from you and Cyril were all sent to mail list, not to/cc me. I didn't pay so
+> > much attention to the mail list. Sorry about that.
+> OK good :). I'm sorry to forget to Cc you in some of my replies (I usually pay
+> attention to Cc people). It's also safer to look at ML or patchwork as this
+> sometimes happen :).
+> 
+> > > So it might be just .dev_fs_flags = TST_FS_SKIP_FUSE and tiny style fixes like
+
+Hi,
+
+About the TST_FS_SKIP_FUSE flag I have below questions:
+
+1) About ntfs and vfat test
+You said below content in [1]:
+
+  I like you use .all_filesystems = 1 as I suggested in [1], but I warned that it
+  breaks nfs.
+  newmount01.c:58: FAIL: fsopen ntfs: ENODEV (19)
+
+  Fortunately this does not need any patch for filtering nfs as TST_FS_SKIP_FUSE
+  is enough for it - add this to struct tst_test:
+  .dev_fs_flags = TST_FS_SKIP_FUSE
+
+  Not sure if just fsopen() is affected, but it probably does not make sense to test
+  just fsopen() and fsconfig().
+
+Actually if you fsopen("ntfs", ...), it doesn't test FUSE. It's testing linux
+kernel ntfs:
+  # lsmod |grep ntfs
+  ntfs                  819200  0
+
+Similar for vfat:
+  # lsmod |grep fat
+  vfat                   45056  0
+  fat                   274432  1 vfat
+
+And from my test on linux 5.5-rc4, the ntfs and vfat can test passed:
+  ...
+  tst_test.c:1278: INFO: Testing on vfat
+  tst_mkfs.c:90: INFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
+  tst_test.c:1217: INFO: Timeout per run is 0h 05m 00s
+  newmount01.c:62: PASS: fsopen vfat
+  newmount01.c:69: PASS: fsconfig set source to /dev/loop0
+  newmount01.c:77: PASS: fsconfig create superblock
+  newmount01.c:84: PASS: fsmount
+  newmount01.c:92: PASS: move_mount attach to mount point
+  newmount01.c:96: PASS: new mount works
+  tst_test.c:1278: INFO: Testing on ntfs
+  tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ntfs opts='' extra opts=''
+  The partition start sector was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+  The number of sectors per track was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+  The number of heads was not specified for /dev/loop0 and it could not be obtained automatically.  It has been set to 0.
+  To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
+  Windows will not be able to boot from this device.
+  tst_test.c:1217: INFO: Timeout per run is 0h 05m 00s
+  newmount01.c:62: PASS: fsopen ntfs
+  newmount01.c:69: PASS: fsconfig set source to /dev/loop0
+  newmount01.c:77: PASS: fsconfig create superblock
+  newmount01.c:84: PASS: fsmount
+  newmount01.c:92: PASS: move_mount attach to mount point
+  newmount01.c:96: PASS: new mount works
+
+You hit that error, maybe due to your current kernel didn't build these fs
+modules, but your system has mkfs.ntfs* tool.
+
+2) About if this case supports FUSE:
+
+This current code of this case can't do a FUSE mount, due to if we want to mount
+a fs through FUSE, we need to do more things, something likes:
+  fd = open(/dev/fuse, ...)
+  fsfd = fsopen("fuse", ...);
+  ...
+  fsconfig(fsfd, FSCONFIG_SET_FD, "fd", NULL, fd);
+  ...
+  (more)
+  ...
+
+It's not a simple mount as general localfs mount does. So I didn't do that.
+If need, I'd like to write another case to cover that.
+
+3) About the TST_FS_SKIP_FUSE flag:
+
+If you want to skip ntfs and vfat test by set .dev_fs_flags = TST_FS_SKIP_FUSE
+for this case. I think it doesn't work. The reason as I said above. Actually
+if the current kernel support ntfs and vfat (build them), and we have mkfs.ntfs
+and mkfs.vfat tools, then this case can test it.
+
+But if we have the tools, but don't have the kernel support. The case will fail
+as you hit.
+
+Thanks,
+Zorro
+
+
+[1] https://patchwork.ozlabs.org/patch/1206389/#2333978
+
+> > > is_mounted = 0. I wanted to fix them myself and merge, but didn't find a time.
+> > > Sending v4 where you fix/implement suggestions generally helps speedup merging
+> > > (as I already told you) :).
+> 
+> > I'll read your review points, and send a V4 tonight.
+> Thanks a lot!
+> 
+> Kind regards,
+> Petr
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+> 
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
