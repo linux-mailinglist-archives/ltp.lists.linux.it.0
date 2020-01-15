@@ -1,52 +1,64 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2D4113BC13
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jan 2020 10:10:01 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D484213BC7A
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jan 2020 10:34:38 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7498E3C24C6
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jan 2020 10:10:01 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 619353C24A4
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jan 2020 10:34:38 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 3D2FE3C1CE5
- for <ltp@lists.linux.it>; Wed, 15 Jan 2020 10:09:49 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 02B52201506
- for <ltp@lists.linux.it>; Wed, 15 Jan 2020 10:09:47 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.70,322,1574092800"; d="scan'208";a="81887471"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 15 Jan 2020 17:09:47 +0800
-Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
- by cn.fujitsu.com (Postfix) with ESMTP id ACB734CE20EF
- for <ltp@lists.linux.it>; Wed, 15 Jan 2020 17:00:41 +0800 (CST)
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.83) by
- G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204) with Microsoft SMTP Server
- (TLS) id 15.0.1395.4; Wed, 15 Jan 2020 17:09:46 +0800
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Wed, 15 Jan 2020 17:09:50 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Wed, 15 Jan 2020 17:09:54 +0800
-Message-ID: <1579079394-18233-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1579079394-18233-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-References: <1579079394-18233-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ by picard.linux.it (Postfix) with ESMTP id 9E98A3C18F5
+ for <ltp@lists.linux.it>; Wed, 15 Jan 2020 10:34:34 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id D293F201512
+ for <ltp@lists.linux.it>; Wed, 15 Jan 2020 10:34:33 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1579080872;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=iZ8CxbxSIYuKa6CqSznBZTFdMsx58xAqcoquscY+Py4=;
+ b=GqMYOVweJjn9sK/3wrkJndwicKjrSA6LNHWiyEKXyJgEpsqpwOsjT54DZWpA8bIIGlRW1f
+ uKjbUUB8gm2QjnyoDAQ4nV8cR5fWfFJD1KcCidfLltMRfV74eeY2LBnlkjHoEhfyxiULNh
+ y/znT/UgF4+PqpOlBwLubSDKrf+E+XE=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-94-edcYm1qMOqKSoUPPFV144g-1; Wed, 15 Jan 2020 04:34:21 -0500
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4D35D800EBF
+ for <ltp@lists.linux.it>; Wed, 15 Jan 2020 09:34:20 +0000 (UTC)
+Received: from [172.54.91.90] (cpt-1046.paas.prod.upshift.rdu2.redhat.com
+ [10.0.19.73])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 2E56C5D9C5;
+ Wed, 15 Jan 2020 09:34:15 +0000 (UTC)
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-yoursite-MailScanner-ID: ACB734CE20EF.A032E
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
+From: CKI Project <cki-project@redhat.com>
+To: skt-results-master@redhat.com, labbott@redhat.com, jforbes@redhat.com,
+ jcline@redhat.com
+Date: Wed, 15 Jan 2020 09:34:15 -0000
+Message-ID: <cki.0.BMO32N203K@redhat.com>
+X-Gitlab-Pipeline-ID: 384229
+X-Gitlab-Url: https://xci32.lab.eng.rdu2.redhat.com
+X-Gitlab-Path: /cki-project/brew-pipeline/pipelines/384229
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-MC-Unique: edcYm1qMOqKSoUPPFV144g-1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] syscalls/fcntl37: add error test for fcntl with
- F_SETPIPE_SZ
+Subject: [LTP] =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E4?=
+ =?utf-8?q?=2E12-100=2Efc30_=28fedora-30=29?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,153 +70,95 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Memory Management <mm-qe@redhat.com>, LTP Mailing List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- runtest/syscalls                           |   2 +
- testcases/kernel/syscalls/fcntl/.gitignore |   2 +
- testcases/kernel/syscalls/fcntl/fcntl37.c  | 100 +++++++++++++++++++++
- 3 files changed, 104 insertions(+)
- create mode 100644 testcases/kernel/syscalls/fcntl/fcntl37.c
-
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 92a9ae636..3f33b8661 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -299,6 +299,8 @@ fcntl35 fcntl35
- fcntl35_64 fcntl35_64
- fcntl36 fcntl36
- fcntl36_64 fcntl36_64
-+fcntl37 fcntl37
-+fcntl37_64 fcntl37_64
- 
- fdatasync01 fdatasync01
- fdatasync02 fdatasync02
-diff --git a/testcases/kernel/syscalls/fcntl/.gitignore b/testcases/kernel/syscalls/fcntl/.gitignore
-index 8d5738f97..be8d9739e 100644
---- a/testcases/kernel/syscalls/fcntl/.gitignore
-+++ b/testcases/kernel/syscalls/fcntl/.gitignore
-@@ -70,3 +70,5 @@
- /fcntl35_64
- /fcntl36
- /fcntl36_64
-+/fcntl37
-+/fcntl37_64
-diff --git a/testcases/kernel/syscalls/fcntl/fcntl37.c b/testcases/kernel/syscalls/fcntl/fcntl37.c
-new file mode 100644
-index 000000000..c9f5f15a7
---- /dev/null
-+++ b/testcases/kernel/syscalls/fcntl/fcntl37.c
-@@ -0,0 +1,100 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
-+ * Author: Yang Xu <xuyang2018.jy@cn.jujitsu.com>
-+ *
-+ * Test basic error handling for fcntl(2) using F_SETPIPE_SZ, F_GETPIPE_SZ
-+ * argument.
-+ * 1)fcntl fails with EINVAL when cmd is F_SETPIPE_SZ and the arg is
-+ * beyond UINT_MAX
-+ * 2)fcntl fails with EBUSY when cmd is F_SETPIPE_SZ and the arg is smaller
-+ * than the amount of the current used buffer space.
-+ * 3)fcntl fails with EPERM when cmd is F_SETPIPE_SZ and the arg is over
-+ * /proc/sys/fs/pipe-max-size limit under unprivileged users.
-+ */
-+
-+#include <unistd.h>
-+#include <fcntl.h>
-+#include <sys/types.h>
-+#include <limits.h>
-+#include <stdlib.h>
-+#include "tst_test.h"
-+#include "lapi/fcntl.h"
-+#include "lapi/capability.h"
-+
-+static int fds[2];
-+static unsigned int orig_value, invalid_value, half_value, sys_value;
-+static char *wrbuf;
-+
-+static struct tcase {
-+	unsigned int *setvalue;
-+	int exp_err;
-+	char *message;
-+} tcases[] = {
-+	{&invalid_value, EINVAL,
-+	"cmd is F_SETPIPE_SZ and the arg is beyond UINT_MAX"},
-+
-+	{&half_value, EBUSY,
-+	"cmd is F_SETPIPE_SZ and the arg is smaller than the amount of the current used buffer space"},
-+	{&sys_value, EPERM,
-+	"cmd is F_SETPIPE_SZ and the arg is over /proc/sys/fs/pipe-max-size limit under unprivileged users"},
-+};
-+
-+static void verify_fcntl(unsigned int n)
-+{
-+	struct tcase *tc = &tcases[n];
-+
-+	tst_res(TINFO, "%s", tc->message);
-+
-+	TEST(fcntl(fds[1], F_SETPIPE_SZ, *(tc->setvalue)));
-+	if (TST_RET != -1)
-+		tst_res(TFAIL, "F_SETPIPE_SZ succeed");
-+	if (TST_ERR == tc->exp_err)
-+		tst_res(TPASS | TTERRNO, "F_SETPIPE_SZ failed as expected");
-+	else
-+		tst_res(TFAIL | TTERRNO, "F_SETPIPE_SZ failed expected %s bu got",
-+				tst_strerrno(tc->exp_err));
-+}
-+
-+static void setup(void)
-+{
-+	SAFE_PIPE(fds);
-+
-+	TEST(fcntl(fds[1], F_GETPIPE_SZ));
-+	if (TST_ERR == EINVAL)
-+		tst_brk(TCONF, "kernel doesn't support F_GET/SETPIPE_SZ");
-+
-+	orig_value = TST_RET;
-+
-+	wrbuf = SAFE_MALLOC(orig_value);
-+	memset(wrbuf, 'x', orig_value);
-+	SAFE_WRITE(1, fds[1], wrbuf, orig_value);
-+
-+	SAFE_FILE_SCANF("/proc/sys/fs/pipe-max-size", "%d", &sys_value);
-+	sys_value++;
-+
-+	half_value = orig_value / 2;
-+	invalid_value = (1U << 31) + 1;
-+}
-+
-+static void cleanup(void)
-+{
-+	SAFE_FCNTL(fds[1], F_SETPIPE_SZ, orig_value);
-+	if (fds[0] > 0)
-+		SAFE_CLOSE(fds[0]);
-+	if (fds[1] > 0)
-+		SAFE_CLOSE(fds[1]);
-+	if (wrbuf)
-+		free(wrbuf);
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.test = verify_fcntl,
-+	.caps = (struct tst_cap []) {
-+		TST_CAP(TST_CAP_DROP, CAP_SYS_RESOURCE),
-+		{}
-+	},
-+};
--- 
-2.18.0
-
-
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGVsbG8gamNsaW5lLAoKV2UgcmFuIGF1dG9tYXRlZCB0ZXN0cyBvbiBhIGtlcm5lbCBidWlsZCB0
+aGF0IHlvdSBzZW50IHRvIEtvamk6CgogICAgS2VybmVsIHBhY2thZ2U6IGtlcm5lbC01LjQuMTIt
+MTAwLmZjMzAKICAgICAgICAgS29qaSB0YXNrOiBodHRwczovL2tvamkuZmVkb3JhcHJvamVjdC5v
+cmcva29qaS90YXNraW5mbz90YXNrSUQ9NDA1NDIxNjYKClRoZSByZXN1bHRzIG9mIHRoZXNlIGF1
+dG9tYXRlZCB0ZXN0cyBhcmUgcHJvdmlkZWQgYmVsb3cuCgogICAgT3ZlcmFsbCByZXN1bHQ6IEZB
+SUxFRCAoc2VlIGRldGFpbHMgYmVsb3cpCiAgICAgICAgICAgICBUZXN0czogRkFJTEVECgpPbmUg
+b3IgbW9yZSBrZXJuZWwgdGVzdHMgZmFpbGVkOgoKICAgIHBwYzY0bGU6CiAgICAg4p2MIExUUAoK
+CiAgICBQaXBlbGluZTogaHR0cHM6Ly94Y2kzMi5sYWIuZW5nLnJkdTIucmVkaGF0LmNvbS9ja2kt
+cHJvamVjdC9icmV3LXBpcGVsaW5lL3BpcGVsaW5lcy8zODQyMjkKCldlIGhvcGUgdGhhdCB0aGVz
+ZSBsb2dzIGNhbiBoZWxwIHlvdSBmaW5kIHRoZSBwcm9ibGVtIHF1aWNrbHkuIEZvciB0aGUgZnVs
+bApkZXRhaWwgb24gb3VyIHRlc3RpbmcgcHJvY2VkdXJlcywgcGxlYXNlIHNjcm9sbCB0byB0aGUg
+Ym90dG9tIG9mIHRoaXMgbWVzc2FnZS4KClBsZWFzZSByZXBseSB0byB0aGlzIGVtYWlsIGlmIHlv
+dSBoYXZlIGFueSBxdWVzdGlvbnMgYWJvdXQgdGhlIHRlc3RzIHRoYXQgd2UKcmFuIG9yIGlmIHlv
+dSBoYXZlIGFueSBzdWdnZXN0aW9ucyBvbiBob3cgdG8gbWFrZSBmdXR1cmUgdGVzdHMgbW9yZSBl
+ZmZlY3RpdmUuCgogICAgICAgICwtLiAgICwtLgogICAgICAgKCBDICkgKCBLICkgIENvbnRpbnVv
+dXMKICAgICAgICBgLScsLS5gLScgICBLZXJuZWwKICAgICAgICAgICggSSApICAgICBJbnRlZ3Jh
+dGlvbgogICAgICAgICAgIGAtJwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KCkhhcmR3YXJlIHRlc3Rp
+bmcKLS0tLS0tLS0tLS0tLS0tLQpBbGwgdGhlIHRlc3Rpbmcgam9icyBhcmUgbGlzdGVkIGhlcmU6
+CgogIGh0dHBzOi8vYmVha2VyLmVuZ2luZWVyaW5nLnJlZGhhdC5jb20vam9icy8/am9ic2VhcmNo
+LTAudGFibGU9V2hpdGVib2FyZCZqb2JzZWFyY2gtMC5vcGVyYXRpb249Y29udGFpbnMmam9ic2Vh
+cmNoLTAudmFsdWU9Y2tpJTQwZ2l0bGFiJTNBMzg0MjI5CgpXZSBib290ZWQgZWFjaCBrZXJuZWwg
+YW5kIHJhbiB0aGUgZm9sbG93aW5nIHRlc3RzOgoKICBhYXJjaDY0OgogICAgSG9zdCAxOiBodHRw
+czovL2JlYWtlci5lbmdpbmVlcmluZy5yZWRoYXQuY29tL3JlY2lwZXMvNzc5NzQyMAoKICAgICAg
+IOKaoSBJbnRlcm5hbCBpbmZyYXN0cnVjdHVyZSBpc3N1ZXMgcHJldmVudGVkIG9uZSBvciBtb3Jl
+IHRlc3RzIChtYXJrZWQKICAgICAgIHdpdGgg4pqh4pqh4pqhKSBmcm9tIHJ1bm5pbmcgb24gdGhp
+cyBhcmNoaXRlY3R1cmUuCiAgICAgICBUaGlzIGlzIG5vdCB0aGUgZmF1bHQgb2YgdGhlIGtlcm5l
+bCB0aGF0IHdhcyB0ZXN0ZWQuCgogICAgICAg4pqh4pqh4pqhIEJvb3QgdGVzdAogICAgICAg4pqh
+4pqh4pqhIHhmc3Rlc3RzOiBleHQ0CiAgICAgICDimqHimqHimqEgeGZzdGVzdHM6IHhmcwogICAg
+ICAg4pqh4pqh4pqhIGx2bSB0aGlucCBzYW5pdHkKICAgICAgIOKaoeKaoeKaoSBzdHJlc3M6IHN0
+cmVzcy1uZwogICAgICAg8J+apyDimqHimqHimqEgU3RvcmFnZSBibGt0ZXN0cwoKICAgIEhvc3Qg
+MjogaHR0cHM6Ly9iZWFrZXIuZW5naW5lZXJpbmcucmVkaGF0LmNvbS9yZWNpcGVzLzc3OTc0MTkK
+ICAgICAgIOKchSBCb290IHRlc3QKICAgICAgIOKchSBMVFAKICAgICAgIOKchSBMb29wZGV2IFNh
+bml0eQogICAgICAg4pyFIE1lbW9yeSBmdW5jdGlvbjogbWVtZmRfY3JlYXRlCiAgICAgICDinIUg
+QU1UVSAoQWJzdHJhY3QgTWFjaGluZSBUZXN0IFV0aWxpdHkpCiAgICAgICDinIUgRXRoZXJuZXQg
+ZHJpdmVycyBzYW5pdHkKICAgICAgIPCfmqcg4pyFIENJRlMgQ29ubmVjdGF0aG9uCiAgICAgICDw
+n5qnIOKchSBMVFA6IG9wZW5wb3NpeCB0ZXN0IHN1aXRlCgogICAgSG9zdCAzOiBodHRwczovL2Jl
+YWtlci5lbmdpbmVlcmluZy5yZWRoYXQuY29tL3JlY2lwZXMvNzc5NzQ4MgogICAgICAg4pyFIEJv
+b3QgdGVzdAogICAgICAg4pyFIHhmc3Rlc3RzOiBleHQ0CiAgICAgICDinIUgeGZzdGVzdHM6IHhm
+cwogICAgICAg4pyFIGx2bSB0aGlucCBzYW5pdHkKICAgICAgIOKchSBzdHJlc3M6IHN0cmVzcy1u
+ZwogICAgICAg8J+apyDinIUgU3RvcmFnZSBibGt0ZXN0cwoKICBwcGM2NGxlOgogICAgSG9zdCAx
+OiBodHRwczovL2JlYWtlci5lbmdpbmVlcmluZy5yZWRoYXQuY29tL3JlY2lwZXMvNzc5NzQyMgog
+ICAgICAg4pyFIEJvb3QgdGVzdAogICAgICAg4pyFIHhmc3Rlc3RzOiBleHQ0CiAgICAgICDinIUg
+eGZzdGVzdHM6IHhmcwogICAgICAg4pyFIGx2bSB0aGlucCBzYW5pdHkKICAgICAgIPCfmqcg4pyF
+IFN0b3JhZ2UgYmxrdGVzdHMKCiAgICBIb3N0IDI6IGh0dHBzOi8vYmVha2VyLmVuZ2luZWVyaW5n
+LnJlZGhhdC5jb20vcmVjaXBlcy83Nzk3NDIxCiAgICAgICDinIUgQm9vdCB0ZXN0CiAgICAgICDi
+nYwgTFRQCiAgICAgICDinIUgTG9vcGRldiBTYW5pdHkKICAgICAgIOKchSBNZW1vcnkgZnVuY3Rp
+b246IG1lbWZkX2NyZWF0ZQogICAgICAg4pyFIEFNVFUgKEFic3RyYWN0IE1hY2hpbmUgVGVzdCBV
+dGlsaXR5KQogICAgICAg4pyFIEV0aGVybmV0IGRyaXZlcnMgc2FuaXR5CiAgICAgICDwn5qnIOKc
+hSBDSUZTIENvbm5lY3RhdGhvbgogICAgICAg8J+apyDinIUgTFRQOiBvcGVucG9zaXggdGVzdCBz
+dWl0ZQoKICB4ODZfNjQ6CiAgICBIb3N0IDE6IGh0dHBzOi8vYmVha2VyLmVuZ2luZWVyaW5nLnJl
+ZGhhdC5jb20vcmVjaXBlcy83Nzk3NDE4CiAgICAgICDinIUgQm9vdCB0ZXN0CiAgICAgICDinIUg
+eGZzdGVzdHM6IGV4dDQKICAgICAgIOKchSB4ZnN0ZXN0czogeGZzCiAgICAgICDinIUgbHZtIHRo
+aW5wIHNhbml0eQogICAgICAg4pyFIHN0cmVzczogc3RyZXNzLW5nCiAgICAgICDwn5qnIOKchSBT
+dG9yYWdlIGJsa3Rlc3RzCgogICAgSG9zdCAyOiBodHRwczovL2JlYWtlci5lbmdpbmVlcmluZy5y
+ZWRoYXQuY29tL3JlY2lwZXMvNzc5NzQxNwogICAgICAg4pyFIEJvb3QgdGVzdAogICAgICAg4pyF
+IExUUAogICAgICAg4pyFIExvb3BkZXYgU2FuaXR5CiAgICAgICDinIUgTWVtb3J5IGZ1bmN0aW9u
+OiBtZW1mZF9jcmVhdGUKICAgICAgIOKchSBBTVRVIChBYnN0cmFjdCBNYWNoaW5lIFRlc3QgVXRp
+bGl0eSkKICAgICAgIOKchSBFdGhlcm5ldCBkcml2ZXJzIHNhbml0eQogICAgICAg8J+apyDinIUg
+Q0lGUyBDb25uZWN0YXRob24KICAgICAgIPCfmqcg4pyFIExUUDogb3BlbnBvc2l4IHRlc3Qgc3Vp
+dGUKCiAgVGVzdCBzb3VyY2VzOiBodHRwczovL2dpdGh1Yi5jb20vQ0tJLXByb2plY3QvdGVzdHMt
+YmVha2VyCiAgICDwn5KaIFB1bGwgcmVxdWVzdHMgYXJlIHdlbGNvbWUgZm9yIG5ldyB0ZXN0cyBv
+ciBpbXByb3ZlbWVudHMgdG8gZXhpc3RpbmcgdGVzdHMhCgpXYWl2ZWQgdGVzdHMKLS0tLS0tLS0t
+LS0tCklmIHRoZSB0ZXN0IHJ1biBpbmNsdWRlZCB3YWl2ZWQgdGVzdHMsIHRoZXkgYXJlIG1hcmtl
+ZCB3aXRoIPCfmqcuIFN1Y2ggdGVzdHMgYXJlCmV4ZWN1dGVkIGJ1dCB0aGVpciByZXN1bHRzIGFy
+ZSBub3QgdGFrZW4gaW50byBhY2NvdW50LiBUZXN0cyBhcmUgd2FpdmVkIHdoZW4KdGhlaXIgcmVz
+dWx0cyBhcmUgbm90IHJlbGlhYmxlIGVub3VnaCwgZS5nLiB3aGVuIHRoZXkncmUganVzdCBpbnRy
+b2R1Y2VkIG9yIGFyZQpiZWluZyBmaXhlZC4KClRlc3RpbmcgdGltZW91dAotLS0tLS0tLS0tLS0t
+LS0KV2UgYWltIHRvIHByb3ZpZGUgYSByZXBvcnQgd2l0aGluIHJlYXNvbmFibGUgdGltZWZyYW1l
+LiBUZXN0cyB0aGF0IGhhdmVuJ3QKZmluaXNoZWQgcnVubmluZyBhcmUgbWFya2VkIHdpdGgg4o+x
+LiBSZXBvcnRzIGZvciBub24tdXBzdHJlYW0ga2VybmVscyBoYXZlCmEgQmVha2VyIHJlY2lwZSBs
+aW5rZWQgdG8gbmV4dCB0byBlYWNoIGhvc3QuCgpSZXByb2R1Y2luZyByZXN1bHRzCi0tLS0tLS0t
+LS0tLS0tLS0tLS0KQ2xpY2sgb24gYSBsaW5rIGJlbG93IHRvIGFjY2VzcyBhIHdlYiBwYWdlIHRo
+YXQgYWxsb3dzIHlvdSB0byBhZGp1c3QgdGhlCkJlYWtlciBqb2IgYW5kIHJlLXJ1biBhbnkgZmFp
+bGVkIHRlc3RzLiBUaGVzZSBsaW5rcyBhcmUgZ2VuZXJhdGVkIGZvcgpmYWlsZWQgb3IgYWJvcnRl
+ZCB0ZXN0cyB0aGF0IGFyZSBub3Qgd2FpdmVkLiBQbGVhc2UgYWRqdXN0IHRoZSBCZWFrZXIKam9i
+IHdoaXRlYm9hcmQgc3RyaW5nIGluIHRoZSB3ZWIgcGFnZSBzbyB0aGF0IGl0IGlzIGVhc3kgZm9y
+IHlvdSB0byBmaW5kCmFuZCBzbyB0aGF0IGl0IGlzIG5vdCBjb25mdXNlZCB3aXRoIHJlZ3VsYXIg
+Q0tJIGpvYi4KCkFmdGVyIGNsaWNraW5nIHRoZSAiU3VibWl0IHRoZSBqb2IhIiBidXR0b24sIGEg
+ZGlhbG9nIHdpdGggYW4gdXJsIHdpbGwgb3Blbi4KT3BlbmluZyB0aGF0IHVybCB3aWxsIHNob3cg
+eW91IHRoZSBwcm9ncmVzcyBvZiBzdWJtaXR0aW5nIHlvdXIgam9iLgpBdCB0aGUgZW5kIGl0IHNo
+b3VsZCBzYXkgIlN1Ym1pdHRlZCBqb2IgSjpYWFhYWCIsIG1lYW5pbmcgdGhlIGpvYiB3YXMgcmVh
+bGx5CnNlbnQgdG8gQmVha2VyLgoKICBodHRwOi8vcmVzcGluLXNlcnZpY2UtYXJrLmNsb3VkLnBh
+YXMucHNpLnJlZGhhdC5jb20vcmVzcGluLmh0bWw/d2hpdGVib2FyZD1yZXNwaW5fam9iXzQwMTUy
+ODAmcmVjaXBlX2lkPTc3OTc0MjEmam9iX2lkPTQwMTUyODAKCgotLSAKTWFpbGluZyBsaXN0IGlu
+Zm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
