@@ -2,64 +2,59 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C38B313E048
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2020 17:39:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F77F13E863
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2020 18:32:21 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 78E013C23AB
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2020 17:39:36 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 18E8F3C23A7
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2020 18:32:21 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 08C143C2366
- for <ltp@lists.linux.it>; Thu, 16 Jan 2020 17:39:31 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [207.211.31.120])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id DDFA3601DC7
- for <ltp@lists.linux.it>; Thu, 16 Jan 2020 17:39:30 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1579192769;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=0oQoERwC/UCiV5sEOFoxpyR1DJBx5VM+Hk9f8UrP3nE=;
- b=DIwRcHbpvGCYE9R7NojOcmBxSv3OFeqfmcSIMNUdVdMYPo4IdbFipMZHCtjcnaxIZ7IIBe
- A8G6syW+Pldl11hHGAYDNHwl9SNxavwf7vuhpT/LtfGJfVvF1p8YWVapycuDmP3YHHJQKh
- V1Ek27Cn3i+l8v1Ayd2Tfw+T1GrgN/8=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-37-WqD75J3MM7Kid9Vg3EnfGA-1; Thu, 16 Jan 2020 11:39:24 -0500
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 21A333C237A
+ for <ltp@lists.linux.it>; Thu, 16 Jan 2020 18:32:19 +0100 (CET)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8EDC91034B07;
- Thu, 16 Jan 2020 16:39:23 +0000 (UTC)
-Received: from localhost.localdomain (ovpn-120-211.rdu2.redhat.com
- [10.10.120.211])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 11E565D9C9;
- Thu, 16 Jan 2020 16:39:15 +0000 (UTC)
-To: Cyril Hrubis <chrubis@suse.cz>, CKI Project <cki-project@redhat.com>
-References: <cki.0.BMO32N203K@redhat.com> <20200116155952.GB558@rei>
-From: Rachel Sibley <rasibley@redhat.com>
-Message-ID: <b251c469-ade3-bc34-8e07-1789640693e8@redhat.com>
-Date: Thu, 16 Jan 2020 11:39:14 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id EA89E1001741
+ for <ltp@lists.linux.it>; Thu, 16 Jan 2020 18:32:17 +0100 (CET)
+Received: by mail-lj1-x233.google.com with SMTP id u1so23598831ljk.7
+ for <ltp@lists.linux.it>; Thu, 16 Jan 2020 09:32:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=ZRs7Xp0qs3qSGzHPRqTIAxDUBByj6hXad2iqRxuy3uU=;
+ b=Ds0PkzXYKwfH5VMIQ2HwynIM8jIAXa3kQWMalAJeoiV9OgHxutgG8PSQtMDBHYShy0
+ lqkPu35misOXAyD5IPvFaKfZaws3OZmCwdCejEDoEeMdZU8ZuplgXfD3/ChnIgEUF0wq
+ 54Mf8TfzdyjhPdkQDZ5wQxXj79Gss85UmIyb65ogaRhcmVAJzf2C2QCCmbJ9eCAGkI2H
+ lj/BkkgMqhxklh0dpDCMqAOjYrUNVVy5JtFqssgsVehwpSCO+hzJQRCwE7R3tjiP8e1X
+ JW7KcFDwgM5dscKbR5eXgyumflHxLbPnE0x7uprXD7ZeUZtUfF/THRu3TbKfH/T0G4Kf
+ w7hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=ZRs7Xp0qs3qSGzHPRqTIAxDUBByj6hXad2iqRxuy3uU=;
+ b=gz0eLnf1HLibs/RlcP5usXdrSZBgzpxy/VGhPrg/lduPRv+gOM5Eh5Rfl/1fg+CG/M
+ IqhCmuhGR3GyLBWoDvtdI1lvSWZalyjgk3vjfS43dOrwWNDJphTTT92FfKyRICwYgapz
+ lFUIKEANN8AiwJw2qImEqAFkxp248zfLi/boO47QW3ysUiFSLJJj4uDf3zvbQPdKCtlk
+ wBqUUPza4Rn/1hDRSL8K0domd/F4G1kJIvmkskMAgLwVYghnD4ovJlWk4hG53jR+Kpzw
+ Ryj+vS7WhOm+3I03K8MMgnYKdxtuQHKuqv2+sGEmZ0lNZVWTUaeNzPHBhu9XvxOY+ZVI
+ Vhsg==
+X-Gm-Message-State: APjAAAV+ghMmOzK5XqtffCF+8LckideOj11peFmXChhulb3jXxjCPbWb
+ PQ+W7V2O796qOvLzV+u1UjYkl6ApEM1xj+ixQRoJQoSBhlY=
+X-Google-Smtp-Source: APXvYqw22NAxskOmVG4g/0VbfThQV7pva1b0M4/v5OzJ6zLzfCSGpwdpRcbI9f3lbdNKyDsJ5uhJ3O9hLgJLDeEH3DI=
+X-Received: by 2002:a2e:965a:: with SMTP id z26mr521409ljh.104.1579195937348; 
+ Thu, 16 Jan 2020 09:32:17 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20200116155952.GB558@rei>
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-MC-Unique: WqD75J3MM7Kid9Vg3EnfGA-1
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Thu, 16 Jan 2020 23:02:06 +0530
+Message-ID: <CA+G9fYuBdcZvE6VPm9i2=F0mK5u3j6Z+RHbFBQ1zh9qbN_4kaw@mail.gmail.com>
+To: LTP List <ltp@lists.linux.it>, Daniel Lezcano <daniel.lezcano@linaro.org>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] ??? FAIL: Test report for kernel 5.4.12-100.fc30
- (fedora-30)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: [LTP] LTP: statx06: FAIL: Birth time < before time
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,45 +66,48 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Memory Management <mm-qe@redhat.com>, skt-results-master@redhat.com,
- jforbes@redhat.com, LTP Mailing List <ltp@lists.linux.it>
+Cc: lkft-triage@lists.linaro.org, open list <linux-kernel@vger.kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+LTP syscalls statx06 test case getting failed from linux next 20200115
+tag onwards on all x86_64, i386, arm and arm64 devices
 
+Test output:
+statx06.c:152: FAIL: Birth time < before time
+statx06.c:156: PASS: Modified time Passed
+statx06.c:156: PASS: Access time Passed
+statx06.c:156: PASS: Change time Passed
 
-On 1/16/20 10:59 AM, Cyril Hrubis wrote:
-> Hi!
->>      Pipeline: https://xci32.lab.eng.rdu2.redhat.com/cki-project/brew-pipeline/pipelines/384229
-> 
-> Looks like unreachable URL again.
-> 
+strace output snippet:
+[pid   498] clock_getres(CLOCK_REALTIME_COARSE, {tv_sec=0, tv_nsec=1000000}) = 0
+[pid   498] nanosleep({tv_sec=0, tv_nsec=1000000}, NULL) = 0
+[pid   498] openat(AT_FDCWD, \"mount_ext/test_file.txt\",
+O_RDWR|O_CREAT, 0666) = 3
+[pid   498] clock_getres(CLOCK_REALTIME_COARSE, {tv_sec=0, tv_nsec=1000000}) = 0
+[pid   498] nanosleep({tv_sec=0, tv_nsec=1000000}, NULL) = 0
+[pid   498] statx(AT_FDCWD, \"mount_ext/test_file.txt\",
+AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_BASIC_STATS,
+stx_attributes=0, stx_mode=S_IFREG|0644, stx_size=0, ...}) = 0
+[pid   498] write(2, \"statx06.c:152: \33[1;31mFAIL: \33[0m\"...,
+57statx06.c:152: [1;31mFAIL: [0mBirth time < before time
+) = 57
 
-Oops sorry about that, since the Fedora maintainers had access to internal logs we used the regular
-template, only after did we start cc'ing LTP for upstream failures. I just changed it to the correct
-email template to include links to our external logs.
+Full test log link,
+https://lkft.validation.linaro.org/scheduler/job/1107634#L2276
 
-The failure was a dmesg check probably related to running on a slow kvm guest:
+Test results comparison link,
+https://qa-reports.linaro.org/lkft/linux-next-oe/tests/ltp-syscalls-tests/statx06
 
-[ 5646.612562] watchdog: BUG: soft lockup - CPU#15 stuck for 31s! [systemd-journal:559]
-[ 5840.828707] watchdog: BUG: soft lockup - CPU#10 stuck for 23s! [systemd:1]
-[ 6018.881344] watchdog: BUG: soft lockup - CPU#2 stuck for 50s! [systemd-coredum:819905]
-[ 6047.933641] watchdog: BUG: soft lockup - CPU#15 stuck for 21s! [systemd:1]
-[ 6100.825887] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [systemd-coredum:819905]
-[ 6369.103978] watchdog: BUG: soft lockup - CPU#5 stuck for 23s! [diotest6:819897]
-[ 6780.415986] watchdog: BUG: soft lockup - CPU#10 stuck for 22s! [khvcd:223]
-[ 6831.956434] watchdog: BUG: soft lockup - CPU#3 stuck for 70s! [migration/3:25]
-[ 6831.956436] watchdog: BUG: soft lockup - CPU#2 stuck for 52s! [kworker/2:2:1997]
-[ 6864.394439] watchdog: BUG: soft lockup - CPU#3 stuck for 22s! [rcu_sched:10]
-[ 7004.381847] watchdog: BUG: soft lockup - CPU#2 stuck for 22s! [rcu_sched:10]
-[ 7084.688008] watchdog: BUG: soft lockup - CPU#4 stuck for 67s! [kworker/4:3:818401]
-[ 7108.389938] watchdog: BUG: soft lockup - CPU#4 stuck for 22s! [rcu_sched:10]
-[ 7303.256283] watchdog: BUG: soft lockup - CPU#7 stuck for 110s! [diotest6:819970]
+Test case link,
+https://github.com/linux-test-project/ltp/blob/master/testcases/kernel/syscalls/statx/statx06.c
 
--Rachel
-
+--
+Linaro LKFT
+https://lkft.linaro.org
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
