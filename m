@@ -1,38 +1,64 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6836E13DA14
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2020 13:31:04 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id ACA9913DC42
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2020 14:42:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 17F4D3C237D
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2020 13:31:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 57A2B3C23AD
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2020 14:42:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 65A453C2358
- for <ltp@lists.linux.it>; Thu, 16 Jan 2020 13:31:02 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id E8E893C2393
+ for <ltp@lists.linux.it>; Thu, 16 Jan 2020 14:42:12 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id BFB951401A0E
+ for <ltp@lists.linux.it>; Thu, 16 Jan 2020 14:42:11 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1579182130;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=YCOdngENjyc8DLL+2gEfGaW1gNWmEl+yqFS7NsTgmiw=;
+ b=OvU3eJiZ2ht4FTiIM3mUDBVgY5sTMAeQ/kq2z28n+dsbiYemD8ulRYmzDd9uIZbtT5JTHd
+ mvyt0s+SnyavOrmewAyVMJUQ7BErEODko9qgHu/tnhSSgECxdp4aaK3cZHRhkjWfFKgae+
+ GC8cGWNa2FyC4sLohAcBGT/joiEWUV0=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-306-kWYw7L9gOXCicVjOvpJ2Dg-1; Thu, 16 Jan 2020 08:42:06 -0500
+X-MC-Unique: kWYw7L9gOXCicVjOvpJ2Dg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+ [10.5.11.16])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A4DF014019E3
- for <ltp@lists.linux.it>; Thu, 16 Jan 2020 13:31:01 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 9A8FAB212
- for <ltp@lists.linux.it>; Thu, 16 Jan 2020 12:31:00 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
-To: ltp@lists.linux.it
-Date: Thu, 16 Jan 2020 13:31:00 +0100
-Message-Id: <20200116123100.13345-1-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.24.1
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B87CA8010C8;
+ Thu, 16 Jan 2020 13:42:05 +0000 (UTC)
+Received: from localhost.localdomain (ovpn-120-211.rdu2.redhat.com
+ [10.10.120.211])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id CBF335C299;
+ Thu, 16 Jan 2020 13:41:59 +0000 (UTC)
+To: CKI Project <cki-project@redhat.com>,
+ Linux Stable maillist <stable@vger.kernel.org>
+References: <cki.FA900DB853.LBD049H627@redhat.com>
+From: Rachel Sibley <rasibley@redhat.com>
+Message-ID: <84944fa0-3c18-f8a4-47ca-7627eb4e0594@redhat.com>
+Date: Thu, 16 Jan 2020 08:41:59 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
+In-Reply-To: <cki.FA900DB853.LBD049H627@redhat.com>
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] Add test for misaligned fallocate()
+Subject: Re: [LTP] 
+ =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E4?=
+ =?utf-8?q?=2E13-rc1-7f1b863=2Ecki_=28stable=29?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,314 +70,182 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Jianwen Ji <jiji@redhat.com>, Hangbin Liu <haliu@redhat.com>,
+ Memory Management <mm-qe@redhat.com>, Jianlin Shi <jishi@redhat.com>,
+ LTP Mailing List <ltp@lists.linux.it>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Make sure that space allocation and deallocation works (or fails) correctly
-even when the requested file range does not align with filesystem blocks.
-
-Test on:
-- empty file system
-- full file system
-- also test with and without copy-on-write when supported
-
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
-
-Note for reviewers: Feel free to ignore this patch until next week.
-
-This patch is a follow-up to the fallocate05 fix. The original fallocate05
-test accidentally tested some misaligned allocation and deallocation
-on platforms with block size bigger than 8k but it didn't validate
-the results correctly. Test calling fallocate() on misaligned file range
-and this time validate the results properly, taking into account advanced
-FS features like copy-on-write.
-
-Changes since v1:
-- Fix compilation with --std=c89
-- Misalign by at most 512 bytes, otherwise the test may miss an XFS bug on PPC
-
- runtest/syscalls                              |   1 +
- .../kernel/syscalls/fallocate/fallocate06.c   | 253 ++++++++++++++++++
- 2 files changed, 254 insertions(+)
- create mode 100644 testcases/kernel/syscalls/fallocate/fallocate06.c
-
-diff --git a/runtest/syscalls b/runtest/syscalls
-index fa87ef63f..ec522e8fa 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -184,6 +184,7 @@ fallocate02 fallocate02
- fallocate03 fallocate03
- fallocate04 fallocate04
- fallocate05 fallocate05
-+fallocate06 fallocate06
- 
- fsetxattr01 fsetxattr01
- fsetxattr02 fsetxattr02
-diff --git a/testcases/kernel/syscalls/fallocate/fallocate06.c b/testcases/kernel/syscalls/fallocate/fallocate06.c
-new file mode 100644
-index 000000000..6ec9df030
---- /dev/null
-+++ b/testcases/kernel/syscalls/fallocate/fallocate06.c
-@@ -0,0 +1,253 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2019 SUSE LLC <mdoucha@suse.cz>
-+ */
-+
-+/*
-+ * Tests misaligned fallocate()
-+ * Test scenario:
-+ * 1. write() several blocks worth of data
-+ * 2. fallocate() some more space (not aligned to FS blocks)
-+ * 3. try to write() into the allocated space
-+ * 4. deallocate misaligned part of file range written in step 1
-+ * 5. read() the deallocated range and check that it was zeroed
-+ *
-+ * Subtests:
-+ * - fill file system between step 2 and 3
-+ * - disable copy-on-write on test file
-+ * - combinations of above subtests
-+ */
-+
-+#define _GNU_SOURCE
-+
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <fcntl.h>
-+#include <sys/ioctl.h>
-+#include <linux/fs.h>
-+#include "tst_test.h"
-+#include "lapi/fallocate.h"
-+
-+#define MNTPOINT "mntpoint"
-+#define TEMPFILE MNTPOINT "/test_file"
-+#define WRITE_BLOCKS 8
-+#define FALLOCATE_BLOCKS 2
-+#define DEALLOCATE_BLOCKS 3
-+#define TESTED_FLAGS "fallocate(FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE)"
-+
-+const struct test_case {
-+	int no_cow, fill_fs;
-+} testcase_list[] = {
-+	{1, 0},
-+	{1, 1},
-+	{0, 0},
-+	{0, 1}
-+};
-+
-+static int cow_support;
-+static char *wbuf, *rbuf;
-+static blksize_t blocksize;
-+static long wbuf_size, rbuf_size, block_offset;
-+
-+static int toggle_cow(int fd, int enable)
-+{
-+	int ret, attr;
-+
-+	ret = ioctl(fd, FS_IOC_GETFLAGS, &attr);
-+
-+	if (ret)
-+		return ret;
-+
-+	if (enable)
-+		attr &= ~FS_NOCOW_FL;
-+	else
-+		attr |= FS_NOCOW_FL;
-+
-+	return ioctl(fd, FS_IOC_SETFLAGS, &attr);
-+}
-+
-+static void setup(void) {
-+	unsigned char ch;
-+	long i;
-+	int fd;
-+	struct stat statbuf;
-+
-+	fd = SAFE_OPEN(TEMPFILE, O_WRONLY | O_CREAT | O_TRUNC);
-+
-+	/*
-+	 * Set FS_NOCOW_FL flag on the temp file. Non-CoW filesystems will
-+	 * return error.
-+	 */
-+	TEST(toggle_cow(fd, 0));
-+	SAFE_FSTAT(fd, &statbuf);
-+	blocksize = statbuf.st_blksize;
-+	block_offset = MIN(blocksize / 2, 512);
-+	wbuf_size = MAX(WRITE_BLOCKS, FALLOCATE_BLOCKS) * blocksize;
-+	rbuf_size = (DEALLOCATE_BLOCKS + 1) * blocksize;
-+	SAFE_CLOSE(fd);
-+	SAFE_UNLINK(TEMPFILE);
-+
-+	if (blocksize < 2)
-+		tst_brk(TCONF, "Block size %ld too small for test", blocksize);
-+
-+	if (!TST_RET)
-+		cow_support = 1;
-+	else switch (TST_ERR) {
-+	case ENOTSUP:
-+	case ENOTTY:
-+	case EINVAL:
-+	case ENOSYS:
-+		cow_support = 0;
-+		break;
-+
-+	default:
-+		tst_brk(TBROK|TTERRNO, "Error checking copy-on-write support");
-+	}
-+
-+	tst_res(TINFO, "Copy-on-write is%s supported",
-+		cow_support ? "" : " not");
-+	wbuf = SAFE_MALLOC(wbuf_size);
-+	rbuf = SAFE_MALLOC(rbuf_size);
-+
-+	/* Fill the buffer with known values */
-+	for (i = 0, ch = 1; i < wbuf_size; i++, ch++) {
-+		wbuf[i] = ch;
-+	}
-+}
-+
-+static int check_result(const struct test_case *tc, const char *func, long exp)
-+{
-+	if (tc->fill_fs && !tc->no_cow && TST_RET < 0) {
-+		if (TST_RET != -1) {
-+			tst_res(TFAIL, "%s returned unexpected value %ld",
-+				func, TST_RET);
-+			return 0;
-+		}
-+
-+		if (TST_ERR != ENOSPC) {
-+			tst_res(TFAIL | TTERRNO, "%s should fail with ENOSPC",
-+				func);
-+			return 0;
-+		}
-+
-+		tst_res(TPASS | TTERRNO, "%s on full FS with CoW", func);
-+	} else if (TST_RET < 0) {
-+		tst_res(TFAIL | TTERRNO, "%s failed unexpectedly", func);
-+		return 0;
-+	} else if (TST_RET != exp) {
-+		tst_res(TFAIL,
-+			"Unexpected return value from %s: %ld (expected %ld)",
-+			func, TST_RET, exp);
-+		return 0;
-+	} else
-+		tst_res(TPASS, "%s successful", func);
-+
-+	return 1;
-+}
-+
-+static void run(unsigned int n)
-+{
-+	int fd;
-+	long offset, size;
-+	const struct test_case *tc = testcase_list + n;
-+
-+	tst_res(TINFO, "Case %u. Fill FS: %s; Use copy on write: %s", n+1,
-+		tc->fill_fs ? "yes" : "no", tc->no_cow ? "no" : "yes");
-+	fd = SAFE_OPEN(TEMPFILE, O_RDWR | O_CREAT | O_TRUNC);
-+
-+	if (cow_support)
-+		toggle_cow(fd, !tc->no_cow);
-+	else if (!tc->no_cow)
-+		tst_brk(TCONF, "File system does not support copy-on-write");
-+
-+	/* Prepare test data for deallocation test */
-+	size = WRITE_BLOCKS * blocksize;
-+	TEST(write(fd, wbuf, size));
-+
-+	if (TST_RET < 0)
-+		tst_res(TFAIL | TTERRNO, "write() failed unexpectedly");
-+	else if (TST_RET != size)
-+		tst_res(TFAIL, "Short write(): %ld bytes (expected %ld)",
-+			TST_RET, size);
-+	else
-+		tst_res(TPASS, "write() wrote %ld bytes", TST_RET);
-+
-+	/* Allocation test */
-+	offset = size + block_offset;
-+	size = FALLOCATE_BLOCKS * blocksize;
-+	TEST(fallocate(fd, 0, offset, size));
-+
-+	if (TST_RET) {
-+		if (TST_ERR == ENOTSUP) {
-+			SAFE_CLOSE(fd);
-+			tst_brk(TCONF | TTERRNO, "fallocate() not supported");
-+		}
-+
-+		tst_brk(TBROK | TTERRNO, "fallocate(fd, 0, %ld, %ld)", offset,
-+			size);
-+	}
-+
-+	if (tc->fill_fs)
-+		tst_fill_fs(MNTPOINT, 1);
-+
-+	SAFE_LSEEK(fd, offset, SEEK_SET);
-+	TEST(write(fd, wbuf, size));
-+	if (check_result(tc, "write()", size))
-+		tst_res(TPASS, "Misaligned allocation works as expected");
-+
-+	/* Deallocation test */
-+	size = DEALLOCATE_BLOCKS * blocksize;
-+	offset = block_offset;
-+	TEST(fallocate(fd, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE, offset,
-+		size));
-+
-+	if (TST_RET == -1 && TST_ERR == ENOTSUP) {
-+		tst_res(TCONF | TTERRNO, TESTED_FLAGS);
-+	} else if (check_result(tc, TESTED_FLAGS, 0) && !TST_RET) {
-+		int i, err = 0;
-+
-+		SAFE_LSEEK(fd, 0, SEEK_SET);
-+		SAFE_READ(1, fd, rbuf, rbuf_size);
-+
-+		for (i = offset; i < offset + size; i++) {
-+			if (rbuf[i]) {
-+				err = 1;
-+				break;
-+			}
-+		}
-+
-+		err = err || memcmp(rbuf, wbuf, offset);
-+		offset += size;
-+		size = rbuf_size - offset;
-+		err = err || memcmp(rbuf + offset, wbuf + offset, size);
-+
-+		if (err)
-+			tst_res(TFAIL, TESTED_FLAGS
-+				" did not clear the correct file range.");
-+		else
-+			tst_res(TPASS, TESTED_FLAGS
-+				" cleared the correct file range");
-+	}
-+
-+	SAFE_CLOSE(fd);
-+	tst_system("rm -r " MNTPOINT "/*");
-+}
-+
-+static void cleanup(void)
-+{
-+	free(wbuf);
-+	free(rbuf);
-+}
-+
-+static struct tst_test test = {
-+	.test = run,
-+	.tcnt = ARRAY_SIZE(testcase_list),
-+	.needs_root = 1,
-+	.mount_device = 1,
-+	.dev_min_size = 512,
-+	.mntpoint = MNTPOINT,
-+	.all_filesystems = 1,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+};
--- 
-2.24.1
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+CgpPbiAxLzE2LzIwIDc6MTMgQU0sIENLSSBQcm9qZWN0IHdyb3RlOgo+IAo+IEhlbGxvLAo+IAo+
+IFdlIHJhbiBhdXRvbWF0ZWQgdGVzdHMgb24gYSByZWNlbnQgY29tbWl0IGZyb20gdGhpcyBrZXJu
+ZWwgdHJlZToKPiAKPiAgICAgICAgIEtlcm5lbCByZXBvOiBnaXQ6Ly9naXQua2VybmVsLm9yZy9w
+dWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvc3RhYmxlL2xpbnV4LXN0YWJsZS1yYy5naXQKPiAgICAg
+ICAgICAgICAgQ29tbWl0OiA3ZjFiODYzMWI1YTUgLSBMaW51eCA1LjQuMTMtcmMxCj4gCj4gVGhl
+IHJlc3VsdHMgb2YgdGhlc2UgYXV0b21hdGVkIHRlc3RzIGFyZSBwcm92aWRlZCBiZWxvdy4KPiAK
+PiAgICAgIE92ZXJhbGwgcmVzdWx0OiBGQUlMRUQgKHNlZSBkZXRhaWxzIGJlbG93KQo+ICAgICAg
+ICAgICAgICAgTWVyZ2U6IE9LCj4gICAgICAgICAgICAgQ29tcGlsZTogT0sKPiAgICAgICAgICAg
+ICAgIFRlc3RzOiBGQUlMRUQKPiAKPiBBbGwga2VybmVsIGJpbmFyaWVzLCBjb25maWcgZmlsZXMs
+IGFuZCBsb2dzIGFyZSBhdmFpbGFibGUgZm9yIGRvd25sb2FkIGhlcmU6Cj4gCj4gICAgaHR0cHM6
+Ly9hcnRpZmFjdHMuY2tpLXByb2plY3Qub3JnL3BpcGVsaW5lcy8zODUxODkKPiAKPiBPbmUgb3Ig
+bW9yZSBrZXJuZWwgdGVzdHMgZmFpbGVkOgo+IAo+ICAgICAgcHBjNjRsZToKPiAgICAgICDinYwg
+TFRQCgpIaSwgSSBzZWUgbWF4X21hcF9jb3VudCBmYWlsZWQgb24gcHBjNjRsZToKaHR0cHM6Ly9h
+cnRpZmFjdHMuY2tpLXByb2plY3Qub3JnL3BpcGVsaW5lcy8zODUxODkvbG9ncy9wcGM2NGxlX2hv
+c3RfMl9MVFBfbW0ucnVuLmxvZwoKPiAKPiAgICAgIGFhcmNoNjQ6Cj4gICAgICAg4p2MIE5ldHdv
+cmtpbmcgdHVubmVsOiBncmUgYmFzaWMKPiAgICAgICDinYwgTmV0d29ya2luZyB0dW5uZWw6IHZ4
+bGFuIGJhc2ljCj4gCj4gICAgICB4ODZfNjQ6Cj4gICAgICAg4p2MIE5ldHdvcmtpbmcgcm91dGVf
+ZnVuYzogbG9jYWwKPiAgICAgICDinYwgTmV0d29ya2luZyB0dW5uZWw6IGdlbmV2ZSBiYXNpYyB0
+ZXN0CgpQbGVhc2UgZGlzcmVnYXJkIHRoZSBuZXR3b3JraW5nIGZhaWx1cmVzLCB0aGV5IGFyZSBy
+ZWxhdGVkIHRvIGFuIGluZnJhc3RydWN0dXJlIGJ1ZyBhbmQgd2Ugbm93CmhhdmUgYSB3b3JrYXJv
+dW5kIHRvIGF2b2lkIHRoZXNlIGZhaWx1cmUgdW50aWwgaXQncyByZXNvbHZlZCwgeW91IHNob3Vs
+ZCBzdG9wIHNlZWluZyB0aGVzZSBzaG9ydGx5LApzb3JyeSBmb3IgdGhlIG5vaXNlIQoKPiAKPiBX
+ZSBob3BlIHRoYXQgdGhlc2UgbG9ncyBjYW4gaGVscCB5b3UgZmluZCB0aGUgcHJvYmxlbSBxdWlj
+a2x5LiBGb3IgdGhlIGZ1bGwKPiBkZXRhaWwgb24gb3VyIHRlc3RpbmcgcHJvY2VkdXJlcywgcGxl
+YXNlIHNjcm9sbCB0byB0aGUgYm90dG9tIG9mIHRoaXMgbWVzc2FnZS4KPiAKPiBQbGVhc2UgcmVw
+bHkgdG8gdGhpcyBlbWFpbCBpZiB5b3UgaGF2ZSBhbnkgcXVlc3Rpb25zIGFib3V0IHRoZSB0ZXN0
+cyB0aGF0IHdlCj4gcmFuIG9yIGlmIHlvdSBoYXZlIGFueSBzdWdnZXN0aW9ucyBvbiBob3cgdG8g
+bWFrZSBmdXR1cmUgdGVzdHMgbW9yZSBlZmZlY3RpdmUuCj4gCj4gICAgICAgICAgLC0uICAgLC0u
+Cj4gICAgICAgICAoIEMgKSAoIEsgKSAgQ29udGludW91cwo+ICAgICAgICAgIGAtJywtLmAtJyAg
+IEtlcm5lbAo+ICAgICAgICAgICAgKCBJICkgICAgIEludGVncmF0aW9uCj4gICAgICAgICAgICAg
+YC0nCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gCj4gQ29tcGlsZSB0ZXN0aW5nCj4gLS0tLS0t
+LS0tLS0tLS0tCj4gCj4gV2UgY29tcGlsZWQgdGhlIGtlcm5lbCBmb3IgMyBhcmNoaXRlY3R1cmVz
+Ogo+IAo+ICAgICAgYWFyY2g2NDoKPiAgICAgICAgbWFrZSBvcHRpb25zOiAtajMwIElOU1RBTExf
+TU9EX1NUUklQPTEgdGFyZ3otcGtnCj4gCj4gICAgICBwcGM2NGxlOgo+ICAgICAgICBtYWtlIG9w
+dGlvbnM6IC1qMzAgSU5TVEFMTF9NT0RfU1RSSVA9MSB0YXJnei1wa2cKPiAKPiAgICAgIHg4Nl82
+NDoKPiAgICAgICAgbWFrZSBvcHRpb25zOiAtajMwIElOU1RBTExfTU9EX1NUUklQPTEgdGFyZ3ot
+cGtnCj4gCj4gCj4gSGFyZHdhcmUgdGVzdGluZwo+IC0tLS0tLS0tLS0tLS0tLS0KPiBXZSBib290
+ZWQgZWFjaCBrZXJuZWwgYW5kIHJhbiB0aGUgZm9sbG93aW5nIHRlc3RzOgo+IAo+ICAgIGFhcmNo
+NjQ6Cj4gICAgICBIb3N0IDE6Cj4gICAgICAgICDinIUgQm9vdCB0ZXN0Cj4gICAgICAgICDinIUg
+UG9kbWFuIHN5c3RlbSBpbnRlZ3JhdGlvbiB0ZXN0IChhcyByb290KQo+ICAgICAgICAg4pyFIFBv
+ZG1hbiBzeXN0ZW0gaW50ZWdyYXRpb24gdGVzdCAoYXMgdXNlcikKPiAgICAgICAgIOKchSBMVFAK
+PiAgICAgICAgIOKchSBMb29wZGV2IFNhbml0eQo+ICAgICAgICAg4pyFIE1lbW9yeSBmdW5jdGlv
+bjogbWVtZmRfY3JlYXRlCj4gICAgICAgICDinIUgQU1UVSAoQWJzdHJhY3QgTWFjaGluZSBUZXN0
+IFV0aWxpdHkpCj4gICAgICAgICDinIUgTmV0d29ya2luZyBicmlkZ2U6IHNhbml0eQo+ICAgICAg
+ICAg4pyFIEV0aGVybmV0IGRyaXZlcnMgc2FuaXR5Cj4gICAgICAgICDinIUgTmV0d29ya2luZyBN
+QUNzZWM6IHNhbml0eQo+ICAgICAgICAg4pyFIE5ldHdvcmtpbmcgc29ja2V0OiBmdXp6Cj4gICAg
+ICAgICDinIUgTmV0d29ya2luZyBzY3RwLWF1dGg6IHNvY2tvcHRzIHRlc3QKPiAgICAgICAgIOKc
+hSBOZXR3b3JraW5nOiBpZ21wIGNvbmZvcm1hbmNlIHRlc3QKPiAgICAgICAgIOKchSBOZXR3b3Jr
+aW5nIHJvdXRlOiBwbXR1Cj4gICAgICAgICDinIUgTmV0d29ya2luZyByb3V0ZV9mdW5jOiBsb2Nh
+bAo+ICAgICAgICAg4pyFIE5ldHdvcmtpbmcgcm91dGVfZnVuYzogZm9yd2FyZAo+ICAgICAgICAg
+4pyFIE5ldHdvcmtpbmcgVENQOiBrZWVwYWxpdmUgdGVzdAo+ICAgICAgICAg4pyFIE5ldHdvcmtp
+bmcgVURQOiBzb2NrZXQKPiAgICAgICAgIOKchSBOZXR3b3JraW5nIHR1bm5lbDogZ2VuZXZlIGJh
+c2ljIHRlc3QKPiAgICAgICAgIOKdjCBOZXR3b3JraW5nIHR1bm5lbDogZ3JlIGJhc2ljCj4gICAg
+ICAgICDinIUgTDJUUCBiYXNpYyB0ZXN0Cj4gICAgICAgICDinYwgTmV0d29ya2luZyB0dW5uZWw6
+IHZ4bGFuIGJhc2ljCj4gICAgICAgICDinIUgTmV0d29ya2luZyBpcHNlYzogYmFzaWMgbmV0bnMg
+dHJhbnNwb3J0Cj4gICAgICAgICDinIUgTmV0d29ya2luZyBpcHNlYzogYmFzaWMgbmV0bnMgdHVu
+bmVsCj4gICAgICAgICDinIUgYXVkaXQ6IGF1ZGl0IHRlc3RzdWl0ZSB0ZXN0Cj4gICAgICAgICDi
+nIUgaHR0cGQ6IG1vZF9zc2wgc21va2Ugc2FuaXR5Cj4gICAgICAgICDinIUgdHVuZWQ6IHR1bmUt
+cHJvY2Vzc2VzLXRocm91Z2gtcGVyZgo+ICAgICAgICAg4pyFIEFMU0EgUENNIGxvb3BiYWNrIHRl
+c3QKPiAgICAgICAgIOKchSBBTFNBIENvbnRyb2wgKG1peGVyKSBVc2Vyc3BhY2UgRWxlbWVudCB0
+ZXN0Cj4gICAgICAgICDinIUgc3RvcmFnZTogU0NTSSBWUEQKPiAgICAgICAgIOKchSB0cmFjZTog
+ZnRyYWNlL3RyYWNlcgo+ICAgICAgICAg8J+apyDinIUgQ0lGUyBDb25uZWN0YXRob24KPiAgICAg
+ICAgIOKPsSAgUE9TSVggcGpkLWZzdGVzdCBzdWl0ZXMKPiAgICAgICAgIOKPsSAganZtIHRlc3Qg
+c3VpdGUKPiAgICAgICAgIOKPsSAgTWVtb3J5IGZ1bmN0aW9uOiBrYXNscgo+ICAgICAgICAg4o+x
+ICBMVFA6IG9wZW5wb3NpeCB0ZXN0IHN1aXRlCj4gICAgICAgICDij7EgIE5ldHdvcmtpbmcgdm5p
+YzogaXB2bGFuL2Jhc2ljCj4gICAgICAgICDij7EgIGlvdG9wOiBzYW5pdHkKPiAgICAgICAgIOKP
+sSAgVXNleCAtIHZlcnNpb24gMS45LTI5Cj4gICAgICAgICDij7EgIHN0b3JhZ2U6IGRtL2NvbW1v
+bgo+IAo+ICAgICAgSG9zdCAyOgo+IAo+ICAgICAgICAg4pqhIEludGVybmFsIGluZnJhc3RydWN0
+dXJlIGlzc3VlcyBwcmV2ZW50ZWQgb25lIG9yIG1vcmUgdGVzdHMgKG1hcmtlZAo+ICAgICAgICAg
+d2l0aCDimqHimqHimqEpIGZyb20gcnVubmluZyBvbiB0aGlzIGFyY2hpdGVjdHVyZS4KPiAgICAg
+ICAgIFRoaXMgaXMgbm90IHRoZSBmYXVsdCBvZiB0aGUga2VybmVsIHRoYXQgd2FzIHRlc3RlZC4K
+PiAKPiAgICAgICAgIOKchSBCb290IHRlc3QKPiAgICAgICAgIOKchSB4ZnN0ZXN0czogZXh0NAo+
+ICAgICAgICAg4pyFIHhmc3Rlc3RzOiB4ZnMKPiAgICAgICAgIOKchSBzZWxpbnV4LXBvbGljeTog
+c2VyZ2UtdGVzdHN1aXRlCj4gICAgICAgICDinIUgbHZtIHRoaW5wIHNhbml0eQo+ICAgICAgICAg
+4pyFIHN0b3JhZ2U6IHNvZnR3YXJlIFJBSUQgdGVzdGluZwo+ICAgICAgICAg4pyFIHN0cmVzczog
+c3RyZXNzLW5nCj4gICAgICAgICDwn5qnIOKaoeKaoeKaoSBJUE1JIGRyaXZlciB0ZXN0Cj4gICAg
+ICAgICDwn5qnIOKchSBJUE1JdG9vbCBsb29wIHN0cmVzcyB0ZXN0Cj4gICAgICAgICDwn5qnIOKa
+oeKaoeKaoSBTdG9yYWdlIGJsa3Rlc3RzCj4gCj4gICAgcHBjNjRsZToKPiAgICAgIEhvc3QgMToK
+PiAgICAgICAgIOKchSBCb290IHRlc3QKPiAgICAgICAgIOKchSB4ZnN0ZXN0czogZXh0NAo+ICAg
+ICAgICAg4pyFIHhmc3Rlc3RzOiB4ZnMKPiAgICAgICAgIOKchSBzZWxpbnV4LXBvbGljeTogc2Vy
+Z2UtdGVzdHN1aXRlCj4gICAgICAgICDinIUgbHZtIHRoaW5wIHNhbml0eQo+ICAgICAgICAg4pyF
+IHN0b3JhZ2U6IHNvZnR3YXJlIFJBSUQgdGVzdGluZwo+ICAgICAgICAg8J+apyDinIUgSVBNSSBk
+cml2ZXIgdGVzdAo+ICAgICAgICAg8J+apyDinIUgSVBNSXRvb2wgbG9vcCBzdHJlc3MgdGVzdAo+
+ICAgICAgICAg8J+apyDinIUgU3RvcmFnZSBibGt0ZXN0cwo+IAo+ICAgICAgSG9zdCAyOgo+ICAg
+ICAgICAg4pyFIEJvb3QgdGVzdAo+ICAgICAgICAg4pyFIFBvZG1hbiBzeXN0ZW0gaW50ZWdyYXRp
+b24gdGVzdCAoYXMgcm9vdCkKPiAgICAgICAgIOKchSBQb2RtYW4gc3lzdGVtIGludGVncmF0aW9u
+IHRlc3QgKGFzIHVzZXIpCj4gICAgICAgICDinYwgTFRQCj4gICAgICAgICDinIUgTG9vcGRldiBT
+YW5pdHkKPiAgICAgICAgIOKchSBNZW1vcnkgZnVuY3Rpb246IG1lbWZkX2NyZWF0ZQo+ICAgICAg
+ICAg4pyFIEFNVFUgKEFic3RyYWN0IE1hY2hpbmUgVGVzdCBVdGlsaXR5KQo+ICAgICAgICAg4pyF
+IE5ldHdvcmtpbmcgYnJpZGdlOiBzYW5pdHkKPiAgICAgICAgIOKchSBFdGhlcm5ldCBkcml2ZXJz
+IHNhbml0eQo+ICAgICAgICAg4pyFIE5ldHdvcmtpbmcgTUFDc2VjOiBzYW5pdHkKPiAgICAgICAg
+IOKchSBOZXR3b3JraW5nIHNvY2tldDogZnV6ego+ICAgICAgICAg4pyFIE5ldHdvcmtpbmcgc2N0
+cC1hdXRoOiBzb2Nrb3B0cyB0ZXN0Cj4gICAgICAgICDinIUgTmV0d29ya2luZyByb3V0ZTogcG10
+dQo+ICAgICAgICAg4pyFIE5ldHdvcmtpbmcgcm91dGVfZnVuYzogbG9jYWwKPiAgICAgICAgIOKc
+hSBOZXR3b3JraW5nIHJvdXRlX2Z1bmM6IGZvcndhcmQKPiAgICAgICAgIOKchSBOZXR3b3JraW5n
+IFRDUDoga2VlcGFsaXZlIHRlc3QKPiAgICAgICAgIOKchSBOZXR3b3JraW5nIFVEUDogc29ja2V0
+Cj4gICAgICAgICDinIUgTmV0d29ya2luZyB0dW5uZWw6IGdlbmV2ZSBiYXNpYyB0ZXN0Cj4gICAg
+ICAgICDinIUgTmV0d29ya2luZyB0dW5uZWw6IGdyZSBiYXNpYwo+ICAgICAgICAg4pyFIEwyVFAg
+YmFzaWMgdGVzdAo+ICAgICAgICAg4pyFIE5ldHdvcmtpbmcgdHVubmVsOiB2eGxhbiBiYXNpYwo+
+ICAgICAgICAg4pyFIE5ldHdvcmtpbmcgaXBzZWM6IGJhc2ljIG5ldG5zIHR1bm5lbAo+ICAgICAg
+ICAg4pyFIGF1ZGl0OiBhdWRpdCB0ZXN0c3VpdGUgdGVzdAo+ICAgICAgICAg4pyFIGh0dHBkOiBt
+b2Rfc3NsIHNtb2tlIHNhbml0eQo+ICAgICAgICAg4pyFIHR1bmVkOiB0dW5lLXByb2Nlc3Nlcy10
+aHJvdWdoLXBlcmYKPiAgICAgICAgIOKchSBBTFNBIFBDTSBsb29wYmFjayB0ZXN0Cj4gICAgICAg
+ICDinIUgQUxTQSBDb250cm9sIChtaXhlcikgVXNlcnNwYWNlIEVsZW1lbnQgdGVzdAo+ICAgICAg
+ICAg4pyFIHRyYWNlOiBmdHJhY2UvdHJhY2VyCj4gICAgICAgICDwn5qnIOKchSBDSUZTIENvbm5l
+Y3RhdGhvbgo+ICAgICAgICAg8J+apyDinIUgUE9TSVggcGpkLWZzdGVzdCBzdWl0ZXMKPiAgICAg
+ICAgIPCfmqcg4pyFIGp2bSB0ZXN0IHN1aXRlCj4gICAgICAgICDwn5qnIOKchSBNZW1vcnkgZnVu
+Y3Rpb246IGthc2xyCj4gICAgICAgICDwn5qnIOKchSBMVFA6IG9wZW5wb3NpeCB0ZXN0IHN1aXRl
+Cj4gICAgICAgICDwn5qnIOKchSBOZXR3b3JraW5nIHZuaWM6IGlwdmxhbi9iYXNpYwo+ICAgICAg
+ICAg8J+apyDinIUgaW90b3A6IHNhbml0eQo+ICAgICAgICAg8J+apyDinIUgVXNleCAtIHZlcnNp
+b24gMS45LTI5Cj4gICAgICAgICDwn5qnIOKchSBzdG9yYWdlOiBkbS9jb21tb24KPiAKPiAgICB4
+ODZfNjQ6Cj4gICAgICBIb3N0IDE6Cj4gICAgICAgICDij7EgIEJvb3QgdGVzdAo+ICAgICAgICAg
+4o+xICBTdG9yYWdlIFNBTiBkZXZpY2Ugc3RyZXNzIC0gbXB0M3NhcyBkcml2ZXIKPiAKPiAgICAg
+IEhvc3QgMjoKPiAgICAgICAgIOKPsSAgQm9vdCB0ZXN0Cj4gICAgICAgICDij7EgIFN0b3JhZ2Ug
+U0FOIGRldmljZSBzdHJlc3MgLSBtZWdhcmFpZF9zYXMKPiAKPiAgICAgIEhvc3QgMzoKPiAKPiAg
+ICAgICAgIOKaoSBJbnRlcm5hbCBpbmZyYXN0cnVjdHVyZSBpc3N1ZXMgcHJldmVudGVkIG9uZSBv
+ciBtb3JlIHRlc3RzIChtYXJrZWQKPiAgICAgICAgIHdpdGgg4pqh4pqh4pqhKSBmcm9tIHJ1bm5p
+bmcgb24gdGhpcyBhcmNoaXRlY3R1cmUuCj4gICAgICAgICBUaGlzIGlzIG5vdCB0aGUgZmF1bHQg
+b2YgdGhlIGtlcm5lbCB0aGF0IHdhcyB0ZXN0ZWQuCj4gCj4gICAgICAgICDinIUgQm9vdCB0ZXN0
+Cj4gICAgICAgICDinIUgeGZzdGVzdHM6IGV4dDQKPiAgICAgICAgIOKchSB4ZnN0ZXN0czogeGZz
+Cj4gICAgICAgICDinIUgc2VsaW51eC1wb2xpY3k6IHNlcmdlLXRlc3RzdWl0ZQo+ICAgICAgICAg
+4pyFIGx2bSB0aGlucCBzYW5pdHkKPiAgICAgICAgIOKchSBzdG9yYWdlOiBzb2Z0d2FyZSBSQUlE
+IHRlc3RpbmcKPiAgICAgICAgIOKchSBzdHJlc3M6IHN0cmVzcy1uZwo+ICAgICAgICAg8J+apyDi
+nIUgSU9NTVUgYm9vdCB0ZXN0Cj4gICAgICAgICDwn5qnIOKchSBJUE1JIGRyaXZlciB0ZXN0Cj4g
+ICAgICAgICDwn5qnIOKchSBJUE1JdG9vbCBsb29wIHN0cmVzcyB0ZXN0Cj4gICAgICAgICDwn5qn
+IOKaoeKaoeKaoSBwb3dlci1tYW5hZ2VtZW50OiBjcHVwb3dlci9zYW5pdHkgdGVzdAo+ICAgICAg
+ICAg8J+apyDinIUgU3RvcmFnZSBibGt0ZXN0cwo+IAo+ICAgICAgSG9zdCA0Ogo+ICAgICAgICAg
+4pyFIEJvb3QgdGVzdAo+ICAgICAgICAg4pyFIFBvZG1hbiBzeXN0ZW0gaW50ZWdyYXRpb24gdGVz
+dCAoYXMgcm9vdCkKPiAgICAgICAgIOKchSBQb2RtYW4gc3lzdGVtIGludGVncmF0aW9uIHRlc3Qg
+KGFzIHVzZXIpCj4gICAgICAgICDinIUgTFRQCj4gICAgICAgICDinIUgTG9vcGRldiBTYW5pdHkK
+PiAgICAgICAgIOKchSBNZW1vcnkgZnVuY3Rpb246IG1lbWZkX2NyZWF0ZQo+ICAgICAgICAg4pyF
+IEFNVFUgKEFic3RyYWN0IE1hY2hpbmUgVGVzdCBVdGlsaXR5KQo+ICAgICAgICAg4pyFIE5ldHdv
+cmtpbmcgYnJpZGdlOiBzYW5pdHkKPiAgICAgICAgIOKchSBFdGhlcm5ldCBkcml2ZXJzIHNhbml0
+eQo+ICAgICAgICAg4pyFIE5ldHdvcmtpbmcgTUFDc2VjOiBzYW5pdHkKPiAgICAgICAgIOKchSBO
+ZXR3b3JraW5nIHNvY2tldDogZnV6ego+ICAgICAgICAg4pyFIE5ldHdvcmtpbmcgc2N0cC1hdXRo
+OiBzb2Nrb3B0cyB0ZXN0Cj4gICAgICAgICDinIUgTmV0d29ya2luZzogaWdtcCBjb25mb3JtYW5j
+ZSB0ZXN0Cj4gICAgICAgICDinIUgTmV0d29ya2luZyByb3V0ZTogcG10dQo+ICAgICAgICAg4p2M
+IE5ldHdvcmtpbmcgcm91dGVfZnVuYzogbG9jYWwKPiAgICAgICAgIOKchSBOZXR3b3JraW5nIHJv
+dXRlX2Z1bmM6IGZvcndhcmQKPiAgICAgICAgIOKchSBOZXR3b3JraW5nIFRDUDoga2VlcGFsaXZl
+IHRlc3QKPiAgICAgICAgIOKchSBOZXR3b3JraW5nIFVEUDogc29ja2V0Cj4gICAgICAgICDinYwg
+TmV0d29ya2luZyB0dW5uZWw6IGdlbmV2ZSBiYXNpYyB0ZXN0Cj4gICAgICAgICDinIUgTmV0d29y
+a2luZyB0dW5uZWw6IGdyZSBiYXNpYwo+ICAgICAgICAg4pyFIEwyVFAgYmFzaWMgdGVzdAo+ICAg
+ICAgICAg4pyFIE5ldHdvcmtpbmcgdHVubmVsOiB2eGxhbiBiYXNpYwo+ICAgICAgICAg4pyFIE5l
+dHdvcmtpbmcgaXBzZWM6IGJhc2ljIG5ldG5zIHRyYW5zcG9ydAo+ICAgICAgICAg4pyFIE5ldHdv
+cmtpbmcgaXBzZWM6IGJhc2ljIG5ldG5zIHR1bm5lbAo+ICAgICAgICAg4pyFIGF1ZGl0OiBhdWRp
+dCB0ZXN0c3VpdGUgdGVzdAo+ICAgICAgICAg4pyFIGh0dHBkOiBtb2Rfc3NsIHNtb2tlIHNhbml0
+eQo+ICAgICAgICAg4pyFIHR1bmVkOiB0dW5lLXByb2Nlc3Nlcy10aHJvdWdoLXBlcmYKPiAgICAg
+ICAgIOKchSBwY2l1dGlsczogc2FuaXR5IHNtb2tlIHRlc3QKPiAgICAgICAgIOKchSBBTFNBIFBD
+TSBsb29wYmFjayB0ZXN0Cj4gICAgICAgICDinIUgQUxTQSBDb250cm9sIChtaXhlcikgVXNlcnNw
+YWNlIEVsZW1lbnQgdGVzdAo+ICAgICAgICAg4pyFIHN0b3JhZ2U6IFNDU0kgVlBECj4gICAgICAg
+ICDinIUgdHJhY2U6IGZ0cmFjZS90cmFjZXIKPiAgICAgICAgIPCfmqcg4pyFIENJRlMgQ29ubmVj
+dGF0aG9uCj4gICAgICAgICDwn5qnIOKchSBQT1NJWCBwamQtZnN0ZXN0IHN1aXRlcwo+ICAgICAg
+ICAg4o+xICBqdm0gdGVzdCBzdWl0ZQo+ICAgICAgICAg4o+xICBNZW1vcnkgZnVuY3Rpb246IGth
+c2xyCj4gICAgICAgICDij7EgIExUUDogb3BlbnBvc2l4IHRlc3Qgc3VpdGUKPiAgICAgICAgIOKP
+sSAgTmV0d29ya2luZyB2bmljOiBpcHZsYW4vYmFzaWMKPiAgICAgICAgIOKPsSAgaW90b3A6IHNh
+bml0eQo+ICAgICAgICAg4o+xICBVc2V4IC0gdmVyc2lvbiAxLjktMjkKPiAgICAgICAgIOKPsSAg
+c3RvcmFnZTogZG0vY29tbW9uCj4gCj4gICAgVGVzdCBzb3VyY2VzOiBodHRwczovL2dpdGh1Yi5j
+b20vQ0tJLXByb2plY3QvdGVzdHMtYmVha2VyCj4gICAgICDwn5KaIFB1bGwgcmVxdWVzdHMgYXJl
+IHdlbGNvbWUgZm9yIG5ldyB0ZXN0cyBvciBpbXByb3ZlbWVudHMgdG8gZXhpc3RpbmcgdGVzdHMh
+Cj4gCj4gV2FpdmVkIHRlc3RzCj4gLS0tLS0tLS0tLS0tCj4gSWYgdGhlIHRlc3QgcnVuIGluY2x1
+ZGVkIHdhaXZlZCB0ZXN0cywgdGhleSBhcmUgbWFya2VkIHdpdGgg8J+apy4gU3VjaCB0ZXN0cyBh
+cmUKPiBleGVjdXRlZCBidXQgdGhlaXIgcmVzdWx0cyBhcmUgbm90IHRha2VuIGludG8gYWNjb3Vu
+dC4gVGVzdHMgYXJlIHdhaXZlZCB3aGVuCj4gdGhlaXIgcmVzdWx0cyBhcmUgbm90IHJlbGlhYmxl
+IGVub3VnaCwgZS5nLiB3aGVuIHRoZXkncmUganVzdCBpbnRyb2R1Y2VkIG9yIGFyZQo+IGJlaW5n
+IGZpeGVkLgo+IAo+IFRlc3RpbmcgdGltZW91dAo+IC0tLS0tLS0tLS0tLS0tLQo+IFdlIGFpbSB0
+byBwcm92aWRlIGEgcmVwb3J0IHdpdGhpbiByZWFzb25hYmxlIHRpbWVmcmFtZS4gVGVzdHMgdGhh
+dCBoYXZlbid0Cj4gZmluaXNoZWQgcnVubmluZyBhcmUgbWFya2VkIHdpdGgg4o+xLiBSZXBvcnRz
+IGZvciBub24tdXBzdHJlYW0ga2VybmVscyBoYXZlCj4gYSBCZWFrZXIgcmVjaXBlIGxpbmtlZCB0
+byBuZXh0IHRvIGVhY2ggaG9zdC4KPiAKPiAKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBz
+Oi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
