@@ -1,61 +1,38 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FB0113D9B4
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2020 13:13:23 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6836E13DA14
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2020 13:31:04 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D00E23C237C
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2020 13:13:22 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 17F4D3C237D
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 Jan 2020 13:31:04 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 9567C3C2358
- for <ltp@lists.linux.it>; Thu, 16 Jan 2020 13:13:19 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id AA1772009A2
- for <ltp@lists.linux.it>; Thu, 16 Jan 2020 13:13:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1579176797;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=5vgnPc7JRcxOZuJmOoVRWqTDzoGFNI5p36ToItjurrc=;
- b=FODWUgezLToM0e+SrEGTCdjMqvXe646yacVB0xgtocTHZWrbDt2lcvBJe1+62nWBC/W6dW
- LN6fZkMk8wM1DWDJYsQTJqJ0Z0PNwZ4CeT78/ivrutmRNsr650WjD9obdxOtW/tS2YCufm
- t9n3Kw3DSzgT8ky+yfB3jpILQYSy3LQ=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-383-QrMTL26zNNay6plEqmrvQw-1; Thu, 16 Jan 2020 07:13:15 -0500
-X-MC-Unique: QrMTL26zNNay6plEqmrvQw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 65A453C2358
+ for <ltp@lists.linux.it>; Thu, 16 Jan 2020 13:31:02 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7340010054E3;
- Thu, 16 Jan 2020 12:13:14 +0000 (UTC)
-Received: from [172.54.123.12] (cpt-1052.paas.prod.upshift.rdu2.redhat.com
- [10.0.19.69])
- by smtp.corp.redhat.com (Postfix) with ESMTP id D9C6410013A1;
- Thu, 16 Jan 2020 12:13:08 +0000 (UTC)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A4DF014019E3
+ for <ltp@lists.linux.it>; Thu, 16 Jan 2020 13:31:01 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 9A8FAB212
+ for <ltp@lists.linux.it>; Thu, 16 Jan 2020 12:31:00 +0000 (UTC)
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Thu, 16 Jan 2020 13:31:00 +0100
+Message-Id: <20200116123100.13345-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-From: CKI Project <cki-project@redhat.com>
-To: Linux Stable maillist <stable@vger.kernel.org>
-Date: Thu, 16 Jan 2020 12:13:08 -0000
-Message-ID: <cki.FA900DB853.LBD049H627@redhat.com>
-X-Gitlab-Pipeline-ID: 385189
-X-Gitlab-Url: https://xci32.lab.eng.rdu2.redhat.com
-X-Gitlab-Path: /cki-project/cki-pipeline/pipelines/385189
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E4?=
- =?utf-8?q?=2E13-rc1-7f1b863=2Ecki_=28stable=29?=
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] Add test for misaligned fallocate()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,162 +44,314 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jianwen Ji <jiji@redhat.com>, Hangbin Liu <haliu@redhat.com>,
- Memory Management <mm-qe@redhat.com>, Jianlin Shi <jishi@redhat.com>,
- LTP Mailing List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-CkhlbGxvLAoKV2UgcmFuIGF1dG9tYXRlZCB0ZXN0cyBvbiBhIHJlY2VudCBjb21taXQgZnJvbSB0
-aGlzIGtlcm5lbCB0cmVlOgoKICAgICAgIEtlcm5lbCByZXBvOiBnaXQ6Ly9naXQua2VybmVsLm9y
-Zy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvc3RhYmxlL2xpbnV4LXN0YWJsZS1yYy5naXQKICAg
-ICAgICAgICAgQ29tbWl0OiA3ZjFiODYzMWI1YTUgLSBMaW51eCA1LjQuMTMtcmMxCgpUaGUgcmVz
-dWx0cyBvZiB0aGVzZSBhdXRvbWF0ZWQgdGVzdHMgYXJlIHByb3ZpZGVkIGJlbG93LgoKICAgIE92
-ZXJhbGwgcmVzdWx0OiBGQUlMRUQgKHNlZSBkZXRhaWxzIGJlbG93KQogICAgICAgICAgICAgTWVy
-Z2U6IE9LCiAgICAgICAgICAgQ29tcGlsZTogT0sKICAgICAgICAgICAgIFRlc3RzOiBGQUlMRUQK
-CkFsbCBrZXJuZWwgYmluYXJpZXMsIGNvbmZpZyBmaWxlcywgYW5kIGxvZ3MgYXJlIGF2YWlsYWJs
-ZSBmb3IgZG93bmxvYWQgaGVyZToKCiAgaHR0cHM6Ly9hcnRpZmFjdHMuY2tpLXByb2plY3Qub3Jn
-L3BpcGVsaW5lcy8zODUxODkKCk9uZSBvciBtb3JlIGtlcm5lbCB0ZXN0cyBmYWlsZWQ6CgogICAg
-cHBjNjRsZToKICAgICDinYwgTFRQCgogICAgYWFyY2g2NDoKICAgICDinYwgTmV0d29ya2luZyB0
-dW5uZWw6IGdyZSBiYXNpYwogICAgIOKdjCBOZXR3b3JraW5nIHR1bm5lbDogdnhsYW4gYmFzaWMK
-CiAgICB4ODZfNjQ6CiAgICAg4p2MIE5ldHdvcmtpbmcgcm91dGVfZnVuYzogbG9jYWwKICAgICDi
-nYwgTmV0d29ya2luZyB0dW5uZWw6IGdlbmV2ZSBiYXNpYyB0ZXN0CgpXZSBob3BlIHRoYXQgdGhl
-c2UgbG9ncyBjYW4gaGVscCB5b3UgZmluZCB0aGUgcHJvYmxlbSBxdWlja2x5LiBGb3IgdGhlIGZ1
-bGwKZGV0YWlsIG9uIG91ciB0ZXN0aW5nIHByb2NlZHVyZXMsIHBsZWFzZSBzY3JvbGwgdG8gdGhl
-IGJvdHRvbSBvZiB0aGlzIG1lc3NhZ2UuCgpQbGVhc2UgcmVwbHkgdG8gdGhpcyBlbWFpbCBpZiB5
-b3UgaGF2ZSBhbnkgcXVlc3Rpb25zIGFib3V0IHRoZSB0ZXN0cyB0aGF0IHdlCnJhbiBvciBpZiB5
-b3UgaGF2ZSBhbnkgc3VnZ2VzdGlvbnMgb24gaG93IHRvIG1ha2UgZnV0dXJlIHRlc3RzIG1vcmUg
-ZWZmZWN0aXZlLgoKICAgICAgICAsLS4gICAsLS4KICAgICAgICggQyApICggSyApICBDb250aW51
-b3VzCiAgICAgICAgYC0nLC0uYC0nICAgS2VybmVsCiAgICAgICAgICAoIEkgKSAgICAgSW50ZWdy
-YXRpb24KICAgICAgICAgICBgLScKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCgpDb21waWxlIHRlc3Rp
-bmcKLS0tLS0tLS0tLS0tLS0tCgpXZSBjb21waWxlZCB0aGUga2VybmVsIGZvciAzIGFyY2hpdGVj
-dHVyZXM6CgogICAgYWFyY2g2NDoKICAgICAgbWFrZSBvcHRpb25zOiAtajMwIElOU1RBTExfTU9E
-X1NUUklQPTEgdGFyZ3otcGtnCgogICAgcHBjNjRsZToKICAgICAgbWFrZSBvcHRpb25zOiAtajMw
-IElOU1RBTExfTU9EX1NUUklQPTEgdGFyZ3otcGtnCgogICAgeDg2XzY0OgogICAgICBtYWtlIG9w
-dGlvbnM6IC1qMzAgSU5TVEFMTF9NT0RfU1RSSVA9MSB0YXJnei1wa2cKCgpIYXJkd2FyZSB0ZXN0
-aW5nCi0tLS0tLS0tLS0tLS0tLS0KV2UgYm9vdGVkIGVhY2gga2VybmVsIGFuZCByYW4gdGhlIGZv
-bGxvd2luZyB0ZXN0czoKCiAgYWFyY2g2NDoKICAgIEhvc3QgMToKICAgICAgIOKchSBCb290IHRl
-c3QKICAgICAgIOKchSBQb2RtYW4gc3lzdGVtIGludGVncmF0aW9uIHRlc3QgKGFzIHJvb3QpCiAg
-ICAgICDinIUgUG9kbWFuIHN5c3RlbSBpbnRlZ3JhdGlvbiB0ZXN0IChhcyB1c2VyKQogICAgICAg
-4pyFIExUUAogICAgICAg4pyFIExvb3BkZXYgU2FuaXR5CiAgICAgICDinIUgTWVtb3J5IGZ1bmN0
-aW9uOiBtZW1mZF9jcmVhdGUKICAgICAgIOKchSBBTVRVIChBYnN0cmFjdCBNYWNoaW5lIFRlc3Qg
-VXRpbGl0eSkKICAgICAgIOKchSBOZXR3b3JraW5nIGJyaWRnZTogc2FuaXR5CiAgICAgICDinIUg
-RXRoZXJuZXQgZHJpdmVycyBzYW5pdHkKICAgICAgIOKchSBOZXR3b3JraW5nIE1BQ3NlYzogc2Fu
-aXR5CiAgICAgICDinIUgTmV0d29ya2luZyBzb2NrZXQ6IGZ1enoKICAgICAgIOKchSBOZXR3b3Jr
-aW5nIHNjdHAtYXV0aDogc29ja29wdHMgdGVzdAogICAgICAg4pyFIE5ldHdvcmtpbmc6IGlnbXAg
-Y29uZm9ybWFuY2UgdGVzdAogICAgICAg4pyFIE5ldHdvcmtpbmcgcm91dGU6IHBtdHUKICAgICAg
-IOKchSBOZXR3b3JraW5nIHJvdXRlX2Z1bmM6IGxvY2FsCiAgICAgICDinIUgTmV0d29ya2luZyBy
-b3V0ZV9mdW5jOiBmb3J3YXJkCiAgICAgICDinIUgTmV0d29ya2luZyBUQ1A6IGtlZXBhbGl2ZSB0
-ZXN0CiAgICAgICDinIUgTmV0d29ya2luZyBVRFA6IHNvY2tldAogICAgICAg4pyFIE5ldHdvcmtp
-bmcgdHVubmVsOiBnZW5ldmUgYmFzaWMgdGVzdAogICAgICAg4p2MIE5ldHdvcmtpbmcgdHVubmVs
-OiBncmUgYmFzaWMKICAgICAgIOKchSBMMlRQIGJhc2ljIHRlc3QKICAgICAgIOKdjCBOZXR3b3Jr
-aW5nIHR1bm5lbDogdnhsYW4gYmFzaWMKICAgICAgIOKchSBOZXR3b3JraW5nIGlwc2VjOiBiYXNp
-YyBuZXRucyB0cmFuc3BvcnQKICAgICAgIOKchSBOZXR3b3JraW5nIGlwc2VjOiBiYXNpYyBuZXRu
-cyB0dW5uZWwKICAgICAgIOKchSBhdWRpdDogYXVkaXQgdGVzdHN1aXRlIHRlc3QKICAgICAgIOKc
-hSBodHRwZDogbW9kX3NzbCBzbW9rZSBzYW5pdHkKICAgICAgIOKchSB0dW5lZDogdHVuZS1wcm9j
-ZXNzZXMtdGhyb3VnaC1wZXJmCiAgICAgICDinIUgQUxTQSBQQ00gbG9vcGJhY2sgdGVzdAogICAg
-ICAg4pyFIEFMU0EgQ29udHJvbCAobWl4ZXIpIFVzZXJzcGFjZSBFbGVtZW50IHRlc3QKICAgICAg
-IOKchSBzdG9yYWdlOiBTQ1NJIFZQRAogICAgICAg4pyFIHRyYWNlOiBmdHJhY2UvdHJhY2VyCiAg
-ICAgICDwn5qnIOKchSBDSUZTIENvbm5lY3RhdGhvbgogICAgICAg4o+xICBQT1NJWCBwamQtZnN0
-ZXN0IHN1aXRlcwogICAgICAg4o+xICBqdm0gdGVzdCBzdWl0ZQogICAgICAg4o+xICBNZW1vcnkg
-ZnVuY3Rpb246IGthc2xyCiAgICAgICDij7EgIExUUDogb3BlbnBvc2l4IHRlc3Qgc3VpdGUKICAg
-ICAgIOKPsSAgTmV0d29ya2luZyB2bmljOiBpcHZsYW4vYmFzaWMKICAgICAgIOKPsSAgaW90b3A6
-IHNhbml0eQogICAgICAg4o+xICBVc2V4IC0gdmVyc2lvbiAxLjktMjkKICAgICAgIOKPsSAgc3Rv
-cmFnZTogZG0vY29tbW9uCgogICAgSG9zdCAyOgoKICAgICAgIOKaoSBJbnRlcm5hbCBpbmZyYXN0
-cnVjdHVyZSBpc3N1ZXMgcHJldmVudGVkIG9uZSBvciBtb3JlIHRlc3RzIChtYXJrZWQKICAgICAg
-IHdpdGgg4pqh4pqh4pqhKSBmcm9tIHJ1bm5pbmcgb24gdGhpcyBhcmNoaXRlY3R1cmUuCiAgICAg
-ICBUaGlzIGlzIG5vdCB0aGUgZmF1bHQgb2YgdGhlIGtlcm5lbCB0aGF0IHdhcyB0ZXN0ZWQuCgog
-ICAgICAg4pyFIEJvb3QgdGVzdAogICAgICAg4pyFIHhmc3Rlc3RzOiBleHQ0CiAgICAgICDinIUg
-eGZzdGVzdHM6IHhmcwogICAgICAg4pyFIHNlbGludXgtcG9saWN5OiBzZXJnZS10ZXN0c3VpdGUK
-ICAgICAgIOKchSBsdm0gdGhpbnAgc2FuaXR5CiAgICAgICDinIUgc3RvcmFnZTogc29mdHdhcmUg
-UkFJRCB0ZXN0aW5nCiAgICAgICDinIUgc3RyZXNzOiBzdHJlc3MtbmcKICAgICAgIPCfmqcg4pqh
-4pqh4pqhIElQTUkgZHJpdmVyIHRlc3QKICAgICAgIPCfmqcg4pyFIElQTUl0b29sIGxvb3Agc3Ry
-ZXNzIHRlc3QKICAgICAgIPCfmqcg4pqh4pqh4pqhIFN0b3JhZ2UgYmxrdGVzdHMKCiAgcHBjNjRs
-ZToKICAgIEhvc3QgMToKICAgICAgIOKchSBCb290IHRlc3QKICAgICAgIOKchSB4ZnN0ZXN0czog
-ZXh0NAogICAgICAg4pyFIHhmc3Rlc3RzOiB4ZnMKICAgICAgIOKchSBzZWxpbnV4LXBvbGljeTog
-c2VyZ2UtdGVzdHN1aXRlCiAgICAgICDinIUgbHZtIHRoaW5wIHNhbml0eQogICAgICAg4pyFIHN0
-b3JhZ2U6IHNvZnR3YXJlIFJBSUQgdGVzdGluZwogICAgICAg8J+apyDinIUgSVBNSSBkcml2ZXIg
-dGVzdAogICAgICAg8J+apyDinIUgSVBNSXRvb2wgbG9vcCBzdHJlc3MgdGVzdAogICAgICAg8J+a
-pyDinIUgU3RvcmFnZSBibGt0ZXN0cwoKICAgIEhvc3QgMjoKICAgICAgIOKchSBCb290IHRlc3QK
-ICAgICAgIOKchSBQb2RtYW4gc3lzdGVtIGludGVncmF0aW9uIHRlc3QgKGFzIHJvb3QpCiAgICAg
-ICDinIUgUG9kbWFuIHN5c3RlbSBpbnRlZ3JhdGlvbiB0ZXN0IChhcyB1c2VyKQogICAgICAg4p2M
-IExUUAogICAgICAg4pyFIExvb3BkZXYgU2FuaXR5CiAgICAgICDinIUgTWVtb3J5IGZ1bmN0aW9u
-OiBtZW1mZF9jcmVhdGUKICAgICAgIOKchSBBTVRVIChBYnN0cmFjdCBNYWNoaW5lIFRlc3QgVXRp
-bGl0eSkKICAgICAgIOKchSBOZXR3b3JraW5nIGJyaWRnZTogc2FuaXR5CiAgICAgICDinIUgRXRo
-ZXJuZXQgZHJpdmVycyBzYW5pdHkKICAgICAgIOKchSBOZXR3b3JraW5nIE1BQ3NlYzogc2FuaXR5
-CiAgICAgICDinIUgTmV0d29ya2luZyBzb2NrZXQ6IGZ1enoKICAgICAgIOKchSBOZXR3b3JraW5n
-IHNjdHAtYXV0aDogc29ja29wdHMgdGVzdAogICAgICAg4pyFIE5ldHdvcmtpbmcgcm91dGU6IHBt
-dHUKICAgICAgIOKchSBOZXR3b3JraW5nIHJvdXRlX2Z1bmM6IGxvY2FsCiAgICAgICDinIUgTmV0
-d29ya2luZyByb3V0ZV9mdW5jOiBmb3J3YXJkCiAgICAgICDinIUgTmV0d29ya2luZyBUQ1A6IGtl
-ZXBhbGl2ZSB0ZXN0CiAgICAgICDinIUgTmV0d29ya2luZyBVRFA6IHNvY2tldAogICAgICAg4pyF
-IE5ldHdvcmtpbmcgdHVubmVsOiBnZW5ldmUgYmFzaWMgdGVzdAogICAgICAg4pyFIE5ldHdvcmtp
-bmcgdHVubmVsOiBncmUgYmFzaWMKICAgICAgIOKchSBMMlRQIGJhc2ljIHRlc3QKICAgICAgIOKc
-hSBOZXR3b3JraW5nIHR1bm5lbDogdnhsYW4gYmFzaWMKICAgICAgIOKchSBOZXR3b3JraW5nIGlw
-c2VjOiBiYXNpYyBuZXRucyB0dW5uZWwKICAgICAgIOKchSBhdWRpdDogYXVkaXQgdGVzdHN1aXRl
-IHRlc3QKICAgICAgIOKchSBodHRwZDogbW9kX3NzbCBzbW9rZSBzYW5pdHkKICAgICAgIOKchSB0
-dW5lZDogdHVuZS1wcm9jZXNzZXMtdGhyb3VnaC1wZXJmCiAgICAgICDinIUgQUxTQSBQQ00gbG9v
-cGJhY2sgdGVzdAogICAgICAg4pyFIEFMU0EgQ29udHJvbCAobWl4ZXIpIFVzZXJzcGFjZSBFbGVt
-ZW50IHRlc3QKICAgICAgIOKchSB0cmFjZTogZnRyYWNlL3RyYWNlcgogICAgICAg8J+apyDinIUg
-Q0lGUyBDb25uZWN0YXRob24KICAgICAgIPCfmqcg4pyFIFBPU0lYIHBqZC1mc3Rlc3Qgc3VpdGVz
-CiAgICAgICDwn5qnIOKchSBqdm0gdGVzdCBzdWl0ZQogICAgICAg8J+apyDinIUgTWVtb3J5IGZ1
-bmN0aW9uOiBrYXNscgogICAgICAg8J+apyDinIUgTFRQOiBvcGVucG9zaXggdGVzdCBzdWl0ZQog
-ICAgICAg8J+apyDinIUgTmV0d29ya2luZyB2bmljOiBpcHZsYW4vYmFzaWMKICAgICAgIPCfmqcg
-4pyFIGlvdG9wOiBzYW5pdHkKICAgICAgIPCfmqcg4pyFIFVzZXggLSB2ZXJzaW9uIDEuOS0yOQog
-ICAgICAg8J+apyDinIUgc3RvcmFnZTogZG0vY29tbW9uCgogIHg4Nl82NDoKICAgIEhvc3QgMToK
-ICAgICAgIOKPsSAgQm9vdCB0ZXN0CiAgICAgICDij7EgIFN0b3JhZ2UgU0FOIGRldmljZSBzdHJl
-c3MgLSBtcHQzc2FzIGRyaXZlcgoKICAgIEhvc3QgMjoKICAgICAgIOKPsSAgQm9vdCB0ZXN0CiAg
-ICAgICDij7EgIFN0b3JhZ2UgU0FOIGRldmljZSBzdHJlc3MgLSBtZWdhcmFpZF9zYXMKCiAgICBI
-b3N0IDM6CgogICAgICAg4pqhIEludGVybmFsIGluZnJhc3RydWN0dXJlIGlzc3VlcyBwcmV2ZW50
-ZWQgb25lIG9yIG1vcmUgdGVzdHMgKG1hcmtlZAogICAgICAgd2l0aCDimqHimqHimqEpIGZyb20g
-cnVubmluZyBvbiB0aGlzIGFyY2hpdGVjdHVyZS4KICAgICAgIFRoaXMgaXMgbm90IHRoZSBmYXVs
-dCBvZiB0aGUga2VybmVsIHRoYXQgd2FzIHRlc3RlZC4KCiAgICAgICDinIUgQm9vdCB0ZXN0CiAg
-ICAgICDinIUgeGZzdGVzdHM6IGV4dDQKICAgICAgIOKchSB4ZnN0ZXN0czogeGZzCiAgICAgICDi
-nIUgc2VsaW51eC1wb2xpY3k6IHNlcmdlLXRlc3RzdWl0ZQogICAgICAg4pyFIGx2bSB0aGlucCBz
-YW5pdHkKICAgICAgIOKchSBzdG9yYWdlOiBzb2Z0d2FyZSBSQUlEIHRlc3RpbmcKICAgICAgIOKc
-hSBzdHJlc3M6IHN0cmVzcy1uZwogICAgICAg8J+apyDinIUgSU9NTVUgYm9vdCB0ZXN0CiAgICAg
-ICDwn5qnIOKchSBJUE1JIGRyaXZlciB0ZXN0CiAgICAgICDwn5qnIOKchSBJUE1JdG9vbCBsb29w
-IHN0cmVzcyB0ZXN0CiAgICAgICDwn5qnIOKaoeKaoeKaoSBwb3dlci1tYW5hZ2VtZW50OiBjcHVw
-b3dlci9zYW5pdHkgdGVzdAogICAgICAg8J+apyDinIUgU3RvcmFnZSBibGt0ZXN0cwoKICAgIEhv
-c3QgNDoKICAgICAgIOKchSBCb290IHRlc3QKICAgICAgIOKchSBQb2RtYW4gc3lzdGVtIGludGVn
-cmF0aW9uIHRlc3QgKGFzIHJvb3QpCiAgICAgICDinIUgUG9kbWFuIHN5c3RlbSBpbnRlZ3JhdGlv
-biB0ZXN0IChhcyB1c2VyKQogICAgICAg4pyFIExUUAogICAgICAg4pyFIExvb3BkZXYgU2FuaXR5
-CiAgICAgICDinIUgTWVtb3J5IGZ1bmN0aW9uOiBtZW1mZF9jcmVhdGUKICAgICAgIOKchSBBTVRV
-IChBYnN0cmFjdCBNYWNoaW5lIFRlc3QgVXRpbGl0eSkKICAgICAgIOKchSBOZXR3b3JraW5nIGJy
-aWRnZTogc2FuaXR5CiAgICAgICDinIUgRXRoZXJuZXQgZHJpdmVycyBzYW5pdHkKICAgICAgIOKc
-hSBOZXR3b3JraW5nIE1BQ3NlYzogc2FuaXR5CiAgICAgICDinIUgTmV0d29ya2luZyBzb2NrZXQ6
-IGZ1enoKICAgICAgIOKchSBOZXR3b3JraW5nIHNjdHAtYXV0aDogc29ja29wdHMgdGVzdAogICAg
-ICAg4pyFIE5ldHdvcmtpbmc6IGlnbXAgY29uZm9ybWFuY2UgdGVzdAogICAgICAg4pyFIE5ldHdv
-cmtpbmcgcm91dGU6IHBtdHUKICAgICAgIOKdjCBOZXR3b3JraW5nIHJvdXRlX2Z1bmM6IGxvY2Fs
-CiAgICAgICDinIUgTmV0d29ya2luZyByb3V0ZV9mdW5jOiBmb3J3YXJkCiAgICAgICDinIUgTmV0
-d29ya2luZyBUQ1A6IGtlZXBhbGl2ZSB0ZXN0CiAgICAgICDinIUgTmV0d29ya2luZyBVRFA6IHNv
-Y2tldAogICAgICAg4p2MIE5ldHdvcmtpbmcgdHVubmVsOiBnZW5ldmUgYmFzaWMgdGVzdAogICAg
-ICAg4pyFIE5ldHdvcmtpbmcgdHVubmVsOiBncmUgYmFzaWMKICAgICAgIOKchSBMMlRQIGJhc2lj
-IHRlc3QKICAgICAgIOKchSBOZXR3b3JraW5nIHR1bm5lbDogdnhsYW4gYmFzaWMKICAgICAgIOKc
-hSBOZXR3b3JraW5nIGlwc2VjOiBiYXNpYyBuZXRucyB0cmFuc3BvcnQKICAgICAgIOKchSBOZXR3
-b3JraW5nIGlwc2VjOiBiYXNpYyBuZXRucyB0dW5uZWwKICAgICAgIOKchSBhdWRpdDogYXVkaXQg
-dGVzdHN1aXRlIHRlc3QKICAgICAgIOKchSBodHRwZDogbW9kX3NzbCBzbW9rZSBzYW5pdHkKICAg
-ICAgIOKchSB0dW5lZDogdHVuZS1wcm9jZXNzZXMtdGhyb3VnaC1wZXJmCiAgICAgICDinIUgcGNp
-dXRpbHM6IHNhbml0eSBzbW9rZSB0ZXN0CiAgICAgICDinIUgQUxTQSBQQ00gbG9vcGJhY2sgdGVz
-dAogICAgICAg4pyFIEFMU0EgQ29udHJvbCAobWl4ZXIpIFVzZXJzcGFjZSBFbGVtZW50IHRlc3QK
-ICAgICAgIOKchSBzdG9yYWdlOiBTQ1NJIFZQRAogICAgICAg4pyFIHRyYWNlOiBmdHJhY2UvdHJh
-Y2VyCiAgICAgICDwn5qnIOKchSBDSUZTIENvbm5lY3RhdGhvbgogICAgICAg8J+apyDinIUgUE9T
-SVggcGpkLWZzdGVzdCBzdWl0ZXMKICAgICAgIOKPsSAganZtIHRlc3Qgc3VpdGUKICAgICAgIOKP
-sSAgTWVtb3J5IGZ1bmN0aW9uOiBrYXNscgogICAgICAg4o+xICBMVFA6IG9wZW5wb3NpeCB0ZXN0
-IHN1aXRlCiAgICAgICDij7EgIE5ldHdvcmtpbmcgdm5pYzogaXB2bGFuL2Jhc2ljCiAgICAgICDi
-j7EgIGlvdG9wOiBzYW5pdHkKICAgICAgIOKPsSAgVXNleCAtIHZlcnNpb24gMS45LTI5CiAgICAg
-ICDij7EgIHN0b3JhZ2U6IGRtL2NvbW1vbgoKICBUZXN0IHNvdXJjZXM6IGh0dHBzOi8vZ2l0aHVi
-LmNvbS9DS0ktcHJvamVjdC90ZXN0cy1iZWFrZXIKICAgIPCfkpogUHVsbCByZXF1ZXN0cyBhcmUg
-d2VsY29tZSBmb3IgbmV3IHRlc3RzIG9yIGltcHJvdmVtZW50cyB0byBleGlzdGluZyB0ZXN0cyEK
-CldhaXZlZCB0ZXN0cwotLS0tLS0tLS0tLS0KSWYgdGhlIHRlc3QgcnVuIGluY2x1ZGVkIHdhaXZl
-ZCB0ZXN0cywgdGhleSBhcmUgbWFya2VkIHdpdGgg8J+apy4gU3VjaCB0ZXN0cyBhcmUKZXhlY3V0
-ZWQgYnV0IHRoZWlyIHJlc3VsdHMgYXJlIG5vdCB0YWtlbiBpbnRvIGFjY291bnQuIFRlc3RzIGFy
-ZSB3YWl2ZWQgd2hlbgp0aGVpciByZXN1bHRzIGFyZSBub3QgcmVsaWFibGUgZW5vdWdoLCBlLmcu
-IHdoZW4gdGhleSdyZSBqdXN0IGludHJvZHVjZWQgb3IgYXJlCmJlaW5nIGZpeGVkLgoKVGVzdGlu
-ZyB0aW1lb3V0Ci0tLS0tLS0tLS0tLS0tLQpXZSBhaW0gdG8gcHJvdmlkZSBhIHJlcG9ydCB3aXRo
-aW4gcmVhc29uYWJsZSB0aW1lZnJhbWUuIFRlc3RzIHRoYXQgaGF2ZW4ndApmaW5pc2hlZCBydW5u
-aW5nIGFyZSBtYXJrZWQgd2l0aCDij7EuIFJlcG9ydHMgZm9yIG5vbi11cHN0cmVhbSBrZXJuZWxz
-IGhhdmUKYSBCZWFrZXIgcmVjaXBlIGxpbmtlZCB0byBuZXh0IHRvIGVhY2ggaG9zdC4KCgotLSAK
-TWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Make sure that space allocation and deallocation works (or fails) correctly
+even when the requested file range does not align with filesystem blocks.
+
+Test on:
+- empty file system
+- full file system
+- also test with and without copy-on-write when supported
+
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
+
+Note for reviewers: Feel free to ignore this patch until next week.
+
+This patch is a follow-up to the fallocate05 fix. The original fallocate05
+test accidentally tested some misaligned allocation and deallocation
+on platforms with block size bigger than 8k but it didn't validate
+the results correctly. Test calling fallocate() on misaligned file range
+and this time validate the results properly, taking into account advanced
+FS features like copy-on-write.
+
+Changes since v1:
+- Fix compilation with --std=c89
+- Misalign by at most 512 bytes, otherwise the test may miss an XFS bug on PPC
+
+ runtest/syscalls                              |   1 +
+ .../kernel/syscalls/fallocate/fallocate06.c   | 253 ++++++++++++++++++
+ 2 files changed, 254 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/fallocate/fallocate06.c
+
+diff --git a/runtest/syscalls b/runtest/syscalls
+index fa87ef63f..ec522e8fa 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -184,6 +184,7 @@ fallocate02 fallocate02
+ fallocate03 fallocate03
+ fallocate04 fallocate04
+ fallocate05 fallocate05
++fallocate06 fallocate06
+ 
+ fsetxattr01 fsetxattr01
+ fsetxattr02 fsetxattr02
+diff --git a/testcases/kernel/syscalls/fallocate/fallocate06.c b/testcases/kernel/syscalls/fallocate/fallocate06.c
+new file mode 100644
+index 000000000..6ec9df030
+--- /dev/null
++++ b/testcases/kernel/syscalls/fallocate/fallocate06.c
+@@ -0,0 +1,253 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2019 SUSE LLC <mdoucha@suse.cz>
++ */
++
++/*
++ * Tests misaligned fallocate()
++ * Test scenario:
++ * 1. write() several blocks worth of data
++ * 2. fallocate() some more space (not aligned to FS blocks)
++ * 3. try to write() into the allocated space
++ * 4. deallocate misaligned part of file range written in step 1
++ * 5. read() the deallocated range and check that it was zeroed
++ *
++ * Subtests:
++ * - fill file system between step 2 and 3
++ * - disable copy-on-write on test file
++ * - combinations of above subtests
++ */
++
++#define _GNU_SOURCE
++
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <fcntl.h>
++#include <sys/ioctl.h>
++#include <linux/fs.h>
++#include "tst_test.h"
++#include "lapi/fallocate.h"
++
++#define MNTPOINT "mntpoint"
++#define TEMPFILE MNTPOINT "/test_file"
++#define WRITE_BLOCKS 8
++#define FALLOCATE_BLOCKS 2
++#define DEALLOCATE_BLOCKS 3
++#define TESTED_FLAGS "fallocate(FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE)"
++
++const struct test_case {
++	int no_cow, fill_fs;
++} testcase_list[] = {
++	{1, 0},
++	{1, 1},
++	{0, 0},
++	{0, 1}
++};
++
++static int cow_support;
++static char *wbuf, *rbuf;
++static blksize_t blocksize;
++static long wbuf_size, rbuf_size, block_offset;
++
++static int toggle_cow(int fd, int enable)
++{
++	int ret, attr;
++
++	ret = ioctl(fd, FS_IOC_GETFLAGS, &attr);
++
++	if (ret)
++		return ret;
++
++	if (enable)
++		attr &= ~FS_NOCOW_FL;
++	else
++		attr |= FS_NOCOW_FL;
++
++	return ioctl(fd, FS_IOC_SETFLAGS, &attr);
++}
++
++static void setup(void) {
++	unsigned char ch;
++	long i;
++	int fd;
++	struct stat statbuf;
++
++	fd = SAFE_OPEN(TEMPFILE, O_WRONLY | O_CREAT | O_TRUNC);
++
++	/*
++	 * Set FS_NOCOW_FL flag on the temp file. Non-CoW filesystems will
++	 * return error.
++	 */
++	TEST(toggle_cow(fd, 0));
++	SAFE_FSTAT(fd, &statbuf);
++	blocksize = statbuf.st_blksize;
++	block_offset = MIN(blocksize / 2, 512);
++	wbuf_size = MAX(WRITE_BLOCKS, FALLOCATE_BLOCKS) * blocksize;
++	rbuf_size = (DEALLOCATE_BLOCKS + 1) * blocksize;
++	SAFE_CLOSE(fd);
++	SAFE_UNLINK(TEMPFILE);
++
++	if (blocksize < 2)
++		tst_brk(TCONF, "Block size %ld too small for test", blocksize);
++
++	if (!TST_RET)
++		cow_support = 1;
++	else switch (TST_ERR) {
++	case ENOTSUP:
++	case ENOTTY:
++	case EINVAL:
++	case ENOSYS:
++		cow_support = 0;
++		break;
++
++	default:
++		tst_brk(TBROK|TTERRNO, "Error checking copy-on-write support");
++	}
++
++	tst_res(TINFO, "Copy-on-write is%s supported",
++		cow_support ? "" : " not");
++	wbuf = SAFE_MALLOC(wbuf_size);
++	rbuf = SAFE_MALLOC(rbuf_size);
++
++	/* Fill the buffer with known values */
++	for (i = 0, ch = 1; i < wbuf_size; i++, ch++) {
++		wbuf[i] = ch;
++	}
++}
++
++static int check_result(const struct test_case *tc, const char *func, long exp)
++{
++	if (tc->fill_fs && !tc->no_cow && TST_RET < 0) {
++		if (TST_RET != -1) {
++			tst_res(TFAIL, "%s returned unexpected value %ld",
++				func, TST_RET);
++			return 0;
++		}
++
++		if (TST_ERR != ENOSPC) {
++			tst_res(TFAIL | TTERRNO, "%s should fail with ENOSPC",
++				func);
++			return 0;
++		}
++
++		tst_res(TPASS | TTERRNO, "%s on full FS with CoW", func);
++	} else if (TST_RET < 0) {
++		tst_res(TFAIL | TTERRNO, "%s failed unexpectedly", func);
++		return 0;
++	} else if (TST_RET != exp) {
++		tst_res(TFAIL,
++			"Unexpected return value from %s: %ld (expected %ld)",
++			func, TST_RET, exp);
++		return 0;
++	} else
++		tst_res(TPASS, "%s successful", func);
++
++	return 1;
++}
++
++static void run(unsigned int n)
++{
++	int fd;
++	long offset, size;
++	const struct test_case *tc = testcase_list + n;
++
++	tst_res(TINFO, "Case %u. Fill FS: %s; Use copy on write: %s", n+1,
++		tc->fill_fs ? "yes" : "no", tc->no_cow ? "no" : "yes");
++	fd = SAFE_OPEN(TEMPFILE, O_RDWR | O_CREAT | O_TRUNC);
++
++	if (cow_support)
++		toggle_cow(fd, !tc->no_cow);
++	else if (!tc->no_cow)
++		tst_brk(TCONF, "File system does not support copy-on-write");
++
++	/* Prepare test data for deallocation test */
++	size = WRITE_BLOCKS * blocksize;
++	TEST(write(fd, wbuf, size));
++
++	if (TST_RET < 0)
++		tst_res(TFAIL | TTERRNO, "write() failed unexpectedly");
++	else if (TST_RET != size)
++		tst_res(TFAIL, "Short write(): %ld bytes (expected %ld)",
++			TST_RET, size);
++	else
++		tst_res(TPASS, "write() wrote %ld bytes", TST_RET);
++
++	/* Allocation test */
++	offset = size + block_offset;
++	size = FALLOCATE_BLOCKS * blocksize;
++	TEST(fallocate(fd, 0, offset, size));
++
++	if (TST_RET) {
++		if (TST_ERR == ENOTSUP) {
++			SAFE_CLOSE(fd);
++			tst_brk(TCONF | TTERRNO, "fallocate() not supported");
++		}
++
++		tst_brk(TBROK | TTERRNO, "fallocate(fd, 0, %ld, %ld)", offset,
++			size);
++	}
++
++	if (tc->fill_fs)
++		tst_fill_fs(MNTPOINT, 1);
++
++	SAFE_LSEEK(fd, offset, SEEK_SET);
++	TEST(write(fd, wbuf, size));
++	if (check_result(tc, "write()", size))
++		tst_res(TPASS, "Misaligned allocation works as expected");
++
++	/* Deallocation test */
++	size = DEALLOCATE_BLOCKS * blocksize;
++	offset = block_offset;
++	TEST(fallocate(fd, FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE, offset,
++		size));
++
++	if (TST_RET == -1 && TST_ERR == ENOTSUP) {
++		tst_res(TCONF | TTERRNO, TESTED_FLAGS);
++	} else if (check_result(tc, TESTED_FLAGS, 0) && !TST_RET) {
++		int i, err = 0;
++
++		SAFE_LSEEK(fd, 0, SEEK_SET);
++		SAFE_READ(1, fd, rbuf, rbuf_size);
++
++		for (i = offset; i < offset + size; i++) {
++			if (rbuf[i]) {
++				err = 1;
++				break;
++			}
++		}
++
++		err = err || memcmp(rbuf, wbuf, offset);
++		offset += size;
++		size = rbuf_size - offset;
++		err = err || memcmp(rbuf + offset, wbuf + offset, size);
++
++		if (err)
++			tst_res(TFAIL, TESTED_FLAGS
++				" did not clear the correct file range.");
++		else
++			tst_res(TPASS, TESTED_FLAGS
++				" cleared the correct file range");
++	}
++
++	SAFE_CLOSE(fd);
++	tst_system("rm -r " MNTPOINT "/*");
++}
++
++static void cleanup(void)
++{
++	free(wbuf);
++	free(rbuf);
++}
++
++static struct tst_test test = {
++	.test = run,
++	.tcnt = ARRAY_SIZE(testcase_list),
++	.needs_root = 1,
++	.mount_device = 1,
++	.dev_min_size = 512,
++	.mntpoint = MNTPOINT,
++	.all_filesystems = 1,
++	.setup = setup,
++	.cleanup = cleanup,
++};
+-- 
+2.24.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
