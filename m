@@ -2,66 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C4F51428A0
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jan 2020 11:57:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 774761429FA
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jan 2020 13:03:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4B99E3C2445
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jan 2020 11:57:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 248953C234E
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jan 2020 13:03:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 468B03C2259
- for <ltp@lists.linux.it>; Mon, 20 Jan 2020 11:57:05 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id D45B41000482
- for <ltp@lists.linux.it>; Mon, 20 Jan 2020 11:57:04 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1579517823;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=AfJ1o27z5xIYIC0JCVhZwwWFE/OYtZhBxKxCGE6TLXA=;
- b=EysIHHRAgethKxXRiPN9fWV8/iwE/EFFsAknl7myOW5rAS57ne/lddIUh6lw0l6/HaQqlW
- tgzgTGELuJPI7S+x7Vsj1Dl3PFgO0ZQtYogWvPglHySu5N6EYYiJsuegsR00PYLuuWobL3
- HRAQa8qSuDXuZ8q0dHUSWzK+X/n/X98=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-47-9R5ssVFPNNKkIBYsx9KxTQ-1; Mon, 20 Jan 2020 05:57:01 -0500
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
- [10.5.11.16])
+ by picard.linux.it (Postfix) with ESMTP id 9BF313C2259
+ for <ltp@lists.linux.it>; Mon, 20 Jan 2020 13:03:13 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 47AAB8010CF;
- Mon, 20 Jan 2020 10:57:00 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3ED135C21A;
- Mon, 20 Jan 2020 10:57:00 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8255E81978;
- Mon, 20 Jan 2020 10:56:59 +0000 (UTC)
-Date: Mon, 20 Jan 2020 05:56:59 -0500 (EST)
-From: Jan Stancek <jstancek@redhat.com>
-To: Petr Vorel <pvorel@suse.cz>, Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <558281761.2778139.1579517819187.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20200120103108.GA15405@dell5510>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2A1F01000D94
+ for <ltp@lists.linux.it>; Mon, 20 Jan 2020 13:03:11 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 6BDD7AC24;
+ Mon, 20 Jan 2020 12:03:11 +0000 (UTC)
+Date: Mon, 20 Jan 2020 13:03:09 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Jan Stancek <jstancek@redhat.com>
+Message-ID: <20200120120309.GA24136@dell5510>
 References: <20200117113715.22786-1-pvorel@suse.cz>
- <20200117113715.22786-3-pvorel@suse.cz> <20200120103108.GA15405@dell5510>
+ <20200117113715.22786-3-pvorel@suse.cz>
+ <20200120103108.GA15405@dell5510>
+ <558281761.2778139.1579517819187.JavaMail.zimbra@redhat.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.25, 10.4.195.5]
-Thread-Topic: tst_device.h: Use lapi/syscalls.h instead of <sys/syscall.h>
-Thread-Index: 5jyQAqQ1+7i7HOXIqGkPUIzteO9Fqw==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-MC-Unique: 9R5ssVFPNNKkIBYsx9KxTQ-1
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+In-Reply-To: <558281761.2778139.1579517819187.JavaMail.zimbra@redhat.com>
+User-Agent: Mutt/1.12.2 (2019-09-21)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 2/3] tst_device.h: Use lapi/syscalls.h instead of
  <sys/syscall.h>
@@ -76,41 +51,77 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Hi,
 
+> ----- Original Message -----
+> > >  #include <unistd.h>
+> > > -#include <sys/syscall.h>
+> > > +#include "lapi/syscalls.h"
+> > Hm, maybe this fix wasn't a good idea.
+> > It effectively uses lapi/syscalls.h everywhere instead of <sys/syscall.h>.
+> > Not sure if this is what we want.
 
------ Original Message -----
-> >  #include <unistd.h>
-> > -#include <sys/syscall.h>
-> > +#include "lapi/syscalls.h"
-> Hm, maybe this fix wasn't a good idea.
-> It effectively uses lapi/syscalls.h everywhere instead of <sys/syscall.h>.
-> Not sure if this is what we want.
+> We already include lapi/syscalls.h at several places, so I wouldn't expect
+> this to be as bad.
 
-We already include lapi/syscalls.h at several places, so I wouldn't expect
-this to be as bad.
+Yes, it's in many places, the same as lapi/syscalls.h:
+git grep -l sys/syscall.h |wc -l
+136
 
-> 
-> Example of the error is #634 [1], which is caused by __NR_socketcall being -1
-> instead of not defined (socketcall is not defined on some archs, e.g. x86-64
-> and ARM).
-> We can fix the condition
+git grep -l lapi/syscalls.h |wc -l
+206
 
-Tests using tst_syscall or ltp_syscall should be fine, since those check
-for ENOSYS.
+But none of lapi/syscalls.h use is in the API headers (only in API C and tests)
 
->, but it will lead to numerous not obvious errors, so
-> I
-> suggest to revert this (and thus get LTP broken on very old distros).
-> 
+> > Example of the error is #634 [1], which is caused by __NR_socketcall being -1
+> > instead of not defined (socketcall is not defined on some archs, e.g. x86-64
+> > and ARM).
+> > We can fix the condition
 
-Cyril, any thoughts?
+> Tests using tst_syscall or ltp_syscall should be fine, since those check
+> for ENOSYS.
+OK, if lapi/syscalls.h include is ok, using tst_syscall() in socketcall01.c is
+trivial fix. But I'd worry about these uses:
 
+$ git grep -e '^#if.*\bSYS_' $(git grep -l sys/syscall.h)
+testcases/kernel/containers/libclone/libclone.h:#ifndef SYS_unshare
+testcases/kernel/containers/libclone/libclone.h:#ifdef __NR_unshare
+testcases/kernel/containers/libclone/libclone.h:#ifndef __NR_unshare
+testcases/kernel/fs/scsi/ltpscsi/llseek.c:#ifdef __NR_lseek
+testcases/kernel/fs/scsi/ltpscsi/llseek.c:#ifndef __NR_llseek
+testcases/kernel/hotplug/memory_hotplug/commands.c:#ifndef __NR_migrate_pages
+testcases/kernel/mem/vma/vma03.c:#ifdef __NR_mmap2
+testcases/kernel/security/tomoyo/include.h:#ifdef __NR_uselib
+testcases/kernel/security/tomoyo/include.h:#ifdef __NR_pivot_root
+testcases/kernel/syscalls/accept4/accept4_01.c:#if defined(SYS_ACCEPT4) /* the socketcall() number */
+testcases/kernel/syscalls/readahead/readahead01.c:#if defined(__NR_readahead)
+testcases/kernel/syscalls/set_robust_list/set_robust_list01.c:#ifdef __NR_set_robust_list
+testcases/kernel/syscalls/set_robust_list/set_robust_list01.c:#ifdef __NR_set_robust_list
+testcases/kernel/syscalls/set_robust_list/set_robust_list01.c:#ifdef __NR_set_robust_list
+testcases/kernel/syscalls/set_robust_list/set_robust_list01.c:#ifdef __NR_set_robust_list
+testcases/kernel/syscalls/setns/setns01.c:#if defined(__NR_setns)
+testcases/kernel/syscalls/setns/setns02.c:#if defined(__NR_setns) && defined(CLONE_NEWIPC) && defined(CLONE_NEWUTS)
+testcases/kernel/syscalls/socketcall/socketcall01.c:#ifdef __NR_socketcall
+testcases/kernel/syscalls/socketcall/socketcall02.c:#ifdef __NR_socketcall
+testcases/kernel/syscalls/socketcall/socketcall03.c:#ifdef __NR_socketcall
+testcases/kernel/syscalls/socketcall/socketcall04.c:#ifdef __NR_socketcall
+testcases/kernel/syscalls/timerfd/timerfd01.c:#ifdef __NR_timerfd_create
+testcases/misc/crash/crash02.c:#if defined(__NR_vfork) && __NR_vfork
+testcases/misc/crash/crash02.c:#if defined(__NR_clone) && __NR_clone
+
+which IMHO fail unless transformed into tst_syscall/ltp_syscall().
+
+That's why I'd apply my fix https://patchwork.ozlabs.org/patch/1225869/.
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
