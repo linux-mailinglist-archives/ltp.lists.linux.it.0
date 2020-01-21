@@ -2,41 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56228143FF1
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jan 2020 15:49:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DAC4143FF3
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jan 2020 15:50:17 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 228A53C24C9
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jan 2020 15:49:07 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6C0E53C24C9
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jan 2020 15:50:17 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id EA78E3C24A4
- for <ltp@lists.linux.it>; Tue, 21 Jan 2020 15:49:04 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 00BDD3C24A4
+ for <ltp@lists.linux.it>; Tue, 21 Jan 2020 15:50:15 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 3F38314002CC
- for <ltp@lists.linux.it>; Tue, 21 Jan 2020 15:49:00 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 84D221A017DD
+ for <ltp@lists.linux.it>; Tue, 21 Jan 2020 15:50:15 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 97663ACE0;
- Tue, 21 Jan 2020 14:49:00 +0000 (UTC)
-Date: Tue, 21 Jan 2020 15:48:58 +0100
+ by mx2.suse.de (Postfix) with ESMTP id C4AFFAC6F;
+ Tue, 21 Jan 2020 14:50:14 +0000 (UTC)
+Date: Tue, 21 Jan 2020 15:50:13 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <20200121144857.GB6337@rei>
-References: <20200121140707.20583-1-rpalethorpe@suse.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20200121145013.GC6337@rei>
+References: <1579420198-29651-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <1579420198-29651-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200121140707.20583-1-rpalethorpe@suse.com>
+In-Reply-To: <1579420198-29651-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH] pty03: Regression test for slip/slcan data
- race
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] syscalls/add_key01: remove duplicated case
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,31 +54,8 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> The kernel patch to fix this is still under review:
-> https://lore.kernel.org/netdev/20200121134258.18013-1-rpalethorpe@suse.com/T/#u
-> 
->  testcases/kernel/pty/Makefile |   2 +
->  testcases/kernel/pty/pty03.c  | 132 ++++++++++++++++++++++++++++++++++
->  2 files changed, 134 insertions(+)
->  create mode 100644 testcases/kernel/pty/pty03.c
-> 
-> diff --git a/testcases/kernel/pty/Makefile b/testcases/kernel/pty/Makefile
-> index f9fc4f57e..52bb56c8d 100644
-> --- a/testcases/kernel/pty/Makefile
-> +++ b/testcases/kernel/pty/Makefile
-> @@ -26,4 +26,6 @@ include $(top_srcdir)/include/mk/testcases.mk
->  
->  CPPFLAGS		+= -D_GNU_SOURCE
->  
-> +pty03: LDFLAGS += -pthread
-
-This has to be CFLAGS +=
-
-All the manual pages say "compile & link with -pthread".
-
-
-Other than that the test looks fine. Ideally we should add the linux git
-tag once the upstream patch is accepted, then merge the test.
+Can't we just change the test instead of creating add_key05 then
+removing add_key01?
 
 -- 
 Cyril Hrubis
