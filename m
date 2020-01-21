@@ -2,39 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57F981440C4
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jan 2020 16:44:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B49E1440DB
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jan 2020 16:49:54 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 265C03C24D0
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jan 2020 16:44:19 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 27A933C24D1
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jan 2020 16:49:54 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 6C7A03C2369
- for <ltp@lists.linux.it>; Tue, 21 Jan 2020 16:44:17 +0100 (CET)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 6AA743C24A4
+ for <ltp@lists.linux.it>; Tue, 21 Jan 2020 16:49:52 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B8A75100157B
- for <ltp@lists.linux.it>; Tue, 21 Jan 2020 16:44:16 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id CA0441401A58
+ for <ltp@lists.linux.it>; Tue, 21 Jan 2020 16:49:49 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 6C2B5AC7C;
- Tue, 21 Jan 2020 15:44:16 +0000 (UTC)
-Date: Tue, 21 Jan 2020 16:44:10 +0100
+ by mx2.suse.de (Postfix) with ESMTP id E67E1AFB5
+ for <ltp@lists.linux.it>; Tue, 21 Jan 2020 15:49:48 +0000 (UTC)
+Date: Tue, 21 Jan 2020 16:49:42 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <20200121154409.GB12370@rei>
-References: <1579244690-22830-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <20200121154941.GC12370@rei>
+References: <20200116123100.13345-1-mdoucha@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1579244690-22830-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+In-Reply-To: <20200116123100.13345-1-mdoucha@suse.cz>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/add_key02: add the "big_key" key type
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] Add test for misaligned fallocate()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,7 +54,38 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Pushed, thanks.
+> +	SAFE_CLOSE(fd);
+> +	tst_system("rm -r " MNTPOINT "/*");
+
+Just FYI, we already have something like this implemented but not
+exported outside of the test library. We basically need a public
+wrapper around the rmobj() function from the tst_tmpdir.c
+
+> +}
+> +
+> +static void cleanup(void)
+> +{
+> +	free(wbuf);
+> +	free(rbuf);
+> +}
+> +
+> +static struct tst_test test = {
+> +	.test = run,
+> +	.tcnt = ARRAY_SIZE(testcase_list),
+> +	.needs_root = 1,
+> +	.mount_device = 1,
+> +	.dev_min_size = 512,
+> +	.mntpoint = MNTPOINT,
+> +	.all_filesystems = 1,
+> +	.setup = setup,
+> +	.cleanup = cleanup,
+> +};
+> -- 
+> 2.24.1
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
 
 -- 
 Cyril Hrubis
