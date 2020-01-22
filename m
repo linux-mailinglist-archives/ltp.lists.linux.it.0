@@ -2,67 +2,49 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A28F7144B0B
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Jan 2020 06:13:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7150144B5E
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Jan 2020 06:26:39 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 16A2C3C2266
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Jan 2020 06:13:21 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 598E43C238B
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Jan 2020 06:26:39 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 9A8A63C0E94
- for <ltp@lists.linux.it>; Wed, 22 Jan 2020 06:13:16 +0100 (CET)
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id ECFCB200769
- for <ltp@lists.linux.it>; Wed, 22 Jan 2020 06:13:15 +0100 (CET)
-Received: by mail-pf1-x444.google.com with SMTP id z16so2757427pfk.0
- for <ltp@lists.linux.it>; Tue, 21 Jan 2020 21:13:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=haLO2uudrahAruDdsExFIKhQUnOSisUVFuUMPA2b6jo=;
- b=UJx0xBJ2ysyWmB4xOG6D+EbK0LOFN5RaOmSZ/R6MCXHvGmjOJic15jrkVnA2PENj88
- +GnxA0X+xx4AcTH2MeuRiAThikBXAIozKHki5ldeDNAcbP2TCWEWTqh4cwsVf4L6WSru
- QtK2nAQndOadm/Q9ZhmpVStosxg/yx4Q1+G+dLNk0i7PCjlvvMZtClyLgEPtwRQWipqc
- W8GGkj2U3Q/xPe+G0c0Eyu5wlMaj/zoNOEdzE2OUDIqFhh0jNeogr0uC63b6YI5tlO1e
- PLQBXtR7Kxo5++9QpIyyvDxcwU4aXZvlJCuqXM/YKN1Dj3lUbuk9HI+VU7XgPuHqizNW
- 679Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=haLO2uudrahAruDdsExFIKhQUnOSisUVFuUMPA2b6jo=;
- b=k3M6Zx8YFTATdMRxxmAr7FgeGGAAqAlpaecn+FOQPCxbephm8UKlsB+0fM7vuUoWx2
- LmO8qW+W4TvTPzcZBcQxEQe5AxNgYzh2TFhnp/8q8rRGhDSyuFOpnhXe7wRLPxfJi/RK
- wn/gmMsPgK8rjrR3pZ9wpknz3x5hhtY7XlaFATGC2e0ijG3GZ5vU71V9mlv7p1yqXxXY
- 0ofbXm8iaiQAso105vYBtMaTXBVxLoiKvE0fjJuqQ43O+0skSvYy8uKVTho+u2cK8b8e
- N5vntl6iMNC2tIRlRu0ye8X2QQxvNOR853YJE9DSvaYYlfh4VTim1iAkgLMdRiI0HdPQ
- 1VZA==
-X-Gm-Message-State: APjAAAWg+z8CEAWWmHv/QxlUjMspdrkz1XfgR86ehPBZKUfxtihF/kJy
- hbJox8NePLq17LDKMAt2hkjGAnU3edg=
-X-Google-Smtp-Source: APXvYqxyJ2JTUpQHiGVaTZ1ftELjCh1N810Ykr0Xxq9kajmgchv+rIsjnXut/HR8jv7HXXx1BCVbAg==
-X-Received: by 2002:a63:fc01:: with SMTP id j1mr9743839pgi.220.1579669994206; 
- Tue, 21 Jan 2020 21:13:14 -0800 (PST)
-Received: from localhost ([122.167.18.14])
- by smtp.gmail.com with ESMTPSA id b12sm44634009pfi.157.2020.01.21.21.13.13
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 21 Jan 2020 21:13:13 -0800 (PST)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: ltp@lists.linux.it
-Date: Wed, 22 Jan 2020 10:42:47 +0530
-Message-Id: <b4026c746a164c83636ff14d77bd0638b1cd5407.1579669956.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.21.0.rc0.269.g1a574e7a288b
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id D96A73C07D6
+ for <ltp@lists.linux.it>; Wed, 22 Jan 2020 06:26:18 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 2EAB72003B7
+ for <ltp@lists.linux.it>; Wed, 22 Jan 2020 06:26:16 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.70,348,1574092800"; d="scan'208";a="82366248"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 22 Jan 2020 13:26:13 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id 01D425010EC4;
+ Wed, 22 Jan 2020 13:17:00 +0800 (CST)
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.83) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1395.4; Wed, 22 Jan 2020 13:26:12 +0800
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ (TLS) id 14.3.439.0; Wed, 22 Jan 2020 13:26:14 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <chrubis@suse.cz>
+Date: Wed, 22 Jan 2020 13:26:36 +0800
+Message-ID: <1579670796-21233-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <20200121151342.GD6337@rei>
+References: <20200121151342.GD6337@rei>
 MIME-Version: 1.0
+X-Originating-IP: [10.167.220.84]
+X-yoursite-MailScanner-ID: 01D425010EC4.A9F48
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
 X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH] gitignore: Ignore all files starting with dot (.)
+Subject: [LTP] [PATCH v2] syscalls/add_key01: test the length of payload
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,34 +56,161 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
- Vincent Guittot <vincent.guittot@linaro.org>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The purpose behind this modification was to start ignoring the .*.swp
-files, but then I looked at how the Linux kernel handles this and so
-this patch ignores anything that starts with a dot (.).
+Seeing add_key manpages, the length of payload for "user"/"logon"
+is 32767, this value is up tp 1M for "big_key". For "keyring" type
+, this value is zero.
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+---------
+v1->v2:
+1. use different buffers for different length
+2. split pass and fail message, make code less confusing
+---------
+
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 ---
- .gitignore | 1 +
- 1 file changed, 1 insertion(+)
+ testcases/kernel/syscalls/add_key/add_key01.c | 110 ++++++++++++++++--
+ 1 file changed, 102 insertions(+), 8 deletions(-)
 
-diff --git a/.gitignore b/.gitignore
-index 903d616b11c4..0a14ebcbeefc 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -1,4 +1,5 @@
- CVS
-+.*
- *~
- *.o
- *.o.d
+diff --git a/testcases/kernel/syscalls/add_key/add_key01.c b/testcases/kernel/syscalls/add_key/add_key01.c
+index 4fe97dac6..9830d48dc 100644
+--- a/testcases/kernel/syscalls/add_key/add_key01.c
++++ b/testcases/kernel/syscalls/add_key/add_key01.c
+@@ -4,23 +4,117 @@
+  * Porting from Crackerjack to LTP is done by
+  * Manas Kumar Nayak maknayak@in.ibm.com>
+  *
+- * Basic test for the add_key() syscall.
++ * This case test various key type can support how many long
++ * bytes payload.
++ * keyring: 0 bytes
++ * user/logon: 32767 bytes
++ * big_key: 1M -1byte
+  */
+ 
+ #include <errno.h>
+-
+ #include "tst_test.h"
+ #include "lapi/keyctl.h"
+ 
+-static void verify_add_key(void)
++static char *keyring_buf, *keyring_buf1;
++static char *user_buf, *user_buf1;
++static char *logon_buf, *logon_buf1;
++static char *big_key_buf, *big_key_buf1;
++static unsigned int logon_nsup, big_key_nsup;
++
++struct tcase {
++	const char *type;
++	const char *desc;
++	char **buf;
++	size_t plen;
++	int pass_flag;
++	char *message;
++} tcases[] = {
++	{"keyring", "abc", &keyring_buf, 0, 1,
++	"The key type is keyrings and plen is 0"},
++
++	{"keyring", "bcd", &keyring_buf, 1, 0,
++	"the key type is keyrings and plen is 1"},
++
++	{"user", "cde", &user_buf, 32767, 1,
++	"The key type is user and plen is 32767"},
++
++	{"user", "def", &user_buf1, 32768, 0,
++	"The key type is user and plen is 32768"},
++
++	{"logon", "ef:g", &logon_buf, 32767, 1,
++	"The key type is logon and plen is 32767"},
++
++	{"logon", "fg:h", &logon_buf1, 32768, 0,
++	"The key type is logon and plen is 32768"},
++
++	{"big_key", "ghi", &big_key_buf, (1 << 20) - 1, 1,
++	"The key type is big_key and plen is 1048575"},
++
++	{"big_key", "hij", &big_key_buf1, 1 << 20, 0,
++	"The key type is big_key and plen is 1048576"},
++};
++
++static void verify_add_key(unsigned int n)
+ {
+-	TEST(add_key("keyring", "wjkey", NULL, 0, KEY_SPEC_THREAD_KEYRING));
++	struct tcase *tc = &tcases[n];
++
++	tst_res(TINFO, "%s", tc->message);
++
++	if (!strcmp(tc->type, "logon") && logon_nsup) {
++		tst_res(TCONF, "skipping unsupported logon key");
++		return;
++	}
++	if (!strcmp(tc->type, "big_key") && big_key_nsup) {
++		tst_res(TCONF, "skipping unsupported big_key key");
++		return;
++	}
++
++	TEST(add_key(tc->type, tc->desc, *tc->buf, tc->plen, KEY_SPEC_THREAD_KEYRING));
++	if (tc->pass_flag) {
++		if (TST_RET == -1)
++			tst_res(TFAIL | TTERRNO, "add_key call failed unexpectedly");
++		else
++			tst_res(TPASS, "add_key call succeeded as expected");
++	} else {
++		if (TST_RET == -1) {
++			if (TST_ERR == EINVAL)
++				tst_res(TPASS | TTERRNO, "add_key call failed as expected");
++			else
++				tst_res(TFAIL | TTERRNO, "add_key call failed expected EINVAL but got");
++		} else
++			tst_res(TFAIL, "add_key call succeeded unexpectedly");
++	}
++}
++
++static void setup(void)
++{
++	char *logon_sup_buf, *big_key_sup_buf;
++
++	logon_sup_buf = tst_alloc(64);
++	big_key_sup_buf = tst_alloc(64);
++
++	TEST(add_key("logon", "test:sup_logon", logon_sup_buf, 64, KEY_SPEC_THREAD_KEYRING));
++	if (TST_RET == -1)
++		logon_nsup = 1;
++
++	TEST(add_key("big_key", "sup_big_key", big_key_sup_buf, 64, KEY_SPEC_THREAD_KEYRING));
+ 	if (TST_RET == -1)
+-		tst_res(TFAIL | TTERRNO, "add_key call failed");
+-	else
+-		tst_res(TPASS, "add_key call succeeded");
++		big_key_nsup = 1;
+ }
+ 
+ static struct tst_test test = {
+-	.test_all = verify_add_key,
++	.setup = setup,
++	.tcnt = ARRAY_SIZE(tcases),
++	.test = verify_add_key,
++	.bufs = (struct tst_buffers []) {
++		{&keyring_buf, .size = 1},
++		{&keyring_buf1, .size = 1},
++		{&user_buf, .size = 32767},
++		{&user_buf1, .size = 32768},
++		{&logon_buf, .size = 32767},
++		{&logon_buf1, .size = 32768},
++		{&big_key_buf, .size = (1 << 20) - 1},
++		{&big_key_buf1, .size = 1 << 20},
++		{}
++	}
+ };
 -- 
-2.21.0.rc0.269.g1a574e7a288b
+2.18.0
+
+
 
 
 -- 
