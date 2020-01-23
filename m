@@ -2,43 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5014A146928
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jan 2020 14:33:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F061146B01
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jan 2020 15:17:57 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 05CFB3C24D7
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jan 2020 14:33:43 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8626B3C24E2
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jan 2020 15:17:56 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 4CDFA3C2495
- for <ltp@lists.linux.it>; Thu, 23 Jan 2020 14:33:41 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id DA65C3C0516
+ for <ltp@lists.linux.it>; Thu, 23 Jan 2020 15:17:54 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
+ [205.139.110.61])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 135541001F39
+ for <ltp@lists.linux.it>; Thu, 23 Jan 2020 15:17:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1579789072;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=OsIbkd1uGRMmS/B8rcqc4PJhAomP0kX5BCUxwUT0x4w=;
+ b=AG6sxVrwoYNHY+W7d5CkO8zZUS0kuvLSoysBaLE34obBFou0yyFvN47ha7yTEVawZDNXpN
+ gToCEH8tqFL54b3Xfe/L0SAmI448BN0pokyWUL19RcThyqB6dQlIMW92Nw170MDKVuZ9rD
+ 8HLSjWHLgH0MzB0c9sjn9n6kOsd3Yt0=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-142-CBscKxTVNiKJaeTgmpmK6A-1; Thu, 23 Jan 2020 09:17:48 -0500
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B7C7C1A017BB
- for <ltp@lists.linux.it>; Thu, 23 Jan 2020 14:33:40 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 1C7A5AC92;
- Thu, 23 Jan 2020 13:33:40 +0000 (UTC)
-Date: Thu, 23 Jan 2020 14:33:39 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Yang Xu <xuyang_jy_0410@163.com>
-Message-ID: <20200123133339.GC6762@rei.lan>
-References: <20200122134239.28844-1-jcronenberg@suse.de>
- <a8618b2e-067c-9a66-02e7-3feceec1ff9c@cn.fujitsu.com>
- <2cfda6ff-b02f-00c4-b256-eeded0d3edda@suse.de>
- <7946b1f4-a005-63ee-505f-f7b31d0893f9@163.com>
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A42371005510;
+ Thu, 23 Jan 2020 14:17:47 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 71DFE60BE1;
+ Thu, 23 Jan 2020 14:17:47 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3766C1832DE7;
+ Thu, 23 Jan 2020 14:17:47 +0000 (UTC)
+Date: Thu, 23 Jan 2020 09:17:46 -0500 (EST)
+From: Jan Stancek <jstancek@redhat.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Message-ID: <104918104.3505581.1579789066988.JavaMail.zimbra@redhat.com>
+In-Reply-To: <6aae63a2e362a0f09cf35fff058e7741f0987208.1579755655.git.viresh.kumar@linaro.org>
+References: <f9e9bc067d1153199440512d6ece01f7a001b660.1579755655.git.viresh.kumar@linaro.org>
+ <6aae63a2e362a0f09cf35fff058e7741f0987208.1579755655.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <7946b1f4-a005-63ee-505f-f7b31d0893f9@163.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Originating-IP: [10.43.17.25, 10.4.195.25]
+Thread-Topic: syscalls/io_pgetevents
+Thread-Index: XS2lk6m5TyBFVXWDYnlCYnXjg+jeXA==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-MC-Unique: CBscKxTVNiKJaeTgmpmK6A-1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] lib: Add timeout to TST_PROCESS_STATE_WAIT
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] syscalls/io_pgetevents
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,46 +76,122 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> >> We have tst_process_state_wait2 since commit dbf270c5 ("lib: Add
-> >> tst_process_state_wait2()"), this api has same functions as
-> >> tst_process_state_wait but only return error instead of TBROK.
-> >>
-> >> I think using TST_PROCESS_STATE_WAIT2 is confused and we can only expand
-> >> tst_process_state_wait make it support sleep specifying in milliseconds.
-> >>
-> >> Best Regards
-> >> Yang Xu
-> > 
-> > I don't think I quite understand what you mean. I can see that using
-> > TST_PROCESS_STATE_WAIT2 is confusing. But I didn't want to touch the
-> > existing TST_PROCESS_STATE_WAIT to ensure all older tests still run the
-> > same. Are you saying i should go through all tests that use
-> > TST_PROCESS_STATE_WAIT and specify that they use a timeout of 0(which
-> > according to a git grep doesn't seem too many, so it wouldn't be too
-> > much effort) and then change TST_PROCESS_STATE_WAIT to include a timeout
-> Yes.
-> > or should I just rename TST_PROCESS_STATE_WAIT2 to something that
-> > seperates it more from tst_process_state_wait2?
-> Also, I am fine with the second way. Let we listen cyril's advise.
-> @Cyril What do you think about it?
+Hi,
 
-Well that function is only supposed to be used from the old API while
-the macro is defined for the new API so they are never exported at the
-same time.
+----- Original Message -----
+> +#ifdef HAVE_LIBAIO
+> +#include <libaio.h>
+> +
+> +#ifndef HAVE_IO_SETUP
+> +int io_setup(int nr, io_context_t *ctxp)
+> +{
+> +	return syscall(__NR_io_setup, nr, ctxp);
+> +}
+> +#endif /* HAVE_IO_SETUP */
+> +
+> +#ifndef HAVE_IO_DESTROY
+> +int io_destroy(io_context_t ctx)
+> +{
+> +	return syscall(__NR_io_destroy, ctx);
+> +}
+> +#endif /* HAVE_IO_DESTROY */
+> +
+> +#ifndef HAVE_IO_SUBMIT
+> +int io_submit(io_context_t ctx, long nr, struct iocb **iocbpp)
+> +{
+> +	return syscall(__NR_io_submit, ctx, nr, iocbpp);
 
-On the other hand we can change these few testcases quite easily, so we
-may as well do that.
+Can functions above also use ltp_syscall?
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+<snip>
+
+> +#ifdef HAVE_LIBAIO
+> +
+> +static int fd = -1;
+> +
+> +static void cleanup(void)
+> +{
+> +	SAFE_CLOSE(fd);
+
+I'd move this to run(). It may get skipped on tst_brk(), but kernel will take
+care of closing it. But if you run testcase in loop (-i) it won't run out
+of file descriptors.
+
+<snip>
+
+> +#ifdef HAVE_LIBAIO
+> +
+> +static int fd = -1;
+> +
+> +static void cleanup(void)
+> +{
+> +	SAFE_CLOSE(fd);
+
+same here
+
+> +}
+> +
+> +static void run(void)
+> +{
+> +	struct io_event events[1];
+> +	struct iocb cb, *cbs[1];
+> +	io_context_t ctx = 0;
+> +	sigset_t sigmask;
+> +	char data[4096];
+> +	int ret;
+> +
+> +	sigemptyset(&sigmask);
+> +
+> +	fd = SAFE_OPEN("io_pgetevents_file", O_RDWR | O_CREAT);
+> +
+> +	ret = io_setup(1, &ctx);
+> +	if (ret < 0)
+> +		tst_brk(TBROK | TERRNO, "io_setup() failed");
+> +
+> +	io_prep_pwrite(&cb, fd, data, 4096, 0);
+> +
+> +	cbs[0] = &cb;
+> +
+> +	ret = io_submit(ctx, 1, cbs);
+> +	if (ret != 1)
+> +		tst_brk(TBROK | TERRNO, "io_submit() failed");
+> +
+> +	/* Invalid Max event count */
+> +	ret = io_pgetevents(ctx, 1, 0, events, NULL, &sigmask);
+> +
+> +	/* Invalid events*/
+> +	if (ret != 1)
+> +		ret = io_pgetevents(ctx, 1, 1, NULL, NULL, &sigmask);
+> +
+> +	if (io_destroy(ctx) < 0)
+> +		tst_brk(TBROK | TERRNO, "io_destroy() failed");
+> +
+> +	/* Invalid ctx */
+> +	if (ret != 1)
+> +		ret = io_pgetevents(ctx, 1, 1, events, NULL, &sigmask);
+> +
+> +	if (ret != 1)
+> +		tst_res(TPASS, "io_pgetevents() failed as expected");
+
+If this reports FAIL, will we know what test actually failed?
+
+Can you make this more verbose? I mean have each test report PASS/FAIL,
+not just a one line summary after all tests.
+
+> +	else
+> +		tst_brk(TBROK| TERRNO, "io_pgetevents() passed unexpectedly");
+
+TFAIL | TERRNO seems more fitting, since io_pgetevents is subject of the test.
+
+Regards,
+Jan
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
