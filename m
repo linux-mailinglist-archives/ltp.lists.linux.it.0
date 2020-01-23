@@ -1,49 +1,50 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9984D14614B
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jan 2020 06:17:04 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BCBF146199
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jan 2020 06:41:16 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 692F73C201C
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jan 2020 06:17:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id ABB103C249A
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jan 2020 06:41:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 3DE113C180D
- for <ltp@lists.linux.it>; Thu, 23 Jan 2020 06:17:02 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 5D8273C0EB6
+ for <ltp@lists.linux.it>; Thu, 23 Jan 2020 06:41:13 +0100 (CET)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id A0E0F1000CE5
- for <ltp@lists.linux.it>; Thu, 23 Jan 2020 06:16:58 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.70,352,1574092800"; d="scan'208";a="82507581"
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id E0BC560123C
+ for <ltp@lists.linux.it>; Thu, 23 Jan 2020 06:41:11 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.70,352,1574092800"; d="scan'208";a="82508230"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 23 Jan 2020 13:16:58 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id E66F050A996D
- for <ltp@lists.linux.it>; Thu, 23 Jan 2020 13:07:42 +0800 (CST)
-Received: from [10.167.220.69] (10.167.220.69) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1395.4; Thu, 23 Jan 2020 13:16:56 +0800
-Message-ID: <5E292C45.2010604@cn.fujitsu.com>
-Date: Thu, 23 Jan 2020 13:16:53 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
-MIME-Version: 1.0
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+ by heian.cn.fujitsu.com with ESMTP; 23 Jan 2020 13:41:08 +0800
+Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
+ by cn.fujitsu.com (Postfix) with ESMTP id 852A750A996A
+ for <ltp@lists.linux.it>; Thu, 23 Jan 2020 13:31:51 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204) with Microsoft SMTP Server
+ (TLS) id 15.0.1395.4; Thu, 23 Jan 2020 13:41:04 +0800
+To: Xiao Yang <yangx.jy@cn.fujitsu.com>
 References: <1579754906-7837-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-In-Reply-To: <1579754906-7837-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Originating-IP: [10.167.220.69]
-X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
-X-yoursite-MailScanner-ID: E66F050A996D.AA5A2
+ <5E292C45.2010604@cn.fujitsu.com>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <14032013-3dd8-7beb-dc11-37018f7227fc@cn.fujitsu.com>
+Date: Thu, 23 Jan 2020 13:40:53 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.0
+MIME-Version: 1.0
+In-Reply-To: <5E292C45.2010604@cn.fujitsu.com>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
+ G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204)
+X-yoursite-MailScanner-ID: 852A750A996A.ACE87
 X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] syscalls/socketcall: Use TCONF instead of TPASS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -57,68 +58,50 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Xu,
-
-All of them are simple tests.
-I perfer to convert to new library along with the minor fix. :-)
-
-Thanks,
-Xiao Yang
-On 2020/1/23 12:48, Yang Xu wrote:
-> Signed-off-by: Yang Xu<xuyang2018.jy@cn.fujitsu.com>
-> ---
->   testcases/kernel/syscalls/socketcall/socketcall02.c | 2 +-
->   testcases/kernel/syscalls/socketcall/socketcall03.c | 2 +-
->   testcases/kernel/syscalls/socketcall/socketcall04.c | 2 +-
->   3 files changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/socketcall/socketcall02.c b/testcases/kernel/syscalls/socketcall/socketcall02.c
-> index cec0246a6..7574782ff 100644
-> --- a/testcases/kernel/syscalls/socketcall/socketcall02.c
-> +++ b/testcases/kernel/syscalls/socketcall/socketcall02.c
-> @@ -156,7 +156,7 @@ int TST_TOTAL = 0;
->
->   int main(void)
->   {
-> -	tst_resm(TPASS, "socket call test on this architecture disabled.");
-> +	tst_resm(TCONF, "socket call test on this architecture disabled.");
->   	tst_exit();
->   }
->
-> diff --git a/testcases/kernel/syscalls/socketcall/socketcall03.c b/testcases/kernel/syscalls/socketcall/socketcall03.c
-> index 244a28678..d6c082c21 100644
-> --- a/testcases/kernel/syscalls/socketcall/socketcall03.c
-> +++ b/testcases/kernel/syscalls/socketcall/socketcall03.c
-> @@ -174,7 +174,7 @@ int TST_TOTAL = 0;
->
->   int main(void)
->   {
-> -	tst_resm(TPASS, "socket call test on this architecture disabled.");
-> +	tst_resm(TCONF, "socket call test on this architecture disabled.");
->   	tst_exit();
->   }
->
-> diff --git a/testcases/kernel/syscalls/socketcall/socketcall04.c b/testcases/kernel/syscalls/socketcall/socketcall04.c
-> index 584c8f37a..c498b6e74 100644
-> --- a/testcases/kernel/syscalls/socketcall/socketcall04.c
-> +++ b/testcases/kernel/syscalls/socketcall/socketcall04.c
-> @@ -167,7 +167,7 @@ int TST_TOTAL = 0;
->
->   int main(void)
->   {
-> -	tst_resm(TPASS, "socket call test on this architecture disabled.");
-> +	tst_resm(TCONF, "socket call test on this architecture disabled.");
->   	tst_exit();
->   }
->
-
-
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+PiBIaSBYdSwKPiAKPiBBbGwgb2YgdGhlbSBhcmUgc2ltcGxlIHRlc3RzLgo+IEkgcGVyZmVyIHRv
+IGNvbnZlcnQgdG8gbmV3IGxpYnJhcnkgYWxvbmcgd2l0aCB0aGUgbWlub3IgZml4LiA6LSkKSGkg
+WGlhbwpPSy4gSSB3aWxsIGNsZWFuIHVwIHRoZW0gbGF0ZXIuCgpwczpVc2luZyBuZXcgbGlicmFy
+eSBmb3IgYWxsIGx0cCBjYXNlcyBsb29rcyBsaWtlIGEgbG9uZyB3YXkgdG8gZ28uCgpCZXN0IFJl
+Z2FyZHMKWWFuZyBYdQo+IAo+IFRoYW5rcywKPiBYaWFvIFlhbmcKPiBPbiAyMDIwLzEvMjMgMTI6
+NDgsIFlhbmcgWHUgd3JvdGU6Cj4+IFNpZ25lZC1vZmYtYnk6IFlhbmcgWHU8eHV5YW5nMjAxOC5q
+eUBjbi5mdWppdHN1LmNvbT4KPj4gLS0tCj4+IMKgIHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMv
+c29ja2V0Y2FsbC9zb2NrZXRjYWxsMDIuYyB8IDIgKy0KPj4gwqAgdGVzdGNhc2VzL2tlcm5lbC9z
+eXNjYWxscy9zb2NrZXRjYWxsL3NvY2tldGNhbGwwMy5jIHwgMiArLQo+PiDCoCB0ZXN0Y2FzZXMv
+a2VybmVsL3N5c2NhbGxzL3NvY2tldGNhbGwvc29ja2V0Y2FsbDA0LmMgfCAyICstCj4+IMKgIDMg
+ZmlsZXMgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZm
+IC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9zb2NrZXRjYWxsL3NvY2tldGNhbGww
+Mi5jIAo+PiBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvc29ja2V0Y2FsbC9zb2NrZXRjYWxs
+MDIuYwo+PiBpbmRleCBjZWMwMjQ2YTYuLjc1NzQ3ODJmZiAxMDA2NDQKPj4gLS0tIGEvdGVzdGNh
+c2VzL2tlcm5lbC9zeXNjYWxscy9zb2NrZXRjYWxsL3NvY2tldGNhbGwwMi5jCj4+ICsrKyBiL3Rl
+c3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvc29ja2V0Y2FsbC9zb2NrZXRjYWxsMDIuYwo+PiBAQCAt
+MTU2LDcgKzE1Niw3IEBAIGludCBUU1RfVE9UQUwgPSAwOwo+Pgo+PiDCoCBpbnQgbWFpbih2b2lk
+KQo+PiDCoCB7Cj4+IC3CoMKgwqAgdHN0X3Jlc20oVFBBU1MsICJzb2NrZXQgY2FsbCB0ZXN0IG9u
+IHRoaXMgYXJjaGl0ZWN0dXJlIGRpc2FibGVkLiIpOwo+PiArwqDCoMKgIHRzdF9yZXNtKFRDT05G
+LCAic29ja2V0IGNhbGwgdGVzdCBvbiB0aGlzIGFyY2hpdGVjdHVyZSBkaXNhYmxlZC4iKTsKPj4g
+wqDCoMKgwqDCoCB0c3RfZXhpdCgpOwo+PiDCoCB9Cj4+Cj4+IGRpZmYgLS1naXQgYS90ZXN0Y2Fz
+ZXMva2VybmVsL3N5c2NhbGxzL3NvY2tldGNhbGwvc29ja2V0Y2FsbDAzLmMgCj4+IGIvdGVzdGNh
+c2VzL2tlcm5lbC9zeXNjYWxscy9zb2NrZXRjYWxsL3NvY2tldGNhbGwwMy5jCj4+IGluZGV4IDI0
+NGEyODY3OC4uZDZjMDgyYzIxIDEwMDY0NAo+PiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5c2Nh
+bGxzL3NvY2tldGNhbGwvc29ja2V0Y2FsbDAzLmMKPj4gKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9z
+eXNjYWxscy9zb2NrZXRjYWxsL3NvY2tldGNhbGwwMy5jCj4+IEBAIC0xNzQsNyArMTc0LDcgQEAg
+aW50IFRTVF9UT1RBTCA9IDA7Cj4+Cj4+IMKgIGludCBtYWluKHZvaWQpCj4+IMKgIHsKPj4gLcKg
+wqDCoCB0c3RfcmVzbShUUEFTUywgInNvY2tldCBjYWxsIHRlc3Qgb24gdGhpcyBhcmNoaXRlY3R1
+cmUgZGlzYWJsZWQuIik7Cj4+ICvCoMKgwqAgdHN0X3Jlc20oVENPTkYsICJzb2NrZXQgY2FsbCB0
+ZXN0IG9uIHRoaXMgYXJjaGl0ZWN0dXJlIGRpc2FibGVkLiIpOwo+PiDCoMKgwqDCoMKgIHRzdF9l
+eGl0KCk7Cj4+IMKgIH0KPj4KPj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2Fs
+bHMvc29ja2V0Y2FsbC9zb2NrZXRjYWxsMDQuYyAKPj4gYi90ZXN0Y2FzZXMva2VybmVsL3N5c2Nh
+bGxzL3NvY2tldGNhbGwvc29ja2V0Y2FsbDA0LmMKPj4gaW5kZXggNTg0YzhmMzdhLi5jNDk4YjZl
+NzQgMTAwNjQ0Cj4+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvc29ja2V0Y2FsbC9z
+b2NrZXRjYWxsMDQuYwo+PiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3NvY2tldGNh
+bGwvc29ja2V0Y2FsbDA0LmMKPj4gQEAgLTE2Nyw3ICsxNjcsNyBAQCBpbnQgVFNUX1RPVEFMID0g
+MDsKPj4KPj4gwqAgaW50IG1haW4odm9pZCkKPj4gwqAgewo+PiAtwqDCoMKgIHRzdF9yZXNtKFRQ
+QVNTLCAic29ja2V0IGNhbGwgdGVzdCBvbiB0aGlzIGFyY2hpdGVjdHVyZSBkaXNhYmxlZC4iKTsK
+Pj4gK8KgwqDCoCB0c3RfcmVzbShUQ09ORiwgInNvY2tldCBjYWxsIHRlc3Qgb24gdGhpcyBhcmNo
+aXRlY3R1cmUgZGlzYWJsZWQuIik7Cj4+IMKgwqDCoMKgwqAgdHN0X2V4aXQoKTsKPj4gwqAgfQo+
+Pgo+IAoKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlz
+dGluZm8vbHRwCg==
