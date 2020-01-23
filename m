@@ -1,69 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99C241473E1
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jan 2020 23:34:18 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id E8922147517
+	for <lists+linux-ltp@lfdr.de>; Fri, 24 Jan 2020 00:55:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5685B3C2531
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jan 2020 23:34:18 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8955D3C2531
+	for <lists+linux-ltp@lfdr.de>; Fri, 24 Jan 2020 00:55:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 25EF63C24FD
- for <ltp@lists.linux.it>; Thu, 23 Jan 2020 23:34:11 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 02CEB1A009A6
- for <ltp@lists.linux.it>; Thu, 23 Jan 2020 23:34:10 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 410B23C2495
+ for <ltp@lists.linux.it>; Fri, 24 Jan 2020 00:55:08 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 01B78201032
+ for <ltp@lists.linux.it>; Fri, 24 Jan 2020 00:55:06 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1579818849;
+ s=mimecast20190719; t=1579823705;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Xt1Sx4CJFCZ6eLyvybjIeqLZeBCJ8vZON841MCa4624=;
- b=AxXupAKZ2lCwS29f2jkn6FmOcOqZn1rVfn9ZWo+AWj8+2+BTkQDuskL7ojNYFgovxeK96T
- ilEx2cjql9VLuUmU4K30P26W7/vrRq16cWAA7RryJdnzFHlcQrSWMMY1cejDMXPttjNb19
- EuaNwhQZHbaGyzfM+CGrxJcYe3dURSc=
+ bh=8UkRx8gJnh0SE8OAXfO9ZYjxdiStVjGWhJGJPy1h1fg=;
+ b=VY7epPL6pdTfdc2v2eXHdZJbwY7ZofUVy3GOJ4p6xIVkV1fmR1BCxeDY2X6VnSnBPRjL7C
+ 9letUN9S08tN6PvtpVRLn/pCgSVOg7C+lvWYWf05Ru37Fnk87lk+Wzc6g74CkBaLBIKFen
+ JR8/8xqm3ujMSwz3Yb91McP7WUPfOno=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-415-EoAvUN-wMP-8V5_ZWRUBpQ-1; Thu, 23 Jan 2020 17:34:07 -0500
-X-MC-Unique: EoAvUN-wMP-8V5_ZWRUBpQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
+ us-mta-388-TXqhxEFPMoeHfS664oucUw-1; Thu, 23 Jan 2020 18:55:01 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 909FB107ACC4;
- Thu, 23 Jan 2020 22:34:06 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 39270477;
+ Thu, 23 Jan 2020 23:55:00 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com
  (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 87BD186457;
- Thu, 23 Jan 2020 22:34:06 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F56D19C69;
+ Thu, 23 Jan 2020 23:55:00 +0000 (UTC)
 Received: from zmail17.collab.prod.int.phx2.redhat.com
  (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4F13A38A1;
- Thu, 23 Jan 2020 22:34:06 +0000 (UTC)
-Date: Thu, 23 Jan 2020 17:34:06 -0500 (EST)
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id ED0BE85943;
+ Thu, 23 Jan 2020 23:54:59 +0000 (UTC)
+Date: Thu, 23 Jan 2020 18:54:59 -0500 (EST)
 From: Jan Stancek <jstancek@redhat.com>
-To: CKI Project <cki-project@redhat.com>
-Message-ID: <600201642.3600472.1579818846276.JavaMail.zimbra@redhat.com>
-In-Reply-To: <cki.03B22F835F.RSIEVD547K@redhat.com>
-References: <cki.03B22F835F.RSIEVD547K@redhat.com>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <1063406316.3604310.1579823699778.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20200123151836.29484-1-mdoucha@suse.cz>
+References: <239304412.3515101.1579791334045.JavaMail.zimbra@redhat.com>
+ <20200123151836.29484-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.25, 10.4.195.13]
-Thread-Topic: =?utf-8?B?4p2MIEZBSUw6?= Test report for kernel
- 5.4.14-0fce94b.cki (stable)
-Thread-Index: TykMIIsk7/3a5DegolQzVCTDuj77RA==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Originating-IP: [10.43.17.25, 10.4.195.3]
+Thread-Topic: Fix prctl02
+Thread-Index: n/7Nzk4qtO/QsdA8Ux4e6bSGR40owQ==
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-MC-Unique: TXqhxEFPMoeHfS664oucUw-1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] 
- =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E4?=
- =?utf-8?q?=2E14-0fce94b=2Ecki_=28stable=29?=
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] Fix prctl02
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,19 +76,29 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Memory Management <mm-qe@redhat.com>, LTP Mailing List <ltp@lists.linux.it>,
- Linux Stable maillist <stable@vger.kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-CgotLS0tLSBPcmlnaW5hbCBNZXNzYWdlIC0tLS0tCj4gICBwcGM2NGxlOgo+ICAgICBIb3N0IDE6
-Cj4gICAgICAgIOKchSBCb290IHRlc3QKPiAgICAgICAg4pyFIFBvZG1hbiBzeXN0ZW0gaW50ZWdy
-YXRpb24gdGVzdCAoYXMgcm9vdCkKPiAgICAgICAg4pyFIFBvZG1hbiBzeXN0ZW0gaW50ZWdyYXRp
-b24gdGVzdCAoYXMgdXNlcikKPiAgICAgICAg4p2MIExUUAoKVGhpcyBpcyBzYWZlIHRvIGlnbm9y
-ZS4KCkkgY2FuIHJlcHJvZHVjZSBvbiBhZmZlY3RlZCBzeXN0ZW0sIGl0IGRvZXNuJ3QgaGFuZyBv
-biBhbnl0aGluZyBzcGVjaWZpYywKaXQncyBqdXN0IHRoYXQgdGVzdCBpcyB0YWtpbmcgbG9uZ2Vy
-IHRoYW4gZXhwZWN0ZWQgYW5kIGhpdHMgdGltZW91dC4KSSdsbCBsb29rIGludG8gcHJvcG9zaW5n
-IExUUCBwYXRjaCBmb3IgdGhpcyBpc3N1ZS4KCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBz
-Oi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+
+
+----- Original Message -----
+> The prctl() system call takes 5 integer arguments but only 3 of them were
+> passed in the test. This means that the system call read random garbage
+> from stack in place of the two missing arguments and failed even on some
+> perfectly valid combinations of arguments on some platforms.
+> 
+> - Change num_invalid to ULONG_MAX
+> - Fix arguments in test case 9, 13 and 14
+> - Fix test call of prctl() to have all 5 arguments
+> 
+> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+> CC: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+
+Acked-by: Jan Stancek <jstancek@redhat.com>
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
