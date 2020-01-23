@@ -1,43 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35D42146BD3
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jan 2020 15:52:44 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 347D5146BF4
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jan 2020 15:55:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 05BE03C24E6
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jan 2020 15:52:44 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C13593C24E6
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jan 2020 15:55:43 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 0AFF93C1FEC
- for <ltp@lists.linux.it>; Thu, 23 Jan 2020 15:52:41 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 7B30E3C1FEC
+ for <ltp@lists.linux.it>; Thu, 23 Jan 2020 15:55:41 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 0DA88602114
+ for <ltp@lists.linux.it>; Thu, 23 Jan 2020 15:55:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1579791339;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=RjR6en6S0LP8+ecfcKjMzOtQcsW9AsOLo6I/kAcs0z0=;
+ b=SM/hSsWrNTQX8veVuubsbNZnXDvPDnbHqzkHawm/cW1S2jDS+72/KhXMs8ZVTrRIvRgPID
+ cWE6VGsv84ERpynSHZs3V/vMhi2dB5002LeB3jx+3vmaOLNm9FhAFph12OzGmL+BPcDOiQ
+ qsHJkWHV5WW07Qfd8AxJ/9GCgwjkorQ=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-162-EbRhfOS7Ocmj6yvXM9y3rw-1; Thu, 23 Jan 2020 09:55:35 -0500
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A8DA2605629
- for <ltp@lists.linux.it>; Thu, 23 Jan 2020 15:52:37 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 59445B1A7;
- Thu, 23 Jan 2020 14:52:37 +0000 (UTC)
-Date: Thu, 23 Jan 2020 15:52:36 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20200123145223.GA9518@rei>
-References: <b4f5242fdca1659b2f71e1b3290fd32194e7340a.1579259595.git.viresh.kumar@linaro.org>
- <4dd4dabd2cd574dc2657c5926e8e3d1a0c8a8ae6.1579259595.git.viresh.kumar@linaro.org>
- <20200121153928.GA12370@rei>
- <20200122051233.naobo3bb4jrk63of@vireshk-i7>
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4F4971137848;
+ Thu, 23 Jan 2020 14:55:34 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 47C1F80896;
+ Thu, 23 Jan 2020 14:55:34 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3DA7481998;
+ Thu, 23 Jan 2020 14:55:34 +0000 (UTC)
+Date: Thu, 23 Jan 2020 09:55:34 -0500 (EST)
+From: Jan Stancek <jstancek@redhat.com>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <239304412.3515101.1579791334045.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20200123143137.23214-1-mdoucha@suse.cz>
+References: <20200123143137.23214-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200122051233.naobo3bb4jrk63of@vireshk-i7>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Originating-IP: [10.43.17.25, 10.4.195.27]
+Thread-Topic: Fix prctl02
+Thread-Index: IvcwNH+092SIrBfCt/MVSLQg1/c1zg==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-MC-Unique: EbRhfOS7Ocmj6yvXM9y3rw-1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] syscalls/pidfd_open
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] Fix prctl02
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,332 +74,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > And we are also missing third test here, that checks various error
-> > condigitions such as flags != 0, invalid pid, etc.
+
+
+----- Original Message -----
+> The prctl() system call takes 5 integer arguments but only 3 of them were
+> passed in the test. This means that the system call read random garbage
+> from stack in place of the two missing arguments and failed even on some
+> perfectly valid combinations of arguments on some platforms.
 > 
-> Hi Cyril,
-> 
-> Thanks for the feedback and sorry about all the mistakes as it was my
-> very first attempt at running/updating ltp code :)
+> - Fixed arguments in test case 9 (second PR_SET_NO_NEW_PRIVS)
+> - Dropped test case 13 (PR_CAP_AMBIENT) because the args are valid
+> - Dropped test case 14 (PR_GET_SPECULATION_CTRL) because the args are valid
 
-It takes time to learn... Also welcome :-).
+Can we make them invalid and keep the test cases?
+For example:
+ PR_CAP_AMBIENT arg2 could be num_invalid
+ PR_GET_SPECULATION_CTRL arg3 could be num_1
 
-> Please have a look at the updated patch pasted below and let me know
-> if anything is still missing.
+The rest looks good to me.
 
-It's usuall to send updated patches as new version, i.e. this should be
-called [PATCH v2] and just send to the ML as the previous one. So the
-next one should be [PATCH v3] ...
-
-> -------------------------8<-------------------------
-> From: Viresh Kumar <viresh.kumar@linaro.org>
-> Date: Thu, 16 Jan 2020 16:47:01 +0530
-> Subject: [PATCH] syscalls/pidfd_open
-> 
-> Add tests to check working of pidfd_open() syscall.
-> 
-> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-> ---
->  configure.ac                                  |  1 +
->  include/lapi/pidfd_open.h                     | 21 ++++++
->  runtest/syscalls                              |  3 +
->  .../kernel/syscalls/pidfd_open/.gitignore     |  2 +
->  testcases/kernel/syscalls/pidfd_open/Makefile |  6 ++
->  .../kernel/syscalls/pidfd_open/pidfd_open01.c | 38 +++++++++++
->  .../kernel/syscalls/pidfd_open/pidfd_open02.c | 45 +++++++++++++
->  .../kernel/syscalls/pidfd_open/pidfd_open03.c | 64 +++++++++++++++++++
->  8 files changed, 180 insertions(+)
->  create mode 100644 include/lapi/pidfd_open.h
->  create mode 100644 testcases/kernel/syscalls/pidfd_open/.gitignore
->  create mode 100644 testcases/kernel/syscalls/pidfd_open/Makefile
->  create mode 100644 testcases/kernel/syscalls/pidfd_open/pidfd_open01.c
->  create mode 100644 testcases/kernel/syscalls/pidfd_open/pidfd_open02.c
->  create mode 100644 testcases/kernel/syscalls/pidfd_open/pidfd_open03.c
-> 
-> diff --git a/configure.ac b/configure.ac
-> index 50d14967d3c6..1bf0911d88ad 100644
-> --- a/configure.ac
-> +++ b/configure.ac
-> @@ -79,6 +79,7 @@ AC_CHECK_FUNCS([ \
->      mknodat \
->      name_to_handle_at \
->      openat \
-> +    pidfd_open \
->      pidfd_send_signal \
->      pkey_mprotect \
->      preadv \
-> diff --git a/include/lapi/pidfd_open.h b/include/lapi/pidfd_open.h
-> new file mode 100644
-> index 000000000000..ced163be83bf
-> --- /dev/null
-> +++ b/include/lapi/pidfd_open.h
-> @@ -0,0 +1,21 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2020 Linaro Limited. All rights reserved.
-> + * Author: Viresh Kumar <viresh.kumar@linaro.org>
-> + */
-> +
-> +#ifndef PIDFD_OPEN_H
-> +#define PIDFD_OPEN_H
-> +
-> +#include "config.h"
-> +#include <sys/types.h>
-> +#include "lapi/syscalls.h"
-> +
-> +#ifndef HAVE_PIDFD_OPEN
-> +int pidfd_open(pid_t pid, unsigned int flags)
-> +{
-> +	return tst_syscall(__NR_pidfd_open, pid, flags);
-> +}
-> +#endif
-> +
-> +#endif /* PIDFD_OPEN_H */
-> diff --git a/runtest/syscalls b/runtest/syscalls
-> index fa87ef63fbc1..9d6d288780a3 100644
-> --- a/runtest/syscalls
-> +++ b/runtest/syscalls
-> @@ -846,6 +846,9 @@ pause03 pause03
->  personality01 personality01
->  personality02 personality02
->  
-> +pidfd_open01 pidfd_open01
-> +pidfd_open02 pidfd_open02
-> +
->  pidfd_send_signal01 pidfd_send_signal01
->  pidfd_send_signal02 pidfd_send_signal02
->  pidfd_send_signal03 pidfd_send_signal03
-> diff --git a/testcases/kernel/syscalls/pidfd_open/.gitignore b/testcases/kernel/syscalls/pidfd_open/.gitignore
-> new file mode 100644
-> index 000000000000..be218f88647d
-> --- /dev/null
-> +++ b/testcases/kernel/syscalls/pidfd_open/.gitignore
-> @@ -0,0 +1,2 @@
-> +pidfd_open01
-> +pidfd_open02
-
-These two files now miss pidfd_open03
-
-> diff --git a/testcases/kernel/syscalls/pidfd_open/Makefile b/testcases/kernel/syscalls/pidfd_open/Makefile
-> new file mode 100644
-> index 000000000000..5ea7d67db123
-> --- /dev/null
-> +++ b/testcases/kernel/syscalls/pidfd_open/Makefile
-> @@ -0,0 +1,6 @@
-> +# SPDX-License-Identifier: GPL-2.0-or-later
-> +
-> +top_srcdir		?= ../../../..
-> +
-> +include $(top_srcdir)/include/mk/testcases.mk
-> +include $(top_srcdir)/include/mk/generic_leaf_target.mk
-> diff --git a/testcases/kernel/syscalls/pidfd_open/pidfd_open01.c b/testcases/kernel/syscalls/pidfd_open/pidfd_open01.c
-> new file mode 100644
-> index 000000000000..2ca22ae3fb92
-> --- /dev/null
-> +++ b/testcases/kernel/syscalls/pidfd_open/pidfd_open01.c
-> @@ -0,0 +1,38 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
-> + *
-> + * Description:
-> + * Basic pidfd_open() test, fetches the PID of the current process and tries to
-> + * get its file descriptor.
-> + */
-> +#include <sys/types.h>
-> +#include <sys/syscall.h>
-> +
-> +#include "tst_test.h"
-> +#include "lapi/pidfd_open.h"
-> +#include "lapi/syscalls.h"
-> +
-> +static void run(void)
-> +{
-> +	int pid, fd;
-> +
-> +	pid = getpid();
-> +
-> +	TEST(pidfd_open(pid, 0));
-> +
-> +	fd = TST_RET;
-> +	if (fd == -1) {
-> +		tst_res(TFAIL, "Cannot retrieve file descriptor to the current process");
-                        ^
-			This is still missing the | TTERRNO bitflag so
-			that the message prints errno as well
-
-Also the whole message could be shorter and to the point:
-
-"pidfd_open(getpid(), 0) failed"
-
-> +		return;
-> +	}
-> +
-> +	SAFE_CLOSE(fd);
-> +
-> +	tst_res(TPASS, "Retrieved file descriptor to the current process");
-
-Here as well.
-
-> +}
-> +
-> +static struct tst_test test = {
-> +	.min_kver = "5.3",
-> +	.test_all = run,
-> +};
-> diff --git a/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c b/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c
-> new file mode 100644
-> index 000000000000..ab2f86a31392
-> --- /dev/null
-> +++ b/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c
-> @@ -0,0 +1,45 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
-> + *
-> + * Description:
-> + * Basic pidfd_open() test to test invalid arguments.
-> + */
-> +#include <sys/types.h>
-> +#include <sys/syscall.h>
-> +
-> +#include "tst_test.h"
-> +#include "lapi/pidfd_open.h"
-> +#include "lapi/syscalls.h"
-> +
-> +static void run(void)
-> +{
-> +	int pid, fd;
-> +
-> +	/* Invalid pid */
-> +	pid = -1;
-> +
-> +	fd = pidfd_open(pid, 0);
-> +	if (fd != -1) {
-
-We have to check if the errno is correct here as well, also we usually
-use the TEST() macro that saves return value and errno at the same time.
-
-> +		SAFE_CLOSE(fd);
-> +		tst_res(TFAIL, "pidfd_open() didn't recognize invalid pid");
-> +		return;
-> +	}
-> +
-> +	pid = getpid();
-> +
-> +	/* Invalid flags */
-> +	fd = pidfd_open(pid, 1);
-> +	if (fd != -1) {
-> +		SAFE_CLOSE(fd);
-> +		tst_res(TFAIL, "pidfd_open() didn't recognize invalid flags");
-> +		return;
-> +	}
-> +
-> +	tst_res(TPASS, "pidfd_open() failed for invalid arguments");
-> +}
-> +
-> +static struct tst_test test = {
-> +	.min_kver = "5.3",
-> +	.test_all = run,
-> +};
-
-These kid of tests are usually written in a way that the parameters are
-stored in a structure and the test function is called with increasing
-index to loop over all tests. Have a look at open/open02.c for example.
-
-But looking at the pidfd_open() manual, the only error that is
-missing here and reasonable to test here is ESRCH.
-
-	Hint: see tst_get_unused_pid()
-
-> diff --git a/testcases/kernel/syscalls/pidfd_open/pidfd_open03.c b/testcases/kernel/syscalls/pidfd_open/pidfd_open03.c
-> new file mode 100644
-> index 000000000000..56861dfc014a
-> --- /dev/null
-> +++ b/testcases/kernel/syscalls/pidfd_open/pidfd_open03.c
-> @@ -0,0 +1,64 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
-> + *
-> + * Description:
-> + * This program opens the PID file descriptor of the child process created with
-> + * fork(). It then uses poll to monitor the file descriptor for process exit, as
-> + * indicated by an EPOLLIN event.
-> + */
-> +#include <poll.h>
-> +#include <sys/types.h>
-> +#include <sys/syscall.h>
-> +#include <stdio.h>
-> +#include <stdlib.h>
-> +
-> +#include "tst_test.h"
-> +#include "lapi/pidfd_open.h"
-> +#include "lapi/syscalls.h"
-> +
-> +static void run(void)
-> +{
-> +	struct pollfd pollfd;
-> +	int pid, fd, ready;
-> +
-> +	pid = SAFE_FORK();
-> +
-> +	if (!pid) {
-> +		/* child */
-> +		TST_CHECKPOINT_WAIT(0);
-> +		exit(EXIT_SUCCESS);
-> +	} else {
-> +		/* parent */
-
-These /* parent */ and /* child */ comments fall into "commenting the
-obvious" categrogy please avoid doing so.
-
-> +		TEST(pidfd_open(pid, 0));
-> +
-> +		fd = TST_RET;
-> +		if (fd == -1) {
-> +			tst_res(TFAIL | TTERRNO, "pidfd_open() failed");
-> +			return;
-> +		}
-> +
-> +		TST_CHECKPOINT_WAKE(0);
-> +
-> +		pollfd.fd = fd;
-> +		pollfd.events = POLLIN;
-> +
-> +		ready = poll(&pollfd, 1, -1);
-> +
-> +		SAFE_CLOSE(fd);
-> +		SAFE_WAITPID(pid, NULL, 0);
-> +
-> +		if (ready == -1)
-> +			tst_brk(TBROK | TERRNO, "poll() failed");
-
-I guess that we may as well check that the ready is exactly 1 here as
-well, but that's a minor thing.
-
-> +		tst_res(TPASS, "Events (0x%x): POLLIN is %sset\n",
-> +			pollfd.revents, (pollfd.revents & POLLIN) ? "" : "not");
-> +	}
-> +}
-> +
-> +static struct tst_test test = {
-> +	.min_kver = "5.3",
-> +	.test_all = run,
-> +	.forks_child = 1,
-> +	.needs_checkpoints = 1,
-> +};
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
