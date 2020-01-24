@@ -1,68 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35B7C147C9D
-	for <lists+linux-ltp@lfdr.de>; Fri, 24 Jan 2020 10:53:37 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 31313147CAC
+	for <lists+linux-ltp@lfdr.de>; Fri, 24 Jan 2020 10:53:46 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 04FB63C2393
-	for <lists+linux-ltp@lfdr.de>; Fri, 24 Jan 2020 10:53:37 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D9E8F3C23A3
+	for <lists+linux-ltp@lfdr.de>; Fri, 24 Jan 2020 10:53:45 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id D890E3C2379
- for <ltp@lists.linux.it>; Fri, 24 Jan 2020 10:53:35 +0100 (CET)
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 28F2D3C242F
+ for <ltp@lists.linux.it>; Fri, 24 Jan 2020 10:53:41 +0100 (CET)
+Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
+ [IPv6:2607:f8b0:4864:20::641])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id DDF041402F95
- for <ltp@lists.linux.it>; Fri, 24 Jan 2020 10:53:34 +0100 (CET)
-Received: by mail-pg1-x541.google.com with SMTP id l24so762472pgk.2
- for <ltp@lists.linux.it>; Fri, 24 Jan 2020 01:53:34 -0800 (PST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5B03860BCE2
+ for <ltp@lists.linux.it>; Fri, 24 Jan 2020 10:53:36 +0100 (CET)
+Received: by mail-pl1-x641.google.com with SMTP id g6so553013plp.6
+ for <ltp@lists.linux.it>; Fri, 24 Jan 2020 01:53:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=PAdm/V1UsHN8PiHAWqs5OkdgW4nwASOxkzBdk3X3mAw=;
- b=ucgVvK4QcwRA/H3TD4iiUysPcPGKpTUU5i9jWU1svR9COW5oMBFznmfUkWDlNgpQxz
- G7LNXvaMqg9dosmHVqXQREc8iMPcIkhfGZKDRRfltg/9tOyj/A9FgE9ZkDYBASv0hdDb
- 4Sgvfk5gjzUzCMh0NCKZpQHyf7oR1a6fbz5P7/dcVQGrje1g1kqQ2CaxzbMiNNAcdAHs
- c6n9EgLXPBsv1HsafPlVl+u5G8VavTtfjp9vGIp6J1YVESiX7vvGAg5HraWOEJYt+2NM
- mILWsZNglFj/TItt7Lkm4u6VURYGIoJ/A3CwaUQIieR2JIVTtbWTeiw4jsp2G1TyeC/b
- T/jQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=6/g17AIXvwxBBZhnqt/1JpLM38EwcYv13U5tQglCXQI=;
+ b=FXRHxpGfPpzR8YPv7I8uiu5VuXR/jMkWPP6Za+5+PIXLSIvxbRPkM2SP9Zx1HEoD6E
+ 3mkL9Su4eNpym0K7goMi+gamEclyDL9WFjgCIitOkejmNTxN0WNv8Q+T4H6DI4SAhHpf
+ kJrmSJ9WbTkmBwjnv2E01qmFZPU6qTcmDgO7mODy0dy5DU81NMtoCw3NnWVbAjjyWQWI
+ czke7Ztxb6kL/bmiiDSpl0u/Yuuij2pI+15IN9rAELXyWEPNdA+fJUmjki630VuTj7+t
+ P5mocVkoO4M1rnzx23HRjeoot4vpf/Nx43WHVqY6AjmlSuh+XDhQCdYR5WXzHNgvDJPZ
+ OlFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=PAdm/V1UsHN8PiHAWqs5OkdgW4nwASOxkzBdk3X3mAw=;
- b=I0P4xnm7NXllUjRpdV4VmY+c+Y2Pd/a123dSUBPlFb9sGeD9wRrpIMzxGY2eslgbVY
- ACGwjEr7MpNajQIu0wzft8ujet63RpPQlQ8LgqID1+vlW64fpUxpku8SNUVXWuU5acV8
- 3nkAvTmzm6ka19WIPRObkZlHFXUVuV6/MV9i5MgEIkd4E0PTzBp7e5tvRILHQHzvDfI/
- obTkcfDTfTRzy7q0J4RuHWwIzhDtJpm50MNHqJ/lcpAdabtL+aocswmAnwM9yoWTNyGT
- wRHpUrAYi0uUIka0SFovU5ZOe1TCnC7QwN6OLPE12h3ni64q/mYzwouaKfgNJR+xCYwg
- UJoA==
-X-Gm-Message-State: APjAAAV3HZBfaCmdd4xnlOcO2po7ASMi7G248EW6DkvSnyKkmPT0dDz7
- mXSzKUCZ6nUstVAv4kSIZmdDDLWjYgA=
-X-Google-Smtp-Source: APXvYqw/lYTh0siKXY0TdFcbSrT0Uxs7xz+9O0muTbRPILC3aJT0gG378PBsqZLQ/sj/lU2zucXx+Q==
-X-Received: by 2002:a63:6b82:: with SMTP id g124mr3110522pgc.418.1579859613331; 
- Fri, 24 Jan 2020 01:53:33 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=6/g17AIXvwxBBZhnqt/1JpLM38EwcYv13U5tQglCXQI=;
+ b=GoJDLaPwL+Yi0t4ufpNmnhtaplUQx2rqQ/O5bUAiM5gIvQ1lK45Zw0UbZoxJysM39W
+ D0zo/C5208yuvR5TLNXbCTvaa8bU18dXG8nF6yNYBTk3ApgE2feLHcD9bFBrHSKrgDZ/
+ 44VIAbLvA7TFsOhHDtSkCykOqBOivDPKUNdrQvR8UyDXrB7pItgW8uw2eEmxA52zuO8f
+ UxCJovFpMeI6q/lN5LBxZ24oyUIfqlGX0+O93cGRJZf5MXZHuhLC+Y2lZbNg6/YqfBV3
+ MVe8hkg9xuQflSjB4dY+Q2AeU/lXVz0JaOvtCvqtlRAcvT5wyu/OSh84TtqObhngVDDS
+ 1nHA==
+X-Gm-Message-State: APjAAAU+O9pS6H/rLEtsjfFuF+QKTMw1Ehk06Jsy2FcThGkgqVOo2YYF
+ rtpltfJoiNWdvjpEuidPOVs1Eg==
+X-Google-Smtp-Source: APXvYqy+Px7XMiafTs7Zwx2PYbg4jJ8R2ZgTHUQcbfGLa9c0qQZkbpee1zddzeeGfLH+XAtm0gYmJA==
+X-Received: by 2002:a17:90a:748:: with SMTP id
+ s8mr2326869pje.104.1579859615952; 
+ Fri, 24 Jan 2020 01:53:35 -0800 (PST)
 Received: from localhost ([122.167.18.14])
- by smtp.gmail.com with ESMTPSA id d14sm5860552pjz.12.2020.01.24.01.53.32
+ by smtp.gmail.com with ESMTPSA id ep12sm6236256pjb.7.2020.01.24.01.53.35
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 24 Jan 2020 01:53:32 -0800 (PST)
+ Fri, 24 Jan 2020 01:53:35 -0800 (PST)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: Cyril Hrubis <chrubis@suse.cz>
-Date: Fri, 24 Jan 2020 15:23:28 +0530
-Message-Id: <d3a4f3d5740a64a51752bba89f2b8e2c5326b78c.1579859350.git.viresh.kumar@linaro.org>
+Date: Fri, 24 Jan 2020 15:23:29 +0530
+Message-Id: <2d23f3a542bbd04179aba828e28d37f5c7be7b45.1579859350.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.21.0.rc0.269.g1a574e7a288b
+In-Reply-To: <d3a4f3d5740a64a51752bba89f2b8e2c5326b78c.1579859350.git.viresh.kumar@linaro.org>
+References: <d3a4f3d5740a64a51752bba89f2b8e2c5326b78c.1579859350.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH V2 1/2] Add Syscall numbers for io_pgetevents
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH V2 2/2] syscalls/io_pgetevents
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,165 +83,324 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Add tests to check working of io_pgetevents() syscall.
+
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
 V1->V2:
-- No changes
+- Do the failure testing with help of array and .tcnt.
+- Use tst_syscall().
+- Removed cleanup() routines.
+- Improved print messages and few more minor changes.
 
- include/lapi/syscalls/aarch64.in   | 1 +
- include/lapi/syscalls/arm.in       | 1 +
- include/lapi/syscalls/hppa.in      | 1 +
- include/lapi/syscalls/i386.in      | 1 +
- include/lapi/syscalls/ia64.in      | 1 +
- include/lapi/syscalls/powerpc.in   | 1 +
- include/lapi/syscalls/powerpc64.in | 1 +
- include/lapi/syscalls/s390.in      | 1 +
- include/lapi/syscalls/s390x.in     | 1 +
- include/lapi/syscalls/sparc.in     | 1 +
- include/lapi/syscalls/sparc64.in   | 1 +
- include/lapi/syscalls/x86_64.in    | 1 +
- 12 files changed, 12 insertions(+)
+ configure.ac                                  |   1 +
+ include/lapi/io_pgetevents.h                  |  49 ++++++++
+ runtest/syscalls                              |   4 +
+ .../kernel/syscalls/io_pgetevents/.gitignore  |   2 +
+ .../kernel/syscalls/io_pgetevents/Makefile    |   6 +
+ .../syscalls/io_pgetevents/io_pgetevents01.c  |  69 +++++++++++
+ .../syscalls/io_pgetevents/io_pgetevents02.c  | 111 ++++++++++++++++++
+ 7 files changed, 242 insertions(+)
+ create mode 100644 include/lapi/io_pgetevents.h
+ create mode 100644 testcases/kernel/syscalls/io_pgetevents/.gitignore
+ create mode 100644 testcases/kernel/syscalls/io_pgetevents/Makefile
+ create mode 100644 testcases/kernel/syscalls/io_pgetevents/io_pgetevents01.c
+ create mode 100644 testcases/kernel/syscalls/io_pgetevents/io_pgetevents02.c
 
-diff --git a/include/lapi/syscalls/aarch64.in b/include/lapi/syscalls/aarch64.in
-index 19f3aa4475bd..25e1b27e9867 100644
---- a/include/lapi/syscalls/aarch64.in
-+++ b/include/lapi/syscalls/aarch64.in
-@@ -269,6 +269,7 @@ pwritev2 287
- pkey_mprotect 288
- pkey_alloc 289
- pkey_free 290
-+io_pgetevents 292
- pidfd_send_signal 424
- pidfd_open 434
- _sysctl 1078
-diff --git a/include/lapi/syscalls/arm.in b/include/lapi/syscalls/arm.in
-index 979a0183d4f5..c4e162662c3e 100644
---- a/include/lapi/syscalls/arm.in
-+++ b/include/lapi/syscalls/arm.in
-@@ -354,5 +354,6 @@ pkey_mprotect (__NR_SYSCALL_BASE+394)
- pkey_alloc (__NR_SYSCALL_BASE+395)
- pkey_free (__NR_SYSCALL_BASE+396)
- statx (__NR_SYSCALL_BASE+397)
-+io_pgetevents (__NR_SYSCALL_BASE+399)
- pidfd_send_signal (__NR_SYSCALL_BASE+424)
- pidfd_open (__NR_SYSCALL_BASE+434)
-diff --git a/include/lapi/syscalls/hppa.in b/include/lapi/syscalls/hppa.in
-index b0807ca6b69f..71486f30d8ca 100644
---- a/include/lapi/syscalls/hppa.in
-+++ b/include/lapi/syscalls/hppa.in
-@@ -26,5 +26,6 @@ mlock2 345
- copy_file_range 346
- preadv2 347
- pwritev2 348
-+io_pgetevents 350
- pidfd_send_signal 424
- pidfd_open 434
-diff --git a/include/lapi/syscalls/i386.in b/include/lapi/syscalls/i386.in
-index f19e24bd63c9..ec47ca123a1f 100644
---- a/include/lapi/syscalls/i386.in
-+++ b/include/lapi/syscalls/i386.in
-@@ -353,5 +353,6 @@ pkey_mprotect 380
- pkey_alloc 381
- pkey_free 382
- statx 383
-+io_pgetevents 385
- pidfd_send_signal 424
- pidfd_open 434
-diff --git a/include/lapi/syscalls/ia64.in b/include/lapi/syscalls/ia64.in
-index 92cc881d933b..e9ae3f0093bf 100644
---- a/include/lapi/syscalls/ia64.in
-+++ b/include/lapi/syscalls/ia64.in
-@@ -306,6 +306,7 @@ mlock2 1346
- copy_file_range 1347
- preadv2 1348
- pwritev2 1349
-+io_pgetevents 1351
- pkey_mprotect 1354
- pkey_alloc 1355
- pkey_free 1356
-diff --git a/include/lapi/syscalls/powerpc.in b/include/lapi/syscalls/powerpc.in
-index f83f7d233e61..3d27d2f2d0f6 100644
---- a/include/lapi/syscalls/powerpc.in
-+++ b/include/lapi/syscalls/powerpc.in
-@@ -356,6 +356,7 @@ copy_file_range 379
- preadv2 380
- pwritev2 381
- statx 383
-+io_pgetevents 388
- pidfd_send_signal 424
- pidfd_open 434
- pkey_mprotect 386
-diff --git a/include/lapi/syscalls/powerpc64.in b/include/lapi/syscalls/powerpc64.in
-index f83f7d233e61..3d27d2f2d0f6 100644
---- a/include/lapi/syscalls/powerpc64.in
-+++ b/include/lapi/syscalls/powerpc64.in
-@@ -356,6 +356,7 @@ copy_file_range 379
- preadv2 380
- pwritev2 381
- statx 383
-+io_pgetevents 388
- pidfd_send_signal 424
- pidfd_open 434
- pkey_mprotect 386
-diff --git a/include/lapi/syscalls/s390.in b/include/lapi/syscalls/s390.in
-index f99aceb71a81..460a17884735 100644
---- a/include/lapi/syscalls/s390.in
-+++ b/include/lapi/syscalls/s390.in
-@@ -340,6 +340,7 @@ mlock2 374
- copy_file_range 375
- preadv2 376
- pwritev2 377
-+io_pgetevents 382
- pkey_mprotect 384
- pkey_alloc 385
- pkey_free 386
-diff --git a/include/lapi/syscalls/s390x.in b/include/lapi/syscalls/s390x.in
-index 9666095b6bea..00236356df73 100644
---- a/include/lapi/syscalls/s390x.in
-+++ b/include/lapi/syscalls/s390x.in
-@@ -338,6 +338,7 @@ mlock2 374
- copy_file_range 375
- preadv2 376
- pwritev2 377
-+io_pgetevents 382
- pkey_mprotect 384
- pkey_alloc 385
- pkey_free 386
-diff --git a/include/lapi/syscalls/sparc.in b/include/lapi/syscalls/sparc.in
-index 6c610ba67308..b56b1ae5c748 100644
---- a/include/lapi/syscalls/sparc.in
-+++ b/include/lapi/syscalls/sparc.in
-@@ -345,6 +345,7 @@ mlock2 356
- copy_file_range 357
- preadv2 358
- pwritev2 359
-+io_pgetevents 361
- pkey_mprotect 362
- pkey_alloc 363
- pkey_free 364
-diff --git a/include/lapi/syscalls/sparc64.in b/include/lapi/syscalls/sparc64.in
-index d20e87926913..8f04d730a5d5 100644
---- a/include/lapi/syscalls/sparc64.in
-+++ b/include/lapi/syscalls/sparc64.in
-@@ -320,6 +320,7 @@ mlock2 356
- copy_file_range 357
- preadv2 358
- pwritev2 359
-+io_pgetevents 361
- pkey_mprotect 362
- pkey_alloc 363
- pkey_free 364
-diff --git a/include/lapi/syscalls/x86_64.in b/include/lapi/syscalls/x86_64.in
-index cba0080dd27a..8656a84d9b93 100644
---- a/include/lapi/syscalls/x86_64.in
-+++ b/include/lapi/syscalls/x86_64.in
-@@ -320,5 +320,6 @@ pkey_mprotect 329
- pkey_alloc 330
- pkey_free 331
- statx 332
-+io_pgetevents 333
- pidfd_send_signal 424
- pidfd_open 434
+diff --git a/configure.ac b/configure.ac
+index 1bf0911d88ad..c7cdff1c422c 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -75,6 +75,7 @@ AC_CHECK_FUNCS([ \
+     getdents \
+     getdents64 \
+     kcmp \
++    io_pgetevents \
+     mkdirat \
+     mknodat \
+     name_to_handle_at \
+diff --git a/include/lapi/io_pgetevents.h b/include/lapi/io_pgetevents.h
+new file mode 100644
+index 000000000000..c498db83e7d0
+--- /dev/null
++++ b/include/lapi/io_pgetevents.h
+@@ -0,0 +1,49 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020 Linaro Limited. All rights reserved.
++ * Author: Viresh Kumar <viresh.kumar@linaro.org>
++ */
++
++#ifndef IO_PGETEVENTS_H
++#define IO_PGETEVENTS_H
++
++#include <sys/types.h>
++
++#include "config.h"
++#include "lapi/syscalls.h"
++
++#ifdef HAVE_LIBAIO
++#include <libaio.h>
++
++#ifndef HAVE_IO_SETUP
++int io_setup(int nr, io_context_t *ctxp)
++{
++	return tst_syscall(__NR_io_setup, nr, ctxp);
++}
++#endif /* HAVE_IO_SETUP */
++
++#ifndef HAVE_IO_DESTROY
++int io_destroy(io_context_t ctx)
++{
++	return tst_syscall(__NR_io_destroy, ctx);
++}
++#endif /* HAVE_IO_DESTROY */
++
++#ifndef HAVE_IO_SUBMIT
++int io_submit(io_context_t ctx, long nr, struct iocb **iocbpp)
++{
++	return tst_syscall(__NR_io_submit, ctx, nr, iocbpp);
++}
++#endif /* HAVE_IO_SUBMIT */
++
++#ifndef HAVE_IO_PGETEVENTS
++int io_pgetevents(io_context_t ctx, long min_nr, long max_nr,
++		 struct io_event *events, struct timespec *timeout,
++		 sigset_t *sigmask)
++{
++	return syscall(__NR_io_pgetevents, ctx, min_nr, max_nr, events, timeout, sigmask);
++}
++#endif /* HAVE_IO_PGETEVENTS */
++#endif /* HAVE_LIBAIO */
++
++#endif /* IO_PGETEVENTS_H */
+diff --git a/runtest/syscalls b/runtest/syscalls
+index f083758bc637..33ec1e59e51d 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -556,6 +556,10 @@ ioprio_set03 ioprio_set03
+ io_cancel01 io_cancel01
+ io_destroy01 io_destroy01
+ io_getevents01 io_getevents01
++
++io_pgetevents01 io_pgetevents01
++io_pgetevents02 io_pgetevents02
++
+ io_setup01 io_setup01
+ io_submit01 io_submit01
+ 
+diff --git a/testcases/kernel/syscalls/io_pgetevents/.gitignore b/testcases/kernel/syscalls/io_pgetevents/.gitignore
+new file mode 100644
+index 000000000000..ae02077ba44b
+--- /dev/null
++++ b/testcases/kernel/syscalls/io_pgetevents/.gitignore
+@@ -0,0 +1,2 @@
++io_pgetevents01
++io_pgetevents02
+diff --git a/testcases/kernel/syscalls/io_pgetevents/Makefile b/testcases/kernel/syscalls/io_pgetevents/Makefile
+new file mode 100644
+index 000000000000..5ea7d67db123
+--- /dev/null
++++ b/testcases/kernel/syscalls/io_pgetevents/Makefile
+@@ -0,0 +1,6 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++
++top_srcdir		?= ../../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/io_pgetevents/io_pgetevents01.c b/testcases/kernel/syscalls/io_pgetevents/io_pgetevents01.c
+new file mode 100644
+index 000000000000..9b34f973c424
+--- /dev/null
++++ b/testcases/kernel/syscalls/io_pgetevents/io_pgetevents01.c
+@@ -0,0 +1,69 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
++ *
++ * Description:
++ * Basic io_pgetevents() test to receive 1 event successfully.
++ */
++#include <sys/types.h>
++#include <sys/syscall.h>
++#include <fcntl.h>
++#include <string.h>
++#include <inttypes.h>
++
++#include "tst_test.h"
++#include "lapi/io_pgetevents.h"
++#include "lapi/syscalls.h"
++
++#ifdef HAVE_LIBAIO
++static void run(void)
++{
++	struct io_event events[1];
++	struct iocb cb, *cbs[1];
++	io_context_t ctx = 0;
++	sigset_t sigmask;
++	char data[4096];
++	int ret, fd;
++
++	cbs[0] = &cb;
++	sigemptyset(&sigmask);
++
++	fd = SAFE_OPEN("io_pgetevents_file", O_RDWR | O_CREAT);
++	io_prep_pwrite(&cb, fd, data, 4096, 0);
++
++	ret = io_setup(1, &ctx);
++	if (ret < 0) {
++		tst_res(TBROK | TERRNO, "io_setup() failed");
++		goto exit;
++	}
++
++	ret = io_submit(ctx, 1, cbs);
++	if (ret != 1) {
++		tst_res(TBROK | TERRNO, "io_submit() failed");
++		goto exit;
++	}
++
++	/* get the reply */
++	ret = io_pgetevents(ctx, 1, 1, events, NULL, &sigmask);
++
++	if (ret == 1)
++		tst_res(TPASS, "io_pgetevents() worked as expected");
++	else
++		tst_res(TFAIL | TERRNO, "io_pgetevents() failed");
++
++	if (io_destroy(ctx) < 0)
++		tst_res(TBROK | TERRNO, "io_destroy() failed");
++
++exit:
++	SAFE_CLOSE(fd);
++}
++
++static struct tst_test test = {
++	.min_kver = "4.18",
++	.test_all = run,
++	.needs_tmpdir = 1,
++};
++
++#else
++TST_TEST_TCONF("test requires libaio and it's development packages");
++#endif
+diff --git a/testcases/kernel/syscalls/io_pgetevents/io_pgetevents02.c b/testcases/kernel/syscalls/io_pgetevents/io_pgetevents02.c
+new file mode 100644
+index 000000000000..35722c4b21d6
+--- /dev/null
++++ b/testcases/kernel/syscalls/io_pgetevents/io_pgetevents02.c
+@@ -0,0 +1,111 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
++ *
++ * Description:
++ * Basic io_pgetevents() test to check various failures.
++ */
++#include <sys/types.h>
++#include <sys/syscall.h>
++#include <fcntl.h>
++#include <string.h>
++#include <inttypes.h>
++
++#include "tst_test.h"
++#include "lapi/io_pgetevents.h"
++#include "lapi/syscalls.h"
++
++#ifdef HAVE_LIBAIO
++static struct tcase {
++	char *name;
++	int invalid_ctx;
++	long min_nr;
++	long max_nr;
++	int invalid_events;
++	int invalid_timeout;
++	int invalid_sigmask;
++	int exp_errno;
++} tcases[] = {
++	{"test-invalid-ctx", 1, 1, 1, 0, 0, 0, EINVAL},
++	{"test-invalid-min_nr", 0, -1, 1, 0, 0, 0, EINVAL},
++	{"test-invalid-max_nr", 0, 1, -1, 0, 0, 0, EINVAL},
++	{"test-invalid-events", 0, 1, 1, 1, 0, 0, EFAULT},
++	{"test-invalid-timeout", 0, 1, 1, 0, 1, 0, EFAULT},
++	{"test-invalid-sigmask", 0, 1, 1, 0, 0, 1, EFAULT},
++};
++
++static void run(unsigned int n)
++{
++	struct io_event events[1], *events_ptr = NULL;
++	sigset_t sigmask, *psigmask = (void *)(0xDEAD);
++	struct timespec *timeout = (void *)(0xDEAD);
++	struct tcase *tc = &tcases[n];
++	struct iocb cb, *cbs[1];
++	io_context_t ctx = 0;
++	char data[4096];
++	int ret, fd;
++
++	cbs[0] = &cb;
++
++	if (!tc->invalid_timeout)
++		timeout = NULL;
++
++	if (!tc->invalid_sigmask) {
++		psigmask = &sigmask;
++		sigemptyset(psigmask);
++	}
++
++	if (!tc->invalid_events)
++		events_ptr = events;
++
++	fd = SAFE_OPEN("io_pgetevents_file", O_RDWR | O_CREAT);
++	io_prep_pwrite(&cb, fd, data, 4096, 0);
++
++	if (!tc->invalid_ctx) {
++		ret = io_setup(1, &ctx);
++		if (ret < 0) {
++			tst_res(TBROK | TERRNO, "io_setup() failed");
++			goto exit;
++		}
++
++		ret = io_submit(ctx, 1, cbs);
++		if (ret != 1) {
++			tst_res(TBROK | TERRNO, "io_submit() failed");
++			goto exit;
++		}
++	}
++
++	/* Invalid Max event count */
++	TEST(io_pgetevents(ctx, tc->min_nr, tc->max_nr, events_ptr, timeout,
++			   psigmask));
++
++	if (TST_RET == 1) {
++		tst_res(TFAIL, "%s: io_pgetevents() passed unexpectedly",
++			tc->name);
++	} else if (tc->exp_errno != TST_ERR) {
++		tst_res(TFAIL | TTERRNO, "%s: io_pgetevents() should fail with %s",
++			tc->name, tst_strerrno(tc->exp_errno));
++	} else {
++		tst_res(TPASS | TTERRNO, "%s: io_pgetevents() failed as expected",
++			tc->name);
++	}
++
++	if (!tc->invalid_ctx) {
++		if (io_destroy(ctx) < 0)
++			tst_res(TBROK | TERRNO, "io_destroy() failed");
++	}
++
++exit:
++	SAFE_CLOSE(fd);
++}
++
++static struct tst_test test = {
++	.min_kver = "4.18",
++	.needs_tmpdir = 1,
++	.tcnt = ARRAY_SIZE(tcases),
++	.test = run,
++};
++
++#else
++TST_TEST_TCONF("test requires libaio and it's development packages");
++#endif
 -- 
 2.21.0.rc0.269.g1a574e7a288b
 
