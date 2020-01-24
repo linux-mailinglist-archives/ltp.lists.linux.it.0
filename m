@@ -1,39 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69126147C0B
-	for <lists+linux-ltp@lfdr.de>; Fri, 24 Jan 2020 10:49:26 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 56167147C08
+	for <lists+linux-ltp@lfdr.de>; Fri, 24 Jan 2020 10:48:42 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 246303C23BB
-	for <lists+linux-ltp@lfdr.de>; Fri, 24 Jan 2020 10:49:26 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 24A863C2393
+	for <lists+linux-ltp@lfdr.de>; Fri, 24 Jan 2020 10:48:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 685663C23B0
- for <ltp@lists.linux.it>; Fri, 24 Jan 2020 10:49:18 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 3D7EC3C2379
+ for <ltp@lists.linux.it>; Fri, 24 Jan 2020 10:48:40 +0100 (CET)
+Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
+ [IPv6:2607:f8b0:4864:20::62d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id ED9A51A01A0E
- for <ltp@lists.linux.it>; Fri, 24 Jan 2020 10:49:17 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id B2FE9ACA5
- for <ltp@lists.linux.it>; Fri, 24 Jan 2020 09:49:16 +0000 (UTC)
-From: Jorik Cronenberg <jcronenberg@suse.de>
-To: ltp@lists.linux.it
-Date: Fri, 24 Jan 2020 10:48:19 +0100
-Message-Id: <20200124094819.11710-2-jcronenberg@suse.de>
-X-Mailer: git-send-email 2.25.0
-In-Reply-To: <20200124094819.11710-1-jcronenberg@suse.de>
-References: <20200124094819.11710-1-jcronenberg@suse.de>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8EFE31000540
+ for <ltp@lists.linux.it>; Fri, 24 Jan 2020 10:48:38 +0100 (CET)
+Received: by mail-pl1-x62d.google.com with SMTP id g6so559379plt.2
+ for <ltp@lists.linux.it>; Fri, 24 Jan 2020 01:48:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wa17AkViCZAC//FDkb7N/byTfZC83UHHxgAfLlEjpgI=;
+ b=FxNUlDCqWNCxyb3gKjqgpvHyToR0mWOv4vkvvCDROpkjp9JMdSMfcScf5WrzX2RfXW
+ /fCQ+b1S/AeVglm3hvn+FMIiFwNEk16nvaLpm8vZkCtqFHb5gUYsc1OFNy4GxD+IHvbz
+ /eOKNu91jAS5Y8IzkkvSwvc7/n58KXYQv+O5aESE2d+EsnxdTW14mMv8VEa5DRJz5gGI
+ QiYEFD8gY307sbhiVWCnVHtpiFd3+RZSokni+/tiLXMCbVhMJvuxnKt4F6eswCGVbK9H
+ Ok5SoUuSIlyKTJBAUn+sXdnlybtU6eLVupIyhuopd8M0C2Y8vVXYlie9nonct7weIaeh
+ kqVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wa17AkViCZAC//FDkb7N/byTfZC83UHHxgAfLlEjpgI=;
+ b=T/ctQxpEvda4qaxRPLgdxtX8N6wi2yyIjpFExgbhkgUxNyYdwq5dMhJdDtb9f98VFj
+ mMzAo66V890A49zcUUSootwBVvwz5HITH3zLk848FEFtGRsh2Fc20EcIl9/n5xQlQSPr
+ ugz4ub0ba8/Yf4NAXhdtMS5goAQw69Ak6TAD+79As1mDriyAQRZ3Ubm/kjnm0KsX4iGD
+ zkzp7vRr6asiuEz3v3Hb7NVsFcakJJtc7qW+lem6yBS/pyQrTlAh3ngmFTVyoNRouCcy
+ HnUaT1G26+uz/Z0qKvfGLcwiXVIELiYM/nkmQhaKyOo1S6ltMJNxerWmmyUQXfCEF62k
+ cfBQ==
+X-Gm-Message-State: APjAAAW0fA/5SgjuskOAzVTPVt2U7qji820KE5Xmxfsh3SKeT7yLZk/C
+ l+iApfHkG1usjFcBcYq3NN+maA==
+X-Google-Smtp-Source: APXvYqwrC9tCKFr1XzIJZ2jFm3rxOQZkABcN2rb9mb24jCEE07NvCvDQynsF/f1dHiYF5DgTQEv2Ew==
+X-Received: by 2002:a17:902:968c:: with SMTP id
+ n12mr2787749plp.144.1579859317529; 
+ Fri, 24 Jan 2020 01:48:37 -0800 (PST)
+Received: from localhost ([122.167.18.14])
+ by smtp.gmail.com with ESMTPSA id g11sm5954899pgd.26.2020.01.24.01.48.36
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 24 Jan 2020 01:48:36 -0800 (PST)
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Cyril Hrubis <chrubis@suse.cz>
+Date: Fri, 24 Jan 2020 15:18:26 +0530
+Message-Id: <1dbcadb1781ba1f0584eb92c83aec5f66abb109c.1579858930.git.viresh.kumar@linaro.org>
+X-Mailer: git-send-email 2.21.0.rc0.269.g1a574e7a288b
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] syscalls/vmsplice: Add NONBLOCK testcase
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH V3 1/2] Add Syscall numbers for pidfd_open
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,151 +74,159 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+ Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add a testcase for vmsplice() with the flag SPLICE_F_NONBLOCK.
-And also test that vmsplice() blocks when writing to a full pipe
-without the flag specified.
-
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
-v2:
-Made changes pointed out by Yang Xu:
+V1->V3:
+- No changes
 
-Add the test to runtest/syscalls
-Add "lapi/fcntl.h"
-Add additional info to the test's output messages
-Use guarded buffer for write_buffer
----
+ include/lapi/syscalls/aarch64.in   | 1 +
+ include/lapi/syscalls/arm.in       | 1 +
+ include/lapi/syscalls/hppa.in      | 1 +
+ include/lapi/syscalls/i386.in      | 1 +
+ include/lapi/syscalls/ia64.in      | 1 +
+ include/lapi/syscalls/powerpc.in   | 1 +
+ include/lapi/syscalls/powerpc64.in | 1 +
+ include/lapi/syscalls/s390.in      | 1 +
+ include/lapi/syscalls/s390x.in     | 1 +
+ include/lapi/syscalls/sh.in        | 1 +
+ include/lapi/syscalls/sparc.in     | 1 +
+ include/lapi/syscalls/sparc64.in   | 1 +
+ include/lapi/syscalls/x86_64.in    | 1 +
+ 13 files changed, 13 insertions(+)
 
-Signed-off-by: Jorik Cronenberg <jcronenberg@suse.de>
----
- runtest/syscalls                              |  1 +
- testcases/kernel/syscalls/vmsplice/.gitignore |  1 +
- .../kernel/syscalls/vmsplice/vmsplice04.c     | 89 +++++++++++++++++++
- 3 files changed, 91 insertions(+)
- create mode 100644 testcases/kernel/syscalls/vmsplice/vmsplice04.c
-
-diff --git a/runtest/syscalls b/runtest/syscalls
-index f58fefe17..ec94c554d 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -1550,6 +1550,7 @@ vhangup02 vhangup02
- vmsplice01 vmsplice01
- vmsplice02 vmsplice02
- vmsplice03 vmsplice03
-+vmsplice04 vmsplice04
- 
- wait01 wait01
- wait02 wait02
-diff --git a/testcases/kernel/syscalls/vmsplice/.gitignore b/testcases/kernel/syscalls/vmsplice/.gitignore
-index 03922073c..042c32585 100644
---- a/testcases/kernel/syscalls/vmsplice/.gitignore
-+++ b/testcases/kernel/syscalls/vmsplice/.gitignore
-@@ -1,3 +1,4 @@
- /vmsplice01
- /vmsplice02
- /vmsplice03
-+/vmsplice04
-diff --git a/testcases/kernel/syscalls/vmsplice/vmsplice04.c b/testcases/kernel/syscalls/vmsplice/vmsplice04.c
-new file mode 100644
-index 000000000..0952d7caf
---- /dev/null
-+++ b/testcases/kernel/syscalls/vmsplice/vmsplice04.c
-@@ -0,0 +1,89 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2019 SUSE LLC
-+ * Author: Jorik Cronenberg <jcronenberg@suse.de>
-+ *
-+ * Test vmsplice() to a full pipe with SPLICE_F_NONBLOCK and without
-+ * With SPLICE_F_NONBLOCK vmsplice() should return with errno EAGAIN
-+ * Without SPLICE_F_NONBLOCK it should block
-+ */
-+
-+#define _GNU_SOURCE
-+
-+#include "tst_test.h"
-+#include "lapi/vmsplice.h"
-+#include "lapi/fcntl.h"
-+#include <stdlib.h>
-+
-+
-+static int pipes[2];
-+static ssize_t pipe_max_size;
-+static char *write_buffer;
-+static struct iovec iov;
-+
-+static void vmsplice_test(void)
-+{
-+	int status;
-+	int pid;
-+
-+	TEST(vmsplice(pipes[1], &iov, 1, 0));
-+	if (TST_RET < 0)
-+		tst_brk(TBROK | TTERRNO,
-+		    "Initial vmsplice() to fill pipe failed");
-+
-+	TEST(vmsplice(pipes[1], &iov, 1, SPLICE_F_NONBLOCK));
-+	if (TST_RET < 0 && TST_ERR == EAGAIN)
-+		tst_res(TPASS | TTERRNO,
-+		    "vmsplice(... , SPLICE_F_NONBLOCK) failed as expected");
-+	else if (TST_RET < 0)
-+		tst_res(TFAIL | TTERRNO,
-+		    "vmsplice(... , SPLICE_F_NONBLOCK) "
-+		    "failed with unexpected errno");
-+	else
-+		tst_res(TFAIL,
-+		    "vmsplice(... , SPLICE_F_NONBLOCK) wrote to a full pipe");
-+
-+	pid = SAFE_FORK();
-+	if (!pid) {
-+		TEST(vmsplice(pipes[1], &iov, 1, 0));
-+		if (TST_RET < 0)
-+			tst_res(TFAIL | TTERRNO, "vmsplice(... , 0) failed");
-+		else
-+			tst_res(TFAIL,
-+			    "vmsplice(... , 0) wrote to a full pipe");
-+		exit(0);
-+	} else {
-+		if (TST_PROCESS_STATE_WAIT(pid, 'S', 1000) < 0)
-+			return;
-+		else
-+			tst_res(TPASS, "vmsplice(... , 0) blocked");
-+		SAFE_KILL(pid, SIGKILL);
-+		SAFE_WAIT(&status);
-+	}
-+
-+}
-+static void cleanup(void)
-+{
-+	if (pipes[1] > 0)
-+		SAFE_CLOSE(pipes[1]);
-+	if (pipes[0] > 0)
-+		SAFE_CLOSE(pipes[0]);
-+}
-+static void setup(void)
-+{
-+	SAFE_PIPE(pipes);
-+
-+	pipe_max_size = SAFE_FCNTL(pipes[1], F_GETPIPE_SZ);
-+	write_buffer = tst_alloc(pipe_max_size);
-+
-+	iov.iov_base = write_buffer;
-+	iov.iov_len = pipe_max_size;
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.test_all = vmsplice_test,
-+	.min_kver = "2.6.17",
-+	.forks_child = 1,
-+};
+diff --git a/include/lapi/syscalls/aarch64.in b/include/lapi/syscalls/aarch64.in
+index 0e00641bcf4d..19f3aa4475bd 100644
+--- a/include/lapi/syscalls/aarch64.in
++++ b/include/lapi/syscalls/aarch64.in
+@@ -270,4 +270,5 @@ pkey_mprotect 288
+ pkey_alloc 289
+ pkey_free 290
+ pidfd_send_signal 424
++pidfd_open 434
+ _sysctl 1078
+diff --git a/include/lapi/syscalls/arm.in b/include/lapi/syscalls/arm.in
+index a6a594c2e85d..979a0183d4f5 100644
+--- a/include/lapi/syscalls/arm.in
++++ b/include/lapi/syscalls/arm.in
+@@ -355,3 +355,4 @@ pkey_alloc (__NR_SYSCALL_BASE+395)
+ pkey_free (__NR_SYSCALL_BASE+396)
+ statx (__NR_SYSCALL_BASE+397)
+ pidfd_send_signal (__NR_SYSCALL_BASE+424)
++pidfd_open (__NR_SYSCALL_BASE+434)
+diff --git a/include/lapi/syscalls/hppa.in b/include/lapi/syscalls/hppa.in
+index d92f33f40a50..b0807ca6b69f 100644
+--- a/include/lapi/syscalls/hppa.in
++++ b/include/lapi/syscalls/hppa.in
+@@ -27,3 +27,4 @@ copy_file_range 346
+ preadv2 347
+ pwritev2 348
+ pidfd_send_signal 424
++pidfd_open 434
+diff --git a/include/lapi/syscalls/i386.in b/include/lapi/syscalls/i386.in
+index bad6e409fbdc..f19e24bd63c9 100644
+--- a/include/lapi/syscalls/i386.in
++++ b/include/lapi/syscalls/i386.in
+@@ -354,3 +354,4 @@ pkey_alloc 381
+ pkey_free 382
+ statx 383
+ pidfd_send_signal 424
++pidfd_open 434
+diff --git a/include/lapi/syscalls/ia64.in b/include/lapi/syscalls/ia64.in
+index 0e6ba54a8f76..92cc881d933b 100644
+--- a/include/lapi/syscalls/ia64.in
++++ b/include/lapi/syscalls/ia64.in
+@@ -310,3 +310,4 @@ pkey_mprotect 1354
+ pkey_alloc 1355
+ pkey_free 1356
+ pidfd_send_signal 1448
++pidfd_open 1458
+diff --git a/include/lapi/syscalls/powerpc.in b/include/lapi/syscalls/powerpc.in
+index 91467f326ed2..f83f7d233e61 100644
+--- a/include/lapi/syscalls/powerpc.in
++++ b/include/lapi/syscalls/powerpc.in
+@@ -357,6 +357,7 @@ preadv2 380
+ pwritev2 381
+ statx 383
+ pidfd_send_signal 424
++pidfd_open 434
+ pkey_mprotect 386
+ pkey_alloc 384
+ pkey_free 385
+diff --git a/include/lapi/syscalls/powerpc64.in b/include/lapi/syscalls/powerpc64.in
+index 91467f326ed2..f83f7d233e61 100644
+--- a/include/lapi/syscalls/powerpc64.in
++++ b/include/lapi/syscalls/powerpc64.in
+@@ -357,6 +357,7 @@ preadv2 380
+ pwritev2 381
+ statx 383
+ pidfd_send_signal 424
++pidfd_open 434
+ pkey_mprotect 386
+ pkey_alloc 384
+ pkey_free 385
+diff --git a/include/lapi/syscalls/s390.in b/include/lapi/syscalls/s390.in
+index dcf0a71482ef..f99aceb71a81 100644
+--- a/include/lapi/syscalls/s390.in
++++ b/include/lapi/syscalls/s390.in
+@@ -344,3 +344,4 @@ pkey_mprotect 384
+ pkey_alloc 385
+ pkey_free 386
+ pidfd_send_signal 424
++pidfd_open 434
+diff --git a/include/lapi/syscalls/s390x.in b/include/lapi/syscalls/s390x.in
+index 2dce00f900a2..9666095b6bea 100644
+--- a/include/lapi/syscalls/s390x.in
++++ b/include/lapi/syscalls/s390x.in
+@@ -342,3 +342,4 @@ pkey_mprotect 384
+ pkey_alloc 385
+ pkey_free 386
+ pidfd_send_signal 424
++pidfd_open 434
+diff --git a/include/lapi/syscalls/sh.in b/include/lapi/syscalls/sh.in
+index 996ebc956a9a..73549b46e6dd 100644
+--- a/include/lapi/syscalls/sh.in
++++ b/include/lapi/syscalls/sh.in
+@@ -371,3 +371,4 @@ copy_file_range 391
+ preadv2 392
+ pwritev2 393
+ pidfd_send_signal 424
++pidfd_open 434
+diff --git a/include/lapi/syscalls/sparc.in b/include/lapi/syscalls/sparc.in
+index 65902e00aa23..6c610ba67308 100644
+--- a/include/lapi/syscalls/sparc.in
++++ b/include/lapi/syscalls/sparc.in
+@@ -349,3 +349,4 @@ pkey_mprotect 362
+ pkey_alloc 363
+ pkey_free 364
+ pidfd_send_signal 424
++pidfd_open 434
+diff --git a/include/lapi/syscalls/sparc64.in b/include/lapi/syscalls/sparc64.in
+index d303622b46df..d20e87926913 100644
+--- a/include/lapi/syscalls/sparc64.in
++++ b/include/lapi/syscalls/sparc64.in
+@@ -324,3 +324,4 @@ pkey_mprotect 362
+ pkey_alloc 363
+ pkey_free 364
+ pidfd_send_signal 424
++pidfd_open 434
+diff --git a/include/lapi/syscalls/x86_64.in b/include/lapi/syscalls/x86_64.in
+index 3e9e19ae6af0..cba0080dd27a 100644
+--- a/include/lapi/syscalls/x86_64.in
++++ b/include/lapi/syscalls/x86_64.in
+@@ -321,3 +321,4 @@ pkey_alloc 330
+ pkey_free 331
+ statx 332
+ pidfd_send_signal 424
++pidfd_open 434
 -- 
-2.25.0
+2.21.0.rc0.269.g1a574e7a288b
 
 
 -- 
