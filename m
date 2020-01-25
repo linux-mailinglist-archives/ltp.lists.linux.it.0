@@ -2,40 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49795148C80
-	for <lists+linux-ltp@lfdr.de>; Fri, 24 Jan 2020 17:49:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B9C6149419
+	for <lists+linux-ltp@lfdr.de>; Sat, 25 Jan 2020 10:23:27 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6B3B03C2432
-	for <lists+linux-ltp@lfdr.de>; Fri, 24 Jan 2020 17:49:42 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0B4523C2026
+	for <lists+linux-ltp@lfdr.de>; Sat, 25 Jan 2020 10:23:27 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 742B03C2284
- for <ltp@lists.linux.it>; Fri, 24 Jan 2020 17:49:38 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id AA61560248D
- for <ltp@lists.linux.it>; Fri, 24 Jan 2020 17:49:37 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id C3D0DACE0;
- Fri, 24 Jan 2020 16:49:36 +0000 (UTC)
-Date: Fri, 24 Jan 2020 17:49:35 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20200124164935.GA3206@rei>
-References: <1dbcadb1781ba1f0584eb92c83aec5f66abb109c.1579858930.git.viresh.kumar@linaro.org>
- <8dc3dff0390db58b2f472501c30595647a913e34.1579858930.git.viresh.kumar@linaro.org>
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id AFF2D3C1824
+ for <ltp@lists.linux.it>; Sat, 25 Jan 2020 10:23:25 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 76C6E616629
+ for <ltp@lists.linux.it>; Sat, 25 Jan 2020 10:23:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1579944203;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=c26SoD2N8KI8nhU3iPIx/0cYbrGt58+39WpHGtg6N/A=;
+ b=G/OulFfFjif7fkHZf79vtpjiQeaKUvLIM5+KJLQH8WGVbuZt4lLnrObI5ugRH/l126Frzp
+ HjlDG43epzatKb9C+5Rdby2PI58vlu0yDvS7oLSJABOFRR3UBBWTg490sNY5ZciLb0myMc
+ WLt5KY2UGTP5UkHFIZQdum99zwmH6dM=
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
+ [209.85.210.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-417-jDytYp3bM46g_RHqEDR1lg-1; Sat, 25 Jan 2020 04:23:19 -0500
+Received: by mail-ot1-f70.google.com with SMTP id v2so2347826otq.2
+ for <ltp@lists.linux.it>; Sat, 25 Jan 2020 01:23:19 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=BpgFYOX6ajvO4TIq2Z5BDYlS0CPPwHmHgpyTtbyfX+I=;
+ b=DyX/M227uMMwJEV7Z5H9qY5OG2+JV83KwojAmJsC5vEXqxnbaBcunEzK1uIhNAsl0e
+ i/N3sL+FwJZNyCd7feR1zoQPk9nPHywbUpXX8acTKeC23aZE5n3x+90TYMi06KCdntK3
+ lDolg78KTrmH+qNYH/BlnV0zy+fXnLtIsIsLCXOCGTDNVRevOS5/7IYwWwGkAg+Q+QVf
+ Jjy+/DuXGzhWjpYLUzKvriiuDFgjfJ/95qXX7r0o+LMiSSxRnE72Vt6WQ2WSXsL4dmf1
+ 2ui2SiTarK4SUAZ9pf6qoIYtjwghGfFeYvHBl5xlMmQcH7KJNH0rBNjeyrWCYIXAK1/v
+ ou0g==
+X-Gm-Message-State: APjAAAXPJD89l+YOS4auyBVLvlmp/sqmd3XP46fep/430zQkf84VtTPQ
+ 2TibQmqmnhPD8ASxKFS1xYkR4lO6bUxFiBHUP/3p91PJx+Kq9Cv7jIJ6+9p0XrXNfZKUAZEhPXa
+ SnUlf+o9sfdwqm+0iR898gDtMd2I=
+X-Received: by 2002:aca:bb41:: with SMTP id l62mr1882340oif.96.1579944199307; 
+ Sat, 25 Jan 2020 01:23:19 -0800 (PST)
+X-Google-Smtp-Source: APXvYqxTumxuKzcPf3emFgAVCSvOlleSNW9fhQqiZsMGdhwDCEafOP9Q8hdS3/wfN82EzKv+PkJ4/nLutpRIVLdlVaU=
+X-Received: by 2002:aca:bb41:: with SMTP id l62mr1882333oif.96.1579944199046; 
+ Sat, 25 Jan 2020 01:23:19 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <8dc3dff0390db58b2f472501c30595647a913e34.1579858930.git.viresh.kumar@linaro.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+References: <20191218090202.26932-1-liwang@redhat.com>
+ <20200122143133.GA29412@rei>
+In-Reply-To: <20200122143133.GA29412@rei>
+From: Li Wang <liwang@redhat.com>
+Date: Sat, 25 Jan 2020 17:23:07 +0800
+Message-ID: <CAEemH2dTvYLRO5hyy-T4G-qB7KikbN=Q7zcy+mMp6dYF=XcUCw@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-MC-Unique: jDytYp3bM46g_RHqEDR1lg-1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V3 2/2] syscalls/pidfd_open
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 1/2] lib: add .request_hugepages to reserve
+ hugepage
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,237 +79,237 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1093640870=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> --- /dev/null
-> +++ b/testcases/kernel/syscalls/pidfd_open/pidfd_open01.c
-> @@ -0,0 +1,34 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
-> + *
-> + * Description:
-> + * Basic pidfd_open() test, fetches the PID of the current process and tries to
-> + * get its file descriptor.
-> + */
-> +#include <sys/types.h>
-> +#include <sys/syscall.h>
-> +
-> +#include "tst_test.h"
-> +#include "lapi/pidfd_open.h"
-> +#include "lapi/syscalls.h"
+--===============1093640870==
+Content-Type: multipart/alternative; boundary="000000000000bfe6f3059cf36c7f"
 
-All the sys/ headers and the lapi/syscalls.h are included from the
-lapi/pidfd_open.h there is no need to include them again here.
+--000000000000bfe6f3059cf36c7f
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> +static void run(void)
-> +{
-> +	int fd;
-> +
-> +	TEST(pidfd_open(getpid(), 0));
-> +
-> +	fd = TST_RET;
-> +	if (fd == -1)
-> +		tst_brk(TFAIL | TTERRNO, "pidfd_open(getpid(), 0) failed");
-> +
-> +	SAFE_CLOSE(fd);
+On Wed, Jan 22, 2020 at 10:31 PM Cyril Hrubis <chrubis@suse.cz> wrote:
 
-Why can't we use the TST_RET directly here? I.e. if (TST_RET == -1) etc.
+> ...
+> > +static void run(void)
+> > +{
+> > +     ...
+> > +
+> > +     if (tst_hugepages =3D=3D test.request_hugepages)
+> > +             TEST(do_hpage_test);
+> > +     else
+> > +             ...
+> > +     ...
+> > +}
+>
+> I guess that it would be more instructive to check the value in the test
+> setup() here, because most of the test would just check if tst_hugepages
+> has been set to expected value.
+>
 
-> +	tst_res(TPASS, "pidfd_open(getpid(), 0) passed");
-> +}
-> +
-> +static struct tst_test test = {
-> +	.min_kver = "5.3",
-> +	.test_all = run,
-> +};
-> diff --git a/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c b/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c
-> new file mode 100644
-> index 000000000000..5e5431335731
-> --- /dev/null
-> +++ b/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c
-> @@ -0,0 +1,63 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
-> + *
-> + * Description:
-> + * Basic pidfd_open() test to test invalid arguments.
-> + */
-> +#include <sys/types.h>
-> +#include <sys/syscall.h>
-> +
-> +#include "tst_test.h"
-> +#include "lapi/pidfd_open.h"
-> +#include "lapi/syscalls.h"
+Yes, that will fit most situations.
 
-Here as well.
 
-> +#define INVALID_PID	-1
-> +#define MY_PID		0
-> +#define EXPIRED_PID	1
-> +
-> +static struct tcase {
-> +	char *name;
-> +	int pid;
+> ...
+> > +     if (access(PATH_HUGEPAGES, F_OK)) {
+> > +             tst_res(TCONF, "Huge page is not supported.");
+>
+> I guess that this is something the test has to decide, i.e. I wouldn't
+> print anything here.
+>
 
-This is usually handled by setting a pointer to global variable that is
-initialized in the test setup, e.g.:
+OK.
 
-static int expired_pid;
+>
+> > +             tst_hugepages =3D 0;
+> > +             goto out;
+> > +     }
+> > +
+> > +     tst_hugepages =3D hpages;
+> > +
+> > +     SAFE_FILE_PRINTF("/proc/sys/vm/drop_caches", "3");
+>
+> Shouldn't we drop the caches only if MemAvailable is not present in
+> /proc/meminfo?
+>
 
-...
-{"expired pid", &expired_pid, 0, ESRCH}
-...
+Yes, that's right theoretically. But the reason I moved it here is that the
+huge page reserving easily failed on a small RAM(1~2GB) system because of
+too much caches.
 
-static void run(void)
-{
-	...
-	TEST(pidfd_open(*tc->pid, tc->flags));
-	...
-}
 
-static void setup(void)
-{
-	expired_pid = tst_get_unused_pid();
-}
+>
+> > +     if (FILE_LINES_SCANF("/proc/meminfo",
+> > +                             "MemAvailable: %ld", &mem_avail)) {
+> > +             /*
+> > +              * Using "MemFree:" on kernel that doesn't have
+> > +              * "MemAvailable:" in Meminfo
+> > +              */
+> > +             tst_res(TINFO, "MemAvailable: not found in /proc/meminfo"=
+);
+> > +
+> > +             mem_avail =3D SAFE_READ_MEMINFO("MemFree:");
+> > +     }
+> > +
+> > +     max_hpages =3D mem_avail / SAFE_READ_MEMINFO("Hugepagesize:");
+> > +
+> > +     if (hpages > max_hpages) {
+> > +             tst_res(TINFO, "Requested number(%d) of hugepages is too
+> large, "
+> > +                             "limiting to 80%% of the max hugepage
+> count %ld",
+> > +                             hpages, max_hpages);
+> > +             tst_hugepages =3D max_hpages * 0.8;
+>
+> Why 80%?
+>
 
-> +	int flags;
-> +	int exp_errno;
-> +} tcases[] = {
-> +	{"test-expired-pid", EXPIRED_PID, 0, ESRCH},
-> +	{"test-invalid-pid", INVALID_PID, 0, EINVAL},
-> +	{"test-invalid-flags", MY_PID, 1, EINVAL},
-> +};
-> +
-> +static void run(unsigned int n)
-> +{
-> +	struct tcase *tc = &tcases[n];
-> +	pid_t pid;
-> +
-> +	if (tc->pid == EXPIRED_PID)
-> +		pid = tst_get_unused_pid();
-> +	else if (tc->pid == MY_PID)
-> +		pid = getpid();
-> +	else
-> +		pid = tc->pid;
-> +
-> +	TEST(pidfd_open(pid, tc->flags));
-> +
-> +	if (TST_RET != -1) {
-> +		SAFE_CLOSE(TST_RET);
-> +		tst_brk(TFAIL, "%s: pidfd_open succeeded unexpectedly (index: %d)",
-> +			tc->name, n);
-> +	}
-> +
-> +	if (tc->exp_errno != TST_ERR) {
-> +		tst_brk(TFAIL | TTERRNO, "%s: pidfd_open() should fail with %s",
-> +			tc->name, tst_strerrno(tc->exp_errno));
-> +	}
-> +
-> +	tst_res(TPASS | TTERRNO, "%s: pidfd_open() failed as expected",
-> +		tc->name);
-> +}
-> +
-> +static struct tst_test test = {
-> +	.min_kver = "5.3",
-> +	.tcnt = ARRAY_SIZE(tcases),
-> +	.test = run,
-> +};
-> diff --git a/testcases/kernel/syscalls/pidfd_open/pidfd_open03.c b/testcases/kernel/syscalls/pidfd_open/pidfd_open03.c
-> new file mode 100644
-> index 000000000000..efa14dc52d7a
-> --- /dev/null
-> +++ b/testcases/kernel/syscalls/pidfd_open/pidfd_open03.c
-> @@ -0,0 +1,63 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
-> + *
-> + * Description:
-> + * This program opens the PID file descriptor of the child process created with
-> + * fork(). It then uses poll to monitor the file descriptor for process exit, as
-> + * indicated by an EPOLLIN event.
-> + */
-> +#include <poll.h>
-> +#include <sys/types.h>
-> +#include <sys/syscall.h>
-> +#include <stdio.h>
-> +#include <stdlib.h>
-> +
-> +#include "tst_test.h"
-> +#include "lapi/pidfd_open.h"
-> +#include "lapi/syscalls.h"
-> +
-> +static void run(void)
-> +{
-> +	struct pollfd pollfd;
-> +	int fd, ready;
-> +	pid_t pid;
-> +
-> +	pid = SAFE_FORK();
-> +
-> +	if (!pid) {
-> +		TST_CHECKPOINT_WAIT(0);
-> +		exit(EXIT_SUCCESS);
-> +	} else {
-> +		TEST(pidfd_open(pid, 0));
-> +
-> +		fd = TST_RET;
-> +		if (fd == -1)
-> +			tst_brk(TFAIL | TTERRNO, "pidfd_open() failed");
-> +
-> +		TST_CHECKPOINT_WAKE(0);
-> +
-> +		pollfd.fd = fd;
-> +		pollfd.events = POLLIN;
-> +
-> +		ready = poll(&pollfd, 1, -1);
-> +
-> +		SAFE_CLOSE(fd);
-> +		SAFE_WAITPID(pid, NULL, 0);
-> +
-> +		if (ready == -1)
-> +			tst_brk(TBROK | TERRNO, "poll() failed");
-> +
-> +		if (ready != 1)
-> +			tst_brk(TBROK, "poll() should return 1");
+I choose(base on personal experience) this number to try again, to satisfy
+some test which does not need precise hpages can still run.
 
-Shouldn't this rather be TFAIL?
+Or, maybe let's remove this part, and limit LTP to make use of a precise
+number(the at least) of hpage in each test?
 
-Something like:
+>
+> Also I guess that we should check here that max_hpages * 0.8 > 1,
+> otherwise there is no reason to continue.
+>
 
-	if (ready != 1)
-		tst_res(TFAIL, "poll() returned %i", ready);
-	else
-		tst_res(TPASS, ...);
+Agreed.
+--=20
+Regards,
+Li Wang
 
-> +		tst_res(TPASS, "pidfd_open() passed");
+--000000000000bfe6f3059cf36c7f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Just a minor thing, there is no need for the else branch since the child
-calls exit().
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Wed, Jan 22, 2020 at 10:31 PM Cyril Hrubis &lt;<=
+a href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a>&gt;=
+ wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
+0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><span cl=
+ass=3D"gmail_default" style=3D"font-size:small">...</span><br>
+&gt; +static void run(void)<br>
+&gt; +{<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0...<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (tst_hugepages =3D=3D test.request_hugepages)<=
+br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0TEST(do_hpage_test);<=
+br>
+&gt; +=C2=A0 =C2=A0 =C2=A0else<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0...<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0...<br>
+&gt; +}<br>
+<br>
+I guess that it would be more instructive to check the value in the test<br=
+>
+setup() here, because most of the test would just check if tst_hugepages<br=
+>
+has been set to expected value.<br></blockquote><div><br></div><div><div cl=
+ass=3D"gmail_default" style=3D"font-size:small">Yes, that will fit most sit=
+uations.</div></div><div class=3D"gmail_default"><br></div><div class=3D"gm=
+ail_default" style=3D"font-size:small"></div><blockquote class=3D"gmail_quo=
+te" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204=
+);padding-left:1ex">
+<br>
+<span class=3D"gmail_default" style=3D"font-size:small">...</span><br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (access(PATH_HUGEPAGES, F_OK)) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TCONF, &quot;=
+Huge page is not supported.&quot;);<br>
+<br>
+I guess that this is something the test has to decide, i.e. I wouldn&#39;t<=
+br>
+print anything here.<br></blockquote><div><br></div><div class=3D"gmail_def=
+ault" style=3D"font-size:small">OK.</div><div class=3D"gmail_default" style=
+=3D"font-size:small"></div><blockquote class=3D"gmail_quote" style=3D"margi=
+n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
+">
+<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_hugepages =3D 0;<=
+br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto out;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0tst_hugepages =3D hpages;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0SAFE_FILE_PRINTF(&quot;/proc/sys/vm/drop_caches&q=
+uot;, &quot;3&quot;);<br>
+<br>
+Shouldn&#39;t we drop the caches only if MemAvailable is not present in<br>
+/proc/meminfo?<br></blockquote><div><br></div><div><div class=3D"gmail_defa=
+ult" style=3D"font-size:small">Yes, that&#39;s right theoretically. But the=
+ reason I moved it here is that the huge page reserving easily failed on a =
+small RAM(1~2GB) system because of too much caches.=C2=A0</div></div><div>=
+=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
+.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (FILE_LINES_SCANF(&quot;/proc/meminfo&quot;,<b=
+r>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;MemAvailable: %ld&quot;, &amp;mem_=
+avail)) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * Using &quot;MemFre=
+e:&quot; on kernel that doesn&#39;t have<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * &quot;MemAvailable=
+:&quot; in Meminfo<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TINFO, &quot;=
+MemAvailable: not found in /proc/meminfo&quot;);<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mem_avail =3D SAFE_RE=
+AD_MEMINFO(&quot;MemFree:&quot;);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0max_hpages =3D mem_avail / SAFE_READ_MEMINFO(&quo=
+t;Hugepagesize:&quot;);<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (hpages &gt; max_hpages) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TINFO, &quot;=
+Requested number(%d) of hugepages is too large, &quot;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;limiting to 80%% of the max hugepa=
+ge count %ld&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0hpages, max_hpages);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_hugepages =3D max=
+_hpages * 0.8;<br>
+<br>
+Why 80%?<br></blockquote><div><br></div><div class=3D"gmail_default" style=
+=3D"font-size:small">I choose(base on personal experience) this number to t=
+ry again, to satisfy some test which does not need precise hpages can still=
+ run.=C2=A0</div><div class=3D"gmail_default" style=3D"font-size:small"><br=
+></div><div class=3D"gmail_default" style=3D"font-size:small">Or, maybe let=
+&#39;s remove this part, and limit LTP to make use of a precise number(the =
+at least) of hpage in each test?</div><div class=3D"gmail_default" style=3D=
+"font-size:small"></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+Also I guess that we should check here that max_hpages * 0.8 &gt; 1,<br>
+otherwise there is no reason to continue.<br></blockquote><div><br></div><d=
+iv class=3D"gmail_default" style=3D"font-size:small">Agreed.</div><div clas=
+s=3D"gmail_default" style=3D"font-size:small"></div></div>-- <br><div dir=
+=3D"ltr"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></di=
+v></div></div>
 
-> +	}
-> +}
-> +
-> +static struct tst_test test = {
-> +	.min_kver = "5.3",
-> +	.test_all = run,
-> +	.forks_child = 1,
-> +	.needs_checkpoints = 1,
-> +};
-> -- 
-> 2.21.0.rc0.269.g1a574e7a288b
-> 
+--000000000000bfe6f3059cf36c7f--
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+
+--===============1093640870==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1093640870==--
+
