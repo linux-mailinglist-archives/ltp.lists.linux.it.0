@@ -1,73 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B9C6149419
-	for <lists+linux-ltp@lfdr.de>; Sat, 25 Jan 2020 10:23:27 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id DDD90149FF2
+	for <lists+linux-ltp@lfdr.de>; Mon, 27 Jan 2020 09:38:04 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0B4523C2026
-	for <lists+linux-ltp@lfdr.de>; Sat, 25 Jan 2020 10:23:27 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3E6273C2381
+	for <lists+linux-ltp@lfdr.de>; Mon, 27 Jan 2020 09:38:04 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id AFF2D3C1824
- for <ltp@lists.linux.it>; Sat, 25 Jan 2020 10:23:25 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
- [207.211.31.81])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 76C6E616629
- for <ltp@lists.linux.it>; Sat, 25 Jan 2020 10:23:23 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1579944203;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=c26SoD2N8KI8nhU3iPIx/0cYbrGt58+39WpHGtg6N/A=;
- b=G/OulFfFjif7fkHZf79vtpjiQeaKUvLIM5+KJLQH8WGVbuZt4lLnrObI5ugRH/l126Frzp
- HjlDG43epzatKb9C+5Rdby2PI58vlu0yDvS7oLSJABOFRR3UBBWTg490sNY5ZciLb0myMc
- WLt5KY2UGTP5UkHFIZQdum99zwmH6dM=
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
- [209.85.210.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-417-jDytYp3bM46g_RHqEDR1lg-1; Sat, 25 Jan 2020 04:23:19 -0500
-Received: by mail-ot1-f70.google.com with SMTP id v2so2347826otq.2
- for <ltp@lists.linux.it>; Sat, 25 Jan 2020 01:23:19 -0800 (PST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 54A703C003A
+ for <ltp@lists.linux.it>; Mon, 27 Jan 2020 09:38:02 +0100 (CET)
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DF69B201125
+ for <ltp@lists.linux.it>; Mon, 27 Jan 2020 09:37:57 +0100 (CET)
+Received: by mail-pl1-x644.google.com with SMTP id ay11so3501637plb.0
+ for <ltp@lists.linux.it>; Mon, 27 Jan 2020 00:37:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=uaXiOIvjLcLcsrZXmm+cPT732jzSBBCldWoclENU6+w=;
+ b=fonjfdU2B8/XbSk/DSOPnbX//Of9DvZigijBKd2eZ+O7wvSr7NPosGBUVsQaTwvI6d
+ ++2pCBAeTKulr1soFeaycAOY3f27eIq6HXhDmqlPPt1KX5sq8LTv7oVoetaE6TlIQ3Rn
+ 52NHoInLRsQPrZvBpsD0/43A3XaY7VjF/gv/+iDrHxNyKS4hZ9o7uhQ9J45KNiWBSNp9
+ YsOLGSr8dBWnQf/7FCbAQfRCpg3RfHviANIY+72U00NNSwxsap2RNtx5u6fYCqnboRht
+ VEEM6aF/b92dvFiZGyR8XTPgkAWx0NSJv4dIoAPk2GzIzCR0V1F6kyPCg8HZp5iObQbi
+ OQ5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=BpgFYOX6ajvO4TIq2Z5BDYlS0CPPwHmHgpyTtbyfX+I=;
- b=DyX/M227uMMwJEV7Z5H9qY5OG2+JV83KwojAmJsC5vEXqxnbaBcunEzK1uIhNAsl0e
- i/N3sL+FwJZNyCd7feR1zoQPk9nPHywbUpXX8acTKeC23aZE5n3x+90TYMi06KCdntK3
- lDolg78KTrmH+qNYH/BlnV0zy+fXnLtIsIsLCXOCGTDNVRevOS5/7IYwWwGkAg+Q+QVf
- Jjy+/DuXGzhWjpYLUzKvriiuDFgjfJ/95qXX7r0o+LMiSSxRnE72Vt6WQ2WSXsL4dmf1
- 2ui2SiTarK4SUAZ9pf6qoIYtjwghGfFeYvHBl5xlMmQcH7KJNH0rBNjeyrWCYIXAK1/v
- ou0g==
-X-Gm-Message-State: APjAAAXPJD89l+YOS4auyBVLvlmp/sqmd3XP46fep/430zQkf84VtTPQ
- 2TibQmqmnhPD8ASxKFS1xYkR4lO6bUxFiBHUP/3p91PJx+Kq9Cv7jIJ6+9p0XrXNfZKUAZEhPXa
- SnUlf+o9sfdwqm+0iR898gDtMd2I=
-X-Received: by 2002:aca:bb41:: with SMTP id l62mr1882340oif.96.1579944199307; 
- Sat, 25 Jan 2020 01:23:19 -0800 (PST)
-X-Google-Smtp-Source: APXvYqxTumxuKzcPf3emFgAVCSvOlleSNW9fhQqiZsMGdhwDCEafOP9Q8hdS3/wfN82EzKv+PkJ4/nLutpRIVLdlVaU=
-X-Received: by 2002:aca:bb41:: with SMTP id l62mr1882333oif.96.1579944199046; 
- Sat, 25 Jan 2020 01:23:19 -0800 (PST)
-MIME-Version: 1.0
-References: <20191218090202.26932-1-liwang@redhat.com>
- <20200122143133.GA29412@rei>
-In-Reply-To: <20200122143133.GA29412@rei>
-From: Li Wang <liwang@redhat.com>
-Date: Sat, 25 Jan 2020 17:23:07 +0800
-Message-ID: <CAEemH2dTvYLRO5hyy-T4G-qB7KikbN=Q7zcy+mMp6dYF=XcUCw@mail.gmail.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=uaXiOIvjLcLcsrZXmm+cPT732jzSBBCldWoclENU6+w=;
+ b=H06TWBiKkmdibZ9yj7Oypdsz+tILeAkzD1mD46sQ8CgNWxRVeQ+wELc4hytFH2+eFJ
+ GRkDNkomiV47pZWoN3z9Jx5jPXbq/TdliGQPHRw6MJjiiyUX8jAfXHdne+j8grgr74W/
+ ZSJm+dquENruonyZYFjYkOux1xAGKG0zh9Fj+uRECSoDPBOsW2Q65IYrTbRnEO4s0Uqd
+ 60Zelzow/2vOf2Ot3EBaVyt03LlLduf1ZbTCYfY5vAtVHJiRVB14Y/0g96oy+k2pirPc
+ K6y5V+v+156c8iNbhLGhEbdCtQPako2hbSJFGGqnc90+E/vDxeqmMV4G+oRkPUDdOAmk
+ tJLg==
+X-Gm-Message-State: APjAAAVMfKZ4jCb5S9oepYUY4Ljr7WcwDajT6hPLFQPaii3xidApo3yX
+ 243wdID7WPMCEydCDc5XGwF+mg==
+X-Google-Smtp-Source: APXvYqyr8si901uRu7C3LfjO43seU5nxWEnhSWUwgvX/RyIBabV7gquxyKzXsKGQbyiIC4NHjgTUWw==
+X-Received: by 2002:a17:90b:14a:: with SMTP id
+ em10mr8919453pjb.4.1580114275967; 
+ Mon, 27 Jan 2020 00:37:55 -0800 (PST)
+Received: from localhost ([122.172.51.87])
+ by smtp.gmail.com with ESMTPSA id d189sm14930169pga.70.2020.01.27.00.37.54
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 27 Jan 2020 00:37:55 -0800 (PST)
+From: Viresh Kumar <viresh.kumar@linaro.org>
 To: Cyril Hrubis <chrubis@suse.cz>
-X-MC-Unique: jDytYp3bM46g_RHqEDR1lg-1
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+Date: Mon, 27 Jan 2020 14:07:48 +0530
+Message-Id: <169e5dfcac201330511347e38a25f373fc698c92.1580114160.git.viresh.kumar@linaro.org>
+X-Mailer: git-send-email 2.21.0.rc0.269.g1a574e7a288b
+In-Reply-To: <007f89609cfe05cc4f7f0f310f05fc4bb0be829d.1580114160.git.viresh.kumar@linaro.org>
+References: <007f89609cfe05cc4f7f0f310f05fc4bb0be829d.1580114160.git.viresh.kumar@linaro.org>
+MIME-Version: 1.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 1/2] lib: add .request_hugepages to reserve
- hugepage
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH V4 2/2] syscalls/pidfd_open
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,237 +76,295 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1093640870=="
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+ Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1093640870==
-Content-Type: multipart/alternative; boundary="000000000000bfe6f3059cf36c7f"
+Add tests to check working of pidfd_open() syscall.
 
---000000000000bfe6f3059cf36c7f
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+---
+V3->V4:
+- Dropped duplicate headers
+- Dropped local variable "fd" and used TST_RET directly.
+- Handle failure tests with global variable
+- Remove else part after creating child process
+- Improved print messages
 
-On Wed, Jan 22, 2020 at 10:31 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+V2->V3:
+- Add pidfd_open03 to syscalls and .gitignore files.
+- Use TEST, tst_get_unused_pid, etc.
+- Do the failure testing with help of array and .tcnt.
+- Improved print messages.
+- Removed useless comments.
+- Few more minor changes.
 
-> ...
-> > +static void run(void)
-> > +{
-> > +     ...
-> > +
-> > +     if (tst_hugepages =3D=3D test.request_hugepages)
-> > +             TEST(do_hpage_test);
-> > +     else
-> > +             ...
-> > +     ...
-> > +}
->
-> I guess that it would be more instructive to check the value in the test
-> setup() here, because most of the test would just check if tst_hugepages
-> has been set to expected value.
->
+V1->V2:
+- New test to test failures
+- Use SAFE_FORK, checkpoints, etc
+- Print error numbers as well.
+- Improved print messages.
 
-Yes, that will fit most situations.
+ configure.ac                                  |  1 +
+ include/lapi/pidfd_open.h                     | 24 ++++++++
+ runtest/syscalls                              |  4 ++
+ .../kernel/syscalls/pidfd_open/.gitignore     |  3 +
+ testcases/kernel/syscalls/pidfd_open/Makefile |  6 ++
+ .../kernel/syscalls/pidfd_open/pidfd_open01.c | 27 +++++++++
+ .../kernel/syscalls/pidfd_open/pidfd_open02.c | 58 +++++++++++++++++++
+ .../kernel/syscalls/pidfd_open/pidfd_open03.c | 57 ++++++++++++++++++
+ 8 files changed, 180 insertions(+)
+ create mode 100644 include/lapi/pidfd_open.h
+ create mode 100644 testcases/kernel/syscalls/pidfd_open/.gitignore
+ create mode 100644 testcases/kernel/syscalls/pidfd_open/Makefile
+ create mode 100644 testcases/kernel/syscalls/pidfd_open/pidfd_open01.c
+ create mode 100644 testcases/kernel/syscalls/pidfd_open/pidfd_open02.c
+ create mode 100644 testcases/kernel/syscalls/pidfd_open/pidfd_open03.c
 
-
-> ...
-> > +     if (access(PATH_HUGEPAGES, F_OK)) {
-> > +             tst_res(TCONF, "Huge page is not supported.");
->
-> I guess that this is something the test has to decide, i.e. I wouldn't
-> print anything here.
->
-
-OK.
-
->
-> > +             tst_hugepages =3D 0;
-> > +             goto out;
-> > +     }
-> > +
-> > +     tst_hugepages =3D hpages;
-> > +
-> > +     SAFE_FILE_PRINTF("/proc/sys/vm/drop_caches", "3");
->
-> Shouldn't we drop the caches only if MemAvailable is not present in
-> /proc/meminfo?
->
-
-Yes, that's right theoretically. But the reason I moved it here is that the
-huge page reserving easily failed on a small RAM(1~2GB) system because of
-too much caches.
-
-
->
-> > +     if (FILE_LINES_SCANF("/proc/meminfo",
-> > +                             "MemAvailable: %ld", &mem_avail)) {
-> > +             /*
-> > +              * Using "MemFree:" on kernel that doesn't have
-> > +              * "MemAvailable:" in Meminfo
-> > +              */
-> > +             tst_res(TINFO, "MemAvailable: not found in /proc/meminfo"=
-);
-> > +
-> > +             mem_avail =3D SAFE_READ_MEMINFO("MemFree:");
-> > +     }
-> > +
-> > +     max_hpages =3D mem_avail / SAFE_READ_MEMINFO("Hugepagesize:");
-> > +
-> > +     if (hpages > max_hpages) {
-> > +             tst_res(TINFO, "Requested number(%d) of hugepages is too
-> large, "
-> > +                             "limiting to 80%% of the max hugepage
-> count %ld",
-> > +                             hpages, max_hpages);
-> > +             tst_hugepages =3D max_hpages * 0.8;
->
-> Why 80%?
->
-
-I choose(base on personal experience) this number to try again, to satisfy
-some test which does not need precise hpages can still run.
-
-Or, maybe let's remove this part, and limit LTP to make use of a precise
-number(the at least) of hpage in each test?
-
->
-> Also I guess that we should check here that max_hpages * 0.8 > 1,
-> otherwise there is no reason to continue.
->
-
-Agreed.
---=20
-Regards,
-Li Wang
-
---000000000000bfe6f3059cf36c7f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Wed, Jan 22, 2020 at 10:31 PM Cyril Hrubis &lt;<=
-a href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a>&gt;=
- wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
-0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><span cl=
-ass=3D"gmail_default" style=3D"font-size:small">...</span><br>
-&gt; +static void run(void)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0...<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (tst_hugepages =3D=3D test.request_hugepages)<=
-br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0TEST(do_hpage_test);<=
-br>
-&gt; +=C2=A0 =C2=A0 =C2=A0else<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0...<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0...<br>
-&gt; +}<br>
-<br>
-I guess that it would be more instructive to check the value in the test<br=
->
-setup() here, because most of the test would just check if tst_hugepages<br=
->
-has been set to expected value.<br></blockquote><div><br></div><div><div cl=
-ass=3D"gmail_default" style=3D"font-size:small">Yes, that will fit most sit=
-uations.</div></div><div class=3D"gmail_default"><br></div><div class=3D"gm=
-ail_default" style=3D"font-size:small"></div><blockquote class=3D"gmail_quo=
-te" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204=
-);padding-left:1ex">
-<br>
-<span class=3D"gmail_default" style=3D"font-size:small">...</span><br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (access(PATH_HUGEPAGES, F_OK)) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TCONF, &quot;=
-Huge page is not supported.&quot;);<br>
-<br>
-I guess that this is something the test has to decide, i.e. I wouldn&#39;t<=
-br>
-print anything here.<br></blockquote><div><br></div><div class=3D"gmail_def=
-ault" style=3D"font-size:small">OK.</div><div class=3D"gmail_default" style=
-=3D"font-size:small"></div><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
-">
-<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_hugepages =3D 0;<=
-br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto out;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0tst_hugepages =3D hpages;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0SAFE_FILE_PRINTF(&quot;/proc/sys/vm/drop_caches&q=
-uot;, &quot;3&quot;);<br>
-<br>
-Shouldn&#39;t we drop the caches only if MemAvailable is not present in<br>
-/proc/meminfo?<br></blockquote><div><br></div><div><div class=3D"gmail_defa=
-ult" style=3D"font-size:small">Yes, that&#39;s right theoretically. But the=
- reason I moved it here is that the huge page reserving easily failed on a =
-small RAM(1~2GB) system because of too much caches.=C2=A0</div></div><div>=
-=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
-.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (FILE_LINES_SCANF(&quot;/proc/meminfo&quot;,<b=
-r>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;MemAvailable: %ld&quot;, &amp;mem_=
-avail)) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * Using &quot;MemFre=
-e:&quot; on kernel that doesn&#39;t have<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * &quot;MemAvailable=
-:&quot; in Meminfo<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TINFO, &quot;=
-MemAvailable: not found in /proc/meminfo&quot;);<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mem_avail =3D SAFE_RE=
-AD_MEMINFO(&quot;MemFree:&quot;);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0max_hpages =3D mem_avail / SAFE_READ_MEMINFO(&quo=
-t;Hugepagesize:&quot;);<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (hpages &gt; max_hpages) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TINFO, &quot;=
-Requested number(%d) of hugepages is too large, &quot;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;limiting to 80%% of the max hugepa=
-ge count %ld&quot;,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0hpages, max_hpages);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_hugepages =3D max=
-_hpages * 0.8;<br>
-<br>
-Why 80%?<br></blockquote><div><br></div><div class=3D"gmail_default" style=
-=3D"font-size:small">I choose(base on personal experience) this number to t=
-ry again, to satisfy some test which does not need precise hpages can still=
- run.=C2=A0</div><div class=3D"gmail_default" style=3D"font-size:small"><br=
-></div><div class=3D"gmail_default" style=3D"font-size:small">Or, maybe let=
-&#39;s remove this part, and limit LTP to make use of a precise number(the =
-at least) of hpage in each test?</div><div class=3D"gmail_default" style=3D=
-"font-size:small"></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
-px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-Also I guess that we should check here that max_hpages * 0.8 &gt; 1,<br>
-otherwise there is no reason to continue.<br></blockquote><div><br></div><d=
-iv class=3D"gmail_default" style=3D"font-size:small">Agreed.</div><div clas=
-s=3D"gmail_default" style=3D"font-size:small"></div></div>-- <br><div dir=
-=3D"ltr"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></di=
-v></div></div>
-
---000000000000bfe6f3059cf36c7f--
-
-
---===============1093640870==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/configure.ac b/configure.ac
+index 50d14967d3c6..1bf0911d88ad 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -79,6 +79,7 @@ AC_CHECK_FUNCS([ \
+     mknodat \
+     name_to_handle_at \
+     openat \
++    pidfd_open \
+     pidfd_send_signal \
+     pkey_mprotect \
+     preadv \
+diff --git a/include/lapi/pidfd_open.h b/include/lapi/pidfd_open.h
+new file mode 100644
+index 000000000000..9f532f86e18e
+--- /dev/null
++++ b/include/lapi/pidfd_open.h
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020 Linaro Limited. All rights reserved.
++ * Author: Viresh Kumar <viresh.kumar@linaro.org>
++ */
++
++#ifndef PIDFD_OPEN_H
++#define PIDFD_OPEN_H
++
++#include <sys/syscall.h>
++#include <sys/types.h>
++
++#include "lapi/syscalls.h"
++
++#include "config.h"
++
++#ifndef HAVE_PIDFD_OPEN
++int pidfd_open(pid_t pid, unsigned int flags)
++{
++	return tst_syscall(__NR_pidfd_open, pid, flags);
++}
++#endif
++
++#endif /* PIDFD_OPEN_H */
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 1f7598b2fe25..a28a1f2ecd45 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -848,6 +848,10 @@ pause03 pause03
+ personality01 personality01
+ personality02 personality02
+ 
++pidfd_open01 pidfd_open01
++pidfd_open02 pidfd_open02
++pidfd_open03 pidfd_open03
++
+ pidfd_send_signal01 pidfd_send_signal01
+ pidfd_send_signal02 pidfd_send_signal02
+ pidfd_send_signal03 pidfd_send_signal03
+diff --git a/testcases/kernel/syscalls/pidfd_open/.gitignore b/testcases/kernel/syscalls/pidfd_open/.gitignore
+new file mode 100644
+index 000000000000..e0b8900c1c33
+--- /dev/null
++++ b/testcases/kernel/syscalls/pidfd_open/.gitignore
+@@ -0,0 +1,3 @@
++pidfd_open01
++pidfd_open02
++pidfd_open03
+diff --git a/testcases/kernel/syscalls/pidfd_open/Makefile b/testcases/kernel/syscalls/pidfd_open/Makefile
+new file mode 100644
+index 000000000000..5ea7d67db123
+--- /dev/null
++++ b/testcases/kernel/syscalls/pidfd_open/Makefile
+@@ -0,0 +1,6 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++
++top_srcdir		?= ../../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/pidfd_open/pidfd_open01.c b/testcases/kernel/syscalls/pidfd_open/pidfd_open01.c
+new file mode 100644
+index 000000000000..93bb86687a78
+--- /dev/null
++++ b/testcases/kernel/syscalls/pidfd_open/pidfd_open01.c
+@@ -0,0 +1,27 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
++ *
++ * Description:
++ * Basic pidfd_open() test, fetches the PID of the current process and tries to
++ * get its file descriptor.
++ */
++#include "tst_test.h"
++#include "lapi/pidfd_open.h"
++
++static void run(void)
++{
++	TEST(pidfd_open(getpid(), 0));
++
++	if (TST_RET == -1)
++		tst_brk(TFAIL | TTERRNO, "pidfd_open(getpid(), 0) failed");
++
++	SAFE_CLOSE(TST_RET);
++
++	tst_res(TPASS, "pidfd_open(getpid(), 0) passed");
++}
++
++static struct tst_test test = {
++	.min_kver = "5.3",
++	.test_all = run,
++};
+diff --git a/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c b/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c
+new file mode 100644
+index 000000000000..8a549963e34f
+--- /dev/null
++++ b/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c
+@@ -0,0 +1,58 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
++ *
++ * Description:
++ * Basic pidfd_open() test to test invalid arguments.
++ */
++#include "tst_test.h"
++#include "lapi/pidfd_open.h"
++
++#define INVALID_PID	-1
++
++pid_t expired_pid, my_pid, invalid_pid = -1;
++
++static struct tcase {
++	char *name;
++	pid_t *pid;
++	int flags;
++	int exp_errno;
++} tcases[] = {
++	{"expired pid", &expired_pid, 0, ESRCH},
++	{"invalid pid", &invalid_pid, 0, EINVAL},
++	{"invalid flags", &my_pid, 1, EINVAL},
++};
++
++static void setup(void)
++{
++	expired_pid = tst_get_unused_pid();
++	my_pid = getpid();
++}
++
++static void run(unsigned int n)
++{
++	struct tcase *tc = &tcases[n];
++
++	TEST(pidfd_open(*tc->pid, tc->flags));
++
++	if (TST_RET != -1) {
++		SAFE_CLOSE(TST_RET);
++		tst_brk(TFAIL, "%s: pidfd_open succeeded unexpectedly (index: %d)",
++			tc->name, n);
++	}
++
++	if (tc->exp_errno != TST_ERR) {
++		tst_brk(TFAIL | TTERRNO, "%s: pidfd_open() should fail with %s",
++			tc->name, tst_strerrno(tc->exp_errno));
++	}
++
++	tst_res(TPASS | TTERRNO, "%s: pidfd_open() failed as expected",
++		tc->name);
++}
++
++static struct tst_test test = {
++	.min_kver = "5.3",
++	.tcnt = ARRAY_SIZE(tcases),
++	.test = run,
++	.setup = setup,
++};
+diff --git a/testcases/kernel/syscalls/pidfd_open/pidfd_open03.c b/testcases/kernel/syscalls/pidfd_open/pidfd_open03.c
+new file mode 100644
+index 000000000000..48470e5e1d43
+--- /dev/null
++++ b/testcases/kernel/syscalls/pidfd_open/pidfd_open03.c
+@@ -0,0 +1,57 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
++ *
++ * Description:
++ * This program opens the PID file descriptor of the child process created with
++ * fork(). It then uses poll to monitor the file descriptor for process exit, as
++ * indicated by an EPOLLIN event.
++ */
++#include <poll.h>
++#include <stdio.h>
++#include <stdlib.h>
++
++#include "tst_test.h"
++#include "lapi/pidfd_open.h"
++
++static void run(void)
++{
++	struct pollfd pollfd;
++	int fd, ready;
++	pid_t pid;
++
++	pid = SAFE_FORK();
++
++	if (!pid) {
++		TST_CHECKPOINT_WAIT(0);
++		exit(EXIT_SUCCESS);
++	}
++
++	TEST(pidfd_open(pid, 0));
++
++	fd = TST_RET;
++	if (fd == -1)
++		tst_brk(TFAIL | TTERRNO, "pidfd_open() failed");
++
++	TST_CHECKPOINT_WAKE(0);
++
++	pollfd.fd = fd;
++	pollfd.events = POLLIN;
++
++	ready = poll(&pollfd, 1, -1);
++
++	SAFE_CLOSE(fd);
++	SAFE_WAITPID(pid, NULL, 0);
++
++	if (ready != 1)
++		tst_res(TFAIL, "poll() returned %d", ready);
++	else
++		tst_res(TPASS, "pidfd_open() passed");
++}
++
++static struct tst_test test = {
++	.min_kver = "5.3",
++	.test_all = run,
++	.forks_child = 1,
++	.needs_checkpoints = 1,
++};
+-- 
+2.21.0.rc0.269.g1a574e7a288b
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1093640870==--
-
