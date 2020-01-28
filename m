@@ -1,59 +1,58 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4364014AE42
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Jan 2020 04:03:01 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A049C14AE43
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Jan 2020 04:03:11 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D14903C2563
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Jan 2020 04:03:00 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 257023C23A7
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Jan 2020 04:03:11 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id CDDC63C02A0
- for <ltp@lists.linux.it>; Tue, 28 Jan 2020 04:02:56 +0100 (CET)
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 5977F3C257C
+ for <ltp@lists.linux.it>; Tue, 28 Jan 2020 04:03:00 +0100 (CET)
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 16369600BF2
- for <ltp@lists.linux.it>; Tue, 28 Jan 2020 04:02:52 +0100 (CET)
-Received: by mail-pf1-x442.google.com with SMTP id 2so5860117pfg.12
- for <ltp@lists.linux.it>; Mon, 27 Jan 2020 19:02:51 -0800 (PST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7D0D3600C47
+ for <ltp@lists.linux.it>; Tue, 28 Jan 2020 04:02:59 +0100 (CET)
+Received: by mail-pf1-x443.google.com with SMTP id n7so5857204pfn.0
+ for <ltp@lists.linux.it>; Mon, 27 Jan 2020 19:02:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
  bh=PDOXyKf7IEgBeMqxHy9nMGHDOZ+teeloGq0T1cUZ1a8=;
- b=Vqx1+/wh2Kwc+9vUbTBXBYqLTKU2rSYM0WcWKzFIs3+YnP+PRU1hkEWckymaQUifpv
- CZSjKuc2Hn4QkSzlNYlnNyqbSecyKT1dk/hOHRogjGQSph945b1odVzJdobmi36kN7X4
- VDCxlJsQ70N4zUeJP1twdClzLSPir71yu1xhlRnWMIwbFybJbcbMBxTOB87A667VsB8D
- aGuJ8RMKaBLOFSUIM6aEsKPlAMG063MekdLr11gnLMERwPhskm1jEdpSwxytNQGRJXjI
- TIdnIkS++WM+ipBbkhGRCtztwqwJslVcTIUAqvgk9gvKnacsiZj0RLAN/fKJ0l+u6owC
- AKmw==
+ b=E468Y6G6F32yKMe+Jh6bXF0szgj3Pyu8S4XLRyZx87ecMcJulQYoeqGkGVYaeEbQMc
+ ZkBrkzfHEaFwTlBGCcyOgwl/zBcGrx/chQsqFhzEUSlYr1vcxC2W6UcIlZDvob3rc8yq
+ cYhItaoXhp4TVUCIL1tEaBwCatV50IcnHj7cs/AFfFXZZbKHFCloUzD80Geioqe+CXXP
+ 9MmkctZ/0/EpVEo/MKMOSd59ukx3p0ACF0zRSwKghVb67IuuHAqTVwDTHw3WhAosFi4n
+ ppAYvARzeVzqMPAFF+i68uQhwQ7hri19FejkXmh4bCxhpghmPUzfsRk7L4BEXFvRCCqu
+ sHDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
  bh=PDOXyKf7IEgBeMqxHy9nMGHDOZ+teeloGq0T1cUZ1a8=;
- b=NVAW6qd3OKyQxVKW8CzgGlxlW6XMOyEbuPFxmNT63D+hWQ3L/VL8GQ4DM0ueryjSpY
- u4BxqNk0F+AMd5BQbX0JTjEIoiAmFVhpNTgCp/8OE6l/FKIVaaw3FxrF76gulaCUae1W
- gMzNKYQbCnz62V2mTaahZ1rrCq3i+G8c3Iz6K0toyuiY4JTQa4aN1m1flyPULQRSYDLn
- tPV54en4Jl8YLh98PsvjK6oeGUm1/fKZqrb4nh2PngSCHTW6Env4ISsi5+sNUkD53cHe
- 6UMInDRm/LfnN1cAofNLy/PHsmCPMNDPMl5e3bPsPcP9qzdd9Za3UtvxskspnT9nfwYi
- ++aw==
-X-Gm-Message-State: APjAAAXYlX6oPOwC1TUEoElgU3Rc5LM8FtwMjsR6k3tIRoSFO17mcD+q
- rqmMit6cx8+uPDm520Vc5QO+TA==
-X-Google-Smtp-Source: APXvYqyf7wfJvgbwbiC5BQN0h7lNea1LxQ0E3I6UUZlpm3qHxXgU4OcYYFmGdMKcJJ2Ne01r0zq0PA==
-X-Received: by 2002:a62:e80b:: with SMTP id c11mr1840296pfi.28.1580180570119; 
- Mon, 27 Jan 2020 19:02:50 -0800 (PST)
+ b=TBJiDL3bjJqTxvlxqN3IKzMBp12fyNhnv4QkYIw8byFeOBRRb5WGrOzXZ0wRrtq7CG
+ rDN4wv/FiwVeiP+4a6d4veQXNRsCNGBiBbzCQnGMx2HcJuK119aJlTILwHFZO6R3pjXL
+ HuMsn+UK3X2mbfwPkukrwwTYbt0/PFWDltavOAns3tCkUJ+6Zj7QF2q0MP1k4i9s54Xi
+ G0DRzgLH7yGfd6ZuL7gdWuYziJkpMRpH9c0bZN8eZ7LCh00S59dxdbUF+fVKESJ9MQab
+ TMk/WtpSRdPwmV8rC4X6/NRL8ZsRtVZ5qRRPviCeM8nBsnaeMv3IFHYIdY4C90BVVTJW
+ wMNg==
+X-Gm-Message-State: APjAAAV4RlesP9kP5DtJGhPWDnIv5egV3pQjPxkkwak/JM6GAxBOgNn6
+ HnDlTWjJqNdshWjVNYHs63OGRQ==
+X-Google-Smtp-Source: APXvYqzI01IM2y49CE5XKBMtXwa34RRROtZjVynDhmlVraQpwbT9P3TLl+lEvxVbHUPiXCnwMHSCzg==
+X-Received: by 2002:a65:5ccc:: with SMTP id b12mr22436461pgt.124.1580180577606; 
+ Mon, 27 Jan 2020 19:02:57 -0800 (PST)
 Received: from localhost ([122.172.141.204])
- by smtp.gmail.com with ESMTPSA id y6sm17802808pgc.10.2020.01.27.19.01.41
+ by smtp.gmail.com with ESMTPSA id a17sm456976pjv.6.2020.01.27.19.02.55
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 27 Jan 2020 19:02:08 -0800 (PST)
+ Mon, 27 Jan 2020 19:02:55 -0800 (PST)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: Cyril Hrubis <chrubis@suse.cz>
-Date: Tue, 28 Jan 2020 08:31:33 +0530
+Date: Tue, 28 Jan 2020 08:32:52 +0530
 Message-Id: <cc9d0f47db41cad97c590cf7b58e8d662a437a91.1580180304.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.21.0.rc0.269.g1a574e7a288b
 In-Reply-To: <2d23f3a542bbd04179aba828e28d37f5c7be7b45.1579859350.git.viresh.kumar@linaro.org>
