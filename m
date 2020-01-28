@@ -2,37 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D96FD14BD74
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Jan 2020 17:07:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D72914BD75
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Jan 2020 17:07:57 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 719C53C2473
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Jan 2020 17:07:46 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B78E73C2530
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Jan 2020 17:07:56 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id BBD403C2462
- for <ltp@lists.linux.it>; Tue, 28 Jan 2020 17:07:44 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 0A4753C2462
+ for <ltp@lists.linux.it>; Tue, 28 Jan 2020 17:07:45 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 796192011A1
- for <ltp@lists.linux.it>; Tue, 28 Jan 2020 17:07:43 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id DAFAC1A013B1
+ for <ltp@lists.linux.it>; Tue, 28 Jan 2020 17:07:44 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id BA1C7ACC9;
- Tue, 28 Jan 2020 16:07:42 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 8E0D7AC92;
+ Tue, 28 Jan 2020 16:07:44 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 28 Jan 2020 17:07:34 +0100
-Message-Id: <20200128160735.26241-1-pvorel@suse.cz>
+Date: Tue, 28 Jan 2020 17:07:35 +0100
+Message-Id: <20200128160735.26241-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.24.1
+In-Reply-To: <20200128160735.26241-1-pvorel@suse.cz>
+References: <20200128160735.26241-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/2] rpcinfo01.sh: Rewrite into new shell API
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/2] rpc01.sh: Rewrite into new shell API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,16 +51,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Added rpc_lib.sh to share portmap or rpcbind check.
+
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- .../rpc/basic_tests/rpcinfo/rpcinfo01.sh      | 53 ++++++-------------
- 1 file changed, 17 insertions(+), 36 deletions(-)
+ testcases/network/rpc/basic_tests/Makefile    |  1 +
+ .../network/rpc/basic_tests/rpc01/rpc01.sh    | 50 +++++++------------
+ testcases/network/rpc/basic_tests/rpc_lib.sh  | 16 ++++++
+ .../rpc/basic_tests/rpcinfo/rpcinfo01.sh      | 11 +---
+ 4 files changed, 36 insertions(+), 42 deletions(-)
+ create mode 100644 testcases/network/rpc/basic_tests/rpc_lib.sh
 
-diff --git a/testcases/network/rpc/basic_tests/rpcinfo/rpcinfo01.sh b/testcases/network/rpc/basic_tests/rpcinfo/rpcinfo01.sh
-index afdfdb351..2d1d4e7ec 100755
---- a/testcases/network/rpc/basic_tests/rpcinfo/rpcinfo01.sh
-+++ b/testcases/network/rpc/basic_tests/rpcinfo/rpcinfo01.sh
-@@ -1,54 +1,38 @@
+diff --git a/testcases/network/rpc/basic_tests/Makefile b/testcases/network/rpc/basic_tests/Makefile
+index 66e9d5675..7862e41e5 100644
+--- a/testcases/network/rpc/basic_tests/Makefile
++++ b/testcases/network/rpc/basic_tests/Makefile
+@@ -21,6 +21,7 @@
+ #
+ 
+ top_srcdir		?= ../../../..
++INSTALL_TARGETS	:= rpc_lib.sh
+ 
+ include $(top_srcdir)/include/mk/env_pre.mk
+ include $(top_srcdir)/include/mk/generic_trunk_target.mk
+diff --git a/testcases/network/rpc/basic_tests/rpc01/rpc01.sh b/testcases/network/rpc/basic_tests/rpc01/rpc01.sh
+index 7cc69f0fa..b666b1347 100755
+--- a/testcases/network/rpc/basic_tests/rpc01/rpc01.sh
++++ b/testcases/network/rpc/basic_tests/rpc01/rpc01.sh
+@@ -1,29 +1,15 @@
  #!/bin/sh
 +# Copyright (c) 2020 Petr Vorel <pvorel@suse.cz>
  # Copyright (c) 2017 Oracle and/or its affiliates. All Rights Reserved.
@@ -76,69 +96,61 @@ index afdfdb351..2d1d4e7ec 100755
 -#
 -# You should have received a copy of the GNU General Public License
 -# along with this program. If not, see <http://www.gnu.org/licenses/>.
+-
+-TCID="rpc01"
+-TST_TOTAL=6
+-TST_CLEANUP=do_cleanup
 +# Copyright (c) International Business Machines Corp., 2000
  
--TCID="rpcinfo01"
--TST_TOTAL=16
--TST_CLEANUP=tst_rmdir
--
 -TST_USE_LEGACY_API=1
+-. tst_net.sh
 +TST_TESTFUNC=do_test
 +TST_SETUP=do_setup
-+TST_NEEDS_TMPDIR=1
- . tst_net.sh
++TST_CLEANUP=do_cleanup
++. rpc_lib.sh
+ 
+-NUMLOOPS=${NUMLOOPS:=3}
+-DATAFILES=${DATAFILES:="file.1 file.2"}
++NUMLOOPS=${NUMLOOPS:-3}
++DATAFILES="${DATAFILES:-file.1 file.2}"
+ 
+ do_cleanup()
+ {
+@@ -32,32 +18,30 @@ do_cleanup()
  
  do_setup()
  {
--	tst_resm TINFO "Checking for portmap or rpcbind"
-+	tst_res TINFO "Checking for portmap or rpcbind"
+-	tst_resm TINFO "start rpc_server"
+-	rpc_server
++	check_portmap_rpcbind
  
- 	if pgrep portmap > /dev/null; then
- 		PORTMAPPER="portmap"
- 	else
- 		pgrep rpcbind > /dev/null && PORTMAPPER="rpcbind" || \
--			tst_brkm TCONF "portmap or rpcbind is not running"
-+			tst_brk TCONF "portmap or rpcbind is not running"
- 	fi
- 
--	tst_tmpdir
--
- 	# Create file with 1 tcp and 1 udp line. Use for variable assignments.
- 	rpcinfo -p $(tst_ipaddr) | grep tcp | sed -n 2p > rpc_out
- 	rpcinfo -p $(tst_ipaddr) | grep udp | sed -n 2p >> rpc_out
- 
--	wc -l rpc_out | grep "2" > /dev/null || \
--		tst_brkm TBROK "Not enough programs registered on $(tst_ipaddr)"
-+	wc -l rpc_out | grep -q "2" || \
-+		tst_brk TBROK "Not enough programs registered on $(tst_ipaddr)"
- 
- 	# Using "rpc_out" file created above, assign variables for rpcinfo opts
--	TPNUM=`grep tcp rpc_out | awk '{print $1}'`
--	TVNUM=`grep tcp rpc_out | awk '{print $2}'`
--	TCPNAME=`grep tcp rpc_out | awk '{print $5}'`
--	UPNUM=`grep udp rpc_out | awk '{print $1}'`
--	UVNUM=`grep udp rpc_out | awk '{print $2}'`
--	UDPNAME=`grep udp rpc_out | awk '{print $5}'`
-+	TPNUM=$(grep tcp rpc_out | awk '{print $1}')
-+	TVNUM=$(grep tcp rpc_out | awk '{print $2}')
-+	TCPNAME=$(grep tcp rpc_out | awk '{print $5}')
-+	UPNUM=$(grep udp rpc_out | awk '{print $1}')
-+	UVNUM=$(grep udp rpc_out | awk '{print $2}')
-+	UDPNAME=$(grep udp rpc_out | awk '{print $5}')
+-	tst_resm TINFO "wait for server to be registered"
++	tst_res TINFO "start rpc_server"
++	ROD rpc_server
++
++	tst_res TINFO "wait for server to be registered"
+ 	for i in $(seq 1 30); do
+ 		rpcinfo -T udp $(tst_ipaddr) 2000333 10 >/dev/null 2>&1 && break
+-		[ "$i" -eq 30 ] && tst_brkm TBROK "server not registered"
++		[ "$i" -eq 30 ] && tst_brk TBROK "server not registered"
+ 		tst_sleep 100ms
+ 	done
  }
  
  do_test()
-@@ -65,7 +49,7 @@ do_test()
- 	EXPECT_RHOST_PASS rpcinfo -u $thost portmapper
- 	EXPECT_RHOST_PASS rpcinfo -u $thost portmapper 2
+ {
+-	local thost="$(tst_ipaddr)"
++	tst_res TINFO "starting client process"
  
--	tst_resm TINFO "Test rpcinfo with missing or bad options"
-+	tst_res TINFO "Test rpcinfo with missing or bad options"
- 	EXPECT_RHOST_FAIL rpcinfo -p bogushost
- 	EXPECT_RHOST_FAIL rpcinfo -bogusflag
- 	EXPECT_RHOST_FAIL rpcinfo -t $thost
-@@ -75,7 +59,4 @@ do_test()
- 	EXPECT_RHOST_FAIL rpcinfo -u $thost 100000 5
+-	tst_resm TINFO "starting client process"
+ 	local cnt=1
+ 	while [ $cnt -le $NUMLOOPS ]; do
+ 		for f in $DATAFILES; do
+-			EXPECT_RHOST_PASS rpc1 -s $thost -f $LTP_DATAROOT/$f
++			EXPECT_RHOST_PASS rpc1 -s $(tst_ipaddr) -f $TST_DATAROOT/$f
+ 		done
+ 		cnt=$(($cnt + 1))
+ 	done
  }
  
 -do_setup
@@ -146,6 +158,53 @@ index afdfdb351..2d1d4e7ec 100755
 -
 -tst_exit
 +tst_run
+diff --git a/testcases/network/rpc/basic_tests/rpc_lib.sh b/testcases/network/rpc/basic_tests/rpc_lib.sh
+new file mode 100644
+index 000000000..6d53f07da
+--- /dev/null
++++ b/testcases/network/rpc/basic_tests/rpc_lib.sh
+@@ -0,0 +1,16 @@
++#!/bin/sh
++# Copyright (c) 2020 Petr Vorel <pvorel@suse.cz>
++
++. tst_net.sh
++
++check_portmap_rpcbind()
++{
++	tst_res TINFO "Checking for portmap or rpcbind"
++
++	if pgrep portmap > /dev/null; then
++		PORTMAPPER="portmap"
++	else
++		pgrep rpcbind > /dev/null && PORTMAPPER="rpcbind" || \
++			tst_brk TCONF "portmap or rpcbind is not running"
++	fi
++}
+diff --git a/testcases/network/rpc/basic_tests/rpcinfo/rpcinfo01.sh b/testcases/network/rpc/basic_tests/rpcinfo/rpcinfo01.sh
+index 2d1d4e7ec..fd33e1533 100755
+--- a/testcases/network/rpc/basic_tests/rpcinfo/rpcinfo01.sh
++++ b/testcases/network/rpc/basic_tests/rpcinfo/rpcinfo01.sh
+@@ -6,18 +6,11 @@
+ TST_TESTFUNC=do_test
+ TST_SETUP=do_setup
+ TST_NEEDS_TMPDIR=1
+-. tst_net.sh
++. rpc_lib.sh
+ 
+ do_setup()
+ {
+-	tst_res TINFO "Checking for portmap or rpcbind"
+-
+-	if pgrep portmap > /dev/null; then
+-		PORTMAPPER="portmap"
+-	else
+-		pgrep rpcbind > /dev/null && PORTMAPPER="rpcbind" || \
+-			tst_brk TCONF "portmap or rpcbind is not running"
+-	fi
++	check_portmap_rpcbind
+ 
+ 	# Create file with 1 tcp and 1 udp line. Use for variable assignments.
+ 	rpcinfo -p $(tst_ipaddr) | grep tcp | sed -n 2p > rpc_out
 -- 
 2.24.1
 
