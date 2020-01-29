@@ -1,65 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AABEA14C566
-	for <lists+linux-ltp@lfdr.de>; Wed, 29 Jan 2020 05:53:33 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id F097C14C645
+	for <lists+linux-ltp@lfdr.de>; Wed, 29 Jan 2020 06:58:05 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 70B8C3C2476
-	for <lists+linux-ltp@lfdr.de>; Wed, 29 Jan 2020 05:53:33 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 75B593C23F2
+	for <lists+linux-ltp@lfdr.de>; Wed, 29 Jan 2020 06:58:05 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 26A6D3C2364
- for <ltp@lists.linux.it>; Wed, 29 Jan 2020 05:53:29 +0100 (CET)
-Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
- [IPv6:2a00:1450:4864:20::244])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 1094B3C238C
+ for <ltp@lists.linux.it>; Wed, 29 Jan 2020 06:58:03 +0100 (CET)
+Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
+ [IPv6:2607:f8b0:4864:20::1043])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 0BE0C201080
- for <ltp@lists.linux.it>; Wed, 29 Jan 2020 05:53:29 +0100 (CET)
-Received: by mail-lj1-x244.google.com with SMTP id q8so16971487ljj.11
- for <ltp@lists.linux.it>; Tue, 28 Jan 2020 20:53:29 -0800 (PST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A720A601710
+ for <ltp@lists.linux.it>; Wed, 29 Jan 2020 06:58:02 +0100 (CET)
+Received: by mail-pj1-x1043.google.com with SMTP id 12so2165433pjb.5
+ for <ltp@lists.linux.it>; Tue, 28 Jan 2020 21:58:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=1lFwndVHov/RzOPqSUZJ9434t/t6x+foxuiqxo1V074=;
- b=rhBjnpU8ZwkReW/Curtm6+L+FYqh24nsm55yJeCFqog437bJfv0rtrR0yoLLUCQEQ1
- 5348icdydLu2aFLvVgVUJ9Wz6d2v55RN6II3u/hUU1yNUm2clBgPBhM75pyz5/ds4r5A
- u/wCovtZ+wOKSzKAuQY1Zy79amQMtjCY0N1eC2LM4YTciidqP9gSiNTlO6W8vaEcjF76
- +32fdFkFGJ0T7Uk96oqVBpWN+kZBICIl03VPTs8tOLyzg0CD99/SUXMAZoO2V6X8MFoY
- 0aURTQ2tlzc4gzqPx42JbXXjiuJNl72prAdSts+wrVL2udRt9LIPNR966K5Jaxr0crxa
- 1AWQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mb+eH5Y5nHW9HMBb3tj4aWgcQtYbv7auXR5HEyS6zQo=;
+ b=ZyJ6Ona5POMURyOb8Jr0eYBanlJgpyCHyK6bHmorE9C/oPFwSueo7BhlfLhVulJp8U
+ KHHHvOR19CfG/1cFePmT1eCG2amxLFNUhcDziLGDhgmCX82PbQ1XAOcAxV6oYGIDIcO1
+ HGzQPAqRxzrCJZKHWpae98yeo7LPg5gfXfZxFMkc6zu2Pf9uBMj4drtvSwCn9l12XJ5i
+ 2VfEYs1W/UIHAAnT45dfetCoOWfB3YZT19oZl69hgTRHMyHFrD3rZQgvzM1E1XvCaOME
+ uDDnVYuRowuXhcnGHFni6TzEKOuI3slvMIcpM/CEiZlbOXF7POjnMCTmQEJZWqYNcCAA
+ z+mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=1lFwndVHov/RzOPqSUZJ9434t/t6x+foxuiqxo1V074=;
- b=M8rMOOz3i0Dwb40GcOq0/XVmYrLgHvNfmzhyvsTKbLIv9OXt1Lk6QZ/VsJekzkEw3b
- eyTTOy8j/TvD19rEbYF+/kEUzZmlEw2M3qvuc3gEEiFeeF9w/2tPT0ciGnKl1hM52FMf
- 7xUVsnWnGQ+lJeaiJtkIghBD38eqKkanNvkvFMZY3rfGW72mcD+Ml6mjQKMOsRpWUWMv
- +X2BO3W9v/4MrA7HpfdRXDTZAYVVKnjfL/zfUTnowMFQ6Z9SUc3iAmun+ut4lwpEwrHl
- GK5FRIWfSMNNv80dLshFEM8hHC9A+pd7vbqhGMHkjdNf7//lYwT37g/63LugQuv+6oFS
- cmdQ==
-X-Gm-Message-State: APjAAAV1Dhu/hYshnWVg1377vVUYptHtZym0/j8ljU2PAFu4mIu7u0BA
- +knSiBqXU2d1YCypRdG6z6okQuVO3eL25GLbhpba3w==
-X-Google-Smtp-Source: APXvYqx6hyZDnWHUWsmUyXDTjzJUvLvBG7avnM2nt2EqMTfGe7bn+nDEXOwN/BdWmS0lmPoXm/5L4iPkzqLb3gXpMpM=
-X-Received: by 2002:a2e:8e70:: with SMTP id t16mr11200922ljk.73.1580273608316; 
- Tue, 28 Jan 2020 20:53:28 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mb+eH5Y5nHW9HMBb3tj4aWgcQtYbv7auXR5HEyS6zQo=;
+ b=WWJ6N37DDlWObzid1gYB/mBInmwBC9d8yaKnhvJREMOj2zcrrOJkCP5SWplsv8M/2a
+ 1tJZm+ZBBCZ/gVBfCky82dat1n6eIwKp4P9nMiruUyPdt5vZ70wy/66AzOrRSMlT7kau
+ qdkh6UXD7Ra61Xs8eBRcpfrCpK50pI+FxTfVhlpdUM4ccQ5ZiVs2mhApLP3k3UdMWXHh
+ F9ZcTth7k9KQFOm6/jL5Nd1VAJck1VwTyaqZJSwq9wFvU7Qrr6DZ+SOxD5PP0jcv3H+z
+ 5KlbTNU7HNsF3m+X3Khhlllke4niojx1Qn+hHXjSl6N06eQbMjA5DedHvf02JuQDTqGv
+ nC6A==
+X-Gm-Message-State: APjAAAU8oC3b32biH8B7CqDYinWGIL/ydwni4mgrZtYqITfaziCAnrup
+ rR1NEwJBmD7e0wnhCg91wfpVpw==
+X-Google-Smtp-Source: APXvYqyHloi+dL6CHeFEdrBCubBEGNOwu70OGWeH64ie/RTRRJTcYOpilAKmaZsb9mykk7JxfTRKZg==
+X-Received: by 2002:a17:90a:3268:: with SMTP id
+ k95mr9356817pjb.48.1580277480731; 
+ Tue, 28 Jan 2020 21:58:00 -0800 (PST)
+Received: from localhost ([122.172.141.204])
+ by smtp.gmail.com with ESMTPSA id j14sm957181pgs.57.2020.01.28.21.57.59
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 28 Jan 2020 21:57:59 -0800 (PST)
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Cyril Hrubis <chrubis@suse.cz>
+Date: Wed, 29 Jan 2020 11:27:55 +0530
+Message-Id: <6ea999de18b214e694d336582d2c19e507eabade.1580277453.git.viresh.kumar@linaro.org>
+X-Mailer: git-send-email 2.21.0.rc0.269.g1a574e7a288b
 MIME-Version: 1.0
-References: <20200128135749.822297911@linuxfoundation.org>
-In-Reply-To: <20200128135749.822297911@linuxfoundation.org>
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Wed, 29 Jan 2020 10:23:17 +0530
-Message-ID: <CA+G9fYsnSGw0NmV5hWwZSs5OYu18YRam3jYCsg4Sn+KUQJSMWw@mail.gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 4.14 00/46] 4.14.169-stable review
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] Add syscall numbers for new file-system related
+ syscalls
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,59 +76,233 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Ben Hutchings <ben.hutchings@codethink.co.uk>,
- Linus Torvalds <torvalds@linux-foundation.org>, LTP List <ltp@lists.linux.it>,
- open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
- patches@kernelci.org, linux- stable <stable@vger.kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>,
- Guenter Roeck <linux@roeck-us.net>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+ Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gVHVlLCAyOCBKYW4gMjAyMCBhdCAxOToyOCwgR3JlZyBLcm9haC1IYXJ0bWFuCjxncmVna2hA
-bGludXhmb3VuZGF0aW9uLm9yZz4gd3JvdGU6Cj4KPiBUaGlzIGlzIHRoZSBzdGFydCBvZiB0aGUg
-c3RhYmxlIHJldmlldyBjeWNsZSBmb3IgdGhlIDQuMTQuMTY5IHJlbGVhc2UuCj4gVGhlcmUgYXJl
-IDQ2IHBhdGNoZXMgaW4gdGhpcyBzZXJpZXMsIGFsbCB3aWxsIGJlIHBvc3RlZCBhcyBhIHJlc3Bv
-bnNlCj4gdG8gdGhpcyBvbmUuICBJZiBhbnlvbmUgaGFzIGFueSBpc3N1ZXMgd2l0aCB0aGVzZSBi
-ZWluZyBhcHBsaWVkLCBwbGVhc2UKPiBsZXQgbWUga25vdy4KPgo+IFJlc3BvbnNlcyBzaG91bGQg
-YmUgbWFkZSBieSBUaHUsIDMwIEphbiAyMDIwIDEzOjU3OjA5ICswMDAwLgo+IEFueXRoaW5nIHJl
-Y2VpdmVkIGFmdGVyIHRoYXQgdGltZSBtaWdodCBiZSB0b28gbGF0ZS4KPgo+IFRoZSB3aG9sZSBw
-YXRjaCBzZXJpZXMgY2FuIGJlIGZvdW5kIGluIG9uZSBwYXRjaCBhdDoKPiAgICAgICAgIGh0dHBz
-Oi8vd3d3Lmtlcm5lbC5vcmcvcHViL2xpbnV4L2tlcm5lbC92NC54L3N0YWJsZS1yZXZpZXcvcGF0
-Y2gtNC4xNC4xNjktcmMxLmd6Cj4gb3IgaW4gdGhlIGdpdCB0cmVlIGFuZCBicmFuY2ggYXQ6Cj4g
-ICAgICAgICBnaXQ6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvc3Rh
-YmxlL2xpbnV4LXN0YWJsZS1yYy5naXQgbGludXgtNC4xNC55Cj4gYW5kIHRoZSBkaWZmc3RhdCBj
-YW4gYmUgZm91bmQgYmVsb3cuCj4KPiB0aGFua3MsCj4KPiBncmVnIGstaAoKUmVzdWx0cyBmcm9t
-IExpbmFyb+KAmXMgdGVzdCBmYXJtLgpObyByZWdyZXNzaW9ucyBvbiBhcm02NCwgYXJtLCB4ODZf
-NjQsIGFuZCBpMzg2LgoKTk9URToKTFRQIGZzIHRlc3QgcmVhZF9hbGxfcHJvYyBmYWlscyBpbnRl
-cm1pdHRlbnRseSBvbiA0LjkgYW5kIDQuMTQgYnJhbmNoZXMuCgpTdW1tYXJ5Ci0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLQoKa2VybmVsOiA0LjE0LjE2OS1yYzEKZ2l0IHJlcG86IGh0dHBzOi8vZ2l0Lmtlcm5lbC5v
-cmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L3N0YWJsZS9saW51eC1zdGFibGUtcmMuZ2l0Cmdp
-dCBicmFuY2g6IGxpbnV4LTQuMTQueQpnaXQgY29tbWl0OiA1OTg2YTc5YWUyODQyMWQ3MDI3Y2I0
-YWI3OGZiYTdkNzg3YTlmMDZlCmdpdCBkZXNjcmliZTogdjQuMTQuMTY4LTQ3LWc1OTg2YTc5YWUy
-ODQKVGVzdCBkZXRhaWxzOiBodHRwczovL3FhLXJlcG9ydHMubGluYXJvLm9yZy9sa2Z0L2xpbnV4
-LXN0YWJsZS1yYy00LjE0LW9lL2J1aWxkL3Y0LjE0LjE2OC00Ny1nNTk4NmE3OWFlMjg0CgpObyBy
-ZWdyZXNzaW9ucyAoY29tcGFyZWQgdG8gYnVpbGQgdjQuMTQuMTY4KQoKTm8gZml4ZXMgKGNvbXBh
-cmVkIHRvIGJ1aWxkIHY0LjE0LjE2OCkKClJhbiAyNDIyMSB0b3RhbCB0ZXN0cyBpbiB0aGUgZm9s
-bG93aW5nIGVudmlyb25tZW50cyBhbmQgdGVzdCBzdWl0ZXMuCgpFbnZpcm9ubWVudHMKLS0tLS0t
-LS0tLS0tLS0KLSBkcmFnb25ib2FyZC00MTBjIC0gYXJtNjQKLSBoaTYyMjAtaGlrZXkgLSBhcm02
-NAotIGkzODYKLSBqdW5vLXIyIC0gYXJtNjQKLSBxZW11X2FybQotIHFlbXVfYXJtNjQKLSBxZW11
-X2kzODYKLSBxZW11X3g4Nl82NAotIHgxNSAtIGFybQotIHg4Nl82NAoKVGVzdCBTdWl0ZXMKLS0t
-LS0tLS0tLS0KKiBidWlsZAoqIGluc3RhbGwtYW5kcm9pZC1wbGF0Zm9ybS10b29scy1yMjYwMAoq
-IGtzZWxmdGVzdAoqIGxpYmh1Z2V0bGJmcwoqIGxpbnV4LWxvZy1wYXJzZXIKKiBsdHAtY2FwX2Jv
-dW5kcy10ZXN0cwoqIGx0cC1jb21tYW5kcy10ZXN0cwoqIGx0cC1jb250YWluZXJzLXRlc3RzCiog
-bHRwLWNwdWhvdHBsdWctdGVzdHMKKiBsdHAtY3ZlLXRlc3RzCiogbHRwLWRpby10ZXN0cwoqIGx0
-cC1mY250bC1sb2NrdGVzdHMtdGVzdHMKKiBsdHAtZmlsZWNhcHMtdGVzdHMKKiBsdHAtZnMtdGVz
-dHMKKiBsdHAtZnNfYmluZC10ZXN0cwoqIGx0cC1mc19wZXJtc19zaW1wbGUtdGVzdHMKKiBsdHAt
-ZnN4LXRlc3RzCiogbHRwLWh1Z2V0bGItdGVzdHMKKiBsdHAtaW8tdGVzdHMKKiBsdHAtaXBjLXRl
-c3RzCiogbHRwLW1hdGgtdGVzdHMKKiBsdHAtbW0tdGVzdHMKKiBsdHAtbnB0bC10ZXN0cwoqIGx0
-cC1wdHktdGVzdHMKKiBsdHAtc2NoZWQtdGVzdHMKKiBsdHAtc2VjdXJlYml0cy10ZXN0cwoqIGx0
-cC1zeXNjYWxscy10ZXN0cwoqIHBlcmYKKiBzcGVjdHJlLW1lbHRkb3duLWNoZWNrZXItdGVzdAoq
-IHY0bDItY29tcGxpYW5jZQoqIG5ldHdvcmstYmFzaWMtdGVzdHMKKiBsdHAtb3Blbi1wb3NpeC10
-ZXN0cwoqIGt2bS11bml0LXRlc3RzCiogc3N1aXRlCioga3NlbGZ0ZXN0LXZzeXNjYWxsLW1vZGUt
-bmF0aXZlCioga3NlbGZ0ZXN0LXZzeXNjYWxsLW1vZGUtbm9uZQoKLS0gCkxpbmFybyBMS0ZUCmh0
-dHBzOi8vbGtmdC5saW5hcm8ub3JnCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlz
-dHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+This add syscall numbers for open_tree, move_mount, fsopen, fsconfig,
+fsmount and fspick syscalls.
+
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+---
+ include/lapi/syscalls/aarch64.in   | 6 ++++++
+ include/lapi/syscalls/arm.in       | 6 ++++++
+ include/lapi/syscalls/hppa.in      | 6 ++++++
+ include/lapi/syscalls/i386.in      | 6 ++++++
+ include/lapi/syscalls/ia64.in      | 6 ++++++
+ include/lapi/syscalls/powerpc.in   | 6 ++++++
+ include/lapi/syscalls/powerpc64.in | 6 ++++++
+ include/lapi/syscalls/s390.in      | 6 ++++++
+ include/lapi/syscalls/s390x.in     | 6 ++++++
+ include/lapi/syscalls/sh.in        | 6 ++++++
+ include/lapi/syscalls/sparc.in     | 6 ++++++
+ include/lapi/syscalls/sparc64.in   | 6 ++++++
+ include/lapi/syscalls/x86_64.in    | 6 ++++++
+ 13 files changed, 78 insertions(+)
+
+diff --git a/include/lapi/syscalls/aarch64.in b/include/lapi/syscalls/aarch64.in
+index 25e1b27e9867..7892b2203b73 100644
+--- a/include/lapi/syscalls/aarch64.in
++++ b/include/lapi/syscalls/aarch64.in
+@@ -271,5 +271,11 @@ pkey_alloc 289
+ pkey_free 290
+ io_pgetevents 292
+ pidfd_send_signal 424
++open_tree 428
++move_mount 429
++fsopen 430
++fsconfig 431
++fsmount 432
++fspick 433
+ pidfd_open 434
+ _sysctl 1078
+diff --git a/include/lapi/syscalls/arm.in b/include/lapi/syscalls/arm.in
+index c4e162662c3e..1ffad674f913 100644
+--- a/include/lapi/syscalls/arm.in
++++ b/include/lapi/syscalls/arm.in
+@@ -356,4 +356,10 @@ pkey_free (__NR_SYSCALL_BASE+396)
+ statx (__NR_SYSCALL_BASE+397)
+ io_pgetevents (__NR_SYSCALL_BASE+399)
+ pidfd_send_signal (__NR_SYSCALL_BASE+424)
++open_tree (__NR_SYSCALL_BASE+428)
++move_mount (__NR_SYSCALL_BASE+429)
++fsopen (__NR_SYSCALL_BASE+430)
++fsconfig (__NR_SYSCALL_BASE+431)
++fsmount (__NR_SYSCALL_BASE+432)
++fspick (__NR_SYSCALL_BASE+433)
+ pidfd_open (__NR_SYSCALL_BASE+434)
+diff --git a/include/lapi/syscalls/hppa.in b/include/lapi/syscalls/hppa.in
+index 71486f30d8ca..0f3b4533e0c8 100644
+--- a/include/lapi/syscalls/hppa.in
++++ b/include/lapi/syscalls/hppa.in
+@@ -28,4 +28,10 @@ preadv2 347
+ pwritev2 348
+ io_pgetevents 350
+ pidfd_send_signal 424
++open_tree 428
++move_mount 429
++fsopen 430
++fsconfig 431
++fsmount 432
++fspick 433
+ pidfd_open 434
+diff --git a/include/lapi/syscalls/i386.in b/include/lapi/syscalls/i386.in
+index ec47ca123a1f..28b6fc0072d3 100644
+--- a/include/lapi/syscalls/i386.in
++++ b/include/lapi/syscalls/i386.in
+@@ -355,4 +355,10 @@ pkey_free 382
+ statx 383
+ io_pgetevents 385
+ pidfd_send_signal 424
++open_tree 428
++move_mount 429
++fsopen 430
++fsconfig 431
++fsmount 432
++fspick 433
+ pidfd_open 434
+diff --git a/include/lapi/syscalls/ia64.in b/include/lapi/syscalls/ia64.in
+index e9ae3f0093bf..2dea5c6beabc 100644
+--- a/include/lapi/syscalls/ia64.in
++++ b/include/lapi/syscalls/ia64.in
+@@ -311,4 +311,10 @@ pkey_mprotect 1354
+ pkey_alloc 1355
+ pkey_free 1356
+ pidfd_send_signal 1448
++open_tree 1452
++move_mount 1453
++fsopen 1454
++fsconfig 1455
++fsmount 1456
++fspick 1457
+ pidfd_open 1458
+diff --git a/include/lapi/syscalls/powerpc.in b/include/lapi/syscalls/powerpc.in
+index 3d27d2f2d0f6..8a3a99e847b9 100644
+--- a/include/lapi/syscalls/powerpc.in
++++ b/include/lapi/syscalls/powerpc.in
+@@ -362,3 +362,9 @@ pidfd_open 434
+ pkey_mprotect 386
+ pkey_alloc 384
+ pkey_free 385
++open_tree 428
++move_mount 429
++fsopen 430
++fsconfig 431
++fsmount 432
++fspick 433
+diff --git a/include/lapi/syscalls/powerpc64.in b/include/lapi/syscalls/powerpc64.in
+index 3d27d2f2d0f6..e4089e572696 100644
+--- a/include/lapi/syscalls/powerpc64.in
++++ b/include/lapi/syscalls/powerpc64.in
+@@ -358,6 +358,12 @@ pwritev2 381
+ statx 383
+ io_pgetevents 388
+ pidfd_send_signal 424
++open_tree 428
++move_mount 429
++fsopen 430
++fsconfig 431
++fsmount 432
++fspick 433
+ pidfd_open 434
+ pkey_mprotect 386
+ pkey_alloc 384
+diff --git a/include/lapi/syscalls/s390.in b/include/lapi/syscalls/s390.in
+index 460a17884735..397bc7be26f1 100644
+--- a/include/lapi/syscalls/s390.in
++++ b/include/lapi/syscalls/s390.in
+@@ -345,4 +345,10 @@ pkey_mprotect 384
+ pkey_alloc 385
+ pkey_free 386
+ pidfd_send_signal 424
++open_tree 428
++move_mount 429
++fsopen 430
++fsconfig 431
++fsmount 432
++fspick 433
+ pidfd_open 434
+diff --git a/include/lapi/syscalls/s390x.in b/include/lapi/syscalls/s390x.in
+index 00236356df73..dac0bd1b49b1 100644
+--- a/include/lapi/syscalls/s390x.in
++++ b/include/lapi/syscalls/s390x.in
+@@ -343,4 +343,10 @@ pkey_mprotect 384
+ pkey_alloc 385
+ pkey_free 386
+ pidfd_send_signal 424
++open_tree 428
++move_mount 429
++fsopen 430
++fsconfig 431
++fsmount 432
++fspick 433
+ pidfd_open 434
+diff --git a/include/lapi/syscalls/sh.in b/include/lapi/syscalls/sh.in
+index 73549b46e6dd..4e0693cdd056 100644
+--- a/include/lapi/syscalls/sh.in
++++ b/include/lapi/syscalls/sh.in
+@@ -371,4 +371,10 @@ copy_file_range 391
+ preadv2 392
+ pwritev2 393
+ pidfd_send_signal 424
++open_tree 428
++move_mount 429
++fsopen 430
++fsconfig 431
++fsmount 432
++fspick 433
+ pidfd_open 434
+diff --git a/include/lapi/syscalls/sparc.in b/include/lapi/syscalls/sparc.in
+index b56b1ae5c748..6b0e4136fcdb 100644
+--- a/include/lapi/syscalls/sparc.in
++++ b/include/lapi/syscalls/sparc.in
+@@ -350,4 +350,10 @@ pkey_mprotect 362
+ pkey_alloc 363
+ pkey_free 364
+ pidfd_send_signal 424
++open_tree 428
++move_mount 429
++fsopen 430
++fsconfig 431
++fsmount 432
++fspick 433
+ pidfd_open 434
+diff --git a/include/lapi/syscalls/sparc64.in b/include/lapi/syscalls/sparc64.in
+index 8f04d730a5d5..3a3bf86241a2 100644
+--- a/include/lapi/syscalls/sparc64.in
++++ b/include/lapi/syscalls/sparc64.in
+@@ -325,4 +325,10 @@ pkey_mprotect 362
+ pkey_alloc 363
+ pkey_free 364
+ pidfd_send_signal 424
++open_tree 428
++move_mount 429
++fsopen 430
++fsconfig 431
++fsmount 432
++fspick 433
+ pidfd_open 434
+diff --git a/include/lapi/syscalls/x86_64.in b/include/lapi/syscalls/x86_64.in
+index 8656a84d9b93..414c26b7b459 100644
+--- a/include/lapi/syscalls/x86_64.in
++++ b/include/lapi/syscalls/x86_64.in
+@@ -322,4 +322,10 @@ pkey_free 331
+ statx 332
+ io_pgetevents 333
+ pidfd_send_signal 424
++open_tree 428
++move_mount 429
++fsopen 430
++fsconfig 431
++fsmount 432
++fspick 433
+ pidfd_open 434
+-- 
+2.21.0.rc0.269.g1a574e7a288b
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
