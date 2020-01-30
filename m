@@ -1,39 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3D7314DABC
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jan 2020 13:36:49 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5189814DCEB
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jan 2020 15:41:55 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 049743C252D
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jan 2020 13:36:49 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 553663C2449
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jan 2020 15:41:54 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id A461E3C23A3
- for <ltp@lists.linux.it>; Thu, 30 Jan 2020 13:36:44 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id D46B93C2384
+ for <ltp@lists.linux.it>; Thu, 30 Jan 2020 15:41:49 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B86A51000D5A
- for <ltp@lists.linux.it>; Thu, 30 Jan 2020 13:36:43 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4A4F2600189
+ for <ltp@lists.linux.it>; Thu, 30 Jan 2020 15:41:47 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D7D68AAC3
- for <ltp@lists.linux.it>; Thu, 30 Jan 2020 12:36:42 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 7F8F1ADE2
+ for <ltp@lists.linux.it>; Thu, 30 Jan 2020 14:41:47 +0000 (UTC)
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 30 Jan 2020 13:36:41 +0100
-Message-Id: <20200130123641.15286-1-mdoucha@suse.cz>
+Date: Thu, 30 Jan 2020 15:41:46 +0100
+Message-Id: <20200130144146.20846-1-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.24.1
-In-Reply-To: <20200129144913.9889-4-mdoucha@suse.cz>
-References: <20200129144913.9889-4-mdoucha@suse.cz>
+In-Reply-To: <20200130123641.15286-1-mdoucha@suse.cz>
+References: <20200130123641.15286-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 3/3] Add LVM support scripts
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 3/3] Add LVM support scripts
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,9 +62,14 @@ Add support scripts for LVM tests that can be used with external testing tools.
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
 
+Sorry for resubmitting again, I didn't test v2 properly.
+
 Changes since v1:
 - rename generate_runfile.sh to generate_lvm_runfile.sh
 - update above commit message
+
+Changes since v2:
+- fix filename in misc/lvm/Makefile
 
  testcases/misc/lvm/Makefile                |  29 ++++++
  testcases/misc/lvm/cleanup_lvm.sh          |  34 +++++++
@@ -81,7 +87,7 @@ Changes since v1:
 
 diff --git a/testcases/misc/lvm/Makefile b/testcases/misc/lvm/Makefile
 new file mode 100644
-index 000000000..a803dd9f4
+index 000000000..3dbc996c8
 --- /dev/null
 +++ b/testcases/misc/lvm/Makefile
 @@ -0,0 +1,29 @@
@@ -111,7 +117,7 @@ index 000000000..a803dd9f4
 +
 +include $(top_srcdir)/include/mk/env_pre.mk
 +
-+INSTALL_TARGETS		:= generate_runfile.sh prepare_lvm.sh cleanup_lvm.sh
++INSTALL_TARGETS		:= generate_lvm_runfile.sh prepare_lvm.sh cleanup_lvm.sh
 +
 +include $(top_srcdir)/include/mk/generic_trunk_target.mk
 diff --git a/testcases/misc/lvm/cleanup_lvm.sh b/testcases/misc/lvm/cleanup_lvm.sh
