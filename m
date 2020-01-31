@@ -1,70 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8A9314EA26
-	for <lists+linux-ltp@lfdr.de>; Fri, 31 Jan 2020 10:37:55 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FBFF14EA3A
+	for <lists+linux-ltp@lfdr.de>; Fri, 31 Jan 2020 10:45:30 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 774843C247C
-	for <lists+linux-ltp@lfdr.de>; Fri, 31 Jan 2020 10:37:55 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2A2293C247C
+	for <lists+linux-ltp@lfdr.de>; Fri, 31 Jan 2020 10:45:30 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id A0F9F3C245A
- for <ltp@lists.linux.it>; Fri, 31 Jan 2020 10:37:53 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
- [205.139.110.61])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id E539214052C0
- for <ltp@lists.linux.it>; Fri, 31 Jan 2020 10:37:52 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 70AEB3C2460
+ for <ltp@lists.linux.it>; Fri, 31 Jan 2020 10:45:26 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id AE20D200B7F
+ for <ltp@lists.linux.it>; Fri, 31 Jan 2020 10:45:25 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1580463471;
+ s=mimecast20190719; t=1580463924;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=yrx1dxsw+3uxww6nNCwLTReT2Vr7PS/VEIduOQgLVR8=;
- b=akuGyFDGxmQ6dizSq6+AV5/LQRsoFn1rea8+vrL5lTu4SI7+UJtzmV56MRApYRpw4YH/Mc
- tqplsATwMqxv2g6WkP6lKj/cKhG6h0JWwPx4KPPwY2LY/Vv+fXPZkftjY4xczaUkIXl6Fh
- t1BbX4xX0qw7JSM3aCTCO8o7SW0giac=
+ bh=VTk/z+YpHT7WLhDsEeioCdr2NYcTGiu2V6fdWhIaJ2Y=;
+ b=DihBCMP3GPcKheHekq6CdHq2DXC0wFfxqotF4S8HBbpr8O4vVtmCqeNYPUm6BuKE8uBxK4
+ RzQPKGbkR+I2Zn9SDzyUogC5oMVbOgR7J/2QRZuk6J9b5CdKb0+y1u8pKJlT+JRZ9zsH/O
+ KbXWlf6RW6H1MBnJDKQys2K2KD5N1qw=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-120-KCzYHvGWMP2Mlb5EMd-7dg-1; Fri, 31 Jan 2020 04:37:44 -0500
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
+ us-mta-235-_iExodKTPXCQEVBBtdhWZw-1; Fri, 31 Jan 2020 04:45:20 -0500
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+ [10.5.11.22])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5A0F0477;
- Fri, 31 Jan 2020 09:37:43 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 57186800D53;
+ Fri, 31 Jan 2020 09:45:19 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 4E3FD60BE0;
- Fri, 31 Jan 2020 09:37:43 +0000 (UTC)
+ (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4BDD8100EBA8;
+ Fri, 31 Jan 2020 09:45:19 +0000 (UTC)
 Received: from zmail17.collab.prod.int.phx2.redhat.com
  (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1B9C885CCA;
- Fri, 31 Jan 2020 09:37:43 +0000 (UTC)
-Date: Fri, 31 Jan 2020 04:37:42 -0500 (EST)
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3C59318095FF;
+ Fri, 31 Jan 2020 09:45:19 +0000 (UTC)
+Date: Fri, 31 Jan 2020 04:45:19 -0500 (EST)
 From: Jan Stancek <jstancek@redhat.com>
-To: Li Wang <liwang@redhat.com>, Martin Doucha <mdoucha@suse.cz>
-Message-ID: <1041474174.5093428.1580463462902.JavaMail.zimbra@redhat.com>
-In-Reply-To: <CAEemH2f7s+q1upnaikCnQZSqxb-xgdN73aPxhKhLo2i5_M7FkA@mail.gmail.com>
-References: <20200130161337.31614-1-mdoucha@suse.cz>
- <CAEemH2f7s+q1upnaikCnQZSqxb-xgdN73aPxhKhLo2i5_M7FkA@mail.gmail.com>
+To: Naresh Kamboju <naresh.kamboju@linaro.org>
+Message-ID: <1480601816.5094241.1580463919045.JavaMail.zimbra@redhat.com>
+In-Reply-To: <CA+G9fYvMc73OCXNz_9Ks-GqE828Vd3YFeX_iOrWq3bobGpgUtQ@mail.gmail.com>
+References: <20200128135749.822297911@linuxfoundation.org>
+ <CA+G9fYsnSGw0NmV5hWwZSs5OYu18YRam3jYCsg4Sn+KUQJSMWw@mail.gmail.com>
+ <1680515224.4725561.1580289411736.JavaMail.zimbra@redhat.com>
+ <CA+G9fYvMc73OCXNz_9Ks-GqE828Vd3YFeX_iOrWq3bobGpgUtQ@mail.gmail.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.25, 10.4.195.18]
-Thread-Topic: Taunt OOM killer in fork12 setup()
-Thread-Index: 0D0hOVP8h9FwXJ29WUoyhyXLxXG3Lg==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-MC-Unique: KCzYHvGWMP2Mlb5EMd-7dg-1
+X-Originating-IP: [10.43.17.25, 10.4.195.9]
+Thread-Topic: 4.14.169-stable review
+Thread-Index: /iTC7JtruhBmTRcX0HqtKO6ruzvmOQ==
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-MC-Unique: _iExodKTPXCQEVBBtdhWZw-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] Taunt OOM killer in fork12 setup()
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 4.14 00/46] 4.14.169-stable review
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,37 +84,34 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 
+
 ----- Original Message -----
+> On Wed, 29 Jan 2020 at 14:46, Jan Stancek <jstancek@redhat.com> wrote:
+> >
+> >
+> >
+> > ----- Original Message -----
+> > > NOTE:
+> > > LTP fs test read_all_proc fails intermittently on 4.9 and 4.14 branches.
+> >
+> > [trim CC list to LTP]
+> >
+> > Naresh, do you have some examples of these failures?
 > 
+> Yes.
+> I have posted the links below.
 > 
-> On Fri, Jan 31, 2020 at 12:13 AM Martin Doucha < mdoucha@suse.cz > wrote:
+> > Has it started recently or do you see it long-term?
 > 
-> 
-> On a system with low memory, fork12 can trigger OOM killer before it hits
-> any fork() limits. The OOM killer might accidentally kill e.g. the parent
-> shell and external testing tools will assume the test failed.
-> 
-> Set high oom_score_adj on the fork12 process so that the OOM killer focuses
-> on it and its children.
-> 
-> It sounds more like the OOM-Killer defect but not fork12.
+> We have seen this from a this test is introduced.
+> Not specific to any branch. This failure is intermittent and found on
+> multiple trees and branches.
 
-Badness score is based on proportion of rss/swap. It doesn't seem like
-defect to me, we just quickly spawn many small tasks.
+Those look like kernel bugs, but it's hard to see what /proc entries
+trigger it.
 
-> What we do for that
-> is to protect the parent shell and its harness to avoid oom_kill_process()
-> acting on them.
-> 
-> On the other side, if we do raise the oom score of fork12, that would not
-> guarantee OOM-Killer do right evaluation but just makes fork12 easily to be
-> killed in testing.
-
-fork12 is not an OOM test, so I don't see problem with this. We only need OOM
-to kill something we don't care about, in case it triggers.
-
-I'd move oom_score_adj after fork, so only child processes are better target,
-not the parent.
+I've been running v5.5 and read_all_proc for ~24 hours on aarch64,
+but so far no crashes.
 
 
 -- 
