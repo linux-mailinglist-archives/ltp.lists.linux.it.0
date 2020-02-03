@@ -1,42 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADC8715090F
-	for <lists+linux-ltp@lfdr.de>; Mon,  3 Feb 2020 16:05:12 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0380C1509C1
+	for <lists+linux-ltp@lfdr.de>; Mon,  3 Feb 2020 16:24:25 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 13CDC3C25DA
-	for <lists+linux-ltp@lfdr.de>; Mon,  3 Feb 2020 16:05:12 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B0CA43C25DC
+	for <lists+linux-ltp@lfdr.de>; Mon,  3 Feb 2020 16:24:24 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 887143C25C5
- for <ltp@lists.linux.it>; Mon,  3 Feb 2020 16:05:07 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 2507B3C25CB
+ for <ltp@lists.linux.it>; Mon,  3 Feb 2020 16:24:22 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 18F4A140017A
- for <ltp@lists.linux.it>; Mon,  3 Feb 2020 16:05:06 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 3BD7B1A00EAF
+ for <ltp@lists.linux.it>; Mon,  3 Feb 2020 16:24:21 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 51AE6ABBD
- for <ltp@lists.linux.it>; Mon,  3 Feb 2020 15:05:06 +0000 (UTC)
-Date: Mon, 3 Feb 2020 16:05:04 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 8A654ACA0
+ for <ltp@lists.linux.it>; Mon,  3 Feb 2020 15:24:21 +0000 (UTC)
+Date: Mon, 3 Feb 2020 16:24:20 +0100
 From: Petr Vorel <pvorel@suse.cz>
 To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20200203150504.GA15129@dell5510>
+Message-ID: <20200203152420.GA29586@dell5510>
 References: <20200129144913.9889-1-mdoucha@suse.cz>
- <20200129144913.9889-2-mdoucha@suse.cz>
+ <20200129144913.9889-3-mdoucha@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200129144913.9889-2-mdoucha@suse.cz>
+In-Reply-To: <20200129144913.9889-3-mdoucha@suse.cz>
 User-Agent: Mutt/1.12.2 (2019-09-21)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/3] Fix releasing loop devices in shell API
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/3] Allow acquiring multiple loop devices
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,16 +57,17 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Martin,
 
-> tst_device helper program currently cannot release any loop devices because
-> tst_release_device() checks whether any loop device was acquired by the same
-> process. If not, it'll do nothing. And since loop devices for shell test
-> scripts are always acquired by a different tst_device process, the check always
-> fails.
+> tst_acquire_device__() currently uses a hardcoded filename so only one loop
+> device can be used at a time. Allow setting arbitrary temp filename so that
+> multiple different loop devices can be acquired.
 
-> Call tst_detach_device() instead to bypass the check.
+> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+Good idea, thanks!
 
-Indeed losetup --list shows increasing list of the devices.
-Thanks for a fix, pushed.
+BTW IMHO DEV_FILE should be #define DEV_FILE "test_dev.%d.img", where %d would
+be PID to fix clash when tests run in paralel (e.g. mkswap01.sh and df01.sh).
+I'll send a patch tomorrow, based on this one.
 
 Kind regards,
 Petr
