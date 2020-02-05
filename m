@@ -1,52 +1,54 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5BC015322A
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Feb 2020 14:46:23 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C6C8153241
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Feb 2020 14:50:20 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7EFEF3C264C
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Feb 2020 14:46:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 358073C264C
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Feb 2020 14:50:20 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 164B53C262D
- for <ltp@lists.linux.it>; Wed,  5 Feb 2020 14:46:20 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 81E703C262A
+ for <ltp@lists.linux.it>; Wed,  5 Feb 2020 14:50:18 +0100 (CET)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 7D08B60136B
- for <ltp@lists.linux.it>; Wed,  5 Feb 2020 14:46:16 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.70,405,1574092800"; d="scan'208";a="82920499"
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 30D8A20075C
+ for <ltp@lists.linux.it>; Wed,  5 Feb 2020 14:50:16 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.70,405,1574092800"; d="scan'208";a="82920589"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 05 Feb 2020 21:46:12 +0800
+ by heian.cn.fujitsu.com with ESMTP; 05 Feb 2020 21:50:14 +0800
 Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 04C4850A9968;
- Wed,  5 Feb 2020 21:36:45 +0800 (CST)
+ by cn.fujitsu.com (Postfix) with ESMTP id 8AFDC406AB15;
+ Wed,  5 Feb 2020 21:40:45 +0800 (CST)
 Received: from [10.167.220.84] (10.167.220.84) by
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1395.4; Wed, 5 Feb 2020 21:46:06 +0800
+ (TLS) id 15.0.1395.4; Wed, 5 Feb 2020 21:50:07 +0800
 To: Cyril Hrubis <chrubis@suse.cz>
 References: <1579686442-24689-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <20200127162016.GD30831@rei.lan>
+ <1579686442-24689-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20200127162726.GE30831@rei.lan>
 From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <6c3adcfb-b3e4-ba8f-d084-a664145c1380@cn.fujitsu.com>
-Date: Wed, 5 Feb 2020 21:46:04 +0800
+Message-ID: <ded32418-0d78-983e-4283-09625b7bad1f@cn.fujitsu.com>
+Date: Wed, 5 Feb 2020 21:50:07 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
  Thunderbird/68.0
 MIME-Version: 1.0
-In-Reply-To: <20200127162016.GD30831@rei.lan>
+In-Reply-To: <20200127162726.GE30831@rei.lan>
 X-Originating-IP: [10.167.220.84]
 X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 04C4850A9968.A0634
+X-yoursite-MailScanner-ID: 8AFDC406AB15.ACF03
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/2] syscalls/fcntl30: clean up && add more
- range test
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 2/2] syscalls/fcntl37: add error test for fcntl
+ with F_SETPIPE_SZ
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,292 +68,108 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Cyril
 > Hi!
->> --------
->> v1->v2:
->> 1. add memfree check
-> 
-> Do we really need this? Looking at the kernel code the fcntl() just
-> reallocates the array that is holding the slots, so we only allocate new
-> array of struct pipe_buffer which contains a pointer for the actuall
-> page that is allocated when we _WRITE_ to the pipe.
-> 
-Yes, you are right. But this case indeed fail when on low memory machine 
-(4kb page size, 256/512M memory).
->> 2. limit max shift, so pipe will not beyond 2^31 value
->> on big page size machine(such as 64kb pg size on arm machine)
->> --------
->>
->> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
->> ---
->>   include/lapi/capability.h                 |   4 +
->>   testcases/kernel/syscalls/fcntl/fcntl30.c | 216 +++++++++++++---------
->>   2 files changed, 133 insertions(+), 87 deletions(-)
->>
->> diff --git a/include/lapi/capability.h b/include/lapi/capability.h
->> index 8833f0605..7ade78985 100644
->> --- a/include/lapi/capability.h
->> +++ b/include/lapi/capability.h
->> @@ -28,6 +28,10 @@
->>   # define CAP_SYS_ADMIN        21
->>   #endif
->>   
->> +#ifndef CAP_SYS_RESOURCE
->> +# define CAP_SYS_RESOURCE     24
->> +#endif
->> +
->>   #ifndef CAP_AUDIT_READ
->>   # define CAP_AUDIT_READ       37
->>   #endif
->> diff --git a/testcases/kernel/syscalls/fcntl/fcntl30.c b/testcases/kernel/syscalls/fcntl/fcntl30.c
->> index 4a409b868..0cb42babe 100644
->> --- a/testcases/kernel/syscalls/fcntl/fcntl30.c
->> +++ b/testcases/kernel/syscalls/fcntl/fcntl30.c
->> @@ -1,111 +1,153 @@
->> +// SPDX-License-Identifier: GPL-2.0-or-later
->>   /*
->> - * Copyright (c) 2014 Fujitsu Ltd.
->> + * Copyright (c) 2014-2020 FUJITSU LIMITED. All rights reserved.
->>    * Author: Xiaoguang Wang <wangxg.fnst@cn.fujitsu.com>
->> + * Author: Yang Xu <xuyang2018.jy@cn.jujitsu.com>
->>    *
->> - * This program is free software; you can redistribute it and/or modify it
->> - * under the terms of version 2 of the GNU General Public License as
->> - * published by the Free Software Foundation.
->> - *
->> - * This program is distributed in the hope that it would be useful, but
->> - * WITHOUT ANY WARRANTY; without even the implied warranty of
->> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
->> - *
->> - * You should have received a copy of the GNU General Public License along
->> - * with this program; if not, write the Free Software Foundation, Inc.,
->> - * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
->> - */
->> -
->> -/*
->>    * Description:
->> - * Verify that,
->> - *     Basic test for fcntl(2) using F_SETPIPE_SZ, F_GETPIPE_SZ argument.
->> + * Basic test for fcntl(2) using F_SETPIPE_SZ, F_GETPIPE_SZ argument.
->>    */
->>   
->> -
->> -#include <stdio.h>
->> -#include <errno.h>
->>   #include <unistd.h>
->>   #include <fcntl.h>
->> -#include <string.h>
->> -#include <signal.h>
->>   #include <sys/types.h>
->> -#include <pwd.h>
->> -
->> -#include "test.h"
->> -#include "safe_macros.h"
->> +#include "tst_test.h"
->>   #include "lapi/fcntl.h"
->> -
->> -char *TCID = "fcntl30";
->> -int TST_TOTAL = 1;
->> -
->> -static void setup(void);
->> -static void cleanup(void);
->> -
->> -int main(int ac, char **av)
->> +#include "lapi/abisize.h"
->> +#include "lapi/capability.h"
->> +
 >> +static int fds[2];
->> +static unsigned int orig_value, struct_shift, max_shift, pg_shift;
+>> +static unsigned int orig_value, invalid_value, half_value, sys_value;
+>> +static char *wrbuf;
 >> +
 >> +static struct tcase {
->> +	unsigned int multi;
->> +	unsigned int exp_multi;
->> +	int hole;
->> +	int pass_flag;
+>> +	unsigned int *setvalue;
+>> +	int exp_err;
 >> +	char *message;
 >> +} tcases[] = {
->> +	{1, 1, 1, 1, "set a value of blew page size"},
->                                        ^
-> 				      below?
-ok.
->> +	{2, 2, 0, 1, "set a normal value"},
->> +	{0, 0, 0, 1, "set a max value"},
->> +	{0, 0, -1, 0, "set a value beyond max"},
+>> +	{&invalid_value, EINVAL,
+>> +	"cmd is F_SETPIPE_SZ and the arg is beyond 1<<31"},
+>> +
+>> +	{&half_value, EBUSY,
+>> +	"cmd is F_SETPIPE_SZ and the arg is smaller than the amount of the current used buffer space"},
+> 
+> Ah the EBUSY is handled here.
+> 
+> 
+> Also these descriptions are way too long, ideally these should be
+> shorter and to the point. Something as:
+> 
+> "F_SETPIPE_SZ and size < data stored in pipe"
+> 
+OK. I will short them.
+>> +	{&sys_value, EPERM,
+>> +	"cmd is F_SETPIPE_SZ and the arg is over /proc/sys/fs/pipe-max-size limit under unprivileged users"},
+> 
+> Here something as:
+> 
+> "F_SETPIPE_SZ and size is over limit for unpriviledged user"
+> 
 >> +};
 >> +
 >> +static void verify_fcntl(unsigned int n)
->>   {
->> -	int lc;
->> -	int pipe_fds[2], test_fd;
->> -	int orig_pipe_size, new_pipe_size;
->> -
->> -
->> -	tst_parse_opts(ac, av, NULL, NULL);
->> -
->> -	setup();
->> -
->> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
->> -		tst_count = 0;
->> -
->> -		SAFE_PIPE(cleanup, pipe_fds);
->> -		test_fd = pipe_fds[1];
->> -
->> -		TEST(fcntl(test_fd, F_GETPIPE_SZ));
->> -		if (TEST_RETURN < 0) {
->> -			tst_brkm(TFAIL | TTERRNO, cleanup,
->> -				 "fcntl get pipe size failed");
->> -		}
->> -
->> -		orig_pipe_size = TEST_RETURN;
->> -		new_pipe_size = orig_pipe_size * 2;
->> -		TEST(fcntl(test_fd, F_SETPIPE_SZ, new_pipe_size));
->> -		if (TEST_RETURN < 0) {
->> -			tst_brkm(TFAIL | TTERRNO, cleanup,
->> -				 "fcntl test F_SETPIPE_SZ failed");
->> -		}
+>> +{
 >> +	struct tcase *tc = &tcases[n];
->> +	unsigned int pipe_sz, exp_pipe_sz, shift;
->> +	long memfree;
 >> +
->> +	SAFE_FILE_LINES_SCANF("/proc/meminfo", "MemFree: %ld", &memfree);
+>> +	tst_res(TINFO, "%s", tc->message);
 >> +
->> +	shift = max_shift - struct_shift + 2 * pg_shift;
->> +	/*
->> +	 * On 64k page size machine, this will beyond 2G and trigger EINVAL error,
->> +	 * so truncate it.
->> +	 */
->> +	if (shift > 31) {
->> +		tst_res(TINFO, "pipe size truncated into 2G");
->> +		shift = 31;
->> +	}
->> +	if (tc->multi)
->> +		pipe_sz = (tc->multi << pg_shift) - tc->hole;
+>> +	TEST(fcntl(fds[1], F_SETPIPE_SZ, *(tc->setvalue)));
+>> +	if (TST_RET != -1)
+>> +		tst_res(TFAIL, "F_SETPIPE_SZ succeed");
+> 
+> Maybe we should print the TST_RET here as well, it may return completely
+> random number that != -1.
+OK.
+> 
+>> +	if (TST_ERR == tc->exp_err)
+>> +		tst_res(TPASS | TTERRNO, "F_SETPIPE_SZ failed as expected");
 >> +	else
->> +		pipe_sz = (1 << shift) - tc->hole;
->> +	if (tc->exp_multi)
->> +		exp_pipe_sz = tc->exp_multi << pg_shift;
->> +	else
->> +		exp_pipe_sz = 1 << shift;
+>> +		tst_res(TFAIL | TTERRNO, "F_SETPIPE_SZ failed expected %s bu got",
+>                                                                            ^
+> 									  but?
 > 
-> I do wonder why can't we simply compute these sizes in the test setup
-> instead.
-> 
-ok. I will move this into setup.
->> +	tst_res(TINFO, "%s, size is %d", tc->message, pipe_sz);
->> +
->> +	if (pipe_sz > memfree * 1024) {
->> +		tst_res(TCONF, "No enough free memory");
->> +		return;
->> +	}
->>   
->> -		TEST(fcntl(test_fd, F_GETPIPE_SZ));
->> -		if (TEST_RETURN < 0) {
->> -			tst_brkm(TFAIL | TTERRNO, cleanup,
->> -				 "fcntl test F_GETPIPE_SZ failed");
->> -		}
->> -		tst_resm(TINFO, "orig_pipe_size: %d new_pipe_size: %d",
->> -			 orig_pipe_size, new_pipe_size);
->> -		if (TEST_RETURN >= new_pipe_size) {
->> -			tst_resm(TPASS, "fcntl test F_GETPIPE_SZ"
->> -				 "and F_SETPIPE_SZ success");
->> -		} else {
->> -			tst_resm(TFAIL, "fcntl test F_GETPIPE_SZ"
->> -				 "and F_SETPIPE_SZ fail");
->> +	TEST(fcntl(fds[1], F_SETPIPE_SZ, pipe_sz));
->> +	if (tc->pass_flag && TST_RET == -1) {
->> +		tst_res(TFAIL | TTERRNO, "F_SETPIPE_SZ failed");
->> +		return;
->> +	}
->> +	if (!tc->pass_flag) {
-> 
-> Simple else would be more readable here.
+> I guess that we can completely drop the "but" here and just keep it
+> "... expected %s got"
 > 
 OK.
->> +		if (TST_RET == -1) {
->> +			if ((TST_ERR == ENOMEM && shift < 31 && tc->hole) ||
->> +				(TST_ERR == EINVAL && shift == 31 && tc->hole))
->> +				tst_res(TPASS | TTERRNO, "F_SETPIPE_SZ failed");
->> +			else
->> +				tst_res(TFAIL | TTERRNO,
->> +					"F_SETPIPE_SZ failed with unexpected error");
->> +			return;
->>   		}
->> -		SAFE_CLOSE(cleanup, pipe_fds[0]);
->> -		SAFE_CLOSE(cleanup, pipe_fds[1]);
->> +		tst_res(TFAIL, "F_SETPIPE_SZ succeed unexpectedly");
->>   	}
->>   
->> -	cleanup();
->> -	tst_exit();
->> +	TEST(fcntl(fds[1], F_GETPIPE_SZ));
->> +	if (TST_RET == -1) {
->> +		tst_res(TFAIL | TTERRNO, "F_GETPIPE_SZ failed");
->> +		return;
->> +	}
->> +	if ((unsigned int)TST_RET == exp_pipe_sz)
->> +		tst_res(TPASS, "F_SETPIPE_SZ %u bytes F_GETPIPE_SZ %u bytes",
->> +			pipe_sz, (unsigned int)TST_RET);
->> +	else
->> +		tst_res(TFAIL, "F_SETPIPE_SZ %u bytes but F_GETPIPE_SZ %u bytes",
->> +			pipe_sz, (unsigned int)TST_RET);
->>   }
->>   
->>   static void setup(void)
->>   {
->> -	if ((tst_kvercmp(2, 6, 35)) < 0) {
->> -		tst_brkm(TCONF, NULL, "This test can only run on kernels"
->> -			 "that are 2.6.35 and higher");
->> -	}
->> -
->> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
->> -
->> -	TEST_PAUSE;
->> +	unsigned int pg_size;
+>> +				tst_strerrno(tc->exp_err));
+>> +}
 >> +
+>> +static void setup(void)
+>> +{
 >> +	SAFE_PIPE(fds);
+>> +
 >> +	TEST(fcntl(fds[1], F_GETPIPE_SZ));
 >> +	if (TST_ERR == EINVAL)
 >> +		tst_brk(TCONF, "kernel doesn't support F_GET/SETPIPE_SZ");
->> +	orig_value = TST_RET;
->> +	/*
->> +	 * See kernel fs/pipe.c, the size of struct pipe buffer is 40 bytes
->> +	 * (round up 2^6) on 64bit system and 24 bytes(round up 2^5). kcalloc
->> +	 * mallocs a memory space range stores struct pipe buffer. kcalloc can
->> +	 * malloc max space depend on KMALLOC_SHIFT_MAX macro.
->> +	 *  #define KMALLOC_SHIFT_MAX  (MAX_ORDER + PAGE_SHIFT - 1)
->> +	 * the MAX_ORDER is 11.
->> +	 * For example, if page size is 4k, on 64bit system. the max pipe size
->> +	 * as below:
->> +	 *  kcalloc space(4M): 1 << (11+12-1)= 2^22
->> +	 *  space can store struct pipi buffer: 2^22/2^6= 2^16
->> +	 *  max pipe size: 2^16* 2^12 = 2^28
->> +	 * it should be 256M. On 32bit system, this value is 512M.
->> +	 */
->> +#ifdef TST_ABI64
->> +	struct_shift = 6;
->> +#else
->> +	struct_shift = 5;
->> +#endif
->> +	max_shift = 10;
 >> +
->> +	pg_size = getpagesize();
->> +	tst_res(TINFO, "page size is %d bytes", pg_size);
->> +	while (pg_size >>= 1)
->> +		pg_shift++;
->>   }
->>   
->>   static void cleanup(void)
->>   {
+>> +	orig_value = TST_RET;
+>> +
+>> +	wrbuf = SAFE_MALLOC(orig_value);
+>> +	memset(wrbuf, 'x', orig_value);
+>> +	SAFE_WRITE(1, fds[1], wrbuf, orig_value);
+>> +
+>> +	SAFE_FILE_SCANF("/proc/sys/fs/pipe-max-size", "%d", &sys_value);
+>> +	sys_value++;
+>> +
+>> +	half_value = orig_value / 2;
+>> +	invalid_value = (1U << 31) + 1;
+>> +}
+>> +
+>> +static void cleanup(void)
+>> +{
 >> +	SAFE_FCNTL(fds[1], F_SETPIPE_SZ, orig_value);
 > 
-> Do we really restore the value? We are closing the the pipe here
-> anyways.
+> Again there is no point in restoring the value if we close the pipe
+> right after.
 > 
-It is useless, I will remove this restore.
+OK.
 >> +	if (fds[0] > 0)
 >> +		SAFE_CLOSE(fds[0]);
 >> +	if (fds[1] > 0)
 >> +		SAFE_CLOSE(fds[1]);
->>   }
+>> +	if (wrbuf)
+>> +		free(wrbuf);
+> 
+> Why don't we free the buffer right in the test setup? There is no point
+> in keeping it allocated.
+> 
+OK. I will free the buffer in setup.
+>> +}
 >> +
 >> +static struct tst_test test = {
 >> +	.setup = setup,
@@ -359,21 +177,12 @@ It is useless, I will remove this restore.
 >> +	.tcnt = ARRAY_SIZE(tcases),
 >> +	.test = verify_fcntl,
 >> +	.caps = (struct tst_cap []) {
->> +		TST_CAP(TST_CAP_REQ, CAP_SYS_RESOURCE),
+>> +		TST_CAP(TST_CAP_DROP, CAP_SYS_RESOURCE),
 >> +		{}
 >> +	},
 >> +};
 > 
-> Also btw, looking at the code there are couple of other things to test:
-> 
-> * unpriviledged user can shrink buffer and grow it if the size is below /proc/sys/fs/pipe-max-size
-Ok. I will add it.
-
-
-> * write data to page and shrink the buffer, then read it back and check
->    the content, also check that pipe cannot be shrunk below the size the
->    currently used slots
-My other patch tests this .
+> Other than the minor things the rest looks good.
 > 
 
 
