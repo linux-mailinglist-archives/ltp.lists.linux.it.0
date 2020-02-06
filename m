@@ -2,90 +2,37 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89752154495
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2020 14:08:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F3EE154924
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2020 17:28:11 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0D4003C2571
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2020 14:08:27 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3D1D23C2571
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2020 17:28:10 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 10E2A3C0300
- for <ltp@lists.linux.it>; Thu,  6 Feb 2020 14:08:21 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 87EB53C0716
+ for <ltp@lists.linux.it>; Thu,  6 Feb 2020 17:28:06 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C562F1001DA4
- for <ltp@lists.linux.it>; Thu,  6 Feb 2020 14:08:21 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 781501A00695
+ for <ltp@lists.linux.it>; Thu,  6 Feb 2020 17:28:02 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id CD422AC5F
- for <ltp@lists.linux.it>; Thu,  6 Feb 2020 13:08:20 +0000 (UTC)
-To: rpalethorpe@suse.de
-References: <20200203113956.13176-1-mdoucha@suse.cz>
- <20200203113956.13176-2-mdoucha@suse.cz> <20200205143107.GC30186@rei>
- <fda46288-1850-8ac9-1c56-7641aaeb8759@suse.cz> <20200205155012.GA4920@rei>
- <2c7e9545-93e3-3460-6006-5e57b982ecc7@suse.cz> <20200205191006.GA18877@rei>
- <87lfpgges0.fsf@our.domain.is.not.set>
- <f50e75f0-5575-0753-5b3e-dc1e6d66e2b7@suse.cz>
- <87imkjhq6m.fsf@our.domain.is.not.set> <87h803hoz9.fsf@our.domain.is.not.set>
-From: Martin Doucha <mdoucha@suse.cz>
-Autocrypt: addr=mdoucha@suse.cz; keydata=
- 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
-Message-ID: <d16cb4d1-08cd-86ba-956d-1f838c143b44@suse.cz>
-Date: Thu, 6 Feb 2020 14:08:20 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.2
+ by mx2.suse.de (Postfix) with ESMTP id A23E0AE9A;
+ Thu,  6 Feb 2020 16:28:01 +0000 (UTC)
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Thu,  6 Feb 2020 17:27:22 +0100
+Message-Id: <20200206162722.18945-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-In-Reply-To: <87h803hoz9.fsf@our.domain.is.not.set>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] Fix BPF test program loading issues
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/1] syscalls/fsmount01: Add test for new mount API
+ v5.2
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,37 +44,321 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 2/6/20 1:36 PM, Richard Palethorpe wrote:
-> OTOH, At least with compilers which don't have link time optimisation
-> (everything except Clang?), there is an advantage to including stuff
-> inline. Hence why fzsync is entirely in the header, although I don't
-> think it matters much either way for LTP.
+From: Zorro Lang <zlang@redhat.com>
 
-GCC does have link-time optimisation.
-CFLAGS += -flto
-CXXFLAGS += -flto
-LDFLAGS += -flto
+Add basic tests tests for new mount API from kernel v5.2.
+Testing mount and umount filesystems with fsopen(), fsconfig(),
+fsmount() and move_mount().
 
-The only drawback is that object files will get bigger and linking the
-test programs will take significantly longer. But since the performance
-overhead of actual LTP code is mostly trivial compared to time spent in
-system calls and waiting for I/O operations, I don't think we'll gain
-anything by turning these optimizations on.
+Signed-off-by: Zorro Lang <zlang@redhat.com>
+Reported-by: Cyril Hrubis <chrubis@suse.cz>
+[ pvorel: cleanup autotools and other fixes ]
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+Hi,
 
+I implemented fixes for "newmount" Zorro's patch, hoping this is a final
+version. Changes are minor, asked by Cyril + rename test to fsmount01,
+headers cleanup (but <sys/mount.h> kept + use SAFE_FOPEN()).
+
+Kind regards,
+Petr
+
+ configure.ac                                  |  4 +
+ include/lapi/newmount.h                       | 95 ++++++++++++++++++
+ include/lapi/syscalls/powerpc64.in            |  4 +
+ runtest/syscalls                              |  2 +
+ testcases/kernel/syscalls/fsmount/.gitignore  |  1 +
+ testcases/kernel/syscalls/fsmount/Makefile    |  8 ++
+ testcases/kernel/syscalls/fsmount/fsmount01.c | 99 +++++++++++++++++++
+ 7 files changed, 213 insertions(+)
+ create mode 100644 include/lapi/newmount.h
+ create mode 100644 testcases/kernel/syscalls/fsmount/.gitignore
+ create mode 100644 testcases/kernel/syscalls/fsmount/Makefile
+ create mode 100644 testcases/kernel/syscalls/fsmount/fsmount01.c
+
+diff --git a/configure.ac b/configure.ac
+index df4e8c832..05b7d0a72 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -80,6 +80,9 @@ AC_CHECK_FUNCS([ \
+     execveat \
+     fallocate \
+     fchownat \
++    fsconfig \
++    fsmount \
++    fsopen \
+     fstatat \
+     getdents \
+     getdents64 \
+@@ -88,6 +91,7 @@ AC_CHECK_FUNCS([ \
+     mkdirat \
+     mknodat \
+     modify_ldt \
++    move_mount \
+     name_to_handle_at \
+     openat \
+     pidfd_open \
+diff --git a/include/lapi/newmount.h b/include/lapi/newmount.h
+new file mode 100644
+index 000000000..d4efdb300
+--- /dev/null
++++ b/include/lapi/newmount.h
+@@ -0,0 +1,95 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2019 Red Hat, Inc.  All rights reserved.
++ * Author: Zorro Lang <zlang@redhat.com>
++ */
++
++#ifndef NEWMOUNT_H__
++#define NEWMOUNT_H__
++
++#include <stdint.h>
++#include <unistd.h>
++#include "config.h"
++#include "lapi/syscalls.h"
++
++#ifndef HAVE_FSOPEN
++static inline int fsopen(const char *fs_name, unsigned int flags)
++{
++	return tst_syscall(__NR_fsopen, fs_name, flags);
++}
++
++/*
++ * fsopen() flags.
++ */
++#define FSOPEN_CLOEXEC		0x00000001
++#endif	/* HAVE_FSOPEN */
++
++#ifndef HAVE_FSCONFIG
++static inline int fsconfig(int fsfd, unsigned int cmd,
++                           const char *key, const void *val, int aux)
++{
++	return tst_syscall(__NR_fsconfig, fsfd, cmd, key, val, aux);
++}
++
++/*
++ * The type of fsconfig() call made.
++ */
++enum fsconfig_command {
++	FSCONFIG_SET_FLAG	= 0,    /* Set parameter, supplying no value */
++	FSCONFIG_SET_STRING	= 1,    /* Set parameter, supplying a string value */
++	FSCONFIG_SET_BINARY	= 2,    /* Set parameter, supplying a binary blob value */
++	FSCONFIG_SET_PATH	= 3,    /* Set parameter, supplying an object by path */
++	FSCONFIG_SET_PATH_EMPTY	= 4,    /* Set parameter, supplying an object by (empty) path */
++	FSCONFIG_SET_FD		= 5,    /* Set parameter, supplying an object by fd */
++	FSCONFIG_CMD_CREATE	= 6,    /* Invoke superblock creation */
++	FSCONFIG_CMD_RECONFIGURE = 7,   /* Invoke superblock reconfiguration */
++};
++#endif	/* HAVE_FSCONFIG */
++
++#ifndef HAVE_FSMOUNT
++static inline int fsmount(int fsfd, unsigned int flags, unsigned int ms_flags)
++{
++	return tst_syscall(__NR_fsmount, fsfd, flags, ms_flags);
++}
++
++/*
++ * fsmount() flags.
++ */
++#define FSMOUNT_CLOEXEC		0x00000001
++
++/*
++ * Mount attributes.
++ */
++#define MOUNT_ATTR_RDONLY	0x00000001 /* Mount read-only */
++#define MOUNT_ATTR_NOSUID	0x00000002 /* Ignore suid and sgid bits */
++#define MOUNT_ATTR_NODEV	0x00000004 /* Disallow access to device special files */
++#define MOUNT_ATTR_NOEXEC	0x00000008 /* Disallow program execution */
++#define MOUNT_ATTR__ATIME	0x00000070 /* Setting on how atime should be updated */
++#define MOUNT_ATTR_RELATIME	0x00000000 /* - Update atime relative to mtime/ctime. */
++#define MOUNT_ATTR_NOATIME	0x00000010 /* - Do not update access times. */
++#define MOUNT_ATTR_STRICTATIME	0x00000020 /* - Always perform atime updates */
++#define MOUNT_ATTR_NODIRATIME	0x00000080 /* Do not update directory access times */
++#endif	/* HAVE_FSMOUNT */
++
++#ifndef HAVE_MOVE_MOUNT
++static inline int move_mount(int from_dfd, const char *from_pathname,
++                             int to_dfd, const char *to_pathname,
++                             unsigned int flags)
++{
++	return tst_syscall(__NR_move_mount, from_dfd, from_pathname, to_dfd,
++	                   to_pathname, flags);
++}
++
++/*
++ * move_mount() flags.
++ */
++#define MOVE_MOUNT_F_SYMLINKS		0x00000001 /* Follow symlinks on from path */
++#define MOVE_MOUNT_F_AUTOMOUNTS		0x00000002 /* Follow automounts on from path */
++#define MOVE_MOUNT_F_EMPTY_PATH		0x00000004 /* Empty from path permitted */
++#define MOVE_MOUNT_T_SYMLINKS		0x00000010 /* Follow symlinks on to path */
++#define MOVE_MOUNT_T_AUTOMOUNTS		0x00000020 /* Follow automounts on to path */
++#define MOVE_MOUNT_T_EMPTY_PATH		0x00000040 /* Empty to path permitted */
++#define MOVE_MOUNT__MASK		0x00000077
++#endif	/* HAVE_MOVE_MOUNT */
++
++#endif /* NEWMOUNT_H__ */
+diff --git a/include/lapi/syscalls/powerpc64.in b/include/lapi/syscalls/powerpc64.in
+index 2c1f105c1..beb0e6812 100644
+--- a/include/lapi/syscalls/powerpc64.in
++++ b/include/lapi/syscalls/powerpc64.in
+@@ -371,3 +371,7 @@ pidfd_open 434
+ pkey_mprotect 386
+ pkey_alloc 384
+ pkey_free 385
++move_mount 429
++fsopen 430
++fsconfig 431
++fsmount 432
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 0743cf4e3..72e729c1c 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -341,6 +341,8 @@ fpathconf01 fpathconf01
+ fremovexattr01 fremovexattr01
+ fremovexattr02 fremovexattr02
+ 
++fsmount01 fsmount01
++
+ fstat02 fstat02
+ fstat02_64 fstat02_64
+ fstat03 fstat03
+diff --git a/testcases/kernel/syscalls/fsmount/.gitignore b/testcases/kernel/syscalls/fsmount/.gitignore
+new file mode 100644
+index 000000000..e2f01ea17
+--- /dev/null
++++ b/testcases/kernel/syscalls/fsmount/.gitignore
+@@ -0,0 +1 @@
++/fsmount01
+diff --git a/testcases/kernel/syscalls/fsmount/Makefile b/testcases/kernel/syscalls/fsmount/Makefile
+new file mode 100644
+index 000000000..cc80d2efd
+--- /dev/null
++++ b/testcases/kernel/syscalls/fsmount/Makefile
+@@ -0,0 +1,8 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (C) 2019 Red Hat, Inc.  All rights reserved.
++
++top_srcdir		?= ../../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/fsmount/fsmount01.c b/testcases/kernel/syscalls/fsmount/fsmount01.c
+new file mode 100644
+index 000000000..7ba50753f
+--- /dev/null
++++ b/testcases/kernel/syscalls/fsmount/fsmount01.c
+@@ -0,0 +1,99 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2019 Red Hat, Inc.  All rights reserved.
++ * Author: Zorro Lang <zlang@redhat.com>
++ *
++ * Use new mount API from v5.2 (fsopen(), fsconfig(), fsmount(), move_mount())
++ * to mount a filesystem without any specified mount options.
++ */
++
++#include <sys/mount.h>
++
++#include "tst_test.h"
++#include "lapi/newmount.h"
++#include "tst_safe_stdio.h"
++
++#define LINELENGTH 256
++#define MNTPOINT "newmount_point"
++static int sfd, mfd, is_mounted;
++
++static int ismount(char *mntpoint)
++{
++	int ret = 0;
++	FILE *file;
++	char line[LINELENGTH];
++
++	file = SAFE_FOPEN("/proc/mounts", "r");
++
++	while (fgets(line, LINELENGTH, file) != NULL) {
++		if (strstr(line, mntpoint) != NULL) {
++			ret = 1;
++			break;
++		}
++	}
++	SAFE_FCLOSE(file);
++	return ret;
++}
++
++static void cleanup(void)
++{
++	if (is_mounted) {
++		TEST(tst_umount(MNTPOINT));
++		if (TST_RET != 0)
++			tst_brk(TBROK | TTERRNO, "umount failed in cleanup");
++	}
++}
++
++static void test_newmount(void)
++{
++	TEST(fsopen(tst_device->fs_type, FSOPEN_CLOEXEC));
++	if (TST_RET < 0)
++		tst_brk(TBROK | TTERRNO, "fsopen %s", tst_device->fs_type);
++	sfd = TST_RET;
++	tst_res(TPASS, "fsopen %s", tst_device->fs_type);
++
++	TEST(fsconfig(sfd, FSCONFIG_SET_STRING, "source", tst_device->dev, 0));
++	if (TST_RET < 0)
++		tst_brk(TBROK | TTERRNO,
++		        "fsconfig set source to %s", tst_device->dev);
++	tst_res(TPASS, "fsconfig set source to %s", tst_device->dev);
++
++
++	TEST(fsconfig(sfd, FSCONFIG_CMD_CREATE, NULL, NULL, 0));
++	if (TST_RET < 0)
++		tst_brk(TBROK | TTERRNO, "fsconfig create superblock");
++	tst_res(TPASS, "fsconfig create superblock");
++
++	TEST(fsmount(sfd, FSMOUNT_CLOEXEC, 0));
++	if (TST_RET < 0)
++		tst_brk(TBROK | TTERRNO, "fsmount");
++	mfd = TST_RET;
++	tst_res(TPASS, "fsmount");
++	SAFE_CLOSE(sfd);
++
++	TEST(move_mount(mfd, "", AT_FDCWD, MNTPOINT, MOVE_MOUNT_F_EMPTY_PATH));
++	if (TST_RET < 0)
++		tst_brk(TBROK | TTERRNO, "move_mount attach to mount point");
++	is_mounted = 1;
++	tst_res(TPASS, "move_mount attach to mount point");
++	SAFE_CLOSE(mfd);
++
++	if (ismount(MNTPOINT)) {
++		tst_res(TPASS, "new mount API from v5.2 works");
++		TEST(tst_umount(MNTPOINT));
++		if (TST_RET != 0)
++			tst_brk(TBROK | TTERRNO, "umount failed");
++		is_mounted = 0;
++	} else
++		tst_res(TFAIL, "new mount API from v5.2 works");
++}
++
++static struct tst_test test = {
++	.test_all = test_newmount,
++	.cleanup = cleanup,
++	.needs_root = 1,
++	.mntpoint = MNTPOINT,
++	.format_device = 1,
++	.all_filesystems = 1,
++	.dev_fs_flags = TST_FS_SKIP_FUSE,
++};
 -- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+2.24.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
