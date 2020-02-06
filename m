@@ -1,52 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AA4D153E73
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2020 07:06:52 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F2E2153F0A
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2020 08:01:31 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B41A73C2546
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2020 07:06:51 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1EB123C257F
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2020 08:01:31 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 1162D3C12A1
- for <ltp@lists.linux.it>; Thu,  6 Feb 2020 07:06:49 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id E2048601F58
- for <ltp@lists.linux.it>; Thu,  6 Feb 2020 07:06:45 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.70,408,1574092800"; d="scan'208";a="82946698"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 06 Feb 2020 14:06:45 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id E71E150A9970;
- Thu,  6 Feb 2020 13:57:14 +0800 (CST)
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.83) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1395.4; Thu, 6 Feb 2020 14:06:39 +0800
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Thu, 6 Feb 2020 14:06:37 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <chrubis@suse.cz>
-Date: Thu, 6 Feb 2020 14:04:33 +0800
-Message-ID: <1580969073-27367-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1580969073-27367-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-References: <20200127162016.GD30831@rei.lan>
- <1580969073-27367-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 8174A3C1115
+ for <ltp@lists.linux.it>; Thu,  6 Feb 2020 08:01:26 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 5FEDE1A017AA
+ for <ltp@lists.linux.it>; Thu,  6 Feb 2020 08:01:24 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1580972483;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=wF4UOkoiHRwHljGkhkT21xZ1Na+l62vYej/Of1yuFnM=;
+ b=PmiararXUz7yq+ml1CylIKfH5bFxy9rG95lxnqNibi71f2JRXB2LW/4OEucdl33Z9UARy2
+ 4fmp9+wveTX50dLcNxC9Sw6s77hno56Ns0aeJJCqZk3JQXA4US154DwZTvPzj7O1TnjJzO
+ tEdBg6px2VxIz4hlnEWzMCdJRf8g510=
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-409-Qe7Z6GveOGmUIC9_NQupAw-1; Thu, 06 Feb 2020 02:01:20 -0500
+Received: by mail-oi1-f200.google.com with SMTP id d9so2388390oij.4
+ for <ltp@lists.linux.it>; Wed, 05 Feb 2020 23:01:20 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=cf7Wv8cL+J1HEOTNx4sC9tOAZON8q2Dr6zWA2wo2KiQ=;
+ b=rHICaZKzQ7o06gfWgCwfUxzV+cCBZ6sY1F4Un6pSBm/r6FTvcsBeP99onqWcZ6gLrg
+ McilRDytfqqpHewamipcKuDSXyQzOu3kO49cuXCkPQWaOhT6o7ZaK3WLFzWWMY9cuW10
+ kcQXITTRpLwaahlPfLHC3jzS1PJ3YAsf/Nx2dxYlkqWHZXP/5+duW5e6zwuy6wKSsC73
+ DRbDMG0+2maUGBVPmvGN4d9LQGydBfTmvyatNp7w3woWfpMvMvEDAEmYjHPgxj9k9ljL
+ zvf9E/Rn1IqcHQa8FL6x67zCLTYB7tAompsvhAQQ2PKPByGkOtvIjHUOiOMbvNQ9kMwG
+ 2xFA==
+X-Gm-Message-State: APjAAAWPUFesc/CQ5pk5ukFUasz9xaHDDhtNbj1/rM1y9Lqf6oK8oenG
+ 5rtHGLVdUhxjA08IOQO2yYzwx4PWS/Nae7nPQD4+djoYgHAXkT8SCOQP8U5xykjmEJ1OB+CKK3A
+ tPiOPyJjMLof9/1czwo9avbmHN+4=
+X-Received: by 2002:aca:afd8:: with SMTP id y207mr5723422oie.96.1580972480114; 
+ Wed, 05 Feb 2020 23:01:20 -0800 (PST)
+X-Google-Smtp-Source: APXvYqzkvjmoLNbnRUYRFgv2qWGFIpUPb/iaqGE3SIMIjcVcOXZrG3Z2UaPISdIa5bejorbz2+wYC9LI0Exzp7cGGmA=
+X-Received: by 2002:aca:afd8:: with SMTP id y207mr5723406oie.96.1580972479767; 
+ Wed, 05 Feb 2020 23:01:19 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-yoursite-MailScanner-ID: E71E150A9970.AD6E0
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+References: <7843cc36a04deb034e9479a139f535e5fa5f3135.1580894017.git.jstancek@redhat.com>
+ <CAEemH2fnu9nZiGDfa5LTTMA0a_-PJ35fjjLdZ2vXYNGRJqHfVA@mail.gmail.com>
+ <1751041821.5968536.1580913131753.JavaMail.zimbra@redhat.com>
+In-Reply-To: <1751041821.5968536.1580913131753.JavaMail.zimbra@redhat.com>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 6 Feb 2020 15:01:08 +0800
+Message-ID: <CAEemH2eycvuJkqvTj=8R=aRqRGxhb=n3BzpeAaaCk8M4oJELsg@mail.gmail.com>
+To: Jan Stancek <jstancek@redhat.com>
+X-MC-Unique: Qe7Z6GveOGmUIC9_NQupAw-1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 2/2] syscalls/fcntl37: add error test for fcntl
- with F_SETPIPE_SZ
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/getrandom02: lower bufsize if low on
+ entropy
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,78 +81,101 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0983267893=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-LS0tLS0tLS0tLS0tLQp2Mi0+djPvvJoKZml4IHRoaW5ncyBwb2ludGVkIGJ5IEN5cmlsCi0tLS0t
-LS0tLS0tCgpTaWduZWQtb2ZmLWJ5OiBZYW5nIFh1IDx4dXlhbmcyMDE4Lmp5QGNuLmZ1aml0c3Uu
-Y29tPgotLS0KIHJ1bnRlc3Qvc3lzY2FsbHMgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAy
-ICsKIHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZmNudGwvLmdpdGlnbm9yZSB8ICAyICsKIHRl
-c3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZmNudGwvZmNudGwzNy5jICB8IDk4ICsrKysrKysrKysr
-KysrKysrKysrKysKIDMgZmlsZXMgY2hhbmdlZCwgMTAyIGluc2VydGlvbnMoKykKIGNyZWF0ZSBt
-b2RlIDEwMDY0NCB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2ZjbnRsL2ZjbnRsMzcuYwoKZGlm
-ZiAtLWdpdCBhL3J1bnRlc3Qvc3lzY2FsbHMgYi9ydW50ZXN0L3N5c2NhbGxzCmluZGV4IDA3NDNj
-ZjRlMy4uNTc3YTRhNTI3IDEwMDY0NAotLS0gYS9ydW50ZXN0L3N5c2NhbGxzCisrKyBiL3J1bnRl
-c3Qvc3lzY2FsbHMKQEAgLTMwMSw2ICszMDEsOCBAQCBmY250bDM1IGZjbnRsMzUKIGZjbnRsMzVf
-NjQgZmNudGwzNV82NAogZmNudGwzNiBmY250bDM2CiBmY250bDM2XzY0IGZjbnRsMzZfNjQKK2Zj
-bnRsMzcgZmNudGwzNworZmNudGwzN182NCBmY250bDM3XzY0CiAKIGZkYXRhc3luYzAxIGZkYXRh
-c3luYzAxCiBmZGF0YXN5bmMwMiBmZGF0YXN5bmMwMgpkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tl
-cm5lbC9zeXNjYWxscy9mY250bC8uZ2l0aWdub3JlIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxs
-cy9mY250bC8uZ2l0aWdub3JlCmluZGV4IDhkNTczOGY5Ny4uYmU4ZDk3MzllIDEwMDY0NAotLS0g
-YS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2ZjbnRsLy5naXRpZ25vcmUKKysrIGIvdGVzdGNh
-c2VzL2tlcm5lbC9zeXNjYWxscy9mY250bC8uZ2l0aWdub3JlCkBAIC03MCwzICs3MCw1IEBACiAv
-ZmNudGwzNV82NAogL2ZjbnRsMzYKIC9mY250bDM2XzY0CisvZmNudGwzNworL2ZjbnRsMzdfNjQK
-ZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZmNudGwvZmNudGwzNy5jIGIv
-dGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mY250bC9mY250bDM3LmMKbmV3IGZpbGUgbW9kZSAx
-MDA2NDQKaW5kZXggMDAwMDAwMDAwLi5jNTJhZjIyZGQKLS0tIC9kZXYvbnVsbAorKysgYi90ZXN0
-Y2FzZXMva2VybmVsL3N5c2NhbGxzL2ZjbnRsL2ZjbnRsMzcuYwpAQCAtMCwwICsxLDk4IEBACisv
-LyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vci1sYXRlcgorLyoKKyAqIENvcHly
-aWdodCAoYykgMjAyMCBGVUpJVFNVIExJTUlURUQuIEFsbCByaWdodHMgcmVzZXJ2ZWQuCisgKiBB
-dXRob3I6IFlhbmcgWHUgPHh1eWFuZzIwMTguanlAY24uanVqaXRzdS5jb20+CisgKgorICogVGVz
-dCBiYXNpYyBlcnJvciBoYW5kbGluZyBmb3IgZmNudGwoMikgdXNpbmcgRl9TRVRQSVBFX1NaLCBG
-X0dFVFBJUEVfU1oKKyAqIGFyZ3VtZW50LgorICogMSlmY250bCBmYWlscyB3aXRoIEVJTlZBTCB3
-aGVuIGNtZCBpcyBGX1NFVFBJUEVfU1ogYW5kIHRoZSBhcmcgaXMKKyAqIGJleW9uZCAxPDwzMS4K
-KyAqIDIpZmNudGwgZmFpbHMgd2l0aCBFQlVTWSB3aGVuIGNtZCBpcyBGX1NFVFBJUEVfU1ogYW5k
-IHRoZSBhcmcgaXMgc21hbGxlcgorICogdGhhbiB0aGUgYW1vdW50IG9mIHRoZSBjdXJyZW50IHVz
-ZWQgYnVmZmVyIHNwYWNlLgorICogMylmY250bCBmYWlscyB3aXRoIEVQRVJNIHdoZW4gY21kIGlz
-IEZfU0VUUElQRV9TWiBhbmQgdGhlIGFyZyBpcyBvdmVyCisgKiAvcHJvYy9zeXMvZnMvcGlwZS1t
-YXgtc2l6ZSBsaW1pdCB1bmRlciB1bnByaXZpbGVnZWQgdXNlcnMuCisgKi8KKworI2luY2x1ZGUg
-PHVuaXN0ZC5oPgorI2luY2x1ZGUgPGZjbnRsLmg+CisjaW5jbHVkZSA8c3lzL3R5cGVzLmg+Cisj
-aW5jbHVkZSA8bGltaXRzLmg+CisjaW5jbHVkZSA8c3RkbGliLmg+CisjaW5jbHVkZSAidHN0X3Rl
-c3QuaCIKKyNpbmNsdWRlICJsYXBpL2ZjbnRsLmgiCisjaW5jbHVkZSAibGFwaS9jYXBhYmlsaXR5
-LmgiCisKK3N0YXRpYyBpbnQgZmRzWzJdOworc3RhdGljIHVuc2lnbmVkIGludCBpbnZhbGlkX3Zh
-bHVlLCBoYWxmX3ZhbHVlLCBzeXNfdmFsdWU7CisKK3N0YXRpYyBzdHJ1Y3QgdGNhc2UgeworCXVu
-c2lnbmVkIGludCAqc2V0dmFsdWU7CisJaW50IGV4cF9lcnI7CisJY2hhciAqbWVzc2FnZTsKK30g
-dGNhc2VzW10gPSB7CisJeyZpbnZhbGlkX3ZhbHVlLCBFSU5WQUwsICJGX1NFVFBJUEVfU1ogYW5k
-IHNpemUgaXMgYmV5b25kIDE8PDMxIn0sCisJeyZoYWxmX3ZhbHVlLCBFQlVTWSwgIkZfU0VUUElQ
-RV9TWiBhbmQgc2l6ZSA8IGRhdGEgc3RvcmVkIGluIHBpcGUifSwKKwl7JnN5c192YWx1ZSwgRVBF
-Uk0sICJGX1NFVFBJUEVfU1ogYW5kIHNpemUgaXMgb3ZlciBsaW1pdCBmb3IgdW5wcml2aWxlZGdl
-ZCB1c2VyIn0sCit9OworCitzdGF0aWMgdm9pZCB2ZXJpZnlfZmNudGwodW5zaWduZWQgaW50IG4p
-Cit7CisJc3RydWN0IHRjYXNlICp0YyA9ICZ0Y2FzZXNbbl07CisKKwl0c3RfcmVzKFRJTkZPLCAi
-JXMiLCB0Yy0+bWVzc2FnZSk7CisKKwlURVNUKGZjbnRsKGZkc1sxXSwgRl9TRVRQSVBFX1NaLCAq
-KHRjLT5zZXR2YWx1ZSkpKTsKKwlpZiAoVFNUX1JFVCAhPSAtMSkgeworCQl0c3RfcmVzKFRGQUlM
-LCAiRl9TRVRQSVBFX1NaIHN1Y2NlZWQgYW5kIHJldHVybiAlbGQiLCBUU1RfUkVUKTsKKwkJcmV0
-dXJuOworCX0KKwlpZiAoVFNUX0VSUiA9PSB0Yy0+ZXhwX2VycikKKwkJdHN0X3JlcyhUUEFTUyB8
-IFRURVJSTk8sICJGX1NFVFBJUEVfU1ogZmFpbGVkIGFzIGV4cGVjdGVkIik7CisJZWxzZQorCQl0
-c3RfcmVzKFRGQUlMIHwgVFRFUlJOTywgIkZfU0VUUElQRV9TWiBmYWlsZWQgZXhwZWN0ZWQgJXMg
-Z290IiwKKwkJCQl0c3Rfc3RyZXJybm8odGMtPmV4cF9lcnIpKTsKK30KKworc3RhdGljIHZvaWQg
-c2V0dXAodm9pZCkKK3sKKwljaGFyICp3cmJ1ZjsKKwl1bnNpZ25lZCBpbnQgb3JpZ192YWx1ZTsK
-KworCVNBRkVfUElQRShmZHMpOworCisJVEVTVChmY250bChmZHNbMV0sIEZfR0VUUElQRV9TWikp
-OworCWlmIChUU1RfRVJSID09IEVJTlZBTCkKKwkJdHN0X2JyayhUQ09ORiwgImtlcm5lbCBkb2Vz
-bid0IHN1cHBvcnQgRl9HRVQvU0VUUElQRV9TWiIpOworCisJb3JpZ192YWx1ZSA9IFRTVF9SRVQ7
-CisKKwl3cmJ1ZiA9IFNBRkVfTUFMTE9DKG9yaWdfdmFsdWUpOworCW1lbXNldCh3cmJ1ZiwgJ3gn
-LCBvcmlnX3ZhbHVlKTsKKwlTQUZFX1dSSVRFKDEsIGZkc1sxXSwgd3JidWYsIG9yaWdfdmFsdWUp
-OworCWZyZWUod3JidWYpOworCisJU0FGRV9GSUxFX1NDQU5GKCIvcHJvYy9zeXMvZnMvcGlwZS1t
-YXgtc2l6ZSIsICIlZCIsICZzeXNfdmFsdWUpOworCXN5c192YWx1ZSsrOworCisJaGFsZl92YWx1
-ZSA9IG9yaWdfdmFsdWUgLyAyOworCWludmFsaWRfdmFsdWUgPSAoMVUgPDwgMzEpICsgMTsKK30K
-Kworc3RhdGljIHZvaWQgY2xlYW51cCh2b2lkKQoreworCWlmIChmZHNbMF0gPiAwKQorCQlTQUZF
-X0NMT1NFKGZkc1swXSk7CisJaWYgKGZkc1sxXSA+IDApCisJCVNBRkVfQ0xPU0UoZmRzWzFdKTsK
-K30KKworc3RhdGljIHN0cnVjdCB0c3RfdGVzdCB0ZXN0ID0geworCS5zZXR1cCA9IHNldHVwLAor
-CS5jbGVhbnVwID0gY2xlYW51cCwKKwkudGNudCA9IEFSUkFZX1NJWkUodGNhc2VzKSwKKwkudGVz
-dCA9IHZlcmlmeV9mY250bCwKKwkuY2FwcyA9IChzdHJ1Y3QgdHN0X2NhcCBbXSkgeworCQlUU1Rf
-Q0FQKFRTVF9DQVBfRFJPUCwgQ0FQX1NZU19SRVNPVVJDRSksCisJCXt9CisJfSwKK307Ci0tIAoy
-LjE4LjAKCgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9s
-aXN0aW5mby9sdHAK
+--===============0983267893==
+Content-Type: multipart/alternative; boundary="0000000000000e8660059de2d76f"
+
+--0000000000000e8660059de2d76f
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Feb 5, 2020 at 10:32 PM Jan Stancek <jstancek@redhat.com> wrote:
+
+>
+>
+> ----- Original Message -----
+> > >
+> > > @@ -37,11 +39,17 @@ static int check_content(unsigned char *buf, int
+> nb)
+> > >  static void verify_getrandom(unsigned int n)
+> > >  {
+> > >         unsigned char buf[256];
+> > > +       int bufsize =3D 64, entropy_avail;
+> > >
+> >
+> > I'm not sure why here initialize bufsize as 64? can you explain more?
+>
+> That would be the default, unless we know we have enough entropy.
+>
+> I picked 64 as it matches 'random_read_wakeup_bits'. Assuming we can get
+> 1bit/s entropy, then potentially worst case of waiting 4x for 64bit,
+> it should still fit within default 300 seconds.
+>
+
+That sounds reasonable. Thanks for the analysis.
+
+Reviewed-by: Li Wang <liwang@redhat.com>
+
+--=20
+Regards,
+Li Wang
+
+--0000000000000e8660059de2d76f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Wed, Feb 5, 2020 at 10:32 PM Jan Stancek &lt;<a =
+href=3D"mailto:jstancek@redhat.com" target=3D"_blank">jstancek@redhat.com</=
+a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
+x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><b=
+r>
+<br>
+----- Original Message -----<br>
+&gt; &gt;<br>
+&gt; &gt; @@ -37,11 +39,17 @@ static int check_content(unsigned char *buf, =
+int nb)<br>
+&gt; &gt;=C2=A0 static void verify_getrandom(unsigned int n)<br>
+&gt; &gt;=C2=A0 {<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned char buf[256];<br>
+&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0int bufsize =3D 64, entropy_avail;<br=
+>
+&gt; &gt;<br>
+&gt; <br>
+&gt; I&#39;m not sure why here initialize bufsize as 64? can you explain mo=
+re?<br>
+<br>
+That would be the default, unless we know we have enough entropy.<br>
+<br>
+I picked 64 as it matches &#39;random_read_wakeup_bits&#39;. Assuming we ca=
+n get<br>
+1bit/s entropy, then potentially worst case of waiting 4x for 64bit,<br>
+it should still fit within default 300 seconds.<br></blockquote><div><br></=
+div><div class=3D"gmail_default" style=3D"font-size:small">That sounds reas=
+onable. Thanks for the analysis.</div><div class=3D"gmail_default" style=3D=
+"font-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size=
+:small">Reviewed-by: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com" targe=
+t=3D"_blank">liwang@redhat.com</a>&gt;<br></div><div class=3D"gmail_default=
+" style=3D"font-size:small"><br></div></div>-- <br><div dir=3D"ltr"><div di=
+r=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--0000000000000e8660059de2d76f--
+
+
+--===============0983267893==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0983267893==--
+
