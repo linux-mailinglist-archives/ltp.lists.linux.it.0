@@ -2,74 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F2E2153F0A
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2020 08:01:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8B36154281
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2020 12:02:14 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1EB123C257F
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2020 08:01:31 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DD70F3C2545
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Feb 2020 12:02:13 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 8174A3C1115
- for <ltp@lists.linux.it>; Thu,  6 Feb 2020 08:01:26 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [207.211.31.120])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 5FEDE1A017AA
- for <ltp@lists.linux.it>; Thu,  6 Feb 2020 08:01:24 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1580972483;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=wF4UOkoiHRwHljGkhkT21xZ1Na+l62vYej/Of1yuFnM=;
- b=PmiararXUz7yq+ml1CylIKfH5bFxy9rG95lxnqNibi71f2JRXB2LW/4OEucdl33Z9UARy2
- 4fmp9+wveTX50dLcNxC9Sw6s77hno56Ns0aeJJCqZk3JQXA4US154DwZTvPzj7O1TnjJzO
- tEdBg6px2VxIz4hlnEWzMCdJRf8g510=
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
- [209.85.167.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-409-Qe7Z6GveOGmUIC9_NQupAw-1; Thu, 06 Feb 2020 02:01:20 -0500
-Received: by mail-oi1-f200.google.com with SMTP id d9so2388390oij.4
- for <ltp@lists.linux.it>; Wed, 05 Feb 2020 23:01:20 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=cf7Wv8cL+J1HEOTNx4sC9tOAZON8q2Dr6zWA2wo2KiQ=;
- b=rHICaZKzQ7o06gfWgCwfUxzV+cCBZ6sY1F4Un6pSBm/r6FTvcsBeP99onqWcZ6gLrg
- McilRDytfqqpHewamipcKuDSXyQzOu3kO49cuXCkPQWaOhT6o7ZaK3WLFzWWMY9cuW10
- kcQXITTRpLwaahlPfLHC3jzS1PJ3YAsf/Nx2dxYlkqWHZXP/5+duW5e6zwuy6wKSsC73
- DRbDMG0+2maUGBVPmvGN4d9LQGydBfTmvyatNp7w3woWfpMvMvEDAEmYjHPgxj9k9ljL
- zvf9E/Rn1IqcHQa8FL6x67zCLTYB7tAompsvhAQQ2PKPByGkOtvIjHUOiOMbvNQ9kMwG
- 2xFA==
-X-Gm-Message-State: APjAAAWPUFesc/CQ5pk5ukFUasz9xaHDDhtNbj1/rM1y9Lqf6oK8oenG
- 5rtHGLVdUhxjA08IOQO2yYzwx4PWS/Nae7nPQD4+djoYgHAXkT8SCOQP8U5xykjmEJ1OB+CKK3A
- tPiOPyJjMLof9/1czwo9avbmHN+4=
-X-Received: by 2002:aca:afd8:: with SMTP id y207mr5723422oie.96.1580972480114; 
- Wed, 05 Feb 2020 23:01:20 -0800 (PST)
-X-Google-Smtp-Source: APXvYqzkvjmoLNbnRUYRFgv2qWGFIpUPb/iaqGE3SIMIjcVcOXZrG3Z2UaPISdIa5bejorbz2+wYC9LI0Exzp7cGGmA=
-X-Received: by 2002:aca:afd8:: with SMTP id y207mr5723406oie.96.1580972479767; 
- Wed, 05 Feb 2020 23:01:19 -0800 (PST)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 990EE3C2533
+ for <ltp@lists.linux.it>; Thu,  6 Feb 2020 12:02:09 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2DC451001DAD
+ for <ltp@lists.linux.it>; Thu,  6 Feb 2020 12:02:08 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id DDEC0AC9A
+ for <ltp@lists.linux.it>; Thu,  6 Feb 2020 11:02:07 +0000 (UTC)
+References: <20200203113956.13176-1-mdoucha@suse.cz>
+ <20200203113956.13176-2-mdoucha@suse.cz> <20200205143107.GC30186@rei>
+ <fda46288-1850-8ac9-1c56-7641aaeb8759@suse.cz> <20200205155012.GA4920@rei>
+ <2c7e9545-93e3-3460-6006-5e57b982ecc7@suse.cz> <20200205191006.GA18877@rei>
+User-agent: mu4e 1.2.0; emacs 26.3
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: ltp@lists.linux.it
+In-reply-to: <20200205191006.GA18877@rei>
+Date: Thu, 06 Feb 2020 12:02:07 +0100
+Message-ID: <87lfpgges0.fsf@our.domain.is.not.set>
 MIME-Version: 1.0
-References: <7843cc36a04deb034e9479a139f535e5fa5f3135.1580894017.git.jstancek@redhat.com>
- <CAEemH2fnu9nZiGDfa5LTTMA0a_-PJ35fjjLdZ2vXYNGRJqHfVA@mail.gmail.com>
- <1751041821.5968536.1580913131753.JavaMail.zimbra@redhat.com>
-In-Reply-To: <1751041821.5968536.1580913131753.JavaMail.zimbra@redhat.com>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 6 Feb 2020 15:01:08 +0800
-Message-ID: <CAEemH2eycvuJkqvTj=8R=aRqRGxhb=n3BzpeAaaCk8M4oJELsg@mail.gmail.com>
-To: Jan Stancek <jstancek@redhat.com>
-X-MC-Unique: Qe7Z6GveOGmUIC9_NQupAw-1
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/getrandom02: lower bufsize if low on
- entropy
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] Fix BPF test program loading issues
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,101 +48,54 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0983267893=="
+Reply-To: rpalethorpe@suse.de
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0983267893==
-Content-Type: multipart/alternative; boundary="0000000000000e8660059de2d76f"
+Hello,
 
---0000000000000e8660059de2d76f
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Cyril Hrubis <chrubis@suse.cz> writes:
 
-On Wed, Feb 5, 2020 at 10:32 PM Jan Stancek <jstancek@redhat.com> wrote:
+> Hi!
+>> > That's only true if we are building and external interface for a
+>> > library, here we are just avoiding copy&paste by the simpliest means
+>> > available.
+>>
+>> I am building external interface for a library. The library is called
+>> bpf_common. But if you still disagree with splitting the executable code
+>> into a separate file to make the header more readable for developers of
+>> future BPF tests, I'll gladly unassign myself from this task and go work
+>> on something else.
+>
+> Can we please discuss things calmly and rationally? If you want to give
+> up on your patch that's fine, however if you want to continue to discuss
+> technical details, let's do it without emotions, okay?
+
+Honestly this is a style issue, so we can exchange one or two opinions,
+but then just decide Cyril is right (because he has survived as
+maintainer for X years with similar ideas about style) and move on to
+things where the universe proves you right or wrong in the time it takes
+to compile and run your code.
 
 >
+> Getting back to the technical point of the discussion, I still do not
+> consider that these three functions are complex enough to be split into
+> header and C source, but I do not have such strong opinion about that.
 >
-> ----- Original Message -----
-> > >
-> > > @@ -37,11 +39,17 @@ static int check_content(unsigned char *buf, int
-> nb)
-> > >  static void verify_getrandom(unsigned int n)
-> > >  {
-> > >         unsigned char buf[256];
-> > > +       int bufsize =3D 64, entropy_avail;
-> > >
-> >
-> > I'm not sure why here initialize bufsize as 64? can you explain more?
+> So if you really think that it should be separated like that at least
+> put the change that moves the code into a separate patch, since that is
+> unrelated change to introduction of the new function.
 >
-> That would be the default, unless we know we have enough entropy.
->
-> I picked 64 as it matches 'random_read_wakeup_bits'. Assuming we can get
-> 1bit/s entropy, then potentially worst case of waiting 4x for 64bit,
-> it should still fit within default 300 seconds.
->
-
-That sounds reasonable. Thanks for the analysis.
-
-Reviewed-by: Li Wang <liwang@redhat.com>
-
---=20
-Regards,
-Li Wang
-
---0000000000000e8660059de2d76f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Wed, Feb 5, 2020 at 10:32 PM Jan Stancek &lt;<a =
-href=3D"mailto:jstancek@redhat.com" target=3D"_blank">jstancek@redhat.com</=
-a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
-x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><b=
-r>
-<br>
------ Original Message -----<br>
-&gt; &gt;<br>
-&gt; &gt; @@ -37,11 +39,17 @@ static int check_content(unsigned char *buf, =
-int nb)<br>
-&gt; &gt;=C2=A0 static void verify_getrandom(unsigned int n)<br>
-&gt; &gt;=C2=A0 {<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned char buf[256];<br>
-&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0int bufsize =3D 64, entropy_avail;<br=
->
-&gt; &gt;<br>
-&gt; <br>
-&gt; I&#39;m not sure why here initialize bufsize as 64? can you explain mo=
-re?<br>
-<br>
-That would be the default, unless we know we have enough entropy.<br>
-<br>
-I picked 64 as it matches &#39;random_read_wakeup_bits&#39;. Assuming we ca=
-n get<br>
-1bit/s entropy, then potentially worst case of waiting 4x for 64bit,<br>
-it should still fit within default 300 seconds.<br></blockquote><div><br></=
-div><div class=3D"gmail_default" style=3D"font-size:small">That sounds reas=
-onable. Thanks for the analysis.</div><div class=3D"gmail_default" style=3D=
-"font-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size=
-:small">Reviewed-by: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com" targe=
-t=3D"_blank">liwang@redhat.com</a>&gt;<br></div><div class=3D"gmail_default=
-" style=3D"font-size:small"><br></div></div>-- <br><div dir=3D"ltr"><div di=
-r=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
-
---0000000000000e8660059de2d76f--
+> --
+> Cyril Hrubis
+> chrubis@suse.cz
 
 
---===============0983267893==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+--
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0983267893==--
-
