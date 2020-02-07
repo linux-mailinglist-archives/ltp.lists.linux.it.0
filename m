@@ -2,43 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95107155B72
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2020 17:10:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB7F0155BC0
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2020 17:28:48 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 28A333C23C6
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2020 17:10:38 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C50613C23C8
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2020 17:28:47 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 4BAA93C2384
- for <ltp@lists.linux.it>; Fri,  7 Feb 2020 17:10:36 +0100 (CET)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 8B17B3C2385
+ for <ltp@lists.linux.it>; Fri,  7 Feb 2020 17:28:45 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 00EB9200DDE
- for <ltp@lists.linux.it>; Fri,  7 Feb 2020 17:10:35 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id EC87914052F5
+ for <ltp@lists.linux.it>; Fri,  7 Feb 2020 17:28:44 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 467B6AD3F;
- Fri,  7 Feb 2020 16:10:35 +0000 (UTC)
-Date: Fri, 7 Feb 2020 17:10:33 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 4BD4EAD6F
+ for <ltp@lists.linux.it>; Fri,  7 Feb 2020 16:28:44 +0000 (UTC)
+Date: Fri, 7 Feb 2020 17:28:42 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20200207161033.GA27725@dell5510>
-References: <20200207144105.19947-1-pvorel@suse.cz>
- <20200207152406.GA16951@rei.lan>
- <285421765.6549099.1581090469387.JavaMail.zimbra@redhat.com>
- <20200207155730.GB16951@rei.lan>
+To: ltp@lists.linux.it
+Message-ID: <20200207162842.GB27725@dell5510>
+References: <20200207160831.27493-1-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200207155730.GB16951@rei.lan>
+In-Reply-To: <20200207160831.27493-1-pvorel@suse.cz>
 User-Agent: Mutt/1.12.2 (2019-09-21)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v6 1/2] safe_macros: Use tst_umount() in
- safe_umount()
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] build: Disable make install for most of builds
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,42 +47,61 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+> build.sh: add -i option which enables make install (default off)
+> Enable it in Debian powerpc64le cross-compilation (out of tree)
+> and latest Fedora.
 
-> > I agree. Though I'd like to point out that tst_umount() currently loops
-> > on any error, not just EBUSY.
+Hm, it requires a fix, below.
 
-> Right, I guess that we should change that to be on the safe side, it was
-> never intended to retry anything else than EBUSY.
+Script is getting ugly, but it's just a build script.
 
-> What about?
-Acked-by: Petr Vorel <pvorel@suse.cz>
+Verification:
+https://travis-ci.org/pevik/ltp/builds/647410565
 
-
-> diff --git a/lib/tst_device.c b/lib/tst_device.c
-> index 89b9c96de..52a5b37fd 100644
-> --- a/lib/tst_device.c
-> +++ b/lib/tst_device.c
-> @@ -371,6 +371,9 @@ int tst_umount(const char *path)
->                                  "mounted fs, kill it to speed up tests.");
->                 }
-
-> +               if (err != EBUSY) {
-> +                       errno = err;
-> +                       return ret;
-> +               }
-> +
->                 usleep(100000);
->         }
-
-Kind regards,
-Petr
+diff --git build.sh build.sh
+index e12a0b27d..e3d268c83 100755
+--- build.sh
++++ build.sh
+@@ -24,13 +24,13 @@ build_32()
+ {
+ 	echo "===== 32-bit ${1}-tree build into $PREFIX ====="
+ 	CFLAGS="-m32 $CFLAGS" LDFLAGS="-m32 $LDFLAGS"
+-	build $1
++	build $1 $2
+ }
+ 
+ build_native()
+ {
+ 	echo "===== native ${1}-tree build into $PREFIX ====="
+-	build $1
++	build $1 $2
+ }
+ 
+ build_cross()
+@@ -40,7 +40,7 @@ build_cross()
+ 		{ echo "Missing CC variable, pass it with -c option." >&2; exit 1; }
+ 
+ 	echo "===== cross-compile ${host} ${1}-tree build into $PREFIX ====="
+-	build $1 "--host=$host" CROSS_COMPILE="${host}-"
++	build $1 $2 "--host=$host" CROSS_COMPILE="${host}-"
+ }
+ 
+ build()
+@@ -85,6 +85,9 @@ build_out_tree()
+ 
+ build_in_tree()
+ {
++	local install="$1"
++	shift
++
+ 	run_configure ./configure $CONFIGURE_OPTS_IN_TREE --prefix=$PREFIX $@
+ 
+ 	echo "=== build ==="
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
