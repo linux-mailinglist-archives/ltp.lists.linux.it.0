@@ -2,70 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20C56155B3F
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2020 16:56:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDB2D155B45
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2020 16:57:35 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B65BF3C23CB
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2020 16:56:56 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D7D213C23CB
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2020 16:57:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 60B153C239F
- for <ltp@lists.linux.it>; Fri,  7 Feb 2020 16:56:54 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 815B01013161
- for <ltp@lists.linux.it>; Fri,  7 Feb 2020 16:56:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1581091011;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=N/v+WeyY2EvAt23lHBmKUCgnuCXKbF+Xg7wN/fmm4HY=;
- b=cV/Dvo6CVoOH7wKA2C7yERcckcnjRtPPOGewBVsaTwb8KCLsyx/dAcFi38VtqrIog3mdws
- k8HetmYwDDq2sYjHYDLtVZdJNeKGeE0nv2hWQdSX5ObXAS93lFPAfkUCM7NnQgUMaGgzIf
- QHM8RbBsjUN+xtCp1/xR03wX1BMDglA=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-432-ciHxnLNLOtGy38RJVuZTuA-1; Fri, 07 Feb 2020 10:56:47 -0500
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id CE0B13C239F
+ for <ltp@lists.linux.it>; Fri,  7 Feb 2020 16:57:32 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EF31D800D6C;
- Fri,  7 Feb 2020 15:56:46 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E67C0863D4;
- Fri,  7 Feb 2020 15:56:46 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id DAFDD81739;
- Fri,  7 Feb 2020 15:56:46 +0000 (UTC)
-Date: Fri, 7 Feb 2020 10:56:46 -0500 (EST)
-From: Jan Stancek <jstancek@redhat.com>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <166619231.6550604.1581091006706.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20200207155324.GA21543@dell5510>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 406FF606745
+ for <ltp@lists.linux.it>; Fri,  7 Feb 2020 16:57:31 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 99056AE19;
+ Fri,  7 Feb 2020 15:57:31 +0000 (UTC)
+Date: Fri, 7 Feb 2020 16:57:30 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Jan Stancek <jstancek@redhat.com>
+Message-ID: <20200207155730.GB16951@rei.lan>
 References: <20200207144105.19947-1-pvorel@suse.cz>
  <20200207152406.GA16951@rei.lan>
  <285421765.6549099.1581090469387.JavaMail.zimbra@redhat.com>
- <20200207155324.GA21543@dell5510>
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.25, 10.4.195.30]
-Thread-Topic: safe_macros: Use tst_umount() in safe_umount()
-Thread-Index: LhbljEBbkQHDen5zfFfcxciC4mVNiQ==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-MC-Unique: ciHxnLNLOtGy38RJVuZTuA-1
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <285421765.6549099.1581090469387.JavaMail.zimbra@redhat.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v6 1/2] safe_macros: Use tst_umount() in
  safe_umount()
 X-BeenThere: ltp@lists.linux.it
@@ -85,21 +55,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-
------ Original Message -----
-> Hi,
+Hi!
+> > My expectation is that retrying on EBUSY will not break anything. Jan
+> > what do you think?
 > 
-> > > My expectation is that retrying on EBUSY will not break anything. Jan
-> > > what do you think?
-> 
-> > I agree. Though I'd like to point out that tst_umount() currently loops
-> > on any error, not just EBUSY.
-> 
-> I suggest to give it a try and if problematic, we change it to EBUSY.
-> Ack?
+> I agree. Though I'd like to point out that tst_umount() currently loops
+> on any error, not just EBUSY.
 
-Ack.
+Right, I guess that we should change that to be on the safe side, it was
+never intended to retry anything else than EBUSY.
 
+What about?
+
+diff --git a/lib/tst_device.c b/lib/tst_device.c
+index 89b9c96de..52a5b37fd 100644
+--- a/lib/tst_device.c
++++ b/lib/tst_device.c
+@@ -371,6 +371,9 @@ int tst_umount(const char *path)
+                                 "mounted fs, kill it to speed up tests.");
+                }
+ 
++               if (err != EBUSY) {
++                       errno = err;
++                       return ret;
++               }
++
+                usleep(100000);
+        }
+
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
