@@ -2,83 +2,49 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DA3C1556B4
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2020 12:29:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FC5E15582C
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2020 14:14:59 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 373693C23C7
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2020 12:29:32 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A75523C23B4
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Feb 2020 14:14:58 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id A930E3C238F
- for <ltp@lists.linux.it>; Fri,  7 Feb 2020 12:29:30 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 07F60227C02
- for <ltp@lists.linux.it>; Fri,  7 Feb 2020 12:29:29 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 51C94B243
- for <ltp@lists.linux.it>; Fri,  7 Feb 2020 11:29:29 +0000 (UTC)
-To: ltp@lists.linux.it
-References: <20200207112236.16462-1-mdoucha@suse.cz>
-From: Martin Doucha <mdoucha@suse.cz>
-Autocrypt: addr=mdoucha@suse.cz; keydata=
- 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
-Message-ID: <8d022169-5c09-8b94-38b8-bdba679a9ea0@suse.cz>
-Date: Fri, 7 Feb 2020 12:29:28 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.2
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 530093C1483
+ for <ltp@lists.linux.it>; Fri,  7 Feb 2020 14:14:57 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 626E36014AE
+ for <ltp@lists.linux.it>; Fri,  7 Feb 2020 14:14:50 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.70,413,1574092800"; d="scan'208";a="83003430"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 07 Feb 2020 21:14:50 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id 0E02C406AB15
+ for <ltp@lists.linux.it>; Fri,  7 Feb 2020 21:05:23 +0800 (CST)
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.83) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1395.4; Fri, 7 Feb 2020 21:14:51 +0800
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ (TLS) id 14.3.439.0; Fri, 7 Feb 2020 21:14:47 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Fri, 7 Feb 2020 21:14:57 +0800
+Message-ID: <1581081297-20034-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-In-Reply-To: <20200207112236.16462-1-mdoucha@suse.cz>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-yoursite-MailScanner-ID: 0E02C406AB15.ABD3E
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/3] Redesign TST_RETRY_FUNC()
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/add_key05: add maxbytes/maxkeys test under
+ unprivileged user
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,37 +61,226 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 2/7/20 12:22 PM, Martin Doucha wrote:
-> The TST_RETRY_FUNC() macro requires a single return value that'll be considered
-> success. This cannot be used with system calls that e.g. return a new file
-> descriptor because the success value is somewhat unpredictable.
-> 
-> Redesign TST_RETRY_FUNC() to accept arbitrary macro/function ECHCK as the second
-> parameter for validating the FUNC return value.
-> - The loop will end succesfully if ECHCK(ret) evaluates to non-zero.
-> - The loop will fall through on timeout instead of calling tst_brk().
-> - errno will be cleared before every FUNC call.
-> - Add standard check macros for the most common call conventions:
->   - TST_RETVAL_EQ0(x) - x == 0
->   - TST_RETVAL_NOTNULL(x) - x != 0 or x != NULL
->   - TST_RETVAL_GE0(x) - x >= 0
-> 
-> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
-> ---
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+---
+ runtest/syscalls                              |   1 +
+ testcases/kernel/syscalls/add_key/.gitignore  |   1 +
+ testcases/kernel/syscalls/add_key/add_key05.c | 180 ++++++++++++++++++
+ 3 files changed, 182 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/add_key/add_key05.c
 
-Sorry, I forgot to add this to the commit message:
-Co-Developed-by: Cyril Hrubis <chrubis@suse.cz>
-
-Please add it before pushing.
-
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 577a4a527..df7bbcbf1 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -18,6 +18,7 @@ add_key01 add_key01
+ add_key02 add_key02
+ add_key03 add_key03
+ add_key04 add_key04
++add_key05 add_key05
+ 
+ adjtimex01 adjtimex01
+ adjtimex02 adjtimex02
+diff --git a/testcases/kernel/syscalls/add_key/.gitignore b/testcases/kernel/syscalls/add_key/.gitignore
+index b9a04214d..f57dc2228 100644
+--- a/testcases/kernel/syscalls/add_key/.gitignore
++++ b/testcases/kernel/syscalls/add_key/.gitignore
+@@ -2,3 +2,4 @@
+ /add_key02
+ /add_key03
+ /add_key04
++/add_key05
+diff --git a/testcases/kernel/syscalls/add_key/add_key05.c b/testcases/kernel/syscalls/add_key/add_key05.c
+new file mode 100644
+index 000000000..0d5e9db28
+--- /dev/null
++++ b/testcases/kernel/syscalls/add_key/add_key05.c
+@@ -0,0 +1,180 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
++ * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
++ *
++ *Description:
++ * Test unprivileged user can support the number of keys and the
++ * number of bytes consumed in payloads of the keys.The defalut value
++ * is 200 and 20000.
++ * This is also a regresstion test for
++ * commit a08bf91ce28e ("KEYS: allow reaching the keys quotas exact")
++ *
++ */
++#include <stdio.h>
++#include <stdlib.h>
++#include <pwd.h>
++#include "tst_test.h"
++#include "lapi/keyctl.h"
++
++static char *user_buf, *user_buf1, *keyring_buf;
++static const char *username = "ltp_add_key05";
++static int user_added;
++struct passwd *ltpuser;
++static unsigned int used_bytes, max_bytes, used_key, max_key, data_len;
++char fmt[1024];
++int flag[2] = {1, 0};
++
++void add_user(void)
++{
++	if (user_added)
++		return;
++
++	const char *const cmd_useradd[] = {"useradd", username, NULL};
++	int rc;
++
++	switch ((rc = tst_run_cmd(cmd_useradd, NULL, NULL, 1))) {
++	case 0:
++		user_added = 1;
++		ltpuser = SAFE_GETPWNAM(username);
++		break;
++	case 1:
++	case 255:
++		break;
++	default:
++		tst_brk(TBROK, "Useradd failed (%d)", rc);
++	}
++	sprintf(fmt, "%5u: %%*5d %%*d/%%*d %%d/%%d %%d/%%d", ltpuser->pw_uid);
++}
++
++void clean_user(void)
++{
++	if (!user_added)
++		return;
++
++	const char *const cmd_userdel[] = {"userdel", "-r", username, NULL};
++
++	if (tst_run_cmd(cmd_userdel, NULL, NULL, 1))
++		tst_res(TWARN | TERRNO, "'userdel -r %s' failed", username);
++	else
++		user_added = 0;
++}
++
++void verify_max_btyes(void)
++{
++	char *buf, *invalid_buf;
++	int plen, invalid_plen;
++
++	tst_res(TINFO, "test max bytes under unprivileged user");
++	invalid_plen = max_bytes - used_bytes - data_len - 8;
++	plen = invalid_plen - 1;
++	buf = tst_alloc(plen);
++	invalid_buf = tst_alloc(invalid_plen);
++
++	TEST(add_key("user", "test_inv", invalid_buf, invalid_plen, KEY_SPEC_THREAD_KEYRING));
++	if (TST_RET != -1)
++		tst_res(TFAIL, "add_key(test_inv) succeeded unexpectedltly");
++	else {
++		if (TST_ERR == EDQUOT)
++			tst_res(TPASS | TTERRNO, "add_key(test_inv) failed as expected");
++		else
++			tst_res(TFAIL | TTERRNO, "add_key(test_inv) failed expected EDQUOT got");
++	}
++
++	TEST(add_key("user", "test_max", buf, plen, KEY_SPEC_THREAD_KEYRING));
++	if (TST_RET != -1) {
++		tst_res(TPASS, "add_key(test_max) succeeded as expected");
++		SAFE_FILE_LINES_SCANF("/proc/key-users", fmt, &used_key, &max_key, &used_bytes, &max_bytes);
++		if (used_bytes == max_bytes)
++			tst_res(TPASS, "allow reaching the max bytes exactly");
++		else
++			tst_res(TFAIL, "max used bytes %u, key allow max bytes %u", used_bytes, max_bytes);
++	} else
++		tst_res(TFAIL | TTERRNO, "add_key(test_max) failed unexpectedly");
++}
++
++void verify_max_keys(void)
++{
++	unsigned int i;
++	char desc[10];
++
++	tst_res(TINFO, "test max keys under unprivileged user");
++	for (i = used_key + 1; i < max_key; i++) {
++		sprintf(desc, "abc%d", i);
++		TEST(add_key("keyring", desc, keyring_buf, 0, KEY_SPEC_THREAD_KEYRING));
++		if (TST_RET == -1)
++			tst_res(TFAIL | TTERRNO, "add keyring key(%s) failed", desc);
++	}
++
++	TEST(add_key("keyring", "abc200", keyring_buf, 0, KEY_SPEC_THREAD_KEYRING));
++	if (TST_RET == -1) {
++		tst_res(TFAIL | TTERRNO, "add keyring key(abc200) failed");
++		goto count;
++	} else
++		tst_res(TPASS, "add keyring key(abc200) succedd");
++
++	TEST(add_key("keyring", "abc201", keyring_buf, 0, KEY_SPEC_THREAD_KEYRING));
++	if (TST_RET != -1) {
++		tst_res(TFAIL, "add keyring key(abc201) succeeded unexpectedly");
++		goto count;
++	} else {
++		if (TST_ERR == EDQUOT)
++			tst_res(TPASS | TTERRNO, "add keyring key(abc201) failed as expected over max key");
++		else
++			tst_res(TFAIL | TTERRNO, "add_keyring failed expected EDQUOT got");
++	}
++count:
++	SAFE_FILE_LINES_SCANF("/proc/key-users", fmt, &used_key, &max_key, &used_bytes, &max_bytes);
++	if (used_key == max_key)
++		tst_res(TPASS, "allow reaching the max key exactly");
++	else
++		tst_res(TFAIL, "max used key %u, key allow max key %u", used_key, max_key);
++}
++
++static void do_test(unsigned int n)
++{
++	add_user();
++	int f_used_bytes = 0;
++
++	if (!SAFE_FORK()) {
++		SAFE_SETUID(ltpuser->pw_uid);
++
++		TEST(add_key("user", "test1", user_buf, 64, KEY_SPEC_THREAD_KEYRING));
++		if (TST_RET == -1)
++			tst_brk(TFAIL | TTERRNO, "add key test1 failed");
++		SAFE_FILE_LINES_SCANF("/proc/key-users", fmt, &used_key, &max_key, &used_bytes, &max_bytes);
++		f_used_bytes = used_bytes;
++
++		TEST(add_key("user", "test2", user_buf1, 64, KEY_SPEC_THREAD_KEYRING));
++		if (TST_RET == -1)
++			tst_brk(TFAIL | TTERRNO, "add key test2 failed");
++		SAFE_FILE_LINES_SCANF("/proc/key-users", fmt, &used_key, &max_key, &used_bytes, &max_bytes);
++
++		data_len = used_bytes - f_used_bytes - strlen("test1") - 1 - 64;
++		if (flag[n])
++			verify_max_btyes();
++		else
++			verify_max_keys();
++		exit(0);
++	}
++	tst_reap_children();
++	clean_user();
++}
++
++static struct tst_test test = {
++	.test = do_test,
++	.tcnt = 2,
++	.needs_root = 1,
++	.forks_child = 1,
++	.cleanup = clean_user,
++	.bufs = (struct tst_buffers []) {
++		{&keyring_buf, .size = 1},
++		{&user_buf, .size = 64},
++		{&user_buf1, .size = 64},
++		{}
++	},
++	.tags = (const struct tst_tag[]) {
++		{"linux-git", "a08bf91ce28"},
++		{}
++	}
++};
 -- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+2.18.0
+
+
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
