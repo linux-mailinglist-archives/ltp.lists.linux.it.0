@@ -1,58 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57AC1158CA8
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Feb 2020 11:25:24 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 16695158CF2
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Feb 2020 11:52:26 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0E8533C24D5
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Feb 2020 11:25:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7FF053C2544
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Feb 2020 11:52:25 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 13C963C2352
- for <ltp@lists.linux.it>; Tue, 11 Feb 2020 11:25:17 +0100 (CET)
-Received: from m12-15.163.com (m12-15.163.com [220.181.12.15])
- (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 42E8A3C2358
+ for <ltp@lists.linux.it>; Tue, 11 Feb 2020 11:52:20 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 07E31201361
+ for <ltp@lists.linux.it>; Tue, 11 Feb 2020 11:52:17 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1581418329;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=D2w7t/5peu/JOe7DzIFeB7C347Py/sZoQdcNXAUSBuk=;
+ b=Ao2e8lbp2q19ba5xanAVniCcXrMLaDarMZeY8WY0VHdgsGZ82MWiG6HcIIFNvf0Vn2Ce0k
+ PNW+4xRJaGs6q9WLmtoA7si03CVYCUWIMJ87dPG0dmpBat3hIZNNMp+RR8LRg/7zvTue2p
+ InLiwy7ZAYNfbwX1n1cbrs245DcbCRw=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-225-uboKCLkjOam2J_3Qws49pg-1; Tue, 11 Feb 2020 05:52:07 -0500
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 26C0514019DE
- for <ltp@lists.linux.it>; Tue, 11 Feb 2020 11:25:14 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=oiIwG
- dby0djxX3aylYHWtq8aEJotUPtJpyIRmheEI98=; b=ebD50kPHzSPfAO4PTkMDB
- nDmnwKv/7fl6QFmbryHkE/r85T72S5zYdGKxoEKCU3/H9XTO1e2v6B8r2qWdjlsm
- i0gsKv2Ogn9j08vGCyvfFx7RVhzEbTGvGH/AZWBTs4U63wPyq7f/75k6w+TjRrlb
- FN6D358qF41MlFe3xDGMfw=
-Received: from [192.168.0.10] (unknown [223.64.160.102])
- by smtp11 (Coremail) with SMTP id D8CowAC3vxP+gEJewJOuCA--.12199S2;
- Tue, 11 Feb 2020 18:25:03 +0800 (CST)
-To: Pankaj Vinadrao Joshi <Pankaj.VJ@exaleapsemi.com>
-References: <BMXPR01MB29991144C5DF1108F9B38DD9EE180@BMXPR01MB2999.INDPRD01.PROD.OUTLOOK.COM>
- <f6cf7d37-cf31-7448-0bea-035eb48f2f79@163.com>
- <BMXPR01MB2999C5C6166A34812CFA3727EE180@BMXPR01MB2999.INDPRD01.PROD.OUTLOOK.COM>
-From: Xiao Yang <ice_yangxiao@163.com>
-Message-ID: <6e81635f-c202-9f41-6795-4d6f84290e7e@163.com>
-Date: Tue, 11 Feb 2020 18:25:02 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CBF03800D5E
+ for <ltp@lists.linux.it>; Tue, 11 Feb 2020 10:52:06 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C16A960BF1
+ for <ltp@lists.linux.it>; Tue, 11 Feb 2020 10:52:06 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 51EF51809565;
+ Tue, 11 Feb 2020 10:52:06 +0000 (UTC)
+Date: Tue, 11 Feb 2020 05:52:06 -0500 (EST)
+From: Jan Stancek <jstancek@redhat.com>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <1734212650.7000036.1581418326024.JavaMail.zimbra@redhat.com>
+In-Reply-To: <CAEemH2f90MPBV_w2+gw331cg0Fiu-=aqgp3M1BHhBCXcFUbyyg@mail.gmail.com>
+References: <87e6761eb699c7912e2064dea222f5ac7fd04a6b.1581338640.git.jstancek@redhat.com>
+ <CAEemH2f90MPBV_w2+gw331cg0Fiu-=aqgp3M1BHhBCXcFUbyyg@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <BMXPR01MB2999C5C6166A34812CFA3727EE180@BMXPR01MB2999.INDPRD01.PROD.OUTLOOK.COM>
-Content-Language: en-US
-X-CM-TRANSID: D8CowAC3vxP+gEJewJOuCA--.12199S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tr17KrW7ZFW7WF1DAFy5Jwb_yoW8WFy7pr
- WfJwnFyFn8Jw1DZr1IqF1UZF1ftr18A3y5Wr43X3ykt3W5AFyfur97Ga1kJFyUJF93Jw47
- Xr9rJF1rGryUJrDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jSpB3UUUUU=
-X-Originating-IP: [223.64.160.102]
-X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/xtbBEB-GXlUMPPmCjAAAsF
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Originating-IP: [10.43.17.25, 10.4.195.3]
+Thread-Topic: syscalls/setrlimit06: lower RLIMIT_CPU parameters
+Thread-Index: Am4WIhvA5TZh6qSlKTJqyoza7tzhoQ==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-MC-Unique: uboKCLkjOam2J_3Qws49pg-1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] test with aio02 is failing with safe_macros.c:223: BROK:
- aio02.c:130: open(file, 16961, 0644) failed: EINVAL (22)
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/setrlimit06: lower RLIMIT_CPU parameters
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,234 +77,71 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0891880359=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This is a multi-part message in MIME format.
---===============0891880359==
-Content-Type: multipart/alternative;
- boundary="------------8B099DA15987F94FA22B2899"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------8B099DA15987F94FA22B2899
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
 
-On 2/11/20 6:01 PM, Pankaj Vinadrao Joshi wrote:
-> Hi sir,
-> I am begginer can you tell how i can  check if tmpfs is mounted on 
-> /tmp in your enviroment?
+----- Original Message -----
+> On Mon, Feb 10, 2020 at 8:47 PM Jan Stancek <jstancek@redhat.com> wrote:
+> 
+> > Lower the parameters so that test completes faster where possible.
+> >
+> > This also increases alarm timer slightly, which in combination with
+> > lower RLIMIT_CPU aims to avoid false positives in environments with
+> > high steal time, where it can take multiple of wall clock seconds
+> > to spend single second on a cpu.
+> >
+> 
+> This patch could reduce the test failure possibility, but I'm afraid it
+> can't fix the problem radically, because with `stress -c 20' to overload an
+> s390x system(2cpus) in the background then setrlimit06(patched) still
+> easily gets failed:
+>     setrlimit06.c:98: FAIL: Got only SIGXCPU after reaching both limit
+> 
+> Another way I can think of is to raise the priority before its running, not
+> sure if that will disturb the original test but from my test, it always
+> gets a pass even with too much overload.
 
-Hi,
+Is this in addition to my patch? Because on its own I don't see how this
+will help when load is coming from different guests.
 
-
-You can use df/mount command to do check, as below:
-
------------------------------------------------------------------
-
-[root@Fedora-30-vm linux]# df -h | grep '/tmp'
-tmpfs           993M  4.0K  993M   1% /tmp
-
-[root@Fedora-30-vm linux]# mount | grep '/tmp'
-tmpfs on /tmp type tmpfs (rw,nosuid,nodev,seclabel)
-
-------------------------------------------------------------------
-
->
-> Sir if you have two minutes of time can you elaborate it whats its 
-> meaning?
-
-aio02 uses open(O_WRONLY | O_TRUNC | O_DIRECT | O_LARGEFILE | O_CREAT) to
-
-create test file in default /tmp directory and ****O_DIRECT flag may not 
-be supported
-
-by tmpfs so calling open() returns EINVAL.
-
-
-Thanks,
-
-Xiao Yang
-
->
->
-> Thank you 😊
-> ------------------------------------------------------------------------
-> *From:* Xiao Yang <ice_yangxiao@163.com>
-> *Sent:* Tuesday, February 11, 2020 3:04 PM
-> *To:* Pankaj Vinadrao Joshi <Pankaj.VJ@exaleapsemi.com>
-> *Subject:* Re: [LTP] test with aio02 is failing with 
-> safe_macros.c:223: BROK: aio02.c:130: open(file, 16961, 0644) failed: 
-> EINVAL (22)
->
-> Hi,
->
->
-> Could you check if tmpfs is mounted on /tmp in your enviroment?
->
-> It seems that tmpfs cannot support O_DIRECT flag and creating file 
-> with O_DIRECT in tmpfs triggers the error.
->
-> Perhaps, you can fix the error by mounting normal filesystem(e.g. 
-> ext4/xfs) on /tmp for now.
->
->
-> Thanks,
->
-> Xiao Yang
->
-> On 2/11/20 4:31 PM, Pankaj Vinadrao Joshi wrote:
->> Hi,
->> i am running aio02 test on my RISC v machine,my testing is getting 
->> failed with the message
->> *safe_macros.c:223: BROK: aio02.c:130: open(file,16961,0644) failed: 
->> EINVAL (22)*
->>
-> [EXT]
-
---------------8B099DA15987F94FA22B2899
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2/11/20 6:01 PM, Pankaj Vinadrao
-      Joshi wrote:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:BMXPR01MB2999C5C6166A34812CFA3727EE180@BMXPR01MB2999.INDPRD01.PROD.OUTLOOK.COM">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <style type="text/css" style="display:none;"> P {margin-top:0;margin-bottom:0;} </style>
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-        Hi sir,</div>
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-        I am begginer can you tell how i can  check if tmpfs is mounted
-        on /tmp in your enviroment?</div>
-    </blockquote>
-    <p>Hi,</p>
-    <p><br>
-    </p>
-    <p>You can use df/mount command to do check, as below:</p>
-    <p>-----------------------------------------------------------------<br>
-    </p>
-    <p>[root@Fedora-30-vm linux]# df -h | grep '/tmp'<br>
-      tmpfs           993M  4.0K  993M   1% /tmp</p>
-    <p>[root@Fedora-30-vm linux]# mount | grep '/tmp'<br>
-      tmpfs on /tmp type tmpfs (rw,nosuid,nodev,seclabel)</p>
-    <p>------------------------------------------------------------------<br>
-    </p>
-    <blockquote type="cite"
-cite="mid:BMXPR01MB2999C5C6166A34812CFA3727EE180@BMXPR01MB2999.INDPRD01.PROD.OUTLOOK.COM">
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-        <br>
-      </div>
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-        Sir if you have two minutes of time can you elaborate it whats
-        its meaning?</div>
-    </blockquote>
-    <p>aio02 uses open(O_WRONLY | O_TRUNC | O_DIRECT | O_LARGEFILE |
-      O_CREAT) to</p>
-    <p>create test file in default /tmp directory and <strong></strong><strong></strong>O_DIRECT
-      flag may not be supported</p>
-    <p>by tmpfs so calling open() returns EINVAL.</p>
-    <p><br>
-    </p>
-    <p>Thanks,</p>
-    <p>Xiao Yang<br>
-    </p>
-    <blockquote type="cite"
-cite="mid:BMXPR01MB2999C5C6166A34812CFA3727EE180@BMXPR01MB2999.INDPRD01.PROD.OUTLOOK.COM">
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-        <br>
-      </div>
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-        <br>
-      </div>
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-        Thank you <span id="😊">😊</span><br>
-      </div>
-      <hr style="display:inline-block;width:98%" tabindex="-1">
-      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-          face="Calibri, sans-serif" color="#000000"><b>From:</b> Xiao
-          Yang <a class="moz-txt-link-rfc2396E" href="mailto:ice_yangxiao@163.com">&lt;ice_yangxiao@163.com&gt;</a><br>
-          <b>Sent:</b> Tuesday, February 11, 2020 3:04 PM<br>
-          <b>To:</b> Pankaj Vinadrao Joshi
-          <a class="moz-txt-link-rfc2396E" href="mailto:Pankaj.VJ@exaleapsemi.com">&lt;Pankaj.VJ@exaleapsemi.com&gt;</a><br>
-          <b>Subject:</b> Re: [LTP] test with aio02 is failing with
-          safe_macros.c:223: BROK: aio02.c:130: open(file, 16961, 0644)
-          failed: EINVAL (22)</font>
-        <div> </div>
-      </div>
-      <div style="background-color:#FFFFFF">
-        <p>Hi,</p>
-        <p><br>
-        </p>
-        <p>Could you check if tmpfs is mounted on /tmp in your
-          enviroment?</p>
-        <p>It seems that tmpfs cannot support O_DIRECT flag and creating
-          file with O_DIRECT in tmpfs triggers the error.</p>
-        <p>Perhaps, you can fix the error by mounting normal
-          filesystem(e.g. ext4/xfs) on /tmp for now.<br>
-        </p>
-        <p><br>
-        </p>
-        <p>Thanks,</p>
-        <p>Xiao Yang<br>
-        </p>
-        <div class="x_moz-cite-prefix">On 2/11/20 4:31 PM, Pankaj
-          Vinadrao Joshi wrote:<br>
-        </div>
-        <blockquote type="cite">
-          <style type="text/css" style="display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-          <div style="font-family:Calibri,Arial,Helvetica,sans-serif;
-            font-size:12pt; color:rgb(0,0,0)">
-            Hi,<br>
-            i am running aio02 test on my RISC v machine,my testing is
-            getting failed with the message<br>
-            <strong>safe_macros.c:223: BROK: aio02.c:130:
-              open(file,16961,0644) failed: EINVAL (22)</strong><br>
-          </div>
-          <br>
-          <fieldset class="x_mimeAttachmentHeader"></fieldset>
-        </blockquote>
-        [EXT] </div>
-    </blockquote>
-  </body>
-</html>
-
---------------8B099DA15987F94FA22B2899--
-
-
---===============0891880359==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> 
+> --- a/testcases/kernel/syscalls/setrlimit/setrlimit06.c
+> +++ b/testcases/kernel/syscalls/setrlimit/setrlimit06.c
+> @@ -25,6 +25,7 @@
+>  #include <sys/wait.h>
+>  #include <stdlib.h>
+>  #include <sys/mman.h>
+> +#include <sys/resource.h>
+> 
+>  #include "tst_test.h"
+> 
+> @@ -37,6 +38,8 @@ static void sighandler(int sig)
+> 
+>  static void setup(void)
+>  {
+> +       setpriority(PRIO_PROCESS, 0, -20);
+> +
+>         SAFE_SIGNAL(SIGXCPU, sighandler);
+> 
+>         end = SAFE_MMAP(NULL, sizeof(int), PROT_READ | PROT_WRITE,
+> @@ -110,6 +113,7 @@ static void verify_setrlimit(void)
+>  }
+> 
+>  static struct tst_test test = {
+> +       .needs_root = 1,
+>         .test_all = verify_setrlimit,
+>         .setup = setup,
+>         .cleanup = cleanup,
+> 
+> --
+> Regards,
+> Li Wang
+> 
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0891880359==--
-
