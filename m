@@ -1,74 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37EDF15D1C2
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Feb 2020 06:48:51 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1677915D696
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Feb 2020 12:36:14 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A82133C23B2
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Feb 2020 06:48:50 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 882EF3C2555
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Feb 2020 12:36:13 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 0E2683C2379
- for <ltp@lists.linux.it>; Fri, 14 Feb 2020 06:48:48 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 383A66005FD
- for <ltp@lists.linux.it>; Fri, 14 Feb 2020 06:48:46 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1581659325;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=hRwXZ4oEMLfJdRnkN5wGf7HacP/QMwxIkbKjGrS/jao=;
- b=H4JGs2if8lMfZ37DJ0KWNSSyzFUiJFFpZYEBnkPD667vaWKcnqwLZxtjdQ7KoAMtl3LP+Q
- sy9t6XlZtS7RYWCE1n66FXqkoRyb1VeoKpV4w5QLl+nMbRkUv7X7uGEKRy5Zis7VdBHMaE
- JIHeEOQSnRD7CLy+pHggUB/TfM+dgAA=
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
- [209.85.210.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-44-I4OiHBf8NLGdvAXRDvD0Pw-1; Fri, 14 Feb 2020 00:48:41 -0500
-Received: by mail-ot1-f70.google.com with SMTP id m13so4281868otl.2
- for <ltp@lists.linux.it>; Thu, 13 Feb 2020 21:48:41 -0800 (PST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 805FA3C13BB
+ for <ltp@lists.linux.it>; Fri, 14 Feb 2020 12:36:09 +0100 (CET)
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 573F81402FA1
+ for <ltp@lists.linux.it>; Fri, 14 Feb 2020 12:36:06 +0100 (CET)
+Received: by mail-pf1-x443.google.com with SMTP id n7so4781834pfn.0
+ for <ltp@lists.linux.it>; Fri, 14 Feb 2020 03:36:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=KWOaIAl9rUtcg2q98Gmbqb2zTyhu10XOjPrNiY76ciY=;
+ b=KUYZa+zmwl6ZM2EdfKJN4fVK9LKutEyjmVjL6M+Tu/Hx+8cBOPi2moCq5D1O8jRgFU
+ UwBKXVLRYw/eVUjH2hkJMqDKpATbQhXtqFbkg290yj3nHBmscW++kLQrPfjA39UY3eaJ
+ l6yxntT4nlyfam046fSRhJutGmqC9xtIwbAP4WdZNBfAlHLwdkNIBL9qwy2DY6aPvg+5
+ G9S5tLlc4Ckvs8catlRnqFoN7hlKl5/WST5rKy3YoAvindz7Dcy9a2FpwZMOk2c9Dpfa
+ qIGhadH2FoZDGwqZuH/fp0iOZe6xAfM+q79/k8ubLYMIqaCP0CFa1FsQ793gjmSYK3rE
+ 2s3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=k/3RKFZH8m+7f4pr2+a5go1WTDntgL5rauTCovx2v1Y=;
- b=WHU/NLBEwYrgrcKqKA7hjcI605Gu1tPIXHXsU12rC5/l5kxljJguD/xjFwEz4YLtI2
- 7veoZYUMorjVnDWR7hsrHSFaoKB1SPqMlko4Jb5gzpiR4w3vk5tIyq5K481qKWIVuR/4
- vuFjoifhqMaFSppbVzXeIODcq8GaY1x8q9sPEhVIZHiDyGyjotJECnyXN7CF2de23R+s
- kbChCU/JpEPJfzRdhIYh3yqzx/YdB2A4/8vht9VsVmWTmTzlrT/RwhxXfmDNrjKdVn5X
- VKTLWgHHHzzBHIUp6ulXEyPqduM048gdLIWe3iOYAzu0VuvYMJt2LGhB3nLuPO7JL9AC
- PIjQ==
-X-Gm-Message-State: APjAAAWlZTMRvWAy9FDVpFW+r5XNm8PULrdXZBmC/reTE+/MDG230w5A
- B1d8QJ6OAO5oAmMPApIYDQyB0Mvx+v+JmxfSrArSt8pJW6np/E/SLTarEw4PxX6WUz+IjyVAEo9
- ERjzRmDUsVFaPib6O52YYgVcMp5Y=
-X-Received: by 2002:a9d:7:: with SMTP id 7mr934939ota.26.1581659320237;
- Thu, 13 Feb 2020 21:48:40 -0800 (PST)
-X-Google-Smtp-Source: APXvYqwEiONifC0Z8c6/vX2tDHjrGIK6ZuX9+ra7xizQzcszxMACxV+IPDMnwRes4kBdlkN8eIFw+OPJpkBylR3plwI=
-X-Received: by 2002:a9d:7:: with SMTP id 7mr934921ota.26.1581659319853; Thu,
- 13 Feb 2020 21:48:39 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=KWOaIAl9rUtcg2q98Gmbqb2zTyhu10XOjPrNiY76ciY=;
+ b=ATLm+KBVYP1ehgDx2DazfD6exwE39hY3KzNJnjDxNnw+lm3L52hHu9PvVnpUg6UVLQ
+ 0dzwKUKrph9pfXm6y3W0M0VkcSV1+vSRHgpDxmuLZWBVRUCuLvomeZuHt9hnK2ARl3U+
+ e7T3eI+BXhzggg69kTkZ4NApthoc7aUpALYItjtRrkjoD6xz6RfmbLnoq/q2iONno46c
+ jqGk/BJDtdzBFabNM+DL7/NFhn0F8KIdNErvsjNd5TesfygNR2TQsPlzPHocUJpZixDe
+ JsljRGvI1cuAWqLIJ5Wu2jLDfJVw0fkOa9DVb0p0PVEJTt7n+WNGP8QiQDaKM7NSZEBD
+ oY7A==
+X-Gm-Message-State: APjAAAXe5FZEJjMKWNUB7Uj9kHYihFo2j82qOqhwEsX3y26403wuuN8Y
+ vZiEAD2u3m9M1M9MC2HHXsa95q/Pr60=
+X-Google-Smtp-Source: APXvYqzi9HoT5KZq4bQI4yZqMSpTQINk0fUvAppgYug1aduYabceEmcJBhSVbHF/VbIHZ5H4NQwFRQ==
+X-Received: by 2002:a63:d207:: with SMTP id a7mr3031426pgg.225.1581680164611; 
+ Fri, 14 Feb 2020 03:36:04 -0800 (PST)
+Received: from localhost ([122.167.210.63])
+ by smtp.gmail.com with ESMTPSA id q21sm6724220pff.105.2020.02.14.03.36.03
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 14 Feb 2020 03:36:03 -0800 (PST)
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Cyril Hrubis <chrubis@suse.cz>
+Date: Fri, 14 Feb 2020 17:05:49 +0530
+Message-Id: <cover.1581680021.git.viresh.kumar@linaro.org>
+X-Mailer: git-send-email 2.21.0.rc0.269.g1a574e7a288b
 MIME-Version: 1.0
-References: <1581590121-4626-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <1581590121-4626-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <1420373308.7517416.1581597644001.JavaMail.zimbra@redhat.com>
-In-Reply-To: <1420373308.7517416.1581597644001.JavaMail.zimbra@redhat.com>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 14 Feb 2020 13:48:28 +0800
-Message-ID: <CAEemH2e8WwgE+LkVPoUtoH6EhUS=9PhCPRc8_x=ZU8D=8FAF7g@mail.gmail.com>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-X-MC-Unique: I4OiHBf8NLGdvAXRDvD0Pw-1
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/2] syscalls/kill11,
- abort01: lower MIN_RLIMIT_CORE size
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/7] Add new LTP tests related to fsmount family of
+ syscalls
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,101 +75,90 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1492948657=="
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+ Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it,
+ Vikas.Kumar2@arm.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1492948657==
-Content-Type: multipart/alternative; boundary="000000000000ea7619059e82c1b0"
+Hello,
 
---000000000000ea7619059e82c1b0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This series adds a bunch of LTP tests related to fsmount family of
+syscalls.
 
-On Thu, Feb 13, 2020 at 8:41 PM Jan Stancek <jstancek@redhat.com> wrote:
+Thanks
 
->
->
-> ----- Original Message -----
-> > From ulimit manpage, ulimit -c options used 512-bytes-block in posix mo=
-de
-> > and used 1024-bytes-block in common mode. Usually, this case used "ulim=
-it
-> >  -c 1024" to test, but it will report TCONF in posix mode under
-> unprivileged
-> >  user.
-> > Since these two cases only check correct signal, lower this size doesn'=
-t
-> > affect
-> > this result. This also can avoid github issue(640[1],83[2]).
-> >
-> > [1]https://github.com/linux-test-project/ltp/issues/640
-> > [2]https://github.com/linux-test-project/ltp/issues/83
-> >
-> > Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
->
-> both look good to me, ack
->
+--
+viresh
 
-Tested and pushed. Thanks!
+Viresh Kumar (7):
+  lapi/fsmount: Add definitions for fsmount related syscalls
+  syscalls/fsopen: New tests
+  syscalls/fsconfig: New tests
+  syscalls/fsmount: New tests
+  syscalls/move_mount: New tests
+  syscalls/fspick: New tests
+  syscalls/open_tree: New tests
 
---=20
-Regards,
-Li Wang
+ configure.ac                                  |   6 +
+ include/lapi/fsmount.h                        | 134 ++++++++++++++++++
+ runtest/syscalls                              |  18 +++
+ testcases/kernel/syscalls/fsconfig/.gitignore |   2 +
+ testcases/kernel/syscalls/fsconfig/Makefile   |   6 +
+ .../kernel/syscalls/fsconfig/fsconfig01.c     |  77 ++++++++++
+ .../kernel/syscalls/fsconfig/fsconfig02.c     |  97 +++++++++++++
+ testcases/kernel/syscalls/fsmount/.gitignore  |   2 +
+ testcases/kernel/syscalls/fsmount/Makefile    |   6 +
+ testcases/kernel/syscalls/fsmount/fsmount01.c |  71 ++++++++++
+ testcases/kernel/syscalls/fsmount/fsmount02.c |  83 +++++++++++
+ testcases/kernel/syscalls/fsopen/.gitignore   |   2 +
+ testcases/kernel/syscalls/fsopen/Makefile     |   6 +
+ testcases/kernel/syscalls/fsopen/fsopen01.c   |  71 ++++++++++
+ testcases/kernel/syscalls/fsopen/fsopen02.c   |  56 ++++++++
+ testcases/kernel/syscalls/fspick/.gitignore   |   2 +
+ testcases/kernel/syscalls/fspick/Makefile     |   6 +
+ testcases/kernel/syscalls/fspick/fspick01.c   | 104 ++++++++++++++
+ testcases/kernel/syscalls/fspick/fspick02.c   | 110 ++++++++++++++
+ .../kernel/syscalls/move_mount/.gitignore     |   2 +
+ testcases/kernel/syscalls/move_mount/Makefile |   6 +
+ .../kernel/syscalls/move_mount/move_mount01.c |  82 +++++++++++
+ .../kernel/syscalls/move_mount/move_mount02.c | 102 +++++++++++++
+ .../kernel/syscalls/open_tree/.gitignore      |   2 +
+ testcases/kernel/syscalls/open_tree/Makefile  |   6 +
+ .../kernel/syscalls/open_tree/open_tree01.c   | 115 +++++++++++++++
+ .../kernel/syscalls/open_tree/open_tree02.c   | 110 ++++++++++++++
+ 27 files changed, 1284 insertions(+)
+ create mode 100644 include/lapi/fsmount.h
+ create mode 100644 testcases/kernel/syscalls/fsconfig/.gitignore
+ create mode 100644 testcases/kernel/syscalls/fsconfig/Makefile
+ create mode 100644 testcases/kernel/syscalls/fsconfig/fsconfig01.c
+ create mode 100644 testcases/kernel/syscalls/fsconfig/fsconfig02.c
+ create mode 100644 testcases/kernel/syscalls/fsmount/.gitignore
+ create mode 100644 testcases/kernel/syscalls/fsmount/Makefile
+ create mode 100644 testcases/kernel/syscalls/fsmount/fsmount01.c
+ create mode 100644 testcases/kernel/syscalls/fsmount/fsmount02.c
+ create mode 100644 testcases/kernel/syscalls/fsopen/.gitignore
+ create mode 100644 testcases/kernel/syscalls/fsopen/Makefile
+ create mode 100644 testcases/kernel/syscalls/fsopen/fsopen01.c
+ create mode 100644 testcases/kernel/syscalls/fsopen/fsopen02.c
+ create mode 100644 testcases/kernel/syscalls/fspick/.gitignore
+ create mode 100644 testcases/kernel/syscalls/fspick/Makefile
+ create mode 100644 testcases/kernel/syscalls/fspick/fspick01.c
+ create mode 100644 testcases/kernel/syscalls/fspick/fspick02.c
+ create mode 100644 testcases/kernel/syscalls/move_mount/.gitignore
+ create mode 100644 testcases/kernel/syscalls/move_mount/Makefile
+ create mode 100644 testcases/kernel/syscalls/move_mount/move_mount01.c
+ create mode 100644 testcases/kernel/syscalls/move_mount/move_mount02.c
+ create mode 100644 testcases/kernel/syscalls/open_tree/.gitignore
+ create mode 100644 testcases/kernel/syscalls/open_tree/Makefile
+ create mode 100644 testcases/kernel/syscalls/open_tree/open_tree01.c
+ create mode 100644 testcases/kernel/syscalls/open_tree/open_tree02.c
 
---000000000000ea7619059e82c1b0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Thu, Feb 13, 2020 at 8:41 PM Jan Stancek &lt;<a =
-href=3D"mailto:jstancek@redhat.com">jstancek@redhat.com</a>&gt; wrote:<br><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
-rder-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
-<br>
------ Original Message -----<br>
-&gt; From ulimit manpage, ulimit -c options used 512-bytes-block in posix m=
-ode<br>
-&gt; and used 1024-bytes-block in common mode. Usually, this case used &quo=
-t;ulimit<br>
-&gt;=C2=A0 -c 1024&quot; to test, but it will report TCONF in posix mode un=
-der unprivileged<br>
-&gt;=C2=A0 user.<br>
-&gt; Since these two cases only check correct signal, lower this size doesn=
-&#39;t<br>
-&gt; affect<br>
-&gt; this result. This also can avoid github issue(640[1],83[2]).<br>
-&gt; <br>
-&gt; [1]<a href=3D"https://github.com/linux-test-project/ltp/issues/640" re=
-l=3D"noreferrer" target=3D"_blank">https://github.com/linux-test-project/lt=
-p/issues/640</a><br>
-&gt; [2]<a href=3D"https://github.com/linux-test-project/ltp/issues/83" rel=
-=3D"noreferrer" target=3D"_blank">https://github.com/linux-test-project/ltp=
-/issues/83</a><br>
-&gt; <br>
-&gt; Signed-off-by: Yang Xu &lt;<a href=3D"mailto:xuyang2018.jy@cn.fujitsu.=
-com" target=3D"_blank">xuyang2018.jy@cn.fujitsu.com</a>&gt;<br>
-<br>
-both look good to me, ack<br></blockquote><div><br></div><div class=3D"gmai=
-l_default" style=3D"font-size:small">Tested and pushed. Thanks!</div><div c=
-lass=3D"gmail_default" style=3D"font-size:small"><br></div></div>-- <br><di=
-v dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br><=
-/div><div>Li Wang<br></div></div></div></div>
-
---000000000000ea7619059e82c1b0--
-
-
---===============1492948657==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+2.21.0.rc0.269.g1a574e7a288b
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1492948657==--
-
