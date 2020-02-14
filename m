@@ -1,62 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97AB115C12D
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Feb 2020 16:15:10 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 37EDF15D1C2
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Feb 2020 06:48:51 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3A7683C254D
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Feb 2020 16:15:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A82133C23B2
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Feb 2020 06:48:50 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 11FAE3C12BE
- for <ltp@lists.linux.it>; Thu, 13 Feb 2020 16:15:05 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id E56B4601CB9
- for <ltp@lists.linux.it>; Thu, 13 Feb 2020 16:15:04 +0100 (CET)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 0E2683C2379
+ for <ltp@lists.linux.it>; Fri, 14 Feb 2020 06:48:48 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 383A66005FD
+ for <ltp@lists.linux.it>; Fri, 14 Feb 2020 06:48:46 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1581606903;
+ s=mimecast20190719; t=1581659325;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=UE+AKJH+cGrtyljdiOFBfL/RZAPyFw/iZeIKzJGiH78=;
- b=Xt3JMbQXJO2TitYuAALQQWQ8WYSRzo1IxPsBZE/u8E5WdBaqeBD/T1EZWxdRT/DzUha58O
- iIKuSBd2HLX1XQekHrOJiKfhQNZKrCTVFeGSQ1jeHDfilKVEHQXnPHlrrxlylPzLo51Uz4
- jKZUx45zYk3g9B07ZQVUWybteA0tv70=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-61-TuAkdv-NMNS9Ey6JFRWsXA-1; Thu, 13 Feb 2020 10:14:57 -0500
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1F1A4107ACC4
- for <ltp@lists.linux.it>; Thu, 13 Feb 2020 15:14:56 +0000 (UTC)
-Received: from [172.54.85.204] (cpt-1024.paas.prod.upshift.rdu2.redhat.com
- [10.0.19.50])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 333A060BF4;
- Thu, 13 Feb 2020 15:14:51 +0000 (UTC)
+ in-reply-to:in-reply-to:references:references;
+ bh=hRwXZ4oEMLfJdRnkN5wGf7HacP/QMwxIkbKjGrS/jao=;
+ b=H4JGs2if8lMfZ37DJ0KWNSSyzFUiJFFpZYEBnkPD667vaWKcnqwLZxtjdQ7KoAMtl3LP+Q
+ sy9t6XlZtS7RYWCE1n66FXqkoRyb1VeoKpV4w5QLl+nMbRkUv7X7uGEKRy5Zis7VdBHMaE
+ JIHeEOQSnRD7CLy+pHggUB/TfM+dgAA=
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
+ [209.85.210.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-44-I4OiHBf8NLGdvAXRDvD0Pw-1; Fri, 14 Feb 2020 00:48:41 -0500
+Received: by mail-ot1-f70.google.com with SMTP id m13so4281868otl.2
+ for <ltp@lists.linux.it>; Thu, 13 Feb 2020 21:48:41 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=k/3RKFZH8m+7f4pr2+a5go1WTDntgL5rauTCovx2v1Y=;
+ b=WHU/NLBEwYrgrcKqKA7hjcI605Gu1tPIXHXsU12rC5/l5kxljJguD/xjFwEz4YLtI2
+ 7veoZYUMorjVnDWR7hsrHSFaoKB1SPqMlko4Jb5gzpiR4w3vk5tIyq5K481qKWIVuR/4
+ vuFjoifhqMaFSppbVzXeIODcq8GaY1x8q9sPEhVIZHiDyGyjotJECnyXN7CF2de23R+s
+ kbChCU/JpEPJfzRdhIYh3yqzx/YdB2A4/8vht9VsVmWTmTzlrT/RwhxXfmDNrjKdVn5X
+ VKTLWgHHHzzBHIUp6ulXEyPqduM048gdLIWe3iOYAzu0VuvYMJt2LGhB3nLuPO7JL9AC
+ PIjQ==
+X-Gm-Message-State: APjAAAWlZTMRvWAy9FDVpFW+r5XNm8PULrdXZBmC/reTE+/MDG230w5A
+ B1d8QJ6OAO5oAmMPApIYDQyB0Mvx+v+JmxfSrArSt8pJW6np/E/SLTarEw4PxX6WUz+IjyVAEo9
+ ERjzRmDUsVFaPib6O52YYgVcMp5Y=
+X-Received: by 2002:a9d:7:: with SMTP id 7mr934939ota.26.1581659320237;
+ Thu, 13 Feb 2020 21:48:40 -0800 (PST)
+X-Google-Smtp-Source: APXvYqwEiONifC0Z8c6/vX2tDHjrGIK6ZuX9+ra7xizQzcszxMACxV+IPDMnwRes4kBdlkN8eIFw+OPJpkBylR3plwI=
+X-Received: by 2002:a9d:7:: with SMTP id 7mr934921ota.26.1581659319853; Thu,
+ 13 Feb 2020 21:48:39 -0800 (PST)
 MIME-Version: 1.0
-From: CKI Project <cki-project@redhat.com>
-To: 
-Date: Thu, 13 Feb 2020 15:14:50 -0000
-Message-ID: <cki.B56B3A5D63.Q1EAJO1UVL@redhat.com>
-X-Gitlab-Pipeline-ID: 434085
-X-Gitlab-Url: https://xci32.lab.eng.rdu2.redhat.com
-X-Gitlab-Path: /cki-project/cki-pipeline/pipelines/434085
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-MC-Unique: TuAkdv-NMNS9Ey6JFRWsXA-1
+References: <1581590121-4626-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <1581590121-4626-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <1420373308.7517416.1581597644001.JavaMail.zimbra@redhat.com>
+In-Reply-To: <1420373308.7517416.1581597644001.JavaMail.zimbra@redhat.com>
+From: Li Wang <liwang@redhat.com>
+Date: Fri, 14 Feb 2020 13:48:28 +0800
+Message-ID: <CAEemH2e8WwgE+LkVPoUtoH6EhUS=9PhCPRc8_x=ZU8D=8FAF7g@mail.gmail.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+X-MC-Unique: I4OiHBf8NLGdvAXRDvD0Pw-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E6?=
- =?utf-8?q?=2E0-rc1-f2850dd=2Ecki_=28mainline=2Ekernel=2Eorg=29?=
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 2/2] syscalls/kill11,
+ abort01: lower MIN_RLIMIT_CORE size
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,135 +80,101 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Memory Management <mm-qe@redhat.com>, LTP Mailing List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1492948657=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-CkhlbGxvLAoKV2UgcmFuIGF1dG9tYXRlZCB0ZXN0cyBvbiBhIHJlY2VudCBjb21taXQgZnJvbSB0
-aGlzIGtlcm5lbCB0cmVlOgoKICAgICAgIEtlcm5lbCByZXBvOiBodHRwczovL2dpdC5rZXJuZWwu
-b3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dpdC90b3J2YWxkcy9saW51eC5naXQKICAgICAgICAg
-ICAgQ29tbWl0OiBmMjg1MGRkNWVlMDEgLSBNZXJnZSB0YWcgJ2tidWlsZC1maXhlcy12NS42JyBv
-ZiBnaXQ6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvbWFzYWhpcm95
-L2xpbnV4LWtidWlsZAoKVGhlIHJlc3VsdHMgb2YgdGhlc2UgYXV0b21hdGVkIHRlc3RzIGFyZSBw
-cm92aWRlZCBiZWxvdy4KCiAgICBPdmVyYWxsIHJlc3VsdDogRkFJTEVEIChzZWUgZGV0YWlscyBi
-ZWxvdykKICAgICAgICAgICAgIE1lcmdlOiBPSwogICAgICAgICAgIENvbXBpbGU6IE9LCiAgICAg
-ICAgICAgICBUZXN0czogRkFJTEVECgpBbGwga2VybmVsIGJpbmFyaWVzLCBjb25maWcgZmlsZXMs
-IGFuZCBsb2dzIGFyZSBhdmFpbGFibGUgZm9yIGRvd25sb2FkIGhlcmU6CgogIGh0dHBzOi8vY2tp
-LWFydGlmYWN0cy5zMy51cy1lYXN0LTIuYW1hem9uYXdzLmNvbS9pbmRleC5odG1sP3ByZWZpeD1k
-YXRhd2FyZWhvdXNlLzIwMjAvMDIvMTIvNDM0MDg1CgpPbmUgb3IgbW9yZSBrZXJuZWwgdGVzdHMg
-ZmFpbGVkOgoKICAgIHg4Nl82NDoKICAgICDinYwgTFRQCgpXZSBob3BlIHRoYXQgdGhlc2UgbG9n
-cyBjYW4gaGVscCB5b3UgZmluZCB0aGUgcHJvYmxlbSBxdWlja2x5LiBGb3IgdGhlIGZ1bGwKZGV0
-YWlsIG9uIG91ciB0ZXN0aW5nIHByb2NlZHVyZXMsIHBsZWFzZSBzY3JvbGwgdG8gdGhlIGJvdHRv
-bSBvZiB0aGlzIG1lc3NhZ2UuCgpQbGVhc2UgcmVwbHkgdG8gdGhpcyBlbWFpbCBpZiB5b3UgaGF2
-ZSBhbnkgcXVlc3Rpb25zIGFib3V0IHRoZSB0ZXN0cyB0aGF0IHdlCnJhbiBvciBpZiB5b3UgaGF2
-ZSBhbnkgc3VnZ2VzdGlvbnMgb24gaG93IHRvIG1ha2UgZnV0dXJlIHRlc3RzIG1vcmUgZWZmZWN0
-aXZlLgoKICAgICAgICAsLS4gICAsLS4KICAgICAgICggQyApICggSyApICBDb250aW51b3VzCiAg
-ICAgICAgYC0nLC0uYC0nICAgS2VybmVsCiAgICAgICAgICAoIEkgKSAgICAgSW50ZWdyYXRpb24K
-ICAgICAgICAgICBgLScKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCgpDb21waWxlIHRlc3RpbmcKLS0t
-LS0tLS0tLS0tLS0tCgpXZSBjb21waWxlZCB0aGUga2VybmVsIGZvciAxIGFyY2hpdGVjdHVyZToK
-CiAgICB4ODZfNjQ6CiAgICAgIG1ha2Ugb3B0aW9uczogLWozMCBJTlNUQUxMX01PRF9TVFJJUD0x
-IHRhcmd6LXBrZwoKCkhhcmR3YXJlIHRlc3RpbmcKLS0tLS0tLS0tLS0tLS0tLQpXZSBib290ZWQg
-ZWFjaCBrZXJuZWwgYW5kIHJhbiB0aGUgZm9sbG93aW5nIHRlc3RzOgoKICB4ODZfNjQ6CiAgICBI
-b3N0IDE6CgogICAgICAg4pqhIEludGVybmFsIGluZnJhc3RydWN0dXJlIGlzc3VlcyBwcmV2ZW50
-ZWQgb25lIG9yIG1vcmUgdGVzdHMgKG1hcmtlZAogICAgICAgd2l0aCDimqHimqHimqEpIGZyb20g
-cnVubmluZyBvbiB0aGlzIGFyY2hpdGVjdHVyZS4KICAgICAgIFRoaXMgaXMgbm90IHRoZSBmYXVs
-dCBvZiB0aGUga2VybmVsIHRoYXQgd2FzIHRlc3RlZC4KCiAgICAgICDinIUgQm9vdCB0ZXN0CiAg
-ICAgICDinIUgUG9kbWFuIHN5c3RlbSBpbnRlZ3JhdGlvbiB0ZXN0IC0gYXMgcm9vdAogICAgICAg
-4pyFIFBvZG1hbiBzeXN0ZW0gaW50ZWdyYXRpb24gdGVzdCAtIGFzIHVzZXIKICAgICAgIOKchSBM
-VFAKICAgICAgIOKchSBMb29wZGV2IFNhbml0eQogICAgICAg4pyFIE1lbW9yeSBmdW5jdGlvbjog
-bWVtZmRfY3JlYXRlCiAgICAgICDinIUgQU1UVSAoQWJzdHJhY3QgTWFjaGluZSBUZXN0IFV0aWxp
-dHkpCiAgICAgICDinIUgTmV0d29ya2luZyBicmlkZ2U6IHNhbml0eQogICAgICAg4pyFIEV0aGVy
-bmV0IGRyaXZlcnMgc2FuaXR5CiAgICAgICDinIUgTmV0d29ya2luZyBNQUNzZWM6IHNhbml0eQog
-ICAgICAg4pyFIE5ldHdvcmtpbmcgc29ja2V0OiBmdXp6CiAgICAgICDinIUgTmV0d29ya2luZyBz
-Y3RwLWF1dGg6IHNvY2tvcHRzIHRlc3QKICAgICAgIOKchSBOZXR3b3JraW5nOiBpZ21wIGNvbmZv
-cm1hbmNlIHRlc3QKICAgICAgIOKchSBOZXR3b3JraW5nIHJvdXRlOiBwbXR1CiAgICAgICDinIUg
-TmV0d29ya2luZyByb3V0ZV9mdW5jIC0gbG9jYWwKICAgICAgIOKchSBOZXR3b3JraW5nIHJvdXRl
-X2Z1bmMgLSBmb3J3YXJkCiAgICAgICDinIUgTmV0d29ya2luZyBUQ1A6IGtlZXBhbGl2ZSB0ZXN0
-CiAgICAgICDinIUgTmV0d29ya2luZyBVRFA6IHNvY2tldAogICAgICAg4pyFIE5ldHdvcmtpbmcg
-dHVubmVsOiBnZW5ldmUgYmFzaWMgdGVzdAogICAgICAg4pyFIE5ldHdvcmtpbmcgdHVubmVsOiBn
-cmUgYmFzaWMKICAgICAgIOKchSBMMlRQIGJhc2ljIHRlc3QKICAgICAgIOKchSBOZXR3b3JraW5n
-IHR1bm5lbDogdnhsYW4gYmFzaWMKICAgICAgIOKchSBOZXR3b3JraW5nIGlwc2VjOiBiYXNpYyBu
-ZXRucyAtIHRyYW5zcG9ydAogICAgICAg4pyFIE5ldHdvcmtpbmcgaXBzZWM6IGJhc2ljIG5ldG5z
-IC0gdHVubmVsCiAgICAgICDinIUgYXVkaXQ6IGF1ZGl0IHRlc3RzdWl0ZSB0ZXN0CiAgICAgICDi
-nIUgaHR0cGQ6IG1vZF9zc2wgc21va2Ugc2FuaXR5CiAgICAgICDinIUgdHVuZWQ6IHR1bmUtcHJv
-Y2Vzc2VzLXRocm91Z2gtcGVyZgogICAgICAg4pyFIHBjaXV0aWxzOiBzYW5pdHkgc21va2UgdGVz
-dAogICAgICAg4pqh4pqh4pqhIEFMU0EgUENNIGxvb3BiYWNrIHRlc3QKICAgICAgIOKchSBBTFNB
-IENvbnRyb2wgKG1peGVyKSBVc2Vyc3BhY2UgRWxlbWVudCB0ZXN0CiAgICAgICDinIUgc3RvcmFn
-ZTogU0NTSSBWUEQKICAgICAgIOKchSB0cmFjZTogZnRyYWNlL3RyYWNlcgogICAgICAg8J+apyDi
-nIUgQ0lGUyBDb25uZWN0YXRob24KICAgICAgIPCfmqcg4pqh4pqh4pqhIFBPU0lYIHBqZC1mc3Rl
-c3Qgc3VpdGVzCiAgICAgICDwn5qnIOKchSBqdm0gdGVzdCBzdWl0ZQogICAgICAg8J+apyDinIUg
-TWVtb3J5IGZ1bmN0aW9uOiBrYXNscgogICAgICAg8J+apyDinIUgTFRQOiBvcGVucG9zaXggdGVz
-dCBzdWl0ZQogICAgICAg8J+apyDinIUgTmV0d29ya2luZyB2bmljOiBpcHZsYW4vYmFzaWMKICAg
-ICAgIPCfmqcg4pyFIGlvdG9wOiBzYW5pdHkKICAgICAgIPCfmqcg4pyFIFVzZXggLSB2ZXJzaW9u
-IDEuOS0yOQogICAgICAg8J+apyDinIUgc3RvcmFnZTogZG0vY29tbW9uCgogICAgSG9zdCAyOgog
-ICAgICAg4pyFIEJvb3QgdGVzdAogICAgICAg4pyFIFN0b3JhZ2UgU0FOIGRldmljZSBzdHJlc3Mg
-LSBtZWdhcmFpZF9zYXMKCiAgICBIb3N0IDM6CiAgICAgICDinIUgQm9vdCB0ZXN0CiAgICAgICDi
-nIUgU3RvcmFnZSBTQU4gZGV2aWNlIHN0cmVzcyAtIG1wdDNzYXMgZHJpdmVyCgogICAgSG9zdCA0
-OgoKICAgICAgIOKaoSBJbnRlcm5hbCBpbmZyYXN0cnVjdHVyZSBpc3N1ZXMgcHJldmVudGVkIG9u
-ZSBvciBtb3JlIHRlc3RzIChtYXJrZWQKICAgICAgIHdpdGgg4pqh4pqh4pqhKSBmcm9tIHJ1bm5p
-bmcgb24gdGhpcyBhcmNoaXRlY3R1cmUuCiAgICAgICBUaGlzIGlzIG5vdCB0aGUgZmF1bHQgb2Yg
-dGhlIGtlcm5lbCB0aGF0IHdhcyB0ZXN0ZWQuCgogICAgICAg4pyFIEJvb3QgdGVzdAogICAgICAg
-4pyFIHhmc3Rlc3RzIC0gZXh0NAogICAgICAg4pyFIHhmc3Rlc3RzIC0geGZzCiAgICAgICDinIUg
-c2VsaW51eC1wb2xpY3k6IHNlcmdlLXRlc3RzdWl0ZQogICAgICAg4pyFIGx2bSB0aGlucCBzYW5p
-dHkKICAgICAgIOKchSBzdG9yYWdlOiBzb2Z0d2FyZSBSQUlEIHRlc3RpbmcKICAgICAgIOKaoeKa
-oeKaoSBzdHJlc3M6IHN0cmVzcy1uZwogICAgICAg8J+apyDinIUgSU9NTVUgYm9vdCB0ZXN0CiAg
-ICAgICDwn5qnIOKchSBJUE1JIGRyaXZlciB0ZXN0CiAgICAgICDwn5qnIOKchSBJUE1JdG9vbCBs
-b29wIHN0cmVzcyB0ZXN0CiAgICAgICDwn5qnIOKaoeKaoeKaoSBTdG9yYWdlIGJsa3Rlc3RzCgog
-ICAgSG9zdCA1OgoKICAgICAgIOKaoSBJbnRlcm5hbCBpbmZyYXN0cnVjdHVyZSBpc3N1ZXMgcHJl
-dmVudGVkIG9uZSBvciBtb3JlIHRlc3RzIChtYXJrZWQKICAgICAgIHdpdGgg4pqh4pqh4pqhKSBm
-cm9tIHJ1bm5pbmcgb24gdGhpcyBhcmNoaXRlY3R1cmUuCiAgICAgICBUaGlzIGlzIG5vdCB0aGUg
-ZmF1bHQgb2YgdGhlIGtlcm5lbCB0aGF0IHdhcyB0ZXN0ZWQuCgogICAgICAg4pyFIEJvb3QgdGVz
-dAogICAgICAg4pyFIHhmc3Rlc3RzIC0gZXh0NAogICAgICAg4pyFIHhmc3Rlc3RzIC0geGZzCiAg
-ICAgICDinIUgc2VsaW51eC1wb2xpY3k6IHNlcmdlLXRlc3RzdWl0ZQogICAgICAg4pyFIGx2bSB0
-aGlucCBzYW5pdHkKICAgICAgIOKchSBzdG9yYWdlOiBzb2Z0d2FyZSBSQUlEIHRlc3RpbmcKICAg
-ICAgIOKchSBzdHJlc3M6IHN0cmVzcy1uZwogICAgICAg8J+apyDinIUgSU9NTVUgYm9vdCB0ZXN0
-CiAgICAgICDwn5qnIOKaoeKaoeKaoSBJUE1JIGRyaXZlciB0ZXN0CiAgICAgICDwn5qnIOKchSBJ
-UE1JdG9vbCBsb29wIHN0cmVzcyB0ZXN0CiAgICAgICDwn5qnIOKaoeKaoeKaoSBTdG9yYWdlIGJs
-a3Rlc3RzCgogICAgSG9zdCA2OgoKICAgICAgIOKaoSBJbnRlcm5hbCBpbmZyYXN0cnVjdHVyZSBp
-c3N1ZXMgcHJldmVudGVkIG9uZSBvciBtb3JlIHRlc3RzIChtYXJrZWQKICAgICAgIHdpdGgg4pqh
-4pqh4pqhKSBmcm9tIHJ1bm5pbmcgb24gdGhpcyBhcmNoaXRlY3R1cmUuCiAgICAgICBUaGlzIGlz
-IG5vdCB0aGUgZmF1bHQgb2YgdGhlIGtlcm5lbCB0aGF0IHdhcyB0ZXN0ZWQuCgogICAgICAg4pyF
-IEJvb3QgdGVzdAogICAgICAg4pqh4pqh4pqhIFBvZG1hbiBzeXN0ZW0gaW50ZWdyYXRpb24gdGVz
-dCAtIGFzIHJvb3QKICAgICAgIOKchSBQb2RtYW4gc3lzdGVtIGludGVncmF0aW9uIHRlc3QgLSBh
-cyB1c2VyCiAgICAgICDinYwgTFRQCiAgICAgICDinIUgTG9vcGRldiBTYW5pdHkKICAgICAgIOKc
-hSBNZW1vcnkgZnVuY3Rpb246IG1lbWZkX2NyZWF0ZQogICAgICAg4pyFIEFNVFUgKEFic3RyYWN0
-IE1hY2hpbmUgVGVzdCBVdGlsaXR5KQogICAgICAg4pyFIE5ldHdvcmtpbmcgYnJpZGdlOiBzYW5p
-dHkKICAgICAgIOKchSBFdGhlcm5ldCBkcml2ZXJzIHNhbml0eQogICAgICAg4pyFIE5ldHdvcmtp
-bmcgTUFDc2VjOiBzYW5pdHkKICAgICAgIOKchSBOZXR3b3JraW5nIHNvY2tldDogZnV6egogICAg
-ICAg4pyFIE5ldHdvcmtpbmcgc2N0cC1hdXRoOiBzb2Nrb3B0cyB0ZXN0CiAgICAgICDij7EgIE5l
-dHdvcmtpbmc6IGlnbXAgY29uZm9ybWFuY2UgdGVzdAogICAgICAg4o+xICBOZXR3b3JraW5nIHJv
-dXRlOiBwbXR1CiAgICAgICDij7EgIE5ldHdvcmtpbmcgcm91dGVfZnVuYyAtIGxvY2FsCiAgICAg
-ICDij7EgIE5ldHdvcmtpbmcgcm91dGVfZnVuYyAtIGZvcndhcmQKICAgICAgIOKPsSAgTmV0d29y
-a2luZyBUQ1A6IGtlZXBhbGl2ZSB0ZXN0CiAgICAgICDij7EgIE5ldHdvcmtpbmcgVURQOiBzb2Nr
-ZXQKICAgICAgIOKPsSAgTmV0d29ya2luZyB0dW5uZWw6IGdlbmV2ZSBiYXNpYyB0ZXN0CiAgICAg
-ICDij7EgIE5ldHdvcmtpbmcgdHVubmVsOiBncmUgYmFzaWMKICAgICAgIOKPsSAgTDJUUCBiYXNp
-YyB0ZXN0CiAgICAgICDij7EgIE5ldHdvcmtpbmcgdHVubmVsOiB2eGxhbiBiYXNpYwogICAgICAg
-4o+xICBOZXR3b3JraW5nIGlwc2VjOiBiYXNpYyBuZXRucyAtIHRyYW5zcG9ydAogICAgICAg4o+x
-ICBOZXR3b3JraW5nIGlwc2VjOiBiYXNpYyBuZXRucyAtIHR1bm5lbAogICAgICAg4o+xICBhdWRp
-dDogYXVkaXQgdGVzdHN1aXRlIHRlc3QKICAgICAgIOKPsSAgaHR0cGQ6IG1vZF9zc2wgc21va2Ug
-c2FuaXR5CiAgICAgICDij7EgIHR1bmVkOiB0dW5lLXByb2Nlc3Nlcy10aHJvdWdoLXBlcmYKICAg
-ICAgIOKPsSAgcGNpdXRpbHM6IHNhbml0eSBzbW9rZSB0ZXN0CiAgICAgICDij7EgIEFMU0EgUENN
-IGxvb3BiYWNrIHRlc3QKICAgICAgIOKPsSAgQUxTQSBDb250cm9sIChtaXhlcikgVXNlcnNwYWNl
-IEVsZW1lbnQgdGVzdAogICAgICAg4o+xICBzdG9yYWdlOiBTQ1NJIFZQRAogICAgICAg4o+xICB0
-cmFjZTogZnRyYWNlL3RyYWNlcgogICAgICAg4o+xICBDSUZTIENvbm5lY3RhdGhvbgogICAgICAg
-4o+xICBQT1NJWCBwamQtZnN0ZXN0IHN1aXRlcwogICAgICAg4o+xICBqdm0gdGVzdCBzdWl0ZQog
-ICAgICAg4o+xICBNZW1vcnkgZnVuY3Rpb246IGthc2xyCiAgICAgICDij7EgIExUUDogb3BlbnBv
-c2l4IHRlc3Qgc3VpdGUKICAgICAgIOKPsSAgTmV0d29ya2luZyB2bmljOiBpcHZsYW4vYmFzaWMK
-ICAgICAgIOKPsSAgaW90b3A6IHNhbml0eQogICAgICAg4o+xICBVc2V4IC0gdmVyc2lvbiAxLjkt
-MjkKICAgICAgIOKPsSAgc3RvcmFnZTogZG0vY29tbW9uCgogIFRlc3Qgc291cmNlczogaHR0cHM6
-Ly9naXRodWIuY29tL0NLSS1wcm9qZWN0L3Rlc3RzLWJlYWtlcgogICAg8J+SmiBQdWxsIHJlcXVl
-c3RzIGFyZSB3ZWxjb21lIGZvciBuZXcgdGVzdHMgb3IgaW1wcm92ZW1lbnRzIHRvIGV4aXN0aW5n
-IHRlc3RzIQoKV2FpdmVkIHRlc3RzCi0tLS0tLS0tLS0tLQpJZiB0aGUgdGVzdCBydW4gaW5jbHVk
-ZWQgd2FpdmVkIHRlc3RzLCB0aGV5IGFyZSBtYXJrZWQgd2l0aCDwn5qnLiBTdWNoIHRlc3RzIGFy
-ZQpleGVjdXRlZCBidXQgdGhlaXIgcmVzdWx0cyBhcmUgbm90IHRha2VuIGludG8gYWNjb3VudC4g
-VGVzdHMgYXJlIHdhaXZlZCB3aGVuCnRoZWlyIHJlc3VsdHMgYXJlIG5vdCByZWxpYWJsZSBlbm91
-Z2gsIGUuZy4gd2hlbiB0aGV5J3JlIGp1c3QgaW50cm9kdWNlZCBvciBhcmUKYmVpbmcgZml4ZWQu
-CgpUZXN0aW5nIHRpbWVvdXQKLS0tLS0tLS0tLS0tLS0tCldlIGFpbSB0byBwcm92aWRlIGEgcmVw
-b3J0IHdpdGhpbiByZWFzb25hYmxlIHRpbWVmcmFtZS4gVGVzdHMgdGhhdCBoYXZlbid0CmZpbmlz
-aGVkIHJ1bm5pbmcgYXJlIG1hcmtlZCB3aXRoIOKPsS4gUmVwb3J0cyBmb3Igbm9uLXVwc3RyZWFt
-IGtlcm5lbHMgaGF2ZQphIEJlYWtlciByZWNpcGUgbGlua2VkIHRvIG5leHQgdG8gZWFjaCBob3N0
-LgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5m
-by9sdHAK
+--===============1492948657==
+Content-Type: multipart/alternative; boundary="000000000000ea7619059e82c1b0"
+
+--000000000000ea7619059e82c1b0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Feb 13, 2020 at 8:41 PM Jan Stancek <jstancek@redhat.com> wrote:
+
+>
+>
+> ----- Original Message -----
+> > From ulimit manpage, ulimit -c options used 512-bytes-block in posix mo=
+de
+> > and used 1024-bytes-block in common mode. Usually, this case used "ulim=
+it
+> >  -c 1024" to test, but it will report TCONF in posix mode under
+> unprivileged
+> >  user.
+> > Since these two cases only check correct signal, lower this size doesn'=
+t
+> > affect
+> > this result. This also can avoid github issue(640[1],83[2]).
+> >
+> > [1]https://github.com/linux-test-project/ltp/issues/640
+> > [2]https://github.com/linux-test-project/ltp/issues/83
+> >
+> > Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+>
+> both look good to me, ack
+>
+
+Tested and pushed. Thanks!
+
+--=20
+Regards,
+Li Wang
+
+--000000000000ea7619059e82c1b0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Thu, Feb 13, 2020 at 8:41 PM Jan Stancek &lt;<a =
+href=3D"mailto:jstancek@redhat.com">jstancek@redhat.com</a>&gt; wrote:<br><=
+/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
+rder-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
+<br>
+----- Original Message -----<br>
+&gt; From ulimit manpage, ulimit -c options used 512-bytes-block in posix m=
+ode<br>
+&gt; and used 1024-bytes-block in common mode. Usually, this case used &quo=
+t;ulimit<br>
+&gt;=C2=A0 -c 1024&quot; to test, but it will report TCONF in posix mode un=
+der unprivileged<br>
+&gt;=C2=A0 user.<br>
+&gt; Since these two cases only check correct signal, lower this size doesn=
+&#39;t<br>
+&gt; affect<br>
+&gt; this result. This also can avoid github issue(640[1],83[2]).<br>
+&gt; <br>
+&gt; [1]<a href=3D"https://github.com/linux-test-project/ltp/issues/640" re=
+l=3D"noreferrer" target=3D"_blank">https://github.com/linux-test-project/lt=
+p/issues/640</a><br>
+&gt; [2]<a href=3D"https://github.com/linux-test-project/ltp/issues/83" rel=
+=3D"noreferrer" target=3D"_blank">https://github.com/linux-test-project/ltp=
+/issues/83</a><br>
+&gt; <br>
+&gt; Signed-off-by: Yang Xu &lt;<a href=3D"mailto:xuyang2018.jy@cn.fujitsu.=
+com" target=3D"_blank">xuyang2018.jy@cn.fujitsu.com</a>&gt;<br>
+<br>
+both look good to me, ack<br></blockquote><div><br></div><div class=3D"gmai=
+l_default" style=3D"font-size:small">Tested and pushed. Thanks!</div><div c=
+lass=3D"gmail_default" style=3D"font-size:small"><br></div></div>-- <br><di=
+v dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br><=
+/div><div>Li Wang<br></div></div></div></div>
+
+--000000000000ea7619059e82c1b0--
+
+
+--===============1492948657==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1492948657==--
+
