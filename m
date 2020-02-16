@@ -2,62 +2,63 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41337160256
-	for <lists+linux-ltp@lfdr.de>; Sun, 16 Feb 2020 08:33:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15916160316
+	for <lists+linux-ltp@lfdr.de>; Sun, 16 Feb 2020 10:10:19 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 803003C2557
-	for <lists+linux-ltp@lfdr.de>; Sun, 16 Feb 2020 08:33:21 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C146C3C2467
+	for <lists+linux-ltp@lfdr.de>; Sun, 16 Feb 2020 10:10:18 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 025043C0429
- for <ltp@lists.linux.it>; Sun, 16 Feb 2020 08:33:16 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [205.139.110.120])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 85A0E60095E
- for <ltp@lists.linux.it>; Sun, 16 Feb 2020 08:33:12 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTP id 3D0693C2297
+ for <ltp@lists.linux.it>; Sun, 16 Feb 2020 10:10:17 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 142916008C3
+ for <ltp@lists.linux.it>; Sun, 16 Feb 2020 10:10:15 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1581838390;
+ s=mimecast20190719; t=1581844213;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=yvtVd2B4ipmqATFS+AlysG4oOcrk5oBuM465cemUE08=;
- b=GkWmQ1hCaWqxhkKCAwrpPsW1CtNcY7VzhD9vmegoNwKnOnW9Ra0177VxZyperYTtxRzQ0l
- K+Y8fmTr73uWu/uxSHvqdxLS8EhXSYo0okaPThQD+kpt19AFnuq7sYFLAq3LFoYcz4BbbQ
- z26t3cI156lE2TH0z5S68gDE+BKEUw4=
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
- [209.85.210.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-72-r6mcYMM-O9aeynpGfUhwug-1; Sun, 16 Feb 2020 02:32:59 -0500
-Received: by mail-ot1-f69.google.com with SMTP id n22so8427731otr.23
- for <ltp@lists.linux.it>; Sat, 15 Feb 2020 23:32:59 -0800 (PST)
+ bh=ejLIVPGjcCqQ1Goa/q1ruVou+z5qQNGgS+I0QiN2e/Y=;
+ b=fFZGNWyp4baIZO4F86p6SwdYdkhgJ79h5h1bbuCuTG8s9Q824aYJkXNOi0lMzyc3G2vAMJ
+ TCF/ykKIun2plHIrhqXMhIhknPikgTQy9I+/vJt5GrOXdfTAPavDRitQRPXHLfP5SoHN0I
+ +CzVnEpXkYjsgqa8CjZ0SK8z4aAbBl8=
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
+ [209.85.167.197]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-1-JFCY7FSOOiWKfS8deM3xDg-1; Sun, 16 Feb 2020 04:10:05 -0500
+Received: by mail-oi1-f197.google.com with SMTP id s25so6735810oic.17
+ for <ltp@lists.linux.it>; Sun, 16 Feb 2020 01:10:05 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=78ZaSRSo4SdxktTklDaV/gswyc6uHD/5g6kYKzQ0VB4=;
- b=HK8NlOKhX6/X0kf/NVfmfXETac5DSuNDLZaN0bDNXqzJKF6W3l8Yx9RseKMpzxSDdb
- RwVCEpeG38KmOb7O1JrYWomvmhkwP1VZXIAr2PJA+k7SbGLVfoha6b+4mNJUX2ie7cLn
- cebxErkVX7MfgORQ1PWi7+1u8ssmm0+2z0y+TqRwkW/jp+gtdsoUhgZWjJ92Yx3hjUCy
- wcAyNeK6qNnLxvoKpR6G+ByEy93ZLQ4z0PgBxy8zkoWY1zPI5VUlciEyXadkNrNrviY4
- NFOFKXxwnALF4lZwBlj8Kms/CQa0a7vgz2U6PpfiGhqnEY3/WRQScIhSf3aTsFp4NUPm
- WHwA==
-X-Gm-Message-State: APjAAAXGCIgngTqfYD4DEsvq3wYxtAvlp+LEmH7OF+9oINeBtBBSyy1l
- XjxE2w251XfOiQ8iOXNDdPNV21dG6aQZJPtMQfQJj8auJcfZ2D1b5mg/qeqMnvMPHXWJFCIoQnG
- FRQmn8v1mUbLH7y7pt7Bdu0rDa0g=
-X-Received: by 2002:a9d:7:: with SMTP id 7mr7865715ota.26.1581838378681;
- Sat, 15 Feb 2020 23:32:58 -0800 (PST)
-X-Google-Smtp-Source: APXvYqz4ARpWbIppiZNNj3oDB32AMHAASmm1vYMn7D5d55QoxJK667rp3vBAqAg5UluZ6iULRk979xAG3v/DxY4ekDc=
-X-Received: by 2002:a9d:7:: with SMTP id 7mr7865709ota.26.1581838378429; Sat,
- 15 Feb 2020 23:32:58 -0800 (PST)
+ bh=8moPBhqTpfazFZGC5Z0xWjYYpzwg5p4L/IIYWz53/J4=;
+ b=NThFVC4Od9IPxXb5O6pNoEO0ZeW4BK3Ou4p6BV6WT/tVP9Tr8Pfn2u1mnVNWM0Yb4X
+ GP46HYaGhH2xadRgOdvw04CVgHKiW4kEcLcvGnlJQgjhl3g2K/UA6Y7qR1RyG6jFQpu2
+ dIZyVvFJPsHMZ884/6egZzHW5jjnvbqx13cdtXxAtuBY3zdrPMGyhD6XSn92d/eepppp
+ A+HdBFjJ1Apy3RAJ6enRMjiYBpa277Eirah4dqn4T6DSbKdXJiJfpS2nLPXgyrlI0coh
+ uU/7KvpEWjTkMeO0tIWmwr5iOpyvcS+8kRQb4ABBx+jRL8MvQDL4DqUHhlym0B4wUdhe
+ CVeA==
+X-Gm-Message-State: APjAAAUaqZ3ym7hUIZrjlee0xST65xuQA6kWhgljgQVMEKH+EJBcztcn
+ HmsJipvx5MsLu03czMbPgJdKsKmasJx5Un+UgRYuTa6TxQ8UUGq3ssoLySN8JvLdDlGlVhKftqZ
+ bC5H6NDzR1l47RZ19rY7sx0ey51M=
+X-Received: by 2002:a05:6808:30d:: with SMTP id
+ i13mr6611773oie.144.1581844205121; 
+ Sun, 16 Feb 2020 01:10:05 -0800 (PST)
+X-Google-Smtp-Source: APXvYqwYbuVkwoBstm6s0OexJCJ7UiQQbkKOUzqxOxt0SUbzbipdkq1KBEX7W2O4GJuc48ro86Fdd+AP+oOaFD5ut7E=
+X-Received: by 2002:a05:6808:30d:: with SMTP id
+ i13mr6611753oie.144.1581844204773; 
+ Sun, 16 Feb 2020 01:10:04 -0800 (PST)
 MIME-Version: 1.0
-References: <20200207144105.19947-1-pvorel@suse.cz>
- <20200207144105.19947-2-pvorel@suse.cz>
-In-Reply-To: <20200207144105.19947-2-pvorel@suse.cz>
+References: <cover.1581680021.git.viresh.kumar@linaro.org>
+ <98f8a5780f679b90f53fdded8b1b8821d7eb1ce9.1581680021.git.viresh.kumar@linaro.org>
+In-Reply-To: <98f8a5780f679b90f53fdded8b1b8821d7eb1ce9.1581680021.git.viresh.kumar@linaro.org>
 From: Li Wang <liwang@redhat.com>
-Date: Sun, 16 Feb 2020 15:32:47 +0800
-Message-ID: <CAEemH2f0db1i7Tpg-4jqa5h5j9KZpH+d4aRg-M3Xn3Mw9NU1eA@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-X-MC-Unique: r6mcYMM-O9aeynpGfUhwug-1
+Date: Sun, 16 Feb 2020 17:09:53 +0800
+Message-ID: <CAEemH2eju4-Gv8P_H8teuo3qDYbFmfKL6EZbWQfw6xLHqWa5Xg@mail.gmail.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+X-MC-Unique: JFCY7FSOOiWKfS8deM3xDg-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
@@ -66,8 +67,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v6 2/2] syscalls/fsmount01: Add test for new mount
- API v5.2
+Subject: Re: [LTP] [PATCH 1/7] lapi/fsmount: Add definitions for fsmount
+ related syscalls
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,457 +80,63 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: viresh.kumar@linaro.org, LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0159616193=="
+Cc: Vikas.Kumar2@arm.com, Vincent Guittot <vincent.guittot@linaro.org>,
+ LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0217943080=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0159616193==
-Content-Type: multipart/alternative; boundary="000000000000a37fdf059eac7274"
+--===============0217943080==
+Content-Type: multipart/alternative; boundary="000000000000ea7805059eadcd87"
 
---000000000000a37fdf059eac7274
+--000000000000ea7805059eadcd87
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hi Viresh,
 
-[CC Viresh Kumar]
+Thank you for creating new tests for LTP.
 
-Patch v6 looks almost good besides tiny issues:
+Unfortunately, this 1/7 patch has overlap with zlang@'s patch[1]. It
+probably can not be merged if the patch[1] applies first. But the remaining
+part is valuable to LTP, you can drop some of this and rebase your code to
+make use of the header file again.
 
-I don't like the commit summary with kernel version number, can we just
-note as:
-    "syscalls/fsmount01: Add test for fsmount series API"?
+[1] http://lists.linux.it/pipermail/ltp/2020-February/015336.html
 
-On Fri, Feb 7, 2020 at 10:41 PM Petr Vorel <pvorel@suse.cz> wrote:
-
-> From: Zorro Lang <zlang@redhat.com>
->
-> Add basic tests tests for new mount API from kernel v5.2.
-> Testing mount and umount filesystems with fsopen(), fsconfig(),
-> fsmount() and move_mount().
->
-> Signed-off-by: Zorro Lang <zlang@redhat.com>
-> Reported-by: Cyril Hrubis <chrubis@suse.cz>
-> [ pvorel: cleanup autotools and other fixes ]
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
->  configure.ac                                  |  4 +
->  include/lapi/newmount.h                       | 95 +++++++++++++++++++
->  include/lapi/syscalls/powerpc64.in            |  4 +
->
-
-Is there any reason why only add syscall num for ppc64?
-
-
->
-> diff --git a/configure.ac b/configure.ac
-> index df4e8c832..05b7d0a72 100644
-> --- a/configure.ac
-> +++ b/configure.ac
-> @@ -80,6 +80,9 @@ AC_CHECK_FUNCS([ \
->      execveat \
->      fallocate \
->      fchownat \
-> +    fsconfig \
-> +    fsmount \
-> +    fsopen \
->      fstatat \
->      getdents \
->      getdents64 \
-> @@ -88,6 +91,7 @@ AC_CHECK_FUNCS([ \
->      mkdirat \
->      mknodat \
->      modify_ldt \
-> +    move_mount \
->      name_to_handle_at \
->      openat \
->      pidfd_open \
-> diff --git a/include/lapi/newmount.h b/include/lapi/newmount.h
-> new file mode 100644
-> index 000000000..d4efdb300
-> --- /dev/null
-> +++ b/include/lapi/newmount.h
->
-
-Maybe rename to fsmount.h is better? Now we think it new since mainline
-v5.2 is new to us, one year later it probably not new actually, to use a
-name can indicate the functionality is wiser I guess.
-
-BTW, I like the way Viresh Kumar gives in his fsmount.h, it looks more tidy
-and clean.
-http://lists.linux.it/pipermail/ltp/2020-February/015413.html
-
-
-
-> --- /dev/null
-> +++ b/testcases/kernel/syscalls/fsmount/fsmount01.c
-> @@ -0,0 +1,94 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (C) 2019 Red Hat, Inc.  All rights reserved.
-> + * Author: Zorro Lang <zlang@redhat.com>
-> + *
-> + * Use new mount API from v5.2 (fsopen(), fsconfig(), fsmount(),
-> move_mount())
-> + * to mount a filesystem without any specified mount options.
-> + */
-> +
-> +#include <sys/mount.h>
-> +
-> +#include "tst_test.h"
-> +#include "lapi/newmount.h"
-> +#include "tst_safe_stdio.h"
-> +
-> +#define LINELENGTH 256
-> +#define MNTPOINT "newmount_point"
-> +static int sfd, mfd, is_mounted;
-> +
-> +static int ismount(char *mntpoint)
-> +{
-> +       int ret =3D 0;
-> +       FILE *file;
-> +       char line[LINELENGTH];
-> +
-> +       file =3D SAFE_FOPEN("/proc/mounts", "r");
-> +
-> +       while (fgets(line, sizeof(line), file)) {
-> +               if (strstr(line, mntpoint) !=3D NULL) {
-> +                       ret =3D 1;
-> +                       break;
-> +               }
-> +       }
-> +       SAFE_FCLOSE(file);
-> +       return ret;
-> +}
-> +
-> +static void cleanup(void)
-> +{
-> +       if (is_mounted)
-> +               SAFE_UMOUNT(MNTPOINT);
-> +}
-> +
-> +static void test_newmount(void)
->
-
-static void test_fsmount(void)? Or, static void run(void).
-
-
-> +{
-> +       TEST(fsopen(tst_device->fs_type, FSOPEN_CLOEXEC));
-> +       if (TST_RET < 0)
-> +               tst_brk(TBROK | TTERRNO, "fsopen %s", tst_device->fs_type=
-);
-> +       sfd =3D TST_RET;
-> +       tst_res(TPASS, "fsopen %s", tst_device->fs_type);
-> +
-> +       TEST(fsconfig(sfd, FSCONFIG_SET_STRING, "source", tst_device->dev=
-,
-> 0));
-> +       if (TST_RET < 0)
-> +               tst_brk(TBROK | TTERRNO,
-> +                       "fsconfig set source to %s", tst_device->dev);
-> +       tst_res(TPASS, "fsconfig set source to %s", tst_device->dev);
-> +
-> +
-> +       TEST(fsconfig(sfd, FSCONFIG_CMD_CREATE, NULL, NULL, 0));
-> +       if (TST_RET < 0)
-> +               tst_brk(TBROK | TTERRNO, "fsconfig create superblock");
-> +       tst_res(TPASS, "fsconfig create superblock");
-> +
-> +       TEST(fsmount(sfd, FSMOUNT_CLOEXEC, 0));
-> +       if (TST_RET < 0)
-> +               tst_brk(TBROK | TTERRNO, "fsmount");
-> +       mfd =3D TST_RET;
-> +       tst_res(TPASS, "fsmount");
-> +       SAFE_CLOSE(sfd);
-> +
-> +       TEST(move_mount(mfd, "", AT_FDCWD, MNTPOINT,
-> MOVE_MOUNT_F_EMPTY_PATH));
-> +       if (TST_RET < 0)
-> +               tst_brk(TBROK | TTERRNO, "move_mount attach to mount
-> point");
-> +       is_mounted =3D 1;
-> +       tst_res(TPASS, "move_mount attach to mount point");
-> +       SAFE_CLOSE(mfd);
-> +
-> +       if (ismount(MNTPOINT)) {
-> +               tst_res(TPASS, "new mount API from v5.2 works");
->
-
-Can we avoid appearance the v5.2? I guess many Enterprise Linux
-Distributions will backport the fsmount() series API, v5.2 in test log
-looks strange if the kernel is older than it.
-
-
-
-> +               SAFE_UMOUNT(MNTPOINT);
-> +               is_mounted =3D 0;
-> +       } else
-> +               tst_res(TFAIL, "new mount API from v5.2 works");
->
-no v5.2
-
-
-> +}
-> +
-> +static struct tst_test test =3D {
-> +       .test_all =3D test_newmount,
-> +       .cleanup =3D cleanup,
-> +       .needs_root =3D 1,
-> +       .mntpoint =3D MNTPOINT,
-> +       .format_device =3D 1,
-> +       .all_filesystems =3D 1,
-> +       .dev_fs_flags =3D TST_FS_SKIP_FUSE,
-> +};
-> --
-> 2.24.1
->
->
+[CC zlang, pvorel] to have a look at this.
 
 --=20
 Regards,
 Li Wang
 
---000000000000a37fdf059eac7274
+--000000000000ea7805059eadcd87
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div cl=
-ass=3D"gmail_default" style=3D"font-size:small">Hi,</div><div class=3D"gmai=
-l_default" style=3D"font-size:small"><br></div><div class=3D"gmail_default"=
- style=3D"font-size:small">[CC Viresh Kumar]</div><div class=3D"gmail_defau=
-lt" style=3D"font-size:small"><br></div><div class=3D"gmail_default" style=
-=3D"font-size:small">Patch v6 looks almost good besides tiny issues:</div><=
-div class=3D"gmail_default" style=3D"font-size:small"><br></div><div class=
-=3D"gmail_default">I don&#39;t like the commit summary with kernel version =
-number, can we just note as:=C2=A0</div><div class=3D"gmail_default">=C2=A0=
- =C2=A0 &quot;syscalls/fsmount01: Add test for fsmount series API&quot;?</d=
-iv></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_att=
-r">On Fri, Feb 7, 2020 at 10:41 PM Petr Vorel &lt;<a href=3D"mailto:pvorel@=
-suse.cz" target=3D"_blank">pvorel@suse.cz</a>&gt; wrote:<br></div><blockquo=
-te class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px =
-solid rgb(204,204,204);padding-left:1ex">From: Zorro Lang &lt;<a href=3D"ma=
-ilto:zlang@redhat.com" target=3D"_blank">zlang@redhat.com</a>&gt;<br>
-<br>
-Add basic tests tests for new mount API from kernel v5.2.<br>
-Testing mount and umount filesystems with fsopen(), fsconfig(),<br>
-fsmount() and move_mount().<br>
-<br>
-Signed-off-by: Zorro Lang &lt;<a href=3D"mailto:zlang@redhat.com" target=3D=
-"_blank">zlang@redhat.com</a>&gt;<br>
-Reported-by: Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz" target=3D"=
-_blank">chrubis@suse.cz</a>&gt;<br>
-[ pvorel: cleanup autotools and other fixes ]<br>
-Signed-off-by: Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz" target=3D"_=
-blank">pvorel@suse.cz</a>&gt;<br>
----<br>
-=C2=A0<a href=3D"http://configure.ac" rel=3D"noreferrer" target=3D"_blank">=
-configure.ac</a>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 4 +<br>
-=C2=A0include/lapi/newmount.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 95 +++++++++++++++++++<br>
-=C2=A0include/lapi/syscalls/<a href=3D"http://powerpc64.in" rel=3D"noreferr=
-er" target=3D"_blank">powerpc64.in</a>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 |=C2=A0 4 +<br></blockquote><div><br></div><div><div class=3D"gmail_=
-default" style=3D"font-size:small">Is there any reason why only add syscall=
- num for ppc64?</div></div><div>=C2=A0</div><blockquote class=3D"gmail_quot=
-e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
-;padding-left:1ex">
-<br>
-diff --git a/<a href=3D"http://configure.ac" rel=3D"noreferrer" target=3D"_=
-blank">configure.ac</a> b/<a href=3D"http://configure.ac" rel=3D"noreferrer=
-" target=3D"_blank">configure.ac</a><br>
-index df4e8c832..05b7d0a72 100644<br>
---- a/<a href=3D"http://configure.ac" rel=3D"noreferrer" target=3D"_blank">=
-configure.ac</a><br>
-+++ b/<a href=3D"http://configure.ac" rel=3D"noreferrer" target=3D"_blank">=
-configure.ac</a><br>
-@@ -80,6 +80,9 @@ AC_CHECK_FUNCS([ \<br>
-=C2=A0 =C2=A0 =C2=A0execveat \<br>
-=C2=A0 =C2=A0 =C2=A0fallocate \<br>
-=C2=A0 =C2=A0 =C2=A0fchownat \<br>
-+=C2=A0 =C2=A0 fsconfig \<br>
-+=C2=A0 =C2=A0 fsmount \<br>
-+=C2=A0 =C2=A0 fsopen \<br>
-=C2=A0 =C2=A0 =C2=A0fstatat \<br>
-=C2=A0 =C2=A0 =C2=A0getdents \<br>
-=C2=A0 =C2=A0 =C2=A0getdents64 \<br>
-@@ -88,6 +91,7 @@ AC_CHECK_FUNCS([ \<br>
-=C2=A0 =C2=A0 =C2=A0mkdirat \<br>
-=C2=A0 =C2=A0 =C2=A0mknodat \<br>
-=C2=A0 =C2=A0 =C2=A0modify_ldt \<br>
-+=C2=A0 =C2=A0 move_mount \<br>
-=C2=A0 =C2=A0 =C2=A0name_to_handle_at \<br>
-=C2=A0 =C2=A0 =C2=A0openat \<br>
-=C2=A0 =C2=A0 =C2=A0pidfd_open \<br>
-diff --git a/include/lapi/newmount.h b/include/lapi/newmount.h<br>
-new file mode 100644<br>
-index 000000000..d4efdb300<br>
---- /dev/null<br>
-+++ b/include/lapi/newmount.h<br></blockquote><div><br></div><div class=3D"=
-gmail_default" style=3D"font-size:small">Maybe rename to fsmount.h is bette=
-r? Now we think it new since mainline v5.2 is new to us, one year later it =
-probably not new actually, to use a name can indicate the functionality=C2=
-=A0is wiser I guess.</div><div class=3D"gmail_default" style=3D"font-size:s=
-mall"><br></div><div class=3D"gmail_default" style=3D"font-size:small">BTW,=
- I like the way Viresh Kumar gives in his fsmount.h, it looks more tidy and=
- clean.</div><div class=3D"gmail_default" style=3D"font-size:small"><a href=
-=3D"http://lists.linux.it/pipermail/ltp/2020-February/015413.html" target=
-=3D"_blank">http://lists.linux.it/pipermail/ltp/2020-February/015413.html</=
-a><br></div><div><br></div><div>=C2=A0</div><blockquote class=3D"gmail_quot=
-e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
-;padding-left:1ex">
---- /dev/null<br>
-+++ b/testcases/kernel/syscalls/fsmount/fsmount01.c<br>
-@@ -0,0 +1,94 @@<br>
-+// SPDX-License-Identifier: GPL-2.0-or-later<br>
-+/*<br>
-+ * Copyright (C) 2019 Red Hat, Inc.=C2=A0 All rights reserved.<br>
-+ * Author: Zorro Lang &lt;<a href=3D"mailto:zlang@redhat.com" target=3D"_b=
-lank">zlang@redhat.com</a>&gt;<br>
-+ *<br>
-+ * Use new mount API from v5.2 (fsopen(), fsconfig(), fsmount(), move_moun=
-t())<br>
-+ * to mount a filesystem without any specified mount options.<br>
-+ */<br>
-+<br>
-+#include &lt;sys/mount.h&gt;<br>
-+<br>
-+#include &quot;tst_test.h&quot;<br>
-+#include &quot;lapi/newmount.h&quot;<br>
-+#include &quot;tst_safe_stdio.h&quot;<br>
-+<br>
-+#define LINELENGTH 256<br>
-+#define MNTPOINT &quot;newmount_point&quot;<br>
-+static int sfd, mfd, is_mounted;<br>
-+<br>
-+static int ismount(char *mntpoint)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0int ret =3D 0;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0FILE *file;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0char line[LINELENGTH];<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0file =3D SAFE_FOPEN(&quot;/proc/mounts&quot;, &=
-quot;r&quot;);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0while (fgets(line, sizeof(line), file)) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (strstr(line, mn=
-tpoint) !=3D NULL) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0ret =3D 1;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0break;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_FCLOSE(file);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;<br>
-+}<br>
-+<br>
-+static void cleanup(void)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (is_mounted)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_UMOUNT(MNTPOIN=
-T);<br>
-+}<br>
-+<br>
-+static void test_newmount(void)<br></blockquote><div>=C2=A0</div><div><spa=
-n class=3D"gmail_default" style=3D"font-size:small">static void test_fsmoun=
-t(void)? O</span>r<span class=3D"gmail_default" style=3D"font-size:small">,=
-</span> static void run(void)<span class=3D"gmail_default" style=3D"font-si=
-ze:small">.</span></div><div><span class=3D"gmail_default" style=3D"font-si=
-ze:small"></span>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"mar=
-gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
-ex">
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0TEST(fsopen(tst_device-&gt;fs_type, FSOPEN_CLOE=
-XEC));<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (TST_RET &lt; 0)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_brk(TBROK | TTE=
-RRNO, &quot;fsopen %s&quot;, tst_device-&gt;fs_type);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0sfd =3D TST_RET;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TPASS, &quot;fsopen %s&quot;, tst_devic=
-e-&gt;fs_type);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0TEST(fsconfig(sfd, FSCONFIG_SET_STRING, &quot;s=
-ource&quot;, tst_device-&gt;dev, 0));<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (TST_RET &lt; 0)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_brk(TBROK | TTE=
-RRNO,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0&quot;fsconfig set source to %s&quot;, tst_device-&gt;dev);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TPASS, &quot;fsconfig set source to %s&=
-quot;, tst_device-&gt;dev);<br>
-+<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0TEST(fsconfig(sfd, FSCONFIG_CMD_CREATE, NULL, N=
-ULL, 0));<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (TST_RET &lt; 0)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_brk(TBROK | TTE=
-RRNO, &quot;fsconfig create superblock&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TPASS, &quot;fsconfig create superblock=
-&quot;);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0TEST(fsmount(sfd, FSMOUNT_CLOEXEC, 0));<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (TST_RET &lt; 0)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_brk(TBROK | TTE=
-RRNO, &quot;fsmount&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0mfd =3D TST_RET;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TPASS, &quot;fsmount&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_CLOSE(sfd);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0TEST(move_mount(mfd, &quot;&quot;, AT_FDCWD, MN=
-TPOINT, MOVE_MOUNT_F_EMPTY_PATH));<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (TST_RET &lt; 0)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_brk(TBROK | TTE=
-RRNO, &quot;move_mount attach to mount point&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0is_mounted =3D 1;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TPASS, &quot;move_mount attach to mount=
- point&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_CLOSE(mfd);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (ismount(MNTPOINT)) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TPASS, &quo=
-t;new mount API from v5.2 works&quot;);<br></blockquote><div><br></div><div=
-><div class=3D"gmail_default" style=3D"font-size:small">Can we avoid appear=
-ance=C2=A0the v5.2? I guess many Enterprise Linux Distributions=C2=A0will b=
-ackport the fsmount() series API, v5.2 in test log looks strange if the ker=
-nel is older than it.</div><br></div><div>=C2=A0</div><blockquote class=3D"=
-gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(20=
-4,204,204);padding-left:1ex">
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_UMOUNT(MNTPOIN=
-T);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0is_mounted =3D 0;<b=
-r>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0} else<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TFAIL, &quo=
-t;new mount API from v5.2 works&quot;);<br></blockquote><div><span class=3D=
-"gmail_default" style=3D"font-size:small">no v5.2</span></div><div><span cl=
-ass=3D"gmail_default" style=3D"font-size:small"></span>=C2=A0</div><blockqu=
-ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
- solid rgb(204,204,204);padding-left:1ex">
-+}<br>
-+<br>
-+static struct tst_test test =3D {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0.test_all =3D test_newmount,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0.cleanup =3D cleanup,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0.needs_root =3D 1,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0.mntpoint =3D MNTPOINT,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0.format_device =3D 1,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0.all_filesystems =3D 1,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0.dev_fs_flags =3D TST_FS_SKIP_FUSE,<br>
-+};<br>
--- <br>
-2.24.1<br>
-<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
-><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div>=
-</div></div></div>
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi=C2=A0Viresh,</div><div class=3D"gmail_default" style=3D"fo=
+nt-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size:sm=
+all">Thank you for creating new tests for LTP.=C2=A0</div><div class=3D"gma=
+il_default" style=3D"font-size:small"><br></div><div class=3D"gmail_default=
+" style=3D"font-size:small">Unfortunately, this 1/7 patch has overlap with =
+zlang@&#39;s patch[1]. It probably can not be merged if the patch[1] applie=
+s first. But the remaining part is valuable to LTP, you can drop some of th=
+is and rebase your code to make use of the header file again.</div><div cla=
+ss=3D"gmail_default" style=3D"font-size:small"><br></div><div class=3D"gmai=
+l_default" style=3D"font-size:small">[1]=C2=A0<a href=3D"http://lists.linux=
+.it/pipermail/ltp/2020-February/015336.html">http://lists.linux.it/pipermai=
+l/ltp/2020-February/015336.html</a></div></div><div class=3D"gmail_quote"><=
+div dir=3D"ltr" class=3D"gmail_attr"><br></div><div dir=3D"ltr" class=3D"gm=
+ail_attr"><div class=3D"gmail_default" style=3D"font-size:small">[CC zlang,=
+ pvorel] to have a look at this.</div><br></div></div>-- <br><div dir=3D"lt=
+r"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></di=
+v></div>
 
---000000000000a37fdf059eac7274--
+--000000000000ea7805059eadcd87--
 
 
---===============0159616193==
+--===============0217943080==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -539,5 +146,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============0159616193==--
+--===============0217943080==--
 
