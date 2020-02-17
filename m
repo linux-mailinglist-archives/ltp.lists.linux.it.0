@@ -2,40 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58832161458
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2020 15:16:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2455F16145C
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2020 15:16:46 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 10C7E3C25E1
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2020 15:16:26 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E74E63C25D1
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2020 15:16:45 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 8C6363C25CA
+ by picard.linux.it (Postfix) with ESMTP id C3A1A3C25CA
  for <ltp@lists.linux.it>; Mon, 17 Feb 2020 15:16:23 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0F5CB14012C1
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 1F5EA14012D7
  for <ltp@lists.linux.it>; Mon, 17 Feb 2020 15:16:22 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 779B7B3BD;
+ by mx2.suse.de (Postfix) with ESMTP id 86F0EB3C0;
  Mon, 17 Feb 2020 14:16:22 +0000 (UTC)
 From: Martin Doucha <mdoucha@suse.cz>
 To: Li Wang <liwang@redhat.com>,
 	ltp@lists.linux.it
-Date: Mon, 17 Feb 2020 15:16:20 +0100
-Message-Id: <20200217141622.26912-1-mdoucha@suse.cz>
+Date: Mon, 17 Feb 2020 15:16:21 +0100
+Message-Id: <20200217141622.26912-2-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.25.0
-In-Reply-To: <CAEemH2dEco268yqDyDjX25FPs3V7wTBija4HiMrf8nr0W7qVQQ@mail.gmail.com>
+In-Reply-To: <20200217141622.26912-1-mdoucha@suse.cz>
 References: <CAEemH2dEco268yqDyDjX25FPs3V7wTBija4HiMrf8nr0W7qVQQ@mail.gmail.com>
+ <20200217141622.26912-1-mdoucha@suse.cz>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 1/3] Redesign TST_RETRY_FUNC()
+Subject: [LTP] [PATCH v3 2/3] Split off executable code from bpf/bpf_common.h
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,220 +53,140 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The TST_RETRY_FUNC() macro requires a single return value that'll be considered
-success. This cannot be used with system calls that e.g. return a new file
-descriptor because the success value is somewhat unpredictable.
-
-Redesign TST_RETRY_FUNC() to accept arbitrary macro/function ECHCK as the second
-parameter for validating the FUNC return value.
-- The loop will end succesfully if ECHCK(ret) evaluates to non-zero.
-- The loop will fall through on timeout instead of calling tst_brk().
-- errno will be cleared before every FUNC call.
-- Add standard check macros for the most common call conventions:
-  - TST_RETVAL_EQ0(x) - x == 0
-  - TST_RETVAL_NOTNULL(x) - x != 0 or x != NULL
-  - TST_RETVAL_GE0(x) - x >= 0
-
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
 
-Changes since v1: Everything in this patch. Redesign TST_RETRY_FUNC() instead
-of adding a copy with slightly different functionality.
+Changes since v1: This patch was split off from the v1 BPF fix. Code cleanup
+to prevent future bugs and make the common code more readable.
 
-Changes since v2: Added documentation for new TST_RETRY_FUNC() behavior
+Changes since v2: None.
 
- doc/test-writing-guidelines.txt             | 61 ++++++++++++++++-----
- include/tst_common.h                        | 45 ++++++++++-----
- testcases/kernel/syscalls/tgkill/tgkill03.c |  8 ++-
- 3 files changed, 86 insertions(+), 28 deletions(-)
+ testcases/kernel/syscalls/bpf/Makefile     |  3 ++
+ testcases/kernel/syscalls/bpf/bpf_common.c | 45 ++++++++++++++++++++++
+ testcases/kernel/syscalls/bpf/bpf_common.h | 39 ++-----------------
+ 3 files changed, 51 insertions(+), 36 deletions(-)
+ create mode 100644 testcases/kernel/syscalls/bpf/bpf_common.c
 
-diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
-index bfc3b5554..973b2c0a2 100644
---- a/doc/test-writing-guidelines.txt
-+++ b/doc/test-writing-guidelines.txt
-@@ -2317,30 +2317,63 @@ that can sleep for defined amount of seconds, milliseconds or microseconds.
- tst_sleep 100ms
- -------------------------------------------------------------------------------
+diff --git a/testcases/kernel/syscalls/bpf/Makefile b/testcases/kernel/syscalls/bpf/Makefile
+index 990c8c83c..2241bce9b 100644
+--- a/testcases/kernel/syscalls/bpf/Makefile
++++ b/testcases/kernel/syscalls/bpf/Makefile
+@@ -5,6 +5,9 @@ top_srcdir		?= ../../../..
  
--Retry a function in limited time
--++++++++++++++++++++++++++++++++
--
--Sometimes LTP test needs retrying a function for many times to get success.
--This achievement makes that possible via keeping it retrying if the return
--value of the function is NOT as we expected. After exceeding a limited time,
--test will break from the retries immediately. The time limit is multiplied
--with LTP_TIMEOUT_MUL.
-+Retry a function call multiple times
-+++++++++++++++++++++++++++++++++++++
-+
-+Sometimes your LTP test needs to retry a function call multiple times because
-+the system is not ready to process it successfully on the first try. The LTP
-+library has some useful tools to handle call retrying automatically.
-+'TST_RETRY_FUNC()' will keep retrying for up to 1 second. If you want a custom
-+time limit, use 'TST_RETRY_FN_EXP_BACKOFF()'. Both methods return the value
-+returned by the last 'FUNC' call.
-+
-+The delay between retries starts at 1 microsecond and doubles after each call.
-+The retry loop ends when the function call succeeds or the next delay exceeds
-+the specified time (1 second for 'TST_RETRY_FUNC()'). The maximum delay is
-+multiplied by TST_TIMEOUT_MUL. The total cumulative delay may be up to twice
-+as long as the adjusted maximum delay.
-+
-+The C version of 'TST_RETRY_FUNC()' is a macro which takes two arguments:
-+
-+* 'FUNC' is the complete function call with arguments which should be retried
-+  multiple times.
-+* 'SUCCESS_CHECK' is a macro or function which will validate 'FUNC' return
-+  value. 'FUNC' call was successful if 'SUCCESS_CHECK(ret)' evaluates to
-+  non-zero.
-+
-+Both retry methods clear 'errno' before every 'FUNC' call so your
-+'SUCCESS_CHECK' can look for specific error codes as well. The LTP library
-+also includes predefined 'SUCCESS_CHECK' macros for the most common call
-+conventions:
-+
-+* 'TST_RETVAL_EQ0()' - The call was successful if 'FUNC' returned 0 or NULL
-+* 'TST_RETVAL_NOTNULL()' - The call was successful if 'FUNC' returned any
-+  value other than 0 or NULL.
-+* 'TST_RETVAL_GE0()' - The call was successful if 'FUNC' returned value >= 0.
+ include $(top_srcdir)/include/mk/testcases.mk
  
- [source,c]
- -------------------------------------------------------------------------------
--# retry function in 1 second
--TST_RETRY_FUNC(FUNC, EXPECTED_RET)
-+/* Keep trying for 1 second */
-+TST_RETRY_FUNC(FUNC, SUCCESS_CHECK)
++FILTER_OUT_MAKE_TARGETS	:= bpf_common
+ CFLAGS			+= -D_GNU_SOURCE
  
--# retry function in N second
--TST_RETRY_FN_EXP_BACKOFF(FUNC, EXPECTED_RET, N)
-+/* Keep trying for up to 2*N seconds */
-+TST_RETRY_FN_EXP_BACKOFF(FUNC, SUCCESS_CHECK, N)
- -------------------------------------------------------------------------------
- 
-+The shell version of 'TST_RETRY_FUNC()' is simpler and takes slightly
-+different arguments:
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
 +
-+* 'FUNC' is a string containing the complete function or program call with
-+  arguments.
-+* 'EXPECTED_RET' is a single expected return value. 'FUNC' call was successful
-+  if the return value is equal to EXPECTED_RET.
++$(MAKE_TARGETS): %: %.o bpf_common.o
+diff --git a/testcases/kernel/syscalls/bpf/bpf_common.c b/testcases/kernel/syscalls/bpf/bpf_common.c
+new file mode 100644
+index 000000000..fce364af8
+--- /dev/null
++++ b/testcases/kernel/syscalls/bpf/bpf_common.c
+@@ -0,0 +1,45 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Copyright (c) 2019-2020 Linux Test Project
++ */
 +
- [source,sh]
- -------------------------------------------------------------------------------
--# retry function in 1 second
-+# Keep trying for 1 second
- TST_RETRY_FUNC "FUNC arg1 arg2 ..." "EXPECTED_RET"
- 
--# retry function in N second
-+# Keep trying for up to 2*N seconds
- TST_RETRY_FN_EXP_BACKOFF "FUNC arg1 arg2 ..." "EXPECTED_RET" "N"
- -------------------------------------------------------------------------------
- 
-diff --git a/include/tst_common.h b/include/tst_common.h
-index a0c06a3f7..5c09fea7f 100644
---- a/include/tst_common.h
-+++ b/include/tst_common.h
-@@ -26,35 +26,54 @@
- /**
-  * TST_RETRY_FUNC() - Repeatedly retry a function with an increasing delay.
-  * @FUNC - The function which will be retried
-- * @ERET - The value returned from @FUNC on success
-+ * @ECHCK - Function/macro for validating @FUNC return value
-  *
-- * This macro will call @FUNC in a loop with a delay between retries. If @FUNC
-- * returns @ERET then the loop exits. The delay between retries starts at one
-- * micro second and is then doubled each iteration until it exceeds one second
-- * (the total time sleeping will be approximately one second as well). When the
-- * delay exceeds one second tst_brk() is called.
-+ * This macro will call @FUNC in a loop with a delay between retries.
-+ * If ECHCK(ret) evaluates to non-zero, the loop ends. The delay between
-+ * retries starts at one microsecond and is then doubled each iteration until
-+ * it exceeds one second (the total time sleeping will be approximately one
-+ * second as well). When the delay exceeds one second, the loop will end.
-+ * The TST_RETRY_FUNC() macro returns the last value returned by @FUNC.
++#define TST_NO_DEFAULT_MAIN
++#include "tst_test.h"
++#include "lapi/bpf.h"
++#include "bpf_common.h"
++
++void rlimit_bump_memlock(void)
++{
++	struct rlimit memlock_r;
++
++	SAFE_GETRLIMIT(RLIMIT_MEMLOCK, &memlock_r);
++	memlock_r.rlim_cur += BPF_MEMLOCK_ADD;
++	tst_res(TINFO, "Raising RLIMIT_MEMLOCK to %ld",
++		(long)memlock_r.rlim_cur);
++
++	if (memlock_r.rlim_cur <= memlock_r.rlim_max) {
++		SAFE_SETRLIMIT(RLIMIT_MEMLOCK, &memlock_r);
++	} else if ((geteuid() == 0)) {
++		memlock_r.rlim_max += BPF_MEMLOCK_ADD;
++		SAFE_SETRLIMIT(RLIMIT_MEMLOCK, &memlock_r);
++	} else {
++		tst_res(TINFO, "Can't raise RLIMIT_MEMLOCK, test may fail "
++			"due to lack of max locked memory");
++	}
++}
++
++int bpf_map_create(union bpf_attr *attr)
++{
++	TEST(bpf(BPF_MAP_CREATE, attr, sizeof(*attr)));
++	if (TST_RET == -1) {
++		if (TST_ERR == EPERM) {
++			tst_res(TCONF, "Hint: check also /proc/sys/kernel/unprivileged_bpf_disabled");
++			tst_brk(TCONF | TTERRNO,
++				"bpf() requires CAP_SYS_ADMIN on this system");
++		} else {
++			tst_brk(TBROK | TTERRNO, "Failed to create array map");
++		}
++	}
++
++	return TST_RET;
++}
+diff --git a/testcases/kernel/syscalls/bpf/bpf_common.h b/testcases/kernel/syscalls/bpf/bpf_common.h
+index f700bede2..e46a519eb 100644
+--- a/testcases/kernel/syscalls/bpf/bpf_common.h
++++ b/testcases/kernel/syscalls/bpf/bpf_common.h
+@@ -1,6 +1,6 @@
+ /* SPDX-License-Identifier: GPL-2.0-or-later */
+ /*
+- * Copyright (c) 2019 Linux Test Project
++ * Copyright (c) 2019-2020 Linux Test Project
   */
--#define TST_RETRY_FUNC(FUNC, ERET) \
--	TST_RETRY_FN_EXP_BACKOFF(FUNC, ERET, 1)
-+#define TST_RETRY_FUNC(FUNC, ECHCK) \
-+	TST_RETRY_FN_EXP_BACKOFF(FUNC, ECHCK, 1)
  
--#define TST_RETRY_FN_EXP_BACKOFF(FUNC, ERET, MAX_DELAY)	\
-+#define TST_RETRY_FN_EXP_BACKOFF(FUNC, ECHCK, MAX_DELAY)	\
- ({	unsigned int tst_delay_, tst_max_delay_;			\
-+	typeof(FUNC) tst_ret_;						\
- 	tst_delay_ = 1;							\
- 	tst_max_delay_ = tst_multiply_timeout(MAX_DELAY * 1000000);	\
- 	for (;;) {							\
--		typeof(FUNC) tst_ret_ = FUNC;				\
--		if (tst_ret_ == ERET)					\
-+		errno = 0;						\
-+		tst_ret_ = FUNC;					\
-+		if (ECHCK(tst_ret_))					\
- 			break;						\
- 		if (tst_delay_ < tst_max_delay_) {			\
- 			usleep(tst_delay_);				\
- 			tst_delay_ *= 2;				\
- 		} else {						\
--			tst_brk(TBROK, #FUNC" timed out");		\
-+			break;						\
- 		}							\
- 	}								\
--	ERET;								\
-+	tst_ret_;								\
- })
+ #ifndef LTP_BPF_COMMON_H
+@@ -8,40 +8,7 @@
  
-+/*
-+ * Return value validation macros for TST_RETRY_FUNC():
-+ * TST_RETVAL_EQ0() - Check that value is equal to zero
-+ */
-+#define TST_RETVAL_EQ0(x) (!(x))
-+
-+/*
-+ * TST_RETVAL_NOTNULL() - Check that value is not equal to zero/NULL
-+ */
-+#define TST_RETVAL_NOTNULL(x) (!!(x))
-+
-+/*
-+ * TST_RETVAL_GE0() - Check that value is greater than or equal to zero
-+ */
-+#define TST_RETVAL_GE0(x) ((x) >= 0)
-+
- #define TST_BRK_SUPPORTS_ONLY_TCONF_TBROK(condition) \
- 	do { ((void)sizeof(char[1 - 2 * !!(condition)])); } while (0)
+ #define BPF_MEMLOCK_ADD (256*1024)
  
-diff --git a/testcases/kernel/syscalls/tgkill/tgkill03.c b/testcases/kernel/syscalls/tgkill/tgkill03.c
-index 593a21726..0002f3278 100644
---- a/testcases/kernel/syscalls/tgkill/tgkill03.c
-+++ b/testcases/kernel/syscalls/tgkill/tgkill03.c
-@@ -14,6 +14,8 @@
- #include "tst_test.h"
- #include "tgkill.h"
+-void rlimit_bump_memlock(void)
+-{
+-	struct rlimit memlock_r;
+-
+-	SAFE_GETRLIMIT(RLIMIT_MEMLOCK, &memlock_r);
+-	memlock_r.rlim_cur += BPF_MEMLOCK_ADD;
+-	tst_res(TINFO, "Raising RLIMIT_MEMLOCK to %ld",
+-		(long)memlock_r.rlim_cur);
+-
+-	if (memlock_r.rlim_cur <= memlock_r.rlim_max) {
+-		SAFE_SETRLIMIT(RLIMIT_MEMLOCK, &memlock_r);
+-	} else if ((geteuid() == 0)) {
+-		memlock_r.rlim_max += BPF_MEMLOCK_ADD;
+-		SAFE_SETRLIMIT(RLIMIT_MEMLOCK, &memlock_r);
+-	} else {
+-		tst_res(TINFO, "Can't raise RLIMIT_MEMLOCK, test may fail "
+-			"due to lack of max locked memory");
+-	}
+-}
+-
+-int bpf_map_create(union bpf_attr *attr)
+-{
+-	TEST(bpf(BPF_MAP_CREATE, attr, sizeof(*attr)));
+-	if (TST_RET == -1) {
+-		if (TST_ERR == EPERM) {
+-			tst_res(TCONF, "Hint: check also /proc/sys/kernel/unprivileged_bpf_disabled");
+-			tst_brk(TCONF | TTERRNO,
+-				"bpf() requires CAP_SYS_ADMIN on this system");
+-		} else {
+-			tst_brk(TBROK | TTERRNO, "Failed to create array map");
+-		}
+-	}
+-
+-	return TST_RET;
+-}
++void rlimit_bump_memlock(void);
++int bpf_map_create(union bpf_attr *attr);
  
-+#define CHECK_ENOENT(x) ((x) == -1 && errno == ENOENT)
-+
- static pthread_t child_thread;
- 
- static pid_t parent_tgid;
-@@ -44,6 +46,7 @@ static void setup(void)
- 	sigset_t sigusr1;
- 	pthread_t defunct_thread;
- 	char defunct_tid_path[PATH_MAX];
-+	int ret;
- 
- 	sigemptyset(&sigusr1);
- 	sigaddset(&sigusr1, SIGUSR1);
-@@ -59,7 +62,10 @@ static void setup(void)
- 	SAFE_PTHREAD_CREATE(&defunct_thread, NULL, defunct_thread_func, NULL);
- 	SAFE_PTHREAD_JOIN(defunct_thread, NULL);
- 	sprintf(defunct_tid_path, "/proc/%d/task/%d", getpid(), defunct_tid);
--	TST_RETRY_FN_EXP_BACKOFF(access(defunct_tid_path, R_OK), -1, 15);
-+	ret = TST_RETRY_FN_EXP_BACKOFF(access(defunct_tid_path, R_OK),
-+		CHECK_ENOENT, 15);
-+	if (!CHECK_ENOENT(ret))
-+		tst_brk(TBROK, "Timeout, %s still exists", defunct_tid_path);
- }
- 
- static void cleanup(void)
+ #endif
 -- 
 2.25.0
 
