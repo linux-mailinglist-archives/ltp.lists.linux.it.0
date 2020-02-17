@@ -1,42 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 793BF16145B
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2020 15:16:38 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A261E1614A6
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2020 15:28:12 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3801D3C269C
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2020 15:16:38 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4E8E73C25DD
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Feb 2020 15:28:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id B0B6C3C25CB
- for <ltp@lists.linux.it>; Mon, 17 Feb 2020 15:16:23 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 289453C25C1
+ for <ltp@lists.linux.it>; Mon, 17 Feb 2020 15:28:10 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 70069600E35
+ for <ltp@lists.linux.it>; Mon, 17 Feb 2020 15:28:07 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1581949686;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=4Jyi33sujOXWx+ixc7DAuroUDLhnNhNLR99L703TfUA=;
+ b=JDhj3kUqM064ACunQgz2BjCBPUiEiG+5SPKJfX1TJtsIS96emXkeSRLzPfZWPtuqMhnCq0
+ ntSngGH3GH/pdDiNmctwXeiynZNgoL9Q88eE7v3RZSJ2E1KD6Dv5Drf4OLiKka5jB5xMWd
+ FbS1SzZHWJjSmD4m8tWAjSm2IxFHWIo=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-177-Z0_oYMWSNfCMo9s8L9_1bQ-1; Mon, 17 Feb 2020 09:28:05 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1E6732010A1
- for <ltp@lists.linux.it>; Mon, 17 Feb 2020 15:16:22 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 97CF9B3C1;
- Mon, 17 Feb 2020 14:16:22 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
-To: Li Wang <liwang@redhat.com>,
-	ltp@lists.linux.it
-Date: Mon, 17 Feb 2020 15:16:22 +0100
-Message-Id: <20200217141622.26912-3-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.25.0
-In-Reply-To: <20200217141622.26912-1-mdoucha@suse.cz>
-References: <CAEemH2dEco268yqDyDjX25FPs3V7wTBija4HiMrf8nr0W7qVQQ@mail.gmail.com>
- <20200217141622.26912-1-mdoucha@suse.cz>
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2E3B48010FB;
+ Mon, 17 Feb 2020 14:28:04 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 202B119481;
+ Mon, 17 Feb 2020 14:28:04 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id D999635AE0;
+ Mon, 17 Feb 2020 14:28:03 +0000 (UTC)
+Date: Mon, 17 Feb 2020 09:28:03 -0500 (EST)
+From: Jan Stancek <jstancek@redhat.com>
+To: Pankaj Vinadrao Joshi <Pankaj.VJ@exaleapsemi.com>
+Message-ID: <1121671987.7831869.1581949683671.JavaMail.zimbra@redhat.com>
+In-Reply-To: <MAXPR0101MB1468DB8754551B9C84AF3C0CEE160@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>
+References: <MAXPR0101MB14687E3C724A815D2857EA14EE1A0@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>
+ <333767604.7805569.1581940614115.JavaMail.zimbra@redhat.com>
+ <MAXPR0101MB1468A92491FB531F33F10A36EE160@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>
+ <688644958.7809325.1581942285691.JavaMail.zimbra@redhat.com>
+ <MAXPR0101MB1468DB8754551B9C84AF3C0CEE160@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Originating-IP: [10.43.17.25, 10.4.195.25]
+Thread-Topic: [LTP] min_free_kbytes.c:134: FAIL: child unexpectedly failed: 139
+Thread-Index: AQHV4mZtdlpcIR01/E2nMHLN6pJmPrc5w5Tp8OWOEejzESWd3Yzu4zT/UFIizlE=
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-MC-Unique: Z0_oYMWSNfCMo9s8L9_1bQ-1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 3/3] Fix BPF test program loading issues
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] min_free_kbytes.c:134: FAIL: child unexpectedly failed:
+ 139
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,374 +79,107 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-BPF programs require locked memory which will be released asynchronously.
-If a BPF program gets loaded too many times too quickly, memory allocation
-may fail due to race condition with asynchronous cleanup.
+[adding back LTP list to CC]
 
-Wrap the bpf() test calls in a retry loop to fix the issue.
+----- Original Message -----
+> //***************************   This is the result of strace -f
+> 
+> 
+> pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e18a08000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e18908000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e18808000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e18708000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e18608000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e18508000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e18408000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e18308000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e18208000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e18108000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e18008000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e17f08000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e17e08000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e17d08000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e17c08000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e17b08000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e17a08000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e17908000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e17808000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e17708000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e17608000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e17508000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e17408000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e17308000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e17208000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e17108000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e17008000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e16f08000
+> [pid 48522] mmap(NULL, 1048576, PROT_READ|PROT_WRITE,
+> MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x3e16e08000
+> Segmentation fault
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
+Ok, so we are in eatup_mem loop. mmap() suceeded, and then we seem to crash
+on write to allocated area via memset(). My guess would be kernel bug.
 
+To double-check, can you capture a core file and see where exactly child hits SIGSEGV?
 
-Changes since v1:
-- bpf_common.h split was moved to a separate patch
-- use redesigned TST_RETRY_FUNC() instead of TST_SPIN_TEST()
-- simplify bpf() return value validation
-- minor function name refactoring in the common code
-
-Changes since v2: None.
-
- testcases/kernel/syscalls/bpf/bpf_common.c | 60 +++++++++++--
- testcases/kernel/syscalls/bpf/bpf_common.h |  3 +
- testcases/kernel/syscalls/bpf/bpf_prog01.c | 97 +++++++---------------
- testcases/kernel/syscalls/bpf/bpf_prog02.c | 28 +------
- testcases/kernel/syscalls/bpf/bpf_prog03.c | 38 ++++-----
- 5 files changed, 108 insertions(+), 118 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/bpf/bpf_common.c b/testcases/kernel/syscalls/bpf/bpf_common.c
-index fce364af8..1db91e29a 100644
---- a/testcases/kernel/syscalls/bpf/bpf_common.c
-+++ b/testcases/kernel/syscalls/bpf/bpf_common.c
-@@ -30,16 +30,66 @@ void rlimit_bump_memlock(void)
- 
- int bpf_map_create(union bpf_attr *attr)
- {
--	TEST(bpf(BPF_MAP_CREATE, attr, sizeof(*attr)));
--	if (TST_RET == -1) {
-+	int ret;
-+
-+	ret = TST_RETRY_FUNC(bpf(BPF_MAP_CREATE, attr, sizeof(*attr)),
-+		TST_RETVAL_GE0);
-+
-+	if (ret == -1) {
- 		if (TST_ERR == EPERM) {
- 			tst_res(TCONF, "Hint: check also /proc/sys/kernel/unprivileged_bpf_disabled");
--			tst_brk(TCONF | TTERRNO,
-+			tst_brk(TCONF | TERRNO,
- 				"bpf() requires CAP_SYS_ADMIN on this system");
- 		} else {
--			tst_brk(TBROK | TTERRNO, "Failed to create array map");
-+			tst_brk(TBROK | TERRNO, "Failed to create array map");
- 		}
- 	}
- 
--	return TST_RET;
-+	return ret;
-+}
-+
-+void bpf_init_prog_attr(union bpf_attr *attr, const struct bpf_insn *prog,
-+	size_t prog_size, char *log_buf, size_t log_size)
-+{
-+	static struct bpf_insn *buf;
-+	static size_t buf_size;
-+	size_t prog_len = prog_size / sizeof(*prog);
-+
-+	/* all guarded buffers will be free()d automatically by LTP library */
-+	if (!buf || prog_size > buf_size) {
-+		buf = tst_alloc(prog_size);
-+		buf_size = prog_size;
-+	}
-+
-+	memcpy(buf, prog, prog_size);
-+	memset(attr, 0, sizeof(*attr));
-+	attr->prog_type = BPF_PROG_TYPE_SOCKET_FILTER;
-+	attr->insns = ptr_to_u64(buf);
-+	attr->insn_cnt = prog_len;
-+	attr->license = ptr_to_u64("GPL");
-+	attr->log_buf = ptr_to_u64(log_buf);
-+	attr->log_size = log_size;
-+	attr->log_level = 1;
-+}
-+
-+int bpf_load_prog(union bpf_attr *attr, const char *log)
-+{
-+	int ret;
-+
-+	ret = TST_RETRY_FUNC(bpf(BPF_PROG_LOAD, attr, sizeof(*attr)),
-+		TST_RETVAL_GE0);
-+
-+	if (ret >= 0) {
-+		tst_res(TPASS, "Loaded program");
-+		return ret;
-+	}
-+
-+	if (ret != -1)
-+		tst_brk(TBROK, "Invalid bpf() return value: %d", ret);
-+
-+	if (log[0] != 0)
-+		tst_brk(TBROK | TERRNO, "Failed verification: %s", log);
-+
-+	tst_brk(TBROK | TERRNO, "Failed to load program");
-+	return ret;
- }
-diff --git a/testcases/kernel/syscalls/bpf/bpf_common.h b/testcases/kernel/syscalls/bpf/bpf_common.h
-index e46a519eb..1dbbd5f25 100644
---- a/testcases/kernel/syscalls/bpf/bpf_common.h
-+++ b/testcases/kernel/syscalls/bpf/bpf_common.h
-@@ -10,5 +10,8 @@
- 
- void rlimit_bump_memlock(void);
- int bpf_map_create(union bpf_attr *attr);
-+void bpf_init_prog_attr(union bpf_attr *attr, const struct bpf_insn *prog,
-+	size_t prog_size, char *log_buf, size_t log_size);
-+int bpf_load_prog(union bpf_attr *attr, const char *log);
- 
- #endif
-diff --git a/testcases/kernel/syscalls/bpf/bpf_prog01.c b/testcases/kernel/syscalls/bpf/bpf_prog01.c
-index 46a909fe2..966bf2092 100644
---- a/testcases/kernel/syscalls/bpf/bpf_prog01.c
-+++ b/testcases/kernel/syscalls/bpf/bpf_prog01.c
-@@ -32,72 +32,47 @@
- const char MSG[] = "Ahoj!";
- static char *msg;
- 
--/*
-- * The following is a byte code template. We copy it to a guarded buffer and
-- * substitute the runtime value of our map file descriptor.
-- *
-- * r0 - r10 = registers 0 to 10
-- * r0 = return code
-- * r1 - r5 = scratch registers, used for function arguments
-- * r6 - r9 = registers preserved across function calls
-- * fp/r10 = stack frame pointer
-- */
--const struct bpf_insn PROG[] = {
--	/* Load the map FD into r1 (place holder) */
--	BPF_LD_MAP_FD(BPF_REG_1, 0),
--	/* Put (key = 0) on stack and key ptr into r2 */
--	BPF_MOV64_REG(BPF_REG_2, BPF_REG_10),   /* r2 = fp */
--	BPF_ALU64_IMM(BPF_ADD, BPF_REG_2, -8),  /* r2 = r2 - 8 */
--	BPF_ST_MEM(BPF_DW, BPF_REG_2, 0, 0),    /* *r2 = 0 */
--	/* r0 = bpf_map_lookup_elem(r1, r2) */
--	BPF_EMIT_CALL(BPF_FUNC_map_lookup_elem),
--	/* if r0 == 0 goto exit */
--	BPF_JMP_IMM(BPF_JEQ, BPF_REG_0, 0, 3),
--	/* Set map[0] = 1 */
--	BPF_MOV64_REG(BPF_REG_1, BPF_REG_0),     /* r1 = r0 */
--	BPF_ST_MEM(BPF_DW, BPF_REG_1, 0, 1),     /* *r1 = 1 */
--	BPF_MOV64_IMM(BPF_REG_0, 0),             /* r0 = 0 */
--	BPF_EXIT_INSN(),		         /* return r0 */
--};
--
--static struct bpf_insn *prog;
- static char *log;
- static union bpf_attr *attr;
- 
- int load_prog(int fd)
- {
--	prog[0] = BPF_LD_MAP_FD(BPF_REG_1, fd);
--
--	memset(attr, 0, sizeof(*attr));
--	attr->prog_type = BPF_PROG_TYPE_SOCKET_FILTER;
--	attr->insns = ptr_to_u64(prog);
--	attr->insn_cnt = ARRAY_SIZE(PROG);
--	attr->license = ptr_to_u64("GPL");
--	attr->log_buf = ptr_to_u64(log);
--	attr->log_size = BUFSIZ;
--	attr->log_level = 1;
--
--	TEST(bpf(BPF_PROG_LOAD, attr, sizeof(*attr)));
--	if (TST_RET == -1) {
--		if (log[0] != 0) {
--			tst_brk(TFAIL | TTERRNO,
--				"Failed verification: %s",
--				log);
--		} else {
--			tst_brk(TFAIL | TTERRNO, "Failed to load program");
--		}
--	} else {
--		tst_res(TPASS, "Loaded program");
--	}
--
--	return TST_RET;
-+	/*
-+	 * The following is a byte code template. We copy it to a guarded buffer and
-+	 * substitute the runtime value of our map file descriptor.
-+	 *
-+	 * r0 - r10 = registers 0 to 10
-+	 * r0 = return code
-+	 * r1 - r5 = scratch registers, used for function arguments
-+	 * r6 - r9 = registers preserved across function calls
-+	 * fp/r10 = stack frame pointer
-+	 */
-+	struct bpf_insn PROG[] = {
-+		/* Load the map FD into r1 (place holder) */
-+		BPF_LD_MAP_FD(BPF_REG_1, fd),
-+		/* Put (key = 0) on stack and key ptr into r2 */
-+		BPF_MOV64_REG(BPF_REG_2, BPF_REG_10),   /* r2 = fp */
-+		BPF_ALU64_IMM(BPF_ADD, BPF_REG_2, -8),  /* r2 = r2 - 8 */
-+		BPF_ST_MEM(BPF_DW, BPF_REG_2, 0, 0),    /* *r2 = 0 */
-+		/* r0 = bpf_map_lookup_elem(r1, r2) */
-+		BPF_EMIT_CALL(BPF_FUNC_map_lookup_elem),
-+		/* if r0 == 0 goto exit */
-+		BPF_JMP_IMM(BPF_JEQ, BPF_REG_0, 0, 3),
-+		/* Set map[0] = 1 */
-+		BPF_MOV64_REG(BPF_REG_1, BPF_REG_0),     /* r1 = r0 */
-+		BPF_ST_MEM(BPF_DW, BPF_REG_1, 0, 1),     /* *r1 = 1 */
-+		BPF_MOV64_IMM(BPF_REG_0, 0),             /* r0 = 0 */
-+		BPF_EXIT_INSN(),		         /* return r0 */
-+	};
-+
-+	bpf_init_prog_attr(attr, PROG, sizeof(PROG), log, BUFSIZ);
-+	return bpf_load_prog(attr, log);
- }
- 
- void setup(void)
- {
- 	rlimit_bump_memlock();
- 
--	memcpy(prog, PROG, sizeof(PROG));
- 	memcpy(msg, MSG, sizeof(MSG));
- }
- 
-@@ -114,16 +89,7 @@ void run(void)
- 	attr->value_size = 8;
- 	attr->max_entries = 1;
- 
--	TEST(bpf(BPF_MAP_CREATE, attr, sizeof(*attr)));
--	if (TST_RET == -1) {
--		if (TST_ERR == EPERM) {
--			tst_brk(TCONF | TTERRNO,
--				"bpf() requires CAP_SYS_ADMIN on this system");
--		} else {
--			tst_brk(TBROK | TTERRNO, "Failed to create array map");
--		}
--	}
--	map_fd = TST_RET;
-+	map_fd = bpf_map_create(attr);
- 
- 	prog_fd = load_prog(map_fd);
- 
-@@ -161,7 +127,6 @@ static struct tst_test test = {
- 	.min_kver = "3.19",
- 	.bufs = (struct tst_buffers []) {
- 		{&log, .size = BUFSIZ},
--		{&prog, .size = sizeof(PROG)},
- 		{&attr, .size = sizeof(*attr)},
- 		{&msg, .size = sizeof(MSG)},
- 		{},
-diff --git a/testcases/kernel/syscalls/bpf/bpf_prog02.c b/testcases/kernel/syscalls/bpf/bpf_prog02.c
-index acff1884a..eeba16a54 100644
---- a/testcases/kernel/syscalls/bpf/bpf_prog02.c
-+++ b/testcases/kernel/syscalls/bpf/bpf_prog02.c
-@@ -37,7 +37,6 @@ static union bpf_attr *attr;
- 
- static int load_prog(int fd)
- {
--	static struct bpf_insn *prog;
- 	struct bpf_insn insn[] = {
- 		BPF_MOV64_IMM(BPF_REG_6, 1),            /* 0: r6 = 1 */
- 
-@@ -67,31 +66,8 @@ static int load_prog(int fd)
- 		BPF_EXIT_INSN(),		        /* 26: return r0 */
- 	};
- 
--	if (!prog)
--		prog = tst_alloc(sizeof(insn));
--	memcpy(prog, insn, sizeof(insn));
--
--	memset(attr, 0, sizeof(*attr));
--	attr->prog_type = BPF_PROG_TYPE_SOCKET_FILTER;
--	attr->insns = ptr_to_u64(prog);
--	attr->insn_cnt = ARRAY_SIZE(insn);
--	attr->license = ptr_to_u64("GPL");
--	attr->log_buf = ptr_to_u64(log);
--	attr->log_size = BUFSIZ;
--	attr->log_level = 1;
--
--	TEST(bpf(BPF_PROG_LOAD, attr, sizeof(*attr)));
--	if (TST_RET == -1) {
--		if (log[0] != 0) {
--			tst_res(TINFO, "Verification log:");
--			fputs(log, stderr);
--			tst_brk(TBROK | TTERRNO, "Failed verification");
--		} else {
--			tst_brk(TBROK | TTERRNO, "Failed to load program");
--		}
--	}
--
--	return TST_RET;
-+	bpf_init_prog_attr(attr, insn, sizeof(insn), log, BUFSIZ);
-+	return bpf_load_prog(attr, log);
- }
- 
- static void setup(void)
-diff --git a/testcases/kernel/syscalls/bpf/bpf_prog03.c b/testcases/kernel/syscalls/bpf/bpf_prog03.c
-index d79815961..5b8a394e8 100644
---- a/testcases/kernel/syscalls/bpf/bpf_prog03.c
-+++ b/testcases/kernel/syscalls/bpf/bpf_prog03.c
-@@ -32,6 +32,8 @@
- 
- #define LOG_SIZE (1024 * 1024)
- 
-+#define CHECK_BPF_RET(x) ((x) >= 0 || ((x) == -1 && errno != EPERM))
-+
- static const char MSG[] = "Ahoj!";
- static char *msg;
- 
-@@ -42,7 +44,8 @@ static union bpf_attr *attr;
- 
- static int load_prog(int fd)
- {
--	static struct bpf_insn *prog;
-+	int ret;
-+
- 	struct bpf_insn insn[] = {
- 		BPF_LD_MAP_FD(BPF_REG_1, fd),
- 
-@@ -85,31 +88,24 @@ static int load_prog(int fd)
- 		BPF_EXIT_INSN()
- 	};
- 
--	if (!prog)
--		prog = tst_alloc(sizeof(insn));
--	memcpy(prog, insn, sizeof(insn));
-+	bpf_init_prog_attr(attr, insn, sizeof(insn), log, LOG_SIZE);
-+	ret = TST_RETRY_FUNC(bpf(BPF_PROG_LOAD, attr, sizeof(*attr)),
-+		CHECK_BPF_RET);
- 
--	memset(attr, 0, sizeof(*attr));
--	attr->prog_type = BPF_PROG_TYPE_SOCKET_FILTER;
--	attr->insns = ptr_to_u64(prog);
--	attr->insn_cnt = ARRAY_SIZE(insn);
--	attr->license = ptr_to_u64("GPL");
--	attr->log_buf = ptr_to_u64(log);
--	attr->log_size = LOG_SIZE;
--	attr->log_level = 1;
--
--	TEST(bpf(BPF_PROG_LOAD, attr, sizeof(*attr)));
--	if (TST_RET == -1) {
--		if (log[0] != 0)
--			tst_res(TPASS | TTERRNO, "Failed verification");
--		else
--			tst_brk(TBROK | TTERRNO, "Failed to load program");
--	} else {
-+	if (ret < -1)
-+		tst_brk(TBROK, "Invalid bpf() return value %d", ret);
-+
-+	if (ret >= 0) {
- 		tst_res(TINFO, "Verification log:");
- 		fputs(log, stderr);
-+		return ret;
- 	}
- 
--	return TST_RET;
-+	if (log[0] == 0)
-+		tst_brk(TBROK | TERRNO, "Failed to load program");
-+
-+	tst_res(TPASS | TERRNO, "Failed verification");
-+	return ret;
- }
- 
- static void setup(void)
--- 
-2.25.0
+> root@exaleapsemi:~/pankaj_ltp_new/ltp/testcases/kernel/mem/tunable#
+> min_free_kbytes.c:173: FAIL: child unexpectedly failed: 11
+> mem.c:817: INFO: set min_free_kbytes to 163644
+> memfree is 8048240 kB before eatup mem
+> min_free_kbytes.c:173: FAIL: child unexpectedly failed: 11
+> mem.c:817: INFO: set overcommit_memory to 1
+> mem.c:817: INFO: set min_free_kbytes to 327288
+> memfree is 8047972 kB before eatup mem
+> min_free_kbytes.c:155: FAIL: child unexpectedly failed: 11
+> mem.c:817: INFO: set min_free_kbytes to 654576
+> memfree is 8047800 kB before eatup mem
+> min_free_kbytes.c:155: FAIL: child unexpectedly failed: 11
+> mem.c:817: INFO: set min_free_kbytes to 163644
+> memfree is 8039996 kB before eatup mem
+> min_free_kbytes.c:155: FAIL: child unexpectedly failed: 11
+> min_free_kbytes.c:103: PASS: min_free_kbytes test pass
+> mem.c:817: INFO: set min_free_kbytes to 327288
+> mem.c:817: INFO: set overcommit_memory to 1
+> 
+> Summary:
+> passed   1
+> failed   7
+> skipped  0
+> warnings 0
 
 
 -- 
