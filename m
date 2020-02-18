@@ -2,40 +2,56 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71FDE1623C0
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Feb 2020 10:45:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9B881625DA
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Feb 2020 12:59:40 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 174023C2559
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Feb 2020 10:45:44 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C9CAC3C2585
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Feb 2020 12:59:39 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 851013C2493
- for <ltp@lists.linux.it>; Tue, 18 Feb 2020 10:45:42 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 9FE073C2360
+ for <ltp@lists.linux.it>; Tue, 18 Feb 2020 12:59:35 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 3D4791400B90
+ for <ltp@lists.linux.it>; Tue, 18 Feb 2020 12:59:33 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1582027172;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=hIsabLu+E/lEvXUfwk2OToIF20zSM69AkQRCZeSN+lk=;
+ b=Mh6hALY20x1s+Zo2UodTvWUkJDXpFby2u9pGtsNHU7NWYsRbUbLbyljGeKHdOK12z9d2AN
+ eotPWjo7ZEXFgMwqEoRsnTAUqBYBIj/TRlWp6o/+vnQNy6hKRBQci422jPrvOhvoUdf+zo
+ K9jBqHxaobwV0kf7E4iTuLAYa+6SVhg=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-419--J1E_BkpP8mng0VogrSIFg-1; Tue, 18 Feb 2020 06:59:27 -0500
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 3D375600BF0
- for <ltp@lists.linux.it>; Tue, 18 Feb 2020 10:45:42 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 953F3AF3D;
- Tue, 18 Feb 2020 09:45:41 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
-To: Li Wang <liwang@redhat.com>,
-	ltp@lists.linux.it
-Date: Tue, 18 Feb 2020 10:45:41 +0100
-Message-Id: <20200218094541.27201-2-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.25.0
-In-Reply-To: <20200218094541.27201-1-mdoucha@suse.cz>
-References: <20200217141622.26912-1-mdoucha@suse.cz>
- <20200218094541.27201-1-mdoucha@suse.cz>
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1EFCF1005512
+ for <ltp@lists.linux.it>; Tue, 18 Feb 2020 11:59:26 +0000 (UTC)
+Received: from bootp-66-81-246.lab.eng.nay.redhat.com (unknown [10.66.81.246])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 4F3C05D9E2
+ for <ltp@lists.linux.it>; Tue, 18 Feb 2020 11:59:25 +0000 (UTC)
+From: Li Wang <liwang@redhat.com>
+To: ltp@lists.linux.it
+Date: Tue, 18 Feb 2020 19:59:18 +0800
+Message-Id: <20200218115918.32203-1-liwang@redhat.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-MC-Unique: -J1E_BkpP8mng0VogrSIFg-1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 3/3] Fix BPF test program loading issues
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH] cleanup: avoid to generate many redundant obj files
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,368 +68,159 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-BPF programs require locked memory which will be released asynchronously.
-If a BPF program gets loaded too many times too quickly, memory allocation
-may fail due to race condition with asynchronous cleanup.
-
-Wrap the bpf() test calls in a retry loop to fix the issue.
-
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+Signed-off-by: Li Wang <liwang@redhat.com>
 ---
 
-Changes since v1:
-- bpf_common.h split was moved to a separate patch
-- use redesigned TST_RETRY_FUNC() instead of TST_SPIN_TEST()
-- simplify bpf() return value validation
-- minor function name refactoring in the common code
+Notes:
+    Travis: https://travis-ci.com/wangli5665/ltp/builds/149424324
 
-Changes since v2: None.
+ testcases/kernel/fs/ftest/Makefile               | 2 +-
+ testcases/kernel/input/Makefile                  | 2 +-
+ testcases/kernel/io/direct_io/Makefile           | 2 +-
+ testcases/kernel/sched/clisrv/Makefile           | 2 +-
+ testcases/kernel/sched/sched_stress/Makefile     | 2 +-
+ testcases/kernel/syscalls/memfd_create/Makefile  | 2 +-
+ testcases/kernel/syscalls/migrate_pages/Makefile | 2 +-
+ testcases/kernel/syscalls/move_pages/Makefile    | 2 +-
+ testcases/kernel/syscalls/swapoff/Makefile       | 2 +-
+ testcases/kernel/syscalls/swapon/Makefile        | 2 +-
+ testcases/network/nfs/nfslock01/Makefile         | 2 +-
+ testcases/network/stress/ns-tools/Makefile       | 2 +-
+ 12 files changed, 12 insertions(+), 12 deletions(-)
 
- testcases/kernel/syscalls/bpf/bpf_common.c | 60 +++++++++++--
- testcases/kernel/syscalls/bpf/bpf_common.h |  3 +
- testcases/kernel/syscalls/bpf/bpf_prog01.c | 97 +++++++---------------
- testcases/kernel/syscalls/bpf/bpf_prog02.c | 28 +------
- testcases/kernel/syscalls/bpf/bpf_prog03.c | 38 ++++-----
- 5 files changed, 108 insertions(+), 118 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/bpf/bpf_common.c b/testcases/kernel/syscalls/bpf/bpf_common.c
-index fce364af8..1db91e29a 100644
---- a/testcases/kernel/syscalls/bpf/bpf_common.c
-+++ b/testcases/kernel/syscalls/bpf/bpf_common.c
-@@ -30,16 +30,66 @@ void rlimit_bump_memlock(void)
+diff --git a/testcases/kernel/fs/ftest/Makefile b/testcases/kernel/fs/ftest/Makefile
+index 1566c5c31..e5672d5b1 100644
+--- a/testcases/kernel/fs/ftest/Makefile
++++ b/testcases/kernel/fs/ftest/Makefile
+@@ -28,4 +28,4 @@ FILTER_OUT_MAKE_TARGETS		:= libftest
  
- int bpf_map_create(union bpf_attr *attr)
- {
--	TEST(bpf(BPF_MAP_CREATE, attr, sizeof(*attr)));
--	if (TST_RET == -1) {
-+	int ret;
-+
-+	ret = TST_RETRY_FUNC(bpf(BPF_MAP_CREATE, attr, sizeof(*attr)),
-+		TST_RETVAL_GE0);
-+
-+	if (ret == -1) {
- 		if (TST_ERR == EPERM) {
- 			tst_res(TCONF, "Hint: check also /proc/sys/kernel/unprivileged_bpf_disabled");
--			tst_brk(TCONF | TTERRNO,
-+			tst_brk(TCONF | TERRNO,
- 				"bpf() requires CAP_SYS_ADMIN on this system");
- 		} else {
--			tst_brk(TBROK | TTERRNO, "Failed to create array map");
-+			tst_brk(TBROK | TERRNO, "Failed to create array map");
- 		}
- 	}
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
  
--	return TST_RET;
-+	return ret;
-+}
-+
-+void bpf_init_prog_attr(union bpf_attr *attr, const struct bpf_insn *prog,
-+	size_t prog_size, char *log_buf, size_t log_size)
-+{
-+	static struct bpf_insn *buf;
-+	static size_t buf_size;
-+	size_t prog_len = prog_size / sizeof(*prog);
-+
-+	/* all guarded buffers will be free()d automatically by LTP library */
-+	if (!buf || prog_size > buf_size) {
-+		buf = tst_alloc(prog_size);
-+		buf_size = prog_size;
-+	}
-+
-+	memcpy(buf, prog, prog_size);
-+	memset(attr, 0, sizeof(*attr));
-+	attr->prog_type = BPF_PROG_TYPE_SOCKET_FILTER;
-+	attr->insns = ptr_to_u64(buf);
-+	attr->insn_cnt = prog_len;
-+	attr->license = ptr_to_u64("GPL");
-+	attr->log_buf = ptr_to_u64(log_buf);
-+	attr->log_size = log_size;
-+	attr->log_level = 1;
-+}
-+
-+int bpf_load_prog(union bpf_attr *attr, const char *log)
-+{
-+	int ret;
-+
-+	ret = TST_RETRY_FUNC(bpf(BPF_PROG_LOAD, attr, sizeof(*attr)),
-+		TST_RETVAL_GE0);
-+
-+	if (ret >= 0) {
-+		tst_res(TPASS, "Loaded program");
-+		return ret;
-+	}
-+
-+	if (ret != -1)
-+		tst_brk(TBROK, "Invalid bpf() return value: %d", ret);
-+
-+	if (log[0] != 0)
-+		tst_brk(TBROK | TERRNO, "Failed verification: %s", log);
-+
-+	tst_brk(TBROK | TERRNO, "Failed to load program");
-+	return ret;
- }
-diff --git a/testcases/kernel/syscalls/bpf/bpf_common.h b/testcases/kernel/syscalls/bpf/bpf_common.h
-index e46a519eb..1dbbd5f25 100644
---- a/testcases/kernel/syscalls/bpf/bpf_common.h
-+++ b/testcases/kernel/syscalls/bpf/bpf_common.h
-@@ -10,5 +10,8 @@
+-$(MAKE_TARGETS): %: %.o libftest.o
++$(MAKE_TARGETS): %: libftest.o
+diff --git a/testcases/kernel/input/Makefile b/testcases/kernel/input/Makefile
+index 5f1db9328..f4d35ab39 100644
+--- a/testcases/kernel/input/Makefile
++++ b/testcases/kernel/input/Makefile
+@@ -24,4 +24,4 @@ FILTER_OUT_MAKE_TARGETS		:= input_helper
  
- void rlimit_bump_memlock(void);
- int bpf_map_create(union bpf_attr *attr);
-+void bpf_init_prog_attr(union bpf_attr *attr, const struct bpf_insn *prog,
-+	size_t prog_size, char *log_buf, size_t log_size);
-+int bpf_load_prog(union bpf_attr *attr, const char *log);
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
  
- #endif
-diff --git a/testcases/kernel/syscalls/bpf/bpf_prog01.c b/testcases/kernel/syscalls/bpf/bpf_prog01.c
-index 46a909fe2..966bf2092 100644
---- a/testcases/kernel/syscalls/bpf/bpf_prog01.c
-+++ b/testcases/kernel/syscalls/bpf/bpf_prog01.c
-@@ -32,72 +32,47 @@
- const char MSG[] = "Ahoj!";
- static char *msg;
+-$(MAKE_TARGETS): %: %.o input_helper.o
++$(MAKE_TARGETS): %: input_helper.o
+diff --git a/testcases/kernel/io/direct_io/Makefile b/testcases/kernel/io/direct_io/Makefile
+index b522136ca..6d26a7ff3 100644
+--- a/testcases/kernel/io/direct_io/Makefile
++++ b/testcases/kernel/io/direct_io/Makefile
+@@ -30,4 +30,4 @@ INSTALL_TARGETS			:= test_dma_thread_diotest7.sh
  
--/*
-- * The following is a byte code template. We copy it to a guarded buffer and
-- * substitute the runtime value of our map file descriptor.
-- *
-- * r0 - r10 = registers 0 to 10
-- * r0 = return code
-- * r1 - r5 = scratch registers, used for function arguments
-- * r6 - r9 = registers preserved across function calls
-- * fp/r10 = stack frame pointer
-- */
--const struct bpf_insn PROG[] = {
--	/* Load the map FD into r1 (place holder) */
--	BPF_LD_MAP_FD(BPF_REG_1, 0),
--	/* Put (key = 0) on stack and key ptr into r2 */
--	BPF_MOV64_REG(BPF_REG_2, BPF_REG_10),   /* r2 = fp */
--	BPF_ALU64_IMM(BPF_ADD, BPF_REG_2, -8),  /* r2 = r2 - 8 */
--	BPF_ST_MEM(BPF_DW, BPF_REG_2, 0, 0),    /* *r2 = 0 */
--	/* r0 = bpf_map_lookup_elem(r1, r2) */
--	BPF_EMIT_CALL(BPF_FUNC_map_lookup_elem),
--	/* if r0 == 0 goto exit */
--	BPF_JMP_IMM(BPF_JEQ, BPF_REG_0, 0, 3),
--	/* Set map[0] = 1 */
--	BPF_MOV64_REG(BPF_REG_1, BPF_REG_0),     /* r1 = r0 */
--	BPF_ST_MEM(BPF_DW, BPF_REG_1, 0, 1),     /* *r1 = 1 */
--	BPF_MOV64_IMM(BPF_REG_0, 0),             /* r0 = 0 */
--	BPF_EXIT_INSN(),		         /* return r0 */
--};
--
--static struct bpf_insn *prog;
- static char *log;
- static union bpf_attr *attr;
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
  
- int load_prog(int fd)
- {
--	prog[0] = BPF_LD_MAP_FD(BPF_REG_1, fd);
--
--	memset(attr, 0, sizeof(*attr));
--	attr->prog_type = BPF_PROG_TYPE_SOCKET_FILTER;
--	attr->insns = ptr_to_u64(prog);
--	attr->insn_cnt = ARRAY_SIZE(PROG);
--	attr->license = ptr_to_u64("GPL");
--	attr->log_buf = ptr_to_u64(log);
--	attr->log_size = BUFSIZ;
--	attr->log_level = 1;
--
--	TEST(bpf(BPF_PROG_LOAD, attr, sizeof(*attr)));
--	if (TST_RET == -1) {
--		if (log[0] != 0) {
--			tst_brk(TFAIL | TTERRNO,
--				"Failed verification: %s",
--				log);
--		} else {
--			tst_brk(TFAIL | TTERRNO, "Failed to load program");
--		}
--	} else {
--		tst_res(TPASS, "Loaded program");
--	}
--
--	return TST_RET;
-+	/*
-+	 * The following is a byte code template. We copy it to a guarded buffer and
-+	 * substitute the runtime value of our map file descriptor.
-+	 *
-+	 * r0 - r10 = registers 0 to 10
-+	 * r0 = return code
-+	 * r1 - r5 = scratch registers, used for function arguments
-+	 * r6 - r9 = registers preserved across function calls
-+	 * fp/r10 = stack frame pointer
-+	 */
-+	struct bpf_insn PROG[] = {
-+		/* Load the map FD into r1 (place holder) */
-+		BPF_LD_MAP_FD(BPF_REG_1, fd),
-+		/* Put (key = 0) on stack and key ptr into r2 */
-+		BPF_MOV64_REG(BPF_REG_2, BPF_REG_10),   /* r2 = fp */
-+		BPF_ALU64_IMM(BPF_ADD, BPF_REG_2, -8),  /* r2 = r2 - 8 */
-+		BPF_ST_MEM(BPF_DW, BPF_REG_2, 0, 0),    /* *r2 = 0 */
-+		/* r0 = bpf_map_lookup_elem(r1, r2) */
-+		BPF_EMIT_CALL(BPF_FUNC_map_lookup_elem),
-+		/* if r0 == 0 goto exit */
-+		BPF_JMP_IMM(BPF_JEQ, BPF_REG_0, 0, 3),
-+		/* Set map[0] = 1 */
-+		BPF_MOV64_REG(BPF_REG_1, BPF_REG_0),     /* r1 = r0 */
-+		BPF_ST_MEM(BPF_DW, BPF_REG_1, 0, 1),     /* *r1 = 1 */
-+		BPF_MOV64_IMM(BPF_REG_0, 0),             /* r0 = 0 */
-+		BPF_EXIT_INSN(),		         /* return r0 */
-+	};
-+
-+	bpf_init_prog_attr(attr, PROG, sizeof(PROG), log, BUFSIZ);
-+	return bpf_load_prog(attr, log);
- }
+-$(MAKE_TARGETS): %: %.o diotest_routines.o
++$(MAKE_TARGETS): %: diotest_routines.o
+diff --git a/testcases/kernel/sched/clisrv/Makefile b/testcases/kernel/sched/clisrv/Makefile
+index af43b7efd..3e311b65b 100644
+--- a/testcases/kernel/sched/clisrv/Makefile
++++ b/testcases/kernel/sched/clisrv/Makefile
+@@ -31,6 +31,6 @@ INSTALL_TARGETS		:= data run_sched_cliserv.sh
  
- void setup(void)
- {
- 	rlimit_bump_memlock();
+ MAKE_TARGETS		:= pthcli pthserv
  
--	memcpy(prog, PROG, sizeof(PROG));
- 	memcpy(msg, MSG, sizeof(MSG));
- }
+-$(MAKE_TARGETS): %: %.o readline.o writen.o
++$(MAKE_TARGETS): %: readline.o writen.o
  
-@@ -114,16 +89,7 @@ void run(void)
- 	attr->value_size = 8;
- 	attr->max_entries = 1;
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/sched/sched_stress/Makefile b/testcases/kernel/sched/sched_stress/Makefile
+index 60bdc6936..2303f6950 100644
+--- a/testcases/kernel/sched/sched_stress/Makefile
++++ b/testcases/kernel/sched/sched_stress/Makefile
+@@ -32,7 +32,7 @@ MAKE_TARGETS		:= $(filter-out sched,$(patsubst $(abs_srcdir)/%.c,%,$(wildcard $(
  
--	TEST(bpf(BPF_MAP_CREATE, attr, sizeof(*attr)));
--	if (TST_RET == -1) {
--		if (TST_ERR == EPERM) {
--			tst_brk(TCONF | TTERRNO,
--				"bpf() requires CAP_SYS_ADMIN on this system");
--		} else {
--			tst_brk(TBROK | TTERRNO, "Failed to create array map");
--		}
--	}
--	map_fd = TST_RET;
-+	map_fd = bpf_map_create(attr);
+ RM			+= -r
  
- 	prog_fd = load_prog(map_fd);
+-$(filter-out sched_datafile,$(MAKE_TARGETS)): %: %.o sched.o
++$(filter-out sched_datafile,$(MAKE_TARGETS)): %: sched.o
  
-@@ -161,7 +127,6 @@ static struct tst_test test = {
- 	.min_kver = "3.19",
- 	.bufs = (struct tst_buffers []) {
- 		{&log, .size = BUFSIZ},
--		{&prog, .size = sizeof(PROG)},
- 		{&attr, .size = sizeof(*attr)},
- 		{&msg, .size = sizeof(MSG)},
- 		{},
-diff --git a/testcases/kernel/syscalls/bpf/bpf_prog02.c b/testcases/kernel/syscalls/bpf/bpf_prog02.c
-index acff1884a..eeba16a54 100644
---- a/testcases/kernel/syscalls/bpf/bpf_prog02.c
-+++ b/testcases/kernel/syscalls/bpf/bpf_prog02.c
-@@ -37,7 +37,6 @@ static union bpf_attr *attr;
+ MAKE_TARGETS		+= sched_datafile
  
- static int load_prog(int fd)
- {
--	static struct bpf_insn *prog;
- 	struct bpf_insn insn[] = {
- 		BPF_MOV64_IMM(BPF_REG_6, 1),            /* 0: r6 = 1 */
+diff --git a/testcases/kernel/syscalls/memfd_create/Makefile b/testcases/kernel/syscalls/memfd_create/Makefile
+index f23b8732c..40ccf7f7f 100644
+--- a/testcases/kernel/syscalls/memfd_create/Makefile
++++ b/testcases/kernel/syscalls/memfd_create/Makefile
+@@ -20,4 +20,4 @@ FILTER_OUT_MAKE_TARGETS         := memfd_create_common
  
-@@ -67,31 +66,8 @@ static int load_prog(int fd)
- 		BPF_EXIT_INSN(),		        /* 26: return r0 */
- 	};
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
  
--	if (!prog)
--		prog = tst_alloc(sizeof(insn));
--	memcpy(prog, insn, sizeof(insn));
--
--	memset(attr, 0, sizeof(*attr));
--	attr->prog_type = BPF_PROG_TYPE_SOCKET_FILTER;
--	attr->insns = ptr_to_u64(prog);
--	attr->insn_cnt = ARRAY_SIZE(insn);
--	attr->license = ptr_to_u64("GPL");
--	attr->log_buf = ptr_to_u64(log);
--	attr->log_size = BUFSIZ;
--	attr->log_level = 1;
--
--	TEST(bpf(BPF_PROG_LOAD, attr, sizeof(*attr)));
--	if (TST_RET == -1) {
--		if (log[0] != 0) {
--			tst_res(TINFO, "Verification log:");
--			fputs(log, stderr);
--			tst_brk(TBROK | TTERRNO, "Failed verification");
--		} else {
--			tst_brk(TBROK | TTERRNO, "Failed to load program");
--		}
--	}
--
--	return TST_RET;
-+	bpf_init_prog_attr(attr, insn, sizeof(insn), log, BUFSIZ);
-+	return bpf_load_prog(attr, log);
- }
+-$(MAKE_TARGETS): %: %.o memfd_create_common.o
++$(MAKE_TARGETS): %: memfd_create_common.o
+diff --git a/testcases/kernel/syscalls/migrate_pages/Makefile b/testcases/kernel/syscalls/migrate_pages/Makefile
+index 46a35d3e0..55174f3b8 100644
+--- a/testcases/kernel/syscalls/migrate_pages/Makefile
++++ b/testcases/kernel/syscalls/migrate_pages/Makefile
+@@ -21,7 +21,7 @@ top_srcdir		?= ../../../..
+ include $(top_srcdir)/include/mk/testcases.mk
  
- static void setup(void)
-diff --git a/testcases/kernel/syscalls/bpf/bpf_prog03.c b/testcases/kernel/syscalls/bpf/bpf_prog03.c
-index d79815961..5b8a394e8 100644
---- a/testcases/kernel/syscalls/bpf/bpf_prog03.c
-+++ b/testcases/kernel/syscalls/bpf/bpf_prog03.c
-@@ -32,6 +32,8 @@
+ MAKE_TARGETS		:= $(patsubst $(abs_srcdir)/%.c,%,$(wildcard $(abs_srcdir)/*[0-9].c))
+-$(MAKE_TARGETS): %: %.o migrate_pages_common.o
++$(MAKE_TARGETS): %: migrate_pages_common.o
  
- #define LOG_SIZE (1024 * 1024)
+ CPPFLAGS		+= -I$(abs_srcdir)/../utils/
  
-+#define CHECK_BPF_RET(x) ((x) >= 0 || ((x) == -1 && errno != EPERM))
-+
- static const char MSG[] = "Ahoj!";
- static char *msg;
+diff --git a/testcases/kernel/syscalls/move_pages/Makefile b/testcases/kernel/syscalls/move_pages/Makefile
+index 27cf0f7a8..96ff7368f 100644
+--- a/testcases/kernel/syscalls/move_pages/Makefile
++++ b/testcases/kernel/syscalls/move_pages/Makefile
+@@ -24,7 +24,7 @@ CPPFLAGS		+= -I$(abs_srcdir)/../utils
  
-@@ -42,7 +44,8 @@ static union bpf_attr *attr;
+ MAKE_TARGETS		:= $(patsubst $(abs_srcdir)/%.c,%,$(wildcard $(abs_srcdir)/*[0-9].c))
  
- static int load_prog(int fd)
- {
--	static struct bpf_insn *prog;
-+	int ret;
-+
- 	struct bpf_insn insn[] = {
- 		BPF_LD_MAP_FD(BPF_REG_1, fd),
+-$(MAKE_TARGETS): %: %.o move_pages_support.o
++$(MAKE_TARGETS): %: move_pages_support.o
  
-@@ -85,31 +88,24 @@ static int load_prog(int fd)
- 		BPF_EXIT_INSN()
- 	};
+ LDLIBS			+= -lpthread -lrt
  
--	if (!prog)
--		prog = tst_alloc(sizeof(insn));
--	memcpy(prog, insn, sizeof(insn));
-+	bpf_init_prog_attr(attr, insn, sizeof(insn), log, LOG_SIZE);
-+	ret = TST_RETRY_FUNC(bpf(BPF_PROG_LOAD, attr, sizeof(*attr)),
-+		CHECK_BPF_RET);
+diff --git a/testcases/kernel/syscalls/swapoff/Makefile b/testcases/kernel/syscalls/swapoff/Makefile
+index 536b2dbac..790a2a74e 100644
+--- a/testcases/kernel/syscalls/swapoff/Makefile
++++ b/testcases/kernel/syscalls/swapoff/Makefile
+@@ -21,4 +21,4 @@ top_srcdir		?= ../../../..
+ include $(top_srcdir)/include/mk/testcases.mk
+ include $(abs_srcdir)/./Makefile.inc
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+-$(MAKE_TARGETS): %: %.o ../swapon/libswapon.o
++$(MAKE_TARGETS): %: ../swapon/libswapon.o
+diff --git a/testcases/kernel/syscalls/swapon/Makefile b/testcases/kernel/syscalls/swapon/Makefile
+index a109ecdf8..a9bd8f19f 100644
+--- a/testcases/kernel/syscalls/swapon/Makefile
++++ b/testcases/kernel/syscalls/swapon/Makefile
+@@ -29,4 +29,4 @@ FILTER_OUT_MAKE_TARGETS         := libswapon
  
--	memset(attr, 0, sizeof(*attr));
--	attr->prog_type = BPF_PROG_TYPE_SOCKET_FILTER;
--	attr->insns = ptr_to_u64(prog);
--	attr->insn_cnt = ARRAY_SIZE(insn);
--	attr->license = ptr_to_u64("GPL");
--	attr->log_buf = ptr_to_u64(log);
--	attr->log_size = LOG_SIZE;
--	attr->log_level = 1;
--
--	TEST(bpf(BPF_PROG_LOAD, attr, sizeof(*attr)));
--	if (TST_RET == -1) {
--		if (log[0] != 0)
--			tst_res(TPASS | TTERRNO, "Failed verification");
--		else
--			tst_brk(TBROK | TTERRNO, "Failed to load program");
--	} else {
-+	if (ret < -1)
-+		tst_brk(TBROK, "Invalid bpf() return value %d", ret);
-+
-+	if (ret >= 0) {
- 		tst_res(TINFO, "Verification log:");
- 		fputs(log, stderr);
-+		return ret;
- 	}
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
  
--	return TST_RET;
-+	if (log[0] == 0)
-+		tst_brk(TBROK | TERRNO, "Failed to load program");
-+
-+	tst_res(TPASS | TERRNO, "Failed verification");
-+	return ret;
- }
+-$(MAKE_TARGETS): %: %.o libswapon.o
++$(MAKE_TARGETS): %: libswapon.o
+diff --git a/testcases/network/nfs/nfslock01/Makefile b/testcases/network/nfs/nfslock01/Makefile
+index a07a99ea9..978749a81 100644
+--- a/testcases/network/nfs/nfslock01/Makefile
++++ b/testcases/network/nfs/nfslock01/Makefile
+@@ -12,4 +12,4 @@ INSTALL_TARGETS			:= nfslock01
  
- static void setup(void)
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+ 
+-$(MAKE_TARGETS): %: %.o nfs_flock_func.o
++$(MAKE_TARGETS): %: nfs_flock_func.o
+diff --git a/testcases/network/stress/ns-tools/Makefile b/testcases/network/stress/ns-tools/Makefile
+index 49a05232f..a288066c8 100644
+--- a/testcases/network/stress/ns-tools/Makefile
++++ b/testcases/network/stress/ns-tools/Makefile
+@@ -35,4 +35,4 @@ FILTER_OUT_MAKE_TARGETS	:= ns-common
+ 
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+ 
+-$(MAKE_TARGETS): %: %.o ns-common.o
++$(MAKE_TARGETS): %: ns-common.o
 -- 
-2.25.0
+2.20.1
 
 
 -- 
