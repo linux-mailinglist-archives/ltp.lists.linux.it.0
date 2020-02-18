@@ -2,71 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A554D162123
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Feb 2020 07:50:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DFB616213A
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Feb 2020 07:58:36 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3330C3C259D
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Feb 2020 07:50:26 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2654F3C257E
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Feb 2020 07:58:35 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 039CA3C14BB
- for <ltp@lists.linux.it>; Tue, 18 Feb 2020 07:50:21 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 9EB2A600912
- for <ltp@lists.linux.it>; Tue, 18 Feb 2020 07:50:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1582008619;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=lDrOz2SUNY0c9r3vBWQyOcw8TJXf5ECjd+OkccklKis=;
- b=Gz5/J4wPEH1gggGCdaZJtYw1iXJrMxNpL6dEM00P4ujkUMa3ihgau9oQ/WQE9Xv1gK1vCU
- yvjRNCJJkdQxeSp79o+WF1Lb0cQjfXm4taTYdawrodLwLcfnVm622otvM1aa2CZbFSNjKW
- UYFQ7Bl/xX+a82+6zAtR7ge2TU/GpWk=
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-324-wjTzgtwSNLyImC3eHIOBkA-1; Tue, 18 Feb 2020 01:50:15 -0500
-Received: by mail-oi1-f197.google.com with SMTP id j142so9486428oib.23
- for <ltp@lists.linux.it>; Mon, 17 Feb 2020 22:50:15 -0800 (PST)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id A9B143C0133
+ for <ltp@lists.linux.it>; Tue, 18 Feb 2020 07:58:30 +0100 (CET)
+Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
+ [IPv6:2607:f8b0:4864:20::1044])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C24701000ACA
+ for <ltp@lists.linux.it>; Tue, 18 Feb 2020 07:58:28 +0100 (CET)
+Received: by mail-pj1-x1044.google.com with SMTP id d5so592728pjz.5
+ for <ltp@lists.linux.it>; Mon, 17 Feb 2020 22:58:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=qm6rGVEBDhp6aKoR1fWOk+fa67WyrG6tpxZERVuJVTY=;
+ b=nwximPAuLoMO6tYcLepWBlef7izYIzTX+ftSE8HvsQ8XZxAJWgz8aWxR1vhm2KiNpE
+ 6xbbBNNsdnSnoyC5dP1OpGfpALGAv+MggtEqM4hUrBM4afRQqE9m+lgB81FQH3VP5YTV
+ YKFN+ewGc59x3q0+2cFGvUUbTdDp19G/Y/nyPuhtaYTspNWDy3p3TXNyhy/N3FNKxlss
+ 7/DEtBzmv1Nnwaq5w3FlijRwLEyCJQm3XGqxF09OtCSB9V6eDFwIm5U4eGZvJpxtSBQy
+ smAWD0SWEPDpKNX58e4kdi11FdyHksqHqEl33Kn0JUdW/yOaqC0V2D+YAUTwlBIk2tx7
+ Ic3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=fwkJyKugyiCtc9AUaLR8gWZa4PtFRVqD5ILC0ZeQ4gc=;
- b=peluUNNq4UwOEFb2yUtZpRfRgTfKmI92KxhiSFeqC9XLSFWlAy5qcF8pdgZejPq+TU
- GbqCbgEkAv7ugGHSrv2GVDpbhuhhyq2BNT3oxix0Dvd3UAKnF8f9johKGxti/wE6ZgN6
- CiRfiMq65lEaSfg5PusWfcRpOh4dACKedBzKWESKNMyUy4/gtZwEzF4/ELiN7wnGsSmH
- bkRA8P7AM4TDNBJw7W3Pk5QYkeipQBzyZMahpT2FRgDzROBiQtGr7nb/P6u8DhJbqngs
- hICk84qCIcDWg/sWWbJJrXkDZOhSE0MSA+nDqh9swlsH3Vky/5hrwKEROnkiVn1p1NP1
- z2cg==
-X-Gm-Message-State: APjAAAVhaABSMWKGopXccR5TNEtVBy3pf9YCilaw6L5JjUfAxQSVvD67
- fIQdVnjNbxnmGNgIiZepI0/CaYfB7Ygge8h7HCvtSdt5RxHjDI2IDwF2s/rLjG7QcBTmHj3uU8J
- UzckC1M+XdRiknxOwSYLPdnaJMg0=
-X-Received: by 2002:a9d:4e8a:: with SMTP id v10mr123067otk.17.1582008614463;
- Mon, 17 Feb 2020 22:50:14 -0800 (PST)
-X-Google-Smtp-Source: APXvYqzLG2BDGPUOinbwB+M3RfmWSfHCa2gA6a9lr5rGlbcURkcOGwrZtzVvvoHVPc7Byb8DxIAuS209+9PN849krWM=
-X-Received: by 2002:a9d:4e8a:: with SMTP id v10mr123054otk.17.1582008614196;
- Mon, 17 Feb 2020 22:50:14 -0800 (PST)
-MIME-Version: 1.0
+ h=x-gm-message-state:date:from:to:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=qm6rGVEBDhp6aKoR1fWOk+fa67WyrG6tpxZERVuJVTY=;
+ b=n6EjIbWa9yptbMxzQemdtTY39Voas97JbX6ydS+5sDHnsE4OSp57oPqoBPkIvf6j34
+ SKcQGljq5l5U2F2by8UPQeiEEvEKtSpltL0v9YM4lisNyVDLiC69xCkbFujbSxiSxYjw
+ 2hNCGkh9xewVHGI8DODazf2HEZIRxpJagjGv5dlGD+w0WqtY3zvC05N5TMI4wtW0f4gw
+ m71A4P+sj+ayrYgqxWUywilRb5XbnniOEc/8CIMfXNrDmd2MFgTRE6MticjoLtAvrsiv
+ BZeuGcZDb2Wcc73uG82L8HEI9N3ZfieML/H8VlVCulOJ8UThTJhY+WpO8QqaN/g8dAsy
+ JHLw==
+X-Gm-Message-State: APjAAAWJhyL6hIty+EFFOdQRkUlM49Jfwn4ggheOMaKsMIPpO3sIJA2/
+ +JkFdrg/6NXAMevdDuUmhLjb2km+cFw=
+X-Google-Smtp-Source: APXvYqy7kLiKuGwLTiLzyahGRvl3UKfcV9DaIJGPyn4rgD76ypWco1qRErc9upn4Yq8I7XZofqznrg==
+X-Received: by 2002:a17:902:169:: with SMTP id
+ 96mr18927683plb.74.1582009107815; 
+ Mon, 17 Feb 2020 22:58:27 -0800 (PST)
+Received: from localhost ([223.226.55.170])
+ by smtp.gmail.com with ESMTPSA id a17sm1609419pjv.6.2020.02.17.22.58.26
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 17 Feb 2020 22:58:27 -0800 (PST)
+Date: Tue, 18 Feb 2020 12:28:25 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: ltp@lists.linux.it, Zorro Lang <zlang@redhat.com>
+Message-ID: <20200218065825.wtjjnt66jczsycej@vireshk-i7>
 References: <cover.1581680021.git.viresh.kumar@linaro.org>
  <20200218061906.GB14282@dhcp-12-102.nay.redhat.com>
+MIME-Version: 1.0
+Content-Disposition: inline
 In-Reply-To: <20200218061906.GB14282@dhcp-12-102.nay.redhat.com>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 18 Feb 2020 14:50:03 +0800
-Message-ID: <CAEemH2dOnQanRKv6EQD2Y_ro65Wc4tXCkkyqnyEjwqf8WrD=JQ@mail.gmail.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>, Zorro Lang <zlang@redhat.com>
-X-MC-Unique: wjTzgtwSNLyImC3eHIOBkA-1
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+User-Agent: NeoMutt/20180716-391-311a52
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 0/7] Add new LTP tests related to fsmount family
  of syscalls
 X-BeenThere: ltp@lists.linux.it
@@ -80,167 +79,53 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============2062234716=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============2062234716==
-Content-Type: multipart/alternative; boundary="0000000000007b30ed059ed415f6"
+Hi Zorro,
 
---0000000000007b30ed059ed415f6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thanks for taking time and providing your feedback :)
 
-On Tue, Feb 18, 2020 at 2:09 PM Zorro Lang <zlang@redhat.com> wrote:
-
+On 18-02-20, 14:19, Zorro Lang wrote:
 > On Fri, Feb 14, 2020 at 05:05:49PM +0530, Viresh Kumar wrote:
-> > Hello,
-> >
-> > This series adds a bunch of LTP tests related to fsmount family of
-> > syscalls.
->
-> Hi Viresh,
->
 > Thanks for all these cases, that's really helpful.
->
-> Although you write cases for each new mount API, each xxxxx01.c case look=
-s
+> 
+> Although you write cases for each new mount API, each xxxxx01.c case looks
 > nearly do same things.
->
-Yes, I have the same feelings. Below are my 2 cents:
 
-Probably because the APIs should be used to bind together, but it is best
-to reflect the focus of each test case. e.g. fsmount01.c as basic test
-needs to cover more parameters to verify that all the functionality is
-really working. fsmount02.c more like a test target for all error
-conditions.
+I agree, just that they are all slightly different, and perhaps they can be
+improved to test different parameters for the success case as well.
 
-FYI madvise test:
-[1]
-https://github.com/linux-test-project/ltp/blob/master/testcases/kernel/sysc=
-alls/madvise/madvise01.c
-[2]
-https://github.com/linux-test-project/ltp/blob/master/testcases/kernel/sysc=
-alls/madvise/madvise02.c
+I think all the *02.c files are quite different that way, and perhaps *01.c
+tests should do the same.
 
-
-> That's why I only wrote one case for new-mount currently, due to basic
-> mount
-> test already can through most of new APIs(except open_tree and fspick). I
-> don't
+> That's why I only wrote one case for new-mount currently, due to basic mount
+> test already can through most of new APIs(except open_tree and fspick). I don't
 > know if we should write nearly same things in different directories.
-> Actually I prepared open_tree and fspick test cases(planned to name as
-> newmount02
-> and newmount03. but the newmount01 has been changed to fsmount01 :), but
-> didn't
-> sent out, due to I hope to the first case(which does basic changes) can b=
-e
-> merged
+> Actually I prepared open_tree and fspick test cases(planned to name as newmount02
+> and newmount03. but the newmount01 has been changed to fsmount01 :), but didn't
+> sent out, due to I hope to the first case(which does basic changes) can be merged
 > at first.
->
 
-It'd be great if those tests can be merged together with Viresh's patch.
+Heh. I had no clue that anyone else is working on this stuff else I won't have
+touched it at all (and saved some time) :)
 
-
->
 > All of your xxxxx02.c cases are great! I planned to test more different
-> parameters of fsconfig() later too. Your invalid parameters test are nice=
-.
-> As you've sent these cases, I think these should be reviewed at first,
-> avoid
-> we do same things:) I'll try to help to review V2 patchset too, if I can:=
--P
->
+> parameters of fsconfig() later too. Your invalid parameters test are nice.
+> As you've sent these cases, I think these should be reviewed at first, avoid
+> we do same things:) I'll try to help to review V2 patchset too, if I can:-P
 
-Thank you in advance, Zorro!
+Thanks for suggesting this way out, and I agree 100% with you.
 
---=20
-Regards,
-Li Wang
+FWIW, I am working on V2 which I should be able to send by tomorrow max (if
+everything goes as planned). Lets see how it looks after that and I would love
+to review any improvement patches you may have after these are merged (Please cc
+me directly, I haven't opted for receiving emails from ltp list).
 
---0000000000007b30ed059ed415f6
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Tue, Feb 18, 2020 at 2:09 PM Zorro Lang &lt;<a h=
-ref=3D"mailto:zlang@redhat.com">zlang@redhat.com</a>&gt; wrote:<br></div><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex">On Fri, Feb 14, 2020 at 05:=
-05:49PM +0530, Viresh Kumar wrote:<br>
-&gt; Hello,<br>
-&gt; <br>
-&gt; This series adds a bunch of LTP tests related to fsmount family of<br>
-&gt; syscalls.<br>
-<br>
-Hi Viresh,<br>
-<br>
-Thanks for all these cases, that&#39;s really helpful.<br>
-<br>
-Although you write cases for each new mount API, each xxxxx01.c case looks<=
-br>
-nearly do same things.<br></blockquote><div class=3D"gmail_default" style=
-=3D"font-size:small"></div><div class=3D"gmail_default" style=3D"font-size:=
-small">Yes, I have the same feelings. Below are my 2 cents:</div><div class=
-=3D"gmail_default" style=3D"font-size:small"><br></div><div class=3D"gmail_=
-default" style=3D"font-size:small">Probably because the APIs should be used=
- to bind together, but it is best to reflect the focus of each test case. e=
-.g. fsmount01.c as basic test needs to cover more parameters to verify that=
- all the functionality is really working. fsmount02.c more like a test targ=
-et for all error conditions.</div><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size:sma=
-ll">FYI madvise test:</div><div class=3D"gmail_default" style=3D"font-size:=
-small">[1]=C2=A0<a href=3D"https://github.com/linux-test-project/ltp/blob/m=
-aster/testcases/kernel/syscalls/madvise/madvise01.c">https://github.com/lin=
-ux-test-project/ltp/blob/master/testcases/kernel/syscalls/madvise/madvise01=
-.c</a></div><div class=3D"gmail_default" style=3D"font-size:small">[2]=C2=
-=A0<a href=3D"https://github.com/linux-test-project/ltp/blob/master/testcas=
-es/kernel/syscalls/madvise/madvise02.c">https://github.com/linux-test-proje=
-ct/ltp/blob/master/testcases/kernel/syscalls/madvise/madvise02.c</a></div><=
-div>=C2=A0<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
-px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-That&#39;s why I only wrote one case for new-mount currently, due to basic =
-mount<br>
-test already can through most of new APIs(except open_tree and fspick). I d=
-on&#39;t<br>
-know if we should write nearly same things in different directories.<br>
-Actually I prepared open_tree and fspick test cases(planned to name as newm=
-ount02<br>
-and newmount03. but the newmount01 has been changed to fsmount01 :), but di=
-dn&#39;t<br>
-sent out, due to I hope to the first case(which does basic changes) can be =
-merged<br>
-at first.<br></blockquote><div><br></div><div><div class=3D"gmail_default" =
-style=3D"font-size:small">It&#39;d be great if those tests can be merged to=
-gether with Viresh&#39;s patch.=C2=A0</div></div><div>=C2=A0</div><blockquo=
-te class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px =
-solid rgb(204,204,204);padding-left:1ex">
-<br>
-All of your xxxxx02.c cases are great! I planned to test more different<br>
-parameters of fsconfig() later too. Your invalid parameters test are nice.<=
-br>
-As you&#39;ve sent these cases, I think these should be reviewed at first, =
-avoid<br>
-we do same things:) I&#39;ll try to help to review V2 patchset too, if I ca=
-n:-P<br></blockquote><div><br></div><div><div class=3D"gmail_default" style=
-=3D"font-size:small">Thank you in advance, Zorro!</div></div></div><div><br=
-></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><=
-div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
-
---0000000000007b30ed059ed415f6--
-
-
---===============2062234716==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+viresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============2062234716==--
-
