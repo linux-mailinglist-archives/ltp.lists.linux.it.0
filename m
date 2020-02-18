@@ -2,89 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 585C71623A5
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Feb 2020 10:43:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0919C1623C6
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Feb 2020 10:45:56 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F31263C2559
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Feb 2020 10:43:25 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A98153C25A4
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Feb 2020 10:45:55 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 76B573C2493
- for <ltp@lists.linux.it>; Tue, 18 Feb 2020 10:43:24 +0100 (CET)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 42BE73C2493
+ for <ltp@lists.linux.it>; Tue, 18 Feb 2020 10:45:42 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id B6E09600936
- for <ltp@lists.linux.it>; Tue, 18 Feb 2020 10:43:23 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 05F771401809
+ for <ltp@lists.linux.it>; Tue, 18 Feb 2020 10:45:41 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D2897B395;
- Tue, 18 Feb 2020 09:43:22 +0000 (UTC)
-To: Li Wang <liwang@redhat.com>
-References: <CAEemH2dEco268yqDyDjX25FPs3V7wTBija4HiMrf8nr0W7qVQQ@mail.gmail.com>
- <20200217141622.26912-1-mdoucha@suse.cz>
- <20200217141622.26912-2-mdoucha@suse.cz>
- <CAEemH2fvquWe_+-Au-Z0wRaYt0V943A1zszJVPCXO6HrLWH9Yg@mail.gmail.com>
- <7d52d4b5-c9ae-2cf8-5742-85ce4e55ff67@suse.cz>
- <CAEemH2esmZq12fFL4U-TzzvaKrKS1a-+nz7jZoN923880+dTZw@mail.gmail.com>
+ by mx2.suse.de (Postfix) with ESMTP id 7C28EAF3B;
+ Tue, 18 Feb 2020 09:45:41 +0000 (UTC)
 From: Martin Doucha <mdoucha@suse.cz>
-Autocrypt: addr=mdoucha@suse.cz; keydata=
- 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
-Message-ID: <703307a6-525a-ab8c-ccb0-b6623c39eb7e@suse.cz>
-Date: Tue, 18 Feb 2020 10:43:22 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.2
+To: Li Wang <liwang@redhat.com>,
+	ltp@lists.linux.it
+Date: Tue, 18 Feb 2020 10:45:40 +0100
+Message-Id: <20200218094541.27201-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.25.0
+In-Reply-To: <20200217141622.26912-1-mdoucha@suse.cz>
+References: <20200217141622.26912-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-In-Reply-To: <CAEemH2esmZq12fFL4U-TzzvaKrKS1a-+nz7jZoN923880+dTZw@mail.gmail.com>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 2/3] Split off executable code from
- bpf/bpf_common.h
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 2/3] Split off executable code from bpf/bpf_common.h
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,21 +47,150 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gMi8xOC8yMCA5OjQ5IEFNLCBMaSBXYW5nIHdyb3RlOgo+IFNvcnJ5IGZvciB0aGUgdW5jbGVh
-ciBxdWVzdGlvbi4gSSBtZWFuIGNhbiB3ZSBtb2RpZnkgdGhlIE1ha2VmaWxlIGFzOgo+IAo+IC0t
-LSBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvYnBmL01ha2VmaWxlCj4gKysrIGIvdGVzdGNh
-c2VzL2tlcm5lbC9zeXNjYWxscy9icGYvTWFrZWZpbGUKPiBAQCAtMTAsNCArMTAsNCBAQCBDRkxB
-R1MgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqArPSAtRF9HTlVfU09VUkNFCj4g
-wqAKPiDCoGluY2x1ZGUgJCh0b3Bfc3JjZGlyKS9pbmNsdWRlL21rL2dlbmVyaWNfbGVhZl90YXJn
-ZXQubWsKPiDCoAo+IC0kKE1BS0VfVEFSR0VUUyk6ICU6ICUubyBicGZfY29tbW9uLm8KPiArJChN
-QUtFX1RBUkdFVFMpOiAlOiBicGZfY29tbW9uLm8KCkFoLCBPSy4gSSdsbCBmaXggdGhhdC4KCi0t
-IApNYXJ0aW4gRG91Y2hhICAgbWRvdWNoYUBzdXNlLmN6ClFBIEVuZ2luZWVyIGZvciBTb2Z0d2Fy
-ZSBNYWludGVuYW5jZQpTVVNFIExJTlVYLCBzLnIuby4KQ09SU08gSUlhCktyaXppa292YSAxNDgv
-MzQKMTg2IDAwIFByYWd1ZSA4CkN6ZWNoIFJlcHVibGljCgotLSAKTWFpbGluZyBsaXN0IGluZm86
-IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
+
+Changes since v1: This patch was split off from the v1 BPF fix. Code cleanup
+to prevent future bugs and make the common code more readable.
+
+Changes since v2: None.
+
+Changes since v3: Don't generate separate .o files for test programs.
+
+ testcases/kernel/syscalls/bpf/Makefile     |  3 ++
+ testcases/kernel/syscalls/bpf/bpf_common.c | 45 ++++++++++++++++++++++
+ testcases/kernel/syscalls/bpf/bpf_common.h | 39 ++-----------------
+ 3 files changed, 51 insertions(+), 36 deletions(-)
+ create mode 100644 testcases/kernel/syscalls/bpf/bpf_common.c
+
+diff --git a/testcases/kernel/syscalls/bpf/Makefile b/testcases/kernel/syscalls/bpf/Makefile
+index 990c8c83c..4305dfcf0 100644
+--- a/testcases/kernel/syscalls/bpf/Makefile
++++ b/testcases/kernel/syscalls/bpf/Makefile
+@@ -5,6 +5,9 @@ top_srcdir		?= ../../../..
+ 
+ include $(top_srcdir)/include/mk/testcases.mk
+ 
++FILTER_OUT_MAKE_TARGETS	:= bpf_common
+ CFLAGS			+= -D_GNU_SOURCE
+ 
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
++
++$(MAKE_TARGETS): %: bpf_common.o
+diff --git a/testcases/kernel/syscalls/bpf/bpf_common.c b/testcases/kernel/syscalls/bpf/bpf_common.c
+new file mode 100644
+index 000000000..fce364af8
+--- /dev/null
++++ b/testcases/kernel/syscalls/bpf/bpf_common.c
+@@ -0,0 +1,45 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Copyright (c) 2019-2020 Linux Test Project
++ */
++
++#define TST_NO_DEFAULT_MAIN
++#include "tst_test.h"
++#include "lapi/bpf.h"
++#include "bpf_common.h"
++
++void rlimit_bump_memlock(void)
++{
++	struct rlimit memlock_r;
++
++	SAFE_GETRLIMIT(RLIMIT_MEMLOCK, &memlock_r);
++	memlock_r.rlim_cur += BPF_MEMLOCK_ADD;
++	tst_res(TINFO, "Raising RLIMIT_MEMLOCK to %ld",
++		(long)memlock_r.rlim_cur);
++
++	if (memlock_r.rlim_cur <= memlock_r.rlim_max) {
++		SAFE_SETRLIMIT(RLIMIT_MEMLOCK, &memlock_r);
++	} else if ((geteuid() == 0)) {
++		memlock_r.rlim_max += BPF_MEMLOCK_ADD;
++		SAFE_SETRLIMIT(RLIMIT_MEMLOCK, &memlock_r);
++	} else {
++		tst_res(TINFO, "Can't raise RLIMIT_MEMLOCK, test may fail "
++			"due to lack of max locked memory");
++	}
++}
++
++int bpf_map_create(union bpf_attr *attr)
++{
++	TEST(bpf(BPF_MAP_CREATE, attr, sizeof(*attr)));
++	if (TST_RET == -1) {
++		if (TST_ERR == EPERM) {
++			tst_res(TCONF, "Hint: check also /proc/sys/kernel/unprivileged_bpf_disabled");
++			tst_brk(TCONF | TTERRNO,
++				"bpf() requires CAP_SYS_ADMIN on this system");
++		} else {
++			tst_brk(TBROK | TTERRNO, "Failed to create array map");
++		}
++	}
++
++	return TST_RET;
++}
+diff --git a/testcases/kernel/syscalls/bpf/bpf_common.h b/testcases/kernel/syscalls/bpf/bpf_common.h
+index f700bede2..e46a519eb 100644
+--- a/testcases/kernel/syscalls/bpf/bpf_common.h
++++ b/testcases/kernel/syscalls/bpf/bpf_common.h
+@@ -1,6 +1,6 @@
+ /* SPDX-License-Identifier: GPL-2.0-or-later */
+ /*
+- * Copyright (c) 2019 Linux Test Project
++ * Copyright (c) 2019-2020 Linux Test Project
+  */
+ 
+ #ifndef LTP_BPF_COMMON_H
+@@ -8,40 +8,7 @@
+ 
+ #define BPF_MEMLOCK_ADD (256*1024)
+ 
+-void rlimit_bump_memlock(void)
+-{
+-	struct rlimit memlock_r;
+-
+-	SAFE_GETRLIMIT(RLIMIT_MEMLOCK, &memlock_r);
+-	memlock_r.rlim_cur += BPF_MEMLOCK_ADD;
+-	tst_res(TINFO, "Raising RLIMIT_MEMLOCK to %ld",
+-		(long)memlock_r.rlim_cur);
+-
+-	if (memlock_r.rlim_cur <= memlock_r.rlim_max) {
+-		SAFE_SETRLIMIT(RLIMIT_MEMLOCK, &memlock_r);
+-	} else if ((geteuid() == 0)) {
+-		memlock_r.rlim_max += BPF_MEMLOCK_ADD;
+-		SAFE_SETRLIMIT(RLIMIT_MEMLOCK, &memlock_r);
+-	} else {
+-		tst_res(TINFO, "Can't raise RLIMIT_MEMLOCK, test may fail "
+-			"due to lack of max locked memory");
+-	}
+-}
+-
+-int bpf_map_create(union bpf_attr *attr)
+-{
+-	TEST(bpf(BPF_MAP_CREATE, attr, sizeof(*attr)));
+-	if (TST_RET == -1) {
+-		if (TST_ERR == EPERM) {
+-			tst_res(TCONF, "Hint: check also /proc/sys/kernel/unprivileged_bpf_disabled");
+-			tst_brk(TCONF | TTERRNO,
+-				"bpf() requires CAP_SYS_ADMIN on this system");
+-		} else {
+-			tst_brk(TBROK | TTERRNO, "Failed to create array map");
+-		}
+-	}
+-
+-	return TST_RET;
+-}
++void rlimit_bump_memlock(void);
++int bpf_map_create(union bpf_attr *attr);
+ 
+ #endif
+-- 
+2.25.0
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
