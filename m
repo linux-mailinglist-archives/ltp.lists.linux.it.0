@@ -1,73 +1,65 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B09C1620A9
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Feb 2020 07:07:14 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 77B061620AB
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Feb 2020 07:09:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EE0FF3C25A0
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Feb 2020 07:07:13 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id CFE723C25A0
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Feb 2020 07:09:14 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id D79F13C2360
- for <ltp@lists.linux.it>; Tue, 18 Feb 2020 07:07:09 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 7A9021A00E2E
- for <ltp@lists.linux.it>; Tue, 18 Feb 2020 07:07:07 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 31B063C2360
+ for <ltp@lists.linux.it>; Tue, 18 Feb 2020 07:09:09 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
+ [207.211.31.81])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 79D2A60086B
+ for <ltp@lists.linux.it>; Tue, 18 Feb 2020 07:09:03 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1582006026;
+ s=mimecast20190719; t=1582006142;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=6K4dizgsQWpCJwxOrj/ap0TSTVuTTXruYWtzW8McJA8=;
- b=YvEAdMUXZipzRdzdY+xQQ8ogN+acvJCPmCWX8YMpwKSDRZzlI8o61fWkDC4pTeLxrSS64W
- hDx9QMEqX+gnySPd8tSrlPURg9Kr06gRbY76XfYpzJXeJfhAwZq3GkZAk/ICF+e0z0yrrB
- oJV89uwNEqhrxJ470ZqHJfvC7UVE/uc=
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
- [209.85.167.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-270-6P0pRRR0NiKsAsaJRaJbSw-1; Tue, 18 Feb 2020 01:07:02 -0500
-Received: by mail-oi1-f198.google.com with SMTP id a74so9491346oib.2
- for <ltp@lists.linux.it>; Mon, 17 Feb 2020 22:07:02 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=+rZUO5QqlcaQbl95CsTDCUBHqNBaE7vJet8AwD3KgaA=;
- b=OIBDQ78sQVD/hEF+qkXi6OZHgQngh+3E2pbeH1W4+Muh1q/tYYVQhpXxNwTH9reX/c
- b+3tLJp57JnJic2tXZiObU1NjaPnm3iZ5lMasCkfU3YzHSEgeCKuboOzDGGkKjS7bbgG
- wjgdS0WX8c6s31y9F5sNstK1UciC082DqKh1NTqBV4QQZEPiAN/kGTI6R5mY3hGW+tv5
- wL3j50wC3W29Fu2Z6WeNcncG6t41odVTkylKV7yKBGj4LybqBIkfot62sEf6Wsg2cU9C
- Jm5OTF+EwmIFOQ4sRSYjpS394kCRIUHEkoswuhtzjzy6GgTGkFTFjO85TjUU89BOxey/
- EZMQ==
-X-Gm-Message-State: APjAAAWvYhY2fqzRuoU57GSDfCCzmLZg16csiBdtot9pi+9oTz+ZDjGa
- qP4L6vE7f+LkUFJTlu99XVWz3SD56IovI5nAJpZ2598FhJSO2RLj1H8ziUD2YoMUKeOw8b62CPx
- P3/OVwlhxk/r0YS63a0dkOUQ3y6M=
-X-Received: by 2002:aca:afd8:: with SMTP id y207mr286523oie.96.1582006021674; 
- Mon, 17 Feb 2020 22:07:01 -0800 (PST)
-X-Google-Smtp-Source: APXvYqzfBDt37b0IJ93Z1VTqmZRFXnJyBHiNhJkqyfxDdMJBNRSiX1detpshThd80lpW8XMMCpmYKkCFua9v/7ygfvo=
-X-Received: by 2002:aca:afd8:: with SMTP id y207mr286516oie.96.1582006021475; 
- Mon, 17 Feb 2020 22:07:01 -0800 (PST)
+ bh=auQw+t5JWfv9TKJ45xvh99PR8Mdvv+eSXCzEivDrwZE=;
+ b=DCWEZ5ePF+Iez5WG//cwkdMcUfi+KSkpfCCAPfAqe1vhXKwAc6oPRf5hlGgVpKWlEufSfJ
+ uHfadx4+2H83khUQb2xQgAiBFUlPFdUS4E9qH1rxvgIPwkPpXOAN9Eshxs9IEdFYzV1Bcj
+ cLQuhHQ4uwV+zFcKYrQtWOxoyTqnWuU=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-413-SCL5QvfoPPyN_rI5691K_A-1; Tue, 18 Feb 2020 01:08:49 -0500
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ADC70107ACC4;
+ Tue, 18 Feb 2020 06:08:48 +0000 (UTC)
+Received: from localhost (dhcp-12-102.nay.redhat.com [10.66.12.102])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 8744D60BE1;
+ Tue, 18 Feb 2020 06:08:47 +0000 (UTC)
+Date: Tue, 18 Feb 2020 14:19:06 +0800
+From: Zorro Lang <zlang@redhat.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Message-ID: <20200218061906.GB14282@dhcp-12-102.nay.redhat.com>
+Mail-Followup-To: Viresh Kumar <viresh.kumar@linaro.org>,
+	ltp@lists.linux.it
+References: <cover.1581680021.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-References: <20200208092014.24824-1-liwang@redhat.com>
- <20200217160830.GA6482@dell5510>
-In-Reply-To: <20200217160830.GA6482@dell5510>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 18 Feb 2020 14:06:50 +0800
-Message-ID: <CAEemH2d6byWZ7_LxKqA0VUO93wiRTL0w5JMsq0-4Tb_RcHXgVw@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-X-MC-Unique: 6P0pRRR0NiKsAsaJRaJbSw-1
+In-Reply-To: <cover.1581680021.git.viresh.kumar@linaro.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-MC-Unique: SCL5QvfoPPyN_rI5691K_A-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 1/2] lib: add .request_hugepages to reserve
- hugepage
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 0/7] Add new LTP tests related to fsmount family
+ of syscalls
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,92 +71,118 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1715503319=="
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1715503319==
-Content-Type: multipart/alternative; boundary="000000000000f1689e059ed37a1e"
+On Fri, Feb 14, 2020 at 05:05:49PM +0530, Viresh Kumar wrote:
+> Hello,
+> 
+> This series adds a bunch of LTP tests related to fsmount family of
+> syscalls.
 
---000000000000f1689e059ed37a1e
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi Viresh,
 
-Hi Petr,
+Thanks for all these cases, that's really helpful.
 
-On Tue, Feb 18, 2020 at 12:08 AM Petr Vorel <pvorel@suse.cz> wrote:
+Although you write cases for each new mount API, each xxxxx01.c case looks
+nearly do same things.
 
-> Hi Li,
->
-> Reviewed-by: Petr Vorel <pvorel@suse.cz>
-> Code looks good.
->
-Thanks!
+That's why I only wrote one case for new-mount currently, due to basic mount
+test already can through most of new APIs(except open_tree and fspick). I don't
+know if we should write nearly same things in different directories.
+Actually I prepared open_tree and fspick test cases(planned to name as newmount02
+and newmount03. but the newmount01 has been changed to fsmount01 :), but didn't
+sent out, due to I hope to the first case(which does basic changes) can be merged
+at first.
 
+All of your xxxxx02.c cases are great! I planned to test more different
+parameters of fsconfig() later too. Your invalid parameters test are nice.
+As you've sent these cases, I think these should be reviewed at first, avoid
+we do same things:) I'll try to help to review V2 patchset too, if I can:-P
 
-> Minor issue: doc has broken formatting.
-> ...
-> > +'tst_hugepages' will be set to 0.
->
-> I propose these changes (+ strip this formatting from comments in C sourc=
-e
-> - include/tst_test.h).
->
+Thanks,
+Zorro
 
-Thanks for this advice, I have done modifications in my local commit.
-
-Before pushing I would give a bit more time to Cyril for a review, in case
-he has additional suggestions.
-
---=20
-Regards,
-Li Wang
-
---000000000000f1689e059ed37a1e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Hi=C2=A0Petr,</div></div><br><div class=3D"gmail_quote"><div =
-dir=3D"ltr" class=3D"gmail_attr">On Tue, Feb 18, 2020 at 12:08 AM Petr Vore=
-l &lt;<a href=3D"mailto:pvorel@suse.cz">pvorel@suse.cz</a>&gt; wrote:<br></=
-div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
-der-left:1px solid rgb(204,204,204);padding-left:1ex">Hi Li,<br>
-<br>
-Reviewed-by: Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz" target=3D"_bl=
-ank">pvorel@suse.cz</a>&gt;<br>
-Code looks good.<br></blockquote><div><span class=3D"gmail_default" style=
-=3D"font-size:small">Thanks!</span></div><div><span class=3D"gmail_default"=
- style=3D"font-size:small"></span>=C2=A0</div><blockquote class=3D"gmail_qu=
-ote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,20=
-4);padding-left:1ex">
-Minor issue: doc has broken formatting.<br>
-<span class=3D"gmail_default" style=3D"font-size:small">...</span><br>
-&gt; +&#39;tst_hugepages&#39; will be set to 0.<br>
-<br>
-I propose these changes (+ strip this formatting from comments in C source =
-- include/tst_test.h).<br></blockquote><div><br></div><div><div class=3D"gm=
-ail_default" style=3D"font-size:small">Thanks for this advice, I have done =
-modifications in my local commit.=C2=A0</div><div class=3D"gmail_default" s=
-tyle=3D"font-size:small"><br></div><div class=3D"gmail_default" style=3D"fo=
-nt-size:small">Before pushing I would give a bit more time to Cyril for a r=
-eview, in case he has additional=C2=A0suggestions.</div></div><div>=C2=A0</=
-div></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr=
-"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
-
---000000000000f1689e059ed37a1e--
-
-
---===============1715503319==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> 
+> Thanks
+> 
+> --
+> viresh
+> 
+> Viresh Kumar (7):
+>   lapi/fsmount: Add definitions for fsmount related syscalls
+>   syscalls/fsopen: New tests
+>   syscalls/fsconfig: New tests
+>   syscalls/fsmount: New tests
+>   syscalls/move_mount: New tests
+>   syscalls/fspick: New tests
+>   syscalls/open_tree: New tests
+> 
+>  configure.ac                                  |   6 +
+>  include/lapi/fsmount.h                        | 134 ++++++++++++++++++
+>  runtest/syscalls                              |  18 +++
+>  testcases/kernel/syscalls/fsconfig/.gitignore |   2 +
+>  testcases/kernel/syscalls/fsconfig/Makefile   |   6 +
+>  .../kernel/syscalls/fsconfig/fsconfig01.c     |  77 ++++++++++
+>  .../kernel/syscalls/fsconfig/fsconfig02.c     |  97 +++++++++++++
+>  testcases/kernel/syscalls/fsmount/.gitignore  |   2 +
+>  testcases/kernel/syscalls/fsmount/Makefile    |   6 +
+>  testcases/kernel/syscalls/fsmount/fsmount01.c |  71 ++++++++++
+>  testcases/kernel/syscalls/fsmount/fsmount02.c |  83 +++++++++++
+>  testcases/kernel/syscalls/fsopen/.gitignore   |   2 +
+>  testcases/kernel/syscalls/fsopen/Makefile     |   6 +
+>  testcases/kernel/syscalls/fsopen/fsopen01.c   |  71 ++++++++++
+>  testcases/kernel/syscalls/fsopen/fsopen02.c   |  56 ++++++++
+>  testcases/kernel/syscalls/fspick/.gitignore   |   2 +
+>  testcases/kernel/syscalls/fspick/Makefile     |   6 +
+>  testcases/kernel/syscalls/fspick/fspick01.c   | 104 ++++++++++++++
+>  testcases/kernel/syscalls/fspick/fspick02.c   | 110 ++++++++++++++
+>  .../kernel/syscalls/move_mount/.gitignore     |   2 +
+>  testcases/kernel/syscalls/move_mount/Makefile |   6 +
+>  .../kernel/syscalls/move_mount/move_mount01.c |  82 +++++++++++
+>  .../kernel/syscalls/move_mount/move_mount02.c | 102 +++++++++++++
+>  .../kernel/syscalls/open_tree/.gitignore      |   2 +
+>  testcases/kernel/syscalls/open_tree/Makefile  |   6 +
+>  .../kernel/syscalls/open_tree/open_tree01.c   | 115 +++++++++++++++
+>  .../kernel/syscalls/open_tree/open_tree02.c   | 110 ++++++++++++++
+>  27 files changed, 1284 insertions(+)
+>  create mode 100644 include/lapi/fsmount.h
+>  create mode 100644 testcases/kernel/syscalls/fsconfig/.gitignore
+>  create mode 100644 testcases/kernel/syscalls/fsconfig/Makefile
+>  create mode 100644 testcases/kernel/syscalls/fsconfig/fsconfig01.c
+>  create mode 100644 testcases/kernel/syscalls/fsconfig/fsconfig02.c
+>  create mode 100644 testcases/kernel/syscalls/fsmount/.gitignore
+>  create mode 100644 testcases/kernel/syscalls/fsmount/Makefile
+>  create mode 100644 testcases/kernel/syscalls/fsmount/fsmount01.c
+>  create mode 100644 testcases/kernel/syscalls/fsmount/fsmount02.c
+>  create mode 100644 testcases/kernel/syscalls/fsopen/.gitignore
+>  create mode 100644 testcases/kernel/syscalls/fsopen/Makefile
+>  create mode 100644 testcases/kernel/syscalls/fsopen/fsopen01.c
+>  create mode 100644 testcases/kernel/syscalls/fsopen/fsopen02.c
+>  create mode 100644 testcases/kernel/syscalls/fspick/.gitignore
+>  create mode 100644 testcases/kernel/syscalls/fspick/Makefile
+>  create mode 100644 testcases/kernel/syscalls/fspick/fspick01.c
+>  create mode 100644 testcases/kernel/syscalls/fspick/fspick02.c
+>  create mode 100644 testcases/kernel/syscalls/move_mount/.gitignore
+>  create mode 100644 testcases/kernel/syscalls/move_mount/Makefile
+>  create mode 100644 testcases/kernel/syscalls/move_mount/move_mount01.c
+>  create mode 100644 testcases/kernel/syscalls/move_mount/move_mount02.c
+>  create mode 100644 testcases/kernel/syscalls/open_tree/.gitignore
+>  create mode 100644 testcases/kernel/syscalls/open_tree/Makefile
+>  create mode 100644 testcases/kernel/syscalls/open_tree/open_tree01.c
+>  create mode 100644 testcases/kernel/syscalls/open_tree/open_tree02.c
+> 
+> -- 
+> 2.21.0.rc0.269.g1a574e7a288b
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+> 
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1715503319==--
-
