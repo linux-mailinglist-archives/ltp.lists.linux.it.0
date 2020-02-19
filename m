@@ -2,73 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07AFA164418
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 13:21:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CB7C1644AA
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 13:52:43 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 719EA3C24B8
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 13:20:59 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A2B653C24B7
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 13:52:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id AE9603C1840
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 13:20:57 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 2C9511A0154C
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 13:20:56 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1582114855;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=DDh57Hus0RNT73iqU/pPJAUV//pz1weQ/TvQip+y048=;
- b=HahA7xtF19D0nrLBXT69+XBAz9rMZsKd/PkCibcIXxLUJgjaxnvwe8Eo2ZA90cfg63XPXe
- 7ohlhL/AZpqgQK2tb6GXaudKC8yva2u8e9ApLAmm8KlBeAd8XcUehayoSjeW9RPlBeRHEF
- 1cAm6GKTJB8b23l4R3tpnJCXDd2PBJs=
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-305-YJqk-lbtP0yC4-IIUoXi9A-1; Wed, 19 Feb 2020 07:20:51 -0500
-Received: by mail-oi1-f197.google.com with SMTP id w205so1956180oie.13
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 04:20:51 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=clkxYC/1z9yfKXnN7fWZFQnqFZiiU5RI6UWXGAB1Tv4=;
- b=he/uKEjMqJtL4m5D6l22IgTZVxcjiOoKwJ4f+uieKt/4TFquqQ+CNlKyd2DrbqpQIN
- 65VKDVj33807MXtHeggalGyotfPr5TqPLrXRmO7ZKY8sNJh1BiaqPSXwtfNwbU/KwO59
- grCc11okFeRs/oPvOc+3V9HfT82Nhq5JLHOIrsWRlLj8cNkZ0BHOWmz4WqLMdixwcru/
- i4BUJaOEDkyJXig7q6Nb7ksKIDkmY8bAQ/Pqz/GTJ8BXKIiHqCKBXI3f9EGuycdgSyUR
- owwkTHnhiHj8nSSRchpBaNnqCHIHsy614kXNFGYecPZ6Wrr4lqGL1+drewo0akxipnmv
- FM0Q==
-X-Gm-Message-State: APjAAAU9rwpec0pZ/yXTAQD0uOlBs2WwVXx7zym3TdpixNaGKz6ETHO0
- nhYKxf9CHokq0vXpKTJX+rSItRnfHhozGt71sIbwdFAIVQfb/ETAUJI0XbTgADoeVvH3ZD1k1+3
- JsLr6CIbYoHq1eYdLot75JpGfPhQ=
-X-Received: by 2002:aca:330b:: with SMTP id z11mr586094oiz.96.1582114850425;
- Wed, 19 Feb 2020 04:20:50 -0800 (PST)
-X-Google-Smtp-Source: APXvYqwXNlSm6kwq6G7jPy6jEr48JTlg2Pr4Q/CUQwOxS6hCaOggVl8tV81FYfMfIMOMMquXrjs0me36Ek1yXOjkMQ8=
-X-Received: by 2002:aca:330b:: with SMTP id z11mr586087oiz.96.1582114850191;
- Wed, 19 Feb 2020 04:20:50 -0800 (PST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 9ED403C0823
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 13:52:40 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2675F704D6F
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 13:52:39 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 3C417BCFC;
+ Wed, 19 Feb 2020 12:52:39 +0000 (UTC)
+Date: Wed, 19 Feb 2020 13:52:38 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Prachi Parekh <prachiparekh20@gmail.com>
+Message-ID: <20200219125238.GA5497@rei>
+References: <chrubis@suse.cz> <20200206113958.11567-1-prachiparekh20@gmail.com>
 MIME-Version: 1.0
-References: <20200218115918.32203-1-liwang@redhat.com>
- <0774e1e5-c326-e4aa-8c74-45de61d8276b@163.com>
-In-Reply-To: <0774e1e5-c326-e4aa-8c74-45de61d8276b@163.com>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 19 Feb 2020 20:20:34 +0800
-Message-ID: <CAEemH2c9v87NWM6k_t4d9Vi3wAYYjwfEJp2Cw-zG9pPHvdtV-Q@mail.gmail.com>
-To: Xiao Yang <ice_yangxiao@163.com>
-X-MC-Unique: YJqk-lbtP0yC4-IIUoXi9A-1
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200206113958.11567-1-prachiparekh20@gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] cleanup: avoid to generate many redundant obj
- files
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/timer_settime: timer invokes signal
+ handler using timer_settime function.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,79 +47,208 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1272870410=="
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1272870410==
-Content-Type: multipart/alternative; boundary="000000000000a3d643059eecd140"
+Hi!
+> +#include <stdlib.h>
+> +#include <errno.h>
+> +#include <time.h>
+> +#include <signal.h>
+> +#include <stdio.h>
+> +#include "lapi/common_timers.h"
+> +#include "tst_test.h"
+> +#include "tst_safe_macros.h"
+> +
+> +#define SIG SIGALRM
 
---000000000000a3d643059eecd140
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Just use SIGALRM in the code instead, there is no real need to obscure
+which signal are we using.
 
-Hi Xiao,
+> +static struct timespec timenow;
+> +static struct itimerspec new_set, old_set;
+> +static kernel_timer_t timer;
 
-Why don't you avoid libftest.o as well if you want to build test by new
-> rule?
+There is no need for three of these variables to be global at all.
 
-
-That should be generated because it is the local library. In LTP Makefile,
-the sequencing is to build the library first then compile&link to the
-testcase. We can avoid dumping the testname.o since it only exists in the
-last phase.
-
-And, I don't want to change too much for LTP build rule(I think it works
-correctly), especially in the case directory some of the local libraries
-are reused.  e.g The swapoff test needs linking to ../swapon/libswapon.o,
-that requires libswapon.o is in the correct path.
-
-Or, did I misunderstand your words? if yes, please correct me.
-
---=20
-Regards,
-Li Wang
-
---000000000000a3d643059eecd140
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_quote"><div class=3D"gmail_default" st=
-yle=3D"font-size:small">Hi Xiao,</div><div class=3D"gmail_default" style=3D=
-"font-size:small"><br></div><blockquote class=3D"gmail_quote" style=3D"marg=
-in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
-x">
-Why don&#39;t you avoid libftest.o as well if you want to build test by new=
- rule?</blockquote><div><div class=3D"gmail_default" style=3D"font-size:sma=
-ll"></div></div><div><br></div><div><div class=3D"gmail_default" style=3D"f=
-ont-size:small">That should be generated=C2=A0because it is the local libra=
-ry. In LTP Makefile, the sequencing is to build the library first then comp=
-ile&amp;link=C2=A0to=C2=A0the testcase. We can avoid dumping the testname.o=
- since it only exists in the last phase.=C2=A0</div><div class=3D"gmail_def=
-ault" style=3D"font-size:small"><br></div><div class=3D"gmail_default" styl=
-e=3D"font-size:small">And, I don&#39;t want to change too much for LTP buil=
-d rule(I think it works correctly), especially in the case directory some o=
-f the local libraries are reused.=C2=A0 e.g The swapoff test needs linking =
-to ../swapon/libswapon.o, that requires=C2=A0libswapon.o=C2=A0is in the cor=
-rect path.</div></div><div><br></div><div><div class=3D"gmail_default" styl=
-e=3D"font-size:small">Or, did I misunderstand your words? if yes, please co=
-rrect me.</div></div><div><br></div></div>-- <br><div dir=3D"ltr" class=3D"=
-gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></=
-div></div></div></div>
-
---000000000000a3d643059eecd140--
+> +static volatile int handler_var;
+                         ^
+			 It would be a bit more descriptive if this
+			 variable was called signal_caught or got_signal.
 
 
---===============1272870410==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> +static struct testcase {
+> +	struct itimerspec	*old_ptr;
+> +	int			it_value_tv_sec;
+> +	int			it_value_tv_nsec;
+> +	int			it_interval_tv_sec;
+> +	int	         	it_interval_tv_nsec;
+                 ^
+		 Spaces after a tab
 
+You can use the checkpatch.pl script, shipped along with Linux kernel
+sources, to check for style violations.
+
+> +	int			flag;
+> +	char			*description;
+> +} tcases[] = {
+> +	{&old_set, 0, 5, 0, 5, TIMER_ABSTIME, "using absolute timer"},
+> +	{NULL,     0, 5, 0, 5, 0, "using periodic timer"},
+> +};
+> +
+> +
+> +static void handler(int sig, siginfo_t *si, void *uc)
+> +{
+
+There is no point in defining the handler with the two additional
+pointers if we do not use them. Just set the sa_handler in the sigaction
+structure instead and do not set the SA_SIGINFO flag.
+
+> +	handler_var = 1;
+> +}
+> +
+> +static void run(unsigned int n)
+> +{
+> +	unsigned int i;
+> +	struct testcase *tc = &tcases[n];
+> +	tst_res(TINFO, "n = %d", n);
+
+This message is useless and only polutes the test output.
+
+> +	unsigned int u_secs = 10000;
+> +	struct sigevent evp;
+> +	struct sigaction sa;
+> +
+> +	tst_res(TINFO, "Testing for %s:", tc->description);
+> +
+> +	for (i = 0; i < CLOCKS_DEFINED; ++i) {
+> +		clock_t clock = clock_list[i];
+> +
+> +		tst_res(TINFO, "i= %d:", i);
+
+Here as well, useless message.
+
+> +		/* Establish handler for timer signal */
+
+Here you are commenting the obvious, please avoid comments like this
+one.
+
+> +		tst_res(TINFO, "Establishing handler for siganl %d:", SIG);
+
+This message is polluting the test output as well.
+
+> +		sa.sa_flags = SA_SIGINFO;
+> +		sa.sa_sigaction = handler;
+> +		sigemptyset(&sa.sa_mask);
+> +		if (sigaction(SIG, &sa, NULL) == -1)
+
+We do have SAFE_SIGACTION() please use that one instead.
+
+> +			continue;
+
+There is no need to setup the the handler for each test iteration, we
+can do that once in the test setup.
+
+> +		evp.sigev_value  = (union sigval) 0;
+> +		evp.sigev_signo  = SIG;
+> +		evp.sigev_notify = SIGEV_SIGNAL;
+> +
+> +		if (clock == CLOCK_PROCESS_CPUTIME_ID ||
+> +				clock == CLOCK_THREAD_CPUTIME_ID) {
+> +			if (!have_cputime_timers())
+> +				continue;
+> +		}
+> +
+> +		TEST(tst_syscall(__NR_timer_create, clock, &evp, &timer));
+> +
+> +		if (TST_RET != 0) {
+> +			if (possibly_unsupported(clock) && TST_ERR == EINVAL) {
+> +				tst_res(TPASS | TTERRNO,
+> +						"%s unsupported, failed as expected",
+> +						get_clock_str(clock));
+> +			} else {
+> +				tst_res(TBROK | TTERRNO,
+> +						"timer_create(%s) failed",
+> +						get_clock_str(clock));
+> +			}
+> +			continue;
+> +		}
+> +
+> +		memset(&new_set, 0, sizeof(new_set));
+> +		memset(&old_set, 0, sizeof(old_set));
+> +
+> +		new_set.it_value.tv_sec = tc->it_value_tv_sec;
+> +		new_set.it_value.tv_nsec = tc->it_value_tv_sec * 1000000;
+> +		new_set.it_interval.tv_sec = tc->it_interval_tv_sec;
+> +		new_set.it_interval.tv_nsec = tc->it_interval_tv_nsec * 1000000;
+> +
+> +		if (tc->flag & TIMER_ABSTIME) {
+> +			if (clock_gettime(clock, &timenow) < 0) {
+> +				tst_res(TBROK,
+> +						"clock_gettime(%s) failed - skipping the test",
+> +						get_clock_str(clock));
+> +				continue;
+> +			}
+> +			new_set.it_value.tv_sec += timenow.tv_sec;
+
+			Does this even work? As far as I can tell we
+			have to add both tv_sec and tv_nsec and then
+			normalize the result.
+
+			Btw we do have a library for that in
+			include/tst_timer.h, where there are fucntions
+			to add two timespec values.
+
+> +		}
+> +
+> +		TEST(tst_syscall(__NR_timer_settime, timer,
+> +					tc->flag, &new_set, tc->old_ptr));
+> +
+> +		/* sleep for sometime so periodic timer expires in that time*/
+> +		usleep(u_secs);
+
+The duration for the sleep here should either be based on the values in
+the testcase structure, or we can simply pause() here.
+
+And if we pause() here we should also measure the time we slept here and
+check that it's bounded by a reasonable value. Choosing a reasonable
+value for short sleeps is a bit difficuilt though becuase of timerslack
+and other things, so for a start we may just pause() here for now.
+
+> +		if (handler_var == 0) {
+> +			tst_res(TFAIL | TTERRNO, "%s failed",
+> +					get_clock_str(clock));
+> +		} else {
+> +			tst_res(TPASS, "%s was successful",
+> +					get_clock_str(clock));
+> +
+> +			handler_var = 0;
+
+Can we reset this at the start of the loop unconditionally please?
+
+> +			tst_res(TINFO, "Caught signal %d\n", SIG);
+
+Another useless message, if we print the PASS here it implies that the
+signal has been caught.
+
+> +		}
+
+You should delete the timer with timer_delete() here.
+
+> +	}
+> +}
+> +
+> +static struct tst_test test = {
+> +	.test = run,
+> +	.tcnt = ARRAY_SIZE(tcases),
+> +};
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1272870410==--
-
