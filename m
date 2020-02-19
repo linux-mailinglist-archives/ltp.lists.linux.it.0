@@ -1,60 +1,60 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTP id 8E767164061
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 10:28:58 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTP id 4F4CB164062
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 10:29:05 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 70EF43C24A4
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 10:28:58 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3B7A93C2532
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 10:29:05 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 1F1D53C25EC
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 10:28:33 +0100 (CET)
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
+ by picard.linux.it (Postfix) with ESMTP id 99E413C2456
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 10:28:35 +0100 (CET)
+Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
+ [IPv6:2607:f8b0:4864:20::643])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 4FBC12011E5
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 10:28:32 +0100 (CET)
-Received: by mail-pg1-x544.google.com with SMTP id z12so12442540pgl.4
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 01:28:32 -0800 (PST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DAB482011F9
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 10:28:34 +0100 (CET)
+Received: by mail-pl1-x643.google.com with SMTP id b22so9314807pls.12
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 01:28:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=AeobkxJ45t1g99CsX9IgecgtBneRGWUQ0ONyL/Xg7aQ=;
- b=Nb+WFIVBcTrpZ9R87Yv9bQSCMEr7Wo4AeafMM0NVtauN1z87qJN00WDm56PG8cx149
- gDskCGxnP9r/lXVBq/l/eoyU3LxtEOj3eFBxxmRUdx9ruBJmAbAvdRjY7aL0pQ2O313O
- kWRuieee4xKDVQUoVMFWGFNmEm8NC/3g20gtgmCN6DacVezcXROTOMT/Zg2DuOWxyNJl
- gPFjcU5Gd+cM93GcuGH6LRW5AiGYVqbKCeIRDLGcTfEKztTQpXXtUsb0wZt7vWHIFpZA
- X5bkwarjpiaQSC+0zEFVXIlWBg6H/Hh+HNhC/Q/fP3JpGaVAtexBW66uxlTj/iEs/4Zw
- 9AyA==
+ bh=7gREXfolvfhmnQd7pj0HqIASlKZzAy/ZKCGdWJkQEcY=;
+ b=Oxgz8A041sChJwpfQmksyKq46v9QVf8l8dfapeMba3IMPeeO6pmEmNHDgu0thE4SQx
+ /faVzOoSpFLCpZVO6MH1N92qvRW1TBP5fj3uCGELKhhbEXikvmNgo9EDa3LMlS9cExj+
+ vFLP0F8OglWJ6dxl/WMTL0OduMlEsW5Sm0bUoyZc6/aBoYapCiGn9utjQ3oicSAEWwkx
+ Rx/zNjHglrsKANVV7uGQIIxPvkRJCv27ZMKSbUej/EGaXFI67To6KIgNEcm+/elnICEf
+ trdMFMX+xwpf82idMXZeMpzvxbroE7NC2QF/bVNCGUcJzaf/7I4NbXNiskzepcAc3ijK
+ bS2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=AeobkxJ45t1g99CsX9IgecgtBneRGWUQ0ONyL/Xg7aQ=;
- b=g1QV645j5K5p8bGZVreQBmiFgUxh0ISYQ8nRwghC2vVdDuKrDLDFd8NmfaPOsRf4yA
- DSItVHZK2P4Px95efOlOaD0U1cS24tK9GGz0uj3RzcQQ15ImjC042yDvmVRGjQ37sxrW
- ju590wDMBcqdHwP58oQ5Cl5zHil/TY2gU4goTPkJo/KGfM2StgYW8L2865v2ZbukmpuI
- wFMyAd1xQwnbuWugfRclP9ec7ApxJYm53C+CnmRxmJ490xNNX3Rx1QTXx8VoHnVFtigi
- pqOvBFhG8sVctzJsEsJO84KaajoRo5vSxgaV9NDeZTTHWaXSYQmazTpJw0tHgOq3UZ+9
- m8tw==
-X-Gm-Message-State: APjAAAU5uzXIi9lqvX12ZxVcF1Mcay1zPhP2O13WHal/tNpRQ7tzKIbm
- t4ou9qIrh6Fkyo7p8y/VihdlwrN8fkw=
-X-Google-Smtp-Source: APXvYqz0WfRk7QkPAyABKdprAgvZMSkaFugy2KWkMMp5aV/ep+8fn9DCQD6bp5f7vzyGd7qVVgWhtw==
-X-Received: by 2002:a63:5508:: with SMTP id j8mr26365592pgb.170.1582104510378; 
- Wed, 19 Feb 2020 01:28:30 -0800 (PST)
+ bh=7gREXfolvfhmnQd7pj0HqIASlKZzAy/ZKCGdWJkQEcY=;
+ b=k5E55/brEJ6HHgd5/QVuUXf41sQwKCi5NaEacIBOXLR3CYYbx5Pghz6umkfKjU0On8
+ cZ/QegioXCDzLyE35+8CKUvmsh1n9Od/LTBjIyLwIRVHoGKbTeQFgB6bF6QOhDE4+4yB
+ D6S61BOJHCohjSPsmrZ5cs3kt5xkeIjTWAEDycdNAZwbuOXIbPHkvmREL+RLqrY/ZN11
+ iMkwN8v/71hb0u5oi1JwnKFf+PQi6CdT0W0pzz/GoMnLtYMUnM5XX5l6oeMhnpOC+PGM
+ BvG25aTB9LbOu6c+lZJPN96Uz20CYpsio5BRGUd70OfkfyxKP91LQk8HTBDztTVoBrKU
+ 4/0Q==
+X-Gm-Message-State: APjAAAXsmokjfD6AE2z3jgphSjbUlzjKDmdjzd/DiNQaj/9CoHpuZyKU
+ 0r9jhbkBsPmu08Z1S7KXQFHSggSscNs=
+X-Google-Smtp-Source: APXvYqwK6o1aqbCpu2NopnPvXm8qA5MZjIgUCAG9TzPirVW5ML/NpKlS3Umhfh+hHRYg3jJygnGesw==
+X-Received: by 2002:a17:90a:e389:: with SMTP id b9mr7900052pjz.7.1582104512977; 
+ Wed, 19 Feb 2020 01:28:32 -0800 (PST)
 Received: from localhost ([223.226.55.170])
- by smtp.gmail.com with ESMTPSA id y6sm1865612pgc.10.2020.02.19.01.28.29
+ by smtp.gmail.com with ESMTPSA id az9sm1781589pjb.3.2020.02.19.01.28.32
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 19 Feb 2020 01:28:29 -0800 (PST)
+ Wed, 19 Feb 2020 01:28:32 -0800 (PST)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Wed, 19 Feb 2020 14:58:02 +0530
-Message-Id: <9706f359006ea409d2f85c111d3e001ca6f6d128.1582104018.git.viresh.kumar@linaro.org>
+Date: Wed, 19 Feb 2020 14:58:03 +0530
+Message-Id: <98ee754dfa93fa8e9d026fd8aa57ac1c4a94795c.1582104018.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.21.0.rc0.269.g1a574e7a288b
 In-Reply-To: <cover.1582104018.git.viresh.kumar@linaro.org>
 References: <cover.1582104018.git.viresh.kumar@linaro.org>
@@ -64,7 +64,7 @@ X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH V2 06/10] syscalls/fsmount: Improve fsmount01 test
+Subject: [LTP] [PATCH V2 07/10] syscalls/fsmount: Add failure tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,155 +83,123 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This patch updates the fsmount01.c file to make it look similar to all
-other fsmount related syscall tests and here is the list of all changes:
-
-- Test all fsmount flags and mount attributes
-- Remove extra PASS messages as all we want to test here is fsmount()
-  and not other syscalls.
-- On the same lines, print TFAIL for fsmount() syscall and TBROK for
-  other calls.
-- close sfd on failures
-- Make the file look similar to other fsmount related tests
-- General cleanup
+This adds fsmount02.c tests to verify all the errors returned on
+failures.
 
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- testcases/kernel/syscalls/fsmount/fsmount01.c | 92 ++++++++++++-------
- 1 file changed, 60 insertions(+), 32 deletions(-)
+ runtest/syscalls                              |  1 +
+ testcases/kernel/syscalls/fsmount/.gitignore  |  1 +
+ testcases/kernel/syscalls/fsmount/fsmount02.c | 81 +++++++++++++++++++
+ 3 files changed, 83 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/fsmount/fsmount02.c
 
-diff --git a/testcases/kernel/syscalls/fsmount/fsmount01.c b/testcases/kernel/syscalls/fsmount/fsmount01.c
-index c3cf8106f63b..b746a14ba472 100644
---- a/testcases/kernel/syscalls/fsmount/fsmount01.c
-+++ b/testcases/kernel/syscalls/fsmount/fsmount01.c
-@@ -3,67 +3,95 @@
-  * Copyright (C) 2020 Red Hat, Inc.  All rights reserved.
-  * Author: Zorro Lang <zlang@redhat.com>
-  *
-- * Use new mount API from v5.2 (fsopen(), fsconfig(), fsmount(), move_mount())
-- * to mount a filesystem without any specified mount options.
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 4fcbd5f710eb..5b652a518dc6 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -345,6 +345,7 @@ fsconfig01 fsconfig01
+ fsconfig02 fsconfig02
+ 
+ fsmount01 fsmount01
++fsmount02 fsmount02
+ 
+ fsopen01 fsopen01
+ fsopen02 fsopen02
+diff --git a/testcases/kernel/syscalls/fsmount/.gitignore b/testcases/kernel/syscalls/fsmount/.gitignore
+index e2f01ea17a40..7b77c5e33ee6 100644
+--- a/testcases/kernel/syscalls/fsmount/.gitignore
++++ b/testcases/kernel/syscalls/fsmount/.gitignore
+@@ -1 +1,2 @@
+ /fsmount01
++/fsmount02
+diff --git a/testcases/kernel/syscalls/fsmount/fsmount02.c b/testcases/kernel/syscalls/fsmount/fsmount02.c
+new file mode 100644
+index 000000000000..cdb43612ae75
+--- /dev/null
++++ b/testcases/kernel/syscalls/fsmount/fsmount02.c
+@@ -0,0 +1,81 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
++ *
 + * Description:
-+ * Basic fsmount() test.
-  */
- 
--#include <sys/mount.h>
--
- #include "tst_test.h"
- #include "lapi/fsmount.h"
- 
--#define MNTPOINT "newmount_point"
--static int sfd, mfd, is_mounted;
++ * Basic fsmount() failure tests.
++ */
++#include "tst_test.h"
++#include "lapi/fsmount.h"
++
++int fd = -1, invalid_fd = -1;
++
 +#define MNTPOINT	"mntpoint"
 +
 +static struct tcase {
 +	char *name;
++	int *fd;
 +	unsigned int flags;
 +	unsigned int mount_attrs;
++	int exp_errno;
 +} tcases[] = {
-+	{"Flag 0, attr RDONLY", 0, MOUNT_ATTR_RDONLY},
-+	{"Flag 0, attr NOSUID", 0, MOUNT_ATTR_NOSUID},
-+	{"Flag 0, attr NODEV", 0, MOUNT_ATTR_NODEV},
-+	{"Flag 0, attr NOEXEC", 0, MOUNT_ATTR_NOEXEC},
-+	{"Flag 0, attr RELATIME", 0, MOUNT_ATTR_RELATIME},
-+	{"Flag 0, attr NOATIME", 0, MOUNT_ATTR_NOATIME},
-+	{"Flag 0, attr STRICTATIME", 0, MOUNT_ATTR_STRICTATIME},
-+	{"Flag 0, attr NODIRATIME", 0, MOUNT_ATTR_NODIRATIME},
-+	{"Flag CLOEXEC, attr RDONLY", FSMOUNT_CLOEXEC, MOUNT_ATTR_RDONLY},
-+	{"Flag CLOEXEC, attr NOSUID", FSMOUNT_CLOEXEC, MOUNT_ATTR_NOSUID},
-+	{"Flag CLOEXEC, attr NODEV", FSMOUNT_CLOEXEC, MOUNT_ATTR_NODEV},
-+	{"Flag CLOEXEC, attr NOEXEC", FSMOUNT_CLOEXEC, MOUNT_ATTR_NOEXEC},
-+	{"Flag CLOEXEC, attr RELATIME", FSMOUNT_CLOEXEC, MOUNT_ATTR_RELATIME},
-+	{"Flag CLOEXEC, attr NOATIME", FSMOUNT_CLOEXEC, MOUNT_ATTR_NOATIME},
-+	{"Flag CLOEXEC, attr STRICTATIME", FSMOUNT_CLOEXEC, MOUNT_ATTR_STRICTATIME},
-+	{"Flag CLOEXEC, attr NODIRATIME", FSMOUNT_CLOEXEC, MOUNT_ATTR_NODIRATIME},
++	{"invalid-fd", &invalid_fd, FSMOUNT_CLOEXEC, 0, EBADF},
++	{"invalid-flags", &fd, 0x02, 0, EINVAL},
++	{"invalid-attrs", &fd, FSMOUNT_CLOEXEC, 0x100, EINVAL},
 +};
- 
--static void cleanup(void)
++
++static void cleanup(void)
++{
++	if (fd != -1)
++		SAFE_CLOSE(fd);
++}
++
 +static void setup(void)
- {
--	if (is_mounted)
--		SAFE_UMOUNT(MNTPOINT);
++{
 +	fsopen_supported_by_kernel();
- }
- 
--static void test_fsmount(void)
++
++	TEST(fsopen(tst_device->fs_type, 0));
++	fd = TST_RET;
++
++	if (fd == -1)
++		tst_brk(TBROK | TERRNO, "fsopen() failed");
++
++	TEST(fsconfig(fd, FSCONFIG_SET_STRING, "source", tst_device->dev, 0));
++	if (TST_RET == -1)
++		tst_brk(TBROK | TERRNO, "fsconfig() failed");
++
++	TEST(fsconfig(fd, FSCONFIG_CMD_CREATE, NULL, NULL, 0));
++	if (TST_RET == -1)
++		tst_brk(TBROK | TERRNO, "fsconfig() failed");
++}
++
 +static void run(unsigned int n)
- {
++{
 +	struct tcase *tc = &tcases[n];
-+	int sfd, mfd;
 +
- 	TEST(fsopen(tst_device->fs_type, FSOPEN_CLOEXEC));
--	if (TST_RET < 0)
--		tst_brk(TBROK | TTERRNO, "fsopen() on %s failed", tst_device->fs_type);
-+	if (TST_RET == -1) {
-+		tst_brk(TBROK | TTERRNO, "fsopen() on %s failed",
-+			tst_device->fs_type);
++	TEST(fsmount(*tc->fd, tc->flags, tc->mount_attrs));
++	if (TST_RET != -1) {
++		SAFE_CLOSE(TST_RET);
++		tst_brk(TFAIL, "%s: fsmount() succeeded unexpectedly (index: %d)",
++			tc->name, n);
 +	}
- 	sfd = TST_RET;
--	tst_res(TPASS, "fsopen() on %s", tst_device->fs_type);
- 
- 	TEST(fsconfig(sfd, FSCONFIG_SET_STRING, "source", tst_device->dev, 0));
--	if (TST_RET < 0)
-+	if (TST_RET < 0) {
-+		SAFE_CLOSE(sfd);
- 		tst_brk(TBROK | TTERRNO,
- 			"fsconfig() failed to set source to %s", tst_device->dev);
--	tst_res(TPASS, "fsconfig() set source to %s", tst_device->dev);
--
-+	}
- 
- 	TEST(fsconfig(sfd, FSCONFIG_CMD_CREATE, NULL, NULL, 0));
--	if (TST_RET < 0)
-+	if (TST_RET < 0) {
-+		SAFE_CLOSE(sfd);
- 		tst_brk(TBROK | TTERRNO, "fsconfig() created superblock");
--	tst_res(TPASS, "fsconfig() created superblock");
-+	}
- 
--	TEST(fsmount(sfd, FSMOUNT_CLOEXEC, 0));
--	if (TST_RET < 0)
--		tst_brk(TBROK | TTERRNO, "fsmount() failed to create a mount object");
--	mfd = TST_RET;
--	tst_res(TPASS, "fsmount() created a mount object");
-+	TEST(fsmount(sfd, tc->flags, tc->mount_attrs));
- 	SAFE_CLOSE(sfd);
- 
-+	if (TST_RET < 0) {
-+		tst_brk(TFAIL | TTERRNO,
-+			"fsmount() failed to create a mount object");
-+	}
-+	mfd = TST_RET;
 +
- 	TEST(move_mount(mfd, "", AT_FDCWD, MNTPOINT, MOVE_MOUNT_F_EMPTY_PATH));
--	if (TST_RET < 0)
--		tst_brk(TBROK | TTERRNO, "move_mount() failed to attach to the mount point");
--	is_mounted = 1;
--	tst_res(TPASS, "move_mount() attached to the mount point");
- 	SAFE_CLOSE(mfd);
- 
--	if (!tst_ismount(MNTPOINT)) {
--		SAFE_UMOUNT(MNTPOINT);
--		is_mounted = 0;
-+	if (TST_RET < 0) {
-+		tst_brk(TBROK | TTERRNO,
-+			"move_mount() failed to attach to the mount point");
- 	}
++	if (tc->exp_errno != TST_ERR) {
++		tst_brk(TFAIL | TTERRNO, "%s: fsmount() should fail with %s",
++			tc->name, tst_strerrno(tc->exp_errno));
++	}
 +
-+	if (!tst_ismount(MNTPOINT))
-+		tst_res(TPASS, "%s: fsmount() passed", tc->name);
++	tst_res(TPASS | TTERRNO, "%s: fsmount() failed as expected", tc->name);
++}
 +
-+	SAFE_UMOUNT(MNTPOINT);
- }
- 
- static struct tst_test test = {
--	.test_all = test_fsmount,
--	.cleanup = cleanup,
++static struct tst_test test = {
 +	.tcnt = ARRAY_SIZE(tcases),
 +	.test = run,
 +	.setup = setup,
- 	.needs_root = 1,
- 	.mntpoint = MNTPOINT,
- 	.format_device = 1,
++	.cleanup = cleanup,
++	.needs_root = 1,
++	.mntpoint = MNTPOINT,
++	.format_device = 1,
++	.all_filesystems = 1,
++	.dev_fs_flags = TST_FS_SKIP_FUSE,
++};
 -- 
 2.21.0.rc0.269.g1a574e7a288b
 
