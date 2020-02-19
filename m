@@ -2,51 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC987164233
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 11:33:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EC7716423F
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 11:35:12 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1915A3C2467
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 11:33:08 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BAFED3C25EE
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 11:35:11 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 6D55D3C1840
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 11:33:04 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id A43FE1401A95
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 11:33:01 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.70,459,1574092800"; d="scan'208";a="83560368"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 19 Feb 2020 18:32:59 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 8DDB1406AB15;
- Wed, 19 Feb 2020 18:23:16 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1395.4; Wed, 19 Feb 2020 18:32:53 +0800
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <MAXPR0101MB1468A284450566343010E440EE110@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>
- <fa9fae7c-2110-d710-7df8-c3885e54d706@cn.fujitsu.com>
- <20200219102329.GA28580@rei>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <cd8d9a9f-9513-35c5-0b59-6ab4dd60c5fd@cn.fujitsu.com>
-Date: Wed, 19 Feb 2020 18:32:53 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 459013C1840
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 11:35:07 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id EB0741401A9F
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 11:35:06 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 2344CACD9;
+ Wed, 19 Feb 2020 10:35:06 +0000 (UTC)
+Date: Wed, 19 Feb 2020 11:35:05 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.de>
+Message-ID: <20200219103505.GB28580@rei>
+References: <20191204103120.29440-1-rpalethorpe@suse.com>
+ <CACT4Y+aMum6OJS_t-_-sXOUftPegFGrAjCvYJ-0g+5z7=aX7GQ@mail.gmail.com>
+ <877e0jgewo.fsf@our.domain.is.not.set>
 MIME-Version: 1.0
-In-Reply-To: <20200219102329.GA28580@rei>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 8DDB1406AB15.ACB20
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
+Content-Disposition: inline
+In-Reply-To: <877e0jgewo.fsf@our.domain.is.not.set>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] cpuset_regression_test failure
+Subject: Re: [LTP] [PATCH v2] Wrapper for Syzkaller reproducers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,36 +49,47 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Pankaj Vinadrao Joshi <Pankaj.VJ@exaleapsemi.com>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: syzkaller <syzkaller@googlegroups.com>, ltp@lists.linux.it,
+ Richard Palethorpe <rpalethorpe@suse.com>, Dmitry Vyukov <dvyukov@google.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-
-Hi Cyril
-> Hi!
->>> I am trying to run *cpuset_regression_test* on my linux 5.4.3 with our
->>> Yocto distro,i got *FAIL* result for this test when i ran complete ltp
->>> test but i did not got reason for test failure but when i tried to run
->>> this test seperately it showing is it correct way to run this test,how
->>> this test needs to be ran independently?
->> sh can not be ran independently unless using runltp sh.
+Hi!
+> >> Allows one to run the Syzkaller reproducers as part of the LTP.
+> >>
+> >> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+> >> ---
+> >>
+> >> V2:
+> >>
+> >> * Will now refuse to compile on anything other than x86_64, because I haven't
+> >>   tested them on anything else.
+> >>
+> >> * Hopefully fixed problem with submodule not being found because I didn't
+> >>   include a commit reference.
+> >>
+> >> * Added explicity 'no' value if --with-syzkaller-repros is not present
+> >>
+> >> * Reduced the default timeout in the test to 20 seconds. I found this allows
+> >>   me to complete testing in reasonable time.
+> >
+> > What's the status of this? This wasn't merged yet, right?
+> > I don't see this here:
+> > https://github.com/linux-test-project/ltp/tree/master/testcases/kernel
 > 
-> They could, but you have to setup $PATH correctly first, we are sourcing
-> shell scripts and executing binaries from /opt/ltp/testcases/bin, so in
-> most cases this should work:
-> 
-> PATH="$PATH:/opt/ltp/testcases/bin" ./foo.sh
+> Yeah, it fell to one side due to the LTP release, SUSE Hackweek and lack
+> of feedback. Hopefully we can get it merged soon however.
 
-Yes, you are right. Sorry for the wrong info.
+You don't forget about FOSDEM. Unfortunatelly we have managed to
+accumulate quite a backlog at the start of the year.
 
-Best Regards
-Yang Xu
-> 
+However I do plan to return to this once things settle down a bit.
 
-
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
