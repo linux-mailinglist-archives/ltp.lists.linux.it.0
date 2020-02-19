@@ -1,70 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTP id 1E9DF164067
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 10:29:24 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTP id CFE6C164086
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 10:37:25 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 028763C0ECE
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 10:29:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BB6F63C24B8
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 10:37:25 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 69AFE3C266F
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 10:28:44 +0100 (CET)
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [IPv6:2607:f8b0:4864:20::629])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id F006B3C005E
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 10:37:17 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id BD9191001575
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 10:27:59 +0100 (CET)
-Received: by mail-pl1-x629.google.com with SMTP id p11so9311070plq.10
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 01:28:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=HUERrjfW7zaHlYpAxpUp6/gCZ6B2CxkSaawQuqlHexk=;
- b=FKmcyB34ybDWfqP5lvZngl4p+QQLLuVA5Mo7WeSDGBPqQ7Qq6Al34Wp+P9z6BaovqA
- FE218Q9xusv4U9cHhlRVx1WmVnti740pu2P7NMqzTzAeyYb/LX5H2oSC84MMv6o5qaMP
- ENWLE39oNtX7jznPyL7JwHOF7iC8Daebhzcdz/o5AobKYfLFrcDnFJBHcdiL0ItTL0EI
- OpUQlaPrs7NPk8E9kgcvu7EH4prA35mShy+qrh9+7/hWpXgk9Xq4e2sr2kC0xU0sRE+W
- DDuQNxmWUciP4um97SiD9NVr7vxkpmqysstzRBM+5Fn1WN1rgRfGvrSDkNxc9JPmwt5t
- GzWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=HUERrjfW7zaHlYpAxpUp6/gCZ6B2CxkSaawQuqlHexk=;
- b=o+jHNPKvr7ADj/+DEMEOmKqM8O+Z6j3jsCjrczCkG/IGfM4nhpBmlxPvRPA8CLcU4N
- su1qESGH0IeXQ7QtNyhiOyzQCPycRdInaBxcpX6BeVJ7iGxWQHil1z8/pLsixTAz8ibO
- IqJf9actM+s42W6iUrme9PJcZhfXHfShsZsYjUR3ncID397TOA+p/wPR63GDn4FmvHHO
- LUw1EWCqxTnkgfDgyCiQ6jy/+SZfRmWws+D0x7biOYTh7FV7aC62Rbwe/WeA0VK/REh/
- q/XKr2q1esYfrAcv+l39JG5mU4/tt8CbyQEAQR4+eTMOmOZD4xvQiGJNLdKM9R1q9ux+
- Ytpw==
-X-Gm-Message-State: APjAAAXiVBDaltIF51uyxJUcYZhmEu+DmTFwQ60eQpNz5Tog0N58ClGz
- KurLf460GvdpOn4vy8i0zVGU9WMvihQ=
-X-Google-Smtp-Source: APXvYqziKKznCT8UzWhMwmhqDJDR4YaDOhhHAc6JitAVXE/JvYFKWMqhmd9BCVp8os01q73rqao77g==
-X-Received: by 2002:a17:902:6b07:: with SMTP id
- o7mr24569246plk.141.1582104520852; 
- Wed, 19 Feb 2020 01:28:40 -0800 (PST)
-Received: from localhost ([223.226.55.170])
- by smtp.gmail.com with ESMTPSA id r2sm1792313pgg.41.2020.02.19.01.28.39
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 19 Feb 2020 01:28:40 -0800 (PST)
-From: Viresh Kumar <viresh.kumar@linaro.org>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 31D3A1401A34
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 10:37:16 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 52406AF3E
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 09:37:16 +0000 (UTC)
+From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 19 Feb 2020 14:58:06 +0530
-Message-Id: <da324ef2c06239f2cb7fc1eee436209e3bd2e35a.1582104018.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.21.0.rc0.269.g1a574e7a288b
-In-Reply-To: <cover.1582104018.git.viresh.kumar@linaro.org>
-References: <cover.1582104018.git.viresh.kumar@linaro.org>
+Date: Wed, 19 Feb 2020 10:37:05 +0100
+Message-Id: <20200219093706.9043-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.25.0
+In-Reply-To: <20200130144146.20846-1-mdoucha@suse.cz>
+References: <20200130144146.20846-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH V2 10/10] syscalls/open_tree: New tests
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 3/4] Add LVM support scripts
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,295 +46,314 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, Vikas.Kumar2@arm.com,
- Viresh Kumar <viresh.kumar@linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add tests to check working of open_tree() syscall.
+Add support scripts for LVM tests that can be used with external testing tools.
+- generate_lvm_runfile.sh - Creates runtest/lvm.local with testcases for all
+  locally supported FS types
+- prepare_lvm.sh - Creates 2 LVM volume groups and mounts logical volumes
+  for all locally supported FS types
+- cleanup_lvm.sh - remove LVM volume groups created by prepare_lvm.sh and
+  release the associated loop devices
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
- runtest/syscalls                              |   3 +
- .../kernel/syscalls/open_tree/.gitignore      |   2 +
- testcases/kernel/syscalls/open_tree/Makefile  |   6 +
- .../kernel/syscalls/open_tree/open_tree01.c   | 115 ++++++++++++++++++
- .../kernel/syscalls/open_tree/open_tree02.c   | 104 ++++++++++++++++
- 5 files changed, 230 insertions(+)
- create mode 100644 testcases/kernel/syscalls/open_tree/.gitignore
- create mode 100644 testcases/kernel/syscalls/open_tree/Makefile
- create mode 100644 testcases/kernel/syscalls/open_tree/open_tree01.c
- create mode 100644 testcases/kernel/syscalls/open_tree/open_tree02.c
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index b73df9a7cbec..79a2579e5903 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -844,6 +844,9 @@ openat01 openat01
- openat02 openat02
- openat03 openat03
- 
-+open_tree01 open_tree01
-+open_tree02 open_tree02
+Changes since v1:
+- rename generate_runfile.sh to generate_lvm_runfile.sh
+- update above commit message
+
+Changes since v2:
+- fix filename in misc/lvm/Makefile
+
+Changes since v3:
+- LVM volume size increased to 1GB
+- cleaned up some useless code in runfile template
+- test cases with `growfiles -L ...` limited to 768MB of disk space
+
+ testcases/misc/lvm/Makefile                | 29 ++++++++
+ testcases/misc/lvm/cleanup_lvm.sh          | 34 +++++++++
+ testcases/misc/lvm/datafiles/Makefile      | 19 +++++
+ testcases/misc/lvm/datafiles/runfile.tpl   | 36 ++++++++++
+ testcases/misc/lvm/generate_lvm_runfile.sh | 27 +++++++
+ testcases/misc/lvm/prepare_lvm.sh          | 83 ++++++++++++++++++++++
+ 6 files changed, 228 insertions(+)
+ create mode 100644 testcases/misc/lvm/Makefile
+ create mode 100755 testcases/misc/lvm/cleanup_lvm.sh
+ create mode 100644 testcases/misc/lvm/datafiles/Makefile
+ create mode 100644 testcases/misc/lvm/datafiles/runfile.tpl
+ create mode 100755 testcases/misc/lvm/generate_lvm_runfile.sh
+ create mode 100755 testcases/misc/lvm/prepare_lvm.sh
+
+diff --git a/testcases/misc/lvm/Makefile b/testcases/misc/lvm/Makefile
+new file mode 100644
+index 000000000..3dbc996c8
+--- /dev/null
++++ b/testcases/misc/lvm/Makefile
+@@ -0,0 +1,29 @@
++#
++#    misc/lvm testcases Makefile.
++#
++#    Copyright (C) 2009, Cisco Systems Inc.
++#
++#    This program is free software; you can redistribute it and/or modify
++#    it under the terms of the GNU General Public License as published by
++#    the Free Software Foundation; either version 2 of the License, or
++#    (at your option) any later version.
++#
++#    This program is distributed in the hope that it will be useful,
++#    but WITHOUT ANY WARRANTY; without even the implied warranty of
++#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++#    GNU General Public License for more details.
++#
++#    You should have received a copy of the GNU General Public License along
++#    with this program; if not, write to the Free Software Foundation, Inc.,
++#    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
++#
++# Ngie Cooper, July 2009
++#
 +
- mincore01 mincore01
- mincore02 mincore02
- 
-diff --git a/testcases/kernel/syscalls/open_tree/.gitignore b/testcases/kernel/syscalls/open_tree/.gitignore
-new file mode 100644
-index 000000000000..2f732b44518e
++top_srcdir		?= ../../..
++
++include $(top_srcdir)/include/mk/env_pre.mk
++
++INSTALL_TARGETS		:= generate_lvm_runfile.sh prepare_lvm.sh cleanup_lvm.sh
++
++include $(top_srcdir)/include/mk/generic_trunk_target.mk
+diff --git a/testcases/misc/lvm/cleanup_lvm.sh b/testcases/misc/lvm/cleanup_lvm.sh
+new file mode 100755
+index 000000000..e18efe2b0
 --- /dev/null
-+++ b/testcases/kernel/syscalls/open_tree/.gitignore
-@@ -0,0 +1,2 @@
-+/open_tree01
-+/open_tree02
-diff --git a/testcases/kernel/syscalls/open_tree/Makefile b/testcases/kernel/syscalls/open_tree/Makefile
-new file mode 100644
-index 000000000000..5ea7d67db123
---- /dev/null
-+++ b/testcases/kernel/syscalls/open_tree/Makefile
-@@ -0,0 +1,6 @@
++++ b/testcases/misc/lvm/cleanup_lvm.sh
+@@ -0,0 +1,34 @@
++#!/bin/sh
 +# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2020 SUSE LLC <mdoucha@suse.cz>
++#
++# Clean up LVM volume groups created by prepare_lvm.sh
++
++TST_TESTFUNC=cleanup_lvm
++TST_NEEDS_ROOT=1
++TST_NEEDS_CMDS="losetup umount vgremove"
++. tst_test.sh
++
++LVM_TMPDIR="/tmp/ltp/growfiles"
++LVM_IMGDIR="/tmp/ltp/imgfiles"
++
++cleanup_lvm()
++{
++	DEVLIST=`losetup -lnO NAME,BACK-FILE | grep "$LVM_IMGDIR" | cut -d ' ' -f 1`
++
++	for dir in "$LVM_TMPDIR/"*; do
++		tst_umount $dir
++	done
++
++	ROD vgremove -y ltp_test_vg1
++	ROD vgremove -y ltp_test_vg2
++
++	for devname in $DEVLIST; do
++		ROD tst_device release $devname
++	done
++
++	rm -rf /tmp/ltp
++	tst_res TPASS "LVM configuration for LTP removed successfully."
++}
++
++tst_run
+diff --git a/testcases/misc/lvm/datafiles/Makefile b/testcases/misc/lvm/datafiles/Makefile
+new file mode 100644
+index 000000000..25455ccbf
+--- /dev/null
++++ b/testcases/misc/lvm/datafiles/Makefile
+@@ -0,0 +1,19 @@
++#
++#    Copyright (C) 2020, Linux Test Project.
++#
++#    This program is free software; you can redistribute it and/or modify
++#    it under the terms of the GNU General Public License as published by
++#    the Free Software Foundation; either version 2 of the License, or
++#    (at your option) any later version.
++#
++#    This program is distributed in the hope that it will be useful,
++#    but WITHOUT ANY WARRANTY; without even the implied warranty of
++#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++#    GNU General Public License for more details.
 +
 +top_srcdir		?= ../../../..
 +
-+include $(top_srcdir)/include/mk/testcases.mk
++include $(top_srcdir)/include/mk/env_pre.mk
++INSTALL_DIR		:= testcases/data/lvm
++INSTALL_TARGETS		:= runfile.tpl
 +include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/open_tree/open_tree01.c b/testcases/kernel/syscalls/open_tree/open_tree01.c
+diff --git a/testcases/misc/lvm/datafiles/runfile.tpl b/testcases/misc/lvm/datafiles/runfile.tpl
 new file mode 100644
-index 000000000000..93df51a3fa11
+index 000000000..0c6080236
 --- /dev/null
-+++ b/testcases/kernel/syscalls/open_tree/open_tree01.c
-@@ -0,0 +1,115 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
-+ *
-+ * Description:
-+ * Basic open_tree() test.
-+ */
-+#include "tst_test.h"
-+#include "lapi/fsmount.h"
-+
-+#define MNTPOINT	"mntpoint"
-+#define OT_MNTPOINT	"ot_mntpoint"
-+
-+static struct tcase {
-+	char *name;
-+	unsigned int flags;
-+} tcases[] = {
-+	{"Flag OPEN_TREE_CLONE", OPEN_TREE_CLONE},
-+	{"Flag OPEN_TREE_CLOEXEC", OPEN_TREE_CLONE | OPEN_TREE_CLOEXEC},
-+};
-+
-+static int dir_created;
-+
-+static void setup(void)
-+{
-+	fsopen_supported_by_kernel();
-+
-+	SAFE_MKDIR(OT_MNTPOINT, 0777);
-+	dir_created = 1;
-+}
-+
-+static void cleanup(void)
-+{
-+	if (dir_created)
-+		SAFE_RMDIR(OT_MNTPOINT);
-+}
-+
-+static void run(unsigned int n)
-+{
-+	struct tcase *tc = &tcases[n];
-+	int fd, fsmfd, otfd;
-+
-+	TEST(fsopen(tst_device->fs_type, 0));
-+	fd = TST_RET;
-+
-+	if (fd == -1)
-+		tst_brk(TBROK | TERRNO, "fsopen() failed");
-+
-+	TEST(fsconfig(fd, FSCONFIG_SET_STRING, "source", tst_device->dev, 0));
-+	if (TST_RET == -1) {
-+		SAFE_CLOSE(fd);
-+		tst_brk(TBROK | TERRNO, "fsconfig failed");
-+	}
-+
-+	TEST(fsconfig(fd, FSCONFIG_CMD_CREATE, NULL, NULL, 0));
-+	if (TST_RET == -1) {
-+		SAFE_CLOSE(fd);
-+		tst_brk(TBROK | TERRNO, "fsconfig failed");
-+	}
-+
-+	TEST(fsmount(fd, 0, 0));
-+	SAFE_CLOSE(fd);
-+
-+	if (TST_RET == -1)
-+		tst_brk(TBROK | TERRNO, "fsmount() failed");
-+
-+	fsmfd = TST_RET;
-+
-+	TEST(move_mount(fsmfd, "", AT_FDCWD, MNTPOINT,
-+			MOVE_MOUNT_F_EMPTY_PATH));
-+	SAFE_CLOSE(fsmfd);
-+
-+	if (TST_RET == -1)
-+		tst_brk(TBROK | TERRNO, "move_mount() failed");
-+
-+	if (tst_ismount(MNTPOINT)) {
-+		tst_res(TBROK | TERRNO, "device not mounted");
-+		goto out;
-+	}
-+
-+	TEST(open_tree(AT_FDCWD, MNTPOINT, tc->flags));
-+	if (TST_RET == -1) {
-+		tst_res(TFAIL | TERRNO, "open_tree() failed");
-+		goto out;
-+	}
-+
-+	otfd = TST_RET;
-+	TEST(move_mount(otfd, "", AT_FDCWD, OT_MNTPOINT,
-+			MOVE_MOUNT_F_EMPTY_PATH));
-+	SAFE_CLOSE(otfd);
-+
-+	if (TST_RET == -1) {
-+		tst_res(TBROK | TERRNO, "move_mount() failed");
-+		goto out;
-+	}
-+
-+	if (!tst_ismount(OT_MNTPOINT))
-+		tst_res(TPASS, "%s: open_tree() passed", tc->name);
-+
-+	SAFE_UMOUNT(OT_MNTPOINT);
-+out:
-+	SAFE_UMOUNT(MNTPOINT);
-+}
-+
-+static struct tst_test test = {
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.test = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.needs_root = 1,
-+	.format_device = 1,
-+	.mntpoint = MNTPOINT,
-+	.all_filesystems = 1,
-+	.dev_fs_flags = TST_FS_SKIP_FUSE,
-+};
-diff --git a/testcases/kernel/syscalls/open_tree/open_tree02.c b/testcases/kernel/syscalls/open_tree/open_tree02.c
-new file mode 100644
-index 000000000000..e752bb45b24e
++++ b/testcases/misc/lvm/datafiles/runfile.tpl
+@@ -0,0 +1,36 @@
++# Check the {fsname} filesystem
++{fsname}_gf02 growfiles -W {fsname}_gf02 -d /tmp/ltp/growfiles/{fsname} -b -e 1 -L 10 -B 805306368 -i 100 -I p -S 2 -u -f gf03_
++{fsname}_gf03 growfiles -W {fsname}_gf03 -d /tmp/ltp/growfiles/{fsname} -b -e 1 -g 1 -i 1 -S 150 -u -f gf05_
++{fsname}_gf04 growfiles -W {fsname}_gf04 -d /tmp/ltp/growfiles/{fsname} -b -e 1 -g 4090 -i 500 -t 39000 -u -f gf06_
++{fsname}_gf05 growfiles -W {fsname}_gf05 -d /tmp/ltp/growfiles/{fsname} -b -e 1 -g 5000 -i 500 -t 49900 -T10 -c9 -I p -u -f gf07_
++{fsname}_gf16 growfiles -W {fsname}_gf16 -d /tmp/ltp/growfiles/{fsname} -b -e 1 -i 0 -L 120 -B 805306368 -u -g 4090 -T 100 -t 408990 -l -C 10 -c 1000 -S 10 -f Lgf02_
++{fsname}_gf17 growfiles -W {fsname}_gf17 -d /tmp/ltp/growfiles/{fsname} -b -e 1 -i 0 -L 120 -B 805306368 -u -g 5000 -T 100 -t 499990 -l -C 10 -c 1000 -S 10 -f Lgf03_
++{fsname}_gf18 growfiles -W {fsname}_gf18 -d /tmp/ltp/growfiles/{fsname} -b -e 1 -i 0 -L 120 -B 805306368 -w -u -r 10-5000 -I r -T 10 -l -S 2 -f Lgf04_
++{fsname}_gf19 growfiles -W {fsname}_gf19 -d /tmp/ltp/growfiles/{fsname} -b -e 1 -g 5000 -i 500 -t 49900 -T10 -c9 -I p -o O_RDWR,O_CREAT,O_TRUNC -u -f gf08i_
++{fsname}_gf12 mkfifo /tmp/ltp/growfiles/{fsname}/gffifo17; growfiles -W {fsname}_gf12 -b -e 1 -u -i 0 -L 30 -B 805306368 /tmp/ltp/growfiles/{fsname}/gffifo17
++{fsname}_gf13 mkfifo /tmp/ltp/growfiles/{fsname}/gffifo18; growfiles -W {fsname}_gf13 -b -e 1 -u -i 0 -L 30 -B 805306368 -I r -r 1-4096 /tmp/ltp/growfiles/{fsname}/gffifo18
++{fsname}_gf01 growfiles -W {fsname}_gf01 -b -e 1 -u -i 0 -L 20 -B 805306368 -w -C 1 -l -I r -T 10 /tmp/ltp/growfiles/{fsname}/glseek20 /tmp/ltp/growfiles/{fsname}/glseek20.2
++{fsname}_gf06 growfiles -W {fsname}_gf06 -b -e 1 -u -r 1-5000 -R 0--1 -i 0 -L 30 -B 805306368 -C 1 /tmp/ltp/growfiles/{fsname}/g_rand10 /tmp/ltp/growfiles/{fsname}/g_rand10.2
++{fsname}_gf07 growfiles -W {fsname}_gf07 -b -e 1 -u -r 1-5000 -R 0--2 -i 0 -L 30 -B 805306368 -C 1 -I p /tmp/ltp/growfiles/{fsname}/g_rand13 /tmp/ltp/growfiles/{fsname}/g_rand13.2
++{fsname}_gf08 growfiles -W {fsname}_gf08 -b -e 1 -u -r 1-5000 -R 0--2 -i 0 -L 30 -B 805306368 -C 1 /tmp/ltp/growfiles/{fsname}/g_rand11 /tmp/ltp/growfiles/{fsname}/g_rand11.2
++{fsname}_gf09 growfiles -W {fsname}_gf09 -b -e 1 -u -r 1-5000 -R 0--1 -i 0 -L 30 -B 805306368 -C 1 -I p /tmp/ltp/growfiles/{fsname}/g_rand12 /tmp/ltp/growfiles/{fsname}/g_rand12.2
++{fsname}_gf10 growfiles -W {fsname}_gf10 -b -e 1 -u -r 1-5000 -i 0 -L 30 -B 805306368 -C 1 -I l /tmp/ltp/growfiles/{fsname}/g_lio14 /tmp/ltp/growfiles/{fsname}/g_lio14.2
++{fsname}_gf11 growfiles -W {fsname}_gf11 -b -e 1 -u -r 1-5000 -i 0 -L 30 -B 805306368 -C 1 -I L /tmp/ltp/growfiles/{fsname}/g_lio15 /tmp/ltp/growfiles/{fsname}/g_lio15.2
++{fsname}_gf14 growfiles -W {fsname}_gf14 -b -e 1 -u -i 0 -L 20 -B 805306368 -w -l -C 1 -T 10 /tmp/ltp/growfiles/{fsname}/glseek19 /tmp/ltp/growfiles/{fsname}/glseek19.2
++{fsname}_gf15 growfiles -W {fsname}_gf15 -b -e 1 -u -r 1-49600 -I r -u -i 0 -L 120 -B 805306368 /tmp/ltp/growfiles/{fsname}/Lgfile1
++{fsname}_gf20 growfiles -W {fsname}_gf20 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -r 1-256000:512 -R 512-256000 -T 4 /tmp/ltp/growfiles/{fsname}/gfbigio-$$
++{fsname}_gf21 growfiles -W {fsname}_gf21 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -g 20480 -T 10 -t 20480 /tmp/ltp/growfiles/{fsname}/gf-bld-$$
++{fsname}_gf22 growfiles -W {fsname}_gf22 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -g 20480 -T 10 -t 20480 /tmp/ltp/growfiles/{fsname}/gf-bldf-$$
++{fsname}_gf23 growfiles -W {fsname}_gf23 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -r 512-64000:1024 -R 1-384000 -T 4 /tmp/ltp/growfiles/{fsname}/gf-inf-$$
++{fsname}_gf24 growfiles -W {fsname}_gf24 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -g 20480 /tmp/ltp/growfiles/{fsname}/gf-jbld-$$
++{fsname}_gf25 growfiles -W {fsname}_gf25 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -r 1024000-2048000:2048 -R 4095-2048000 -T 1 /tmp/ltp/growfiles/{fsname}/gf-large-gs-$$
++{fsname}_gf26 growfiles -W {fsname}_gf26 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -r 128-32768:128 -R 512-64000 -T 4 /tmp/ltp/growfiles/{fsname}/gfsmallio-$$
++{fsname}_gf27 growfiles -W {fsname}_gf27 -b -D 0 -w -g 8b -C 1 -b -i 1000 -u /tmp/ltp/growfiles/{fsname}/gfsparse-1-$$
++{fsname}_gf28 growfiles -W {fsname}_gf28 -b -D 0 -w -g 16b -C 1 -b -i 1000 -u /tmp/ltp/growfiles/{fsname}/gfsparse-2-$$
++{fsname}_gf29 growfiles -W {fsname}_gf29 -b -D 0 -r 1-4096 -R 0-33554432 -i 0 -L 60 -B 805306368 -C 1 -u /tmp/ltp/growfiles/{fsname}/gfsparse-3-$$
++{fsname}_gf30 growfiles -W {fsname}_gf30 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -o O_RDWR,O_CREAT,O_SYNC -g 20480 -T 10 -t 20480 /tmp/ltp/growfiles/{fsname}/gf-sync-$$
++{fsname}_rwtest01 rwtest -N rwtest01 -c -q -i 60s  -f sync 10%25000:rw-sync-$$ 500b:/tmp/ltp/growfiles/{fsname}/rwtest01%f
++{fsname}_rwtest02 rwtest -N rwtest02 -c -q -i 60s  -f buffered 10%25000:rw-buffered-$$ 500b:/tmp/ltp/growfiles/{fsname}/rwtest02%f
++{fsname}_rwtest03 rwtest -N rwtest03 -c -q -i 60s -n 2  -f buffered -s mmread,mmwrite -m random -Dv 10%25000:mm-buff-$$ 500b:/tmp/ltp/growfiles/{fsname}/rwtest03%f
++{fsname}_rwtest04 rwtest -N rwtest04 -c -q -i 60s -n 2  -f sync -s mmread,mmwrite -m random -Dv 10%25000:mm-sync-$$ 500b:/tmp/ltp/growfiles/{fsname}/rwtest04%f
++{fsname}_rwtest05 rwtest -N rwtest05 -c -q -i 50 -T 64b 500b:/tmp/ltp/growfiles/{fsname}/rwtest05%f
+diff --git a/testcases/misc/lvm/generate_lvm_runfile.sh b/testcases/misc/lvm/generate_lvm_runfile.sh
+new file mode 100755
+index 000000000..b5e979e6b
 --- /dev/null
-+++ b/testcases/kernel/syscalls/open_tree/open_tree02.c
-@@ -0,0 +1,104 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
-+ *
-+ * Description:
-+ * Basic open_tree() failure tests.
-+ */
-+#include "tst_test.h"
-+#include "lapi/fsmount.h"
++++ b/testcases/misc/lvm/generate_lvm_runfile.sh
+@@ -0,0 +1,27 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2020 SUSE LLC <mdoucha@suse.cz>
++#
++# Generate LTP runfile for LVM tests (runtest/lvm.local)
 +
-+#define MNTPOINT	"mntpoint"
++TST_TESTFUNC=generate_runfile
++TST_NEEDS_ROOT=1
++TST_NEEDS_CMDS="sed"
++. tst_test.sh
 +
-+static struct tcase {
-+	char *name;
-+	int dirfd;
-+	const char *pathname;
-+	unsigned int flags;
-+	int exp_errno;
-+} tcases[] = {
-+	{"invalid-fd", -1, MNTPOINT, OPEN_TREE_CLONE, EBADF},
-+	{"invalid-path", AT_FDCWD, "invalid", OPEN_TREE_CLONE, ENOENT},
-+	{"invalid-flags", AT_FDCWD, MNTPOINT, 0xFFFFFFFF, EINVAL},
-+};
-+
-+static int ismounted;
-+
-+static void cleanup(void)
++generate_runfile()
 +{
-+	if (ismounted)
-+		SAFE_UMOUNT(MNTPOINT);
++	trap 'tst_brk TBROK "Cannot create LVM runfile"' ERR
++	INFILE="$LTPROOT/testcases/data/lvm/runfile.tpl"
++	OUTFILE="$LTPROOT/runtest/lvm.local"
++	FS_LIST=`tst_supported_fs`
++	echo -n "" >"$OUTFILE"
++
++	for fsname in $FS_LIST; do
++		sed -e "s/{fsname}/$fsname/g" "$INFILE" >>"$OUTFILE"
++	done
++
++	tst_res TPASS "Runfile $OUTFILE successfully created"
 +}
 +
-+static void setup(void)
++tst_run
+diff --git a/testcases/misc/lvm/prepare_lvm.sh b/testcases/misc/lvm/prepare_lvm.sh
+new file mode 100755
+index 000000000..a9acd50e0
+--- /dev/null
++++ b/testcases/misc/lvm/prepare_lvm.sh
+@@ -0,0 +1,83 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2020 SUSE LLC <mdoucha@suse.cz>
++#
++# Create and mount LVM volume groups for lvm.local runfile
++
++TST_TESTFUNC=prepare_lvm
++TST_NEEDS_ROOT=1
++TST_NEEDS_CMDS="mount pvcreate vgcreate lvcreate"
++. tst_test.sh
++
++LVM_TMPDIR="/tmp/ltp/growfiles"
++LVM_IMGDIR="/tmp/ltp/imgfiles"
++
++error_check()
 +{
-+	int fd, fsmfd;
-+
-+	fsopen_supported_by_kernel();
-+
-+	TEST(fsopen(tst_device->fs_type, 0));
-+	fd = TST_RET;
-+
-+	if (fd == -1)
-+		tst_brk(TBROK | TERRNO, "fsopen() failed");
-+
-+	TEST(fsconfig(fd, FSCONFIG_SET_STRING, "source", tst_device->dev, 0));
-+	if (TST_RET == -1) {
-+		SAFE_CLOSE(fd);
-+		tst_brk(TBROK | TERRNO, "fsconfig failed");
-+	}
-+
-+	TEST(fsconfig(fd, FSCONFIG_CMD_CREATE, NULL, NULL, 0));
-+	if (TST_RET == -1) {
-+		SAFE_CLOSE(fd);
-+		tst_brk(TBROK | TERRNO, "fsconfig failed");
-+	}
-+
-+	TEST(fsmount(fd, 0, 0));
-+	SAFE_CLOSE(fd);
-+
-+	if (TST_RET == -1)
-+		tst_brk(TBROK | TERRNO, "fsmount() failed");
-+
-+	fsmfd = TST_RET;
-+	TEST(move_mount(fsmfd, "", AT_FDCWD, MNTPOINT,
-+			MOVE_MOUNT_F_EMPTY_PATH));
-+	SAFE_CLOSE(fsmfd);
-+
-+	if (TST_RET == -1)
-+		tst_brk(TBROK | TERRNO, "move_mount() failed");
-+
-+	if (tst_ismount(MNTPOINT))
-+		tst_brk(TBROK | TERRNO, "device not mounted");
++	if [ $? -ne 0 ]; then
++		tst_brk TBROK "LVM setup failed"
++	fi
 +}
 +
-+static void run(unsigned int n)
++create_volume()
 +{
-+	struct tcase *tc = &tcases[n];
++	fsname=$2
++	ROD mkdir -p $fsname
 +
-+	TEST(open_tree(tc->dirfd, tc->pathname, tc->flags));
-+	if (TST_RET != -1) {
-+		SAFE_CLOSE(TST_RET);
-+		tst_brk(TFAIL, "%s: open_tree() succeeded unexpectedly (index: %d)",
-+			tc->name, n);
-+	}
++	# If the FS isn't supported, only create the mountpoint and exit
++	if ! tst_supported_fs $fsname; then
++		return
++	fi
 +
-+	if (tc->exp_errno != TST_ERR) {
-+		tst_brk(TFAIL | TTERRNO, "%s: open_tree() should fail with %s",
-+			tc->name, tst_strerrno(tc->exp_errno));
-+	}
++	vgname=$1
++	lvname="ltp_lv_$fsname"
++	lvdev="/dev/$vgname/$lvname"
 +
-+	tst_res(TPASS | TTERRNO, "%s: open_tree() failed as expected", tc->name);
++	ROD lvcreate -L 1G $vgname -n "$lvname"
++	tst_mkfs $fsname "$lvdev"
++	ROD mount "$lvdev" $fsname
 +}
 +
-+static struct tst_test test = {
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.test = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.needs_root = 1,
-+	.format_device = 1,
-+	.mntpoint = MNTPOINT,
-+	.all_filesystems = 1,
-+	.dev_fs_flags = TST_FS_SKIP_FUSE,
-+};
++prepare_mounts()
++{
++	FSNAME1=$1
++	FSNAME2=$2
++	shift 2
++	LVM_DEV1=`tst_device acquire 1040 "$LVM_IMGDIR/lvm_pv1.img"`
++	error_check
++	LVM_DEV2=`ROD tst_device acquire 1040 "$LVM_IMGDIR/lvm_pv2.img"`
++	error_check
++
++	# DEVSIZE=($# * 1GB / 2) + 16MB. The extra 16MB is for LVM physical
++	# volume headers
++	DEVSIZE=$(( $# * 512 + 16 ))
++	LVM_DEV3=`tst_device acquire $DEVSIZE "$LVM_IMGDIR/lvm_pv3.img"`
++	error_check
++	LVM_DEV4=`tst_device acquire $DEVSIZE "$LVM_IMGDIR/lvm_pv4.img"`
++	error_check
++	ROD pvcreate $LVM_DEV1 $LVM_DEV2 $LVM_DEV3 $LVM_DEV4
++	ROD vgcreate ltp_test_vg1 $LVM_DEV1 $LVM_DEV2
++	ROD vgcreate ltp_test_vg2 $LVM_DEV3 $LVM_DEV4
++
++	for fsname in $FSNAME1 $FSNAME2; do
++		create_volume ltp_test_vg1 $fsname
++	done
++
++	for fsname in $@; do
++		create_volume ltp_test_vg2 $fsname
++	done
++}
++
++prepare_lvm()
++{
++	FS_LIST=`tst_supported_fs | sort -u`
++	ROD mkdir -p "$LVM_TMPDIR"
++	ROD mkdir -p "$LVM_IMGDIR"
++	chmod 777 "$LVM_TMPDIR"
++	cd "$LVM_TMPDIR"
++	error_check
++	prepare_mounts $FS_LIST
++	tst_res TPASS "LVM mounts are ready"
++}
++
++tst_run
 -- 
-2.21.0.rc0.269.g1a574e7a288b
+2.25.0
 
 
 -- 
