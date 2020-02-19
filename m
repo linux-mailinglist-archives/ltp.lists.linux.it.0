@@ -2,50 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E9A4164327
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 12:17:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07AFA164418
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 13:21:00 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AEB1C3C24B7
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 12:17:45 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 719EA3C24B8
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 13:20:59 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id A7DED3C04F4
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 12:17:43 +0100 (CET)
-Received: from mail-m971.mail.163.com (mail-m971.mail.163.com [123.126.97.1])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 4E5371A0152F
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 12:17:35 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=7MmlQ
- D3Kq+XBDB8FVM31rG6RYuOWo4gh3mgY0lZHU5s=; b=Yj82FHo/BJrilar5nAoSj
- NEMTKXWKbs2KZZ5w+Se+VIp/hB8yI1pNyneob9iFd6gkQjSKCxYg2pyGgS4K3ZQ8
- qTXhXxv92pUrLVi6i0TLkQpzc3DjZtLvIoDke6w+XZQfdNLQS2u1MUf/hRQDTC/2
- 934X8xAmbIR7COEAGxxU+k=
-Received: from [172.20.10.4] (unknown [122.96.42.253])
- by smtp1 (Coremail) with SMTP id GdxpCgCX9AlJGU1eKvlfAg--.1538S2;
- Wed, 19 Feb 2020 19:17:29 +0800 (CST)
-To: Li Wang <liwang@redhat.com>, ltp@lists.linux.it
-References: <20200218115918.32203-1-liwang@redhat.com>
-From: Xiao Yang <ice_yangxiao@163.com>
-Message-ID: <0774e1e5-c326-e4aa-8c74-45de61d8276b@163.com>
-Date: Wed, 19 Feb 2020 19:17:29 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by picard.linux.it (Postfix) with ESMTP id AE9603C1840
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 13:20:57 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 2C9511A0154C
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 13:20:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1582114855;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=DDh57Hus0RNT73iqU/pPJAUV//pz1weQ/TvQip+y048=;
+ b=HahA7xtF19D0nrLBXT69+XBAz9rMZsKd/PkCibcIXxLUJgjaxnvwe8Eo2ZA90cfg63XPXe
+ 7ohlhL/AZpqgQK2tb6GXaudKC8yva2u8e9ApLAmm8KlBeAd8XcUehayoSjeW9RPlBeRHEF
+ 1cAm6GKTJB8b23l4R3tpnJCXDd2PBJs=
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
+ [209.85.167.197]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-305-YJqk-lbtP0yC4-IIUoXi9A-1; Wed, 19 Feb 2020 07:20:51 -0500
+Received: by mail-oi1-f197.google.com with SMTP id w205so1956180oie.13
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 04:20:51 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=clkxYC/1z9yfKXnN7fWZFQnqFZiiU5RI6UWXGAB1Tv4=;
+ b=he/uKEjMqJtL4m5D6l22IgTZVxcjiOoKwJ4f+uieKt/4TFquqQ+CNlKyd2DrbqpQIN
+ 65VKDVj33807MXtHeggalGyotfPr5TqPLrXRmO7ZKY8sNJh1BiaqPSXwtfNwbU/KwO59
+ grCc11okFeRs/oPvOc+3V9HfT82Nhq5JLHOIrsWRlLj8cNkZ0BHOWmz4WqLMdixwcru/
+ i4BUJaOEDkyJXig7q6Nb7ksKIDkmY8bAQ/Pqz/GTJ8BXKIiHqCKBXI3f9EGuycdgSyUR
+ owwkTHnhiHj8nSSRchpBaNnqCHIHsy614kXNFGYecPZ6Wrr4lqGL1+drewo0akxipnmv
+ FM0Q==
+X-Gm-Message-State: APjAAAU9rwpec0pZ/yXTAQD0uOlBs2WwVXx7zym3TdpixNaGKz6ETHO0
+ nhYKxf9CHokq0vXpKTJX+rSItRnfHhozGt71sIbwdFAIVQfb/ETAUJI0XbTgADoeVvH3ZD1k1+3
+ JsLr6CIbYoHq1eYdLot75JpGfPhQ=
+X-Received: by 2002:aca:330b:: with SMTP id z11mr586094oiz.96.1582114850425;
+ Wed, 19 Feb 2020 04:20:50 -0800 (PST)
+X-Google-Smtp-Source: APXvYqwXNlSm6kwq6G7jPy6jEr48JTlg2Pr4Q/CUQwOxS6hCaOggVl8tV81FYfMfIMOMMquXrjs0me36Ek1yXOjkMQ8=
+X-Received: by 2002:aca:330b:: with SMTP id z11mr586087oiz.96.1582114850191;
+ Wed, 19 Feb 2020 04:20:50 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20200218115918.32203-1-liwang@redhat.com>
-Content-Language: en-US
-X-CM-TRANSID: GdxpCgCX9AlJGU1eKvlfAg--.1538S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3GFy7GryDZw4DWr1fXr1fZwb_yoW3JrWDpr
- navr48Cw4DJFW8t34rXr4DKay8Xw1Yqw4FgF4j9rs0gws2vryUtrW2gFyDJr42grWUWFWS
- 9a1xWFW7t3y5ZaUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jNEfrUUUUU=
-X-Originating-IP: [122.96.42.253]
-X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/1tbiqAzOXlc7NfTQ-wAAs2
+References: <20200218115918.32203-1-liwang@redhat.com>
+ <0774e1e5-c326-e4aa-8c74-45de61d8276b@163.com>
+In-Reply-To: <0774e1e5-c326-e4aa-8c74-45de61d8276b@163.com>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 19 Feb 2020 20:20:34 +0800
+Message-ID: <CAEemH2c9v87NWM6k_t4d9Vi3wAYYjwfEJp2Cw-zG9pPHvdtV-Q@mail.gmail.com>
+To: Xiao Yang <ice_yangxiao@163.com>
+X-MC-Unique: YJqk-lbtP0yC4-IIUoXi9A-1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] cleanup: avoid to generate many redundant obj
@@ -61,131 +80,79 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1272870410=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgTGksCgpTb3JyeSBmb3IgbXkgbGF0ZSByZXBsee+8jGp1c3Qgb25lIHF1ZXN0aW9uOgoKRm9y
-IGV4YW1wbGUoZnRlc3QpOgoKV2h5IGRvbid0IHlvdSBhdm9pZCBsaWJmdGVzdC5vIGFzIHdlbGwg
-aWYgeW91IHdhbnQgdG8gYnVpbGQgdGVzdCBieSBuZXcgCnJ1bGU/CgpUaGFua3MsCgpYaWFvIFlh
-bmcKCk9uIDIvMTgvMjAgNzo1OSBQTSwgTGkgV2FuZyB3cm90ZToKPiBTaWduZWQtb2ZmLWJ5OiBM
-aSBXYW5nIDxsaXdhbmdAcmVkaGF0LmNvbT4KPiAtLS0KPgo+IE5vdGVzOgo+ICAgICAgVHJhdmlz
-OiBodHRwczovL3RyYXZpcy1jaS5jb20vd2FuZ2xpNTY2NS9sdHAvYnVpbGRzLzE0OTQyNDMyNAo+
-Cj4gICB0ZXN0Y2FzZXMva2VybmVsL2ZzL2Z0ZXN0L01ha2VmaWxlICAgICAgICAgICAgICAgfCAy
-ICstCj4gICB0ZXN0Y2FzZXMva2VybmVsL2lucHV0L01ha2VmaWxlICAgICAgICAgICAgICAgICAg
-fCAyICstCj4gICB0ZXN0Y2FzZXMva2VybmVsL2lvL2RpcmVjdF9pby9NYWtlZmlsZSAgICAgICAg
-ICAgfCAyICstCj4gICB0ZXN0Y2FzZXMva2VybmVsL3NjaGVkL2NsaXNydi9NYWtlZmlsZSAgICAg
-ICAgICAgfCAyICstCj4gICB0ZXN0Y2FzZXMva2VybmVsL3NjaGVkL3NjaGVkX3N0cmVzcy9NYWtl
-ZmlsZSAgICAgfCAyICstCj4gICB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL21lbWZkX2NyZWF0
-ZS9NYWtlZmlsZSAgfCAyICstCj4gICB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL21pZ3JhdGVf
-cGFnZXMvTWFrZWZpbGUgfCAyICstCj4gICB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL21vdmVf
-cGFnZXMvTWFrZWZpbGUgICAgfCAyICstCj4gICB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3N3
-YXBvZmYvTWFrZWZpbGUgICAgICAgfCAyICstCj4gICB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxz
-L3N3YXBvbi9NYWtlZmlsZSAgICAgICAgfCAyICstCj4gICB0ZXN0Y2FzZXMvbmV0d29yay9uZnMv
-bmZzbG9jazAxL01ha2VmaWxlICAgICAgICAgfCAyICstCj4gICB0ZXN0Y2FzZXMvbmV0d29yay9z
-dHJlc3MvbnMtdG9vbHMvTWFrZWZpbGUgICAgICAgfCAyICstCj4gICAxMiBmaWxlcyBjaGFuZ2Vk
-LCAxMiBpbnNlcnRpb25zKCspLCAxMiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS90ZXN0
-Y2FzZXMva2VybmVsL2ZzL2Z0ZXN0L01ha2VmaWxlIGIvdGVzdGNhc2VzL2tlcm5lbC9mcy9mdGVz
-dC9NYWtlZmlsZQo+IGluZGV4IDE1NjZjNWMzMS4uZTU2NzJkNWIxIDEwMDY0NAo+IC0tLSBhL3Rl
-c3RjYXNlcy9rZXJuZWwvZnMvZnRlc3QvTWFrZWZpbGUKPiArKysgYi90ZXN0Y2FzZXMva2VybmVs
-L2ZzL2Z0ZXN0L01ha2VmaWxlCj4gQEAgLTI4LDQgKzI4LDQgQEAgRklMVEVSX09VVF9NQUtFX1RB
-UkdFVFMJCTo9IGxpYmZ0ZXN0Cj4gICAKPiAgIGluY2x1ZGUgJCh0b3Bfc3JjZGlyKS9pbmNsdWRl
-L21rL2dlbmVyaWNfbGVhZl90YXJnZXQubWsKPiAgIAo+IC0kKE1BS0VfVEFSR0VUUyk6ICU6ICUu
-byBsaWJmdGVzdC5vCj4gKyQoTUFLRV9UQVJHRVRTKTogJTogbGliZnRlc3Qubwo+IGRpZmYgLS1n
-aXQgYS90ZXN0Y2FzZXMva2VybmVsL2lucHV0L01ha2VmaWxlIGIvdGVzdGNhc2VzL2tlcm5lbC9p
-bnB1dC9NYWtlZmlsZQo+IGluZGV4IDVmMWRiOTMyOC4uZjRkMzVhYjM5IDEwMDY0NAo+IC0tLSBh
-L3Rlc3RjYXNlcy9rZXJuZWwvaW5wdXQvTWFrZWZpbGUKPiArKysgYi90ZXN0Y2FzZXMva2VybmVs
-L2lucHV0L01ha2VmaWxlCj4gQEAgLTI0LDQgKzI0LDQgQEAgRklMVEVSX09VVF9NQUtFX1RBUkdF
-VFMJCTo9IGlucHV0X2hlbHBlcgo+ICAgCj4gICBpbmNsdWRlICQodG9wX3NyY2RpcikvaW5jbHVk
-ZS9tay9nZW5lcmljX2xlYWZfdGFyZ2V0Lm1rCj4gICAKPiAtJChNQUtFX1RBUkdFVFMpOiAlOiAl
-Lm8gaW5wdXRfaGVscGVyLm8KPiArJChNQUtFX1RBUkdFVFMpOiAlOiBpbnB1dF9oZWxwZXIubwo+
-IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL2lvL2RpcmVjdF9pby9NYWtlZmlsZSBiL3Rl
-c3RjYXNlcy9rZXJuZWwvaW8vZGlyZWN0X2lvL01ha2VmaWxlCj4gaW5kZXggYjUyMjEzNmNhLi42
-ZDI2YTdmZjMgMTAwNjQ0Cj4gLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9pby9kaXJlY3RfaW8vTWFr
-ZWZpbGUKPiArKysgYi90ZXN0Y2FzZXMva2VybmVsL2lvL2RpcmVjdF9pby9NYWtlZmlsZQo+IEBA
-IC0zMCw0ICszMCw0IEBAIElOU1RBTExfVEFSR0VUUwkJCTo9IHRlc3RfZG1hX3RocmVhZF9kaW90
-ZXN0Ny5zaAo+ICAgCj4gICBpbmNsdWRlICQodG9wX3NyY2RpcikvaW5jbHVkZS9tay9nZW5lcmlj
-X2xlYWZfdGFyZ2V0Lm1rCj4gICAKPiAtJChNQUtFX1RBUkdFVFMpOiAlOiAlLm8gZGlvdGVzdF9y
-b3V0aW5lcy5vCj4gKyQoTUFLRV9UQVJHRVRTKTogJTogZGlvdGVzdF9yb3V0aW5lcy5vCj4gZGlm
-ZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc2NoZWQvY2xpc3J2L01ha2VmaWxlIGIvdGVzdGNh
-c2VzL2tlcm5lbC9zY2hlZC9jbGlzcnYvTWFrZWZpbGUKPiBpbmRleCBhZjQzYjdlZmQuLjNlMzEx
-YjY1YiAxMDA2NDQKPiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3NjaGVkL2NsaXNydi9NYWtlZmls
-ZQo+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc2NoZWQvY2xpc3J2L01ha2VmaWxlCj4gQEAgLTMx
-LDYgKzMxLDYgQEAgSU5TVEFMTF9UQVJHRVRTCQk6PSBkYXRhIHJ1bl9zY2hlZF9jbGlzZXJ2LnNo
-Cj4gICAKPiAgIE1BS0VfVEFSR0VUUwkJOj0gcHRoY2xpIHB0aHNlcnYKPiAgIAo+IC0kKE1BS0Vf
-VEFSR0VUUyk6ICU6ICUubyByZWFkbGluZS5vIHdyaXRlbi5vCj4gKyQoTUFLRV9UQVJHRVRTKTog
-JTogcmVhZGxpbmUubyB3cml0ZW4ubwo+ICAgCj4gICBpbmNsdWRlICQodG9wX3NyY2RpcikvaW5j
-bHVkZS9tay9nZW5lcmljX2xlYWZfdGFyZ2V0Lm1rCj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9r
-ZXJuZWwvc2NoZWQvc2NoZWRfc3RyZXNzL01ha2VmaWxlIGIvdGVzdGNhc2VzL2tlcm5lbC9zY2hl
-ZC9zY2hlZF9zdHJlc3MvTWFrZWZpbGUKPiBpbmRleCA2MGJkYzY5MzYuLjIzMDNmNjk1MCAxMDA2
-NDQKPiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3NjaGVkL3NjaGVkX3N0cmVzcy9NYWtlZmlsZQo+
-ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc2NoZWQvc2NoZWRfc3RyZXNzL01ha2VmaWxlCj4gQEAg
-LTMyLDcgKzMyLDcgQEAgTUFLRV9UQVJHRVRTCQk6PSAkKGZpbHRlci1vdXQgc2NoZWQsJChwYXRz
-dWJzdCAkKGFic19zcmNkaXIpLyUuYywlLCQod2lsZGNhcmQgJCgKPiAgIAo+ICAgUk0JCQkrPSAt
-cgo+ICAgCj4gLSQoZmlsdGVyLW91dCBzY2hlZF9kYXRhZmlsZSwkKE1BS0VfVEFSR0VUUykpOiAl
-OiAlLm8gc2NoZWQubwo+ICskKGZpbHRlci1vdXQgc2NoZWRfZGF0YWZpbGUsJChNQUtFX1RBUkdF
-VFMpKTogJTogc2NoZWQubwo+ICAgCj4gICBNQUtFX1RBUkdFVFMJCSs9IHNjaGVkX2RhdGFmaWxl
-Cj4gICAKPiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9tZW1mZF9jcmVh
-dGUvTWFrZWZpbGUgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL21lbWZkX2NyZWF0ZS9NYWtl
-ZmlsZQo+IGluZGV4IGYyM2I4NzMyYy4uNDBjY2Y3ZjdmIDEwMDY0NAo+IC0tLSBhL3Rlc3RjYXNl
-cy9rZXJuZWwvc3lzY2FsbHMvbWVtZmRfY3JlYXRlL01ha2VmaWxlCj4gKysrIGIvdGVzdGNhc2Vz
-L2tlcm5lbC9zeXNjYWxscy9tZW1mZF9jcmVhdGUvTWFrZWZpbGUKPiBAQCAtMjAsNCArMjAsNCBA
-QCBGSUxURVJfT1VUX01BS0VfVEFSR0VUUyAgICAgICAgIDo9IG1lbWZkX2NyZWF0ZV9jb21tb24K
-PiAgIAo+ICAgaW5jbHVkZSAkKHRvcF9zcmNkaXIpL2luY2x1ZGUvbWsvZ2VuZXJpY19sZWFmX3Rh
-cmdldC5tawo+ICAgCj4gLSQoTUFLRV9UQVJHRVRTKTogJTogJS5vIG1lbWZkX2NyZWF0ZV9jb21t
-b24ubwo+ICskKE1BS0VfVEFSR0VUUyk6ICU6IG1lbWZkX2NyZWF0ZV9jb21tb24ubwo+IGRpZmYg
-LS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL21pZ3JhdGVfcGFnZXMvTWFrZWZpbGUg
-Yi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL21pZ3JhdGVfcGFnZXMvTWFrZWZpbGUKPiBpbmRl
-eCA0NmEzNWQzZTAuLjU1MTc0ZjNiOCAxMDA2NDQKPiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5
-c2NhbGxzL21pZ3JhdGVfcGFnZXMvTWFrZWZpbGUKPiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5
-c2NhbGxzL21pZ3JhdGVfcGFnZXMvTWFrZWZpbGUKPiBAQCAtMjEsNyArMjEsNyBAQCB0b3Bfc3Jj
-ZGlyCQk/PSAuLi8uLi8uLi8uLgo+ICAgaW5jbHVkZSAkKHRvcF9zcmNkaXIpL2luY2x1ZGUvbWsv
-dGVzdGNhc2VzLm1rCj4gICAKPiAgIE1BS0VfVEFSR0VUUwkJOj0gJChwYXRzdWJzdCAkKGFic19z
-cmNkaXIpLyUuYywlLCQod2lsZGNhcmQgJChhYnNfc3JjZGlyKS8qWzAtOV0uYykpCj4gLSQoTUFL
-RV9UQVJHRVRTKTogJTogJS5vIG1pZ3JhdGVfcGFnZXNfY29tbW9uLm8KPiArJChNQUtFX1RBUkdF
-VFMpOiAlOiBtaWdyYXRlX3BhZ2VzX2NvbW1vbi5vCj4gICAKPiAgIENQUEZMQUdTCQkrPSAtSSQo
-YWJzX3NyY2RpcikvLi4vdXRpbHMvCj4gICAKPiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5l
-bC9zeXNjYWxscy9tb3ZlX3BhZ2VzL01ha2VmaWxlIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxs
-cy9tb3ZlX3BhZ2VzL01ha2VmaWxlCj4gaW5kZXggMjdjZjBmN2E4Li45NmZmNzM2OGYgMTAwNjQ0
-Cj4gLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9tb3ZlX3BhZ2VzL01ha2VmaWxlCj4g
-KysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9tb3ZlX3BhZ2VzL01ha2VmaWxlCj4gQEAg
-LTI0LDcgKzI0LDcgQEAgQ1BQRkxBR1MJCSs9IC1JJChhYnNfc3JjZGlyKS8uLi91dGlscwo+ICAg
-Cj4gICBNQUtFX1RBUkdFVFMJCTo9ICQocGF0c3Vic3QgJChhYnNfc3JjZGlyKS8lLmMsJSwkKHdp
-bGRjYXJkICQoYWJzX3NyY2RpcikvKlswLTldLmMpKQo+ICAgCj4gLSQoTUFLRV9UQVJHRVRTKTog
-JTogJS5vIG1vdmVfcGFnZXNfc3VwcG9ydC5vCj4gKyQoTUFLRV9UQVJHRVRTKTogJTogbW92ZV9w
-YWdlc19zdXBwb3J0Lm8KPiAgIAo+ICAgTERMSUJTCQkJKz0gLWxwdGhyZWFkIC1scnQKPiAgIAo+
-IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3N3YXBvZmYvTWFrZWZpbGUg
-Yi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3N3YXBvZmYvTWFrZWZpbGUKPiBpbmRleCA1MzZi
-MmRiYWMuLjc5MGEyYTc0ZSAxMDA2NDQKPiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxz
-L3N3YXBvZmYvTWFrZWZpbGUKPiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3N3YXBv
-ZmYvTWFrZWZpbGUKPiBAQCAtMjEsNCArMjEsNCBAQCB0b3Bfc3JjZGlyCQk/PSAuLi8uLi8uLi8u
-Lgo+ICAgaW5jbHVkZSAkKHRvcF9zcmNkaXIpL2luY2x1ZGUvbWsvdGVzdGNhc2VzLm1rCj4gICBp
-bmNsdWRlICQoYWJzX3NyY2RpcikvLi9NYWtlZmlsZS5pbmMKPiAgIGluY2x1ZGUgJCh0b3Bfc3Jj
-ZGlyKS9pbmNsdWRlL21rL2dlbmVyaWNfbGVhZl90YXJnZXQubWsKPiAtJChNQUtFX1RBUkdFVFMp
-OiAlOiAlLm8gLi4vc3dhcG9uL2xpYnN3YXBvbi5vCj4gKyQoTUFLRV9UQVJHRVRTKTogJTogLi4v
-c3dhcG9uL2xpYnN3YXBvbi5vCj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2Fs
-bHMvc3dhcG9uL01ha2VmaWxlIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9zd2Fwb24vTWFr
-ZWZpbGUKPiBpbmRleCBhMTA5ZWNkZjguLmE5YmQ4ZjE5ZiAxMDA2NDQKPiAtLS0gYS90ZXN0Y2Fz
-ZXMva2VybmVsL3N5c2NhbGxzL3N3YXBvbi9NYWtlZmlsZQo+ICsrKyBiL3Rlc3RjYXNlcy9rZXJu
-ZWwvc3lzY2FsbHMvc3dhcG9uL01ha2VmaWxlCj4gQEAgLTI5LDQgKzI5LDQgQEAgRklMVEVSX09V
-VF9NQUtFX1RBUkdFVFMgICAgICAgICA6PSBsaWJzd2Fwb24KPiAgIAo+ICAgaW5jbHVkZSAkKHRv
-cF9zcmNkaXIpL2luY2x1ZGUvbWsvZ2VuZXJpY19sZWFmX3RhcmdldC5tawo+ICAgCj4gLSQoTUFL
-RV9UQVJHRVRTKTogJTogJS5vIGxpYnN3YXBvbi5vCj4gKyQoTUFLRV9UQVJHRVRTKTogJTogbGli
-c3dhcG9uLm8KPiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL25ldHdvcmsvbmZzL25mc2xvY2swMS9N
-YWtlZmlsZSBiL3Rlc3RjYXNlcy9uZXR3b3JrL25mcy9uZnNsb2NrMDEvTWFrZWZpbGUKPiBpbmRl
-eCBhMDdhOTllYTkuLjk3ODc0OWE4MSAxMDA2NDQKPiAtLS0gYS90ZXN0Y2FzZXMvbmV0d29yay9u
-ZnMvbmZzbG9jazAxL01ha2VmaWxlCj4gKysrIGIvdGVzdGNhc2VzL25ldHdvcmsvbmZzL25mc2xv
-Y2swMS9NYWtlZmlsZQo+IEBAIC0xMiw0ICsxMiw0IEBAIElOU1RBTExfVEFSR0VUUwkJCTo9IG5m
-c2xvY2swMQo+ICAgCj4gICBpbmNsdWRlICQodG9wX3NyY2RpcikvaW5jbHVkZS9tay9nZW5lcmlj
-X2xlYWZfdGFyZ2V0Lm1rCj4gICAKPiAtJChNQUtFX1RBUkdFVFMpOiAlOiAlLm8gbmZzX2Zsb2Nr
-X2Z1bmMubwo+ICskKE1BS0VfVEFSR0VUUyk6ICU6IG5mc19mbG9ja19mdW5jLm8KPiBkaWZmIC0t
-Z2l0IGEvdGVzdGNhc2VzL25ldHdvcmsvc3RyZXNzL25zLXRvb2xzL01ha2VmaWxlIGIvdGVzdGNh
-c2VzL25ldHdvcmsvc3RyZXNzL25zLXRvb2xzL01ha2VmaWxlCj4gaW5kZXggNDlhMDUyMzJmLi5h
-Mjg4MDY2YzggMTAwNjQ0Cj4gLS0tIGEvdGVzdGNhc2VzL25ldHdvcmsvc3RyZXNzL25zLXRvb2xz
-L01ha2VmaWxlCj4gKysrIGIvdGVzdGNhc2VzL25ldHdvcmsvc3RyZXNzL25zLXRvb2xzL01ha2Vm
-aWxlCj4gQEAgLTM1LDQgKzM1LDQgQEAgRklMVEVSX09VVF9NQUtFX1RBUkdFVFMJOj0gbnMtY29t
-bW9uCj4gICAKPiAgIGluY2x1ZGUgJCh0b3Bfc3JjZGlyKS9pbmNsdWRlL21rL2dlbmVyaWNfbGVh
-Zl90YXJnZXQubWsKPiAgIAo+IC0kKE1BS0VfVEFSR0VUUyk6ICU6ICUubyBucy1jb21tb24ubwo+
-ICskKE1BS0VfVEFSR0VUUyk6ICU6IG5zLWNvbW1vbi5vCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZv
-OiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+--===============1272870410==
+Content-Type: multipart/alternative; boundary="000000000000a3d643059eecd140"
+
+--000000000000a3d643059eecd140
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Xiao,
+
+Why don't you avoid libftest.o as well if you want to build test by new
+> rule?
+
+
+That should be generated because it is the local library. In LTP Makefile,
+the sequencing is to build the library first then compile&link to the
+testcase. We can avoid dumping the testname.o since it only exists in the
+last phase.
+
+And, I don't want to change too much for LTP build rule(I think it works
+correctly), especially in the case directory some of the local libraries
+are reused.  e.g The swapoff test needs linking to ../swapon/libswapon.o,
+that requires libswapon.o is in the correct path.
+
+Or, did I misunderstand your words? if yes, please correct me.
+
+--=20
+Regards,
+Li Wang
+
+--000000000000a3d643059eecd140
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div class=3D"gmail_default" st=
+yle=3D"font-size:small">Hi Xiao,</div><div class=3D"gmail_default" style=3D=
+"font-size:small"><br></div><blockquote class=3D"gmail_quote" style=3D"marg=
+in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
+x">
+Why don&#39;t you avoid libftest.o as well if you want to build test by new=
+ rule?</blockquote><div><div class=3D"gmail_default" style=3D"font-size:sma=
+ll"></div></div><div><br></div><div><div class=3D"gmail_default" style=3D"f=
+ont-size:small">That should be generated=C2=A0because it is the local libra=
+ry. In LTP Makefile, the sequencing is to build the library first then comp=
+ile&amp;link=C2=A0to=C2=A0the testcase. We can avoid dumping the testname.o=
+ since it only exists in the last phase.=C2=A0</div><div class=3D"gmail_def=
+ault" style=3D"font-size:small"><br></div><div class=3D"gmail_default" styl=
+e=3D"font-size:small">And, I don&#39;t want to change too much for LTP buil=
+d rule(I think it works correctly), especially in the case directory some o=
+f the local libraries are reused.=C2=A0 e.g The swapoff test needs linking =
+to ../swapon/libswapon.o, that requires=C2=A0libswapon.o=C2=A0is in the cor=
+rect path.</div></div><div><br></div><div><div class=3D"gmail_default" styl=
+e=3D"font-size:small">Or, did I misunderstand your words? if yes, please co=
+rrect me.</div></div><div><br></div></div>-- <br><div dir=3D"ltr" class=3D"=
+gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></=
+div></div></div></div>
+
+--000000000000a3d643059eecd140--
+
+
+--===============1272870410==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1272870410==--
+
