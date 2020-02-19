@@ -1,61 +1,60 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTP id 26141164066
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 10:29:18 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTP id 1E9DF164067
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 10:29:24 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 124433C2532
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 10:29:18 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 028763C0ECE
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 10:29:24 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 1BDF63C250E
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 10:28:41 +0100 (CET)
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
- [IPv6:2607:f8b0:4864:20::62f])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 69AFE3C266F
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 10:28:44 +0100 (CET)
+Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
+ [IPv6:2607:f8b0:4864:20::629])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 51E321001569
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 10:27:56 +0100 (CET)
-Received: by mail-pl1-x62f.google.com with SMTP id e8so9318019plt.9
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 01:28:40 -0800 (PST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id BD9191001575
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 10:27:59 +0100 (CET)
+Received: by mail-pl1-x629.google.com with SMTP id p11so9311070plq.10
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 01:28:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=0fVcKBwrDC8rlY63i8a4GfxbvnrR2OGYvxES4s3S/hw=;
- b=EZnAlw957NemVq+T/ZrXkZtkAOO4xdjWcD9eI6qFcBXLkYYHsycb/SBuegImNDoGTq
- do0xw4tw53HaXRhh7suktj2fGE5PoUbxT7s2dNJOolqMW/uf60hmwELwYtDeVDvFKVjq
- g3AMj5FfhC/Hxhp2hkGGfz/AkVm0Jzd2617aYGL8xAZEicN5fQuOJ0RnaDxDX9aEuZVl
- LCavMlvXQES4/8GklFZW8WI2pw+pRDSkVfnfLjQjhSunaAdrH2mBXmgaif/RcMcPCPIW
- zvoMg8TrpNhV2qCy9jDBRALZx/3Ahjyirew2CnUwB3y3q9/jJTL/K4p4OFg7kJONffvy
- 4a8w==
+ bh=HUERrjfW7zaHlYpAxpUp6/gCZ6B2CxkSaawQuqlHexk=;
+ b=FKmcyB34ybDWfqP5lvZngl4p+QQLLuVA5Mo7WeSDGBPqQ7Qq6Al34Wp+P9z6BaovqA
+ FE218Q9xusv4U9cHhlRVx1WmVnti740pu2P7NMqzTzAeyYb/LX5H2oSC84MMv6o5qaMP
+ ENWLE39oNtX7jznPyL7JwHOF7iC8Daebhzcdz/o5AobKYfLFrcDnFJBHcdiL0ItTL0EI
+ OpUQlaPrs7NPk8E9kgcvu7EH4prA35mShy+qrh9+7/hWpXgk9Xq4e2sr2kC0xU0sRE+W
+ DDuQNxmWUciP4um97SiD9NVr7vxkpmqysstzRBM+5Fn1WN1rgRfGvrSDkNxc9JPmwt5t
+ GzWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=0fVcKBwrDC8rlY63i8a4GfxbvnrR2OGYvxES4s3S/hw=;
- b=uTXWQSq1wcr4n5v1enZBuefpl8+iGKQAlKUzCflLxrIMDY6/d6WFjouaDzP19/PV5Z
- bpnupqBCgB3k/JN31acXH9uknMqkkYTl+sGMX/QoH+VZyOMa9zUp2QpCSzeL4K31u/Yc
- 2CmGfdT2bCrkvWVpkwdg3ZiKdQ1WpefHLPFarlTyDBf6ca/R8j6JSJf3MWMUw3gpVUx4
- GG2pfy6Ps/+ZE5cPaNSacrA1K7FSPRnAFfsr+4j5fal/+BoxKC7Tis2q3KJjXvPHiz5n
- UY1gSZka+yhpc0BJDPxoJfeWbwK8VDyIuvq1CiouTdCLQbQ2Nv5XT20YOdByxeRxXXud
- njiw==
-X-Gm-Message-State: APjAAAXTF2n9ESuhfr4m/Ywr4lOjtBejXOPTDh5vBSqWoDGvAA8k8f7/
- oQBGgD2gKa4vNFPyEst5kMOPDc7+J2A=
-X-Google-Smtp-Source: APXvYqxQ7rtBuwmvtOOQVSFRJ5h6bp8c+XL2dpEgo9/6xMWCamGzPTYPOv4uUQpGdi27+iCRlc9/hA==
-X-Received: by 2002:a17:902:8d94:: with SMTP id
- v20mr26088782plo.259.1582104518194; 
- Wed, 19 Feb 2020 01:28:38 -0800 (PST)
+ bh=HUERrjfW7zaHlYpAxpUp6/gCZ6B2CxkSaawQuqlHexk=;
+ b=o+jHNPKvr7ADj/+DEMEOmKqM8O+Z6j3jsCjrczCkG/IGfM4nhpBmlxPvRPA8CLcU4N
+ su1qESGH0IeXQ7QtNyhiOyzQCPycRdInaBxcpX6BeVJ7iGxWQHil1z8/pLsixTAz8ibO
+ IqJf9actM+s42W6iUrme9PJcZhfXHfShsZsYjUR3ncID397TOA+p/wPR63GDn4FmvHHO
+ LUw1EWCqxTnkgfDgyCiQ6jy/+SZfRmWws+D0x7biOYTh7FV7aC62Rbwe/WeA0VK/REh/
+ q/XKr2q1esYfrAcv+l39JG5mU4/tt8CbyQEAQR4+eTMOmOZD4xvQiGJNLdKM9R1q9ux+
+ Ytpw==
+X-Gm-Message-State: APjAAAXiVBDaltIF51uyxJUcYZhmEu+DmTFwQ60eQpNz5Tog0N58ClGz
+ KurLf460GvdpOn4vy8i0zVGU9WMvihQ=
+X-Google-Smtp-Source: APXvYqziKKznCT8UzWhMwmhqDJDR4YaDOhhHAc6JitAVXE/JvYFKWMqhmd9BCVp8os01q73rqao77g==
+X-Received: by 2002:a17:902:6b07:: with SMTP id
+ o7mr24569246plk.141.1582104520852; 
+ Wed, 19 Feb 2020 01:28:40 -0800 (PST)
 Received: from localhost ([223.226.55.170])
- by smtp.gmail.com with ESMTPSA id v5sm1857963pgc.11.2020.02.19.01.28.37
+ by smtp.gmail.com with ESMTPSA id r2sm1792313pgg.41.2020.02.19.01.28.39
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 19 Feb 2020 01:28:37 -0800 (PST)
+ Wed, 19 Feb 2020 01:28:40 -0800 (PST)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Wed, 19 Feb 2020 14:58:05 +0530
-Message-Id: <7195b2e7ffcda3ba70715b9094cff450568d9298.1582104018.git.viresh.kumar@linaro.org>
+Date: Wed, 19 Feb 2020 14:58:06 +0530
+Message-Id: <da324ef2c06239f2cb7fc1eee436209e3bd2e35a.1582104018.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.21.0.rc0.269.g1a574e7a288b
 In-Reply-To: <cover.1582104018.git.viresh.kumar@linaro.org>
 References: <cover.1582104018.git.viresh.kumar@linaro.org>
@@ -65,7 +64,7 @@ X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH V2 09/10] syscalls/fspick: New tests
+Subject: [LTP] [PATCH V2 10/10] syscalls/open_tree: New tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,48 +83,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add tests to check working of fspick() syscall.
+Add tests to check working of open_tree() syscall.
 
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- runtest/syscalls                            |   3 +
- testcases/kernel/syscalls/fspick/.gitignore |   2 +
- testcases/kernel/syscalls/fspick/Makefile   |   6 ++
- testcases/kernel/syscalls/fspick/fspick01.c | 112 ++++++++++++++++++++
- testcases/kernel/syscalls/fspick/fspick02.c | 107 +++++++++++++++++++
+ runtest/syscalls                              |   3 +
+ .../kernel/syscalls/open_tree/.gitignore      |   2 +
+ testcases/kernel/syscalls/open_tree/Makefile  |   6 +
+ .../kernel/syscalls/open_tree/open_tree01.c   | 115 ++++++++++++++++++
+ .../kernel/syscalls/open_tree/open_tree02.c   | 104 ++++++++++++++++
  5 files changed, 230 insertions(+)
- create mode 100644 testcases/kernel/syscalls/fspick/.gitignore
- create mode 100644 testcases/kernel/syscalls/fspick/Makefile
- create mode 100644 testcases/kernel/syscalls/fspick/fspick01.c
- create mode 100644 testcases/kernel/syscalls/fspick/fspick02.c
+ create mode 100644 testcases/kernel/syscalls/open_tree/.gitignore
+ create mode 100644 testcases/kernel/syscalls/open_tree/Makefile
+ create mode 100644 testcases/kernel/syscalls/open_tree/open_tree01.c
+ create mode 100644 testcases/kernel/syscalls/open_tree/open_tree02.c
 
 diff --git a/runtest/syscalls b/runtest/syscalls
-index f207a73c3e6d..b73df9a7cbec 100644
+index b73df9a7cbec..79a2579e5903 100644
 --- a/runtest/syscalls
 +++ b/runtest/syscalls
-@@ -350,6 +350,9 @@ fsmount02 fsmount02
- fsopen01 fsopen01
- fsopen02 fsopen02
+@@ -844,6 +844,9 @@ openat01 openat01
+ openat02 openat02
+ openat03 openat03
  
-+fspick01 fspick01
-+fspick02 fspick02
++open_tree01 open_tree01
++open_tree02 open_tree02
 +
- fstat02 fstat02
- fstat02_64 fstat02_64
- fstat03 fstat03
-diff --git a/testcases/kernel/syscalls/fspick/.gitignore b/testcases/kernel/syscalls/fspick/.gitignore
+ mincore01 mincore01
+ mincore02 mincore02
+ 
+diff --git a/testcases/kernel/syscalls/open_tree/.gitignore b/testcases/kernel/syscalls/open_tree/.gitignore
 new file mode 100644
-index 000000000000..a8aa61dce18b
+index 000000000000..2f732b44518e
 --- /dev/null
-+++ b/testcases/kernel/syscalls/fspick/.gitignore
++++ b/testcases/kernel/syscalls/open_tree/.gitignore
 @@ -0,0 +1,2 @@
-+/fspick01
-+/fspick02
-diff --git a/testcases/kernel/syscalls/fspick/Makefile b/testcases/kernel/syscalls/fspick/Makefile
++/open_tree01
++/open_tree02
+diff --git a/testcases/kernel/syscalls/open_tree/Makefile b/testcases/kernel/syscalls/open_tree/Makefile
 new file mode 100644
 index 000000000000..5ea7d67db123
 --- /dev/null
-+++ b/testcases/kernel/syscalls/fspick/Makefile
++++ b/testcases/kernel/syscalls/open_tree/Makefile
 @@ -0,0 +1,6 @@
 +# SPDX-License-Identifier: GPL-2.0-or-later
 +
@@ -133,47 +132,53 @@ index 000000000000..5ea7d67db123
 +
 +include $(top_srcdir)/include/mk/testcases.mk
 +include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/fspick/fspick01.c b/testcases/kernel/syscalls/fspick/fspick01.c
+diff --git a/testcases/kernel/syscalls/open_tree/open_tree01.c b/testcases/kernel/syscalls/open_tree/open_tree01.c
 new file mode 100644
-index 000000000000..ac0b12195102
+index 000000000000..93df51a3fa11
 --- /dev/null
-+++ b/testcases/kernel/syscalls/fspick/fspick01.c
-@@ -0,0 +1,112 @@
++++ b/testcases/kernel/syscalls/open_tree/open_tree01.c
+@@ -0,0 +1,115 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
 + *
 + * Description:
-+ * Basic fspick() test.
++ * Basic open_tree() test.
 + */
 +#include "tst_test.h"
 +#include "lapi/fsmount.h"
 +
 +#define MNTPOINT	"mntpoint"
++#define OT_MNTPOINT	"ot_mntpoint"
 +
 +static struct tcase {
 +	char *name;
 +	unsigned int flags;
 +} tcases[] = {
-+	{"Flag FSPICK_CLOEXEC", FSPICK_CLOEXEC},
-+	{"Flag FSPICK_SYMLINK_NOFOLLOW", FSPICK_SYMLINK_NOFOLLOW},
-+	{"Flag FSPICK_NO_AUTOMOUNT", FSPICK_NO_AUTOMOUNT},
-+	{"Flag FSPICK_EMPTY_PATH", FSPICK_EMPTY_PATH},
++	{"Flag OPEN_TREE_CLONE", OPEN_TREE_CLONE},
++	{"Flag OPEN_TREE_CLOEXEC", OPEN_TREE_CLONE | OPEN_TREE_CLOEXEC},
 +};
 +
-+static int ismounted;
-+
-+static void cleanup(void)
-+{
-+	if (ismounted)
-+		SAFE_UMOUNT(MNTPOINT);
-+}
++static int dir_created;
 +
 +static void setup(void)
 +{
-+	int fd, fsmfd;
-+
 +	fsopen_supported_by_kernel();
++
++	SAFE_MKDIR(OT_MNTPOINT, 0777);
++	dir_created = 1;
++}
++
++static void cleanup(void)
++{
++	if (dir_created)
++		SAFE_RMDIR(OT_MNTPOINT);
++}
++
++static void run(unsigned int n)
++{
++	struct tcase *tc = &tcases[n];
++	int fd, fsmfd, otfd;
 +
 +	TEST(fsopen(tst_device->fs_type, 0));
 +	fd = TST_RET;
@@ -200,6 +205,7 @@ index 000000000000..ac0b12195102
 +		tst_brk(TBROK | TERRNO, "fsmount() failed");
 +
 +	fsmfd = TST_RET;
++
 +	TEST(move_mount(fsmfd, "", AT_FDCWD, MNTPOINT,
 +			MOVE_MOUNT_F_EMPTY_PATH));
 +	SAFE_CLOSE(fsmfd);
@@ -207,37 +213,33 @@ index 000000000000..ac0b12195102
 +	if (TST_RET == -1)
 +		tst_brk(TBROK | TERRNO, "move_mount() failed");
 +
-+	ismounted = 1;
-+
-+	if (tst_ismount(MNTPOINT))
-+		tst_brk(TBROK | TERRNO, "device not mounted");
-+}
-+
-+static void run(unsigned int n)
-+{
-+	struct tcase *tc = &tcases[n];
-+	int fspick_fd;
-+
-+	TEST(fspick(AT_FDCWD, MNTPOINT, tc->flags));
-+	if (TST_RET == -1)
-+		tst_brk(TFAIL | TERRNO, "fspick() failed");
-+
-+	fspick_fd = TST_RET;
-+
-+	TEST(fsconfig(fspick_fd, FSCONFIG_SET_STRING, "user_xattr", "false", 0));
-+	if (TST_RET == -1) {
-+		SAFE_CLOSE(fspick_fd);
-+		tst_brk(TBROK | TERRNO, "fsconfig() failed");
++	if (tst_ismount(MNTPOINT)) {
++		tst_res(TBROK | TERRNO, "device not mounted");
++		goto out;
 +	}
 +
-+	TEST(fsconfig(fspick_fd, FSCONFIG_SET_FLAG, "ro", NULL, 0));
++	TEST(open_tree(AT_FDCWD, MNTPOINT, tc->flags));
 +	if (TST_RET == -1) {
-+		SAFE_CLOSE(fspick_fd);
-+		tst_brk(TBROK | TERRNO, "fsconfig() failed");
++		tst_res(TFAIL | TERRNO, "open_tree() failed");
++		goto out;
 +	}
 +
-+	SAFE_CLOSE(fspick_fd);
-+	tst_res(TPASS, "%s: fspick() passed", tc->name);
++	otfd = TST_RET;
++	TEST(move_mount(otfd, "", AT_FDCWD, OT_MNTPOINT,
++			MOVE_MOUNT_F_EMPTY_PATH));
++	SAFE_CLOSE(otfd);
++
++	if (TST_RET == -1) {
++		tst_res(TBROK | TERRNO, "move_mount() failed");
++		goto out;
++	}
++
++	if (!tst_ismount(OT_MNTPOINT))
++		tst_res(TPASS, "%s: open_tree() passed", tc->name);
++
++	SAFE_UMOUNT(OT_MNTPOINT);
++out:
++	SAFE_UMOUNT(MNTPOINT);
 +}
 +
 +static struct tst_test test = {
@@ -251,18 +253,18 @@ index 000000000000..ac0b12195102
 +	.all_filesystems = 1,
 +	.dev_fs_flags = TST_FS_SKIP_FUSE,
 +};
-diff --git a/testcases/kernel/syscalls/fspick/fspick02.c b/testcases/kernel/syscalls/fspick/fspick02.c
+diff --git a/testcases/kernel/syscalls/open_tree/open_tree02.c b/testcases/kernel/syscalls/open_tree/open_tree02.c
 new file mode 100644
-index 000000000000..b5949177ee23
+index 000000000000..e752bb45b24e
 --- /dev/null
-+++ b/testcases/kernel/syscalls/fspick/fspick02.c
-@@ -0,0 +1,107 @@
++++ b/testcases/kernel/syscalls/open_tree/open_tree02.c
+@@ -0,0 +1,104 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
 + *
 + * Description:
-+ * Basic fspick() failure tests.
++ * Basic open_tree() failure tests.
 + */
 +#include "tst_test.h"
 +#include "lapi/fsmount.h"
@@ -276,9 +278,9 @@ index 000000000000..b5949177ee23
 +	unsigned int flags;
 +	int exp_errno;
 +} tcases[] = {
-+	{"invalid-fd", -1, MNTPOINT, FSPICK_NO_AUTOMOUNT | FSPICK_CLOEXEC, EBADF},
-+	{"invalid-path", AT_FDCWD, "invalid", FSPICK_NO_AUTOMOUNT | FSPICK_CLOEXEC, ENOENT},
-+	{"invalid-flags", AT_FDCWD, MNTPOINT, 0x10, EINVAL},
++	{"invalid-fd", -1, MNTPOINT, OPEN_TREE_CLONE, EBADF},
++	{"invalid-path", AT_FDCWD, "invalid", OPEN_TREE_CLONE, ENOENT},
++	{"invalid-flags", AT_FDCWD, MNTPOINT, 0xFFFFFFFF, EINVAL},
 +};
 +
 +static int ismounted;
@@ -320,15 +322,12 @@ index 000000000000..b5949177ee23
 +		tst_brk(TBROK | TERRNO, "fsmount() failed");
 +
 +	fsmfd = TST_RET;
-+
 +	TEST(move_mount(fsmfd, "", AT_FDCWD, MNTPOINT,
 +			MOVE_MOUNT_F_EMPTY_PATH));
 +	SAFE_CLOSE(fsmfd);
 +
 +	if (TST_RET == -1)
 +		tst_brk(TBROK | TERRNO, "move_mount() failed");
-+
-+	ismounted = 1;
 +
 +	if (tst_ismount(MNTPOINT))
 +		tst_brk(TBROK | TERRNO, "device not mounted");
@@ -338,19 +337,19 @@ index 000000000000..b5949177ee23
 +{
 +	struct tcase *tc = &tcases[n];
 +
-+	TEST(fspick(tc->dirfd, tc->pathname, tc->flags));
++	TEST(open_tree(tc->dirfd, tc->pathname, tc->flags));
 +	if (TST_RET != -1) {
 +		SAFE_CLOSE(TST_RET);
-+		tst_brk(TFAIL, "%s: fspick() succeeded unexpectedly (index: %d)",
++		tst_brk(TFAIL, "%s: open_tree() succeeded unexpectedly (index: %d)",
 +			tc->name, n);
 +	}
 +
 +	if (tc->exp_errno != TST_ERR) {
-+		tst_brk(TFAIL | TTERRNO, "%s: fspick() should fail with %s",
++		tst_brk(TFAIL | TTERRNO, "%s: open_tree() should fail with %s",
 +			tc->name, tst_strerrno(tc->exp_errno));
 +	}
 +
-+	tst_res(TPASS | TTERRNO, "%s: fspick() failed as expected", tc->name);
++	tst_res(TPASS | TTERRNO, "%s: open_tree() failed as expected", tc->name);
 +}
 +
 +static struct tst_test test = {
