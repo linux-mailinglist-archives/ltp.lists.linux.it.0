@@ -2,40 +2,58 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CB7C1644AA
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 13:52:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20DDB164502
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 14:08:11 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A2B653C24B7
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 13:52:42 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B4C0E3C24B7
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 14:08:10 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 9ED403C0823
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 13:52:40 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 33C9C3C0878
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 14:08:08 +0100 (CET)
+Received: from mail-m975.mail.163.com (mail-m975.mail.163.com [123.126.97.5])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2675F704D6F
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 13:52:39 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 3C417BCFC;
- Wed, 19 Feb 2020 12:52:39 +0000 (UTC)
-Date: Wed, 19 Feb 2020 13:52:38 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Prachi Parekh <prachiparekh20@gmail.com>
-Message-ID: <20200219125238.GA5497@rei>
-References: <chrubis@suse.cz> <20200206113958.11567-1-prachiparekh20@gmail.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 92C601001963
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 14:07:14 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=eozt/
+ qWw0rcyrdU1IHpIxUtCvYMamOCfxXsgcAlK7nc=; b=UCEcRF1LXwq4xJTZF4PNv
+ rbODsL/gOcDF4Lfvklx8Tk0X7INvFnVTxDGw7er3IDPanvQ3TdWHBs6Pf2jMt2M6
+ 4DX1fBf1haQok4KVAS867swuRDZWHSwdzf6yud/VpBOQxauucH7kxsC08QPM0DPc
+ oqb0pShkoUqGZ3MVC8ZH+k=
+Received: from [172.20.10.4] (unknown [122.96.42.253])
+ by smtp5 (Coremail) with SMTP id HdxpCgD34dIuM01eWG9YAA--.2459S2;
+ Wed, 19 Feb 2020 21:07:58 +0800 (CST)
+To: Li Wang <liwang@redhat.com>
+References: <20200218115918.32203-1-liwang@redhat.com>
+ <0774e1e5-c326-e4aa-8c74-45de61d8276b@163.com>
+ <CAEemH2c9v87NWM6k_t4d9Vi3wAYYjwfEJp2Cw-zG9pPHvdtV-Q@mail.gmail.com>
+From: Xiao Yang <ice_yangxiao@163.com>
+Message-ID: <701290c2-4cd6-154a-d400-7479c57ec910@163.com>
+Date: Wed, 19 Feb 2020 21:07:57 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200206113958.11567-1-prachiparekh20@gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+In-Reply-To: <CAEemH2c9v87NWM6k_t4d9Vi3wAYYjwfEJp2Cw-zG9pPHvdtV-Q@mail.gmail.com>
+Content-Language: en-US
+X-CM-TRANSID: HdxpCgD34dIuM01eWG9YAA--.2459S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGr43AFyDCF18ArW7CrW3KFg_yoW5KrW7pF
+ 13J3srCF1UX3WkJw1xXr1rGr1UXr4DAr15AF15Jr48Cr1vvF4UGr45t3W8ArW7JFWDXa4j
+ 9r4xJry5Gw1vqFUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jf-BNUUUUU=
+X-Originating-IP: [122.96.42.253]
+X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/1tbiqB3OXlc7NfYYBwABsU
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/timer_settime: timer invokes signal
- handler using timer_settime function.
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] cleanup: avoid to generate many redundant obj
+ files
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,208 +65,290 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1321328793=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> +#include <stdlib.h>
-> +#include <errno.h>
-> +#include <time.h>
-> +#include <signal.h>
-> +#include <stdio.h>
-> +#include "lapi/common_timers.h"
-> +#include "tst_test.h"
-> +#include "tst_safe_macros.h"
-> +
-> +#define SIG SIGALRM
+This is a multi-part message in MIME format.
+--===============1321328793==
+Content-Type: multipart/alternative;
+ boundary="------------40FC513146E1ADD1B07FABC3"
+Content-Language: en-US
 
-Just use SIGALRM in the code instead, there is no real need to obscure
-which signal are we using.
+This is a multi-part message in MIME format.
+--------------40FC513146E1ADD1B07FABC3
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-> +static struct timespec timenow;
-> +static struct itimerspec new_set, old_set;
-> +static kernel_timer_t timer;
+On 2/19/20 8:20 PM, Li Wang wrote:
+> Hi Xiao,
+>
+>     Why don't you avoid libftest.o as well if you want to build test
+>     by new rule?
+>
+>
+> That should be generated because it is the local library. In LTP 
+> Makefile, the sequencing is to build the library first then 
+> compile&link to the testcase. We can avoid dumping the testname.o 
+> since it only exists in the last phase.
 
-There is no need for three of these variables to be global at all.
+Hi Li,
 
-> +static volatile int handler_var;
-                         ^
-			 It would be a bit more descriptive if this
-			 variable was called signal_caught or got_signal.
+Thanks for your detailed explanation.
+
+I think you try to change the building rule, as below:
+
+Previous rule: generate all object files and then link them at the last 
+phase.
+
+---------------------------------------------
+
+gcc -g -O2 -g -O2 -fno-strict-aliasing -pipe -Wall -W 
+-Wold-style-definition -D_FORTIFY_SOURCE=2 
+-I/root/ltp/testcases/kernel/syscalls/swapoff/../swapon/ 
+-I../../../../include -I../../../../include -I../../../../include/old/  
+-c -o swapoff01.o swapoff01.c
+gcc -g -O2 -g -O2 -fno-strict-aliasing -pipe -Wall -W 
+-Wold-style-definition -D_FORTIFY_SOURCE=2 
+-I/root/ltp/testcases/kernel/syscalls/swapoff/../swapon/ 
+-I../../../../include -I../../../../include -I../../../../include/old/  
+-c -o ../swapon/libswapon.o ../swapon/libswapon.c
+gcc   -L/root/ltp/testcases/kernel/syscalls/swapoff/../swapon/ 
+-L../../../../lib  swapoff01.o ../swapon/libswapon.o   -lltp -o swapoff01
+
+---------------------------------------------
+
+Current rule: just generate some common object files(e.g. library) and 
+then mix building and link at the last phase.
+
+---------------------------------------------
+
+gcc -g -O2 -g -O2 -fno-strict-aliasing -pipe -Wall -W 
+-Wold-style-definition -D_FORTIFY_SOURCE=2 
+-I/root/ltp/testcases/kernel/syscalls/swapoff/../swapon/ 
+-I../../../../include -I../../../../include -I../../../../include/old/  
+-c -o ../swapon/libswapon.o ../swapon/libswapon.c
+gcc -g -O2 -g -O2 -fno-strict-aliasing -pipe -Wall -W 
+-Wold-style-definition -D_FORTIFY_SOURCE=2 
+-I/root/ltp/testcases/kernel/syscalls/swapoff/../swapon/ 
+-I../../../../include -I../../../../include -I../../../../include/old/ 
+-L/root/ltp/testcases/kernel/syscalls/swapoff/../swapon/ 
+-L../../../../lib  swapoff01.c ../swapon/libswapon.o   -lltp -o swapoff01
+
+---------------------------------------------
+
+Why don't you remove all object files and mix building and link at the 
+last phase?
+
+---------------------------------------------
+
+gcc -g -O2 -g -O2 -fno-strict-aliasing -pipe -Wall -W 
+-Wold-style-definition -D_FORTIFY_SOURCE=2 
+-I/root/ltp/testcases/kernel/syscalls/swapoff/../swapon/ 
+-I../../../../include -I../../../../include -I../../../../include/old/ 
+-L/root/ltp/testcases/kernel/syscalls/swapoff/../swapon/ 
+-L../../../../lib  swapoff01.c ../swapon/libswapon.c   -lltp -o swapoff01
+
+---------------------------------------------
+
+>
+> And, I don't want to change too much for LTP build rule(I think it 
+> works correctly), especially in the case directory some of the local 
+> libraries are reused.  e.g The swapoff test needs linking to 
+> ../swapon/libswapon.o, that requires libswapon.o is in the correct path.
+
+You can build and link libswapon.c directly, as below:
+
+---------------------------------
+
+# grep MAKE_TARGETS Makefile
+$(MAKE_TARGETS): %: ../swapon/libswapon.c
+
+---------------------------------
+
+Sorry, I am not sure if your improvement is the best way.
+
+Thanks,
+
+Xiao Yang
+
+>
+> Or, did I misunderstand your words? if yes, please correct me.
+>
+> -- 
+> Regards,
+> Li Wang
+
+--------------40FC513146E1ADD1B07FABC3
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">On 2/19/20 8:20 PM, Li Wang wrote:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CAEemH2c9v87NWM6k_t4d9Vi3wAYYjwfEJp2Cw-zG9pPHvdtV-Q@mail.gmail.com">
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <div dir="ltr">
+        <div class="gmail_quote">
+          <div class="gmail_default" style="font-size:small">Hi Xiao,</div>
+          <div class="gmail_default" style="font-size:small"><br>
+          </div>
+          <blockquote class="gmail_quote" style="margin:0px 0px 0px
+            0.8ex;border-left:1px solid
+            rgb(204,204,204);padding-left:1ex">
+            Why don't you avoid libftest.o as well if you want to build
+            test by new rule?</blockquote>
+          <div><br>
+          </div>
+          <div>
+            <div class="gmail_default" style="font-size:small">That
+              should be generated because it is the local library. In
+              LTP Makefile, the sequencing is to build the library first
+              then compile&amp;link to the testcase. We can avoid
+              dumping the testname.o since it only exists in the last
+              phase. <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+    <p>Hi Li,</p>
+    <p>Thanks for your detailed explanation.</p>
+    <p>I think you try to change the building rule, as below:</p>
+    <p>Previous rule: generate all object files and then link them at
+      the last phase.</p>
+    <p>---------------------------------------------</p>
+    <p>gcc -g -O2 -g -O2 -fno-strict-aliasing -pipe -Wall -W
+      -Wold-style-definition -D_FORTIFY_SOURCE=2
+      -I/root/ltp/testcases/kernel/syscalls/swapoff/../swapon/
+      -I../../../../include -I../../../../include
+      -I../../../../include/old/  -c -o swapoff01.o swapoff01.c<br>
+      gcc -g -O2 -g -O2 -fno-strict-aliasing -pipe -Wall -W
+      -Wold-style-definition -D_FORTIFY_SOURCE=2
+      -I/root/ltp/testcases/kernel/syscalls/swapoff/../swapon/
+      -I../../../../include -I../../../../include
+      -I../../../../include/old/  -c -o ../swapon/libswapon.o
+      ../swapon/libswapon.c<br>
+      gcc   -L/root/ltp/testcases/kernel/syscalls/swapoff/../swapon/
+      -L../../../../lib  swapoff01.o ../swapon/libswapon.o   -lltp -o
+      swapoff01<br>
+    </p>
+    <p>---------------------------------------------<br>
+    </p>
+    <p>Current rule: just generate some common object files(e.g.
+      library) and then mix building and link at the last phase. <br>
+    </p>
+    <p>---------------------------------------------</p>
+    <p>gcc -g -O2 -g -O2 -fno-strict-aliasing -pipe -Wall -W
+      -Wold-style-definition -D_FORTIFY_SOURCE=2
+      -I/root/ltp/testcases/kernel/syscalls/swapoff/../swapon/
+      -I../../../../include -I../../../../include
+      -I../../../../include/old/  -c -o ../swapon/libswapon.o
+      ../swapon/libswapon.c<br>
+      gcc -g -O2 -g -O2 -fno-strict-aliasing -pipe -Wall -W
+      -Wold-style-definition -D_FORTIFY_SOURCE=2
+      -I/root/ltp/testcases/kernel/syscalls/swapoff/../swapon/
+      -I../../../../include -I../../../../include
+      -I../../../../include/old/  
+      -L/root/ltp/testcases/kernel/syscalls/swapoff/../swapon/
+      -L../../../../lib  swapoff01.c ../swapon/libswapon.o   -lltp -o
+      swapoff01<br>
+    </p>
+    <p>---------------------------------------------</p>
+    <p>Why don't you remove all object files and mix building and link
+      at the last phase?</p>
+    <p>---------------------------------------------</p>
+    <p>gcc -g -O2 -g -O2 -fno-strict-aliasing -pipe -Wall -W
+      -Wold-style-definition -D_FORTIFY_SOURCE=2
+      -I/root/ltp/testcases/kernel/syscalls/swapoff/../swapon/
+      -I../../../../include -I../../../../include
+      -I../../../../include/old/  
+      -L/root/ltp/testcases/kernel/syscalls/swapoff/../swapon/
+      -L../../../../lib  swapoff01.c ../swapon/libswapon.c   -lltp -o
+      swapoff01<br>
+    </p>
+    <p>---------------------------------------------<br>
+    </p>
+    <blockquote type="cite"
+cite="mid:CAEemH2c9v87NWM6k_t4d9Vi3wAYYjwfEJp2Cw-zG9pPHvdtV-Q@mail.gmail.com">
+      <div dir="ltr">
+        <div class="gmail_quote">
+          <div>
+            <div class="gmail_default" style="font-size:small"><br>
+            </div>
+            <div class="gmail_default" style="font-size:small">And, I
+              don't want to change too much for LTP build rule(I think
+              it works correctly), especially in the case directory some
+              of the local libraries are reused.  e.g The swapoff test
+              needs linking to ../swapon/libswapon.o, that
+              requires libswapon.o is in the correct path.</div>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+    <p>You can build and link libswapon.c directly, as below:</p>
+    <p>---------------------------------</p>
+    <p># grep MAKE_TARGETS Makefile<br>
+      $(MAKE_TARGETS): %: ../swapon/libswapon.c<br>
+    </p>
+    <p>---------------------------------<br>
+    </p>
+    <p>Sorry, I am not sure if your improvement is the best way.</p>
+    <p>Thanks,</p>
+    <p>Xiao Yang<br>
+    </p>
+    <blockquote type="cite"
+cite="mid:CAEemH2c9v87NWM6k_t4d9Vi3wAYYjwfEJp2Cw-zG9pPHvdtV-Q@mail.gmail.com">
+      <div dir="ltr">
+        <div class="gmail_quote">
+          <div><br>
+          </div>
+          <div>
+            <div class="gmail_default" style="font-size:small">Or, did I
+              misunderstand your words? if yes, please correct me.</div>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+    <blockquote type="cite"
+cite="mid:CAEemH2c9v87NWM6k_t4d9Vi3wAYYjwfEJp2Cw-zG9pPHvdtV-Q@mail.gmail.com">
+      <div dir="ltr">
+        <div class="gmail_quote">
+          <div><br>
+          </div>
+        </div>
+        -- <br>
+        <div dir="ltr" class="gmail_signature">
+          <div dir="ltr">
+            <div>Regards,<br>
+            </div>
+            <div>Li Wang<br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+  </body>
+</html>
+
+--------------40FC513146E1ADD1B07FABC3--
 
 
-> +static struct testcase {
-> +	struct itimerspec	*old_ptr;
-> +	int			it_value_tv_sec;
-> +	int			it_value_tv_nsec;
-> +	int			it_interval_tv_sec;
-> +	int	         	it_interval_tv_nsec;
-                 ^
-		 Spaces after a tab
+--===============1321328793==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-You can use the checkpatch.pl script, shipped along with Linux kernel
-sources, to check for style violations.
-
-> +	int			flag;
-> +	char			*description;
-> +} tcases[] = {
-> +	{&old_set, 0, 5, 0, 5, TIMER_ABSTIME, "using absolute timer"},
-> +	{NULL,     0, 5, 0, 5, 0, "using periodic timer"},
-> +};
-> +
-> +
-> +static void handler(int sig, siginfo_t *si, void *uc)
-> +{
-
-There is no point in defining the handler with the two additional
-pointers if we do not use them. Just set the sa_handler in the sigaction
-structure instead and do not set the SA_SIGINFO flag.
-
-> +	handler_var = 1;
-> +}
-> +
-> +static void run(unsigned int n)
-> +{
-> +	unsigned int i;
-> +	struct testcase *tc = &tcases[n];
-> +	tst_res(TINFO, "n = %d", n);
-
-This message is useless and only polutes the test output.
-
-> +	unsigned int u_secs = 10000;
-> +	struct sigevent evp;
-> +	struct sigaction sa;
-> +
-> +	tst_res(TINFO, "Testing for %s:", tc->description);
-> +
-> +	for (i = 0; i < CLOCKS_DEFINED; ++i) {
-> +		clock_t clock = clock_list[i];
-> +
-> +		tst_res(TINFO, "i= %d:", i);
-
-Here as well, useless message.
-
-> +		/* Establish handler for timer signal */
-
-Here you are commenting the obvious, please avoid comments like this
-one.
-
-> +		tst_res(TINFO, "Establishing handler for siganl %d:", SIG);
-
-This message is polluting the test output as well.
-
-> +		sa.sa_flags = SA_SIGINFO;
-> +		sa.sa_sigaction = handler;
-> +		sigemptyset(&sa.sa_mask);
-> +		if (sigaction(SIG, &sa, NULL) == -1)
-
-We do have SAFE_SIGACTION() please use that one instead.
-
-> +			continue;
-
-There is no need to setup the the handler for each test iteration, we
-can do that once in the test setup.
-
-> +		evp.sigev_value  = (union sigval) 0;
-> +		evp.sigev_signo  = SIG;
-> +		evp.sigev_notify = SIGEV_SIGNAL;
-> +
-> +		if (clock == CLOCK_PROCESS_CPUTIME_ID ||
-> +				clock == CLOCK_THREAD_CPUTIME_ID) {
-> +			if (!have_cputime_timers())
-> +				continue;
-> +		}
-> +
-> +		TEST(tst_syscall(__NR_timer_create, clock, &evp, &timer));
-> +
-> +		if (TST_RET != 0) {
-> +			if (possibly_unsupported(clock) && TST_ERR == EINVAL) {
-> +				tst_res(TPASS | TTERRNO,
-> +						"%s unsupported, failed as expected",
-> +						get_clock_str(clock));
-> +			} else {
-> +				tst_res(TBROK | TTERRNO,
-> +						"timer_create(%s) failed",
-> +						get_clock_str(clock));
-> +			}
-> +			continue;
-> +		}
-> +
-> +		memset(&new_set, 0, sizeof(new_set));
-> +		memset(&old_set, 0, sizeof(old_set));
-> +
-> +		new_set.it_value.tv_sec = tc->it_value_tv_sec;
-> +		new_set.it_value.tv_nsec = tc->it_value_tv_sec * 1000000;
-> +		new_set.it_interval.tv_sec = tc->it_interval_tv_sec;
-> +		new_set.it_interval.tv_nsec = tc->it_interval_tv_nsec * 1000000;
-> +
-> +		if (tc->flag & TIMER_ABSTIME) {
-> +			if (clock_gettime(clock, &timenow) < 0) {
-> +				tst_res(TBROK,
-> +						"clock_gettime(%s) failed - skipping the test",
-> +						get_clock_str(clock));
-> +				continue;
-> +			}
-> +			new_set.it_value.tv_sec += timenow.tv_sec;
-
-			Does this even work? As far as I can tell we
-			have to add both tv_sec and tv_nsec and then
-			normalize the result.
-
-			Btw we do have a library for that in
-			include/tst_timer.h, where there are fucntions
-			to add two timespec values.
-
-> +		}
-> +
-> +		TEST(tst_syscall(__NR_timer_settime, timer,
-> +					tc->flag, &new_set, tc->old_ptr));
-> +
-> +		/* sleep for sometime so periodic timer expires in that time*/
-> +		usleep(u_secs);
-
-The duration for the sleep here should either be based on the values in
-the testcase structure, or we can simply pause() here.
-
-And if we pause() here we should also measure the time we slept here and
-check that it's bounded by a reasonable value. Choosing a reasonable
-value for short sleeps is a bit difficuilt though becuase of timerslack
-and other things, so for a start we may just pause() here for now.
-
-> +		if (handler_var == 0) {
-> +			tst_res(TFAIL | TTERRNO, "%s failed",
-> +					get_clock_str(clock));
-> +		} else {
-> +			tst_res(TPASS, "%s was successful",
-> +					get_clock_str(clock));
-> +
-> +			handler_var = 0;
-
-Can we reset this at the start of the loop unconditionally please?
-
-> +			tst_res(TINFO, "Caught signal %d\n", SIG);
-
-Another useless message, if we print the PASS here it implies that the
-signal has been caught.
-
-> +		}
-
-You should delete the timer with timer_delete() here.
-
-> +	}
-> +}
-> +
-> +static struct tst_test test = {
-> +	.test = run,
-> +	.tcnt = ARRAY_SIZE(tcases),
-> +};
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1321328793==--
+
