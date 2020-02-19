@@ -2,39 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE849162A6F
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Feb 2020 17:27:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 22E20163BBB
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 04:57:52 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 282B63C2605
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Feb 2020 17:27:47 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0DFB43C210E
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Feb 2020 04:57:52 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 394DE3C256D
- for <ltp@lists.linux.it>; Tue, 18 Feb 2020 17:27:42 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 623B81401250
- for <ltp@lists.linux.it>; Tue, 18 Feb 2020 17:27:41 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 59848C14F;
- Tue, 18 Feb 2020 16:27:40 +0000 (UTC)
-Date: Tue, 18 Feb 2020 17:27:39 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20200218162739.GA9985@rei.lan>
-References: <20200208092014.24824-1-liwang@redhat.com>
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 17E503C07E2
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 04:57:47 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 26D9860080B
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 04:57:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1582084665;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=pw1NfPLU8fbFwwEDFSRdI7G95/BlhbKSD5Afu6gS/g8=;
+ b=CSnMAzmRi1/o3HmxuCDQSr6sM6JX0QllA/aYXEE78UnGWDFhoOD0eQ8LTim9zh2aF3iAfL
+ S61HOsDpV0TQJN78kqA95Y8msa8imZQLE4pLZYcVqi25s3AfARruxNlbfFyYaZjdzp7Yxn
+ l4vJ1dQfTaHUFiUBARhWrSQluT7TcMI=
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
+ [209.85.210.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-13-kxuZ9OA7NeKUccL5Rm-Taw-1; Tue, 18 Feb 2020 22:57:42 -0500
+Received: by mail-ot1-f70.google.com with SMTP id z62so13695857otb.0
+ for <ltp@lists.linux.it>; Tue, 18 Feb 2020 19:57:42 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=1Fjs/7ysZiJ4BrOk9lGanPO7Q9Q1Tqf3OGxmYVBpSLA=;
+ b=j+G4ppLl8BHdJ4kxntiJikwEDoNW8ub8K56c/n26k5WlCwqf0N1rJ4X0qiEzYRR8Bp
+ CPG9TnPOZUmCTyFZ0oXjFX2j0KT3Kdad+Df4TcE/47TBF3WECzekCxQLs40zBHE53WxN
+ 4y7+r6dWfncpwyVSRg/3vovibT/bj0mTZgbcO1ONjQ7XAw248uf1l97CH3ziLzjXb+n7
+ x54JQ+jIR/MscBA7XIkLgvn0xAEsbi3kIcqqOgLO1eTjheN6XSBgYp6IXjeO4OKkrjBS
+ eSqD0a5IODeET1sVja7P2yE5IVvKqfNyswijMmPi/hL0LtZrG69Q9c7Wy34rOSyZsA/v
+ 3Svg==
+X-Gm-Message-State: APjAAAWr+96puvdLa19pEB3/csdeOuwBj4dDrLuXHOCmg/buA6w0WmJD
+ bdpNd9/OqrsiUKt/XvEZy+DGi2joACxX8B6RKKhUXwlmVLmLj8zYRpyE+BZj8ddZJK8nTbl28HV
+ id0TFpiUJllnsv+HQ3KCKMAb+74E=
+X-Received: by 2002:a9d:7:: with SMTP id 7mr17420530ota.26.1582084661699;
+ Tue, 18 Feb 2020 19:57:41 -0800 (PST)
+X-Google-Smtp-Source: APXvYqx7V415CvmxwvFhNUe8kL/CuHAJGe/SJYF79w4yurzJiXqcIzWCZgwrS48HiMzc7KRPparT6oiw2n4ef5giVYo=
+X-Received: by 2002:a9d:7:: with SMTP id 7mr17420525ota.26.1582084661450; Tue,
+ 18 Feb 2020 19:57:41 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20200208092014.24824-1-liwang@redhat.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+References: <20200218115918.32203-1-liwang@redhat.com>
+ <a3d98743-8c77-3282-97dd-a2864886e8c6@163.com>
+In-Reply-To: <a3d98743-8c77-3282-97dd-a2864886e8c6@163.com>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 19 Feb 2020 11:57:30 +0800
+Message-ID: <CAEemH2cg=r3tjefzm=dSj0FZca-gMorGue3C0uGugpniSnZjBA@mail.gmail.com>
+To: Yang Xu <xuyang_jy_0410@163.com>
+X-MC-Unique: kxuZ9OA7NeKUccL5Rm-Taw-1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 1/2] lib: add .request_hugepages to reserve
- hugepage
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] cleanup: avoid to generate many redundant obj
+ files
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,354 +79,83 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: multipart/mixed; boundary="===============2143279902=="
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1303139225=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============2143279902==
-Content-Type: text/plain; charset=unknown-8bit
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+--===============1303139225==
+Content-Type: multipart/alternative; boundary="00000000000040325a059ee5ca7f"
 
-Hi!
-> Many of the ltp tests need to use hugepage in their testing, this allows
-> the test can reserve hpages from system only via .request_hugepages = xx.
-> 
-> If set non-zero number of request_hugepages, test will try to reserve the
-> expected number of hugepage for testing in setup phase. If system does not
-> have enough hpage for using, it will try the best to reserve 80% available
-> number of hpages. For a system without hugetlb supporting, variable
-> 'tst_hugepage' will be set to 0.
-> 
-> Signed-off-by: Li Wang <liwang@redhat.com>
-> ---
-> 
-> Notes:
->     v3 --> v4
->       * add doc to check the hpage number in setup()
->       * remove the TCONF print if hugepage is not supported
->       * check here that max_hpages * 0.8 > 1
-> 
->  doc/test-writing-guidelines.txt | 58 ++++++++++++++++++++++++++++++++
->  include/tst_hugepage.h          | 29 ++++++++++++++++
->  include/tst_test.h              | 13 ++++++++
->  lib/newlib_tests/.gitignore     |  1 +
->  lib/newlib_tests/test20.c       | 45 +++++++++++++++++++++++++
->  lib/tst_hugepage.c              | 59 +++++++++++++++++++++++++++++++++
->  lib/tst_test.c                  |  6 ++--
->  7 files changed, 209 insertions(+), 2 deletions(-)
->  create mode 100644 include/tst_hugepage.h
->  create mode 100644 lib/newlib_tests/test20.c
->  create mode 100644 lib/tst_hugepage.c
-> 
-> diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
-> index 546bb7a49..fa7cb89c1 100644
-> --- a/doc/test-writing-guidelines.txt
-> +++ b/doc/test-writing-guidelines.txt
-> @@ -1933,6 +1933,64 @@ specified by the user plus some other heuristics.
->  
->  For full documentation see the comments in 'include/tst_fuzzy_sync.h'.
->  
-> +2.2.34 Reserving hugepages
-> +^^^^^^^^^^^^^^^^^^^^^^^^^^
-> +
-> +Many of the ltp tests need to use hugepage in their testing, this allows the
-> +test can reserve hugepages from system only via .request_hugepages = xx.
-> +
-> +If set non-zero number of request_hugepages, test will try to reserve the
-> +expected number of hugepage for testing in setup phase. If system does not
-> +have enough hpage for using, it will try the best to reserve 80% available
-> +number of hpages. With success test stores the reserved hugepage number in
-> +'tst_hugepages. For the system without hugetlb supporting, variable
-> +'tst_hugepages' will be set to 0.
-> +
-> +Also, we do cleanup and restore work for the hpages resetting automatically.
-> +
-> +[source,c]
-> +-------------------------------------------------------------------------------
-> +#include "tst_test.h"
-> +
-> +static void run(void)
-> +{
-> +	...
-> +
-> +	if (tst_hugepages == test.request_hugepages)
-> +		TEST(do_hpage_test);
-> +	else
-> +		...
-> +	...
-> +}
-> +
-> +struct tst_test test = {
-> +	.test_all = run,
-> +	.request_hugepages = 2,
-> +	...
-> +};
-> +
-> +or,
-> +
-> +#include "tst_test.h"
-> +
-> +static void run(void)
-> +{
-> +	...
-> +}
-> +
-> +static void setup(void)
-> +{
-> +        if (tst_hugepages != test.requested_hugepages)
-> +                tst_brk(TCONF, "...");
-> +}
-> +
-> +struct tst_test test = {
-> +	.test_all = run,
-> +	.request_hugepages = 2,
-> +	...
-> +};
-> +-------------------------------------------------------------------------------
-> +
->  2.3 Writing a testcase in shell
->  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->  
-> diff --git a/include/tst_hugepage.h b/include/tst_hugepage.h
-> new file mode 100644
-> index 000000000..10e0eaf47
-> --- /dev/null
-> +++ b/include/tst_hugepage.h
-> @@ -0,0 +1,29 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2019 Red Hat, Inc.
-> + */
-> +
-> +#ifndef TST_HUGEPAGE__
-> +#define TST_HUGEPAGE__
-> +
-> +#define PATH_HUGEPAGES	"/sys/kernel/mm/hugepages/"
-> +#define PATH_NR_HPAGES	"/proc/sys/vm/nr_hugepages"
-> +
-> +/*
-> + * Try the best to request a specified number of huge pages from system,
-> + * it will store the reserved hpage number in tst_hugepages.
-> + *
-> + * Note: this depend on the status of system memory fragmentation.
-> + */
-> +int tst_request_hugepages(int hpages);
-> +
-> +/*
-> + * This variable is used for recording the number of hugepages which system can
-> + * provides. It will be equal to 'hpages' if tst_request_hugepages on success,
-> + * otherwise set it to a number of hugepages that we were able to reserve.
-> + *
-> + * If system does not support hugetlb, then it will be set to 0.
-> + */
-> +extern unsigned int tst_hugepages;
-> +
-> +#endif /* TST_HUGEPAGE_H */
-> diff --git a/include/tst_test.h b/include/tst_test.h
-> index 21c7dfbdb..1026a422a 100644
-> --- a/include/tst_test.h
-> +++ b/include/tst_test.h
-> @@ -37,6 +37,7 @@
->  #include "tst_coredump.h"
->  #include "tst_buffers.h"
->  #include "tst_capability.h"
-> +#include "tst_hugepage.h"
->  
->  /*
->   * Reports testcase result.
-> @@ -148,6 +149,18 @@ struct tst_test {
->  	 */
->  	int all_filesystems:1;
->  
-> +	/*
-> +	 * If set non-zero number of request_hugepages, test will try to reserve the
-> +	 * expected number of hugepage for testing in setup phase. If system does not
-> +	 * have enough hpage for using, it will try the best to reserve 80% available
-> +	 * number of hpages. With success test stores the reserved hugepage number in
-> +	 * 'tst_hugepages. For the system without hugetlb supporting, variable
-> +	 * 'tst_hugepages' will be set to 0.
-> +	 *
-> +	 * Also, we do cleanup and restore work for the hpages resetting automatically.
-> +	 */
-> +	unsigned int request_hugepages;
-> +
->  	/*
->  	 * If set non-zero denotes number of test variant, the test is executed
->  	 * variants times each time with tst_variant set to different number.
-> diff --git a/lib/newlib_tests/.gitignore b/lib/newlib_tests/.gitignore
-> index d4aa4935f..ab3a92c4c 100644
-> --- a/lib/newlib_tests/.gitignore
-> +++ b/lib/newlib_tests/.gitignore
-> @@ -23,6 +23,7 @@ tst_strstatus
->  test17
->  test18
->  test19
-> +test20
->  tst_expiration_timer
->  test_exec
->  test_exec_child
-> diff --git a/lib/newlib_tests/test20.c b/lib/newlib_tests/test20.c
-> new file mode 100644
-> index 000000000..92e230976
-> --- /dev/null
-> +++ b/lib/newlib_tests/test20.c
-> @@ -0,0 +1,45 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2019 Li Wang <liwang@redhat.com>
-> + */
-> +
-> +/*
-> + * Tests .request_hugepages + .save_restore
-> + */
-> +
-> +#include "tst_test.h"
-> +#include "tst_hugepage.h"
-> +#include "tst_sys_conf.h"
-> +
-> +static const char * const save_restore[] = {
-> +	"!/proc/sys/kernel/numa_balancing",
-> +	NULL,
-> +};
-> +
-> +static void do_test(void) {
-> +
-> +	int val, hpages;
-> +
-> +	tst_res(TINFO, "tst_hugepages = %u", tst_hugepages);
-> +	SAFE_FILE_PRINTF("/proc/sys/kernel/numa_balancing", "1");
-> +
-> +	hpages = test.request_hugepages;
-> +	SAFE_FILE_SCANF(PATH_NR_HPAGES, "%d", &val);
-> +	if (val != hpages)
-> +		tst_brk(TBROK, "nr_hugepages = %d, but expect %d", val, hpages);
-> +	else
-> +		tst_res(TPASS, "test .needs_hugepges");
-> +
-> +	hpages = tst_request_hugepages(3);
-> +	SAFE_FILE_SCANF(PATH_NR_HPAGES, "%d", &val);
-> +	if (val != hpages)
-> +		tst_brk(TBROK, "nr_hugepages = %d, but expect %d", val, hpages);
-> +	else
-> +		tst_res(TPASS, "tst_request_hugepages");
-> +}
-> +
-> +static struct tst_test test = {
-> +	.test_all = do_test,
-> +	.request_hugepages = 2,
-> +	.save_restore = save_restore,
-> +};
-> diff --git a/lib/tst_hugepage.c b/lib/tst_hugepage.c
-> new file mode 100644
-> index 000000000..d37b45e3a
-> --- /dev/null
-> +++ b/lib/tst_hugepage.c
-> @@ -0,0 +1,59 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2019 Red Hat, Inc.
-> + */
-> +
-> +#define TST_NO_DEFAULT_MAIN
-> +
-> +#include "tst_test.h"
-> +#include "tst_hugepage.h"
-> +
-> +unsigned int tst_hugepages;
-> +
-> +int tst_request_hugepages(int hpages)
-> +{
-> +	int val;
-> +	long mem_avail, max_hpages;
-> +
-> +	if (access(PATH_HUGEPAGES, F_OK)) {
-> +		tst_hugepages = 0;
-> +		goto out;
-> +	}
-> +
-> +	tst_hugepages = hpages;
-> +
-> +	SAFE_FILE_PRINTF("/proc/sys/vm/drop_caches", "3");
-> +
-> +	if (FILE_LINES_SCANF("/proc/meminfo",
-> +				"MemAvailable: %ld", &mem_avail)) {
-> +		/*
-> +		 * Using "MemFree:" on kernel that doesn't have
-> +		 * "MemAvailable:" in Meminfo
-> +		 */
-> +		tst_res(TINFO, "MemAvailable: not found in /proc/meminfo");
-> +
-> +		mem_avail = SAFE_READ_MEMINFO("MemFree:");
-> +	}
+--00000000000040325a059ee5ca7f
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I guess that we don't have to bother with MemAvailable here, since we do
-drop the system caches the MemFree should be equal to MemAvailable. So I
-would be for reading just MemFree unconditionally here.
+Hi Yang,
 
-If you agree with this change I can change it before applying.
+On Tue, Feb 18, 2020 at 10:21 PM Yang Xu <xuyang_jy_0410@163.com> wrote:
 
-> +	max_hpages = mem_avail / SAFE_READ_MEMINFO("Hugepagesize:");
-> +
-> +	if (hpages > max_hpages) {
-> +		tst_res(TINFO, "Requested number(%d) of hugepages is too large, "
-> +				"limiting to 80%% of the max hugepage count %ld",
-> +				hpages, max_hpages);
-> +		tst_hugepages = max_hpages * 0.8;
-> +
-> +		if (tst_hugepages < 1)
-> +			goto out;
-> +	}
-> +
-> +	tst_sys_conf_save("?/proc/sys/vm/nr_hugepages");
-> +	SAFE_FILE_PRINTF(PATH_NR_HPAGES, "%d", tst_hugepages);
-> +	SAFE_FILE_SCANF(PATH_NR_HPAGES, "%d", &val);
-> +	if (val != tst_hugepages)
-> +		tst_brk(TBROK, "nr_hugepages = %d, but expect %d", val, tst_hugepages);
-> +
-> +	tst_res(TINFO, "%d hugepage(s) reserved", tst_hugepages);
-> +out:
-> +	return tst_hugepages;
-> +}
-> diff --git a/lib/tst_test.c b/lib/tst_test.c
-> index 8d7dee2cc..9a24cffc5 100644
-> --- a/lib/tst_test.c
-> +++ b/lib/tst_test.c
-> @@ -890,6 +890,9 @@ static void do_setup(int argc, char *argv[])
->  	if (tst_test->all_filesystems)
->  		tst_test->needs_device = 1;
->  
-> +	if (tst_test->request_hugepages)
-> +		tst_request_hugepages(tst_test->request_hugepages);
-> +
->  	setup_ipc();
->  
->  	if (tst_test->bufs)
-> @@ -1006,8 +1009,7 @@ static void do_cleanup(void)
->  		tst_rmdir();
->  	}
->  
-> -	if (tst_test->save_restore)
-> -		tst_sys_conf_restore(0);
-> +	tst_sys_conf_restore(0);
->  
->  	if (tst_test->restore_wallclock)
->  		tst_wallclock_restore();
-> -- 
-> 2.20.1
-> 
-
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+> Hi Li
+>
+> This patch looks good to me, feel free to add
+> Reviewed-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com> <xuyang2018.jy@cn.fuj=
+itsu.com>
+>
+> Also, I think we can replace GPL with SPDX-License-Identifier in these ma=
+kefiles
+>
+> Yes, I have fixed that as you suggest and pushed. Thanks!
 
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+> (Also for
+> all ltp makefiles, we have converted SPDX-License-Identifier in few heade=
+r since commit b288957a88b1 ).
+>
+> Good point, but I haven't found a way to do the replacement for whole
+files.
 
---===============2143279902==
+--=20
+Regards,
+Li Wang
+
+--00000000000040325a059ee5ca7f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi=C2=A0Yang,</div></div><br><div class=3D"gmail_quote"><div =
+dir=3D"ltr" class=3D"gmail_attr">On Tue, Feb 18, 2020 at 10:21 PM Yang Xu &=
+lt;<a href=3D"mailto:xuyang_jy_0410@163.com">xuyang_jy_0410@163.com</a>&gt;=
+ wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
+0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+ =20
+   =20
+ =20
+  <div>
+    <pre>Hi Li
+
+This patch looks good to me, feel free to add
+Reviewed-by: Yang Xu <a href=3D"mailto:xuyang2018.jy@cn.fujitsu.com" target=
+=3D"_blank">&lt;xuyang2018.jy@cn.fujitsu.com&gt;</a>
+
+Also, I think we can replace GPL with SPDX-License-Identifier in these make=
+files</pre></div></blockquote><div><span class=3D"gmail_default" style=3D"f=
+ont-size:small">Yes, I have fixed that as you suggest and pushed. Thanks!</=
+span></div><div><span class=3D"gmail_default" style=3D"font-size:small"></s=
+pan>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
+px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><pre>(Als=
+o for
+all ltp makefiles, we have converted SPDX-License-Identifier in few header =
+since commit b288957a88b1 ).<br></pre></blockquote><div><span class=3D"gmai=
+l_default" style=3D"font-size:small">Good point, but I haven&#39;t found a =
+way to do the replacement for whole files.</span>=C2=A0</div><div>=C2=A0</d=
+iv></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"=
+><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--00000000000040325a059ee5ca7f--
+
+
+--===============1303139225==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -403,4 +165,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============2143279902==--
+--===============1303139225==--
+
