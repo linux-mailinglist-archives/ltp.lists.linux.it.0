@@ -1,69 +1,72 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09423165800
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Feb 2020 07:51:59 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C325165829
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Feb 2020 08:06:58 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B7F423C223A
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Feb 2020 07:51:58 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id F23703C25A3
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Feb 2020 08:06:57 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id A75B13C093E
- for <ltp@lists.linux.it>; Thu, 20 Feb 2020 07:51:56 +0100 (CET)
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C0379601230
- for <ltp@lists.linux.it>; Thu, 20 Feb 2020 07:51:55 +0100 (CET)
-Received: by mail-pg1-x544.google.com with SMTP id j15so1432531pgm.6
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 22:51:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=0RSMVeLno9BZdfKsWwDm/kcWa5raCLH1fElgQ6AyIEU=;
- b=GA80QVzJ5KU4ti6ubWDdNM6mGUmUGp1Xoylg7XTdByn83TPMbDr0Rma1VWkyfNZumX
- 6sgCrLzXtf2aaDCYMwLY2DlpklNa49NrUlJLUfvIEhybmRCTj4B3S1cSeFux/a/V7xbr
- 3K8bbc/iOkig1+oncpfzwyhOzrFvj2RDJ84i+ldkv9F9uxojLdIav2E+Tgd0bQHUr7CK
- GUpfI7dz+gZXQcbJasHipxqTc7fP38pfHZt/m4olOoVCrSHVMIQZK5Mgrvk2mv3/R24a
- Z/ld1iCfLxk0QhriT7CSiE7TUHxQmosb2MXeHV6Pss3wjVyFgQaleUo46fsp5KNModrS
- wWgw==
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 3FB5E3C0137
+ for <ltp@lists.linux.it>; Thu, 20 Feb 2020 08:06:53 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id A4B751001888
+ for <ltp@lists.linux.it>; Thu, 20 Feb 2020 08:05:31 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1582182410;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9oHlzp4cn87j5XRvKoqbnr4UPxLqCuWW3wS0OS1xe3c=;
+ b=TaIjKiVQcnr8OZyHbAwiihabgHNK3H3jg+dHovYrT7IAAGX5DTUVA+pSQQ9fPk5mxu7g5H
+ fgBO+2U/m+6W6BORcrr0wNSh5cT0JuTIDg8e0E+qF0Cr3qZXEPJ2uGQkY2/cfbuc8raero
+ pS4yTXKcjl0PAoVlhrcDhlgOgLAOdTY=
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
+ [209.85.210.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-59-g7DTDDFgNSGZ1g2UjHAe5w-1; Thu, 20 Feb 2020 02:06:46 -0500
+Received: by mail-ot1-f70.google.com with SMTP id o14so1677471otp.4
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 23:06:46 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=0RSMVeLno9BZdfKsWwDm/kcWa5raCLH1fElgQ6AyIEU=;
- b=YbfWNoy0B35dJHiBIKuNX/1zklv61Pli3pwusF1MMNiRM/rJlvY5Mkr7Pwxptllwgu
- OwQhs91yw4uCkY3bckX3c5Am6qXcTSIEnGmgW4UwJOC1UMP2d8OrwJ3mbwb+uLkjPqHX
- +8ZFQdZOBSprgUZLbNQW/U43n+HUXwrRElc1xulUXLhj6MUazVO85WpYZlL3Q6V+ga0m
- NRwkbcwRKDu4WH0CYEWavAQRfmxwTjuP3PtEDhJhjHuGKdhRNwCpAaf7hjM6GErVfxu3
- TVdXEnGRyu7g10rZho8EDPuA6IwWnU5bmE2d4raP2mDjqCURIn47KnafJo4CqrHdq0dB
- 0pyQ==
-X-Gm-Message-State: APjAAAWaNEZ3zsQIsK1L0S7+MkgGY5wAMhg8n6zpwsZnZ7rR4UYF19Gm
- XHCCSiNSd6727O9gaD5zUqox7q8JR4c=
-X-Google-Smtp-Source: APXvYqwQVFZeXNUjV9b+sgkieRh0KWHzG6dBpsEYTALyPUvQlzvhop5ACTHZ4tleO8VZNCwj1j67pA==
-X-Received: by 2002:a63:e257:: with SMTP id y23mr31970627pgj.104.1582181513783; 
- Wed, 19 Feb 2020 22:51:53 -0800 (PST)
-Received: from apollo.hsd1.ca.comcast.net ([2601:646:9200:4e0::396c])
- by smtp.gmail.com with ESMTPSA id 64sm1904080pfd.48.2020.02.19.22.51.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Feb 2020 22:51:53 -0800 (PST)
-From: Khem Raj <raj.khem@gmail.com>
-To: ltp@lists.linux.it
-Date: Wed, 19 Feb 2020 22:52:04 -0800
-Message-Id: <20200220065204.485391-1-raj.khem@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=RazclLdMSuDooevR9a/OyfKZm2EWQwPgDeSuKcnX+OA=;
+ b=jUBvyiF0gyDCuJbweqGcx5OT8sy7IYYkHTwzcfINeuQIjEQPnO2rmr/VsHnDNzxUMS
+ eI8FHLajGQ8yWkX8c7gBsiV4XevwomhHJkT0SPrwKwvy8lZbrwWXKofgWPbUTjE8AAeB
+ ATvNgqzjqqgRv6ZdjGkSNNm4hXxfuK/Vg3ewVBxkCdD1kD7lfDUR31om3lncYsYz+x1Z
+ XPW0JbyQcn02lvFYr0WEwY67siDRX6AELNG5NUnO8c0erjTIkjO8m5Rux+hXw3Gbyr+9
+ BnRjfQpC2JX0+j4C1x62zSc9rqX7oXIMC6UP3gETPJ1DJrz9dOFLz3z3NIDgxD/yVH1Q
+ GG9Q==
+X-Gm-Message-State: APjAAAX+d79xL7mUr45FhaILljPxpp5y0klY3aYztbyU5R14LKDUa9ue
+ mxQMDYihqEz5K2F73d4pWQbzbaL0WCS5vPPyFj/FnOrZEKFy2OQv1NpxnVG8BRXudfXYI+DWtfd
+ 3TwX3JXMXflI3h14CkAQZ7mrfUCs=
+X-Received: by 2002:a9d:6c55:: with SMTP id g21mr22688448otq.264.1582182405620; 
+ Wed, 19 Feb 2020 23:06:45 -0800 (PST)
+X-Google-Smtp-Source: APXvYqzzQikq0z65jdf7eMXoB5YlAn4+Ei5CalYMgtdM9ljSvFqXLGps2tB6hGJlb8FlG050Se6fFYwcgvYzp371790=
+X-Received: by 2002:a9d:6c55:: with SMTP id g21mr22688429otq.264.1582182405318; 
+ Wed, 19 Feb 2020 23:06:45 -0800 (PST)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+References: <cover.1582104018.git.viresh.kumar@linaro.org>
+ <199f58740e42bbdbcba0c847c194f62d2b3bb37b.1582104018.git.viresh.kumar@linaro.org>
+In-Reply-To: <199f58740e42bbdbcba0c847c194f62d2b3bb37b.1582104018.git.viresh.kumar@linaro.org>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 20 Feb 2020 15:06:33 +0800
+Message-ID: <CAEemH2e9fhUVU3DbpXCEimL0k8eGLuuSRcicq4NYOk_zELLqMw@mail.gmail.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+X-MC-Unique: g7DTDDFgNSGZ1g2UjHAe5w-1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v3] syscalls: Check for time64 unsafe syscalls before
- using them
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V2 01/10] tst_device: Add tst_ismount() helper
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,118 +78,129 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Vikas.Kumar2@arm.com, Vincent Guittot <vincent.guittot@linaro.org>,
+ LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1077473771=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-musl is using 64bit time_t now on 32bit architectures and these syscalls
-no longer exist, therefore its better to check for them being available
-before using them
+--===============1077473771==
+Content-Type: multipart/alternative; boundary="0000000000003d4e13059efc8ca6"
 
-Signed-off-by: Khem Raj <raj.khem@gmail.com>
----
- lib/tst_clocks.c                                      | 11 ++++++-----
- .../kernel/syscalls/gettimeofday/gettimeofday01.c     |  6 ++----
- .../kernel/syscalls/gettimeofday/gettimeofday02.c     |  8 +++-----
- 3 files changed, 11 insertions(+), 14 deletions(-)
+--0000000000003d4e13059efc8ca6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/lib/tst_clocks.c b/lib/tst_clocks.c
-index 5195da38f3..155551170d 100644
---- a/lib/tst_clocks.c
-+++ b/lib/tst_clocks.c
-@@ -10,21 +10,22 @@
- #define _GNU_SOURCE
- #include <unistd.h>
- #include <time.h>
--#include <sys/syscall.h>
--
-+#define TST_NO_DEFAULT_MAIN
-+#include "tst_test.h"
- #include "tst_clocks.h"
-+#include "lapi/syscalls.h"
- 
- int tst_clock_getres(clockid_t clk_id, struct timespec *res)
- {
--	return syscall(SYS_clock_getres, clk_id, res);
-+	return tst_syscall(__NR_clock_getres, clk_id, res);
- }
- 
- int tst_clock_gettime(clockid_t clk_id, struct timespec *ts)
- {
--	return syscall(SYS_clock_gettime, clk_id, ts);
-+	return tst_syscall(__NR_clock_gettime, clk_id, ts);
- }
- 
- int tst_clock_settime(clockid_t clk_id, struct timespec *ts)
- {
--	return syscall(SYS_clock_settime, clk_id, ts);
-+	return tst_syscall(__NR_clock_settime, clk_id, ts);
- }
-diff --git a/testcases/kernel/syscalls/gettimeofday/gettimeofday01.c b/testcases/kernel/syscalls/gettimeofday/gettimeofday01.c
-index 583d8f7b9b..08ea1673ad 100644
---- a/testcases/kernel/syscalls/gettimeofday/gettimeofday01.c
-+++ b/testcases/kernel/syscalls/gettimeofday/gettimeofday01.c
-@@ -38,10 +38,8 @@
- #include <sys/time.h>
- #include <errno.h>
- #include "test.h"
--#include <sys/syscall.h>
- #include <unistd.h>
--
--#define gettimeofday(a,b)  syscall(__NR_gettimeofday,a,b)
-+#include "lapi/syscalls.h"
- 
- char *TCID = "gettimeofday01";
- int TST_TOTAL = 1;
-@@ -63,7 +61,7 @@ int main(int ac, char **av)
- 	for (lc = 0; TEST_LOOPING(lc); lc++) {
- 		tst_count = 0;
- 
--		TEST(gettimeofday((void *)-1, (void *)-1));
-+		TEST(ltp_syscall(__NR_gettimeofday, (void *)-1, (void *)-1));
- 
- 		/* gettimeofday returns an int, so we need to turn the long
- 		 * TEST_RETURN into an int to test with */
-diff --git a/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c b/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c
-index 1d60f448e8..5170ad2f78 100644
---- a/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c
-+++ b/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c
-@@ -16,14 +16,12 @@
- #include <stdint.h>
- #include <sys/time.h>
- #include <stdlib.h>
--#include <sys/syscall.h>
- #include <unistd.h>
- #include <time.h>
- #include <errno.h>
- 
- #include "tst_test.h"
--
--#define gettimeofday(a,b)  syscall(__NR_gettimeofday,a,b)
-+#include "lapi/syscalls.h"
- 
- static volatile sig_atomic_t done;
- static char *str_rtime;
-@@ -48,13 +46,13 @@ static void verify_gettimeofday(void)
- 
- 	alarm(rtime);
- 
--	if (gettimeofday(&tv1, NULL)) {
-+	if (tst_syscall(__NR_gettimeofday, &tv1, NULL)) {
- 		tst_res(TBROK | TERRNO, "gettimeofday() failed");
- 		return;
- 	}
- 
- 	while (!done) {
--		if (gettimeofday(&tv2, NULL)) {
-+		if (tst_syscall(__NR_gettimeofday, &tv2, NULL)) {
- 			tst_res(TBROK | TERRNO, "gettimeofday() failed");
- 			return;
- 		}
--- 
-2.25.1
+> +int tst_ismount(const char *path)
+> +{
+> +       char line[256];
+> +       FILE *file;
+> +       int ret =3D -1;
+
++
+> +       file =3D SAFE_FOPEN(NULL, "/proc/mounts", "r");
+> +
+> +       while (fgets(line, sizeof(line), file)) {
+> +               if (strstr(line, path) !=3D NULL) {
+> +                       ret =3D 0;
+> +                       break;
+> +               }
+> +       }
+> +
+> +       SAFE_FCLOSE(NULL, file);
+> +
+> +       if (ret) {
+> +               errno =3D ENOENT;
+> +               tst_resm(TWARN, "No device is mounted at %s", path);
+> +       }
+> +
+> +       return ret;
+>
+
+Sorry, I think the return value should be '1' if it has been mounted
+already.
+
+e.g
+These codes will make people confused about whether it's
+mounted successfully or not.
+
+if (tst_ismount(MNTPOINT))
+        tst_brk(TBROK | TERRNO, "device not mounted");
+
+
++}
+>
+
+--=20
+Regards,
+Li Wang
+
+--0000000000003d4e13059efc8ca6
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div>=C2=A0</div><blockquote cl=
+ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid=
+ rgb(204,204,204);padding-left:1ex">
++int tst_ismount(const char *path)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0char line[256];<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0FILE *file;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0int ret =3D -1;=C2=A0</blockquote><blockquote c=
+lass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px soli=
+d rgb(204,204,204);padding-left:1ex">
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0file =3D SAFE_FOPEN(NULL, &quot;/proc/mounts&qu=
+ot;, &quot;r&quot;);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0while (fgets(line, sizeof(line), file)) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (strstr(line, pa=
+th) !=3D NULL) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0ret =3D 0;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0break;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_FCLOSE(NULL, file);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0errno =3D ENOENT;<b=
+r>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_resm(TWARN, &qu=
+ot;No device is mounted at %s&quot;, path);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;<br></blockquote><div>=C2=A0</div><d=
+iv><span class=3D"gmail_default" style=3D"font-size:small"></span>Sorry, I =
+think the return value should be &#39;1&#39; if it has been mounted already=
+.</div><div class=3D"gmail_default"><br></div><div class=3D"gmail_default">=
+e.g</div><div class=3D"gmail_default">These codes will make people confused=
+ about whether it&#39;s mounted=C2=A0successfully or not.</div><div class=
+=3D"gmail_default"><br></div><div class=3D"gmail_default">if (tst_ismount(M=
+NTPOINT))<br></div><div><span class=3D"gmail_default" style=3D"font-size:sm=
+all">=C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_brk(TBROK | TERRNO, &quot;device not m=
+ounted&quot;);</span></div><div><span class=3D"gmail_default" style=3D"font=
+-size:small"></span>=C2=A0</div><div><br></div><blockquote class=3D"gmail_q=
+uote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,2=
+04);padding-left:1ex">
++}<br></blockquote><div>=C2=A0</div></div>-- <br><div dir=3D"ltr" class=3D"=
+gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></=
+div></div></div></div>
+
+--0000000000003d4e13059efc8ca6--
+
+
+--===============1077473771==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1077473771==--
+
