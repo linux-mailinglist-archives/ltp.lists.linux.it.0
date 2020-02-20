@@ -2,72 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E5AC1657AD
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Feb 2020 07:35:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09423165800
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Feb 2020 07:51:59 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E8BF93C223A
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Feb 2020 07:35:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B7F423C223A
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Feb 2020 07:51:58 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id F14C53C07D0
- for <ltp@lists.linux.it>; Thu, 20 Feb 2020 07:35:01 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id D6C0B600839
- for <ltp@lists.linux.it>; Thu, 20 Feb 2020 07:35:00 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1582180499;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=IgQfKdDPqKxXSQhFjJIP4lITD5qs7vKlldJNUbjFSHw=;
- b=L/qYqNclwBX/iU5OCVY0JxD9VVARpWHulZSEl1Q/KNdbvjub9M8sTXjL029BAzaqh/64RK
- ZeNobhlm2gORvG1QGl58bJWYoD3yaTWla8ye3RPECilqnKLYCuKt9yDkaqJwWmrzmBFgOH
- brkbXEMrJkTZ0/cC29/Y2vGhmpbCUw8=
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
- [209.85.210.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-392-Aeg-GBDJNjevoS2VQAxOwg-1; Thu, 20 Feb 2020 01:34:57 -0500
-Received: by mail-ot1-f69.google.com with SMTP id t10so1641435otc.9
- for <ltp@lists.linux.it>; Wed, 19 Feb 2020 22:34:56 -0800 (PST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id A75B13C093E
+ for <ltp@lists.linux.it>; Thu, 20 Feb 2020 07:51:56 +0100 (CET)
+Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
+ [IPv6:2607:f8b0:4864:20::544])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C0379601230
+ for <ltp@lists.linux.it>; Thu, 20 Feb 2020 07:51:55 +0100 (CET)
+Received: by mail-pg1-x544.google.com with SMTP id j15so1432531pgm.6
+ for <ltp@lists.linux.it>; Wed, 19 Feb 2020 22:51:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=0RSMVeLno9BZdfKsWwDm/kcWa5raCLH1fElgQ6AyIEU=;
+ b=GA80QVzJ5KU4ti6ubWDdNM6mGUmUGp1Xoylg7XTdByn83TPMbDr0Rma1VWkyfNZumX
+ 6sgCrLzXtf2aaDCYMwLY2DlpklNa49NrUlJLUfvIEhybmRCTj4B3S1cSeFux/a/V7xbr
+ 3K8bbc/iOkig1+oncpfzwyhOzrFvj2RDJ84i+ldkv9F9uxojLdIav2E+Tgd0bQHUr7CK
+ GUpfI7dz+gZXQcbJasHipxqTc7fP38pfHZt/m4olOoVCrSHVMIQZK5Mgrvk2mv3/R24a
+ Z/ld1iCfLxk0QhriT7CSiE7TUHxQmosb2MXeHV6Pss3wjVyFgQaleUo46fsp5KNModrS
+ wWgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=HV7oqXJXiAl8+VgEcI0P/bjwA7ZuIu776IvHf6ifTnY=;
- b=QSUoXKlrhRWlHs6aSOE9x9pIVVWTmi9MX5uzWinlN2RNNQ80/BkhnwdBaRXjatkthc
- 2c1DnKbRMnUV44u75iwPxPg8Nt1v2DHzqM+FIA9lb05HyAj3ariSnBT3gOhXkVMAqqE3
- GZ7f50DKuwBGE7/3jH17TXCfKWSPwtF2J/wg6A6CGJlYeFQXLGOKCS+QHUzf7YlMxbA6
- uUsiskhX3jFZgKiKNySHFkbKh6panFmkJSCeF8ZUjN91qgGsyqaLDTA06kY/+i0EJVtB
- m7+czWTDZneB1PHcI2EOGpP4snaZRLhG12adIeUnum61AK+1ezFCMq6FwWZOIT0BNFJB
- Pspg==
-X-Gm-Message-State: APjAAAX0qz9grIY1AXEVyKnsQE3oh3DRCksEARBVWuXkakyCCNgLlcnj
- NrMXGJwC17rS/K+jCCc+BnoMDwS+EfDs8T3ceqsHwByhKFmUzGWXShSEmQC+Op1tv5gJW7l+JT7
- KXAi91US2R7kmA25G5c7/0uSQDv0=
-X-Received: by 2002:aca:4b0f:: with SMTP id y15mr921775oia.153.1582180496040; 
- Wed, 19 Feb 2020 22:34:56 -0800 (PST)
-X-Google-Smtp-Source: APXvYqxrpIfZ9hn27NblJje8SshJFy0KzouKw0NNSeUphLTCn9O8yD2wWdV/X44M7cmkdxxd9AA2u6KQPuzfhAbUlBM=
-X-Received: by 2002:aca:4b0f:: with SMTP id y15mr921761oia.153.1582180495714; 
- Wed, 19 Feb 2020 22:34:55 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=0RSMVeLno9BZdfKsWwDm/kcWa5raCLH1fElgQ6AyIEU=;
+ b=YbfWNoy0B35dJHiBIKuNX/1zklv61Pli3pwusF1MMNiRM/rJlvY5Mkr7Pwxptllwgu
+ OwQhs91yw4uCkY3bckX3c5Am6qXcTSIEnGmgW4UwJOC1UMP2d8OrwJ3mbwb+uLkjPqHX
+ +8ZFQdZOBSprgUZLbNQW/U43n+HUXwrRElc1xulUXLhj6MUazVO85WpYZlL3Q6V+ga0m
+ NRwkbcwRKDu4WH0CYEWavAQRfmxwTjuP3PtEDhJhjHuGKdhRNwCpAaf7hjM6GErVfxu3
+ TVdXEnGRyu7g10rZho8EDPuA6IwWnU5bmE2d4raP2mDjqCURIn47KnafJo4CqrHdq0dB
+ 0pyQ==
+X-Gm-Message-State: APjAAAWaNEZ3zsQIsK1L0S7+MkgGY5wAMhg8n6zpwsZnZ7rR4UYF19Gm
+ XHCCSiNSd6727O9gaD5zUqox7q8JR4c=
+X-Google-Smtp-Source: APXvYqwQVFZeXNUjV9b+sgkieRh0KWHzG6dBpsEYTALyPUvQlzvhop5ACTHZ4tleO8VZNCwj1j67pA==
+X-Received: by 2002:a63:e257:: with SMTP id y23mr31970627pgj.104.1582181513783; 
+ Wed, 19 Feb 2020 22:51:53 -0800 (PST)
+Received: from apollo.hsd1.ca.comcast.net ([2601:646:9200:4e0::396c])
+ by smtp.gmail.com with ESMTPSA id 64sm1904080pfd.48.2020.02.19.22.51.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 Feb 2020 22:51:53 -0800 (PST)
+From: Khem Raj <raj.khem@gmail.com>
+To: ltp@lists.linux.it
+Date: Wed, 19 Feb 2020 22:52:04 -0800
+Message-Id: <20200220065204.485391-1-raj.khem@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <cover.1582104018.git.viresh.kumar@linaro.org>
- <9706f359006ea409d2f85c111d3e001ca6f6d128.1582104018.git.viresh.kumar@linaro.org>
-In-Reply-To: <9706f359006ea409d2f85c111d3e001ca6f6d128.1582104018.git.viresh.kumar@linaro.org>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 20 Feb 2020 14:34:44 +0800
-Message-ID: <CAEemH2cG-OCNmAybYOebbmr=HNoSQ-gBsd7xa9ANGPiOXEHyDg@mail.gmail.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-X-MC-Unique: Aeg-GBDJNjevoS2VQAxOwg-1
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V2 06/10] syscalls/fsmount: Improve fsmount01 test
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v3] syscalls: Check for time64 unsafe syscalls before
+ using them
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,231 +75,118 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vikas.Kumar2@arm.com, Vincent Guittot <vincent.guittot@linaro.org>,
- LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1894689472=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1894689472==
-Content-Type: multipart/alternative; boundary="0000000000006b0748059efc1aa0"
+musl is using 64bit time_t now on 32bit architectures and these syscalls
+no longer exist, therefore its better to check for them being available
+before using them
 
---0000000000006b0748059efc1aa0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ lib/tst_clocks.c                                      | 11 ++++++-----
+ .../kernel/syscalls/gettimeofday/gettimeofday01.c     |  6 ++----
+ .../kernel/syscalls/gettimeofday/gettimeofday02.c     |  8 +++-----
+ 3 files changed, 11 insertions(+), 14 deletions(-)
 
-On Wed, Feb 19, 2020 at 5:28 PM Viresh Kumar <viresh.kumar@linaro.org>
-wrote:
-
-> This patch updates the fsmount01.c file to make it look similar to all
-> other fsmount related syscall tests and here is the list of all changes:
->
-> - Test all fsmount flags and mount attributes
-> - Remove extra PASS messages as all we want to test here is fsmount()
->   and not other syscalls.
-> - On the same lines, print TFAIL for fsmount() syscall and TBROK for
->   other calls.
-> - close sfd on failures
-> - Make the file look similar to other fsmount related tests
-> - General cleanup
->
-> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-> ---
->  testcases/kernel/syscalls/fsmount/fsmount01.c | 92 ++++++++++++-------
->  1 file changed, 60 insertions(+), 32 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/fsmount/fsmount01.c
-> b/testcases/kernel/syscalls/fsmount/fsmount01.c
-> index c3cf8106f63b..b746a14ba472 100644
-> --- a/testcases/kernel/syscalls/fsmount/fsmount01.c
-> +++ b/testcases/kernel/syscalls/fsmount/fsmount01.c
-> @@ -3,67 +3,95 @@
->   * Copyright (C) 2020 Red Hat, Inc.  All rights reserved.
->   * Author: Zorro Lang <zlang@redhat.com>
->   *
-> - * Use new mount API from v5.2 (fsopen(), fsconfig(), fsmount(),
-> move_mount())
-> - * to mount a filesystem without any specified mount options.
-> + * Description:
-> + * Basic fsmount() test.
->   */
->
-> -#include <sys/mount.h>
-> -
->  #include "tst_test.h"
->  #include "lapi/fsmount.h"
->
-> -#define MNTPOINT "newmount_point"
-> -static int sfd, mfd, is_mounted;
-> +#define MNTPOINT       "mntpoint"
-> +
-> +static struct tcase {
-> +       char *name;
-> +       unsigned int flags;
-> +       unsigned int mount_attrs;
-> +} tcases[] =3D {
-> +       {"Flag 0, attr RDONLY", 0, MOUNT_ATTR_RDONLY},
-> +       {"Flag 0, attr NOSUID", 0, MOUNT_ATTR_NOSUID},
-> +       {"Flag 0, attr NODEV", 0, MOUNT_ATTR_NODEV},
-> +       {"Flag 0, attr NOEXEC", 0, MOUNT_ATTR_NOEXEC},
-> +       {"Flag 0, attr RELATIME", 0, MOUNT_ATTR_RELATIME},
-> +       {"Flag 0, attr NOATIME", 0, MOUNT_ATTR_NOATIME},
-> +       {"Flag 0, attr STRICTATIME", 0, MOUNT_ATTR_STRICTATIME},
-> +       {"Flag 0, attr NODIRATIME", 0, MOUNT_ATTR_NODIRATIME},
-> +       {"Flag CLOEXEC, attr RDONLY", FSMOUNT_CLOEXEC, MOUNT_ATTR_RDONLY}=
-,
-> +       {"Flag CLOEXEC, attr NOSUID", FSMOUNT_CLOEXEC, MOUNT_ATTR_NOSUID}=
-,
-> +       {"Flag CLOEXEC, attr NODEV", FSMOUNT_CLOEXEC, MOUNT_ATTR_NODEV},
-> +       {"Flag CLOEXEC, attr NOEXEC", FSMOUNT_CLOEXEC, MOUNT_ATTR_NOEXEC}=
-,
-> +       {"Flag CLOEXEC, attr RELATIME", FSMOUNT_CLOEXEC,
-> MOUNT_ATTR_RELATIME},
-> +       {"Flag CLOEXEC, attr NOATIME", FSMOUNT_CLOEXEC,
-> MOUNT_ATTR_NOATIME},
-> +       {"Flag CLOEXEC, attr STRICTATIME", FSMOUNT_CLOEXEC,
-> MOUNT_ATTR_STRICTATIME},
-> +       {"Flag CLOEXEC, attr NODIRATIME", FSMOUNT_CLOEXEC,
-> MOUNT_ATTR_NODIRATIME},
-> +};
->
-
-Again, if you move the 'Flag & attr' to print info, this patch looks pretty
-good to me.
-
-> +       if (!tst_ismount(MNTPOINT))
-> +               tst_res(TPASS, "%s: fsmount() passed", tc->name);
->
-
-What about:
-        tst_res(TPASS, "'Flag & mount_attr: %s': fsmount() passed",
-tc->name);
-
---=20
-Regards,
-Li Wang
-
---0000000000006b0748059efc1aa0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Wed, Feb 19, 2020 at 5:28 PM Viresh Kumar &lt;<a=
- href=3D"mailto:viresh.kumar@linaro.org">viresh.kumar@linaro.org</a>&gt; wr=
-ote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
- 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">This patch =
-updates the fsmount01.c file to make it look similar to all<br>
-other fsmount related syscall tests and here is the list of all changes:<br=
->
-<br>
-- Test all fsmount flags and mount attributes<br>
-- Remove extra PASS messages as all we want to test here is fsmount()<br>
-=C2=A0 and not other syscalls.<br>
-- On the same lines, print TFAIL for fsmount() syscall and TBROK for<br>
-=C2=A0 other calls.<br>
-- close sfd on failures<br>
-- Make the file look similar to other fsmount related tests<br>
-- General cleanup<br>
-<br>
-Signed-off-by: Viresh Kumar &lt;<a href=3D"mailto:viresh.kumar@linaro.org" =
-target=3D"_blank">viresh.kumar@linaro.org</a>&gt;<br>
----<br>
-=C2=A0testcases/kernel/syscalls/fsmount/fsmount01.c | 92 ++++++++++++------=
--<br>
-=C2=A01 file changed, 60 insertions(+), 32 deletions(-)<br>
-<br>
-diff --git a/testcases/kernel/syscalls/fsmount/fsmount01.c b/testcases/kern=
-el/syscalls/fsmount/fsmount01.c<br>
-index c3cf8106f63b..b746a14ba472 100644<br>
---- a/testcases/kernel/syscalls/fsmount/fsmount01.c<br>
-+++ b/testcases/kernel/syscalls/fsmount/fsmount01.c<br>
-@@ -3,67 +3,95 @@<br>
-=C2=A0 * Copyright (C) 2020 Red Hat, Inc.=C2=A0 All rights reserved.<br>
-=C2=A0 * Author: Zorro Lang &lt;<a href=3D"mailto:zlang@redhat.com" target=
-=3D"_blank">zlang@redhat.com</a>&gt;<br>
-=C2=A0 *<br>
-- * Use new mount API from v5.2 (fsopen(), fsconfig(), fsmount(), move_moun=
-t())<br>
-- * to mount a filesystem without any specified mount options.<br>
-+ * Description:<br>
-+ * Basic fsmount() test.<br>
-=C2=A0 */<br>
-<br>
--#include &lt;sys/mount.h&gt;<br>
--<br>
-=C2=A0#include &quot;tst_test.h&quot;<br>
-=C2=A0#include &quot;lapi/fsmount.h&quot;<br>
-<br>
--#define MNTPOINT &quot;newmount_point&quot;<br>
--static int sfd, mfd, is_mounted;<br>
-+#define MNTPOINT=C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;mntpoint&quot;<br>
-+<br>
-+static struct tcase {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0char *name;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int flags;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int mount_attrs;<br>
-+} tcases[] =3D {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0{&quot;Flag 0, attr RDONLY&quot;, 0, MOUNT_ATTR=
-_RDONLY},<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0{&quot;Flag 0, attr NOSUID&quot;, 0, MOUNT_ATTR=
-_NOSUID},<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0{&quot;Flag 0, attr NODEV&quot;, 0, MOUNT_ATTR_=
-NODEV},<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0{&quot;Flag 0, attr NOEXEC&quot;, 0, MOUNT_ATTR=
-_NOEXEC},<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0{&quot;Flag 0, attr RELATIME&quot;, 0, MOUNT_AT=
-TR_RELATIME},<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0{&quot;Flag 0, attr NOATIME&quot;, 0, MOUNT_ATT=
-R_NOATIME},<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0{&quot;Flag 0, attr STRICTATIME&quot;, 0, MOUNT=
-_ATTR_STRICTATIME},<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0{&quot;Flag 0, attr NODIRATIME&quot;, 0, MOUNT_=
-ATTR_NODIRATIME},<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0{&quot;Flag CLOEXEC, attr RDONLY&quot;, FSMOUNT=
-_CLOEXEC, MOUNT_ATTR_RDONLY},<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0{&quot;Flag CLOEXEC, attr NOSUID&quot;, FSMOUNT=
-_CLOEXEC, MOUNT_ATTR_NOSUID},<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0{&quot;Flag CLOEXEC, attr NODEV&quot;, FSMOUNT_=
-CLOEXEC, MOUNT_ATTR_NODEV},<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0{&quot;Flag CLOEXEC, attr NOEXEC&quot;, FSMOUNT=
-_CLOEXEC, MOUNT_ATTR_NOEXEC},<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0{&quot;Flag CLOEXEC, attr RELATIME&quot;, FSMOU=
-NT_CLOEXEC, MOUNT_ATTR_RELATIME},<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0{&quot;Flag CLOEXEC, attr NOATIME&quot;, FSMOUN=
-T_CLOEXEC, MOUNT_ATTR_NOATIME},<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0{&quot;Flag CLOEXEC, attr STRICTATIME&quot;, FS=
-MOUNT_CLOEXEC, MOUNT_ATTR_STRICTATIME},<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0{&quot;Flag CLOEXEC, attr NODIRATIME&quot;, FSM=
-OUNT_CLOEXEC, MOUNT_ATTR_NODIRATIME},<br>
-+};<br></blockquote><div><br></div><div class=3D"gmail_default" style=3D"fo=
-nt-size:small">Again, if you move the &#39;Flag &amp; attr&#39; to print in=
-fo, this patch looks pretty good to me.</div><div class=3D"gmail_default" s=
-tyle=3D"font-size:small"></div><blockquote class=3D"gmail_quote" style=3D"m=
-argin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left=
-:1ex">
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!tst_ismount(MNTPOINT))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TPASS, &quo=
-t;%s: fsmount() passed&quot;, tc-&gt;name);<br></blockquote><div>=C2=A0</di=
-v><div><div class=3D"gmail_default" style=3D"font-size:small">What about:</=
-div></div><div><span class=3D"gmail_default" style=3D"font-size:small">=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 tst_res(TPASS, &quot;&#39;Flag &amp; mount_attr: %=
-s&#39;: fsmount() passed&quot;, tc-&gt;name);</span></div></div><div><br></=
-div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div=
->Regards,<br></div><div>Li Wang<br></div></div></div></div>
-
---0000000000006b0748059efc1aa0--
-
-
---===============1894689472==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/lib/tst_clocks.c b/lib/tst_clocks.c
+index 5195da38f3..155551170d 100644
+--- a/lib/tst_clocks.c
++++ b/lib/tst_clocks.c
+@@ -10,21 +10,22 @@
+ #define _GNU_SOURCE
+ #include <unistd.h>
+ #include <time.h>
+-#include <sys/syscall.h>
+-
++#define TST_NO_DEFAULT_MAIN
++#include "tst_test.h"
+ #include "tst_clocks.h"
++#include "lapi/syscalls.h"
+ 
+ int tst_clock_getres(clockid_t clk_id, struct timespec *res)
+ {
+-	return syscall(SYS_clock_getres, clk_id, res);
++	return tst_syscall(__NR_clock_getres, clk_id, res);
+ }
+ 
+ int tst_clock_gettime(clockid_t clk_id, struct timespec *ts)
+ {
+-	return syscall(SYS_clock_gettime, clk_id, ts);
++	return tst_syscall(__NR_clock_gettime, clk_id, ts);
+ }
+ 
+ int tst_clock_settime(clockid_t clk_id, struct timespec *ts)
+ {
+-	return syscall(SYS_clock_settime, clk_id, ts);
++	return tst_syscall(__NR_clock_settime, clk_id, ts);
+ }
+diff --git a/testcases/kernel/syscalls/gettimeofday/gettimeofday01.c b/testcases/kernel/syscalls/gettimeofday/gettimeofday01.c
+index 583d8f7b9b..08ea1673ad 100644
+--- a/testcases/kernel/syscalls/gettimeofday/gettimeofday01.c
++++ b/testcases/kernel/syscalls/gettimeofday/gettimeofday01.c
+@@ -38,10 +38,8 @@
+ #include <sys/time.h>
+ #include <errno.h>
+ #include "test.h"
+-#include <sys/syscall.h>
+ #include <unistd.h>
+-
+-#define gettimeofday(a,b)  syscall(__NR_gettimeofday,a,b)
++#include "lapi/syscalls.h"
+ 
+ char *TCID = "gettimeofday01";
+ int TST_TOTAL = 1;
+@@ -63,7 +61,7 @@ int main(int ac, char **av)
+ 	for (lc = 0; TEST_LOOPING(lc); lc++) {
+ 		tst_count = 0;
+ 
+-		TEST(gettimeofday((void *)-1, (void *)-1));
++		TEST(ltp_syscall(__NR_gettimeofday, (void *)-1, (void *)-1));
+ 
+ 		/* gettimeofday returns an int, so we need to turn the long
+ 		 * TEST_RETURN into an int to test with */
+diff --git a/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c b/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c
+index 1d60f448e8..5170ad2f78 100644
+--- a/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c
++++ b/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c
+@@ -16,14 +16,12 @@
+ #include <stdint.h>
+ #include <sys/time.h>
+ #include <stdlib.h>
+-#include <sys/syscall.h>
+ #include <unistd.h>
+ #include <time.h>
+ #include <errno.h>
+ 
+ #include "tst_test.h"
+-
+-#define gettimeofday(a,b)  syscall(__NR_gettimeofday,a,b)
++#include "lapi/syscalls.h"
+ 
+ static volatile sig_atomic_t done;
+ static char *str_rtime;
+@@ -48,13 +46,13 @@ static void verify_gettimeofday(void)
+ 
+ 	alarm(rtime);
+ 
+-	if (gettimeofday(&tv1, NULL)) {
++	if (tst_syscall(__NR_gettimeofday, &tv1, NULL)) {
+ 		tst_res(TBROK | TERRNO, "gettimeofday() failed");
+ 		return;
+ 	}
+ 
+ 	while (!done) {
+-		if (gettimeofday(&tv2, NULL)) {
++		if (tst_syscall(__NR_gettimeofday, &tv2, NULL)) {
+ 			tst_res(TBROK | TERRNO, "gettimeofday() failed");
+ 			return;
+ 		}
+-- 
+2.25.1
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1894689472==--
-
