@@ -1,41 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE0D6166540
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Feb 2020 18:45:38 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 24DA016675C
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Feb 2020 20:43:14 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 12C7F3C25C6
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Feb 2020 18:45:38 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5245B3C2594
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Feb 2020 20:43:13 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 01A443C2231
- for <ltp@lists.linux.it>; Thu, 20 Feb 2020 18:45:33 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id CBB013C0781
+ for <ltp@lists.linux.it>; Thu, 20 Feb 2020 20:43:08 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 596F314052E7
+ for <ltp@lists.linux.it>; Thu, 20 Feb 2020 20:43:06 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1582227785;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=IVSSF09XwOssK8yY/5II/1giwG5duURP8nkL9//18cc=;
+ b=KuDuzNB3TE4+SIiSDEBNU4kARgRJvJfcSdrp4gRWDqI4Ak9hFJAYjr7W6npuYriUbMKu86
+ 4CTy7vOXja0EZgXv1iyhPNl2df+9Buy9djAIGcnksx9QbTeN/0UY09/ahoAMLXAa5tJOOH
+ xt6IUNkEFnIYfljjoCSULvK+HiEL+hE=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-110-Wq80ucSGOzqnd-v0k-aXxg-1; Thu, 20 Feb 2020 14:42:58 -0500
+X-MC-Unique: Wq80ucSGOzqnd-v0k-aXxg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 41A4F1000B70
- for <ltp@lists.linux.it>; Thu, 20 Feb 2020 18:43:54 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 84352AC58;
- Thu, 20 Feb 2020 17:45:32 +0000 (UTC)
-Date: Thu, 20 Feb 2020 18:34:39 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20200220173439.GC15699@gacrux.arch.suse.de>
-References: <cover.1582104018.git.viresh.kumar@linaro.org>
- <9706f359006ea409d2f85c111d3e001ca6f6d128.1582104018.git.viresh.kumar@linaro.org>
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 503A38017CC;
+ Thu, 20 Feb 2020 19:42:57 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 474CD87B0A;
+ Thu, 20 Feb 2020 19:42:56 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0813C866DA;
+ Thu, 20 Feb 2020 19:42:56 +0000 (UTC)
+Date: Thu, 20 Feb 2020 14:42:55 -0500 (EST)
+From: Jan Stancek <jstancek@redhat.com>
+To: CKI Project <cki-project@redhat.com>
+Message-ID: <1011809226.8353012.1582227775821.JavaMail.zimbra@redhat.com>
+In-Reply-To: <cki.C7F44073DC.K13BODGQAA@redhat.com>
+References: <cki.C7F44073DC.K13BODGQAA@redhat.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <9706f359006ea409d2f85c111d3e001ca6f6d128.1582104018.git.viresh.kumar@linaro.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Originating-IP: [10.43.17.25, 10.4.195.11]
+Thread-Topic: =?utf-8?B?4p2MIEZBSUw6?= Test report for kernel
+ 5.4.21-2d636a1.cki (stable)
+Thread-Index: zGHFPwxkGH3VdIVSrLocgrXxhi0zhw==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V2 06/10] syscalls/fsmount: Improve fsmount01 test
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] 
+ =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E4?=
+ =?utf-8?q?=2E21-2d636a1=2Ecki_=28stable=29?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,113 +76,40 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Vikas.Kumar2@arm.com, Vincent Guittot <vincent.guittot@linaro.org>,
- ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Memory Management <mm-qe@redhat.com>, LTP Mailing List <ltp@lists.linux.it>,
+ Linux Stable maillist <stable@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
-
-> +static struct tcase {
-> +	char *name;
-> +	unsigned int flags;
-> +	unsigned int mount_attrs;
-> +} tcases[] = {
-> +	{"Flag 0, attr RDONLY", 0, MOUNT_ATTR_RDONLY},
-> +	{"Flag 0, attr NOSUID", 0, MOUNT_ATTR_NOSUID},
-> +	{"Flag 0, attr NODEV", 0, MOUNT_ATTR_NODEV},
-> +	{"Flag 0, attr NOEXEC", 0, MOUNT_ATTR_NOEXEC},
-> +	{"Flag 0, attr RELATIME", 0, MOUNT_ATTR_RELATIME},
-> +	{"Flag 0, attr NOATIME", 0, MOUNT_ATTR_NOATIME},
-> +	{"Flag 0, attr STRICTATIME", 0, MOUNT_ATTR_STRICTATIME},
-> +	{"Flag 0, attr NODIRATIME", 0, MOUNT_ATTR_NODIRATIME},
-> +	{"Flag CLOEXEC, attr RDONLY", FSMOUNT_CLOEXEC, MOUNT_ATTR_RDONLY},
-> +	{"Flag CLOEXEC, attr NOSUID", FSMOUNT_CLOEXEC, MOUNT_ATTR_NOSUID},
-> +	{"Flag CLOEXEC, attr NODEV", FSMOUNT_CLOEXEC, MOUNT_ATTR_NODEV},
-> +	{"Flag CLOEXEC, attr NOEXEC", FSMOUNT_CLOEXEC, MOUNT_ATTR_NOEXEC},
-> +	{"Flag CLOEXEC, attr RELATIME", FSMOUNT_CLOEXEC, MOUNT_ATTR_RELATIME},
-> +	{"Flag CLOEXEC, attr NOATIME", FSMOUNT_CLOEXEC, MOUNT_ATTR_NOATIME},
-> +	{"Flag CLOEXEC, attr STRICTATIME", FSMOUNT_CLOEXEC, MOUNT_ATTR_STRICTATIME},
-> +	{"Flag CLOEXEC, attr NODIRATIME", FSMOUNT_CLOEXEC, MOUNT_ATTR_NODIRATIME},
-> +};
-I'd use desc field
-
-#define DESC(x, y) .flags = x, .mount_attrs = y, .desc = #x ", " #y
-
-+static struct tcase {
-+	char *desc;
-+	unsigned int flags;
-+	unsigned int mount_attrs;
-+} tcases[] = {
-+	{DESC(0, MOUNT_ATTR_RDONLY)},
-+	{DESC(0, MOUNT_ATTR_NOSUID)},
-
-(avoid copy paste).
-
-> +static void setup(void)
->  {
-> -	if (is_mounted)
-> -		SAFE_UMOUNT(MNTPOINT);
-> +	fsopen_supported_by_kernel();
-again, just .setup = fsopen_supported_by_kernel;
->  }
-
-> -static void test_fsmount(void)
-> +static void run(unsigned int n)
->  {
-> +	struct tcase *tc = &tcases[n];
-> +	int sfd, mfd;
-> +
->  	TEST(fsopen(tst_device->fs_type, FSOPEN_CLOEXEC));
-> -	if (TST_RET < 0)
-> -		tst_brk(TBROK | TTERRNO, "fsopen() on %s failed", tst_device->fs_type);
-> +	if (TST_RET == -1) {
-> +		tst_brk(TBROK | TTERRNO, "fsopen() on %s failed",
-> +			tst_device->fs_type);
-Again, tst_brk(TBROK) shouldn't be on tcnt = ARRAY_SIZE(tcases),
-it skips all following tests after failure (sometimes needed but IMHO not here).
-
-> +	}
->  	sfd = TST_RET;
-> -	tst_res(TPASS, "fsopen() on %s", tst_device->fs_type);
-
->  	TEST(fsconfig(sfd, FSCONFIG_SET_STRING, "source", tst_device->dev, 0));
-> -	if (TST_RET < 0)
-> +	if (TST_RET < 0) {
-> +		SAFE_CLOSE(sfd);
->  		tst_brk(TBROK | TTERRNO,
->  			"fsconfig() failed to set source to %s", tst_device->dev);
-> -	tst_res(TPASS, "fsconfig() set source to %s", tst_device->dev);
-> -
-> +	}
-
->  	TEST(fsconfig(sfd, FSCONFIG_CMD_CREATE, NULL, NULL, 0));
-> -	if (TST_RET < 0)
-> +	if (TST_RET < 0) {
-> +		SAFE_CLOSE(sfd);
->  		tst_brk(TBROK | TTERRNO, "fsconfig() created superblock");
-As you added more runs of the test (changed .test_all to .test && run =
-ARRAY_SIZE(tcases)), you need to change all tst_brk() to tst_res() + return.
-
-I also merged tst_brk(TBROK), I guess TFAIL would be better.
-
-Other than that it looks ok.
-
-I also wonder if it'd be worth to implement in fsmount.h some macros to reduce
-code duplicity. e.g. one of similar patterns (just flag is different):
-
-TEST(fsopen(tst_device->fs_type, FLAG));
-fd = TST_RET;
-if (fd == -1)
-		tst_brk(TBROK | TERRNO, "fsopen() failed");
-
-But that's not important.
-
-Kind regards,
-Petr
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+CgotLS0tLSBPcmlnaW5hbCBNZXNzYWdlIC0tLS0tCj4gCj4gSGVsbG8sCj4gCj4gV2UgcmFuIGF1
+dG9tYXRlZCB0ZXN0cyBvbiBhIHJlY2VudCBjb21taXQgZnJvbSB0aGlzIGtlcm5lbCB0cmVlOgo+
+IAo+ICAgICAgICBLZXJuZWwgcmVwbzoKPiAgICAgICAgZ2l0Oi8vZ2l0Lmtlcm5lbC5vcmcvcHVi
+L3NjbS9saW51eC9rZXJuZWwvZ2l0L3N0YWJsZS9saW51eC1zdGFibGUtcmMuZ2l0Cj4gICAgICAg
+ICAgICAgQ29tbWl0OiAyZDYzNmExMjYzYmUgLSBMaW51eCA1LjQuMjEKPiAKPiBUaGUgcmVzdWx0
+cyBvZiB0aGVzZSBhdXRvbWF0ZWQgdGVzdHMgYXJlIHByb3ZpZGVkIGJlbG93Lgo+IAo+ICAgICBP
+dmVyYWxsIHJlc3VsdDogRkFJTEVEIChzZWUgZGV0YWlscyBiZWxvdykKPiAgICAgICAgICAgICAg
+TWVyZ2U6IE9LCj4gICAgICAgICAgICBDb21waWxlOiBPSwo+ICAgICAgICAgICAgICBUZXN0czog
+RkFJTEVECj4gCj4gQWxsIGtlcm5lbCBiaW5hcmllcywgY29uZmlnIGZpbGVzLCBhbmQgbG9ncyBh
+cmUgYXZhaWxhYmxlIGZvciBkb3dubG9hZCBoZXJlOgo+IAo+ICAgaHR0cHM6Ly9ja2ktYXJ0aWZh
+Y3RzLnMzLnVzLWVhc3QtMi5hbWF6b25hd3MuY29tL2luZGV4Lmh0bWw/cHJlZml4PWRhdGF3YXJl
+aG91c2UvMjAyMC8wMi8xOS80NDY2OTMKPiAKPiBPbmUgb3IgbW9yZSBrZXJuZWwgdGVzdHMgZmFp
+bGVkOgo+IAo+ICAgICBwcGM2NGxlOgo+ICAgICAg4p2MIExUUAoKVGhpcyBpcyB3YXJuaW5nIGZy
+b20gcHJlYWR2MjAzLCBiZWNhdXNlIGl0IGZhaWxlZCB0byBjbGVhciBsb29wIGRldmljZS4KS2Vy
+bmVsIHJlcG9ydHMgYW4gSS9PIGVycm9yOgoKWyAyMzM4Ljc4Njg1NF0gYmxrX3VwZGF0ZV9yZXF1
+ZXN0OiBJL08gZXJyb3IsIGRldiBsb29wMCwgc2VjdG9yIDUxMiBvcCAweDA6KFJFQUQpIGZsYWdz
+IDB4MCBwaHlzX3NlZyAxIHByaW8gY2xhc3MgMAoKdHN0X3Rlc3QuYzoxMjc4OiBJTkZPOiBUZXN0
+aW5nIG9uIGV4dDMKdHN0X21rZnMuYzo4OTogSU5GTzogRm9ybWF0dGluZyAvZGV2L2xvb3AwIHdp
+dGggZXh0MyBvcHRzPScnIGV4dHJhIG9wdHM9JycKbWtlMmZzIDEuNDUuNSAoMDctSmFuLTIwMjAp
+CnRzdF90ZXN0LmM6MTIxNTogSU5GTzogVGltZW91dCBwZXIgcnVuIGlzIDBoIDA1bSAwMHMKcHJl
+YWR2MjAzLmM6MTQzOiBJTkZPOiBOdW1iZXIgb2YgZnVsbF9yZWFkcyA0MjUsIHNob3J0IHJlYWRz
+IDEwLCB6ZXJvIGxlbiByZWFkcyAwLCBFQUdBSU4ocykgMTAwCnByZWFkdjIwMy5jOjE4MDogSU5G
+TzogTnVtYmVyIG9mIHdyaXRlcyAzMDAKcHJlYWR2MjAzLmM6MTk0OiBJTkZPOiBDYWNoZSBkcm9w
+cGVkIDEgdGltZXMKcHJlYWR2MjAzLmM6MjIzOiBQQVNTOiBHb3Qgc29tZSBFQUdBSU4KdHN0X3Rl
+c3QuYzoxMjc4OiBJTkZPOiBUZXN0aW5nIG9uIGV4dDQKdHN0X2RldmljZS5jOjM0ODogV0FSTjog
+RmFpbGVkIHRvIGNsZWFyIDUxMmsgYmxvY2sgb24gL2Rldi9sb29wMAp0c3RfbWtmcy5jOjg3OiBC
+Uk9LOiB0c3RfY2xlYXJfZGV2aWNlKCkgZmFpbGVkCgpTdW1tYXJ5OgpwYXNzZWQgICAyCmZhaWxl
+ZCAgIDAKc2tpcHBlZCAgMAp3YXJuaW5ncyAxCgpidXQgSSBoYXZlbid0IGJlZW4gYWJsZSB0byBy
+ZWxpYWJseSByZXByb2R1Y2UgaXQgc28gZmFyLgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0
+cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
