@@ -2,51 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E0A4166CAD
-	for <lists+linux-ltp@lfdr.de>; Fri, 21 Feb 2020 03:09:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27491166F60
+	for <lists+linux-ltp@lfdr.de>; Fri, 21 Feb 2020 06:59:46 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0AD953C25C9
-	for <lists+linux-ltp@lfdr.de>; Fri, 21 Feb 2020 03:09:05 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DD26E3C20BC
+	for <lists+linux-ltp@lfdr.de>; Fri, 21 Feb 2020 06:59:45 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 378EC3C223E
- for <ltp@lists.linux.it>; Fri, 21 Feb 2020 03:08:59 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 698761A0088B
- for <ltp@lists.linux.it>; Fri, 21 Feb 2020 03:08:57 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.70,466,1574092800"; d="scan'208";a="83664857"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 21 Feb 2020 10:08:54 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id F051B50A996F;
- Fri, 21 Feb 2020 09:59:14 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1395.4; Fri, 21 Feb 2020 10:08:54 +0800
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <1575526664-25738-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <20200220124821.GB11142@rei>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <eb73f177-9e2b-7a35-cf1a-e36c1a5ce19e@cn.fujitsu.com>
-Date: Fri, 21 Feb 2020 10:08:30 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id B726F3C0EAD
+ for <ltp@lists.linux.it>; Fri, 21 Feb 2020 06:59:40 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 1B80E1A0088B
+ for <ltp@lists.linux.it>; Fri, 21 Feb 2020 06:59:39 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 8EEECABBD;
+ Fri, 21 Feb 2020 05:59:38 +0000 (UTC)
+Date: Fri, 21 Feb 2020 06:59:36 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Po-Hsu Lin <po-hsu.lin@canonical.com>
+Message-ID: <20200221055936.GA13261@dell5510>
+References: <20190710072305.25806-1-po-hsu.lin@canonical.com>
+ <20190710072305.25806-2-po-hsu.lin@canonical.com>
 MIME-Version: 1.0
-In-Reply-To: <20200220124821.GB11142@rei>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: F051B50A996F.AD372
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
+Content-Disposition: inline
+In-Reply-To: <20190710072305.25806-2-po-hsu.lin@canonical.com>
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] syscalls/quotactl07: add regresstion test for
- Q_XQTUOTARM
+Subject: Re: [LTP] [PATCHv2 1/3] zram/zram_lib.sh: fix variable name and
+ algorithm retrieval
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,47 +48,59 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Hi,
 
-Hi> Hi!
->> This is a regresstion test to check Q_XQUOTARM  whether has
->> quota flags check.
->>
->> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
->>
->> ---------------------
->> 1.Simplify test code
->> 2.add comment for invalid_type,
->> ---------------------
->    ^
->    Btw this belongs under the three dashes below, otherwise it ends up in
->    the commit message when applied.
-> 
-OK. I will notice this next time.
-> ...
-> 
->> +static void setup(void)
->> +{
->> +	TEST(quotactl(QCMD(Q_XQUOTAOFF, USRQUOTA), tst_device->dev, 0, (void *)&qflag_acct));
->> +	if (TST_RET == -1)
->> +		tst_brk(TBROK | TTERRNO, "quotactl with Q_XQUOTAOFF failed");
->> +
->> +	TEST(quotactl(QCMD(Q_XQUOTARM, USRQUOTA), tst_device->dev, 0, (void *)&valid_type));
->> +	if (TST_ERR == EINVAL) {
->> +		tst_res(TCONF, "current system doesn't support Q_XQUOTARM, skip it");
->> +		return;
-> 
-> I've changed this to tst_brk() because doing return from setup has no
-> efect here, and pushed, thanks.
-Thanks for pushing.
-> 
+> The compression algorithm was stored into a local variable "algs",
+> however the variable name zram_algs was used in the for loop later.
 
+> Unify them with algs so the default zram_algs defined in zram01 won't
+> be altered.
 
+> Also, use sed to get rid of the square brackets that indicates the
+> compression algorithm currently in use.
+>     $ cat /sys/block/zram0/comp_algorithm
+>     [lzo] lz4 lz4hc 842 zstd
+
+> Signed-off-by: Po-Hsu Lin <po-hsu.lin@canonical.com>
+> ---
+>  testcases/kernel/device-drivers/zram/zram_lib.sh | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+
+> diff --git a/testcases/kernel/device-drivers/zram/zram_lib.sh b/testcases/kernel/device-drivers/zram/zram_lib.sh
+> index d0e7704a8..599e5f0f3 100755
+> --- a/testcases/kernel/device-drivers/zram/zram_lib.sh
+> +++ b/testcases/kernel/device-drivers/zram/zram_lib.sh
+> @@ -98,10 +98,10 @@ zram_compress_alg()
+
+>  	tst_resm TINFO "test that we can set compression algorithm"
+
+> -	local algs="$(cat /sys/block/zram0/comp_algorithm)"
+> +	local algs="$(sed 's/[][]//g' /sys/block/zram0/comp_algorithm)"
+>  	tst_resm TINFO "supported algs: $algs"
+>  	local i=0
+> -	for alg in $zram_algs; do
+> +	for alg in $algs; do
+>  		local sys_path="/sys/block/zram${i}/comp_algorithm"
+>  		echo "$alg" >  $sys_path || \
+>  			tst_brkm TFAIL "can't set '$alg' to $sys_path"
+
+Sorry for a late reply.
+
+What is the purpose of zram_algs="lzo lzo lzo lzo in zram01.sh?
+It should be removed now, right? (as you decided not to set the algorithms to the ones defined in the zram01.sh
+test at the end of this function as Cyril suggested at [1]
+
+Kind regards,
+Petr
+
+[1] http://lists.linux.it/pipermail/ltp/2019-July/012674.html
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
