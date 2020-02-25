@@ -2,69 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8114616BEF8
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 11:40:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4873816BF14
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 11:48:57 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4FD433C25E7
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 11:40:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 113663C25E8
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 11:48:57 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 2503E3C04FD
- for <ltp@lists.linux.it>; Tue, 25 Feb 2020 11:40:01 +0100 (CET)
-Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
- [IPv6:2607:f8b0:4864:20::644])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 0AD743C12E6
+ for <ltp@lists.linux.it>; Tue, 25 Feb 2020 11:48:54 +0100 (CET)
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 207B860007F
- for <ltp@lists.linux.it>; Tue, 25 Feb 2020 11:39:58 +0100 (CET)
-Received: by mail-pl1-x644.google.com with SMTP id y1so5322572plp.7
- for <ltp@lists.linux.it>; Tue, 25 Feb 2020 02:39:58 -0800 (PST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 1F98F1A014CB
+ for <ltp@lists.linux.it>; Tue, 25 Feb 2020 11:48:54 +0100 (CET)
+Received: by mail-pl1-x642.google.com with SMTP id y1so5331117plp.7
+ for <ltp@lists.linux.it>; Tue, 25 Feb 2020 02:48:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=DXbJvHIyrFLwTMGEI2jeklDiyghmnNId6hn87SUYXkQ=;
- b=V+2dCl/LcRyf4K/R2zulN+NlyNzCypjRmDZCvUKvDMYBwxEwSXRqhk6ZEA+iiniY6I
- kwhZa1RExwB21z6+DLp+I70OIbtoUCiJzFBaeJyqvchITuwbaF4H6W/KAXp8yqYL4MTx
- iFSmiD4O8OakG4uEy6JNuUbgrxTLdUzFMGyS9ePIJkuQCSCkbtaVDl5OXJHmS+Rl5rdn
- 9epFSyd6+8+3rzuwlOlG0ZkiY4wJ9WVSGzkl0onsMW03N0y7VkIiOBcEBkaHO+NVqU/h
- ZiYJwEIiFEYZVDjYCc5X5vXfjSya8R81VaCHXCJG80F+1XYz7ro5Ki8WbewjVKzV/yaN
- hipA==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=0hj6t66OqX7YqNbnbI9t6mqpGXrZKart1sIlKeWSGao=;
+ b=HGRqu5z6/Wv7WCJIQqdaj3nZ+FLMwHKj5wdSBKupSv9jgACCIUlT06D6Vo7wjvZOK6
+ +hPMmyV6XCoi7na/DunsLhE3I2ycuMZrH5F5QWpJNvmSpkvowuzygpEg3ehRPaZ4PC/X
+ i5s3Nr8hjwEn5u8Nf8qUg1NzQ3QUGHrzeOPwvTC4ccqmU4ZRBwVOY2yPH0KUvAq+75Iz
+ gTNCtlfuOuuhN5rbdA4H7qD4/tNMzQSD9aTKNRsstEc9rP8yH6aFIMGvFrr6XfNGV6kO
+ OJyWt1oQvgnqlifeJEmQnw3cd22PDo7bN+WgrLlrchntVIPeqriJS9OTBnONIbl3rgVE
+ eh5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=DXbJvHIyrFLwTMGEI2jeklDiyghmnNId6hn87SUYXkQ=;
- b=FtPjoF+mq0qDFUYmNA9CsFpyw4u+LgDeg4CT9H6hmqM2qFG8pSINwNVNtY8yQs2/pH
- 2udUsED4fPp1fW8SLwH7GFV0yTYCZzXe2Mfxf4qxbRjE85CFy08pcHZtUfSbt/Jsll+q
- /GBD6+WWxeshYNIkApRWkgX9E20IvRX+zDhBjtJE6d3jwzMtMrKr99qcmpQ4o3uZhwSd
- PjgK17kGQb+a0ucO/DCkjrm5E9sqVOd63SBirC4WfVHIy+uTt59K2bfaGwlNUcM33GMt
- 6HPLYfTVkBBTY6g9qRXCQnvIBE1F15UMDZsal6CHMdYbIPLoR0agmicN8Zmmydvg7oGs
- U3dQ==
-X-Gm-Message-State: APjAAAUwDxsT5w+0wk9tfFLz6MPFMDK6/GoBN+PzfQfQNXNi3wuS+6Ac
- 996+vrM/nAQkPywrwBF5CjqM5Tvs/gI=
-X-Google-Smtp-Source: APXvYqwaXqWM/nFwIwM89eTm2YMalKM2tNlSNTWjJV3+aN7oS5xJB16o1ks3T5yFRTA4b7gmr2e8cQ==
-X-Received: by 2002:a17:902:8eca:: with SMTP id
- x10mr52905499plo.94.1582627196071; 
- Tue, 25 Feb 2020 02:39:56 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=0hj6t66OqX7YqNbnbI9t6mqpGXrZKart1sIlKeWSGao=;
+ b=mJ8GQryWwLCeNKXlTCsynMCIAltaTD96pDVo6lv1Eg4/yyKkziR+C03JQ4z8Zo8cta
+ 64pXPWMAS+Gk9ahd95rm/rSjDGW5L7btqyxyrv46rMwdj+06NI1MG9ppcdAq1KsbUyQS
+ OaZxgR3yv9353IkAQYeZglCraN12GNoXNHzQ6Es7I85jVeZI01VukF+BzdsuwQrkQOuZ
+ MyJ1KyqfenR0UNaPvzx04lm2Kw32N8diet+qg1lLqJDeXShnJz54BRNz1M1V1wDdWPSd
+ C9sHmTdssqKO2ojLjj/RaTdDtRWWp46+NY2hPcVjhpIoQC+sGF+d597x4Z2yzWsQOyMs
+ m/dQ==
+X-Gm-Message-State: APjAAAXuulfaPeGF7OhTMDC1q8auRm5K7ECanyRnhuAzFtQalczzPr4u
+ u+q4PhnL12hX1qg8CG8e3e/3fQ==
+X-Google-Smtp-Source: APXvYqw8KkCsB1rbOBh/x1lcZSrlM+sCowhF5aHP9YLOamujX1ipyY6FQ1mO1+d98leu41U5o/SZbA==
+X-Received: by 2002:a17:90a:c24c:: with SMTP id
+ d12mr4518840pjx.113.1582627732450; 
+ Tue, 25 Feb 2020 02:48:52 -0800 (PST)
 Received: from localhost ([223.226.55.170])
- by smtp.gmail.com with ESMTPSA id s125sm16608070pgc.53.2020.02.25.02.39.54
+ by smtp.gmail.com with ESMTPSA id s14sm16071012pgv.74.2020.02.25.02.48.51
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 25 Feb 2020 02:39:55 -0800 (PST)
+ Tue, 25 Feb 2020 02:48:51 -0800 (PST)
+Date: Tue, 25 Feb 2020 16:18:49 +0530
 From: Viresh Kumar <viresh.kumar@linaro.org>
-To: ltp@lists.linux.it
-Date: Tue, 25 Feb 2020 16:09:31 +0530
-Message-Id: <305330ad290ce4802d832e02765b8723a976d4a7.1582627066.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.21.0.rc0.269.g1a574e7a288b
-In-Reply-To: <7c0899c42b8d8434c1cf9ca6b261993a1c09031f.1582612624.git.viresh.kumar@linaro.org>
-References: <7c0899c42b8d8434c1cf9ca6b261993a1c09031f.1582612624.git.viresh.kumar@linaro.org>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <20200225104849.jqkzsy5kf6a76ypc@vireshk-i7>
+References: <cover.1582612624.git.viresh.kumar@linaro.org>
+ <CAEemH2dogCkDHtZzwWCx-ahg-CebGYLNyew6F2AkJVPC_yivBA@mail.gmail.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <CAEemH2dogCkDHtZzwWCx-ahg-CebGYLNyew6F2AkJVPC_yivBA@mail.gmail.com>
+User-Agent: NeoMutt/20180716-391-311a52
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH V4 1/10] tst_device: Add tst_is_mounted() helper
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V3 00/10] Add new LTP tests related to fsmount
+ family of syscalls
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,135 +80,64 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, Vikas.Kumar2@arm.com,
- Viresh Kumar <viresh.kumar@linaro.org>
+Cc: Vikas.Kumar2@arm.com, Vincent Guittot <vincent.guittot@linaro.org>,
+ LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This patch moves the ismount() helper added to the fsmount syscall tests
-to the standard library and renames it to tst_is_mounted(). The helper
-can be used across different files now.
+On 25-02-20, 18:00, Li Wang wrote:
+> Hi Viresh,
+> 
+> These new tests look good, only a few comments/questions below:
+> 
+> Patch 1/10:
+> 1. The git summary should be updated too (someone who push patch can help
+> do that:).
+> 2. Maybe better to replace the TWARN by TINFO? Since tst_is_mounted() as a
+> general function to check if mount success, sometimes we just need the
+> return status then do next work(I tend to leave the waring or break operate
+> to LTP users:).
 
-Minor modifications are also done to the helper.
+Done and sent an update as well.
 
-Acked-by: Li Wang <liwang@redhat.com>
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
----
-V3->V4:
-- s/TWARN/TINFO
-- Fix commit log.
+> Patch 5/10, 9/10:
+> May I ask why we use "sync" as the key value in fsconfig()? I ask this
+> because it can get rid of the errors we found in XFS test before.
 
- include/tst_device.h                          |  6 +++++
- lib/tst_device.c                              | 23 +++++++++++++++++
- testcases/kernel/syscalls/fsmount/fsmount01.c | 25 +------------------
- 3 files changed, 30 insertions(+), 24 deletions(-)
+I wasn't able to test it earlier during V2 on my ARM platform and so
+just added "foo" there.
 
-diff --git a/include/tst_device.h b/include/tst_device.h
-index f5609f5986bb..bd6910672d2f 100644
---- a/include/tst_device.h
-+++ b/include/tst_device.h
-@@ -36,6 +36,12 @@ extern struct tst_device *tst_device;
-  */
- int tst_umount(const char *path);
- 
-+/*
-+ * Verifies if an earlier mount is successful or not.
-+ * @path: Mount path to verify
-+ */
-+int tst_is_mounted(const char *path);
-+
- /*
-  * Clears a first few blocks of the device. This is needed when device has
-  * already been formatted with a filesystems, subset of mkfs.foo utils aborts
-diff --git a/lib/tst_device.c b/lib/tst_device.c
-index 8b5459def1cb..d99fb8bc554a 100644
---- a/lib/tst_device.c
-+++ b/lib/tst_device.c
-@@ -386,6 +386,29 @@ int tst_umount(const char *path)
- 	return -1;
- }
- 
-+int tst_is_mounted(const char *path)
-+{
-+	char line[256];
-+	FILE *file;
-+	int ret = 0;
-+
-+	file = SAFE_FOPEN(NULL, "/proc/mounts", "r");
-+
-+	while (fgets(line, sizeof(line), file)) {
-+		if (strstr(line, path) != NULL) {
-+			ret = 1;
-+			break;
-+		}
-+	}
-+
-+	SAFE_FCLOSE(NULL, file);
-+
-+	if (!ret)
-+		tst_resm(TINFO, "No device is mounted at %s", path);
-+
-+	return ret;
-+}
-+
- int find_stat_file(const char *dev, char *path, size_t path_len)
- {
- 	const char *devname = strrchr(dev, '/') + 1;
-diff --git a/testcases/kernel/syscalls/fsmount/fsmount01.c b/testcases/kernel/syscalls/fsmount/fsmount01.c
-index 83185b48aedd..8e29a1537334 100644
---- a/testcases/kernel/syscalls/fsmount/fsmount01.c
-+++ b/testcases/kernel/syscalls/fsmount/fsmount01.c
-@@ -12,30 +12,10 @@
- #include "tst_test.h"
- #include "lapi/fcntl.h"
- #include "lapi/fsmount.h"
--#include "tst_safe_stdio.h"
- 
--#define LINELENGTH 256
- #define MNTPOINT "newmount_point"
- static int sfd, mfd, is_mounted;
- 
--static int ismount(char *mntpoint)
--{
--	int ret = 0;
--	FILE *file;
--	char line[LINELENGTH];
--
--	file = SAFE_FOPEN("/proc/mounts", "r");
--
--	while (fgets(line, sizeof(line), file)) {
--		if (strstr(line, mntpoint) != NULL) {
--			ret = 1;
--			break;
--		}
--	}
--	SAFE_FCLOSE(file);
--	return ret;
--}
--
- static void cleanup(void)
- {
- 	if (is_mounted)
-@@ -76,12 +56,9 @@ static void test_fsmount(void)
- 	tst_res(TPASS, "move_mount() attached to the mount point");
- 	SAFE_CLOSE(mfd);
- 
--	if (ismount(MNTPOINT)) {
--		tst_res(TPASS, "device mounted");
-+	if (tst_is_mounted(MNTPOINT)) {
- 		SAFE_UMOUNT(MNTPOINT);
- 		is_mounted = 0;
--	} else {
--		tst_res(TFAIL, "device not mounted");
- 	}
- }
- 
+This time, I tried running it on my x86 machine and so was able to run
+xfs tests and so I figured out what needs to be passed by looking out
+the Linux source.
+
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/fs/fs_context.c#n41
+
+The first two arrays have the valid options that can be passed.
+
+> Patch 9/10, 10/10:
+> I guess that'd be better if we put the 'ismounted = 1' at the behind of
+> tst_is_mounted(), do you feel the code sequence looks strange which we set
+> 'ismounted' to 1 then do mount checking?
+
+I understand the weirdness you are talking about, but I think the code
+does what the right thing to do at this point is.
+
+The question is, what are we supposed to do when move_mount() passes,
+but we aren't able to see the mount in /proc/mounts ? I think, we
+should call umount() anyway as move_mount() passed. And that's why I
+have kept the ismounted = 1, line before the tst_is_mounted() call.
+
+> Ack for the whole patchset v3 (+ follow some modification for above
+> comments):
+>     Acked-by: Li Wang <liwang@redhat.com>
+
+Thanks for your reviews Li.
+
 -- 
-2.21.0.rc0.269.g1a574e7a288b
-
+viresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
