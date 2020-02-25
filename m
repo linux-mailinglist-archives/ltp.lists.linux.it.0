@@ -2,73 +2,106 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4873816BF14
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 11:48:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DA8B16BF45
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 12:05:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 113663C25E8
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 11:48:57 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8AA033C25E9
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 12:05:43 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 0AD743C12E6
- for <ltp@lists.linux.it>; Tue, 25 Feb 2020 11:48:54 +0100 (CET)
-Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
- [IPv6:2607:f8b0:4864:20::642])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 662B93C0EAD
+ for <ltp@lists.linux.it>; Tue, 25 Feb 2020 08:02:22 +0100 (CET)
+Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
+ [209.85.221.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 1F98F1A014CB
- for <ltp@lists.linux.it>; Tue, 25 Feb 2020 11:48:54 +0100 (CET)
-Received: by mail-pl1-x642.google.com with SMTP id y1so5331117plp.7
- for <ltp@lists.linux.it>; Tue, 25 Feb 2020 02:48:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=0hj6t66OqX7YqNbnbI9t6mqpGXrZKart1sIlKeWSGao=;
- b=HGRqu5z6/Wv7WCJIQqdaj3nZ+FLMwHKj5wdSBKupSv9jgACCIUlT06D6Vo7wjvZOK6
- +hPMmyV6XCoi7na/DunsLhE3I2ycuMZrH5F5QWpJNvmSpkvowuzygpEg3ehRPaZ4PC/X
- i5s3Nr8hjwEn5u8Nf8qUg1NzQ3QUGHrzeOPwvTC4ccqmU4ZRBwVOY2yPH0KUvAq+75Iz
- gTNCtlfuOuuhN5rbdA4H7qD4/tNMzQSD9aTKNRsstEc9rP8yH6aFIMGvFrr6XfNGV6kO
- OJyWt1oQvgnqlifeJEmQnw3cd22PDo7bN+WgrLlrchntVIPeqriJS9OTBnONIbl3rgVE
- eh5Q==
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 2A4461A0149E
+ for <ltp@lists.linux.it>; Tue, 25 Feb 2020 08:02:18 +0100 (CET)
+Received: by mail-wr1-f68.google.com with SMTP id p18so9674558wre.9
+ for <ltp@lists.linux.it>; Mon, 24 Feb 2020 23:02:18 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=0hj6t66OqX7YqNbnbI9t6mqpGXrZKart1sIlKeWSGao=;
- b=mJ8GQryWwLCeNKXlTCsynMCIAltaTD96pDVo6lv1Eg4/yyKkziR+C03JQ4z8Zo8cta
- 64pXPWMAS+Gk9ahd95rm/rSjDGW5L7btqyxyrv46rMwdj+06NI1MG9ppcdAq1KsbUyQS
- OaZxgR3yv9353IkAQYeZglCraN12GNoXNHzQ6Es7I85jVeZI01VukF+BzdsuwQrkQOuZ
- MyJ1KyqfenR0UNaPvzx04lm2Kw32N8diet+qg1lLqJDeXShnJz54BRNz1M1V1wDdWPSd
- C9sHmTdssqKO2ojLjj/RaTdDtRWWp46+NY2hPcVjhpIoQC+sGF+d597x4Z2yzWsQOyMs
- m/dQ==
-X-Gm-Message-State: APjAAAXuulfaPeGF7OhTMDC1q8auRm5K7ECanyRnhuAzFtQalczzPr4u
- u+q4PhnL12hX1qg8CG8e3e/3fQ==
-X-Google-Smtp-Source: APXvYqw8KkCsB1rbOBh/x1lcZSrlM+sCowhF5aHP9YLOamujX1ipyY6FQ1mO1+d98leu41U5o/SZbA==
-X-Received: by 2002:a17:90a:c24c:: with SMTP id
- d12mr4518840pjx.113.1582627732450; 
- Tue, 25 Feb 2020 02:48:52 -0800 (PST)
-Received: from localhost ([223.226.55.170])
- by smtp.gmail.com with ESMTPSA id s14sm16071012pgv.74.2020.02.25.02.48.51
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 25 Feb 2020 02:48:51 -0800 (PST)
-Date: Tue, 25 Feb 2020 16:18:49 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20200225104849.jqkzsy5kf6a76ypc@vireshk-i7>
-References: <cover.1582612624.git.viresh.kumar@linaro.org>
- <CAEemH2dogCkDHtZzwWCx-ahg-CebGYLNyew6F2AkJVPC_yivBA@mail.gmail.com>
+ h=x-gm-message-state:subject:to:references:from:autocrypt:message-id
+ :date:user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=ovO+Jbf+hNuEFTTpTBsWA4r9VnbSGc/s8wqGqI73Nro=;
+ b=Ai4G1B5TIWh052bV8npYKr6kXkBB2qc5kM1MQWK23vqSqYk+L0nN1HQdLYGcBpx+sC
+ TkfN9GGcfD/nPlT630EHxDfqYN01Ujf6hlBmI+MvOjdqD6dKsYg71C6LK4MKpFEexQOZ
+ 8+zGce+m9ZYmHS1Qw1SNMuRyNiFdkL4vrGQPX8v5SHbYdwb7UGGxZiNgNE3xNgfbuRnX
+ /5inTWxYdTLHNe9T8SoxjyMaj69dbJ/WaxlTMBrkm0emLpy22TVBttaCE0qgwOMmnJcX
+ H4oKdMrHt6ApaflANs9fAeyScKYTyv+/TO4XyqQay/UFOTDpP+0lbCj4j6ZWRVGYqUc6
+ 6BJQ==
+X-Gm-Message-State: APjAAAWPfNUvbZNn/ghEyLks0Sv243pTmzgo2a1cUtPuSHN+uus6+k+F
+ gh5wCpYvBw/XW9bxFqxdWv6bs8p7p5U=
+X-Google-Smtp-Source: APXvYqwJ/3HWCOHV2fzxGKilA0xpDfpv+6B/GHUEdTVhL8SeSDzC+SykOVCpKlRoikxeOczdBCSnUg==
+X-Received: by 2002:a5d:474b:: with SMTP id o11mr74264668wrs.255.1582614137394; 
+ Mon, 24 Feb 2020 23:02:17 -0800 (PST)
+Received: from ?IPv6:2a0b:e7c0:0:107::49? ([2a0b:e7c0:0:107::49])
+ by smtp.gmail.com with ESMTPSA id b7sm14350178wrs.97.2020.02.24.23.02.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Feb 2020 23:02:16 -0800 (PST)
+To: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
+References: <20200220111349.9901-1-rpalethorpe@suse.com>
+From: Jiri Slaby <jslaby@suse.cz>
+Autocrypt: addr=jslaby@suse.cz; prefer-encrypt=mutual; keydata=
+ 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
+Message-ID: <5cc0f468-d952-9867-3882-e01076d4fb07@suse.cz>
+Date: Tue, 25 Feb 2020 08:02:15 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2dogCkDHtZzwWCx-ahg-CebGYLNyew6F2AkJVPC_yivBA@mail.gmail.com>
-User-Agent: NeoMutt/20180716-391-311a52
+In-Reply-To: <20200220111349.9901-1-rpalethorpe@suse.com>
+Content-Language: en-US
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=7.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V3 00/10] Add new LTP tests related to fsmount
- family of syscalls
+X-Mailman-Approved-At: Tue, 25 Feb 2020 12:05:40 +0100
+Subject: Re: [LTP] [PATCH] pty: Test data transmission with SLIP line
+ discipline
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,64 +113,71 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vikas.Kumar2@arm.com, Vincent Guittot <vincent.guittot@linaro.org>,
- LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 25-02-20, 18:00, Li Wang wrote:
-> Hi Viresh,
+On 20. 02. 20, 12:13, Richard Palethorpe wrote:
+> Basic transmission test and try to trigger a possible race between receiving
+> and hangup (it appears there is none from my testing).
 > 
-> These new tests look good, only a few comments/questions below:
+> This only includes SLIP for now, but more disciplines can be added. Probably
+> at least CAN. However the packet generation will be different for each.
 > 
-> Patch 1/10:
-> 1. The git summary should be updated too (someone who push patch can help
-> do that:).
-> 2. Maybe better to replace the TWARN by TINFO? Since tst_is_mounted() as a
-> general function to check if mount success, sometimes we just need the
-> return status then do next work(I tend to leave the waring or break operate
-> to LTP users:).
+> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+> ---
+...
+> --- /dev/null
+> +++ b/testcases/kernel/pty/pty04.c
+> @@ -0,0 +1,250 @@
+...> +struct ldisc_info {
+> +	int n;
+> +	char *name;
+> +	int max_mtu;
+> +};
+> +
+> +static struct ldisc_info ldiscs[] = {
+> +	{0, "TTY", 0},
 
-Done and sent an update as well.
+Why not N_TTY?
 
-> Patch 5/10, 9/10:
-> May I ask why we use "sync" as the key value in fsconfig()? I ask this
-> because it can get rid of the errors we found in XFS test before.
+Why do you define the line above btw?
 
-I wasn't able to test it earlier during V2 on my ARM platform and so
-just added "foo" there.
+> +	{1, "SLIP", 8192},
 
-This time, I tried running it on my x86 machine and so was able to run
-xfs tests and so I figured out what needs to be passed by looking out
-the Linux source.
+And N_SLIP?
 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/fs/fs_context.c#n41
+> +};
+...
+> +static void read_netdev(void)
+> +{
+> +	char *data = SAFE_MALLOC(mtu - 1);
+> +
+> +	tst_res(TINFO, "Reading from socket %d", sk);
+> +
+> +	SAFE_READ(1, sk, data, mtu - 1);
+> +	tst_res(TPASS, "Read netdev 1");
+> +	SAFE_READ(1, sk, data, mtu - 1);
+> +
+> +	tst_res(TPASS, "Read netdev 2");
+> +
+> +	TST_CHECKPOINT_WAKE(0);
+> +	while(read(sk, data, mtu - 1) > 0)
 
-The first two arrays have the valid options that can be passed.
+Could you check whether '_' is actually received here?
 
-> Patch 9/10, 10/10:
-> I guess that'd be better if we put the 'ismounted = 1' at the behind of
-> tst_is_mounted(), do you feel the code sequence looks strange which we set
-> 'ismounted' to 1 then do mount checking?
+> +		;
+> +
+> +	tst_res(TPASS, "Reading data from netdev interrupted by hangup");
+> +
+> +	free(data);
+> +}
 
-I understand the weirdness you are talking about, but I think the code
-does what the right thing to do at this point is.
-
-The question is, what are we supposed to do when move_mount() passes,
-but we aren't able to see the mount in /proc/mounts ? I think, we
-should call umount() anyway as move_mount() passed. And that's why I
-have kept the ismounted = 1, line before the tst_is_mounted() call.
-
-> Ack for the whole patchset v3 (+ follow some modification for above
-> comments):
->     Acked-by: Li Wang <liwang@redhat.com>
-
-Thanks for your reviews Li.
-
+thanks,
 -- 
-viresh
+js
+suse labs
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
