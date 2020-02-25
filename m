@@ -2,70 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C863616B9D6
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 07:41:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CA8D16B9DA
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 07:41:35 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7313C3C2615
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 07:41:22 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B154A3C2616
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 07:41:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 8093F3C2622
- for <ltp@lists.linux.it>; Tue, 25 Feb 2020 07:41:00 +0100 (CET)
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 2D94E3C261F
+ for <ltp@lists.linux.it>; Tue, 25 Feb 2020 07:41:03 +0100 (CET)
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C07D32001D2
- for <ltp@lists.linux.it>; Tue, 25 Feb 2020 07:40:59 +0100 (CET)
-Received: by mail-pf1-x443.google.com with SMTP id 4so6639337pfz.9
- for <ltp@lists.linux.it>; Mon, 24 Feb 2020 22:40:59 -0800 (PST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7E3E8601AEE
+ for <ltp@lists.linux.it>; Tue, 25 Feb 2020 07:41:02 +0100 (CET)
+Received: by mail-pf1-x441.google.com with SMTP id n7so6665421pfn.0
+ for <ltp@lists.linux.it>; Mon, 24 Feb 2020 22:41:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=VgygX/O//wUaTggLlqoaZZbWXZli523jsG1uz/WP4xU=;
- b=en/pY1HtphKnZtIb2KOu7DWxDaVQZNSUGX9CxcDYxO2Q6zCRHmY6HIMMblmKQbH7Z3
- xi8g6s3DNwuANzbse9yKtpbewev+FX7KQniXnB7InGaZcKu7UsbzeMk/DByxTxNAbY+c
- wNp8fnLKIBeNWHt4ExHL16pqnJezp6HtZncO1hHc/X4Og5a0vExxxST5KD8Y3OmnYDWa
- 1bg7cn3hHtImv+c6M5eR/0EgT6Wo51YauWFLWRGpO4GDCWBwAb5EH62vFgYGGaegDmEW
- Q6Ju3BMZLhzJ78p0d7dvsdF+4iBzpXJvpv+8RyidsBLteuxfv7ZiljL7bq44ifOmNrqU
- 3PDA==
+ bh=R3wM1iQZfIRRjyEkVJNk0nOm9gFFwzGrXM9z6mvpLxo=;
+ b=H24XjHE8Hsl83RExI/H7BcyCAQHVQ2qUgZ3ZTj1PdNVDmxBNCec0+Rpy9Ar+P6YG3B
+ 1xP48qHW7NlqBV/yBlhB+wlTan8qywH5AbdlnezQoYaYC2gGXYsV2QacRYzD495K5whf
+ ZJ6dCleh18FvbvGSyqhxSeCH87M//VQPLYl/ZMlwIrMaomc8NZJkLO50PSY2jpcnFBAC
+ VYrJdLqacIHI003SK+qmCMTbme+m/Au1c0S8kNZWZVRJtjHhK/RykCaxyZZousl+Jkq/
+ EhMG+tPeg3ve6TPmYTp2CNQeMVJ7UzUFwQo4YLHiVsaEm+Vc2S0q7zTHEbDHKYX0Op6Z
+ fAAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=VgygX/O//wUaTggLlqoaZZbWXZli523jsG1uz/WP4xU=;
- b=qJ9EgIZBZH5/7zCJbyVh1IwV4mqS/1TMg5WnOcoxdj4ChLO8rA63Z0b8/5yslIFbu9
- kvCQJgQ/dl5SuljDbX4F9FufRhIkCcq8Q9JnIEa/mZL9GPKfNzQa++ea1bEhc/AVBplF
- iUCoARGZ8vkwwiA5flxb0Ny1cVfo7nfrXg+596bqGkCIx6h6mgtbTxCI0NYGMrhDuqww
- BWz3CufNb09OmTtv5p30/HxMwNK8WUiERFHqLmSIax61zWfVI2xvAJ3qSaVvYmB74lg9
- RD4b0KBuj+kSh8EPAb9WwFMhWkQsbI7f2IpkgcNUezHe/GhOX0VBJuhqti84Fr77uAlx
- gUhw==
-X-Gm-Message-State: APjAAAUyIRIGt0kZD2F0RhJMtX4WubjzKhGcZafPUzaFkXjwsVpXyq2I
- tYt3y4blbKy0rohHdZW4n6Z7qECXtRc=
-X-Google-Smtp-Source: APXvYqx8kcXk1upSFo1vz5/rBNKZuQ7hEW23pRvVTJN040kojSUcoUZOy2U9NuhhynI3pYhia9YHuw==
-X-Received: by 2002:a63:8342:: with SMTP id h63mr19708760pge.141.1582612858026; 
- Mon, 24 Feb 2020 22:40:58 -0800 (PST)
+ bh=R3wM1iQZfIRRjyEkVJNk0nOm9gFFwzGrXM9z6mvpLxo=;
+ b=uB1NhvCU4oiWmtuLAF4v2ZJNn/1hwEOGhqDS+lqICICYONNKQ920YNPtzx1pAZ/12P
+ 6POLrMElQ5u7jmsmkCpOknwHRQBPul+5rcuaF0sMJuqjtoGhQ+hS/ouwDcdJkbeMBPGl
+ RY5V63pXscfwsWe3LqFFDTThIQiRabvtN/8Jp5r67HUye0DLoN4PwS2jyYVZ1iMpDlbI
+ YsQ9spsWG63w6Y7uMIsvifKqqaZMGh6d7l2BB+AKk8mGanABH/1Yj79RjpOfmWhkJ+ef
+ klqfxkDY0CnUp5tnE2irqrwtCQf4TgSuXekfQWvRsViSdk5AcsFqkaNZKYYPZgDukuRF
+ F1FQ==
+X-Gm-Message-State: APjAAAXFuYgOURR/10zAe108rk0g5HNzH+tuCijU7oMt63c6HoPJcBq0
+ CBKOpB17UJLJwO3b7aTwfQth7gNZlAE=
+X-Google-Smtp-Source: APXvYqyGUbn2i0nxs/syT1swdzmemvCV9HxGDkpYtKIWgxAHrklGE0mg7JC15nGa6dZwmve13eYx3g==
+X-Received: by 2002:a62:f94d:: with SMTP id g13mr54817105pfm.60.1582612860668; 
+ Mon, 24 Feb 2020 22:41:00 -0800 (PST)
 Received: from localhost ([223.226.55.170])
- by smtp.gmail.com with ESMTPSA id r145sm15598998pfr.5.2020.02.24.22.40.57
+ by smtp.gmail.com with ESMTPSA id z4sm14805131pfn.42.2020.02.24.22.40.59
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 24 Feb 2020 22:40:57 -0800 (PST)
+ Mon, 24 Feb 2020 22:41:00 -0800 (PST)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Tue, 25 Feb 2020 12:10:40 +0530
-Message-Id: <adc609fbfd9b8ccc31bb3dd6050af13d7126e2f2.1582612624.git.viresh.kumar@linaro.org>
+Date: Tue, 25 Feb 2020 12:10:41 +0530
+Message-Id: <655d948e27dbbc03f6cef038e339ec0269d11140.1582612624.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.21.0.rc0.269.g1a574e7a288b
 In-Reply-To: <cover.1582612624.git.viresh.kumar@linaro.org>
 References: <cover.1582612624.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH V3 02/10] lapi/fsmount.h: Add
- fsopen_supported_by_kernel()
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH V3 03/10] lapi/fsmount.h: Include "lapi/fcntl.h"
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,34 +82,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add a helper to check if the fsmount() related syscalls are supported by
-the kernel or not.
+All the files that include (and that will include it in future) are most
+probably going to need the definitions from "lapi/fcntl.h", include it
+directly instead of <fcntl.h>, which will break it for old RHL distros.
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+Acked-by: Petr Vorel <pvorel@suse.cz>
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- include/lapi/fsmount.h | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ include/lapi/fsmount.h                        | 2 +-
+ testcases/kernel/syscalls/fsmount/fsmount01.c | 1 -
+ 2 files changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/include/lapi/fsmount.h b/include/lapi/fsmount.h
-index 87f2f229c371..a6a24904e66d 100644
+index a6a24904e66d..5e5eaca7e6ff 100644
 --- a/include/lapi/fsmount.h
 +++ b/include/lapi/fsmount.h
-@@ -130,5 +130,14 @@ enum fsconfig_command {
+@@ -7,12 +7,12 @@
+ #ifndef FSMOUNT_H__
+ #define FSMOUNT_H__
  
- #endif /* OPEN_TREE_CLONE */
+-#include <fcntl.h>
+ #include <sys/mount.h>
+ #include <sys/syscall.h>
+ #include <sys/types.h>
  
-+void fsopen_supported_by_kernel(void)
-+{
-+	if ((tst_kvercmp(5, 2, 0)) < 0) {
-+		/* Check if the syscall is backported on an older kernel */
-+		TEST(syscall(__NR_fsopen, NULL, 0));
-+		if (TST_RET == -1 && TST_ERR == ENOSYS)
-+			tst_brk(TCONF, "Test not supported on kernel version < v5.2");
-+	}
-+}
+ #include "config.h"
++#include "lapi/fcntl.h"
+ #include "lapi/syscalls.h"
  
- #endif /* FSMOUNT_H__ */
+ #ifndef HAVE_FSOPEN
+diff --git a/testcases/kernel/syscalls/fsmount/fsmount01.c b/testcases/kernel/syscalls/fsmount/fsmount01.c
+index 8e29a1537334..514d3b0b38f8 100644
+--- a/testcases/kernel/syscalls/fsmount/fsmount01.c
++++ b/testcases/kernel/syscalls/fsmount/fsmount01.c
+@@ -10,7 +10,6 @@
+ #include <sys/mount.h>
+ 
+ #include "tst_test.h"
+-#include "lapi/fcntl.h"
+ #include "lapi/fsmount.h"
+ 
+ #define MNTPOINT "newmount_point"
 -- 
 2.21.0.rc0.269.g1a574e7a288b
 
