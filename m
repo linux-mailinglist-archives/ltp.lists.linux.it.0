@@ -1,37 +1,72 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D702316EB14
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 17:15:22 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AFD416F37D
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Feb 2020 00:33:28 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7E0DC3C24D8
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 17:15:22 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D3FEF3C24D4
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Feb 2020 00:33:27 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id CB77C3C12E6
- for <ltp@lists.linux.it>; Tue, 25 Feb 2020 17:15:20 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 5B8133C094C
+ for <ltp@lists.linux.it>; Wed, 26 Feb 2020 00:33:25 +0100 (CET)
+Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
+ [IPv6:2607:f8b0:4864:20::641])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 59B1D1A01792
- for <ltp@lists.linux.it>; Tue, 25 Feb 2020 17:15:16 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D54F2ABD7
- for <ltp@lists.linux.it>; Tue, 25 Feb 2020 16:15:14 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id DD67E1A00913
+ for <ltp@lists.linux.it>; Wed, 26 Feb 2020 00:33:24 +0100 (CET)
+Received: by mail-pl1-x641.google.com with SMTP id g6so484757plt.2
+ for <ltp@lists.linux.it>; Tue, 25 Feb 2020 15:33:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=esT3T2w7bwNvCNhUNWgIZ93npmjTqgkzpu/tmBvY4f8=;
+ b=YK3apF4y6K/3z9oOLlNavwckvYEEOLLa5RfWxBUZ1+Uprk6x2ffHVZDQmZx1/SfPUP
+ xmEW2N/DJtpXTmFXDl5k45VmQimtHNhWReHZZJcCVRyx2BsnYcPYNfcrhEBltC3EcvBJ
+ Y4zP5A50a1lF5Go5bnBLjOyIqP2T0iXRq/xrjDNUUA/ZvEcsXxPS19kNJB88xRxYt20N
+ XutukPhf1ZjBcSE3BIczXkvynYH6PMaFO76I40KTzKbZblX/UmSxYi7aRauqWd92m5DL
+ 3AUMn4NZ38SNiza23LlM4CIgtPtFM9ui5kILkWqWO2Ede3XJBh9mn42a362FbClglu6P
+ cg8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=esT3T2w7bwNvCNhUNWgIZ93npmjTqgkzpu/tmBvY4f8=;
+ b=WpTN2btz7Nc7Cp8lqZv4xl1Bu2L3wOHvK4+OLV9hrjnNmw1ndzW2U4e/vsu8Pr4b3k
+ wbdqUIJjOt29nIxTVGaKJUCMN9531h1kOtbikeV28Vu1ItlzwaZSYLD4JIzTQhwldrG8
+ m6CDY+36p0sXMvZTK9fps9oZr3+NmX9ttHN4iFFob/yN40U6K6jR1cbaju6vPallhrTN
+ nRE2gJ1u4K6t2KzV9EUMPp3ktlpVh56xCDKP577dgjykGdCfDp7DsS9tIciisgT/ePKc
+ KOljd+CTpeFiDJmEUB9lAnPf1JxwUsVH2yGJyLQ7DvUD9jbgKDPY+FRI8jjNvlwOTFRi
+ 4rJw==
+X-Gm-Message-State: APjAAAUMImLuvuGNKI0PFQV/KNOXV6Ao9YlU7FC/X78r624qtKER2oqq
+ Dmvabk/0b4DRqy9tUwA/Qt6Jnqy4jyE=
+X-Google-Smtp-Source: APXvYqwX43/p5VffFDoEAhMtOC4w+UXOvIQOA0crT/c116T7FoJIDG/W2GsMx9cAihbtNAQtmfFzug==
+X-Received: by 2002:a17:90a:e653:: with SMTP id
+ ep19mr1796176pjb.58.1582673602851; 
+ Tue, 25 Feb 2020 15:33:22 -0800 (PST)
+Received: from localhost ([223.226.55.170])
+ by smtp.gmail.com with ESMTPSA id h185sm170984pfg.135.2020.02.25.15.33.21
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 25 Feb 2020 15:33:21 -0800 (PST)
+From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Tue, 25 Feb 2020 17:15:14 +0100
-Message-Id: <20200225161514.25544-1-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.25.0
+Date: Wed, 26 Feb 2020 05:03:16 +0530
+Message-Id: <2f579843fb1ff09cfaaa1b991b48437f525740b3.1582673499.git.viresh.kumar@linaro.org>
+X-Mailer: git-send-email 2.21.0.rc0.269.g1a574e7a288b
+In-Reply-To: <54a3d6fcef8cfed89a1e4f0b56717f56aa502293.1582611994.git.viresh.kumar@linaro.org>
+References: <54a3d6fcef8cfed89a1e4f0b56717f56aa502293.1582611994.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH] Add test for CVE-2017-17712
+Subject: [LTP] [PATCH V2] syscalls/pidfd_open: Continue with rest of the
+ tests on failure
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,164 +78,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+ Vincent Guittot <vincent.guittot@linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
- runtest/cve                                   |   1 +
- testcases/kernel/syscalls/sendmsg/Makefile    |   3 +
- testcases/kernel/syscalls/sendmsg/sendmsg03.c | 113 ++++++++++++++++++
- 3 files changed, 117 insertions(+)
- create mode 100644 testcases/kernel/syscalls/sendmsg/sendmsg03.c
+With tst_brk(), the tests end immediately while what we want to do here
+is to test rest of the failure tests. Use tst_res() to report result and
+continue with rest of the failure tests.
 
-diff --git a/runtest/cve b/runtest/cve
-index 57cf66075..db7b98dfb 100644
---- a/runtest/cve
-+++ b/runtest/cve
-@@ -26,6 +26,7 @@ cve-2017-15299 request_key03 -b cve-2017-15299
- cve-2017-15537 ptrace07
- cve-2017-15649 fanout01
- cve-2017-15951 request_key03 -b cve-2017-15951
-+cve-2017-17712 sendmsg03
- cve-2017-17805 af_alg02
- cve-2017-17806 af_alg01
- cve-2017-17807 request_key04
-diff --git a/testcases/kernel/syscalls/sendmsg/Makefile b/testcases/kernel/syscalls/sendmsg/Makefile
-index e69c726f5..170cc00a6 100644
---- a/testcases/kernel/syscalls/sendmsg/Makefile
-+++ b/testcases/kernel/syscalls/sendmsg/Makefile
-@@ -22,4 +22,7 @@ include $(top_srcdir)/include/mk/testcases.mk
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+---
+V2: Use return, instead of if/else blocks.
+
+ testcases/kernel/syscalls/pidfd_open/pidfd_open02.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c b/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c
+index d73b5326b3b1..9cdded13525a 100644
+--- a/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c
++++ b/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c
+@@ -35,14 +35,16 @@ static void run(unsigned int n)
  
- CPPFLAGS		+= -I$(abs_srcdir)/../utils
+ 	if (TST_RET != -1) {
+ 		SAFE_CLOSE(TST_RET);
+-		tst_brk(TFAIL, "%s: pidfd_open succeeded unexpectedly (index: %d)",
++		tst_res(TFAIL, "%s: pidfd_open succeeded unexpectedly (index: %d)",
+ 			tc->name, n);
++		return;
+ 	}
  
-+sendmsg03:  CFLAGS += -pthread
-+sendmsg03:  LDLIBS += -pthread -lrt
-+
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/sendmsg/sendmsg03.c b/testcases/kernel/syscalls/sendmsg/sendmsg03.c
-new file mode 100644
-index 000000000..dcabfbb00
---- /dev/null
-+++ b/testcases/kernel/syscalls/sendmsg/sendmsg03.c
-@@ -0,0 +1,113 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2020 SUSE LLC <mdoucha@suse.cz>
-+ *
-+ * CVE-2017-17712
-+ *
-+ * Test for race condition vulnerability in sendmsg() on SOCK_RAW sockets.
-+ * Changing the value of IP_HDRINCL socket option in parallel with sendmsg()
-+ * call may lead to uninitialized stack pointer usage, allowing arbitrary code
-+ * execution or privilege escalation. Fixed in:
-+ *
-+ *  commit 8f659a03a0ba9289b9aeb9b4470e6fb263d6f483
-+ *  Author: Mohamed Ghannam <simo.ghannam@gmail.com>
-+ *  Date:   Sun Dec 10 03:50:58 2017 +0000
-+ *
-+ *  net: ipv4: fix for a race condition in raw_sendmsg
-+ */
-+#define _GNU_SOURCE
-+#include <sys/types.h>
-+#include <sys/socket.h>
-+#include <netinet/in.h>
-+#include <sched.h>
-+#include "tst_test.h"
-+#include "tst_fuzzy_sync.h"
-+#include "tst_taint.h"
-+
-+#define IOVEC_COUNT 4
-+#define PACKET_SIZE 100
-+
-+static int sockfd = -1;
-+static struct msghdr msg;
-+/* addr must be full of zeroes to trigger the kernel bug */
-+static struct sockaddr_in addr;
-+static struct iovec iov[IOVEC_COUNT];
-+static unsigned char buf[PACKET_SIZE];
-+static struct tst_fzsync_pair fzsync_pair;
-+
-+static void setup(void)
-+{
-+	int i;
-+
-+	tst_taint_init(TST_TAINT_W | TST_TAINT_D);
-+	SAFE_UNSHARE(CLONE_NEWUSER);
-+	SAFE_UNSHARE(CLONE_NEWNET);
-+	sockfd = SAFE_SOCKET(AF_INET, SOCK_RAW, IPPROTO_ICMP);
-+
-+	memset(buf, 0xcc, PACKET_SIZE);
-+
-+	for (i = 0; i < IOVEC_COUNT; i++) {
-+		iov[i].iov_base = buf;
-+		iov[i].iov_len = PACKET_SIZE;
-+	}
-+
-+	msg.msg_name = &addr;
-+	msg.msg_namelen = sizeof(addr);
-+	msg.msg_iov = iov;
-+	msg.msg_iovlen = IOVEC_COUNT;
-+
-+	fzsync_pair.exec_loops = 100000;
-+	tst_fzsync_pair_init(&fzsync_pair);
-+}
-+
-+static void cleanup(void)
-+{
-+	SAFE_CLOSE(sockfd);
-+	tst_fzsync_pair_cleanup(&fzsync_pair);
-+}
-+
-+static void *thread_run(void *arg)
-+{
-+	int val = 0;
-+
-+	while (tst_fzsync_run_b(&fzsync_pair)) {
-+		tst_fzsync_start_race_b(&fzsync_pair);
-+		setsockopt(sockfd, SOL_IP, IP_HDRINCL, &val, sizeof(val));
-+		tst_fzsync_end_race_b(&fzsync_pair);
-+	}
-+
-+	return arg;
-+}
-+
-+static void run(void)
-+{
-+	int hdrincl = 1;
-+
-+	tst_fzsync_pair_reset(&fzsync_pair, thread_run);
-+
-+	while (tst_fzsync_run_a(&fzsync_pair)) {
-+		SAFE_SETSOCKOPT_INT(sockfd, SOL_IP, IP_HDRINCL, hdrincl);
-+
-+		tst_fzsync_start_race_a(&fzsync_pair);
-+		sendmsg(sockfd, &msg, 0);
-+		tst_fzsync_end_race_a(&fzsync_pair);
-+
-+		if (tst_taint_check()) {
-+			tst_res(TFAIL, "Kernel is vulnerable");
-+			return;
-+		}
-+	}
-+
-+	tst_res(TPASS, "Nothing bad happened, probably");
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.tags = (const struct tst_tag[]) {
-+		{"linux-git", "8f659a03a0ba"},
-+		{"CVE", "2017-17712"},
-+		{}
-+	}
-+};
+ 	if (tc->exp_errno != TST_ERR) {
+-		tst_brk(TFAIL | TTERRNO, "%s: pidfd_open() should fail with %s",
++		tst_res(TFAIL | TTERRNO, "%s: pidfd_open() should fail with %s",
+ 			tc->name, tst_strerrno(tc->exp_errno));
+-	}
++		return;
++	 }
+ 
+ 	tst_res(TPASS | TTERRNO, "%s: pidfd_open() failed as expected",
+ 		tc->name);
 -- 
-2.25.0
+2.21.0.rc0.269.g1a574e7a288b
 
 
 -- 
