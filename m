@@ -2,69 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FC6716B9D5
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 07:41:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C863616B9D6
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 07:41:22 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 28BEA3C25EB
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 07:41:12 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7313C3C2615
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 07:41:22 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 23E003C25FD
- for <ltp@lists.linux.it>; Tue, 25 Feb 2020 07:40:58 +0100 (CET)
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 8093F3C2622
+ for <ltp@lists.linux.it>; Tue, 25 Feb 2020 07:41:00 +0100 (CET)
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4AE9D1A0148E
- for <ltp@lists.linux.it>; Tue, 25 Feb 2020 07:40:57 +0100 (CET)
-Received: by mail-pg1-x544.google.com with SMTP id y30so6358036pga.13
- for <ltp@lists.linux.it>; Mon, 24 Feb 2020 22:40:57 -0800 (PST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C07D32001D2
+ for <ltp@lists.linux.it>; Tue, 25 Feb 2020 07:40:59 +0100 (CET)
+Received: by mail-pf1-x443.google.com with SMTP id 4so6639337pfz.9
+ for <ltp@lists.linux.it>; Mon, 24 Feb 2020 22:40:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=m1+g+Nh+OU/bDaFhyeQgMtxQSSrOA2Bo7+ItpHMnZCU=;
- b=DAvKNuWaqd4RqggO2BSNfzpLho4d8ejXIRFFyRJ5sRcy69DXeKohAaL855Ixa9lwel
- 1CBT3JHZVhFum/Q8DzXYdQK66qXQ5XKbDJv4lv/ZqE43I/C67xpZVbyID1kqYl4vbiZC
- oV9G2qFTRwDccvVNXi5HgYAQkXxgugXiRa6XeMUWkvLgNQj45bjebCYawE7aUSM5W+q0
- 6/JHkdwvYca9sGw7hXhGivF5C2yt1KyB4yZLQac8ksfINTX9qyjuIDIc6v1C+goZoHXw
- /pl2abDx6EgBxoJghWkBju6L3cAYuiRSIxkt086UnVweycWeGXPyFlrgIX0nasPVV/2U
- dryg==
+ bh=VgygX/O//wUaTggLlqoaZZbWXZli523jsG1uz/WP4xU=;
+ b=en/pY1HtphKnZtIb2KOu7DWxDaVQZNSUGX9CxcDYxO2Q6zCRHmY6HIMMblmKQbH7Z3
+ xi8g6s3DNwuANzbse9yKtpbewev+FX7KQniXnB7InGaZcKu7UsbzeMk/DByxTxNAbY+c
+ wNp8fnLKIBeNWHt4ExHL16pqnJezp6HtZncO1hHc/X4Og5a0vExxxST5KD8Y3OmnYDWa
+ 1bg7cn3hHtImv+c6M5eR/0EgT6Wo51YauWFLWRGpO4GDCWBwAb5EH62vFgYGGaegDmEW
+ Q6Ju3BMZLhzJ78p0d7dvsdF+4iBzpXJvpv+8RyidsBLteuxfv7ZiljL7bq44ifOmNrqU
+ 3PDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=m1+g+Nh+OU/bDaFhyeQgMtxQSSrOA2Bo7+ItpHMnZCU=;
- b=i0FjjBL2ooqQjEag2S4jejzp67tBFBjvtRJTNb4PbAbaAsklpQxS2KPQ/CmfPaDaFr
- rL/hkT5o/3r8+ni3HXwrH4nIWt058w1zNp4r0QwcW6W+CbcFl01s9uCARt2LIlZFdDGG
- Lu6NpCWXuEB/R0ar6KBaNVz2RMNCXZx+3cVxnMfriUTiM0nnt9JbFnJK3/yhKwhOIHP1
- riDEZ4d5xb0PWhKTwzmyCcXHiPN63XpotNnIQ3sTIfU0+TLkSzvHirbhrZiXTI1BU/Qk
- nLyhXu0yq3pIpxIR9sfNMaB0MyY8qM4wUonDHPK18XrMsvXMzFED0xX2JMZm+W9IC5IN
- MkUw==
-X-Gm-Message-State: APjAAAV/e01WR56YXeaDwddw4BabuUy82SP4BsEewRqv7W4joJCoVq+P
- oC8aXh6o9xPgzDA57z2h0eFcmyJeKQo=
-X-Google-Smtp-Source: APXvYqxrdib438QFWugSwqUDTcqvsnxlGcWKPm34vHyft1H7Yis0IvjwhYTDmEQ6fWeNhQdikp+OxQ==
-X-Received: by 2002:a62:33c6:: with SMTP id
- z189mr55707047pfz.246.1582612855328; 
- Mon, 24 Feb 2020 22:40:55 -0800 (PST)
+ bh=VgygX/O//wUaTggLlqoaZZbWXZli523jsG1uz/WP4xU=;
+ b=qJ9EgIZBZH5/7zCJbyVh1IwV4mqS/1TMg5WnOcoxdj4ChLO8rA63Z0b8/5yslIFbu9
+ kvCQJgQ/dl5SuljDbX4F9FufRhIkCcq8Q9JnIEa/mZL9GPKfNzQa++ea1bEhc/AVBplF
+ iUCoARGZ8vkwwiA5flxb0Ny1cVfo7nfrXg+596bqGkCIx6h6mgtbTxCI0NYGMrhDuqww
+ BWz3CufNb09OmTtv5p30/HxMwNK8WUiERFHqLmSIax61zWfVI2xvAJ3qSaVvYmB74lg9
+ RD4b0KBuj+kSh8EPAb9WwFMhWkQsbI7f2IpkgcNUezHe/GhOX0VBJuhqti84Fr77uAlx
+ gUhw==
+X-Gm-Message-State: APjAAAUyIRIGt0kZD2F0RhJMtX4WubjzKhGcZafPUzaFkXjwsVpXyq2I
+ tYt3y4blbKy0rohHdZW4n6Z7qECXtRc=
+X-Google-Smtp-Source: APXvYqx8kcXk1upSFo1vz5/rBNKZuQ7hEW23pRvVTJN040kojSUcoUZOy2U9NuhhynI3pYhia9YHuw==
+X-Received: by 2002:a63:8342:: with SMTP id h63mr19708760pge.141.1582612858026; 
+ Mon, 24 Feb 2020 22:40:58 -0800 (PST)
 Received: from localhost ([223.226.55.170])
- by smtp.gmail.com with ESMTPSA id j125sm15362021pfg.160.2020.02.24.22.40.54
+ by smtp.gmail.com with ESMTPSA id r145sm15598998pfr.5.2020.02.24.22.40.57
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 24 Feb 2020 22:40:54 -0800 (PST)
+ Mon, 24 Feb 2020 22:40:57 -0800 (PST)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Tue, 25 Feb 2020 12:10:39 +0530
-Message-Id: <7c0899c42b8d8434c1cf9ca6b261993a1c09031f.1582612624.git.viresh.kumar@linaro.org>
+Date: Tue, 25 Feb 2020 12:10:40 +0530
+Message-Id: <adc609fbfd9b8ccc31bb3dd6050af13d7126e2f2.1582612624.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.21.0.rc0.269.g1a574e7a288b
 In-Reply-To: <cover.1582612624.git.viresh.kumar@linaro.org>
 References: <cover.1582612624.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH V3 01/10] tst_device: Add tst_ismount() helper
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH V3 02/10] lapi/fsmount.h: Add
+ fsopen_supported_by_kernel()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,121 +84,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This patch moves the ismount() helper added to the fsmount syscall tests
-to the standard library and renames it to tst_ismount(). The helper can
-be used across different files now.
+Add a helper to check if the fsmount() related syscalls are supported by
+the kernel or not.
 
-Minor modifications are also done to the helper.
-
-Acked-by: Li Wang <liwang@redhat.com>
 Reviewed-by: Petr Vorel <pvorel@suse.cz>
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- include/tst_device.h                          |  6 +++++
- lib/tst_device.c                              | 23 +++++++++++++++++
- testcases/kernel/syscalls/fsmount/fsmount01.c | 25 +------------------
- 3 files changed, 30 insertions(+), 24 deletions(-)
+ include/lapi/fsmount.h | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/include/tst_device.h b/include/tst_device.h
-index f5609f5986bb..bd6910672d2f 100644
---- a/include/tst_device.h
-+++ b/include/tst_device.h
-@@ -36,6 +36,12 @@ extern struct tst_device *tst_device;
-  */
- int tst_umount(const char *path);
+diff --git a/include/lapi/fsmount.h b/include/lapi/fsmount.h
+index 87f2f229c371..a6a24904e66d 100644
+--- a/include/lapi/fsmount.h
++++ b/include/lapi/fsmount.h
+@@ -130,5 +130,14 @@ enum fsconfig_command {
  
-+/*
-+ * Verifies if an earlier mount is successful or not.
-+ * @path: Mount path to verify
-+ */
-+int tst_is_mounted(const char *path);
-+
- /*
-  * Clears a first few blocks of the device. This is needed when device has
-  * already been formatted with a filesystems, subset of mkfs.foo utils aborts
-diff --git a/lib/tst_device.c b/lib/tst_device.c
-index 8b5459def1cb..c53ae36cf8b9 100644
---- a/lib/tst_device.c
-+++ b/lib/tst_device.c
-@@ -386,6 +386,29 @@ int tst_umount(const char *path)
- 	return -1;
- }
+ #endif /* OPEN_TREE_CLONE */
  
-+int tst_is_mounted(const char *path)
++void fsopen_supported_by_kernel(void)
 +{
-+	char line[256];
-+	FILE *file;
-+	int ret = 0;
-+
-+	file = SAFE_FOPEN(NULL, "/proc/mounts", "r");
-+
-+	while (fgets(line, sizeof(line), file)) {
-+		if (strstr(line, path) != NULL) {
-+			ret = 1;
-+			break;
-+		}
++	if ((tst_kvercmp(5, 2, 0)) < 0) {
++		/* Check if the syscall is backported on an older kernel */
++		TEST(syscall(__NR_fsopen, NULL, 0));
++		if (TST_RET == -1 && TST_ERR == ENOSYS)
++			tst_brk(TCONF, "Test not supported on kernel version < v5.2");
 +	}
-+
-+	SAFE_FCLOSE(NULL, file);
-+
-+	if (!ret)
-+		tst_resm(TWARN, "No device is mounted at %s", path);
-+
-+	return ret;
 +}
-+
- int find_stat_file(const char *dev, char *path, size_t path_len)
- {
- 	const char *devname = strrchr(dev, '/') + 1;
-diff --git a/testcases/kernel/syscalls/fsmount/fsmount01.c b/testcases/kernel/syscalls/fsmount/fsmount01.c
-index 83185b48aedd..8e29a1537334 100644
---- a/testcases/kernel/syscalls/fsmount/fsmount01.c
-+++ b/testcases/kernel/syscalls/fsmount/fsmount01.c
-@@ -12,30 +12,10 @@
- #include "tst_test.h"
- #include "lapi/fcntl.h"
- #include "lapi/fsmount.h"
--#include "tst_safe_stdio.h"
  
--#define LINELENGTH 256
- #define MNTPOINT "newmount_point"
- static int sfd, mfd, is_mounted;
- 
--static int ismount(char *mntpoint)
--{
--	int ret = 0;
--	FILE *file;
--	char line[LINELENGTH];
--
--	file = SAFE_FOPEN("/proc/mounts", "r");
--
--	while (fgets(line, sizeof(line), file)) {
--		if (strstr(line, mntpoint) != NULL) {
--			ret = 1;
--			break;
--		}
--	}
--	SAFE_FCLOSE(file);
--	return ret;
--}
--
- static void cleanup(void)
- {
- 	if (is_mounted)
-@@ -76,12 +56,9 @@ static void test_fsmount(void)
- 	tst_res(TPASS, "move_mount() attached to the mount point");
- 	SAFE_CLOSE(mfd);
- 
--	if (ismount(MNTPOINT)) {
--		tst_res(TPASS, "device mounted");
-+	if (tst_is_mounted(MNTPOINT)) {
- 		SAFE_UMOUNT(MNTPOINT);
- 		is_mounted = 0;
--	} else {
--		tst_res(TFAIL, "device not mounted");
- 	}
- }
- 
+ #endif /* FSMOUNT_H__ */
 -- 
 2.21.0.rc0.269.g1a574e7a288b
 
