@@ -2,69 +2,52 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFDD816BBFA
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 09:40:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEE4216BD07
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 10:08:33 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7A6A33C25EA
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 09:40:27 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 790D63C25EE
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Feb 2020 10:08:33 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id ED0DE3C0FC4
- for <ltp@lists.linux.it>; Tue, 25 Feb 2020 09:40:25 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [207.211.31.120])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 614D61A014D3
- for <ltp@lists.linux.it>; Tue, 25 Feb 2020 09:40:24 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1582620023;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=13bb3TNbyGYX4N83UJPO58gtvCfKWR9yWzX/feDMEL4=;
- b=buuWEC4g0y2yL+AQ2yS/35HVeQ2D2wFjoRatipszA016+PkYbv6/BDt2dPesZDdDTpY4qG
- tEZYNbB4qbdwplJRdkEHl0aAoFmQzNP7SSn8v+odImYWKCIVoBrhD0vr3aVQMxgQt4y3/s
- mVqqDL0IuVW6oNUqg58hC+aYVv37kbA=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-381-Rs1QqBuaO_uJ13ijCadShQ-1; Tue, 25 Feb 2020 03:40:22 -0500
-X-MC-Unique: Rs1QqBuaO_uJ13ijCadShQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0F0E01005513;
- Tue, 25 Feb 2020 08:40:21 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 051FA5D9CD;
- Tue, 25 Feb 2020 08:40:21 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id EAA52860DC;
- Tue, 25 Feb 2020 08:40:20 +0000 (UTC)
-Date: Tue, 25 Feb 2020 03:40:20 -0500 (EST)
-From: Jan Stancek <jstancek@redhat.com>
-To: Petr Vorel <pvorel@suse.cz>, Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <990931249.8786991.1582620020742.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20200225073531.GA64168@gacrux.arch.suse.de>
-References: <bac938d8a2d57653b9f22e55c6d222a990b6a5cf.1582301521.git.jstancek@redhat.com>
- <20200225073531.GA64168@gacrux.arch.suse.de>
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 5672B3C137A
+ for <ltp@lists.linux.it>; Tue, 25 Feb 2020 10:08:30 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id E89381401ABB
+ for <ltp@lists.linux.it>; Tue, 25 Feb 2020 10:08:25 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.70,483,1574092800"; d="scan'208";a="83915143"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 25 Feb 2020 17:07:43 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 4F43050A997E;
+ Tue, 25 Feb 2020 16:57:55 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1395.4; Tue, 25 Feb 2020 17:07:36 +0800
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <1582537946-22098-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20200224125802.GA30073@rei.lan>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <0bfca454-8c44-6435-81fb-a243172ef96f@cn.fujitsu.com>
+Date: Tue, 25 Feb 2020 17:07:37 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.0
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.25, 10.4.195.9]
-Thread-Topic: fputs() in print_result() is not signal safe
-Thread-Index: QVq9635Xk9VLiFlcwL//qPDk7YyN2A==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+In-Reply-To: <20200224125802.GA30073@rei.lan>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 4F43050A997E.AC753
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] lib: fputs() in print_result() is not signal safe
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/pipe13: Add regression test for pipe to
+ wake up all readers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,19 +60,118 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Hi!
 
-
------ Original Message -----
-> Hi Jan,
+> Hi!
+>> +static void verify_pipe(void)
+>> +{
+>> +	int fds[2];
+>> +	int status1, status2;
+>> +	pid_t p1, p2;
+>> +	int ret;
+>> +
+>> +	SAFE_PIPE(fds);
+>> +
+>> +	p1 = SAFE_FORK();
+>> +	if (p1 == 0) {
+>> +		SAFE_CLOSE(fds[1]);
+>> +		SAFE_READ(0, fds[0], &status1, sizeof(status1));
+>                                          ^
+> 					Why status1 here?
 > 
-> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> 					can't we just pass a dummy
+> 					char buf; and size 1 here?
+> 
+> 					It's not being written to
+> 					anyways.
+>> +		exit(0);
+>> +	}
+>> +	p2 = SAFE_FORK();
+>> +	if (p2 == 0) {
+>> +		SAFE_CLOSE(fds[1]);
+>> +		SAFE_READ(0, fds[0], &status2, sizeof(status2));
+>                                        ^
+> 				      Here as well.
+>> +		exit(0);
+>> +	}
+>> +
+>> +	sleep(1);
+> 
+> This sleep here has to be replaced by a proper synchronization given
+> that it's here to make sure both of the readers sleep on the pipe we
+> should:
+> 
+> * Use checkpoints to make sure both of the children have managed
+>    to get before the SAFE_READ().
+> 
+> * The the parent should use the TST_PROCESS_STATE_WAIT() to make sure
+>    both of the chidlren are sleeping
+OK, I will use wait and wakeup api as below:
 
-Pushed.
+
+static void do_child(int i)
+{
+         char buf;
+         SAFE_CLOSE(fds[1]);
+         TST_CHECKPOINT_WAKE(i);
+         SAFE_READ(0, fds[0], &buf, 1);
+         exit(0);
+}
+
+staic void verify_pipe(void)
+....
+for (i = 0; i < 2; i++) {
+                 pid[i] = SAFE_FORK();
+                 if (pid[i] == 0)
+                         do_child(i);
+                 TST_CHECKPOINT_WAIT(i);
+                 TST_PROCESS_STATE_WAIT(pid[i], 'S', 0);
+         }
+....
+> 
+>> +	SAFE_CLOSE(fds[1]);
+>> +
+>> +	SAFE_WAITPID(p1, &status1, 0);
+>> +	ret = waitpid(p2, &status2, WNOHANG);
+> 
+> We should just use waitpid with -1 as a pid here and WNOHANG twice,
+> because if one of the children hangs it's not guaranteed in any way
+> which one would that be.
+> 
+On my environment, kernel wakes up the first read and the remaining read 
+doesn't be waked up. (I add three childs, 2,3 doesn't wake up)
+>> +	if (ret == p2) {
+>> +		tst_res(TPASS, "pipe wakes up everybody when last write closes");
+>> +	} else {
+>> +		tst_res(TFAIL, "pipe doesn't wake up every body when last write closes");
+>> +		SAFE_KILL(p2, SIGKILL);
+>> +		SAFE_WAIT(&status2);
+>> +	}
+>> +}
+>> +
+>> +static struct tst_test test = {
+>> +	.test_all = verify_pipe,
+>> +	.forks_child = 1,
+>> +	.tags = (const struct tst_tag[]) {
+>> +		{"linux-git", "6551d5c56eb"},
+>> +		{}
+>> +	}
+>> +};
+>> -- 
+>> 2.18.0
+>>
+>>
+>>
+>>
+>> -- 
+>> Mailing list info: https://lists.linux.it/listinfo/ltp
+> 
+
 
 
 -- 
