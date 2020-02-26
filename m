@@ -2,72 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B14ED16F59A
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Feb 2020 03:28:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90C1916F5F1
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Feb 2020 04:07:24 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 600833C12E6
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Feb 2020 03:28:06 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 42D0E3C137A
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Feb 2020 04:07:24 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id D389B3C0823
- for <ltp@lists.linux.it>; Wed, 26 Feb 2020 03:28:04 +0100 (CET)
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9C5BF600BC0
- for <ltp@lists.linux.it>; Wed, 26 Feb 2020 03:28:03 +0100 (CET)
-Received: by mail-pg1-x542.google.com with SMTP id d6so514828pgn.5
- for <ltp@lists.linux.it>; Tue, 25 Feb 2020 18:28:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=jG+nZNOIscDkQPklfVPqvk8+7IQS8AfhwFYZLy5WHY4=;
- b=jW2QO/OOTFtNh1g1+zBAFk9a0revV4vvUdeTLwsPBg8GenYDauImln+uxZA4KVodSV
- kc8EVh8AJAyHLjiC8RiQDnoIo2lvAqjFvdTs8vsRhJVOMU8iE47OpIZKsSly8ixHwXK1
- iIC2iKCrYrmadxxIR4kkUJpKTiRgEbLITc7a4okBF68WwXWLPgHXUNqYw5DjFgh+Ma8n
- 1devRCN2d2m4RP21dNSju5fNzGmwnnqSIIzS5g4L72b2mPChvD14lUR5smQkOpOjas2K
- u/gEynM2PrJYnpeDYH1eHvHZNZ3PQdR2TvbDHw3WodkDv9wbrI2eW0fcYLXpW+ZI1y9j
- 5Jaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=jG+nZNOIscDkQPklfVPqvk8+7IQS8AfhwFYZLy5WHY4=;
- b=crMEoStGfJiT5CNJw3b+LBwGxlvbPGNdphjKHBtiS+UkfDIc58ZWMCGnTbpE5UQ/ci
- 8rIVI1cFUyKTnX2gMli+IY5FqFH0vaIK9F+GU252jOTK5EPZhi/fdvdwzxzp8jx+NMDI
- zoFgkfBzkh2UvUNJqqD5Lc3eIgvKk7bskCD8VjQoIBZgiWAIwmB6XM/pNCNadroRHHyI
- g/uwWL6Pb9xor4Rc/RSUsfg7u+neBWClvipfevIOvRWpm3ah7+jYXRNFvEEETkpY4ada
- V2ku0QhaZQF9wAuiuPab1Iq8TqXs196YLT8QlspwQihczMfZNB38lk5yICU+XNSmUyAX
- MvSw==
-X-Gm-Message-State: APjAAAXMK/OcRjay5HZuQqhGE69L+ZlEr4ODWrbsxNYaOjI425t671EP
- K+boSwdOVF/OHSWgODJyqMZnSg==
-X-Google-Smtp-Source: APXvYqwizgDyV+ya7dupsPUaFLPAAaIv15hGbBMY/6eDNIJmXtK9VjsHV53sACpDJuDFw7bNkxnmsg==
-X-Received: by 2002:a63:291:: with SMTP id 139mr1456411pgc.342.1582684081657; 
- Tue, 25 Feb 2020 18:28:01 -0800 (PST)
-Received: from localhost ([223.226.55.170])
- by smtp.gmail.com with ESMTPSA id h13sm403739pjc.9.2020.02.25.18.28.00
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 25 Feb 2020 18:28:00 -0800 (PST)
-Date: Wed, 26 Feb 2020 07:57:58 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Cyril Hrubis <chrubis@suse.cz>, Petr Vorel <pvorel@suse.cz>
-Message-ID: <20200226022758.ls35mblsetg4nk6f@vireshk-i7>
-References: <cover.1582612624.git.viresh.kumar@linaro.org>
- <e12560056ebc632918426194172a6cba48953d4e.1582612624.git.viresh.kumar@linaro.org>
- <20200225135709.GC62318@gacrux.arch.suse.de>
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id D1EA73C08C9
+ for <ltp@lists.linux.it>; Wed, 26 Feb 2020 04:07:21 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 3E1A92005C3
+ for <ltp@lists.linux.it>; Wed, 26 Feb 2020 04:07:19 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.70,486,1574092800"; d="scan'208";a="84168095"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 26 Feb 2020 11:05:40 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id DB4A950A9978;
+ Wed, 26 Feb 2020 10:55:54 +0800 (CST)
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.83) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1395.4; Wed, 26 Feb 2020 11:05:37 +0800
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ (TLS) id 14.3.439.0; Wed, 26 Feb 2020 11:05:37 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <chrubis@suse.cz>
+Date: Wed, 26 Feb 2020 11:06:23 +0800
+Message-ID: <1582686383-23299-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <20200225102850.GA5077@rei.lan>
+References: <20200225102850.GA5077@rei.lan>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200225135709.GC62318@gacrux.arch.suse.de>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-yoursite-MailScanner-ID: DB4A950A9978.AEB8B
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V3 08/10] syscalls/move_mount: New tests
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v3] syscalls/pipe13: Add regression test for pipe to
+ wake up all readers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,39 +57,143 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vikas.Kumar2@arm.com, Vincent Guittot <vincent.guittot@linaro.org>,
- ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 25-02-20, 14:57, Petr Vorel wrote:
-> > +	TEST(fsconfig(fd, FSCONFIG_SET_STRING, "source", tst_device->dev, 0));
-> > +	if (TST_RET == -1) {
-> > +		SAFE_CLOSE(fd);
-> > +		tst_res(TBROK | TERRNO, "fsconfig() failed");
-> These should be TFAIL otherwise it 1) breaks all tests 2) does not report any
-> result:
-> 
-> move_mount02.c:37: BROK: fsopen() failed: SUCCESS (0)
-> tst_test.c:1051: BROK: Test 0 haven't reported results!
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+---
+v2->v3:
+1.use Cyril's waitpid way and add his signed-off-by
+2. change child num to 10, IMO, it is more meaningful than 2
+ runtest/syscalls                          |  1 +
+ testcases/kernel/syscalls/pipe/.gitignore |  1 +
+ testcases/kernel/syscalls/pipe/pipe13.c   | 87 +++++++++++++++++++++++
+ 3 files changed, 89 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/pipe/pipe13.c
 
-I am a bit confused about TBROK and TFAIL to be honest. The test
-writing guideline says this:
-
-| 'TFAIL' | Test has failed.
-| 'TBROK' | Something has failed in test preparation phase.
-
-And so in my code I have been using TFAIL only for the failures for the
-actual syscalls that we are testing, like move_mount here. And I have
-been using TBROK for pretty much everything else.
-
-Would be good if you and Cyril can explain what's the correct usage
-model for these is.
-
+diff --git a/runtest/syscalls b/runtest/syscalls
+index d2551b2ec..f51456b8f 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -874,6 +874,7 @@ pipe09 pipe09
+ pipe10 pipe10
+ pipe11 pipe11
+ pipe12 pipe12
++pipe13 pipe13
+ 
+ pipe2_01 pipe2_01
+ pipe2_02 pipe2_02
+diff --git a/testcases/kernel/syscalls/pipe/.gitignore b/testcases/kernel/syscalls/pipe/.gitignore
+index 90b502547..23e7186a6 100644
+--- a/testcases/kernel/syscalls/pipe/.gitignore
++++ b/testcases/kernel/syscalls/pipe/.gitignore
+@@ -10,3 +10,4 @@
+ /pipe10
+ /pipe11
+ /pipe12
++/pipe13
+diff --git a/testcases/kernel/syscalls/pipe/pipe13.c b/testcases/kernel/syscalls/pipe/pipe13.c
+new file mode 100644
+index 000000000..cc3f9f55f
+--- /dev/null
++++ b/testcases/kernel/syscalls/pipe/pipe13.c
+@@ -0,0 +1,87 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
++ * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
++ *
++ * Test Description:
++ * This case is designed to test whether pipe can wakeup all readers
++ * when last writer closes.
++ *
++ * This is also a regression test for commit 6551d5c56eb0
++ * ("pipe: make sure to wake up everybody when the last reader/writer closes").
++ * This bug was introduced by commit 0ddad21d3e99 ("pipe: use exclusive
++ * waits when reading or writing").
++ */
++#include <unistd.h>
++#include <sys/types.h>
++#include <sys/wait.h>
++#include <stdlib.h>
++#include "tst_test.h"
++
++#define CHILD_NUM 10
++
++static int pid[CHILD_NUM];
++static int fds[2];
++static char buf;
++
++static void do_child(unsigned int i)
++{
++	SAFE_CLOSE(fds[1]);
++	TST_CHECKPOINT_WAKE(i);
++	SAFE_READ(0, fds[0], &buf, 1);
++	exit(0);
++}
++
++static void verify_pipe(void)
++{
++	int ret;
++	unsigned int i, cnt = 0, sleep_us = 1, fail = 0;
++
++	SAFE_PIPE(fds);
++	tst_res(TINFO, "Creating %d child processes", CHILD_NUM);
++	for (i = 0; i < CHILD_NUM; i++) {
++		pid[i] = SAFE_FORK();
++		if (pid[i] == 0)
++			do_child(i);
++		TST_CHECKPOINT_WAIT(i);
++		TST_PROCESS_STATE_WAIT(pid[i], 'S', 0);
++	}
++	SAFE_CLOSE(fds[1]);
++	while (cnt < CHILD_NUM && sleep_us < 100000) {
++		ret = waitpid(-1, NULL, WNOHANG);
++		if (ret < 0)
++			tst_brk(TBROK | TERRNO, "waitpid()");
++		if (ret > 0) {
++			cnt++;
++			for (i = 0; i < CHILD_NUM; i++) {
++				if (pid[i] == ret)
++					pid[i] = 0;
++			}
++			continue;
++		}
++		usleep(sleep_us);
++		sleep_us *= 2;
++	}
++	for (i = 0; i < CHILD_NUM; i++) {
++		if (pid[i]) {
++			tst_res(TINFO, "pid %i still sleeps", pid[i]);
++			fail = 1;
++			SAFE_KILL(pid[i], SIGKILL);
++			SAFE_WAIT(NULL);
++		}
++	}
++	if (fail)
++		tst_res(TFAIL, "Closed pipe didn't wake up everyone");
++	else
++		tst_res(TPASS, "Closed pipe waked up everyone");
++}
++
++static struct tst_test test = {
++	.test_all = verify_pipe,
++	.forks_child = 1,
++	.needs_checkpoints = 1,
++	.tags = (const struct tst_tag[]) {
++		{"linux-git", "6551d5c56eb"},
++		{}
++	}
++};
 -- 
-viresh
+2.18.0
+
+
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
