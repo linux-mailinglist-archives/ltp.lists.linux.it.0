@@ -1,38 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B908A16F9E2
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Feb 2020 09:43:00 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A0CA16FA03
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Feb 2020 09:53:10 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 529E13C251E
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Feb 2020 09:43:00 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 288E23C2542
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Feb 2020 09:53:10 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id A6E523C18F9
- for <ltp@lists.linux.it>; Wed, 26 Feb 2020 09:42:56 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 10D053C237A
+ for <ltp@lists.linux.it>; Wed, 26 Feb 2020 09:53:08 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 94D40600855
- for <ltp@lists.linux.it>; Wed, 26 Feb 2020 09:42:55 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E3D6E1A007A2
+ for <ltp@lists.linux.it>; Wed, 26 Feb 2020 09:53:05 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id DEEE7AD31;
- Wed, 26 Feb 2020 08:42:54 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 2DA82AC6E;
+ Wed, 26 Feb 2020 08:53:05 +0000 (UTC)
+Date: Wed, 26 Feb 2020 09:53:03 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Wed, 26 Feb 2020 09:42:49 +0100
-Message-Id: <20200226084249.29561-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.25.1
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Message-ID: <20200226085303.GA30488@dell5510>
+References: <cover.1582612624.git.viresh.kumar@linaro.org>
+ <e12560056ebc632918426194172a6cba48953d4e.1582612624.git.viresh.kumar@linaro.org>
+ <20200225135709.GC62318@gacrux.arch.suse.de>
+ <20200226022758.ls35mblsetg4nk6f@vireshk-i7>
+ <20200226074729.GA15207@dell5510>
+ <20200226082318.eq5ozhgg2myscpqt@vireshk-i7>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200226082318.eq5ozhgg2myscpqt@vireshk-i7>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/1] request_key04: Use TFAIL instead of TBROK
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V3 08/10] syscalls/move_mount: New tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,50 +50,49 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Vikas.Kumar2@arm.com, Vincent Guittot <vincent.guittot@linaro.org>,
+ ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-To fix unreported results error:
+Hi Viresh,
+
+> On 26-02-20, 08:47, Petr Vorel wrote:
+> > Your idea is correct, but IMHO it's not good to skip all the tests, which is
+> > done due
+> > tst_test.c:1051: BROK: Test 0 haven't reported results!
+> > if you use tst_res(TBROK ...).
+
+> I don't think that is the case. tst_res(TBROK, ...) shouldn't (and
+> isn't for me) result in skipping of tests.
+Correct, tst_res() itself doesn't exit the test. But the fact it uses TBROK
+without reporting any result previously leads to tst_brk from the library:
+
 tst_test.c:1036: BROK: Test haven't reported results!
 
-which also prevents to display kernel commit fix and CVE.
+tst_brk(TBROK, "Test %i haven't reported results!", i);
 
-Fixes: 8ac26843e ("syscalls/request_key04: new test for request_key()
-permission check bug")
+That's why I consider tst_res(TBROK problematic.
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-Hi,
-
-obvious fix which I'd normally merge without sending to ML.
-But there are 19 tests which use tst_res(TBROK, and at least some of
-them are affected by this (i.e. don't unconditionally report any result
-before tst_res(TBROK), so we might want to fix it different way.
+This is a separate discussion, see the patch I sent today
+https://patchwork.ozlabs.org/patch/1244781/
 
 Kind regards,
 Petr
 
- testcases/kernel/syscalls/request_key/request_key04.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> > tst_brk(TBROK) is used for setup, where you create some resource, which is then
+> > reused by all test runs, but this preparation fails.
 
-diff --git a/testcases/kernel/syscalls/request_key/request_key04.c b/testcases/kernel/syscalls/request_key/request_key04.c
-index da036bf3a..c125f4261 100644
---- a/testcases/kernel/syscalls/request_key/request_key04.c
-+++ b/testcases/kernel/syscalls/request_key/request_key04.c
-@@ -65,7 +65,7 @@ static void do_test(void)
- 	if (TST_ERR == EACCES) {
- 		tst_res(TPASS, "request_key() failed with EACCES as expected");
- 	} else {
--		tst_res(TBROK | TTERRNO,
-+		tst_res(TFAIL | TTERRNO,
- 			"request_key() failed with unexpected error code");
- 	}
- }
--- 
-2.25.1
+> Right, but in my case I can't put all setup stuff in setup() callback
+> and some of the setup bits stay in run() callback as well.
+Sure. But as a result of it I'd personally use tst_res(TFAIL).
+But maybe I'm wrong and others will correct me.
 
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
