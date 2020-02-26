@@ -1,52 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D53816F620
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Feb 2020 04:34:34 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1017E16F682
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Feb 2020 05:34:43 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1D3013C137A
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Feb 2020 04:34:34 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B231D3C137A
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Feb 2020 05:34:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 445D23C08C9
- for <ltp@lists.linux.it>; Wed, 26 Feb 2020 04:34:31 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id E0FF61000949
- for <ltp@lists.linux.it>; Wed, 26 Feb 2020 04:34:28 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.70,486,1574092800"; d="scan'208";a="84177268"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 26 Feb 2020 11:34:26 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 765FB50A9973;
- Wed, 26 Feb 2020 11:24:38 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1395.4; Wed, 26 Feb 2020 11:34:21 +0800
-To: Viresh Kumar <viresh.kumar@linaro.org>
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 47B4F3C0878
+ for <ltp@lists.linux.it>; Wed, 26 Feb 2020 05:34:41 +0100 (CET)
+Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
+ [IPv6:2607:f8b0:4864:20::544])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 74C911400968
+ for <ltp@lists.linux.it>; Wed, 26 Feb 2020 05:34:40 +0100 (CET)
+Received: by mail-pg1-x544.google.com with SMTP id u12so649793pgb.10
+ for <ltp@lists.linux.it>; Tue, 25 Feb 2020 20:34:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=cYFXtnPjxkwXVpOEkFeRU1z+NIYCj77IG3IGN52gWZk=;
+ b=HyCnYcBQt7iUcjzfSdeJyy/XnHuWs7rkATkEGByuHI3OqFaLp01+DR2X+EAAy+avMm
+ eCjKdMp0UbQoXBzK8drfTGx1BOhH/9w1zw+7fzFd9Frtc++tC4mnh4uTRIx1LFSZ259U
+ KLkMbJH+kKEM2QMs4DipAzd4+FqMELYNTNpjIWC6oQgfFi8ePP26INvFbXRzX5sg/gmc
+ d/4uRo8CVkLoACEKfOuRYk3rIUhsLwPSxoT/8cbYsiO9W0IpDYnuYH57vo9QFJ4xwwOc
+ Me2tiQMykHhJYIlDpHQ9H8PS6OK5XUOcVLvxdYtNtzALGW4jQKwxnfCBiqbH/LAdyL1V
+ BsWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=cYFXtnPjxkwXVpOEkFeRU1z+NIYCj77IG3IGN52gWZk=;
+ b=A5CWZ9vjjLuD50atbAysDRcKRp/UswRnQVk9VDStyLX+LFLx3RACasEQ1kr4JYOMvx
+ CAuoU9+B+kIyr34EhxnEZnUlC+bEBm27YEbSVOAF1r+HTlAOT164zDD1R/2E6vw4l9yR
+ 9eZO31q/jg64+IhjSuvwdzMElW0Eroos7TMAhlAcL8RUGkjIJjaEE+/mBVT83Xxc9L14
+ b7LOt6yrqzyaHlkUVlg33CDbayMZO6JmjBOTus0N4DhjyzHLYmopGu3wRbFrHOzXYifm
+ cJhOH0kvSCBn/Ma4aMfxhams7KNP7prwhntFxk3d5wpRmnUun9NLgELep4PbON38eynI
+ cZXw==
+X-Gm-Message-State: APjAAAUjJjFLGeg2sE3e0czruVveLOGMp32UljOASeAyhlxHwBdUObPD
+ l0q8Ol+yxhJgBkKpFgpmPALVOA==
+X-Google-Smtp-Source: APXvYqy9o2QyyJE3vOmSOd3KYmqe7lvP9rBfw/AFrIhd61JSc2OAkU5ntnUZWFOliw8blns/1INP6w==
+X-Received: by 2002:a63:5b54:: with SMTP id l20mr1890800pgm.324.1582691678866; 
+ Tue, 25 Feb 2020 20:34:38 -0800 (PST)
+Received: from localhost ([223.226.55.170])
+ by smtp.gmail.com with ESMTPSA id d69sm789845pfd.72.2020.02.25.20.34.37
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 25 Feb 2020 20:34:37 -0800 (PST)
+Date: Wed, 26 Feb 2020 10:04:35 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20200226043435.m4fkofj5533sd35t@vireshk-i7>
 References: <cover.1582612624.git.viresh.kumar@linaro.org>
  <e12560056ebc632918426194172a6cba48953d4e.1582612624.git.viresh.kumar@linaro.org>
  <20200225135709.GC62318@gacrux.arch.suse.de>
  <20200226022758.ls35mblsetg4nk6f@vireshk-i7>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <f1801e95-5200-48ee-a8b9-38e8b90e6593@cn.fujitsu.com>
-Date: Wed, 26 Feb 2020 11:34:20 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+ <f1801e95-5200-48ee-a8b9-38e8b90e6593@cn.fujitsu.com>
 MIME-Version: 1.0
-In-Reply-To: <20200226022758.ls35mblsetg4nk6f@vireshk-i7>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 765FB50A9973.AFFFF
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <f1801e95-5200-48ee-a8b9-38e8b90e6593@cn.fujitsu.com>
+User-Agent: NeoMutt/20180716-391-311a52
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH V3 08/10] syscalls/move_mount: New tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -61,49 +82,28 @@ List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it,
  Vikas.Kumar2@arm.com
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi
-
-> On 25-02-20, 14:57, Petr Vorel wrote:
->>> +	TEST(fsconfig(fd, FSCONFIG_SET_STRING, "source", tst_device->dev, 0));
->>> +	if (TST_RET == -1) {
->>> +		SAFE_CLOSE(fd);
->>> +		tst_res(TBROK | TERRNO, "fsconfig() failed");
->> These should be TFAIL otherwise it 1) breaks all tests 2) does not report any
->> result:
->>
->> move_mount02.c:37: BROK: fsopen() failed: SUCCESS (0)
->> tst_test.c:1051: BROK: Test 0 haven't reported results!
+On 26-02-20, 11:34, Yang Xu wrote:
+> If using TBROK, it will terminate the program. So how can test the remaining
+> test?
+> Like move_mount02.c, if test "invalid-from-fd"and fsconfig failed, it will
+> exit. So how do you test "invalid-from-path"?
 > 
-> I am a bit confused about TBROK and TFAIL to be honest. The test
-> writing guideline says this:
-> 
-> | 'TFAIL' | Test has failed.
-> | 'TBROK' | Something has failed in test preparation phase.
-> 
-> And so in my code I have been using TFAIL only for the failures for the
-> actual syscalls that we are testing, like move_mount here. And I have
-> been using TBROK for pretty much everything else
-If using TBROK, it will terminate the program. So how can test the 
-remaining test?
-Like move_mount02.c, if test "invalid-from-fd"and fsconfig failed, it 
-will exit. So how do you test "invalid-from-path"?
+> Also, using return after TBROK is meaningless.
 
-Also, using return after TBROK is meaningless.
+I think one of us has surely misunderstood it all :)
 
-Best Regards
-Yang Xu
-> 
-> Would be good if you and Cyril can explain what's the correct usage
-> model for these is.
-> 
+What my understanding says is that if you use tst_brk(), then it
+breaks the test and returns early. TBROK or TFAIL, both can be used in
+tst_brk() or tst_ret() and they only imply what has failed, the test
+or some preparatory thing.
 
-
-
+-- 
+viresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
