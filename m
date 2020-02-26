@@ -2,65 +2,52 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 571B816F775
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Feb 2020 06:41:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E18516F7BB
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Feb 2020 06:58:40 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0376A3C253A
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Feb 2020 06:41:08 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BCB4E3C251E
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Feb 2020 06:58:39 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id D84C73C1C41
- for <ltp@lists.linux.it>; Wed, 26 Feb 2020 06:41:05 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
- [207.211.31.81])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 84C3B1A00CD0
- for <ltp@lists.linux.it>; Wed, 26 Feb 2020 06:41:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1582695662;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=QO5ZO13XTMv0zslkB7ePjEccOClnpRbT4Wrd+ahKhCw=;
- b=YlLkkpolIHkPoXDZB0S/4Ertxq8JvolKQKxi6odpROdJbHNdzYvKQetyiEO5yINU6s6qF3
- O4kriSDnsEp9KvdSfnaAQpSiBbYpI+0cOWBaF4kX9gvI8EhIL2a4wBUntWSII0VOy3HPLx
- Z5sJviQxeywJxjt/747gkPFyhXff6Ao=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-249-BYovplPoOymjaz6CahamMQ-1; Wed, 26 Feb 2020 00:41:00 -0500
-X-MC-Unique: BYovplPoOymjaz6CahamMQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
- [10.5.11.16])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E73B2800D48;
- Wed, 26 Feb 2020 05:40:59 +0000 (UTC)
-Received: from localhost (dhcp-12-102.nay.redhat.com [10.66.12.102])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B85505C28C;
- Wed, 26 Feb 2020 05:40:58 +0000 (UTC)
-Date: Wed, 26 Feb 2020 13:51:33 +0800
-From: Zorro Lang <zlang@redhat.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20200226055133.GR14282@dhcp-12-102.nay.redhat.com>
-Mail-Followup-To: Viresh Kumar <viresh.kumar@linaro.org>,
-	ltp@lists.linux.it
-References: <cover.1582612624.git.viresh.kumar@linaro.org>
- <655d948e27dbbc03f6cef038e339ec0269d11140.1582612624.git.viresh.kumar@linaro.org>
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 1A8E03C074B
+ for <ltp@lists.linux.it>; Wed, 26 Feb 2020 06:58:38 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 66E52100044B
+ for <ltp@lists.linux.it>; Wed, 26 Feb 2020 06:58:35 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.70,486,1574092800"; d="scan'208";a="84221617"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 26 Feb 2020 13:58:32 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 0F6FF50A9960;
+ Wed, 26 Feb 2020 13:48:43 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1395.4; Wed, 26 Feb 2020 13:58:26 +0800
+To: Zorro Lang <zlang@redhat.com>
+References: <7c0899c42b8d8434c1cf9ca6b261993a1c09031f.1582612624.git.viresh.kumar@linaro.org>
+ <305330ad290ce4802d832e02765b8723a976d4a7.1582627066.git.viresh.kumar@linaro.org>
+ <20200226051407.GP14282@dhcp-12-102.nay.redhat.com>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <652d6eed-d320-fde4-66a9-eefea1996ae3@cn.fujitsu.com>
+Date: Wed, 26 Feb 2020 13:58:25 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.0
 MIME-Version: 1.0
-In-Reply-To: <655d948e27dbbc03f6cef038e339ec0269d11140.1582612624.git.viresh.kumar@linaro.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+In-Reply-To: <20200226051407.GP14282@dhcp-12-102.nay.redhat.com>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 0F6FF50A9960.A1772
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V3 03/10] lapi/fsmount.h: Include "lapi/fcntl.h"
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V4 1/10] tst_device: Add tst_is_mounted() helper
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,60 +59,181 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+ "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, Feb 25, 2020 at 12:10:41PM +0530, Viresh Kumar wrote:
-> All the files that include (and that will include it in future) are most
-> probably going to need the definitions from "lapi/fcntl.h", include it
-> directly instead of <fcntl.h>, which will break it for old RHL distros.
-> 
-> Acked-by: Petr Vorel <pvorel@suse.cz>
-> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-> ---
+Hi
 
-Good to me
 
->  include/lapi/fsmount.h                        | 2 +-
->  testcases/kernel/syscalls/fsmount/fsmount01.c | 1 -
->  2 files changed, 1 insertion(+), 2 deletions(-)
+> On Tue, Feb 25, 2020 at 04:09:31PM +0530, Viresh Kumar wrote:
+>> This patch moves the ismount() helper added to the fsmount syscall tests
+>> to the standard library and renames it to tst_is_mounted(). The helper
+>> can be used across different files now.
+>>
+>> Minor modifications are also done to the helper.
+>>
+>> Acked-by: Li Wang <liwang@redhat.com>
+>> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+>> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+>> ---
+>> V3->V4:
+>> - s/TWARN/TINFO
+>> - Fix commit log.
+>>
+>>   include/tst_device.h                          |  6 +++++
+>>   lib/tst_device.c                              | 23 +++++++++++++++++
+>>   testcases/kernel/syscalls/fsmount/fsmount01.c | 25 +------------------
+>>   3 files changed, 30 insertions(+), 24 deletions(-)
+>>
+>> diff --git a/include/tst_device.h b/include/tst_device.h
+>> index f5609f5986bb..bd6910672d2f 100644
+>> --- a/include/tst_device.h
+>> +++ b/include/tst_device.h
+>> @@ -36,6 +36,12 @@ extern struct tst_device *tst_device;
+>>    */
+>>   int tst_umount(const char *path);
+>>   
+>> +/*
+>> + * Verifies if an earlier mount is successful or not.
+>> + * @path: Mount path to verify
+>> + */
+>> +int tst_is_mounted(const char *path);
+>> +
+>>   /*
+>>    * Clears a first few blocks of the device. This is needed when device has
+>>    * already been formatted with a filesystems, subset of mkfs.foo utils aborts
+>> diff --git a/lib/tst_device.c b/lib/tst_device.c
+>> index 8b5459def1cb..d99fb8bc554a 100644
+>> --- a/lib/tst_device.c
+>> +++ b/lib/tst_device.c
+>> @@ -386,6 +386,29 @@ int tst_umount(const char *path)
+>>   	return -1;
+>>   }
+>>   
+>> +int tst_is_mounted(const char *path)
+>> +{
+>> +	char line[256];
+>> +	FILE *file;
+>> +	int ret = 0;
+>> +
+>> +	file = SAFE_FOPEN(NULL, "/proc/mounts", "r");
+>> +
+>> +	while (fgets(line, sizeof(line), file)) {
+>> +		if (strstr(line, path) != NULL) {
 > 
-> diff --git a/include/lapi/fsmount.h b/include/lapi/fsmount.h
-> index a6a24904e66d..5e5eaca7e6ff 100644
-> --- a/include/lapi/fsmount.h
-> +++ b/include/lapi/fsmount.h
-> @@ -7,12 +7,12 @@
->  #ifndef FSMOUNT_H__
->  #define FSMOUNT_H__
->  
-> -#include <fcntl.h>
->  #include <sys/mount.h>
->  #include <sys/syscall.h>
->  #include <sys/types.h>
->  
->  #include "config.h"
-> +#include "lapi/fcntl.h"
->  #include "lapi/syscalls.h"
->  
->  #ifndef HAVE_FSOPEN
-> diff --git a/testcases/kernel/syscalls/fsmount/fsmount01.c b/testcases/kernel/syscalls/fsmount/fsmount01.c
-> index 8e29a1537334..514d3b0b38f8 100644
-> --- a/testcases/kernel/syscalls/fsmount/fsmount01.c
-> +++ b/testcases/kernel/syscalls/fsmount/fsmount01.c
-> @@ -10,7 +10,6 @@
->  #include <sys/mount.h>
->  
->  #include "tst_test.h"
-> -#include "lapi/fcntl.h"
->  #include "lapi/fsmount.h"
->  
->  #define MNTPOINT "newmount_point"
-> -- 
-> 2.21.0.rc0.269.g1a574e7a288b
+> This code moving is fine. But if we'd like to make this function to be common
+> function, we'd better think more about that. I think the current code logic
+> isn't so well.
 > 
+> For example, if path is "/mnt/test", and we get a line as "/mnt/test/mnt1 ..."
+> or "/mnt/mnt/test", Then this function thinks "/mnt/test" is a mountpoint.
+> 
+> We can refer to util-linux/sys-utils/mountpoint.c a little, but it's complicated,
+> or we can call mountpoint command directly?
+> 
+I think we can use a fixed format to extract it like kernel code
+tools/lib/api/fs/fs.c
+static bool fs__read_mounts(struct fs *fs)
+{
+         bool found = false;
+         char type[100];
+         FILE *fp;
+
+         fp = fopen("/proc/mounts", "r");
+         if (fp == NULL)
+                 return NULL;
+
+         while (!found &&
+                fscanf(fp, "%*s %" STR(PATH_MAX) "s %99s %*s %*d %*d\n",
+                       fs->path, type) == 2) {
+
+                 if (strcmp(type, fs->name) == 0)
+                         found = true;
+         }
+
+         fclose(fp);
+         return fs->found = found;
+}
+
+But this way maybe wrong if kernel updates mount info format in future.
+
+Best Regards
+Yang Xu
+>> +			ret = 1;
+>> +			break;
+>> +		}
+>> +	}
+>> +
+>> +	SAFE_FCLOSE(NULL, file);
+>> +
+>> +	if (!ret)
+>> +		tst_resm(TINFO, "No device is mounted at %s", path);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>>   int find_stat_file(const char *dev, char *path, size_t path_len)
+>>   {
+>>   	const char *devname = strrchr(dev, '/') + 1;
+>> diff --git a/testcases/kernel/syscalls/fsmount/fsmount01.c b/testcases/kernel/syscalls/fsmount/fsmount01.c
+>> index 83185b48aedd..8e29a1537334 100644
+>> --- a/testcases/kernel/syscalls/fsmount/fsmount01.c
+>> +++ b/testcases/kernel/syscalls/fsmount/fsmount01.c
+>> @@ -12,30 +12,10 @@
+>>   #include "tst_test.h"
+>>   #include "lapi/fcntl.h"
+>>   #include "lapi/fsmount.h"
+>> -#include "tst_safe_stdio.h"
+>>   
+>> -#define LINELENGTH 256
+>>   #define MNTPOINT "newmount_point"
+>>   static int sfd, mfd, is_mounted;
+>>   
+>> -static int ismount(char *mntpoint)
+>> -{
+>> -	int ret = 0;
+>> -	FILE *file;
+>> -	char line[LINELENGTH];
+>> -
+>> -	file = SAFE_FOPEN("/proc/mounts", "r");
+>> -
+>> -	while (fgets(line, sizeof(line), file)) {
+>> -		if (strstr(line, mntpoint) != NULL) {
+>> -			ret = 1;
+>> -			break;
+>> -		}
+>> -	}
+>> -	SAFE_FCLOSE(file);
+>> -	return ret;
+>> -}
+>> -
+>>   static void cleanup(void)
+>>   {
+>>   	if (is_mounted)
+>> @@ -76,12 +56,9 @@ static void test_fsmount(void)
+>>   	tst_res(TPASS, "move_mount() attached to the mount point");
+>>   	SAFE_CLOSE(mfd);
+>>   
+>> -	if (ismount(MNTPOINT)) {
+>> -		tst_res(TPASS, "device mounted");
+>> +	if (tst_is_mounted(MNTPOINT)) {
+>>   		SAFE_UMOUNT(MNTPOINT);
+>>   		is_mounted = 0;
+>> -	} else {
+>> -		tst_res(TFAIL, "device not mounted");
+>>   	}
+>>   }
+>>   
+>> -- 
+>> 2.21.0.rc0.269.g1a574e7a288b
+>>
+> 
+> 
+
 
 
 -- 
