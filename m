@@ -2,38 +2,38 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 545F7172395
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 17:39:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62F1617239D
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 17:40:06 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BAEA43C24B7
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 17:39:31 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0BBD53C25C6
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 17:40:06 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 407AF3C2215
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 08E423C24D6
  for <ltp@lists.linux.it>; Thu, 27 Feb 2020 17:39:30 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 937A51A0110F
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 9CE106007A2
  for <ltp@lists.linux.it>; Thu, 27 Feb 2020 17:39:29 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 0D6E3AE06;
- Thu, 27 Feb 2020 16:39:29 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 1A552B388
+ for <ltp@lists.linux.it>; Thu, 27 Feb 2020 16:39:29 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 27 Feb 2020 17:39:20 +0100
-Message-Id: <20200227163922.317-2-pvorel@suse.cz>
+Date: Thu, 27 Feb 2020 17:39:21 +0100
+Message-Id: <20200227163922.317-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200227163922.317-1-pvorel@suse.cz>
 References: <20200227163922.317-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/4] lib: Check also flags for tst_res()
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/4] doc: Improve flags info
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,52 +50,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Allowed types: TCONF | TFAIL | TINFO | TPASS | TWARN
-i.e. TBROK is forbidden.
-
-Suggested-by: Li Wang <liwang@redhat.com>
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
-Hi,
+ doc/style-guide.txt             | 4 ++--
+ doc/test-writing-guidelines.txt | 1 +
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-TPASS == 0, that's why TTYPE_RESULT(ttype) ?: TCONF
-
-Kind regards,
-Petr
-
- include/tst_common.h | 3 +++
- include/tst_test.h   | 6 +++++-
- 2 files changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/include/tst_common.h b/include/tst_common.h
-index d37e38487..54a8428fd 100644
---- a/include/tst_common.h
-+++ b/include/tst_common.h
-@@ -77,4 +77,7 @@
- #define TST_BRK_SUPPORTS_ONLY_TCONF_TBROK(condition) \
- 	do { ((void)sizeof(char[1 - 2 * !!(condition)])); } while (0)
+diff --git a/doc/style-guide.txt b/doc/style-guide.txt
+index b853fa8dc..55331c8d7 100644
+--- a/doc/style-guide.txt
++++ b/doc/style-guide.txt
+@@ -102,8 +102,8 @@ concerned about portability.
+ 7. Handle TBROK and TFAIL correctly
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
-+#define TST_RES_SUPPORTS_TCONF_TFAIL_TINFO_TPASS_TWARN(condition) \
-+	TST_BRK_SUPPORTS_ONLY_TCONF_TBROK(condition)
-+
- #endif /* TST_COMMON_H__ */
-diff --git a/include/tst_test.h b/include/tst_test.h
-index 1026a422a..8508c2e38 100644
---- a/include/tst_test.h
-+++ b/include/tst_test.h
-@@ -47,7 +47,11 @@ void tst_res_(const char *file, const int lineno, int ttype,
-               __attribute__ ((format (printf, 4, 5)));
+-Use +TBROK+ when an unexpected failure unrelated to the goal of the testcase
+-occurred, and use +TFAIL+ when an unexpected failure related to the goal of
++Use +tst_brk(TBROK)+ when an unexpected failure unrelated to the goal of the testcase
++occurred, and use +tst_res(TFAIL)+ when an unexpected failure related to the goal of
+ the testcase occurred.
  
- #define tst_res(ttype, arg_fmt, ...) \
--	tst_res_(__FILE__, __LINE__, (ttype), (arg_fmt), ##__VA_ARGS__)
-+	({									\
-+		TST_RES_SUPPORTS_TCONF_TFAIL_TINFO_TPASS_TWARN(!((TTYPE_RESULT(ttype) ?: TCONF) & \
-+			(TCONF | TFAIL | TINFO | TPASS | TWARN))); 				\
-+		tst_res_(__FILE__, __LINE__, (ttype), (arg_fmt), ##__VA_ARGS__);\
-+	})
+ 8. Don't roll your own syscall numbers
+diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
+index 48fd06764..5f08e364e 100644
+--- a/doc/test-writing-guidelines.txt
++++ b/doc/test-writing-guidelines.txt
+@@ -421,6 +421,7 @@ Printf-like function to report test result, it's mostly used with ttype:
+ | 'TPASS' | Test has passed.
+ | 'TFAIL' | Test has failed.
+ | 'TINFO' | General message.
++| 'TWARN' | Something went wrong but we decided to continue. Mostly used in cleanup functions.
+ |==============================
  
- void tst_resm_hexd_(const char *file, const int lineno, int ttype,
- 	const void *buf, size_t size, const char *arg_fmt, ...)
+ The 'ttype' can be combined bitwise with 'TERRNO' or 'TTERRNO' to print
 -- 
 2.25.1
 
