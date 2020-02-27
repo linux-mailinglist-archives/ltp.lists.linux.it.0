@@ -1,77 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF9EE170CCB
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 00:52:26 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id DDF86170F00
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 04:25:34 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 541D53C25A8
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 00:52:26 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0E5223C25AB
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 04:25:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id E4CA03C1D97
- for <ltp@lists.linux.it>; Thu, 27 Feb 2020 00:52:21 +0100 (CET)
-Received: from mail-il1-x144.google.com (mail-il1-x144.google.com
- [IPv6:2607:f8b0:4864:20::144])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 032CD3C110C
+ for <ltp@lists.linux.it>; Thu, 27 Feb 2020 04:25:29 +0100 (CET)
+Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
+ [IPv6:2607:f8b0:4864:20::541])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2605B200B21
- for <ltp@lists.linux.it>; Thu, 27 Feb 2020 00:52:21 +0100 (CET)
-Received: by mail-il1-x144.google.com with SMTP id p78so737253ilb.10
- for <ltp@lists.linux.it>; Wed, 26 Feb 2020 15:52:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language:content-transfer-encoding;
- bh=QICudEUHxOA++v+LRCEdgMFeKASCfrfUoVpv9CqlbKE=;
- b=YilpeeCoe9ui69EJXI9Djfjjd7kGG5BgDylvUNpnp9kK03Q+fBTyHji3sD7XPkmDGc
- H/xw/Tt+thMG33jJeudXG8cIrKRdyoATKifxCzx2NvEibaU0mEPxqOuQ+AtvpvzchnNY
- w19AoC4QPNgG5K7J5MoQ1OBZTJ7lAKIr0fiZlRmwgiS7zHOsubXp2kp2Ilu2q8AeTpPM
- ueYoEpE8UOtXiLgq90RRYWbyO9mtyXYpaqk/tmwookA3HdsAF6VWYIX1Nnx973V4tpQa
- phjfnB6N94zAtv/fAaWGoq+EvtIyOSKucoGcRC4iD0yfiK8iFlMbDcA9DZbAw1fqGgQ4
- lxTw==
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 262D6601DC4
+ for <ltp@lists.linux.it>; Thu, 27 Feb 2020 04:25:29 +0100 (CET)
+Received: by mail-pg1-x541.google.com with SMTP id t3so703996pgn.1
+ for <ltp@lists.linux.it>; Wed, 26 Feb 2020 19:25:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=aGApe6hwbcOVxqrl69EZcd9WR08uRd0bjiISl8qd98s=;
+ b=b/FowgBrC03bm7gAQ06kXBIRIN0vpwYgX3sEW6JwJ9ibfwgGnKjzVlWqWZU/WVXlj4
+ l9XvG9ZQInhQQEXEJS4FSpc/t49rMJaTe2zpQ8e0howKrG1LsgCiYRc6VvjqrrpQExOa
+ Wjw8wa0cGYB4wmtcvZgM4WlNMi9vcf/Jlna9Wz+nlIzDqAMQqe7tP9MgVqBCB/5XuJZh
+ 5O+arc6+JeGPEHY+3RkkJGuMP93XYdsqdP3/Tr1tRQvUxx/6RBcW5tF2mlno7m4u+oaj
+ 9PwmEbePH8o52EVx6q5Imj/6RoS5yWLgfZF/HDeYD/nYbSltZilTSgl+YzV+q8GBI92F
+ 8ruA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=QICudEUHxOA++v+LRCEdgMFeKASCfrfUoVpv9CqlbKE=;
- b=FmeQLSlQeifqwCRWj82hAsbegnJa/uQeL7Dxs6H8/sidw6Q746ooC3idR1ywf1vw2A
- HVamRVvlcOa7/tdMdGZ5G3Lh2qziCbdesL7CXKUfpW7fzWywTn1yW1WK220PAcdMVmb6
- VVUc+Eyx2d/7jveHWDFJFd0j/Pp4UXZCNUm484KaKaO6nO2a0DX7KQkkHfaWlWBn3QMx
- CzNrlPL9uhenbr7KrDrgU7G8XIR4KsxTPZuBgaSeiFsg62XnUBEZxhZvJ+8Ql6fvIl5a
- /QtB9y5EGsnpuVwz4FPFMGXNM1mhVUIBhlf/6eTEjQehTzc1d0kUwF3O7OmEHSMIflRp
- nSWw==
-X-Gm-Message-State: APjAAAULRZL24lMd0BuaFFY4mwdmgURZcClPQDpOpi7lzBsvisfudzd6
- BGnCJ/8N/kOTXXqRxI6vbg05s1cNGVM=
-X-Google-Smtp-Source: APXvYqyLmo95NkIyO6pjx89chF1EiPuNXe35DMmT8fimCYx70kIYtSktR4T8fjyAi9dYbm0glSTFpA==
-X-Received: by 2002:a92:d708:: with SMTP id m8mr1526514iln.244.1582761139297; 
- Wed, 26 Feb 2020 15:52:19 -0800 (PST)
-Received: from ?IPv6:2601:646:9200:4e0:19c7:2796:79bc:80ea?
- ([2601:646:9200:4e0:19c7:2796:79bc:80ea])
- by smtp.gmail.com with ESMTPSA id h19sm1164502ild.76.2020.02.26.15.52.18
- for <ltp@lists.linux.it>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Feb 2020 15:52:18 -0800 (PST)
-To: ltp@lists.linux.it
-References: <20200220065204.485391-1-raj.khem@gmail.com>
-From: Khem Raj <raj.khem@gmail.com>
-Message-ID: <759857e6-247c-33fc-53e1-80fa73704906@gmail.com>
-Date: Wed, 26 Feb 2020 15:52:17 -0800
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.5.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=aGApe6hwbcOVxqrl69EZcd9WR08uRd0bjiISl8qd98s=;
+ b=B54df5QZiQpr+o4Ghawz8xuSzaFLi6LJfhTunGkDtpSdRWVB9seMSDZ4DHQTHJej8D
+ pfDxxfM/JOO5SRaaSh1t6Ra1JyhtgctG/GxK8zKq3hda3ntLOyMqsXAOlQ0UGrFJcEvs
+ hNCqbhPKzcWFH1boDLbxpA7Q1FovrRRCDaXJ4k2YaBh/KwbJSzNNCEWOoAMOYf0NPAoo
+ 4td2iFGvw/m8vjka5yYra/t3SHEAaQT1kyW3WJO5nyf0XwsFVDmQ1cDfCr27q9OIkleS
+ hn8m8KMj+kxiEF1CYZ4NXF5DipSyXMVySO7mNY6QvYD7CsaRhPstgCNZHdR6TWHq/Wpz
+ 2BfA==
+X-Gm-Message-State: APjAAAXLJEEjiYRpbYACgcHHpHFE6/kc1ei3b/sbyVKlpSFBSs4L9EWn
+ GiQ+MMPVJez3wkite2dzpCEqaw==
+X-Google-Smtp-Source: APXvYqyuuvp10M03jLALP6+MxZMEwRK9VCpP0lciZ2i68uCKNLrGW9+Jw8ywepsu5ZBUevBvT5ELcQ==
+X-Received: by 2002:a63:b515:: with SMTP id y21mr2025828pge.148.1582773927337; 
+ Wed, 26 Feb 2020 19:25:27 -0800 (PST)
+Received: from localhost ([223.226.55.170])
+ by smtp.gmail.com with ESMTPSA id z27sm4802508pfj.107.2020.02.26.19.25.25
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 26 Feb 2020 19:25:26 -0800 (PST)
+Date: Thu, 27 Feb 2020 08:55:24 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <20200227032524.yldx3diebom3wqod@vireshk-i7>
+References: <20200226232649.8736-1-pvorel@suse.cz>
 MIME-Version: 1.0
-In-Reply-To: <20200220065204.485391-1-raj.khem@gmail.com>
-Content-Language: en-GB
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200226232649.8736-1-pvorel@suse.cz>
+User-Agent: NeoMutt/20180716-391-311a52
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] syscalls: Check for time64 unsafe syscalls
- before using them
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/1] lap/syscalls: Update syscall numbers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,119 +76,72 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-ping
+On 27-02-20, 00:26, Petr Vorel wrote:
+> From: Viresh Kumar <viresh.kumar@linaro.org>
+> 
+> to sync with the kernel v5.6-rc3.
 
-On 2/19/20 10:52 PM, Khem Raj wrote:
-> musl is using 64bit time_t now on 32bit architectures and these syscalls
-> no longer exist, therefore its better to check for them being available
-> before using them
+This doesn't look right, you missed some text here ?
+
+> As this was performed in some sort of automated way, few extra changes
+> may be noticed while converting from kernel files to LTP, like a
+> different format of defining syscalls or removal of obsolete syscalls.
 > 
-> Signed-off-by: Khem Raj <raj.khem@gmail.com>
+> The diff generated against sh.in file is enormous and looks like someone
+> did a mistake while adding the syscall numbers there as they look to be
+> mostly incorrect from 220 to 393. They are fixed as a consequence of
+> this exercise.
+> 
+> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+> [ pvorel: various fixes for 32bit syscalls in 64bit arch and vice versa ]
+
+Sorry about making these mistakes :(
+
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
 > ---
->   lib/tst_clocks.c                                      | 11 ++++++-----
->   .../kernel/syscalls/gettimeofday/gettimeofday01.c     |  6 ++----
->   .../kernel/syscalls/gettimeofday/gettimeofday02.c     |  8 +++-----
->   3 files changed, 11 insertions(+), 14 deletions(-)
+> Changes v1->v2:
+> * remove wrong umount in ia64
+> * fixed typo sched_rr_get_interval_ti (=> sched_rr_get_interval_time64)
+> * various fixes for 32bit syscalls in 64bit arch and vice versa
 > 
-> diff --git a/lib/tst_clocks.c b/lib/tst_clocks.c
-> index 5195da38f3..155551170d 100644
-> --- a/lib/tst_clocks.c
-> +++ b/lib/tst_clocks.c
-> @@ -10,21 +10,22 @@
->   #define _GNU_SOURCE
->   #include <unistd.h>
->   #include <time.h>
-> -#include <sys/syscall.h>
-> -
-> +#define TST_NO_DEFAULT_MAIN
-> +#include "tst_test.h"
->   #include "tst_clocks.h"
-> +#include "lapi/syscalls.h"
->   
->   int tst_clock_getres(clockid_t clk_id, struct timespec *res)
->   {
-> -	return syscall(SYS_clock_getres, clk_id, res);
-> +	return tst_syscall(__NR_clock_getres, clk_id, res);
->   }
->   
->   int tst_clock_gettime(clockid_t clk_id, struct timespec *ts)
->   {
-> -	return syscall(SYS_clock_gettime, clk_id, ts);
-> +	return tst_syscall(__NR_clock_gettime, clk_id, ts);
->   }
->   
->   int tst_clock_settime(clockid_t clk_id, struct timespec *ts)
->   {
-> -	return syscall(SYS_clock_settime, clk_id, ts);
-> +	return tst_syscall(__NR_clock_settime, clk_id, ts);
->   }
-> diff --git a/testcases/kernel/syscalls/gettimeofday/gettimeofday01.c b/testcases/kernel/syscalls/gettimeofday/gettimeofday01.c
-> index 583d8f7b9b..08ea1673ad 100644
-> --- a/testcases/kernel/syscalls/gettimeofday/gettimeofday01.c
-> +++ b/testcases/kernel/syscalls/gettimeofday/gettimeofday01.c
-> @@ -38,10 +38,8 @@
->   #include <sys/time.h>
->   #include <errno.h>
->   #include "test.h"
-> -#include <sys/syscall.h>
->   #include <unistd.h>
-> -
-> -#define gettimeofday(a,b)  syscall(__NR_gettimeofday,a,b)
-> +#include "lapi/syscalls.h"
->   
->   char *TCID = "gettimeofday01";
->   int TST_TOTAL = 1;
-> @@ -63,7 +61,7 @@ int main(int ac, char **av)
->   	for (lc = 0; TEST_LOOPING(lc); lc++) {
->   		tst_count = 0;
->   
-> -		TEST(gettimeofday((void *)-1, (void *)-1));
-> +		TEST(ltp_syscall(__NR_gettimeofday, (void *)-1, (void *)-1));
->   
->   		/* gettimeofday returns an int, so we need to turn the long
->   		 * TEST_RETURN into an int to test with */
-> diff --git a/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c b/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c
-> index 1d60f448e8..5170ad2f78 100644
-> --- a/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c
-> +++ b/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c
-> @@ -16,14 +16,12 @@
->   #include <stdint.h>
->   #include <sys/time.h>
->   #include <stdlib.h>
-> -#include <sys/syscall.h>
->   #include <unistd.h>
->   #include <time.h>
->   #include <errno.h>
->   
->   #include "tst_test.h"
-> -
-> -#define gettimeofday(a,b)  syscall(__NR_gettimeofday,a,b)
-> +#include "lapi/syscalls.h"
->   
->   static volatile sig_atomic_t done;
->   static char *str_rtime;
-> @@ -48,13 +46,13 @@ static void verify_gettimeofday(void)
->   
->   	alarm(rtime);
->   
-> -	if (gettimeofday(&tv1, NULL)) {
-> +	if (tst_syscall(__NR_gettimeofday, &tv1, NULL)) {
->   		tst_res(TBROK | TERRNO, "gettimeofday() failed");
->   		return;
->   	}
->   
->   	while (!done) {
-> -		if (gettimeofday(&tv2, NULL)) {
-> +		if (tst_syscall(__NR_gettimeofday, &tv2, NULL)) {
->   			tst_res(TBROK | TERRNO, "gettimeofday() failed");
->   			return;
->   		}
+> TODO: not sure about spu and nospu ABI in powerpc (whether they go to
+> 32 bit or 64 bit or is ignored)
 > 
+> === DIFF from v1 ===
+> diff --git include/lapi/syscalls/s390.in include/lapi/syscalls/s390.in
+>  pkey_free 386
+> -semtimedop 392
+
+Why is this removed ?
+
+> diff --git include/lapi/syscalls/s390x.in include/lapi/syscalls/s390x.in
+> index dfb7ee811..88cc9b86b 100644
+> --- include/lapi/syscalls/s390x.in
+> +++ include/lapi/syscalls/s390x.in
+> @@ -10,17 +10,12 @@ link 9
+>  unlink 10
+>  execve 11
+>  chdir 12
+> -time 13
+
+And the ones like these..
+
+Because they are only for 32 bit arch and not 64 ?
+
+> diff --git include/lapi/syscalls/sparc.in include/lapi/syscalls/sparc.in
+> -sched_rr_get_interval_ti423
+> +sched_rr_get_interval_time64 423
+
+Really bad that I made these mistakes with my vim tricks.
+
+-- 
+viresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
