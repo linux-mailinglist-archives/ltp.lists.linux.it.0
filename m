@@ -2,71 +2,56 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77F3B1711E3
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 09:03:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3FFA17172D
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 13:28:26 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6A6143C2530
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 09:03:49 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A9B173C23F2
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 13:28:26 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id C3C813C1F2A
- for <ltp@lists.linux.it>; Thu, 27 Feb 2020 09:03:44 +0100 (CET)
-Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
- [IPv6:2607:f8b0:4864:20::642])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 7D7663C1D93
+ for <ltp@lists.linux.it>; Thu, 27 Feb 2020 13:28:23 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 4275B140200C
+ for <ltp@lists.linux.it>; Thu, 27 Feb 2020 13:28:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1582806501;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=E6yDQonBXlvuqkhRa077feXaEHUusfdenl2n4kPBc88=;
+ b=bd5qivGaxVdhD3zrn4RhxCFB6FBZR8STTaaK9xbzeUZtr24D3ms4ycJwoxF7sW/7eCx8ff
+ 55MY5sno6cPUI54aw1F5QF3vj9VQh0SULQRuET6y8/5waHx25GL0HNT448aWaTAYliIrPL
+ 0CRMwj//b2n43C2bpftcGhqDRWQUf9w=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-220-hvGt_cAXPsWPwRuBTiZdng-1; Thu, 27 Feb 2020 07:28:19 -0500
+X-MC-Unique: hvGt_cAXPsWPwRuBTiZdng-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D79B92015E6
- for <ltp@lists.linux.it>; Thu, 27 Feb 2020 09:03:43 +0100 (CET)
-Received: by mail-pl1-x642.google.com with SMTP id j7so822958plt.1
- for <ltp@lists.linux.it>; Thu, 27 Feb 2020 00:03:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=PlcnLqjbMp+xgeAPYQjNqC2tACMSTNNHVa1fmsk1cPE=;
- b=MinJAnTuq8karJICbVWBzFSJhamiWDzUzxaSc1uPX6LGlAtcss5XdC0NCmrpU2rFAV
- UUoS6JGK4BmBZDZe99jkLSxXsxkHwKNWfGjxUuCae95iF3tKCoxSEBiS1nhXNi8+VcjI
- BT/70DnLuIVWo04MsL60imE8QjIr2zhu0MuOClD6a357fyYblU8FIhFmADlOc47Y5yxc
- XBuTaM79StxfdoaKQFQKubX5kGfHhYoJkFGxwkQfeu1rMbzDk3E3ds4fjWePvUx4o5/n
- YCf5MbqKqkMhAp6IPRF9OTqkM0JbY/0qTaUCDeSJl7b+/sr0YGXVjx57TEzEcab0x9TY
- Qt2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=PlcnLqjbMp+xgeAPYQjNqC2tACMSTNNHVa1fmsk1cPE=;
- b=R6U+sSrWjDm+OaX2f45deUbfJejLaS49fr73WQCm6BaPOHJTzCaujQBsn1MjXcvGzD
- CarWPk8C36lj3Ks2fFi72LBgTNd6MmzZrT1GNaHvGFB4VKHlag9YBJcXIjvAFceBYJdD
- SejEWGsHVb2JtEn2pu4Xo0ctekx1nLBNcWswlMMRX+/fvFSW9ab0DXOFW/UokT+Rpij+
- 4Yft1vQocqarU9PasQwNHbSJY1P+yqkD2BPhxBuEqTbE6B3uk5iDMM5s9W/8DA6LltE0
- yYNHb03AQ83B8uWTxFUYNEsREQ8O92kejBwzkR+vGAxJMXZf3a2zL5+ZgbAhRPeVdwv0
- LaFA==
-X-Gm-Message-State: APjAAAV7SAZfM56jGP7yyPJHbheXvqzqBlOSZnjWRylwYamzbW5OvLFh
- 75HGGaomBWTQo1OdQdzU9PO2Y3/liU8=
-X-Google-Smtp-Source: APXvYqxB8PTikdUxFnnZpV56eIaY6H+9BLngxCDsgxlUngWqzJ2JehXmSeYc53w78l+JRueW/7VOPw==
-X-Received: by 2002:a17:902:c209:: with SMTP id 9mr970027pll.311.1582790622240; 
- Thu, 27 Feb 2020 00:03:42 -0800 (PST)
-Received: from localhost ([223.226.55.170])
- by smtp.gmail.com with ESMTPSA id 129sm1585448pgf.10.2020.02.27.00.03.40
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 27 Feb 2020 00:03:41 -0800 (PST)
-Date: Thu, 27 Feb 2020 13:33:39 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20200227080339.lo27tae6feizlf6z@vireshk-i7>
-References: <20200226232649.8736-1-pvorel@suse.cz>
- <20200227032524.yldx3diebom3wqod@vireshk-i7>
- <20200227064442.GB7096@dell5510>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200227064442.GB7096@dell5510>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4D321800D5C
+ for <ltp@lists.linux.it>; Thu, 27 Feb 2020 12:28:18 +0000 (UTC)
+Received: from janakin.usersys.redhat.com (unknown [10.43.17.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id C066460BE2
+ for <ltp@lists.linux.it>; Thu, 27 Feb 2020 12:28:17 +0000 (UTC)
+From: Jan Stancek <jstancek@redhat.com>
+To: ltp@lists.linux.it
+Date: Thu, 27 Feb 2020 13:28:13 +0100
+Message-Id: <fa386b967db52665ca84150a59058d0f601ca051.1582806435.git.jstancek@redhat.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/1] lap/syscalls: Update syscall numbers
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/bpf: bump RLIMIT_MEMLOCK limit
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,38 +63,40 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 27-02-20, 07:44, Petr Vorel wrote:
-> Hi Viresh,
-> 
-> > > to sync with the kernel v5.6-rc3.
-> 
-> > This doesn't look right, you missed some text here ?
-> I dared to change this
-> 
-> Get Syscall numbers in sync with latest Linux kernel source
-> 
->     This gets the Syscall numbers in sync with latest kernel source.
-> 
-> to this:
-> lap/syscalls: Update syscall numbers
-> 
->     to sync with the kernel v5.6-rc3.
+Some bpf array types reserve space according to number of
+possible CPUs. This is running into limits on a ppc64le with
+64k pages and NR_CPUS==2048:
+    84 bpf_map01(1049142):   <-bpf_map_init_from_attr
+    89 bpf_map01(1049142):   ->bpf_map_charge_init mem={.pages=0, .user=0x0} size=208456
+    94 bpf_map01(1049142):   <-bpf_map_charge_init return=0xffffffffffffffff
 
-Ah, so subject and body must be read together, I missed that :)
+Signed-off-by: Jan Stancek <jstancek@redhat.com>
+---
+ testcases/kernel/syscalls/bpf/bpf_common.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> => typo: s/lap/lapi/
-> Hope you don't mind.
-
-Surely not.
-
+diff --git a/testcases/kernel/syscalls/bpf/bpf_common.h b/testcases/kernel/syscalls/bpf/bpf_common.h
+index 1dbbd5f25635..d36a2b09ffd9 100644
+--- a/testcases/kernel/syscalls/bpf/bpf_common.h
++++ b/testcases/kernel/syscalls/bpf/bpf_common.h
+@@ -6,7 +6,7 @@
+ #ifndef LTP_BPF_COMMON_H
+ #define LTP_BPF_COMMON_H
+ 
+-#define BPF_MEMLOCK_ADD (256*1024)
++#define BPF_MEMLOCK_ADD (2*1024*1024)
+ 
+ void rlimit_bump_memlock(void);
+ int bpf_map_create(union bpf_attr *attr);
 -- 
-viresh
+2.18.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
