@@ -2,69 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDF86170F00
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 04:25:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0390F170FD5
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 05:54:28 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0E5223C25AB
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 04:25:34 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0E6793C25C3
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 05:54:27 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 032CD3C110C
- for <ltp@lists.linux.it>; Thu, 27 Feb 2020 04:25:29 +0100 (CET)
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id A5E7C3C201F
+ for <ltp@lists.linux.it>; Thu, 27 Feb 2020 05:54:22 +0100 (CET)
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 262D6601DC4
- for <ltp@lists.linux.it>; Thu, 27 Feb 2020 04:25:29 +0100 (CET)
-Received: by mail-pg1-x541.google.com with SMTP id t3so703996pgn.1
- for <ltp@lists.linux.it>; Wed, 26 Feb 2020 19:25:29 -0800 (PST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 97A64600669
+ for <ltp@lists.linux.it>; Thu, 27 Feb 2020 05:54:21 +0100 (CET)
+Received: by mail-pf1-x444.google.com with SMTP id i19so972767pfa.2
+ for <ltp@lists.linux.it>; Wed, 26 Feb 2020 20:54:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=aGApe6hwbcOVxqrl69EZcd9WR08uRd0bjiISl8qd98s=;
- b=b/FowgBrC03bm7gAQ06kXBIRIN0vpwYgX3sEW6JwJ9ibfwgGnKjzVlWqWZU/WVXlj4
- l9XvG9ZQInhQQEXEJS4FSpc/t49rMJaTe2zpQ8e0howKrG1LsgCiYRc6VvjqrrpQExOa
- Wjw8wa0cGYB4wmtcvZgM4WlNMi9vcf/Jlna9Wz+nlIzDqAMQqe7tP9MgVqBCB/5XuJZh
- 5O+arc6+JeGPEHY+3RkkJGuMP93XYdsqdP3/Tr1tRQvUxx/6RBcW5tF2mlno7m4u+oaj
- 9PwmEbePH8o52EVx6q5Imj/6RoS5yWLgfZF/HDeYD/nYbSltZilTSgl+YzV+q8GBI92F
- 8ruA==
+ bh=sT/SW+6+/8y56OmW6moKf6BTPM754SDs+Jc6iASSJJI=;
+ b=YKdVZsRe/6afdy6WWP6WKMP3fhKgQv+3v9touvTPgSJ1D3Yh+mwF8ll1LAdaxBfMam
+ uQ/NKyU/frez7/5fuvripAAfUNXkyLcM2J3Ds3rQuf5WkA8qifZynr9GZ7nVNJcqT3qc
+ vxp+RAp49ek5aoGg875AJBv2qBzN3j14sxnEqUMdNy4eweMSh/9mKwW04e/kvKC4Wmep
+ 9N6v9CBYZwe9YH38soyhuO1ifaJ1tyJVZ1hXKTuMxEXASvP6cS+8kvYgMcVoHNm5PvpP
+ kb0N+eU8M9Ok7q3bfYTOTiEOryCGn7LCh8adoAJWWzO7kIrk9hzH8aWUnVTtRRkVg7zr
+ pFtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=aGApe6hwbcOVxqrl69EZcd9WR08uRd0bjiISl8qd98s=;
- b=B54df5QZiQpr+o4Ghawz8xuSzaFLi6LJfhTunGkDtpSdRWVB9seMSDZ4DHQTHJej8D
- pfDxxfM/JOO5SRaaSh1t6Ra1JyhtgctG/GxK8zKq3hda3ntLOyMqsXAOlQ0UGrFJcEvs
- hNCqbhPKzcWFH1boDLbxpA7Q1FovrRRCDaXJ4k2YaBh/KwbJSzNNCEWOoAMOYf0NPAoo
- 4td2iFGvw/m8vjka5yYra/t3SHEAaQT1kyW3WJO5nyf0XwsFVDmQ1cDfCr27q9OIkleS
- hn8m8KMj+kxiEF1CYZ4NXF5DipSyXMVySO7mNY6QvYD7CsaRhPstgCNZHdR6TWHq/Wpz
- 2BfA==
-X-Gm-Message-State: APjAAAXLJEEjiYRpbYACgcHHpHFE6/kc1ei3b/sbyVKlpSFBSs4L9EWn
- GiQ+MMPVJez3wkite2dzpCEqaw==
-X-Google-Smtp-Source: APXvYqyuuvp10M03jLALP6+MxZMEwRK9VCpP0lciZ2i68uCKNLrGW9+Jw8ywepsu5ZBUevBvT5ELcQ==
-X-Received: by 2002:a63:b515:: with SMTP id y21mr2025828pge.148.1582773927337; 
- Wed, 26 Feb 2020 19:25:27 -0800 (PST)
+ bh=sT/SW+6+/8y56OmW6moKf6BTPM754SDs+Jc6iASSJJI=;
+ b=uFxjHXvfqExIoNWUCUQpT/c/fq0jCYSTSjNJDNX0Bxi49kM0FIBGxjQyyxQOf5bsGT
+ TUApCzeq6R8DSEYg2gclH/30HZbmvWSLr2NgIR2aYZRw9o0TXmTR5Cou9KzImOIqaYaE
+ VZUAdgDfeNnQtVdtf9j3awRThTZ2CF7lKTkzDLTjAn+A4cf+ulqZPggoU1w5O4AdP1ik
+ qFXhnq0T6kTSX6/TztMPqrQlgCwBSa3GOM21zMYTr2Vk47Sm6fcbNjFiPcQKNItpZlzp
+ fqCkNOcdmUwlDQG+il/eDE8hQ+W4nb6Smv8eo/RvKVmegKQIE3VW4qpMXPx8k94w41NC
+ 9N2g==
+X-Gm-Message-State: APjAAAX2GvVjcgt5Y8bU16SZ4CAm+zf+NSmSS1wt7iHLzH0sFKTfbDgI
+ JWuh8tspThSf+zuyH+xsrlGmHHVeQQI=
+X-Google-Smtp-Source: APXvYqxfbP5zV6cVhld7ETygsTH+F1fRNjRH8mHA6l0pt+ba6knGHgOP2MXIjtljz/VmcUAfpQgygg==
+X-Received: by 2002:a63:7453:: with SMTP id e19mr2239936pgn.50.1582779259826; 
+ Wed, 26 Feb 2020 20:54:19 -0800 (PST)
 Received: from localhost ([223.226.55.170])
- by smtp.gmail.com with ESMTPSA id z27sm4802508pfj.107.2020.02.26.19.25.25
+ by smtp.gmail.com with ESMTPSA id d14sm4541095pjz.12.2020.02.26.20.54.18
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 26 Feb 2020 19:25:26 -0800 (PST)
-Date: Thu, 27 Feb 2020 08:55:24 +0530
+ Wed, 26 Feb 2020 20:54:19 -0800 (PST)
+Date: Thu, 27 Feb 2020 10:24:17 +0530
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20200227032524.yldx3diebom3wqod@vireshk-i7>
-References: <20200226232649.8736-1-pvorel@suse.cz>
+Message-ID: <20200227045417.tl2vf6boupp7s7iw@vireshk-i7>
+References: <cover.1582612624.git.viresh.kumar@linaro.org>
+ <ccb816c7032270dd2ef51ab14290aacb2c89db38.1582612624.git.viresh.kumar@linaro.org>
+ <20200225134648.GB62318@gacrux.arch.suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200226232649.8736-1-pvorel@suse.cz>
+In-Reply-To: <20200225134648.GB62318@gacrux.arch.suse.de>
 User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/1] lap/syscalls: Update syscall numbers
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V3 05/10] syscalls/fsconfig: New tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,69 +78,36 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Vikas.Kumar2@arm.com, Vincent Guittot <vincent.guittot@linaro.org>,
+ ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 27-02-20, 00:26, Petr Vorel wrote:
-> From: Viresh Kumar <viresh.kumar@linaro.org>
-> 
-> to sync with the kernel v5.6-rc3.
+On 25-02-20, 14:46, Petr Vorel wrote:
+> > diff --git a/testcases/kernel/syscalls/fsconfig/fsconfig02.c b/testcases/kernel/syscalls/fsconfig/fsconfig02.c
+> > new file mode 100644
+> > index 000000000000..d51a869ac3ff
+> > --- /dev/null
+> > +++ b/testcases/kernel/syscalls/fsconfig/fsconfig02.c
+> > @@ -0,0 +1,98 @@
+> > +// SPDX-License-Identifier: GPL-2.0-or-later
+> > +/*
+> > + * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
+> > + *
+> > + * Basic fsconfig() failure tests.
+> > + */
+> > +#include "tst_test.h"
+> > +#include "lapi/fsmount.h"
+> > +
+> > +int fd = -1, temp_fd = -1, invalid_fd = -1;
+> > +int aux_0 = 0, aux_1 = 1, aux_fdcwd = AT_FDCWD, aux_minus1 = -1;
+> These 2 should be static (also fd could be default 0, but who cares :)).
 
-This doesn't look right, you missed some text here ?
-
-> As this was performed in some sort of automated way, few extra changes
-> may be noticed while converting from kernel files to LTP, like a
-> different format of defining syscalls or removal of obsolete syscalls.
-> 
-> The diff generated against sh.in file is enormous and looks like someone
-> did a mistake while adding the syscall numbers there as they look to be
-> mostly incorrect from 220 to 393. They are fixed as a consequence of
-> this exercise.
-> 
-> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-> [ pvorel: various fixes for 32bit syscalls in 64bit arch and vice versa ]
-
-Sorry about making these mistakes :(
-
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
-> Changes v1->v2:
-> * remove wrong umount in ia64
-> * fixed typo sched_rr_get_interval_ti (=> sched_rr_get_interval_time64)
-> * various fixes for 32bit syscalls in 64bit arch and vice versa
-> 
-> TODO: not sure about spu and nospu ABI in powerpc (whether they go to
-> 32 bit or 64 bit or is ignored)
-> 
-> === DIFF from v1 ===
-> diff --git include/lapi/syscalls/s390.in include/lapi/syscalls/s390.in
->  pkey_free 386
-> -semtimedop 392
-
-Why is this removed ?
-
-> diff --git include/lapi/syscalls/s390x.in include/lapi/syscalls/s390x.in
-> index dfb7ee811..88cc9b86b 100644
-> --- include/lapi/syscalls/s390x.in
-> +++ include/lapi/syscalls/s390x.in
-> @@ -10,17 +10,12 @@ link 9
->  unlink 10
->  execve 11
->  chdir 12
-> -time 13
-
-And the ones like these..
-
-Because they are only for 32 bit arch and not 64 ?
-
-> diff --git include/lapi/syscalls/sparc.in include/lapi/syscalls/sparc.in
-> -sched_rr_get_interval_ti423
-> +sched_rr_get_interval_time64 423
-
-Really bad that I made these mistakes with my vim tricks.
+No, fd was intentionally set to -1 here. If we return early due to
+tst_brk() from fsopen_supported_by_kernel(), then we need to handle
+that case in cleanup().
 
 -- 
 viresh
