@@ -1,42 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F9BF1719F0
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 14:49:29 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EABB171B27
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 15:00:05 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0174B3C24B8
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 14:49:29 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C13F83C24C6
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Feb 2020 15:00:04 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 427073C20BC
- for <ltp@lists.linux.it>; Thu, 27 Feb 2020 14:49:26 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 48C783C1F2A
+ for <ltp@lists.linux.it>; Thu, 27 Feb 2020 15:00:03 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 7A28A1001744
+ for <ltp@lists.linux.it>; Thu, 27 Feb 2020 15:00:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1582812000;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=EckG4FeBWddZ2giOO42++4U3Mq85/0Ako/SOjrhjrB8=;
+ b=f6YgidOsWokU7ZwMDAm4imfev16IjHzJojQW98cbrzIGlXoXq2CFvXMbZN6p23YGHyMyCC
+ 5G/eotfIZEMCTpHVNhRbcO/u+JgdF4Jf80gdxHb5SIP6KTzNb9EFsN7tHvy7kot0VhZap7
+ SJaWAz4zoe5sZEtw67jovHHpAQ7euhw=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-284-Q6qx51JsPR24t_hpOXMWfw-1; Thu, 27 Feb 2020 08:59:58 -0500
+X-MC-Unique: Q6qx51JsPR24t_hpOXMWfw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 42FF51000CA5
- for <ltp@lists.linux.it>; Thu, 27 Feb 2020 14:49:25 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id A018AACF2
- for <ltp@lists.linux.it>; Thu, 27 Feb 2020 13:49:25 +0000 (UTC)
-Date: Thu, 27 Feb 2020 14:49:25 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Clemens Famulla-Conrad <cfamullaconrad@suse.de>
-Message-ID: <20200227134924.GB24778@rei>
-References: <20200226172620.29815-1-cfamullaconrad@suse.de>
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A9178801E6D;
+ Thu, 27 Feb 2020 13:59:57 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9F5AF60BE2;
+ Thu, 27 Feb 2020 13:59:57 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 403B084466;
+ Thu, 27 Feb 2020 13:59:57 +0000 (UTC)
+Date: Thu, 27 Feb 2020 08:59:57 -0500 (EST)
+From: Jan Stancek <jstancek@redhat.com>
+To: Cyril Hrubis <chrubis@suse.cz>, Rachel Sibley <rasibley@redhat.com>
+Message-ID: <2093843122.9289621.1582811997215.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20200227133159.GA24778@rei>
+References: <fa386b967db52665ca84150a59058d0f601ca051.1582806435.git.jstancek@redhat.com>
+ <20200227133159.GA24778@rei>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200226172620.29815-1-cfamullaconrad@suse.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Originating-IP: [10.40.204.134, 10.4.195.27]
+Thread-Topic: syscalls/bpf: bump RLIMIT_MEMLOCK limit
+Thread-Index: pmMPVsceDLShcGp90T9siAJluGNnug==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] Stringify flags to improve error msg of
- unshare()
+Subject: Re: [LTP] [PATCH] syscalls/bpf: bump RLIMIT_MEMLOCK limit
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,64 +81,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> If your test has multiple calls of unshare() it is hard to read which
-> unshare() call really failed. With this we improve the error message to
-> something like this:
-> 
->   sendmsg03.c:43: CONF: unshare(CLONE_NEWUSER) unsupported: EINVAL (22)
-> 
-> Instead of having a hard to understand number like:
-> 
->   sendmsg03.c:43: CONF: unshare(268435456) unsupported: EINVAL (22)
-> 
-> Signed-off-by: Clemens Famulla-Conrad <cfamullaconrad@suse.de>
-> ---
->  include/tst_safe_macros.h | 5 +++--
->  lib/tst_safe_macros.c     | 7 ++++---
->  2 files changed, 7 insertions(+), 5 deletions(-)
-> 
-> diff --git a/include/tst_safe_macros.h b/include/tst_safe_macros.h
-> index 80c4d9cb9..f2f8bd10f 100644
-> --- a/include/tst_safe_macros.h
-> +++ b/include/tst_safe_macros.h
-> @@ -544,7 +544,8 @@ int safe_personality(const char *filename, unsigned int lineno,
->  	}							\
->  	} while (0)
->  
-> -void safe_unshare(const char *file, const int lineno, int flags);
-> -#define SAFE_UNSHARE(flags) safe_unshare(__FILE__, __LINE__, (flags))
-> +void safe_unshare(const char *file, const int lineno, const char *flags_str,
-> +	int flags);
-> +#define SAFE_UNSHARE(flags) safe_unshare(__FILE__, __LINE__, #flags, (flags))
 
-I would actually prefer to have a lookup table instead, because this
-breaks when pass flags by a variable, e.g.
+----- Original Message -----
+> Looks still reasonably small so that we can raise it unconditionally,
+> acked.
 
-	int ns_flags = CLONE_NEWNS | CLONE_NEWPID;
+Pushed.
 
-	SAFE_UNSHARE(ns_flags);
-
-
-Looking that the flags, these are bigflags, which makes it a bit tricky,
-so we will have to write it as:
-
-void get_ns_flags(int flags, char *flags, size_t flags_size)
-{
-	int first = 1;
-
-	if (flags & CLONE_VM)
-		append_flags("CLONE_VM", &first, &flags, &flags_size);
-
-	if (flags & CLONE_FS)
-		append_flags("CLONE_FS", &first, &flags, &flags_size);
-
-	...
-}
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
