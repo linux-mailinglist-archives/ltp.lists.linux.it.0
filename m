@@ -2,29 +2,29 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 204A5173156
-	for <lists+linux-ltp@lfdr.de>; Fri, 28 Feb 2020 07:49:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48F44173162
+	for <lists+linux-ltp@lfdr.de>; Fri, 28 Feb 2020 07:52:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0FF183C22CB
-	for <lists+linux-ltp@lfdr.de>; Fri, 28 Feb 2020 07:49:42 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C246D3C6AC9
+	for <lists+linux-ltp@lfdr.de>; Fri, 28 Feb 2020 07:52:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 355BF3C22CB
- for <ltp@lists.linux.it>; Fri, 28 Feb 2020 07:49:37 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTP id CB97E3C22CB
+ for <ltp@lists.linux.it>; Fri, 28 Feb 2020 07:52:40 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 78E0C1A00E6C
- for <ltp@lists.linux.it>; Fri, 28 Feb 2020 07:49:37 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E74331A01DE6
+ for <ltp@lists.linux.it>; Fri, 28 Feb 2020 07:52:39 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D6F55AD93;
- Fri, 28 Feb 2020 06:49:35 +0000 (UTC)
-Date: Fri, 28 Feb 2020 07:49:34 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 37503B03B;
+ Fri, 28 Feb 2020 06:52:39 +0000 (UTC)
+Date: Fri, 28 Feb 2020 07:52:37 +0100
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Message-ID: <20200228064934.GA30424@dell5510>
+Message-ID: <20200228065237.GB30424@dell5510>
 References: <20200226232649.8736-1-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
@@ -53,13 +53,12 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi Viresh,
 
-> TODO: not sure about spu and nospu ABI in powerpc (whether they go to
-> 32 bit or 64 bit or is ignored)
-OK: 32bit uses "common,nospu,32" and 64bit uses "common,nospu,64"
-spu can be ignored for both.
-=> patch is correct.
+> From: Viresh Kumar <viresh.kumar@linaro.org>
+
+> to sync with the kernel v5.6-rc3.
+Merged, thanks for your work.
 
 Kind regards,
 Petr
