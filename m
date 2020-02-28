@@ -2,40 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96E96173362
-	for <lists+linux-ltp@lfdr.de>; Fri, 28 Feb 2020 09:59:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98EB61733B8
+	for <lists+linux-ltp@lfdr.de>; Fri, 28 Feb 2020 10:21:12 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 51B2A3C6AC0
-	for <lists+linux-ltp@lfdr.de>; Fri, 28 Feb 2020 09:59:03 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0FE913C6ABF
+	for <lists+linux-ltp@lfdr.de>; Fri, 28 Feb 2020 10:21:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 2F0033C6AB3
- for <ltp@lists.linux.it>; Fri, 28 Feb 2020 09:59:02 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 0881B3C2457
+ for <ltp@lists.linux.it>; Fri, 28 Feb 2020 10:21:09 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8FFBA6019D9
- for <ltp@lists.linux.it>; Fri, 28 Feb 2020 09:59:01 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 707F91A01E24
+ for <ltp@lists.linux.it>; Fri, 28 Feb 2020 10:21:09 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D5DC4AF86;
- Fri, 28 Feb 2020 08:59:00 +0000 (UTC)
-Date: Fri, 28 Feb 2020 09:58:59 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 94CA7B132;
+ Fri, 28 Feb 2020 09:21:08 +0000 (UTC)
+Date: Fri, 28 Feb 2020 10:21:07 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20200228085859.GA31181@rei>
-References: <CAKohponuu3zpsQCv0v1_Yqb_tmqy5yyUejMoS1_M_UFf5FU2Mw@mail.gmail.com>
+To: Pankaj Vinadrao Joshi <Pankaj.VJ@exaleapsemi.com>
+Message-ID: <20200228092107.GB31181@rei>
+References: <MAXPR0101MB14681590CE13BB4E2ED97CFEEEE80@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAKohponuu3zpsQCv0v1_Yqb_tmqy5yyUejMoS1_M_UFf5FU2Mw@mail.gmail.com>
+In-Reply-To: <MAXPR0101MB14681590CE13BB4E2ED97CFEEEE80@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] Query: Adding support for clone3()
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] netns_netlink test failure
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,35 +46,27 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> I was looking to start implementation of clone3() syscall in LTP
-> and am a bit confused here and need your help in doing the same.
-> 
-> LTP abstracts the call to clone() syscall in lib/cloner.c and the current
-> prototype of it looks like this.
-> 
->        int clone(int (*fn)(void *), void *stack, int flags, void *arg, ...
->                  /* pid_t *parent_tid, void *tls, pid_t *child_tid */ );
+> <<<test_output>>>
+> open: No such file or directory
+> netns_netlink    1  TBROK  :  netns_netlink.c:143: system() failed
+                                                 ^
+						 This is a line number,
+						 if you look a the
+						 source code of the
+						 test, you see:
 
-This function is there mostly for implementation of container testscases
-so that they does not need to deal with the clone() syscall complexity.
+        if (WEXITSTATUS(system("ip tuntap add dev dummy0 mode tap")))
+                tst_brkm(TBROK, cleanup, "system() failed");
 
-> One of the challenges with the implementation of clone3() is that
-> there is no glibc wrapper available. And in case of clone() glibc
-> wrapper isn't ordinary as it takes care of calling fn() and handling
-> few stack related things, apart from calling the real syscall.
-> 
-> I am confused now on how should I write support for clone3().
-> 
-> Any suggestions will be appreciated. Thanks.
-
-Let's just add the code into lapi/clone.h, would that work for you?
+So that the failed command was "ip tuntap add dev dummy0 mode tap", it's up to
+you to figure out why...
 
 -- 
 Cyril Hrubis
