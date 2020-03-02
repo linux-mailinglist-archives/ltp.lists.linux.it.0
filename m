@@ -2,71 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EE99175386
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Mar 2020 07:11:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68DDE1753DA
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Mar 2020 07:37:22 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 902E73C681C
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Mar 2020 07:11:17 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 39AF03C6806
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Mar 2020 07:37:22 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id EB7D83C67EE
- for <ltp@lists.linux.it>; Mon,  2 Mar 2020 07:11:13 +0100 (CET)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 1941B704D75
- for <ltp@lists.linux.it>; Mon,  2 Mar 2020 07:11:11 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1583129469;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=obU5Saghj6lOu2q9TagySalC1+xyyJFg0YjiusHCvkw=;
- b=TszLoNmKMs101deOWGY3RSMsCQHpnDDTS7fjnnHJsv46XsOGS59+lG7T7eQjo39rOkPl0z
- BjukIi3pKkTt9MN4Magq34z0sWCQdU1Vf6LzMYLBcH6C0ZqyWbsP9yCEaZ5aLO6cdQr7mk
- oWO1CcmH97QGmmyyjGOQ2H7hurrrDYE=
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
- [209.85.167.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-340-yYqTk0__Pp2c4Cd3Dtze6A-1; Mon, 02 Mar 2020 01:11:01 -0500
-X-MC-Unique: yYqTk0__Pp2c4Cd3Dtze6A-1
-Received: by mail-oi1-f198.google.com with SMTP id 16so4552844oii.18
- for <ltp@lists.linux.it>; Sun, 01 Mar 2020 22:11:01 -0800 (PST)
+ by picard.linux.it (Postfix) with ESMTP id 3F5543C67FC
+ for <ltp@lists.linux.it>; Mon,  2 Mar 2020 07:37:19 +0100 (CET)
+Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
+ [IPv6:2607:f8b0:4864:20::544])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DBCDF60069D
+ for <ltp@lists.linux.it>; Mon,  2 Mar 2020 07:37:18 +0100 (CET)
+Received: by mail-pg1-x544.google.com with SMTP id y30so4910347pga.13
+ for <ltp@lists.linux.it>; Sun, 01 Mar 2020 22:37:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=O4g9upqllRffGr9KjRhJnRif7J1MYZgmVWVKMiox15Q=;
+ b=RDyqmMoa6TGtlS8ViZFA6u3fy2ZEJdffZqSlSPucu7o/BVYd359a5QhEc5kigFLTjp
+ vxd9pPjft2Zon/QHQwTaiuCLTDhXe8Th4NlJW4qlAqUlP3iRSdaQFlJULZJbvdFk1vcm
+ 3n88XbK/zH50/ICVWTMkakMU/KIxkNVxiZwYbJjdbD/YeT/dryyLkAvIxZzTXkx2nb0G
+ 4fmcbhaX5KCayHJ8X5y4PRXF5eEeI4nvoaewsCqu5340DkSuiE46MKg6kPyk/CDfto06
+ Ea7rZ7KVFgh2qJWLtGB2VW4JyShwaABkTXRgQ+7hPOp24HJir2lCUje1sRQ7Ekfouulc
+ v+Og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=3tKSUJiaHu+XcNX5q8TV0iiBU0/JPT4pCPYJC9i9UXM=;
- b=S1KGuEz7J1reMkZiSxzJ2H7auk2q9942zA9HWeA3zkK070QYdbZf64lDr1OWGFA5Ke
- ctYjNq+dGYaZabEDh8nf1Yu/uWiWxMeUbILOWuKsYxdMjv/Jvn398JSNLVcdXuP1mdA4
- pYXI+mA0DBBwUjUd80vWYpfwQlV/k6X2WiDzeii4GR3i7oJXb0M8JDJsEcTARheoEb+c
- tpwtX0PV5+06nUyfDvNrlOxmJS2stZ9GQE9iWY/aLctYj1LbYzkm3kf/aXDrid21kfON
- /G0HmHok92eTW2doVkxDtnLdTPdl6VjqBoATYZH+DGpIV4AuKVoE9wn1DS2c6AG0ZhIq
- qYJg==
-X-Gm-Message-State: APjAAAWzK53rCQmI5Nm7m13h1lchOks0IPexpx7drwwykdfX2u8A6n24
- NwQzvi4CsIBQ5XuyNVzT7IoBlzxkMyflLnaKDNbMJjdPVRpLA9uvHxpuhRdHiTqTe/T/zvSqEVh
- IRrfbDCH72zJwwFIEbB/3ZbXO3kM=
-X-Received: by 2002:a9d:395:: with SMTP id f21mr12215591otf.67.1583129460307; 
- Sun, 01 Mar 2020 22:11:00 -0800 (PST)
-X-Google-Smtp-Source: APXvYqzk9n1kGf9eWGnQjmMslTmvzEmY6HsSBbeZWYibCmO7pmSEbJcFPwwWax9YjtwxjGU4p1/Lj8DWrLHp+AW1Nac=
-X-Received: by 2002:a9d:395:: with SMTP id f21mr12215581otf.67.1583129460026; 
- Sun, 01 Mar 2020 22:11:00 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=O4g9upqllRffGr9KjRhJnRif7J1MYZgmVWVKMiox15Q=;
+ b=ln+E+XqxOUIf1qaug9xKWpEJxhoF+Vm+1aanGlIgH2LdGvinsyGL6TKpYJzoKDcjZ0
+ rL609YNQfkQ5PPFDKuied6ji5Hi+8Gw+UcWKl62n9TIErJZTagxZOc95Z3xaLDPhfmfU
+ fi18L+FV5urIyLFbZs3nD2zx+xnHAnuzBucQ6BaqwXM/AHmDSaJuYO9Pd08p+waiXxKo
+ 4EtJyBmS4lYR4MxnS040LXbeecTzCugkx5p66Sd1AaurdvyI6C2hJHo7PUn/l6LIJ2Gc
+ fjOr7eAJ77sqHMj6wFzE9SQ0g6jBGRBud1m/fLSERR+Slx9m/EvkrcIWK1HfwUFLOZN4
+ lG1g==
+X-Gm-Message-State: ANhLgQ26SlNWKWY9taS3hchHLi6w8fIHeuLcIwYv2vu/nx6cSVE8MJB9
+ Yve9p+xA1H4VKyJtE3nUs6g46w==
+X-Google-Smtp-Source: ADFU+vtZVhuBPq1yHcYJXR3639kn6elRdAYwXLgBjjlOU5W6/UX+jtLJ/m+XhkdRp0JmZCmLGuqlmQ==
+X-Received: by 2002:a63:1547:: with SMTP id 7mr3399470pgv.353.1583131037156;
+ Sun, 01 Mar 2020 22:37:17 -0800 (PST)
+Received: from localhost ([122.167.24.230])
+ by smtp.gmail.com with ESMTPSA id k9sm10706186pjo.19.2020.03.01.22.37.15
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Sun, 01 Mar 2020 22:37:16 -0800 (PST)
+Date: Mon, 2 Mar 2020 12:07:14 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20200302063714.claovt5uyi7gxf2o@vireshk-i7>
+References: <b927e5f2cd36ec2dd57202b492563922b1a94e77.1582886993.git.viresh.kumar@linaro.org>
+ <20200228132210.GC8324@rei>
 MIME-Version: 1.0
-References: <2365a007-02fe-c48c-2df5-04aedc076208@google.com>
-In-Reply-To: <2365a007-02fe-c48c-2df5-04aedc076208@google.com>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 2 Mar 2020 14:10:49 +0800
-Message-ID: <CAEemH2csQSdvaFkQu7aRDNdp44Ri7tgbzzrtQJh40f-EPFPU=w@mail.gmail.com>
-To: Steve Muckle <smuckle@google.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+In-Reply-To: <20200228132210.GC8324@rei>
+User-Agent: NeoMutt/20180716-391-311a52
 X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] use of pthread_cancel in tst_fuzzy_sync.h
+Subject: Re: [LTP] [PATCH] syscalls/openat2: New tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,158 +78,84 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>, LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1474059457=="
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1474059457==
-Content-Type: multipart/alternative; boundary="0000000000001945c7059fd90d89"
+On 28-02-20, 14:22, Cyril Hrubis wrote:
+> > +static void run(unsigned int n)
+> > +{
+> > +	int fd;
+> > +	struct stat file_stat;
+> > +	struct tcase *tc = &tcases[n];
+> > +	struct open_how how = {
+> > +		.flags = tc->flags | O_CREAT,
+> > +		.mode = tc->mode,
+> > +		.resolve = tc->resolve
+> > +	};
+> 
+> This structure should be allocated tst_buffers, see capget01.c for
+> example.
 
---0000000000001945c7059fd90d89
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This changed few things.
 
-Hi Steve,
+I am getting a build warning now (same happen if I build bpf stuff as
+well). I don't understand why this warning comes though.
 
-Thanks for reporting this.
-
-On Sat, Feb 29, 2020 at 3:47 AM Steve Muckle <smuckle@google.com> wrote:
-
-> Hi Li,
->
-> While integrating the latest LTP release into Android's VTS test suite I
-> ran into trouble with this commit:
->
-> commit cad524797ba4cee2e40985043f113256419f4a90
-> Author: Li Wang <liwang@redhat.com>
-> Date:   Thu Sep 26 17:39:21 2019 +0800
->
->      fzsync: revoke thread_b if parent hits accidental break
->
-> It introduces a dependency on pthread_cancel() which Android does not
-> implement:
->
->
-> https://android.googlesource.com/platform/bionic/+/refs/heads/master/docs=
-/status.md
->
-> In the short term I can work around this, taking out the
-> pthread_cancel() should be fine as far as I can tell as it is just used
->
-
-Yes, for currently, we don't see another test(besides cve-2016-7117.c) that
-hits the accidental break. So I think it's safe for you to revert my patch
-on your branch:).
-
-We also have fixed on cve-2016-7117.c for the break problem in a simple way=
-:
-
-commit 2e74d9963c882289be0551df63d33f5b7dee56d8
-Author: Richard Palethorpe <rpalethorpe@suse.com>
-Date:   Thu Jan 10 10:59:50 2019 +0100
-
-    Check recvmmsg exists before entering fuzzy loop
+openat202.c:69:1: warning: missing initializer for field 'caps' of 'struct tst_test' [-Wmissing-field-initializers]
+ };
+ ^
+In file included from openat202.c:7:0:
+../../../../include/tst_test.h:236:18: note: 'caps' declared here
+  struct tst_cap *caps;
+                  ^~~~
 
 
+Also for the failure test where larger size was passed, the error
+reported now is EFAULT as kernel can't access out of bound dynamically
+allocated memory (instead of stack one earlier). In order to get
+E2BIG, I need to add some hacks (allocate more memory and write
+non-zero value to excess memory) and I don't think that would be worth
+it, so my test will expect EFAULT now.
 
-> to avoid a timeout in certain circumstances. Long term though, could
-> this be reworked to use pthread_kill() or some other mechanism?
->
+> > +	TEST(fd = openat2(*tc->dfd, tc->pathname, &how, sizeof(how)));
+> > +	if (fd == -1) {
+> > +		tst_res(TFAIL | TTERRNO, "openat2() failed (%d)", n);
+> > +		return;
+> > +	}
+> > +
+> > +	SAFE_FSTAT(fd, &file_stat);
+> > +
+> > +	if (file_stat.st_size == 0)
+> > +		tst_res(TPASS, "openat2() passed (%d)", n);
+> > +	else
+> > +		tst_res(TFAIL, "fstat() didn't work as expected (%d)", n);
+> 
+> So this is very basic test that just checks that openat() can open a
+> file and we would need a few more for each of the newly introduced
+> RESOLVE_* flags.
 
-Sure, it is a tiny defect in LTP test fuzzy synchronization. As before in
-my patch V2[1], it tried to use pthread_kill/pthread_exit for solving the
-problem, unfortunately, pthread_exit is not signal-safety function. So we
-go pthread_cancel way for the fix. I'm thinking if we can go back to merge
-these two way together now. Or maybe another idea is also welcomed~
+Hmm, this file is already testing openat2() with all different type of
+resolve flags. What kind of further tests are you suggesting here ?
 
-[1] http://lists.linux.it/pipermail/ltp/2019-January/010489.html
+> > +	{AT_FDCWD, TEST_FILE, O_RDWR | O_CREAT, S_IRWXU, 0, 2 * sizeof(struct open_how), E2BIG},
+>                                                              ^
+> 							     What
+> 							     happends if
+> 							     we pass
+> 							     size
+> 							     smaller
+> 							     than the
+> 							     sizeof(struct open_how) ?
+> 
+> Do we get EINVAL just like for 0?
 
---=20
-Regards,
-Li Wang
+Yes, added a test for that as well.
 
---0000000000001945c7059fd90d89
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Hi=C2=A0Steve,</div><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size:sma=
-ll">Thanks for reporting this.</div></div><br><div class=3D"gmail_quote"><d=
-iv dir=3D"ltr" class=3D"gmail_attr">On Sat, Feb 29, 2020 at 3:47 AM Steve M=
-uckle &lt;<a href=3D"mailto:smuckle@google.com">smuckle@google.com</a>&gt; =
-wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
-px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi Li,<br=
->
-<br>
-While integrating the latest LTP release into Android&#39;s VTS test suite =
-I <br>
-ran into trouble with this commit:<br>
-<br>
-commit cad524797ba4cee2e40985043f113256419f4a90<br>
-Author: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com" target=3D"_blank">=
-liwang@redhat.com</a>&gt;<br>
-Date:=C2=A0 =C2=A0Thu Sep 26 17:39:21 2019 +0800<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0fzsync: revoke thread_b if parent hits accidental break=
-<br>
-<br>
-It introduces a dependency on pthread_cancel() which Android does not <br>
-implement:<br>
-<br>
-<a href=3D"https://android.googlesource.com/platform/bionic/+/refs/heads/ma=
-ster/docs/status.md" rel=3D"noreferrer" target=3D"_blank">https://android.g=
-ooglesource.com/platform/bionic/+/refs/heads/master/docs/status.md</a><br>
-<br>
-In the short term I can work around this, taking out the <br>
-pthread_cancel() should be fine as far as I can tell as it is just used <br=
-></blockquote><div><br></div><div><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Yes, for currently, we don&#39;t see another test(besides cve=
--2016-7117.c) that hits the accidental break. So I think it&#39;s safe for =
-you to revert my patch on your branch:).</div><div class=3D"gmail_default" =
-style=3D"font-size:small"><br></div><div class=3D"gmail_default" style=3D"f=
-ont-size:small">We also have fixed on=C2=A0cve-2016-7117.c for the break pr=
-oblem in a simple way:</div><div class=3D"gmail_default" style=3D"font-size=
-:small"><br></div><div class=3D"gmail_default" style=3D"font-size:small">co=
-mmit 2e74d9963c882289be0551df63d33f5b7dee56d8<br>Author: Richard Palethorpe=
- &lt;<a href=3D"mailto:rpalethorpe@suse.com">rpalethorpe@suse.com</a>&gt;<b=
-r>Date: =C2=A0 Thu Jan 10 10:59:50 2019 +0100<br><br>=C2=A0 =C2=A0 Check re=
-cvmmsg exists before entering fuzzy loop<br></div><br></div><div>=C2=A0</di=
-v><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;borde=
-r-left:1px solid rgb(204,204,204);padding-left:1ex">
-to avoid a timeout in certain circumstances. Long term though, could <br>
-this be reworked to use pthread_kill() or some other mechanism?<br></blockq=
-uote><div><br></div>Sure, <span class=3D"gmail_default" style=3D"">it is a =
-tiny defect in LTP test fuzzy synchronization.=C2=A0A</span>s=C2=A0<span cl=
-ass=3D"gmail_default" style=3D"font-size:small">before</span> in my patch V=
-2<span class=3D"gmail_default" style=3D"font-size:small">[1]</span>, it <sp=
-an class=3D"gmail_default" style=3D"font-size:small">tried to</span>=C2=A0<=
-span class=3D"gmail_default" style=3D"font-size:small">use </span>pthread_k=
-ill/pthread_exit for solving the problem, unfortunately, pthread_exit is no=
-t signal-safety<span class=3D"gmail_default" style=3D"font-size:small"> fun=
-ction</span>. So we go <span class=3D"gmail_default" style=3D"font-size:sma=
-ll">pthread_cancel </span>way for the fix.<span class=3D"gmail_default" sty=
-le=3D"font-size:small"> I&#39;m thinking if we can go back to merge these t=
-wo way together now. Or maybe another idea is also welcomed~</span></div><b=
-r clear=3D"all"><div><div class=3D"gmail_default" style=3D"font-size:small"=
->[1]=C2=A0<a href=3D"http://lists.linux.it/pipermail/ltp/2019-January/01048=
-9.html">http://lists.linux.it/pipermail/ltp/2019-January/010489.html</a></d=
-iv><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"=
-ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
-
---0000000000001945c7059fd90d89--
-
-
---===============1474059457==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+viresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1474059457==--
-
