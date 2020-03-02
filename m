@@ -1,47 +1,38 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E4B617581A
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Mar 2020 11:16:33 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F5BF175C90
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Mar 2020 15:08:19 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1A1F93C6806
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Mar 2020 11:16:33 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1D8FA3C6809
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Mar 2020 15:08:19 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id DE9CD3C67ED
- for <ltp@lists.linux.it>; Mon,  2 Mar 2020 11:16:30 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 56E183C67F0
+ for <ltp@lists.linux.it>; Mon,  2 Mar 2020 15:08:16 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 501321001531
- for <ltp@lists.linux.it>; Mon,  2 Mar 2020 11:16:29 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2EDF2600066
+ for <ltp@lists.linux.it>; Mon,  2 Mar 2020 15:08:15 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 49AB6AC22;
- Mon,  2 Mar 2020 10:16:29 +0000 (UTC)
-Date: Mon, 2 Mar 2020 11:16:28 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20200302101628.GB5288@rei.lan>
-References: <b927e5f2cd36ec2dd57202b492563922b1a94e77.1582886993.git.viresh.kumar@linaro.org>
- <20200228132210.GC8324@rei>
- <20200302063714.claovt5uyi7gxf2o@vireshk-i7>
- <20200302084651.GA4736@rei.lan>
- <20200302090718.hmyxgbmrwltxiz56@vireshk-i7>
- <20200302093622.GA5288@rei.lan>
- <20200302100244.6syqeskptbsnyf6t@vireshk-i7>
+ by mx2.suse.de (Postfix) with ESMTP id 801F6B2F1
+ for <ltp@lists.linux.it>; Mon,  2 Mar 2020 14:08:15 +0000 (UTC)
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Mon,  2 Mar 2020 15:08:15 +0100
+Message-Id: <20200302140815.21440-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.25.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200302100244.6syqeskptbsnyf6t@vireshk-i7>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/openat2: New tests
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH] Add test for CVE 2018-1000204
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,36 +44,172 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > The code you had there in the first place was passing by accident
-> > because the were non-zero bytes on the stack after the structure, which
-> > is pretty bad, because if it started to fail randomly nobody would know
-> > why.
-> 
-> I know :)
-> 
-> What about this? This doesn't test the success case with pad = 0 though, as it
-> is a success case. Don't want to add a separate file for it. :)
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
+Patch resolves GH issue #334.
 
-This has still one small drawback, the whole purpose of the test buffers
-is that there is a PROT_NONE page allocated right behind the end of the
-buffer. This is implemented so that we can make sure that kernel does
-not touch any data outside of it. So the buffer has to be sized exactly
-as the tc->size otherwise there is no point in using it. So I guess we
-still need two buffers.
+ runtest/cve                                  |   1 +
+ testcases/kernel/syscalls/ioctl/ioctl_sg01.c | 133 +++++++++++++++++++
+ 2 files changed, 134 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/ioctl/ioctl_sg01.c
 
-Also I guess that we can add the success case to the openat201.c test
-but that would mean that we need two buffers there as well.
-
+diff --git a/runtest/cve b/runtest/cve
+index 57cf66075..e522b8096 100644
+--- a/runtest/cve
++++ b/runtest/cve
+@@ -39,4 +39,5 @@ cve-2017-18075 pcrypt_aead01
+ cve-2017-1000380 snd_timer01
+ cve-2018-5803 sctp_big_chunk
+ cve-2018-1000001 realpath01
++cve-2018-1000204 ioctl_sg01
+ cve-2018-19854 crypto_user01
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_sg01.c b/testcases/kernel/syscalls/ioctl/ioctl_sg01.c
+new file mode 100644
+index 000000000..c3947afbc
+--- /dev/null
++++ b/testcases/kernel/syscalls/ioctl/ioctl_sg01.c
+@@ -0,0 +1,133 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2019 SUSE LLC <mdoucha@suse.cz>
++ */
++
++/*
++ * CVE-2018-1000204
++ *
++ * Test ioctl(SG_IO) and check that kernel doesn't leak data. Requires
++ * a read-accessible SCSI-compatible device (e.g. SATA disk). Running mem01
++ * test program before this one may increase the chance of successfully
++ * reproducing the bug.
++ *
++ * Leak fixed in:
++ *
++ *  commit a45b599ad808c3c982fdcdc12b0b8611c2f92824
++ *  Author: Alexander Potapenko <glider@google.com>
++ *  Date:   Fri May 18 16:23:18 2018 +0200
++ *
++ *  scsi: sg: allocate with __GFP_ZERO in sg_build_indirect()
++ */
++
++#include <sys/types.h>
++#include <dirent.h>
++#include <fcntl.h>
++#include <unistd.h>
++#include <ctype.h>
++#include <scsi/sg.h>
++#include <sys/ioctl.h>
++#include "tst_test.h"
++
++#define BUF_SIZE 128 * 4096
++#define CMD_SIZE 6
++
++static int devfd = -1;
++static char buffer[BUF_SIZE];
++static unsigned char command[CMD_SIZE];
++static struct sg_io_hdr query;
++
++/* TODO: split this off to a separate SCSI library? */
++static const char *find_generic_scsi_device(int access_flags)
++{
++	DIR *devdir;
++	struct dirent *ent;
++	char *filename;
++	size_t path_len;
++	int tmpfd;
++	static char devpath[PATH_MAX];
++
++	errno = 0;
++	strcpy(devpath, "/dev/");
++	devdir = opendir(devpath);
++	path_len = strlen(devpath);
++	filename = devpath + path_len;
++
++	if (!devdir) {
++		return NULL;
++	}
++
++	while ((ent = SAFE_READDIR(devdir))) {
++		/* The bug is most likely reproducible only on /dev/sg* */
++		if (strncmp(ent->d_name, "sg", 2) || !isdigit(ent->d_name[2]))
++			continue;
++
++		strncpy(filename, ent->d_name, PATH_MAX - path_len - 1);
++		/* access() makes incorrect assumptions about block devices */
++		tmpfd = open(devpath, access_flags);
++
++		if (tmpfd >= 0) {
++			SAFE_CLOSE(tmpfd);
++			SAFE_CLOSEDIR(devdir);
++			return devpath;
++		}
++	}
++
++	SAFE_CLOSEDIR(devdir);
++	return NULL;
++}
++
++static void setup(void)
++{
++	const char *devpath = find_generic_scsi_device(O_RDONLY);
++
++	if (!devpath)
++		tst_brk(TCONF, "Could not find any usable SCSI device");
++
++	tst_res(TINFO, "Found SCSI device %s", devpath);
++	devfd = SAFE_OPEN(devpath, O_RDONLY);
++	query.interface_id = 'S';
++	query.dxfer_direction = SG_DXFER_FROM_DEV;
++	query.cmd_len = CMD_SIZE;
++	query.dxfer_len = BUF_SIZE;
++	query.dxferp = buffer;
++	query.cmdp = command;
++}
++
++static void cleanup(void)
++{
++	if (devfd >= 0)
++		SAFE_CLOSE(devfd);
++}
++
++static void run(void)
++{
++	size_t i;
++
++	memset(buffer, 0, BUF_SIZE);
++	TEST(ioctl(devfd, SG_IO, &query));
++
++	if (TST_RET != 0 && TST_RET != -1)
++		tst_brk(TBROK | TTERRNO, "Invalid ioctl() return value");
++
++	/* Check the output buffer even if ioctl() failed, just in case. */
++	for (i = 0; i < BUF_SIZE; i++) {
++		if (buffer[i]) {
++			tst_res(TFAIL, "Kernel memory leaked");
++			return;
++		}
++	}
++
++	tst_res(TPASS, "Output buffer is empty, no data leaked");
++}
++
++static struct tst_test test = {
++	.test_all = run,
++	.setup = setup,
++	.cleanup = cleanup,
++	.tags = (const struct tst_tag[]) {
++		{"linux-git", "e093c4be760e"},
++		{"CVE", "2018-1000204"},
++		{}
++	}
++};
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.25.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
