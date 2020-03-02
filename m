@@ -2,40 +2,54 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2C0C175478
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Mar 2020 08:31:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE75B175538
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Mar 2020 09:08:48 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A43B43C6807
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Mar 2020 08:31:26 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9A1693C6809
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Mar 2020 09:08:48 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 955163C2219
- for <ltp@lists.linux.it>; Mon,  2 Mar 2020 08:31:25 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D6FA1600B01
- for <ltp@lists.linux.it>; Mon,  2 Mar 2020 08:31:24 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 300E6AF82;
- Mon,  2 Mar 2020 07:31:23 +0000 (UTC)
-Date: Mon, 2 Mar 2020 08:31:21 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20200302073121.GA18621@dell5510>
-References: <b927e5f2cd36ec2dd57202b492563922b1a94e77.1582886993.git.viresh.kumar@linaro.org>
- <20200228132210.GC8324@rei>
- <20200302063714.claovt5uyi7gxf2o@vireshk-i7>
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id AEEE73C67EC
+ for <ltp@lists.linux.it>; Mon,  2 Mar 2020 09:08:43 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 52469600709
+ for <ltp@lists.linux.it>; Mon,  2 Mar 2020 09:08:41 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.70,506,1574092800"; d="scan'208";a="85437669"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 02 Mar 2020 16:08:38 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id EA77349DF147;
+ Mon,  2 Mar 2020 15:58:47 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1395.4; Mon, 2 Mar 2020 16:08:39 +0800
+To: Pankaj Vinadrao Joshi <Pankaj.VJ@exaleapsemi.com>
+References: <MAXPR0101MB14681590CE13BB4E2ED97CFEEEE80@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>
+ <20200228092107.GB31181@rei>
+ <MAXPR0101MB1468032C8109347B258800B7EEE70@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>
+ <42474632-110d-bf91-f9da-37b16f8e6fed@cn.fujitsu.com>
+ <MAXPR0101MB14686629CA22EDA8E38CBE6AEEE70@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <84d11eec-f182-3e14-ec0b-8909b22d8281@cn.fujitsu.com>
+Date: Mon, 2 Mar 2020 16:08:38 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200302063714.claovt5uyi7gxf2o@vireshk-i7>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+In-Reply-To: <MAXPR0101MB14686629CA22EDA8E38CBE6AEEE70@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: EA77349DF147.AF6BB
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/openat2: New tests
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] netns_netlink test failure
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,30 +61,98 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="windows-1252"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Viresh,
+Hi
 
-> I am getting a build warning now (same happen if I build bpf stuff as
-> well). I don't understand why this warning comes though.
+CC LTP mail list, you may get more info from others.
+> Hi,
+> sir, have tried this it giving error with folloeing message
+> =
 
-> openat202.c:69:1: warning: missing initializer for field 'caps' of 'struct tst_test' [-Wmissing-field-initializers]
->  };
->  ^
-> In file included from openat202.c:7:0:
-> ../../../../include/tst_test.h:236:18: note: 'caps' declared here
->   struct tst_cap *caps;
->                   ^~~~
+> root@exaleapsemi:~/pankaj_ltp# ip tuntap add dev dummy0 mode tap
+> open: No such file or directory
+It looks like your environment misses /dev/net/tun devfile, you should =
 
-This is false positive warning. Unfortunately we don't know how to avoid it.
+check your kernel config and set "CONFIG_TUN=3Dy/m".
 
-Kind regards,
-Petr
+Best Regards
+Yang Xu
+> =
 
--- 
+> Thanks
+> ------------------------------------------------------------------------
+> *From:* Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+> *Sent:* Monday, March 2, 2020 11:11 AM
+> *To:* Pankaj Vinadrao Joshi <Pankaj.VJ@exaleapsemi.com>
+> *Cc:* Cyril Hrubis <chrubis@suse.cz>; ltp@lists.linux.it
+> <ltp@lists.linux.it>
+> *Subject:* Re: [LTP] netns_netlink test failure
+> Hi
+> =
+
+>> Hi,
+>> What could be the possible reason behind failing,any guess??
+> At lease, you should attach this command output.
+> # ip tuntap add dev dummy0 mode tap
+> =
+
+> Best Regards
+> Yang Xu
+>> ------------------------------------------------------------------------
+>> *From:* Cyril Hrubis <chrubis@suse.cz>
+>> *Sent:* Friday, February 28, 2020 2:51 PM
+>> *To:* Pankaj Vinadrao Joshi <Pankaj.VJ@exaleapsemi.com>
+>> *Cc:* ltp@lists.linux.it <ltp@lists.linux.it>
+>> *Subject:* Re: [LTP] netns_netlink test failure
+>> Hi!
+>>> <<<test_output>>>
+>>> open: No such file or directory
+>>> netns_netlink=A0=A0=A0 1=A0 TBROK=A0 :=A0 netns_netlink.c:143: system()=
+ failed
+>>=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0 ^
+>>=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0 This is a line number,
+>>=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0 if you look a the
+>>=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0 source code of the
+>>=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0 test, you see:
+>>
+>>=A0=A0=A0=A0=A0=A0=A0=A0=A0 if (WEXITSTATUS(system("ip tuntap add dev dum=
+my0 mode tap")))
+>>=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 tst_brkm(TBROK, clean=
+up, "system() failed");
+>>
+>> So that the failed command was "ip tuntap add dev dummy0 mode tap", it's
+>> up to
+>> you to figure out why...
+>>
+>> --
+>> Cyril Hrubis
+>> chrubis@suse.cz
+>> [EXT]
+>>
+>>
+> =
+
+> =
+
+> [EXT]
+
+
+
+-- =
+
 Mailing list info: https://lists.linux.it/listinfo/ltp
