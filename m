@@ -1,72 +1,66 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68DDE1753DA
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Mar 2020 07:37:22 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 194F417544B
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Mar 2020 08:12:40 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 39AF03C6806
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Mar 2020 07:37:22 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 32BEB3C6816
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Mar 2020 08:12:39 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 3F5543C67FC
- for <ltp@lists.linux.it>; Mon,  2 Mar 2020 07:37:19 +0100 (CET)
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 339643C67FE
+ for <ltp@lists.linux.it>; Mon,  2 Mar 2020 08:12:33 +0100 (CET)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DBCDF60069D
- for <ltp@lists.linux.it>; Mon,  2 Mar 2020 07:37:18 +0100 (CET)
-Received: by mail-pg1-x544.google.com with SMTP id y30so4910347pga.13
- for <ltp@lists.linux.it>; Sun, 01 Mar 2020 22:37:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=O4g9upqllRffGr9KjRhJnRif7J1MYZgmVWVKMiox15Q=;
- b=RDyqmMoa6TGtlS8ViZFA6u3fy2ZEJdffZqSlSPucu7o/BVYd359a5QhEc5kigFLTjp
- vxd9pPjft2Zon/QHQwTaiuCLTDhXe8Th4NlJW4qlAqUlP3iRSdaQFlJULZJbvdFk1vcm
- 3n88XbK/zH50/ICVWTMkakMU/KIxkNVxiZwYbJjdbD/YeT/dryyLkAvIxZzTXkx2nb0G
- 4fmcbhaX5KCayHJ8X5y4PRXF5eEeI4nvoaewsCqu5340DkSuiE46MKg6kPyk/CDfto06
- Ea7rZ7KVFgh2qJWLtGB2VW4JyShwaABkTXRgQ+7hPOp24HJir2lCUje1sRQ7Ekfouulc
- v+Og==
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 825CD140118B
+ for <ltp@lists.linux.it>; Mon,  2 Mar 2020 08:12:32 +0100 (CET)
+Received: from mail-lf1-f72.google.com ([209.85.167.72])
+ by youngberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <po-hsu.lin@canonical.com>) id 1j8fFe-0007n4-Vq
+ for ltp@lists.linux.it; Mon, 02 Mar 2020 07:12:31 +0000
+Received: by mail-lf1-f72.google.com with SMTP id w22so913061lfe.1
+ for <ltp@lists.linux.it>; Sun, 01 Mar 2020 23:12:30 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=O4g9upqllRffGr9KjRhJnRif7J1MYZgmVWVKMiox15Q=;
- b=ln+E+XqxOUIf1qaug9xKWpEJxhoF+Vm+1aanGlIgH2LdGvinsyGL6TKpYJzoKDcjZ0
- rL609YNQfkQ5PPFDKuied6ji5Hi+8Gw+UcWKl62n9TIErJZTagxZOc95Z3xaLDPhfmfU
- fi18L+FV5urIyLFbZs3nD2zx+xnHAnuzBucQ6BaqwXM/AHmDSaJuYO9Pd08p+waiXxKo
- 4EtJyBmS4lYR4MxnS040LXbeecTzCugkx5p66Sd1AaurdvyI6C2hJHo7PUn/l6LIJ2Gc
- fjOr7eAJ77sqHMj6wFzE9SQ0g6jBGRBud1m/fLSERR+Slx9m/EvkrcIWK1HfwUFLOZN4
- lG1g==
-X-Gm-Message-State: ANhLgQ26SlNWKWY9taS3hchHLi6w8fIHeuLcIwYv2vu/nx6cSVE8MJB9
- Yve9p+xA1H4VKyJtE3nUs6g46w==
-X-Google-Smtp-Source: ADFU+vtZVhuBPq1yHcYJXR3639kn6elRdAYwXLgBjjlOU5W6/UX+jtLJ/m+XhkdRp0JmZCmLGuqlmQ==
-X-Received: by 2002:a63:1547:: with SMTP id 7mr3399470pgv.353.1583131037156;
- Sun, 01 Mar 2020 22:37:17 -0800 (PST)
-Received: from localhost ([122.167.24.230])
- by smtp.gmail.com with ESMTPSA id k9sm10706186pjo.19.2020.03.01.22.37.15
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 01 Mar 2020 22:37:16 -0800 (PST)
-Date: Mon, 2 Mar 2020 12:07:14 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20200302063714.claovt5uyi7gxf2o@vireshk-i7>
-References: <b927e5f2cd36ec2dd57202b492563922b1a94e77.1582886993.git.viresh.kumar@linaro.org>
- <20200228132210.GC8324@rei>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=omz09CB3OqdI+5l7F6Uz8eaXELPXI3NE3/hOHZzUEQo=;
+ b=rS9B0HjYqasgLha/GNhUBTSNHOGIShFmacMtMBPoKn3UBae8AfkqS4mFDL9u7bMO+r
+ tD5srTfw3tEgWhbOhTO0nQu6XSXiIp7VjAQvIowAUpAx62nsne5xafTZdD8A3cbjFy6G
+ PrSXt0aaZ7dU2kXJKj/IMAiTrPv0nEeK4/decq1OdApTbmj+v79IT/eZXF5BunxwElwu
+ nezoL3XeMYr3YMB2CoaCc+7J4iHnp0rc4ii8V1RvX7cGSi8DWayfxO4qynTCt8wOBJKe
+ DycAOkGFRQnFfg0iWW/biw9Hq1Zxzrg++7P+VU1bR0aow3iw7jy/wyoZgAxqyfTebOGS
+ jgBg==
+X-Gm-Message-State: ANhLgQ0CB/i5wjFc7+6evemy1TyEQiqg/aEH5LmKl1IsFP3Cs21xXfgu
+ Q4NGwgEXRJ85RvFQTN7BL/sfH2t6OEJV/EP6Zf1FqupvDQ1Vu3sWXzxQxuOKduWaTzVboboiRLF
+ SBbYqJWXleqSkCZ1V1bMnaejO/pFp7OSoEbO8Wljk/oQ=
+X-Received: by 2002:a2e:570f:: with SMTP id l15mr10876997ljb.236.1583133150189; 
+ Sun, 01 Mar 2020 23:12:30 -0800 (PST)
+X-Google-Smtp-Source: ADFU+vvc2fQPSav870RTiQkFC3DhLx03AszyqnGPs+AT5VRlUKhektFgitMhN7nxsZMgKDCQkr6QpYZb8r/HGzMcuTk=
+X-Received: by 2002:a2e:570f:: with SMTP id l15mr10876986ljb.236.1583133149906; 
+ Sun, 01 Mar 2020 23:12:29 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200228132210.GC8324@rei>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+References: <20190710072305.25806-1-po-hsu.lin@canonical.com>
+ <20190710072305.25806-2-po-hsu.lin@canonical.com>
+ <20200221055936.GA13261@dell5510>
+In-Reply-To: <20200221055936.GA13261@dell5510>
+From: Po-Hsu Lin <po-hsu.lin@canonical.com>
+Date: Mon, 2 Mar 2020 15:12:18 +0800
+Message-ID: <CAMy_GT9VC5KvgCL68fVXVfKwErwKqiNab0s8SwPw9BZxMuLReg@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/openat2: New tests
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCHv2 1/3] zram/zram_lib.sh: fix variable name and
+ algorithm retrieval
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,84 +72,83 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 28-02-20, 14:22, Cyril Hrubis wrote:
-> > +static void run(unsigned int n)
-> > +{
-> > +	int fd;
-> > +	struct stat file_stat;
-> > +	struct tcase *tc = &tcases[n];
-> > +	struct open_how how = {
-> > +		.flags = tc->flags | O_CREAT,
-> > +		.mode = tc->mode,
-> > +		.resolve = tc->resolve
-> > +	};
-> 
-> This structure should be allocated tst_buffers, see capget01.c for
-> example.
+Hello Petr,
 
-This changed few things.
+thanks for the reply, and sorry for the late response too, need some
+time to throw myself back in time.
 
-I am getting a build warning now (same happen if I build bpf stuff as
-well). I don't understand why this warning comes though.
+To my understanding, the zram_algs="lzo lzo lzo lzo" in zram01.sh is a
+dummy mapping (placeholder?) for 4 compression algorithms with 4
+different setup, one for (zram_sizes=26214400, zram_mem_limits=25M,
+zram_filesystems=ext3), and one for (zram_sizes=26214400,
+zram_mem_limits=25M, zram_filesystems=ext4) and so on.
 
-openat202.c:69:1: warning: missing initializer for field 'caps' of 'struct tst_test' [-Wmissing-field-initializers]
- };
- ^
-In file included from openat202.c:7:0:
-../../../../include/tst_test.h:236:18: note: 'caps' declared here
-  struct tst_cap *caps;
-                  ^~~~
+With this patch the test will be more comprehensive, as it's not
+trying to set the algorithm to "lzo" 4 times (as defined in zram_algs
+from zram01.sh), but try to switch to all supported algorithm reported
+back from  /sys/block/zram0/comp_algorithm
+
+So yes, this zram_algs in zram01.sh will not be used at all after
+applying my patch here, maybe it can be removed but I am not sure if
+we should keep it there as a placeholder.
+
+Cheers
 
 
-Also for the failure test where larger size was passed, the error
-reported now is EFAULT as kernel can't access out of bound dynamically
-allocated memory (instead of stack one earlier). In order to get
-E2BIG, I need to add some hacks (allocate more memory and write
-non-zero value to excess memory) and I don't think that would be worth
-it, so my test will expect EFAULT now.
-
-> > +	TEST(fd = openat2(*tc->dfd, tc->pathname, &how, sizeof(how)));
-> > +	if (fd == -1) {
-> > +		tst_res(TFAIL | TTERRNO, "openat2() failed (%d)", n);
-> > +		return;
-> > +	}
-> > +
-> > +	SAFE_FSTAT(fd, &file_stat);
-> > +
-> > +	if (file_stat.st_size == 0)
-> > +		tst_res(TPASS, "openat2() passed (%d)", n);
-> > +	else
-> > +		tst_res(TFAIL, "fstat() didn't work as expected (%d)", n);
-> 
-> So this is very basic test that just checks that openat() can open a
-> file and we would need a few more for each of the newly introduced
-> RESOLVE_* flags.
-
-Hmm, this file is already testing openat2() with all different type of
-resolve flags. What kind of further tests are you suggesting here ?
-
-> > +	{AT_FDCWD, TEST_FILE, O_RDWR | O_CREAT, S_IRWXU, 0, 2 * sizeof(struct open_how), E2BIG},
->                                                              ^
-> 							     What
-> 							     happends if
-> 							     we pass
-> 							     size
-> 							     smaller
-> 							     than the
-> 							     sizeof(struct open_how) ?
-> 
-> Do we get EINVAL just like for 0?
-
-Yes, added a test for that as well.
-
--- 
-viresh
+On Fri, Feb 21, 2020 at 1:59 PM Petr Vorel <pvorel@suse.cz> wrote:
+>
+> Hi,
+>
+> > The compression algorithm was stored into a local variable "algs",
+> > however the variable name zram_algs was used in the for loop later.
+>
+> > Unify them with algs so the default zram_algs defined in zram01 won't
+> > be altered.
+>
+> > Also, use sed to get rid of the square brackets that indicates the
+> > compression algorithm currently in use.
+> >     $ cat /sys/block/zram0/comp_algorithm
+> >     [lzo] lz4 lz4hc 842 zstd
+>
+> > Signed-off-by: Po-Hsu Lin <po-hsu.lin@canonical.com>
+> > ---
+> >  testcases/kernel/device-drivers/zram/zram_lib.sh | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> > diff --git a/testcases/kernel/device-drivers/zram/zram_lib.sh b/testcases/kernel/device-drivers/zram/zram_lib.sh
+> > index d0e7704a8..599e5f0f3 100755
+> > --- a/testcases/kernel/device-drivers/zram/zram_lib.sh
+> > +++ b/testcases/kernel/device-drivers/zram/zram_lib.sh
+> > @@ -98,10 +98,10 @@ zram_compress_alg()
+>
+> >       tst_resm TINFO "test that we can set compression algorithm"
+>
+> > -     local algs="$(cat /sys/block/zram0/comp_algorithm)"
+> > +     local algs="$(sed 's/[][]//g' /sys/block/zram0/comp_algorithm)"
+> >       tst_resm TINFO "supported algs: $algs"
+> >       local i=0
+> > -     for alg in $zram_algs; do
+> > +     for alg in $algs; do
+> >               local sys_path="/sys/block/zram${i}/comp_algorithm"
+> >               echo "$alg" >  $sys_path || \
+> >                       tst_brkm TFAIL "can't set '$alg' to $sys_path"
+>
+> Sorry for a late reply.
+>
+> What is the purpose of zram_algs="lzo lzo lzo lzo in zram01.sh?
+> It should be removed now, right? (as you decided not to set the algorithms to the ones defined in the zram01.sh
+> test at the end of this function as Cyril suggested at [1]
+>
+> Kind regards,
+> Petr
+>
+> [1] http://lists.linux.it/pipermail/ltp/2019-July/012674.html
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
