@@ -1,41 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D0AB17759E
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Mar 2020 13:04:20 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 18118177683
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Mar 2020 13:59:30 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 17F9C3C66DF
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Mar 2020 13:04:20 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id AE85B3C66D9
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Mar 2020 13:59:29 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 27F043C0BA3
- for <ltp@lists.linux.it>; Tue,  3 Mar 2020 13:04:17 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 146053C669F
+ for <ltp@lists.linux.it>; Tue,  3 Mar 2020 13:59:26 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 91D41140180E
- for <ltp@lists.linux.it>; Tue,  3 Mar 2020 13:04:17 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 41A592009D2
+ for <ltp@lists.linux.it>; Tue,  3 Mar 2020 13:59:25 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id BF797AD06;
- Tue,  3 Mar 2020 12:04:16 +0000 (UTC)
-Date: Tue, 3 Mar 2020 12:52:40 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 7B73CAF68
+ for <ltp@lists.linux.it>; Tue,  3 Mar 2020 12:59:25 +0000 (UTC)
+Date: Tue, 3 Mar 2020 13:47:49 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Alexey Kodanev <alexey.kodanev@oracle.com>
-Message-ID: <20200303115240.GD42769@gacrux.arch.suse.de>
-References: <20200302155857.923-1-pvorel@suse.cz>
- <91a9db4d-fef8-12f0-d996-87bdb7365b74@oracle.com>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <20200303124748.GA43940@gacrux.arch.suse.de>
+References: <20200303115306.16443-1-mdoucha@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <91a9db4d-fef8-12f0-d996-87bdb7365b74@oracle.com>
+In-Reply-To: <20200303115306.16443-1-mdoucha@suse.cz>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] nfs: Add fsid=PID to exportfs
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] Add test for CVE 2017-10661
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,10 +54,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Alexey,
+Hi Martin,
 
-> Agree, thanks Petr!
-Thanks for your ack, merged.
+merged. I've added timerfd_settime02 also to syscalls runtest file.
 
 Kind regards,
 Petr
