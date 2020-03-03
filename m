@@ -1,30 +1,30 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40B22177533
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Mar 2020 12:21:34 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 66A9D177540
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Mar 2020 12:26:52 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 014B93C66E5
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Mar 2020 12:21:34 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D3A1A3C66DF
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Mar 2020 12:26:51 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 4A8913C66D4
- for <ltp@lists.linux.it>; Tue,  3 Mar 2020 12:21:31 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 029A13C66CD
+ for <ltp@lists.linux.it>; Tue,  3 Mar 2020 12:26:49 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 767A160148C
- for <ltp@lists.linux.it>; Tue,  3 Mar 2020 12:21:30 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7CDCF600668
+ for <ltp@lists.linux.it>; Tue,  3 Mar 2020 12:26:49 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 88275AD4F
- for <ltp@lists.linux.it>; Tue,  3 Mar 2020 11:21:30 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
-To: LTP List <ltp@lists.linux.it>
+ by mx2.suse.de (Postfix) with ESMTP id A083EAE2A
+ for <ltp@lists.linux.it>; Tue,  3 Mar 2020 11:26:48 +0000 (UTC)
+To: Petr Vorel <pvorel@suse.cz>
 References: <20200221120850.15874-1-mdoucha@suse.cz>
  <20200303104737.GA42129@gacrux.arch.suse.de>
+ <20200303110249.GB42129@gacrux.arch.suse.de>
+From: Martin Doucha <mdoucha@suse.cz>
 Autocrypt: addr=mdoucha@suse.cz; keydata=
  mQINBF1D6M0BEAC5BHC0NuN/v+UBXDYuwuYeAJA4leuKz0H76YBevziJKUtnzMsBA+GT9vdH
  bs60wdsTbBJ1XqmQ/HWDPBV0OIGox195GSZQFblKOY1YoFXV6cv9Kyw4LyYeqozRhGx8NuE8
@@ -68,18 +68,18 @@ Autocrypt: addr=mdoucha@suse.cz; keydata=
  Rz4zFhW8KQ9+zrae5rL/6vwz3d/MpEeOmDm9uutE6xyzXRl/RxeFZ8P7KlACXWm7VjSyc74E
  eCNL6GOOeqzE77fDcBf4HvNGn8w7IX/FvNzmu78wzT2MDwMi8ug8T4KEKzIYUIRibe7cl0LG
  2dSj02pOT7E5/x4gKQB/OZqnTTQxJ0OL8BJKNFeSYqaMzKFKiYaArwuFkGnCknwh5A==
-Message-ID: <70a19473-081d-95ec-9801-d9c65b2e237c@suse.cz>
-Date: Tue, 3 Mar 2020 12:21:30 +0100
+Message-ID: <f3da1aa4-f91b-91e2-2e16-b2836355bf89@suse.cz>
+Date: Tue, 3 Mar 2020 12:26:48 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.2
 MIME-Version: 1.0
-In-Reply-To: <20200303104737.GA42129@gacrux.arch.suse.de>
+In-Reply-To: <20200303110249.GB42129@gacrux.arch.suse.de>
 Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v2] Add test for CVE 2017-10661
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -92,31 +92,29 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-KFJlc2VuZGluZyBiZWNhdXNlIEkgZm9yZ290IHRvIENDIHRoZSBMVFAgbWFpbGluZyBsaXN0IGlu
-IHRoZSBvcmlnaW5hbAptZXNzYWdlIHRvIFBldHIgVm9yZWwuKQoKT24gMy8zLzIwIDExOjQ3IEFN
-LCBQZXRyIFZvcmVsIHdyb3RlOgo+PiAtTERMSUJTCQkJKz0gLWxwdGhyZWFkIC1scnQKPj4gK3Rp
-bWVyZmRfc2V0dGltZTAyOglDRkxBR1MJKz0gLXB0aHJlYWQKPj4gK3RpbWVyZmRfc2V0dGltZTAy
-OglMRExJQlMJKz0gLXB0aHJlYWQgLWxydAo+IEludGVyZXN0aW5nLCBJIHRob3VnaHQgLXB0aHJl
-YWQgd291bGRuJ3QgYmUgbmVlZGVkIHRvIGJlIGluIExETElCUwo+IChlbm91Z2ggdG8gaGF2ZSBp
-dCBpbiBDRkxBR1MpLCBidXQgb2xkIGRpc3Ryb3MgKENlbnRPUyA2IGluIG91ciB0cmF2aXM6IGdj
-Ywo+IDQuNC43LCBnbGliYyAyLjEyKS4KCnB0aHJlYWRfY3JlYXRlKCkgbWFuIHBhZ2Ugc2F5ICJj
-b21waWxlIEFORCBsaW5rIHdpdGggLXB0aHJlYWQiLiDigL5cXyjjg4MpXy/igL4KCj4+ICsJd2hp
-bGUgKHRzdF9menN5bmNfcnVuX2EoJmZ6c3luY19wYWlyKSkgewo+PiArCQlURVNUKHB1bmNoX2Ns
-b2NrKFRGRF9USU1FUl9BQlNUSU1FIHwgVEZEX1RJTUVSX0NBTkNFTF9PTl9TRVQpKTsKPj4gKwo+
-PiArCQlpZiAoVFNUX1JFVCA9PSAtMSkKPj4gKwkJCXRzdF9yZXMoVEJST0sgfCBUVEVSUk5PLCBU
-SU1FUkZEX0ZMQUdTICIgZmFpbGVkIik7Cj4gTm93IHRoaXMgbmVlZHMgdG8gYmUgdHN0X3JlcyhU
-RkFJTCAocGVyc29uIHdobyBtZXJnZXMgdGhpcyB3aWxsIGRvKS4KPiAKPj4gKwo+PiArCQlpZiAo
-VFNUX1JFVCAhPSAwKQo+PiArCQkJdHN0X3JlcyhUQlJPSyB8IFRURVJSTk8sICJJbnZhbGlkICIg
-VElNRVJGRF9GTEFHUwo+PiArCQkJCSIgcmV0dXJuIHZhbHVlIik7Cj4gVGhlIHNhbWUgaGVyZS4K
-Ck5vLCBib3RoIHNob3VsZCBiZSB0c3RfYnJrKCkuIFRoZXJlJ3Mgbm8gcG9pbnQgY29udGludWlu
-ZyB0aGUgdGVzdCBpZgpzZXR0aW5nIHRoZSBDQU5DRUxfT05fU0VUIGZsYWcgZmFpbHMuIFNvcnJ5
-IGFib3V0IHRoZSB0eXBvLCBJIG5lZWQgbW9yZQpjb2ZmZWUuCgotLSAKTWFydGluIERvdWNoYSAg
-IG1kb3VjaGFAc3VzZS5jegpRQSBFbmdpbmVlciBmb3IgU29mdHdhcmUgTWFpbnRlbmFuY2UKU1VT
-RSBMSU5VWCwgcy5yLm8uCkNPUlNPIElJYQpLcml6aWtvdmEgMTQ4LzM0CjE4NiAwMCBQcmFndWUg
-OApDemVjaCBSZXB1YmxpYwoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxp
-bnV4Lml0L2xpc3RpbmZvL2x0cAo=
+On 3/3/20 12:02 PM, Petr Vorel wrote:
+> because failure in CentOS 6 is different:
+> timerfd01.c:36: undefined reference to `clock_gettime'
+> https://api.travis-ci.org/v3/job/657694167/log.txt
+> 
+> Obviously we need autotools check for it (trivial, I can do it before merge).
+
+Note that this is a compile error in completely different test program.
+
+-- 
+Martin Doucha   mdoucha@suse.cz
+QA Engineer for Software Maintenance
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
