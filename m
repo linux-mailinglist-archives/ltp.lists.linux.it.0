@@ -2,37 +2,82 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2A82177581
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Mar 2020 12:53:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6FE0177585
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Mar 2020 12:55:05 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 548683C66E4
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Mar 2020 12:53:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7EF853C66F2
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Mar 2020 12:55:05 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id A82DD3C66D5
- for <ltp@lists.linux.it>; Tue,  3 Mar 2020 12:53:08 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 5CBBF3C66E4
+ for <ltp@lists.linux.it>; Tue,  3 Mar 2020 12:55:03 +0100 (CET)
+Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 0CD5C6008B5
- for <ltp@lists.linux.it>; Tue,  3 Mar 2020 12:53:07 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 4D278AD4F
- for <ltp@lists.linux.it>; Tue,  3 Mar 2020 11:53:07 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
-To: pvorel@suse.cz,
-	ltp@lists.linux.it
-Date: Tue,  3 Mar 2020 12:53:06 +0100
-Message-Id: <20200303115306.16443-1-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.25.0
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4D1796013CA
+ for <ltp@lists.linux.it>; Tue,  3 Mar 2020 12:55:02 +0100 (CET)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 023Brott031229;
+ Tue, 3 Mar 2020 11:55:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=JrSFsyJI0q+VfKf4LzJnfq0mXxZ9NFh+R/4W0IDVI5E=;
+ b=LBotIRlGOBu+4HNgjKMuRTjnsWyajjRaj6WCMGbl/r2OLnMqH7jCumI+HjhPbkJ/317O
+ 4g0+hmUL1TJlV0tMsVxChZbn4md97uPG73ARxVYao4wgo0Ry7aUwu9+oAiJNl57ACqtJ
+ 24dzNAW0bVuqie9dNGawW1gBJFAdOUmcICgWcywqigAuT3K7/1wlZ2Yr02SsSm9rJPek
+ fPbYXvBE8prgJ6CX6Wx06gZdiCTTj0s44+sSnr7gzhGxXHiJWBlJZcvhX0dDgLjXZjTa
+ iAxmfJbT0ncIZg331/Fw5MQIbtwmgz4AsXXA3bsSka6vIXQ0DmD7OLdJ8CRNFKn45K0n cQ== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by userp2130.oracle.com with ESMTP id 2yffcues3e-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 03 Mar 2020 11:55:00 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 023Bh7sP082018;
+ Tue, 3 Mar 2020 11:54:59 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by aserp3030.oracle.com with ESMTP id 2yg1gx9mtm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 03 Mar 2020 11:54:59 +0000
+Received: from abhmp0009.oracle.com (abhmp0009.oracle.com [141.146.116.15])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 023Bss5I021887;
+ Tue, 3 Mar 2020 11:54:58 GMT
+Received: from ak.ru.oracle.com (/10.162.80.29)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 03 Mar 2020 03:54:53 -0800
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+References: <20200302155857.923-1-pvorel@suse.cz>
+From: Alexey Kodanev <alexey.kodanev@oracle.com>
+Message-ID: <91a9db4d-fef8-12f0-d996-87bdb7365b74@oracle.com>
+Date: Tue, 3 Mar 2020 14:59:38 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+In-Reply-To: <20200302155857.923-1-pvorel@suse.cz>
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9548
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ phishscore=0
+ suspectscore=0 malwarescore=0 mlxlogscore=999 mlxscore=0 spamscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2001150001 definitions=main-2003030090
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9548
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ mlxscore=0 bulkscore=0
+ adultscore=0 suspectscore=0 spamscore=0 malwarescore=0 impostorscore=0
+ priorityscore=1501 mlxlogscore=999 lowpriorityscore=0 clxscore=1015
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2001150001
+ definitions=main-2003030090
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v3] Add test for CVE 2017-10661
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] nfs: Add fsid=PID to exportfs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,169 +94,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
-Changes since v1:
-- typo fixes
-- code style fixes
-- move test from cve/ to kernel/syscall/timerfd/
-- add test to cve runfile
+On 02.03.2020 18:58, Petr Vorel wrote:
+> Following 0ccbcfc38 ("syscalls/statx07: add fsid= to exports"):
+> 
+> Not all filesystems are stored on devices, and not all filesystems
+> have UUIDs. tmpfs is one of them, which lead to test failing:
+> /tmp/XRzHSG/server requires fsid= for NFS export
+> 
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> Hi Alexey,
+> 
+> simple fix, but better to check.
+> I'm working on more NFS related fixes.
+> 
 
-Changes since v2:
-- Fix broken Makefile
-- Remove CFLAGS because timer_settime02 gets compiled and linked in one step
-- Fix tst_res(TBROK) calls which were meant to be tst_brk(TBROK)
+Agree, thanks Petr!
 
- runtest/cve                                   |   1 +
- testcases/kernel/syscalls/timerfd/Makefile    |   3 +-
- .../syscalls/timerfd/timerfd_settime02.c      | 110 ++++++++++++++++++
- 3 files changed, 113 insertions(+), 1 deletion(-)
- create mode 100644 testcases/kernel/syscalls/timerfd/timerfd_settime02.c
+> Kind regards,
+> Petr
+> 
+>  testcases/network/nfs/nfs_stress/nfs_lib.sh | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/testcases/network/nfs/nfs_stress/nfs_lib.sh b/testcases/network/nfs/nfs_stress/nfs_lib.sh
+> index e4a0c7e27..66f2fb038 100644
+> --- a/testcases/network/nfs/nfs_stress/nfs_lib.sh
+> +++ b/testcases/network/nfs/nfs_stress/nfs_lib.sh
+> @@ -48,7 +48,7 @@ get_socket_type()
+>  
+>  nfs_setup_server()
+>  {
+> -	local export_cmd="exportfs -i -o no_root_squash,rw *:$remote_dir"
+> +	local export_cmd="exportfs -i -o fsid=$$,no_root_squash,rw *:$remote_dir"
+>  
+>  	if [ -n "$LTP_NETNS" ]; then
+>  		if [ ! -d $remote_dir ]; then
+> 
 
-diff --git a/runtest/cve b/runtest/cve
-index 57cf66075..36c5ba1d6 100644
---- a/runtest/cve
-+++ b/runtest/cve
-@@ -19,6 +19,7 @@ cve-2017-2671 cve-2017-2671
- cve-2017-6951 request_key05
- cve-2017-7308 setsockopt02
- cve-2017-7472 keyctl04
-+cve-2017-10661 timerfd_settime02
- cve-2017-12192 keyctl07
- cve-2017-12193 add_key04
- cve-2017-15274 add_key02
-diff --git a/testcases/kernel/syscalls/timerfd/Makefile b/testcases/kernel/syscalls/timerfd/Makefile
-index 3691a8c36..b47e156d3 100644
---- a/testcases/kernel/syscalls/timerfd/Makefile
-+++ b/testcases/kernel/syscalls/timerfd/Makefile
-@@ -20,6 +20,7 @@ top_srcdir		?= ../../../..
- 
- include $(top_srcdir)/include/mk/testcases.mk
- 
--LDLIBS			+= -lpthread -lrt
-+LDLIBS			+= -lrt
-+timerfd_settime02:	LDLIBS	+= -pthread
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/timerfd/timerfd_settime02.c b/testcases/kernel/syscalls/timerfd/timerfd_settime02.c
-new file mode 100644
-index 000000000..7fa26de62
---- /dev/null
-+++ b/testcases/kernel/syscalls/timerfd/timerfd_settime02.c
-@@ -0,0 +1,110 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2020 SUSE LLC <mdoucha@suse.cz>
-+ *
-+ * CVE-2017-10661
-+ *
-+ * Test for race condition vulnerability in timerfd_settime(). Multiple
-+ * concurrent calls of timerfd_settime() clearing the CANCEL_ON_SET flag may
-+ * cause memory corruption. Fixed in:
-+ *
-+ *  commit 1e38da300e1e395a15048b0af1e5305bd91402f6
-+ *  Author: Thomas Gleixner <tglx@linutronix.de>
-+ *  Date:   Tue Jan 31 15:24:03 2017 +0100
-+ *
-+ *  timerfd: Protect the might cancel mechanism proper
-+ */
-+#include <unistd.h>
-+#include <lapi/timerfd.h>
-+#include "tst_test.h"
-+#include "tst_fuzzy_sync.h"
-+#include "tst_taint.h"
-+
-+#define TIMERFD_FLAGS "timerfd_settime(TFD_TIMER_ABSTIME | TFD_TIMER_CANCEL_ON_SET)"
-+
-+#ifndef TFD_TIMER_CANCEL_ON_SET
-+#define TFD_TIMER_CANCEL_ON_SET (1<<1)
-+#endif
-+
-+static int fd = -1;
-+static struct itimerspec its;
-+static struct tst_fzsync_pair fzsync_pair;
-+
-+static void setup(void)
-+{
-+	int ttype;
-+
-+	tst_taint_init(TST_TAINT_W | TST_TAINT_D);
-+	errno = 0;
-+	fd = timerfd_create(CLOCK_REALTIME, 0);
-+
-+	if (fd < 0) {
-+		ttype = (errno == ENOTSUP ? TCONF : TBROK);
-+		tst_brk(ttype | TERRNO, "Cannot create timer");
-+	}
-+
-+	fzsync_pair.exec_loops = 1000000;
-+	tst_fzsync_pair_init(&fzsync_pair);
-+}
-+
-+static void cleanup(void)
-+{
-+	if (fd >= 0)
-+		SAFE_CLOSE(fd);
-+	tst_fzsync_pair_cleanup(&fzsync_pair);
-+}
-+
-+static int punch_clock(int flags)
-+{
-+	return timerfd_settime(fd, flags, &its, NULL);
-+}
-+
-+static void *thread_run(void *arg)
-+{
-+	while (tst_fzsync_run_b(&fzsync_pair)) {
-+		tst_fzsync_start_race_b(&fzsync_pair);
-+		punch_clock(0);
-+		tst_fzsync_end_race_b(&fzsync_pair);
-+	}
-+
-+	return arg;
-+}
-+
-+static void run(void)
-+{
-+	tst_fzsync_pair_reset(&fzsync_pair, thread_run);
-+
-+	while (tst_fzsync_run_a(&fzsync_pair)) {
-+		TEST(punch_clock(TFD_TIMER_ABSTIME | TFD_TIMER_CANCEL_ON_SET));
-+
-+		if (TST_RET == -1)
-+			tst_brk(TBROK | TTERRNO, TIMERFD_FLAGS " failed");
-+
-+		if (TST_RET != 0)
-+			tst_brk(TBROK | TTERRNO, "Invalid " TIMERFD_FLAGS
-+				" return value");
-+
-+		tst_fzsync_start_race_a(&fzsync_pair);
-+		punch_clock(0);
-+		tst_fzsync_end_race_a(&fzsync_pair);
-+
-+		if (tst_taint_check()) {
-+			tst_res(TFAIL, "Kernel is vulnerable");
-+			return;
-+		}
-+	}
-+
-+	tst_res(TPASS, "Nothing bad happened, probably");
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.min_kver = "2.6.25",
-+	.tags = (const struct tst_tag[]) {
-+		{"linux-git", "1e38da300e1e"},
-+		{"CVE", "2017-10661"},
-+		{}
-+	}
-+};
--- 
-2.25.0
-
+Acked-by: Alexey Kodanev <alexey.kodanev@oracle.com>
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
