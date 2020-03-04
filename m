@@ -1,28 +1,30 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BCAE179424
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Mar 2020 16:56:35 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B9247179445
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Mar 2020 17:02:52 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D0DEB3C661A
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Mar 2020 16:56:34 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 25CCA3C6654
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Mar 2020 17:02:52 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 110BE3C65D9
- for <ltp@lists.linux.it>; Wed,  4 Mar 2020 16:56:32 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 80AAD3C65E7
+ for <ltp@lists.linux.it>; Wed,  4 Mar 2020 17:02:46 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 72F541401DA8
- for <ltp@lists.linux.it>; Wed,  4 Mar 2020 16:56:32 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id AB6E31A01E19
+ for <ltp@lists.linux.it>; Wed,  4 Mar 2020 17:02:45 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id AECB8ABD1
- for <ltp@lists.linux.it>; Wed,  4 Mar 2020 15:56:31 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 2904BB1FC
+ for <ltp@lists.linux.it>; Wed,  4 Mar 2020 16:02:44 +0000 (UTC)
+From: Martin Doucha <mdoucha@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
 References: <20200304151201.19117-1-pvorel@suse.cz>
-From: Martin Doucha <mdoucha@suse.cz>
+ <b42e93cb-b06d-538c-a5ff-1d110ed8ce74@suse.cz>
 Autocrypt: addr=mdoucha@suse.cz; keydata=
  mQINBF1D6M0BEAC5BHC0NuN/v+UBXDYuwuYeAJA4leuKz0H76YBevziJKUtnzMsBA+GT9vdH
  bs60wdsTbBJ1XqmQ/HWDPBV0OIGox195GSZQFblKOY1YoFXV6cv9Kyw4LyYeqozRhGx8NuE8
@@ -66,18 +68,18 @@ Autocrypt: addr=mdoucha@suse.cz; keydata=
  Rz4zFhW8KQ9+zrae5rL/6vwz3d/MpEeOmDm9uutE6xyzXRl/RxeFZ8P7KlACXWm7VjSyc74E
  eCNL6GOOeqzE77fDcBf4HvNGn8w7IX/FvNzmu78wzT2MDwMi8ug8T4KEKzIYUIRibe7cl0LG
  2dSj02pOT7E5/x4gKQB/OZqnTTQxJ0OL8BJKNFeSYqaMzKFKiYaArwuFkGnCknwh5A==
-Message-ID: <b42e93cb-b06d-538c-a5ff-1d110ed8ce74@suse.cz>
-Date: Wed, 4 Mar 2020 16:56:31 +0100
+Message-ID: <dc371963-7dd4-1414-f1c9-19696ffc0124@suse.cz>
+Date: Wed, 4 Mar 2020 17:02:12 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <20200304151201.19117-1-pvorel@suse.cz>
+In-Reply-To: <b42e93cb-b06d-538c-a5ff-1d110ed8ce74@suse.cz>
 Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 1/2] lib: Add safe timerfd macros
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -95,128 +97,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello
-
-On 04. 03. 20 16:12, Petr Vorel wrote:
-> SAFE_TIMERFD_CREATE(), SAFE_TIMERFD_GETTIME() and SAFE_TIMERFD_SETTIME()
-> 
-> Added only to new C API.
-> 
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
-> Hi,
-> 
-> NOTE: ENOSYS is handled by ltp_syscall in lapi/timerfd.h.
-> + I wonder include/tst_safe_timerfd.h and lapi/timerfd.h shouldn't be
-> merged into single file.
-> 
-> Kind regards,
-> Petr
-> 
->  include/tst_safe_timerfd.h | 73 ++++++++++++++++++++++++++++++++++++++
->  1 file changed, 73 insertions(+)
->  create mode 100644 include/tst_safe_timerfd.h
-> 
-> diff --git a/include/tst_safe_timerfd.h b/include/tst_safe_timerfd.h
-> new file mode 100644
-> index 000000000..4019527d6
-> --- /dev/null
-> +++ b/include/tst_safe_timerfd.h
-> @@ -0,0 +1,73 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2020 Petr Vorel <pvorel@suse.cz>
-> + */
-> +
-> +#ifndef TST_SAFE_TIMERFD_H__
-> +#define TST_SAFE_TIMERFD_H__
-> +
-
-Please split the following code off to a separate .c file:
-
-> +#include <errno.h>
-> +#include "lapi/timerfd.h"
-> +#include "tst_test.h"
-> +
-> +#define TTYPE (errno == ENOTSUP ? TCONF : TBROK)
-> +
-> +static inline int safe_timerfd_create(const char *file, const int lineno,
-> +				      int clockid, int flags)
-> +{
-> +	int fd;
-> +
-
-Don't forget to clear errno when you're not using the TEST() macro.
-
-> +	fd = timerfd_create(clockid, flags);
-> +
-> +	if (fd < 0) {
-> +		tst_brk(TTYPE | TERRNO, "%s:%d: timerfd_create() failed",
-> +			file, lineno);
-> +	}
-> +
-> +	return fd;
-> +}
-> +
-> +static inline int safe_timerfd_gettime(const char *file, const int lineno,
-> +				int fd, struct itimerspec *curr_value)
-> +{
-> +	int rval;
-> +
-
-Same here.
-
-> +	rval = timerfd_gettime(fd, curr_value);
-> +	if (rval < 0) {
-> +		tst_brk(TTYPE | TERRNO, "%s:%d: timerfd_gettime() failed",
-> +			file, lineno);
-> +	}
-> +
-> +	return rval;
-> +}
-> +
-> +static inline int safe_timerfd_settime(const char *file, const int lineno,
-> +				int fd, int flags,
-> +				const struct itimerspec *new_value,
-> +				struct itimerspec *old_value)
-> +{
-> +	int rval;
-> +
-
-And here-ish.
-
-> +	if (tst_kvercmp(2, 6, 26) <= 0)
-> +		flags = 0;
-
-I think tst_brk(TCONF) would be better here. Or at least tst_res(TWARN),
-since resetting flags to 0 may render some tests useless.
-
-> +
-> +	rval = timerfd_settime(fd, flags, new_value, old_value);
-> +	if (rval < 0) {
-> +		tst_brk(TTYPE | TERRNO, "%s:%d: timerfd_settime() failed",
-> +			file, lineno);
-> +	}
-> +
-> +	return rval;
-> +}
-
-Split off up to here.
-
-> +
-> +#define SAFE_TIMERFD_CREATE(clockid, flags)\
-> +	safe_timerfd_create(__FILE__, __LINE__, (clockid), (flags))
-> +
-> +#define SAFE_TIMERFD_GETTIME(fd, curr_value)\
-> +	safe_timerfd_gettime(__FILE__, __LINE__, (fd), (curr_value))
-> +
-> +#define SAFE_TIMERFD_SETTIME(fd, flags, new_value, old_value)\
-> +	safe_timerfd_settime(__FILE__, __LINE__, (fd), (flags), (new_value), \
-> +						 (old_value))
-> +
-> +#endif /* SAFE_TIMERFD_H__ */
-> 
-
+I forgot to add one more thing: making the return value checks more
+pedantic would also be nice.
 
 -- 
 Martin Doucha   mdoucha@suse.cz
