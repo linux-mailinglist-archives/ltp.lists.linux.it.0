@@ -1,40 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D806F17984B
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Mar 2020 19:46:26 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D1825179852
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Mar 2020 19:47:37 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3A6673C663D
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Mar 2020 19:46:26 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7B6453C6660
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Mar 2020 19:47:37 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 12FAD3C6628
- for <ltp@lists.linux.it>; Wed,  4 Mar 2020 19:46:21 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 521263C6628
+ for <ltp@lists.linux.it>; Wed,  4 Mar 2020 19:47:33 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id ABCC6602183
- for <ltp@lists.linux.it>; Wed,  4 Mar 2020 19:46:20 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id EB316100288C
+ for <ltp@lists.linux.it>; Wed,  4 Mar 2020 19:47:32 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id CDF78AE1C
- for <ltp@lists.linux.it>; Wed,  4 Mar 2020 18:46:19 +0000 (UTC)
-Date: Wed, 4 Mar 2020 19:46:18 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 68B9CAE1C
+ for <ltp@lists.linux.it>; Wed,  4 Mar 2020 18:47:32 +0000 (UTC)
+Date: Wed, 4 Mar 2020 19:47:30 +0100
 From: Petr Vorel <pvorel@suse.cz>
 To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20200304184618.GA20097@dell5510>
+Message-ID: <20200304184730.GB20097@dell5510>
 References: <20200304152401.7432-1-chrubis@suse.cz>
+ <20200304152401.7432-2-chrubis@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200304152401.7432-1-chrubis@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+In-Reply-To: <20200304152401.7432-2-chrubis@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 01/12] lib: Move tst_clock_name() to tst_clock.c
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 02/12] include/tst_safe_clocks.h: Make use of
+ tst_clock_name()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,9 +56,6 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Cyril,
-
-> Move tst_clock_name() from tst_timer.c to tst_clock.c and add a few
-> missing clocks.
 
 Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
