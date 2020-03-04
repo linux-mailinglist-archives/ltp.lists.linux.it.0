@@ -1,51 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 593B5178A4E
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Mar 2020 06:43:21 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DDFA178BA6
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Mar 2020 08:45:12 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2869F3C65D7
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Mar 2020 06:43:21 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0D6613C6619
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Mar 2020 08:45:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id D5A883C65CD
- for <ltp@lists.linux.it>; Wed,  4 Mar 2020 06:43:18 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 1D913600847
- for <ltp@lists.linux.it>; Wed,  4 Mar 2020 06:43:16 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.70,513,1574092800"; d="scan'208";a="85615785"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 04 Mar 2020 13:43:12 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 9FC9450A997D;
- Wed,  4 Mar 2020 13:33:16 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1395.4; Wed, 4 Mar 2020 13:43:06 +0800
-To: Pankaj Vinadrao Joshi <Pankaj.VJ@exaleapsemi.com>
-References: <MAXPR0101MB14687839FE18D4BC633BF475EEE50@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <31b51443-dbf1-76a8-a8e4-672ecbad0f87@cn.fujitsu.com>
-Date: Wed, 4 Mar 2020 13:43:06 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 40D583C65E1
+ for <ltp@lists.linux.it>; Wed,  4 Mar 2020 08:45:08 +0100 (CET)
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 7C58420129A
+ for <ltp@lists.linux.it>; Wed,  4 Mar 2020 08:45:07 +0100 (CET)
+Received: by mail-pl1-x644.google.com with SMTP id g6so662072plt.2
+ for <ltp@lists.linux.it>; Tue, 03 Mar 2020 23:45:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=34S5CIT4H3hXtpJsR6D3gtNVVdo8ZN0z11PUEc1WQLU=;
+ b=nZ/YhYdUjOuVJMQcNbPScZczbAdsLPOcyNnZGR1CKapaIejLTz306qQMDs+Vd6tmZY
+ YTrzvJ9OxoGDJ3PGt3pnzTcTb1OjOthQUCcOoAfmC96PUsF5NDGnyFqjCikxugmFx346
+ Oa5lKcyAXS9QufUXZlCpVwOcyzQvfiAyJpqgA+Z/drZjQur6yuWCPNntrQayRcDHNpsn
+ RvSYMky9+2JzJXUJV8TYi08GkcNGtbudHOugKgC6WyhtSouhots5fIsYvLqZjuPTtQPX
+ /xAEy2bBvdMcyRZmTzRAvYHZanOA2TvPdKQzgfTkadARyAIacqG7padRRAt4K7fO7poh
+ 1GPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=34S5CIT4H3hXtpJsR6D3gtNVVdo8ZN0z11PUEc1WQLU=;
+ b=F5cF5F+ujtrobJWaM/zmkbvQSMLal9/6GrPtaAZtdm0yobtEu9Mft37zdNEKZY0JR1
+ B0vniCFuzU0JnQ8Q5fp9jKTDSQtsBOk0tbjg3SNLUtJ3YyHGnnsxP4A+z9gNJDID8Feg
+ iOYgdPUJSrUTwpNZn6mcxJuitX7eLtr1lBeFJosApM6jLOZuJb9ffOAeXdcNGjKfi/cC
+ QoMz+oPKn3Aa4l4bBjN8RfMHwlvJvKk33U2itKWCCuGEP5X0ifqJF1tSK4AvbYUrCrIQ
+ 5d1D6EmLszzi6htH4O0y6gOpJIua5v4SGXZXqZ9Bdzy4rFdGLIa7VP9roJaKB2mR34EW
+ hLUw==
+X-Gm-Message-State: ANhLgQ0uHJ9RHXUD6hw5PJdMFs1XtFJCeT0oIIRqcvTIIGT8Vc5z+MPi
+ GAyIozAck53UG3sUDy1GSK4O+w==
+X-Google-Smtp-Source: ADFU+vvpMVqloTaBNBF8cg/c8oRwdikxHoM94wHaTFYOsQQFifCwOTMfwzg3R896REKAQI1WJkTWfw==
+X-Received: by 2002:a17:90b:1254:: with SMTP id
+ gx20mr1684508pjb.185.1583307905545; 
+ Tue, 03 Mar 2020 23:45:05 -0800 (PST)
+Received: from localhost ([122.167.24.230])
+ by smtp.gmail.com with ESMTPSA id s123sm23691250pfs.21.2020.03.03.23.45.03
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 03 Mar 2020 23:45:04 -0800 (PST)
+Date: Wed, 4 Mar 2020 13:15:02 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20200304074502.i5zpf5q4gxcz2vz5@vireshk-i7>
+References: <CAKohponuu3zpsQCv0v1_Yqb_tmqy5yyUejMoS1_M_UFf5FU2Mw@mail.gmail.com>
+ <20200228085859.GA31181@rei>
+ <20200228102432.3kdhl4aqkla4akss@vireshk-i7>
+ <20200228114801.GA8324@rei>
 MIME-Version: 1.0
-In-Reply-To: <MAXPR0101MB14687839FE18D4BC633BF475EEE50@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 9FC9450A997D.AF8CD
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200228114801.GA8324@rei>
+User-Agent: NeoMutt/20180716-391-311a52
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] LTP autoconfig
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] Query: Adding support for clone3()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,44 +81,33 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-
-
-> Hi,
-> i have cloned git from github and going ahead with procedure i facing 
-> following problem
+On 28-02-20, 12:48, Cyril Hrubis wrote:
+> That depends I guess mostly on the clone() flags, right? Unless we pass
+> CLONE_VM the child lives in a separate copy of the memory space and we
+> do not have to do anything about the stack.
 > 
-> root@exaleapsemi:~/pankaj_ltp/ltp# make autotools
-> aclocal -I m4
-> Can't locate Exporter.pm in @INC (you may need to install the Exporter 
-> module) (@INC contains: /usr/share/automake-1.16 
-Here has said the reason, you should install perl-Exporter
-module/package.
-
-Best Regards
-Yang Xu
-> /usr/lib/perl5/site_perl/5.30.0/riscv64-linux 
-> /usr/lib/perl5/site_perl/5.30.0 
-> /usr/lib/perl5/vendor_perl/5.30.0/riscv64-linux 
-> /usr/lib/perl5/vendor_perl/5.30.0 /usr/lib/perl5/5.30.0/riscv64-linux 
-> /usr/lib/perl5/5.30.0 .) at /usr/share/automake-1.16/Automake/Config.pm 
-> line 22.
-> Compilation failed in require at /usr/bin/aclocal line 37.
-> BEGIN failed--compilation aborted at /usr/bin/aclocal line 37.
-> make: *** [/home/root/pankaj_ltp/ltp/include/mk/automake.mk:45: 
-> aclocal.m4] Error 2
+> So for the most clone3() tests we can just need the struct clone_args
+> and the syscall number and we can treat it mostly like more complex
+> version of fork(), i.e. pass NULL and 0 for the stack and stack_size
+> parameters.
 > 
-> 
-> Thanks
-> 
+> So I would start by adding the kernel version of the clone3() syscall,
+> the structure, and the V0 structure size into the lapi header and use
+> that for a basic testcases.
 
+Okay, so you are suggesting here to create a separate
+testcases/kernel/syscalls/clone3 directory for the tests ? That makes
+sense as a user may want to test both clone and clone3 on a platform
+for a given kernel version.
 
+-- 
+viresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
