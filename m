@@ -2,39 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F64117A6AE
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2020 14:49:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95D5417A6B2
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2020 14:49:35 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A1B0F3C653D
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2020 14:49:14 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 457E63C6536
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2020 14:49:35 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 5A7F93C6540
- for <ltp@lists.linux.it>; Thu,  5 Mar 2020 14:48:39 +0100 (CET)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 0F1203C6549
+ for <ltp@lists.linux.it>; Thu,  5 Mar 2020 14:48:40 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 07788600BC8
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id B61C460CB8E
  for <ltp@lists.linux.it>; Thu,  5 Mar 2020 14:48:39 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 9E8DBAB6D
- for <ltp@lists.linux.it>; Thu,  5 Mar 2020 13:48:38 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 5F2F7AB6D
+ for <ltp@lists.linux.it>; Thu,  5 Mar 2020 13:48:39 +0000 (UTC)
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu,  5 Mar 2020 14:48:30 +0100
-Message-Id: <20200305134834.16736-5-chrubis@suse.cz>
+Date: Thu,  5 Mar 2020 14:48:31 +0100
+Message-Id: <20200305134834.16736-6-chrubis@suse.cz>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20200305134834.16736-1-chrubis@suse.cz>
 References: <20200305134834.16736-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 4/8] syscalls/sysinfo03: Add time namespace test
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 5/8] syscalls/clock_nanosleep03: Add test for time
+ namespace
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,135 +52,123 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This tests that the uptime in sysinfo() is adjusted correctly by the
-namespace offset.
-
-Also check that /proc/uptime is consistent with the uptime from the
-sysinfo() syscall.
+Test that absolute timeout for clock nanosleep is adjusted by the offset
+correctly inside of a time namespace.
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- runtest/containers                            |  3 +
+ runtest/containers                            |  1 +
  runtest/syscalls                              |  1 +
- testcases/kernel/syscalls/sysinfo/.gitignore  |  1 +
- testcases/kernel/syscalls/sysinfo/sysinfo03.c | 78 +++++++++++++++++++
- 4 files changed, 83 insertions(+)
- create mode 100644 testcases/kernel/syscalls/sysinfo/sysinfo03.c
+ .../syscalls/clock_nanosleep/.gitignore       |  1 +
+ .../clock_nanosleep/clock_nanosleep03.c       | 71 +++++++++++++++++++
+ 4 files changed, 74 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/clock_nanosleep/clock_nanosleep03.c
 
 diff --git a/runtest/containers b/runtest/containers
-index 871cd2a42..4dc05af93 100644
+index 4dc05af93..8100cd2bc 100644
 --- a/runtest/containers
 +++ b/runtest/containers
-@@ -85,3 +85,6 @@ userns04 userns04
- userns05 userns05
- userns06 userns06
- userns07 userns07
-+
-+# time namespaces
-+sysinfo03 sysinfo03
+@@ -88,3 +88,4 @@ userns07 userns07
+ 
+ # time namespaces
+ sysinfo03 sysinfo03
++clock_nanosleep03 clock_nanosleep03
 diff --git a/runtest/syscalls b/runtest/syscalls
-index 06d96470c..34bd5c3da 100644
+index 34bd5c3da..d19ae0041 100644
 --- a/runtest/syscalls
 +++ b/runtest/syscalls
-@@ -1441,6 +1441,7 @@ sysfs06 sysfs06
+@@ -87,6 +87,7 @@ clock_getres01 clock_getres01
+ clock_nanosleep01 clock_nanosleep01
+ clock_nanosleep02 clock_nanosleep02
+ clock_nanosleep2_01 clock_nanosleep2_01
++clock_nanosleep03 clock_nanosleep03
  
- sysinfo01 sysinfo01
- sysinfo02 sysinfo02
-+sysinfo03 sysinfo03
- 
- syslog01 syslog01
- syslog02 syslog02
-diff --git a/testcases/kernel/syscalls/sysinfo/.gitignore b/testcases/kernel/syscalls/sysinfo/.gitignore
-index aa7c26946..8ad2279a4 100644
---- a/testcases/kernel/syscalls/sysinfo/.gitignore
-+++ b/testcases/kernel/syscalls/sysinfo/.gitignore
+ clock_gettime01 clock_gettime01
+ clock_gettime02 clock_gettime02
+diff --git a/testcases/kernel/syscalls/clock_nanosleep/.gitignore b/testcases/kernel/syscalls/clock_nanosleep/.gitignore
+index 6714ff468..406897cde 100644
+--- a/testcases/kernel/syscalls/clock_nanosleep/.gitignore
++++ b/testcases/kernel/syscalls/clock_nanosleep/.gitignore
 @@ -1,2 +1,3 @@
- /sysinfo01
- /sysinfo02
-+/sysinfo03
-diff --git a/testcases/kernel/syscalls/sysinfo/sysinfo03.c b/testcases/kernel/syscalls/sysinfo/sysinfo03.c
+ /clock_nanosleep01
+ /clock_nanosleep02
++/clock_nanosleep03
+diff --git a/testcases/kernel/syscalls/clock_nanosleep/clock_nanosleep03.c b/testcases/kernel/syscalls/clock_nanosleep/clock_nanosleep03.c
 new file mode 100644
-index 000000000..979e6e0a7
+index 000000000..99ff99736
 --- /dev/null
-+++ b/testcases/kernel/syscalls/sysinfo/sysinfo03.c
-@@ -0,0 +1,78 @@
++++ b/testcases/kernel/syscalls/clock_nanosleep/clock_nanosleep03.c
+@@ -0,0 +1,71 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
++
 +  Copyright (c) 2020 Cyril Hrubis <chrubis@suse.cz>
++
 + */
 +/*
 +
-+  Test if CLOCK_BOOTTIME namespace offset is applied to sysinfo uptime and that
-+  it's consistent with /proc/uptime as well.
++   Test that clock_nanosleep() adds correctly an offset with absolute timeout
++   and CLOCK_MONOTONIC inside of a timer namespace.
 +
-+  After a call to unshare(CLONE_NEWTIME) a new timer namespace is created, the
-+  process that has called the unshare() can adjust offsets for CLOCK_MONOTONIC
-+  and CLOCK_BOOTTIME for its children by writing to the '/proc/self/timens_offsets'.
++   After a call to unshare(CLONE_NEWTIME) a new timer namespace is created, the
++   process that has called the unshare() can adjust offsets for CLOCK_MONOTONIC
++   and CLOCK_BOOTTIME for its children by writing to the '/proc/self/timens_offsets'.
 +
 + */
 +
-+#include <sys/sysinfo.h>
++#include <stdlib.h>
++#include "tst_safe_clocks.h"
++#include "tst_timer.h"
 +#include "lapi/namespaces_constants.h"
 +#include "tst_test.h"
 +
-+static int offsets[] = {
-+	10,
-+	-10,
-+	3600,
-+};
++#define OFFSET_S 10
++#define SLEEP_US 100000
 +
-+static long read_proc_uptime(void)
++static void verify_clock_nanosleep(void)
 +{
-+	long sec, sec_rem;
-+
-+	SAFE_FILE_SCANF("/proc/uptime", "%li.%li", &sec, &sec_rem);
-+
-+	return sec + (sec_rem ? 1 : 0);
-+}
-+
-+static void verify_sysinfo(unsigned int n)
-+{
-+	struct sysinfo si;
-+	long uptime;
-+	int off = offsets[n];
++	struct timespec start, end, sleep_abs;
 +
 +	SAFE_UNSHARE(CLONE_NEWTIME);
 +
-+        SAFE_FILE_PRINTF("/proc/self/timens_offsets", "%d %d 0",
-+	                 CLOCK_BOOTTIME, off);
++	SAFE_FILE_PRINTF("/proc/self/timens_offsets", "%d %d 0", CLOCK_MONOTONIC, OFFSET_S);
 +
-+	sysinfo(&si);
++	SAFE_CLOCK_GETTIME(CLOCK_MONOTONIC, &start);
 +
-+	uptime = si.uptime;
++	sleep_abs = tst_timespec_add_us(start, 1000000 * OFFSET_S + SLEEP_US);
 +
 +	if (!SAFE_FORK()) {
-+		sysinfo(&si);
-+		long proc_uptime = read_proc_uptime();
-+
-+		long diff = si.uptime - uptime;
-+
-+		if (diff < off || diff > off + 1)
-+			tst_res(TFAIL, "Wrong sysinfo uptime offset %li", diff);
-+		else
-+			tst_res(TPASS, "Correct sysinfo uptime offset %i", off);
-+
-+		if (si.uptime < proc_uptime || si.uptime > proc_uptime + 1) {
-+			tst_res(TFAIL, "/proc/uptime %li differs from sysinfo %li",
-+			        proc_uptime, si.uptime);
-+		} else {
-+			tst_res(TPASS, "/proc/uptime is consistent with sysinfo");
-+		}
++		clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &sleep_abs, NULL);
++		exit(0);
 +	}
++
++	SAFE_WAIT(NULL);
++
++	SAFE_CLOCK_GETTIME(CLOCK_MONOTONIC, &end);
++
++	long long diff = tst_timespec_diff_us(end, start);
++
++	if (diff > 5 * SLEEP_US) {
++		tst_res(TFAIL, "clock_nanosleep() slept too long %lli", diff);
++		return;
++	}
++
++	if (diff < SLEEP_US) {
++		tst_res(TFAIL, "clock_nanosleep() slept too short %lli", diff);
++		return;
++	}
++
++	tst_res(TPASS, "clock_nanosleep() slept correctly %lli", diff);
 +}
 +
 +static struct tst_test test = {
-+	.tcnt = ARRAY_SIZE(offsets),
-+	.test = verify_sysinfo,
++	.test_all = verify_clock_nanosleep,
 +	.needs_root = 1,
 +	.forks_child = 1,
 +	.needs_kconfigs = (const char *[]) {
 +		"CONFIG_TIME_NS=y"
 +	}
++
 +};
 -- 
 2.23.0
