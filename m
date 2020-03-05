@@ -2,36 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BD9B17A79B
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2020 15:37:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0421E17A7B9
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2020 15:37:14 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0F3533C6536
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2020 15:37:01 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A7F643C6540
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2020 15:37:13 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 9DFF13C6507
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id AE31A3C650A
  for <ltp@lists.linux.it>; Thu,  5 Mar 2020 15:36:59 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 399E2200AD4
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 32A386023F4
  for <ltp@lists.linux.it>; Thu,  5 Mar 2020 15:36:58 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 7C79AB2D3
+ by mx2.suse.de (Postfix) with ESMTP id 8F52FB2E7
  for <ltp@lists.linux.it>; Thu,  5 Mar 2020 14:36:58 +0000 (UTC)
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu,  5 Mar 2020 15:36:57 +0100
-Message-Id: <20200305143658.26584-1-mdoucha@suse.cz>
+Date: Thu,  5 Mar 2020 15:36:58 +0100
+Message-Id: <20200305143658.26584-2-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200305143658.26584-1-mdoucha@suse.cz>
+References: <20200305143658.26584-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/2] Add TST_ASSERT_SYSCALL*() macros
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/2] Reimplement TST_SAFE_TIMERFD_*() using
+ TST_ASSERT_SYSCALL*()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,79 +51,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-These macros take care of the standard return value checking boilerplate
-in cases where the test cannot continue after error.
-
-- TST_ASSERT_SYSCALL() calls tst_brk() if retval != 0
-- TST_ASSERT_SYSCALL_FD() calls tst_brk() if retval < 0
+Example usage of the TST_ASSERT_SYSCALL*() macros.
 
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
+ lib/tst_safe_timerfd.c | 35 ++++++-----------------------------
+ 1 file changed, 6 insertions(+), 29 deletions(-)
 
-Small convenience patch that'll simplify both test development and TST_SAFE_*()
-library function generation.
-
- include/tst_test.h | 47 ++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
-
-diff --git a/include/tst_test.h b/include/tst_test.h
-index 8508c2e38..65a5f05b8 100644
---- a/include/tst_test.h
-+++ b/include/tst_test.h
-@@ -281,6 +281,53 @@ extern void *TST_RET_PTR;
- 		TST_ERR = errno; \
- 	} while (0)
+diff --git a/lib/tst_safe_timerfd.c b/lib/tst_safe_timerfd.c
+index ffe7b2ef7..18da82184 100644
+--- a/lib/tst_safe_timerfd.c
++++ b/lib/tst_safe_timerfd.c
+@@ -9,34 +9,18 @@
+ #define TST_NO_DEFAULT_MAIN
+ #include "tst_test.h"
  
-+/* assert that syscall returned only 0 and nothing else */
-+#define TST_ASSERT_SYSCALL(SCALL) \
-+	TST_ASSERT_SYSCALL_IMPL(SCALL, __FILE__, __LINE__)
-+
-+#define TST_ASSERT_SYSCALL_IMPL(SCALL, FILENAME, LINENO) \
-+	({ \
-+		int _tst_ret; \
-+		errno = 0; \
-+		_tst_ret = SCALL; \
-+		if (_tst_ret == -1) { \
-+			int _tst_ttype = errno == ENOTSUP ? TCONF : TBROK; \
-+			tst_brk(_tst_ttype | TERRNO, "%s:%d " # SCALL \
-+				" failed", FILENAME, LINENO); \
-+		} \
-+		if (_tst_ret != 0) { \
-+			tst_brk(TBROK | TERRNO, "%s:%d " # SCALL \
-+				" returned invalid value %d", FILENAME, \
-+				LINENO, _tst_ret); \
-+		} \
-+		_tst_ret; \
-+	})
-+
-+/*
-+ * assert that syscall returned any non-negative value (e.g. valid file
-+ * descriptor)
-+ */
-+#define TST_ASSERT_SYSCALL_FD(SCALL) \
-+	TST_ASSERT_SYSCALL_FD_IMPL(SCALL, __FILE__, __LINE__)
-+
-+#define TST_ASSERT_SYSCALL_FD_IMPL(SCALL, FILENAME, LINENO) \
-+	({ \
-+		int _tst_ret; \
-+		errno = 0; \
-+		_tst_ret = SCALL; \
-+		if (_tst_ret == -1) { \
-+			int _tst_ttype = errno == ENOTSUP ? TCONF : TBROK; \
-+			tst_brk(_tst_ttype | TERRNO, "%s:%d " # SCALL \
-+				" failed", FILENAME, LINENO); \
-+		} \
-+		if (_tst_ret < 0) { \
-+			tst_brk(TBROK | TERRNO, "%s:%d " # SCALL \
-+				" returned invalid value %d", FILENAME, \
-+				LINENO, _tst_ret); \
-+		} \
-+		_tst_ret; \
-+	})
-+
- /*
-  * Functions to convert ERRNO to its name and SIGNAL to its name.
-  */
+-#define TTYPE (errno == ENOTSUP ? TCONF : TBROK)
+-
+ int safe_timerfd_create(const char *file, const int lineno,
+ 				      int clockid, int flags)
+ {
+-	int fd;
+-
+-	fd = timerfd_create(clockid, flags);
+-	if (fd < 0) {
+-		tst_brk(TTYPE | TERRNO, "%s:%d timerfd_create(%s) failed",
+-			file, lineno, tst_clock_name(clockid));
+-	}
+-
+-	return fd;
++	return TST_ASSERT_SYSCALL_FD_IMPL(timerfd_create(clockid, flags), file,
++		lineno);
+ }
+ 
+ int safe_timerfd_gettime(const char *file, const int lineno,
+ 				int fd, struct itimerspec *curr_value)
+ {
+-	int rval;
+-
+-	rval = timerfd_gettime(fd, curr_value);
+-	if (rval != 0) {
+-		tst_brk(TTYPE | TERRNO, "%s:%d timerfd_gettime() failed",
+-			file, lineno);
+-	}
+-
+-	return rval;
++	return TST_ASSERT_SYSCALL_IMPL(timerfd_gettime(fd, curr_value), file,
++		lineno);
+ }
+ 
+ int safe_timerfd_settime(const char *file, const int lineno,
+@@ -44,13 +28,6 @@ int safe_timerfd_settime(const char *file, const int lineno,
+ 				const struct itimerspec *new_value,
+ 				struct itimerspec *old_value)
+ {
+-	int rval;
+-
+-	rval = timerfd_settime(fd, flags, new_value, old_value);
+-	if (rval != 0) {
+-		tst_brk(TTYPE | TERRNO, "%s:%d timerfd_settime() failed",
+-			file, lineno);
+-	}
+-
+-	return rval;
++	return TST_ASSERT_SYSCALL_IMPL(timerfd_settime(fd, flags, new_value,
++		old_value), file, lineno);
+ }
 -- 
 2.25.1
 
