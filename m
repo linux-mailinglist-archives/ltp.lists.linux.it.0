@@ -2,70 +2,38 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E2E117AB01
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2020 17:56:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6690617ABCE
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2020 18:18:57 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CB0D83C6536
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2020 17:56:14 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2B1203C6533
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2020 18:18:57 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id D834B3C6515
- for <ltp@lists.linux.it>; Thu,  5 Mar 2020 17:56:10 +0100 (CET)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
- [205.139.110.61])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 4F4341402C68
- for <ltp@lists.linux.it>; Thu,  5 Mar 2020 17:56:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1583427368;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=n9SivJVu+fQ+64T5Hjkz3v1ZMb9dZxIa2r8KbXyL5Gs=;
- b=H2dxin9yQGfUJRRB7bOW6Xd/5iyJoykYC3XUv787pGX+F9G7V2Rw7uli9I9VlwoTVk5uQz
- 1uIV2aSMHYi+MrOS2O35LlPB+jMpdy7doVJSb5iLtOhhxGTg/JdDQwRHsDCz20jlRq23J2
- mD3/0yHMNUYG+rQjKGj6Evreu9OrtL0=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-152-esYLcx6_MO-QYNtXYagVUA-1; Thu, 05 Mar 2020 11:56:03 -0500
-X-MC-Unique: esYLcx6_MO-QYNtXYagVUA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 6033B3C64DC
+ for <ltp@lists.linux.it>; Thu,  5 Mar 2020 18:18:54 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A0042DB62;
- Thu,  5 Mar 2020 16:56:02 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 9567F272C4;
- Thu,  5 Mar 2020 16:56:02 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 83E8186A04;
- Thu,  5 Mar 2020 16:56:02 +0000 (UTC)
-Date: Thu, 5 Mar 2020 11:56:02 -0500 (EST)
-From: Jan Stancek <jstancek@redhat.com>
-To: CKI Project <cki-project@redhat.com>, 
- Linux Stable maillist <stable@vger.kernel.org>
-Message-ID: <173385062.10432633.1583427362328.JavaMail.zimbra@redhat.com>
-In-Reply-To: <2065777364.10425170.1583425488638.JavaMail.zimbra@redhat.com>
-References: <cki.EED856DF66.LLEP90YP5M@redhat.com>
- <2065777364.10425170.1583425488638.JavaMail.zimbra@redhat.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 409681A05187
+ for <ltp@lists.linux.it>; Thu,  5 Mar 2020 18:18:53 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 7A213B127;
+ Thu,  5 Mar 2020 17:18:53 +0000 (UTC)
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Thu,  5 Mar 2020 18:18:44 +0100
+Message-Id: <20200305171844.24020-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.25, 10.4.195.1]
-Thread-Topic: =?utf-8?B?4p2MIEZBSUw6?= Test report for kernel
- 5.5.7-60528b7.cki (stable-queue)
-Thread-Index: kkuOJFuqhkSqHy2lWMvJx4dG0KzmcTW74Dzw
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] 
- =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E5?=
- =?utf-8?q?=2E7-60528b7=2Ecki_=28stable-queue=29?=
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/1] hugeshmctl01: Fix reset stat_time when looping
+ with -i n
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,36 +45,102 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Memory Management <mm-qe@redhat.com>, LTP Mailing List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-CgotLS0tLSBPcmlnaW5hbCBNZXNzYWdlIC0tLS0tCj4gCj4gCj4gLS0tLS0gT3JpZ2luYWwgTWVz
-c2FnZSAtLS0tLQo+ID4gCj4gPiBIZWxsbywKPiA+IAo+ID4gV2UgcmFuIGF1dG9tYXRlZCB0ZXN0
-cyBvbiBhIHJlY2VudCBjb21taXQgZnJvbSB0aGlzIGtlcm5lbCB0cmVlOgo+ID4gCj4gPiAgICAg
-ICAgS2VybmVsIHJlcG86Cj4gPiAgICAgICAgaHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2Nt
-L2xpbnV4L2tlcm5lbC9naXQvc3RhYmxlL2xpbnV4LXN0YWJsZS1yYy5naXQKPiA+ICAgICAgICAg
-ICAgIENvbW1pdDogNjA1MjhiNzllMzBhIC0ga3ZtOiBuVk1YOiBWTVdSSVRFIGNoZWNrcyB1bnN1
-cHBvcnRlZAo+ID4gICAgICAgICAgICAgZmllbGQgYmVmb3JlIHJlYWQtb25seSBmaWVsZAo+ID4g
-Cj4gPiBUaGUgcmVzdWx0cyBvZiB0aGVzZSBhdXRvbWF0ZWQgdGVzdHMgYXJlIHByb3ZpZGVkIGJl
-bG93Lgo+ID4gCj4gPiAgICAgT3ZlcmFsbCByZXN1bHQ6IEZBSUxFRCAoc2VlIGRldGFpbHMgYmVs
-b3cpCj4gPiAgICAgICAgICAgICAgTWVyZ2U6IE9LCj4gPiAgICAgICAgICAgIENvbXBpbGU6IE9L
-Cj4gPiAgICAgICAgICAgICAgVGVzdHM6IEZBSUxFRAo+ID4gCj4gPiBBbGwga2VybmVsIGJpbmFy
-aWVzLCBjb25maWcgZmlsZXMsIGFuZCBsb2dzIGFyZSBhdmFpbGFibGUgZm9yIGRvd25sb2FkCj4g
-PiBoZXJlOgo+ID4gCj4gPiAgIGh0dHBzOi8vY2tpLWFydGlmYWN0cy5zMy51cy1lYXN0LTIuYW1h
-em9uYXdzLmNvbS9pbmRleC5odG1sP3ByZWZpeD1kYXRhd2FyZWhvdXNlLzIwMjAvMDMvMDQvNDcx
-NTA1Cj4gPiAKPiA+IE9uZSBvciBtb3JlIGtlcm5lbCB0ZXN0cyBmYWlsZWQ6Cj4gPiAKPiA+ICAg
-ICBzMzkweDoKPiA+ICAgICAg4p2MIExUUAo+IAo+IEFsbCBpbnN0YW5jZXMgb2Ygc2ltaWxhciBw
-YW5pY3MgWzFdIG1hbmlmZXN0IG1vc3RseSBvbiBzMzkwIGFuZCBhdAo+IGZpcnN0IGdsYW5jZSBs
-b29rIGxpa2UgbWVtb3J5IGNvcnJ1cHRpb25zLgo+IAo+IEknbSBsb29raW5nIHRvIGNvbmZpcm0s
-IHdoZXRoZXIgdGhpcyBoYXMgYmVlbiBmaXhlZCBieToKPiAKPiAgIGNvbW1pdCA2ZmNjYTBmYTQ4
-MTE4ZTZkNjM3MzNlYjQ2NDRjNmNkODgwYzE1YjhmCj4gICBBdXRob3I6IFN1cmVuIEJhZ2hkYXNh
-cnlhbiA8c3VyZW5iQGdvb2dsZS5jb20+Cj4gICBEYXRlOiAgIE1vbiBGZWIgMyAxMzoyMjoxNiAy
-MDIwIC0wODAwCj4gCj4gICAgIHNjaGVkL3BzaTogRml4IE9PQiB3cml0ZSB3aGVuIHdyaXRpbmcg
-MCBieXRlcyB0byBQU0kgZmlsZXMKCkl0J3MgdW5yZWxhdGVkLiBUaGUgdGVzdCBkb2VzIHJlYWQs
-IG5vdCB3cml0ZS4KCjUuNi4wLTAucmMzIGNyYXNoZWQgYXMgd2VsbC4gT24gczM5MHggSSdtIHVz
-aW5nIGl0J3MgZW5vdWdoIHRvCiJjYXQgL3N5cy9mcy9jZ3JvdXAvY3B1LnByZXNzdXJlIiB0byB0
-cmlnZ2VyLgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9s
-aXN0aW5mby9sdHAK
+c7a2d296b didn't reset stat_time, thus uninitialized set_shared was
+assigned to test variable and test got value from a null pointer,
+which leaded to segfault.
+
+hugeshmctl01.c:279: PASS: shmctl in func_rmid() failed as expected, shared memory appears to be removed
+tst_checkpoint.c:147: BROK: hugeshmctl01.c:152: tst_checkpoint_wait(0, 10000): ETIMEDOUT (110)
+mem.c:817: INFO: set nr_hugepages to 0
+
+dmesg:
+segfault at 7f73f8c00000 ip 00000000004051e1 sp 00007ffef375f9a0 error 6 in hugeshmctl01.master[404000+13000]
+addr2line -e hugeshmctl01 -f  00000000004051e1
+stat_setup
+hugeshmctl01.c:139 (discriminator 4)
+
+test = (stat_time == FIRST) ? set_shmat() : set_shared;
+
+/* do an assignement for fun */
+*(int *)test = i; // error here
+
+Fixes: c7a2d296b ("hugeshmctl: Use loop from the API")
+
+Reported-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Suggested-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+Hi Xu,
+
+I'm sorry for introducing a regression.
+Thank you for a report and fixing the test.
+I'd personally prefer to keep .tcnt = ARRAY_SIZE(tcases),
+but maybe others will prefer to keep loop in test_hugeshmctl()
+as it was before my change.
+
+BTW it'd be nice to have something like setup_i() and cleanup_i(),
+which would be called before/after each run of whole test, when run with
+-i n.
+
+Kind regards,
+Petr
+
+ .../mem/hugetlb/hugeshmctl/hugeshmctl01.c     | 27 ++++++++++---------
+ 1 file changed, 14 insertions(+), 13 deletions(-)
+
+diff --git a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c
+index e6cf8bf09..3b7e14363 100644
+--- a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c
++++ b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c
+@@ -75,6 +75,20 @@ struct tcase {
+ 
+ static void test_hugeshmctl(unsigned int i)
+ {
++	stat_time = FIRST;
++
++	/*
++	 * Create a shared memory segment with read and write
++	 * permissions. Do this here instead of in setup()
++	 * so that looping (-i) will work correctly.
++	 */
++	if (i == 0) {
++		shm_id_1 = shmget(shmkey, shm_size,
++				SHM_HUGETLB | IPC_CREAT | IPC_EXCL | SHM_RW);
++		if (shm_id_1 == -1)
++			tst_brk(TBROK | TERRNO, "shmget #main");
++	}
++
+ 	/*
+ 	 * if needed, set up any required conditions by
+ 	 * calling the appropriate setup function
+@@ -296,19 +310,6 @@ void setup(void)
+ 	shm_size = hpage_size * hugepages / 2;
+ 	update_shm_size(&shm_size);
+ 	shmkey = getipckey();
+-
+-	/* initialize stat_time */
+-	stat_time = FIRST;
+-
+-	/*
+-	 * Create a shared memory segment with read and write
+-	 * permissions.  Do this here instead of in setup()
+-	 * so that looping (-i) will work correctly.
+-	 */
+-	shm_id_1 = shmget(shmkey, shm_size,
+-			SHM_HUGETLB | IPC_CREAT | IPC_EXCL | SHM_RW);
+-	if (shm_id_1 == -1)
+-		tst_brk(TBROK | TERRNO, "shmget #main");
+ }
+ 
+ void cleanup(void)
+-- 
+2.25.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
