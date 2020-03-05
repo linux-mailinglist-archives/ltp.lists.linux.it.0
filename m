@@ -2,40 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C01417AD89
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2020 18:50:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A28917AD9C
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2020 18:53:34 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1271E3C6557
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2020 18:50:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 00B143C6546
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Mar 2020 18:53:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 6F0C03C64F2
- for <ltp@lists.linux.it>; Thu,  5 Mar 2020 18:50:35 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 6564A3C64F2
+ for <ltp@lists.linux.it>; Thu,  5 Mar 2020 18:53:29 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id ED33D601C35
- for <ltp@lists.linux.it>; Thu,  5 Mar 2020 18:50:34 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C39371A0154E
+ for <ltp@lists.linux.it>; Thu,  5 Mar 2020 18:53:28 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id CB9E2B3CF
- for <ltp@lists.linux.it>; Thu,  5 Mar 2020 17:50:33 +0000 (UTC)
-Date: Thu, 5 Mar 2020 18:50:31 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20200305175031.GB29517@dell5510>
+ by mx2.suse.de (Postfix) with ESMTP id 14CC1AE1C
+ for <ltp@lists.linux.it>; Thu,  5 Mar 2020 17:53:28 +0000 (UTC)
+Date: Thu, 5 Mar 2020 18:53:25 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <20200305175325.GA16171@rei>
 References: <20200305151459.30341-1-mdoucha@suse.cz>
- <20200305151459.30341-2-mdoucha@suse.cz>
+ <20200305174205.GA29517@dell5510>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200305151459.30341-2-mdoucha@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+In-Reply-To: <20200305174205.GA29517@dell5510>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/2] Reimplement TST_SAFE_TIMERFD_*() using
- TST_ASSERT_SYSCALL*()
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/2] Add TST_ASSERT_SYSCALL*() macros
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,50 +48,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Martin,
+Hi!
+> What I like on these macros (besides DRY) is that it really shows the test, not
+> the library, see
+> before:
+> tst_safe_timerfd.c:21: BROK: timerfd01.c:89 timerfd_create(CLOCK_MONOTONIC) failed: EINVAL (22)
+> after:
+> timerfd01.c:89: BROK: timerfd_create(CLOCK_MONOTONIC) failed: EINVAL (22)
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+That's because it calls tst_brk_() correctly instead of tst_brk(). I
+should have caught that during the review.
 
-> -	fd = timerfd_create(clockid, flags);
-> -	if (fd < 0) {
-> -		tst_brk(TTYPE | TERRNO, "%s:%d timerfd_create(%s) failed",
-> -			file, lineno, tst_clock_name(clockid));
-> -	}
-> -
-> -	return fd;
-> +	return TST_ASSERT_SYSCALL_FD_IMPL(timerfd_create(clockid, flags), file,
-> +		lineno, "timerfd_create(%s)", tst_clock_name(clockid));
->  }
+Also given the way it's structured now we can pass these parameters to a
+shell script as well and generate the end result easily. With a bit more
+work we can generate both header and C source as well and would still
+prefer that over these macros.
 
->  int safe_timerfd_gettime(const char *file, const int lineno,
->  				int fd, struct itimerspec *curr_value)
->  {
-> -	int rval;
-> -
-> -	rval = timerfd_gettime(fd, curr_value);
-> -	if (rval != 0) {
-> -		tst_brk(TTYPE | TERRNO, "%s:%d timerfd_gettime() failed",
-> -			file, lineno);
-> -	}
-> -
-> -	return rval;
-> +	return TST_ASSERT_SYSCALL_IMPL(timerfd_gettime(fd, curr_value), file,
-> +		lineno, "timerfd_gettime()");
->  }
-
-I like sprintf formatting (it's needed), but it'd be nice to have a way to avoid
-it, when it's just foo() (using SCALL_FUN and SCALL_PARAMS).
-But that's probably too much optimization, resulting in unreadable macros.
-
-Kind regards,
-Petr
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
