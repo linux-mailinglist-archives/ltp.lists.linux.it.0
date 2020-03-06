@@ -1,61 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E769C17BACA
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Mar 2020 11:53:42 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 45DA617BACB
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Mar 2020 11:53:50 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 330363C63D0
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Mar 2020 11:53:42 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DAD6F3C63C3
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Mar 2020 11:53:49 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 8A3643C6510
- for <ltp@lists.linux.it>; Thu,  5 Mar 2020 14:41:05 +0100 (CET)
-Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.196])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 66770601CDA
- for <ltp@lists.linux.it>; Thu,  5 Mar 2020 14:40:57 +0100 (CET)
-Received: from localhost (unknown [192.168.167.245])
- by regular1.263xmail.com (Postfix) with ESMTP id C72C5106C;
- Thu,  5 Mar 2020 21:40:45 +0800 (CST)
-X-MAIL-GRAY: 0
-X-MAIL-DELIVERY: 1
-X-ADDR-CHECKED4: 1
-X-ANTISPAM-LEVEL: 2
-X-SKE-CHECKED: 1
-X-ABS-CHECKED: 1
-Received: from bj-wm-cp-10 (unknown [192.168.167.114])
- by smtp.263.net (postfix) whith ESMTP id
- P2881T139952594249472S1583415646389309_; 
- Thu, 05 Mar 2020 21:40:46 +0800 (CST)
-X-UNIQUE-TAG: <3c224523a646363a298185595dda1660>
-X-RL-SENDER: chenli@uniontech.com
-X-SENDER: chenli@uniontech.com
-X-LOGIN-NAME: wmsendmail@net263.com
-X-FST-TO: ltp@lists.linux.it
-X-SENDER-IP: 192.168.167.114
-X-ATTACHMENT-NUM: 0
-X-DNS-TYPE: 0
-X-System-Flag: 0
-Date: Thu, 5 Mar 2020 21:40:45 +0800 (CST)
-From: =?UTF-8?B?TGkgQ2hlbg==?= <chenli@uniontech.com>
-To: =?UTF-8?B?bHRw?= <ltp@lists.linux.it>
-Message-ID: <1055212524.800413.1583415645668.JavaMail.xmail@bj-wm-cp-10>
-MIME-Version: 1.0
-X-Send-Individually: 0
-X-Reply-Previous-EmailId: 
-X-Priority: 3
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 2EF623C63A8
+ for <ltp@lists.linux.it>; Fri,  6 Mar 2020 10:45:36 +0100 (CET)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id DC6BA10009DD
+ for <ltp@lists.linux.it>; Fri,  6 Mar 2020 10:45:30 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DE64D31B;
+ Fri,  6 Mar 2020 01:45:28 -0800 (PST)
+Received: from a077208.blr.arm.com (unknown [10.37.8.35])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 60D083F6C4;
+ Fri,  6 Mar 2020 01:45:26 -0800 (PST)
+From: Vikas Kumar <vikas.kumar2@arm.com>
+To: ltp@lists.linux.it
+Date: Fri,  6 Mar 2020 15:15:04 +0530
+Message-Id: <20200306094504.26175-1-vikas.kumar2@arm.com>
+X-Mailer: git-send-email 2.17.1
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.7 required=7.0 tests=FROM_EXCESS_BASE64,
- HTML_MESSAGE,HTML_MIME_NO_HTML_TAG,MIME_HTML_ONLY,SPF_HELO_NONE
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
 X-Mailman-Approved-At: Fri, 06 Mar 2020 11:53:37 +0100
-Subject: [LTP] =?utf-8?q?=5BPATCH=5D_Update_legacy_codes_in_ltp=5Ftpci=2E?=
- =?utf-8?q?c?=
+Subject: [LTP] [PATCH] Added refrence for Linux Asynchronous I/O io_uring
+ System calls
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,116 +46,261 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0103002927=="
+Cc: viresh.kumar@linaro.org, Vikas Kumar <vikas.kumar2@arm.com>,
+ anshuman.khandual@arm.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0103002927==
-Content-Type: text/html;  charset=utf-8
-Content-Transfer-Encoding: base64
+---
+ configure.ac            |   3 +
+ include/lapi/io_uring.h | 218 ++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 221 insertions(+)
+ create mode 100644 include/lapi/io_uring.h
 
-PHN0eWxlPnRhYmxlLmN1c3RvbVRhYmxlQ2xhc3NOYW1lIHttYXJnaW4tYm90dG9tOiAxMHB4O2Jv
-cmRlci1jb2xsYXBzZTogY29sbGFwc2U7ZGlzcGxheTogdGFibGU7fS5jdXN0b21UYWJsZUNsYXNz
-TmFtZSB0ZCwgLmN1c3RvbVRhYmxlQ2xhc3NOYW1lIHRoIHtib3JkZXI6IDFweCBzb2xpZCAjZGRk
-O308L3N0eWxlPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+VGhlIGtlcm5lbCBhcGkgdXNlZCBpbiBs
-dHBfdHBjaS5jIGlzIHRvbyBvbGQgYW5kIGNvbm5vdCBwYXNzIGNvbXBpbGU8YnI+PC9wPjxwIHN0
-eWxlPSJtYXJnaW46MHB4OyI+YWZ0ZXIgMy4xMi48L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij4t
-LS08L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij4mbmJzcDsuLi4vZGV2aWNlLWRyaXZlcnMvcGNp
-L3RwY2lfa2VybmVsL2x0cF90cGNpLmMgfCAzMCArKy0tLS0tLS0tLS0tLS0tLS0tPC9wPjxwIHN0
-eWxlPSJtYXJnaW46MHB4OyI+Jm5ic3A7MSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwg
-MjggZGVsZXRpb25zKC0pPC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+PGJyPjwvcD48cCBzdHls
-ZT0ibWFyZ2luOjBweDsiPmRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL2RldmljZS1kcml2
-ZXJzL3BjaS90cGNpX2tlcm5lbC9sdHBfdHBjaS5jIGIvdGVzdGNhc2VzL2tlcm5lbC9kZXZpY2Ut
-ZHJpdmVycy9wY2kvdHBjaV9rZXJuZWwvbHRwX3RwY2kuYzwvcD48cCBzdHlsZT0ibWFyZ2luOjBw
-eDsiPmluZGV4IDJjZjhjZWZjOC4uN2NiYWJmYWE1IDEwMDY0NDwvcD48cCBzdHlsZT0ibWFyZ2lu
-OjBweDsiPi0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvZGV2aWNlLWRyaXZlcnMvcGNpL3RwY2lfa2Vy
-bmVsL2x0cF90cGNpLmM8L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij4rKysgYi90ZXN0Y2FzZXMv
-a2VybmVsL2RldmljZS1kcml2ZXJzL3BjaS90cGNpX2tlcm5lbC9sdHBfdHBjaS5jPC9wPjxwIHN0
-eWxlPSJtYXJnaW46MHB4OyI+QEAgLTYxLDcgKzYxLDcgQEAgTU9EVUxFX0xJQ0VOU0UoIkdQTCIp
-OzwvcD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPiZuYnNwOyNkZWZpbmUgVEZBSUw8c3BhbiBzdHls
-ZT0id2hpdGUtc3BhY2U6cHJlIj4JPC9zcGFuPjE8L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij4m
-bmJzcDsjZGVmaW5lIFRTS0lQPHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CTwvc3Bhbj4z
-MjwvcD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPiZuYnNwOzwvcD48cCBzdHlsZT0ibWFyZ2luOjBw
-eDsiPi1zdGF0aWMgREVGSU5FX1BDSV9ERVZJQ0VfVEFCTEUobHRwX3BjaV90YmwpID0gezwvcD48
-cCBzdHlsZT0ibWFyZ2luOjBweDsiPitzdGF0aWMgY29uc3Qgc3RydWN0IHBjaV9kZXZpY2VfaWQg
-bHRwX3BjaV90YmxbXSA9IHs8L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij4mbmJzcDs8c3BhbiBz
-dHlsZT0id2hpdGUtc3BhY2U6cHJlIj4JPC9zcGFuPnsgUENJX0RFVklDRShQQ0lfQU5ZX0lELCBQ
-Q0lfQU5ZX0lEKSB9LDwvcD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPiZuYnNwOzxzcGFuIHN0eWxl
-PSJ3aGl0ZS1zcGFjZTpwcmUiPgk8L3NwYW4+eyAwLCB9PC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4
-OyI+Jm5ic3A7fTs8L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij5AQCAtMTA0LDcgKzEwNCw3IEBA
-IHN0YXRpYyBpbnQgcHJvYmVfcGNpX2Rldih1bnNpZ25lZCBpbnQgYnVzLCB1bnNpZ25lZCBpbnQg
-c2xvdCk8L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij4mbmJzcDs8c3BhbiBzdHlsZT0id2hpdGUt
-c3BhY2U6cHJlIj4JCTwvc3Bhbj5sdHBfcGNpLmRldiA9IE5VTEw7PC9wPjxwIHN0eWxlPSJtYXJn
-aW46MHB4OyI+Jm5ic3A7PHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CTwvc3Bhbj59PC9w
-PjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+Jm5ic3A7PC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+
-LTxzcGFuIHN0eWxlPSJ3aGl0ZS1zcGFjZTpwcmUiPgk8L3NwYW4+ZGV2ID0gcGNpX2dldF9idXNf
-YW5kX3Nsb3QoYnVzLCBzbG90KTs8L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij4rPHNwYW4gc3R5
-bGU9IndoaXRlLXNwYWNlOnByZSI+CTwvc3Bhbj5kZXYgPSBwY2lfZ2V0X2RvbWFpbl9idXNfYW5k
-X3Nsb3QocGNpX2RvbWFpbl9ucihkZXYtJmd0O2J1cyksIGJ1cywgc2xvdCk7PC9wPjxwIHN0eWxl
-PSJtYXJnaW46MHB4OyI+Jm5ic3A7PHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CTwvc3Bh
-bj5pZiAoIWRldiB8fCAhZGV2LSZndDtkcml2ZXIpPC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+
-Jm5ic3A7PHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CQk8L3NwYW4+cmV0dXJuIC1FTk9E
-RVY7PC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+Jm5ic3A7PC9wPjxwIHN0eWxlPSJtYXJnaW46
-MHB4OyI+QEAgLTM2MCwyOSArMzYwLDYgQEAgc3RhdGljIGludCB0ZXN0X2J1c19hZGRfZGV2aWNl
-cyh2b2lkKTwvcD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPiZuYnNwOzxzcGFuIHN0eWxlPSJ3aGl0
-ZS1zcGFjZTpwcmUiPgk8L3NwYW4+cmV0dXJuIFRGQUlMOzwvcD48cCBzdHlsZT0ibWFyZ2luOjBw
-eDsiPiZuYnNwO308L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij4mbmJzcDs8L3A+PHAgc3R5bGU9
-Im1hcmdpbjowcHg7Ij4tLyo8L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij4tICogdGVzdF9lbmFi
-bGVfYnJpZGdlczwvcD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPi0gKjxzcGFuIHN0eWxlPSJ3aGl0
-ZS1zcGFjZTpwcmUiPgk8L3NwYW4+bWFrZSBjYWxsIHRvIHBjaV9lbmFibGVfYnJpZGdlcyw8L3A+
-PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij4tICo8c3BhbiBzdHlsZT0id2hpdGUtc3BhY2U6cHJlIj4J
-PC9zcGFuPnVzZSBidXMgcG9pbnRlciBmcm9tIHRoZSBsdHBfcGNpPC9wPjxwIHN0eWxlPSJtYXJn
-aW46MHB4OyI+LSAqPHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CTwvc3Bhbj5zdHJ1Y3R1
-cmU8L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij4tICovPC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4
-OyI+LXN0YXRpYyBpbnQgdGVzdF9lbmFibGVfYnJpZGdlcyh2b2lkKTwvcD48cCBzdHlsZT0ibWFy
-Z2luOjBweDsiPi17PC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+LTxzcGFuIHN0eWxlPSJ3aGl0
-ZS1zcGFjZTpwcmUiPgk8L3NwYW4+c3RydWN0IHBjaV9idXMgKmJ1cyA9IGx0cF9wY2kuYnVzOzwv
-cD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPi08L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij4tPHNw
-YW4gc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CTwvc3Bhbj5wcmtfaW5mbygiZW5hYmxlIGJyaWRn
-ZXMiKTs8L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij4tPC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4
-OyI+LTxzcGFuIHN0eWxlPSJ3aGl0ZS1zcGFjZTpwcmUiPgk8L3NwYW4+cGNpX2VuYWJsZV9icmlk
-Z2VzKGJ1cyk7PC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+LTwvcD48cCBzdHlsZT0ibWFyZ2lu
-OjBweDsiPi08c3BhbiBzdHlsZT0id2hpdGUtc3BhY2U6cHJlIj4JPC9zcGFuPmlmIChidXMpIHs8
-L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij4tPHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+
-CQk8L3NwYW4+cHJrX2luZm8oImNhbGxlZCBlbmFibGUgYnJpZGdlcyIpOzwvcD48cCBzdHlsZT0i
-bWFyZ2luOjBweDsiPi08c3BhbiBzdHlsZT0id2hpdGUtc3BhY2U6cHJlIj4JCTwvc3Bhbj5yZXR1
-cm4gVFBBU1M7PC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+LTxzcGFuIHN0eWxlPSJ3aGl0ZS1z
-cGFjZTpwcmUiPgk8L3NwYW4+fTwvcD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPi08L3A+PHAgc3R5
-bGU9Im1hcmdpbjowcHg7Ij4tPHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CTwvc3Bhbj5w
-cmtfZXJyKCJlbmFibGVfYnJpZGdlcyBmYWlsZWQiKTs8L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7
-Ij4tPHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CTwvc3Bhbj5yZXR1cm4gVEZBSUw7PC9w
-PjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+LX08L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij4tPC9w
-PjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+Jm5ic3A7Lyo8L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7
-Ij4mbmJzcDsgKiB0ZXN0X21hdGNoX2RldmljZTwvcD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPiZu
-YnNwOyAqPHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CTwvc3Bhbj5tYWtlIGNhbGwgdG8g
-cGNpX21hdGNoX2RldmljZSwgcmV0dXJucyBhPC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+QEAg
-LTYwOSw5ICs1ODYsNiBAQCBzdGF0aWMgaW50IHRlc3RfY2FzZSh1bnNpZ25lZCBpbnQgY21kKTwv
-cD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPiZuYnNwOzxzcGFuIHN0eWxlPSJ3aGl0ZS1zcGFjZTpw
-cmUiPgk8L3NwYW4+Y2FzZSBCVVNfQUREX0RFVklDRVM6PC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4
-OyI+Jm5ic3A7PHNwYW4gc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CQk8L3NwYW4+cmMgPSB0ZXN0
-X2J1c19hZGRfZGV2aWNlcygpOzwvcD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPiZuYnNwOzxzcGFu
-IHN0eWxlPSJ3aGl0ZS1zcGFjZTpwcmUiPgkJPC9zcGFuPmJyZWFrOzwvcD48cCBzdHlsZT0ibWFy
-Z2luOjBweDsiPi08c3BhbiBzdHlsZT0id2hpdGUtc3BhY2U6cHJlIj4JPC9zcGFuPmNhc2UgRU5B
-QkxFX0JSSURHRVM6PC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+LTxzcGFuIHN0eWxlPSJ3aGl0
-ZS1zcGFjZTpwcmUiPgkJPC9zcGFuPnJjID0gdGVzdF9lbmFibGVfYnJpZGdlcygpOzwvcD48cCBz
-dHlsZT0ibWFyZ2luOjBweDsiPi08c3BhbiBzdHlsZT0id2hpdGUtc3BhY2U6cHJlIj4JCTwvc3Bh
-bj5icmVhazs8L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij4mbmJzcDs8c3BhbiBzdHlsZT0id2hp
-dGUtc3BhY2U6cHJlIj4JPC9zcGFuPmNhc2UgTUFUQ0hfREVWSUNFOjwvcD48cCBzdHlsZT0ibWFy
-Z2luOjBweDsiPiZuYnNwOzxzcGFuIHN0eWxlPSJ3aGl0ZS1zcGFjZTpwcmUiPgkJPC9zcGFuPnJj
-ID0gdGVzdF9tYXRjaF9kZXZpY2UoKTs8L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij4mbmJzcDs8
-c3BhbiBzdHlsZT0id2hpdGUtc3BhY2U6cHJlIj4JCTwvc3Bhbj5icmVhazs8L3A+PHAgc3R5bGU9
-Im1hcmdpbjowcHg7Ij4tLSZuYnNwOzwvcD4=
-
-
-
---===============0103002927==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/configure.ac b/configure.ac
+index c9ec39fce..a50f793e9 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -88,6 +88,9 @@ AC_CHECK_FUNCS([ \
+     getdents \
+     getdents64 \
+     io_pgetevents \
++    io_uring_setup \
++    io_uring_register \
++    io_uring_enter \
+     kcmp \
+     mkdirat \
+     mknodat \
+diff --git a/include/lapi/io_uring.h b/include/lapi/io_uring.h
+new file mode 100644
+index 000000000..fc2821dd9
+--- /dev/null
++++ b/include/lapi/io_uring.h
+@@ -0,0 +1,218 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020 ARM. All rights reserved.
++ * Author: Vikas Kumar <vikas.kumar2@arm.com>
++ */
++
++#ifndef IO_URING_H__
++#define IO_URING_H__
++
++#include <unistd.h>
++#include <fcntl.h>
++#include <sys/syscall.h>
++#include <sys/types.h>
++#include <sys/uio.h>
++
++
++#include "config.h"
++#include "lapi/syscalls.h"
++
++
++#ifdef __alpha__
++/*
++ * alpha is the only exception, all other architectures
++ * have common numbers for new system calls.
++ */
++# ifndef __NR_io_uring_setup
++#  define __NR_io_uring_setup		535
++# endif
++# ifndef __NR_io_uring_enter
++#  define __NR_io_uring_enter		536
++# endif
++# ifndef __NR_io_uring_register
++#  define __NR_io_uring_register	537
++# endif
++#else /* !__alpha__ */
++# ifndef __NR_io_uring_setup
++#  define __NR_io_uring_setup		425
++# endif
++# ifndef __NR_io_uring_enter
++#  define __NR_io_uring_enter		426
++# endif
++# ifndef __NR_io_uring_register
++#  define __NR_io_uring_register	427
++# endif
++#endif
++
++
++
++/*
++ * sqe->flags
++ */
++#define IOSQE_FIXED_FILE	(1U << 0)	/* use fixed fileset */
++#define IOSQE_IO_DRAIN		(1U << 1)	/* issue after inflight IO */
++#define IOSQE_IO_LINK		(1U << 2)	/* links next sqe */
++#define IOSQE_IO_HARDLINK	(1U << 3)	/* like LINK, but stronger */
++
++/*
++ * io_uring_setup() flags
++ */
++#define IORING_SETUP_IOPOLL	(1U << 0)	/* io_context is polled */
++#define IORING_SETUP_SQPOLL	(1U << 1)	/* SQ poll thread */
++#define IORING_SETUP_SQ_AFF	(1U << 2)	/* sq_thread_cpu is valid */
++#define IORING_SETUP_CQSIZE	(1U << 3)	/* app defines CQ size */
++
++enum {
++	IORING_OP_NOP,
++	IORING_OP_READV,
++	IORING_OP_WRITEV,
++	IORING_OP_FSYNC,
++	IORING_OP_READ_FIXED,
++	IORING_OP_WRITE_FIXED,
++	IORING_OP_POLL_ADD,
++	IORING_OP_POLL_REMOVE,
++	IORING_OP_SYNC_FILE_RANGE,
++	IORING_OP_SENDMSG,
++	IORING_OP_RECVMSG,
++	IORING_OP_TIMEOUT,
++	IORING_OP_TIMEOUT_REMOVE,
++	IORING_OP_ACCEPT,
++	IORING_OP_ASYNC_CANCEL,
++	IORING_OP_LINK_TIMEOUT,
++	IORING_OP_CONNECT,
++
++	/* this goes last, obviously */
++	IORING_OP_LAST,
++};
++
++/*
++ * sqe->fsync_flags
++ */
++#define IORING_FSYNC_DATASYNC	(1U << 0)
++
++/*
++ * sqe->timeout_flags
++ */
++#define IORING_TIMEOUT_ABS	(1U << 0)
++
++/*
++ * IO completion data structure (Completion Queue Entry)
++ */
++struct io_uring_cqe {
++	__u64	user_data;	/* sqe->data submission passed back */
++	__s32	res;		/* result code for this event */
++	__u32	flags;
++};
++
++/*
++ * Magic offsets for the application to mmap the data it needs
++ */
++#define IORING_OFF_SQ_RING		0ULL
++#define IORING_OFF_CQ_RING		0x8000000ULL
++#define IORING_OFF_SQES			0x10000000ULL
++
++/*
++ * Filled with the offset for mmap(2)
++ */
++struct io_sqring_offsets {
++	__u32 head;
++	__u32 tail;
++	__u32 ring_mask;
++	__u32 ring_entries;
++	__u32 flags;
++	__u32 dropped;
++	__u32 array;
++	__u32 resv1;
++	__u64 resv2;
++};
++
++/*
++ * sq_ring->flags
++ */
++#define IORING_SQ_NEED_WAKEUP	(1U << 0) /* needs io_uring_enter wakeup */
++
++struct io_cqring_offsets {
++	__u32 head;
++	__u32 tail;
++	__u32 ring_mask;
++	__u32 ring_entries;
++	__u32 overflow;
++	__u32 cqes;
++	__u64 resv[2];
++};
++
++/*
++ * io_uring_enter(2) flags
++ */
++#define IORING_ENTER_GETEVENTS	(1U << 0)
++#define IORING_ENTER_SQ_WAKEUP	(1U << 1)
++
++/*
++ * Passed in for io_uring_setup(2). Copied back with updated info on success
++ */
++struct io_uring_params {
++	__u32 sq_entries;
++	__u32 cq_entries;
++	__u32 flags;
++	__u32 sq_thread_cpu;
++	__u32 sq_thread_idle;
++	__u32 features;
++	__u32 resv[4];
++	struct io_sqring_offsets sq_off;
++	struct io_cqring_offsets cq_off;
++};
++
++/*
++ * io_uring_params->features flags
++ */
++#define IORING_FEAT_SINGLE_MMAP		(1U << 0)
++#define IORING_FEAT_NODROP		(1U << 1)
++#define IORING_FEAT_SUBMIT_STABLE	(1U << 2)
++
++/*
++ * io_uring_register(2) opcodes and arguments
++ */
++#define IORING_REGISTER_BUFFERS		0
++#define IORING_UNREGISTER_BUFFERS	1
++#define IORING_REGISTER_FILES		2
++#define IORING_UNREGISTER_FILES		3
++#define IORING_REGISTER_EVENTFD		4
++#define IORING_UNREGISTER_EVENTFD	5
++#define IORING_REGISTER_FILES_UPDATE	6
++
++struct io_uring_files_update {
++	__u32 offset;
++	__u32 resv;
++	__aligned_u64 /* __s32 * */ fds;
++};
++
++
++
++#ifndef HAVE_IO_URING_REGISTER
++int io_uring_register(int fd, unsigned int opcode, void *arg,
++		      unsigned int nr_args)
++{
++	return tst_syscall(__NR_io_uring_register, fd, opcode, arg, nr_args);
++}
++#endif /* HAVE_IO_URING_REGISTER */
++
++
++#ifndef HAVE_IO_URING_SETUP
++int io_uring_setup(unsigned int entries, struct io_uring_params *p)
++{
++	return tst_syscall(__NR_io_uring_setup, entries, p);
++}
++#endif /* HAVE_IO_URING_SETUP */
++
++#ifndef HAVE_IO_URING_ENTER
++int io_uring_enter(int fd, unsigned int to_submit, unsigned int min_complete,
++		   unsigned int flags, sigset_t *sig)
++{
++	return tst_syscall(__NR_io_uring_enter, fd, to_submit, min_complete,
++			flags, sig, _NSIG / 8);
++}
++#endif /* HAVE_IO_URING_ENTER */
++
++
++
++#endif /* IO_URING_H__ */
+-- 
+2.17.1
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0103002927==--
