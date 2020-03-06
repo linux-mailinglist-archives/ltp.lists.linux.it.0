@@ -2,39 +2,49 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45DA617BACB
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Mar 2020 11:53:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEBB317BA42
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Mar 2020 11:32:09 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DAD6F3C63C3
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Mar 2020 11:53:49 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D7B9B3C63BB
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Mar 2020 11:32:08 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 2EF623C63A8
- for <ltp@lists.linux.it>; Fri,  6 Mar 2020 10:45:36 +0100 (CET)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id DC6BA10009DD
- for <ltp@lists.linux.it>; Fri,  6 Mar 2020 10:45:30 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DE64D31B;
- Fri,  6 Mar 2020 01:45:28 -0800 (PST)
-Received: from a077208.blr.arm.com (unknown [10.37.8.35])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 60D083F6C4;
- Fri,  6 Mar 2020 01:45:26 -0800 (PST)
-From: Vikas Kumar <vikas.kumar2@arm.com>
-To: ltp@lists.linux.it
-Date: Fri,  6 Mar 2020 15:15:04 +0530
-Message-Id: <20200306094504.26175-1-vikas.kumar2@arm.com>
-X-Mailer: git-send-email 2.17.1
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id E0BE23C12AE
+ for <ltp@lists.linux.it>; Fri,  6 Mar 2020 11:32:04 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id E3ABC616623
+ for <ltp@lists.linux.it>; Fri,  6 Mar 2020 11:32:02 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.70,521,1574092800"; d="scan'208";a="85947213"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 06 Mar 2020 18:31:59 +0800
+Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
+ by cn.fujitsu.com (Postfix) with ESMTP id CAA97406AB15
+ for <ltp@lists.linux.it>; Fri,  6 Mar 2020 18:22:02 +0800 (CST)
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.83) by
+ G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204) with Microsoft SMTP Server
+ (TLS) id 15.0.1395.4; Fri, 6 Mar 2020 18:31:57 +0800
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ (TLS) id 14.3.439.0; Fri, 6 Mar 2020 18:31:56 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Fri, 6 Mar 2020 18:32:00 +0800
+Message-ID: <1583490720-10003-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <20200306071221.GA13530@dell5510>
+References: <20200306071221.GA13530@dell5510>
+MIME-Version: 1.0
+X-Originating-IP: [10.167.220.84]
+X-yoursite-MailScanner-ID: CAA97406AB15.AE167
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-X-Mailman-Approved-At: Fri, 06 Mar 2020 11:53:37 +0100
-Subject: [LTP] [PATCH] Added refrence for Linux Asynchronous I/O io_uring
- System calls
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] hugeshmctl01: Small refactor and remove stat_time
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,260 +56,247 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: viresh.kumar@linaro.org, Vikas Kumar <vikas.kumar2@arm.com>,
- anshuman.khandual@arm.com
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
----
- configure.ac            |   3 +
- include/lapi/io_uring.h | 218 ++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 221 insertions(+)
- create mode 100644 include/lapi/io_uring.h
+c7a2d296b didn't reset stat_time, thus uninitialized set_shared was
+assigned to test variable and test got value from a null pointer,
+which leaded to segfault.
 
-diff --git a/configure.ac b/configure.ac
-index c9ec39fce..a50f793e9 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -88,6 +88,9 @@ AC_CHECK_FUNCS([ \
-     getdents \
-     getdents64 \
-     io_pgetevents \
-+    io_uring_setup \
-+    io_uring_register \
-+    io_uring_enter \
-     kcmp \
-     mkdirat \
-     mknodat \
-diff --git a/include/lapi/io_uring.h b/include/lapi/io_uring.h
-new file mode 100644
-index 000000000..fc2821dd9
---- /dev/null
-+++ b/include/lapi/io_uring.h
-@@ -0,0 +1,218 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2020 ARM. All rights reserved.
-+ * Author: Vikas Kumar <vikas.kumar2@arm.com>
-+ */
+hugeshmctl01.c:279: PASS: shmctl in func_rmid() failed as expected, shared memory appears to be removed
+tst_checkpoint.c:147: BROK: hugeshmctl01.c:152: tst_checkpoint_wait(0, 10000): ETIMEDOUT (110)
+mem.c:817: INFO: set nr_hugepages to 0
+
+dmesg:
+segfault at 7f73f8c00000 ip 00000000004051e1 sp 00007ffef375f9a0 error 6 in hugeshmctl01.master[404000+13000]
+addr2line -e hugeshmctl01 -f  00000000004051e1
+stat_setup
+hugeshmctl01.c:139 (discriminator 4)
+
+test = (stat_time == FIRST) ? set_shmat() : set_shared;
+
+/* do an assignement for fun */
+*(int *)test = i; // error here
+
+Since the stat_time makes code looks a bit complex, refactor this part instead of resetting it.
+
+Fixes: c7a2d296b ("hugeshmctl: Use loop from the API")
+
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+---
+ .../mem/hugetlb/hugeshmctl/hugeshmctl01.c     | 102 ++++++++----------
+ 1 file changed, 47 insertions(+), 55 deletions(-)
+
+diff --git a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c
+index e6cf8bf09..3f985a1b3 100644
+--- a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c
++++ b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c
+@@ -35,8 +35,6 @@
+ #include <limits.h>
+ #include "hugetlb.h"
+ 
+-#define FIRST		0
+-#define SECOND		1
+ #define N_ATTACH	4U
+ #define NEWMODE		0066
+ 
+@@ -44,11 +42,11 @@ static size_t shm_size;
+ static int shm_id_1 = -1;
+ static struct shmid_ds buf;
+ static time_t save_time;
+-static int stat_time;
+-static void *set_shared;
++static void *attach_to_parent;
+ 
+-static void stat_setup(void);
++static void stat_setup_1(void);
+ static void stat_cleanup(void);
++static void stat_setup_2(void);
+ static void set_setup(void);
+ static void func_stat(void);
+ static void func_set(void);
+@@ -67,8 +65,8 @@ struct tcase {
+ 	void (*func_test) (void);
+ 	void (*func_setup) (void);
+ } tcases[] = {
+-	{IPC_STAT, func_stat, stat_setup},
+-	{IPC_STAT, func_stat, stat_setup},
++	{IPC_STAT, func_stat, stat_setup_1},
++	{IPC_STAT, func_stat, stat_setup_2},
+ 	{IPC_SET,  func_set,  set_setup},
+ 	{IPC_RMID, func_rmid, NULL}
+ };
+@@ -76,9 +74,16 @@ struct tcase {
+ static void test_hugeshmctl(unsigned int i)
+ {
+ 	/*
+-	 * if needed, set up any required conditions by
+-	 * calling the appropriate setup function
++	 * Create a shared memory segment with read and write
++	 * permissions.  Do this here instead of in setup()
++	 * so that looping (-i) will work correctly.
+ 	 */
++	if (i == 0)
++		shm_id_1 = shmget(shmkey, shm_size,
++			SHM_HUGETLB | IPC_CREAT | IPC_EXCL | SHM_RW);
++	if (shm_id_1 == -1)
++		tst_brk(TBROK | TERRNO, "shmget #main");
 +
-+#ifndef IO_URING_H__
-+#define IO_URING_H__
-+
-+#include <unistd.h>
-+#include <fcntl.h>
-+#include <sys/syscall.h>
-+#include <sys/types.h>
-+#include <sys/uio.h>
-+
-+
-+#include "config.h"
-+#include "lapi/syscalls.h"
-+
-+
-+#ifdef __alpha__
-+/*
-+ * alpha is the only exception, all other architectures
-+ * have common numbers for new system calls.
-+ */
-+# ifndef __NR_io_uring_setup
-+#  define __NR_io_uring_setup		535
-+# endif
-+# ifndef __NR_io_uring_enter
-+#  define __NR_io_uring_enter		536
-+# endif
-+# ifndef __NR_io_uring_register
-+#  define __NR_io_uring_register	537
-+# endif
-+#else /* !__alpha__ */
-+# ifndef __NR_io_uring_setup
-+#  define __NR_io_uring_setup		425
-+# endif
-+# ifndef __NR_io_uring_enter
-+#  define __NR_io_uring_enter		426
-+# endif
-+# ifndef __NR_io_uring_register
-+#  define __NR_io_uring_register	427
-+# endif
-+#endif
-+
-+
-+
-+/*
-+ * sqe->flags
-+ */
-+#define IOSQE_FIXED_FILE	(1U << 0)	/* use fixed fileset */
-+#define IOSQE_IO_DRAIN		(1U << 1)	/* issue after inflight IO */
-+#define IOSQE_IO_LINK		(1U << 2)	/* links next sqe */
-+#define IOSQE_IO_HARDLINK	(1U << 3)	/* like LINK, but stronger */
-+
-+/*
-+ * io_uring_setup() flags
-+ */
-+#define IORING_SETUP_IOPOLL	(1U << 0)	/* io_context is polled */
-+#define IORING_SETUP_SQPOLL	(1U << 1)	/* SQ poll thread */
-+#define IORING_SETUP_SQ_AFF	(1U << 2)	/* sq_thread_cpu is valid */
-+#define IORING_SETUP_CQSIZE	(1U << 3)	/* app defines CQ size */
-+
-+enum {
-+	IORING_OP_NOP,
-+	IORING_OP_READV,
-+	IORING_OP_WRITEV,
-+	IORING_OP_FSYNC,
-+	IORING_OP_READ_FIXED,
-+	IORING_OP_WRITE_FIXED,
-+	IORING_OP_POLL_ADD,
-+	IORING_OP_POLL_REMOVE,
-+	IORING_OP_SYNC_FILE_RANGE,
-+	IORING_OP_SENDMSG,
-+	IORING_OP_RECVMSG,
-+	IORING_OP_TIMEOUT,
-+	IORING_OP_TIMEOUT_REMOVE,
-+	IORING_OP_ACCEPT,
-+	IORING_OP_ASYNC_CANCEL,
-+	IORING_OP_LINK_TIMEOUT,
-+	IORING_OP_CONNECT,
-+
-+	/* this goes last, obviously */
-+	IORING_OP_LAST,
-+};
-+
-+/*
-+ * sqe->fsync_flags
-+ */
-+#define IORING_FSYNC_DATASYNC	(1U << 0)
-+
-+/*
-+ * sqe->timeout_flags
-+ */
-+#define IORING_TIMEOUT_ABS	(1U << 0)
-+
-+/*
-+ * IO completion data structure (Completion Queue Entry)
-+ */
-+struct io_uring_cqe {
-+	__u64	user_data;	/* sqe->data submission passed back */
-+	__s32	res;		/* result code for this event */
-+	__u32	flags;
-+};
-+
-+/*
-+ * Magic offsets for the application to mmap the data it needs
-+ */
-+#define IORING_OFF_SQ_RING		0ULL
-+#define IORING_OFF_CQ_RING		0x8000000ULL
-+#define IORING_OFF_SQES			0x10000000ULL
-+
-+/*
-+ * Filled with the offset for mmap(2)
-+ */
-+struct io_sqring_offsets {
-+	__u32 head;
-+	__u32 tail;
-+	__u32 ring_mask;
-+	__u32 ring_entries;
-+	__u32 flags;
-+	__u32 dropped;
-+	__u32 array;
-+	__u32 resv1;
-+	__u64 resv2;
-+};
-+
-+/*
-+ * sq_ring->flags
-+ */
-+#define IORING_SQ_NEED_WAKEUP	(1U << 0) /* needs io_uring_enter wakeup */
-+
-+struct io_cqring_offsets {
-+	__u32 head;
-+	__u32 tail;
-+	__u32 ring_mask;
-+	__u32 ring_entries;
-+	__u32 overflow;
-+	__u32 cqes;
-+	__u64 resv[2];
-+};
-+
-+/*
-+ * io_uring_enter(2) flags
-+ */
-+#define IORING_ENTER_GETEVENTS	(1U << 0)
-+#define IORING_ENTER_SQ_WAKEUP	(1U << 1)
-+
-+/*
-+ * Passed in for io_uring_setup(2). Copied back with updated info on success
-+ */
-+struct io_uring_params {
-+	__u32 sq_entries;
-+	__u32 cq_entries;
-+	__u32 flags;
-+	__u32 sq_thread_cpu;
-+	__u32 sq_thread_idle;
-+	__u32 features;
-+	__u32 resv[4];
-+	struct io_sqring_offsets sq_off;
-+	struct io_cqring_offsets cq_off;
-+};
-+
-+/*
-+ * io_uring_params->features flags
-+ */
-+#define IORING_FEAT_SINGLE_MMAP		(1U << 0)
-+#define IORING_FEAT_NODROP		(1U << 1)
-+#define IORING_FEAT_SUBMIT_STABLE	(1U << 2)
-+
-+/*
-+ * io_uring_register(2) opcodes and arguments
-+ */
-+#define IORING_REGISTER_BUFFERS		0
-+#define IORING_UNREGISTER_BUFFERS	1
-+#define IORING_REGISTER_FILES		2
-+#define IORING_UNREGISTER_FILES		3
-+#define IORING_REGISTER_EVENTFD		4
-+#define IORING_UNREGISTER_EVENTFD	5
-+#define IORING_REGISTER_FILES_UPDATE	6
-+
-+struct io_uring_files_update {
-+	__u32 offset;
-+	__u32 resv;
-+	__aligned_u64 /* __s32 * */ fds;
-+};
-+
-+
-+
-+#ifndef HAVE_IO_URING_REGISTER
-+int io_uring_register(int fd, unsigned int opcode, void *arg,
-+		      unsigned int nr_args)
+ 	if (tcases[i].func_setup != NULL)
+ 		(*tcases[i].func_setup) ();
+ 
+@@ -90,9 +95,7 @@ static void test_hugeshmctl(unsigned int i)
+ }
+ 
+ /*
+- * set_shmat() - Attach the shared memory and return the pointer.  Use
+- *		 this seperate routine to avoid code duplication in
+- *		 stat_setup() below.
++ * set_shmat() - Attach the shared memory and return the pointer.
+  */
+ void *set_shmat(void)
+ {
+@@ -106,35 +109,33 @@ void *set_shmat(void)
+ }
+ 
+ /*
+- * stat_setup() - Set up for the IPC_STAT command with shmctl().
+- *		  Make things interesting by forking some children
+- *		  that will either attach or inherit the shared memory.
++ * stat_setup_2() - Set up for the IPC_STAT command with shmctl().
++ * 		  Attach the shared memory to parent process and
++ * 		  some children will inherit the shared memory.
+  */
+-static void stat_setup(void)
++static void stat_setup_2(void)
 +{
-+	return tst_syscall(__NR_io_uring_register, fd, opcode, arg, nr_args);
++	if (!attach_to_parent)
++		attach_to_parent = set_shmat();
++	stat_setup_1();
 +}
-+#endif /* HAVE_IO_URING_REGISTER */
 +
++/*
++ * stat_setup_1() - Set up for the IPC_STAT command with shmctl().
++ *                some children will inherit or attatch the shared memory.
++ *                It deponds on whther we attach the shared memory
++ *                to parent process.
++ */
++static void stat_setup_1(void)
+ {
+ 	unsigned int i;
+ 	void *test;
+ 	pid_t pid;
+ 
+-	/*
+-	 * The first time through, let the children attach the memory.
+-	 * The second time through, attach the memory first and let
+-	 * the children inherit the memory.
+-	 */
+-
+-	if (stat_time == SECOND) {
+-		/*
+-		 * use the global "set_shared" variable here so that
+-		 * it can be removed in the stat_func() routine.
+-		 */
+-		set_shared = set_shmat();
+-	}
+-
+ 	for (i = 0; i < N_ATTACH; i++) {
+ 		switch (pid = SAFE_FORK()) {
+ 		case 0:
+-			test = (stat_time == FIRST) ? set_shmat() : set_shared;
+-
++			test = (attach_to_parent == NULL) ? set_shmat() : attach_to_parent;
+ 			/* do an assignement for fun */
+ 			*(int *)test = i;
+ 
+@@ -154,6 +155,7 @@ static void stat_setup(void)
+ 	}
+ }
+ 
 +
-+#ifndef HAVE_IO_URING_SETUP
-+int io_uring_setup(unsigned int entries, struct io_uring_params *p)
-+{
-+	return tst_syscall(__NR_io_uring_setup, entries, p);
-+}
-+#endif /* HAVE_IO_URING_SETUP */
-+
-+#ifndef HAVE_IO_URING_ENTER
-+int io_uring_enter(int fd, unsigned int to_submit, unsigned int min_complete,
-+		   unsigned int flags, sigset_t *sig)
-+{
-+	return tst_syscall(__NR_io_uring_enter, fd, to_submit, min_complete,
-+			flags, sig, _NSIG / 8);
-+}
-+#endif /* HAVE_IO_URING_ENTER */
-+
-+
-+
-+#endif /* IO_URING_H__ */
+ /*
+  * func_stat() - check the functionality of the IPC_STAT command with shmctl()
+  *		 by looking at the pid of the creator, the segement size,
+@@ -162,6 +164,7 @@ static void stat_setup(void)
+ static void func_stat(void)
+ {
+ 	pid_t pid;
++	unsigned int num;
+ 
+ 	/* check perm, pid, nattach and size */
+ 	pid = getpid();
+@@ -177,12 +180,13 @@ static void func_stat(void)
+ 	}
+ 
+ 	/*
+-	 * The first time through, only the children attach the memory, so
+-	 * the attaches equal N_ATTACH + stat_time (0).  The second time
+-	 * through, the parent attaches the memory and the children inherit
+-	 * that memory so the attaches equal N_ATTACH + stat_time (1).
++	 * The first case, only the children attach the memory, so
++	 * the attaches equal N_ATTACH. The second case, the parent
++	 * attaches the memory and the children inherit that memory
++	 * so the attaches equal N_ATTACH + 1.
+ 	 */
+-	if (buf.shm_nattch != N_ATTACH + stat_time) {
++	num = (attach_to_parent == NULL) ? 0 : 1;
++	if (buf.shm_nattch != N_ATTACH + num) {
+ 		tst_res(TFAIL, "# of attaches is incorrect - %lu",
+ 			 (unsigned long)buf.shm_nattch);
+ 		goto fail;
+@@ -195,7 +199,7 @@ static void func_stat(void)
+ 	}
+ 
+ 	tst_res(TPASS, "pid, size, # of attaches and mode are correct "
+-		 "- pass #%d", stat_time);
++		 "- pass #%d", num);
+ 
+ fail:
+ 	stat_cleanup();
+@@ -220,11 +224,12 @@ static void stat_cleanup(void)
+ 	for (i = 0; i < N_ATTACH; i++)
+ 		SAFE_WAIT(&status);
+ 
+-	/* remove the parent's shared memory the second time through */
+-	if (stat_time == SECOND)
+-		if (shmdt(set_shared) == -1)
++	/* remove the parent's shared memory if we set*/
++	if (attach_to_parent) {
++		if (shmdt(attach_to_parent) == -1)
+ 			tst_res(TFAIL | TERRNO, "shmdt in stat_cleanup()");
+-	stat_time++;
++		attach_to_parent = NULL;
++	}
+ }
+ 
+ /*
+@@ -296,19 +301,6 @@ void setup(void)
+ 	shm_size = hpage_size * hugepages / 2;
+ 	update_shm_size(&shm_size);
+ 	shmkey = getipckey();
+-
+-	/* initialize stat_time */
+-	stat_time = FIRST;
+-
+-	/*
+-	 * Create a shared memory segment with read and write
+-	 * permissions.  Do this here instead of in setup()
+-	 * so that looping (-i) will work correctly.
+-	 */
+-	shm_id_1 = shmget(shmkey, shm_size,
+-			SHM_HUGETLB | IPC_CREAT | IPC_EXCL | SHM_RW);
+-	if (shm_id_1 == -1)
+-		tst_brk(TBROK | TERRNO, "shmget #main");
+ }
+ 
+ void cleanup(void)
 -- 
-2.17.1
+2.18.0
+
+
 
 
 -- 
