@@ -2,73 +2,61 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F94217CE2F
-	for <lists+linux-ltp@lfdr.de>; Sat,  7 Mar 2020 13:43:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 371F317D0EE
+	for <lists+linux-ltp@lfdr.de>; Sun,  8 Mar 2020 03:59:40 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E14113C62BC
-	for <lists+linux-ltp@lfdr.de>; Sat,  7 Mar 2020 13:43:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 37BCF3C62F2
+	for <lists+linux-ltp@lfdr.de>; Sun,  8 Mar 2020 03:59:39 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 9BE253C62B8
- for <ltp@lists.linux.it>; Sat,  7 Mar 2020 13:43:06 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 27B513C17A1
+ for <ltp@lists.linux.it>; Sun,  8 Mar 2020 03:59:33 +0100 (CET)
 Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 0BAE5600B2C
- for <ltp@lists.linux.it>; Sat,  7 Mar 2020 13:43:04 +0100 (CET)
+ [205.139.110.61])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id AA1E4600907
+ for <ltp@lists.linux.it>; Sun,  8 Mar 2020 03:59:32 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1583584983;
+ s=mimecast20190719; t=1583636370;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=DBfp/AfuXhlb+/kHUbCuuUObtOsl1h82OPfYbi7Jsjc=;
- b=RzNMLWeh+s4/lvWh6BDUCalT9bdvtgH/xJga3yNCNpCG+IZsiT7LIw5SsMeI9tLxhLYesV
- CPP8+nKGa4mZziCQopmZE+pKvnzlPVdAPHIUCbteN7ZVUzfr6Z+r6qBj/hJ53IGug3ynul
- n2Dzf7UiZuODjfeUf28fXJh+gkpqn30=
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
- [209.85.167.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-347-trqHa9jiPl2THdohrbY5ZQ-1; Sat, 07 Mar 2020 07:43:00 -0500
-X-MC-Unique: trqHa9jiPl2THdohrbY5ZQ-1
-Received: by mail-oi1-f199.google.com with SMTP id u199so734629oie.7
- for <ltp@lists.linux.it>; Sat, 07 Mar 2020 04:43:00 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=k3L7KMOZCit3P2QhS55qiW+dw6OznIQcIqkDiezXw2E=;
- b=sf+XsGVodQZuWCfcM0zy00G3dc7annQ/db4S+ifd14P+mfrj4eP6/MLi+hRkiI2fq1
- ZuQVAanKO0m9kpwbjhi8UGfAwKdZbxGPmqReza6MgrgPeq8RqjR88Y7xnU4LLA7Xb6P8
- k+455yEGWMk6M+x0XPFFxfnXLO38iiOjFXi9QCAQx2cdZY5WwKZUX78xX4o3nvqXNoQ8
- ClQ+pCeu6VizpR7OCxucJGzBlpO0/8W6HIugwQNkOWWtEMl1kqx7MhJ0EPqIUl2mv1An
- H1sy+H9LR4JN3X7J+N1Qqn/mPPEIoKjzJt8I5i3+BEmGDUSZiAtvsQi8k1OzIQztw4YD
- hfgw==
-X-Gm-Message-State: ANhLgQ1qT5rIfU6p4rj7oPW4NmoA8LP+38SkhRLYAZD4RUrR5UnNCtYG
- pKRbQWjOQ8pcOoKZjM2rGgqZI+wJemQpVHL6c067xlxrnQdtRnUjVc2dCZzXW5wMNFobEyYy3Uw
- EEmC0urSLLC4bPErg4Mj+8xHwGoM=
-X-Received: by 2002:aca:f591:: with SMTP id t139mr835529oih.153.1583584979470; 
- Sat, 07 Mar 2020 04:42:59 -0800 (PST)
-X-Google-Smtp-Source: ADFU+vsM48m1YFLJAkk+aWDoYaNf6iYV4mlNXtESWFO9HvD8K3YXlcAg1Qf6lKM9lpkEX3/jtXAUwSSGDwt/ogs3Uz0=
-X-Received: by 2002:aca:f591:: with SMTP id t139mr835524oih.153.1583584979280; 
- Sat, 07 Mar 2020 04:42:59 -0800 (PST)
+ content-transfer-encoding:content-transfer-encoding;
+ bh=H9ok56P7naean1d69BiM+gtHUWHaY/joK9Xd+aAZRDE=;
+ b=jHN4D3yoXB4dDbd1hLctKzfbvAiBbghkZo7tW/UDN5gLeoXQIVXd5+WI2PQyvrk/GomqUd
+ WThK9P3SdaBkOCVbjSUYvYaLj0k6tUI4Fj4IQ7ymHhuLwXLMc0RdXs5lcm5SPLoggC9Ov6
+ Afcp7ALV1nV3uIVvd+pTGuqCQfbikdM=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-268-jfb5kpi4PNeUK3mtAMEvQA-1; Sat, 07 Mar 2020 21:59:27 -0500
+X-MC-Unique: jfb5kpi4PNeUK3mtAMEvQA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+ [10.5.11.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 56CC018C35A0
+ for <ltp@lists.linux.it>; Sun,  8 Mar 2020 02:59:26 +0000 (UTC)
+Received: from [172.54.80.59] (cpt-1035.paas.prod.upshift.rdu2.redhat.com
+ [10.0.19.59])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 277FB8F34F;
+ Sun,  8 Mar 2020 02:59:20 +0000 (UTC)
 MIME-Version: 1.0
-References: <cover.1582779464.git.viresh.kumar@linaro.org>
- <2071e47d7d8cb3e7f8bc6558e86999eddd9c3762.1582779464.git.viresh.kumar@linaro.org>
- <20200306124546.GA3375@rei.lan>
-In-Reply-To: <20200306124546.GA3375@rei.lan>
-From: Li Wang <liwang@redhat.com>
-Date: Sat, 7 Mar 2020 20:42:47 +0800
-Message-ID: <CAEemH2drJyp5kU21jS7Ej+-q6hTysb5oDNM+3KiWsmPoLAbMQA@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
+From: CKI Project <cki-project@redhat.com>
+To: 
+Date: Sun, 08 Mar 2020 02:59:20 -0000
+Message-ID: <cki.FEFA879F6B.TFTZ93YIF0@redhat.com>
+X-Gitlab-Pipeline-ID: 477469
+X-Gitlab-Url: https://xci32.lab.eng.rdu2.redhat.com
+X-Gitlab-Path: /cki-project/cki-pipeline/pipelines/477469
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V5 01/10] tst_device: Add tst_is_mounted() helper
+Subject: [LTP] =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E6?=
+ =?utf-8?q?=2E0-rc4-61a0925=2Ecki_=28mainline=2Ekernel=2Eorg=29?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,137 +68,91 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vikas.Kumar2@arm.com, Vincent Guittot <vincent.guittot@linaro.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1151160472=="
+Cc: Memory Management <mm-qe@redhat.com>, LTP Mailing List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1151160472==
-Content-Type: multipart/alternative; boundary="000000000000297df505a0431c50"
-
---000000000000297df505a0431c50
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Mar 6, 2020 at 8:45 PM Cyril Hrubis <chrubis@suse.cz> wrote:
-
-> ...
-> >
-> > +int tst_is_mounted(const char *path)
-> > +{
-> > +     char cmd[PATH_MAX];
-> > +     int ret;
-> > +
-> > +     snprintf(cmd, sizeof(cmd), "mountpoint -q %s", path);
-> > +     ret =3D tst_system(cmd);
->
-> I'm not sure that depending on mountpoint command is right choice, there
-> are all kinds of embedded systems out there that may be missing it.
-
-
-Good point, we'd better avoid involving other packages as the dependence of
-LTP.
-
-
-> Also this does not even handle the case that the command is missing.
->
-> Looking at the v4 version, all we need is to correctly parse each line
-> from from /proc/mounts. I would just use strsep() with space as a
-> delimited and took first token that starts with a slash i.e. '/', then
-> we can just strcmp() it against the path. Or do I miss something?
->
-
-I'm afraid strcmp() can not satisfy the requirement for us. As you know LTP
-creates the MNTPOINT in temp dir that means it could not accurately match
-the string path which extracts from /proc/mounts with a slash.
-
-e.g
-#define MNTPOINT "fallocate"
-...
-/dev/loop4 on /tmp/FPp7kh/fallocate type xfs
-(rw,relatime,seclabel,attr2,inode64,logbufs=3D8,logbsize=3D32k,noquota)
-...
-strcmp("/tmp/FPp7kh/fallocate", MNTPOINT) will never ruturn 0 to us.
-
-What I can think of is to use strrchr() to cut the string after last '/',
-but that can only work for test mount fs in LTP ways. Other situations
-might not satisfy.
-
---=20
-Regards,
-Li Wang
-
---000000000000297df505a0431c50
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Fri, Mar 6, 2020 at 8:45 PM Cyril Hrubis &lt;<a =
-href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a>&gt; w=
-rote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
-x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><span clas=
-s=3D"gmail_default" style=3D"font-size:small">...</span><br>
-&gt;=C2=A0 <br>
-&gt; +int tst_is_mounted(const char *path)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0char cmd[PATH_MAX];<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int ret;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0snprintf(cmd, sizeof(cmd), &quot;mountpoint -q %s=
-&quot;, path);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0ret =3D tst_system(cmd);<br>
-<br>
-I&#39;m not sure that depending on mountpoint command is right choice, ther=
-e<br>
-are all kinds of embedded systems out there that may be missing it.</blockq=
-uote><div><br></div><div class=3D"gmail_default" style=3D"font-size:small">=
-Good point, we&#39;d better avoid involving other packages as the dependenc=
-e of LTP.</div><div class=3D"gmail_default" style=3D"font-size:small"><br><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
-rder-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-Also this does not even handle the case that the command is missing.<br>
-<br>
-Looking at the v4 version, all we need is to correctly parse each line<br>
-from from /proc/mounts. I would just use strsep() with space as a<br>
-delimited and took first token that starts with a slash i.e. &#39;/&#39;, t=
-hen<br>
-we can just strcmp() it against the path. Or do I miss something?<br></bloc=
-kquote><div>=C2=A0</div><div><div class=3D"gmail_default" style=3D"font-siz=
-e:small">I&#39;m afraid strcmp() can not satisfy the requirement for us. As=
- you know LTP creates the MNTPOINT in temp dir that means it could not accu=
-rately match the string path=C2=A0which extracts from /proc/mounts with a s=
-lash.</div><div class=3D"gmail_default" style=3D"font-size:small"><br></div=
-><div class=3D"gmail_default" style=3D"font-size:small">e.g</div><div class=
-=3D"gmail_default" style=3D"font-size:small">#define MNTPOINT &quot;falloca=
-te&quot;</div><div class=3D"gmail_default" style=3D"font-size:small">...</d=
-iv><div class=3D"gmail_default" style=3D"font-size:small">/dev/loop4 on /tm=
-p/FPp7kh/fallocate type xfs (rw,relatime,seclabel,attr2,inode64,logbufs=3D8=
-,logbsize=3D32k,noquota)</div><div class=3D"gmail_default" style=3D"font-si=
-ze:small">...</div><div class=3D"gmail_default" style=3D"font-size:small">s=
-trcmp(&quot;/tmp/FPp7kh/fallocate&quot;, MNTPOINT) will never ruturn=C2=A00=
- to us.=C2=A0</div></div><div><div class=3D"gmail_default" style=3D"font-si=
-ze:small"></div></div><div><br></div><div><div class=3D"gmail_default" styl=
-e=3D"font-size:small">What I can think of is to use strrchr() to cut the st=
-ring after last &#39;/&#39;, but that can only work for test mount fs in LT=
-P ways. Other situations might not satisfy.</div></div><div><br></div></div=
->-- <br><div dir=3D"ltr"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wa=
-ng<br></div></div></div></div>
-
---000000000000297df505a0431c50--
-
-
---===============1151160472==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1151160472==--
-
+CkhlbGxvLAoKV2UgcmFuIGF1dG9tYXRlZCB0ZXN0cyBvbiBhIHJlY2VudCBjb21taXQgZnJvbSB0
+aGlzIGtlcm5lbCB0cmVlOgoKICAgICAgIEtlcm5lbCByZXBvOiBodHRwczovL2dpdC5rZXJuZWwu
+b3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dpdC90b3J2YWxkcy9saW51eC5naXQKICAgICAgICAg
+ICAgQ29tbWl0OiA2MWEwOTI1OGYyZTUgLSBNZXJnZSB0YWcgJ2Zvci1saW51cycgb2YgZ2l0Oi8v
+Z2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L3JkbWEvcmRtYQoKVGhlIHJl
+c3VsdHMgb2YgdGhlc2UgYXV0b21hdGVkIHRlc3RzIGFyZSBwcm92aWRlZCBiZWxvdy4KCiAgICBP
+dmVyYWxsIHJlc3VsdDogRkFJTEVEIChzZWUgZGV0YWlscyBiZWxvdykKICAgICAgICAgICAgIE1l
+cmdlOiBPSwogICAgICAgICAgIENvbXBpbGU6IE9LCiAgICAgICAgICAgICBUZXN0czogRkFJTEVE
+CgpBbGwga2VybmVsIGJpbmFyaWVzLCBjb25maWcgZmlsZXMsIGFuZCBsb2dzIGFyZSBhdmFpbGFi
+bGUgZm9yIGRvd25sb2FkIGhlcmU6CgogIGh0dHBzOi8vY2tpLWFydGlmYWN0cy5zMy51cy1lYXN0
+LTIuYW1hem9uYXdzLmNvbS9pbmRleC5odG1sP3ByZWZpeD1kYXRhd2FyZWhvdXNlLzIwMjAvMDMv
+MDgvNDc3NDY5CgpPbmUgb3IgbW9yZSBrZXJuZWwgdGVzdHMgZmFpbGVkOgoKICAgIHg4Nl82NDoK
+ICAgICDinYwgTFRQCiAgICAg4p2MIHhmc3Rlc3RzIC0gZXh0NAoKV2UgaG9wZSB0aGF0IHRoZXNl
+IGxvZ3MgY2FuIGhlbHAgeW91IGZpbmQgdGhlIHByb2JsZW0gcXVpY2tseS4gRm9yIHRoZSBmdWxs
+CmRldGFpbCBvbiBvdXIgdGVzdGluZyBwcm9jZWR1cmVzLCBwbGVhc2Ugc2Nyb2xsIHRvIHRoZSBi
+b3R0b20gb2YgdGhpcyBtZXNzYWdlLgoKUGxlYXNlIHJlcGx5IHRvIHRoaXMgZW1haWwgaWYgeW91
+IGhhdmUgYW55IHF1ZXN0aW9ucyBhYm91dCB0aGUgdGVzdHMgdGhhdCB3ZQpyYW4gb3IgaWYgeW91
+IGhhdmUgYW55IHN1Z2dlc3Rpb25zIG9uIGhvdyB0byBtYWtlIGZ1dHVyZSB0ZXN0cyBtb3JlIGVm
+ZmVjdGl2ZS4KCiAgICAgICAgLC0uICAgLC0uCiAgICAgICAoIEMgKSAoIEsgKSAgQ29udGludW91
+cwogICAgICAgIGAtJywtLmAtJyAgIEtlcm5lbAogICAgICAgICAgKCBJICkgICAgIEludGVncmF0
+aW9uCiAgICAgICAgICAgYC0nCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwoKQ29tcGlsZSB0ZXN0aW5n
+Ci0tLS0tLS0tLS0tLS0tLQoKV2UgY29tcGlsZWQgdGhlIGtlcm5lbCBmb3IgMSBhcmNoaXRlY3R1
+cmU6CgogICAgeDg2XzY0OgogICAgICBtYWtlIG9wdGlvbnM6IC1qMzAgSU5TVEFMTF9NT0RfU1RS
+SVA9MSB0YXJnei1wa2cKCgpIYXJkd2FyZSB0ZXN0aW5nCi0tLS0tLS0tLS0tLS0tLS0KV2UgYm9v
+dGVkIGVhY2gga2VybmVsIGFuZCByYW4gdGhlIGZvbGxvd2luZyB0ZXN0czoKCiAgeDg2XzY0Ogog
+ICAgSG9zdCAxOgogICAgICAg4pyFIEJvb3QgdGVzdAogICAgICAg4pyFIFBvZG1hbiBzeXN0ZW0g
+aW50ZWdyYXRpb24gdGVzdCAtIGFzIHJvb3QKICAgICAgIOKchSBQb2RtYW4gc3lzdGVtIGludGVn
+cmF0aW9uIHRlc3QgLSBhcyB1c2VyCiAgICAgICDinYwgTFRQCiAgICAgICDimqHimqHimqEgTG9v
+cGRldiBTYW5pdHkKICAgICAgIOKaoeKaoeKaoSBNZW1vcnkgZnVuY3Rpb246IG1lbWZkX2NyZWF0
+ZQogICAgICAg4pqh4pqh4pqhIEFNVFUgKEFic3RyYWN0IE1hY2hpbmUgVGVzdCBVdGlsaXR5KQog
+ICAgICAg4pqh4pqh4pqhIE5ldHdvcmtpbmcgYnJpZGdlOiBzYW5pdHkKICAgICAgIOKaoeKaoeKa
+oSBFdGhlcm5ldCBkcml2ZXJzIHNhbml0eQogICAgICAg4pqh4pqh4pqhIE5ldHdvcmtpbmcgTUFD
+c2VjOiBzYW5pdHkKICAgICAgIOKaoeKaoeKaoSBOZXR3b3JraW5nIHNvY2tldDogZnV6egogICAg
+ICAg4pqh4pqh4pqhIE5ldHdvcmtpbmcgc2N0cC1hdXRoOiBzb2Nrb3B0cyB0ZXN0CiAgICAgICDi
+mqHimqHimqEgTmV0d29ya2luZzogaWdtcCBjb25mb3JtYW5jZSB0ZXN0CiAgICAgICDimqHimqHi
+mqEgTmV0d29ya2luZyByb3V0ZTogcG10dQogICAgICAg4pqh4pqh4pqhIE5ldHdvcmtpbmcgcm91
+dGVfZnVuYyAtIGxvY2FsCiAgICAgICDimqHimqHimqEgTmV0d29ya2luZyByb3V0ZV9mdW5jIC0g
+Zm9yd2FyZAogICAgICAg4pqh4pqh4pqhIE5ldHdvcmtpbmcgVENQOiBrZWVwYWxpdmUgdGVzdAog
+ICAgICAg4pqh4pqh4pqhIE5ldHdvcmtpbmcgVURQOiBzb2NrZXQKICAgICAgIOKaoeKaoeKaoSBO
+ZXR3b3JraW5nIHR1bm5lbDogZ2VuZXZlIGJhc2ljIHRlc3QKICAgICAgIOKaoeKaoeKaoSBOZXR3
+b3JraW5nIHR1bm5lbDogZ3JlIGJhc2ljCiAgICAgICDimqHimqHimqEgTDJUUCBiYXNpYyB0ZXN0
+CiAgICAgICDimqHimqHimqEgTmV0d29ya2luZyB0dW5uZWw6IHZ4bGFuIGJhc2ljCiAgICAgICDi
+mqHimqHimqEgTmV0d29ya2luZyBpcHNlYzogYmFzaWMgbmV0bnMgLSB0cmFuc3BvcnQKICAgICAg
+IOKaoeKaoeKaoSBOZXR3b3JraW5nIGlwc2VjOiBiYXNpYyBuZXRucyAtIHR1bm5lbAogICAgICAg
+4pqh4pqh4pqhIGF1ZGl0OiBhdWRpdCB0ZXN0c3VpdGUgdGVzdAogICAgICAg4pqh4pqh4pqhIGh0
+dHBkOiBtb2Rfc3NsIHNtb2tlIHNhbml0eQogICAgICAg4pqh4pqh4pqhIHR1bmVkOiB0dW5lLXBy
+b2Nlc3Nlcy10aHJvdWdoLXBlcmYKICAgICAgIOKaoeKaoeKaoSBwY2l1dGlsczogc2FuaXR5IHNt
+b2tlIHRlc3QKICAgICAgIOKaoeKaoeKaoSBBTFNBIFBDTSBsb29wYmFjayB0ZXN0CiAgICAgICDi
+mqHimqHimqEgQUxTQSBDb250cm9sIChtaXhlcikgVXNlcnNwYWNlIEVsZW1lbnQgdGVzdAogICAg
+ICAg4pqh4pqh4pqhIHN0b3JhZ2U6IFNDU0kgVlBECiAgICAgICDimqHimqHimqEgdHJhY2U6IGZ0
+cmFjZS90cmFjZXIKICAgICAgIPCfmqcg4pqh4pqh4pqhIENJRlMgQ29ubmVjdGF0aG9uCiAgICAg
+ICDwn5qnIOKaoeKaoeKaoSBQT1NJWCBwamQtZnN0ZXN0IHN1aXRlcwogICAgICAg8J+apyDimqHi
+mqHimqEganZtIC0gRGFDYXBvIEJlbmNobWFyayBTdWl0ZQogICAgICAg8J+apyDimqHimqHimqEg
+anZtIC0gamNzdHJlc3MgdGVzdHMKICAgICAgIPCfmqcg4pqh4pqh4pqhIE1lbW9yeSBmdW5jdGlv
+bjoga2FzbHIKICAgICAgIPCfmqcg4pqh4pqh4pqhIExUUDogb3BlbnBvc2l4IHRlc3Qgc3VpdGUK
+ICAgICAgIPCfmqcg4pqh4pqh4pqhIE5ldHdvcmtpbmcgdm5pYzogaXB2bGFuL2Jhc2ljCiAgICAg
+ICDwn5qnIOKaoeKaoeKaoSBpb3RvcDogc2FuaXR5CiAgICAgICDwn5qnIOKaoeKaoeKaoSBVc2V4
+IC0gdmVyc2lvbiAxLjktMjkKICAgICAgIPCfmqcg4pqh4pqh4pqhIHN0b3JhZ2U6IGRtL2NvbW1v
+bgoKICAgIEhvc3QgMjoKICAgICAgIOKchSBCb290IHRlc3QKICAgICAgIOKchSBTdG9yYWdlIFNB
+TiBkZXZpY2Ugc3RyZXNzIC0gbXB0M3NhcyBkcml2ZXIKCiAgICBIb3N0IDM6CiAgICAgICDinIUg
+Qm9vdCB0ZXN0CiAgICAgICDinIUgU3RvcmFnZSBTQU4gZGV2aWNlIHN0cmVzcyAtIG1lZ2FyYWlk
+X3NhcwoKICAgIEhvc3QgNDoKICAgICAgIOKchSBCb290IHRlc3QKICAgICAgIOKdjCB4ZnN0ZXN0
+cyAtIGV4dDQKICAgICAgIOKaoeKaoeKaoSB4ZnN0ZXN0cyAtIHhmcwogICAgICAg4pqh4pqh4pqh
+IHNlbGludXgtcG9saWN5OiBzZXJnZS10ZXN0c3VpdGUKICAgICAgIOKaoeKaoeKaoSBsdm0gdGhp
+bnAgc2FuaXR5CiAgICAgICDimqHimqHimqEgc3RvcmFnZTogc29mdHdhcmUgUkFJRCB0ZXN0aW5n
+CiAgICAgICDimqHimqHimqEgc3RyZXNzOiBzdHJlc3MtbmcKICAgICAgIPCfmqcg4pqh4pqh4pqh
+IElPTU1VIGJvb3QgdGVzdAogICAgICAg8J+apyDimqHimqHimqEgSVBNSSBkcml2ZXIgdGVzdAog
+ICAgICAg8J+apyDimqHimqHimqEgSVBNSXRvb2wgbG9vcCBzdHJlc3MgdGVzdAogICAgICAg8J+a
+pyDimqHimqHimqEgcG93ZXItbWFuYWdlbWVudDogY3B1cG93ZXIvc2FuaXR5IHRlc3QKICAgICAg
+IPCfmqcg4pqh4pqh4pqhIFN0b3JhZ2UgYmxrdGVzdHMKCiAgVGVzdCBzb3VyY2VzOiBodHRwczov
+L2dpdGh1Yi5jb20vQ0tJLXByb2plY3QvdGVzdHMtYmVha2VyCiAgICDwn5KaIFB1bGwgcmVxdWVz
+dHMgYXJlIHdlbGNvbWUgZm9yIG5ldyB0ZXN0cyBvciBpbXByb3ZlbWVudHMgdG8gZXhpc3Rpbmcg
+dGVzdHMhCgpXYWl2ZWQgdGVzdHMKLS0tLS0tLS0tLS0tCklmIHRoZSB0ZXN0IHJ1biBpbmNsdWRl
+ZCB3YWl2ZWQgdGVzdHMsIHRoZXkgYXJlIG1hcmtlZCB3aXRoIPCfmqcuIFN1Y2ggdGVzdHMgYXJl
+CmV4ZWN1dGVkIGJ1dCB0aGVpciByZXN1bHRzIGFyZSBub3QgdGFrZW4gaW50byBhY2NvdW50LiBU
+ZXN0cyBhcmUgd2FpdmVkIHdoZW4KdGhlaXIgcmVzdWx0cyBhcmUgbm90IHJlbGlhYmxlIGVub3Vn
+aCwgZS5nLiB3aGVuIHRoZXkncmUganVzdCBpbnRyb2R1Y2VkIG9yIGFyZQpiZWluZyBmaXhlZC4K
+ClRlc3RpbmcgdGltZW91dAotLS0tLS0tLS0tLS0tLS0KV2UgYWltIHRvIHByb3ZpZGUgYSByZXBv
+cnQgd2l0aGluIHJlYXNvbmFibGUgdGltZWZyYW1lLiBUZXN0cyB0aGF0IGhhdmVuJ3QKZmluaXNo
+ZWQgcnVubmluZyB5ZXQgYXJlIG1hcmtlZCB3aXRoIOKPsS4KCgotLSAKTWFpbGluZyBsaXN0IGlu
+Zm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
