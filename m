@@ -2,50 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C12117EB8D
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Mar 2020 22:53:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D288717EBA7
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Mar 2020 23:04:24 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2449D3C615A
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Mar 2020 22:53:12 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 702183C615A
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Mar 2020 23:04:24 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 587633C6134
- for <ltp@lists.linux.it>; Mon,  9 Mar 2020 22:53:10 +0100 (CET)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id AB82E200DEA
- for <ltp@lists.linux.it>; Mon,  9 Mar 2020 22:53:09 +0100 (CET)
-Received: from localhost (c-73-47-72-35.hsd1.nh.comcast.net [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AC2432146E;
- Mon,  9 Mar 2020 21:53:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1583790786;
- bh=8HvFafHKYIAnGdw58ZUkwzQxxJQ0wlGlJmTvXiSzUMs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qXUvoDk2WHWlsVdsQ1snSKdtpCR9Y7uKPYKoyF4kQv7/uO1XHb1QHWPpp/EJuz6KQ
- 8srnXpWOmBGRfoxx2hdlNwdpW9lgiKFSH+0x1HLBVm6UfNX2lPmu88F/LPNZWgkftn
- KlKU/mgH2oXeck/kbr5c3oFFYtQEhXG+TRRJwotU=
-Date: Mon, 9 Mar 2020 17:53:05 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: CKI Project <cki-project@redhat.com>
-Message-ID: <20200309215305.GV21491@sasha-vm>
-References: <cki.411617A928.D7E40QQCW6@redhat.com>
+ by picard.linux.it (Postfix) with ESMTP id B1A023C6131
+ for <ltp@lists.linux.it>; Mon,  9 Mar 2020 23:04:22 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id B81982003BE
+ for <ltp@lists.linux.it>; Mon,  9 Mar 2020 23:04:21 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1583791460;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=yvJTacKjNVOztH256dZHpNYhzX5dRhKvlA341VjdCi8=;
+ b=Uf816iHzFdgRt9B1h54EOGetWFZaeDFW45+cNWSPl4A4kayeiBf8XtWyV13gCAs0IcX4Zv
+ IThN6A1tlCsw3tGPyqlNZquZT9PNGmCytKD+23EU6hKKq1IaGou4oQ+VKMmyBJuzes4vFO
+ sV08UFakar/9pMql7dTVpvm+9GYnY1s=
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
+ [209.85.167.197]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-273-011m_DeLOVq05UDpBetJww-1; Mon, 09 Mar 2020 18:04:09 -0400
+X-MC-Unique: 011m_DeLOVq05UDpBetJww-1
+Received: by mail-oi1-f197.google.com with SMTP id q130so2552148oia.12
+ for <ltp@lists.linux.it>; Mon, 09 Mar 2020 15:04:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=yvJTacKjNVOztH256dZHpNYhzX5dRhKvlA341VjdCi8=;
+ b=p0/lsabNHZM2Y3KAckyKdx2oZ+eWhyG2n6y9ds3E0Fo8RZhOjlxlbialudz4iwI7Hf
+ vbdJqU8ol6TBFXXr9g6YR2g4ZXCQ4umX9IJmizOcGztPaYVm/Q+XW9USj0zhJzYzV5u1
+ p25P/eyVNJ2etvzuuEFmxlkEqZKAskpn0Tb2ZeWsaqBa0PXxz8up0ROAs9ZaWsTj8WtC
+ 8ml+8bYcB9/viI+ITCZxMsMJdTt04+Fx9r2GD/+o0rCIlB/htVU1zQkMdjFvkDMDkNWE
+ wqE9T3pxIzA0UgcbtDTyOGOzAhCdCKJpmy0mlKQ/yZl0O0QPapxa2l3u9ohR0OpjF7Zf
+ 1COQ==
+X-Gm-Message-State: ANhLgQ0zI+HQS64tZysvova3mDm40g0qKn50nn1YNfp2P8zXiZ3cUiW/
+ 1BMiUZRRUp4W+/Q0+KnSGyoK63bhGZXChv3lmM7LopenunaKpPh6hWCR/Y/TS8/rFmq0A/BBMga
+ 6pLUBMVMvImZeEzxYKVMOdNhvFqw=
+X-Received: by 2002:a9d:7458:: with SMTP id p24mr2890854otk.197.1583791448775; 
+ Mon, 09 Mar 2020 15:04:08 -0700 (PDT)
+X-Google-Smtp-Source: ADFU+vsFE8SXSJ8i3wT/MUNuNnTpNxro53ctEUbxx3P0T+4oUrP1CSaaaAbP5OdDtfFhAVMUywBT7KEphLu8efKRKdk=
+X-Received: by 2002:a9d:7458:: with SMTP id p24mr2890827otk.197.1583791448361; 
+ Mon, 09 Mar 2020 15:04:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <cki.411617A928.D7E40QQCW6@redhat.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+References: <cki.411617A928.D7E40QQCW6@redhat.com>
+ <20200309215305.GV21491@sasha-vm>
+In-Reply-To: <20200309215305.GV21491@sasha-vm>
+From: Ondrej Mosnacek <omosnace@redhat.com>
+Date: Mon, 9 Mar 2020 23:03:57 +0100
+Message-ID: <CAFqZXNugDTJ8MQePK1Cyz2TOJiPcPrq3ohmNZngJjaTCq1Y6mQ@mail.gmail.com>
+To: Sasha Levin <sashal@kernel.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] 
- =?utf-8?q?=E2=9D=8C_PANICKED=3A_Test_report_for_kernel_5?=
- =?utf-8?q?=2E5=2E8-c30f33b=2Ecki_=28stable-queue=29?=
+	=?utf-8?q?=E2=9D=8C_PANICKED=3A_Test_report_for_kernel_5?=
+	=?utf-8?q?=2E5=2E8-c30f33b=2Ecki_=28stable-queue=29?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,36 +80,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Memory Management <mm-qe@redhat.com>, Ondrej Mosnacek <omosnace@redhat.com>,
+Cc: Memory Management <mm-qe@redhat.com>,
  Linux Stable maillist <stable@vger.kernel.org>,
- Ondrej Moris <omoris@redhat.com>, LTP Mailing List <ltp@lists.linux.it>,
+ CKI Project <cki-project@redhat.com>, Ondrej Moris <omoris@redhat.com>,
+ LTP Mailing List <ltp@lists.linux.it>,
  William Gomeringer <wgomeringer@redhat.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gTW9uLCBNYXIgMDksIDIwMjAgYXQgMDk6MjQ6MzVQTSAtMDAwMCwgQ0tJIFByb2plY3Qgd3Jv
-dGU6Cj4KPkhlbGxvLAo+Cj5XZSByYW4gYXV0b21hdGVkIHRlc3RzIG9uIGEgcmVjZW50IGNvbW1p
-dCBmcm9tIHRoaXMga2VybmVsIHRyZWU6Cj4KPiAgICAgICBLZXJuZWwgcmVwbzogaHR0cHM6Ly9n
-aXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvc3RhYmxlL2xpbnV4LXN0YWJs
-ZS1yYy5naXQKPiAgICAgICAgICAgIENvbW1pdDogYzMwZjMzYmZiMDE0IC0gc2VsZnRlc3RzOiBm
-b3J3YXJkaW5nOiB2eGxhbl9icmlkZ2VfMWQ6IHVzZSBtb3JlIHByb3BlciB0b3MgdmFsdWUKPgo+
-VGhlIHJlc3VsdHMgb2YgdGhlc2UgYXV0b21hdGVkIHRlc3RzIGFyZSBwcm92aWRlZCBiZWxvdy4K
-Pgo+ICAgIE92ZXJhbGwgcmVzdWx0OiBGQUlMRUQgKHNlZSBkZXRhaWxzIGJlbG93KQo+ICAgICAg
-ICAgICAgIE1lcmdlOiBPSwo+ICAgICAgICAgICBDb21waWxlOiBPSwo+ICAgICAgICAgICAgIFRl
-c3RzOiBQQU5JQ0tFRAo+Cj5BbGwga2VybmVsIGJpbmFyaWVzLCBjb25maWcgZmlsZXMsIGFuZCBs
-b2dzIGFyZSBhdmFpbGFibGUgZm9yIGRvd25sb2FkIGhlcmU6Cj4KPiAgaHR0cHM6Ly9ja2ktYXJ0
-aWZhY3RzLnMzLnVzLWVhc3QtMi5hbWF6b25hd3MuY29tL2luZGV4Lmh0bWw/cHJlZml4PWRhdGF3
-YXJlaG91c2UvMjAyMC8wMy8wOS80ODAxNTgKPgo+T25lIG9yIG1vcmUga2VybmVsIHRlc3RzIGZh
-aWxlZDoKPgo+ICAgIHMzOTB4Ogo+ICAgICDinYwgTFRQCj4KPiAgICBwcGM2NGxlOgo+ICAgICDi
-nYwgTFRQCj4KPiAgICBhYXJjaDY0Ogo+ICAgICDinYwgYXVkaXQ6IGF1ZGl0IHRlc3RzdWl0ZSB0
-ZXN0Cj4KPiAgICB4ODZfNjQ6Cj4gICAgIOKdjCBhdWRpdDogYXVkaXQgdGVzdHN1aXRlIHRlc3QK
-CkZvbGxvd2luZyB0aGUgbGluayBhYm92ZSBJIGdvdCB0bwpodHRwczovL2NraS1hcnRpZmFjdHMu
-czMudXMtZWFzdC0yLmFtYXpvbmF3cy5jb20vaW5kZXguaHRtbD9wcmVmaXg9ZGF0YXdhcmVob3Vz
-ZS8yMDIwLzAzLzA5LzQ4MDE1OC9hdWRpdF9fYXVkaXRfdGVzdHN1aXRlX3Rlc3QvLApidXQgaXQg
-c2hvd3MgdGhhdCBhbGwgdGVzdHMgYXJlIHBhc3Npbmc/IFRoZSBjb25zb2xlIGxvZyBsb29rcyBm
-aW5lIHRvbzoKaHR0cHM6Ly9ja2ktYXJ0aWZhY3RzLnMzLnVzLWVhc3QtMi5hbWF6b25hd3MuY29t
-L2RhdGF3YXJlaG91c2UvMjAyMC8wMy8wOS80ODAxNTgveDg2XzY0XzVfY29uc29sZS5sb2cuCldo
-ZXJlJ3MgdGhlIHBhbmljPwoKLS0gClRoYW5rcywKU2FzaGEKCi0tIApNYWlsaW5nIGxpc3QgaW5m
-bzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+SGkgU2FzaGEsCgpPbiBNb24sIE1hciA5LCAyMDIwIGF0IDEwOjUzIFBNIFNhc2hhIExldmluIDxz
+YXNoYWxAa2VybmVsLm9yZz4gd3JvdGU6Cj4KPiBPbiBNb24sIE1hciAwOSwgMjAyMCBhdCAwOToy
+NDozNVBNIC0wMDAwLCBDS0kgUHJvamVjdCB3cm90ZToKPiA+Cj4gPkhlbGxvLAo+ID4KPiA+V2Ug
+cmFuIGF1dG9tYXRlZCB0ZXN0cyBvbiBhIHJlY2VudCBjb21taXQgZnJvbSB0aGlzIGtlcm5lbCB0
+cmVlOgo+ID4KPiA+ICAgICAgIEtlcm5lbCByZXBvOiBodHRwczovL2dpdC5rZXJuZWwub3JnL3B1
+Yi9zY20vbGludXgva2VybmVsL2dpdC9zdGFibGUvbGludXgtc3RhYmxlLXJjLmdpdAo+ID4gICAg
+ICAgICAgICBDb21taXQ6IGMzMGYzM2JmYjAxNCAtIHNlbGZ0ZXN0czogZm9yd2FyZGluZzogdnhs
+YW5fYnJpZGdlXzFkOiB1c2UgbW9yZSBwcm9wZXIgdG9zIHZhbHVlCj4gPgo+ID5UaGUgcmVzdWx0
+cyBvZiB0aGVzZSBhdXRvbWF0ZWQgdGVzdHMgYXJlIHByb3ZpZGVkIGJlbG93Lgo+ID4KPiA+ICAg
+IE92ZXJhbGwgcmVzdWx0OiBGQUlMRUQgKHNlZSBkZXRhaWxzIGJlbG93KQo+ID4gICAgICAgICAg
+ICAgTWVyZ2U6IE9LCj4gPiAgICAgICAgICAgQ29tcGlsZTogT0sKPiA+ICAgICAgICAgICAgIFRl
+c3RzOiBQQU5JQ0tFRAo+ID4KPiA+QWxsIGtlcm5lbCBiaW5hcmllcywgY29uZmlnIGZpbGVzLCBh
+bmQgbG9ncyBhcmUgYXZhaWxhYmxlIGZvciBkb3dubG9hZCBoZXJlOgo+ID4KPiA+ICBodHRwczov
+L2NraS1hcnRpZmFjdHMuczMudXMtZWFzdC0yLmFtYXpvbmF3cy5jb20vaW5kZXguaHRtbD9wcmVm
+aXg9ZGF0YXdhcmVob3VzZS8yMDIwLzAzLzA5LzQ4MDE1OAo+ID4KPiA+T25lIG9yIG1vcmUga2Vy
+bmVsIHRlc3RzIGZhaWxlZDoKPiA+Cj4gPiAgICBzMzkweDoKPiA+ICAgICDinYwgTFRQCj4gPgo+
+ID4gICAgcHBjNjRsZToKPiA+ICAgICDinYwgTFRQCj4gPgo+ID4gICAgYWFyY2g2NDoKPiA+ICAg
+ICDinYwgYXVkaXQ6IGF1ZGl0IHRlc3RzdWl0ZSB0ZXN0Cj4gPgo+ID4gICAgeDg2XzY0Ogo+ID4g
+ICAgIOKdjCBhdWRpdDogYXVkaXQgdGVzdHN1aXRlIHRlc3QKPgo+IEZvbGxvd2luZyB0aGUgbGlu
+ayBhYm92ZSBJIGdvdCB0bwo+IGh0dHBzOi8vY2tpLWFydGlmYWN0cy5zMy51cy1lYXN0LTIuYW1h
+em9uYXdzLmNvbS9pbmRleC5odG1sP3ByZWZpeD1kYXRhd2FyZWhvdXNlLzIwMjAvMDMvMDkvNDgw
+MTU4L2F1ZGl0X19hdWRpdF90ZXN0c3VpdGVfdGVzdC8sCj4gYnV0IGl0IHNob3dzIHRoYXQgYWxs
+IHRlc3RzIGFyZSBwYXNzaW5nPyBUaGUgY29uc29sZSBsb2cgbG9va3MgZmluZSB0b286Cj4gaHR0
+cHM6Ly9ja2ktYXJ0aWZhY3RzLnMzLnVzLWVhc3QtMi5hbWF6b25hd3MuY29tL2RhdGF3YXJlaG91
+c2UvMjAyMC8wMy8wOS80ODAxNTgveDg2XzY0XzVfY29uc29sZS5sb2cuCj4gV2hlcmUncyB0aGUg
+cGFuaWM/CgpUaGUgcGFuaWMgaGFwcGVuZWQgZHVyaW5nIHRoZSBMVFAgdGVzdCBvbiBzMzkweCAo
+bm90ZSB0aGUgbGlnaHRuaW5nCnN5bWJvbHMgdW5kZXIgczM5MHgsIEhvc3QgMSkuIFRoZSBiYWNr
+dHJhY2UgaXMgYXQgdGhlIGVuZCBvZgpodHRwczovL2NraS1hcnRpZmFjdHMuczMudXMtZWFzdC0y
+LmFtYXpvbmF3cy5jb20vZGF0YXdhcmVob3VzZS8yMDIwLzAzLzA5LzQ4MDE1OC9zMzkweF8xX2Nv
+bnNvbGUubG9nCgpDaGVlcnMsCgotLSAKT25kcmVqIE1vc25hY2VrIDxvbW9zbmFjZSBhdCByZWRo
+YXQgZG90IGNvbT4KU29mdHdhcmUgRW5naW5lZXIsIFNlY3VyaXR5IFRlY2hub2xvZ2llcwpSZWQg
+SGF0LCBJbmMuCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0
+L2xpc3RpbmZvL2x0cAo=
