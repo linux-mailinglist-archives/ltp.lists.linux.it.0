@@ -1,51 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B722217DA53
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Mar 2020 09:10:59 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7172C17DADB
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Mar 2020 09:29:00 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2F7503C60EF
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Mar 2020 09:10:59 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E4CEE3C6128
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Mar 2020 09:28:59 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 5A7443C1422
- for <ltp@lists.linux.it>; Mon,  9 Mar 2020 09:10:55 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 6FC89600D6D
- for <ltp@lists.linux.it>; Mon,  9 Mar 2020 09:10:52 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.70,532,1574092800"; d="scan'208";a="86044165"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 09 Mar 2020 16:10:49 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id E298849DF12B;
- Mon,  9 Mar 2020 16:00:51 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1395.4; Mon, 9 Mar 2020 16:10:50 +0800
-To: Petr Vorel <pvorel@suse.cz>
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id B9EE83C60FA
+ for <ltp@lists.linux.it>; Mon,  9 Mar 2020 09:28:52 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 27C871000D53
+ for <ltp@lists.linux.it>; Mon,  9 Mar 2020 09:28:51 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 621F3B1FB;
+ Mon,  9 Mar 2020 08:28:51 +0000 (UTC)
+Date: Mon, 9 Mar 2020 09:28:49 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20200309082849.GA322685@x230>
 References: <1583311467-2379-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
  <1583311467-2379-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <20200309080931.GC299736@x230>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <eec6ee99-d7d0-5386-cfde-58760046898b@cn.fujitsu.com>
-Date: Mon, 9 Mar 2020 16:10:48 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+ <20200309074701.GA299736@x230>
+ <fd1bed86-4590-cf73-a121-b9f9f0271e13@cn.fujitsu.com>
 MIME-Version: 1.0
-In-Reply-To: <20200309080931.GC299736@x230>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: E298849DF12B.ACF7C
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <fd1bed86-4590-cf73-a121-b9f9f0271e13@cn.fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v1 2/2] syscalls/settimeofday02: convert to new
  library
 X-BeenThere: ltp@lists.linux.it
@@ -59,31 +50,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Petr
+Hi Xu,
 
+> > > +static void verify_settimeofday(unsigned int n)
+> > ...
+> > > +	struct tcase *tc = &tcases[n];
+> > > +
+> > > +	flag = 0;
+> > > +	tst_res(TINFO, "%s", tc->message);
+> > > +	TEST(settimeofday(&tc->tv, NULL));
+> > > +	if (TST_RET != -1) {
+> > > +		tst_res(TFAIL, "settimeofday() succeeded unexpectedly");
+> > Maybe add TTERRNO here as well?
+> Why? When run into here, settimeofyday succeeded unexpectedly, errno should
+> be 0.
+Correct. I'm sorry, I read != as ==.
 
-> Hi Xu,
-> 
->>   #define	VAL_SEC		100
->>   #define	VAL_MSEC	100
-> These 2 definitions aren't needed any more.
-Yes. I forgot to delete...
-
-Best Regards
-Yang Xu
-> 
-> Kind regards,
-> Petr
-> 
-> 
-
-
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
