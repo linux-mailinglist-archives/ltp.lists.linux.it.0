@@ -2,72 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5273817EEDE
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Mar 2020 03:53:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E692617EEE0
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Mar 2020 03:54:46 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E3D6D3C6162
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Mar 2020 03:53:36 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6F3C33C6168
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Mar 2020 03:54:46 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 8BC033C613B
- for <ltp@lists.linux.it>; Tue, 10 Mar 2020 03:53:32 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 5868F3C613B
+ for <ltp@lists.linux.it>; Tue, 10 Mar 2020 03:54:41 +0100 (CET)
 Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
- [205.139.110.61])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id EDFEB1401A5C
- for <ltp@lists.linux.it>; Tue, 10 Mar 2020 03:53:31 +0100 (CET)
+ [207.211.31.81])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 37B0A10005B9
+ for <ltp@lists.linux.it>; Tue, 10 Mar 2020 03:54:40 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1583808810;
+ s=mimecast20190719; t=1583808879;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=2nqZYsheq4Bf1UsIdg1LI3/RAaGJwpwhmUG/NMta7c0=;
- b=iWgWJ/o5jg1FW0GsdF3MnJsu96aozy7hdmYDwhJLX/SD5pmUrv3fw4KyKS73KJyZzMsTDv
- qCKIC+3U+hrXwQjVbLIusWSQxm/CMku9UxMWUkgD3LvQEMtTCKGL83aJiLo5sgNU46HIP8
- GrTA+gACzluLH5jJHdwjpzEvjePP4E0=
-Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
- [209.85.167.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-330-kK9Ts2MyP4WKNJJ_n3YbGQ-1; Mon, 09 Mar 2020 22:53:28 -0400
-X-MC-Unique: kK9Ts2MyP4WKNJJ_n3YbGQ-1
-Received: by mail-lf1-f70.google.com with SMTP id q4so3578112lfp.3
- for <ltp@lists.linux.it>; Mon, 09 Mar 2020 19:53:28 -0700 (PDT)
+ bh=YI6iInuoNLZcsMqK+QUYnsYHDfK0NncsAefxDQShDK8=;
+ b=NrBPgvZ7f0dcIaIkSOOVIpl42d1X4yJdMJ7j32nSAjz8KdO9L2tzGGlJXl7ES+PGGsVigf
+ zAJhiMDhbLTNp+KhiXdI9zi0KMaMXSlCmEeC1vxMhsEeNfX1T6kv39uo7M3ier5g0wYEP0
+ P3tlvjxID1kn+tSlFUn07S+7SRJcono=
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-151-lD_IYklNNuyqYnIzLTrz9Q-1; Mon, 09 Mar 2020 22:54:37 -0400
+X-MC-Unique: lD_IYklNNuyqYnIzLTrz9Q-1
+Received: by mail-lf1-f72.google.com with SMTP id b185so2151448lfd.1
+ for <ltp@lists.linux.it>; Mon, 09 Mar 2020 19:54:37 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=c1rNxRVwdoEQp1I6TPbnHgg9cCMFgEZkAz9+UhKlu7s=;
- b=GkeipmMPjpROaouuKSmevhDRkOy46zNhUpeSxKefRJ3Voxk31vYo3AgTGQJxIOoM9H
- IoMV97/VwRS0zuqD7qy78shrlhtvoQU+oAkdYEFi4eA8Dk2KVNhdTz4Z5Td2ifalqfvG
- 1SUxUsCxmPUhqtFF4ix2eoOj2dbX+jUfMy+vre0SReBKQR0aojQZF97oppdYv+kH8EC9
- UPW3csDbaQONh51M+N6tC4VHMp87vUeCREhvC+jrPpMmHCp9GO7gAm0Km5Po9O+U/cGA
- x+jkJ46+GteCRM98B0VV3rVzAP970nnPafjfLuxjj/CB+jdpSXZo/o5utNLy630Ntltc
- ds7g==
-X-Gm-Message-State: ANhLgQ3eSn+7mRbYpeFbn+oqdj7I3gg2SkBmLToD+vxdaIzgX7F/YIZo
- JrivR1sJ8IpPQy08vJK4brPVvNo4vHmf4w6/7oYo5oAsl95Z0RdT2gTdDZHSaAX79qeJJCawcXF
- fs7fNVi3mVftUfVlQz8ok8oLzIyA=
-X-Received: by 2002:a05:6512:3042:: with SMTP id
- b2mr11362659lfb.36.1583808806550; 
- Mon, 09 Mar 2020 19:53:26 -0700 (PDT)
-X-Google-Smtp-Source: ADFU+vvVVbrAWxX9sxH2EvKmnsW2CtQ7A3tNS/mRrW8HpfzJZ/bDAId2Fr4sESw1qqloncWOxFyVG0+Cr5N0wt8apTA=
-X-Received: by 2002:a05:6512:3042:: with SMTP id
- b2mr11362656lfb.36.1583808806359; 
- Mon, 09 Mar 2020 19:53:26 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=P9x82ubsV7VDhuc4MUPLnFgn8+4P98EKDIY0fQZ6Xbo=;
+ b=sZHOSgoO9CqlfFqcVodJbve1+8q0y0G324PxzSkc1SlIwixQkxKGztpAoU6RbzlRHP
+ qFbg2k2r/lcWXFcL01YWeEwDUYGKNZXGsG5/iLz3F7KhlvJzC5nmVciXMLlSs//TOud9
+ TY8plekDJXET/PBgpuRQsi6le8n6R9OEUNwC37b2BQQ+9ySECtcZwLAB+sobOR6nEKtZ
+ WHshrQdv1uZ7p6+yXQ+5/EA2+4nUcGJlxtpGGh9gBVcY4JwlpfJz+sgE/r3ohGSStP7W
+ AyyH5A8YiJreGIgmnbEblZeOGcNvX9XdkrO+FfFJsxVaJHFaI8BPLQ9dGfKRpNlfxomU
+ zXtQ==
+X-Gm-Message-State: ANhLgQ3kfODXasaE8gzoZvgxV5VDrZQ60/IDRdzAXmazL8YG3hInA3mX
+ MZhBD7WBXvrbQQyE/FfFHfn4chZWlVYimmNGxKCQ3rsjZKKpLkVTWyiWuhGS+1TxhjZbd4t0Pzi
+ t9HiOh8TgPLOqP9YsszxlkGnNOHo=
+X-Received: by 2002:a2e:a312:: with SMTP id l18mr2722943lje.229.1583808876131; 
+ Mon, 09 Mar 2020 19:54:36 -0700 (PDT)
+X-Google-Smtp-Source: ADFU+vs34C/CGgj7T+hR239tiSn+AZBPeEnpsbftJpzHpuYUSqADbY/wDUInmrknkwLym9wecnYBn9zC1IqHv9f74rY=
+X-Received: by 2002:a2e:a312:: with SMTP id l18mr2722936lje.229.1583808875955; 
+ Mon, 09 Mar 2020 19:54:35 -0700 (PDT)
 MIME-Version: 1.0
 References: <CAGR3Yi6r+caUYV+yZYHGsuRUPQBbpsN_PJOTTSvHwE2VARy92g@mail.gmail.com>
-In-Reply-To: <CAGR3Yi6r+caUYV+yZYHGsuRUPQBbpsN_PJOTTSvHwE2VARy92g@mail.gmail.com>
+ <7adf2e52-6960-584f-bef4-c0179ade342a@cn.fujitsu.com>
+In-Reply-To: <7adf2e52-6960-584f-bef4-c0179ade342a@cn.fujitsu.com>
 From: Ronald Monthero <rmonther@redhat.com>
-Date: Tue, 10 Mar 2020 12:53:15 +1000
-Message-ID: <CAGR3Yi5dVfMwgBEUcOkXMNr4eX5=EumXi6PU_mqLo_MRZ0XkkQ@mail.gmail.com>
-To: ltp@lists.linux.it
+Date: Tue, 10 Mar 2020 12:54:24 +1000
+Message-ID: <CAGR3Yi6zV9hLhaY+kKRHZYByo-Vtc_MvqEdTEOXjbnHK6tFR6w@mail.gmail.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] Fwd: Fix build error because of undefined CAP_SYS_TIME
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] Fix build error because of undefined CAP_SYS_TIME
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,65 +79,59 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Details of the build log at pr#654
-https://github.com/linux-test-project/ltp/pull/654
+Sure thanks
 
-Signed-off-by: Ronald Monthero <rmonther@redhat.com>
----
- include/lapi/capability.h | 4 ++++
- 1 file changed, 4 insertions(+)
+Regards,
+Ronald
 
-diff --git a/include/lapi/capability.h b/include/lapi/capability.h
-index 8833f0605..8ed68bfce 100644
---- a/include/lapi/capability.h
-+++ b/include/lapi/capability.h
-@@ -24,6 +24,10 @@
- # define CAP_NET_RAW          13
- #endif
+On Tue, Mar 10, 2020 at 12:51 PM Yang Xu <xuyang2018.jy@cn.fujitsu.com> wrote:
+>
+> Hi Ronald
+>
+> acked, but I think we can sort them by num.
+>
+> @xiao, can you merge this patch?
+>
+> Best Regards
+> Yang Xu
+>
+> > Details of the build log at pr#654
+> > https://github.com/linux-test-project/ltp/pull/654
+> >
+> > Signed-off-by: Ronald Monthero <rmonther@redhat.com
+> > <mailto:rmonther@redhat.com>>
+> > ---
+> > diff --git a/include/lapi/capability.h b/include/lapi/capability.h
+> > index 8833f0605..8ed68bfce 100644
+> > --- a/include/lapi/capability.h
+> > +++ b/include/lapi/capability.h
+> > @@ -24,6 +24,10 @@
+> >   # define CAP_NET_RAW          13
+> >   #endif
+> >
+> > +#ifndef CAP_SYS_TIME
+> > +#define CAP_SYS_TIME          25
+> > +#endif
+> > +
+> >   #ifndef CAP_SYS_ADMIN
+> >   # define CAP_SYS_ADMIN        21
+> >   #endif
+> > ---
+> >
+> >
+>
+>
 
-+#ifndef CAP_SYS_TIME
-+#define CAP_SYS_TIME          25
-+#endif
-+
- #ifndef CAP_SYS_ADMIN
- # define CAP_SYS_ADMIN        21
- #endif
+
 -- 
-2.21.1
-
----------- Forwarded message ---------
-From: Ronald Monthero <rmonther@redhat.com>
-Date: Tue, Mar 10, 2020 at 12:44 PM
-Subject: Fix build error because of undefined CAP_SYS_TIME
-To: <ltp@lists.linux.it>
-
-
-Details of the build log at pr#654
-https://github.com/linux-test-project/ltp/pull/654
-
-Signed-off-by: Ronald Monthero <rmonther@redhat.com>
----
-diff --git a/include/lapi/capability.h b/include/lapi/capability.h
-index 8833f0605..8ed68bfce 100644
---- a/include/lapi/capability.h
-+++ b/include/lapi/capability.h
-@@ -24,6 +24,10 @@
- # define CAP_NET_RAW          13
- #endif
-
-+#ifndef CAP_SYS_TIME
-+#define CAP_SYS_TIME          25
-+#endif
-+
- #ifndef CAP_SYS_ADMIN
- # define CAP_SYS_ADMIN        21
- #endif
----
+Regards,
+Ronald
 
 
 -- 
