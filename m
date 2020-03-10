@@ -2,40 +2,82 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96F7E17F710
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Mar 2020 13:06:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DC9417F9F6
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Mar 2020 14:01:32 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 620263C6027
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Mar 2020 13:06:49 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 520C53C601F
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Mar 2020 14:01:32 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 9CF823C0428
- for <ltp@lists.linux.it>; Tue, 10 Mar 2020 13:06:46 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 3FC6F3C0B93
+ for <ltp@lists.linux.it>; Tue, 10 Mar 2020 14:01:30 +0100 (CET)
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DE2DC601EEF
- for <ltp@lists.linux.it>; Tue, 10 Mar 2020 13:06:45 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 0A926AE2E
- for <ltp@lists.linux.it>; Tue, 10 Mar 2020 12:06:45 +0000 (UTC)
-References: <20200305134834.16736-1-chrubis@suse.cz>
- <20200305134834.16736-8-chrubis@suse.cz>
-User-agent: mu4e 1.2.0; emacs 26.3
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: ltp@lists.linux.it
-In-reply-to: <20200305134834.16736-8-chrubis@suse.cz>
-Date: Tue, 10 Mar 2020 13:06:44 +0100
-Message-ID: <87eeu0fm7f.fsf@our.domain.is.not.set>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 324AD1001995
+ for <ltp@lists.linux.it>; Tue, 10 Mar 2020 14:01:30 +0100 (CET)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 02ACqQuW143949;
+ Tue, 10 Mar 2020 13:01:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=Oj4xXgRgcs1tlsKdFkHILE4agsPjghTpO+siJ9zCtgk=;
+ b=R/znNlqaOjwm30JVjK6MtYhVX7KfFjZ4aRBYPbNJeudxJcPaHLRZidQI7e7eiLHXnu8z
+ jyY7wymxkBatEz7Gbnq5U9SSx1481Lk7RE6aBil6zVVPQNGjrADRucHiSTE27qRSkBqx
+ 8IF/ozcxaXqbb+QClbx30pMyClk3uZTzKospZvsdR5sKZ4nNcckFEdm/IK+KrIKA+haF
+ uZty418K2fK9yZ337PuPcsebPzJVEH87DF7Zc+yVmO3jn+N2x0rA9duPYjtF5RxYN4py
+ rP6rpDNgothtizDJ7AkJu2LfRsJt7DL/CHadVVEu9oe59RsQ8VVe8tfcyCzgtTiMfCiI 9g== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by aserp2120.oracle.com with ESMTP id 2yp9v60f8u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 10 Mar 2020 13:01:25 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 02ACrSci058592;
+ Tue, 10 Mar 2020 13:01:25 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by userp3020.oracle.com with ESMTP id 2yp8rhtsrv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 10 Mar 2020 13:01:25 +0000
+Received: from abhmp0005.oracle.com (abhmp0005.oracle.com [141.146.116.11])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 02AD1Ksg027565;
+ Tue, 10 Mar 2020 13:01:24 GMT
+Received: from [192.168.1.34] (/95.161.223.113)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 10 Mar 2020 06:01:19 -0700
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+References: <20200305192716.10313-1-pvorel@suse.cz>
+From: Alexey Kodanev <alexey.kodanev@oracle.com>
+Message-ID: <5b00a232-d175-9cb1-ba20-ccd5d6e93cdc@oracle.com>
+Date: Tue, 10 Mar 2020 16:01:17 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+In-Reply-To: <20200305192716.10313-1-pvorel@suse.cz>
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9555
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
+ phishscore=0 mlxscore=0
+ spamscore=0 malwarescore=0 bulkscore=0 adultscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2001150001
+ definitions=main-2003100086
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9555
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ spamscore=0 mlxscore=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 mlxlogscore=999
+ phishscore=0 adultscore=0 clxscore=1015 impostorscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2001150001
+ definitions=main-2003100086
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 7/8] containers/timens: Add basic error test
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] nfs_lib: Unify testing on netns
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,96 +89,61 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi Petr,
+On 05.03.2020 22:27, Petr Vorel wrote:
+> There is no need to run tests on opposite client/server when using
+> $TST_USE_NETNS based setup. It's enough just to set lhost IP address.
+> This simplifies code a bit.
 
-Cyril Hrubis <chrubis@suse.cz> writes:
+It changes the testcase, this way nfs traffic will go through
+lo interface, the test won't use ltp_ns_veth* and netns.
 
-> Add basic error handling test for the /proc/$PID/timens_offsets file.
->
-> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+We could add the knob for this scenario with LTP_NFS_USE_NETNS={1|0}?
+
+> 
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
 > ---
->  runtest/containers                            |  1 +
->  testcases/kernel/containers/timens/.gitignore |  1 +
->  testcases/kernel/containers/timens/Makefile   |  6 ++
->  testcases/kernel/containers/timens/timens01.c | 75 +++++++++++++++++++
->  4 files changed, 83 insertions(+)
->  create mode 100644 testcases/kernel/containers/timens/.gitignore
->  create mode 100644 testcases/kernel/containers/timens/Makefile
->  create mode 100644 testcases/kernel/containers/timens/timens01.c
->
-> diff --git a/runtest/containers b/runtest/containers
-> index 1006d8d35..23e4a533d 100644
-> --- a/runtest/containers
-> +++ b/runtest/containers
-> @@ -90,3 +90,4 @@ userns07 userns07
->  sysinfo03 sysinfo03
->  clock_nanosleep03 clock_nanosleep03
->  clock_gettime03 clock_gettime03
-> +timens01 timens01
-> diff --git a/testcases/kernel/containers/timens/.gitignore b/testcases/kernel/containers/timens/.gitignore
-> new file mode 100644
-> index 000000000..bcd2dd9dd
-> --- /dev/null
-> +++ b/testcases/kernel/containers/timens/.gitignore
-> @@ -0,0 +1 @@
-> +timens01
-> diff --git a/testcases/kernel/containers/timens/Makefile b/testcases/kernel/containers/timens/Makefile
-> new file mode 100644
-> index 000000000..5ea7d67db
-> --- /dev/null
-> +++ b/testcases/kernel/containers/timens/Makefile
-> @@ -0,0 +1,6 @@
-> +# SPDX-License-Identifier: GPL-2.0-or-later
-> +
-> +top_srcdir		?= ../../../..
-> +
-> +include $(top_srcdir)/include/mk/testcases.mk
-> +include $(top_srcdir)/include/mk/generic_leaf_target.mk
-> diff --git a/testcases/kernel/containers/timens/timens01.c b/testcases/kernel/containers/timens/timens01.c
-> new file mode 100644
-> index 000000000..08bc449f9
-> --- /dev/null
-> +++ b/testcases/kernel/containers/timens/timens01.c
-> @@ -0,0 +1,75 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> +
-> +  Copyright (c) 2020 Cyril Hrubis <chrubis@suse.cz>
-> +
-> + */
-> +/*
-> +
-> +  Basic test for timens_offsets error handling.
-> +
-> +  After a call to unshare(CLONE_NEWTIME) a new timer namespace is created, the
-> +  process that has called the unshare() can adjust offsets for CLOCK_MONOTONIC
-> +  and CLOCK_BOOTTIME for its children by writing to the '/proc/self/timens_offsets'.
-> +
-> + */
-> +
-> +#define _GNU_SOURCE
-> +#include "lapi/setns.h"
-> +#include "lapi/namespaces_constants.h"
-> +#include "lapi/posix_clocks.h"
-> +#include "tst_test.h"
-> +
-> +static struct tcase {
-> +	const char *offsets;
-> +	int exp_err;
-> +} tcases[] = {
-> +	/* obvious garbage */
+>  testcases/network/nfs/nfs_stress/nfs_lib.sh | 13 -------------
+>  1 file changed, 13 deletions(-)
+> 
+> diff --git a/testcases/network/nfs/nfs_stress/nfs_lib.sh b/testcases/network/nfs/nfs_stress/nfs_lib.sh
+> index 66f2fb038..2d5535dc5 100644
+> --- a/testcases/network/nfs/nfs_stress/nfs_lib.sh
+> +++ b/testcases/network/nfs/nfs_stress/nfs_lib.sh
+> @@ -50,14 +50,6 @@ nfs_setup_server()
+>  {
+>  	local export_cmd="exportfs -i -o fsid=$$,no_root_squash,rw *:$remote_dir"
+>  
+> -	if [ -n "$LTP_NETNS" ]; then
+> -		if [ ! -d $remote_dir ]; then
+> -			mkdir -p $remote_dir
+> -			ROD $export_cmd
+> -		fi
+> -		return
+> -	fi
+> -
+>  	if ! tst_rhost_run -c "test -d $remote_dir"; then
+>  		tst_rhost_run -s -c "mkdir -p $remote_dir; $export_cmd"
+>  	fi
+> @@ -79,11 +71,6 @@ nfs_mount()
+>  	local mnt_cmd="mount -t nfs $opts $mount_dir $local_dir"
+>  
+>  	tst_res TINFO "Mounting NFS: $mnt_cmd"
+> -	if [ -n "$LTP_NETNS" ]; then
+> -		tst_rhost_run -s -c "$mnt_cmd"
+> -		return
+> -	fi
+> -
+>  	ROD $mnt_cmd
+>  }
+>  
+> 
 
-You could include these comments in the struct and print them.
-
--- 
-Thank you,
-Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
