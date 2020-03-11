@@ -1,73 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C47061811CE
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Mar 2020 08:22:21 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C64E1811DC
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Mar 2020 08:25:13 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2BE563C5F50
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Mar 2020 08:22:21 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id CD3E13C5F3A
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Mar 2020 08:25:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id D002E3C0889
- for <ltp@lists.linux.it>; Wed, 11 Mar 2020 08:22:17 +0100 (CET)
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 0D5C23C5F23
+ for <ltp@lists.linux.it>; Wed, 11 Mar 2020 08:25:07 +0100 (CET)
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B1ADB60084C
- for <ltp@lists.linux.it>; Wed, 11 Mar 2020 08:22:16 +0100 (CET)
-Received: by mail-pg1-x543.google.com with SMTP id t3so699189pgn.1
- for <ltp@lists.linux.it>; Wed, 11 Mar 2020 00:22:16 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 55F461000B6C
+ for <ltp@lists.linux.it>; Wed, 11 Mar 2020 08:25:07 +0100 (CET)
+Received: by mail-pl1-x644.google.com with SMTP id t3so663552plz.9
+ for <ltp@lists.linux.it>; Wed, 11 Mar 2020 00:25:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=DP/AtM4VE/8EmCjeF7PzZN0105wfU2WBsm4534+J1Cg=;
- b=OQPyWeReQ1J0iEc3gXi3yWyOGfJkUPXKCNwARi0qzYOMK102DEsgzJJghiIeGljUF3
- FtMfVSlFFr9rgCWijaPx4vsqG+sMdNPI9bogRHoDb7jXgAqaVeUF4RL+BvJ+SjnmbC7w
- mCsCXCETC/5iePxGTsbWwi4urvWI7NOT88zgcdHB8ddE1K6EcRW2TINb4ERabjIgxdb2
- 7qNDlJHpDX5a45/uvyVGhVvuoD883i8Tk8O1AP8I7niTVKhMlcpeWKQNLMIQwdP1yH1o
- iMISNDrv6IQnSoK+AiceEV/tg+Wecf/5YjQvrarUJeVTnaPOiWwxz8vAtxlW8LmvglG2
- wjDA==
+ bh=nxMelj4z0MJQZQqLZeDaYzd/rDUcr4F/kCKeCmNrero=;
+ b=TFiTW4yG18UqY5g90GZnOxNLzf+dz6Unbp0l/0J5DpfCFmpITZVBx5CLVSHKaYiiAr
+ 2cxBV462tv7jqjJrhjv/jktc+tX0oafqQLqUI7RawHAD/kPKYC33aZsqLQHAXhqx5Psn
+ qd1kXd6OKpnIYLhvLMIUkuyY/p0d9LLw484s9lBuXYRJNE37cYpG+jtPw8BIifaiYGXH
+ pZmacEg/Ei6X0nPTBk9323rr3giK1gOi0CUYeTaDn7cOaszhkh+B/l4wkbwY6nfZLyRW
+ q/Q1PZj3Kq+tyJTHYve49TzmHAQyHtWk+uwVLC/afoWUV5QFHpAhf5TDvJxZ3N/DSvAG
+ E3VA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=DP/AtM4VE/8EmCjeF7PzZN0105wfU2WBsm4534+J1Cg=;
- b=jqdBr83QIftvrBmiAVj8a7y+WBYgxwbFqO7z2PLc59lWsBAr1Wx2GJdJtNl8rCJdXJ
- viEhQZFvX+qfgOz7qnAjyXWStF70WtQM+d5wspIKoJYbBmFEOC0wOXE30JNkwqSMoi9P
- rt09ckp22ow0VrT0xqdpczgfTcxWhijWfD6V9prO8YLqyXClY23bRkjhBclEIEWG/S4+
- mfxhZ9vI0189Mq5UeDBmySqcmOrhW6lSs2dzR0xuzjiYhSyaFR1q+4fWeWZk77Kb+vZ3
- +udIPuE9khwPS3VJyjyutZEXSz6fH7cvYXMp0/XPGAeIsNXvBGHTKDXp2otS9MS6oRRN
- slBQ==
-X-Gm-Message-State: ANhLgQ0jhst13ML9EM4/a9CHHXCbnXlGsQ+td2WC8k35/bSHB9BVhaAp
- 8l0XwY3wkbJvBJJMIEwWCqJpxw==
-X-Google-Smtp-Source: ADFU+vuSCRGDivkv+ifyvBlB72poP+8Oyo6mFFvWjoKY/wi9aH7vuP6nDzUQEqEULb2fawYOT6FNzg==
-X-Received: by 2002:a62:6490:: with SMTP id y138mr1567857pfb.96.1583911335221; 
- Wed, 11 Mar 2020 00:22:15 -0700 (PDT)
+ bh=nxMelj4z0MJQZQqLZeDaYzd/rDUcr4F/kCKeCmNrero=;
+ b=I54/trsmu+mWoZSZYMTMvHkYsY5O6ZznVTnhdLpM607dIqVH/SAK1eI5z87jWcgPZh
+ x2WQPz1UViDuTaFPjY+SQ+Inr5Oqi8gUd25Byl36CFDaWTR5BPjWyCR+PCubIzuAmnKJ
+ 2BlfjwmDekA0spC/Xk2paoV4wSIyv0mlxXfw9hW25KgZSKcETzp3cKCAQLjyATN7/akk
+ W96ZGDKyQiiJnh4+Wgq0/Dl15Su0PWn4SlYFY457efGbGvcyir9TNBt4t1OlmyX63JmM
+ 6TO47vH3Quog94rwjT6ZM83BpVQMkchmQBY4MN9rdsxsKZitvQwt7S7GKFL6xS+t3eXJ
+ /5bg==
+X-Gm-Message-State: ANhLgQ3OjmSnFlHQ6PzDL3cH3JYJn4xAh0s9fQtBmKk1QHUeUT0h3NOw
+ wjtZCDK+AH79BVImlRqI7y8oHw==
+X-Google-Smtp-Source: ADFU+vtD571aMBg3YWKX3GWZFwx6ANHqtq2L4p1pPRycbdLdvKbl4CIeAo3NnCFl5eTgDiX5jZ6dGQ==
+X-Received: by 2002:a17:90b:1101:: with SMTP id
+ gi1mr1902806pjb.187.1583911505635; 
+ Wed, 11 Mar 2020 00:25:05 -0700 (PDT)
 Received: from localhost ([122.171.122.128])
- by smtp.gmail.com with ESMTPSA id y9sm13861318pgo.80.2020.03.11.00.22.13
+ by smtp.gmail.com with ESMTPSA id h3sm49942915pfo.102.2020.03.11.00.25.04
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 11 Mar 2020 00:22:14 -0700 (PDT)
-Date: Wed, 11 Mar 2020 12:52:12 +0530
+ Wed, 11 Mar 2020 00:25:04 -0700 (PDT)
+Date: Wed, 11 Mar 2020 12:55:02 +0530
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20200311072212.hsi2euwmvwrxuenw@vireshk-i7>
+Message-ID: <20200311072502.hpj5bycslu6ygk74@vireshk-i7>
 References: <cover.1582779464.git.viresh.kumar@linaro.org>
- <21026a48ffa25ed8b09616cb939dc417459d2d74.1582779464.git.viresh.kumar@linaro.org>
- <20200306124749.GB3375@rei.lan>
+ <495a95969c63d67868b82d2b15bd663f19780d0e.1582779464.git.viresh.kumar@linaro.org>
+ <20200306131046.GC3375@rei.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200306124749.GB3375@rei.lan>
+In-Reply-To: <20200306131046.GC3375@rei.lan>
 User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V5 02/10] lapi/fsmount.h: Add
- fsopen_supported_by_kernel()
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V5 04/10] syscalls/fsopen: New tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,38 +87,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 06-03-20, 13:47, Cyril Hrubis wrote:
-> On Thu, Feb 27, 2020 at 10:44:30AM +0530, Viresh Kumar wrote:
-> > Add a helper to check if the fsmount() related syscalls are supported by
-> > the kernel or not.
-> > 
-> > Reviewed-by: Petr Vorel <pvorel@suse.cz>
-> > Acked-by: Li Wang <liwang@redhat.com>
-> > Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-> > ---
-> >  include/lapi/fsmount.h | 9 +++++++++
-> >  1 file changed, 9 insertions(+)
-> > 
-> > diff --git a/include/lapi/fsmount.h b/include/lapi/fsmount.h
-> > index 87f2f229c371..a6a24904e66d 100644
-> > --- a/include/lapi/fsmount.h
-> > +++ b/include/lapi/fsmount.h
-> > @@ -130,5 +130,14 @@ enum fsconfig_command {
-> >  
-> >  #endif /* OPEN_TREE_CLONE */
-> >  
-> > +void fsopen_supported_by_kernel(void)
-> > +{
-> > +	if ((tst_kvercmp(5, 2, 0)) < 0) {
-> > +		/* Check if the syscall is backported on an older kernel */
-> > +		TEST(syscall(__NR_fsopen, NULL, 0));
-> > +		if (TST_RET == -1 && TST_ERR == ENOSYS)
-> > +			tst_brk(TCONF, "Test not supported on kernel version < v5.2");
+On 06-03-20, 14:10, Cyril Hrubis wrote:
+> Hi!
+> > +	TEST(move_mount(fsmfd, "", AT_FDCWD, MNTPOINT,
+> > +			MOVE_MOUNT_F_EMPTY_PATH));
+> > +
+> > +	SAFE_CLOSE(fsmfd);
+> > +
+> > +	if (TST_RET == -1) {
+> > +		tst_res(TFAIL | TERRNO, "move_mount() failed");
+> > +		goto out;
+> > +	}
+> > +
+> > +	if (tst_is_mounted(MNTPOINT))
+> > +		tst_res(TPASS, "%s: fsopen() passed", tc->name);
+> > +
+> > +	SAFE_UMOUNT(MNTPOINT);
 > 
-> 		Shouldn't we close the TST_RET here?
+> I gues sthat the SAFE_UMOUNT() should be inside of the if here and in
+> the rest of the testcases.
 
-I didn't do that in the else part as this call should never succeed
-and it will be a bug if it succeeds. Do you still want me to do it ?
+Petr had a similar comment earlier and here is my explanation to it.
+
+There should always be a unmount() in response to a successful call to
+mount() APIs. What if, because of some other bugs in the kernel or
+testsuite, tst_is_mounted() returns 0? We should still do the
+unmount() part as the mount() API didn't return an error.
 
 -- 
 viresh
