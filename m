@@ -1,75 +1,49 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCF8F1811F9
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Mar 2020 08:31:23 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EF75181598
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Mar 2020 11:15:14 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 35A453C5F2B
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Mar 2020 08:31:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D41A63C5F2F
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Mar 2020 11:15:13 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 4E7CE3C5F24
- for <ltp@lists.linux.it>; Wed, 11 Mar 2020 08:31:19 +0100 (CET)
-Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
- [IPv6:2607:f8b0:4864:20::1041])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 9390F1000C15
- for <ltp@lists.linux.it>; Wed, 11 Mar 2020 08:31:18 +0100 (CET)
-Received: by mail-pj1-x1041.google.com with SMTP id l36so541028pjb.3
- for <ltp@lists.linux.it>; Wed, 11 Mar 2020 00:31:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=YSN/7gIKbvXDNiWZde45e00KWVYDOpAPtcMCg+YsorU=;
- b=nsQbgq9YNKokT+rBcts0RJKdw42pV6FkU3BL6kp/XNn27k96kgSUD1Kx47Bh4Rhj9c
- cvmmMTXxseMDW6li1u6DDeq2Clj6WYQEf+fyIOF4viyORAmpXPnOtCbB5lnsu71UboBS
- gPrMiwtmkbINdlrRrhrufjHOOhIbwe+fXfnsp+acoQ8PgAylzngF5Z7N357SRyjDQybJ
- OgcclGJa5xlMgb/M2LrbxWZV8NYGQV/qs+xDx/i75Kdq9QtU4r4RExkx9yBHZ2oNBcbR
- B3eom5hFFMrr+uED8CoVEu9MOepI0Gn19NldDRt4HL2dHVBVfX3THQVsDmxHBhGT0YJP
- YPug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=YSN/7gIKbvXDNiWZde45e00KWVYDOpAPtcMCg+YsorU=;
- b=WC2EcUl8yUMaC1GHHHXzrsJDoVXVOxzuLukL7FBeYkUcOBps9IW8MQwPyV+8D66hOy
- 9fcIhr60MzV9O2Uqku8RGz/FMOwlwzxz4z9Le2l8xlo/sX7YduZUGQkDn0z8JHhV/jiU
- 3ljQzpUFwC2A9rkjPs6e8HwOQvMGsNAWThZRFj3XCwsqvonCZjQEgF+NSPq/FPPOKx9H
- N/IDVSSnMqC9DYpkl2dxenZczRL9SFJFrFowJYEEsSVpFmyOwLRB9SOTtv+dtTWVf1vM
- Ap3nrTiUcmHoWw/1MFl57pujt5D5gm6PrVK96v/fcPJUPIIEv+BHduO29sk2wPSL9GNH
- Gr7w==
-X-Gm-Message-State: ANhLgQ205OyKXeiR/1k4KSJ/rrl34C7OLOEd6jxWMdLd4+zNW6DAV/fF
- kSy8iT7mvo0ZA3P0vxtYVzBM5pM0/oE=
-X-Google-Smtp-Source: ADFU+vtSzUPlmNWrJiZMHkBbEM/UeO3K0gE+7nN7cM649DC6oAStKcj1djMdxihbmhs9XCZQkR6B/g==
-X-Received: by 2002:a17:90b:314:: with SMTP id
- ay20mr2074327pjb.51.1583911877029; 
- Wed, 11 Mar 2020 00:31:17 -0700 (PDT)
-Received: from localhost ([122.171.122.128])
- by smtp.gmail.com with ESMTPSA id ev22sm4403700pjb.4.2020.03.11.00.31.15
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 11 Mar 2020 00:31:16 -0700 (PDT)
-Date: Wed, 11 Mar 2020 13:01:13 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20200311073113.q7e7jauldjyizz2q@vireshk-i7>
-References: <cover.1582779464.git.viresh.kumar@linaro.org>
- <2071e47d7d8cb3e7f8bc6558e86999eddd9c3762.1582779464.git.viresh.kumar@linaro.org>
- <20200306124546.GA3375@rei.lan>
- <CAEemH2drJyp5kU21jS7Ej+-q6hTysb5oDNM+3KiWsmPoLAbMQA@mail.gmail.com>
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 56AC33C5F21
+ for <ltp@lists.linux.it>; Wed, 11 Mar 2020 11:15:12 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 797161A00F49
+ for <ltp@lists.linux.it>; Wed, 11 Mar 2020 11:15:09 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.70,540,1574092800"; d="scan'208,223";a="86165285"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 11 Mar 2020 18:15:06 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id DC6F450A996E
+ for <ltp@lists.linux.it>; Wed, 11 Mar 2020 18:05:05 +0800 (CST)
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.83) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1395.4; Wed, 11 Mar 2020 18:15:02 +0800
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ (TLS) id 14.3.439.0; Wed, 11 Mar 2020 18:14:59 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Wed, 11 Mar 2020 18:15:10 +0800
+Message-ID: <1583921712-9008-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2drJyp5kU21jS7Ej+-q6hTysb5oDNM+3KiWsmPoLAbMQA@mail.gmail.com>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-yoursite-MailScanner-ID: DC6F450A996E.AF137
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V5 01/10] tst_device: Add tst_is_mounted() helper
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/3] lib/tst_hugepage: Use uniform data type
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,63 +55,146 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vikas.Kumar2@arm.com, Vincent Guittot <vincent.guittot@linaro.org>,
- LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 07-03-20, 20:42, Li Wang wrote:
-> On Fri, Mar 6, 2020 at 8:45 PM Cyril Hrubis <chrubis@suse.cz> wrote:
-> 
-> > ...
-> > >
-> > > +int tst_is_mounted(const char *path)
-> > > +{
-> > > +     char cmd[PATH_MAX];
-> > > +     int ret;
-> > > +
-> > > +     snprintf(cmd, sizeof(cmd), "mountpoint -q %s", path);
-> > > +     ret = tst_system(cmd);
-> >
-> > I'm not sure that depending on mountpoint command is right choice, there
-> > are all kinds of embedded systems out there that may be missing it.
-> 
-> 
-> Good point, we'd better avoid involving other packages as the dependence of
-> LTP.
-> 
-> 
-> > Also this does not even handle the case that the command is missing.
-> >
-> > Looking at the v4 version, all we need is to correctly parse each line
-> > from from /proc/mounts. I would just use strsep() with space as a
-> > delimited and took first token that starts with a slash i.e. '/', then
-> > we can just strcmp() it against the path. Or do I miss something?
-> >
-> 
-> I'm afraid strcmp() can not satisfy the requirement for us. As you know LTP
-> creates the MNTPOINT in temp dir that means it could not accurately match
-> the string path which extracts from /proc/mounts with a slash.
-> 
-> e.g
-> #define MNTPOINT "fallocate"
-> ...
-> /dev/loop4 on /tmp/FPp7kh/fallocate type xfs
-> (rw,relatime,seclabel,attr2,inode64,logbufs=8,logbsize=32k,noquota)
-> ...
-> strcmp("/tmp/FPp7kh/fallocate", MNTPOINT) will never ruturn 0 to us.
-> 
-> What I can think of is to use strrchr() to cut the string after last '/',
-> but that can only work for test mount fs in LTP ways. Other situations
-> might not satisfy.
+From man-page[1] and kernel code[2], HugePages_Total and free are
+both "unsigned long". I guess there is no reason for not using it
+even though we don't have so larger memory to support it.
 
-@Cyril, can we please finalize what you guys want me to do here ? I
-don't really want to repost the patch, which still has issues :)
+[1]https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man5/proc.5#n3696
+[2]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/mm/hugetlb.c#n3055
 
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+---
+ include/tst_hugepage.h    |  4 ++--
+ include/tst_test.h        |  2 +-
+ lib/newlib_tests/test20.c | 12 ++++++------
+ lib/tst_hugepage.c        | 19 +++++++++----------
+ 4 files changed, 18 insertions(+), 19 deletions(-)
+
+diff --git a/include/tst_hugepage.h b/include/tst_hugepage.h
+index 10e0eaf47..8600b3adb 100644
+--- a/include/tst_hugepage.h
++++ b/include/tst_hugepage.h
+@@ -15,7 +15,7 @@
+  *
+  * Note: this depend on the status of system memory fragmentation.
+  */
+-int tst_request_hugepages(int hpages);
++unsigned long tst_request_hugepages(unsigned long hpages);
+ 
+ /*
+  * This variable is used for recording the number of hugepages which system can
+@@ -24,6 +24,6 @@ int tst_request_hugepages(int hpages);
+  *
+  * If system does not support hugetlb, then it will be set to 0.
+  */
+-extern unsigned int tst_hugepages;
++extern unsigned long tst_hugepages;
+ 
+ #endif /* TST_HUGEPAGE_H */
+diff --git a/include/tst_test.h b/include/tst_test.h
+index 8508c2e38..84b6a940f 100644
+--- a/include/tst_test.h
++++ b/include/tst_test.h
+@@ -163,7 +163,7 @@ struct tst_test {
+ 	 *
+ 	 * Also, we do cleanup and restore work for the hpages resetting automatically.
+ 	 */
+-	unsigned int request_hugepages;
++	unsigned long request_hugepages;
+ 
+ 	/*
+ 	 * If set non-zero denotes number of test variant, the test is executed
+diff --git a/lib/newlib_tests/test20.c b/lib/newlib_tests/test20.c
+index 92e230976..53317b669 100644
+--- a/lib/newlib_tests/test20.c
++++ b/lib/newlib_tests/test20.c
+@@ -18,22 +18,22 @@ static const char * const save_restore[] = {
+ 
+ static void do_test(void) {
+ 
+-	int val, hpages;
++	unsigned long val, hpages;
+ 
+-	tst_res(TINFO, "tst_hugepages = %u", tst_hugepages);
++	tst_res(TINFO, "tst_hugepages = %lu", tst_hugepages);
+ 	SAFE_FILE_PRINTF("/proc/sys/kernel/numa_balancing", "1");
+ 
+ 	hpages = test.request_hugepages;
+-	SAFE_FILE_SCANF(PATH_NR_HPAGES, "%d", &val);
++	SAFE_FILE_SCANF(PATH_NR_HPAGES, "%lu", &val);
+ 	if (val != hpages)
+-		tst_brk(TBROK, "nr_hugepages = %d, but expect %d", val, hpages);
++		tst_brk(TBROK, "nr_hugepages = %lu, but expect %lu", val, hpages);
+ 	else
+ 		tst_res(TPASS, "test .needs_hugepges");
+ 
+ 	hpages = tst_request_hugepages(3);
+-	SAFE_FILE_SCANF(PATH_NR_HPAGES, "%d", &val);
++	SAFE_FILE_SCANF(PATH_NR_HPAGES, "%lu", &val);
+ 	if (val != hpages)
+-		tst_brk(TBROK, "nr_hugepages = %d, but expect %d", val, hpages);
++		tst_brk(TBROK, "nr_hugepages = %lu, but expect %lu", val, hpages);
+ 	else
+ 		tst_res(TPASS, "tst_request_hugepages");
+ }
+diff --git a/lib/tst_hugepage.c b/lib/tst_hugepage.c
+index 3f20a9ede..c75fb264d 100644
+--- a/lib/tst_hugepage.c
++++ b/lib/tst_hugepage.c
+@@ -8,12 +8,11 @@
+ #include "tst_test.h"
+ #include "tst_hugepage.h"
+ 
+-unsigned int tst_hugepages;
++unsigned long tst_hugepages;
+ 
+-int tst_request_hugepages(int hpages)
++unsigned long tst_request_hugepages(unsigned long hpages)
+ {
+-	int val;
+-	long max_hpages;
++	unsigned long val, max_hpages;
+ 
+ 	if (access(PATH_HUGEPAGES, F_OK)) {
+ 		tst_hugepages = 0;
+@@ -25,8 +24,8 @@ int tst_request_hugepages(int hpages)
+ 	max_hpages = SAFE_READ_MEMINFO("MemFree:") / SAFE_READ_MEMINFO("Hugepagesize:");
+ 
+ 	if (hpages > max_hpages) {
+-		tst_res(TINFO, "Requested number(%d) of hugepages is too large, "
+-				"limiting to 80%% of the max hugepage count %ld",
++		tst_res(TINFO, "Requested number(%lu) of hugepages is too large, "
++				"limiting to 80%% of the max hugepage count %lu",
+ 				hpages, max_hpages);
+ 		tst_hugepages = max_hpages * 0.8;
+ 
+@@ -35,12 +34,12 @@ int tst_request_hugepages(int hpages)
+ 	}
+ 
+ 	tst_sys_conf_save("?/proc/sys/vm/nr_hugepages");
+-	SAFE_FILE_PRINTF(PATH_NR_HPAGES, "%d", tst_hugepages);
+-	SAFE_FILE_SCANF(PATH_NR_HPAGES, "%d", &val);
++	SAFE_FILE_PRINTF(PATH_NR_HPAGES, "%lu", tst_hugepages);
++	SAFE_FILE_SCANF(PATH_NR_HPAGES, "%lu", &val);
+ 	if (val != tst_hugepages)
+-		tst_brk(TBROK, "nr_hugepages = %d, but expect %d", val, tst_hugepages);
++		tst_brk(TBROK, "nr_hugepages = %lu, but expect %lu", val, tst_hugepages);
+ 
+-	tst_res(TINFO, "%d hugepage(s) reserved", tst_hugepages);
++	tst_res(TINFO, "%lu hugepage(s) reserved", tst_hugepages);
+ out:
+ 	return tst_hugepages;
+ }
 -- 
-viresh
+2.18.0
+
+
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
