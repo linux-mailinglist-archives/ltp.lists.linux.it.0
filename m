@@ -2,50 +2,44 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED66218159C
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Mar 2020 11:15:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CB141815A8
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Mar 2020 11:20:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AE0943C5F28
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Mar 2020 11:15:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 09A173C5F32
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Mar 2020 11:20:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id C31683C5F4A
- for <ltp@lists.linux.it>; Wed, 11 Mar 2020 11:15:22 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 921D0200DEB
- for <ltp@lists.linux.it>; Wed, 11 Mar 2020 11:15:20 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.70,540,1574092800"; d="scan'208";a="86165302"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 11 Mar 2020 18:15:19 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 459CC50A9983
- for <ltp@lists.linux.it>; Wed, 11 Mar 2020 18:05:20 +0800 (CST)
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.83) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1395.4; Wed, 11 Mar 2020 18:15:18 +0800
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Wed, 11 Mar 2020 18:15:19 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Wed, 11 Mar 2020 18:15:12 +0800
-Message-ID: <1583921712-9008-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1583921712-9008-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-References: <1583921712-9008-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ by picard.linux.it (Postfix) with ESMTP id CED113C5F28
+ for <ltp@lists.linux.it>; Wed, 11 Mar 2020 11:20:41 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3B84320137F
+ for <ltp@lists.linux.it>; Wed, 11 Mar 2020 11:20:40 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 826E9B1A6;
+ Wed, 11 Mar 2020 10:20:40 +0000 (UTC)
+Date: Wed, 11 Mar 2020 11:20:38 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Message-ID: <20200311102038.GA3802@rei.lan>
+References: <cover.1582779464.git.viresh.kumar@linaro.org>
+ <2071e47d7d8cb3e7f8bc6558e86999eddd9c3762.1582779464.git.viresh.kumar@linaro.org>
+ <20200306124546.GA3375@rei.lan>
+ <CAEemH2drJyp5kU21jS7Ej+-q6hTysb5oDNM+3KiWsmPoLAbMQA@mail.gmail.com>
+ <20200311073113.q7e7jauldjyizz2q@vireshk-i7>
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-yoursite-MailScanner-ID: 459CC50A9983.AA766
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
+Content-Disposition: inline
+In-Reply-To: <20200311073113.q7e7jauldjyizz2q@vireshk-i7>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/3] hugetlb: remove useless function
+Subject: Re: [LTP] [PATCH V5 01/10] tst_device: Add tst_is_mounted() helper
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,93 +51,42 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, Vikas.Kumar2@arm.com,
+ LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-After using .request_hugepages api, cases in hugetlb don't call
-these functions. So remove them.
+Hi!
+> > I'm afraid strcmp() can not satisfy the requirement for us. As you know LTP
+> > creates the MNTPOINT in temp dir that means it could not accurately match
+> > the string path which extracts from /proc/mounts with a slash.
+> > 
+> > e.g
+> > #define MNTPOINT "fallocate"
+> > ...
+> > /dev/loop4 on /tmp/FPp7kh/fallocate type xfs
+> > (rw,relatime,seclabel,attr2,inode64,logbufs=8,logbsize=32k,noquota)
+> > ...
+> > strcmp("/tmp/FPp7kh/fallocate", MNTPOINT) will never ruturn 0 to us.
+> > 
+> > What I can think of is to use strrchr() to cut the string after last '/',
+> > but that can only work for test mount fs in LTP ways. Other situations
+> > might not satisfy.
+> 
+> @Cyril, can we please finalize what you guys want me to do here ? I
+> don't really want to repost the patch, which still has issues :)
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- testcases/kernel/mem/hugetlb/lib/hugetlb.c | 43 ----------------------
- testcases/kernel/mem/hugetlb/lib/hugetlb.h |  4 --
- 2 files changed, 47 deletions(-)
+Sorry for the back and forth.
 
-diff --git a/testcases/kernel/mem/hugetlb/lib/hugetlb.c b/testcases/kernel/mem/hugetlb/lib/hugetlb.c
-index 83b85f325..cd1b27eb3 100644
---- a/testcases/kernel/mem/hugetlb/lib/hugetlb.c
-+++ b/testcases/kernel/mem/hugetlb/lib/hugetlb.c
-@@ -39,49 +39,6 @@
- #include <pwd.h>
- #include "hugetlb.h"
- 
--static long orig_hugepages = -1;
--
--long save_nr_hugepages(void)
--{
--	check_hugepage();
--
--	orig_hugepages = get_sys_tune("nr_hugepages");
--
--	return orig_hugepages;
--}
--
--void restore_nr_hugepages(void)
--{
--	if (orig_hugepages != -1)
--		set_sys_tune("nr_hugepages", orig_hugepages, 0);
--}
--
--void limit_hugepages(long *hpages)
--{
--	long mem_avail, max_hpages;
--
--	if (FILE_LINES_SCANF("/proc/meminfo",
--			"MemAvailable: %ld", &mem_avail)) {
--		/*
--		 * Dropping caches and using "MemFree:" on kernel
--		 * that doesn't have "MemAvailable:" in Meminfo
--		 */
--		tst_res(TINFO, "MemAvailable: not found in /proc/meminfo");
--
--		SAFE_FILE_PRINTF("/proc/sys/vm/drop_caches", "3");
--		mem_avail = SAFE_READ_MEMINFO("MemFree:");
--	}
--
--	max_hpages = mem_avail / SAFE_READ_MEMINFO("Hugepagesize:");
--
--	if (*hpages > max_hpages) {
--		tst_res(TINFO, "Requested number of hugepages too large, "
--				"limiting to 80%% of the max hugepage count %ld",
--				max_hpages);
--		*hpages = max_hpages * 0.8;
--	}
--}
--
- /*
-  * getipckey() - generates and returns a message key used by the "get"
-  *		 calls to create an IPC resource.
-diff --git a/testcases/kernel/mem/hugetlb/lib/hugetlb.h b/testcases/kernel/mem/hugetlb/lib/hugetlb.h
-index 66ad324ab..7c03a317c 100644
---- a/testcases/kernel/mem/hugetlb/lib/hugetlb.h
-+++ b/testcases/kernel/mem/hugetlb/lib/hugetlb.h
-@@ -42,9 +42,5 @@ void rm_shm(int shm_id);
- 
- char *nr_opt;
- char *Hopt;
--void check_hugepage(void);
--long save_nr_hugepages(void);
--void restore_nr_hugepages(void);
--void limit_hugepages(long *hpages);
- 
- #endif /* hugetlb.h */
+I remmebered yesterday that there is setmntent() in libc, so i we call
+that on /proc/mounts, the whole problem would be reduced to a path
+comparsion.
+
 -- 
-2.18.0
-
-
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
