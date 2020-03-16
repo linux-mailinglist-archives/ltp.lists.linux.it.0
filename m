@@ -2,39 +2,44 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18783186CC0
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Mar 2020 15:01:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 940F5186CE9
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Mar 2020 15:18:46 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 958373C5694
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Mar 2020 15:01:27 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2F3923C5699
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Mar 2020 15:18:46 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id DEC203C1411
- for <ltp@lists.linux.it>; Mon, 16 Mar 2020 15:01:25 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id C61C73C568C
+ for <ltp@lists.linux.it>; Mon, 16 Mar 2020 15:18:44 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1C37E60171D
- for <ltp@lists.linux.it>; Mon, 16 Mar 2020 15:01:24 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id F37781A00CD8
+ for <ltp@lists.linux.it>; Mon, 16 Mar 2020 15:18:43 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 45C5DB1FF
- for <ltp@lists.linux.it>; Mon, 16 Mar 2020 14:01:24 +0000 (UTC)
-Date: Mon, 16 Mar 2020 15:01:23 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 43E28AF8A
+ for <ltp@lists.linux.it>; Mon, 16 Mar 2020 14:18:43 +0000 (UTC)
+Date: Mon, 16 Mar 2020 15:18:42 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20200316140123.GA26750@rei.lan>
-References: <20200316103831.10224-1-mdoucha@suse.cz>
+Message-ID: <20200316141842.GB26750@rei.lan>
+References: <20200312125545.3976-1-mdoucha@suse.cz>
+ <20200312125545.3976-2-mdoucha@suse.cz>
+ <20200313125742.GA5232@rei.lan>
+ <dcac6d42-dff5-53ed-34eb-5aed3e184896@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200316103831.10224-1-mdoucha@suse.cz>
+In-Reply-To: <dcac6d42-dff5-53ed-34eb-5aed3e184896@suse.cz>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] Add new test cases to syscalls/readv01
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 1/3] Create separate .c file for
+ include/tst_net.h
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,37 +58,22 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> Split the original test scenario into two test cases and add:
-> - read into buffers bigger than input file
-> - read into multiple buffers
-> - read into non-NULL buffer with size = 0 (test for kernel commit 19f18459)
+> >> +int tst_bit_count(uint32_t i);
+> >> +int tst_mask2prefix(struct in_addr mask);
+> >> +int tst_ipv4_mask_to_int(const char *prefix);
+> >> +int tst_safe_atoi(const char *s, int *ret_i);
+> >> +int tst_get_prefix(const char *ip_str, int is_ipv6);
+> >> +void tst_get_in_addr(const char *ip_str, struct in_addr *ip);
+> >> +void tst_get_in6_addr(const char *ip_str, struct in6_addr *ip6);
+> > 
+> > Do we need all of these exported in the public API?
+> > 
+> > It looks to me like most of these shouldn't be exported at all.
 > 
-> Also use guarded buffers in all IO vectors. Fixes #382
-> 
-> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
-> ---
-> 
-> Changes since v1:
-> - Code style fixes
-> - Use tst_get_bad_addr() in the zero-size lockup test case
-> 
-> Re: Timeout.
-> The last test case may cause infinite loop in some kernels. The entire test
-> program should finish in less than a second so waiting 15 minutes to detect
-> the possible lockup is a waste of time. 15 seconds is long enough to avoid
-> false positives.
+> I guess that's a question for Petr. I'll be happy to drop the functions
+> meant to be private from the .h file and make them static in the .c file.
 
-I've added the linux-git tag to the testcase and pushed, thanks.
-
-> Re: Guarded buffers/invalid pointers.
-> Fixed. Patching the buffer library won't help me here because I'm working
-> with IO vectors anyway. Negative size in IO vector definition array currently
-> represents end of vector so negative sizes could only be used for single
-> buffers. Or the whole IO vector definition semantics in struct tst_test
-> would have to be redesigned.
-
-Well, we can as well define -1 to be TST_BUF_END and -2 to be
-TST_BUF_BAD and change the code to use these.
+Let's do that, there is no point in exporting unused functions.
 
 -- 
 Cyril Hrubis
