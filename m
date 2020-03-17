@@ -2,71 +2,36 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E802188238
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Mar 2020 12:30:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E95C318832B
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Mar 2020 13:11:14 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AA8863C55D9
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Mar 2020 12:30:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8E8DE3C55C7
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Mar 2020 13:11:14 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 430783C0BA3
- for <ltp@lists.linux.it>; Tue, 17 Mar 2020 12:30:27 +0100 (CET)
-Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
- [IPv6:2607:f8b0:4864:20::642])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 297EA3C04FD
+ for <ltp@lists.linux.it>; Tue, 17 Mar 2020 13:11:00 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 60730200D2E
- for <ltp@lists.linux.it>; Tue, 17 Mar 2020 12:30:26 +0100 (CET)
-Received: by mail-pl1-x642.google.com with SMTP id b22so9486728pls.12
- for <ltp@lists.linux.it>; Tue, 17 Mar 2020 04:30:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=content-transfer-encoding:from:mime-version:subject:date:message-id
- :references:cc:in-reply-to:to;
- bh=ibb13ilAvaMLAWYwx6Gmc0lrxPWySPRRHUKFdK3z0hE=;
- b=ROR+FpgkedTJbk8YKRjDBPp1vr/8ywksmfVbJD3mQc48TThl15ShrYRa/0/Jg4h5LW
- gitqaT2K3x8vEgP2qvhMtSbvBRx5l5FRO3OX/YULOUFbhLOTSWufUU8d959dCGkKcp6j
- ym8QILM0PIAkM3RrTJlUA7EVQkEhimjS+9cu5bG+aTzu1KQcIUbz27g6u8Tdj1hwj3kJ
- RivunkIG+G/pvVyLHqyGiJ2rCsRgpxHk0BcINz3tEuyonWVhAPhcQ4QHaL/mfRkCcc53
- lk679V7GKLUsk71TiG/L2ccIZC4n9Bd34nVZ5440/CIzyJdDUl0MXCN14PUJ9x/W8zM9
- 9twQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:content-transfer-encoding:from:mime-version
- :subject:date:message-id:references:cc:in-reply-to:to;
- bh=ibb13ilAvaMLAWYwx6Gmc0lrxPWySPRRHUKFdK3z0hE=;
- b=QhCItoaNrWL9z5ZJcUzeBn1vchwE7BpC432omOhoq2fj67CLhzfZpdZdE6SqEPKbz6
- 5OLOTi7reXqFcmHueC0prddvpVMlKPZ15q1zb4qqZ7sca2EK9t8KNE0I/4AKfyPPzqqJ
- o+w3tA2GKCDuFzG+LnIWFH1qwiyERcj03QiN1O6VEMbZ/6Vdiw4KHBKD/cO6LRmFzkuJ
- mVUaLx5n0zd6A2zQmO3nex1e4tjJYg7own/p5wfhn7sQasl7C5ePx8/Jaatz/NNi1I0v
- x/E9bdV8Wlub8vKwkbzuaYffpXsvyCd0tFouYx8iiqryyQcojSJjYTKCFpVfBVLndBLF
- vJYw==
-X-Gm-Message-State: ANhLgQ0K1WF2y9jRfRpzl88I+ltPjGf+xw+gKIMZXLgSUViHMl7719lt
- VAdpzQfR0KxgoxBltrk1DP4=
-X-Google-Smtp-Source: ADFU+vvzjK3zl3Jyoh04LBrQUhYluHB9bRafP566jBpE/4sIyw3quH7sTD2M4fo5D9AVMNPtj8jEjw==
-X-Received: by 2002:a17:902:5984:: with SMTP id
- p4mr3935684pli.43.1584444624829; 
- Tue, 17 Mar 2020 04:30:24 -0700 (PDT)
-Received: from [192.168.21.6] (c-73-19-52-228.hsd1.wa.comcast.net.
- [73.19.52.228])
- by smtp.gmail.com with ESMTPSA id i187sm2950647pfg.33.2020.03.17.04.30.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Mar 2020 04:30:24 -0700 (PDT)
-From: Enji Cooper <yaneurabeya@gmail.com>
-Mime-Version: 1.0 (1.0)
-Date: Tue, 17 Mar 2020 04:30:23 -0700
-Message-Id: <9A4A80BA-97B7-4057-B988-E0A53EE9EC16@gmail.com>
-References: <1584430031-47227-1-git-send-email-zou_wei@huawei.com>
-In-Reply-To: <1584430031-47227-1-git-send-email-zou_wei@huawei.com>
-To: Zou Wei <zou_wei@huawei.com>
-X-Mailer: iPhone Mail (17D50)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 62EEB1401718
+ for <ltp@lists.linux.it>; Tue, 17 Mar 2020 13:10:59 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id A5F2BB05D
+ for <ltp@lists.linux.it>; Tue, 17 Mar 2020 12:10:58 +0000 (UTC)
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Tue, 17 Mar 2020 13:10:55 +0100
+Message-Id: <20200317121057.13529-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] open_posix_testsuite: Fix compilation issues
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 1/3] Create separate .c file for include/tst_net.h
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,68 +43,607 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-TkFLLgoKVGhpcyBzaG91bGQgdXNlIExETElCUywgYXMgb3RoZXJzIGhhdmUgcG9pbnRlZCBvdXQs
-IG5vdCBMREZMQUdTLgoKVGhpcyBhbHNvIHNwYW1zIHRoZXNlIGxpYnJhcmllcyBvbiBhbGwgdGVz
-dHMsIGluc3RlYWQgb2YgdGhlIG9uZXMgdGhhdCBuZWVkIGl0LgoKSSBjYW4gc2VlIHRoZXJl4oCZ
-cyBhIGRlc2lyZSB0byBidWlsZC9tYWtlIG9wZW4gcG9zaXggdGVzdHN1aXRlIGJ5IGRlZmF1bHQu
-IEnigJlsbCBsb29rIGludG8gbWFraW5nIGl0IHNvIHNvb24gYmVjYXVzZSB0aGUgY3VycmVudCBt
-b2RlbCBpcyBhIFBJVEEgdG8gbWFpbnRhaW4gYW5kIGRvZXNu4oCZdCBpbnRlZ3JhdGUgd2VsbCBp
-bnRvIENJL0NELgoKQ2hlZXJzLAotRW5qaQoKPiBPbiBNYXIgMTcsIDIwMjAsIGF0IDAwOjIwLCBa
-b3UgV2VpIDx6b3Vfd2VpQGh1YXdlaS5jb20+IHdyb3RlOgo+IAo+IO+7v0ZpeCBjb21waWxhdGlv
-biBpc3N1ZXM6Cj4gMS4gQWRkIHRoZSAnLWxwdGhyZWFkIC1scnQgLWxtJyBjb25maWcgaW50byBM
-REZMQUdTCj4gMi4gVXBkYXRlIG1ha2VmaWxlIGFuZCBsb2NhdGUtdGVzdCBzY3JpcHQKPiAKPiBT
-aWduZWQtb2ZmLWJ5OiBab3UgV2VpIDx6b3Vfd2VpQGh1YXdlaS5jb20+Cj4gLS0tCj4gdGVzdGNh
-c2VzL29wZW5fcG9zaXhfdGVzdHN1aXRlL0xERkxBR1MgICAgICAgICAgICAgfCAxICsKPiB0ZXN0
-Y2FzZXMvb3Blbl9wb3NpeF90ZXN0c3VpdGUvZnVuY3Rpb25hbC9NYWtlZmlsZSB8IDIgKy0KPiB0
-ZXN0Y2FzZXMvb3Blbl9wb3NpeF90ZXN0c3VpdGUvc2NyaXB0cy9sb2NhdGUtdGVzdCB8IDIgKy0K
-PiB0ZXN0Y2FzZXMvb3Blbl9wb3NpeF90ZXN0c3VpdGUvc3RyZXNzL01ha2VmaWxlICAgICB8IDIg
-Ky0KPiA0IGZpbGVzIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKPiAK
-PiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL29wZW5fcG9zaXhfdGVzdHN1aXRlL0xERkxBR1MgYi90
-ZXN0Y2FzZXMvb3Blbl9wb3NpeF90ZXN0c3VpdGUvTERGTEFHUwo+IGluZGV4IGU2OWRlMjkuLjZj
-MTEyZDMgMTAwNjQ0Cj4gLS0tIGEvdGVzdGNhc2VzL29wZW5fcG9zaXhfdGVzdHN1aXRlL0xERkxB
-R1MKPiArKysgYi90ZXN0Y2FzZXMvb3Blbl9wb3NpeF90ZXN0c3VpdGUvTERGTEFHUwo+IEBAIC0w
-LDAgKzEgQEAKPiArLWxwdGhyZWFkIC1scnQgLWxtCj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9v
-cGVuX3Bvc2l4X3Rlc3RzdWl0ZS9mdW5jdGlvbmFsL01ha2VmaWxlIGIvdGVzdGNhc2VzL29wZW5f
-cG9zaXhfdGVzdHN1aXRlL2Z1bmN0aW9uYWwvTWFrZWZpbGUKPiBpbmRleCAzYjIyYzg5Li41MGUw
-M2FhIDEwMDY0NAo+IC0tLSBhL3Rlc3RjYXNlcy9vcGVuX3Bvc2l4X3Rlc3RzdWl0ZS9mdW5jdGlv
-bmFsL01ha2VmaWxlCj4gKysrIGIvdGVzdGNhc2VzL29wZW5fcG9zaXhfdGVzdHN1aXRlL2Z1bmN0
-aW9uYWwvTWFrZWZpbGUKPiBAQCAtNSw3ICs1LDcgQEAKPiAjCj4gCj4gYWxsIGNsZWFuIGluc3Rh
-bGwgdGVzdDoKPiAtICAgIEBmb3IgZGlyIGluIGBscyAtZCAqL01ha2VmaWxlIDI+L2Rldi9udWxs
-IHwgc2VkIC1lICdzLC9NYWtlZmlsZSQkLCxnJ2A7IGRvIFwKPiArICAgIEBmb3IgZGlyIGluIGBm
-aW5kIC4gLW5hbWUgKk1ha2VmaWxlIHwgZWdyZXAgLXYgJ14uL01ha2VmaWxlJyB8IHNlZCAtZSAn
-cywvTWFrZWZpbGUkJCwsZydgOyBkbyBcCj4gICAgICAgICQoTUFLRSkgLUMgJCRkaXIgJEA7ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgXAo+ICAgIGRvbmUKPiAKPiBkaWZmIC0tZ2l0IGEvdGVz
-dGNhc2VzL29wZW5fcG9zaXhfdGVzdHN1aXRlL3NjcmlwdHMvbG9jYXRlLXRlc3QgYi90ZXN0Y2Fz
-ZXMvb3Blbl9wb3NpeF90ZXN0c3VpdGUvc2NyaXB0cy9sb2NhdGUtdGVzdAo+IGluZGV4IDI3ZjBi
-YjUuLmU0ZWY5OTQgMTAwNzU1Cj4gLS0tIGEvdGVzdGNhc2VzL29wZW5fcG9zaXhfdGVzdHN1aXRl
-L3NjcmlwdHMvbG9jYXRlLXRlc3QKPiArKysgYi90ZXN0Y2FzZXMvb3Blbl9wb3NpeF90ZXN0c3Vp
-dGUvc2NyaXB0cy9sb2NhdGUtdGVzdAo+IEBAIC05Miw3ICs5Miw3IEBAIHJ1bm5hYmxlKQo+ICAg
-ICMgd2FsdHogZG93biB0aGUgdG9vbHMgZGlyZWN0b3J5IGFuZCB0cnkgYW5kIGJ1aWxkIHQwICh3
-aGljaCBkb2Vzbid0Cj4gICAgIyBtYWtlIHNlbnNlIGFzIGl0J3MgYSB0b29sLCBub3QgYSB0ZXN0
-KS4gQmV0dGVyIGNyaXRlcmlvbiBuZWVkcyB0bwo+ICAgICMgYmUgZXN0YWJsaXNoZWQgZm9yIHRo
-aXMgZmlsZS4KPiAtICAgIGZpbmQgIiRXSEVSRS9jb25mb3JtYW5jZSIgIiRXSEVSRS9zdHJlc3Mi
-IC10eXBlIGYgLW5hbWUgJypbMC05XS5jJyAtbyAtbmFtZSAnWzAtOV0qLVswLTldKi5zaCcgfCBn
-cmVwIC12IGJ1aWxkb25seSB8IGdyZXAgLXYgJ14uL3Rvb2xzJwo+ICsgICAgZmluZCAiJFdIRVJF
-L2NvbmZvcm1hbmNlIiAiJFdIRVJFL3N0cmVzcyIgLXR5cGUgZiAtbmFtZSAnKlswLTlhLXpdLmMn
-IC1vIC1uYW1lICdbMC05XSotWzAtOV0qLnNoJyB8IGdyZXAgLXYgYnVpbGRvbmx5IHwgZ3JlcCAt
-diAnXi4vdG9vbHMnIHwgZ3JlcCAtdiAndGVzdGZybXcuYyQnCj4gICAgZmluZCAiJFdIRVJFL2Z1
-bmN0aW9uYWwiIC10eXBlIGYgLW5hbWUgJyouYycKPiAgICA7Owo+IHRlc3QtdG9vbHMpCj4gZGlm
-ZiAtLWdpdCBhL3Rlc3RjYXNlcy9vcGVuX3Bvc2l4X3Rlc3RzdWl0ZS9zdHJlc3MvTWFrZWZpbGUg
-Yi90ZXN0Y2FzZXMvb3Blbl9wb3NpeF90ZXN0c3VpdGUvc3RyZXNzL01ha2VmaWxlCj4gaW5kZXgg
-YjA5NTI3Zi4uZDY4NzJhOSAxMDA2NDQKPiAtLS0gYS90ZXN0Y2FzZXMvb3Blbl9wb3NpeF90ZXN0
-c3VpdGUvc3RyZXNzL01ha2VmaWxlCj4gKysrIGIvdGVzdGNhc2VzL29wZW5fcG9zaXhfdGVzdHN1
-aXRlL3N0cmVzcy9NYWtlZmlsZQo+IEBAIC01LDcgKzUsNyBAQAo+ICMKPiAKPiBhbGwgY2xlYW4g
-aW5zdGFsbCB0ZXN0Ogo+IC0gICAgQGZvciBkaXIgaW4gYGxzIC1kICovTWFrZWZpbGUgMj4vZGV2
-L251bGwgfCBzZWQgLWUgJ3MsL01ha2VmaWxlJCQsLGcnYDsgZG8gXAo+ICsgICAgQGZvciBkaXIg
-aW4gYGZpbmQgLiAtbmFtZSAqTWFrZWZpbGUgfCBlZ3JlcCAtdiAnXi4vTWFrZWZpbGUnIHwgc2Vk
-IC1lICdzLC9NYWtlZmlsZSQkLCxnJ2A7IGRvIFwKPiAgICAgICAgJChNQUtFKSAtQyAkJGRpciAk
-QDsgICAgICAgICAgICAgICAgICAgICAgICAgIFwKPiAgICBkb25lCj4gCj4gLS0KPiAyLjYuMgo+
-IAo+IAo+IC0tIAo+IE1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xp
-c3RpbmZvL2x0cAoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0
-L2xpc3RpbmZvL2x0cAo=
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
+
+Changes since v1:
+- new patch
+
+Changes since v2:
+- Also separate print_svar*()
+- Added tst_ prefix to functions separated into tst_net.c
+
+Changes since v3:
+- Split off tst_private.h from tst_net.h
+- Make some helper functions in tst_net.c static
+
+ include/tst_net.h                    | 138 +------------------------
+ include/tst_private.h                |  31 ++++++
+ lib/tst_net.c                        | 147 +++++++++++++++++++++++++++
+ testcases/lib/tst_net_iface_prefix.c |  10 +-
+ testcases/lib/tst_net_ip_prefix.c    |  11 +-
+ testcases/lib/tst_net_vars.c         |  65 ++++++------
+ 6 files changed, 225 insertions(+), 177 deletions(-)
+ create mode 100644 include/tst_private.h
+ create mode 100644 lib/tst_net.c
+
+diff --git a/include/tst_net.h b/include/tst_net.h
+index e1edc7200..034faecce 100644
+--- a/include/tst_net.h
++++ b/include/tst_net.h
+@@ -4,141 +4,7 @@
+  */
+ 
+ #include <arpa/inet.h>
+-#include <errno.h>
+ #include <stdio.h>
+-#include <stdlib.h>
+-#include <string.h>
+ 
+-#define MAX_IPV4_PREFIX 32
+-#define MAX_IPV6_PREFIX 128
+-
+-#define tst_res_comment(...) { \
+-	fprintf(stderr, "# "); \
+-	tst_res(__VA_ARGS__); } \
+-
+-
+-#define tst_brk_comment(...) { \
+-	fprintf(stderr, "# "); \
+-	tst_brk(TCONF, __VA_ARGS__); } \
+-
+-static inline void print_svar(const char *name, const char *val)
+-{
+-	if (name && val)
+-		printf("export %s=\"%s\"\n", name, val);
+-}
+-
+-static inline void print_svar_change(const char *name, const char *val)
+-{
+-	if (name && val)
+-		printf("export %s=\"${%s:-%s}\"\n", name, name, val);
+-}
+-
+-/*
+- * Function bit_count is from ipcalc project, ipcalc.c.
+- */
+-static inline int bit_count(uint32_t i)
+-{
+-	int c = 0;
+-	unsigned int seen_one = 0;
+-
+-	while (i > 0) {
+-		if (i & 1) {
+-			seen_one = 1;
+-			c++;
+-		} else {
+-			if (seen_one)
+-				return -1;
+-		}
+-		i >>= 1;
+-	}
+-
+-	return c;
+-}
+-
+-/*
+- * Function mask2prefix is from ipcalc project, ipcalc.c.
+- */
+-static inline int mask2prefix(struct in_addr mask)
+-{
+-	return bit_count(ntohl(mask.s_addr));
+-}
+-
+-/*
+- * Function ipv4_mask_to_int is from ipcalc project, ipcalc.c.
+- */
+-static inline int ipv4_mask_to_int(const char *prefix)
+-{
+-	int ret;
+-	struct in_addr in;
+-
+-	ret = inet_pton(AF_INET, prefix, &in);
+-	if (ret == 0)
+-		return -1;
+-
+-	return mask2prefix(in);
+-}
+-
+-/*
+- * Function safe_atoi is from ipcalc project, ipcalc.c.
+- */
+-static inline int safe_atoi(const char *s, int *ret_i)
+-{
+-	char *x = NULL;
+-	long l;
+-
+-	errno = 0;
+-	l = strtol(s, &x, 0);
+-
+-	if (!x || x == s || *x || errno)
+-		return errno > 0 ? -errno : -EINVAL;
+-
+-	if ((long)(int)l != l)
+-		return -ERANGE;
+-
+-	*ret_i = (int)l;
+-
+-	return 0;
+-}
+-
+-/*
+- * Function get_prefix use code from ipcalc project, str_to_prefix/ipcalc.c.
+- */
+-static inline int get_prefix(const char *ip_str, int is_ipv6)
+-{
+-	char *prefix_str = NULL;
+-	int prefix = -1, r;
+-
+-	prefix_str = strchr(ip_str, '/');
+-	if (!prefix_str)
+-		return -1;
+-
+-	*(prefix_str++) = '\0';
+-
+-	if (!is_ipv6 && strchr(prefix_str, '.'))
+-		prefix = ipv4_mask_to_int(prefix_str);
+-	else {
+-		r = safe_atoi(prefix_str, &prefix);
+-		if (r != 0)
+-			tst_brk_comment("conversion error: '%s' is not integer",
+-					prefix_str);
+-	}
+-
+-	if (prefix < 0 || ((is_ipv6 && prefix > MAX_IPV6_PREFIX) ||
+-		(!is_ipv6 && prefix > MAX_IPV4_PREFIX)))
+-		tst_brk_comment("bad %s prefix: %s", is_ipv6 ?  "IPv6" : "IPv4",
+-				prefix_str);
+-
+-	return prefix;
+-}
+-
+-static inline void get_in_addr(const char *ip_str, struct in_addr *ip)
+-{
+-	if (inet_pton(AF_INET, ip_str, ip) <= 0)
+-		tst_brk_comment("bad IPv4 address: '%s'", ip_str);
+-}
+-
+-static inline void get_in6_addr(const char *ip_str, struct in6_addr *ip6)
+-{
+-	if (inet_pton(AF_INET6, ip_str, ip6) <= 0)
+-		tst_brk_comment("bad IPv6 address: '%s'", ip_str);
+-}
++void tst_get_in_addr(const char *ip_str, struct in_addr *ip);
++void tst_get_in6_addr(const char *ip_str, struct in6_addr *ip6);
+diff --git a/include/tst_private.h b/include/tst_private.h
+new file mode 100644
+index 000000000..00cd17fce
+--- /dev/null
++++ b/include/tst_private.h
+@@ -0,0 +1,31 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2017-2019 Petr Vorel <pvorel@suse.cz>
++ *
++ * Internal helper functions for the shell library. Do not use directly
++ * in test programs.
++ */
++
++#ifndef TST_PRIVATE_H_
++#define TST_PRIVATE_H_
++
++#include <stdio.h>
++
++#define MAX_IPV4_PREFIX 32
++#define MAX_IPV6_PREFIX 128
++
++#define tst_res_comment(...) { \
++	fprintf(stderr, "# "); \
++	tst_res(__VA_ARGS__); } \
++
++
++#define tst_brk_comment(...) { \
++	fprintf(stderr, "# "); \
++	tst_brk(TCONF, __VA_ARGS__); } \
++
++void tst_print_svar(const char *name, const char *val);
++void tst_print_svar_change(const char *name, const char *val);
++
++int tst_get_prefix(const char *ip_str, int is_ipv6);
++
++#endif
+diff --git a/lib/tst_net.c b/lib/tst_net.c
+new file mode 100644
+index 000000000..b27ad3a5b
+--- /dev/null
++++ b/lib/tst_net.c
+@@ -0,0 +1,147 @@
++/*
++ * Copyright (c) 2017 Petr Vorel <pvorel@suse.cz>
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation, either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program. If not, see <http://www.gnu.org/licenses/>.
++ */
++
++#include <errno.h>
++#include <string.h>
++#include <stdlib.h>
++
++#define TST_NO_DEFAULT_MAIN
++#include "tst_test.h"
++#include "tst_net.h"
++#include "tst_private.h"
++
++void tst_print_svar(const char *name, const char *val)
++{
++	if (name && val)
++		printf("export %s=\"%s\"\n", name, val);
++}
++
++void tst_print_svar_change(const char *name, const char *val)
++{
++	if (name && val)
++		printf("export %s=\"${%s:-%s}\"\n", name, name, val);
++}
++
++/*
++ * Function bit_count is from ipcalc project, ipcalc.c.
++ */
++static int tst_bit_count(uint32_t i)
++{
++	int c = 0;
++	unsigned int seen_one = 0;
++
++	while (i > 0) {
++		if (i & 1) {
++			seen_one = 1;
++			c++;
++		} else {
++			if (seen_one)
++				return -1;
++		}
++		i >>= 1;
++	}
++
++	return c;
++}
++
++/*
++ * Function mask2prefix is from ipcalc project, ipcalc.c.
++ */
++static int tst_mask2prefix(struct in_addr mask)
++{
++	return tst_bit_count(ntohl(mask.s_addr));
++}
++
++/*
++ * Function ipv4_mask_to_int is from ipcalc project, ipcalc.c.
++ */
++static int tst_ipv4_mask_to_int(const char *prefix)
++{
++	int ret;
++	struct in_addr in;
++
++	ret = inet_pton(AF_INET, prefix, &in);
++	if (ret == 0)
++		return -1;
++
++	return tst_mask2prefix(in);
++}
++
++/*
++ * Function safe_atoi is from ipcalc project, ipcalc.c.
++ */
++static int tst_safe_atoi(const char *s, int *ret_i)
++{
++	char *x = NULL;
++	long l;
++
++	errno = 0;
++	l = strtol(s, &x, 0);
++
++	if (!x || x == s || *x || errno)
++		return errno > 0 ? -errno : -EINVAL;
++
++	if ((long)(int)l != l)
++		return -ERANGE;
++
++	*ret_i = (int)l;
++
++	return 0;
++}
++
++/*
++ * Function get_prefix use code from ipcalc project, str_to_prefix/ipcalc.c.
++ */
++int tst_get_prefix(const char *ip_str, int is_ipv6)
++{
++	char *prefix_str = NULL;
++	int prefix = -1, r;
++
++	prefix_str = strchr(ip_str, '/');
++	if (!prefix_str)
++		return -1;
++
++	*(prefix_str++) = '\0';
++
++	if (!is_ipv6 && strchr(prefix_str, '.'))
++		prefix = tst_ipv4_mask_to_int(prefix_str);
++	else {
++		r = tst_safe_atoi(prefix_str, &prefix);
++		if (r != 0)
++			tst_brk_comment("conversion error: '%s' is not integer",
++					prefix_str);
++	}
++
++	if (prefix < 0 || ((is_ipv6 && prefix > MAX_IPV6_PREFIX) ||
++		(!is_ipv6 && prefix > MAX_IPV4_PREFIX)))
++		tst_brk_comment("bad %s prefix: %s", is_ipv6 ?  "IPv6" : "IPv4",
++				prefix_str);
++
++	return prefix;
++}
++
++void tst_get_in_addr(const char *ip_str, struct in_addr *ip)
++{
++	if (inet_pton(AF_INET, ip_str, ip) <= 0)
++		tst_brk_comment("bad IPv4 address: '%s'", ip_str);
++}
++
++void tst_get_in6_addr(const char *ip_str, struct in6_addr *ip6)
++{
++	if (inet_pton(AF_INET6, ip_str, ip6) <= 0)
++		tst_brk_comment("bad IPv6 address: '%s'", ip_str);
++}
+diff --git a/testcases/lib/tst_net_iface_prefix.c b/testcases/lib/tst_net_iface_prefix.c
+index a40a8edc2..4b024872d 100644
+--- a/testcases/lib/tst_net_iface_prefix.c
++++ b/testcases/lib/tst_net_iface_prefix.c
+@@ -13,6 +13,7 @@
+ #include "tst_test.h"
+ 
+ #include "tst_net.h"
++#include "tst_private.h"
+ 
+ static char *iface;
+ static int prefix;
+@@ -124,7 +125,7 @@ int main(int argc, char *argv[])
+ 
+ 	prefix_str = strchr(ip_str, '/');
+ 	if (prefix_str) {
+-		prefix = get_prefix(ip_str, is_ipv6);
++		prefix = tst_get_prefix(ip_str, is_ipv6);
+ 		tst_res_comment(TINFO,
+ 			"IP address '%s' contains prefix %d, using it and don't search for iface.\n",
+ 			ip_str, prefix);
+@@ -136,11 +137,12 @@ int main(int argc, char *argv[])
+ 
+ 	/* checks for validity of IP string */
+ 	if (is_ipv6)
+-		get_in6_addr(ip_str, &ip6);
++		tst_get_in6_addr(ip_str, &ip6);
+ 	else
+-		get_in_addr(ip_str, &ip);
++		tst_get_in_addr(ip_str, &ip);
+ 
+-	print_svar_change(is_rhost ? "RHOST_IFACES" : "LHOST_IFACES", iface);
++	tst_print_svar_change(is_rhost ? "RHOST_IFACES" : "LHOST_IFACES",
++		iface);
+ 	if (is_ipv6)
+ 		print_ivar(is_rhost ? "IPV6_RPREFIX" : "IPV6_LPREFIX", prefix);
+ 	else
+diff --git a/testcases/lib/tst_net_ip_prefix.c b/testcases/lib/tst_net_ip_prefix.c
+index 2ac06e724..59c70ba7d 100644
+--- a/testcases/lib/tst_net_ip_prefix.c
++++ b/testcases/lib/tst_net_ip_prefix.c
+@@ -10,6 +10,7 @@
+ #include "tst_test.h"
+ 
+ #include "tst_net.h"
++#include "tst_private.h"
+ 
+ #define DEFAULT_IPV4_PREFIX 24
+ #define DEFAULT_IPV6_PREFIX 64
+@@ -67,22 +68,22 @@ int main(int argc, char *argv[])
+ 	prefix_str = strchr(ip_str, '/');
+ 
+ 	if (prefix_str)
+-		prefix = get_prefix(ip_str, is_ipv6);
++		prefix = tst_get_prefix(ip_str, is_ipv6);
+ 	else
+ 		prefix = is_ipv6 ? DEFAULT_IPV6_PREFIX : DEFAULT_IPV4_PREFIX;
+ 
+ 	/* checks for validity of IP string */
+ 	if (is_ipv6)
+-		get_in6_addr(ip_str, &ip6);
++		tst_get_in6_addr(ip_str, &ip6);
+ 	else
+-		get_in_addr(ip_str, &ip);
++		tst_get_in_addr(ip_str, &ip);
+ 
+ 	if (is_ipv6) {
+ 		print_ivar(is_rhost ? "IPV6_RPREFIX" : "IPV6_LPREFIX", prefix);
+-		print_svar(is_rhost ? "IPV6_RHOST" : "IPV6_LHOST", ip_str);
++		tst_print_svar(is_rhost ? "IPV6_RHOST" : "IPV6_LHOST", ip_str);
+ 	} else {
+ 		print_ivar(is_rhost ? "IPV4_RPREFIX" : "IPV4_LPREFIX", prefix);
+-		print_svar(is_rhost ? "IPV4_RHOST" : "IPV4_LHOST", ip_str);
++		tst_print_svar(is_rhost ? "IPV4_RHOST" : "IPV4_LHOST", ip_str);
+ 	}
+ 
+ 	exit(EXIT_SUCCESS);
+diff --git a/testcases/lib/tst_net_vars.c b/testcases/lib/tst_net_vars.c
+index 7c5507ed7..e7bf0e56a 100644
+--- a/testcases/lib/tst_net_vars.c
++++ b/testcases/lib/tst_net_vars.c
+@@ -22,6 +22,7 @@
+ #include "tst_test.h"
+ 
+ #include "tst_net.h"
++#include "tst_private.h"
+ 
+ #define BASE_IPV4_PREFIX 8
+ #define BASE_IPV6_PREFIX 16
+@@ -217,7 +218,7 @@ static char *get_ipv4_net16_unused(const struct in_addr *ip,
+ 			DEFAULT_IPV4_UNUSED_PART2);
+ 	sprintf(buf, "%s.0.0", net_unused);
+ 
+-	get_in_addr(buf, &network);
++	tst_get_in_addr(buf, &network);
+ 
+ 	if (!is_in_subnet_ipv4(ip, &mask, &network))
+ 		return strdup(net_unused);
+@@ -229,7 +230,7 @@ static char *get_ipv4_net16_unused(const struct in_addr *ip,
+ 		(rand() % 128) + (((ip->s_addr >> 8) & 0xff) < 128 ? 128 : 0));
+ 	sprintf(buf, "%s.0.0", net_unused);
+ 
+-	get_in_addr(buf, &network);
++	tst_get_in_addr(buf, &network);
+ 
+ 	if (!is_in_subnet_ipv4(ip, &mask, &network))
+ 		return strdup(net_unused);
+@@ -239,7 +240,7 @@ static char *get_ipv4_net16_unused(const struct in_addr *ip,
+ 			< 128 ? 128 : 0), DEFAULT_IPV4_UNUSED_PART2);
+ 	sprintf(buf, "%s.0.0", net_unused);
+ 
+-	get_in_addr(buf, &network);
++	tst_get_in_addr(buf, &network);
+ 
+ 	if (!is_in_subnet_ipv4(ip, &mask, &network))
+ 		return strdup(net_unused);
+@@ -281,7 +282,7 @@ static char *get_ipv6_net32_unused(const struct in6_addr *ip6,
+ 			DEFAULT_IPV6_UNUSED_PART2);
+ 	sprintf(buf, "%s::", net_unused);
+ 
+-	get_in6_addr(buf, &network);
++	tst_get_in6_addr(buf, &network);
+ 
+ 	if (!is_in_subnet_ipv6(ip6, &mask, &network))
+ 		return strdup(net_unused);
+@@ -294,7 +295,7 @@ static char *get_ipv6_net32_unused(const struct in6_addr *ip6,
+ 			DEFAULT_IPV6_UNUSED_PART2);
+ 	sprintf(buf, "%s::", net_unused);
+ 
+-	get_in6_addr(buf, &network);
++	tst_get_in6_addr(buf, &network);
+ 
+ 	if (!is_in_subnet_ipv6(ip6, &mask, &network))
+ 		return strdup(net_unused);
+@@ -305,7 +306,7 @@ static char *get_ipv6_net32_unused(const struct in6_addr *ip6,
+ 			128 : 0), DEFAULT_IPV6_UNUSED_PART2);
+ 	sprintf(buf, "%s::", net_unused);
+ 
+-	get_in6_addr(buf, &network);
++	tst_get_in6_addr(buf, &network);
+ 
+ 	if (!is_in_subnet_ipv6(ip6, &mask, &network))
+ 		return strdup(net_unused);
+@@ -503,8 +504,8 @@ static void get_ipv4_info(const char *lip_str, const char *rip_str, int lprefix,
+ 	lprefix_round = round_down_prefix(lprefix, 0);
+ 	rprefix_round = round_down_prefix(rprefix, 0);
+ 
+-	get_in_addr(lip_str, &lip);
+-	get_in_addr(rip_str, &rip);
++	tst_get_in_addr(lip_str, &lip);
++	tst_get_in_addr(rip_str, &rip);
+ 
+ 	vars.ipv4_lbroadcast = get_ipv4_broadcast(lip, lprefix);
+ 	vars.ipv4_rbroadcast = get_ipv4_broadcast(rip, rprefix);
+@@ -530,8 +531,8 @@ static void get_ipv6_info(const char *lip_str, const char *rip_str,
+ 	lprefix_round = round_down_prefix(lprefix, 1);
+ 	rprefix_round = round_down_prefix(rprefix, 1);
+ 
+-	get_in6_addr(lip_str, &lip);
+-	get_in6_addr(rip_str, &rip);
++	tst_get_in6_addr(lip_str, &lip);
++	tst_get_in6_addr(rip_str, &rip);
+ 
+ 	vars.ipv6_lnetmask = get_ipv6_netmask(lprefix);
+ 	vars.ipv6_rnetmask = get_ipv6_netmask(rprefix);
+@@ -548,23 +549,23 @@ static void get_ipv6_info(const char *lip_str, const char *rip_str,
+ static void print_vars(int is_ipv6)
+ {
+ 	if (is_ipv6) {
+-		print_svar("IPV6_LNETMASK", vars.ipv6_lnetmask);
+-		print_svar_change("IPV6_RNETMASK", vars.ipv6_rnetmask);
+-		print_svar("IPV6_LNETWORK", vars.ipv6_lnetwork);
+-		print_svar("IPV6_RNETWORK", vars.ipv6_rnetwork);
+-		print_svar("LHOST_IPV6_HOST", vars.lhost_ipv6_host);
+-		print_svar("RHOST_IPV6_HOST", vars.rhost_ipv6_host);
+-		print_svar("IPV6_NET32_UNUSED", vars.ipv6_net32_unused);
++		tst_print_svar("IPV6_LNETMASK", vars.ipv6_lnetmask);
++		tst_print_svar_change("IPV6_RNETMASK", vars.ipv6_rnetmask);
++		tst_print_svar("IPV6_LNETWORK", vars.ipv6_lnetwork);
++		tst_print_svar("IPV6_RNETWORK", vars.ipv6_rnetwork);
++		tst_print_svar("LHOST_IPV6_HOST", vars.lhost_ipv6_host);
++		tst_print_svar("RHOST_IPV6_HOST", vars.rhost_ipv6_host);
++		tst_print_svar("IPV6_NET32_UNUSED", vars.ipv6_net32_unused);
+ 	} else {
+-		print_svar("IPV4_LBROADCAST", vars.ipv4_lbroadcast);
+-		print_svar_change("IPV4_RBROADCAST", vars.ipv4_rbroadcast);
+-		print_svar("IPV4_LNETMASK", vars.ipv4_lnetmask);
+-		print_svar_change("IPV4_RNETMASK", vars.ipv4_rnetmask);
+-		print_svar("IPV4_LNETWORK", vars.ipv4_lnetwork);
+-		print_svar("IPV4_RNETWORK", vars.ipv4_rnetwork);
+-		print_svar("LHOST_IPV4_HOST", vars.lhost_ipv4_host);
+-		print_svar("RHOST_IPV4_HOST", vars.rhost_ipv4_host);
+-		print_svar("IPV4_NET16_UNUSED", vars.ipv4_net16_unused);
++		tst_print_svar("IPV4_LBROADCAST", vars.ipv4_lbroadcast);
++		tst_print_svar_change("IPV4_RBROADCAST", vars.ipv4_rbroadcast);
++		tst_print_svar("IPV4_LNETMASK", vars.ipv4_lnetmask);
++		tst_print_svar_change("IPV4_RNETMASK", vars.ipv4_rnetmask);
++		tst_print_svar("IPV4_LNETWORK", vars.ipv4_lnetwork);
++		tst_print_svar("IPV4_RNETWORK", vars.ipv4_rnetwork);
++		tst_print_svar("LHOST_IPV4_HOST", vars.lhost_ipv4_host);
++		tst_print_svar("RHOST_IPV4_HOST", vars.rhost_ipv4_host);
++		tst_print_svar("IPV4_NET16_UNUSED", vars.ipv4_net16_unused);
+ 	}
+ }
+ 
+@@ -586,19 +587,19 @@ int main(int argc, char *argv[])
+ 	rip_str = argv[2];
+ 
+ 	is_ipv6 = !!strchr(lip_str, ':');
+-	lprefix = get_prefix(lip_str, is_ipv6);
+-	rprefix = get_prefix(rip_str, is_ipv6);
++	lprefix = tst_get_prefix(lip_str, is_ipv6);
++	rprefix = tst_get_prefix(rip_str, is_ipv6);
+ 
+ 	if (is_ipv6)
+-		get_in6_addr(lip_str, &ip6);
++		tst_get_in6_addr(lip_str, &ip6);
+ 	else
+-		get_in_addr(lip_str, &ip);
++		tst_get_in_addr(lip_str, &ip);
+ 
+ 	tmp = !!strchr(rip_str, ':');
+ 	if (tmp)
+-		get_in6_addr(rip_str, &ip6);
++		tst_get_in6_addr(rip_str, &ip6);
+ 	else
+-		get_in_addr(rip_str, &ip);
++		tst_get_in_addr(rip_str, &ip);
+ 
+ 	if (is_ipv6 != tmp)
+ 		tst_brk_comment("mixed IPv4 and IPv6 addresses ('%s', '%s')",
+-- 
+2.25.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
