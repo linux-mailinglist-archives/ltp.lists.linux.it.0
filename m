@@ -1,51 +1,43 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9230E187A35
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Mar 2020 08:15:07 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 35A94187A42
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Mar 2020 08:20:51 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 19CE33C55CD
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Mar 2020 08:15:07 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E17313C55CE
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Mar 2020 08:20:50 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 10ABC3C55C3
- for <ltp@lists.linux.it>; Tue, 17 Mar 2020 08:15:03 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id ED22E1000CA0
- for <ltp@lists.linux.it>; Tue, 17 Mar 2020 08:14:59 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.70,563,1574092800"; d="scan'208";a="86454037"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 17 Mar 2020 15:14:53 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id 9548A50A9984;
- Tue, 17 Mar 2020 15:04:48 +0800 (CST)
-Received: from [10.167.220.69] (10.167.220.69) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Tue, 17 Mar 2020 15:14:51 +0800
-Message-ID: <5E7078E9.9080809@cn.fujitsu.com>
-Date: Tue, 17 Mar 2020 15:14:49 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 3EB763C55C4
+ for <ltp@lists.linux.it>; Tue, 17 Mar 2020 08:20:49 +0100 (CET)
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C5F266012C3
+ for <ltp@lists.linux.it>; Tue, 17 Mar 2020 08:20:46 +0100 (CET)
+Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id 97270FCF18E779C0A4DF
+ for <ltp@lists.linux.it>; Tue, 17 Mar 2020 15:20:41 +0800 (CST)
+Received: from linux-lmwb.huawei.com (10.175.103.112) by
+ DGGEMS407-HUB.china.huawei.com (10.3.19.207) with Microsoft SMTP Server id
+ 14.3.487.0; Tue, 17 Mar 2020 15:20:32 +0800
+From: Zou Wei <zou_wei@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Tue, 17 Mar 2020 15:27:11 +0800
+Message-ID: <1584430031-47227-1-git-send-email-zou_wei@huawei.com>
+X-Mailer: git-send-email 2.6.2
 MIME-Version: 1.0
-To: Zou Wei <zou_wei@huawei.com>
-References: <1584327515-74727-1-git-send-email-zou_wei@huawei.com>
-In-Reply-To: <1584327515-74727-1-git-send-email-zou_wei@huawei.com>
-X-Originating-IP: [10.167.220.69]
-X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
-X-yoursite-MailScanner-ID: 9548A50A9984.A93EB
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.2 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Originating-IP: [10.175.103.112]
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] pthread_cond_init/s-c.c: Add the lose ifndef line
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH] open_posix_testsuite: Fix compilation issues
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,49 +49,71 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Zou Wei <zou_wei@huawei.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Zou,
+Fix compilation issues:
+1. Add the '-lpthread -lrt -lm' config into LDFLAGS
+2. Update makefile and locate-test script
 
-Pushed.
+Signed-off-by: Zou Wei <zou_wei@huawei.com>
+---
+ testcases/open_posix_testsuite/LDFLAGS             | 1 +
+ testcases/open_posix_testsuite/functional/Makefile | 2 +-
+ testcases/open_posix_testsuite/scripts/locate-test | 2 +-
+ testcases/open_posix_testsuite/stress/Makefile     | 2 +-
+ 4 files changed, 4 insertions(+), 3 deletions(-)
 
-BTW:
-1) we also need to update open_posix_testsuite so that it can compile 
-these stress tests by default.
-2) Your patch seems to be broken so I recreate and apply it.
+diff --git a/testcases/open_posix_testsuite/LDFLAGS b/testcases/open_posix_testsuite/LDFLAGS
+index e69de29..6c112d3 100644
+--- a/testcases/open_posix_testsuite/LDFLAGS
++++ b/testcases/open_posix_testsuite/LDFLAGS
+@@ -0,0 +1 @@
++-lpthread -lrt -lm
+diff --git a/testcases/open_posix_testsuite/functional/Makefile b/testcases/open_posix_testsuite/functional/Makefile
+index 3b22c89..50e03aa 100644
+--- a/testcases/open_posix_testsuite/functional/Makefile
++++ b/testcases/open_posix_testsuite/functional/Makefile
+@@ -5,7 +5,7 @@
+ #
 
-Thanks,
-Xiao Yang
-On 2020/3/16 10:58, Zou Wei wrote:
-> pthread_cond_init/s-c.c testcase lose a #ifndef line, fix it
->
-> Reported-by: Zou Wei<zou_wei@huawei.com>
-> Signed-off-by: Zou Wei<zou_wei@huawei.com>
-> ---
->   testcases/open_posix_testsuite/stress/threads/pthread_cond_init/s-c.c | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/testcases/open_posix_testsuite/stress/threads/pthread_cond_init/s-c.c b/testcases/open_posix_testsuite/stress/threads/pthread_cond_init/s-c.c
-> index 6a5c70a..8d18484 100644
-> --- a/testcases/open_posix_testsuite/stress/threads/pthread_cond_init/s-c.c
-> +++ b/testcases/open_posix_testsuite/stress/threads/pthread_cond_init/s-c.c
-> @@ -80,6 +80,7 @@
->   /***********************************    Test case   *****************************************/
->   /********************************************************************************************/
-> +#ifndef WITHOUT_XOPEN
->   typedef struct _teststruct {
->   	pthread_cond_t cnd[10 * SCALABILITY_FACTOR];
->   	pthread_condattr_t ca[4];
-> --
-> 2.6.2
->
->
+ all clean install test:
+-	@for dir in `ls -d */Makefile 2>/dev/null | sed -e 's,/Makefile$$,,g'`; do \
++	@for dir in `find . -name *Makefile | egrep -v '^./Makefile' | sed -e 's,/Makefile$$,,g'`; do \
+ 		$(MAKE) -C $$dir $@;						   \
+ 	done
 
+diff --git a/testcases/open_posix_testsuite/scripts/locate-test b/testcases/open_posix_testsuite/scripts/locate-test
+index 27f0bb5..e4ef994 100755
+--- a/testcases/open_posix_testsuite/scripts/locate-test
++++ b/testcases/open_posix_testsuite/scripts/locate-test
+@@ -92,7 +92,7 @@ runnable)
+ 	# waltz down the tools directory and try and build t0 (which doesn't
+ 	# make sense as it's a tool, not a test). Better criterion needs to
+ 	# be established for this file.
+-	find "$WHERE/conformance" "$WHERE/stress" -type f -name '*[0-9].c' -o -name '[0-9]*-[0-9]*.sh' | grep -v buildonly | grep -v '^./tools'
++	find "$WHERE/conformance" "$WHERE/stress" -type f -name '*[0-9a-z].c' -o -name '[0-9]*-[0-9]*.sh' | grep -v buildonly | grep -v '^./tools' | grep -v 'testfrmw.c$'
+ 	find "$WHERE/functional" -type f -name '*.c'
+ 	;;
+ test-tools)
+diff --git a/testcases/open_posix_testsuite/stress/Makefile b/testcases/open_posix_testsuite/stress/Makefile
+index b09527f..d6872a9 100644
+--- a/testcases/open_posix_testsuite/stress/Makefile
++++ b/testcases/open_posix_testsuite/stress/Makefile
+@@ -5,7 +5,7 @@
+ #
 
+ all clean install test:
+-	@for dir in `ls -d */Makefile 2>/dev/null | sed -e 's,/Makefile$$,,g'`; do \
++	@for dir in `find . -name *Makefile | egrep -v '^./Makefile' | sed -e 's,/Makefile$$,,g'`; do \
+ 		$(MAKE) -C $$dir $@;						  \
+ 	done
+
+--
+2.6.2
 
 
 -- 
