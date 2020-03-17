@@ -2,51 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CABF3187A8E
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Mar 2020 08:34:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE674187AB0
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Mar 2020 08:55:27 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 84AD33C55CD
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Mar 2020 08:34:17 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 33DC33C55CD
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Mar 2020 08:55:27 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 7D74B3C55C3
- for <ltp@lists.linux.it>; Tue, 17 Mar 2020 08:34:15 +0100 (CET)
-Received: from huawei.com (szxga03-in.huawei.com [45.249.212.189])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6DD8B1000C38
- for <ltp@lists.linux.it>; Tue, 17 Mar 2020 08:34:14 +0100 (CET)
-Received: from dggeml406-hub.china.huawei.com (unknown [172.30.72.56])
- by Forcepoint Email with ESMTP id 8C1476A5A44D04E1F2FF;
- Tue, 17 Mar 2020 15:34:09 +0800 (CST)
-Received: from DGGEML524-MBX.china.huawei.com ([169.254.1.203]) by
- dggeml406-hub.china.huawei.com ([10.3.17.50]) with mapi id 14.03.0487.000;
- Tue, 17 Mar 2020 15:34:06 +0800
-From: "Zouwei (Samuel)" <zou_wei@huawei.com>
-To: Xiao Yang <yangx.jy@cn.fujitsu.com>
-Thread-Topic: [LTP] [PATCH] pthread_cond_init/s-c.c: Add the lose ifndef line
-Thread-Index: AQHV/CvDLgEUU+DjKEqn32zZtcQfGKhMYxgQ
-Date: Tue, 17 Mar 2020 07:34:05 +0000
-Message-ID: <C3CD0DF8AD11A84CB25A1426DE537C61E5910B5D@dggeml524-mbx.china.huawei.com>
-References: <1584327515-74727-1-git-send-email-zou_wei@huawei.com>
- <5E7078E9.9080809@cn.fujitsu.com>
-In-Reply-To: <5E7078E9.9080809@cn.fujitsu.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.173.220.144]
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 9FE8F3C0E5E
+ for <ltp@lists.linux.it>; Tue, 17 Mar 2020 08:55:24 +0100 (CET)
+Received: from us-smtp-delivery-74.mimecast.com
+ (us-smtp-delivery-74.mimecast.com [63.128.21.74])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id F03651A013D8
+ for <ltp@lists.linux.it>; Tue, 17 Mar 2020 08:55:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1584431721;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=DUWkdG1Uj1cFF36SSkUFvMEeoGLXmiNuq3CbYMAFmZs=;
+ b=b3tqr3FcMKGY1amptGlewjTYmdK6j3J0hs2qqNWtxzeMpN435AOzDRClJV5Ty01ycpoj3E
+ tj2OOlM3JnHyEfcnAXm2bfLMdqvYEee2j1tm1SCY4FRWkHlpoJKMmHiRwNdachJdkX7ZH+
+ TWSs9myobzI/Ao2s74ocTaB8ZheQEqg=
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-294-UcG-n_oLMh6WS8WlWY4tpQ-1; Tue, 17 Mar 2020 03:55:16 -0400
+X-MC-Unique: UcG-n_oLMh6WS8WlWY4tpQ-1
+Received: by mail-oi1-f200.google.com with SMTP id c123so12656183oig.19
+ for <ltp@lists.linux.it>; Tue, 17 Mar 2020 00:55:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=GBC4vFoNNWxP0U524YniK25/fLGDqxFhkqkronlWHQg=;
+ b=V0rYFxXWpQIJ1vHHL2INgeP/n/bcUXdAgKVfZ9WynY6ZBQg1z/LNPDTVl6ENE0udbA
+ DnN7CYtynbV85rgG+NBa7qJrFlqpQKs62ga+13kNwKQtpOgvV/n/6p7hCTPVlWxY8uBY
+ sEMVQAXkjcFyo1kM65ARAN1IyInV7cMiBZPOXLBGGKvgQv8lQ+nyWwGNtqfNNYxQAPXC
+ 5xFMNQP7o132PbzdG86mMbcMPuYr4/4VIi1rOoWd+yQ96RA3iuHU1oyFEASI/ts4u5MX
+ F06EUSxItFmhewuBKBaiNbquPA+/WzXf7gE+q+acs5AU5m43xBYjB7aDWvvAE3eSlOT1
+ 1Axg==
+X-Gm-Message-State: ANhLgQ1Rn5gjeufxB1NiZ7vpZTOSwOoqvFzmGlvFAzx+Vpvnwxrovs00
+ k9lAiNF3ujjtDFiKyPl722z6e19BMgNrrdHKLijXbo7sA5Qc8dlWASdaLK8epF6cwvSRpgwdQjM
+ tzTdhgJ2V6WCBRf0RKOqV2pekYVI=
+X-Received: by 2002:aca:484c:: with SMTP id v73mr2374877oia.138.1584431715590; 
+ Tue, 17 Mar 2020 00:55:15 -0700 (PDT)
+X-Google-Smtp-Source: ADFU+vurbFggiba+ywVHvs/p7eGlhWDpjy3hHdka8Axd5ZH9vP3lgTHHXr58MIXyKMP9Axmbo+UYBWIMNvu8PMjsoKE=
+X-Received: by 2002:aca:484c:: with SMTP id v73mr2374865oia.138.1584431715165; 
+ Tue, 17 Mar 2020 00:55:15 -0700 (PDT)
 MIME-Version: 1.0
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+References: <1584430400-47359-1-git-send-email-zou_wei@huawei.com>
+In-Reply-To: <1584430400-47359-1-git-send-email-zou_wei@huawei.com>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 17 Mar 2020 15:55:03 +0800
+Message-ID: <CAEemH2f5sMfOX5XjEOr8cmLRwu+YzMziEwRFPAegG+FAURi90A@mail.gmail.com>
+To: Zou Wei <zou_wei@huawei.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] =?gb2312?b?tPC4tDogIFtQQVRDSF0gcHRocmVhZF9jb25kX2luaXQv?=
- =?gb2312?b?cy1jLmM6IEFkZCB0aGUgbG9zZSBpZm5kZWYgbGluZQ==?=
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] open_posix_testsuite: Enable the testsuite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,42 +78,131 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============2037038368=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgWHUNCg0KVGhhbmtzIGZvciBtZXJnZSB0aGUgcGF0Y2guDQoNCkkgc2VudCBhbm90aGVyIDIg
-cGF0Y2hlcywgb25lIGlzIHRvIGVuYWJsZSB0aGUgb3Blbl9wb3NpeF90ZXN0c3VpdGUgaW4gdGhl
-IG1ha2VmaWxlLCBhbmQgdGhlIG90aGVyIG9uZSBpcyB0byBmaXggdGhlIG9wZW5fcG9zaXggY29t
-cGlsYXRpb24gaXNzdWUuDQoNCkJlc3QgUmVnYXJkcw0KWm91IFdlaQ0KLS0tLS3Tyrz+1K28/i0t
-LS0tDQq3orz+yMs6IFhpYW8gWWFuZyBbbWFpbHRvOnlhbmd4Lmp5QGNuLmZ1aml0c3UuY29tXSAN
-Creiy83KsbzkOiAyMDIwxOoz1MIxN8jVIDE1OjE1DQrK1bz+yMs6IFpvdXdlaSAoU2FtdWVsKSA8
-em91X3dlaUBodWF3ZWkuY29tPg0Ks63LzTogbHRwQGxpc3RzLmxpbnV4Lml0DQrW98ziOiBSZTog
-W0xUUF0gW1BBVENIXSBwdGhyZWFkX2NvbmRfaW5pdC9zLWMuYzogQWRkIHRoZSBsb3NlIGlmbmRl
-ZiBsaW5lDQoNCkhpIFpvdSwNCg0KUHVzaGVkLg0KDQpCVFc6DQoxKSB3ZSBhbHNvIG5lZWQgdG8g
-dXBkYXRlIG9wZW5fcG9zaXhfdGVzdHN1aXRlIHNvIHRoYXQgaXQgY2FuIGNvbXBpbGUgdGhlc2Ug
-c3RyZXNzIHRlc3RzIGJ5IGRlZmF1bHQuDQoyKSBZb3VyIHBhdGNoIHNlZW1zIHRvIGJlIGJyb2tl
-biBzbyBJIHJlY3JlYXRlIGFuZCBhcHBseSBpdC4NCg0KVGhhbmtzLA0KWGlhbyBZYW5nDQpPbiAy
-MDIwLzMvMTYgMTA6NTgsIFpvdSBXZWkgd3JvdGU6DQo+IHB0aHJlYWRfY29uZF9pbml0L3MtYy5j
-IHRlc3RjYXNlIGxvc2UgYSAjaWZuZGVmIGxpbmUsIGZpeCBpdA0KPg0KPiBSZXBvcnRlZC1ieTog
-Wm91IFdlaTx6b3Vfd2VpQGh1YXdlaS5jb20+DQo+IFNpZ25lZC1vZmYtYnk6IFpvdSBXZWk8em91
-X3dlaUBodWF3ZWkuY29tPg0KPiAtLS0NCj4gICB0ZXN0Y2FzZXMvb3Blbl9wb3NpeF90ZXN0c3Vp
-dGUvc3RyZXNzL3RocmVhZHMvcHRocmVhZF9jb25kX2luaXQvcy1jLmMgfCAxICsNCj4gICAxIGZp
-bGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykNCj4NCj4gZGlmZiAtLWdpdCANCj4gYS90ZXN0Y2Fz
-ZXMvb3Blbl9wb3NpeF90ZXN0c3VpdGUvc3RyZXNzL3RocmVhZHMvcHRocmVhZF9jb25kX2luaXQv
-cy1jLg0KPiBjIA0KPiBiL3Rlc3RjYXNlcy9vcGVuX3Bvc2l4X3Rlc3RzdWl0ZS9zdHJlc3MvdGhy
-ZWFkcy9wdGhyZWFkX2NvbmRfaW5pdC9zLWMuDQo+IGMNCj4gaW5kZXggNmE1YzcwYS4uOGQxODQ4
-NCAxMDA2NDQNCj4gLS0tIA0KPiBhL3Rlc3RjYXNlcy9vcGVuX3Bvc2l4X3Rlc3RzdWl0ZS9zdHJl
-c3MvdGhyZWFkcy9wdGhyZWFkX2NvbmRfaW5pdC9zLWMuDQo+IGMNCj4gKysrIGIvdGVzdGNhc2Vz
-L29wZW5fcG9zaXhfdGVzdHN1aXRlL3N0cmVzcy90aHJlYWRzL3B0aHJlYWRfY29uZF9pbml0Lw0K
-PiArKysgcy1jLmMNCj4gQEAgLTgwLDYgKzgwLDcgQEANCj4gICAvKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKiogICAgVGVzdCBjYXNlICAgKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKiovDQo+ICAgDQo+IC8qKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioNCj4gKioqKioqKioqKioq
-KioqKioqKioqKiovDQo+ICsjaWZuZGVmIFdJVEhPVVRfWE9QRU4NCj4gICB0eXBlZGVmIHN0cnVj
-dCBfdGVzdHN0cnVjdCB7DQo+ICAgCXB0aHJlYWRfY29uZF90IGNuZFsxMCAqIFNDQUxBQklMSVRZ
-X0ZBQ1RPUl07DQo+ICAgCXB0aHJlYWRfY29uZGF0dHJfdCBjYVs0XTsNCj4gLS0NCj4gMi42LjIN
-Cj4NCj4NCg0KDQoNCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXgu
-aXQvbGlzdGluZm8vbHRwCg==
+--===============2037038368==
+Content-Type: multipart/alternative; boundary="0000000000008dc33a05a1084146"
+
+--0000000000008dc33a05a1084146
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Zou & Xiao,
+
+Do we really need to enable the open_posix_testsuite explicitly? By
+default, LTP uses "--with-open-posix-testsuite" as the configure parameter
+to enabling it, is that work for you?
+
+i.e you can include the open_posix_testsuite build by perform `./build.sh`
+
+On Tue, Mar 17, 2020 at 3:27 PM Zou Wei <zou_wei@huawei.com> wrote:
+
+> Enable open posix testsuite compilation by default
+>
+> Signed-off-by: Zou Wei <zou_wei@huawei.com>
+> ---
+>  testcases/Makefile | 4 ----
+>  1 file changed, 4 deletions(-)
+>
+> diff --git a/testcases/Makefile b/testcases/Makefile
+> index b04e630..ae1cafc 100644
+> --- a/testcases/Makefile
+> +++ b/testcases/Makefile
+> @@ -30,10 +30,6 @@ include $(top_srcdir)/include/mk/env_pre.mk
+>  #    run).
+>  FILTER_OUT_DIRS                :=3D kdump
+>
+> -ifneq ($(WITH_OPEN_POSIX_TESTSUITE),yes)
+> -FILTER_OUT_DIRS                +=3D open_posix_testsuite
+> -endif
+> -
+>  ifneq ($(WITH_REALTIME_TESTSUITE),yes)
+>  FILTER_OUT_DIRS                +=3D realtime
+>  endif
+> --
+> 2.6.2
+>
+>
+> --
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+>
+>
+
+--=20
+Regards,
+Li Wang
+
+--0000000000008dc33a05a1084146
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi=C2=A0Zou &amp; Xiao,</div><div class=3D"gmail_default" sty=
+le=3D"font-size:small"><br></div><div class=3D"gmail_default" style=3D"font=
+-size:small">Do we really need to enable the open_posix_testsuite explicitl=
+y? By default, LTP uses &quot;--with-open-posix-testsuite&quot; as the conf=
+igure parameter to enabling it, is that work for you?</div><div class=3D"gm=
+ail_default" style=3D"font-size:small"><br></div><div class=3D"gmail_defaul=
+t" style=3D"font-size:small">i.e you can include the open_posix_testsuite b=
+uild by perform=C2=A0`./build.sh`</div></div><br><div class=3D"gmail_quote"=
+><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Mar 17, 2020 at 3:27 PM Zou =
+Wei &lt;<a href=3D"mailto:zou_wei@huawei.com">zou_wei@huawei.com</a>&gt; wr=
+ote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
+ 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Enable open=
+ posix testsuite compilation by default<br>
+<br>
+Signed-off-by: Zou Wei &lt;<a href=3D"mailto:zou_wei@huawei.com" target=3D"=
+_blank">zou_wei@huawei.com</a>&gt;<br>
+---<br>
+=C2=A0testcases/Makefile | 4 ----<br>
+=C2=A01 file changed, 4 deletions(-)<br>
+<br>
+diff --git a/testcases/Makefile b/testcases/Makefile<br>
+index b04e630..ae1cafc 100644<br>
+--- a/testcases/Makefile<br>
++++ b/testcases/Makefile<br>
+@@ -30,10 +30,6 @@ include $(top_srcdir)/include/mk/<a href=3D"http://env_p=
+re.mk" rel=3D"noreferrer" target=3D"_blank">env_pre.mk</a><br>
+=C2=A0#=C2=A0 =C2=A0 run).<br>
+=C2=A0FILTER_OUT_DIRS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 :=3D kdump<br>
+<br>
+-ifneq ($(WITH_OPEN_POSIX_TESTSUITE),yes)<br>
+-FILTER_OUT_DIRS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 +=
+=3D open_posix_testsuite<br>
+-endif<br>
+-<br>
+=C2=A0ifneq ($(WITH_REALTIME_TESTSUITE),yes)<br>
+=C2=A0FILTER_OUT_DIRS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 +=3D realtime<br>
+=C2=A0endif<br>
+--<br>
+2.6.2<br>
+<br>
+<br>
+-- <br>
+Mailing list info: <a href=3D"https://lists.linux.it/listinfo/ltp" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.linux.it/listinfo/ltp</a><br>
+<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
+Wang<br></div></div></div></div>
+
+--0000000000008dc33a05a1084146--
+
+
+--===============2037038368==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============2037038368==--
+
