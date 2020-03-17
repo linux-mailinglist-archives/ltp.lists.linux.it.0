@@ -2,40 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66E9B188494
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Mar 2020 13:56:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8519C1886C9
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Mar 2020 15:04:51 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 09A263C55D5
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Mar 2020 13:56:29 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C21F63C55FC
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Mar 2020 15:04:50 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 3924D3C55C2
- for <ltp@lists.linux.it>; Tue, 17 Mar 2020 13:56:27 +0100 (CET)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 1760E3C0E5E
+ for <ltp@lists.linux.it>; Tue, 17 Mar 2020 15:04:45 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4B964600BB3
- for <ltp@lists.linux.it>; Tue, 17 Mar 2020 13:56:26 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CED79600A05
+ for <ltp@lists.linux.it>; Tue, 17 Mar 2020 15:04:44 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id C01D7AC4A;
- Tue, 17 Mar 2020 12:56:23 +0000 (UTC)
-Date: Tue, 17 Mar 2020 21:52:05 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 2EB28AE3A
+ for <ltp@lists.linux.it>; Tue, 17 Mar 2020 14:04:44 +0000 (UTC)
+Date: Tue, 17 Mar 2020 15:08:30 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Zou Wei <zou_wei@huawei.com>
-Message-ID: <20200317205205.GA23447@yuki.lan>
-References: <1584430031-47227-1-git-send-email-zou_wei@huawei.com>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <20200317140830.GA901@haruka.lan>
+References: <20200225161514.25544-1-mdoucha@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1584430031-47227-1-git-send-email-zou_wei@huawei.com>
+In-Reply-To: <20200225161514.25544-1-mdoucha@suse.cz>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=DATE_IN_FUTURE_06_12,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] open_posix_testsuite: Fix compilation issues
+Subject: Re: [LTP] [PATCH] Add test for CVE-2017-17712
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,20 +54,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> Fix compilation issues:
-> 1. Add the '-lpthread -lrt -lm' config into LDFLAGS
-
-Just linking with -lpthread is not correct way how to compile pthread
-programs on Linux, we have to add -pthread to both CLFAGS and LDFLAGS.
-
-I guess that we should also default to the output of getconf for pthread
-CFLAGS and LDFLAGS if available[1]. Unfortunately it looks like this is not
-implemented on Linux yet.
-
-So if getconf fails we will have to probably fallback to per-OS table of
-CFLAGS and LDFLAGS.
-
-[1] https://pubs.opengroup.org/onlinepubs/9699919799/utilities/c99.html#tagtcjh_25
+I've added a .gitignore entry and pushed, thanks.
 
 -- 
 Cyril Hrubis
