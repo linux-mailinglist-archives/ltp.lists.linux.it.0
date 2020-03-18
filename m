@@ -1,62 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BCAB18955D
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Mar 2020 06:32:00 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C7BA218962B
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Mar 2020 08:18:43 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DF5323C5516
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Mar 2020 06:31:59 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 354ED3C551B
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Mar 2020 08:18:43 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 1F2FB3C0271
- for <ltp@lists.linux.it>; Wed, 18 Mar 2020 06:31:57 +0100 (CET)
-Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
- [IPv6:2607:f8b0:4864:20::1044])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 278DF3C013A
+ for <ltp@lists.linux.it>; Wed, 18 Mar 2020 08:18:38 +0100 (CET)
+Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
+ [IPv6:2607:f8b0:4864:20::643])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id B18E91401A30
- for <ltp@lists.linux.it>; Wed, 18 Mar 2020 06:31:56 +0100 (CET)
-Received: by mail-pj1-x1044.google.com with SMTP id ng8so830389pjb.2
- for <ltp@lists.linux.it>; Tue, 17 Mar 2020 22:31:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=RXKJe9+IcW0JhuNSmLxULBPHaEs1DKS2acP/WqmFJoQ=;
- b=Yn08D4GYmgYnZmz2f3X9A03kHOD8BNa7sy5jzyJQ3FA4OVXSqVT3BCZIqU5HtACZU1
- Q9f4Q98DLZVu02NBAV8m1/nDZp6F2JzwfEyQAY2WAsQvE1Z0/WMVbR2dOcpTxuoh3yZl
- n34s4Mc/4hBK4PkSld24XZzcywZMK3403zpcSSPtr4eT/zIgRQrYcJSZBhQa+zB6bVla
- vRv/CWLp2NWzdk1PU0u5DYUySOmVa7gZ7LL7KK27hyz966vow1CPiTuaFX2HYZfzQEaO
- iuSG/sZBDKCKqnMAvp4lICfi5g4Cr0sSzb9gnq8iyTtieFpgIlwfPuBtYcp8FAY31Tlk
- E0xg==
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id EE75610009E0
+ for <ltp@lists.linux.it>; Wed, 18 Mar 2020 08:18:37 +0100 (CET)
+Received: by mail-pl1-x643.google.com with SMTP id h11so1281674plr.11
+ for <ltp@lists.linux.it>; Wed, 18 Mar 2020 00:18:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=WXPw+mEK04mDu5jK/sgjBQGWUCjbS/oEJEK2idtMO9g=;
+ b=PwSf/280MgSQ/yKaLlxqZioHAyfaoYT/eJz1o+83zKgj5MYqvNLULtMlAh74PjH0al
+ DGXQch96gJeVZ9PJup1Z6yRzGMrYHeqZSYWyAh/7RGU28aVXhzmaYSKbXtdYdkQ1mO1b
+ 2d3siQC9Kl4LWqWdp/y8V7fYn4mlNBCVs7xdhG5JYKvh5zjtQgT6jLtiIfqvJH9jcQZO
+ cEGq58fxNyz0lnHqw4+pcojmsa/IApqqM8So/0vDFMtvOffbtmZD5mEZ9LabetGLPCT6
+ hn0fj4CJNU+HCbYycYzb0M2UakGlm1czX9q4DN+NjZS6ye86tNHDVkFFWkY8VP5QDMoJ
+ k/0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=RXKJe9+IcW0JhuNSmLxULBPHaEs1DKS2acP/WqmFJoQ=;
- b=XMz01k09eiep17igfjLfhq5lbCM6lUgTaamj32Wd3IDTL2k6MjcfKb5of1i6vfR+M8
- 9Al5ovrSkyUVSSzkO/xkHBXgm6hO07j8tS3T+ohgbuub3HXQSc4jJFi3bp7UBPz59Q3i
- YLi2iw7sXi0x5Exzm+J+4mESEtR8BMFQP8D5DTFwQISQ6x5yaj6D9AXgS9ipbbX89B37
- 1SMO2CfIbH3ye9rZ9bwIkMeJkIfXEkvHLvur6Nrr5jiKT4erN3CSDoqs47HtE2gGTm6B
- uZ6oijnqa9SBdJ4T6bsZzdpFcKc72OXVS8mwK1OgMvfkECMOmA1/2dlcnRdtwKYoN8YU
- WHSg==
-X-Gm-Message-State: ANhLgQ3PhUZ40kccWzaTmum+e+xEsFRQXM4UOzQ2NbEbI8LkMqdeBr0b
- LQfjB4Bk6NeZ36/60kcNeB89OtjL/FRzVZIpx/M=
-X-Google-Smtp-Source: ADFU+vvhvF+L2NvBw/HPBY320PHS2ZUt2/nuNAaNWDJV0M9++zRMckulS8bqdEQEqJkB86OZpZoAO05C2BcRGtp2Xd4=
-X-Received: by 2002:a17:902:b58b:: with SMTP id
- a11mr2267931pls.9.1584509514754; 
- Tue, 17 Mar 2020 22:31:54 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=WXPw+mEK04mDu5jK/sgjBQGWUCjbS/oEJEK2idtMO9g=;
+ b=NWsvtfZlPmxkFoLRZ1M7TppYJMkW5kFyvWrB53Oqd7uNUmcmx7k8wqRFhuulvA/6y7
+ Q+BNnnuVrI5mHXzxP62YD2m6q5LiiKHelK0R/q8FNSJVC4jJw8L2zsuiJU42J0BPQ71D
+ l5lgNUb1IsEuRfQCBGFvXMU87uyH8T+4lrkmMwrYpvi2s2FUVSxEns7qIPGnRseXX81t
+ FukyYlTLw5qYXDcYseILiDcSbxAiu6+0EtpbWpuISQayGy1k12sv/+Ls58AEbGHv8GvS
+ PmlKdU+4z+MwDul1WKLiTkrir0b1OYHsiq/9TFzjLHU7Imjh672+eq55Wa19hziL0ZTP
+ 5i+A==
+X-Gm-Message-State: ANhLgQ2fOuf5kwLBXiArChfSGpmuQTKVA0ndsJHgDY+jnvI63gxoWu3q
+ DxCsqDL6oqf13Yzk40ety5ZVxx/zMgE=
+X-Google-Smtp-Source: ADFU+vuBshiw+e+9SBFufsVFsdt0inazvlQapj9MKQpzXy72iHeThSXEQa88qUBsbsOusB1jNuAx1A==
+X-Received: by 2002:a17:90a:2a89:: with SMTP id
+ j9mr3165645pjd.64.1584515915907; 
+ Wed, 18 Mar 2020 00:18:35 -0700 (PDT)
+Received: from localhost ([122.171.122.128])
+ by smtp.gmail.com with ESMTPSA id 73sm4821407pgg.90.2020.03.18.00.18.34
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 18 Mar 2020 00:18:34 -0700 (PDT)
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: ltp@lists.linux.it
+Date: Wed, 18 Mar 2020 12:48:27 +0530
+Message-Id: <31b0bde3ac9d0e617c2878a9b4ae1e1dc1f39c10.1584515853.git.viresh.kumar@linaro.org>
+X-Mailer: git-send-email 2.21.0.rc0.269.g1a574e7a288b
 MIME-Version: 1.0
-From: Cixi Geng <gengcixi@gmail.com>
-Date: Wed, 18 Mar 2020 13:31:19 +0800
-Message-ID: <CAF12kFsKiR8XFW2WhMuNs7VYEGh8Sj=oaQHC05uc689vAcmarA@mail.gmail.com>
-To: orsonzhai@gmail.com, ltp@lists.linux.it
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH] uart: add uart testcase in kernel device-driver
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/pidfd_send_signal: Use local pointer to
+ verify signal data
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,328 +76,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ceh@ti.com
-Content-Type: multipart/mixed; boundary="===============1810180664=="
+Cc: camann@suse.com, Viresh Kumar <viresh.kumar@linaro.org>,
+ Vincent Guittot <vincent.guittot@linaro.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1810180664==
-Content-Type: multipart/alternative; boundary="000000000000c537f305a11a5e95"
+The current check, uinfo->si_value.sival_int == DATA, will always
+evaluate to true as we are checking uinfo by mistake instead of the
+pointer passed to the callback. Fix it.
 
---000000000000c537f305a11a5e95
-Content-Type: text/plain; charset="UTF-8"
-
-Porting UART test from ltp-ddt back to ltp. only test 115200 UART_RATE.
-
-[TODO] support more rate, and add test HWFLOW function test.
-
-Signed-off-by: Orson Zhai <orson@gmail.com>
-Signed-off-by: Cixi Geng <gengcixi@gmail.com>
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- runtest/kernel_ddt                            |   1 +
- testcases/kernel/device-drivers/Makefile      |   1 +
- testcases/kernel/device-drivers/uart/Makefile |  22 ++++
- .../kernel/device-drivers/uart/serialcheck.sh | 111 ++++++++++++++++++
- 4 files changed, 135 insertions(+)
- create mode 100644 runtest/kernel_ddt
- create mode 100644 testcases/kernel/device-drivers/uart/Makefile
- create mode 100755 testcases/kernel/device-drivers/uart/serialcheck.sh
+ .../kernel/syscalls/pidfd_send_signal/pidfd_send_signal01.c     | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/runtest/kernel_ddt b/runtest/kernel_ddt
-new file mode 100644
-index 000000000..30e9a0269
---- /dev/null
-+++ b/runtest/kernel_ddt
-@@ -0,0 +1 @@
-+uart serialcheck.sh
-diff --git a/testcases/kernel/device-drivers/Makefile
-b/testcases/kernel/device-drivers/Makefile
-index 55e0d25a0..a214f211b 100644
---- a/testcases/kernel/device-drivers/Makefile
-+++ b/testcases/kernel/device-drivers/Makefile
-@@ -27,6 +27,7 @@ SUBDIRS := acpi \
-    rtc \
-    tbio \
-    uaccess \
-+   uart \
-    zram
-
- include $(top_srcdir)/include/mk/generic_trunk_target.mk
-diff --git a/testcases/kernel/device-drivers/uart/Makefile
-b/testcases/kernel/device-drivers/uart/Makefile
-new file mode 100644
-index 000000000..0d73f6635
---- /dev/null
-+++ b/testcases/kernel/device-drivers/uart/Makefile
-@@ -0,0 +1,22 @@
-+# Copyright (c) 2015 Oracle and/or its affiliates. All Rights Reserved.
-+#
-+# This program is free software; you can redistribute it and/or
-+# modify it under the terms of the GNU General Public License as
-+# published by the Free Software Foundation; either version 2 of
-+# the License, or (at your option) any later version.
-+#
-+# This program is distributed in the hope that it would be useful,
-+# but WITHOUT ANY WARRANTY; without even the implied warranty of
-+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+# GNU General Public License for more details.
-+#
-+# You should have received a copy of the GNU General Public License
-+# along with this program; if not, write the Free Software Foundation,
-+# Inc.,  51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-+
-+top_srcdir ?= ../../../..
-+include $(top_srcdir)/include/mk/testcases.mk
-+
-+INSTALL_TARGETS := *.sh
-+
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/device-drivers/uart/serialcheck.sh
-b/testcases/kernel/device-drivers/uart/serialcheck.sh
-new file mode 100755
-index 000000000..f4cf13e02
---- /dev/null
-+++ b/testcases/kernel/device-drivers/uart/serialcheck.sh
-@@ -0,0 +1,111 @@
-+#!/bin/sh
-+###############################################################################
-+#
-+# Copyright (C) 2015 Texas Instruments Incorporated - http://www.ti.com/
-+# Copyright (C) 2019, Unisoc Communications Inc.
-+#
-+# This program is free software; you can redistribute it and/or
-+# modify it under the terms of the GNU General Public License as
-+# published by the Free Software Foundation version 2.
-+#
-+# This program is distributed "as is" WITHOUT ANY WARRANTY of any
-+# kind, whether express or implied; without even the implied warranty
-+# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+# GNU General Public License for more details.
-+#
-+###############################################################################
-+
-+# @desc Test UART ports using git://
-git.breakpoint.cc/bigeasy/serialcheck.git
-+
-+#### Functions definitions ####
-+usage()
-+{
-+    echo "usage: ./${0##*/} [-r UART_RATE] [-l LOOPS] [-x to enable HW
-flow control]"
-+    exit 1
-+}
-+
-+# Default values
-+: ${UART_RATE:=115200}
-+: ${UART_LOOPS:=5}
-+: ${UART_HWFLOW:=0}
-+
-+PORTS_TO_TEST=();
-+UART_PORTS=();
-+ARRAY=(`find /sys/class/tty/*/uartclk`);
-+
-+check_requirements()
-+{
-+ which serialcheck
-+ ret=$?
-+ if [ $ret -eq 0 ];then
-+ tst_res TINFO "serialcheck command is in system,continue to test"
-+ else
-+ tst_brk TCONF "test failed for lack of requirement,returned is $ret"
-+ fi
-+
-+}
-+
-+create_test_file()
-+{
-+    temp_test_file=`mktemp`
-+    dd if=/dev/urandom of=$temp_test_file count=1 bs=$((UART_RATE / 2))
-+}
-+
-+get_uart_ports()
-+{
-+for i in ${ARRAY[@]}; do
-+    PORT=/dev/`echo $i | cut -d'/' -f 5`
-+    # Activate port in case it will be initialized only when startup
-+    echo "DDT TESTING" > $PORT 2>/dev/null
-+    if [ `cat $i` -ne 0 ]; then
-+        UART_PORTS=("${UART_PORTS[@]}" "$PORT")
-+    fi
-+done
-+}
-+
-+filter_out_used_ports()
-+{
-+ which lsof
-+ ret=$?
-+ if [ $ret -eq 0 ];then
-+ tst_res TINFO "lsof command exist, filter out used ports";
-+ else
-+ tst_brk TCONF "test failed for lack of requirement,returned is $ret"
-+ fi
-+
-+    for i in ${UART_PORTS[@]}; do
-+        lsof | grep $i &> /dev/null ||
-PORTS_TO_TEST=("${PORTS_TO_TEST[@]}" $i)
-+    done
-+}
-+
-+run_serial_test()
-+{
-+ create_test_file
-+    for i in ${PORTS_TO_TEST[@]}; do
-+        if [ $UART_HWFLOW -eq 0 ]; then
-+            { sleep 1; serialcheck -b $UART_RATE -d $i -f $temp_test_file
--l $UART_LOOPS -m t -k; }&
-+            PID=$!
-+            serialcheck -b $UART_RATE -d $i -f $temp_test_file -l
-$UART_LOOPS -m r -k || { kill -- -$PID 2>/dev/null; tst_res TFAIL "TEST
-FAILED"; }
-+        else
-+            { sleep 1; serialcheck -b $UART_RATE -d $i -f $temp_test_file
--l $UART_LOOPS -m t -h; } &
-+            PID=$!
-+            serialcheck -b $UART_RATE -d $i -f $temp_test_file -l
-$UART_LOOPS -m r -h || { kill -- -$PID 2>/dev/null; tst_res TFAIL "TEST
-FAILED"; }
-+        fi
-+    done
-+    rm $temp_test_file
-+ tst_res TPASS "uart test passed"
-+}
-+
-+
-+TST_TESTFUNC=do_test
-+. tst_test.sh
-+
-+do_test()
-+{
-+ check_requirements
-+ get_uart_ports
-+ filter_out_used_ports
-+ run_serial_test
-+}
-+
-+tst_run
+diff --git a/testcases/kernel/syscalls/pidfd_send_signal/pidfd_send_signal01.c b/testcases/kernel/syscalls/pidfd_send_signal/pidfd_send_signal01.c
+index 64dddad6643a..3137b6967371 100644
+--- a/testcases/kernel/syscalls/pidfd_send_signal/pidfd_send_signal01.c
++++ b/testcases/kernel/syscalls/pidfd_send_signal/pidfd_send_signal01.c
+@@ -26,7 +26,7 @@ static int pidfd;
+ static void received_signal(int sig, siginfo_t *info, void *ucontext)
+ {
+ 	if (info && ucontext) {
+-		if (sig == SIGNAL && uinfo->si_value.sival_int == DATA) {
++		if (sig == SIGNAL && info->si_value.sival_int == DATA) {
+ 			tst_res(TPASS, "Received correct signal and data!");
+ 			sig_rec = 1;
+ 		} else {
 -- 
-2.17.1
-
---000000000000c537f305a11a5e95
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><br>Porting UART test from ltp-ddt back to ltp. only test =
-115200 UART_RATE.<br><br>[TODO] support more rate, and add test HWFLOW func=
-tion test.<br><br>Signed-off-by: Orson Zhai &lt;<a href=3D"mailto:orson@gma=
-il.com">orson@gmail.com</a>&gt;<br>Signed-off-by: Cixi Geng &lt;<a href=3D"=
-mailto:gengcixi@gmail.com">gengcixi@gmail.com</a>&gt;<br>---<br>=C2=A0runte=
-st/kernel_ddt =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| =C2=A0 1 +<br>=C2=A0testcases/kerne=
-l/device-drivers/Makefile =C2=A0 =C2=A0 =C2=A0| =C2=A0 1 +<br>=C2=A0testcas=
-es/kernel/device-drivers/uart/Makefile | =C2=A022 ++++<br>=C2=A0.../kernel/=
-device-drivers/uart/serialcheck.sh | 111 ++++++++++++++++++<br>=C2=A04 file=
-s changed, 135 insertions(+)<br>=C2=A0create mode 100644 runtest/kernel_ddt=
-<br>=C2=A0create mode 100644 testcases/kernel/device-drivers/uart/Makefile<=
-br>=C2=A0create mode 100755 testcases/kernel/device-drivers/uart/serialchec=
-k.sh<br><br>diff --git a/runtest/kernel_ddt b/runtest/kernel_ddt<br>new fil=
-e mode 100644<br>index 000000000..30e9a0269<br>--- /dev/null<br>+++ b/runte=
-st/kernel_ddt<br>@@ -0,0 +1 @@<br>+uart serialcheck.sh<br>diff --git a/test=
-cases/kernel/device-drivers/Makefile b/testcases/kernel/device-drivers/Make=
-file<br>index 55e0d25a0..a214f211b 100644<br>--- a/testcases/kernel/device-=
-drivers/Makefile<br>+++ b/testcases/kernel/device-drivers/Makefile<br>@@ -2=
-7,6 +27,7 @@ SUBDIRS		:=3D acpi \<br>=C2=A0		 =C2=A0 rtc \<br>=C2=A0		 =C2=
-=A0 tbio \<br>=C2=A0		 =C2=A0 uaccess \<br>+		 =C2=A0 uart \<br>=C2=A0		 =
-=C2=A0 zram<br>=C2=A0<br>=C2=A0include $(top_srcdir)/include/mk/<a href=3D"=
-http://generic_trunk_target.mk">generic_trunk_target.mk</a><br>diff --git a=
-/testcases/kernel/device-drivers/uart/Makefile b/testcases/kernel/device-dr=
-ivers/uart/Makefile<br>new file mode 100644<br>index 000000000..0d73f6635<b=
-r>--- /dev/null<br>+++ b/testcases/kernel/device-drivers/uart/Makefile<br>@=
-@ -0,0 +1,22 @@<br>+# Copyright (c) 2015 Oracle and/or its affiliates. All =
-Rights Reserved.<br>+#<br>+# This program is free software; you can redistr=
-ibute it and/or<br>+# modify it under the terms of the GNU General Public L=
-icense as<br>+# published by the Free Software Foundation; either version 2=
- of<br>+# the License, or (at your option) any later version.<br>+#<br>+# T=
-his program is distributed in the hope that it would be useful,<br>+# but W=
-ITHOUT ANY WARRANTY; without even the implied warranty of<br>+# MERCHANTABI=
-LITY or FITNESS FOR A PARTICULAR PURPOSE.=C2=A0 See the<br>+# GNU General P=
-ublic License for more details.<br>+#<br>+# You should have received a copy=
- of the GNU General Public License<br>+# along with this program; if not, w=
-rite the Free Software Foundation,<br>+# Inc., =C2=A051 Franklin St, Fifth =
-Floor, Boston, MA =C2=A002110-1301 =C2=A0USA<br>+<br>+top_srcdir	?=3D ../..=
-/../..<br>+include $(top_srcdir)/include/mk/<a href=3D"http://testcases.mk"=
->testcases.mk</a><br>+<br>+INSTALL_TARGETS		:=3D *.sh<br>+<br>+include $(to=
-p_srcdir)/include/mk/<a href=3D"http://generic_leaf_target.mk">generic_leaf=
-_target.mk</a><br>diff --git a/testcases/kernel/device-drivers/uart/serialc=
-heck.sh b/testcases/kernel/device-drivers/uart/serialcheck.sh<br>new file m=
-ode 100755<br>index 000000000..f4cf13e02<br>--- /dev/null<br>+++ b/testcase=
-s/kernel/device-drivers/uart/serialcheck.sh<br>@@ -0,0 +1,111 @@<br>+#!/bin=
-/sh<br>+###################################################################=
-############<br>+#<br>+# Copyright (C) 2015 Texas Instruments Incorporated =
-- <a href=3D"http://www.ti.com/">http://www.ti.com/</a><br>+# Copyright (C)=
- 2019, Unisoc Communications Inc.<br>+#<br>+# This program is free software=
-; you can redistribute it and/or<br>+# modify it under the terms of the GNU=
- General Public License as<br>+# published by the Free Software Foundation =
-version 2.<br>+#<br>+# This program is distributed &quot;as is&quot; WITHOU=
-T ANY WARRANTY of any<br>+# kind, whether express or implied; without even =
-the implied warranty<br>+# of MERCHANTABILITY or FITNESS FOR A PARTICULAR P=
-URPOSE.=C2=A0 See the<br>+# GNU General Public License for more details.<br=
->+#<br>+###################################################################=
-############<br>+<br>+# @desc Test UART ports using git://<a href=3D"http:/=
-/git.breakpoint.cc/bigeasy/serialcheck.git">git.breakpoint.cc/bigeasy/seria=
-lcheck.git</a><br>+<br>+#### Functions definitions ####<br>+usage()<br>+{<b=
-r>+ =C2=A0 =C2=A0echo &quot;usage: ./${0##*/} [-r UART_RATE] [-l LOOPS] [-x=
- to enable HW flow control]&quot;<br>+ =C2=A0 =C2=A0exit 1<br>+}<br>+<br>+#=
- Default values<br>+: ${UART_RATE:=3D115200}<br>+: ${UART_LOOPS:=3D5}<br>+:=
- ${UART_HWFLOW:=3D0}<br>+<br>+PORTS_TO_TEST=3D();<br>+UART_PORTS=3D();<br>+=
-ARRAY=3D(`find /sys/class/tty/*/uartclk`);<br>+<br>+check_requirements()<br=
->+{<br>+	which serialcheck<br>+	ret=3D$?<br>+	if [ $ret -eq 0 ];then<br>+		=
-tst_res TINFO &quot;serialcheck command is in system,continue to test&quot;=
-<br>+	else<br>+		tst_brk TCONF &quot;test failed for lack of requirement,re=
-turned is $ret&quot;<br>+	fi<br>+<br>+}<br>+<br>+create_test_file()<br>+{<b=
-r>+ =C2=A0 =C2=A0temp_test_file=3D`mktemp`<br>+ =C2=A0 =C2=A0dd if=3D/dev/u=
-random of=3D$temp_test_file count=3D1 bs=3D$((UART_RATE / 2))<br>+}<br>+<br=
->+get_uart_ports()<br>+{<br>+for i in ${ARRAY[@]}; do<br>+ =C2=A0 =C2=A0POR=
-T=3D/dev/`echo $i | cut -d&#39;/&#39; -f 5`<br>+ =C2=A0 =C2=A0# Activate po=
-rt in case it will be initialized only when startup<br>+ =C2=A0 =C2=A0echo =
-&quot;DDT TESTING&quot; &gt; $PORT 2&gt;/dev/null<br>+ =C2=A0 =C2=A0if [ `c=
-at $i` -ne 0 ]; then<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0UART_PORTS=3D(&quot;${=
-UART_PORTS[@]}&quot; &quot;$PORT&quot;)<br>+ =C2=A0 =C2=A0fi<br>+done<br>+}=
-<br>+<br>+filter_out_used_ports()<br>+{<br>+	which lsof<br>+	ret=3D$?<br>+	=
-if [ $ret -eq 0 ];then<br>+		tst_res TINFO &quot;lsof command exist, filter=
- out used ports&quot;;<br>+	else<br>+		tst_brk TCONF &quot;test failed for =
-lack of requirement,returned is $ret&quot;<br>+	fi<br>+<br>+ =C2=A0 =C2=A0f=
-or i in ${UART_PORTS[@]}; do<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0lsof | grep $i=
- &amp;&gt; /dev/null || PORTS_TO_TEST=3D(&quot;${PORTS_TO_TEST[@]}&quot; $i=
-)<br>+ =C2=A0 =C2=A0done<br>+}<br>+<br>+run_serial_test()<br>+{<br>+	create=
-_test_file<br>+ =C2=A0 =C2=A0for i in ${PORTS_TO_TEST[@]}; do<br>+ =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0if [ $UART_HWFLOW -eq 0 ]; then<br>+ =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0{ sleep 1; serialcheck -b $UART_RATE -d $i -f $temp=
-_test_file -l $UART_LOOPS -m t -k; }&amp;<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0PID=3D$!<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0serialc=
-heck -b $UART_RATE -d $i -f $temp_test_file -l $UART_LOOPS -m r -k || { kil=
-l -- -$PID 2&gt;/dev/null; tst_res TFAIL &quot;TEST FAILED&quot;; }<br>+ =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0else<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0{ sleep 1; serialcheck -b $UART_RATE -d $i -f $temp_test_file -l $UART_L=
-OOPS -m t -h; } &amp;<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0PID=3D$=
-!<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0serialcheck -b $UART_RATE -=
-d $i -f $temp_test_file -l $UART_LOOPS -m r -h || { kill -- -$PID 2&gt;/dev=
-/null; tst_res TFAIL &quot;TEST FAILED&quot;; }<br>+ =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0fi<br>+ =C2=A0 =C2=A0done<br>+ =C2=A0 =C2=A0rm $temp_test_file<br>+	t=
-st_res TPASS &quot;uart test passed&quot;<br>+}<br>+<br>+<br>+TST_TESTFUNC=
-=3Ddo_test<br>+. tst_test.sh<br>+<br>+do_test()<br>+{<br>+	check_requiremen=
-ts<br>+	get_uart_ports<br>+	filter_out_used_ports<br>+	run_serial_test<br>+=
-}<br>+<br>+tst_run<br>-- <br>2.17.1<br><br></div>
-
---000000000000c537f305a11a5e95--
-
---===============1810180664==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+2.21.0.rc0.269.g1a574e7a288b
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1810180664==--
