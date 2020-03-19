@@ -1,75 +1,38 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02D4118BC43
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Mar 2020 17:18:45 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id AD47D18BC4C
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Mar 2020 17:21:21 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2A5DB3C548E
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Mar 2020 17:18:44 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 010A93C5470
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Mar 2020 17:21:21 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id CC3403C545A
- for <ltp@lists.linux.it>; Thu, 19 Mar 2020 17:18:39 +0100 (CET)
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 697083C5452
+ for <ltp@lists.linux.it>; Thu, 19 Mar 2020 17:21:16 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E75DB601490
- for <ltp@lists.linux.it>; Thu, 19 Mar 2020 17:18:38 +0100 (CET)
-Received: by mail-pg1-x543.google.com with SMTP id z72so1534202pgz.3
- for <ltp@lists.linux.it>; Thu, 19 Mar 2020 09:18:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=pIf6uSoRz1+q+8mNw6ttHgrC6r6Wt7qPrHniq8KwW0M=;
- b=lBopGgqHC3aSBxYnUm+I7ePkpNBP6vtB0U8JKmNiuPQqalGb61g4Al31j+7yAKMiXc
- KYGXgTqZc2k+8OQ4fo8kTRGvs+PcPqHHm71RV6yL+DGxfh0M0Zg6xNY09W2W0HTT2ed5
- asIqlaXSgVjF1BGBbOqh0GiWmwFsuOlbq040rk8MYlUkVic44CcjmPJv6mYRfp4+vv53
- 7Bl472fCNBIxA8tWdzreqpZwtKUxum28qpWZ+RfXopABkCNR9RmvuS6tEw9mLCmpiwVu
- zCIcrUWNoQvlKlGKN4sz5a89Dty4g1pfTHZUWB1+/DwiA3vAvdsSoG7EgSv5854lh5sN
- 1VdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=pIf6uSoRz1+q+8mNw6ttHgrC6r6Wt7qPrHniq8KwW0M=;
- b=B/vi3T8vIxebWa04ZN9xtnLtVpDQlAQ82PfLpV2myqjsf2vcfs8V72ODrkJOBg5KhP
- JrWVpXRfX9o3WzeQrkrEZ2WLZbzhACGcC07P87AH/0sO6+JJX/hibTxTYQtaMgfLs86n
- U2zHxVgnCKT3b77SUFRwW45JsCwX0uA0MGd7keipRqGG3IiQnQSxMA+asybtRS2XekP4
- DGvIrtLQL3gqAajDQk6eHgyn41JBA+VVqKpxxaTAQtqVDgX+68OYXEL+zVFXCFXNxC1Y
- +s1SEkENs/yDLeEmC3MB5/jXOnN5OLC6aZWGIU/VoP3wz4+MySUzI0HADcCsUTU3XVnq
- U/Cw==
-X-Gm-Message-State: ANhLgQ3gF7QgCjeHlgtcQtG+jT98PEeOppxwX5d55EP2WyAIKyqoBO8Z
- OZjT0L/n7h2Wy4ztEMOZ7wDW0FpG98M=
-X-Google-Smtp-Source: ADFU+vvuIDOGczzPugK9ldrBLLQPkoqL9rweJIHb2RN6h+UFnsnRynGNiIFxyiSlW+IJlA8KV+Mltg==
-X-Received: by 2002:a63:d255:: with SMTP id t21mr4034490pgi.114.1584634717477; 
- Thu, 19 Mar 2020 09:18:37 -0700 (PDT)
-Received: from localhost ([122.171.118.46])
- by smtp.gmail.com with ESMTPSA id y18sm2822156pfe.19.2020.03.19.09.18.36
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 19 Mar 2020 09:18:36 -0700 (PDT)
-Date: Thu, 19 Mar 2020 21:48:34 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20200319161834.4hdz4q75yyk4cfy2@vireshk-i7>
-References: <cover.1584618969.git.viresh.kumar@linaro.org>
- <c64b9c05053d500a95cc920e332fa229085217b6.1584618969.git.viresh.kumar@linaro.org>
- <20200319230111.GC29386@yuki.lan>
- <20200319151956.3rwix5oint6cmt4f@vireshk-i7>
- <20200319232426.GD29386@yuki.lan>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 8ADB4201415
+ for <ltp@lists.linux.it>; Thu, 19 Mar 2020 17:21:15 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id E0E0AB016
+ for <ltp@lists.linux.it>; Thu, 19 Mar 2020 16:21:14 +0000 (UTC)
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Thu, 19 Mar 2020 17:21:14 +0100
+Message-Id: <20200319162114.3967-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200319232426.GD29386@yuki.lan>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V2 2/2] syscalls/clone3: New tests
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH] Add test for CVE 2018-1000199
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,61 +44,272 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 20-03-20, 00:24, Cyril Hrubis wrote:
-> Huh? All that we have to is to move the code from the child_rx_signal()
-> to the do_child() here, the child would setup a handler and call
-> pause(), then it checks if correct values have been stored to a global
-> varibles. And the same for the parent, the point is that we should do a
-> minimal amount of work in the handler itself.
+Fixes #593
 
-There is a problem with using pause() here.
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
+ include/tst_safe_ptrace.h                   |  20 +++
+ lib/tst_safe_macros.c                       |  19 +++
+ runtest/cve                                 |   1 +
+ runtest/syscalls                            |   1 +
+ testcases/kernel/syscalls/ptrace/.gitignore |   1 +
+ testcases/kernel/syscalls/ptrace/ptrace08.c | 146 ++++++++++++++++++++
+ 6 files changed, 188 insertions(+)
+ create mode 100644 include/tst_safe_ptrace.h
+ create mode 100644 testcases/kernel/syscalls/ptrace/ptrace08.c
 
-Child is doing this:
-
-static void do_child(int clone_pidfd, int n)
-{
-	SAFE_SIGACTION(CHILD_SIGNAL, &csig_action, NULL);
-
-	TST_CHECKPOINT_WAKE(0);
-	pause();
-	TST_CHECKPOINT_WAIT(1);
-
-	if (child_received_signal)
-		tst_res(TPASS, "clone3() passed: Child received correct signal (index %d)", n);
-
-        exit(0);
-}
-
-and parent:
-
-        TST_CHECKPOINT_WAIT(0);
-
-        TEST(pidfd_send_signal(pidfd, CHILD_SIGNAL, &uinfo, 0));
-        if (TST_RET != 0) {
-                tst_res(TFAIL | TTERRNO, "pidfd_send_signal() failed");
-                return;
-        }
-
-        TST_CHECKPOINT_WAKE(1);
-
-
-What's happening is that parent is able to send the signal before the
-child calls pause() and so it hangs. If I simply remove pause() it all
-works fine for me, but is pidfd_send_signal() synchronous ? Does it
-wait until the time child signal is executed ? If yes, then we don't
-have a problem, else we may run into timing issue.
-
-We can add a delay in parent before sending the signal, but that is
-still racy in worst cases.
-
+diff --git a/include/tst_safe_ptrace.h b/include/tst_safe_ptrace.h
+new file mode 100644
+index 000000000..3e9306db9
+--- /dev/null
++++ b/include/tst_safe_ptrace.h
+@@ -0,0 +1,20 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2020 SUSE LLC <mdoucha@suse.cz>
++ */
++#ifndef TST_SAFE_PTRACE_H_
++#define TST_SAFE_PTRACE_H_
++
++#include <sys/ptrace.h>
++
++/*
++ * SAFE_PTRACE() treats any non-zero return value as error. Don't use it
++ * for requests like PTRACE_PEEK* or PTRACE_SECCOMP_GET_FILTER which use
++ * the return value to pass arbitrary data.
++ */
++long tst_safe_ptrace(const char *file, const int lineno,
++	enum __ptrace_request req, pid_t pid, void *addr, void *data);
++#define SAFE_PTRACE(req, pid, addr, data) \
++	tst_safe_ptrace(__FILE__, __LINE__, req, pid, addr, data)
++
++#endif /* TST_SAFE_PTRACE_H_ */
+diff --git a/lib/tst_safe_macros.c b/lib/tst_safe_macros.c
+index f5413a18e..5769b5068 100644
+--- a/lib/tst_safe_macros.c
++++ b/lib/tst_safe_macros.c
+@@ -14,6 +14,7 @@
+ #define TST_NO_DEFAULT_MAIN
+ #include "tst_test.h"
+ #include "tst_safe_macros.h"
++#include "tst_safe_ptrace.h"
+ #include "lapi/personality.h"
+ 
+ int safe_setpgid(const char *file, const int lineno, pid_t pid, pid_t pgid)
+@@ -202,3 +203,21 @@ void safe_unshare(const char *file, const int lineno, int flags)
+ 		}
+ 	}
+ }
++
++long tst_safe_ptrace(const char *file, const int lineno,
++	enum __ptrace_request req, pid_t pid, void *addr, void *data)
++{
++	long ret;
++
++	errno = 0;
++	ret = ptrace(req, pid, addr, data);
++
++	if (ret == -1) {
++		tst_brk_(file, lineno, TBROK | TERRNO, "ptrace() failed");
++	} else if (ret) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"Invalid ptrace() return value %ld", ret);
++	}
++
++	return ret;
++}
+diff --git a/runtest/cve b/runtest/cve
+index a9a534300..dbd065fd1 100644
+--- a/runtest/cve
++++ b/runtest/cve
+@@ -41,5 +41,6 @@ cve-2017-18075 pcrypt_aead01
+ cve-2017-1000380 snd_timer01
+ cve-2018-5803 sctp_big_chunk
+ cve-2018-1000001 realpath01
++cve-2018-1000199 ptrace08
+ cve-2018-1000204 ioctl_sg01
+ cve-2018-19854 crypto_user01
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 6f2dcd82a..6a34ee7ef 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -967,6 +967,7 @@ ptrace05 ptrace05
+ # Broken test; See: testcases/kernel/syscalls/ptrace/Makefile for more details.
+ #ptrace06 ptrace06
+ ptrace07 ptrace07
++ptrace08 ptrace08
+ 
+ pwrite01 pwrite01
+ pwrite02 pwrite02
+diff --git a/testcases/kernel/syscalls/ptrace/.gitignore b/testcases/kernel/syscalls/ptrace/.gitignore
+index 4e4f83020..301e2f564 100644
+--- a/testcases/kernel/syscalls/ptrace/.gitignore
++++ b/testcases/kernel/syscalls/ptrace/.gitignore
+@@ -3,3 +3,4 @@
+ /ptrace04
+ /ptrace05
+ /ptrace07
++/ptrace08
+diff --git a/testcases/kernel/syscalls/ptrace/ptrace08.c b/testcases/kernel/syscalls/ptrace/ptrace08.c
+new file mode 100644
+index 000000000..4db433782
+--- /dev/null
++++ b/testcases/kernel/syscalls/ptrace/ptrace08.c
+@@ -0,0 +1,146 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) 2018 Andrew Lutomirski
++ * Copyright (C) 2020 SUSE LLC <mdoucha@suse.cz>
++ *
++ * CVE-2018-1000199
++ *
++ * Test error handling when ptrace(POKEUSER) modifies debug registers.
++ * Even if the call returns error, it may create breakpoint in kernel code.
++ * Kernel crash partially fixed in:
++ *
++ *  commit f67b15037a7a50c57f72e69a6d59941ad90a0f0f
++ *  Author: Linus Torvalds <torvalds@linux-foundation.org>
++ *  Date:   Mon Mar 26 15:39:07 2018 -1000
++ *
++ *  perf/hwbp: Simplify the perf-hwbp code, fix documentation
++ */
++
++#if defined(__i386__) || defined(__x86_64__)
++#include <stdlib.h>
++#include <stdio.h>
++#include <stddef.h>
++#include <sys/ptrace.h>
++#include <sys/user.h>
++#include <signal.h>
++#include "tst_test.h"
++#include "tst_safe_ptrace.h"
++
++#define SYMNAME_SIZE 256
++#define KERNEL_SYM "do_debug"
++
++static unsigned long break_addr;
++static pid_t child_pid;
++
++static void setup(void)
++{
++	int fcount;
++	char endl, symname[256];
++	FILE *fr = fopen("/proc/kallsyms", "r");
++
++	if (!fr)
++		tst_brk(TCONF | TERRNO, "Cannot open /proc/kallsyms");
++
++	/* Find address of do_debug() in /proc/kallsyms */
++	do {
++		fcount = fscanf(fr, "%lx %*c %255s%c", &break_addr, symname,
++			&endl);
++
++		if (fcount <= 0 && feof(fr))
++			break;
++
++		if (fcount < 2) {
++			fclose(fr);
++			tst_brk(TBROK, "Unexpected data in /proc/kallsyms %d", fcount);
++		}
++
++		if (fcount >= 3 && endl != '\n')
++			while (!feof(fr) && fgetc(fr) != '\n');
++	} while (!feof(fr) && strcmp(symname, KERNEL_SYM));
++
++	fclose(fr);
++
++	if (strcmp(symname, KERNEL_SYM))
++		tst_brk(TBROK, "Cannot find address of kernel symbol \"%s\"",
++			KERNEL_SYM);
++
++	if (!break_addr)
++		tst_brk(TCONF, "Addresses in /proc/kallsyms are hidden");
++
++	tst_res(TINFO, "Kernel symbol \"%s\" found at 0x%lx", KERNEL_SYM,
++		break_addr);
++}
++
++static void debug_trap(void)
++{
++	/* x86 instruction INT1 */
++	asm volatile (".byte 0xf1");
++}
++
++static void child_main(void)
++{
++	raise(SIGSTOP);
++	/* wait for SIGCONT from parent */
++	debug_trap();
++	exit(0);
++}
++
++static void run(void)
++{
++	int status;
++	pid_t child;
++
++	child = child_pid = SAFE_FORK();
++
++	if (!child_pid) {
++		child_main();
++	}
++
++	if (SAFE_WAITPID(child_pid, &status, WUNTRACED) != child_pid)
++		tst_brk(TBROK, "Received event from unexpected PID");
++
++	SAFE_PTRACE(PTRACE_ATTACH, child_pid, NULL, NULL);
++	SAFE_PTRACE(PTRACE_POKEUSER, child_pid,
++		(void *)offsetof(struct user, u_debugreg[0]), (void *)1);
++	SAFE_PTRACE(PTRACE_POKEUSER, child_pid,
++		(void *)offsetof(struct user, u_debugreg[7]), (void *)1);
++
++	/* Return value intentionally ignored here */
++	ptrace(PTRACE_POKEUSER, child_pid,
++		(void *)offsetof(struct user, u_debugreg[0]),
++		(void *)break_addr);
++
++	SAFE_PTRACE(PTRACE_DETACH, child_pid, NULL, NULL);
++	SAFE_KILL(child_pid, SIGCONT);
++	child_pid = 0;
++
++	if (SAFE_WAITPID(child, &status, 0) != child)
++		tst_brk(TBROK, "Received event from unexpected PID");
++
++	if (!WIFSIGNALED(status) || WTERMSIG(status) != SIGTRAP)
++		tst_brk(TBROK, "Received unexpected event from child");
++
++	tst_res(TPASS, "We're still here. Nothing bad happened, probably.");
++}
++
++static void cleanup(void)
++{
++	/* Main process terminated by tst_brk() with child still paused */
++	if (child_pid)
++		SAFE_KILL(child_pid, SIGKILL);
++}
++
++static struct tst_test test = {
++	.test_all = run,
++	.setup = setup,
++	.cleanup = cleanup,
++	.forks_child = 1,
++	.tags = (const struct tst_tag[]) {
++		{"linux-git", "f67b15037a7a"},
++		{"CVE", "2018-1000199"},
++		{}
++	}
++};
++#else
++TST_TEST_CONF("This test is only supported on x86 systems")
++#endif
 -- 
-viresh
+2.25.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
