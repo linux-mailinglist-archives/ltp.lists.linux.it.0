@@ -2,59 +2,59 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABB8C18BB9D
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Mar 2020 16:51:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02D4118BC43
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Mar 2020 17:18:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0E1C73C545D
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Mar 2020 16:51:12 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2A5DB3C548E
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Mar 2020 17:18:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 5D9053C5455
- for <ltp@lists.linux.it>; Thu, 19 Mar 2020 16:51:07 +0100 (CET)
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
+ by picard.linux.it (Postfix) with ESMTP id CC3403C545A
+ for <ltp@lists.linux.it>; Thu, 19 Mar 2020 17:18:39 +0100 (CET)
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 77B336010B4
- for <ltp@lists.linux.it>; Thu, 19 Mar 2020 16:51:06 +0100 (CET)
-Received: by mail-pf1-x444.google.com with SMTP id c19so1621680pfo.13
- for <ltp@lists.linux.it>; Thu, 19 Mar 2020 08:51:06 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E75DB601490
+ for <ltp@lists.linux.it>; Thu, 19 Mar 2020 17:18:38 +0100 (CET)
+Received: by mail-pg1-x543.google.com with SMTP id z72so1534202pgz.3
+ for <ltp@lists.linux.it>; Thu, 19 Mar 2020 09:18:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=7v8cnlvdtkSqg37Li3Y594zMg+CLPZF85MopUvTGRNE=;
- b=mjRAFAvdMp67vEOFLswOL8NwR3RKkg8CgE2w334wiRKMj/JE+uGYITWqN0t+pZjqmw
- 7zrai9FpDb8TIiBuccqD4c67dRjxu0swCgibz0JfpmD8MIpmq3cnfxOQ7W9EBtIrhZnq
- +MNBmICaOCRYsmQH5e5U3OZQ2ZEl87nw6M5a1km8BQMP60YSpFFI2FghAM+V+Cv9bTsA
- fNFdZHfkQyRhmQvJ4GrChYIf/r3fRnpRZTjlw6zNDNPQUGBFdz82Vz9+dbqq0zU7WELC
- nIzamCq4+Sh1Hd2EWIzvqF6bHPK7z+d4bcjIz4vR9O22Ci7JJyhjORRbEamt8MaqcLKx
- ij/g==
+ bh=pIf6uSoRz1+q+8mNw6ttHgrC6r6Wt7qPrHniq8KwW0M=;
+ b=lBopGgqHC3aSBxYnUm+I7ePkpNBP6vtB0U8JKmNiuPQqalGb61g4Al31j+7yAKMiXc
+ KYGXgTqZc2k+8OQ4fo8kTRGvs+PcPqHHm71RV6yL+DGxfh0M0Zg6xNY09W2W0HTT2ed5
+ asIqlaXSgVjF1BGBbOqh0GiWmwFsuOlbq040rk8MYlUkVic44CcjmPJv6mYRfp4+vv53
+ 7Bl472fCNBIxA8tWdzreqpZwtKUxum28qpWZ+RfXopABkCNR9RmvuS6tEw9mLCmpiwVu
+ zCIcrUWNoQvlKlGKN4sz5a89Dty4g1pfTHZUWB1+/DwiA3vAvdsSoG7EgSv5854lh5sN
+ 1VdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=7v8cnlvdtkSqg37Li3Y594zMg+CLPZF85MopUvTGRNE=;
- b=dplWtFSWz5tBHf/gqGEz/WbY8n9P/0dQ/dIbapppRJiBrDYLr/2HFDFCn2cXLH9lZU
- czJU2f3fnKUicBF9gAlTbQaCtLIvauFPU8sq2/Uo9jadCZaQr/uNidtCGwoYwtl2dHyY
- AcmiVHCr4L0g57jtC3iFNg6G85Ma2KOihLwbj47UWegjWacqsVOjRxn3Z+GSIENWSqdt
- 4wyndpOQHG9uewMI+CEd9zN4lzok5mZq0oJLIGz9lgRWQzFx26xXxrVx7/7oOwk4kaC/
- amiBv+jyVhN6YEEgJYLw31dyWOmpO0qBfiSUHCPSFL6ReO0X9MXMO/XzXp5F2tmBEgVA
- iMKA==
-X-Gm-Message-State: ANhLgQ3MH+xzLi+vaue46EIhJ6GfdGiceIWC9P3Pf+0ksO3YewPvCNpV
- tUqPmkxhcbgI6I4obtTkvtfcc48ZGMA=
-X-Google-Smtp-Source: ADFU+vuxPvFLF/0/8h4psJmptSPRcznqt9RAe4O+70UzQfO73aVqqEEH8Bak8DHj7fdJnayUjOVbWw==
-X-Received: by 2002:a63:e74b:: with SMTP id j11mr2671306pgk.145.1584633065044; 
- Thu, 19 Mar 2020 08:51:05 -0700 (PDT)
+ bh=pIf6uSoRz1+q+8mNw6ttHgrC6r6Wt7qPrHniq8KwW0M=;
+ b=B/vi3T8vIxebWa04ZN9xtnLtVpDQlAQ82PfLpV2myqjsf2vcfs8V72ODrkJOBg5KhP
+ JrWVpXRfX9o3WzeQrkrEZ2WLZbzhACGcC07P87AH/0sO6+JJX/hibTxTYQtaMgfLs86n
+ U2zHxVgnCKT3b77SUFRwW45JsCwX0uA0MGd7keipRqGG3IiQnQSxMA+asybtRS2XekP4
+ DGvIrtLQL3gqAajDQk6eHgyn41JBA+VVqKpxxaTAQtqVDgX+68OYXEL+zVFXCFXNxC1Y
+ +s1SEkENs/yDLeEmC3MB5/jXOnN5OLC6aZWGIU/VoP3wz4+MySUzI0HADcCsUTU3XVnq
+ U/Cw==
+X-Gm-Message-State: ANhLgQ3gF7QgCjeHlgtcQtG+jT98PEeOppxwX5d55EP2WyAIKyqoBO8Z
+ OZjT0L/n7h2Wy4ztEMOZ7wDW0FpG98M=
+X-Google-Smtp-Source: ADFU+vvuIDOGczzPugK9ldrBLLQPkoqL9rweJIHb2RN6h+UFnsnRynGNiIFxyiSlW+IJlA8KV+Mltg==
+X-Received: by 2002:a63:d255:: with SMTP id t21mr4034490pgi.114.1584634717477; 
+ Thu, 19 Mar 2020 09:18:37 -0700 (PDT)
 Received: from localhost ([122.171.118.46])
- by smtp.gmail.com with ESMTPSA id m68sm4666979pjb.0.2020.03.19.08.51.03
+ by smtp.gmail.com with ESMTPSA id y18sm2822156pfe.19.2020.03.19.09.18.36
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 19 Mar 2020 08:51:04 -0700 (PDT)
-Date: Thu, 19 Mar 2020 21:21:01 +0530
+ Thu, 19 Mar 2020 09:18:36 -0700 (PDT)
+Date: Thu, 19 Mar 2020 21:48:34 +0530
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20200319155101.4vebj66v7vbv3x6h@vireshk-i7>
+Message-ID: <20200319161834.4hdz4q75yyk4cfy2@vireshk-i7>
 References: <cover.1584618969.git.viresh.kumar@linaro.org>
  <c64b9c05053d500a95cc920e332fa229085217b6.1584618969.git.viresh.kumar@linaro.org>
  <20200319230111.GC29386@yuki.lan>
@@ -93,16 +93,46 @@ On 20-03-20, 00:24, Cyril Hrubis wrote:
 > pause(), then it checks if correct values have been stored to a global
 > varibles. And the same for the parent, the point is that we should do a
 > minimal amount of work in the handler itself.
-> 
-> The problem here is that tst_res() writes to std streams, that have
-> locks, so if we happen to get a signal while something writes there as
-> well, we deadlock. Also printf()-like functions may call malloc, which
-> has locks and may deadlock in the same way. It's unlikely that it will
-> ever happen in this test, but that does not excuse us...
 
-Ahh, I somehow read that as you are asking me to do all TPASS, TFAIL
-thing in the run() call instead and so went into sharing between
-parent child. Sorry about that.
+There is a problem with using pause() here.
+
+Child is doing this:
+
+static void do_child(int clone_pidfd, int n)
+{
+	SAFE_SIGACTION(CHILD_SIGNAL, &csig_action, NULL);
+
+	TST_CHECKPOINT_WAKE(0);
+	pause();
+	TST_CHECKPOINT_WAIT(1);
+
+	if (child_received_signal)
+		tst_res(TPASS, "clone3() passed: Child received correct signal (index %d)", n);
+
+        exit(0);
+}
+
+and parent:
+
+        TST_CHECKPOINT_WAIT(0);
+
+        TEST(pidfd_send_signal(pidfd, CHILD_SIGNAL, &uinfo, 0));
+        if (TST_RET != 0) {
+                tst_res(TFAIL | TTERRNO, "pidfd_send_signal() failed");
+                return;
+        }
+
+        TST_CHECKPOINT_WAKE(1);
+
+
+What's happening is that parent is able to send the signal before the
+child calls pause() and so it hangs. If I simply remove pause() it all
+works fine for me, but is pidfd_send_signal() synchronous ? Does it
+wait until the time child signal is executed ? If yes, then we don't
+have a problem, else we may run into timing issue.
+
+We can add a delay in parent before sending the signal, but that is
+still racy in worst cases.
 
 -- 
 viresh
