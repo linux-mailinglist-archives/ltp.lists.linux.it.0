@@ -1,67 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40D5C18BA64
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Mar 2020 16:07:53 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 09ED018BA8E
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Mar 2020 16:08:47 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 07B7C3C5462
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Mar 2020 16:07:53 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9E2AE3C5462
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Mar 2020 16:08:46 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id E437C3C5453
- for <ltp@lists.linux.it>; Thu, 19 Mar 2020 16:07:50 +0100 (CET)
-Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
- [IPv6:2607:f8b0:4864:20::641])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ by picard.linux.it (Postfix) with ESMTP id C90063C5453
+ for <ltp@lists.linux.it>; Thu, 19 Mar 2020 16:08:44 +0100 (CET)
+Received: from us-smtp-delivery-74.mimecast.com
+ (us-smtp-delivery-74.mimecast.com [63.128.21.74])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 28EFD1000B41
+ for <ltp@lists.linux.it>; Thu, 19 Mar 2020 16:08:43 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1584630522;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=um7XU17n6nT+B23ZqYAPqIORjB647cT69ay3Ro47wF4=;
+ b=ZQJtSokokNKRLB4sihzO2N/bDkazwGN7yT85i16D4lX0gydmZ0Qrre4+IjPDMQGG5nUNJY
+ GWFssaCBESZ1eVbfH6bHatbUhheOvdtQ9fnYd5uwj+P1LYa00DijXQNV6ah+XSvLy5gwZv
+ nPnLD8GveujKW+i3NccnGRTTiSN55kU=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-284-34AmJmRnN7aSVIw8FKi2xA-1; Thu, 19 Mar 2020 11:08:28 -0400
+X-MC-Unique: 34AmJmRnN7aSVIw8FKi2xA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 72CB21001848
- for <ltp@lists.linux.it>; Thu, 19 Mar 2020 16:07:49 +0100 (CET)
-Received: by mail-pl1-x641.google.com with SMTP id f8so1173325plt.10
- for <ltp@lists.linux.it>; Thu, 19 Mar 2020 08:07:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=UZYxKcawC5TCthL2A/oto1WsG3D3TPf+T6TXpGoWeZA=;
- b=K9DZQBt9jTEn1i/lsRP5HUEArezjyU1ZBXUVfg2BBpwwN5nSgd+UbIn9hVAuOWkAfn
- nBVHV2yf0CB8pTwqZIzRPah+Nw4j9l2ZynTXmrpDpTfMZoSCCw+cZTfOkL63S2HSgsO4
- KtuRAO1Tc8rIpu3ZyXtG68RN6eZz+Nwi/M7cEDoRdHr4I1RyJagYAI0eCqbT4q0jbDST
- 8vF1dkhrbBwyhh5tGQtSB/eZLgWPow/Dr5+RVtNpdDX0x0LlkhxeF4NHoYWoYQF4vRIT
- gaWG6hclg0tIQdqQtarla02MDyCDmS3PEUjotyWgB/XgLfaVXquMthINiGj9xbOIp5K1
- G9jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=UZYxKcawC5TCthL2A/oto1WsG3D3TPf+T6TXpGoWeZA=;
- b=rifo3GAkeCjrYukDZQ1UAbvhO2+bY75+Ty5oReh1gc62i/xfJJ1H3zvXTo3PCMRlRg
- 4tFoTZxybsAkKrhPBNErzCIB2kmQDwI1U/vJDeFfE/fyENSIb8xiSvKbCA8pLNgNQdTG
- b4zPBbCRMm6m6uowvzbTFBWm9Fm4BFkxUdR3Pnc7shLjX3axErqxb2HIA/P4273poRZz
- YmOy+nQZTZ0ysOUzYs4n4glr948Lh0gEPpZIB4+tOeDhvFHDGzzn+slRO/Jr5LuOP2rV
- YZ2+VfQYyuGkrOqhArFHAX+8PP/8H+1iEZ72HdcTBfTUtmVcKdRyv8sd+lN86RPUsCuh
- kITA==
-X-Gm-Message-State: ANhLgQ0eh2w/EBwvZ47S3RKP+Y3VaG4aY+up/f1NER+dKJKBnAZmsGdQ
- l4Bk+TTMQ5zzpxqUL7oHsX+KFuZdiiJ1afa0nHo=
-X-Google-Smtp-Source: ADFU+vsBNYVO4fYGp0RjANOm6A/PPyXfazgf18EAADFMHkmIQhzto1fO5qjQ63C9Q9Hk+GeyejePrG5F//bHnVkhAoI=
-X-Received: by 2002:a17:902:6b86:: with SMTP id
- p6mr4040725plk.150.1584630467806; 
- Thu, 19 Mar 2020 08:07:47 -0700 (PDT)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E2931107ACC7;
+ Thu, 19 Mar 2020 15:08:27 +0000 (UTC)
+Received: from localhost.localdomain (ovpn-112-136.rdu2.redhat.com
+ [10.10.112.136])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 933963CC6;
+ Thu, 19 Mar 2020 15:08:21 +0000 (UTC)
+To: Paolo Valente <paolo.valente@linaro.org>
+References: <cki.FEFA879F6B.TFTZ93YIF0@redhat.com>
+ <ba09351f-0a5a-824a-dbf2-021360581cd7@redhat.com>
+ <86A42362-D355-4885-AC68-B43E46FBB109@linaro.org>
+ <24e4518f-7035-f8f8-30d0-97f0836f174c@redhat.com>
+ <DAD068BF-14B4-4BA9-BFB8-60059F4249FC@linaro.org>
+From: Rachel Sibley <rasibley@redhat.com>
+Message-ID: <a9514db7-f559-223c-ed23-4d4e798346ff@redhat.com>
+Date: Thu, 19 Mar 2020 11:08:20 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-References: <CAF12kFsKiR8XFW2WhMuNs7VYEGh8Sj=oaQHC05uc689vAcmarA@mail.gmail.com>
- <20200319102842.GA440@dell5510>
-In-Reply-To: <20200319102842.GA440@dell5510>
-From: Cixi Geng <gengcixi@gmail.com>
-Date: Thu, 19 Mar 2020 23:07:11 +0800
-Message-ID: <CAF12kFubCde66C+JUt9+m49FqXgupoN-vZphuO2vFsWtTO_j0g@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
+In-Reply-To: <DAD068BF-14B4-4BA9-BFB8-60059F4249FC@linaro.org>
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] uart: add uart testcase in kernel device-driver
+Subject: Re: [LTP] 
+ =?utf-8?q?=E2=9D=8C_FAIL=3A_Test_report_for_kernel_5=2E6?=
+ =?utf-8?q?=2E0-rc4-61a0925=2Ecki_=28mainline=2Ekernel=2Eorg=29?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,694 +75,185 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: orsonzhai@gmail.com, ceh@ti.com, ltp@lists.linux.it
-Content-Type: multipart/mixed; boundary="===============1389239151=="
+Cc: Memory Management <mm-qe@redhat.com>,
+ linux-block <linux-block@vger.kernel.org>,
+ CKI Project <cki-project@redhat.com>, LTP Mailing List <ltp@lists.linux.it>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1389239151==
-Content-Type: multipart/alternative; boundary="00000000000022496f05a1368859"
-
---00000000000022496f05a1368859
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Petr:
-Thank you for taking the trouble to help me. I do appreciate it.
-Sorry about the so many mistakes,
-I will fix the code in next vesion.
-
-Thanks again for you help!
-
-Petr Vorel <pvorel@suse.cz> =E4=BA=8E2020=E5=B9=B43=E6=9C=8819=E6=97=A5=E5=
-=91=A8=E5=9B=9B =E4=B8=8B=E5=8D=886:28=E5=86=99=E9=81=93=EF=BC=9A
-
-> Hi Cixi,
->
-> > Porting UART test from ltp-ddt back to ltp. only test 115200 UART_RATE.
-> Thanks for your effort. There are several problems with this test, I'll
-> try to
-> address them all.
->
-> > [TODO] support more rate, and add test HWFLOW function test.
-> Could this be in v2?
->
-> > diff --git a/runtest/kernel_ddt b/runtest/kernel_ddt
-> > new file mode 100644
-> > index 000000000..30e9a0269
-> > --- /dev/null
-> > +++ b/runtest/kernel_ddt
-> > @@ -0,0 +1 @@
-> > +uart serialcheck.sh
-> I wonder if there needs to be in it's own runtest file.
-> Maybe yes, but I'd propose more meaningful name (serial, uart).
-> What is ddt anyway?
->
-> > diff --git a/testcases/kernel/device-drivers/Makefile
-> > b/testcases/kernel/device-drivers/Makefile
-> > index 55e0d25a0..a214f211b 100644
-> > --- a/testcases/kernel/device-drivers/Makefile
-> > +++ b/testcases/kernel/device-drivers/Makefile
-> > @@ -27,6 +27,7 @@ SUBDIRS :=3D acpi \
-> >     rtc \
-> >     tbio \
-> >     uaccess \
-> > +   uart \
-> >     zram
->
-> >  include $(top_srcdir)/include/mk/generic_trunk_target.mk
-> > diff --git a/testcases/kernel/device-drivers/uart/Makefile
-> > b/testcases/kernel/device-drivers/uart/Makefile
-> > new file mode 100644
-> > index 000000000..0d73f6635
-> > --- /dev/null
-> > +++ b/testcases/kernel/device-drivers/uart/Makefile
-> > @@ -0,0 +1,22 @@
-> > +# Copyright (c) 2015 Oracle and/or its affiliates. All Rights Reserved=
-.
-> > +#
-> > +# This program is free software; you can redistribute it and/or
-> > +# modify it under the terms of the GNU General Public License as
-> > +# published by the Free Software Foundation; either version 2 of
-> > +# the License, or (at your option) any later version.
-> > +#
-> > +# This program is distributed in the hope that it would be useful,
-> > +# but WITHOUT ANY WARRANTY; without even the implied warranty of
-> > +# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> > +# GNU General Public License for more details.
-> > +#
-> > +# You should have received a copy of the GNU General Public License
-> > +# along with this program; if not, write the Free Software Foundation,
-> > +# Inc.,  51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-> Please next time instead of verbose GPL text ^ use just:
-> # SPDX-License-Identifier: GPL-2.0-or-later
->
-> > +
-> > +top_srcdir ?=3D ../../../..
-> > +include $(top_srcdir)/include/mk/testcases.mk
-> > +
-> > +INSTALL_TARGETS :=3D *.sh
-> > +
-> > +include $(top_srcdir)/include/mk/generic_leaf_target.mk
-> > diff --git a/testcases/kernel/device-drivers/uart/serialcheck.sh
-> > b/testcases/kernel/device-drivers/uart/serialcheck.sh
-> > new file mode 100755
-> > index 000000000..f4cf13e02
-> > --- /dev/null
-> > +++ b/testcases/kernel/device-drivers/uart/serialcheck.sh
-> > @@ -0,0 +1,111 @@
-> > +#!/bin/sh
-> >
-> +########################################################################=
-#######
-> > +#
-> > +# Copyright (C) 2015 Texas Instruments Incorporated -
-> http://www.ti.com/
-> > +# Copyright (C) 2019, Unisoc Communications Inc.
-> > +#
-> > +# This program is free software; you can redistribute it and/or
-> > +# modify it under the terms of the GNU General Public License as
-> > +# published by the Free Software Foundation version 2.
-> > +#
-> > +# This program is distributed "as is" WITHOUT ANY WARRANTY of any
-> > +# kind, whether express or implied; without even the implied warranty
-> > +# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> > +# GNU General Public License for more details.
-> > +#
-> >
-> +########################################################################=
-#######
-> And here ^:
-> # SPDX-License-Identifier: GPL-2.0-or-later
-> > +
-> > +# @desc Test UART ports using git://
-> > git.breakpoint.cc/bigeasy/serialcheck.git
-> It looks your mailer wraps lines, that's unusable for applying.
-> Could you use git format-patch and git send-email for generating patches
-> and
-> sending them?
->
-> > +
-> > +#### Functions definitions ####
-> Please avoid these useless comments.
->
-> > +usage()
-> > +{
-> > +    echo "usage: ./${0##*/} [-r UART_RATE] [-l LOOPS] [-x to enable HW
-> > flow control]"
-> Also here is wrapped.
->
-> But you're supposed to use TST_OPTS TST_PARSE_ARGS and TST_USAGE from The
-> API
->
-> https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelines#23=
-3-optional-command-line-parameters
->
-> > +    exit 1
-> > +}
-> > +
-> > +# Default values
-> > +: ${UART_RATE:=3D115200}
-> > +: ${UART_LOOPS:=3D5}
-> > +: ${UART_HWFLOW:=3D0}
-> Even this is a valid syntax, please use more convinient:
-> UART_RATE=3D"${UART_RATE:=3D115200}"
->
-> > +
-> > +PORTS_TO_TEST=3D();
-> > +UART_PORTS=3D();
-> > +ARRAY=3D(`find /sys/class/tty/*/uartclk`);
-> Arrays are bashisms (bash specific), we don't allow them in LTP, as we
-> require
-> POSIX shell syntax, which is portable (some systems doesn't have bash, bu=
-t
-> dash
-> or other shell e.g. toybox or busybox on Android. I guess you target
-> embedded
-> system with this test):
->
-> https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelines#13=
-2-shell-coding-style
->
-> Most of the time arrays can be replaced by string separated by space.
-> If you need these devices, in /sys/class/tty/*/uartclk, it could be done
-> like:
-> ports=3D$(for i in /sys/class/tty/*/uartclk ; do echo $i | cut -d '/' -f =
-5;
-> done)
->
-> > +
-> > +check_requirements()
-> > +{
-> > + which serialcheck
->
->
-> > + ret=3D$?
-> > + if [ $ret -eq 0 ];then
-> > + tst_res TINFO "serialcheck command is in system,continue to test"
-> > + else
-> > + tst_brk TCONF "test failed for lack of requirement,returned is $ret"
-> > + fi
-> > +
-> Useless blank line here.
-> > +}
-> TINFO is not much useful, I'd avoid that. And check_requirements should b=
-e
-> a setup function, not called directly in do_test:
-> TST_SETUP=3Dcheck_requirements
->
-> But given that whole function just check serialcheck, whole function
-> should be
-> replaced just by:
->
-> TST_NEEDS_CMDS=3D"serialcheck"
->
-> https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelines#23=
-2-library-environment-variables-for-shell
->
-> BTW serialcheck source isn't probably packaged in distros
-> https://git.breakpoint.cc/cgit/bigeasy/serialcheck.git/tree/serialcheck.c
-> Maybe we could just adapt it to LTP and include it as well (if we conside=
-r
-> whole
-> testing useful).
->
-> > +
-> > +create_test_file()
-> > +{
-> > +    temp_test_file=3D`mktemp`
-> I guess you need to use TST_NEEDS_TMPDIR=3D1
-> and then just any file in it. Or use $$ (e.g. file.$$) if you want to hav=
-e
-> concurrency, but we usually don't care).
-> > +    dd if=3D/dev/urandom of=3D$temp_test_file count=3D1 bs=3D$((UART_R=
-ATE / 2))
-> You also need to add dd to TST_NEEDS_CMDS.
->
-> > +}
-> > +
-> > +get_uart_ports()
-> > +{
-> > +for i in ${ARRAY[@]}; do
-> > +    PORT=3D/dev/`echo $i | cut -d'/' -f 5`
-> Well, you use cut yourself, so why that complicated code with arrays?
->
-> > +    # Activate port in case it will be initialized only when startup
-> > +    echo "DDT TESTING" > $PORT 2>/dev/null
-> > +    if [ `cat $i` -ne 0 ]; then
-> > +        UART_PORTS=3D("${UART_PORTS[@]}" "$PORT")
-> > +    fi
-> > +done
-> > +}
-> > +
-> > +filter_out_used_ports()
-> > +{
-> > + which lsof
-> > + ret=3D$?
-> > + if [ $ret -eq 0 ];then
-> > + tst_res TINFO "lsof command exist, filter out used ports";
-> > + else
-> > + tst_brk TCONF "test failed for lack of requirement,returned is $ret"
-> > + fi
-> Again whole block is useless, just add lsof into TST_NEEDS_CMDS.
->
-> > +
-> > +    for i in ${UART_PORTS[@]}; do
-> > +        lsof | grep $i &> /dev/null ||
-> > PORTS_TO_TEST=3D("${PORTS_TO_TEST[@]}" $i)
-> > +    done
-> > +}
-> > +
-> > +run_serial_test()
-> > +{
-> > + create_test_file
-> create_test_file should be just 2 lines of code in setup function.
->
-> > +    for i in ${PORTS_TO_TEST[@]}; do
-> Array =3D> bashism :(.
->
-> > +        if [ $UART_HWFLOW -eq 0 ]; then
-> > +            { sleep 1; serialcheck -b $UART_RATE -d $i -f
-> $temp_test_file
-> > -l $UART_LOOPS -m t -k; }&
-> Again line wrapped :(
->
-> > +            PID=3D$!
-> > +            serialcheck -b $UART_RATE -d $i -f $temp_test_file -l
-> Hm, why do you run 2 instances?
->
-> > $UART_LOOPS -m r -k || { kill -- -$PID 2>/dev/null; tst_res TFAIL "TEST
-> > FAILED"; }
-> Using complicated code in { } isn't much readable. I'd put it into:
-> if ! $UART_LOOPS -m r -k; then
->         kill ...
-> fi
->
-> > +        else
-> > +            { sleep 1; serialcheck -b $UART_RATE -d $i -f
-> $temp_test_file
-> > -l $UART_LOOPS -m t -h; } &
-> > +            PID=3D$!
-> > +            serialcheck -b $UART_RATE -d $i -f $temp_test_file -l
-> > $UART_LOOPS -m r -h || { kill -- -$PID 2>/dev/null; tst_res TFAIL "TEST
-> > FAILED"; }
->
-> This can be written better to not repeat much yourself.
-> Whole if and else block is the same exept -h and -k parameter are
-> different.
-> Why not put this extra parameter into variable?
-> Why sleep added into {} block?
->
-> > +        fi
-> > +    done
-> > +    rm $temp_test_file
-> > + tst_res TPASS "uart test passed"
-> > +}
-> > +
-> > +
-> > +TST_TESTFUNC=3Ddo_test
-> > +. tst_test.sh
-> We usually put this at the beginning of the test.
-> Please see some tests as examples (testcases/commands/df/df01.sh,
-> testcases/commands/mkfs/mkfs01.sh, testcases/commands/lsmod/lsmod01.sh,
-> ...)
->
-> > +
-> > +do_test()
-> > +{
-> > + check_requirements
->
-> > + get_uart_ports
-> > + filter_out_used_ports
-> > + run_serial_test
-> > +}
-> > +
-> > +tst_run
->
-> Kind regards,
-> Petr
->
-
---00000000000022496f05a1368859
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Petr:<br><div><span style=3D"color:rgb(51,51,51);font-f=
-amily:&quot;Microsoft YaHei&quot;;font-size:16px">Thank you for taking the =
-trouble to help me. I do appreciate it.</span></div><div><font color=3D"#33=
-3333" face=3D"Microsoft YaHei"><span style=3D"font-size:16px">Sorry about t=
-he so many mistakes,</span></font></div><div><span style=3D"color:rgb(51,51=
-,51);font-family:&quot;Microsoft YaHei&quot;;font-size:16px">I will fix the=
- code in next vesion.=C2=A0</span></div><div><br>Thanks again for you help!=
-<br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gm=
-ail_attr">Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz">pvorel@suse.cz</=
-a>&gt; =E4=BA=8E2020=E5=B9=B43=E6=9C=8819=E6=97=A5=E5=91=A8=E5=9B=9B =E4=B8=
-=8B=E5=8D=886:28=E5=86=99=E9=81=93=EF=BC=9A<br></div><blockquote class=3D"g=
-mail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204=
-,204,204);padding-left:1ex">Hi Cixi,<br>
-<br>
-&gt; Porting UART test from ltp-ddt back to ltp. only test 115200 UART_RATE=
-.<br>
-Thanks for your effort. There are several problems with this test, I&#39;ll=
- try to<br>
-address them all.<br>
-<br>
-&gt; [TODO] support more rate, and add test HWFLOW function test.<br>
-Could this be in v2?<br>
-<br>
-&gt; diff --git a/runtest/kernel_ddt b/runtest/kernel_ddt<br>
-&gt; new file mode 100644<br>
-&gt; index 000000000..30e9a0269<br>
-&gt; --- /dev/null<br>
-&gt; +++ b/runtest/kernel_ddt<br>
-&gt; @@ -0,0 +1 @@<br>
-&gt; +uart serialcheck.sh<br>
-I wonder if there needs to be in it&#39;s own runtest file.<br>
-Maybe yes, but I&#39;d propose more meaningful name (serial, uart).<br>
-What is ddt anyway?<br>
-<br>
-&gt; diff --git a/testcases/kernel/device-drivers/Makefile<br>
-&gt; b/testcases/kernel/device-drivers/Makefile<br>
-&gt; index 55e0d25a0..a214f211b 100644<br>
-&gt; --- a/testcases/kernel/device-drivers/Makefile<br>
-&gt; +++ b/testcases/kernel/device-drivers/Makefile<br>
-&gt; @@ -27,6 +27,7 @@ SUBDIRS :=3D acpi \<br>
-&gt;=C2=A0 =C2=A0 =C2=A0rtc \<br>
-&gt;=C2=A0 =C2=A0 =C2=A0tbio \<br>
-&gt;=C2=A0 =C2=A0 =C2=A0uaccess \<br>
-&gt; +=C2=A0 =C2=A0uart \<br>
-&gt;=C2=A0 =C2=A0 =C2=A0zram<br>
-<br>
-&gt;=C2=A0 include $(top_srcdir)/include/mk/<a href=3D"http://generic_trunk=
-_target.mk" rel=3D"noreferrer" target=3D"_blank">generic_trunk_target.mk</a=
-><br>
-&gt; diff --git a/testcases/kernel/device-drivers/uart/Makefile<br>
-&gt; b/testcases/kernel/device-drivers/uart/Makefile<br>
-&gt; new file mode 100644<br>
-&gt; index 000000000..0d73f6635<br>
-&gt; --- /dev/null<br>
-&gt; +++ b/testcases/kernel/device-drivers/uart/Makefile<br>
-&gt; @@ -0,0 +1,22 @@<br>
-&gt; +# Copyright (c) 2015 Oracle and/or its affiliates. All Rights Reserve=
-d.<br>
-&gt; +#<br>
-&gt; +# This program is free software; you can redistribute it and/or<br>
-&gt; +# modify it under the terms of the GNU General Public License as<br>
-&gt; +# published by the Free Software Foundation; either version 2 of<br>
-&gt; +# the License, or (at your option) any later version.<br>
-&gt; +#<br>
-&gt; +# This program is distributed in the hope that it would be useful,<br=
->
-&gt; +# but WITHOUT ANY WARRANTY; without even the implied warranty of<br>
-&gt; +# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.=C2=A0 See the<=
-br>
-&gt; +# GNU General Public License for more details.<br>
-&gt; +#<br>
-&gt; +# You should have received a copy of the GNU General Public License<b=
-r>
-&gt; +# along with this program; if not, write the Free Software Foundation=
-,<br>
-&gt; +# Inc.,=C2=A0 51 Franklin St, Fifth Floor, Boston, MA=C2=A0 02110-130=
-1=C2=A0 USA<br>
-Please next time instead of verbose GPL text ^ use just:<br>
-# SPDX-License-Identifier: GPL-2.0-or-later<br>
-<br>
-&gt; +<br>
-&gt; +top_srcdir ?=3D ../../../..<br>
-&gt; +include $(top_srcdir)/include/mk/<a href=3D"http://testcases.mk" rel=
-=3D"noreferrer" target=3D"_blank">testcases.mk</a><br>
-&gt; +<br>
-&gt; +INSTALL_TARGETS :=3D *.sh<br>
-&gt; +<br>
-&gt; +include $(top_srcdir)/include/mk/<a href=3D"http://generic_leaf_targe=
-t.mk" rel=3D"noreferrer" target=3D"_blank">generic_leaf_target.mk</a><br>
-&gt; diff --git a/testcases/kernel/device-drivers/uart/serialcheck.sh<br>
-&gt; b/testcases/kernel/device-drivers/uart/serialcheck.sh<br>
-&gt; new file mode 100755<br>
-&gt; index 000000000..f4cf13e02<br>
-&gt; --- /dev/null<br>
-&gt; +++ b/testcases/kernel/device-drivers/uart/serialcheck.sh<br>
-&gt; @@ -0,0 +1,111 @@<br>
-&gt; +#!/bin/sh<br>
-&gt; +#####################################################################=
-##########<br>
-&gt; +#<br>
-&gt; +# Copyright (C) 2015 Texas Instruments Incorporated - <a href=3D"http=
-://www.ti.com/" rel=3D"noreferrer" target=3D"_blank">http://www.ti.com/</a>=
-<br>
-&gt; +# Copyright (C) 2019, Unisoc Communications Inc.<br>
-&gt; +#<br>
-&gt; +# This program is free software; you can redistribute it and/or<br>
-&gt; +# modify it under the terms of the GNU General Public License as<br>
-&gt; +# published by the Free Software Foundation version 2.<br>
-&gt; +#<br>
-&gt; +# This program is distributed &quot;as is&quot; WITHOUT ANY WARRANTY =
-of any<br>
-&gt; +# kind, whether express or implied; without even the implied warranty=
-<br>
-&gt; +# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.=C2=A0 See t=
-he<br>
-&gt; +# GNU General Public License for more details.<br>
-&gt; +#<br>
-&gt; +#####################################################################=
-##########<br>
-And here ^:<br>
-# SPDX-License-Identifier: GPL-2.0-or-later<br>
-&gt; +<br>
-&gt; +# @desc Test UART ports using git://<br>
-&gt; <a href=3D"http://git.breakpoint.cc/bigeasy/serialcheck.git" rel=3D"no=
-referrer" target=3D"_blank">git.breakpoint.cc/bigeasy/serialcheck.git</a><b=
-r>
-It looks your mailer wraps lines, that&#39;s unusable for applying.<br>
-Could you use git format-patch and git send-email for generating patches an=
-d<br>
-sending them?<br>
-<br>
-&gt; +<br>
-&gt; +#### Functions definitions ####<br>
-Please avoid these useless comments.<br>
-<br>
-&gt; +usage()<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 echo &quot;usage: ./${0##*/} [-r UART_RATE] [-l LOOPS] =
-[-x to enable HW<br>
-&gt; flow control]&quot;<br>
-Also here is wrapped.<br>
-<br>
-But you&#39;re supposed to use TST_OPTS TST_PARSE_ARGS and TST_USAGE from T=
-he API<br>
-<a href=3D"https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guid=
-elines#233-optional-command-line-parameters" rel=3D"noreferrer" target=3D"_=
-blank">https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelin=
-es#233-optional-command-line-parameters</a><br>
-<br>
-&gt; +=C2=A0 =C2=A0 exit 1<br>
-&gt; +}<br>
-&gt; +<br>
-&gt; +# Default values<br>
-&gt; +: ${UART_RATE:=3D115200}<br>
-&gt; +: ${UART_LOOPS:=3D5}<br>
-&gt; +: ${UART_HWFLOW:=3D0}<br>
-Even this is a valid syntax, please use more convinient:<br>
-UART_RATE=3D&quot;${UART_RATE:=3D115200}&quot;<br>
-<br>
-&gt; +<br>
-&gt; +PORTS_TO_TEST=3D();<br>
-&gt; +UART_PORTS=3D();<br>
-&gt; +ARRAY=3D(`find /sys/class/tty/*/uartclk`);<br>
-Arrays are bashisms (bash specific), we don&#39;t allow them in LTP, as we =
-require<br>
-POSIX shell syntax, which is portable (some systems doesn&#39;t have bash, =
-but dash<br>
-or other shell e.g. toybox or busybox on Android. I guess you target embedd=
-ed<br>
-system with this test):<br>
-<a href=3D"https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guid=
-elines#132-shell-coding-style" rel=3D"noreferrer" target=3D"_blank">https:/=
-/github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelines#132-shell-c=
-oding-style</a><br>
-<br>
-Most of the time arrays can be replaced by string separated by space.<br>
-If you need these devices, in /sys/class/tty/*/uartclk, it could be done li=
-ke:<br>
-ports=3D$(for i in /sys/class/tty/*/uartclk ; do echo $i | cut -d &#39;/&#3=
-9; -f 5; done)<br>
-<br>
-&gt; +<br>
-&gt; +check_requirements()<br>
-&gt; +{<br>
-&gt; + which serialcheck<br>
-<br>
-<br>
-&gt; + ret=3D$?<br>
-&gt; + if [ $ret -eq 0 ];then<br>
-&gt; + tst_res TINFO &quot;serialcheck command is in system,continue to tes=
-t&quot;<br>
-&gt; + else<br>
-&gt; + tst_brk TCONF &quot;test failed for lack of requirement,returned is =
-$ret&quot;<br>
-&gt; + fi<br>
-&gt; +<br>
-Useless blank line here.<br>
-&gt; +}<br>
-TINFO is not much useful, I&#39;d avoid that. And check_requirements should=
- be a setup function, not called directly in do_test:<br>
-TST_SETUP=3Dcheck_requirements<br>
-<br>
-But given that whole function just check serialcheck, whole function should=
- be<br>
-replaced just by:<br>
-<br>
-TST_NEEDS_CMDS=3D&quot;serialcheck&quot;<br>
-<a href=3D"https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guid=
-elines#232-library-environment-variables-for-shell" rel=3D"noreferrer" targ=
-et=3D"_blank">https://github.com/linux-test-project/ltp/wiki/Test-Writing-G=
-uidelines#232-library-environment-variables-for-shell</a><br>
-<br>
-BTW serialcheck source isn&#39;t probably packaged in distros<br>
-<a href=3D"https://git.breakpoint.cc/cgit/bigeasy/serialcheck.git/tree/seri=
-alcheck.c" rel=3D"noreferrer" target=3D"_blank">https://git.breakpoint.cc/c=
-git/bigeasy/serialcheck.git/tree/serialcheck.c</a><br>
-Maybe we could just adapt it to LTP and include it as well (if we consider =
-whole<br>
-testing useful).<br>
-<br>
-&gt; +<br>
-&gt; +create_test_file()<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 temp_test_file=3D`mktemp`<br>
-I guess you need to use TST_NEEDS_TMPDIR=3D1<br>
-and then just any file in it. Or use $$ (e.g. file.$$) if you want to have<=
-br>
-concurrency, but we usually don&#39;t care).<br>
-&gt; +=C2=A0 =C2=A0 dd if=3D/dev/urandom of=3D$temp_test_file count=3D1 bs=
-=3D$((UART_RATE / 2))<br>
-You also need to add dd to TST_NEEDS_CMDS.<br>
-<br>
-&gt; +}<br>
-&gt; +<br>
-&gt; +get_uart_ports()<br>
-&gt; +{<br>
-&gt; +for i in ${ARRAY[@]}; do<br>
-&gt; +=C2=A0 =C2=A0 PORT=3D/dev/`echo $i | cut -d&#39;/&#39; -f 5`<br>
-Well, you use cut yourself, so why that complicated code with arrays?<br>
-<br>
-&gt; +=C2=A0 =C2=A0 # Activate port in case it will be initialized only whe=
-n startup<br>
-&gt; +=C2=A0 =C2=A0 echo &quot;DDT TESTING&quot; &gt; $PORT 2&gt;/dev/null<=
-br>
-&gt; +=C2=A0 =C2=A0 if [ `cat $i` -ne 0 ]; then<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 UART_PORTS=3D(&quot;${UART_PORTS[@]}&quot=
-; &quot;$PORT&quot;)<br>
-&gt; +=C2=A0 =C2=A0 fi<br>
-&gt; +done<br>
-&gt; +}<br>
-&gt; +<br>
-&gt; +filter_out_used_ports()<br>
-&gt; +{<br>
-&gt; + which lsof<br>
-&gt; + ret=3D$?<br>
-&gt; + if [ $ret -eq 0 ];then<br>
-&gt; + tst_res TINFO &quot;lsof command exist, filter out used ports&quot;;=
-<br>
-&gt; + else<br>
-&gt; + tst_brk TCONF &quot;test failed for lack of requirement,returned is =
-$ret&quot;<br>
-&gt; + fi<br>
-Again whole block is useless, just add lsof into TST_NEEDS_CMDS.<br>
-<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 for i in ${UART_PORTS[@]}; do<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 lsof | grep $i &amp;&gt; /dev/null ||<br>
-&gt; PORTS_TO_TEST=3D(&quot;${PORTS_TO_TEST[@]}&quot; $i)<br>
-&gt; +=C2=A0 =C2=A0 done<br>
-&gt; +}<br>
-&gt; +<br>
-&gt; +run_serial_test()<br>
-&gt; +{<br>
-&gt; + create_test_file<br>
-create_test_file should be just 2 lines of code in setup function.<br>
-<br>
-&gt; +=C2=A0 =C2=A0 for i in ${PORTS_TO_TEST[@]}; do<br>
-Array =3D&gt; bashism :(.<br>
-<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 if [ $UART_HWFLOW -eq 0 ]; then<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 { sleep 1; serialcheck -b $=
-UART_RATE -d $i -f $temp_test_file<br>
-&gt; -l $UART_LOOPS -m t -k; }&amp;<br>
-Again line wrapped :(<br>
-<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PID=3D$!<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 serialcheck -b $UART_RATE -=
-d $i -f $temp_test_file -l<br>
-Hm, why do you run 2 instances?<br>
-<br>
-&gt; $UART_LOOPS -m r -k || { kill -- -$PID 2&gt;/dev/null; tst_res TFAIL &=
-quot;TEST<br>
-&gt; FAILED&quot;; }<br>
-Using complicated code in { } isn&#39;t much readable. I&#39;d put it into:=
-<br>
-if ! $UART_LOOPS -m r -k; then<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 kill ...<br>
-fi<br>
-<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 else<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 { sleep 1; serialcheck -b $=
-UART_RATE -d $i -f $temp_test_file<br>
-&gt; -l $UART_LOOPS -m t -h; } &amp;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PID=3D$!<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 serialcheck -b $UART_RATE -=
-d $i -f $temp_test_file -l<br>
-&gt; $UART_LOOPS -m r -h || { kill -- -$PID 2&gt;/dev/null; tst_res TFAIL &=
-quot;TEST<br>
-&gt; FAILED&quot;; }<br>
-<br>
-This can be written better to not repeat much yourself.<br>
-Whole if and else block is the same exept -h and -k parameter are different=
-.<br>
-Why not put this extra parameter into variable?<br>
-Why sleep added into {} block?<br>
-<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 fi<br>
-&gt; +=C2=A0 =C2=A0 done<br>
-&gt; +=C2=A0 =C2=A0 rm $temp_test_file<br>
-&gt; + tst_res TPASS &quot;uart test passed&quot;<br>
-&gt; +}<br>
-&gt; +<br>
-&gt; +<br>
-&gt; +TST_TESTFUNC=3Ddo_test<br>
-&gt; +. tst_test.sh<br>
-We usually put this at the beginning of the test.<br>
-Please see some tests as examples (testcases/commands/df/df01.sh,<br>
-testcases/commands/mkfs/mkfs01.sh, testcases/commands/lsmod/lsmod01.sh, ...=
-)<br>
-<br>
-&gt; +<br>
-&gt; +do_test()<br>
-&gt; +{<br>
-&gt; + check_requirements<br>
-<br>
-&gt; + get_uart_ports<br>
-&gt; + filter_out_used_ports<br>
-&gt; + run_serial_test<br>
-&gt; +}<br>
-&gt; +<br>
-&gt; +tst_run<br>
-<br>
-Kind regards,<br>
-Petr<br>
-</blockquote></div>
-
---00000000000022496f05a1368859--
-
---===============1389239151==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1389239151==--
+SGkgUGFvbG8sCgpXaXRoIHlvdXIgbGF0ZXN0IHBhdGNoZXMsIHdlIGFyZSB1bmFibGUgdG8gcmVw
+cm9kdWNlIHRoaXMgb24gbWFpbmxpbmUga2VybmVsIGluIENLSS4gVGhhbmtzIGZvcgphbGwgeW91
+ciBoZWxwIG92ZXIgdGhlIHBhc3QgZmV3IGRheXMsIGl0IHdhcyBiaXQgY2hhbGxlbmdpbmcgYXMg
+aXQgd2FzIGVhc2lseSB0cmlnZ2VyZWQgaW4gdGhlCnBpcGVsaW5lLCBidXQgd2UgZGlkbid0IGhh
+dmUgYSBjbGVhciByZXByb2R1Y2VyLiBIb3dldmVyIGFmdGVyIG11bHRpcGxlIHJ1bnMsIHdlIGFy
+ZSBubyBsb25nZXIKc2VlaW5nIGl0LgoKLVJhY2hlbAoKT24gMy8xMS8yMCA3OjI4IEFNLCBQYW9s
+byBWYWxlbnRlIHdyb3RlOgo+IEhpLAo+IGhvcGluZyB0aGlzIGlzIGEgY29udmVuaWVudCBzb2x1
+dGlvbiBmb3IgeW91LCBJIGhhdmUgYXR0YWNoZWQgYQo+IGNvbXByZXNzZWQgYXJjaGl2ZXMgd2l0
+aCBhIHBhaXIgb2YgcGF0Y2hlcy4gIFRoZSBmaXJzdCBwYXRjaCBqdXN0IGRvZXMKPiBhIGxvdCBv
+ZiBjaGVja3Mgd2hpbGUgQkZRIHJ1bnMgKEJVR19PTnMgbXVzdCBiZSB0dXJuZWQgb24gZm9yIHRo
+aXMgdG8KPiB3b3JrKSwgd2hpbGUgdGhlIHNlY29uZCBwYXRjaCBpcyBhIHRlbnRhdGl2ZSBmaXgu
+Cj4gCj4gTG9va2luZyBmb3J3YXJkIHRvIHlvdXIgZmVlZGJhY2ssCj4gUGFvbG8KPiAKPiAKPiAK
+PiAKPj4gSWwgZ2lvcm5vIDkgbWFyIDIwMjAsIGFsbGUgb3JlIDE4OjA5LCBSYWNoZWwgU2libGV5
+IDxyYXNpYmxleUByZWRoYXQuY29tPiBoYSBzY3JpdHRvOgo+Pgo+Pgo+Pgo+PiBPbiAzLzkvMjAg
+MTI6NDIgUE0sIFBhb2xvIFZhbGVudGUgd3JvdGU6Cj4+PiBIaSBSYWNoZWwsCj4+PiBJSVVDLCB5
+b3UgY2FuIHJlcHJvZHVjZSB0aGlzIGJ1ZyByZWxpYWJseS4gSWYgc28sIEknZCBuZWVkIHlvdSB0
+byB0ZXN0IGEgZGVidWdnaW5nIHBhdGNoIChvbiB0b3Agb2Ygb25lIG9mIHRoZSBvZmZlbmRpbmcg
+a2VybmVscykuCj4+Cj4+IEhpIFBhb2xvLAo+Pgo+PiBZZXMgc2VlbXMgd2UgaGF2ZSBzZWVuIGl0
+IHByZXR0eSBjb25zaXN0ZW50bHkgaW4gdGhlIGxhc3QgdGhyZWUgcmVwb3J0cywgYnV0IEknbSBj
+bG9uaW5nIHRoZSBqb2IgdG8gYmUgc3VyZSB3ZSBjYW4KPj4gcmVwcm9kdWNlIHJlbGlhYmx5LiBJ
+biB0aGUgbWVhbiB0aW1lLCBmZWVsIGZyZWUgdG8gc2VuZCBtZSBhIHBvaW50ZXIgdG8geW91ciBk
+ZWJ1Z2dpbmcgcGF0Y2ggc28gSSBjYW4gcmV0cnkgd2l0aAo+PiB0aGUgcGF0Y2ggYXBwbGllZC4K
+Pj4KPj4gVGhhbmsgeW91LAo+PiBSYWNoZWwKPj4KPj4+IExvb2tpbmcgZm9yd2FyZCB0byB5b3Vy
+IGZlZWRiYWNrLAo+Pj4gUGFvbG8KPj4+PiBJbCBnaW9ybm8gOSBtYXIgMjAyMCwgYWxsZSBvcmUg
+MTU6MjcsIFJhY2hlbCBTaWJsZXkgPHJhc2libGV5QHJlZGhhdC5jb20+IGhhIHNjcml0dG86Cj4+
+Pj4KPj4+PiAoY2MnaW5nIGxpbnV4LWJsb2NrQHZnZXIua2VybmVsLm9yZykKPj4+Pgo+Pj4+IEhl
+bGxvLAo+Pj4+Cj4+Pj4gV2UgYXJlIHNlZWluZyBhIGtlcm5lbCBwYW5pYyB0cmlnZ2VyZWQgd2l0
+aCBMVFAgYW5kIHhmc3Rlc3RzIGFnYWluc3QgYSByZWNlbnQgY29tbWl0IGZvciBtYWlubGluZSwK
+Pj4+PiB3YW50ZWQgdG8gc2hhcmUgaW4gY2FzZSBpdCdzIG5vdCBhbHJlYWR5IGtub3duLgo+Pj4+
+Cj4+Pj4gS2VybmVsIHJlcG86IGh0dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9r
+ZXJuZWwvZ2l0L3RvcnZhbGRzL2xpbnV4LmdpdAo+Pj4+IENvbW1pdDogNjFhMDkyNThmMmU1IC0g
+TWVyZ2UgdGFnICdmb3ItbGludXMnIG9mIGdpdDovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGlu
+dXgva2VybmVsL2dpdC9yZG1hL3JkbWEKPj4+Pgo+Pj4+IFdlIGhhdmUgYWxzbyBzZWVuIGl0IHdp
+dGggMmM1MjNiMzQ0ZGZhIGFuZCAzNzhmZWUyZTZiMTIgY29tbWl0cyBhcyB3ZWxsLgo+Pj4+Cj4+
+Pj4gTFRQOiBodHRwczovL2NraS1hcnRpZmFjdHMuczMudXMtZWFzdC0yLmFtYXpvbmF3cy5jb20v
+ZGF0YXdhcmVob3VzZS8yMDIwLzAzLzA4LzQ3NzQ2OS94ODZfNjRfMV9jb25zb2xlLmxvZwo+Pj4+
+IHhmc3Rlc3RzOiBodHRwczovL2NraS1hcnRpZmFjdHMuczMudXMtZWFzdC0yLmFtYXpvbmF3cy5j
+b20vZGF0YXdhcmVob3VzZS8yMDIwLzAzLzA4LzQ3NzQ2OS94ODZfNjRfNF9jb25zb2xlLmxvZwo+
+Pj4+Cj4+Pj4gWy0tIE1BUksgLS0gU3VuIE1hciAgOCAwMjo0NTowMCAyMDIwXQo+Pj4+IFsgIDc2
+Mi4zMTU2MTBdIEJVRzoga2VybmVsIE5VTEwgcG9pbnRlciBkZXJlZmVyZW5jZSwgYWRkcmVzczog
+MDAwMDAwMDAwMDAwMDE1OAo+Pj4+IFsgIDc2Mi4zMjMzODVdICNQRjogc3VwZXJ2aXNvciByZWFk
+IGFjY2VzcyBpbiBrZXJuZWwgbW9kZQo+Pj4+IFsgIDc2Mi4zMjkxMTldICNQRjogZXJyb3JfY29k
+ZSgweDAwMDApIC0gbm90LXByZXNlbnQgcGFnZQo+Pj4+IFsgIDc2Mi4zMzQ4NTNdIFBHRCAwIFA0
+RCAwCj4+Pj4gWyAgNzYyLjMzNzY4MF0gT29wczogMDAwMCBbIzFdIFNNUCBQVEkKPj4+PiBbICA3
+NjIuMzQxNTc1XSBDUFU6IDkgUElEOiA4NyBDb21tOiBrd29ya2VyLzk6MSBOb3QgdGFpbnRlZCA1
+LjYuMC1yYzQtNjFhMDkyNS5ja2kgIzEKPj4+PiBbICA3NjIuMzQ5OTI3XSBIYXJkd2FyZSBuYW1l
+OiBDaXNjbyBTeXN0ZW1zLCBJbmMuIFVDUy1FMTYwRFAtTTEvSzkvVUNTLUUxNjBEUC1NMS9LOSwg
+QklPUyBVQ1NFRC4xLjUuMC4yLjA1MTUyMDEzMTc1NyAwNS8xNS8yMDEzCj4+Pj4gWyAgNzYyLjM2
+MjQ1M10gV29ya3F1ZXVlOiBjZ3JvdXBfZGVzdHJveSBjc3Nfa2lsbGVkX3dvcmtfZm4KPj4+PiBb
+ICA3NjIuMzY4Mzg3XSBSSVA6IDAwMTA6YmZxX2JmcXFfZXhwaXJlKzB4MWMvMHg5NDAKPj4+PiBb
+ICA3NjIuMzczNTQwXSBDb2RlOiAwMSAwMCAwMCBjNyA4MCBmOCAwMCAwMCAwMCAwMSAwMCAwMCAw
+MCBjMyA2NiA2NiA2NiA2NiA5MCA0MSA1NyA0MSA1NiA0MSA1NSA0MSA1NCA0MSA4OSBjYyA1NSA0
+OCA4OSBmZCA1MyA0OCA4OSBmMyA0OCA4MyBlYyAyOCA8OGI+IGJlIDU4IDAxIDAwIDAwIDY1IDQ4
+IDhiIDA0IDI1IDI4IDAwIDAwIDAwIDQ4IDg5IDQ0IDI0IDIwIDMxIGMwCj4+Pj4gWyAgNzYyLjM5
+NDUwMF0gUlNQOiAwMDE4OmZmZmY5OTI3YzAzYmJkNTAgRUZMQUdTOiAwMDAxMDA4Ngo+Pj4+IFsg
+IDc2Mi40MDAzMzFdIFJBWDogMDAwMDAwMDAwMDAwMDAwMCBSQlg6IDAwMDAwMDAwMDAwMDAwMDAg
+UkNYOiAwMDAwMDAwMDAwMDAwMDA0Cj4+Pj4gWyAgNzYyLjQwODMwMV0gUkRYOiAwMDAwMDAwMDAw
+MDAwMDAwIFJTSTogMDAwMDAwMDAwMDAwMDAwMCBSREk6IGZmZmY4OTY1YTM5MTM4MDAKPj4+PiBb
+ICA3NjIuNDE2MjcwXSBSQlA6IGZmZmY4OTY1YTM5MTM4MDAgUjA4OiBmZmZmODk2NTkyZDQxMDk4
+IFIwOTogZmZmZjg5NjU3YWE4ZGYwMAo+Pj4+IFsgIDc2Mi40MjQyMzNdIFIxMDogMDAwMDAwMDAw
+MDAwMDAwMCBSMTE6IGZmZmY4OTY1N2FhOGRmMDAgUjEyOiAwMDAwMDAwMDAwMDAwMDA0Cj4+Pj4g
+WyAgNzYyLjQzMjIwMF0gUjEzOiBmZmZmODk2NTlmMGNkOWIwIFIxNDogZmZmZjg5NjVhMzkxM2Jm
+MCBSMTU6IGZmZmY4OTY1OWYwY2Q4OTgKPj4+PiBbICA3NjIuNDQwMTc1XSBGUzogIDAwMDAwMDAw
+MDAwMDAwMDAoMDAwMCkgR1M6ZmZmZjg5NjVhN2M0MDAwMCgwMDAwKSBrbmxHUzowMDAwMDAwMDAw
+MDAwMDAwCj4+Pj4gWyAgNzYyLjQ0OTIxMV0gQ1M6ICAwMDEwIERTOiAwMDAwIEVTOiAwMDAwIENS
+MDogMDAwMDAwMDA4MDA1MDAzMwo+Pj4+IFsgIDc2Mi40NTU2MjJdIENSMjogMDAwMDAwMDAwMDAw
+MDE1OCBDUjM6IDAwMDAwMDA2NWFmYzYwMDMgQ1I0OiAwMDAwMDAwMDAwMDYwNmUwCj4+Pj4gWyAg
+NzYyLjQ2MzU5OV0gQ2FsbCBUcmFjZToKPj4+PiBbICA3NjIuNDY2MzQxXSAgPyBiZnFfaWRsZV9l
+eHRyYWN0KzB4NDAvMHhiMAo+Pj4+IFsgIDc2Mi40NzA4MjFdICBiZnFfYmZxcV9tb3ZlKzB4MTRm
+LzB4MTYwCj4+Pj4gWyAgNzYyLjQ3NTAxMV0gIGJmcV9wZF9vZmZsaW5lKzB4ZDMvMHhmMAo+Pj4+
+IFsgIDc2Mi40NzkxMTJdICBibGtnX2Rlc3Ryb3krMHg1Mi8weGYwCj4+Pj4gWyAgNzYyLjQ4MzAw
+NV0gIGJsa2NnX2Rlc3Ryb3lfYmxrZ3MrMHg0Zi8weGEwCj4+Pj4gWyAgNzYyLjQ4NzU4Ml0gIGNz
+c19raWxsZWRfd29ya19mbisweDRkLzB4ZDAKPj4+PiBbICA3NjIuNDkyMDY2XSAgcHJvY2Vzc19v
+bmVfd29yaysweDFiNS8weDM2MAo+Pj4+IFsgIDc2Mi40OTY1NDddICB3b3JrZXJfdGhyZWFkKzB4
+NTAvMHgzYzAKPj4+PiBbICA3NjIuNTAwNjQxXSAga3RocmVhZCsweGY5LzB4MTMwCj4+Pj4gWyAg
+NzYyLjUwNDE1M10gID8gcHJvY2Vzc19vbmVfd29yaysweDM2MC8weDM2MAo+Pj4+IFsgIDc2Mi41
+MDg4MTNdICA/IGt0aHJlYWRfcGFyaysweDkwLzB4OTAKPj4+PiBbICA3NjIuNTEyOTA5XSAgcmV0
+X2Zyb21fZm9yaysweDM1LzB4NDAKPj4+Pgo+Pj4+IFRoYW5rcywKPj4+PiBSYWNoZWwKPj4+Pgo+
+Pj4+IE9uIDMvNy8yMCA5OjU5IFBNLCBDS0kgUHJvamVjdCB3cm90ZToKPj4+Pj4gSGVsbG8sCj4+
+Pj4+IFdlIHJhbiBhdXRvbWF0ZWQgdGVzdHMgb24gYSByZWNlbnQgY29tbWl0IGZyb20gdGhpcyBr
+ZXJuZWwgdHJlZToKPj4+Pj4gICAgICAgICBLZXJuZWwgcmVwbzogaHR0cHM6Ly9naXQua2VybmVs
+Lm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvdG9ydmFsZHMvbGludXguZ2l0Cj4+Pj4+ICAg
+ICAgICAgICAgICBDb21taXQ6IDYxYTA5MjU4ZjJlNSAtIE1lcmdlIHRhZyAnZm9yLWxpbnVzJyBv
+ZiBnaXQ6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvcmRtYS9yZG1h
+Cj4+Pj4+IFRoZSByZXN1bHRzIG9mIHRoZXNlIGF1dG9tYXRlZCB0ZXN0cyBhcmUgcHJvdmlkZWQg
+YmVsb3cuCj4+Pj4+ICAgICAgT3ZlcmFsbCByZXN1bHQ6IEZBSUxFRCAoc2VlIGRldGFpbHMgYmVs
+b3cpCj4+Pj4+ICAgICAgICAgICAgICAgTWVyZ2U6IE9LCj4+Pj4+ICAgICAgICAgICAgIENvbXBp
+bGU6IE9LCj4+Pj4+ICAgICAgICAgICAgICAgVGVzdHM6IEZBSUxFRAo+Pj4+PiBBbGwga2VybmVs
+IGJpbmFyaWVzLCBjb25maWcgZmlsZXMsIGFuZCBsb2dzIGFyZSBhdmFpbGFibGUgZm9yIGRvd25s
+b2FkIGhlcmU6Cj4+Pj4+ICAgIGh0dHBzOi8vY2tpLWFydGlmYWN0cy5zMy51cy1lYXN0LTIuYW1h
+em9uYXdzLmNvbS9pbmRleC5odG1sP3ByZWZpeD1kYXRhd2FyZWhvdXNlLzIwMjAvMDMvMDgvNDc3
+NDY5Cj4+Pj4+IE9uZSBvciBtb3JlIGtlcm5lbCB0ZXN0cyBmYWlsZWQ6Cj4+Pj4+ICAgICAgeDg2
+XzY0Ogo+Pj4+PiAgICAgICDinYwgTFRQCj4+Pj4+ICAgICAgIOKdjCB4ZnN0ZXN0cyAtIGV4dDQK
+Pj4+Pj4gV2UgaG9wZSB0aGF0IHRoZXNlIGxvZ3MgY2FuIGhlbHAgeW91IGZpbmQgdGhlIHByb2Js
+ZW0gcXVpY2tseS4gRm9yIHRoZSBmdWxsCj4+Pj4+IGRldGFpbCBvbiBvdXIgdGVzdGluZyBwcm9j
+ZWR1cmVzLCBwbGVhc2Ugc2Nyb2xsIHRvIHRoZSBib3R0b20gb2YgdGhpcyBtZXNzYWdlLgo+Pj4+
+PiBQbGVhc2UgcmVwbHkgdG8gdGhpcyBlbWFpbCBpZiB5b3UgaGF2ZSBhbnkgcXVlc3Rpb25zIGFi
+b3V0IHRoZSB0ZXN0cyB0aGF0IHdlCj4+Pj4+IHJhbiBvciBpZiB5b3UgaGF2ZSBhbnkgc3VnZ2Vz
+dGlvbnMgb24gaG93IHRvIG1ha2UgZnV0dXJlIHRlc3RzIG1vcmUgZWZmZWN0aXZlLgo+Pj4+PiAg
+ICAgICAgICAsLS4gICAsLS4KPj4+Pj4gICAgICAgICAoIEMgKSAoIEsgKSAgQ29udGludW91cwo+
+Pj4+PiAgICAgICAgICBgLScsLS5gLScgICBLZXJuZWwKPj4+Pj4gICAgICAgICAgICAoIEkgKSAg
+ICAgSW50ZWdyYXRpb24KPj4+Pj4gICAgICAgICAgICAgYC0nCj4+Pj4+IF9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwo+Pj4+PiBDb21waWxlIHRlc3RpbmcKPj4+Pj4gLS0tLS0tLS0tLS0tLS0tCj4+Pj4+
+IFdlIGNvbXBpbGVkIHRoZSBrZXJuZWwgZm9yIDEgYXJjaGl0ZWN0dXJlOgo+Pj4+PiAgICAgIHg4
+Nl82NDoKPj4+Pj4gICAgICAgIG1ha2Ugb3B0aW9uczogLWozMCBJTlNUQUxMX01PRF9TVFJJUD0x
+IHRhcmd6LXBrZwo+Pj4+PiBIYXJkd2FyZSB0ZXN0aW5nCj4+Pj4+IC0tLS0tLS0tLS0tLS0tLS0K
+Pj4+Pj4gV2UgYm9vdGVkIGVhY2gga2VybmVsIGFuZCByYW4gdGhlIGZvbGxvd2luZyB0ZXN0czoK
+Pj4+Pj4gICAgeDg2XzY0Ogo+Pj4+PiAgICAgIEhvc3QgMToKPj4+Pj4gICAgICAgICDinIUgQm9v
+dCB0ZXN0Cj4+Pj4+ICAgICAgICAg4pyFIFBvZG1hbiBzeXN0ZW0gaW50ZWdyYXRpb24gdGVzdCAt
+IGFzIHJvb3QKPj4+Pj4gICAgICAgICDinIUgUG9kbWFuIHN5c3RlbSBpbnRlZ3JhdGlvbiB0ZXN0
+IC0gYXMgdXNlcgo+Pj4+PiAgICAgICAgIOKdjCBMVFAKPj4+Pj4gICAgICAgICDimqHimqHimqEg
+TG9vcGRldiBTYW5pdHkKPj4+Pj4gICAgICAgICDimqHimqHimqEgTWVtb3J5IGZ1bmN0aW9uOiBt
+ZW1mZF9jcmVhdGUKPj4+Pj4gICAgICAgICDimqHimqHimqEgQU1UVSAoQWJzdHJhY3QgTWFjaGlu
+ZSBUZXN0IFV0aWxpdHkpCj4+Pj4+ICAgICAgICAg4pqh4pqh4pqhIE5ldHdvcmtpbmcgYnJpZGdl
+OiBzYW5pdHkKPj4+Pj4gICAgICAgICDimqHimqHimqEgRXRoZXJuZXQgZHJpdmVycyBzYW5pdHkK
+Pj4+Pj4gICAgICAgICDimqHimqHimqEgTmV0d29ya2luZyBNQUNzZWM6IHNhbml0eQo+Pj4+PiAg
+ICAgICAgIOKaoeKaoeKaoSBOZXR3b3JraW5nIHNvY2tldDogZnV6ego+Pj4+PiAgICAgICAgIOKa
+oeKaoeKaoSBOZXR3b3JraW5nIHNjdHAtYXV0aDogc29ja29wdHMgdGVzdAo+Pj4+PiAgICAgICAg
+IOKaoeKaoeKaoSBOZXR3b3JraW5nOiBpZ21wIGNvbmZvcm1hbmNlIHRlc3QKPj4+Pj4gICAgICAg
+ICDimqHimqHimqEgTmV0d29ya2luZyByb3V0ZTogcG10dQo+Pj4+PiAgICAgICAgIOKaoeKaoeKa
+oSBOZXR3b3JraW5nIHJvdXRlX2Z1bmMgLSBsb2NhbAo+Pj4+PiAgICAgICAgIOKaoeKaoeKaoSBO
+ZXR3b3JraW5nIHJvdXRlX2Z1bmMgLSBmb3J3YXJkCj4+Pj4+ICAgICAgICAg4pqh4pqh4pqhIE5l
+dHdvcmtpbmcgVENQOiBrZWVwYWxpdmUgdGVzdAo+Pj4+PiAgICAgICAgIOKaoeKaoeKaoSBOZXR3
+b3JraW5nIFVEUDogc29ja2V0Cj4+Pj4+ICAgICAgICAg4pqh4pqh4pqhIE5ldHdvcmtpbmcgdHVu
+bmVsOiBnZW5ldmUgYmFzaWMgdGVzdAo+Pj4+PiAgICAgICAgIOKaoeKaoeKaoSBOZXR3b3JraW5n
+IHR1bm5lbDogZ3JlIGJhc2ljCj4+Pj4+ICAgICAgICAg4pqh4pqh4pqhIEwyVFAgYmFzaWMgdGVz
+dAo+Pj4+PiAgICAgICAgIOKaoeKaoeKaoSBOZXR3b3JraW5nIHR1bm5lbDogdnhsYW4gYmFzaWMK
+Pj4+Pj4gICAgICAgICDimqHimqHimqEgTmV0d29ya2luZyBpcHNlYzogYmFzaWMgbmV0bnMgLSB0
+cmFuc3BvcnQKPj4+Pj4gICAgICAgICDimqHimqHimqEgTmV0d29ya2luZyBpcHNlYzogYmFzaWMg
+bmV0bnMgLSB0dW5uZWwKPj4+Pj4gICAgICAgICDimqHimqHimqEgYXVkaXQ6IGF1ZGl0IHRlc3Rz
+dWl0ZSB0ZXN0Cj4+Pj4+ICAgICAgICAg4pqh4pqh4pqhIGh0dHBkOiBtb2Rfc3NsIHNtb2tlIHNh
+bml0eQo+Pj4+PiAgICAgICAgIOKaoeKaoeKaoSB0dW5lZDogdHVuZS1wcm9jZXNzZXMtdGhyb3Vn
+aC1wZXJmCj4+Pj4+ICAgICAgICAg4pqh4pqh4pqhIHBjaXV0aWxzOiBzYW5pdHkgc21va2UgdGVz
+dAo+Pj4+PiAgICAgICAgIOKaoeKaoeKaoSBBTFNBIFBDTSBsb29wYmFjayB0ZXN0Cj4+Pj4+ICAg
+ICAgICAg4pqh4pqh4pqhIEFMU0EgQ29udHJvbCAobWl4ZXIpIFVzZXJzcGFjZSBFbGVtZW50IHRl
+c3QKPj4+Pj4gICAgICAgICDimqHimqHimqEgc3RvcmFnZTogU0NTSSBWUEQKPj4+Pj4gICAgICAg
+ICDimqHimqHimqEgdHJhY2U6IGZ0cmFjZS90cmFjZXIKPj4+Pj4gICAgICAgICDwn5qnIOKaoeKa
+oeKaoSBDSUZTIENvbm5lY3RhdGhvbgo+Pj4+PiAgICAgICAgIPCfmqcg4pqh4pqh4pqhIFBPU0lY
+IHBqZC1mc3Rlc3Qgc3VpdGVzCj4+Pj4+ICAgICAgICAg8J+apyDimqHimqHimqEganZtIC0gRGFD
+YXBvIEJlbmNobWFyayBTdWl0ZQo+Pj4+PiAgICAgICAgIPCfmqcg4pqh4pqh4pqhIGp2bSAtIGpj
+c3RyZXNzIHRlc3RzCj4+Pj4+ICAgICAgICAg8J+apyDimqHimqHimqEgTWVtb3J5IGZ1bmN0aW9u
+OiBrYXNscgo+Pj4+PiAgICAgICAgIPCfmqcg4pqh4pqh4pqhIExUUDogb3BlbnBvc2l4IHRlc3Qg
+c3VpdGUKPj4+Pj4gICAgICAgICDwn5qnIOKaoeKaoeKaoSBOZXR3b3JraW5nIHZuaWM6IGlwdmxh
+bi9iYXNpYwo+Pj4+PiAgICAgICAgIPCfmqcg4pqh4pqh4pqhIGlvdG9wOiBzYW5pdHkKPj4+Pj4g
+ICAgICAgICDwn5qnIOKaoeKaoeKaoSBVc2V4IC0gdmVyc2lvbiAxLjktMjkKPj4+Pj4gICAgICAg
+ICDwn5qnIOKaoeKaoeKaoSBzdG9yYWdlOiBkbS9jb21tb24KPj4+Pj4gICAgICBIb3N0IDI6Cj4+
+Pj4+ICAgICAgICAg4pyFIEJvb3QgdGVzdAo+Pj4+PiAgICAgICAgIOKchSBTdG9yYWdlIFNBTiBk
+ZXZpY2Ugc3RyZXNzIC0gbXB0M3NhcyBkcml2ZXIKPj4+Pj4gICAgICBIb3N0IDM6Cj4+Pj4+ICAg
+ICAgICAg4pyFIEJvb3QgdGVzdAo+Pj4+PiAgICAgICAgIOKchSBTdG9yYWdlIFNBTiBkZXZpY2Ug
+c3RyZXNzIC0gbWVnYXJhaWRfc2FzCj4+Pj4+ICAgICAgSG9zdCA0Ogo+Pj4+PiAgICAgICAgIOKc
+hSBCb290IHRlc3QKPj4+Pj4gICAgICAgICDinYwgeGZzdGVzdHMgLSBleHQ0Cj4+Pj4+ICAgICAg
+ICAg4pqh4pqh4pqhIHhmc3Rlc3RzIC0geGZzCj4+Pj4+ICAgICAgICAg4pqh4pqh4pqhIHNlbGlu
+dXgtcG9saWN5OiBzZXJnZS10ZXN0c3VpdGUKPj4+Pj4gICAgICAgICDimqHimqHimqEgbHZtIHRo
+aW5wIHNhbml0eQo+Pj4+PiAgICAgICAgIOKaoeKaoeKaoSBzdG9yYWdlOiBzb2Z0d2FyZSBSQUlE
+IHRlc3RpbmcKPj4+Pj4gICAgICAgICDimqHimqHimqEgc3RyZXNzOiBzdHJlc3MtbmcKPj4+Pj4g
+ICAgICAgICDwn5qnIOKaoeKaoeKaoSBJT01NVSBib290IHRlc3QKPj4+Pj4gICAgICAgICDwn5qn
+IOKaoeKaoeKaoSBJUE1JIGRyaXZlciB0ZXN0Cj4+Pj4+ICAgICAgICAg8J+apyDimqHimqHimqEg
+SVBNSXRvb2wgbG9vcCBzdHJlc3MgdGVzdAo+Pj4+PiAgICAgICAgIPCfmqcg4pqh4pqh4pqhIHBv
+d2VyLW1hbmFnZW1lbnQ6IGNwdXBvd2VyL3Nhbml0eSB0ZXN0Cj4+Pj4+ICAgICAgICAg8J+apyDi
+mqHimqHimqEgU3RvcmFnZSBibGt0ZXN0cwo+Pj4+PiAgICBUZXN0IHNvdXJjZXM6IGh0dHBzOi8v
+Z2l0aHViLmNvbS9DS0ktcHJvamVjdC90ZXN0cy1iZWFrZXIKPj4+Pj4gICAgICDwn5KaIFB1bGwg
+cmVxdWVzdHMgYXJlIHdlbGNvbWUgZm9yIG5ldyB0ZXN0cyBvciBpbXByb3ZlbWVudHMgdG8gZXhp
+c3RpbmcgdGVzdHMhCj4+Pj4+IFdhaXZlZCB0ZXN0cwo+Pj4+PiAtLS0tLS0tLS0tLS0KPj4+Pj4g
+SWYgdGhlIHRlc3QgcnVuIGluY2x1ZGVkIHdhaXZlZCB0ZXN0cywgdGhleSBhcmUgbWFya2VkIHdp
+dGgg8J+apy4gU3VjaCB0ZXN0cyBhcmUKPj4+Pj4gZXhlY3V0ZWQgYnV0IHRoZWlyIHJlc3VsdHMg
+YXJlIG5vdCB0YWtlbiBpbnRvIGFjY291bnQuIFRlc3RzIGFyZSB3YWl2ZWQgd2hlbgo+Pj4+PiB0
+aGVpciByZXN1bHRzIGFyZSBub3QgcmVsaWFibGUgZW5vdWdoLCBlLmcuIHdoZW4gdGhleSdyZSBq
+dXN0IGludHJvZHVjZWQgb3IgYXJlCj4+Pj4+IGJlaW5nIGZpeGVkLgo+Pj4+PiBUZXN0aW5nIHRp
+bWVvdXQKPj4+Pj4gLS0tLS0tLS0tLS0tLS0tCj4+Pj4+IFdlIGFpbSB0byBwcm92aWRlIGEgcmVw
+b3J0IHdpdGhpbiByZWFzb25hYmxlIHRpbWVmcmFtZS4gVGVzdHMgdGhhdCBoYXZlbid0Cj4+Pj4+
+IGZpbmlzaGVkIHJ1bm5pbmcgeWV0IGFyZSBtYXJrZWQgd2l0aCDij7EuCj4+Pj4KPj4KPiAKCgot
+LSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRw
+Cg==
