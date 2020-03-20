@@ -2,27 +2,27 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81A6018CA90
-	for <lists+linux-ltp@lfdr.de>; Fri, 20 Mar 2020 10:43:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 679C018CA97
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Mar 2020 10:44:32 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 49D883C538E
-	for <lists+linux-ltp@lfdr.de>; Fri, 20 Mar 2020 10:43:18 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 35CA13C538E
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Mar 2020 10:44:32 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 1651B3C537D
- for <ltp@lists.linux.it>; Fri, 20 Mar 2020 10:43:16 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTP id D84B93C537D
+ for <ltp@lists.linux.it>; Fri, 20 Mar 2020 10:44:30 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7559A100199A
- for <ltp@lists.linux.it>; Fri, 20 Mar 2020 10:43:16 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 899D910019C7
+ for <ltp@lists.linux.it>; Fri, 20 Mar 2020 10:44:30 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id A7E3FAC2C
- for <ltp@lists.linux.it>; Fri, 20 Mar 2020 09:43:15 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id DC05FAD93
+ for <ltp@lists.linux.it>; Fri, 20 Mar 2020 09:44:29 +0000 (UTC)
 To: Petr Vorel <pvorel@suse.cz>
 References: <20200317121057.13529-1-mdoucha@suse.cz>
- <20200317121057.13529-3-mdoucha@suse.cz> <20200320085427.GA14750@dell5510>
+ <20200317121057.13529-2-mdoucha@suse.cz> <20200320090342.GA12179@dell5510>
 From: Martin Doucha <mdoucha@suse.cz>
 Autocrypt: addr=mdoucha@suse.cz; keydata=
  mQINBF1D6M0BEAC5BHC0NuN/v+UBXDYuwuYeAJA4leuKz0H76YBevziJKUtnzMsBA+GT9vdH
@@ -67,19 +67,20 @@ Autocrypt: addr=mdoucha@suse.cz; keydata=
  Rz4zFhW8KQ9+zrae5rL/6vwz3d/MpEeOmDm9uutE6xyzXRl/RxeFZ8P7KlACXWm7VjSyc74E
  eCNL6GOOeqzE77fDcBf4HvNGn8w7IX/FvNzmu78wzT2MDwMi8ug8T4KEKzIYUIRibe7cl0LG
  2dSj02pOT7E5/x4gKQB/OZqnTTQxJ0OL8BJKNFeSYqaMzKFKiYaArwuFkGnCknwh5A==
-Message-ID: <5cf7a3b1-1b34-d10c-5c93-e77ef77f3044@suse.cz>
-Date: Fri, 20 Mar 2020 10:43:14 +0100
+Message-ID: <44354b4a-ad4e-6555-44a9-f02427f0352b@suse.cz>
+Date: Fri, 20 Mar 2020 10:44:29 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <20200320085427.GA14750@dell5510>
+In-Reply-To: <20200320090342.GA12179@dell5510>
 Content-Language: en-US
 X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 3/3] Add connection tests for bind()
+Subject: Re: [LTP] [PATCH v4 2/3] Add socket address initialization
+ functions to tst_net library
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,28 +98,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 20. 03. 20 9:54, Petr Vorel wrote:
+On 20. 03. 20 10:03, Petr Vorel wrote:
 > Hi Martin,
 > 
-> whole patchset is very nice work. Thanks!
-> 
->> +static void setup(void)
->> +{
->> +	srand(time(0));
->> +
->> +	tst_init_sockaddr_inet(&ipv4_addr, IPV4_ADDRESS, 0);
->> +	tst_init_sockaddr_inet_bin(&ipv4_any_addr, INADDR_ANY, 0);
->> +	tst_init_sockaddr_inet6_bin(&ipv6_addr, &in6addr_loopback, 0);
->> +	tst_init_sockaddr_inet6_bin(&ipv6_any_addr, &in6addr_any, 0);
->> +}
-> You don't use tst_init_sockaddr_inet6() at all. How about using it?
-> 
-> Or do you have some reason not to use it?
+>> @@ -145,3 +146,73 @@ void tst_get_in6_addr(const char *ip_str, struct in6_addr *ip6)
+>>  	if (inet_pton(AF_INET6, ip_str, ip6) <= 0)
+>>  		tst_brk_comment("bad IPv6 address: '%s'", ip_str);
+> Just a note: tst_brk_comment() and tst_res_comment() prepend '# ' to the
+> message. This was meant only for tst_net_vars.c, tst_net_ip_prefix.c and
+> tst_net_iface_prefix.c, to prevent shell eval breakage. But let's use it also
+> for tests as the code gets simpler.
 
-tst_init_sockaddr_inet6() was trivial to implement so it's there for
-future use. The only reason why I'm not using it is that both loopback
-and wildcard addresses are provided by libc in expanded form so I don't
-need to convert them from string. I'll leave this patch as is.
+Should I move them back to tst_net.h then? Or tst_test.h even?
 
 -- 
 Martin Doucha   mdoucha@suse.cz
