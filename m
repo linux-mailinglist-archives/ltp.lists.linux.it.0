@@ -2,52 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18F1518C676
-	for <lists+linux-ltp@lfdr.de>; Fri, 20 Mar 2020 05:27:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D14E18C68B
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Mar 2020 05:35:58 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B4FF23C548E
-	for <lists+linux-ltp@lfdr.de>; Fri, 20 Mar 2020 05:27:34 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BD1103C5476
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Mar 2020 05:35:57 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 992A33C0428
- for <ltp@lists.linux.it>; Fri, 20 Mar 2020 05:27:29 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 6D62210014D7
- for <ltp@lists.linux.it>; Fri, 20 Mar 2020 05:27:26 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.72,283,1580745600"; d="scan'208";a="86647864"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 20 Mar 2020 12:27:24 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 0047E406AB15
- for <ltp@lists.linux.it>; Fri, 20 Mar 2020 12:17:17 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Fri, 20 Mar 2020 12:27:23 +0800
-To: Xiao Yang <yangx.jy@cn.fujitsu.com>
-References: <1584523008-27044-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <5E71F152.5010909@cn.fujitsu.com>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <604acf72-5cda-0eee-b4ab-ef083a6b4d2b@cn.fujitsu.com>
-Date: Fri, 20 Mar 2020 12:27:20 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id D679F3C5460
+ for <ltp@lists.linux.it>; Fri, 20 Mar 2020 05:35:53 +0100 (CET)
+Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
+ [IPv6:2607:f8b0:4864:20::1044])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8E4F2600AAE
+ for <ltp@lists.linux.it>; Fri, 20 Mar 2020 05:35:52 +0100 (CET)
+Received: by mail-pj1-x1044.google.com with SMTP id bo3so1931552pjb.5
+ for <ltp@lists.linux.it>; Thu, 19 Mar 2020 21:35:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=LX1LQmAdPRozL6NpJFK/S5NbjfP9JbwT5lligaux3G0=;
+ b=fGLfC2+KLIqqYue7iqB3ReUJEv5LZcv3CVMjoqx7Ya+CpJyZ3irfH5yr+p/7MnOwGR
+ A/B+Kq06/lwnvmVQ+qXS8IPYbtFHHxkSMjEvCLHLhSDNf/5a1i2+4W0RS+5zyerMldHk
+ TXZ4tqzwhZh1Sjx2ggXH3+rFizwhweBnvPcM/nNqMAb6zlI87W9ahp3/LWuQ3tkJ9xjO
+ zuaBP5ljXVVs5XLfaZvu3FyTr53yxYbpQneh8P0e3yAcYW86SSLEipnKCPZ0zabzigM+
+ D07/vjfn6P6ZC8ezFLGNmwpinekxstJvW8ex/T+ckb3H2KnXbvHkByR9BvTtz8kwHK9D
+ j1aQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=LX1LQmAdPRozL6NpJFK/S5NbjfP9JbwT5lligaux3G0=;
+ b=QI7r7LdVme9oNKTx6b21wEPueOf+T0QL1pgEsogckErdouhelrI9uRxeN/wA6RvpW/
+ cTeiSvLBXLH6CcnPtVM4kcssv4uIUzchGtj3YNMeqH1H9yVteHGt+6oOMylywAFRVFYW
+ 96vxoxcumgXrny6CZ2PC8xrDD+gWnv3KLRb3DAZ8dp2zeZnVOowWEDDdpe7ndIcp0zp9
+ E7RA3CzgNpPSh9zbenmn4ku8MFuVhnI3LZuWxvO9d9pIoQgEV2K3JNfjAsWTnOFaJkco
+ QDqE+jmYPNB4JPzuJWa/QR2cNYf8yG2s01MNsIUUUF4XZrlDMKT4c4l/rZaeBO7vydY8
+ 0BSA==
+X-Gm-Message-State: ANhLgQ34i/L3t6UnWHubH/805UOcjn/KA2ZdQ84dElGZcLQ6wgHhGcql
+ l0HVqoOFVQSDuXEKxbbJ2kjXOg==
+X-Google-Smtp-Source: ADFU+vvIIZswFlpoDcpXJ21SrE1dds/DuK6XyTbXYuVRI5/cVPJQvyHxE8A7LsMc/+iHLmHioIlhLA==
+X-Received: by 2002:a17:902:820a:: with SMTP id
+ x10mr3188093pln.179.1584678951183; 
+ Thu, 19 Mar 2020 21:35:51 -0700 (PDT)
+Received: from localhost ([122.171.118.46])
+ by smtp.gmail.com with ESMTPSA id s61sm3484896pjd.33.2020.03.19.21.35.49
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 19 Mar 2020 21:35:50 -0700 (PDT)
+Date: Fri, 20 Mar 2020 10:05:48 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20200320043548.66orcumbq57wqyzt@vireshk-i7>
+References: <6648a9106e367d370012c8ee1d0d81c369779ba8.1584014172.git.viresh.kumar@linaro.org>
+ <928553e5fd3518fccb363fb8b6ad079ac3c75fd2.1584090119.git.viresh.kumar@linaro.org>
+ <20200313124920.GC6597@rei.lan>
 MIME-Version: 1.0
-In-Reply-To: <5E71F152.5010909@cn.fujitsu.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 0047E406AB15.A7DA2
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200313124920.GC6597@rei.lan>
+User-Agent: NeoMutt/20180716-391-311a52
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] openposix/twoptimers.c: Use other signal instead
- of SIGALRM
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V7 10/10] syscalls/open_tree: New tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,90 +79,63 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgWGlhbwoKPiBPbiAyMDIwLzMvMTggMTc6MTYsIFlhbmcgWHUgd3JvdGU6Cj4+IEN1cnJlbnRs
-eSwgcnVuIHRoaXMgY2FzZSBmYWlsZWQgYXMgYmVsb3c6Cj4+Cj4+IEdvdCBpdCHCoCBDaGlsZAo+
-PiBBbGFybSBjbG9jawo+Pgo+PiBQYXJlbnQgcHJvY2VzcyBkb2Vzbid0IGdldCBTSUdBTFJNIHNp
-Z2FubCBieSB1c2luZyBzaWd3YWl0LiBJdAo+PiBzZWVtcyBTSUdBTFJNIHNpZ2FubCBpcyBoYW5k
-bGVkIGJ5IHN5c3RlbSBidXQgbm90IHVzZXIuCj4+Cj4+PiBGcm9tIHRpbWVyX2NyZWF0ZSBtYW4t
-cGFnZSwgaXQgc2FpZCAiCj4+IFNwZWNpZnlpbmfCoCBzZXZwIGFzIE5VTEwgaXMgZXF1aXZhbGVu
-dCB0byBzcGVjaWZ5aW5nIGEgcG9pbnRlciB0bwo+PiBhIHNpZ2V2ZW50IHN0cnVjdHVyZSBpbiB3
-aGljaCBzaWdldl9ub3RpZnkgaXMgU0lHRVZfU0lHTkFMLCBzaWdldl9zaWdubwo+PiBpcyBTSUdB
-TFJNLCBhbmQgc2lnZXZfdmFsdWUuc2l2YWxfaW50IGlzIHRoZSB0aW1lciBJRCIuCj4+Cj4+IEkg
-dGhpbmsgdGhpcyBpcyB0aGUgcmVhc29uLiBTbyB1c2UgU0lHSUxMIHNpZ25hbCB0byBhdm9pZCBz
-eXN0ZW0gY2F1Z2h0Lgo+IEhpIFh1LAo+IAo+IEkgZG9uJ3QgbGlrZSB0aGUgZml4LsKgIFlvdSBk
-b24ndCBmaWd1cmUgb3V0IHRoZSByb290IGNhdXNlIG9mIGlzc3VlIGFuZCAKPiBqdXN0IGJ5cGFz
-cyBpdC4oVXNlciBjYW4gY2F0Y2ggU0lHQUxSTSBieSBkZWZhdWx0IHVzdWFsbHkpLgpTb3JyeSBm
-b3IgdGhpcy4KWWVzLiBCdXQgdXNlciB1c3VhbGx5IHdpbGwgaW5zdGFsbCBjdXN0b21pemVkIHNp
-bmdhbCBoYW5kbGVyIGZvciBTSUdBTFJNIApieSB1c2luZyBzaWdhY3Rpb24gZnVuY3Rpb24uIE9u
-IG11bHRpIHRocmVhZHMgcHJvZ3JhbSwgdXNlciB3aWxsIHNldCAKU0lHQUxSTSBzaWduYWwgaW50
-byBzaWduYWwgbWFzayBieSB1c2luZyBzaWdwcm9jbWFzaywgc28gaXQgY2FuIGVuc3VyZSAKY3Vy
-cmVudCB0aHJlYWQgY2FuIGdldCB0aGlzIHNpZ25hbCBmcm9tIHBlbmRpbmcgbGlzdC4KClNvIEkg
-cGxhbiB0byBmaXggdGhpcyBidWcgYXMgYmVsb3c6CgotLS0gYS90ZXN0Y2FzZXMvb3Blbl9wb3Np
-eF90ZXN0c3VpdGUvZnVuY3Rpb25hbC90aW1lcnMvdGltZXJzL3R3b3B0aW1lcnMuYworKysgYi90
-ZXN0Y2FzZXMvb3Blbl9wb3NpeF90ZXN0c3VpdGUvZnVuY3Rpb25hbC90aW1lcnMvdGltZXJzL3R3
-b3B0aW1lcnMuYwpAQCAtNTAsNyArNTAsMTAgQEAgaW50IG1haW4oaW50IGFyZ2MsIGNoYXIgKmFy
-Z3ZbXSkKICAgICAgICAgICAgICAgICAgICAgICAgIHBlcnJvcigic2lnYWRkc2V0KCkgZmFpbGVk
-XG4iKTsKICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiBQVFNfVU5SRVNPTFZFRDsKICAg
-ICAgICAgICAgICAgICB9Ci0KKyAgICAgICAgICAgICAgIGlmIChzaWdwcm9jbWFzayhTSUdfQkxP
-Q0ssICZzZXQsIE5VTEwpID09IC0xKSB7CisgICAgICAgICAgICAgICAgICAgICAgIHBlcnJvcigi
-c2lncHJvY21hc2soKSBmYWlsZWRcbiIpOworICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4g
-UFRTX1VOUkVTT0xWRUQ7CisgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgZXYuc2ln
-ZXZfbm90aWZ5ID0gU0lHRVZfU0lHTkFMOwogICAgICAgICAgICAgICAgIGV2LnNpZ2V2X3NpZ25v
-ID0gU0lHQUJSVDsKICAgICAgICAgICAgICAgICBpZiAodGltZXJfY3JlYXRlKENMT0NLX1JFQUxU
-SU1FLCAmZXYsICZ0aWQpICE9IDApIHsKQEAgLTczLDggKzc2LDEwIEBAIGludCBtYWluKGludCBh
-cmdjLCBjaGFyICphcmd2W10pCiAgICAgICAgICAgICAgICAgICAgICAgICBwZXJyb3IoInNpZ3dh
-aXQoKSBmYWlsZWRcbiIpOwogICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIFBUU19VTlJF
-U09MVkVEOwogICAgICAgICAgICAgICAgIH0KLSAgICAgICAgICAgICAgIHByaW50ZigiR290IGl0
-ISAgQ2hpbGRcbiIpOwotCisgICAgICAgICAgICAgICBpZiAoc2lnID09IFNJR0FCUlQpCisgICAg
-ICAgICAgICAgICAgICAgICAgIHByaW50ZigiR290IGl0ISAgQ2hpbGRcbiIpOworICAgICAgICAg
-ICAgICAgZWxzZQorICAgICAgICAgICAgICAgICAgICAgICBwcmludGYoIkdvdCBhbm90aGVyIHNp
-Z25hbCEgQ2hpbGRcbiIpOwogICAgICAgICAgICAgICAgIHNsZWVwKExPTkdUSU1FKTsKICAgICAg
-ICAgICAgICAgICByZXR1cm4gQ0hJTERQQVNTOwogICAgICAgICB9IGVsc2UgewpAQCAtOTYsNiAr
-MTAxLDEwIEBAIGludCBtYWluKGludCBhcmdjLCBjaGFyICphcmd2W10pCiAgICAgICAgICAgICAg
-ICAgICAgICAgICBwZXJyb3IoInNpZ2FkZHNldCgpIGZhaWxlZFxuIik7CiAgICAgICAgICAgICAg
-ICAgICAgICAgICByZXR1cm4gUFRTX1VOUkVTT0xWRUQ7CiAgICAgICAgICAgICAgICAgfQorICAg
-ICAgICAgICAgICAgaWYgKHNpZ3Byb2NtYXNrKFNJR19CTE9DSywgJnNldCwgTlVMTCkgPT0gLTEp
-IHsKKyAgICAgICAgICAgICAgICAgICAgICAgcGVycm9yKCJzaWdwcm9jbWFzaygpIGZhaWxlZFxu
-Iik7CisgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiBQVFNfVU5SRVNPTFZFRDsKKyAgICAg
-ICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgIGV2LnNpZ2V2X25vdGlmeSA9IFNJR0VWX1NJ
-R05BTDsKICAgICAgICAgICAgICAgICBldi5zaWdldl9zaWdubyA9IFNJR0FMUk07CkBAIC0xMTks
-OCArMTI4LDEwIEBAIGludCBtYWluKGludCBhcmdjLCBjaGFyICphcmd2W10pCiAgICAgICAgICAg
-ICAgICAgICAgICAgICBwZXJyb3IoInNpZ3dhaXQoKSBmYWlsZWRcbiIpOwogICAgICAgICAgICAg
-ICAgICAgICAgICAgcmV0dXJuIFBUU19VTlJFU09MVkVEOwogICAgICAgICAgICAgICAgIH0KLSAg
-ICAgICAgICAgICAgIHByaW50ZigiR290IGl0ISAgUGFyZW50XG4iKTsKLQorICAgICAgICAgICAg
-ICAgaWYgKHNpZyA9PSBTSUdBTFJNKQorICAgICAgICAgICAgICAgICAgICAgICBwcmludGYoIkdv
-dCBpdCEgIFBhcmVudFxuIik7CisgICAgICAgICAgICAgICBlbHNlCisgICAgICAgICAgICAgICAg
-ICAgICAgIHByaW50ZigiR290IGFub3RoZXIgc2lnbmFsISBQYXJlbnRcbiIpOwoKSG93IGFib3V0
-IHRoaXM/CgpCZXN0IFJlZ2FyZHMKWWFuZyBYdQo+IAo+IFBlcmhhcHMsIHlvdSBuZWVkIHRvIHJl
-c2V0IHRoZSBiZWhhdmlvciBvZiBTSUdBTFJNIHRvIGRlZmF1bHQgaWYgaXQgaXMgCj4gbm90IGRl
-ZmF1bHQuLgo+IAo+IFRoYW5rcywKPiBYaWFvIFlhbmcKPj4gU2lnbmVkLW9mZi1ieTogWWFuZyBY
-dTx4dXlhbmcyMDE4Lmp5QGNuLmZ1aml0c3UuY29tPgo+PiAtLS0KPj4gwqAgLi4uL2Z1bmN0aW9u
-YWwvdGltZXJzL3RpbWVycy90d29wdGltZXJzLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIHwgNCArKy0tCj4+IMKgIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMo
-KyksIDIgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgCj4+IGEvdGVzdGNhc2VzL29wZW5f
-cG9zaXhfdGVzdHN1aXRlL2Z1bmN0aW9uYWwvdGltZXJzL3RpbWVycy90d29wdGltZXJzLmMgCj4+
-IGIvdGVzdGNhc2VzL29wZW5fcG9zaXhfdGVzdHN1aXRlL2Z1bmN0aW9uYWwvdGltZXJzL3RpbWVy
-cy90d29wdGltZXJzLmMKPj4gaW5kZXggODRiZWEzZjBhLi43ZTE2NDhkNWIgMTAwNjQ0Cj4+IC0t
-LSAKPj4gYS90ZXN0Y2FzZXMvb3Blbl9wb3NpeF90ZXN0c3VpdGUvZnVuY3Rpb25hbC90aW1lcnMv
-dGltZXJzL3R3b3B0aW1lcnMuYwo+PiArKysgCj4+IGIvdGVzdGNhc2VzL29wZW5fcG9zaXhfdGVz
-dHN1aXRlL2Z1bmN0aW9uYWwvdGltZXJzL3RpbWVycy90d29wdGltZXJzLmMKPj4gQEAgLTkyLDEz
-ICs5MiwxMyBAQCBpbnQgbWFpbihpbnQgYXJnYywgY2hhciAqYXJndltdKQo+PiDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gUFRTX1VOUkVTT0xWRUQ7Cj4+IMKgwqDCoMKgwqDCoMKg
-wqDCoCB9Cj4+Cj4+IC3CoMKgwqDCoMKgwqDCoCBpZiAoc2lnYWRkc2V0KCZzZXQsIFNJR0FMUk0p
-ID09IC0xKSB7Cj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAoc2lnYWRkc2V0KCZzZXQsIFNJR0lMTCkg
-PT0gLTEpIHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcGVycm9yKCJzaWdhZGRzZXQo
-KSBmYWlsZWRcbiIpOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gUFRTX1VO
-UkVTT0xWRUQ7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCB9Cj4+Cj4+IMKgwqDCoMKgwqDCoMKgwqDC
-oCBldi5zaWdldl9ub3RpZnkgPSBTSUdFVl9TSUdOQUw7Cj4+IC3CoMKgwqDCoMKgwqDCoCBldi5z
-aWdldl9zaWdubyA9IFNJR0FMUk07Cj4+ICvCoMKgwqDCoMKgwqDCoCBldi5zaWdldl9zaWdubyA9
-IFNJR0lMTDsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlmICh0aW1lcl9jcmVhdGUoQ0xPQ0tfUkVB
-TFRJTUUsJmV2LCZ0aWQpICE9IDApIHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcGVy
-cm9yKCJ0aW1lcl9jcmVhdGUoKSBkaWQgbm90IHJldHVybiBzdWNjZXNzXG4iKTsKPj4gwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIFBUU19VTlJFU09MVkVEOwo+IAoKCgotLSAKTWFp
-bGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+On 13-03-20, 13:49, Cyril Hrubis wrote:
+> > +static void run(unsigned int n)
+> > +{
+> > +	struct tcase *tc = &tcases[n];
+> > +	int fd, fsmfd, otfd;
+> > +
+> > +	TEST(fd = fsopen(tst_device->fs_type, 0));
+> > +	if (fd == -1) {
+> > +		tst_res(TFAIL | TERRNO, "fsopen() failed");
+> > +		return;
+> > +	}
+> > +
+> > +	TEST(fsconfig(fd, FSCONFIG_SET_STRING, "source", tst_device->dev, 0));
+> > +	if (TST_RET == -1) {
+> > +		SAFE_CLOSE(fd);
+> > +		tst_res(TFAIL | TERRNO, "fsconfig() failed");
+> > +		return;
+> > +	}
+> > +
+> > +	TEST(fsconfig(fd, FSCONFIG_CMD_CREATE, NULL, NULL, 0));
+> > +	if (TST_RET == -1) {
+> > +		SAFE_CLOSE(fd);
+> > +		tst_res(TFAIL | TERRNO, "fsconfig() failed");
+> > +		return;
+> > +	}
+> > +
+> > +	TEST(fsmfd = fsmount(fd, 0, 0));
+> > +	SAFE_CLOSE(fd);
+> > +
+> > +	if (fsmfd == -1) {
+> > +		tst_res(TFAIL | TERRNO, "fsmount() failed");
+> > +		return;
+> > +	}
+> > +
+> > +	TEST(move_mount(fsmfd, "", AT_FDCWD, MNTPOINT,
+> > +			MOVE_MOUNT_F_EMPTY_PATH));
+> > +	SAFE_CLOSE(fsmfd);
+> 
+> Here as well, shouldn't we just set the .mount_device flag instead?
+
+Hi,
+
+Sorry but I am not sure what will happen by .mount_device here. From
+what I see from tst_test.c, that flag will end up calling SAFE_MOUNT()
+automatically, but what we are calling here is fsmount() and
+move_mount() instead.
+
+Can you please elaborate a bit on that ? Thanks.
+
+-- 
+viresh
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
