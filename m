@@ -2,48 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8051D18C7FD
-	for <lists+linux-ltp@lfdr.de>; Fri, 20 Mar 2020 08:09:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5840B18C828
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Mar 2020 08:32:33 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4783D3C538D
-	for <lists+linux-ltp@lfdr.de>; Fri, 20 Mar 2020 08:09:08 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 288EF3C538E
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Mar 2020 08:32:33 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 9AFE53C5382
- for <ltp@lists.linux.it>; Fri, 20 Mar 2020 08:09:05 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id F399C6011EF
- for <ltp@lists.linux.it>; Fri, 20 Mar 2020 08:09:03 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.72,283,1580745600"; d="scan'208";a="86657038"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 20 Mar 2020 15:08:55 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id A5E4D49DF126
- for <ltp@lists.linux.it>; Fri, 20 Mar 2020 14:58:47 +0800 (CST)
-Received: from G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.83) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Fri, 20 Mar 2020 15:08:55 +0800
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Fri, 20 Mar 2020 15:08:53 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Fri, 20 Mar 2020 15:08:49 +0800
-Message-ID: <1584688129-31873-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 30F573C537E
+ for <ltp@lists.linux.it>; Fri, 20 Mar 2020 08:32:31 +0100 (CET)
+Received: from us-smtp-delivery-74.mimecast.com
+ (us-smtp-delivery-74.mimecast.com [63.128.21.74])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 2FD82201488
+ for <ltp@lists.linux.it>; Fri, 20 Mar 2020 08:32:29 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1584689548;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=EqvwlkR8xa3z5T/hjocUzXONfNI+IdclxNx7EzDeXpc=;
+ b=ZMEgvCZfQRQY1geEtbv5EMQvZfuaRzauzPZNawJ9LvTGQAmSXduhULvTWDOaMz2Ma9pyUr
+ CNvylfeC9xyChOt7NRGzgu2tyNkBSS9t6+4zrKFPt5K8i/2cKCdHzXMR0FkG6HEIRMznKC
+ MLDrbhvsG2wnU83B5gnBrx6LC6vDkcY=
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
+ [209.85.167.198]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-460-4F5c5xHCPH-ahy9WAsEdMQ-1; Fri, 20 Mar 2020 03:32:25 -0400
+X-MC-Unique: 4F5c5xHCPH-ahy9WAsEdMQ-1
+Received: by mail-oi1-f198.google.com with SMTP id s10so3410354oie.22
+ for <ltp@lists.linux.it>; Fri, 20 Mar 2020 00:32:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=xG3XeuCWFhe4/dEJA4FgFGJfSJ8mD2Yi/o24ztyMgGY=;
+ b=JS2MCAsfK9EgNBbvfwge04sJJMG3U/6FlB8Ou3TVLKwPaIJFASLPap8y9Xt3qvibks
+ a165QLEcBniAcQ7W9dF5EFR40lfZm9NW3yGCHVqkz213w/qp1nHQvhtIQnLdrf04iho3
+ 3BbwbvPQChUGmQqGa8DGgcwqLCQih8yz8sxnr2TWikQ4ESSgKl7KdMOWEOdjRHkNsFbf
+ ppBcTdQTs0wYavwKaeCA0eupsZUi+dGkfoO2vxOPM5+JUes/KgwcO4kOXQHJMeHnphxw
+ 2n+gWLtMYJu5hT2N54D0pZ+OtzHXRvKL7KruFiRz9ccVzUURAk/IaHBAoJW0ieHZYIvN
+ q5hA==
+X-Gm-Message-State: ANhLgQ3tw3VhC90bPExkFEFCJ50c6qF0MwmZj0C72Ze1JthMRjflCJ9n
+ nvFsdsFAQD7dN7vq9j8qrfqP7pLI45n4IbUh9QlCFWerXy6ExnmSdjXPyRkBU9ib3zV88s82+Cn
+ g4LRNr9bHbR8t+RDoqRIXOgdHA0Y=
+X-Received: by 2002:aca:484c:: with SMTP id v73mr5091217oia.138.1584689544578; 
+ Fri, 20 Mar 2020 00:32:24 -0700 (PDT)
+X-Google-Smtp-Source: ADFU+vufPQmwsbwYIxk9fxyeuKcKGkcdEctphvu20qY1LhfJqQi3UDuOhT+VNK7IQoKMgKbUlYsnE1AmvVP340x6260=
+X-Received: by 2002:aca:484c:: with SMTP id v73mr5091203oia.138.1584689544202; 
+ Fri, 20 Mar 2020 00:32:24 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-yoursite-MailScanner-ID: A5E4D49DF126.A0FB4
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+References: <20200318153801.3529-1-chrubis@suse.cz>
+ <20200318153801.3529-6-chrubis@suse.cz>
+ <CAEemH2f_Md7hkEWgLYABD+TLbDJvvR-aMfuuNqLNeyWSWK1EnQ@mail.gmail.com>
+ <20200319220006.GA29386@yuki.lan>
+In-Reply-To: <20200319220006.GA29386@yuki.lan>
+From: Li Wang <liwang@redhat.com>
+Date: Fri, 20 Mar 2020 15:32:11 +0800
+Message-ID: <CAEemH2fLbXBCLSJB5CnSb4ta_PVDunae4UH+ZR8_fj6SM4i4Ng@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] clocks/invaliddates.c: Remove outdated clock time
- setting
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 5/9] syscalls/sysinfo03: Add time namespace test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,55 +80,80 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0710743508=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-For CLOCK_REALTIME, attempting to set the time to a value less than
-the current value of the CLOCK_MONOTONIC will trigger a EINVAL error
-since linux 4.3. Remove zero and also increase threshold for delta with
-personal experience.
+--===============0710743508==
+Content-Type: multipart/alternative; boundary="0000000000005ca30c05a14449bd"
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- .../functional/timers/clocks/invaliddates.c                | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+--0000000000005ca30c05a14449bd
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/testcases/open_posix_testsuite/functional/timers/clocks/invaliddates.c b/testcases/open_posix_testsuite/functional/timers/clocks/invaliddates.c
-index 2ebf7f0b0..face334fd 100644
---- a/testcases/open_posix_testsuite/functional/timers/clocks/invaliddates.c
-+++ b/testcases/open_posix_testsuite/functional/timers/clocks/invaliddates.c
-@@ -5,7 +5,7 @@
-  * of this license, see the COPYING file at the top level of this
-  * source tree.
-  *
-- * Test that the clock time can be set to 0, a large number, Y2K
-+ * Test that the clock time can be set to a large number, Y2K
-  * critical dates, and times around daylight savings.
-  *
-  * Test for CLOCK_REALTIME.  (N/A for CLOCK_MONOTONIC as that clock
-@@ -16,13 +16,12 @@
- #include <stdint.h>
- #include "posixtest.h"
- 
--#define NUMTESTS 6
-+#define NUMTESTS 5
- 
- #define ACCEPTABLESECDELTA 0
--#define ACCEPTABLENSECDELTA 5000
-+#define ACCEPTABLENSECDELTA 5000000
- 
- static int testtimes[NUMTESTS][2] = {
--	{0, 0},			// zero
- 	{INT32_MAX, 999999999},	// large number
- 	{946713600, 999999999},	// Y2K - Jan 1, 2000
- 	{951811200, 999999999},	// Y2K - Feb 29, 2000
--- 
-2.18.1
+Hi Cyril,
+
+On Thu, Mar 19, 2020 at 10:04 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+
+> ...
+> > Ending with '{}' in tags struct?
+>
+> Of course, thanks for catching that!
+>
+
+Thanks, and don't forget to fix in rest patches too.
 
 
+>
+> I will fix these before applying, if the patchset is acked otherwise.
+>
+
+I have finished all the patches' reviews. Nice patchset!
+LGTM.
+
+--=20
+Regards,
+Li Wang
+
+--0000000000005ca30c05a14449bd
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi Cyril,</div></div><br><div class=3D"gmail_quote"><div dir=
+=3D"ltr" class=3D"gmail_attr">On Thu, Mar 19, 2020 at 10:04 PM Cyril Hrubis=
+ &lt;<a href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br><=
+/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
+rder-left:1px solid rgb(204,204,204);padding-left:1ex"><span class=3D"gmail=
+_default" style=3D"font-size:small">...</span><br>
+&gt; Ending with &#39;{}&#39; in tags struct?<br>
+<br>
+Of course, thanks for catching that!<br></blockquote><div><br></div><div><d=
+iv class=3D"gmail_default" style=3D"font-size:small">Thanks, and don&#39;t =
+forget to fix in rest patches too.</div></div><div>=C2=A0</div><blockquote =
+class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px sol=
+id rgb(204,204,204);padding-left:1ex">
+<br>
+I will fix these before applying, if the patchset is acked otherwise.<br></=
+blockquote><div><br></div><div class=3D"gmail_default" style=3D"font-size:s=
+mall">I have finished all the patches&#39; reviews.=C2=A0Nice patchset!</di=
+v><div class=3D"gmail_default" style=3D"font-size:small">LGTM.</div></div><=
+div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D=
+"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--0000000000005ca30c05a14449bd--
+
+
+--===============0710743508==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0710743508==--
+
