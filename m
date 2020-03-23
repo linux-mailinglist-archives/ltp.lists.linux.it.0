@@ -1,53 +1,92 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E88DF18F22A
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Mar 2020 10:52:52 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C185E18F24A
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Mar 2020 11:01:00 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6D60D3C4E68
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Mar 2020 10:52:52 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2CAA53C4E5E
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Mar 2020 11:01:00 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id AC7543C0796
- for <ltp@lists.linux.it>; Mon, 23 Mar 2020 10:52:48 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 32E65600A4D
- for <ltp@lists.linux.it>; Mon, 23 Mar 2020 10:52:46 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.72,295,1580745600"; d="scan'208";a="86904688"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 23 Mar 2020 17:52:43 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id BAF8B49DF125;
- Mon, 23 Mar 2020 17:42:30 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 23 Mar 2020 17:52:42 +0800
-To: Li Wang <liwang@redhat.com>, Petr Vorel <pvorel@suse.cz>
-References: <20200320134937.16616-1-pvorel@suse.cz>
- <20200320134937.16616-2-pvorel@suse.cz>
- <CAEemH2f7TB9sMt-+YE2zF5KztT4O64VN9L4AZWdS3nU1uJX5_w@mail.gmail.com>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <303d1019-f836-b2ae-ce51-d2c46dd7fb1e@cn.fujitsu.com>
-Date: Mon, 23 Mar 2020 17:52:37 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 231E33C4E33
+ for <ltp@lists.linux.it>; Mon, 23 Mar 2020 11:00:51 +0100 (CET)
+Received: from IND01-MA1-obe.outbound.protection.outlook.com
+ (mail-eopbgr1380127.outbound.protection.outlook.com [40.107.138.127])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 88497601033
+ for <ltp@lists.linux.it>; Mon, 23 Mar 2020 11:00:50 +0100 (CET)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ev7/+PcQbGh/+y/Mc7BkiH43amLMyoq/k3btO9Lr2bVlqBe0NdpT+9zmeAlsY8ZlJLF92nf/yGmVNAC1fnmN2kSXQ6szVT/W3CMIE+VAEyD0tnICrbF9gbTovtlPMIIrWHAneCyx5RqkJc+3B5ve+bCwRZF7TaEGiDbxnVySI/r+UXVLvcJtNMPPqlTbSb9U5+LUDcOP3AFcQ/4ZGFz55oRebUR5XDZOWSLBNHdNEaEaXe0WI/LfJGZNjokXkgS0mJW7WrryrZRgW1SnwVQuYMBdVqBBYAACUIjnShrfklQB5XwbC839IQ7++EeNdziJHeOen2Mv1yfU7gm6v9DvTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+tcqlj49bS7enqNGJ/0pp/1jdCfiTpsLznNPWMxjl0w=;
+ b=Uub8eqNMn/XR4Qbv5o68esbK6/R9WYL2cwtmNBuomH9b3cvDtrqh+qHLRnabez+SiUNqTLx8kEUOT/PBrM4ldiRasp+BzdjSs34Po41UfgoXCSYcOR8JtnLc5qgSPZDVoGA1rWUdOxA/ShKNCqJlDbOlmRzeCLdcloQQmxTx7Qzmss93N43pdIY51HA5IqBZu6mtD9+LwxtbdgQCOe8VTW75JnmZF78rnQ+JQDrlxDhsA/pDKV3vn8Qw8l/Nb4+ARZmhmctcM7MAxhglrDUlSIf5LVIRaZEgQiKa6QVt5+hMNXAGIN1a1KiXgtnsHJGnukGBpfj5W+VMjA9aqD3HKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=exaleapsemi.com; dmarc=pass action=none
+ header.from=exaleapsemi.com; dkim=pass header.d=exaleapsemi.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=exaleapsemi.onmicrosoft.com; s=selector2-exaleapsemi-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+tcqlj49bS7enqNGJ/0pp/1jdCfiTpsLznNPWMxjl0w=;
+ b=zp8VbKCNb8BrjfctUuGcVcH1uUzfeQBlpsOy/9zUUi7H1y0mU7wrtZLJeu0CZPgGkDps0NBagrAl0a2D1u4kr3534PaEmxJE/k5gP/xhOa9D7xmNxt4se02AbHNBOSDnG/1Ll2DjyNfHk8bzpQkYG3XQFfnZG+NBtEA2jdqrS54=
+Received: from MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM (52.134.133.8) by
+ MAXPR0101MB1625.INDPRD01.PROD.OUTLOOK.COM (52.134.131.18) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2835.18; Mon, 23 Mar 2020 10:00:47 +0000
+Received: from MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::ace1:f4f2:a1c6:20d7]) by MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::ace1:f4f2:a1c6:20d7%12]) with mapi id 15.20.2835.021; Mon, 23 Mar
+ 2020 10:00:47 +0000
+From: "Pankaj  Vinadrao Joshi" <Pankaj.VJ@exaleapsemi.com>
+To: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Thread-Topic: cpio01_sh testcase failure
+Thread-Index: AQHWAPmNIXVB67Y/QUyQZovg2rhRUA==
+Date: Mon, 23 Mar 2020 10:00:46 +0000
+Message-ID: <MAXPR0101MB1468BC364EA06FEE7D6F217CEEF00@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Pankaj.VJ@exaleapsemi.com; 
+x-originating-ip: [157.33.34.95]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: be7b8ba9-2c14-49f2-6b68-08d7cf110f1e
+x-ms-traffictypediagnostic: MAXPR0101MB1625:
+x-microsoft-antispam-prvs: <MAXPR0101MB1625F9572972064C58BDCBDFEEF00@MAXPR0101MB1625.INDPRD01.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:117;
+x-forefront-prvs: 0351D213B3
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(366004)(39830400003)(396003)(346002)(136003)(376002)(199004)(26005)(19627405001)(8936002)(71200400001)(33656002)(76116006)(91956017)(66476007)(9686003)(186003)(66556008)(66946007)(66446008)(64756008)(508600001)(86362001)(55016002)(316002)(2906002)(7116003)(7696005)(5660300002)(6506007)(6916009)(8676002)(52536014)(81166006)(81156014);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:MAXPR0101MB1625;
+ H:MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; 
+received-spf: None (protection.outlook.com: exaleapsemi.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ZPUsJZ8Io2T8mkx70v+3B1FOvk7ySAJ96WB3XRE47x2Jy9w5oiFdX5lyPMhe41e659MeKMuf1sMwQHJTTtq1q+yn6jgxoWlyGV1ZVEtp29G0W3eLbQX6bXN1RUu3o5+fvuzOk8ikMOYYNidv7Ar5Xqe/zGRZMylxo7jgXy3qdliN+OQXQvZ/bg6L0HlQsJY5SyIGKx4HhkoGCE76uqhG8l59Xfrmnlgl8fi+8mKgl+AIq8y+leuIYhxRhiu3QT0UiT/gidtQQzL3AecCzKs2m9edwHcxumnxknfPl7qBizFnZJVyuaPC0OmfIF1hv5LG7uIoQHwSZb21wXvQ2ZMeYFBFZGiGyjocqcW3d3NC78+7RVJZVBiWJEQK9IJZR9jAkgvyB5mSMUTPtH2PVStL6+L6ypmajroiMgsAJ6nc7f4VTzamohb/Ny4covjYq5bb
+x-ms-exchange-antispam-messagedata: WZQRi9iz3dIAGE6TvwWWEvClRiwMV7Og0oK2y4KGPrPKEc31/u97579nySRadBu0dAcPOgvVlyGLrQfkJAtf9g+wD9V/KVCZi7bgUXb5o9jc/kGRb08tz+dHfI8Co3g4vwi9Ygi9T3HKupS+jaQglw==
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-In-Reply-To: <CAEemH2f7TB9sMt-+YE2zF5KztT4O64VN9L4AZWdS3nU1uJX5_w@mail.gmail.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: BAF8B49DF125.A031C
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
+X-OriginatorOrg: exaleapsemi.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: be7b8ba9-2c14-49f2-6b68-08d7cf110f1e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2020 10:00:46.9680 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 34df156e-9bc4-4450-9e80-487c0e7f9471
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: gguH6ueOpb/vrDVxRBfrVJDysd1H8XsWPUhJgm5zF1yFkgeouzvEGxzeUxEmMyCwTitvZyXKQXEsb1eNYHSiy19UwjUQfj4RetMmdqNL1y0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAXPR0101MB1625
 X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] Use SAFE_RUNCMD()
+Subject: [LTP] cpio01_sh testcase failure
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,33 +98,207 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============1537582104=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgTGkKCgo+IEhpIFBldHIsCj4gCj4gT24gRnJpLCBNYXIgMjAsIDIwMjAgYXQgOTo1MCBQTSBQ
-ZXRyIFZvcmVsIDxwdm9yZWxAc3VzZS5jego+IDxtYWlsdG86cHZvcmVsQHN1c2UuY3o+PiB3cm90
-ZToKPiAKPiAgICAgU2lnbmVkLW9mZi1ieTogUGV0ciBWb3JlbCA8cHZvcmVsQHN1c2UuY3ogPG1h
-aWx0bzpwdm9yZWxAc3VzZS5jej4+Cj4gICAgIC0tLQo+ICAgICAgwqB0ZXN0Y2FzZXMva2VybmVs
-L3N5c2NhbGxzL2FkZF9rZXkvYWRkX2tleTA1LmPCoCDCoHwgMTUgKystLS0tLS0tLS0tLS0tCj4g
-ICAgICDCoHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcXVvdGFjdGwvcXVvdGFjdGwwMS5jIHwg
-MTQgKystLS0tLS0tLS0tLS0KPiAgICAgIMKgdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9xdW90
-YWN0bC9xdW90YWN0bDA2LmMgfCAxMiArLS0tLS0tLS0tLS0KPiAKPiAKPiBBcGFydCBmcm9tIHRo
-ZSB0aHJlZSwgZG8geW91IGNvbnNpZGVyIGNvbnZlcnRpbmcgdG8gU0FGRV9SVU5DTUQgZm9yIHRo
-ZSAKPiByZXN0IHRlc3RjYXNlcz8KPiAoaXQgc2VlbXMgbm90IHRvbyBtdWNoIHdvcmsgcmVtYWlu
-aW5nIHNpbmNlIG9ubHkgYSBmZXcgdGVzdCBjYXNlIHVzZXMgCj4gdHN0X3J1bl9jbWQpCkF0IHRo
-ZSBiZWdpbm5pbmcsIEkgaGF2ZSB0aGUgc2FtZSBpZGVhLiBCdXQgYWZ0ZXIgc2VlaW5nIGNvZGUs
-IEkgdGhpbmsgCndlIHNob3VsZCBub3QgYmVjYXVzZSB0aGVzZSBjYXNlcyBoYXZlIG1hbnkgc3Vi
-IHRlc3RzKG9ubHkgZmV3IHRlc3QgCmRlcG9uZHMgb24gdGhlIHJlc3VsdCBvZiB0aGUgY21kIGV4
-ZWN1dGlvbi4KPiAKPiBrZXJuZWwvc3lzY2FsbHMvc2V0cHJpb3JpdHkvc2V0cHJpb3JpdHkwMS5j
-Ck9uZSB5ZWFyIGFnbyBoYXMgYSBjb21taXQgZGI4MmI1OTYoc2V0cHJpb3JpdHkwMTogU2tpcCBv
-bmx5IFBSSU9fVVNFUiAKd2hlbiB1bmFibGUgdG8gYWRkIHRlc3QgdXNlcikuIEl0IG9ubHkgYWZm
-ZWN0cyBQUklPX1VTRVIgc3ViIHRlc3QuCj4ga2VybmVsL3N5c2NhbGxzL2NvcHlfZmlsZV9yYW5n
-ZS9jb3B5X2ZpbGVfcmFuZ2UwMi5jCm9ubHkgYWZmZWN0IHRlc3Q2IGFuZCB0ZXN0NwogIDYpIFRy
-eSB0byBjb3B5IGNvbnRlbnRzIHRvIGEgZmlsZSBjaGF0dHJlZCB3aXRoICtpCiAgKiAgICBmbGFn
-IC0+IEVQRVJNCiAgKiA3KSBUcnkgdG8gY29weSBjb250ZW50cyB0byBhIHN3YXBmaWxlIC0+RVRY
-VEJTWQoKCkJlc3QgUmVnYXJkcwpZYW5nIFh1Cgo+IC4uLgo+IAo+IAo+IC0tIAo+IFJlZ2FyZHMs
-Cj4gTGkgV2FuZwo+IAo+IAoKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMu
-bGludXguaXQvbGlzdGluZm8vbHRwCg==
+--===============1537582104==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MAXPR0101MB1468BC364EA06FEE7D6F217CEEF00MAXPR0101MB1468_"
+
+--_000_MAXPR0101MB1468BC364EA06FEE7D6F217CEEF00MAXPR0101MB1468_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+i am running cpio01_sh testcase on RISC v with our customized yocto distro =
+i am getting following failure i am usinf LTP version  20200120-105-gae32c0=
+7c4
+can someone help us to rectify
+sage: cpio [-dmvu] [-F FILE] [-R USER[:GRP]] [-ti] [EXTR_FILE]...
+cpio_tests 1 TFAIL: cpio -o > cpio.out < filelist failed unexpectedly
+cpio_tests 1 TPASS: cpio -i < cpio.out passed as expected
+Only in dir_orig: a
+Only in dir_orig: b
+Only in dir_orig: c
+Only in dir_orig: d
+Only in dir_orig: e
+Only in dir_orig: f
+Only in dir_orig: g
+Only in dir_orig: h
+Only in dir_orig: i
+Only in dir_orig: j
+Only in dir_orig: k
+Only in dir_orig: l
+Only in dir_orig: m
+Only in dir_orig: n
+Only in dir_orig: o
+Only in dir_orig: p
+Only in dir_orig: q
+Only in dir_orig: r
+Only in dir_orig: s
+Only in dir_orig: t
+Only in dir_orig: u
+Only in dir_orig: v
+Only in dir_orig: w
+Only in dir_orig: x
+Only in dir_orig: y
+Only in dir_orig: z
+cpio_tests 1 TFAIL: Directories dir and dir_orig differ
+dir_orig:
+a  b  c  d  e  f  g  h i  j  k  l  m  n  o  p q  r  s  t  u  v  w  x y  z
+
+dir:
+
+Summary:
+passed   1
+failed   2
+skipped  0
+warnings 0
+<<<execution_status>>>
+initiation_status=3D"ok"
+
+
+Thanks!
+
+--_000_MAXPR0101MB1468BC364EA06FEE7D6F217CEEF00MAXPR0101MB1468_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Hi,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+i am running cpio01_sh testcase on RISC v with our customized yocto distro =
+i am getting following failure i am usinf LTP version &nbsp;20200120-105-ga=
+e32c07c4<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+can someone help us to rectify<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span>sage: cpio [-dmvu] [-F FILE] [-R USER[:GRP]] [-ti] [EXTR_FILE]...<br>
+</span>
+<div>cpio_tests 1 TFAIL: cpio -o &gt; cpio.out &lt; filelist failed unexpec=
+tedly<br>
+</div>
+<div>cpio_tests 1 TPASS: cpio -i &lt; cpio.out passed as expected<br>
+</div>
+<div>Only in dir_orig: a<br>
+</div>
+<div>Only in dir_orig: b<br>
+</div>
+<div>Only in dir_orig: c<br>
+</div>
+<div>Only in dir_orig: d<br>
+</div>
+<div>Only in dir_orig: e<br>
+</div>
+<div>Only in dir_orig: f<br>
+</div>
+<div>Only in dir_orig: g<br>
+</div>
+<div>Only in dir_orig: h<br>
+</div>
+<div>Only in dir_orig: i<br>
+</div>
+<div>Only in dir_orig: j<br>
+</div>
+<div>Only in dir_orig: k<br>
+</div>
+<div>Only in dir_orig: l<br>
+</div>
+<div>Only in dir_orig: m<br>
+</div>
+<div>Only in dir_orig: n<br>
+</div>
+<div>Only in dir_orig: o<br>
+</div>
+<div>Only in dir_orig: p<br>
+</div>
+<div>Only in dir_orig: q<br>
+</div>
+<div>Only in dir_orig: r<br>
+</div>
+<div>Only in dir_orig: s<br>
+</div>
+<div>Only in dir_orig: t<br>
+</div>
+<div>Only in dir_orig: u<br>
+</div>
+<div>Only in dir_orig: v<br>
+</div>
+<div>Only in dir_orig: w<br>
+</div>
+<div>Only in dir_orig: x<br>
+</div>
+<div>Only in dir_orig: y<br>
+</div>
+<div>Only in dir_orig: z<br>
+</div>
+<div>cpio_tests 1 TFAIL: Directories dir and dir_orig differ<br>
+</div>
+<div>dir_orig:<br>
+</div>
+<div>a &nbsp;b &nbsp;c &nbsp;d &nbsp;e &nbsp;f &nbsp;g &nbsp;h i &nbsp;j &n=
+bsp;k &nbsp;l &nbsp;m &nbsp;n &nbsp;o &nbsp;p q &nbsp;r &nbsp;s &nbsp;t &nb=
+sp;u &nbsp;v &nbsp;w &nbsp;x y &nbsp;z<br>
+</div>
+<div><br>
+</div>
+<div>dir:<br>
+</div>
+<div><br>
+</div>
+<div>Summary:<br>
+</div>
+<div>passed &nbsp; 1<br>
+</div>
+<div>failed &nbsp; 2<br>
+</div>
+<div>skipped &nbsp;0<br>
+</div>
+<div>warnings 0<br>
+</div>
+<div>&lt;&lt;&lt;execution_status&gt;&gt;&gt;<br>
+</div>
+<div>initiation_status=3D&quot;ok&quot;<br>
+</div>
+<span><br>
+</span></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span><br>
+</span></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<span>Thanks!</span><br>
+</div>
+</body>
+</html>
+
+--_000_MAXPR0101MB1468BC364EA06FEE7D6F217CEEF00MAXPR0101MB1468_--
+
+--===============1537582104==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1537582104==--
