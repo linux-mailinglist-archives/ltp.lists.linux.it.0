@@ -1,70 +1,72 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F57D190133
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Mar 2020 23:50:07 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id E5D9119017E
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Mar 2020 00:03:12 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DA4F53C4E5E
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Mar 2020 23:50:06 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 97F193C4E54
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Mar 2020 00:03:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 592BC3C4E5B
- for <ltp@lists.linux.it>; Mon, 23 Mar 2020 23:49:45 +0100 (CET)
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id D45F23C0796
+ for <ltp@lists.linux.it>; Tue, 24 Mar 2020 00:03:09 +0100 (CET)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D6AB314002B3
- for <ltp@lists.linux.it>; Mon, 23 Mar 2020 23:49:44 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id z18so1283535wmk.2
- for <ltp@lists.linux.it>; Mon, 23 Mar 2020 15:49:44 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D6702600A49
+ for <ltp@lists.linux.it>; Tue, 24 Mar 2020 00:03:08 +0100 (CET)
+Received: by mail-wr1-x442.google.com with SMTP id b2so19228478wrj.10
+ for <ltp@lists.linux.it>; Mon, 23 Mar 2020 16:03:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=COqNbTj9UiYGL8LXUAOb1ZjGNmbPxO6A7eWXMSqpqF8=;
- b=C5oSf63V8A8ePJGBJRtNMwrw+z7Uft+MbKeZeUnQnnfmKDPuvQCOuBhUJDFYbrj8ud
- WTKFD8QwYcumu1HOF2KRqXcLeIw+SIhBZnuslqHpXwHF28PWNYSBg3yp168c9t4tw39G
- l7BGdBAvyJL0Xau84PaKMxFP4nVW0QuIu33iFnpbx/uR8e/cAn50NFTT1xW5y+ICETaD
- dGxdHlwcTuGxL0TSxFhCAtMhupdh+5EJjhkVPXo/0eBZnML5AWiCHmT7SGPP+jy9iOGx
- jjamErkD297eaGera2DJIFa9F25erambNgBBrkMsooJM726x7hPFvhpNAxQvrtTRWfqB
- +0qg==
+ h=date:from:to:subject:message-id:reply-to:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=KI+HwN4pYozCPAUAZAlH+FrSwEyrI4hnz9Jdb0y+/W0=;
+ b=U2HkoDg4Q/f+MdRleJK7DM5b8M9dHQjkCfsdIaht6IuH9BkAJYubKQg+rl4ypE3s5t
+ 1nSrlW4k/Q64XMGdG2l5i3HT6tze9FIAvcznNHPpD/0vCE4YwBSsssetcjdLbWzjjjRv
+ vPxISf01KcouP6xfE+ynOoeC4p34KoMd7hq3hkEjbgYjHg1PAbezoeYN9/tRZf0tWrI+
+ i83mPdCNC2O6pVbdLd16NUnUYYt8iOSneyS8+xFpJrlOPhU1DNs2qEO6tzoBqRuscQRt
+ lnYQSGKFMyh/PWeBeQII6eOQdPuNtZx/q4z1ZsVT7Aq/KJFRnip0KGeHJ/atBMdpyYXy
+ rpnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=COqNbTj9UiYGL8LXUAOb1ZjGNmbPxO6A7eWXMSqpqF8=;
- b=bWTTCPSFH0ZXo5BvVXlI1Yo5TORux8/BTc8Qa+rr12v+8DiqPecQYeAhVO7Au96u4P
- d4jYRR3Pi1g7irJ3vQSHzCOn6Aot9VaJXuLAgjXoMn6RpZ+2+GxpcMuYmc5WHRsNg8jc
- 42MSdZAQaZIflQ74rsZpTpwfMUOFSPov4G/MBJZISyVCgRSaMcSIyI0Wk+y7pgrP11lE
- VrgbelclGW2DyK+Jfloo/cfleV2+RX+chRVdMYy8MK4IP9Y8GPha+gqM6b3lC1LuE1IU
- igKcIWGrSTQzbistX3Td5A3MFzD0JEU/K0yIq9CeKFUUVWJjK3DMeEmqb3yPds8uAZeo
- pLwA==
-X-Gm-Message-State: ANhLgQ2p+XurIXb8CZEkS3/HAW/yV+2F9Ahey/rAl/1HLrmLtA/VtI9Z
- sH57u0EyZDMuT/+x98LqPaehmOAP
-X-Google-Smtp-Source: ADFU+vs/BNQm43vJYWp3RY7P5230azV0rLe0pzHL48RtbnZQ8miJGiMKvEmIAlBKAs01e6RSNW8f5w==
-X-Received: by 2002:a1c:4d16:: with SMTP id o22mr1881692wmh.56.1585003784016; 
- Mon, 23 Mar 2020 15:49:44 -0700 (PDT)
-Received: from localhost.localdomain ([62.201.25.198])
- by smtp.gmail.com with ESMTPSA id k15sm2782317wrm.55.2020.03.23.15.49.42
+ h=x-gm-message-state:date:from:to:subject:message-id:reply-to
+ :references:mime-version:content-disposition:in-reply-to;
+ bh=KI+HwN4pYozCPAUAZAlH+FrSwEyrI4hnz9Jdb0y+/W0=;
+ b=I/HzVZYnQ1Ke3d71uj7+Xm18jMhAhKQLKTLpYiUP7k1WFjfxMjs3kptG/z6za/dORl
+ jaELxtpGP6pOQJtLPf7y6q1Zju7MwwOVmLn1sQQscmx2PaKLwW5A8omlQRKadCVa5I2B
+ AvsGkX/UcMPBgf0TL8zCJaaPEn7ylymeJFcxR823I/21BA7x8LuYqhyCQh/mJMjjaBOw
+ nLF+xJbgxo2FKZn0SbYDKcr2xIS8sqxz5Hlw0iF/kuTi9crp5t8yWRfaQrZTl3Vq1CTf
+ ara4GK5K+GWQeTTWNDnTTYK4o+fQyuhiN8MYP96KSOhu9FMW4+JkG6ulQBNIAGMvaqgX
+ 2LwQ==
+X-Gm-Message-State: ANhLgQ2gBVKuTYJuEUXwi5SM+cESIYrrc8uZE6vLhp8OIL/PjhkX37j5
+ 852BAhSXzuJmYpw+hM9P0Nu63Q2p
+X-Google-Smtp-Source: ADFU+vvlRqhSDYxouxRrm1DS2ZauXAcat34KWgi4QH9DPbo4hAsRDq9Eg5f1Qm19417OhHzcnLXv9w==
+X-Received: by 2002:adf:fc8a:: with SMTP id g10mr32109980wrr.82.1585004588115; 
+ Mon, 23 Mar 2020 16:03:08 -0700 (PDT)
+Received: from x230 ([62.201.25.198])
+ by smtp.gmail.com with ESMTPSA id c7sm26592712wro.75.2020.03.23.16.03.07
+ for <ltp@lists.linux.it>
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Mar 2020 15:49:43 -0700 (PDT)
+ Mon, 23 Mar 2020 16:03:07 -0700 (PDT)
+Date: Tue, 24 Mar 2020 00:03:05 +0100
 From: Petr Vorel <petr.vorel@gmail.com>
 To: ltp@lists.linux.it
-Date: Mon, 23 Mar 2020 23:49:33 +0100
-Message-Id: <20200323224933.2613658-3-petr.vorel@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200323224933.2613658-1-petr.vorel@gmail.com>
+Message-ID: <20200323230305.GA2696136@x230>
 References: <20200323224933.2613658-1-petr.vorel@gmail.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200323224933.2613658-1-petr.vorel@gmail.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/3] travis: Update musl build
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/3] accept4: Use tst_variant
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,33 +78,25 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <petr.vorel@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-accept4_01.c was fixed in previous build.
+Hi,
 
-Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
----
- travis/alpine.sh | 1 -
- 1 file changed, 1 deletion(-)
+> I guess __NR_socketcall is for x86 and other old architectures,
+> but we still want to use it, right?
 
-diff --git a/travis/alpine.sh b/travis/alpine.sh
-index 233dae78e..b2c1fff9e 100755
---- a/travis/alpine.sh
-+++ b/travis/alpine.sh
-@@ -30,7 +30,6 @@ echo "WARNING: remove unsupported tests (until they're fixed)"
- cd ..
- rm -rfv \
- 	testcases/kernel/sched/process_stress/process.c \
--	testcases/kernel/syscalls/accept4/accept4_01.c \
- 	testcases/kernel/syscalls/confstr/confstr01.c \
- 	testcases/kernel/syscalls/fmtmsg/fmtmsg01.c \
- 	testcases/kernel/syscalls/getcontext/getcontext01.c \
--- 
-2.25.1
+Maybe I should have kept just 2 variants (libc implementation and only one
+syscall implementation) and chose the correct syscall implementation with
+#ifdef SYS_ACCEPT4
 
+Or is there arch which supports both syscall variants?
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
