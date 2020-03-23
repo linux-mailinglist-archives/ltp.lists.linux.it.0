@@ -2,44 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 518C518F933
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Mar 2020 17:04:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 334CF18F960
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Mar 2020 17:11:35 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D47C93C4E48
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Mar 2020 17:04:19 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B57643C4E49
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Mar 2020 17:11:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id DB5D73C0431
- for <ltp@lists.linux.it>; Mon, 23 Mar 2020 17:04:17 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id BB69C3C4E33
+ for <ltp@lists.linux.it>; Mon, 23 Mar 2020 17:11:32 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 59A41600499
- for <ltp@lists.linux.it>; Mon, 23 Mar 2020 17:04:17 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8CEC41000C2B
+ for <ltp@lists.linux.it>; Mon, 23 Mar 2020 17:11:31 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id C5ED4AD82;
- Mon, 23 Mar 2020 16:04:16 +0000 (UTC)
-Date: Mon, 23 Mar 2020 17:04:15 +0100
+ by mx2.suse.de (Postfix) with ESMTP id D6018AFE4;
+ Mon, 23 Mar 2020 16:11:30 +0000 (UTC)
+Date: Mon, 23 Mar 2020 17:11:29 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20200323160415.GC15673@dell5510>
-References: <20200320134937.16616-1-pvorel@suse.cz>
- <20200320134937.16616-2-pvorel@suse.cz>
- <CAEemH2f7TB9sMt-+YE2zF5KztT4O64VN9L4AZWdS3nU1uJX5_w@mail.gmail.com>
- <303d1019-f836-b2ae-ce51-d2c46dd7fb1e@cn.fujitsu.com>
- <20200323113738.GA4807@dell5510>
- <CAEemH2fhRYefq_9LmSmDvujS1OQa7rCeF7V=mJQrLhz0bwpo0A@mail.gmail.com>
- <CAEemH2e4sRwZ8HRm-w5CD=Wm8-SW+LaA5XHDnXdqrOL1t4FdtA@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20200323161129.GA28014@dell5510>
+References: <20200318153801.3529-1-chrubis@suse.cz>
+ <20200318153801.3529-4-chrubis@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEemH2e4sRwZ8HRm-w5CD=Wm8-SW+LaA5XHDnXdqrOL1t4FdtA@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+In-Reply-To: <20200318153801.3529-4-chrubis@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] Use SAFE_RUNCMD()
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 3/9] safe_macros: Add SAFE_SETNS()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,78 +48,56 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: Cyril Hrubis <metan@ucw.cz>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li,
+Hi Cyril,
 
-> Or, simply to use access() if we gonna take care of embedded Linux, is this
-> reliable?
+...
+> diff --git a/lib/tst_safe_macros.c b/lib/tst_safe_macros.c
+> index f5413a18e..353ef5b1d 100644
+> --- a/lib/tst_safe_macros.c
+> +++ b/lib/tst_safe_macros.c
+> @@ -6,6 +6,7 @@
+>  #define _GNU_SOURCE
+>  #include <unistd.h>
+>  #include <errno.h>
+> +#include "lapi/setns.h"
+One more fix needed: lapi file needs to be loaded later:
 
-> int tst_cmd_available(char *cmd)
-> {
->     int ret = 0;
->     char path[PATH_MAX];
+diff --git lib/tst_safe_macros.c lib/tst_safe_macros.c
+index 353ef5b1d..7d33f2b79 100644
+--- lib/tst_safe_macros.c
++++ lib/tst_safe_macros.c
+@@ -6,7 +6,6 @@
+ #define _GNU_SOURCE
+ #include <unistd.h>
+ #include <errno.h>
+-#include "lapi/setns.h"
+ #include <sched.h>
+ #include "config.h"
+ #ifdef HAVE_SYS_FANOTIFY_H
+@@ -14,6 +13,7 @@
+ #endif
+ #define TST_NO_DEFAULT_MAIN
+ #include "tst_test.h"
++#include "lapi/setns.h"
+ #include "tst_safe_macros.h"
+ #include "lapi/personality.h"
+ 
+to prevent failure:
+In file included from /usr/src/ltp/lib/tst_safe_macros.c:9:
+/usr/src/ltp/include/lapi/setns.h: In function 'setns':
+/usr/src/ltp/include/lapi/setns.h:16: error: implicit declaration of function 'tst_brk'
+/usr/src/ltp/include/lapi/setns.h:16: error: 'TCONF' undeclared (first use in this function)
+/usr/src/ltp/include/lapi/setns.h:16: error: (Each undeclared identifier is reported only once
 
->     snprintf(path, PATH_MAX, "/usr/bin/%s", cmd);
->     if (!access(path, X_OK)) {
->         ret = 1;
->         goto out;
->     }
+The rest of the patchset looks ok to me:
 
->     snprintf(path, PATH_MAX, "/usr/sbin/%s", cmd);
->     if (!access(path, X_OK)) {
->         ret = 1;
->         goto out;
->     }
-
->     snprintf(path, PATH_MAX, "/usr/local/bin/%s", cmd);
->     if (!access(path, X_OK)) {
->         ret = 1;
->         goto out;
->     }
-
->     snprintf(path, PATH_MAX, "/usr/local/sbin/%s", cmd);
->     if (!access(path, X_OK)) {
->         ret = 1;
->         goto out;
->     }
-
-> out:
->     return ret;
-> }
-
-Something like this would work on whole PATH.
-It's just a question if we want to use it.
-
-int tst_cmd_available(char *cmd)
-{
-	char *dup = strdup(getenv("PATH"));
-	char *s = dup;
-	char *p = NULL;
-	int ret = 0;
-    char path[PATH_MAX];
-
-	do {
-		p = strchr(s, ':');
-		if (p != NULL) {
-			p[0] = 0;
-		}
-		snprintf(path, PATH_MAX, "%s/%s", s, cmd);
-
-		if (!access(path, X_OK)) {
-			ret = 1;
-			break;
-		}
-		s = p + 1;
-	} while (p != NULL);
-
-	free(dup);
-	return ret;
-}
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
 Kind regards,
 Petr
