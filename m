@@ -1,73 +1,60 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0F7F18F174
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Mar 2020 10:11:20 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FEC018F176
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Mar 2020 10:12:20 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2F2693C4E45
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Mar 2020 10:11:20 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 05ADC3C4E54
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Mar 2020 10:12:20 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 86EF23C0430
- for <ltp@lists.linux.it>; Mon, 23 Mar 2020 10:11:14 +0100 (CET)
-Received: from us-smtp-delivery-74.mimecast.com
- (us-smtp-delivery-74.mimecast.com [216.205.24.74])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id CEBFE1A010FA
- for <ltp@lists.linux.it>; Mon, 23 Mar 2020 10:11:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1584954672;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=KJlO1KB5KeHEpaMO/ijTAQaAyra9ahmeNPrHI2QGtAs=;
- b=cmWIkjgjjSloFHnD+gCWwHanCoT0+iWMYQm+RhpQ/aJ3dQ7SMRErm1jhfW4OWPyrNoLXe8
- 5Yf5IX1J01faDHC9WGvjerw+A2dD7KhB1cbvxw4AuqNhMBVC6YCC7fUfV2J7cSrYVt3GOS
- B6a4NBysN9J7rbruJ+qD9cZm09zO7HI=
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
- [209.85.167.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-323-OV18L05jN7u1lVp0EDKlKg-1; Mon, 23 Mar 2020 05:11:10 -0400
-X-MC-Unique: OV18L05jN7u1lVp0EDKlKg-1
-Received: by mail-oi1-f199.google.com with SMTP id i126so6575316oif.0
- for <ltp@lists.linux.it>; Mon, 23 Mar 2020 02:11:09 -0700 (PDT)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id BA86B3C0430
+ for <ltp@lists.linux.it>; Mon, 23 Mar 2020 10:12:14 +0100 (CET)
+Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
+ [IPv6:2607:f8b0:4864:20::12f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 11DE11000C5E
+ for <ltp@lists.linux.it>; Mon, 23 Mar 2020 10:12:14 +0100 (CET)
+Received: by mail-il1-x12f.google.com with SMTP id t11so2533976ils.1
+ for <ltp@lists.linux.it>; Mon, 23 Mar 2020 02:12:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=fBmUoBYJ9p9e82qeuskiQeQeyTp3fDyYxPjTY8izdck=;
+ b=KAhVO43hLaMW/AS/K4Wf/xn5AJh1uw7Dj7lHrP1vgT8O/9zT1QxPigJoJN0Es+t3KT
+ 5Gvo+hqMS67VLounJosMLWFOFQ9//9pcooqSrJXXKefCPPyv25TF3X0m0Ko7ovd+kAxz
+ nbxBvJQ6jBl8MmX2yaoN4pYQ5bNj8rrNB1AlPv3MpyHR0kFZY350aEBvgAsf9ea5K6vv
+ 9OHqrlzYBVti1PrN7sskOByDYFxLpQgBnIwNQGqu4LIXYH9Nnh+Rr4pg57M1XUVJvYdv
+ CLMZMP6cjwnW16lAoI3t7G28jRwxEdLLSGFZh6IgfT3itswj3QfvxR84w6Bm49JUTHCi
+ /nng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=u5f8aY+9dKP1C9zmmhFSDqBPDi8WGHTZbKLhmJ/nHK8=;
- b=S6cmqBvUei9/NqmHYnZwRwGZydGmfOtzwyR94EV9sHI4ZDNx6ZWQhcki92Dzkfbt0D
- xSQ0tKNIbz9maJFlOo29NoMzN2pwUwype4mgUQXuApobYx4FBCE5Ej4dKffOefwsMJoe
- 3iPEZRq8ZnQgWYfDupuV1jhockM537TcxyXv11T8p5k5V0bs6HEBQ4+e38DBuYdWaSNG
- ZPvNqSVHRrhijs0ThNraQQJ9eMmgI7iHRicaMR2/otor/isW17CTLKnWtBUOcrzAbA/P
- Fp+qzG/Mg/lCPBFo0Ems7f7Fcpj51RDd7q9eFUNpB36n12PJ4YyfRRyo2ev4wOt2nSZw
- WyOw==
-X-Gm-Message-State: ANhLgQ33LI8ud84neXK84I6RhsCZFo8ODeFInVlenoS3dQ6xvNc1EHUY
- wuC519YMXx6+DbtapIwz0aytTrYeE+ipU6ZSrnNTmKw6xoLZ05SaZFCBH/5EASvtlbLaISyzOeq
- NIh5YIR+VhHpkdG73tZAXqGMKsFs=
-X-Received: by 2002:a9d:2c64:: with SMTP id f91mr17849963otb.17.1584954668474; 
- Mon, 23 Mar 2020 02:11:08 -0700 (PDT)
-X-Google-Smtp-Source: ADFU+vtR19vtDSwSaFauuCGJBi3ep0VrsI46SrYfEepPiYa8qcFAI1aQeyQAaflPfi1UZwVArLNaMNCT1HUL+UShc8I=
-X-Received: by 2002:a9d:2c64:: with SMTP id f91mr17849943otb.17.1584954668096; 
- Mon, 23 Mar 2020 02:11:08 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=fBmUoBYJ9p9e82qeuskiQeQeyTp3fDyYxPjTY8izdck=;
+ b=VnpCJyX7BAV+u2bAPmB52uN+k7W9xeBLZxGjHmXquJWM9Nbi/kyy93RRFRnf3ZWNfK
+ lTp7OkP9AP5jNoRuHxqk34we5ma+dPLEYN21ykfEhnsaU28MEhU6JGDBZorsOlTzhroT
+ 2HQq/ayKQTBb/Fq6b+HfJEvJ2IM1ViaNYWhFWNzXt+tzY5NCMsaV78ZLcl4aCjxHq6Dr
+ sitVYItaunSiaXfUlqJTsaMLzwuFcRn0VNKAHnbPxirbbjmLh9DsSdge0oM18ofSztIK
+ 1gq+NKuvViJtHtS+5s3JMK6edTUbmH+GQyJarPZYJ9Djy0SE4EVSga1eXkF2v95hT00r
+ UeTg==
+X-Gm-Message-State: ANhLgQ2hvcsKD5eykWArz3QIVJkO+qvm7olV57xpHPd4Hnp1KAX4V+27
+ DpSXiKEWhhd0jMEW234KHW5lIWkmgSAF+ONe4xGDyu7HQPc=
+X-Google-Smtp-Source: ADFU+vsABGFRggockaJ8eo/nCh4jX1xWRPW5ksCMS+xMuPHunUA4DG8FC+IEE0AnYaY6FomNXg8StyOvncsK57HFmtc=
+X-Received: by 2002:a92:b704:: with SMTP id k4mr19687478ili.31.1584954732255; 
+ Mon, 23 Mar 2020 02:12:12 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200320134937.16616-1-pvorel@suse.cz>
- <20200320134937.16616-2-pvorel@suse.cz>
-In-Reply-To: <20200320134937.16616-2-pvorel@suse.cz>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 23 Mar 2020 17:10:56 +0800
-Message-ID: <CAEemH2f7TB9sMt-+YE2zF5KztT4O64VN9L4AZWdS3nU1uJX5_w@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+From: Viresh Kumar <viresh.kumar@linaro.org>
+Date: Mon, 23 Mar 2020 14:42:01 +0530
+Message-ID: <CAKohpokaPiyGFkAXgG2oy_f5UGMCtsVUUAf4vA3Npa2ixAbNig@mail.gmail.com>
+To: LTP List <ltp@lists.linux.it>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] Use SAFE_RUNCMD()
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: [LTP] Query: Supporting time64 syscalls
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,86 +66,28 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============2099025203=="
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, Arnd Bergmann <arnd@arndb.de>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============2099025203==
-Content-Type: multipart/alternative; boundary="000000000000fa2ce805a1820399"
+Hi guys,
 
---000000000000fa2ce805a1820399
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I was looking to start working on the time64 syscalls
+(like clock_gettime64, timerfd_settime64, etc) and
+was looking for your suggestions on how to proceed on
+the same.
 
-Hi Petr,
+AFAIU, the only difference is that the argument is 64 bit now
+instead of 32 bit and so I don't think I should be adding new
+tests but reusing the existing ones for both 32 bit and 64 bit
+variants.
 
-On Fri, Mar 20, 2020 at 9:50 PM Petr Vorel <pvorel@suse.cz> wrote:
+Thanks.
 
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
->  testcases/kernel/syscalls/add_key/add_key05.c   | 15 ++-------------
->  testcases/kernel/syscalls/quotactl/quotactl01.c | 14 ++------------
->  testcases/kernel/syscalls/quotactl/quotactl06.c | 12 +-----------
-
-
-Apart from the three, do you consider converting to SAFE_RUNCMD for the
-rest testcases?
-(it seems not too much work remaining since only a few test case uses
-tst_run_cmd)
-
-kernel/syscalls/setpriority/setpriority01.c
-kernel/syscalls/copy_file_range/copy_file_range02.c
-...
-
-
---=20
-Regards,
-Li Wang
-
---000000000000fa2ce805a1820399
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Hi Petr,</div></div><br><div class=3D"gmail_quote"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Fri, Mar 20, 2020 at 9:50 PM Petr Vorel &l=
-t;<a href=3D"mailto:pvorel@suse.cz" target=3D"_blank">pvorel@suse.cz</a>&gt=
-; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Signed-=
-off-by: Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz" target=3D"_blank">=
-pvorel@suse.cz</a>&gt;<br>
----<br>
-=C2=A0testcases/kernel/syscalls/add_key/add_key05.c=C2=A0 =C2=A0| 15 ++----=
----------<br>
-=C2=A0testcases/kernel/syscalls/quotactl/quotactl01.c | 14 ++------------<b=
-r>
-=C2=A0testcases/kernel/syscalls/quotactl/quotactl06.c | 12 +-----------</bl=
-ockquote><div><br></div><div><div class=3D"gmail_default" style=3D"font-siz=
-e:small">Apart from the three, do you consider converting to SAFE_RUNCMD fo=
-r the rest testcases?</div><div class=3D"gmail_default" style=3D"font-size:=
-small">(it seems not too much work remaining since only a few test case use=
-s tst_run_cmd)</div><div class=3D"gmail_default" style=3D"font-size:small">=
-<br></div><span class=3D"gmail_default" style=3D"font-size:small"></span>ke=
-rnel/syscalls/setpriority/setpriority01.c</div><div><div class=3D"gmail_def=
-ault" style=3D"font-size:small">kernel/syscalls/copy_file_range/copy_file_r=
-ange02.c</div><div class=3D"gmail_default" style=3D"font-size:small">...</d=
-iv><br><div class=3D"gmail_default" style=3D"font-size:small"></div></div><=
-/div><div><br></div>-- <br><div dir=3D"ltr"><div dir=3D"ltr"><div>Regards,<=
-br></div><div>Li Wang<br></div></div></div></div>
-
---000000000000fa2ce805a1820399--
-
-
---===============2099025203==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+--
+viresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============2099025203==--
-
