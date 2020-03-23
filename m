@@ -1,38 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F92318F199
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Mar 2020 10:19:05 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 623CC18F19A
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Mar 2020 10:19:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8FDE83C4E45
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Mar 2020 10:19:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 08AB53C4E40
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Mar 2020 10:19:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 0246E3C4E3D
- for <ltp@lists.linux.it>; Mon, 23 Mar 2020 10:19:00 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id AB53D3C4E3F
+ for <ltp@lists.linux.it>; Mon, 23 Mar 2020 10:19:01 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4DE14600A1F
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8436A1000C1F
  for <ltp@lists.linux.it>; Mon, 23 Mar 2020 10:19:00 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id CE751AD61;
+ by mx2.suse.de (Postfix) with ESMTP id E3746AE09;
  Mon, 23 Mar 2020 09:18:59 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Mon, 23 Mar 2020 10:18:51 +0100
-Message-Id: <20200323091852.29106-1-pvorel@suse.cz>
+Date: Mon, 23 Mar 2020 10:18:52 +0100
+Message-Id: <20200323091852.29106-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200323091852.29106-1-pvorel@suse.cz>
+References: <20200323091852.29106-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 1/2] lib: Implement SAFE_RUN() macro (new API only)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 2/2] Use SAFE_RUNCMD()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,55 +56,91 @@ Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
 Changes v1->v2:
 Fixes errors reported by Xu:
-* Fixed params
+* Keep user addition
 
- doc/test-writing-guidelines.txt |  3 +++
- include/tst_safe_macros.h       | 20 ++++++++++++++++++++
- 2 files changed, 23 insertions(+)
+ testcases/kernel/syscalls/add_key/add_key05.c   | 17 ++++-------------
+ testcases/kernel/syscalls/quotactl/quotactl01.c | 14 ++------------
+ testcases/kernel/syscalls/quotactl/quotactl06.c | 12 +-----------
+ 3 files changed, 7 insertions(+), 36 deletions(-)
 
-diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
-index b56f1a0f2..b8330801b 100644
---- a/doc/test-writing-guidelines.txt
-+++ b/doc/test-writing-guidelines.txt
-@@ -1282,6 +1282,9 @@ return value is '255' if 'execvp()' failed with 'ENOENT' and '254' otherwise.
- 'stdout_path' and 'stderr_path' determine where to redirect the program
- stdout and stderr I/O streams.
+diff --git a/testcases/kernel/syscalls/add_key/add_key05.c b/testcases/kernel/syscalls/add_key/add_key05.c
+index a39bfa0b7..560bbe478 100644
+--- a/testcases/kernel/syscalls/add_key/add_key05.c
++++ b/testcases/kernel/syscalls/add_key/add_key05.c
+@@ -36,19 +36,10 @@ static void add_user(void)
+ 		return;
  
-+The 'SAFE_RUNCMD()' macro can be used automatic handling non zero exits (exits
-+with 'TBROK') or 'ENOENT' (exits with 'TCONF').
+ 	const char *const cmd_useradd[] = {"useradd", username, NULL};
+-	int rc;
+-
+-	switch ((rc = tst_run_cmd(cmd_useradd, NULL, NULL, 1))) {
+-	case 0:
+-		user_added = 1;
+-		ltpuser = SAFE_GETPWNAM(username);
+-		break;
+-	case 255:
+-		tst_brk(TCONF, "useradd not found");
+-		break;
+-	default:
+-		tst_brk(TBROK, "useradd failed (%d)", rc);
+-	}
 +
- .Example
- [source,c]
- -------------------------------------------------------------------------------
-diff --git a/include/tst_safe_macros.h b/include/tst_safe_macros.h
-index 80c4d9cb9..dea101a8e 100644
---- a/include/tst_safe_macros.h
-+++ b/include/tst_safe_macros.h
-@@ -547,4 +547,24 @@ int safe_personality(const char *filename, unsigned int lineno,
- void safe_unshare(const char *file, const int lineno, int flags);
- #define SAFE_UNSHARE(flags) safe_unshare(__FILE__, __LINE__, (flags))
++	SAFE_RUNCMD(cmd_useradd, NULL, NULL);
++	user_added = 1;
++	ltpuser = SAFE_GETPWNAM(username);
+ 	sprintf(fmt, "%5u: %%*5d %%*d/%%*d %%d/%%d %%d/%%d", ltpuser->pw_uid);
+ }
  
-+static inline void safe_run_cmd(const char *file, const int lineno,
-+							   const char *const argv[],
-+			      const char *stdout_path,
-+			      const char *stderr_path)
-+{
-+	int rval;
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl01.c b/testcases/kernel/syscalls/quotactl/quotactl01.c
+index ede61d7e4..30151814e 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl01.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl01.c
+@@ -162,18 +162,8 @@ static struct tcase {
+ static void setup(void)
+ {
+ 	const char *const cmd[] = {"quotacheck", "-ugF", "vfsv0", MNTPOINT, NULL};
+-	int ret;
+-
+-	ret = tst_run_cmd(cmd, NULL, NULL, 1);
+-	switch (ret) {
+-	case 0:
+-		break;
+-	case 255:
+-		tst_brk(TCONF, "quotacheck binary not installed");
+-		break;
+-	default:
+-		tst_brk(TBROK, "quotacheck exited with %i", ret);
+-	}
 +
-+	switch ((rval = tst_run_cmd(argv, stdout_path, stderr_path, 1))) {
-+	case 0:
-+		break;
-+	case 255:
-+		tst_brk(TCONF, "%s:%d: %s not found in $PATH", file, lineno, argv[0]);
-+		break;
-+	default:
-+		tst_brk(TBROK, "%s:%d: %s failed (%d)", file, lineno, argv[0], rval);
-+	}
-+}
-+#define SAFE_RUNCMD(argv, stdout_path, stderr_path) \
-+	safe_run_cmd(__FILE__, __LINE__, (argv), (stdout_path), (stderr_path))
-+
- #endif /* SAFE_MACROS_H__ */
++	SAFE_RUNCMD(cmd, NULL, NULL);
+ 
+ 	test_id = geteuid();
+ 	if (access(USRPATH, F_OK) == -1)
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl06.c b/testcases/kernel/syscalls/quotactl/quotactl06.c
+index a3b4517e0..0b62e6240 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl06.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl06.c
+@@ -146,19 +146,9 @@ static void verify_quotactl(unsigned int n)
+ static void setup(void)
+ {
+ 	const char *const cmd[] = {"quotacheck", "-uF", "vfsv0", MNTPOINT, NULL};
+-	int ret;
+ 	unsigned int i;
+ 
+-	ret = tst_run_cmd(cmd, NULL, NULL, 1);
+-	switch (ret) {
+-	case 0:
+-		break;
+-	case 255:
+-		tst_brk(TCONF, "quotacheck binary not installed");
+-		break;
+-	default:
+-		tst_brk(TBROK, "quotacheck exited with %i", ret);
+-	}
++	SAFE_RUNCMD(cmd, NULL, NULL);
+ 
+ 	if (access(USRPATH, F_OK) == -1)
+ 		tst_brk(TFAIL | TERRNO, "user quotafile didn't exist");
 -- 
 2.25.1
 
