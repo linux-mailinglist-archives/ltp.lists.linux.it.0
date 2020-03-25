@@ -1,50 +1,82 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2941419205A
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Mar 2020 06:13:45 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E38731920A1
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Mar 2020 06:30:32 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 69D2A3C4D6E
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Mar 2020 06:13:44 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 023843C4BDB
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Mar 2020 06:30:32 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id E33C73C4D2F
- for <ltp@lists.linux.it>; Wed, 25 Mar 2020 06:13:39 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 99811200D20
- for <ltp@lists.linux.it>; Wed, 25 Mar 2020 06:13:36 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.72,303,1580745600"; d="scan'208";a="87225126"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 25 Mar 2020 13:13:34 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 605A750A9995
- for <ltp@lists.linux.it>; Wed, 25 Mar 2020 13:03:20 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 25 Mar 2020 13:13:28 +0800
-To: <ltp@lists.linux.it>
-References: <1584507302-23515-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <724523fd-9671-bea7-03e0-3b0d3399c3eb@cn.fujitsu.com>
-Date: Wed, 25 Mar 2020 13:13:26 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 7E2813C4BA6
+ for <ltp@lists.linux.it>; Wed, 25 Mar 2020 06:30:27 +0100 (CET)
+Received: from us-smtp-delivery-74.mimecast.com
+ (us-smtp-delivery-74.mimecast.com [63.128.21.74])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id A7A2320004E
+ for <ltp@lists.linux.it>; Wed, 25 Mar 2020 06:30:26 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1585114225;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=l0rfICsHYqwH+3Qo4Zwhr5MmRD/Jzmc/bkwdEw0MlfM=;
+ b=XwO9kcINYOC86J0+nERxse1uMsd5dhBbl9zX/kaDJogOQsP/LItX+5gtOGgEZ+MbvETCJw
+ e1uIoPYDh5qqZ7v3hnEkHbRAXMC27OP6eFbZ9fJWR+HEeXnce2pIpyLH43DTGxem+sMj7E
+ zAHC2fqkldcjyOkWHF1Pbl1Gtvk+bBM=
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
+ [209.85.210.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-480-a9-1V5dBNo-kqDpKPzBLEQ-1; Wed, 25 Mar 2020 01:30:22 -0400
+X-MC-Unique: a9-1V5dBNo-kqDpKPzBLEQ-1
+Received: by mail-ot1-f69.google.com with SMTP id a66so840169otb.6
+ for <ltp@lists.linux.it>; Tue, 24 Mar 2020 22:30:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=TR5wP+YaehqeGJFHvXD//2+CzBF7g3lj1qQVh4eijxY=;
+ b=RPGyN2N/AXEfVE3CdJxLL2Jw0/N3z+1vtRAemwHkIpifcelNyxtNFq8BObg4EvTmdK
+ 778liUavS+dKoIkzAkKJZ1/De7fjc6JB35laxJmFgagA18mvo6Rse/Nfotcjbi1IHAGJ
+ 3Wox598MN6kupy/Cp327LHOPseIJ/6RvAd7t9LnhhtNSmMzIoMIKNuAsRo99mw3Bsevc
+ KcJVKOjYcQp+QFy+PJDAG3UkSYpNo1DeWN5c8sM9QVpwCw8C61/eqNUQTH11SUvcANGV
+ ZV71AHTitvmztZLjzLaOIxnKKXX9ame3wOSDKXEPTR/ft6fYpSyYzD1vO73Yt4IgAdAB
+ QlTQ==
+X-Gm-Message-State: ANhLgQ1Dtk4PbFDl9xk/ujnf51rvQ0HS996ovuJ91FqJd7XaCCt1XG+a
+ uNedQlFdd6faUPyJDs8lTFda7kpQJblmWFTeYVX8hqBtnNtaWK5kxiv8VfooNCRw6LGVknHS2vn
+ v0S7lN7kWZm/6GYa8NSfeTVIL2Tk=
+X-Received: by 2002:a05:6830:11c1:: with SMTP id
+ v1mr1265732otq.264.1585114221621; 
+ Tue, 24 Mar 2020 22:30:21 -0700 (PDT)
+X-Google-Smtp-Source: ADFU+vstOg3t8hN3GpvcpkaTxfGwqdku0HrNrqoWvyU0LLrNxJwpiOeqNcANT5Xs5PP7KLpQR7KnSzZBXSaEu70x3HQ=
+X-Received: by 2002:a05:6830:11c1:: with SMTP id
+ v1mr1265717otq.264.1585114221327; 
+ Tue, 24 Mar 2020 22:30:21 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1584507302-23515-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 605A750A9995.AB83F
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
+References: <20200320134937.16616-1-pvorel@suse.cz>
+ <20200320134937.16616-2-pvorel@suse.cz>
+ <CAEemH2f7TB9sMt-+YE2zF5KztT4O64VN9L4AZWdS3nU1uJX5_w@mail.gmail.com>
+ <303d1019-f836-b2ae-ce51-d2c46dd7fb1e@cn.fujitsu.com>
+ <20200323113738.GA4807@dell5510>
+ <CAEemH2fhRYefq_9LmSmDvujS1OQa7rCeF7V=mJQrLhz0bwpo0A@mail.gmail.com>
+ <CAEemH2e4sRwZ8HRm-w5CD=Wm8-SW+LaA5XHDnXdqrOL1t4FdtA@mail.gmail.com>
+ <20200323160415.GC15673@dell5510> <20200324235150.GC4521@yuki.lan>
+ <20200324172102.GA1307@dell5510> <20200325015324.GA15127@yuki.lan>
+In-Reply-To: <20200325015324.GA15127@yuki.lan>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 25 Mar 2020 13:30:09 +0800
+Message-ID: <CAEemH2doL4m4-TLBBWTHygTRPSTa68dkoAFjZJrDmzrkmgUrSQ@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] ltp_tpci.c: fix a null pointer
+Subject: Re: [LTP] [PATCH 2/2] Use SAFE_RUNCMD()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,55 +88,117 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0827924500=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkKCkRvZXMgc29tZW9uZSBub3RpY2UgdGhpcyhJIGd1ZXNzIHRoaXMgaXMgYSBzaW1wbGUgZml4
-KT8KCkJlc3QgUmVnYXJkcwpZYW5nIFh1Cj4gU2luY2UgY29tbWl0IDNkZDI4NmJkYmVlICgibHRw
-X3RwY2kuYzogVXBkYXRlIGxlZ2FjeSBjb2RlIiksCj4gaXQgaW50cm9kdWNlZCBhIHdhcm5pbmcg
-YXMgYmVsb3c6Cj4gLi4vbHRwX3RwY2kuYzogSW4gZnVuY3Rpb24g4oCYcHJvYmVfcGNpX2RlduKA
-mToKPiAuLi9sdHBfdHBjaS5jOjEwNzo4OiB3YXJuaW5nOiDigJhkZXbigJkgaXMgdXNlZCB1bmlu
-aXRpYWxpemVkIGluIHRoaXMgZnVuY3Rpb24gWy1XdW5pbml0aWFsaXplZF0KPiAgICBzdHJ1Y3Qg
-cGNpX2RldiAqZGV2Owo+ICAgIGRldiA9IHBjaV9nZXRfZG9tYWluX2J1c19hbmRfc2xvdChwY2lf
-ZG9tYWluX25yKGRldi0+YnVzKSwgYnVzLCBzbG90KQo+IAo+IFRoaXMgd2lsbCBsZWFkIHRvIHN5
-c3RlbSBjcmFzaCB3aGVuIHdlIHJ1biB0aGlzIGNhc2UgYmVjYXVzZSBpdCB0cmlnZ2VycyBhIG51
-bGwgcG9pbnRlci4KPiBVc2UgMCBkb21haW4gaW50ZWFkIG9mIHBjaV9kb21haW5fbnIuCj4gCj4g
-cHM6IEkgd2FudCB0byB1c2UgYSBkeW1haWMgZG9tYWluIHRvIGZpeCBpdCBidXQgZmFpbGVkLiBJ
-ZiBzb21lb25lIGtub3csCj4gcGxlYXNlIHRlbGwgbWUuIEFsc28sIHRoaXMgY2FzZSBmYWlsZWQg
-d2hlbiBtZXJnaW5nIHRoaXMgcGF0Y2ggYmVjYXVzZQo+IHRlc3QgMTMgKHRlc3RfYXNzaWduX3Jl
-c291cmNlcykgcmVwb3J0IG5vIHNwYWNlIGVycm9yIGFzIGJlbG93Ogo+IFs3NTQ5MzAuNzU3NTg1
-XSBsdHBfdHBjaTogdGVzdC1jYXNlIDEzCj4gWzc1NDkzMC43NTc1ODVdIGx0cF90cGNpOiBhc3Np
-Z24gcmVzb3VyY2VzCj4gWzc1NDkzMC43NTc1ODVdIGx0cF90cGNpOiBhc3NpZ24gcmVzb3VyY2Ug
-IzAKPiBbNzU0OTMwLjc1NzU4Nl0gbHRwX3RwY2k6IG5hbWUgPSAwMDAwOjAwOjA4LjAsIGZsYWdz
-ID0gMjYyNDAxLCBzdGFydCAweGMxNDAsIGVuZCAweGMxN2YKPiBbNzU0OTMwLjc1NzU4Nl0gbHRw
-X3RwY2k6IGFzc2lnbiByZXNvdXJjZSAjMQo+IFs3NTQ5MzAuNzU3NTg3XSBsdHBfdHBjaTogbmFt
-ZSA9IDAwMDA6MDA6MDguMCwgZmxhZ3MgPSAyNjI2NTYsIHN0YXJ0IDB4ZmViZDcwMDAsIGVuZCAw
-eGZlYmQ3ZmZmCj4gWzc1NDkzMC43NTc1ODddIGx0cF90cGNpOiBhc3NpZ24gcmVzb3VyY2UgIzIK
-PiBbNzU0OTMwLjc1NzU4N10gbHRwX3RwY2k6IG5hbWUgPSAwMDAwOjAwOjA4LjAsIGZsYWdzID0g
-MCwgc3RhcnQgMHgwLCBlbmQgMHgwCj4gWzc1NDkzMC43NTc1ODhdIGx0cF90cGNpOiBhc3NpZ24g
-cmVzb3VyY2UgIzMKPiBbNzU0OTMwLjc1NzU4OF0gbHRwX3RwY2k6IG5hbWUgPSAwMDAwOjAwOjA4
-LjAsIGZsYWdzID0gMCwgc3RhcnQgMHgwLCBlbmQgMHgwCj4gWzc1NDkzMC43NTc1ODhdIGx0cF90
-cGNpOiBhc3NpZ24gcmVzb3VyY2UgIzQKPiBbNzU0OTMwLjc1NzU4OV0gbHRwX3RwY2k6IG5hbWUg
-PSAwMDAwOjAwOjA4LjAsIGZsYWdzID0gNTM4MTkwMzQ4LCBzdGFydCAweGZlODBjMDAwLCBlbmQg
-MHhmZTgwZmZmZgo+IFs3NTQ5MzAuNzU3NTkzXSB2aXJ0aW8tcGNpIDAwMDA6MDA6MDguMDogQkFS
-IDQ6IG5vIHNwYWNlIGZvciBbbWVtIHNpemUgMHgwMDAwNDAwMCA2NGJpdCBwcmVmXQo+IFs3NTQ5
-MzAuNzU3NTk0XSB2aXJ0aW8tcGNpIDAwMDA6MDA6MDguMDogQkFSIDQ6IGZhaWxlZCB0byBhc3Np
-Z24gW21lbSBzaXplIDB4MDAwMDQwMDAgNjRiaXQgcHJlZgo+IAo+IEZpeGVzOiAzZGQyODZiICgi
-bHRwX3RwY2kuYzogVXBkYXRlIGxlZ2FjeSBjb2RlIikKPiBTaWduZWQtb2ZmLWJ5OiBZYW5nIFh1
-IDx4dXlhbmcyMDE4Lmp5QGNuLmZ1aml0c3UuY29tPgo+IC0tLQo+ICAgdGVzdGNhc2VzL2tlcm5l
-bC9kZXZpY2UtZHJpdmVycy9wY2kvdHBjaV9rZXJuZWwvbHRwX3RwY2kuYyB8IDIgKy0KPiAgIDEg
-ZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQo+IAo+IGRpZmYgLS1n
-aXQgYS90ZXN0Y2FzZXMva2VybmVsL2RldmljZS1kcml2ZXJzL3BjaS90cGNpX2tlcm5lbC9sdHBf
-dHBjaS5jIGIvdGVzdGNhc2VzL2tlcm5lbC9kZXZpY2UtZHJpdmVycy9wY2kvdHBjaV9rZXJuZWwv
-bHRwX3RwY2kuYwo+IGluZGV4IDdjYmFiZmFhNS4uYTU3OTUzZGI2IDEwMDY0NAo+IC0tLSBhL3Rl
-c3RjYXNlcy9rZXJuZWwvZGV2aWNlLWRyaXZlcnMvcGNpL3RwY2lfa2VybmVsL2x0cF90cGNpLmMK
-PiArKysgYi90ZXN0Y2FzZXMva2VybmVsL2RldmljZS1kcml2ZXJzL3BjaS90cGNpX2tlcm5lbC9s
-dHBfdHBjaS5jCj4gQEAgLTEwNCw3ICsxMDQsNyBAQCBzdGF0aWMgaW50IHByb2JlX3BjaV9kZXYo
-dW5zaWduZWQgaW50IGJ1cywgdW5zaWduZWQgaW50IHNsb3QpCj4gICAJCWx0cF9wY2kuZGV2ID0g
-TlVMTDsKPiAgIAl9Cj4gICAKPiAtCWRldiA9IHBjaV9nZXRfZG9tYWluX2J1c19hbmRfc2xvdChw
-Y2lfZG9tYWluX25yKGRldi0+YnVzKSwgYnVzLCBzbG90KTsKPiArCWRldiA9IHBjaV9nZXRfZG9t
-YWluX2J1c19hbmRfc2xvdCgwLCBidXMsIHNsb3QpOwo+ICAgCWlmICghZGV2IHx8ICFkZXYtPmRy
-aXZlcikKPiAgIAkJcmV0dXJuIC1FTk9ERVY7Cj4gICAKPiAKCgoKLS0gCk1haWxpbmcgbGlzdCBp
-bmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+--===============0827924500==
+Content-Type: multipart/alternative; boundary="000000000000174f6105a1a72a20"
+
+--000000000000174f6105a1a72a20
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Mar 25, 2020 at 1:57 AM Cyril Hrubis <chrubis@suse.cz> wrote:
+
+> Hi!
+> > > Also if we are going to add this functionality it should be added as =
+an
+> > > .needs_cmds array in the tst_test structure.
+> > .needs_cmds sounds as a good idea. But let's do it as a separate effort=
+.
+>
++1, thanks Petr!
+
+
+> > I'll leave already sent v2 for review. Once .needs_cmds is implemented,
+> we can
+> > use it as well for copy_file_range02.c.
+>
+> Actually I would like to avoid exposing the function to the tests and
+> force people to use the .needs_cmds instead in order to have a proper
+> metadata.
+>
+
+Sounds good.
+
+And this makes me think more of the '.request_hugepages' story. The
+needs_foo flags require the foo to be present on the system as hard
+requirements. In some situations(i.e copy_file_range02.c), we probably need
+to handle the soft situation, which means, the commands are only part of
+the test requirement. So if it writing with .needs_cmds=3D"xxx", it might
+skip the whole test in setup() phase.
+
+So things are clear now, checking for the command existence in
+tst_run_cmd_fds_() is really necessary. For the test with "cmds" is needed
+just adding the .needs_cmds=3D"xxx", for the test with "cmds" is only part =
+of
+it, we can avoid writing '.needs_cmds' but calling tst_run_cmd() function
+directly.
+
+--=20
+Regards,
+Li Wang
+
+--000000000000174f6105a1a72a20
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Wed, Mar 25, 2020 at 1:57 AM Cyril Hrubis &lt;<a=
+ href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
+ft:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
+&gt; &gt; Also if we are going to add this functionality it should be added=
+ as an<br>
+&gt; &gt; .needs_cmds array in the tst_test structure.<br>
+&gt; .needs_cmds sounds as a good idea. But let&#39;s do it as a separate e=
+ffort.<br></blockquote><div><span class=3D"gmail_default" style=3D"font-siz=
+e:small"></span></div><div><span class=3D"gmail_default" style=3D"font-size=
+:small">+1, thanks Petr!</span></div><div><span class=3D"gmail_default" sty=
+le=3D"font-size:small"></span>=C2=A0</div><blockquote class=3D"gmail_quote"=
+ style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);p=
+adding-left:1ex">
+&gt; I&#39;ll leave already sent v2 for review. Once .needs_cmds is impleme=
+nted, we can<br>
+&gt; use it as well for copy_file_range02.c.<br>
+<br>
+Actually I would like to avoid exposing the function to the tests and<br>
+force people to use the .needs_cmds instead in order to have a proper<br>
+metadata.<br></blockquote><div><div class=3D"gmail_default" style=3D"font-s=
+ize:small"><br></div><div class=3D"gmail_default" style=3D"font-size:small"=
+>Sounds good.</div><br></div><div><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><font color=3D"#000000">And this makes me think more of the &=
+#39;.request_hugepages&#39; story. The needs_foo flags require the foo to b=
+e present on the system as hard requirements. In some situations(i.e copy_f=
+ile_range02.c), we probably need to handle the soft situation, which means,=
+ the commands are only part of the test requirement. So if it writing with =
+.needs_cmds=3D&quot;xxx&quot;, it might skip the whole test in setup() phas=
+e. </font></div></div><div class=3D"gmail_default" style=3D"font-size:small=
+"><font color=3D"#000000"><br></font></div><div class=3D"gmail_default" sty=
+le=3D"font-size:small"><font color=3D"#000000">So things are clear now, che=
+cking for the command existence in tst_run_cmd_fds_() is really necessary. =
+For the test=C2=A0with &quot;cmds&quot; is needed just adding the .needs_cm=
+ds=3D&quot;xxx&quot;, for the test with &quot;cmds&quot;</font><span style=
+=3D"color:rgb(0,0,0)">=C2=A0is only part of it, we can avoid writing &#39;.=
+needs_cmds&#39; but calling tst_run_cmd() function directly.</span></div><d=
+iv><br></div></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div d=
+ir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--000000000000174f6105a1a72a20--
+
+
+--===============0827924500==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0827924500==--
+
