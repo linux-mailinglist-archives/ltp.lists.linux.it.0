@@ -1,67 +1,51 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09B4B191A3E
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Mar 2020 20:44:42 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 50726192050
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Mar 2020 06:07:22 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 40C983C4D51
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Mar 2020 20:44:41 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7BB123C4D60
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Mar 2020 06:07:20 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id A27E43C0300
- for <ltp@lists.linux.it>; Tue, 24 Mar 2020 20:44:36 +0100 (CET)
-Received: from us-smtp-delivery-74.mimecast.com
- (us-smtp-delivery-74.mimecast.com [63.128.21.74])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id CE52E6006C9
- for <ltp@lists.linux.it>; Tue, 24 Mar 2020 20:44:35 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1585079074;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=e8XkdJ5xfFHuaqVpCBJptNq0kqhQ9ND+CebAgGkp1yU=;
- b=XLF6ccANMqsO5CMtjrgOX4HPbKlZO1i2LD+S5gHcLh+w4IyrKzWs0AW8sPE/WB547oI636
- aAOJrlo7U1efbVuEuk1B/2CFEa0C5L2LuhtiwK0xJne4t55g+XK24otFiaExlF+cx6eOZ3
- CprG5toVmOpmP+M26yaNuYUtArc//Bw=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-142-aPOPrwXCNr-42cr5joHlLg-1; Tue, 24 Mar 2020 15:44:29 -0400
-X-MC-Unique: aPOPrwXCNr-42cr5joHlLg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AC90113F5
- for <ltp@lists.linux.it>; Tue, 24 Mar 2020 19:44:28 +0000 (UTC)
-Received: from localhost.localdomain (ovpn-112-112.rdu2.redhat.com
- [10.10.112.112])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 2B74B19C6A;
- Tue, 24 Mar 2020 19:44:22 +0000 (UTC)
-To: CKI Project <cki-project@redhat.com>, LTP Mailing List <ltp@lists.linux.it>
-References: <cki.DE02ACD38F.FLRCD9DAJV@redhat.com>
-From: Rachel Sibley <rasibley@redhat.com>
-Message-ID: <aa9f8479-3c53-f109-1051-49cffef26beb@redhat.com>
-Date: Tue, 24 Mar 2020 15:44:22 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 6D2FD3C29B2
+ for <ltp@lists.linux.it>; Wed, 25 Mar 2020 06:07:16 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 653B3200E0D
+ for <ltp@lists.linux.it>; Wed, 25 Mar 2020 06:07:12 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.72,303,1580745600"; d="scan'208";a="87224783"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 25 Mar 2020 13:07:07 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id 7A4F150A9996
+ for <ltp@lists.linux.it>; Wed, 25 Mar 2020 12:56:51 +0800 (CST)
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.83) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Wed, 25 Mar 2020 13:07:01 +0800
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXCHPEKD02.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ (TLS) id 14.3.439.0; Wed, 25 Mar 2020 13:06:54 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Wed, 25 Mar 2020 13:07:00 +0800
+Message-ID: <1585112820-30322-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <5E71F152.5010909@cn.fujitsu.com>
+References: <5E71F152.5010909@cn.fujitsu.com>
 MIME-Version: 1.0
-In-Reply-To: <cki.DE02ACD38F.FLRCD9DAJV@redhat.com>
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-yoursite-MailScanner-ID: 7A4F150A9996.AA6C1
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] 
- =?utf-8?q?=F0=9F=92=A5_PANICKED=3A_Test_report_for_kernel_?=
- =?utf-8?q?5=2E6=2E0-rc7-76ccd23=2Ecki_=28mainline=2Ekernel=2Eorg=29?=
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] openposix/twoptimers: handle signal correctly
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,108 +57,82 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Memory Management <mm-qe@redhat.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-CgpPbiAzLzI0LzIwIDI6NTEgUE0sIENLSSBQcm9qZWN0IHdyb3RlOgo+IAo+IEhlbGxvLAo+IAo+
-IFdlIHJhbiBhdXRvbWF0ZWQgdGVzdHMgb24gYSByZWNlbnQgY29tbWl0IGZyb20gdGhpcyBrZXJu
-ZWwgdHJlZToKPiAKPiAgICAgICAgIEtlcm5lbCByZXBvOiBodHRwczovL2dpdC5rZXJuZWwub3Jn
-L3B1Yi9zY20vbGludXgva2VybmVsL2dpdC90b3J2YWxkcy9saW51eC5naXQKPiAgICAgICAgICAg
-ICAgQ29tbWl0OiA3NmNjZDIzNDI2OWIgLSBNZXJnZSBicmFuY2ggJ3BlcmYtdXJnZW50LWZvci1s
-aW51cycgb2YgZ2l0Oi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L3Rp
-cC90aXAKPiAKPiBUaGUgcmVzdWx0cyBvZiB0aGVzZSBhdXRvbWF0ZWQgdGVzdHMgYXJlIHByb3Zp
-ZGVkIGJlbG93Lgo+IAo+ICAgICAgT3ZlcmFsbCByZXN1bHQ6IEZBSUxFRCAoc2VlIGRldGFpbHMg
-YmVsb3cpCj4gICAgICAgICAgICAgICBNZXJnZTogT0sKPiAgICAgICAgICAgICBDb21waWxlOiBP
-Swo+ICAgICAgICAgICAgICAgVGVzdHM6IFBBTklDS0VECj4gCj4gQWxsIGtlcm5lbCBiaW5hcmll
-cywgY29uZmlnIGZpbGVzLCBhbmQgbG9ncyBhcmUgYXZhaWxhYmxlIGZvciBkb3dubG9hZCBoZXJl
-Ogo+IAo+ICAgIGh0dHBzOi8vY2tpLWFydGlmYWN0cy5zMy51cy1lYXN0LTIuYW1hem9uYXdzLmNv
-bS9pbmRleC5odG1sP3ByZWZpeD1kYXRhd2FyZWhvdXNlLzIwMjAvMDMvMjQvNTAzNTgzCj4gCj4g
-T25lIG9yIG1vcmUga2VybmVsIHRlc3RzIGZhaWxlZDoKPiAKPiAgICAgIHg4Nl82NDoKPiAgICAg
-ICDwn5KlIHhmc3Rlc3RzIC0gZXh0NAo+ICAgICAgIPCfkqUgTFRQCgpTb3JyeSBmb3IgYWxsIHRo
-ZSBwYW5pYyBlbWFpbHMsIHRoaXMgaXMgY2F1c2VkIGJ5IGEga25vd24gaXNzdWUgd2hpY2ggaXMg
-bm90IHlldCBtZXJnZWQKaW50byBMaW51cyB0cmVlLCBwYXRjaGVzIHdlcmUgc3VibWl0dGVkIGxh
-c3QgRnJpZGF5IGZvciBsaW51eC1ibG9jazoKaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGttbC8y
-MDIwMDMyMTA5NDUyMS44NTk4Ni0yLXBhb2xvLnZhbGVudGVAbGluYXJvLm9yZy8KCkkndmUgdGVt
-cG9yYXJpbHkgZGlzYWJsZWQgY2MnaW5nIExUUCBNTCBmb3Igbm93IHdoaWxlIHdlIGludmVzdGln
-YXRlIGEgYmV0dGVyCnNvbHV0aW9uIHRvIHJlcG9ydCBrbm93biBpc3N1ZXMgcHJvcGVybHkuCgo+
-IAo+IFdlIGhvcGUgdGhhdCB0aGVzZSBsb2dzIGNhbiBoZWxwIHlvdSBmaW5kIHRoZSBwcm9ibGVt
-IHF1aWNrbHkuIEZvciB0aGUgZnVsbAo+IGRldGFpbCBvbiBvdXIgdGVzdGluZyBwcm9jZWR1cmVz
-LCBwbGVhc2Ugc2Nyb2xsIHRvIHRoZSBib3R0b20gb2YgdGhpcyBtZXNzYWdlLgo+IAo+IFBsZWFz
-ZSByZXBseSB0byB0aGlzIGVtYWlsIGlmIHlvdSBoYXZlIGFueSBxdWVzdGlvbnMgYWJvdXQgdGhl
-IHRlc3RzIHRoYXQgd2UKPiByYW4gb3IgaWYgeW91IGhhdmUgYW55IHN1Z2dlc3Rpb25zIG9uIGhv
-dyB0byBtYWtlIGZ1dHVyZSB0ZXN0cyBtb3JlIGVmZmVjdGl2ZS4KPiAKPiAgICAgICAgICAsLS4g
-ICAsLS4KPiAgICAgICAgICggQyApICggSyApICBDb250aW51b3VzCj4gICAgICAgICAgYC0nLC0u
-YC0nICAgS2VybmVsCj4gICAgICAgICAgICAoIEkgKSAgICAgSW50ZWdyYXRpb24KPiAgICAgICAg
-ICAgICBgLScKPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiAKPiBDb21waWxlIHRlc3RpbmcKPiAt
-LS0tLS0tLS0tLS0tLS0KPiAKPiBXZSBjb21waWxlZCB0aGUga2VybmVsIGZvciAxIGFyY2hpdGVj
-dHVyZToKPiAKPiAgICAgIHg4Nl82NDoKPiAgICAgICAgbWFrZSBvcHRpb25zOiAtajMwIElOU1RB
-TExfTU9EX1NUUklQPTEgdGFyZ3otcGtnCj4gCj4gCj4gSGFyZHdhcmUgdGVzdGluZwo+IC0tLS0t
-LS0tLS0tLS0tLS0KPiBXZSBib290ZWQgZWFjaCBrZXJuZWwgYW5kIHJhbiB0aGUgZm9sbG93aW5n
-IHRlc3RzOgo+IAo+ICAgIHg4Nl82NDoKPiAgICAgIEhvc3QgMToKPiAgICAgICAgIOKchSBCb290
-IHRlc3QKPiAgICAgICAgIOKchSBzZWxpbnV4LXBvbGljeTogc2VyZ2UtdGVzdHN1aXRlCj4gICAg
-ICAgICDinIUgbHZtIHRoaW5wIHNhbml0eQo+ICAgICAgICAg4pyFIHN0b3JhZ2U6IHNvZnR3YXJl
-IFJBSUQgdGVzdGluZwo+ICAgICAgICAg4pyFIHN0cmVzczogc3RyZXNzLW5nCj4gICAgICAgICDw
-n5qnIPCfkqUgeGZzdGVzdHMgLSBleHQ0Cj4gICAgICAgICDwn5qnIOKaoeKaoeKaoSB4ZnN0ZXN0
-cyAtIHhmcwo+ICAgICAgICAg8J+apyDimqHimqHimqEgSU9NTVUgYm9vdCB0ZXN0Cj4gICAgICAg
-ICDwn5qnIOKaoeKaoeKaoSBJUE1JIGRyaXZlciB0ZXN0Cj4gICAgICAgICDwn5qnIOKaoeKaoeKa
-oSBJUE1JdG9vbCBsb29wIHN0cmVzcyB0ZXN0Cj4gICAgICAgICDwn5qnIOKaoeKaoeKaoSBwb3dl
-ci1tYW5hZ2VtZW50OiBjcHVwb3dlci9zYW5pdHkgdGVzdAo+ICAgICAgICAg8J+apyDimqHimqHi
-mqEgU3RvcmFnZSBibGt0ZXN0cwo+IAo+ICAgICAgSG9zdCAyOgo+ICAgICAgICAg4pyFIEJvb3Qg
-dGVzdAo+ICAgICAgICAg4pyFIFN0b3JhZ2UgU0FOIGRldmljZSBzdHJlc3MgLSBtZWdhcmFpZF9z
-YXMKPiAKPiAgICAgIEhvc3QgMzoKPiAgICAgICAgIOKchSBCb290IHRlc3QKPiAgICAgICAgIOKc
-hSBTdG9yYWdlIFNBTiBkZXZpY2Ugc3RyZXNzIC0gbXB0M3NhcyBkcml2ZXIKPiAKPiAgICAgIEhv
-c3QgNDoKPiAgICAgICAgIOKchSBCb290IHRlc3QKPiAgICAgICAgIOKchSBQb2RtYW4gc3lzdGVt
-IGludGVncmF0aW9uIHRlc3QgLSBhcyByb290Cj4gICAgICAgICDinIUgUG9kbWFuIHN5c3RlbSBp
-bnRlZ3JhdGlvbiB0ZXN0IC0gYXMgdXNlcgo+ICAgICAgICAg8J+SpSBMVFAKPiAgICAgICAgIOKa
-oeKaoeKaoSBMb29wZGV2IFNhbml0eQo+ICAgICAgICAg4pqh4pqh4pqhIE1lbW9yeSBmdW5jdGlv
-bjogbWVtZmRfY3JlYXRlCj4gICAgICAgICDimqHimqHimqEgQU1UVSAoQWJzdHJhY3QgTWFjaGlu
-ZSBUZXN0IFV0aWxpdHkpCj4gICAgICAgICDimqHimqHimqEgTmV0d29ya2luZyBicmlkZ2U6IHNh
-bml0eQo+ICAgICAgICAg4pqh4pqh4pqhIEV0aGVybmV0IGRyaXZlcnMgc2FuaXR5Cj4gICAgICAg
-ICDimqHimqHimqEgTmV0d29ya2luZyBNQUNzZWM6IHNhbml0eQo+ICAgICAgICAg4pqh4pqh4pqh
-IE5ldHdvcmtpbmcgc29ja2V0OiBmdXp6Cj4gICAgICAgICDimqHimqHimqEgTmV0d29ya2luZyBz
-Y3RwLWF1dGg6IHNvY2tvcHRzIHRlc3QKPiAgICAgICAgIOKaoeKaoeKaoSBOZXR3b3JraW5nOiBp
-Z21wIGNvbmZvcm1hbmNlIHRlc3QKPiAgICAgICAgIOKaoeKaoeKaoSBOZXR3b3JraW5nIHJvdXRl
-OiBwbXR1Cj4gICAgICAgICDimqHimqHimqEgTmV0d29ya2luZyByb3V0ZV9mdW5jIC0gbG9jYWwK
-PiAgICAgICAgIOKaoeKaoeKaoSBOZXR3b3JraW5nIHJvdXRlX2Z1bmMgLSBmb3J3YXJkCj4gICAg
-ICAgICDimqHimqHimqEgTmV0d29ya2luZyBUQ1A6IGtlZXBhbGl2ZSB0ZXN0Cj4gICAgICAgICDi
-mqHimqHimqEgTmV0d29ya2luZyBVRFA6IHNvY2tldAo+ICAgICAgICAg4pqh4pqh4pqhIE5ldHdv
-cmtpbmcgdHVubmVsOiBnZW5ldmUgYmFzaWMgdGVzdAo+ICAgICAgICAg4pqh4pqh4pqhIE5ldHdv
-cmtpbmcgdHVubmVsOiBncmUgYmFzaWMKPiAgICAgICAgIOKaoeKaoeKaoSBMMlRQIGJhc2ljIHRl
-c3QKPiAgICAgICAgIOKaoeKaoeKaoSBOZXR3b3JraW5nIHR1bm5lbDogdnhsYW4gYmFzaWMKPiAg
-ICAgICAgIOKaoeKaoeKaoSBOZXR3b3JraW5nIGlwc2VjOiBiYXNpYyBuZXRucyAtIHRyYW5zcG9y
-dAo+ICAgICAgICAg4pqh4pqh4pqhIE5ldHdvcmtpbmcgaXBzZWM6IGJhc2ljIG5ldG5zIC0gdHVu
-bmVsCj4gICAgICAgICDimqHimqHimqEgaHR0cGQ6IG1vZF9zc2wgc21va2Ugc2FuaXR5Cj4gICAg
-ICAgICDimqHimqHimqEgdHVuZWQ6IHR1bmUtcHJvY2Vzc2VzLXRocm91Z2gtcGVyZgo+ICAgICAg
-ICAg4pqh4pqh4pqhIHBjaXV0aWxzOiBzYW5pdHkgc21va2UgdGVzdAo+ICAgICAgICAg4pqh4pqh
-4pqhIEFMU0EgUENNIGxvb3BiYWNrIHRlc3QKPiAgICAgICAgIOKaoeKaoeKaoSBBTFNBIENvbnRy
-b2wgKG1peGVyKSBVc2Vyc3BhY2UgRWxlbWVudCB0ZXN0Cj4gICAgICAgICDimqHimqHimqEgVXNl
-eCAtIHZlcnNpb24gMS45LTI5Cj4gICAgICAgICDimqHimqHimqEgc3RvcmFnZTogU0NTSSBWUEQK
-PiAgICAgICAgIOKaoeKaoeKaoSB0cmFjZTogZnRyYWNlL3RyYWNlcgo+ICAgICAgICAg8J+apyDi
-mqHimqHimqEgQ0lGUyBDb25uZWN0YXRob24KPiAgICAgICAgIPCfmqcg4pqh4pqh4pqhIFBPU0lY
-IHBqZC1mc3Rlc3Qgc3VpdGVzCj4gICAgICAgICDwn5qnIOKaoeKaoeKaoSBqdm0gLSBEYUNhcG8g
-QmVuY2htYXJrIFN1aXRlCj4gICAgICAgICDwn5qnIOKaoeKaoeKaoSBqdm0gLSBqY3N0cmVzcyB0
-ZXN0cwo+ICAgICAgICAg8J+apyDimqHimqHimqEgTWVtb3J5IGZ1bmN0aW9uOiBrYXNscgo+ICAg
-ICAgICAg8J+apyDimqHimqHimqEgTFRQOiBvcGVucG9zaXggdGVzdCBzdWl0ZQo+ICAgICAgICAg
-8J+apyDimqHimqHimqEgTmV0d29ya2luZyB2bmljOiBpcHZsYW4vYmFzaWMKPiAgICAgICAgIPCf
-mqcg4pqh4pqh4pqhIGF1ZGl0OiBhdWRpdCB0ZXN0c3VpdGUgdGVzdAo+ICAgICAgICAg8J+apyDi
-mqHimqHimqEgaW90b3A6IHNhbml0eQo+ICAgICAgICAg8J+apyDimqHimqHimqEgc3RvcmFnZTog
-ZG0vY29tbW9uCj4gCj4gICAgVGVzdCBzb3VyY2VzOiBodHRwczovL2dpdGh1Yi5jb20vQ0tJLXBy
-b2plY3QvdGVzdHMtYmVha2VyCj4gICAgICDwn5KaIFB1bGwgcmVxdWVzdHMgYXJlIHdlbGNvbWUg
-Zm9yIG5ldyB0ZXN0cyBvciBpbXByb3ZlbWVudHMgdG8gZXhpc3RpbmcgdGVzdHMhCj4gCj4gQWJv
-cnRlZCB0ZXN0cwo+IC0tLS0tLS0tLS0tLS0KPiBUZXN0cyB0aGF0IGRpZG4ndCBjb21wbGV0ZSBy
-dW5uaW5nIHN1Y2Nlc3NmdWxseSBhcmUgbWFya2VkIHdpdGgg4pqh4pqh4pqhLgo+IElmIHRoaXMg
-d2FzIGNhdXNlZCBieSBhbiBpbmZyYXN0cnVjdHVyZSBpc3N1ZSwgd2UgdHJ5IHRvIG1hcmsgdGhh
-dAo+IGV4cGxpY2l0bHkgaW4gdGhlIHJlcG9ydC4KPiAKPiBXYWl2ZWQgdGVzdHMKPiAtLS0tLS0t
-LS0tLS0KPiBJZiB0aGUgdGVzdCBydW4gaW5jbHVkZWQgd2FpdmVkIHRlc3RzLCB0aGV5IGFyZSBt
-YXJrZWQgd2l0aCDwn5qnLiBTdWNoIHRlc3RzIGFyZQo+IGV4ZWN1dGVkIGJ1dCB0aGVpciByZXN1
-bHRzIGFyZSBub3QgdGFrZW4gaW50byBhY2NvdW50LiBUZXN0cyBhcmUgd2FpdmVkIHdoZW4KPiB0
-aGVpciByZXN1bHRzIGFyZSBub3QgcmVsaWFibGUgZW5vdWdoLCBlLmcuIHdoZW4gdGhleSdyZSBq
-dXN0IGludHJvZHVjZWQgb3IgYXJlCj4gYmVpbmcgZml4ZWQuCj4gCj4gVGVzdGluZyB0aW1lb3V0
-Cj4gLS0tLS0tLS0tLS0tLS0tCj4gV2UgYWltIHRvIHByb3ZpZGUgYSByZXBvcnQgd2l0aGluIHJl
-YXNvbmFibGUgdGltZWZyYW1lLiBUZXN0cyB0aGF0IGhhdmVuJ3QKPiBmaW5pc2hlZCBydW5uaW5n
-IHlldCBhcmUgbWFya2VkIHdpdGgg4o+xLgo+IAo+IAoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzog
-aHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+Usually, when we want to get a signal to handle, we should install
+customized signal handler function by using sigation. The other way
+is to block this signal and use sigwait() to get the signal from its
+pending list. Use sigprocmask(SIGBLOCK, &set, NULL) to make sure we
+can get SIGABRT/SIGALRM signal.
+
+Test this case on 2.6.18-398.el5, it doesn't get any signal.
+higer versions than this only get SIGABRT signal.
+
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+---
+ .../functional/timers/timers/twoptimers.c     | 20 ++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
+
+diff --git a/testcases/open_posix_testsuite/functional/timers/timers/twoptimers.c b/testcases/open_posix_testsuite/functional/timers/timers/twoptimers.c
+index 84bea3f0a..b2657539c 100644
+--- a/testcases/open_posix_testsuite/functional/timers/timers/twoptimers.c
++++ b/testcases/open_posix_testsuite/functional/timers/timers/twoptimers.c
+@@ -51,6 +51,10 @@ int main(int argc, char *argv[])
+ 			return PTS_UNRESOLVED;
+ 		}
+ 
++		if (sigprocmask(SIG_BLOCK, &set, NULL) == -1) {
++			perror("sigprocmask() failed\n");
++			return PTS_UNRESOLVED;
++		}
+ 		ev.sigev_notify = SIGEV_SIGNAL;
+ 		ev.sigev_signo = SIGABRT;
+ 		if (timer_create(CLOCK_REALTIME, &ev, &tid) != 0) {
+@@ -73,8 +77,10 @@ int main(int argc, char *argv[])
+ 			perror("sigwait() failed\n");
+ 			return PTS_UNRESOLVED;
+ 		}
+-		printf("Got it!  Child\n");
+-
++		if (sig == SIGABRT)
++			printf("Got it! Child\n");
++		else
++			printf("Got another signal! Child\n");
+ 		sleep(LONGTIME);
+ 		return CHILDPASS;
+ 	} else {
+@@ -97,6 +103,11 @@ int main(int argc, char *argv[])
+ 			return PTS_UNRESOLVED;
+ 		}
+ 
++		if (sigprocmask(SIG_BLOCK, &set, NULL) == -1) {
++			perror("sigaprocmask() failed\n");
++			return PTS_UNRESOLVED;
++		}
++
+ 		ev.sigev_notify = SIGEV_SIGNAL;
+ 		ev.sigev_signo = SIGALRM;
+ 		if (timer_create(CLOCK_REALTIME, &ev, &tid) != 0) {
+@@ -119,7 +130,10 @@ int main(int argc, char *argv[])
+ 			perror("sigwait() failed\n");
+ 			return PTS_UNRESOLVED;
+ 		}
+-		printf("Got it!  Parent\n");
++		if (sig == SIGALRM)
++			printf("Got it! Parent\n");
++		else
++			printf("Got another signal! Parent\n");
+ 
+ 		if (wait(&i) == -1) {
+ 			perror("Error waiting for child to exit\n");
+-- 
+2.23.0
+
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
