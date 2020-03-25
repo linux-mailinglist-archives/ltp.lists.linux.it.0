@@ -2,69 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6396E192739
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Mar 2020 12:35:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ED1019273B
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Mar 2020 12:35:35 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BB26E3C4BB2
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Mar 2020 12:35:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 371973C4BAF
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Mar 2020 12:35:35 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id CD6723C2312
- for <ltp@lists.linux.it>; Wed, 25 Mar 2020 12:35:21 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 7F1563C4BD9
+ for <ltp@lists.linux.it>; Wed, 25 Mar 2020 12:35:22 +0100 (CET)
 Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 49284601B11
- for <ltp@lists.linux.it>; Wed, 25 Mar 2020 12:35:20 +0100 (CET)
-Received: from mail-pg1-f199.google.com ([209.85.215.199])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 41BB81001420
+ for <ltp@lists.linux.it>; Wed, 25 Mar 2020 12:35:22 +0100 (CET)
+Received: from mail-pf1-f197.google.com ([209.85.210.197])
  by youngberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <po-hsu.lin@canonical.com>) id 1jH4Jb-00008A-V2
- for ltp@lists.linux.it; Wed, 25 Mar 2020 11:35:20 +0000
-Received: by mail-pg1-f199.google.com with SMTP id g8so1527473pgr.6
- for <ltp@lists.linux.it>; Wed, 25 Mar 2020 04:35:19 -0700 (PDT)
+ (envelope-from <po-hsu.lin@canonical.com>) id 1jH4Jd-00008Q-LZ
+ for ltp@lists.linux.it; Wed, 25 Mar 2020 11:35:21 +0000
+Received: by mail-pf1-f197.google.com with SMTP id a188so1873201pfa.12
+ for <ltp@lists.linux.it>; Wed, 25 Mar 2020 04:35:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
- :references;
+ :references:in-reply-to:references;
  bh=md3UWaiMcXcETbhhQfvbciALyAQxNxOwJqVfeUnCjDw=;
- b=qMCw5D7Xi/8Dql5iSLIx3CWC4FMmTQHNkcBKCkWdSWUcrMq6d1c4Zx564TxHF8ohMc
- T7pFru302AZD/yxMsQAkikiTP1w3g2dzBzgtI/JEeWObBYhWY/nIOCQ7cCbC8CjTogiO
- /74ldKvncHxj40+4id5e3mlu533igKocZSFs3Tf6lhiC2WJuSD1rjDWnAB5X5/8efj+U
- Y2ie9yIgUhWoa0gG3kEwZkSQyKyRrHE4uYhixQwhW8pFKEfjcynycvf0kvnFHuJSGWfx
- JyacL9T2H6Vv4JUPRPD3uKCKKnBKFvjacIC4UzjdJE6WnNeWdOMmdbjA8w+RvWrn0Bax
- vtaQ==
-X-Gm-Message-State: ANhLgQ0hfLfFRWjlPmYE5AAoUKclCzJUqfAyQyeaEOv4iyOdfLn/gQla
- iSYmGi5R6SkVvff1FCpLt3Fnq/10V/d51N9opg8nGjl5pmi66LsbuobT+i3VtHUtKiHgymyUglJ
- qVIE1Q6PFIFIA6MRS4p7VY5jXrLg=
-X-Received: by 2002:a17:902:a407:: with SMTP id
- p7mr2797221plq.257.1585136118410; 
- Wed, 25 Mar 2020 04:35:18 -0700 (PDT)
-X-Google-Smtp-Source: ADFU+vuGuZ8V+i91hbrfGTuhr8SyuSmKmFHg3THKWKy0b6ydZQl5Y7Nm2vaubNfbtGAFeunSX5eMuQ==
-X-Received: by 2002:a17:902:a407:: with SMTP id
- p7mr2797194plq.257.1585136118031; 
- Wed, 25 Mar 2020 04:35:18 -0700 (PDT)
+ b=UE55cadm2O1wG7soR0kSBQ4w3/mraGuWujBHFagHwFcvG6P/aEFCP0TbRT9a+aBJmo
+ VjmPeqU6P3TB7q3iB1M3bayPUxsmqlUTa984YV5k9/bUXrnIrnq+5GACfCEsLW1pm25D
+ BQXDFxVCwX7QnUPcxrAfDgtABUZxHzDjubZoTfX8Kumxuh4hi5BqWDebjLJnj/YRXtvi
+ SOWBsu2vTZrwtbVHWImFuEQxgnD2yW1Bv2D0XrwbDE6or4+glsSgqOsDAAz6iqK698KG
+ hJ+jpUECiWE5hZY2gmPkKngGdmk9hVpwUwXGNPMNSaitkWmcdgyKEAVjiCH5LyyiqlBk
+ 79pg==
+X-Gm-Message-State: ANhLgQ12G995dNs5o9DNeBdwHi4PPJX48Seq0fmkT62HRMqGuj3XfZd1
+ uwouICwAMvll6YFZjGfSEZ9uKz6dB3lswjPADC9TYSI+N4qdc5zEoYJ5A7towa3xK8lS1p2c85l
+ 67dFoHGRBWB1ObmBBL70ASMskzMQ=
+X-Received: by 2002:a62:a119:: with SMTP id b25mr2978030pff.158.1585136120362; 
+ Wed, 25 Mar 2020 04:35:20 -0700 (PDT)
+X-Google-Smtp-Source: ADFU+vtcqBfeJXjqrix6xmjzfAueVXq2Dc6PKSRQl+PC8B2Yrj40pcRI11ZnlVcSGGU8ffl/AQs24w==
+X-Received: by 2002:a62:a119:: with SMTP id b25mr2978003pff.158.1585136119999; 
+ Wed, 25 Mar 2020 04:35:19 -0700 (PDT)
 Received: from localhost.localdomain (223-136-97-141.emome-ip.hinet.net.
  [223.136.97.141])
- by smtp.gmail.com with ESMTPSA id x4sm1814400pgr.9.2020.03.25.04.35.16
+ by smtp.gmail.com with ESMTPSA id x4sm1814400pgr.9.2020.03.25.04.35.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Mar 2020 04:35:17 -0700 (PDT)
+ Wed, 25 Mar 2020 04:35:19 -0700 (PDT)
 From: Po-Hsu Lin <po-hsu.lin@canonical.com>
 To: xuyang2018.jy@cn.fujitsu.com,
 	ltp@lists.linux.it
-Date: Wed, 25 Mar 2020 19:35:06 +0800
-Message-Id: <20200325113507.22086-1-po-hsu.lin@canonical.com>
+Date: Wed, 25 Mar 2020 19:35:07 +0800
+Message-Id: <20200325113507.22086-2-po-hsu.lin@canonical.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200325113507.22086-1-po-hsu.lin@canonical.com>
+References: <20200325113507.22086-1-po-hsu.lin@canonical.com>
 In-Reply-To: 1584507302-23515-1-git-send-email-xuyang2018.jy@cn.fujitsu.com
 References: 1584507302-23515-1-git-send-email-xuyang2018.jy@cn.fujitsu.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
 Subject: [LTP] ltp_tpci.c: fix a null pointer
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
