@@ -1,51 +1,58 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 255F2193974
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Mar 2020 08:15:18 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7902F193A37
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Mar 2020 09:03:40 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D78D23C4AD8
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Mar 2020 08:15:17 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DABB23C4AE3
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Mar 2020 09:03:38 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 86A563C0823
- for <ltp@lists.linux.it>; Thu, 26 Mar 2020 08:15:15 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 8EC133C3362
+ for <ltp@lists.linux.it>; Thu, 26 Mar 2020 09:03:33 +0100 (CET)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 3F82A1000C2B
- for <ltp@lists.linux.it>; Thu, 26 Mar 2020 08:15:12 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.72,307,1580745600"; d="scan'208";a="87346242"
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id D3C661A01062
+ for <ltp@lists.linux.it>; Thu, 26 Mar 2020 09:03:30 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.72,307,1580745600"; d="scan'208";a="87357546"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 26 Mar 2020 15:15:08 +0800
+ by heian.cn.fujitsu.com with ESMTP; 26 Mar 2020 16:03:26 +0800
 Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 7527A50A999B;
- Thu, 26 Mar 2020 15:04:51 +0800 (CST)
+ by cn.fujitsu.com (Postfix) with ESMTP id E600A50A9992;
+ Thu, 26 Mar 2020 15:53:13 +0800 (CST)
 Received: from [10.167.220.84] (10.167.220.84) by
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Thu, 26 Mar 2020 15:15:03 +0800
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <1585127864-1341-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <20200325134001.GF5404@yuki.lan>
+ (TLS) id 15.0.1497.2; Thu, 26 Mar 2020 16:03:26 +0800
+To: Petr Vorel <pvorel@suse.cz>
+References: <CAEemH2fhRYefq_9LmSmDvujS1OQa7rCeF7V=mJQrLhz0bwpo0A@mail.gmail.com>
+ <CAEemH2e4sRwZ8HRm-w5CD=Wm8-SW+LaA5XHDnXdqrOL1t4FdtA@mail.gmail.com>
+ <20200323160415.GC15673@dell5510> <20200324235150.GC4521@yuki.lan>
+ <20200324172102.GA1307@dell5510> <20200325015324.GA15127@yuki.lan>
+ <CAEemH2doL4m4-TLBBWTHygTRPSTa68dkoAFjZJrDmzrkmgUrSQ@mail.gmail.com>
+ <20200325170739.GA2461@yuki.lan> <20200325093427.GA23023@dell5510>
+ <1dea6ff2-f32d-c797-b52d-716efe73d4a6@cn.fujitsu.com>
+ <20200325155624.GC21800@dell5510>
 From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <0e89ff77-cfd7-05a5-edd4-541e302b38b9@cn.fujitsu.com>
-Date: Thu, 26 Mar 2020 15:15:01 +0800
+Message-ID: <88ebe7aa-58f8-0c83-2d13-7836198827af@cn.fujitsu.com>
+Date: Thu, 26 Mar 2020 16:03:23 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
  Thunderbird/68.0
 MIME-Version: 1.0
-In-Reply-To: <20200325134001.GF5404@yuki.lan>
+In-Reply-To: <20200325155624.GC21800@dell5510>
 X-Originating-IP: [10.167.220.84]
 X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 7527A50A999B.AF5C5
+X-yoursite-MailScanner-ID: E600A50A9992.AACD6
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] aio_return: Remove cases and refactor 4-1.c
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] Use SAFE_RUNCMD()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,367 +64,56 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: liug.fnst@cn.fujitsu.com, ltp@lists.linux.it
+Cc: LTP List <ltp@lists.linux.it>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril
+Hi Petr
 
+> Hi Xu,
+> 
+>> I have seen the history about this problem. We have few C cases to use many
+>> commands(copy_file_range02.c is a specify case, I ported it from xfstest to
+>> increase coverage), do we really want to implement need_cmd or
+>> want_cmds(Usually, we seldom use command in c case and  we should avoid this
+>> for reduce unnecessary dependencies, except user level command such as mkfs
+>> or makeswap or useradd)? It will give user a mislead.
+> 
+>> ps:copy_file_range02.c should use swapon and swapoff syscall instead of
+>> command.
+> Yes, rewriting to C would be an improvement for non-standard linux platforms
+> (but then you need to deal with other exceptions: e.g. whether
+> swapon()/swapoff() is even supported on platforms like Android and you might
+> endup with 1) much more code 2) TCONF anyway for these platforms.
+> And there is also chattr and mkswap.
+> 
+I missed non-standard linux platforms.
+> Besides this IMHO there will always be a need for running some command via
+> tst_run_cmd() in the test instead of reimplementing a wheel.
+Yes, we can not avoid using command.
+> Some of other
+> dependencies:
+> 
+> cat (testcases/cve/stack_clash.c this one could be using C code),
+> mpdprobe, make, mkswap, quotacheck,
+> useradd/userdel (I plan to put these into the library, but still it's much
+> easier to use them than reimplement code in C).
+Yes, it is fast and efficient.
 
-> Hi!
->>  From aio_return(3) manpage, the aio_return() function returns the
->> final return status for the asynchronous I/O request with control
->> block pointed to by aiocbp. It should be called only once for any
->> given request. If we want to call twice for same aiocbp, it only
->> returns the last value. It doesn't make sense. So remove 2-1.c and
->> 3-2.c.
-> 
-> For the open posix test you have to read the POSIX specification, not
-> the manuals that describe how the interface is implemented in Linux.
-> Oh, Thanks for the reminder and posix spec(When I looked into the reason 
-  of openposix/twoptimers[1] failure, I guess it maybe related to posix 
-spec, but I can not find document about it) .
-
-[1]https://patchwork.ozlabs.org/patch/1261131/
-> See: https://pubs.opengroup.org/onlinepubs/9699919799/
-> 
-> There it says that it may return error in case that it's called twice.
-> Linux the test returns UNTESTED because we got the last value stored in
-> the structure.
-> 
-Yes, I see "thereafter, if the same aiocb structure is used in a call to 
-aio_return() or aio_error(), an error may be returned. "
-
-I plan to create a FreeBSD12 env to see its posix manpage and action.
-> The 3-2.c seems to be bogus, the description says that if the aiocb is
-> reused for a subsequent AIO operation the aio_return() should work fine
-> to retrieve it's status, but it's nearly identicall to 2-1.c.
-I see 3-1.c code, it has tested this coverage. I think 2-1.c and 3.2 are 
-identicall. I guess we should remove 3-2.c. Is it right?
-> 
->> For 4-1.c, it failed with the same reason. But we can refactor this
->> , firstly call aio_return(&aiocb2) and then call aio_return(&aiocb).
->> It tests whether value override.
-> 
-> Looking at the assertions.xml the assertion 2 and 4 are nearly
-> identical. The assertion 2 is a subset of assertion 4 so it makes sense
-> to remove 2-1.c at least.
-> 
-Yes, they are nearly identical. But I think we should keep 2-1.c (remove 
-3-2.c)because 2-1.c tests call twice and the second call may fail(we do 
-nothing), but 4-1.c tests asynchronous I/O operation has not yet 
-completed(such as read, sync,write not completed, we just create aiocb2 
-  and memset but not call other I/O operation), then aio_return calls 
-failed.
+Also as Li said, we can write code firstly(add_key05 can use library a 
+api int the future as your issue#468 mentioned).
 
 Best Regards
 Yang Xu
-> I guess that the 3-2.c may be rewritten to submit two operations so that
-> we actually test what is in the description
 > 
->> Reported-by: Gang Liu <liug.fnst@cn.fujitsu.com>
->> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
->> ---
->>   .../conformance/interfaces/aio_return/2-1.c   | 108 -----------------
->>   .../conformance/interfaces/aio_return/3-2.c   | 111 ------------------
->>   .../conformance/interfaces/aio_return/4-1.c   |  23 +++-
->>   3 files changed, 18 insertions(+), 224 deletions(-)
->>   delete mode 100644 testcases/open_posix_testsuite/conformance/interfaces/aio_return/2-1.c
->>   delete mode 100644 testcases/open_posix_testsuite/conformance/interfaces/aio_return/3-2.c
->>
->> diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_return/2-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_return/2-1.c
->> deleted file mode 100644
->> index ac9873200..000000000
->> --- a/testcases/open_posix_testsuite/conformance/interfaces/aio_return/2-1.c
->> +++ /dev/null
->> @@ -1,108 +0,0 @@
->> -/*
->> - * Copyright (c) 2004, Bull SA. All rights reserved.
->> - * Created by:  Laurent.Vivier@bull.net
->> - * This file is licensed under the GPL license.  For the full content
->> - * of this license, see the COPYING file at the top level of this
->> - * source tree.
->> - */
->> -
->> -/*
->> - * assertion:
->> - *
->> - *	aio_return() may be called exactly once to retrieve the return status.
->> - *
->> - * method:
->> - *
->> - *	- open a file
->> - *	- fill in an aiocb for writing
->> - *	- call aio_write using this aiocb
->> - *	- call aio_return to get the aiocb status (number of bytes written)
->> - *	- call aio_return again, return status should be -1
->> - */
->> -
->> -#include <sys/stat.h>
->> -#include <aio.h>
->> -#include <errno.h>
->> -#include <fcntl.h>
->> -#include <stdio.h>
->> -#include <stdlib.h>
->> -#include <string.h>
->> -#include <unistd.h>
->> -#include "posixtest.h"
->> -#include <time.h>
->> -
->> -#define TNAME "aio_return/2-1.c"
->> -#define BUF_SIZE 111
->> -
->> -int main(void)
->> -{
->> -	char tmpfname[256];
->> -	char buf[BUF_SIZE];
->> -	struct aiocb aiocb;
->> -	int fd, retval;
->> -	struct timespec completion_wait_ts = {0, 10000000};
->> -
->> -	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
->> -		return PTS_UNSUPPORTED;
->> -
->> -	snprintf(tmpfname, sizeof(tmpfname), "/tmp/pts_aio_return_2_1_%d",
->> -		 getpid());
->> -	unlink(tmpfname);
->> -	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
->> -
->> -	if (fd == -1) {
->> -		printf(TNAME " Error at open(): %s\n", strerror(errno));
->> -		return PTS_UNRESOLVED;
->> -	}
->> -
->> -	unlink(tmpfname);
->> -
->> -	memset(buf, 0xaa, BUF_SIZE);
->> -	memset(&aiocb, 0, sizeof(struct aiocb));
->> -	aiocb.aio_fildes = fd;
->> -	aiocb.aio_buf = buf;
->> -	aiocb.aio_nbytes = BUF_SIZE;
->> -
->> -	if (aio_write(&aiocb) == -1) {
->> -		close(fd);
->> -		printf(TNAME " Error at aio_write(): %s\n",
->> -		       strerror(aio_error(&aiocb)));
->> -		return PTS_FAIL;
->> -	}
->> -
->> -	do {
->> -		nanosleep(&completion_wait_ts, NULL);
->> -		retval = aio_error(&aiocb);
->> -	} while (retval == EINPROGRESS);
->> -
->> -	retval = aio_return(&aiocb);
->> -
->> -	if (0 < retval) {
->> -
->> -		if (retval != BUF_SIZE) {
->> -			close(fd);
->> -			printf(TNAME " aio_return didn't return expected size: "
->> -			       "%d\n", retval);
->> -			return PTS_FAIL;
->> -		}
->> -
->> -		retval = aio_return(&aiocb);
->> -
->> -		if (retval != -1) {
->> -			close(fd);
->> -			printf(TNAME " Second call to aio_return() may "
->> -			       "return -1; aio_return() returned %d\n", retval);
->> -			return PTS_UNTESTED;
->> -		}
->> -
->> -	} else {
->> -		close(fd);
->> -		printf(TNAME " Error at aio_error(): %s\n",
->> -		       strerror(aio_error(&aiocb)));
->> -		return PTS_UNRESOLVED;
->> -	}
->> -
->> -	close(fd);
->> -	printf("Test PASSED\n");
->> -	return PTS_PASS;
->> -}
->> diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_return/3-2.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_return/3-2.c
->> deleted file mode 100644
->> index 883823bac..000000000
->> --- a/testcases/open_posix_testsuite/conformance/interfaces/aio_return/3-2.c
->> +++ /dev/null
->> @@ -1,111 +0,0 @@
->> -/*
->> - * Copyright (c) 2004, Bull SA. All rights reserved.
->> - * Created by:  Laurent.Vivier@bull.net
->> - * This file is licensed under the GPL license.  For the full content
->> - * of this license, see the COPYING file at the top level of this
->> - * source tree.
->> - */
->> -
->> -/*
->> - * assertion:
->> - *
->> - *	If the aiocbp is used to submit another asynchronous operation,
->> - *	then aio_return may be successfully used to retrieve the return status.
->> - *
->> - * method:
->> - *
->> - *	- open a file
->> - *	- fill in an aiocb for writing
->> - *	- call aio_write using this aiocb
->> - *	- call aio_return to get the aiocb status (number of bytes written)
->> - *	- call aio_return again, return status should be -1
->> - */
->> -
->> -#include <stdio.h>
->> -#include <sys/types.h>
->> -#include <unistd.h>
->> -#include <sys/stat.h>
->> -#include <fcntl.h>
->> -#include <string.h>
->> -#include <errno.h>
->> -#include <stdlib.h>
->> -#include <aio.h>
->> -#include <time.h>
->> -
->> -#include "posixtest.h"
->> -
->> -#define TNAME "aio_return/3-2.c"
->> -#define BUF_SIZE 4096
->> -
->> -int main(void)
->> -{
->> -	char tmpfname[256];
->> -	char buf[BUF_SIZE];
->> -	struct aiocb aiocb;
->> -	int fd, retval;
->> -	struct timespec completion_wait_ts = {0, 10000000};
->> -
->> -	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
->> -		return PTS_UNSUPPORTED;
->> -
->> -	snprintf(tmpfname, sizeof(tmpfname), "/tmp/pts_aio_return_3_2_%d",
->> -		 getpid());
->> -	unlink(tmpfname);
->> -	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
->> -
->> -	if (fd == -1) {
->> -		printf(TNAME " Error at open(): %s\n", strerror(errno));
->> -		return PTS_UNRESOLVED;
->> -	}
->> -
->> -	unlink(tmpfname);
->> -
->> -	memset(buf, 0xaa, BUF_SIZE);
->> -	memset(&aiocb, 0, sizeof(struct aiocb));
->> -	aiocb.aio_fildes = fd;
->> -	aiocb.aio_buf = buf;
->> -	aiocb.aio_nbytes = BUF_SIZE;
->> -
->> -	if (aio_write(&aiocb) == -1) {
->> -		close(fd);
->> -		printf(TNAME " Error at aio_write(): %s\n",
->> -		       strerror(aio_error(&aiocb)));
->> -		return PTS_FAIL;
->> -	}
->> -
->> -	do {
->> -		nanosleep(&completion_wait_ts, NULL);
->> -		retval = aio_error(&aiocb);
->> -	} while (retval == EINPROGRESS);
->> -
->> -	retval = aio_return(&aiocb);
->> -
->> -	if (retval == -1) {
->> -		printf(TNAME " Error at aio_error(): %s\n",
->> -		       strerror(aio_error(&aiocb)));
->> -		return PTS_UNRESOLVED;
->> -	} else {
->> -
->> -		if (retval != BUF_SIZE) {
->> -			close(fd);
->> -			printf(TNAME " Error at aio_return(): %d, %s\n", retval,
->> -			       strerror(aio_error(&aiocb)));
->> -			return PTS_FAIL;
->> -		}
->> -
->> -		retval = aio_return(&aiocb);
->> -
->> -		if (retval != -1 && aio_error(&aiocb) != EINVAL) {
->> -			close(fd);
->> -			printf(TNAME " aio_return() may fail with (-1, %d); "
->> -			       "failed with (%d, %d) instead\n",
->> -			       EINVAL, retval, aio_error(&aiocb));
->> -			return PTS_UNTESTED;
->> -		}
->> -
->> -	}
->> -
->> -	close(fd);
->> -	printf("Test PASSED\n");
->> -	return PTS_PASS;
->> -}
->> diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c
->> index 7a039b13f..770699b54 100644
->> --- a/testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c
->> +++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c
->> @@ -17,8 +17,10 @@
->>    *
->>    *	- Open a file
->>    *	- fill in an aiocb for writing
->> - *	- call aio_write usign this aiocb
->> + *	- call aio_write using this aiocb
->>    *	- fill in a new aiocb
->> + *	- call aio_write using this aiocb
->> + *	- call aio_return with aiocb
->>    *	- call aio_return with this last aiocb
->>    */
->>   
->> @@ -86,20 +88,31 @@ int main(void)
->>   		aiocb2.aio_fildes = fd;
->>   		aiocb2.aio_buf = buf;
->>   		aiocb2.aio_nbytes = BUF_SIZE;
->> +		if (aio_write(&aiocb2) == -1) {
->> +			close(fd);
->> +			printf(TNAME " Error at aio_write(): %s\n", strerror(errno));
->> +			return PTS_FAIL;
->> +		}
->> +
->> +		do {
->> +			nanosleep(&completion_wait_ts, NULL);
->> +			retval = aio_error(&aiocb);
->> +		} while (retval == EINPROGRESS);
->>   
->>   		retval = aio_return(&aiocb2);
->>   
->> -		if (retval != -1 || aio_error(&aiocb) != EINVAL) {
->> +		if (retval != BUF_SIZE) {
->>   			close(fd);
->> -			printf(TNAME "aio_return() have not failed\n");
->> -			return PTS_UNTESTED;
->> +			printf(TNAME " Error at aio_return(&aiocb2): %d, %s\n", retval,
->> +				strerror(aio_error(&aiocb)));
->> +			return PTS_UNRESOLVED;
->>   		}
->>   
->>   		retval = aio_return(&aiocb);
->>   
->>   		if (retval != BUF_SIZE) {
->>   			close(fd);
->> -			printf(TNAME " Error at aio_return(): %d, %s\n", retval,
->> +			printf(TNAME " Error at aio_return(&aiocb): %d, %s\n", retval,
->>   			       strerror(aio_error(&aiocb)));
->>   			return PTS_UNRESOLVED;
->>   		}
->> -- 
->> 2.23.0
->>
->>
->>
->>
->> -- 
->> Mailing list info: https://lists.linux.it/listinfo/ltp
+> Also library itself (these will not use the flag): insmod, modprobe, rmmod,  mkfs.*,
+> systemd-detect-virt (this one is not a hard dependency).
+> 
+> Kind regards,
+> Petr
+> 
 > 
 
 
