@@ -1,40 +1,84 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFFBC194107
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Mar 2020 15:11:07 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C94619425E
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Mar 2020 16:08:24 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5826C3C4B4D
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Mar 2020 15:11:07 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E61DC3C4B4E
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Mar 2020 16:08:23 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 501FB3C0823
- for <ltp@lists.linux.it>; Thu, 26 Mar 2020 15:11:03 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 3B8223C4AD8
+ for <ltp@lists.linux.it>; Thu, 26 Mar 2020 16:08:18 +0100 (CET)
+Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 99F101401A5C
- for <ltp@lists.linux.it>; Thu, 26 Mar 2020 15:11:02 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 032D1B149
- for <ltp@lists.linux.it>; Thu, 26 Mar 2020 14:11:02 +0000 (UTC)
-Date: Thu, 26 Mar 2020 15:11:02 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20200326141101.GB5185@yuki.lan>
-References: <20200326122329.24876-1-mdoucha@suse.cz>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id EF5B2601519
+ for <ltp@lists.linux.it>; Thu, 26 Mar 2020 16:08:17 +0100 (CET)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 02QF3GGN166819;
+ Thu, 26 Mar 2020 15:08:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=Yk0ykY8cSBi0GHXG1YLJhVXqHDgzVVDdYQR5CpkrFY4=;
+ b=GYZUv1l+4Z/zETfzy6rYOVMpDygKVSApOC4HvLZ2nnsDdj3XA6q90r1EDnaMbUqJhlQO
+ UgXOe8+gP1sHS6Yl0aZ/IByEWEsIUbCEl2AZkfymNJ2w+0oelSHjiAItDwBt6G3/x0v7
+ FbNEFY+auRLOY3XDyKQNmMbJpH9txvahjqr54w/gnZAmAubr0AiDDwPKOfCnZi3iHw7T
+ eAzEtVSdwInLeiVpPr9R+VPA96Fng+6s9VOHMkfjCIXH81pL2jGDMab9g0kW0LlpvIzv
+ KtdOg+IZpzUo2spWaycRgBQ0gTit6YgEHn5Wno5IV3kUqCPjmSjpjXAaOvQ+bTRGU992 OQ== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by userp2130.oracle.com with ESMTP id 2ywabrgctr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 26 Mar 2020 15:08:15 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 02QF1xc3110192;
+ Thu, 26 Mar 2020 15:08:14 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by aserp3030.oracle.com with ESMTP id 3006r8m5df-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 26 Mar 2020 15:08:14 +0000
+Received: from abhmp0004.oracle.com (abhmp0004.oracle.com [141.146.116.10])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 02QF8BEx003311;
+ Thu, 26 Mar 2020 15:08:14 GMT
+Received: from [192.168.1.34] (/95.161.223.113)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Thu, 26 Mar 2020 08:08:11 -0700
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+References: <20200324093622.21091-1-pvorel@suse.cz>
+From: Alexey Kodanev <alexey.kodanev@oracle.com>
+Message-ID: <fb9ee711-f42d-3dd0-a2ef-1685aef951af@oracle.com>
+Date: Thu, 26 Mar 2020 18:08:09 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200326122329.24876-1-mdoucha@suse.cz>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+In-Reply-To: <20200324093622.21091-1-pvorel@suse.cz>
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9571
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ adultscore=0 suspectscore=0
+ phishscore=0 spamscore=0 mlxscore=0 mlxlogscore=999 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
+ definitions=main-2003260117
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9571
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ suspectscore=0
+ lowpriorityscore=0 malwarescore=0 phishscore=0 priorityscore=1501
+ clxscore=1015 adultscore=0 mlxscore=0 mlxlogscore=999 bulkscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2003020000 definitions=main-2003260117
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] Fix use after stack unwind in fzsync lib
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 0/2] xinetd rewrite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,61 +90,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> tst_fzsync_pair_reset() passes a local variable to thread B which may be
-> already unwinded by the time the thread wrapper function executes. If new
-> variables get allocated and initialized on stack between pthread_create()
-> and thread wrapper execution, thread B will segfault.
+On 24.03.2020 12:36, Petr Vorel wrote:
+> Hi Alexey,
 > 
-> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
-> ---
+> this sounds as a bad joke to rewrite tests for xinetd, which nobody uses
+> now. I was surprised, that it's still in some distros (e.g. openSUSE,
+> Debian, Gentoo). I can delete the test if we don't want LTP to be a
+> museum.
 > 
-> Changes since v1:
-> - Use tst_alloc() instead of SAFE_MALLOC() to prevent memory leak even if
->   SAFE_PTHREAD_CREATE() fails
-> - Revert changes in tst_fzsync_thread_wrapper() as they're no longer needed
-> 
->  include/tst_fuzzy_sync.h | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/tst_fuzzy_sync.h b/include/tst_fuzzy_sync.h
-> index c1d0b00f9..8b38cf37d 100644
-> --- a/include/tst_fuzzy_sync.h
-> +++ b/include/tst_fuzzy_sync.h
-> @@ -297,8 +297,12 @@ static void tst_fzsync_pair_reset(struct tst_fzsync_pair *pair,
->  	pair->b_cntr = 0;
->  	pair->exit = 0;
->  	if (run_b) {
-> -		struct tst_fzsync_run_thread wrap_run_b = {.func = run_b, .arg = NULL};
-> -		SAFE_PTHREAD_CREATE(&pair->thread_b, 0, tst_fzsync_thread_wrapper, &wrap_run_b);
-> +		struct tst_fzsync_run_thread *wrap_run_b;
-> +
-> +		wrap_run_b = tst_alloc(sizeof(struct tst_fzsync_run_thread));
-> +		wrap_run_b->func = run_b;
-> +		wrap_run_b->arg = NULL;
+Hi Petr,
 
-Why can't we simply declare the wrap_run_b as a global variable?
+Perhaps, it is true for inetd, not for xinetd.
 
-> +		SAFE_PTHREAD_CREATE(&pair->thread_b, 0, tst_fzsync_thread_wrapper, wrap_run_b);
->  	}
->  
->  	pair->exec_time_start = (float)tst_timeout_remaining();
-> -- 
-> 2.25.1
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+The changes look good, acked.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+> Kind regards,
+> Petr
+> 
+> Petr Vorel (2):
+>   xinetd: Rewrite into new API
+>   xinetd: Fix pattern for NetKit telnet
+> 
+>  testcases/network/xinetd/xinetd_tests.sh | 99 ++++++++----------------
+>  1 file changed, 33 insertions(+), 66 deletions(-)
+> 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
