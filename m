@@ -1,88 +1,38 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D56F71954FA
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Mar 2020 11:17:40 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B75451956F5
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Mar 2020 13:16:16 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5AC4A3C3300
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Mar 2020 11:17:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3E8FB3C3305
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Mar 2020 13:16:16 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id C59D53C32DA
- for <ltp@lists.linux.it>; Fri, 27 Mar 2020 11:17:38 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 9CDA83C32DC
+ for <ltp@lists.linux.it>; Fri, 27 Mar 2020 13:16:14 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 617BC1001BC5
- for <ltp@lists.linux.it>; Fri, 27 Mar 2020 11:17:38 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 138971A016FF
+ for <ltp@lists.linux.it>; Fri, 27 Mar 2020 13:16:13 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id C2545AD0F
- for <ltp@lists.linux.it>; Fri, 27 Mar 2020 10:17:37 +0000 (UTC)
-To: Petr Vorel <pvorel@suse.cz>, Cyril Hrubis <chrubis@suse.cz>
-References: <20200324143839.3647c485@daedruan>
- <20200326084504.GB29830@dell5510> <20200326134603.GA5185@yuki.lan>
- <20200326203222.GA19445@dell5510> <20200327095715.GA16912@dell5510>
+ by mx2.suse.de (Postfix) with ESMTP id 57589AC22
+ for <ltp@lists.linux.it>; Fri, 27 Mar 2020 12:16:13 +0000 (UTC)
 From: Martin Doucha <mdoucha@suse.cz>
-Autocrypt: addr=mdoucha@suse.cz; keydata=
- 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
-Message-ID: <98d9d28a-5da8-5c28-3b8f-0678a4988eda@suse.cz>
-Date: Fri, 27 Mar 2020 11:17:37 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+To: ltp@lists.linux.it
+Date: Fri, 27 Mar 2020 13:16:10 +0100
+Message-Id: <20200327121611.1566-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20200327095715.GA16912@dell5510>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] Avoid zero or negative int results in
- calculations
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 1/2] Add SAFE_PTRACE() to LTP library
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,85 +44,83 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jozef Pupava <jpupava@suse.cz>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 27. 03. 20 10:57, Petr Vorel wrote:
-> Hi,
-> 
->> Before:
->> real	0m0,013s
-> 
->> After (slowed by second commit, not by the rewrite):
->> real	0m0,402s
-> 
-> Although the slowdown it's ~30 times, it's obviously fast enough,
-> so I wouldn't consider it as a problem. I was just surprised by it.
+The function treats any non-zero return value as error. Requests which may
+return non-zero values on success are not supported and need to be handled
+manually.
 
-Like I said in the previous e-mail, that slowdown is caused by the test
-intentionally randomizing the number of disk writes, not the patch. Run
-the test several times.
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
 
-> My concern is about brief explanation where/how is zero or negative result
-> appears. But maybe it's obvious and I just don't see it.
+Changes since v1:
+- Split off from CVE 2018-1000199 patch
+- Changed the req parameter type to int
+- Moved SAFE_PTRACE() declaration from tst_safe_ptrace.h to tst_safe_macros.h
 
-Let me explain.
+ include/tst_safe_macros.h | 10 ++++++++++
+ lib/tst_safe_macros.c     | 19 +++++++++++++++++++
+ 2 files changed, 29 insertions(+)
 
-> @@ -60,17 +61,15 @@ static void run(void) {
-
->  	double time_delta;
-
->  	long int random_number;
-
->  
-
-> -	while (max_block <= data_blocks) {
-
-> -		random_number = rand();
-
-> -		max_block = random_number % max_blks;
-
-> -		data_blocks = random_number % 1000 + 1;
-
-> -	}
-
-> +	random_number = rand();
-
-> +	max_block = random_number % max_blks + 1;
-
-> +	data_blocks = random_number % max_block;
-
-
-This fixes a potential infinite loop if max_blks == 1000. This
-calculation is also the reason why the test has random run length.
-
->  
-
->  	for (i = 1; i <= data_blocks; i++) {
-
->  		offset = i * ((BLOCKSIZE * max_block) / data_blocks);
-
-> -		offset -= BUFSIZ;
-
-> +		offset -= BUF_SIZE;
-
-
-Here the old calculation could produce negative offset if
-BUFSIZ > BLOCKSIZE and (float)max_block/data_blocks is close to 1.
-BUFSIZ is defined in libc headers so the actual value can be different
-on different systems.
-
+diff --git a/include/tst_safe_macros.h b/include/tst_safe_macros.h
+index d95d26219..c018497b9 100644
+--- a/include/tst_safe_macros.h
++++ b/include/tst_safe_macros.h
+@@ -534,4 +534,14 @@ int safe_personality(const char *filename, unsigned int lineno,
+ void safe_unshare(const char *file, const int lineno, int flags);
+ #define SAFE_UNSHARE(flags) safe_unshare(__FILE__, __LINE__, (flags))
+ 
++/*
++ * SAFE_PTRACE() treats any non-zero return value as error. Don't use it
++ * for requests like PTRACE_PEEK* or PTRACE_SECCOMP_GET_FILTER which use
++ * the return value to pass arbitrary data.
++ */
++long tst_safe_ptrace(const char *file, const int lineno, int req, pid_t pid,
++	void *addr, void *data);
++#define SAFE_PTRACE(req, pid, addr, data) \
++	tst_safe_ptrace(__FILE__, __LINE__, req, pid, addr, data)
++
+ #endif /* SAFE_MACROS_H__ */
+diff --git a/lib/tst_safe_macros.c b/lib/tst_safe_macros.c
+index f5413a18e..68431fe24 100644
+--- a/lib/tst_safe_macros.c
++++ b/lib/tst_safe_macros.c
+@@ -7,6 +7,7 @@
+ #include <unistd.h>
+ #include <errno.h>
+ #include <sched.h>
++#include <sys/ptrace.h>
+ #include "config.h"
+ #ifdef HAVE_SYS_FANOTIFY_H
+ # include <sys/fanotify.h>
+@@ -202,3 +203,21 @@ void safe_unshare(const char *file, const int lineno, int flags)
+ 		}
+ 	}
+ }
++
++long tst_safe_ptrace(const char *file, const int lineno, int req, pid_t pid,
++	void *addr, void *data)
++{
++	long ret;
++
++	errno = 0;
++	ret = ptrace(req, pid, addr, data);
++
++	if (ret == -1) {
++		tst_brk_(file, lineno, TBROK | TERRNO, "ptrace() failed");
++	} else if (ret) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"Invalid ptrace() return value %ld", ret);
++	}
++
++	return ret;
++}
 -- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+2.25.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
