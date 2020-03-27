@@ -2,69 +2,85 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0910194F34
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Mar 2020 03:45:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D2FD19531F
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Mar 2020 09:42:51 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3372C3C4BA2
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Mar 2020 03:45:15 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BBFD33C32EA
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Mar 2020 09:42:50 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 620ED3C4AF8
- for <ltp@lists.linux.it>; Fri, 27 Mar 2020 03:45:10 +0100 (CET)
-Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
- [IPv6:2607:f8b0:4864:20::643])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id DC2753C32DB
+ for <ltp@lists.linux.it>; Fri, 27 Mar 2020 09:42:46 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 75A52200990
- for <ltp@lists.linux.it>; Fri, 27 Mar 2020 03:45:09 +0100 (CET)
-Received: by mail-pl1-x643.google.com with SMTP id x1so2916277plm.4
- for <ltp@lists.linux.it>; Thu, 26 Mar 2020 19:45:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=GCKAt1EYHPSOlPBq7MaJxqOPe4T/MLyk2oLx/zwjSUg=;
- b=meQOQEXs+xrouCyt5P4edzSavFE3mONsQMZa7o+xs+jY1EfHmTf83lmtwTmBXCr+uM
- qgiqmwDIoSkStArfEoXiWU7ifkBmICvb1vHKhl8urj681ebD5HWJfvuF3P/E/nAXt0LJ
- vPErmzWiBm8i++CdGIuryHKzuQdtZAw8OH0eMgcqZPyyYiBbV9yG1NWGS/pzalHTyNAf
- HbbsASe8slBZ+qOTt8iM6tv8thN2rkRRK1oAKMqBpefwL96UPguGpUujV44xMna4YQxj
- lP7AlIU3Kib1glRJZW98OS5UJ/PzRG2fzjR0WWoF3ZRjcqayxQOjONHR/U8Lky7HZBiq
- 2mwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=GCKAt1EYHPSOlPBq7MaJxqOPe4T/MLyk2oLx/zwjSUg=;
- b=uHBGk7g3LJVTTybaDUn+mLVmv6iq+gr/jrmZBDkUaeH1+rCxzEl7H8RZSMDwr7r0E8
- cFlJLqU4DqRI2SJ7FwwxTt7tqMPEoCSB5YPuTspg049xdgfqXMrYlyKPAH1awMTjF+qG
- kOF5/GzDf9PdvbjAJsAvp+v8YHOVLW30MsbC3nl5CsjyBkF0ITVXnSoMVGlHIU86reOJ
- nprj0q2WllBb+FXq/Jl3/F7S6JlsMq9vPta7BulbdET6dtk8AMyBbzabBISLZAYVRXww
- RMqq0mn/XGp2K7chsl6JdpBWf0nvedgbDOyKG4l6HIZsUJojAuhJ4fUDmC4cXOPWcuH7
- 1X6w==
-X-Gm-Message-State: ANhLgQ0HqJwrjH8SghL9DzMKx0RLkdFL2DKBAOwt7y0lcnEQiWoV4oUK
- wqcR6OQG3L1Q4o9b1PQ9tUaFeopK/gkf15UhO1s=
-X-Google-Smtp-Source: ADFU+vtMZhiRunoNX/jG+fkNczl8m3plgjCwhRa3UTRqB2Al8qfr5pz6YB3UyQaKxmITvAgYcx5p9ckHCFCD+Yll76o=
-X-Received: by 2002:a17:90a:8d10:: with SMTP id
- c16mr3316175pjo.7.1585277107962; 
- Thu, 26 Mar 2020 19:45:07 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200324121742.7130-1-gengcixi@gmail.com>
- <20200325102852.GD5404@yuki.lan> <20200325152821.GA21800@dell5510>
- <CAF12kFv0P4yTVVf-pfXOai8+3urEiWug_dbnTfAXpyfOvzi2ug@mail.gmail.com>
- <20200326070555.GA17560@dell5510>
-In-Reply-To: <20200326070555.GA17560@dell5510>
-From: Cixi Geng <gengcixi@gmail.com>
-Date: Fri, 27 Mar 2020 10:44:31 +0800
-Message-ID: <CAF12kFuqJQmiZW+otpb9Hp37kqVis9UzkOKJTMKQWCPnH1nPoQ@mail.gmail.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 004941A01741
+ for <ltp@lists.linux.it>; Fri, 27 Mar 2020 09:42:45 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 9B758B08C
+ for <ltp@lists.linux.it>; Fri, 27 Mar 2020 08:42:44 +0000 (UTC)
 To: Petr Vorel <pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+References: <20200326152828.14934-1-mdoucha@suse.cz>
+ <20200326204107.GA26499@dell5510>
+From: Martin Doucha <mdoucha@suse.cz>
+Autocrypt: addr=mdoucha@suse.cz; keydata=
+ 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
+Message-ID: <5b99cab2-5f9e-47f0-15f1-3dfdb02920ac@suse.cz>
+Date: Fri, 27 Mar 2020 09:42:44 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
+MIME-Version: 1.0
+In-Reply-To: <20200326204107.GA26499@dell5510>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] uart: add uart testcase in kernel
- device-drivers
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] Fix use after stack unwind in fzsync lib
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,176 +92,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Orson Zhai <orsonzhai@gmail.com>, ltp@lists.linux.it,
- Vignesh Raghavendra <vigneshr@ti.com>
-Content-Type: multipart/mixed; boundary="===============1140466331=="
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1140466331==
-Content-Type: multipart/alternative; boundary="000000000000e407b105a1cd163a"
+On 26. 03. 20 21:41, Petr Vorel wrote:
+> Hi Martin,
+> 
+>> tst_fzsync_pair_reset() passes a local variable to thread B which may be
+>> already unwinded by the time the thread wrapper function executes. If new
+>> variables get allocated and initialized on stack between pthread_create()
+>> and thread wrapper execution, thread B will segfault.
+> 
+> I naively assumed this would fix SIGKILL signal for CVE 2018-1000199 test,
+> but it didn't.
 
---000000000000e407b105a1cd163a
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+No, the fuzzysync fix is unrelated to the CVE-2018-1000199 test. I ran
+into mysterious segfaults while writing a test for CVE-2018-18559 which
+I haven't finished yet.
 
-Hi Petr:
->> +    { sleep 1; serialcheck -b $UART_RATE -d $1 -f $temp_test_file -l
-$UART_LOOPS -m t -${UART_HWFLOW}; }&
->Cyril already mentioned the need to use proper locks instead of sleep
-I have realized the sleep is not a good way , but I don't have any idea
-about the "proper locks"
-Can you give me some help?
-
-Petr Vorel <pvorel@suse.cz> =E4=BA=8E2020=E5=B9=B43=E6=9C=8826=E6=97=A5=E5=
-=91=A8=E5=9B=9B =E4=B8=8B=E5=8D=883:05=E5=86=99=E9=81=93=EF=BC=9A
-
-> Hi Cixi,
->
-> > >We both Cyril and me mentioned that you don't need to use mktemp (+
-> it'd be
-> > >unnecessary dependency).
-> > Now I knew  TST_NEEDS_TMPDIR  is make a temp direct and cd in it ,
-> > but I need a file contains random data, this file is to used to test th=
-e
-> > PORT,
-> > Do you meaning I should creat a normal file use dd ,and named by myself=
-?
-> Yes. We do not care about test concurrency of the same test (i.e. the sam=
-e
-> test
-> run more times simultaneously). And even if we care it could be solved by
-> adding $$ -
-> PID, i.e.: foo.$$ (but you don't need to).
-> BTW I wrote it in
-> https://lists.linux.it/pipermail/ltp/2020-March/016107.html
->
-> > >> This is problematic as well, it expects that all ports that are not
-> > >> in-use are loopback connected. This is not true in general case, whi=
-ch
-> > >> means that we cannot add the test to the kernel_misc runtest file as
-> it
-> > >> is because it will fail on most of the systems out there.
-> > >Oh, I didn't realize this obvious thing.
-> > >> We will have to figure out how to pass which ports are interconnecte=
-d
-> to
-> > >> the test somehow, because that is something that only the user who s=
-et
-> > >> up the machine knows.
-> > >Maybe expect user sets it in some variable before running the test?
-> e.g.:
-> > we can decide  which PORT can be test,  But just like Cyril said, we
-> don't
-> > know the machines is run int loopback mode or  HW flow control  mode,
-> > So can I put the testcase tags into two file in the runtest, one is use=
-d
-> to
-> > test
-> > loopback mode, and the other is test for   HW flow control  ?
-> > runtest/uart-loopback
-> > runtest/uart-HWflow
->
-> Wouldn't it help this below?
-> > > Maybe expect user sets it in some variable before running the test?
-> e.g.:
->
-> > > if [ -n "$UART_INTERCONNECTED_PORTS" ]; then
-> > >     tst_brk TCONF "set space separated interconnected ports in
-> > > \$UART_INTERCONNECTED_PORTS"
-> > > fi
->
-> Kind regards,
-> Petr
->
-
---000000000000e407b105a1cd163a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Petr:<div><span style=3D"color:rgb(80,0,80)">&gt;&gt; +=
-=C2=A0 =C2=A0 { sleep 1; serialcheck -b $UART_RATE -d $1 -f $temp_test_file=
- -l $UART_LOOPS -m t -${UART_HWFLOW}; }&amp;<br></span>&gt;Cyril already me=
-ntioned the need to use proper locks instead of sleep=C2=A0</div><div>I hav=
-e realized the sleep is not a good way , but I don&#39;t have any idea abou=
-t the &quot;proper locks&quot;<br></div><div>Can you give me some help?</di=
-v><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Petr=
- Vorel &lt;<a href=3D"mailto:pvorel@suse.cz" target=3D"_blank">pvorel@suse.=
-cz</a>&gt; =E4=BA=8E2020=E5=B9=B43=E6=9C=8826=E6=97=A5=E5=91=A8=E5=9B=9B =
-=E4=B8=8B=E5=8D=883:05=E5=86=99=E9=81=93=EF=BC=9A<br></div><blockquote clas=
-s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
-gb(204,204,204);padding-left:1ex">Hi Cixi,<br>
-<br>
-&gt; &gt;We both Cyril and me mentioned that you don&#39;t need to use mkte=
-mp (+ it&#39;d be<br>
-&gt; &gt;unnecessary dependency).<br>
-&gt; Now I knew=C2=A0 TST_NEEDS_TMPDIR=C2=A0 is make a temp direct and cd i=
-n it ,<br>
-&gt; but I need a file contains random data, this file is to used to test t=
-he<br>
-&gt; PORT,<br>
-&gt; Do you meaning I should creat a normal file use dd ,and named by mysel=
-f?<br>
-Yes. We do not care about test concurrency of the same test (i.e. the same =
-test<br>
-run more times simultaneously). And even if we care it could be solved by a=
-dding $$ -<br>
-PID, i.e.: foo.$$ (but you don&#39;t need to).<br>
-BTW I wrote it in <a href=3D"https://lists.linux.it/pipermail/ltp/2020-Marc=
-h/016107.html" rel=3D"noreferrer" target=3D"_blank">https://lists.linux.it/=
-pipermail/ltp/2020-March/016107.html</a><br>
-<br>
-&gt; &gt;&gt; This is problematic as well, it expects that all ports that a=
-re not<br>
-&gt; &gt;&gt; in-use are loopback connected. This is not true in general ca=
-se, which<br>
-&gt; &gt;&gt; means that we cannot add the test to the kernel_misc runtest =
-file as it<br>
-&gt; &gt;&gt; is because it will fail on most of the systems out there.<br>
-&gt; &gt;Oh, I didn&#39;t realize this obvious thing.<br>
-&gt; &gt;&gt; We will have to figure out how to pass which ports are interc=
-onnected to<br>
-&gt; &gt;&gt; the test somehow, because that is something that only the use=
-r who set<br>
-&gt; &gt;&gt; up the machine knows.<br>
-&gt; &gt;Maybe expect user sets it in some variable before running the test=
-? e.g.:<br>
-&gt; we can decide=C2=A0 which PORT can be test,=C2=A0 But just like Cyril =
-said, we don&#39;t<br>
-&gt; know the machines is run int loopback mode or=C2=A0 HW flow control=C2=
-=A0 mode,<br>
-&gt; So can I put the testcase tags into two file in the runtest, one is us=
-ed to<br>
-&gt; test<br>
-&gt; loopback mode, and the other is test for=C2=A0 =C2=A0HW flow control=
-=C2=A0 ?<br>
-&gt; runtest/uart-loopback<br>
-&gt; runtest/uart-HWflow<br>
-<br>
-Wouldn&#39;t it help this below?<br>
-&gt; &gt; Maybe expect user sets it in some variable before running the tes=
-t? e.g.:<br>
-<br>
-&gt; &gt; if [ -n &quot;$UART_INTERCONNECTED_PORTS&quot; ]; then<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0tst_brk TCONF &quot;set space separated interc=
-onnected ports in<br>
-&gt; &gt; \$UART_INTERCONNECTED_PORTS&quot;<br>
-&gt; &gt; fi<br>
-<br>
-Kind regards,<br>
-Petr<br>
-</blockquote></div></div>
-
---000000000000e407b105a1cd163a--
-
---===============1140466331==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+Martin Doucha   mdoucha@suse.cz
+QA Engineer for Software Maintenance
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1140466331==--
