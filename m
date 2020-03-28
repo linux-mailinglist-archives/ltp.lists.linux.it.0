@@ -2,39 +2,53 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8F35196099
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Mar 2020 22:40:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A414B196324
+	for <lists+linux-ltp@lfdr.de>; Sat, 28 Mar 2020 03:41:34 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7AB043C335D
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Mar 2020 22:40:43 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4DBF63C3344
+	for <lists+linux-ltp@lfdr.de>; Sat, 28 Mar 2020 03:41:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id E16F83C32D4
- for <ltp@lists.linux.it>; Fri, 27 Mar 2020 22:39:32 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id B668E3C332D
+ for <ltp@lists.linux.it>; Sat, 28 Mar 2020 03:41:28 +0100 (CET)
+Received: from m12-17.163.com (m12-17.163.com [220.181.12.17])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E79D91400530
- for <ltp@lists.linux.it>; Fri, 27 Mar 2020 22:39:31 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id DF04DAD88;
- Fri, 27 Mar 2020 21:39:30 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Fri, 27 Mar 2020 22:39:24 +0100
-Message-Id: <20200327213924.18816-7-pvorel@suse.cz>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200327213924.18816-1-pvorel@suse.cz>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8B4AD6012C8
+ for <ltp@lists.linux.it>; Sat, 28 Mar 2020 03:41:26 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=MQTBU
+ zMNZwVGCNKiOk7yZo9Fw1CZjsp5HVia7zlghew=; b=AZ+1bgOb0e7plqNpRxBrl
+ IXaHwGC2a/pd/ldIRSaqi1LWJapbUoW+wjdEi4STDMbImiDk9D+YV9wzp6SfRTBa
+ uFB9tIbGEksgO7qdUWFdkebBF/fmrK9inSkSyWhpW8UdaFLtVegrGtOw8W4HrAj6
+ w0lTttwHb0DBYddjih8E78=
+Received: from [192.168.0.10] (unknown [223.64.160.247])
+ by smtp13 (Coremail) with SMTP id EcCowAA3PAlPuX5eJNFPBw--.395S2;
+ Sat, 28 Mar 2020 10:41:20 +0800 (CST)
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
 References: <20200327213924.18816-1-pvorel@suse.cz>
+From: Xiao Yang <ice_yangxiao@163.com>
+Message-ID: <4ff84a77-b858-6cae-a320-cfaed3646864@163.com>
+Date: Sat, 28 Mar 2020 10:41:19 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+In-Reply-To: <20200327213924.18816-1-pvorel@suse.cz>
+Content-Language: en-US
+X-CM-TRANSID: EcCowAA3PAlPuX5eJNFPBw--.395S2
+X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+ VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUs_MaUUUUU
+X-Originating-IP: [223.64.160.247]
+X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/xtbBEhH0XlZYIKDubQAAsk
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 6/6] Use SAFE_RUN_CMD()
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 0/6] C API: .needs_cmds and SAFE_RUN_CMD()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,94 +60,30 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Reviewed-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Reviewed-by: Li Wang <liwang@redhat.com>
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-Renamed: s/SAFE_RUNCMD()/SAFE_RUN_CMD()/
+On 3/28/20 5:39 AM, Petr Vorel wrote:
+> + There is a double check (first in
+> .needs_cmds, then in SAFE_RUN_CMD()), maybe that's not needed.
 
- testcases/kernel/syscalls/add_key/add_key05.c   | 15 ++++-----------
- testcases/kernel/syscalls/quotactl/quotactl01.c | 11 ++---------
- testcases/kernel/syscalls/quotactl/quotactl06.c |  9 +--------
- 3 files changed, 7 insertions(+), 28 deletions(-)
+Hi Petr,
 
-diff --git a/testcases/kernel/syscalls/add_key/add_key05.c b/testcases/kernel/syscalls/add_key/add_key05.c
-index 3da3be9ee..fd0fb0a50 100644
---- a/testcases/kernel/syscalls/add_key/add_key05.c
-+++ b/testcases/kernel/syscalls/add_key/add_key05.c
-@@ -36,17 +36,10 @@ static void add_user(void)
- 		return;
- 
- 	const char *const cmd_useradd[] = {"useradd", username, NULL};
--	int rc;
--
--	switch ((rc = tst_run_cmd(cmd_useradd, NULL, NULL,
--				  TST_RUN_CMD_PASS_EXIT_VAL))) {
--	case 0:
--		user_added = 1;
--		ltpuser = SAFE_GETPWNAM(username);
--		break;
--	default:
--		tst_brk(TBROK, "useradd failed (%d)", rc);
--	}
-+
-+	SAFE_RUN_CMD(cmd_useradd, NULL, NULL);
-+	user_added = 1;
-+	ltpuser = SAFE_GETPWNAM(username);
- 	sprintf(fmt, "%5u: %%*5d %%*d/%%*d %%d/%%d %%d/%%d", ltpuser->pw_uid);
- }
- 
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl01.c b/testcases/kernel/syscalls/quotactl/quotactl01.c
-index e4c2a8939..a40852f34 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl01.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl01.c
-@@ -162,15 +162,8 @@ static struct tcase {
- static void setup(void)
- {
- 	const char *const cmd[] = {"quotacheck", "-ugF", "vfsv0", MNTPOINT, NULL};
--	int ret;
--
--	ret = tst_run_cmd(cmd, NULL, NULL, TST_RUN_CMD_PASS_EXIT_VAL);
--	switch (ret) {
--	case 0:
--		break;
--	default:
--		tst_brk(TBROK, "quotacheck exited with %i", ret);
--	}
-+
-+	SAFE_RUN_CMD(cmd, NULL, NULL);
- 
- 	test_id = geteuid();
- 	if (access(USRPATH, F_OK) == -1)
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl06.c b/testcases/kernel/syscalls/quotactl/quotactl06.c
-index 5d70f340f..e990d6976 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl06.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl06.c
-@@ -146,16 +146,9 @@ static void verify_quotactl(unsigned int n)
- static void setup(void)
- {
- 	const char *const cmd[] = {"quotacheck", "-uF", "vfsv0", MNTPOINT, NULL};
--	int ret;
- 	unsigned int i;
- 
--	ret = tst_run_cmd(cmd, NULL, NULL, TST_RUN_CMD_PASS_EXIT_VAL);
--	switch (ret) {
--	case 0:
--		break;
--	default:
--		tst_brk(TBROK, "quotacheck exited with %i", ret);
--	}
-+	SAFE_RUN_CMD(cmd, NULL, NULL);
- 
- 	if (access(USRPATH, F_OK) == -1)
- 		tst_brk(TFAIL | TERRNO, "user quotafile didn't exist");
--- 
-2.25.1
+Why do you need the duplicate .needs_cmds flag?(it introduces the double 
+check as you said)
+
+Usually, all tests run commands by tst_run_cmd()/SAFE_RUN_CMD() and they 
+can report TCONF
+
+by passing TST_RUN_CMD_CHECK_CMD so it is fair to be a part of 
+tst_run_cmd()/SAFE_RUN_CMD().
+
+Thanks,
+
+Xiao Yang
+
 
 
 -- 
