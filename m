@@ -2,54 +2,55 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8ACE1965AC
-	for <lists+linux-ltp@lfdr.de>; Sat, 28 Mar 2020 12:22:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 890CF1965D5
+	for <lists+linux-ltp@lfdr.de>; Sat, 28 Mar 2020 12:38:40 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 012FA3C329A
-	for <lists+linux-ltp@lfdr.de>; Sat, 28 Mar 2020 12:22:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 257783C32A0
+	for <lists+linux-ltp@lfdr.de>; Sat, 28 Mar 2020 12:38:40 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id ACE003C325D
- for <ltp@lists.linux.it>; Sat, 28 Mar 2020 12:22:17 +0100 (CET)
-Received: from m12-14.163.com (m12-14.163.com [220.181.12.14])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 931503C3288
+ for <ltp@lists.linux.it>; Sat, 28 Mar 2020 12:38:29 +0100 (CET)
+Received: from mail-m974.mail.163.com (mail-m974.mail.163.com [123.126.97.4])
  (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B6073200DDA
- for <ltp@lists.linux.it>; Sat, 28 Mar 2020 12:22:14 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id ECC611A00913
+ for <ltp@lists.linux.it>; Sat, 28 Mar 2020 12:38:24 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=GVZKW
- tzAbz/hI9OYL0bZScExBRHsCXyWa0fFJS++a50=; b=fh6uCcbh5Q4vyEvBoNrmj
- V7H13QDv3xTUllIMWDT6e5Fpea54OTJn2kF0BDR2zjtmhs1cqdTFupyt804zM69i
- HBosxM3k7TOapaAy8YBm6gyBXsYVjYJBJkwmGUTWHG4DngzwQoqn/KTFu8NI+Y8B
- i2O/M3SP14bbZMw/PIlD6g=
-Received: from [192.168.0.10] (unknown [223.64.160.247])
- by smtp10 (Coremail) with SMTP id DsCowACnfXZhM39eRY8mBw--.895S2;
- Sat, 28 Mar 2020 19:22:09 +0800 (CST)
+ s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=Yo0GG
+ 4Quk/gA1/6hYZkBu8sf71bP266PgdE3fPP0cTA=; b=Kb4p4WnFCDKQZRDhqP1kK
+ 7Zx8lJquaivOtw6Do72kZAVgiW7ibQ56v8K9mIRUcq6P+s8EoFHfYur6bYE3lQ2X
+ ht33+WMmwUZ8sOdgnmXmHWzNk/e12oz1lIXI1BK9WGu695ub3P2qjHNL6I1vT0tu
+ 0l7dB7aPMRyCVE5aolfDQI=
+Received: from [172.20.10.4] (unknown [122.194.1.239])
+ by smtp4 (Coremail) with SMTP id HNxpCgC31bAmN39eoEmOAQ--.107S2;
+ Sat, 28 Mar 2020 19:38:14 +0800 (CST)
 To: Zou Wei <zou_wei@huawei.com>, ltp@lists.linux.it
-References: <1585378614-16872-1-git-send-email-zou_wei@huawei.com>
+References: <1585377584-9931-1-git-send-email-zou_wei@huawei.com>
 From: Xiao Yang <ice_yangxiao@163.com>
-Message-ID: <37690463-e988-cc75-4ffb-da036a83d027@163.com>
-Date: Sat, 28 Mar 2020 19:22:09 +0800
+Message-ID: <7640be42-53a5-c97e-e4ed-042dc323025a@163.com>
+Date: Sat, 28 Mar 2020 19:38:13 +0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <1585378614-16872-1-git-send-email-zou_wei@huawei.com>
+In-Reply-To: <1585377584-9931-1-git-send-email-zou_wei@huawei.com>
 Content-Language: en-US
-X-CM-TRANSID: DsCowACnfXZhM39eRY8mBw--.895S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtF4DCw47uFW5tF4kAr1fWFg_yoWfKFXEkF
- 12kr18Kr9xZ3Wjkay7CFn3ZF909as7Gay5KrnrK34DWws2qr1DurnxAr4rJrs5CrnYvFZF
- gwn5GFZYqa1qvjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU5fgA7UUUUU==
-X-Originating-IP: [223.64.160.247]
-X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/xtbBEAH0XlUMQBTjiQAAsc
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-CM-TRANSID: HNxpCgC31bAmN39eoEmOAQ--.107S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CFy5Ar1xuryUGF18CF4UJwb_yoW8Gw4DpF
+ W3Aw1vkrWkGF1rC3s2gFsYyw48XwnIyr4fWr4qkrZ8Ja4rA34rWrsFgFW5uw12qry8Gay5
+ ua18Wr1Fga98AFDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07bbJPiUUUUU=
+X-Originating-IP: [122.194.1.239]
+X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/1tbiqAb0Xlc7OJKT5gAAs3
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] security/dirtyc0w: Get and set umask in setup
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/statx: Add judgment to the MODE value
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,52 +62,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 3/28/20 2:56 PM, Zou Wei wrote:
-> The case is only successful when system default umask is 0022.
-> When umask is 0077, should change the value to 0022 in setup.
->
-> Signed-off-by: Zou Wei <zou_wei@huawei.com>
-> ---
->   testcases/kernel/security/dirtyc0w/dirtyc0w.c | 4 ++++
->   1 file changed, 4 insertions(+)
->
-> diff --git a/testcases/kernel/security/dirtyc0w/dirtyc0w.c b/testcases/kernel/security/dirtyc0w/dirtyc0w.c
-> index a0a81b6..7abb5a2 100644
-> --- a/testcases/kernel/security/dirtyc0w/dirtyc0w.c
-> +++ b/testcases/kernel/security/dirtyc0w/dirtyc0w.c
-> @@ -45,6 +45,10 @@ static void setup(void)
->   {
->   	struct passwd *pw;
->
-> +	if ((umask(0))==63){
-> +		umask(18);
-> +	}
-> +
-
-Hi Zou,
-
-just clear current umask by umask(0) here if you want to exclude the 
-impact of umask.
-
-btw: it is readable to use otcal number(e.g. umask(0022) == 0022)
-
-Thanks,
-
-Xiao Yang
-
->   	pw = SAFE_GETPWNAM("nobody");
->
->   	nobody_uid = pw->pw_uid;
-> --
-> 2.6.2
->
->
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gMy8yOC8yMCAyOjM5IFBNLCBab3UgV2VpIHdyb3RlOgo+IDEuIFRoZSBkZWZhdWx0IHZhbHVl
+IG9mIHVtYXNrIGluIG1vc3QgbGludXggc3lzdGVtcyBpcyAwMDIyLCBidXQgaW4gc29tZSBvdGhl
+ciBzeXN0ZW1zIGlzIDAwNzcsCj4gICAgIHdoaWNoIHJlc3VsdHMgaW4gZGlmZmVyZW50IE1PREUg
+dmFsdWVzIHdoZW4gb3BlbmluZyBmaWxlcy4KPgo+IDIuIEFkZGluZyBqdWRnbWVudCB0byB0aGUg
+TU9ERSB2YWx1ZSBjYW4gaW1wcm92ZSB0aGUgdmVyc2F0aWxpdHkgb2YgdGhpcyBjYXNlLgo+Cj4g
+My4gNjMgdHJhbnNsYXRlcyB0byA3NyBpbiBvY3RhbCwgbWVhbmluZyB0aGUgcnVubmluZyBwcm9j
+ZXNzIGhhcyBhIHVtYXNrIG9mIDAwMjIuCj4gICAgIFRoYXQgbWVhbnMgdGhlIHByb2Nlc3Mgd2ls
+bCBvcGVuIGZpbGVzIHdpdGggMDYwMCBhcyBwZXJtaXNzaW9ucyBvbiB0aGUgZmlsZXN5c3RlbS4K
+Pgo+IFNpZ25lZC1vZmYtYnk6IFpvdSBXZWkgPHpvdV93ZWlAaHVhd2VpLmNvbT4KPiAtLS0KPiAg
+IHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvc3RhdHgvc3RhdHgwMS5jIHwgMiArLQo+ICAgMSBm
+aWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0
+IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9zdGF0eC9zdGF0eDAxLmMgYi90ZXN0Y2FzZXMv
+a2VybmVsL3N5c2NhbGxzL3N0YXR4L3N0YXR4MDEuYwo+IGluZGV4IDRmOWQ1ODIuLmFkY2ExZDMg
+MTAwNjQ0Cj4gLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9zdGF0eC9zdGF0eDAxLmMK
+PiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3N0YXR4L3N0YXR4MDEuYwo+IEBAIC00
+Nyw3ICs0Nyw3IEBACj4gICAjZGVmaW5lIFRFU1RGSUxFICJ0ZXN0X2ZpbGUiCj4gICAjZGVmaW5l
+IE1OVFBPSU5UICJtbnRwb2ludC8iCj4gICAjZGVmaW5lIERFVklDRUZJTEUgTU5UUE9JTlQiYmxr
+X2RldiIKPiAtI2RlZmluZSBNT0RFIDA2NDQKPiArI2RlZmluZSBNT0RFICgodW1hc2soMCk9PTYz
+KT8wNjAwOjA2NDQpCgpIaSBab3UsCgoxKSBGb3IgdGhlIGZpeCwgSSB0aGluayB5b3UganVzdCBu
+ZWVkIHRvIGNsZWFyIGN1cnJlbnQgbWFzayBieSB1bWFzaygwKSAKaW4gc2V0dXAoKS4KCjIpIERv
+bid0IG1peCB0aGUgZml4IGFuZCBhZGRpbmcgY292ZXJhZ2UoaS5lLiBkaWZmZXJlbnQgcGVybWlz
+c2lvbnMpLsKgIApQbGVhc2UgdXNlCgogwqDCoMKgIG90aGVyIHdheXMoY3JlYXRlIHR3byBmaWxl
+cyB3aXRoIGRpZmZlcmVudCBwZXJtaXNzaW9ucyBvciBjaGFuZ2UgCnRoZSBwZXJtaXNzaW9uCgog
+wqDCoMKgIGR1cmluZyB0ZXN0LCBldGMpIGlmIHlvdSB3YW50IHRvIHJ1biB0ZXN0IHdpdGggZGlm
+ZmVyZW50IHBlcm1pc3Npb25zLgoKVGhhbmtzLAoKWGlhbyBZYW5nCgo+Cj4gICAjZGVmaW5lIFNJ
+WkUgMjU2Cj4gICAjZGVmaW5lIE1BSk9SIDgKPiAtLQo+IDIuNi4yCj4KPgoKCi0tIApNYWlsaW5n
+IGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
