@@ -2,44 +2,49 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0604519759A
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 09:25:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C45E81975C8
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 09:34:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B4F613C315A
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 09:25:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 850963C314D
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 09:34:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 8DE7A3C316A
- for <ltp@lists.linux.it>; Mon, 30 Mar 2020 09:24:49 +0200 (CEST)
-Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C6B2F20004E
- for <ltp@lists.linux.it>; Mon, 30 Mar 2020 09:24:48 +0200 (CEST)
-Received: from DGGEMS401-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id C25EB7FDB95580278531
- for <ltp@lists.linux.it>; Mon, 30 Mar 2020 15:24:38 +0800 (CST)
-Received: from linux-lmwb.huawei.com (10.175.103.112) by
- DGGEMS401-HUB.china.huawei.com (10.3.19.201) with Microsoft SMTP Server id
- 14.3.487.0; Mon, 30 Mar 2020 15:24:27 +0800
-From: Zou Wei <zou_wei@huawei.com>
-To: <ltp@lists.linux.it>
-Date: Mon, 30 Mar 2020 15:27:49 +0800
-Message-ID: <1585553269-119544-4-git-send-email-zou_wei@huawei.com>
-X-Mailer: git-send-email 2.6.2
-In-Reply-To: <1585553269-119544-1-git-send-email-zou_wei@huawei.com>
-References: <1585553269-119544-1-git-send-email-zou_wei@huawei.com>
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 151653C313A
+ for <ltp@lists.linux.it>; Mon, 30 Mar 2020 09:34:18 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id B99B9600D7C
+ for <ltp@lists.linux.it>; Mon, 30 Mar 2020 09:34:16 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.72,323,1580745600"; d="scan'208";a="87895028"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 30 Mar 2020 15:34:13 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id D4F5F406AB15;
+ Mon, 30 Mar 2020 15:23:54 +0800 (CST)
+Received: from [10.167.220.69] (10.167.220.69) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Mon, 30 Mar 2020 15:34:09 +0800
+Message-ID: <5E81A0EF.4040508@cn.fujitsu.com>
+Date: Mon, 30 Mar 2020 15:34:07 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-X-Originating-IP: [10.175.103.112]
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+To: Zou Wei <zou_wei@huawei.com>
+References: <1585553269-119544-1-git-send-email-zou_wei@huawei.com>
+In-Reply-To: <1585553269-119544-1-git-send-email-zou_wei@huawei.com>
+X-Originating-IP: [10.167.220.69]
+X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
+X-yoursite-MailScanner-ID: D4F5F406AB15.AA2FF
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 3/3] syscalls/statx01: Fix bug caused by default
- umask
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 0/3] Fix bug caused by default umask
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,36 +56,40 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Zou Wei <zou_wei@huawei.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-v3:
-The case is only successful when system default umask is 0022.
-When default umask is 0077 or other values, should clear current umask by umask(0) in setup().
+On 2020/3/30 15:27, Zou Wei wrote:
+> v3:
+> The case is only successful when system default umask is 0022.
+> When default umask is 0077 or other values, should clear umask by umask(0) in setup().
+Hi Zou,
 
-Signed-off-by: Zou Wei <zou_wei@huawei.com>
----
- testcases/kernel/syscalls/statx/statx01.c | 2 ++
- 1 file changed, 2 insertions(+)
+Thanks for your patch set.
+Did you find any other cases related with the same issue?
 
-diff --git a/testcases/kernel/syscalls/statx/statx01.c b/testcases/kernel/syscalls/statx/statx01.c
-index 4f9d582..2358dd7 100644
---- a/testcases/kernel/syscalls/statx/statx01.c
-+++ b/testcases/kernel/syscalls/statx/statx01.c
-@@ -148,6 +148,8 @@ static void setup(void)
- 	char data_buff[SIZE];
- 	int file_fd;
+Thanks,
+Xiao Yang
+>
+> Zou Wei (3):
+>    security/dirtyc0w: Fix bug caused by default umask
+>    syscalls/fstat: Fix bug caused by default umask
+>    syscalls/statx01: Fix bug caused by default umask
+>
+>   testcases/kernel/security/dirtyc0w/dirtyc0w.c | 2 ++
+>   testcases/kernel/syscalls/fstat/fstat02.c     | 2 ++
+>   testcases/kernel/syscalls/statx/statx01.c     | 2 ++
+>   3 files changed, 6 insertions(+)
+>
+> --
+> 2.6.2
+>
+>
 
-+	umask(0);
-+
- 	memset(data_buff, '@', sizeof(data_buff));
 
- 	file_fd =  SAFE_OPEN(TESTFILE, O_RDWR|O_CREAT, MODE);
---
-2.6.2
 
 
 -- 
