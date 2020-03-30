@@ -2,53 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CC741973CC
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 07:20:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9671A19744B
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 08:14:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9D1113C3160
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 07:20:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5D2AE3C3143
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 08:14:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id ADC1B3C137B
- for <ltp@lists.linux.it>; Mon, 30 Mar 2020 07:20:38 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 257FC1A00E1E
- for <ltp@lists.linux.it>; Mon, 30 Mar 2020 07:20:36 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.72,322,1580745600"; d="scan'208";a="87869036"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 30 Mar 2020 13:20:30 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id 012E650A999A;
- Mon, 30 Mar 2020 13:10:14 +0800 (CST)
-Received: from [10.167.220.69] (10.167.220.69) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 30 Mar 2020 13:20:29 +0800
-Message-ID: <5E81819B.5070303@cn.fujitsu.com>
-Date: Mon, 30 Mar 2020 13:20:27 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 43F993C3137
+ for <ltp@lists.linux.it>; Mon, 30 Mar 2020 08:14:01 +0200 (CEST)
+Received: from us-smtp-delivery-74.mimecast.com
+ (us-smtp-delivery-74.mimecast.com [63.128.21.74])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id DE00A6007B4
+ for <ltp@lists.linux.it>; Mon, 30 Mar 2020 08:14:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1585548839;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=AUfJUOK+gf3Js76DjuWg7rylyRANVXFcWY90FgfhI9E=;
+ b=bbXf05HfVLf7yfbYH/9852wRBHdk2e9wV0ivxoxklvn7j+pX3b8n/RdW3GKEMivxphwNXn
+ zMPp5k2NvUa0E7Nmdn79t8u+jhuQsjwQujKkza1WWgFvLb8SkpWu1t17+XrCBpYMLEQtQX
+ P0AagrfoJP9bK9sWxV+xY9lNK2vFXEs=
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-138-YtxXm0MMO06AUQyx7eBgMQ-1; Mon, 30 Mar 2020 02:13:56 -0400
+X-MC-Unique: YtxXm0MMO06AUQyx7eBgMQ-1
+Received: by mail-lf1-f72.google.com with SMTP id b24so7087059lff.12
+ for <ltp@lists.linux.it>; Sun, 29 Mar 2020 23:13:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=XzgcuczZ0YBe2JG2VjkM4PJJ8/im4huuZEjibcaanT4=;
+ b=mJ51QVCxTAPAltWl1mpwA8Aj3XkiSsI3qVp+yFQ4hVWcQa3/DzVm4xMDo7TqugScc4
+ elG2rgp5ah+zCkvc4HUwkHY72Br/JFzf6ZgIbKdK1vlN4rYKXFTulJOPWJShCSHZcztf
+ eQr2e5GTl9sCJiy+7nCu/93R3jb8nSiuSBrFjvYzItP3C/jAkDlAGghm07UWswoGhY9j
+ 9yVYb8hi8mIH31R+YCqNiVyPfQ0x4jtIOA8kf+4b3cusiAmNn6tCMY15nS74qGAVundE
+ tBuv46jH05Oea2H1tM6JiJMJI31KEs3DloFOC1kpug7YELEBHVTJMfi8NTilfUOn2kjg
+ IDYA==
+X-Gm-Message-State: AGi0PuaRgR1usvha7x4pkr/mpsc/RbrkeHMizrz2EX2SWAlQhdHmdaZZ
+ FOGYPVLKwyo51/5aXP998w2AJx965NVN+7T7uK74lA7//2NV9uR1NGYxkNpsI16PGDXwXxpWwPt
+ ZZV8DPRPkXMXroweqEl1XrJDjnGA=
+X-Received: by 2002:a2e:6c05:: with SMTP id h5mr6062107ljc.217.1585548835198; 
+ Sun, 29 Mar 2020 23:13:55 -0700 (PDT)
+X-Google-Smtp-Source: APiQypICso++rlFkOMg+KQgU7AQPvaFioePah/XIrwQ0eInbNF0Yc/knv7BFx08RyRVhGdeveW8zyq7vPM/m/Vz0TM0=
+X-Received: by 2002:a2e:6c05:: with SMTP id h5mr6062095ljc.217.1585548834981; 
+ Sun, 29 Mar 2020 23:13:54 -0700 (PDT)
 MIME-Version: 1.0
-To: Li Wang <liwang@redhat.com>
 References: <20200327213924.18816-1-pvorel@suse.cz>
- <4ff84a77-b858-6cae-a320-cfaed3646864@163.com>
- <20200328034253.GA2720439@x230> <5E80323C.5070408@cn.fujitsu.com>
- <CAEemH2chnkojt0oc9OVodwKOj27_7aTj1nHnkk_DVoOxUP-H7A@mail.gmail.com>
-In-Reply-To: <CAEemH2chnkojt0oc9OVodwKOj27_7aTj1nHnkk_DVoOxUP-H7A@mail.gmail.com>
-X-Originating-IP: [10.167.220.69]
-X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
-X-yoursite-MailScanner-ID: 012E650A999A.ACC8A
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+ <20200327213924.18816-2-pvorel@suse.cz>
+In-Reply-To: <20200327213924.18816-2-pvorel@suse.cz>
+From: Li Wang <liwang@redhat.com>
+Date: Mon, 30 Mar 2020 14:13:43 +0800
+Message-ID: <CAEemH2c2Rq9x53fr2-KRaLpJ55xbuwVO96YWzJXAEdgcx2vvCQ@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 0/6] C API: .needs_cmds and SAFE_RUN_CMD()
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/6] lib: Implement .needs_cmds
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,59 +80,103 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============0503768032=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gMjAyMC8zLzMwIDEyOjM5LCBMaSBXYW5nIHdyb3RlOgo+IEhpIFhpYW8sCj4KPiBPbiBTdW4s
-IE1hciAyOSwgMjAyMCBhdCAxOjM2IFBNIFhpYW8gWWFuZyA8eWFuZ3guanlAY24uZnVqaXRzdS5j
-b20KPiA8bWFpbHRvOnlhbmd4Lmp5QGNuLmZ1aml0c3UuY29tPj4gd3JvdGU6Cj4KPiAgICAgT24g
-MjAyMC8zLzI4IDExOjQyLCBQZXRyIFZvcmVsIHdyb3RlOgo+ICAgICAgPiBIaSBYaWFvLAo+ICAg
-ICAgPgo+ICAgICAgPj4gT24gMy8yOC8yMCA1OjM5IEFNLCBQZXRyIFZvcmVsIHdyb3RlOgo+ICAg
-ICAgPj4+ICsgVGhlcmUgaXMgYSBkb3VibGUgY2hlY2sgKGZpcnN0IGluCj4gICAgICA+Pj4gLm5l
-ZWRzX2NtZHMsIHRoZW4gaW4gU0FGRV9SVU5fQ01EKCkpLCBtYXliZSB0aGF0J3Mgbm90IG5lZWRl
-ZC4KPiAgICAgID4KPiAgICAgID4+IEhpIFBldHIsCj4gICAgICA+Cj4gICAgICA+PiBXaHkgZG8g
-eW91IG5lZWQgdGhlIGR1cGxpY2F0ZSAubmVlZHNfY21kcyBmbGFnPyhpdCBpbnRyb2R1Y2VzCj4g
-ICAgIHRoZSBkb3VibGUKPiAgICAgID4+IGNoZWNrIGFzIHlvdSBzYWlkKQo+ICAgICAgPgo+ICAg
-ICAgPj4gVXN1YWxseSwgYWxsIHRlc3RzIHJ1biBjb21tYW5kcyBieSB0c3RfcnVuX2NtZCgpL1NB
-RkVfUlVOX0NNRCgpCj4gICAgIGFuZCB0aGV5IGNhbgo+ICAgICAgPj4gcmVwb3J0IFRDT05GCj4g
-ICAgICA+Cj4gICAgICA+PiBieSBwYXNzaW5nIFRTVF9SVU5fQ01EX0NIRUNLX0NNRCBzbyBpdCBp
-cyBmYWlyIHRvIGJlIGEgcGFydCBvZgo+ICAgICAgPj4gdHN0X3J1bl9jbWQoKS9TQUZFX1JVTl9D
-TUQoKS4KPiAgICAgID4KPiAgICAgID4gVGhhbmtzIGZvciB5b3VyIHJldmlldy4KPiAgICAgID4g
-SSBndWVzcyBDeXJpbCB3aWxsIHByZWZlciAubmVlZHNfY21kcywgYXMgaXQgY2FuIGJlIHBhcnNl
-ZCAtCj4gICAgIG1ldGFkYXRhIHByb2plY3Q6Cj4gICAgICA+IGh0dHBzOi8vcGVvcGxlLmtlcm5l
-bC5vcmcvbWV0YW4vdG93YXJkcy1wYXJhbGxlbC1rZXJuZWwtdGVzdC1ydW5zCj4gICAgICA+IGh0
-dHBzOi8vZ2l0aHViLmNvbS9tZXRhbi11Y3cvbHRwL3RyZWUvbWFzdGVyL2RvY3BhcnNlCj4gICAg
-IEhpIFBldHLvvIwKPgo+ICAgICBUaGFuayB5b3UgZm9yIHNoYXJpbmcgdGhlc2UgaW5mby4KPiAg
-ICAgRG9lcyBDeXJpbCB3YW50IHRvIGdldCBtZXRhZGF0YSBmcm9tIHN0cnVjdCB0c3RfdGVzdCBk
-aXJlY3RseT8KPgo+ICAgICBIb3cgYWJvdXQgdGhlIHJvdWdoIGRlc2lnbj8KPiAgICAgMSkgLm5l
-ZWRzX2NtZHMgb25seSBzYXZlcyB0aGUgcmVxdWlyZWQgY29tbWFuZHMuKGRvZXNuJ3QgZG8gYW55
-IGNoZWNrKQo+ICAgICAyKSBwYXNzIHRoZSBjb3JyZXNwb25kaW5nIG1lbWJlciBvZiAubmVlZHNf
-Y21kcyB0bwo+ICAgICB0c3RfcnVuX2NtZCgpL1NBRkVfUlVOX0NNRCgpKGRvIGNoZWNrIGluIHRo
-ZXNlIGZ1bmN0aW9ucykuCj4gICAgIEZvciBleGFtcGxlOgo+ICAgICAtLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gICAgICMgZ3JlcCB0c3RfbmVlZHNfY21k
-cyBpbmNsdWRlL3RzdF9jbWQuaAo+ICAgICBleHRlcm4gY29uc3QgY2hhciAqY29uc3QgKnRzdF9u
-ZWVkc19jbWRzOwo+Cj4gICAgICMgZ3JlcCAtQjEgdHN0X25lZWRzX2NtZHMgbGliL3RzdF90ZXN0
-LmMKPgo+ICAgICBjb25zdCBjaGFyICpjb25zdCAqdHN0X25lZWRzX2NtZHM7Cj4gICAgIC0tCj4g
-ICAgIGlmICh0c3RfdGVzdC0+bmVlZHNfY21kcykKPiAgICAgdHN0X25lZWRzX2NtZHMgPSB0c3Rf
-dGVzdC0+bmVlZHNfY21kczsKPgo+ICAgICAjIGdyZXAgLUEyICduZWVkc19jbWRzJyB0ZXN0Y2Fz
-ZXMva2VybmVsL3N5c2NhbGxzL2FkZF9rZXkvYWRkX2tleTA1LmMKPiAgICAgY29uc3QgY2hhciAq
-Y29uc3QgY21kX3VzZXJhZGRbXSA9IHt0c3RfbmVlZHNfY21kc1swXSwgdXNlcm5hbWUsIE5VTEx9
-Owo+ICAgICBpbnQgcmM7Cj4KPgo+IEkgZG9uJ3Qgc2VlIGFueSBhZHZhbnRhZ2Ugb2YgaW52b2x2
-aW5nIHRoaXMgc3RydWN0IGluIGEgdGVzdCBjYXNlLCBhbmQKPiBpdCBhbHNvIG1ha2VzIHRoaW5n
-cyBtb3JlIGNvbXBsaWNhdGVkLgpIaSBMaSwKCkluIGZhY3QsIEkgcGVyZmVyIHRvIHJlbW92ZSAu
-bmVlZF9jbWQgYW5kIHVzZSB0c3RfcnVuX2NtZCB3aXRoL3dpdGhvdXQgClRTVF9SVU5fQ01EX0NI
-RUNLX0NNRCBkaXJlY3RseS4KQnV0IEkgYW0gbm90IHN1cmUgaWYgaXQgaXMgbmVjZXNzYXJ5IHRv
-IGtlZXAgLm5lZWRfY21kIGZvciBtZXRhZGF0YSAKcHJvamVjdC4gIEkgdGhpbmsgd2UgY2FuIGdl
-bmVyYXRlIGpzb24gYWJvdXQgcmVzb3VjZSBieSByZWFkaW5nIHN0cnVjdCAKdHN0X3Rlc3Qgb3Ig
-b3RoZXIgd2F5cy4KClRoYW5rcywKWGlhbyBZYW5nCgo+Cj4gSU1PLCB0aGUgJy5uZWVkc19jbWRz
-JyBzaG91bGQgZG8gY2hlY2sgYW5kIGd1YXJhbnRlZSBhbGwgdGhlIGNtZHMgZXhpc3QuCj4gVGhh
-dCdzIGEgaGFyZCByZXF1aXJlbWVudCBmb3IgdGhlIHRlc3QuIElmIGEgc2l0dWF0aW9uIHRoYXQg
-dGhlIGNvbW1hbmRzCj4gYXJlIG9ubHkgcGFydCBvZiB0aGUgcmVxdWlyZW1lbnQoc29mdCksIHdl
-IGNvdWxkIGF2b2lkIHVzaW5nCj4gJy5uZWVkc19jbWRzJyBpbiB0aGUgdGVzdCBhbmQganVzdCBj
-YWxsaW5nIHRzdF9ydW5fY21kKCkgd2l0aG91dCBwYXNzaW5nCj4gVFNUX1JVTl9DTURfQ0hFQ0tf
-Q01EIGZsYWcuIFRoaXMgc2F0aXNmaWVzIG1vc3Qgc2l0dWF0aW9ucyB3ZSBoYXZlLCBpdAo+IGlz
-IHNhZmUgZW5vdWdoIGFuZCBjaG9vc2FibGUgZm9yIHBlb3BsZS4KPgo+IE9yIG1heWJlIEknbSB3
-cm9uZyBoZXJlIHRvbzopLgo+Cj4gLS0KPiBSZWdhcmRzLAo+IExpIFdhbmcKCgoKCi0tIApNYWls
-aW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+--===============0503768032==
+Content-Type: multipart/alternative; boundary="000000000000155d0f05a20c5bae"
+
+--000000000000155d0f05a20c5bae
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Sat, Mar 28, 2020 at 5:39 AM Petr Vorel <pvorel@suse.cz> wrote:
+
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> New commit.
+>
+>  doc/test-writing-guidelines.txt | 15 +++++++++++++++
+>  include/tst_test.h              |  3 +++
+>  lib/tst_test.c                  | 11 +++++++++++
+>  3 files changed, 29 insertions(+)
+>
+> diff --git a/doc/test-writing-guidelines.txt
+> b/doc/test-writing-guidelines.txt
+> index 32c9e87df..f7206f1bf 100644
+> --- a/doc/test-writing-guidelines.txt
+> +++ b/doc/test-writing-guidelines.txt
+> @@ -2023,6 +2023,21 @@ struct tst_test test =3D {
+>  };
+>
+>  ------------------------------------------------------------------------=
+-------
+>
+> +2.2.35 Checking for required binaries
+> +^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>
+
+Maybe better to talk commands but not binaries, since not all of the
+commands are binary, there is possible python, perl or shell executable
+file need check too. Isn't it?
+
+--=20
+Regards,
+Li Wang
+
+--000000000000155d0f05a20c5bae
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Sat, Mar 28, 2020 at 5:39 AM Petr Vorel &lt;<a h=
+ref=3D"mailto:pvorel@suse.cz" target=3D"_blank">pvorel@suse.cz</a>&gt; wrot=
+e:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
+.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Signed-off-by=
+: Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz" target=3D"_blank">pvorel=
+@suse.cz</a>&gt;<br>
+---<br>
+New commit.<br>
+<br>
+=C2=A0doc/test-writing-guidelines.txt | 15 +++++++++++++++<br>
+=C2=A0include/tst_test.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=
+=C2=A0 3 +++<br>
+=C2=A0lib/tst_test.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 | 11 +++++++++++<br>
+=C2=A03 files changed, 29 insertions(+)<br>
+<br>
+diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.=
+txt<br>
+index 32c9e87df..f7206f1bf 100644<br>
+--- a/doc/test-writing-guidelines.txt<br>
++++ b/doc/test-writing-guidelines.txt<br>
+@@ -2023,6 +2023,21 @@ struct tst_test test =3D {<br>
+=C2=A0};<br>
+=C2=A0---------------------------------------------------------------------=
+----------<br>
+<br>
++2.2.35 Checking for required binaries<br>
++^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^<br></blockquote><div><br></div><div>=
+<div class=3D"gmail_default" style=3D"font-size:small">Maybe better to talk=
+ commands but not binaries, since not all of the commands are binary, there=
+ is possible python, perl or shell executable file need check too. Isn&#39;=
+t it?</div></div><div>=C2=A0</div></div>-- <br><div dir=3D"ltr"><div dir=3D=
+"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--000000000000155d0f05a20c5bae--
+
+
+--===============0503768032==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0503768032==--
+
