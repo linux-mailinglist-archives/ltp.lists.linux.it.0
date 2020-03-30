@@ -1,53 +1,55 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 503C9196B73
-	for <lists+linux-ltp@lfdr.de>; Sun, 29 Mar 2020 07:36:05 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id CE165197271
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 04:30:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 79E9C3C31F7
-	for <lists+linux-ltp@lfdr.de>; Sun, 29 Mar 2020 07:36:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2CC223C31E4
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 04:30:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 3C9E03C31C8
- for <ltp@lists.linux.it>; Sun, 29 Mar 2020 07:35:57 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 624F4200211
- for <ltp@lists.linux.it>; Sun, 29 Mar 2020 07:35:53 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.72,319,1580745600"; d="scan'208";a="87684613"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 29 Mar 2020 13:29:36 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id A2F1E406AB15;
- Sun, 29 Mar 2020 13:19:20 +0800 (CST)
-Received: from [10.167.220.69] (10.167.220.69) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Sun, 29 Mar 2020 13:29:34 +0800
-Message-ID: <5E80323C.5070408@cn.fujitsu.com>
-Date: Sun, 29 Mar 2020 13:29:32 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id EFC773C31BE
+ for <ltp@lists.linux.it>; Mon, 30 Mar 2020 04:30:02 +0200 (CEST)
+Received: from huawei.com (szxga08-in.huawei.com [45.249.212.255])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 6DDDA1A008BE
+ for <ltp@lists.linux.it>; Mon, 30 Mar 2020 04:30:00 +0200 (CEST)
+Received: from DGGEML401-HUB.china.huawei.com (unknown [172.30.72.57])
+ by Forcepoint Email with ESMTP id E27E06F04D0AD145C16E;
+ Mon, 30 Mar 2020 10:29:56 +0800 (CST)
+Received: from DGGEML424-HUB.china.huawei.com (10.1.199.41) by
+ DGGEML401-HUB.china.huawei.com (10.3.17.32) with Microsoft SMTP Server (TLS)
+ id 14.3.487.0; Mon, 30 Mar 2020 10:29:56 +0800
+Received: from DGGEML524-MBX.china.huawei.com ([169.254.1.149]) by
+ dggeml424-hub.china.huawei.com ([10.1.199.41]) with mapi id 14.03.0487.000;
+ Mon, 30 Mar 2020 10:29:55 +0800
+From: "Zouwei (Samuel)" <zou_wei@huawei.com>
+To: Xiao Yang <ice_yangxiao@163.com>, "ltp@lists.linux.it" <ltp@lists.linux.it>
+Thread-Topic: [LTP] [PATCH] syscalls/statx: Add judgment to the MODE value
+Thread-Index: AQHWBPVikXsKW5sbFEa6viRyn26TQqhgazpg
+Date: Mon, 30 Mar 2020 02:29:53 +0000
+Message-ID: <C3CD0DF8AD11A84CB25A1426DE537C61E5925F39@dggeml524-mbx.china.huawei.com>
+References: <1585377584-9931-1-git-send-email-zou_wei@huawei.com>
+ <7640be42-53a5-c97e-e4ed-042dc323025a@163.com>
+In-Reply-To: <7640be42-53a5-c97e-e4ed-042dc323025a@163.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.173.220.144]
 MIME-Version: 1.0
-To: Petr Vorel <pvorel@suse.cz>
-References: <20200327213924.18816-1-pvorel@suse.cz>
- <4ff84a77-b858-6cae-a320-cfaed3646864@163.com>
- <20200328034253.GA2720439@x230>
-In-Reply-To: <20200328034253.GA2720439@x230>
-X-Originating-IP: [10.167.220.69]
-X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
-X-yoursite-MailScanner-ID: A2F1E406AB15.A9CE5
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 0/6] C API: .needs_cmds and SAFE_RUN_CMD()
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] =?utf-8?b?562U5aSNOiAgW1BBVENIXSBzeXNjYWxscy9zdGF0eDogQWRk?=
+ =?utf-8?q?_judgment_to_the_MODE_value?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,48 +61,43 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gMjAyMC8zLzI4IDExOjQyLCBQZXRyIFZvcmVsIHdyb3RlOgo+IEhpIFhpYW8sCj4KPj4gT24g
-My8yOC8yMCA1OjM5IEFNLCBQZXRyIFZvcmVsIHdyb3RlOgo+Pj4gKyBUaGVyZSBpcyBhIGRvdWJs
-ZSBjaGVjayAoZmlyc3QgaW4KPj4+IC5uZWVkc19jbWRzLCB0aGVuIGluIFNBRkVfUlVOX0NNRCgp
-KSwgbWF5YmUgdGhhdCdzIG5vdCBuZWVkZWQuCj4KPj4gSGkgUGV0ciwKPgo+PiBXaHkgZG8geW91
-IG5lZWQgdGhlIGR1cGxpY2F0ZSAubmVlZHNfY21kcyBmbGFnPyhpdCBpbnRyb2R1Y2VzIHRoZSBk
-b3VibGUKPj4gY2hlY2sgYXMgeW91IHNhaWQpCj4KPj4gVXN1YWxseSwgYWxsIHRlc3RzIHJ1biBj
-b21tYW5kcyBieSB0c3RfcnVuX2NtZCgpL1NBRkVfUlVOX0NNRCgpIGFuZCB0aGV5IGNhbgo+PiBy
-ZXBvcnQgVENPTkYKPgo+PiBieSBwYXNzaW5nIFRTVF9SVU5fQ01EX0NIRUNLX0NNRCBzbyBpdCBp
-cyBmYWlyIHRvIGJlIGEgcGFydCBvZgo+PiB0c3RfcnVuX2NtZCgpL1NBRkVfUlVOX0NNRCgpLgo+
-Cj4gVGhhbmtzIGZvciB5b3VyIHJldmlldy4KPiBJIGd1ZXNzIEN5cmlsIHdpbGwgcHJlZmVyIC5u
-ZWVkc19jbWRzLCBhcyBpdCBjYW4gYmUgcGFyc2VkIC0gbWV0YWRhdGEgcHJvamVjdDoKPiBodHRw
-czovL3Blb3BsZS5rZXJuZWwub3JnL21ldGFuL3Rvd2FyZHMtcGFyYWxsZWwta2VybmVsLXRlc3Qt
-cnVucwo+IGh0dHBzOi8vZ2l0aHViLmNvbS9tZXRhbi11Y3cvbHRwL3RyZWUvbWFzdGVyL2RvY3Bh
-cnNlCkhpIFBldHLvvIwKClRoYW5rIHlvdSBmb3Igc2hhcmluZyB0aGVzZSBpbmZvLgpEb2VzIEN5
-cmlsIHdhbnQgdG8gZ2V0IG1ldGFkYXRhIGZyb20gc3RydWN0IHRzdF90ZXN0IGRpcmVjdGx5PwoK
-SG93IGFib3V0IHRoZSByb3VnaCBkZXNpZ24/CjEpIC5uZWVkc19jbWRzIG9ubHkgc2F2ZXMgdGhl
-IHJlcXVpcmVkIGNvbW1hbmRzLihkb2Vzbid0IGRvIGFueSBjaGVjaykKMikgcGFzcyB0aGUgY29y
-cmVzcG9uZGluZyBtZW1iZXIgb2YgLm5lZWRzX2NtZHMgdG8gCnRzdF9ydW5fY21kKCkvU0FGRV9S
-VU5fQ01EKCkoZG8gY2hlY2sgaW4gdGhlc2UgZnVuY3Rpb25zKS4KRm9yIGV4YW1wbGU6Ci0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KIyBncmVwIHRzdF9uZWVk
-c19jbWRzIGluY2x1ZGUvdHN0X2NtZC5oCmV4dGVybiBjb25zdCBjaGFyICpjb25zdCAqdHN0X25l
-ZWRzX2NtZHM7CgojIGdyZXAgLUIxIHRzdF9uZWVkc19jbWRzIGxpYi90c3RfdGVzdC5jCgpjb25z
-dCBjaGFyICpjb25zdCAqdHN0X25lZWRzX2NtZHM7Ci0tIAogICAgIGlmICh0c3RfdGVzdC0+bmVl
-ZHNfY21kcykKICAgICAgICAgdHN0X25lZWRzX2NtZHMgPSB0c3RfdGVzdC0+bmVlZHNfY21kczsK
-CiMgZ3JlcCAtQTIgJ25lZWRzX2NtZHMnIHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvYWRkX2tl
-eS9hZGRfa2V5MDUuYwogICAgIGNvbnN0IGNoYXIgKmNvbnN0IGNtZF91c2VyYWRkW10gPSB7dHN0
-X25lZWRzX2NtZHNbMF0sIHVzZXJuYW1lLCBOVUxMfTsKICAgICBpbnQgcmM7CgotLSAKICAgICBj
-b25zdCBjaGFyICpjb25zdCBjbWRfdXNlcmRlbFtdID0ge3RzdF9uZWVkc19jbWRzWzFdLCAiLXIi
-LCAKdXNlcm5hbWUsIE5VTEx9OwoKICAgICBpZiAodHN0X3J1bl9jbWQoY21kX3VzZXJkZWwsIE5V
-TEwsIE5VTEwsIDEpKQotLSAKICAgICAubmVlZHNfY21kcyA9IChjb25zdCBjaGFyICpjb25zdCBb
-XSkgewogICAgICAgICAidXNlcmFkZCIsCiAgICAgICAgICJ1c2VyZGVsIiwKLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpidHc6IGlzIGl0IHBvc3NpYmxlIGZv
-ciAubmVlZHNfY21kcyB0byBzYXZlIHRoZSByZXF1aXJlZCBjb21tYW5kcyB3aXRoIApvcHRpb25z
-PwoKVGhhbmtzLApYaWFvIFlhbmcKPgo+IEkgcHV0IGl0IHRoZXJlIGJlY2F1c2Ugc29tZSBjb21t
-YW5kIG1pZ2h0IGJlIHJ1biBqdXN0IHVuZGVyIHNvbWUgY29uZGl0aW9uIChub3QKPiBhbHdheXMp
-LCB0aHVzIG5vdCBzdWl0YWJsZSBmb3IgLm5lZWRzX2NtZHMsIGJ1dCBzdGlsbCBuaWNlIHRvIGhh
-dmUgcmVsaWFibGUKPiBjaGVjay4gQnV0IG1heWJlIEknbSB3cm9uZy4KPgo+IEtpbmQgcmVnYXJk
-cywKPiBQZXRyCj4KCgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51
-eC5pdC9saXN0aW5mby9sdHAK
+SGkgWWFuZywNCg0KVGhhbmtzIGZvciB5b3VyIHJldmlldyBhbmQgY29tbWVudHMsIEkgd2lsbCBz
+ZW5kIHRoZSB2MiBwYXRjaC4NCg0KQmVzdCBSZWdhcmRzDQpab3UgV2VpDQoNCi0tLS0t6YKu5Lu2
+5Y6f5Lu2LS0tLS0NCuWPkeS7tuS6ujogWGlhbyBZYW5nIFttYWlsdG86aWNlX3lhbmd4aWFvQDE2
+My5jb21dIA0K5Y+R6YCB5pe26Ze0OiAyMDIw5bm0M+aciDI45pelIDE5OjM4DQrmlLbku7bkuro6
+IFpvdXdlaSAoU2FtdWVsKSA8em91X3dlaUBodWF3ZWkuY29tPjsgbHRwQGxpc3RzLmxpbnV4Lml0
+DQrkuLvpopg6IFJlOiBbTFRQXSBbUEFUQ0hdIHN5c2NhbGxzL3N0YXR4OiBBZGQganVkZ21lbnQg
+dG8gdGhlIE1PREUgdmFsdWUNCg0KT24gMy8yOC8yMCAyOjM5IFBNLCBab3UgV2VpIHdyb3RlOg0K
+PiAxLiBUaGUgZGVmYXVsdCB2YWx1ZSBvZiB1bWFzayBpbiBtb3N0IGxpbnV4IHN5c3RlbXMgaXMg
+MDAyMiwgYnV0IGluIHNvbWUgb3RoZXIgc3lzdGVtcyBpcyAwMDc3LA0KPiAgICAgd2hpY2ggcmVz
+dWx0cyBpbiBkaWZmZXJlbnQgTU9ERSB2YWx1ZXMgd2hlbiBvcGVuaW5nIGZpbGVzLg0KPg0KPiAy
+LiBBZGRpbmcganVkZ21lbnQgdG8gdGhlIE1PREUgdmFsdWUgY2FuIGltcHJvdmUgdGhlIHZlcnNh
+dGlsaXR5IG9mIHRoaXMgY2FzZS4NCj4NCj4gMy4gNjMgdHJhbnNsYXRlcyB0byA3NyBpbiBvY3Rh
+bCwgbWVhbmluZyB0aGUgcnVubmluZyBwcm9jZXNzIGhhcyBhIHVtYXNrIG9mIDAwMjIuDQo+ICAg
+ICBUaGF0IG1lYW5zIHRoZSBwcm9jZXNzIHdpbGwgb3BlbiBmaWxlcyB3aXRoIDA2MDAgYXMgcGVy
+bWlzc2lvbnMgb24gdGhlIGZpbGVzeXN0ZW0uDQo+DQo+IFNpZ25lZC1vZmYtYnk6IFpvdSBXZWkg
+PHpvdV93ZWlAaHVhd2VpLmNvbT4NCj4gLS0tDQo+ICAgdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxs
+cy9zdGF0eC9zdGF0eDAxLmMgfCAyICstDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9u
+KCspLCAxIGRlbGV0aW9uKC0pDQo+DQo+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5
+c2NhbGxzL3N0YXR4L3N0YXR4MDEuYyANCj4gYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3N0
+YXR4L3N0YXR4MDEuYw0KPiBpbmRleCA0ZjlkNTgyLi5hZGNhMWQzIDEwMDY0NA0KPiAtLS0gYS90
+ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3N0YXR4L3N0YXR4MDEuYw0KPiArKysgYi90ZXN0Y2Fz
+ZXMva2VybmVsL3N5c2NhbGxzL3N0YXR4L3N0YXR4MDEuYw0KPiBAQCAtNDcsNyArNDcsNyBAQA0K
+PiAgICNkZWZpbmUgVEVTVEZJTEUgInRlc3RfZmlsZSINCj4gICAjZGVmaW5lIE1OVFBPSU5UICJt
+bnRwb2ludC8iDQo+ICAgI2RlZmluZSBERVZJQ0VGSUxFIE1OVFBPSU5UImJsa19kZXYiDQo+IC0j
+ZGVmaW5lIE1PREUgMDY0NA0KPiArI2RlZmluZSBNT0RFICgodW1hc2soMCk9PTYzKT8wNjAwOjA2
+NDQpDQoNCkhpIFpvdSwNCg0KMSkgRm9yIHRoZSBmaXgsIEkgdGhpbmsgeW91IGp1c3QgbmVlZCB0
+byBjbGVhciBjdXJyZW50IG1hc2sgYnkgdW1hc2soMCkgaW4gc2V0dXAoKS4NCg0KMikgRG9uJ3Qg
+bWl4IHRoZSBmaXggYW5kIGFkZGluZyBjb3ZlcmFnZShpLmUuIGRpZmZlcmVudCBwZXJtaXNzaW9u
+cykuIFBsZWFzZSB1c2UNCg0KIMKgwqDCoCBvdGhlciB3YXlzKGNyZWF0ZSB0d28gZmlsZXMgd2l0
+aCBkaWZmZXJlbnQgcGVybWlzc2lvbnMgb3IgY2hhbmdlIHRoZSBwZXJtaXNzaW9uDQoNCiDCoMKg
+wqAgZHVyaW5nIHRlc3QsIGV0YykgaWYgeW91IHdhbnQgdG8gcnVuIHRlc3Qgd2l0aCBkaWZmZXJl
+bnQgcGVybWlzc2lvbnMuDQoNClRoYW5rcywNCg0KWGlhbyBZYW5nDQoNCj4NCj4gICAjZGVmaW5l
+IFNJWkUgMjU2DQo+ICAgI2RlZmluZSBNQUpPUiA4DQo+IC0tDQo+IDIuNi4yDQo+DQo+DQoNCgot
+LSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRw
+Cg==
