@@ -2,54 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 147931975E6
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 09:43:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3900319765D
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 10:23:14 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CB7F73C3149
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 09:43:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6E9FA3C3165
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 10:23:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 835DB3C313D
- for <ltp@lists.linux.it>; Mon, 30 Mar 2020 09:43:17 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 9114C1A0091E
- for <ltp@lists.linux.it>; Mon, 30 Mar 2020 09:43:15 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.72,323,1580745600"; d="scan'208";a="87897114"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 30 Mar 2020 15:43:14 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id 5D54949DF126;
- Mon, 30 Mar 2020 15:32:57 +0800 (CST)
-Received: from [10.167.220.69] (10.167.220.69) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 30 Mar 2020 15:43:12 +0800
-Message-ID: <5E81A30E.2080002@cn.fujitsu.com>
-Date: Mon, 30 Mar 2020 15:43:10 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id D810B3C1115
+ for <ltp@lists.linux.it>; Mon, 30 Mar 2020 10:23:08 +0200 (CEST)
+Received: from huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id DC921600BC3
+ for <ltp@lists.linux.it>; Mon, 30 Mar 2020 10:23:07 +0200 (CEST)
+Received: from dggeml406-hub.china.huawei.com (unknown [172.30.72.57])
+ by Forcepoint Email with ESMTP id 57FBFB678CDCB397FF0A;
+ Mon, 30 Mar 2020 16:22:59 +0800 (CST)
+Received: from DGGEML524-MBX.china.huawei.com ([169.254.1.149]) by
+ dggeml406-hub.china.huawei.com ([10.3.17.50]) with mapi id 14.03.0487.000;
+ Mon, 30 Mar 2020 16:22:44 +0800
+From: "Zouwei (Samuel)" <zou_wei@huawei.com>
+To: Xiao Yang <yangx.jy@cn.fujitsu.com>
+Thread-Topic: [LTP] [PATCH v3 0/3] Fix bug caused by default umask
+Thread-Index: AQHWBmWd+n11rkNuOUS38urzc/1eIahgx7ew
+Date: Mon, 30 Mar 2020 08:22:43 +0000
+Message-ID: <C3CD0DF8AD11A84CB25A1426DE537C61E5928002@dggeml524-mbx.china.huawei.com>
+References: <1585553269-119544-1-git-send-email-zou_wei@huawei.com>
+ <5E81A0EF.4040508@cn.fujitsu.com>
+In-Reply-To: <5E81A0EF.4040508@cn.fujitsu.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.173.220.144]
 MIME-Version: 1.0
-To: Petr Vorel <pvorel@suse.cz>
-References: <20200327213924.18816-1-pvorel@suse.cz>
- <4ff84a77-b858-6cae-a320-cfaed3646864@163.com>
- <20200328034253.GA2720439@x230> <5E80323C.5070408@cn.fujitsu.com>
- <CAEemH2chnkojt0oc9OVodwKOj27_7aTj1nHnkk_DVoOxUP-H7A@mail.gmail.com>
- <5E81819B.5070303@cn.fujitsu.com> <20200330071217.GB4571@dell5510>
-In-Reply-To: <20200330071217.GB4571@dell5510>
-X-Originating-IP: [10.167.220.69]
-X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
-X-yoursite-MailScanner-ID: 5D54949DF126.AA443
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 0/6] C API: .needs_cmds and SAFE_RUN_CMD()
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] =?gb2312?b?tPC4tDogIFtQQVRDSCB2MyAwLzNdIEZpeCBidWcgY2F1?=
+ =?gb2312?b?c2VkIGJ5IGRlZmF1bHQgdW1hc2s=?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,87 +57,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 2020/3/30 15:12, Petr Vorel wrote:
-> Hi Xiao,
->
->>>      # grep -A2 'needs_cmds' testcases/kernel/syscalls/add_key/add_key05.c
->>>      const char *const cmd_useradd[] = {tst_needs_cmds[0], username, NULL};
->>>      int rc;
->
->>> I don't see any advantage of involving this struct in a test case, and
->>> it also makes things more complicated.
->> Hi Li,
->
->> In fact, I perfer to remove .need_cmd and use tst_run_cmd with/without
->> TST_RUN_CMD_CHECK_CMD directly.
->> But I am not sure if it is necessary to keep .need_cmd for metadata project.
->> I think we can generate json about resouce by reading struct tst_test or
->> other ways.
->
-> not sure if you mean removing .needs_cmds entirely or just for
-> copy_file_range02.c. or some other test. I rewritten the original patchset
-> because Cyril suggested .needs_cmds implementation:
->
-> 	"Actually I would like to avoid exposing the function to the tests and
-> 	force people to use the .needs_cmds instead in order to have a proper
-> 	metadata." [1]
->
->
-Hi Petr,
-
-Thanks a lot for your explanation.
-
-I want to remove .needs_cmds entirely before but it may be helpful to 
-get metadata about command.
-
-Thanks,
-Xiao Yang
-> IMHO parsing struct members is easier to get metadata than searching for
-> various functions to be used, so I understand Cyril's intention. Cyril explains
-> this on his blog posts (I've noticed [2], but it's also in [3]: "this
-> arrangement also helps to export the test metadata into a machine parsable
-> format").
->
-> Kind regards,
-> Petr
->
->> Thanks,
->> Xiao Yang
->
->
->>> IMO, the '.needs_cmds' should do check and guarantee all the cmds exist.
->>> That's a hard requirement for the test. If a situation that the commands
->>> are only part of the requirement(soft), we could avoid using
->>> '.needs_cmds' in the test and just calling tst_run_cmd() without passing
->>> TST_RUN_CMD_CHECK_CMD flag. This satisfies most situations we have, it
->>> is safe enough and choosable for people.
->
->>> Or maybe I'm wrong here too:).
->
->>> --
->>> Regards,
->>> Li Wang
->
->
-> Kind regards,
-> Petr
->
-> [1] https://lists.linux.it/pipermail/ltp/2020-March/016233.html
-> [2] https://people.kernel.org/metan/towards-parallel-kernel-test-runs
-> [3] https://people.kernel.org/metan/the-ltp-test-driver-model
->
->
-> .
->
-
-
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkgWWFuZywNCg0KSSBkb3dubG9hZGVkIHRoZSBkZXZlbG9wbWVudCB2ZXJzaW9uIG9mIGx0cCB0
+d28gd2Vla3MgYWdvLCByYW4gdGhlIGNhc2VzIGluIHRoZSBydW50ZXN0IGRpcmVjdG9yeSwgYW5k
+IGFuYWx5emVkIGFsbCB0aGUgZmFpbGVkIGNhc2VzLiANCkkgZm91bmQgdGhhdCB0aGVzZSAzIGNh
+c2VzIGhhdmUgdGhlIHVtYXNrIGlzc3VlLiANCg0KRHVlIHRvIHRoZSBsaW1pdGVkIHRpbWUgaW52
+ZXN0ZWQgYnkgaW5kaXZpZHVhbHMsIGl0IGlzIHBvc3NpYmxlIHRoYXQgb3RoZXIgY2FzZXMgd2l0
+aCB0aGUgc2FtZSBpc3N1ZSB3aWxsIG5vdCBiZSBkaXNjb3ZlcmVkLg0KSSB3aWxsIGFuYWx5emUg
+dGhlIG90aGVyIGZhaWxlZCBjYXNlcyB0aGF0IGhhdmUgbm90IGJlZW4gY29uY2x1ZGVkIGZ1cnRo
+ZXIgaW4gdGhlIG5leHQgZmV3IHdlZWtzLg0KDQpUaGFua3MgZm9yIHlvdXIgc3VnZ2VzdGlvbnMg
+YW5kIHJldmlld3MuDQoNCkJlc3QgUmVnYXJkcw0KWm91IFdlaQ0KLS0tLS3Tyrz+1K28/i0tLS0t
+DQq3orz+yMs6IFhpYW8gWWFuZyBbbWFpbHRvOnlhbmd4Lmp5QGNuLmZ1aml0c3UuY29tXSANCrei
+y83KsbzkOiAyMDIwxOoz1MIzMMjVIDE1OjM0DQrK1bz+yMs6IFpvdXdlaSAoU2FtdWVsKSA8em91
+X3dlaUBodWF3ZWkuY29tPg0Ks63LzTogbHRwQGxpc3RzLmxpbnV4Lml0DQrW98ziOiBSZTogW0xU
+UF0gW1BBVENIIHYzIDAvM10gRml4IGJ1ZyBjYXVzZWQgYnkgZGVmYXVsdCB1bWFzaw0KDQpPbiAy
+MDIwLzMvMzAgMTU6MjcsIFpvdSBXZWkgd3JvdGU6DQo+IHYzOg0KPiBUaGUgY2FzZSBpcyBvbmx5
+IHN1Y2Nlc3NmdWwgd2hlbiBzeXN0ZW0gZGVmYXVsdCB1bWFzayBpcyAwMDIyLg0KPiBXaGVuIGRl
+ZmF1bHQgdW1hc2sgaXMgMDA3NyBvciBvdGhlciB2YWx1ZXMsIHNob3VsZCBjbGVhciB1bWFzayBi
+eSB1bWFzaygwKSBpbiBzZXR1cCgpLg0KSGkgWm91LA0KDQpUaGFua3MgZm9yIHlvdXIgcGF0Y2gg
+c2V0Lg0KRGlkIHlvdSBmaW5kIGFueSBvdGhlciBjYXNlcyByZWxhdGVkIHdpdGggdGhlIHNhbWUg
+aXNzdWU/DQoNClRoYW5rcywNClhpYW8gWWFuZw0KPg0KPiBab3UgV2VpICgzKToNCj4gICAgc2Vj
+dXJpdHkvZGlydHljMHc6IEZpeCBidWcgY2F1c2VkIGJ5IGRlZmF1bHQgdW1hc2sNCj4gICAgc3lz
+Y2FsbHMvZnN0YXQ6IEZpeCBidWcgY2F1c2VkIGJ5IGRlZmF1bHQgdW1hc2sNCj4gICAgc3lzY2Fs
+bHMvc3RhdHgwMTogRml4IGJ1ZyBjYXVzZWQgYnkgZGVmYXVsdCB1bWFzaw0KPg0KPiAgIHRlc3Rj
+YXNlcy9rZXJuZWwvc2VjdXJpdHkvZGlydHljMHcvZGlydHljMHcuYyB8IDIgKysNCj4gICB0ZXN0
+Y2FzZXMva2VybmVsL3N5c2NhbGxzL2ZzdGF0L2ZzdGF0MDIuYyAgICAgfCAyICsrDQo+ICAgdGVz
+dGNhc2VzL2tlcm5lbC9zeXNjYWxscy9zdGF0eC9zdGF0eDAxLmMgICAgIHwgMiArKw0KPiAgIDMg
+ZmlsZXMgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspDQo+DQo+IC0tDQo+IDIuNi4yDQo+DQo+DQoN
+Cg0KDQoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3Rp
+bmZvL2x0cAo=
