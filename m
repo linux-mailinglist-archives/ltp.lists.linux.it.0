@@ -1,43 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7631A1983B1
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 20:48:34 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D39D619850C
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 22:02:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 09DDE3C316A
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 20:48:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4B46F3C3148
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 22:02:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 39F203C3138
- for <ltp@lists.linux.it>; Mon, 30 Mar 2020 20:48:30 +0200 (CEST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 4CDDE3C3138
+ for <ltp@lists.linux.it>; Mon, 30 Mar 2020 22:02:54 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id AC83C200DC4
- for <ltp@lists.linux.it>; Mon, 30 Mar 2020 20:48:29 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B4D7D6008E7
+ for <ltp@lists.linux.it>; Mon, 30 Mar 2020 22:02:53 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id E7ADEABEF;
- Mon, 30 Mar 2020 18:48:28 +0000 (UTC)
-Date: Mon, 30 Mar 2020 20:48:27 +0200
+ by mx2.suse.de (Postfix) with ESMTP id F0632AF89;
+ Mon, 30 Mar 2020 20:02:52 +0000 (UTC)
+Date: Mon, 30 Mar 2020 22:02:50 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Li Wang <liwang@redhat.com>
-Message-ID: <20200330184827.GA8636@dell5510>
+Message-ID: <20200330200250.GB8636@dell5510>
 References: <20200330124338.6764-1-pvorel@suse.cz>
- <20200330124338.6764-5-pvorel@suse.cz>
- <CAEemH2dcxrpB_dkp26=5oiMdY_2OVw5v_OjpyG37N+zx7y+A9g@mail.gmail.com>
+ <20200330124338.6764-6-pvorel@suse.cz>
+ <CAEemH2dQfpn9mEBY=CFfVj_8dLETD7zh4=j3KP-bt95m_CCBxg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEemH2dcxrpB_dkp26=5oiMdY_2OVw5v_OjpyG37N+zx7y+A9g@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+In-Reply-To: <CAEemH2dQfpn9mEBY=CFfVj_8dLETD7zh4=j3KP-bt95m_CCBxg@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 4/5] lib: Implement SAFE_CMD() macro (new API
- only)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 5/5] Use SAFE_CMD()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,22 +56,22 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Li,
 
-> > +       switch ((rval = tst_run_cmd(argv, stdout_path, stderr_path,
-> > +                                   TST_RUN_CMD_PASS_EXIT_VAL |
-> > +                                   TST_RUN_CMD_CHECK_CMD))) {
+> Oh, you did the renaming in patch 5/5, but pity that the
+> TST_CMD_TCONF_ON_MISSING still not being used:). I guess this modification
+> should belong to patch4/5.
+Thanks for careful review. Yes, I found that as well + the other problem you
+reported - tst_run_cmd() during one more check.
 
-
-> This should be TST_CMD_TCONF_ON_MISSING ^.
-
-> I'd help to build&run the whole patches tomorrow, anything wrong if I can
-> find will reply to you then.
-
-Thanks for fixes. Here is following diff from v2 (addressing issues you found,
-fixed tst_run_cmd() being replaced in later commit, fix doc formatting),
-code available also on:
++ I needed to put back static inline for safe_cmd() (it was in previous version,
+it's really needed). So there is latest version available on
 https://github.com/pevik/ltp/tree/needs_cmds.v2.fixes
 
-I'm going to test each commit if it builds and wait for your ack tomorrow.
+which passed some travis jobs (I'll check that tomorrow)
+https://travis-ci.org/github/pevik/ltp/builds/668925599
+
+Diff from v2 below.
+
+IMHO now it should be ok, but I'm waiting for your or anybody else ack/review.
 
 Kind regards,
 Petr
@@ -92,17 +90,23 @@ index 75c2e517a..895f6c99d 100644
  
  'tst_cmd()' is a wrapper for 'vfork() + execvp()' which provides a way
 diff --git include/tst_safe_macros.h include/tst_safe_macros.h
-index d050c5990..295800c1b 100644
+index d050c5990..8126179f4 100644
 --- include/tst_safe_macros.h
 +++ include/tst_safe_macros.h
-@@ -543,8 +543,8 @@ void safe_cmd(const char *file, const int lineno, const char *const argv[],
+@@ -538,13 +538,13 @@ void safe_unshare(const char *file, const int lineno, int flags);
+ void safe_setns(const char *file, const int lineno, int fd, int nstype);
+ #define SAFE_SETNS(fd, nstype) safe_setns(__FILE__, __LINE__, (fd), (nstype));
+ 
+-void safe_cmd(const char *file, const int lineno, const char *const argv[],
++static inline void safe_cmd(const char *file, const int lineno, const char *const argv[],
+ 				  const char *stdout_path, const char *stderr_path)
  {
  	int rval;
  
 -	switch ((rval = tst_cmd(argv, stdout_path, stderr_path, TST_CMD_PASS_RETVAL
 -							| TST_CMD_CHECK_CMD))) {
 +	switch ((rval = tst_cmd(argv, stdout_path, stderr_path,
-+				TST_CMD_PASS_EXIT_VAL | TST_CMD_TCONF_ON_MISSING))) {
++				TST_CMD_PASS_RETVAL | TST_CMD_TCONF_ON_MISSING))) {
  	case 0:
  		break;
  	default:
