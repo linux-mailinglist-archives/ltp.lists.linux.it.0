@@ -1,39 +1,58 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC67D197C29
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 14:44:40 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id C6584197C3E
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 14:49:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 21C373C317C
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 14:44:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5A7C53C3187
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 14:49:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 0A6D33C312D
- for <ltp@lists.linux.it>; Mon, 30 Mar 2020 14:43:46 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id B662E3C3145
+ for <ltp@lists.linux.it>; Mon, 30 Mar 2020 14:49:14 +0200 (CEST)
+Received: from mail-m973.mail.163.com (mail-m973.mail.163.com [123.126.97.3])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8E3846005FB
- for <ltp@lists.linux.it>; Mon, 30 Mar 2020 14:43:45 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id EBFCAAEE6;
- Mon, 30 Mar 2020 12:43:44 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon, 30 Mar 2020 14:43:38 +0200
-Message-Id: <20200330124338.6764-6-pvorel@suse.cz>
-X-Mailer: git-send-email 2.26.0
-In-Reply-To: <20200330124338.6764-1-pvorel@suse.cz>
-References: <20200330124338.6764-1-pvorel@suse.cz>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 0C0EC1A00ECB
+ for <ltp@lists.linux.it>; Mon, 30 Mar 2020 14:49:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=MYlJM
+ 2yNCKsz22F34ZkRgCPFjg+q2KJJn5dBcEQ8NOE=; b=n1Evr1MisoWUNaaCiLeXj
+ EnThNvtSfRIkglnm+P4GvfFhunX1zsUlA+51aKMl3bvksmr6sXCYfGK5IMCpE1R/
+ vKNz/DKmdCnhSZniYxCHuLSgE48RxRS+RKveZmFMrbs6p+NApKr/kPmq9DPKCzMZ
+ VhZrOpuHUbsox5e93vdKUY=
+Received: from [172.20.10.4] (unknown [122.96.41.200])
+ by smtp3 (Coremail) with SMTP id G9xpCgA3Oiq76oFeDrRzAQ--.2S2;
+ Mon, 30 Mar 2020 20:49:00 +0800 (CST)
+To: Cyril Hrubis <chrubis@suse.cz>, Petr Vorel <pvorel@suse.cz>
+References: <1585553269-119544-1-git-send-email-zou_wei@huawei.com>
+ <1585553269-119544-2-git-send-email-zou_wei@huawei.com>
+ <20200330091835.GA9845@yuki.lan> <20200330092046.GB9845@yuki.lan>
+From: Xiao Yang <ice_yangxiao@163.com>
+Message-ID: <f78cb609-b4f1-2f89-a641-09a97c2d0a03@163.com>
+Date: Mon, 30 Mar 2020 20:48:59 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+In-Reply-To: <20200330092046.GB9845@yuki.lan>
+Content-Language: en-US
+X-CM-TRANSID: G9xpCgA3Oiq76oFeDrRzAQ--.2S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrZFy8CF43JF15GrW7tFWrZrb_yoWfGrgEgr
+ 4jyF1xG34UWr4fXan8Jr1jqrZ2kry7X3yayrZ8Xa40g34furn8KFnY9rZrJay7Jw4ayFn8
+ WryDXF4fK3y2qjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUeveH3UUUUU==
+X-Originating-IP: [122.96.41.200]
+X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/xtbBEBz2XlUMQDgazwAAsQ
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 5/5] Use SAFE_CMD()
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 1/3] security/dirtyc0w: Fix bug caused by
+ default umask
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,125 +64,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Reviewed-by: Li Wang <liwang@redhat.com>
-Reviewed-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- doc/test-writing-guidelines.txt                 |  4 ++--
- include/tst_safe_macros.h                       |  5 ++---
- testcases/kernel/syscalls/add_key/add_key05.c   | 14 ++++----------
- testcases/kernel/syscalls/quotactl/quotactl01.c | 11 ++---------
- testcases/kernel/syscalls/quotactl/quotactl06.c |  9 +--------
- 5 files changed, 11 insertions(+), 32 deletions(-)
+Hi Cyril, Petr
 
-diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
-index 6f1eee490..75c2e517a 100644
---- a/doc/test-writing-guidelines.txt
-+++ b/doc/test-writing-guidelines.txt
-@@ -1283,8 +1283,8 @@ return value is '255' if 'execvp()' failed with 'ENOENT' and '254' otherwise.
- 'stdout_path' and 'stderr_path' determine where to redirect the program
- stdout and stderr I/O streams.
- 
--The 'SAFE_CMD()' macro can be used automatic handling non zero exits (exits
--with 'TBROK') or 'ENOENT' (exits with 'TCONF').
-+The 'SAFE_CMD()' macro can be used automatic handling non-zero exits (exits
-+with 'TBROK') and 'ENOENT' (exits with 'TCONF').
- 
- .Example
- [source,c]
-diff --git a/include/tst_safe_macros.h b/include/tst_safe_macros.h
-index 38eb67d1d..bcd4b9c9e 100644
---- a/include/tst_safe_macros.h
-+++ b/include/tst_safe_macros.h
-@@ -540,9 +540,8 @@ void safe_cmd(const char *file, const int lineno, const char *const argv[],
- {
- 	int rval;
- 
--	switch ((rval = tst_run_cmd(argv, stdout_path, stderr_path,
--				    TST_RUN_CMD_PASS_EXIT_VAL |
--				    TST_RUN_CMD_CHECK_CMD))) {
-+	switch ((rval = tst_cmd(argv, stdout_path, stderr_path, TST_CMD_PASS_RETVAL
-+							| TST_CMD_CHECK_CMD))) {
- 	case 0:
- 		break;
- 	default:
-diff --git a/testcases/kernel/syscalls/add_key/add_key05.c b/testcases/kernel/syscalls/add_key/add_key05.c
-index aa2b9cb2f..f64c359bb 100644
---- a/testcases/kernel/syscalls/add_key/add_key05.c
-+++ b/testcases/kernel/syscalls/add_key/add_key05.c
-@@ -36,16 +36,10 @@ static void add_user(void)
- 		return;
- 
- 	const char *const cmd_useradd[] = {"useradd", username, NULL};
--	int rc;
--
--	switch ((rc = tst_cmd(cmd_useradd, NULL, NULL, TST_CMD_PASS_RETVAL))) {
--	case 0:
--		user_added = 1;
--		ltpuser = SAFE_GETPWNAM(username);
--		break;
--	default:
--		tst_brk(TBROK, "useradd failed (%d)", rc);
--	}
-+
-+	SAFE_CMD(cmd_useradd, NULL, NULL);
-+	user_added = 1;
-+	ltpuser = SAFE_GETPWNAM(username);
- 	sprintf(fmt, "%5u: %%*5d %%*d/%%*d %%d/%%d %%d/%%d", ltpuser->pw_uid);
- }
- 
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl01.c b/testcases/kernel/syscalls/quotactl/quotactl01.c
-index 6f0b60ffc..e1ec22529 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl01.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl01.c
-@@ -162,15 +162,8 @@ static struct tcase {
- static void setup(void)
- {
- 	const char *const cmd[] = {"quotacheck", "-ugF", "vfsv0", MNTPOINT, NULL};
--	int ret;
--
--	ret = tst_cmd(cmd, NULL, NULL, TST_CMD_PASS_RETVAL);
--	switch (ret) {
--	case 0:
--		break;
--	default:
--		tst_brk(TBROK, "quotacheck exited with %i", ret);
--	}
-+
-+	SAFE_CMD(cmd, NULL, NULL);
- 
- 	test_id = geteuid();
- 	if (access(USRPATH, F_OK) == -1)
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl06.c b/testcases/kernel/syscalls/quotactl/quotactl06.c
-index 773114dfd..0a36c97a4 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl06.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl06.c
-@@ -146,16 +146,9 @@ static void verify_quotactl(unsigned int n)
- static void setup(void)
- {
- 	const char *const cmd[] = {"quotacheck", "-uF", "vfsv0", MNTPOINT, NULL};
--	int ret;
- 	unsigned int i;
- 
--	ret = tst_cmd(cmd, NULL, NULL, TST_CMD_PASS_RETVAL);
--	switch (ret) {
--	case 0:
--		break;
--	default:
--		tst_brk(TBROK, "quotacheck exited with %i", ret);
--	}
-+	SAFE_CMD(cmd, NULL, NULL);
- 
- 	if (access(USRPATH, F_OK) == -1)
- 		tst_brk(TFAIL | TERRNO, "user quotafile didn't exist");
--- 
-2.26.0
+Just one question when reviewing this patch set.
+
+I saw the umask set(e.g. set umask to 0 or 0022) is used by a lot of tests.
+
+Is it necessary for metadata project to introduce .needs_umask?
+
+Thanks,
+
+Xiao Yang
+
+On 3/30/20 5:20 PM, Cyril Hrubis wrote:
+> Hi!
+>>> The case is only successful when system default umask is 0022.
+>>> When default umask is 0077 or other values, should clear current umask by umask(0) in setup().
+>> What exactly fails in the dirtyc0w because of non-standard umask?
+>>
+>> I can easily understand why fstat and statx fail, since we check the
+>> file permissions there. Ideally the failure should have been part of the
+>> patch description.
+> Looking at the code I guess that the child fails to open the file
+> created in parent before the setgid/setuid, something like this should
+> really have been part of the patch description.
+>
 
 
 -- 
