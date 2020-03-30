@@ -2,71 +2,52 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A99A119737C
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 06:40:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CC741973CC
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 07:20:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6D1183C313A
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 06:40:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9D1113C3160
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Mar 2020 07:20:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 47FE03C3130
- for <ltp@lists.linux.it>; Mon, 30 Mar 2020 06:40:08 +0200 (CEST)
-Received: from us-smtp-delivery-74.mimecast.com
- (us-smtp-delivery-74.mimecast.com [216.205.24.74])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 522616010FF
- for <ltp@lists.linux.it>; Mon, 30 Mar 2020 06:40:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1585543205;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vCkI5T/CoUoEgN5NisclxEiQ660YCIGFdRH3w7Ejv/c=;
- b=MoO6EdOfTxnpVa3wyBkbioxUwQe/RQJ9dN0AL35K690BJtL0fyrcRG1sbgnTlVa9R6eyrv
- vo0ToGamfvgbq6UhULJPFalxG+Dq+p4dsDfXJB24rSNk4eOOQUGF/ZKzcjhRjhldL3DcGV
- k1TPFZ5QqYB5x81Bm4+1xV+9+okidr0=
-Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
- [209.85.167.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-265-VLn4XB4SOhSHfEFltLToPw-1; Mon, 30 Mar 2020 00:40:03 -0400
-X-MC-Unique: VLn4XB4SOhSHfEFltLToPw-1
-Received: by mail-lf1-f71.google.com with SMTP id q4so6994036lff.4
- for <ltp@lists.linux.it>; Sun, 29 Mar 2020 21:40:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=vCkI5T/CoUoEgN5NisclxEiQ660YCIGFdRH3w7Ejv/c=;
- b=IeLoBCqfRr8CZB3zgfQtrWo5ZcS5uZGmV/wJ0mVzuhg3Q6umRg6VSA2HRfkbgHAQcY
- QlvaY8S/gO8X04SU5+rB4vpvq1JkCFh8W9a9Q80jyc0mtjUbjsHdKHu5E3oNMIFmJiBu
- MvjEwKVkdtcxUbdgqoNvoBPIVsv/k/aDlJeaZUEvkMRJklWTjW1YvxctQr1x88n62Y+s
- 5Ec6s527ncc0FX1sHPwUREGTYJ9v309Pr8dsn/hJ9gpKpKfRMdCXftkX+guKepfz/pqL
- BwDl/XVzGZg+2a3kG4L4S1QtPdc28Jcfdezu5r86PibID2/rLwAEDgDTUXOnf2OBHrMs
- n1Fw==
-X-Gm-Message-State: AGi0PubT4hs7NNZDXBNuaJiINchFFSwXQSKKUyAAVR05NG/NmfrHm/xx
- na28B5DHnr01iBjWYHCy/+pQzrcFnp81zoKNnyT16XFxe2M5jLcXMX0Ay2UbB6sMjQzlpNVUwMt
- q1Uo7pbmF0G5L52vs6jmKMQzDOzM=
-X-Received: by 2002:a19:2391:: with SMTP id j139mr6693898lfj.147.1585543201690; 
- Sun, 29 Mar 2020 21:40:01 -0700 (PDT)
-X-Google-Smtp-Source: APiQypL/PrbwCySYW0fdtNti77kc3VgMv5GycU+8jYCpjHE/MSVy8f6aCk86ksiBed5MGw5lSUj1JdGjO6DfdHr/ibU=
-X-Received: by 2002:a19:2391:: with SMTP id j139mr6693891lfj.147.1585543201526; 
- Sun, 29 Mar 2020 21:40:01 -0700 (PDT)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id ADC1B3C137B
+ for <ltp@lists.linux.it>; Mon, 30 Mar 2020 07:20:38 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 257FC1A00E1E
+ for <ltp@lists.linux.it>; Mon, 30 Mar 2020 07:20:36 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.72,322,1580745600"; d="scan'208";a="87869036"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 30 Mar 2020 13:20:30 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id 012E650A999A;
+ Mon, 30 Mar 2020 13:10:14 +0800 (CST)
+Received: from [10.167.220.69] (10.167.220.69) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Mon, 30 Mar 2020 13:20:29 +0800
+Message-ID: <5E81819B.5070303@cn.fujitsu.com>
+Date: Mon, 30 Mar 2020 13:20:27 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
+To: Li Wang <liwang@redhat.com>
 References: <20200327213924.18816-1-pvorel@suse.cz>
  <4ff84a77-b858-6cae-a320-cfaed3646864@163.com>
  <20200328034253.GA2720439@x230> <5E80323C.5070408@cn.fujitsu.com>
-In-Reply-To: <5E80323C.5070408@cn.fujitsu.com>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 30 Mar 2020 12:39:50 +0800
-Message-ID: <CAEemH2chnkojt0oc9OVodwKOj27_7aTj1nHnkk_DVoOxUP-H7A@mail.gmail.com>
-To: Xiao Yang <yangx.jy@cn.fujitsu.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+ <CAEemH2chnkojt0oc9OVodwKOj27_7aTj1nHnkk_DVoOxUP-H7A@mail.gmail.com>
+In-Reply-To: <CAEemH2chnkojt0oc9OVodwKOj27_7aTj1nHnkk_DVoOxUP-H7A@mail.gmail.com>
+X-Originating-IP: [10.167.220.69]
+X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
+X-yoursite-MailScanner-ID: 012E650A999A.ACC8A
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 0/6] C API: .needs_cmds and SAFE_RUN_CMD()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -80,185 +61,59 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0603792851=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0603792851==
-Content-Type: multipart/alternative; boundary="0000000000004daadb05a20b0bc2"
-
---0000000000004daadb05a20b0bc2
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Xiao,
-
-On Sun, Mar 29, 2020 at 1:36 PM Xiao Yang <yangx.jy@cn.fujitsu.com> wrote:
-
-> On 2020/3/28 11:42, Petr Vorel wrote:
-> > Hi Xiao,
-> >
-> >> On 3/28/20 5:39 AM, Petr Vorel wrote:
-> >>> + There is a double check (first in
-> >>> .needs_cmds, then in SAFE_RUN_CMD()), maybe that's not needed.
-> >
-> >> Hi Petr,
-> >
-> >> Why do you need the duplicate .needs_cmds flag?(it introduces the doub=
-le
-> >> check as you said)
-> >
-> >> Usually, all tests run commands by tst_run_cmd()/SAFE_RUN_CMD() and
-> they can
-> >> report TCONF
-> >
-> >> by passing TST_RUN_CMD_CHECK_CMD so it is fair to be a part of
-> >> tst_run_cmd()/SAFE_RUN_CMD().
-> >
-> > Thanks for your review.
-> > I guess Cyril will prefer .needs_cmds, as it can be parsed - metadata
-> project:
-> > https://people.kernel.org/metan/towards-parallel-kernel-test-runs
-> > https://github.com/metan-ucw/ltp/tree/master/docparse
-> Hi Petr=EF=BC=8C
->
-> Thank you for sharing these info.
-> Does Cyril want to get metadata from struct tst_test directly?
->
-> How about the rough design?
-> 1) .needs_cmds only saves the required commands.(doesn't do any check)
-> 2) pass the corresponding member of .needs_cmds to
-> tst_run_cmd()/SAFE_RUN_CMD()(do check in these functions).
-> For example:
-> ----------------------------------------------
-> # grep tst_needs_cmds include/tst_cmd.h
-> extern const char *const *tst_needs_cmds;
->
-> # grep -B1 tst_needs_cmds lib/tst_test.c
->
-> const char *const *tst_needs_cmds;
-> --
->      if (tst_test->needs_cmds)
->          tst_needs_cmds =3D tst_test->needs_cmds;
->
-> # grep -A2 'needs_cmds' testcases/kernel/syscalls/add_key/add_key05.c
->      const char *const cmd_useradd[] =3D {tst_needs_cmds[0], username, NU=
-LL};
->      int rc;
->
-
-I don't see any advantage of involving this struct in a test case, and it
-also makes things more complicated.
-
-IMO, the '.needs_cmds' should do check and guarantee all the
-cmds exist. That's a hard requirement for the test. If a situation that the
-commands are only part of the requirement(soft), we could avoid using
-'.needs_cmds' in the test and just calling tst_run_cmd() without passing
-TST_RUN_CMD_CHECK_CMD flag. This satisfies most situations we have, it is
-safe enough and choosable for people.
-
-Or maybe I'm wrong here too:).
-
---=20
-Regards,
-Li Wang
-
---0000000000004daadb05a20b0bc2
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Hi Xiao,</div></div><br><div class=3D"gmail_quote"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Sun, Mar 29, 2020 at 1:36 PM Xiao Yang &lt=
-;<a href=3D"mailto:yangx.jy@cn.fujitsu.com">yangx.jy@cn.fujitsu.com</a>&gt;=
- wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
-0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On 2020/=
-3/28 11:42, Petr Vorel wrote:<br>
-&gt; Hi Xiao,<br>
-&gt;<br>
-&gt;&gt; On 3/28/20 5:39 AM, Petr Vorel wrote:<br>
-&gt;&gt;&gt; + There is a double check (first in<br>
-&gt;&gt;&gt; .needs_cmds, then in SAFE_RUN_CMD()), maybe that&#39;s not nee=
-ded.<br>
-&gt;<br>
-&gt;&gt; Hi Petr,<br>
-&gt;<br>
-&gt;&gt; Why do you need the duplicate .needs_cmds flag?(it introduces the =
-double<br>
-&gt;&gt; check as you said)<br>
-&gt;<br>
-&gt;&gt; Usually, all tests run commands by tst_run_cmd()/SAFE_RUN_CMD() an=
-d they can<br>
-&gt;&gt; report TCONF<br>
-&gt;<br>
-&gt;&gt; by passing TST_RUN_CMD_CHECK_CMD so it is fair to be a part of<br>
-&gt;&gt; tst_run_cmd()/SAFE_RUN_CMD().<br>
-&gt;<br>
-&gt; Thanks for your review.<br>
-&gt; I guess Cyril will prefer .needs_cmds, as it can be parsed - metadata =
-project:<br>
-&gt; <a href=3D"https://people.kernel.org/metan/towards-parallel-kernel-tes=
-t-runs" rel=3D"noreferrer" target=3D"_blank">https://people.kernel.org/meta=
-n/towards-parallel-kernel-test-runs</a><br>
-&gt; <a href=3D"https://github.com/metan-ucw/ltp/tree/master/docparse" rel=
-=3D"noreferrer" target=3D"_blank">https://github.com/metan-ucw/ltp/tree/mas=
-ter/docparse</a><br>
-Hi Petr=EF=BC=8C<br>
-<br>
-Thank you for sharing these info.<br>
-Does Cyril want to get metadata from struct tst_test directly?<br>
-<br>
-How about the rough design?<br>
-1) .needs_cmds only saves the required commands.(doesn&#39;t do any check)<=
-br>
-2) pass the corresponding member of .needs_cmds to <br>
-tst_run_cmd()/SAFE_RUN_CMD()(do check in these functions).<br>
-For example:<br>
-----------------------------------------------<br>
-# grep tst_needs_cmds include/tst_cmd.h<br>
-extern const char *const *tst_needs_cmds;<br>
-<br>
-# grep -B1 tst_needs_cmds lib/tst_test.c<br>
-<br>
-const char *const *tst_needs_cmds;<br>
--- <br>
-=C2=A0 =C2=A0 =C2=A0if (tst_test-&gt;needs_cmds)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_needs_cmds =3D tst_test-&gt;needs_cmd=
-s;<br>
-<br>
-# grep -A2 &#39;needs_cmds&#39; testcases/kernel/syscalls/add_key/add_key05=
-.c<br>
-=C2=A0 =C2=A0 =C2=A0const char *const cmd_useradd[] =3D {tst_needs_cmds[0],=
- username, NULL};<br>
-=C2=A0 =C2=A0 =C2=A0int rc;<br></blockquote><div><br></div><div><div class=
-=3D"gmail_default" style=3D"font-size:small">I don&#39;t see any advantage =
-of involving this struct in a test case, and it also makes things more comp=
-licated.</div><div class=3D"gmail_default" style=3D"font-size:small"><br></=
-div><div class=3D"gmail_default" style=3D"font-size:small">IMO, the &#39;.n=
-eeds_cmds&#39; should do check and guarantee=C2=A0all the cmds=C2=A0exist.=
-=C2=A0That&#39;s a hard requirement for the test. If a situation that the c=
-ommands are only part of the requirement(soft), we could avoid using &#39;.=
-needs_cmds&#39; in the test and just calling tst_run_cmd() without passing =
-TST_RUN_CMD_CHECK_CMD flag. This satisfies most situations we have, it is s=
-afe enough and choosable for people.</div><div class=3D"gmail_default" styl=
-e=3D"font-size:small"><br></div></div><div class=3D"gmail_default" style=3D=
-"font-size:small">Or maybe I&#39;m wrong here too:).</div><div class=3D"gma=
-il_default" style=3D"font-size:small"><br></div></div>-- <br><div dir=3D"lt=
-r" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>L=
-i Wang<br></div></div></div></div>
-
---0000000000004daadb05a20b0bc2--
-
-
---===============0603792851==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0603792851==--
-
+T24gMjAyMC8zLzMwIDEyOjM5LCBMaSBXYW5nIHdyb3RlOgo+IEhpIFhpYW8sCj4KPiBPbiBTdW4s
+IE1hciAyOSwgMjAyMCBhdCAxOjM2IFBNIFhpYW8gWWFuZyA8eWFuZ3guanlAY24uZnVqaXRzdS5j
+b20KPiA8bWFpbHRvOnlhbmd4Lmp5QGNuLmZ1aml0c3UuY29tPj4gd3JvdGU6Cj4KPiAgICAgT24g
+MjAyMC8zLzI4IDExOjQyLCBQZXRyIFZvcmVsIHdyb3RlOgo+ICAgICAgPiBIaSBYaWFvLAo+ICAg
+ICAgPgo+ICAgICAgPj4gT24gMy8yOC8yMCA1OjM5IEFNLCBQZXRyIFZvcmVsIHdyb3RlOgo+ICAg
+ICAgPj4+ICsgVGhlcmUgaXMgYSBkb3VibGUgY2hlY2sgKGZpcnN0IGluCj4gICAgICA+Pj4gLm5l
+ZWRzX2NtZHMsIHRoZW4gaW4gU0FGRV9SVU5fQ01EKCkpLCBtYXliZSB0aGF0J3Mgbm90IG5lZWRl
+ZC4KPiAgICAgID4KPiAgICAgID4+IEhpIFBldHIsCj4gICAgICA+Cj4gICAgICA+PiBXaHkgZG8g
+eW91IG5lZWQgdGhlIGR1cGxpY2F0ZSAubmVlZHNfY21kcyBmbGFnPyhpdCBpbnRyb2R1Y2VzCj4g
+ICAgIHRoZSBkb3VibGUKPiAgICAgID4+IGNoZWNrIGFzIHlvdSBzYWlkKQo+ICAgICAgPgo+ICAg
+ICAgPj4gVXN1YWxseSwgYWxsIHRlc3RzIHJ1biBjb21tYW5kcyBieSB0c3RfcnVuX2NtZCgpL1NB
+RkVfUlVOX0NNRCgpCj4gICAgIGFuZCB0aGV5IGNhbgo+ICAgICAgPj4gcmVwb3J0IFRDT05GCj4g
+ICAgICA+Cj4gICAgICA+PiBieSBwYXNzaW5nIFRTVF9SVU5fQ01EX0NIRUNLX0NNRCBzbyBpdCBp
+cyBmYWlyIHRvIGJlIGEgcGFydCBvZgo+ICAgICAgPj4gdHN0X3J1bl9jbWQoKS9TQUZFX1JVTl9D
+TUQoKS4KPiAgICAgID4KPiAgICAgID4gVGhhbmtzIGZvciB5b3VyIHJldmlldy4KPiAgICAgID4g
+SSBndWVzcyBDeXJpbCB3aWxsIHByZWZlciAubmVlZHNfY21kcywgYXMgaXQgY2FuIGJlIHBhcnNl
+ZCAtCj4gICAgIG1ldGFkYXRhIHByb2plY3Q6Cj4gICAgICA+IGh0dHBzOi8vcGVvcGxlLmtlcm5l
+bC5vcmcvbWV0YW4vdG93YXJkcy1wYXJhbGxlbC1rZXJuZWwtdGVzdC1ydW5zCj4gICAgICA+IGh0
+dHBzOi8vZ2l0aHViLmNvbS9tZXRhbi11Y3cvbHRwL3RyZWUvbWFzdGVyL2RvY3BhcnNlCj4gICAg
+IEhpIFBldHLvvIwKPgo+ICAgICBUaGFuayB5b3UgZm9yIHNoYXJpbmcgdGhlc2UgaW5mby4KPiAg
+ICAgRG9lcyBDeXJpbCB3YW50IHRvIGdldCBtZXRhZGF0YSBmcm9tIHN0cnVjdCB0c3RfdGVzdCBk
+aXJlY3RseT8KPgo+ICAgICBIb3cgYWJvdXQgdGhlIHJvdWdoIGRlc2lnbj8KPiAgICAgMSkgLm5l
+ZWRzX2NtZHMgb25seSBzYXZlcyB0aGUgcmVxdWlyZWQgY29tbWFuZHMuKGRvZXNuJ3QgZG8gYW55
+IGNoZWNrKQo+ICAgICAyKSBwYXNzIHRoZSBjb3JyZXNwb25kaW5nIG1lbWJlciBvZiAubmVlZHNf
+Y21kcyB0bwo+ICAgICB0c3RfcnVuX2NtZCgpL1NBRkVfUlVOX0NNRCgpKGRvIGNoZWNrIGluIHRo
+ZXNlIGZ1bmN0aW9ucykuCj4gICAgIEZvciBleGFtcGxlOgo+ICAgICAtLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gICAgICMgZ3JlcCB0c3RfbmVlZHNfY21k
+cyBpbmNsdWRlL3RzdF9jbWQuaAo+ICAgICBleHRlcm4gY29uc3QgY2hhciAqY29uc3QgKnRzdF9u
+ZWVkc19jbWRzOwo+Cj4gICAgICMgZ3JlcCAtQjEgdHN0X25lZWRzX2NtZHMgbGliL3RzdF90ZXN0
+LmMKPgo+ICAgICBjb25zdCBjaGFyICpjb25zdCAqdHN0X25lZWRzX2NtZHM7Cj4gICAgIC0tCj4g
+ICAgIGlmICh0c3RfdGVzdC0+bmVlZHNfY21kcykKPiAgICAgdHN0X25lZWRzX2NtZHMgPSB0c3Rf
+dGVzdC0+bmVlZHNfY21kczsKPgo+ICAgICAjIGdyZXAgLUEyICduZWVkc19jbWRzJyB0ZXN0Y2Fz
+ZXMva2VybmVsL3N5c2NhbGxzL2FkZF9rZXkvYWRkX2tleTA1LmMKPiAgICAgY29uc3QgY2hhciAq
+Y29uc3QgY21kX3VzZXJhZGRbXSA9IHt0c3RfbmVlZHNfY21kc1swXSwgdXNlcm5hbWUsIE5VTEx9
+Owo+ICAgICBpbnQgcmM7Cj4KPgo+IEkgZG9uJ3Qgc2VlIGFueSBhZHZhbnRhZ2Ugb2YgaW52b2x2
+aW5nIHRoaXMgc3RydWN0IGluIGEgdGVzdCBjYXNlLCBhbmQKPiBpdCBhbHNvIG1ha2VzIHRoaW5n
+cyBtb3JlIGNvbXBsaWNhdGVkLgpIaSBMaSwKCkluIGZhY3QsIEkgcGVyZmVyIHRvIHJlbW92ZSAu
+bmVlZF9jbWQgYW5kIHVzZSB0c3RfcnVuX2NtZCB3aXRoL3dpdGhvdXQgClRTVF9SVU5fQ01EX0NI
+RUNLX0NNRCBkaXJlY3RseS4KQnV0IEkgYW0gbm90IHN1cmUgaWYgaXQgaXMgbmVjZXNzYXJ5IHRv
+IGtlZXAgLm5lZWRfY21kIGZvciBtZXRhZGF0YSAKcHJvamVjdC4gIEkgdGhpbmsgd2UgY2FuIGdl
+bmVyYXRlIGpzb24gYWJvdXQgcmVzb3VjZSBieSByZWFkaW5nIHN0cnVjdCAKdHN0X3Rlc3Qgb3Ig
+b3RoZXIgd2F5cy4KClRoYW5rcywKWGlhbyBZYW5nCgo+Cj4gSU1PLCB0aGUgJy5uZWVkc19jbWRz
+JyBzaG91bGQgZG8gY2hlY2sgYW5kIGd1YXJhbnRlZSBhbGwgdGhlIGNtZHMgZXhpc3QuCj4gVGhh
+dCdzIGEgaGFyZCByZXF1aXJlbWVudCBmb3IgdGhlIHRlc3QuIElmIGEgc2l0dWF0aW9uIHRoYXQg
+dGhlIGNvbW1hbmRzCj4gYXJlIG9ubHkgcGFydCBvZiB0aGUgcmVxdWlyZW1lbnQoc29mdCksIHdl
+IGNvdWxkIGF2b2lkIHVzaW5nCj4gJy5uZWVkc19jbWRzJyBpbiB0aGUgdGVzdCBhbmQganVzdCBj
+YWxsaW5nIHRzdF9ydW5fY21kKCkgd2l0aG91dCBwYXNzaW5nCj4gVFNUX1JVTl9DTURfQ0hFQ0tf
+Q01EIGZsYWcuIFRoaXMgc2F0aXNmaWVzIG1vc3Qgc2l0dWF0aW9ucyB3ZSBoYXZlLCBpdAo+IGlz
+IHNhZmUgZW5vdWdoIGFuZCBjaG9vc2FibGUgZm9yIHBlb3BsZS4KPgo+IE9yIG1heWJlIEknbSB3
+cm9uZyBoZXJlIHRvbzopLgo+Cj4gLS0KPiBSZWdhcmRzLAo+IExpIFdhbmcKCgoKCi0tIApNYWls
+aW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
