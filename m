@@ -2,66 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 891B2198FEA
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 Mar 2020 11:07:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 926621992A1
+	for <lists+linux-ltp@lfdr.de>; Tue, 31 Mar 2020 11:45:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3F9443C30BC
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 Mar 2020 11:07:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 181473C30DB
+	for <lists+linux-ltp@lfdr.de>; Tue, 31 Mar 2020 11:45:12 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 649FC3C30B0
- for <ltp@lists.linux.it>; Tue, 31 Mar 2020 11:07:37 +0200 (CEST)
-Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
- [IPv6:2607:f8b0:4864:20::644])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id B6C543C181C
+ for <ltp@lists.linux.it>; Tue, 31 Mar 2020 11:45:06 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7C53B601642
- for <ltp@lists.linux.it>; Tue, 31 Mar 2020 11:07:36 +0200 (CEST)
-Received: by mail-pl1-x644.google.com with SMTP id a23so7896110plm.1
- for <ltp@lists.linux.it>; Tue, 31 Mar 2020 02:07:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ygI72jJo0DQ8x5y/VZnoiF3ZZ9msXvT7X/mjh4JW2r4=;
- b=GN0N4UnW4olPlsLTP4Yz/fUXNKq3K+aMNRylyCOUgPzsMtZmI56dpaNZKvwVDm+6Bs
- 909ETyKrPL1NOvqZGwU0VyUkfAYmCK1iUZk1EaSD02pnM9hgI+wAigBF/D5fuS6cWVJW
- hvvQKZCIwXH5ZpDc4ztBLVQkdu5eSKC2a8YlHs0EdDCudpXorzHbV3Xfn4Q60Gtyfknr
- M966rsU43xlHGjbeDGVQmV+rhR2tegY58FK29G03M+iK3dv5XD9bpT+DtFB1mHr9dvgT
- xAyqHMfAP++iYleee6bT2XPHTEEwgGHrnJDuwz3UF4wkEfMVaN8+nu+tk5jBfX9FXVoR
- /M/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ygI72jJo0DQ8x5y/VZnoiF3ZZ9msXvT7X/mjh4JW2r4=;
- b=CeLUN0jlqNW/muFf6elMU/g4Sltf34XKvmhsILx64vxOfORB2rLtCJagfE32eHOKMD
- VWmWGVBWOxw74s1D4gpcll3NuKvO0euIFsJJhmi4A/1YsUR8zGjtNFvyaCs2ArAr6I06
- BXuCr5vBKSng7i3t+E5BJc8qMSpHh7oX9myxOlysl5lGbFH36TuY/7R2cTCVEKv/XU+B
- hsBKYxrF/+WQt4nSNgqmliA5zdzsyRT/qE3s3HvIUJckEqDfCY7IqAfj8yAg/flxJ9zA
- uBaBSnYEPBQ9pbsZWV5NvRoTecfFazzEHBaJFeAglyJ+00EGD5FQ8HxxuSuZ/9u8vF+f
- Bw0g==
-X-Gm-Message-State: AGi0PuYERPcL088mk2ike2qHL/iIIMHcGqIbkup0q/ZsYoVFsaLluAHw
- D6uoqROUMLQ/8eywQplXLeXs/jLHaNXPA8EMePI=
-X-Google-Smtp-Source: APiQypIfSlqE8+Eq6rGNKW2yl0Q66so+lL7ieh8ElOn7xC+LEwqpQlo3/HtV/Ra4kgD6WjIgb+QPprH6HCHaJH4Vps8=
-X-Received: by 2002:a17:90a:7302:: with SMTP id m2mr2636182pjk.7.1585645654770; 
- Tue, 31 Mar 2020 02:07:34 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CE47D649801
+ for <ltp@lists.linux.it>; Tue, 31 Mar 2020 11:45:02 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 47A75AC0C;
+ Tue, 31 Mar 2020 09:45:02 +0000 (UTC)
+Date: Tue, 31 Mar 2020 11:45:09 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Vikas Kumar <vikas.kumar2@arm.com>
+Message-ID: <20200331094509.GB2699@yuki.lan>
+References: <20200313062058.7058-1-vikas.kumar2@arm.com>
+ <20200313062058.7058-2-vikas.kumar2@arm.com>
 MIME-Version: 1.0
-References: <20200331065442.28591-1-gengcixi@gmail.com>
- <20200331074154.GA23091@dell5510>
-In-Reply-To: <20200331074154.GA23091@dell5510>
-From: Cixi Geng <gengcixi@gmail.com>
-Date: Tue, 31 Mar 2020 17:06:58 +0800
-Message-ID: <CAF12kFv9+Bu5q9XxbeUUBuSCWKgSt6dYEwmaepsCUP9qX8OxaQ@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200313062058.7058-2-vikas.kumar2@arm.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V3] uart: add uart testcase in kernel
- device-drivers
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] Added Refrence for Linux Asynchronous IO APIs
+ in LTP
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,83 +48,402 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Orson Zhai <orsonzhai@gmail.com>, Carlos Hernandez <ceh@ti.com>,
- ltp@lists.linux.it
-Content-Type: multipart/mixed; boundary="===============2009662239=="
+Cc: viresh.kumar@linaro.org, ltp@lists.linux.it, anshuman.khandual@arm.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============2009662239==
-Content-Type: multipart/alternative; boundary="000000000000fe083905a222e526"
+Hi!
+> Added Linux Asynchronous IO(AIO) family of APIs in LTP
+> AIO API: io_uring_setup(), io_uring_register(), io_uring_enter()
+> 
+> Refrences for Linux AIO-
+> 
+> https://lwn.net/Articles/776703/
+> https://kernel.dk/io_uring.pdf
+> https://www.mankier.com/2/io_uring_setup
+> https://www.mankier.com/2/io_uring_register
+> https://www.mankier.com/2/io_uring_enter
+> 
+> Signed-off-by: Vikas Kumar <vikas.kumar2@arm.com>
+> 
+> ---
+> ---
+>  configure.ac                                  |   3 +
+>  include/lapi/io_uring.h                       | 180 ++++++++++++++++++
+>  testcases/kernel/syscalls/io_uring/.gitignore |   1 +
+>  testcases/kernel/syscalls/io_uring/Makefile   |  25 +++
+>  .../kernel/syscalls/io_uring/io_uring01.c     |  85 +++++++++
+>  5 files changed, 294 insertions(+)
+>  create mode 100644 include/lapi/io_uring.h
+>  create mode 100644 testcases/kernel/syscalls/io_uring/.gitignore
+>  create mode 100644 testcases/kernel/syscalls/io_uring/Makefile
+>  create mode 100644 testcases/kernel/syscalls/io_uring/io_uring01.c
+> 
+> diff --git a/configure.ac b/configure.ac
+> index c9ec39fce..a50f793e9 100644
+> --- a/configure.ac
+> +++ b/configure.ac
+> @@ -88,6 +88,9 @@ AC_CHECK_FUNCS([ \
+>      getdents \
+>      getdents64 \
+>      io_pgetevents \
+> +    io_uring_setup \
+> +    io_uring_register \
+> +    io_uring_enter \
+>      kcmp \
+>      mkdirat \
+>      mknodat \
+> diff --git a/include/lapi/io_uring.h b/include/lapi/io_uring.h
+> new file mode 100644
+> index 000000000..9fd96728e
+> --- /dev/null
+> +++ b/include/lapi/io_uring.h
+> @@ -0,0 +1,180 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2020 ARM. All rights reserved.
+> + * Author: Vikas Kumar <vikas.kumar2@arm.com>
+> + */
+> +
+> +#ifndef IO_URING_H__
+> +#define IO_URING_H__
+> +
+> +#include <unistd.h>
+> +#include <fcntl.h>
+> +#include <sys/syscall.h>
+> +#include <sys/types.h>
+> +#include <sys/uio.h>
+> +
+> +
+> +#include "config.h"
+> +#include "lapi/syscalls.h"
+> +
+> +
+> +
+> +#ifndef HAVE_IO_URING_SETUP || HAVE_IO_URING_REGISTER || HAVE_IO_URING_ENTER
+> +
+> +
+> +/* sqe->flags */
+> +#define IOSQE_FIXED_FILE	(1U << 0)	/* use fixed fileset */
+> +#define IOSQE_IO_DRAIN		(1U << 1)	/* issue after inflight IO */
+> +#define IOSQE_IO_LINK		(1U << 2)	/* links next sqe */
+> +#define IOSQE_IO_HARDLINK	(1U << 3)	/* like LINK, but stronger */
+> +
+> +/* io_uring_setup() flags */
+> +#define IORING_SETUP_IOPOLL	(1U << 0)	/* io_context is polled */
+> +#define IORING_SETUP_SQPOLL	(1U << 1)	/* SQ poll thread */
+> +#define IORING_SETUP_SQ_AFF	(1U << 2)	/* sq_thread_cpu is valid */
+> +#define IORING_SETUP_CQSIZE	(1U << 3)	/* app defines CQ size */
+> +
+> +/* sqe->fsync_flags */
+> +#define IORING_FSYNC_DATASYNC	(1U << 0)
+> +
+> +/* sqe->timeout_flags */
+> +#define IORING_TIMEOUT_ABS	(1U << 0)
+> +
+> +/* Magic offsets for the application to mmap the data it needs */
+> +#define IORING_OFF_SQ_RING		0ULL
+> +#define IORING_OFF_CQ_RING		0x8000000ULL
+> +#define IORING_OFF_SQES			0x10000000ULL
+> +
+> +/* sq_ring->flags */
+> +#define IORING_SQ_NEED_WAKEUP	(1U << 0) /* needs io_uring_enter wakeup */
+> +
+> +/* io_uring_enter(2) flags */
+> +#define IORING_ENTER_GETEVENTS	(1U << 0)
+> +#define IORING_ENTER_SQ_WAKEUP	(1U << 1)
+> +
+> +/* io_uring_params->features flags */
+> +#define IORING_FEAT_SINGLE_MMAP		(1U << 0)
+> +#define IORING_FEAT_NODROP		(1U << 1)
+> +#define IORING_FEAT_SUBMIT_STABLE	(1U << 2)
+> +
+> +/* io_uring_register(2) opcodes and arguments */
+> +#define IORING_REGISTER_BUFFERS		0
+> +#define IORING_UNREGISTER_BUFFERS	1
+> +#define IORING_REGISTER_FILES		2
+> +#define IORING_UNREGISTER_FILES		3
+> +#define IORING_REGISTER_EVENTFD		4
+> +#define IORING_UNREGISTER_EVENTFD	5
+> +#define IORING_REGISTER_FILES_UPDATE	6
+> +
+> +#endif 
+> +
+> +
+> +
+> +#ifndef HAVE_IO_URING_SETUP || HAVE_IO_URING_REGISTER || HAVE_IO_URING_ENTER
+> +
+> +enum {
+> +	IORING_OP_NOP,
+> +	IORING_OP_READV,
+> +	IORING_OP_WRITEV,
+> +	IORING_OP_FSYNC,
+> +	IORING_OP_READ_FIXED,
+> +	IORING_OP_WRITE_FIXED,
+> +	IORING_OP_POLL_ADD,
+> +	IORING_OP_POLL_REMOVE,
+> +	IORING_OP_SYNC_FILE_RANGE,
+> +	IORING_OP_SENDMSG,
+> +	IORING_OP_RECVMSG,
+> +	IORING_OP_TIMEOUT,
+> +	IORING_OP_TIMEOUT_REMOVE,
+> +	IORING_OP_ACCEPT,
+> +	IORING_OP_ASYNC_CANCEL,
+> +	IORING_OP_LINK_TIMEOUT,
+> +	IORING_OP_CONNECT,
+> +
+> +	/* this goes last, obviously */
+> +	IORING_OP_LAST,
+> +};
+> +
+> +/* IO completion data structure (Completion Queue Entry) */
+> +struct io_uring_cqe {
+> +	uint64_t	user_data;	/* sqe->data submission passed back */
+> +	int32_t 	res;		/* result code for this event */
+> +	uint32_t	flags;
+> +};
+> +
+> +/* Filled with the offset for mmap(2) */
+> +struct io_sqring_offsets {
+> +	uint32_t head;
+> +	uint32_t tail;
+> +	uint32_t ring_mask;
+> +	uint32_t ring_entries;
+> +	uint32_t flags;
+> +	uint32_t dropped;
+> +	uint32_t array;
+> +	uint32_t resv1;
+> +	uint64_t resv2;
+> +};
+> +
+> +struct io_cqring_offsets {
+> +	uint32_t head;
+> +	uint32_t tail;
+> +	uint32_t ring_mask;
+> +	uint32_t ring_entries;
+> +	uint32_t overflow;
+> +	uint32_t cqes;
+> +	uint64_t resv[2];
+> +};
+> +
+> +/* Passed in for io_uring_setup(2). Copied back with updated info on success */
+> +struct io_uring_params {
+> +	uint32_t sq_entries;
+> +	uint32_t cq_entries;
+> +	uint32_t flags;
+> +	uint32_t sq_thread_cpu;
+> +	uint32_t sq_thread_idle;
+> +	uint32_t features;
+> +	uint32_t resv[4];
+> +	struct io_sqring_offsets sq_off;
+> +	struct io_cqring_offsets cq_off;
+> +};
+> +
+> +
+> +struct io_uring_files_update {
+> +	uint32_t offset;
+> +	uint32_t resv;
+> +	uint64_t __attribute__((aligned(8))) fds;
+> +};
+> +
+> +#endif 
+> +
+> +
+> +#ifndef HAVE_IO_URING_REGISTER
+> +int io_uring_register(int fd, unsigned int opcode, void *arg,
+> +		      unsigned int nr_args)
+> +{
+> +	return tst_syscall(__NR_io_uring_register, fd, opcode, arg, nr_args);
+> +}
+> +#endif /* HAVE_IO_URING_REGISTER */
+> +
+> +
+> +#ifndef HAVE_IO_URING_SETUP
+> +int io_uring_setup(unsigned int entries, struct io_uring_params *p)
+> +{
+> +	return tst_syscall(__NR_io_uring_setup, entries, p);
+> +}
+> +#endif /* HAVE_IO_URING_SETUP */
+> +
+> +#ifndef HAVE_IO_URING_ENTER
+> +int io_uring_enter(int fd, unsigned int to_submit, unsigned int min_complete,
+> +		   unsigned int flags, sigset_t *sig)
+> +{
+> +	return tst_syscall(__NR_io_uring_enter, fd, to_submit, min_complete,
+> +			flags, sig, _NSIG / 8);
+> +}
+> +#endif /* HAVE_IO_URING_ENTER */
+> +
+> +
+> +
+> +#endif /* IO_URING_H__ */
+> +
+> +
+> diff --git a/testcases/kernel/syscalls/io_uring/.gitignore b/testcases/kernel/syscalls/io_uring/.gitignore
+> new file mode 100644
+> index 000000000..cac043b6c
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/io_uring/.gitignore
+> @@ -0,0 +1 @@
+> +/io_submit01
+> diff --git a/testcases/kernel/syscalls/io_uring/Makefile b/testcases/kernel/syscalls/io_uring/Makefile
+> new file mode 100644
+> index 000000000..268d2e74b
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/io_uring/Makefile
+> @@ -0,0 +1,25 @@
+> +#
+> +#  Copyright (c) International Business Machines  Corp., 2001
+> +#
+> +#  This program is free software;  you can redistribute it and/or modify
+> +#  it under the terms of the GNU General Public License as published by
+> +#  the Free Software Foundation; either version 2 of the License, or
+> +#  (at your option) any later version.
+> +#
+> +#  This program is distributed in the hope that it will be useful,
+> +#  but WITHOUT ANY WARRANTY;  without even the implied warranty of
+> +#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+> +#  the GNU General Public License for more details.
+> +#
+> +#  You should have received a copy of the GNU General Public License
+> +#  along with this program;  if not, write to the Free Software
+> +#  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+> +#
 
---000000000000fe083905a222e526
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Use SPDX instead please.
 
-Hi Petr:
-I hope the ltp test devices have a more convenient way=EF=BC=8C
-like auto detect if the machine have these devices
-and can run the device test.
-Now we only test the uart device,we can export PORTxx for the test.
-but if we have to test dozens or even hundreds devices,
-the way to set device environment variable needed test is very trouble and
-time consuming
-So I don't think add need_devices is the best desirable way
+> +top_srcdir		?= ../../../..
+> +
+> +include $(top_srcdir)/include/mk/testcases.mk
+> +
+> +LDLIBS			+= $(AIO_LIBS)
 
-Petr Vorel <pvorel@suse.cz> =E4=BA=8E2020=E5=B9=B43=E6=9C=8831=E6=97=A5=E5=
-=91=A8=E4=BA=8C =E4=B8=8B=E5=8D=883:41=E5=86=99=E9=81=93=EF=BC=9A
+I'm pretty sure the test does not need the AIO_LIBS
 
-> Hi Cixi,
->
-> thanks for your patch and effort. While we appreciate it, I have to admit
-> that
-> Cyril's version is IMHO much cleaner and more adjusted to LTP style.
->
-> So I'd vote for him to add the loopback and merge his version.
->
-> Kind regards,
-> Petr
->
+> +include $(top_srcdir)/include/mk/generic_leaf_target.mk
+> diff --git a/testcases/kernel/syscalls/io_uring/io_uring01.c b/testcases/kernel/syscalls/io_uring/io_uring01.c
+> new file mode 100644
+> index 000000000..9bfbc78c1
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/io_uring/io_uring01.c
+> @@ -0,0 +1,85 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (C) 2020 ARM Embedded Technologies Private Ltd. All rights reserved.
+> + * Author: Vikas Kumar <vikas.kumar2@arm.com>
+> + *
+> + * Use new Linux AIO API io_uring_*().
+> + */
+> +
+> +#include <errno.h>
+> +#include <string.h>
+> +#include <fcntl.h>
+> +
+> +#include "config.h"
+> +#include "tst_test.h"
+> +
+> +#include "lapi/syscalls.h"
+> +#include "lapi/io_uring.h"
+> +
+> +
+> +#define DEPTH	1
+> +
+> +struct io_uring_params param_iouring;
+> +int fd, ret;
+> +struct iovec iovecs; 
+> +void *iov_base_addr; 
+> +int iov_size = 64; 
+> +
+> +static struct tcase {
+> +	int test_count;
+> +	int test_no;
+> +} tcases[] = {
+> +	/* TEST IO URING REGISTER BUFFERS*/
+> +	{1, IORING_REGISTER_BUFFERS},
+> +};
 
---000000000000fe083905a222e526
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+It does not make much sense to create this structure if there is only
+one test.
 
-<div dir=3D"ltr">Hi Petr:<div>I hope the ltp test devices have a more=C2=A0=
-convenient way=EF=BC=8C</div><div>like auto detect if the machine have thes=
-e devices</div><div>and can run the device test.=C2=A0</div><div>Now we onl=
-y test the uart device,we can export PORTxx for the test.=C2=A0</div><div>b=
-ut if we have to test dozens or even hundreds devices,=C2=A0</div><div>the =
-way to set device=C2=A0environment variable needed test is very trouble and=
- time consuming</div><div>So I don&#39;t think add need_devices is the best=
- desirable way</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" c=
-lass=3D"gmail_attr">Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz">pvorel=
-@suse.cz</a>&gt; =E4=BA=8E2020=E5=B9=B43=E6=9C=8831=E6=97=A5=E5=91=A8=E4=BA=
-=8C =E4=B8=8B=E5=8D=883:41=E5=86=99=E9=81=93=EF=BC=9A<br></div><blockquote =
-class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px sol=
-id rgb(204,204,204);padding-left:1ex">Hi Cixi,<br>
-<br>
-thanks for your patch and effort. While we appreciate it, I have to admit t=
-hat<br>
-Cyril&#39;s version is IMHO much cleaner and more adjusted to LTP style.<br=
->
-<br>
-So I&#39;d vote for him to add the loopback and merge his version.<br>
-<br>
-Kind regards,<br>
-Petr<br>
-</blockquote></div>
+> +static void setup(void)
+> +{
+> +	
+     ^
+There are trailing whitespaces all around the place, you can use the
+checkpatch.pl packed with the Linux kernel to check for these before
+submitting.
 
---000000000000fe083905a222e526--
+> +	memset(&param_iouring, 0, sizeof(param_iouring));
+> +
+> +	param_iouring.flags |= IORING_SETUP_IOPOLL;
+> +
+> +	fd = io_uring_setup(DEPTH, &param_iouring);
+> +	if (!fd)
+> +		tst_brk(TBROK | TERRNO, "io_uring_setup() returned %d", fd);
+> +
+> +	iov_base_addr = malloc(sizeof(iov_size));
+> +
+> +	iovecs.iov_base = iov_base_addr;
+> +	iovecs.iov_len = iov_size;
 
---===============2009662239==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+This should really be a guarded buffer, you can even allocate whole
+iovec strcuture with guarded buffers see:
 
+https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelines#2231-guarded-buffers
+
+> +}
+> +
+> +static void cleanup(void)
+> +{
+> +	io_uring_register(fd, IORING_UNREGISTER_BUFFERS, NULL,DEPTH);
+
+This should be in the main loop, otherwise the test will fail with -i 2
+option.
+
+> +	memset(&param_iouring, 0, sizeof(param_iouring));
+
+This memset is useless, we are finished there is no point in clearing
+the structure.
+
+> +	free(iov_base_addr);
+> +}
+> +
+> +
+> +static void verify_io_submit(unsigned int n)
+> +{
+> +	struct tcase *t = &tcases[n];
+> +	int ret;
+> +
+> +	ret = io_uring_register(fd, IORING_REGISTER_BUFFERS, &iovecs,DEPTH);
+> +
+> +	if (ret == 0) {
+> +		tst_res(TPASS, "io_uring_register() return %d",ret);
+> +		return;
+> +	}
+> +
+> +	tst_res(TFAIL, "io_uring_register() returned %d",ret);
+
+We should really write something here as well.
+
+> +}
+> +
+> +static struct tst_test test = {
+> +	.setup = setup,
+> +	.cleanup = cleanup,
+> +	.test = verify_io_submit,
+> +	.tcnt = ARRAY_SIZE(tcases),
+> +};
+> +
+> +
+> -- 
+> 2.17.1
+> 
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============2009662239==--
