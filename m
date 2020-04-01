@@ -2,88 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC5F519AAFD
-	for <lists+linux-ltp@lfdr.de>; Wed,  1 Apr 2020 13:42:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BFFF19AB24
+	for <lists+linux-ltp@lfdr.de>; Wed,  1 Apr 2020 13:57:45 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1D24E3C309E
-	for <lists+linux-ltp@lfdr.de>; Wed,  1 Apr 2020 13:42:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1B6663C3086
+	for <lists+linux-ltp@lfdr.de>; Wed,  1 Apr 2020 13:57:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 71A9D3C3032
- for <ltp@lists.linux.it>; Wed,  1 Apr 2020 13:42:52 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id AFD433C3026
+ for <ltp@lists.linux.it>; Wed,  1 Apr 2020 13:57:40 +0200 (CEST)
+Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
+ [IPv6:2607:f8b0:4864:20::643])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C39A41000CE0
- for <ltp@lists.linux.it>; Wed,  1 Apr 2020 13:42:51 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id DE141ACCA;
- Wed,  1 Apr 2020 11:42:50 +0000 (UTC)
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <20200401083228.GA18685@dell5510> <20200401093934.GA23773@yuki.lan>
- <e9ea8c2a-7c00-26a7-fb1a-0db9ae093620@suse.cz>
- <20200401095822.GB23773@yuki.lan>
- <aa695e74-2aed-2b9e-c0c0-7626dfc0a7e1@suse.cz>
- <20200401105055.GC23773@yuki.lan>
-From: Martin Doucha <mdoucha@suse.cz>
-Autocrypt: addr=mdoucha@suse.cz; keydata=
- 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
-Message-ID: <fd62323e-3d29-884d-1a0c-bf1adc3e28c2@suse.cz>
-Date: Wed, 1 Apr 2020 13:42:50 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0A09014019D9
+ for <ltp@lists.linux.it>; Wed,  1 Apr 2020 13:57:40 +0200 (CEST)
+Received: by mail-pl1-x643.google.com with SMTP id x1so9525292plm.4
+ for <ltp@lists.linux.it>; Wed, 01 Apr 2020 04:57:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=00QBYlwJfT8z4ipqyKNNXxY/wuR3wYlpL2D9K9zY+FQ=;
+ b=JxKYB4M05N1XI+Bv0JyyEq3W3iRrQz5JYB7vJUVFfOKNDCA45dUXXTF8xKYvCwlZht
+ SpqxP4ZZrCry9x+Vn1FAF39/uJ/su0Hsj8PmRST7cRDb6w9FitOzsLaoHJYzFW1vYbme
+ C4a/6+7pwXSljG15W0JghGD90P8nyCUu9rNPS7OJqolJVJ+sskG5bFcRY+TSIRUJ4FaL
+ r3306mihZ0SIpJfeDMaUcfg6qnrWK2FHCSft+nYV2RbdfkCx/ecSUw5KrIBqfVZFmmaO
+ GmNdbUmbNL39QoCUFxGsebVYZ1C6VDcywO9aauDEz7atDxMpnnjbkLbk+09btsVNU/No
+ Jbuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=00QBYlwJfT8z4ipqyKNNXxY/wuR3wYlpL2D9K9zY+FQ=;
+ b=WFVKRZ9otGjVmuJAouU7hRZG+y7pPj7IChudORnLtBe0O2Hj4qoRnNZycxnFTaTp60
+ 7EZ2aSH6fFoxnWukxMQ0445v7EGAh+eDBFrAVOXcxUItZvGLLM2pMHop+u6lfYCVLPhK
+ jiq7v4tuVc1qDn7c77vNziXCZ7LAZpLp0fVXz/ecthxGELpjaDLE7hMTO5NEVKUGXbuy
+ 3P17RJqUJxtWP6YVwogH8R90l66lvfxsMgbW9VhxeS4/aaX+1dsOW8no7jxEtPpeYHwo
+ sVwjUcc7QNinxPhZ7zd9n/rpSl4SPGRv6OlMgGvKcsmRQ5OgtbthcEF7knF6K1imNtTq
+ rPug==
+X-Gm-Message-State: AGi0PubLD9I+YC9rVVEjk5MCpqB7DhPY+iNML1RR2ExCogN+FenylPOG
+ obcAikTWiuX9+OX34oRkHp+xI1WoeE+yFK1P9Nw=
+X-Google-Smtp-Source: APiQypLHvmA8gg6V1PMKRy+k6FNeV0c1b0qLr5W7OEUEMJFQKr4z03bLB4VgsHcaVkCI/ILPGG2FMmiDFzMd+xwatlM=
+X-Received: by 2002:a17:90a:25c6:: with SMTP id
+ k64mr4374886pje.9.1585742258492; 
+ Wed, 01 Apr 2020 04:57:38 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200401105055.GC23773@yuki.lan>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+References: <20200327134707.4532-1-chrubis@suse.cz>
+ <20200327134707.4532-3-chrubis@suse.cz>
+ <CAF12kFteeJ6nerju6kwX+Ebzrzd_JPCiJ9jKW4tX9F4Y4s7FEg@mail.gmail.com>
+ <20200330152122.GA2699@yuki.lan> <20200331180816.GE2900@yuki.lan>
+In-Reply-To: <20200331180816.GE2900@yuki.lan>
+From: Cixi Geng <gengcixi@gmail.com>
+Date: Wed, 1 Apr 2020 19:57:02 +0800
+Message-ID: <CAF12kFs6H1FgU_77MAMhrn1pK15fp1cx+9wox4k9LN5GxCN=nA@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] LTP compilation broken with -fno-common
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] device_drivers/uart01: Add uart01 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,73 +75,156 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it, Richard Palethorpe <rpalethorpe@suse.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Orson Zhai <orsonzhai@gmail.com>, ltp@lists.linux.it,
+ Carlos Hernandez <ceh@ti.com>
+Content-Type: multipart/mixed; boundary="===============0574170612=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 01. 04. 20 12:50, Cyril Hrubis wrote:
+--===============0574170612==
+Content-Type: multipart/alternative; boundary="00000000000005d92005a2396446"
+
+--00000000000005d92005a2396446
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+>If I understand this properly if we set a bit in the modem control
+>register we will test mostly the circuits between CPU and UART
+>controller which is better than nothing, but we are not really testing
+>if the port speed was set correctly since the data are just being copied
+>between registers in the UART controller, so it does not make sense to
+>change the speed in this mode. Or am I mistaken?
+
+>Also it does not seem to work for me and I've tried with both serial
+>ports on my desktop PC as well as with USB-to-Serial dongle. I can set
+>the bit just fine but loopback does not work.
+
+In the loopback mode , the data will be transferred in buffer ,and back to
+CPU
+by FIFO way.
+I understand the test flow is CPU->uart Tx-> buffer file->uart Rx->CPU,
+so it does make sense to the uart driver .
+ BTW=EF=BC=8C I found the latest seriacheck git is
+https://github.com/nsekhar/serialcheck.git
+and I test on my arm64 machine of sprdtream. and it does works.
+the test log I had send in another patch
+https://patchwork.ozlabs.org/patch/1264553/
+
+
+Cyril Hrubis <chrubis@suse.cz> =E4=BA=8E2020=E5=B9=B44=E6=9C=881=E6=97=A5=
+=E5=91=A8=E4=B8=89 =E4=B8=8A=E5=8D=882:08=E5=86=99=E9=81=93=EF=BC=9A
+
 > Hi!
->>> The problem here is that gcc10 forbids variables in headers, moving it
->>> anywhere int the header wouldn't help.
->>
->> I don't think GCC cares about where exactly the variable came from. It's
->> only refusing to link multiple definitions of the same symbol. So if we
->> move the TCID definition into the TST_NO_DEFAULT_MAIN guard block, GCC
->> linker should stop complaining because the symbol name will become unique.
-> 
-> See:
-> 
-> https://gcc.gnu.org/gcc-10/porting_to.html
-> 
+> > > Thank you porting the serialcheck.c into LTP
+> > > I am sorry to find the serialcheck have not LOOPBACK mode support
+> > > the LOOPBACK mode is a better test than HW flow , because most
+> machine's
+> > > uart have not connect the Rx & TX
+> > > in LOOPBACK mode. we test the uart port directly, So we can test one
+> uart
+> > > port Rx and Tx functions at the same time .
+> > > here is the diff  serialcheck with loopback patch
+> > > So I'd prefer use loopback mode test the uart in case.
+> > > $ diff serialcheck.c serialcheck-with-loopback.c
+> >
+> > Thanks for the hint, I had no idea that subset serial port hardware has
+> > a loopback test that could be enabled in modem control register which i=
+s
+> > meant for testing. I will have a closer look tomorrow.
+>
+> If I understand this properly if we set a bit in the modem control
+> register we will test mostly the circuits between CPU and UART
+> controller which is better than nothing, but we are not really testing
+> if the port speed was set correctly since the data are just being copied
+> between registers in the UART controller, so it does not make sense to
+> change the speed in this mode. Or am I mistaken?
+>
+> Also it does not seem to work for me and I've tried with both serial
+> ports on my desktop PC as well as with USB-to-Serial dongle. I can set
+> the bit just fine but loopback does not work.
+>
+> --
+> Cyril Hrubis
+> chrubis@suse.cz
+>
 
-This patch fixes the "multiple definition of `TCID'" error. But never
-mind because we'll get the "undefined reference to `TCID'" error instead
-from about 50 programs files that use the new library but define their
-own main().
+--00000000000005d92005a2396446
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reminder that "multiple definition of `TCID'" is a linker error. If
-defining variables in .h files were really forbidden, it'd be a
-preprocessor error instead.
+<div dir=3D"ltr"><div><br></div><div>&gt;If I understand this properly if w=
+e set a bit in the modem control<br>&gt;register we will test mostly the ci=
+rcuits between CPU and UART<br>&gt;controller which is better than nothing,=
+ but we are not really testing<br>&gt;if the port speed was set correctly s=
+ince the data are just being copied<br>&gt;between registers in the UART co=
+ntroller, so it does not make sense to<br>&gt;change the speed in this mode=
+. Or am I mistaken?<br><br>&gt;Also it does not seem to work for me and I&#=
+39;ve tried with both serial<br>&gt;ports on my desktop PC as well as with =
+USB-to-Serial dongle. I can set<br>&gt;the bit just fine but loopback does =
+not work.=C2=A0</div><div>=C2=A0<br></div><div>In the loopback mode , the d=
+ata will be transferred in buffer ,and back to CPU=C2=A0</div><div>by FIFO =
+way.=C2=A0=C2=A0</div><div>I understand the test flow is CPU-&gt;uart Tx-&g=
+t; buffer file-&gt;uart Rx-&gt;CPU,</div><div>so it does make sense to the =
+uart driver .</div><div>=C2=A0BTW=EF=BC=8C=C2=A0I found the latest seriache=
+ck git is=C2=A0<a href=3D"https://github.com/nsekhar/serialcheck.git">https=
+://github.com/nsekhar/serialcheck.git</a></div><div>and I test on my arm64 =
+machine of sprdtream. and it does works.</div><div>the test log I had send =
+in another patch</div><div><a href=3D"https://patchwork.ozlabs.org/patch/12=
+64553/">https://patchwork.ozlabs.org/patch/1264553/</a>=C2=A0</div><div>=C2=
+=A0<br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D=
+"gmail_attr">Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz">chrubis@su=
+se.cz</a>&gt; =E4=BA=8E2020=E5=B9=B44=E6=9C=881=E6=97=A5=E5=91=A8=E4=B8=89 =
+=E4=B8=8A=E5=8D=882:08=E5=86=99=E9=81=93=EF=BC=9A<br></div><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
+gb(204,204,204);padding-left:1ex">Hi!<br>
+&gt; &gt; Thank you porting the serialcheck.c into LTP<br>
+&gt; &gt; I am sorry to find the serialcheck have not LOOPBACK mode support=
+<br>
+&gt; &gt; the LOOPBACK mode is a better test than HW flow , because most ma=
+chine&#39;s<br>
+&gt; &gt; uart have not connect the Rx &amp; TX<br>
+&gt; &gt; in LOOPBACK mode. we test the uart port directly, So we can test =
+one uart<br>
+&gt; &gt; port Rx and Tx functions at the same time .<br>
+&gt; &gt; here is the diff=C2=A0 serialcheck with loopback patch<br>
+&gt; &gt; So I&#39;d prefer use loopback mode test the uart in case.<br>
+&gt; &gt; $ diff serialcheck.c serialcheck-with-loopback.c<br>
+&gt; <br>
+&gt; Thanks for the hint, I had no idea that subset serial port hardware ha=
+s<br>
+&gt; a loopback test that could be enabled in modem control register which =
+is<br>
+&gt; meant for testing. I will have a closer look tomorrow.<br>
+<br>
+If I understand this properly if we set a bit in the modem control<br>
+register we will test mostly the circuits between CPU and UART<br>
+controller which is better than nothing, but we are not really testing<br>
+if the port speed was set correctly since the data are just being copied<br=
+>
+between registers in the UART controller, so it does not make sense to<br>
+change the speed in this mode. Or am I mistaken?<br>
+<br>
+Also it does not seem to work for me and I&#39;ve tried with both serial<br=
+>
+ports on my desktop PC as well as with USB-to-Serial dongle. I can set<br>
+the bit just fine but loopback does not work.<br>
+<br>
+-- <br>
+Cyril Hrubis<br>
+<a href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a><br=
+>
+</blockquote></div>
 
-diff --git a/include/tst_test.h b/include/tst_test.h
-index 42c02b549..cc163ae51 100644
---- a/include/tst_test.h
-+++ b/include/tst_test.h
-@@ -308,6 +308,10 @@ char *tst_get_tmpdir(void);
+--00000000000005d92005a2396446--
 
- #ifndef TST_NO_DEFAULT_MAIN
+--===============0574170612==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-+/*
-+ * This is a hack to make the testcases link without defining TCID
-+ */
-+const char *TCID;
- static struct tst_test test;
-
- int main(int argc, char *argv[])
-@@ -319,9 +323,7 @@ int main(int argc, char *argv[])
-
- #define TST_TEST_TCONF(message)                                 \
-         static struct tst_test test = { .tconf_msg = message  } \
--/*
-- * This is a hack to make the testcases link without defining TCID
-- */
--const char *TCID;
-+
-+extern const char *TCID;
-
- #endif /* TST_TEST_H__ */
-
-
--- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0574170612==--
