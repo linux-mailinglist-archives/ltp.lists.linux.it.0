@@ -2,51 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C49A619C583
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Apr 2020 17:08:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A60119C582
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Apr 2020 17:08:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 46B503C3022
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Apr 2020 17:08:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C65623C302C
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Apr 2020 17:08:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 04A593C2FF3
- for <ltp@lists.linux.it>; Thu,  2 Apr 2020 17:07:09 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id D835520136C
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 455133C3024
  for <ltp@lists.linux.it>; Thu,  2 Apr 2020 17:07:06 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.72,335,1580745600"; d="scan'208";a="88404618"
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 23E67601AED
+ for <ltp@lists.linux.it>; Thu,  2 Apr 2020 17:07:04 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.72,335,1580745600"; d="scan'208";a="88404617"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
  by heian.cn.fujitsu.com with ESMTP; 02 Apr 2020 23:07:03 +0800
-Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
- by cn.fujitsu.com (Postfix) with ESMTP id EB1A150A9999
- for <ltp@lists.linux.it>; Thu,  2 Apr 2020 22:56:42 +0800 (CST)
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 4DE0D50A9985
+ for <ltp@lists.linux.it>; Thu,  2 Apr 2020 22:56:45 +0800 (CST)
 Received: from G08CNEXCHPEKD03.g08.fujitsu.local (10.167.33.85) by
- G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Thu, 2 Apr 2020 23:07:01 +0800
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Thu, 2 Apr 2020 23:07:04 +0800
 Received: from localhost.localdomain (10.167.220.84) by
  G08CNEXCHPEKD03.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
- (TLS) id 14.3.439.0; Thu, 2 Apr 2020 23:07:04 +0800
+ (TLS) id 14.3.439.0; Thu, 2 Apr 2020 23:07:07 +0800
 From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 To: <ltp@lists.linux.it>
-Date: Thu, 2 Apr 2020 23:06:27 +0800
-Message-ID: <1585839990-19923-8-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+Date: Thu, 2 Apr 2020 23:06:28 +0800
+Message-ID: <1585839990-19923-9-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1585839990-19923-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 References: <1585839990-19923-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.167.220.84]
-X-yoursite-MailScanner-ID: EB1A150A9999.AD373
+X-yoursite-MailScanner-ID: 4DE0D50A9985.AE571
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 07/10] syscalls/ioctl_loop05: Add
- LOOP_SET_DIRECT_IO ioctl test
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v1 08/10] syscalls/ioctl_loop06: Add
+ LOOP_SET_BLOCK_SIZE error test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,149 +63,111 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-LOOP_SET_DIRECT_IO can updata a live loop device dio mode. It needs the
-backing file also supports dio mode and the lo_offset is aligned with
-the logical I/O size.
-
-It was introduced into kernel since 4.10
-commit ab1cb278bc70 ("block: loop: introduce ioctl command of LOOP_SET_DIRECT_IO").
-
 Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 ---
- runtest/syscalls                              |   1 +
- testcases/kernel/syscalls/ioctl/.gitignore    |   1 +
- .../kernel/syscalls/ioctl/ioctl_loop05.c      | 120 ++++++++++++++++++
- 3 files changed, 122 insertions(+)
- create mode 100644 testcases/kernel/syscalls/ioctl/ioctl_loop05.c
+ runtest/syscalls                              |  1 +
+ testcases/kernel/syscalls/ioctl/.gitignore    |  1 +
+ .../kernel/syscalls/ioctl/ioctl_loop06.c      | 90 +++++++++++++++++++
+ 3 files changed, 92 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/ioctl/ioctl_loop06.c
 
 diff --git a/runtest/syscalls b/runtest/syscalls
-index 6e8d71d44..9644588f3 100644
+index 9644588f3..41774a494 100644
 --- a/runtest/syscalls
 +++ b/runtest/syscalls
-@@ -531,6 +531,7 @@ ioctl_loop01 ioctl_loop01
- ioctl_loop02 ioctl_loop02
+@@ -532,6 +532,7 @@ ioctl_loop02 ioctl_loop02
  ioctl_loop03 ioctl_loop03
  ioctl_loop04 ioctl_loop04
-+ioctl_loop05 ioctl_loop05
+ ioctl_loop05 ioctl_loop05
++ioctl_loop06 ioctl_loop06
  
  ioctl_ns01 ioctl_ns01
  ioctl_ns02 ioctl_ns02
 diff --git a/testcases/kernel/syscalls/ioctl/.gitignore b/testcases/kernel/syscalls/ioctl/.gitignore
-index 039a5251c..f484d98d6 100644
+index f484d98d6..ec19b4901 100644
 --- a/testcases/kernel/syscalls/ioctl/.gitignore
 +++ b/testcases/kernel/syscalls/ioctl/.gitignore
-@@ -10,6 +10,7 @@
- /ioctl_loop02
+@@ -11,6 +11,7 @@
  /ioctl_loop03
  /ioctl_loop04
-+/ioctl_loop05
+ /ioctl_loop05
++/ioctl_loop06
  /ioctl_ns01
  /ioctl_ns02
  /ioctl_ns03
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop06.c b/testcases/kernel/syscalls/ioctl/ioctl_loop06.c
 new file mode 100644
-index 000000000..43bad6c18
+index 000000000..ef98efbca
 --- /dev/null
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
-@@ -0,0 +1,120 @@
++++ b/testcases/kernel/syscalls/ioctl/ioctl_loop06.c
+@@ -0,0 +1,90 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
 + * Author: Yang Xu <xuyang2018.jy@cn.jujitsu.com>
 + *
-+ * This is a basic ioctl test about loopdevice.
-+ *
-+ * It is designed to test LOOP_SET_DIRECT_IO can updata a live
-+ * loop device dio mode. It need the backing file also supports
-+ * dio mode and the lo_offset is aligned with the logical I/O size.
++ * This is a basic ioctl error test about loopdevice
++ * LOOP_SET_BLOCK_SIZE.
 + */
++
 +#include <stdio.h>
 +#include <unistd.h>
-+#include <string.h>
++#include <sys/types.h>
 +#include <stdlib.h>
 +#include "ioctl_loop_support.h"
 +#include "lapi/loop.h"
 +#include "tst_test.h"
 +
-+#define DIO_MESSAGE "In dio mode"
-+#define NON_DIO_MESSAGE "In non dio mode"
-+
-+static char dev_path[1024], sys_loop_diopath[1024];
++static char dev_path[1024], sys_loop_logicalpath[1024];
 +static int dev_num, dev_fd, attach_flag;
++static unsigned int invalid_value, half_value, unalign_value;
 +
-+static void check_dio_value(int flag)
++static struct tcase {
++	unsigned int *setvalue;
++	int exp_err;
++	char *message;
++} tcases[] = {
++	{&half_value, EINVAL, "arg < 512"},
++	{&invalid_value, EINVAL, "arg > PAGE_SIZE"},
++	{&unalign_value, EINVAL, "arg != power_of_2"},
++};
++
++static void verify_ioctl_loop(unsigned int n)
 +{
-+	struct loop_info loopinfoget;
++	struct tcase *tc = &tcases[n];
 +
-+	memset(&loopinfoget, 0, sizeof(loopinfoget));
-+
-+	SAFE_IOCTL(dev_fd, LOOP_GET_STATUS, &loopinfoget);
-+	tst_res(TINFO, "%s", flag ? DIO_MESSAGE : NON_DIO_MESSAGE);
-+
-+	if (loopinfoget.lo_flags & LO_FLAGS_DIRECT_IO)
-+		tst_res(flag ? TPASS : TFAIL, "lo_flags has LO_FLAGS_DIRECT_IO flag");
-+	else
-+		tst_res(flag ? TFAIL : TPASS, "lo_flags doesn't have LO_FLAGS_DIRECT_IO flag");
-+
-+	check_sys_value(sys_loop_diopath, flag);
-+}
-+
-+static void verify_ioctl_loop(void)
-+{
-+	struct loop_info loopinfo;
-+
-+	memset(&loopinfo, 0, sizeof(loopinfo));
-+
-+	SAFE_IOCTL(dev_fd, LOOP_SET_DIRECT_IO, 0);
-+	check_dio_value(0);
-+	tst_res(TINFO, "Without setting lo_offset or sizelimit");
-+	SAFE_IOCTL(dev_fd, LOOP_SET_DIRECT_IO, 1);
-+	check_dio_value(1);
-+
-+	tst_res(TINFO, "With offset equal to sector size");
-+	loopinfo.lo_offset = 512;
-+	safe_set_status(dev_fd, loopinfo);
-+	TEST(ioctl(dev_fd, LOOP_SET_DIRECT_IO, 1));
++	tst_res(TINFO, "%s", tc->message);
++	TEST(ioctl(dev_fd, LOOP_SET_BLOCK_SIZE, *(tc->setvalue)));
 +	if (TST_RET == 0) {
-+		tst_res(TPASS, "LOOP_SET_DIRECT_IO succeeded");
-+		check_dio_value(1);
-+	} else {
-+		tst_res(TFAIL | TTERRNO, "LOOP_SET_DIRECT_IO failed");
-+	}
-+
-+	tst_res(TINFO, "With offset less than or unalign sector size");
-+	loopinfo.lo_offset = 256;
-+	safe_set_status(dev_fd, loopinfo);
-+
-+	TEST(ioctl(dev_fd, LOOP_SET_DIRECT_IO, 1));
-+	if (TST_RET == 0) {
-+		tst_res(TFAIL, "LOOP_SET_DIRECT_IO succeeded unexpectedly");
++		tst_res(TFAIL, "LOOP_SET_BLOCK_SIZE succeed unexpectedly");
 +		return;
 +	}
-+	if (TST_ERR == EINVAL)
-+		tst_res(TPASS | TTERRNO, "LOOP_SET_DIRECT_IO failed as expected");
++	if (TST_ERR == tc->exp_err)
++		tst_res(TPASS | TTERRNO, "LOOP_SET_BLOCK_SIZE failed as expected");
 +	else
-+		tst_res(TFAIL | TTERRNO, "LOOP_SET_DIRECT_IO failed expected EINVAL got");
-+
-+	loopinfo.lo_offset = 0;
-+	safe_set_status(dev_fd, loopinfo);
++		tst_res(TFAIL | TTERRNO, "LOOP_SET_BLOCK_SIZE failed expected %s got",
++				tst_strerrno(tc->exp_err));
 +}
 +
 +static void setup(void)
 +{
-+	if (tst_fs_type(".") == TST_TMPFS_MAGIC)
-+		tst_brk(TCONF, "tmpfd doesn't support O_DIRECT flag, skip it");
++	unsigned int pg_size;
 +
 +	dev_num = tst_find_free_loopdev(dev_path, sizeof(dev_path));
 +	if (dev_num < 0)
 +		tst_brk(TBROK, "Failed to find free loop device");
 +
-+	sprintf(sys_loop_diopath, "/sys/block/loop%d/loop/dio", dev_num);
++	sprintf(sys_loop_logicalpath, "/sys/block/loop%d/logical_block_size", dev_num);
 +	tst_fill_file("test.img", 0, 1024, 1024);
 +	tst_attach_device(dev_path, "test.img");
 +	attach_flag = 1;
++	half_value = 256;
++	pg_size = getpagesize();
++	invalid_value = pg_size * 2 ;
++	unalign_value = pg_size - 1;
++
 +	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
-+	check_support_cmd(dev_fd, LOOP_SET_DIRECT_IO, 0, "LOOP_SET_DIRECT_IO");
++	check_support_cmd(dev_fd, LOOP_SET_BLOCK_SIZE, 512, "LOOP_SET_BLOCK_SIZE");
 +}
 +
 +static void cleanup(void)
@@ -220,9 +182,10 @@ index 000000000..43bad6c18
 +static struct tst_test test = {
 +	.setup = setup,
 +	.cleanup = cleanup,
-+	.test_all = verify_ioctl_loop,
++	.test = verify_ioctl_loop,
++	.tcnt = ARRAY_SIZE(tcases),
 +	.needs_root = 1,
-+//	.needs_tmpdir = 1,
++	.needs_tmpdir = 1,
 +	.needs_drivers = (const char *const []) {
 +		"loop",
 +		NULL
