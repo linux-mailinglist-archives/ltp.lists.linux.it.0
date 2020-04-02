@@ -1,65 +1,81 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 205EE19C9FC
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Apr 2020 21:27:16 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id DF36E19D263
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Apr 2020 10:39:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4768E3C2FF6
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Apr 2020 21:27:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E4CBD3C2FA9
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Apr 2020 10:39:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 681613C0430
- for <ltp@lists.linux.it>; Thu,  2 Apr 2020 21:27:11 +0200 (CEST)
-Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
- [IPv6:2a00:1450:4864:20::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ by picard.linux.it (Postfix) with ESMTP id 09C703C2FEC
+ for <ltp@lists.linux.it>; Thu,  2 Apr 2020 22:50:41 +0200 (CEST)
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 51C7A1400777
- for <ltp@lists.linux.it>; Thu,  2 Apr 2020 21:27:10 +0200 (CEST)
-Received: by mail-lj1-x243.google.com with SMTP id b1so4527505ljp.3
- for <ltp@lists.linux.it>; Thu, 02 Apr 2020 12:27:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=vb5tL+W1ofpBV7FsB437iOfsA6eloWUcZokuYoXnsKg=;
- b=kpG4tj3j61ZFadQA6O+YOphdJcn7p896+/C1o9Y4CaNmTgp/OepMFSzIqW0h062CJx
- 5y6qkYMg40lX8/ad3OCgIsdOdV6vY6Qa9R8/tbQoG/TdnUqCnqVXxaDHpQJgMuxuGECB
- zGm6qmmzzhQpdAEkn6SlReZlGSx5uEt6A+6iVSo5XIhpbUUmrOjl/8zzSY8CbCBj4wro
- lJeCLNjoYbfwRsvNo5t52cgUHSjbyUbTay39n8FO7Vkd6Jv+ovN+5LDNLQfD3K5PZJai
- TuXyAS/lPwlovZFkVrThRy5eZGVfCtN5DVxHgiD48fkkQ8h3YAj+xHlw5zGVdmOC1aRP
- Wpdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=vb5tL+W1ofpBV7FsB437iOfsA6eloWUcZokuYoXnsKg=;
- b=StBMFkFNI0eoESbsW8OoVojOT4DaEPntFj3PRzEnKkUQHYcK9zBuvMfjVkOCRjDX16
- r5YZU52q77T4IIedG8CQUO9NHxi2MIgdUoR44Nh55x5G//o4h1l5wv36FxC48U3K7KNL
- FrTp04Ha2ogsE4AtiFsA0TpGujVPknPp58L2Bc5N3PePyBfaNlSL2+oY7VgotWfvwZ0C
- qkgNoJ8MQ+GbNj7LIY+3EPRABU6BiY9EpIg3czhRuVV68jerF4mobsaF0E9DU0Yhw7aG
- LB2pE8K6CwsP9YNOGgn2FiSDCCiPfBa1kkup3YsY6rEvg78hV55GVpCHHyDG3mny/1u1
- TIyw==
-X-Gm-Message-State: AGi0PuZ+vfXcPJmKQv2/zpZaUYaPd9IcUFa9aAyYRW5rnhpehL9U7Wpe
- IMJFirzFq1kvizv2pGYwCgk8q4TXnyfg1FHxVOlqJQ==
-X-Google-Smtp-Source: APiQypI3DuoOpgpYgB2M6ixoczedRo87gp3LKeUyHza3n/ojjx6uN5eUZm10RFfLVnYEaouhXZ0Q0Gwyh+DUYNU5I9k=
-X-Received: by 2002:a2e:3c08:: with SMTP id j8mr2946034lja.243.1585855629252; 
- Thu, 02 Apr 2020 12:27:09 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 094901400DAB
+ for <ltp@lists.linux.it>; Thu,  2 Apr 2020 22:50:40 +0200 (CEST)
+Received: from pps.filterd (m0127361.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 032KaGbZ027704; Thu, 2 Apr 2020 16:50:36 -0400
+Received: from ppma01dal.us.ibm.com (83.d6.3fa9.ip4.static.sl-reverse.com
+ [169.63.214.131])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 304mccqfw9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 02 Apr 2020 16:50:36 -0400
+Received: from pps.filterd (ppma01dal.us.ibm.com [127.0.0.1])
+ by ppma01dal.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id 032KlOMH004042;
+ Thu, 2 Apr 2020 20:50:35 GMT
+Received: from b03cxnp07029.gho.boulder.ibm.com
+ (b03cxnp07029.gho.boulder.ibm.com [9.17.130.16])
+ by ppma01dal.us.ibm.com with ESMTP id 301x77xjk7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 02 Apr 2020 20:50:35 +0000
+Received: from b03ledav005.gho.boulder.ibm.com
+ (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
+ by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 032KoYfG12714406
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 2 Apr 2020 20:50:34 GMT
+Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2690FBE051;
+ Thu,  2 Apr 2020 20:50:34 +0000 (GMT)
+Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 78487BE04F;
+ Thu,  2 Apr 2020 20:50:33 +0000 (GMT)
+Received: from [9.85.206.8] (unknown [9.85.206.8])
+ by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Thu,  2 Apr 2020 20:50:33 +0000 (GMT)
+To: ltp@lists.linux.it
+References: <1584507302-23515-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+From: Desnes Augusto Nunes do Rosario <desnesn@linux.ibm.com>
+Message-ID: <bd1dc27b-5680-5a7e-941e-bbd085880ffa@linux.ibm.com>
+Date: Thu, 2 Apr 2020 17:50:32 -0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-References: <CA+G9fYs1xStrrsvGbW7bc4h1a0Kjfz0_zn4c7LL7-bGZb0GH6g@mail.gmail.com>
- <20200402133849.mmkvekzx37kw4nsj@box>
-In-Reply-To: <20200402133849.mmkvekzx37kw4nsj@box>
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Fri, 3 Apr 2020 00:56:57 +0530
-Message-ID: <CA+G9fYv0xNtnD=eBmxVqYqEoYTbMk6mdn04WmgSUasDw2L7uFg@mail.gmail.com>
-To: "Kirill A. Shutemov" <kirill@shutemov.name>
+In-Reply-To: <1584507302-23515-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
+ definitions=2020-04-02_10:2020-04-02,
+ 2020-04-02 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ suspectscore=1 bulkscore=0 mlxscore=0 adultscore=0 priorityscore=1501
+ clxscore=1011 lowpriorityscore=0 malwarescore=0 phishscore=0
+ mlxlogscore=999 spamscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2003020000 definitions=main-2004020146
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] mm/mremap.c : WARNING: at mm/mremap.c:211
- move_page_tables+0x5b0/0x5d0
+X-Mailman-Approved-At: Fri, 03 Apr 2020 10:39:29 +0200
+Subject: Re: [LTP] [PATCH] ltp_tpci.c: fix a null pointer
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,149 +87,120 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: William Kucharski <william.kucharski@oracle.com>,
- Julia Lawall <Julia.Lawall@lip6.fr>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Will Deacon <will.deacon@arm.com>, linux- stable <stable@vger.kernel.org>,
- Michal Hocko <mhocko@kernel.org>, linux-mm <linux-mm@kvack.org>,
- lkft-triage@lists.linaro.org,
- "Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
- Andrew Morton <akpm@linux-foundation.org>, LTP List <ltp@lists.linux.it>,
- Mike Kravetz <mike.kravetz@oracle.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Thu, 2 Apr 2020 at 19:08, Kirill A. Shutemov <kirill@shutemov.name> wrote:
->
-> On Thu, Apr 02, 2020 at 04:49:02PM +0530, Naresh Kamboju wrote:
-> > While running LTP mm thp01 test case on i386 kernel running on x86_64 device
-> > the following kernel warning was noticed multiple times.
-> >
->
-> Interesting. I suspect it's related to 2-level page tables in this
-> configuration. But I cannot immediately see how.
->
-> Could you test if enabling HIGHMEM64 fixes the issue?
-
-CONFIG_HIGHMEM64G=y
-
->
-> Below is patch that prints some additional info:
-
-Applied your patch and reproduced the problem,
-The boot log show this warning,
-
-[    0.261879] ************************************************************
-[    0.261880] ** WARNING! WARNING! WARNING! WARNING! WARNING! WARNING!  **
-[    0.261881] **                                                        **
-[    0.261881] ** You are using 32-bit PTI on a 64-bit PCID-capable CPU. **
-[    0.261882] ** Your performance will increase dramatically if you     **
-[    0.261882] ** switch to a 64-bit kernel!                             **
-[    0.261883] **                                                        **
-[    0.261884] ** WARNING! WARNING! WARNING! WARNING! WARNING! WARNING!  **
-[    0.261884] ************************************************************
-...
-
-Reproducing steps:
-------------------------
-cd /opt/ltp
-./runltp -f mm
-
-[  734.485672] ------------[ cut here ]------------
-[  734.490306] WARNING: CPU: 3 PID: 32321 at mm/mremap.c:212
-move_page_tables+0x7c3/0x830
-[  734.498212] Modules linked in: x86_pkg_temp_thermal
-[  734.503084] CPU: 3 PID: 32321 Comm: true Tainted: G        W
- 5.6.2-rc1+ #14
-[  734.510729] Hardware name: Supermicro SYS-5019S-ML/X11SSH-F, BIOS
-2.2 05/23/2018
-[  734.518110] EIP: move_page_tables+0x7c3/0x830
-[  734.522463] Code: 0c eb a7 8d 45 d8 83 4d e8 01 e8 c8 e6 01 00 e9
-be f8 ff ff 8d 45 d8 31 d2 e8 59 e8 01 00 e9 a5 fc ff ff 31 db e9 81
-fc ff ff <0f> 0b 8b 45 b8 e8 43 e0 fe ff ff 75 b0 ff 75 08 ff 75 cc 68
-e4 50
-[  734.541200] EAX: eb5f1fe8 EBX: 00400000 ECX: 2b5f1001 EDX: 2b5f1000
-[  734.547456] ESI: ea5d6010 EDI: eb5f1ff0 EBP: da381e14 ESP: da381d84
-[  734.553714] DS: 007b ES: 007b FS: 00d8 GS: 00e0 SS: 0068 EFLAGS: 00010202
-[  734.560492] CR0: 80050033 CR2: b7d11f50 CR3: 2a5d6000 CR4: 003406f0
-[  734.566748] DR0: 00000000 DR1: 00000000 DR2: 00000000 DR3: 00000000
-[  734.573006] DR6: fffe0ff0 DR7: 00000400
-[  734.576835] Call Trace:
-[  734.579282]  setup_arg_pages+0x22c/0x350
-[  734.583207]  ? strlcpy+0x33/0x50
-[  734.586459]  load_elf_binary+0x352/0x1010
-[  734.590468]  ? selinux_inode_permission+0xe5/0x1f0
-[  734.595254]  search_binary_handler+0x77/0x1a0
-[  734.599614]  __do_execve_file+0x5aa/0x710
-[  734.603615]  sys_execve+0x21/0x30
-[  734.606926]  do_fast_syscall_32+0x75/0x260
-[  734.611019]  entry_SYSENTER_32+0xa5/0xf8
-[  734.614942] EIP: 0xb7ef6c11
-[  734.617735] Code: Bad RIP value.
-[  734.620956] EAX: ffffffda EBX: bfb8dcb0 ECX: 08069420 EDX: bfb8df14
-[  734.627238] ESI: 080599d4 EDI: bfb8dcb9 EBP: bfb8dd58 ESP: bfb8dc88
-[  734.633499] DS: 007b ES: 007b FS: 0000 GS: 0033 SS: 007b EFLAGS: 00000296
-[  734.640276] ---[ end trace e625d4d55b8380f3 ]---
-[  734.644934] vma dbc4c180 start bf801000 end c0000000
-[  734.644934] next 00000000 prev 00000000 mm d0d75d40
-[  734.644934] prot 25 anon_vma d0dfddc8 vm_ops 00000000
-[  734.644934] pgoff bfa01 file 00000000 private_data 00000000
-[  734.644934] flags:
-0x118173(read|write|mayread|maywrite|mayexec|growsdown|seqread|randread|account)
-[  734.674346] old_addr: 0xbfc00000, new_addr: 0xbfa00000, old_end: 0xc0000000
-[  734.681322] old_pmd: 0x77923067
-[  734.681322] new_pmd: 0x7796d067
-[  734.684510] ------------[ cut here ]------------
-[  734.692295] WARNING: CPU: 2 PID: 32321 at mm/mremap.c:212
-move_page_tables+0x7c3/0x830
-[  734.700241] Modules linked in: x86_pkg_temp_thermal
-[  734.705128] CPU: 2 PID: 32321 Comm: true Tainted: G        W
- 5.6.2-rc1+ #14
-[  734.712770] Hardware name: Supermicro SYS-5019S-ML/X11SSH-F, BIOS
-2.2 05/23/2018
-[  734.720156] EIP: move_page_tables+0x7c3/0x830
-[  734.724506] Code: 0c eb a7 8d 45 d8 83 4d e8 01 e8 c8 e6 01 00 e9
-be f8 ff ff 8d 45 d8 31 d2 e8 59 e8 01 00 e9 a5 fc ff ff 31 db e9 81
-fc ff ff <0f> 0b 8b 45 b8 e8 43 e0 fe ff ff 75 b0 ff 75 08 ff 75 cc 68
-e4 50
-[  734.743256] EAX: eb5f1ff0 EBX: 00200000 ECX: 2b5f1001 EDX: 2b5f1000
-[  734.749517] ESI: ea5d6010 EDI: eb5f1ff8 EBP: da381e14 ESP: da381d84
-[  734.755776] DS: 007b ES: 007b FS: 00d8 GS: 00e0 SS: 0068 EFLAGS: 00010202
-[  734.762553] CR0: 80050033 CR2: b7f1f4e0 CR3: 2a5d6000 CR4: 003406f0
-[  734.768808] DR0: 00000000 DR1: 00000000 DR2: 00000000 DR3: 00000000
-[  734.775067] DR6: fffe0ff0 DR7: 00000400
-[  734.778898] Call Trace:
-[  734.781344]  setup_arg_pages+0x22c/0x350
-[  734.785269]  ? strlcpy+0x33/0x50
-[  734.788499]  load_elf_binary+0x352/0x1010
-[  734.792503]  ? selinux_inode_permission+0xe5/0x1f0
-[  734.797287]  search_binary_handler+0x77/0x1a0
-[  734.801639]  __do_execve_file+0x5aa/0x710
-[  734.805642]  sys_execve+0x21/0x30
-[  734.808953]  do_fast_syscall_32+0x75/0x260
-[  734.813045]  entry_SYSENTER_32+0xa5/0xf8
-[  734.816959] EIP: 0xb7ef6c11
-[  734.819752] Code: Bad RIP value.
-[  734.822976] EAX: ffffffda EBX: bfb8dcb0 ECX: 08069420 EDX: bfb8df14
-[  734.829261] ESI: 080599d4 EDI: bfb8dcb9 EBP: bfb8dd58 ESP: bfb8dc88
-[  734.835525] DS: 007b ES: 007b FS: 0000 GS: 0033 SS: 007b EFLAGS: 00000296
-[  734.842302] ---[ end trace e625d4d55b8380f4 ]---
-[  734.846940] vma dbc4c180 start bf801000 end c0000000
-[  734.846940] next 00000000 prev 00000000 mm d0d75d40
-[  734.846940] prot 25 anon_vma d0dfddc8 vm_ops 00000000
-[  734.846940] pgoff bfa01 file 00000000 private_data 00000000
-[  734.846940] flags:
-0x118173(read|write|mayread|maywrite|mayexec|growsdown|seqread|randread|account)
-[  734.876355] old_addr: 0xbfe00000, new_addr: 0xbfc00000, old_end: 0xc0000000
-[  734.883316] old_pmd: 0x77a08067
-
-
-Full test log,
-https://lkft.validation.linaro.org/scheduler/job/1334357#L478
-
-- Naresh
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+R3JlZXRpbmdzIFlhbmcsdGhhbmtzIGZvciB0aGUgcGF0Y2guCgpPbiAzLzE4LzIwIDE6NTUgQU0s
+IFlhbmcgWHUgd3JvdGU6Cj4gU2luY2UgY29tbWl0IDNkZDI4NmJkYmVlICgibHRwX3RwY2kuYzog
+VXBkYXRlIGxlZ2FjeSBjb2RlIiksCj4gaXQgaW50cm9kdWNlZCBhIHdhcm5pbmcgYXMgYmVsb3c6
+Cj4gLi4vbHRwX3RwY2kuYzogSW4gZnVuY3Rpb24g4oCYcHJvYmVfcGNpX2RlduKAmToKPiAuLi9s
+dHBfdHBjaS5jOjEwNzo4OiB3YXJuaW5nOiDigJhkZXbigJkgaXMgdXNlZCB1bmluaXRpYWxpemVk
+IGluIHRoaXMgZnVuY3Rpb24gWy1XdW5pbml0aWFsaXplZF0KPiAgICBzdHJ1Y3QgcGNpX2RldiAq
+ZGV2Owo+ICAgIGRldiA9IHBjaV9nZXRfZG9tYWluX2J1c19hbmRfc2xvdChwY2lfZG9tYWluX25y
+KGRldi0+YnVzKSwgYnVzLCBzbG90KQo+Cj4gVGhpcyB3aWxsIGxlYWQgdG8gc3lzdGVtIGNyYXNo
+IHdoZW4gd2UgcnVuIHRoaXMgY2FzZSBiZWNhdXNlIGl0IHRyaWdnZXJzIGEgbnVsbCBwb2ludGVy
+Lgo+IFVzZSAwIGRvbWFpbiBpbnRlYWQgb2YgcGNpX2RvbWFpbl9uci4KPgo+IHBzOiBJIHdhbnQg
+dG8gdXNlIGEgZHltYWljIGRvbWFpbiB0byBmaXggaXQgYnV0IGZhaWxlZC4gSWYgc29tZW9uZSBr
+bm93LAo+IHBsZWFzZSB0ZWxsIG1lLiBBbHNvLCB0aGlzIGNhc2UgZmFpbGVkIHdoZW4gbWVyZ2lu
+ZyB0aGlzIHBhdGNoIGJlY2F1c2UKPiB0ZXN0IDEzICh0ZXN0X2Fzc2lnbl9yZXNvdXJjZXMpIHJl
+cG9ydCBubyBzcGFjZSBlcnJvciBhcyBiZWxvdzoKPiBbNzU0OTMwLjc1NzU4NV0gbHRwX3RwY2k6
+IHRlc3QtY2FzZSAxMwo+IFs3NTQ5MzAuNzU3NTg1XSBsdHBfdHBjaTogYXNzaWduIHJlc291cmNl
+cwo+IFs3NTQ5MzAuNzU3NTg1XSBsdHBfdHBjaTogYXNzaWduIHJlc291cmNlICMwCj4gWzc1NDkz
+MC43NTc1ODZdIGx0cF90cGNpOiBuYW1lID0gMDAwMDowMDowOC4wLCBmbGFncyA9IDI2MjQwMSwg
+c3RhcnQgMHhjMTQwLCBlbmQgMHhjMTdmCj4gWzc1NDkzMC43NTc1ODZdIGx0cF90cGNpOiBhc3Np
+Z24gcmVzb3VyY2UgIzEKPiBbNzU0OTMwLjc1NzU4N10gbHRwX3RwY2k6IG5hbWUgPSAwMDAwOjAw
+OjA4LjAsIGZsYWdzID0gMjYyNjU2LCBzdGFydCAweGZlYmQ3MDAwLCBlbmQgMHhmZWJkN2ZmZgo+
+IFs3NTQ5MzAuNzU3NTg3XSBsdHBfdHBjaTogYXNzaWduIHJlc291cmNlICMyCj4gWzc1NDkzMC43
+NTc1ODddIGx0cF90cGNpOiBuYW1lID0gMDAwMDowMDowOC4wLCBmbGFncyA9IDAsIHN0YXJ0IDB4
+MCwgZW5kIDB4MAo+IFs3NTQ5MzAuNzU3NTg4XSBsdHBfdHBjaTogYXNzaWduIHJlc291cmNlICMz
+Cj4gWzc1NDkzMC43NTc1ODhdIGx0cF90cGNpOiBuYW1lID0gMDAwMDowMDowOC4wLCBmbGFncyA9
+IDAsIHN0YXJ0IDB4MCwgZW5kIDB4MAo+IFs3NTQ5MzAuNzU3NTg4XSBsdHBfdHBjaTogYXNzaWdu
+IHJlc291cmNlICM0Cj4gWzc1NDkzMC43NTc1ODldIGx0cF90cGNpOiBuYW1lID0gMDAwMDowMDow
+OC4wLCBmbGFncyA9IDUzODE5MDM0OCwgc3RhcnQgMHhmZTgwYzAwMCwgZW5kIDB4ZmU4MGZmZmYK
+PiBbNzU0OTMwLjc1NzU5M10gdmlydGlvLXBjaSAwMDAwOjAwOjA4LjA6IEJBUiA0OiBubyBzcGFj
+ZSBmb3IgW21lbSBzaXplIDB4MDAwMDQwMDAgNjRiaXQgcHJlZl0KPiBbNzU0OTMwLjc1NzU5NF0g
+dmlydGlvLXBjaSAwMDAwOjAwOjA4LjA6IEJBUiA0OiBmYWlsZWQgdG8gYXNzaWduIFttZW0gc2l6
+ZSAweDAwMDA0MDAwIDY0Yml0IHByZWYKPgo+IEZpeGVzOiAzZGQyODZiICgibHRwX3RwY2kuYzog
+VXBkYXRlIGxlZ2FjeSBjb2RlIikKPiBTaWduZWQtb2ZmLWJ5OiBZYW5nIFh1IDx4dXlhbmcyMDE4
+Lmp5QGNuLmZ1aml0c3UuY29tPgo+IC0tLQo+ICAgdGVzdGNhc2VzL2tlcm5lbC9kZXZpY2UtZHJp
+dmVycy9wY2kvdHBjaV9rZXJuZWwvbHRwX3RwY2kuYyB8IDIgKy0KPiAgIDEgZmlsZSBjaGFuZ2Vk
+LCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNl
+cy9rZXJuZWwvZGV2aWNlLWRyaXZlcnMvcGNpL3RwY2lfa2VybmVsL2x0cF90cGNpLmMgYi90ZXN0
+Y2FzZXMva2VybmVsL2RldmljZS1kcml2ZXJzL3BjaS90cGNpX2tlcm5lbC9sdHBfdHBjaS5jCj4g
+aW5kZXggN2NiYWJmYWE1Li5hNTc5NTNkYjYgMTAwNjQ0Cj4gLS0tIGEvdGVzdGNhc2VzL2tlcm5l
+bC9kZXZpY2UtZHJpdmVycy9wY2kvdHBjaV9rZXJuZWwvbHRwX3RwY2kuYwo+ICsrKyBiL3Rlc3Rj
+YXNlcy9rZXJuZWwvZGV2aWNlLWRyaXZlcnMvcGNpL3RwY2lfa2VybmVsL2x0cF90cGNpLmMKPiBA
+QCAtMTA0LDcgKzEwNCw3IEBAIHN0YXRpYyBpbnQgcHJvYmVfcGNpX2Rldih1bnNpZ25lZCBpbnQg
+YnVzLCB1bnNpZ25lZCBpbnQgc2xvdCkKPiAgIAkJbHRwX3BjaS5kZXYgPSBOVUxMOwo+ICAgCX0K
+PiAgIAo+IC0JZGV2ID0gcGNpX2dldF9kb21haW5fYnVzX2FuZF9zbG90KHBjaV9kb21haW5fbnIo
+ZGV2LT5idXMpLCBidXMsIHNsb3QpOwo+ICsJZGV2ID0gcGNpX2dldF9kb21haW5fYnVzX2FuZF9z
+bG90KDAsIGJ1cywgc2xvdCk7Cj4gICAJaWYgKCFkZXYgfHwgIWRldi0+ZHJpdmVyKQo+ICAgCQly
+ZXR1cm4gLUVOT0RFVjsKCkkgd2FzIGFib3V0IHRvIHBvc3QgdGhlIHNhbWUgZml4IG9uIHRoZSBt
+YWlsaW5nIGxpc3QgLSBqdXN0IHRlc3RlZCBpbiAKcG93ZXJwYyBhcmNoIGFuZCBpdCBsb29rcyBn
+b29kIHRvIG1lLgoKSXQgaXMgc2FmZSB0byB1c2UgMCBzaW5jZSBmdW5jdGlvbiBwY2lfZ2V0X2J1
+c19hbmRfc2xvdCh1bnNpZ25lZCBpbnQgCmJ1cywgdW5zaWduZWQgaW50IGRldmZuKSByZW1vdmVk
+IG9uIGtlcm5lbCBjb21taXQgPDVjZjBjMzdhNzFkYTBmMz4gCigiUENJOiBSZW1vdmUgcGNpX2dl
+dF9idXNfYW5kX3Nsb3QoKSBmdW5jdGlvbiIpIHVzZWQgdG8gYmUgYSB3cmFwcGVyIGZvciAKcGNp
+X2dldF9kb21haW5fYnVzX2FuZF9zbG90KDAsIGJ1cywgZGV2Zm4pLgoKSGVuY2UsIHRoaXMgcGF0
+Y2ggYXZvaWRzIHRoZSBmb2xsb3dpbmcgT29wczoKCj09PT09Cls2OTYxNC45Nzg1OTZdIFVuYWJs
+ZSB0byBoYW5kbGUga2VybmVsIHBhZ2luZyByZXF1ZXN0IGZvciBkYXRhIGF0IAphZGRyZXNzIDB4
+MDAwMDAwMTAKWzY5NjE0Ljk3ODYwMl0gRmF1bHRpbmcgaW5zdHJ1Y3Rpb24gYWRkcmVzczogMHhk
+MDAwMDAwMDAzYzIwMGE0Cls2OTYxNC45Nzg2MDZdIE9vcHM6IEtlcm5lbCBhY2Nlc3Mgb2YgYmFk
+IGFyZWEsIHNpZzogMTEgWyMxXQpbNjk2MTQuOTc4NjA5XSBMRSBTTVAgTlJfQ1BVUz0yMDQ4IE5V
+TUEgUG93ZXJOVgpbNjk2MTQuOTc4NjEzXSBNb2R1bGVzIGxpbmtlZCBpbjogbHRwX3RwY2koT0Up
+IHZtYWMgY2hhY2hhMjBfZ2VuZXJpYyAKcG9seTEzMDVfZ2VuZXJpYyBjaGFjaGEyMHBvbHkxMzA1
+IHNuZF90aW1lciBzbmQgc291bmRjb3JlIGF1dGhlbmMgcGNyeXB0IApjcnlwdG9fdXNlciBzaGEz
+X2dlbmVyaWMgc2Fsc2EyMF9nZW5lcmljIHVpbnB1dCBjYW5fcmF3IGNhbiBkdW1teSB2ZXRoIApu
+X2dzbSBwcHNfbGRpc2MgcHBwX3N5bmN0dHkgbl9oZGxjIHBwcF9hc3luYyBwcHBfZ2VuZXJpYyBz
+bGhjIGt2bV9odiAKa3ZtX3ByIGt2bSBiaW5mbXRfbWlzYyBuZnN2MyBuZnNfYWNsIG5mcyBsb2Nr
+ZCBncmFjZSBmc2NhY2hlIHR1biBicmQgCnZmYXQgZmF0IGZ1c2Ugb3ZlcmxheSBleHQ0IG1iY2Fj
+aGUgamJkMiBsb29wIHN1bnJwYyB1aW9fcGRydl9nZW5pcnEgc2VzIAp4dHMgaXBtaV9wb3dlcm52
+IGVuY2xvc3VyZSBpcG1pX2RldmludGYgdWlvIHNjc2lfdHJhbnNwb3J0X3NhcyAKaWJtcG93ZXJu
+diBpcG1pX21zZ2hhbmRsZXIgbGVkc19wb3dlcm52IHZteF9jcnlwdG8gcG93ZXJudl9ybmcgCnBv
+d2VybnZfb3BfcGFuZWwgaXBfdGFibGVzIHhmcyBsaWJjcmMzMmMgc3JfbW9kIGNkcm9tIHNkX21v
+ZCBzZyBpcHIgCmxpYmF0YSB0ZzMgZG1fbWlycm9yIGRtX3JlZ2lvbl9oYXNoIGRtX2xvZyBkbV9t
+b2QgW2xhc3QgdW5sb2FkZWQ6IApsdHBfYmxvY2tfZGV2XQpbNjk2MTQuOTc4NjUzXSBGZWF0dXJl
+czogZUJQRi9zb2NrCls2OTYxNC45Nzg2NTddIENQVTogMSBQSUQ6IDIyOTIxNzYgQ29tbTogdHBj
+aSBLZHVtcDogbG9hZGVkIFRhaW50ZWQ6IApHwqDCoMKgwqDCoMKgwqAgV8KgIE9FwqDCoMKgIC0t
+LS0tLS0tLSAtwqAgLSA0LjE4LjAtMTg3LmVsOC5wcGM2NGxlICMxCls2OTYxNC45Nzg2NjJdIE5J
+UDrCoCBkMDAwMDAwMDAzYzIwMGE0IExSOiBkMDAwMDAwMDAzYzIwMDZjIENUUjogCmMwMDAwMDAw
+MDBkYzhjMDAKWzY5NjE0Ljk3ODY2Nl0gUkVHUzogYzAwMDAwMDRiZTQzN2EyMCBUUkFQOiAwMzAw
+wqDCoCBUYWludGVkOiBHwqDCoMKgwqDCoMKgwqAgV8KgIApPRcKgwqDCoCAtLS0tLS0tLS0gLcKg
+IC3CoCAoNC4xOC4wLTE4Ny5lbDgucHBjNjRsZSkKWzY5NjE0Ljk3ODY3MF0gTVNSOsKgIDkwMDAw
+MDAwMDAwMDkwMzMgPFNGLEhWLEVFLE1FLElSLERSLFJJLExFPsKgIENSOiAKMjgwMDIyNzLCoCBY
+RVI6IDIwMDAwMDAwCls2OTYxNC45Nzg2NzZdIENGQVI6IGMwMDAwMDAwMDAwMDg5MzQgREFSOiAw
+MDAwMDAwMDAwMDAwMDEwIERTSVNSOiAKNDAwMDAwMDAgSVJRTUFTSzogMApHUFIwMDogZDAwMDAw
+MDAwM2MyMDA2YyBjMDAwMDAwNGJlNDM3Y2EwIGQwMDAwMDAwMDNjMmEzMDAgMDAwMDAwMDAwMDAw
+MDAwMApHUFIwNDogZDAwMDAwMDAwM2MyMTRiYSAwMDAwMDAwMDAwMDAwMDAwIGMwMDAwMDA3ODQ2
+NDQ4YzkgMDAwMDAwMDAwMDAwMDAwMApHUFIwODogYzAwMDAwMDRiZTQzN2QwNCAwMDAwMDAwMDAw
+MDAwMDAwIDAwMDAwMDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAwMApHUFIxMjogMDAwMDAwMDAw
+MDAwMjIwMCBjMDAwMDAwN2ZmZmZlZTAwIDAwMDAwMDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAw
+MApHUFIxNjogMDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDEwMDFjZjk4IDAwMDAwMDAwMTAwMWNm
+NzggMDAwMDAwMDAxMDAxY2ZmMApHUFIyMDogMDAwMDAwMDAxMDAxZDAxMCAwMDAwMDAwMDEwMDFj
+ZjU4IDAwMDA3ZmZmOTI2NDMxOTAgMDAwMDAwMDAxMDA0MDUzMApHUFIyNDogMDAwMDAwMDAxMDAx
+ZDEwOCAwMDAwMDAwMDEwMDFjZjQ4IGMwMDAwMDA0YmU0MzdkZjAgMDAwMDAwMDAwMDAwMDAwMQpH
+UFIyODogZmZmZmZmZmZmZmZmZmZmMiAwMDAwMDAwMDAwMDAwMDAwIGQwMDAwMDAwMDNjMjJmODAg
+MDAwMDAwMDAwMDAwMDAwMApbNjk2MTQuOTc4NzExXSBOSVAgW2QwMDAwMDAwMDNjMjAwYTRdIHN5
+c19idXNfc2xvdCsweDhjLzB4MTcwIFtsdHBfdHBjaV0KWzY5NjE0Ljk3ODcxNV0gTFIgW2QwMDAw
+MDAwMDNjMjAwNmNdIHN5c19idXNfc2xvdCsweDU0LzB4MTcwIFtsdHBfdHBjaV0KWzY5NjE0Ljk3
+ODcxOF0gQ2FsbCBUcmFjZToKWzY5NjE0Ljk3ODcyMV0gW2MwMDAwMDA0YmU0MzdjYTBdIFtkMDAw
+MDAwMDAzYzIwMDZjXSAKc3lzX2J1c19zbG90KzB4NTQvMHgxNzAgW2x0cF90cGNpXSAodW5yZWxp
+YWJsZSkKWzY5NjE0Ljk3ODcyN10gW2MwMDAwMDA0YmU0MzdkNDBdIFtjMDAwMDAwMDAwOGRhNWJj
+XSAKZGV2X2F0dHJfc3RvcmUrMHgzYy8weDYwCls2OTYxNC45Nzg3MzJdIFtjMDAwMDAwNGJlNDM3
+ZDYwXSBbYzAwMDAwMDAwMDVmYjkwOF0gCnN5c2ZzX2tmX3dyaXRlKzB4NjgvMHg4MApbNjk2MTQu
+OTc4NzM2XSBbYzAwMDAwMDRiZTQzN2Q4MF0gW2MwMDAwMDAwMDA1ZjlmYjRdIAprZXJuZnNfZm9w
+X3dyaXRlKzB4MTA0LzB4MjcwCls2OTYxNC45Nzg3NDFdIFtjMDAwMDAwNGJlNDM3ZGQwXSBbYzAw
+MDAwMDAwMDRmZjYyNF0gc3lzX3dyaXRlKzB4MTM0LzB4M2EwCls2OTYxNC45Nzg3NDVdIFtjMDAw
+MDAwNGJlNDM3ZTMwXSBbYzAwMDAwMDAwMDAwYjM4OF0gc3lzdGVtX2NhbGwrMHg1Yy8weDcwCls2
+OTYxNC45Nzg3NDhdIEluc3RydWN0aW9uIGR1bXA6Cls2OTYxNC45Nzg3NTFdIGViZGU4MDEwIDgw
+YTEwMDY0IGU4N2UwMDAwIDc4YmRjNjIyIDU0YmYwNjNlIDJmYTMwMDAwIAo0MTllMDAxNCA0ODAw
+MGU4OQpbNjk2MTQuOTc4NzU3XSBlODQxMDAxOCAzOTIwMDAwMCBmOTNlMDAwMCAzOTIwMDAwMCA8
+ZTg2OTAwMTA+IDQ4MDAwZGQxIAplODQxMDAxOCA3ZmU1ZmI3OApbNjk2MTQuOTc4NzY0XSAtLS1b
+IGVuZCB0cmFjZSA0MTRiMTI3MGY1NzkzNTFmIF0tLS0KPT09PT0KClJldmlld2VkLWJ5OiBEZXNu
+ZXMgQS4gTnVuZXMgZG8gUm9zYXJpbyA8ZGVzbmVzbkBsaW51eC5pYm0uY29tPgoKPgotLSAKRGVz
+bmVzIEEuIE51bmVzIGRvIFJvc2FyaW8KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0K
+QWR2aXNvcnkgU29mdHdhcmUgRW5naW5lZXIgLSBJQk0KVmlydHVhbCBPbnNpdGUgRW5naW5lZXIg
+LSBSZWQgSGF0CgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0
+L2xpc3RpbmZvL2x0cAo=
