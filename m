@@ -1,81 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF36E19D263
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Apr 2020 10:39:34 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F56619CE5B
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Apr 2020 03:51:37 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E4CBD3C2FA9
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Apr 2020 10:39:33 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CF54C3C3004
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Apr 2020 03:51:36 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 09C703C2FEC
- for <ltp@lists.linux.it>; Thu,  2 Apr 2020 22:50:41 +0200 (CEST)
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 3EF623C2FEA
+ for <ltp@lists.linux.it>; Fri,  3 Apr 2020 03:51:35 +0200 (CEST)
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 094901400DAB
- for <ltp@lists.linux.it>; Thu,  2 Apr 2020 22:50:40 +0200 (CEST)
-Received: from pps.filterd (m0127361.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 032KaGbZ027704; Thu, 2 Apr 2020 16:50:36 -0400
-Received: from ppma01dal.us.ibm.com (83.d6.3fa9.ip4.static.sl-reverse.com
- [169.63.214.131])
- by mx0a-001b2d01.pphosted.com with ESMTP id 304mccqfw9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 02 Apr 2020 16:50:36 -0400
-Received: from pps.filterd (ppma01dal.us.ibm.com [127.0.0.1])
- by ppma01dal.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id 032KlOMH004042;
- Thu, 2 Apr 2020 20:50:35 GMT
-Received: from b03cxnp07029.gho.boulder.ibm.com
- (b03cxnp07029.gho.boulder.ibm.com [9.17.130.16])
- by ppma01dal.us.ibm.com with ESMTP id 301x77xjk7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 02 Apr 2020 20:50:35 +0000
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 032KoYfG12714406
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 2 Apr 2020 20:50:34 GMT
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2690FBE051;
- Thu,  2 Apr 2020 20:50:34 +0000 (GMT)
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 78487BE04F;
- Thu,  2 Apr 2020 20:50:33 +0000 (GMT)
-Received: from [9.85.206.8] (unknown [9.85.206.8])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP;
- Thu,  2 Apr 2020 20:50:33 +0000 (GMT)
-To: ltp@lists.linux.it
-References: <1584507302-23515-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-From: Desnes Augusto Nunes do Rosario <desnesn@linux.ibm.com>
-Message-ID: <bd1dc27b-5680-5a7e-941e-bbd085880ffa@linux.ibm.com>
-Date: Thu, 2 Apr 2020 17:50:32 -0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 476002009E0
+ for <ltp@lists.linux.it>; Fri,  3 Apr 2020 03:51:34 +0200 (CEST)
+Received: by mail-pf1-x444.google.com with SMTP id r14so2682982pfl.12
+ for <ltp@lists.linux.it>; Thu, 02 Apr 2020 18:51:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=7UsNJDDLmLUmxtacMdKW9STIzMseV3oJUOMnlwvBBqs=;
+ b=nNcr7Tynorf2VEFf1Qp2dPrNnocc/aAhmbDR+JDtTaynfMhibaTY9Yq2C9BoyQOgr4
+ RD8h87Jc17gHFB/MVUzD6++vaBkZLk+4aXtUwxkAmVfbbcwCr+GuAH4Ml5pTEAHzIS5O
+ HwsKXBslWIQ2d0PM+EefsGbn62A8ign930bj12k4AUMlT8fAMfto4g7VXobsDrWTpL2S
+ muLg/mMwNAejoO8KvbhIz6h8w561FUmoUt6ZLp+v4lYXQbA/nwxpqz6nSyq9ngE2oDcR
+ 2l6krfMP4ZTC0v6SK5nKmGhqzleaVahl+HhR3WADDEKbGx0ygirugIG+AwntZbRwgxIP
+ PAGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=7UsNJDDLmLUmxtacMdKW9STIzMseV3oJUOMnlwvBBqs=;
+ b=H1W4TAruJtbo+7lDQ5q1jYsFlzAgEEXG2J+9kYP8Sdp8tXvjD5EcRJ+ityLwS1isep
+ MVhb2hlMgoN5mPBd+86JBmcrahBtSPoUXDSQIDqsRCqw7YUaDYitaeCSjeGka3qbJtg1
+ /ogTYFhBvW4JNkPYcj6dZ8uVYdGGQUSmXm5XSQ0cG10LNGfC9rtQfBbES9fApgs6Xv9v
+ jgRelcQTeoVKs8pUQjD9u9ikS9qjTkjhJEIf+x1lSOFXHvQ0gjT/ofkW5H81nRNiTu4V
+ nfTdYumoYp8aHjh/PKxovquBJFdg3gpwCjkR+IiSezaMVlN1cNgjXvvl6rM0KfRENVkM
+ WHWA==
+X-Gm-Message-State: AGi0Pua1VkUlJpobriy9pbUpNA9RHhNHzvtpWPEl9tY3xqPlDNb4vcTo
+ gKcFELn99GXjUch0UrDqnp8XouAwP2LGO7mX1+k=
+X-Google-Smtp-Source: APiQypIAJy6+pvshjQ4nhmiAbfa9UkEqZtNdBA5xaB9+CJs66NNkMzds+kxlfBIadB5lU4V30WcGLOmI93dtvCaHOhw=
+X-Received: by 2002:a62:75c1:: with SMTP id q184mr5914026pfc.269.1585878692734; 
+ Thu, 02 Apr 2020 18:51:32 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1584507302-23515-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
- definitions=2020-04-02_10:2020-04-02,
- 2020-04-02 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- suspectscore=1 bulkscore=0 mlxscore=0 adultscore=0 priorityscore=1501
- clxscore=1011 lowpriorityscore=0 malwarescore=0 phishscore=0
- mlxlogscore=999 spamscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2003020000 definitions=main-2004020146
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+References: <20200327134707.4532-1-chrubis@suse.cz>
+ <20200327134707.4532-3-chrubis@suse.cz>
+ <CAF12kFteeJ6nerju6kwX+Ebzrzd_JPCiJ9jKW4tX9F4Y4s7FEg@mail.gmail.com>
+ <20200330152122.GA2699@yuki.lan> <20200331180816.GE2900@yuki.lan>
+ <CAF12kFs6H1FgU_77MAMhrn1pK15fp1cx+9wox4k9LN5GxCN=nA@mail.gmail.com>
+ <20200401131220.GA3627@yuki.lan>
+ <CAF12kFsFsG6Jk0citiGmicq+dyB90i_cG_bcDAMhHiyVPafRdA@mail.gmail.com>
+ <20200402093127.GA28452@yuki.lan>
+ <CAF12kFvDv8ksxMLDyniwQ=hty6J4Oy5-wvErX=DLrfWmhiwT0w@mail.gmail.com>
+ <20200402112309.GA5732@yuki.lan>
+In-Reply-To: <20200402112309.GA5732@yuki.lan>
+From: Cixi Geng <gengcixi@gmail.com>
+Date: Fri, 3 Apr 2020 09:50:56 +0800
+Message-ID: <CAF12kFsCfb12Yi=rhAqKSLPUBLkaWPs_-JCQOcucvyu=whYFsw@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-X-Mailman-Approved-At: Fri, 03 Apr 2020 10:39:29 +0200
-Subject: Re: [LTP] [PATCH] ltp_tpci.c: fix a null pointer
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] device_drivers/uart01: Add uart01 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,120 +80,167 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Orson Zhai <orsonzhai@gmail.com>, ltp@lists.linux.it,
+ Carlos Hernandez <ceh@ti.com>
+Content-Type: multipart/mixed; boundary="===============1187834540=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-R3JlZXRpbmdzIFlhbmcsdGhhbmtzIGZvciB0aGUgcGF0Y2guCgpPbiAzLzE4LzIwIDE6NTUgQU0s
-IFlhbmcgWHUgd3JvdGU6Cj4gU2luY2UgY29tbWl0IDNkZDI4NmJkYmVlICgibHRwX3RwY2kuYzog
-VXBkYXRlIGxlZ2FjeSBjb2RlIiksCj4gaXQgaW50cm9kdWNlZCBhIHdhcm5pbmcgYXMgYmVsb3c6
-Cj4gLi4vbHRwX3RwY2kuYzogSW4gZnVuY3Rpb24g4oCYcHJvYmVfcGNpX2RlduKAmToKPiAuLi9s
-dHBfdHBjaS5jOjEwNzo4OiB3YXJuaW5nOiDigJhkZXbigJkgaXMgdXNlZCB1bmluaXRpYWxpemVk
-IGluIHRoaXMgZnVuY3Rpb24gWy1XdW5pbml0aWFsaXplZF0KPiAgICBzdHJ1Y3QgcGNpX2RldiAq
-ZGV2Owo+ICAgIGRldiA9IHBjaV9nZXRfZG9tYWluX2J1c19hbmRfc2xvdChwY2lfZG9tYWluX25y
-KGRldi0+YnVzKSwgYnVzLCBzbG90KQo+Cj4gVGhpcyB3aWxsIGxlYWQgdG8gc3lzdGVtIGNyYXNo
-IHdoZW4gd2UgcnVuIHRoaXMgY2FzZSBiZWNhdXNlIGl0IHRyaWdnZXJzIGEgbnVsbCBwb2ludGVy
-Lgo+IFVzZSAwIGRvbWFpbiBpbnRlYWQgb2YgcGNpX2RvbWFpbl9uci4KPgo+IHBzOiBJIHdhbnQg
-dG8gdXNlIGEgZHltYWljIGRvbWFpbiB0byBmaXggaXQgYnV0IGZhaWxlZC4gSWYgc29tZW9uZSBr
-bm93LAo+IHBsZWFzZSB0ZWxsIG1lLiBBbHNvLCB0aGlzIGNhc2UgZmFpbGVkIHdoZW4gbWVyZ2lu
-ZyB0aGlzIHBhdGNoIGJlY2F1c2UKPiB0ZXN0IDEzICh0ZXN0X2Fzc2lnbl9yZXNvdXJjZXMpIHJl
-cG9ydCBubyBzcGFjZSBlcnJvciBhcyBiZWxvdzoKPiBbNzU0OTMwLjc1NzU4NV0gbHRwX3RwY2k6
-IHRlc3QtY2FzZSAxMwo+IFs3NTQ5MzAuNzU3NTg1XSBsdHBfdHBjaTogYXNzaWduIHJlc291cmNl
-cwo+IFs3NTQ5MzAuNzU3NTg1XSBsdHBfdHBjaTogYXNzaWduIHJlc291cmNlICMwCj4gWzc1NDkz
-MC43NTc1ODZdIGx0cF90cGNpOiBuYW1lID0gMDAwMDowMDowOC4wLCBmbGFncyA9IDI2MjQwMSwg
-c3RhcnQgMHhjMTQwLCBlbmQgMHhjMTdmCj4gWzc1NDkzMC43NTc1ODZdIGx0cF90cGNpOiBhc3Np
-Z24gcmVzb3VyY2UgIzEKPiBbNzU0OTMwLjc1NzU4N10gbHRwX3RwY2k6IG5hbWUgPSAwMDAwOjAw
-OjA4LjAsIGZsYWdzID0gMjYyNjU2LCBzdGFydCAweGZlYmQ3MDAwLCBlbmQgMHhmZWJkN2ZmZgo+
-IFs3NTQ5MzAuNzU3NTg3XSBsdHBfdHBjaTogYXNzaWduIHJlc291cmNlICMyCj4gWzc1NDkzMC43
-NTc1ODddIGx0cF90cGNpOiBuYW1lID0gMDAwMDowMDowOC4wLCBmbGFncyA9IDAsIHN0YXJ0IDB4
-MCwgZW5kIDB4MAo+IFs3NTQ5MzAuNzU3NTg4XSBsdHBfdHBjaTogYXNzaWduIHJlc291cmNlICMz
-Cj4gWzc1NDkzMC43NTc1ODhdIGx0cF90cGNpOiBuYW1lID0gMDAwMDowMDowOC4wLCBmbGFncyA9
-IDAsIHN0YXJ0IDB4MCwgZW5kIDB4MAo+IFs3NTQ5MzAuNzU3NTg4XSBsdHBfdHBjaTogYXNzaWdu
-IHJlc291cmNlICM0Cj4gWzc1NDkzMC43NTc1ODldIGx0cF90cGNpOiBuYW1lID0gMDAwMDowMDow
-OC4wLCBmbGFncyA9IDUzODE5MDM0OCwgc3RhcnQgMHhmZTgwYzAwMCwgZW5kIDB4ZmU4MGZmZmYK
-PiBbNzU0OTMwLjc1NzU5M10gdmlydGlvLXBjaSAwMDAwOjAwOjA4LjA6IEJBUiA0OiBubyBzcGFj
-ZSBmb3IgW21lbSBzaXplIDB4MDAwMDQwMDAgNjRiaXQgcHJlZl0KPiBbNzU0OTMwLjc1NzU5NF0g
-dmlydGlvLXBjaSAwMDAwOjAwOjA4LjA6IEJBUiA0OiBmYWlsZWQgdG8gYXNzaWduIFttZW0gc2l6
-ZSAweDAwMDA0MDAwIDY0Yml0IHByZWYKPgo+IEZpeGVzOiAzZGQyODZiICgibHRwX3RwY2kuYzog
-VXBkYXRlIGxlZ2FjeSBjb2RlIikKPiBTaWduZWQtb2ZmLWJ5OiBZYW5nIFh1IDx4dXlhbmcyMDE4
-Lmp5QGNuLmZ1aml0c3UuY29tPgo+IC0tLQo+ICAgdGVzdGNhc2VzL2tlcm5lbC9kZXZpY2UtZHJp
-dmVycy9wY2kvdHBjaV9rZXJuZWwvbHRwX3RwY2kuYyB8IDIgKy0KPiAgIDEgZmlsZSBjaGFuZ2Vk
-LCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNl
-cy9rZXJuZWwvZGV2aWNlLWRyaXZlcnMvcGNpL3RwY2lfa2VybmVsL2x0cF90cGNpLmMgYi90ZXN0
-Y2FzZXMva2VybmVsL2RldmljZS1kcml2ZXJzL3BjaS90cGNpX2tlcm5lbC9sdHBfdHBjaS5jCj4g
-aW5kZXggN2NiYWJmYWE1Li5hNTc5NTNkYjYgMTAwNjQ0Cj4gLS0tIGEvdGVzdGNhc2VzL2tlcm5l
-bC9kZXZpY2UtZHJpdmVycy9wY2kvdHBjaV9rZXJuZWwvbHRwX3RwY2kuYwo+ICsrKyBiL3Rlc3Rj
-YXNlcy9rZXJuZWwvZGV2aWNlLWRyaXZlcnMvcGNpL3RwY2lfa2VybmVsL2x0cF90cGNpLmMKPiBA
-QCAtMTA0LDcgKzEwNCw3IEBAIHN0YXRpYyBpbnQgcHJvYmVfcGNpX2Rldih1bnNpZ25lZCBpbnQg
-YnVzLCB1bnNpZ25lZCBpbnQgc2xvdCkKPiAgIAkJbHRwX3BjaS5kZXYgPSBOVUxMOwo+ICAgCX0K
-PiAgIAo+IC0JZGV2ID0gcGNpX2dldF9kb21haW5fYnVzX2FuZF9zbG90KHBjaV9kb21haW5fbnIo
-ZGV2LT5idXMpLCBidXMsIHNsb3QpOwo+ICsJZGV2ID0gcGNpX2dldF9kb21haW5fYnVzX2FuZF9z
-bG90KDAsIGJ1cywgc2xvdCk7Cj4gICAJaWYgKCFkZXYgfHwgIWRldi0+ZHJpdmVyKQo+ICAgCQly
-ZXR1cm4gLUVOT0RFVjsKCkkgd2FzIGFib3V0IHRvIHBvc3QgdGhlIHNhbWUgZml4IG9uIHRoZSBt
-YWlsaW5nIGxpc3QgLSBqdXN0IHRlc3RlZCBpbiAKcG93ZXJwYyBhcmNoIGFuZCBpdCBsb29rcyBn
-b29kIHRvIG1lLgoKSXQgaXMgc2FmZSB0byB1c2UgMCBzaW5jZSBmdW5jdGlvbiBwY2lfZ2V0X2J1
-c19hbmRfc2xvdCh1bnNpZ25lZCBpbnQgCmJ1cywgdW5zaWduZWQgaW50IGRldmZuKSByZW1vdmVk
-IG9uIGtlcm5lbCBjb21taXQgPDVjZjBjMzdhNzFkYTBmMz4gCigiUENJOiBSZW1vdmUgcGNpX2dl
-dF9idXNfYW5kX3Nsb3QoKSBmdW5jdGlvbiIpIHVzZWQgdG8gYmUgYSB3cmFwcGVyIGZvciAKcGNp
-X2dldF9kb21haW5fYnVzX2FuZF9zbG90KDAsIGJ1cywgZGV2Zm4pLgoKSGVuY2UsIHRoaXMgcGF0
-Y2ggYXZvaWRzIHRoZSBmb2xsb3dpbmcgT29wczoKCj09PT09Cls2OTYxNC45Nzg1OTZdIFVuYWJs
-ZSB0byBoYW5kbGUga2VybmVsIHBhZ2luZyByZXF1ZXN0IGZvciBkYXRhIGF0IAphZGRyZXNzIDB4
-MDAwMDAwMTAKWzY5NjE0Ljk3ODYwMl0gRmF1bHRpbmcgaW5zdHJ1Y3Rpb24gYWRkcmVzczogMHhk
-MDAwMDAwMDAzYzIwMGE0Cls2OTYxNC45Nzg2MDZdIE9vcHM6IEtlcm5lbCBhY2Nlc3Mgb2YgYmFk
-IGFyZWEsIHNpZzogMTEgWyMxXQpbNjk2MTQuOTc4NjA5XSBMRSBTTVAgTlJfQ1BVUz0yMDQ4IE5V
-TUEgUG93ZXJOVgpbNjk2MTQuOTc4NjEzXSBNb2R1bGVzIGxpbmtlZCBpbjogbHRwX3RwY2koT0Up
-IHZtYWMgY2hhY2hhMjBfZ2VuZXJpYyAKcG9seTEzMDVfZ2VuZXJpYyBjaGFjaGEyMHBvbHkxMzA1
-IHNuZF90aW1lciBzbmQgc291bmRjb3JlIGF1dGhlbmMgcGNyeXB0IApjcnlwdG9fdXNlciBzaGEz
-X2dlbmVyaWMgc2Fsc2EyMF9nZW5lcmljIHVpbnB1dCBjYW5fcmF3IGNhbiBkdW1teSB2ZXRoIApu
-X2dzbSBwcHNfbGRpc2MgcHBwX3N5bmN0dHkgbl9oZGxjIHBwcF9hc3luYyBwcHBfZ2VuZXJpYyBz
-bGhjIGt2bV9odiAKa3ZtX3ByIGt2bSBiaW5mbXRfbWlzYyBuZnN2MyBuZnNfYWNsIG5mcyBsb2Nr
-ZCBncmFjZSBmc2NhY2hlIHR1biBicmQgCnZmYXQgZmF0IGZ1c2Ugb3ZlcmxheSBleHQ0IG1iY2Fj
-aGUgamJkMiBsb29wIHN1bnJwYyB1aW9fcGRydl9nZW5pcnEgc2VzIAp4dHMgaXBtaV9wb3dlcm52
-IGVuY2xvc3VyZSBpcG1pX2RldmludGYgdWlvIHNjc2lfdHJhbnNwb3J0X3NhcyAKaWJtcG93ZXJu
-diBpcG1pX21zZ2hhbmRsZXIgbGVkc19wb3dlcm52IHZteF9jcnlwdG8gcG93ZXJudl9ybmcgCnBv
-d2VybnZfb3BfcGFuZWwgaXBfdGFibGVzIHhmcyBsaWJjcmMzMmMgc3JfbW9kIGNkcm9tIHNkX21v
-ZCBzZyBpcHIgCmxpYmF0YSB0ZzMgZG1fbWlycm9yIGRtX3JlZ2lvbl9oYXNoIGRtX2xvZyBkbV9t
-b2QgW2xhc3QgdW5sb2FkZWQ6IApsdHBfYmxvY2tfZGV2XQpbNjk2MTQuOTc4NjUzXSBGZWF0dXJl
-czogZUJQRi9zb2NrCls2OTYxNC45Nzg2NTddIENQVTogMSBQSUQ6IDIyOTIxNzYgQ29tbTogdHBj
-aSBLZHVtcDogbG9hZGVkIFRhaW50ZWQ6IApHwqDCoMKgwqDCoMKgwqAgV8KgIE9FwqDCoMKgIC0t
-LS0tLS0tLSAtwqAgLSA0LjE4LjAtMTg3LmVsOC5wcGM2NGxlICMxCls2OTYxNC45Nzg2NjJdIE5J
-UDrCoCBkMDAwMDAwMDAzYzIwMGE0IExSOiBkMDAwMDAwMDAzYzIwMDZjIENUUjogCmMwMDAwMDAw
-MDBkYzhjMDAKWzY5NjE0Ljk3ODY2Nl0gUkVHUzogYzAwMDAwMDRiZTQzN2EyMCBUUkFQOiAwMzAw
-wqDCoCBUYWludGVkOiBHwqDCoMKgwqDCoMKgwqAgV8KgIApPRcKgwqDCoCAtLS0tLS0tLS0gLcKg
-IC3CoCAoNC4xOC4wLTE4Ny5lbDgucHBjNjRsZSkKWzY5NjE0Ljk3ODY3MF0gTVNSOsKgIDkwMDAw
-MDAwMDAwMDkwMzMgPFNGLEhWLEVFLE1FLElSLERSLFJJLExFPsKgIENSOiAKMjgwMDIyNzLCoCBY
-RVI6IDIwMDAwMDAwCls2OTYxNC45Nzg2NzZdIENGQVI6IGMwMDAwMDAwMDAwMDg5MzQgREFSOiAw
-MDAwMDAwMDAwMDAwMDEwIERTSVNSOiAKNDAwMDAwMDAgSVJRTUFTSzogMApHUFIwMDogZDAwMDAw
-MDAwM2MyMDA2YyBjMDAwMDAwNGJlNDM3Y2EwIGQwMDAwMDAwMDNjMmEzMDAgMDAwMDAwMDAwMDAw
-MDAwMApHUFIwNDogZDAwMDAwMDAwM2MyMTRiYSAwMDAwMDAwMDAwMDAwMDAwIGMwMDAwMDA3ODQ2
-NDQ4YzkgMDAwMDAwMDAwMDAwMDAwMApHUFIwODogYzAwMDAwMDRiZTQzN2QwNCAwMDAwMDAwMDAw
-MDAwMDAwIDAwMDAwMDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAwMApHUFIxMjogMDAwMDAwMDAw
-MDAwMjIwMCBjMDAwMDAwN2ZmZmZlZTAwIDAwMDAwMDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAw
-MApHUFIxNjogMDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDEwMDFjZjk4IDAwMDAwMDAwMTAwMWNm
-NzggMDAwMDAwMDAxMDAxY2ZmMApHUFIyMDogMDAwMDAwMDAxMDAxZDAxMCAwMDAwMDAwMDEwMDFj
-ZjU4IDAwMDA3ZmZmOTI2NDMxOTAgMDAwMDAwMDAxMDA0MDUzMApHUFIyNDogMDAwMDAwMDAxMDAx
-ZDEwOCAwMDAwMDAwMDEwMDFjZjQ4IGMwMDAwMDA0YmU0MzdkZjAgMDAwMDAwMDAwMDAwMDAwMQpH
-UFIyODogZmZmZmZmZmZmZmZmZmZmMiAwMDAwMDAwMDAwMDAwMDAwIGQwMDAwMDAwMDNjMjJmODAg
-MDAwMDAwMDAwMDAwMDAwMApbNjk2MTQuOTc4NzExXSBOSVAgW2QwMDAwMDAwMDNjMjAwYTRdIHN5
-c19idXNfc2xvdCsweDhjLzB4MTcwIFtsdHBfdHBjaV0KWzY5NjE0Ljk3ODcxNV0gTFIgW2QwMDAw
-MDAwMDNjMjAwNmNdIHN5c19idXNfc2xvdCsweDU0LzB4MTcwIFtsdHBfdHBjaV0KWzY5NjE0Ljk3
-ODcxOF0gQ2FsbCBUcmFjZToKWzY5NjE0Ljk3ODcyMV0gW2MwMDAwMDA0YmU0MzdjYTBdIFtkMDAw
-MDAwMDAzYzIwMDZjXSAKc3lzX2J1c19zbG90KzB4NTQvMHgxNzAgW2x0cF90cGNpXSAodW5yZWxp
-YWJsZSkKWzY5NjE0Ljk3ODcyN10gW2MwMDAwMDA0YmU0MzdkNDBdIFtjMDAwMDAwMDAwOGRhNWJj
-XSAKZGV2X2F0dHJfc3RvcmUrMHgzYy8weDYwCls2OTYxNC45Nzg3MzJdIFtjMDAwMDAwNGJlNDM3
-ZDYwXSBbYzAwMDAwMDAwMDVmYjkwOF0gCnN5c2ZzX2tmX3dyaXRlKzB4NjgvMHg4MApbNjk2MTQu
-OTc4NzM2XSBbYzAwMDAwMDRiZTQzN2Q4MF0gW2MwMDAwMDAwMDA1ZjlmYjRdIAprZXJuZnNfZm9w
-X3dyaXRlKzB4MTA0LzB4MjcwCls2OTYxNC45Nzg3NDFdIFtjMDAwMDAwNGJlNDM3ZGQwXSBbYzAw
-MDAwMDAwMDRmZjYyNF0gc3lzX3dyaXRlKzB4MTM0LzB4M2EwCls2OTYxNC45Nzg3NDVdIFtjMDAw
-MDAwNGJlNDM3ZTMwXSBbYzAwMDAwMDAwMDAwYjM4OF0gc3lzdGVtX2NhbGwrMHg1Yy8weDcwCls2
-OTYxNC45Nzg3NDhdIEluc3RydWN0aW9uIGR1bXA6Cls2OTYxNC45Nzg3NTFdIGViZGU4MDEwIDgw
-YTEwMDY0IGU4N2UwMDAwIDc4YmRjNjIyIDU0YmYwNjNlIDJmYTMwMDAwIAo0MTllMDAxNCA0ODAw
-MGU4OQpbNjk2MTQuOTc4NzU3XSBlODQxMDAxOCAzOTIwMDAwMCBmOTNlMDAwMCAzOTIwMDAwMCA8
-ZTg2OTAwMTA+IDQ4MDAwZGQxIAplODQxMDAxOCA3ZmU1ZmI3OApbNjk2MTQuOTc4NzY0XSAtLS1b
-IGVuZCB0cmFjZSA0MTRiMTI3MGY1NzkzNTFmIF0tLS0KPT09PT0KClJldmlld2VkLWJ5OiBEZXNu
-ZXMgQS4gTnVuZXMgZG8gUm9zYXJpbyA8ZGVzbmVzbkBsaW51eC5pYm0uY29tPgoKPgotLSAKRGVz
-bmVzIEEuIE51bmVzIGRvIFJvc2FyaW8KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0K
-QWR2aXNvcnkgU29mdHdhcmUgRW5naW5lZXIgLSBJQk0KVmlydHVhbCBPbnNpdGUgRW5naW5lZXIg
-LSBSZWQgSGF0CgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0
-L2xpc3RpbmZvL2x0cAo=
+--===============1187834540==
+Content-Type: multipart/alternative; boundary="000000000000232de005a25928ae"
+
+--000000000000232de005a25928ae
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Cyril:
+Here is my test result, in this test we can make sure that the baudrate is
+needed in test.
+the test hope help you
+
+1. test ttyUSB0 in loopback use the same baudrate of Rx and Tx , test pass
+with 5loop
+root@Y50:/home/gcx/project/serialcheck# serialcheck  -b 115200 -d
+/dev/ttyUSB0 -f binary -l 5 -m r -k
+Needed 64 reads 0 writes loops 5 / 5
+Failed to ioctl(,TIOCGICOUNT,)
+gcx@Y50:~/project/serialcheck$ serialcheck -b 115200 -d /dev/ttyUSB0 -f
+binary -m t -l 5 -k
+Needed 0 reads 1 writes loops 5 / 5
+Failed to ioctl(,TIOCGICOUNT,)
+2. test ttyUSB0 in loopback use different baudrate ,Error at the fist loop
+root@Y50:/home/gcx/project/serialcheck# serialcheck  -b 115200 -d
+/dev/ttyUSB0 -f binary -l 5 -m r -k &
+[1] 20764
+gcx@Y50:~/project/serialcheck$ serialcheck -b 115200 -d /dev/ttyUSB0 -f
+binary -m t -l 5 -k
+Needed 0 reads 1 writes loops 5 / 5
+Failed to ioctl(,TIOCGICOUNT,)
+Needed 64 reads 0 writes Oh oh, inconsistency at pos 502 (0x1f6).
+
+Original sample:
+000001c0: 91 95 eb b6 82 e9 2a e6  16 5a da a3 c2 51 c4 c9
+......*..Z...Q..
+000001d0: c5 51 e1 b7 c9 76 67 d5  09 57 80 77 eb bf 6d d7
+.Q...vg..W.w..m.
+000001e0: 08 a6 7b fd 52 1b 12 8e  f2 50 c1 b7 a7 52 35 39
+..{.R....P...R59
+000001f0: 54 d4 50 96 49 55 35 30  33 52 80 89 8e a9 1e a2
+T.P.IU503R......
+00000200: 2c a5 0d 1a 26 f6 ea 77  a4 4a b9 69 34 17 cc bc
+,...&..w.J.i4...
+00000210: e2 6e 0c f9 e1 11 39 9f  fd ce 94 9e 19 30 f4 1c
+.n....9......0..
+
+Received sample:
+000001c0: 91 95 eb b6 82 e9 2a e6  16 5a da a3 c2 51 c4 c9
+......*..Z...Q..
+000001d0: c5 51 e1 b7 c9 76 67 d5  09 57 80 77 eb bf 6d d7
+.Q...vg..W.w..m.
+000001e0: 08 a6 7b fd 52 1b 12 8e  f2 50 c1 b7 a7 52 35 39
+..{.R....P...R59
+000001f0: 54 d4 50 96 49 55 06 9a  92 01 89 8e a9 1e a2 2c
+T.P.IU.........,
+00000200: a5 0d 1a 26 f6 ea 77 a4  4a b9 69 34 17 cc bc e2
+...&..w.J.i4....
+00000210: 6e 0c f9 e1 11 39 9f fd  ce 94 9e 19 30 f4 1c 74
+n....9......0..t
+loops 1 / 5
+
+
+
+Cyril Hrubis <chrubis@suse.cz> =E4=BA=8E2020=E5=B9=B44=E6=9C=882=E6=97=A5=
+=E5=91=A8=E5=9B=9B =E4=B8=8B=E5=8D=887:22=E5=86=99=E9=81=93=EF=BC=9A
+
+> Hi!
+> > I am sorry that when I run the serialcheck on my laptop,
+> > there always has some error as follow,which mean I cannot
+> > verify the serialcheck on my computer for now.
+> > Failed to ioctl(,TIOCGICOUNT,)  -- test ttyUSB0
+>
+> This one can be ignored, that just means that the counters are not
+> implemented and the statistics are not printed at the test end.
+>
+> > tcgetattr() failed: Input/output error -- test ttyS0
+> > I am trying to find available machine and then run test.
+>
+> That looks like there is no UART to begin with.
+>
+> --
+> Cyril Hrubis
+> chrubis@suse.cz
+>
+
+--000000000000232de005a25928ae
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Cyril:<div>Here is my test result, in this test we can =
+make sure that the baudrate is needed in test.=C2=A0</div><div>the test hop=
+e help you</div><div><br></div><div>1. test ttyUSB0 in loopback use the sam=
+e baudrate of Rx and Tx , test pass with 5loop</div><div>root@Y50:/home/gcx=
+/project/serialcheck# serialcheck =C2=A0-b 115200 -d /dev/ttyUSB0 -f binary=
+ -l 5 -m r -k<br>Needed 64 reads 0 writes loops 5 / 5<br>Failed to ioctl(,T=
+IOCGICOUNT,)<br></div><div>gcx@Y50:~/project/serialcheck$ serialcheck -b 11=
+5200 -d /dev/ttyUSB0 -f binary -m t -l 5 -k<br>Needed 0 reads 1 writes loop=
+s 5 / 5<br>Failed to ioctl(,TIOCGICOUNT,)<br></div><div>2. test ttyUSB0 in =
+loopback use different baudrate ,Error=C2=A0at the fist loop</div><div>root=
+@Y50:/home/gcx/project/serialcheck# serialcheck =C2=A0-b 115200 -d /dev/tty=
+USB0 -f binary -l 5 -m r -k &amp;</div><div>[1] 20764</div><div>gcx@Y50:~/p=
+roject/serialcheck$ serialcheck -b 115200 -d /dev/ttyUSB0 -f binary -m t -l=
+ 5 -k<br>Needed 0 reads 1 writes loops 5 / 5<br>Failed to ioctl(,TIOCGICOUN=
+T,)<br>Needed 64 reads 0 writes Oh oh, inconsistency at pos 502 (0x1f6).<br=
+><br>Original sample:<br>000001c0: 91 95 eb b6 82 e9 2a e6 =C2=A016 5a da a=
+3 c2 51 c4 c9 =C2=A0 ......*..Z...Q..<br>000001d0: c5 51 e1 b7 c9 76 67 d5 =
+=C2=A009 57 80 77 eb bf 6d d7 =C2=A0 .Q...vg..W.w..m.<br>000001e0: 08 a6 7b=
+ fd 52 1b 12 8e =C2=A0f2 50 c1 b7 a7 52 35 39 =C2=A0 ..{.R....P...R59<br>00=
+0001f0: 54 d4 50 96 49 55 35 30 =C2=A033 52 80 89 8e a9 1e a2 =C2=A0 T.P.IU=
+503R......<br>00000200: 2c a5 0d 1a 26 f6 ea 77 =C2=A0a4 4a b9 69 34 17 cc =
+bc =C2=A0 ,...&amp;..w.J.i4...<br>00000210: e2 6e 0c f9 e1 11 39 9f =C2=A0f=
+d ce 94 9e 19 30 f4 1c =C2=A0 .n....9......0..<br><br>Received sample:<br>0=
+00001c0: 91 95 eb b6 82 e9 2a e6 =C2=A016 5a da a3 c2 51 c4 c9 =C2=A0 .....=
+.*..Z...Q..<br>000001d0: c5 51 e1 b7 c9 76 67 d5 =C2=A009 57 80 77 eb bf 6d=
+ d7 =C2=A0 .Q...vg..W.w..m.<br>000001e0: 08 a6 7b fd 52 1b 12 8e =C2=A0f2 5=
+0 c1 b7 a7 52 35 39 =C2=A0 ..{.R....P...R59<br>000001f0: 54 d4 50 96 49 55 =
+06 9a =C2=A092 01 89 8e a9 1e a2 2c =C2=A0 T.P.IU.........,<br>00000200: a5=
+ 0d 1a 26 f6 ea 77 a4 =C2=A04a b9 69 34 17 cc bc e2 =C2=A0 ...&amp;..w.J.i4=
+....<br>00000210: 6e 0c f9 e1 11 39 9f fd =C2=A0ce 94 9e 19 30 f4 1c 74 =C2=
+=A0 n....9......0..t<br>loops 1 / 5<br></div><div><br></div><div><br></div>=
+</div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">=
+Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt;=
+ =E4=BA=8E2020=E5=B9=B44=E6=9C=882=E6=97=A5=E5=91=A8=E5=9B=9B =E4=B8=8B=E5=
+=8D=887:22=E5=86=99=E9=81=93=EF=BC=9A<br></div><blockquote class=3D"gmail_q=
+uote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,2=
+04);padding-left:1ex">Hi!<br>
+&gt; I am sorry that when I run the serialcheck on my laptop,<br>
+&gt; there always has some error as follow,which mean I cannot<br>
+&gt; verify the serialcheck on my computer for now.<br>
+&gt; Failed to ioctl(,TIOCGICOUNT,)=C2=A0 -- test ttyUSB0<br>
+<br>
+This one can be ignored, that just means that the counters are not<br>
+implemented and the statistics are not printed at the test end.<br>
+<br>
+&gt; tcgetattr() failed: Input/output error -- test ttyS0<br>
+&gt; I am trying to find available machine and then run test.<br>
+<br>
+That looks like there is no UART to begin with.<br>
+<br>
+-- <br>
+Cyril Hrubis<br>
+<a href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a><br=
+>
+</blockquote></div>
+
+--000000000000232de005a25928ae--
+
+--===============1187834540==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1187834540==--
