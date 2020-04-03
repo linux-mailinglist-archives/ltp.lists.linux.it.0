@@ -1,42 +1,37 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE2F419DBF6
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Apr 2020 18:44:12 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 67CA119DC2C
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Apr 2020 18:54:58 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 44CB53C2FB3
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Apr 2020 18:44:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 17BF43C2FAE
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Apr 2020 18:54:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id E2B1A3C2F7B
- for <ltp@lists.linux.it>; Fri,  3 Apr 2020 18:44:06 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 8FE483C2F91
+ for <ltp@lists.linux.it>; Fri,  3 Apr 2020 18:54:43 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8DD1460049D
- for <ltp@lists.linux.it>; Fri,  3 Apr 2020 18:44:02 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 05C7C140113A
+ for <ltp@lists.linux.it>; Fri,  3 Apr 2020 18:54:39 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D5C13AA7C;
- Fri,  3 Apr 2020 16:44:01 +0000 (UTC)
-Date: Fri, 3 Apr 2020 18:44:16 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <20200403164416.GA11850@yuki.lan>
-References: <1585839990-19923-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <1585839990-19923-8-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ by mx2.suse.de (Postfix) with ESMTP id BDC4CAA7C;
+ Fri,  3 Apr 2020 16:54:38 +0000 (UTC)
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Fri,  3 Apr 2020 18:54:30 +0200
+Message-Id: <20200403165432.19358-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.26.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1585839990-19923-8-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1 07/10] syscalls/ioctl_loop05: Add
- LOOP_SET_DIRECT_IO ioctl test
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [RFC PATCH v3 0/2] Route tests using netlink API (dst,gw)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,202 +43,105 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> LOOP_SET_DIRECT_IO can updata a live loop device dio mode. It needs the
-> backing file also supports dio mode and the lo_offset is aligned with
-> the logical I/O size.
-> 
-> It was introduced into kernel since 4.10
-> commit ab1cb278bc70 ("block: loop: introduce ioctl command of LOOP_SET_DIRECT_IO").
-> 
-> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-> ---
->  runtest/syscalls                              |   1 +
->  testcases/kernel/syscalls/ioctl/.gitignore    |   1 +
->  .../kernel/syscalls/ioctl/ioctl_loop05.c      | 120 ++++++++++++++++++
->  3 files changed, 122 insertions(+)
->  create mode 100644 testcases/kernel/syscalls/ioctl/ioctl_loop05.c
-> 
-> diff --git a/runtest/syscalls b/runtest/syscalls
-> index 6e8d71d44..9644588f3 100644
-> --- a/runtest/syscalls
-> +++ b/runtest/syscalls
-> @@ -531,6 +531,7 @@ ioctl_loop01 ioctl_loop01
->  ioctl_loop02 ioctl_loop02
->  ioctl_loop03 ioctl_loop03
->  ioctl_loop04 ioctl_loop04
-> +ioctl_loop05 ioctl_loop05
->  
->  ioctl_ns01 ioctl_ns01
->  ioctl_ns02 ioctl_ns02
-> diff --git a/testcases/kernel/syscalls/ioctl/.gitignore b/testcases/kernel/syscalls/ioctl/.gitignore
-> index 039a5251c..f484d98d6 100644
-> --- a/testcases/kernel/syscalls/ioctl/.gitignore
-> +++ b/testcases/kernel/syscalls/ioctl/.gitignore
-> @@ -10,6 +10,7 @@
->  /ioctl_loop02
->  /ioctl_loop03
->  /ioctl_loop04
-> +/ioctl_loop05
->  /ioctl_ns01
->  /ioctl_ns02
->  /ioctl_ns03
-> diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
-> new file mode 100644
-> index 000000000..43bad6c18
-> --- /dev/null
-> +++ b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
-> @@ -0,0 +1,120 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
-> + * Author: Yang Xu <xuyang2018.jy@cn.jujitsu.com>
-> + *
-> + * This is a basic ioctl test about loopdevice.
-> + *
-> + * It is designed to test LOOP_SET_DIRECT_IO can updata a live
-> + * loop device dio mode. It need the backing file also supports
-> + * dio mode and the lo_offset is aligned with the logical I/O size.
-> + */
-> +#include <stdio.h>
-> +#include <unistd.h>
-> +#include <string.h>
-> +#include <stdlib.h>
-> +#include "ioctl_loop_support.h"
-> +#include "lapi/loop.h"
-> +#include "tst_test.h"
-> +
-> +#define DIO_MESSAGE "In dio mode"
-> +#define NON_DIO_MESSAGE "In non dio mode"
-> +
-> +static char dev_path[1024], sys_loop_diopath[1024];
-> +static int dev_num, dev_fd, attach_flag;
-> +
-> +static void check_dio_value(int flag)
-> +{
-> +	struct loop_info loopinfoget;
-> +
-> +	memset(&loopinfoget, 0, sizeof(loopinfoget));
-> +
-> +	SAFE_IOCTL(dev_fd, LOOP_GET_STATUS, &loopinfoget);
-> +	tst_res(TINFO, "%s", flag ? DIO_MESSAGE : NON_DIO_MESSAGE);
-> +
-> +	if (loopinfoget.lo_flags & LO_FLAGS_DIRECT_IO)
-> +		tst_res(flag ? TPASS : TFAIL, "lo_flags has LO_FLAGS_DIRECT_IO flag");
-> +	else
-> +		tst_res(flag ? TFAIL : TPASS, "lo_flags doesn't have LO_FLAGS_DIRECT_IO flag");
-> +
-> +	check_sys_value(sys_loop_diopath, flag);
-> +}
-> +
-> +static void verify_ioctl_loop(void)
-> +{
-> +	struct loop_info loopinfo;
-> +
-> +	memset(&loopinfo, 0, sizeof(loopinfo));
-> +
-> +	SAFE_IOCTL(dev_fd, LOOP_SET_DIRECT_IO, 0);
-> +	check_dio_value(0);
-> +	tst_res(TINFO, "Without setting lo_offset or sizelimit");
-> +	SAFE_IOCTL(dev_fd, LOOP_SET_DIRECT_IO, 1);
-> +	check_dio_value(1);
-> +
-> +	tst_res(TINFO, "With offset equal to sector size");
-> +	loopinfo.lo_offset = 512;
+Hi Alexey,
 
-We should use BLKSSZGET ioctl() to get the block size for direct I/O
-otherwise I would expect that it would break on one of the less common
-architectures. See also discussion at the end of man 2 open.
+another attempt to add netlink C based tests.
 
-> +	safe_set_status(dev_fd, loopinfo);
-> +	TEST(ioctl(dev_fd, LOOP_SET_DIRECT_IO, 1));
-> +	if (TST_RET == 0) {
-> +		tst_res(TPASS, "LOOP_SET_DIRECT_IO succeeded");
-> +		check_dio_value(1);
-> +	} else {
-> +		tst_res(TFAIL | TTERRNO, "LOOP_SET_DIRECT_IO failed");
-> +	}
-> +
-> +	tst_res(TINFO, "With offset less than or unalign sector size");
-> +	loopinfo.lo_offset = 256;
-> +	safe_set_status(dev_fd, loopinfo);
-> +
-> +	TEST(ioctl(dev_fd, LOOP_SET_DIRECT_IO, 1));
-> +	if (TST_RET == 0) {
-> +		tst_res(TFAIL, "LOOP_SET_DIRECT_IO succeeded unexpectedly");
-> +		return;
-> +	}
-> +	if (TST_ERR == EINVAL)
-> +		tst_res(TPASS | TTERRNO, "LOOP_SET_DIRECT_IO failed as expected");
-> +	else
-> +		tst_res(TFAIL | TTERRNO, "LOOP_SET_DIRECT_IO failed expected EINVAL got");
-> +
-> +	loopinfo.lo_offset = 0;
-> +	safe_set_status(dev_fd, loopinfo);
-> +}
-> +
-> +static void setup(void)
-> +{
-> +	if (tst_fs_type(".") == TST_TMPFS_MAGIC)
-> +		tst_brk(TCONF, "tmpfd doesn't support O_DIRECT flag, skip it");
-> +
-> +	dev_num = tst_find_free_loopdev(dev_path, sizeof(dev_path));
-> +	if (dev_num < 0)
-> +		tst_brk(TBROK, "Failed to find free loop device");
-> +
-> +	sprintf(sys_loop_diopath, "/sys/block/loop%d/loop/dio", dev_num);
-> +	tst_fill_file("test.img", 0, 1024, 1024);
-> +	tst_attach_device(dev_path, "test.img");
-> +	attach_flag = 1;
-> +	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
-> +	check_support_cmd(dev_fd, LOOP_SET_DIRECT_IO, 0, "LOOP_SET_DIRECT_IO");
-> +}
-> +
-> +static void cleanup(void)
-> +{
-> +	if (dev_fd > 0)
-> +		SAFE_CLOSE(dev_fd);
-> +	if (attach_flag)
-> +		tst_detach_device(dev_path);
-> +	unlink("test.img");
+This lazy approach does not create end point on rhost, thus port is
+unreachable:
 
-We don't have to remove the image here once the needs_tmpdir has been
-uncommented below, right?
+17:26:16.235937 IP 10.23.0.1 > 10.23.1.1: ICMP 10.23.0.1 udp port 49893 unreachable, length 44
 
-> +}
-> +
-> +static struct tst_test test = {
-> +	.setup = setup,
-> +	.cleanup = cleanup,
-> +	.test_all = verify_ioctl_loop,
-> +	.needs_root = 1,
-> +//	.needs_tmpdir = 1,
+Compare shell based tests:
+17:26:32.879209 IP 10.23.1.1 > 10.23.0.1: ICMP echo request, id 17161, seq 1, length 64
+17:26:32.879244 IP 10.23.0.1 > 10.23.1.1: ICMP echo reply, id 17161, seq 1, length 64
 
-Looks like a forgotten debug measure.
+I used this approach as we agreed that both approaches are useful.
 
-> +	.needs_drivers = (const char *const []) {
-> +		"loop",
-> +		NULL
-> +	}
-> +};
-> -- 
-> 2.23.0
-> 
-> 
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+BTW I guess NS_TIMES=10 is not really much for route stress tests.
+Maybe we want to increase it again. If yes, not sure if there should be
+special variable just for route tests.
+
+Maybe route-change-netlink.c should just exit 0 or 1, to get rid of
+verbose output:
+
+route-change-netlink-dst 1 TINFO: initialize 'lhost' 'ltp_ns_veth2' interface
+route-change-netlink-dst 1 TINFO: add local addr 10.0.0.2/24
+route-change-netlink-dst 1 TINFO: add local addr fd00:1:1:1::2/64
+route-change-netlink-dst 1 TINFO: initialize 'rhost' 'ltp_ns_veth1' interface
+route-change-netlink-dst 1 TINFO: add remote addr 10.0.0.1/24
+route-change-netlink-dst 1 TINFO: add remote addr fd00:1:1:1::1/64
+route-change-netlink-dst 1 TINFO: Network config (local -- remote):
+route-change-netlink-dst 1 TINFO: ltp_ns_veth2 -- ltp_ns_veth1
+route-change-netlink-dst 1 TINFO: 10.0.0.2/24 -- 10.0.0.1/24
+route-change-netlink-dst 1 TINFO: fd00:1:1:1::2/64 -- fd00:1:1:1::1/64
+route-change-netlink-dst 1 TINFO: timeout per run is 0h 5m 0s
+route-change-netlink-dst 1 TINFO: change IPv4 route destination 10 times
+tst_test.c:1239: INFO: Timeout per run is 0h 05m 00s
+route-change-netlink.c:311: INFO: adding and deleting route with different destination 10 times
+route-change-netlink.c:336: PASS: routes created and deleted
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+route-change-netlink-dst 1 TPASS: route-change-netlink -c 10 -d ltp_ns_veth2 -p 49075 -l 10.0.0.2 -r '10.23.4.1^10.23.3.1^10.23.2.1^10.23.1.1^10.23.0.1^' passed as expected
+route-change-netlink-dst 2 TINFO: initialize 'lhost' 'ltp_ns_veth2' interface
+route-change-netlink-dst 2 TINFO: add local addr 10.0.0.2/24
+route-change-netlink-dst 2 TINFO: add local addr fd00:1:1:1::2/64
+route-change-netlink-dst 2 TINFO: initialize 'rhost' 'ltp_ns_veth1' interface
+route-change-netlink-dst 2 TINFO: add remote addr 10.0.0.1/24
+route-change-netlink-dst 2 TINFO: add remote addr fd00:1:1:1::1/64
+
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 0
+
+
+Petr Vorel (2):
+  net: Move setup_addrinfo() into tst_net.h
+  net/route: Add netlink based route change gw/dest tests
+
+ configure.ac                                  |   1 +
+ include/mk/config.mk.in                       |   2 +
+ include/tst_net.h                             |   9 +-
+ include/tst_private.h                         |   1 +
+ lib/tst_net.c                                 |  14 +
+ m4/ltp-libmnl.m4                              |   8 +
+ runtest/net_stress.route                      |   4 +
+ testcases/network/netstress/netstress.c       |  20 +-
+ testcases/network/stress/route/.gitignore     |   1 +
+ .../network/stress/route/00_Descriptions.txt  |  39 +-
+ testcases/network/stress/route/Makefile       |  30 +-
+ .../network/stress/route/route-change-dst.sh  |   1 +
+ .../network/stress/route/route-change-gw.sh   |  10 +-
+ .../network/stress/route/route-change-if.sh   |   1 +
+ .../stress/route/route-change-netlink-dst.sh  |  33 ++
+ .../stress/route/route-change-netlink-gw.sh   |  30 ++
+ .../stress/route/route-change-netlink.c       | 348 ++++++++++++++++++
+ testcases/network/stress/route/route-lib.sh   |  34 +-
+ travis/debian.cross-compile.sh                |   1 +
+ travis/debian.sh                              |   1 +
+ travis/fedora.sh                              |   3 +
+ travis/tumbleweed.sh                          |   1 +
+ 22 files changed, 518 insertions(+), 74 deletions(-)
+ create mode 100644 m4/ltp-libmnl.m4
+ create mode 100644 testcases/network/stress/route/.gitignore
+ create mode 100755 testcases/network/stress/route/route-change-netlink-dst.sh
+ create mode 100755 testcases/network/stress/route/route-change-netlink-gw.sh
+ create mode 100644 testcases/network/stress/route/route-change-netlink.c
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.26.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
