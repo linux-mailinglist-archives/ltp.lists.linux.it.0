@@ -1,50 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4484019D2B9
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Apr 2020 10:52:14 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F52C19D3AF
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Apr 2020 11:30:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 11FF03C2F5E
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Apr 2020 10:52:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 521143C2F84
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Apr 2020 11:30:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 1DFE53C2F55
- for <ltp@lists.linux.it>; Fri,  3 Apr 2020 10:52:11 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 17CA11001976
- for <ltp@lists.linux.it>; Fri,  3 Apr 2020 10:52:09 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.72,339,1580745600"; d="scan'208";a="88446164"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 03 Apr 2020 16:52:05 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id 93CDA406AB15;
- Fri,  3 Apr 2020 16:41:42 +0800 (CST)
-Received: from [10.167.220.69] (10.167.220.69) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Fri, 3 Apr 2020 16:52:02 +0800
-Message-ID: <5E86F92F.9080200@cn.fujitsu.com>
-Date: Fri, 3 Apr 2020 16:51:59 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 859A63C2F41
+ for <ltp@lists.linux.it>; Fri,  3 Apr 2020 11:30:07 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id EDA2F1A01792
+ for <ltp@lists.linux.it>; Fri,  3 Apr 2020 11:30:06 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 7CB3AAC2C;
+ Fri,  3 Apr 2020 09:30:05 +0000 (UTC)
+Date: Fri, 3 Apr 2020 11:30:19 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Message-ID: <20200403093019.GA26355@yuki.lan>
+References: <CAKohpokaPiyGFkAXgG2oy_f5UGMCtsVUUAf4vA3Npa2ixAbNig@mail.gmail.com>
+ <20200403071223.4d2vcfwiuxnuxij6@vireshk-i7>
 MIME-Version: 1.0
-To: Pankaj Vinadrao Joshi <Pankaj.VJ@exaleapsemi.com>
-References: <MAXPR0101MB14688E4E7604C8BD9D17CB40EEC70@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>
-In-Reply-To: <MAXPR0101MB14688E4E7604C8BD9D17CB40EEC70@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>
-X-Originating-IP: [10.167.220.69]
-X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
-X-yoursite-MailScanner-ID: 93CDA406AB15.A9B94
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200403071223.4d2vcfwiuxnuxij6@vireshk-i7>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] LIBTIRPC Error
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] Query: Supporting time64 syscalls
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,40 +48,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>,
- Deepa Ballari <deepa@exaleapsemi.com>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, Arnd Bergmann <arnd@arndb.de>,
+ LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 2020/4/3 16:32, Pankaj Vinadrao Joshi wrote:
-> Hi,
-> I am trying to run ltp on 5.4.3 kernel with our custom yocto distro but
-> i am facing following issue , i have installed
->
-> pkg-config libtirpc-dev libtirpc1 but still the same error is getting
-> encountered,can someone help us to solve it??
->
->
-> .*/configure: line 6794: syntax error near unexpected token `LIBTIRPC,'
-> **./configure: line 6794: ` PKG_CHECK_MODULES(LIBTIRPC, libtirpc >*
-Hi,
+Hi!
+> > I was looking to start working on the time64 syscalls
+> > (like clock_gettime64, timerfd_settime64, etc) and
+> > was looking for your suggestions on how to proceed on
+> > the same.
+> > 
+> > AFAIU, the only difference is that the argument is 64 bit now
+> > instead of 32 bit and so I don't think I should be adding new
+> > tests but reusing the existing ones for both 32 bit and 64 bit
+> > variants.
+> 
+> @Cyril/Petr,
+> 
+> Any suggestions on how should I go about these tests ?
 
-It seems that pkg-config package(it provides pkg-config command) is not 
-installed on your enviroment.
+I guess that we can take the existing timer tests and add tests variants
+so that we cover all possible cases, I guess that would mean 32bit
+kernel syscall, 64bit kernel syscall, glibc wrapper and in some cases
+also VDSO.
 
-Thanks,
-Xiao Yang
->
-> Thanks!
->
->
->
->
+You can have a look at clock_getres01.c and take it as an example.
 
-
-
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
