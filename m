@@ -1,58 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AE8719F6F1
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Apr 2020 15:29:49 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 98DC319FB91
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Apr 2020 19:29:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5D7F23C2DEB
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Apr 2020 15:29:49 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 569B43C2E08
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Apr 2020 19:29:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 3D57E3C0519
- for <ltp@lists.linux.it>; Mon,  6 Apr 2020 15:29:48 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 52619600973
- for <ltp@lists.linux.it>; Mon,  6 Apr 2020 15:29:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1586179785;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=z3pApJbYrwKcSIuEwf6N0ANi1DFPlDTD8+XFpU2o6To=;
- b=S43OCsjbxwcF2rjTXuPESGS4euDZQx50VOWB8JoIoxj1YnhaAw1MxdndQb02wHrRNKGgkF
- rrBBo9JHWSiwYYqahqZOUni7i2shKuJN04IUTdlaLCWXKco8OFvmh/ssdtXGZmuERKG+QV
- PH+OHdWbybYNSFgmjl7Uswy0J80E+lU=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-45-Z8R4UbNkPRmQ9opLqJ7KBg-1; Mon, 06 Apr 2020 09:29:43 -0400
-X-MC-Unique: Z8R4UbNkPRmQ9opLqJ7KBg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 19EF03C2DFA
+ for <ltp@lists.linux.it>; Mon,  6 Apr 2020 19:29:53 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 97F8C801A01;
- Mon,  6 Apr 2020 13:29:42 +0000 (UTC)
-Received: from bootp-66-81-246.lab.eng.nay.redhat.com (unknown [10.66.81.246])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 0995E9A260;
- Mon,  6 Apr 2020 13:29:40 +0000 (UTC)
-From: Li Wang <liwang@redhat.com>
-To: ltp@lists.linux.it
-Date: Mon,  6 Apr 2020 21:29:32 +0800
-Message-Id: <20200406132932.12951-1-liwang@redhat.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7156C14004E1
+ for <ltp@lists.linux.it>; Mon,  6 Apr 2020 19:29:53 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 41A5FBBE2
+ for <ltp@lists.linux.it>; Mon,  6 Apr 2020 17:29:51 +0000 (UTC)
+Date: Mon, 6 Apr 2020 16:39:42 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <20200406143942.GA31090@yuki.lan>
+References: <20200331124849.28591-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200331124849.28591-1-mdoucha@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] hugetlb: move nr_opt to tst_hugepage.h
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] Add test for CVE 2018-18559
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,322 +45,220 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This is to get rid of the following error:
-  # ./hugemmap01 -s 2
-  tst_hugepage.c:29: INFO: Requested number(128) of hugepages is too large,
-                     limiting to 80% of the max hugepage count 28
-  tst_hugepage.c:40: BROK: nr_hugepages = 5, but expect 22
+Hi!
+>  runtest/cve                               |   1 +
+>  runtest/syscalls                          |   1 +
+>  testcases/kernel/syscalls/bind/.gitignore |   1 +
+>  testcases/kernel/syscalls/bind/Makefile   |   1 +
+>  testcases/kernel/syscalls/bind/bind06.c   | 128 ++++++++++++++++++++++
+>  5 files changed, 132 insertions(+)
+>  create mode 100644 testcases/kernel/syscalls/bind/bind06.c
+> 
+> diff --git a/runtest/cve b/runtest/cve
+> index a9a534300..932d97451 100644
+> --- a/runtest/cve
+> +++ b/runtest/cve
+> @@ -42,4 +42,5 @@ cve-2017-1000380 snd_timer01
+>  cve-2018-5803 sctp_big_chunk
+>  cve-2018-1000001 realpath01
+>  cve-2018-1000204 ioctl_sg01
+> +cve-2018-18559 bind06
+>  cve-2018-19854 crypto_user01
+> diff --git a/runtest/syscalls b/runtest/syscalls
+> index 83d16d20e..f2073af96 100644
+> --- a/runtest/syscalls
+> +++ b/runtest/syscalls
+> @@ -34,6 +34,7 @@ bind02 bind02
+>  bind03 bind03
+>  bind04 bind04
+>  bind05 bind05
+> +bind06 bind06
+>  
+>  bpf_map01 bpf_map01
+>  bpf_prog01 bpf_prog01
+> diff --git a/testcases/kernel/syscalls/bind/.gitignore b/testcases/kernel/syscalls/bind/.gitignore
+> index e18ceea56..c85774441 100644
+> --- a/testcases/kernel/syscalls/bind/.gitignore
+> +++ b/testcases/kernel/syscalls/bind/.gitignore
+> @@ -3,3 +3,4 @@
+>  /bind03
+>  /bind04
+>  /bind05
+> +/bind06
+> diff --git a/testcases/kernel/syscalls/bind/Makefile b/testcases/kernel/syscalls/bind/Makefile
+> index fffa146ad..3de725143 100644
+> --- a/testcases/kernel/syscalls/bind/Makefile
+> +++ b/testcases/kernel/syscalls/bind/Makefile
+> @@ -6,5 +6,6 @@ top_srcdir		?= ../../../..
+>  include $(top_srcdir)/include/mk/testcases.mk
+>  
+>  bind04 bind05:	CFLAGS		+= -pthread
+> +bind06:		LDFLAGS		+= -pthread -lrt
+>  
+>  include $(top_srcdir)/include/mk/generic_leaf_target.mk
+> diff --git a/testcases/kernel/syscalls/bind/bind06.c b/testcases/kernel/syscalls/bind/bind06.c
+> new file mode 100644
+> index 000000000..23f65fef6
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/bind/bind06.c
+> @@ -0,0 +1,128 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (C) 2020 SUSE LLC <mdoucha@suse.cz>
+> + *
+> + * CVE-2018-18559
+> + *
+> + * Test for race condition vulnerability in bind() on AF_PACKET socket.
+> + * Fixed in:
+> + *
+> + *  commit 15fe076edea787807a7cdc168df832544b58eba6
+> + *  Author: Eric Dumazet <edumazet@google.com>
+> + *  Date:   Tue Nov 28 08:03:30 2017 -0800
+> + *
+> + *  net/packet: fix a race in packet_bind() and packet_notifier()
+> + */
+> +
+> +#define _GNU_SOURCE
+> +#include <sys/socket.h>
+> +#include <sys/ioctl.h>
+> +#include <linux/if_packet.h>
+> +#include <net/ethernet.h>
+> +#include <net/if.h>
+> +#include <sched.h>
+> +#include "tst_test.h"
+> +#include "tst_fuzzy_sync.h"
+> +#include "tst_taint.h"
+> +
+> +static volatile int fd = -1;
+> +static struct sockaddr_ll addr1, addr2;
+> +static struct tst_fzsync_pair fzsync_pair;
+> +
+> +static void setup(void)
+> +{
+> +	int real_uid = getuid();
+> +	int real_gid = getgid();
+> +	struct ifreq ifr;
+> +
+> +	tst_taint_init(TST_TAINT_W | TST_TAINT_D);
+> +
+> +	SAFE_UNSHARE(CLONE_NEWUSER);
+> +	SAFE_UNSHARE(CLONE_NEWNET);
+> +	SAFE_FILE_PRINTF("/proc/self/setgroups", "deny");
+> +	SAFE_FILE_PRINTF("/proc/self/uid_map", "0 %d 1\n", real_uid);
+> +	SAFE_FILE_PRINTF("/proc/self/gid_map", "0 %d 1\n", real_gid);
+> +
+> +	fd = SAFE_SOCKET(AF_PACKET, SOCK_DGRAM, PF_PACKET);
+> +	strcpy(ifr.ifr_name, "lo");
+> +	SAFE_IOCTL(fd, SIOCGIFINDEX, &ifr);
+> +	SAFE_CLOSE(fd);
+> +
+> +	addr1.sll_family = AF_PACKET;
+> +	addr1.sll_ifindex = ifr.ifr_ifindex;
+> +	addr2.sll_family = AF_PACKET;
+> +}
+> +
+> +static void do_bind(void) {
+> +	bind(fd, (struct sockaddr *)&addr1, sizeof(addr1));
+> +	bind(fd, (struct sockaddr *)&addr2, sizeof(addr2));
+> +}
+> +
+> +static void *thread_run(void *arg)
+> +{
+> +	while (tst_fzsync_run_b(&fzsync_pair)) {
+> +		tst_fzsync_start_race_b(&fzsync_pair);
+> +		do_bind();
+> +		tst_fzsync_end_race_b(&fzsync_pair);
+> +	}
+> +
+> +	return arg;
+> +}
+> +
+> +static void child_run(void)
+> +{
+> +	struct ifreq ifr;
+> +
+> +	fzsync_pair.exec_loops = 10000;
+> +	tst_fzsync_pair_init(&fzsync_pair);
+> +	tst_fzsync_pair_reset(&fzsync_pair, thread_run);
+> +	strcpy(ifr.ifr_name, "lo");
+> +
+> +	while (tst_fzsync_run_a(&fzsync_pair)) {
+> +		fd = SAFE_SOCKET(AF_PACKET, SOCK_DGRAM, PF_PACKET);
+> +		ifr.ifr_flags = 0;
+> +		ioctl(fd, SIOCSIFFLAGS, &ifr);
+> +		ifr.ifr_flags = IFF_UP;
+> +		tst_fzsync_start_race_a(&fzsync_pair);
+> +		ioctl(fd, SIOCSIFFLAGS, &ifr);
+> +		tst_fzsync_end_race_a(&fzsync_pair);
+> +		SAFE_CLOSE(fd);
+> +
+> +	}
+> +
+> +	tst_fzsync_pair_cleanup(&fzsync_pair);
+> +}
+> +
+> +static void run(void)
+> +{
+> +	pid_t child;
+> +
+> +	/* The kernel crash is triggered on process exit. */
+> +	child = SAFE_FORK();
+> +
+> +	if (!child) {
+> +		child_run();
+> +		exit(0);
+> +	}
+> +
+> +	SAFE_WAITPID(child, NULL, 0);
+> +
+> +	if (tst_taint_check()) {
+> +		tst_res(TFAIL, "Kernel is vulnerable");
+> +		return;
+> +	}
+> +
+> +	tst_res(TPASS, "Nothing bad happened, probably");
+> +}
+> +
+> +static struct tst_test test = {
+> +	.test_all = run,
+> +	.setup = setup,
+> +	.timeout = 600,
+> +	.forks_child = 1,
+> +	.tags = (const struct tst_tag[]) {
+> +		{"linux-git", "15fe076edea7"},
+> +		{"CVE", "2018-18559"},
+> +		{}
+> +	}
 
-The root cause is that hugetlb test hits TBROK if the system can't satisfy 80%
-of .request_hugepages(default: 128), it doesn't get a chance to set nr_hugepages
-with specified page number via '-s xxx'.
+Maybe we should add:
 
-Signed-off-by: Li Wang <liwang@redhat.com>
-Cc: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- include/tst_hugepage.h                                 |  3 +++
- lib/tst_hugepage.c                                     | 10 +++++++---
- testcases/kernel/mem/hugetlb/hugemmap/hugemmap01.c     |  5 -----
- testcases/kernel/mem/hugetlb/hugemmap/hugemmap02.c     |  5 -----
- testcases/kernel/mem/hugetlb/hugemmap/hugemmap04.c     |  5 -----
- testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat01.c   |  5 -----
- testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat02.c   |  5 -----
- testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat03.c   |  5 -----
- testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c |  5 -----
- testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl02.c |  5 -----
- testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c |  5 -----
- testcases/kernel/mem/hugetlb/hugeshmdt/hugeshmdt01.c   |  5 -----
- testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget01.c |  5 -----
- testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget02.c |  5 -----
- testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c |  5 -----
- testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget05.c |  5 -----
- testcases/kernel/mem/hugetlb/lib/hugetlb.h             |  3 ---
- 17 files changed, 10 insertions(+), 76 deletions(-)
+	.needs_kconfig = {
+		"CONFIG_USER_NS=y",
+		"CONFIG_NET_NS=y",
+		NULL
+	};
 
-diff --git a/include/tst_hugepage.h b/include/tst_hugepage.h
-index 8600b3adb..30e00a377 100644
---- a/include/tst_hugepage.h
-+++ b/include/tst_hugepage.h
-@@ -9,6 +9,9 @@
- #define PATH_HUGEPAGES	"/sys/kernel/mm/hugepages/"
- #define PATH_NR_HPAGES	"/proc/sys/vm/nr_hugepages"
- 
-+char *nr_opt; /* -s num   Set the number of the been allocated hugepages */
-+char *Hopt;   /* -H /..   Location of hugetlbfs, i.e.  -H /var/hugetlbfs */
-+
- /*
-  * Try the best to request a specified number of huge pages from system,
-  * it will store the reserved hpage number in tst_hugepages.
-diff --git a/lib/tst_hugepage.c b/lib/tst_hugepage.c
-index c75fb264d..34fd27ede 100644
---- a/lib/tst_hugepage.c
-+++ b/lib/tst_hugepage.c
-@@ -19,14 +19,18 @@ unsigned long tst_request_hugepages(unsigned long hpages)
- 		goto out;
- 	}
- 
--	tst_hugepages = hpages;
-+	if (nr_opt)
-+		tst_hugepages = SAFE_STRTOL(nr_opt, 1, LONG_MAX);
-+	else
-+		tst_hugepages = hpages;
-+
- 	SAFE_FILE_PRINTF("/proc/sys/vm/drop_caches", "3");
- 	max_hpages = SAFE_READ_MEMINFO("MemFree:") / SAFE_READ_MEMINFO("Hugepagesize:");
- 
--	if (hpages > max_hpages) {
-+	if (tst_hugepages > max_hpages) {
- 		tst_res(TINFO, "Requested number(%lu) of hugepages is too large, "
- 				"limiting to 80%% of the max hugepage count %lu",
--				hpages, max_hpages);
-+				tst_hugepages, max_hpages);
- 		tst_hugepages = max_hpages * 0.8;
- 
- 		if (tst_hugepages < 1)
-diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap01.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap01.c
-index eecbe93f8..891c42e46 100644
---- a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap01.c
-+++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap01.c
-@@ -81,11 +81,6 @@ void setup(void)
- 		Hopt = tst_get_tmpdir();
- 	SAFE_MOUNT("none", Hopt, "hugetlbfs", 0, NULL);
- 
--	if (nr_opt) {
--		tst_hugepages = SAFE_STRTOL(nr_opt, 0, LONG_MAX);
--		tst_request_hugepages(tst_hugepages);
--	}
--
- 	if (tst_hugepages == 0)
- 		tst_brk(TCONF, "No enough hugepages for testing.");
- 
-diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap02.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap02.c
-index 4a4b5680e..c0dbb60d6 100644
---- a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap02.c
-+++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap02.c
-@@ -128,11 +128,6 @@ static void setup(void)
- 		Hopt = tst_get_tmpdir();
- 	SAFE_MOUNT("none", Hopt, "hugetlbfs", 0, NULL);
- 
--	if (nr_opt) {
--		tst_hugepages = SAFE_STRTOL(nr_opt, 1, LONG_MAX);
--		tst_request_hugepages(tst_hugepages);
--	}
--
- 	if (tst_hugepages == 0)
- 		tst_brk(TCONF, "No enough hugepages for testing.");
- 
-diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap04.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap04.c
-index 74a90c01a..5fcbe2789 100644
---- a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap04.c
-+++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap04.c
-@@ -99,11 +99,6 @@ void setup(void)
- 		Hopt = tst_get_tmpdir();
- 	SAFE_MOUNT("none", Hopt, "hugetlbfs", 0, NULL);
- 
--	if (nr_opt) {
--		tst_hugepages = SAFE_STRTOL(nr_opt, 0, LONG_MAX);
--		tst_request_hugepages(tst_hugepages);
--	}
--
- 	if (tst_hugepages == 0)
- 		tst_brk(TCONF, "No enough hugepages for testing!");
- 
-diff --git a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat01.c b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat01.c
-index 0e6e64d3d..807d1c454 100644
---- a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat01.c
-+++ b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat01.c
-@@ -154,11 +154,6 @@ static void setup(void)
- {
- 	long hpage_size;
- 
--	if (nr_opt) {
--		tst_hugepages = SAFE_STRTOL(nr_opt, 0, LONG_MAX);
--		tst_request_hugepages(tst_hugepages);
--	}
--
- 	if (tst_hugepages == 0)
- 		tst_brk(TCONF, "No enough hugepages for testing.");
- 
-diff --git a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat02.c b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat02.c
-index cfc18a795..febe03d12 100644
---- a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat02.c
-+++ b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat02.c
-@@ -79,11 +79,6 @@ void setup(void)
- {
- 	long hpage_size;
- 
--	if (nr_opt) {
--		tst_hugepages = SAFE_STRTOL(nr_opt, 0, LONG_MAX);
--		tst_request_hugepages(tst_hugepages);
--	}
--
- 	if (tst_hugepages == 0)
- 		tst_brk(TCONF, "No enough hugepages for testing.");
- 
-diff --git a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat03.c b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat03.c
-index ea784da70..42965e4d7 100644
---- a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat03.c
-+++ b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat03.c
-@@ -74,11 +74,6 @@ static void setup(void)
- {
- 	long hpage_size;
- 
--	if (nr_opt) {
--		tst_hugepages = SAFE_STRTOL(nr_opt, 0, LONG_MAX);
--		tst_request_hugepages(tst_hugepages);
--	}
--
- 	if (tst_hugepages == 0)
- 		tst_brk(TCONF, "No enough hugepages for testing.");
- 
-diff --git a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c
-index 84321d94c..1e84fec59 100644
---- a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c
-+++ b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c
-@@ -288,11 +288,6 @@ void setup(void)
- {
- 	long hpage_size;
- 
--	if (nr_opt) {
--		tst_hugepages = SAFE_STRTOL(nr_opt, 0, LONG_MAX);
--		tst_request_hugepages(tst_hugepages);
--	}
--
- 	if (tst_hugepages == 0)
- 		tst_brk(TCONF, "No enough hugepages for testing.");
- 
-diff --git a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl02.c b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl02.c
-index 9d835394c..69db058d1 100644
---- a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl02.c
-+++ b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl02.c
-@@ -77,11 +77,6 @@ static void setup(void)
- {
- 	long hpage_size;
- 
--	if (nr_opt) {
--		tst_hugepages = SAFE_STRTOL(nr_opt, 0, LONG_MAX);
--		tst_request_hugepages(tst_hugepages);
--	}
--
- 	if (tst_hugepages == 0)
- 		tst_brk(TCONF, "No enough hugepages for testing.");
- 
-diff --git a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c
-index 739b57f95..fedc22246 100644
---- a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c
-+++ b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c
-@@ -106,11 +106,6 @@ void setup(void)
- {
- 	long hpage_size;
- 
--	if (nr_opt) {
--		tst_hugepages = SAFE_STRTOL(nr_opt, 0, LONG_MAX);
--		tst_request_hugepages(tst_hugepages);
--	}
--
- 	if (tst_hugepages == 0)
- 		tst_brk(TCONF, "No enough hugepages for testing.");
- 
-diff --git a/testcases/kernel/mem/hugetlb/hugeshmdt/hugeshmdt01.c b/testcases/kernel/mem/hugetlb/hugeshmdt/hugeshmdt01.c
-index f0947e703..066f34d1c 100644
---- a/testcases/kernel/mem/hugetlb/hugeshmdt/hugeshmdt01.c
-+++ b/testcases/kernel/mem/hugetlb/hugeshmdt/hugeshmdt01.c
-@@ -119,11 +119,6 @@ void setup(void)
- {
- 	long hpage_size;
- 
--	if (nr_opt) {
--		tst_hugepages = SAFE_STRTOL(nr_opt, 0, LONG_MAX);
--		tst_request_hugepages(tst_hugepages);
--	}
--
- 	if (tst_hugepages == 0)
- 		tst_brk(TCONF, "No enough hugepages for testing.");
- 
-diff --git a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget01.c b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget01.c
-index d77f4ae97..e1f8fec5a 100644
---- a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget01.c
-+++ b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget01.c
-@@ -54,11 +54,6 @@ static void setup(void)
- {
- 	long hpage_size;
- 
--	if (nr_opt) {
--		tst_hugepages = SAFE_STRTOL(nr_opt, 0, LONG_MAX);
--		tst_request_hugepages(tst_hugepages);
--	}
--
- 	if (tst_hugepages == 0)
- 		tst_brk(TCONF, "No enough hugepages for testing.");
- 
-diff --git a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget02.c b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget02.c
-index ad81c979c..ebe6f0bcd 100644
---- a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget02.c
-+++ b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget02.c
-@@ -72,11 +72,6 @@ void setup(void)
- {
- 	long hpage_size;
- 
--	if (nr_opt) {
--		tst_hugepages = SAFE_STRTOL(nr_opt, 0, LONG_MAX);
--		tst_request_hugepages(tst_hugepages);
--	}
--
- 	if (tst_hugepages == 0)
- 		tst_brk(TCONF, "No enough hugepages for testing.");
- 
-diff --git a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c
-index e08ed9f42..226985d53 100644
---- a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c
-+++ b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c
-@@ -51,11 +51,6 @@ static void setup(void)
- {
- 	long hpage_size;
- 
--	if (nr_opt) {
--		tst_hugepages = SAFE_STRTOL(nr_opt, 0, LONG_MAX);
--		tst_request_hugepages(tst_hugepages);
--	}
--
- 	if (tst_hugepages == 0)
- 		tst_brk(TCONF, "No enough hugepages for testing.");
- 
-diff --git a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget05.c b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget05.c
-index 4c175d59a..506d1df06 100644
---- a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget05.c
-+++ b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget05.c
-@@ -66,11 +66,6 @@ void setup(void)
- {
- 	long hpage_size;
- 
--	if (nr_opt) {
--		tst_hugepages = SAFE_STRTOL(nr_opt, 0, LONG_MAX);
--		tst_request_hugepages(tst_hugepages);
--	}
--
- 	if (tst_hugepages == 0)
- 		tst_brk(TCONF, "No enough hugepages for testing.");
- 
-diff --git a/testcases/kernel/mem/hugetlb/lib/hugetlb.h b/testcases/kernel/mem/hugetlb/lib/hugetlb.h
-index 7c03a317c..88890ebfb 100644
---- a/testcases/kernel/mem/hugetlb/lib/hugetlb.h
-+++ b/testcases/kernel/mem/hugetlb/lib/hugetlb.h
-@@ -40,7 +40,4 @@ int getipckey(void);
- int getuserid(char *user);
- void rm_shm(int shm_id);
- 
--char *nr_opt;
--char *Hopt;
--
- #endif /* hugetlb.h */
+Just for the sake of having correct metadata in the test.
+
+Otherwise it looks good.
+
+> +};
+> -- 
+> 2.25.1
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+
 -- 
-2.21.1
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
