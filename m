@@ -2,68 +2,63 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 057EE1A0C84
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Apr 2020 13:07:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A62641A0DC6
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Apr 2020 14:36:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9BF873C2D92
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Apr 2020 13:07:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 52A093C2D89
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Apr 2020 14:36:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 0B56F3C2D85
- for <ltp@lists.linux.it>; Tue,  7 Apr 2020 13:07:29 +0200 (CEST)
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 1BDC93C061B
+ for <ltp@lists.linux.it>; Tue,  7 Apr 2020 14:36:55 +0200 (CEST)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E78DD600E41
- for <ltp@lists.linux.it>; Tue,  7 Apr 2020 13:07:27 +0200 (CEST)
-Received: by mail-pg1-x543.google.com with SMTP id g32so1558105pgb.6
- for <ltp@lists.linux.it>; Tue, 07 Apr 2020 04:07:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=tnpDV84EI3z5h084s0wBL1nzwsJK2DIl8hTr8K7YoUM=;
- b=qDWDSs9kPRunSROfCE4IkZZmGX0kGyPrH/2YavC3/FMBTXc1RGIaZs8z0G/5J380O1
- l5Zhp0qU3fkov1SbFuKiycQyQZqdXByDFTGRbw/JJ68RqBGW9PNSqEJWpaXzJFiaabzA
- mgnU1ZbdnzInvAofgWTw7nSWIjpw2w8HqahMsypM0sNWzRodYEt+LH9ChXsjIbd2sHzx
- oSTwHpZ/Ji4T1LvnsPMSVBBkkWwRe7ECXfVi5P7JYSm3VjLcEG9adqjY9kPQySABzwZ7
- cQqspS/em9qoTQDoyqfee/sG/7hT96XscN5c2MHWv7jvSRKxk/H0dZv2HAQ1yyANl41r
- PHcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=tnpDV84EI3z5h084s0wBL1nzwsJK2DIl8hTr8K7YoUM=;
- b=n72ZsOfalbbeUCgyjq5VQttnkcxNbt2XENfG/Y+vhrj2Hx5B+6ylyGRBu+Ds8Xk2IW
- eYFwmg/6Qt60QCr7FOFOeurmVeeb5edSe61oYFQdVHr4C4GjcwkOpf0E5WEoWPpdPOYs
- rLwLPYoLYtae1AZDclORSNMBANOtUAWXoDagxulVN1oxFbhYvHJ5Y942Ojf8W+RFS4JF
- BfrX2cBnMBKokyNTx6qbWr3VspjUIMHh12UwFfV07Sy/BH4g04mLTn4ZAwj7kOprmPAj
- 0HUrtB9irlrE1Mdm4ecP5jX7/ebsnf4TGMVVtFDVKFCvI0VxGZvL/8eZ7BEJ+lbJQoEa
- D4Xw==
-X-Gm-Message-State: AGi0PuYEdzGUwD4rXhyrldLj+Pp1dOfSwwIFcbl0uMsxqjw47YoKc5eo
- Nbf2vm88pd8BcM+xduZ0WXiuekEsvVA=
-X-Google-Smtp-Source: APiQypKhYPUTK68037bLCA6NPFexGRamsun6BFLKSPKqNTjm8U7qIbqJXdNfPHAjLRGpp5vbqMwUDg==
-X-Received: by 2002:a05:6a00:8d:: with SMTP id
- c13mr2155469pfj.68.1586257646203; 
- Tue, 07 Apr 2020 04:07:26 -0700 (PDT)
-Received: from localhost ([122.171.118.46])
- by smtp.gmail.com with ESMTPSA id g9sm13009461pgc.46.2020.04.07.04.07.24
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 07 Apr 2020 04:07:25 -0700 (PDT)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: ltp@lists.linux.it
-Date: Tue,  7 Apr 2020 16:37:18 +0530
-Message-Id: <bff0fc8e8777a744d35bca86c83158efb90b0ff8.1586257574.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.21.0.rc0.269.g1a574e7a288b
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 3E76E14016E0
+ for <ltp@lists.linux.it>; Tue,  7 Apr 2020 14:36:54 +0200 (CEST)
+Received: from mail-qt1-f170.google.com ([209.85.160.170]) by
+ mrelayeu.kundenserver.de (mreue010 [212.227.15.129]) with ESMTPSA (Nemesis)
+ id 1N1x6X-1jB76a0a1R-012GlS for <ltp@lists.linux.it>; Tue, 07 Apr 2020
+ 14:36:53 +0200
+Received: by mail-qt1-f170.google.com with SMTP id x16so2431501qts.11
+ for <ltp@lists.linux.it>; Tue, 07 Apr 2020 05:36:52 -0700 (PDT)
+X-Gm-Message-State: AGi0PubiMclWuY6B3oHnau6DkLTO1W4i4YaVVALHJWw7Bv2Porwo2h81
+ axV63mkwkG5OE1C63s1Vt8NTbRYNElykX8HS2TI=
+X-Google-Smtp-Source: APiQypKE12ETQFgADB+Dvav2a72EK8uJTqurYC1IJa4Lkn8mwO2joWgTZp6R8Q6rClUAlESUQzgicsLgHDB62/6JdzE=
+X-Received: by 2002:aed:3b4c:: with SMTP id q12mr1961460qte.18.1586263011913; 
+ Tue, 07 Apr 2020 05:36:51 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+References: <bff0fc8e8777a744d35bca86c83158efb90b0ff8.1586257574.git.viresh.kumar@linaro.org>
+In-Reply-To: <bff0fc8e8777a744d35bca86c83158efb90b0ff8.1586257574.git.viresh.kumar@linaro.org>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Tue, 7 Apr 2020 14:36:35 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a2tbLZxyA-a=w7GZDwa0POwETaHQ73DqAU=FnB7zEnT2Q@mail.gmail.com>
+Message-ID: <CAK8P3a2tbLZxyA-a=w7GZDwa0POwETaHQ73DqAU=FnB7zEnT2Q@mail.gmail.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+X-Provags-ID: V03:K1:v8H5lNeebwwS0OiLGSctPGB6mxmt33N/JCvY/fx/4qtMnd3hokb
+ DVwikSrNuedumgEwb7OYd59B9tv5GsvLnGZ6LrRVnB2qkHnq65RGNU6/SrYZldOAz6XKQ2a
+ RNpZfD2ja6wL3xiI+Dmfw2MwJuTHvadD/ed3nVgg9EVkd/+LfktGc/0EJijXyT0XUVRTdvI
+ 5Yvg+yGk7krr9wwMJAo1g==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:HR5PR/NKLqw=:9WbgKdoF/lj5qMLnOfDPNN
+ iFzw95yqCTYVzzo4BRe0mA1/ugZSsPTop9d7wjLd12jnN8tK9vZIRltVdauqsdK33nK5hBkk0
+ ywFekQtsmGzXRsX2cYTCML3Inh7fuFqup+14ZkOvoe5kkXmRLwBDN7/PMwX16B0gRtzDHjUTE
+ dpa6QkdgnazDaS8otiJ9OCR/DCPqUPZkDPXMQnbIJ/TENlHd2YLZ1qqPF5q5p2LxcdBWNbbzO
+ B1oOlqo/2asf+VMSZ35RWTgCEXCPjVT2aVB1aYDjQ41pakqnRSTOa4oRvpLQrhj/58pMRcgkZ
+ 77hw+npXtCfsySSBGmuHHuCN+Gh36UoulLooMZGeDKnUoyBgEKSXHd5fa9On26KxtRkZ1ThIK
+ 3EQ+dipxuSQu8ysUh+FnEccd6vsAeY/VzJMWRVhxGkMt02NmOnaxdusfum6t02oSAlQo9404R
+ Cjj8hpYCkzTCEwpASs8sQiP2/+cxN+ZC4thlqTutJ8PCONSZ993c9wr7q4xYobMoL/O+oIFAr
+ uOaeAmm/8OZ1+E+XPVp1zP/toi/pK3isdz2Ae0RmwF2JcFJHbgYm1wJqh9iQ4o7t87KjKwQOy
+ E1Vykd3077WLRo3aSTLZ9zDLM+6bTjTxtNKffosWxlIWuzqn/RKp0/9Gfkikdzgjpv23GWAPg
+ BmO8PMF1UHMCMO9votmyWp7tnQVnA/75Kfb7Hh9U6hyhhGpqAw0Ir2E0xqyZ/7EtTW+MABdhO
+ 8deG+Ibg/shkc0nh6ILNYbBiTeby7cz4sjY7kkPAsUHVv50ElQqYrerN//0ArC7+whgV1Czeg
+ Tt1h7QTmb8ioiMTeORcJe1eXgIzgO4zHPm2dMYQKvY/3S0qWSI=
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [RFC] syscalls/clock_gettime: Support time64 variants
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [RFC] syscalls/clock_gettime: Support time64 variants
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,237 +70,106 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
- Viresh Kumar <viresh.kumar@linaro.org>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Guys,
+On Tue, Apr 7, 2020 at 1:07 PM Viresh Kumar <viresh.kumar@linaro.org> wrote:
+>
+> Hi Guys,
+>
+> I wanted to get some inputs/confirmations from everyone before going
+> full fledged on implementing time64 changes and so here is an RFC.
+>
+> This extends the clock_gettime01.c tests to support time64 variants for
+> both 32bit and 64bit architectures.
+>
+> Are there some other tests you guys want me to include ?
+>
+> @Arnd: I still wasn't able to understand how can I incorporate
+> D_TIME_BITS thing here and so left it :(
+>
+> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+> ---
+>  include/tst_timer.h                           |  31 +++++
+>  .../syscalls/clock_gettime/clock_gettime01.c  | 115 +++++++++---------
+>  2 files changed, 89 insertions(+), 57 deletions(-)
+>
+> diff --git a/include/tst_timer.h b/include/tst_timer.h
+> index cdb8de7987d9..282514abac08 100644
+> --- a/include/tst_timer.h
+> +++ b/include/tst_timer.h
+> @@ -15,6 +15,37 @@
+>  #include <sys/time.h>
+>  #include <time.h>
+>
+> +#ifndef __kernel_timespec
+> +typedef long __kernel_long_t;
 
-I wanted to get some inputs/confirmations from everyone before going
-full fledged on implementing time64 changes and so here is an RFC.
+Minor bug: __kernel_long_t is 'long long' on x32 (we might not care
+here, but it's best to define the type to match the kernel)
 
-This extends the clock_gettime01.c tests to support time64 variants for
-both 32bit and 64bit architectures.
+> +typedef __kernel_long_t        __kernel_old_time_t;
+> +
+> +struct __kernel_old_timespec {
+> +       __kernel_old_time_t     tv_sec;         /* seconds */
+> +       long                    tv_nsec;        /* nanoseconds */
+> +};
 
-Are there some other tests you guys want me to include ?
+"__kernel_long_t tv_nsec;", also because of x32.
 
-@Arnd: I still wasn't able to understand how can I incorporate
-D_TIME_BITS thing here and so left it :(
+>
+> -static int sys_clock_gettime(clockid_t clk_id, struct timespec *tp)
+> +struct __kernel_timespec kspec64;
+> +
+> +#ifdef TST_ABI32
+> +struct timespec spec32;
+> +struct __kernel_old_timespec kspec32;
+> +
+> +static int _clock_gettime(clockid_t clk_id, void *tp)
+>  {
+> -       return tst_syscall(__NR_clock_gettime, clk_id, tp);
+> +       return clock_gettime(clk_id, tp);
+>  }
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
----
- include/tst_timer.h                           |  31 +++++
- .../syscalls/clock_gettime/clock_gettime01.c  | 115 +++++++++---------
- 2 files changed, 89 insertions(+), 57 deletions(-)
+On new architectures, notably 32-bit risc-v, there is no __NR_clock_gettime,
+as it only supports the 64-bit interface.
 
-diff --git a/include/tst_timer.h b/include/tst_timer.h
-index cdb8de7987d9..282514abac08 100644
---- a/include/tst_timer.h
-+++ b/include/tst_timer.h
-@@ -15,6 +15,37 @@
- #include <sys/time.h>
- #include <time.h>
- 
-+#ifndef __kernel_timespec
-+typedef long __kernel_long_t;
-+typedef __kernel_long_t	__kernel_old_time_t;
-+
-+struct __kernel_old_timespec {
-+	__kernel_old_time_t	tv_sec;		/* seconds */
-+	long			tv_nsec;	/* nanoseconds */
-+};
-+
-+typedef long long __kernel_time64_t;
-+
-+struct __kernel_timespec {
-+	__kernel_time64_t       tv_sec;                 /* seconds */
-+	long long               tv_nsec;                /* nanoseconds */
-+};
-+#endif
-+
-+static inline int tst_timespec_updated_32(void *data)
-+{
-+	struct timespec *spec = data;
-+
-+	return (spec->tv_nsec != 0 || spec->tv_sec != 0) ? 1 : 0;
-+}
-+
-+static inline int tst_timespec_updated_64(void *data)
-+{
-+	struct __kernel_timespec *spec = data;
-+
-+	return (spec->tv_nsec != 0 || spec->tv_sec != 0) ? 1 : 0;
-+}
-+
- static inline long long tst_timespec_to_ns(struct timespec t)
- {
- 	return t.tv_sec * 1000000000 + t.tv_nsec;
-diff --git a/testcases/kernel/syscalls/clock_gettime/clock_gettime01.c b/testcases/kernel/syscalls/clock_gettime/clock_gettime01.c
-index d365823b2f0f..e220f3648434 100644
---- a/testcases/kernel/syscalls/clock_gettime/clock_gettime01.c
-+++ b/testcases/kernel/syscalls/clock_gettime/clock_gettime01.c
-@@ -21,17 +21,13 @@
- #include "tst_safe_clocks.h"
- #include "tst_test.h"
- #include "lapi/syscalls.h"
-+#include "lapi/abisize.h"
- 
- struct test_case {
- 	clockid_t clktype;
- 	int allow_inval;
- };
- 
--struct tmpfunc {
--	int (*func)(clockid_t clk_id, struct timespec *tp);
--	char *desc;
--};
--
- struct test_case tc[] = {
- 	{
- 	 .clktype = CLOCK_REALTIME,
-@@ -63,73 +59,76 @@ struct test_case tc[] = {
- 	 },
- };
- 
--static int sys_clock_gettime(clockid_t clk_id, struct timespec *tp)
-+struct __kernel_timespec kspec64;
-+
-+#ifdef TST_ABI32
-+struct timespec spec32;
-+struct __kernel_old_timespec kspec32;
-+
-+static int _clock_gettime(clockid_t clk_id, void *tp)
- {
--	return tst_syscall(__NR_clock_gettime, clk_id, tp);
-+	return clock_gettime(clk_id, tp);
- }
- 
--static int check_spec(struct timespec *spec)
-+static int sys_clock_gettime64(clockid_t clk_id, void *tp)
- {
--	return (spec->tv_nsec != 0 || spec->tv_sec != 0) ? 1 : 0;
-+	return tst_syscall(__NR_clock_gettime64, clk_id, tp);
- }
-+#endif
- 
--static void verify_clock_gettime(unsigned int i)
-+static int sys_clock_gettime(clockid_t clk_id, void *tp)
- {
--	size_t sz;
--	struct timespec spec;
--
--	/*
--	 * check clock_gettime() syscall AND libc (or vDSO) functions
--	 */
--	struct tmpfunc tf[] = {
--		{ .func = sys_clock_gettime, .desc = "syscall"      },
--		{ .func = clock_gettime, .desc = "vDSO or syscall"  },
--	};
--
--	for (sz = 0; sz < ARRAY_SIZE(tf); sz++) {
--
--		memset(&spec, 0, sizeof(struct timespec));
--
--		TEST(tf[sz].func(tc[i].clktype, &spec));
--
--		if (TST_RET == -1) {
-+	return tst_syscall(__NR_clock_gettime, clk_id, tp);
-+}
- 
--			/* errors: allow unsupported clock types */
-+struct tmpfunc {
-+	int (*func)(clockid_t clk_id, void *tp);
-+	int (*check)(void *spec);
-+	void *spec;
-+	int spec_size;
-+	char *desc;
-+} variants[] = {
-+#ifdef TST_ABI32
-+	{ .func = _clock_gettime, .check = tst_timespec_updated_32, .spec = &spec32, .spec_size = sizeof(spec32), .desc = "vDSO or syscall (32)"},
-+	{ .func = sys_clock_gettime, .check = tst_timespec_updated_32, .spec = &spec32, .spec_size = sizeof(spec32), .desc = "syscall (32) with libc spec"},
-+	{ .func = sys_clock_gettime, .check = tst_timespec_updated_32, .spec = &kspec32, .spec_size = sizeof(kspec32), .desc = "syscall (32) with kernel spec"},
-+	{ .func = sys_clock_gettime64, .check = tst_timespec_updated_64, .spec = &kspec64, .spec_size = sizeof(kspec64), .desc = "syscall (64) with kernel spec"},
-+#else
-+	{ .func = sys_clock_gettime, .check = tst_timespec_updated_64, .spec = &kspec64, .spec_size = sizeof(kspec64), .desc = "syscall (64) with kernel spec"},
-+#endif
-+};
- 
--			if (tc[i].allow_inval && TST_ERR == EINVAL) {
-+static void setup(void)
-+{
-+	tst_res(TINFO, "Testing variant: %s", variants[tst_variant].desc);
-+}
- 
--				tst_res(TPASS, "clock_gettime(2): unsupported "
--						"clock %s (%s) failed as "
--						"expected",
--						tst_clock_name(tc[i].clktype),
--						tf[sz].desc);
-+static void verify_clock_gettime(unsigned int i)
-+{
-+	struct tmpfunc *tf = &variants[tst_variant];
- 
--			} else {
-+	memset(tf->spec, 0, tf->spec_size);
- 
--				tst_res(TFAIL | TTERRNO, "clock_gettime(2): "
--						"clock %s (%s) failed "
--						"unexpectedly",
--						tst_clock_name(tc[i].clktype),
--						tf[sz].desc);
--			}
-+	TEST(tf->func(tc[i].clktype, tf->spec));
- 
-+	if (TST_RET == -1) {
-+		/* errors: allow unsupported clock types */
-+		if (tc[i].allow_inval && TST_ERR == EINVAL) {
-+			tst_res(TPASS, "clock_gettime(2): unsupported clock %s failed as expected",
-+				tst_clock_name(tc[i].clktype));
- 		} else {
-+			tst_res(TFAIL | TTERRNO, "clock_gettime(2): clock %s failed unexpectedly",
-+				tst_clock_name(tc[i].clktype));
-+		}
- 
--			/* success: also check if timespec was changed */
--
--			if (check_spec(&spec)) {
--				tst_res(TPASS, "clock_gettime(2): clock %s "
--						"(%s) passed",
--						tst_clock_name(tc[i].clktype),
--						tf[sz].desc);
--			} else {
--
--				tst_res(TFAIL, "clock_gettime(2): clock %s "
--						"(%s) passed, unchanged "
--						"timespec",
--						tst_clock_name(tc[i].clktype),
--						tf[sz].desc);
--			}
-+	} else {
-+		/* success: also check if timespec was changed */
-+		if (tf->check(tf->spec)) {
-+			tst_res(TPASS, "clock_gettime(2): clock %s passed",
-+				tst_clock_name(tc[i].clktype));
-+		} else {
-+			tst_res(TFAIL, "clock_gettime(2): clock %s passed, unchanged timespec",
-+				tst_clock_name(tc[i].clktype));
- 		}
- 	}
- }
-@@ -137,5 +136,7 @@ static void verify_clock_gettime(unsigned int i)
- static struct tst_test test = {
- 	.test = verify_clock_gettime,
- 	.tcnt = ARRAY_SIZE(tc),
-+	.test_variants = ARRAY_SIZE(variants),
-+	.setup = setup,
- 	.needs_root = 1,
- };
--- 
-2.21.0.rc0.269.g1a574e7a288b
+> -static int check_spec(struct timespec *spec)
+> +static int sys_clock_gettime64(clockid_t clk_id, void *tp)
+>  {
+> -       return (spec->tv_nsec != 0 || spec->tv_sec != 0) ? 1 : 0;
+> +       return tst_syscall(__NR_clock_gettime64, clk_id, tp);
+>  }
+> +#endif
 
+And when building against old kernel headers or on 64-bit
+architectures, this one is not available.
+
+> +struct tmpfunc {
+> +       int (*func)(clockid_t clk_id, void *tp);
+> +       int (*check)(void *spec);
+> +       void *spec;
+> +       int spec_size;
+> +       char *desc;
+> +} variants[] = {
+> +#ifdef TST_ABI32
+> +       { .func = _clock_gettime, .check = tst_timespec_updated_32, .spec = &spec32, .spec_size = sizeof(spec32), .desc = "vDSO or syscall (32)"},
+> +       { .func = sys_clock_gettime, .check = tst_timespec_updated_32, .spec = &spec32, .spec_size = sizeof(spec32), .desc = "syscall (32) with libc spec"},
+> +       { .func = sys_clock_gettime, .check = tst_timespec_updated_32, .spec = &kspec32, .spec_size = sizeof(kspec32), .desc = "syscall (32) with kernel spec"},
+> +       { .func = sys_clock_gettime64, .check = tst_timespec_updated_64, .spec = &kspec64, .spec_size = sizeof(kspec64), .desc = "syscall (64) with kernel spec"},
+> +#else
+> +       { .func = sys_clock_gettime, .check = tst_timespec_updated_64, .spec = &kspec64, .spec_size = sizeof(kspec64), .desc = "syscall (64) with kernel spec"},
+> +#endif
+> +};
+
+I think instead of an #if / #else, this should have separate #if statements for
+whichever versions are available on the given combination of architecture,
+libc and kernel header.
+
+       Arnd
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
