@@ -1,40 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C17751A21C2
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 Apr 2020 14:21:39 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id BC2181A2217
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 Apr 2020 14:34:47 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9230B3C2D1E
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 Apr 2020 14:21:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6D9EF3C2D21
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 Apr 2020 14:34:47 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id C6E3A3C0358
- for <ltp@lists.linux.it>; Wed,  8 Apr 2020 14:21:36 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 77B0A3C21E8
+ for <ltp@lists.linux.it>; Wed,  8 Apr 2020 14:34:46 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8AB151A01474
- for <ltp@lists.linux.it>; Wed,  8 Apr 2020 14:21:35 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id F0367200B89
+ for <ltp@lists.linux.it>; Wed,  8 Apr 2020 14:34:45 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 3394CACE3;
- Wed,  8 Apr 2020 12:21:34 +0000 (UTC)
-References: <20200408114007.4096-1-chrubis@suse.cz>
-User-agent: mu4e 1.2.0; emacs 26.3
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: ltp@lists.linux.it
-Message-ID: <877dyqyxq4.fsf@our.domain.is.not.set>
-In-reply-to: <20200408114007.4096-1-chrubis@suse.cz>
-Date: Wed, 08 Apr 2020 14:21:33 +0200
+ by mx2.suse.de (Postfix) with ESMTP id BAAF7AE17
+ for <ltp@lists.linux.it>; Wed,  8 Apr 2020 12:34:44 +0000 (UTC)
+Date: Wed, 8 Apr 2020 14:34:58 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <20200408123458.GA7369@yuki.lan>
+References: <20200406153759.2832-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200406153759.2832-1-mdoucha@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/clone301: Fix the test race this time
- for real
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] Add test for CVE 2018-18559
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,87 +45,27 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
- Richard Palethorpe <rpalethorpe@suse.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Hi!
+>  bind04 bind05:	CFLAGS		+= -pthread
+> +bind06:		LDFLAGS		+= -pthread -lrt
 
-Cyril Hrubis <chrubis@suse.cz> writes:
+I've fixed this part.
 
-> I have messed up the first fix, sorry, the signal handler has to be
-> estabilished before the clone3() call, not just before the if ().
->
-> This also makes the test more verbose in case of failure, we print what
-> exactly went wrong which saves time on debugging.
->
-> Fixes: f17b3862dceb (syscalls/clone301: Fix race between parent and child)
->
-> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-> CC: Richard Palethorpe <rpalethorpe@suse.com>
-> CC: Viresh Kumar <viresh.kumar@linaro.org>
-> ---
->  testcases/kernel/syscalls/clone3/clone301.c | 65 +++++++++++++++------
->  1 file changed, 48 insertions(+), 17 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/clone3/clone301.c b/testcases/kernel/syscalls/clone3/clone301.c
-> index 456291b67..bf009e940 100644
-> --- a/testcases/kernel/syscalls/clone3/clone301.c
-> +++ b/testcases/kernel/syscalls/clone3/clone301.c
-> @@ -17,7 +17,7 @@
->  #define DATA	777
->  
->  static int pidfd, child_tid, parent_tid, parent_received_signal;
-> -static volatile int child_received_signal;
-> +static volatile int child_received_signal, child_data;
->  static struct clone_args *args;
->  
->  static struct tcase {
-> @@ -40,8 +40,8 @@ static void child_rx_signal(int sig, siginfo_t *info, void *ucontext)
->  {
->  	(void) ucontext;
->  
-> -	if (sig == CHILD_SIGNAL && info && info->si_value.sival_int == DATA)
-> -		child_received_signal = 1;
-> +	child_received_signal = sig;
-> +	child_data = info->si_value.sival_int;
->  }
->  
->  static struct sigaction psig_action = {
-> @@ -60,23 +60,43 @@ static siginfo_t uinfo = {
->  };
->  
->  
-> -static void do_child(int clone_pidfd, int n)
-> +static void do_child(int clone_pidfd)
->  {
->  	int count = 1000;
->  
->  	if (clone_pidfd) {
->  		child_received_signal = 0;
-> +		child_data = 0;
-> +
->  		SAFE_SIGACTION(CHILD_SIGNAL, &csig_action, NULL);
->  
->  		TST_CHECKPOINT_WAKE(0);
->  
-> -		while(!child_received_signal && --count)
-> +		while (child_received_signal != CHILD_SIGNAL && --count)
->  			usleep(100);
+The -lfoo has to go to LDLIBS and the -pthread should go to CFLAGS.
+Having -lfoo in LDFLAGS tends to cause compilation failures in some
+cases because the order of these matters.
 
-Maybe to be nice, we should use the exponential backoff function?
-
-Although not too important in this case.
-
-Otherwise LGTM!
+Pushed, thanks.
 
 -- 
-Thank you,
-Richard.
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
