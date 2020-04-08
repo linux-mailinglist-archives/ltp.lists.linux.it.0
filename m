@@ -2,39 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 111C01A2334
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 Apr 2020 15:43:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0757D1A23E6
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 Apr 2020 16:18:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BF3FF3C2D2C
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 Apr 2020 15:43:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A17953C2D21
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 Apr 2020 16:18:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 564593C0309
- for <ltp@lists.linux.it>; Wed,  8 Apr 2020 15:43:28 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 3ED783C2D15
+ for <ltp@lists.linux.it>; Wed,  8 Apr 2020 16:18:41 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 84ED760108E
- for <ltp@lists.linux.it>; Wed,  8 Apr 2020 15:43:27 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id B682C1401980
+ for <ltp@lists.linux.it>; Wed,  8 Apr 2020 16:18:40 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 6D695ADBE
- for <ltp@lists.linux.it>; Wed,  8 Apr 2020 13:43:26 +0000 (UTC)
-Date: Wed, 8 Apr 2020 15:43:39 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 6751BADEB;
+ Wed,  8 Apr 2020 14:18:39 +0000 (UTC)
+Date: Wed, 8 Apr 2020 16:18:53 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20200408134339.GA10178@yuki.lan>
-References: <20200408103050.27706-1-mdoucha@suse.cz>
+To: Cixi Geng <gengcixi@gmail.com>
+Message-ID: <20200408141853.GB10178@yuki.lan>
+References: <20200330152122.GA2699@yuki.lan> <20200331180816.GE2900@yuki.lan>
+ <CAF12kFs6H1FgU_77MAMhrn1pK15fp1cx+9wox4k9LN5GxCN=nA@mail.gmail.com>
+ <20200401131220.GA3627@yuki.lan>
+ <CAF12kFsFsG6Jk0citiGmicq+dyB90i_cG_bcDAMhHiyVPafRdA@mail.gmail.com>
+ <20200402093127.GA28452@yuki.lan>
+ <CAF12kFvDv8ksxMLDyniwQ=hty6J4Oy5-wvErX=DLrfWmhiwT0w@mail.gmail.com>
+ <20200402112309.GA5732@yuki.lan>
+ <CAF12kFsCfb12Yi=rhAqKSLPUBLkaWPs_-JCQOcucvyu=whYFsw@mail.gmail.com>
+ <CAF12kFvV=a5HJgDOAOGgdr2CMJhtVsYJ199T=SM1kyQSp-Js=w@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200408103050.27706-1-mdoucha@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+In-Reply-To: <CAF12kFvV=a5HJgDOAOGgdr2CMJhtVsYJ199T=SM1kyQSp-Js=w@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] Add test for CVE 2018-7566
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] device_drivers/uart01: Add uart01 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,30 +54,18 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Orson Zhai <orsonzhai@gmail.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> Fixes #606
+> I would like to know how is it going?
 
-Add your signed-off-by here and pushed, thanks.
-
-> ---
-> 
-> There are two reproducers for this CVE:
-> - ioctl()/ioctl() race
-> - ioctl()/write() race
-> 
-> I've implemented the first one because it reliably crashes SLE-12SP3 GM kernel.
-> The other reproducer gets stuck in one of the syscalls but I couldn't get it
-> to trigger an actual crash. Should I implement the other one as well?
-
-Yes please, stuck tests is easy to detect as well, moreover the behavior
-of these tests is unpredictable anyways so we cannot really tell what
-will happen when the bug is triggered.
+I had a time off and was planting plants in my garden, I will get back
+to the uart ASAP, but then we have a public holiday on Friday and Monday
+so I may not manage to do much until next week.
 
 -- 
 Cyril Hrubis
