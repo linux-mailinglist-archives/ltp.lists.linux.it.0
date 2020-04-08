@@ -2,45 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC0631A2320
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 Apr 2020 15:36:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 111C01A2334
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 Apr 2020 15:43:33 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 89F3C3C2D2C
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 Apr 2020 15:36:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BF3FF3C2D2C
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 Apr 2020 15:43:32 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 805BA3C2D15
- for <ltp@lists.linux.it>; Wed,  8 Apr 2020 15:36:11 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTP id 564593C0309
+ for <ltp@lists.linux.it>; Wed,  8 Apr 2020 15:43:28 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E8A4360106F
- for <ltp@lists.linux.it>; Wed,  8 Apr 2020 15:36:09 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 84ED760108E
+ for <ltp@lists.linux.it>; Wed,  8 Apr 2020 15:43:27 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id B68DCAC90;
- Wed,  8 Apr 2020 13:36:08 +0000 (UTC)
-References: <20200408090635.4686-1-rpalethorpe@suse.com>
- <d950a46d-b65a-ac33-e71b-f93a2dce7620@cn.fujitsu.com>
- <1200091233.7615565.1586341144193.JavaMail.zimbra@redhat.com>
- <87v9maz1fj.fsf@our.domain.is.not.set>
- <1212083323.7622450.1586344729154.JavaMail.zimbra@redhat.com>
- <87k12qyzmq.fsf@our.domain.is.not.set>
-User-agent: mu4e 1.2.0; emacs 26.3
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: rpalethorpe@suse.de
-Message-ID: <87v9mahzgf.fsf@our.domain.is.not.set>
-In-reply-to: <87k12qyzmq.fsf@our.domain.is.not.set>
-Date: Wed, 08 Apr 2020 15:36:07 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 6D695ADBE
+ for <ltp@lists.linux.it>; Wed,  8 Apr 2020 13:43:26 +0000 (UTC)
+Date: Wed, 8 Apr 2020 15:43:39 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <20200408134339.GA10178@yuki.lan>
+References: <20200408103050.27706-1-mdoucha@suse.cz>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20200408103050.27706-1-mdoucha@suse.cz>
 X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] add_key05: Avoid race with key garbage
- collection
+Subject: Re: [LTP] [PATCH] Add test for CVE 2018-7566
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,51 +46,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: Li Wang <liwan@redhat.com>, Richard Palethorpe <rpalethorpe@suse.com>,
- ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Hi!
+> Fixes #606
 
-Richard Palethorpe <rpalethorpe@suse.de> writes:
+Add your signed-off-by here and pushed, thanks.
 
->>> I'm assuming the keys are 'deleted' when the thread keyring is destroyed
->>> when the child process exits. However they are not freed until later by
->>> garbage collection (maybe I am confusing deferred freeing with 'garbage
->>> collection'?).
->>
->> Do you know how large is the race window?
->>
->> Default /proc/sys/kernel/keys/gc_delay is 300, so if it's tied to this
->> garbage collect, I'd expect it to fail almost all the time.
->
-> It doesn't appear to be tied to that.
->
->>
->>> 
->>> We could explicitly delete/revoke the individual keys, but AFAICT there
->>> would still be a race because freeing is still asynchronous. Ofcourse
->>> there might be a reliable way to force freeing?
->>
->> gc_delay is only one I recall.
->>
->> If it's tied to process being around, I can try similar approach from 
->> e747d0456adc ("syscalls/tgkill03: wait for defunct tid to get detached")
->> where we wait for /proc/<pid>/task/<tid> to disappear.
->
->
-> This might work as the work is scheduled to be done in process context,
-> so the task may remain until the keys have been freed.
+> ---
+> 
+> There are two reproducers for this CVE:
+> - ioctl()/ioctl() race
+> - ioctl()/write() race
+> 
+> I've implemented the first one because it reliably crashes SLE-12SP3 GM kernel.
+> The other reproducer gets stuck in one of the syscalls but I couldn't get it
+> to trigger an actual crash. Should I implement the other one as well?
 
-This doesn't seem to work.
+Yes please, stuck tests is easy to detect as well, moreover the behavior
+of these tests is unpredictable anyways so we cannot really tell what
+will happen when the bug is triggered.
 
 -- 
-Thank you,
-Richard.
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
