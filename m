@@ -2,51 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE5F41A2AEE
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 Apr 2020 23:18:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59DB31A2D97
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 04:28:32 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8799D3C2D27
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 Apr 2020 23:18:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B1D813C2D29
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 04:28:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id ED3663C2D3D
- for <ltp@lists.linux.it>; Wed,  8 Apr 2020 23:18:02 +0200 (CEST)
-Received: from confino.investici.org (confino.investici.org
- [IPv6:2a00:c38:11e:ffff::a020])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 7D62B200CFE
- for <ltp@lists.linux.it>; Wed,  8 Apr 2020 23:18:02 +0200 (CEST)
-Received: from mx1.investici.org (unknown [127.0.0.1])
- by confino.investici.org (Postfix) with ESMTP id 9ACD521722;
- Wed,  8 Apr 2020 21:18:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=privacyrequired.com;
- s=stigmate; t=1586380681;
- bh=E0zCn0YqzbQOktOrg3Xfa49F1op5nwRKWy/PuGqx4tQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HxRj4Jk6AXl4MBamucxd18gCi5eI61egOC6P9ZmTht5FKaaZTehDvZcZhsunsxhnE
- RG7ArPSKhqAvzk1dmNGCS9oNpubhBDsbSI9RMbORw3i8W4SgsDGlpTZw3rLbG2OoAM
- ApFAsT1ZiYYuSWnwb4WHqw1HMR7ceBkTlEDy2nsI=
-Received: from [212.103.72.250] (mx1.investici.org [212.103.72.250])
- (Authenticated sender: laniel_francis@privacyrequired.com) by localhost
- (Postfix) with ESMTPSA id 7A19A20EB7; 
- Wed,  8 Apr 2020 21:18:01 +0000 (UTC)
-From: laniel_francis@privacyrequired.com
-To: ltp@lists.linux.it
-Date: Wed,  8 Apr 2020 23:17:01 +0200
-Message-Id: <20200408211700.7958-3-laniel_francis@privacyrequired.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <208a947b-a64a-0962-b3de-0756f1cc1c92@cn.fujitsu.com>
-References: <208a947b-a64a-0962-b3de-0756f1cc1c92@cn.fujitsu.com>
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 6E12A3C2D1E
+ for <ltp@lists.linux.it>; Thu,  9 Apr 2020 04:28:24 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 702026006F5
+ for <ltp@lists.linux.it>; Thu,  9 Apr 2020 04:28:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1586399301;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=BGDbpvXnsBYuYA9aWcUlG8f8jocM1/C1rpixzIWzBwg=;
+ b=gCh8ArTosa9xyevPi4M/PekLXJpEpG6gXyXpWf8Y2WYWb5egWrZAQIUABS6LGqSWVoc75z
+ LnWX70kcxP+w8CU5V9mRH6Z+4GbWsTTtNMyMTQwyFPU8OkH0H6zCzlgnPhG39/Riaf6Y+6
+ lAw4J6aoPyLBCDChu5D5BsnS8Plkatg=
+Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
+ [209.85.167.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-377-SR40MxIXMo2aJdNKhwYRhQ-1; Wed, 08 Apr 2020 22:27:43 -0400
+X-MC-Unique: SR40MxIXMo2aJdNKhwYRhQ-1
+Received: by mail-lf1-f70.google.com with SMTP id 66so1775729lfa.7
+ for <ltp@lists.linux.it>; Wed, 08 Apr 2020 19:27:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=yJPyevVhvhwwSZk4cmx8U+GThNTfkCky/W+AufjqrxU=;
+ b=Fmm/4MfqxWVz7xyYU27GQZUg21tqAbdyePvhT3Nhrucfvyc0APSpwR2sg0yZ7oBAhA
+ 1cfcVVnv7BoH2KGGTWlMcIu/QyYi63/0sD3Pw89cTUiYAckE5IgcQw83V9P5ZCo41YEz
+ sO4pqRFYk36NoivOtbcTKuGeLHc9Uk1+k9g98S2Wrkh2BU9nX9ZN9cpdVGBoLljBawLh
+ zMTGAzrPv0r7tempxKjA6egxUEyyOi8kP42ZssvvNi5/NUFMm9Q8h3TrrFWas7ZFgW6l
+ ch3kBzn77toPS63wW4msqYsiZiv1EjlD1MhIwBYAmitpJT4xwK6cep8b6XOqCnAX4cQX
+ hO5w==
+X-Gm-Message-State: AGi0PuYAMB5cT84gurkKo4XTpPnkdW+DM/MJdO8TC30iKL8Iy+89xpgp
+ m9FEkUU7YdfqVHIPekh3a+A2qhSvBP1ScRSr+rJPs0fTob5YfYUycuGVG8u+Bch2spfABinpxns
+ nxhTCH3a3TnPN29BN+7hI6zUxppM=
+X-Received: by 2002:a19:691d:: with SMTP id e29mr6217292lfc.83.1586399262528; 
+ Wed, 08 Apr 2020 19:27:42 -0700 (PDT)
+X-Google-Smtp-Source: APiQypJ9hXqIyeZQimNXjuabPoRagSUznoPP7d6x083FoTVv6Tr/8HV54piVgsDTt5U6jnZMw2L6h19exLhjL/uCgDU=
+X-Received: by 2002:a19:691d:: with SMTP id e29mr6217283lfc.83.1586399262311; 
+ Wed, 08 Apr 2020 19:27:42 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+References: <20200406132932.12951-1-liwang@redhat.com>
+ <c95f2855-1e16-69c9-1eea-d88c66caffe1@cn.fujitsu.com>
+In-Reply-To: <c95f2855-1e16-69c9-1eea-d88c66caffe1@cn.fujitsu.com>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 9 Apr 2020 10:27:30 +0800
+Message-ID: <CAEemH2eH6M7frm-FA3ENvcSVf6sh9zSC0YywO-Qh_iFeo2-FBg@mail.gmail.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/2] Add new test for pipe2 with/without O_NONBLOCK
- mode.
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] hugetlb: move nr_opt to tst_hugepage.h
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,174 +78,64 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0078699465=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Francis Laniel <laniel_francis@privacyrequired.com>
+--===============0078699465==
+Content-Type: multipart/alternative; boundary="000000000000809f1605a2d25c85"
 
-The new test (pipe2_03.c) checks the following:
-1. Create a pipe with O_NONBLOCK.
-2. Check that this flag is set.
-3. Check that pipe size is 16 * PAGE_SIZE.
-4. Reduce pipe size to PAGE_SIZE.
-5. Write buffer bigger than page size and see that second write fails.
-6. Set pipe's flags to default.
-7. Fork and do a write in the child, its state must be 'S' and is checked from
-the father.
----
- testcases/kernel/syscalls/pipe2/.gitignore |   1 +
- testcases/kernel/syscalls/pipe2/pipe2_03.c | 128 +++++++++++++++++++++
- 2 files changed, 129 insertions(+)
- create mode 100644 testcases/kernel/syscalls/pipe2/pipe2_03.c
+--000000000000809f1605a2d25c85
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/testcases/kernel/syscalls/pipe2/.gitignore b/testcases/kernel/syscalls/pipe2/.gitignore
-index cd38bb309..01d980dba 100644
---- a/testcases/kernel/syscalls/pipe2/.gitignore
-+++ b/testcases/kernel/syscalls/pipe2/.gitignore
-@@ -1,2 +1,3 @@
- /pipe2_01
- /pipe2_02
-+/pipe2_03
-diff --git a/testcases/kernel/syscalls/pipe2/pipe2_03.c b/testcases/kernel/syscalls/pipe2/pipe2_03.c
-new file mode 100644
-index 000000000..c2b182e02
---- /dev/null
-+++ b/testcases/kernel/syscalls/pipe2/pipe2_03.c
-@@ -0,0 +1,128 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2020 Francis Laniel. All rights reserved.
-+ * Author: Francis Laniel <laniel_francis@privacyrequired.com>
-+ *
-+ * Test Description:
-+ * This Program tests getting and setting the pipe size.
-+ * It also tests what happen when you write to a full pipe depending on whether
-+ * O_NONBLOCK is set or not.
-+ */
-+#define _GNU_SOURCE
-+#include <stdlib.h>
-+#include <features.h>
-+#include <fcntl.h>
-+#include <unistd.h>
-+#include <stdio.h>
-+#include <assert.h>
-+#include <sys/select.h>
-+
-+#include "lapi/fcntl.h"
-+#include "tst_test.h"
-+
-+#define PAGE_NR 16
-+#define SECONDS 3
-+#define MICROSECONDS 0
-+
-+static int fds[2];
-+static long page_size;
-+
-+static void setup(void)
-+{
-+	/*
-+	 * Create the pipe with O_NONBLOCK.
-+	 */
-+	SAFE_PIPE2(fds, O_NONBLOCK);
-+
-+	/*
-+	 * Get the system page size.
-+	 */
-+	page_size = SAFE_SYSCONF(_SC_PAGESIZE);
-+}
-+
-+static void test_pipe2(void)
-+{
-+	long flags;
-+	long pipe_size;
-+
-+	char *buf;
-+
-+	pid_t pid;
-+	int status;
-+
-+	flags = SAFE_FCNTL(fds[0], F_GETFL);
-+
-+	if (!(flags & O_NONBLOCK))
-+		tst_res(TFAIL, "O_NONBLOCK flag must be set.");
-+
-+	pipe_size = SAFE_FCNTL(fds[0], F_GETPIPE_SZ);
-+
-+	if (pipe_size != page_size * PAGE_NR)
-+		tst_res(TFAIL, "Default pipe page is 16 * 4096 = 65536B.");
-+
-+	/*
-+	 * A pipe has two file descriptors.
-+	 * But in the kernel these two file descriptors point to the same pipe.
-+	 * So setting size from first file handle set size for the pipe.
-+	 */
-+	SAFE_FCNTL(fds[0], F_SETPIPE_SZ, 0);
-+
-+	/*
-+	 * So getting size from the second file descriptor return the size of
-+	 * the pipe which was changed before with first file descriptor.
-+	 */
-+	pipe_size = SAFE_FCNTL(fds[1], F_GETPIPE_SZ);
-+
-+	if (pipe_size != page_size)
-+		tst_res(TFAIL, "Pipe size (%ld) must be page size (%ld)",
-+			pipe_size, page_size);
-+
-+	buf = alloca(page_size);
-+
-+	SAFE_WRITE(1, fds[1], buf, page_size);
-+
-+	/*
-+	 * This write should return -1 because pipe is already full.
-+	 */
-+	if (write(fds[1], buf, page_size) != -1)
-+		tst_res(TFAIL | TERRNO, "write() succeeded and should not");
-+
-+	SAFE_FCNTL(fds[1], F_SETFL, flags & ~O_NONBLOCK);
-+
-+	flags = SAFE_FCNTL(fds[1], F_GETFL);
-+
-+	if (flags & O_NONBLOCK)
-+		tst_res(TFAIL, "O_NONBLOCK flag must not be set.");
-+
-+	pid = SAFE_FORK();
-+
-+	/*
-+	 * Since writes are now blocking the child must wait forever on this
-+	 * write.
-+	 */
-+	if (!pid)
-+		SAFE_WRITE(1, fds[1], buf, page_size);
-+
-+	if (TST_PROCESS_STATE_WAIT(pid, 'S', 1000))
-+		tst_res(TFAIL, "Child must be stopped.");
-+	else
-+		tst_res(TPASS, "Child is stopped.");
-+
-+	SAFE_KILL(pid, SIGKILL);
-+
-+	SAFE_WAIT(&status);
-+}
-+
-+static void cleanup(void)
-+{
-+	for (int i = 0; i < 2; i++)
-+		if (fds[i] > 0)
-+			SAFE_CLOSE(fds[i]);
-+}
-+
-+static struct tst_test test = {
-+	.test_all = test_pipe2,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.forks_child = 1,
-+};
-\ No newline at end of file
--- 
-2.20.1
+On Tue, Apr 7, 2020 at 10:31 AM Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+wrote:
+
+> Hi Li
+>
+> Looks good to me,
+> Reviewed-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+>
+
+Pushed. Thanks for the review.
+--=20
+Regards,
+Li Wang
+
+--000000000000809f1605a2d25c85
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Tue, Apr 7, 2020 at 10:31 AM Yang Xu &lt;<a href=
+=3D"mailto:xuyang2018.jy@cn.fujitsu.com">xuyang2018.jy@cn.fujitsu.com</a>&g=
+t; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
+x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi Li<=
+br>
+<br>
+Looks good to me,<br>
+Reviewed-by: Yang Xu &lt;<a href=3D"mailto:xuyang2018.jy@cn.fujitsu.com" ta=
+rget=3D"_blank">xuyang2018.jy@cn.fujitsu.com</a>&gt;<br></blockquote><div><=
+br></div><div class=3D"gmail_default" style=3D"font-size:small">Pushed. Tha=
+nks for the review.</div><div class=3D"gmail_default" style=3D"font-size:sm=
+all"></div></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=
+=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--000000000000809f1605a2d25c85--
+
+
+--===============0078699465==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0078699465==--
+
