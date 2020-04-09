@@ -1,72 +1,53 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59DB31A2D97
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 04:28:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A7D41A2DAC
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 04:42:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B1D813C2D29
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 04:28:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 25D783C2D43
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 04:42:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 6E12A3C2D1E
- for <ltp@lists.linux.it>; Thu,  9 Apr 2020 04:28:24 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [207.211.31.120])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 702026006F5
- for <ltp@lists.linux.it>; Thu,  9 Apr 2020 04:28:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1586399301;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=BGDbpvXnsBYuYA9aWcUlG8f8jocM1/C1rpixzIWzBwg=;
- b=gCh8ArTosa9xyevPi4M/PekLXJpEpG6gXyXpWf8Y2WYWb5egWrZAQIUABS6LGqSWVoc75z
- LnWX70kcxP+w8CU5V9mRH6Z+4GbWsTTtNMyMTQwyFPU8OkH0H6zCzlgnPhG39/Riaf6Y+6
- lAw4J6aoPyLBCDChu5D5BsnS8Plkatg=
-Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
- [209.85.167.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-377-SR40MxIXMo2aJdNKhwYRhQ-1; Wed, 08 Apr 2020 22:27:43 -0400
-X-MC-Unique: SR40MxIXMo2aJdNKhwYRhQ-1
-Received: by mail-lf1-f70.google.com with SMTP id 66so1775729lfa.7
- for <ltp@lists.linux.it>; Wed, 08 Apr 2020 19:27:43 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=yJPyevVhvhwwSZk4cmx8U+GThNTfkCky/W+AufjqrxU=;
- b=Fmm/4MfqxWVz7xyYU27GQZUg21tqAbdyePvhT3Nhrucfvyc0APSpwR2sg0yZ7oBAhA
- 1cfcVVnv7BoH2KGGTWlMcIu/QyYi63/0sD3Pw89cTUiYAckE5IgcQw83V9P5ZCo41YEz
- sO4pqRFYk36NoivOtbcTKuGeLHc9Uk1+k9g98S2Wrkh2BU9nX9ZN9cpdVGBoLljBawLh
- zMTGAzrPv0r7tempxKjA6egxUEyyOi8kP42ZssvvNi5/NUFMm9Q8h3TrrFWas7ZFgW6l
- ch3kBzn77toPS63wW4msqYsiZiv1EjlD1MhIwBYAmitpJT4xwK6cep8b6XOqCnAX4cQX
- hO5w==
-X-Gm-Message-State: AGi0PuYAMB5cT84gurkKo4XTpPnkdW+DM/MJdO8TC30iKL8Iy+89xpgp
- m9FEkUU7YdfqVHIPekh3a+A2qhSvBP1ScRSr+rJPs0fTob5YfYUycuGVG8u+Bch2spfABinpxns
- nxhTCH3a3TnPN29BN+7hI6zUxppM=
-X-Received: by 2002:a19:691d:: with SMTP id e29mr6217292lfc.83.1586399262528; 
- Wed, 08 Apr 2020 19:27:42 -0700 (PDT)
-X-Google-Smtp-Source: APiQypJ9hXqIyeZQimNXjuabPoRagSUznoPP7d6x083FoTVv6Tr/8HV54piVgsDTt5U6jnZMw2L6h19exLhjL/uCgDU=
-X-Received: by 2002:a19:691d:: with SMTP id e29mr6217283lfc.83.1586399262311; 
- Wed, 08 Apr 2020 19:27:42 -0700 (PDT)
+ by picard.linux.it (Postfix) with ESMTP id 3BC8B3C2D22
+ for <ltp@lists.linux.it>; Thu,  9 Apr 2020 04:42:16 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 9F7956005D4
+ for <ltp@lists.linux.it>; Thu,  9 Apr 2020 04:42:11 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.72,361,1580745600"; d="scan'208";a="88721834"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 09 Apr 2020 10:42:08 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id D7A2650A999B;
+ Thu,  9 Apr 2020 10:31:42 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Thu, 9 Apr 2020 10:42:06 +0800
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <1585839990-19923-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <1585839990-19923-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20200403121603.GD26355@yuki.lan>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <0fbe20c8-d73f-441e-6b32-60e8835d9432@cn.fujitsu.com>
+Date: Thu, 9 Apr 2020 10:42:01 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.0
 MIME-Version: 1.0
-References: <20200406132932.12951-1-liwang@redhat.com>
- <c95f2855-1e16-69c9-1eea-d88c66caffe1@cn.fujitsu.com>
-In-Reply-To: <c95f2855-1e16-69c9-1eea-d88c66caffe1@cn.fujitsu.com>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 9 Apr 2020 10:27:30 +0800
-Message-ID: <CAEemH2eH6M7frm-FA3ENvcSVf6sh9zSC0YywO-Qh_iFeo2-FBg@mail.gmail.com>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+In-Reply-To: <20200403121603.GD26355@yuki.lan>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: D7A2650A999B.AE9B6
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
 X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] hugetlb: move nr_opt to tst_hugepage.h
+Subject: Re: [LTP] [PATCH v1 02/10] syscalls/ioctl:add common c file for
+ loop ioctl
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,64 +59,177 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0078699465=="
+Cc: ltp@lists.linux.it
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0078699465==
-Content-Type: multipart/alternative; boundary="000000000000809f1605a2d25c85"
+Hi Cyril
 
---000000000000809f1605a2d25c85
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Apr 7, 2020 at 10:31 AM Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-wrote:
-
-> Hi Li
->
-> Looks good to me,
-> Reviewed-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
->
-
-Pushed. Thanks for the review.
---=20
-Regards,
-Li Wang
-
---000000000000809f1605a2d25c85
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Tue, Apr 7, 2020 at 10:31 AM Yang Xu &lt;<a href=
-=3D"mailto:xuyang2018.jy@cn.fujitsu.com">xuyang2018.jy@cn.fujitsu.com</a>&g=
-t; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
-x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi Li<=
-br>
-<br>
-Looks good to me,<br>
-Reviewed-by: Yang Xu &lt;<a href=3D"mailto:xuyang2018.jy@cn.fujitsu.com" ta=
-rget=3D"_blank">xuyang2018.jy@cn.fujitsu.com</a>&gt;<br></blockquote><div><=
-br></div><div class=3D"gmail_default" style=3D"font-size:small">Pushed. Tha=
-nks for the review.</div><div class=3D"gmail_default" style=3D"font-size:sm=
-all"></div></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=
-=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
-
---000000000000809f1605a2d25c85--
+> Hi!
+>> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+>> ---
+>>   testcases/kernel/syscalls/ioctl/Makefile      |  3 +
+>>   .../syscalls/ioctl/ioctl_loop_support.c       | 74 +++++++++++++++++++
+>>   .../syscalls/ioctl/ioctl_loop_support.h       | 14 ++++
+>>   3 files changed, 91 insertions(+)
+>>   create mode 100644 testcases/kernel/syscalls/ioctl/ioctl_loop_support.c
+>>   create mode 100644 testcases/kernel/syscalls/ioctl/ioctl_loop_support.h
+>>
+>> diff --git a/testcases/kernel/syscalls/ioctl/Makefile b/testcases/kernel/syscalls/ioctl/Makefile
+>> index c2ff6c8e7..05a75d1b4 100644
+>> --- a/testcases/kernel/syscalls/ioctl/Makefile
+>> +++ b/testcases/kernel/syscalls/ioctl/Makefile
+>> @@ -7,6 +7,9 @@ include $(top_srcdir)/include/mk/testcases.mk
+>>   
+>>   INSTALL_TARGETS		+= test_ioctl
+>>   
+>> +MAKE_TARGETS            := $(patsubst $(abs_srcdir)/%.c,%,$(wildcard $(abs_srcdir)/ioctl_loop[0-9]*.c))
+>> +$(MAKE_TARGETS): %: ioctl_loop_support.o
+> 
+> I guess that we should use anything else than MAKE_TARGETS because
+> changing that variable will disable rest of the ioctl tests from build
+> right?
+> 
+Yes, you are right.
+> As this only expresses dependency on the object file we should use any
+> variable name that is not used by the test library itself.
+I think the following code maybe ok.
++FILTER_OUT_MAKE_TARGETS         := ioctl_loop_support
++
++LOOP_TARGETS            := $(patsubst $(abs_srcdir)/%.c,%,$(wildcard 
+$(abs_srcdir)/ioctl_loop*[0-9].c))
++$(LOOP_TARGETS): %: ioctl_loop_support.o
 
 
---===============0078699465==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> 
+>>   ifeq ($(ANDROID),1)
+>>   FILTER_OUT_MAKE_TARGETS	+= ioctl02
+>>   endif
+>> diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop_support.c b/testcases/kernel/syscalls/ioctl/ioctl_loop_support.c
+>> new file mode 100644
+>> index 000000000..4099bd364
+>> --- /dev/null
+>> +++ b/testcases/kernel/syscalls/ioctl/ioctl_loop_support.c
+>> @@ -0,0 +1,74 @@
+>> +// SPDX-License-Identifier: GPL-2.0-or-later
+>> +/*
+>> + * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
+>> + * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+>> + */
+>> +#define TST_NO_DEFAULT_MAIN
+>> +#include "ioctl_loop_support.h"
+>> +#include "tst_test.h"
+>> +
+>> +void check_sys_value(char *path, int setvalue)
+>> +{
+>> +	int getvalue;
+>> +
+>> +	SAFE_FILE_SCANF(path, "%d", &getvalue);
+>> +	if (setvalue == getvalue)
+>> +		tst_res(TPASS, "%s value is %d", path, setvalue);
+>> +	else
+>> +		tst_res(TFAIL, "%s value expected %d got %d", path, setvalue, getvalue);
+>> +}
+>> +
+>> +void check_sys_string(char *path, char *setmessage)
+>> +{
+>> +	char getmessage[1024];
+>> +
+>> +	SAFE_FILE_SCANF(path, "%s", getmessage);
+>> +	if (strcmp(setmessage, getmessage))
+>> +		tst_res(TFAIL, "%s expected %s got %s", path, setmessage, getmessage);
+>> +	else
+>> +		tst_res(TPASS, "%s string is %s", path, getmessage);
+>> +}
+>> +
+>> +void safe_set_status(int dev_fd, struct loop_info loopinfo)
+>> +{
+>> +	int sleep_us = 4096;
+>> +	int ret = 0;
+>> +
+>> +	/*
+>> +	 * It may have dirty page, so loop dirver may get EAGAIN error
+>> +	 * when we use different offset or sizelimit.
+>> +	 */
+>> +	ret = ioctl(dev_fd, LOOP_SET_STATUS, &loopinfo);
+>> +	while (ret != 0 && errno == EAGAIN && sleep_us < 100000) {
+>> +		ret = ioctl(dev_fd, LOOP_SET_STATUS, &loopinfo);
+>> +		usleep(sleep_us);
+>> +		sleep_us *= 2;
+>> +	}
+> 
+> TBROK here if we failed to set the status?
+Yes.
+> 
+> Also we should use the TST_RETRY_FUNC() instead because that one uses
+> the timeout multiplier environment variable.
+Ok, I will use TST_RETRY_FUNC macro.
+> 
+>> +}
+>> +
+>> +void safe_set_status64(int dev_fd, struct loop_info64 loopinfo)
+>> +{
+>> +	int sleep_us = 4096;
+>> +	int ret = 0;
+>> +
+>> +	/*
+>> +	 * It may have dirty page, so loop dirver may get EAGAIN error
+>> +	 * when we use different offset or sizelimit.
+>> +	 */
+>> +	ret = ioctl(dev_fd, LOOP_SET_STATUS64, &loopinfo);
+>> +	while (ret != 0 && errno == EAGAIN && sleep_us < 100000) {
+>> +		ret = ioctl(dev_fd, LOOP_SET_STATUS64, &loopinfo);
+>> +		usleep(sleep_us);
+>> +		sleep_us *= 2;
+>> +	}
+> 
+> Here as well.
+
+> 
+>> +}
+>> +
+>> +void check_support_cmd(int dev_fd, int ioctl_flag, int value, char *message)
+>> +{
+>> +	int ret = 0;
+>> +
+>> +	ret = ioctl(dev_fd, ioctl_flag, value);
+>> +	if (ret && errno == EINVAL)
+>> +		tst_brk(TCONF, "Current environment doesn't support this flag(%s)",
+>> +				message);
+>> +}
+>> diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop_support.h b/testcases/kernel/syscalls/ioctl/ioctl_loop_support.h
+>> new file mode 100644
+>> index 000000000..44445af8a
+>> --- /dev/null
+>> +++ b/testcases/kernel/syscalls/ioctl/ioctl_loop_support.h
+>> @@ -0,0 +1,14 @@
+>> +// SPDX-License-Identifier: GPL-2.0-or-later
+>> +/*
+>> + * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
+>> + * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+>> + */
+>> +#ifndef IOCTL_LOOP_H
+>> +#define IOCTL_lOOP_H
+>> +#include <linux/loop.h>
+>> +void check_sys_value(char *path, int setvalue);
+>> +void check_sys_string(char *path, char *setmessage);
+>> +void safe_set_status(int dev_fd, struct loop_info loopinfo);
+>> +void safe_set_status64(int dev_fd, struct loop_info64 loopinfo);
+>> +void check_support_cmd(int dev_fd, int ioctl_flag, int value, char *message);
+>> +#endif
+>> -- 
+>> 2.23.0
+>>
+>>
+>>
+>>
+>> -- 
+>> Mailing list info: https://lists.linux.it/listinfo/ltp
+> 
+
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0078699465==--
-
