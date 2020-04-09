@@ -2,37 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F9351A3340
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 13:33:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AF3F1A3558
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 16:04:29 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DEA1C3C2CCB
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 13:33:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B8B263C2CD0
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 16:04:28 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 3ED383C1115
- for <ltp@lists.linux.it>; Thu,  9 Apr 2020 13:33:02 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id AD7723C1115
+ for <ltp@lists.linux.it>; Thu,  9 Apr 2020 16:04:24 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id CD86B1400345
+ for <ltp@lists.linux.it>; Thu,  9 Apr 2020 16:04:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1586441062;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=JL4iE/VictfTnRepdCiPXJUIf7z/Hzgyzyr5RIZmLE8=;
+ b=CqyEy2+NjkfqGzI7JDyuoQgwbREEYH7iLf6/6PnHdSpuKpFa6bmjbAQG3/uah10KgSV7f8
+ 3ClE8C3Kkywl9hWybQYIn/Go3OuII3TiYXweZPSJKPeX4A7fX3G5QooUeIY992gJVjeg2x
+ zzsc+JNTHcqUQBSvbr2Qeyo/E3Z3qTI=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-425-7PTpOhC5NmyjwD0PhG3V1w-1; Thu, 09 Apr 2020 10:04:20 -0400
+X-MC-Unique: 7PTpOhC5NmyjwD0PhG3V1w-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B0EE21A014F7
- for <ltp@lists.linux.it>; Thu,  9 Apr 2020 13:33:01 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 627D7AE2D
- for <ltp@lists.linux.it>; Thu,  9 Apr 2020 11:33:00 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
-To: ltp@lists.linux.it
-Date: Thu,  9 Apr 2020 13:32:59 +0200
-Message-Id: <20200409113259.27515-1-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.26.0
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8370018B5F6C;
+ Thu,  9 Apr 2020 14:04:19 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 76A0DC0DB6;
+ Thu,  9 Apr 2020 14:04:19 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6A52B18089C8;
+ Thu,  9 Apr 2020 14:04:19 +0000 (UTC)
+Date: Thu, 9 Apr 2020 10:04:19 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <1033986999.7818590.1586441059205.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20200409112645.643-1-rpalethorpe@suse.com>
+References: <20200409112645.643-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Originating-IP: [10.43.17.25, 10.4.195.27]
+Thread-Topic: add_key05: Avoid race with key garbage collection
+Thread-Index: 8p1kPFhA95zAPUkDJi+jIdIFL1SfAQ==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH] Add write()/ioctl() race variant to snd_seq01
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] add_key05: Avoid race with key garbage
+ collection
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,128 +76,53 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-CVE 2018-7566 has two different reproducers, this is the other one for the sake
-of completeness.
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
 
-Both races should finish in less than 2 seconds on a patched system but
-triggering the bug in the ioctl()/write() race will result in unkillable
-process stuck in syscall. Waiting 5 minutes to find out is a waste of time
-so I've reduced the timeout to 30 seconds.
+----- Original Message -----
+> --- a/testcases/kernel/syscalls/add_key/add_key05.c
+> +++ b/testcases/kernel/syscalls/add_key/add_key05.c
+> @@ -10,6 +10,10 @@
+>   * This is also a regression test for
+>   * commit a08bf91ce28e ("KEYS: allow reaching the keys quotas exactly")
+>   * commit 2e356101e72a ("KEYS: reaching the keys quotas correctly")
+> + *
+> + * If you run this test with -i > 10 then expect to see some sporadic
+> failures
 
-I've also added another ioctl() to clear kernel buffer before every race,
-otherwise the write() call will block forever when the buffer gets full.
+Since test is using 2 users per iteration, should above say -i > 5?
 
- testcases/kernel/sound/snd_seq01.c | 43 +++++++++++++++++++++++++-----
- 1 file changed, 37 insertions(+), 6 deletions(-)
+> + * where add_key fails with EDQUOT. Keys are freed asynchronously and we
+> only
+> + * create up to 10 users to avoid race conditions.
+>   */
+>  
+>  #include <stdio.h>
+> @@ -18,47 +22,53 @@
+>  #include "tst_test.h"
+>  #include "lapi/keyctl.h"
+>  
+> +#define MAX_USERS 10
+> +
+>  static char *user_buf;
+> -static const char *username = "ltp_add_key05";
+> -static int user_added;
+> -struct passwd *ltpuser;
+> -static char fmt[1024];
+> +static uid_t ltpuser[MAX_USERS];
+> +
+> +static unsigned int usern;
+> +static volatile unsigned int useri;
 
-diff --git a/testcases/kernel/sound/snd_seq01.c b/testcases/kernel/sound/snd_seq01.c
-index e0f197e74..c3b4b6ac2 100644
---- a/testcases/kernel/sound/snd_seq01.c
-+++ b/testcases/kernel/sound/snd_seq01.c
-@@ -24,10 +24,27 @@
- #include "tst_fuzzy_sync.h"
- #include "tst_taint.h"
- 
-+typedef void (*racefunc_t)(void);
-+
- static int fd = -1;
- static int client_id;
-+static struct snd_seq_remove_events rminfo = {
-+	.remove_mode = SNDRV_SEQ_REMOVE_OUTPUT
-+};
-+static struct snd_seq_event ssev = {
-+	.flags = SNDRV_SEQ_TIME_STAMP_TICK | SNDRV_SEQ_TIME_MODE_REL,
-+	.queue = 0,
-+	.type = SNDRV_SEQ_EVENT_USR0,
-+	.time = { .tick = 10 }
-+};
-+
- static struct tst_fzsync_pair fzsync_pair;
- 
-+static void race_ioctl(void);
-+static void race_write(void);
-+
-+racefunc_t testfunc_list[] = {race_ioctl, race_write};
-+
- static void setup(void)
- {
- 	struct snd_seq_queue_info qconf = { .queue = 0 };
-@@ -44,6 +61,7 @@ static void setup(void)
- 
- 	SAFE_IOCTL(fd, SNDRV_SEQ_IOCTL_CLIENT_ID, &client_id);
- 	SAFE_IOCTL(fd, SNDRV_SEQ_IOCTL_CREATE_QUEUE, &qconf);
-+	ssev.dest.client = client_id;
- 
- 	fzsync_pair.exec_loops = 100000;
- 	tst_fzsync_pair_init(&fzsync_pair);
-@@ -63,28 +81,39 @@ static void reinit_pool(int pool_size)
- 		.client = client_id
- 	};
- 
--	SAFE_IOCTL(fd, SNDRV_SEQ_IOCTL_SET_CLIENT_POOL, &pconf);
-+	ioctl(fd, SNDRV_SEQ_IOCTL_SET_CLIENT_POOL, &pconf);
-+}
-+
-+static void race_ioctl(void)
-+{
-+	reinit_pool(512);
-+}
-+
-+static void race_write(void)
-+{
-+	write(fd, &ssev, sizeof(ssev));
- }
- 
- static void *thread_run(void *arg)
- {
- 	while (tst_fzsync_run_b(&fzsync_pair)) {
- 		tst_fzsync_start_race_b(&fzsync_pair);
--		reinit_pool(512);
-+		reinit_pool(10);
- 		tst_fzsync_end_race_b(&fzsync_pair);
- 	}
- 
- 	return arg;
- }
- 
--static void run(void)
-+static void run(unsigned int n)
- {
- 	tst_fzsync_pair_reset(&fzsync_pair, thread_run);
- 
- 	while (tst_fzsync_run_a(&fzsync_pair)) {
--		reinit_pool(1);
-+		reinit_pool(5);
-+		SAFE_IOCTL(fd, SNDRV_SEQ_IOCTL_REMOVE_EVENTS, &rminfo);
- 		tst_fzsync_start_race_a(&fzsync_pair);
--		reinit_pool(2);
-+		testfunc_list[n]();
- 		tst_fzsync_end_race_a(&fzsync_pair);
- 
- 		if (tst_taint_check()) {
-@@ -97,9 +126,11 @@ static void run(void)
- }
- 
- static struct tst_test test = {
--	.test_all = run,
-+	.test = run,
-+	.tcnt = ARRAY_SIZE(testfunc_list),
- 	.setup = setup,
- 	.cleanup = cleanup,
-+	.timeout = 30,
- 	.tags = (const struct tst_tag[]) {
- 		{"linux-git", "d15d662e89fc"},
- 		{"CVE", "2018-7566"},
--- 
-2.26.0
+I don't see why volatile is needed here. Other than that rest looks
+reasonable to me. 
+
+Acked-by: Jan Stancek <jstancek@redhat.com>
 
 
 -- 
