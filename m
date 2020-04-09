@@ -2,69 +2,85 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AF3F1A3558
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 16:04:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 400A81A3627
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 16:44:45 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B8B263C2CD0
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 16:04:28 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9985B3C2CED
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 16:44:44 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id AD7723C1115
- for <ltp@lists.linux.it>; Thu,  9 Apr 2020 16:04:24 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id CD86B1400345
- for <ltp@lists.linux.it>; Thu,  9 Apr 2020 16:04:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1586441062;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=JL4iE/VictfTnRepdCiPXJUIf7z/Hzgyzyr5RIZmLE8=;
- b=CqyEy2+NjkfqGzI7JDyuoQgwbREEYH7iLf6/6PnHdSpuKpFa6bmjbAQG3/uah10KgSV7f8
- 3ClE8C3Kkywl9hWybQYIn/Go3OuII3TiYXweZPSJKPeX4A7fX3G5QooUeIY992gJVjeg2x
- zzsc+JNTHcqUQBSvbr2Qeyo/E3Z3qTI=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-425-7PTpOhC5NmyjwD0PhG3V1w-1; Thu, 09 Apr 2020 10:04:20 -0400
-X-MC-Unique: 7PTpOhC5NmyjwD0PhG3V1w-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 3B3673C1115
+ for <ltp@lists.linux.it>; Thu,  9 Apr 2020 16:44:40 +0200 (CEST)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8370018B5F6C;
- Thu,  9 Apr 2020 14:04:19 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 76A0DC0DB6;
- Thu,  9 Apr 2020 14:04:19 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6A52B18089C8;
- Thu,  9 Apr 2020 14:04:19 +0000 (UTC)
-Date: Thu, 9 Apr 2020 10:04:19 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
-To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <1033986999.7818590.1586441059205.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20200409112645.643-1-rpalethorpe@suse.com>
-References: <20200409112645.643-1-rpalethorpe@suse.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 29175200BD6
+ for <ltp@lists.linux.it>; Thu,  9 Apr 2020 16:44:38 +0200 (CEST)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 039EdCba058063;
+ Thu, 9 Apr 2020 14:44:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=c7NWqJoshM2wzpfBnfdCAVo16vpXtoFAYyS47pg7hQc=;
+ b=W4wKZGC8xYz6mDwo2xHbGI6F5N0EiOpOGxmly1gi2P3WqhPA9L6aF9YdTxi9M4mNBPS0
+ iNAMZZcf5HlTe0r59z31U8EANP3jGU0BeU2Mq+sMO5g5FwS4ZbqZm6AZNqCEO9k5NmzZ
+ u1Vjm5Ulgys56qWk6JEEt6+PuJymBtHLAoM3y2m1g3E3bXwtGOYbKXhXIiqlJozCCmmA
+ ujJF3Xwvsc+DIJkuQy5u/YMXKdbqmPb+r/7LF4izkxLyLRqmtUJZXlf3gXkNGFG6Ce6P
+ XXEYz/8CIB5/FYZc1V8BDK0tnR+7QpGYFSd+NFP6D8hDsdfXA36+aHI2Pr0NuvsFw70f 5g== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by userp2120.oracle.com with ESMTP id 309gw4dt6c-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 09 Apr 2020 14:44:35 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 039EbZBT007796;
+ Thu, 9 Apr 2020 14:44:35 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by userp3030.oracle.com with ESMTP id 3091m49295-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 09 Apr 2020 14:44:35 +0000
+Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 039EiWx8004335;
+ Thu, 9 Apr 2020 14:44:34 GMT
+Received: from [192.168.1.34] (/95.161.221.177)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Thu, 09 Apr 2020 07:44:32 -0700
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+References: <20200403165432.19358-1-pvorel@suse.cz>
+ <20200403165432.19358-2-pvorel@suse.cz>
+From: Alexey Kodanev <alexey.kodanev@oracle.com>
+Message-ID: <608a0875-7bbb-405e-c535-5af4c1fd6fb0@oracle.com>
+Date: Thu, 9 Apr 2020 17:44:30 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.25, 10.4.195.27]
-Thread-Topic: add_key05: Avoid race with key garbage collection
-Thread-Index: 8p1kPFhA95zAPUkDJi+jIdIFL1SfAQ==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+In-Reply-To: <20200403165432.19358-2-pvorel@suse.cz>
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9586
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ malwarescore=0
+ mlxlogscore=999 phishscore=0 spamscore=0 adultscore=0 suspectscore=2
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2003020000 definitions=main-2004090115
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9586
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 bulkscore=0
+ phishscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015
+ suspectscore=2 malwarescore=0 spamscore=0 mlxlogscore=999 mlxscore=0
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2003020000 definitions=main-2004090115
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] add_key05: Avoid race with key garbage
- collection
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH v3 1/2] net: Move setup_addrinfo() into
+ tst_net.h
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,54 +92,150 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-
-
------ Original Message -----
-> --- a/testcases/kernel/syscalls/add_key/add_key05.c
-> +++ b/testcases/kernel/syscalls/add_key/add_key05.c
-> @@ -10,6 +10,10 @@
->   * This is also a regression test for
->   * commit a08bf91ce28e ("KEYS: allow reaching the keys quotas exactly")
->   * commit 2e356101e72a ("KEYS: reaching the keys quotas correctly")
-> + *
-> + * If you run this test with -i > 10 then expect to see some sporadic
-> failures
-
-Since test is using 2 users per iteration, should above say -i > 5?
-
-> + * where add_key fails with EDQUOT. Keys are freed asynchronously and we
-> only
-> + * create up to 10 users to avoid race conditions.
->   */
+Hi Petr,
+On 03.04.2020 19:54, Petr Vorel wrote:
+> as tst_setup_addrinfo().
+> 
+> This allows reusing it in next commit.
+> 
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> Changes v1->v2:
+> * setup_addrinfo() renamed to tst_setup_addrinfo()
+> * rebase
+> 
+>  include/tst_net.h                       |  9 +++++++--
+>  include/tst_private.h                   |  1 +
+>  lib/tst_net.c                           | 14 ++++++++++++++
+>  testcases/network/netstress/netstress.c | 20 ++++----------------
+>  4 files changed, 26 insertions(+), 18 deletions(-)
+> 
+> diff --git a/include/tst_net.h b/include/tst_net.h
+> index 855f4fc13..34025eb81 100644
+> --- a/include/tst_net.h
+> +++ b/include/tst_net.h
+> @@ -7,9 +7,10 @@
+>  #define TST_NET_H_
+>  
+>  #include <arpa/inet.h>
+> -#include <sys/types.h>
+> +#include <netdb.h>
+>  #include <netinet/in.h>
+>  #include <netinet/ip.h>
+> +#include <sys/types.h>
+>  
+>  void tst_get_in_addr(const char *ip_str, struct in_addr *ip);
+>  void tst_get_in6_addr(const char *ip_str, struct in6_addr *ip6);
+> @@ -27,4 +28,8 @@ void tst_init_sockaddr_inet_bin(struct sockaddr_in *sa, uint32_t ip_val, uint16_
+>  void tst_init_sockaddr_inet6(struct sockaddr_in6 *sa, const char *ip_str, uint16_t port);
+>  void tst_init_sockaddr_inet6_bin(struct sockaddr_in6 *sa, const struct in6_addr *ip_val, uint16_t port);
+>  
+> -#endif
+> +void tst_setup_addrinfo(const char *src_addr, const char *port,
+> +		    const struct addrinfo *hints,
+> +		    struct addrinfo **addr_info);
+> +
+> +#endif /* TST_NET_H_ */
+> diff --git a/include/tst_private.h b/include/tst_private.h
+> index 00cd17fce..e30d34740 100644
+> --- a/include/tst_private.h
+> +++ b/include/tst_private.h
+> @@ -10,6 +10,7 @@
+>  #define TST_PRIVATE_H_
 >  
 >  #include <stdio.h>
-> @@ -18,47 +22,53 @@
->  #include "tst_test.h"
->  #include "lapi/keyctl.h"
+> +#include <netdb.h>
 >  
-> +#define MAX_USERS 10
+>  #define MAX_IPV4_PREFIX 32
+>  #define MAX_IPV6_PREFIX 128
+> diff --git a/lib/tst_net.c b/lib/tst_net.c
+> index 22c990e62..7c5fa77cd 100644
+> --- a/lib/tst_net.c
+> +++ b/lib/tst_net.c
+> @@ -5,6 +5,7 @@
+>   */
+>  
+>  #include <errno.h>
+> +#include <netdb.h>
+>  #include <string.h>
+>  #include <stdlib.h>
+>  
+> @@ -204,3 +205,16 @@ void tst_init_sockaddr_inet6_bin(struct sockaddr_in6 *sa, const struct in6_addr
+>  	sa->sin6_port = htons(port);
+>  	memcpy(&sa->sin6_addr, ip_val, sizeof(struct in6_addr));
+>  }
 > +
->  static char *user_buf;
-> -static const char *username = "ltp_add_key05";
-> -static int user_added;
-> -struct passwd *ltpuser;
-> -static char fmt[1024];
-> +static uid_t ltpuser[MAX_USERS];
+> +void tst_setup_addrinfo(const char *src_addr, const char *port,
+> +		    const struct addrinfo *hints,
+> +		    struct addrinfo **addr_info)
+> +{
+> +	int err = getaddrinfo(src_addr, port, hints, addr_info);
 > +
-> +static unsigned int usern;
-> +static volatile unsigned int useri;
+> +	if (err)
+> +		tst_brk(TBROK, "getaddrinfo failed, %s", gai_strerror(err));
+> +
+> +	if (!*addr_info)
+> +		tst_brk(TBROK, "failed to get the address");
+> +}
+> diff --git a/testcases/network/netstress/netstress.c b/testcases/network/netstress/netstress.c
+> index 6797be018..b66eed56e 100644
+> --- a/testcases/network/netstress/netstress.c
+> +++ b/testcases/network/netstress/netstress.c
+> @@ -29,6 +29,7 @@
+>  #include "tst_safe_stdio.h"
+>  #include "tst_safe_pthread.h"
+>  #include "tst_test.h"
+> +#include "tst_net.h"
+>  
+>  static const int max_msg_len = (1 << 16) - 1;
+>  static const int min_msg_len = 5;
+> @@ -441,19 +442,6 @@ static int parse_client_request(const char *msg)
+>  static struct timespec tv_client_start;
+>  static struct timespec tv_client_end;
+>  
+> -static void setup_addrinfo(const char *src_addr, const char *port,
+> -			   const struct addrinfo *hints,
+> -			   struct addrinfo **addr_info)
+> -{
+> -	int err = getaddrinfo(src_addr, port, hints, addr_info);
+> -
+> -	if (err)
+> -		tst_brk(TBROK, "getaddrinfo failed, %s", gai_strerror(err));
+> -
+> -	if (!*addr_info)
+> -		tst_brk(TBROK, "failed to get the address");
+> -}
+> -
+>  static void client_init(void)
+>  {
+>  	if (clients_num >= MAX_THREADS) {
+> @@ -471,8 +459,8 @@ static void client_init(void)
+>  	hints.ai_protocol = 0;
+>  
+>  	if (source_addr)
+> -		setup_addrinfo(source_addr, NULL, &hints, &local_addrinfo);
+> -	setup_addrinfo(server_addr, tcp_port, &hints, &remote_addrinfo);
+> +		tst_setup_addrinfo(source_addr, NULL, &hints, &local_addrinfo);
+> +	tst_setup_addrinfo(server_addr, tcp_port, &hints, &remote_addrinfo);
+>  
+>  	tst_res(TINFO, "Running the test over IPv%s",
+>  		(remote_addrinfo->ai_family == AF_INET6) ? "6" : "4");
+> @@ -667,7 +655,7 @@ static void server_init(void)
+>  
+>  	if (source_addr && !strchr(source_addr, ':'))
+>  		SAFE_ASPRINTF(&src_addr, "::ffff:%s", source_addr);
+> -	setup_addrinfo(src_addr ? src_addr : source_addr, tcp_port,
+> +	tst_setup_addrinfo(src_addr ? src_addr : source_addr, tcp_port,
+>  		       &hints, &local_addrinfo);
+>  	free(src_addr);
+>  
 
-I don't see why volatile is needed here. Other than that rest looks
-reasonable to me. 
-
-Acked-by: Jan Stancek <jstancek@redhat.com>
-
+Acked-by: Alexey Kodanev <alexey.kodanev@oracle.com>
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
