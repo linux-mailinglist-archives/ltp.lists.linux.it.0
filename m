@@ -2,51 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90FCF1A3BBE
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 23:13:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 268101A3BC0
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 23:14:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 954363C2D02
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 23:13:49 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BA9FA3C2CEF
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 23:14:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id CED9A3C0639
- for <ltp@lists.linux.it>; Thu,  9 Apr 2020 23:13:45 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id D99693C2CE0
+ for <ltp@lists.linux.it>; Thu,  9 Apr 2020 23:13:51 +0200 (CEST)
 Received: from latitanza.investici.org (latitanza.investici.org
- [IPv6:2001:888:2000:56::19])
+ [82.94.249.234])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id BC789200C65
- for <ltp@lists.linux.it>; Thu,  9 Apr 2020 23:13:43 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1FDFE60048F
+ for <ltp@lists.linux.it>; Thu,  9 Apr 2020 23:13:50 +0200 (CEST)
 Received: from mx3.investici.org (unknown [127.0.0.1])
- by latitanza.investici.org (Postfix) with ESMTP id 7915E121A21;
- Thu,  9 Apr 2020 21:13:42 +0000 (UTC)
+ by latitanza.investici.org (Postfix) with ESMTP id 51D18121A22;
+ Thu,  9 Apr 2020 21:13:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=privacyrequired.com;
- s=stigmate; t=1586466822;
- bh=EB6iWAMjMImDhfRH121FYgruWsZ6Tmu+RzFm1adqo/Q=;
+ s=stigmate; t=1586466830;
+ bh=AGzM95wamc0kxK5FZ4BTjgoLu3yNkogJ8zXOMl8GkmE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=bJCGYlECKDZJn47BSG4+hdBPaCuXCKn+n6RyyvTIlEVhJlD5aiyY84kr+QbiisbgT
- qWfEuNIpDuI+FvzwbND/NIv14+h5CtfhJDsPzqCh1VA1IuZsFI+grPaN0YZy7NgWvt
- nviMaDzmK2S1ZjuOp2wWI+57hdJIqZAUTYiG1bns=
+ b=AYV2eczgT2hl3XLu9/RA3BT+OH1cDj/SS9ELhuK+4xnhOftmRksiD/COj5dgXUQH7
+ N4Gi+a7WgRdAG1BoyF9Wp6H5GBvX45meR9iCRrGo6iW/zYUB0SalTH5CiWosh7hODP
+ 42isfOEMu811k4m+hCq47OE93rQ/5ceq0k/r6H+A=
 Received: from [82.94.249.234] (mx3.investici.org [82.94.249.234])
  (Authenticated sender: laniel_francis@privacyrequired.com) by localhost
- (Postfix) with ESMTPSA id 431FC121A23; 
- Thu,  9 Apr 2020 21:13:42 +0000 (UTC)
+ (Postfix) with ESMTPSA id F0182121A21; 
+ Thu,  9 Apr 2020 21:13:49 +0000 (UTC)
 From: laniel_francis@privacyrequired.com
 To: ltp@lists.linux.it
-Date: Thu,  9 Apr 2020 23:12:54 +0200
-Message-Id: <20200409211255.1357-1-laniel_francis@privacyrequired.com>
+Date: Thu,  9 Apr 2020 23:12:55 +0200
+Message-Id: <20200409211255.1357-2-laniel_francis@privacyrequired.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <67fdc846a8cd8616c9eb13cf89463b9d637e6849>
 References: <67fdc846a8cd8616c9eb13cf89463b9d637e6849>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] Add new test for pipe2 with/without O_NONBLOCK mode
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 1/2] Add SAFE_PIPE2.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,33 +63,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi.
+From: Francis Laniel <laniel_francis@privacyrequired.com>
 
+This macro is the equivalent of SAFE_PIPE for pipe2 system call.
+---
+ include/old/safe_macros.h |  3 +++
+ include/tst_safe_macros.h |  6 ++++++
+ lib/safe_macros.c         | 15 +++++++++++++++
+ 3 files changed, 24 insertions(+)
 
-I added a new test file (pipe2_03.c) to test pipe2 system call with and without
-O_NONBLOCK enabled.
-This test uses the macro SAFE_PIPE2 that I added, this macro is just the
-equivalent of SAFE_PIPE for pipe2.
-
-I do not know if it is correct to do that but at the end of the test function we
-need to set the pipe in the same state as it was at the end of setup function:
-1. Set the O_NONBLOCK flag to the pipe.
-2. Read the pipe to empty it.
-3. We do not set its size to default because we do not care of it.
-If we do not do that, there will be problem when this test is run multiple time
-(this problem was found when running ./pipe2_03 -i 10).
-
-The diff --stat output is the following:
- include/old/safe_macros.h                  |   3 +++
- include/tst_safe_macros.h                  |   6 ++++++
- lib/safe_macros.c                          |  15 ++++++++++++++
- runtest/syscalls                           |   1 +
- testcases/kernel/syscalls/pipe2/.gitignore |   1 +
- testcases/kernel/syscalls/pipe2/pipe2_03.c | 135 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 6 files changed, 161 insertions(+)
-
-
-Best regards.
+diff --git a/include/old/safe_macros.h b/include/old/safe_macros.h
+index e778d3077..a7bd43c80 100644
+--- a/include/old/safe_macros.h
++++ b/include/old/safe_macros.h
+@@ -66,6 +66,9 @@
+ #define SAFE_PIPE(cleanup_fn, fildes)	\
+ 	safe_pipe(__FILE__, __LINE__, cleanup_fn, (fildes))
+ 
++#define SAFE_PIPE2(fildes, flags) \
++	safe_pipe2(__FILE__, __LINE__, NULL, (fildes), (flags))
++
+ #define SAFE_READ(cleanup_fn, len_strict, fildes, buf, nbyte)	\
+ 	safe_read(__FILE__, __LINE__, cleanup_fn, (len_strict), (fildes), \
+ 	    (buf), (nbyte))
+diff --git a/include/tst_safe_macros.h b/include/tst_safe_macros.h
+index d95d26219..a21d75646 100644
+--- a/include/tst_safe_macros.h
++++ b/include/tst_safe_macros.h
+@@ -87,6 +87,12 @@ static inline int safe_dup(const char *file, const int lineno,
+ #define SAFE_PIPE(fildes) \
+ 	safe_pipe(__FILE__, __LINE__, NULL, (fildes))
+ 
++int safe_pipe2(const char *file, const int lineno, void (*cleanup_fn) (void),
++	       int fildes[2], int flags);
++
++#define SAFE_PIPE2(fildes, flags) \
++	safe_pipe2(__FILE__, __LINE__, NULL, (fildes), (flags))
++
+ #define SAFE_READ(len_strict, fildes, buf, nbyte) \
+ 	safe_read(__FILE__, __LINE__, NULL, (len_strict), (fildes), (buf), (nbyte))
+ 
+diff --git a/lib/safe_macros.c b/lib/safe_macros.c
+index dde9b7b5e..780245821 100644
+--- a/lib/safe_macros.c
++++ b/lib/safe_macros.c
+@@ -248,6 +248,21 @@ int safe_pipe(const char *file, const int lineno, void (*cleanup_fn) (void),
+ 	return rval;
+ }
+ 
++int safe_pipe2(const char *file, const int lineno, void (*cleanup_fn) (void),
++               int fildes[2], int flags)
++{
++	int rval;
++
++	rval = pipe2(fildes, flags);
++	if (rval == -1) {
++		tst_brkm(TBROK | TERRNO, cleanup_fn,
++			 "%s:%d: pipe2({%d,%d}) failed",
++			 file, lineno, fildes[0], fildes[1]);
++	}
++
++	return rval;
++}
++
+ ssize_t safe_read(const char *file, const int lineno, void (*cleanup_fn) (void),
+                   char len_strict, int fildes, void *buf, size_t nbyte)
+ {
+-- 
+2.20.1
 
 
 -- 
