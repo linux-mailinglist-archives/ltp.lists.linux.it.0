@@ -1,42 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A6911A39E0
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 20:37:22 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 90FCF1A3BBE
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 23:13:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F02483C2CF6
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 20:37:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 954363C2D02
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Apr 2020 23:13:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id A85C63C0300
- for <ltp@lists.linux.it>; Thu,  9 Apr 2020 20:37:17 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id CED9A3C0639
+ for <ltp@lists.linux.it>; Thu,  9 Apr 2020 23:13:45 +0200 (CEST)
+Received: from latitanza.investici.org (latitanza.investici.org
+ [IPv6:2001:888:2000:56::19])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0EC70140138F
- for <ltp@lists.linux.it>; Thu,  9 Apr 2020 20:37:16 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id B8835AC19;
- Thu,  9 Apr 2020 18:37:15 +0000 (UTC)
-Date: Thu, 9 Apr 2020 20:37:14 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Alexey Kodanev <alexey.kodanev@oracle.com>
-Message-ID: <20200409183714.GA915479@x230>
-References: <20200403165432.19358-1-pvorel@suse.cz>
- <20200403165432.19358-3-pvorel@suse.cz>
- <06e299d0-0663-a868-f8cc-1f9002d9d43f@oracle.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id BC789200C65
+ for <ltp@lists.linux.it>; Thu,  9 Apr 2020 23:13:43 +0200 (CEST)
+Received: from mx3.investici.org (unknown [127.0.0.1])
+ by latitanza.investici.org (Postfix) with ESMTP id 7915E121A21;
+ Thu,  9 Apr 2020 21:13:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=privacyrequired.com;
+ s=stigmate; t=1586466822;
+ bh=EB6iWAMjMImDhfRH121FYgruWsZ6Tmu+RzFm1adqo/Q=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=bJCGYlECKDZJn47BSG4+hdBPaCuXCKn+n6RyyvTIlEVhJlD5aiyY84kr+QbiisbgT
+ qWfEuNIpDuI+FvzwbND/NIv14+h5CtfhJDsPzqCh1VA1IuZsFI+grPaN0YZy7NgWvt
+ nviMaDzmK2S1ZjuOp2wWI+57hdJIqZAUTYiG1bns=
+Received: from [82.94.249.234] (mx3.investici.org [82.94.249.234])
+ (Authenticated sender: laniel_francis@privacyrequired.com) by localhost
+ (Postfix) with ESMTPSA id 431FC121A23; 
+ Thu,  9 Apr 2020 21:13:42 +0000 (UTC)
+From: laniel_francis@privacyrequired.com
+To: ltp@lists.linux.it
+Date: Thu,  9 Apr 2020 23:12:54 +0200
+Message-Id: <20200409211255.1357-1-laniel_francis@privacyrequired.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <67fdc846a8cd8616c9eb13cf89463b9d637e6849>
+References: <67fdc846a8cd8616c9eb13cf89463b9d637e6849>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <06e299d0-0663-a868-f8cc-1f9002d9d43f@oracle.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH v3 2/2] net/route: Add netlink based route
- change gw/dest tests
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] Add new test for pipe2 with/without O_NONBLOCK mode
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,70 +58,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Alexey,
+Hi.
 
-thanks for your review!
 
-> > diff --git a/testcases/network/stress/route/route-change-gw.sh b/testcases/network/stress/route/route-change-gw.sh
-...
-> >  setup()
-> >  {
-> >  	tst_res TINFO "change IPv$TST_IPVER route gateway $NS_TIMES times"
-> > -
-> > -	rt="$(tst_ipaddr_un -p 0 0)"
-> > -	lhost="$(tst_ipaddr_un 1 1)"
-> > -	rhost="$(tst_ipaddr_un 0 1)"
-> > -	tst_add_ipaddr -s -q -a $lhost
-> > -	tst_add_ipaddr -s -q -a $rhost rhost
-> > +	setup_gw
-> >  }
+I added a new test file (pipe2_03.c) to test pipe2 system call with and without
+O_NONBLOCK enabled.
+This test uses the macro SAFE_PIPE2 that I added, this macro is just the
+equivalent of SAFE_PIPE for pipe2.
 
-> TST_SETUP=setup_gw
+I do not know if it is correct to do that but at the end of the test function we
+need to set the pipe in the same state as it was at the end of setup function:
+1. Set the O_NONBLOCK flag to the pipe.
+2. Read the pipe to empty it.
+3. We do not set its size to default because we do not care of it.
+If we do not do that, there will be problem when this test is run multiple time
+(this problem was found when running ./pipe2_03 -i 10).
 
-OK, I hesitated, whether
-tst_res TINFO "change IPv$TST_IPVER route gateway $NS_TIMES times"
-should be part of setup_gw() or not in the end I accidentally left it on both
-places. OK, I'll keep it in setup_gw() and remove from
-route-change-netlink-gw.sh + use TST_SETUP=setup_gw here (in
-route-change-gw.sh).
+The diff --stat output is the following:
+ include/old/safe_macros.h                  |   3 +++
+ include/tst_safe_macros.h                  |   6 ++++++
+ lib/safe_macros.c                          |  15 ++++++++++++++
+ runtest/syscalls                           |   1 +
+ testcases/kernel/syscalls/pipe2/.gitignore |   1 +
+ testcases/kernel/syscalls/pipe2/pipe2_03.c | 135 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 6 files changed, 161 insertions(+)
 
-> > diff --git a/testcases/network/stress/route/route-lib.sh b/testcases/network/stress/route/route-lib.sh
-...
-> > +test_netlink()
-> > +{
-> > +	local ip_flag
-> > +	[ "$TST_IPV6" ] && ip_flag="-6"
-> > +
-> > +	local port=$(tst_rhost_run -s -c "tst_get_unused_port ipv${TST_IPVER} dgram")
-> > +
 
-> What will be listen on this remote port?
-Nothing. We've talked about it in the past. I struggled to setup remote workers
-(problems to detect that the setup is up before testing starts), but I can
-rethink it again. What do you suggest: one daemon which would run several
-threads (each of them bind to specific IP) or several single thread instances?
-IMHO not binding to specific IP does not garant traffic is taking path we want.
+Best regards.
 
-> > +	EXPECT_PASS route-change-netlink -c $NS_TIMES -d $(tst_iface) $ip_flag -p $port $ROUTE_CHANGE_NETLINK_PARAMS
-
-> EXPECT_PASS doesn't handle TCONF when libmnl-devel is missing.
-
-Thanks, I'll fix it.
-
-tst_test.c:865: CONF: libmnl library and headers are required
-route-change-netlink-gw 1 TFAIL: route-change-netlink -c 10 -d ltp_ns_veth2 -p 40645 -g 10.23.1.7^10.23.1.6^10.23.1.5^10.23.1.4^10.23.1.3^ -l 10.23.1.1 -r 10.23.0.1 failed unexpectedly
-
-I propose to handle this in EXPECT_PASS() (send a separate RFC patch for it).
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
