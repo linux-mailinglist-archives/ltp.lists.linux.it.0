@@ -2,50 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61B101A4235
-	for <lists+linux-ltp@lfdr.de>; Fri, 10 Apr 2020 07:22:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C8FD1A43FA
+	for <lists+linux-ltp@lfdr.de>; Fri, 10 Apr 2020 10:53:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 712F93C2CA2
-	for <lists+linux-ltp@lfdr.de>; Fri, 10 Apr 2020 07:22:08 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 168D43C2C7E
+	for <lists+linux-ltp@lfdr.de>; Fri, 10 Apr 2020 10:53:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id A95BB3C2C6C
- for <ltp@lists.linux.it>; Fri, 10 Apr 2020 07:22:03 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id BCAA93C2C6C
+ for <ltp@lists.linux.it>; Fri, 10 Apr 2020 10:53:03 +0200 (CEST)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 09B76201405
- for <ltp@lists.linux.it>; Fri, 10 Apr 2020 07:21:52 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.72,364,1580745600"; d="scan'208";a="88793446"
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 435EB143340D
+ for <ltp@lists.linux.it>; Fri, 10 Apr 2020 10:52:49 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.72,366,1580745600"; d="scan'208";a="88805729"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 10 Apr 2020 13:21:44 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 829B3406AB15;
- Fri, 10 Apr 2020 13:11:15 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Fri, 10 Apr 2020 13:21:40 +0800
-To: Desnes Augusto Nunes do Rosario <desnesn@linux.ibm.com>
-References: <1584507302-23515-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <bd1dc27b-5680-5a7e-941e-bbd085880ffa@linux.ibm.com>
+ by heian.cn.fujitsu.com with ESMTP; 10 Apr 2020 16:52:42 +0800
+Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
+ by cn.fujitsu.com (Postfix) with ESMTP id BE09650A999E
+ for <ltp@lists.linux.it>; Fri, 10 Apr 2020 16:42:13 +0800 (CST)
+Received: from G08CNEXCHPEKD03.g08.fujitsu.local (10.167.33.85) by
+ G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Fri, 10 Apr 2020 16:52:38 +0800
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXCHPEKD03.g08.fujitsu.local (10.167.33.89) with Microsoft SMTP Server
+ (TLS) id 14.3.439.0; Fri, 10 Apr 2020 16:52:39 +0800
 From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <85165f62-1148-aead-30dc-8a23aeb19c96@cn.fujitsu.com>
-Date: Fri, 10 Apr 2020 13:21:38 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+To: <ltp@lists.linux.it>
+Date: Fri, 10 Apr 2020 16:52:50 +0800
+Message-ID: <1586508770-8662-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-In-Reply-To: <bd1dc27b-5680-5a7e-941e-bbd085880ffa@linux.ibm.com>
 X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 829B3406AB15.AE6CA
+X-yoursite-MailScanner-ID: BE09650A999E.A048F
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] ltp_tpci.c: fix a null pointer
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/pipe2_01: convert into new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,127 +54,500 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============1158167367=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgRGVzbmVzCgo+IEdyZWV0aW5ncyBZYW5nLHRoYW5rcyBmb3IgdGhlIHBhdGNoLgo+IAo+IE9u
-IDMvMTgvMjAgMTo1NSBBTSwgWWFuZyBYdSB3cm90ZToKPj4gU2luY2UgY29tbWl0IDNkZDI4NmJk
-YmVlICgibHRwX3RwY2kuYzogVXBkYXRlIGxlZ2FjeSBjb2RlIiksCj4+IGl0IGludHJvZHVjZWQg
-YSB3YXJuaW5nIGFzIGJlbG93Ogo+PiAuLi9sdHBfdHBjaS5jOiBJbiBmdW5jdGlvbiDigJhwcm9i
-ZV9wY2lfZGV24oCZOgo+PiAuLi9sdHBfdHBjaS5jOjEwNzo4OiB3YXJuaW5nOiDigJhkZXbigJkg
-aXMgdXNlZCB1bmluaXRpYWxpemVkIGluIHRoaXMgCj4+IGZ1bmN0aW9uIFstV3VuaW5pdGlhbGl6
-ZWRdCj4+IMKgwqAgc3RydWN0IHBjaV9kZXYgKmRldjsKPj4gwqDCoCBkZXYgPSBwY2lfZ2V0X2Rv
-bWFpbl9idXNfYW5kX3Nsb3QocGNpX2RvbWFpbl9ucihkZXYtPmJ1cyksIGJ1cywgc2xvdCkKPj4K
-Pj4gVGhpcyB3aWxsIGxlYWQgdG8gc3lzdGVtIGNyYXNoIHdoZW4gd2UgcnVuIHRoaXMgY2FzZSBi
-ZWNhdXNlIGl0IAo+PiB0cmlnZ2VycyBhIG51bGwgcG9pbnRlci4KPj4gVXNlIDAgZG9tYWluIGlu
-dGVhZCBvZiBwY2lfZG9tYWluX25yLgo+Pgo+PiBwczogSSB3YW50IHRvIHVzZSBhIGR5bWFpYyBk
-b21haW4gdG8gZml4IGl0IGJ1dCBmYWlsZWQuIElmIHNvbWVvbmUga25vdywKPj4gcGxlYXNlIHRl
-bGwgbWUuIEFsc28sIHRoaXMgY2FzZSBmYWlsZWQgd2hlbiBtZXJnaW5nIHRoaXMgcGF0Y2ggYmVj
-YXVzZQo+PiB0ZXN0IDEzICh0ZXN0X2Fzc2lnbl9yZXNvdXJjZXMpIHJlcG9ydCBubyBzcGFjZSBl
-cnJvciBhcyBiZWxvdzoKPj4gWzc1NDkzMC43NTc1ODVdIGx0cF90cGNpOiB0ZXN0LWNhc2UgMTMK
-Pj4gWzc1NDkzMC43NTc1ODVdIGx0cF90cGNpOiBhc3NpZ24gcmVzb3VyY2VzCj4+IFs3NTQ5MzAu
-NzU3NTg1XSBsdHBfdHBjaTogYXNzaWduIHJlc291cmNlICMwCj4+IFs3NTQ5MzAuNzU3NTg2XSBs
-dHBfdHBjaTogbmFtZSA9IDAwMDA6MDA6MDguMCwgZmxhZ3MgPSAyNjI0MDEsIHN0YXJ0IAo+PiAw
-eGMxNDAsIGVuZCAweGMxN2YKPj4gWzc1NDkzMC43NTc1ODZdIGx0cF90cGNpOiBhc3NpZ24gcmVz
-b3VyY2UgIzEKPj4gWzc1NDkzMC43NTc1ODddIGx0cF90cGNpOiBuYW1lID0gMDAwMDowMDowOC4w
-LCBmbGFncyA9IDI2MjY1Niwgc3RhcnQgCj4+IDB4ZmViZDcwMDAsIGVuZCAweGZlYmQ3ZmZmCj4+
-IFs3NTQ5MzAuNzU3NTg3XSBsdHBfdHBjaTogYXNzaWduIHJlc291cmNlICMyCj4+IFs3NTQ5MzAu
-NzU3NTg3XSBsdHBfdHBjaTogbmFtZSA9IDAwMDA6MDA6MDguMCwgZmxhZ3MgPSAwLCBzdGFydCAw
-eDAsIAo+PiBlbmQgMHgwCj4+IFs3NTQ5MzAuNzU3NTg4XSBsdHBfdHBjaTogYXNzaWduIHJlc291
-cmNlICMzCj4+IFs3NTQ5MzAuNzU3NTg4XSBsdHBfdHBjaTogbmFtZSA9IDAwMDA6MDA6MDguMCwg
-ZmxhZ3MgPSAwLCBzdGFydCAweDAsIAo+PiBlbmQgMHgwCj4+IFs3NTQ5MzAuNzU3NTg4XSBsdHBf
-dHBjaTogYXNzaWduIHJlc291cmNlICM0Cj4+IFs3NTQ5MzAuNzU3NTg5XSBsdHBfdHBjaTogbmFt
-ZSA9IDAwMDA6MDA6MDguMCwgZmxhZ3MgPSA1MzgxOTAzNDgsIAo+PiBzdGFydCAweGZlODBjMDAw
-LCBlbmQgMHhmZTgwZmZmZgo+PiBbNzU0OTMwLjc1NzU5M10gdmlydGlvLXBjaSAwMDAwOjAwOjA4
-LjA6IEJBUiA0OiBubyBzcGFjZSBmb3IgW21lbSBzaXplIAo+PiAweDAwMDA0MDAwIDY0Yml0IHBy
-ZWZdCj4+IFs3NTQ5MzAuNzU3NTk0XSB2aXJ0aW8tcGNpIDAwMDA6MDA6MDguMDogQkFSIDQ6IGZh
-aWxlZCB0byBhc3NpZ24gW21lbSAKPj4gc2l6ZSAweDAwMDA0MDAwIDY0Yml0IHByZWYKPj4KPj4g
-Rml4ZXM6IDNkZDI4NmIgKCJsdHBfdHBjaS5jOiBVcGRhdGUgbGVnYWN5IGNvZGUiKQo+PiBTaWdu
-ZWQtb2ZmLWJ5OiBZYW5nIFh1IDx4dXlhbmcyMDE4Lmp5QGNuLmZ1aml0c3UuY29tPgo+PiAtLS0K
-Pj4gwqAgdGVzdGNhc2VzL2tlcm5lbC9kZXZpY2UtZHJpdmVycy9wY2kvdHBjaV9rZXJuZWwvbHRw
-X3RwY2kuYyB8IDIgKy0KPj4gwqAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRl
-bGV0aW9uKC0pCj4+Cj4+IGRpZmYgLS1naXQgCj4+IGEvdGVzdGNhc2VzL2tlcm5lbC9kZXZpY2Ut
-ZHJpdmVycy9wY2kvdHBjaV9rZXJuZWwvbHRwX3RwY2kuYyAKPj4gYi90ZXN0Y2FzZXMva2VybmVs
-L2RldmljZS1kcml2ZXJzL3BjaS90cGNpX2tlcm5lbC9sdHBfdHBjaS5jCj4+IGluZGV4IDdjYmFi
-ZmFhNS4uYTU3OTUzZGI2IDEwMDY0NAo+PiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL2RldmljZS1k
-cml2ZXJzL3BjaS90cGNpX2tlcm5lbC9sdHBfdHBjaS5jCj4+ICsrKyBiL3Rlc3RjYXNlcy9rZXJu
-ZWwvZGV2aWNlLWRyaXZlcnMvcGNpL3RwY2lfa2VybmVsL2x0cF90cGNpLmMKPj4gQEAgLTEwNCw3
-ICsxMDQsNyBAQCBzdGF0aWMgaW50IHByb2JlX3BjaV9kZXYodW5zaWduZWQgaW50IGJ1cywgCj4+
-IHVuc2lnbmVkIGludCBzbG90KQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgbHRwX3BjaS5kZXYgPSBO
-VUxMOwo+PiDCoMKgwqDCoMKgIH0KPj4gLcKgwqDCoCBkZXYgPSBwY2lfZ2V0X2RvbWFpbl9idXNf
-YW5kX3Nsb3QocGNpX2RvbWFpbl9ucihkZXYtPmJ1cyksIGJ1cywgCj4+IHNsb3QpOwo+PiArwqDC
-oMKgIGRldiA9IHBjaV9nZXRfZG9tYWluX2J1c19hbmRfc2xvdCgwLCBidXMsIHNsb3QpOwo+PiDC
-oMKgwqDCoMKgIGlmICghZGV2IHx8ICFkZXYtPmRyaXZlcikKPj4gwqDCoMKgwqDCoMKgwqDCoMKg
-IHJldHVybiAtRU5PREVWOwo+IAo+IEkgd2FzIGFib3V0IHRvIHBvc3QgdGhlIHNhbWUgZml4IG9u
-IHRoZSBtYWlsaW5nIGxpc3QgLSBqdXN0IHRlc3RlZCBpbiAKPiBwb3dlcnBjIGFyY2ggYW5kIGl0
-IGxvb2tzIGdvb2QgdG8gbWUuCj4gCj4gSXQgaXMgc2FmZSB0byB1c2UgMCBzaW5jZSBmdW5jdGlv
-biBwY2lfZ2V0X2J1c19hbmRfc2xvdCh1bnNpZ25lZCBpbnQgCj4gYnVzLCB1bnNpZ25lZCBpbnQg
-ZGV2Zm4pIHJlbW92ZWQgb24ga2VybmVsIGNvbW1pdCA8NWNmMGMzN2E3MWRhMGYzPiAKPiAoIlBD
-STogUmVtb3ZlIHBjaV9nZXRfYnVzX2FuZF9zbG90KCkgZnVuY3Rpb24iKSB1c2VkIHRvIGJlIGEg
-d3JhcHBlciBmb3IgCj4gcGNpX2dldF9kb21haW5fYnVzX2FuZF9zbG90KDAsIGJ1cywgZGV2Zm4p
-LgpTb3JyeSBmb3IgdGhlIGxhdGUgcmVwbHkuIFRoYW5rcyBmb3IgeW91ciByZXZpZXcuIEkgdGhp
-bmsgdGhpcyBzaG91bGQgYmUgCmFkZGVkIGludG8gY29tbWl0IG1lc3NhZ2UsIHNvIG1ha2UgdGhp
-cyBmaXggbW9yZSBjbGVhci4KCkJlc3QgUmVnYXJkcwpZYW5nIFh1Cj4gCj4gSGVuY2UsIHRoaXMg
-cGF0Y2ggYXZvaWRzIHRoZSBmb2xsb3dpbmcgT29wczoKPiAKPiA9PT09PQo+IFs2OTYxNC45Nzg1
-OTZdIFVuYWJsZSB0byBoYW5kbGUga2VybmVsIHBhZ2luZyByZXF1ZXN0IGZvciBkYXRhIGF0IAo+
-IGFkZHJlc3MgMHgwMDAwMDAxMAo+IFs2OTYxNC45Nzg2MDJdIEZhdWx0aW5nIGluc3RydWN0aW9u
-IGFkZHJlc3M6IDB4ZDAwMDAwMDAwM2MyMDBhNAo+IFs2OTYxNC45Nzg2MDZdIE9vcHM6IEtlcm5l
-bCBhY2Nlc3Mgb2YgYmFkIGFyZWEsIHNpZzogMTEgWyMxXQo+IFs2OTYxNC45Nzg2MDldIExFIFNN
-UCBOUl9DUFVTPTIwNDggTlVNQSBQb3dlck5WCj4gWzY5NjE0Ljk3ODYxM10gTW9kdWxlcyBsaW5r
-ZWQgaW46IGx0cF90cGNpKE9FKSB2bWFjIGNoYWNoYTIwX2dlbmVyaWMgCj4gcG9seTEzMDVfZ2Vu
-ZXJpYyBjaGFjaGEyMHBvbHkxMzA1IHNuZF90aW1lciBzbmQgc291bmRjb3JlIGF1dGhlbmMgcGNy
-eXB0IAo+IGNyeXB0b191c2VyIHNoYTNfZ2VuZXJpYyBzYWxzYTIwX2dlbmVyaWMgdWlucHV0IGNh
-bl9yYXcgY2FuIGR1bW15IHZldGggCj4gbl9nc20gcHBzX2xkaXNjIHBwcF9zeW5jdHR5IG5faGRs
-YyBwcHBfYXN5bmMgcHBwX2dlbmVyaWMgc2xoYyBrdm1faHYgCj4ga3ZtX3ByIGt2bSBiaW5mbXRf
-bWlzYyBuZnN2MyBuZnNfYWNsIG5mcyBsb2NrZCBncmFjZSBmc2NhY2hlIHR1biBicmQgCj4gdmZh
-dCBmYXQgZnVzZSBvdmVybGF5IGV4dDQgbWJjYWNoZSBqYmQyIGxvb3Agc3VucnBjIHVpb19wZHJ2
-X2dlbmlycSBzZXMgCj4geHRzIGlwbWlfcG93ZXJudiBlbmNsb3N1cmUgaXBtaV9kZXZpbnRmIHVp
-byBzY3NpX3RyYW5zcG9ydF9zYXMgCj4gaWJtcG93ZXJudiBpcG1pX21zZ2hhbmRsZXIgbGVkc19w
-b3dlcm52IHZteF9jcnlwdG8gcG93ZXJudl9ybmcgCj4gcG93ZXJudl9vcF9wYW5lbCBpcF90YWJs
-ZXMgeGZzIGxpYmNyYzMyYyBzcl9tb2QgY2Ryb20gc2RfbW9kIHNnIGlwciAKPiBsaWJhdGEgdGcz
-IGRtX21pcnJvciBkbV9yZWdpb25faGFzaCBkbV9sb2cgZG1fbW9kIFtsYXN0IHVubG9hZGVkOiAK
-PiBsdHBfYmxvY2tfZGV2XQo+IFs2OTYxNC45Nzg2NTNdIEZlYXR1cmVzOiBlQlBGL3NvY2sKPiBb
-Njk2MTQuOTc4NjU3XSBDUFU6IDEgUElEOiAyMjkyMTc2IENvbW06IHRwY2kgS2R1bXA6IGxvYWRl
-ZCBUYWludGVkOiAKPiBHwqDCoMKgwqDCoMKgwqAgV8KgIE9FwqDCoMKgIC0tLS0tLS0tLSAtwqAg
-LSA0LjE4LjAtMTg3LmVsOC5wcGM2NGxlICMxCj4gWzY5NjE0Ljk3ODY2Ml0gTklQOsKgIGQwMDAw
-MDAwMDNjMjAwYTQgTFI6IGQwMDAwMDAwMDNjMjAwNmMgQ1RSOiAKPiBjMDAwMDAwMDAwZGM4YzAw
-Cj4gWzY5NjE0Ljk3ODY2Nl0gUkVHUzogYzAwMDAwMDRiZTQzN2EyMCBUUkFQOiAwMzAwwqDCoCBU
-YWludGVkOiBHwqDCoMKgwqDCoMKgwqAgVyAKPiBPRcKgwqDCoCAtLS0tLS0tLS0gLcKgIC3CoCAo
-NC4xOC4wLTE4Ny5lbDgucHBjNjRsZSkKPiBbNjk2MTQuOTc4NjcwXSBNU1I6wqAgOTAwMDAwMDAw
-MDAwOTAzMyA8U0YsSFYsRUUsTUUsSVIsRFIsUkksTEU+wqAgQ1I6IAo+IDI4MDAyMjcywqAgWEVS
-OiAyMDAwMDAwMAo+IFs2OTYxNC45Nzg2NzZdIENGQVI6IGMwMDAwMDAwMDAwMDg5MzQgREFSOiAw
-MDAwMDAwMDAwMDAwMDEwIERTSVNSOiAKPiA0MDAwMDAwMCBJUlFNQVNLOiAwCj4gR1BSMDA6IGQw
-MDAwMDAwMDNjMjAwNmMgYzAwMDAwMDRiZTQzN2NhMCBkMDAwMDAwMDAzYzJhMzAwIDAwMDAwMDAw
-MDAwMDAwMDAKPiBHUFIwNDogZDAwMDAwMDAwM2MyMTRiYSAwMDAwMDAwMDAwMDAwMDAwIGMwMDAw
-MDA3ODQ2NDQ4YzkgMDAwMDAwMDAwMDAwMDAwMAo+IEdQUjA4OiBjMDAwMDAwNGJlNDM3ZDA0IDAw
-MDAwMDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDAwMDAwMDAwCj4gR1BSMTI6
-IDAwMDAwMDAwMDAwMDIyMDAgYzAwMDAwMDdmZmZmZWUwMCAwMDAwMDAwMDAwMDAwMDAwIDAwMDAw
-MDAwMDAwMDAwMDAKPiBHUFIxNjogMDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDEwMDFjZjk4IDAw
-MDAwMDAwMTAwMWNmNzggMDAwMDAwMDAxMDAxY2ZmMAo+IEdQUjIwOiAwMDAwMDAwMDEwMDFkMDEw
-IDAwMDAwMDAwMTAwMWNmNTggMDAwMDdmZmY5MjY0MzE5MCAwMDAwMDAwMDEwMDQwNTMwCj4gR1BS
-MjQ6IDAwMDAwMDAwMTAwMWQxMDggMDAwMDAwMDAxMDAxY2Y0OCBjMDAwMDAwNGJlNDM3ZGYwIDAw
-MDAwMDAwMDAwMDAwMDEKPiBHUFIyODogZmZmZmZmZmZmZmZmZmZmMiAwMDAwMDAwMDAwMDAwMDAw
-IGQwMDAwMDAwMDNjMjJmODAgMDAwMDAwMDAwMDAwMDAwMAo+IFs2OTYxNC45Nzg3MTFdIE5JUCBb
-ZDAwMDAwMDAwM2MyMDBhNF0gc3lzX2J1c19zbG90KzB4OGMvMHgxNzAgW2x0cF90cGNpXQo+IFs2
-OTYxNC45Nzg3MTVdIExSIFtkMDAwMDAwMDAzYzIwMDZjXSBzeXNfYnVzX3Nsb3QrMHg1NC8weDE3
-MCBbbHRwX3RwY2ldCj4gWzY5NjE0Ljk3ODcxOF0gQ2FsbCBUcmFjZToKPiBbNjk2MTQuOTc4NzIx
-XSBbYzAwMDAwMDRiZTQzN2NhMF0gW2QwMDAwMDAwMDNjMjAwNmNdIAo+IHN5c19idXNfc2xvdCsw
-eDU0LzB4MTcwIFtsdHBfdHBjaV0gKHVucmVsaWFibGUpCj4gWzY5NjE0Ljk3ODcyN10gW2MwMDAw
-MDA0YmU0MzdkNDBdIFtjMDAwMDAwMDAwOGRhNWJjXSAKPiBkZXZfYXR0cl9zdG9yZSsweDNjLzB4
-NjAKPiBbNjk2MTQuOTc4NzMyXSBbYzAwMDAwMDRiZTQzN2Q2MF0gW2MwMDAwMDAwMDA1ZmI5MDhd
-IAo+IHN5c2ZzX2tmX3dyaXRlKzB4NjgvMHg4MAo+IFs2OTYxNC45Nzg3MzZdIFtjMDAwMDAwNGJl
-NDM3ZDgwXSBbYzAwMDAwMDAwMDVmOWZiNF0gCj4ga2VybmZzX2ZvcF93cml0ZSsweDEwNC8weDI3
-MAo+IFs2OTYxNC45Nzg3NDFdIFtjMDAwMDAwNGJlNDM3ZGQwXSBbYzAwMDAwMDAwMDRmZjYyNF0g
-c3lzX3dyaXRlKzB4MTM0LzB4M2EwCj4gWzY5NjE0Ljk3ODc0NV0gW2MwMDAwMDA0YmU0MzdlMzBd
-IFtjMDAwMDAwMDAwMDBiMzg4XSBzeXN0ZW1fY2FsbCsweDVjLzB4NzAKPiBbNjk2MTQuOTc4NzQ4
-XSBJbnN0cnVjdGlvbiBkdW1wOgo+IFs2OTYxNC45Nzg3NTFdIGViZGU4MDEwIDgwYTEwMDY0IGU4
-N2UwMDAwIDc4YmRjNjIyIDU0YmYwNjNlIDJmYTMwMDAwIAo+IDQxOWUwMDE0IDQ4MDAwZTg5Cj4g
-WzY5NjE0Ljk3ODc1N10gZTg0MTAwMTggMzkyMDAwMDAgZjkzZTAwMDAgMzkyMDAwMDAgPGU4Njkw
-MDEwPiA0ODAwMGRkMSAKPiBlODQxMDAxOCA3ZmU1ZmI3OAo+IFs2OTYxNC45Nzg3NjRdIC0tLVsg
-ZW5kIHRyYWNlIDQxNGIxMjcwZjU3OTM1MWYgXS0tLQo+ID09PT09Cj4gCj4gUmV2aWV3ZWQtYnk6
-IERlc25lcyBBLiBOdW5lcyBkbyBSb3NhcmlvIDxkZXNuZXNuQGxpbnV4LmlibS5jb20+Cj4gCj4+
-CgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5m
-by9sdHAK
+--===============1158167367==
+Content-Type: text/plain; charset="y"
+Content-Transfer-Encoding: 8bit
+
+Also, merge pipe2_02.c into this case and use SAFE_PIPE2 macro(it is in
+review). I have a kernel doubt when using O_DIRECT flag, for read side,
+it is ignore as below:
+fs/pipe.c
+create_pipe_files(...)
+....
+res[0] = alloc_file_clone(f, O_RDONLY | (flags & O_NONBLOCK),
+                                  &pipefifo_fops)
+
+In internal, this O_DIRECT flag is used to set flag with buf as below:
+ if (is_packetized(filp)) {
+        buf->ops = &packet_pipe_buf_ops;
+        buf->flags = PIPE_BUF_FLAG_PACKET;
+}
+
+but we can set this flag in read side by fcntl with SETFL, GETFL command can
+get this flag correctly. Do we should remove this filter for O_DIRECT flag in res[0]?
+Or, I should skip this sub test when using O_DIRECT flag for read side?
+
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+---
+ runtest/syscalls                           |   1 -
+ testcases/kernel/syscalls/pipe2/.gitignore |   1 -
+ testcases/kernel/syscalls/pipe2/pipe2_01.c | 228 +++++----------------
+ testcases/kernel/syscalls/pipe2/pipe2_02.c | 175 ----------------
+ 4 files changed, 52 insertions(+), 353 deletions(-)
+ delete mode 100644 testcases/kernel/syscalls/pipe2/pipe2_02.c
+
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 5607ae9a3..d3edc1126 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -919,7 +919,6 @@ pipe12 pipe12
+ pipe13 pipe13
+ 
+ pipe2_01 pipe2_01
+-pipe2_02 pipe2_02
+ pipe2_03 pipe2_03
+ 
+ pivot_root01 pivot_root01
+diff --git a/testcases/kernel/syscalls/pipe2/.gitignore b/testcases/kernel/syscalls/pipe2/.gitignore
+index 01d980dba..e54774705 100644
+--- a/testcases/kernel/syscalls/pipe2/.gitignore
++++ b/testcases/kernel/syscalls/pipe2/.gitignore
+@@ -1,3 +1,2 @@
+ /pipe2_01
+-/pipe2_02
+ /pipe2_03
+diff --git a/testcases/kernel/syscalls/pipe2/pipe2_01.c b/testcases/kernel/syscalls/pipe2/pipe2_01.c
+index 5f3ad8f0f..af86e4c35 100644
+--- a/testcases/kernel/syscalls/pipe2/pipe2_01.c
++++ b/testcases/kernel/syscalls/pipe2/pipe2_01.c
+@@ -1,186 +1,62 @@
+-/******************************************************************************/
+-/*                                                                            */
+-/* Copyright (c) Ulrich Drepper <drepper@redhat.com>                          */
+-/* Copyright (c) International Business Machines  Corp., 2009                 */
+-/*                                                                            */
+-/* This program is free software;  you can redistribute it and/or modify      */
+-/* it under the terms of the GNU General Public License as published by       */
+-/* the Free Software Foundation; either version 2 of the License, or          */
+-/* (at your option) any later version.                                        */
+-/*                                                                            */
+-/* This program is distributed in the hope that it will be useful,            */
+-/* but WITHOUT ANY WARRANTY;  without even the implied warranty of            */
+-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See                  */
+-/* the GNU General Public License for more details.                           */
+-/*                                                                            */
+-/* You should have received a copy of the GNU General Public License          */
+-/* along with this program;  if not, write to the Free Software               */
+-/* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA    */
+-/*                                                                            */
+-/******************************************************************************/
+-/******************************************************************************/
+-/*                                                                            */
+-/* File:        pipe2_01.c                                                    */
+-/*                                                                            */
+-/* Description: This Program tests the new system call introduced in 2.6.27.  */
+-/*              Ulrich´s comment as in:                                       */
+-/* http://git.kernel.org/?p=linux/kernel/git/torvalds/linux-2.6.git;a=commit;h=ed8cae8ba01348bfd83333f4648dd807b04d7f08 */
+-/*              says:                                                         */
+-/* This patch introduces the new syscall pipe2 which is like pipe but it also */
+-/* takes an additional parameter which takes a flag value.  This patch        */
+-/* implements the handling of O_CLOEXEC for the flag.  I did not add support  */
+-/* for the new syscall for the architectures which have a special sys_pipe    */
+-/* implementation.  I think the maintainers of those archs have the chance to */
+-/* go with the unified implementation but that's up to them.                  */
+-/*                                                                            */
+-/* The implementation introduces do_pipe_flags.  I did that instead of        */
+-/* changing all callers of do_pipe because some of the callers are written in */
+-/* assembler. I would probably screw up changing the assembly code.  To avoid */
+-/* breaking code do_pipe is now a small wrapper around do_pipe_flags.  Once   */
+-/* all callers are changed over to do_pipe_flags the old do_pipe function can */
+-/* be removed.                                                                */
+-/* The following test must be adjusted for architectures other than x86 and   */
+-/* x86-64 and in case the syscall numbers changed.                            */
+-/*                                                                            */
+-/* Usage:  <for command-line>                                                 */
+-/* pipe2_01 [-c n] [-e][-i n] [-I x] [-p x] [-t]                              */
+-/*      where,  -c n : Run n copies concurrently.                             */
+-/*              -e   : Turn on errno logging.                                 */
+-/*              -i n : Execute test n times.                                  */
+-/*              -I x : Execute test for x seconds.                            */
+-/*              -P x : Pause for x seconds between iterations.                */
+-/*              -t   : Turn on syscall timing.                                */
+-/*                                                                            */
+-/* Total Tests: 1                                                             */
+-/*                                                                            */
+-/* Test Name:   pipe2_01                                                      */
+-/*                                                                            */
+-/* Author:      Ulrich Drepper <drepper@redhat.com>                           */
+-/*                                                                            */
+-/* History:     Created - Jan 13 2009 - Ulrich Drepper <drepper@redhat.com>   */
+-/*              Ported to LTP                                                 */
+-/*                      - Jan 13 2009 - Subrata <subrata@linux.vnet.ibm.com>  */
+-/******************************************************************************/
+-#include <fcntl.h>
++// SPDX-License-Identifier: GPL-2.0-or-late
++/*
++ * Copyright (c) Ulrich Drepper <drepper@redhat.com>
++ * Copyright (c) International Business Machines  Corp., 2009
++ *
++ * Author: Ulrich Drepper <drepper@redhat.com>
++ *
++ * History:
++ * Created - Jan 13 2009 - Ulrich Drepper <drepper@redhat.com>
++ * Ported to LTP - Jan 13 2009 - Subrata <subrata@linux.vnet.ibm.com>
++ */
++#define _GNU_SOURCE
+ #include <stdio.h>
+ #include <unistd.h>
+-#include <sys/syscall.h>
+-#include <errno.h>
+-
+-#include "test.h"
+ #include "lapi/fcntl.h"
+-#include "lapi/syscalls.h"
+-
+-char *TCID = "pipe2_01";
+-int testno;
+-int TST_TOTAL = 1;
+-
+-/* Extern Global Functions */
+-/******************************************************************************/
+-/*                                                                            */
+-/* Function:    cleanup                                                       */
+-/*                                                                            */
+-/* Description: Performs all one time clean up for this test on successful    */
+-/*              completion,  premature exit or  failure. Closes all temporary */
+-/*              files, removes all temporary directories exits the test with  */
+-/*              appropriate return code by calling tst_exit() function.       */
+-/*                                                                            */
+-/* Input:       None.                                                         */
+-/*                                                                            */
+-/* Output:      None.                                                         */
+-/*                                                                            */
+-/* Return:      On failure - Exits calling tst_exit(). Non '0' return code.   */
+-/*              On success - Exits calling tst_exit(). With '0' return code.  */
+-/*                                                                            */
+-/******************************************************************************/
+-void cleanup(void)
+-{
+-
+-	tst_rmdir();
+-
+-}
+-
+-/* Local  Functions */
+-/******************************************************************************/
+-/*                                                                            */
+-/* Function:    setup                                                         */
+-/*                                                                            */
+-/* Description: Performs all one time setup for this test. This function is   */
+-/*              typically used to capture signals, create temporary dirs      */
+-/*              and temporary files that may be used in the course of this    */
+-/*              test.                                                         */
+-/*                                                                            */
+-/* Input:       None.                                                         */
+-/*                                                                            */
+-/* Output:      None.                                                         */
+-/*                                                                            */
+-/* Return:      On failure - Exits by calling cleanup().                      */
+-/*              On success - returns 0.                                       */
+-/*                                                                            */
+-/******************************************************************************/
+-void setup(void)
++#include "tst_test.h"
++
++static int fds[2];
++
++static struct tcase {
++	int flags;
++	int check_cmd;
++	char *message;
++} tcases[] = {
++	{0, F_GETFD, "Test pipe2 with 0 flag"},
++	{O_CLOEXEC, F_GETFD, "Test pipe2 using O_CLOEXEC flag"},
++	{O_DIRECT, F_GETFL, "Test pipe2 using O_DIRECT flag"},
++	{O_NONBLOCK, F_GETFL, "Test pipe2 using O_NONBLOCK flag"},
++};
++
++static void cleanup(void)
+ {
+-	/* Capture signals if any */
+-	/* Create temporary directories */
+-	TEST_PAUSE;
+-	tst_tmpdir();
++	if (fds[0] > 0)
++		SAFE_CLOSE(fds[0]);
++	if (fds[1] > 1)
++		SAFE_CLOSE(fds[1]);
+ }
+ 
+-int main(int argc, char *argv[])
++static void verify_pipe2(unsigned int n)
+ {
+-	int fd[2], i, coe;
+-	int lc;
+-
+-	tst_parse_opts(argc, argv, NULL, NULL);
+-	if ((tst_kvercmp(2, 6, 27)) < 0) {
+-		tst_brkm(TCONF,
+-			 NULL,
+-			 "This test can only run on kernels that are 2.6.27 and higher");
++	struct tcase *tc = &tcases[n];
++	int get_flag = 0, i = 0;
++
++	tst_res(TINFO, "%s ", tc->message);
++	for (i = 0; i < 2; i++) {
++		SAFE_PIPE2(fds, tc->flags);
++		get_flag = SAFE_FCNTL(fds[i], tc->check_cmd);
++		if ((get_flag && tc->flags) || (tc->flags == get_flag))
++			tst_res(TPASS, "pipe2 fds[%d] gets expected flag(%d)", i, tc->flags);
++		else
++			tst_res(TFAIL, "pipe2 fds[%d] doesn't get expected flag(%d), get flag(%d)",
++					i, tc->flags, get_flag);
+ 	}
+-	setup();
++	cleanup();
++}
+ 
+-	for (lc = 0; TEST_LOOPING(lc); ++lc) {
+-		tst_count = 0;
+-		for (testno = 0; testno < TST_TOTAL; ++testno) {
+-			if (ltp_syscall(__NR_pipe2, fd, 0) != 0) {
+-				tst_brkm(TFAIL, cleanup, "pipe2(0) failed");
+-			}
+-			for (i = 0; i < 2; ++i) {
+-				coe = fcntl(fd[i], F_GETFD);
+-				if (coe == -1) {
+-					tst_brkm(TBROK, cleanup,
+-						 "fcntl failed");
+-				}
+-				if (coe & FD_CLOEXEC) {
+-					tst_brkm(TFAIL,
+-						 cleanup, "pipe2(0) set close-on-exit for fd[%d]",
+-						 i);
+-				}
+-			}
+-			close(fd[0]);
+-			close(fd[1]);
++static struct tst_test test = {
++	.tcnt = ARRAY_SIZE(tcases),
++	.test = verify_pipe2,
++	.cleanup = cleanup,
++};
+ 
+-			if (ltp_syscall(__NR_pipe2, fd, O_CLOEXEC) != 0) {
+-				tst_brkm(TFAIL, cleanup,
+-					 "pipe2(O_CLOEXEC) failed");
+-			}
+-			for (i = 0; i < 2; ++i) {
+-				coe = fcntl(fd[i], F_GETFD);
+-				if (coe == -1) {
+-					tst_brkm(TBROK, cleanup,
+-						 "fcntl failed");
+-				}
+-				if ((coe & FD_CLOEXEC) == 0) {
+-					tst_brkm(TFAIL,
+-						 cleanup, "pipe2(O_CLOEXEC) does not set close-on-exit for fd[%d]",
+-						 i);
+-				}
+-			}
+-			close(fd[0]);
+-			close(fd[1]);
+-			tst_resm(TPASS, "pipe2(O_CLOEXEC) PASSED");
+-			cleanup();
+-		}
+-	}
+-	tst_exit();
+-}
+diff --git a/testcases/kernel/syscalls/pipe2/pipe2_02.c b/testcases/kernel/syscalls/pipe2/pipe2_02.c
+deleted file mode 100644
+index 39f02ff8c..000000000
+--- a/testcases/kernel/syscalls/pipe2/pipe2_02.c
++++ /dev/null
+@@ -1,175 +0,0 @@
+-/******************************************************************************/
+-/*                                                                            */
+-/* Copyright (c) Ulrich Drepper <drepper@redhat.com>                          */
+-/* Copyright (c) International Business Machines  Corp., 2009                 */
+-/*                                                                            */
+-/* This program is free software;  you can redistribute it and/or modify      */
+-/* it under the terms of the GNU General Public License as published by       */
+-/* the Free Software Foundation; either version 2 of the License, or          */
+-/* (at your option) any later version.                                        */
+-/*                                                                            */
+-/* This program is distributed in the hope that it will be useful,            */
+-/* but WITHOUT ANY WARRANTY;  without even the implied warranty of            */
+-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See                  */
+-/* the GNU General Public License for more details.                           */
+-/*                                                                            */
+-/* You should have received a copy of the GNU General Public License          */
+-/* along with this program;  if not, write to the Free Software               */
+-/* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA    */
+-/*                                                                            */
+-/******************************************************************************/
+-/******************************************************************************/
+-/*                                                                            */
+-/* File:        pipe2_02.c                                                    */
+-/*                                                                            */
+-/* Description: This Program tests the new system call introduced in 2.6.27.  */
+-/*              Ulrich´s comment as in:                                       */
+-/* http://git.kernel.org/?p=linux/kernel/git/torvalds/linux-2.6.git;a=commit;h=be61a86d7237dd80510615f38ae21d6e1e98660c */
+-/* which says:                                                                */
+-/* This patch adds O_NONBLOCK support to pipe2.  It is minimally more involved*/
+-/* than the patches for eventfd et.al but still trivial.  The interfaces of   */
+-/* the create_write_pipe and create_read_pipe helper functions were changed   */
+-/* and the one other caller as well.                                          */
+-/* The following test must be adjusted for architectures other than x86 and   */
+-/* x86-64 and in case the syscall numbers changed.                            */
+-/*                                                                            */
+-/* Usage:  <for command-line>                                                 */
+-/* pipe2_02 [-c n] [-e][-i n] [-I x] [-p x] [-t]                              */
+-/*      where,  -c n : Run n copies concurrently.                             */
+-/*              -e   : Turn on errno logging.                                 */
+-/*              -i n : Execute test n times.                                  */
+-/*              -I x : Execute test for x seconds.                            */
+-/*              -P x : Pause for x seconds between iterations.                */
+-/*              -t   : Turn on syscall timing.                                */
+-/*                                                                            */
+-/* Total Tests: 1                                                             */
+-/*                                                                            */
+-/* Test Name:   pipe2_02                                                      */
+-/*                                                                            */
+-/* Author:      Ulrich Drepper <drepper@redhat.com>                           */
+-/*                                                                            */
+-/* History:     Created - Jan 13 2009 - Ulrich Drepper <drepper@redhat.com>   */
+-/*              Ported to LTP                                                 */
+-/*                      - Jan 13 2009 - Subrata <subrata@linux.vnet.ibm.com>  */
+-/******************************************************************************/
+-#include <fcntl.h>
+-#include <stdio.h>
+-#include <unistd.h>
+-#include <sys/syscall.h>
+-#include <errno.h>
+-
+-#include "test.h"
+-#include "lapi/fcntl.h"
+-#include "lapi/syscalls.h"
+-
+-char *TCID = "pipe2_02";
+-int testno;
+-int TST_TOTAL = 1;
+-
+-/* Extern Global Functions */
+-/******************************************************************************/
+-/*                                                                            */
+-/* Function:    cleanup                                                       */
+-/*                                                                            */
+-/* Description: Performs all one time clean up for this test on successful    */
+-/*              completion,  premature exit or  failure. Closes all temporary */
+-/*              files, removes all temporary directories exits the test with  */
+-/*              appropriate return code by calling tst_exit() function.       */
+-/*                                                                            */
+-/* Input:       None.                                                         */
+-/*                                                                            */
+-/* Output:      None.                                                         */
+-/*                                                                            */
+-/* Return:      On failure - Exits calling tst_exit(). Non '0' return code.   */
+-/*              On success - Exits calling tst_exit(). With '0' return code.  */
+-/*                                                                            */
+-/******************************************************************************/
+-void cleanup(void)
+-{
+-
+-	tst_rmdir();
+-
+-}
+-
+-/* Local  Functions */
+-/******************************************************************************/
+-/*                                                                            */
+-/* Function:    setup                                                         */
+-/*                                                                            */
+-/* Description: Performs all one time setup for this test. This function is   */
+-/*              typically used to capture signals, create temporary dirs      */
+-/*              and temporary files that may be used in the course of this    */
+-/*              test.                                                         */
+-/*                                                                            */
+-/* Input:       None.                                                         */
+-/*                                                                            */
+-/* Output:      None.                                                         */
+-/*                                                                            */
+-/* Return:      On failure - Exits by calling cleanup().                      */
+-/*              On success - returns 0.                                       */
+-/*                                                                            */
+-/******************************************************************************/
+-void setup(void)
+-{
+-	/* Capture signals if any */
+-	/* Create temporary directories */
+-	TEST_PAUSE;
+-	tst_tmpdir();
+-}
+-
+-int main(int argc, char *argv[])
+-{
+-	int fds[2], fl, i;
+-	int lc;
+-
+-	tst_parse_opts(argc, argv, NULL, NULL);
+-	if ((tst_kvercmp(2, 6, 27)) < 0) {
+-		tst_brkm(TCONF,
+-			 NULL,
+-			 "This test can only run on kernels that are 2.6.27 and higher");
+-	}
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); ++lc) {
+-		tst_count = 0;
+-		for (testno = 0; testno < TST_TOTAL; ++testno) {
+-			if (ltp_syscall(__NR_pipe2, fds, 0) == -1) {
+-				tst_brkm(TFAIL, cleanup, "pipe2(0) failed");
+-			}
+-			for (i = 0; i < 2; ++i) {
+-				fl = fcntl(fds[i], F_GETFL);
+-				if (fl == -1) {
+-					tst_brkm(TBROK, cleanup,
+-						 "fcntl failed");
+-				}
+-				if (fl & O_NONBLOCK) {
+-					tst_brkm(TFAIL,
+-						 cleanup, "pipe2(0) set non-blocking mode for fds[%d]",
+-						 i);
+-				}
+-				close(fds[i]);
+-			}
+-
+-			if (ltp_syscall(__NR_pipe2, fds, O_NONBLOCK) == -1) {
+-				tst_brkm(TFAIL, cleanup,
+-					 "pipe2(O_NONBLOCK) failed");
+-			}
+-			for (i = 0; i < 2; ++i) {
+-				fl = fcntl(fds[i], F_GETFL);
+-				if (fl == -1) {
+-					tst_brkm(TBROK, cleanup,
+-						 "fcntl failed");
+-				}
+-				if ((fl & O_NONBLOCK) == 0) {
+-					tst_brkm(TFAIL,
+-						 cleanup, "pipe2(O_NONBLOCK) does not set non-blocking mode for fds[%d]\n",
+-						 i);
+-				}
+-				close(fds[i]);
+-			}
+-			tst_resm(TPASS, "pipe2(O_NONBLOCK) PASSED");
+-			cleanup();
+-		}
+-	}
+-	tst_exit();
+-}
+-- 
+2.23.0
+
+
+
+
+--===============1158167367==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1158167367==--
