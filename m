@@ -1,74 +1,92 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BEFE1A64B6
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Apr 2020 11:30:22 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F8701A765E
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Apr 2020 10:45:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E26683C2B84
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Apr 2020 11:30:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DD6213C2B44
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Apr 2020 10:45:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id DF3C23C2B7B
- for <ltp@lists.linux.it>; Mon, 13 Apr 2020 11:30:19 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [205.139.110.120])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id CA51E600EAA
- for <ltp@lists.linux.it>; Mon, 13 Apr 2020 11:30:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1586770217;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=AD7iomC6ziVL3v+Uzl8xsnKKo9795D2ayU91oupLt4A=;
- b=fJxrq3LGugcH0ZtZlHkPj7ZDVQyobnHndevIuVxQtQn+/H2LCxG0w0Q+2vGLHJw9iHBlSZ
- u/x4YlJtP/hDkb/MIm38QPo4J5/qtfY2FfpufDv60KJUUJ/9bLFSFr5hktdFdIxE34PugJ
- OPeSXYIfrhB6oDA32q9e9G1lmZ8RdCc=
-Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com
- [209.85.167.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-380-d6aNcHL1O52_q1DpAA2bRw-1; Mon, 13 Apr 2020 05:30:15 -0400
-X-MC-Unique: d6aNcHL1O52_q1DpAA2bRw-1
-Received: by mail-lf1-f70.google.com with SMTP id a14so3560746lfl.15
- for <ltp@lists.linux.it>; Mon, 13 Apr 2020 02:30:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Wsc+6vdb0x3KJn6LV4FvUMWA219C9R7LgEITUfUWZrM=;
- b=oHti8CGULAwxJeFgCsdtzt5qaFfVc+lCmkznmlnFg9M4eULv1qVI7FAdKYLcD7rgWe
- rYdsMYxk38R8fWPYDIKpsaaDGcrZZrvFL2CK2Cp+Sauw1EwzmeeyvXsaxvfE9QzrAzyx
- HLfru0mK8AjhcV6Sw/RAFM74cjVF+xZywYRWRXDl1H0LzTcwK2foKfM5IXezaWIRvKut
- ULBfwVyJufj0LFJDYtoDFbtvdVWTvhYLivVkxBjAvQao3jYlu63PLYuy+kadrliMzoSw
- wrCXIjWXPdW4jLIXmnk1hNaAM4onQfZolqiEliVS9m9yxWTU3gAorgvlKwSQuHve4GzV
- wSIA==
-X-Gm-Message-State: AGi0PubQMLjXRYFLKzDl/IeYsAEEhtQ3kdL2u4zmQ+AJIUFqr2QDPnmq
- eFvvKaPzF5Jrva5+oY+jd0RF5aY+aZrj5hLCQRZwwLS6ynjRqkTXkwIKuYIAO7oH1ZetAW0FpNo
- +ebrXo7xj2bwQxi/sP0wHL5kH2EI=
-X-Received: by 2002:a2e:a584:: with SMTP id m4mr10167329ljp.194.1586770213467; 
- Mon, 13 Apr 2020 02:30:13 -0700 (PDT)
-X-Google-Smtp-Source: APiQypIIPBtQXPwdtyWEUYT5zeDX3XRQomYoenxxtc1XwFgUKv1+PN+56Cd+A3dHUj5C5S9pOiInj+WnG1MNZlbOXLg=
-X-Received: by 2002:a2e:a584:: with SMTP id m4mr10167318ljp.194.1586770213262; 
- Mon, 13 Apr 2020 02:30:13 -0700 (PDT)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id EAF7C3C2B35
+ for <ltp@lists.linux.it>; Tue, 14 Apr 2020 10:45:40 +0200 (CEST)
+Received: from IND01-MA1-obe.outbound.protection.outlook.com
+ (mail-eopbgr1380108.outbound.protection.outlook.com [40.107.138.108])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C7E2D1401124
+ for <ltp@lists.linux.it>; Tue, 14 Apr 2020 10:45:39 +0200 (CEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=beWXokOibyWmDiL+PXc3YwJTWpva7o0V1uQWFP0rlwvCq8GlAHXk59njnhAryC9hQEqXjhPid7z9NLkaBraRI+cbyPbzAEavjzC9fN25c7r/s3Ux+6mOo/srUJRWmdNxBQH7pSwJ5H8NBK3dIGFeo7YYJ/ITyKLcA+IBoMNyiQWQxTCrU4EzjB/00vK24tQxXafMG2A1BmMKvNeHxW2FtF/Y0IXL63vB2FSjuQNYkmHY142z4LLZKWHJ8Edh2VM3OQSwDomaCCEbkim0P7vEx9fGlGuUo5f2+pzz0yGu+pAMq0ahPbLb+8N4/iQpDlPK3rdep2jSW6+YsjtpZJ2Csg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ifkfzHTsjL8WOnXiyvmRCU2EANpnon98NTWun7cvUb0=;
+ b=NQZ7P3vaxBhLAFCe7YjcwzzCjjRRqtWXjmu1qbE91vszuAhNAiwKD8MOiO3iUFlFdP/DaC8HxN/03H50JQ5wtOzwplZndanKWsV7UMLfI+qQj6e1pKo8jNSe5lGJ5FBUbhecU7Lk6lp5jTgdTyBuHfSa8s/EDH+kJAOHsaULa3vQHkY/m1AFGdo7w4CheLGlLbKdZVh1lJgGmIfQ855GYQpkAXW68wKQQzPSlqWz3jaifbI0nBOWWJgiNIcatdVR+gTBh0COeD9R1LrPgnOkmKFtppq5Uv2xvZhOhrwdkcr917XY4VOUG17USRKAZZu7Z8uASWj1k8Q9UOtNDWp6qw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=exaleapsemi.com; dmarc=pass action=none
+ header.from=exaleapsemi.com; dkim=pass header.d=exaleapsemi.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=exaleapsemi.onmicrosoft.com; s=selector2-exaleapsemi-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ifkfzHTsjL8WOnXiyvmRCU2EANpnon98NTWun7cvUb0=;
+ b=sPIOs32dS3/t63113fE0dV93VJjNw1e67Yk3kPKzdWsdcFkKnVWtnkLCXe5mMj+6Y8gCFOUVa5ZfJyQEuDv6ZB2jxAbC/XI5meCeajQIOe51s6RE2PZCX+YvGc/ELhWKs+xJVHwTMwZsV8Inw28u8FRGjowQFUDvUr0UTohKLzY=
+Received: from MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM (52.134.133.8) by
+ MAXPR0101MB1371.INDPRD01.PROD.OUTLOOK.COM (52.134.130.145) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2900.26; Tue, 14 Apr 2020 08:45:37 +0000
+Received: from MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::ace1:f4f2:a1c6:20d7]) by MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::ace1:f4f2:a1c6:20d7%12]) with mapi id 15.20.2900.028; Tue, 14 Apr
+ 2020 08:45:37 +0000
+From: "Pankaj  Vinadrao Joshi" <Pankaj.VJ@exaleapsemi.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>, Cyril Hrubis <chrubis@suse.cz>
+Thread-Topic: LTP testcase analysis
+Thread-Index: AQHWEjgx3ddmJ2MnQkKn1rxsZFdvGw==
+Date: Tue, 14 Apr 2020 08:45:36 +0000
+Message-ID: <MAXPR0101MB14684E021A23A6B00ED69DC0EEDA0@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Pankaj.VJ@exaleapsemi.com; 
+x-originating-ip: [2409:4042:200e:c2db:6d47:2e6f:2aba:34b8]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 09f31cef-9b97-4d1e-db2c-08d7e05033fe
+x-ms-traffictypediagnostic: MAXPR0101MB1371:
+x-microsoft-antispam-prvs: <MAXPR0101MB1371589B548182ACA80E7D04EEDA0@MAXPR0101MB1371.INDPRD01.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-forefront-prvs: 0373D94D15
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(10019020)(136003)(376002)(346002)(396003)(39830400003)(366004)(76116006)(9686003)(55016002)(66476007)(110136005)(316002)(7696005)(6506007)(5660300002)(2906002)(508600001)(4326008)(8936002)(81156014)(4744005)(186003)(71200400001)(8676002)(7116003)(3480700007)(52536014)(66946007)(86362001)(66446008)(64756008)(66556008)(33656002)(19627405001);
+ DIR:OUT; SFP:1102; 
+received-spf: None (protection.outlook.com: exaleapsemi.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: LvqRSD3w2R99P0QluDL8dMqUGIfoOcWpPHOxahRTUxZ0nsH0m6GmhFl71mEwTdLDuPiQoEKjgo+rtfXIRHz11yk9KZL4kXscE7pQPw/BnZPmFiQewYXHMP22aTWYSg3ie6aw73dFj71WIU3Aj/NfjZil9PZItiz3R8yQgb6kor5wN2a0kNMvD5JFLLfYVCU/Nu8bnRCRYWwcBkCrURee01t6kErc99/HrGqF+as17A12AZdPPJNNoG/Vt2WXkvYE12AT3fugEkfkbrQpA4oNbvt4qkcQvH/kr02Op2U0Q+rp/ypFUkajverdbqlDQXBQjwPBoi/jeUI+vZTpPVjqfOhpMFBjG8soYsej+CTwpYZjWafHvWgKMNeYL17rIB9Uz36jQ13YyMhEWZ4/iF3McPKBMK9sZApM2vJPmo4gaqxRgwSZm/sfxRhCNq2qrz7G
+x-ms-exchange-antispam-messagedata: jDlPcQkjzEUAkP2zIZW9kEY7J9Hc/6UD0YBW/Xp2JN3gzbPOrTl37VnFzbz2hBr/0wn3XBOXl0k3dvUcW+lqPsfKL5RGZshSs9yqe+u/wlLGs8h2RidFg7QgzNMf0jxK35NsxNwF2WUqXHCU3wk71e/sYGyBaH7D1YM3hycXnItxjo0TR0c0vwXxke6gKKq+BwoNt+v4XySafrBlgYM1xA==
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-References: <20200409170239.13618-1-rpalethorpe@suse.com>
- <9439db89-016f-a498-cc28-fdcd73255f85@cn.fujitsu.com>
-In-Reply-To: <9439db89-016f-a498-cc28-fdcd73255f85@cn.fujitsu.com>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 13 Apr 2020 17:30:01 +0800
-Message-ID: <CAEemH2dEF995WQQzS6ML4LAxX9+MurS+0=ai=Jos3xtjsqPAXQ@mail.gmail.com>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-OriginatorOrg: exaleapsemi.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09f31cef-9b97-4d1e-db2c-08d7e05033fe
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Apr 2020 08:45:36.9300 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 34df156e-9bc4-4450-9e80-487c0e7f9471
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: hZhpJskz8AHjz6U1zz49EV+l3TnsEE8VBoIV/DhC73Zvlm7Av81Wp4pxbqqWDh68MYOxy3O+HrPTctcKGdno4KBp/KxGZOMi67NLtCYl5bY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAXPR0101MB1371
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] add_key05: Avoid race with key garbage
- collection
+ HTML_MESSAGE,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] LTP testcase analysis
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,175 +98,88 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>, LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1006072234=="
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1924304856=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1006072234==
-Content-Type: multipart/alternative; boundary="000000000000e6e90205a328ba71"
+--===============1924304856==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MAXPR0101MB14684E021A23A6B00ED69DC0EEDA0MAXPR0101MB1468_"
 
---000000000000e6e90205a328ba71
-Content-Type: text/plain; charset="UTF-8"
+--_000_MAXPR0101MB14684E021A23A6B00ED69DC0EEDA0MAXPR0101MB1468_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Richard,
+Hi,
+i am running LTP on x86 with 5.4.3 kernel.i gave $ ./runltp command to run =
+the complete LTP but found some failures,like oom01,futex_wait05,select04 e=
+tc.
 
-Yang Xu <xuyang2018.jy@cn.fujitsu.com> wrote:
+When i tried to run single test some of them turns into PASS which earlier =
+got failed.like oom01 was failed then i gave coomand $./runltp -s oom01 and=
+ after that it got pass.
 
-
-> > The key subsystem independently tracks user info against UID. If a user
-> is
-> > deleted and the UID reused for a new user then the key subsystem will
-> mistake
-> > the new user for the old one.
-> >
-> > The keys/keyrings may not be accessible to the new user, but if they ar=
-e
-> not
-> > yet garbage collected (which happens asynchronously) then the new user
-> may be
-> > exceeding its quota limits.
-> >
-> > This results in a race condition where this test can fail because the o=
-ld
-> > thread keyring is taking up the full quota. We can avoid this by creati=
-ng
-> > multiple users in parallel.
-> >
-> > This means when -i is used many users will be created. The number of ne=
-w
-> users
-> > is limited to 10 and after the first 10 we begin reusing them. It seems
-> best
-> > to avoid creating a very large number of users as this may stress the
-> system
-> > in ways that doesn't make sense for this test. There is a one second
-> delay
-> > after every 10 iterations to give the system time to free keys. This
-> won't be
-> > enough on some systems, but I doubt running this test with -i and
-> expecting a
-> > consistent result is sane.
-> >
-> > Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
-> > Acked-by: Jan Stancek <jstancek@redhat.com>
-> ...
-> > +
-> > +     if (SAFE_FORK()) {
-> > +             tst_reap_children();
-> > +             useri++;
-> > +             return;
-> > +     }
-> > +
-> It looks strange. Maybe only I think it is strange. Can we use old style?
->
-> if (!SAFE_FORK()) {
->       ....
->       ....
->       test
->       exit
-> }
->     tst_reap_children();
->     useri++;
->
-
-Nice work, applied V3 with Xu's suggestion.
+why it could be happened,any specific reason,if you know please suggest??
 
 
-> > +             verify_max_btyes();
-> It is typo(I introduced), I guess maintainer can fix this when merging
-> this patch. btyes->bytes
->
+Thanks!
 
-Good eyesight!
---=20
-Regards,
-Li Wang
-
---000000000000e6e90205a328ba71
-Content-Type: text/html; charset="UTF-8"
+--_000_MAXPR0101MB14684E021A23A6B00ED69DC0EEDA0MAXPR0101MB1468_
+Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Hi Richard,</div></div><br><div class=3D"gmail_quote"><div di=
-r=3D"ltr" class=3D"gmail_attr">Yang Xu &lt;<a href=3D"mailto:xuyang2018.jy@=
-cn.fujitsu.com">xuyang2018.jy@cn.fujitsu.com</a>&gt; wrote:<br></div><div>=
-=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
-.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-&gt; The key subsystem independently tracks user info against UID. If a use=
-r is<br>
-&gt; deleted and the UID reused for a new user then the key subsystem will =
-mistake<br>
-&gt; the new user for the old one.<br>
-&gt; <br>
-&gt; The keys/keyrings may not be accessible to the new user, but if they a=
-re not<br>
-&gt; yet garbage collected (which happens asynchronously) then the new user=
- may be<br>
-&gt; exceeding its quota limits.<br>
-&gt; <br>
-&gt; This results in a race condition where this test can fail because the =
-old<br>
-&gt; thread keyring is taking up the full quota. We can avoid this by creat=
-ing<br>
-&gt; multiple users in parallel.<br>
-&gt; <br>
-&gt; This means when -i is used many users will be created. The number of n=
-ew users<br>
-&gt; is limited to 10 and after the first 10 we begin reusing them. It seem=
-s best<br>
-&gt; to avoid creating a very large number of users as this may stress the =
-system<br>
-&gt; in ways that doesn&#39;t make sense for this test. There is a one seco=
-nd delay<br>
-&gt; after every 10 iterations to give the system time to free keys. This w=
-on&#39;t be<br>
-&gt; enough on some systems, but I doubt running this test with -i and expe=
-cting a<br>
-&gt; consistent result is sane.<br>
-&gt; <br>
-&gt; Signed-off-by: Richard Palethorpe &lt;<a href=3D"mailto:rpalethorpe@su=
-se.com" target=3D"_blank">rpalethorpe@suse.com</a>&gt;<br>
-&gt; Acked-by: Jan Stancek &lt;<a href=3D"mailto:jstancek@redhat.com" targe=
-t=3D"_blank">jstancek@redhat.com</a>&gt;<br><span class=3D"gmail_default" s=
-tyle=3D"font-size:small">...</span><br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (SAFE_FORK()) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_reap_children();<=
-br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0useri++;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +<br>
-It looks strange. Maybe only I think it is strange. Can we use old style?<b=
-r>
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Hi,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+i am running LTP on x86 with 5.4.3 kernel.i gave $ ./runltp command to run =
+the complete LTP but found some failures,like oom01,futex_wait05,select04 e=
+tc.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
 <br>
-if (!SAFE_FORK()) {<br>
-=C2=A0 =C2=A0 =C2=A0 ....<br>
-=C2=A0 =C2=A0 =C2=A0 ....<br>
-=C2=A0 =C2=A0 =C2=A0 test<br>
-=C2=A0 =C2=A0 =C2=A0 exit<br>
-}<br>
-=C2=A0 =C2=A0 tst_reap_children();<br>
-=C2=A0 =C2=A0 useri++;<br></blockquote><div><br></div><div><div class=3D"gm=
-ail_default" style=3D"font-size:small">Nice work, applied V3 with Xu&#39;s =
-suggestion.</div></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" s=
-tyle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pad=
-ding-left:1ex">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0verify_max_btyes();<b=
-r>
-It is typo(I introduced), I guess maintainer can fix this when merging <br>
-this patch. btyes-&gt;bytes<br></blockquote><div><br></div><div class=3D"gm=
-ail_default" style=3D"font-size:small">Good eyesight!</div><div class=3D"gm=
-ail_default" style=3D"font-size:small"></div></div>-- <br><div dir=3D"ltr" =
-class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li W=
-ang<br></div></div></div></div>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+When i tried to run single test some of them turns into PASS which earlier =
+got failed.like oom01 was failed then i gave coomand $./runltp -s oom01 and=
+ after that it got pass.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+why it could be happened,any specific reason,if you know please suggest??</=
+div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Thanks!</div>
+</body>
+</html>
 
---000000000000e6e90205a328ba71--
+--_000_MAXPR0101MB14684E021A23A6B00ED69DC0EEDA0MAXPR0101MB1468_--
 
-
---===============1006072234==
+--===============1924304856==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -258,5 +189,4 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============1006072234==--
-
+--===============1924304856==--
