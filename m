@@ -2,39 +2,95 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A65981A7ACA
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Apr 2020 14:28:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D53DC1A7B25
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Apr 2020 14:47:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 095553C2B70
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Apr 2020 14:28:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 99F5C3C2B6F
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Apr 2020 14:47:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 4A9203C0131
- for <ltp@lists.linux.it>; Tue, 14 Apr 2020 14:28:54 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 37C183C03CC
+ for <ltp@lists.linux.it>; Tue, 14 Apr 2020 14:47:52 +0200 (CEST)
+Received: from IND01-MA1-obe.outbound.protection.outlook.com
+ (mail-eopbgr1380103.outbound.protection.outlook.com [40.107.138.103])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 445101401392
- for <ltp@lists.linux.it>; Tue, 14 Apr 2020 14:28:52 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id DD268AD33
- for <ltp@lists.linux.it>; Tue, 14 Apr 2020 12:28:51 +0000 (UTC)
-Date: Tue, 14 Apr 2020 14:29:08 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20200414122908.GA6700@yuki.lan>
-References: <20200414085934.8840-1-mdoucha@suse.cz>
- <20200414085934.8840-2-mdoucha@suse.cz>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B39AC60006C
+ for <ltp@lists.linux.it>; Tue, 14 Apr 2020 14:47:50 +0200 (CEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JIX4ZXb2+U4u55y3HZLtWg0NQTXMbS1LpOaeFpmOmRGwNJUT4pyeixkDqxoxgRSP9L/TTWAmnEBswhN9Wuqb03XIQGOgiHUoDkl1XKkhc/d9PSe7Z+s6InbDXtBC2RfVbRtIhxbdYEdOgjLqMpGL79IIoy/5AaYyBMNU2EH66fJ5Bt5PP/sI0wCQPybUM2rpoZJNj6c90VbC2sgdIu5XoYkLLh1+jPY0eRcRftkMRdCyNNjsdxHQCUT4/uKaVFObza9SV+WDDA4WnX/N+G4d/7rJSxtbGlOUgoIou5iRhGdhWxZiwX+5rADRbyaXC1wyDXemaQ8Be6j+xRSjoWaoZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YkYrtFahqdUfdXfQpjNmLPRIc+a4/Ds5q8ah4tzWYB0=;
+ b=K9LwmtajUHV6+D8638D41KaPEhkVFTryOAr+wgvfAQr9Ps4Tg0kjgqOsfveq8mlaTCgzsweq6GDuVerOQPTMpWYpAPFoSYmRhPJA3iMrqPPSGUagG0eCIZF30gUAbPvTgTFnWG13Atp/r5u6YE425+UEdD5VYnUqUyimP4w6Y4f/z/d0LmDKnDj5gYj72UeIX/iMwlvUwydy+nGCwkjdr+PTeyn6dIbqMp0kJFru+/w1fLFm2rkKM+6GRxAaAl61cP76NFmZPGjWyBAKoo9Q+alE5CPVBWhtzYoAklIGgVA60D+KkBUme+al4KqUSLnK6h+0Y7CQc7Z9jpzfIh22XQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=exaleapsemi.com; dmarc=pass action=none
+ header.from=exaleapsemi.com; dkim=pass header.d=exaleapsemi.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=exaleapsemi.onmicrosoft.com; s=selector2-exaleapsemi-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YkYrtFahqdUfdXfQpjNmLPRIc+a4/Ds5q8ah4tzWYB0=;
+ b=y+BkfgBYmFVZwuiGCO6yJ4OpeBScgEjxY+G1lxtX7uAO6cdqsGX1x10ghe3qLUChoS+da9gRsz9MC+4Uet2cZt5YffwtbSIKOC89rllxrTeNMs98ODPJQA0lZixZpF8+QG07A2j9oT6HqUZKGUyKVxUdq7ncRfxKwCzoQTHdNRA=
+Received: from MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM (52.134.133.8) by
+ MAXPR0101MB2107.INDPRD01.PROD.OUTLOOK.COM (52.134.134.150) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2900.24; Tue, 14 Apr 2020 12:47:47 +0000
+Received: from MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::ace1:f4f2:a1c6:20d7]) by MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::ace1:f4f2:a1c6:20d7%12]) with mapi id 15.20.2900.028; Tue, 14 Apr
+ 2020 12:47:47 +0000
+From: "Pankaj  Vinadrao Joshi" <Pankaj.VJ@exaleapsemi.com>
+To: Li Wang <liwang@redhat.com>
+Thread-Topic: [LTP] LTP testcase analysis
+Thread-Index: AQHWEjgx3ddmJ2MnQkKn1rxsZFdvG6h4ZB2AgAAqhCA=
+Date: Tue, 14 Apr 2020 12:47:47 +0000
+Message-ID: <MAXPR0101MB146820F93DED85CE20C26FE0EEDA0@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>
+References: <MAXPR0101MB14684E021A23A6B00ED69DC0EEDA0@MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM>,
+ <dbe77a95-1f43-8d74-5c8d-a06e465d3cca@suse.cz>
+In-Reply-To: <dbe77a95-1f43-8d74-5c8d-a06e465d3cca@suse.cz>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Pankaj.VJ@exaleapsemi.com; 
+x-originating-ip: [2409:4042:200e:c2db:404d:c9b2:a883:8f2a]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 0ab73661-6088-4109-84a6-08d7e07208ac
+x-ms-traffictypediagnostic: MAXPR0101MB2107:
+x-microsoft-antispam-prvs: <MAXPR0101MB2107CBDFE20B1D413C9C1331EEDA0@MAXPR0101MB2107.INDPRD01.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-forefront-prvs: 0373D94D15
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MAXPR0101MB1468.INDPRD01.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(10019020)(366004)(376002)(136003)(346002)(396003)(39830400003)(66476007)(186003)(66446008)(8936002)(9686003)(52536014)(64756008)(86362001)(53546011)(66946007)(6506007)(81156014)(66556008)(7696005)(8676002)(508600001)(71200400001)(55016002)(33656002)(19627405001)(76116006)(5660300002)(2906002)(316002)(6916009)(4326008);
+ DIR:OUT; SFP:1102; 
+received-spf: None (protection.outlook.com: exaleapsemi.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: P2hIiiGjJzcBOEurl4ZtEbB2lv9ohBitpiI2pJI7KIqia8UNHJHo7ppsKsIbbaa3SlQTXmoteywnkXwjlITD4Qt59x3EozsnXmM+W3lSA6ah+lUDhv6x88Z3vP2MYs+3Ole/RRkTrf7xWxCKn94DTmRTJN6Km/LoXLXnUM8kU+HqlZe7Qkzohp5MANra7yfdMkaaeh1pNtfuqfuCWhrWT/2CW+IQKJcVu6zacyuP7hsuLNhwkvYr8KYQTm1wwx3+DZASrgm7Oyzc1TXFRPZoVzoIfOTWJ8+6VcaNNIgCXVcOhTP0/85lUO5mb2QmVzzo2XVDIcYZLrQtEAy1nPtLr2hEZwZn8ayj1obuW1RI/3/utVV01rvtZoYFbKm2WWCEj1+6Gr3F9vL1nWA8YK8D2ScSReIhNyLth7IRtc0U/9vxqmITMxLIhmMQVCUizmBp
+x-ms-exchange-antispam-messagedata: D1kPSrQryPJxRGBf4GjKSOH2IcmugGppBrCZz9HQfmGRtFsC0kOmu/ReZnVwPp5PgO62xNxnYhOOG3ofjnnnLEvp1ZMa2mpTdrZDm6mXecF3qCS9u1iQM1l6DuNlwnOZeOZ8gXoc/TCyF4CGjEf1jI8KCCS42JfAnS8ydcu/QhIEKFR4F91lI2OX3jwalYr4aN3p7X4SfofM6RLWVPFRzA==
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200414085934.8840-2-mdoucha@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-OriginatorOrg: exaleapsemi.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ab73661-6088-4109-84a6-08d7e07208ac
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Apr 2020 12:47:47.1132 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 34df156e-9bc4-4450-9e80-487c0e7f9471
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Vx1DX3FPQcukaC1+i1Y+U0zYSgxAUKhuWhU1z5pep3F+76AahEZ+3OZzbTiwK1lHLMioutZ8jIhiYEFfrt/vxQDlsZdse6afim+9f/QM3gE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAXPR0101MB2107
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5 2/3] Add LVM support scripts
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,SPF_HELO_PASS,SPF_PASS,T_KAM_HTML_FONT_INVALID
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] Fw:  LTP testcase analysis
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,339 +102,209 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============2013533187=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
-> ---
-> 
-> 
-> Changes since v1:
-> - rename generate_runfile.sh to generate_lvm_runfile.sh
-> - update above commit message
-> 
-> Changes since v2:
-> - fix filename in misc/lvm/Makefile
-> 
-> Changes since v3:
-> - LVM volume size increased to 1GB
-> - cleaned up some useless code in runfile template
-> - test cases with `growfiles -L ...` limited to 768MB of disk space
-> 
-> Changes since v4:
-> - rebase only
-> 
->  testcases/misc/lvm/Makefile                | 29 ++++++++
->  testcases/misc/lvm/cleanup_lvm.sh          | 34 +++++++++
->  testcases/misc/lvm/datafiles/Makefile      | 19 +++++
->  testcases/misc/lvm/datafiles/runfile.tpl   | 36 ++++++++++
->  testcases/misc/lvm/generate_lvm_runfile.sh | 27 +++++++
->  testcases/misc/lvm/prepare_lvm.sh          | 83 ++++++++++++++++++++++
->  6 files changed, 228 insertions(+)
->  create mode 100644 testcases/misc/lvm/Makefile
->  create mode 100755 testcases/misc/lvm/cleanup_lvm.sh
->  create mode 100644 testcases/misc/lvm/datafiles/Makefile
->  create mode 100644 testcases/misc/lvm/datafiles/runfile.tpl
->  create mode 100755 testcases/misc/lvm/generate_lvm_runfile.sh
->  create mode 100755 testcases/misc/lvm/prepare_lvm.sh
-> 
-> diff --git a/testcases/misc/lvm/Makefile b/testcases/misc/lvm/Makefile
-> new file mode 100644
-> index 000000000..3dbc996c8
-> --- /dev/null
-> +++ b/testcases/misc/lvm/Makefile
-> @@ -0,0 +1,29 @@
-> +#
-> +#    misc/lvm testcases Makefile.
-> +#
-> +#    Copyright (C) 2009, Cisco Systems Inc.
-> +#
-> +#    This program is free software; you can redistribute it and/or modify
-> +#    it under the terms of the GNU General Public License as published by
-> +#    the Free Software Foundation; either version 2 of the License, or
-> +#    (at your option) any later version.
-> +#
-> +#    This program is distributed in the hope that it will be useful,
-> +#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-> +#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> +#    GNU General Public License for more details.
-> +#
-> +#    You should have received a copy of the GNU General Public License along
-> +#    with this program; if not, write to the Free Software Foundation, Inc.,
-> +#    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-> +#
-> +# Ngie Cooper, July 2009
-> +#
+--===============2013533187==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MAXPR0101MB146820F93DED85CE20C26FE0EEDA0MAXPR0101MB1468_"
 
-Just use the SPDX here.
+--_000_MAXPR0101MB146820F93DED85CE20C26FE0EEDA0MAXPR0101MB1468_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-> +
-> +top_srcdir		?= ../../..
-> +
-> +include $(top_srcdir)/include/mk/env_pre.mk
-> +
-> +INSTALL_TARGETS		:= generate_lvm_runfile.sh prepare_lvm.sh cleanup_lvm.sh
-> +
-> +include $(top_srcdir)/include/mk/generic_trunk_target.mk
-> diff --git a/testcases/misc/lvm/cleanup_lvm.sh b/testcases/misc/lvm/cleanup_lvm.sh
-> new file mode 100755
-> index 000000000..e18efe2b0
-> --- /dev/null
-> +++ b/testcases/misc/lvm/cleanup_lvm.sh
-> @@ -0,0 +1,34 @@
-> +#!/bin/sh
-> +# SPDX-License-Identifier: GPL-2.0-or-later
-> +# Copyright (c) 2020 SUSE LLC <mdoucha@suse.cz>
-> +#
-> +# Clean up LVM volume groups created by prepare_lvm.sh
-> +
-> +TST_TESTFUNC=cleanup_lvm
-> +TST_NEEDS_ROOT=1
-> +TST_NEEDS_CMDS="losetup umount vgremove"
-> +. tst_test.sh
-> +
-> +LVM_TMPDIR="/tmp/ltp/growfiles"
-> +LVM_IMGDIR="/tmp/ltp/imgfiles"
-> +
-> +cleanup_lvm()
-> +{
-> +	DEVLIST=`losetup -lnO NAME,BACK-FILE | grep "$LVM_IMGDIR" | cut -d ' ' -f 1`
-> +
-> +	for dir in "$LVM_TMPDIR/"*; do
-> +		tst_umount $dir
-> +	done
-> +
-> +	ROD vgremove -y ltp_test_vg1
-> +	ROD vgremove -y ltp_test_vg2
-> +
-> +	for devname in $DEVLIST; do
-> +		ROD tst_device release $devname
-> +	done
-> +
-> +	rm -rf /tmp/ltp
-> +	tst_res TPASS "LVM configuration for LTP removed successfully."
-> +}
-> +
-> +tst_run
-> diff --git a/testcases/misc/lvm/datafiles/Makefile b/testcases/misc/lvm/datafiles/Makefile
-> new file mode 100644
-> index 000000000..25455ccbf
-> --- /dev/null
-> +++ b/testcases/misc/lvm/datafiles/Makefile
-> @@ -0,0 +1,19 @@
-> +#
-> +#    Copyright (C) 2020, Linux Test Project.
-> +#
-> +#    This program is free software; you can redistribute it and/or modify
-> +#    it under the terms of the GNU General Public License as published by
-> +#    the Free Software Foundation; either version 2 of the License, or
-> +#    (at your option) any later version.
-> +#
-> +#    This program is distributed in the hope that it will be useful,
-> +#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-> +#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> +#    GNU General Public License for more details.
+Hi,
+Hi,
+I forgot to mention that  i am running LTP on  VM and i am getting error li=
+ke  futex_wait and select tests are "$SYSCALL slept too long" and the test =
+is getting failed because  vm is not getting CPU time as expected.
+Is there any that i can configure or manage this cpu time related issue for=
+ now as i am running on slower machine the time constrain doesnt value for =
+me...i just need test to be passed...is there any way to do so??
+Kindly suggest.
 
-And here as well.
+Thanks!
 
-> +top_srcdir		?= ../../../..
-> +
-> +include $(top_srcdir)/include/mk/env_pre.mk
-> +INSTALL_DIR		:= testcases/data/lvm
-> +INSTALL_TARGETS		:= runfile.tpl
-> +include $(top_srcdir)/include/mk/generic_leaf_target.mk
-> diff --git a/testcases/misc/lvm/datafiles/runfile.tpl b/testcases/misc/lvm/datafiles/runfile.tpl
-> new file mode 100644
-> index 000000000..0c6080236
-> --- /dev/null
-> +++ b/testcases/misc/lvm/datafiles/runfile.tpl
-> @@ -0,0 +1,36 @@
-> +# Check the {fsname} filesystem
-> +{fsname}_gf02 growfiles -W {fsname}_gf02 -d /tmp/ltp/growfiles/{fsname} -b -e 1 -L 10 -B 805306368 -i 100 -I p -S 2 -u -f gf03_
-> +{fsname}_gf03 growfiles -W {fsname}_gf03 -d /tmp/ltp/growfiles/{fsname} -b -e 1 -g 1 -i 1 -S 150 -u -f gf05_
-> +{fsname}_gf04 growfiles -W {fsname}_gf04 -d /tmp/ltp/growfiles/{fsname} -b -e 1 -g 4090 -i 500 -t 39000 -u -f gf06_
-> +{fsname}_gf05 growfiles -W {fsname}_gf05 -d /tmp/ltp/growfiles/{fsname} -b -e 1 -g 5000 -i 500 -t 49900 -T10 -c9 -I p -u -f gf07_
-> +{fsname}_gf16 growfiles -W {fsname}_gf16 -d /tmp/ltp/growfiles/{fsname} -b -e 1 -i 0 -L 120 -B 805306368 -u -g 4090 -T 100 -t 408990 -l -C 10 -c 1000 -S 10 -f Lgf02_
-> +{fsname}_gf17 growfiles -W {fsname}_gf17 -d /tmp/ltp/growfiles/{fsname} -b -e 1 -i 0 -L 120 -B 805306368 -u -g 5000 -T 100 -t 499990 -l -C 10 -c 1000 -S 10 -f Lgf03_
-> +{fsname}_gf18 growfiles -W {fsname}_gf18 -d /tmp/ltp/growfiles/{fsname} -b -e 1 -i 0 -L 120 -B 805306368 -w -u -r 10-5000 -I r -T 10 -l -S 2 -f Lgf04_
-> +{fsname}_gf19 growfiles -W {fsname}_gf19 -d /tmp/ltp/growfiles/{fsname} -b -e 1 -g 5000 -i 500 -t 49900 -T10 -c9 -I p -o O_RDWR,O_CREAT,O_TRUNC -u -f gf08i_
-> +{fsname}_gf12 mkfifo /tmp/ltp/growfiles/{fsname}/gffifo17; growfiles -W {fsname}_gf12 -b -e 1 -u -i 0 -L 30 -B 805306368 /tmp/ltp/growfiles/{fsname}/gffifo17
-> +{fsname}_gf13 mkfifo /tmp/ltp/growfiles/{fsname}/gffifo18; growfiles -W {fsname}_gf13 -b -e 1 -u -i 0 -L 30 -B 805306368 -I r -r 1-4096 /tmp/ltp/growfiles/{fsname}/gffifo18
-> +{fsname}_gf01 growfiles -W {fsname}_gf01 -b -e 1 -u -i 0 -L 20 -B 805306368 -w -C 1 -l -I r -T 10 /tmp/ltp/growfiles/{fsname}/glseek20 /tmp/ltp/growfiles/{fsname}/glseek20.2
-> +{fsname}_gf06 growfiles -W {fsname}_gf06 -b -e 1 -u -r 1-5000 -R 0--1 -i 0 -L 30 -B 805306368 -C 1 /tmp/ltp/growfiles/{fsname}/g_rand10 /tmp/ltp/growfiles/{fsname}/g_rand10.2
-> +{fsname}_gf07 growfiles -W {fsname}_gf07 -b -e 1 -u -r 1-5000 -R 0--2 -i 0 -L 30 -B 805306368 -C 1 -I p /tmp/ltp/growfiles/{fsname}/g_rand13 /tmp/ltp/growfiles/{fsname}/g_rand13.2
-> +{fsname}_gf08 growfiles -W {fsname}_gf08 -b -e 1 -u -r 1-5000 -R 0--2 -i 0 -L 30 -B 805306368 -C 1 /tmp/ltp/growfiles/{fsname}/g_rand11 /tmp/ltp/growfiles/{fsname}/g_rand11.2
-> +{fsname}_gf09 growfiles -W {fsname}_gf09 -b -e 1 -u -r 1-5000 -R 0--1 -i 0 -L 30 -B 805306368 -C 1 -I p /tmp/ltp/growfiles/{fsname}/g_rand12 /tmp/ltp/growfiles/{fsname}/g_rand12.2
-> +{fsname}_gf10 growfiles -W {fsname}_gf10 -b -e 1 -u -r 1-5000 -i 0 -L 30 -B 805306368 -C 1 -I l /tmp/ltp/growfiles/{fsname}/g_lio14 /tmp/ltp/growfiles/{fsname}/g_lio14.2
-> +{fsname}_gf11 growfiles -W {fsname}_gf11 -b -e 1 -u -r 1-5000 -i 0 -L 30 -B 805306368 -C 1 -I L /tmp/ltp/growfiles/{fsname}/g_lio15 /tmp/ltp/growfiles/{fsname}/g_lio15.2
-> +{fsname}_gf14 growfiles -W {fsname}_gf14 -b -e 1 -u -i 0 -L 20 -B 805306368 -w -l -C 1 -T 10 /tmp/ltp/growfiles/{fsname}/glseek19 /tmp/ltp/growfiles/{fsname}/glseek19.2
-> +{fsname}_gf15 growfiles -W {fsname}_gf15 -b -e 1 -u -r 1-49600 -I r -u -i 0 -L 120 -B 805306368 /tmp/ltp/growfiles/{fsname}/Lgfile1
-> +{fsname}_gf20 growfiles -W {fsname}_gf20 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -r 1-256000:512 -R 512-256000 -T 4 /tmp/ltp/growfiles/{fsname}/gfbigio-$$
-> +{fsname}_gf21 growfiles -W {fsname}_gf21 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -g 20480 -T 10 -t 20480 /tmp/ltp/growfiles/{fsname}/gf-bld-$$
-> +{fsname}_gf22 growfiles -W {fsname}_gf22 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -g 20480 -T 10 -t 20480 /tmp/ltp/growfiles/{fsname}/gf-bldf-$$
-> +{fsname}_gf23 growfiles -W {fsname}_gf23 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -r 512-64000:1024 -R 1-384000 -T 4 /tmp/ltp/growfiles/{fsname}/gf-inf-$$
-> +{fsname}_gf24 growfiles -W {fsname}_gf24 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -g 20480 /tmp/ltp/growfiles/{fsname}/gf-jbld-$$
-> +{fsname}_gf25 growfiles -W {fsname}_gf25 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -r 1024000-2048000:2048 -R 4095-2048000 -T 1 /tmp/ltp/growfiles/{fsname}/gf-large-gs-$$
-> +{fsname}_gf26 growfiles -W {fsname}_gf26 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -r 128-32768:128 -R 512-64000 -T 4 /tmp/ltp/growfiles/{fsname}/gfsmallio-$$
-> +{fsname}_gf27 growfiles -W {fsname}_gf27 -b -D 0 -w -g 8b -C 1 -b -i 1000 -u /tmp/ltp/growfiles/{fsname}/gfsparse-1-$$
-> +{fsname}_gf28 growfiles -W {fsname}_gf28 -b -D 0 -w -g 16b -C 1 -b -i 1000 -u /tmp/ltp/growfiles/{fsname}/gfsparse-2-$$
-> +{fsname}_gf29 growfiles -W {fsname}_gf29 -b -D 0 -r 1-4096 -R 0-33554432 -i 0 -L 60 -B 805306368 -C 1 -u /tmp/ltp/growfiles/{fsname}/gfsparse-3-$$
-> +{fsname}_gf30 growfiles -W {fsname}_gf30 -D 0 -b -i 0 -L 60 -u -B 1000b -e 1 -o O_RDWR,O_CREAT,O_SYNC -g 20480 -T 10 -t 20480 /tmp/ltp/growfiles/{fsname}/gf-sync-$$
-> +{fsname}_rwtest01 rwtest -N rwtest01 -c -q -i 60s  -f sync 10%25000:rw-sync-$$ 500b:/tmp/ltp/growfiles/{fsname}/rwtest01%f
-> +{fsname}_rwtest02 rwtest -N rwtest02 -c -q -i 60s  -f buffered 10%25000:rw-buffered-$$ 500b:/tmp/ltp/growfiles/{fsname}/rwtest02%f
-> +{fsname}_rwtest03 rwtest -N rwtest03 -c -q -i 60s -n 2  -f buffered -s mmread,mmwrite -m random -Dv 10%25000:mm-buff-$$ 500b:/tmp/ltp/growfiles/{fsname}/rwtest03%f
-> +{fsname}_rwtest04 rwtest -N rwtest04 -c -q -i 60s -n 2  -f sync -s mmread,mmwrite -m random -Dv 10%25000:mm-sync-$$ 500b:/tmp/ltp/growfiles/{fsname}/rwtest04%f
-> +{fsname}_rwtest05 rwtest -N rwtest05 -c -q -i 50 -T 64b 500b:/tmp/ltp/growfiles/{fsname}/rwtest05%f
-> diff --git a/testcases/misc/lvm/generate_lvm_runfile.sh b/testcases/misc/lvm/generate_lvm_runfile.sh
 
-Hmm, where exactly is this called?
 
-How is the template used?
+________________________________________
+From: Martin Doucha <mdoucha@suse.cz>
+Sent: Tuesday, April 14, 2020 3:35 PM
+To: Pankaj  Vinadrao Joshi
+Cc: ltp@lists.linux.it
+Subject: Re: [LTP] LTP testcase analysis
 
-> new file mode 100755
-> index 000000000..b5e979e6b
-> --- /dev/null
-> +++ b/testcases/misc/lvm/generate_lvm_runfile.sh
-> @@ -0,0 +1,27 @@
-> +#!/bin/sh
-> +# SPDX-License-Identifier: GPL-2.0-or-later
-> +# Copyright (c) 2020 SUSE LLC <mdoucha@suse.cz>
-> +#
-> +# Generate LTP runfile for LVM tests (runtest/lvm.local)
-> +
-> +TST_TESTFUNC=generate_runfile
-> +TST_NEEDS_ROOT=1
-> +TST_NEEDS_CMDS="sed"
-> +. tst_test.sh
-> +
-> +generate_runfile()
-> +{
-> +	trap 'tst_brk TBROK "Cannot create LVM runfile"' ERR
-> +	INFILE="$LTPROOT/testcases/data/lvm/runfile.tpl"
-> +	OUTFILE="$LTPROOT/runtest/lvm.local"
-> +	FS_LIST=`tst_supported_fs`
-> +	echo -n "" >"$OUTFILE"
-> +
-> +	for fsname in $FS_LIST; do
-> +		sed -e "s/{fsname}/$fsname/g" "$INFILE" >>"$OUTFILE"
-> +	done
-> +
-> +	tst_res TPASS "Runfile $OUTFILE successfully created"
-> +}
-> +
-> +tst_run
-> diff --git a/testcases/misc/lvm/prepare_lvm.sh b/testcases/misc/lvm/prepare_lvm.sh
-> new file mode 100755
-> index 000000000..a9acd50e0
-> --- /dev/null
-> +++ b/testcases/misc/lvm/prepare_lvm.sh
-> @@ -0,0 +1,83 @@
-> +#!/bin/sh
-> +# SPDX-License-Identifier: GPL-2.0-or-later
-> +# Copyright (c) 2020 SUSE LLC <mdoucha@suse.cz>
-> +#
-> +# Create and mount LVM volume groups for lvm.local runfile
-> +
-> +TST_TESTFUNC=prepare_lvm
-> +TST_NEEDS_ROOT=1
-> +TST_NEEDS_CMDS="mount pvcreate vgcreate lvcreate"
-> +. tst_test.sh
-> +
-> +LVM_TMPDIR="/tmp/ltp/growfiles"
-> +LVM_IMGDIR="/tmp/ltp/imgfiles"
+On 14. 04. 20 10:45, Pankaj Vinadrao Joshi wrote:
+> Hi,
+> i am running LTP on x86 with 5.4.3 kernel.i gave $ ./runltp command to
+> run the complete LTP but found some failures,like
+> oom01,futex_wait05,select04 etc.
+>
+> When i tried to run single test some of them turns into PASS which
+> earlier got failed.like oom01 was failed then i gave coomand $./runltp
+> -s oom01 and after that it got pass.
+>
+> why it could be happened,any specific reason,if you know please suggest??
 
-This should be based on $TMPDIR
+The most common errors for futex_wait and select tests are "$SYSCALL
+slept too long". These errors usually happen when you run the test in a
+VM on overloaded host because the VM doesn't get enough CPU time to wake
+the test process up within time limit.
 
-> +error_check()
-> +{
-> +	if [ $? -ne 0 ]; then
-> +		tst_brk TBROK "LVM setup failed"
-> +	fi
-> +}
-> +
-> +create_volume()
-> +{
-> +	fsname=$2
-> +	ROD mkdir -p $fsname
-> +
-> +	# If the FS isn't supported, only create the mountpoint and exit
-> +	if ! tst_supported_fs $fsname; then
-> +		return
-> +	fi
-> +
-> +	vgname=$1
-> +	lvname="ltp_lv_$fsname"
-> +	lvdev="/dev/$vgname/$lvname"
-> +
-> +	ROD lvcreate -L 1G $vgname -n "$lvname"
-> +	tst_mkfs $fsname "$lvdev"
-> +	ROD mount "$lvdev" $fsname
-> +}
-> +
-> +prepare_mounts()
-> +{
-> +	FSNAME1=$1
-> +	FSNAME2=$2
-> +	shift 2
-> +	LVM_DEV1=`tst_device acquire 1040 "$LVM_IMGDIR/lvm_pv1.img"`
-> +	error_check
-> +	LVM_DEV2=`ROD tst_device acquire 1040 "$LVM_IMGDIR/lvm_pv2.img"`
-> +	error_check
+OOM tests have issues in the mlock() test case. OOM killer is blocked by
+mlock() which usually results in the parent shell being killed instead
+of the expected OOM victim. This is a known kernel bug with some denial
+of service potential but so far nobody came up with a fix that wouldn't
+create memory corruption bugs.
 
-This calls ROD but yet you do error_check, why?
+That's all I can tell you without seeing the actual test output.
 
-Also ROD generates better error messages, why do we have to reinvent it
-badly?
+--
+Martin Doucha   mdoucha@suse.cz
+QA Engineer for Software Maintenance
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
+[EXT]
+___________________________________________________________________________=
+_______________________
 
-> +	# DEVSIZE=($# * 1GB / 2) + 16MB. The extra 16MB is for LVM physical
-> +	# volume headers
-> +	DEVSIZE=$(( $# * 512 + 16 ))
-> +	LVM_DEV3=`tst_device acquire $DEVSIZE "$LVM_IMGDIR/lvm_pv3.img"`
-> +	error_check
-> +	LVM_DEV4=`tst_device acquire $DEVSIZE "$LVM_IMGDIR/lvm_pv4.img"`
-> +	error_check
-> +	ROD pvcreate $LVM_DEV1 $LVM_DEV2 $LVM_DEV3 $LVM_DEV4
-> +	ROD vgcreate ltp_test_vg1 $LVM_DEV1 $LVM_DEV2
-> +	ROD vgcreate ltp_test_vg2 $LVM_DEV3 $LVM_DEV4
-> +
-> +	for fsname in $FSNAME1 $FSNAME2; do
-> +		create_volume ltp_test_vg1 $fsname
-> +	done
-> +
-> +	for fsname in $@; do
-> +		create_volume ltp_test_vg2 $fsname
-> +	done
-> +}
-> +
-> +prepare_lvm()
-> +{
-> +	FS_LIST=`tst_supported_fs | sort -u`
-> +	ROD mkdir -p "$LVM_TMPDIR"
-> +	ROD mkdir -p "$LVM_IMGDIR"
-> +	chmod 777 "$LVM_TMPDIR"
-> +	cd "$LVM_TMPDIR"
-> +	error_check
 
-Seriously here as well, just make use of ROD.
+--_000_MAXPR0101MB146820F93DED85CE20C26FE0EEDA0MAXPR0101MB1468_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-> +	prepare_mounts $FS_LIST
-> +	tst_res TPASS "LVM mounts are ready"
-> +}
-> +
-> +tst_run
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Hi,</div>
+<div style=3D"">
+<div style=3D"color: black; font-family: Calibri, Arial, Helvetica, sans-se=
+rif; font-size: 12pt; margin: 0px; background-color: rgb(255, 255, 255);">
+Hi,</div>
+<div style=3D"color: black; font-family: Calibri, Arial, Helvetica, sans-se=
+rif; font-size: 12pt; margin: 0px; background-color: rgb(255, 255, 255);">
+I forgot to mention that&nbsp; i am running LTP on&nbsp; VM and i am gettin=
+g error like&nbsp;&nbsp;<span style=3D"color: rgb(50, 49, 48); font-family:=
+ &quot;Segoe UI&quot;, &quot;Segoe UI Web (West European)&quot;, &quot;Sego=
+e UI&quot;, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue=
+&quot;, sans-serif; font-size: 14.6667px; background-color: rgb(255, 255, 2=
+55); display: inline !important">futex_wait
+ and select tests are &quot;<b>$SYSCALL&nbsp;</b></span><span style=3D"colo=
+r: rgb(50, 49, 48); font-family: &quot;Segoe UI&quot;, &quot;Segoe UI Web (=
+West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFo=
+nt, Roboto, &quot;Helvetica Neue&quot;, sans-serif; font-size: 14.6667px; b=
+ackground-color: rgb(255, 255, 255); display: inline !important"><b>slept
+ too long&quot; and the test is getting failed because&nbsp; vm is not gett=
+ing CPU time as expected.</b></span></div>
+<div style=3D"color: black; font-family: Calibri, Arial, Helvetica, sans-se=
+rif; font-size: 12pt; margin: 0px; background-color: rgb(255, 255, 255);">
+<span style=3D"color: inherit; font-family: inherit; font-size: 14.6667px; =
+font-style: inherit; font-variant-ligatures: inherit; font-variant-caps: in=
+herit;">Is there any that i can configure or manage this cpu time related i=
+ssue for now as i am running on slower
+ machine the time constrain doesnt value for me...i just need test to be pa=
+ssed...is there any way to do so??</span><br>
+</div>
+<div style=3D"color: black; font-family: Calibri, Arial, Helvetica, sans-se=
+rif; margin: 0px; background-color: rgb(255, 255, 255);">
+<span style=3D"font-size: 14.6667px;">Kindly suggest.</span></div>
+<div style=3D"color: black; font-family: Calibri, Arial, Helvetica, sans-se=
+rif; margin: 0px; background-color: rgb(255, 255, 255);">
+<span style=3D"font-size: 14.6667px;"><br>
+</span></div>
+<div style=3D"color: black; font-family: Calibri, Arial, Helvetica, sans-se=
+rif; margin: 0px; background-color: rgb(255, 255, 255);">
+<span style=3D"font-size: 14.6667px;">Thanks!</span></div>
+<br>
+</div>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<font size=3D"2"><span style=3D"font-size:11pt;">
+<div class=3D"PlainText"><br>
+________________________________________<br>
+From: Martin Doucha &lt;mdoucha@suse.cz&gt;<br>
+Sent: Tuesday, April 14, 2020 3:35 PM<br>
+To: Pankaj&nbsp; Vinadrao Joshi<br>
+Cc: ltp@lists.linux.it<br>
+Subject: Re: [LTP] LTP testcase analysis<br>
+<br>
+On 14. 04. 20 10:45, Pankaj Vinadrao Joshi wrote:<br>
+&gt; Hi,<br>
+&gt; i am running LTP on x86 with 5.4.3 kernel.i gave $ ./runltp command to=
+<br>
+&gt; run the complete LTP but found some failures,like<br>
+&gt; oom01,futex_wait05,select04 etc.<br>
+&gt;<br>
+&gt; When i tried to run single test some of them turns into PASS which<br>
+&gt; earlier got failed.like oom01 was failed then i gave coomand $./runltp=
+<br>
+&gt; -s oom01 and after that it got pass.<br>
+&gt;<br>
+&gt; why it could be happened,any specific reason,if you know please sugges=
+t??<br>
+<br>
+The most common errors for futex_wait and select tests are &quot;$SYSCALL<b=
+r>
+slept too long&quot;. These errors usually happen when you run the test in =
+a<br>
+VM on overloaded host because the VM doesn't get enough CPU time to wake<br=
+>
+the test process up within time limit.<br>
+<br>
+OOM tests have issues in the mlock() test case. OOM killer is blocked by<br=
+>
+mlock() which usually results in the parent shell being killed instead<br>
+of the expected OOM victim. This is a known kernel bug with some denial<br>
+of service potential but so far nobody came up with a fix that wouldn't<br>
+create memory corruption bugs.<br>
+<br>
+That's all I can tell you without seeing the actual test output.<br>
+<br>
+--<br>
+Martin Doucha&nbsp;&nbsp; mdoucha@suse.cz<br>
+QA Engineer for Software Maintenance<br>
+SUSE LINUX, s.r.o.<br>
+CORSO IIa<br>
+Krizikova 148/34<br>
+186 00 Prague 8<br>
+Czech Republic</div>
+<div class=3D"PlainText">[EXT]<br>
+</div>
+<div class=3D"PlainText">__________________________________________________=
+________________________________________________</div>
+<div class=3D"PlainText"><br>
+</div>
+</span></font></div>
+</body>
+</html>
 
-Also I'm not sure that it's reasonable to write helper scripts as a
-tests. These will fail horribly with -i parameters and so on. But I
-guess that we don't have better solution now. We would need a stripped
-down test library so that we can write these.
+--_000_MAXPR0101MB146820F93DED85CE20C26FE0EEDA0MAXPR0101MB1468_--
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+--===============2013533187==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============2013533187==--
