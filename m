@@ -2,41 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 908A81A98EF
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 11:30:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F23431A991E
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 11:39:29 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 574653C2B07
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 11:30:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C177E3C2B12
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 11:39:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 525013C2AF5
- for <ltp@lists.linux.it>; Wed, 15 Apr 2020 11:30:52 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 5AD403C2B09
+ for <ltp@lists.linux.it>; Wed, 15 Apr 2020 11:39:28 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E07DE14016A3
- for <ltp@lists.linux.it>; Wed, 15 Apr 2020 11:30:51 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E7B62201114
+ for <ltp@lists.linux.it>; Wed, 15 Apr 2020 11:39:27 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 994B6AE48;
- Wed, 15 Apr 2020 09:30:50 +0000 (UTC)
-Date: Wed, 15 Apr 2020 11:30:38 +0200
+ by mx2.suse.de (Postfix) with ESMTP id A5D8EAF92;
+ Wed, 15 Apr 2020 09:39:25 +0000 (UTC)
+Date: Wed, 15 Apr 2020 11:39:05 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20200415093038.GA12705@rei.lan>
+Message-ID: <20200415093905.GB12705@rei.lan>
 References: <20200415092809.20240-1-pvorel@suse.cz>
- <20200415092809.20240-2-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200415092809.20240-2-pvorel@suse.cz>
+In-Reply-To: <20200415092809.20240-1-pvorel@suse.cz>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH 1/8] lib: Fix linking error multiple TCID
- definitions with -fno-common
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH 0/8] Fix compilation with -fno-common (gcc-10)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,18 +54,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> +extern const char *TCID;
-
-Do we really need this extern or can we remove it?
-
->  #endif	/* TST_TEST_H__ */
-> diff --git a/lib/tst_test.c b/lib/tst_test.c
-> index e502c2c1a..64cd3ac33 100644
-> --- a/lib/tst_test.c
-> +++ b/lib/tst_test.c
-> @@ -32,6 +32,11 @@
->  #include "old_device.h"
->  #include "old_tmpdir.h"
+Looks good and pretty much straightforward.
 
 -- 
 chrubis@suse.cz
