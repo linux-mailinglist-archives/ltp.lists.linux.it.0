@@ -1,43 +1,38 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E39AB1AA00A
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 14:24:22 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 585711AA108
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 14:42:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B34AE3C2B10
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 14:24:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0B5153C64F3
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 14:42:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id D172E3C088F
- for <ltp@lists.linux.it>; Wed, 15 Apr 2020 14:24:17 +0200 (CEST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id E15403C2AF5
+ for <ltp@lists.linux.it>; Wed, 15 Apr 2020 14:41:59 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 49EFA60198D
- for <ltp@lists.linux.it>; Wed, 15 Apr 2020 14:24:16 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6431160170E
+ for <ltp@lists.linux.it>; Wed, 15 Apr 2020 14:41:58 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D3A17AD48;
- Wed, 15 Apr 2020 12:24:15 +0000 (UTC)
-Date: Wed, 15 Apr 2020 14:24:03 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Arnd Bergmann <arnd@arndb.de>
-Message-ID: <20200415122403.GF12705@rei.lan>
-References: <cover.1586861885.git.viresh.kumar@linaro.org>
- <0b30a19ac2938561f6e5e8e3264528aad6e42a76.1586861885.git.viresh.kumar@linaro.org>
- <20200415115234.GD12705@rei.lan>
- <CAK8P3a2cwb1Lh5nJ4DRdDF4ADnON5axRkxUR+g4impceqbHABw@mail.gmail.com>
+ by mx2.suse.de (Postfix) with ESMTP id E882EAD2B
+ for <ltp@lists.linux.it>; Wed, 15 Apr 2020 12:41:57 +0000 (UTC)
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Wed, 15 Apr 2020 14:41:54 +0200
+Message-Id: <20200415124157.10484-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.26.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAK8P3a2cwb1Lh5nJ4DRdDF4ADnON5axRkxUR+g4impceqbHABw@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V2 1/2] tst_timer: Add time64 related helpers
+Subject: [LTP] [PATCH v6 0/3] LVM support scripts for OpenQA
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,38 +44,44 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
- Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > > This introduces a new set of helpers to handle the time64 related
-> > > timespec. Instead of duplicating the code, this moves the existing code
-> > > into a macro and then defines timespec and time64 related helpers using
-> > > it.
-> >
-> > I'm not sure that adding a macro that spans over ~150 lines is a good
-> > idea. Unfortunately there is not so much options for a C language that
-> > lacks generics.
-> >
-> > Maybe it would be slightly better to write a shell script that would
-> > generate these defintions into a separate header that would be included
-> > in the tst_timer.h. That way we can run it manually to regenerate the
-> > header if needed. At least we would get saner error message from
-> > compiler that way.
-> 
-> How about having a shared .c file that is built multiple times with different
-> sets of -DBUILD_FOO options set from the Makefile, and a small
-> number of #ifdefs inside that file?
+The old support script for LVM tests (testscripts/ltpfslvm.sh) doesn't work
+very well with external testing tools so LVM tests currently cannot be run
+in OpenQA. Create new LVM support scripts that focus exclusively on setup
+and cleanup. One of the scripts also generates a new LVM runfile that'll test
+only file systems supported by the test machine.
 
-Actually after looking at the test it may be better to build abstract
-type system as I described in the reply to the second email just now.
+Martin Doucha (3):
+  Allow acquiring multiple loop devices
+  Add LVM support scripts
+  Skip Btrfs in LVM stress tests
+
+ include/old/old_device.h                   | 15 +++-
+ lib/tst_device.c                           | 36 ++++++----
+ testcases/lib/tst_device.c                 | 14 ++--
+ testcases/misc/lvm/Makefile                |  9 +++
+ testcases/misc/lvm/cleanup_lvm.sh          | 34 +++++++++
+ testcases/misc/lvm/datafiles/Makefile      |  8 +++
+ testcases/misc/lvm/datafiles/runfile.tpl   | 36 ++++++++++
+ testcases/misc/lvm/generate_lvm_runfile.sh | 30 ++++++++
+ testcases/misc/lvm/prepare_lvm.sh          | 83 ++++++++++++++++++++++
+ testscripts/lvmtest.sh                     | 18 +++++
+ 10 files changed, 264 insertions(+), 19 deletions(-)
+ create mode 100644 testcases/misc/lvm/Makefile
+ create mode 100755 testcases/misc/lvm/cleanup_lvm.sh
+ create mode 100644 testcases/misc/lvm/datafiles/Makefile
+ create mode 100644 testcases/misc/lvm/datafiles/runfile.tpl
+ create mode 100755 testcases/misc/lvm/generate_lvm_runfile.sh
+ create mode 100755 testcases/misc/lvm/prepare_lvm.sh
+ create mode 100755 testscripts/lvmtest.sh
 
 -- 
-chrubis@suse.cz
+2.26.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
