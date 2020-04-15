@@ -2,37 +2,38 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 585711AA108
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 14:42:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC7B01AA105
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 14:42:04 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0B5153C64F3
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 14:42:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E18BB3C2B36
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 14:42:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id E15403C2AF5
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id CDC323C226E
  for <ltp@lists.linux.it>; Wed, 15 Apr 2020 14:41:59 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6431160170E
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 4AC2D201029
  for <ltp@lists.linux.it>; Wed, 15 Apr 2020 14:41:58 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id E882EAD2B
+ by mx2.suse.de (Postfix) with ESMTP id 022F4AD48
  for <ltp@lists.linux.it>; Wed, 15 Apr 2020 12:41:57 +0000 (UTC)
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 15 Apr 2020 14:41:54 +0200
-Message-Id: <20200415124157.10484-1-mdoucha@suse.cz>
+Date: Wed, 15 Apr 2020 14:41:55 +0200
+Message-Id: <20200415124157.10484-2-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.26.0
+In-Reply-To: <20200415124157.10484-1-mdoucha@suse.cz>
+References: <20200415124157.10484-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v6 0/3] LVM support scripts for OpenQA
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v6 1/3] Allow acquiring multiple loop devices
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,36 +50,159 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The old support script for LVM tests (testscripts/ltpfslvm.sh) doesn't work
-very well with external testing tools so LVM tests currently cannot be run
-in OpenQA. Create new LVM support scripts that focus exclusively on setup
-and cleanup. One of the scripts also generates a new LVM runfile that'll test
-only file systems supported by the test machine.
+tst_acquire_device__() currently uses a hardcoded filename so only one loop
+device can be used at a time. Allow setting arbitrary temp filename so that
+multiple different loop devices can be acquired.
 
-Martin Doucha (3):
-  Allow acquiring multiple loop devices
-  Add LVM support scripts
-  Skip Btrfs in LVM stress tests
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
 
- include/old/old_device.h                   | 15 +++-
- lib/tst_device.c                           | 36 ++++++----
- testcases/lib/tst_device.c                 | 14 ++--
- testcases/misc/lvm/Makefile                |  9 +++
- testcases/misc/lvm/cleanup_lvm.sh          | 34 +++++++++
- testcases/misc/lvm/datafiles/Makefile      |  8 +++
- testcases/misc/lvm/datafiles/runfile.tpl   | 36 ++++++++++
- testcases/misc/lvm/generate_lvm_runfile.sh | 30 ++++++++
- testcases/misc/lvm/prepare_lvm.sh          | 83 ++++++++++++++++++++++
- testscripts/lvmtest.sh                     | 18 +++++
- 10 files changed, 264 insertions(+), 19 deletions(-)
- create mode 100644 testcases/misc/lvm/Makefile
- create mode 100755 testcases/misc/lvm/cleanup_lvm.sh
- create mode 100644 testcases/misc/lvm/datafiles/Makefile
- create mode 100644 testcases/misc/lvm/datafiles/runfile.tpl
- create mode 100755 testcases/misc/lvm/generate_lvm_runfile.sh
- create mode 100755 testcases/misc/lvm/prepare_lvm.sh
- create mode 100755 testscripts/lvmtest.sh
+No changes in this patch since v1. Rebase only.
 
+ include/old/old_device.h   | 15 ++++++++++++++-
+ lib/tst_device.c           | 36 +++++++++++++++++++++++-------------
+ testcases/lib/tst_device.c | 14 +++++++++-----
+ 3 files changed, 46 insertions(+), 19 deletions(-)
+
+diff --git a/include/old/old_device.h b/include/old/old_device.h
+index d2f1ecde5..a6e9fea86 100644
+--- a/include/old/old_device.h
++++ b/include/old/old_device.h
+@@ -52,13 +52,26 @@ static inline const char *tst_acquire_device(void (cleanup_fn)(void))
+ 	return tst_acquire_device_(cleanup_fn, 0);
+ }
+ 
++/*
++ * Acquire a loop device with specified temp filename. This function allows
++ * you to acquire multiple devices at the same time. LTP_DEV is ignored.
++ * If you call this function directly, use tst_detach_device() to release
++ * the devices. tst_release_device() will not work correctly.
++ *
++ * The return value points to a static buffer and additional calls of
++ * tst_acquire_loop_device() or tst_acquire_device() will overwrite it.
++ */
++const char *tst_acquire_loop_device(unsigned int size, const char *filename);
++
+ /*
+  * @dev: device path returned by the tst_acquire_device()
+  */
+ int tst_release_device(const char *dev);
+ 
+ /*
+- * @dev: device path returned by the tst_acquire_device()
++ * Cleanup function for tst_acquire_loop_device(). If you have acquired
++ * a device using tst_acquire_device(), use tst_release_device() instead.
++ * @dev: device path returned by the tst_acquire_loop_device()
+  */
+ int tst_detach_device(const char *dev);
+ 
+diff --git a/lib/tst_device.c b/lib/tst_device.c
+index a703512d2..67fe90ed6 100644
+--- a/lib/tst_device.c
++++ b/lib/tst_device.c
+@@ -228,10 +228,28 @@ int tst_dev_sync(int fd)
+ 	return syscall(__NR_syncfs, fd);
+ }
+ 
++const char *tst_acquire_loop_device(unsigned int size, const char *filename)
++{
++	unsigned int acq_dev_size = MAX(size, DEV_SIZE_MB);
++
++	if (tst_fill_file(filename, 0, 1024 * 1024, acq_dev_size)) {
++		tst_resm(TWARN | TERRNO, "Failed to create %s", filename);
++		return NULL;
++	}
++
++	if (tst_find_free_loopdev(dev_path, sizeof(dev_path)) == -1)
++		return NULL;
++
++	if (tst_attach_device(dev_path, filename))
++		return NULL;
++
++	return dev_path;
++}
++
+ const char *tst_acquire_device__(unsigned int size)
+ {
+ 	int fd;
+-	char *dev;
++	const char *dev;
+ 	struct stat st;
+ 	unsigned int acq_dev_size;
+ 	uint64_t ltp_dev_size;
+@@ -282,20 +300,12 @@ const char *tst_acquire_device__(unsigned int size)
+ 				ltp_dev_size, acq_dev_size);
+ 	}
+ 
+-	if (tst_fill_file(DEV_FILE, 0, 1024 * 1024, acq_dev_size)) {
+-		tst_resm(TWARN | TERRNO, "Failed to create " DEV_FILE);
+-		return NULL;
+-	}
+-
+-	if (tst_find_free_loopdev(dev_path, sizeof(dev_path)) == -1)
+-		return NULL;
++	dev = tst_acquire_loop_device(acq_dev_size, DEV_FILE);
+ 
+-	if (tst_attach_device(dev_path, DEV_FILE))
+-		return NULL;
++	if (dev)
++		device_acquired = 1;
+ 
+-	device_acquired = 1;
+-
+-	return dev_path;
++	return dev;
+ }
+ 
+ const char *tst_acquire_device_(void (cleanup_fn)(void), unsigned int size)
+diff --git a/testcases/lib/tst_device.c b/testcases/lib/tst_device.c
+index a657db30b..2a3ab1222 100644
+--- a/testcases/lib/tst_device.c
++++ b/testcases/lib/tst_device.c
+@@ -18,7 +18,7 @@ static struct tst_test test = {
+ 
+ static void print_help(void)
+ {
+-	fprintf(stderr, "\nUsage: tst_device acquire [size]\n");
++	fprintf(stderr, "\nUsage: tst_device acquire [size [filename]]\n");
+ 	fprintf(stderr, "   or: tst_device release /path/to/device\n\n");
+ }
+ 
+@@ -27,10 +27,10 @@ static int acquire_device(int argc, char *argv[])
+ 	unsigned int size = 0;
+ 	const char *device;
+ 
+-	if (argc > 3)
++	if (argc > 4)
+ 		return 1;
+ 
+-	if (argc == 3) {
++	if (argc >= 3) {
+ 		size = atoi(argv[2]);
+ 
+ 		if (!size) {
+@@ -40,7 +40,11 @@ static int acquire_device(int argc, char *argv[])
+ 		}
+ 	}
+ 
+-	device = tst_acquire_device__(size);
++	if (argc >= 4) {
++		device = tst_acquire_loop_device(size, argv[3]);
++	} else {
++		device = tst_acquire_device__(size);
++	}
+ 
+ 	if (!device)
+ 		return 1;
+@@ -61,7 +65,7 @@ static int release_device(int argc, char *argv[])
+ 		return 1;
+ 
+ 	/*
+-	 * tst_acquire_device() was called in a different process.
++	 * tst_acquire_[loop_]device() was called in a different process.
+ 	 * tst_release_device() would think that no device was acquired yet
+ 	 * and do nothing. Call tst_detach_device() directly to bypass
+ 	 * the check.
 -- 
 2.26.0
 
