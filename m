@@ -1,39 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C97C31A98E3
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 11:29:41 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 908A81A98EF
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 11:30:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E52D63C2B21
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 11:29:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 574653C2B07
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 11:30:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id C245B3C2AF7
- for <ltp@lists.linux.it>; Wed, 15 Apr 2020 11:28:23 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTP id 525013C2AF5
+ for <ltp@lists.linux.it>; Wed, 15 Apr 2020 11:30:52 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7EE04140162B
- for <ltp@lists.linux.it>; Wed, 15 Apr 2020 11:28:23 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E07DE14016A3
+ for <ltp@lists.linux.it>; Wed, 15 Apr 2020 11:30:51 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 28835AE63;
- Wed, 15 Apr 2020 09:28:22 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Wed, 15 Apr 2020 11:28:09 +0200
-Message-Id: <20200415092809.20240-9-pvorel@suse.cz>
-X-Mailer: git-send-email 2.26.0
-In-Reply-To: <20200415092809.20240-1-pvorel@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id 994B6AE48;
+ Wed, 15 Apr 2020 09:30:50 +0000 (UTC)
+Date: Wed, 15 Apr 2020 11:30:38 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <20200415093038.GA12705@rei.lan>
 References: <20200415092809.20240-1-pvorel@suse.cz>
+ <20200415092809.20240-2-pvorel@suse.cz>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20200415092809.20240-2-pvorel@suse.cz>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH 8/8] travis: Build with -fno-common
+Subject: Re: [LTP] [RFC PATCH 1/8] lib: Fix linking error multiple TCID
+ definitions with -fno-common
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,34 +48,28 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This is the default with gcc-10, but use it with all compilers.
+Hi!
+> +extern const char *TCID;
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- build.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Do we really need this extern or can we remove it?
 
-diff --git a/build.sh b/build.sh
-index e3d268c83..50fb527e4 100755
---- a/build.sh
-+++ b/build.sh
-@@ -9,7 +9,7 @@
- 
- set -e
- 
--CFLAGS="${CFLAGS:--Werror=implicit-function-declaration}"
-+CFLAGS="${CFLAGS:--Werror=implicit-function-declaration -fno-common}"
- CC="${CC:-gcc}"
- 
- DEFAULT_PREFIX="$HOME/ltp-install"
+>  #endif	/* TST_TEST_H__ */
+> diff --git a/lib/tst_test.c b/lib/tst_test.c
+> index e502c2c1a..64cd3ac33 100644
+> --- a/lib/tst_test.c
+> +++ b/lib/tst_test.c
+> @@ -32,6 +32,11 @@
+>  #include "old_device.h"
+>  #include "old_tmpdir.h"
+
 -- 
-2.26.0
-
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
