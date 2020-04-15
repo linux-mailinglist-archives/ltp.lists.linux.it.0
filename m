@@ -1,69 +1,67 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C1521A9EB8
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 14:01:44 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CFEA1A9F10
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 14:07:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5B21F3C64F2
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 14:01:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 91BE33C64E0
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 14:07:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 0BF6A3C2AFA
- for <ltp@lists.linux.it>; Wed, 15 Apr 2020 14:01:39 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 70D7D1001274
- for <ltp@lists.linux.it>; Wed, 15 Apr 2020 14:01:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1586952096;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=wG86RRF/die0SwsJqcTdiLaEPMzv29V4F8i7lfNyYPo=;
- b=e/c84em8jApkKlv3bb4dfWfq+4mjhqGMc2KPm/y3Ei7lOWI773Jdmm3wlzxvWQlDHIjNrS
- dPsw31hc9z9YgUxFs8fRb67o0eG71/Kg+FGrBVCn8V/nwUQLZaYabJl5kAEYSkvAq+f98g
- 4KU/rU5UAWRjt+WgxN2mEGnae/jclgc=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-76-IKv4lrdMPIu1w0KpPcXviQ-1; Wed, 15 Apr 2020 08:01:32 -0400
-X-MC-Unique: IKv4lrdMPIu1w0KpPcXviQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 195AD3C0878
+ for <ltp@lists.linux.it>; Wed, 15 Apr 2020 14:07:49 +0200 (CEST)
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.74])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AFDF8801A08;
- Wed, 15 Apr 2020 12:01:30 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A3C451001920;
- Wed, 15 Apr 2020 12:01:30 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id E2DF893065;
- Wed, 15 Apr 2020 12:01:29 +0000 (UTC)
-Date: Wed, 15 Apr 2020 08:01:29 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <519333462.8303829.1586952089550.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20200415112635.14144-1-pvorel@suse.cz>
-References: <20200415112635.14144-1-pvorel@suse.cz>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id BBCFE601012
+ for <ltp@lists.linux.it>; Wed, 15 Apr 2020 14:07:48 +0200 (CEST)
+Received: from mail-qt1-f179.google.com ([209.85.160.179]) by
+ mrelayeu.kundenserver.de (mreue106 [212.227.15.145]) with ESMTPSA (Nemesis)
+ id 1MhClw-1ikOGM1nzG-00eOch for <ltp@lists.linux.it>; Wed, 15 Apr 2020
+ 14:07:48 +0200
+Received: by mail-qt1-f179.google.com with SMTP id 71so12893072qtc.12
+ for <ltp@lists.linux.it>; Wed, 15 Apr 2020 05:07:48 -0700 (PDT)
+X-Gm-Message-State: AGi0PuYSLbvxkLqQlWSo/oSizBmqweFO5uuLpj91JIcdAt+lSeQrWRrP
+ OC0TibviQ+b1Ojj/2knFa7wPPqEz5OtX8k83cYM=
+X-Google-Smtp-Source: APiQypJx+wpbInwc7xfjneJjp86hu4fsE1nVOLl44wls+2VRuC7HqkpbtZX7R8FeV5z8WV+Wo7HESlPeeEkOFEqLr4k=
+X-Received: by 2002:ac8:6757:: with SMTP id n23mr7877384qtp.304.1586952467328; 
+ Wed, 15 Apr 2020 05:07:47 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.25, 10.4.195.21]
-Thread-Topic: Fix compilation with -fno-common (gcc-10)
-Thread-Index: L2jKt7Y6MbfVoN1sDvGr3YVK1YH3Ug==
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+References: <cover.1586861885.git.viresh.kumar@linaro.org>
+ <0b30a19ac2938561f6e5e8e3264528aad6e42a76.1586861885.git.viresh.kumar@linaro.org>
+ <20200415115234.GD12705@rei.lan>
+In-Reply-To: <20200415115234.GD12705@rei.lan>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Wed, 15 Apr 2020 14:07:30 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a2cwb1Lh5nJ4DRdDF4ADnON5axRkxUR+g4impceqbHABw@mail.gmail.com>
+Message-ID: <CAK8P3a2cwb1Lh5nJ4DRdDF4ADnON5axRkxUR+g4impceqbHABw@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Provags-ID: V03:K1:KkBIZghzDteNTJrtcFf21OnSmEOJvaWm1LFU/mTF/d7mJ7NEdn9
+ 29KFSNDl95hfNeW5ysXqXER1Gi3S5JkwVf6HnNiQ06VQzwFnfp7W1kpoQ8gZ1Lo085v3Ysy
+ yC550QW/BAfQJBF8Tns4hL3J20bqF4RFxc6zMhshWFqaJS3mUqFVFsk8e/v7SjBXv6whQtc
+ dgGzLWDuFI+WKQ+UhfeRQ==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:aDVTFwQJGdE=:gq1g1wXRB5j7fJ+L+ofNxI
+ sHHjN18eENUmKHe9pty18n9Np9fyqanmj2ojVIuAOL4lylIn4Cy0F1WcHXV7JE0byU1aprF0O
+ psyGNSRBqjO5yyBCLnH9r27NgHII8+gJA6vhavkd8mxBGV4iVby5gAAqvtf/M+yzwiKNPO/8a
+ xytwHrrCP27BwAhr+tEI1/MIM3nverWUDCAgLxp0DW55eXhWuM/5EX5DKxkoJUb7iFqgX5p86
+ zp7vlbqdXSbyE5c58rel5QHPUcObAeUH4tHJYuCXVQ/hxV+zgiAUgEWxT6+ifoYm33bE/Ks1V
+ fWpH35vA5vPQlUC9LcWNCWHFPEiGLP40reTbr+03R76DbkgGwVvPC+rKEps/6DR8PfUu49jtW
+ XqOFQkTvNDmPVPpTczjm20VcknqrY1NrRvJLVGauiiRKCUqGS19r8pFdC/G8mVbISpfEOEsvS
+ QX3OqPfNmxex8W/FHr6C+n5mvBTxx67Sm5WdOzErUvmFjQs9vCljRzB4gvg4uBUA8M41kuFq5
+ /Rw6MjtycDwtzraIbcLMT5tvwzR8fDgjVZgCh2cw//aMheB9I6JuthGwkXQgl1M7iSpJ7uwMa
+ FElhFaRNBIYNi8KCGc7+PFcaCMzMBFD4AcTSqp9dvwbR7gkthXGdCNz5gTSQSEh78PaW1HZow
+ 3I00fB7Z/ve8322BxiTBWv77zBPKRCTjKfhKYLSXbGUBEoWsN7nmA04UYuFMr9P8/dscE913k
+ JiUtW8IZ+94Bq76T6CXJSjA1NgZyheu7+6o4RYMv7EW1v+BFv/9XQ/MdBwarZ9Tovz4LZadg/
+ 78lkrbFD2GC37pLZydwx+utHmmEKU4c7hrY82DTqHp04EiCa90=
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 0/9] Fix compilation with -fno-common (gcc-10)
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V2 1/2] tst_timer: Add time64 related helpers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,27 +73,36 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+ Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+On Wed, Apr 15, 2020 at 1:52 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+>
+> Hi!
+> > This introduces a new set of helpers to handle the time64 related
+> > timespec. Instead of duplicating the code, this moves the existing code
+> > into a macro and then defines timespec and time64 related helpers using
+> > it.
+>
+> I'm not sure that adding a macro that spans over ~150 lines is a good
+> idea. Unfortunately there is not so much options for a C language that
+> lacks generics.
+>
+> Maybe it would be slightly better to write a shell script that would
+> generate these defintions into a separate header that would be included
+> in the tst_timer.h. That way we can run it manually to regenerate the
+> header if needed. At least we would get saner error message from
+> compiler that way.
 
+How about having a shared .c file that is built multiple times with different
+sets of -DBUILD_FOO options set from the Makefile, and a small
+number of #ifdefs inside that file?
 
------ Original Message -----
-> Hi,
-> 
-> I added 1st commit "Remove use of TCID in new API tests" which allows to
-> remove extern const char *TCID;
-> 
-> https://travis-ci.org/github/pevik/ltp/builds/675251626
-> 
-> Kind regards,
-> Petr
-
-Looks good, ack.
-
+      Arnd
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
