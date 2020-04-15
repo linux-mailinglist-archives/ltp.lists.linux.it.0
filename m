@@ -2,28 +2,29 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19B461A9C36
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 13:27:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CB4A1A9C3E
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 13:28:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 847453C2B04
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 13:27:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 74E9D3C2B30
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 13:28:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 4DD983C2B05
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 030063C2B07
  for <ltp@lists.linux.it>; Wed, 15 Apr 2020 13:26:44 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 128B0201114
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 131B220111E
  for <ltp@lists.linux.it>; Wed, 15 Apr 2020 13:26:44 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 9F2CFAE0A;
+ by mx2.suse.de (Postfix) with ESMTP id BE535AE57;
  Wed, 15 Apr 2020 11:26:42 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 15 Apr 2020 13:26:31 +0200
-Message-Id: <20200415112635.14144-6-pvorel@suse.cz>
+Date: Wed, 15 Apr 2020 13:26:32 +0200
+Message-Id: <20200415112635.14144-7-pvorel@suse.cz>
 X-Mailer: git-send-email 2.26.0
 In-Reply-To: <20200415112635.14144-1-pvorel@suse.cz>
 References: <20200415112635.14144-1-pvorel@suse.cz>
@@ -33,7 +34,7 @@ X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 5/9] kernel/mem: Fix linking error with -fno-common
+Subject: [LTP] [PATCH v2 6/9] hugepage: Fix linking error with -fno-common
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,26 +51,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Adding missing extern.
+by moving definitions to tst_hugepage.c and adding extern declarations
+to tst_hugepage.h.
+
+Fixes: 156f91396 ("hugetlb: move nr_opt to tst_hugepage.h")
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/kernel/mem/include/mem.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/tst_hugepage.h | 4 ++--
+ lib/tst_hugepage.c     | 2 ++
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/testcases/kernel/mem/include/mem.h b/testcases/kernel/mem/include/mem.h
-index a12c2231f..cce9c0497 100644
---- a/testcases/kernel/mem/include/mem.h
-+++ b/testcases/kernel/mem/include/mem.h
-@@ -37,7 +37,7 @@ static inline void clean_node(unsigned long *array)
- #define MLOCK			2
- #define KSM			3
+diff --git a/include/tst_hugepage.h b/include/tst_hugepage.h
+index 30e00a377..60c03c5c5 100644
+--- a/include/tst_hugepage.h
++++ b/include/tst_hugepage.h
+@@ -9,8 +9,8 @@
+ #define PATH_HUGEPAGES	"/sys/kernel/mm/hugepages/"
+ #define PATH_NR_HPAGES	"/proc/sys/vm/nr_hugepages"
  
--long overcommit;
-+extern long overcommit;
- void oom(int testcase, int lite, int retcode, int allow_sigkill);
- void testoom(int mempolicy, int lite, int retcode, int allow_sigkill);
+-char *nr_opt; /* -s num   Set the number of the been allocated hugepages */
+-char *Hopt;   /* -H /..   Location of hugetlbfs, i.e.  -H /var/hugetlbfs */
++extern char *nr_opt; /* -s num   Set the number of the been allocated hugepages */
++extern char *Hopt;   /* -H /..   Location of hugetlbfs, i.e.  -H /var/hugetlbfs */
  
+ /*
+  * Try the best to request a specified number of huge pages from system,
+diff --git a/lib/tst_hugepage.c b/lib/tst_hugepage.c
+index 34fd27ede..52667a14e 100644
+--- a/lib/tst_hugepage.c
++++ b/lib/tst_hugepage.c
+@@ -9,6 +9,8 @@
+ #include "tst_hugepage.h"
+ 
+ unsigned long tst_hugepages;
++char *nr_opt;
++char *Hopt;
+ 
+ unsigned long tst_request_hugepages(unsigned long hpages)
+ {
 -- 
 2.26.0
 
