@@ -2,38 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF8E41AA106
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 14:42:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A6D61AA2BB
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 15:05:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A7DFA3C2B28
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 14:42:11 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7EB113C2B36
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Apr 2020 15:05:14 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id DB2503C22D1
- for <ltp@lists.linux.it>; Wed, 15 Apr 2020 14:41:59 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id A28263C2B04
+ for <ltp@lists.linux.it>; Wed, 15 Apr 2020 15:05:08 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 521B21A01466
- for <ltp@lists.linux.it>; Wed, 15 Apr 2020 14:41:59 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0A2A614016F8
+ for <ltp@lists.linux.it>; Wed, 15 Apr 2020 15:05:07 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 1F738AE35
- for <ltp@lists.linux.it>; Wed, 15 Apr 2020 12:41:58 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
-To: ltp@lists.linux.it
-Date: Wed, 15 Apr 2020 14:41:57 +0200
-Message-Id: <20200415124157.10484-4-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.26.0
-In-Reply-To: <20200415124157.10484-1-mdoucha@suse.cz>
-References: <20200415124157.10484-1-mdoucha@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id B50F0AD2B;
+ Wed, 15 Apr 2020 13:05:06 +0000 (UTC)
+Date: Wed, 15 Apr 2020 15:04:54 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Jan Stancek <jstancek@redhat.com>
+Message-ID: <20200415130454.GG12705@rei.lan>
+References: <20200415112635.14144-1-pvorel@suse.cz>
+ <519333462.8303829.1586952089550.JavaMail.zimbra@redhat.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <519333462.8303829.1586952089550.JavaMail.zimbra@redhat.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v6 3/3] Skip Btrfs in LVM stress tests
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 0/9] Fix compilation with -fno-common (gcc-10)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,43 +48,17 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Delayed file deletion makes stress testing Btrfs on small block devices
-difficult. Each test case would require explicit FS cleanup synchronization.
-Drop Btrfs tests from LVM runfile for now.
+Hi!
+Acked as well.
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
-
-Changes since v3: New patch.
-Changes since v4: Rebase only.
-
- testcases/misc/lvm/generate_lvm_runfile.sh | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/testcases/misc/lvm/generate_lvm_runfile.sh b/testcases/misc/lvm/generate_lvm_runfile.sh
-index b5e979e6b..5ca035f22 100755
---- a/testcases/misc/lvm/generate_lvm_runfile.sh
-+++ b/testcases/misc/lvm/generate_lvm_runfile.sh
-@@ -18,7 +18,10 @@ generate_runfile()
- 	echo -n "" >"$OUTFILE"
- 
- 	for fsname in $FS_LIST; do
--		sed -e "s/{fsname}/$fsname/g" "$INFILE" >>"$OUTFILE"
-+		# Btrfs needs too much space for reliable stress testing
-+		if [ "x$fsname" != "xbtrfs" ]; then
-+			sed -e "s/{fsname}/$fsname/g" "$INFILE" >>"$OUTFILE"
-+		fi
- 	done
- 
- 	tst_res TPASS "Runfile $OUTFILE successfully created"
 -- 
-2.26.0
-
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
