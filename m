@@ -2,39 +2,36 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A26C1ABEB0
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 Apr 2020 13:00:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 879361AC0F7
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 Apr 2020 14:20:29 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E80523C6480
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 Apr 2020 13:00:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2C70B3C64A2
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 Apr 2020 14:20:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id E57CF3C2B14
- for <ltp@lists.linux.it>; Thu, 16 Apr 2020 13:00:38 +0200 (CEST)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 235C63C2B09
+ for <ltp@lists.linux.it>; Thu, 16 Apr 2020 14:20:25 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6879323B2C9
- for <ltp@lists.linux.it>; Thu, 16 Apr 2020 13:00:38 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 7F34D1A00992
+ for <ltp@lists.linux.it>; Thu, 16 Apr 2020 14:20:24 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 4BB7CAD83;
- Thu, 16 Apr 2020 11:00:37 +0000 (UTC)
-Date: Thu, 16 Apr 2020 13:00:36 +0200
-From: Petr Vorel <pvorel@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id 57131AC7B
+ for <ltp@lists.linux.it>; Thu, 16 Apr 2020 12:20:23 +0000 (UTC)
+From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Message-ID: <20200416110036.GA30159@dell5510>
-References: <20200416104548.27897-1-pvorel@suse.cz>
- <20200416104548.27897-2-pvorel@suse.cz>
+Date: Thu, 16 Apr 2020 14:20:23 +0200
+Message-Id: <20200416122023.20952-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.26.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200416104548.27897-2-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] net/sendfile01.sh: Rewrite into new API
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] Add test for CVE 2018-9568
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,27 +43,171 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Fixes #438
 
-Minor grammar:
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
 
-> +		if [ $ret -eq 0 ]; then
-> +			tst_res TPASS "coped file is the same as the original"
-Typo copied file.
-> +		elif [ $ret -gt 1 ]; then
-> +			tst_brk TFAIL "cannot compare files"
-> +		else
-> +			tst_res TFAIL "the copied file differs from the original"
-I guess it should be without "the"
+Changes since v1:
+- bind listen socket to any free port
 
-Kind regards,
-Petr
+ runtest/cve                                   |   1 +
+ runtest/syscalls                              |   1 +
+ testcases/kernel/syscalls/connect/.gitignore  |   1 +
+ testcases/kernel/syscalls/connect/connect02.c | 105 ++++++++++++++++++
+ 4 files changed, 108 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/connect/connect02.c
+
+diff --git a/runtest/cve b/runtest/cve
+index b26e02f0b..629cf7035 100644
+--- a/runtest/cve
++++ b/runtest/cve
+@@ -41,6 +41,7 @@ cve-2017-18075 pcrypt_aead01
+ cve-2017-1000380 snd_timer01
+ cve-2018-5803 sctp_big_chunk
+ cve-2018-7566 snd_seq01
++cve-2018-9568 connect02
+ cve-2018-1000001 realpath01
+ cve-2018-1000199 ptrace08
+ cve-2018-1000204 ioctl_sg01
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 44254d7da..2b85473ba 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -121,6 +121,7 @@ close08 close08
+ confstr01 confstr01
+ 
+ connect01 connect01
++connect02 connect02
+ 
+ creat01 creat01
+ creat03 creat03
+diff --git a/testcases/kernel/syscalls/connect/.gitignore b/testcases/kernel/syscalls/connect/.gitignore
+index b425169a8..0a3fc90bf 100644
+--- a/testcases/kernel/syscalls/connect/.gitignore
++++ b/testcases/kernel/syscalls/connect/.gitignore
+@@ -1 +1,2 @@
+ /connect01
++/connect02
+diff --git a/testcases/kernel/syscalls/connect/connect02.c b/testcases/kernel/syscalls/connect/connect02.c
+new file mode 100644
+index 000000000..8f3aeeb41
+--- /dev/null
++++ b/testcases/kernel/syscalls/connect/connect02.c
+@@ -0,0 +1,105 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2017 Christoph Paasch <cpaasch@apple.com>
++ * Copyright (C) 2020 SUSE LLC <mdoucha@suse.cz>
++ *
++ * CVE-2018-9568
++ *
++ * Test that connect() to AF_UNSPEC address correctly converts IPV6 socket
++ * to IPV4 listen socket when IPV6_ADDRFORM is set to AF_INET.
++ * Kernel memory corruption fixed in:
++ *
++ *  commit 9d538fa60bad4f7b23193c89e843797a1cf71ef3
++ *  Author: Christoph Paasch <cpaasch@apple.com>
++ *  Date:   Tue Sep 26 17:38:50 2017 -0700
++ *
++ *  net: Set sk_prot_creator when cloning sockets to the right proto
++ */
++
++#include <sys/types.h>
++#include <sys/socket.h>
++#include <netinet/in.h>
++#include <netinet/tcp.h>
++#include <arpa/inet.h>
++
++#include "tst_test.h"
++#include "tst_net.h"
++#include "tst_taint.h"
++
++static int listenfd;
++static struct sockaddr_in6 bind_addr;
++static struct sockaddr_in bind_addr4, client_addr;
++static struct sockaddr reset_addr;
++
++static void setup(void)
++{
++	socklen_t size = sizeof(bind_addr);
++
++	tst_taint_init(TST_TAINT_W | TST_TAINT_D);
++
++	tst_init_sockaddr_inet6_bin(&bind_addr, &in6addr_any, 0);
++	tst_init_sockaddr_inet_bin(&bind_addr4, INADDR_ANY, 0);
++	memset(&reset_addr, 0, sizeof(reset_addr));
++	reset_addr.sa_family = AF_UNSPEC;
++
++	listenfd = SAFE_SOCKET(AF_INET6, SOCK_STREAM, IPPROTO_TCP);
++	SAFE_BIND(listenfd, (struct sockaddr *)&bind_addr, sizeof(bind_addr));
++	SAFE_LISTEN(listenfd, 5);
++	SAFE_GETSOCKNAME(listenfd, (struct sockaddr *)&bind_addr, &size);
++	tst_init_sockaddr_inet(&client_addr, "127.0.0.1",
++		htons(bind_addr.sin6_port));
++}
++
++static void cleanup(void)
++{
++	if (listenfd >= 0)
++		SAFE_CLOSE(listenfd);
++}
++
++static void run(void)
++{
++	int i, addrlen, fd, confd1, confd2, confd3;
++	struct sockaddr_storage client_addr2;
++
++	for (i = 0; i < 1000; i++) {
++		confd1 = SAFE_SOCKET(AF_INET, SOCK_STREAM, IPPROTO_TCP);
++		SAFE_CONNECT(confd1, (struct sockaddr *)&client_addr,
++			sizeof(client_addr));
++
++		fd = SAFE_ACCEPT(listenfd, NULL, NULL);
++		SAFE_SETSOCKOPT_INT(fd, SOL_IPV6, IPV6_ADDRFORM, AF_INET);
++		SAFE_CONNECT(fd, (struct sockaddr *)&reset_addr,
++			sizeof(reset_addr));
++		SAFE_BIND(fd, (struct sockaddr *)&bind_addr4,
++			sizeof(bind_addr4));
++		SAFE_LISTEN(fd, 5);
++
++		addrlen = tst_get_connect_address(fd, &client_addr2);
++		confd2 = SAFE_SOCKET(AF_INET, SOCK_STREAM, IPPROTO_TCP);
++		SAFE_CONNECT(confd2, (struct sockaddr *)&client_addr2, addrlen);
++		confd3 = SAFE_ACCEPT(fd, NULL, NULL);
++
++		SAFE_CLOSE(confd3);
++		SAFE_CLOSE(confd2);
++		SAFE_CLOSE(confd1);
++		SAFE_CLOSE(fd);
++
++		if (tst_taint_check()) {
++			tst_res(TFAIL, "Kernel is vulnerable");
++			return;
++		}
++	}
++
++	tst_res(TPASS, "Nothing bad happened, probably");
++}
++
++static struct tst_test test = {
++	.test_all = run,
++	.setup = setup,
++	.cleanup = cleanup,
++	.tags = (const struct tst_tag[]) {
++		{"linux-git", "9d538fa60bad"},
++		{"CVE", "2018-9568"},
++		{}
++	}
++};
+-- 
+2.26.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
