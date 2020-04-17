@@ -2,70 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 371C51ADA43
-	for <lists+linux-ltp@lfdr.de>; Fri, 17 Apr 2020 11:44:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CB4B1ADA84
+	for <lists+linux-ltp@lfdr.de>; Fri, 17 Apr 2020 11:56:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4A13E3C2AFF
-	for <lists+linux-ltp@lfdr.de>; Fri, 17 Apr 2020 11:44:29 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A12023C2AE3
+	for <lists+linux-ltp@lfdr.de>; Fri, 17 Apr 2020 11:56:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id C74E13C0358
- for <ltp@lists.linux.it>; Fri, 17 Apr 2020 11:44:24 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [207.211.31.120])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 2DC8660126D
- for <ltp@lists.linux.it>; Fri, 17 Apr 2020 11:44:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1587116662;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3Mg4PCMcbj9J8VjRa1069IexBojouNyJkl4hb8PZrLc=;
- b=TkATZYz/0aiGTLLYR0ZdNYTVDQVGOt+rDHPaklTDyqqzl2mpIwzkOmegm3KPjbDeKacdLW
- Nmn+oQVlwReYxtZ11bDVc0dYHv18CM2TGTFTyEXfSN6W6OqDSq1F+Eb1XV186L3yAzMRJU
- Q9FWMPHXenn4z+ybqMLUgjFLzHTLjW8=
-Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
- [209.85.167.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-33-AW8IupUjM-2iqIOxNpPaWA-1; Fri, 17 Apr 2020 05:44:20 -0400
-X-MC-Unique: AW8IupUjM-2iqIOxNpPaWA-1
-Received: by mail-lf1-f69.google.com with SMTP id h12so609481lfk.22
- for <ltp@lists.linux.it>; Fri, 17 Apr 2020 02:44:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=W9sxGTcXLPpIJ1PhsN/+Di4IqwOQkLDagY7m6EhYG2I=;
- b=YP6HYCJ80GOsXn3KbuoSn5hncpUQ32umP57ljtqMB3q5vv3u29SF6Xkd28BvFjtqhE
- ty2/DMrTBbHHYCuwb1wmOFaoun4vM49qOvQtVjBHitqQ7s0iTEz7TIdadm3Qxyq/Ea7h
- jZAeNhBa8geooORcSd2g0QqxMOrXO44WgvtH6UPTD3/bGzHjWZK+lB0IzrPYJ6Uv5+yL
- i4rHe3zLTrsAIQvN3aHZYNSKdXDRQYBgnFDmVFXch0/F3s0NzioFhfIN+Se+pRaJ14cz
- xKjKPE2wWE8IAVvPzzKyNTX+3T51SWArZuMIJiR1I9qDtcRX0XKCUHVtg+2wgf9vnMEt
- XliQ==
-X-Gm-Message-State: AGi0PuZNA3s05G3k0OsMSGgHguwAnrO58nhhF/3xm6xbOr9LFZephFjK
- iY5Tcq0e5x6HeqSVNAttGsR3dOv3t9GGGt5Bnmm9xkH1kylpV9FHIXTcAe5d30iy8hm7zSqRcf0
- tQoQFe/GUztbWDf1cqOVG3AesMiY=
-X-Received: by 2002:a2e:9ac9:: with SMTP id p9mr1577980ljj.222.1587116658538; 
- Fri, 17 Apr 2020 02:44:18 -0700 (PDT)
-X-Google-Smtp-Source: APiQypJevS/D0owf8bz7R3t3Szd4pS8kYq6k3Z6KqHBzE4Ioe/XHlY/mLoXIy23kOdxAtKBx7SMe2TS8GPAeOFY5/30=
-X-Received: by 2002:a2e:9ac9:: with SMTP id p9mr1577975ljj.222.1587116658351; 
- Fri, 17 Apr 2020 02:44:18 -0700 (PDT)
-MIME-Version: 1.0
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 15AED3C2AB3
+ for <ltp@lists.linux.it>; Fri, 17 Apr 2020 11:56:49 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id BE075601294
+ for <ltp@lists.linux.it>; Fri, 17 Apr 2020 11:56:44 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.72,394,1580745600"; d="scan'208";a="89197793"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 17 Apr 2020 17:56:40 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 3BE53406AB15;
+ Fri, 17 Apr 2020 17:46:09 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Fri, 17 Apr 2020 17:56:40 +0800
+To: Li Wang <liwang@redhat.com>
 References: <1586927503-10827-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
  <1587022142-32122-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
  <1587022142-32122-4-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-In-Reply-To: <1587022142-32122-4-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 17 Apr 2020 17:44:07 +0800
-Message-ID: <CAEemH2fUpkmU86d3M8LAL13x-vsC96ce8QdyjGacqy9m4_bD4g@mail.gmail.com>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+ <CAEemH2fUpkmU86d3M8LAL13x-vsC96ce8QdyjGacqy9m4_bD4g@mail.gmail.com>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <e6dc08b9-bcce-51af-e64d-00b02fc459a3@cn.fujitsu.com>
+Date: Fri, 17 Apr 2020 17:56:38 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.0
+MIME-Version: 1.0
+In-Reply-To: <CAEemH2fUpkmU86d3M8LAL13x-vsC96ce8QdyjGacqy9m4_bD4g@mail.gmail.com>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 3BE53406AB15.ADA97
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
 X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v3 3/3] syscalls/pipe2_03: Add new test for pipe2
  O_DIRECT flag
@@ -81,50 +62,33 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1323968222=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1323968222==
-Content-Type: multipart/alternative; boundary="000000000000a3792f05a37964d1"
+Hi Li
 
---000000000000a3792f05a37964d1
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> Hi Xu,
+> 
+> I feel confused that is this test duplicated with the one Lanie's 
+> patch2/2? why using the same test name?
+My pipe2_03.c is to test O_DIRECT flag, Lanie's patch is to test 
+O_NONBLOCK flag as my perivous email said, see[1].
 
-Hi Xu,
+I don't think it is a problem(I need to generate patch-set, so named 
+pipe2_03.c is better).
 
-I feel confused that is this test duplicated with the one Lanie's patch2/2?
-why using the same test name?
+[1]http://lists.linux.it/pipermail/ltp/2020-April/016611.html
 
---=20
-Regards,
-Li Wang
+Best Regards
+Yang Xu
+> 
+> -- 
+> Regards,
+> Li Wang
 
---000000000000a3792f05a37964d1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Hi Xu,</div><div class=3D"gmail_default" style=3D"font-size:s=
-mall"><br></div><div class=3D"gmail_default" style=3D"font-size:small">I fe=
-el confused that is this test duplicated with the one Lanie&#39;s patch2/2?=
- why using the same test name?</div></div><div><br></div>-- <br><div dir=3D=
-"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><di=
-v>Li Wang<br></div></div></div></div>
-
---000000000000a3792f05a37964d1--
-
-
---===============1323968222==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1323968222==--
-
