@@ -1,54 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89CA61B2312
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Apr 2020 11:42:27 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C32351B2313
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Apr 2020 11:44:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4DA7F3C29B5
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Apr 2020 11:42:27 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 473A13C29B6
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Apr 2020 11:44:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 88A883C2999
- for <ltp@lists.linux.it>; Tue, 21 Apr 2020 11:42:26 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id D42236012C6
- for <ltp@lists.linux.it>; Tue, 21 Apr 2020 11:42:04 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.72,409,1580745600"; d="scan'208";a="89347414"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 21 Apr 2020 17:42:02 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 9E4CA46B5FAC;
- Tue, 21 Apr 2020 17:31:25 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Tue, 21 Apr 2020 17:41:59 +0800
-To: Li Wang <liwang@redhat.com>
-References: <1586927503-10827-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <1587022142-32122-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <1587022142-32122-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <CAEemH2eN1gJ8p2EWts4qj=tDaV0QUoHrNX36cqkPM0xf92KDuw@mail.gmail.com>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <324c7f62-a57f-b950-7178-5ba05ac6616b@cn.fujitsu.com>
-Date: Tue, 21 Apr 2020 17:41:59 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+ by picard.linux.it (Postfix) with ESMTP id 3588B3C2999
+ for <ltp@lists.linux.it>; Tue, 21 Apr 2020 11:44:05 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 43F78600756
+ for <ltp@lists.linux.it>; Tue, 21 Apr 2020 11:44:03 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 0A74EAFEB;
+ Tue, 21 Apr 2020 09:44:04 +0000 (UTC)
+Date: Tue, 21 Apr 2020 11:44:22 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Message-ID: <20200421094422.GE6577@yuki.lan>
+References: <CAKohponWBU_pSDk6sjsMFBkJzwPDz71DcyC1_X6x1=0bZMb=aQ@mail.gmail.com>
+ <20200421092045.GC6577@yuki.lan>
+ <20200421092616.lnktrr4e4pv7wemm@vireshk-i7>
 MIME-Version: 1.0
-In-Reply-To: <CAEemH2eN1gJ8p2EWts4qj=tDaV0QUoHrNX36cqkPM0xf92KDuw@mail.gmail.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 9E4CA46B5FAC.A17CF
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
+Content-Disposition: inline
+In-Reply-To: <20200421092616.lnktrr4e4pv7wemm@vireshk-i7>
 X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 2/3] syscalls/pipe2_02: Add new test for pipe2
- O_CLOEXEC flag
+Subject: Re: [LTP] Purpose of clock_nanosleep2 tests ?
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,114 +48,38 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgTGkKCj4gCj4gCj4gT24gVGh1LCBBcHIgMTYsIDIwMjAgYXQgMzoyOSBQTSBZYW5nIFh1IDx4
-dXlhbmcyMDE4Lmp5QGNuLmZ1aml0c3UuY29tIAo+IDxtYWlsdG86eHV5YW5nMjAxOC5qeUBjbi5m
-dWppdHN1LmNvbT4+IHdyb3RlOgo+IAo+ICAgICBTaWduZWQtb2ZmLWJ5OiBZYW5nIFh1IDx4dXlh
-bmcyMDE4Lmp5QGNuLmZ1aml0c3UuY29tCj4gICAgIDxtYWlsdG86eHV5YW5nMjAxOC5qeUBjbi5m
-dWppdHN1LmNvbT4+Cj4gICAgIC0tLQo+ICAgICAgwqBydW50ZXN0L3N5c2NhbGxzwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgfMKgIDEgKwo+ICAgICAgwqB0ZXN0
-Y2FzZXMva2VybmVsL3N5c2NhbGxzL3BpcGUyLy5naXRpZ25vcmXCoCDCoCB8wqAgMiArCj4gICAg
-ICDCoHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcGlwZTIvcGlwZTJfMDIuY8KgIMKgIHwgNjkg
-KysrKysrKysrKysrKysrKysrKwo+ICAgICAgwqAuLi4va2VybmVsL3N5c2NhbGxzL3BpcGUyL3Bp
-cGUyXzAyX2NoaWxkLmPCoCDCoCB8IDI2ICsrKysrKysKPiAgICAgIMKgNCBmaWxlcyBjaGFuZ2Vk
-LCA5OCBpbnNlcnRpb25zKCspCj4gICAgICDCoGNyZWF0ZSBtb2RlIDEwMDY0NCB0ZXN0Y2FzZXMv
-a2VybmVsL3N5c2NhbGxzL3BpcGUyL3BpcGUyXzAyLmMKPiAgICAgIMKgY3JlYXRlIG1vZGUgMTAw
-NjQ0IHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcGlwZTIvcGlwZTJfMDJfY2hpbGQuYwo+IAo+
-ICAgICBkaWZmIC0tZ2l0IGEvcnVudGVzdC9zeXNjYWxscyBiL3J1bnRlc3Qvc3lzY2FsbHMKPiAg
-ICAgaW5kZXggNzliNjcxZDUwLi40NDI1NGQ3ZGEgMTAwNjQ0Cj4gICAgIC0tLSBhL3J1bnRlc3Qv
-c3lzY2FsbHMKPiAgICAgKysrIGIvcnVudGVzdC9zeXNjYWxscwo+ICAgICBAQCAtOTExLDYgKzkx
-MSw3IEBAIHBpcGUxMiBwaXBlMTIKPiAgICAgIMKgcGlwZTEzIHBpcGUxMwo+IAo+ICAgICAgwqBw
-aXBlMl8wMSBwaXBlMl8wMQo+ICAgICArcGlwZTJfMDIgcGlwZTJfMDIKPiAKPiAgICAgIMKgcGl2
-b3Rfcm9vdDAxIHBpdm90X3Jvb3QwMQo+IAo+ICAgICBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tl
-cm5lbC9zeXNjYWxscy9waXBlMi8uZ2l0aWdub3JlCj4gICAgIGIvdGVzdGNhc2VzL2tlcm5lbC9z
-eXNjYWxscy9waXBlMi8uZ2l0aWdub3JlCj4gICAgIGluZGV4IDQyMzUwYmJkYy4uNzg2MjIyZGUy
-IDEwMDY0NAo+ICAgICAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3BpcGUyLy5naXRp
-Z25vcmUKPiAgICAgKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9waXBlMi8uZ2l0aWdu
-b3JlCj4gICAgIEBAIC0xICsxLDMgQEAKPiAgICAgIMKgL3BpcGUyXzAxCj4gICAgICsvcGlwZTJf
-MDIKPiAgICAgKy9waXBlMl8wMl9jaGlsZAo+ICAgICBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tl
-cm5lbC9zeXNjYWxscy9waXBlMi9waXBlMl8wMi5jCj4gICAgIGIvdGVzdGNhc2VzL2tlcm5lbC9z
-eXNjYWxscy9waXBlMi9waXBlMl8wMi5jCj4gICAgIG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4gICAg
-IGluZGV4IDAwMDAwMDAwMC4uNzQzZDc4YzU4Cj4gICAgIC0tLSAvZGV2L251bGwKPiAgICAgKysr
-IGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9waXBlMi9waXBlMl8wMi5jCj4gICAgIEBAIC0w
-LDAgKzEsNjkgQEAKPiAgICAgKy8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wLW9y
-LWxhdGVyCj4gICAgICsvKgo+ICAgICArICogQ29weXJpZ2h0IChjKSAyMDIwIEZVSklUU1UgTElN
-SVRFRC4gQWxsIHJpZ2h0cyByZXNlcnZlZC4KPiAgICAgKyAqIEF1dGhvcjogWWFuZyBYdSA8eHV5
-YW5nMjAxOC5qeUBjbi5mdWppdHN1LmNvbQo+ICAgICA8bWFpbHRvOnh1eWFuZzIwMTguanlAY24u
-ZnVqaXRzdS5jb20+Pgo+ICAgICArICoKPiAgICAgKyAqIFRoaXMgY2FzZSBpcyBkZXNpZ25lZCB0
-byB0ZXN0IHRoZSBiYXNpYyBmdW5jdGlvbmFsaXR5IGFib3V0IHRoZQo+ICAgICArICogT19DTE9F
-WEVDIGZsYWcgb2YgcGlwZTIuCj4gICAgICsgKi8KPiAgICAgKyNkZWZpbmUgX0dOVV9TT1VSQ0UK
-PiAgICAgKyNpbmNsdWRlIDxzdGRpby5oPgo+ICAgICArI2luY2x1ZGUgPHVuaXN0ZC5oPgo+ICAg
-ICArI2luY2x1ZGUgPHN0ZGxpYi5oPgo+ICAgICArI2luY2x1ZGUgImxhcGkvZmNudGwuaCIKPiAg
-ICAgKyNpbmNsdWRlICJ0c3RfdGVzdC5oIgo+ICAgICArCj4gICAgICsjZGVmaW5lIFRFU1RCSU4g
-InBpcGUyXzAyX2NoaWxkIgo+ICAgICArc3RhdGljIGludCBmZHNbMl07Cj4gICAgICsKPiAgICAg
-K3N0YXRpYyB2b2lkIGNsZWFudXAodm9pZCkKPiAgICAgK3sKPiAgICAgK8KgIMKgIMKgIMKgaWYg
-KGZkc1swXSA+IDApCj4gICAgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoFNBRkVfQ0xPU0UoZmRz
-WzBdKTsKPiAgICAgK8KgIMKgIMKgIMKgaWYgKGZkc1sxXSA+IDApCj4gICAgICvCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoFNBRkVfQ0xPU0UoZmRzWzFdKTsKPiAgICAgK30KPiAgICAgKwo+ICAgICAr
-c3RhdGljIHZvaWQgdmVyaWZ5X3BpcGUyKHZvaWQpCj4gICAgICt7Cj4gICAgICvCoCDCoCDCoCDC
-oGludCBwaWQsIHN0YXR1czsKPiAgICAgK8KgIMKgIMKgIMKgY2hhciBidWZbMjBdOwo+ICAgICAr
-Cj4gICAgICvCoCDCoCDCoCDCoFNBRkVfUElQRTIoZmRzLCBPX0NMT0VYRUMpOwo+ICAgICArwqAg
-wqAgwqAgwqBzcHJpbnRmKGJ1ZiwgIiVkIiwgZmRzWzFdKTsKPiAgICAgK8KgIMKgIMKgIMKgcGlk
-ID0gU0FGRV9GT1JLKCk7Cj4gICAgICvCoCDCoCDCoCDCoGlmIChwaWQgPT0gMCkgewo+ICAgICAr
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBpZiAoZXhlY2xwKFRFU1RCSU4sIFRFU1RCSU4sIGJ1Ziwg
-TlVMTCkpCj4gICAgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGV4aXQoMik7
-Cj4gCj4gCj4gRG8gd2UgcmVhbGx5IG5lZWQgdGhlIGlmKCkgY29uZGl0aW9uIGFuZCBleGl0KDIp
-PyBBRkFJSywgdGhlIGV4ZWMoKSAKPiBmYW1pbHkgb2YgZnVuY3Rpb25zIHJlcGxhY2VzIHRoZSBj
-dXJyZW50IHByb2Nlc3MgaW1hZ2Ugd2l0aCBhIG5ldyAKPiBwcm9jZXNzIGFuZCByZXR1cm5zIHpl
-cm8gaWYgc3VjY2VlZGVkLgogIElmIGZhaWxlZCwgaXQgd2lsbCByZXR1cm4gLTEuIFNvIHdlIGNh
-biBjYXRjaCAyKGV4aXQgY29kZSkgaW4gdGhlIApmb2xsb3dpbmcgY29kZSwgYnV0IFNBRkVfRVhF
-Q0xQIGlzIGFsc28gb2suCj4gCj4gICAgICvCoCDCoCDCoCDCoH0KPiAgICAgKwo+ICAgICArwqAg
-wqAgwqAgwqBTQUZFX1dBSVQoJnN0YXR1cyk7Cj4gICAgICvCoCDCoCDCoCDCoGlmIChXSUZFWElU
-RUQoc3RhdHVzKSkgewo+ICAgICArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBzd2l0Y2ggKFdFWElU
-U1RBVFVTKHN0YXR1cykpIHsKPiAgICAgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgY2FzZSAwOgo+
-ICAgICArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqB0c3RfcmVzKFRQQVNTLCAi
-dGVzdCBPX0NMT0VYRUMgZm9yIHBpcGUyCj4gICAgIHN1Y2Nlc3MiKTsKPiAgICAgK8KgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgYnJlYWs7Cj4gICAgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGNhc2Ug
-MToKPiAgICAgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgdHN0X3JlcyhURkFJ
-TCwgInRlc3QgT19DTE9FWEVDIGZvciBwaXBlMgo+ICAgICBmYWlsZWQiKTsKPiAgICAgK8KgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgYnJlYWs7Cj4gICAgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGRl
-ZmF1bHQ6Cj4gICAgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHRzdF9icmso
-VEJST0ssICJleGVjbHAoKSBmYWlsZWQiKTsKPiAgICAgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-fQo+ICAgICArwqAgwqAgwqAgwqB9IGVsc2Ugewo+ICAgICArwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqB0c3RfYnJrKFRCUk9LLCAiJXMgZXhpdHMgd2l0aCB1bmV4cGVjdGVkIGVycm9yIiwKPiAgICAg
-VEVTVEJJTik7Cj4gICAgICvCoCDCoCDCoCDCoH0KPiAgICAgK8KgIMKgIMKgIMKgY2xlYW51cCgp
-Owo+ICAgICArfQo+ICAgICArCj4gICAgICtzdGF0aWMgY29uc3QgY2hhciAqY29uc3QgcmVzZmls
-ZVtdID0gewo+ICAgICArwqAgwqAgwqAgwqBURVNUQklOLAo+ICAgICArwqAgwqAgwqAgwqBOVUxM
-LAo+ICAgICArfTsKPiAgICAgKwo+ICAgICArc3RhdGljIHN0cnVjdCB0c3RfdGVzdCB0ZXN0ID0g
-ewo+ICAgICArwqAgwqAgwqAgwqAucmVzb3VyY2VfZmlsZXMgPSByZXNmaWxlLAo+ICAgICArwqAg
-wqAgwqAgwqAuY2xlYW51cCA9IGNsZWFudXAsCj4gICAgICvCoCDCoCDCoCDCoC5mb3Jrc19jaGls
-ZCA9IDEsCj4gICAgICvCoCDCoCDCoCDCoC5uZWVkc19yb290ID0gMSwKPiAgICAgK8KgIMKgIMKg
-IMKgLnRlc3RfYWxsID0gdmVyaWZ5X3BpcGUyLAo+ICAgICArfTsKPiAgICAgZGlmZiAtLWdpdCBh
-L3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcGlwZTIvcGlwZTJfMDJfY2hpbGQuYwo+ICAgICBi
-L3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcGlwZTIvcGlwZTJfMDJfY2hpbGQuYwo+ICAgICBu
-ZXcgZmlsZSBtb2RlIDEwMDY0NAo+ICAgICBpbmRleCAwMDAwMDAwMDAuLmQ1ZWQ2OGNmNwo+ICAg
-ICAtLS0gL2Rldi9udWxsCj4gICAgICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcGlw
-ZTIvcGlwZTJfMDJfY2hpbGQuYwo+ICAgICBAQCAtMCwwICsxLDI2IEBACj4gICAgICsvLyBTUERY
-LUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vci1sYXRlcgo+ICAgICArLyoKPiAgICAgKyAq
-IENvcHlyaWdodCAoYykgMjAyMCBGVUpJVFNVIExJTUlURUQuIEFsbCByaWdodHMgcmVzZXJ2ZWQu
-Cj4gICAgICsgKiBBdXRob3I6IFlhbmcgWHUgPHh1eWFuZzIwMTguanlAY24uZnVqaXRzdS5jb20K
-PiAgICAgPG1haWx0bzp4dXlhbmcyMDE4Lmp5QGNuLmZ1aml0c3UuY29tPgo+ICAgICArICovCj4g
-ICAgICsjaW5jbHVkZSA8c3RkaW8uaD4KPiAgICAgKyNpbmNsdWRlIDxzdGRsaWIuaD4KPiAgICAg
-KyNpbmNsdWRlIDxzdHJpbmcuaD4KPiAgICAgKyNpbmNsdWRlIDxlcnJuby5oPgo+ICAgICArI2lu
-Y2x1ZGUgPHVuaXN0ZC5oPgo+ICAgICArCj4gICAgICtpbnQgbWFpbihpbnQgYXJnYywgY2hhciAq
-KmFyZ3YpCj4gICAgICt7Cj4gICAgICvCoCDCoCDCoCDCoGludCByZXQ7Cj4gICAgICvCoCDCoCDC
-oCDCoGludCBmZDsKPiAgICAgKwo+ICAgICArwqAgwqAgwqAgwqBpZiAoYXJnYyAhPSAyKSB7Cj4g
-ICAgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGZwcmludGYoc3RkZXJyLCAiT25seSB0d28gYXJn
-dW1lbnRzOiAlcyA8ZmQ+XG4iLAo+ICAgICBhcmd2WzBdKTsKPiAgICAgK8KgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgZXhpdCgxKTsKPiAgICAgK8KgIMKgIMKgIMKgfQo+ICAgICArCj4gICAgICvCoCDC
-oCDCoCDCoGZkID0gYXRvaShhcmd2WzFdKTsKPiAgICAgK8KgIMKgIMKgIMKgcmV0ID0gd3JpdGUo
-ZmQsICJ4IiwgMSk7Cj4gICAgICsKPiAgICAgK8KgIMKgIMKgIMKgcmV0dXJuIHJldCAhPSAtMTsK
-PiAKPiAKPiBUbyBjaGVjayBpZiB0aGUgcmV0dXJuIHZhbHVlIGVxdWFscyAtMSBtYXliZSBub3Qg
-YSBnb29kIGlkZWEgdG8gY29uZmlybSAKPiB0aGUgJ2ZkJyBpcyBjbG9zZWQuIFRoYXQgb25seSBw
-cm9vZiBpdCBmYWlsZWQgdG8gd3JpdGUgIngiIHRvIHRoZSBmZCwgd2UgCj4gYXJlIG5vdCBzdXJl
-IGlmIHRoYXQgZXhpc3RzwqBvdGhlciBlcnJvcnMuCj4gCj4gV2hhdCBhYm91dCB1c2luZyB0aGUg
-ZmNudGwoKSBpbiB0aGUgZmQgc3RhdHVzIGNoZWNrPwo+IAo+ICDCoCDCoCBpZiAoZmNudGwoZmQs
-IEZfR0VURkwpIDwgMCAmJiBlcnJubyA9PSBFQkFERikKPiAgwqAgwqAgwqAgwqAgwqAgwqAgcmV0
-dXJuIDA7Cj4gCkxvb2tzIGdvb2QgdG8gbWUuCj4gLS0gCj4gUmVnYXJkcywKPiBMaSBXYW5nCgoK
-Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
-dHAK
+Hi!
+> > > While working on the time64 variants I stumbled upon
+> > > testcases/kernel/syscalls/clock_nanosleep2/.
+> > > 
+> > > The commit  log says that we were trying to test clock_nanosleep2()
+> > > syscall, which I am unable to find, but still this ends up calling the kernel
+> > > variant directly for clock_nanosleep() only.
+> > > 
+> > > What am I missing ? Why is this stuff required ?
+> > 
+> > Hmm, I guess that there is no clock_nanosleep2() and the test is a
+> > result of a confusion of some kind. Maybe the author just confused
+> > clock_nanosleep(2) with clock_nanosleep2().
+> > 
+> > Looking at clock_nanosleep() tests, there does not seem to be a test
+> > for ABSTIME so the best solution would be to move the test to
+> > clock_nanosleep directory. What do you think?
+> 
+> clock_nanosleep03.c already tests ABSTIME. I think we can just drop
+> clock_nanosleep2 directory completely. I will send a patch if that looks okay.
+
+clock_nanosleep03 is testing that inside of a time namespace, I think
+that there is still value of having the simpler test as well.
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
