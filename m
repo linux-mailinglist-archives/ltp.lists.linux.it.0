@@ -1,70 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 719961B4533
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Apr 2020 14:32:00 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 538911B461A
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Apr 2020 15:18:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 301993C2977
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Apr 2020 14:32:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DF8023C2975
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Apr 2020 15:18:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 2A0513C2964
- for <ltp@lists.linux.it>; Wed, 22 Apr 2020 14:31:58 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
- [207.211.31.81])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id A89851001348
- for <ltp@lists.linux.it>; Wed, 22 Apr 2020 14:31:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1587558716;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2p+4uEJWJsp7tKwV/qO5BhXsfhOI1YX8tNXVJybTlGo=;
- b=V7MBojRiJhCq/5h4pG+EzlZaOGjuKPukEMFSvnw8qqJOTlNSvA5ZKwn3juGjykcXjRrZ0m
- C8zvMBi2M+/MS/3D2ckawAXEWcTCdcvcKgKUFXvL8z2adRvbA6Nn2H8azTjECC0MrKGH95
- /u2t+JQkM3WPPkhAYDQBONup9CRCWro=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-219-f5EwNHPSNPi-Pp1AZ2qOyQ-1; Wed, 22 Apr 2020 08:31:54 -0400
-X-MC-Unique: f5EwNHPSNPi-Pp1AZ2qOyQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
+ by picard.linux.it (Postfix) with ESMTP id 510783C0271
+ for <ltp@lists.linux.it>; Wed, 22 Apr 2020 15:18:05 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 56671100CC86;
- Wed, 22 Apr 2020 12:31:53 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 4BA0660C99;
- Wed, 22 Apr 2020 12:31:53 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3F363941BE;
- Wed, 22 Apr 2020 12:31:53 +0000 (UTC)
-Date: Wed, 22 Apr 2020 08:31:53 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <329264999.9436008.1587558713031.JavaMail.zimbra@redhat.com>
-In-Reply-To: <CAEemH2e_h+4_nMTaVVtu9ngewvV_qrzVvtnKrqhQPCzZxDY80w@mail.gmail.com>
-References: <bc3c52ff5b97feefa4200c3d87002de5a61ee360.1587539566.git.jstancek@redhat.com>
- <3529bb886952f26fa38095ce99ceef115f71cb18.1587554860.git.jstancek@redhat.com>
- <CAEemH2e_h+4_nMTaVVtu9ngewvV_qrzVvtnKrqhQPCzZxDY80w@mail.gmail.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C961C1000C52
+ for <ltp@lists.linux.it>; Wed, 22 Apr 2020 15:18:04 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 6E617AD07;
+ Wed, 22 Apr 2020 13:18:03 +0000 (UTC)
+Date: Wed, 22 Apr 2020 15:18:01 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20200422131801.GA9146@dell5510>
+References: <cover.1587033556.git.viresh.kumar@linaro.org>
+ <08a307591b531593bbaa5b1e8a4c841e80493937.1587033556.git.viresh.kumar@linaro.org>
+ <20200421154006.GA14036@yuki.lan>
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.25, 10.4.195.10]
-Thread-Topic: hugetlb: check for requested huge pages first
-Thread-Index: HnxUhKUsGAiFc8A5zQRmX8LMEekmDw==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+In-Reply-To: <20200421154006.GA14036@yuki.lan>
 X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] hugetlb: check for requested huge pages first
+Subject: Re: [LTP] [PATCH V3 1/2] tst_timer: Add support for kernel's 64 bit
+ timespec
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,52 +48,43 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+ Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
+ ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-
-
------ Original Message -----
-> On Wed, Apr 22, 2020 at 7:40 PM Jan Stancek <jstancek@redhat.com> wrote:
-> 
-> > /sys/kernel/mm/hugepages is not present when there are no
-> > supported hugepage sizes. This is common for ppc64le KVM guests,
-> > when hypervisor does not enable hugepages. Guest will boot with:
-> >   hugetlbfs: disabling because there are no supported hugepage sizes
-> >
-> >   # cat /proc/filesystems  | grep huge; echo $?
-> >   1
-> >
-> > Move the check up in setup to check it as first thing to avoid
-> > running into TBROK on mount or set_sys_tune when hugetlbfs is
-> > not available:
-> >   safe_macros.c:766: BROK: hugemmap01.c:82: mount(none,
-> > /mnt/testarea/ltp-07Kg6lCOmm/Ai9D0M, hugetlbfs, 0, (nil)) failed: ENODEV
-> > (19)
-> >   safe_macros.c:766: BROK: hugemmap02.c:129: mount(none,
-> > /mnt/testarea/ltp-07Kg6lCOmm/Cxf7A6, hugetlbfs, 0, (nil)) failed: ENODEV
-> > (19)
-> >   safe_macros.c:766: BROK: hugemmap04.c:100: mount(none,
-> > /mnt/testarea/ltp-07Kg6lCOmm/kS60Mk, hugetlbfs, 0, (nil)) failed: ENODEV
-> > (19)
-> >   safe_file_ops.c:219: BROK: Expected 1 conversions got 0 at
-> > hugemmap06.c:42
-> >   safe_file_ops.c:155: BROK: The FILE '/proc/sys/vm/nr_hugepages' ended
-> > prematurely at mem.c:836
-> >   safe_file_ops.c:219: BROK: Expected 1 conversions got 0 at
-> > hugeshmat05.c:39
-> >
-> > Signed-off-by: Jan Stancek <jstancek@redhat.com>
-> >
-> Acked-by: Li Wang <liwang@redhat.com>
-> 
-> This is obviously right! ACK.
-
-Pushed.
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGksCgo+IEkndmUgY2xlYW5lZCB1cCBhbmQgc2ltcGxpZmllZCB0aGVzZSBjaGFuZ2VzICsgd3Jv
+dGUgYSBzaW1wbGUgdGVzdCBhbmQKPiBwdXNoZWQgdGhlIHJlc3VsdCwgdGhhbmtzIGEgbG90IGZv
+ciB5b3VyIGVmZm9ycy4KCj4gQ2FuIHlvdSBwbGVhc2UgcmViYXNlIHRoZSB0ZXN0IGNoYW5nZXMg
+b24gdGhlIHRvcCBvZiB0aGVzZSBjaGFuZ2VzPyBJdAo+IHNob3VsZCBiZSBtZXJlbHkgY29zbWV0
+aWNhbCwgZnVuY3Rpb24gbmFtZXMgaGF2ZSBjaGFuZ2VzIGV0Yy4KCmluY2x1ZGUvdHN0X3RpbWVy
+LmggaXMgYnJva2VuIG9uIGdjYyA0LCB3aGljaCB3ZSBoYXZlIGluIFRyYXZpcyAoQ2VudE9TIDYp
+LgpJIGRvbid0IGtub3cgaG93IHRvIGZpeCB0aGlzLCBidXQgbWF5YmUgZml4IGlzIHRyaXZpYWwu
+Ck9yIGlzIGl0IHRpbWUgdG8gZmluYWxseSBkcm9wIHRoaXMgb2xkZXN0IGRpc3Rybz8gSWYgaXQn
+cyBlYXN5IHRvIGZpeCwgSSdkCnBvc3Rwb25lIGRyb3BwaW5nIENlbnRPUyA2IGFmdGVyIHJlbGVh
+c2UgKHNvbWUgZW1iZWRkZWQgZGlzdHJvcy9wcm9qZWN0cyBtaWdodApzdGlsbCB1c2Ugb2xkIGNv
+bXBpbGVycykuCgpnY2MgLWcgLU8yIC1nIC1PMiAtZm5vLXN0cmljdC1hbGlhc2luZyAtcGlwZSAt
+V2FsbCAtVyAtV29sZC1zdHlsZS1kZWZpbml0aW9uIC1XIC1XYWxsIC1EX0ZPUlRJRllfU09VUkNF
+PTIgLUkuLi8uLi9pbmNsdWRlIC1JLi4vLi4vaW5jbHVkZSAtSS4uLy4uL2luY2x1ZGUvb2xkLyAg
+IC1MLi4vLi4vbGliICB0ZXN0X3RpbWVyLmMgICAtbGx0cCAtbyB0ZXN0X3RpbWVyCkluIGZpbGUg
+aW5jbHVkZWQgZnJvbSB0ZXN0X3RpbWVyLmM6MTE6Ci4uLy4uL2luY2x1ZGUvdHN0X3RpbWVyLmg6
+IEluIGZ1bmN0aW9uIOKAmHRzdF90c19mcm9tX3RpbWVzcGVj4oCZOgouLi8uLi9pbmNsdWRlL3Rz
+dF90aW1lci5oOjIxNDogZXJyb3I6IHVua25vd24gZmllbGQg4oCYbGliY190c+KAmSBzcGVjaWZp
+ZWQgaW4gaW5pdGlhbGl6ZXIKLi4vLi4vaW5jbHVkZS90c3RfdGltZXIuaDoyMTQ6IHdhcm5pbmc6
+IG1pc3NpbmcgYnJhY2VzIGFyb3VuZCBpbml0aWFsaXplcgouLi8uLi9pbmNsdWRlL3RzdF90aW1l
+ci5oOjIxNDogd2FybmluZzogKG5lYXIgaW5pdGlhbGl6YXRpb24gZm9yIOKAmHQuPGFub255bW91
+cz7igJkpCi4uLy4uL2luY2x1ZGUvdHN0X3RpbWVyLmg6MjE1OiB3YXJuaW5nOiBtaXNzaW5nIGlu
+aXRpYWxpemVyCi4uLy4uL2luY2x1ZGUvdHN0X3RpbWVyLmg6MjE1OiB3YXJuaW5nOiAobmVhciBp
+bml0aWFsaXphdGlvbiBmb3Ig4oCYdC48YW5vbnltb3VzPi5saWJjX3RzLnR2X25zZWPigJkpCi4u
+Ly4uL2luY2x1ZGUvdHN0X3RpbWVyLmg6MjE1OiBlcnJvcjogdW5rbm93biBmaWVsZCDigJhsaWJj
+X3Rz4oCZIHNwZWNpZmllZCBpbiBpbml0aWFsaXplcgouLi8uLi9pbmNsdWRlL3RzdF90aW1lci5o
+OjIxNTogd2FybmluZzogZXhjZXNzIGVsZW1lbnRzIGluIHN0cnVjdCBpbml0aWFsaXplcgouLi8u
+Li9pbmNsdWRlL3RzdF90aW1lci5oOjIxNTogd2FybmluZzogKG5lYXIgaW5pdGlhbGl6YXRpb24g
+Zm9yIOKAmHTigJkpCm1ha2U6ICoqKiBbdGVzdF90aW1lcl0gRXJyb3IgMQoKJCBnY2MgLS12ZXJz
+aW9uCmdjYyAoR0NDKSA0LjQuNyAyMDEyMDMxMyAoUmVkIEhhdCA0LjQuNy0xOCkKCktpbmQgcmVn
+YXJkcywKUGV0cgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0
+L2xpc3RpbmZvL2x0cAo=
