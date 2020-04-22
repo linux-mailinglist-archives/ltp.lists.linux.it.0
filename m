@@ -2,71 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 282491B4B51
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Apr 2020 19:08:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC4231B4B4F
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Apr 2020 19:08:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D96EB3C2968
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Apr 2020 19:08:29 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6B3F53C2989
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Apr 2020 19:08:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 3D0CF3C2961
- for <ltp@lists.linux.it>; Wed, 22 Apr 2020 17:28:46 +0200 (CEST)
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id BA68B3C2965
+ for <ltp@lists.linux.it>; Wed, 22 Apr 2020 17:28:45 +0200 (CEST)
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1EDD360005F
- for <ltp@lists.linux.it>; Wed, 22 Apr 2020 17:28:42 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id b11so2904507wrs.6
- for <ltp@lists.linux.it>; Wed, 22 Apr 2020 08:28:44 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1E211200E14
+ for <ltp@lists.linux.it>; Wed, 22 Apr 2020 17:28:45 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id t14so2878251wrw.12
+ for <ltp@lists.linux.it>; Wed, 22 Apr 2020 08:28:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version; bh=HxrZc9zc4ZjTST37zog4fquwDCH1gPYecn/te+GmoFs=;
- b=HmrbCsKYW85eXEzYNNKskcH7qNbDt0hd73M5slmrM96jOjDHox30bxP6i3SbqzJoFx
- PF/2c86DXH3WnB+HYso8SnnbBcVnIzndHu4xB41AthxMkqmbslUZhfjx05KGYR4b0a4A
- MA7fciebtbS38nHtgmIWcnS5qeMydu55UFNFbnKWRcWQNjgXM6/c3bgF6OuaZdZGaBOE
- e7h08eHvemURRdR9nqusKNNnMZzjd22ZOkUV6MTIBQgeugBc8WIF+/4Qrvdwd6zlAfKc
- fxoxJWv9p5R1DCP0KhLVuXmEnLyEEoZE3gfRNM5sK8dGNDlQRAOTiGUcjGDwkDA1m+Bm
- 227g==
+ :mime-version; bh=PexDh5GB85IiPjvrWe14CK4HoK5W7Cix7IIx9I08bcc=;
+ b=JnMQOkj6v63l7KmfD2MAh+TQkmweuUg26ONRSLzMQiHtYKPJ7Jt59abmsd992YAyCA
+ SSgnn9doyZlLN5QiO4UVC7Ca8+S21b+rtu7L8yrIVm1+L45fr31M2D1s2DuQrPU0SAQH
+ zuH/dLHDMvuaeGGG0/imdIl9GECaRnWktWE7wXepBONNuGI/AgIxR3jX/RTpQe7Xgtng
+ gHlGPMi2p8q4k4AJYgN5IIYyxNVlKDqqj4+m5FAlmK9crRgRo1StGRA5j/rZI07Vn5U1
+ Jvi54UI6J2doE7CxNXKOIzurb3W1lO8/ctlSHUjw8dvH/1r5c7p2NcjF602CpyMCpiF1
+ i5og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version;
- bh=HxrZc9zc4ZjTST37zog4fquwDCH1gPYecn/te+GmoFs=;
- b=KabjpDJ3JkngnZNX7NK7tp7SkOYZfxJXaCgLjMoxphY5GpbP5HAHpomwdrp+zjEw4U
- QhTx7A2vuDj2XlmSdDl6SKmOpLwViF0OLsVQSXHviRJNANV5NwZjWdPCby0yYb/zfcVh
- lcaIMzbiF/yf1UUCU+Qdl1PudxQLN4ygTSKC66yV/tsEXZx/L91N0g9OMVUWSDwd5yul
- hMS500iLxDyePu6/C97CQt9XAPVzRVwHaHwGVGfl0J2i7XTTbXism2P/OcrfkyLzZNlg
- KCYpbQD1Hr+ED5UmnhU0bSPro0OUjd6wUhoyHGjtLmXq/BOkFG1d7GqjrRFPoQ9EJlj+
- a30A==
-X-Gm-Message-State: AGi0PuZDeqxmgoiA2+gwcvwjbihjZ5NO13wTazXr3P5iube07i8krrMh
- BIRLVlJm1FSYeFtJon33XMtl25E290k=
-X-Google-Smtp-Source: APiQypJtB+tAEf8CWJpyJN4d8vSFog4yOaXRjybKkSpPAkFnO2s5h+z/xe3CAZosyJjvfGOV5XAwow==
-X-Received: by 2002:a5d:670d:: with SMTP id o13mr10791925wru.29.1587569323571; 
- Wed, 22 Apr 2020 08:28:43 -0700 (PDT)
+ bh=PexDh5GB85IiPjvrWe14CK4HoK5W7Cix7IIx9I08bcc=;
+ b=JWoXF3OnvifMneFPlXhaAdpWKSSSJ8EkX/4HQQWcusIWkOImcabngjAi8mgMm5KnFk
+ pGQoVWfijMQAhELp9fAURQYDHLTdE92Z4NSg8BEEXcbP4ZHrE8/3ItbwtY8pXZQQaW+C
+ SiXnvD/Hd3OLT9A0KoMHvixCXaHQRLsfjPphjgeneOuKdAvYZwmli+eExsMyfeDlSx7E
+ 3AjDOCjpM1QHVDpBcY1x38dk+sww3oQIreaMoyoMBjAwMID7lamvsdeYa/fxI08I/mZ+
+ mswJ40m59F1vnbVcl6GDlj4DRr9PYhb0cUY2pOpBZEtSUX3tB1ESTAuZgejP8JrX2fUj
+ 7ECw==
+X-Gm-Message-State: AGi0PuYC+EKz359V9PmaNxRgyEJRFX6RJKSQgecoMgoeq0Bw/BKqjmiZ
+ QnF+8L5gfiKnpA6KEreBhcFLVh6DQ60=
+X-Google-Smtp-Source: APiQypKU8/z5uYuua5/icl7Z3gGWfAPuKx0Aj092/ql4gREdlgBLFr/LPQ8WsbPvAwXVcmR1hHUuLQ==
+X-Received: by 2002:adf:ee05:: with SMTP id y5mr29243032wrn.176.1587569324528; 
+ Wed, 22 Apr 2020 08:28:44 -0700 (PDT)
 Received: from localhost.localdomain ([87.116.179.159])
- by smtp.gmail.com with ESMTPSA id s14sm7963872wmh.18.2020.04.22.08.28.42
+ by smtp.gmail.com with ESMTPSA id s14sm7963872wmh.18.2020.04.22.08.28.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Apr 2020 08:28:43 -0700 (PDT)
+ Wed, 22 Apr 2020 08:28:44 -0700 (PDT)
 From: Filip Bozuta <fbozuta1@gmail.com>
 To: ltp@lists.linux.it
-Date: Wed, 22 Apr 2020 17:28:39 +0200
-Message-Id: <20200422152841.13432-2-fbozuta1@gmail.com>
+Date: Wed, 22 Apr 2020 17:28:40 +0200
+Message-Id: <20200422152841.13432-3-fbozuta1@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200422152841.13432-1-fbozuta1@gmail.com>
 References: <20200422152841.13432-1-fbozuta1@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/mixed; boundary="------------2.17.1"
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
  SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
 X-Mailman-Approved-At: Wed, 22 Apr 2020 19:07:52 +0200
-Subject: [LTP] [PATCH 1/3] testcases/kernel/syscalls/ioctl: Add test for RTC
- ioctls used to read and set RTC time
+Subject: [LTP] [PATCH 2/3] testcases/kernel/syscalls/ioctl: Add test for RTC
+ ioctls used to read and set RTC alarm time
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,95 +92,74 @@ Content-Transfer-Encoding: 8bit
 
 This patch tests functionalities of following ioctls:
 
-RTC_RD_TIME - Getting RTC time
+RTC_ALM_READ, RTC_ALM_SET - Getting/Setting alarm time
 
-    Returns this RTC's time in the following structure:
-
-        struct rtc_time {
-            int tm_sec;
-            int tm_min;
-            int tm_hour;
-            int tm_mday;
-            int tm_mon;
-            int tm_year;
-            int tm_wday;     /* unused */
-            int tm_yday;     /* unused */
-            int tm_isdst;    /* unused */
-        };
-
-    The fields in this structure have the same meaning and
-    ranges as the tm structure described in gmtime man page.
-    A pointer to this structure should be passed as the third
-    ioctl argument.
-
-RTC_SET_TIME - Setting RTC time
-
-    Sets this RTC's time to the time specified by the rtc_time
-    structure pointed to by the third ioctl argument. To set the
-    RTC's time the process must be privileged (i.e., have the
-    CAP_SYS_TIME capability).
+    Read and set the alarm time, for RTCs that support alarms.
+    The alarm interrupt must be separately enabled or disabled
+    using the RTC_AIE_ON, RTC_AIE_OFF requests. The third ioctl's
+    argument is a pointer to a rtc_time structure. Only the tm_sec,
+    tm_min, and tm_hour fields of this structure are used.
 
 Signed-off-by: Filip Bozuta <Filip.Bozuta@rt-rk.com>
 ---
- runtest/syscalls                              |   2 +
+ runtest/syscalls                              |   1 +
  testcases/kernel/syscalls/ioctl/.gitignore    |   1 +
- testcases/kernel/syscalls/ioctl/ioctl_rtc01.c | 112 ++++++++++++++++++
- 3 files changed, 115 insertions(+)
- create mode 100644 testcases/kernel/syscalls/ioctl/ioctl_rtc01.c
+ testcases/kernel/syscalls/ioctl/ioctl_rtc02.c | 107 ++++++++++++++++++
+ 3 files changed, 109 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/ioctl/ioctl_rtc02.c
 
 
 --------------2.17.1
-Content-Type: text/x-patch; name="0001-testcases-kernel-syscalls-ioctl-Add-test-for-RTC-ioc.patch"
+Content-Type: text/x-patch; name="0002-testcases-kernel-syscalls-ioctl-Add-test-for-RTC-ioc.patch"
 Content-Transfer-Encoding: 8bit
-Content-Disposition: attachment; filename="0001-testcases-kernel-syscalls-ioctl-Add-test-for-RTC-ioc.patch"
+Content-Disposition: attachment; filename="0002-testcases-kernel-syscalls-ioctl-Add-test-for-RTC-ioc.patch"
 
 diff --git a/runtest/syscalls b/runtest/syscalls
-index 44254d7da..c6b8a85ad 100644
+index c6b8a85ad..0e358337f 100644
 --- a/runtest/syscalls
 +++ b/runtest/syscalls
-@@ -539,6 +539,8 @@ ioctl_ns07 ioctl_ns07
- 
+@@ -540,6 +540,7 @@ ioctl_ns07 ioctl_ns07
  ioctl_sg01 ioctl_sg01
  
-+ioctl_rtc01 ioctl_rtc01
-+
+ ioctl_rtc01 ioctl_rtc01
++ioctl_rtc02 ioctl_rtc02
+ 
  inotify_init1_01 inotify_init1_01
  inotify_init1_02 inotify_init1_02
- 
 diff --git a/testcases/kernel/syscalls/ioctl/.gitignore b/testcases/kernel/syscalls/ioctl/.gitignore
-index 97fbb9681..b297407bd 100644
+index b297407bd..b9ed19724 100644
 --- a/testcases/kernel/syscalls/ioctl/.gitignore
 +++ b/testcases/kernel/syscalls/ioctl/.gitignore
-@@ -14,3 +14,4 @@
- /ioctl_ns06
+@@ -15,3 +15,4 @@
  /ioctl_ns07
  /ioctl_sg01
-+/ioctl_rtc01
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_rtc01.c b/testcases/kernel/syscalls/ioctl/ioctl_rtc01.c
+ /ioctl_rtc01
++/ioctl_rtc02
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_rtc02.c b/testcases/kernel/syscalls/ioctl/ioctl_rtc02.c
 new file mode 100644
-index 000000000..78747ac21
+index 000000000..dc3f53665
 --- /dev/null
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_rtc01.c
-@@ -0,0 +1,112 @@
++++ b/testcases/kernel/syscalls/ioctl/ioctl_rtc02.c
+@@ -0,0 +1,107 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) 2020 Filip Bozuta Filip.Bozuta@rt-rk.com
 + */
 +
 +/*
-+ * Test RTC ioctls with RTC_RD_TIME and RTC_SET_TIME requests
++ * Test RTC ioctls with RTC_ALM_READ and RTC_ALM_SET requests
 + *
-+ * Reads the current time from RTC device using RTC_RD_TIME
-+ * request and displays the time information as follows:
-+ * hour:minute, month day.month.year
++ * Reads the current alarm time from RTC device using
++ * RTC_ALM_READ request and displays the alarm time
++ * information as follows: hour:minute:second
 + *
-+ * Sets a new time in RTC device using RTC_SET_TIME request
-+ * and displays the new time information as follws:
-+ * hour:minute, month day.month.year
++ * Sets a new alarm time in RTC device using RTC_ALM_SET
++ * request and displays the new alarm time information
++ * as follows: hour:minute:second
 + *
-+ * Reads the new time from RTC device using RTC_RD_TIME
-+ * request and checks whether the read time information
-+ * is same as the one set by RTC_SET_TIME
++ * Reads the new alarm time from RTC device using RTC_ALM_READ
++ * request and checks whether the read alarm time information
++ * is same as the one set by RTC_ALM_SET
 + */
 +
 +#include <stdint.h>
@@ -190,79 +169,74 @@ index 000000000..78747ac21
 +
 +static void setup(void)
 +{
-+	int exists = access("/dev/rtc", O_RDONLY);
++	int exists = ("/dev/rtc", O_RDONLY);
 +
 +	if (exists < 0)
-+		tst_brk(TCONF, "RTC device driver file not found");
++		tst_brk(TCONF, "RTC device driver file not available");
 +}
 +
-+char *read_time_request = "RTC_RD_TIME";
-+char *set_time_request = "RTC_SET_TIME";
++char *read_alarm_request = "RTC_ALM_READ";
++char *set_alarm_request = "RTC_ALM_SET";
 +
 +static void run(void)
 +{
 +	int fd;
 +
-+	struct rtc_time rtc_read_time;
-+	struct rtc_time rtc_set_time = {0, 15, 13, 26, 8, 119, 0, 0, 0};
++	struct rtc_time rtc_read_alarm;
++	struct rtc_time rtc_set_alarm = {13, 35, 12};
 +
-+	int time_read_supported, time_set_supported = 0;
++	int alarm_read_supported, alarm_set_supported = 0;
 +
 +	fd = SAFE_OPEN("/dev/rtc", O_RDONLY);
 +
 +	if (fd == -1)
 +		tst_brk(TCONF, "RTC device driver file could not be opened");
 +
-+	if (ioctl(fd, RTC_RD_TIME, &rtc_read_time) == -1) {
++	if (ioctl(fd, RTC_ALM_READ, &rtc_read_alarm) == -1) {
 +		if (errno == ENOTTY)
 +			tst_res(TCONF, "ioctl %s not supported on RTC device",
-+				read_time_request);
++				read_alarm_request);
 +		else
 +			tst_res(TFAIL | TERRNO, "unexpected ioctl error");
 +	} else {
-+		tst_res(TPASS, "time successfully read from RTC device");
-+		tst_res(TINFO, "current RTC time: %d:%d, %d.%d.%d",
-+			rtc_read_time.tm_hour, rtc_read_time.tm_min,
-+			rtc_read_time.tm_mday, rtc_read_time.tm_mon,
-+			rtc_read_time.tm_year);
-+		time_read_supported = 1;
++		tst_res(TPASS, "alarm time successfully read from RTC device");
++		tst_res(TINFO, "current RTC alarm time: %d:%d:%d",
++			rtc_read_alarm.tm_hour, rtc_read_alarm.tm_min,
++			rtc_read_alarm.tm_sec);
++		alarm_read_supported = 1;
 +	}
 +
-+	if (ioctl(fd, RTC_SET_TIME, &rtc_set_time) == -1) {
++	if (ioctl(fd, RTC_ALM_SET, &rtc_set_alarm) == -1) {
 +		if (errno == ENOTTY)
 +			tst_res(TCONF, "ioctl %s not supported on RTC device",
-+				set_time_request);
++				set_alarm_request);
 +		else
 +			tst_res(TFAIL | TERRNO, "unexpected ioctl error");
 +	} else {
-+		tst_res(TPASS, "time successfully set to RTC device");
-+		tst_res(TINFO, "new RTC time: %d:%d, %d.%d.%d",
-+			rtc_set_time.tm_hour, rtc_set_time.tm_min,
-+			rtc_set_time.tm_mday, rtc_set_time.tm_mon,
-+			rtc_set_time.tm_year);
-+		time_set_supported = 1;
++		tst_res(TPASS, "alarm time successfully set to RTC device");
++		tst_res(TINFO, "new RTC alarm time: %d:%d:%d",
++			rtc_set_alarm.tm_hour, rtc_set_alarm.tm_min,
++			rtc_set_alarm.tm_sec);
++		alarm_set_supported = 1;
 +	}
 +
-+	if (time_read_supported && time_set_supported) {
-+		ioctl(fd, RTC_RD_TIME, &rtc_read_time);
++	if (alarm_read_supported && alarm_set_supported) {
++		ioctl(fd, RTC_ALM_READ, &rtc_read_alarm);
 +
-+		char time_data[][10] = {"minute", "hour", "month",
-+			"month day", "year"};
-+		int read_time_data[] = {
-+			rtc_read_time.tm_min, rtc_read_time.tm_hour,
-+			rtc_read_time.tm_mday, rtc_read_time.tm_mon,
-+			rtc_read_time.tm_year};
-+		int set_time_data[] = {
-+			rtc_set_time.tm_min, rtc_set_time.tm_hour,
-+			rtc_set_time.tm_mday, rtc_set_time.tm_mon,
-+			rtc_set_time.tm_year};
-+		for (int i = 0; i < 5; i++)
-+			if (read_time_data[i] == set_time_data[i])
++		char alarm_data[][10] = {"second", "minute", "hour"};
++		int read_alarm_data[] = {
++			rtc_read_alarm.tm_sec, rtc_read_alarm.tm_min,
++			rtc_read_alarm.tm_hour};
++		int set_alarm_data[] = {
++			rtc_set_alarm.tm_sec, rtc_set_alarm.tm_min,
++			rtc_set_alarm.tm_hour};
++		for (int i = 0; i < 3; i++)
++			if (read_alarm_data[i] == set_alarm_data[i])
 +				tst_res(TPASS, "%s reads new %s as expected",
-+					read_time_request, time_data[i]);
++					read_alarm_request, alarm_data[i]);
 +			else
-+				tst_res(TFAIL, "%s reads different %s than set",
-+					read_time_request, time_data[i]);
++				tst_res(TPASS, "%s reads different %s than set",
++					read_alarm_request, alarm_data[i]);
 +	}
 +
 +	SAFE_CLOSE(fd);
