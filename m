@@ -2,37 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BF711B47BC
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Apr 2020 16:54:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D72EF1B4B4E
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Apr 2020 19:08:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B95273C2975
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Apr 2020 16:54:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8944C3C296A
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Apr 2020 19:08:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id D88A93C0309
- for <ltp@lists.linux.it>; Wed, 22 Apr 2020 16:54:18 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id E368C3C2961
+ for <ltp@lists.linux.it>; Wed, 22 Apr 2020 17:28:43 +0200 (CEST)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 5BC4B601089
- for <ltp@lists.linux.it>; Wed, 22 Apr 2020 16:54:18 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 1B3A3ABCF
- for <ltp@lists.linux.it>; Wed, 22 Apr 2020 14:54:17 +0000 (UTC)
-From: Cyril Hrubis <chrubis@suse.cz>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 407A310007CA
+ for <ltp@lists.linux.it>; Wed, 22 Apr 2020 17:28:43 +0200 (CEST)
+Received: by mail-wr1-x444.google.com with SMTP id s10so2940473wrr.0
+ for <ltp@lists.linux.it>; Wed, 22 Apr 2020 08:28:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=YKrOtFC0z1WPYK1XjVM6SuHJUfrHbueyyHIs4MWYSL0=;
+ b=Sd7r5WNn/4ac0ZN+MZDywhV3CRFIhp2PPFH43a+Aa3ws9KzmloZdvSDUX9jFvFoipQ
+ v23dbewd4J52AeBQnCZ5zHusYq1yzSiorxW2QXAagyT1xHgRH1rFIXJpA/l8xrQnC37y
+ yYUF0suWIDc1SEn4VWwOgjyPpPIgyxL6GmeCQjNY3u92QIkKU0M/oek7545Th+F16Vla
+ 0un/YLl5RtvOsyNjsebwkB/QnAm1iJqdGKh2xDqe9TVU6nxiwN3EvapJtYAV0vFdSFtS
+ kzQVMy9zbY3I5yWknZsxto/RvmtAKRsEr/1HJk7gP9LoPlM2Zl597cZdu4QwwCj8RGUy
+ Mrkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version;
+ bh=YKrOtFC0z1WPYK1XjVM6SuHJUfrHbueyyHIs4MWYSL0=;
+ b=tQ/nbo08XX8TV+RGaaeuEs7SkJUqEWJS7nXSPrV+VRkLYe1YGunwMBww+UP0sY1cVd
+ Q0ubjMNx1Meh8f9lsZLChMMGiXmXrOfmCJvgzfqYSFakf6tkXtu1lVZtERlYwWDY08aT
+ eIUoNpwhp8gO535QCRdYR/bSenmAF940OZc9OK3dVSqQAtOjgrgzGCEww4Msyln81vFg
+ 3ObkXIXFqBp4DoQYDicDx63qmyMVH2qi6++mVpuvm8IYC/ATKiJbDM3T4deI+IiFVfc2
+ bihuPLPjHcEBMaTCF0PWfhp15glSk9pag9BktmzIsZikIOXWmT1pYQeBGL8RN1CPITcO
+ h8VQ==
+X-Gm-Message-State: AGi0PuYiRN/0pRyO0vevfOXpnNDSQCqb+QHSzvHY/qGJakH/0unmhA5c
+ 8vMB32JjGp+XOhS4c96lIMSjiGvD8yw=
+X-Google-Smtp-Source: APiQypLZRi3ktNlVDX+zfDVFGkTcDSLRf/imHe3sgVkjDZ0/Ro+vlt0f6h/a++GgZ9x0dIlrEzlGYA==
+X-Received: by 2002:adf:c109:: with SMTP id r9mr30141878wre.265.1587569322609; 
+ Wed, 22 Apr 2020 08:28:42 -0700 (PDT)
+Received: from localhost.localdomain ([87.116.179.159])
+ by smtp.gmail.com with ESMTPSA id s14sm7963872wmh.18.2020.04.22.08.28.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Apr 2020 08:28:42 -0700 (PDT)
+From: Filip Bozuta <fbozuta1@gmail.com>
 To: ltp@lists.linux.it
-Date: Wed, 22 Apr 2020 16:54:36 +0200
-Message-Id: <20200422145436.4492-1-chrubis@suse.cz>
-X-Mailer: git-send-email 2.24.1
+Date: Wed, 22 Apr 2020 17:28:38 +0200
+Message-Id: <20200422152841.13432-1-fbozuta1@gmail.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+Content-Type: multipart/mixed; boundary="------------2.17.1"
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH] [COMMITTED] tst_timer: Fix compilation on pre C11
- compilers
+X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+X-Mailman-Approved-At: Wed, 22 Apr 2020 19:07:52 +0200
+Subject: [LTP] [PATCH 0/3] Add tests for a group of real time clock ioctls
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,129 +75,60 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Aleksandar.Markovic@rt-rk.com, laurent@vivier.eu
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The anonymous unions are supported since C11 and we have to still
-support at least gcc-4.4 which does not support C11 since the compiler
-is older than the standard.
+This is a multi-part message in MIME format.
+--------------2.17.1
+Content-Type: text/plain; charset=UTF-8; format=fixed
+Content-Transfer-Encoding: 8bit
 
-So this commit gives the union name however 99% of code is unchanged
-since we are using function to access the structure members anyways.
 
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-Reported-by: Petr Vorel <pvorel@suse.cz>
----
- include/tst_timer.h | 34 +++++++++++++++++-----------------
- 1 file changed, 17 insertions(+), 17 deletions(-)
+This series covers tests for following RTC ioctls:
 
-diff --git a/include/tst_timer.h b/include/tst_timer.h
-index 4f97acd16..999953f44 100644
---- a/include/tst_timer.h
-+++ b/include/tst_timer.h
-@@ -121,11 +121,11 @@ enum tst_ts_type {
- 
- struct tst_ts {
- 	enum tst_ts_type type;
--	union {
-+	union ts {
- 		struct timespec libc_ts;
- 		struct __kernel_old_timespec kern_old_ts;
- 		struct __kernel_timespec kern_ts;
--	};
-+	} ts;
- };
- 
- /*
-@@ -135,11 +135,11 @@ static inline long long tst_ts_get_sec(struct tst_ts ts)
- {
- 	switch (ts.type) {
- 	case TST_LIBC_TIMESPEC:
--		return ts.libc_ts.tv_sec;
-+		return ts.ts.libc_ts.tv_sec;
- 	case TST_KERN_OLD_TIMESPEC:
--		return ts.kern_old_ts.tv_sec;
-+		return ts.ts.kern_old_ts.tv_sec;
- 	case TST_KERN_TIMESPEC:
--		return ts.kern_ts.tv_sec;
-+		return ts.ts.kern_ts.tv_sec;
- 	default:
- 		tst_brk(TBROK, "Invalid type: %d", ts.type);
- 		return -1;
-@@ -153,11 +153,11 @@ static inline long long tst_ts_get_nsec(struct tst_ts ts)
- {
- 	switch (ts.type) {
- 	case TST_LIBC_TIMESPEC:
--		return ts.libc_ts.tv_nsec;
-+		return ts.ts.libc_ts.tv_nsec;
- 	case TST_KERN_OLD_TIMESPEC:
--		return ts.kern_old_ts.tv_nsec;
-+		return ts.ts.kern_old_ts.tv_nsec;
- 	case TST_KERN_TIMESPEC:
--		return ts.kern_ts.tv_nsec;
-+		return ts.ts.kern_ts.tv_nsec;
- 	default:
- 		tst_brk(TBROK, "Invalid type: %d", ts.type);
- 		return -1;
-@@ -171,13 +171,13 @@ static inline void tst_ts_set_sec(struct tst_ts *ts, long long sec)
- {
- 	switch (ts->type) {
- 	case TST_LIBC_TIMESPEC:
--		ts->libc_ts.tv_sec = sec;
-+		ts->ts.libc_ts.tv_sec = sec;
- 	break;
- 	case TST_KERN_OLD_TIMESPEC:
--		ts->kern_old_ts.tv_sec = sec;
-+		ts->ts.kern_old_ts.tv_sec = sec;
- 	break;
- 	case TST_KERN_TIMESPEC:
--		ts->kern_ts.tv_sec = sec;
-+		ts->ts.kern_ts.tv_sec = sec;
- 	break;
- 	default:
- 		tst_brk(TBROK, "Invalid type: %d", ts->type);
-@@ -191,13 +191,13 @@ static inline void tst_ts_set_nsec(struct tst_ts *ts, long long nsec)
- {
- 	switch (ts->type) {
- 	case TST_LIBC_TIMESPEC:
--		ts->libc_ts.tv_nsec = nsec;
-+		ts->ts.libc_ts.tv_nsec = nsec;
- 	break;
- 	case TST_KERN_OLD_TIMESPEC:
--		ts->kern_old_ts.tv_nsec = nsec;
-+		ts->ts.kern_old_ts.tv_nsec = nsec;
- 	break;
- 	case TST_KERN_TIMESPEC:
--		ts->kern_ts.tv_nsec = nsec;
-+		ts->ts.kern_ts.tv_nsec = nsec;
- 	break;
- 	default:
- 		tst_brk(TBROK, "Invalid type: %d", ts->type);
-@@ -211,8 +211,8 @@ static inline struct tst_ts tst_ts_from_timespec(struct timespec ts)
- {
- 	struct tst_ts t = {
- 		.type = TST_LIBC_TIMESPEC,
--		.libc_ts.tv_sec = ts.tv_sec,
--		.libc_ts.tv_nsec = ts.tv_nsec,
-+		.ts.libc_ts.tv_sec = ts.tv_sec,
-+		.ts.libc_ts.tv_nsec = ts.tv_nsec,
- 	};
- 
- 	return t;
-@@ -223,7 +223,7 @@ static inline struct tst_ts tst_ts_from_timespec(struct timespec ts)
-  */
- static inline struct timespec tst_ts_to_timespec(struct tst_ts t)
- {
--	return t.libc_ts;
-+	return t.ts.libc_ts;
- }
- 
- /*
+    *RTC_RD_TIME    *RTC_UIE_ON
+    *RTC_SET_TIME   *RTC_UIE_OFF
+    *RTC_ALM_READ   *RTC_PIE_ON
+    *RTC_ALM_SET    *RTC_PIE_OFF
+    *RTC_AIE_ON     *RTC_WIE_ON
+    *RTC_AIE_OFF    *RTC_WIE_OFF
+
+The functionalities of individual ioctls were described in this series
+patch commit messages.
+
+The testing method for these ioctls is described in the upper comment
+sections of test programs.
+
+Filip Bozuta (3):
+  testcases/kernel/syscalls/ioctl: Add test for RTC ioctls used to read
+    and set RTC time
+  testcases/kernel/syscalls/ioctl: Add test for RTC ioctls used to read
+    and set RTC alarm time
+  testcases/kernel/syscalls/ioctl: Add test for RTC ioctls used to turn
+    on/off RTC interrupts
+
+ runtest/syscalls                              |   4 +
+ testcases/kernel/syscalls/ioctl/.gitignore    |   3 +
+ testcases/kernel/syscalls/ioctl/ioctl_rtc01.c | 112 ++++++++++++++++++
+ testcases/kernel/syscalls/ioctl/ioctl_rtc02.c | 107 +++++++++++++++++
+ testcases/kernel/syscalls/ioctl/ioctl_rtc03.c |  88 ++++++++++++++
+ 5 files changed, 314 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/ioctl/ioctl_rtc01.c
+ create mode 100644 testcases/kernel/syscalls/ioctl/ioctl_rtc02.c
+ create mode 100644 testcases/kernel/syscalls/ioctl/ioctl_rtc03.c
+
 -- 
-2.24.1
+2.17.1
+
+--------------2.17.1
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--------------2.17.1--
