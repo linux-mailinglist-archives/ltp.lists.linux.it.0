@@ -2,39 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 538911B461A
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Apr 2020 15:18:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF61F1B462E
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Apr 2020 15:26:26 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DF8023C2975
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Apr 2020 15:18:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6B0CE3C2976
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Apr 2020 15:26:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 510783C0271
- for <ltp@lists.linux.it>; Wed, 22 Apr 2020 15:18:05 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 82AB13C0137
+ for <ltp@lists.linux.it>; Wed, 22 Apr 2020 15:26:24 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C961C1000C52
- for <ltp@lists.linux.it>; Wed, 22 Apr 2020 15:18:04 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E7C3C2001B6
+ for <ltp@lists.linux.it>; Wed, 22 Apr 2020 15:26:23 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 6E617AD07;
- Wed, 22 Apr 2020 13:18:03 +0000 (UTC)
-Date: Wed, 22 Apr 2020 15:18:01 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20200422131801.GA9146@dell5510>
+ by mx2.suse.de (Postfix) with ESMTP id 919ABAEBB;
+ Wed, 22 Apr 2020 13:26:22 +0000 (UTC)
+Date: Wed, 22 Apr 2020 15:26:42 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <20200422132642.GA9086@yuki.lan>
 References: <cover.1587033556.git.viresh.kumar@linaro.org>
  <08a307591b531593bbaa5b1e8a4c841e80493937.1587033556.git.viresh.kumar@linaro.org>
- <20200421154006.GA14036@yuki.lan>
+ <20200421154006.GA14036@yuki.lan> <20200422131801.GA9146@dell5510>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200421154006.GA14036@yuki.lan>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+In-Reply-To: <20200422131801.GA9146@dell5510>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH V3 1/2] tst_timer: Add support for kernel's 64 bit
  timespec
 X-BeenThere: ltp@lists.linux.it
@@ -48,43 +48,43 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: Viresh Kumar <viresh.kumar@linaro.org>,
  Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
  ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGksCgo+IEkndmUgY2xlYW5lZCB1cCBhbmQgc2ltcGxpZmllZCB0aGVzZSBjaGFuZ2VzICsgd3Jv
-dGUgYSBzaW1wbGUgdGVzdCBhbmQKPiBwdXNoZWQgdGhlIHJlc3VsdCwgdGhhbmtzIGEgbG90IGZv
-ciB5b3VyIGVmZm9ycy4KCj4gQ2FuIHlvdSBwbGVhc2UgcmViYXNlIHRoZSB0ZXN0IGNoYW5nZXMg
-b24gdGhlIHRvcCBvZiB0aGVzZSBjaGFuZ2VzPyBJdAo+IHNob3VsZCBiZSBtZXJlbHkgY29zbWV0
-aWNhbCwgZnVuY3Rpb24gbmFtZXMgaGF2ZSBjaGFuZ2VzIGV0Yy4KCmluY2x1ZGUvdHN0X3RpbWVy
-LmggaXMgYnJva2VuIG9uIGdjYyA0LCB3aGljaCB3ZSBoYXZlIGluIFRyYXZpcyAoQ2VudE9TIDYp
-LgpJIGRvbid0IGtub3cgaG93IHRvIGZpeCB0aGlzLCBidXQgbWF5YmUgZml4IGlzIHRyaXZpYWwu
-Ck9yIGlzIGl0IHRpbWUgdG8gZmluYWxseSBkcm9wIHRoaXMgb2xkZXN0IGRpc3Rybz8gSWYgaXQn
-cyBlYXN5IHRvIGZpeCwgSSdkCnBvc3Rwb25lIGRyb3BwaW5nIENlbnRPUyA2IGFmdGVyIHJlbGVh
-c2UgKHNvbWUgZW1iZWRkZWQgZGlzdHJvcy9wcm9qZWN0cyBtaWdodApzdGlsbCB1c2Ugb2xkIGNv
-bXBpbGVycykuCgpnY2MgLWcgLU8yIC1nIC1PMiAtZm5vLXN0cmljdC1hbGlhc2luZyAtcGlwZSAt
-V2FsbCAtVyAtV29sZC1zdHlsZS1kZWZpbml0aW9uIC1XIC1XYWxsIC1EX0ZPUlRJRllfU09VUkNF
-PTIgLUkuLi8uLi9pbmNsdWRlIC1JLi4vLi4vaW5jbHVkZSAtSS4uLy4uL2luY2x1ZGUvb2xkLyAg
-IC1MLi4vLi4vbGliICB0ZXN0X3RpbWVyLmMgICAtbGx0cCAtbyB0ZXN0X3RpbWVyCkluIGZpbGUg
-aW5jbHVkZWQgZnJvbSB0ZXN0X3RpbWVyLmM6MTE6Ci4uLy4uL2luY2x1ZGUvdHN0X3RpbWVyLmg6
-IEluIGZ1bmN0aW9uIOKAmHRzdF90c19mcm9tX3RpbWVzcGVj4oCZOgouLi8uLi9pbmNsdWRlL3Rz
-dF90aW1lci5oOjIxNDogZXJyb3I6IHVua25vd24gZmllbGQg4oCYbGliY190c+KAmSBzcGVjaWZp
-ZWQgaW4gaW5pdGlhbGl6ZXIKLi4vLi4vaW5jbHVkZS90c3RfdGltZXIuaDoyMTQ6IHdhcm5pbmc6
-IG1pc3NpbmcgYnJhY2VzIGFyb3VuZCBpbml0aWFsaXplcgouLi8uLi9pbmNsdWRlL3RzdF90aW1l
-ci5oOjIxNDogd2FybmluZzogKG5lYXIgaW5pdGlhbGl6YXRpb24gZm9yIOKAmHQuPGFub255bW91
-cz7igJkpCi4uLy4uL2luY2x1ZGUvdHN0X3RpbWVyLmg6MjE1OiB3YXJuaW5nOiBtaXNzaW5nIGlu
-aXRpYWxpemVyCi4uLy4uL2luY2x1ZGUvdHN0X3RpbWVyLmg6MjE1OiB3YXJuaW5nOiAobmVhciBp
-bml0aWFsaXphdGlvbiBmb3Ig4oCYdC48YW5vbnltb3VzPi5saWJjX3RzLnR2X25zZWPigJkpCi4u
-Ly4uL2luY2x1ZGUvdHN0X3RpbWVyLmg6MjE1OiBlcnJvcjogdW5rbm93biBmaWVsZCDigJhsaWJj
-X3Rz4oCZIHNwZWNpZmllZCBpbiBpbml0aWFsaXplcgouLi8uLi9pbmNsdWRlL3RzdF90aW1lci5o
-OjIxNTogd2FybmluZzogZXhjZXNzIGVsZW1lbnRzIGluIHN0cnVjdCBpbml0aWFsaXplcgouLi8u
-Li9pbmNsdWRlL3RzdF90aW1lci5oOjIxNTogd2FybmluZzogKG5lYXIgaW5pdGlhbGl6YXRpb24g
-Zm9yIOKAmHTigJkpCm1ha2U6ICoqKiBbdGVzdF90aW1lcl0gRXJyb3IgMQoKJCBnY2MgLS12ZXJz
-aW9uCmdjYyAoR0NDKSA0LjQuNyAyMDEyMDMxMyAoUmVkIEhhdCA0LjQuNy0xOCkKCktpbmQgcmVn
-YXJkcywKUGV0cgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0
-L2xpc3RpbmZvL2x0cAo=
+Hi!
+> include/tst_timer.h is broken on gcc 4, which we have in Travis (CentOS 6).
+> I don't know how to fix this, but maybe fix is trivial.
+> Or is it time to finally drop this oldest distro? If it's easy to fix, I'd
+> postpone dropping CentOS 6 after release (some embedded distros/projects might
+> still use old compilers).
+> 
+> gcc -g -O2 -g -O2 -fno-strict-aliasing -pipe -Wall -W -Wold-style-definition -W -Wall -D_FORTIFY_SOURCE=2 -I../../include -I../../include -I../../include/old/   -L../../lib  test_timer.c   -lltp -o test_timer
+> In file included from test_timer.c:11:
+> ../../include/tst_timer.h: In function ???tst_ts_from_timespec???:
+> ../../include/tst_timer.h:214: error: unknown field ???libc_ts??? specified in initializer
+> ../../include/tst_timer.h:214: warning: missing braces around initializer
+> ../../include/tst_timer.h:214: warning: (near initialization for ???t.<anonymous>???)
+> ../../include/tst_timer.h:215: warning: missing initializer
+> ../../include/tst_timer.h:215: warning: (near initialization for ???t.<anonymous>.libc_ts.tv_nsec???)
+> ../../include/tst_timer.h:215: error: unknown field ???libc_ts??? specified in initializer
+> ../../include/tst_timer.h:215: warning: excess elements in struct initializer
+> ../../include/tst_timer.h:215: warning: (near initialization for ???t???)
+> make: *** [test_timer] Error 1
+> 
+> $ gcc --version
+> gcc (GCC) 4.4.7 20120313 (Red Hat 4.4.7-18)
+
+Looks like there are some problems with the anonymouns unions, probably
+gcc 4.4 does not support these. I will have a look later on.
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
