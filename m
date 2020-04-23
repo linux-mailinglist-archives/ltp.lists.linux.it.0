@@ -1,70 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 367CA1B5EA2
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Apr 2020 17:06:53 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 274A41B5EA3
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Apr 2020 17:07:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C8FBB3C61C2
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Apr 2020 17:06:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AC8B23C2947
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Apr 2020 17:06:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 73CD73C2953
- for <ltp@lists.linux.it>; Thu, 23 Apr 2020 17:06:31 +0200 (CEST)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 5B1693C2953
+ for <ltp@lists.linux.it>; Thu, 23 Apr 2020 17:06:32 +0200 (CEST)
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 02A47601BD9
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D8FB41001736
  for <ltp@lists.linux.it>; Thu, 23 Apr 2020 17:06:31 +0200 (CEST)
-Received: by mail-wr1-x441.google.com with SMTP id j2so7241057wrs.9
- for <ltp@lists.linux.it>; Thu, 23 Apr 2020 08:06:30 -0700 (PDT)
+Received: by mail-wm1-x32c.google.com with SMTP id r26so6940525wmh.0
+ for <ltp@lists.linux.it>; Thu, 23 Apr 2020 08:06:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=Pj0eLXODiyCxFSSi6Nw4I/ny4gAk5xIA/gNMvyHgn4U=;
- b=oO0K98t6OiotpPy+A9AYPaM7b1kZiEAzHylHw6dity0wWl1Et2ebzUsaR1xgsrt0OK
- pSSRVqhTOkw2Gpv7LE0uSHLAitHNMaDhantO21/yN37ltge7sG6WstT348jq4WihuJtq
- DpSNLHRZN4LiqV4UlvbgzGrLl5xhXDi97qsqV76J9DVbp++TJ1V19fnSp4icAPRmGLLa
- Kvgojq85l6WWWQldzWpdWkcRE4/CeWB4uvIfk9mfNXjBSyKeEjMKl0U+HKVApr4yxxg7
- h3X6ochz24pIpgIz1MBhWPY0p4REmXmRucr9UWIR1WFFPGekgL4ECINK6oYcDcRYpkBc
- g/SQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=0qViXnCdGHrfo5komTmJ0s6kxPPQ47qpKFyasD+rkrE=;
+ b=epb+nZtac5aVhXCPMZDRtGxSOaVFGf83xraekIpLRfMhVpgjAJBzUPA/mBPrCOmcvX
+ nb2E+hmlWUJUCuVzrMTxpo7e5KiPQCzO7YZlU/ZhH6U6qdneMMxAzQHcSQBTJB9XQuDl
+ cheaG50jMQRj0QWAwmLsWdNnyUsCfLePHAVbaOdO2XGQCgcs3KLkf38j00psOXWHni0w
+ S7cSvq+2dM+76CFMAlZOWCVdR3RpVO3Jebv2rc1KwEGgeN+Svx8yy2X6BWtSpQ59XI0g
+ gZ+0fIV3gsfUDPVFUajVRCebjG0dZScmkQktSroqa8PJ4LT/4hjbCZ0N8LwP9lQvMCth
+ Qycw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=Pj0eLXODiyCxFSSi6Nw4I/ny4gAk5xIA/gNMvyHgn4U=;
- b=FM6/B55kwoSaib4Ov4Urht7gX3g23wsg0qd5ZR1z3UPXWejui1MDiDjttvALfnKBPD
- B7AlYrHaGfQIQbaRM5MoKlHsCOyS1+jdtq7Cu5Qm3lYaO1bRxbXb9QeKR6xlnP+oQXnX
- aSh1QvgQC/ysYqDCkI1q0CrrBGAL1pqQKm9JHcFf4RzVdzTYWXi3aGDLAhTQj3VnALHe
- lrmIciTsErnJamZvv6UJbIOENFoNjeMy/texmx/DIHACzw5RmJNBoTOxhEVzjzvrrNuG
- y8cK/TPU+uMNy0nvBwNCaPAM8c+qAoea/MgKxwZ9LXWMDJuC9xhuz1u573RMAAsQwQ5X
- GtMA==
-X-Gm-Message-State: AGi0PuZIcpjtBLHGHKN5FDCFdxeR/79kwGW53EnHcbZtTUxVjIcJIce/
- s+KuyV9Mjyp7AMZIKqdTBTQnCmPd/X0=
-X-Google-Smtp-Source: APiQypJi4LL25AbcV0MAtKnqPHQc2rR16Md6/5tpSuuIxCjVFkvnCOYyjmR9G+hYLdhucaqYqsUwWw==
-X-Received: by 2002:a5d:6acc:: with SMTP id u12mr5848077wrw.198.1587654390215; 
- Thu, 23 Apr 2020 08:06:30 -0700 (PDT)
+ :references:mime-version:content-transfer-encoding;
+ bh=0qViXnCdGHrfo5komTmJ0s6kxPPQ47qpKFyasD+rkrE=;
+ b=NaX+deF4A+Jqc8hpRyQz6/8qidfkln9L3VIRbJAYN0hoxEqDBgEOVlY6oPoZPs/KLh
+ duZuELvQGSrl6sUIV4ssxnOCRkjmJG8NT+BvxdF2AtHyPDcoDkBsURI5g9SkG+DUAKnF
+ zliKtNiT84rNZkrGT97cHGff4OUlIZ17QDb72hvMJHl8tFES4cA9v6HMtDhLDd9D6nMR
+ MUfc1zOn8RqV9KRBW+3OIRpMht0LPbMi0QVocOeUcx0Sf4XCMvejqVrNHKaVApNnU8eI
+ x+qJhV+14Hhm1Gb1FRmfA1Ew5wJhUUkEQVfxkvVBBoTzmTeWdK868Yx7YHkmpzJPZTvT
+ L6Mw==
+X-Gm-Message-State: AGi0PubTMWkE/reoH8gG3rZgBIN16iCpVBx2KRAOXOunnx35a2+SX81X
+ +zQMD/mzw7Un7S3gQZbjzBJEm4r9WoA=
+X-Google-Smtp-Source: APiQypK5kAmzpzeffyM8urL78R8NEI6+yYbsBLP5bOQ9z2jGB3yV+rSjDnm6yhNlkuH/BcMXwqVAeA==
+X-Received: by 2002:a1c:f609:: with SMTP id w9mr4542786wmc.123.1587654391188; 
+ Thu, 23 Apr 2020 08:06:31 -0700 (PDT)
 Received: from localhost.localdomain ([87.116.179.159])
- by smtp.gmail.com with ESMTPSA id d133sm4663678wmc.27.2020.04.23.08.06.29
+ by smtp.gmail.com with ESMTPSA id d133sm4663678wmc.27.2020.04.23.08.06.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2020 08:06:29 -0700 (PDT)
+ Thu, 23 Apr 2020 08:06:30 -0700 (PDT)
 From: Filip Bozuta <fbozuta1@gmail.com>
 To: ltp@lists.linux.it
-Date: Thu, 23 Apr 2020 17:06:25 +0200
-Message-Id: <20200423150626.12672-3-fbozuta1@gmail.com>
+Date: Thu, 23 Apr 2020 17:06:26 +0200
+Message-Id: <20200423150626.12672-4-fbozuta1@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200423150626.12672-1-fbozuta1@gmail.com>
 References: <20200423150626.12672-1-fbozuta1@gmail.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+MIME-Version: 1.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
  SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/3] testcases/kernel/syscalls/ioctl: Add test for
- RTC ioctls used to read and set RTC alarm time
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 3/3] testcases/kernel/syscalls/ioctl: Add test for
+ RTC ioctls used to turn on/off RTC interrupts
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,177 +78,90 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: Aleksandar.Markovic@rt-rk.com, laurent@vivier.eu
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Filip Bozuta <Filip.Bozuta@rt-rk.com>
-
-This patch tests functionalities of following ioctls:
-
-RTC_ALM_READ, RTC_ALM_SET - Getting/Setting alarm time
-
-    Read and set the alarm time, for RTCs that support alarms.
-    The alarm interrupt must be separately enabled or disabled
-    using the RTC_AIE_ON, RTC_AIE_OFF requests. The third ioctl's
-    argument is a pointer to a rtc_time structure. Only the tm_sec,
-    tm_min, and tm_hour fields of this structure are used.
-
-Signed-off-by: Filip Bozuta <Filip.Bozuta@rt-rk.com>
----
- runtest/syscalls                              |   1 +
- testcases/kernel/syscalls/ioctl/.gitignore    |   1 +
- testcases/kernel/syscalls/ioctl/ioctl_rtc02.c | 115 ++++++++++++++++++
- 3 files changed, 117 insertions(+)
- create mode 100644 testcases/kernel/syscalls/ioctl/ioctl_rtc02.c
-
-diff --git a/runtest/syscalls b/runtest/syscalls
-index c6b8a85ad..0e358337f 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -540,6 +540,7 @@ ioctl_ns07 ioctl_ns07
- ioctl_sg01 ioctl_sg01
- 
- ioctl_rtc01 ioctl_rtc01
-+ioctl_rtc02 ioctl_rtc02
- 
- inotify_init1_01 inotify_init1_01
- inotify_init1_02 inotify_init1_02
-diff --git a/testcases/kernel/syscalls/ioctl/.gitignore b/testcases/kernel/syscalls/ioctl/.gitignore
-index b297407bd..b9ed19724 100644
---- a/testcases/kernel/syscalls/ioctl/.gitignore
-+++ b/testcases/kernel/syscalls/ioctl/.gitignore
-@@ -15,3 +15,4 @@
- /ioctl_ns07
- /ioctl_sg01
- /ioctl_rtc01
-+/ioctl_rtc02
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_rtc02.c b/testcases/kernel/syscalls/ioctl/ioctl_rtc02.c
-new file mode 100644
-index 000000000..6a750a02a
---- /dev/null
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_rtc02.c
-@@ -0,0 +1,115 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2020 Filip Bozuta Filip.Bozuta@rt-rk.com
-+ */
-+
-+/*
-+ * Test RTC ioctls with RTC_ALM_READ and RTC_ALM_SET requests
-+ *
-+ * Reads the current alarm time from RTC device using
-+ * RTC_ALM_READ request and displays the alarm time
-+ * information as follows: hour:minute:second
-+ *
-+ * Sets a new alarm time in RTC device using RTC_ALM_SET
-+ * request and displays the new alarm time information
-+ * as follows: hour:minute:second
-+ *
-+ * Reads the new alarm time from RTC device using RTC_ALM_READ
-+ * request and checks whether the read alarm time information
-+ * is same as the one set by RTC_ALM_SET
-+ *
-+ * Runs RTC_ALM_SET to set back the current alarm time read by
-+ * RTC_ALM_READ at the beginning of the test
-+ */
-+
-+#include <stdint.h>
-+#include <errno.h>
-+#include <linux/rtc.h>
-+#include "tst_test.h"
-+
-+static void setup(void)
-+{
-+	int exists = ("/dev/rtc", O_RDONLY);
-+
-+	if (exists < 0)
-+		tst_brk(TCONF, "RTC device driver file not available");
-+}
-+
-+char *read_alarm_request = "RTC_ALM_READ";
-+char *set_alarm_request = "RTC_ALM_SET";
-+
-+static void run(void)
-+{
-+	int fd;
-+
-+	struct rtc_time rtc_read_alarm;
-+	struct rtc_time rtc_cur_alarm;
-+	struct rtc_time rtc_set_alarm = {
-+		.tm_sec = 13, .tm_min = 35, .tm_hour = 12};
-+
-+	int alarm_read_supported, alarm_set_supported = 0;
-+
-+	fd = SAFE_OPEN("/dev/rtc", O_RDONLY);
-+
-+	if (fd == -1)
-+		tst_brk(TCONF, "RTC device driver file could not be opened");
-+
-+	if (ioctl(fd, RTC_ALM_READ, &rtc_cur_alarm) == -1) {
-+		if (errno == ENOTTY)
-+			tst_res(TCONF, "ioctl %s not supported on RTC device",
-+				read_alarm_request);
-+		else
-+			tst_res(TFAIL | TERRNO, "unexpected ioctl error");
-+	} else {
-+		tst_res(TPASS, "alarm time successfully read from RTC device");
-+		tst_res(TINFO, "current RTC alarm time: %d:%d:%d",
-+			rtc_cur_alarm.tm_hour, rtc_cur_alarm.tm_min,
-+			rtc_cur_alarm.tm_sec);
-+		alarm_read_supported = 1;
-+	}
-+
-+	if (ioctl(fd, RTC_ALM_SET, &rtc_set_alarm) == -1) {
-+		if (errno == ENOTTY)
-+			tst_res(TCONF, "ioctl %s not supported on RTC device",
-+				set_alarm_request);
-+		else
-+			tst_res(TFAIL | TERRNO, "unexpected ioctl error");
-+	} else {
-+		tst_res(TPASS, "alarm time successfully set to RTC device");
-+		tst_res(TINFO, "new RTC alarm time: %d:%d:%d",
-+			rtc_set_alarm.tm_hour, rtc_set_alarm.tm_min,
-+			rtc_set_alarm.tm_sec);
-+		alarm_set_supported = 1;
-+	}
-+
-+	if (alarm_read_supported && alarm_set_supported) {
-+		ioctl(fd, RTC_ALM_READ, &rtc_read_alarm);
-+
-+		char alarm_data[][10] = {"second", "minute", "hour"};
-+		int read_alarm_data[] = {
-+			rtc_read_alarm.tm_sec, rtc_read_alarm.tm_min,
-+			rtc_read_alarm.tm_hour};
-+		int set_alarm_data[] = {
-+			rtc_set_alarm.tm_sec, rtc_set_alarm.tm_min,
-+			rtc_set_alarm.tm_hour};
-+		for (int i = 0; i < 3; i++)
-+			if (read_alarm_data[i] == set_alarm_data[i])
-+				tst_res(TPASS, "%s reads new %s as expected",
-+					read_alarm_request, alarm_data[i]);
-+			else
-+				tst_res(TPASS, "%s reads different %s than set",
-+					read_alarm_request, alarm_data[i]);
-+	}
-+
-+	if (alarm_set_supported)
-+		ioctl(fd, RTC_ALM_SET, &rtc_cur_alarm);
-+
-+	SAFE_CLOSE(fd);
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.needs_root = 1,
-+	.needs_device = 1,
-+	.setup = setup,
-+};
--- 
-2.17.1
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+RnJvbTogRmlsaXAgQm96dXRhIDxGaWxpcC5Cb3p1dGFAcnQtcmsuY29tPgoKVGhpcyBwYXRjaCB0
+ZXN0cyBmdW5jdGlvbmFsaXRpZXMgb2YgZm9sbG93aW5nIGlvY3RsczoKClJUQ19BSUVfT04sIFJU
+Q19BSUVfT0ZGIC0gQWxhcm0gaW50ZXJydXB0IGVuYWJsaW5nIG9uL29mZgoKICAgIEVuYWJsZSBv
+ciBkaXNhYmxlIHRoZSBhbGFybSBpbnRlcnJ1cHQsIGZvciBSVENzIHRoYXQgc3VwcG9ydAogICAg
+YWxhcm1zLiAgVGhlIHRoaXJkIGlvY3RsJ3MgYXJndW1lbnQgaXMgaWdub3JlZC4KClJUQ19VSUVf
+T04sIFJUQ19VSUVfT0ZGIC0gVXBkYXRlIGludGVycnVwdCBlbmFibGluZyBvbi9vZmYKCiAgICBF
+bmFibGUgb3IgZGlzYWJsZSB0aGUgaW50ZXJydXB0IG9uIGV2ZXJ5IGNsb2NrIHVwZGF0ZSwgZm9y
+CiAgICBSVENzIHRoYXQgc3VwcG9ydCB0aGlzIG9uY2UtcGVyLXNlY29uZCBpbnRlcnJ1cHQuIFRo
+ZSB0aGlyZAogICAgaW9jdGwncyBhcmd1bWVudCBpcyBpZ25vcmVkLgoKUlRDX1BJRV9PTiwgUlRD
+X1BJRV9PRkYgLSBQZXJpb2RpYyBpbnRlcnJ1cHQgZW5hYmxpbmcgb24vb2ZmCgogICAgRW5hYmxl
+IG9yIGRpc2FibGUgdGhlIHBlcmlvZGljIGludGVycnVwdCwgZm9yIFJUQ3MgdGhhdCBzdXDigJAK
+ICAgIHBvcnQgdGhlc2UgcGVyaW9kaWMgaW50ZXJydXB0cy4gVGhlIHRoaXJkIGlvY3RsJ3MgYXJn
+dW1lbnQKICAgIGlzIGlnbm9yZWQuIE9ubHkgYSBwcml2aWxlZ2VkIHByb2Nlc3MgKGkuZS4sIG9u
+ZSBoYXZpbmcgdGhlCiAgICBDQVBfU1lTX1JFU09VUkNFIGNhcGFiaWxpdHkpIGNhbiBlbmFibGUg
+dGhlIHBlcmlvZGljIGludGVycnVwdAogICAgaWYgdGhlIGZyZXF1ZW5jeSBpcyBjdXJyZW50bHkg
+c2V0IGFib3ZlIHRoZSB2YWx1ZSBzcGVjaWZpZWQgaW4KICAgIC9wcm9jL3N5cy9kZXYvcnRjL21h
+eC11c2VyLWZyZXEuCgpSVENfV0lFX09OLCBSVENfV0lFX09GRiAtIFdhdGNoZG9nIGludGVycnVw
+dCBlbmFibGluZyBvbi9vZmYKCiAgICBFbmFibGUgb3IgZGlzYWJsZSB0aGUgV2F0Y2hkb2cgaW50
+ZXJydXB0LCBmb3IgUlRDcyB0aGF0IHN1cC0KICAgIHBvcnQgdGhpcyBXYXRjaGRvZyBpbnRlcnJ1
+cHQuIFRoZSB0aGlyZCBpb2N0bCdzIGFyZ3VtZW50IGlzCiAgICBpZ25vcmVkLgoKU2lnbmVkLW9m
+Zi1ieTogRmlsaXAgQm96dXRhIDxGaWxpcC5Cb3p1dGFAcnQtcmsuY29tPgotLS0KIHJ1bnRlc3Qv
+c3lzY2FsbHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAxICsKIHRlc3RjYXNlcy9r
+ZXJuZWwvc3lzY2FsbHMvaW9jdGwvLmdpdGlnbm9yZSAgICB8ICAxICsKIHRlc3RjYXNlcy9rZXJu
+ZWwvc3lzY2FsbHMvaW9jdGwvaW9jdGxfcnRjMDMuYyB8IDg2ICsrKysrKysrKysrKysrKysrKysK
+IDMgZmlsZXMgY2hhbmdlZCwgODggaW5zZXJ0aW9ucygrKQogY3JlYXRlIG1vZGUgMTAwNjQ0IHRl
+c3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvaW9jdGwvaW9jdGxfcnRjMDMuYwoKZGlmZiAtLWdpdCBh
+L3J1bnRlc3Qvc3lzY2FsbHMgYi9ydW50ZXN0L3N5c2NhbGxzCmluZGV4IDBlMzU4MzM3Zi4uZDVi
+OTc4OWQzIDEwMDY0NAotLS0gYS9ydW50ZXN0L3N5c2NhbGxzCisrKyBiL3J1bnRlc3Qvc3lzY2Fs
+bHMKQEAgLTU0MSw2ICs1NDEsNyBAQCBpb2N0bF9zZzAxIGlvY3RsX3NnMDEKIAogaW9jdGxfcnRj
+MDEgaW9jdGxfcnRjMDEKIGlvY3RsX3J0YzAyIGlvY3RsX3J0YzAyCitpb2N0bF9ydGMwMyBpb2N0
+bF9ydGMwMwogCiBpbm90aWZ5X2luaXQxXzAxIGlub3RpZnlfaW5pdDFfMDEKIGlub3RpZnlfaW5p
+dDFfMDIgaW5vdGlmeV9pbml0MV8wMgpkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNj
+YWxscy9pb2N0bC8uZ2l0aWdub3JlIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9pb2N0bC8u
+Z2l0aWdub3JlCmluZGV4IGI5ZWQxOTcyNC4uZjE2YzExZjU4IDEwMDY0NAotLS0gYS90ZXN0Y2Fz
+ZXMva2VybmVsL3N5c2NhbGxzL2lvY3RsLy5naXRpZ25vcmUKKysrIGIvdGVzdGNhc2VzL2tlcm5l
+bC9zeXNjYWxscy9pb2N0bC8uZ2l0aWdub3JlCkBAIC0xNiwzICsxNiw0IEBACiAvaW9jdGxfc2cw
+MQogL2lvY3RsX3J0YzAxCiAvaW9jdGxfcnRjMDIKKy9pb2N0bF9ydGMwMwpkaWZmIC0tZ2l0IGEv
+dGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9pb2N0bC9pb2N0bF9ydGMwMy5jIGIvdGVzdGNhc2Vz
+L2tlcm5lbC9zeXNjYWxscy9pb2N0bC9pb2N0bF9ydGMwMy5jCm5ldyBmaWxlIG1vZGUgMTAwNjQ0
+CmluZGV4IDAwMDAwMDAwMC4uZDVjOTQ2NjI5Ci0tLSAvZGV2L251bGwKKysrIGIvdGVzdGNhc2Vz
+L2tlcm5lbC9zeXNjYWxscy9pb2N0bC9pb2N0bF9ydGMwMy5jCkBAIC0wLDAgKzEsODYgQEAKKy8v
+IFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wLW9yLWxhdGVyCisvKgorICogQ29weXJp
+Z2h0IChjKSAyMDIwIEZpbGlwIEJvenV0YSBGaWxpcC5Cb3p1dGFAcnQtcmsuY29tCisgKi8KKwor
+LyoKKyAqIFRlc3QgUlRDIGlvY3RscyB3aXRoIHJlcXVlc3RzIFJUQ19BSUVfT04sIFJUQ19BSUVf
+T0ZGLAorICogUlRDX1BJRV9PTiwgUlRDX1BJRV9PRkYsIFJUQ19VSUVfT04sIFJUQ19VSUVfT0ZG
+LAorICogUlRDX1dJRV9PTiwgUlRDX1dJRV9PRkYKKyAqCisgKiBSdW5zIGlvY3RscyB3aXRoIHRo
+ZSBhYm92ZSBtZW50aW9uZWQgcmVxdWVzdHMgb25lIGJ5IG9uZQorICogYW5kIHNlcXVlbnRpYWxs
+eSB0dXJucyBvbiBhbmQgb2ZmIFJUQyBhbGFybSwgcGVyaW9kaWMsCisgKiB1cGRhdGUgYW5kIHdh
+dGNoZG9nIGludGVycnVwdC4KKyAqLworCisjaW5jbHVkZSA8c3RkaW50Lmg+CisjaW5jbHVkZSA8
+ZXJybm8uaD4KKyNpbmNsdWRlIDxzdHJpbmcuaD4KKyNpbmNsdWRlIDxsaW51eC9ydGMuaD4KKyNp
+bmNsdWRlICJ0c3RfdGVzdC5oIgorCitzdGF0aWMgdm9pZCBzZXR1cCh2b2lkKQoreworCWludCBl
+eGlzdHMgPSAoIi9kZXYvcnRjIiwgT19SRE9OTFkpOworCisJaWYgKGV4aXN0cyA8IDApCisJCXRz
+dF9icmsoVENPTkYsICJSVEMgZGV2aWNlIGRyaXZlciBmaWxlIG5vdCBhdmFpbGFibGUiKTsKK30K
+Kworc3RhdGljIGNoYXIgaW50ZXJydXB0c1tdWzEwXSA9IHsiYWxhcm0iLCAicGVyaW9kaWMiLCAi
+dXBkYXRlIiwgIndhdGNoZG9nIn07CitzdGF0aWMgaW50IGludGVycnVwdF9yZXF1ZXN0c1tdID0g
+eworCVJUQ19BSUVfT04sIFJUQ19QSUVfT04sIFJUQ19VSUVfT04sIFJUQ19XSUVfT04sCisJUlRD
+X0FJRV9PRkYsIFJUQ19QSUVfT0ZGLCBSVENfVUlFX09GRiwgUlRDX1dJRV9PRkZ9Oworc3RhdGlj
+IGNoYXIgcmVxdWVzdHNfdGV4dFtdWzE1XSA9IHsKKwkiUlRDX0FJRV9PTiIsICJSVENfUElFX09O
+IiwgIlJUQ19VSUVfT04iLCAiUlRDX1dJRV9PTiIsCisJIlJUQ19BSUVfT0ZGIiwgIlJUQ19QSUVf
+T0ZGIiwgIlJUQ19VSUVfT0ZGIiwgIlJUQ19XSUVfT0ZGIn07CisKK3N0YXRpYyB2b2lkIHRlc3Rf
+cmVxdWVzdCh1bnNpZ25lZCBpbnQgbikKK3sKKwlpbnQgZmQ7CisKKwlpbnQgb25fcmVxdWVzdCA9
+IGludGVycnVwdF9yZXF1ZXN0c1tuXTsKKwlpbnQgb2ZmX3JlcXVlc3QgPSBpbnRlcnJ1cHRfcmVx
+dWVzdHNbbiArIDRdOworCisJY2hhciBvbl9yZXF1ZXN0X3RleHRbMTVdLCBvZmZfcmVxdWVzdF90
+ZXh0WzE1XTsKKworCXN0cmNweShvbl9yZXF1ZXN0X3RleHQsIHJlcXVlc3RzX3RleHRbbl0pOwor
+CXN0cmNweShvZmZfcmVxdWVzdF90ZXh0LCByZXF1ZXN0c190ZXh0W24gKyA0XSk7CisKKwlmZCA9
+IFNBRkVfT1BFTigiL2Rldi9ydGMiLCBPX1JEV1IpOworCisJaWYgKGZkID09IC0xKQorCQl0c3Rf
+YnJrKFRDT05GLCAiUlRDIGRldmljZSBkcml2ZXIgZmlsZSBjb3VsZCBub3QgYmUgb3BlbmVkIik7
+CisKKwlpZiAoaW9jdGwoZmQsIG9uX3JlcXVlc3QpID09IC0xKSB7CisJCWlmIChlcnJubyA9PSBF
+Tk9UVFkpIHsKKwkJCXRzdF9yZXMoVENPTkYsICJpb2N0bCAlcyBub3Qgc3VwcG9ydGVkIG9uIFJU
+QyBkZXZpY2UiLAorCQkJCW9uX3JlcXVlc3RfdGV4dCk7CisJCX0gZWxzZSB7CisJCQl0c3RfcmVz
+KFRGQUlMLCAidW5leHBlY3RlZCBpb2N0bCBlcnJvciIpOworCQl9CisJfSBlbHNlIHsKKwkJdHN0
+X3JlcyhUUEFTUywgIiVzIGludGVycnVwdCBlbmFibGVkIiwgaW50ZXJydXB0c1tuXSk7CisJfQor
+CisJaWYgKGlvY3RsKGZkLCBvZmZfcmVxdWVzdCkgPT0gLTEpIHsKKwkJaWYgKGVycm5vID09IEVO
+T1RUWSkgeworCQkJdHN0X3JlcyhUQ09ORiwgImlvY3RsICVzIG5vdCBzdXBwb3J0ZWQgb24gUlRD
+IGRldmljZSIsCisJCQkJb2ZmX3JlcXVlc3RfdGV4dCk7CisJCX0gZWxzZSB7CisJCQl0c3RfcmVz
+KFRGQUlMLCAidW5leHBlY3RlZCBpb2N0bCBlcnJvciIpOworCQl9CisJfSBlbHNlIHsKKwkJdHN0
+X3JlcyhUUEFTUywgIiVzIGludGVycnVwdCBkaXNhYmxlZCIsIGludGVycnVwdHNbbl0pOworCX0K
+KworCVNBRkVfQ0xPU0UoZmQpOworfQorCitzdGF0aWMgc3RydWN0IHRzdF90ZXN0IHRlc3QgPSB7
+CisJLnRjbnQgPSBBUlJBWV9TSVpFKGludGVycnVwdHMpLAorCS50ZXN0ID0gdGVzdF9yZXF1ZXN0
+LAorCS5uZWVkc19yb290ID0gMSwKKwkubmVlZHNfZGV2aWNlID0gMSwKKwkuc2V0dXAgPSBzZXR1
+cCwKK307Ci0tIAoyLjE3LjEKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMu
+bGludXguaXQvbGlzdGluZm8vbHRwCg==
