@@ -1,42 +1,58 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E5841B8DC4
-	for <lists+linux-ltp@lfdr.de>; Sun, 26 Apr 2020 10:05:33 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 294341B8E1C
+	for <lists+linux-ltp@lfdr.de>; Sun, 26 Apr 2020 11:01:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F3C1B3C2888
-	for <lists+linux-ltp@lfdr.de>; Sun, 26 Apr 2020 10:05:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9A3B73C2886
+	for <lists+linux-ltp@lfdr.de>; Sun, 26 Apr 2020 11:01:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id E114F3C226C
- for <ltp@lists.linux.it>; Sun, 26 Apr 2020 10:05:30 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 71A7B3C20DE
+ for <ltp@lists.linux.it>; Sun, 26 Apr 2020 11:01:04 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 482E61401A41
+ for <ltp@lists.linux.it>; Sun, 26 Apr 2020 11:01:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1587891661;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=r58HE19mlnC9itLcrnslKGHOSpuj0UjjaH7tB4F1wXE=;
+ b=O7+mwQhJbwlwxSdzY8L59lUIzD2NymTdF56GCw56lv5RLs0+vO7UdHbhQbZDEv6CSYu3EF
+ 98AapEl+61zO8+97COa+j9KJfq1KPdhybU1JKWtWw0OikKWhtOCHv9h6JT0+bMY9LuLBf5
+ sixTddiqDrJmiKSFhOztxXnMAYyLq+w=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-434-yzG1x7AHNrOZz03vVx6OFQ-1; Sun, 26 Apr 2020 05:00:57 -0400
+X-MC-Unique: yzG1x7AHNrOZz03vVx6OFQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 3C2411401A34
- for <ltp@lists.linux.it>; Sun, 26 Apr 2020 10:05:30 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 3D0BCAC2C;
- Sun, 26 Apr 2020 08:05:28 +0000 (UTC)
-Date: Sun, 26 Apr 2020 10:05:26 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20200426080526.GA203542@x230>
-References: <20200421180002.11351-1-pvorel@suse.cz>
- <dab04fc5-5d20-3dbc-c21f-535112ab222f@oracle.com>
- <20200423221245.GA1391884@x230> <20200424121116.GA25613@dell5510>
- <CAEemH2f1_6BFuTfrGZ2qpbLidFXxB2EQEO43TjucaMTPM9ghuw@mail.gmail.com>
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BF1451800D42;
+ Sun, 26 Apr 2020 09:00:56 +0000 (UTC)
+Received: from liwang-workstation.nay.redhat.com (unknown [10.66.81.246])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 9E1255D9CD;
+ Sun, 26 Apr 2020 09:00:54 +0000 (UTC)
+From: Li Wang <liwang@redhat.com>
+To: ltp@lists.linux.it
+Date: Sun, 26 Apr 2020 17:00:53 +0800
+Message-Id: <20200426090053.26764-1-liwang@redhat.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2f1_6BFuTfrGZ2qpbLidFXxB2EQEO43TjucaMTPM9ghuw@mail.gmail.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] net/sendfile01.sh: Check with timeout
+Subject: [LTP] [COMMITTED] pipe2: add min_kver = "2.6.35" in pipe2_04
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,69 +64,36 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li,
+To change the capacity of a pipe was involved from kernel-2.6.35 version.
 
-> > > > old api, not sure why exactly it was removed in the new one...
-> > > It was designed from scratch I guess.
-> > > But this patch makes sense to me, I'll test it tomorrow.
+  F_SETPIPE_SZ (int; since Linux 2.6.35)
+  F_GETPIPE_SZ (void; since Linux 2.6.35)
 
-> > Actually, I now consider a bit cleaner and safer solution to *not* use eval
-> > and require test to specify function. E.g.:
+Signed-off-by: Li Wang <liwang@redhat.com>
+---
+ testcases/kernel/syscalls/pipe2/pipe2_04.c | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/testcases/kernel/syscalls/pipe2/pipe2_04.c b/testcases/kernel/syscalls/pipe2/pipe2_04.c
+index 1edb3f151..432007e4d 100644
+--- a/testcases/kernel/syscalls/pipe2/pipe2_04.c
++++ b/testcases/kernel/syscalls/pipe2/pipe2_04.c
+@@ -98,6 +98,7 @@ static void cleanup(void)
+ }
+ 
+ static struct tst_test test = {
++	.min_kver = "2.6.35",
+ 	.test_all = test_pipe2,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+-- 
+2.21.1
 
-> Why not use eval for that? It helps us to perform more commands directly
-> without wrap into function.
-
-
-> > +retry_fnc()
-> > +{
-> > +       tst_rhost_run -c 'ss -ltp' | grep -q "$port.*testsf"
-> > +}
-> > +
-> >  do_setup()
-> >  {
-
-> > @@ -28,7 +33,7 @@ do_setup()
-> >         tst_rhost_run -s -b -c "$server $(tst_ipaddr rhost) $port"
-> >         server_started=1
-> >         tst_res TINFO "wait for the server to start"
-> > -       sleep 1
-> > +       TST_RETRY_FUNC retry_fnc 0
-> >  }
-
-> > Instead of simple:
-
-> >  do_setup()
-> > @@ -28,7 +28,7 @@ do_setup()
-> >         tst_rhost_run -s -b -c "$server $(tst_ipaddr rhost) $port"
-> >         server_started=1
-> >         tst_res TINFO "wait for the server to start"
-> > -       sleep 1
-> > +       TST_RETRY_FUNC "tst_rhost_run -c 'ss -ltp' | grep -q
-> > '$port.*testsf'" 0
-> >  }
-
-> > But I don't have strong opinion on it.
-> > Cyril, Li, any preference?
-
-
-> If no more strict reasons I prefer to go the simpler way. And there is no
-> need to wrap a retry_fun() I think.
-
-I'm a bit careful and try to avoid eval in scripts for security reasons.
-But ok, LTP code is a bit different from running shell scripts on the server,
-security does not matters on SUT, so I'm not against it. I just wanted to hear
-more opinions on that, thanks for your comment.
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
