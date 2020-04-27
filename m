@@ -2,40 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34AB11BAB31
-	for <lists+linux-ltp@lfdr.de>; Mon, 27 Apr 2020 19:27:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 835741BAB68
+	for <lists+linux-ltp@lfdr.de>; Mon, 27 Apr 2020 19:36:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 79AC93C5FB6
-	for <lists+linux-ltp@lfdr.de>; Mon, 27 Apr 2020 19:27:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F331E3C2972
+	for <lists+linux-ltp@lfdr.de>; Mon, 27 Apr 2020 19:36:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 409113C061B
- for <ltp@lists.linux.it>; Mon, 27 Apr 2020 19:27:20 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 178243C08C9
+ for <ltp@lists.linux.it>; Mon, 27 Apr 2020 19:36:05 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id CE59C1400E7F
- for <ltp@lists.linux.it>; Mon, 27 Apr 2020 19:27:19 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7108F60075A
+ for <ltp@lists.linux.it>; Mon, 27 Apr 2020 19:35:59 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 546FAAC5B;
- Mon, 27 Apr 2020 17:27:18 +0000 (UTC)
-Date: Mon, 27 Apr 2020 19:27:17 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 1187EAE4E;
+ Mon, 27 Apr 2020 17:36:04 +0000 (UTC)
+Date: Mon, 27 Apr 2020 19:36:02 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Amir Goldstein <amir73il@gmail.com>
-Message-ID: <20200427172717.GA13629@dell5510>
-References: <20200421065002.12417-1-amir73il@gmail.com>
- <20200421065002.12417-2-amir73il@gmail.com>
+To: Filip Bozuta <fbozuta1@gmail.com>
+Message-ID: <20200427173602.GA14375@dell5510>
+References: <20200423150626.12672-1-fbozuta1@gmail.com>
+ <20200423150626.12672-3-fbozuta1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200421065002.12417-2-amir73il@gmail.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+In-Reply-To: <20200423150626.12672-3-fbozuta1@gmail.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/4] syscalls/fanotify09: Check merging of events
- on directories
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 2/3] testcases/kernel/syscalls/ioctl: Add test
+ for RTC ioctls used to read and set RTC alarm time
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,24 +48,30 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Matthew Bobrowski <mbobrowski@mbobrowski.org>, Jan Kara <jack@suse.cz>,
- ltp@lists.linux.it
+Cc: Aleksandar.Markovic@rt-rk.com, laurent@vivier.eu, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Amir,
+Hi Filip,
 
-> In a setup of mount mark and directory inode mark the FAN_ONDIR flag
-> set on one mark should not imply that all events in the other mark mask
-> are expected on directories as well.
+> +		for (int i = 0; i < 3; i++)
+Minor nit: we still support old gcc 4 in centOS 6 build, which doesn't use C99
+by default, thus it fails when int is defined inside loop. Trivial fix (in case
+there is no v2 needed it could be changed by person who merges):
+int i;
+for (i = 0; i < 3; i++)
+...
 
-> Add a regression test case for commit 55bf882c7f13:
->    fanotify: fix merging marks masks with FAN_ONDIR
+https://api.travis-ci.org/v3/job/680146814/log.txt
+/usr/src/ltp/testcases/kernel/syscalls/ioctl/ioctl_rtc02.c: In function 'setup':
+/usr/src/ltp/testcases/kernel/syscalls/ioctl/ioctl_rtc02.c:32: warning: left-hand operand of comma expression has no effect
+/usr/src/ltp/testcases/kernel/syscalls/ioctl/ioctl_rtc02.c: In function 'run':
+/usr/src/ltp/testcases/kernel/syscalls/ioctl/ioctl_rtc02.c:95: error: 'for' loop initial declarations are only allowed in C99 mode
+/usr/src/ltp/testcases/kernel/syscalls/ioctl/ioctl_rtc02.c:95: note: use option -std=c99 or -std=gnu99 to compile your code
 
-Merged this one (with simple change: added {"linux-git", "55bf882c7f13"},).
-Thanks for your work!
+https://travis-ci.org/github/pevik/ltp/builds/680146805
 
 Kind regards,
 Petr
