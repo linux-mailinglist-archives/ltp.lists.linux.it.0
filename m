@@ -2,80 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2690D1B926F
-	for <lists+linux-ltp@lfdr.de>; Sun, 26 Apr 2020 19:45:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C41371B94E6
+	for <lists+linux-ltp@lfdr.de>; Mon, 27 Apr 2020 03:24:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1EC0F3C604C
-	for <lists+linux-ltp@lfdr.de>; Sun, 26 Apr 2020 19:45:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0BB963C6046
+	for <lists+linux-ltp@lfdr.de>; Mon, 27 Apr 2020 03:24:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id B84333C2884
- for <ltp@lists.linux.it>; Sun, 26 Apr 2020 19:45:34 +0200 (CEST)
-Received: from mail-lf1-x144.google.com (mail-lf1-x144.google.com
- [IPv6:2a00:1450:4864:20::144])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id BBDA51A00988
- for <ltp@lists.linux.it>; Sun, 26 Apr 2020 19:45:33 +0200 (CEST)
-Received: by mail-lf1-x144.google.com with SMTP id 131so11827152lfh.11
- for <ltp@lists.linux.it>; Sun, 26 Apr 2020 10:45:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=NhfmNbpoua12nkQLRWqMQ42xHqPthmCD94K/R9Vvam8=;
- b=WN7+F69IoVGLnPR+mBfmh3Lh6UKj/N2KdBRpP4wMiRNr4Xk2F3InWJpHcOEqo5IH3l
- tV1r3Y7GPftgLkQUDIer0xAI9AAr6SDquCRsKrogBfdD9BZ9z8mQK0MvMuYGisjKYJL5
- jvv0aAg6kOuGa3VKh35adzvWUgIYxPtga5eoM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=NhfmNbpoua12nkQLRWqMQ42xHqPthmCD94K/R9Vvam8=;
- b=DjnYtn1oLvXpmfYIUGwLzcIfvgOIjZt1YSu0Z/X0jlYbke5cMbIXjEwrFQ4LOkqwP+
- mRfi+SZIxB2IUMiGItgrdfSTRAvjIz7sricZt7UzB2c9j6h00RjLzoAPIDANy1TFXDzy
- Few69M2fedFXPVvEYFWCr7l9TGHhLh7ap/WetmzGJjuJ3nCGzHA6Sxv5o/PM2IMBwtNt
- QQujJw4sZ0hzLSPQF+mkR7EMa7pJDm3zpMMbqjEVTKgxPQWtpj2VPtNYNs7ZrV35m7LM
- dEST+uO2w3X5knHzrXqYsCD7XSkwCkPD4lOVApsylIGBX4Z9mXUY04gT/GBH/zoQpxve
- 74TQ==
-X-Gm-Message-State: AGi0Pub+POY/+UWx40+YxeAWplODTH+j8beBgP80SzQe5UdD93hS5Jhl
- 0lSKjkxwrBdrNDWqYRzl3KGnqIDrOfM=
-X-Google-Smtp-Source: APiQypKgLPV+gBuCXsvDI1foPPs0tQBAnzMyW7h7ZtSnAlZ2IT6f5E7Fi0NjN39UN6G1MmQazi5O9A==
-X-Received: by 2002:ac2:519c:: with SMTP id u28mr12915946lfi.17.1587923132661; 
- Sun, 26 Apr 2020 10:45:32 -0700 (PDT)
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com.
- [209.85.167.46])
- by smtp.gmail.com with ESMTPSA id q16sm8383418ljj.23.2020.04.26.10.45.31
- for <ltp@lists.linux.it>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 26 Apr 2020 10:45:31 -0700 (PDT)
-Received: by mail-lf1-f46.google.com with SMTP id k28so11857845lfe.10
- for <ltp@lists.linux.it>; Sun, 26 Apr 2020 10:45:31 -0700 (PDT)
-X-Received: by 2002:a19:240a:: with SMTP id k10mr13109086lfk.30.1587923131294; 
- Sun, 26 Apr 2020 10:45:31 -0700 (PDT)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id C27703C1A4E
+ for <ltp@lists.linux.it>; Mon, 27 Apr 2020 03:24:16 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id B0C441000497
+ for <ltp@lists.linux.it>; Mon, 27 Apr 2020 03:24:13 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.73,321,1583164800"; d="scan'208";a="90525063"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 27 Apr 2020 09:24:09 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 67F714BCC88C;
+ Mon, 27 Apr 2020 09:13:25 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Mon, 27 Apr 2020 09:24:07 +0800
+To: Christoph Hellwig <hch@lst.de>
+References: <1585839990-19923-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <1585839990-19923-4-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <6a3dfce9-1bc8-dd06-0794-b5ca1578690c@cn.fujitsu.com>
+Date: Mon, 27 Apr 2020 09:24:03 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.0
 MIME-Version: 1.0
-References: <1587552329-21738-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <1587552329-21738-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <CAEemH2ea_CtRyP9KtpJDjpEzobRyhrodiycDCAxhLbCjuOwhCQ@mail.gmail.com>
- <662aa817-04ff-e924-6880-7c23fa1cfe31@cn.fujitsu.com>
- <CAEemH2cF-kziNEHuN1GayTtzwdxFFzsu0wRGB85yJ=LaKS-XBw@mail.gmail.com>
- <3268f153-6730-708f-ed93-19ca4cf85fdd@cn.fujitsu.com>
- <CAEemH2ee7c55=EQb5qohpu40XMACSOCrSStwWt7u=_GyqjrxLw@mail.gmail.com>
-In-Reply-To: <CAEemH2ee7c55=EQb5qohpu40XMACSOCrSStwWt7u=_GyqjrxLw@mail.gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sun, 26 Apr 2020 10:45:15 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wg7u4AjZQd49VjrZXikDMfK-HchOKHYqoUFwcXjsbJ3XQ@mail.gmail.com>
-Message-ID: <CAHk-=wg7u4AjZQd49VjrZXikDMfK-HchOKHYqoUFwcXjsbJ3XQ@mail.gmail.com>
-To: Li Wang <liwang@redhat.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+In-Reply-To: <1585839990-19923-4-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 67F714BCC88C.ADF1C
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 3/3] syscalls/pipe2_03: Add new test for pipe2
- O_DIRECT flag
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 03/10] syscalls/ioctl_loop01: Add
+ LO_FLAGS_AUTOCLEAR and LO_FLAGS_PARTSCAN test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,34 +58,214 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: David Howells <dhowells@redhat.com>,
- linux-kernel <linux-kernel@vger.kernel.org>, LTP List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Sun, Apr 26, 2020 at 4:59 AM Li Wang <liwang@redhat.com> wrote:
->
-> From kernel code seems you are right. The pipe indeed takes use of PAGE_SIZE(ppc64le: 64kB) to split the writes data in the packetized mode (marked by O_DIRECT). But in the manual page, O_DIRECT indicates us the PIPE_BUF is the correct atomic unit.
+Hi Christoph
 
-The manual is correct.
+Recently, this test[1](has merged into ltp master) failed on kernel 
+5.7.0-rc2. I found your kernel patch
+d3ef55362("block: fix busy device checking in blk_drop_partitions")  and 
+commit cb6b771b05("block: fix busy device checking in 
+blk_drop_partitions again") introduced this failure.
 
-PIPE_BUF is the size we _guarantee_ can be used atomically.
+dmesg as below:
+"loop_reread_partitions: partition scan of loop0 () failed (rc=-16)"
 
-The fact that in practice we do have bigger buffers on some platforms
-is an implementation detail.
+It look likes we use bd_dev->bd_openers instead of bd_dev->bd_super in 
+blk_drop_partitions after your patch.  When running this test, the 
+bd_opener is equal to 3(I don't figure out the reason).
+I don't know how to fix this(do special judement for loopdev by using 
+MAJOR((bdev->bd_dev) ?) or should I modify test code? Please give me 
+some advise.
 
-Yes, that implementation detail can be visible, but basically any test
-code that tries to test for "what if we use a bigger bug that
-PIPE_BUF" is buggy. It's simply not guaranteed to work any more.
+[1]https://github.com/linux-test-project/ltp/commit/4f3ff1f323cbe4ae4dc6542e940902dca1280e9d
 
-O_DIRECT is kind of immaterial, except it's just one of those things
-where the atomic size is slightly more visible. But basically,
-packetized pipes with bigger packets than PIPE_BUF is random behavior.
-It may work. It may not.
+Best Regards
+Yang Xu
+> For LO_FLAGS_AUTOCLEAR flag, we only check autoclear fieldvalue in sys
+> directory and also get lo_flags by using LOOP_GET_STATUS.
+> 
+> For LO_FLAGS_PARTSCAN flag, it is the same as LO_FLAGS_AUTOCLEAR flag.
+> But we also check whether we can scan partition table correctly ie check
+> whether /dev/loopnp1 and /sys/bloclk/loop0/loop0p1 existed.
+> 
+> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+> ---
+>   runtest/syscalls                              |   3 +-
+>   testcases/kernel/syscalls/ioctl/.gitignore    |   1 +
+>   .../kernel/syscalls/ioctl/ioctl_loop01.c      | 127 ++++++++++++++++++
+>   3 files changed, 130 insertions(+), 1 deletion(-)
+>   create mode 100644 testcases/kernel/syscalls/ioctl/ioctl_loop01.c
+> 
+> diff --git a/runtest/syscalls b/runtest/syscalls
+> index 777f0ac6a..7fd67450e 100644
+> --- a/runtest/syscalls
+> +++ b/runtest/syscalls
+> @@ -524,10 +524,11 @@ ioctl03      ioctl03
+>   ioctl04      ioctl04
+>   ioctl05      ioctl05
+>   ioctl06      ioctl06
+> -
+>   ioctl07      ioctl07
+>   ioctl08      ioctl08
+>   
+> +ioctl_loop01 ioctl_loop01
+> +
+>   ioctl_ns01 ioctl_ns01
+>   ioctl_ns02 ioctl_ns02
+>   ioctl_ns03 ioctl_ns03
+> diff --git a/testcases/kernel/syscalls/ioctl/.gitignore b/testcases/kernel/syscalls/ioctl/.gitignore
+> index 97fbb9681..4cfef2839 100644
+> --- a/testcases/kernel/syscalls/ioctl/.gitignore
+> +++ b/testcases/kernel/syscalls/ioctl/.gitignore
+> @@ -6,6 +6,7 @@
+>   /ioctl06
+>   /ioctl07
+>   /ioctl08
+> +/ioctl_loop01
+>   /ioctl_ns01
+>   /ioctl_ns02
+>   /ioctl_ns03
+> diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop01.c b/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
+> new file mode 100644
+> index 000000000..e806e0443
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
+> @@ -0,0 +1,127 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
+> + * Author: Yang Xu <xuyang2018.jy@cn.jujitsu.com>
+> + *
+> + * This is a basic ioctl test about loopdevice.
+> + * It is designed to test LO_FLAGS_AUTOCLEAR and LO_FLAGS_PARTSCAN flag.
+> + *
+> + * For LO_FLAGS_AUTOCLEAR flag, we only check autoclear fieldvalue in sys
+> + * directory and also get lo_flags by using LOOP_GET_STATUS.
+> + *
+> + * For LO_FLAGS_PARTSCAN flag, it is the same as LO_FLAGS_AUTOCLEAR flag.
+> + * But we also check whether we can scan partition table correctly ie check
+> + * whether /dev/loopnp1 and /sys/bloclk/loop0/loop0p1 existed.
+> + */
+> +
+> +#include <stdio.h>
+> +#include <unistd.h>
+> +#include <string.h>
+> +#include "ioctl_loop_support.h"
+> +#include "lapi/loop.h"
+> +#include "tst_test.h"
+> +
+> +static char dev_path[1024], backing_path[1024], backing_file_path[1024];
+> +static int dev_num, attach_flag, dev_fd;
+> +/*
+> + *In drivers/block/loop.c code, set status function doesn't handle
+> + *LO_FLAGS_READ_ONLY flag and ingore it. Only loop_set_fd with rondonly
+> + *mode file_fd, lo_flags will include LO_FLAGS_READ_ONLY.
+> + */
+> +#define set_flags (LO_FLAGS_AUTOCLEAR | LO_FLAGS_PARTSCAN | LO_FLAGS_READ_ONLY | LO_FLAGS_DIRECT_IO)
+> +#define get_flags (LO_FLAGS_AUTOCLEAR | LO_FLAGS_PARTSCAN)
+> +
+> +static char partscan_path[1024], autoclear_path[1024];
+> +static char loop_partpath[1026], sys_loop_partpath[1026];
+> +
+> +static void verify_ioctl_loop(void)
+> +{
+> +	int ret;
+> +	struct loop_info loopinfo, loopinfoget;
+> +
+> +	tst_attach_device(dev_path, "test.img");
+> +	attach_flag = 1;
+> +
+> +	check_sys_value(partscan_path, 0);
+> +	check_sys_value(autoclear_path, 0);
+> +	check_sys_string(backing_path, backing_file_path);
+> +
+> +	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
+> +	memset(&loopinfo, 0, sizeof(loopinfo));
+> +	memset(&loopinfo, 0, sizeof(loopinfoget));
+> +
+> +	loopinfo.lo_flags = set_flags;
+> +	SAFE_IOCTL(dev_fd, LOOP_SET_STATUS, &loopinfo);
+> +
+> +	SAFE_IOCTL(dev_fd, LOOP_GET_STATUS, &loopinfoget);
+> +
+> +	if (loopinfoget.lo_flags & ~get_flags)
+> +		tst_res(TFAIL, "expect %d but got %d", get_flags, loopinfoget.lo_flags);
+> +	else
+> +		tst_res(TPASS, "get expected lo_flag %d", loopinfoget.lo_flags);
+> +
+> +	ret = access(loop_partpath, F_OK);
+> +	if (ret == 0)
+> +		tst_res(TPASS, "access %s succeeds", loop_partpath);
+> +	else
+> +		tst_res(TFAIL, "access %s fails", loop_partpath);
+> +
+> +	ret = access(sys_loop_partpath, F_OK);
+> +	if (ret == 0)
+> +		tst_res(TPASS, "access %s succeeds", sys_loop_partpath);
+> +	else
+> +		tst_res(TFAIL, "access %s fails", sys_loop_partpath);
+> +
+> +	check_sys_value(partscan_path, 1);
+> +	check_sys_value(autoclear_path, 1);
+> +
+> +	SAFE_CLOSE(dev_fd);
+> +	tst_detach_device(dev_path);
+> +	attach_flag = 0;
+> +}
+> +
+> +static void setup(void)
+> +{
+> +	const char *const cmd_dd[] = {"dd", "if=/dev/zero", "of=test.img", "bs=1M", "count=10", NULL};
+> +	const char *const cmd_parted[] = {"parted", "-s", "test.img", "mklabel", "msdos", "mkpart",
+> +						"primary", "ext4", "1M", "10M", NULL};
+> +
+> +	dev_num = tst_find_free_loopdev(dev_path, sizeof(dev_path));
+> +	if (dev_num < 0)
+> +		tst_brk(TBROK, "Failed to find free loop device");
+> +
+> +	SAFE_CMD(cmd_dd, NULL, NULL);
+> +	SAFE_CMD(cmd_parted, NULL, NULL);
+> +
+> +	sprintf(partscan_path, "/sys/block/loop%d/loop/partscan", dev_num);
+> +	sprintf(autoclear_path, "/sys/block/loop%d/loop/autoclear", dev_num);
+> +	sprintf(backing_path, "/sys/block/loop%d/loop/backing_file", dev_num);
+> +	sprintf(sys_loop_partpath, "/sys/block/loop%d/loop%dp1", dev_num, dev_num);
+> +	sprintf(backing_file_path, "%s/test.img", tst_get_tmpdir());
+> +	sprintf(loop_partpath, "%sp1", dev_path);
+> +}
+> +
+> +static void cleanup(void)
+> +{
+> +	if (dev_fd > 0)
+> +		SAFE_CLOSE(dev_fd);
+> +	if (attach_flag)
+> +		tst_detach_device(dev_path);
+> +}
+> +
+> +static struct tst_test test = {
+> +	.setup = setup,
+> +	.cleanup = cleanup,
+> +	.test_all = verify_ioctl_loop,
+> +	.needs_root = 1,
+> +	.needs_cmds = (const char *const []) {
+> +		"dd",
+> +		"parted",
+> +		NULL
+> +	},
+> +	.needs_drivers = (const char *const []) {
+> +		"loop",
+> +		NULL
+> +	},
+> +	.needs_tmpdir = 1,
+> +};
+> 
 
-                Linus
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
