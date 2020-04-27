@@ -1,73 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E76251B96BF
-	for <lists+linux-ltp@lfdr.de>; Mon, 27 Apr 2020 07:46:30 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D3041B989D
+	for <lists+linux-ltp@lfdr.de>; Mon, 27 Apr 2020 09:31:32 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8FAEC3C5FB8
-	for <lists+linux-ltp@lfdr.de>; Mon, 27 Apr 2020 07:46:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CAA9D3C2860
+	for <lists+linux-ltp@lfdr.de>; Mon, 27 Apr 2020 09:31:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 92D6B3C2858
- for <ltp@lists.linux.it>; Mon, 27 Apr 2020 07:46:26 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 6A9541A00A3D
- for <ltp@lists.linux.it>; Mon, 27 Apr 2020 07:46:25 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 88D2C3C042D
+ for <ltp@lists.linux.it>; Mon, 27 Apr 2020 09:31:30 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 33AC7600781
+ for <ltp@lists.linux.it>; Mon, 27 Apr 2020 09:31:23 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1587966383;
+ s=mimecast20190719; t=1587972688;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=D4AaIFK9+g6ITCkjG+Xgli8fzzQ//cnbtKuZA0MzEI8=;
- b=OLzWSVv9UvKkZGSW6AD7dDzf2zCOBzH36Or+BHvRoL2ahI/NO2xFFo5j2mZh9bQ4yj6Gf/
- gS1zZiisbCXaUiewa6l7IInnruSxBym9rtQz2VyqrdlhVQNftbp9uxqvaHBH3Gc8vrtv4z
- 2uIReaxv9h1/IUSt4Cv6xBJT+zqwYYo=
-Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
- [209.85.208.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-449-0cWkYBW1Py63dWGltpjVXg-1; Mon, 27 Apr 2020 01:46:20 -0400
-X-MC-Unique: 0cWkYBW1Py63dWGltpjVXg-1
-Received: by mail-lj1-f200.google.com with SMTP id p7so2973960ljg.15
- for <ltp@lists.linux.it>; Sun, 26 Apr 2020 22:46:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=qaQZX6SRXUAPqeEAwTBmvqwmdIm+Q9FMbrZLN79NmZE=;
- b=b7qEAlVl7eFc7zfsiQtkNinYxWEI4iLlrpRv5FjXklVM/tGtKWNUIspQrp7mk/h1ue
- QTq++KwoHH+uvQJkK7An8GHwuLQw2xUzJ1sixpidv6ExYM7W3UQwoHa+A0haTkz5vQ/E
- 9UjvSH3S1F4VN4k9UAZbt+Sica3sZunEu2Ob2Z9vKHa8CwMVt7yT/oPlgEUKvqKX7B1r
- LlmE/HliPDUhIVZRJKdUx25FUJTvrxKKWWoPI8NYmuJixz9cGeioPDDp4WJvwz1ukTog
- k0ns5qh+Pitio01UhL4e+xIyQ4Phl5bDa1VNeOqNncm4wPqwqXaxuaEYmN8MlyvBuJcz
- mTkg==
-X-Gm-Message-State: AGi0Pubi/lg355FqORRKFbThpfdV4hPr9ZKB6iPnnwUL5k4obOLMgTy+
- OrSVr1cL2k8YPCOVSL4WNFDMpw/KK5P6qXNMC27aB56TXcepfpFl20xpIclRpiDqlZvUzd40WEk
- n+zc/z+Kam1q1EYHNBk8jq8kExRk=
-X-Received: by 2002:a05:6512:1c5:: with SMTP id
- f5mr14188176lfp.138.1587966379076; 
- Sun, 26 Apr 2020 22:46:19 -0700 (PDT)
-X-Google-Smtp-Source: APiQypK3EwpxkbPGLs/1WCMW80gNhmHd6TleVX5M2EwE5QRwlOiQtUTN2txcRiGKrauWhsa3rNp6QQaWP3w+3hEZR+g=
-X-Received: by 2002:a05:6512:1c5:: with SMTP id
- f5mr14188167lfp.138.1587966378866; 
- Sun, 26 Apr 2020 22:46:18 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200427053813.23112-1-pvorel@suse.cz>
-In-Reply-To: <20200427053813.23112-1-pvorel@suse.cz>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 27 Apr 2020 13:46:07 +0800
-Message-ID: <CAEemH2dXChqqU9yQ0NRqBjJoTWhu+1ugnVnqCVUM=ZnTBSJR6w@mail.gmail.com>
+ bh=AS7HrQFJVQn3igVSj6mwUV8Bdg7Ao53+hzgRVEmpRlc=;
+ b=bLtKwS0anj9Kno6nV1cVGsfzF/ZQKvjCMzsCYG0h52FtoFrD+M0gQqmugAPrwTNcGrqZty
+ IG4MPJ9WH+r5FsRNzYWXD98ol6Gm0/vDvrkiRoeBybSomIdotN9VC08UiDUQ8MaOjmvAtu
+ xlpATQN9UA3RecZaWmhAN5j0CK//yoA=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-90-827P0D3uMEakKp5-XK8D-Q-1; Mon, 27 Apr 2020 03:31:25 -0400
+X-MC-Unique: 827P0D3uMEakKp5-XK8D-Q-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D30AF1054F9B;
+ Mon, 27 Apr 2020 07:31:23 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C915627CC2;
+ Mon, 27 Apr 2020 07:31:23 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id D0BF51809542;
+ Mon, 27 Apr 2020 07:31:22 +0000 (UTC)
+Date: Mon, 27 Apr 2020 03:31:22 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
 To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <951270734.10286613.1587972682386.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20200427053125.GA21164@dell5510>
+References: <20200424150422.17467-1-mdoucha@suse.cz>
+ <20200427053125.GA21164@dell5510>
+MIME-Version: 1.0
+X-Originating-IP: [10.43.17.25, 10.4.195.15]
+Thread-Topic: Add env variable as workaround for test issues in VMs
+Thread-Index: UNC9I7e5T5oBZmFMWnrbtqY9fMJ9UQ==
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/2] tst_test.sh: eval TST_RETRY_FN_EXP_BACKOFF
- function
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] Add env variable as workaround for test issues in
+ VMs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,50 +76,29 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1281879136=="
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1281879136==
-Content-Type: multipart/alternative; boundary="000000000000ed954b05a43f3b35"
-
---000000000000ed954b05a43f3b35
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-For patchset:
-    Reviewed-by: Li Wang <liwang@redhat.com>
-
---=20
-Regards,
-Li Wang
-
---000000000000ed954b05a43f3b35
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size:sma=
-ll">For patchset:=C2=A0</div><div class=3D"gmail_default" style=3D"font-siz=
-e:small">=C2=A0 =C2=A0 Reviewed-by: Li Wang &lt;<a href=3D"mailto:liwang@re=
-dhat.com">liwang@redhat.com</a>&gt;</div></div><div class=3D"gmail_quote"><=
-div dir=3D"ltr" class=3D"gmail_attr"><br></div></div>-- <br><div dir=3D"ltr=
-" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li=
- Wang<br></div></div></div></div>
-
---000000000000ed954b05a43f3b35--
 
 
---===============1281879136==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+----- Original Message -----
+> Hi Martin,
+> 
+> > Timer tests often fail on sleep overrun when LTP is running inside a VM.
+> > The main cause is usually that the VM doesn't get enough CPU time to wake
+> > up
+> > the test process in time.
+> Cannot we detect presence of "hypervisor" in flags in /proc/cpuinfo?
+> I though it was quite reliable for detecting VM.
+
+We have tst_is_virt().
+
+I see these tests fail frequently on ppc and s390, so I'm all for
+some switch that would make it more forgiving if running under virt.
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1281879136==--
-
