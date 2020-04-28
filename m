@@ -2,69 +2,84 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A36641BBA95
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Apr 2020 12:03:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B451C1BBAD3
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Apr 2020 12:09:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BB4B13C5F44
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Apr 2020 12:03:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 613B03C28F8
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Apr 2020 12:09:28 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 047F83C281C
- for <ltp@lists.linux.it>; Tue, 28 Apr 2020 12:02:59 +0200 (CEST)
-Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
- [IPv6:2607:f8b0:4864:20::441])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id C465E3C284A
+ for <ltp@lists.linux.it>; Tue, 28 Apr 2020 12:09:26 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id F210E600F24
- for <ltp@lists.linux.it>; Tue, 28 Apr 2020 12:02:58 +0200 (CEST)
-Received: by mail-pf1-x441.google.com with SMTP id x2so6740014pfx.7
- for <ltp@lists.linux.it>; Tue, 28 Apr 2020 03:02:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=1kyz50f9QVbS31zNt97x7l5C7C0lFZu0rbd0KYHpmmQ=;
- b=hI/HjWVJRTFXuXG7as261jA7ZASOarw7MQ/eBS+A6WpccZGuc52VaaG4FFEk8LQS5x
- CP3CgnUIOtkIKZW41YXjba8hiqGzupQfsblytDQ+UBTfQvex7TziEZ5Yhpnl0J/N9wv9
- x3K3N9uO3tQh5wqByktQDgtKASmsfxKQufIXEMwwKMuRtOEz0bm8/6aSsOcMikeAf0te
- FhwSP488GS0gFLGfLUu8qMibuyVBgpt26V83RJEGEdD0x42K7C6ZXKjVXG5zDe+h9Bms
- CE0WY/2RO9yuHChl+MB+SZ2eVy165+R3JoLgMvS2ZG2Y1mTTAqSSUHWIkSfMTah7Y8kQ
- hP8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=1kyz50f9QVbS31zNt97x7l5C7C0lFZu0rbd0KYHpmmQ=;
- b=th363iL/SWimiGbY8UlRDLnN9+hzVpzblBoD3CckJpXmB0xNnXovxY+S3tKQ+LubbR
- jxTqVQZfSxxtY3y5687wwkgJhjf6KHbD4iG63iRwTlAfI0kTjoft0r6GlyUrjVtCvMQt
- F9rHDo6YsynHWKmsMwfuW/hiL9mUvZZJgApyAPxrLA4G2x0oicuObpXePCWxcv7A3Ajy
- qGtbDWykqfOpHUqxm5VnrCk/uOoTtnmyeRHDyG6KJ8QNos7x8BuAnrjJQ5mCPWw+wyiN
- t7fkUHmAtDc9FdQWp92MiMyJRYkdts9+2t6RyqPMG739VfvUP1xNheHn5cxlQoo0MVUn
- 0hbA==
-X-Gm-Message-State: AGi0PuYkI5utqcacpFtZvOUR+OrKjh7ssBm4G3T/SHa1dhaWIfpLvmFX
- 4fhqLpK0B6I7QyYaUpLZ9jjzxZUVlp0=
-X-Google-Smtp-Source: APiQypLf0wwQIHonrpClY1R5DEZJa/DMbpBixfqur5pj/Rm6I4JfVFxDYjA6f0un5Xb1gTCZoPmN2A==
-X-Received: by 2002:a63:cc:: with SMTP id 195mr26810193pga.373.1588068177419; 
- Tue, 28 Apr 2020 03:02:57 -0700 (PDT)
-Received: from localhost ([122.171.118.46])
- by smtp.gmail.com with ESMTPSA id i135sm12563491pgc.8.2020.04.28.03.02.56
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 28 Apr 2020 03:02:56 -0700 (PDT)
-Date: Tue, 28 Apr 2020 15:32:54 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20200428100254.3oiu3weon3uyyvkl@vireshk-i7>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 498F21000BF7
+ for <ltp@lists.linux.it>; Tue, 28 Apr 2020 12:09:26 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id DD33AACC2;
+ Tue, 28 Apr 2020 10:09:24 +0000 (UTC)
+To: Viresh Kumar <viresh.kumar@linaro.org>
 References: <20200428094745.io5fni2txzl6n37q@vireshk-i7>
- <20200428095222.GC6221@yuki.lan>
+ <20200428095222.GC6221@yuki.lan> <20200428100254.3oiu3weon3uyyvkl@vireshk-i7>
+From: Martin Doucha <mdoucha@suse.cz>
+Autocrypt: addr=mdoucha@suse.cz; keydata=
+ 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
+Message-ID: <2a840c1c-7013-c817-8bb6-255a4861e785@suse.cz>
+Date: Tue, 28 Apr 2020 12:09:24 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200428095222.GC6221@yuki.lan>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+In-Reply-To: <20200428100254.3oiu3weon3uyyvkl@vireshk-i7>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] What is wrong with this program ?
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -77,47 +92,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: vincent.guittot@linaro.org, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 28-04-20, 11:52, Cyril Hrubis wrote:
-> Hi!
-> > #include "tst_test.h"
-> > 
-> > static void run(void)
-> > {
-> > 	int fd;
-> > 
-> > 	fd = SAFE_OPEN("file", O_RDWR | O_CREAT);
-> > 	SAFE_CLOSE(fd);
-> > 	fd = SAFE_OPEN("file", O_RDWR | O_CREAT);
-> > }
-> > 
-> > static struct tst_test test = {
-> > 	.test_all = run,
-> > 	.needs_tmpdir = 1,
-> > };
-> > 
-> > 
-> > It fails with:
-> > 
-> > safe_macros.c:230: BROK: foo.c:9: open(file,66,01) failed: EACCES (13)
-> > 
-> > if run as a normal user and passes with sudo.
-> 
-> I guess that you forget to pass the mode argument to the first
-> SAFE_OPEN() and hence the second one fails because the garbage passed to
-> mode prevents normal users from opening the file.
+On 28. 04. 20 12:02, Viresh Kumar wrote:
+> Hmm, mode seems to be missing from a lot of syscall tests, which 
+> means that if they are run in a loop (with the cmdline way you 
+> mentioned earlier), then they will all fail.
 
-Hmm, mode seems to be missing from a lot of syscall tests, which means that if
-they are run in a loop (with the cmdline way you mentioned earlier), then they
-will all fail.
+Allow me to quote from TFM:
+
+> The mode argument specifies the file mode bits be applied when a new
+> file is created. This argument must be supplied when O_CREAT or
+> O_TMPFILE is specified in flags; if neither O_CREAT nor O_TMPFILE is
+> specified, then mode is ignored. The effective mode is modified by
+> the process's umask in the usual way: in the absence of a default
+> ACL, the mode of the created file is (mode & ~umask). Note that this
+> mode applies only to future accesses of the newly created file; the
+> open() call that creates a read-only file may well return a
+> read/write file descriptor.
 
 -- 
-viresh
+Martin Doucha   mdoucha@suse.cz
+QA Engineer for Software Maintenance
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
