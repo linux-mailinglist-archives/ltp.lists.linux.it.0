@@ -2,39 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBA941BB9C3
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Apr 2020 11:23:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 798C41BBA3F
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Apr 2020 11:47:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7FD053C287C
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Apr 2020 11:23:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 744B33C5F49
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Apr 2020 11:47:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id E26BC3C282E
- for <ltp@lists.linux.it>; Tue, 28 Apr 2020 11:22:58 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 037BF3C282E
+ for <ltp@lists.linux.it>; Tue, 28 Apr 2020 11:47:50 +0200 (CEST)
+Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
+ [IPv6:2607:f8b0:4864:20::535])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D1D2D600A6C
- for <ltp@lists.linux.it>; Tue, 28 Apr 2020 11:22:51 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 060B5ACED;
- Tue, 28 Apr 2020 09:22:56 +0000 (UTC)
-Date: Tue, 28 Apr 2020 11:22:56 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Amir Goldstein <amir73il@gmail.com>
-Message-ID: <20200428092256.GC18634@dell5510>
-References: <20200421065002.12417-1-amir73il@gmail.com>
- <20200421065002.12417-5-amir73il@gmail.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4202460029F
+ for <ltp@lists.linux.it>; Tue, 28 Apr 2020 11:47:50 +0200 (CEST)
+Received: by mail-pg1-x535.google.com with SMTP id l20so2131224pgb.11
+ for <ltp@lists.linux.it>; Tue, 28 Apr 2020 02:47:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:mime-version:content-disposition
+ :user-agent; bh=3CIQIGmNyHeEZB+eA/33fW/MUUZTzZqPfwHcEeDkaa4=;
+ b=XlvRxvy15ncXu37Y4XxWAAwSZ0nPHZry+58Cd4BQXOfepanJmfV780N7ewUIS1igv+
+ sDbitecGBQ+jsk+bEDh/mWQV8dvc0mWO+bMdBItYatk9QwinytK8K8r2JyTv4BYOP/Nl
+ UWjXxWUNOGhCfTLjbXcU35zfJrhIAxR6GRyhZt2rZCndsMHrFBytdwvjXn1VgE1W865P
+ AmyE6DI1cR58BCgdyL95eVZcz96OXRa8RROEFjUJaNYAXqgW9dWI9ASc19BKc6owqOci
+ SVSNf8vgX8y1OqUBfwTw4IKfhwcfSojLNWa7lyK2shgvqTXmK41cFcMRr4Lt/6jxCSX2
+ 28wQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition:user-agent;
+ bh=3CIQIGmNyHeEZB+eA/33fW/MUUZTzZqPfwHcEeDkaa4=;
+ b=PuOJCaewmXZckXqrp4WWOieUNm7pjKhA5NmISs7tZYwkCeh7lqu5BUDf0D1axcX7yX
+ crrFEC8whuEVUQyrA/waGfHcXSCg/xnwkzJTg9vIwarcH5526h4ESeJFN4PWCYmcysro
+ pD2GdiSyMeO4zACAMJPn5WS7jMcBfNGjXpJoozdCcaxYlF817aKSBxStksiPmd1gvdcV
+ QYLiGvNoGMLPQi8Tpyyn9yLUGvnzDig9SQttoRWZptTRrmf5gEe6uql7aSKS2ygAiwZZ
+ Cbsclpa3lRER0f7Ov9JgnWLG3V2fmcwf42D/MBuBYsFfknR9MR9uHP6M+eRmjEdRvGsd
+ GfiQ==
+X-Gm-Message-State: AGi0PuaE2aAZVTW8TUs0qVw1DcS408+5W7/ADCkN5x6dBtGXfvnXR7vd
+ SpzC7qwxBCjrq5nwj8chDHCC7Alj3Gc=
+X-Google-Smtp-Source: APiQypLL1mS79MIFNYiQ8Ljypl4bKYFQyurKR75LmSUdEqsLwNnHSisYVECi+pnYJHR1XjM7O7nzsQ==
+X-Received: by 2002:a63:1d4a:: with SMTP id d10mr27491039pgm.188.1588067268510; 
+ Tue, 28 Apr 2020 02:47:48 -0700 (PDT)
+Received: from localhost ([122.171.118.46])
+ by smtp.gmail.com with ESMTPSA id 20sm14509780pfx.116.2020.04.28.02.47.47
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 28 Apr 2020 02:47:47 -0700 (PDT)
+Date: Tue, 28 Apr 2020 15:17:45 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: ltp@lists.linux.it
+Message-ID: <20200428094745.io5fni2txzl6n37q@vireshk-i7>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200421065002.12417-5-amir73il@gmail.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+User-Agent: NeoMutt/20180716-391-311a52
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 4/4] syscalls/fanotify: New test for FAN_MODIFY_DIR
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] What is wrong with this program ?
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,105 +74,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Matthew Bobrowski <mbobrowski@mbobrowski.org>, Jan Kara <jack@suse.cz>,
- ltp@lists.linux.it
+Cc: vincent.guittot@linaro.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Amir,
+#include "tst_test.h"
 
-...
-> diff --git a/testcases/kernel/syscalls/fanotify/fanotify16.c b/testcases/kernel/syscalls/fanotify/fanotify16.c
-...
-> +	fd_notify = fanotify_init(FAN_REPORT_FID, 0);
-> +	if (fd_notify == -1) {
-> +		if (errno == EINVAL) {
-> +			tst_brk(TCONF,
-> +				"FAN_REPORT_FID not supported by kernel");
-> +			return;
-tst_brk() exits the test, so return is not needed.
-> +		}
-> +		tst_brk(TBROK | TERRNO,
-> +			"fanotify_init(FAN_REPORT_FID, 0) failed");
-> +	}
-> +
-> +	/*
-> +	 * Watch dir modify events with name in filesystem/dir
-> +	 */
-> +	if (fanotify_mark(fd_notify, FAN_MARK_ADD | mark->flag, tc->mask,
-> +			  AT_FDCWD, MOUNT_PATH) < 0) {
-> +		if (errno == EINVAL) {
-> +			tst_brk(TCONF,
-> +				"FAN_DIR_MODIFY not supported by kernel");
-> +			return;
-Also here.
-> +		}
-> +		tst_brk(TBROK | TERRNO,
-> +		    "fanotify_mark (%d, FAN_MARK_ADD | %s, "
-> +		    "FAN_DIR_MODIFY, AT_FDCWD, '"MOUNT_PATH"') "
-> +		    "failed", fd_notify, mark->name);
-> +	}
+static void run(void)
+{
+	int fd;
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+	fd = SAFE_OPEN("file", O_RDWR | O_CREAT);
+	SAFE_CLOSE(fd);
+	fd = SAFE_OPEN("file", O_RDWR | O_CREAT);
+}
 
-Suggesting these changes:
+static struct tst_test test = {
+	.test_all = run,
+	.needs_tmpdir = 1,
+};
 
-Kind regards,
-Petr
 
-diff --git testcases/kernel/syscalls/fanotify/fanotify16.c testcases/kernel/syscalls/fanotify/fanotify16.c
-index 0ec151841..7c29d256a 100644
---- testcases/kernel/syscalls/fanotify/fanotify16.c
-+++ testcases/kernel/syscalls/fanotify/fanotify16.c
-@@ -116,11 +116,10 @@ static void do_test(unsigned int number)
- 
- 	fd_notify = fanotify_init(FAN_REPORT_FID, 0);
- 	if (fd_notify == -1) {
--		if (errno == EINVAL) {
-+		if (errno == EINVAL)
- 			tst_brk(TCONF,
- 				"FAN_REPORT_FID not supported by kernel");
--			return;
--		}
-+
- 		tst_brk(TBROK | TERRNO,
- 			"fanotify_init(FAN_REPORT_FID, 0) failed");
- 	}
-@@ -130,11 +129,10 @@ static void do_test(unsigned int number)
- 	 */
- 	if (fanotify_mark(fd_notify, FAN_MARK_ADD | mark->flag, tc->mask,
- 			  AT_FDCWD, MOUNT_PATH) < 0) {
--		if (errno == EINVAL) {
-+		if (errno == EINVAL)
- 			tst_brk(TCONF,
- 				"FAN_DIR_MODIFY not supported by kernel");
--			return;
--		}
-+
- 		tst_brk(TBROK | TERRNO,
- 		    "fanotify_mark (%d, FAN_MARK_ADD | %s, "
- 		    "FAN_DIR_MODIFY, AT_FDCWD, '"MOUNT_PATH"') "
-@@ -365,7 +363,8 @@ static void do_test(unsigned int number)
- 				(unsigned)event->pid, event->fd, filename,
- 				event->event_len, info_type,
- 				event_fid->hdr.len, fhlen,
--				event_fid->fsid.val[0], event_fid->fsid.val[1],
-+				FSID_VAL_MEMBER(event_fid->fsid, 0),
-+				FSID_VAL_MEMBER(event_fid->fsid, 1),
- 				expected->fid->fsid.val[0],
- 				expected->fid->fsid.val[1]);
- 		} else if (strcmp(expected->name, filename)) {
-@@ -427,6 +426,7 @@ static void cleanup(void)
- static struct tst_test test = {
- 	.test = do_test,
- 	.tcnt = ARRAY_SIZE(test_cases),
-+	.dev_fs_flags = TST_FS_SKIP_FUSE,
- 	.setup = setup,
- 	.cleanup = cleanup,
- 	.mount_device = 1,
+It fails with:
+
+safe_macros.c:230: BROK: foo.c:9: open(file,66,01) failed: EACCES (13)
+
+if run as a normal user and passes with sudo.
+
+-- 
+viresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
