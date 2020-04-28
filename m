@@ -1,42 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F04991BBCD0
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Apr 2020 13:49:11 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A0F41BBDB3
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Apr 2020 14:36:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9B0E83C2848
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Apr 2020 13:49:11 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4B97B3C2973
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Apr 2020 14:36:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 6A5323C2826
- for <ltp@lists.linux.it>; Tue, 28 Apr 2020 13:49:09 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 0A65B3C281C
+ for <ltp@lists.linux.it>; Tue, 28 Apr 2020 14:36:23 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E0DDF6006F6
- for <ltp@lists.linux.it>; Tue, 28 Apr 2020 13:49:02 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 81AA4200D2D
+ for <ltp@lists.linux.it>; Tue, 28 Apr 2020 14:36:23 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 06A25AC6E;
- Tue, 28 Apr 2020 11:49:07 +0000 (UTC)
-Date: Tue, 28 Apr 2020 13:49:26 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20200428114926.GA14333@yuki.lan>
-References: <20200428094745.io5fni2txzl6n37q@vireshk-i7>
- <20200428095222.GC6221@yuki.lan>
- <20200428100254.3oiu3weon3uyyvkl@vireshk-i7>
+ by mx2.suse.de (Postfix) with ESMTP id 21532AC6C;
+ Tue, 28 Apr 2020 12:36:22 +0000 (UTC)
+Date: Tue, 28 Apr 2020 14:36:21 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20200428123621.GA32116@dell5510>
+References: <20190605072126.19856-1-pvorel@suse.cz>
+ <20190613131018.GA29926@rei.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200428100254.3oiu3weon3uyyvkl@vireshk-i7>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+In-Reply-To: <20190613131018.GA29926@rei.lan>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] What is wrong with this program ?
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] inotify: Add SAFE_MYINOTIFY_INIT{,
+ 1}() helpers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,32 +47,29 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: vincent.guittot@linaro.org, ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > > It fails with:
-> > > 
-> > > safe_macros.c:230: BROK: foo.c:9: open(file,66,01) failed: EACCES (13)
-> > > 
-> > > if run as a normal user and passes with sudo.
-> > 
-> > I guess that you forget to pass the mode argument to the first
-> > SAFE_OPEN() and hence the second one fails because the garbage passed to
-> > mode prevents normal users from opening the file.
-> 
-> Hmm, mode seems to be missing from a lot of syscall tests, which means that if
-> they are run in a loop (with the cmdline way you mentioned earlier), then they
-> will all fail.
+Hi Cyril,
 
-If there is open() with O_CREAT without mode it's a bug.
+> Hi!
+> These two patches are obviously OK.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+> Well I we were pedantic the licence change should be in a separate
+> patch, but I guess that it's fine as it is.
+
+> Also we should probably switch to the inotify_init() from sys/inotify.h
+> and drop the my from the functions and macros, but that could be done in
+> a subsequent patch.
+Looking into this old TODO for inotify tests. I have similar question to
+fanotify: do you consider worth of testing both raw syscall and inotify_init()?
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
