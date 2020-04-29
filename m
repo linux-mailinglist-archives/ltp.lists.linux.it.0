@@ -2,38 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D66591BD826
-	for <lists+linux-ltp@lfdr.de>; Wed, 29 Apr 2020 11:26:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF4D01BD827
+	for <lists+linux-ltp@lfdr.de>; Wed, 29 Apr 2020 11:26:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 671D03C281A
-	for <lists+linux-ltp@lfdr.de>; Wed, 29 Apr 2020 11:26:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 46BEB3C5ED7
+	for <lists+linux-ltp@lfdr.de>; Wed, 29 Apr 2020 11:26:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 2EBD13C2802
+ by picard.linux.it (Postfix) with ESMTP id 3A1443C2804
  for <ltp@lists.linux.it>; Wed, 29 Apr 2020 11:26:04 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 9D56B1A016F2
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8BF591A016ED
  for <ltp@lists.linux.it>; Wed, 29 Apr 2020 11:26:03 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id CADF2AD4F
+ by mx2.suse.de (Postfix) with ESMTP id D85F6AD6B
  for <ltp@lists.linux.it>; Wed, 29 Apr 2020 09:26:01 +0000 (UTC)
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 29 Apr 2020 11:26:00 +0200
-Message-Id: <20200429092601.6325-1-mdoucha@suse.cz>
+Date: Wed, 29 Apr 2020 11:26:01 +0200
+Message-Id: <20200429092601.6325-2-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.26.0
+In-Reply-To: <20200429092601.6325-1-mdoucha@suse.cz>
+References: <20200429092601.6325-1-mdoucha@suse.cz>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 1/2] tst_is_virt(): Allow checking for any
- hypervisor
+Subject: [LTP] [PATCH v3 2/2] Skip oversleep checks in timer tests under VM
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,103 +51,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add two more valid arguments for tst_is_virt():
-- VIRT_ANY: return 1 if any hypervisor is detected
-- VIRT_OTHER: return 1 if an unrecognized hypervisor is detected
-
-Also fix bugs in try_systemd_detect_virt() and return -1 on error.
+Timer tests often fail on sleep overrun when LTP is running inside a VM.
+The main cause is usually that the VM doesn't get enough CPU time to wake up
+the test process in time. Disable oversleep tests if tst_is_virt() detects
+any hypervisor.
 
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
 
-Changes since v1: New patch
+Changes since v1: Use tst_is_virt() instead of env variable.
+Changes since v2: Fixed comment.
 
-The is_kvm() fallback test pretty much doesn't work anywhere except in our
-OpenQA setup. But looking at SystemD sources (yuck), detecting KVM properly
-will be a major pain in the ass, never mind any other hypervisor. So I'll
-leave any further improvements as an exercise for the reader.
+ lib/tst_timer_test.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-BTW, systemd-detect-virt can't detect the PowerPC LPAR hypervisor.
-
- include/tst_cpu.h |  2 ++
- lib/tst_virt.c    | 23 +++++++++++++++++------
- 2 files changed, 19 insertions(+), 6 deletions(-)
-
-diff --git a/include/tst_cpu.h b/include/tst_cpu.h
-index db6138f43..c83a58260 100644
---- a/include/tst_cpu.h
-+++ b/include/tst_cpu.h
-@@ -9,8 +9,10 @@ long tst_ncpus(void);
- long tst_ncpus_conf(void);
- long tst_ncpus_max(void);
+diff --git a/lib/tst_timer_test.c b/lib/tst_timer_test.c
+index 13e9deff2..196c51272 100644
+--- a/lib/tst_timer_test.c
++++ b/lib/tst_timer_test.c
+@@ -26,6 +26,7 @@ static long long *samples;
+ static unsigned int cur_sample;
+ static unsigned int monotonic_resolution;
+ static unsigned int timerslack;
++static int virt_env;
  
-+#define VIRT_ANY	0	/* catch-all argument for tst_is_virt() */
- #define VIRT_XEN	1	/* xen dom0/domU */
- #define VIRT_KVM	2	/* only default virtual CPU */
-+#define VIRT_OTHER	0xffff	/* unrecognized hypervisor */
+ static char *print_frequency_plot;
+ static char *file_name;
+@@ -306,7 +307,10 @@ void do_timer_test(long long usec, unsigned int nsamples)
+ 		samples[nsamples-1], samples[0], median,
+ 		1.00 * trunc_mean / keep_samples, discard);
  
- int tst_is_virt(int virt_type);
+-	if (trunc_mean > (nsamples - discard) * usec + threshold) {
++	if (virt_env) {
++		tst_res(TINFO,
++			"Virtualisation detected, skipping oversleep checks");
++	} else if (trunc_mean > (nsamples - discard) * usec + threshold) {
+ 		tst_res(TFAIL, "%s slept for too long", scall);
  
-diff --git a/lib/tst_virt.c b/lib/tst_virt.c
-index 090e6334c..53d33e69c 100644
---- a/lib/tst_virt.c
-+++ b/lib/tst_virt.c
-@@ -49,7 +49,7 @@ static int is_kvm(void)
+ 		if (!print_frequency_plot)
+@@ -343,6 +347,11 @@ static void timer_setup(void)
+ 	if (setup)
+ 		setup();
  
- static int is_xen(void)
- {
--	char hypervisor_type[3];
-+	char hypervisor_type[4];
++	/*
++	 * Running tests in VM may cause timing issues, disable upper bound
++	 * checks if any hypervisor is detected.
++	 */
++	virt_env = tst_is_virt(VIRT_ANY);
+ 	tst_clock_getres(CLOCK_MONOTONIC, &t);
  
- 	if (access("/proc/xen", F_OK) == 0)
- 		return 1;
-@@ -90,30 +90,41 @@ static int try_systemd_detect_virt(void)
- 	 * systemd-detect-virt not found by shell or no virtualization detected
- 	 * (systemd-detect-virt returns non-zero)
-          */
-+	if (ret < 0 || (WIFEXITED(ret) && WEXITSTATUS(ret) == 127))
-+		return -1;
-+
- 	if (ret)
- 		return 0;
- 
--	if (strncmp("kvm", virt_type, 3))
-+	if (!strncmp("kvm", virt_type, 3))
- 		return VIRT_KVM;
- 
--	if (strncmp("xen", virt_type, 3))
-+	if (!strncmp("xen", virt_type, 3))
- 		return VIRT_XEN;
- 
--	return 0;
-+	return VIRT_OTHER;
- }
- 
- int tst_is_virt(int virt_type)
- {
- 	int ret = try_systemd_detect_virt();
- 
--	if (ret)
--		return ret == virt_type;
-+	if (ret >= 0) {
-+		if (virt_type == VIRT_ANY)
-+			return ret != 0;
-+		else
-+			return ret == virt_type;
-+	}
- 
- 	switch (virt_type) {
-+	case VIRT_ANY:
-+		return is_xen() || is_kvm();
- 	case VIRT_XEN:
- 		return is_xen();
- 	case VIRT_KVM:
- 		return is_kvm();
-+	case VIRT_OTHER:
-+		return 0;
- 	}
- 
- 	tst_brkm(TBROK, NULL, "invalid virt_type flag: %d", virt_type);
+ 	tst_res(TINFO, "CLOCK_MONOTONIC resolution %lins", (long)t.tv_nsec);
 -- 
 2.26.0
 
