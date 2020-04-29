@@ -2,70 +2,38 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 683091BD52C
-	for <lists+linux-ltp@lfdr.de>; Wed, 29 Apr 2020 08:55:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D66591BD826
+	for <lists+linux-ltp@lfdr.de>; Wed, 29 Apr 2020 11:26:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2616E3C2802
-	for <lists+linux-ltp@lfdr.de>; Wed, 29 Apr 2020 08:55:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 671D03C281A
+	for <lists+linux-ltp@lfdr.de>; Wed, 29 Apr 2020 11:26:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id EE1953C27EE
- for <ltp@lists.linux.it>; Wed, 29 Apr 2020 08:55:04 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [205.139.110.120])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 374941A01496
- for <ltp@lists.linux.it>; Wed, 29 Apr 2020 08:55:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1588143302;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=5eVblD4U7vy6S4+gzde3qcPay4VvPJI6rF52+2i0Ztw=;
- b=VnHEwEWSQni+MT0djltiD44H3kat5Qfo0pi75XLnhj2K+mEOdnbPu6WeRRvHPLpjq9AMrH
- mfq6hBYu+3uI0lDvnjQXUL795cbB/JDM3pOa8Du0H5ZAcNliAOO6YWunFfYsrLLPnWvQv3
- YwZZeUIuvkOtjuikZIyUHk0Y6rEToFo=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-278-Lfn6444NOX2sZnOLj7RtyA-1; Wed, 29 Apr 2020 02:54:59 -0400
-X-MC-Unique: Lfn6444NOX2sZnOLj7RtyA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
+ by picard.linux.it (Postfix) with ESMTP id 2EBD13C2802
+ for <ltp@lists.linux.it>; Wed, 29 Apr 2020 11:26:04 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9EFEC800C78;
- Wed, 29 Apr 2020 06:54:58 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 942ED600DB;
- Wed, 29 Apr 2020 06:54:58 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4030E4CA94;
- Wed, 29 Apr 2020 06:54:58 +0000 (UTC)
-Date: Wed, 29 Apr 2020 02:54:57 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <797241805.10630970.1588143297978.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20200428154727.29206-2-mdoucha@suse.cz>
-References: <20200428154727.29206-1-mdoucha@suse.cz>
- <20200428154727.29206-2-mdoucha@suse.cz>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 9D56B1A016F2
+ for <ltp@lists.linux.it>; Wed, 29 Apr 2020 11:26:03 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id CADF2AD4F
+ for <ltp@lists.linux.it>; Wed, 29 Apr 2020 09:26:01 +0000 (UTC)
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Wed, 29 Apr 2020 11:26:00 +0200
+Message-Id: <20200429092601.6325-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.26.0
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.25, 10.4.195.4]
-Thread-Topic: Skip oversleep checks in timer tests under VM
-Thread-Index: bHGI46yzaYXUV42HkAs29v+RVxE9gg==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/2] Skip oversleep checks in timer tests under
- VM
+Subject: [LTP] [PATCH v3 1/2] tst_is_virt(): Allow checking for any
+ hypervisor
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,44 +45,110 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Add two more valid arguments for tst_is_virt():
+- VIRT_ANY: return 1 if any hypervisor is detected
+- VIRT_OTHER: return 1 if an unrecognized hypervisor is detected
 
+Also fix bugs in try_systemd_detect_virt() and return -1 on error.
 
------ Original Message -----
-> Timer tests often fail on sleep overrun when LTP is running inside a VM.
-> The main cause is usually that the VM doesn't get enough CPU time to wake up
-> the test process in time. Disable oversleep tests if tst_is_virt() detects
-> any hypervisor.
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
 
-> BTW, systemd-detect-virt can't detect the PowerPC LPAR hypervisor.
+Changes since v1: New patch
 
-Same with virt-what. We could (in separate patch) add check for
-'pseries_platform' (powerpc-utils) output:
+The is_kvm() fallback test pretty much doesn't work anywhere except in our
+OpenQA setup. But looking at SystemD sources (yuck), detecting KVM properly
+will be a major pain in the ass, never mind any other hypervisor. So I'll
+leave any further improvements as an exercise for the reader.
 
-# pseries_platform
-PowerVM pSeries LPAR
+BTW, systemd-detect-virt can't detect the PowerPC LPAR hypervisor.
 
-# pseries_platform
-PowerNV Host
+ include/tst_cpu.h |  2 ++
+ lib/tst_virt.c    | 23 +++++++++++++++++------
+ 2 files changed, 19 insertions(+), 6 deletions(-)
 
-# pseries_platform
-Power KVM pSeries Guest
-
->  
-> +	/*
-> +	 * Running tests in VM may cause timing issues, disable upper bound
-> +	 * checks if LTP_VM_ENV is set to non-zero.
-> +	 */
-> +	virt_env = tst_is_virt(VIRT_ANY);
-
-The comment still mentions LTP_VM_ENV. Other than that, I don't have major
-objections. Maybe somebody would like to run strict checks on VMs too, but
-that's something we could add later with an env. variable.
+diff --git a/include/tst_cpu.h b/include/tst_cpu.h
+index db6138f43..c83a58260 100644
+--- a/include/tst_cpu.h
++++ b/include/tst_cpu.h
+@@ -9,8 +9,10 @@ long tst_ncpus(void);
+ long tst_ncpus_conf(void);
+ long tst_ncpus_max(void);
+ 
++#define VIRT_ANY	0	/* catch-all argument for tst_is_virt() */
+ #define VIRT_XEN	1	/* xen dom0/domU */
+ #define VIRT_KVM	2	/* only default virtual CPU */
++#define VIRT_OTHER	0xffff	/* unrecognized hypervisor */
+ 
+ int tst_is_virt(int virt_type);
+ 
+diff --git a/lib/tst_virt.c b/lib/tst_virt.c
+index 090e6334c..53d33e69c 100644
+--- a/lib/tst_virt.c
++++ b/lib/tst_virt.c
+@@ -49,7 +49,7 @@ static int is_kvm(void)
+ 
+ static int is_xen(void)
+ {
+-	char hypervisor_type[3];
++	char hypervisor_type[4];
+ 
+ 	if (access("/proc/xen", F_OK) == 0)
+ 		return 1;
+@@ -90,30 +90,41 @@ static int try_systemd_detect_virt(void)
+ 	 * systemd-detect-virt not found by shell or no virtualization detected
+ 	 * (systemd-detect-virt returns non-zero)
+          */
++	if (ret < 0 || (WIFEXITED(ret) && WEXITSTATUS(ret) == 127))
++		return -1;
++
+ 	if (ret)
+ 		return 0;
+ 
+-	if (strncmp("kvm", virt_type, 3))
++	if (!strncmp("kvm", virt_type, 3))
+ 		return VIRT_KVM;
+ 
+-	if (strncmp("xen", virt_type, 3))
++	if (!strncmp("xen", virt_type, 3))
+ 		return VIRT_XEN;
+ 
+-	return 0;
++	return VIRT_OTHER;
+ }
+ 
+ int tst_is_virt(int virt_type)
+ {
+ 	int ret = try_systemd_detect_virt();
+ 
+-	if (ret)
+-		return ret == virt_type;
++	if (ret >= 0) {
++		if (virt_type == VIRT_ANY)
++			return ret != 0;
++		else
++			return ret == virt_type;
++	}
+ 
+ 	switch (virt_type) {
++	case VIRT_ANY:
++		return is_xen() || is_kvm();
+ 	case VIRT_XEN:
+ 		return is_xen();
+ 	case VIRT_KVM:
+ 		return is_kvm();
++	case VIRT_OTHER:
++		return 0;
+ 	}
+ 
+ 	tst_brkm(TBROK, NULL, "invalid virt_type flag: %d", virt_type);
+-- 
+2.26.0
 
 
 -- 
