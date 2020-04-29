@@ -2,68 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 963221BD2FC
-	for <lists+linux-ltp@lfdr.de>; Wed, 29 Apr 2020 05:35:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 683091BD52C
+	for <lists+linux-ltp@lfdr.de>; Wed, 29 Apr 2020 08:55:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5F1443C2925
-	for <lists+linux-ltp@lfdr.de>; Wed, 29 Apr 2020 05:35:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2616E3C2802
+	for <lists+linux-ltp@lfdr.de>; Wed, 29 Apr 2020 08:55:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id A44D73C2850
- for <ltp@lists.linux.it>; Wed, 29 Apr 2020 05:35:17 +0200 (CEST)
-Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
- [IPv6:2607:f8b0:4864:20::642])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id EE1953C27EE
+ for <ltp@lists.linux.it>; Wed, 29 Apr 2020 08:55:04 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 374941A01496
+ for <ltp@lists.linux.it>; Wed, 29 Apr 2020 08:55:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1588143302;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5eVblD4U7vy6S4+gzde3qcPay4VvPJI6rF52+2i0Ztw=;
+ b=VnHEwEWSQni+MT0djltiD44H3kat5Qfo0pi75XLnhj2K+mEOdnbPu6WeRRvHPLpjq9AMrH
+ mfq6hBYu+3uI0lDvnjQXUL795cbB/JDM3pOa8Du0H5ZAcNliAOO6YWunFfYsrLLPnWvQv3
+ YwZZeUIuvkOtjuikZIyUHk0Y6rEToFo=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-278-Lfn6444NOX2sZnOLj7RtyA-1; Wed, 29 Apr 2020 02:54:59 -0400
+X-MC-Unique: Lfn6444NOX2sZnOLj7RtyA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+ [10.5.11.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 472171000C7E
- for <ltp@lists.linux.it>; Wed, 29 Apr 2020 05:35:16 +0200 (CEST)
-Received: by mail-pl1-x642.google.com with SMTP id t16so333939plo.7
- for <ltp@lists.linux.it>; Tue, 28 Apr 2020 20:35:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=U4CAkg04R94JJ5K42UhvakLlLV2jHvT+vGqWbIqGzWA=;
- b=GmjWir5NT9YPwOvPM4XtARjUJhw+V+M0FuPLAs8o5h2G5F77iW2jdUBQlpLV5e09Ay
- zAAtFZnlj/fgJZUHxN2hmvgqNZYwW3pTkII/+cpnJQnCFACeRoU0a/ZQgpgn6OpiAtee
- wZOIP89YPN5AkoQACrb2OjQ5DDecg9cI7pbl9mKFBCAtZzIeM2PfLNYmY99vdJIHPlCD
- nyhcIaL7GsIQ0K6g4tor9QCq9pjB1/Vak1S+3V5FgcdnQ79tkK4Gc/mBFuDopNKdfMq9
- Y2fXf0vvjlQQG/K6bCl6NG1xqjPmVlTyI0bwj2IbUMzT5i+qKbwoUhe3ZIby6FZIMDnQ
- mqag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=U4CAkg04R94JJ5K42UhvakLlLV2jHvT+vGqWbIqGzWA=;
- b=uWK4LIf6CXMT9dG8nfAniGY+vpNs4lQx1xvtXhmULBguzPGfad89TZBSZFibREufba
- DeLCoO1G/IBwM7y+9S0RjsrSseVUCHnrX1nLMfImpI7sWGpc9nAathPTlxBhOUr8sQIo
- pUrDIPn9yXUnetj93L+WUCwGSAy0qaK1q4oosuJAT3DgVy7s0JwSCZOHkC2TiR2hetoA
- Ce7P+w587n1P7wi7U0euyTezoiYWPJRbnEMIQ4JlnJb8bl9Nti3ydcznzo2SitYMqrWc
- fsivKwW0IKlN733F9pP52we+sMB6ayNyufoa5OvVGLFWC5rOBi7AkKfhjuB9RfMjZL8t
- MBhA==
-X-Gm-Message-State: AGi0PuYneKPXn5uOFm+oyMYC1m7lwH1ggg6+gp+vgZehmUi0zfWhzVQI
- 7/l7YY42kziyUpxLirdo3HS6YHyial8=
-X-Google-Smtp-Source: APiQypK3BO/3U+YAM05tnBTozZgxm3lvZ6o1GW4CJC7KghBdrvaFu3RzUwFBLw+ZlrcZ3E4QuFbvAg==
-X-Received: by 2002:a17:90a:db46:: with SMTP id u6mr728358pjx.15.1588131313978; 
- Tue, 28 Apr 2020 20:35:13 -0700 (PDT)
-Received: from apollo.hsd1.ca.comcast.net ([2601:646:9200:4e0::e11c])
- by smtp.gmail.com with ESMTPSA id i10sm16433738pfa.166.2020.04.28.20.35.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Apr 2020 20:35:13 -0700 (PDT)
-From: Khem Raj <raj.khem@gmail.com>
-To: ltp@lists.linux.it
-Date: Tue, 28 Apr 2020 20:35:11 -0700
-Message-Id: <20200429033511.1848449-1-raj.khem@gmail.com>
-X-Mailer: git-send-email 2.26.2
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9EFEC800C78;
+ Wed, 29 Apr 2020 06:54:58 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 942ED600DB;
+ Wed, 29 Apr 2020 06:54:58 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4030E4CA94;
+ Wed, 29 Apr 2020 06:54:58 +0000 (UTC)
+Date: Wed, 29 Apr 2020 02:54:57 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <797241805.10630970.1588143297978.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20200428154727.29206-2-mdoucha@suse.cz>
+References: <20200428154727.29206-1-mdoucha@suse.cz>
+ <20200428154727.29206-2-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Originating-IP: [10.43.17.25, 10.4.195.4]
+Thread-Topic: Skip oversleep checks in timer tests under VM
+Thread-Index: bHGI46yzaYXUV42HkAs29v+RVxE9gg==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH] Define __NR_futex to be __NR_futex_time64 on riscv32
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 2/2] Skip oversleep checks in timer tests under
+ VM
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,71 +77,44 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-RISCV glibc has decided to use 64bit time_t from get go unlike
-other 32bit architecture therefore aliasing __NR_futex to
-__NR_futex_time64 helps avoid the below errors on rv32
 
-tst_checkpoint.c:99:17: error: use of undeclared identifier 'SYS_futex'
 
-Signed-off-by: Khem Raj <raj.khem@gmail.com>
----
- lib/tst_checkpoint.c                        | 4 ++++
- testcases/kernel/syscalls/clone/clone08.c   | 4 ++++
- testcases/kernel/syscalls/futex/futextest.h | 4 ++++
- 3 files changed, 12 insertions(+)
+----- Original Message -----
+> Timer tests often fail on sleep overrun when LTP is running inside a VM.
+> The main cause is usually that the VM doesn't get enough CPU time to wake up
+> the test process in time. Disable oversleep tests if tst_is_virt() detects
+> any hypervisor.
 
-diff --git a/lib/tst_checkpoint.c b/lib/tst_checkpoint.c
-index 5e5b11496c..0388e9db2f 100644
---- a/lib/tst_checkpoint.c
-+++ b/lib/tst_checkpoint.c
-@@ -21,6 +21,10 @@
-  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-  */
- 
-+#if !defined(__NR_futex) && defined(__riscv) && __riscv_xlen == 32
-+# define __NR_futex __NR_futex_time64
-+#endif
-+
- #include <stdint.h>
- #include <limits.h>
- #include <errno.h>
-diff --git a/testcases/kernel/syscalls/clone/clone08.c b/testcases/kernel/syscalls/clone/clone08.c
-index aace308068..85a2bd9246 100644
---- a/testcases/kernel/syscalls/clone/clone08.c
-+++ b/testcases/kernel/syscalls/clone/clone08.c
-@@ -5,6 +5,10 @@
-  * Author: Zeng Linggang <zenglg.jy@cn.fujitsu.com>
-  */
- 
-+#if !defined(__NR_futex) && defined(__riscv) && __riscv_xlen == 32
-+# define __NR_futex __NR_futex_time64
-+#endif
-+
- #define _GNU_SOURCE
- #include <stdlib.h>
- #include <stdio.h>
-diff --git a/testcases/kernel/syscalls/futex/futextest.h b/testcases/kernel/syscalls/futex/futextest.h
-index 5754d36dae..59d877e30f 100644
---- a/testcases/kernel/syscalls/futex/futextest.h
-+++ b/testcases/kernel/syscalls/futex/futextest.h
-@@ -34,6 +34,10 @@
- #ifndef _FUTEXTEST_H
- #define _FUTEXTEST_H
- 
-+#if !defined(__NR_futex) && defined(__riscv) && __riscv_xlen == 32
-+# define __NR_futex __NR_futex_time64
-+#endif
-+
- #include <unistd.h>
- #include <sys/syscall.h>
- #include <sys/types.h>
--- 
-2.26.2
+> BTW, systemd-detect-virt can't detect the PowerPC LPAR hypervisor.
+
+Same with virt-what. We could (in separate patch) add check for
+'pseries_platform' (powerpc-utils) output:
+
+# pseries_platform
+PowerVM pSeries LPAR
+
+# pseries_platform
+PowerNV Host
+
+# pseries_platform
+Power KVM pSeries Guest
+
+>  
+> +	/*
+> +	 * Running tests in VM may cause timing issues, disable upper bound
+> +	 * checks if LTP_VM_ENV is set to non-zero.
+> +	 */
+> +	virt_env = tst_is_virt(VIRT_ANY);
+
+The comment still mentions LTP_VM_ENV. Other than that, I don't have major
+objections. Maybe somebody would like to run strict checks on VMs too, but
+that's something we could add later with an env. variable.
 
 
 -- 
