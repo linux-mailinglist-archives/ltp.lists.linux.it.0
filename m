@@ -2,57 +2,46 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13C051C39D4
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 May 2020 14:49:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 807271C3CAB
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 May 2020 16:15:26 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 287C53C586C
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 May 2020 14:49:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1ECB63C586A
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 May 2020 16:15:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id BB3953C26A6
- for <ltp@lists.linux.it>; Mon,  4 May 2020 14:49:16 +0200 (CEST)
-Received: from m12-15.163.com (m12-15.163.com [220.181.12.15])
- (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id B08613C2665
+ for <ltp@lists.linux.it>; Mon,  4 May 2020 16:15:19 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DDD89600953
- for <ltp@lists.linux.it>; Mon,  4 May 2020 14:49:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=bmhhu
- q6phxvdZ5VADUrqQX/k46USIwjbGb501y1yAag=; b=odYvfirusZbMTrhF0POHO
- 2HQ1H3KkasF3Fu9H3y2krn8Y7vbj+ncwmkyPP62HjQOvR6MPcfDGxxc9vOEitpvD
- a783nMD4CPnQ6t5d0fAeyir73aGfJQ52Nb6J8rUqZkJk7lBdI08EYF++Y1pLOVz2
- /K8xv9ZTu9Tb8Tq2U5zezk=
-Received: from [192.168.0.10] (unknown [223.64.162.136])
- by smtp11 (Coremail) with SMTP id D8CowABXZ8dED7BeKBgaBQ--.21S2;
- Mon, 04 May 2020 20:49:08 +0800 (CST)
-To: Viresh Kumar <viresh.kumar@linaro.org>
-References: <20200430085742.1663-1-yangx.jy@cn.fujitsu.com>
- <20200430085742.1663-2-yangx.jy@cn.fujitsu.com>
- <20200504051107.edvfiqloegt3ak5o@vireshk-i7>
-From: Xiao Yang <ice_yangxiao@163.com>
-Message-ID: <b74eac89-11fc-9a7c-c337-ffe6f19ec7b8@163.com>
-Date: Mon, 4 May 2020 20:49:07 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A1D1F1A010AE
+ for <ltp@lists.linux.it>; Mon,  4 May 2020 16:15:18 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 20178AA7C;
+ Mon,  4 May 2020 14:15:19 +0000 (UTC)
+Received: by quack2.suse.cz (Postfix, from userid 1000)
+ id D0D3C1E12B0; Mon,  4 May 2020 16:15:16 +0200 (CEST)
+Date: Mon, 4 May 2020 16:15:16 +0200
+From: Jan Kara <jack@suse.cz>
+To: Amir Goldstein <amir73il@gmail.com>
+Message-ID: <20200504141516.GC1741@quack2.suse.cz>
+References: <20200502162744.9589-1-amir73il@gmail.com>
+ <20200502162744.9589-3-amir73il@gmail.com>
+ <20200504080715.GA1741@quack2.suse.cz>
+ <CAOQ4uxgJQ2MGdnib9gvc=PcoWxveUpyqDZ1YybT-Hxrhba9ApQ@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20200504051107.edvfiqloegt3ak5o@vireshk-i7>
-Content-Language: en-US
-X-CM-TRANSID: D8CowABXZ8dED7BeKBgaBQ--.21S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCF1kZF4rZFWrKF4UJFyfXrb_yoWrWw15pr
- 4fJw4xArykJFZ7JwsxuF1qy348tw1jyry5Xrn8trWrZrnxZr9aqrs0ga4rCrWYqrWrKFyS
- q3y8Xry3G345uFUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jyYLkUUUUU=
-X-Originating-IP: [223.64.162.136]
-X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/1tbiqAQaXlc7O8PCowAAsd
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <CAOQ4uxgJQ2MGdnib9gvc=PcoWxveUpyqDZ1YybT-Hxrhba9ApQ@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] syscalls/pidfd_open*.c: Drop .min_kver flag
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 2/4] syscalls/fanotify15: Add a test case for
+ inode marks
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,82 +53,70 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Matthew Bobrowski <mbobrowski@mbobrowski.org>, Jan Kara <jack@suse.cz>,
+ LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gNS80LzIwIDE6MTEgUE0sIFZpcmVzaCBLdW1hciB3cm90ZToKPiBPbiAzMC0wNC0yMCwgMTY6
-NTcsIFhpYW8gWWFuZyB3cm90ZToKPj4gMSkgRHJvcCAubWluX2t2ZXIgZmxhZyBkaXJlY3RseSBi
-ZWNhdXNlIG9mIHR3byBmb2xsb3dpbmcgcmVhc29uczoKPj4gICAgIGEpIHBpZGZkX29wZW4oMikg
-bWF5IGJlIGJhY2twb3J0ZWQgdG8gb2xkIGtlcm5lbCB3aGljaCBpcyBsZXNzCj4+ICAgICAgICB0
-aGFuIHY1LjMgc28ga2VybmVsIHZlcnNpb24gY2hlY2sgaXMgbWVhbmluZ2xlc3MuCj4+ICAgICBi
-KSB0c3Rfc3lzY2FsbCgpIGNhbiByZXBvcnQgVENPTkYgaWYgcGlkZmRfb3BlbigyKSBpcyBub3Qg
-c3VwcG9ydGVkLgo+PiAyKSBGb3IgcGlkZmRfb3BlbjAzLmMsIGNoZWNrIGlmIHBpZGZkX29wZW4o
-MikgaXMgbm90IHN1cHBvcnRlZCBiZWZvcmUKPj4gICAgIGNhbGxpbmcgZm9yaygpIGFuZCByZW1v
-dmUgdW5uZWNlc3NhcnkgVEVTVCgpLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBYaWFvIFlhbmcgPHlh
-bmd4Lmp5QGNuLmZ1aml0c3UuY29tPgo+PiAtLS0KPj4gICAuLi4va2VybmVsL3N5c2NhbGxzL3Bp
-ZGZkX29wZW4vcGlkZmRfb3BlbjAxLmMgICAgICB8ICAxIC0KPj4gICAuLi4va2VybmVsL3N5c2Nh
-bGxzL3BpZGZkX29wZW4vcGlkZmRfb3BlbjAyLmMgICAgICB8ICAxIC0KPj4gICAuLi4va2VybmVs
-L3N5c2NhbGxzL3BpZGZkX29wZW4vcGlkZmRfb3BlbjAzLmMgICAgICB8IDE0ICsrKysrKysrKy0t
-LS0tCj4+ICAgMyBmaWxlcyBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0p
-Cj4+Cj4+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3BpZGZkX29wZW4v
-cGlkZmRfb3BlbjAxLmMgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3BpZGZkX29wZW4vcGlk
-ZmRfb3BlbjAxLmMKPj4gaW5kZXggMjkzZTkzYjYzLi45ODNkY2RjY2IgMTAwNjQ0Cj4+IC0tLSBh
-L3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcGlkZmRfb3Blbi9waWRmZF9vcGVuMDEuYwo+PiAr
-KysgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3BpZGZkX29wZW4vcGlkZmRfb3BlbjAxLmMK
-Pj4gQEAgLTMyLDYgKzMyLDUgQEAgc3RhdGljIHZvaWQgcnVuKHZvaWQpCj4+ICAgfQo+PiAgIAo+
-PiAgIHN0YXRpYyBzdHJ1Y3QgdHN0X3Rlc3QgdGVzdCA9IHsKPj4gLQkubWluX2t2ZXIgPSAiNS4z
-IiwKPj4gICAJLnRlc3RfYWxsID0gcnVuLAo+PiAgIH07Cj4+IGRpZmYgLS1naXQgYS90ZXN0Y2Fz
-ZXMva2VybmVsL3N5c2NhbGxzL3BpZGZkX29wZW4vcGlkZmRfb3BlbjAyLmMgYi90ZXN0Y2FzZXMv
-a2VybmVsL3N5c2NhbGxzL3BpZGZkX29wZW4vcGlkZmRfb3BlbjAyLmMKPj4gaW5kZXggZGM4NmNh
-ZTdhLi5hNzMyOGRkZmUgMTAwNjQ0Cj4+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMv
-cGlkZmRfb3Blbi9waWRmZF9vcGVuMDIuYwo+PiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2Nh
-bGxzL3BpZGZkX29wZW4vcGlkZmRfb3BlbjAyLmMKPj4gQEAgLTUxLDcgKzUxLDYgQEAgc3RhdGlj
-IHZvaWQgcnVuKHVuc2lnbmVkIGludCBuKQo+PiAgIH0KPj4gICAKPj4gICBzdGF0aWMgc3RydWN0
-IHRzdF90ZXN0IHRlc3QgPSB7Cj4+IC0JLm1pbl9rdmVyID0gIjUuMyIsCj4+ICAgCS50Y250ID0g
-QVJSQVlfU0laRSh0Y2FzZXMpLAo+PiAgIAkudGVzdCA9IHJ1biwKPj4gICAJLnNldHVwID0gc2V0
-dXAsCj4+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3BpZGZkX29wZW4v
-cGlkZmRfb3BlbjAzLmMgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3BpZGZkX29wZW4vcGlk
-ZmRfb3BlbjAzLmMKPj4gaW5kZXggNDg0NzBlNWUxLi4yZmMzYjNhNWYgMTAwNjQ0Cj4+IC0tLSBh
-L3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcGlkZmRfb3Blbi9waWRmZF9vcGVuMDMuYwo+PiAr
-KysgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3BpZGZkX29wZW4vcGlkZmRfb3BlbjAzLmMK
-Pj4gQEAgLTI3LDExICsyNyw5IEBAIHN0YXRpYyB2b2lkIHJ1bih2b2lkKQo+PiAgIAkJZXhpdChF
-WElUX1NVQ0NFU1MpOwo+PiAgIAl9Cj4+ICAgCj4+IC0JVEVTVChwaWRmZF9vcGVuKHBpZCwgMCkp
-Owo+PiAtCj4+IC0JZmQgPSBUU1RfUkVUOwo+PiArCWZkID0gcGlkZmRfb3BlbihwaWQsIDApOwo+
-PiAgIAlpZiAoZmQgPT0gLTEpCj4+IC0JCXRzdF9icmsoVEZBSUwgfCBUVEVSUk5PLCAicGlkZmRf
-b3BlbigpIGZhaWxlZCIpOwo+PiArCQl0c3RfYnJrKFRGQUlMIHwgVEVSUk5PLCAicGlkZmRfb3Bl
-bigpIGZhaWxlZCIpOwo+IFVucmVsYXRlZCBjaGFuZ2UsIHBsZWFzZSBkcm9wIGl0LgoKSGkgVmly
-ZXNoLAoKWWVzLCBJdCBpcyB1bnJlbGF0ZWQgY2hhbmdlIGFuZCBqdXN0IGEgc21hbGwgY2xlYW51
-cC4KCk15IGNvbW1pdCBtZXNzYWdlIGhhcyBtZW50aW9uZWQgaXQgYW5kIEkgZG9uJ3Qgd2FudCB0
-byBkbyB0aGUgY2xlYW51cCBpbiAKc2VwZXJhdGUgcGF0Y2guCgo+Cj4+ICAgCj4+ICAgCVRTVF9D
-SEVDS1BPSU5UX1dBS0UoMCk7Cj4+ICAgCj4+IEBAIC00OSw4ICs0NywxNCBAQCBzdGF0aWMgdm9p
-ZCBydW4odm9pZCkKPj4gICAJCXRzdF9yZXMoVFBBU1MsICJwaWRmZF9vcGVuKCkgcGFzc2VkIik7
-Cj4+ICAgfQo+PiAgIAo+PiArc3RhdGljIHZvaWQgc2V0dXAodm9pZCkKPj4gK3sKPj4gKwkvLyBD
-aGVjayBpZiBwaWRmZF9vcGVuKDIpIGlzIG5vdCBzdXBwb3J0ZWQKPj4gKwl0c3Rfc3lzY2FsbChf
-X05SX3BpZGZkX29wZW4sIC0xLCAwKTsKPj4gK30KPj4gKwo+PiAgIHN0YXRpYyBzdHJ1Y3QgdHN0
-X3Rlc3QgdGVzdCA9IHsKPj4gLQkubWluX2t2ZXIgPSAiNS4zIiwKPj4gKwkuc2V0dXAgPSBzZXR1
-cCwKPj4gICAJLnRlc3RfYWxsID0gcnVuLAo+PiAgIAkuZm9ya3NfY2hpbGQgPSAxLAo+PiAgIAku
-bmVlZHNfY2hlY2twb2ludHMgPSAxLAo+IFBsZWFzZSBoYXZlIGEgbG9vayBhdCBmc29wZW5fc3Vw
-cG9ydGVkX2J5X2tlcm5lbCgpIGluIGxhcGkvZnNtb3VudC5oCj4gYW5kIG1ha2Ugc3VjaCBhIGhl
-bHBlci4KCkZpcnN0LCBJIHdhbnQgdG8gZXhwbGFpbiBteSBjaGVjayBwb2ludDoKClBhc3Npbmcg
-aW52YWxpZCBhcmd1bWVudCBjYW4gY2hlY2sgdGhlIHN1cHBvcnQgb2YgcGlkZmRfb3BlbigyKSBi
-eSAKRU5PU1lTIGVycm5vIGFuZCB3ZSBkb24ndCBuZWVkIHRvIGNsb3NlIHRoZSBwaWRmZC4KClNl
-Y29uZCwgSSBkb24ndCBsaWtlIHRoZSBpbXBsZW1lbnRhdGlvbiBvZiBmc29wZW5fc3VwcG9ydGVk
-X2J5X2tlcm5lbCgpIAphbmQgZ2l2ZSBzb21lIHN1Z2dlc3Rpb25zOgoKYSkgc3lzY2FsbCgpL3Rz
-dF9zeXNjYWxsKCkgaXMgZW5vdWdoIHRvIGNoZWNrIHRoZSBzdXBwb3J0IG9mIApwaWRmZF9vcGVu
-KDIpIGFuZCAndHN0X2t2ZXJjbXAoNSwgMiwgMCkpIDwgMCcgd2lsbCBza2lwIHRoZSBjaGVjawoK
-IMKgwqDCoCBpZiBhIGtlcm5lbCBvbiBkaXN0cmlidXRpb24gaXMgbmV3ZXIgdGhhbiB2NS4yIGJ1
-dCBkcm9wIHRoZSBzdXBwb3J0IApvZiBwaWRmZF9vcGVuKDIpIG9uIHB1cnBvc2UuCgpiKSB0c3Rf
-c3lzY2FsbCgpIGhhcyBjaGVja2VkIEVOT1NZUyBlcnJvciBzbyB3ZSBjYW4gc2ltcGxlIApmc29w
-ZW5fc3VwcG9ydGVkX2J5X2tlcm5lbCgpIGJ5IHJlcGxhY2luZyBzeXNjYWxsKCkgd2l0aCB0c3Rf
-c3lzY2FsbHMoKS4KCkxpa2UgdGhlIGZvbGxvd2luZyBpbXBsZW1lbnRhdGlvbjoKCi0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCnZvaWQgZnNv
-cGVuX3N1cHBvcnRlZF9ieV9rZXJuZWwodm9pZCkKewogwqDCoMKgIC8qIENoZWNrIGlmIHRoZSBz
-eXNjYWxsIGlzIHN1cHBvcnRlZCBvbiBhIGtlcm5lbCAqLwogwqDCoMKgIFRFU1QodHN0X3N5c2Nh
-bGwoX19OUl9mc29wZW4sIE5VTEwsIDApKTsKIMKgwqDCoCBpZiAoVFNUX1JFVCAhPSAtMSkKIMKg
-wqDCoCDCoMKgwqAgU0FGRV9DTE9TRShUU1RfUkVUKTsKfQoKLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKUGxlYXNlIGNvcnJlY3QgbWUgaWYg
-SSBnaXZlIHNvbWUgd3JvbmcgaW5mby4KClRoYW5rcywKClhpYW8gWWFuZwoKPgoKCi0tIApNYWls
-aW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+On Mon 04-05-20 11:51:27, Amir Goldstein wrote:
+> On Mon, May 4, 2020 at 11:07 AM Jan Kara <jack@suse.cz> wrote:
+> >
+> > On Sat 02-05-20 19:27:42, Amir Goldstein wrote:
+> > > Test reporting events with fid also with recusrive inode marks:
+> > > - Test events "on self" (FAN_DELETE_SELF) on file and dir
+> > > - Test events "on child" (FAN_MODIFY) on file
+> > >
+> > > With recursive inode marks, verify that the FAN_MODIFY event reported
+> > > to parent "on child" is merged with the FAN_MODIFY event reported to
+> > > child.
+> > >
+> > > The new test case is a regression test for commit f367a62a7cad:
+> > >
+> > >     fanotify: merge duplicate events on parent and child
+> >
+> > The test looks OK but do we want a test for this? I mean: A test like this
+> > seems to imply we promise to merge identical events. Although that is a
+> > good general guideline, I consider it rather an optimization that may or
+> > may not happen but userspace should not rely on it. Thoughts?
+> 
+> The thing is, those are not really two identical events.
+> This is in fact the same event (fsnotify_change() hook was called once).
+> The fact that listener process may have an inode watch, parent directory
+> watch and a filesystem watch should not affect the number of read events.
+
+Yeah, I agree that in this case we should be merging the event if sanely
+possible (which is why I've merged that patch).
+
+> Now it's true that internally, fsnotify_dentry() emits two event flavors to
+> parent and to victim. For inotify it even made some sense, because listener
+> would read two different event flavors with two different formats.
+> With fanotify (either reporting fd or fid) receiving two events makes very
+> little sense.
+> 
+> I agree that the fix (merging those events) is best effort and we cannot
+> commit to merging the events, but this isolated regression test does
+> check the best effort fix reliably and this is the reason I think it
+> should stay.
+
+OK, I'm not too concerned about this test. But still the functionality is
+more in the area of "nice to have" than "must have" so in future we may
+break this if the implementation would get too hairy. But I guess we can
+remove the test in that case.
+
+> Upcoming FAN_REPORT_NAME is about to change the picture a bit
+> towards the inotify behavior - victim watch gets event without name,
+> parent watch gets event with name, filesystem watch gets both event
+> flavors... that is, if you will agree to this behavior, but we shall continue
+> this discussion on the fanotiify_name patches....
+
+Yes.
+
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
