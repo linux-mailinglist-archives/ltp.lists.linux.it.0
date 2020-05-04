@@ -1,42 +1,58 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D6901C396F
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 May 2020 14:34:00 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 13C051C39D4
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 May 2020 14:49:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DC5673C5868
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 May 2020 14:33:59 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 287C53C586C
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 May 2020 14:49:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 5B3D13C269F
- for <ltp@lists.linux.it>; Mon,  4 May 2020 14:33:56 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id BB3953C26A6
+ for <ltp@lists.linux.it>; Mon,  4 May 2020 14:49:16 +0200 (CEST)
+Received: from m12-15.163.com (m12-15.163.com [220.181.12.15])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BFBEE14001E3
- for <ltp@lists.linux.it>; Mon,  4 May 2020 14:33:55 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id DF2DDABD0;
- Mon,  4 May 2020 12:33:56 +0000 (UTC)
-Date: Mon, 4 May 2020 14:33:53 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Amir Goldstein <amir73il@gmail.com>
-Message-ID: <20200504123353.GA14280@dell5510>
-References: <20200502162744.9589-1-amir73il@gmail.com>
- <20200502162744.9589-5-amir73il@gmail.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DDD89600953
+ for <ltp@lists.linux.it>; Mon,  4 May 2020 14:49:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=bmhhu
+ q6phxvdZ5VADUrqQX/k46USIwjbGb501y1yAag=; b=odYvfirusZbMTrhF0POHO
+ 2HQ1H3KkasF3Fu9H3y2krn8Y7vbj+ncwmkyPP62HjQOvR6MPcfDGxxc9vOEitpvD
+ a783nMD4CPnQ6t5d0fAeyir73aGfJQ52Nb6J8rUqZkJk7lBdI08EYF++Y1pLOVz2
+ /K8xv9ZTu9Tb8Tq2U5zezk=
+Received: from [192.168.0.10] (unknown [223.64.162.136])
+ by smtp11 (Coremail) with SMTP id D8CowABXZ8dED7BeKBgaBQ--.21S2;
+ Mon, 04 May 2020 20:49:08 +0800 (CST)
+To: Viresh Kumar <viresh.kumar@linaro.org>
+References: <20200430085742.1663-1-yangx.jy@cn.fujitsu.com>
+ <20200430085742.1663-2-yangx.jy@cn.fujitsu.com>
+ <20200504051107.edvfiqloegt3ak5o@vireshk-i7>
+From: Xiao Yang <ice_yangxiao@163.com>
+Message-ID: <b74eac89-11fc-9a7c-c337-ffe6f19ec7b8@163.com>
+Date: Mon, 4 May 2020 20:49:07 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200502162744.9589-5-amir73il@gmail.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+In-Reply-To: <20200504051107.edvfiqloegt3ak5o@vireshk-i7>
+Content-Language: en-US
+X-CM-TRANSID: D8CowABXZ8dED7BeKBgaBQ--.21S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCF1kZF4rZFWrKF4UJFyfXrb_yoWrWw15pr
+ 4fJw4xArykJFZ7JwsxuF1qy348tw1jyry5Xrn8trWrZrnxZr9aqrs0ga4rCrWYqrWrKFyS
+ q3y8Xry3G345uFUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jyYLkUUUUU=
+X-Originating-IP: [223.64.162.136]
+X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/1tbiqAQaXlc7O8PCowAAsd
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 4/4] syscalls/fanotify: Use fanotify_save_fid()
- helper
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] syscalls/pidfd_open*.c: Drop .min_kver flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,41 +64,82 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Matthew Bobrowski <mbobrowski@mbobrowski.org>, Jan Kara <jack@suse.cz>,
- ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: ltp@lists.linux.it
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Amir,
-
-> Reduce some boiler plate code in FAN_REPORT_FID tests and
-> save fid only once per object instead of once per expected event.
-
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-+1
-
->  static int setup_marks(unsigned int fd, struct test_case_t *tc)
-> @@ -130,8 +125,8 @@ static int setup_marks(unsigned int fd, struct test_case_t *tc)
->  					"kernel");
->  				return 1;
->  			} else if (errno == ENODEV &&
-> -					!event_set[i].fsid.val[0] &&
-> -					!event_set[i].fsid.val[1]) {
-> +				   !FSID_VAL_MEMBER(objects[i].fid.fsid, 0) &&
-> +				   !FSID_VAL_MEMBER(objects[i].fid.fsid, 1)) {
-
-For the same reasons as the previous commits this diff is needed:
--				   !FSID_VAL_MEMBER(objects[i].fid.fsid, 0) &&
--				   !FSID_VAL_MEMBER(objects[i].fid.fsid, 1)) {
-+				   !objects[i].fid.fsid.val[0] &&
-+				   !objects[i].fid.fsid.val[1]) {
-
-
-Kind regards,
-Petr
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gNS80LzIwIDE6MTEgUE0sIFZpcmVzaCBLdW1hciB3cm90ZToKPiBPbiAzMC0wNC0yMCwgMTY6
+NTcsIFhpYW8gWWFuZyB3cm90ZToKPj4gMSkgRHJvcCAubWluX2t2ZXIgZmxhZyBkaXJlY3RseSBi
+ZWNhdXNlIG9mIHR3byBmb2xsb3dpbmcgcmVhc29uczoKPj4gICAgIGEpIHBpZGZkX29wZW4oMikg
+bWF5IGJlIGJhY2twb3J0ZWQgdG8gb2xkIGtlcm5lbCB3aGljaCBpcyBsZXNzCj4+ICAgICAgICB0
+aGFuIHY1LjMgc28ga2VybmVsIHZlcnNpb24gY2hlY2sgaXMgbWVhbmluZ2xlc3MuCj4+ICAgICBi
+KSB0c3Rfc3lzY2FsbCgpIGNhbiByZXBvcnQgVENPTkYgaWYgcGlkZmRfb3BlbigyKSBpcyBub3Qg
+c3VwcG9ydGVkLgo+PiAyKSBGb3IgcGlkZmRfb3BlbjAzLmMsIGNoZWNrIGlmIHBpZGZkX29wZW4o
+MikgaXMgbm90IHN1cHBvcnRlZCBiZWZvcmUKPj4gICAgIGNhbGxpbmcgZm9yaygpIGFuZCByZW1v
+dmUgdW5uZWNlc3NhcnkgVEVTVCgpLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBYaWFvIFlhbmcgPHlh
+bmd4Lmp5QGNuLmZ1aml0c3UuY29tPgo+PiAtLS0KPj4gICAuLi4va2VybmVsL3N5c2NhbGxzL3Bp
+ZGZkX29wZW4vcGlkZmRfb3BlbjAxLmMgICAgICB8ICAxIC0KPj4gICAuLi4va2VybmVsL3N5c2Nh
+bGxzL3BpZGZkX29wZW4vcGlkZmRfb3BlbjAyLmMgICAgICB8ICAxIC0KPj4gICAuLi4va2VybmVs
+L3N5c2NhbGxzL3BpZGZkX29wZW4vcGlkZmRfb3BlbjAzLmMgICAgICB8IDE0ICsrKysrKysrKy0t
+LS0tCj4+ICAgMyBmaWxlcyBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0p
+Cj4+Cj4+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3BpZGZkX29wZW4v
+cGlkZmRfb3BlbjAxLmMgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3BpZGZkX29wZW4vcGlk
+ZmRfb3BlbjAxLmMKPj4gaW5kZXggMjkzZTkzYjYzLi45ODNkY2RjY2IgMTAwNjQ0Cj4+IC0tLSBh
+L3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcGlkZmRfb3Blbi9waWRmZF9vcGVuMDEuYwo+PiAr
+KysgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3BpZGZkX29wZW4vcGlkZmRfb3BlbjAxLmMK
+Pj4gQEAgLTMyLDYgKzMyLDUgQEAgc3RhdGljIHZvaWQgcnVuKHZvaWQpCj4+ICAgfQo+PiAgIAo+
+PiAgIHN0YXRpYyBzdHJ1Y3QgdHN0X3Rlc3QgdGVzdCA9IHsKPj4gLQkubWluX2t2ZXIgPSAiNS4z
+IiwKPj4gICAJLnRlc3RfYWxsID0gcnVuLAo+PiAgIH07Cj4+IGRpZmYgLS1naXQgYS90ZXN0Y2Fz
+ZXMva2VybmVsL3N5c2NhbGxzL3BpZGZkX29wZW4vcGlkZmRfb3BlbjAyLmMgYi90ZXN0Y2FzZXMv
+a2VybmVsL3N5c2NhbGxzL3BpZGZkX29wZW4vcGlkZmRfb3BlbjAyLmMKPj4gaW5kZXggZGM4NmNh
+ZTdhLi5hNzMyOGRkZmUgMTAwNjQ0Cj4+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMv
+cGlkZmRfb3Blbi9waWRmZF9vcGVuMDIuYwo+PiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2Nh
+bGxzL3BpZGZkX29wZW4vcGlkZmRfb3BlbjAyLmMKPj4gQEAgLTUxLDcgKzUxLDYgQEAgc3RhdGlj
+IHZvaWQgcnVuKHVuc2lnbmVkIGludCBuKQo+PiAgIH0KPj4gICAKPj4gICBzdGF0aWMgc3RydWN0
+IHRzdF90ZXN0IHRlc3QgPSB7Cj4+IC0JLm1pbl9rdmVyID0gIjUuMyIsCj4+ICAgCS50Y250ID0g
+QVJSQVlfU0laRSh0Y2FzZXMpLAo+PiAgIAkudGVzdCA9IHJ1biwKPj4gICAJLnNldHVwID0gc2V0
+dXAsCj4+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3BpZGZkX29wZW4v
+cGlkZmRfb3BlbjAzLmMgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3BpZGZkX29wZW4vcGlk
+ZmRfb3BlbjAzLmMKPj4gaW5kZXggNDg0NzBlNWUxLi4yZmMzYjNhNWYgMTAwNjQ0Cj4+IC0tLSBh
+L3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcGlkZmRfb3Blbi9waWRmZF9vcGVuMDMuYwo+PiAr
+KysgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3BpZGZkX29wZW4vcGlkZmRfb3BlbjAzLmMK
+Pj4gQEAgLTI3LDExICsyNyw5IEBAIHN0YXRpYyB2b2lkIHJ1bih2b2lkKQo+PiAgIAkJZXhpdChF
+WElUX1NVQ0NFU1MpOwo+PiAgIAl9Cj4+ICAgCj4+IC0JVEVTVChwaWRmZF9vcGVuKHBpZCwgMCkp
+Owo+PiAtCj4+IC0JZmQgPSBUU1RfUkVUOwo+PiArCWZkID0gcGlkZmRfb3BlbihwaWQsIDApOwo+
+PiAgIAlpZiAoZmQgPT0gLTEpCj4+IC0JCXRzdF9icmsoVEZBSUwgfCBUVEVSUk5PLCAicGlkZmRf
+b3BlbigpIGZhaWxlZCIpOwo+PiArCQl0c3RfYnJrKFRGQUlMIHwgVEVSUk5PLCAicGlkZmRfb3Bl
+bigpIGZhaWxlZCIpOwo+IFVucmVsYXRlZCBjaGFuZ2UsIHBsZWFzZSBkcm9wIGl0LgoKSGkgVmly
+ZXNoLAoKWWVzLCBJdCBpcyB1bnJlbGF0ZWQgY2hhbmdlIGFuZCBqdXN0IGEgc21hbGwgY2xlYW51
+cC4KCk15IGNvbW1pdCBtZXNzYWdlIGhhcyBtZW50aW9uZWQgaXQgYW5kIEkgZG9uJ3Qgd2FudCB0
+byBkbyB0aGUgY2xlYW51cCBpbiAKc2VwZXJhdGUgcGF0Y2guCgo+Cj4+ICAgCj4+ICAgCVRTVF9D
+SEVDS1BPSU5UX1dBS0UoMCk7Cj4+ICAgCj4+IEBAIC00OSw4ICs0NywxNCBAQCBzdGF0aWMgdm9p
+ZCBydW4odm9pZCkKPj4gICAJCXRzdF9yZXMoVFBBU1MsICJwaWRmZF9vcGVuKCkgcGFzc2VkIik7
+Cj4+ICAgfQo+PiAgIAo+PiArc3RhdGljIHZvaWQgc2V0dXAodm9pZCkKPj4gK3sKPj4gKwkvLyBD
+aGVjayBpZiBwaWRmZF9vcGVuKDIpIGlzIG5vdCBzdXBwb3J0ZWQKPj4gKwl0c3Rfc3lzY2FsbChf
+X05SX3BpZGZkX29wZW4sIC0xLCAwKTsKPj4gK30KPj4gKwo+PiAgIHN0YXRpYyBzdHJ1Y3QgdHN0
+X3Rlc3QgdGVzdCA9IHsKPj4gLQkubWluX2t2ZXIgPSAiNS4zIiwKPj4gKwkuc2V0dXAgPSBzZXR1
+cCwKPj4gICAJLnRlc3RfYWxsID0gcnVuLAo+PiAgIAkuZm9ya3NfY2hpbGQgPSAxLAo+PiAgIAku
+bmVlZHNfY2hlY2twb2ludHMgPSAxLAo+IFBsZWFzZSBoYXZlIGEgbG9vayBhdCBmc29wZW5fc3Vw
+cG9ydGVkX2J5X2tlcm5lbCgpIGluIGxhcGkvZnNtb3VudC5oCj4gYW5kIG1ha2Ugc3VjaCBhIGhl
+bHBlci4KCkZpcnN0LCBJIHdhbnQgdG8gZXhwbGFpbiBteSBjaGVjayBwb2ludDoKClBhc3Npbmcg
+aW52YWxpZCBhcmd1bWVudCBjYW4gY2hlY2sgdGhlIHN1cHBvcnQgb2YgcGlkZmRfb3BlbigyKSBi
+eSAKRU5PU1lTIGVycm5vIGFuZCB3ZSBkb24ndCBuZWVkIHRvIGNsb3NlIHRoZSBwaWRmZC4KClNl
+Y29uZCwgSSBkb24ndCBsaWtlIHRoZSBpbXBsZW1lbnRhdGlvbiBvZiBmc29wZW5fc3VwcG9ydGVk
+X2J5X2tlcm5lbCgpIAphbmQgZ2l2ZSBzb21lIHN1Z2dlc3Rpb25zOgoKYSkgc3lzY2FsbCgpL3Rz
+dF9zeXNjYWxsKCkgaXMgZW5vdWdoIHRvIGNoZWNrIHRoZSBzdXBwb3J0IG9mIApwaWRmZF9vcGVu
+KDIpIGFuZCAndHN0X2t2ZXJjbXAoNSwgMiwgMCkpIDwgMCcgd2lsbCBza2lwIHRoZSBjaGVjawoK
+IMKgwqDCoCBpZiBhIGtlcm5lbCBvbiBkaXN0cmlidXRpb24gaXMgbmV3ZXIgdGhhbiB2NS4yIGJ1
+dCBkcm9wIHRoZSBzdXBwb3J0IApvZiBwaWRmZF9vcGVuKDIpIG9uIHB1cnBvc2UuCgpiKSB0c3Rf
+c3lzY2FsbCgpIGhhcyBjaGVja2VkIEVOT1NZUyBlcnJvciBzbyB3ZSBjYW4gc2ltcGxlIApmc29w
+ZW5fc3VwcG9ydGVkX2J5X2tlcm5lbCgpIGJ5IHJlcGxhY2luZyBzeXNjYWxsKCkgd2l0aCB0c3Rf
+c3lzY2FsbHMoKS4KCkxpa2UgdGhlIGZvbGxvd2luZyBpbXBsZW1lbnRhdGlvbjoKCi0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCnZvaWQgZnNv
+cGVuX3N1cHBvcnRlZF9ieV9rZXJuZWwodm9pZCkKewogwqDCoMKgIC8qIENoZWNrIGlmIHRoZSBz
+eXNjYWxsIGlzIHN1cHBvcnRlZCBvbiBhIGtlcm5lbCAqLwogwqDCoMKgIFRFU1QodHN0X3N5c2Nh
+bGwoX19OUl9mc29wZW4sIE5VTEwsIDApKTsKIMKgwqDCoCBpZiAoVFNUX1JFVCAhPSAtMSkKIMKg
+wqDCoCDCoMKgwqAgU0FGRV9DTE9TRShUU1RfUkVUKTsKfQoKLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKUGxlYXNlIGNvcnJlY3QgbWUgaWYg
+SSBnaXZlIHNvbWUgd3JvbmcgaW5mby4KClRoYW5rcywKClhpYW8gWWFuZwoKPgoKCi0tIApNYWls
+aW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
