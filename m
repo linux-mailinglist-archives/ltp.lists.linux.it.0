@@ -2,39 +2,38 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 562C71C3D40
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 May 2020 16:38:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 796F71C3D6E
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 May 2020 16:45:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A587C3C5868
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 May 2020 16:38:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 898653C5864
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 May 2020 16:44:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 331273C268F
- for <ltp@lists.linux.it>; Mon,  4 May 2020 16:38:04 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 232813C280A
+ for <ltp@lists.linux.it>; Mon,  4 May 2020 16:44:51 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 940F4200C92
- for <ltp@lists.linux.it>; Mon,  4 May 2020 16:38:03 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 1CC681400552
+ for <ltp@lists.linux.it>; Mon,  4 May 2020 16:44:50 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id C81AAAA7C
- for <ltp@lists.linux.it>; Mon,  4 May 2020 14:38:04 +0000 (UTC)
-Date: Mon, 4 May 2020 16:38:21 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 308E1ABCC;
+ Mon,  4 May 2020 14:44:52 +0000 (UTC)
+Date: Mon, 4 May 2020 16:45:11 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20200504143821.GA5929@yuki.lan>
-References: <20200427145014.3530-1-mdoucha@suse.cz>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Message-ID: <20200504144511.GA11423@yuki.lan>
+References: <d39e442b4c0e60880f1da3f69125afa01418f8c1.1588061382.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200427145014.3530-1-mdoucha@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+In-Reply-To: <d39e442b4c0e60880f1da3f69125afa01418f8c1.1588061382.git.viresh.kumar@linaro.org>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] connect02: Handle setsockopt(IP_ADDRFORM) kernel
- bug
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V2] common_timers: staticize all definitions
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,7 +45,8 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
+ ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
