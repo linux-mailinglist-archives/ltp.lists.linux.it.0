@@ -1,56 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 141481C3480
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 May 2020 10:30:44 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 35DF61C34F0
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 May 2020 10:51:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B45D23C269B
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 May 2020 10:30:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 010713C269B
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 May 2020 10:51:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 647CD3C2680
- for <ltp@lists.linux.it>; Mon,  4 May 2020 10:30:41 +0200 (CEST)
-Received: from m13-49.163.com (m13-49.163.com [220.181.13.49])
- (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTP id D53C03C267C
+ for <ltp@lists.linux.it>; Mon,  4 May 2020 10:51:39 +0200 (CEST)
+Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
+ [IPv6:2607:f8b0:4864:20::d43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4DF52600566
- for <ltp@lists.linux.it>; Mon,  4 May 2020 10:30:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=rUVyY
- jIf7kayLm8vjYgAsvK+ttAoZcR0aq5TSOa+O8M=; b=CPr03ZwDX8BHdjq2sKBAh
- rYcDKJuRVHtIcd7ahlgfLptl58bh5lVzZwJRgEb/Z+JqdNWLdEC9F8StG1LkFtji
- YxLjxZVZe+Cx2JVu+79H17DSjklRHi1P1Gs7l3tBAhp12fw9GNsmzOzCql4FclBe
- 1ztUMtC+OYQfCNhta8b2Uo=
-Received: from ice_yangxiao$163.com ( [183.210.47.25] ) by
- ajax-webmail-wmsvr49 (Coremail) ; Mon, 4 May 2020 16:30:08 +0800 (CST)
-X-Originating-IP: [183.210.47.25]
-Date: Mon, 4 May 2020 16:30:08 +0800 (CST)
-From: =?gbk?B?0e7P/g==?= <ice_yangxiao@163.com>
-To: "Viresh Kumar" <viresh.kumar@linaro.org>
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version XT5.0.10 build 20190724(ac680a23)
- Copyright (c) 2002-2020 www.mailtech.cn 163com
-In-Reply-To: <20200504050937.oassdcfg4x5zh4nm@vireshk-i7>
-References: <20200430085742.1663-1-yangx.jy@cn.fujitsu.com>
- <20200504050937.oassdcfg4x5zh4nm@vireshk-i7>
-X-CM-CTRLDATA: YRBITmZvb3Rlcl9odG09NTgwMjo1Ng==
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id DEC74600793
+ for <ltp@lists.linux.it>; Mon,  4 May 2020 10:51:27 +0200 (CEST)
+Received: by mail-io1-xd43.google.com with SMTP id 19so11410374ioz.10
+ for <ltp@lists.linux.it>; Mon, 04 May 2020 01:51:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=KhNEVSHcF1nyYIe7lu32/aZEQyNJbvCmafyYq2iPNi4=;
+ b=KgYjcEuqcBC9XAYGtM7dQso2CNffGdyfcyAsnaNxAcXYESfUc1+rdM5AJd/9RnviiQ
+ ajJgatqEBWTrM4XT2WrgioJmMLeVaOZLK5aNAaSj+wQv2Anb9AO61eXR04S7e5WU9oc4
+ NF4RhmabEqQH8zKKA75pwxhvBy7yRFcwmGeUSGAJotiH3iqTeGwJMuC1b0WkxJEakiDx
+ hOV62xXdb1wyZbpJeq2+zKjhso4yGPSPKS0Rdw923pjZvYLRE6f5IyNjBxtW2vWyHA2l
+ FBav3CqkQwMHf+lHYkOuOhZtYjy5z6Q6CXa2cbVXBUtA0zFNiH5nfskPktXrOqIPGk8z
+ KtIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=KhNEVSHcF1nyYIe7lu32/aZEQyNJbvCmafyYq2iPNi4=;
+ b=VJWm0W7KuYzO7NgSYALncNNCp4guQbxv0jPlmVv0AvOIJu57PQP0tUqUSkV2QCQ5/m
+ fgQO3Tb/mILxVZjH55mvu9wNK775SpVM41gaoiJmC0qsTp2SpJ59zTGXut+D+Cu+3kwP
+ Bi5Vt+FaH5L+dUYdQp54Dped3VGoJDWu9Vb0Fq+ch8c6aZgW/l1YMK04HzsZNO/85wjR
+ owT/4ulguMltBEGiMGhSfRK2i9WujvIudd6/zlq3yLPyb+K2YCNwOxDy8QxUeFDC7zDP
+ rFCJ1MpgFV2TgYOMIftnXfP6zB4q1gp+HzvCWcePPj2AIXiESv21DCht9Rb3uY+EGs4L
+ 05/Q==
+X-Gm-Message-State: AGi0PubCZBpAZXJz/sux/idVsMa9fgJ7i+509Gs3L4UR6tJqrwQn1pvO
+ v8xZAePfQEZtXQWQaMNHXGGmcOs41M9onYgFjJ0=
+X-Google-Smtp-Source: APiQypKeL+lVcBDgRYrfV9I6BjaREnUcfjvz7UG7Zj4SDcfkseu0ahiamcC5qKE11XqXQWsK8TE0ULBBw0t9Du3PQmM=
+X-Received: by 2002:a6b:7317:: with SMTP id e23mr14470945ioh.72.1588582298025; 
+ Mon, 04 May 2020 01:51:38 -0700 (PDT)
 MIME-Version: 1.0
-Message-ID: <43140aa8.315c.171dece8540.Coremail.ice_yangxiao@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: McGowAD3g4qR0q9eKw8TAA--.701W
-X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/1tbiMxsaXlXl3YUf+QABsj
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+References: <20200502162744.9589-1-amir73il@gmail.com>
+ <20200502162744.9589-3-amir73il@gmail.com>
+ <20200504080715.GA1741@quack2.suse.cz>
+In-Reply-To: <20200504080715.GA1741@quack2.suse.cz>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Mon, 4 May 2020 11:51:27 +0300
+Message-ID: <CAOQ4uxgJQ2MGdnib9gvc=PcoWxveUpyqDZ1YybT-Hxrhba9ApQ@mail.gmail.com>
+To: Jan Kara <jack@suse.cz>
 X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
- T_KAM_HTML_FONT_INVALID autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] syscalls/pidfd_open01.c: Add check for
- close-on-exec flag
+Subject: Re: [LTP] [PATCH v2 2/4] syscalls/fanotify15: Add a test case for
+ inode marks
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,194 +74,57 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: multipart/mixed; boundary="===============1829985856=="
+Cc: Matthew Bobrowski <mbobrowski@mbobrowski.org>,
+ LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1829985856==
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_42469_1512251006.1588581008704"
+On Mon, May 4, 2020 at 11:07 AM Jan Kara <jack@suse.cz> wrote:
+>
+> On Sat 02-05-20 19:27:42, Amir Goldstein wrote:
+> > Test reporting events with fid also with recusrive inode marks:
+> > - Test events "on self" (FAN_DELETE_SELF) on file and dir
+> > - Test events "on child" (FAN_MODIFY) on file
+> >
+> > With recursive inode marks, verify that the FAN_MODIFY event reported
+> > to parent "on child" is merged with the FAN_MODIFY event reported to
+> > child.
+> >
+> > The new test case is a regression test for commit f367a62a7cad:
+> >
+> >     fanotify: merge duplicate events on parent and child
+>
+> The test looks OK but do we want a test for this? I mean: A test like this
+> seems to imply we promise to merge identical events. Although that is a
+> good general guideline, I consider it rather an optimization that may or
+> may not happen but userspace should not rely on it. Thoughts?
 
-------=_Part_42469_1512251006.1588581008704
-Content-Type: text/plain; charset=gbk
-Content-Transfer-Encoding: base64
+The thing is, those are not really two identical events.
+This is in fact the same event (fsnotify_change() hook was called once).
+The fact that listener process may have an inode watch, parent directory
+watch and a filesystem watch should not affect the number of read events.
 
-Ci0tLS0tIE9yaWdpbmFsIE1lc3NhZ2UgLS0tLS0KRnJvbTogIlZpcmVzaCBLdW1hciIgPHZpcmVz
-aC5rdW1hckBsaW5hcm8ub3JnPgpUbzogIlhpYW8gWWFuZyIgPHlhbmd4Lmp5QGNuLmZ1aml0c3Uu
-Y29tPgpDYzogbHRwQGxpc3RzLmxpbnV4Lml0ClNlbnQ6IE1vbiwgNCBNYXkgMjAyMCAxMDozOToz
-NyArMDUzMApTdWJqZWN0OiBSZTogW0xUUF0gW1BBVENIIDEvMl0gc3lzY2FsbHMvcGlkZmRfb3Bl
-bjAxLmM6IEFkZCBjaGVjayBmb3IgY2xvc2Utb24tZXhlYyBmbGFnCgpPbiAzMC0wNC0yMCwgMTY6
-NTcsIFhpYW8gWWFuZyB3cm90ZToKPiBwaWRmZF9vcGVuKDIpIHdpbGwgc2V0IGNsb3NlLW9uLWV4
-ZWMgZmxhZyBvbiB0aGUgZmlsZSBkZXNjcmlwdG9yIGFzIGl0Cj4gbWFucGFnZSBzdGF0ZXMsIHNv
-IGNoZWNrIGNsb3NlLW9uLWV4ZWMgZmxhZyBieSBmY250bCgyKS4KPiAKPiBBbHNvIGF2b2lkIGNv
-bXBpbGVyIHdhcm5pbmcgYnkgcmVwbGFjaW5nIChsb25nKSBUU1RfUkVUIHdpdGggKGludCkgcGlk
-ZmQ6Cj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tCj4gSW4gZmlsZSBpbmNsdWRlZCBmcm9tIHBpZGZkX29wZW4wMS5jOjk6Cj4gcGlkZmRfb3Bl
-bjAxLmM6IEluIGZ1bmN0aW9uIKGucnVuoa86Cj4gLi4vLi4vLi4vLi4vaW5jbHVkZS90c3RfdGVz
-dC5oOjc2OjQxOiB3YXJuaW5nOiBmb3JtYXQgoa4laaGvIGV4cGVjdHMgYXJndW1lbnQgb2YgdHlw
-ZSChrmludKGvLCBidXQgYXJndW1lbnQgNSBoYXMgdHlwZSChrmxvbmcgaW50oa8gWy1XZm9ybWF0
-PV0KPiAgICA3NiB8ICAgdHN0X2Jya18oX19GSUxFX18sIF9fTElORV9fLCAodHR5cGUpLCAoYXJn
-X2ZtdCksICMjX19WQV9BUkdTX18pO1wKPiAgICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBefn5+fn5+fn4KPiAuLi8uLi8uLi8uLi9pbmNsdWRlL3RzdF9zYWZl
-X21hY3Jvcy5oOjIyNDo1OiBub3RlOiBpbiBleHBhbnNpb24gb2YgbWFjcm8goa50c3RfYnJroa8K
-PiAgIDIyNCB8ICAgICB0c3RfYnJrKFRCUk9LIHwgVEVSUk5PLCAgICAgICAgICAgICAgICAgICAg
-ICAgICAgXAo+ICAgICAgIHwgICAgIF5+fn5+fn4KPiBwaWRmZF9vcGVuMDEuYzoyMDo5OiBub3Rl
-OiBpbiBleHBhbnNpb24gb2YgbWFjcm8goa5TQUZFX0ZDTlRMoa8KPiAgICAyMCB8ICBmbGFnID0g
-U0FGRV9GQ05UTChUU1RfUkVULCBGX0dFVEZEKTsKClRoaXMgbG9nIGlzbid0IHVzZWZ1bCBhcyB0
-aGUgd2FybmluZyBzdGFydGVkIGNvbWluZyBhZnRlciB5b3VyIGNoYW5nZQpvbmx5IGFuZCBub3Qg
-YmVmb3JlLgoKCkhpo6wKCgpSaWdodKOsanVzdCBhZGQgYSBoaW50IHdoeSBJIHVzZSBwaWRmZCBp
-bnN0ZWFkIHNvIEkgd2FudCB0byBrZWVwIGl0LiAgT2YgY291cnNlo6xJIHdpbGwgc2F5IHRoYXQg
-YXZvaWQgY29tcGlsZXIgd2FybmluZyBmcm9tIG15IGNoYW5nZSBpbiB2MiBwYXRjaC4KCgpUaGFu
-a3OjrApYaWFvIFlhbmcKCj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tCj4gCj4gU2lnbmVkLW9mZi1ieTogWGlhbyBZYW5nIDx5YW5neC5qeUBj
-bi5mdWppdHN1LmNvbT4KPiAtLS0KPiAgLi4uL2tlcm5lbC9zeXNjYWxscy9waWRmZF9vcGVuL3Bp
-ZGZkX29wZW4wMS5jICB8IDE4ICsrKysrKysrKysrKysrLS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwg
-MTQgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvdGVzdGNh
-c2VzL2tlcm5lbC9zeXNjYWxscy9waWRmZF9vcGVuL3BpZGZkX29wZW4wMS5jIGIvdGVzdGNhc2Vz
-L2tlcm5lbC9zeXNjYWxscy9waWRmZF9vcGVuL3BpZGZkX29wZW4wMS5jCj4gaW5kZXggOTNiYjg2
-Njg3Li4yOTNlOTNiNjMgMTAwNjQ0Cj4gLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9w
-aWRmZF9vcGVuL3BpZGZkX29wZW4wMS5jCj4gKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxs
-cy9waWRmZF9vcGVuL3BpZGZkX29wZW4wMS5jCj4gQEAgLTYsMTcgKzYsMjcgQEAKPiAgICogQmFz
-aWMgcGlkZmRfb3BlbigpIHRlc3QsIGZldGNoZXMgdGhlIFBJRCBvZiB0aGUgY3VycmVudCBwcm9j
-ZXNzIGFuZCB0cmllcyB0bwo+ICAgKiBnZXQgaXRzIGZpbGUgZGVzY3JpcHRvci4KPiAgICovCj4g
-Kwo+ICsjaW5jbHVkZSA8c3lzL3R5cGVzLmg+Cj4gKyNpbmNsdWRlIDx1bmlzdGQuaD4KPiArI2lu
-Y2x1ZGUgPGZjbnRsLmg+Cj4gICNpbmNsdWRlICJ0c3RfdGVzdC5oIgo+ICAjaW5jbHVkZSAibGFw
-aS9waWRmZF9vcGVuLmgiCj4gIAo+ICBzdGF0aWMgdm9pZCBydW4odm9pZCkKPiAgewo+IC0gVEVT
-VChwaWRmZF9vcGVuKGdldHBpZCgpLCAwKSk7Cj4gKyBpbnQgcGlkZmQgPSAwLCBmbGFnID0gMDsK
-Ck5vbmUgb2YgdGhlc2UgbmVlZCB0byBiZSBpbml0aWFsaXplZC4KCj4gKwo+ICsgcGlkZmQgPSBw
-aWRmZF9vcGVuKGdldHBpZCgpLCAwKTsKPiArIGlmIChwaWRmZCA9PSAtMSkKPiArIHRzdF9icmso
-VEZBSUwgfCBURVJSTk8sICJwaWRmZF9vcGVuKGdldHBpZCgpLCAwKSBmYWlsZWQiKTsKClRoaXMg
-Y291bGQgaGF2ZSBiZWVuIHdyaXR0ZW4gYXM6CiAgICAgICAgVEVTVChwaWRmZCA9IHBpZGZkX29w
-ZW4oZ2V0cGlkKCksIDApKTsKCj4gKwo+ICsgZmxhZyA9IFNBRkVfRkNOVEwocGlkZmQsIEZfR0VU
-RkQpOwo+ICAKPiAtIGlmIChUU1RfUkVUID09IC0xKQo+IC0gdHN0X2JyayhURkFJTCB8IFRURVJS
-Tk8sICJwaWRmZF9vcGVuKGdldHBpZCgpLCAwKSBmYWlsZWQiKTsKPiArIFNBRkVfQ0xPU0UocGlk
-ZmQpOwo+ICAKPiAtIFNBRkVfQ0xPU0UoVFNUX1JFVCk7Cj4gKyBpZiAoIShmbGFnICYgRkRfQ0xP
-RVhFQykpCj4gKyB0c3RfYnJrKFRGQUlMLCAicGlkZmRfb3BlbihnZXRwaWQoKSwgMCkgZGlkbid0
-IHNldCBjbG9zZS1vbi1leGVjIGZsYWciKTsKPiAgCj4gICB0c3RfcmVzKFRQQVNTLCAicGlkZmRf
-b3BlbihnZXRwaWQoKSwgMCkgcGFzc2VkIik7Cj4gIH0KPiAtLSAKPiAyLjIxLjAKPiAKPiAKCi0t
-IAp2aXJlc2gKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9s
-aXN0aW5mby9sdHAK
-------=_Part_42469_1512251006.1588581008704
-Content-Type: text/html; charset=gbk
-Content-Transfer-Encoding: base64
+Now it's true that internally, fsnotify_dentry() emits two event flavors to
+parent and to victim. For inotify it even made some sense, because listener
+would read two different event flavors with two different formats.
+With fanotify (either reporting fd or fid) receiving two events makes very
+little sense.
 
-PGJyPi0tLS0tJm5ic3A7T3JpZ2luYWwmbmJzcDtNZXNzYWdlJm5ic3A7LS0tLS0KPGJyPkZyb206
-Jm5ic3A7IlZpcmVzaCZuYnNwO0t1bWFyIiZuYnNwOyZsdDt2aXJlc2gua3VtYXJAbGluYXJvLm9y
-ZyZndDsKPGJyPlRvOiZuYnNwOyJYaWFvJm5ic3A7WWFuZyImbmJzcDsmbHQ7eWFuZ3guanlAY24u
-ZnVqaXRzdS5jb20mZ3Q7Cjxicj5DYzombmJzcDtsdHBAbGlzdHMubGludXguaXQKPGJyPlNlbnQ6
-Jm5ic3A7TW9uLCZuYnNwOzQmbmJzcDtNYXkmbmJzcDsyMDIwJm5ic3A7MTA6Mzk6MzcmbmJzcDsr
-MDUzMAo8YnI+U3ViamVjdDombmJzcDtSZTombmJzcDtbTFRQXSZuYnNwO1tQQVRDSCZuYnNwOzEv
-Ml0mbmJzcDtzeXNjYWxscy9waWRmZF9vcGVuMDEuYzombmJzcDtBZGQmbmJzcDtjaGVjayZuYnNw
-O2ZvciZuYnNwO2Nsb3NlLW9uLWV4ZWMmbmJzcDtmbGFnCjxicj4KPGJyPk9uJm5ic3A7MzAtMDQt
-MjAsJm5ic3A7MTY6NTcsJm5ic3A7WGlhbyZuYnNwO1lhbmcmbmJzcDt3cm90ZTo8YnI+Jmd0OyZu
-YnNwO3BpZGZkX29wZW4oMikmbmJzcDt3aWxsJm5ic3A7c2V0Jm5ic3A7Y2xvc2Utb24tZXhlYyZu
-YnNwO2ZsYWcmbmJzcDtvbiZuYnNwO3RoZSZuYnNwO2ZpbGUmbmJzcDtkZXNjcmlwdG9yJm5ic3A7
-YXMmbmJzcDtpdDxicj4mZ3Q7Jm5ic3A7bWFucGFnZSZuYnNwO3N0YXRlcywmbmJzcDtzbyZuYnNw
-O2NoZWNrJm5ic3A7Y2xvc2Utb24tZXhlYyZuYnNwO2ZsYWcmbmJzcDtieSZuYnNwO2ZjbnRsKDIp
-Ljxicj4mZ3Q7Jm5ic3A7PGJyPiZndDsmbmJzcDtBbHNvJm5ic3A7YXZvaWQmbmJzcDtjb21waWxl
-ciZuYnNwO3dhcm5pbmcmbmJzcDtieSZuYnNwO3JlcGxhY2luZyZuYnNwOyhsb25nKSZuYnNwO1RT
-VF9SRVQmbmJzcDt3aXRoJm5ic3A7KGludCkmbmJzcDtwaWRmZDo8YnI+Jmd0OyZuYnNwOy0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTxicj4mZ3Q7
-Jm5ic3A7SW4mbmJzcDtmaWxlJm5ic3A7aW5jbHVkZWQmbmJzcDtmcm9tJm5ic3A7cGlkZmRfb3Bl
-bjAxLmM6OTo8YnI+Jmd0OyZuYnNwO3BpZGZkX29wZW4wMS5jOiZuYnNwO0luJm5ic3A7ZnVuY3Rp
-b24mbmJzcDuhrnJ1bqGvOjxicj4mZ3Q7Jm5ic3A7Li4vLi4vLi4vLi4vaW5jbHVkZS90c3RfdGVz
-dC5oOjc2OjQxOiZuYnNwO3dhcm5pbmc6Jm5ic3A7Zm9ybWF0Jm5ic3A7oa4laaGvJm5ic3A7ZXhw
-ZWN0cyZuYnNwO2FyZ3VtZW50Jm5ic3A7b2YmbmJzcDt0eXBlJm5ic3A7oa5pbnShrywmbmJzcDti
-dXQmbmJzcDthcmd1bWVudCZuYnNwOzUmbmJzcDtoYXMmbmJzcDt0eXBlJm5ic3A7oa5sb25nJm5i
-c3A7aW50oa8mbmJzcDtbLVdmb3JtYXQ9XTxicj4mZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-NzYmbmJzcDt8Jm5ic3A7Jm5ic3A7Jm5ic3A7dHN0X2Jya18oX19GSUxFX18sJm5ic3A7X19MSU5F
-X18sJm5ic3A7KHR0eXBlKSwmbmJzcDsoYXJnX2ZtdCksJm5ic3A7IyNfX1ZBX0FSR1NfXyk7XDxi
-cj4mZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7fCZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwO15+fn5+fn5+fjxicj4mZ3Q7Jm5ic3A7Li4vLi4vLi4vLi4vaW5jbHVkZS90c3Rf
-c2FmZV9tYWNyb3MuaDoyMjQ6NTombmJzcDtub3RlOiZuYnNwO2luJm5ic3A7ZXhwYW5zaW9uJm5i
-c3A7b2YmbmJzcDttYWNybyZuYnNwO6GudHN0X2Jya6GvPGJyPiZndDsmbmJzcDsmbmJzcDsmbmJz
-cDsyMjQmbmJzcDt8Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7dHN0X2JyayhUQlJPSyZu
-YnNwO3wmbmJzcDtURVJSTk8sJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7XDxicj4mZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7fCZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwO15+fn5+fn48YnI+Jmd0OyZuYnNwO3BpZGZkX29w
-ZW4wMS5jOjIwOjk6Jm5ic3A7bm90ZTombmJzcDtpbiZuYnNwO2V4cGFuc2lvbiZuYnNwO29mJm5i
-c3A7bWFjcm8mbmJzcDuhrlNBRkVfRkNOVEyhrzxicj4mZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7MjAmbmJzcDt8Jm5ic3A7Jm5ic3A7ZmxhZyZuYnNwOz0mbmJzcDtTQUZFX0ZDTlRMKFRTVF9S
-RVQsJm5ic3A7Rl9HRVRGRCk7PGJyPjxicj5UaGlzJm5ic3A7bG9nJm5ic3A7aXNuJ3QmbmJzcDt1
-c2VmdWwmbmJzcDthcyZuYnNwO3RoZSZuYnNwO3dhcm5pbmcmbmJzcDtzdGFydGVkJm5ic3A7Y29t
-aW5nJm5ic3A7YWZ0ZXImbmJzcDt5b3VyJm5ic3A7Y2hhbmdlPGJyPm9ubHkmbmJzcDthbmQmbmJz
-cDtub3QmbmJzcDtiZWZvcmUuPGRpdj48YnI+PC9kaXY+PGRpdj5IaaOsPC9kaXY+PGRpdj48YnI+
-PC9kaXY+PGRpdj5SaWdodKOsanVzdCBhZGQgYSBoaW50IHdoeSBJIHVzZSBwaWRmZCBpbnN0ZWFk
-IHNvIEkgd2FudCB0byBrZWVwIGl0LiAmbmJzcDtPZiBjb3Vyc2WjrEkgd2lsbCA8c3BhbiBzdHls
-ZT0iYmFja2dyb3VuZC1jb2xvcjogdHJhbnNwYXJlbnQ7Ij5zYXkgdGhhdCBhdm9pZCBjb21waWxl
-ciB3YXJuaW5nIGZyb20gbXkgY2hhbmdlIGluIHYyIHBhdGNoLjwvc3Bhbj48L2Rpdj48ZGl2Pjxi
-cj48L2Rpdj48ZGl2PlRoYW5rc6OsPC9kaXY+PGRpdj5YaWFvIFlhbmc8L2Rpdj48ZGl2Pjxicj4m
-Z3Q7Jm5ic3A7LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tPGJyPiZndDsmbmJzcDs8YnI+Jmd0OyZuYnNwO1NpZ25lZC1vZmYtYnk6Jm5ic3A7WGlh
-byZuYnNwO1lhbmcmbmJzcDsmbHQ7eWFuZ3guanlAY24uZnVqaXRzdS5jb20mZ3Q7PGJyPiZndDsm
-bmJzcDstLS08YnI+Jmd0OyZuYnNwOyZuYnNwOy4uLi9rZXJuZWwvc3lzY2FsbHMvcGlkZmRfb3Bl
-bi9waWRmZF9vcGVuMDEuYyZuYnNwOyZuYnNwO3wmbmJzcDsxOCZuYnNwOysrKysrKysrKysrKysr
-LS0tLTxicj4mZ3Q7Jm5ic3A7Jm5ic3A7MSZuYnNwO2ZpbGUmbmJzcDtjaGFuZ2VkLCZuYnNwOzE0
-Jm5ic3A7aW5zZXJ0aW9ucygrKSwmbmJzcDs0Jm5ic3A7ZGVsZXRpb25zKC0pPGJyPiZndDsmbmJz
-cDs8YnI+Jmd0OyZuYnNwO2RpZmYmbmJzcDstLWdpdCZuYnNwO2EvdGVzdGNhc2VzL2tlcm5lbC9z
-eXNjYWxscy9waWRmZF9vcGVuL3BpZGZkX29wZW4wMS5jJm5ic3A7Yi90ZXN0Y2FzZXMva2VybmVs
-L3N5c2NhbGxzL3BpZGZkX29wZW4vcGlkZmRfb3BlbjAxLmM8YnI+Jmd0OyZuYnNwO2luZGV4Jm5i
-c3A7OTNiYjg2Njg3Li4yOTNlOTNiNjMmbmJzcDsxMDA2NDQ8YnI+Jmd0OyZuYnNwOy0tLSZuYnNw
-O2EvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9waWRmZF9vcGVuL3BpZGZkX29wZW4wMS5jPGJy
-PiZndDsmbmJzcDsrKysmbmJzcDtiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcGlkZmRfb3Bl
-bi9waWRmZF9vcGVuMDEuYzxicj4mZ3Q7Jm5ic3A7QEAmbmJzcDstNiwxNyZuYnNwOys2LDI3Jm5i
-c3A7QEA8YnI+Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyombmJzcDtCYXNpYyZuYnNwO3BpZGZkX29w
-ZW4oKSZuYnNwO3Rlc3QsJm5ic3A7ZmV0Y2hlcyZuYnNwO3RoZSZuYnNwO1BJRCZuYnNwO29mJm5i
-c3A7dGhlJm5ic3A7Y3VycmVudCZuYnNwO3Byb2Nlc3MmbmJzcDthbmQmbmJzcDt0cmllcyZuYnNw
-O3RvPGJyPiZndDsmbmJzcDsmbmJzcDsmbmJzcDsqJm5ic3A7Z2V0Jm5ic3A7aXRzJm5ic3A7Zmls
-ZSZuYnNwO2Rlc2NyaXB0b3IuPGJyPiZndDsmbmJzcDsmbmJzcDsmbmJzcDsqLzxicj4mZ3Q7Jm5i
-c3A7Kzxicj4mZ3Q7Jm5ic3A7KyNpbmNsdWRlJm5ic3A7Jmx0O3N5cy90eXBlcy5oJmd0Ozxicj4m
-Z3Q7Jm5ic3A7KyNpbmNsdWRlJm5ic3A7Jmx0O3VuaXN0ZC5oJmd0Ozxicj4mZ3Q7Jm5ic3A7KyNp
-bmNsdWRlJm5ic3A7Jmx0O2ZjbnRsLmgmZ3Q7PGJyPiZndDsmbmJzcDsmbmJzcDsjaW5jbHVkZSZu
-YnNwOyJ0c3RfdGVzdC5oIjxicj4mZ3Q7Jm5ic3A7Jm5ic3A7I2luY2x1ZGUmbmJzcDsibGFwaS9w
-aWRmZF9vcGVuLmgiPGJyPiZndDsmbmJzcDsmbmJzcDs8YnI+Jmd0OyZuYnNwOyZuYnNwO3N0YXRp
-YyZuYnNwO3ZvaWQmbmJzcDtydW4odm9pZCk8YnI+Jmd0OyZuYnNwOyZuYnNwO3s8YnI+Jmd0OyZu
-YnNwOy0JVEVTVChwaWRmZF9vcGVuKGdldHBpZCgpLCZuYnNwOzApKTs8YnI+Jmd0OyZuYnNwOysJ
-aW50Jm5ic3A7cGlkZmQmbmJzcDs9Jm5ic3A7MCwmbmJzcDtmbGFnJm5ic3A7PSZuYnNwOzA7PGJy
-Pjxicj5Ob25lJm5ic3A7b2YmbmJzcDt0aGVzZSZuYnNwO25lZWQmbmJzcDt0byZuYnNwO2JlJm5i
-c3A7aW5pdGlhbGl6ZWQuPGJyPjxicj4mZ3Q7Jm5ic3A7Kzxicj4mZ3Q7Jm5ic3A7KwlwaWRmZCZu
-YnNwOz0mbmJzcDtwaWRmZF9vcGVuKGdldHBpZCgpLCZuYnNwOzApOzxicj4mZ3Q7Jm5ic3A7Kwlp
-ZiZuYnNwOyhwaWRmZCZuYnNwOz09Jm5ic3A7LTEpPGJyPiZndDsmbmJzcDsrCQl0c3RfYnJrKFRG
-QUlMJm5ic3A7fCZuYnNwO1RFUlJOTywmbmJzcDsicGlkZmRfb3BlbihnZXRwaWQoKSwmbmJzcDsw
-KSZuYnNwO2ZhaWxlZCIpOzxicj48YnI+VGhpcyZuYnNwO2NvdWxkJm5ic3A7aGF2ZSZuYnNwO2Jl
-ZW4mbmJzcDt3cml0dGVuJm5ic3A7YXM6PGJyPiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwO1RFU1QocGlkZmQmbmJzcDs9Jm5ic3A7cGlkZmRfb3BlbihnZXRw
-aWQoKSwmbmJzcDswKSk7PGJyPjxicj4mZ3Q7Jm5ic3A7Kzxicj4mZ3Q7Jm5ic3A7KwlmbGFnJm5i
-c3A7PSZuYnNwO1NBRkVfRkNOVEwocGlkZmQsJm5ic3A7Rl9HRVRGRCk7PGJyPiZndDsmbmJzcDsm
-bmJzcDs8YnI+Jmd0OyZuYnNwOy0JaWYmbmJzcDsoVFNUX1JFVCZuYnNwOz09Jm5ic3A7LTEpPGJy
-PiZndDsmbmJzcDstCQl0c3RfYnJrKFRGQUlMJm5ic3A7fCZuYnNwO1RURVJSTk8sJm5ic3A7InBp
-ZGZkX29wZW4oZ2V0cGlkKCksJm5ic3A7MCkmbmJzcDtmYWlsZWQiKTs8YnI+Jmd0OyZuYnNwOysJ
-U0FGRV9DTE9TRShwaWRmZCk7PGJyPiZndDsmbmJzcDsmbmJzcDs8YnI+Jmd0OyZuYnNwOy0JU0FG
-RV9DTE9TRShUU1RfUkVUKTs8YnI+Jmd0OyZuYnNwOysJaWYmbmJzcDsoIShmbGFnJm5ic3A7JmFt
-cDsmbmJzcDtGRF9DTE9FWEVDKSk8YnI+Jmd0OyZuYnNwOysJCXRzdF9icmsoVEZBSUwsJm5ic3A7
-InBpZGZkX29wZW4oZ2V0cGlkKCksJm5ic3A7MCkmbmJzcDtkaWRuJ3QmbmJzcDtzZXQmbmJzcDtj
-bG9zZS1vbi1leGVjJm5ic3A7ZmxhZyIpOzxicj4mZ3Q7Jm5ic3A7Jm5ic3A7PGJyPiZndDsmbmJz
-cDsmbmJzcDsJdHN0X3JlcyhUUEFTUywmbmJzcDsicGlkZmRfb3BlbihnZXRwaWQoKSwmbmJzcDsw
-KSZuYnNwO3Bhc3NlZCIpOzxicj4mZ3Q7Jm5ic3A7Jm5ic3A7fTxicj4mZ3Q7Jm5ic3A7LS0mbmJz
-cDs8YnI+Jmd0OyZuYnNwOzIuMjEuMDxicj4mZ3Q7Jm5ic3A7PGJyPiZndDsmbmJzcDs8YnI+PGJy
-Pi0tJm5ic3A7PGJyPnZpcmVzaDxicj48YnI+LS0mbmJzcDs8YnI+TWFpbGluZyZuYnNwO2xpc3Qm
-bmJzcDtpbmZvOiZuYnNwO2h0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwPGJyPjwv
-ZGl2Pjxicj48YnI+PHNwYW4gdGl0bGU9Im5ldGVhc2Vmb290ZXIiPjxwPiZuYnNwOzwvcD48L3Nw
-YW4+
-------=_Part_42469_1512251006.1588581008704--
+I agree that the fix (merging those events) is best effort and we cannot
+commit to merging the events, but this isolated regression test does
+check the best effort fix reliably and this is the reason I think it
+should stay.
 
+Upcoming FAN_REPORT_NAME is about to change the picture a bit
+towards the inotify behavior - victim watch gets event without name,
+parent watch gets event with name, filesystem watch gets both event
+flavors... that is, if you will agree to this behavior, but we shall continue
+this discussion on the fanotiify_name patches....
 
---===============1829985856==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thanks,
+Amir.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1829985856==--
-
