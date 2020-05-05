@@ -1,51 +1,37 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC8491C563F
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 15:06:10 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 10AC61C531A
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 12:25:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 69DD83C57F2
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 15:06:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D2DAC3C5806
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 12:25:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id BBAED3C2660
- for <ltp@lists.linux.it>; Tue,  5 May 2020 12:21:59 +0200 (CEST)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 9D1A73C2668
+ for <ltp@lists.linux.it>; Tue,  5 May 2020 12:24:59 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A50AA1A01197
- for <ltp@lists.linux.it>; Tue,  5 May 2020 12:21:58 +0200 (CEST)
-Received: from ip5f5af183.dynamic.kabel-deutschland.de ([95.90.241.131]
- helo=wittgenstein) by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <christian.brauner@ubuntu.com>)
- id 1jVui2-0001ht-VB; Tue, 05 May 2020 10:21:55 +0000
-Date: Tue, 5 May 2020 12:21:54 +0200
-From: Christian Brauner <christian.brauner@ubuntu.com>
-To: Florian Weimer <fw@deneb.enyo.de>
-Message-ID: <20200505102154.2sxm7yt5v3up55v3@wittgenstein>
-References: <1038674044.11248021.1588663714272.JavaMail.zimbra@redhat.com>
- <87pnbi4y8x.fsf@mid.deneb.enyo.de>
- <20200505083205.qwwdiotmmjl23aje@wittgenstein>
- <87a72m4uqm.fsf@mid.deneb.enyo.de>
- <20200505091554.eq7kzvb4twe2wgvl@wittgenstein>
- <871rny4taz.fsf@mid.deneb.enyo.de>
- <20200505095813.z7kakdbiwq7ewnmx@wittgenstein>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 60EE41A01092
+ for <ltp@lists.linux.it>; Tue,  5 May 2020 12:24:58 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 00205AC4D
+ for <ltp@lists.linux.it>; Tue,  5 May 2020 10:24:59 +0000 (UTC)
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Tue,  5 May 2020 12:24:55 +0200
+Message-Id: <20200505102456.13004-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200505095813.z7kakdbiwq7ewnmx@wittgenstein>
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-X-Mailman-Approved-At: Tue, 05 May 2020 15:05:13 +0200
-Subject: Re: [LTP] [bug?] clone(CLONE_IO) failing after kernel commit commit
- ef2c41cf38a7
+Subject: [LTP] [PATCH 1/2] Add test for CVE 2016-8655
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,111 +43,204 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jan Stancek via Libc-alpha <libc-alpha@sourceware.org>,
- LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, May 05, 2020 at 11:58:13AM +0200, Christian Brauner wrote:
-> On Tue, May 05, 2020 at 11:36:36AM +0200, Florian Weimer wrote:
-> > * Christian Brauner:
-> > >> Have any flags been added recently?
-> > >
-> > > /* Flags for the clone3() syscall. */
-> > > #define CLONE_CLEAR_SIGHAND 0x100000000ULL /* Clear any signal handler and reset to SIG_DFL. */
-> > > #define CLONE_INTO_CGROUP 0x200000000ULL /* Clone into a specific cgroup given the right permissions. */
-> > 
-> > Are those flags expected to be compatible with the legacy clone
-> > interface on 64-bit architectures?
-> 
-> No, they are clone3() only. clone() is deprecated wrt to new features.
-> 
-> > 
-> > >> > (Note, that CLONE_LEGACY_FLAGS is already defined as
-> > >> > #define CLONE_LEGACY_FLAGS 0xffffffffULL
-> > >> > and used in clone3().)
-> > >> >
-> > >> > So the better option might be to do what you suggested, Florian:
-> > >> > if (clone_flags & ~CLONE_LEGACY_FLAGS)
-> > >> > 	clone_flags = CLONE_LEGACY_FLAGS?
-> > >> > and move on?
-> > >> 
-> > >> Not sure what you are suggesting here.  Do you mean an unconditional
-> > >> masking of excess bits?
-> > >> 
-> > >>   clone_flags &= CLONE_LEGACY_FLAGS;
-> > >> 
-> > >> I think I would prefer this:
-> > >> 
-> > >>   /* Userspace may have passed a sign-extended int value. */
-> > >>   if (clone_flags != (int) clone_flags) /* 
-> > >>  	return -EINVAL;
-> > >>   clone_flags = (unsigned) clone_flags;
-> > >
-> > > My worry is that this will cause regressions because clone() has never
-> > > failed on invalid flag values. I was looking for a way to not have this
-> > > problem. But given what you say below this change might be ok/worth
-> > > risking?
-> > 
-> > I was under the impression that current kernels perform such a check,
-> > causing the problem with sign extension.
-> 
-> No, it doesn't, it never did. It only does it for clone3(). Legacy
-> clone() _never_ reported an error no matter if you passed garbage flags
-> or not. That's why we can't re-use clone() flags that have essentially
-> been removed in kernel version before I could even program. :) Unless
-> I'm misunderstanding what check you're referring to.
-> 
-> If I understood the original mail correctly, then the issue is caused by
-> an interaction with sign extension and a the new flag value
-> CLONE_INTO_CGROUP being defined.
-> So from what I gather from Jan's initial mail is that when clone() is
-> called on ppc64le with the CLONE_IO|SIGCHLD flag:
-> clone(do_child, stack+1024*1024, CLONE_IO|SIGCHLD, NULL, NULL, NULL, NULL);
-> that the sign extension causes bits to be set that raise the
-> CLONE_INTO_CGROUP flag. And since the do_fork() codepath is the same for
-> legacy clone() and clone3() the kernel will think that someone requested
-> CLONE_INTO_CGROUP but hasn't passed a valid fd to a cgroup. If that is
-> the only issue here then couldn't we just do:
-> 
-> clone_flags &= ~CLONE3_ONLY_FLAGS?
-> 
-> and move on, i.e. all future clone3() flags we'll just remove since we
-> can assume that they have been accidently set. Even if they have been
-> intentionally set we can just ignore them since that's in line with
-> legacy clone()'s (questionable) tradition of ignoring unknown flags.
-> Thoughts? Or am I missing some subtlety here?
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
 
-So essentially:
+This test is awfully slow but it checks for local root exploit.
 
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 8c700f881d92..e192089f133e 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -2569,12 +2569,15 @@ SYSCALL_DEFINE5(clone, unsigned long, clone_flags, unsigned long, newsp,
-                 unsigned long, tls)
- #endif
- {
-+       /* Ignore the upper 32 bits. */
-+       unsigned int flags = (clone_flags & 0xfffffff);
+ runtest/cve                                   |   1 +
+ runtest/syscalls                              |   1 +
+ .../kernel/syscalls/setsockopt/.gitignore     |   1 +
+ testcases/kernel/syscalls/setsockopt/Makefile |   2 +
+ .../kernel/syscalls/setsockopt/setsockopt06.c | 125 ++++++++++++++++++
+ 5 files changed, 130 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/setsockopt/setsockopt06.c
+
+diff --git a/runtest/cve b/runtest/cve
+index c2e9e8c89..786b5ee76 100644
+--- a/runtest/cve
++++ b/runtest/cve
+@@ -12,6 +12,7 @@ cve-2016-4997 setsockopt03
+ cve-2016-5195 dirtyc0w
+ cve-2016-7042 cve-2016-7042
+ cve-2016-7117 cve-2016-7117
++cve-2016-8655 setsockopt06
+ cve-2016-9604 keyctl08
+ cve-2016-9793 setsockopt04
+ cve-2016-10044 cve-2016-10044
+diff --git a/runtest/syscalls b/runtest/syscalls
+index cbab5730c..bdcd9a5b8 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -1326,6 +1326,7 @@ setsockopt02 setsockopt02
+ setsockopt03 setsockopt03
+ setsockopt04 setsockopt04
+ setsockopt05 setsockopt05
++setsockopt06 setsockopt06
+ 
+ settimeofday01 settimeofday01
+ settimeofday02 settimeofday02
+diff --git a/testcases/kernel/syscalls/setsockopt/.gitignore b/testcases/kernel/syscalls/setsockopt/.gitignore
+index f4eabd92b..ad067c3e3 100644
+--- a/testcases/kernel/syscalls/setsockopt/.gitignore
++++ b/testcases/kernel/syscalls/setsockopt/.gitignore
+@@ -3,3 +3,4 @@
+ /setsockopt03
+ /setsockopt04
+ /setsockopt05
++/setsockopt06
+diff --git a/testcases/kernel/syscalls/setsockopt/Makefile b/testcases/kernel/syscalls/setsockopt/Makefile
+index 044619fb8..1e80facd4 100644
+--- a/testcases/kernel/syscalls/setsockopt/Makefile
++++ b/testcases/kernel/syscalls/setsockopt/Makefile
+@@ -2,6 +2,8 @@
+ # Copyright (c) International Business Machines  Corp., 2001
+ 
+ top_srcdir		?= ../../../..
++setsockopt06:		CFLAGS += -pthread
++setsockopt06:		LDLIBS += -lrt
+ 
+ include $(top_srcdir)/include/mk/testcases.mk
+ 
+diff --git a/testcases/kernel/syscalls/setsockopt/setsockopt06.c b/testcases/kernel/syscalls/setsockopt/setsockopt06.c
+new file mode 100644
+index 000000000..ae2d170a7
+--- /dev/null
++++ b/testcases/kernel/syscalls/setsockopt/setsockopt06.c
+@@ -0,0 +1,125 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020 SUSE LLC <mdoucha@suse.cz>
++ */
 +
-        struct kernel_clone_args args = {
--               .flags          = (clone_flags & ~CSIGNAL),
-+               .flags          = (flags & ~CSIGNAL),
-                .pidfd          = parent_tidptr,
-                .child_tid      = child_tidptr,
-                .parent_tid     = parent_tidptr,
--               .exit_signal    = (clone_flags & CSIGNAL),
-+               .exit_signal    = (flags & CSIGNAL),
-                .stack          = newsp,
-                .tls            = tls,
-        }
++/*
++ * CVE-2016-8655
++ *
++ * Check for race condition between packet_set_ring() and tp_version. On some
++ * kernels, this may lead to use-after-free. Kernel crash fixed in:
++ * 
++ *  commit 84ac7260236a49c79eede91617700174c2c19b0c
++ *  Author: Philip Pettersson <philip.pettersson@gmail.com>
++ *  Date:   Wed Nov 30 14:55:36 2016 -0800
++ *
++ *  packet: fix race condition in packet_set_ring
++ */
++
++#define _GNU_SOURCE
++#include <unistd.h>
++#include <sys/types.h>
++#include <sys/socket.h>
++#include <linux/if_packet.h>
++#include <net/ethernet.h>
++#include <sched.h>
++
++#include "tst_test.h"
++#include "tst_fuzzy_sync.h"
++#include "tst_taint.h"
++
++static int sock = -1;
++static struct tst_fzsync_pair fzsync_pair;
++
++static void setup(void)
++{
++	int real_uid = getuid();
++	int real_gid = getgid();
++
++	tst_taint_init(TST_TAINT_W | TST_TAINT_D);
++
++	SAFE_UNSHARE(CLONE_NEWUSER);
++	SAFE_UNSHARE(CLONE_NEWNET);
++	SAFE_FILE_PRINTF("/proc/self/setgroups", "deny");
++	SAFE_FILE_PRINTF("/proc/self/uid_map", "0 %d 1", real_uid);
++	SAFE_FILE_PRINTF("/proc/self/gid_map", "0 %d 1", real_gid);
++
++	fzsync_pair.exec_loops = 100000;
++	fzsync_pair.exec_time_p = 0.9;
++	tst_fzsync_pair_init(&fzsync_pair);
++}
++
++static void *thread_run(void *arg)
++{
++	int ret;
++	struct tpacket_req3 req = {
++		.tp_block_size = 4096,
++		.tp_block_nr = 1,
++		.tp_frame_size = 4096,
++		.tp_frame_nr = 1,
++		.tp_retire_blk_tov = 100
++	};
++
++	while (tst_fzsync_run_b(&fzsync_pair)) {
++		tst_fzsync_start_race_b(&fzsync_pair);
++		ret = setsockopt(sock, SOL_PACKET, PACKET_RX_RING, &req,
++			sizeof(req));
++		tst_fzsync_end_race_b(&fzsync_pair);
++
++		if (!ret)
++			tst_fzsync_pair_add_bias(&fzsync_pair, -10);
++	}
++
++	return arg;
++}
++
++static void run(void)
++{
++	int val = TPACKET_V1;
++
++	tst_fzsync_pair_reset(&fzsync_pair, thread_run);
++
++	while (tst_fzsync_run_a(&fzsync_pair)) {
++		sock = SAFE_SOCKET(AF_PACKET, SOCK_RAW, htons(ETH_P_IP));
++		SAFE_SETSOCKOPT_INT(sock, SOL_PACKET, PACKET_VERSION,
++			TPACKET_V3);
++		tst_fzsync_start_race_a(&fzsync_pair);
++		setsockopt(sock, SOL_PACKET, PACKET_VERSION, &val, sizeof(val));
++		tst_fzsync_end_race_a(&fzsync_pair);
++		SAFE_CLOSE(sock);
++	}
++
++	/* setsockopt(PACKET_RX_RING) created a 100ms timer. Wait for it. */
++	usleep(300000);
++
++	if (tst_taint_check()) {
++		tst_res(TFAIL, "Kernel is vulnerable");
++		return;
++	}
++
++	tst_res(TPASS, "Nothing bad happened, probably");
++}
++
++static void cleanup(void)
++{
++	tst_fzsync_pair_cleanup(&fzsync_pair);
++
++	if (sock >= 0)
++		SAFE_CLOSE(sock);
++}
++
++static struct tst_test test = {
++	.test_all = run,
++	.setup = setup,
++	.cleanup = cleanup,
++	.needs_kconfigs = (const char *[]) {
++		"CONFIG_USER_NS=y",
++		"CONFIG_NET_NS=y",
++		NULL
++	},
++	.tags = (const struct tst_tag[]) {
++		{"linux-git", "84ac7260236a"},
++		{"CVE", "2016-8655"},
++		{}
++	}
++};
+-- 
+2.26.2
 
-(Note that kernel_clone_args->flags is a 64 bit unsigned integer.)
-
-Christian
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
