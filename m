@@ -1,71 +1,47 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F47D1C51A1
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 11:13:33 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 62AEE1C563A
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 15:05:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C3E793C57F7
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 11:13:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 057353C57ED
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 15:05:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id A48C83C2850
- for <ltp@lists.linux.it>; Tue,  5 May 2020 11:12:34 +0200 (CEST)
-Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
- [IPv6:2607:f8b0:4864:20::644])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 0BEEC3C267A
+ for <ltp@lists.linux.it>; Tue,  5 May 2020 11:15:59 +0200 (CEST)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id EB8C51000604
- for <ltp@lists.linux.it>; Tue,  5 May 2020 11:12:33 +0200 (CEST)
-Received: by mail-pl1-x644.google.com with SMTP id f8so567568plt.2
- for <ltp@lists.linux.it>; Tue, 05 May 2020 02:12:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=bwq71tWgG/WrUMhraO8MmoGq1Vbh9a5BN4uN/QvtwEU=;
- b=PzjuHx9NEN2MUzI0eIWL8DzZZx63bGFParAClgREml2KiiwTS+cxlmgNbbh34Jl2ik
- K/557nXJZNwAsMAO4Y8UgPdHMIjy8tlyT8wtlwdNn3YSl4RhgYOnHEH+XuqffZdhTp/q
- Bt0tOXD1CIOYOmRDD15FBrRqRPtopxGtGpjZqzs9jXQIUGocctMii6YZDCEmGJyevPaf
- dn1cARpzXmu21AfTaJFwj25vaqMTWNKJlKmYqzb3HdtlNY5HSTJ5sqUU2+vn0cI0EHFE
- 9928ffL4q74aaSgTpb7gHT03Ee94Y5JNe58HZ8/u8y6QEZC0Xg24+jYo/vfNni/iILL0
- 4XMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=bwq71tWgG/WrUMhraO8MmoGq1Vbh9a5BN4uN/QvtwEU=;
- b=B4h2aBkW0NsjbgcN7y3B6ByoY5qqt3yw1qceVNPxkIz7uakIyl8pAut0G5ibxtO4eh
- z0BLGB4KY69O0MhgfRH5OHiNQs4COEHs5bO8fGrA0V8/P4dkxpqi4wbA3yFxksKL7NA9
- nNvvEHupMyibOvd/kxkam8Pc5d9UBZm91pTW6jK4v+nUG8Fhv/raql5GqKkptWaCEYyZ
- MqrHtnk5Xo6PGj05ICdL+nd5NYIyoWmU1jegIDgobrKeMqCtph/77WhP9axv9kqHFZ/g
- esr3vrg+XG4tE8BQnLlIRJFH1EOZ1AL+BXEtyO4mZOoA34K29CvsDDYKtPr9wrz7TyAP
- nVxw==
-X-Gm-Message-State: AGi0PuYkYk2MBtqBl+Z8kwDf0rUSQ6Az1xXLfosnZTR1P/zbX7B+8BFx
- zBmbsf1tjUgpKqW2Z+HEB1M2f8UoM0k=
-X-Google-Smtp-Source: APiQypLADjpgZb7NSgEIL9xEkJajivYo0uHfyhWC6WUMGME/psrRlXUTUlCazJncwE9tmozYSam08g==
-X-Received: by 2002:a17:90a:d56:: with SMTP id
- 22mr1644946pju.187.1588669952112; 
- Tue, 05 May 2020 02:12:32 -0700 (PDT)
-Received: from localhost ([122.171.118.46])
- by smtp.gmail.com with ESMTPSA id w11sm1136615pgj.4.2020.05.05.02.12.31
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 05 May 2020 02:12:31 -0700 (PDT)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: ltp@lists.linux.it
-Date: Tue,  5 May 2020 14:42:08 +0530
-Message-Id: <3e96a3fa8df22b49edabdbce30ac72e744d6c1d4.1588669892.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
-In-Reply-To: <7e037dacaeb0c7f3bfd73cd11d80f3e1567dc052.1588669892.git.viresh.kumar@linaro.org>
-References: <7e037dacaeb0c7f3bfd73cd11d80f3e1567dc052.1588669892.git.viresh.kumar@linaro.org>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 31D9A1A01206
+ for <ltp@lists.linux.it>; Tue,  5 May 2020 11:15:58 +0200 (CEST)
+Received: from ip5f5af183.dynamic.kabel-deutschland.de ([95.90.241.131]
+ helo=wittgenstein) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <christian.brauner@ubuntu.com>)
+ id 1jVtgB-0001LN-Fz; Tue, 05 May 2020 09:15:55 +0000
+Date: Tue, 5 May 2020 11:15:54 +0200
+From: Christian Brauner <christian.brauner@ubuntu.com>
+To: Florian Weimer <fw@deneb.enyo.de>
+Message-ID: <20200505091554.eq7kzvb4twe2wgvl@wittgenstein>
+References: <1038674044.11248021.1588663714272.JavaMail.zimbra@redhat.com>
+ <87pnbi4y8x.fsf@mid.deneb.enyo.de>
+ <20200505083205.qwwdiotmmjl23aje@wittgenstein>
+ <87a72m4uqm.fsf@mid.deneb.enyo.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <87a72m4uqm.fsf@mid.deneb.enyo.de>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 8/8] syscalls/ppoll: Add support for time64 tests
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+X-Mailman-Approved-At: Tue, 05 May 2020 15:05:13 +0200
+Subject: Re: [LTP] [bug?] clone(CLONE_IO) failing after kernel commit commit
+ ef2c41cf38a7
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,182 +53,82 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
- Viresh Kumar <viresh.kumar@linaro.org>
+Cc: Jan Stancek via Libc-alpha <libc-alpha@sourceware.org>,
+ LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This adds support for time64 tests to the existing ppoll() syscall
-tests.
+On Tue, May 05, 2020 at 11:05:37AM +0200, Florian Weimer wrote:
+> * Christian Brauner:
+> 
+> > Hm, as you observed, the kernel always defines the flags argument as
+> > unsigned long and afaict this has been the case since forever. So I'm
+> > not sure why the userspace wrapper is defined as taking an int for
+> > flags in the first place(?).
+> 
+> We have different types in many places.  Sometimes this is required by
+> POSIX, sometimes not.  See the recent effort to fix the x32 interface
+> (mostly for size_t arguments).
+> 
+> Flags arguments that depend on the word size are incompatible with
+> portable system calls, so arguably what the kernel is doing here is
+> wrong: the additional bits can never be used for anything.
 
-Note that the O_EXCL flag is removed from SAFE_OPEN() calls as it made
-the tests failed when run for the second variant as the file existed.
+I mean, the unsigned long is odd. Most syscalls are using unsigned int
+and new ones are basically expected to.
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
----
- testcases/kernel/syscalls/ppoll/ppoll01.c | 76 ++++++++++++++++++-----
- 1 file changed, 60 insertions(+), 16 deletions(-)
+> 
+> > And I wonder if we should just do:
+> >
+> > if (clone_flags & ~CLONE_LEGACY_FLAGS) /* 
+> > 	return -EINVAL;
+> >
+> > but that might be a change in behavior, as legacy clone _never_ failed
+> > when invalid values where passed.
+> 
+> Have any flags been added recently?
 
-diff --git a/testcases/kernel/syscalls/ppoll/ppoll01.c b/testcases/kernel/syscalls/ppoll/ppoll01.c
-index 2fadd0653948..eb8a14534e2e 100644
---- a/testcases/kernel/syscalls/ppoll/ppoll01.c
-+++ b/testcases/kernel/syscalls/ppoll/ppoll01.c
-@@ -21,6 +21,8 @@
- #include "ltp_signal.h"
- #include "tst_sig_proc.h"
- #include "tst_test.h"
-+#include "tst_timer.h"
-+#include "lapi/abisize.h"
- 
- /* Older versions of glibc don't publish this constant's value. */
- #ifndef POLLRDHUP
-@@ -38,7 +40,7 @@ struct test_case {
- 	unsigned int nfds;	   /* nfds ppoll parameter */
- 	sigset_t *sigmask;	   /* sigmask ppoll parameter */
- 	sigset_t *sigmask_cur;	   /* sigmask set for current process */
--	struct timespec *ts;	   /* ts ppoll parameter */
-+	struct tst_ts *ts;	   /* ts ppoll parameter */
- 	struct pollfd *fds;	   /* fds ppoll parameter */
- 	int sigint_count;	   /* if > 0, spawn process to send SIGINT */
- 				   /* 'count' times to current process */
-@@ -60,14 +62,7 @@ static int fd1 = -1;
- static sigset_t sigmask_empty, sigmask_sigint;
- static struct pollfd fds_good[1], fds_already_closed[1];
- 
--static struct timespec ts_short = {
--	.tv_sec = 0,
--	.tv_nsec = 200000000,
--};
--static struct timespec ts_long = {
--	.tv_sec = 2,
--	.tv_nsec = 0,
--};
-+static struct tst_ts ts_short, ts_long;
- 
- /* Test cases
-  *
-@@ -160,14 +155,57 @@ static struct test_case tcase[] = {
- 	},
- };
- 
-+static inline int libc_ppoll(struct pollfd *fds, nfds_t nfds, void *tmo_p,
-+			     const sigset_t *sigmask, size_t sigsetsize)
-+{
-+	return ppoll(fds, nfds, tmo_p, sigmask);
-+}
-+
-+static inline int sys_ppoll(struct pollfd *fds, nfds_t nfds, void *tmo_p,
-+			    const sigset_t *sigmask, size_t sigsetsize)
-+{
-+	return tst_syscall(__NR_ppoll, fds, nfds, tmo_p, sigmask, sigsetsize);
-+}
-+
-+static inline int sys_ppoll_time64(struct pollfd *fds, nfds_t nfds, void *tmo_p,
-+				   const sigset_t *sigmask, size_t sigsetsize)
-+{
-+	return tst_syscall(__NR_ppoll_time64, fds, nfds, tmo_p, sigmask,
-+			   sigsetsize);
-+}
-+
-+static struct test_variants {
-+	int (*ppoll)(struct pollfd *fds, nfds_t nfds, void *tmo_p,
-+		     const sigset_t *sigmask, size_t sigsetsize);
-+
-+	enum tst_ts_type type;
-+	char *desc;
-+} variants[] = {
-+#if defined(TST_ABI32)
-+	{ .ppoll = libc_ppoll, .type = TST_LIBC_TIMESPEC, .desc = "vDSO or syscall with libc spec"},
-+	{ .ppoll = sys_ppoll, .type = TST_LIBC_TIMESPEC, .desc = "syscall with libc spec"},
-+	{ .ppoll = sys_ppoll, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with kernel spec32"},
-+#endif
-+
-+#if defined(TST_ABI64)
-+	{ .ppoll = sys_ppoll, .type = TST_KERN_TIMESPEC, .desc = "syscall with kernel spec64"},
-+#endif
-+
-+#if (__NR_ppoll_time64 != __LTP__NR_INVALID_SYSCALL)
-+	{ .ppoll = sys_ppoll_time64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec64"},
-+#endif
-+};
-+
- static void sighandler(int sig LTP_ATTRIBUTE_UNUSED)
- {
- }
- 
- static void setup(void)
- {
-+	struct test_variants *tv = &variants[tst_variant];
- 	int fd2;
- 
-+	tst_res(TINFO, "Testing variant: %s", tv->desc);
- 	SAFE_SIGNAL(SIGINT, sighandler);
- 
- 	if (sigemptyset(&sigmask_empty) == -1)
-@@ -177,18 +215,22 @@ static void setup(void)
- 	if (sigaddset(&sigmask_sigint, SIGINT) == -1)
- 		tst_brk(TBROK | TERRNO, "sigaddset");
- 
--	fd1 = SAFE_OPEN("testfile1", O_CREAT | O_EXCL | O_RDWR,
--		S_IRUSR | S_IWUSR);
-+	fd1 = SAFE_OPEN("testfile1", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
- 	fds_good[0].fd = fd1;
- 	fds_good[0].events = POLLIN | POLLPRI | POLLOUT | POLLRDHUP;
- 	fds_good[0].revents = 0;
- 
--	fd2 = SAFE_OPEN("testfile2", O_CREAT | O_EXCL | O_RDWR,
--		S_IRUSR | S_IWUSR);
-+	fd2 = SAFE_OPEN("testfile2", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
- 	fds_already_closed[0].fd = fd2;
- 	fds_already_closed[0].events = POLLIN | POLLPRI | POLLOUT | POLLRDHUP;
- 	fds_already_closed[0].revents = 0;
- 	SAFE_CLOSE(fd2);
-+
-+	ts_short.type = ts_long.type = tv->type;
-+	tst_ts_set_sec(&ts_short, 0);
-+	tst_ts_set_nsec(&ts_short, 200000000);
-+	tst_ts_set_sec(&ts_long, 2);
-+	tst_ts_set_nsec(&ts_long, 0);
- }
- 
- static void cleanup(void)
-@@ -199,10 +241,11 @@ static void cleanup(void)
- 
- static void do_test(unsigned int i)
- {
-+	struct test_variants *tv = &variants[tst_variant];
- 	pid_t pid = 0;
- 	int sys_ret, sys_errno = 0, dummy;
- 	struct test_case *tc = &tcase[i];
--	struct timespec ts, *tsp = NULL;
-+	struct tst_ts ts, *tsp = NULL;
- 
- 	if (tc->ts) {
- 		memcpy(&ts, tc->ts, sizeof(ts));
-@@ -223,8 +266,8 @@ static void do_test(unsigned int i)
- 
- 	/* test */
- 	errno = 0;
--	sys_ret = tst_syscall(__NR_ppoll, tc->fds, tc->nfds, tsp,
--		tc->sigmask, SIGSETSIZE);
-+	sys_ret = tv->ppoll(tc->fds, tc->nfds, tst_ts_get(tsp), tc->sigmask,
-+			    SIGSETSIZE);
- 	sys_errno = errno;
- 
- 	/* cleanup */
-@@ -261,6 +304,7 @@ static void do_test(unsigned int i)
- static struct tst_test test = {
- 	.tcnt = ARRAY_SIZE(tcase),
- 	.test = do_test,
-+	.test_variants = ARRAY_SIZE(variants),
- 	.setup = setup,
- 	.cleanup = cleanup,
- 	.forks_child = 1,
--- 
-2.25.0.rc1.19.g042ed3e048af
+/* Flags for the clone3() syscall. */
+#define CLONE_CLEAR_SIGHAND 0x100000000ULL /* Clear any signal handler and reset to SIG_DFL. */
+#define CLONE_INTO_CGROUP 0x200000000ULL /* Clone into a specific cgroup given the right permissions. */
 
+> 
+> > (Note, that CLONE_LEGACY_FLAGS is already defined as
+> > #define CLONE_LEGACY_FLAGS 0xffffffffULL
+> > and used in clone3().)
+> >
+> > So the better option might be to do what you suggested, Florian:
+> > if (clone_flags & ~CLONE_LEGACY_FLAGS)
+> > 	clone_flags = CLONE_LEGACY_FLAGS?
+> > and move on?
+> 
+> Not sure what you are suggesting here.  Do you mean an unconditional
+> masking of excess bits?
+> 
+>   clone_flags &= CLONE_LEGACY_FLAGS;
+> 
+> I think I would prefer this:
+> 
+>   /* Userspace may have passed a sign-extended int value. */
+>   if (clone_flags != (int) clone_flags) /* 
+>  	return -EINVAL;
+>   clone_flags = (unsigned) clone_flags;
+
+My worry is that this will cause regressions because clone() has never
+failed on invalid flag values. I was looking for a way to not have this
+problem. But given what you say below this change might be ok/worth
+risking?
+
+> 
+> > (Btw, iiuc, this would've always been a problem, right? In the sense that
+> > userspace only got away with this because there were no additional flags
+> > defined and couldn't.)
+> 
+> It depends on how the clone system call wrapper is implemented, and
+> what the C function call ABI is like.  In some cases, you probably get
+> zero-extension, as expected by the kernel.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
