@@ -2,39 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCD721C52DC
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 12:16:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC8491C563F
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 15:06:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 842FD3C2C63
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 12:16:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 69DD83C57F2
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 15:06:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 210813C13D9
- for <ltp@lists.linux.it>; Tue,  5 May 2020 12:16:41 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id BBAED3C2660
+ for <ltp@lists.linux.it>; Tue,  5 May 2020 12:21:59 +0200 (CEST)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 104F0600C45
- for <ltp@lists.linux.it>; Tue,  5 May 2020 12:16:28 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id A2C5AAC61;
- Tue,  5 May 2020 10:16:42 +0000 (UTC)
-From: Richard Palethorpe <rpalethorpe@suse.com>
-To: ltp@lists.linux.it
-Date: Tue,  5 May 2020 11:16:25 +0100
-Message-Id: <20200505101625.25020-2-rpalethorpe@suse.com>
-X-Mailer: git-send-email 2.26.1
-In-Reply-To: <20200505101625.25020-1-rpalethorpe@suse.com>
-References: <20200505101625.25020-1-rpalethorpe@suse.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A50AA1A01197
+ for <ltp@lists.linux.it>; Tue,  5 May 2020 12:21:58 +0200 (CEST)
+Received: from ip5f5af183.dynamic.kabel-deutschland.de ([95.90.241.131]
+ helo=wittgenstein) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <christian.brauner@ubuntu.com>)
+ id 1jVui2-0001ht-VB; Tue, 05 May 2020 10:21:55 +0000
+Date: Tue, 5 May 2020 12:21:54 +0200
+From: Christian Brauner <christian.brauner@ubuntu.com>
+To: Florian Weimer <fw@deneb.enyo.de>
+Message-ID: <20200505102154.2sxm7yt5v3up55v3@wittgenstein>
+References: <1038674044.11248021.1588663714272.JavaMail.zimbra@redhat.com>
+ <87pnbi4y8x.fsf@mid.deneb.enyo.de>
+ <20200505083205.qwwdiotmmjl23aje@wittgenstein>
+ <87a72m4uqm.fsf@mid.deneb.enyo.de>
+ <20200505091554.eq7kzvb4twe2wgvl@wittgenstein>
+ <871rny4taz.fsf@mid.deneb.enyo.de>
+ <20200505095813.z7kakdbiwq7ewnmx@wittgenstein>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200505095813.z7kakdbiwq7ewnmx@wittgenstein>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 2/2] pty04: Add SLCAN ldisc and check for
- CVE-2020-11494
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+X-Mailman-Approved-At: Tue, 05 May 2020 15:05:13 +0200
+Subject: Re: [LTP] [bug?] clone(CLONE_IO) failing after kernel commit commit
+ ef2c41cf38a7
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,330 +57,111 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: Jan Stancek via Libc-alpha <libc-alpha@sourceware.org>,
+ LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
----
- testcases/kernel/pty/pty04.c | 156 ++++++++++++++++++++++++++++-------
- 1 file changed, 126 insertions(+), 30 deletions(-)
+On Tue, May 05, 2020 at 11:58:13AM +0200, Christian Brauner wrote:
+> On Tue, May 05, 2020 at 11:36:36AM +0200, Florian Weimer wrote:
+> > * Christian Brauner:
+> > >> Have any flags been added recently?
+> > >
+> > > /* Flags for the clone3() syscall. */
+> > > #define CLONE_CLEAR_SIGHAND 0x100000000ULL /* Clear any signal handler and reset to SIG_DFL. */
+> > > #define CLONE_INTO_CGROUP 0x200000000ULL /* Clone into a specific cgroup given the right permissions. */
+> > 
+> > Are those flags expected to be compatible with the legacy clone
+> > interface on 64-bit architectures?
+> 
+> No, they are clone3() only. clone() is deprecated wrt to new features.
+> 
+> > 
+> > >> > (Note, that CLONE_LEGACY_FLAGS is already defined as
+> > >> > #define CLONE_LEGACY_FLAGS 0xffffffffULL
+> > >> > and used in clone3().)
+> > >> >
+> > >> > So the better option might be to do what you suggested, Florian:
+> > >> > if (clone_flags & ~CLONE_LEGACY_FLAGS)
+> > >> > 	clone_flags = CLONE_LEGACY_FLAGS?
+> > >> > and move on?
+> > >> 
+> > >> Not sure what you are suggesting here.  Do you mean an unconditional
+> > >> masking of excess bits?
+> > >> 
+> > >>   clone_flags &= CLONE_LEGACY_FLAGS;
+> > >> 
+> > >> I think I would prefer this:
+> > >> 
+> > >>   /* Userspace may have passed a sign-extended int value. */
+> > >>   if (clone_flags != (int) clone_flags) /* 
+> > >>  	return -EINVAL;
+> > >>   clone_flags = (unsigned) clone_flags;
+> > >
+> > > My worry is that this will cause regressions because clone() has never
+> > > failed on invalid flag values. I was looking for a way to not have this
+> > > problem. But given what you say below this change might be ok/worth
+> > > risking?
+> > 
+> > I was under the impression that current kernels perform such a check,
+> > causing the problem with sign extension.
+> 
+> No, it doesn't, it never did. It only does it for clone3(). Legacy
+> clone() _never_ reported an error no matter if you passed garbage flags
+> or not. That's why we can't re-use clone() flags that have essentially
+> been removed in kernel version before I could even program. :) Unless
+> I'm misunderstanding what check you're referring to.
+> 
+> If I understood the original mail correctly, then the issue is caused by
+> an interaction with sign extension and a the new flag value
+> CLONE_INTO_CGROUP being defined.
+> So from what I gather from Jan's initial mail is that when clone() is
+> called on ppc64le with the CLONE_IO|SIGCHLD flag:
+> clone(do_child, stack+1024*1024, CLONE_IO|SIGCHLD, NULL, NULL, NULL, NULL);
+> that the sign extension causes bits to be set that raise the
+> CLONE_INTO_CGROUP flag. And since the do_fork() codepath is the same for
+> legacy clone() and clone3() the kernel will think that someone requested
+> CLONE_INTO_CGROUP but hasn't passed a valid fd to a cgroup. If that is
+> the only issue here then couldn't we just do:
+> 
+> clone_flags &= ~CLONE3_ONLY_FLAGS?
+> 
+> and move on, i.e. all future clone3() flags we'll just remove since we
+> can assume that they have been accidently set. Even if they have been
+> intentionally set we can just ignore them since that's in line with
+> legacy clone()'s (questionable) tradition of ignoring unknown flags.
+> Thoughts? Or am I missing some subtlety here?
 
-diff --git a/testcases/kernel/pty/pty04.c b/testcases/kernel/pty/pty04.c
-index d730d6834..eaf172504 100644
---- a/testcases/kernel/pty/pty04.c
-+++ b/testcases/kernel/pty/pty04.c
-@@ -7,6 +7,9 @@
-  * data is in flight to try to cause a race between the netdev being deleted
-  * and the discipline receive function writing to the netdev.
-  *
-+ * For SLCAN we check stack data is not leaked in the frame padding
-+ * (CVE-2020-11494).
-+ *
-  * Test flow:
-  * 1. Create PTY with ldisc X which creates netdev Y
-  * 2. Open raw packet socket and bind to netdev Y
-@@ -23,6 +26,11 @@
-  * until we are in the netdev code which can have a bigger buffer. Of course
-  * the MTU still decides exactly where the packet delimiter goes, this just
-  * concerns choosing the best packet size to cause a race.
-+ *
-+ * Note on line discipline encapsulation formats:
-+ * - For SLIP frames we just write the data followed by a delimiter char
-+ * - SLCAN we write some ASCII described in drivers/net/can/slcan.c which is
-+ *   converted to the actual frame by the kernel
-  */
- 
- #define _GNU_SOURCE
-@@ -36,6 +44,25 @@
- #include <linux/if_ether.h>
- #include <linux/tty.h>
- 
-+#ifdef HAVE_LINUX_CAN_H
-+# include <linux/can.h>
-+#else
-+# define CAN_MTU 16
-+# define CAN_MAX_DLEN 8
-+
-+typedef uint32_t canid_t;
-+
-+struct can_frame {
-+	canid_t can_id;
-+	uint32_t can_dlc;
-+	uint32_t __pad;
-+	uint32_t __res0;
-+	uint32_t __res1;
-+	uint32_t data[CAN_MAX_DLEN] __attribute__((aligned(8)));
-+};
-+#endif
-+
-+#include <stddef.h>
- #include <stdlib.h>
- #include <stdio.h>
- #include <errno.h>
-@@ -48,19 +75,23 @@
- 
- #include "tst_safe_stdio.h"
- 
-+#define str(s) #s
-+#define SLCAN_FRAME "t00185f5f5f5f5f5f5f5f\r"
-+
- struct ldisc_info {
- 	int n;
- 	char *name;
--	int max_mtu;
-+	int mtu;
- };
- 
- static struct ldisc_info ldiscs[] = {
- 	{N_SLIP, "N_SLIP", 8192},
-+	{N_SLCAN, "N_SLCAN", CAN_MTU},
- };
- 
- static volatile int ptmx, pts, sk, mtu, no_check;
- 
--static int set_ldisc(int tty, struct ldisc_info *ldisc)
-+static int set_ldisc(int tty, const struct ldisc_info *ldisc)
- {
- 	TEST(ioctl(tty, TIOCSETD, &ldisc->n));
- 
-@@ -79,7 +110,7 @@ static int set_ldisc(int tty, struct ldisc_info *ldisc)
- 	return 1;
- }
- 
--static int open_pty(struct ldisc_info *ldisc)
-+static int open_pty(const struct ldisc_info *ldisc)
- {
- 	char pts_path[PATH_MAX];
- 
-@@ -99,7 +130,8 @@ static int open_pty(struct ldisc_info *ldisc)
- 	return set_ldisc(pts, ldisc);
- }
- 
--static ssize_t try_write(int fd, char *data, ssize_t size, ssize_t *written)
-+static ssize_t try_write(int fd, const char *data,
-+			 ssize_t size, ssize_t *written)
- {
- 	ssize_t ret = write(fd, data, size);
- 
-@@ -109,22 +141,42 @@ static ssize_t try_write(int fd, char *data, ssize_t size, ssize_t *written)
- 	return !written || (*written += ret) >= size;
- }
- 
--static void write_pty(void)
-+static void write_pty(const struct ldisc_info *ldisc)
- {
--	char *data = tst_alloc(mtu);
-+	char *data;
- 	ssize_t written, ret;
-+	size_t len = 0;
-+
-+	switch (ldisc->n) {
-+	case N_SLIP:
-+		len = mtu;
-+		break;
-+	case N_SLCAN:
-+		len = sizeof(SLCAN_FRAME) - 1;
-+		break;
-+	}
-+
-+	data = tst_alloc(len);
-+
-+	switch (ldisc->n) {
-+	case N_SLIP:
-+		memset(data, '_', len - 1);
-+		data[len - 1] = 0300;
-+		break;
-+	case N_SLCAN:
-+		memcpy(data, SLCAN_FRAME, len);
-+		break;
-+	}
- 
--	memset(data, '_', mtu - 1);
--	data[mtu - 1] = 0300;
- 
- 	written = 0;
--	ret = TST_RETRY_FUNC(try_write(ptmx, data, mtu, &written), TST_RETVAL_NOTNULL);
-+	ret = TST_RETRY_FUNC(try_write(ptmx, data, len, &written), TST_RETVAL_NOTNULL);
- 	if (ret < 0)
- 		tst_brk(TBROK | TERRNO, "Failed 1st write to PTY");
- 	tst_res(TPASS, "Wrote PTY 1");
- 
- 	written = 0;
--	ret = TST_RETRY_FUNC(try_write(ptmx, data, mtu, &written), TST_RETVAL_NOTNULL);
-+	ret = TST_RETRY_FUNC(try_write(ptmx, data, len, &written), TST_RETVAL_NOTNULL);
- 	if (ret < 0)
- 		tst_brk(TBROK | TERRNO, "Failed 2nd write to PTY");
- 
-@@ -133,7 +185,7 @@ static void write_pty(void)
- 
- 	tst_res(TPASS, "Wrote PTY 2");
- 
--	while (try_write(ptmx, data, mtu, NULL) >= 0)
-+	while (try_write(ptmx, data, len, NULL) >= 0)
- 		;
- 
- 	tst_res(TPASS, "Writing to PTY interrupted by hangup");
-@@ -141,7 +193,7 @@ static void write_pty(void)
- 	tst_free_all();
- }
- 
--static void open_netdev(struct ldisc_info *ldisc)
-+static void open_netdev(const struct ldisc_info *ldisc)
- {
- 	struct ifreq ifreq = { 0 };
- 	struct sockaddr_ll lla = { 0 };
-@@ -151,12 +203,12 @@ static void open_netdev(struct ldisc_info *ldisc)
- 
- 	sk = SAFE_SOCKET(PF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
- 
--	ifreq.ifr_mtu = ldisc->max_mtu;
-+	ifreq.ifr_mtu = ldisc->mtu;
- 	if (ioctl(sk, SIOCSIFMTU, &ifreq))
- 		tst_res(TWARN | TERRNO, "Failed to set netdev MTU to maximum");
- 	SAFE_IOCTL(sk, SIOCGIFMTU, &ifreq);
- 	mtu = ifreq.ifr_mtu;
--	tst_res(TINFO, "Netdev MTU is %d (we set %d)", mtu, ldisc->max_mtu);
-+	tst_res(TINFO, "Netdev MTU is %d (we set %d)", mtu, ldisc->mtu);
- 
- 	SAFE_IOCTL(sk, SIOCGIFFLAGS, &ifreq);
- 	ifreq.ifr_flags |= IFF_UP | IFF_RUNNING;
-@@ -176,13 +228,41 @@ static void open_netdev(struct ldisc_info *ldisc)
- 	tst_res(TINFO, "Bound netdev %d to socket %d", ifreq.ifr_ifindex, sk);
- }
- 
--static void check_data(const char *data, ssize_t len)
-+static void check_data(const struct ldisc_info *ldisc,
-+		       const char *data, ssize_t len)
- {
- 	ssize_t i = 0, j;
-+	struct can_frame frm;
- 
- 	if (no_check)
- 		return;
- 
-+	if (ldisc->n == N_SLCAN) {
-+		memcpy(&frm, data, len);
-+
-+		if (frm.can_id != 1) {
-+			tst_res(TFAIL, "can_id = %d != 1",
-+				frm.can_id);
-+			no_check = 1;
-+		}
-+
-+		if (frm.can_dlc != CAN_MAX_DLEN) {
-+			tst_res(TFAIL, "can_dlc = %d != " str(CAN_MAX_DLEN),
-+				frm.can_dlc);
-+			no_check = 1;
-+		}
-+
-+		i = offsetof(struct can_frame, __pad);
-+		if (frm.__pad != frm.__res0 || frm.__res0 != frm.__res1) {
-+			tst_res_hexd(TFAIL, data + i,
-+				     offsetof(struct can_frame, data) - i,
-+				     "Padding bytes may contain stack data");
-+			no_check = 1;
-+		}
-+
-+		i = offsetof(struct can_frame, data);
-+	}
-+
- 	do {
- 		if (i >= len)
- 			return;
-@@ -195,31 +275,42 @@ static void check_data(const char *data, ssize_t len)
- 	j--;
- 
- 	tst_res_hexd(TFAIL, data + i, j - i,
--		     "Corrupt data (max 64 bytes shown): data[%ld..%ld] = ",
--		     i, j);
--	tst_res(TINFO, "Will continue test without data checking");
-+		     "Corrupt data (max 64 of %ld bytes shown): data[%ld..%ld] = ",
-+		     len, i, j);
- 	no_check = 1;
-+
-+	if (no_check)
-+		tst_res(TINFO, "Will continue test without data checking");
- }
- 
--static void read_netdev(void)
-+static void read_netdev(const struct ldisc_info *ldisc)
- {
--	int rlen, plen = mtu - 1;
--	char *data = tst_alloc(plen);
-+	int rlen, plen = 0;
-+	char *data;
-+
-+	switch (ldisc->n) {
-+	case N_SLIP:
-+		plen = mtu - 1;
-+		break;
-+	case N_SLCAN:
-+		plen = CAN_MTU;
-+		break;
-+	}
-+	data = tst_alloc(plen);
- 
- 	tst_res(TINFO, "Reading from socket %d", sk);
- 
- 	SAFE_READ(1, sk, data, plen);
--	check_data(data, plen);
--
-+	check_data(ldisc, data, plen);
- 	tst_res(TPASS, "Read netdev 1");
--	SAFE_READ(1, sk, data, plen);
--	check_data(data, plen);
- 
-+	SAFE_READ(1, sk, data, plen);
-+	check_data(ldisc, data, plen);
- 	tst_res(TPASS, "Read netdev 2");
- 
- 	TST_CHECKPOINT_WAKE(0);
- 	while((rlen = read(sk, data, plen)) > 0)
--		check_data(data, rlen);
-+		check_data(ldisc, data, rlen);
- 
- 	tst_res(TPASS, "Reading data from netdev interrupted by hangup");
- 
-@@ -236,12 +327,12 @@ static void do_test(unsigned int n)
- 	open_netdev(ldisc);
- 
- 	if (!SAFE_FORK()) {
--		read_netdev();
-+		read_netdev(ldisc);
- 		return;
- 	}
- 
- 	if (!SAFE_FORK()) {
--		write_pty();
-+		write_pty(ldisc);
- 		return;
- 	}
- 
-@@ -268,11 +359,16 @@ static void cleanup(void)
- static struct tst_test test = {
- 	.test = do_test,
- 	.cleanup = cleanup,
--	.tcnt = 1,
-+	.tcnt = 2,
- 	.forks_child = 1,
- 	.needs_checkpoints = 1,
- 	.needs_root = 1,
--	.min_kver = "4.10"
-+	.min_kver = "4.10",
-+	.tags = (const struct tst_tag[]){
-+		{"linux-git", "b9258a2cece4ec1f020715fe3554bc2e360f6264"},
-+		{"CVE", "CVE-2020-11494"},
-+		{}
-+	}
- };
- 
- #else
--- 
-2.26.1
+So essentially:
 
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 8c700f881d92..e192089f133e 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -2569,12 +2569,15 @@ SYSCALL_DEFINE5(clone, unsigned long, clone_flags, unsigned long, newsp,
+                 unsigned long, tls)
+ #endif
+ {
++       /* Ignore the upper 32 bits. */
++       unsigned int flags = (clone_flags & 0xfffffff);
++
+        struct kernel_clone_args args = {
+-               .flags          = (clone_flags & ~CSIGNAL),
++               .flags          = (flags & ~CSIGNAL),
+                .pidfd          = parent_tidptr,
+                .child_tid      = child_tidptr,
+                .parent_tid     = parent_tidptr,
+-               .exit_signal    = (clone_flags & CSIGNAL),
++               .exit_signal    = (flags & CSIGNAL),
+                .stack          = newsp,
+                .tls            = tls,
+        }
+
+(Note that kernel_clone_args->flags is a 64 bit unsigned integer.)
+
+Christian
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
