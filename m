@@ -2,68 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFE251C516E
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 10:58:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6985B1C5189
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 11:05:44 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A47E03C2682
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 10:58:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3A1AB3C284A
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 11:05:44 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 7A76D3C2670
- for <ltp@lists.linux.it>; Tue,  5 May 2020 10:58:23 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 534FE1A00982
- for <ltp@lists.linux.it>; Tue,  5 May 2020 10:58:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1588669101;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=DsEDLMT9yd978pbK1XURvYISrmcyvzV6dNpj601kf0w=;
- b=N6ZxGhKZRhM2gmjvDQNUeNf/eReqEMeXmfhu9iFwo1457mnvjEZUV6m2PzfachXh+LpVrg
- F7cSfHQUcxtYISOUGjzKL7QjbsEsDgNKyIIbiddkTzFBVGmsLJvgG566TLv3FN761IPcXn
- lrl6USIhvZL/Am3vmHmYp2Kb2zcgUBw=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-487-0Z7qW4QUP86pOhJmg_SQyg-1; Tue, 05 May 2020 04:58:18 -0400
-X-MC-Unique: 0Z7qW4QUP86pOhJmg_SQyg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 559BD3C267A
+ for <ltp@lists.linux.it>; Tue,  5 May 2020 11:05:41 +0200 (CEST)
+Received: from albireo.enyo.de (albireo.enyo.de [37.24.231.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E1849107ACF2;
- Tue,  5 May 2020 08:58:15 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C2308627D9;
- Tue,  5 May 2020 08:58:15 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8E6F51809541;
- Tue,  5 May 2020 08:58:15 +0000 (UTC)
-Date: Tue, 5 May 2020 04:58:15 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 491231400982
+ for <ltp@lists.linux.it>; Tue,  5 May 2020 11:05:40 +0200 (CEST)
+Received: from [172.17.203.2] (helo=deneb.enyo.de)
+ by albireo.enyo.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ id 1jVtWD-0004fp-Hu; Tue, 05 May 2020 09:05:37 +0000
+Received: from fw by deneb.enyo.de with local (Exim 4.92)
+ (envelope-from <fw@deneb.enyo.de>)
+ id 1jVtWD-0004bH-Fj; Tue, 05 May 2020 11:05:37 +0200
+From: Florian Weimer <fw@deneb.enyo.de>
 To: Christian Brauner <christian.brauner@ubuntu.com>
-Message-ID: <195377888.11254757.1588669095248.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20200505083205.qwwdiotmmjl23aje@wittgenstein>
 References: <1038674044.11248021.1588663714272.JavaMail.zimbra@redhat.com>
  <87pnbi4y8x.fsf@mid.deneb.enyo.de>
  <20200505083205.qwwdiotmmjl23aje@wittgenstein>
+Date: Tue, 05 May 2020 11:05:37 +0200
+In-Reply-To: <20200505083205.qwwdiotmmjl23aje@wittgenstein> (Christian
+ Brauner's message of "Tue, 5 May 2020 10:32:05 +0200")
+Message-ID: <87a72m4uqm.fsf@mid.deneb.enyo.de>
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.25, 10.4.195.20]
-Thread-Topic: clone(CLONE_IO) failing after kernel commit commit ef2c41cf38a7
-Thread-Index: b6N0urJCdLyflrLQX/chT2e0hS0XvQ==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
 Subject: Re: [LTP] [bug?] clone(CLONE_IO) failing after kernel commit commit
  ef2c41cf38a7
 X-BeenThere: ltp@lists.linux.it
@@ -84,16 +59,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+* Christian Brauner:
 
+> Hm, as you observed, the kernel always defines the flags argument as
+> unsigned long and afaict this has been the case since forever. So I'm
+> not sure why the userspace wrapper is defined as taking an int for
+> flags in the first place(?).
 
------ Original Message -----
+We have different types in many places.  Sometimes this is required by
+POSIX, sometimes not.  See the recent effort to fix the x32 interface
+(mostly for size_t arguments).
+
+Flags arguments that depend on the word size are incompatible with
+portable system calls, so arguably what the kernel is doing here is
+wrong: the additional bits can never be used for anything.
+
+> And I wonder if we should just do:
+>
+> if (clone_flags & ~CLONE_LEGACY_FLAGS) /* 
+> 	return -EINVAL;
+>
+> but that might be a change in behavior, as legacy clone _never_ failed
+> when invalid values where passed.
+
+Have any flags been added recently?
+
+> (Note, that CLONE_LEGACY_FLAGS is already defined as
+> #define CLONE_LEGACY_FLAGS 0xffffffffULL
+> and used in clone3().)
+>
+> So the better option might be to do what you suggested, Florian:
+> if (clone_flags & ~CLONE_LEGACY_FLAGS)
+> 	clone_flags = CLONE_LEGACY_FLAGS?
+> and move on?
+
+Not sure what you are suggesting here.  Do you mean an unconditional
+masking of excess bits?
+
+  clone_flags &= CLONE_LEGACY_FLAGS;
+
+I think I would prefer this:
+
+  /* Userspace may have passed a sign-extended int value. */
+  if (clone_flags != (int) clone_flags) /* 
+ 	return -EINVAL;
+  clone_flags = (unsigned) clone_flags;
+
 > (Btw, iiuc, this would've always been a problem, right? In the sense that
 > userspace only got away with this because there were no additional flags
 > defined and couldn't.)
 
-I think so, 4.20 behaves same way, but kernel ignores any extra flags:
-  clone(child_stack=0x1011ffe0, flags=CLONE_IO|0xffffffff00000000|SIGCHLD) = 1061
-
+It depends on how the clone system call wrapper is implemented, and
+what the C function call ABI is like.  In some cases, you probably get
+zero-extension, as expected by the kernel.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
