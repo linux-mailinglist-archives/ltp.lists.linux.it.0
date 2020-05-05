@@ -1,50 +1,38 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AE001C563D
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 15:06:04 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 034BF1C52DE
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 12:16:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0579F3C5815
-	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 15:06:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A8C8F3C5822
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 May 2020 12:16:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 131573C2B0A
- for <ltp@lists.linux.it>; Tue,  5 May 2020 11:58:17 +0200 (CEST)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 46CFA3C2654
+ for <ltp@lists.linux.it>; Tue,  5 May 2020 12:16:41 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A114B6000ED
- for <ltp@lists.linux.it>; Tue,  5 May 2020 11:58:17 +0200 (CEST)
-Received: from ip5f5af183.dynamic.kabel-deutschland.de ([95.90.241.131]
- helo=wittgenstein) by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <christian.brauner@ubuntu.com>)
- id 1jVuL8-0007GO-I4; Tue, 05 May 2020 09:58:14 +0000
-Date: Tue, 5 May 2020 11:58:13 +0200
-From: Christian Brauner <christian.brauner@ubuntu.com>
-To: Florian Weimer <fw@deneb.enyo.de>
-Message-ID: <20200505095813.z7kakdbiwq7ewnmx@wittgenstein>
-References: <1038674044.11248021.1588663714272.JavaMail.zimbra@redhat.com>
- <87pnbi4y8x.fsf@mid.deneb.enyo.de>
- <20200505083205.qwwdiotmmjl23aje@wittgenstein>
- <87a72m4uqm.fsf@mid.deneb.enyo.de>
- <20200505091554.eq7kzvb4twe2wgvl@wittgenstein>
- <871rny4taz.fsf@mid.deneb.enyo.de>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 3EB8D1A01203
+ for <ltp@lists.linux.it>; Tue,  5 May 2020 12:16:40 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 3C506AC4D;
+ Tue,  5 May 2020 10:16:42 +0000 (UTC)
+From: Richard Palethorpe <rpalethorpe@suse.com>
+To: ltp@lists.linux.it
+Date: Tue,  5 May 2020 11:16:24 +0100
+Message-Id: <20200505101625.25020-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <871rny4taz.fsf@mid.deneb.enyo.de>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-X-Mailman-Approved-At: Tue, 05 May 2020 15:05:13 +0200
-Subject: Re: [LTP] [bug?] clone(CLONE_IO) failing after kernel commit commit
- ef2c41cf38a7
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 1/2] pty04: Use guarded buffers for transmission
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,83 +44,71 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jan Stancek via Libc-alpha <libc-alpha@sourceware.org>,
- LTP List <ltp@lists.linux.it>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, May 05, 2020 at 11:36:36AM +0200, Florian Weimer wrote:
-> * Christian Brauner:
-> >> Have any flags been added recently?
-> >
-> > /* Flags for the clone3() syscall. */
-> > #define CLONE_CLEAR_SIGHAND 0x100000000ULL /* Clear any signal handler and reset to SIG_DFL. */
-> > #define CLONE_INTO_CGROUP 0x200000000ULL /* Clone into a specific cgroup given the right permissions. */
-> 
-> Are those flags expected to be compatible with the legacy clone
-> interface on 64-bit architectures?
+Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+---
 
-No, they are clone3() only. clone() is deprecated wrt to new features.
+V4: Include this commit which was missing in v3
 
-> 
-> >> > (Note, that CLONE_LEGACY_FLAGS is already defined as
-> >> > #define CLONE_LEGACY_FLAGS 0xffffffffULL
-> >> > and used in clone3().)
-> >> >
-> >> > So the better option might be to do what you suggested, Florian:
-> >> > if (clone_flags & ~CLONE_LEGACY_FLAGS)
-> >> > 	clone_flags = CLONE_LEGACY_FLAGS?
-> >> > and move on?
-> >> 
-> >> Not sure what you are suggesting here.  Do you mean an unconditional
-> >> masking of excess bits?
-> >> 
-> >>   clone_flags &= CLONE_LEGACY_FLAGS;
-> >> 
-> >> I think I would prefer this:
-> >> 
-> >>   /* Userspace may have passed a sign-extended int value. */
-> >>   if (clone_flags != (int) clone_flags) /* 
-> >>  	return -EINVAL;
-> >>   clone_flags = (unsigned) clone_flags;
-> >
-> > My worry is that this will cause regressions because clone() has never
-> > failed on invalid flag values. I was looking for a way to not have this
-> > problem. But given what you say below this change might be ok/worth
-> > risking?
-> 
-> I was under the impression that current kernels perform such a check,
-> causing the problem with sign extension.
+ testcases/kernel/pty/pty04.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-No, it doesn't, it never did. It only does it for clone3(). Legacy
-clone() _never_ reported an error no matter if you passed garbage flags
-or not. That's why we can't re-use clone() flags that have essentially
-been removed in kernel version before I could even program. :) Unless
-I'm misunderstanding what check you're referring to.
+diff --git a/testcases/kernel/pty/pty04.c b/testcases/kernel/pty/pty04.c
+index 0273bf902..d730d6834 100644
+--- a/testcases/kernel/pty/pty04.c
++++ b/testcases/kernel/pty/pty04.c
+@@ -27,6 +27,7 @@
+ 
+ #define _GNU_SOURCE
+ #include "tst_test.h"
++#include "tst_buffers.h"
+ #include "config.h"
+ 
+ #if defined(HAVE_LINUX_IF_PACKET_H) && defined(HAVE_LINUX_IF_ETHER_H)
+@@ -110,7 +111,7 @@ static ssize_t try_write(int fd, char *data, ssize_t size, ssize_t *written)
+ 
+ static void write_pty(void)
+ {
+-	char *data = SAFE_MALLOC(mtu);
++	char *data = tst_alloc(mtu);
+ 	ssize_t written, ret;
+ 
+ 	memset(data, '_', mtu - 1);
+@@ -137,7 +138,7 @@ static void write_pty(void)
+ 
+ 	tst_res(TPASS, "Writing to PTY interrupted by hangup");
+ 
+-	free(data);
++	tst_free_all();
+ }
+ 
+ static void open_netdev(struct ldisc_info *ldisc)
+@@ -203,7 +204,7 @@ static void check_data(const char *data, ssize_t len)
+ static void read_netdev(void)
+ {
+ 	int rlen, plen = mtu - 1;
+-	char *data = SAFE_MALLOC(plen);
++	char *data = tst_alloc(plen);
+ 
+ 	tst_res(TINFO, "Reading from socket %d", sk);
+ 
+@@ -222,7 +223,7 @@ static void read_netdev(void)
+ 
+ 	tst_res(TPASS, "Reading data from netdev interrupted by hangup");
+ 
+-	free(data);
++	tst_free_all();
+ }
+ 
+ static void do_test(unsigned int n)
+-- 
+2.26.1
 
-If I understood the original mail correctly, then the issue is caused by
-an interaction with sign extension and a the new flag value
-CLONE_INTO_CGROUP being defined.
-So from what I gather from Jan's initial mail is that when clone() is
-called on ppc64le with the CLONE_IO|SIGCHLD flag:
-clone(do_child, stack+1024*1024, CLONE_IO|SIGCHLD, NULL, NULL, NULL, NULL);
-that the sign extension causes bits to be set that raise the
-CLONE_INTO_CGROUP flag. And since the do_fork() codepath is the same for
-legacy clone() and clone3() the kernel will think that someone requested
-CLONE_INTO_CGROUP but hasn't passed a valid fd to a cgroup. If that is
-the only issue here then couldn't we just do:
-
-clone_flags &= ~CLONE3_ONLY_FLAGS?
-
-and move on, i.e. all future clone3() flags we'll just remove since we
-can assume that they have been accidently set. Even if they have been
-intentionally set we can just ignore them since that's in line with
-legacy clone()'s (questionable) tradition of ignoring unknown flags.
-Thoughts? Or am I missing some subtlety here?
-
-Christian
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
