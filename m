@@ -1,71 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C681A1C678C
-	for <lists+linux-ltp@lfdr.de>; Wed,  6 May 2020 07:44:06 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id BF7861C6C32
+	for <lists+linux-ltp@lfdr.de>; Wed,  6 May 2020 10:47:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8C2AE3C2618
-	for <lists+linux-ltp@lfdr.de>; Wed,  6 May 2020 07:44:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1B46D3C261B
+	for <lists+linux-ltp@lfdr.de>; Wed,  6 May 2020 10:47:43 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id EAC1B3C260F
- for <ltp@lists.linux.it>; Wed,  6 May 2020 07:44:04 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id C198A1000539
- for <ltp@lists.linux.it>; Wed,  6 May 2020 07:44:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1588743841;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=R4GuGu1telCNVvRTWgOquNaf4oui/qekVPs5f1PlvoQ=;
- b=UtxOdIxVF55AVm046r8JYNOC8zDEUcEMbYo2jGsMfD/Lf9S+MxwcRcNERQB7GV/VL4bJsa
- zCT9NI6vH2jSXGAzywCFEpPXoqmAlK4aWTPXEiBwd/5kR/3SkG92G8Mayj9roKiFf/sqFG
- 50Jr1T/ELdzLOMXyOwBgYOvLjtGN7Yg=
-Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
- [209.85.167.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-67-X-W-QW2EPxKdykD8_u__6w-1; Wed, 06 May 2020 01:43:32 -0400
-X-MC-Unique: X-W-QW2EPxKdykD8_u__6w-1
-Received: by mail-lf1-f72.google.com with SMTP id q11so387549lfe.21
- for <ltp@lists.linux.it>; Tue, 05 May 2020 22:43:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Gy923jblwFwvrIXq52R2ovwsHiZ1EmDAp5feZr9dG1I=;
- b=pNAQ7sgAKjAOqksYvmTcc9j7Kdi/XYbvl/3BDifErOHFX252+JqWqQYNWkTE7j6m7g
- Mm1XdHy3DMDafnm5Xe8v8/i0ge9ByyqcRDtoE0D2SR10eQw+jMYDqOAf8uJ/BMA44Kk6
- uXpw26L4cmsfYVrtmLZo+8uurzpocrrWRFDoXdllIzf3RlGFdgOm/X0E5pBubYtu8Kkn
- RpMYcIyeAcjlVZGJ8gB0nl/XiykLbs+KuE3g50gyjnWdIFa5yGIrT1VOT+GtJf0sY6E3
- HyX7Nb7fGUCleLpticXhKbkYBAEsE14/pTNoqn/NgVzDPP1CcNGo2wpX1NOkkA6pVX3b
- xlkA==
-X-Gm-Message-State: AGi0PuZFOe1WBanYjTdVd4piCxwUytLpqFdQ15QZt7sYnYI9M786ewfJ
- vVX4idxqD0NPOtkFre9uPgWTsskhh4Kk983pHk3AGUhjyNwot8PrPMyZov6wO5TmxTzEpkCKMYf
- oGuFnAqrME0xTReLVq9Wb+Femqo0=
-X-Received: by 2002:ac2:464c:: with SMTP id s12mr3839316lfo.147.1588743810886; 
- Tue, 05 May 2020 22:43:30 -0700 (PDT)
-X-Google-Smtp-Source: APiQypLsPv7KvfY3bn4stGXXqX2Tj9POHuYuaH84JFUqfWaGY3Z3KYeQ6dnQIaMD0fpiYlmxKxni0cYlTqH+V0y+CY4=
-X-Received: by 2002:ac2:464c:: with SMTP id s12mr3839308lfo.147.1588743810701; 
- Tue, 05 May 2020 22:43:30 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200427053813.23112-1-pvorel@suse.cz>
-In-Reply-To: <20200427053813.23112-1-pvorel@suse.cz>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 6 May 2020 13:43:19 +0800
-Message-ID: <CAEemH2e6jUk8yAs759OZzoiKU4_k5KfYQd_GYF1tb3d9qdt+QQ@mail.gmail.com>
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 4B2243C2241
+ for <ltp@lists.linux.it>; Wed,  6 May 2020 10:47:41 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B44EA1A00F87
+ for <ltp@lists.linux.it>; Wed,  6 May 2020 10:47:40 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 40C9EAB8F;
+ Wed,  6 May 2020 08:47:42 +0000 (UTC)
+References: <20200505101625.25020-1-rpalethorpe@suse.com>
+ <20200505133746.GB21884@dell5510> <87d07isaka.fsf@our.domain.is.not.set>
+User-agent: mu4e 1.4.1; emacs 26.3
+From: Richard Palethorpe <rpalethorpe@suse.de>
 To: Petr Vorel <pvorel@suse.cz>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+In-reply-to: <87d07isaka.fsf@our.domain.is.not.set>
+Date: Wed, 06 May 2020 09:47:36 +0100
+Message-ID: <877dxpsb4n.fsf@our.domain.is.not.set>
+MIME-Version: 1.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/2] tst_test.sh: eval TST_RETRY_FN_EXP_BACKOFF
- function
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 1/2] pty04: Use guarded buffers for transmission
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,46 +46,74 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0031203529=="
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0031203529==
-Content-Type: multipart/alternative; boundary="00000000000079ee9005a4f43e33"
+Hi,
 
---00000000000079ee9005a4f43e33
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Richard Palethorpe <rpalethorpe@suse.de> writes:
 
-Patchset pushed, thanks!
+> Hello,
+>
+> Petr Vorel <pvorel@suse.cz> writes:
+>
+>> Hi Richard,
+>>
+>>> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+>>> ---
+>>
+>> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+>>
+>> BTW Every second run with this patch it blocks after pty04.c:214: PASS: Read netdev 1
+>> and then:
+>> tst_checkpoint.c:147: BROK: pty04.c:249: tst_checkpoint_wait(0, 10000): ETIMEDOUT (110)
+>> tst_test.c:373: BROK: Reported by child (26650)
+>> safe_macros.c:258: BROK: pty04.c:215: read(5,0x7efebc306001,8191) failed, returned -1: ENETDOWN (100)
+>> pty04.c:139: PASS: Writing to PTY interrupted by hangup
+>> tst_test.c:373: WARN: Reported by child (26648)
+>>
+>> Tested on 5.7.0-rc3 in Tumbleweed.
+>> But it looks this is not caused by this change, but was here before, because the
+>> same behavior I see when testing pty04 *without* this patch on various kernels
+>> (5.3.7, 5.6.0-rc5) and some of the never SLES (4.12 based).
+>>
+>> Kind regards,
+>> Petr
+>
+> This looks similar to the issue reported by Jan:
+>
+> https://github.com/linux-test-project/ltp/issues/674
+>
+> Is this the full output?
+>
+> Thinking aloud: the following (probably) happens when writing to the PTY
+>
+> write() -> PTY -> SLIP/SLCAN -> netdev -> read()
+>
+> Writing to the PTY causes the PTY to write to the line discipline. What
+> I found was that when the line discipline receive buffer got full and the PTY
+> send buffer got full. The write would go to sleep and never wake up
+> because the line discipline drained the receive buffer, but doesn't
+> signal it is ready for more data (with tty_unthrottle). So I used
+> nonblocking writes which just retry writing.
+>
+> From Jan's errors it looks like it might just be reading that is failing
+> in one case and that writing is also failing in the other until we
+> cancel the read. I doubt this is anything to do with the netdev code
+> because it is generic networking code AFAICT and should work correctly
+> with blocking reads...
 
---=20
-Regards,
-Li Wang
-
---00000000000079ee9005a4f43e33
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Patchset pushed, thanks!</div><div class=3D"gmail_default" st=
-yle=3D"font-size:small"><br></div></div>-- <br><div dir=3D"ltr" class=3D"gm=
-ail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></di=
-v></div></div></div>
-
---00000000000079ee9005a4f43e33--
-
-
---===============0031203529==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Probably the best thing todo for now is to remove the test before the
+release as this requires some more investigation.
 
 
 -- 
+Thank you,
+Richard.
+
+-- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0031203529==--
-
