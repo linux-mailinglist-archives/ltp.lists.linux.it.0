@@ -2,73 +2,55 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FACF1C6EC8
-	for <lists+linux-ltp@lfdr.de>; Wed,  6 May 2020 12:56:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C56F1C6EDC
+	for <lists+linux-ltp@lfdr.de>; Wed,  6 May 2020 13:04:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F3CCB3C261B
-	for <lists+linux-ltp@lfdr.de>; Wed,  6 May 2020 12:56:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C89133C5792
+	for <lists+linux-ltp@lfdr.de>; Wed,  6 May 2020 13:04:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 370883C176A
- for <ltp@lists.linux.it>; Wed,  6 May 2020 12:56:54 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [207.211.31.120])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id F19192010E4
- for <ltp@lists.linux.it>; Wed,  6 May 2020 12:56:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1588762612;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FoPHSHo8PDSxrkOXzNOwibIIV1IlZ6ycAGVqElZD29I=;
- b=BahIImC3YpUo8pXp8rwi+VPM/Ql7wRFRlhWWkf44Sj2abc7/3UsLHM6r4nrLzy8hbNyQTS
- L8zgcqhyXLoGAFAzBTk0s1rrXBKPpOhWt35jsrdSRj5VzSV1+wIyZAs01AYBrsEvmC50+d
- OLcEL3GCCJLGAvlDud/0YOY3XujWSU8=
-Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
- [209.85.167.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-157-8FlAofaVMi2vY8yUTIcOxA-1; Wed, 06 May 2020 06:56:50 -0400
-X-MC-Unique: 8FlAofaVMi2vY8yUTIcOxA-1
-Received: by mail-lf1-f69.google.com with SMTP id q8so675735lfb.15
- for <ltp@lists.linux.it>; Wed, 06 May 2020 03:56:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=FoPHSHo8PDSxrkOXzNOwibIIV1IlZ6ycAGVqElZD29I=;
- b=ojyPBpKnl7ykAQ1aGssJU//6Azw5TERC+5hASDJd24SOMERGd7eANF/L7Bovkef+SJ
- H+f6LVwu574BHct0G+g5XNZ3aqtuCohk/MGjmop9XUoyk7L63IpRQ2WIbHmE8f7KPmCv
- WjADx+j9ZNaa2VSxwmBAG1TLZ0coLnrKCYLazcVthE7+2NBlOh9O3FmTJw0gNj40tNs1
- FI59iZwQuZe91VNr7gc9GpWHfoQmh6EsvzP/0EJpLzjaj5agfxOvfnbWa7wnYlWz7XOv
- fbHyFNKTq27WQg3sSyToRrZy2QmydUrtNA4pOLHxnbY5LGRrPvSo0f2Eb/Fgu2sQxaUN
- 7WNw==
-X-Gm-Message-State: AGi0Pub+olchhbHZDh/Jd5LClF7Xx5yO8ubrLvw7uPWvxpLILnMi6Hw4
- pPwoKtx/ED4x0bHJtnyAzRrnYoME5UlP5IOXCuzgnQR8qaJkYnxBnYd0piNlqaS/hM8cbLtDmd8
- NeSPCXyfQEl+dD9bZya17CqjsypM=
-X-Received: by 2002:a2e:9018:: with SMTP id h24mr4459171ljg.217.1588762608610; 
- Wed, 06 May 2020 03:56:48 -0700 (PDT)
-X-Google-Smtp-Source: APiQypLrI/Of64OPiFUZn28lno2T5I2ucafu9/D7paZrypd6riIPTIY7qqlbC9XYUFl6Sy1TeiL7XtMz+nhv2iyGhfo=
-X-Received: by 2002:a2e:9018:: with SMTP id h24mr4459163ljg.217.1588762608382; 
- Wed, 06 May 2020 03:56:48 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200505101625.25020-1-rpalethorpe@suse.com>
- <20200505133746.GB21884@dell5510>
- <87d07isaka.fsf@our.domain.is.not.set> <877dxpsb4n.fsf@our.domain.is.not.set>
- <1106041841.11477901.1588762195733.JavaMail.zimbra@redhat.com>
-In-Reply-To: <1106041841.11477901.1588762195733.JavaMail.zimbra@redhat.com>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 6 May 2020 18:56:36 +0800
-Message-ID: <CAEemH2coDuWHPt8SMosAtpjNd4VxmkGw3FWWajUOYXaNN7o0og@mail.gmail.com>
-To: Jan Stancek <jstancek@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id EBE713C2608
+ for <ltp@lists.linux.it>; Wed,  6 May 2020 13:04:29 +0200 (CEST)
+Received: from m12-17.163.com (m12-17.163.com [220.181.12.17])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 7B2811A01117
+ for <ltp@lists.linux.it>; Wed,  6 May 2020 13:04:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Mime-Version:Message-ID:Subject:Date:From; bh=FGEjp
+ xivB7l1zQT/xaQ9ttn6dS97Dk0Mjq6Cm9O0FmQ=; b=Ts59C0Q2NHcd1n7SUPRO0
+ hJnaGKZVs/tWv/V5vSaCODKue18dCGNGTtDwpaCJpPTTrVo9VxGMnc/eaD9yW4Xj
+ N4vG3/IkOOD1kHhV/VtLToEEbo8hD2KT9Tq3kc/45th0njuaF9SgIrwU0ggUjhQN
+ Rq55kIzZXi0YaA0NWAUXXM=
+Received: from localhost (unknown [223.104.145.87])
+ by smtp13 (Coremail) with SMTP id EcCowAD3uCq3mbJejtH0BA--.742S2;
+ Wed, 06 May 2020 19:04:24 +0800 (CST)
+Mime-Version: 1.0
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+Message-ID: 
+Date: Wed, 6 May 2020 19:04:23 +0800 (GMT+08:00)
+From: =?UTF-8?B?eHV5YW5nX2p5XzA0MTBAMTYzLmNvbQ==?=<xuyang_jy_0410@163.com>
+To: =?UTF-8?B?TGkgV2FuZw==?=<liwang@redhat.com>,
+ =?UTF-8?B?SmFuIFN0YW5jZWs=?=<jstancek@redhat.com>
+X-CM-TRANSID: EcCowAD3uCq3mbJejtH0BA--.742S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAF48Ww18tFy3tr4rAr13urg_yoW5KFy8p3
+ y5AF4qyrsxJr18Z392qrn2vFyFvF97Jr1SgFW5G3W7ZFyYgFnavrnFga1Y93WkWr4xWw1a
+ qFWj9a47GFWUArDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jVlkxUUUUU=
+X-Originating-IP: [223.104.145.87]
+X-CM-SenderInfo: p0x1t05jbm5saquriqqrwthudrp/1tbiGhgchFaD54UNwgAAsi
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+X-Spam-Status: No, score=1.2 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,FROM_EXCESS_BASE64,
+ FROM_MISSP_FREEMAIL,HTML_MESSAGE,MIME_BASE64_TEXT,MIME_HTML_MOSTLY,
+ MPART_ALT_DIFF,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v4 1/2] pty04: Use guarded buffers for transmission
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -81,263 +63,140 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1469288667=="
+Cc: =?UTF-8?B?TFRQIExpc3Q=?= <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0976997957=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1469288667==
-Content-Type: multipart/alternative; boundary="000000000000e7d6d005a4f89ed6"
+--===============0976997957==
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_0_251659081.1588763063886"
 
---000000000000e7d6d005a4f89ed6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, May 6, 2020 at 6:50 PM Jan Stancek <jstancek@redhat.com> wrote:
-
->
->
-> ----- Original Message -----
-> > Hi,
-> >
-> > Richard Palethorpe <rpalethorpe@suse.de> writes:
-> >
-> > > Hello,
-> > >
-> > > Petr Vorel <pvorel@suse.cz> writes:
-> > >
-> > >> Hi Richard,
-> > >>
-> > >>> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
-> > >>> ---
-> > >>
-> > >> Reviewed-by: Petr Vorel <pvorel@suse.cz>
-> > >>
-> > >> BTW Every second run with this patch it blocks after pty04.c:214:
-> PASS:
-> > >> Read netdev 1
-> > >> and then:
-> > >> tst_checkpoint.c:147: BROK: pty04.c:249: tst_checkpoint_wait(0,
-> 10000):
-> > >> ETIMEDOUT (110)
-> > >> tst_test.c:373: BROK: Reported by child (26650)
-> > >> safe_macros.c:258: BROK: pty04.c:215: read(5,0x7efebc306001,8191)
-> failed,
-> > >> returned -1: ENETDOWN (100)
-> > >> pty04.c:139: PASS: Writing to PTY interrupted by hangup
-> > >> tst_test.c:373: WARN: Reported by child (26648)
-> > >>
-> > >> Tested on 5.7.0-rc3 in Tumbleweed.
-> > >> But it looks this is not caused by this change, but was here before,
-> > >> because the
-> > >> same behavior I see when testing pty04 *without* this patch on vario=
-us
-> > >> kernels
-> > >> (5.3.7, 5.6.0-rc5) and some of the never SLES (4.12 based).
-> > >>
-> > >> Kind regards,
-> > >> Petr
-> > >
-> > > This looks similar to the issue reported by Jan:
-> > >
-> > > https://github.com/linux-test-project/ltp/issues/674
-> > >
-> > > Is this the full output?
-> > >
-> > > Thinking aloud: the following (probably) happens when writing to the
-> PTY
-> > >
-> > > write() -> PTY -> SLIP/SLCAN -> netdev -> read()
-> > >
-> > > Writing to the PTY causes the PTY to write to the line discipline. Wh=
-at
-> > > I found was that when the line discipline receive buffer got full and
-> the
-> > > PTY
-> > > send buffer got full. The write would go to sleep and never wake up
-> > > because the line discipline drained the receive buffer, but doesn't
-> > > signal it is ready for more data (with tty_unthrottle). So I used
-> > > nonblocking writes which just retry writing.
-> > >
-> > > From Jan's errors it looks like it might just be reading that is
-> failing
-> > > in one case and that writing is also failing in the other until we
-> > > cancel the read. I doubt this is anything to do with the netdev code
-> > > because it is generic networking code AFAICT and should work correctl=
-y
-> > > with blocking reads...
-> >
-> > Probably the best thing todo for now is to remove the test before the
-> > release as this requires some more investigation.
->
-> We can keep it in tree, I'd just disable it in runtest file(s), so it's n=
-ot
-> run by default.
->
-
-But we still facing the compiled errors in the old kernels, that will break
-the LTP build in the compiling phase.
-
-RHEL-7:
-
-pty04.c: In function =E2=80=98check_data=E2=80=99:
-pty04.c:255:7: error: =E2=80=98struct can_frame=E2=80=99 has no member name=
-d =E2=80=98__pad=E2=80=99
-   i =3D offsetof(struct can_frame, __pad);
-       ^
-pty04.c:256:10: error: =E2=80=98struct can_frame=E2=80=99 has no member nam=
-ed =E2=80=98__pad=E2=80=99
-   if (frm.__pad !=3D frm.__res0 || frm.__res0 !=3D frm.__res1) {
-          ^
-pty04.c:256:23: error: =E2=80=98struct can_frame=E2=80=99 has no member nam=
-ed =E2=80=98__res0=E2=80=99
-   if (frm.__pad !=3D frm.__res0 || frm.__res0 !=3D frm.__res1) {
-                       ^
-pty04.c:256:37: error: =E2=80=98struct can_frame=E2=80=99 has no member nam=
-ed =E2=80=98__res0=E2=80=99
-   if (frm.__pad !=3D frm.__res0 || frm.__res0 !=3D frm.__res1) {
-                                     ^
-pty04.c:256:51: error: =E2=80=98struct can_frame=E2=80=99 has no member nam=
-ed =E2=80=98__res1=E2=80=99
-   if (frm.__pad !=3D frm.__res0 || frm.__res0 !=3D frm.__res1) {
+------=_Part_0_251659081.1588763063886
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: base64
 
 
---=20
-Regards,
-Li Wang
+------=_Part_0_251659081.1588763063886
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: base64
 
---000000000000e7d6d005a4f89ed6
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Wed, May 6, 2020 at 6:50 PM Jan Stancek &lt;<a h=
-ref=3D"mailto:jstancek@redhat.com" target=3D"_blank">jstancek@redhat.com</a=
->&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
- 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><br=
->
-<br>
------ Original Message -----<br>
-&gt; Hi,<br>
-&gt; <br>
-&gt; Richard Palethorpe &lt;<a href=3D"mailto:rpalethorpe@suse.de" target=
-=3D"_blank">rpalethorpe@suse.de</a>&gt; writes:<br>
-&gt; <br>
-&gt; &gt; Hello,<br>
-&gt; &gt;<br>
-&gt; &gt; Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz" target=3D"_blank=
-">pvorel@suse.cz</a>&gt; writes:<br>
-&gt; &gt;<br>
-&gt; &gt;&gt; Hi Richard,<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt;&gt; Signed-off-by: Richard Palethorpe &lt;<a href=3D"mailto:r=
-palethorpe@suse.com" target=3D"_blank">rpalethorpe@suse.com</a>&gt;<br>
-&gt; &gt;&gt;&gt; ---<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; Reviewed-by: Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz"=
- target=3D"_blank">pvorel@suse.cz</a>&gt;<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; BTW Every second run with this patch it blocks after pty04.c:=
-214: PASS:<br>
-&gt; &gt;&gt; Read netdev 1<br>
-&gt; &gt;&gt; and then:<br>
-&gt; &gt;&gt; tst_checkpoint.c:147: BROK: pty04.c:249: tst_checkpoint_wait(=
-0, 10000):<br>
-&gt; &gt;&gt; ETIMEDOUT (110)<br>
-&gt; &gt;&gt; tst_test.c:373: BROK: Reported by child (26650)<br>
-&gt; &gt;&gt; safe_macros.c:258: BROK: pty04.c:215: read(5,0x7efebc306001,8=
-191) failed,<br>
-&gt; &gt;&gt; returned -1: ENETDOWN (100)<br>
-&gt; &gt;&gt; pty04.c:139: PASS: Writing to PTY interrupted by hangup<br>
-&gt; &gt;&gt; tst_test.c:373: WARN: Reported by child (26648)<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; Tested on 5.7.0-rc3 in Tumbleweed.<br>
-&gt; &gt;&gt; But it looks this is not caused by this change, but was here =
-before,<br>
-&gt; &gt;&gt; because the<br>
-&gt; &gt;&gt; same behavior I see when testing pty04 *without* this patch o=
-n various<br>
-&gt; &gt;&gt; kernels<br>
-&gt; &gt;&gt; (5.3.7, 5.6.0-rc5) and some of the never SLES (4.12 based).<b=
-r>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; Kind regards,<br>
-&gt; &gt;&gt; Petr<br>
-&gt; &gt;<br>
-&gt; &gt; This looks similar to the issue reported by Jan:<br>
-&gt; &gt;<br>
-&gt; &gt; <a href=3D"https://github.com/linux-test-project/ltp/issues/674" =
-rel=3D"noreferrer" target=3D"_blank">https://github.com/linux-test-project/=
-ltp/issues/674</a><br>
-&gt; &gt;<br>
-&gt; &gt; Is this the full output?<br>
-&gt; &gt;<br>
-&gt; &gt; Thinking aloud: the following (probably) happens when writing to =
-the PTY<br>
-&gt; &gt;<br>
-&gt; &gt; write() -&gt; PTY -&gt; SLIP/SLCAN -&gt; netdev -&gt; read()<br>
-&gt; &gt;<br>
-&gt; &gt; Writing to the PTY causes the PTY to write to the line discipline=
-. What<br>
-&gt; &gt; I found was that when the line discipline receive buffer got full=
- and the<br>
-&gt; &gt; PTY<br>
-&gt; &gt; send buffer got full. The write would go to sleep and never wake =
-up<br>
-&gt; &gt; because the line discipline drained the receive buffer, but doesn=
-&#39;t<br>
-&gt; &gt; signal it is ready for more data (with tty_unthrottle). So I used=
-<br>
-&gt; &gt; nonblocking writes which just retry writing.<br>
-&gt; &gt;<br>
-&gt; &gt; From Jan&#39;s errors it looks like it might just be reading that=
- is failing<br>
-&gt; &gt; in one case and that writing is also failing in the other until w=
-e<br>
-&gt; &gt; cancel the read. I doubt this is anything to do with the netdev c=
-ode<br>
-&gt; &gt; because it is generic networking code AFAICT and should work corr=
-ectly<br>
-&gt; &gt; with blocking reads...<br>
-&gt; <br>
-&gt; Probably the best thing todo for now is to remove the test before the<=
-br>
-&gt; release as this requires some more investigation.<br>
-<br>
-We can keep it in tree, I&#39;d just disable it in runtest file(s), so it&#=
-39;s not<br>
-run by default.<br></blockquote><div><br></div><div class=3D"gmail_default"=
- style=3D"font-size:small">But we still facing the compiled errors in the o=
-ld kernels, that will break the LTP build in the compiling phase.</div><div=
- class=3D"gmail_default" style=3D"font-size:small"><br></div><div class=3D"=
-gmail_default" style=3D"font-size:small">RHEL-7:</div><div class=3D"gmail_d=
-efault" style=3D"font-size:small"><br></div><div class=3D"gmail_default" st=
-yle=3D"font-size:small">pty04.c: In function =E2=80=98check_data=E2=80=99:<=
-br>pty04.c:255:7: error: =E2=80=98struct can_frame=E2=80=99 has no member n=
-amed =E2=80=98__pad=E2=80=99<br>=C2=A0 =C2=A0i =3D offsetof(struct can_fram=
-e, __pad);<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>pty04.c:256:10: error: =E2=80=
-=98struct can_frame=E2=80=99 has no member named =E2=80=98__pad=E2=80=99<br=
->=C2=A0 =C2=A0if (frm.__pad !=3D frm.__res0 || frm.__res0 !=3D frm.__res1) =
-{<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ^<br>pty04.c:256:23: error: =E2=80=
-=98struct can_frame=E2=80=99 has no member named =E2=80=98__res0=E2=80=99<b=
-r>=C2=A0 =C2=A0if (frm.__pad !=3D frm.__res0 || frm.__res0 !=3D frm.__res1)=
- {<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0^<br>pty04.c:256:37: error: =E2=80=98struct can_frame=E2=80=
-=99 has no member named =E2=80=98__res0=E2=80=99<br>=C2=A0 =C2=A0if (frm.__=
-pad !=3D frm.__res0 || frm.__res0 !=3D frm.__res1) {<br>=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>pty04.c:256:51: error: =E2=80=
-=98struct can_frame=E2=80=99 has no member named =E2=80=98__res1=E2=80=99<b=
-r>=C2=A0 =C2=A0if (frm.__pad !=3D frm.__res0 || frm.__res0 !=3D frm.__res1)=
- {<br></div></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr">=
-<div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div><=
-/div>
-
---000000000000e7d6d005a4f89ed6--
+PGRpdj5IaTwvZGl2PjxkaXY+TWF5YmUgd2UgY2FuIGRpc2FibGUgaXQgaW4gTWFrZWZpbGUuPC9k
+aXY+PGRpdj48YnI+PC9kaXY+PGRpdj5CZXN0IFJlZ2FyZHM8L2Rpdj48ZGl2PllhbmcgWHU8L2Rp
+dj48ZGl2Pjxicj48L2Rpdj48ZGl2PjwhLS1lbXB0eXNpZ24tLT48L2Rpdj48ZGl2PjxkaXYgc3R5
+bGU9ImZvbnQtc2l6ZToxMnB4O3BhZGRpbmc6MnB4IDA7Ij4tLS1PcmlnaW5hbC0tLTwvZGl2Pjxk
+aXYgc3R5bGU9ImZvbnQtc2l6ZToxMnB4O2JhY2tncm91bmQ6I2YwZjBmMDtjb2xvcjojMjEyMTIx
+O3BhZGRpbmc6OHB4IWltcG9ydGFudDtib3JkZXItcmFkaXVzOjRweDtsaW5lLWhlaWdodDoxLjU7
+Ij48ZGl2PjxiPkZyb206PC9iPiAiTGkgV2FuZyImbHQ7bGl3YW5nQHJlZGhhdC5jb20mZ3Q7PC9k
+aXY+PGRpdj48Yj5EYXRlOjwvYj4gV2VkLCBNYXkgNiwgMjAyMCAxODo1NiBQTTwvZGl2PjxkaXY+
+PGI+VG86PC9iPiAiSmFuIFN0YW5jZWsiJmx0O2pzdGFuY2VrQHJlZGhhdC5jb20mZ3Q7OzwvZGl2
+PjxkaXY+PGI+Q2M6PC9iPiAiTFRQIExpc3QiJmx0O2x0cEBsaXN0cy5saW51eC5pdCZndDs7PC9k
+aXY+PGRpdj48Yj5TdWJqZWN0OjwvYj4gUmU6IFtMVFBdIFtQQVRDSCB2NCAxLzJdIHB0eTA0OiBV
+c2UgZ3VhcmRlZCBidWZmZXJzIGZvciB0cmFuc21pc3Npb248L2Rpdj48L2Rpdj48YnI+PGRpdiBk
+aXI9Imx0ciI+PGRpdiBkaXI9Imx0ciI+PGRpdiBjbGFzcz0iZ21haWxfZGVmYXVsdCIgc3R5bGU9
+ImZvbnQtc2l6ZTpzbWFsbCI+PGJyPjwvZGl2PjwvZGl2Pjxicj48ZGl2IGNsYXNzPSJnbWFpbF9x
+dW90ZSI+PGRpdiBkaXI9Imx0ciIgY2xhc3M9ImdtYWlsX2F0dHIiPk9uIFdlZCwgTWF5IDYsIDIw
+MjAgYXQgNjo1MCBQTSBKYW4gU3RhbmNlayAmbHQ7PGEgaHJlZj0ibWFpbHRvOmpzdGFuY2VrQHJl
+ZGhhdC5jb20iIHRhcmdldD0iX2JsYW5rIj5qc3RhbmNla0ByZWRoYXQuY29tPC9hPiZndDsgd3Jv
+dGU6PGJyPjwvZGl2PjxibG9ja3F1b3RlIGNsYXNzPSJnbWFpbF9xdW90ZSIgc3R5bGU9ImJvcmRl
+ci1sZWZ0OiAxcHggc29saWQgcmdiKDIwNCwgMjA0LCAyMDQpOyBtYXJnaW46IDBweCAwcHggMHB4
+IDcuMTg1MTZweDsgcGFkZGluZzogMTRweCAxNnB4IDE0cHggOC45ODE0NXB4OyBjb2xvcjogcmdi
+KDE0OSwgMTQ5LCAxNDkpOyBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjQ1LCAyNDYsIDI1MCk7Ij48
+YnI+Cjxicj4KLS0tLS0gT3JpZ2luYWwgTWVzc2FnZSAtLS0tLTxicj4KJmd0OyBIaSw8YnI+CiZn
+dDsgPGJyPgomZ3Q7IFJpY2hhcmQgUGFsZXRob3JwZSAmbHQ7PGEgaHJlZj0ibWFpbHRvOnJwYWxl
+dGhvcnBlQHN1c2UuZGUiIHRhcmdldD0iX2JsYW5rIj5ycGFsZXRob3JwZUBzdXNlLmRlPC9hPiZn
+dDsgd3JpdGVzOjxicj4KJmd0OyA8YnI+CiZndDsgJmd0OyBIZWxsbyw8YnI+CiZndDsgJmd0Ozxi
+cj4KJmd0OyAmZ3Q7IFBldHIgVm9yZWwgJmx0OzxhIGhyZWY9Im1haWx0bzpwdm9yZWxAc3VzZS5j
+eiIgdGFyZ2V0PSJfYmxhbmsiPnB2b3JlbEBzdXNlLmN6PC9hPiZndDsgd3JpdGVzOjxicj4KJmd0
+OyAmZ3Q7PGJyPgomZ3Q7ICZndDsmZ3Q7IEhpIFJpY2hhcmQsPGJyPgomZ3Q7ICZndDsmZ3Q7PGJy
+PgomZ3Q7ICZndDsmZ3Q7Jmd0OyBTaWduZWQtb2ZmLWJ5OiBSaWNoYXJkIFBhbGV0aG9ycGUgJmx0
+OzxhIGhyZWY9Im1haWx0bzpycGFsZXRob3JwZUBzdXNlLmNvbSIgdGFyZ2V0PSJfYmxhbmsiPnJw
+YWxldGhvcnBlQHN1c2UuY29tPC9hPiZndDs8YnI+CiZndDsgJmd0OyZndDsmZ3Q7IC0tLTxicj4K
+Jmd0OyAmZ3Q7Jmd0Ozxicj4KJmd0OyAmZ3Q7Jmd0OyBSZXZpZXdlZC1ieTogUGV0ciBWb3JlbCAm
+bHQ7PGEgaHJlZj0ibWFpbHRvOnB2b3JlbEBzdXNlLmN6IiB0YXJnZXQ9Il9ibGFuayI+cHZvcmVs
+QHN1c2UuY3o8L2E+Jmd0Ozxicj4KJmd0OyAmZ3Q7Jmd0Ozxicj4KJmd0OyAmZ3Q7Jmd0OyBCVFcg
+RXZlcnkgc2Vjb25kIHJ1biB3aXRoIHRoaXMgcGF0Y2ggaXQgYmxvY2tzIGFmdGVyIHB0eTA0LmM6
+MjE0OiBQQVNTOjxicj4KJmd0OyAmZ3Q7Jmd0OyBSZWFkIG5ldGRldiAxPGJyPgomZ3Q7ICZndDsm
+Z3Q7IGFuZCB0aGVuOjxicj4KJmd0OyAmZ3Q7Jmd0OyB0c3RfY2hlY2twb2ludC5jOjE0NzogQlJP
+SzogcHR5MDQuYzoyNDk6IHRzdF9jaGVja3BvaW50X3dhaXQoMCwgMTAwMDApOjxicj4KJmd0OyAm
+Z3Q7Jmd0OyBFVElNRURPVVQgKDExMCk8YnI+CiZndDsgJmd0OyZndDsgdHN0X3Rlc3QuYzozNzM6
+IEJST0s6IFJlcG9ydGVkIGJ5IGNoaWxkICgyNjY1MCk8YnI+CiZndDsgJmd0OyZndDsgc2FmZV9t
+YWNyb3MuYzoyNTg6IEJST0s6IHB0eTA0LmM6MjE1OiByZWFkKDUsMHg3ZWZlYmMzMDYwMDEsODE5
+MSkgZmFpbGVkLDxicj4KJmd0OyAmZ3Q7Jmd0OyByZXR1cm5lZCAtMTogRU5FVERPV04gKDEwMCk8
+YnI+CiZndDsgJmd0OyZndDsgcHR5MDQuYzoxMzk6IFBBU1M6IFdyaXRpbmcgdG8gUFRZIGludGVy
+cnVwdGVkIGJ5IGhhbmd1cDxicj4KJmd0OyAmZ3Q7Jmd0OyB0c3RfdGVzdC5jOjM3MzogV0FSTjog
+UmVwb3J0ZWQgYnkgY2hpbGQgKDI2NjQ4KTxicj4KJmd0OyAmZ3Q7Jmd0Ozxicj4KJmd0OyAmZ3Q7
+Jmd0OyBUZXN0ZWQgb24gNS43LjAtcmMzIGluIFR1bWJsZXdlZWQuPGJyPgomZ3Q7ICZndDsmZ3Q7
+IEJ1dCBpdCBsb29rcyB0aGlzIGlzIG5vdCBjYXVzZWQgYnkgdGhpcyBjaGFuZ2UsIGJ1dCB3YXMg
+aGVyZSBiZWZvcmUsPGJyPgomZ3Q7ICZndDsmZ3Q7IGJlY2F1c2UgdGhlPGJyPgomZ3Q7ICZndDsm
+Z3Q7IHNhbWUgYmVoYXZpb3IgSSBzZWUgd2hlbiB0ZXN0aW5nIHB0eTA0ICp3aXRob3V0KiB0aGlz
+IHBhdGNoIG9uIHZhcmlvdXM8YnI+CiZndDsgJmd0OyZndDsga2VybmVsczxicj4KJmd0OyAmZ3Q7
+Jmd0OyAoNS4zLjcsIDUuNi4wLXJjNSkgYW5kIHNvbWUgb2YgdGhlIG5ldmVyIFNMRVMgKDQuMTIg
+YmFzZWQpLjxicj4KJmd0OyAmZ3Q7Jmd0Ozxicj4KJmd0OyAmZ3Q7Jmd0OyBLaW5kIHJlZ2FyZHMs
+PGJyPgomZ3Q7ICZndDsmZ3Q7IFBldHI8YnI+CiZndDsgJmd0Ozxicj4KJmd0OyAmZ3Q7IFRoaXMg
+bG9va3Mgc2ltaWxhciB0byB0aGUgaXNzdWUgcmVwb3J0ZWQgYnkgSmFuOjxicj4KJmd0OyAmZ3Q7
+PGJyPgomZ3Q7ICZndDsgPGEgaHJlZj0iaHR0cHM6Ly9naXRodWIuY29tL2xpbnV4LXRlc3QtcHJv
+amVjdC9sdHAvaXNzdWVzLzY3NCIgcmVsPSJub3JlZmVycmVyIiB0YXJnZXQ9Il9ibGFuayI+aHR0
+cHM6Ly9naXRodWIuY29tL2xpbnV4LXRlc3QtcHJvamVjdC9sdHAvaXNzdWVzLzY3NDwvYT48YnI+
+CiZndDsgJmd0Ozxicj4KJmd0OyAmZ3Q7IElzIHRoaXMgdGhlIGZ1bGwgb3V0cHV0Pzxicj4KJmd0
+OyAmZ3Q7PGJyPgomZ3Q7ICZndDsgVGhpbmtpbmcgYWxvdWQ6IHRoZSBmb2xsb3dpbmcgKHByb2Jh
+Ymx5KSBoYXBwZW5zIHdoZW4gd3JpdGluZyB0byB0aGUgUFRZPGJyPgomZ3Q7ICZndDs8YnI+CiZn
+dDsgJmd0OyB3cml0ZSgpIC0mZ3Q7IFBUWSAtJmd0OyBTTElQL1NMQ0FOIC0mZ3Q7IG5ldGRldiAt
+Jmd0OyByZWFkKCk8YnI+CiZndDsgJmd0Ozxicj4KJmd0OyAmZ3Q7IFdyaXRpbmcgdG8gdGhlIFBU
+WSBjYXVzZXMgdGhlIFBUWSB0byB3cml0ZSB0byB0aGUgbGluZSBkaXNjaXBsaW5lLiBXaGF0PGJy
+PgomZ3Q7ICZndDsgSSBmb3VuZCB3YXMgdGhhdCB3aGVuIHRoZSBsaW5lIGRpc2NpcGxpbmUgcmVj
+ZWl2ZSBidWZmZXIgZ290IGZ1bGwgYW5kIHRoZTxicj4KJmd0OyAmZ3Q7IFBUWTxicj4KJmd0OyAm
+Z3Q7IHNlbmQgYnVmZmVyIGdvdCBmdWxsLiBUaGUgd3JpdGUgd291bGQgZ28gdG8gc2xlZXAgYW5k
+IG5ldmVyIHdha2UgdXA8YnI+CiZndDsgJmd0OyBiZWNhdXNlIHRoZSBsaW5lIGRpc2NpcGxpbmUg
+ZHJhaW5lZCB0aGUgcmVjZWl2ZSBidWZmZXIsIGJ1dCBkb2Vzbid0PGJyPgomZ3Q7ICZndDsgc2ln
+bmFsIGl0IGlzIHJlYWR5IGZvciBtb3JlIGRhdGEgKHdpdGggdHR5X3VudGhyb3R0bGUpLiBTbyBJ
+IHVzZWQ8YnI+CiZndDsgJmd0OyBub25ibG9ja2luZyB3cml0ZXMgd2hpY2gganVzdCByZXRyeSB3
+cml0aW5nLjxicj4KJmd0OyAmZ3Q7PGJyPgomZ3Q7ICZndDsgRnJvbSBKYW4ncyBlcnJvcnMgaXQg
+bG9va3MgbGlrZSBpdCBtaWdodCBqdXN0IGJlIHJlYWRpbmcgdGhhdCBpcyBmYWlsaW5nPGJyPgom
+Z3Q7ICZndDsgaW4gb25lIGNhc2UgYW5kIHRoYXQgd3JpdGluZyBpcyBhbHNvIGZhaWxpbmcgaW4g
+dGhlIG90aGVyIHVudGlsIHdlPGJyPgomZ3Q7ICZndDsgY2FuY2VsIHRoZSByZWFkLiBJIGRvdWJ0
+IHRoaXMgaXMgYW55dGhpbmcgdG8gZG8gd2l0aCB0aGUgbmV0ZGV2IGNvZGU8YnI+CiZndDsgJmd0
+OyBiZWNhdXNlIGl0IGlzIGdlbmVyaWMgbmV0d29ya2luZyBjb2RlIEFGQUlDVCBhbmQgc2hvdWxk
+IHdvcmsgY29ycmVjdGx5PGJyPgomZ3Q7ICZndDsgd2l0aCBibG9ja2luZyByZWFkcy4uLjxicj4K
+Jmd0OyA8YnI+CiZndDsgUHJvYmFibHkgdGhlIGJlc3QgdGhpbmcgdG9kbyBmb3Igbm93IGlzIHRv
+IHJlbW92ZSB0aGUgdGVzdCBiZWZvcmUgdGhlPGJyPgomZ3Q7IHJlbGVhc2UgYXMgdGhpcyByZXF1
+aXJlcyBzb21lIG1vcmUgaW52ZXN0aWdhdGlvbi48YnI+Cjxicj4KV2UgY2FuIGtlZXAgaXQgaW4g
+dHJlZSwgSSdkIGp1c3QgZGlzYWJsZSBpdCBpbiBydW50ZXN0IGZpbGUocyksIHNvIGl0J3Mgbm90
+PGJyPgpydW4gYnkgZGVmYXVsdC48YnI+PC9ibG9ja3F1b3RlPjxkaXY+PGJyPjwvZGl2PjxkaXYg
+Y2xhc3M9ImdtYWlsX2RlZmF1bHQiIHN0eWxlPSJmb250LXNpemU6c21hbGwiPkJ1dCB3ZSBzdGls
+bCBmYWNpbmcgdGhlIGNvbXBpbGVkIGVycm9ycyBpbiB0aGUgb2xkIGtlcm5lbHMsIHRoYXQgd2ls
+bCBicmVhayB0aGUgTFRQIGJ1aWxkIGluIHRoZSBjb21waWxpbmcgcGhhc2UuPC9kaXY+PGRpdiBj
+bGFzcz0iZ21haWxfZGVmYXVsdCIgc3R5bGU9ImZvbnQtc2l6ZTpzbWFsbCI+PGJyPjwvZGl2Pjxk
+aXYgY2xhc3M9ImdtYWlsX2RlZmF1bHQiIHN0eWxlPSJmb250LXNpemU6c21hbGwiPlJIRUwtNzo8
+L2Rpdj48ZGl2IGNsYXNzPSJnbWFpbF9kZWZhdWx0IiBzdHlsZT0iZm9udC1zaXplOnNtYWxsIj48
+YnI+PC9kaXY+PGRpdiBjbGFzcz0iZ21haWxfZGVmYXVsdCIgc3R5bGU9ImZvbnQtc2l6ZTpzbWFs
+bCI+cHR5MDQuYzogSW4gZnVuY3Rpb24g4oCYY2hlY2tfZGF0YeKAmTo8YnI+cHR5MDQuYzoyNTU6
+NzogZXJyb3I6IOKAmHN0cnVjdCBjYW5fZnJhbWXigJkgaGFzIG5vIG1lbWJlciBuYW1lZCDigJhf
+X3BhZOKAmTxicj4mbmJzcDsgJm5ic3A7aSA9IG9mZnNldG9mKHN0cnVjdCBjYW5fZnJhbWUsIF9f
+cGFkKTs8YnI+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7Xjxicj5wdHkwNC5jOjI1NjoxMDog
+ZXJyb3I6IOKAmHN0cnVjdCBjYW5fZnJhbWXigJkgaGFzIG5vIG1lbWJlciBuYW1lZCDigJhfX3Bh
+ZOKAmTxicj4mbmJzcDsgJm5ic3A7aWYgKGZybS5fX3BhZCAhPSBmcm0uX19yZXMwIHx8IGZybS5f
+X3JlczAgIT0gZnJtLl9fcmVzMSkgezxicj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7IF48YnI+cHR5MDQuYzoyNTY6MjM6IGVycm9yOiDigJhzdHJ1Y3QgY2FuX2ZyYW1l4oCZIGhh
+cyBubyBtZW1iZXIgbmFtZWQg4oCYX19yZXMw4oCZPGJyPiZuYnNwOyAmbmJzcDtpZiAoZnJtLl9f
+cGFkICE9IGZybS5fX3JlczAgfHwgZnJtLl9fcmVzMCAhPSBmcm0uX19yZXMxKSB7PGJyPiZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7Xjxicj5wdHkwNC5jOjI1NjozNzogZXJyb3I6IOKAmHN0cnVj
+dCBjYW5fZnJhbWXigJkgaGFzIG5vIG1lbWJlciBuYW1lZCDigJhfX3JlczDigJk8YnI+Jm5ic3A7
+ICZuYnNwO2lmIChmcm0uX19wYWQgIT0gZnJtLl9fcmVzMCB8fCBmcm0uX19yZXMwICE9IGZybS5f
+X3JlczEpIHs8YnI+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7Xjxicj5wdHkwNC5jOjI1Njo1MTogZXJyb3I6
+IOKAmHN0cnVjdCBjYW5fZnJhbWXigJkgaGFzIG5vIG1lbWJlciBuYW1lZCDigJhfX3JlczHigJk8
+YnI+Jm5ic3A7ICZuYnNwO2lmIChmcm0uX19wYWQgIT0gZnJtLl9fcmVzMCB8fCBmcm0uX19yZXMw
+ICE9IGZybS5fX3JlczEpIHs8YnI+PC9kaXY+PC9kaXY+PGJyIGNsZWFyPSJhbGwiPjxkaXY+PGJy
+PjwvZGl2Pi0tIDxicj48ZGl2IGRpcj0ibHRyIj48ZGl2IGRpcj0ibHRyIj48ZGl2PlJlZ2FyZHMs
+PGJyPjwvZGl2PjxkaXY+TGkgV2FuZzxicj48L2Rpdj48L2Rpdj48L2Rpdj48L2Rpdj4KCjwvZGl2
+Pg==
+------=_Part_0_251659081.1588763063886--
 
 
---===============1469288667==
+--===============0976997957==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -347,5 +206,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============1469288667==--
+--===============0976997957==--
 
