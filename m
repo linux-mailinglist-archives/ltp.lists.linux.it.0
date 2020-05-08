@@ -2,76 +2,65 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E0651CA4B9
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 09:03:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70B141CA4FA
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 09:19:04 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 587ED3C25E7
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 09:03:36 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3808C3C25E0
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 09:19:04 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 59C743C250C
- for <ltp@lists.linux.it>; Fri,  8 May 2020 09:03:34 +0200 (CEST)
-Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
- [IPv6:2607:f8b0:4864:20::644])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 244A03C252D
+ for <ltp@lists.linux.it>; Fri,  8 May 2020 09:19:01 +0200 (CEST)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 18B171A01529
- for <ltp@lists.linux.it>; Fri,  8 May 2020 09:03:34 +0200 (CEST)
-Received: by mail-pl1-x644.google.com with SMTP id t16so328670plo.7
- for <ltp@lists.linux.it>; Fri, 08 May 2020 00:03:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=2WCUFzYgtZmiTSm/ut+mNGjBPaOAz9rexkJj3FXf8SE=;
- b=XG0/t37FUs0lhNH5Alqbf3ngm8EDH7Vjf/PaXVrsLMsAyIaCD9YUS44Pqc3evKAe0k
- n3Iydeyn1Kyy2JvT3l7LXiVqeXIKyobcYWqHcJcAw1XNrDOi9nnqgaY6Y3jEz+usNMOB
- 14PZ3/Sx8i4GQtoHkFatuASj95lhNySTuOIlOZcV/i/o7abZvTRyiicaVWf7QVJBoKK6
- ScosOGkkyUyJLaRQnCUuOczIKxYQs8V/gxulaGd5zjVC0M4w5eEewahMcN9NB2dlTOnO
- NpZyzWR/S4+j86X9kKVR9TJB+qKOmovpbplygfDk2mZGpFLCCzWZ4+X4F4ow8G+e5zVW
- txkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=2WCUFzYgtZmiTSm/ut+mNGjBPaOAz9rexkJj3FXf8SE=;
- b=a9XlRMI0hVBtcQnTEBz+edn5qYI4Z7NM/xB8yZyRm4vPYk7u345xQIyaSHOQHzt3tC
- iswoWgOeMjY47ffgTNn0u/HAqaambG7Xnp64MuOXdYsclXBQtc72q+aAfC9DFm9K74AP
- tuiVP0NW7qxsLrN1JrWSYSgIxt5IILAG12vABQMvF7EVyKmtqpglf5A39IMHca46ZsV7
- 0YQO6Ing+m4eXKXSabi3bKgsrDkN2tjJWDQPVfuhSNG/gSm/qehfvaaqc/7jsHEJCIzl
- dzSIwZ53P9yufvJTNrGe811SDg4yRjEZ/nwzp+xE9jj8DcckqjSeLVn19exYQ6nGt8IZ
- 66sw==
-X-Gm-Message-State: AGi0PuaV1XQQe5MYOHYULBW9yDn2b3gCFe3Cf8ivJ2hI9DFP1ChPAePO
- CAPSkWxSK1R40ztVI6ZEgf1opA==
-X-Google-Smtp-Source: APiQypLUcccmOYnoXXCq1hG/NvzqFtFNSwtKdDgyuY+W77BIELaettNGO8YRr0cK7Tjf63pR3Mhicg==
-X-Received: by 2002:a17:90a:5287:: with SMTP id
- w7mr4616173pjh.66.1588921412288; 
- Fri, 08 May 2020 00:03:32 -0700 (PDT)
-Received: from localhost ([122.171.118.46])
- by smtp.gmail.com with ESMTPSA id s9sm791575pfc.179.2020.05.08.00.03.31
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 08 May 2020 00:03:31 -0700 (PDT)
-Date: Fri, 8 May 2020 12:33:29 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20200508070329.bz6pfndas6wks666@vireshk-i7>
-References: <7e037dacaeb0c7f3bfd73cd11d80f3e1567dc052.1588669892.git.viresh.kumar@linaro.org>
- <379f4d58e86b5249f56ff58e1907dee69d67e451.1588669892.git.viresh.kumar@linaro.org>
- <20200507145258.GA16940@dell5510>
- <20200508033034.cyem2olxb7kpvu4s@vireshk-i7>
- <20200508042455.xmf57rcdhtmxqeec@vireshk-i7>
- <20200508065519.GA2556@x230>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 7EB4320134A
+ for <ltp@lists.linux.it>; Fri,  8 May 2020 09:19:01 +0200 (CEST)
+Received: from mail-qv1-f50.google.com ([209.85.219.50]) by
+ mrelayeu.kundenserver.de (mreue010 [212.227.15.129]) with ESMTPSA (Nemesis)
+ id 1MyJx6-1jCHdo3GqS-00ygfE for <ltp@lists.linux.it>; Fri, 08 May 2020
+ 09:19:00 +0200
+Received: by mail-qv1-f50.google.com with SMTP id di6so210242qvb.10
+ for <ltp@lists.linux.it>; Fri, 08 May 2020 00:19:00 -0700 (PDT)
+X-Gm-Message-State: AGi0PuZPYhOYDf9S9vI3edzN6T1XghLZ7hBbMWD5tHStHxU7b0iyd93V
+ GJkRKlmPmfiZbiuqztrdwVbc+1TMHJGq8PmFcok=
+X-Google-Smtp-Source: APiQypLddxYzNHohgqbb9BGgfX+lUzblcFOmFVnKCTM9W6ZYebscOCFMjS2fY0H207ylfaBYsdqa/XW1ZIAhcszmxvQ=
+X-Received: by 2002:ad4:4a8b:: with SMTP id h11mr1320662qvx.210.1588922339699; 
+ Fri, 08 May 2020 00:18:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200508065519.GA2556@x230>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+References: <cover.1588911607.git.viresh.kumar@linaro.org>
+ <8a675726b6e553e740016390c774bce19efc5a12.1588911607.git.viresh.kumar@linaro.org>
+In-Reply-To: <8a675726b6e553e740016390c774bce19efc5a12.1588911607.git.viresh.kumar@linaro.org>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Fri, 8 May 2020 09:18:43 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a1x+uK_WgVn9O8LVcLoZH=oJ_jQcePwcwzqpyhewApX9w@mail.gmail.com>
+Message-ID: <CAK8P3a1x+uK_WgVn9O8LVcLoZH=oJ_jQcePwcwzqpyhewApX9w@mail.gmail.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+X-Provags-ID: V03:K1:Y+CMMpI1Q3KN/C9aa/MVzkPqyWFNPLA1f6ZkhkoWWrCHzqO3CTQ
+ aAYQSgLM0vBxL3VZHibv0JaOjlt65SzRkgN/RI4e1X8G73HKcoENR/oRgHBFFUibtbwKzeF
+ zHWC8GfguKKHNAgph+xGcS78ygCM7H3QRq/LyGSFJyg0sBSwwLVK96zB/3HSyov2BFcak43
+ fhGqPhCUDOYNk3IkSKsjA==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:q01jpMVY8CY=:do1/H3plPdjHvHQjTOaWQL
+ XkL8P9bS7jgz9PM/K8wqCpaMwnJ23YWjFBYsx/Hmwa6DAZslnDwxwDKokni1pTnjUxTgcgcB0
+ AgL7s3nC7u4KTAX6WbzQSsifvMBpUz0LUCzV2aBqR4V/5xpdMWDfrUj9L/zFnMM/62sp+JJPn
+ BjliG5Id6kHk+sD3gFGRgRpEieJp6V0rK5+ZLXSgYlJ7hhgTzWtTgke/MNwmTyF4EfuKSTAos
+ E3y0iVAHX5hqEbpkgTwKEEtatbJs5p2QwgqAK7PA7rljec3T9RTCCP15/QJ88etRTO5CpdD+S
+ 5ngD/W9P4zoWmVLFlp3LU+XxYlMKvyS6RSgxLAXYNgwnmul1P3dvD3KQV/3nW7VLHriAvykIV
+ U6W6mVNNNmV+Czfjr+txClSvod5mHjD/9xFwDtHSTrRORsgyJLTHGVQP7n35VjMYMzzEdnHpS
+ Bc4kZ/42YTmth8sH+wASJ7DNGS4krxfbcEQj0G3L8zOZlJ+AMak7lJAlONdg4FzAbPMt+D+Vb
+ lnbzxJVz+4RGuKtuZ5SKytQsqWBk4mfMEYwDqcM1mRK7auUsWAccxCaOlqu4jiZ2MjwTrMHv4
+ AKe/rOnRj1ZMqArJnDgFAsKxRf+UWjdHfwOly/fDbcte7cYL7VxtbFSFpuX/i1WquimFvW+WI
+ jCg4Z7JdrjcpmBodC5osY302nqmaeW63CdK9jWGfYoZM6D8goIfC2Mzqj+FUuW/AI1Z/VC6F2
+ F4DoTe9Vc5EqjewTdLrg3XB5eCGb/Ecwh5BnCpY7Jx0eRn0eWlB7yBc05g6OGFR66NoRvMTft
+ ctYq2YywbF8AK2n9zeXxvj+MTZAKDnJHb/SS/Co7JPQwyoMNPU=
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/8] syscalls/futex: Add support for time64 tests
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V2 15/17] syscalls/semtimedop: Add support for
+ semtimedop and its time64 version
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,25 +72,67 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: arnd@arndb.de, Vincent Guittot <vincent.guittot@linaro.org>,
- ltp@lists.linux.it
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 08-05-20, 08:55, Petr Vorel wrote:
-> It might not make it to this release (freeze should be from Monday and probably
-> nobody from reviewers work on the weekend + there is a bank holiday today for
-> some countries).
+On Fri, May 8, 2020 at 6:24 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
 
-That should be fine. I just wanted to post everything I had planned
-for LTP :)
+> +
+> +static inline int sys_semtimedop(int semid, struct sembuf *sops, size_t nsops,
+> +               void *timeout)
+> +{
+> +       return tst_syscall(__NR_semtimedop, semid, sops, nsops, timeout);
+> +}
+> +
+> +static inline int sys_semtimedop_time64(int semid, struct sembuf *sops,
+> +                                       size_t nsops, void *timeout)
+> +{
+> +       return tst_syscall(__NR_semtimedop_time64, semid, sops, nsops, timeout);
+> +}
+> +
+> +struct test_variants {
+> +       int (*semop)(int semid, struct sembuf *sops, size_t nsops);
+> +       int (*semtimedop)(int semid, struct sembuf *sops, size_t nsops, void *timeout);
+> +       enum tst_ts_type type;
+> +       char *desc;
+> +} variants[] = {
+> +       { .semop = semop, .type = TST_LIBC_TIMESPEC, .desc = "semop: vDSO or syscall"},
+> +#if defined(TST_ABI32)
+> +       { .semtimedop = sys_semtimedop, .type = TST_LIBC_TIMESPEC, .desc = "semtimedop: syscall with libc spec"},
+> +       { .semtimedop = sys_semtimedop, .type = TST_KERN_OLD_TIMESPEC, .desc = "semtimedop: syscall with kernel spec32"},
+> +#endif
+> +
+> +#if defined(TST_ABI64)
+> +       { .semtimedop = sys_semtimedop, .type = TST_KERN_TIMESPEC, .desc = "semtimedop: syscall with kernel spec64"},
+> +#endif
 
-I may not have any more significant patches after this. :)
 
--- 
-viresh
+It feels like this is more complicated than it need to be. The line
+
+semtimedop = sys_semtimedop, .type = TST_KERN_OLD_TIMESPEC, .desc =
+"semtimedop: syscall with kernel spec32"},
+
+should apply to any kernel that has "__NR_semtimedop !=
+__LTP__NR_INVALID_SYSCALL",
+regardless of any other macros set, and then you don't need the separate line
+
+{ .semtimedop = sys_semtimedop, .type = TST_KERN_TIMESPEC, .desc =
+"semtimedop: syscall with kernel spec64"},
+
+which is not what the ABI is meant to be anyway (sys_semtimedop takes
+a __kernel_old_timespec,
+not a __kernel_timespec).
+
+Similarly, the line
+
+ { .semop = semop, .type = TST_LIBC_TIMESPEC, .desc = "semop: vDSO or syscall"},
+
+should apply to both 32 and 64 bit machines
+
+     Arnd
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
