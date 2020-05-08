@@ -2,71 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 987FD1CA241
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 06:28:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 234D31CA242
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 06:28:44 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6915D3C5642
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 06:28:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B870C3C23C2
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 06:28:43 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 525573C718D
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 9086E3C6E5B
  for <ltp@lists.linux.it>; Fri,  8 May 2020 06:24:58 +0200 (CEST)
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
- [IPv6:2607:f8b0:4864:20::631])
+Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
+ [IPv6:2607:f8b0:4864:20::541])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 37C441401A2F
- for <ltp@lists.linux.it>; Fri,  8 May 2020 06:24:56 +0200 (CEST)
-Received: by mail-pl1-x631.google.com with SMTP id s20so172041plp.6
- for <ltp@lists.linux.it>; Thu, 07 May 2020 21:24:56 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D22FB200AD7
+ for <ltp@lists.linux.it>; Fri,  8 May 2020 06:24:57 +0200 (CEST)
+Received: by mail-pg1-x541.google.com with SMTP id b8so273845pgi.11
+ for <ltp@lists.linux.it>; Thu, 07 May 2020 21:24:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=+hyi2xk4bR9zjaolH3abptmGOGqmahzj941pfqY8pAc=;
- b=JwyacMg+LhpWGTuc2tSJ6aM8r5/vxO5wQ2P9Tnqvj8o2kln6iMrnWgO2DuSDPoHoCa
- /e8TwdK8obiETxghQim/6rxiqh6SAW/XvQ447gRpPyJpPoXscFXCov5xxx2Y1BS+ZT/l
- dWmjRnsxFd+Jyt9pps7HU5iAA5jbUjNixUSh/uezAtazpHu5Vcu/fZGbWAWt1erepCTG
- 0FEJcDuZxHZZdc24UuL7Z+x/JZNw7NYAwxe9L6/Eg/6k3lw601vU2XO3YN1Qn2njjNQJ
- +od5sLh5yqXk8iJ7c0pH6TLOM+v1W8ilDdqY9JZQReqmAhckW+6Tw20WQQ2Ka0rMf5Dy
- xsQg==
+ bh=o8ch6ZQjDXF4s0fZ7ClLUAlMUSf8LUlEYdgChDajHhg=;
+ b=sPjXjzkJkeH2gnJjse5vRrq/thObTaybrNXVFfFgOdOHHSWaVFNovGZ1z9GEaarYhJ
+ iwIB40jUKYhgF0EzWj0dRl4T0VVga3o6pQVGt43MrylT5VDwhsxMyI4SCLNZBkCyU/zQ
+ 9UI74wduE9AKlaroBht+pgigNub5LB1eYqbqXnZD/1YFRRuxk53Thevp4bbvhaskqCqs
+ /qkan69E6XBVgw4Kb2dgh+qZqqMZTwB/LZIU4UHVqDhsmF6U+UNE/+zRroLm/kWpz2A+
+ zEPC4dJdMCKdjmwgIf4Od5ql+SI8EyBirMh2RyS7y6NMcLqXHeh6UpGYtmaUEdTJCiGw
+ P0fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=+hyi2xk4bR9zjaolH3abptmGOGqmahzj941pfqY8pAc=;
- b=J72PPOd8zKBZe35SrSfX+g4NZqlMAl9f7MCi/tUQ7f9VG/UCk5122iSDuv94xiwAZH
- o4sH/WrxfGWd0QwRAMyT1ow1rf3earKgKA40tPeU2WvSuuTQAcYuEP/3TmkewjsvaQHC
- nZ1t9tzXFQ9La72UnAZoYuKa2gcq/aHqqVFzz5XkAn2lVhMb9Ih8aVcavNVs5eIWOVQp
- GTESBR1sz4lwLW4Ron/7hTA12GYDzWU4t9AIOAn3OVyYDInXZzdfVXXMhdQcjlYJ/y6b
- dlntQE/UdLXiuK6Mqi0tNF3sbeUD3S3rPXcyLY24G4biSQPiZ1YR+uWw5MhDXdveJeCV
- C8gQ==
-X-Gm-Message-State: AGi0Pubv8s9S0qXMPYMpQOvDwm3amkbqpH42AiWNU7Jnmrk273+cpjX+
- +YEuvGs13dzw6OzjbRjzBdpJVx/p1bE=
-X-Google-Smtp-Source: APiQypKC88z3vdpy3f74KVsARc4bp7CiRqy/IKsciCNvC/bRc7BovxtIWlpuQkSXYiMDo79otCXxhw==
-X-Received: by 2002:a17:90a:fd0c:: with SMTP id
- cv12mr3679213pjb.95.1588911893446; 
- Thu, 07 May 2020 21:24:53 -0700 (PDT)
+ bh=o8ch6ZQjDXF4s0fZ7ClLUAlMUSf8LUlEYdgChDajHhg=;
+ b=NFqubsJ9tOinQreMF2m5zclK+xChQbQxkPZfA2+p5tfGjvg4xwRFZo+4j6SrAXW6I0
+ DTC6Iz3n5oD5XKHzYcZHetkFQ+WmD6d71GTU8mB+SEmbpEYDbbUT1Z7/vN5meQKO2uws
+ QdIFeW0WzAT4CIvahwmyLlZUk4i3+3R/BFmofnWvnXQjhA4iba1rZNyrmQ1VNz70OBm0
+ qL3hI7YcT4AWY32GyVG6Y9VYa2qXdHcSiQv9WVoyDFpQGuwS3fxzHDcP0uwhBOFhjgLm
+ zvI2Yb7IkHlfo67rJmU/JK68O6fg3n/Q4sQ4DwNU8lLz1x1/LEh51Q4WHJPZ3PL3GNEP
+ Mhdw==
+X-Gm-Message-State: AGi0Pua8ZS5m4Cga6Nkb80NFfq/4eNW+kQk+2dWg+1VqgSBugoR7ljgh
+ sX7PMPptC12F/6nKVhBrG/AugRgUJ44=
+X-Google-Smtp-Source: APiQypKwvBAl6LnKIYBntHTTl+0fSlAmAWD5XIpKTrLb0LFyYzNj2wikkvlhNqB+4Z3y/FJv9DGNkw==
+X-Received: by 2002:a65:4987:: with SMTP id r7mr549059pgs.250.1588911895964;
+ Thu, 07 May 2020 21:24:55 -0700 (PDT)
 Received: from localhost ([122.171.118.46])
- by smtp.gmail.com with ESMTPSA id z23sm331262pfr.136.2020.05.07.21.24.52
+ by smtp.gmail.com with ESMTPSA id 14sm364249pfj.90.2020.05.07.21.24.55
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 07 May 2020 21:24:52 -0700 (PDT)
+ Thu, 07 May 2020 21:24:55 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Fri,  8 May 2020 09:54:01 +0530
-Message-Id: <e03c9d77116e9f7f2b6a179644aab18bd9ece9e1.1588911607.git.viresh.kumar@linaro.org>
+Date: Fri,  8 May 2020 09:54:02 +0530
+Message-Id: <02701de2ad65c3980e3d9136d0579af24d09c32e.1588911607.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
 In-Reply-To: <cover.1588911607.git.viresh.kumar@linaro.org>
 References: <cover.1588911607.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH V2 16/17] syscalls/utimensat: Migrate to new test
- framework
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH V2 17/17] syscalls/utimensat: Add support for time64
+ tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,994 +84,147 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This gets rid of the test script and updates the utimensat01.c file to
-handle most of the tests covered earlier (apart from testing the same
-for files owned by root, as the test is run as root right now).
+This adds support for time64 tests to the existing utimensat() syscall
+tests.
 
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- .../kernel/syscalls/utimensat/utimensat01.c   | 411 ++++++--------
- .../syscalls/utimensat/utimensat_tests.sh     | 517 ------------------
- 2 files changed, 167 insertions(+), 761 deletions(-)
- delete mode 100755 testcases/kernel/syscalls/utimensat/utimensat_tests.sh
+ .../kernel/syscalls/utimensat/utimensat01.c   | 80 ++++++++++++++++---
+ 1 file changed, 70 insertions(+), 10 deletions(-)
 
 diff --git a/testcases/kernel/syscalls/utimensat/utimensat01.c b/testcases/kernel/syscalls/utimensat/utimensat01.c
-index 264ca1e15120..2a029ecb17e9 100644
+index 2a029ecb17e9..f29cfe5009eb 100644
 --- a/testcases/kernel/syscalls/utimensat/utimensat01.c
 +++ b/testcases/kernel/syscalls/utimensat/utimensat01.c
-@@ -1,282 +1,205 @@
--/*************************************************************************************/
--/*                                                                                   */
--/* Copyright (C) 2008, Michael Kerrisk <mtk.manpages@gmail.com>,                     */
--/* Copyright (C) 2008, Linux Foundation                                              */
--/*                                                                                   */
--/* This program is free software;  you can redistribute it and/or modify             */
--/* it under the terms of the GNU General Public License as published by              */
--/* the Free Software Foundation; either version 2 of the License, or                 */
--/* (at your option) any later version.                                               */
--/*                                                                                   */
--/* This program is distributed in the hope that it will be useful,                   */
--/* but WITHOUT ANY WARRANTY;  without even the implied warranty of                   */
--/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See                         */
--/* the GNU General Public License for more details.                                  */
--/*                                                                                   */
--/* You should have received a copy of the GNU General Public License                 */
--/* along with this program;  if not, write to the Free Software                      */
--/* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA           */
--/*************************************************************************************/
--/*                                                                                   */
--/* File: utimnsat01.c                                                                */
--/* Description: A command-line interface for testing the utimensat() system call.    */
--/* Author: Michael Kerrisk <mtk.manpages@gmail.com>                                  */
--/* History:                                                                          */
--/*	17 Mar  2008  Initial creation,                                              */
--/*	31 May  2008  Reworked for easier test automation,                           */
--/*	2  June 2008  Renamed from t_utimensat.c to test_utimensat.c,                */
--/*	05 June 2008  Submitted to LTP by Subrata Modak <subrata@linux.vnet.ibm.com> */
--/*************************************************************************************/
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2008 Michael Kerrisk <mtk.manpages@gmail.com>
-+ * Copyright (c) 2008 Subrata Modak <subrata@linux.vnet.ibm.com>
-+ * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
-+ *
-+ * Basic utimnsat() test.
-+ */
- 
--#define _GNU_SOURCE
--#define _ATFILE_SOURCE
- #include <stdio.h>
- #include <time.h>
- #include <errno.h>
- #include <stdlib.h>
- #include <unistd.h>
--#include <sys/syscall.h>
+@@ -15,8 +15,8 @@
  #include <fcntl.h>
  #include <string.h>
  #include <sys/stat.h>
--#include "test.h"
-+#include "tst_test.h"
- #include "lapi/syscalls.h"
+-#include "tst_test.h"
+-#include "lapi/syscalls.h"
++#include "tst_timer.h"
++#include "lapi/abisize.h"
  
--char *TCID = "utimensat01";
--int TST_TOTAL = 0;
--
--#define cleanup tst_exit
--
--/* We use EXIT_FAILURE for an expected failure from utimensat()
--   (e.g., EACCES and EPERM), and one of the following for unexpected
--   failures (i.e., something broke in our test setup). */
--
--#ifndef AT_FDCWD
--#define AT_FDCWD -100
--#endif
--#ifndef AT_SYMLINK_NOFOLLOW
--#define AT_SYMLINK_NOFOLLOW 0x100
--#endif
--
--#define EXIT_bad_usage 3
--#define EXIT_failed_syscall 3
--
--#define errExit(msg)    do { perror(msg); exit(EXIT_failed_syscall); \
--                        } while (0)
--
--#define UTIME_NOW      ((1l << 30) - 1l)
--#define UTIME_OMIT     ((1l << 30) - 2l)
--
--static inline int
--utimensat_sc(int dirfd, const char *pathname,
--	     const struct timespec times[2], int flags)
-+#define UTIME_NOW	((1l << 30) - 1l)
-+#define UTIME_OMIT	((1l << 30) - 2l)
-+
-+#define TEST_FILE	"test_file"
-+#define TEST_DIR	"test_dir"
-+
-+static void *bad_addr;
-+
-+struct mytime {
-+	long access_tv_sec;
-+	long access_tv_nsec;
-+	long mod_tv_sec;
-+	long mod_tv_nsec;
-+};
-+
-+static struct mytime tnn = {0, UTIME_NOW, 0, UTIME_NOW}, *time_nn = &tnn;
-+static struct mytime too = {0, UTIME_OMIT, 0, UTIME_OMIT}, *time_oo = &too;
-+static struct mytime tno = {0, UTIME_NOW, 0, UTIME_OMIT}, *time_no = &tno;
-+static struct mytime ton = {0, UTIME_OMIT, 0, UTIME_NOW}, *time_on = &ton;
-+static struct mytime t11 = {1, 1, 1, 1}, *time_11 = &t11;
-+
-+struct test_case {
-+	int dirfd;
-+	char *pathname;
-+	struct mytime **mytime;
-+	int flags;
-+	int oflags;
-+	char *attr;
-+	char *rattr;
-+	int mode;
-+	int exp_err;
-+} tcase[] = {
-+	/* Testing read-only file */
-+	{AT_FDCWD, TEST_FILE, NULL, 0, O_RDONLY, NULL, NULL, 0400, 0},
-+	{AT_FDCWD, TEST_FILE, &time_nn, 0, O_RDONLY, NULL, NULL, 0400, 0},
-+	{AT_FDCWD, TEST_FILE, &time_oo, 0, O_RDONLY, NULL, NULL, 0400, 0},
-+	{AT_FDCWD, TEST_FILE, &time_no, 0, O_RDONLY, NULL, NULL, 0400, 0},
-+	{AT_FDCWD, TEST_FILE, &time_on, 0, O_RDONLY, NULL, NULL, 0400, 0},
-+	{AT_FDCWD, TEST_FILE, &time_11, 0, O_RDONLY, NULL, NULL, 0400, 0},
-+
-+	/* Testing writable file */
-+	{AT_FDCWD, TEST_FILE, NULL, 0, O_RDONLY, NULL, NULL, 0666, 0},
-+	{AT_FDCWD, TEST_FILE, &time_nn, 0, O_RDONLY, NULL, NULL, 0666, 0},
-+	{AT_FDCWD, TEST_FILE, &time_oo, 0, O_RDONLY, NULL, NULL, 0666, 0},
-+	{AT_FDCWD, TEST_FILE, &time_no, 0, O_RDONLY, NULL, NULL, 0666, 0},
-+	{AT_FDCWD, TEST_FILE, &time_on, 0, O_RDONLY, NULL, NULL, 0666, 0},
-+	{AT_FDCWD, TEST_FILE, &time_11, 0, O_RDONLY, NULL, NULL, 0666, 0},
-+
-+	/* Testing append-only file */
-+	{AT_FDCWD, TEST_FILE, NULL, 0, O_RDONLY, "+a", "-a", 0600, 0},
-+	{AT_FDCWD, TEST_FILE, &time_nn, 0, O_RDONLY, "+a", "-a", 0600, 0},
-+	{AT_FDCWD, TEST_FILE, &time_oo, 0, O_RDONLY, "+a", "-a", 0600, 0},
-+	{AT_FDCWD, TEST_FILE, &time_no, 0, O_RDONLY, "+a", "-a", 0600, EPERM},
-+	{AT_FDCWD, TEST_FILE, &time_on, 0, O_RDONLY, "+a", "-a", 0600, EPERM},
-+	{AT_FDCWD, TEST_FILE, &time_11, 0, O_RDONLY, "+a", "-a", 0600, EPERM},
-+
-+	/* Testing immutable file */
-+	{AT_FDCWD, TEST_FILE, NULL, 0, O_RDONLY, "+i", "-i", 0600, -1},
-+	{AT_FDCWD, TEST_FILE, &time_nn, 0, O_RDONLY, "+i", "-i", 0600, -1},
-+	{AT_FDCWD, TEST_FILE, &time_oo, 0, O_RDONLY, "+i", "-i", 0600, 0},
-+	{AT_FDCWD, TEST_FILE, &time_no, 0, O_RDONLY, "+i", "-i", 0600, EPERM},
-+	{AT_FDCWD, TEST_FILE, &time_on, 0, O_RDONLY, "+i", "-i", 0600, EPERM},
-+	{AT_FDCWD, TEST_FILE, &time_11, 0, O_RDONLY, "+i", "-i", 0600, EPERM},
-+
-+	/* Testing immutable-append-only file */
-+	{AT_FDCWD, TEST_FILE, NULL, 0, O_RDONLY, "+ai", "-ai", 0600, -1},
-+	{AT_FDCWD, TEST_FILE, &time_nn, 0, O_RDONLY, "+ai", "-ai", 0600, -1},
-+	{AT_FDCWD, TEST_FILE, &time_oo, 0, O_RDONLY, "+ai", "-ai", 0600, 0},
-+	{AT_FDCWD, TEST_FILE, &time_no, 0, O_RDONLY, "+ai", "-ai", 0600, EPERM},
-+	{AT_FDCWD, TEST_FILE, &time_on, 0, O_RDONLY, "+ai", "-ai", 0600, EPERM},
-+	{AT_FDCWD, TEST_FILE, &time_11, 0, O_RDONLY, "+ai", "-ai", 0600, EPERM},
-+
-+	/* Other failure tests */
-+	{AT_FDCWD, TEST_FILE, NULL, 0, O_RDONLY, NULL, NULL, 0400, EFAULT},
-+	{AT_FDCWD, NULL, &time_nn, 0, O_RDONLY, NULL, NULL, 0400, EFAULT},
-+	{-1, NULL, &time_nn, AT_SYMLINK_NOFOLLOW, O_RDONLY, NULL, NULL, 0400, EINVAL},
-+	{-1, TEST_FILE, &time_nn, 0, O_RDONLY, NULL, NULL, 0400, ENOENT},
-+};
-+
-+static inline int sys_utimensat(int dirfd, const char *pathname,
-+				const struct timespec times[2], int flags)
+ #define UTIME_NOW	((1l << 30) - 1l)
+ #define UTIME_OMIT	((1l << 30) - 2l)
+@@ -98,13 +98,73 @@ struct test_case {
+ };
+ 
+ static inline int sys_utimensat(int dirfd, const char *pathname,
+-				const struct timespec times[2], int flags)
++				void *times, int flags)
  {
--	return ltp_syscall(__NR_utimensat, dirfd, pathname, times, flags);
-+	return tst_syscall(__NR_utimensat, dirfd, pathname, times, flags);
+ 	return tst_syscall(__NR_utimensat, dirfd, pathname, times, flags);
  }
  
--static void usageError(char *progName)
-+static void setup(void)
- {
--	fprintf(stderr, "Usage: %s pathname [atime-sec "
--		"atime-nsec mtime-sec mtime-nsec]\n\n", progName);
--	fprintf(stderr, "Permitted options are:\n");
--	fprintf(stderr, "    [-d path] "
--		"open a directory file descriptor"
--		" (instead of using AT_FDCWD)\n");
--	fprintf(stderr, "    -q        Quiet\n");
--	fprintf(stderr, "    -w        Open directory file "
--		"descriptor with O_RDWR|O_APPEND\n"
--		"              (instead of O_RDONLY)\n");
--	fprintf(stderr, "    -n        Use AT_SYMLINK_NOFOLLOW\n");
--	fprintf(stderr, "\n");
--
--	fprintf(stderr, "pathname can be \"NULL\" to use NULL "
--		"argument in call\n");
--	fprintf(stderr, "\n");
-+	bad_addr = tst_get_bad_addr(NULL);
-+}
- 
--	fprintf(stderr, "Either nsec field can be\n");
--	fprintf(stderr, "    'n' for UTIME_NOW\n");
--	fprintf(stderr, "    'o' for UTIME_OMIT\n");
--	fprintf(stderr, "\n");
-+static void update_error(struct test_case *tc)
++static inline int sys_utimensat_time64(int dirfd, const char *pathname,
++				       void *times, int flags)
 +{
-+	if (tc->exp_err != -1)
-+		return;
-+
-+	/*
-+	 * Starting with 4.8.0 operations on immutable files return EPERM
-+	 * instead of EACCES.
-+	 * This patch has also been merged to stable 4.4 with
-+	 * b3b4283 ("vfs: move permission checking into notify_change() for utimes(NULL)")
-+	 */
-+	if (tst_kvercmp(4, 4, 27) < 0)
-+		tc->exp_err = EACCES;
-+	else
-+		tc->exp_err = EPERM;
++	return tst_syscall(__NR_utimensat_time64, dirfd, pathname, times, flags);
 +}
- 
--	fprintf(stderr, "If the time fields are omitted, "
--		"then a NULL 'times' argument is used\n");
--	fprintf(stderr, "\n");
-+static int run_command(char *command, char *option, char *file)
-+{
-+	const char *const cmd[] = {command, option, file, NULL};
- 
--	exit(EXIT_bad_usage);
-+	return tst_cmd(cmd, NULL, NULL, TST_CMD_PASS_RETVAL);
- }
- 
--int main(int argc, char *argv[])
-+static void run(unsigned int i)
- {
--	int flags, dirfd, opt, oflag;
-+	struct test_case *tc = &tcase[i];
- 	struct timespec ts[2];
--	struct timespec *tsp;
--	char *pathname, *dirfdPath;
-+	void *tsp = NULL;
-+	char *pathname = NULL;
-+	int fd = AT_FDCWD;
- 	struct stat sb;
--	int verbose;
--
--	/* Command-line argument parsing */
--
--	flags = 0;
--	verbose = 1;
--	dirfd = AT_FDCWD;
--	dirfdPath = NULL;
--	oflag = O_RDONLY;
--
--	while ((opt = getopt(argc, argv, "d:nqw")) != -1) {
--		switch (opt) {
--		case 'd':
--			dirfdPath = optarg;
--			break;
--
--		case 'n':
--			flags |= AT_SYMLINK_NOFOLLOW;
--			if (verbose)
--				printf("Not following symbolic links\n");
--			break;
--
--		case 'q':
--			verbose = 0;
--			break;
--
--		case 'w':
--			oflag = O_RDWR | O_APPEND;
--			break;
--
--		default:
--			usageError(argv[0]);
--		}
--	}
--
--	if ((optind + 5 != argc) && (optind + 1 != argc))
--		usageError(argv[0]);
--
--	if (dirfdPath != NULL) {
--		dirfd = open(dirfdPath, oflag);
--		if (dirfd == -1)
--			errExit("open");
--
--		if (verbose) {
--			printf("Opened dirfd %d", oflag);
--			if ((oflag & O_ACCMODE) == O_RDWR)
--				printf(" O_RDWR");
--			if (oflag & O_APPEND)
--				printf(" O_APPEND");
--			printf(": %s\n", dirfdPath);
--		}
--	}
- 
--	pathname = (strcmp(argv[optind], "NULL") == 0) ? NULL : argv[optind];
-+	SAFE_MKDIR(TEST_DIR, 0700);
-+	SAFE_TOUCH(TEST_FILE, 0666, NULL);
-+	update_error(tc);
- 
--	/* Either, we get no values for 'times' fields, in which case
--	   we give a NULL pointer to utimensat(), or we get four values,
--	   for secs+nsecs for each of atime and mtime.  The special
--	   values 'n' and 'o' can be used for tv_nsec settings of
--	   UTIME_NOW and UTIME_OMIT, respectively. */
-+	if (tc->dirfd != AT_FDCWD)
-+		fd = SAFE_OPEN(TEST_DIR, tc->oflags);
- 
--	if (argc == optind + 1) {
--		tsp = NULL;
--
--	} else {
--		ts[0].tv_sec = atoi(argv[optind + 1]);
--		if (argv[optind + 2][0] == 'n') {
--			ts[0].tv_nsec = UTIME_NOW;
--		} else if (argv[optind + 2][0] == 'o') {
--			ts[0].tv_nsec = UTIME_OMIT;
--		} else {
--			ts[0].tv_nsec = atoi(argv[optind + 2]);
--		}
--
--		ts[1].tv_sec = atoi(argv[optind + 3]);
--		if (argv[optind + 4][0] == 'n') {
--			ts[1].tv_nsec = UTIME_NOW;
--		} else if (argv[optind + 4][0] == 'o') {
--			ts[1].tv_nsec = UTIME_OMIT;
--		} else {
--			ts[1].tv_nsec = atoi(argv[optind + 4]);
--		}
-+	if (tc->mytime) {
-+		struct mytime *mytime = *tc->mytime;
- 
-+		ts[0].tv_sec = mytime->access_tv_sec;
-+		ts[0].tv_nsec = mytime->access_tv_nsec;
-+		ts[1].tv_sec = mytime->mod_tv_sec;
-+		ts[1].tv_nsec = mytime->mod_tv_nsec;
- 		tsp = ts;
-+	} else if (tc->exp_err == EFAULT) {
-+		tsp = bad_addr;
- 	}
- 
--	/* For testing purposes, it may have been useful to run this program
--	   as set-user-ID-root so that a directory file descriptor could be
--	   opened as root.  (This allows us to obtain a file descriptor even
--	   if normal user doesn't have permissions on the file.)  Now we
--	   reset to the real UID before making the utimensat() call, so that
--	   the permission checking for the utimensat() call is performed
--	   under that UID. */
--
--	if (geteuid() == 0) {
--		uid_t u;
--
--		u = getuid();
--
--		if (verbose)
--			printf("Resetting UIDs to %ld\n", (long)u);
--
--		if (setresuid(u, u, u) == -1)
--			errExit("setresuid");
--	}
--
--	/* Display information allowing user to verify arguments for call */
--
--	if (verbose) {
--		printf("dirfd is %d\n", dirfd);
--		printf("pathname is %s\n", pathname);
--		printf("tsp is %p", tsp);
--		if (tsp != NULL) {
--			printf("; struct  = { %ld, %ld } { %ld, %ld }",
--			       (long)tsp[0].tv_sec, (long)tsp[0].tv_nsec,
--			       (long)tsp[1].tv_sec, (long)tsp[1].tv_nsec);
--		}
--		printf("\n");
--		printf("flags is %d\n", flags);
-+	if (tc->pathname) {
-+		pathname = tc->pathname;
-+		SAFE_CHMOD(tc->pathname, tc->mode);
-+		if (tc->attr)
-+			run_command("chattr", tc->attr, tc->pathname);
-+	} else if (tc->exp_err == EFAULT) {
-+		pathname = bad_addr;
- 	}
- 
--	/* Make the call and see what happened */
--
--	if (utimensat_sc(dirfd, pathname, tsp, flags) == -1) {
--		if (errno == EPERM) {
--			if (verbose)
--				printf("utimensat() failed with EPERM\n");
--			else
--				printf("EPERM\n");
--			exit(EXIT_FAILURE);
--
--		} else if (errno == EACCES) {
--			if (verbose)
--				printf("utimensat() failed with EACCES\n");
--			else
--				printf("EACCES\n");
--			exit(EXIT_FAILURE);
--
--		} else if (errno == EINVAL) {
--			if (verbose)
--				printf("utimensat() failed with EINVAL\n");
--			else
--				printf("EINVAL\n");
--			exit(EXIT_FAILURE);
--
--		} else {	/* Unexpected failure case from utimensat() */
--			errExit("utimensat");
-+	TEST(sys_utimensat(fd, pathname, tsp, tc->flags));
-+	if (TST_RET) {
-+		if (!tc->exp_err) {
-+			tst_res(TFAIL | TTERRNO, "%2d: utimensat() failed", i);
-+		} else if (tc->exp_err == TST_ERR) {
-+			tst_res(TPASS | TTERRNO, "%2d: utimensat() failed expectedly", i);
-+		} else {
-+			tst_res(TFAIL | TTERRNO, "%2d: utimensat() failed with incorrect error, expected %s",
-+				i, tst_strerrno(tc->exp_err));
- 		}
-+	} else if (tc->exp_err) {
-+		tst_res(TFAIL, "%2d: utimensat() passed unexpectedly", i);
-+	} else {
-+		TEST(stat(tc->pathname ? tc->pathname : TEST_DIR, &sb));
-+		tst_res(TPASS, "%2d: utimensat() passed: access time: %lu %lu", i,
-+			sb.st_atime, sb.st_mtime);
- 	}
- 
--	if (verbose)
--		printf("utimensat() succeeded\n");
--
--	if (stat((pathname != NULL) ? pathname : dirfdPath, &sb) == -1)
--		errExit("stat");
--
--	if (verbose) {
--		printf("Last file access:         %s", ctime(&sb.st_atime));
--		printf("Last file modification:   %s", ctime(&sb.st_mtime));
--		printf("Last status change:       %s", ctime(&sb.st_ctime));
-+	if (tc->rattr != NULL)
-+		run_command("chattr", tc->rattr, tc->pathname);
- 
--	} else {
--		printf("SUCCESS %ld %ld\n", (long)sb.st_atime,
--		       (long)sb.st_mtime);
--	}
-+	if (fd != AT_FDCWD)
-+		SAFE_CLOSE(fd);
- 
--	exit(EXIT_SUCCESS);
-+	SAFE_RMDIR(TEST_DIR);
- }
 +
-+static struct tst_test test = {
-+	.test = run,
-+	.tcnt = ARRAY_SIZE(tcase),
-+	.setup = setup,
-+	.needs_root = 1,
-+	.needs_tmpdir = 1,
++static struct test_variants {
++	int (*utimensat)(int dirfd, const char *pathname, void *times,
++			 int flags);
++	enum tst_ts_type type;
++	char *desc;
++} variants[] = {
++#if defined(TST_ABI32)
++	{ .utimensat = sys_utimensat, .type = TST_LIBC_TIMESPEC, .desc = "syscall with libc spec"},
++	{ .utimensat = sys_utimensat, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with kernel spec32"},
++#endif
++
++#if defined(TST_ABI64)
++	{ .utimensat = sys_utimensat, .type = TST_KERN_TIMESPEC, .desc = "syscall with kernel spec64"},
++#endif
++
++#if (__NR_utimensat_time64 != __LTP__NR_INVALID_SYSCALL)
++	{ .utimensat = sys_utimensat_time64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec64"},
++#endif
 +};
-diff --git a/testcases/kernel/syscalls/utimensat/utimensat_tests.sh b/testcases/kernel/syscalls/utimensat/utimensat_tests.sh
-deleted file mode 100755
-index 46a0cc64bf90..000000000000
---- a/testcases/kernel/syscalls/utimensat/utimensat_tests.sh
-+++ /dev/null
-@@ -1,517 +0,0 @@
--#!/bin/sh
--#
--# Automated tests for utimensat()
--#
--# Copyright (C) 2008, Linux Foundation
--# Written by Michael Kerrisk <mtk.manpages@gmail.com>
--# Licensed under GPLv2 or later
--#
--# Not (yet) included in this automated test set:
--# * AT_SYMLINK_NOFOLLOW in flags: If pathname specifies a symbolic link,
--#   then update the timestamps of the link, rather than the file to which
--#   it refers.
--# * Setting of nanosecond components of timestamps (support for
--#   nanosecond timestamps is file-system-dependent)
--# * "Updated file timestamps are set to the greatest value supported
--#   by the file system that is not greater than the specified time."
--#   (i.e., if we set timestamp to {0, 999999999}, then the setting
--#   is rounded down, rather than up, to unit of timestamp resolution.
--# * Privileged processes should be able to bypass permission checks.
--#   (except when file is marked with the "Immutable" EFA).
--
--#=====================================================================
--
--export TCID=utimensat01
--export TST_TOTAL=99
--export TST_COUNT=0
--. test.sh
--
--if tst_kvcmp -lt "2.6.22"; then
--	tst_brkm TCONF "System kernel version is less than 2.6.22,cannot execute test"
--fi
--
--# Starting with 4.8.0 operations on immutable files return EPERM instead of
--# EACCES.
--# This patch has also been merged to stable 4.4 with
--# b3b4283 ("vfs: move permission checking into notify_change() for utimes(NULL)")
--if tst_kvcmp -ge "4.4.27" -a -lt "4.5.0"; then
--	imaccess=EPERM
--elif tst_kvcmp -lt "4.4.27"; then
--	imaccess=EACCES
--else
--	imaccess=EPERM
--fi
--
--
--RESULT_FILE=$TMPDIR/utimensat.result
--
--TEST_DIR=$TMPDIR/utimensat_tests
--FILE=$TEST_DIR/utimensat.test_file
--
--TEST_PROG=utimensat01
--
--if [ ! -f $LTPROOT/testcases/bin/$TEST_PROG ]; then
--	tst_brkm TBROK "$LTPROOT/testcases/bin/$TEST_PROG is missing (please check install)"
--fi
--
--# Summary counters of all test results
--
--test_num=0
--failed_cnt=0
--passed_cnt=0
--failed_list=""
--
--#=====================================================================
--
--setup_file()
--{
--# $1 is test file pathname
--# $2 is owner for test file (chown(1))
--# $3 is permissions for test file (chmod(1))
--# $4 is "ext2" extended file attributes for test file (chattr(1))
--
--    FILE=$1
--
--    # Make sure any old version of file is deleted
--
--    if test -e $FILE; then
--        sudo $s_arg chattr -ai $FILE || return $?
--        sudo $s_arg rm -f $FILE || return $?
--    fi
--
--    # Create file and make atime and mtime zero.
--
--    sudo $s_arg -u $test_user touch $FILE || return $?
--    if ! $TEST_PROG -q $FILE 0 0 0 0 > $RESULT_FILE; then
--        echo "Failed to set up test file $FILE" 1>&2
--        exit 1
--    fi
--
--    read res atime mtime < $RESULT_FILE
--    if test "X$res" != "XSUCCESS" ||
--                test $atime -ne 0 || test $mtime != 0; then
--        echo "Failed to set correct times on test file $FILE" 1>&2
--        exit 1
--    fi
--
--    # Set owner, permissions, and EFAs for file.
--
--    if test -n "$2"; then
--        sudo $s_arg chown $2 $FILE || return $?
--    fi
--
--    sudo $s_arg chmod $3 $FILE || return $?
--
--    if test -n "$4"; then
--        sudo $s_arg chattr $4 $FILE || return $?
--    fi
--
--    # Display file setup, for visual verification
--
--    ls -l $FILE | awk '{ printf "Owner=%s; perms=%s; ", $3, $1}'
--    if ! sudo $s_arg lsattr -l $FILE | sed 's/, /,/g' | awk '{print "EFAs=" $2}'
--    then
--        return $?
--    fi
--
--}
--
--test_failed()
--{
--    tst_resm TFAIL "FAILED test $test_num"
--
--    failed_cnt=$(expr $failed_cnt + 1)
--    failed_list="$failed_list $test_num"
--}
--
--check_result()
--{
--    STATUS=$1                   # Exit status from test program
--    EXPECTED_RESULT=$2          # SUCCESS / EACCES / EPERM / EINVAL
--    EXPECT_ATIME_CHANGED=$3     # Should be 'y' or 'n' (only for SUCCESS)
--    EXPECT_MTIME_CHANGED=$4     # Should be 'y' or 'n' (only for SUCCESS)
--
--    test_num=$(expr $test_num + 1)
--
--    # If our test setup failed, stop immediately
--
--    if test $STATUS -gt 1; then
--        echo "FAILED (bad test setup)"
--        exit 1
--    fi
--
--    read res atime mtime < $RESULT_FILE
--
--    echo "EXPECTED: $EXPECTED_RESULT $EXPECT_ATIME_CHANGED "\
--         "$EXPECT_MTIME_CHANGED"
--    echo "RESULT:   $res $atime $mtime"
--
--    if test "$res" != "$EXPECTED_RESULT"; then
--        test_failed
--        return
--    fi
--
--    passed=1
--
--    # If the test program exited successfully, then check that atime and
--    # and mtime were updated / not updated, as expected.
--
--    if test $EXPECTED_RESULT = "SUCCESS"; then
--        if test $EXPECT_ATIME_CHANGED = "y"; then
--            if test $atime -eq 0; then
--                echo "atime should have changed, but did not"
--                passed=0
--            fi
--        else
--            if test $atime -ne 0; then
--                echo "atime should not have changed, but did"
--                passed=0
--            fi
--        fi
--
--        if test $EXPECT_MTIME_CHANGED = "y"; then
--            if test $mtime -eq 0; then
--                echo "mtime should have changed, but did not"
--                passed=0
--            fi
--        else
--            if test $mtime -ne 0; then
--                echo "mtime should not have changed, but did"
--                passed=0
--            fi
--        fi
--
--        if test $passed -eq 0; then
--            test_failed
--            return
--        fi
--    fi
--
--    passed_cnt=$(expr $passed_cnt + 1)
--    tst_resm TPASS "PASSED test $test_num"
--}
--
--run_test()
--{
--    # By default, we do three types of test:
--    # a) pathname (pathname != NULL)
--    # b) readable file descriptor (pathname == NULL, dirfd opened O_RDONLY)
--    # c) writable file descriptor (pathname == NULL, dirfd opened O_RDWR).
--    #    For this case we also include O_APPEND in open flags, since that
--    #    is needed if testing with a file that has the Append-only
--    #    attribute enabled.
--
--    # -R says don't do tests with readable file descriptor
--    # -W says don't do tests with writable file descriptor
--
--    OPTIND=1
--
--    do_read_fd_test=1
--    do_write_fd_test=1
--    while getopts "RW" opt; do
--        case "$opt" in
--        R) do_read_fd_test=0
--           ;;
--        W) do_write_fd_test=0
--           ;;
--        *) echo "run_test: bad usage"
--           exit 1
--           ;;
--        esac
--    done
--    shift `expr $OPTIND - 1`
--
--    echo "Pathname test"
--    setup_file $FILE "$1" "$2" "$3"
--    cp $LTPROOT/testcases/bin/$TEST_PROG ./
--    CMD="./$TEST_PROG -q $FILE $4"
--    echo "$CMD"
--    sudo $s_arg -u $test_user $CMD > $RESULT_FILE
--    check_result $? $5 $6 $7
--    echo
--
--    if test $do_read_fd_test -ne 0; then
--        echo "Readable file descriptor (futimens(3)) test"
--        setup_file $FILE "$1" "$2" "$3"
--        CMD="./$TEST_PROG -q -d $FILE NULL $4"
--        echo "$CMD"
--        sudo $s_arg -u $test_user $CMD > $RESULT_FILE
--        check_result $? $5 $6 $7
--        echo
--    fi
--
--    # Can't do the writable file descriptor test for immutable files
--    # (even root can't open an immutable file for writing)
--
--    if test $do_write_fd_test -ne 0; then
--        echo "Writable file descriptor (futimens(3)) test"
--        setup_file $FILE "$1" "$2" "$3"
--        CMD="./$TEST_PROG -q -w -d $FILE NULL $4"
--        echo "$CMD"
--        sudo $s_arg -u $test_user $CMD > $RESULT_FILE
--        check_result $? $5 $6 $7
--        echo
--    fi
--
--    sudo $s_arg chattr -ai $FILE
--    sudo $s_arg rm -f $FILE
--}
--
--#=====================================================================
--
--# Since some automated testing systems have no tty while testing,
--# comment this line in /etc/sudoers to avoid the error message:
--# `sudo: sorry, you must have a tty to run sudo'
--# Use trap to restore this line after program terminates.
--sudoers=/etc/sudoers
--if [ ! -r $sudoers ]; then
--	tst_brkm TBROK "can't read $sudoers"
--fi
--pattern="[[:space:]]*Defaults[[:space:]]*requiretty.*"
--if grep -q "^${pattern}" $sudoers; then
--	tst_resm TINFO "Comment requiretty in $sudoers for automated testing systems"
--	if ! sed -r -i.$$ -e "s/^($pattern)/#\1/" $sudoers; then
--		tst_brkm TBROK "failed to mangle $sudoers properly"
--	fi
--	trap 'trap "" EXIT; restore_sudoers' EXIT
--fi
--
--restore_sudoers()
--{
--	tst_resm TINFO "Restore requiretty in $sudoers"
--	mv /etc/sudoers.$$ /etc/sudoers
--}
--
--test_user=nobody
--echo "test sudo for -n option, non-interactive"
--if sudo -h | grep -q -- -n; then
--	s_arg="-n"
--	echo "sudo supports -n"
--else
--	s_arg=
--	echo "sudo does not support -n"
--fi
--
--if ! sudo $s_arg true; then
--	tst_brkm TBROK "sudo cannot be run by user non-interactively"
--fi
--if test ! -f $sudoers
--then
--	echo "root    ALL=(ALL)    ALL" > $sudoers || exit
--	chmod 440 $sudoers
--	trap 'trap "" EXIT; nuke_sudoers' EXIT
--fi
--
--nuke_sudoers()
--{
--	sudo rm -f $sudoers
--}
--
--sudo $s_arg -u $test_user mkdir -p $TEST_DIR
--
--# Make sure chattr command is supported
--touch $TEST_DIR/tmp_file
--chattr +a $TEST_DIR/tmp_file
--if [ $? -ne 0 ] ; then
--	rm -rf $TEST_DIR
--	tst_brkm TCONF "chattr not supported"
--fi
--chattr -a $TEST_DIR/tmp_file
--
--cd $TEST_DIR
--chown root $LTPROOT/testcases/bin/$TEST_PROG
--chmod ugo+x,u+s $LTPROOT/testcases/bin/$TEST_PROG
--
--#=====================================================================
--
--
--echo "============================================================"
--
--echo
--echo "Testing read-only file, owned by self"
--echo
--
--echo "***** Testing times==NULL case *****"
--run_test -W "" 400 "" "" SUCCESS y y
--
--echo "***** Testing times=={ UTIME_NOW, UTIME_NOW } case *****"
--run_test -W "" 400 "" "0 n 0 n" SUCCESS y y
--
--echo "***** Testing times=={ UTIME_OMIT, UTIME_OMIT } case *****"
--run_test -W "" 400 "" "0 o 0 o" SUCCESS n n
--
--echo "***** Testing times=={ UTIME_NOW, UTIME_OMIT } case *****"
--run_test -W "" 400 "" "0 n 0 o" SUCCESS y n
--
--echo "***** Testing times=={ UTIME_OMIT, UTIME_NOW } case *****"
--run_test -W "" 400 "" "0 o 0 n" SUCCESS n y
--
--echo "***** Testing times=={ x, y } case *****"
--run_test -W "" 400 "" "1 1 1 1" SUCCESS y y
--
--echo "============================================================"
--
--echo
--echo "Testing read-only file, not owned by self"
--echo
--
--echo "***** Testing times==NULL case *****"
--run_test -RW root 400 "" "" EACCES
--
--echo "***** Testing times=={ UTIME_NOW, UTIME_NOW } case *****"
--run_test -RW root 400 "" "0 n 0 n" EACCES
--
--echo "***** Testing times=={ UTIME_OMIT, UTIME_OMIT } case *****"
--run_test -RW root 400 "" "0 o 0 o" SUCCESS n n
--
--echo "***** Testing times=={ UTIME_NOW, UTIME_OMIT } case *****"
--run_test -RW root 400 "" "0 n 0 o" EPERM
--
--echo "***** Testing times=={ UTIME_OMIT, UTIME_NOW } case *****"
--run_test -RW root 400 "" "0 o 0 n" EPERM
--
--echo "***** Testing times=={ x, y } case *****"
--run_test -RW root 400 "" "1 1 1 1" EPERM
--
--echo "============================================================"
--
--echo
--echo "Testing writable file, not owned by self"
--echo
--
--echo "***** Testing times==NULL case *****"
--run_test root 666 "" "" SUCCESS y y
--
--echo "***** Testing times=={ UTIME_NOW, UTIME_NOW } case *****"
--run_test root 666 "" "0 n 0 n" SUCCESS y y
--
--echo "***** Testing times=={ UTIME_OMIT, UTIME_OMIT } case *****"
--run_test root 666 "" "0 o 0 o" SUCCESS n n
--
--echo "***** Testing times=={ UTIME_NOW, UTIME_OMIT } case *****"
--run_test root 666 "" "0 n 0 o" EPERM
--
--echo "***** Testing times=={ UTIME_OMIT, UTIME_NOW } case *****"
--run_test root 666 "" "0 o 0 n" EPERM
--
--echo "***** Testing times=={ x, y } case *****"
--run_test root 666 "" "1 1 1 1" EPERM
--
--echo "============================================================"
--
--echo
--echo "Testing append-only file, owned by self"
--echo
--
--echo "***** Testing times==NULL case *****"
--run_test "" 600 "+a" "" SUCCESS y y
--
--echo "***** Testing times=={ UTIME_NOW, UTIME_NOW } case *****"
--run_test "" 600 "+a" "0 n 0 n" SUCCESS y y
--
--echo "***** Testing times=={ UTIME_OMIT, UTIME_OMIT } case *****"
--run_test "" 600 "+a" "0 o 0 o" SUCCESS n n
--
--echo "***** Testing times=={ UTIME_NOW, UTIME_OMIT } case *****"
--run_test "" 600 "+a" "0 n 0 o" EPERM
--
--echo "***** Testing times=={ UTIME_OMIT, UTIME_NOW } case *****"
--run_test "" 600 "+a" "0 o 0 n" EPERM
--
--echo "***** Testing times=={ x, y } case *****"
--run_test "" 600 "+a" "1 1 1 1" EPERM
--
--echo "============================================================"
--
--echo
--echo "Testing immutable file, owned by self"
--echo
--
--echo "***** Testing times==NULL case *****"
--run_test -W "" 600 "+i" "" $imaccess
--
--echo "***** Testing times=={ UTIME_NOW, UTIME_NOW } case *****"
--run_test -W "" 600 "+i" "0 n 0 n" $imaccess
--
--echo "***** Testing times=={ UTIME_OMIT, UTIME_OMIT } case *****"
--run_test -W "" 600 "+i" "0 o 0 o" SUCCESS n n
--
--echo "***** Testing times=={ UTIME_NOW, UTIME_OMIT } case *****"
--run_test -W "" 600 "+i" "0 n 0 o" EPERM
--
--echo "***** Testing times=={ UTIME_OMIT, UTIME_NOW } case *****"
--run_test -W "" 600 "+i" "0 o 0 n" EPERM
--
--echo "***** Testing times=={ x, y } case *****"
--run_test -W "" 600 "+i" "1 1 1 1" EPERM
--
--echo "============================================================"
--
--# Immutable+append-only should have same results as immutable
--
--echo
--echo "Testing immutable append-only file, owned by self"
--echo
--
--echo "***** Testing times==NULL case *****"
--run_test -W "" 600 "+ai" "" $imaccess
--
--echo "***** Testing times=={ UTIME_NOW, UTIME_NOW } case *****"
--run_test -W "" 600 "+ai" "0 n 0 n" $imaccess
--
--echo "***** Testing times=={ UTIME_OMIT, UTIME_OMIT } case *****"
--run_test -W "" 600 "+ai" "0 o 0 o" SUCCESS n n
--
--echo "***** Testing times=={ UTIME_NOW, UTIME_OMIT } case *****"
--run_test -W "" 600 "+ai" "0 n 0 o" EPERM
--
--echo "***** Testing times=={ UTIME_OMIT, UTIME_NOW } case *****"
--run_test -W "" 600 "+ai" "0 o 0 n" EPERM
--
--echo "***** Testing times=={ x, y } case *****"
--run_test -W "" 600 "+ai" "1 1 1 1" EPERM
--
--echo "============================================================"
--
--echo
--
--# EINVAL should result, if pathname is NULL, dirfd is not
--# AT_FDCWD, and flags contains AT_SYMLINK_NOFOLLOW.
--
--echo "***** Testing pathname==NULL, dirfd!=AT_FDCWD, flags has" \
--     "AT_SYMLINK_NOFOLLOW *****"
--setup_file $FILE "" 600 ""
--CMD="$TEST_PROG -q -n -d $FILE NULL $4"
--echo "$CMD"
--$CMD > $RESULT_FILE
--check_result $? EINVAL
--echo
--
--echo "============================================================"
--
--echo
--
--# If UTIME_NOW / UTIME_OMIT in tv_nsec field, the tv_sec should
--# be ignored.
--
--echo "tv_sec should be ignored if tv_nsec is UTIME_OMIT or UTIME_NOW"
--
--echo "***** Testing times=={ UTIME_NOW, UTIME_NOW } case *****"
--run_test -RW "" 600 "" "1 n 1 n" SUCCESS y y
--
--echo "***** Testing times=={ UTIME_OMIT, UTIME_OMIT } case *****"
--run_test -RW "" 600 "" "1 o 1 o" SUCCESS n n
--
--echo "============================================================"
--
--echo
--
--rm -rf "$TEST_DIR"
--uname -a
--date
--echo "Total tests: $test_num; passed: $passed_cnt; failed: $failed_cnt"
--if test $failed_cnt -gt 0; then
--    echo "Failed tests: $failed_list"
--fi
--
--tst_exit
++
++union tst_multi {
++	struct timespec libc_ts[2];
++	struct __kernel_old_timespec kern_old_ts[2];
++	struct __kernel_timespec kern_ts[2];
++} ts;
++
++static void tst_multi_set_time(enum tst_ts_type type, long access_tv_sec,
++			long access_tv_nsec, long mod_tv_sec, long mod_tv_nsec)
++{
++	switch (type) {
++	case TST_LIBC_TIMESPEC:
++		ts.libc_ts[0].tv_sec = access_tv_sec;
++		ts.libc_ts[0].tv_nsec = access_tv_nsec;
++		ts.libc_ts[1].tv_sec = mod_tv_sec;
++		ts.libc_ts[1].tv_nsec = mod_tv_nsec;
++		break;
++	case TST_KERN_OLD_TIMESPEC:
++		ts.kern_old_ts[0].tv_sec = access_tv_sec;
++		ts.kern_old_ts[0].tv_nsec = access_tv_nsec;
++		ts.kern_old_ts[1].tv_sec = mod_tv_sec;
++		ts.kern_old_ts[1].tv_nsec = mod_tv_nsec;
++		break;
++	case TST_KERN_TIMESPEC:
++		ts.kern_ts[0].tv_sec = access_tv_sec;
++		ts.kern_ts[0].tv_nsec = access_tv_nsec;
++		ts.kern_ts[1].tv_sec = mod_tv_sec;
++		ts.kern_ts[1].tv_nsec = mod_tv_nsec;
++		break;
++	default:
++		tst_brk(TBROK, "Invalid type: %d", type);
++	}
++}
++
+ static void setup(void)
+ {
++	tst_res(TINFO, "Testing variant: %s", variants[tst_variant].desc);
+ 	bad_addr = tst_get_bad_addr(NULL);
+ }
+ 
+@@ -134,8 +194,8 @@ static int run_command(char *command, char *option, char *file)
+ 
+ static void run(unsigned int i)
+ {
++	struct test_variants *tv = &variants[tst_variant];
+ 	struct test_case *tc = &tcase[i];
+-	struct timespec ts[2];
+ 	void *tsp = NULL;
+ 	char *pathname = NULL;
+ 	int fd = AT_FDCWD;
+@@ -151,11 +211,10 @@ static void run(unsigned int i)
+ 	if (tc->mytime) {
+ 		struct mytime *mytime = *tc->mytime;
+ 
+-		ts[0].tv_sec = mytime->access_tv_sec;
+-		ts[0].tv_nsec = mytime->access_tv_nsec;
+-		ts[1].tv_sec = mytime->mod_tv_sec;
+-		ts[1].tv_nsec = mytime->mod_tv_nsec;
+-		tsp = ts;
++		tst_multi_set_time(tv->type, mytime->access_tv_sec,
++				   mytime->access_tv_nsec, mytime->mod_tv_sec,
++				   mytime->mod_tv_nsec);
++		tsp = &ts.libc_ts;
+ 	} else if (tc->exp_err == EFAULT) {
+ 		tsp = bad_addr;
+ 	}
+@@ -169,7 +228,7 @@ static void run(unsigned int i)
+ 		pathname = bad_addr;
+ 	}
+ 
+-	TEST(sys_utimensat(fd, pathname, tsp, tc->flags));
++	TEST(tv->utimensat(fd, pathname, tsp, tc->flags));
+ 	if (TST_RET) {
+ 		if (!tc->exp_err) {
+ 			tst_res(TFAIL | TTERRNO, "%2d: utimensat() failed", i);
+@@ -199,6 +258,7 @@ static void run(unsigned int i)
+ static struct tst_test test = {
+ 	.test = run,
+ 	.tcnt = ARRAY_SIZE(tcase),
++	.test_variants = ARRAY_SIZE(variants),
+ 	.setup = setup,
+ 	.needs_root = 1,
+ 	.needs_tmpdir = 1,
 -- 
 2.25.0.rc1.19.g042ed3e048af
 
