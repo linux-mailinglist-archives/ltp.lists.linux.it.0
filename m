@@ -2,51 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B71B71CA71B
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 11:24:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 381D91CA71C
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 11:24:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 624943C56E7
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 11:24:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E93583C56EA
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 11:24:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id E05393C56D4
- for <ltp@lists.linux.it>; Fri,  8 May 2020 11:24:16 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 40BE510000C3
- for <ltp@lists.linux.it>; Fri,  8 May 2020 11:24:13 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.73,366,1583164800"; d="scan'208";a="91687990"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 08 May 2020 17:24:07 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id DA4154BCC8A9
- for <ltp@lists.linux.it>; Fri,  8 May 2020 17:24:02 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Fri, 8 May 2020 17:24:02 +0800
-To: Xiao Yang <yangx.jy@cn.fujitsu.com>
-References: <1588918535-4682-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <5EB51F9D.6080404@cn.fujitsu.com>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <207ce727-a0a4-2c2a-19f7-87aef956ffb5@cn.fujitsu.com>
-Date: Fri, 8 May 2020 17:23:59 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id AFA5C3C56D4
+ for <ltp@lists.linux.it>; Fri,  8 May 2020 11:24:38 +0200 (CEST)
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 91DD41401AA8
+ for <ltp@lists.linux.it>; Fri,  8 May 2020 11:24:37 +0200 (CEST)
+Received: from mail-qk1-f170.google.com ([209.85.222.170]) by
+ mrelayeu.kundenserver.de (mreue108 [212.227.15.145]) with ESMTPSA (Nemesis)
+ id 1Mzhf5-1jAw573dLt-00viE6 for <ltp@lists.linux.it>; Fri, 08 May 2020
+ 11:24:37 +0200
+Received: by mail-qk1-f170.google.com with SMTP id k81so890754qke.5
+ for <ltp@lists.linux.it>; Fri, 08 May 2020 02:24:36 -0700 (PDT)
+X-Gm-Message-State: AGi0PubK4syLDjcHWHEMb6R0ICFLy9NgqQYzuUyp9Wm61j9wRSP41CXA
+ 5x83Y421xz+5L1BRvpgzHjSNp+VBv65hILUe/LM=
+X-Google-Smtp-Source: APiQypKyUEyT+A/rJn09XBWkOsWdu1VEgFunCZaeFcDXC3epfub1ws426RbaNfV+eomfYksl/+SJCfR25hRc0pXh+4w=
+X-Received: by 2002:a37:b543:: with SMTP id e64mr1763608qkf.394.1588929875647; 
+ Fri, 08 May 2020 02:24:35 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <5EB51F9D.6080404@cn.fujitsu.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: DA4154BCC8A9.A23D0
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+References: <cover.1588911607.git.viresh.kumar@linaro.org>
+ <8a675726b6e553e740016390c774bce19efc5a12.1588911607.git.viresh.kumar@linaro.org>
+ <CAK8P3a1x+uK_WgVn9O8LVcLoZH=oJ_jQcePwcwzqpyhewApX9w@mail.gmail.com>
+ <20200508085657.ousiwqakcq7zegpo@vireshk-i7>
+In-Reply-To: <20200508085657.ousiwqakcq7zegpo@vireshk-i7>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Fri, 8 May 2020 11:24:19 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a0PCX_KzKLVD7ZT10xxpOXapUh8o5hhE5OOzyPjxf=GAw@mail.gmail.com>
+Message-ID: <CAK8P3a0PCX_KzKLVD7ZT10xxpOXapUh8o5hhE5OOzyPjxf=GAw@mail.gmail.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+X-Provags-ID: V03:K1:SpFZGU85ECqYrCQa512cgYeX18P7Fe3+DLR4YBsHuhkPsERvuMU
+ CcATk4m1lf5Bry8uBAOURHwmfl6FwsknGYRyL5KYT9dmaTIJYxBm+4VijhkO3JOcg5a/ury
+ nT9y9t+RQrltxh7Pe/xrCslSNZLZP4ngR3M1JBYztjR4siYMgWJwAakAL4xXc+1/aVnacwA
+ QhasXWxhrd0W9d0+ZwZxg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:uHqAeoDbhUo=:frdiUTpvVGiHY3V/57FbGU
+ 0/iol28UADbXMtkEpXtfIAghX0plZ09pvV5wdIl5lYdGRblT7rnkmFuZ0IVOz27z0hBa5jIko
+ CZHcwyGiGWuo8YycymM/E+uk25xSOai5yIqkI+LIVyoquz4BH3bIsdMyVZML7eVPepJ5tSM37
+ tT8iURzbkAn5gOEJle07hN0BxSFrLYgDU/O9rAwgJOCW3mZOzHG4NUf759bexJ8bOx5563T5D
+ q+lWKNiyqn6nfxcDXBd+l1oNOEZJFtvHbQyBUemXsEH4YMcg0nZBLI19190s0E0707DqTeMgX
+ LThaS5WauYQUWb9r2u2Rv2NIK+c4OjJIXdy6L6Ua2FPqvOJBtSrtYZ8ZPcvGayuYVlFl+O0/Q
+ V6jm95vQvb1yTB7e8UIT34cv5buPB6/5SY4n8K38ycfBrNYc7uronDA1/A2Ir8xLjumbi+Tvw
+ 2+2DLZ3ag4JcRgrok/SzAYNrQJT4jxCrtEippUbSEkgoTYoQ/BsNz6+1E4s80UERbWRAnaVfm
+ 4CINj3rBQkHaRX4WAt++K3KhftClHOd0su+X6s6UWIeKf1GdIKmEm/iIIJ9KOhmaAujpEOvbO
+ yXsGjBAUB4fy19fSfzWobNDylfL5bywx7ZQf3pmQf1zBLZEAl3/2cgVYKaKgoQ6f9Yo5fYXo4
+ VLMNipO6zrLy7xz0K8GHtjShKcqDbQU3Q//fWp7y5j23n5coHPOuYYU5bMeUcgCo680HIH8/Q
+ AQd0v+4gYLiGRvmM2EbMoSckdht8G2mAFBZkV9SXo46Bf0VBQBkCFnDhEjhJEy0wjQnjOBfJI
+ LVWc1dw66CSVepOWvgzVRcCeS/lA5Ngj18jnbcjUFkYOn5JnmX/sz1YxdhOasZjA851LK1tLX
+ uFgyifp+8PmKyhCq8cKF8BY7yfSqhJPdrbsAxoS7H33YZ3dXmdIM/GKgoziIiBwssg351JVpn
+ 89j42BWEOeA==
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/ioctl_loop05: Ensure do zero offset in
- kernel always
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V2 15/17] syscalls/semtimedop: Add support for
+ semtimedop and its time64 version
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,58 +77,98 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgWGlhbwoKCj4gT24gMjAyMC81LzggMTQ6MTUsIFlhbmcgWHUgd3JvdGU6Cj4+IEN1cnJlbnRs
-eSwgd2UgdXNlIHJldHVybiBpbnN0ZWFkIG9mIHplcm9fb2Zmc2V0LiBJIGRlYnVnIHRoaXMgY29k
-ZQo+PiAoZWFybHkgcmV0dXJuLCBleHQ0IGZpbGVzeXN0ZW0pYXMgYmVsb3c6Cj4+IC0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+PiBURVNUKGlvY3RsKGRldl9mZCwgTE9P
-UF9TRVRfRElSRUNUX0lPLCAxKSk7Cj4+IGlmIChUU1RfUkVUID09IDApIHsKPj4gwqDCoMKgwqB0
-c3RfcmVzKFRQQVNTLCAiTE9PUF9TRVRfRElSRUNUX0lPIHN1Y2NlZWRlZCB1bmV4cGVjdGVkbHki
-KTsKPj4gwqDCoMKgwqDCoMKgwqDCoCBTQUZFX0lPQ1RMKGRldl9mZCwgTE9PUF9TRVRfRElSRUNU
-X0lPLCAwKTsKPj4gfQo+PiByZXR1cm47Cj4+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLQo+PiB0aGlzIGNhc2Ugd2lsbCBicm9rZSB3aGVuIHVzaW5nIGkgcGFyYW1ldGVy
-LAo+PiBpb2N0bF9sb29wMDUuYzo2MjogQlJPSzogaW9jdGwoMyxMT09QX1NFVF9ESVJFQ1RfSU8s
-Li4uKSBmYWlsZWQ6IAo+PiBFSU5WQUwgKDIyKQo+Pgo+PiBJdCBzZWVtcyB0aGUgbGFzdCB0ZXN0
-IGFmZmVjdGVkIHRoaXMgdGVzdCwgc28gSSB0aGluayB3ZSBzaG91bGQgdXNlCj4+IGdvdG8gaW5z
-dGVhZCBvZiByZXR1cm4uIEFsc28gaW5jbHVkaW5nIGEgdHlwbywgdXBkYXRhLT51cGRhdGUuCj4+
-Cj4+IFNpZ25lZC1vZmYtYnk6IFlhbmcgWHU8eHV5YW5nMjAxOC5qeUBjbi5mdWppdHN1LmNvbT4K
-Pj4gLS0tCj4+IMKgIHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvaW9jdGwvaW9jdGxfbG9vcDA1
-LmMgfCA1ICsrKy0tCj4+IMKgIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDIgZGVs
-ZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2lv
-Y3RsL2lvY3RsX2xvb3AwNS5jIAo+PiBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvaW9jdGwv
-aW9jdGxfbG9vcDA1LmMKPj4gaW5kZXggNmNmNzAxZjQ3Li5hMTAzYWFhOTQgMTAwNjQ0Cj4+IC0t
-LSBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvaW9jdGwvaW9jdGxfbG9vcDA1LmMKPj4gKysr
-IGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9pb2N0bC9pb2N0bF9sb29wMDUuYwo+PiBAQCAt
-NSw3ICs1LDcgQEAKPj4gwqDCoCAqCj4+IMKgwqAgKiBUaGlzIGlzIGEgYmFzaWMgaW9jdGwgdGVz
-dCBhYm91dCBsb29wZGV2aWNlLgo+PiDCoMKgICoKPj4gLSAqIEl0IGlzIGRlc2lnbmVkIHRvIHRl
-c3QgTE9PUF9TRVRfRElSRUNUX0lPIGNhbiB1cGRhdGEgYSBsaXZlCj4+ICsgKiBJdCBpcyBkZXNp
-Z25lZCB0byB0ZXN0IExPT1BfU0VUX0RJUkVDVF9JTyBjYW4gdXBkYXRlIGEgbGl2ZQo+IEhpIFh1
-LAo+IAo+IFdoYXQgZG9lcyB0aGUgbGluZSBjaGFuZ2VzPwpqdXN0IGEgdHlwbywgdXBkYXRhLT51
-cGRhdGUKPiAKPj4gwqDCoCAqIGxvb3AgZGV2aWNlIGRpbyBtb2RlLiBJdCBuZWVkcyB0aGUgYmFj
-a2luZyBmaWxlIGFsc28gc3VwcG9ydHMKPj4gwqDCoCAqIGRpbyBtb2RlIGFuZCB0aGUgbG9fb2Zm
-c2V0IGlzIGFsaWduZWQgd2l0aCB0aGUgbG9naWNhbCBibG9jayBzaXplLgo+PiDCoMKgICoKPj4g
-QEAgLTg1LDEzICs4NSwxNCBAQCBzdGF0aWMgdm9pZCB2ZXJpZnlfaW9jdGxfbG9vcCh2b2lkKQo+
-PiDCoMKgwqDCoMKgIGlmIChUU1RfUkVUID09IDApIHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHRz
-dF9yZXMoVFBBU1MsICJMT09QX1NFVF9ESVJFQ1RfSU8gc3VjY2VlZGVkIik7Cj4+IMKgwqDCoMKg
-wqDCoMKgwqDCoCBTQUZFX0lPQ1RMKGRldl9mZCwgTE9PUF9TRVRfRElSRUNUX0lPLCAwKTsKPj4g
-LcKgwqDCoMKgwqDCoMKgIHJldHVybjsKPj4gK8KgwqDCoMKgwqDCoMKgIGdvdG8gemVyb19vZmZz
-ZXQ7Cj4+IMKgwqDCoMKgwqAgfQo+PiDCoMKgwqDCoMKgIGlmIChUU1RfRVJSID09IEVJTlZBTCkK
-Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIHRzdF9yZXMoVFBBU1MgfCBUVEVSUk5PLCAiTE9PUF9TRVRf
-RElSRUNUX0lPIGZhaWxlZCBhcyAKPj4gZXhwZWN0ZWQiKTsKPj4gwqDCoMKgwqDCoCBlbHNlCj4+
-IMKgwqDCoMKgwqDCoMKgwqDCoCB0c3RfcmVzKFRGQUlMIHwgVFRFUlJOTywgIkxPT1BfU0VUX0RJ
-UkVDVF9JTyBmYWlsZWQgZXhwZWN0ZWQgCj4+IEVJTlZBTCBnb3QiKTsKPj4KPj4gK3plcm9fb2Zm
-c2V0Ogo+PiDCoMKgwqDCoMKgIGxvb3BpbmZvLmxvX29mZnNldCA9IDA7Cj4+IMKgwqDCoMKgwqAg
-VFNUX1JFVFJZX0ZVTkMoaW9jdGwoZGV2X2ZkLCBMT09QX1NFVF9TVEFUVVMsJmxvb3BpbmZvKSwg
-Cj4+IFRTVF9SRVRWQUxfRVEwKTsKPiAKPiBZb3UgaGF2ZSBjbGVhcmVkIHRoZSBzdHJ1Y3QgbG9v
-cGluZm8gYXQgdGhlIGJlZ2lubmluZyBvZiAKPiB2ZXJpZnlfaW9jdGxfbG9vcCgpLCBzbyBjb3Vs
-ZCB3ZSBqdXN0IGRyb3AgbG9vcGluZm8ubG9fb2Zmc2V0ID0gMCBhbmQgCj4gbW92ZSAnVFNUX1JF
-VFJZX0ZVTkMoaW9jdGwoZGV2X2ZkLCBMT09QX1NFVF9TVEFUVVMsJmxvb3BpbmZvKSwgCj4gVFNU
-X1JFVFZBTF9FUTApOycgdG8gdGhlIGJlZ2lubmluZz8KWWVzLiBJTU8sIGF0IHRoZSBiZWdpbm5p
-bmcgb3IgZW5kLCB0aGV5IGFsbCB3b3JrIHdlbGwuCj4gCj4gVGhhbmtzLAo+IFhpYW8gWWFuZwo+
-PiDCoCB9Cj4gCgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5p
-dC9saXN0aW5mby9sdHAK
+On Fri, May 8, 2020 at 10:57 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
+>
+> On 08-05-20, 09:18, Arnd Bergmann wrote:
+> > On Fri, May 8, 2020 at 6:24 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
+> >
+> > > +
+> > > +static inline int sys_semtimedop(int semid, struct sembuf *sops, size_t nsops,
+> > > +               void *timeout)
+> > > +{
+> > > +       return tst_syscall(__NR_semtimedop, semid, sops, nsops, timeout);
+> > > +}
+> > > +
+> > > +static inline int sys_semtimedop_time64(int semid, struct sembuf *sops,
+> > > +                                       size_t nsops, void *timeout)
+> > > +{
+> > > +       return tst_syscall(__NR_semtimedop_time64, semid, sops, nsops, timeout);
+> > > +}
+> > > +
+> > > +struct test_variants {
+> > > +       int (*semop)(int semid, struct sembuf *sops, size_t nsops);
+> > > +       int (*semtimedop)(int semid, struct sembuf *sops, size_t nsops, void *timeout);
+> > > +       enum tst_ts_type type;
+> > > +       char *desc;
+> > > +} variants[] = {
+> > > +       { .semop = semop, .type = TST_LIBC_TIMESPEC, .desc = "semop: vDSO or syscall"},
+> > > +#if defined(TST_ABI32)
+> > > +       { .semtimedop = sys_semtimedop, .type = TST_LIBC_TIMESPEC, .desc = "semtimedop: syscall with libc spec"},
+> > > +       { .semtimedop = sys_semtimedop, .type = TST_KERN_OLD_TIMESPEC, .desc = "semtimedop: syscall with kernel spec32"},
+> > > +#endif
+> > > +
+> > > +#if defined(TST_ABI64)
+> > > +       { .semtimedop = sys_semtimedop, .type = TST_KERN_TIMESPEC, .desc = "semtimedop: syscall with kernel spec64"},
+> > > +#endif
+> >
+> >
+> > It feels like this is more complicated than it need to be. The line
+> >
+> > semtimedop = sys_semtimedop, .type = TST_KERN_OLD_TIMESPEC, .desc =
+> > "semtimedop: syscall with kernel spec32"},
+> >
+> > should apply to any kernel that has "__NR_semtimedop !=
+> > __LTP__NR_INVALID_SYSCALL",
+> > regardless of any other macros set, and then you don't need the separate line
+> >
+> > { .semtimedop = sys_semtimedop, .type = TST_KERN_TIMESPEC, .desc =
+> > "semtimedop: syscall with kernel spec64"},
+>
+> > which is not what the ABI is meant to be anyway (sys_semtimedop takes
+> > a __kernel_old_timespec,
+> > not a __kernel_timespec).
+>
+> There is some misunderstanding here, surely from my side. The sys_
+> helpers here are the direct syscalls called from userspace with help
+> of tst_syscall().
+>
+> AFAIU, on 32 bit systems we need to call __NR_semtimedop with the 32
+> bit and 64 bit timespec (both), and on 64 bit systems which don't
+> implement __NR_semtimedop_time64, we need to call __NR_semtimedop with
+> the 64 bit timespec only.
+>
+> What you are telling now is very different from that and so I don't
+> get it.
+
+__NR_semtimedop can only be called with the 'old' timespec, which
+may have either 32 or 64 members depending on the architecture.
+On x32 it uses 64-bit members, and on riscv32 it does not exist at all.
+
+I think you already have a correct __kernel_old_timespec definition,
+so what I'd expect to see here is code that passes __kernel_old_timespec
+into __NR_semtimedop whenever __NR_semtimedop is defined.
+
+Passing the libc timespec into __kernel_old_timespec is a bug, as
+the libc may be using either the old or the new (always 64-bit)
+definition.
+
+> >  { .semop = semop, .type = TST_LIBC_TIMESPEC, .desc = "semop: vDSO or syscall"},
+> >
+> > should apply to both 32 and 64 bit machines
+>
+> Yes and so it is called without ifdef hackery. Isn't that correct ?
+
+My mistake, I confused the lines. What I meant is that there should
+be an unconditional test of the libc 'semtimedop' with the libc 'timespec'
+definition.
+
+     Arnd
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
