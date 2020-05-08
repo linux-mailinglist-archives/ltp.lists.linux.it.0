@@ -2,70 +2,55 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 381D91CA71C
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 11:24:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F9341CACFF
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 14:58:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E93583C56EA
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 11:24:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8F7DE3C26C3
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 14:58:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id AFA5C3C56D4
- for <ltp@lists.linux.it>; Fri,  8 May 2020 11:24:38 +0200 (CEST)
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ by picard.linux.it (Postfix) with ESMTP id 5D70A3C2410
+ for <ltp@lists.linux.it>; Fri,  8 May 2020 14:58:44 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 79C8C1401AFB
+ for <ltp@lists.linux.it>; Fri,  8 May 2020 14:58:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1588942721;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=Pl9SOuRjjeMK+ICQ7WBVmTuf965vgrR3J4xrCvkApxc=;
+ b=DsPfA881drpmmLZBy89a150vddOsBFdwymnAGpYtYAP14AjH4+JN1mptKXRcPYanhwH5on
+ N0hGH1Od1eS3Q3VjziK0x5fWIE0kX0csLpkMNupQtVahHHP7WA8sVNV83/UI6Qvc2zFxVq
+ aGLr/OBaOZkKzNSkRURl4lqZeF6tvBs=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-270-Ud7q8mzWOwGrouvtXD0BSg-1; Fri, 08 May 2020 08:58:40 -0400
+X-MC-Unique: Ud7q8mzWOwGrouvtXD0BSg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 91DD41401AA8
- for <ltp@lists.linux.it>; Fri,  8 May 2020 11:24:37 +0200 (CEST)
-Received: from mail-qk1-f170.google.com ([209.85.222.170]) by
- mrelayeu.kundenserver.de (mreue108 [212.227.15.145]) with ESMTPSA (Nemesis)
- id 1Mzhf5-1jAw573dLt-00viE6 for <ltp@lists.linux.it>; Fri, 08 May 2020
- 11:24:37 +0200
-Received: by mail-qk1-f170.google.com with SMTP id k81so890754qke.5
- for <ltp@lists.linux.it>; Fri, 08 May 2020 02:24:36 -0700 (PDT)
-X-Gm-Message-State: AGi0PubK4syLDjcHWHEMb6R0ICFLy9NgqQYzuUyp9Wm61j9wRSP41CXA
- 5x83Y421xz+5L1BRvpgzHjSNp+VBv65hILUe/LM=
-X-Google-Smtp-Source: APiQypKyUEyT+A/rJn09XBWkOsWdu1VEgFunCZaeFcDXC3epfub1ws426RbaNfV+eomfYksl/+SJCfR25hRc0pXh+4w=
-X-Received: by 2002:a37:b543:: with SMTP id e64mr1763608qkf.394.1588929875647; 
- Fri, 08 May 2020 02:24:35 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.1588911607.git.viresh.kumar@linaro.org>
- <8a675726b6e553e740016390c774bce19efc5a12.1588911607.git.viresh.kumar@linaro.org>
- <CAK8P3a1x+uK_WgVn9O8LVcLoZH=oJ_jQcePwcwzqpyhewApX9w@mail.gmail.com>
- <20200508085657.ousiwqakcq7zegpo@vireshk-i7>
-In-Reply-To: <20200508085657.ousiwqakcq7zegpo@vireshk-i7>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Fri, 8 May 2020 11:24:19 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a0PCX_KzKLVD7ZT10xxpOXapUh8o5hhE5OOzyPjxf=GAw@mail.gmail.com>
-Message-ID: <CAK8P3a0PCX_KzKLVD7ZT10xxpOXapUh8o5hhE5OOzyPjxf=GAw@mail.gmail.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-X-Provags-ID: V03:K1:SpFZGU85ECqYrCQa512cgYeX18P7Fe3+DLR4YBsHuhkPsERvuMU
- CcATk4m1lf5Bry8uBAOURHwmfl6FwsknGYRyL5KYT9dmaTIJYxBm+4VijhkO3JOcg5a/ury
- nT9y9t+RQrltxh7Pe/xrCslSNZLZP4ngR3M1JBYztjR4siYMgWJwAakAL4xXc+1/aVnacwA
- QhasXWxhrd0W9d0+ZwZxg==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:uHqAeoDbhUo=:frdiUTpvVGiHY3V/57FbGU
- 0/iol28UADbXMtkEpXtfIAghX0plZ09pvV5wdIl5lYdGRblT7rnkmFuZ0IVOz27z0hBa5jIko
- CZHcwyGiGWuo8YycymM/E+uk25xSOai5yIqkI+LIVyoquz4BH3bIsdMyVZML7eVPepJ5tSM37
- tT8iURzbkAn5gOEJle07hN0BxSFrLYgDU/O9rAwgJOCW3mZOzHG4NUf759bexJ8bOx5563T5D
- q+lWKNiyqn6nfxcDXBd+l1oNOEZJFtvHbQyBUemXsEH4YMcg0nZBLI19190s0E0707DqTeMgX
- LThaS5WauYQUWb9r2u2Rv2NIK+c4OjJIXdy6L6Ua2FPqvOJBtSrtYZ8ZPcvGayuYVlFl+O0/Q
- V6jm95vQvb1yTB7e8UIT34cv5buPB6/5SY4n8K38ycfBrNYc7uronDA1/A2Ir8xLjumbi+Tvw
- 2+2DLZ3ag4JcRgrok/SzAYNrQJT4jxCrtEippUbSEkgoTYoQ/BsNz6+1E4s80UERbWRAnaVfm
- 4CINj3rBQkHaRX4WAt++K3KhftClHOd0su+X6s6UWIeKf1GdIKmEm/iIIJ9KOhmaAujpEOvbO
- yXsGjBAUB4fy19fSfzWobNDylfL5bywx7ZQf3pmQf1zBLZEAl3/2cgVYKaKgoQ6f9Yo5fYXo4
- VLMNipO6zrLy7xz0K8GHtjShKcqDbQU3Q//fWp7y5j23n5coHPOuYYU5bMeUcgCo680HIH8/Q
- AQd0v+4gYLiGRvmM2EbMoSckdht8G2mAFBZkV9SXo46Bf0VBQBkCFnDhEjhJEy0wjQnjOBfJI
- LVWc1dw66CSVepOWvgzVRcCeS/lA5Ngj18jnbcjUFkYOn5JnmX/sz1YxdhOasZjA851LK1tLX
- uFgyifp+8PmKyhCq8cKF8BY7yfSqhJPdrbsAxoS7H33YZ3dXmdIM/GKgoziIiBwssg351JVpn
- 89j42BWEOeA==
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 099CC1054F98;
+ Fri,  8 May 2020 12:58:39 +0000 (UTC)
+Received: from janakin.usersys.redhat.com (unknown [10.43.17.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 55E21707C8;
+ Fri,  8 May 2020 12:58:38 +0000 (UTC)
+From: Jan Stancek <jstancek@redhat.com>
+To: ltp@lists.linux.it
+Date: Fri,  8 May 2020 14:58:32 +0200
+Message-Id: <797dd5eeadd81fae30635dd66d0a715cc213c51e.1588942651.git.jstancek@redhat.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V2 15/17] syscalls/semtimedop: Add support for
- semtimedop and its time64 version
+Subject: [LTP] [PATCH] nm01: fix regex matching internal symbols
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,98 +62,40 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Fri, May 8, 2020 at 10:57 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
->
-> On 08-05-20, 09:18, Arnd Bergmann wrote:
-> > On Fri, May 8, 2020 at 6:24 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
-> >
-> > > +
-> > > +static inline int sys_semtimedop(int semid, struct sembuf *sops, size_t nsops,
-> > > +               void *timeout)
-> > > +{
-> > > +       return tst_syscall(__NR_semtimedop, semid, sops, nsops, timeout);
-> > > +}
-> > > +
-> > > +static inline int sys_semtimedop_time64(int semid, struct sembuf *sops,
-> > > +                                       size_t nsops, void *timeout)
-> > > +{
-> > > +       return tst_syscall(__NR_semtimedop_time64, semid, sops, nsops, timeout);
-> > > +}
-> > > +
-> > > +struct test_variants {
-> > > +       int (*semop)(int semid, struct sembuf *sops, size_t nsops);
-> > > +       int (*semtimedop)(int semid, struct sembuf *sops, size_t nsops, void *timeout);
-> > > +       enum tst_ts_type type;
-> > > +       char *desc;
-> > > +} variants[] = {
-> > > +       { .semop = semop, .type = TST_LIBC_TIMESPEC, .desc = "semop: vDSO or syscall"},
-> > > +#if defined(TST_ABI32)
-> > > +       { .semtimedop = sys_semtimedop, .type = TST_LIBC_TIMESPEC, .desc = "semtimedop: syscall with libc spec"},
-> > > +       { .semtimedop = sys_semtimedop, .type = TST_KERN_OLD_TIMESPEC, .desc = "semtimedop: syscall with kernel spec32"},
-> > > +#endif
-> > > +
-> > > +#if defined(TST_ABI64)
-> > > +       { .semtimedop = sys_semtimedop, .type = TST_KERN_TIMESPEC, .desc = "semtimedop: syscall with kernel spec64"},
-> > > +#endif
-> >
-> >
-> > It feels like this is more complicated than it need to be. The line
-> >
-> > semtimedop = sys_semtimedop, .type = TST_KERN_OLD_TIMESPEC, .desc =
-> > "semtimedop: syscall with kernel spec32"},
-> >
-> > should apply to any kernel that has "__NR_semtimedop !=
-> > __LTP__NR_INVALID_SYSCALL",
-> > regardless of any other macros set, and then you don't need the separate line
-> >
-> > { .semtimedop = sys_semtimedop, .type = TST_KERN_TIMESPEC, .desc =
-> > "semtimedop: syscall with kernel spec64"},
->
-> > which is not what the ABI is meant to be anyway (sys_semtimedop takes
-> > a __kernel_old_timespec,
-> > not a __kernel_timespec).
->
-> There is some misunderstanding here, surely from my side. The sys_
-> helpers here are the direct syscalls called from userspace with help
-> of tst_syscall().
->
-> AFAIU, on 32 bit systems we need to call __NR_semtimedop with the 32
-> bit and 64 bit timespec (both), and on 64 bit systems which don't
-> implement __NR_semtimedop_time64, we need to call __NR_semtimedop with
-> the 64 bit timespec only.
->
-> What you are telling now is very different from that and so I don't
-> get it.
+Current regex matches any word character followed by space
+and one of letters "abdft". So it doesn't match only symbol type,
+but can match for example value and size:
+  $ grep "\w [a,b,d,f,t]" nm.out
+  __libc_csu_init T 10000640 b4
+                   matches ^ ^
 
-__NR_semtimedop can only be called with the 'old' timespec, which
-may have either 32 or 64 members depending on the architecture.
-On x32 it uses 64-bit members, and on riscv32 it does not exist at all.
+Signed-off-by: Jan Stancek <jstancek@redhat.com>
+---
+ testcases/commands/nm/nm01.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I think you already have a correct __kernel_old_timespec definition,
-so what I'd expect to see here is code that passes __kernel_old_timespec
-into __NR_semtimedop whenever __NR_semtimedop is defined.
+diff --git a/testcases/commands/nm/nm01.sh b/testcases/commands/nm/nm01.sh
+index fd9d3d92262f..873126d20945 100755
+--- a/testcases/commands/nm/nm01.sh
++++ b/testcases/commands/nm/nm01.sh
+@@ -47,7 +47,7 @@ test2()
+ {
+ 	EXPECT_PASS $NM -f posix -g $TST_DATAROOT/f1 \> nm.out
+ 
+-	if grep -q "\w [a,b,d,f,t]" nm.out; then
++	if grep -q "^[^ ]\+ [abdft]" nm.out; then
+ 		tst_res TFAIL "Got internal symbols with -g"
+ 		cat nm.out
+ 	else
+-- 
+2.18.1
 
-Passing the libc timespec into __kernel_old_timespec is a bug, as
-the libc may be using either the old or the new (always 64-bit)
-definition.
-
-> >  { .semop = semop, .type = TST_LIBC_TIMESPEC, .desc = "semop: vDSO or syscall"},
-> >
-> > should apply to both 32 and 64 bit machines
->
-> Yes and so it is called without ifdef hackery. Isn't that correct ?
-
-My mistake, I confused the lines. What I meant is that there should
-be an unconditional test of the libc 'semtimedop' with the libc 'timespec'
-definition.
-
-     Arnd
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
