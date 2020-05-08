@@ -1,67 +1,72 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F38821CA200
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 06:24:16 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E38B1CA201
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 06:24:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A7E143C7193
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 06:24:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 67C1A3C6C47
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 06:24:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id B1A263C6C45
- for <ltp@lists.linux.it>; Fri,  8 May 2020 06:24:11 +0200 (CEST)
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id D645C3C7087
+ for <ltp@lists.linux.it>; Fri,  8 May 2020 06:24:14 +0200 (CEST)
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 93377601BE5
- for <ltp@lists.linux.it>; Fri,  8 May 2020 06:24:10 +0200 (CEST)
-Received: by mail-pf1-x443.google.com with SMTP id r14so296502pfg.2
- for <ltp@lists.linux.it>; Thu, 07 May 2020 21:24:10 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 71B72200AE0
+ for <ltp@lists.linux.it>; Fri,  8 May 2020 06:24:13 +0200 (CEST)
+Received: by mail-pl1-x642.google.com with SMTP id t7so181961plr.0
+ for <ltp@lists.linux.it>; Thu, 07 May 2020 21:24:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=RZo27O9ogEQkBHyF6v70s6WKndKb6iQVGeoRRJy/AsQ=;
- b=pb+cUJKKUTQYZD+29Q027++e7e6/8HOza9g7+dwdmNmEIm+u+P1zjoXToJFWplvQH8
- QdJA1SEXnMBsrNMTL2qjNAm6QUxSRHxsadkkddIWjtXSia+OqqxN5vSoMZltaLTbPAMF
- Z4c4fVJDUBafjjjjnqMCeZ3LAUCoK0CIc3IWn93T0mXo0Gv4BnrxCwM4QWgJt0jAeU/Y
- p9bcoIPqoOG4yliDOociHs2Vi4cuh6muPGiZ31d0zKuTHCLGx3m12Ytpap1mkY6znATq
- Sbc4LMiNcZxuZD1rhMOZRIihhCkrq5JNyIYBwv4BjnY9eskeA4YeggKMvGQXB1ZNHm4t
- 78Vw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=/bi2VB/ReZDPDBT/qOncg9jKwWTQCkJgUhqsaJVZ8/c=;
+ b=t2h94A2KQkI4L2crks497SakKnXWd4k7DzHevrxuGVYGdnhsJ7li2MUdOYHcvvW2+r
+ MOyQrFekBbvhklP8SHdv3ev9Je7lAV3xKrMX/A4OygWKeiJFObz1Fa293DTgPqpOJJDI
+ F7boZoTCh/3EYFdSUwrhYkzGmATiKFTy4QRy2E/Vx8S8z+KukOalRIpO+ABo5HHjlXWL
+ sZugqsDJ22R4pSj3crdHOj2dCnaIRXc7bTo61zm00IBBqqFrA9S+m9/8WvNeZc24NhXW
+ 7CN+q3vEW4mZVi9xQ3k4lEDeQwCDUwuq26vRxEQqeuhCmXtukFPz7Uh7kuGvgnzsBDBd
+ Xx0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=RZo27O9ogEQkBHyF6v70s6WKndKb6iQVGeoRRJy/AsQ=;
- b=InYg2vwm3zG98Xz7NAe18Yu2UcP/ku8nixUEA6tOxSBmufXBAeSY0D9ZTkwLmWQPiY
- zswZwozpSUH1TV+JVxYSmstjqdorPU/1kRVYGVY/LVcJdvObmDJ2UjwF8kQC0RZ5rg1f
- bAtrR4M+qEpQNd75K0PcHuOF3pJnGEPekXPym8n/TtijMhONT3kUB4fhn+RlvVjCa9Q+
- jdqJawwtq3MR3vY/Zl8o+2wRSND2d2TbpJzcFRScIn+FvYPdqUp8u3aUfrBcVTs8jMGD
- WYIqhkjftZo0pPylZzZRpr+2yfes8gL8eaa/zyybCMgn6MndPGWx/ts/Dmdcd3HjFRxd
- h26w==
-X-Gm-Message-State: AGi0PuaB5rMx6Zcl69lNWFMlS0i5Ipl4sKe07KAcGRqTvvnhseL9y5xt
- XyXNw0SP77TMS5ecw5/oHRdH1vYopww=
-X-Google-Smtp-Source: APiQypL/YsQGaPmRpc/FG20v0sClMu/AgPXzQihB5uaEKG++xz5il1EumHzNcLsCPZCkXHbyRGu34g==
-X-Received: by 2002:a62:6443:: with SMTP id y64mr863320pfb.100.1588911846997; 
- Thu, 07 May 2020 21:24:06 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=/bi2VB/ReZDPDBT/qOncg9jKwWTQCkJgUhqsaJVZ8/c=;
+ b=OZ07l37mHqhUCvKn9Up9d8mrhttEpxiKyqkh/4+4aL2jaXWuhC9B63jmyZd/DHAV+0
+ WQeF8czSDZZ8/o36/FhuF4Oq/AJ1IW56r4GKMeGyCKdBRnHIwmm2QWSi3TWbmbj+dBXq
+ ifgWeNoiX4XodAUj9Y6M0w/HTOTjtmtbXB6o6BXEqCC97PjsXdFsugnMh85rThSPGwcp
+ 605hBQPjVHBjLIKhg/QABx2uqF6eCai4lBlUhgSHdiDwOVSGYEbEjaZa3SZsOJI3CyWs
+ cgkfpH+ARsoDcxGuqAZvxZtjdWHD0Zlc5ksxA7+PtqVHL2ozaK6dinx4yg5jT5XiJ8tU
+ U3Dw==
+X-Gm-Message-State: AGi0Puayewdab3F0J0shDed5iqJAw4917HP6ro7AQENvF9RoLzZ45xRe
+ jN2kJyI09BMxuUpjweobC3Y1coavfQI=
+X-Google-Smtp-Source: APiQypJR/R7Mymhovs1XxdAOHB4c21jzmwgLCcJnBMgviN4z1nXvP6VmXVTBfi2zlM8rjjGCCqcqnQ==
+X-Received: by 2002:a17:90a:1f8f:: with SMTP id
+ x15mr3926077pja.76.1588911851156; 
+ Thu, 07 May 2020 21:24:11 -0700 (PDT)
 Received: from localhost ([122.171.118.46])
- by smtp.gmail.com with ESMTPSA id c2sm340543pfp.118.2020.05.07.21.24.05
+ by smtp.gmail.com with ESMTPSA id y2sm369549pfq.16.2020.05.07.21.24.10
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 07 May 2020 21:24:06 -0700 (PDT)
+ Thu, 07 May 2020 21:24:10 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Fri,  8 May 2020 09:53:45 +0530
-Message-Id: <cover.1588911607.git.viresh.kumar@linaro.org>
+Date: Fri,  8 May 2020 09:53:46 +0530
+Message-Id: <d115c3ad61a422e5cadd3617c554c91a242defad.1588911607.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
+In-Reply-To: <cover.1588911607.git.viresh.kumar@linaro.org>
+References: <cover.1588911607.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH V2 00/17] Syscalls: Add support for time64 variants
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH V2 01/17] syscalls/timer_gettime: Add support for
+ time64 tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,94 +85,255 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril/Petr,
+This adds support for time64 tests to the existing timer_gettime()
+syscall tests.
 
-This replaces all my pending patches that I have sent earlier and not
-applied yet. I am sending them all together (along with few new patches)
-to avoid any rebase conflicts as reported by Petr.
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+---
+ include/tst_timer.h                           |  40 ++++++
+ .../syscalls/timer_gettime/timer_gettime01.c  | 135 ++++++++----------
+ 2 files changed, 100 insertions(+), 75 deletions(-)
 
-I have also fixed the GPL licensing thing that Petr asked for at several
-files in this V2. Otherwise no difference in the patches.
-
-With this I have completed the time64 support for all the syscalls
-tests.
-
-Viresh Kumar (17):
-  syscalls/timer_gettime: Add support for time64 tests
-  syscalls/timer_settime: Add support for time64 tests
-  syscalls/timerfd: Add support for time64 tests
-  syscalls/sched_rr_get_interval: Add support for time64 tests
-  syscalls/futex: Merge futex_wait_bitset tests
-  syscalls/futex: Add support for time64 tests
-  syscalls/io_pgetevents: Add support for time64 tests
-  syscalls/sigwaitinfo: Migrate to new test framework
-  syscalls/rt_sigtimedwait: Add support for time64 tests
-  syscalls/mq_timed{send|receive}: Add support for time64 tests
-  syscalls/recvmmsg: Add support for time64 tests
-  syscalls/ppoll: Add support for time64 tests
-  syscalls/select6: Add support for time64 tests
-  syscalls/semop: Migrate to new test framework
-  syscalls/semtimedop: Add support for semtimedop and its time64 version
-  syscalls/utimensat: Migrate to new test framework
-  syscalls/utimensat: Add support for time64 tests
-
- include/lapi/io_pgetevents.h                  |  15 +-
- include/tst_timer.h                           | 191 +++++++
- runtest/syscalls                              |   1 -
- testcases/kernel/syscalls/futex/.gitignore    |   1 -
- testcases/kernel/syscalls/futex/Makefile      |   1 -
- .../syscalls/futex/futex_cmp_requeue01.c      |  35 +-
- .../syscalls/futex/futex_cmp_requeue02.c      |  25 +-
- testcases/kernel/syscalls/futex/futex_utils.h |  52 +-
- .../kernel/syscalls/futex/futex_wait01.c      |  83 +--
- .../kernel/syscalls/futex/futex_wait02.c      | 104 ++--
- .../kernel/syscalls/futex/futex_wait03.c      |  91 +--
- .../kernel/syscalls/futex/futex_wait04.c      |  85 +--
- .../kernel/syscalls/futex/futex_wait05.c      |   2 +-
- .../kernel/syscalls/futex/futex_wait_bitset.h |  75 ---
- .../syscalls/futex/futex_wait_bitset01.c      | 103 +++-
- .../syscalls/futex/futex_wait_bitset02.c      |  18 -
- .../kernel/syscalls/futex/futex_wake01.c      |  71 ++-
- .../kernel/syscalls/futex/futex_wake02.c      |  99 ++--
- .../kernel/syscalls/futex/futex_wake03.c      | 111 ++--
- .../kernel/syscalls/futex/futex_wake04.c      | 150 ++---
- testcases/kernel/syscalls/futex/futextest.h   | 111 ++--
- .../syscalls/io_pgetevents/io_pgetevents01.c  |  41 +-
- .../syscalls/io_pgetevents/io_pgetevents02.c  |  59 +-
- testcases/kernel/syscalls/ipc/semop/Makefile  |   2 +-
- testcases/kernel/syscalls/ipc/semop/semop.h   |  52 ++
- testcases/kernel/syscalls/ipc/semop/semop01.c | 145 +++--
- testcases/kernel/syscalls/ipc/semop/semop02.c | 153 +++---
- testcases/kernel/syscalls/ipc/semop/semop03.c | 160 ++----
- testcases/kernel/syscalls/ipc/semop/semop04.c | 173 +++---
- testcases/kernel/syscalls/ipc/semop/semop05.c | 309 +++++------
- .../mq_timedreceive/mq_timedreceive01.c       |  97 +++-
- .../syscalls/mq_timedsend/mq_timedsend01.c    | 101 ++--
- testcases/kernel/syscalls/ppoll/ppoll01.c     |  76 ++-
- .../sched_rr_get_interval01.c                 | 131 ++---
- .../sched_rr_get_interval02.c                 | 137 ++---
- .../sched_rr_get_interval03.c                 | 151 +++--
- testcases/kernel/syscalls/select/select_var.h |  27 +-
- .../kernel/syscalls/sendmmsg/sendmmsg01.c     |  45 +-
- .../kernel/syscalls/sendmmsg/sendmmsg_var.h   |  55 +-
- .../syscalls/sigwaitinfo/sigwaitinfo01.c      | 317 ++++++-----
- .../syscalls/timer_gettime/timer_gettime01.c  | 135 ++---
- .../syscalls/timer_settime/timer_settime01.c  |  51 +-
- .../syscalls/timer_settime/timer_settime02.c  |  65 ++-
- testcases/kernel/syscalls/timerfd/timerfd01.c |  58 +-
- testcases/kernel/syscalls/timerfd/timerfd04.c |  56 +-
- .../syscalls/timerfd/timerfd_gettime01.c      | 138 +++--
- .../syscalls/timerfd/timerfd_settime01.c      | 139 +++--
- .../syscalls/timerfd/timerfd_settime02.c      |  33 +-
- testcases/kernel/syscalls/utils/mq_timed.h    |  42 +-
- .../kernel/syscalls/utimensat/utimensat01.c   | 469 ++++++++--------
- .../syscalls/utimensat/utimensat_tests.sh     | 517 ------------------
- 51 files changed, 2657 insertions(+), 2701 deletions(-)
- delete mode 100644 testcases/kernel/syscalls/futex/futex_wait_bitset.h
- delete mode 100644 testcases/kernel/syscalls/futex/futex_wait_bitset02.c
- create mode 100644 testcases/kernel/syscalls/ipc/semop/semop.h
- delete mode 100755 testcases/kernel/syscalls/utimensat/utimensat_tests.sh
-
+diff --git a/include/tst_timer.h b/include/tst_timer.h
+index 256e1d71e1bc..601f934da670 100644
+--- a/include/tst_timer.h
++++ b/include/tst_timer.h
+@@ -15,6 +15,7 @@
+ #include <sys/time.h>
+ #include <time.h>
+ #include "tst_test.h"
++#include "lapi/common_timers.h"
+ #include "lapi/syscalls.h"
+ 
+ /*
+@@ -112,6 +113,11 @@ struct __kernel_timespec {
+ 	__kernel_time64_t       tv_sec;                 /* seconds */
+ 	long long               tv_nsec;                /* nanoseconds */
+ };
++
++struct __kernel_itimerspec {
++	struct __kernel_timespec it_interval;    /* timer period */
++	struct __kernel_timespec it_value;       /* timer expiration */
++};
+ #endif
+ 
+ enum tst_ts_type {
+@@ -129,6 +135,14 @@ struct tst_ts {
+ 	} ts;
+ };
+ 
++struct tst_its {
++	enum tst_ts_type type;
++	union {
++		struct itimerspec libc_its;
++		struct __kernel_itimerspec kern_its;
++	} ts;
++};
++
+ static inline void *tst_ts_get(struct tst_ts *t)
+ {
+ 	if (!t)
+@@ -147,6 +161,22 @@ static inline void *tst_ts_get(struct tst_ts *t)
+ 	}
+ }
+ 
++static inline void *tst_its_get(struct tst_its *t)
++{
++	if (!t)
++		return NULL;
++
++	switch (t->type) {
++	case TST_LIBC_TIMESPEC:
++		return &t->ts.libc_its;
++	case TST_KERN_TIMESPEC:
++		return &t->ts.kern_its;
++	default:
++		tst_brk(TBROK, "Invalid type: %d", t->type);
++		return NULL;
++	}
++}
++
+ static inline int libc_clock_getres(clockid_t clk_id, void *ts)
+ {
+ 	return clock_getres(clk_id, ts);
+@@ -212,6 +242,16 @@ static inline int sys_clock_nanosleep64(clockid_t clk_id, int flags,
+ 			   request, remain);
+ }
+ 
++static inline int sys_timer_gettime(kernel_timer_t timerid, void *its)
++{
++	return tst_syscall(__NR_timer_gettime, timerid, its);
++}
++
++static inline int sys_timer_gettime64(kernel_timer_t timerid, void *its)
++{
++	return tst_syscall(__NR_timer_gettime64, timerid, its);
++}
++
+ /*
+  * Returns tst_ts seconds.
+  */
+diff --git a/testcases/kernel/syscalls/timer_gettime/timer_gettime01.c b/testcases/kernel/syscalls/timer_gettime/timer_gettime01.c
+index 1c75f1cf0e45..4e9230fb6e9a 100644
+--- a/testcases/kernel/syscalls/timer_gettime/timer_gettime01.c
++++ b/testcases/kernel/syscalls/timer_gettime/timer_gettime01.c
+@@ -1,24 +1,5 @@
+-/******************************************************************************
+- * Copyright (c) Crackerjack Project., 2007                                   *
+- * Porting from Crackerjack to LTP is done by:                                *
+- *              Manas Kumar Nayak <maknayak@in.ibm.com>                       *
+- * Copyright (c) 2013 Cyril Hrubis <chrubis@suse.cz>                          *
+- *                                                                            *
+- * This program is free software;  you can redistribute it and/or modify      *
+- * it under the terms of the GNU General Public License as published by       *
+- * the Free Software Foundation; either version 2 of the License, or          *
+- * (at your option) any later version.                                        *
+- *                                                                            *
+- * This program is distributed in the hope that it will be useful,            *
+- * but WITHOUT ANY WARRANTY;  without even the implied warranty of            *
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See                  *
+- * the GNU General Public License for more details.                           *
+- *                                                                            *
+- * You should have received a copy of the GNU General Public License          *
+- * along with this program;  if not, write to the Free Software Foundation,   *
+- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA           *
+- *                                                                            *
+- ******************************************************************************/
++// SPDX-License-Identifier: GPL-2.0-or-later
++/* Copyright (c) Crackerjack Project., 2007 */
+ 
+ #include <time.h>
+ #include <signal.h>
+@@ -26,71 +7,75 @@
+ #include <stdio.h>
+ #include <errno.h>
+ 
+-#include "test.h"
+-#include "lapi/syscalls.h"
++#include "tst_timer.h"
++#include "lapi/abisize.h"
+ 
+-char *TCID = "timer_gettime01";
+-int TST_TOTAL = 3;
++static struct test_variants {
++	int (*func)(kernel_timer_t timer, void *its);
++	enum tst_ts_type type;
++	char *desc;
++} variants[] = {
++#if defined(TST_ABI32)
++	{ .func = sys_timer_gettime, .type = TST_LIBC_TIMESPEC, .desc = "syscall with libc spec"},
++#endif
+ 
+-static void cleanup(void)
+-{
+-	tst_rmdir();
+-}
++#if defined(TST_ABI64)
++	{ .func = sys_timer_gettime, .type = TST_KERN_TIMESPEC, .desc = "syscall with kernel spec64"},
++#endif
+ 
+-static void setup(void)
+-{
+-	TEST_PAUSE;
+-	tst_tmpdir();
+-}
++#if (__NR_timer_gettime64 != __LTP__NR_INVALID_SYSCALL)
++	{ .func = sys_timer_gettime64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec64"},
++#endif
++};
+ 
+-int main(int ac, char **av)
+-{
+-	int lc;
++static kernel_timer_t timer;
+ 
++static void setup(void)
++{
+ 	struct sigevent ev;
+-	struct itimerspec spec;
+-	int timer;
+ 
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
++	tst_res(TINFO, "Testing variant: %s", variants[tst_variant].desc);
+ 
+ 	ev.sigev_value = (union sigval) 0;
+ 	ev.sigev_signo = SIGALRM;
+ 	ev.sigev_notify = SIGEV_SIGNAL;
+-	TEST(ltp_syscall(__NR_timer_create, CLOCK_REALTIME, &ev, &timer));
+-
+-	if (TEST_RETURN != 0)
+-		tst_brkm(TBROK | TERRNO, cleanup, "Failed to create timer");
+-
+-	for (lc = 0; TEST_LOOPING(lc); ++lc) {
+-		tst_count = 0;
+-
+-		TEST(ltp_syscall(__NR_timer_gettime, timer, &spec));
+-		if (TEST_RETURN == 0) {
+-			tst_resm(TPASS, "timer_gettime(CLOCK_REALTIME) Passed");
+-		} else {
+-			tst_resm(TFAIL | TERRNO,
+-			         "timer_gettime(CLOCK_REALTIME) Failed");
+-		}
+-
+-		TEST(ltp_syscall(__NR_timer_gettime, -1, &spec));
+-		if (TEST_RETURN == -1 && TEST_ERRNO == EINVAL) {
+-			tst_resm(TPASS,	"timer_gettime(-1) Failed: EINVAL");
+-		} else {
+-			tst_resm(TFAIL | TERRNO,
+-			         "timer_gettime(-1) = %li", TEST_RETURN);
+-		}
+-
+-		TEST(ltp_syscall(__NR_timer_gettime, timer, NULL));
+-		if (TEST_RETURN == -1 && TEST_ERRNO == EFAULT) {
+-			tst_resm(TPASS,	"timer_gettime(NULL) Failed: EFAULT");
+-		} else {
+-			tst_resm(TFAIL | TERRNO,
+-			         "timer_gettime(-1) = %li", TEST_RETURN);
+-		}
++
++	TEST(tst_syscall(__NR_timer_create, CLOCK_REALTIME, &ev, &timer));
++
++	if (TST_RET) {
++		tst_res(TFAIL | TTERRNO, "timer_create() failed");
++		return;
++	}
++}
++
++static void verify(void)
++{
++	struct test_variants *tv = &variants[tst_variant];
++	struct tst_its spec = {.type = tv->type, };
++
++	TEST(tv->func(timer, tst_its_get(&spec)));
++	if (TST_RET == 0) {
++		tst_res(TPASS, "timer_gettime() Passed");
++	} else {
++		tst_res(TFAIL | TTERRNO, "timer_gettime() Failed");
+ 	}
+ 
+-	cleanup();
+-	tst_exit();
++	TEST(tv->func((kernel_timer_t)-1, tst_its_get(&spec)));
++	if (TST_RET == -1 && TST_ERR == EINVAL)
++		tst_res(TPASS, "timer_gettime(-1) Failed: EINVAL");
++	else
++		tst_res(TFAIL | TTERRNO, "timer_gettime(-1) = %li", TST_RET);
++
++	TEST(tv->func(timer, NULL));
++	if (TST_RET == -1 && TST_ERR == EFAULT)
++		tst_res(TPASS, "timer_gettime(NULL) Failed: EFAULT");
++	else
++		tst_res(TFAIL | TTERRNO, "timer_gettime(-1) = %li", TST_RET);
+ }
++
++static struct tst_test test = {
++	.test_all = verify,
++	.test_variants = ARRAY_SIZE(variants),
++	.setup = setup,
++	.needs_tmpdir = 1,
++};
 -- 
 2.25.0.rc1.19.g042ed3e048af
 
