@@ -2,70 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 234441CA203
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 06:24:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 825A41CA214
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 06:25:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D6ADA3C708B
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 06:24:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C59F63C2822
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 06:25:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id CECC33C7093
- for <ltp@lists.linux.it>; Fri,  8 May 2020 06:24:20 +0200 (CEST)
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id A941C3C7091
+ for <ltp@lists.linux.it>; Fri,  8 May 2020 06:24:23 +0200 (CEST)
+Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
+ [IPv6:2607:f8b0:4864:20::1041])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 42F5E60102E
- for <ltp@lists.linux.it>; Fri,  8 May 2020 06:24:05 +0200 (CEST)
-Received: by mail-pf1-x443.google.com with SMTP id 18so283583pfv.8
- for <ltp@lists.linux.it>; Thu, 07 May 2020 21:24:19 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 0CA16601BD2
+ for <ltp@lists.linux.it>; Fri,  8 May 2020 06:24:22 +0200 (CEST)
+Received: by mail-pj1-x1041.google.com with SMTP id fu13so3661697pjb.5
+ for <ltp@lists.linux.it>; Thu, 07 May 2020 21:24:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=SeDX4K5LT4N5v8FTrEw8NDI1Xb4vVl3DOu6cFN6vPls=;
- b=xJBFuol+QubxjNsZnQ+RYsfJ/vCjHHq7D+SIufnDms+e2DrxzG+xvVVSFsJDAaHYmQ
- nE7SFsrUQ9itz+yNQcX1UCnO0yf0dgdtk36KJu1VWLOWkYsBZ/v8UBUhuV8qCGnOthVf
- 2ovurWE/qyFSL4oHLSvtewTnxe2k5lBdD5wTIHrRm66roTfn8Hpi/+UAtUZ1gbCMM1Cv
- K2iyXS9XpoSziIT4xHuY74bXgUuLq4p5qhgLx2Yh9chfOJwbKjA9i5LHaB4xEMXHjHwH
- H2B+c3y/YjpSQ36RzEKqMpj4Bh8yCAhjd7u68LShXaiU7LhCT3KY2uhucbWfiRN3YSPw
- dgqA==
+ bh=iRQ0M2mToomU62cFanQKDr33M4FWAQNFIlLfcrKbuXY=;
+ b=cV921NDYKeFRyzWil4ZVKuBM66nVCJ5f4oy//NUh5VCCDrBFlGpDQgguG7q7xcG5dr
+ EhC2466LaSSUsz7fbmFgnBOQPc9xBxPXeFNqd6D9Ssv+5IFY0l7b0DcEIq2Nn4ZysrML
+ nX2QPP60RI4kEtD4BzdfAwcvqoICBy9S9fAGINLPAv2pQgnaP25esN4y0IGcNWCu/es1
+ KQ1NIip8Xohxv1jrZEzyHxTylbQ0n5Ni9PjxH0bC2Xr+jiefVsw/Dzvq4wG6TnsPEMC0
+ Mo/fcgtqngtu3pl5043DzRc+nKNNlgg2yK0I5ZpfNaE2+ThZhTmI+v3tEi+xD0+tPydX
+ chjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=SeDX4K5LT4N5v8FTrEw8NDI1Xb4vVl3DOu6cFN6vPls=;
- b=cMOcXTVLbpEeak5YVahGg3KzH2piqRZSl92DrZpm7IeF5LtKqdnj+Hv++hveIhU+U0
- V76qMCCcuFxM1Ch3+bsvQVeEynoEqpScaHRUvP0JAqDRbwYDhJ/4QaorhXOzgkWz0t48
- dn16ewv9mWmFhWBLT6bVdhfAl6fx5u13Ov95nZXxC2x9jKna2KVaTFfdiVS/UBNLLzS6
- G7mlSxlErIfaISD1gzGAGlM/Eevk7RhyXsIkVzczAvqF39X8DM4RO611GPi7UZAVdnVN
- PB3w+dw1PZBzzk0wK4yL9vY6jCaAbmw7z2NTb2qqW434VfSwelbwuqKEriQ94g6nYuVy
- jnQA==
-X-Gm-Message-State: AGi0PuY5Y6q72yhIkAQKTWRZWVnxxsJcKQp2Wc97/1tp5DV3fbwuaZ+f
- XkPNhF2Bnix+zL5T8/l8bItuLbcH96A=
-X-Google-Smtp-Source: APiQypLmnJXffSw3uF8tE1n3OeWE20gGnSV/gqLSHZNK+q9tnqKsnzUURmDbXtARB4uEY18dgBZViA==
-X-Received: by 2002:aa7:9a43:: with SMTP id x3mr824629pfj.266.1588911856854;
- Thu, 07 May 2020 21:24:16 -0700 (PDT)
+ bh=iRQ0M2mToomU62cFanQKDr33M4FWAQNFIlLfcrKbuXY=;
+ b=JVuT1Pvg1nY+pJgELzfz/fJ62U5UQjUpY49pPUVNSmgVeVi6AwcXG5N1n7qeHsOlFj
+ fdocK3EPN3F/t8v1nNrKOU1mwub9F2YOmsJlWGLocGfEsOxLIydUv8NDW+oBtPPoLg1n
+ kdFrbOzC/Skx1DXQ/FpDMEQ5gYZCYPJ/W2Z1eD1kGG5NudMEyJqEh0tICc6YphOGwyHg
+ E/J0tdrZhojYwu4HdsvXMvQGaMh0wk6dRMOlZ1mIEVNeymmZTysg8IfLur9CUOZb5lfA
+ zk4wcMzl9RaPVSSq/mB4x+KwSpAa2JXsQ5sIYw7v7BGfH10DjKItWAZ37+TphXRaKYhh
+ WiVQ==
+X-Gm-Message-State: AGi0Pub4Tx29YY92EeFkzOygAme2HcmEBTXrwkIVo4sIYUbqoCy+Pap4
+ uht8H4ASFWBlAOY3DaRdyzwsTGxfOjM=
+X-Google-Smtp-Source: APiQypJWn89Qfx7IuW6XCBUrmYyLd84v5aUb0M9SWIxlGnvERrlowM3rpfJNYiNaGhFGLaEg01oNVw==
+X-Received: by 2002:a17:902:8a85:: with SMTP id
+ p5mr523306plo.305.1588911859666; 
+ Thu, 07 May 2020 21:24:19 -0700 (PDT)
 Received: from localhost ([122.171.118.46])
- by smtp.gmail.com with ESMTPSA id 4sm375680pff.18.2020.05.07.21.24.15
+ by smtp.gmail.com with ESMTPSA id r78sm349387pfr.10.2020.05.07.21.24.18
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 07 May 2020 21:24:16 -0700 (PDT)
+ Thu, 07 May 2020 21:24:19 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Fri,  8 May 2020 09:53:48 +0530
-Message-Id: <d82a284d44cbd60ba8b7bd10a8a0051c69e6f9ca.1588911607.git.viresh.kumar@linaro.org>
+Date: Fri,  8 May 2020 09:53:49 +0530
+Message-Id: <edfc65153757bad8b4be32d30a4f733109d32b59.1588911607.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
 In-Reply-To: <cover.1588911607.git.viresh.kumar@linaro.org>
 References: <cover.1588911607.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH V2 03/17] syscalls/timerfd: Add support for time64
- tests
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH V2 04/17] syscalls/sched_rr_get_interval: Add support
+ for time64 tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,310 +85,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This adds support for time64 tests to the existing timerfd_gettime() and
-timerfd_settime() syscall tests.
+This adds support for time64 tests to the existing
+sched_rr_get_interval() syscall tests.
 
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- include/tst_timer.h                           |  48 ++++++
- testcases/kernel/syscalls/timerfd/timerfd01.c |  58 ++++++--
- testcases/kernel/syscalls/timerfd/timerfd04.c |  56 ++++++-
- .../syscalls/timerfd/timerfd_gettime01.c      | 138 ++++++++---------
- .../syscalls/timerfd/timerfd_settime01.c      | 139 +++++++++---------
- .../syscalls/timerfd/timerfd_settime02.c      |  33 ++++-
- 6 files changed, 303 insertions(+), 169 deletions(-)
+ include/tst_timer.h                           |  16 ++
+ .../sched_rr_get_interval01.c                 | 131 +++++++--------
+ .../sched_rr_get_interval02.c                 | 137 +++++++---------
+ .../sched_rr_get_interval03.c                 | 151 ++++++++----------
+ 4 files changed, 198 insertions(+), 237 deletions(-)
 
 diff --git a/include/tst_timer.h b/include/tst_timer.h
-index 94d03cecdabe..a728d78d7def 100644
+index a728d78d7def..a726298b407d 100644
 --- a/include/tst_timer.h
 +++ b/include/tst_timer.h
-@@ -264,6 +264,54 @@ static inline int sys_timer_settime64(kernel_timer_t timerid, int flags,
- 	return tst_syscall(__NR_timer_settime64, timerid, flags, its, old_its);
+@@ -12,6 +12,7 @@
+ #ifndef TST_TIMER
+ #define TST_TIMER
+ 
++#include <sched.h>
+ #include <sys/time.h>
+ #include <time.h>
+ #include "tst_test.h"
+@@ -242,6 +243,21 @@ static inline int sys_clock_nanosleep64(clockid_t clk_id, int flags,
+ 			   request, remain);
  }
  
-+static inline int sys_timerfd_gettime(int fd, void *its)
++static inline int libc_sched_rr_get_interval(pid_t pid, void *ts)
 +{
-+	return tst_syscall(__NR_timerfd_gettime, fd, its);
++	return sched_rr_get_interval(pid, ts);
 +}
 +
-+static inline int sys_timerfd_gettime64(int fd, void *its)
++static inline int sys_sched_rr_get_interval(pid_t pid, void *ts)
 +{
-+	return tst_syscall(__NR_timerfd_gettime64, fd, its);
++	return tst_syscall(__NR_sched_rr_get_interval, pid, ts);
 +}
 +
-+static inline int sys_timerfd_settime(int fd, int flags, void *its,
-+				      void *old_its)
++static inline int sys_sched_rr_get_interval64(pid_t pid, void *ts)
 +{
-+	return tst_syscall(__NR_timerfd_settime, fd, flags, its, old_its);
++	return tst_syscall(__NR_sched_rr_get_interval_time64, pid, ts);
 +}
 +
-+static inline int sys_timerfd_settime64(int fd, int flags, void *its,
-+				      void *old_its)
-+{
-+	return tst_syscall(__NR_timerfd_settime64, fd, flags, its, old_its);
-+}
-+
-+static inline long long tst_its_get_val_sec(struct tst_its its)
-+{
-+	switch (its.type) {
-+	case TST_LIBC_TIMESPEC:
-+		return its.ts.libc_its.it_value.tv_sec;
-+	case TST_KERN_TIMESPEC:
-+		return its.ts.kern_its.it_value.tv_sec;
-+	default:
-+		tst_brk(TBROK, "Invalid type: %d", its.type);
-+		return -1;
-+	}
-+}
-+
-+static inline long long tst_its_get_val_nsec(struct tst_its its)
-+{
-+	switch (its.type) {
-+	case TST_LIBC_TIMESPEC:
-+		return its.ts.libc_its.it_value.tv_nsec;
-+	case TST_KERN_TIMESPEC:
-+		return its.ts.kern_its.it_value.tv_nsec;
-+	default:
-+		tst_brk(TBROK, "Invalid type: %d", its.type);
-+		return -1;
-+	}
-+}
-+
- static inline void tst_its_set_time(struct tst_its *its, long long value_sec,
- 				long long value_nsec, long long interval_sec,
- 				long long interval_nsec)
-diff --git a/testcases/kernel/syscalls/timerfd/timerfd01.c b/testcases/kernel/syscalls/timerfd/timerfd01.c
-index 45d4c5d5ea0d..99882bfc9782 100644
---- a/testcases/kernel/syscalls/timerfd/timerfd01.c
-+++ b/testcases/kernel/syscalls/timerfd/timerfd01.c
-@@ -17,8 +17,8 @@
- 
- #define _GNU_SOURCE
- #include <poll.h>
--#include "tst_test.h"
- #include "tst_timer.h"
-+#include "lapi/abisize.h"
- #include "tst_safe_timerfd.h"
- 
- static struct tcase {
-@@ -29,25 +29,50 @@ static struct tcase {
- 	{CLOCK_REALTIME, "CLOCK REALTIME"},
- };
- 
-+static struct test_variants {
-+	int (*cgettime)(clockid_t clk_id, void *ts);
-+	int (*tfd_gettime)(int fd, void *its);
-+	int (*tfd_settime)(int fd, int flags, void *new_value, void *old_value);
-+	enum tst_ts_type type;
-+	char *desc;
-+} variants[] = {
-+#if defined(TST_ABI32)
-+	{ .cgettime = sys_clock_gettime, .tfd_gettime = sys_timerfd_gettime, .tfd_settime = sys_timerfd_settime, .type = TST_LIBC_TIMESPEC, .desc = "syscall with libc spec"},
-+#endif
-+
-+#if defined(TST_ABI64)
-+	{ .cgettime = sys_clock_gettime, .tfd_gettime = sys_timerfd_gettime, .tfd_settime = sys_timerfd_settime, .type = TST_KERN_TIMESPEC, .desc = "syscall with kernel spec64"},
-+#endif
-+
-+#if (__NR_timerfd_gettime64 != __LTP__NR_INVALID_SYSCALL)
-+	{ .cgettime = sys_clock_gettime64, .tfd_gettime = sys_timerfd_gettime64, .tfd_settime = sys_timerfd_settime64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec64"},
-+#endif
-+};
-+
- static unsigned long long getustime(int clockid)
+ static inline int sys_timer_gettime(kernel_timer_t timerid, void *its)
  {
--	struct timespec tp;
-+	struct test_variants *tv = &variants[tst_variant];
-+	struct tst_ts tp = {.type = tv->type, };
- 
--	if (clock_gettime((clockid_t) clockid, &tp)) {
-+	if (tv->cgettime((clockid_t) clockid, tst_ts_get(&tp))) {
- 		tst_res(TFAIL | TERRNO, "clock_gettime() failed");
- 		return 0;
- 	}
- 
--	return 1000000ULL * tp.tv_sec + tp.tv_nsec / 1000;
-+	return 1000000ULL * tst_ts_get_sec(tp) + tst_ts_get_nsec(tp) / 1000;
- }
- 
--static void settime(int tfd, struct itimerspec *tmr, int tflags,
-+static void settime(int tfd, struct tst_its *tmr, int tflags,
-                     unsigned long long tvalue, int tinterval)
- {
--	tmr->it_value = tst_timespec_from_us(tvalue);
--	tmr->it_interval = tst_timespec_from_us(tinterval);
-+	struct test_variants *tv = &variants[tst_variant];
-+	struct timespec value = tst_timespec_from_us(tvalue);
-+	struct timespec interval = tst_timespec_from_us(tinterval);
- 
--	SAFE_TIMERFD_SETTIME(tfd, tflags, tmr, NULL);
-+	tst_its_set_time(tmr, value.tv_sec, value.tv_nsec, interval.tv_sec, interval.tv_nsec);
-+
-+	if (tv->tfd_settime(tfd, tflags, tst_its_get(tmr), NULL))
-+		tst_res(TFAIL, "timerfd_settime() failed");
- }
- 
- static void waittmr(int tfd, unsigned int exp_ticks)
-@@ -78,10 +103,11 @@ static void waittmr(int tfd, unsigned int exp_ticks)
- 
- static void run(unsigned int n)
- {
-+	struct test_variants *tv = &variants[tst_variant];
- 	int tfd;
- 	unsigned long long tnow;
- 	uint64_t uticks;
--	struct itimerspec tmr;
-+	struct tst_its tmr = {.type = tv->type, };
- 	struct tcase *clks = &tcases[n];
- 
- 	tst_res(TINFO, "testing %s", clks->name);
-@@ -102,11 +128,12 @@ static void run(unsigned int n)
- 	settime(tfd, &tmr, TFD_TIMER_ABSTIME, tnow + 50 * 1000, 50 * 1000);
- 
- 	memset(&tmr, 0, sizeof(tmr));
--	if (timerfd_gettime(tfd, &tmr))
--		tst_res(TFAIL | TERRNO, "timerfd_gettime() failed");
-+	tmr.type = tv->type;
- 
-+	if (tv->tfd_gettime(tfd, tst_its_get(&tmr)))
-+		tst_res(TFAIL | TERRNO, "timerfd_gettime() failed");
- 
--	if (tmr.it_value.tv_sec != 0 || tmr.it_value.tv_nsec > 50 * 1000000)
-+	if (tst_its_get_val_sec(tmr) != 0 || tst_its_get_val_nsec(tmr) > 50 * 1000000)
- 		tst_res(TFAIL, "Timer read back value not relative");
- 	else
- 		tst_res(TPASS, "Timer read back value is relative");
-@@ -132,8 +159,15 @@ static void run(unsigned int n)
- 	SAFE_CLOSE(tfd);
- }
- 
-+static void setup(void)
-+{
-+	tst_res(TINFO, "Testing variant: %s", variants[tst_variant].desc);
-+}
-+
- static struct tst_test test = {
- 	.test = run,
- 	.tcnt = ARRAY_SIZE(tcases),
-+	.test_variants = ARRAY_SIZE(variants),
-+	.setup = setup,
- 	.min_kver = "2.6.25",
- };
-diff --git a/testcases/kernel/syscalls/timerfd/timerfd04.c b/testcases/kernel/syscalls/timerfd/timerfd04.c
-index 7197fc67ed47..75fa7882539a 100644
---- a/testcases/kernel/syscalls/timerfd/timerfd04.c
-+++ b/testcases/kernel/syscalls/timerfd/timerfd04.c
-@@ -18,8 +18,8 @@
- #include "tst_safe_clocks.h"
- #include "tst_safe_timerfd.h"
- #include "tst_timer.h"
-+#include "lapi/abisize.h"
- #include "lapi/namespaces_constants.h"
--#include "tst_test.h"
- 
- #define SLEEP_US 40000
- 
-@@ -35,26 +35,60 @@ static struct tcase {
- 	{CLOCK_BOOTTIME, CLOCK_BOOTTIME, -10},
- };
- 
-+static struct test_variants {
-+	int (*cgettime)(clockid_t clk_id, void *ts);
-+	int (*tfd_settime)(int fd, int flags, void *new_value, void *old_value);
-+	enum tst_ts_type type;
-+	char *desc;
-+} variants[] = {
-+#if defined(TST_ABI32)
-+	{ .cgettime = sys_clock_gettime, .tfd_settime = sys_timerfd_settime, .type = TST_LIBC_TIMESPEC, .desc = "syscall with libc spec"},
-+#endif
-+
-+#if defined(TST_ABI64)
-+	{ .cgettime = sys_clock_gettime, .tfd_settime = sys_timerfd_settime, .type = TST_KERN_TIMESPEC, .desc = "syscall with kernel spec64"},
-+#endif
-+
-+#if (__NR_timerfd_settime64 != __LTP__NR_INVALID_SYSCALL)
-+	{ .cgettime = sys_clock_gettime64, .tfd_settime = sys_timerfd_settime64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec64"},
-+#endif
-+};
-+
-+static void setup(void)
-+{
-+	tst_res(TINFO, "Testing variant: %s", variants[tst_variant].desc);
-+}
-+
- static void verify_timerfd(unsigned int n)
- {
--	struct timespec start, end;
--	struct itimerspec it = {};
-+	struct test_variants *tv = &variants[tst_variant];
-+	struct tst_ts start, end;
-+	struct tst_its it;
- 	struct tcase *tc = &tcases[n];
- 
-+	start.type = end.type = it.type = tv->type;
- 	SAFE_UNSHARE(CLONE_NEWTIME);
- 
- 	SAFE_FILE_PRINTF("/proc/self/timens_offsets", "%d %d 0",
- 	                 tc->clk_off, tc->off);
- 
--	SAFE_CLOCK_GETTIME(tc->clk_id, &start);
-+	if (tv->cgettime(tc->clk_id, tst_ts_get(&start))) {
-+		tst_res(TFAIL | TTERRNO, "clock_gettime(2) failed for clock %s",
-+			tst_clock_name(tc->clk_id));
-+		return;
-+	}
- 
--	it.it_value = tst_timespec_add_us(start, 1000000 * tc->off + SLEEP_US);
-+	end = tst_ts_add_us(start, 1000000 * tc->off + SLEEP_US);
-+	tst_its_set_time(&it, tst_ts_get_sec(end), tst_ts_get_nsec(end), 0, 0);
- 
- 	if (!SAFE_FORK()) {
- 		uint64_t exp;
- 		int fd = SAFE_TIMERFD_CREATE(tc->clk_id, 0);
- 
--		SAFE_TIMERFD_SETTIME(fd, TFD_TIMER_ABSTIME, &it, NULL);
-+		if (tv->tfd_settime(fd, TFD_TIMER_ABSTIME, tst_its_get(&it), NULL)) {
-+			tst_res(TFAIL, "timerfd_settime() failed");
-+			return;
-+		}
- 
- 		SAFE_READ(1, fd, &exp, sizeof(exp));
- 
-@@ -67,9 +101,13 @@ static void verify_timerfd(unsigned int n)
- 
- 	SAFE_WAIT(NULL);
- 
--	SAFE_CLOCK_GETTIME(CLOCK_MONOTONIC, &end);
-+	if (tv->cgettime(CLOCK_MONOTONIC, tst_ts_get(&end))) {
-+		tst_res(TFAIL | TTERRNO, "clock_gettime(2) failed for clock %s",
-+			tst_clock_name(CLOCK_MONOTONIC));
-+		return;
-+	}
- 
--	long long diff = tst_timespec_diff_us(end, start);
-+	long long diff = tst_ts_diff_us(end, start);
- 
- 	if (diff > 5 * SLEEP_US) {
- 		tst_res(TFAIL, "timerfd %s slept too long %lli",
-@@ -90,6 +128,8 @@ static void verify_timerfd(unsigned int n)
- static struct tst_test test = {
- 	.tcnt = ARRAY_SIZE(tcases),
- 	.test = verify_timerfd,
-+	.test_variants = ARRAY_SIZE(variants),
-+	.setup = setup,
- 	.needs_root = 1,
- 	.forks_child = 1,
- 	.needs_kconfigs = (const char *[]) {
-diff --git a/testcases/kernel/syscalls/timerfd/timerfd_gettime01.c b/testcases/kernel/syscalls/timerfd/timerfd_gettime01.c
-index 5f3240bdc7d7..7cfad51d3218 100644
---- a/testcases/kernel/syscalls/timerfd/timerfd_gettime01.c
-+++ b/testcases/kernel/syscalls/timerfd/timerfd_gettime01.c
-@@ -1,20 +1,8 @@
+ 	return tst_syscall(__NR_timer_gettime, timerid, its);
+diff --git a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c
+index b6084f673ca7..deae3314221f 100644
+--- a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c
++++ b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c
+@@ -1,20 +1,6 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
-  * Copyright (c) 2014 Fujitsu Ltd.
-  * Author: Zeng Linggang <zenglg.jy@cn.fujitsu.com>
-  *
+  * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
+- *
 - * This program is free software; you can redistribute it and/or modify it
 - * under the terms of version 2 of the GNU General Public License as
 - * published by the Free Software Foundation.
@@ -399,357 +150,506 @@ index 5f3240bdc7d7..7cfad51d3218 100644
 - * You should have received a copy of the GNU General Public License along
 - * with this program; if not, write the Free Software Foundation, Inc.,
 - * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- *
 - */
--/*
-  * DESCRIPTION
-  *  Verify that,
-  *   1. fd is not a valid file descriptor, EBADF would return.
-@@ -24,99 +12,101 @@
- 
- #define _GNU_SOURCE
- 
--#include <errno.h>
--#include <sys/types.h>
--#include <sys/stat.h>
--#include <fcntl.h>
--
--#include "test.h"
--#include "safe_macros.h"
--#include "lapi/timerfd.h"
-+#include "tst_timer.h"
-+#include "lapi/abisize.h"
-+#include "tst_safe_timerfd.h"
- 
- char *TCID = "timerfd_gettime01";
- 
- static int bad_clockfd = -1;
- static int clockfd;
- static int fd;
-+static void *bad_addr;
- 
- static struct test_case_t {
- 	int *fd;
--	struct itimerspec *curr_value;
-+	struct tst_its *curr_value;
- 	int exp_errno;
- } test_cases[] = {
- 	{&bad_clockfd, NULL, EBADF},
--	{&clockfd, (struct itimerspec *)-1, EFAULT},
-+	{&clockfd, NULL, EFAULT},
- 	{&fd, NULL, EINVAL},
- };
- 
--int TST_TOTAL = ARRAY_SIZE(test_cases);
--static void setup(void);
--static void timerfd_gettime_verify(const struct test_case_t *);
--static void cleanup(void);
-+static struct test_variants {
-+	int (*tfd_gettime)(int fd, void *its);
-+	char *desc;
-+} variants[] = {
-+#if defined(TST_ABI32)
-+	{ .tfd_gettime = sys_timerfd_gettime, .desc = "syscall with libc spec"},
-+#endif
-+
-+#if defined(TST_ABI64)
-+	{ .tfd_gettime = sys_timerfd_gettime, .desc = "syscall with kernel spec64"},
-+#endif
-+
-+#if (__NR_timerfd_gettime64 != __LTP__NR_INVALID_SYSCALL)
-+	{ .tfd_gettime = sys_timerfd_gettime64, .desc = "syscall time64 with kernel spec64"},
-+#endif
-+};
- 
--int main(int argc, char *argv[])
-+static void setup(void)
- {
--	int lc;
--	int i;
--
--	tst_parse_opts(argc, argv, NULL, NULL);
--
--	setup();
-+	tst_res(TINFO, "Testing variant: %s", variants[tst_variant].desc);
-+	bad_addr = tst_get_bad_addr(NULL);
- 
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		tst_count = 0;
--		for (i = 0; i < TST_TOTAL; i++)
--			timerfd_gettime_verify(&test_cases[i]);
-+	clockfd = timerfd_create(CLOCK_REALTIME, 0);
-+	if (clockfd == -1) {
-+		tst_brk(TFAIL | TERRNO, "timerfd_create() fail");
-+		return;
- 	}
- 
--	cleanup();
--	tst_exit();
-+	fd = SAFE_OPEN("test_file", O_RDWR | O_CREAT, 0644);
- }
- 
--static void setup(void)
-+static void cleanup(void)
- {
--	if ((tst_kvercmp(2, 6, 25)) < 0)
--		tst_brkm(TCONF, NULL, "This test needs kernel 2.6.25 or newer");
--
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
--
--	tst_tmpdir();
--
--	clockfd = timerfd_create(CLOCK_REALTIME, 0);
--	if (clockfd == -1)
--		tst_brkm(TBROK | TERRNO, cleanup, "timerfd_create() fail");
-+	if (clockfd > 0)
-+		close(clockfd);
- 
--	fd = SAFE_OPEN(cleanup, "test_file", O_RDWR | O_CREAT, 0644);
-+	if (fd > 0)
-+		close(fd);
- }
- 
--static void timerfd_gettime_verify(const struct test_case_t *test)
-+static void run(unsigned int n)
- {
--	TEST(timerfd_gettime(*test->fd, test->curr_value));
-+	struct test_variants *tv = &variants[tst_variant];
-+	struct test_case_t *test = &test_cases[n];
-+	struct itimerspec *its;
- 
--	if (TEST_RETURN != -1) {
--		tst_resm(TFAIL, "timerfd_gettime() succeeded unexpectedly");
-+	if (test->exp_errno == EFAULT)
-+		its = bad_addr;
-+	else
-+		its = tst_its_get(test->curr_value);
-+
-+	TEST(tv->tfd_gettime(*test->fd, its));
-+
-+	if (TST_RET != -1) {
-+		tst_res(TFAIL, "timerfd_gettime() succeeded unexpectedly");
- 		return;
- 	}
- 
--	if (TEST_ERRNO == test->exp_errno) {
--		tst_resm(TPASS | TTERRNO,
--			 "timerfd_gettime() failed as expected");
-+	if (TST_ERR == test->exp_errno) {
-+		tst_res(TPASS | TTERRNO,
-+			"timerfd_gettime() failed as expected");
- 	} else {
--		tst_resm(TFAIL | TTERRNO,
--			 "timerfd_gettime() failed unexpectedly; expected: "
--			 "%d - %s", test->exp_errno, strerror(test->exp_errno));
-+		tst_res(TFAIL | TTERRNO,
-+			"timerfd_gettime() failed unexpectedly; expected: "
-+			"%d - %s", test->exp_errno, strerror(test->exp_errno));
- 	}
- }
- 
--static void cleanup(void)
--{
--	if (clockfd > 0)
--		close(clockfd);
--
--	if (fd > 0)
--		close(fd);
--
--	tst_rmdir();
--}
-+static struct tst_test test = {
-+	.test = run,
-+	.tcnt = ARRAY_SIZE(test_cases),
-+	.test_variants = ARRAY_SIZE(variants),
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.needs_tmpdir = 1,
-+	.min_kver = "2.6.25",
-+};
-diff --git a/testcases/kernel/syscalls/timerfd/timerfd_settime01.c b/testcases/kernel/syscalls/timerfd/timerfd_settime01.c
-index 2e65d23ae825..747447aff754 100644
---- a/testcases/kernel/syscalls/timerfd/timerfd_settime01.c
-+++ b/testcases/kernel/syscalls/timerfd/timerfd_settime01.c
-@@ -1,20 +1,8 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2014 Fujitsu Ltd.
-  * Author: Zeng Linggang <zenglg.jy@cn.fujitsu.com>
+-/**********************************************************
   *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-- *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-- */
--/*
-  * DESCRIPTION
-  *  Verify that,
-  *   1. fd is not a valid file descriptor, EBADF would return.
-@@ -25,13 +13,8 @@
- 
- #define _GNU_SOURCE
+  *    TEST IDENTIFIER	: sched_rr_get_interval01
+  *
+@@ -62,81 +48,74 @@
+  *				-P x : Pause for x seconds between iterations.
+  *				-t   : Turn on syscall timing.
+  *
+- ****************************************************************/
++ */
  
 -#include <errno.h>
--#include <sys/types.h>
--#include <sys/stat.h>
--#include <fcntl.h>
--
+ #include <sched.h>
 -#include "test.h"
--#include "safe_macros.h"
+-
+-static void setup();
+-static void cleanup();
+-
+-char *TCID = "sched_rr_get_interval01";
+-int TST_TOTAL = 1;
+-
+-struct timespec tp;
+-
+-int main(int ac, char **av)
 +#include "tst_timer.h"
 +#include "lapi/abisize.h"
- #include "lapi/timerfd.h"
- 
- char *TCID = "timerfd_settime01";
-@@ -39,80 +22,55 @@ char *TCID = "timerfd_settime01";
- static int bad_clockfd = -1;
- static int clockfd;
- static int fd;
-+static void *bad_addr;
- 
- static struct test_case_t {
- 	int *fd;
- 	int flags;
--	struct itimerspec *old_value;
-+	struct tst_its *old_value;
- 	int exp_errno;
- } test_cases[] = {
- 	{&bad_clockfd, 0, NULL, EBADF},
--	{&clockfd, 0, (struct itimerspec *)-1, EFAULT},
-+	{&clockfd, 0, NULL, EFAULT},
- 	{&fd, 0, NULL, EINVAL},
- 	{&clockfd, -1, NULL, EINVAL},
- };
- 
--int TST_TOTAL = ARRAY_SIZE(test_cases);
--static void setup(void);
--static void timerfd_settime_verify(const struct test_case_t *);
--static void cleanup(void);
--static struct itimerspec new_value;
--
--int main(int argc, char *argv[])
--{
--	int lc;
--	int i;
--
--	tst_parse_opts(argc, argv, NULL, NULL);
-+static struct tst_its new_value;
- 
--	setup();
++
++struct tst_ts tp;
++
 +static struct test_variants {
-+	int (*tfd_settime)(int fd, int flags, void *new_value, void *old_value);
++	int (*func)(pid_t pid, void *ts);
 +	enum tst_ts_type type;
 +	char *desc;
 +} variants[] = {
 +#if defined(TST_ABI32)
-+	{ .tfd_settime = sys_timerfd_settime, .type = TST_LIBC_TIMESPEC, .desc = "syscall with libc spec"},
++	{ .func = libc_sched_rr_get_interval, .type = TST_LIBC_TIMESPEC, .desc = "vDSO or syscall with libc spec"},
++	{ .func = sys_sched_rr_get_interval, .type = TST_LIBC_TIMESPEC, .desc = "syscall with libc spec"},
++	{ .func = sys_sched_rr_get_interval, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with kernel spec32"},
 +#endif
- 
++
++#if defined(TST_ABI64)
++	{ .func = sys_sched_rr_get_interval, .type = TST_KERN_TIMESPEC, .desc = "syscall with kernel spec64"},
++#endif
++
++#if (__NR_sched_rr_get_interval_time64 != __LTP__NR_INVALID_SYSCALL)
++	{ .func = sys_sched_rr_get_interval64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec64"},
++#endif
++};
++
++static void setup(void)
+ {
+-
+-	int lc;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-
 -		tst_count = 0;
--		for (i = 0; i < TST_TOTAL; i++)
--			timerfd_settime_verify(&test_cases[i]);
+-
+-		/*
+-		 * Call sched_rr_get_interval(2) with pid=0 so that it will
+-		 * write into the timespec structure pointed to by tp, the
+-		 * round robin time quantum for the current process.
+-		 */
+-		TEST(sched_rr_get_interval(0, &tp));
+-
+-		if (TEST_RETURN == 0) {
+-			tst_resm(TPASS, "sched_rr_get_interval() returned %ld",
+-				 TEST_RETURN);
+-		} else {
+-			tst_resm(TFAIL | TTERRNO,
+-				 "Test Failed, sched_rr_get_interval()"
+-				 "returned %ld", TEST_RETURN);
+-		}
 -	}
-+#if defined(TST_ABI64)
-+	{ .tfd_settime = sys_timerfd_settime, .type = TST_KERN_TIMESPEC, .desc = "syscall with kernel spec64"},
-+#endif
- 
+-
+-	/* cleanup and exit */
 -	cleanup();
 -	tst_exit();
+-
 -}
-+#if (__NR_timerfd_settime64 != __LTP__NR_INVALID_SYSCALL)
-+	{ .tfd_settime = sys_timerfd_settime64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec64"},
-+#endif
-+};
- 
- static void setup(void)
- {
--	if ((tst_kvercmp(2, 6, 25)) < 0)
--		tst_brkm(TCONF, NULL, "This test needs kernel 2.6.25 or newer");
 -
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-/* setup() - performs all ONE TIME setup for this test */
+-void setup(void)
+-{
+-	tst_require_root();
 +	struct test_variants *tv = &variants[tst_variant];
+ 	/*
+ 	 * Initialize scheduling parameter structure to use with
+ 	 * sched_setscheduler()
+ 	 */
+ 	struct sched_param p = { 1 };
  
--	TEST_PAUSE;
--
--	tst_tmpdir();
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
 +	tst_res(TINFO, "Testing variant: %s", tv->desc);
-+	bad_addr = tst_get_bad_addr(NULL);
-+	new_value.type = tv->type;
  
- 	clockfd = timerfd_create(CLOCK_REALTIME, 0);
--	if (clockfd == -1)
--		tst_brkm(TBROK | TERRNO, cleanup, "timerfd_create() fail");
--
--	fd = SAFE_OPEN(cleanup, "test_file", O_RDWR | O_CREAT, 0644);
--}
--
--static void timerfd_settime_verify(const struct test_case_t *test)
--{
--	TEST(timerfd_settime(*test->fd, test->flags, &new_value,
--			     test->old_value));
--
--	if (TEST_RETURN != -1) {
--		tst_resm(TFAIL, "timerfd_settime() succeeded unexpectedly");
-+	if (clockfd == -1) {
-+		tst_brk(TFAIL | TERRNO, "timerfd_create() fail");
- 		return;
- 	}
+-	TEST_PAUSE;
++	tp.type = tv->type;
  
--	if (TEST_ERRNO == test->exp_errno) {
--		tst_resm(TPASS | TTERRNO,
--			 "timerfd_settime() failed as expected");
--	} else {
--		tst_resm(TFAIL | TTERRNO,
--			 "timerfd_settime() failed unexpectedly; expected: "
--			 "%d - %s", test->exp_errno, strerror(test->exp_errno));
+ 	/* Change scheduling policy to SCHED_RR */
+-	if ((sched_setscheduler(0, SCHED_RR, &p)) == -1) {
+-		tst_brkm(TBROK, cleanup, "sched_setscheduler() failed");
 -	}
-+	fd = SAFE_OPEN("test_file", O_RDWR | O_CREAT, 0644);
++	if ((sched_setscheduler(0, SCHED_RR, &p)) == -1)
++		tst_res(TFAIL | TTERRNO, "sched_setscheduler() failed");
  }
  
- static void cleanup(void)
-@@ -122,6 +80,43 @@ static void cleanup(void)
- 
- 	if (fd > 0)
- 		close(fd);
-+}
-+
-+static void run(unsigned int n)
-+{
+-/*
+- *cleanup() -  performs all ONE TIME cleanup for this test at
+- *		completion or premature exit.
+- */
+-void cleanup(void)
++static void run(void)
+ {
 +	struct test_variants *tv = &variants[tst_variant];
-+	struct test_case_t *test = &test_cases[n];
-+	struct itimerspec *its;
-+
-+	if (test->exp_errno == EFAULT)
-+		its = bad_addr;
-+	else
-+		its = tst_its_get(test->old_value);
  
--	tst_rmdir();
-+	TEST(tv->tfd_settime(*test->fd, test->flags, tst_its_get(&new_value),
-+			     its));
++	/*
++	 * Call sched_rr_get_interval(2) with pid=0 so that it will
++	 * write into the timespec structure pointed to by tp, the
++	 * round robin time quantum for the current process.
++	 */
++	TEST(tv->func(0, tst_ts_get(&tp)));
 +
-+	if (TST_RET != -1) {
-+		tst_res(TFAIL, "timerfd_settime() succeeded unexpectedly");
-+		return;
-+	}
-+
-+	if (TST_ERR == test->exp_errno) {
-+		tst_res(TPASS | TTERRNO,
-+			"timerfd_settime() failed as expected");
++	if (!TST_RET) {
++		tst_res(TPASS, "sched_rr_get_interval() passed");
 +	} else {
-+		tst_res(TFAIL | TTERRNO,
-+			"timerfd_settime() failed unexpectedly; expected: "
-+			"%d - %s", test->exp_errno, strerror(test->exp_errno));
++		tst_res(TFAIL | TTERRNO, "Test Failed, sched_rr_get_interval() returned %ld",
++			TST_RET);
 +	}
+ }
++
++static struct tst_test test = {
++	.test_all = run,
++	.test_variants = ARRAY_SIZE(variants),
++	.setup = setup,
++	.needs_root = 1,
++};
+diff --git a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval02.c b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval02.c
+index 6bf743f78c5e..019f2c1bdfb3 100644
+--- a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval02.c
++++ b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval02.c
+@@ -1,20 +1,6 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- *
+- */
+-/**********************************************************
+  *
+  *    TEST IDENTIFIER	: sched_rr_get_interval02
+  *
+@@ -63,84 +49,77 @@
+  *				-P x : Pause for x seconds between iterations.
+  *				-t   : Turn on syscall timing.
+  *
+- ****************************************************************/
++ */
+ 
+-#include <errno.h>
+ #include <sched.h>
+-#include "test.h"
+-
+-static void setup();
+-static void cleanup();
+-
+-char *TCID = "sched_rr_get_interval02";
+-int TST_TOTAL = 1;
+-
+-struct timespec tp;
+-
+-int main(int ac, char **av)
+-{
+-
+-	int lc;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-
+-		tst_count = 0;
+-
+-		tp.tv_sec = 99;
+-		tp.tv_nsec = 99;
+-		/*
+-		 * Call sched_rr_get_interval(2) with pid=0 sothat it will
+-		 * write into the timespec structure pointed to by tp the
+-		 * round robin time quantum for the current process.
+-		 */
+-		TEST(sched_rr_get_interval(0, &tp));
+-
+-		if ((TEST_RETURN == 0) && (tp.tv_sec == 0) && (tp.tv_nsec == 0)) {
+-			tst_resm(TPASS, "Test passed");
+-		} else {
+-			tst_resm(TFAIL, "Test Failed, sched_rr_get_interval()"
+-				 "returned %ld, errno = %d : %s, tp.tv_sec = %d,"
+-				 " tp.tv_nsec = %ld", TEST_RETURN, TEST_ERRNO,
+-				 strerror(TEST_ERRNO), (int)tp.tv_sec,
+-				 tp.tv_nsec);
+-		}
+-	}
+-
+-	/* cleanup and exit */
+-	cleanup();
+-	tst_exit();
+-
+-}
+-
+-/* setup() - performs all ONE TIME setup for this test */
+-void setup(void)
++#include "tst_timer.h"
++#include "lapi/abisize.h"
++
++struct tst_ts tp;
++
++static struct test_variants {
++	int (*func)(pid_t pid, void *ts);
++	enum tst_ts_type type;
++	char *desc;
++} variants[] = {
++#if defined(TST_ABI32)
++	{ .func = libc_sched_rr_get_interval, .type = TST_LIBC_TIMESPEC, .desc = "vDSO or syscall with libc spec"},
++	{ .func = sys_sched_rr_get_interval, .type = TST_LIBC_TIMESPEC, .desc = "syscall with libc spec"},
++	{ .func = sys_sched_rr_get_interval, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with kernel spec32"},
++#endif
++
++#if defined(TST_ABI64)
++	{ .func = sys_sched_rr_get_interval, .type = TST_KERN_TIMESPEC, .desc = "syscall with kernel spec64"},
++#endif
++
++#if (__NR_sched_rr_get_interval_time64 != __LTP__NR_INVALID_SYSCALL)
++	{ .func = sys_sched_rr_get_interval64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec64"},
++#endif
++};
++
++static void setup(void)
+ {
+-	tst_require_root();
++	struct test_variants *tv = &variants[tst_variant];
+ 	/*
+ 	 * Initialize scheduling parameter structure to use with
+ 	 * sched_setscheduler()
+ 	 */
+ 	struct sched_param p = { 1 };
+ 
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
++	tst_res(TINFO, "Testing variant: %s", tv->desc);
+ 
+-	TEST_PAUSE;
++	tp.type = tv->type;
+ 
+ 	/* Change scheduling policy to SCHED_FIFO */
+-	if ((sched_setscheduler(0, SCHED_FIFO, &p)) == -1) {
+-		tst_brkm(TBROK, cleanup, "sched_setscheduler() failed");
+-	}
++	if ((sched_setscheduler(0, SCHED_FIFO, &p)) == -1)
++		tst_res(TFAIL | TTERRNO, "sched_setscheduler() failed");
+ }
+ 
+-/*
+- *cleanup() -  performs all ONE TIME cleanup for this test at
+- *		completion or premature exit.
+- */
+-void cleanup(void)
++static void run(void)
+ {
++	struct test_variants *tv = &variants[tst_variant];
++
++	tst_ts_set_sec(&tp, 99);
++	tst_ts_set_nsec(&tp, 99);
++
++	/*
++	 * Call sched_rr_get_interval(2) with pid=0 so that it will
++	 * write into the timespec structure pointed to by tp the
++	 * round robin time quantum for the current process.
++	 */
++	TEST(tv->func(0, tst_ts_get(&tp)));
+ 
++	if (!TST_RET && tst_ts_valid(&tp) == -1) {
++		tst_res(TPASS, "sched_rr_get_interval() passed");
++	} else {
++		tst_res(TFAIL | TTERRNO, "Test Failed, sched_rr_get_interval() returned %ld, tp.tv_sec = %lld, tp.tv_nsec = %lld",
++			TST_RET, tst_ts_get_sec(tp), tst_ts_get_nsec(tp));
++	}
+ }
++
++static struct tst_test test = {
++	.test_all = run,
++	.test_variants = ARRAY_SIZE(variants),
++	.setup = setup,
++	.needs_root = 1,
++};
+diff --git a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval03.c b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval03.c
+index 56f2fcf28269..1f66ff6b11e9 100644
+--- a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval03.c
++++ b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval03.c
+@@ -1,20 +1,6 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- *
+- */
+-/**********************************************************
+  *
+  *    TEST IDENTIFIER	: sched_rr_get_interval03
+  *
+@@ -68,104 +54,105 @@
+  *				-P x : Pause for x seconds between iterations.
+  *				-t   : Turn on syscall timing.
+  *
+- ****************************************************************/
++ */
+ 
+-#include <errno.h>
+ #include <sched.h>
+-#include "test.h"
+-
+-static void setup();
+-static void cleanup();
+-
+-char *TCID = "sched_rr_get_interval03";
+-struct timespec tp;
++#include "tst_timer.h"
++#include "lapi/abisize.h"
+ 
+ static pid_t unused_pid;
+ static pid_t inval_pid = -1;
+ static pid_t zero_pid;
+ 
++struct tst_ts tp;
++static void *bad_addr;
++
+ struct test_cases_t {
+ 	pid_t *pid;
+-	struct timespec *tp;
++	struct tst_ts *tp;
+ 	int exp_errno;
+ } test_cases[] = {
+-	{
+-	&inval_pid, &tp, EINVAL}, {
+-	&unused_pid, &tp, ESRCH},
++	{ &inval_pid, &tp, EINVAL},
++	{ &unused_pid, &tp, ESRCH},
+ #ifndef UCLINUX
+-	    /* Skip since uClinux does not implement memory protection */
+-	{
+-	&zero_pid, (struct timespec *)-1, EFAULT}
++	/* Skip since uClinux does not implement memory protection */
++	{ &zero_pid, NULL, EFAULT}
+ #endif
+ };
+ 
+-int TST_TOTAL = sizeof(test_cases) / sizeof(test_cases[0]);
+-
+-int main(int ac, char **av)
+-{
+-
+-	int lc, i;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-
+-		tst_count = 0;
+-
+-		for (i = 0; i < TST_TOTAL; ++i) {
+-			/*
+-			 * Call sched_rr_get_interval(2)
+-			 */
+-			TEST(sched_rr_get_interval(*(test_cases[i].pid),
+-						   test_cases[i].tp));
+-
+-			if ((TEST_RETURN == -1) &&
+-			    (TEST_ERRNO == test_cases[i].exp_errno)) {
+-				tst_resm(TPASS, "Test Passed");
+-			} else {
+-				tst_resm(TFAIL | TTERRNO, "Test Failed,"
+-					 " sched_rr_get_interval() returned %ld",
+-					 TEST_RETURN);
+-			}
+-		}
+-	}
+-
+-	/* cleanup and exit */
+-	cleanup();
++static struct test_variants {
++	int (*func)(pid_t pid, void *ts);
++	enum tst_ts_type type;
++	char *desc;
++} variants[] = {
++#if defined(TST_ABI32)
++	{ .func = libc_sched_rr_get_interval, .type = TST_LIBC_TIMESPEC, .desc = "vDSO or syscall with libc spec"},
++	{ .func = sys_sched_rr_get_interval, .type = TST_LIBC_TIMESPEC, .desc = "syscall with libc spec"},
++	{ .func = sys_sched_rr_get_interval, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with kernel spec32"},
++#endif
+ 
+-	tst_exit();
++#if defined(TST_ABI64)
++	{ .func = sys_sched_rr_get_interval, .type = TST_KERN_TIMESPEC, .desc = "syscall with kernel spec64"},
++#endif
+ 
+-}
++#if (__NR_sched_rr_get_interval_time64 != __LTP__NR_INVALID_SYSCALL)
++	{ .func = sys_sched_rr_get_interval64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec64"},
++#endif
++};
+ 
+-/* setup() - performs all ONE TIME setup for this test */
+-void setup(void)
++static void setup(void)
+ {
+-	tst_require_root();
++	struct test_variants *tv = &variants[tst_variant];
+ 	/*
+ 	 * Initialize scheduling parameter structure to use with
+ 	 * sched_setscheduler()
+ 	 */
+ 	struct sched_param p = { 1 };
+ 
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
++	tst_res(TINFO, "Testing variant: %s", tv->desc);
+ 
+-	TEST_PAUSE;
++	bad_addr = tst_get_bad_addr(NULL);
++	tp.type = tv->type;
+ 
+ 	/* Change scheduling policy to SCHED_RR */
+-	if ((sched_setscheduler(0, SCHED_RR, &p)) == -1) {
+-		tst_brkm(TBROK, cleanup, "sched_setscheduler() failed");
+-	}
++	if ((sched_setscheduler(0, SCHED_RR, &p)) == -1)
++		tst_res(TFAIL | TTERRNO, "sched_setscheduler() failed");
+ 
+-	unused_pid = tst_get_unused_pid(cleanup);
++	unused_pid = tst_get_unused_pid();
+ }
+ 
+-/*
+- *cleanup() -  performs all ONE TIME cleanup for this test at
+- *		completion or premature exit.
+- */
+-void cleanup(void)
++static void run(unsigned int i)
+ {
++	struct test_variants *tv = &variants[tst_variant];
++	struct test_cases_t *tc = &test_cases[i];
++	struct timerspec *ts;
++
++	if (tc->exp_errno == EFAULT)
++		ts = bad_addr;
++	else
++		ts = tst_ts_get(tc->tp);
++
++	/*
++	 * Call sched_rr_get_interval(2)
++	 */
++	TEST(tv->func(*tc->pid, ts));
+ 
++	if (TST_RET != -1) {
++		tst_res(TFAIL, "sched_rr_get_interval() passed unexcpectedly");
++		return;
++	}
++
++	if (tc->exp_errno == TST_ERR)
++		tst_res(TPASS | TTERRNO, "sched_rr_get_interval() failed as excpected");
++	else
++		tst_res(TFAIL | TTERRNO, "sched_rr_get_interval() failed unexcpectedly: %s",
++			tst_strerrno(tc->exp_errno));
  }
 +
 +static struct tst_test test = {
@@ -757,80 +657,8 @@ index 2e65d23ae825..747447aff754 100644
 +	.tcnt = ARRAY_SIZE(test_cases),
 +	.test_variants = ARRAY_SIZE(variants),
 +	.setup = setup,
-+	.cleanup = cleanup,
-+	.needs_tmpdir = 1,
-+	.min_kver = "2.6.25",
++	.needs_root = 1,
 +};
-diff --git a/testcases/kernel/syscalls/timerfd/timerfd_settime02.c b/testcases/kernel/syscalls/timerfd/timerfd_settime02.c
-index 0565802f4288..b6444a6db7ba 100644
---- a/testcases/kernel/syscalls/timerfd/timerfd_settime02.c
-+++ b/testcases/kernel/syscalls/timerfd/timerfd_settime02.c
-@@ -15,8 +15,9 @@
-  *  timerfd: Protect the might cancel mechanism proper
-  */
- #include <unistd.h>
-+#include "tst_timer.h"
-+#include "lapi/abisize.h"
- #include "tst_safe_timerfd.h"
--#include "tst_test.h"
- #include "tst_fuzzy_sync.h"
- #include "tst_taint.h"
- 
-@@ -27,11 +28,34 @@
- #endif
- 
- static int fd = -1;
--static struct itimerspec its;
-+static struct tst_its its;
- static struct tst_fzsync_pair fzsync_pair;
- 
-+static struct test_variants {
-+	int (*tfd_settime)(int fd, int flags, void *new_value, void *old_value);
-+	enum tst_ts_type type;
-+	char *desc;
-+} variants[] = {
-+#if defined(TST_ABI32)
-+	{ .tfd_settime = sys_timerfd_settime, .type = TST_LIBC_TIMESPEC, .desc = "syscall with libc spec"},
-+#endif
-+
-+#if defined(TST_ABI64)
-+	{ .tfd_settime = sys_timerfd_settime, .type = TST_KERN_TIMESPEC, .desc = "syscall with kernel spec64"},
-+#endif
-+
-+#if (__NR_timerfd_settime64 != __LTP__NR_INVALID_SYSCALL)
-+	{ .tfd_settime = sys_timerfd_settime64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec64"},
-+#endif
-+};
-+
- static void setup(void)
- {
-+	struct test_variants *tv = &variants[tst_variant];
-+
-+	tst_res(TINFO, "Testing variant: %s", tv->desc);
-+	its.type = tv->type;
-+
- 	tst_taint_init(TST_TAINT_W | TST_TAINT_D);
- 	fd = SAFE_TIMERFD_CREATE(CLOCK_REALTIME, 0);
- 
-@@ -48,7 +72,9 @@ static void cleanup(void)
- 
- static int punch_clock(int flags)
- {
--	return timerfd_settime(fd, flags, &its, NULL);
-+	return variants[tst_variant].tfd_settime(fd, flags, tst_its_get(&its),
-+						 NULL);
-+
- }
- 
- static void *thread_run(void *arg)
-@@ -91,6 +117,7 @@ static void run(void)
- 
- static struct tst_test test = {
- 	.test_all = run,
-+	.test_variants = ARRAY_SIZE(variants),
- 	.setup = setup,
- 	.cleanup = cleanup,
- 	.min_kver = "2.6.25",
 -- 
 2.25.0.rc1.19.g042ed3e048af
 
