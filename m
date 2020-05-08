@@ -2,66 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E48EC1CA513
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 09:21:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A3651CA555
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 09:40:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 88B7E3C25E3
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 09:21:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DF9983C25F7
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 May 2020 09:40:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 13A483C23F2
- for <ltp@lists.linux.it>; Fri,  8 May 2020 09:21:33 +0200 (CEST)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 12B13201340
- for <ltp@lists.linux.it>; Fri,  8 May 2020 09:21:33 +0200 (CEST)
-Received: from mail-qv1-f46.google.com ([209.85.219.46]) by
- mrelayeu.kundenserver.de (mreue010 [212.227.15.129]) with ESMTPSA (Nemesis)
- id 1N8XkP-1j28qr1w0H-014RPE for <ltp@lists.linux.it>; Fri, 08 May 2020
- 09:21:32 +0200
-Received: by mail-qv1-f46.google.com with SMTP id ep1so326586qvb.0
- for <ltp@lists.linux.it>; Fri, 08 May 2020 00:21:32 -0700 (PDT)
-X-Gm-Message-State: AGi0PuZ5OIedKPNOmHPgvPz/nwgZ24vDShmjsUSQM7YNu9Ofv0MBQ5M+
- gIiNCKfSoDc+arr9ExbHnfDDeNjzy5PC+2a1Xm8=
-X-Google-Smtp-Source: APiQypLeRERoKP8PluNvAV+1M3IY362q+Bf7n16YQOmpAYr2X5t3y1qmgc24U6Y6ps4HjV5q9KRq0nQhYXHHR+vKd7s=
-X-Received: by 2002:a0c:eb11:: with SMTP id j17mr1402363qvp.197.1588922491388; 
- Fri, 08 May 2020 00:21:31 -0700 (PDT)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 73BBE3C25D6
+ for <ltp@lists.linux.it>; Fri,  8 May 2020 09:40:23 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id C92071001599
+ for <ltp@lists.linux.it>; Fri,  8 May 2020 09:40:20 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.73,366,1583164800"; d="scan'208";a="91681172"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 08 May 2020 15:40:14 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id 7425F4BCC89F
+ for <ltp@lists.linux.it>; Fri,  8 May 2020 15:40:13 +0800 (CST)
+Received: from [10.167.220.69] (10.167.220.69) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Fri, 8 May 2020 15:40:13 +0800
+Message-ID: <5EB50CDB.5060909@cn.fujitsu.com>
+Date: Fri, 8 May 2020 15:40:11 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-References: <cover.1588911607.git.viresh.kumar@linaro.org>
- <614763566d03f6d88fa0d60d15a719bbbc467cd0.1588911607.git.viresh.kumar@linaro.org>
-In-Reply-To: <614763566d03f6d88fa0d60d15a719bbbc467cd0.1588911607.git.viresh.kumar@linaro.org>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Fri, 8 May 2020 09:21:14 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a0ccSTeo4twSFRTfG9+HxLthrPDP-GHi3v9bmLKym5n2Q@mail.gmail.com>
-Message-ID: <CAK8P3a0ccSTeo4twSFRTfG9+HxLthrPDP-GHi3v9bmLKym5n2Q@mail.gmail.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-X-Provags-ID: V03:K1:22msBm48HjtbDGKoHclAPB5CNQEOEgS2iNPlci7FqHOiNQkrorK
- SQW1MgWaQpJb6qsnMLAN6KFOyPku0O+TJnEiLPoM4NOzbKr2CyRIVnSasVDjYajcr3sceLz
- LlfU/7nrwewgOZAK4LfO1AUYK82Uu9gxmzmOOQG4xQnHSb1eJWR4qsc6XBPzCMyR53KaCIi
- kifJSwmImCR5oaFpRTqXw==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:s/FmrGWiJjU=:27t9vPAblPCNb0yNC68e9Z
- wtpWcZkleDXIxb6sf7bPb+mEj9Ms33TrUl3DoCYF/eSQxAA67Wv0zTbj+XucF4N7EJpOAJhFK
- moHcs/X1MnHR7DvVH36PpU/HrV8Aa9EOaRiprU4fP/QhzdJQwM9xxfg9ExZAE4Oyd+9ssmDoi
- aDrmbRVBLunXEAVYlpVTUulpAzqHsjc135nVxL9iizoAJmqml+2ZRzDMtMJKwUONmdH0Ti5U0
- MdpYEjy//AOkXD0DOl/N6Pbn1XeR61is97Svjww8zA/XD1RL1S9DGsKO+Bbcn06x/huTaBJBu
- e6NJZdkyPA9RMzK38iZgYzM82djpxvBe/r/8915syy7ZNgqqyrjNpWBOQiPMvGIDk2cWHZUAC
- k/nOv1733ujBlcBBntd6kgLVB9bt+Wi6R274IWOCsFYxZrKp4Y3UNBJfRk4acTvlznNYw5/b0
- poPn7Z5/9276fXm+PlzAMVCj8JBm681gIPYBgXk06j6D+oVCWfOcXmppAcQ5Uvi5myb/VU0+m
- YVCABJlayuxRxyRwHb23eg9KE9w1wBekW5S5oDJLasFZ2ak2aF4zppJ7X3vKk/FXMavfrqsV0
- 0ZY01N1000+NuI7k2UNH72SH7cxuVoZjP6Ce6SxJ7+5Kb0MJ6vg6iPlhAHaHzg/tXMrXWlkM4
- OgLXwp3tTOylW/IbBx8AhokAhIoT4GwCYKlZ5iHYEHWzzenxiQ/YqEeq08MuyHSfRWkBxQvaR
- Z062/gUIoOcdjwytLBVV3d/EgEctkS4Qo+jbr/xsaQgZ5U+olZph5t+xrzDfoKj2PVl317Gae
- HvbwDXSUPceC8uXw537PC6Qfiwh9u1KwvlP1tb/yBVLDXs6i50=
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+References: <1588916828-4228-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+In-Reply-To: <1588916828-4228-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Originating-IP: [10.167.220.69]
+X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
+X-yoursite-MailScanner-ID: 7425F4BCC89F.ABC5B
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V2 13/17] syscalls/select6: Add support for time64
- tests
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/ioctl_loop01: Add linux git tag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,22 +57,53 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Fri, May 8, 2020 at 6:24 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
-> +               };
-> +#if defined(TST_ABI64)
-> +               ret = tst_syscall(__NR_pselect6, nfds, readfds, writefds, exceptfds, &ts, NULL);
+Hi Xu,
 
-Again, this is not the actual ABI: __NR_pselect6 should be called with
-a __kernel_old_timespec when the macro is defined, but it may not be defined
-on new 32-bit architectures.
+The commit actually fixes the failure of ioctl_loop01 so I will apply it 
+shortly.
+Acked-by: Xiao Yang <yangx.jy@cn.fujitsu.com>
 
-       Arnd
+Thanks,
+Xiao Yang
+On 2020/5/8 13:47, Yang Xu wrote:
+> Signed-off-by: Yang Xu<xuyang2018.jy@cn.fujitsu.com>
+> ---
+>   testcases/kernel/syscalls/ioctl/ioctl_loop01.c | 7 +++++++
+>   1 file changed, 7 insertions(+)
+>
+> diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop01.c b/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
+> index faef22e47..2d9733f95 100644
+> --- a/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
+> +++ b/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
+> @@ -12,6 +12,9 @@
+>    * For LO_FLAGS_PARTSCAN flag, it is the same as LO_FLAGS_AUTOCLEAR flag.
+>    * But we also check whether we can scan partition table correctly ie check
+>    * whether /dev/loopnp1 and /sys/bloclk/loop0/loop0p1 existed.
+> + *
+> + * It is also a regression test for kernel
+> + * commit 10c70d95c0f2 ("block: remove the bd_openers checks in blk_drop_partitions").
+>    */
+>
+>   #include<stdio.h>
+> @@ -137,5 +140,9 @@ static struct tst_test test = {
+>   		"loop",
+>   		NULL
+>   	},
+> +	.tags = (const struct tst_tag[]) {
+> +		{"linux-git", "10c70d95c0f2"},
+> +		{}
+> +	},
+>   	.needs_tmpdir = 1,
+>   };
+
+
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
