@@ -1,53 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2B5C1CD356
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 May 2020 09:55:35 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 441CB1CD377
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 May 2020 09:59:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 991D83C560B
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 May 2020 09:55:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AFA873C268D
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 May 2020 09:59:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 866D53C25CF
- for <ltp@lists.linux.it>; Mon, 11 May 2020 09:55:30 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 92405600B9E
- for <ltp@lists.linux.it>; Mon, 11 May 2020 09:55:09 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.73,378,1583164800"; d="scan'208";a="91906897"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 11 May 2020 15:55:20 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id 6D8D64CE2E6A
- for <ltp@lists.linux.it>; Mon, 11 May 2020 15:55:18 +0800 (CST)
-Received: from [10.167.220.69] (10.167.220.69) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 11 May 2020 15:55:19 +0800
-Message-ID: <5EB904E5.8020109@cn.fujitsu.com>
-Date: Mon, 11 May 2020 15:55:17 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 3031E3C25CD
+ for <ltp@lists.linux.it>; Mon, 11 May 2020 09:59:07 +0200 (CEST)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 9FD741000CDB
+ for <ltp@lists.linux.it>; Mon, 11 May 2020 09:59:06 +0200 (CEST)
+Received: from mail-qv1-f51.google.com ([209.85.219.51]) by
+ mrelayeu.kundenserver.de (mreue011 [212.227.15.129]) with ESMTPSA (Nemesis)
+ id 1MuDHR-1jFHts43SP-00ubQl for <ltp@lists.linux.it>; Mon, 11 May 2020
+ 09:59:06 +0200
+Received: by mail-qv1-f51.google.com with SMTP id 59so4131620qva.13
+ for <ltp@lists.linux.it>; Mon, 11 May 2020 00:59:05 -0700 (PDT)
+X-Gm-Message-State: AGi0PuZKPFL10lF16AZGQ6UuVubHCRmqZAClsS+QJQaExy+iZ2K1Agr4
+ sgoRUMdXQlV74/MTj4tpvuh1yL7uEUSaVvYnlDA=
+X-Google-Smtp-Source: APiQypJO70+e9w4jFgUw3Jkc6DxYJBLoagVFVMEr6CjSIbafrfzZ0ky3+5v8qC0SPmr36QKv7sl3bGpVDtnZ40rrg4Q=
+X-Received: by 2002:ad4:4aaa:: with SMTP id i10mr11122124qvx.4.1589183944732; 
+ Mon, 11 May 2020 00:59:04 -0700 (PDT)
 MIME-Version: 1.0
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-References: <1588918535-4682-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <5EB51F9D.6080404@cn.fujitsu.com>
- <207ce727-a0a4-2c2a-19f7-87aef956ffb5@cn.fujitsu.com>
-In-Reply-To: <207ce727-a0a4-2c2a-19f7-87aef956ffb5@cn.fujitsu.com>
-X-Originating-IP: [10.167.220.69]
-X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
-X-yoursite-MailScanner-ID: 6D8D64CE2E6A.AD198
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+References: <cover.1588911607.git.viresh.kumar@linaro.org>
+ <8a675726b6e553e740016390c774bce19efc5a12.1588911607.git.viresh.kumar@linaro.org>
+ <CAK8P3a1x+uK_WgVn9O8LVcLoZH=oJ_jQcePwcwzqpyhewApX9w@mail.gmail.com>
+ <20200511064929.pa4lydt2vfryl7ve@vireshk-i7>
+ <CAK8P3a2y+8kv0Wa4iiU+vGeNTudmx3aJJQ87zfi9WyfWKJ7WYg@mail.gmail.com>
+ <20200511073315.gws5lhw6tsaaijpi@vireshk-i7>
+In-Reply-To: <20200511073315.gws5lhw6tsaaijpi@vireshk-i7>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Mon, 11 May 2020 09:58:48 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a3VrcpdmGZB_VOLk17uDMxAfYyfM57yUUUSuqEdKvROOQ@mail.gmail.com>
+Message-ID: <CAK8P3a3VrcpdmGZB_VOLk17uDMxAfYyfM57yUUUSuqEdKvROOQ@mail.gmail.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+X-Provags-ID: V03:K1:YjMvRVsZ1S5PAjx9GoGkeTcuJATNpczT7BBEekcYCdGJ8IDt5X4
+ 7ORr9hXcJNku87Ae9k9nvzqVucJI1hwbp9mJXBJrane/x+D7xIYu203g2w9eQamq2mgQJYT
+ eJpWz7ojM0FYT+8MgyieejTVcE8KmrCECoZPaIiE42VfogDHG+OESJo0fVo2QZ1HRCKmPyJ
+ 16pEmwYIE0WyImL7NQTWg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:5t3NkrMtsj8=:Q2EpWk4fi9pDRZBCnfcZMn
+ klsVXNnYUt9v3dq5wU7F9PUp6ebZ6q1Hkvr8UDMFGoRshtSVL0wOFsKkv7t74Cb9neNKFWaR4
+ uTGuyelles2ZCNMJPHJG+bwhP2By1U6z9/eU8WkDbHsBzvm0zABwLCHk5FhgEkaafmETMYngf
+ K6+wWzlWFZPRTy7ifvLjO7MnVgMV34aFF2y3hiIytm41ZBg1JcjYfc9zf5ZXzSJVIHcsNFYaT
+ eYXRMQKnaNGXDX0bkXwbGA+2odb5LrojqrsqS3pdCdFbrPPPb9Xb/7IJQx2XtKJs1OxW4Bi1i
+ uASs4uvFlECUtOagu2QF0v7fv9y/tRi5UlLx/mjGYFlqrv9kv40bdjAqL6OxUZEo/BqA8RM7D
+ yRvwgNoBcxygnLJp1e566qcPxMeciJTd98jo5cT5janzGxkkFG0lq4frmBIqg9UkpJX5hIr6e
+ ksxOYWvkpfwHmuDN0RRVJwOyVOfvvNamtUODCHKRb8zULke7SStV4xTea3pxfocp4CJNkxNbf
+ X2x8QqJGa89RILtTwFm6CLtEu5AK0/+9cLOIUfeBaJ48kYi3zY1njuxqYoFMU8Ne3mUlqSqfU
+ qjFVJanLmCXnSQmBe//YoX6Cyym87vZ2jIg0ypBvrpZBFNJWanA6wEc17LcI2UCmVrLQrOyiH
+ peTk6D0eTSkAPF6Yo/MX9D1NPthKKQNdgmHtOd4zC6oTm0TIAl1eZ19QRQhRBC8Uluqtx8nX+
+ n5mkHfXWHaHc+FsQKT4ID0O0dXEDQP5uGIOwGzz1tDJg+xiYejIHRZr9YoFtr7v05mSrXTOna
+ Umhn+6pOHySRtN7g4ewqhfaZBQEqdS4cHsYtLSkzZhlFlxb4QM=
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/ioctl_loop05: Ensure do zero offset in
- kernel always
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V2 15/17] syscalls/semtimedop: Add support for
+ semtimedop and its time64 version
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,135 +76,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 2020/5/8 17:23, Yang Xu wrote:
-> Hi Xiao
+On Mon, May 11, 2020 at 9:33 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
 >
+> On 11-05-20, 09:20, Arnd Bergmann wrote:
+> > It looks like you are still missing a test for the libc semtimedop function with
+> > TST_LIBC_TIMESPEC, but perhaps this is in a different place?
 >
->> On 2020/5/8 14:15, Yang Xu wrote:
->>> Currently, we use return instead of zero_offset. I debug this code
->>> (early return, ext4 filesystem)as below:
->>> ---------------------------------------
->>> TEST(ioctl(dev_fd, LOOP_SET_DIRECT_IO, 1));
->>> if (TST_RET == 0) {
->>>     tst_res(TPASS, "LOOP_SET_DIRECT_IO succeeded unexpectedly");
->>>          SAFE_IOCTL(dev_fd, LOOP_SET_DIRECT_IO, 0);
->>> }
->>> return;
->>> ---------------------------------------
->>> this case will broke when using i parameter,
->>> ioctl_loop05.c:62: BROK: ioctl(3,LOOP_SET_DIRECT_IO,...) failed:
->>> EINVAL (22)
-Hi Xu,
-
-Sorry for the late reply.
-
-Without modifying code, we can also fall into this branch by running 
-ioctl_loop05 under btrfs, so could we simple the description of issue?
-
->>>
->>> It seems the last test affected this test, so I think we should use
->>> goto instead of return. Also including a typo, updata->update.
->>>
->>> Signed-off-by: Yang Xu<xuyang2018.jy@cn.fujitsu.com>
->>> ---
->>>   testcases/kernel/syscalls/ioctl/ioctl_loop05.c | 5 +++--
->>>   1 file changed, 3 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
->>> b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
->>> index 6cf701f47..a103aaa94 100644
->>> --- a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
->>> +++ b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
->>> @@ -5,7 +5,7 @@
->>>    *
->>>    * This is a basic ioctl test about loopdevice.
->>>    *
->>> - * It is designed to test LOOP_SET_DIRECT_IO can updata a live
->>> + * It is designed to test LOOP_SET_DIRECT_IO can update a live
->> Hi Xu,
->>
->> What does the line changes?
-> just a typo, updata->update
-
-Sorry for missing the typo.
-
->>
->>>    * loop device dio mode. It needs the backing file also supports
->>>    * dio mode and the lo_offset is aligned with the logical block size.
->>>    *
->>> @@ -85,13 +85,14 @@ static void verify_ioctl_loop(void)
->>>       if (TST_RET == 0) {
->>>           tst_res(TPASS, "LOOP_SET_DIRECT_IO succeeded");
->>>           SAFE_IOCTL(dev_fd, LOOP_SET_DIRECT_IO, 0);
->>> -        return;
->>> +        goto zero_offset;
->>>       }
->>>       if (TST_ERR == EINVAL)
->>>           tst_res(TPASS | TTERRNO, "LOOP_SET_DIRECT_IO failed as
->>> expected");
->>>       else
->>>           tst_res(TFAIL | TTERRNO, "LOOP_SET_DIRECT_IO failed
->>> expected EINVAL got");
->>>
->>> +zero_offset:
->>>       loopinfo.lo_offset = 0;
->>>       TST_RETRY_FUNC(ioctl(dev_fd, LOOP_SET_STATUS,&loopinfo),
->>> TST_RETVAL_EQ0);
->>
->> You have cleared the struct loopinfo at the beginning of
->> verify_ioctl_loop(), so could we just drop loopinfo.lo_offset = 0 and
->> move 'TST_RETRY_FUNC(ioctl(dev_fd, LOOP_SET_STATUS,&loopinfo),
->> TST_RETVAL_EQ0);' to the beginning?
-> Yes. IMO, at the beginning or end, they all work well.
-
-Agreed, but it seems simpler to clear resouce at the beginning of 
-verify_ioctl_loop(), like this:
------------------------------------
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c 
-b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
-index 6cf701f47..6c9ea2802 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
-...
-@@ -57,6 +57,7 @@ static void verify_ioctl_loop(void)
-         struct loop_info loopinfo;
-
-         memset(&loopinfo, 0, sizeof(loopinfo));
-+       TST_RETRY_FUNC(ioctl(dev_fd, LOOP_SET_STATUS, &loopinfo), 
-TST_RETVAL_EQ0);
-
-         tst_res(TINFO, "Without setting lo_offset or sizelimit");
-         SAFE_IOCTL(dev_fd, LOOP_SET_DIRECT_IO, 1);
-@@ -91,9 +92,6 @@ static void verify_ioctl_loop(void)
-                 tst_res(TPASS | TTERRNO, "LOOP_SET_DIRECT_IO failed as 
-expected");
-         else
-                 tst_res(TFAIL | TTERRNO, "LOOP_SET_DIRECT_IO failed 
-expected EINVAL got");
--
--       loopinfo.lo_offset = 0;
--       TST_RETRY_FUNC(ioctl(dev_fd, LOOP_SET_STATUS, &loopinfo), 
-TST_RETVAL_EQ0);
------------------------------------
-
-Best Regards,
-Xiao Yang
->>
->> Thanks,
->> Xiao Yang
->>>   }
->>
-> .
+> The libc test is missing for few of the syscalls, as it was already missing for
+> them because the headers may not have the definition.
 >
+> And so I didn't add them separately.
 
+Ok, I see. This one just looked curious because the you add tests for the kernel
+syscall (semtimedop) in a file that checks an older libc syscall (semop).
 
+The libc semop is implemented in terms of the kernel's semtimedop for
+architectures that don't have their own semop by passing a NULL timeout
+argument. We should still check that five variants of it (sys_semop,
+sys_semtimedop, sys_semtimedop64, ipc(SEMTIMEDOP) and ipc(SEMOP))
+correctly implement the semop semantics, but I would also note that
+testing the differences of the time types is only meaningful when you
+actually pass a non-NULL timeout.
 
+      Arnd
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
