@@ -2,74 +2,54 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECD3A1CEAC9
-	for <lists+linux-ltp@lfdr.de>; Tue, 12 May 2020 04:33:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E9701CEAF1
+	for <lists+linux-ltp@lfdr.de>; Tue, 12 May 2020 04:44:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 953A83C55F6
-	for <lists+linux-ltp@lfdr.de>; Tue, 12 May 2020 04:33:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4D6913C260E
+	for <lists+linux-ltp@lfdr.de>; Tue, 12 May 2020 04:44:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 2B7D73C25D2
- for <ltp@lists.linux.it>; Tue, 12 May 2020 04:33:31 +0200 (CEST)
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 76E182009EB
- for <ltp@lists.linux.it>; Tue, 12 May 2020 04:33:30 +0200 (CEST)
-Received: by mail-pg1-x544.google.com with SMTP id u35so2468834pgk.6
- for <ltp@lists.linux.it>; Mon, 11 May 2020 19:33:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=nDYLyLM/BWv70aKCNqCWN08EgWwupbUSEz70ma+UjpA=;
- b=IzRes5+OvJfrvXRbP4sz6HEa7L4NTuoM8JRpnSktk+HHJG/c7eml01NU64GS8jzfX3
- 9BbbkrZ157dMhhlvpDK5mJ0rMjgT+xKYCdOge5aSY5iURT3P6Nr2LDQh2A6UD4hiZ8Lk
- 0bVhSOYr/KinavHi8m9jKbGEkoiogQgWoq34e8fiTpJzpTcxnWEk+dN8OX1GLO5HrtqD
- etqiAmD3uelv4AQH3p2oKXmwAWUHRJqSmn9mopaHA58KidnVWvLIlckVocEuAwWu+mhz
- r0SijR4NW0WWIUOyY3wk0Jn+LYtNfN0D8GgD3H3oixQe+zmc+83Jk2gru+c2gJBAsk/I
- 8Ysg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=nDYLyLM/BWv70aKCNqCWN08EgWwupbUSEz70ma+UjpA=;
- b=qjUmfC5PJjR/uyUTX1eNI6oFK4812EeClP6khiEWsbpNQLGZjcJuH3hSxSWaoIoRaJ
- FI5BfbzLNu/UJ4MBDBH5bUIyhegWbefqMdb84BUHC84aDmKAoPU6qIqjQKQ01odssVqe
- zknUlEK3KGUzLe71Y/4+Ejx0qxnF32qesGMkJFtU8dbzKXRQ4UXdiXkT1GlFIi2ktEEt
- TdGQQ53CwUmQf0sFwgZengA1jSj21CLThdT17W/CnUjhB/V3oi4P/9FZDMPo0wW0LbMF
- NUnbOshuGLp1pVecBWX1RoepOmt2i0yWIVS+2CnarNHF6+jVIsaArOezSTFcf8e7jYFP
- cGxw==
-X-Gm-Message-State: AOAM531GaG2+DUK6ySv98GwQR3jjFXGHD6ptCt3a2aa46QDl2WL0QF4k
- HBlk3fM+ferYXxDbjgsQftq9WjksIgfJTOXje/g=
-X-Google-Smtp-Source: ABdhPJyiW8xCCrslazzaj5WOMXmbWzlaDDHpVdKH4AhxbmulNKd9m3fX81iYzlc3WHuNdj3F+LI7JVpH7l12D6hbWmI=
-X-Received: by 2002:a63:7b4b:: with SMTP id k11mr9368070pgn.411.1589250808594; 
- Mon, 11 May 2020 19:33:28 -0700 (PDT)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 955783C25D2
+ for <ltp@lists.linux.it>; Tue, 12 May 2020 04:43:58 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 380BC600697
+ for <ltp@lists.linux.it>; Tue, 12 May 2020 04:43:38 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.73,381,1583164800"; d="scan'208";a="91932323"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 12 May 2020 10:43:51 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id 0F4654BCC89E
+ for <ltp@lists.linux.it>; Tue, 12 May 2020 10:43:49 +0800 (CST)
+Received: from [10.167.220.69] (10.167.220.69) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Tue, 12 May 2020 10:43:49 +0800
+Message-ID: <5EBA0D63.50500@cn.fujitsu.com>
+Date: Tue, 12 May 2020 10:43:47 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-References: <CAF12kFs6H1FgU_77MAMhrn1pK15fp1cx+9wox4k9LN5GxCN=nA@mail.gmail.com>
- <20200401131220.GA3627@yuki.lan>
- <CAF12kFsFsG6Jk0citiGmicq+dyB90i_cG_bcDAMhHiyVPafRdA@mail.gmail.com>
- <20200402093127.GA28452@yuki.lan>
- <CAF12kFvDv8ksxMLDyniwQ=hty6J4Oy5-wvErX=DLrfWmhiwT0w@mail.gmail.com>
- <20200402112309.GA5732@yuki.lan>
- <CAF12kFsCfb12Yi=rhAqKSLPUBLkaWPs_-JCQOcucvyu=whYFsw@mail.gmail.com>
- <CAF12kFvV=a5HJgDOAOGgdr2CMJhtVsYJ199T=SM1kyQSp-Js=w@mail.gmail.com>
- <20200408141853.GB10178@yuki.lan>
- <CAF12kFuJ=bC2ByRN7ihk=CZnA48zVW9KeAoDJO3+VcOJ13C=ug@mail.gmail.com>
- <20200511093730.GD3070@yuki.lan>
-In-Reply-To: <20200511093730.GD3070@yuki.lan>
-From: Cixi Geng <gengcixi@gmail.com>
-Date: Tue, 12 May 2020 10:32:52 +0800
-Message-ID: <CAF12kFuaM4os0aPok0YkQAqxuXDffO1mnYKxuL-8H7H_i9oFxg@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+References: <1588918535-4682-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <5EB51F9D.6080404@cn.fujitsu.com>
+ <207ce727-a0a4-2c2a-19f7-87aef956ffb5@cn.fujitsu.com>
+ <5EB904E5.8020109@cn.fujitsu.com>
+ <74d96248-f1fd-1040-8ac9-a5fbe7600247@cn.fujitsu.com>
+In-Reply-To: <74d96248-f1fd-1040-8ac9-a5fbe7600247@cn.fujitsu.com>
+X-Originating-IP: [10.167.220.69]
+X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
+X-yoursite-MailScanner-ID: 0F4654BCC89E.AE248
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] device_drivers/uart01: Add uart01 test
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/ioctl_loop05: Ensure do zero offset in
+ kernel always
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,34 +61,156 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Orson Zhai <orsonzhai@gmail.com>, ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ltp@lists.linux.it
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Q3lyaWwgSHJ1YmlzIDxjaHJ1YmlzQHN1c2UuY3o+IOS6jjIwMjDlubQ15pyIMTHml6XlkajkuIAg
-5LiL5Y2INTozN+WGmemBk++8mgo+Cj4gSGkhCj4gPiBJIGhhZCBzdHVkeSB0aGUgbHRwIGV4ZWN1
-dGlvbiBmcmFtZXdvcmsgYW5kIGZvdW5kIHRoYXQgdGhlIExUUAo+ID4gZGV0ZWN0aW9uIGRldmlj
-ZSBpcwo+ID4gbm90IHN1aXRhYmxlIGZvciBkZXZpY2UgZHJpdmVyIHRlc3QgYXQgcHJlc2VudC4K
-PiA+IExpa2UgdGhlIFVBUlQgdGVzdCwgSSB3YW50IGhhdmUgYSBhdXRvLWRldGVjdCB3YXkgdG8g
-ZmluZCB0aGUgZGV2aWNlCj4gPiBuZWVkZWQgdG8gdGVzdAo+ID4gIGluIHRoZSBjdXJyZW50IHJ1
-bm5pbmcgTHRQIG1hY2hpbmVzLgo+ID4gTm93IEkgaGF2ZSB0ZXN0IHRoZSB1YXJ0IGNhc2UgaW4g
-c2V2ZXJhbCBzcHJkdHJlYW0gU29jCj4gPiB0aGVzZSBib2FyZCAgaGF2ZSBkaWZmZXJlbnQgL2Rl
-di90dHkqIGRldmljZT8/P2FuZCBJIG5lZGQgcnVuIGluIENJCj4gPiBtYW51YWwgZXhwb3J0IGRl
-dmljZSBwdXp6bGVkIG1lIHRvIGRvIHRoZSBhdXRvLXRlc3Qtam9iLgo+ID4gbW9yZW92ZXIgSSB3
-aWwgIHBvcnRpbmcgb3RoZXIgZGV2aWNlIGRyaXZlciB0ZXN0Y2FzZXMgaW4gdGhlIGZ1dHVyZS4K
-PiA+IFNvIGNhbiBXZSBleHBhbmQgdGhlIExUUCBkZXRlY3Rpb24gPwo+Cj4gU29ycnkgSSBoYXZl
-bid0IG1hbmFnZWQgdG8gd29yayBvbiB0aGlzIGJlZm9yZSBpdCB3YXMgdGltZSBmb3IgTFRQCj4g
-cmVsZWFzZS4gSSB3aWxsIHJlc3VtZSBteSB3b3JrIG9uIHRoaXMgb25jZSBMVFAgaXMgcmVsZWFz
-ZWQuCj4KPiBNeSBnZW5lcmFsbCBpZGVhIGlzIHRoYXQgdGhlIExUUCBmcmFtZXdvcmsgd2lsbCBn
-ZXQgYSBwYXRoIHRvIGEKPiBkaXJlY3Rvcnkgd2l0aCBzY3JpcHRzIHRoYXQgd291bGQgYmUgZXZh
-bHVhdGVkIGF0IHRlc3QgcnVudGltZSBhbmQgd2lsbAo+IHJldHVybiBsaXN0IG9mIGRldmljZXMg
-dG8gdGVzdC4gVGhlc2Ugc2NyaXB0cyB3aWxsIGhhdmUgdG8gYmUgc3VwcGxpZWQKPiBieSB0aGUg
-dXNlciBhcyBtYW5hZ2luZyBsYWIgaGFyZHdhcmUgaXMgb3V0IG9mIHNjb3BlIG9mIHRoZSBMVFAK
-PiBmcmFtZXdvcmsuCj4KPiAtLQo+IEN5cmlsIEhydWJpcwo+IGNocnViaXNAc3VzZS5jegoKVGhh
-bmsgeW91IGZvciB5b3VyIGd1aWRhbmNl77yMSW4gdGhlIE5leHQgdGltZSwgSSB3aWxsIHRyeSB0
-byBmb3JrIGEKcHJvY2VzcyBpbiBzZXJpYWxjaGVjay5jClNvIGl0IGNhbiBiZSB0ZXN0IFR4ICYg
-UnggYXQgb25lIHRpbWUuQW5kIHRoZW4gIHRvIGRldmVsb3AgdGhlCmRldGVjdGlvbiBzY3JpcHRz
-IGlmIGhhdmEgYSB0aW1lCiBJJ2xsIGtlZXAgeW91IHBvc3RlZCBvbiB0aGUgc3RhdHVzLgoKLS0g
-Ck1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+On 2020/5/12 9:41, Yang Xu wrote:
+> Hi Xiao
+>
+>
+>> On 2020/5/8 17:23, Yang Xu wrote:
+>>> Hi Xiao
+>>>
+>>>
+>>>> On 2020/5/8 14:15, Yang Xu wrote:
+>>>>> Currently, we use return instead of zero_offset. I debug this code
+>>>>> (early return, ext4 filesystem)as below:
+>>>>> ---------------------------------------
+>>>>> TEST(ioctl(dev_fd, LOOP_SET_DIRECT_IO, 1));
+>>>>> if (TST_RET == 0) {
+>>>>>     tst_res(TPASS, "LOOP_SET_DIRECT_IO succeeded unexpectedly");
+>>>>>          SAFE_IOCTL(dev_fd, LOOP_SET_DIRECT_IO, 0);
+>>>>> }
+>>>>> return;
+>>>>> ---------------------------------------
+>>>>> this case will broke when using i parameter,
+>>>>> ioctl_loop05.c:62: BROK: ioctl(3,LOOP_SET_DIRECT_IO,...) failed:
+>>>>> EINVAL (22)
+>> Hi Xu,
+>>
+>> Sorry for the late reply.
+>>
+>> Without modifying code, we can also fall into this branch by running
+>> ioctl_loop05 under btrfs, so could we simple the description of issue?
+Hi Xu,
+
+Sorry for the wrong comment.
+The debug code is needed, running ioctl_loop05 under btrfs can fall into 
+this branch but doesn't break because btrfs ignores the offset.
+
+> "make sure zero offset in kernel at the begginning of the test to avoid
+> unknown error when using -i parameter". How about this?
+Is "in kernel" necessary?  Other than that the description looks good.
+
+Thanks,
+Xiao Yang
+>>
+>>>>>
+>>>>> It seems the last test affected this test, so I think we should use
+>>>>> goto instead of return. Also including a typo, updata->update.
+>>>>>
+>>>>> Signed-off-by: Yang Xu<xuyang2018.jy@cn.fujitsu.com>
+>>>>> ---
+>>>>>   testcases/kernel/syscalls/ioctl/ioctl_loop05.c | 5 +++--
+>>>>>   1 file changed, 3 insertions(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
+>>>>> b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
+>>>>> index 6cf701f47..a103aaa94 100644
+>>>>> --- a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
+>>>>> +++ b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
+>>>>> @@ -5,7 +5,7 @@
+>>>>>    *
+>>>>>    * This is a basic ioctl test about loopdevice.
+>>>>>    *
+>>>>> - * It is designed to test LOOP_SET_DIRECT_IO can updata a live
+>>>>> + * It is designed to test LOOP_SET_DIRECT_IO can update a live
+>>>> Hi Xu,
+>>>>
+>>>> What does the line changes?
+>>> just a typo, updata->update
+>>
+>> Sorry for missing the typo.
+>>
+>>>>
+>>>>>    * loop device dio mode. It needs the backing file also supports
+>>>>>    * dio mode and the lo_offset is aligned with the logical block
+>>>>> size.
+>>>>>    *
+>>>>> @@ -85,13 +85,14 @@ static void verify_ioctl_loop(void)
+>>>>>       if (TST_RET == 0) {
+>>>>>           tst_res(TPASS, "LOOP_SET_DIRECT_IO succeeded");
+>>>>>           SAFE_IOCTL(dev_fd, LOOP_SET_DIRECT_IO, 0);
+>>>>> -        return;
+>>>>> +        goto zero_offset;
+>>>>>       }
+>>>>>       if (TST_ERR == EINVAL)
+>>>>>           tst_res(TPASS | TTERRNO, "LOOP_SET_DIRECT_IO failed as
+>>>>> expected");
+>>>>>       else
+>>>>>           tst_res(TFAIL | TTERRNO, "LOOP_SET_DIRECT_IO failed
+>>>>> expected EINVAL got");
+>>>>>
+>>>>> +zero_offset:
+>>>>>       loopinfo.lo_offset = 0;
+>>>>>       TST_RETRY_FUNC(ioctl(dev_fd, LOOP_SET_STATUS,&loopinfo),
+>>>>> TST_RETVAL_EQ0);
+>>>>
+>>>> You have cleared the struct loopinfo at the beginning of
+>>>> verify_ioctl_loop(), so could we just drop loopinfo.lo_offset = 0 and
+>>>> move 'TST_RETRY_FUNC(ioctl(dev_fd, LOOP_SET_STATUS,&loopinfo),
+>>>> TST_RETVAL_EQ0);' to the beginning?
+>>> Yes. IMO, at the beginning or end, they all work well.
+>>
+>> Agreed, but it seems simpler to clear resouce at the beginning of
+>> verify_ioctl_loop(), like this:
+>> -----------------------------------
+>> diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
+>> b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
+>> index 6cf701f47..6c9ea2802 100644
+>> --- a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
+>> +++ b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
+>> ...
+>> @@ -57,6 +57,7 @@ static void verify_ioctl_loop(void)
+>>         struct loop_info loopinfo;
+>>
+>>         memset(&loopinfo, 0, sizeof(loopinfo));
+>> +       TST_RETRY_FUNC(ioctl(dev_fd, LOOP_SET_STATUS, &loopinfo),
+>> TST_RETVAL_EQ0);
+>>
+>>         tst_res(TINFO, "Without setting lo_offset or sizelimit");
+>>         SAFE_IOCTL(dev_fd, LOOP_SET_DIRECT_IO, 1);
+>> @@ -91,9 +92,6 @@ static void verify_ioctl_loop(void)
+>>                 tst_res(TPASS | TTERRNO, "LOOP_SET_DIRECT_IO failed as
+>> expected");
+>>         else
+>>                 tst_res(TFAIL | TTERRNO, "LOOP_SET_DIRECT_IO failed
+>> expected EINVAL got");
+>> -
+>> -       loopinfo.lo_offset = 0;
+>> -       TST_RETRY_FUNC(ioctl(dev_fd, LOOP_SET_STATUS, &loopinfo),
+>> TST_RETVAL_EQ0);
+>> -----------------------------------
+> Yes.
+>>
+>> Best Regards,
+>> Xiao Yang
+>>>>
+>>>> Thanks,
+>>>> Xiao Yang
+>>>>>   }
+>>>>
+>>> .
+>>>
+>>
+> .
+>
+
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
