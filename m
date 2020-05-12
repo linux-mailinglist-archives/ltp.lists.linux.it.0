@@ -2,38 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C39B1CF8C9
-	for <lists+linux-ltp@lfdr.de>; Tue, 12 May 2020 17:17:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89F541CF8CA
+	for <lists+linux-ltp@lfdr.de>; Tue, 12 May 2020 17:17:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 034713C24B2
-	for <lists+linux-ltp@lfdr.de>; Tue, 12 May 2020 17:17:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D8F7D3C5565
+	for <lists+linux-ltp@lfdr.de>; Tue, 12 May 2020 17:17:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 98DE13C209D
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id A17633C209F
  for <ltp@lists.linux.it>; Tue, 12 May 2020 17:17:03 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 118511A00EC1
- for <ltp@lists.linux.it>; Tue, 12 May 2020 17:17:02 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6DBE410007AC
+ for <ltp@lists.linux.it>; Tue, 12 May 2020 17:17:03 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 358FCAB64
+ by mx2.suse.de (Postfix) with ESMTP id DAC1EB03E
  for <ltp@lists.linux.it>; Tue, 12 May 2020 15:17:05 +0000 (UTC)
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 12 May 2020 17:17:28 +0200
-Message-Id: <20200512151730.10201-1-chrubis@suse.cz>
+Date: Tue, 12 May 2020 17:17:29 +0200
+Message-Id: <20200512151730.10201-2-chrubis@suse.cz>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20200512151730.10201-1-chrubis@suse.cz>
+References: <20200512151730.10201-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/3] [COMMITTED] lib/tst_mkfs.c: Fix fall through
- warning
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/3] [COMMITTED] lib: Fix two sprintf() warnings.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,34 +51,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-tst_mkfs.c: In function 'tst_mkfs_':
-../include/old/test.h:139:5: warning: this statement may fall through [-Wimplicit-fallthrough=]
-  139 |  if (tst_test) \
-      |     ^
-tst_mkfs.c:98:3: note: in expansion of macro 'tst_brkm'
-   98 |   tst_brkm(TCONF, cleanup_fn,
-      |   ^~~~~~~~
-tst_mkfs.c:100:2: note: here
-  100 |  default:
-      |  ^~~~~~~
+tst_test.c: In function 'do_setup':
+tst_test.c:69:21: warning: '%s' directive writing up to 1023 bytes into a region of size 1011 [-Wformat-overflow=]
+
+tst_kconfig.c: In function 'tst_kconfig_read':
+tst_kconfig.c:67:37: warning: '%s' directive output may be truncated writing up to 1023 bytes into a region of size 1018 [-Wformat-truncation=]
+
+The buffer that we print the path along with variable name has to be
+bigger than the path obviously.
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- lib/tst_mkfs.c | 1 +
- 1 file changed, 1 insertion(+)
+ lib/tst_kconfig.c | 2 +-
+ lib/tst_test.c    | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/lib/tst_mkfs.c b/lib/tst_mkfs.c
-index 3860545eb..38b2e7151 100644
---- a/lib/tst_mkfs.c
-+++ b/lib/tst_mkfs.c
-@@ -97,6 +97,7 @@ void tst_mkfs_(const char *file, const int lineno, void (cleanup_fn)(void),
- 	case 255:
- 		tst_brkm(TCONF, cleanup_fn,
- 			 "%s:%d: %s not found in $PATH", file, lineno, mkfs);
-+	break;
- 	default:
- 		tst_brkm(TBROK, cleanup_fn,
- 			 "%s:%d: %s failed with %i", file, lineno, mkfs, ret);
+diff --git a/lib/tst_kconfig.c b/lib/tst_kconfig.c
+index 4b51413e5..d49187b6f 100644
+--- a/lib/tst_kconfig.c
++++ b/lib/tst_kconfig.c
+@@ -52,7 +52,7 @@ static char is_gzip;
+ static FILE *open_kconfig(void)
+ {
+ 	FILE *fp;
+-	char buf[1024];
++	char buf[1064];
+ 	char path_buf[1024];
+ 	const char *path = kconfig_path(path_buf, sizeof(path_buf));
+ 
+diff --git a/lib/tst_test.c b/lib/tst_test.c
+index 64cd3ac33..0e58060e0 100644
+--- a/lib/tst_test.c
++++ b/lib/tst_test.c
+@@ -68,7 +68,7 @@ extern unsigned int tst_max_futexes;
+ 
+ #define IPC_ENV_VAR "LTP_IPC_PATH"
+ 
+-static char ipc_path[1024];
++static char ipc_path[1064];
+ const char *tst_ipc_path = ipc_path;
+ 
+ static char shm_path[1024];
 -- 
 2.26.2
 
