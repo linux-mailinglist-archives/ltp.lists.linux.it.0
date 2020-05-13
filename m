@@ -1,50 +1,60 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A12021D0982
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 May 2020 09:07:20 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A47E1D0AC1
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 May 2020 10:23:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 051473C2462
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 May 2020 09:07:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 89BA93C54E6
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 May 2020 10:23:04 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id F1A623C54E3
- for <ltp@lists.linux.it>; Wed, 13 May 2020 09:07:10 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id EC58B1A011D3
- for <ltp@lists.linux.it>; Wed, 13 May 2020 09:07:07 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.73,386,1583164800"; d="scan'208";a="91983473"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 13 May 2020 15:07:04 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id C2C264BCC89B
- for <ltp@lists.linux.it>; Wed, 13 May 2020 15:07:04 +0800 (CST)
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 13 May 2020 15:07:04 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Wed, 13 May 2020 15:06:54 +0800
-Message-ID: <1589353614-24423-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1589353614-24423-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-References: <1589353614-24423-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 6E8923C2219
+ for <ltp@lists.linux.it>; Wed, 13 May 2020 10:23:00 +0200 (CEST)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 261EB200AE0
+ for <ltp@lists.linux.it>; Wed, 13 May 2020 10:23:00 +0200 (CEST)
+Received: by mail-lj1-x22d.google.com with SMTP id f18so16743649lja.13
+ for <ltp@lists.linux.it>; Wed, 13 May 2020 01:23:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=7ADgcZTARO/qg323XzJ4/DK+SQ6Wu4si+2R77Da5wwQ=;
+ b=KNVJcSsci8DEePTEjokjsJSKBC/Z02mirNG2MJcf3X59ZQAwXN/Df3TdaPASGHnbgm
+ B/WLfsejso+gqFze/zoMsOEZsfsZGZCy2rLT/nDvI0rwaPr0KnDYyHJ7JmKpzjJjZMQ2
+ oZX0fs0AaCrnVDaHE2iihlHaLqcsKrRpNl1I5iKmIgClxCjB+b2BobUDchPIsyBjWl8c
+ 7ysgURQPt1e2FkfbwDVTzZ+4cppCwA6Mr5jSMQkd0ph05g5kuJ9mwTKsXXv4iMY5B5Ts
+ ye6lxZTrM+8LXONeTa7+jpM7nUSiFSDDTzgLYV4En2aVrlxMZvITG22516lTiZnTSeht
+ FAWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=7ADgcZTARO/qg323XzJ4/DK+SQ6Wu4si+2R77Da5wwQ=;
+ b=Jm2sYX6I8XVyfBwm3uUuZ2K5tyi7L+FAfEruAwzU0qTE2YXlh9YaVO6MmJJh2E3sM5
+ CYneejARrNhjc1RfyeBmfbENx1nnfgzMKEdYYtjS7V7X1SVMZUSblGt3yHawyyT3hrlI
+ 2guvkv1Dl16de+P6Eghq5ZFR7N1Nwx0H/wbcBbk5E9MTvki9+L6GCcnrF6X3wPn+2mRu
+ ehFbLBy6NHvIEXyhykiBp03rKWMxzkT2aXPmNfUjg7ZEGAL/NwKTRMMXW5oyRfTi3aWv
+ AIQsaT6j67hm57X3BTG+7LjICjUVomCfXmVtvHAvEw/c8eobMp21WVP++ePDzfWpEIxN
+ BApA==
+X-Gm-Message-State: AOAM531mzFOVhyVtmSKDApsbJN15m9OygLSxhtTVj+ZlF/T9jGMQGkSM
+ hA1unGLu3j44IyE9fNg4BBRWjETZdG5DTkEUsh1fjQ==
+X-Google-Smtp-Source: ABdhPJxaEzC1BLrAsRIpU07Xo/t5C9EJPBnmYtVW4AD9Srl6I4WVpzPZerdEbudIkFAqZh7yMETj9w/Fn6NhufaO79A=
+X-Received: by 2002:a2e:9455:: with SMTP id o21mr16636059ljh.245.1589358179342; 
+ Wed, 13 May 2020 01:22:59 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: C2C264BCC89B.AFB0F
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Wed, 13 May 2020 13:52:47 +0530
+Message-ID: <CA+G9fYsRUp8U_gMMjFD=6zHQZOHREvq+a9kj=6VK4LD1xHpMJA@mail.gmail.com>
+To: Amir Goldstein <amir73il@gmail.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 2/2] tpci: Remove deprecated CONFIG_HOTPLUG
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] LTP: fanotify09
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,61 +66,19 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: LTP List <ltp@lists.linux.it>, lkft-triage@lists.linaro.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Since kernel commit 40b313608ad4 ("Finally eradicate CONFIG_HOTPLUG"),
-it always supports hotplug. It is about 7 years old and many distributions
-don't have this config, so we can remove it safely.
+Test running fanotify09 resubmitted job
+https://lkft.validation.linaro.org/scheduler/job/1428062
+https://lkft.validation.linaro.org/scheduler/job/1428657
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- README.kernel_config                                       | 1 -
- testcases/kernel/device-drivers/pci/tpci_kernel/ltp_tpci.c | 5 -----
- 2 files changed, 6 deletions(-)
+https://qa-reports.linaro.org/lkft/linux-stable-rc-4.4-oe/tests/ltp-syscalls-tests/fanotify09
 
-diff --git a/README.kernel_config b/README.kernel_config
-index ffb2dec95..547dd4f33 100644
---- a/README.kernel_config
-+++ b/README.kernel_config
-@@ -131,7 +131,6 @@ CONFIG_KEXEC_JUMP=y
- ---------------------------------
- Enabling HOTPLUG for your Kernels
- ---------------------------------
--CONFIG_HOTPLUG=y
- CONFIG_HOTPLUG_CPU=y
- CONFIG_ARCH_ENABLE_MEMORY_HOTPLUG=y
- CONFIG_ACPI_HOTPLUG_CPU=y
-diff --git a/testcases/kernel/device-drivers/pci/tpci_kernel/ltp_tpci.c b/testcases/kernel/device-drivers/pci/tpci_kernel/ltp_tpci.c
-index a57953db6..e29821dda 100644
---- a/testcases/kernel/device-drivers/pci/tpci_kernel/ltp_tpci.c
-+++ b/testcases/kernel/device-drivers/pci/tpci_kernel/ltp_tpci.c
-@@ -290,7 +290,6 @@ static int test_find_subsys(void)
-  */
- static int test_scan_bus(void)
- {
--#ifdef CONFIG_HOTPLUG
- 	int num;
- 	struct pci_bus *bus = ltp_pci.bus;
- 
-@@ -307,10 +306,6 @@ static int test_scan_bus(void)
- 	}
- 	prk_info("success scan bus");
- 	return TPASS;
--#else
--	prk_info("pci_rescan_bus() is not supported");
--	return TSKIP;
--#endif
- }
- 
- /*
--- 
-2.23.0
-
-
-
+- Naresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
