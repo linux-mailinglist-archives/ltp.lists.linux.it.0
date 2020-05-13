@@ -2,71 +2,52 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 557CD1D06FA
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 May 2020 08:13:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 247EE1D0782
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 May 2020 08:31:57 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EA1E93C2236
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 May 2020 08:13:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D4C5E3C23BF
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 May 2020 08:31:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id E9E7F3C176C
- for <ltp@lists.linux.it>; Wed, 13 May 2020 08:13:49 +0200 (CEST)
-Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
- [IPv6:2607:f8b0:4864:20::1041])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 155A91000A83
- for <ltp@lists.linux.it>; Wed, 13 May 2020 08:13:49 +0200 (CEST)
-Received: by mail-pj1-x1041.google.com with SMTP id a5so10641659pjh.2
- for <ltp@lists.linux.it>; Tue, 12 May 2020 23:13:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=i29pfZ4o0J+xY0nUmn9IMR6biVzdmzFMXbOBrhWv2Jg=;
- b=O73hyoqOTLoAW5o8+FoZPdTWfkC9Em4q/ONFH5yUO/mTF3R6Q2TABS5R4NJFPTZbsx
- sPwT3S0pUcDCf3sga1KQXC/HR4fdVaAj89mzdhClyQM5qck/GTZm3bGELbXVtosqXaCV
- wSTlWRtLK+0fuSQMaCfMvKt1/drIaqkwnONohCfSkHtn3gcjLbHi9dQGjRoP6pQjxf+I
- ZBU5iwWdDLhZ0fDaIZubghXLyx4eFJ43JBR5k2FzEriWLgxDzLkLCNq89Gp/gGxviJzw
- 1ImU7uqDz3ClO7xW6EjYY1snQXFV+fDyncBrUm2BZfys7TxDsptDplUYAbfZCpi6GanQ
- +wPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=i29pfZ4o0J+xY0nUmn9IMR6biVzdmzFMXbOBrhWv2Jg=;
- b=T4DvYuBUtWif/AXtY9F6WSSTvUxETH3nLm0CVBIxZxCrx6IhNE9jZ+d+0IWGSCMaLy
- O0ax4buQovH7pO2IUtBD7jH4VOyFhRWOb6div0WhX0O36DqAjWajlcL37g0yqp8FsOvo
- jRkqul892U5L4Vwylb/BzFGVK43RNrsQHQV8oPbrQS7cKjzy6M+MV5U6PnsvGFkK0NyJ
- CNMyl1Iba+zVnLDbKAt282YmNzva6Ya+ZXZF9J33ymwyBCOcgFFoW1VSMH53sYbb7Otr
- mr/mJchOate0LuLlEhL8groF0ewFYB+5XQvgwR+nDtBuLl1vLh2MNF5mTYRlKvJ7WRrX
- 33PA==
-X-Gm-Message-State: AGi0PuZZ4R/9FHH58Aa3Xyl8QRy0VYpW+v6+Gk10u6JSKpry3de4/A8v
- 9AGhf1dAsIbA/hZCueKwFyD7Fg==
-X-Google-Smtp-Source: APiQypJ3tJ+InJrKyYYn9nN1Rywbjbn0vTdsswt2dO1OXkHkA1RSpFX6/WbDfR7izlhrqqBrbnXDYA==
-X-Received: by 2002:a17:902:7:: with SMTP id 7mr23675086pla.157.1589350427452; 
- Tue, 12 May 2020 23:13:47 -0700 (PDT)
-Received: from localhost ([122.167.130.103])
- by smtp.gmail.com with ESMTPSA id 14sm14607898pjd.36.2020.05.12.23.13.45
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 12 May 2020 23:13:46 -0700 (PDT)
-Date: Wed, 13 May 2020 11:43:43 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Xiao Yang <yangx.jy@cn.fujitsu.com>
-Message-ID: <20200513061343.mjhmciatmx4sw2ub@vireshk-i7>
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 7AE7B3C13D8
+ for <ltp@lists.linux.it>; Wed, 13 May 2020 08:31:55 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 40B9660111C
+ for <ltp@lists.linux.it>; Wed, 13 May 2020 08:31:51 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.73,386,1583164800"; d="scan'208";a="91981591"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 13 May 2020 14:31:47 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id 4FAA64BCC89D;
+ Wed, 13 May 2020 14:31:45 +0800 (CST)
+Received: from [10.167.220.69] (10.167.220.69) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Wed, 13 May 2020 14:31:43 +0800
+Message-ID: <5EBB944F.5010303@cn.fujitsu.com>
+Date: Wed, 13 May 2020 14:31:43 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+MIME-Version: 1.0
+To: Viresh Kumar <viresh.kumar@linaro.org>
 References: <20200513012626.1571-1-yangx.jy@cn.fujitsu.com>
  <20200513012626.1571-2-yangx.jy@cn.fujitsu.com>
  <20200513055533.ipmghf2oacc22mzy@vireshk-i7>
  <5EBB8DAA.5080509@cn.fujitsu.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <5EBB8DAA.5080509@cn.fujitsu.com>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+ <20200513061343.mjhmciatmx4sw2ub@vireshk-i7>
+In-Reply-To: <20200513061343.mjhmciatmx4sw2ub@vireshk-i7>
+X-Originating-IP: [10.167.220.69]
+X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
+X-yoursite-MailScanner-ID: 4FAA64BCC89D.AC967
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v2 2/2] syscalls/pidfd_open*.c: Drop .min_kver flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -80,25 +61,25 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 13-05-20, 14:03, Xiao Yang wrote:
-> Could you tell which issue happen? Thanks a lot.
-> The other two don't need the extra check because the implementation of
-> pidfd_open() can do it well.  For 3rd test, I want to check the support of
-> pidfs_open() before doing fork().
-
-What I meant was that the solution needs to be consistent across
-tests. For example, with the current change the run() function will
-run for all tests in pidfd_open02.c and print the message that syscall
-isn't supported, while it would be better to run it only once in setup
-and get done with it. i.e. 1 message instead of 3 similar ones.
-
--- 
-viresh
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+5LqOIDIwMjAvNS8xMyAxNDoxMywgVmlyZXNoIEt1bWFyIOWGmemBkzoKPiBPbiAxMy0wNS0yMCwg
+MTQ6MDMsIFhpYW8gWWFuZyB3cm90ZToKPj4gQ291bGQgeW91IHRlbGwgd2hpY2ggaXNzdWUgaGFw
+cGVuPyBUaGFua3MgYSBsb3QuCj4+IFRoZSBvdGhlciB0d28gZG9uJ3QgbmVlZCB0aGUgZXh0cmEg
+Y2hlY2sgYmVjYXVzZSB0aGUgaW1wbGVtZW50YXRpb24gb2YKPj4gcGlkZmRfb3BlbigpIGNhbiBk
+byBpdCB3ZWxsLiAgRm9yIDNyZCB0ZXN0LCBJIHdhbnQgdG8gY2hlY2sgdGhlIHN1cHBvcnQgb2YK
+Pj4gcGlkZnNfb3BlbigpIGJlZm9yZSBkb2luZyBmb3JrKCkuCj4KPiBXaGF0IEkgbWVhbnQgd2Fz
+IHRoYXQgdGhlIHNvbHV0aW9uIG5lZWRzIHRvIGJlIGNvbnNpc3RlbnQgYWNyb3NzCkhpIFZpcmVz
+aCwKCkN1cnJlbnQgY2hhbmdlIGNhbiBkbyBjb3JyZWN0IGNoZWNrIGZvciBwaWRmZF9vcGVuWzEt
+M10gc28gZG9uJ3QgbmVlZCB0byAKYWRkIHJlZHVuZGFudCBjaGVjay4KCj4gdGVzdHMuIEZvciBl
+eGFtcGxlLCB3aXRoIHRoZSBjdXJyZW50IGNoYW5nZSB0aGUgcnVuKCkgZnVuY3Rpb24gd2lsbAo+
+IHJ1biBmb3IgYWxsIHRlc3RzIGluIHBpZGZkX29wZW4wMi5jIGFuZCBwcmludCB0aGUgbWVzc2Fn
+ZSB0aGF0IHN5c2NhbGwKPiBpc24ndCBzdXBwb3J0ZWQsIHdoaWxlIGl0IHdvdWxkIGJlIGJldHRl
+ciB0byBydW4gaXQgb25seSBvbmNlIGluIHNldHVwCj4gYW5kIGdldCBkb25lIHdpdGggaXQuIGku
+ZS4gMSBtZXNzYWdlIGluc3RlYWQgb2YgMyBzaW1pbGFyIG9uZXMuCj4KCkFyZSB5b3Ugc3VyZT8K
+ClRyaWdnZXJpbmcgZmlyc3QgdHN0X2JyayhUQ09ORiwgLi4uKSB3aWxsIGJyZWFrIHRoZSB3aG9s
+ZSB0ZXN0IGluc3RlYWQgCm9mIGEgc3VidGVzdC4KClRoYW5rcywKWGlhbyBZYW5nCgoKCi0tIApN
+YWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
