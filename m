@@ -2,41 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 286891D4CEA
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 May 2020 13:44:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6624B1D4CF3
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 May 2020 13:48:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D8FEE3C53AA
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 May 2020 13:44:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0D3283C53AA
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 May 2020 13:48:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 098F73C176A
- for <ltp@lists.linux.it>; Fri, 15 May 2020 13:44:37 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 2EF1C3C1C81
+ for <ltp@lists.linux.it>; Fri, 15 May 2020 13:48:07 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 46079600F1D
- for <ltp@lists.linux.it>; Fri, 15 May 2020 13:44:17 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 96B5A201176
+ for <ltp@lists.linux.it>; Fri, 15 May 2020 13:48:07 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id B822DAC51;
- Fri, 15 May 2020 11:44:39 +0000 (UTC)
-Date: Fri, 15 May 2020 13:45:07 +0200
+ by mx2.suse.de (Postfix) with ESMTP id AE74FAE52;
+ Fri, 15 May 2020 11:48:09 +0000 (UTC)
+Date: Fri, 15 May 2020 13:48:37 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20200515114507.GA3395@yuki.lan>
-References: <20200512201416.8299-1-pvorel@suse.cz>
- <20200514144729.GA19276@dell5510>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <20200515114837.GB3395@yuki.lan>
+References: <20200515103910.8703-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200514144729.GA19276@dell5510>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+In-Reply-To: <20200515103910.8703-1-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/1] rpc: TCONF when tests aren't compiled +
- remove kill warning
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] pty04: Avoid receiving packets from all interfaces
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,18 +53,10 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > with this implementation (suggested by Alexey), we get TCONF twice. It's
-> > a bit strange, but I'll keep it, because I like that required binary is
-> > printed:
-> > rpc_test 1 TCONF: 'tirpc_rpcb_getaddr' not found
-> > rpc_test 1 TCONF: LTP compiled without TI-RPC support?
-> Please any comment for 2x TCONF. It's a bit strange, but just a tiny detail.
-> I'd like to have this fix in the release.
+Sounds reasonable, also hope it's the last patch. :-)
 
-I do not really care how many TCONF the test prints as long as the user
-gets a reasonable message.
-
-With that the patch looks good, acked.
+@Jan do you want to test this as well, or should I apply and proceed
+with the release?
 
 -- 
 Cyril Hrubis
