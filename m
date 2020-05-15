@@ -1,72 +1,72 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E20CD1D4441
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 May 2020 06:09:00 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CBCD1D4452
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 May 2020 06:17:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E1BC53C543D
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 May 2020 06:08:59 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 514563C5436
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 May 2020 06:17:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 4D90F3C104B
- for <ltp@lists.linux.it>; Fri, 15 May 2020 06:08:56 +0200 (CEST)
-Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
- [IPv6:2607:f8b0:4864:20::1043])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7F258600B1A
- for <ltp@lists.linux.it>; Fri, 15 May 2020 06:08:35 +0200 (CEST)
-Received: by mail-pj1-x1043.google.com with SMTP id q9so411741pjm.2
- for <ltp@lists.linux.it>; Thu, 14 May 2020 21:08:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=GiETq9AYouPqoQKwNwfzNDE3A0t/pQK6kIXPHgt0xcs=;
- b=o6/tb7ihnoWZqA3HsX4CDhGwvZa/m0thUpqtVOskoHLoVGR0ex820+MdaCzBvxEgzG
- PGqLkE6ZiDWafpoNsw1UfSHZbREVmK+tzC0yFCgPmi79eTIlFrnnwhQASlXHnE5iVc8d
- KCHqj1OMNm+yB4iJ65iC6bNiS99viKKfUVfEUfRtz+d4dYZrhfRExVMOoe81/uGWygnc
- 27rW7NQ7bGaLwfZgzY3+BAmYqktcwUsT9X0P6Gp0ACiKVP+zeCuELVzovORk4gG0seW6
- ru/sbKqWfU+1m+C6TMR/eAd6nJ3zRn75GALVnR31k9uCHc8if3YOPKew0pw0OyDsnJ9/
- gVeg==
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 86E373C1778
+ for <ltp@lists.linux.it>; Fri, 15 May 2020 06:17:05 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id E59C61001732
+ for <ltp@lists.linux.it>; Fri, 15 May 2020 06:17:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1589516223;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9ctRIntyCieLyGn3H2DpB9FE3MLSJfwq/cDa28O9m60=;
+ b=VItbbAK7qS1ty24hENMjEr/man2Rmjmk2VAMONWLcyuvjUHfPPvOa8h1YYB8ZYgWHxnDda
+ w7cS3ko3jTccT6tmxpTTPw2Le6e2jzgHXOQJTwsVRLNUuh0qIYAPq4619ERe7I0f1MoIY3
+ uFI3CeiAVJUyEEA8zZW5+xYQIfJkGT4=
+Received: from mail-lj1-f198.google.com (mail-lj1-f198.google.com
+ [209.85.208.198]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-310-_7dQoOm_OmKX2g1BePcaDg-1; Fri, 15 May 2020 00:17:00 -0400
+X-MC-Unique: _7dQoOm_OmKX2g1BePcaDg-1
+Received: by mail-lj1-f198.google.com with SMTP id a26so75174ljn.20
+ for <ltp@lists.linux.it>; Thu, 14 May 2020 21:17:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=GiETq9AYouPqoQKwNwfzNDE3A0t/pQK6kIXPHgt0xcs=;
- b=KOCOkHAtRDyHr3RiBKEtTE4MbI0X3FneZzPSPg7c0dh80QNhyyDySf9GmOF0d/mjaD
- mCYak8uecsMfbjBLGns419BJFJsvhjbngzXdWIi2KLJux2EIxyBUl9OXKOwMJUEYQqCu
- HmKBB5dzP8XJXEgztjBmBEMtqTXdbw+VsnXDR4qJ9kpw7S8oSs6Wd4vTV+R0zrspE9De
- bmF9ko5gzZn8GuLv5mTES+Kjqy2f25uBpAIvHBDVyrqq4s7Zr7yL28IAUnwJysP7nUF5
- PpH8X23zUmcDmf8zRy1xoPeVPtxHWDQ0OwFjV/X7KrmR179/+AvYCdAPVRQ8J7HSMfv+
- +MIw==
-X-Gm-Message-State: AOAM531REaZMLllubu/93ra2t4wgp/zaaSn9vaLd920wnxZbFIqd54kK
- k86LeYIezFPbPsUfD+Zi38osDA==
-X-Google-Smtp-Source: ABdhPJx1c7BZHtfIA6tgMGZKGReRtm41VWxXugrzKY1PBf9Q+xAfJzuS89nU/HXGM9uYk4jt1o+Q1A==
-X-Received: by 2002:a17:902:d90c:: with SMTP id
- c12mr1761702plz.113.1589515733817; 
- Thu, 14 May 2020 21:08:53 -0700 (PDT)
-Received: from localhost ([122.167.130.103])
- by smtp.gmail.com with ESMTPSA id g27sm651381pfr.51.2020.05.14.21.08.52
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 14 May 2020 21:08:53 -0700 (PDT)
-Date: Fri, 15 May 2020 09:38:49 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Vikas Kumar <vikas.kumar2@arm.com>
-Message-ID: <20200515040849.yu27rdihdih5wxc3@vireshk-i7>
-References: <20200514172831.27854-1-vikas.kumar2@arm.com>
- <20200514172831.27854-2-vikas.kumar2@arm.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=9ctRIntyCieLyGn3H2DpB9FE3MLSJfwq/cDa28O9m60=;
+ b=tth8RdYjaOOQqpemGDsmR9bEE9gGTug/FNMo2qjsmED9C3RQpZxFmMpD7sKLir3aaz
+ nX+sMp4rKFqQ9s/VmQlZJj4+hfBggPjYZgDOW/xuc802QcScssMZ3XVYcbvDueg6NCtV
+ Q3oazHdlMsJnHlFwi9yON0UE7zD0o/p/5n9pzr6JVAfgy5xlviHoWynnn58jNVC9SPjl
+ rM9ZDP3Iub6gca4mdkwjof33U6zGUJWYzEClmU8vvQaJup/ZvOFpGa9gNj7CnfmrDow2
+ Fm0XhfX4hUFD525WmTkw2JmKZ1VY7aFcBcAYFN+I0ijPwbj/l3yJWUMGGWriHumYgOJc
+ taFA==
+X-Gm-Message-State: AOAM533o6msSBIOAvIEfLOY9oJeqX0k+ji3yiTOtQuzgEz1mp1Q5SH/c
+ rngaRWMNECgZH+oMrqtFYqDtoYBGrV73p4h+spUiA9DAknDFG6pmxHmBpMyiA0mgvwv6rlCXxqm
+ JzKK/pf2WI8Pd28jOjrQE3EjCq5E=
+X-Received: by 2002:a19:675e:: with SMTP id e30mr983339lfj.42.1589516219393;
+ Thu, 14 May 2020 21:16:59 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwhOK8fB7pslYDEu+zv/WjUIPguWLGdM3Ju7Pnvfbn+jIUBySUjShoMtdTR+uLXCeRu5hbh+mJ1ddcconB4wK0=
+X-Received: by 2002:a19:675e:: with SMTP id e30mr983328lfj.42.1589516219177;
+ Thu, 14 May 2020 21:16:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200514172831.27854-2-vikas.kumar2@arm.com>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+References: <5ebe1570.1c69fb81.46edc.a08cSMTPIN_ADDED_BROKEN@mx.google.com>
+In-Reply-To: <5ebe1570.1c69fb81.46edc.a08cSMTPIN_ADDED_BROKEN@mx.google.com>
+From: Li Wang <liwang@redhat.com>
+Date: Fri, 15 May 2020 12:16:47 +0800
+Message-ID: <CAEemH2do_dTERpsB_k0X97JVqdThXH2EO457bhu=qNHhomCwhw@mail.gmail.com>
+To: "xuyang_jy_0410@163.com" <xuyang_jy_0410@163.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V4 1/1] syscall: Add io_uring test
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] LTP release
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,50 +78,64 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0542945069=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 14-05-20, 22:58, Vikas Kumar wrote:
-> Added Linux asynchronous I/O API Test for io_uring_setup(),
-> io_uring_register() and io_uring_enter().
-> This test will check io_uring api basic operation.
-> 
-> Signed-off-by: Vikas Kumar <vikas.kumar2@arm.com>
-> Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+--===============0542945069==
+Content-Type: multipart/alternative; boundary="0000000000009bf8fb05a5a81564"
 
-Please don't do this unless someone gave you this explicitly.
+--0000000000009bf8fb05a5a81564
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> diff --git a/testcases/kernel/syscalls/io_uring/io_uring01.c b/testcases/kernel/syscalls/io_uring/io_uring01.c
-> +int setup_io_uring_test(struct submitter *s)
-> +{
-> +	struct io_sq_ring *sring = &s->sq_ring;
-> +	struct io_cq_ring *cring = &s->cq_ring;
-> +	struct io_uring_params p;
-> +	void *ptr;
-> +
-> +	memset(&p, 0, sizeof(p));
-> +	s->ring_fd = io_uring_setup(QUEUE_DEPTH, &p);
-> +	if (s->ring_fd == -1) {
-> +		tst_res(TFAIL | TTERRNO, "io_uring setup return error");
-> +		return 1;
-> +	}
-> +
-> +	//submission queue ring buffer mapping
+On Fri, May 15, 2020 at 12:07 PM xuyang_jy_0410@163.com <
+xuyang_jy_0410@163.com> wrote:
 
-You need to follow kernel coding guidelines everywhere in the code
-here and so no such comments. Try to run checkpatch on this file with
---strict option and you will see the problems..
+> Hi Li
+> Can we put these attach and disattach steps into verify function like
+> ioctl_loop 04.c does=EF=BC=9F
+>
 
-This API is new and you also need to implement something like
-fsopen_supported_by_kernel().
+How does the attach/detach device cause the failure?  I actually run into
+this failure without parameter "-i".
 
-I didn't do in depth reviews though..
+--=20
+Regards,
+Li Wang
 
--- 
-viresh
+--0000000000009bf8fb05a5a81564
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Fri, May 15, 2020 at 12:07 PM <a href=3D"mailto:=
+xuyang_jy_0410@163.com">xuyang_jy_0410@163.com</a> &lt;<a href=3D"mailto:xu=
+yang_jy_0410@163.com">xuyang_jy_0410@163.com</a>&gt; wrote:<br></div><block=
+quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
+px solid rgb(204,204,204);padding-left:1ex"><div>Hi Li=C2=A0</div><div>Can =
+we put these attach and disattach steps into verify function like ioctl_loo=
+p 04.c does=EF=BC=9F=C2=A0</div></blockquote><div><br></div><div><div class=
+=3D"gmail_default" style=3D"font-size:small">How does the attach/detach dev=
+ice cause the failure?=C2=A0 I actually run into this failure without param=
+eter &quot;-i&quot;.</div></div><div>=C2=A0</div></div>-- <br><div dir=3D"l=
+tr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>=
+Li Wang<br></div></div></div></div>
+
+--0000000000009bf8fb05a5a81564--
+
+
+--===============0542945069==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0542945069==--
+
