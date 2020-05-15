@@ -2,39 +2,36 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04BC81D45C7
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 May 2020 08:22:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF04C1D4693
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 May 2020 09:00:33 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4B3573C53B8
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 May 2020 08:22:27 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8E3BF3C539F
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 May 2020 09:00:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 3FE843C5399
- for <ltp@lists.linux.it>; Fri, 15 May 2020 08:22:23 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 59BD33C12B6
+ for <ltp@lists.linux.it>; Fri, 15 May 2020 09:00:32 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8387F10018AD
- for <ltp@lists.linux.it>; Fri, 15 May 2020 08:22:23 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 41172201408
+ for <ltp@lists.linux.it>; Fri, 15 May 2020 09:00:29 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 9DBC7AC12;
- Fri, 15 May 2020 06:22:25 +0000 (UTC)
-Date: Fri, 15 May 2020 08:22:21 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 50BDCACFE;
+ Fri, 15 May 2020 07:00:32 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20200515062221.GB5117@dell5510>
-References: <20200514190906.27130-1-pvorel@suse.cz>
- <CAEemH2e5G53VPLp4bOe_i-2_4eRSF9dbTC378rqN-AwGanUTEw@mail.gmail.com>
+To: ltp@lists.linux.it
+Date: Fri, 15 May 2020 09:00:22 +0200
+Message-Id: <20200515070022.16407-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2e5G53VPLp4bOe_i-2_4eRSF9dbTC378rqN-AwGanUTEw@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/4] INSTALL: Update requirements
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 1/4] INSTALL: Update requirements, modernise text
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,82 +43,115 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li,
+* replace links to several years old versions with installation commands
+  for various distros
+* mention pkgconf in both INSTALL and README.md (many distros migrated
+  from pkg-config to pkgconf)
+* remove make version requirement (make 3.81 is in CentOS 6, which
+  support were going to drop)
+* remove CVS tag :)
 
-thanks for your review!
-
-> As we know most distributions provide the requirements packages already,
-> so I'm thinking if we can replace the download link only by installing
-> commands, that will make people easily prepare their test environment.
-
-> Which something maybe likes:
-> --------------------------------------
-
-> +       #### Debian/Ubuntu
-> +       ```
-> +       sudo apt-get install make
-> +       sudo apt-get install pkgconf
-> +       sudo apt-get install autoconf
-> +       sudo apt-get install automake
-> +       sudo apt-get install byacc
-> +       sudo apt-get install flex
-> +       sudo apt-get install m4
-> +       ```
-Maybe this:
-
-Debian / Ubuntu
-# apt install gcc make pkgconf autoconf automake bison flex m4 linux-headers-$(uname -r) libc6-dev
-
-OpenSUSE / SLES
-# zypper install gcc make pkgconf autoconf automake bison flex m4 linux-glibc-devel glibc-devel
-
-Fedora / CentOS / RHEL
-# yum install gcc make pkgconf autoconf automake bison flex m4 kernel-headers glibc-headers
-
-I'd prefer it in simple form (single line) + I thought bison is more common than
-byacc (but maybe I'm wrong). I'm not a big fan of sudo (but can add it there).
-+ Added headers and gcc. But on the other hand I wanted to have package reference in
-travis/*.sh (where are missing some packages which are installed by default with
-gcc, e.g. , but it does not harm to have it offline.
-
-Should I remove links to the tools? And we obviously don't list a compiler.
-
-> +
-> +       #### OpenSUSE
-> +       ```
-> +       sudo zypper install make
-> +       sudo zypper install pkgconf
-> +       sudo zypper install autoconf
-> +       sudo zypper install automake
-> +       sudo zypper install byacc
-> +       sudo zypper install flex
-> +       sudo zypper install m4
-> +       ```
-> +       #### Fedora/CentOS/RHEL
-> +       ```
-> +       sudo yum install make
-> +       sudo yum install pkgconf
-> +       sudo yum install autoconf
-> +       sudo yum install automake
-> +       sudo yum install byacc
-> +       sudo yum install flex
-> +       sudo yum install m4
-> +       ```
-
-> Anyway, this is a good update for documents, I hope these could be involved
-> in the newly released.
-> [CC Cyril to notice this]
-Yep, that was the intention of this late evening patches :).
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+v2->v3:
+* replace tools homepages (useless) with installation commands
+* add more dependencies (gcc, git, headers)
+* mention travis/*.sh in both INSTALL and README.md (I was lazy to add
+all dev/devel packages + why to sync it on both places?)
 
 Kind regards,
 Petr
+
+ INSTALL   | 44 +++++++++++++++-----------------------------
+ README.md |  5 +++--
+ 2 files changed, 18 insertions(+), 31 deletions(-)
+
+diff --git a/INSTALL b/INSTALL
+index 8bf6fe005..de313e65f 100644
+--- a/INSTALL
++++ b/INSTALL
+@@ -1,42 +1,28 @@
+-$Id: INSTALL,v 1.36 2010/01/18 23:46:09 yaberauneya Exp $
+-
+ Requirements
+ -------------------
+ 
+-1. In order to compile ltp you must have make 3.80+ (make 3.81 preferred).
+-2. In order to compile and use ltp-scanner (a utility in the pan directory),
+-   you must have bison/yacc, and flex installed.
+-
+-bison can be obtained here:
+-- http://ftp.gnu.org/gnu/bison/bison-2.4.1.tar.gz
+-
+-Berkeley yacc can be obtained here:
+-- ftp://invisible-island.net/byacc/byacc.tar.gz
++Tools are needed for LTP compilation. They should be available as a
++package in any Linux distribution (no specific version is required).
+ 
+-flex can be obtained here:
+-- http://downloads.sourceforge.net/project/flex/flex/flex-2.5.33/flex-2.5.33.tar.bz2
++Debian / Ubuntu
++# apt install gcc git make pkgconf autoconf automake bison flex m4 linux-headers-$(uname -r) libc6-dev
+ 
+-make 3.81 can be obtained here:
+-- http://ftp.gnu.org/gnu/make/make-3.81.tar.bz2
++OpenSUSE / SLES
++# zypper install gcc git make pkgconf autoconf automake bison flex m4 linux-glibc-devel glibc-devel
+ 
+-If you want to use auto configuration you also need autoconf-2.61+, automake-1.10+
+-and pkg-config.
++Fedora / CentOS / RHEL
++# yum install gcc git make pkgconf autoconf automake bison flex m4 kernel-headers glibc-headers
+ 
+-automake-1.10.2's sources can be downloaded from:
+-- ftp://ftp.gnu.org/gnu/automake/automake-1.10.2.tar.bz2
+-- ftp://ftp.gnu.org/gnu/automake/automake-1.10.2.tar.gz
++autoconf, automake, m4 (autoconf requirement), git and pkgconf (or pkg-config
++on older distros) are required for compilation from git (used for creating
++configure file).
+ 
+-autoconf-2.61's sources can be downloaded from:
+-- ftp://ftp.gnu.org/gnu/autoconf/autoconf-2.61.tar.bz2
+-- ftp://ftp.gnu.org/gnu/autoconf/autoconf-2.61.tar.gz
++pkgconf is recommended also for compilation from tarball as it
++does automatic detection of some library support.
+ 
+-autoconf-2.61 also requires m4-1.4.7+ be installed. Its sources can be
+-downloaded from:
+-- http://ftp.gnu.org/gnu/m4/m4-1.4.7.tar.bz2
+-- http://ftp.gnu.org/gnu/m4/m4-1.4.7.tar.gz
++Some other development libraries are also recommended, see travis/*.sh.
+ 
+-pkg-config can be downloaded from:
+-- https://pkg-config.freedesktop.org/releases/
++GNU Bison / Berkeley Yacc is needed for ltp-scanner.
+ 
+ Configuration
+ -------------------
+diff --git a/README.md b/README.md
+index a2a623f40..56d10d450 100644
+--- a/README.md
++++ b/README.md
+@@ -37,8 +37,9 @@ on properly functioning systems, they are intended to find (or cause) problems.
+ Quick guide to running the tests
+ ================================
+ 
+-If you have git, autoconf, automake, m4 and pkg-config, the linux headers and
+-the common developer packages installed, the chances are the following will work:
++If you have git, autoconf, automake, m4, pkgconf / pkg-config, libc headers,
++linux kernel headers and other common development packages installed (see
++INSTALL and travis/*.sh), the chances are the following will work:
+ 
+ ```
+ $ git clone https://github.com/linux-test-project/ltp.git
+-- 
+2.26.2
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
