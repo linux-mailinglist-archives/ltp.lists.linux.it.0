@@ -2,70 +2,38 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AE081D7524
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 12:27:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B568E1D7926
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 15:01:57 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 157273C4F4F
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 12:27:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1F2883C4F35
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 15:01:57 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 14CBB3C042A
- for <ltp@lists.linux.it>; Mon, 18 May 2020 12:27:39 +0200 (CEST)
-Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
- [IPv6:2607:f8b0:4864:20::1042])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id CEA473C1D8A
+ for <ltp@lists.linux.it>; Mon, 18 May 2020 15:01:43 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1A93D200148
- for <ltp@lists.linux.it>; Mon, 18 May 2020 12:27:39 +0200 (CEST)
-Received: by mail-pj1-x1042.google.com with SMTP id z15so6397291pjb.0
- for <ltp@lists.linux.it>; Mon, 18 May 2020 03:27:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=nAHypuFX4+V5RjEkEw7tDqWRweSOwGBpFPIC1RtM6+w=;
- b=QK+QUSIIOq7kOv0aWeSgkSg9g28myLMZ2We1PKlZVljiWhvaVXawhEv0BfzYLoBMCF
- GqoSZLsdFApO5MDrf7qhqevkK2JtFpsTjnwGksZFMuQWEj7oFnQuBEoTDa+Iw2Zt3jTu
- FXg47g70uEMl3xW6fU4Dzt/uxy9RSrvIKtat+iHoCd1lTWUOqML6afoS3Itnq+NyiLHA
- w76FoDEJInkDUH55lzCyDqw2i3Y5Lfcz6SX1nSad7c5daPXFQwkJnjX5fMSrC1rWgQOf
- FLDI43ZN5NRItLjrRFuiCmgkMj3AixXsiJ8XbiJ66kJbJSRnO1d7d/1j9HEzHp34t9SN
- jjxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=nAHypuFX4+V5RjEkEw7tDqWRweSOwGBpFPIC1RtM6+w=;
- b=F1FJS8T3p/wa+lYp90FdyoaPnqRV/HSgPeCNoC4Ksf8T+3VmEdwNuD3YYmCNAZs5po
- jylkFIntpTJLqdotUzMC3Hqhmz+q3AKCXMSWfdoxK6ntK4mH0mMgyIJTxe8YTI8lWLRL
- nriKp44fI3kTKbyKGQIzh84ciwOHl/5q8z5NarYqctkeQLLRz89V7tPROtj0m4J1xMDR
- 3WHrUcVxLnD+btQNvMIuT/WJxQLP2M1V8gOsDLHTs1xQKf/tVSd4CBTuoHXAXSU8/NQI
- l8kDhzTu1uXQp8EFBGjEV1xHJoyVx3l3dLlc9R/qJgYkFBbhfQnTGQYEeBBpvuuWUkff
- bmww==
-X-Gm-Message-State: AOAM532dH2k+zxhTScFGWjbSp8Sjl4DGvB5NkPlMWxNBcGhkWFqInGyH
- 60J/Q0RwLs4K1ZM9f7FWknFJTkJwgO0=
-X-Google-Smtp-Source: ABdhPJxvtnkhVerPcKSC1/QoabU6EzykfMCCwwU+vroBqfLkNj6lurRSk4VDvAMiPiIF0cD0JGCkwg==
-X-Received: by 2002:a17:902:8494:: with SMTP id
- c20mr15671446plo.305.1589797657310; 
- Mon, 18 May 2020 03:27:37 -0700 (PDT)
-Received: from localhost ([122.167.130.103])
- by smtp.gmail.com with ESMTPSA id y4sm3121801pfq.10.2020.05.18.03.27.36
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 18 May 2020 03:27:36 -0700 (PDT)
-From: Viresh Kumar <viresh.kumar@linaro.org>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id BD75920116F
+ for <ltp@lists.linux.it>; Mon, 18 May 2020 15:01:42 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 7486EAF4C;
+ Mon, 18 May 2020 13:01:44 +0000 (UTC)
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Mon, 18 May 2020 15:57:32 +0530
-Message-Id: <96ce7bbd49ae243c02371aeb4c6a672a246e8b53.1589797580.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
-In-Reply-To: <f7b891343ded659bd45fa28d88667109887f1d60.1589789487.git.viresh.kumar@linaro.org>
-References: <f7b891343ded659bd45fa28d88667109887f1d60.1589789487.git.viresh.kumar@linaro.org>
+Date: Mon, 18 May 2020 15:01:31 +0200
+Message-Id: <20200518130132.19312-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH V4 13/17] syscalls/select6: Add support for time64
- tests
+Subject: [LTP] [PATCH 1/2] tst_test.sh: Fix calling not yet loaded cleanup
+ function
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,88 +45,74 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
- Viresh Kumar <viresh.kumar@linaro.org>
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This adds support for time64 tests to the existing select6() syscall
-tests.
+e7dc14caa introduced a regression for new API network tests (these using
+tst_net.sh), which use network namespaces and have cleanup function:
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+$ PATH="/opt/ltp/testcases/bin:$PATH" tcp_ipsec.sh -6 -A rfc4543_256 \
+  -p esp_aead -m tunnel -s 100:1000:65535:R65535
+tcp_ipsec 1 TCONF: Must be super/root for this test!
+/opt/ltp/testcases/bin/tst_test.sh: line 32: tst_ipsec_cleanup: command not found
+
+This is caused by tst_brk called in tst_net.sh test preparation (happen
+just after loading tst_net.sh, that's why cleanup function haven't been
+defined yet. This would require to load tst_net.sh just before tst_run.
+
+But because tst_net.sh doesn't have it's own cleanup function
+(tst_cleanup_rhost is always called in _tst_do_exit in tst_test.sh
+regardless of setup/cleanup functions), we can assume that only after
+starting the actual test code (i.e. running either setup or test
+function) it's meaningful to run cleanup function.
+
+This is effectively a revert of e7dc14caa + adding $TST_SETUP_STARTED.
+
+Fixes: e7dc14caa ("tst_test.sh: Run cleanup even setup is not defined")
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
-V4:
-- Move the setting of tv_sec/nsec within the ifdef as ts isn't available
-  outside of it.
+ testcases/lib/tst_test.sh | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
- testcases/kernel/syscalls/select/select_var.h | 25 ++++++++++++++++---
- 1 file changed, 22 insertions(+), 3 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/select/select_var.h b/testcases/kernel/syscalls/select/select_var.h
-index b19a1d1bf085..2c7604807cf6 100644
---- a/testcases/kernel/syscalls/select/select_var.h
-+++ b/testcases/kernel/syscalls/select/select_var.h
-@@ -6,6 +6,7 @@
- #define SELECT_VAR__
+diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+index 8d24b4abf..aa74ad761 100644
+--- a/testcases/lib/tst_test.sh
++++ b/testcases/lib/tst_test.sh
+@@ -28,7 +28,8 @@ _tst_do_exit()
+ 	local ret=0
+ 	TST_DO_EXIT=1
  
- #include "lapi/syscalls.h"
-+#include "tst_timer.h"
+-	if [ -n "$TST_CLEANUP" -a -z "$TST_NO_CLEANUP" ]; then
++	if [ -n "$TST_SETUP_STARTED" -a -n "$TST_RUN_STARTED" -a \
++		-n "$TST_CLEANUP" -a -z "$TST_NO_CLEANUP" ]; then
+ 		$TST_CLEANUP
+ 	fi
  
- struct compat_sel_arg_struct {
- 	long _n;
-@@ -38,7 +39,7 @@ static int do_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *except
- 	}
- 	case 2: {
- 		int ret;
--		struct timespec ts = {
-+		struct __kernel_old_timespec ts = {
- 			.tv_sec = timeout->tv_sec,
- 			.tv_nsec = timeout->tv_usec * 1000,
- 		};
-@@ -47,7 +48,22 @@ static int do_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *except
- 		timeout->tv_usec = ts.tv_nsec / 1000;
- 		return ret;
- 	}
--	case 3:
-+	case 3: {
-+		int ret = 0;
-+#if (__NR_clock_settime64 != __LTP__NR_INVALID_SYSCALL)
-+		struct __kernel_timespec ts = {
-+			.tv_sec = timeout->tv_sec,
-+			.tv_nsec = timeout->tv_usec * 1000,
-+		};
-+		ret = tst_syscall(__NR_pselect6_time64, nfds, readfds, writefds, exceptfds, &ts, NULL);
-+		timeout->tv_sec = ts.tv_sec;
-+		timeout->tv_usec = ts.tv_nsec / 1000;
-+#else
-+		tst_brk(TCONF, "__NR_pselect6 time64 variant not supported");
-+#endif
-+		return ret;
-+	}
-+	case 4:
- #ifdef __NR__newselect
- 		return tst_syscall(__NR__newselect, nfds, readfds, writefds, exceptfds, timeout);
- #else
-@@ -72,11 +88,14 @@ static void select_info(void)
- 		tst_res(TINFO, "Testing SYS_pselect6 syscall");
- 	break;
- 	case 3:
-+		tst_res(TINFO, "Testing SYS_pselect6 time64 syscall");
-+	break;
-+	case 4:
- 		tst_res(TINFO, "Testing SYS__newselect syscall");
- 	break;
- 	}
- }
+@@ -582,6 +583,7 @@ tst_run()
+ 	[ -n "$TST_NEEDS_MODULE" ] && tst_require_module "$TST_NEEDS_MODULE"
  
--#define TEST_VARIANTS 4
-+#define TEST_VARIANTS 5
+ 	if [ -n "$TST_SETUP" ]; then
++		TST_SETUP_STARTED=1
+ 		$TST_SETUP
+ 	fi
  
- #endif /* SELECT_VAR__ */
+@@ -592,9 +594,11 @@ tst_run()
+ 			_tst_max=$(( $(echo $TST_TEST_DATA | tr -cd "$TST_TEST_DATA_IFS" | wc -c) +1))
+ 			for _tst_i in $(seq $_tst_max); do
+ 				_tst_data="$(echo "$TST_TEST_DATA" | cut -d"$TST_TEST_DATA_IFS" -f$_tst_i)"
++				TST_RUN_STARTED=1
+ 				_tst_run_tests "$_tst_data"
+ 			done
+ 		else
++			TST_RUN_STARTED=1
+ 			_tst_run_tests
+ 		fi
+ 		TST_ITERATIONS=$((TST_ITERATIONS-1))
 -- 
-2.25.0.rc1.19.g042ed3e048af
+2.26.2
 
 
 -- 
