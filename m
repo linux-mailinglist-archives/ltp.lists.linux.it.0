@@ -2,50 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E9721D794A
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 15:05:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F3391D86E1
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 20:30:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D21A63C4F51
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 15:05:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E91033C4F2C
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 20:30:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 4FEB33C0030
- for <ltp@lists.linux.it>; Mon, 18 May 2020 15:04:57 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 81E01200FD9
- for <ltp@lists.linux.it>; Mon, 18 May 2020 15:04:54 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.73,407,1583164800"; d="scan'208";a="92477958"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 18 May 2020 21:04:51 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id 21A0A4BCC89E;
- Mon, 18 May 2020 21:04:48 +0800 (CST)
-Received: from [10.167.220.69] (10.167.220.69) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 18 May 2020 21:04:48 +0800
-Message-ID: <5EC287EE.9070508@cn.fujitsu.com>
-Date: Mon, 18 May 2020 21:04:46 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 6684D3C042E
+ for <ltp@lists.linux.it>; Mon, 18 May 2020 20:30:04 +0200 (CEST)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 84B1C60109E
+ for <ltp@lists.linux.it>; Mon, 18 May 2020 20:29:41 +0200 (CEST)
+Received: by mail-wr1-x442.google.com with SMTP id l18so13025310wrn.6
+ for <ltp@lists.linux.it>; Mon, 18 May 2020 11:30:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=7s2WyxtDu8hGpu5dRNVLEYsqXqP9r7+v9akkAFK1YQY=;
+ b=gtFcM9pWy5fLbReQu4OHmNtx6ASfz5zF3pB1JYVXVZ6R965fENaUlYF2RgmS1MJTOZ
+ CDNp6wkcnSIqmV01vBy3/b01gZEFXiEEXWPad0gA6JNxukURkv/0egD3gEy88gflev+q
+ gEVL32iDmBDr3bC6rtHBzijuxMBcKah2zNFcoFa9A5lvk5pMkbJ40BEBg68km0SHlONZ
+ mJI+aE2qxxZQ1m9iacR+ZVFwGXEepVhtJH1WFP31TdHgjzKPDTPhjv8dLFRFUnyLOw+2
+ 7ytVHrl3zMjFxtG8I+M3ThgeloWN1wg716bfwEEJ3jQ8EEeenYRX4Ms/X5U3DdfISYkw
+ SZNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=7s2WyxtDu8hGpu5dRNVLEYsqXqP9r7+v9akkAFK1YQY=;
+ b=dEEBHbs9n7wY0ZzFR5umIryMjHNJN7z45KYco0hi3FDs6Gwe7hJVwREA4Nksce/mlY
+ K+rAllMURGTLjiq7djZSX8U9I6uX+SsTDHFkm0OjhCSx1W6OkvQoLJ6fR7exL/pKXAVi
+ HFtN2aqrZqjXO/g5HwHFq4tgndLS2mtVZd2PPAHNnwohnFHUrsm9HiechUeFdTwIDUNo
+ 9jfDHqR/Z0vwF8BvPsYRgf0xLtMPujHHiBWcPk7qj9LPwYkB4IxiByZSbLzzVsAxk/43
+ kMqepl31eh5Vnej6GnGVOrXC9eDaJ+5isDJz4Ea9n61LDc/DbLbbo7oH8lVmATQI7UmT
+ 1xpg==
+X-Gm-Message-State: AOAM530IwefB/Gbk8e/5lFYcWcqczJnVhBX81xV7kCydQXyGB6TRm21d
+ Y+/9ttmK/T5wc/dknCjpmJn5oLRmxUs=
+X-Google-Smtp-Source: ABdhPJwZlAgAzw6A4ehTRnAi4xjkskmvJvIOYibR+mcBWGO1txbW6qXkAT+Xi7TX7C+876Gg2GyhVQ==
+X-Received: by 2002:adf:f041:: with SMTP id t1mr21398435wro.346.1589826603897; 
+ Mon, 18 May 2020 11:30:03 -0700 (PDT)
+Received: from dell5510.arch.suse.de ([62.201.25.198])
+ by smtp.gmail.com with ESMTPSA id c25sm437292wmb.44.2020.05.18.11.30.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 May 2020 11:30:03 -0700 (PDT)
+From: Petr Vorel <petr.vorel@gmail.com>
+To: ltp@lists.linux.it
+Date: Mon, 18 May 2020 20:29:52 +0200
+Message-Id: <20200518182952.23520-1-petr.vorel@gmail.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-To: Petr Vorel <pvorel@suse.cz>
-References: <20200512201416.8299-1-pvorel@suse.cz>
-In-Reply-To: <20200512201416.8299-1-pvorel@suse.cz>
-X-Originating-IP: [10.167.220.69]
-X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
-X-yoursite-MailScanner-ID: 21A0A4BCC89E.AC1A4
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/1] rpc: TCONF when tests aren't compiled +
- remove kill warning
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [COMMITTED][PATCH 1/1] ebizzy: guard mallocopt() with
+ __GLIBC__
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,80 +75,41 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 2020/5/13 4:14, Petr Vorel wrote:
-> Without this test failure was wrongly reported:
-> rpc_test 1 TFAIL: tirpc_rpcb_getaddr 10.0.0.2 536875000 failed unexpectedly
-Hi Petr,
+From: Khem Raj <raj.khem@gmail.com>
 
-Do you know which caused this failure?
+mallocopt is not available on non glibc implementations
 
-Best Regards,
-Xiao Yang
->
-> Also make sure with variable that server has started before trying to
-> kill it.
->
-> Kill server with SIGPIPE, should be enough and SIGKILL
-> produced warning, which might be confused:
-> /opt/ltp/testcases/bin/rpc_test.sh: line 61: 3827 Killed  $SERVER $PROGNUMNOSVC
->
-> Reviewed-by: Alexey Kodanev<alexey.kodanev@oracle.com>
-> Signed-off-by: Petr Vorel<pvorel@suse.cz>
-> ---
-> Hi,
->
-> with this implementation (suggested by Alexey), we get TCONF twice. It's
-> a bit strange, but I'll keep it, because I like that required binary is
-> printed:
-> rpc_test 1 TCONF: 'tirpc_rpcb_getaddr' not found
-> rpc_test 1 TCONF: LTP compiled without TI-RPC support?
->
-> Also added proper detection if kill is needed (related to the change in
-> the commit) and kill with SIGPIPE (unrelated change, I can add it as
-> separate commit).
->
-> Kind regards,
-> Petr
->
->   testcases/network/rpc/rpc-tirpc/rpc_test.sh | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/testcases/network/rpc/rpc-tirpc/rpc_test.sh b/testcases/network/rpc/rpc-tirpc/rpc_test.sh
-> index 30cfd2564..dc97213d0 100755
-> --- a/testcases/network/rpc/rpc-tirpc/rpc_test.sh
-> +++ b/testcases/network/rpc/rpc-tirpc/rpc_test.sh
-> @@ -54,12 +54,13 @@ setup()
->   	fi
->
->   	[ -n "$CLIENT" ] || tst_brk TBROK "client program not set"
-> +	tst_check_cmds $CLIENT $SERVER || tst_brk TCONF "LTP compiled without TI-RPC support?"
->   }
->
->   cleanup()
->   {
-> -	if [ ! -z "$SERVER" ]; then
-> -		pkill -9 $SERVER>  /dev/null 2>&1
-> +	if [ "$SERVER_STARTED" ]; then
-> +		pkill -13 -x $SERVER
->   		$CLEANER $PROGNUMNOSVC
->   	fi
->   }
-> @@ -70,6 +71,7 @@ do_test()
->
->   	if [ -n "$SERVER" ]; then
->   		$SERVER $PROGNUMNOSVC&
-> +		SERVER_STARTED=1
->
->   		for i in $(seq 1 10); do
->   			rpcinfo -p localhost | grep -q $PROGNUMNOSVC&&  break
+Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ utils/benchmark/ebizzy-0.3/ebizzy.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-
+diff --git a/utils/benchmark/ebizzy-0.3/ebizzy.c b/utils/benchmark/ebizzy-0.3/ebizzy.c
+index 5bb8eff56..934d951f3 100644
+--- a/utils/benchmark/ebizzy-0.3/ebizzy.c
++++ b/utils/benchmark/ebizzy-0.3/ebizzy.c
+@@ -215,10 +215,10 @@ static void read_options(int argc, char *argv[])
+ 			"\"never mmap\" option specified\n");
+ 		usage();
+ 	}
+-
++#ifdef __GLIBC__
+ 	if (never_mmap)
+ 		mallopt(M_MMAP_MAX, 0);
+-
++#endif
+ 	if (chunk_size < record_size) {
+ 		fprintf(stderr, "Chunk size %u smaller than record size %u\n",
+ 			chunk_size, record_size);
+-- 
+2.26.2
 
 
 -- 
