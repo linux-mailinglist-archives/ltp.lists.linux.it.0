@@ -1,74 +1,63 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 715611D71B0
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 09:22:54 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 38A591D7207
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 09:39:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A450D3C4F50
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 09:22:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DF5D63C4F0B
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 09:39:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id BBECD3C24E3
- for <ltp@lists.linux.it>; Mon, 18 May 2020 09:22:50 +0200 (CEST)
-Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
- [IPv6:2607:f8b0:4864:20::642])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 1A1883C2078
+ for <ltp@lists.linux.it>; Mon, 18 May 2020 09:39:49 +0200 (CEST)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id EA3D2140121B
- for <ltp@lists.linux.it>; Mon, 18 May 2020 09:22:49 +0200 (CEST)
-Received: by mail-pl1-x642.google.com with SMTP id b12so3850322plz.13
- for <ltp@lists.linux.it>; Mon, 18 May 2020 00:22:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=kY3H/MwzeYvEEPJVoyisskHZJHhgRBrg0ywygzegYko=;
- b=fKLEUd9lK/7+rKZ84gIoYSsSQatpUqCehtFcNk3sPPRa36jT7ej+cwQQdKYIhgijxw
- XElDiyKPlClE4LgHXXLsmLBZZ5NYBhaMRfY0Q8Ae6X5Km5xab89UCjETJMY0ypoY6mR2
- u8ilZFYJKcbAGZPRBJpQJYRYW9aAGpzxDmT6I06xaNXaoELcLNFKsBtm48fKCKVkKMeD
- QUfivi/+PlKTOqgUbc9fSo6bOObtoQNejM57+3qf8T0GlTSy2KUVCJ55vuwVe89vWGhB
- mP8cICsw5Y9MgVEqyITRhH4Ihr+TAQb4KB4v4PAPWJBck4NzFO2FBrWkNUQmMssN695X
- RTZg==
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B1FB16013A4
+ for <ltp@lists.linux.it>; Mon, 18 May 2020 09:39:48 +0200 (CEST)
+Received: by mail-lj1-x233.google.com with SMTP id k5so2130236lji.11
+ for <ltp@lists.linux.it>; Mon, 18 May 2020 00:39:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=Dv+IzlZlXSCt2ACoRAk/ub/Dfm5HcODDWQXtLAnnsig=;
+ b=HnKrddG8MYGqOkkks8jbD/JZJw7xk8twcg/UHr3ZZfuvahAH2sGjMHuJny3yA2i9qZ
+ J3kQiu7vn2L7QVbRr/wyunMvs8C4fIskeRdP343EFol0O7NzOemuQsNdml9QZAwJl3cF
+ 5xHpkjb6Wq3NzbSp4/okfkMP73HJrAgrBZ6PPEKG7UchCtP/Q1afNMd+d5usr2OVDUge
+ /vmtHGy3ID/m3tEAQBoDSeW7Qp4hCrB57/RkrUfCHaIV25eHv0f7ob8pgsggzHRUFEpO
+ t+w4jjGnpDiaVMhXlIzQQzw/8zifZ21w3mEmMExQ8joZmuFCQ3WBN/KowIxAXRrhZTuK
+ qguA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=kY3H/MwzeYvEEPJVoyisskHZJHhgRBrg0ywygzegYko=;
- b=S2kPNrJIdZgS236L77/LeGkV/dgwXyHN0/O+pDyQyPnJDht2jrkRMHEILW2K+Jf8/1
- X60VIk1rNB/x/xj3DQZWnyQ6ef4zeBD/ScR/iGe5twm97Lovah3m1BNCUVu+PSRY3kh3
- 7q1jhN41NTh54nAec0jeN6VSw3yuZMU/KZ/deQqXgSQE8QTYqYEN9FfOqmtVyzw5bUNt
- MVcB0KnIUzSpW82qUpN4KUl57ByOXQys7xWAFBQDcktOUXi3dkK6xQoQBh/1LWUU/Xmk
- 1p1RxmIxtmj6BYKGxoOHATGV36lyQkUhtOY8n+d4KIXIyuTpPd75WQdOosdhrOb8Omg6
- hy7g==
-X-Gm-Message-State: AOAM530XrOGwBtMSSCQDgyYmUVTpPP/k1Gsi9vZCDFnC4QYEfW+09xTU
- RPUOLateX8GjAQA1QZkUcG8vPw==
-X-Google-Smtp-Source: ABdhPJxh8SaOKZCvYFhX8sL+2tUGMGHZeFlYbT2w/nPI8Ivb5i5IK4m98kYoHnKAHWyX1sLY0nFXKA==
-X-Received: by 2002:a17:902:9044:: with SMTP id
- w4mr15459607plz.83.1589786568219; 
- Mon, 18 May 2020 00:22:48 -0700 (PDT)
-Received: from localhost ([122.167.130.103])
- by smtp.gmail.com with ESMTPSA id q16sm7158391pgm.91.2020.05.18.00.22.46
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 18 May 2020 00:22:47 -0700 (PDT)
-Date: Mon, 18 May 2020 12:52:45 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Vikas Kumar <vikas.kumar2@arm.com>
-Message-ID: <20200518072245.hvqpspikfh2d3qpl@vireshk-i7>
-References: <20200514172831.27854-1-vikas.kumar2@arm.com>
- <20200514172831.27854-2-vikas.kumar2@arm.com>
- <20200515040849.yu27rdihdih5wxc3@vireshk-i7>
- <b13403ce-b7c9-79f6-c303-97763e867020@arm.com>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=Dv+IzlZlXSCt2ACoRAk/ub/Dfm5HcODDWQXtLAnnsig=;
+ b=SsaUgaT2q/nvj9oQtNstgOyKGsqtM68rSNlQqzq/74C1RN6DHCMvxRrn4o91J/ymZ4
+ 7u/We9JICgJqtrtRXBhcCZpSPPoqrzD3xZqMGi5nhCkretybs/MXVvfKWDa5kLAduanc
+ +dzlTyT3S/4pm20yrDIiPfCFw9p4Yjo/INkrSstw80Vbkuw7Esqt/CG86419vQ+7YYfU
+ kGthT1m/hBnIPUv5Y1uXIB18LjT/oBTf8YIFYV7BW0ICFA+kRdlImsU3STy65Tm1llZU
+ WSX89+YlPWuqofBW3lUji+u0EUgiJkGPrARbrwXhaSYQLPGQMf3LrQjqHt5wM8kf99O8
+ YTQg==
+X-Gm-Message-State: AOAM531zN/byaLOFuUInQYFK4YDwEWDD/PMvyU9pMgKa6lHpDMlfdqaf
+ 3lsf23T1yf9HsrD1eS+nttzu7znPMAFjaE73Fub3BFSrAT0=
+X-Google-Smtp-Source: ABdhPJx/K00edpco++ncC+GZgN9jTkjwnqXOfL2AUIkTtcWmSkxEE66j+H4gWHHQqNT219M8hNGbCOjNcnkiFrgJHZs=
+X-Received: by 2002:a2e:a48d:: with SMTP id h13mr4902177lji.120.1589787587527; 
+ Mon, 18 May 2020 00:39:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <b13403ce-b7c9-79f6-c303-97763e867020@arm.com>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+From: Aaron Chou <zhoubb.aaron@gmail.com>
+Date: Mon, 18 May 2020 15:39:36 +0800
+Message-ID: <CAMpQs4Kkwyp8+gyXvzCGmf0HizqqUbShXonin4sdAh7B=eZ4jw@mail.gmail.com>
+To: ltp@lists.linux.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V4 1/1] syscall: Add io_uring test
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] The problem about core dump
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,22 +69,15 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 18-05-20, 10:03, Vikas Kumar wrote:
-
-You reply isn't readable at all Vikas. Please read the kernel
-documentation on how the discussion happens over mailing lists and
-about not doing top-posting, importance of ">" character during a
-reply etc. Take help of some ARM friends who may have already done
-that earlier.
-
--- 
-viresh
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGksIGFsbO+8mgpJIGFtIHRoZSBuZXdlciBhYm91dCBMVFAuCkkgZmluZCBzb21lIHRlc3QgY2Fz
+ZXMsIHN1Y2ggYXMga2lsbDExIGFuZCBtbWFwMTYsIHRoYXQgd2lsbCBwcm9kdWNlCnRoZSBjb3Jl
+IGR1bXAgaW4gdGhlIHN5c3RlbS4KQnV0IHRoZXNlIHRlc3QgY2FzZXMgYXJlIHN0aWxsIHBhc3Nl
+ZCBhdCBsYXN0LgpJcyB0aGlzIG5vcm1hbD8KSG93IGNhbiBJIGV4cGxhaW4gaXQ/CkFsc28sIHlv
+dSBjYW4gYW5zd2VyIHVuZGVyIHRoaXMgaXNzdWUKaHR0cHM6Ly9naXRodWIuY29tL2xpbnV4LXRl
+c3QtcHJvamVjdC9sdHAvaXNzdWVzLzY4MgoKLS0tClJlZ2FyZHMuCkFhcm9uLgoKLS0gCk1haWxp
+bmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
