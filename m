@@ -1,39 +1,50 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B594A1D5229
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 May 2020 16:44:22 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3970F1D6F4D
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 05:27:14 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 31C9E3C53BE
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 May 2020 16:44:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B76D23C4FA6
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 05:27:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 331133C176A
- for <ltp@lists.linux.it>; Fri, 15 May 2020 16:44:17 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 7D8DB1A01740
- for <ltp@lists.linux.it>; Fri, 15 May 2020 16:44:11 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 4A59CAC7D;
- Fri, 15 May 2020 14:44:13 +0000 (UTC)
-Date: Fri, 15 May 2020 16:44:39 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it, linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
-Message-ID: <20200515144439.GA3267@yuki.lan>
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 0E8423C2035
+ for <ltp@lists.linux.it>; Mon, 18 May 2020 05:27:11 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 56EE9200B11
+ for <ltp@lists.linux.it>; Mon, 18 May 2020 05:27:08 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.73,405,1583164800"; d="scan'208";a="92420294"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 18 May 2020 11:27:04 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id B935E4BCC88A
+ for <ltp@lists.linux.it>; Mon, 18 May 2020 11:26:58 +0800 (CST)
+Received: from [10.167.220.69] (10.167.220.69) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Mon, 18 May 2020 11:26:58 +0800
+Message-ID: <5EC20081.1000508@cn.fujitsu.com>
+Date: Mon, 18 May 2020 11:26:57 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+References: <1589353614-24423-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+In-Reply-To: <1589353614-24423-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Originating-IP: [10.167.220.69]
+X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
+X-yoursite-MailScanner-ID: B935E4BCC88A.ACD7D
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [ANNOUNCE] The Linux Test Project has been released for MAY
- 2020
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 1/2] tpci: remove useless ENABLE_BRIDGES
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,200 +56,44 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: lwn@lwn.net, akpm@linux-foundation.org, torvalds@linux-foundation.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Good news everyone,
+Hi,
 
-the Linux Test Project test suite stable release for *May 2020* has been
-released.
+Thanks for your work, pushed.
 
-Since the last release 327 patches by 26 authors were merged.
-
-NOTABLE CHANGES
-===============
-
-* New tests
-  - fanotify16: FAN_MODIFY_DIR test
-  - ioctl_loop01: LO_FLAGS_AUTOCLEAR and LO_FLAGS_PARTSCAN test
-  - ioctl_loop02: LO_FLAGS_READ_ONLY and LOOP_CHANGE_FD test
-  - ioctl_loop03: LOOP_CHANGE_FD test with WR mode
-  - ioctl_loop04: LOOP_SET_CAPACITY ioctl test
-  - ioctl_loop05: LOOP_SET_DIRECT_IO ioctl test
-  - ioctl_loop06: LOOP_SET_BLOCK_SIZE error test
-  - ioctl_loop07: LOOP_SET/GET_STATUS64 sizelimit field test
-  - pipe2_02: test for pipe2 O_CLOEXEC flag
-  - pipe2_04: test for pipe2 with/without O_NONBLOCK mode
-  - timerfd04: time namespace test
-  - timens01: time namespace test
-  - clock_gettime03: time namespace test
-  - clock_nanosleep03: time namespace test
-  - sysinfo03: time namespace test
-  - clone301, clone301: clone3() syscall tests
-  - bind04: Connection tests for stream-oriented sockets (SOCK_STREAM and SOCK_SEQPACKET)
-  - bind05: Connection tests for datagram-oriented sockets (SOCK_DGRAM)
-  - fcntl37: add error test for fcntl with F_SETPIPE_SZ
-  - openat201, openat202, openat203: openat2() syscall tests
-  - open_tree01, open_tree02: open_tree() syscall tests
-  - fspick01, fspick02: fspick() syscall tests
-  - move_mount01, move_mount02: move_mount() syscall tests
-  - fsmount01, fsmount02: fsmount() syscall tests
-  - fsconfig01, fsconfig02: fsconfig() syscall tests
-  - fsopen01, fsopen02: fsopen() syscall tests
-  - pty04: Test data transmission with SLIP line discipline
-  - fallocate06: test for misaligned fallocate()
-  - io_pgetevents01, io_pgetevents02: io_pgetevents() syscall tests
-  - pidfd_open01, pidfd_open02, pidfd_open03: pidfd_open() syscall tests
-  - vmsplice04: vmsplice() test with SPLICE_F_NONBLOCK
-  - pipe12: add new test for pipe when write bytes > pipe size
-
-* New regression tests
-  - pty04: Added SLCAN ldisc and check for CVE-2020-11494
-  - setsockopt05: Test for CVE-2017-1000112
-  - ptrace09: Test for CVE-2018-8897
-  - snd_seq01: Test for CVE-2018-7566
-  - bind06: Test for CVE-2018-18559
-  - ptrace08: Test for CVE-2018-1000199
-  - ioctl_sg01: Test for CVE-2018-1000204
-  - sendmsg03: Test for CVE-2017-17712
-  - timerfd_settime02: Test for CVE-2017-10661
-  - connect02: Test for CVE 2018-9568
-               and also for setsockopt(IP_ADDRFORM) kernel bug
-               (82c9ae440857 ipv6: fix restrict IPV6_ADDRFORM operation)
-  - fanotify15: Add a test case for inode marks
-              (f367a62a7cad fanotify: merge duplicate events on parent and child)
-  - fanotify09: Check merging of events on directories
-             (55bf882c7f13 fanotify: fix merging marks masks with FAN_ONDIR)
-  - add_key05: add maxbytes/maxkeys test under unprivileged user
-               (a08bf91ce28e "KEYS: allow reaching the keys quotas exactly")
-  - pipe13: test for pipe to wake up all readers
-            (6551d5c56eb0 "pipe: make sure to wake up everybody when the last reader/writer closes")
-  - quotactl07: test for Q_XQTUOTARM
-            (3dd4d40b4208 "xfs: Sanity check flags of Q_XQUOTARM call")
-  - pty03: test for slip/slcan data race
-           (0ace17d568241 "can, slip: Protect tty->disc_data in write_wakeup and close with RCU")
-
-* Increased coverage
-  - readv01: new test cases added to the test
-  - add_key02: add the "big_key" key type
-
-* First half of time64 tests for 64bit timer syscalls has landed in this
-  relese, second half is going to be part of the next one1
-
-* Additional 12 tests were converted to the new test library
-
-* Removed tests
-  - epoll2: these depended on Portable Coroutine Library and were not even
-            compiled by default for a long time
-
-* Fixes for gcc-10 that enables -fno-common by default
-
-* LTP now supports ARC CPUs
-
-* Skip oversleep checks in timer tests under VM
-
-+ The usual amount of fixes and cleanups.
+Best Regards,
+Xiao Yang
+On 2020/5/13 15:06, Yang Xu wrote:
+> Since the previous commit, we have removed test_enable_bridges() because
+> pci_enable_bridges() was removed in 3.12 (928bea964827). But it forgot
+> to delete it in tpci.h. So remove it.
+>
+> Fixes: 3dd286b ("ltp_tpci.c: Update legacy code")
+> Signed-off-by: Yang Xu<xuyang2018.jy@cn.fujitsu.com>
+> ---
+>   testcases/kernel/device-drivers/pci/tpci_kernel/tpci.h | 1 -
+>   1 file changed, 1 deletion(-)
+>
+> diff --git a/testcases/kernel/device-drivers/pci/tpci_kernel/tpci.h b/testcases/kernel/device-drivers/pci/tpci_kernel/tpci.h
+> index f65c6fc22..f7defb29f 100644
+> --- a/testcases/kernel/device-drivers/pci/tpci_kernel/tpci.h
+> +++ b/testcases/kernel/device-drivers/pci/tpci_kernel/tpci.h
+> @@ -30,7 +30,6 @@ enum PCI_TCASES {
+>   	FIND_SUBSYS,
+>   	BUS_SCAN,
+>   	SLOT_SCAN,
+> -	ENABLE_BRIDGES,
+>   	BUS_ADD_DEVICES,
+>   	MATCH_DEVICE,
+>   	REG_DRIVER,
 
 
-NOTABLE CHANGES IN NETWORK TESTS
-================================
-brought to you by Petr Vorel
 
-* New netlink based route change tests
-
-* Fixes
-  - nfs: detect disabled UDP
-  - rpc: cleanup unused tests
-  - detect libtirpc with pkg-config
-
-* Rewrite to new API
-  - bind02, socketcall0[2-4], test_1_to_1_initmsg_connect (SCTP)
-  - rpcinfo01.sh, rpc01.sh, sendfile01.sh, xinetd_tests.sh
-
-DOWNLOAD AND LINKS
-==================
-
-The latest version of the test-suite contains 3000+ tests for the Linux
-and can be downloaded at:
-
-https://github.com/linux-test-project/ltp/releases/tag/20200515
-
-The project pages as well as GIT repository are hosted on GitHub:
-
-https://github.com/linux-test-project/ltp
-http://linux-test-project.github.io/
-
-If you ever wondered how to write a LTP testcase, don't miss our developer
-documentation at:
-
-https://github.com/linux-test-project/ltp/wiki/C-Test-Case-Tutorial
-https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelines
-https://github.com/linux-test-project/ltp/wiki/BuildSystem
-
-Patches, new tests, bugs, comments or questions should go to to our mailing
-list at ltp@lists.linux.it.
-
-
-CREDITS
-=======
-
-Many thanks to the people contributing to this release:
-
-git shortlog -s -e -n 20200120..
-
-   105  Petr Vorel <pvorel@suse.cz>
-    49  Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-    38  Viresh Kumar <viresh.kumar@linaro.org>
-    35  Martin Doucha <mdoucha@suse.cz>
-    33  Cyril Hrubis <chrubis@suse.cz>
-    11  Richard Palethorpe <rpalethorpe@suse.com>
-    10  Jan Stancek <jstancek@redhat.com>
-     6  Li Wang <liwang@redhat.com>
-     6  Petr Vorel <petr.vorel@gmail.com>
-     5  Amir Goldstein <amir73il@gmail.com>
-     4  Jorik Cronenberg <jcronenberg@suse.de>
-     4  Zou Wei <zou_wei@huawei.com>
-     3  Joerg Vehlow <joerg.vehlow@aox-tech.de>
-     3  Po-Hsu Lin <po-hsu.lin@canonical.com>
-     2  Alexey Kodanev <alexey.kodanev@oracle.com>
-     2  Jozef Pupava <jpupava@suse.com>
-     2  Xiao Yang <yangx.jy@cn.fujitsu.com>
-     1  Anibal Limon <anibal.limon@linux.intel.com>
-     1  Chen Li <chenli@uniontech.com>
-     1  Jozef Pupava <jpupava@suse.cz>
-     1  Khem Raj <raj.khem@gmail.com>
-     1  Ronald Monthero <rmonther@redhat.com>
-     1  Sean T Allen <sean@seantallen.com>
-     1  Vikas Kumar <vikas.kumar2@arm.com>
-     1  Vineet Gupta <Vineet.Gupta1@synopsys.com>
-     1  Zorro Lang <zlang@redhat.com>
-
-And also thanks to patch reviewers:
-
-git log 20200120.. | grep -Ei '(reviewed|acked)-by:' | sed 's/.*by: //' | sort | uniq -c | sort -n -r
-
-    137 Cyril Hrubis <chrubis@suse.cz>
-     62 Petr Vorel <pvorel@suse.cz>
-     56 Li Wang <liwang@redhat.com>
-     26 Jan Stancek <jstancek@redhat.com>
-     17 Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-     12 Alexey Kodanev <alexey.kodanev@oracle.com>
-      8 Xiao Yang <ice_yangxiao@163.com>
-      4 Martin Doucha <mdoucha@suse.cz>
-      4 Jan Kara <jack@suse.cz>
-      3 Richard Palethorpe <rpalethorpe@suse.com>
-      3 Matthew Bobrowski <mbobrowski@mbobrowski.org>
-      2 Xiao Yang <yangx.jy@cn.fujitsu.com>
-      2 Viresh Kumar <viresh.kumar@linaro.org>
-      1 Yang Xu <xuyang_jy_0410@163.com>
-      1 Desnes A. Nunes do Rosario <desnesn@linux.ibm.com>
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
