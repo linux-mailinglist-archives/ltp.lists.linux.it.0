@@ -1,72 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3053D1D72B8
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 10:17:27 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id D6F2E1D72B9
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 10:17:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 945D83C4F14
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 10:17:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 957553C4F3C
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 10:17:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 411783C2696
- for <ltp@lists.linux.it>; Mon, 18 May 2020 10:15:53 +0200 (CEST)
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id A55173C4F29
+ for <ltp@lists.linux.it>; Mon, 18 May 2020 10:15:54 +0200 (CEST)
+Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
+ [IPv6:2607:f8b0:4864:20::641])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1E522600079
- for <ltp@lists.linux.it>; Mon, 18 May 2020 10:15:51 +0200 (CEST)
-Received: by mail-pg1-x544.google.com with SMTP id j21so4463621pgb.7
- for <ltp@lists.linux.it>; Mon, 18 May 2020 01:15:51 -0700 (PDT)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id EF55A1A014DE
+ for <ltp@lists.linux.it>; Mon, 18 May 2020 10:15:53 +0200 (CEST)
+Received: by mail-pl1-x641.google.com with SMTP id m7so3929735plt.5
+ for <ltp@lists.linux.it>; Mon, 18 May 2020 01:15:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=3hSmG9cFNH+goXqeZoTWiFE5aD5ilhVTpXpfke+DEIQ=;
- b=lCg3J08bTlqJ22TnKK5VK8vCuPU3T/O5w6W//YzS4PA0EiAR/j9gBi0/qBCE47sO7x
- 3uRzJPW1icrO/FsOKKxoYHhLjDPHJjwUDMnoIGyVBKQ2cMoxGABdxndqTkEB8yZHZEv5
- DonomBc2x76pmpIHbOqbXKgtBS9CoZc8w6Vd8jLY2m+jw+L8ASM6KN7Wl40Mp5DzbKI7
- UDJWV9cGSGwIXYSwwB3Zdx270vUar3gBx7QyGmBE6hW+qifhgiMznu1ig0TD+M6ZWFOk
- LgoKgVUoKyapwkiYH0aFTlFHc4u0IxDwZvjHNdinzse0Y9JdajNUpjkfqqdhyk6rwXBS
- aP/A==
+ bh=3LmMCyrOJvEaTuQXQmCs5s8dg/UO7OTfdi7lndvVZlw=;
+ b=GJG8CJBn90n5y+e4QQA80F+J7iQpdFUxlFCSAKkNUXWwCbuHHkXQcaKgvzlKLKSNn3
+ 3yCaduoHP4dcNApiMSg0drU1Y1bf9gZYcz7ClB7dGy6oEMPxpLhca2RPnWiHAUvV+45M
+ uyJXLBKCfuIUJ5/x4IZQzpR7n9v3DpFKpQp4j4lnZuTPfw8pZPyPNYmiCUv/NJg1K0wM
+ vFl88nkzwlvb/t3uru/dMcYXlL374M3bif/mP+TrVEVPw+Xbj/FXrkJeuzigNc/+8rLU
+ GiGBgqybXTn+R9tRMi5IA8gxY1AkjLXrlc2KM7VNYA55tW+A4QpXOJtQ2p42o6/sYxHh
+ 8lDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=3hSmG9cFNH+goXqeZoTWiFE5aD5ilhVTpXpfke+DEIQ=;
- b=Kaz2lfwmVNWjEs0Z4PAkT7NGw+P6qKB2stqx/SQCWKzjNU/wNJq6yNOfeHeDKGnuGf
- nZPL8DJ9w+KLg77CbErwT4ufrfcBq54h3wwBmAowjGG8jswke6YbaPF/JF3gaaThxB7e
- B/cyyeKBroohWGbQ5xccYzieBWtBpodIHe4AZrC0lLqdyP3tzI2xPBMsBM6gpaN2QMlP
- 0a4VoqjtSlTBxOYuoL6ISwgCTCXhRpggWE46OEE1Nl2WyczTb7qaJG29lk0yX2ogGDDr
- 2+BjxTMQY4bJMLaF1eEs54atM9msVjrvCXIwktX+//8QsLMQr6V70OTuzDX8/g1niT1i
- ZUow==
-X-Gm-Message-State: AOAM531L/9NtUqzgfEl7VrVpO+6IXuwBD7no01sFODo6c0lMiRNjnlen
- /DG3VtjG1sez8zSVT1QcUL2cGTzTSS0=
-X-Google-Smtp-Source: ABdhPJwC5UwU3HW9EhzeNTQXi0qzUVgvh6TghHyzqYsh3OkJwNfJxjVY2onCKVx9M4t0qUjQtvzhTg==
-X-Received: by 2002:a63:30c2:: with SMTP id
- w185mr13459011pgw.353.1589789749331; 
- Mon, 18 May 2020 01:15:49 -0700 (PDT)
+ bh=3LmMCyrOJvEaTuQXQmCs5s8dg/UO7OTfdi7lndvVZlw=;
+ b=iqKBzwUK8eJd1HmtswIdDA2d3hGIq1VHKY4AK9oAl6UXjqgjq0B+JK9V1EUB9weDem
+ y4VPmyq2zFTxRHls73wcGO4d3no/Q7Y7eYR5ItCCc6Ls2UT47kyJcgeHDFyVFdCtmCz8
+ 8OyYjc1xloGf3F4tzy9ORCfS8tvvt+S0+w9mqJUonAbryCYXprFIhuhQUGzJ8x+twt7s
+ QfSs+LpKje9wSx+VUiucflihg6pFytcF9nXHJssLg4fqbAKCu+F1xaGcFNoh7jcqF+yZ
+ 2qbGtgq18gkR+FcGZVYZPhGa1b/Jowikj1tygOYvVsBDsa7c1IBDc/wEfOhNzq/iPNod
+ 7SFg==
+X-Gm-Message-State: AOAM531jyAF8GRjnqffQ5Awz6gZqMrihIqeKbMSBKjNakG9fLcIa8zQR
+ K5LW/0aPDo2ql+cdWudLM9aogdyEU4Y=
+X-Google-Smtp-Source: ABdhPJxUPZrrTs95a+6rAS4l7HurdE85WYDo1e7SMPrpgu1tnQhVP0ccQtJ58xvNBo7cbn/IPdRVWQ==
+X-Received: by 2002:a17:90a:f108:: with SMTP id
+ cc8mr18590659pjb.198.1589789751941; 
+ Mon, 18 May 2020 01:15:51 -0700 (PDT)
 Received: from localhost ([122.167.130.103])
- by smtp.gmail.com with ESMTPSA id k18sm3040418pfg.217.2020.05.18.01.15.48
+ by smtp.gmail.com with ESMTPSA id i72sm8300371pfe.104.2020.05.18.01.15.51
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 18 May 2020 01:15:48 -0700 (PDT)
+ Mon, 18 May 2020 01:15:51 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Mon, 18 May 2020 13:45:03 +0530
-Message-Id: <c27d27416ef5a3e0ceaf61fec08d5a46ca8dab15.1589789487.git.viresh.kumar@linaro.org>
+Date: Mon, 18 May 2020 13:45:04 +0530
+Message-Id: <cbc4dad2fac0845efc145d8c451ae6d666b4a8fd.1589789487.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
 In-Reply-To: <cover.1589789487.git.viresh.kumar@linaro.org>
 References: <cover.1589789487.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH V3 11/17] syscalls/recvmmsg: Add support for time64
- tests
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH V3 12/17] syscalls/ppoll: Add support for time64 tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,184 +83,167 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This adds support for time64 tests to the existing recvmmsg() syscall
+This adds support for time64 tests to the existing ppoll() syscall
 tests.
+
+Note that the O_EXCL flag is removed from SAFE_OPEN() calls as it made
+the tests failed when run for the second variant as the file existed.
 
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- .../kernel/syscalls/sendmmsg/sendmmsg01.c     | 40 ++++++++++----
- .../kernel/syscalls/sendmmsg/sendmmsg_var.h   | 55 ++++++++-----------
- 2 files changed, 53 insertions(+), 42 deletions(-)
+ testcases/kernel/syscalls/ppoll/ppoll01.c | 71 ++++++++++++++++++-----
+ 1 file changed, 55 insertions(+), 16 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/sendmmsg/sendmmsg01.c b/testcases/kernel/syscalls/sendmmsg/sendmmsg01.c
-index 37084102ee09..016bbc6813c4 100644
---- a/testcases/kernel/syscalls/sendmmsg/sendmmsg01.c
-+++ b/testcases/kernel/syscalls/sendmmsg/sendmmsg01.c
-@@ -14,7 +14,6 @@
+diff --git a/testcases/kernel/syscalls/ppoll/ppoll01.c b/testcases/kernel/syscalls/ppoll/ppoll01.c
+index 2fadd0653948..a217254022d4 100644
+--- a/testcases/kernel/syscalls/ppoll/ppoll01.c
++++ b/testcases/kernel/syscalls/ppoll/ppoll01.c
+@@ -21,6 +21,7 @@
+ #include "ltp_signal.h"
+ #include "tst_sig_proc.h"
  #include "tst_test.h"
- #include "lapi/socket.h"
- #include "tst_safe_macros.h"
--
- #include "sendmmsg_var.h"
++#include "tst_timer.h"
  
- #define BUFSIZE 16
-@@ -25,27 +24,48 @@ static int receive_sockfd;
- static struct mmsghdr *snd_msg, *rcv_msg;
- static struct iovec *snd1, *snd2, *rcv1, *rcv2;
+ /* Older versions of glibc don't publish this constant's value. */
+ #ifndef POLLRDHUP
+@@ -38,7 +39,7 @@ struct test_case {
+ 	unsigned int nfds;	   /* nfds ppoll parameter */
+ 	sigset_t *sigmask;	   /* sigmask ppoll parameter */
+ 	sigset_t *sigmask_cur;	   /* sigmask set for current process */
+-	struct timespec *ts;	   /* ts ppoll parameter */
++	struct tst_ts *ts;	   /* ts ppoll parameter */
+ 	struct pollfd *fds;	   /* fds ppoll parameter */
+ 	int sigint_count;	   /* if > 0, spawn process to send SIGINT */
+ 				   /* 'count' times to current process */
+@@ -60,14 +61,7 @@ static int fd1 = -1;
+ static sigset_t sigmask_empty, sigmask_sigint;
+ static struct pollfd fds_good[1], fds_already_closed[1];
  
+-static struct timespec ts_short = {
+-	.tv_sec = 0,
+-	.tv_nsec = 200000000,
+-};
+-static struct timespec ts_long = {
+-	.tv_sec = 2,
+-	.tv_nsec = 0,
+-};
++static struct tst_ts ts_short, ts_long;
+ 
+ /* Test cases
+  *
+@@ -160,14 +154,53 @@ static struct test_case tcase[] = {
+ 	},
+ };
+ 
++static inline int libc_ppoll(struct pollfd *fds, nfds_t nfds, void *tmo_p,
++			     const sigset_t *sigmask, size_t sigsetsize)
++{
++	return ppoll(fds, nfds, tmo_p, sigmask);
++}
++
++static inline int sys_ppoll(struct pollfd *fds, nfds_t nfds, void *tmo_p,
++			    const sigset_t *sigmask, size_t sigsetsize)
++{
++	return tst_syscall(__NR_ppoll, fds, nfds, tmo_p, sigmask, sigsetsize);
++}
++
++static inline int sys_ppoll_time64(struct pollfd *fds, nfds_t nfds, void *tmo_p,
++				   const sigset_t *sigmask, size_t sigsetsize)
++{
++	return tst_syscall(__NR_ppoll_time64, fds, nfds, tmo_p, sigmask,
++			   sigsetsize);
++}
++
 +static struct test_variants {
-+	int (*receive)(int sockfd, struct mmsghdr *msgvec, unsigned int vlen,
-+		       unsigned int flags, void *timeout);
-+	int (*send)(int sockfd, struct mmsghdr *msgvec, unsigned int vlen,
-+		    unsigned int flags);
++	int (*ppoll)(struct pollfd *fds, nfds_t nfds, void *tmo_p,
++		     const sigset_t *sigmask, size_t sigsetsize);
++
 +	enum tst_ts_type type;
 +	char *desc;
 +} variants[] = {
-+	{ .receive = libc_recvmmsg, .send = libc_sendmmsg, .type = TST_LIBC_TIMESPEC, .desc = "vDSO or syscall with libc spec"},
++	{ .ppoll = libc_ppoll, .type = TST_LIBC_TIMESPEC, .desc = "vDSO or syscall with libc spec"},
 +
-+#if (__NR_recvmmsg != __LTP__NR_INVALID_SYSCALL)
-+	{ .receive = sys_recvmmsg, .send = sys_sendmmsg, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
++#if (__NR_ppoll != __LTP__NR_INVALID_SYSCALL)
++	{ .ppoll = sys_ppoll, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
 +#endif
 +
-+#if (__NR_recvmmsg_time64 != __LTP__NR_INVALID_SYSCALL)
-+	{ .receive = sys_recvmmsg64, .send = sys_sendmmsg, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
++#if (__NR_ppoll_time64 != __LTP__NR_INVALID_SYSCALL)
++	{ .ppoll = sys_ppoll_time64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
 +#endif
 +};
 +
- static void run(void)
+ static void sighandler(int sig LTP_ATTRIBUTE_UNUSED)
  {
--	struct timespec timeout;
+ }
+ 
+ static void setup(void)
+ {
 +	struct test_variants *tv = &variants[tst_variant];
-+	struct tst_ts timeout;
- 	int retval;
+ 	int fd2;
  
--	retval = do_sendmmsg(send_sockfd, snd_msg, VLEN, 0);
-+	retval = tv->send(send_sockfd, snd_msg, VLEN, 0);
- 	if (retval < 0 || snd_msg[0].msg_len != 6 || snd_msg[1].msg_len != 6) {
--		tst_res(TFAIL|TTERRNO, "sendmmsg failed");
-+		tst_res(TFAIL|TTERRNO, "sendmmsg() failed");
- 		return;
- 	}
++	tst_res(TINFO, "Testing variant: %s", tv->desc);
+ 	SAFE_SIGNAL(SIGINT, sighandler);
  
- 	memset(rcv1->iov_base, 0, rcv1->iov_len);
- 	memset(rcv2->iov_base, 0, rcv2->iov_len);
+ 	if (sigemptyset(&sigmask_empty) == -1)
+@@ -177,18 +210,22 @@ static void setup(void)
+ 	if (sigaddset(&sigmask_sigint, SIGINT) == -1)
+ 		tst_brk(TBROK | TERRNO, "sigaddset");
  
--	timeout.tv_sec = 1;
--	timeout.tv_nsec = 0;
-+	timeout.type = tv->type;
-+	tst_ts_set_sec(&timeout, 1);
-+	tst_ts_set_nsec(&timeout, 0);
+-	fd1 = SAFE_OPEN("testfile1", O_CREAT | O_EXCL | O_RDWR,
+-		S_IRUSR | S_IWUSR);
++	fd1 = SAFE_OPEN("testfile1", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
+ 	fds_good[0].fd = fd1;
+ 	fds_good[0].events = POLLIN | POLLPRI | POLLOUT | POLLRDHUP;
+ 	fds_good[0].revents = 0;
  
--	retval = do_recvmmsg(receive_sockfd, rcv_msg, VLEN, 0, &timeout);
-+	retval = tv->receive(receive_sockfd, rcv_msg, VLEN, 0, tst_ts_get(&timeout));
- 
- 	if (retval == -1) {
--		tst_res(TFAIL | TTERRNO, "recvmmsg failed");
-+		tst_res(TFAIL | TTERRNO, "recvmmsg() failed");
- 		return;
- 	}
- 	if (retval != 2) {
-@@ -96,7 +116,7 @@ static void setup(void)
- 	rcv_msg[1].msg_hdr.msg_iov = rcv2;
- 	rcv_msg[1].msg_hdr.msg_iovlen = 1;
- 
--	test_info();
-+	tst_res(TINFO, "Testing variant: %s", variants[tst_variant].desc);
+-	fd2 = SAFE_OPEN("testfile2", O_CREAT | O_EXCL | O_RDWR,
+-		S_IRUSR | S_IWUSR);
++	fd2 = SAFE_OPEN("testfile2", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
+ 	fds_already_closed[0].fd = fd2;
+ 	fds_already_closed[0].events = POLLIN | POLLPRI | POLLOUT | POLLRDHUP;
+ 	fds_already_closed[0].revents = 0;
+ 	SAFE_CLOSE(fd2);
++
++	ts_short.type = ts_long.type = tv->type;
++	tst_ts_set_sec(&ts_short, 0);
++	tst_ts_set_nsec(&ts_short, 200000000);
++	tst_ts_set_sec(&ts_long, 2);
++	tst_ts_set_nsec(&ts_long, 0);
  }
  
  static void cleanup(void)
-@@ -111,7 +131,7 @@ static struct tst_test test = {
- 	.test_all = run,
+@@ -199,10 +236,11 @@ static void cleanup(void)
+ 
+ static void do_test(unsigned int i)
+ {
++	struct test_variants *tv = &variants[tst_variant];
+ 	pid_t pid = 0;
+ 	int sys_ret, sys_errno = 0, dummy;
+ 	struct test_case *tc = &tcase[i];
+-	struct timespec ts, *tsp = NULL;
++	struct tst_ts ts, *tsp = NULL;
+ 
+ 	if (tc->ts) {
+ 		memcpy(&ts, tc->ts, sizeof(ts));
+@@ -223,8 +261,8 @@ static void do_test(unsigned int i)
+ 
+ 	/* test */
+ 	errno = 0;
+-	sys_ret = tst_syscall(__NR_ppoll, tc->fds, tc->nfds, tsp,
+-		tc->sigmask, SIGSETSIZE);
++	sys_ret = tv->ppoll(tc->fds, tc->nfds, tst_ts_get(tsp), tc->sigmask,
++			    SIGSETSIZE);
+ 	sys_errno = errno;
+ 
+ 	/* cleanup */
+@@ -261,6 +299,7 @@ static void do_test(unsigned int i)
+ static struct tst_test test = {
+ 	.tcnt = ARRAY_SIZE(tcase),
+ 	.test = do_test,
++	.test_variants = ARRAY_SIZE(variants),
  	.setup = setup,
  	.cleanup = cleanup,
--	.test_variants = TEST_VARIANTS,
-+	.test_variants = ARRAY_SIZE(variants),
- 	.bufs = (struct tst_buffers []) {
- 		{&snd1, .iov_sizes = (int[]){3, 3, -1}},
- 		{&snd2, .iov_sizes = (int[]){6, -1}},
-diff --git a/testcases/kernel/syscalls/sendmmsg/sendmmsg_var.h b/testcases/kernel/syscalls/sendmmsg/sendmmsg_var.h
-index f00cf056a747..a142b17f9718 100644
---- a/testcases/kernel/syscalls/sendmmsg/sendmmsg_var.h
-+++ b/testcases/kernel/syscalls/sendmmsg/sendmmsg_var.h
-@@ -6,55 +6,46 @@
- #ifndef SENDMMSG_VAR__
- #define SENDMMSG_VAR__
- 
-+#include "tst_timer.h"
- #include "lapi/syscalls.h"
- 
--static int do_sendmmsg(int sockfd, struct mmsghdr *msgvec, unsigned int vlen,
--		       int flags)
-+static inline int libc_sendmmsg(int sockfd, struct mmsghdr *msgvec,
-+				unsigned int vlen, unsigned int flags)
- {
--	switch (tst_variant) {
--	case 0:
--		return tst_syscall(__NR_sendmmsg, sockfd, msgvec, vlen, flags);
--	case 1:
- #ifdef HAVE_SENDMMSG
--		return sendmmsg(sockfd, msgvec, vlen, flags);
-+	return sendmmsg(sockfd, msgvec, vlen, flags);
- #else
--		tst_brk(TCONF, "libc sendmmsg not present");
-+	tst_brk(TCONF, "libc sendmmsg not present");
- #endif
--	}
-+}
- 
--	return -1;
-+static inline int sys_sendmmsg(int sockfd, struct mmsghdr *msgvec,
-+			       unsigned int vlen, unsigned int flags)
-+{
-+	return tst_syscall(__NR_sendmmsg, sockfd, msgvec, vlen, flags);
- }
- 
--static int do_recvmmsg(int sockfd, struct mmsghdr *msgvec, unsigned int vlen,
--		       int flags, struct timespec *timeout)
-+static inline int libc_recvmmsg(int sockfd, struct mmsghdr *msgvec,
-+			unsigned int vlen, unsigned int flags, void *timeout)
- {
--	switch (tst_variant) {
--	case 0:
--		return tst_syscall(__NR_recvmmsg, sockfd, msgvec, vlen, flags,
--				   timeout);
--	case 1:
- #ifdef HAVE_RECVMMSG
--		return recvmmsg(sockfd, msgvec, vlen, flags, timeout);
-+	return recvmmsg(sockfd, msgvec, vlen, flags, timeout);
- #else
--		tst_brk(TCONF, "libc recvmmsg not present");
-+	tst_brk(TCONF, "libc recvmmsg not present");
- #endif
--	}
--
--	return -1;
- }
- 
--static void test_info(void)
-+static inline int sys_recvmmsg(int sockfd, struct mmsghdr *msgvec,
-+			unsigned int vlen, unsigned int flags, void *timeout)
- {
--	switch (tst_variant) {
--	case 0:
--		tst_res(TINFO, "Testing direct sendmmsg and recvmmsg syscalls");
--		break;
--	case 1:
--		tst_res(TINFO, "Testing libc sendmmsg and recvmmsg syscalls");
--		break;
--	}
-+	return tst_syscall(__NR_recvmmsg, sockfd, msgvec, vlen, flags, timeout);
- }
- 
--#define TEST_VARIANTS 2
-+static inline int sys_recvmmsg64(int sockfd, struct mmsghdr *msgvec,
-+			unsigned int vlen, unsigned int flags, void *timeout)
-+{
-+	return tst_syscall(__NR_recvmmsg_time64, sockfd, msgvec, vlen, flags,
-+			   timeout);
-+}
- 
- #endif /* SENDMMSG_VAR__ */
+ 	.forks_child = 1,
 -- 
 2.25.0.rc1.19.g042ed3e048af
 
