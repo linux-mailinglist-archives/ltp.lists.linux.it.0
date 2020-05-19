@@ -1,50 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A8011D8F10
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 07:10:57 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A26281D902D
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 08:37:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 57F263C4E96
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 07:10:56 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2D3833C4E64
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 08:37:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 833F23C24DD
- for <ltp@lists.linux.it>; Tue, 19 May 2020 07:10:52 +0200 (CEST)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id C10A63C1ABA
+ for <ltp@lists.linux.it>; Tue, 19 May 2020 08:37:44 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3E71A6023C4
- for <ltp@lists.linux.it>; Tue, 19 May 2020 07:10:51 +0200 (CEST)
-Received: from [192.168.178.40] (unknown [188.192.1.13])
- by mail.jv-coder.de (Postfix) with ESMTPSA id E1B06A32A5;
- Tue, 19 May 2020 05:10:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1589865051; bh=wp5X3EDVY8hY5gNFx762rU/KJM3kjC3YC+1PWO8K6k4=;
- h=Subject:To:From:Message-ID:Date:MIME-Version;
- b=uHGa8/2OBJddYn0ukvN3lde4rGcOdOLOyt/3+FSzLGiJ4oBW73WvmXxXVcv80Om+u
- 6dLvHH3wtx2icWdensLsscvG5ZNSlUvV2vblFmG7PlaO5dromKVzvy2mLeH9nKOnb5
- 7NTXn/0Dn3kVB6CAQCDHFtqpNmO7VZFiG0Zf5tXU=
-To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 411F81000AF6
+ for <ltp@lists.linux.it>; Tue, 19 May 2020 08:37:43 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 67539AC5B;
+ Tue, 19 May 2020 06:37:45 +0000 (UTC)
+Date: Tue, 19 May 2020 08:37:40 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <20200519063740.GA7756@dell5510>
 References: <20200518130132.19312-1-pvorel@suse.cz>
- <20200518130132.19312-2-pvorel@suse.cz>
-From: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <033366de-ed10-f494-600a-51aed8639613@jv-coder.de>
-Date: Tue, 19 May 2020 07:10:51 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ <1a41aca6-f774-08da-bf7b-b33806b48923@jv-coder.de>
 MIME-Version: 1.0
-In-Reply-To: <20200518130132.19312-2-pvorel@suse.cz>
-Content-Language: en-US
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <1a41aca6-f774-08da-bf7b-b33806b48923@jv-coder.de>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 2/2] tst_test.sh: Warn about setup/cleanup
- function not loaded
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] tst_test.sh: Fix calling not yet loaded
+ cleanup function
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,18 +47,70 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgUGV0ciwKCnRoaXMgbG9va3MgZ29vZCwganVzdCBvbmUgc21hbGwgdHlwby4gQW5kIEkgZ3Vl
-c3MgSSB3b3VsZCByYWlzZSB0aGlzIHRvIApUQlJPSywgYnV0IHRoYXQKaXMganVzdCBteSBwZXJz
-b25hbCBwcmVmZXJlbmNlIDopCgpBbSAxOC4wNS4yMDIwIHVtIDE1OjAxIHNjaHJpZWIgUGV0ciBW
-b3JlbDoKPiArCQlpZiB0eXBlICIkVFNUX0NMRUFOVVAiID4vZGV2L251bGwgMj4mMTsgdGhlbgo+
-ICsJCQkkVFNUX0NMRUFOVVAKPiArCQllbHNlCj4gKwkJCXRzdF9yZXMgVFdBUk4gImNsZWFudXAg
-ZnVuY3Rpb24gc2V0IChUU1RfU0VUVVA9JyRUU1RfQ0xFQU5VUCcpLCBidXQgbm90IGZvdW5kICh0
-ZXN0IGJ1ZykiClRoaXMgc2hvdWxkIHByb2JhYmx5IGJlIFRTVF9DTEVBTlVQPS4uLi4KCgpKw7Zy
-ZwoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZv
-L2x0cAo=
+Hi J=F6rg,
+
+> >   	TST_DO_EXIT=3D1
+> > -	if [ -n "$TST_CLEANUP" -a -z "$TST_NO_CLEANUP" ]; then
+> > +	if [ -n "$TST_SETUP_STARTED" -a -n "$TST_RUN_STARTED" -a \
+> > +		-n "$TST_CLEANUP" -a -z "$TST_NO_CLEANUP" ]; then
+> In the description you write "[after] running either setup or test
+> function". But this implementation
+> is "after running setup and test function". Cleanup should also be execut=
+ed,
+> if only setup was run right?
+Thanks! Yes, I meant -o (or), but typed -a (and).
+
+> > @@ -592,9 +594,11 @@ tst_run()
+> >   			_tst_max=3D$(( $(echo $TST_TEST_DATA | tr -cd "$TST_TEST_DATA_IFS"=
+ | wc -c) +1))
+> >   			for _tst_i in $(seq $_tst_max); do
+> >   				_tst_data=3D"$(echo "$TST_TEST_DATA" | cut -d"$TST_TEST_DATA_IFS"=
+ -f$_tst_i)"
+> > +				TST_RUN_STARTED=3D1
+> >   				_tst_run_tests "$_tst_data"
+> >   			done
+> >   		else
+> > +			TST_RUN_STARTED=3D1
+> >   			_tst_run_tests
+> >   		fi
+> Is it really important, that test is started? Shouldn't it be enough if we
+> got to the point, where the test
+> could be started. Moving TST_RUN_STARTED out of the condition would reduce
+> repetition.
+
+Well, if you look into the code, there is tst_require_cmds call in if claus=
+e,
+which should pass:
+
+	#TODO check that test reports some results for each test function call
+	while [ $TST_ITERATIONS -gt 0 ]; do
+		if [ -n "$TST_TEST_DATA" ]; then
+			tst_require_cmds cut tr wc
+			_tst_max=3D$(( $(echo $TST_TEST_DATA | tr -cd "$TST_TEST_DATA_IFS" | wc =
+-c) +1))
+			for _tst_i in $(seq $_tst_max); do
+				_tst_data=3D"$(echo "$TST_TEST_DATA" | cut -d"$TST_TEST_DATA_IFS" -f$_t=
+st_i)"
+				TST_RUN_STARTED=3D1
+				_tst_run_tests "$_tst_data"
+			done
+		else
+			TST_RUN_STARTED=3D1
+			_tst_run_tests
+		fi
+		TST_ITERATIONS=3D$((TST_ITERATIONS-1))
+	done
+
+Kind regards,
+Petr
+
+-- =
+
+Mailing list info: https://lists.linux.it/listinfo/ltp
