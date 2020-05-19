@@ -2,40 +2,48 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D36C31D8A2A
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 23:43:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 396A21D8EFA
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 07:05:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 61AE63C4F46
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 May 2020 23:43:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2AE113C4E94
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 07:05:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id AC94D3C042A
- for <ltp@lists.linux.it>; Mon, 18 May 2020 23:42:56 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 954D23C04F0
+ for <ltp@lists.linux.it>; Tue, 19 May 2020 07:05:15 +0200 (CEST)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A2CD01401AB0
- for <ltp@lists.linux.it>; Mon, 18 May 2020 23:42:55 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 8F0CAAB99;
- Mon, 18 May 2020 21:42:57 +0000 (UTC)
-Date: Mon, 18 May 2020 23:42:53 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Xiao Yang <yangx.jy@cn.fujitsu.com>
-Message-ID: <20200518214253.GB22879@dell5510>
-References: <20200512201416.8299-1-pvorel@suse.cz>
- <5EC287EE.9070508@cn.fujitsu.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id EA7796023C9
+ for <ltp@lists.linux.it>; Tue, 19 May 2020 07:05:12 +0200 (CEST)
+Received: from [192.168.178.40] (unknown [188.192.1.13])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 508BDA32A5;
+ Tue, 19 May 2020 05:05:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1589864708; bh=lZFQCMqBlOfn0FLkbyMcqnQ3S80+MOFba1jHG8iXcqY=;
+ h=Subject:To:From:Message-ID:Date:MIME-Version;
+ b=jBzpBMsR0jY2K3QQAOefFbR2mUl1LOafEfko9lJIkDhd2zgLeHpcikT5WQg6kY1Po
+ zfXS6QaO07/t5sNGW728VzEgE61eRz5/pch79EFpZgS02qrAWXuebaqGZ5z2ErhMjY
+ SfXSlBjYf+yUs4sAo0gPLNYcY/hWfvy3deqCHakE=
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+References: <20200518130132.19312-1-pvorel@suse.cz>
+From: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <1a41aca6-f774-08da-bf7b-b33806b48923@jv-coder.de>
+Date: Tue, 19 May 2020 07:05:08 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <5EC287EE.9070508@cn.fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+In-Reply-To: <20200518130132.19312-1-pvorel@suse.cz>
+Content-Language: en-US
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/1] rpc: TCONF when tests aren't compiled +
- remove kill warning
+Subject: Re: [LTP] [PATCH 1/2] tst_test.sh: Fix calling not yet loaded
+ cleanup function
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,33 +55,28 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Xiao,
-
-> On 2020/5/13 4:14, Petr Vorel wrote:
-> > Without this test failure was wrongly reported:
-> > rpc_test 1 TFAIL: tirpc_rpcb_getaddr 10.0.0.2 536875000 failed unexpectedly
-> Hi Petr,
-
-> Do you know which caused this failure?
-Certain tests compiled with TI-RPC on glibc (not on libtirpc): rpc_pmap_set,
-rpc_pmap_unset, rpc_svc_register. NOTE glibc implementation is fading out,
-nothing really important.
-
-Before I just disable these tests, I've asked the experts [1] and posted
-patchset to show some debug info.
-
-Kind regards,
-Petr
-
-[1] https://sourceforge.net/p/libtirpc/mailman/message/37014386/
-[2] https://patchwork.ozlabs.org/project/ltp/list/?series=177741&state=*
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkgUGV0ciwKCj4gICAJVFNUX0RPX0VYSVQ9MQo+ICAgCj4gLQlpZiBbIC1uICIkVFNUX0NMRUFO
+VVAiIC1hIC16ICIkVFNUX05PX0NMRUFOVVAiIF07IHRoZW4KPiArCWlmIFsgLW4gIiRUU1RfU0VU
+VVBfU1RBUlRFRCIgLWEgLW4gIiRUU1RfUlVOX1NUQVJURUQiIC1hIFwKPiArCQktbiAiJFRTVF9D
+TEVBTlVQIiAtYSAteiAiJFRTVF9OT19DTEVBTlVQIiBdOyB0aGVuCkluIHRoZSBkZXNjcmlwdGlv
+biB5b3Ugd3JpdGUgIlthZnRlcl0gcnVubmluZyBlaXRoZXIgc2V0dXAgb3IgdGVzdCAKZnVuY3Rp
+b24iLiBCdXQgdGhpcyBpbXBsZW1lbnRhdGlvbgppcyAiYWZ0ZXIgcnVubmluZyBzZXR1cCBhbmQg
+dGVzdCBmdW5jdGlvbiIuIENsZWFudXAgc2hvdWxkIGFsc28gYmUgCmV4ZWN1dGVkLCBpZiBvbmx5
+IHNldHVwIHdhcyBydW4gcmlnaHQ/Cj4gICAKPiBAQCAtNTkyLDkgKzU5NCwxMSBAQCB0c3RfcnVu
+KCkKPiAgIAkJCV90c3RfbWF4PSQoKCAkKGVjaG8gJFRTVF9URVNUX0RBVEEgfCB0ciAtY2QgIiRU
+U1RfVEVTVF9EQVRBX0lGUyIgfCB3YyAtYykgKzEpKQo+ICAgCQkJZm9yIF90c3RfaSBpbiAkKHNl
+cSAkX3RzdF9tYXgpOyBkbwo+ICAgCQkJCV90c3RfZGF0YT0iJChlY2hvICIkVFNUX1RFU1RfREFU
+QSIgfCBjdXQgLWQiJFRTVF9URVNUX0RBVEFfSUZTIiAtZiRfdHN0X2kpIgo+ICsJCQkJVFNUX1JV
+Tl9TVEFSVEVEPTEKPiAgIAkJCQlfdHN0X3J1bl90ZXN0cyAiJF90c3RfZGF0YSIKPiAgIAkJCWRv
+bmUKPiAgIAkJZWxzZQo+ICsJCQlUU1RfUlVOX1NUQVJURUQ9MQo+ICAgCQkJX3RzdF9ydW5fdGVz
+dHMKPiAgIAkJZmkKSXMgaXQgcmVhbGx5IGltcG9ydGFudCwgdGhhdCB0ZXN0IGlzIHN0YXJ0ZWQ/
+IFNob3VsZG4ndCBpdCBiZSBlbm91Z2ggaWYgCndlIGdvdCB0byB0aGUgcG9pbnQsIHdoZXJlIHRo
+ZSB0ZXN0CmNvdWxkIGJlIHN0YXJ0ZWQuIE1vdmluZyBUU1RfUlVOX1NUQVJURUQgb3V0IG9mIHRo
+ZSBjb25kaXRpb24gd291bGQgCnJlZHVjZSByZXBldGl0aW9uLgoKSsO2cmcKCi0tIApNYWlsaW5n
+IGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
