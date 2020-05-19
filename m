@@ -1,70 +1,66 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91CC21D9307
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 11:14:27 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 371C61D9333
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 11:20:26 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2F8A03C4E92
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 11:14:27 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B16F03C24DD
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 11:20:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id F39743C04F0
- for <ltp@lists.linux.it>; Tue, 19 May 2020 11:14:22 +0200 (CEST)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.13])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 844BD3C04F0
+ for <ltp@lists.linux.it>; Tue, 19 May 2020 11:20:21 +0200 (CEST)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id B467B600C96
- for <ltp@lists.linux.it>; Tue, 19 May 2020 11:13:58 +0200 (CEST)
-Received: from mail-qk1-f170.google.com ([209.85.222.170]) by
- mrelayeu.kundenserver.de (mreue108 [212.227.15.145]) with ESMTPSA (Nemesis)
- id 1MKbXu-1jMkpF2FLA-00L1zC for <ltp@lists.linux.it>; Tue, 19 May 2020
- 11:14:21 +0200
-Received: by mail-qk1-f170.google.com with SMTP id g185so13966293qke.7
- for <ltp@lists.linux.it>; Tue, 19 May 2020 02:14:21 -0700 (PDT)
-X-Gm-Message-State: AOAM531XI5+DhYcInY4rYWzM2jOnEaPQXS02W29V2IKD3+56ES8Ff+m9
- euJp3Jd4pdD1lXcmhe5OtmlLfctF6TqfsRd0afk=
-X-Google-Smtp-Source: ABdhPJySJ5+hCWXUe6jp93fWmtou3VUramhTCJ/E3+zwepKQ2S/4Rp2a10gC2BWF9BIgc9nCEsF1c9eJ5l6abRTup7s=
-X-Received: by 2002:ae9:ed95:: with SMTP id
- c143mr19915846qkg.394.1589879660393; 
- Tue, 19 May 2020 02:14:20 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5A235600B44
+ for <ltp@lists.linux.it>; Tue, 19 May 2020 11:19:57 +0200 (CEST)
+Received: from mail-qv1-f43.google.com ([209.85.219.43]) by
+ mrelayeu.kundenserver.de (mreue012 [212.227.15.129]) with ESMTPSA (Nemesis)
+ id 1MK5BG-1jMCQU1898-00LWz6 for <ltp@lists.linux.it>; Tue, 19 May 2020
+ 11:20:20 +0200
+Received: by mail-qv1-f43.google.com with SMTP id d1so6134025qvl.6
+ for <ltp@lists.linux.it>; Tue, 19 May 2020 02:20:20 -0700 (PDT)
+X-Gm-Message-State: AOAM532TLfDk+Zlj6+aHpOU8u8tOIMzn1qamk2uUXKY45aAhjd7eWLJ3
+ 8ERh8XV2JQEZen62xWXpknT6mctk1Drrv8tZ5dI=
+X-Google-Smtp-Source: ABdhPJxEytcN5Gf9PVGnmgT8kzD33gD/dpZQY0yhjf1l8H3/jKW8BXAqfS35W9eS7XnqoQpvht7SCG+3X/xg/KaCa/w=
+X-Received: by 2002:a05:6214:3f0:: with SMTP id
+ cf16mr20780293qvb.4.1589880019205; 
+ Tue, 19 May 2020 02:20:19 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1589789487.git.viresh.kumar@linaro.org>
- <CAK8P3a3aP5S_w_FFv=UvJRSRTjcoNVy_W6ycm4OTct-7Q_5_xg@mail.gmail.com>
- <20200518091253.qmvqo7xub7hpeovm@vireshk-i7>
- <CAK8P3a3_dGzoGPckBByySvLYGC3FyiCSwCdfzxG8xjJsY0oXrg@mail.gmail.com>
- <20200519085425.vajbfnt7uj7yjq5k@vireshk-i7>
-In-Reply-To: <20200519085425.vajbfnt7uj7yjq5k@vireshk-i7>
+References: <cover.1589877853.git.viresh.kumar@linaro.org>
+ <931bddab3d92f73f07f32dd7e1770078fdc07e0e.1589877853.git.viresh.kumar@linaro.org>
+In-Reply-To: <931bddab3d92f73f07f32dd7e1770078fdc07e0e.1589877853.git.viresh.kumar@linaro.org>
 From: Arnd Bergmann <arnd@arndb.de>
-Date: Tue, 19 May 2020 11:14:04 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a1=VY7fw3NZuo_koRKDiOe1wsUpqBmhy6oJqLvOhtbBEA@mail.gmail.com>
-Message-ID: <CAK8P3a1=VY7fw3NZuo_koRKDiOe1wsUpqBmhy6oJqLvOhtbBEA@mail.gmail.com>
+Date: Tue, 19 May 2020 11:20:02 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a3LkUoJs-2yj_F8LpgiGQC6auLVSSuB3QCKOr+NwUhnHQ@mail.gmail.com>
+Message-ID: <CAK8P3a3LkUoJs-2yj_F8LpgiGQC6auLVSSuB3QCKOr+NwUhnHQ@mail.gmail.com>
 To: Viresh Kumar <viresh.kumar@linaro.org>
-X-Provags-ID: V03:K1:I/OI4DJVogwQc+gRo/bBys8zJY24ymc+JpbYgCy4OcULZPCZAq5
- BZvq2IvJXh0ECWqvolkyMIoLJUg4BZMm9v0n1RtDZddt1t447E8ipbUZg9p1aide7sBMHbL
- PcMfuEJVcrgVXsOswd8KoOAkAEsNEca20ohZUDYKkwGrVldY/2IRQooBmRRV8pcLNA133PN
- ekWzAfwW+uSjqR48XuXPQ==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:/yrITld9COI=:dD0cSXLSw/wYgKp/tUg2Ri
- z/j8jAKUW/n6PIzrm/PkCwYa49uaIWo8Fp0GL8L2NFzjQwr6JNnhxke9i5ZeSW0ocAo/iOXmZ
- SUQoGUGhyCL7sQieNe9JWnuwDTA4c/FWtrEEI39wTB4Bo3a+OXEuFfHBbAUBM6T8zKLjaFmMn
- skEg4UAHWfXvj4Wdev3ktepjx1hxDr+9WYR43r+K8bQrcTyKQiy1X5crgsBGK71yKVi1slTp3
- awQhVUBKTgnpjYzif7QukGHUKUbVjOv/6gSkH+9rYl6QOfC1D4GvAs6v92dBeKef7Tl3zICLr
- aFCQ4V2R62gINeumH6Br9Ow3NynEPXAb9MyamhpP35Ps0gsBT7YkeC5+xV6uKF1YOgvNhRXsp
- KWXDrCVHH8ckE5hys++K1lhCeCMWIrSu2wLlBZF/0syAcXDwQsNKgZzcg/kJVyFwqd3B+Pa4Z
- g4D076rRGyGELoarwrooILBwd8Rao1BPR3LX7AgXD2Fva3dbTkDY7pXZjz7MPTzN0bSz9f7Ko
- L4+ciSYWbeDSYysZISjHLPbg5YmvJ9cdb2udiNar9ID302lDnTd02Kwbbg74pcmBQotC/vgyM
- MwMs9WxlgcUArcYrb9i0jDhdX92QXvdpX2aaHBF1YVolrrk7a65K8wGBMnqW1e5VjQsP8wBnO
- tp+1kQxz2LzWHC27rOr2s3R44xODt7SZ1+H/ZWpC9qmsqPjj5K9mzxHLvEvbxHZnDVhlvKXZH
- 4NpBwLS+c7GHr8v8HwHy2YXckSTHvcOM7ks+fmRRdqvEfIQrV47Levx6JuogzUb/ovOHmHave
- vZw3ZzUHobfj5tOCWiIEDoE/Vy8RgX4mrpgeMzJA2ec1n/yvyg=
+X-Provags-ID: V03:K1:VIPLTv1ZWhTNKVzd5lcmwUQB8ZbzRN9RgiuwjWxlGIcdSQn/ZsS
+ Yj0qq1+fxJDc99Of64eZ5z83nIrwlMt4dfo5Vv3foQGBDKwVOUCkmgaUQ4ZC9FRpYjc5gut
+ /p09es6n+ibgyuYMP3b3ovaoH077cMNw8Llh2PlLZx2Tv+uM/owk55O36pSgh3fHiSe0Um5
+ PFeE2JfetRhhZtJPCYbOg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:gg32llQosJQ=:+o6lXmWLwvurG8r0M1cmZA
+ BXnm4f9991iaoowu2jgPptM7IOeEmqnrii+EbZA3yAxQz/fk5Xb/5180FhxFxnG12oJ62Y1Dq
+ jdO9RF7ee644CNtC+bsukG1/261YoXV0o0+iY8EW6bT6snHB70rCCeQFBnny9yYjGL24uReIj
+ CUUOXZihzmbGx0LYVPStF0dxDOueEzqMQ4GoDE2gB56ZRn01hds3wDwPv6ElVeZBo4iV43Xk3
+ 0NqWf949ZYox/cn0uk3WPLbNkNKHCeMzFeQWx1b66t4uQ44S9qkURqFDg8QuzxILUmMPavN4C
+ GVRyy5JbDzUzUkUp7WwWTVxCQcsMLJTPRZzZkT6Lpvk/D6+meWhu2RNOF1yWGsv7dCIDfnMK3
+ TgD0LYieuRBPBB+xUBVnz0MHcQlsnEUHwH5iHYdZLJHACHZCQyG3Itf6QwRAxQ8iYiv6BhAZi
+ dFouHTASL2JDZO0/QHkV60/+7M97KHi1pBnQjEqTTZLT4HczPhQmrpyFzsERMIcyqd9jYy18x
+ tWZ8oVfCKNiD6s1iZGR/2f1aUAAF1SsrTUPeas24x5k52jqc0Fk5uSBRacsh2EJ2DM5I5odUv
+ eq3ckHNSgfQgWfVUsR+rhtOWlqM29bxE8qH4fdBCEjAGBWVTLKWoKVhSKBh06FvWJSGhEzQ3K
+ m0yCgvF5QPdYBhpC9SmAgVnRvLX0KO9YfhOOIjIK3bAiaQgykfUUBTViUfESvqddOi5PYd/uM
+ I0UiNVqk5AC9NUNEUPkJmRSw/0iPsJzxOPAl6D4W678epPk09uK+9NveqxZqtlhDaLRs75J4O
+ 5Cp1BNA1YxUWyQMyxKUwAHz+ArLDXhyVSf99Pf0fPedEvPvvTc=
 X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V3 00/17] Syscalls: Add support for time64 variants
+Subject: Re: [LTP] [PATCH 2/5] syscalls: settimeofday: Use gettimeofday()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,61 +78,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, May 19, 2020 at 10:54 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
+On Tue, May 19, 2020 at 10:51 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
 >
-> On 18-05-20, 11:21, Arnd Bergmann wrote:
-> > On Mon, May 18, 2020 at 11:12 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
-> > > Ahh, if I understand correct you are only talking about the cases
-> > > where the syscall is called directly without the libc wrapper, right ?
-> > > We can't use timeval/timespec there anymore.
-> >
-> > Exactly.
+> Use gettimeofday() instead of calling it with tst_syscall().
 >
-> There weren't a lot of offenders I believe. I have fixed them and sent a
-> patchset for that.
->
-> > There are probably also ioctls with the same problem, but
-> > I don't know which ioctl commands are actually tested by ltp.
-> >
-> > I would guess that the socket timestamps (both ioctl and
-> > setsockopt based ones) do have some tests that need to be
-> > updated.
->
-> I tried to do some search based on:
->
-> git grep "ioctl" `git grep -l tst_syscall`
-> git grep "setsockopt" `git grep -l tst_syscall`
->
-> but found nothing :(
->
-> Do I need to look for something else ?
+> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+> ---
 
-I just tried looking for socket timestamps using
+I think the change makes it work reliably, but it does change what you
+are testing for: instead of testing the low-level system call interface,
+this will now test the libc interface, which is implemented on top
+of the vdso or clock_gettime().
 
-git grep 'SO_TIMESTAMP\|SIOCGSTAMP\|SO_.*TIMEO'
+I think all variants (vdso, syscall(__NR_gettimeofday), libc
+gettimeofday, emulation with clock_gettime syscall/vdso/libc)
+need to be tested. It's possible they all are, but that should
+be clarified in the changelog text.
 
-but that also did not find any tests. I guess those interfaces are
-currently not tested as part of LTP at all. Testing for setsockopt
-only covers a very small subset of the system call.
-
-Same for the SNDDRV_, PPP, PP?ETTIME, ioctls, which are
-somewhat device specific. It might be good to test the snddrv
-interfaces, but they probably have a separate testsuite somewhere
-outside of LTP already.
-
-I did find something for v4l2 (VIDIOC_QUERYBUF, VIDIOC_QBUF,
-VIDIOC_DQBUF, VIDIOC_DQEVENT), but haven't looked at
-what the tests do.
-
-I also see tests for input_event in testcases/kernel/input/. These
-seem fine as they include the kernel header for 'struct input_event',
-which is the correct approach.
-
-One other interface affected by the time64 changes is elf_prstatus
-for core dumps. This is not a system call though, and it does
-not have a test case either.
-
-        Arnd
+       Arnd
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
