@@ -1,49 +1,38 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 683D71D9039
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 08:45:02 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 854CB1D9054
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 08:52:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 16FF43C4E64
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 08:45:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 09DEA3C3146
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 08:52:19 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 960CE3C1ABA
- for <ltp@lists.linux.it>; Tue, 19 May 2020 08:44:59 +0200 (CEST)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id B46533C4E7A
+ for <ltp@lists.linux.it>; Tue, 19 May 2020 08:52:08 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3246F6022BF
- for <ltp@lists.linux.it>; Tue, 19 May 2020 08:44:57 +0200 (CEST)
-Received: from [192.168.178.40] (unknown [188.192.1.13])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 35AB59F7ED;
- Tue, 19 May 2020 06:44:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1589870696; bh=2yNHfWb7hQEK4oaBueNnNu8I8Vv13rnrm7RcrXkeWHU=;
- h=Subject:To:From:Message-ID:Date:MIME-Version;
- b=nQuWPqTVJMi94y0Rr0//Xpjoqok5W4THdsmh5L9hj8qDz7dBPkfPoVO6zrTbv/Rt0
- KlKMqCSvOF98FU4n6QdkcLCW0Kxu+CB1crs6S1DELmZTpd4AhWq+Pp0rBO13OC5RnJ
- LlRi3WorRm6uyEoZ7jky/ioFVr8Zjk4WR6cPGwh0=
-To: Petr Vorel <pvorel@suse.cz>
-References: <20200518130132.19312-1-pvorel@suse.cz>
- <1a41aca6-f774-08da-bf7b-b33806b48923@jv-coder.de>
- <20200519063740.GA7756@dell5510>
-From: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <eb30b7e2-fb61-cdcb-b24b-6deb5512f4a4@jv-coder.de>
-Date: Tue, 19 May 2020 08:44:56 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1A5AA60344D
+ for <ltp@lists.linux.it>; Tue, 19 May 2020 08:51:43 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 859DEAC46;
+ Tue, 19 May 2020 06:52:09 +0000 (UTC)
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Tue, 19 May 2020 08:52:00 +0200
+Message-Id: <20200519065201.23295-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <20200519063740.GA7756@dell5510>
-Content-Language: en-US
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 1/2] tst_test.sh: Fix calling not yet loaded
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 1/2] tst_test.sh: Fix calling not yet loaded
  cleanup function
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -56,71 +45,81 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-2"; Format="flowed"
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+e7dc14caa introduced a regression for new API network tests (these using
+tst_net.sh), which use network namespaces and have cleanup function:
 
->> Is it really important, that test is started? Shouldn't it be enough if =
-we
->> got to the point, where the test
->> could be started. Moving TST_RUN_STARTED out of the condition would redu=
-ce
->> repetition.
-> Well, if you look into the code, there is tst_require_cmds call in if cla=
-use,
-> which should pass:
->
-> 	#TODO check that test reports some results for each test function call
-> 	while [ $TST_ITERATIONS -gt 0 ]; do
-> 		if [ -n "$TST_TEST_DATA" ]; then
-> 			tst_require_cmds cut tr wc
-> 			_tst_max=3D$(( $(echo $TST_TEST_DATA | tr -cd "$TST_TEST_DATA_IFS" | w=
-c -c) +1))
-> 			for _tst_i in $(seq $_tst_max); do
-> 				_tst_data=3D"$(echo "$TST_TEST_DATA" | cut -d"$TST_TEST_DATA_IFS" -f$=
-_tst_i)"
-> 				TST_RUN_STARTED=3D1
-> 				_tst_run_tests "$_tst_data"
-> 			done
-> 		else
-> 			TST_RUN_STARTED=3D1
-> 			_tst_run_tests
-> 		fi
-> 		TST_ITERATIONS=3D$((TST_ITERATIONS-1))
-> 	done
+$ PATH="/opt/ltp/testcases/bin:$PATH" tcp_ipsec.sh -6 -A rfc4543_256 \
+  -p esp_aead -m tunnel -s 100:1000:65535:R65535
+tcp_ipsec 1 TCONF: Must be super/root for this test!
+/opt/ltp/testcases/bin/tst_test.sh: line 32: tst_ipsec_cleanup: command not found
 
-At this point setup was executed right? So if tst_require_cmds fails, it =
+This is caused by tst_brk called in tst_net.sh test preparation (happen
+just after loading tst_net.sh, that's why cleanup function haven't been
+defined yet. This would require to load tst_net.sh just before tst_run.
 
-should execute cleanup, to
-revert whatever setup did, no?
-Oh I guess changing the condition to "setup run _or_ test run" will make =
+But because tst_net.sh doesn't have it's own cleanup function
+(tst_cleanup_rhost is always called in _tst_do_exit in tst_test.sh
+regardless of setup/cleanup functions), we can assume that only after
+starting the actual test code (i.e. running either setup or test
+function) it's meaningful to run cleanup function.
 
-this work.
-But is there really a reason for having both variables? I guess the =
+This is effectively a revert of e7dc14caa + adding $TST_SETUP_STARTED.
 
-reason they exist at all is to ensure,
-that the cleanup function is already defined. But that should be true, =
+Fixes: e7dc14caa ("tst_test.sh: Run cleanup even setup is not defined")
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+Changes v1->v2:
+* fixed condition (or: $TST_SETUP_STARTED" -o -n "$TST_RUN_STARTED") (Joerg)
 
-as soon as tst_run is executed.
-So maybe one single variable that is set, when TST_RUN is executed is =
+Kind regards,
+Petr
 
-sufficient.
-In my opinion the decision to execute of cleanup shouldn't be too =
+ testcases/lib/tst_test.sh | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-complicated. The cleanup function
-should be able to handle an abort anytime during test execution anyway. =
+diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+index 8d24b4abf..e76a31509 100644
+--- a/testcases/lib/tst_test.sh
++++ b/testcases/lib/tst_test.sh
+@@ -28,7 +28,8 @@ _tst_do_exit()
+ 	local ret=0
+ 	TST_DO_EXIT=1
+ 
+-	if [ -n "$TST_CLEANUP" -a -z "$TST_NO_CLEANUP" ]; then
++	if [ -n "$TST_SETUP_STARTED" -o -n "$TST_RUN_STARTED" ] && \
++		[ -n "$TST_CLEANUP" -a -z "$TST_NO_CLEANUP" ]; then
+ 		$TST_CLEANUP
+ 	fi
+ 
+@@ -582,6 +583,7 @@ tst_run()
+ 	[ -n "$TST_NEEDS_MODULE" ] && tst_require_module "$TST_NEEDS_MODULE"
+ 
+ 	if [ -n "$TST_SETUP" ]; then
++		TST_SETUP_STARTED=1
+ 		$TST_SETUP
+ 	fi
+ 
+@@ -592,9 +594,11 @@ tst_run()
+ 			_tst_max=$(( $(echo $TST_TEST_DATA | tr -cd "$TST_TEST_DATA_IFS" | wc -c) +1))
+ 			for _tst_i in $(seq $_tst_max); do
+ 				_tst_data="$(echo "$TST_TEST_DATA" | cut -d"$TST_TEST_DATA_IFS" -f$_tst_i)"
++				TST_RUN_STARTED=1
+ 				_tst_run_tests "$_tst_data"
+ 			done
+ 		else
++			TST_RUN_STARTED=1
+ 			_tst_run_tests
+ 		fi
+ 		TST_ITERATIONS=$((TST_ITERATIONS-1))
+-- 
+2.26.2
 
-So it should be callable, as soon
-as it is defined. At least when tst_run is executed, it should be ok to =
 
-call cleanup.
-
-J=F6rg
-
--- =
-
+-- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
