@@ -1,69 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A333F1D9283
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 10:51:35 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B21B61D9285
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 10:51:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CFF603C4E68
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 10:51:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5123A3C4E9E
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 10:51:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 1D7F63C4E6B
- for <ltp@lists.linux.it>; Tue, 19 May 2020 10:51:21 +0200 (CEST)
-Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
- [IPv6:2607:f8b0:4864:20::52e])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 1775E3C4E8A
+ for <ltp@lists.linux.it>; Tue, 19 May 2020 10:51:24 +0200 (CEST)
+Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
+ [IPv6:2607:f8b0:4864:20::1042])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 63C5A1000D41
- for <ltp@lists.linux.it>; Tue, 19 May 2020 10:51:20 +0200 (CEST)
-Received: by mail-pg1-x52e.google.com with SMTP id u35so6070740pgk.6
- for <ltp@lists.linux.it>; Tue, 19 May 2020 01:51:20 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6BF47140134D
+ for <ltp@lists.linux.it>; Tue, 19 May 2020 10:51:23 +0200 (CEST)
+Received: by mail-pj1-x1042.google.com with SMTP id ci23so1046457pjb.5
+ for <ltp@lists.linux.it>; Tue, 19 May 2020 01:51:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=FgkX7pjArOSJHsMxZLtwqOigdrdlAozbg7OdUVf+AZs=;
- b=hN9IfEKZPS8HakhE422a/Ok9rLhUsRL2Lk/jMp4fYGbDMlY+rSuEWLRRLWRMbPEp9W
- 7V5QBh1T9yxwPpfxtKY3HR1qgnaHf6H7vhp6bneGI1lWBZ5++8ThLwtVXBY6Is1hZtdx
- 9dtDIjUcyzVRpz+oz4eya69H8zE+4uWGZqN9BFGHnURFRgpnQoiHc0O1KHsPigWaVs9k
- 84xIeEubnmKFhAn6ceY13CwcaFnV+LXSeIllUN5XEvj8O2UNaUCb7sVPZcf3Rp/DQPow
- IzH3iJ8SZbVb8109+v4af+SdHTtALMdDy+434XbuB64R8HTPfCb2boAP6GvRy93O/tux
- rB8A==
+ bh=G1cRs2HtrW5mn+LrQn5UBxmYcyheRU5uHG/KDLK8ow0=;
+ b=IYwBrnn1aMJH9SBShBh6H7xnjn7YmJIPpH00BcsSZnFOe9bfKftfYp2TuPa9KcpJpE
+ jU5algqYp5B2YXIOFmNYlG8EgUJ7T5j6FOrv6ZNf8BqeORsRidoo4NGz74k9Uj9kcP/N
+ ClnI7J1hF6MLR/Mp8jzRi0JGdtHAPuXL5zTgzVN/SRNaTq8Mlt5hq4iX6jzjt02VFPuA
+ z2fAEkxorB0lViyfIJNxyNSE17EESNGU8fQY5sjcyuch9bR+aHgFxrbRkrZ0aZEhdN9k
+ AzLT8yQq8CZMatPXrdzNkn8EGz1ccALWcWAEucvE4kXQvcnFjJKGfqctlUnQaq4sKI2h
+ 76yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=FgkX7pjArOSJHsMxZLtwqOigdrdlAozbg7OdUVf+AZs=;
- b=kkmoh5ZkQpQtKg+aDuQexV5v1Z7Q5cK/trzqJpk+Dwz/fqyUXd/TUFRWEvllnGoUx+
- Hi1bFC/LtNpFh+nr2fKgIri7WdlCWPQUgPamiMmHWdpjQh4mgkbFpfjTzQZIpk3/rWRq
- h+ss27b4e2iFSPBneK5IKwusTeoj99ipViAAJTDoxE3Y+3imcf44eMJHm/A1Yj6flGr+
- Qs7zfG5ZmSCbH/weyI2iV5k1ytXAYB9SCl2j9Og7sXl2b8CdvoSMAgJn3B1CoTvfnVxF
- nViMNbnQaMiUJIN+sUOhvDowEuXTNvoegTN/1UnBXPd9kZ+ciYbcEgv5Bz/DRpUzZJZb
- Zq4g==
-X-Gm-Message-State: AOAM5305ikOtYLQ383TjC0r9Pcs97ZTv5WdZpMK8DSUoouEayy06dfC5
- XOfMzgMhuMf3NYuWKwPYyj6MYCu+Olc=
-X-Google-Smtp-Source: ABdhPJwcQfYg9KyW23NRzx503hLTEg7MWIwKYL+f9DRzMYkTJkwupHjgPavOujGuFtkfe0UKyr53ag==
-X-Received: by 2002:a62:ab04:: with SMTP id p4mr6845761pff.254.1589878278662; 
- Tue, 19 May 2020 01:51:18 -0700 (PDT)
+ bh=G1cRs2HtrW5mn+LrQn5UBxmYcyheRU5uHG/KDLK8ow0=;
+ b=rVRqJG2P3ZdFVtACw0zYELtEk3eUrC91J3C2sapR6ywetUw6HWZuTdOqAhwlNW+ojA
+ ad6S+x+lKG0kqdMa8SwZ0MDWQh67xS/G4UThN8fDHFF1lgun7NoQO/opAX7cwLyQrdb0
+ 9nRiQntxw9euF5r+VIJgaYmwTyBHNDqvx2fWniWD18rNf9A5HIFDjkaXdzDmaEVHlogv
+ cZ/tb9EYWsYnekpBGTffl9884+X9ND1Ty0jhTAaOBZIYaon6eKZM8LAv00LK11rRdT0i
+ wnJpLAKihvScSKSYPDeMVHf13MMHfjqZIELlGqWPWvVDjYm8canvNUB0DnYALAY5GTmN
+ OgbA==
+X-Gm-Message-State: AOAM531S8HiDElu317q00WPJyDoYSiRzrse7gA4oyMZumA3lA0Y1HPLS
+ 1DdPN/KoUBXwBzKakDHA+9jed+xUvwo=
+X-Google-Smtp-Source: ABdhPJwrfnz8ieDUn0IUpzh8CImBCQH17J4vEYNFDZB7KR5XrWGsdcJyDjckF9HEiKD9ApN/2EeItw==
+X-Received: by 2002:a17:90b:3c7:: with SMTP id
+ go7mr4080146pjb.67.1589878281568; 
+ Tue, 19 May 2020 01:51:21 -0700 (PDT)
 Received: from localhost ([122.167.130.103])
- by smtp.gmail.com with ESMTPSA id p2sm9554848pgh.25.2020.05.19.01.51.17
+ by smtp.gmail.com with ESMTPSA id z6sm10781351pfb.87.2020.05.19.01.51.20
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 19 May 2020 01:51:18 -0700 (PDT)
+ Tue, 19 May 2020 01:51:21 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Tue, 19 May 2020 14:21:08 +0530
-Message-Id: <530fdb27575512ec76d975e31c05f9f58592e2cf.1589877853.git.viresh.kumar@linaro.org>
+Date: Tue, 19 May 2020 14:21:09 +0530
+Message-Id: <931bddab3d92f73f07f32dd7e1770078fdc07e0e.1589877853.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
 In-Reply-To: <cover.1589877853.git.viresh.kumar@linaro.org>
 References: <cover.1589877853.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/5] tst_safe_clocks: Remove safe_clock_adjtime()
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/5] syscalls: settimeofday: Use gettimeofday()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,47 +83,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-safe_clock_adjtime() isn't used anymore, remove it.
+Use gettimeofday() instead of calling it with tst_syscall().
 
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- include/tst_safe_clocks.h | 18 ------------------
- 1 file changed, 18 deletions(-)
+ testcases/kernel/syscalls/settimeofday/settimeofday01.c | 6 +++---
+ testcases/kernel/syscalls/settimeofday/settimeofday02.c | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/include/tst_safe_clocks.h b/include/tst_safe_clocks.h
-index 27e8bda45589..4cb5f41ed82f 100644
---- a/include/tst_safe_clocks.h
-+++ b/include/tst_safe_clocks.h
-@@ -55,21 +55,6 @@ static inline void safe_clock_settime(const char *file, const int lineno,
+diff --git a/testcases/kernel/syscalls/settimeofday/settimeofday01.c b/testcases/kernel/syscalls/settimeofday/settimeofday01.c
+index 368fdebc0c8e..c599a820fc97 100644
+--- a/testcases/kernel/syscalls/settimeofday/settimeofday01.c
++++ b/testcases/kernel/syscalls/settimeofday/settimeofday01.c
+@@ -23,7 +23,7 @@ static void verify_settimeofday(void)
+ 	suseconds_t delta;
+ 	struct timeval tv1, tv2;
+ 
+-	if (tst_syscall(__NR_gettimeofday, &tv1, NULL) == -1)
++	if (gettimeofday(&tv1, NULL) == -1)
+ 		tst_brk(TBROK | TERRNO, "gettimeofday(&tv1, NULL) failed");
+ 
+ 	tv1.tv_sec += VAL_SEC;
+@@ -37,7 +37,7 @@ static void verify_settimeofday(void)
+ 		return;
  	}
+ 
+-	if (tst_syscall(__NR_gettimeofday, &tv2, NULL) == -1)
++	if (gettimeofday(&tv2, NULL) == -1)
+ 		tst_brk(TBROK | TERRNO, "gettimeofday(&tv2, NULL) failed");
+ 
+ 	if (tv2.tv_sec > tv1.tv_sec) {
+@@ -58,7 +58,7 @@ static void verify_settimeofday(void)
+ 
+ static void setup(void)
+ {
+-	if (tst_syscall(__NR_gettimeofday, &tv_saved, NULL) == -1)
++	if (gettimeofday(&tv_saved, NULL) == -1)
+ 		tst_brk(TBROK | TERRNO, "gettimeofday(&tv_saved, NULL) failed");
  }
  
--static inline int safe_clock_adjtime(const char *file, const int lineno,
--	clockid_t clk_id, struct timex *txc)
--{
--	int rval;
--
--	rval = tst_syscall(__NR_clock_adjtime, clk_id, txc);
--	if (rval < 0) {
--		tst_brk(TBROK | TERRNO,
--			"%s:%d clock_adjtime(%s) failed %i",
--			file, lineno, tst_clock_name(clk_id), rval);
--	}
--
--	return rval;
--}
--
- #define SAFE_CLOCK_GETRES(clk_id, res)\
- 	safe_clock_getres(__FILE__, __LINE__, (clk_id), (res))
+diff --git a/testcases/kernel/syscalls/settimeofday/settimeofday02.c b/testcases/kernel/syscalls/settimeofday/settimeofday02.c
+index 485a26b1d9c5..0d6862eb33b1 100644
+--- a/testcases/kernel/syscalls/settimeofday/settimeofday02.c
++++ b/testcases/kernel/syscalls/settimeofday/settimeofday02.c
+@@ -46,7 +46,7 @@ static void verify_settimeofday(unsigned int n)
  
-@@ -79,7 +64,4 @@ static inline int safe_clock_adjtime(const char *file, const int lineno,
- #define SAFE_CLOCK_SETTIME(clk_id, tp)\
- 	safe_clock_settime(__FILE__, __LINE__, (clk_id), (tp))
+ static void setup(void)
+ {
+-	if (tst_syscall(__NR_gettimeofday, &tv_saved, NULL) == -1)
++	if (gettimeofday(&tv_saved, NULL) == -1)
+ 		tst_brk(TBROK | TERRNO, "gettimeofday(&tv_saved, NULL) failed");
+ }
  
--#define SAFE_CLOCK_ADJTIME(clk_id, txc)\
--	safe_clock_adjtime(__FILE__, __LINE__, (clk_id), (txc))
--
- #endif /* SAFE_CLOCKS_H__ */
 -- 
 2.25.0.rc1.19.g042ed3e048af
 
