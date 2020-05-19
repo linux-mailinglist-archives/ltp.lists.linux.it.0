@@ -1,70 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B14671D928B
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 10:52:05 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 698DA1D92A0
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 10:54:35 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4B3D03C4E78
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 10:52:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A40043C4E9F
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 May 2020 10:54:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id C23283C4E8D
- for <ltp@lists.linux.it>; Tue, 19 May 2020 10:51:31 +0200 (CEST)
-Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
- [IPv6:2607:f8b0:4864:20::1042])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 5AA1A3C003A
+ for <ltp@lists.linux.it>; Tue, 19 May 2020 10:54:30 +0200 (CEST)
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3093A601658
- for <ltp@lists.linux.it>; Tue, 19 May 2020 10:51:31 +0200 (CEST)
-Received: by mail-pj1-x1042.google.com with SMTP id ci21so1023008pjb.3
- for <ltp@lists.linux.it>; Tue, 19 May 2020 01:51:31 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 11779600D0D
+ for <ltp@lists.linux.it>; Tue, 19 May 2020 10:54:06 +0200 (CEST)
+Received: by mail-pf1-x442.google.com with SMTP id z26so6088776pfk.12
+ for <ltp@lists.linux.it>; Tue, 19 May 2020 01:54:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=hjASICbmWLh6z4tP68V4BIdamK7Vg35eiuZ1wntyqK8=;
- b=eV1hmF0ts3QK61xNoX2K9iFarbkjlFAMDIRFIRZTFU4gFRgsFngL9SblyG7wa6ayzF
- YHxbKQTQnlBNn1pJyjd5i49zKRJ32rcMgPRrlX4uiO4RjChfKyf9p2wl5utxxTkBOmys
- hotTIgGQJIh/VtjYnvec+JuNwPrhFJWFl68226IqkiYoafV6R1H/D3UWLSB3KXfNqczM
- Lz+jDeZcuLT0QE0iToGMOKGhn3e3vNDdRCbn3OsiGxbSf5f9PNTwzDHLNIX2ixsopLnS
- J2QmIc6wj7P24L7hyZAkJF60RpdeCCg3ao4o5mTAhpZbkwaBfsFVPtCyKPGask+BwncM
- uxVQ==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=NGkk3i/D38rVQSVhhRhrxVnIHuK3rptFOg9UfHgv1Oo=;
+ b=GLQEEuoSZfDGB/ifQc2UpPChis6lMtp4AKVjPSBiKR7z1m0iBzQO6Y9UbOf0vFOfVQ
+ 4weBE9tGTScQzXz1tVFM1kKPwcgmtASaOR8aB/XZ1h3bbLkUJWJ1nngdr5TZ4/QgJm62
+ UFr5FxirE5BpcnIIk+fHL26RQajezCCYg8Y55Ehz+cWIfrOMA8bA+qGE8oI951N5bLZR
+ 6DLhKIabN+UIK5clMvMjpOVNUbEL7PCMorip94pfaXJ9JKi7hf6nM1+Tb/wj0xrjN1pD
+ WOduw0QZgHmk04VyAtd/KTBI/1mP56JQbO/DKdI7MPBO1K5inbP8ELAaOklZIXGoCGDL
+ W4Lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=hjASICbmWLh6z4tP68V4BIdamK7Vg35eiuZ1wntyqK8=;
- b=k+UXvRwXZjpO8eMppam8rNu1+WccnqMKrmC6co/+UXgqoLuwjNedXwGY9LiLJ841nn
- 6VxnP7xE4vm+9UDn6Id8PYAsbkE6N2zd8fbRQtBmngvr5GI4ZTn22aMrxnK7UQ5RDM73
- juuCL3L04iJvwu0bInheiGk8I4Iynnw/gFCs2Xx+eFL7aFNo9anWvxvGWSjcWxNr47NZ
- DIjyGQTlFCH5OufcZ7eLlnDAvZPaiPtWS2jB8C8Il5KKReu80DqriBlIbO1TmdCN7/Ke
- yq6FCGfNVy92SUUhAGOswM1eMwHZ8p4m+3nIHBqojEC+t+LUbIzHK+Cs2RGzBR8HWI9z
- CrJQ==
-X-Gm-Message-State: AOAM533iihnPaHw6KCzShfcIJ+vP48Il6bEQrsXtVwAN4cKftP97rKO0
- z8OIF2gg3bnur1dMcQ3MRZgblnSfZB8=
-X-Google-Smtp-Source: ABdhPJxOyTH079ewlmnwGOpaxx2Kuqj654dBmcYH0cF3NdAjACNOrZmAaH5YC1/yl1xM2FTXcZpmqw==
-X-Received: by 2002:a17:90a:2807:: with SMTP id e7mr3881198pjd.6.1589878289422; 
- Tue, 19 May 2020 01:51:29 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=NGkk3i/D38rVQSVhhRhrxVnIHuK3rptFOg9UfHgv1Oo=;
+ b=gyt/JkwUr+knpAefaYfJnSIXjTXQqwfsMuOmtfR04vjEDzkbFQPNZJWoMVSDqVEkhG
+ RH4l+Um6yewdO6qgDJj+obCTkPrQLwmuVWWKK6eFP+kKnvldnaJ164yCiilyL8d3zDVW
+ yOgKPVY0uzZJ7Io4NSC6HNvC82keDcHC4Y+f8wDc5L+GglyeVoArZcIWZHCjvIv9dVwa
+ GFg5lij/blzLaHVEIKLPlgH8tcsjz5tFwLF3HdqKWDsTxF22ojhRm+UyjyX1DXHNgRTK
+ KrhpHXWi7pIewnZu8Mv9kxTlMdhyNmzYriGp6qKzeJ95TRM3veu4i3+VJ1UGbAMoY2ow
+ cF8Q==
+X-Gm-Message-State: AOAM533IETdloyBvyr9DPBaDYIb5LAK6uOZDAvPjRFDUfHUzHBg5bBcR
+ h6/a79a9iRJPfSWM2haf+Wc0Sw==
+X-Google-Smtp-Source: ABdhPJyZRxyK0CODrLqBspmTltHQ52A+n/JeAwkFBMjiJG61UxgSHqLPHajdMNBYiPZkDBhkJxbCsQ==
+X-Received: by 2002:a63:30c2:: with SMTP id
+ w185mr18084993pgw.353.1589878468117; 
+ Tue, 19 May 2020 01:54:28 -0700 (PDT)
 Received: from localhost ([122.167.130.103])
- by smtp.gmail.com with ESMTPSA id b137sm5260616pfb.110.2020.05.19.01.51.28
+ by smtp.gmail.com with ESMTPSA id u5sm10981183pfu.198.2020.05.19.01.54.26
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 19 May 2020 01:51:28 -0700 (PDT)
+ Tue, 19 May 2020 01:54:26 -0700 (PDT)
+Date: Tue, 19 May 2020 14:24:25 +0530
 From: Viresh Kumar <viresh.kumar@linaro.org>
-To: ltp@lists.linux.it
-Date: Tue, 19 May 2020 14:21:12 +0530
-Message-Id: <ac47a49846fe338dd14e55fc05ed0715db60bc85.1589877853.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
-In-Reply-To: <cover.1589877853.git.viresh.kumar@linaro.org>
-References: <cover.1589877853.git.viresh.kumar@linaro.org>
+To: Arnd Bergmann <arnd@arndb.de>
+Message-ID: <20200519085425.vajbfnt7uj7yjq5k@vireshk-i7>
+References: <cover.1589789487.git.viresh.kumar@linaro.org>
+ <CAK8P3a3aP5S_w_FFv=UvJRSRTjcoNVy_W6ycm4OTct-7Q_5_xg@mail.gmail.com>
+ <20200518091253.qmvqo7xub7hpeovm@vireshk-i7>
+ <CAK8P3a3_dGzoGPckBByySvLYGC3FyiCSwCdfzxG8xjJsY0oXrg@mail.gmail.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <CAK8P3a3_dGzoGPckBByySvLYGC3FyiCSwCdfzxG8xjJsY0oXrg@mail.gmail.com>
+User-Agent: NeoMutt/20180716-391-311a52
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 5/5] syscalls: Don't pass struct timeval to
- tst_syscall()
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V3 00/17] Syscalls: Add support for time64 variants
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,110 +80,41 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
- Viresh Kumar <viresh.kumar@linaro.org>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-There are compatibility issues here as we are calling the direct
-syscalls with the "struct timeval" (which is a libc definition). We
-must use struct __kernel_old_timeval instead.
+On 18-05-20, 11:21, Arnd Bergmann wrote:
+> On Mon, May 18, 2020 at 11:12 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
+> > Ahh, if I understand correct you are only talking about the cases
+> > where the syscall is called directly without the libc wrapper, right ?
+> > We can't use timeval/timespec there anymore.
+> 
+> Exactly.
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
----
- include/tst_timer.h                                     | 6 ++++++
- testcases/kernel/syscalls/clock_adjtime/clock_adjtime.h | 5 -----
- testcases/kernel/syscalls/gettimeofday/gettimeofday02.c | 3 ++-
- testcases/kernel/syscalls/stime/stime_var.h             | 3 ++-
- 4 files changed, 10 insertions(+), 7 deletions(-)
+There weren't a lot of offenders I believe. I have fixed them and sent a
+patchset for that.
 
-diff --git a/include/tst_timer.h b/include/tst_timer.h
-index 071061f5b280..814b70797643 100644
---- a/include/tst_timer.h
-+++ b/include/tst_timer.h
-@@ -12,6 +12,7 @@
- #ifndef TST_TIMER
- #define TST_TIMER
- 
-+#include <asm/posix_types.h>
- #include <sched.h>
- #include <sys/time.h>
- #include <mqueue.h>
-@@ -104,6 +105,11 @@ typedef long __kernel_long_t;
- 
- typedef __kernel_long_t	__kernel_old_time_t;
- 
-+struct __kernel_old_timeval {
-+	__kernel_old_time_t	tv_sec;		/* seconds */
-+	__kernel_suseconds_t	tv_usec;	/* microseconds */
-+};
-+
- struct __kernel_old_timespec {
- 	__kernel_old_time_t	tv_sec;		/* seconds */
- 	__kernel_old_time_t	tv_nsec;	/* nanoseconds */
-diff --git a/testcases/kernel/syscalls/clock_adjtime/clock_adjtime.h b/testcases/kernel/syscalls/clock_adjtime/clock_adjtime.h
-index eb60f707f776..dbe0a561a3ab 100644
---- a/testcases/kernel/syscalls/clock_adjtime/clock_adjtime.h
-+++ b/testcases/kernel/syscalls/clock_adjtime/clock_adjtime.h
-@@ -18,11 +18,6 @@
- #include "lapi/timex.h"
- 
- #ifndef __kernel_timex
--struct __kernel_old_timeval {
--	__kernel_old_time_t	tv_sec;		/* seconds */
--	__kernel_suseconds_t	tv_usec;	/* microseconds */
--};
--
- struct __kernel_old_timex {
- 	unsigned int modes;	/* mode selector */
- 	__kernel_long_t offset;	/* time offset (usec) */
-diff --git a/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c b/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c
-index b7687468d39d..b73bf129b116 100644
---- a/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c
-+++ b/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c
-@@ -21,6 +21,7 @@
- #include <errno.h>
- 
- #include "tst_test.h"
-+#include "tst_timer.h"
- #include "lapi/syscalls.h"
- 
- static volatile sig_atomic_t done;
-@@ -39,7 +40,7 @@ static void breakout(int sig)
- 
- static void verify_gettimeofday(void)
- {
--	struct timeval tv1, tv2;
-+	struct __kernel_old_timeval tv1, tv2;
- 	unsigned long long cnt = 0;
- 
- 	done = 0;
-diff --git a/testcases/kernel/syscalls/stime/stime_var.h b/testcases/kernel/syscalls/stime/stime_var.h
-index b33c5704e94a..708b80573167 100644
---- a/testcases/kernel/syscalls/stime/stime_var.h
-+++ b/testcases/kernel/syscalls/stime/stime_var.h
-@@ -9,6 +9,7 @@
- 
- #include <sys/time.h>
- #include "config.h"
-+#include "tst_timer.h"
- #include "lapi/syscalls.h"
- 
- #define TEST_VARIANTS 3
-@@ -26,7 +27,7 @@ static int do_stime(time_t *ntime)
- 	case 1:
- 		return tst_syscall(__NR_stime, ntime);
- 	case 2: {
--		struct timeval tv;
-+		struct __kernel_old_timeval tv;
- 
- 		tv.tv_sec = *ntime;
- 		tv.tv_usec = 0;
+> There are probably also ioctls with the same problem, but
+> I don't know which ioctl commands are actually tested by ltp.
+> 
+> I would guess that the socket timestamps (both ioctl and
+> setsockopt based ones) do have some tests that need to be
+> updated.
+
+I tried to do some search based on:
+
+git grep "ioctl" `git grep -l tst_syscall`
+git grep "setsockopt" `git grep -l tst_syscall`
+
+but found nothing :(
+
+Do I need to look for something else ?
+
 -- 
-2.25.0.rc1.19.g042ed3e048af
-
+viresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
