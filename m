@@ -2,66 +2,64 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCA631DCDBC
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 May 2020 15:08:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4C091DCDC1
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 May 2020 15:12:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8C52D3C4D3A
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 May 2020 15:08:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AD2653C4D36
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 May 2020 15:12:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id AADEC3C25E9
- for <ltp@lists.linux.it>; Thu, 21 May 2020 15:08:52 +0200 (CEST)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 1265D3C042D
+ for <ltp@lists.linux.it>; Thu, 21 May 2020 15:12:08 +0200 (CEST)
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.73])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DFD0D200FF4
- for <ltp@lists.linux.it>; Thu, 21 May 2020 15:08:51 +0200 (CEST)
-Received: from mail-qv1-f42.google.com ([209.85.219.42]) by
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 159706006CF
+ for <ltp@lists.linux.it>; Thu, 21 May 2020 15:11:43 +0200 (CEST)
+Received: from mail-qk1-f177.google.com ([209.85.222.177]) by
  mrelayeu.kundenserver.de (mreue106 [212.227.15.145]) with ESMTPSA (Nemesis)
- id 1Mna0x-1jAdBW0SkH-00jcTz for <ltp@lists.linux.it>; Thu, 21 May 2020
- 15:08:51 +0200
-Received: by mail-qv1-f42.google.com with SMTP id l3so3002999qvo.7
- for <ltp@lists.linux.it>; Thu, 21 May 2020 06:08:50 -0700 (PDT)
-X-Gm-Message-State: AOAM531NI7bSzg2EdOHiURPdjUUFrE9kBCOo98ilseMCb7jNk+FQ7CDf
- ZGCLrSg5WbeZx74W/KZgVij3xZWP3fVLoQXB78U=
-X-Google-Smtp-Source: ABdhPJwAd7d+cSS3Eat7IunW3y8sUy/MSMMfCl7yV/Hir1b1ugmEHJzLIxlm6tUj7mR8mxfBTdOYm+vPaNOEiC+nga0=
-X-Received: by 2002:a05:6214:905:: with SMTP id
- dj5mr9844833qvb.222.1590066529821; 
- Thu, 21 May 2020 06:08:49 -0700 (PDT)
+ id 1MKt3r-1jLS8232gn-00LBgK for <ltp@lists.linux.it>; Thu, 21 May 2020
+ 15:12:07 +0200
+Received: by mail-qk1-f177.google.com with SMTP id f13so7137640qkh.2
+ for <ltp@lists.linux.it>; Thu, 21 May 2020 06:12:07 -0700 (PDT)
+X-Gm-Message-State: AOAM53103fAxgeF7KxKjjwFh2sN3MRfnW2pgQZCg73P0Lz3BFeqte0D6
+ Xg15g8XRL9+KZu12fawL4/+bws7p8OTuBvnD59E=
+X-Google-Smtp-Source: ABdhPJyksM/sZG10n9xDOvb5SrzhtbhDBTBCeadiR39IL/w8OCnDpDWMA7rvdJ/A6Vu6fWQWM1qUYwmNiazZvco2L0s=
+X-Received: by 2002:ae9:ed95:: with SMTP id c143mr9873793qkg.394.1590066726593; 
+ Thu, 21 May 2020 06:12:06 -0700 (PDT)
 MIME-Version: 1.0
 References: <cover.1590057824.git.viresh.kumar@linaro.org>
-In-Reply-To: <cover.1590057824.git.viresh.kumar@linaro.org>
+ <5a10d33509ac73c26b233ab72c579f44386d0a55.1590057824.git.viresh.kumar@linaro.org>
+In-Reply-To: <5a10d33509ac73c26b233ab72c579f44386d0a55.1590057824.git.viresh.kumar@linaro.org>
 From: Arnd Bergmann <arnd@arndb.de>
-Date: Thu, 21 May 2020 15:08:33 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a2N-J5LoNPHa7hjRPcOR0ytNfZQ678pFuCJaJJHGYS--A@mail.gmail.com>
-Message-ID: <CAK8P3a2N-J5LoNPHa7hjRPcOR0ytNfZQ678pFuCJaJJHGYS--A@mail.gmail.com>
+Date: Thu, 21 May 2020 15:11:49 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a2yN+AwWP-BdiPg+NkyB5z00jXoSt4vQCzPJfzWpZvW6w@mail.gmail.com>
+Message-ID: <CAK8P3a2yN+AwWP-BdiPg+NkyB5z00jXoSt4vQCzPJfzWpZvW6w@mail.gmail.com>
 To: Viresh Kumar <viresh.kumar@linaro.org>
-X-Provags-ID: V03:K1:VygHvzm4nykeXwPA/lJ7+ru4uwz6Dn5Mbc/7uHj7K+4ZKPH7kSG
- hoTXDaAvlcMQoS4t4gkwLEVHvEZ79KGPVgZC+UTi2LE2/JpuH7k4paUSasP8hyCZ25kQmoP
- ExoGzxetCcxBIKDYkFEkoDjhFO8f1zoG4AiHBzfoA5p4d9MBCwTxU7B25dEQ2f4tudAJcTt
- Ww6E/s4v5aBGHpDY5epfw==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:ZuEwrBSLWNM=:LD1SVkpHEU2p64ZoV2UgP0
- aipU7PqMdwUtFdeyOZaEKjmryiC5S+jZBjPTtTrvyNblSPptoBR63r/lIFGDh2FPq60pwemkX
- Pg7y7Xg3tQXg116Bb8wr1Q4vsO6Y/w3RGxGYjf5JqFP/Zp76uw6Kq2ak82mVZqsvIBdsspWcv
- NMFL89EQnn4NE7QHJ1tqMCdPnqSIG44LznjDQ8H9lGS0u+t73d1MmXh76qwnBVT53HgTloK4o
- zIL3IdDfY3cYAfkXguJIm5gztH5h0Jb0niHFFhlU2AF5scMHHx5K377DwuqXbTKQm+MwMYT/+
- 5mALNuqfjgDqYDAHhS1U2X/g6RiYlzohztC8//h7b7HhqjJK0djpijPmies8sCihZGAWBDytC
- NYkF+cBkCUcbltmvRLOieXzBqP1NkQt6xSGgsrH/8w0wvc36EMuXlDBbCDp2eZHl59fKvBKRm
- +ur8yhmp5zRprKVet/bYYeRnzVudwFOBHfZTJTO3UeQlISMTHgoiTM+XUNgSvxQRQohEJCg/4
- OCTdtQVAI41WlJvwed1z1k4ZFp4YWNlSdobtrMj6QLggOcILPNOJIFsUL3PYgIxx7c0Mb8PiI
- b7MyeKZfZpIJya77BLq5ujZp3PRDeAEsIIHNt93QEbQOOmzdqClZ3KSgXI21V4e9udWiGSz/l
- 2jV1/FViB2TKk/2GHBgi1eYuQcw+NwT0Y4nr/VWfgOpPoNMfRH6L1yoXEonLmHDw3pSxL5vnu
- K+oTmFVaaHk3FlJ5dm4pwk3bfvQ7lX7Fs/o/Oxg3j7LEcL22CXeQmUv+lWTxl+PvKl0ML2oJU
- 4+yY7VxCtEnzdCyHURsW8S1wvo30X4quKfeSYEOSNTdV2TbVKM=
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Provags-ID: V03:K1:KFXqKfO5hKivNi1EpHZDVnABzf343xlNyIFaLOLIKmROfUUo2lH
+ PGLSPxwTplIYcdiNuUFC8fDScQwvGljQqPiqn9ZT+3F5MWJkGsPpgJ6pXGTvg6th6W0xSPk
+ eaR8oZlOP8x+uuoFPCwwNjJcNZf9gJesBNKokoYvRKWBwO/ETbbbxTVp+JNR8+qc2CC2eO1
+ rmCQEFxeR2WIM0ggOdtpQ==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:e4NJBCkJvRc=:FK7Qhrs3ZHnN1Oz1q11m5M
+ ZglDxe9sMhxAw+0K8pXEh78eEGPtqFQ6lPA6KFAVxIucDAWdCBnXZ2j9i924i8mQxcsjvaDI5
+ 0gXTELL3VSBHzKTgcE3G9qG7Kbp2GNE4EDtx5kABxlh/ZFMO9Kc2WaTybCZAOZWeiJrBI7Geq
+ SNlyikz7V01CWDwM5RbrFxs/Mxp/6QvCK+MMezq3ltlZCUXlujZ6Gs92t7jjmmJcXrNHCY1jt
+ 4yj65WFkKAqIWqSwciT+/brQP6zsP2Ob0zUiXHosJNCq6gtq7I588INrby7Tt9jbhY1qLUbr4
+ sP/zWf9YmzEWKkyt3kmU8jNnN5Obk8FRup8kuE0oA4r8WzfLHtRE2GbAdJR12zC+cnWhseevc
+ CV4aOp4BVQpAQKNAxmFxH54zSeZ1MTjsyFuxyG/cv3eBzuzd0S/qZ3Wcen/8kTCdD84fSb44C
+ dJCOqv11Xu4thoJmzQEpgAAvvrB2PmBpjqwsiH4icTxmpcxUOtPQt91HKz6rlHUZ00CVA661v
+ RXjqZHAJf0P1fZUXJGXSTw9O/gG4hIdPEOcbFQhoKJDCLlhrunq2wKX6v8ehorQTqgfz1HJsx
+ M19IuIJIU88fKPdpFVF21Jc6SAlmWQe5vZD9dKDkdUNpshHYI9WYshX1shkWNgn6ZfvtLYljo
+ DvCL8sEQCWZOZMjf4+hCvt/qWHqDnF+8VPRGL+Vf0mZgvia3/8cLrithzXBh6mJZGFiUfcumK
+ gI24GYBGBEgaLtV0lyHN0qCROPCHM078XTIwRfjVEMQkodRIKSAyyTZ5Nkt7cHyysjXu322w6
+ yKKOM6pwPKfGW8WqTI4M+akItNN5kBxDfhnMzh4+gNMwIDuC04=
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 0/5] syscalls: Add tests to verify the _time_high
- fields
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/5] include: Add declaration of struct ipc64_perm
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,26 +79,25 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 On Thu, May 21, 2020 at 12:47 PM Viresh Kumar <viresh.kumar@linaro.org> wrote:
 >
-> Hello,
+> This adds declaration of struct ipc64_perm, which will be used by
+> following patches.
 >
-> This patchset adds a new test to three syscalls to verify that the
-> extended fields, _time_high, are cleared by the kernel. This was
-> suggested by Arnd.
->
-> I did run them, but on a 64 bit machine. Please see if you can check
-> that they work properly on 32 bit machines, where we really want to test
-> them. This is rebased over ltp master.
->
-> Cyril, This conflicts a bit with my other time64 syscall tests, I will
-> rebase one of these, after you apply any of these first :)
+> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 
-The known bugs we had here were actually on 64-bit machines running
-compat 32-bit user space. You should be able to test this on most
-64-bit distros using the compat libraries and building ltp against the
-32-bit version (not sure what the best way is to configure that, but it
-should not be hard).
+Like the other structures, there are multiple definitions in the kernel:
 
-     Arnd
+$ git grep ^struct.ipc64_perm
+arch/parisc/include/uapi/asm/ipcbuf.h:struct ipc64_perm
+arch/powerpc/include/uapi/asm/ipcbuf.h:struct ipc64_perm
+arch/s390/include/uapi/asm/ipcbuf.h:struct ipc64_perm
+arch/sparc/include/uapi/asm/ipcbuf.h:struct ipc64_perm
+arch/xtensa/include/uapi/asm/ipcbuf.h:struct ipc64_perm
+include/uapi/asm-generic/ipcbuf.h:struct ipc64_perm
+
+Any reason you can't just #include <asm/ipcbuf.h> to get the
+kernel's definition for the correct architecture?
+
+        Arnd
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
