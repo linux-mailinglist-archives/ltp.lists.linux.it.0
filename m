@@ -1,43 +1,43 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAB021DCFAB
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 May 2020 16:25:56 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DCE01DCFB6
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 May 2020 16:29:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5D40F3C4D47
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 May 2020 16:25:56 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B6F1F3C4D3C
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 May 2020 16:29:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id EF0E33C256C
- for <ltp@lists.linux.it>; Thu, 21 May 2020 16:25:54 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTP id EF7CC3C050E
+ for <ltp@lists.linux.it>; Thu, 21 May 2020 16:29:14 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 750A81A00E26
- for <ltp@lists.linux.it>; Thu, 21 May 2020 16:25:54 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B00ED1A00784
+ for <ltp@lists.linux.it>; Thu, 21 May 2020 16:29:14 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 77E11AD33;
- Thu, 21 May 2020 14:25:56 +0000 (UTC)
-Date: Thu, 21 May 2020 16:26:21 +0200
+ by mx2.suse.de (Postfix) with ESMTP id C6CF1ACCE;
+ Thu, 21 May 2020 14:29:16 +0000 (UTC)
+Date: Thu, 21 May 2020 16:29:42 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Arnd Bergmann <arnd@arndb.de>
-Message-ID: <20200521142621.GE7833@yuki.lan>
+Message-ID: <20200521142942.GF7833@yuki.lan>
 References: <cover.1590057824.git.viresh.kumar@linaro.org>
- <5d502fbc7070644ed83c423713941b457c3a7aff.1590057824.git.viresh.kumar@linaro.org>
- <CAK8P3a0pxv5wauMcf223n=_7zNJ4mn1Y0WvcssFC13pcvz9wmQ@mail.gmail.com>
+ <CAK8P3a2N-J5LoNPHa7hjRPcOR0ytNfZQ678pFuCJaJJHGYS--A@mail.gmail.com>
+ <20200521142510.GD7833@yuki.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAK8P3a0pxv5wauMcf223n=_7zNJ4mn1Y0WvcssFC13pcvz9wmQ@mail.gmail.com>
+In-Reply-To: <20200521142510.GD7833@yuki.lan>
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 3/5] syscalls: semctl: Add new test to verify the
- _time_high fields
+Subject: Re: [LTP] [PATCH 0/5] syscalls: Add tests to verify the _time_high
+ fields
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,23 +57,18 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > The _time_high fields must be reset by the kernel, add a test to verify
-> > that.
-> >
-> > Suggested-by: Arnd Bergmann <arnd@arndb.de>
-> > Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+> > The known bugs we had here were actually on 64-bit machines running
+> > compat 32-bit user space. You should be able to test this on most
+> > 64-bit distros using the compat libraries and building ltp against the
+> > 32-bit version (not sure what the best way is to configure that, but it
+> > should not be hard).
 > 
-> Right, here you do need to copy the struct definitions since I forgot
-> to add a way to detect the presence in the kernel header files,
-> sorry about that.
-> 
-> Possibly you could just have a check in the Makefile that lets
-> skips the test if it fails to build because of old kernel headers?
-> Or maybe check LINUX_VERSION_CODE to see if the headers
-> are at least from linux-4.19?
+> We run LTP compiled with -m32 in our automation in SUSE precisely
+> because of these reasons. Not sure if somebody else does that.
 
-We usually include autotools checks and fallback definitions in
-include/lapi.h in this case.
+In addition to a normal runs. And we also run syscalls with various
+kernel debugging enabled, I guess we have one flavor with SLUB_DEBUG
+etc.
 
 -- 
 Cyril Hrubis
