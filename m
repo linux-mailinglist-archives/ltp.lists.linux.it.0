@@ -2,70 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E29961DE032
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 May 2020 08:55:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C37971DE033
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 May 2020 08:55:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 97BB23C4CDD
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 May 2020 08:55:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3A6883C4C1F
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 May 2020 08:55:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 4952B3C4CAD
- for <ltp@lists.linux.it>; Fri, 22 May 2020 08:54:35 +0200 (CEST)
-Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
- [IPv6:2607:f8b0:4864:20::1044])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 351EB3C4CC5
+ for <ltp@lists.linux.it>; Fri, 22 May 2020 08:54:38 +0200 (CEST)
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7FCA4601200
- for <ltp@lists.linux.it>; Fri, 22 May 2020 08:54:08 +0200 (CEST)
-Received: by mail-pj1-x1044.google.com with SMTP id t8so2467451pju.3
- for <ltp@lists.linux.it>; Thu, 21 May 2020 23:54:34 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6D4EC201343
+ for <ltp@lists.linux.it>; Fri, 22 May 2020 08:54:37 +0200 (CEST)
+Received: by mail-pl1-x644.google.com with SMTP id u22so4002825plq.12
+ for <ltp@lists.linux.it>; Thu, 21 May 2020 23:54:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=2z9UfGLaU8CdxWHWdAmp51I7V+fVi/ZplrvD4u0QA4w=;
- b=iLk1oyUyrVHh4E/k/zkJl9bTFO9a8HiU4/eFNR+MmJB5xilG3lhau4B9QFBDz9cdTb
- 4PKXEliLl83tOShqlp+7AkHWijw2R5W14fvbuvCsPZjHEBSTRdowTyQcnCaHte/a3R4w
- CO6+E6FERsdiv+DvAO83bqgX8N0b4XEnHv7DJ81YifjyoN59TIdeJeaZLFQjSS07G7lQ
- I+fGohwl8pMURZOfTc66NM6yoWXo5ghN248E2V10av4s31aFWL3Ra0mVPRccDxXyPJQo
- vAb+84XAP0ruyih5b26oED5CIklVyEnpAYiCHiP3KGz4v3RUzgaMJuNiJsXSS1l58XL3
- rr4w==
+ bh=wU6wyV4W3qBY0UvNxB52NsprWl1zbZBqn2ARfDbxYd0=;
+ b=x47B7G9sxuJg42/VFOcLWKO4VSbPd9b6H6ONU4Dqq4LVWp4AcNiWZKu44j6lJQbWSa
+ 3SP56yxfm7oUEzPgwc+t5Dw+bDRtjVsxUwyDIDSzIFz0UbQHgGxtUI0+P8ObtTcupCOH
+ hQgD8YgS1sDbOn48cdWQDpWXMKXuvhjEI4jCDvN+4v3XeATzVRU9f+yPq541qW+680BW
+ ZJDsHNoVJc0wWoCDf/Fkcyv1gaBetwixJdvrn+o2ETKuYzTo6DEg51L+OWoqviBdkecy
+ T2nKp08XaX0htRea8wh0kuVVKEwPdyXdSstcSpKhFhJSrBftXXfeobv30gGLJogxSa0r
+ SgsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=2z9UfGLaU8CdxWHWdAmp51I7V+fVi/ZplrvD4u0QA4w=;
- b=Fngs9c/QBAGGloImMIw5JWl9OuTci3SqOMp8nbovnxMZGS5FhvqcuvWj34mRzEyR7B
- 3YvE4VfwDaB9eazAPktH4y687mdsSPHqPmziLwYgdZpE1rZxEP0hDFq2ZKabG27N5uN5
- ueEPw6gjHwBskuRdtrFRB9Eu6WynoMnO0IqjnAm38iO/vM3Ojho/Ujz1xkvNM7fjA1VS
- 6h+2TbI5EQonDQwiGoWMxTBqdYKUYXcdExzBWS8qxAEF90YeI7wRtLT/IlM7rQ5ub1yb
- Gym3G3PD+IjvMbFssV056a2J+7OB1e9Mkuqf2Mq4Y0E9Up+dQ2oxUPjX9hyGW9EimjM/
- jG6A==
-X-Gm-Message-State: AOAM53395WRvHuqeii3MnjpdIK+QUgyEcCbid0cv7+K5Klptgs5CH2lj
- 1NCVx+wUOdvM6Q8R56QJ3cxM/GCjqvU=
-X-Google-Smtp-Source: ABdhPJxlW/qzxbtsO1Nczr+TiOPp//6ySW7imDGE9Ph4BHNs3abPKMpI0QAXnbOORkqEtGLNf6mSbA==
-X-Received: by 2002:a17:902:7c01:: with SMTP id
- x1mr13491225pll.258.1590130472612; 
- Thu, 21 May 2020 23:54:32 -0700 (PDT)
+ bh=wU6wyV4W3qBY0UvNxB52NsprWl1zbZBqn2ARfDbxYd0=;
+ b=Qm1iuIp+4hADfzyGQssTySDjxileDsOrrlmYe/NGS76/wRvtfaM9ef0fiEetDD37o/
+ YQMqUFcOjgt3EyUTcKyjzAuK9n/ene8S3W6rnhkY1PYuC2LpYFKEzbZM++SvLslqFxRu
+ TRs9bu1o7ZPYk2NU36Y6TaVntga7x2LsRvZycezK/CP3IO38DQGyFsRS3uCVfGqXJ9ER
+ JfXfeC6zKRcINLdljinACHsWY0h6HUObHuQUfPp9rtBE0A3lSYOhQYsDlf4RGs0LnB3i
+ Hs0vNU9IiocQgoOXrVbyK1Um6fgMx59hbHLSPAydW+L0ADWnGIZqhEvCRzC4ffNcfBZe
+ 8hZQ==
+X-Gm-Message-State: AOAM531tc09w2KVwVaaaAgpYkY9kmUGKRobgH31jJ2j3tViSWmgLL9R8
+ kJWpZutMebYHIScWctxJ6c9LrRdazWA=
+X-Google-Smtp-Source: ABdhPJzMT5S7iqTrSn24lskF3EoNQzTzotldgqR8aRhku8ByuE1p/n0pY4L6QW2pj9gU94wC7UumeA==
+X-Received: by 2002:a17:90a:c246:: with SMTP id
+ d6mr2798475pjx.60.1590130475691; 
+ Thu, 21 May 2020 23:54:35 -0700 (PDT)
 Received: from localhost ([122.167.130.103])
- by smtp.gmail.com with ESMTPSA id z18sm6153350pfj.148.2020.05.21.23.54.31
+ by smtp.gmail.com with ESMTPSA id w26sm4844009pfj.20.2020.05.21.23.54.34
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 21 May 2020 23:54:31 -0700 (PDT)
+ Thu, 21 May 2020 23:54:35 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Fri, 22 May 2020 12:24:11 +0530
-Message-Id: <c5428a9c88d18fac80e364281cfd4e3aefa38d2c.1590130423.git.viresh.kumar@linaro.org>
+Date: Fri, 22 May 2020 12:24:12 +0530
+Message-Id: <bea4b8f60091c44e43e71539fd8f177dce639b15.1590130423.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
 In-Reply-To: <cover.1590130423.git.viresh.kumar@linaro.org>
 References: <cover.1590130423.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH V2 5/6] syscalls: Don't pass struct timespec to
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH V2 6/6] syscalls: Don't pass struct timeval to
  tst_syscall()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -86,103 +86,99 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 There are compatibility issues here as we are calling the direct
-syscalls (with tst_syscall()) with the "struct timespec" (which is a
-libc definition). Over that, an architecture may not define
-__NR_clock_getres (for example) and so we must have the fallback version
-in place.
-
-This updates the tst_clock_*() routines in core libraries and adds
-support for different syscall variants.
+syscalls with the "struct timeval" (which is a libc definition). We
+must use struct __kernel_old_timeval instead.
 
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- lib/tst_clocks.c | 59 +++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 56 insertions(+), 3 deletions(-)
+ include/tst_timer.h                                     | 6 ++++++
+ testcases/kernel/syscalls/clock_adjtime/clock_adjtime.h | 5 -----
+ testcases/kernel/syscalls/gettimeofday/gettimeofday02.c | 3 ++-
+ testcases/kernel/syscalls/stime/stime_var.h             | 3 ++-
+ 4 files changed, 10 insertions(+), 7 deletions(-)
 
-diff --git a/lib/tst_clocks.c b/lib/tst_clocks.c
-index 2eaa73b11abe..ed13f0af0c60 100644
---- a/lib/tst_clocks.c
-+++ b/lib/tst_clocks.c
-@@ -7,23 +7,76 @@
+diff --git a/include/tst_timer.h b/include/tst_timer.h
+index 256e1d71e1bc..62a0833b6cd9 100644
+--- a/include/tst_timer.h
++++ b/include/tst_timer.h
+@@ -12,6 +12,7 @@
+ #ifndef TST_TIMER
+ #define TST_TIMER
  
- #define TST_NO_DEFAULT_MAIN
++#include <asm/posix_types.h>
+ #include <sys/time.h>
+ #include <time.h>
+ #include "tst_test.h"
+@@ -101,6 +102,11 @@ typedef long __kernel_long_t;
+ 
+ typedef __kernel_long_t	__kernel_old_time_t;
+ 
++struct __kernel_old_timeval {
++	__kernel_old_time_t	tv_sec;		/* seconds */
++	__kernel_suseconds_t	tv_usec;	/* microseconds */
++};
++
+ struct __kernel_old_timespec {
+ 	__kernel_old_time_t	tv_sec;		/* seconds */
+ 	__kernel_old_time_t	tv_nsec;	/* nanoseconds */
+diff --git a/testcases/kernel/syscalls/clock_adjtime/clock_adjtime.h b/testcases/kernel/syscalls/clock_adjtime/clock_adjtime.h
+index eb60f707f776..dbe0a561a3ab 100644
+--- a/testcases/kernel/syscalls/clock_adjtime/clock_adjtime.h
++++ b/testcases/kernel/syscalls/clock_adjtime/clock_adjtime.h
+@@ -18,11 +18,6 @@
+ #include "lapi/timex.h"
+ 
+ #ifndef __kernel_timex
+-struct __kernel_old_timeval {
+-	__kernel_old_time_t	tv_sec;		/* seconds */
+-	__kernel_suseconds_t	tv_usec;	/* microseconds */
+-};
+-
+ struct __kernel_old_timex {
+ 	unsigned int modes;	/* mode selector */
+ 	__kernel_long_t offset;	/* time offset (usec) */
+diff --git a/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c b/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c
+index b7687468d39d..b73bf129b116 100644
+--- a/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c
++++ b/testcases/kernel/syscalls/gettimeofday/gettimeofday02.c
+@@ -21,6 +21,7 @@
+ #include <errno.h>
+ 
  #include "tst_test.h"
 +#include "tst_timer.h"
- #include "tst_clocks.h"
  #include "lapi/syscalls.h"
- #include "lapi/posix_clocks.h"
  
- int tst_clock_getres(clockid_t clk_id, struct timespec *res)
+ static volatile sig_atomic_t done;
+@@ -39,7 +40,7 @@ static void breakout(int sig)
+ 
+ static void verify_gettimeofday(void)
  {
--	return tst_syscall(__NR_clock_getres, clk_id, res);
-+	int (*func)(clockid_t clk_id, void *ts);
-+	struct tst_ts tts = { 0, };
-+	int ret;
-+
-+#if defined(__NR_clock_getres_time64)
-+	tts.type = TST_KERN_TIMESPEC;
-+	func = sys_clock_getres64;
-+#elif defined(__NR_clock_getres)
-+	tts.type = TST_KERN_OLD_TIMESPEC;
-+	func = sys_clock_getres;
-+#else
-+	tts.type = TST_LIBC_TIMESPEC;
-+	func = libc_clock_getres;
-+#endif
-+
-+	ret = func(clk_id, tst_ts_get(&tts));
-+	res->tv_sec = tst_ts_get_sec(tts);
-+	res->tv_nsec = tst_ts_get_nsec(tts);
-+	return ret;
- }
+-	struct timeval tv1, tv2;
++	struct __kernel_old_timeval tv1, tv2;
+ 	unsigned long long cnt = 0;
  
- int tst_clock_gettime(clockid_t clk_id, struct timespec *ts)
- {
--	return tst_syscall(__NR_clock_gettime, clk_id, ts);
-+	int (*func)(clockid_t clk_id, void *ts);
-+	struct tst_ts tts = { 0, };
-+	int ret;
-+
-+#if defined(__NR_clock_gettime64)
-+	tts.type = TST_KERN_TIMESPEC;
-+	func = sys_clock_gettime64;
-+#elif defined(__NR_clock_gettime)
-+	tts.type = TST_KERN_OLD_TIMESPEC;
-+	func = sys_clock_gettime;
-+#else
-+	tts.type = TST_LIBC_TIMESPEC;
-+	func = libc_clock_gettime;
-+#endif
-+
-+	ret = func(clk_id, tst_ts_get(&tts));
-+	ts->tv_sec = tst_ts_get_sec(tts);
-+	ts->tv_nsec = tst_ts_get_nsec(tts);
-+	return ret;
- }
+ 	done = 0;
+diff --git a/testcases/kernel/syscalls/stime/stime_var.h b/testcases/kernel/syscalls/stime/stime_var.h
+index b33c5704e94a..708b80573167 100644
+--- a/testcases/kernel/syscalls/stime/stime_var.h
++++ b/testcases/kernel/syscalls/stime/stime_var.h
+@@ -9,6 +9,7 @@
  
- int tst_clock_settime(clockid_t clk_id, struct timespec *ts)
- {
--	return tst_syscall(__NR_clock_settime, clk_id, ts);
-+	int (*func)(clockid_t clk_id, void *ts);
-+	struct tst_ts tts = { 0, };
-+
-+#if defined(__NR_clock_settime64)
-+	tts.type = TST_KERN_TIMESPEC;
-+	func = sys_clock_settime64;
-+#elif defined(__NR_clock_settime)
-+	tts.type = TST_KERN_OLD_TIMESPEC;
-+	func = sys_clock_settime;
-+#else
-+	tts.type = TST_LIBC_TIMESPEC;
-+	func = libc_clock_settime;
-+#endif
-+
-+	tst_ts_set_sec(&tts, ts->tv_sec);
-+	tst_ts_set_nsec(&tts, ts->tv_nsec);
-+	return func(clk_id, tst_ts_get(&tts));
- }
+ #include <sys/time.h>
+ #include "config.h"
++#include "tst_timer.h"
+ #include "lapi/syscalls.h"
  
- const char *tst_clock_name(clockid_t clk_id)
+ #define TEST_VARIANTS 3
+@@ -26,7 +27,7 @@ static int do_stime(time_t *ntime)
+ 	case 1:
+ 		return tst_syscall(__NR_stime, ntime);
+ 	case 2: {
+-		struct timeval tv;
++		struct __kernel_old_timeval tv;
+ 
+ 		tv.tv_sec = *ntime;
+ 		tv.tv_usec = 0;
 -- 
 2.25.0.rc1.19.g042ed3e048af
 
