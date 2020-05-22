@@ -1,75 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF7421DE0AD
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 May 2020 09:13:05 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B6091DE0B2
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 May 2020 09:16:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 72C7F3C4CA7
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 May 2020 09:13:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 35B713C4CAD
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 May 2020 09:16:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 2F9993C2352
- for <ltp@lists.linux.it>; Fri, 22 May 2020 09:13:03 +0200 (CEST)
-Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
- [IPv6:2607:f8b0:4864:20::1041])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id C63613C2352
+ for <ltp@lists.linux.it>; Fri, 22 May 2020 09:16:20 +0200 (CEST)
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5D8ED2009FE
- for <ltp@lists.linux.it>; Fri, 22 May 2020 09:13:02 +0200 (CEST)
-Received: by mail-pj1-x1041.google.com with SMTP id n15so4594952pjt.4
- for <ltp@lists.linux.it>; Fri, 22 May 2020 00:13:02 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2B55F1401803
+ for <ltp@lists.linux.it>; Fri, 22 May 2020 09:16:16 +0200 (CEST)
+Received: by mail-pf1-x444.google.com with SMTP id y18so4811051pfl.9
+ for <ltp@lists.linux.it>; Fri, 22 May 2020 00:16:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=R4MI6HYFSLC69f5A/xyom65q78vZ6GLfAXnfVWwpR5o=;
- b=HxvSExlEwvQSZEPrzWyMe9n51VU5cqv5Z82PtSYn2o1ZMJStH9CSXyD6LCT1jKnkeO
- 9wTL5xrQW1t0PkwA+aO/H9Fo+6Z3J1UpQGWzVS4iytgSXzZbDCn/zSHUM9earaJ6fkZh
- LLv2VNvg9H9alW3y36wbxQnZuDjLBe6/b5/icHqrAMgwZbczPKy4W/yTwi5i2++EMd2c
- HQRuiS4dcaz36iG+kSB35Lbg99XAElKcF9XYln8nCM2wU8UpIveFaJJMKbUEgpy3Lbj7
- 3sycK8fhSw33yQ77hFLWatJrVW3YeYFSVZaBqDBarEX1PAGvR2lMcNGoI2b46jXHdD7w
- W7BQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=Yg9eTIifgacd/TI2Q7HM4VVAE2FdWWx5RgeHzX7P7Ag=;
+ b=Jr/ieLLv8mc0qbjLWNXuuJZNzDqNlWbjX2GI6zqZlY3HMcRr6En5MD6qfvKT6sbn8q
+ 0X5Yg7MogTXCn2HKbVU+Zc36/JMzhwKszfD1uvlUouNRMgaZYt9iv6yAUgjTKnFY6ZDv
+ JxHLeCMNylEr+ErtuHlNmC/AUL33/bnO/7kSYWCa8tbLJfub8R+uSV1ELNo463FQggA5
+ H6OC9PBJ4buud6YslTnOtjmEBrv9W2aw2tiyqI26tCR9kbRp6AWmGgivk3a89WTlu4nW
+ uFRrzIcOcfgGxGavv4FKtxOWwOLj9wg9SPxsRdGtm1K8DFsfPeURRHR2es4movzQxgYQ
+ wK+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=R4MI6HYFSLC69f5A/xyom65q78vZ6GLfAXnfVWwpR5o=;
- b=ZKc9cgIc4yRTt/JLDLFR69oF74zQIq/3+IFvmtoTPtgkgHBXcJDxu6T/BOcM1rN23N
- ZgDIJHv6O3A356AoTdb08folVWpoD/WD7SXv0z2UZ6fPdCNkhiGpsyArzugRcCr3G/vd
- +iyxxAjrZQOk5+9FckEfuk1BpOFUVmivkHWzxMfDlaUKXzXyNeEv/uLS61s1ak5u/d1P
- K4t7CoeyvPjOH0oX8Joy7IpfEtd000VtMhmxBOoEIjLYSsonyji7hnvQnVgUth4Ggt7m
- Sxeioi/0BFXR8xOkGuANU5qU4QDJt531alEUDXvz8ijibe2iGvaqXUlulGuFWQYOXSYf
- vAow==
-X-Gm-Message-State: AOAM530hkG+1hrh3NJtMJDE5igaKEP5mgTga0wFsC7sFAMsrkMJeNqxx
- LBUwZ/2L9y1MKctG59/PZ8ng7Q==
-X-Google-Smtp-Source: ABdhPJxmNoIVJqiOn9jWtL09vlIpHJZGmfqnffDaY/WIR+lN0Y6wEH4DFCdeipy1GLK27UHyi5Iyhw==
-X-Received: by 2002:a17:902:d915:: with SMTP id
- c21mr13251801plz.49.1590131580600; 
- Fri, 22 May 2020 00:13:00 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Yg9eTIifgacd/TI2Q7HM4VVAE2FdWWx5RgeHzX7P7Ag=;
+ b=UAE7lEGz+xzWZkM46T+sdnNaJGdjXSt7GF9s0lh4TpHfQkA2J8QiE10SAUsV2sMXLC
+ 6kc9SfV/BDwlYglM7Ieghlwi6maPDU3d5n1HiCsFAlwqoSO8cMmZM5I7C2+zc5VS1FuW
+ BcXGuDuAnZquwTyX5dxE4HSa9UT6uKbGq/XXkPvo6gE7aqTBMn+lIm/kpH2X5VXAD46f
+ bExuzsrIAlib4MnZtqIfo/yhdU5NLxd2UCwIkkZXTbTVnF8gAOTR4JMNCCn0FyNAxK6v
+ L8uqUlzKmiQhn7xywsuwj7RDexhTaPKS6TZHz5bW3eenGE/oR1o3lOm/iSYRkGh5mHCY
+ n4+Q==
+X-Gm-Message-State: AOAM533cxt4TNKYqIofl15LeNZk6u91pAEU8EbFN5a/4WBK3vY7z3VEd
+ Mt4KMUjQpWJ4620MdKjAZdy2sXLyZCY=
+X-Google-Smtp-Source: ABdhPJyR6nsECzIeosQFXMMh8ICS9nNiMDCHXC2qCsfUY2iKuwgD+yLP4l2TkCQUow8/vbyXr5F9kg==
+X-Received: by 2002:a62:a518:: with SMTP id v24mr2419186pfm.295.1590131774258; 
+ Fri, 22 May 2020 00:16:14 -0700 (PDT)
 Received: from localhost ([122.167.130.103])
- by smtp.gmail.com with ESMTPSA id v127sm6152521pfb.91.2020.05.22.00.12.59
+ by smtp.gmail.com with ESMTPSA id q18sm5532478pgn.34.2020.05.22.00.16.13
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 22 May 2020 00:12:59 -0700 (PDT)
-Date: Fri, 22 May 2020 12:42:58 +0530
+ Fri, 22 May 2020 00:16:13 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20200522071258.bgajo3a7mngmhr6y@vireshk-i7>
-References: <cover.1590057824.git.viresh.kumar@linaro.org>
- <5d502fbc7070644ed83c423713941b457c3a7aff.1590057824.git.viresh.kumar@linaro.org>
- <CAK8P3a0pxv5wauMcf223n=_7zNJ4mn1Y0WvcssFC13pcvz9wmQ@mail.gmail.com>
- <20200521142621.GE7833@yuki.lan>
+To: ltp@lists.linux.it
+Date: Fri, 22 May 2020 12:46:04 +0530
+Message-Id: <dc4d34a42d4ca85d4d73b9e87974382368d02296.1590131635.git.viresh.kumar@linaro.org>
+X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
+In-Reply-To: <5a10d33509ac73c26b233ab72c579f44386d0a55.1590057824.git.viresh.kumar@linaro.org>
+References: <5a10d33509ac73c26b233ab72c579f44386d0a55.1590057824.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200521142621.GE7833@yuki.lan>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 3/5] syscalls: semctl: Add new test to verify the
- _time_high fields
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH V2 2/5] include: Add declaration of struct ipc64_perm
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,44 +76,245 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>,
- Arnd Bergmann <arnd@arndb.de>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
+ Viresh Kumar <viresh.kumar@linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 21-05-20, 16:26, Cyril Hrubis wrote:
-> Hi!
-> > > The _time_high fields must be reset by the kernel, add a test to verify
-> > > that.
-> > >
-> > > Suggested-by: Arnd Bergmann <arnd@arndb.de>
-> > > Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-> > 
-> > Right, here you do need to copy the struct definitions since I forgot
-> > to add a way to detect the presence in the kernel header files,
-> > sorry about that.
-> > 
-> > Possibly you could just have a check in the Makefile that lets
-> > skips the test if it fails to build because of old kernel headers?
-> > Or maybe check LINUX_VERSION_CODE to see if the headers
-> > are at least from linux-4.19?
-> 
-> We usually include autotools checks and fallback definitions in
-> include/lapi.h in this case.
+This adds declaration of struct ipc64_perm, which will be used by
+following patches.
 
-And that's what my patches are doing. They check for 
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+---
+V2: Include definitions for other architectures as well.
 
-#ifndef HAVE_MSQID64_DS
+ configure.ac     |   1 +
+ include/ipcbuf.h | 199 +++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 200 insertions(+)
+ create mode 100644 include/ipcbuf.h
 
-and then only go define them.
-
-We can't work with kernel versions due to possible backporting of the
-patches to older kernels.
-
+diff --git a/configure.ac b/configure.ac
+index 1d3ea58d0082..eaf33dd60350 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -150,6 +150,7 @@ AC_CHECK_TYPES([struct file_dedupe_range],,,[#include <linux/fs.h>])
+ AC_CHECK_TYPES([struct fs_quota_statv],,,[#include <xfs/xqm.h>])
+ AC_CHECK_TYPES([struct if_nextdqblk],,,[#include <linux/quota.h>])
+ AC_CHECK_TYPES([struct iovec],,,[#include <sys/uio.h>])
++AC_CHECK_TYPES([struct ipc64_perm],,,[#include <sys/ipcbuf.h>])
+ 
+ AC_CHECK_TYPES([struct mmsghdr],,,[
+ #define _GNU_SOURCE
+diff --git a/include/ipcbuf.h b/include/ipcbuf.h
+new file mode 100644
+index 000000000000..caf1491df27f
+--- /dev/null
++++ b/include/ipcbuf.h
+@@ -0,0 +1,199 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020 Linaro Limited. All rights reserved.
++ * Author: Viresh Kumar <viresh.kumar@linaro.org>
++ */
++
++#ifndef IPCBUF_H
++#define IPCBUF_H
++
++#include <linux/posix_types.h>
++
++#ifndef HAVE_IPC64_PERM
++
++#if defined(__hppa__)
++#define HAVE_IPC64_PERM
++/*
++ * The ipc64_perm structure for PA-RISC is almost identical to
++ * kern_ipc_perm as we have always had 32-bit UIDs and GIDs in the kernel.
++ * 'seq' has been changed from long to int so that it's the same size
++ * on 64-bit kernels as on 32-bit ones.
++ */
++
++struct ipc64_perm
++{
++	__kernel_key_t		key;
++	__kernel_uid_t		uid;
++	__kernel_gid_t		gid;
++	__kernel_uid_t		cuid;
++	__kernel_gid_t		cgid;
++#if __BITS_PER_LONG != 64
++	unsigned short int	__pad1;
++#endif
++	__kernel_mode_t		mode;
++	unsigned short int	__pad2;
++	unsigned short int	seq;
++	unsigned int		__pad3;
++	unsigned long long int __unused1;
++	unsigned long long int __unused2;
++};
++#endif /* __hppa__ */
++
++#if defined(__powerpc__) || defined(__powerpc64__)
++#define HAVE_IPC64_PERM
++/*
++ * The ipc64_perm structure for the powerpc is identical to
++ * kern_ipc_perm as we have always had 32-bit UIDs and GIDs in the
++ * kernel.  Note extra padding because this structure is passed back
++ * and forth between kernel and user space.  Pad space is left for:
++ *	- 1 32-bit value to fill up for 8-byte alignment
++ *	- 2 miscellaneous 64-bit values
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version
++ * 2 of the License, or (at your option) any later version.
++ */
++
++struct ipc64_perm
++{
++	__kernel_key_t	key;
++	__kernel_uid_t	uid;
++	__kernel_gid_t	gid;
++	__kernel_uid_t	cuid;
++	__kernel_gid_t	cgid;
++	__kernel_mode_t	mode;
++	unsigned int	seq;
++	unsigned int	__pad1;
++	unsigned long long __unused1;
++	unsigned long long __unused2;
++};
++
++#endif /* defined(__powerpc__) || defined(__powerpc64__) */
++
++#if defined(__s390__)
++#define HAVE_IPC64_PERM
++/*
++ * The user_ipc_perm structure for S/390 architecture.
++ * Note extra padding because this structure is passed back and forth
++ * between kernel and user space.
++ *
++ * Pad space is left for:
++ * - 32-bit mode_t and seq
++ * - 2 miscellaneous 32-bit values
++ */
++
++struct ipc64_perm
++{
++	__kernel_key_t		key;
++	__kernel_uid32_t	uid;
++	__kernel_gid32_t	gid;
++	__kernel_uid32_t	cuid;
++	__kernel_gid32_t	cgid;
++	__kernel_mode_t		mode;
++	unsigned short		__pad1;
++	unsigned short		seq;
++#ifndef __s390x__
++	unsigned short		__pad2;
++#endif /* ! __s390x__ */
++	unsigned long		__unused1;
++	unsigned long		__unused2;
++};
++
++#endif /* defined(__powerpc__) || defined(__powerpc64__) */
++
++#if defined(__sparc__)
++#define HAVE_IPC64_PERM
++/*
++ * The ipc64_perm structure for sparc/sparc64 architecture.
++ * Note extra padding because this structure is passed back and forth
++ * between kernel and user space.
++ *
++ * Pad space is left for:
++ * - 32-bit seq
++ * - on sparc for 32 bit mode (it is 32 bit on sparc64)
++ * - 2 miscellaneous 64-bit values
++ */
++
++struct ipc64_perm
++{
++	__kernel_key_t		key;
++	__kernel_uid32_t	uid;
++	__kernel_gid32_t	gid;
++	__kernel_uid32_t	cuid;
++	__kernel_gid32_t	cgid;
++#ifndef __arch64__
++	unsigned short		__pad0;
++#endif
++	__kernel_mode_t		mode;
++	unsigned short		__pad1;
++	unsigned short		seq;
++	unsigned long long	__unused1;
++	unsigned long long	__unused2;
++};
++
++#endif /* __sparc__ */
++
++#if defined(__xtensa__)
++#define HAVE_IPC64_PERM
++/*
++ * Pad space is left for:
++ * - 32-bit mode_t and seq
++ * - 2 miscellaneous 32-bit values
++ *
++ * This file is subject to the terms and conditions of the GNU General
++ * Public License.  See the file "COPYING" in the main directory of
++ * this archive for more details.
++ */
++
++struct ipc64_perm
++{
++	__kernel_key_t		key;
++	__kernel_uid32_t	uid;
++	__kernel_gid32_t	gid;
++	__kernel_uid32_t	cuid;
++	__kernel_gid32_t	cgid;
++	__kernel_mode_t		mode;
++	unsigned long		seq;
++	unsigned long		__unused1;
++	unsigned long		__unused2;
++};
++
++#endif /* __xtensa__ */
++
++#ifndef HAVE_IPC64_PERM
++/*
++ * The generic ipc64_perm structure:
++ * Note extra padding because this structure is passed back and forth
++ * between kernel and user space.
++ *
++ * ipc64_perm was originally meant to be architecture specific, but
++ * everyone just ended up making identical copies without specific
++ * optimizations, so we may just as well all use the same one.
++ *
++ * Pad space is left for:
++ * - 32-bit mode_t on architectures that only had 16 bit
++ * - 32-bit seq
++ * - 2 miscellaneous 32-bit values
++ */
++
++struct ipc64_perm {
++	__kernel_key_t		key;
++	__kernel_uid32_t	uid;
++	__kernel_gid32_t	gid;
++	__kernel_uid32_t	cuid;
++	__kernel_gid32_t	cgid;
++	__kernel_mode_t		mode;
++				/* pad if mode_t is u16: */
++	unsigned char		__pad1[4 - sizeof(__kernel_mode_t)];
++	unsigned short		seq;
++	unsigned short		__pad2;
++	__kernel_ulong_t	__unused1;
++	__kernel_ulong_t	__unused2;
++};
++
++#endif /* ipc64_perm */
++
++#endif /* HAVE_IPC64_PERM */
++
++#endif /* IPCBUF_H */
 -- 
-viresh
+2.25.0.rc1.19.g042ed3e048af
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
