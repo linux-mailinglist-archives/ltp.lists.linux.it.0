@@ -2,74 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85FE61DE29B
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 May 2020 11:08:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F7071DE4D6
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 May 2020 12:51:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 326893C4CEA
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 May 2020 11:08:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 50B0D3C4CC3
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 May 2020 12:51:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id ECC783C4CD5
- for <ltp@lists.linux.it>; Fri, 22 May 2020 11:08:13 +0200 (CEST)
-Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
- [IPv6:2607:f8b0:4864:20::1042])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 75FF93C057F
+ for <ltp@lists.linux.it>; Fri, 22 May 2020 12:51:45 +0200 (CEST)
+Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
+ [IPv6:2607:f8b0:4864:20::102f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2F6AB140118A
- for <ltp@lists.linux.it>; Fri, 22 May 2020 11:08:13 +0200 (CEST)
-Received: by mail-pj1-x1042.google.com with SMTP id q24so4723984pjd.1
- for <ltp@lists.linux.it>; Fri, 22 May 2020 02:08:13 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 82D0A600B53
+ for <ltp@lists.linux.it>; Fri, 22 May 2020 12:51:18 +0200 (CEST)
+Received: by mail-pj1-x102f.google.com with SMTP id q24so4824908pjd.1
+ for <ltp@lists.linux.it>; Fri, 22 May 2020 03:51:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=tKLltSuwh5yJkFsG9JTL+RZMD7LEqfVPwSZYH+hFrjM=;
- b=QMWDNmOD548w6u9rCZa8mW8xHpBsmYkNUkgq/CF7Er89Hb267/rIcOCzDi/EBMd4oE
- oaR5lsQD8BJihUGxWmbfy+ccpB3rIRe8mMfuc6of2mcWfsi8uwnZbpt63aZNzc4B7Yhp
- sy5wJ1gD7kk1DuXDbQPp/rVfTJ19tpnY4VViVbsbwqgjGoSXLY0CLHlJzgzkq09AJVIc
- ANxu4s72J2vy4TP2bwuhI0D1037KqVydMI8RJGWifeRNbv2LDPcgx3haT0vuYVAN11A/
- d3BPwFcEiyPa4+Js5v+C0UQkIdb5R1ItDiPfVC7Nys60lLsfhUqr6Ojnvrk9D+cPFtUK
- ahxQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=yB5Su0ox8/w6VUQTqcbdw/Zn5koFsj6HFavBatwn8sA=;
+ b=MPwcExWxqKQu060l+Z83PO6Vse+knAAIqoqO1UnY1eyuzOv1D+MJyTpH2H4Bh7sbR5
+ OoSulI/NCwtLu0aAaWrXed09xRZ1lazTSGUBzRz3MiQ/9cM+7uZkj1pSGtrLXEOd3OJJ
+ UUL7W5kdl5bVLSUYBO0Uj9SYHqliBKQv4julS2AwsvWE0Wr4kXTGSmNxnG1kDvyeYECy
+ 716+FgSBHgbcNxUUseSmZV4olQxnYxDDTAB78d30/jMEzun7vWQRm1CRmrAaBKJAcD3E
+ +wFPWGFFG57WM04SAh9vL1HotL/uliq+ExsqKWCyrj9EEjADHAF03+llcYJHEl/ffWcu
+ Fs4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=tKLltSuwh5yJkFsG9JTL+RZMD7LEqfVPwSZYH+hFrjM=;
- b=Wa+Z3N/TqTizg/vQJbtgvtXYx2fGpCKtwLQ22qf/Yz9nSiWu0+FdAkCoAFpW3vZYyl
- XaE79ogVIuzu328N0mX1DIXcLrTtdjHmZUI5wlrQ147yBeRCCPYtycLx65Tyd42y5xjN
- cIMZDn3TaAiX/b1Z0CGyuK50cDRH1m7qNvr72dHXjgJZWJeU2eSe1aBwGM5MVUdiINCd
- SAjZdrIwjzruhopEHHX6SnWZi5eB6Hot4V1hQZT+M74U/GwkXEuqCZVgMR9Xq4mNcvM5
- UkI6jmxZWFDs3AF/kUBMcCcrCBttQkdoFzqB5YvMaCB3pdpAR9YKOeT8pkRm8XHuvo5Y
- jCSw==
-X-Gm-Message-State: AOAM533wCl4bzF0kRNc5J8sGkfeHKSowwflPDgngggXIi+W+e1OYRcaw
- UjOjKmL/9Y3MJhjk94fRVm+FDQ==
-X-Google-Smtp-Source: ABdhPJwlUMSnVOHKpf1LfG0ItKIkkaYGOMizVZT0OApQ/1lqdhzv6x5YR5NP+WlYOzNavYWrMRT7rQ==
-X-Received: by 2002:a17:90a:c7c9:: with SMTP id
- gf9mr3397138pjb.19.1590138491632; 
- Fri, 22 May 2020 02:08:11 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=yB5Su0ox8/w6VUQTqcbdw/Zn5koFsj6HFavBatwn8sA=;
+ b=AQz8L7Hpg8o8TrDJOlnK8U8uCMhYI+hQTMQfbEcEde4JIXL9MDbQ1irvwHIuNvpp5J
+ S1BtNtqLBpXe2jLIxIqtjFvWnIMA34kavWZa4l1E/AMygdZKQC7T14OJn1pc+yqQI3eI
+ k0Ko4UUExrqsdGwtN1Nuc1K45b77uTIrFu8pVr7Q4LB5A3baChsjn7sN9g14hQ9hM9uQ
+ eCxpa3oAHA5ekkRCD/D67FIGrDyI4WmwEZqUSM4xQY4WntGl3zmasllEpIpk3FZLP4K2
+ zESNSzXxBagsHjn2Ii9UBWbBHt+P52xZm7PbXIWAbOBRw9jRh0BRdYdwLJ4bB62Us/Xn
+ RwPA==
+X-Gm-Message-State: AOAM530iz+9R/G8VFafJwLKGVD9xB87YqKH9FnNrT34xIJn9uBF+pttH
+ xaepZyt9xMVcRMWNQG6gQP/ePX8/Vt0=
+X-Google-Smtp-Source: ABdhPJyDiYg1OYaeRNnLB+HbJcHpotDhjODqhwHNza8bE9Y2Y2MfRF6cGYbr6jlUXytoeWiGygUFoQ==
+X-Received: by 2002:a17:902:7897:: with SMTP id
+ q23mr14206427pll.269.1590144702702; 
+ Fri, 22 May 2020 03:51:42 -0700 (PDT)
 Received: from localhost ([122.167.130.103])
- by smtp.gmail.com with ESMTPSA id d15sm10071758pjc.0.2020.05.22.02.08.10
+ by smtp.gmail.com with ESMTPSA id o9sm7014279pjp.4.2020.05.22.03.51.41
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 22 May 2020 02:08:10 -0700 (PDT)
-Date: Fri, 22 May 2020 14:38:08 +0530
+ Fri, 22 May 2020 03:51:41 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20200522090808.uobmfe4rw7qfmqf4@vireshk-i7>
-References: <cover.1590057824.git.viresh.kumar@linaro.org>
- <CAK8P3a2N-J5LoNPHa7hjRPcOR0ytNfZQ678pFuCJaJJHGYS--A@mail.gmail.com>
- <20200521142510.GD7833@yuki.lan>
+To: ltp@lists.linux.it
+Date: Fri, 22 May 2020 16:21:20 +0530
+Message-Id: <cover.1590144577.git.viresh.kumar@linaro.org>
+X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200521142510.GD7833@yuki.lan>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 0/5] syscalls: Add tests to verify the _time_high
- fields
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH V4 00/17] Syscalls: Add support for time64 variants
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,43 +75,109 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>,
- Arnd Bergmann <arnd@arndb.de>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
+ Viresh Kumar <viresh.kumar@linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 21-05-20, 16:25, Cyril Hrubis wrote:
-> Hi!
-> > > This patchset adds a new test to three syscalls to verify that the
-> > > extended fields, _time_high, are cleared by the kernel. This was
-> > > suggested by Arnd.
-> > >
-> > > I did run them, but on a 64 bit machine. Please see if you can check
-> > > that they work properly on 32 bit machines, where we really want to test
-> > > them. This is rebased over ltp master.
-> > >
-> > > Cyril, This conflicts a bit with my other time64 syscall tests, I will
-> > > rebase one of these, after you apply any of these first :)
-> > 
-> > The known bugs we had here were actually on 64-bit machines running
-> > compat 32-bit user space. You should be able to test this on most
-> > 64-bit distros using the compat libraries and building ltp against the
-> > 32-bit version (not sure what the best way is to configure that, but it
-> > should not be hard).
-> 
-> We run LTP compiled with -m32 in our automation in SUSE precisely
-> because of these reasons. Not sure if somebody else does that.
+Hi,
 
-Okay, I tested LTP with:
+This updates the pending syscall tests that lacked the time64 updates.
 
-LDFLAGS=-m32 CFLAGS=-m32 ./configure
+V4:
+- Pass timer_t type to timer_gettime/settime syscalls instead of
+  kernel_timer_t.
+- Some part of timer_settime() patch was merged in timerfd_gettime()
+  earlier by mistake, fixed that.
 
-and the time-high fields got cleared on my x86 machine with 5.5 kernel.
+V3:
+- Fix issues related to passing incorrect timespec type to syscalls.
+- Take care of futex and semtimedop tests where the architecture
+  provides the syscall number, but doesn't implement it.
+- Other improvements and cleanups.
+
+Viresh Kumar (17):
+  syscalls/timer_gettime: Add support for time64 tests
+  syscalls/timer_settime: Add support for time64 tests
+  syscalls/timerfd: Add support for time64 tests
+  syscalls/sched_rr_get_interval: Add support for time64 tests
+  syscalls/futex: Merge futex_wait_bitset tests
+  syscalls/futex: Add support for time64 tests
+  syscalls/io_pgetevents: Add support for time64 tests
+  syscalls/sigwaitinfo: Migrate to new test framework
+  syscalls/rt_sigtimedwait: Add support for time64 tests
+  syscalls/mq_timed{send|receive}: Add support for time64 tests
+  syscalls/recvmmsg: Add support for time64 tests
+  syscalls/ppoll: Add support for time64 tests
+  syscalls/select6: Add support for time64 tests
+  syscalls/semop: Migrate to new test framework
+  syscalls/semtimedop: Add support for semtimedop and its time64 version
+  syscalls/utimensat: Migrate to new test framework
+  syscalls/utimensat: Add support for time64 tests
+
+ include/lapi/io_pgetevents.h                  |  15 +-
+ include/tst_timer.h                           | 196 +++++++
+ runtest/syscalls                              |   3 +-
+ testcases/kernel/syscalls/futex/.gitignore    |   1 -
+ testcases/kernel/syscalls/futex/Makefile      |   1 -
+ .../syscalls/futex/futex_cmp_requeue01.c      |  34 +-
+ .../syscalls/futex/futex_cmp_requeue02.c      |  24 +-
+ testcases/kernel/syscalls/futex/futex_utils.h |  52 +-
+ .../kernel/syscalls/futex/futex_wait01.c      |  79 +--
+ .../kernel/syscalls/futex/futex_wait02.c      | 102 ++--
+ .../kernel/syscalls/futex/futex_wait03.c      |  87 ++-
+ .../kernel/syscalls/futex/futex_wait04.c      |  81 +--
+ .../kernel/syscalls/futex/futex_wait05.c      |   2 +-
+ .../kernel/syscalls/futex/futex_wait_bitset.h |  75 ---
+ .../syscalls/futex/futex_wait_bitset01.c      | 101 +++-
+ .../syscalls/futex/futex_wait_bitset02.c      |  18 -
+ .../kernel/syscalls/futex/futex_wake01.c      |  67 ++-
+ .../kernel/syscalls/futex/futex_wake02.c      |  95 ++--
+ .../kernel/syscalls/futex/futex_wake03.c      | 109 ++--
+ .../kernel/syscalls/futex/futex_wake04.c      | 146 +++--
+ testcases/kernel/syscalls/futex/futextest.h   | 122 +++--
+ .../syscalls/io_pgetevents/io_pgetevents01.c  |  33 +-
+ .../syscalls/io_pgetevents/io_pgetevents02.c  |  51 +-
+ testcases/kernel/syscalls/ipc/semop/Makefile  |   2 +-
+ testcases/kernel/syscalls/ipc/semop/semop.h   |  55 ++
+ testcases/kernel/syscalls/ipc/semop/semop01.c | 148 +++--
+ testcases/kernel/syscalls/ipc/semop/semop02.c | 156 +++---
+ testcases/kernel/syscalls/ipc/semop/semop03.c | 162 +++---
+ testcases/kernel/syscalls/ipc/semop/semop04.c | 177 +++---
+ testcases/kernel/syscalls/ipc/semop/semop05.c | 313 +++++------
+ .../mq_timedreceive/mq_timedreceive01.c       |  92 +++-
+ .../syscalls/mq_timedsend/mq_timedsend01.c    |  96 ++--
+ testcases/kernel/syscalls/ppoll/ppoll01.c     |  71 ++-
+ .../sched_rr_get_interval01.c                 | 116 ++--
+ .../sched_rr_get_interval02.c                 | 122 ++---
+ .../sched_rr_get_interval03.c                 | 146 +++--
+ testcases/kernel/syscalls/select/select_var.h |  25 +-
+ .../kernel/syscalls/sendmmsg/sendmmsg01.c     |  40 +-
+ .../kernel/syscalls/sendmmsg/sendmmsg_var.h   |  55 +-
+ .../syscalls/sigwaitinfo/sigwaitinfo01.c      | 311 ++++++-----
+ .../syscalls/timer_gettime/timer_gettime01.c  | 124 ++---
+ .../syscalls/timer_settime/timer_settime01.c  |  48 +-
+ .../syscalls/timer_settime/timer_settime02.c  |  66 ++-
+ testcases/kernel/syscalls/timerfd/timerfd01.c |  53 +-
+ testcases/kernel/syscalls/timerfd/timerfd04.c |  51 +-
+ .../syscalls/timerfd/timerfd_gettime01.c      | 133 ++---
+ .../syscalls/timerfd/timerfd_settime01.c      | 136 +++--
+ .../syscalls/timerfd/timerfd_settime02.c      |  28 +-
+ testcases/kernel/syscalls/utils/mq_timed.h    |  42 +-
+ testcases/kernel/syscalls/utimensat/Makefile  |   4 -
+ .../kernel/syscalls/utimensat/utimensat01.c   | 472 ++++++++--------
+ .../syscalls/utimensat/utimensat_tests.sh     | 517 ------------------
+ 52 files changed, 2566 insertions(+), 2689 deletions(-)
+ delete mode 100644 testcases/kernel/syscalls/futex/futex_wait_bitset.h
+ delete mode 100644 testcases/kernel/syscalls/futex/futex_wait_bitset02.c
+ create mode 100644 testcases/kernel/syscalls/ipc/semop/semop.h
+ delete mode 100755 testcases/kernel/syscalls/utimensat/utimensat_tests.sh
 
 -- 
-viresh
+2.25.0.rc1.19.g042ed3e048af
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
