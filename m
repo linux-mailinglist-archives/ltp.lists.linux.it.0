@@ -2,70 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F3C81DE4DF
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 May 2020 12:53:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0105C1DE4E0
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 May 2020 12:53:38 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 025C23C4C18
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 May 2020 12:53:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A76933C4C1F
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 May 2020 12:53:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 321323C4CA6
- for <ltp@lists.linux.it>; Fri, 22 May 2020 12:52:06 +0200 (CEST)
-Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
- [IPv6:2607:f8b0:4864:20::641])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 575B73C4CB1
+ for <ltp@lists.linux.it>; Fri, 22 May 2020 12:52:09 +0200 (CEST)
+Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
+ [IPv6:2607:f8b0:4864:20::62d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7864B600913
- for <ltp@lists.linux.it>; Fri, 22 May 2020 12:52:05 +0200 (CEST)
-Received: by mail-pl1-x641.google.com with SMTP id x10so4248885plr.4
- for <ltp@lists.linux.it>; Fri, 22 May 2020 03:52:05 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5243A6006D2
+ for <ltp@lists.linux.it>; Fri, 22 May 2020 12:51:42 +0200 (CEST)
+Received: by mail-pl1-x62d.google.com with SMTP id f15so4256452plr.3
+ for <ltp@lists.linux.it>; Fri, 22 May 2020 03:52:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=s0R7H3ESXy9BXi4x7K7Cc8ZDcyKc7QY2sKsGQcjvlo8=;
- b=gYpn9v8Kq76bwyLSXkciABaUq29fhuG7B3YdpE9/XtmZ8Svzza5En/oB7URE0iipBJ
- uKo0OZtxPQ0PDiryf6kaNcdosprKpw343NnSC8N61fflQ04VrVamA9tMW5I+UCDm2a7u
- ilnd2O+2sr5ypZ12yxI4V8kPDdRpEz4yiZlrX8ZhKAJ+N7IrrQMIZkwH4qdGLMJK8ViP
- 2A5r9KiL58zXgrQYdp/8c3EsB3XtAuvGq6vRfyUvruyUwdOxwBJaQ63MkG5ZUqF7iuFC
- zqlceUQRtjQgZmOFulDd4+N2w5aZ7ii6CH/l3wF7EpcUmlqhxxxGb/y2mLRjcFfO63ef
- rVOQ==
+ bh=LFZd9P5Q5kn9z9zCL7gKYfyvogwPWXJbq0lUe8BU1ic=;
+ b=DrOuyHsUxy8E6b/2t+HS7ytL14kcpeQee3C7WCYP7pbRQZBstFrtDyBTOzxzKRwrRM
+ xPDA7MPAm0aZbPkyOeqg/2LpWUI2isztHsK9Z7zMxS2E3eObbpDhBeap8KOx7nPVak/A
+ 1UPu/OSR63i8eF3xQ8Km+M+cWkAE8mbNcYex3VxVfKz8B/5TDcBtMU4UEgFmblfMUTgE
+ JJf08mFCAOdSSWGa20/Bgga3F09ab1h1W7/N9GkCK3KDCfyLcs+I+XZ6t1Rj5CKgn+yh
+ Oa888f1xBzigSMyUS/hU3/Ljoabo2PQnPu2wCgxpjDMA8oTO43M3vU70itZvu3yrgj3X
+ bMzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=s0R7H3ESXy9BXi4x7K7Cc8ZDcyKc7QY2sKsGQcjvlo8=;
- b=YzZ1+tmpOkqpL6bSWCGa3Ka//TsmkTzABW805Ohkg7V+biuDWgLH5LX6W5g3PrUufd
- W4KF8KchaDmWLb44yNlrqadnYdoU6CByzjI9gdOJl1rAJzIfW/lfHNOJRSaATmBci/yx
- 2hWhIMkxRlMil9FERvoWftb4fDiCOZAtkdpKDoPIUWGrfmICjsiCEvxHgUSCg66MXtbv
- sNF0VMOdCQ3bdg4DGdI9zHZ3jdYqs789/Ev8oayFWQ1uYFVObxHDGR3HdQwX0sWksnqa
- JeKE8tJacKEMWCki3ciDQDjtuaACP4vx2bAYYv9V7OgZG2kDJP8IBD59yhsxTyZxgVDK
- Vyqg==
-X-Gm-Message-State: AOAM531+NwtedBXhdza44KmPp3gOuBeoUrkC0LuMhEVwS9OcU8YKPvvn
- 3z7IHgINEGx3LjKEaSPj/8YHLyhYJNY=
-X-Google-Smtp-Source: ABdhPJzn+H/mBBCO70XIapmlrbuMlfp0onIXPKTXjW7oHphEAHephfMLDvZ6fTKTaktFGjg4ysF/sQ==
-X-Received: by 2002:a17:902:9043:: with SMTP id
- w3mr13413631plz.250.1590144723579; 
- Fri, 22 May 2020 03:52:03 -0700 (PDT)
+ bh=LFZd9P5Q5kn9z9zCL7gKYfyvogwPWXJbq0lUe8BU1ic=;
+ b=LGv4PVP24bWCPbaR60hX1Lu0wwBcvqtqH0pS6GIyJwwCQhiNLRKKYirxW6biV2lEBB
+ 71zCMp41Tb8kjl20K/T27kD/CYVAC+S85eN/LH2EYClS7Rhi6fmCUy51QS2m2eadP+CQ
+ 3WYsvZg3r1T3aqRCTloXJDKqhxNlYhSf4rR5bFzH7TdwJGt1o3vxopsYS31etaKzmzOd
+ NqbdOYvIYsrl1KFLgD48A+nNbBKIgMrNRRF5K/VhEChZxGFiUJ0XbpG2tDCAsow1ZgJ9
+ BgpzdjTl5GqqEqm38S89HO4YekN1lmlsvPusg5FZyOj3zqAAvSVPbeu8OVF7CtooyOx4
+ vUgQ==
+X-Gm-Message-State: AOAM530QHQwaSISu+Q+mGESedyOEamt/KFg0kA7wAGc47hsAdS7vXn72
+ 3JAgNYcKngd+NSqYgThT6K3cI9ANt4E=
+X-Google-Smtp-Source: ABdhPJy42ihLDlmkmxxAaq4cFd1Yryg80Hyqj4OCQDuN8GfA9YgebTufN1GyRJ+gQXwQnYr2ns0DhQ==
+X-Received: by 2002:a17:902:aa4b:: with SMTP id
+ c11mr14350694plr.211.1590144726330; 
+ Fri, 22 May 2020 03:52:06 -0700 (PDT)
 Received: from localhost ([122.167.130.103])
- by smtp.gmail.com with ESMTPSA id s15sm5965038pgv.5.2020.05.22.03.52.02
+ by smtp.gmail.com with ESMTPSA id c21sm6449941pfo.131.2020.05.22.03.52.05
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 22 May 2020 03:52:02 -0700 (PDT)
+ Fri, 22 May 2020 03:52:05 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Fri, 22 May 2020 16:21:27 +0530
-Message-Id: <d066aac6e9c2a3a44be4e4a8fa3cf4243d71364e.1590144577.git.viresh.kumar@linaro.org>
+Date: Fri, 22 May 2020 16:21:28 +0530
+Message-Id: <6f04cc9669e23ac222d064bcdeb0da2077f60a91.1590144577.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
 In-Reply-To: <cover.1590144577.git.viresh.kumar@linaro.org>
 References: <cover.1590144577.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH V4 07/17] syscalls/io_pgetevents: Add support for
- time64 tests
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH V4 08/17] syscalls/sigwaitinfo: Migrate to new test
+ framework
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,230 +84,447 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This adds support for time64 tests to the existing io_pgetevents()
-syscall tests.
-
-While at it, also pass mode to SAFE_OPEN() to avoid any errors when the
-tests are run for multiple variants together.
-
-Also get rid of an extra copy of local fd variable, which is incorrect.
+This migrates the sigwaitinfo tests to use the new test framework.
 
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- include/lapi/io_pgetevents.h                  | 15 ++++--
- .../syscalls/io_pgetevents/io_pgetevents01.c  | 33 +++++++++++-
- .../syscalls/io_pgetevents/io_pgetevents02.c  | 51 +++++++++++++++----
- 3 files changed, 83 insertions(+), 16 deletions(-)
+ .../syscalls/sigwaitinfo/sigwaitinfo01.c      | 209 +++++++-----------
+ 1 file changed, 84 insertions(+), 125 deletions(-)
 
-diff --git a/include/lapi/io_pgetevents.h b/include/lapi/io_pgetevents.h
-index 3c9d5b2d7618..5bb9a60c352a 100644
---- a/include/lapi/io_pgetevents.h
-+++ b/include/lapi/io_pgetevents.h
-@@ -16,15 +16,20 @@
- #ifdef HAVE_LIBAIO
- #include <libaio.h>
+diff --git a/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c b/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c
+index 6a30c27f6f2f..1b976a271d28 100644
+--- a/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c
++++ b/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c
+@@ -1,93 +1,58 @@
+-/*
+- * Copyright (c) Jiri Palecek<jpalecek@web.de>, 2009
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * Further, this software is distributed without any warranty that it is
+- * free of the rightful claim of any third person regarding infringement
+- * or the like.  Any license provided herein, whether implied or
+- * otherwise, applies only to this software file.  Patent licenses, if
+- * any, provided herein do not apply to combinations of this program with
+- * other software, or any other product whatsoever.
+- *
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- */
+-#include "test.h"
++// SPDX-License-Identifier: GPL-2.0-or-later
++/* Copyright (c) Jiri Palecek<jpalecek@web.de>, 2009 */
++
++#include "tst_test.h"
+ #include <errno.h>
++#include <stdlib.h>
+ #include <signal.h>
+-#include "../utils/include_j_h.h"
+-#include "../utils/common_j_h.c"
+ #include <limits.h>
+ #include "lapi/syscalls.h"
++#include "tst_sig_proc.h"
  
--#ifndef HAVE_IO_PGETEVENTS
--int io_pgetevents(io_context_t ctx, long min_nr, long max_nr,
--		 struct io_event *events, struct timespec *timeout,
--		 sigset_t *sigmask)
-+static inline int sys_io_pgetevents(io_context_t ctx, long min_nr, long max_nr,
-+		struct io_event *events, void *timeout, sigset_t *sigmask)
+ #define SUCCEED_OR_DIE(syscall, message, ...)				 \
+ 	(errno = 0,							 \
+ 		({int ret=syscall(__VA_ARGS__);				 \
+ 			if (ret==-1)					 \
+-				tst_brkm(TBROK|TERRNO, cleanup, message);\
++				tst_brk(TBROK|TERRNO, message);\
+ 			ret;}))
+ 
+-/* Report success iff TEST_RETURN and TEST_ERRNO are equal to
++/* Report success iff TST_RET and TST_ERR are equal to
+ 	 exp_return and exp_errno, resp., and cond is true. If cond is not
+ 	 true, report condition_errmsg
+ */
+-static void report_success_cond(const char *func, const char *file, int line,
++static void report_success_cond(const char *func, int line,
+ 				long exp_return, int exp_errno, int condition,
+ 				char *condition_errmsg)
  {
- 	return tst_syscall(__NR_io_pgetevents, ctx, min_nr, max_nr, events,
- 			   timeout, sigmask);
+-	if (exp_return == TEST_RETURN
+-	    && (exp_return != -1 || exp_errno == TEST_ERRNO))
++	if (exp_return == TST_RET
++	    && (exp_return != -1 || exp_errno == TST_ERR))
+ 		if (condition)
+-			tst_resm(TPASS, "Test passed");
++			tst_res(TPASS, "%s (%d): Test passed", func, line);
+ 		else
+-			tst_resm(TFAIL, "%s (%s: %d): %s", func, file, line,
++			tst_res(TFAIL, "%s (%d): %s", func, line,
+ 				 condition_errmsg);
+-	else if (TEST_RETURN != -1)
+-		tst_resm(TFAIL,
+-			 "%s (%s: %d): Unexpected return value; expected %ld, got %ld",
+-			 func, file, line, exp_return, TEST_RETURN);
++	else if (TST_RET != -1)
++		tst_res(TFAIL,
++			 "%s (%d): Unexpected return value; expected %ld, got %ld",
++			 func, line, exp_return, TST_RET);
+ 	else
+-		tst_resm(TFAIL | TTERRNO, "%s (%s: %d): Unexpected failure",
+-			 func, file, line);
++		tst_res(TFAIL | TTERRNO, "%s (%d): Unexpected failure",
++			 func, line);
  }
--#endif /* HAVE_IO_PGETEVENTS */
+ 
+ #define REPORT_SUCCESS_COND(exp_return, exp_errno, condition, condition_errmsg)	\
+-	report_success_cond(__FUNCTION__, __FILE__, __LINE__, exp_return, exp_errno, condition, condition_errmsg);
++	report_success_cond(__FUNCTION__, __LINE__, exp_return, exp_errno, condition, condition_errmsg);
+ 
+-/* Report success iff TEST_RETURN and TEST_ERRNO are equal to
++/* Report success iff TST_RET and TST_ERR are equal to
+ 	 exp_return and exp_errno, resp.
+ */
+ #define REPORT_SUCCESS(exp_return, exp_errno)					\
+ 	REPORT_SUCCESS_COND(exp_return, exp_errno, 1, "");
+ 
+-static void cleanup(void);
+-
+ static void empty_handler(int sig)
+ {
+ }
+ 
+-static void setup(void)
+-{
+-	tst_sig(FORK, DEF_HANDLER, cleanup);
+-	signal(SIGUSR1, empty_handler);
+-	signal(SIGALRM, empty_handler);
+-	signal(SIGUSR2, SIG_IGN);
+-
+-	TEST_PAUSE;
+-}
+-
+-static void cleanup(void)
+-{
+-}
+-
+ typedef int (*swi_func) (const sigset_t * set, siginfo_t * info,
+ 			 struct timespec * timeout);
+ typedef void (*test_func) (swi_func, int);
+@@ -110,7 +75,6 @@ static int my_sigwait(const sigset_t * set, siginfo_t * info,
+ static int my_sigwaitinfo(const sigset_t * set, siginfo_t * info,
+ 			  struct timespec *timeout)
+ {
+-
+ 	return sigwaitinfo(set, info);
+ }
+ #endif
+@@ -119,7 +83,6 @@ static int my_sigwaitinfo(const sigset_t * set, siginfo_t * info,
+ static int my_sigtimedwait(const sigset_t * set, siginfo_t * info,
+ 			   struct timespec *timeout)
+ {
+-
+ 	return sigtimedwait(set, info, timeout);
+ }
+ #endif
+@@ -129,7 +92,7 @@ static int my_rt_sigtimedwait(const sigset_t * set, siginfo_t * info,
+ 			      struct timespec *timeout)
+ {
+ 	/* _NSIG is always the right number of bits of signal map for all arches */
+-	return ltp_syscall(__NR_rt_sigtimedwait, set, info, timeout, _NSIG/8);
++	return tst_syscall(__NR_rt_sigtimedwait, set, info, timeout, _NSIG/8);
+ }
+ #endif
+ 
+@@ -141,12 +104,13 @@ void test_empty_set(swi_func sigwaitinfo, int signo)
+ 
+ 	SUCCEED_OR_DIE(sigemptyset, "sigemptyset failed", &sigs);
+ 	/* Run a child that will wake us up */
+-	child = create_sig_proc(100000, signo, UINT_MAX);
++	child = create_sig_proc(signo, INT_MAX, 100000);
+ 
+ 	TEST(sigwaitinfo(&sigs, &si, NULL));
+ 	REPORT_SUCCESS(-1, EINTR);
+ 
+-	kill(child, SIGTERM);
++	SAFE_KILL(child, SIGTERM);
++	SAFE_WAIT(NULL);
+ }
+ 
+ void test_timeout(swi_func sigwaitinfo, int signo)
+@@ -159,12 +123,13 @@ void test_timeout(swi_func sigwaitinfo, int signo)
+ 	SUCCEED_OR_DIE(sigemptyset, "sigemptyset failed", &sigs);
+ 
+ 	/* Run a child that will wake us up */
+-	child = create_sig_proc(100000, signo, UINT_MAX);
++	child = create_sig_proc(signo, INT_MAX, 100000);
+ 
+ 	TEST(sigwaitinfo(&sigs, &si, &ts));
+ 	REPORT_SUCCESS(-1, EAGAIN);
+ 
+-	kill(child, SIGTERM);
++	SAFE_KILL(child, SIGTERM);
++	SAFE_WAIT(NULL);
+ }
+ 
+ /* Note: sigwait-ing for a signal that is not blocked is unspecified
+@@ -180,14 +145,15 @@ void test_unmasked_matching(swi_func sigwaitinfo, int signo)
+ 	SUCCEED_OR_DIE(sigaddset, "sigaddset failed", &sigs, signo);
+ 
+ 	/* Run a child that will wake us up */
+-	child = create_sig_proc(100000, signo, UINT_MAX);
++	child = create_sig_proc(signo, INT_MAX, 100000);
+ 
+ 	TEST(sigwaitinfo(&sigs, &si, NULL));
+ 	REPORT_SUCCESS_COND(signo, 0, si.si_pid == child
+ 			    && si.si_code == SI_USER
+ 			    && si.si_signo == signo, "Struct siginfo mismatch");
+ 
+-	kill(child, SIGTERM);
++	SAFE_KILL(child, SIGTERM);
++	SAFE_WAIT(NULL);
+ }
+ 
+ void test_unmasked_matching_noinfo(swi_func sigwaitinfo, int signo)
+@@ -198,12 +164,13 @@ void test_unmasked_matching_noinfo(swi_func sigwaitinfo, int signo)
+ 	SUCCEED_OR_DIE(sigemptyset, "sigemptyset failed", &sigs);
+ 	SUCCEED_OR_DIE(sigaddset, "sigaddset failed", &sigs, signo);
+ 	/* Run a child that will wake us up */
+-	child = create_sig_proc(100000, signo, UINT_MAX);
++	child = create_sig_proc(signo, INT_MAX, 100000);
+ 
+ 	TEST(sigwaitinfo(&sigs, NULL, NULL));
+ 	REPORT_SUCCESS(signo, 0);
+ 
+-	kill(child, SIGTERM);
++	SAFE_KILL(child, SIGTERM);
++	SAFE_WAIT(NULL);
+ }
+ 
+ void test_masked_matching(swi_func sigwaitinfo, int signo)
+@@ -224,7 +191,7 @@ void test_masked_matching(swi_func sigwaitinfo, int signo)
+ 	SUCCEED_OR_DIE(sigdelset, "sigaddset failed", &sigs, SIGCHLD);
+ 
+ 	/* Run a child that will wake us up */
+-	child = create_sig_proc(0, signo, 1);
++	child = create_sig_proc(signo, 1, 0);
+ 
+ 	TEST(sigwaitinfo(&sigs, &si, NULL));
+ 	REPORT_SUCCESS_COND(signo, 0, si.si_pid == child
+@@ -234,13 +201,14 @@ void test_masked_matching(swi_func sigwaitinfo, int signo)
+ 	SUCCEED_OR_DIE(sigprocmask, "restoring original signal mask failed",
+ 		       SIG_SETMASK, &oldmask, &oldmask);
+ 
+-	tst_count--;
+-
+ 	if (sigismember(&oldmask, signo))
+-		tst_resm(TPASS, "sigwaitinfo restored the original mask");
++		tst_res(TPASS, "sigwaitinfo restored the original mask");
+ 	else
+-		tst_resm(TFAIL,
++		tst_res(TFAIL,
+ 			 "sigwaitinfo failed to restore the original mask");
 +
-+static inline int sys_io_pgetevents_time64(io_context_t ctx, long min_nr, long max_nr,
-+		struct io_event *events, void *timeout, sigset_t *sigmask)
-+{
-+	return tst_syscall(__NR_io_pgetevents_time64, ctx, min_nr, max_nr,
-+			   events, timeout, sigmask);
++	SAFE_KILL(child, SIGTERM);
++	SAFE_WAIT(NULL);
+ }
+ 
+ void test_masked_matching_rt(swi_func sigwaitinfo, int signo)
+@@ -265,12 +233,12 @@ void test_masked_matching_rt(swi_func sigwaitinfo, int signo)
+ 	SUCCEED_OR_DIE(sigdelset, "sigdelset failed", &sigs, SIGCHLD);
+ 
+ 	/* Run a child that will wake us up */
+-	child[0] = create_sig_proc(0, signo, 1);
+-	child[1] = create_sig_proc(0, signo + 1, 1);
++	child[0] = create_sig_proc(signo, 1, 0);
++	child[1] = create_sig_proc(signo + 1, 1, 0);
+ 
+ 	/* Ensure that the signals have been sent */
+-	waitpid(child[0], &status, 0);
+-	waitpid(child[1], &status, 0);
++	SAFE_WAITPID(child[0], &status, 0);
++	SAFE_WAITPID(child[1], &status, 0);
+ 
+ 	TEST(sigwaitinfo(&sigs, &si, NULL));
+ 	REPORT_SUCCESS_COND(signo, 0, si.si_pid == child[0]
+@@ -278,7 +246,6 @@ void test_masked_matching_rt(swi_func sigwaitinfo, int signo)
+ 			    && si.si_signo == signo, "Struct siginfo mismatch");
+ 
+ 	/* eat the other signal */
+-	tst_count--;
+ 	TEST(sigwaitinfo(&sigs, &si, NULL));
+ 	REPORT_SUCCESS_COND(signo + 1, 0, si.si_pid == child[1]
+ 			    && si.si_code == SI_USER
+@@ -288,12 +255,10 @@ void test_masked_matching_rt(swi_func sigwaitinfo, int signo)
+ 	SUCCEED_OR_DIE(sigprocmask, "restoring original signal mask failed",
+ 		       SIG_SETMASK, &oldmask, &oldmask);
+ 
+-	tst_count--;
+-
+ 	if (sigismember(&oldmask, signo))
+-		tst_resm(TPASS, "sigwaitinfo restored the original mask");
++		tst_res(TPASS, "sigwaitinfo restored the original mask");
+ 	else
+-		tst_resm(TFAIL,
++		tst_res(TFAIL,
+ 			 "sigwaitinfo failed to restore the original mask");
+ }
+ 
+@@ -314,7 +279,7 @@ void test_masked_matching_noinfo(swi_func sigwaitinfo, int signo)
+ 	SUCCEED_OR_DIE(sigdelset, "sigaddset failed", &sigs, SIGCHLD);
+ 
+ 	/* Run a child that will wake us up */
+-	child = create_sig_proc(0, signo, 1);
++	child = create_sig_proc(signo, 1, 0);
+ 
+ 	TEST(sigwaitinfo(&sigs, NULL, NULL));
+ 	REPORT_SUCCESS(signo, 0);
+@@ -322,14 +287,14 @@ void test_masked_matching_noinfo(swi_func sigwaitinfo, int signo)
+ 	SUCCEED_OR_DIE(sigprocmask, "restoring original signal mask failed",
+ 		       SIG_SETMASK, &oldmask, &oldmask);
+ 
+-	tst_count--;
+-
+ 	if (sigismember(&oldmask, signo))
+-		tst_resm(TPASS, "sigwaitinfo restored the original mask");
++		tst_res(TPASS, "sigwaitinfo restored the original mask");
+ 	else
+-		tst_resm(TFAIL,
++		tst_res(TFAIL,
+ 			 "sigwaitinfo failed to restore the original mask");
+ 
++	SAFE_KILL(child, SIGTERM);
++	SAFE_WAIT(NULL);
+ }
+ 
+ void test_bad_address(swi_func sigwaitinfo, int signo)
+@@ -349,7 +314,7 @@ void test_bad_address(swi_func sigwaitinfo, int signo)
+ 	SUCCEED_OR_DIE(sigdelset, "sigaddset failed", &sigs, SIGCHLD);
+ 
+ 	/* Run a child that will wake us up */
+-	child = create_sig_proc(0, signo, 1);
++	child = create_sig_proc(signo, 1, 0);
+ 
+ 	TEST(sigwaitinfo(&sigs, (void *)1, NULL));
+ 	REPORT_SUCCESS(-1, EFAULT);
+@@ -357,7 +322,8 @@ void test_bad_address(swi_func sigwaitinfo, int signo)
+ 	SUCCEED_OR_DIE(sigprocmask, "sigprocmask failed", SIG_SETMASK, &oldmask,
+ 		       &oldmask);
+ 
+-	kill(child, SIGTERM);
++	SAFE_KILL(child, SIGTERM);
++	SAFE_WAIT(NULL);
+ }
+ 
+ void test_bad_address2(swi_func sigwaitinfo, int signo)
+@@ -367,7 +333,7 @@ void test_bad_address2(swi_func sigwaitinfo, int signo)
+ 
+ 	switch (pid = fork()) {
+ 	case -1:
+-		tst_brkm(TBROK | TERRNO, NULL, "fork() failed");
++		tst_brk(TBROK | TERRNO, "fork() failed");
+ 	case 0:
+ 		signal(SIGSEGV, SIG_DFL);
+ 
+@@ -377,31 +343,31 @@ void test_bad_address2(swi_func sigwaitinfo, int signo)
+ 		 */
+ 		TEST(sigwaitinfo((void *)1, NULL, NULL));
+ 
+-		if (TEST_RETURN == -1 && TEST_ERRNO == EFAULT)
++		if (TST_RET == -1 && TST_ERR == EFAULT)
+ 			_exit(0);
+ 
+-		tst_resm(TINFO | TTERRNO, "swi_func returned: %ld",
+-			TEST_RETURN);
++		tst_res(TINFO | TTERRNO, "swi_func returned: %ld",
++			TST_RET);
+ 		_exit(1);
+ 		break;
+ 	default:
+ 		break;
+ 	}
+ 
+-	SUCCEED_OR_DIE(waitpid, "waitpid failed", pid, &status, 0);
++	SAFE_WAITPID(pid, &status, 0);
+ 
+ 	if ((WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV)
+ 		|| (WIFEXITED(status) && WEXITSTATUS(status) == 0)) {
+-		tst_resm(TPASS, "Test passed");
++		tst_res(TPASS, "Test passed");
+ 		return;
+ 	}
+ 
+ 	if (WIFEXITED(status)) {
+-		tst_resm(TFAIL, "Unrecognised child exit code: %d",
++		tst_res(TFAIL, "Unrecognised child exit code: %d",
+ 			WEXITSTATUS(status));
+ 	}
+ 	if (WIFSIGNALED(status)) {
+-		tst_resm(TFAIL, "Unrecognised child termsig: %d",
++		tst_res(TFAIL, "Unrecognised child termsig: %d",
+ 			WTERMSIG(status));
+ 	}
+ }
+@@ -474,38 +440,31 @@ struct test_desc {
+ #endif
+ };
+ 
+-#if defined TEST_SIGWAITINFO
+-const char *TCID = "sigwaitinfo01";
+-#elif defined TEST_RT_SIGTIMEDWAIT
+-const char *TCID = "rt_sigtimedwait01";
+-#elif defined TEST_SIGTIMEDWAIT
+-const char *TCID = "sigtimedwait01";
+-#elif defined TEST_SIGWAIT
+-const char *TCID = "sigwait01";
+-#endif
+-
+-int TST_TOTAL = ARRAY_SIZE(tests);
+-
+-int main(int argc, char **argv)
++static void run(unsigned int i)
+ {
+-	unsigned i;
+-	int lc;
+-
+-	tst_parse_opts(argc, argv, NULL, NULL);
++	struct test_desc *tc = &tests[i];
+ 
+-	setup();
++	tc->tf(tc->swi, tc->signo);
 +}
-+
- #endif /* HAVE_LIBAIO */
  
- #endif /* IO_PGETEVENTS_H */
-diff --git a/testcases/kernel/syscalls/io_pgetevents/io_pgetevents01.c b/testcases/kernel/syscalls/io_pgetevents/io_pgetevents01.c
-index e6077e47984d..fea380e52f4d 100644
---- a/testcases/kernel/syscalls/io_pgetevents/io_pgetevents01.c
-+++ b/testcases/kernel/syscalls/io_pgetevents/io_pgetevents01.c
-@@ -6,11 +6,32 @@
-  * Basic io_pgetevents() test to receive 1 event successfully.
-  */
- #include "tst_test.h"
-+#include "tst_timer.h"
- #include "lapi/io_pgetevents.h"
- 
- #ifdef HAVE_LIBAIO
- static int fd;
- 
-+static struct test_variants {
-+	int (*io_pgetevents)(io_context_t ctx, long min_nr, long max_nr,
-+		struct io_event *events, void *timeout, sigset_t *sigmask);
-+	enum tst_ts_type type;
-+	char *desc;
-+} variants[] = {
-+#if (__NR_io_pgetevents != __LTP__NR_INVALID_SYSCALL)
-+	{ .io_pgetevents = sys_io_pgetevents, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
-+#endif
-+
-+#if (__NR_io_pgetevents_time64 != __LTP__NR_INVALID_SYSCALL)
-+	{ .io_pgetevents = sys_io_pgetevents_time64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
-+#endif
-+};
-+
+-	for (lc = 0; TEST_LOOPING(lc); ++lc) {
+-		tst_count = 0;
 +static void setup(void)
 +{
-+	tst_res(TINFO, "Testing variant: %s", variants[tst_variant].desc);
++	signal(SIGUSR1, empty_handler);
++	signal(SIGALRM, empty_handler);
++	signal(SIGUSR2, SIG_IGN);
+ 
+-		for (i = 0; i < ARRAY_SIZE(tests); i++) {
+-			alarm(10);	/* arrange a 10 second timeout */
+-			tst_resm(TINFO, "%p, %d", tests[i].swi, tests[i].signo);
+-			tests[i].tf(tests[i].swi, tests[i].signo);
+-		}
+-		alarm(0);
+-	}
++	alarm(10);	/* arrange a 10 second timeout */
 +}
+ 
+-	cleanup();
+-	tst_exit();
++static void cleanup(void)
++{
++	alarm(0);
+ }
 +
- static void cleanup(void)
- {
- 	if (fd > 0)
-@@ -19,12 +40,18 @@ static void cleanup(void)
- 
- static void run(void)
- {
-+	struct test_variants *tv = &variants[tst_variant];
- 	struct io_event events[1];
- 	struct iocb cb, *cbs[1];
- 	io_context_t ctx = 0;
-+	struct tst_ts to;
- 	sigset_t sigmask;
- 	char data[4096];
--	int ret, fd;
-+	int ret;
-+
-+	to.type = tv->type;
-+	tst_ts_set_sec(&to, 0);
-+	tst_ts_set_nsec(&to, 10000);
- 
- 	cbs[0] = &cb;
- 	sigemptyset(&sigmask);
-@@ -41,7 +68,7 @@ static void run(void)
- 		tst_brk(TBROK | TERRNO, "io_submit() failed");
- 
- 	/* get the reply */
--	ret = io_pgetevents(ctx, 1, 1, events, NULL, &sigmask);
-+	ret = tv->io_pgetevents(ctx, 1, 1, events, tst_ts_get(&to), &sigmask);
- 
- 	if (ret == 1)
- 		tst_res(TPASS, "io_pgetevents() works as expected");
-@@ -55,8 +82,10 @@ static void run(void)
- static struct tst_test test = {
- 	.min_kver = "4.18",
- 	.test_all = run,
-+	.test_variants = ARRAY_SIZE(variants),
- 	.needs_tmpdir = 1,
- 	.cleanup = cleanup,
++static struct tst_test test = {
++	.test= run,
++	.tcnt = ARRAY_SIZE(tests),
 +	.setup = setup,
- };
- 
- #else
-diff --git a/testcases/kernel/syscalls/io_pgetevents/io_pgetevents02.c b/testcases/kernel/syscalls/io_pgetevents/io_pgetevents02.c
-index 62a8afba3bf1..a15b3d0dda92 100644
---- a/testcases/kernel/syscalls/io_pgetevents/io_pgetevents02.c
-+++ b/testcases/kernel/syscalls/io_pgetevents/io_pgetevents02.c
-@@ -6,6 +6,7 @@
-  * Basic io_pgetevents() test to check various failures.
-  */
- #include "tst_test.h"
-+#include "tst_timer.h"
- #include "lapi/io_pgetevents.h"
- 
- #ifdef HAVE_LIBAIO
-@@ -14,30 +15,55 @@ static struct io_event events[1];
- static io_context_t ctx, invalid_ctx = 0;
- static int fd, ctx_initialized;
- 
-+static struct tst_ts to;
-+static void *bad_addr;
-+
- static struct tcase {
- 	char *name;
- 	io_context_t *ctx;
- 	long min_nr;
- 	long max_nr;
- 	struct io_event *events;
--	struct timespec *timeout;
-+	struct tst_ts *timeout;
- 	sigset_t *sigmask;
- 	int exp_errno;
- } tcases[] = {
--	{"invalid ctx", &invalid_ctx, 1, 1, events, NULL, &sigmask, EINVAL},
--	{"invalid min_nr", &ctx, -1, 1, events, NULL, &sigmask, EINVAL},
--	{"invalid max_nr", &ctx, 1, -1, events, NULL, &sigmask, EINVAL},
--	{"invalid events", &ctx, 1, 1, NULL, NULL, &sigmask, EFAULT},
--	{"invalid timeout", &ctx, 1, 1, events, (void *)(0xDEAD), &sigmask, EFAULT},
--	{"invalid sigmask", &ctx, 1, 1, events, NULL, (void *)(0xDEAD), EFAULT},
-+	{"invalid ctx", &invalid_ctx, 1, 1, events, &to, &sigmask, EINVAL},
-+	{"invalid min_nr", &ctx, -1, 1, events, &to, &sigmask, EINVAL},
-+	{"invalid max_nr", &ctx, 1, -1, events, &to, &sigmask, EINVAL},
-+	{"invalid events", &ctx, 1, 1, NULL, &to, &sigmask, EFAULT},
-+	{"invalid timeout", &ctx, 1, 1, events, NULL, &sigmask, EFAULT},
-+	{"invalid sigmask", &ctx, 1, 1, events, &to, NULL, EFAULT},
++	.cleanup = cleanup,
++	.forks_child = 1,
 +};
-+
-+static struct test_variants {
-+	int (*io_pgetevents)(io_context_t ctx, long min_nr, long max_nr,
-+		struct io_event *events, void *timeout, sigset_t *sigmask);
-+	enum tst_ts_type type;
-+	char *desc;
-+} variants[] = {
-+#if (__NR_io_pgetevents != __LTP__NR_INVALID_SYSCALL)
-+	{ .io_pgetevents = sys_io_pgetevents, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
-+#endif
-+
-+#if (__NR_io_pgetevents_time64 != __LTP__NR_INVALID_SYSCALL)
-+	{ .io_pgetevents = sys_io_pgetevents_time64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
-+#endif
- };
- 
- static void setup(void)
- {
-+	struct test_variants *tv = &variants[tst_variant];
- 	struct iocb cb, *cbs[1];
- 	char data[4096];
- 	int ret;
- 
-+	tst_res(TINFO, "Testing variant: %s", tv->desc);
-+	bad_addr = tst_get_bad_addr(NULL);
-+	to.type = tv->type;
-+	tst_ts_set_sec(&to, 0);
-+	tst_ts_set_nsec(&to, 10000);
-+
- 	cbs[0] = &cb;
- 
- 	sigemptyset(&sigmask);
-@@ -69,10 +95,16 @@ static void cleanup(void)
- 
- static void run(unsigned int n)
- {
-+	struct test_variants *tv = &variants[tst_variant];
- 	struct tcase *tc = &tcases[n];
-+	struct timespec *to;
-+	sigset_t *sigmask;
-+
-+	sigmask = tc->sigmask ? tc->sigmask : bad_addr;
-+	to = tc->timeout ? tc->timeout : bad_addr;
- 
--	TEST(io_pgetevents(*tc->ctx, tc->min_nr, tc->max_nr, tc->events,
--			   tc->timeout, tc->sigmask));
-+	TEST(tv->io_pgetevents(*tc->ctx, tc->min_nr, tc->max_nr, tc->events, to,
-+			       sigmask));
- 
- 	if (TST_RET == 1) {
- 		tst_res(TFAIL, "%s: io_pgetevents() passed unexpectedly",
-@@ -95,6 +127,7 @@ static struct tst_test test = {
- 	.needs_tmpdir = 1,
- 	.tcnt = ARRAY_SIZE(tcases),
- 	.test = run,
-+	.test_variants = ARRAY_SIZE(variants),
- 	.setup = setup,
- 	.cleanup = cleanup,
- };
 -- 
 2.25.0.rc1.19.g042ed3e048af
 
