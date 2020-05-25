@@ -1,40 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B80FE1E0F65
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 May 2020 15:24:30 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DF6D1E1026
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 May 2020 16:11:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D3A3E3C3359
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 May 2020 15:24:29 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DB83B3C335C
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 May 2020 16:11:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id A23863C3345
- for <ltp@lists.linux.it>; Mon, 25 May 2020 15:24:23 +0200 (CEST)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 75E243C0133
+ for <ltp@lists.linux.it>; Mon, 25 May 2020 16:11:35 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2591C200072
- for <ltp@lists.linux.it>; Mon, 25 May 2020 15:24:22 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id DF8BC1A00F17
+ for <ltp@lists.linux.it>; Mon, 25 May 2020 16:11:34 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 906EBACE3
- for <ltp@lists.linux.it>; Mon, 25 May 2020 13:24:24 +0000 (UTC)
-Date: Mon, 25 May 2020 15:24:20 +0200
+ by mx2.suse.de (Postfix) with ESMTP id E7691AC24
+ for <ltp@lists.linux.it>; Mon, 25 May 2020 14:11:36 +0000 (UTC)
+Date: Mon, 25 May 2020 16:11:32 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20200525132420.GA26837@dell5510>
+Message-ID: <20200525141132.GB26837@dell5510>
 References: <20200505152315.29216-1-mdoucha@suse.cz>
+ <20200505152315.29216-2-mdoucha@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200505152315.29216-1-mdoucha@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+In-Reply-To: <20200505152315.29216-2-mdoucha@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/3] Move if_packet.h compat macros to LAPI
- headers
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 2/3] Add test for CVE 2016-8655
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,7 +56,6 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Hi Martin,
 
 Reviewed-by: Petr Vorel <pvorel@suse.cz>
-Thanks!
 
 Kind regards,
 Petr
