@@ -1,72 +1,57 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3EC71E1F93
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 May 2020 12:24:08 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id E50F21E1F9E
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 May 2020 12:27:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 68B123C32C8
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 May 2020 12:24:08 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 50C9E3C3272
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 May 2020 12:27:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 69A133C2235
- for <ltp@lists.linux.it>; Tue, 26 May 2020 12:24:04 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [207.211.31.120])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 8E581601078
- for <ltp@lists.linux.it>; Tue, 26 May 2020 12:23:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1590488642;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=7Wbj41MN/4r/ZCmsTOqQtkjnBadXc3Yw0GQLgwd3f/k=;
- b=bjAJl+4YnszIA5LPb7m5UE3OsIgghBTGFkxPUbczOD2JEP/tOy47MZtBQr2mxjq4Vij3iY
- vffwYiLfJf/cGo8g9aeSPlsdyFEvh51bdhLqWRKEfDvTR7RP9ccg2P2hHcfRUcu7zeYuFS
- eS+aYlJvKTn8oFVOESFYNksVFsF7WyQ=
-Received: from mail-lj1-f199.google.com (mail-lj1-f199.google.com
- [209.85.208.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-135-G8r_cosAPsilD6c2ytgXvg-1; Tue, 26 May 2020 06:24:00 -0400
-X-MC-Unique: G8r_cosAPsilD6c2ytgXvg-1
-Received: by mail-lj1-f199.google.com with SMTP id z9so243227ljn.4
- for <ltp@lists.linux.it>; Tue, 26 May 2020 03:24:00 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=7Wbj41MN/4r/ZCmsTOqQtkjnBadXc3Yw0GQLgwd3f/k=;
- b=KpkgnPOzsNmOjkM5diG2U3NP6AAk5dBoSOlVeWJFqHW0gO7wcdw1nWi2fmiCTD/GyS
- pYSFAHTz89EIVnsbfkGepZAbwKTiMRgguxEbbS4rAYH0HLcw1KHFwWf71pkYbX1Rl8Iy
- jWKtHJIaNRh62fo99+diqi95VGK4KJN/21ijUXtlzS5m0qLSYvMRT6Zi1RoHT4dsEEv2
- OqojOfScCFx9o9mTIv+1rac+tQyfv1BF7inY4DzKB9x/qWNkR+AgtQCbqwLcLLvjLHeS
- KW7ZJ7lVtn2T4eC/kJuuz70TT2FrBBLpsg4yT1VgUH8vE0spLvshhe2AucC9tFWM6YpS
- dgbQ==
-X-Gm-Message-State: AOAM533s9+z6VR1cn+EWbMWAFXEjswxQRwcQ7N3wM/UsGQm/YJR9zqdO
- rSO+Skg0/Jsr1q9rJk2NLvuUe56K9LYWztvIvfB3yGSwGFOfq4pkYhynwPH4bG7/uwqTombsrGG
- tQGdwfwCHO2ULXxQuZXODG9D2slc=
-X-Received: by 2002:a2e:9d95:: with SMTP id c21mr274332ljj.468.1590488638575; 
- Tue, 26 May 2020 03:23:58 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzTvAod56FmtwzrWl+nkQ4fVF4rlYLQv1Zcbb14wyVVZjXPiyto4jVu8kSflVXN+4BAy7hKBt5Y4SqgH951WQc=
-X-Received: by 2002:a2e:9d95:: with SMTP id c21mr274326ljj.468.1590488638402; 
- Tue, 26 May 2020 03:23:58 -0700 (PDT)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 2F7273C2235
+ for <ltp@lists.linux.it>; Tue, 26 May 2020 12:27:16 +0200 (CEST)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 3D3E11A00F97
+ for <ltp@lists.linux.it>; Tue, 26 May 2020 12:27:12 +0200 (CEST)
+IronPort-SDR: JOZRX/9wnXdxqzcfvUMzLUrz6S1uyrqhuUU5diYVCG3XuBnj6Xnr06GSQ9RL0qgO41yryGuY0p
+ HU+NaBhlDJjw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2020 03:27:10 -0700
+IronPort-SDR: TsIKb3TzLvhy4hn8ZCVZj6sHWtckqvlrnbEfDTycdXOnPFaRf2ULQ7tO7uFFmSUAMlNjXcH/Kk
+ Xs9SEG428sUg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,437,1583222400"; d="scan'208";a="255358795"
+Received: from xpf-desktop.sh.intel.com ([10.239.13.107])
+ by orsmga007.jf.intel.com with ESMTP; 26 May 2020 03:27:08 -0700
+Date: Tue, 26 May 2020 18:37:08 +0800
+From: Pengfei Xu <pengfei.xu@intel.com>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <20200526103708.GA26057@xpf-desktop.sh.intel.com>
+References: <20191220092529.3239-1-pengfei.xu@intel.com>
+ <20191220092529.3239-4-pengfei.xu@intel.com>
+ <20200525212401.GA30581@dell5510>
+ <20200526023233.GA14105@xpf-desktop.sh.intel.com>
+ <20200526092346.GB10775@dell5510> <20200526092703.GC10775@dell5510>
+ <20200526100700.GA24819@xpf-desktop.sh.intel.com>
+ <20200526101133.GA3114075@x230>
 MIME-Version: 1.0
-References: <20200526070901.12957-1-liwang@redhat.com>
- <2000957070.13598874.1590483511876.JavaMail.zimbra@redhat.com>
-In-Reply-To: <2000957070.13598874.1590483511876.JavaMail.zimbra@redhat.com>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 26 May 2020 18:23:44 +0800
-Message-ID: <CAEemH2enek2YivV+F9bLGXqnHEVVM7cLPyvyYUnrw5z9NPQcYg@mail.gmail.com>
-To: Jan Stancek <jstancek@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200526101133.GA3114075@x230>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] lib: use TCONF if hpage reserve failed in retry
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v5 4/4] umip_basic_test.c: improve kconfig
+ verification to avoid umip wrong abort case
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,91 +63,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0027807773=="
+Cc: Su Heng <heng.su@intel.com>, Neri Ricardo <ricardo.neri@intel.com>,
+ ltp <ltp@lists.linux.it>, Kasten Robert <robert.a.kasten@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0027807773==
-Content-Type: multipart/alternative; boundary="0000000000004fd33805a68a7e65"
+Hi Petr,
 
---0000000000004fd33805a68a7e65
-Content-Type: text/plain; charset="UTF-8"
+On 2020-05-26 at 12:11:33 +0200, Petr Vorel wrote:
+> Hi Pengfei,
+> 
+> > > But it looks like Cyril is not against the implementation, it just needs to be
+> > > fixed:
+> > > https://patchwork.ozlabs.org/comment/2352151/
+> 
+> > You are right, actually it could be worked as my suggest way:
+> > "CONFIG_A|CONFIG_B=Y".
+> > I tried to use Cyril's advice "CONFIG_A=X|CONFIG_B=Y" way, which will
+> > add more code complexity, so I just want to solve the problem I am currently
+> > facing.
+> > If we really need the "CONFIG_A=X|CONFIG_B=Y" function, which cannot be
+> > satisfied by "CONFIG_A|CONFIG_B=Y" function in the future, then we could add
+> > this function I think.
+> > Thanks for your considering.
+> 
+> I'd also think that we need "CONFIG_A=X|CONFIG_B=Y", because
+> "CONFIG_A|CONFIG_B=Y" is ambiguous (we support both CONFIG_FOO and
+> CONFIG_FOO=bar and this must stay even with |).
+> 
+> Will you send a patch for that or shell I fix it with LINUX_VERSION_CODE <
+> KERNEL_VERSION for now?
 
-On Tue, May 26, 2020 at 4:58 PM Jan Stancek <jstancek@redhat.com> wrote:
+  Ok, thanks for your LINUX_VERSION way to fix this issue.
+  Thanks!
+  BR.
 
->
->
-> ----- Original Message -----
-> > Test still easy to get fail in hpages reserving (only 80% of
-> > max_hpages) because of memory fragmentation.
-> >
-> >   tst_hugepage.c:46: BROK: nr_hugepages = 171, but expect 255
-> >
-> > But it seems unkind and useless to exit with TBROK when failed
-> > in hpage reserve retrying. This patch proposes to use TCONF for
-> > better log review.
-> >
-> > Signed-off-by: Li Wang <liwang@redhat.com>
-> > Cc: Jan Stancek <jstancek@redhat.com>
->
-> Acked-by: Jan Stancek <jstancek@redhat.com>
->
-
-Pushed, thanks for the review.
-
-
--- 
-Regards,
-Li Wang
-
---0000000000004fd33805a68a7e65
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Tue, May 26, 2020 at 4:58 PM Jan Stancek &lt;<a =
-href=3D"mailto:jstancek@redhat.com">jstancek@redhat.com</a>&gt; wrote:<br><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
-rder-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
-<br>
------ Original Message -----<br>
-&gt; Test still easy to get fail in=C2=A0hpages=C2=A0reserving (only 80% of=
-<br>
-&gt; max_hpages) because of memory fragmentation.<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0tst_hugepage.c:46: BROK: nr_hugepages =3D 171, but expect =
-255<br>
-&gt; =C2=A0 =C2=A0<br>
-&gt; But it seems unkind and useless to exit with TBROK when failed<br>
-&gt; in hpage reserve retrying. This patch proposes to use TCONF for<br>
-&gt; better log review.<br>
-&gt; <br>
-&gt; Signed-off-by: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com" target=
-=3D"_blank">liwang@redhat.com</a>&gt;<br>
-&gt; Cc: Jan Stancek &lt;<a href=3D"mailto:jstancek@redhat.com" target=3D"_=
-blank">jstancek@redhat.com</a>&gt;<br>
-<br>
-Acked-by: Jan Stancek &lt;<a href=3D"mailto:jstancek@redhat.com" target=3D"=
-_blank">jstancek@redhat.com</a>&gt;<br></blockquote><div><br></div><div cla=
-ss=3D"gmail_default" style=3D"font-size:small">Pushed, thanks for the revie=
-w.</div></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr" clas=
-s=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<=
-br></div></div></div></div>
-
---0000000000004fd33805a68a7e65--
-
-
---===============0027807773==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> 
+> Kind regards,
+> Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0027807773==--
-
