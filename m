@@ -1,69 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D392F1E1DB6
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 May 2020 10:58:38 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 468281E1E71
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 May 2020 11:23:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 62D633C3270
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 May 2020 10:58:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1662D3C3270
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 May 2020 11:23:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 093923C02C2
- for <ltp@lists.linux.it>; Tue, 26 May 2020 10:58:37 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 4E1B3200C3A
- for <ltp@lists.linux.it>; Tue, 26 May 2020 10:58:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1590483514;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Dx/zhkiaaduWc6zhzssHNUgNrfCDX74k33D+DtPZHRg=;
- b=c3rJKBOp5yGDWYnj44d2ubc+VzvWahM3/7c4qbqLxQGzp429lX50cnJg7Zy8zdftNPnGbn
- fg7N+hJtttWwPLn2+dsGJAQ1MJWZD3iUS/PLkdwNWq9A//41w8rqNnjWwqd0QysWMPJyfs
- B+/3XRZi/Ct0KR+T87KnExWyaL3VTtw=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-419-4C-VqTPnNd6soQ6zyCtjmQ-1; Tue, 26 May 2020 04:58:33 -0400
-X-MC-Unique: 4C-VqTPnNd6soQ6zyCtjmQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 0AED83C136F
+ for <ltp@lists.linux.it>; Tue, 26 May 2020 11:23:48 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2EBCA1005510
- for <ltp@lists.linux.it>; Tue, 26 May 2020 08:58:32 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2732619D7F
- for <ltp@lists.linux.it>; Tue, 26 May 2020 08:58:32 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 205111809541;
- Tue, 26 May 2020 08:58:32 +0000 (UTC)
-Date: Tue, 26 May 2020 04:58:31 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <2000957070.13598874.1590483511876.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20200526070901.12957-1-liwang@redhat.com>
-References: <20200526070901.12957-1-liwang@redhat.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 97CEA600052
+ for <ltp@lists.linux.it>; Tue, 26 May 2020 11:23:48 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 91D92AB76;
+ Tue, 26 May 2020 09:23:50 +0000 (UTC)
+Date: Tue, 26 May 2020 11:23:46 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Pengfei Xu <pengfei.xu@intel.com>
+Message-ID: <20200526092346.GB10775@dell5510>
+References: <20191220092529.3239-1-pengfei.xu@intel.com>
+ <20191220092529.3239-4-pengfei.xu@intel.com>
+ <20200525212401.GA30581@dell5510>
+ <20200526023233.GA14105@xpf-desktop.sh.intel.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.25, 10.4.195.25]
-Thread-Topic: use TCONF if hpage reserve failed in retry
-Thread-Index: tlzEE0yv6f6TRXxVBBQ+QUJ2eEKUqw==
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200526023233.GA14105@xpf-desktop.sh.intel.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] lib: use TCONF if hpage reserve failed in retry
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v5 4/4] umip_basic_test.c: improve kconfig
+ verification to avoid umip wrong abort case
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,19 +50,66 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Su Heng <heng.su@intel.com>, Neri Ricardo <ricardo.neri@intel.com>,
+ ltp <ltp@lists.linux.it>, Kasten Robert <robert.a.kasten@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-CgotLS0tLSBPcmlnaW5hbCBNZXNzYWdlIC0tLS0tCj4gVGVzdCBzdGlsbCBlYXN5IHRvIGdldCBm
-YWlsIGluwqBocGFnZXPCoHJlc2VydmluZyAob25seSA4MCUgb2YKPiBtYXhfaHBhZ2VzKSBiZWNh
-dXNlIG9mIG1lbW9yeSBmcmFnbWVudGF0aW9uLgo+ICDCoAo+ICAgdHN0X2h1Z2VwYWdlLmM6NDY6
-IEJST0s6IG5yX2h1Z2VwYWdlcyA9IDE3MSwgYnV0IGV4cGVjdCAyNTUKPiDCoCDCoAo+IEJ1dCBp
-dCBzZWVtcyB1bmtpbmQgYW5kIHVzZWxlc3MgdG8gZXhpdCB3aXRoIFRCUk9LIHdoZW4gZmFpbGVk
-Cj4gaW4gaHBhZ2UgcmVzZXJ2ZSByZXRyeWluZy4gVGhpcyBwYXRjaCBwcm9wb3NlcyB0byB1c2Ug
-VENPTkYgZm9yCj4gYmV0dGVyIGxvZyByZXZpZXcuCj4gCj4gU2lnbmVkLW9mZi1ieTogTGkgV2Fu
-ZyA8bGl3YW5nQHJlZGhhdC5jb20+Cj4gQ2M6IEphbiBTdGFuY2VrIDxqc3RhbmNla0ByZWRoYXQu
-Y29tPgoKQWNrZWQtYnk6IEphbiBTdGFuY2VrIDxqc3RhbmNla0ByZWRoYXQuY29tPgoKCi0tIApN
-YWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+Hi Xu,
+
+...
+> > Thanks for a report and your effort to fix the problem. But this does not work,
+> > because current implementation does not support '|' as bitwise or, with this
+> > patch will result on tests being skipped for both cases.
+>   CONFIG_A|CONFIG_B=y means CONGIG_A or CONGIG_B equal 'y', it will meet the
+>   test condition. So it's as expected; only could not find CONFIG_A and
+>   CONFIG_B equal to 'y', then it will not meet the test condition and exit.
+>   It should be as expected.
+>   Thank you for considering this patch again.
+
+Well, I understand your syntax, that you mean | as bitwise or :).
+But where did you find that this syntax is supported? Have a look in
+tst_kconfig_read() implementation (lib/tst_kconfig.c), there is nothing like
+this. And, indeed, if you test your patch on both CONFIG_X86_INTEL_UMIP=y and
+CONFIG_X86_UMIP=y, it end up with:
+
+tst_kconfig.c:252: INFO: Missing kernel CONFIG_X86_INTEL_UMIP|CONFIG_X86_UMIP=y
+tst_kconfig.c:284: CONF: Aborting due to unsuitable kernel config, see above!
+
+which confirm my statement there is no bitwise or support implemented :).
+Or am I missing something?
+
+And it might be questionable if CONFIG_A|CONFIG_B=y would mean (CONFIG_A|CONFIG_B)=y
+or (CONFIG_A|CONFIG_B=y), thus it should be CONFIG_A=y|CONFIG_B=y
+
+But given the fact this functionality is needed just for a single test and can
+be workarounded I suggested to use LINUX_VERSION_CODE instead.
+The only problem can happen when this is backported to the old code. But we
+could also try to detect that with custom call twice tst_kconfig_read() in the
+test setup.
+
+Kind regards,
+Petr
+
+> > While it'd be easy to implement support for bitwise or in tst_kconfig_read(),
+> > it might be enough just to check for kernel version:
+
+> > .needs_kconfigs = (const char *[]) {
+> > #if LINUX_VERSION_CODE < KERNEL_VERSION(5, 5, 0)
+> > 	"CONFIG_X86_INTEL_UMIP=y",
+> > #else
+> > 	"CONFIG_X86_UMIP=y",
+> > #endif
+
+> > But that will work unless this feature is not backported (IMHO commit
+> > b971880fe79f ("x86/Kconfig: Rename UMIP config parameter") is kind of cleanup,
+> > therefore unlikely to be backported, but it can happen).
+
+> > Kind regards,
+> > Petr
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
