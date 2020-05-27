@@ -2,53 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id F12DF1E39E1
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 May 2020 09:09:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CE721E39E7
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 May 2020 09:11:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 86D9A3C3239
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 May 2020 09:09:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1FEF33C3220
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 May 2020 09:11:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id B5F163C2123
- for <ltp@lists.linux.it>; Wed, 27 May 2020 09:09:11 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id EB16720121F
- for <ltp@lists.linux.it>; Wed, 27 May 2020 09:09:07 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.73,440,1583164800"; d="scan'208";a="93193494"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 27 May 2020 15:09:02 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id CA98A4BCC8A2;
- Wed, 27 May 2020 15:08:59 +0800 (CST)
-Received: from [10.167.220.69] (10.167.220.69) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 27 May 2020 15:08:58 +0800
-Message-ID: <5ECE120A.8060209@cn.fujitsu.com>
-Date: Wed, 27 May 2020 15:08:58 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id A7D163C321A
+ for <ltp@lists.linux.it>; Wed, 27 May 2020 09:11:12 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 683506010FA
+ for <ltp@lists.linux.it>; Wed, 27 May 2020 09:10:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1590563469;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=VR6DYl6iPKGbl8iT6ARqvrMHuumFh4usMGrGRJO0Mvs=;
+ b=GHtTwhjXWJfsmAC6kVp9hOXwIFWAsXUvvYgc2+rImjfMtEkLAzZjj+GAYmAUJJUp0IHP2d
+ WgODyBXK6CIa9RtTASOH20CDVnbrnSIy35dq/eJYQ6OfACQp2hxo1CsrV1LcCvFah25VzN
+ cgsjmJFoiGbovtvhlw1/QaZWhO3h8Lw=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-358-5hZJyPICN6C1kFYoxANmAA-1; Wed, 27 May 2020 03:11:06 -0400
+X-MC-Unique: 5hZJyPICN6C1kFYoxANmAA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+ [10.5.11.22])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 337628018A2
+ for <ltp@lists.linux.it>; Wed, 27 May 2020 07:11:05 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2D91310013D5
+ for <ltp@lists.linux.it>; Wed, 27 May 2020 07:11:05 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2619C62D1F;
+ Wed, 27 May 2020 07:11:05 +0000 (UTC)
+Date: Wed, 27 May 2020 03:11:04 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <1731864663.13759097.1590563464850.JavaMail.zimbra@redhat.com>
+In-Reply-To: <CAEemH2cGa5tvgWAPbyoanBKh7MbM4kuo+Ws_i0Z2vmbCts1yYQ@mail.gmail.com>
+References: <20200522012327.18991-1-liwang@redhat.com>
+ <1156025603.13595880.1590481651127.JavaMail.zimbra@redhat.com>
+ <CAEemH2cGa5tvgWAPbyoanBKh7MbM4kuo+Ws_i0Z2vmbCts1yYQ@mail.gmail.com>
 MIME-Version: 1.0
-To: Xiao Yang <yangx.jy@cn.fujitsu.com>
-References: <5EC48FCD.9050600@cn.fujitsu.com>
- <20200522014007.3108-1-yangx.jy@cn.fujitsu.com>
- <5ECD1CF8.5010607@cn.fujitsu.com>
-In-Reply-To: <5ECD1CF8.5010607@cn.fujitsu.com>
-X-Originating-IP: [10.167.220.69]
-X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
-X-yoursite-MailScanner-ID: CA98A4BCC8A2.AAE2D
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Originating-IP: [10.43.17.25, 10.4.195.19]
+Thread-Topic: add new cgroup test API
+Thread-Index: 2+Oz8PR3nHY3Vfe4DYh+8IN+OYSLBQ==
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] lib/tst_test.c: Take account of
- tst_brk(TCONF/TFAIL) in summary output
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH RFC 1/4] lib: add new cgroup test API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,77 +76,43 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
 
-Pushed.
+----- Original Message -----
 
-Best Regards,
-Xiao Yang
-On 2020/5/26 21:43, Xiao Yang wrote:
-> Hi,
+> > We should probably handle also EBUSY, for cases when controller is already
+> > part
+> > of existing hierarchy. E.g. cpu,cpuacct is mounted together, and someone
+> > tries to mount just cpu:
+> >   mount("none", "/mnt/cgroup", "cgroup", MS_MGC_VAL, "cpu") = -1 EBUSY
+> > (Device or resource busy)
+> >
 > 
-> I want to push it tomorrow if nobody has any objection.
+> That's true.
 > 
-> Thanks,
-> Xiao Yang
-> On 2020/5/22 9:40, Xiao Yang wrote:
->> Current summary output doesn't take account of tst_brk(TCONF/TFAIL),
->> for example:
->> -----------------------------------------------------
->> [root@Fedora-30  pidfd_send_signal]# ./pidfd_send_signal01
->> tst_test.c:1246: INFO: Timeout per run is 0h 05m 00s
->> ../../../../include/lapi/pidfd_send_signal.h:16: CONF: syscall(424) __NR_pidfd_send_signal not supported
->>
->> Summary:
->> passed   0
->> failed   0
->> skipped  0
->> warnings 0
->> ----------------------------------------------------
->>
->> 1) Add update_result() in tst_vbrk_() to fix the issue.
->> 2) Remove redundant update_result() in run_tcases_per_fs() after the fix.
->>
->> Signed-off-by: Xiao Yang<yangx.jy@cn.fujitsu.com>
->> ---
->>    lib/tst_test.c | 5 ++---
->>    1 file changed, 2 insertions(+), 3 deletions(-)
->>
->> diff --git a/lib/tst_test.c b/lib/tst_test.c
->> index 0e58060e0..e93c88ba5 100644
->> --- a/lib/tst_test.c
->> +++ b/lib/tst_test.c
->> @@ -316,6 +316,7 @@ void tst_vbrk_(const char *file, const int lineno, int ttype,
->>                   const char *fmt, va_list va)
->>    {
->>    	print_result(file, lineno, ttype, fmt, va);
->> +	update_results(TTYPE_RESULT(ttype));
->>
->>    	/*
->>    	 * The getpid implementation in some C library versions may cause cloned
->> @@ -1316,10 +1317,8 @@ static int run_tcases_per_fs(void)
->>    			mntpoint_mounted = 0;
->>    		}
->>
->> -		if (ret == TCONF) {
->> -			update_results(ret);
->> +		if (ret == TCONF)
->>    			continue;
->> -		}
->>
->>    		if (ret == 0)
->>    			continue;
-> 
-> .
-> 
+> But in general, people are not permitted to use tst_cgroup*_mount()
+> directly, it is only as the low-level/internal function to hide details we
+> mount cgroup. My previous thought is that, in v1, cpu,cpuacct are bound
+> together(as system way) in tst_croup_cpu().
 
+They don't need to use tst_cgroup*_mount() directly, they could change their
+system config and mount cpu,cpuacct,memcg together. Though chances of that
+happening are low.
 
+> > tst_cgroup_create(enum tst_cgroup_ctrl, const char *dir)
+> >
+> 
+> Maybe we can drop the second parameter "dir", the mount
+> functions are internal and we just use path macros in sub-function
+> which like what I did.
+
+I wanted to keep some flexibility in case test needs multiple cgroups.
+I'll have a look at v1 you posted today.
 
 
 -- 
