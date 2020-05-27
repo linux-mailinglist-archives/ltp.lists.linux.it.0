@@ -1,73 +1,65 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB1EE1E3EB5
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 May 2020 12:11:13 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 806F21E3FAF
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 May 2020 13:18:32 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 854E43C322E
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 May 2020 12:11:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DB7463C321F
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 May 2020 13:18:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 596E23C2123
- for <ltp@lists.linux.it>; Wed, 27 May 2020 12:11:11 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 48CF6100112F
- for <ltp@lists.linux.it>; Wed, 27 May 2020 12:11:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1590574268;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=pekfEB01NbPTcxMMfzIFWHHdjtY6sc6i0OtiBtEaHAs=;
- b=NfW8TrbIsLrIsIvuHIZsQq3bylQNPYlMoKhc1/7IMjuqOH6ZGboVAoXDHpan85aT4Y7Ox+
- 0g5SLuoahRTMSgq/22ssQB6GV5GXmi8jPtDtaUH9oL2AS0kWGxBKrpfssUNaOrFlNymrji
- +5vHCtybOLY8nTmeewLe88DX8VyMQtQ=
-Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
- [209.85.167.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-331-XE3CsrEwPaO9GrehBdSuIg-1; Wed, 27 May 2020 06:11:05 -0400
-X-MC-Unique: XE3CsrEwPaO9GrehBdSuIg-1
-Received: by mail-lf1-f72.google.com with SMTP id u5so5372979lfo.6
- for <ltp@lists.linux.it>; Wed, 27 May 2020 03:11:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=pekfEB01NbPTcxMMfzIFWHHdjtY6sc6i0OtiBtEaHAs=;
- b=Jy9PoY+Fye5OV9WTcLdR4+QZFBzFK6Wm9wh8oBrtgXuEvlHvSP/wtnEwA9uATNTHym
- N+rZ0XKWj5Rzynm4jMhmFmFLoy0NGyqHU1mDREtGACBFO8b1cPj/mDRF3KAd9l2ckow6
- rlIyEbkO7pr99FftCix8ThI3gLFwaOUc9rf8iIkJBCIbbysuexPX2ged29BARi2C60UV
- 1iVQWmZtxP9hLEMd11gFUT64GbrHI+cejWhYrkD6f3Ha1odX6fzDYLNtwT12erGdpf4B
- tE8xDKTfVxq+TfKMKAPgDr67hLPQVDcHNMhZTxaEkMG64/23zmwj3B7wPJIfwI7AQZ9V
- z97A==
-X-Gm-Message-State: AOAM530SsspqXSuMQYIg+Q22a0wogdN54kzz+Cn68hQOMMUnXD+82bOZ
- V1i3dCQkjcdy+zhPcICfZ741zQ5LYX3XVQK66AMQkT8QQRnIGLmwuanfmjk5R6qUq3kmIJh0HVR
- SOeEs7GwOv9TqVYeP49L0HxOQKz4=
-X-Received: by 2002:a2e:b5b0:: with SMTP id f16mr2874389ljn.100.1590574263999; 
- Wed, 27 May 2020 03:11:03 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzr9oYPf8PIrPcQcbPWHb066Oqw6XT1lzzuAeXi78xlXAmvkJS/fMFKgP6NOXVSCdjWpj5RKCzr2Abc/irwVdQ=
-X-Received: by 2002:a2e:b5b0:: with SMTP id f16mr2874232ljn.100.1590574259319; 
- Wed, 27 May 2020 03:10:59 -0700 (PDT)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 6DF003C223E
+ for <ltp@lists.linux.it>; Wed, 27 May 2020 13:18:30 +0200 (CEST)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8D05D6011EC
+ for <ltp@lists.linux.it>; Wed, 27 May 2020 13:17:59 +0200 (CEST)
+Received: from mail-qt1-f170.google.com ([209.85.160.170]) by
+ mrelayeu.kundenserver.de (mreue108 [212.227.15.145]) with ESMTPSA (Nemesis)
+ id 1MVe9i-1jTxwX069U-00RZra for <ltp@lists.linux.it>; Wed, 27 May 2020
+ 13:18:29 +0200
+Received: by mail-qt1-f170.google.com with SMTP id a23so18818994qto.1
+ for <ltp@lists.linux.it>; Wed, 27 May 2020 04:18:28 -0700 (PDT)
+X-Gm-Message-State: AOAM533AIZER7vKe/y0YaqEhOg7qRKdOt4c2WfYoeEqrWrD1t4TT28lN
+ tW5EYjy5+w8A95/XvaJceqeS/8pIAjdF53vRy5Q=
+X-Google-Smtp-Source: ABdhPJyRYwDfE9yLKqZMfrc11bO7sytwJHxjrrJYpFN51W71KTNJqXM/5xoyO2kw2QwcG2oGNUJlA8NmzhzRyq+IrC4=
+X-Received: by 2002:ac8:691:: with SMTP id f17mr3569839qth.204.1590578307776; 
+ Wed, 27 May 2020 04:18:27 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200527031430.22144-1-liwang@redhat.com>
- <20200527031430.22144-2-liwang@redhat.com>
- <396532423.13763181.1590565518615.JavaMail.zimbra@redhat.com>
-In-Reply-To: <396532423.13763181.1590565518615.JavaMail.zimbra@redhat.com>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 27 May 2020 18:10:47 +0800
-Message-ID: <CAEemH2cdS9OX6HvGPOwULMTkjfbNSbnz6ZF27rsZrsjcJ6r3AQ@mail.gmail.com>
-To: Jan Stancek <jstancek@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+References: <70417fdc55c750e8b13d7124e66a7e8a59182e75.1590494889.git.viresh.kumar@linaro.org>
+In-Reply-To: <70417fdc55c750e8b13d7124e66a7e8a59182e75.1590494889.git.viresh.kumar@linaro.org>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Wed, 27 May 2020 13:18:11 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a13aJ3joRBE=P06fX8fxS-yroHx=T=bG0ZtdjhWE3RAJg@mail.gmail.com>
+Message-ID: <CAK8P3a13aJ3joRBE=P06fX8fxS-yroHx=T=bG0ZtdjhWE3RAJg@mail.gmail.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+X-Provags-ID: V03:K1:FDcrPkPuZoC6fISwlNJMkaOX8//SDZ6ge6P2CAkNK2T6IcmdvMK
+ /VEQnnvCN8bE6m5PyqINzjQVA+WfKzgMsIP9U3UcPV319BTn0bYWyWm3wjEHg52n005ykK3
+ WzcELFU30w5fyl1X/alfwAHpEEYzShVKj7o7dphSgdkvIG5VMy+9sVcZOa92pTuUNMxUTCF
+ hWwcHYfItBC1prEuejGlA==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:jaKm2eWCrHA=:b7kgGjZsF5rwWf7MhJ4P/z
+ YaX44gSaSmQzFlG9F6/YAq/SvYIkKXVRIF7aZ8aejxX+O+zwgFMZpv2Wkj02akcD4iLGo3Ube
+ pAZdQWJAYMBWNFXvzZ9Hi5Mmi5CcPyKR1y2dwbYxRYg2X4Hwo9Qw5hh/VKptmBLgPXwLZuzlc
+ +S2ubVw6SY7Zdz+6mGWMBbLvXR+AY4enTfXrimpHz8TZd2dYnEnza0r1ciRj4HDB/yZwtrLk3
+ EVSCNlx8ejZ0vwxNgV28QeK5hJiVcXsXcuFjSmb6W7ATC2N8QPv98FUwr68YZ8M2nc3xgbkkg
+ 1auCHl8Fv9bgsLCVhuB5lA9Kwe8eeLyKWoqNwIM6JvQRnCf6EFSJVhuk3jH5c1or7QQMhUA3y
+ RMTVhXXUj6jR1NvTczDN1YNtrJJOhg36o6Nf0DYOYqyeCk1UzJZ7XR8tKZ+Icjiuo20Gaom2V
+ Btb/Woijz2jmYp8J24v+AAlB5YPqdB1doY3f5I+G61BSTh4FKHI+ImIFD+RZRK17GE78oMMXD
+ jZytYNBdD9HgLAl+JzywemBcC8099yqb9E0Aaa3yw6R26yTNlv80uRFB8Jgs6NDmSaT1fweG8
+ HD4/iJ9uBawH254GKyKIUfqEBkvsBwItntiP3XzPI4Qt0gSbw5t2MrrdKgMQdLUl14WeNkhED
+ fyhR0gyifTUXGuHkV3wolDeCFB6nqueWY3S1DyDPRa4f2g/zG/yK3DhC6DvkvoCTp3XmTZggh
+ xj+g4tlJeMW/Hs6JoJUOZr496A0uxqzJyii1P0cJ038PAKE6bg7wtTwmUnSZy7mBcwERD8Xx2
+ +/fBc7vS9IM62q/H8sRBCBiUTtFgc80UZHM4NoOCh29exwWZjc=
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1 2/4] mem: take use of new cgroup API
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls: clock_settime: Add test around y2038
+ vulnerability
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,220 +71,58 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0119802406=="
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0119802406==
-Content-Type: multipart/alternative; boundary="000000000000b7775a05a69e6d54"
-
---000000000000b7775a05a69e6d54
-Content-Type: text/plain; charset="UTF-8"
-
-On Wed, May 27, 2020 at 3:45 PM Jan Stancek <jstancek@redhat.com> wrote:
-
-> > diff --git a/testcases/kernel/mem/cpuset/cpuset01.c
-> > b/testcases/kernel/mem/cpuset/cpuset01.c
-> > index 853f7fe55..cecc4ba86 100644
-> > --- a/testcases/kernel/mem/cpuset/cpuset01.c
-> > +++ b/testcases/kernel/mem/cpuset/cpuset01.c
-> > @@ -51,11 +51,11 @@ static void test_cpuset(void)
-> >       unsigned long nmask[MAXNODES / BITS_PER_LONG] = { 0 };
-> >       char mems[BUFSIZ], buf[BUFSIZ];
-> >
-> > -     read_cpuset_files(CPATH, "cpus", buf);
-> > -     write_cpuset_files(CPATH_NEW, "cpus", buf);
-> > -     read_cpuset_files(CPATH, "mems", mems);
-> > -     write_cpuset_files(CPATH_NEW, "mems", mems);
-> > -     SAFE_FILE_PRINTF(CPATH_NEW "/tasks", "%d", getpid());
-> > +     read_cpuset_files(PATH_TMP_CG1_CST, "cpus", buf);
-> > +     write_cpuset_files(PATH_CG1_CST_LTP, "cpus", buf);
-> > +     read_cpuset_files(PATH_TMP_CG1_CST, "mems", mems);
-> > +     write_cpuset_files(PATH_CG1_CST_LTP, "mems", mems);
+On Tue, May 26, 2020 at 2:10 PM Viresh Kumar <viresh.kumar@linaro.org> wrote:
 >
-> This mixes generic api with cgroup1. It currently relies on implementation
-> detail of tst_cgroup_mount(), which isn't visible just by looking at this
-> test.
+> This adds a test around the y2038 vulnerability, it sets the system time
+> to just before y2038 time (i.e. max value that can be stored in s32),
+> and adds a timer to expire just after crossing it.
 >
+> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 
-Yes, here just uses many path macros, which makes things easy since mem/lib
-achieved many functions for cpuset files, I don't want to break the struct
-so keep it similar as previous. Anyway, we can reconstruct that but that is
-not the intention of this patchset.
+Nice!
+> +static struct test_variants {
+> +       int (*clock_settime)(clockid_t clk_id, void *ts);
+> +       int (*timer_settime)(timer_t timerid, int flags, void *its,
+> +                            void *old_its);
+> +       enum tst_ts_type type;
+> +       char *desc;
+> +} variants[] = {
+> +#if (__NR_clock_settime != __LTP__NR_INVALID_SYSCALL)
+> +       { .clock_settime = sys_clock_settime, .timer_settime = sys_timer_settime, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
+> +#endif
+> +
+> +#if (__NR_clock_settime64 != __LTP__NR_INVALID_SYSCALL)
+> +       { .clock_settime = sys_clock_settime64, .timer_settime = sys_timer_settime64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
+> +#endif
 
-Btw, the test has no chance to go there because in setup() the
-tst_cgroup_mount(TST_CGROUP_CPUSET)
-will get TCONF if the system uses cgroup-v2.
+I think the first one has to be guarded so we do not try to set
+the time to just before the end with sys_clock_settime() on
+32-bit machines, as kernels that don't fully support 64-bit
+time_t behave in unpredictable ways when you do that and
+are likely to crash.
 
->
-> We should make it generic or make it clear that test is for cgroup1 only:
->
+However, we probably do want to test this on 64-bit kernels
+with sys_clock_settime() anyway.
 
-But sure, we can add this, it makes code clear to readers.
+> +       tst_ts_set_sec(&ts, time);
+> +       tst_ts_set_nsec(&ts, 0);
+> +
+> +       ret = tv->clock_settime(CLOCK_REALTIME, tst_ts_get(&ts));
+> +       if (ret == -1)
+> +               tst_brk(TBROK | TERRNO, "clock_settime() failed");
+> +
+> +       tst_its_set_time(&its, time + EXPIREDELTA, 0, 0, 0);
 
+I suspect this is where it fails for the 32-bit time_t case, as the expiration
+date for timer_settime wraps to year 1902.
 
->
-> setup()
->   if (tst_cgroup_version() != TST_CGROUP_V1)
->     TCONF
->
->
-> > diff --git a/testcases/kernel/mem/oom/oom03.c
-> > b/testcases/kernel/mem/oom/oom03.c
-> > index ce0b34c31..af3a565ce 100644
-> > --- a/testcases/kernel/mem/oom/oom03.c
-> > +++ b/testcases/kernel/mem/oom/oom03.c
-> > @@ -36,27 +36,26 @@
-> >
-> >  #ifdef HAVE_NUMA_V2
-> >
-> > -static int memcg_mounted;
-> > -
-> >  static void verify_oom(void)
-> >  {
-> >  #ifdef TST_ABI32
-> >       tst_brk(TCONF, "test is not designed for 32-bit system.");
-> >  #endif
-> >
-> > -     SAFE_FILE_PRINTF(MEMCG_PATH_NEW "/tasks", "%d", getpid());
-> > -     SAFE_FILE_PRINTF(MEMCG_LIMIT, "%ld", TESTMEM);
-> > +     tst_cgroup_mem_set_maxbytes(TESTMEM);
-> >
-> >       testoom(0, 0, ENOMEM, 1);
-> >
-> > -     if (access(MEMCG_SW_LIMIT, F_OK) == -1) {
-> > +     if ((access(PATH_MEMORY_SW_LIMIT, F_OK) == -1) ||
-> > +                     (access(PATH_MEMORY_SW_MAX, F_OK) == -1)) {
->
-> This could be tst_cgroup_mem_swapacct_enabled(), without need for test
-> to probe specific cgroup[12] files.
->
-
-Sounds good. I will have a try.
-
--- 
-Regards,
-Li Wang
-
---000000000000b7775a05a69e6d54
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Wed, May 27, 2020 at 3:45 PM Jan Stancek &lt;<a =
-href=3D"mailto:jstancek@redhat.com">jstancek@redhat.com</a>&gt; wrote:<br><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
-rder-left:1px solid rgb(204,204,204);padding-left:1ex">&gt; diff --git a/te=
-stcases/kernel/mem/cpuset/cpuset01.c<br>
-&gt; b/testcases/kernel/mem/cpuset/cpuset01.c<br>
-&gt; index 853f7fe55..cecc4ba86 100644<br>
-&gt; --- a/testcases/kernel/mem/cpuset/cpuset01.c<br>
-&gt; +++ b/testcases/kernel/mem/cpuset/cpuset01.c<br>
-&gt; @@ -51,11 +51,11 @@ static void test_cpuset(void)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned long nmask[MAXNODES / BITS_PER_LONG=
-] =3D { 0 };<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0char mems[BUFSIZ], buf[BUFSIZ];<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0read_cpuset_files(CPATH, &quot;cpus&quot;, buf);<=
-br>
-&gt; -=C2=A0 =C2=A0 =C2=A0write_cpuset_files(CPATH_NEW, &quot;cpus&quot;, b=
-uf);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0read_cpuset_files(CPATH, &quot;mems&quot;, mems);=
-<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0write_cpuset_files(CPATH_NEW, &quot;mems&quot;, m=
-ems);<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0SAFE_FILE_PRINTF(CPATH_NEW &quot;/tasks&quot;, &q=
-uot;%d&quot;, getpid());<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0read_cpuset_files(PATH_TMP_CG1_CST, &quot;cpus&qu=
-ot;, buf);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0write_cpuset_files(PATH_CG1_CST_LTP, &quot;cpus&q=
-uot;, buf);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0read_cpuset_files(PATH_TMP_CG1_CST, &quot;mems&qu=
-ot;, mems);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0write_cpuset_files(PATH_CG1_CST_LTP, &quot;mems&q=
-uot;, mems);<br>
-<br>
-This mixes generic api with cgroup1. It currently relies on implementation<=
-br>
-detail of tst_cgroup_mount(), which isn&#39;t visible just by looking at th=
-is test.<br></blockquote><div><br></div><div><div class=3D"gmail_default" s=
-tyle=3D"font-size:small">Yes, here just uses many path macros, which makes =
-things easy since mem/lib achieved many functions for cpuset files, I don&#=
-39;t want to break the struct so keep it similar as previous. Anyway, we ca=
-n reconstruct that but that is not the intention of this patchset.</div><br=
-></div><div class=3D"gmail_default" style=3D"font-size:small">Btw, the test=
- has no chance to go there because in setup() the tst_cgroup_mount(TST_CGRO=
-UP_CPUSET)</div><div class=3D"gmail_default" style=3D"font-size:small">will=
- get TCONF if the system uses cgroup-v2.</div><div class=3D"gmail_default" =
-style=3D"font-size:small"></div><blockquote class=3D"gmail_quote" style=3D"=
-margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-lef=
-t:1ex">
-<br>
-We should make it generic or make it clear that test is for cgroup1 only:<b=
-r></blockquote><div><br></div><div><div class=3D"gmail_default" style=3D"fo=
-nt-size:small">But sure, we can add this, it makes code clear to readers.</=
-div></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
-">
-<br>
-setup()<br>
-=C2=A0 if (tst_cgroup_version() !=3D TST_CGROUP_V1)<br>
-=C2=A0 =C2=A0 TCONF<br>
-<br>
-<br>
-&gt; diff --git a/testcases/kernel/mem/oom/oom03.c<br>
-&gt; b/testcases/kernel/mem/oom/oom03.c<br>
-&gt; index ce0b34c31..af3a565ce 100644<br>
-&gt; --- a/testcases/kernel/mem/oom/oom03.c<br>
-&gt; +++ b/testcases/kernel/mem/oom/oom03.c<br>
-&gt; @@ -36,27 +36,26 @@<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 #ifdef HAVE_NUMA_V2<br>
-&gt;=C2=A0 <br>
-&gt; -static int memcg_mounted;<br>
-&gt; -<br>
-&gt;=C2=A0 static void verify_oom(void)<br>
-&gt;=C2=A0 {<br>
-&gt;=C2=A0 #ifdef TST_ABI32<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_brk(TCONF, &quot;test is not designed fo=
-r 32-bit system.&quot;);<br>
-&gt;=C2=A0 #endif<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0SAFE_FILE_PRINTF(MEMCG_PATH_NEW &quot;/tasks&quot=
-;, &quot;%d&quot;, getpid());<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0SAFE_FILE_PRINTF(MEMCG_LIMIT, &quot;%ld&quot;, TE=
-STMEM);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0tst_cgroup_mem_set_maxbytes(TESTMEM);<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0testoom(0, 0, ENOMEM, 1);<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0if (access(MEMCG_SW_LIMIT, F_OK) =3D=3D -1) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if ((access(PATH_MEMORY_SW_LIMIT, F_OK) =3D=3D -1=
-) ||<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0(access(PATH_MEMORY_SW_MAX, F_OK) =3D=3D -1)) {<br>
-<br>
-This could be tst_cgroup_mem_swapacct_enabled(), without need for test<br>
-to probe specific cgroup[12] files.<br></blockquote><div><br></div><div cla=
-ss=3D"gmail_default" style=3D"font-size:small">Sounds good. I will have a t=
-ry.</div></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signat=
-ure"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></=
-div></div>
-
---000000000000b7775a05a69e6d54--
-
-
---===============0119802406==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+     Arnd
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0119802406==--
-
