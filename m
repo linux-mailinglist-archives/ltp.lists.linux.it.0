@@ -1,65 +1,78 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 806F21E3FAF
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 May 2020 13:18:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 17DB31E4218
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 May 2020 14:25:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DB7463C321F
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 May 2020 13:18:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BCBE83C3224
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 May 2020 14:25:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 6DF003C223E
- for <ltp@lists.linux.it>; Wed, 27 May 2020 13:18:30 +0200 (CEST)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 508183C222C
+ for <ltp@lists.linux.it>; Wed, 27 May 2020 14:25:06 +0200 (CEST)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8D05D6011EC
- for <ltp@lists.linux.it>; Wed, 27 May 2020 13:17:59 +0200 (CEST)
-Received: from mail-qt1-f170.google.com ([209.85.160.170]) by
- mrelayeu.kundenserver.de (mreue108 [212.227.15.145]) with ESMTPSA (Nemesis)
- id 1MVe9i-1jTxwX069U-00RZra for <ltp@lists.linux.it>; Wed, 27 May 2020
- 13:18:29 +0200
-Received: by mail-qt1-f170.google.com with SMTP id a23so18818994qto.1
- for <ltp@lists.linux.it>; Wed, 27 May 2020 04:18:28 -0700 (PDT)
-X-Gm-Message-State: AOAM533AIZER7vKe/y0YaqEhOg7qRKdOt4c2WfYoeEqrWrD1t4TT28lN
- tW5EYjy5+w8A95/XvaJceqeS/8pIAjdF53vRy5Q=
-X-Google-Smtp-Source: ABdhPJyRYwDfE9yLKqZMfrc11bO7sytwJHxjrrJYpFN51W71KTNJqXM/5xoyO2kw2QwcG2oGNUJlA8NmzhzRyq+IrC4=
-X-Received: by 2002:ac8:691:: with SMTP id f17mr3569839qth.204.1590578307776; 
- Wed, 27 May 2020 04:18:27 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B11A120129D
+ for <ltp@lists.linux.it>; Wed, 27 May 2020 14:25:04 +0200 (CEST)
+IronPort-SDR: rL8PfwvG9QHER7eMbYg9W+0XrJs4BJu/NbjTH++ahO+I0CyOsuaPrSE/CG/E0KxZh86Ej4ewNE
+ fBvyMyTNw3fw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 May 2020 05:25:02 -0700
+IronPort-SDR: 6C/oDG0YMBh4nRjabMxAMNNq6B2IV8n7Pu1PTZu30I7Y8U1nqSNgQd32PXL62j0gZJYMIGng7N
+ RIUQawnKM4Yg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,441,1583222400"; d="scan'208";a="376014189"
+Received: from fmsmsx103.amr.corp.intel.com ([10.18.124.201])
+ by fmsmga001.fm.intel.com with ESMTP; 27 May 2020 05:25:01 -0700
+Received: from FMSMSX109.amr.corp.intel.com (10.18.116.9) by
+ FMSMSX103.amr.corp.intel.com (10.18.124.201) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Wed, 27 May 2020 05:25:01 -0700
+Received: from shsmsx151.ccr.corp.intel.com (10.239.6.50) by
+ fmsmsx109.amr.corp.intel.com (10.18.116.9) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Wed, 27 May 2020 05:25:01 -0700
+Received: from shsmsx101.ccr.corp.intel.com ([169.254.1.178]) by
+ SHSMSX151.ccr.corp.intel.com ([169.254.3.34]) with mapi id 14.03.0439.000;
+ Wed, 27 May 2020 20:24:58 +0800
+From: "Xu, Pengfei" <pengfei.xu@intel.com>
+To: Petr Vorel <pvorel@suse.cz>
+Thread-Topic: [LTP] [PATCH v5 4/4] umip_basic_test.c: improve kconfig
+ verification to avoid umip wrong abort case
+Thread-Index: AQHWMtrUW1B3EYnkK0ymCCJPJlBTuai5phyA///syACAAADrgIAAkUYA//97KYCAAI1CAIAA9uxg///PWwAAHT4WMA==
+Date: Wed, 27 May 2020 12:24:57 +0000
+Message-ID: <33757536896DC84D9B3811B9D9F1A5D13D8C0299@SHSMSX101.ccr.corp.intel.com>
+References: <20191220092529.3239-1-pengfei.xu@intel.com>
+ <20191220092529.3239-4-pengfei.xu@intel.com>
+ <20200525212401.GA30581@dell5510>
+ <20200526023233.GA14105@xpf-desktop.sh.intel.com>
+ <20200526092346.GB10775@dell5510> <20200526092703.GC10775@dell5510>
+ <20200526100700.GA24819@xpf-desktop.sh.intel.com>
+ <20200526101133.GA3114075@x230>
+ <20200526103708.GA26057@xpf-desktop.sh.intel.com>
+ <33757536896DC84D9B3811B9D9F1A5D13D8BFA2B@SHSMSX101.ccr.corp.intel.com>
+ <20200527062648.GA11836@dell5510>
+In-Reply-To: <20200527062648.GA11836@dell5510>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.2.0.6
+dlp-reaction: no-action
+x-originating-ip: [10.239.127.40]
 MIME-Version: 1.0
-References: <70417fdc55c750e8b13d7124e66a7e8a59182e75.1590494889.git.viresh.kumar@linaro.org>
-In-Reply-To: <70417fdc55c750e8b13d7124e66a7e8a59182e75.1590494889.git.viresh.kumar@linaro.org>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Wed, 27 May 2020 13:18:11 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a13aJ3joRBE=P06fX8fxS-yroHx=T=bG0ZtdjhWE3RAJg@mail.gmail.com>
-Message-ID: <CAK8P3a13aJ3joRBE=P06fX8fxS-yroHx=T=bG0ZtdjhWE3RAJg@mail.gmail.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-X-Provags-ID: V03:K1:FDcrPkPuZoC6fISwlNJMkaOX8//SDZ6ge6P2CAkNK2T6IcmdvMK
- /VEQnnvCN8bE6m5PyqINzjQVA+WfKzgMsIP9U3UcPV319BTn0bYWyWm3wjEHg52n005ykK3
- WzcELFU30w5fyl1X/alfwAHpEEYzShVKj7o7dphSgdkvIG5VMy+9sVcZOa92pTuUNMxUTCF
- hWwcHYfItBC1prEuejGlA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:jaKm2eWCrHA=:b7kgGjZsF5rwWf7MhJ4P/z
- YaX44gSaSmQzFlG9F6/YAq/SvYIkKXVRIF7aZ8aejxX+O+zwgFMZpv2Wkj02akcD4iLGo3Ube
- pAZdQWJAYMBWNFXvzZ9Hi5Mmi5CcPyKR1y2dwbYxRYg2X4Hwo9Qw5hh/VKptmBLgPXwLZuzlc
- +S2ubVw6SY7Zdz+6mGWMBbLvXR+AY4enTfXrimpHz8TZd2dYnEnza0r1ciRj4HDB/yZwtrLk3
- EVSCNlx8ejZ0vwxNgV28QeK5hJiVcXsXcuFjSmb6W7ATC2N8QPv98FUwr68YZ8M2nc3xgbkkg
- 1auCHl8Fv9bgsLCVhuB5lA9Kwe8eeLyKWoqNwIM6JvQRnCf6EFSJVhuk3jH5c1or7QQMhUA3y
- RMTVhXXUj6jR1NvTczDN1YNtrJJOhg36o6Nf0DYOYqyeCk1UzJZ7XR8tKZ+Icjiuo20Gaom2V
- Btb/Woijz2jmYp8J24v+AAlB5YPqdB1doY3f5I+G61BSTh4FKHI+ImIFD+RZRK17GE78oMMXD
- jZytYNBdD9HgLAl+JzywemBcC8099yqb9E0Aaa3yw6R26yTNlv80uRFB8Jgs6NDmSaT1fweG8
- HD4/iJ9uBawH254GKyKIUfqEBkvsBwItntiP3XzPI4Qt0gSbw5t2MrrdKgMQdLUl14WeNkhED
- fyhR0gyifTUXGuHkV3wolDeCFB6nqueWY3S1DyDPRa4f2g/zG/yK3DhC6DvkvoCTp3XmTZggh
- xj+g4tlJeMW/Hs6JoJUOZr496A0uxqzJyii1P0cJ038PAKE6bg7wtTwmUnSZy7mBcwERD8Xx2
- +/fBc7vS9IM62q/H8sRBCBiUTtFgc80UZHM4NoOCh29exwWZjc=
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls: clock_settime: Add test around y2038
- vulnerability
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v5 4/4] umip_basic_test.c: improve kconfig
+ verification to avoid umip wrong abort case
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,58 +84,52 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Su, Heng" <heng.su@intel.com>, "Neri, Ricardo" <ricardo.neri@intel.com>,
+ ltp <ltp@lists.linux.it>, "Kasten, Robert A" <robert.a.kasten@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, May 26, 2020 at 2:10 PM Viresh Kumar <viresh.kumar@linaro.org> wrote:
->
-> This adds a test around the y2038 vulnerability, it sets the system time
-> to just before y2038 time (i.e. max value that can be stored in s32),
-> and adds a timer to expire just after crossing it.
->
-> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+Hi Petr,
+   Ok, thanks!
 
-Nice!
-> +static struct test_variants {
-> +       int (*clock_settime)(clockid_t clk_id, void *ts);
-> +       int (*timer_settime)(timer_t timerid, int flags, void *its,
-> +                            void *old_its);
-> +       enum tst_ts_type type;
-> +       char *desc;
-> +} variants[] = {
-> +#if (__NR_clock_settime != __LTP__NR_INVALID_SYSCALL)
-> +       { .clock_settime = sys_clock_settime, .timer_settime = sys_timer_settime, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
-> +#endif
-> +
-> +#if (__NR_clock_settime64 != __LTP__NR_INVALID_SYSCALL)
-> +       { .clock_settime = sys_clock_settime64, .timer_settime = sys_timer_settime64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
-> +#endif
+Thanks!
+BR
+Pengfei
++86 021 61164364=A0=A0 =
 
-I think the first one has to be guarded so we do not try to set
-the time to just before the end with sys_clock_settime() on
-32-bit machines, as kernels that don't fully support 64-bit
-time_t behave in unpredictable ways when you do that and
-are likely to crash.
 
-However, we probably do want to test this on 64-bit kernels
-with sys_clock_settime() anyway.
 
-> +       tst_ts_set_sec(&ts, time);
-> +       tst_ts_set_nsec(&ts, 0);
-> +
-> +       ret = tv->clock_settime(CLOCK_REALTIME, tst_ts_get(&ts));
-> +       if (ret == -1)
-> +               tst_brk(TBROK | TERRNO, "clock_settime() failed");
-> +
-> +       tst_its_set_time(&its, time + EXPIREDELTA, 0, 0, 0);
 
-I suspect this is where it fails for the 32-bit time_t case, as the expiration
-date for timer_settime wraps to year 1902.
+-----Original Message-----
+From: Petr Vorel <pvorel@suse.cz> =
 
-     Arnd
+Sent: Wednesday, May 27, 2020 14:27
+To: Xu, Pengfei <pengfei.xu@intel.com>
+Cc: ltp <ltp@lists.linux.it>; Neri, Ricardo <ricardo.neri@intel.com>; Su, H=
+eng <heng.su@intel.com>; Kasten, Robert A <robert.a.kasten@intel.com>; Cyri=
+l Hrubis <chrubis@suse.cz>; Jan Stancek <jstancek@redhat.com>; Li Wang <liw=
+ang@redhat.com>
+Subject: Re: [LTP] [PATCH v5 4/4] umip_basic_test.c: improve kconfig verifi=
+cation to avoid umip wrong abort case
 
--- 
+Hi Pengfei,
+
+>   Seems LINUX_VERSION_CODE way it not suitable when test platform is not =
+compiled platform.
+Well, you're expected to have installed kernel headers for target platform,=
+ when you cross compile. That's what embedded distros like buildroot or yoc=
+to do.
+We already use constructs like this in the code.
+
+>   Need to use " if ((tst_kvercmp(5, 5, 0)) >=3D 0)" way.
+As you noticed in previous mail, this will not work, as it's code outside o=
+f the function, so you cannot call any function.
+
+Kind regards,
+Petr
+
+-- =
+
 Mailing list info: https://lists.linux.it/listinfo/ltp
