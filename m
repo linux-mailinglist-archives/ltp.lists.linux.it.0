@@ -1,44 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D42C21E6710
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 May 2020 18:05:35 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 64C821E6CC6
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 May 2020 22:46:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 659E03C3208
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 May 2020 18:05:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9F3B53C31F6
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 May 2020 22:46:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 3A5FA3C24B3
- for <ltp@lists.linux.it>; Thu, 28 May 2020 18:05:31 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 9A5693C3079
+ for <ltp@lists.linux.it>; Thu, 28 May 2020 22:46:03 +0200 (CEST)
+Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
+ [IPv6:2607:f8b0:4864:20::1044])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 953BA1000CFB
- for <ltp@lists.linux.it>; Thu, 28 May 2020 18:05:30 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 11FEAABBD;
- Thu, 28 May 2020 16:05:29 +0000 (UTC)
-Date: Thu, 28 May 2020 18:05:27 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Mimi Zohar <zohar@linux.ibm.com>
-Message-ID: <20200528160527.GA27243@dell5510>
-References: <20200527071434.28574-1-pvorel@suse.cz>
- <1590601280.16219.1.camel@linux.ibm.com>
- <20200528140747.GA8401@dell5510>
- <1590679145.4457.39.camel@linux.ibm.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 18634200913
+ for <ltp@lists.linux.it>; Thu, 28 May 2020 22:46:02 +0200 (CEST)
+Received: by mail-pj1-x1044.google.com with SMTP id 5so115887pjd.0
+ for <ltp@lists.linux.it>; Thu, 28 May 2020 13:46:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=cm5xjopu+TmMl4MRDTAPwM8jvzujE1E3Bb0kq+cX7Ns=;
+ b=DrpOsA3g+fJqUWbF+BTNnH6KXIP4bCId0h2dWx+vqW944A5+mJSnroKrjOxKrNPNyG
+ 8PjeMPT50kwlUTRW8ZQ6yUbgzk3TFHFgwd9oAjEtnencvuih5VMP1r1J0eSUnxf2YwJ/
+ /nyhpx6ndSHS0uRSbAQQ4DTS89776mxmzxIU+pOBy2P46WciCtHBT8ayP89weokvWTC9
+ cWyZACPc2U/TF5/r2s5G9+FIjIt5Cn54CF85M7qPTrD5ulEzQCseakRV8UD2oa45qfJD
+ MuZifRcakinvPZ1o++zTXmCUPHwOQbQjEKin/JNKHIK0oP7kHCZuZm6ukJtbwIuY0NmD
+ DdAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=cm5xjopu+TmMl4MRDTAPwM8jvzujE1E3Bb0kq+cX7Ns=;
+ b=DH/nHKTERkLSaawwq+KIZKNhQHHVOzfD0tvHrcaPjyVeY+R5rTVmrnae3N3cVeQxCz
+ flcR4DcJDHdCWQ9H452XqLFUrEtUD2XoPEOkzZ1n77CLE9XxNTVSAUyZ6YBidp1wKgJa
+ noUC5WBhix3vLkyV77C0iqdJFM6VthEeA82CKIT21cNp5Dbhy7biQMKXeDlWbNgom6wt
+ 9Qg1EM0ZauBdL0QuvVqTEws91dLA6ZhBOZJXLtsctMLW3Ovb6mt3ApPhcSJUwq+Y/FPY
+ seIJq3isciBLbSDH11/u9uPQU5M5k2C9O2DM+2MyRLMcm+rcqGhz1lVo0qO8TqNeyR8B
+ zjRw==
+X-Gm-Message-State: AOAM5301Jy/ukGLQRWYVDtBucmMYXT4EMjO+me2LZw+VSS3tfgWqRDsE
+ FkvAo0WiWSeMPONTfS9EPmqCs3b1sD0=
+X-Google-Smtp-Source: ABdhPJyuwuCBymvrCygl7m4LNfSevFYq4PSjTZI2qKEXQFLPG6cqwpKsA6/7uS1zbSLHfjLdgAONtA==
+X-Received: by 2002:a17:902:b401:: with SMTP id
+ x1mr5515819plr.43.1590698760119; 
+ Thu, 28 May 2020 13:46:00 -0700 (PDT)
+Received: from apollo.hsd1.ca.comcast.net
+ (c-73-63-224-124.hsd1.ca.comcast.net. [73.63.224.124])
+ by smtp.gmail.com with ESMTPSA id h24sm5659319pjz.24.2020.05.28.13.45.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 May 2020 13:45:59 -0700 (PDT)
+From: Khem Raj <raj.khem@gmail.com>
+To: ltp@lists.linux.it
+Date: Thu, 28 May 2020 13:45:56 -0700
+Message-Id: <20200528204556.2444156-1-raj.khem@gmail.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1590679145.4457.39.camel@linux.ibm.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [LTP v2 1/1] ima_tpm.sh: Fix for calculating boot
- aggregate
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH] sigwaitinfo: Do not run invalid/undefined test cases
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,119 +77,63 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Vitaly Chikunov <vt@altlinux.org>, linux-integrity@vger.kernel.org,
- Mimi Zohar <zohar@linux.vnet.ibm.com>, ltp@lists.linux.it
-Content-Type: text/plain; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
+Cc: Rich Felker <dalias@aerifal.cx>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Mimi,
-...
-> > > With just this change, the ima_tpm.sh test is failing. =A0I assume it=
- is
-> > > failing because it is reading the SHA1 TPM bank, not the SHA256 bank
-> > > to calculate the boot_aggregate hash.
-> > First question: is it correct to take sha256? Because on my test below =
-it's
-> > reading sha1, because that's the content of /sys/kernel/security/ima/as=
-cii_runtime_measurements
+These testcases run for eternity on musl
 
-> > I thought just kernel commit: 6f1a1d103b48 ima: ("Switch to ima_hash_al=
-go for
-> > boot aggregate") from current linux-integrity tree is needed, but I tes=
-ted it on
-> > b59fda449cf0 ("ima: Set again build_ima_appraise variable") (i.e. havin=
-g all
-> > Robeto's ima patches,  missing just last 2 commits from next-integrity =
-head).
-> > What is needed to get your setup?
+test_bad_address* cases are passing invalid pointers to a function; that's always UB
+empty_set and timeout rely on the implementation-defined "may fail" for EINTR in sigtimedwait [1]
 
-> This isn't a configuration problem, but an issue of reading PCRs and
-> calculating the TPM bank appropriate boot_aggregate. =A0If you're
-> calculating a sha256 boot_aggregate, then the test needs to read and
-> calculate the boot_aggregate by reading the SHA256 TPM bank.
-OK, I tested it on TPM 1.2 (no TPM 2.0 available atm).
-I guess you have TPM 2.0, that's why I didn't spot this issue.
+normally "may fail" is an "unspecified" but here the impl
+is supposed to document it so it's "impl-defined"
 
-To sum that: my patch is required for any system without physical TPM with =
-with
-kernel with b59fda449cf0 + it also works for TPM 1.2 (regardless kernel
-version), because TPM 1.2 supports sha1 only boot aggregate.
+[1] https://pubs.opengroup.org/onlinepubs/9699919799/functions/sigtimedwait.html
 
-But testing on kernel with b59fda449cf0 with TPM 2.0 is not only broken with
-this patch, but also on current version in master, right? As you have
-sha256:3fd5dc717f886ff7182526efc5edc3abb179a5aac1ab589c8ec888398233ae5 anyw=
-ay.
-So this patch would help at least testing on VM without vTPM.
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+Cc: Rich Felker <dalias@aerifal.cx>
+---
+ .../kernel/syscalls/sigwaitinfo/sigwaitinfo01.c      | 12 ++----------
+ 1 file changed, 2 insertions(+), 10 deletions(-)
 
-...
-> > > The ima-evm-utils next-testing branch has code to calculate the
-> > > boot_aggregate based on multiple banks.
-> > I see, 696bf0b ("ima-evm-utils: calculate the digests for multiple TPM =
-banks")
-> > I wonder whether it's reasonable trying to port that to ima_boot_aggreg=
-ate.c or
-> > just depend on evmctl. External dependencies are sometimes complicated,=
- but for
-> > IMA I incline to just require evmctl.
+diff --git a/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c b/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c
+index 6a30c27f6f..3a4cfe1b43 100644
+--- a/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c
++++ b/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c
+@@ -452,25 +452,17 @@ struct test_desc {
+ #endif
+ #if defined TEST_SIGWAITINFO
+ 	{
+-	test_empty_set, my_sigwaitinfo, SIGUSR1}, {
+ 	test_unmasked_matching, my_sigwaitinfo, SIGUSR1}, {
+ 	test_masked_matching, my_sigwaitinfo, SIGUSR1}, {
+ 	test_unmasked_matching_noinfo, my_sigwaitinfo, SIGUSR1}, {
+-	test_masked_matching_noinfo, my_sigwaitinfo, SIGUSR1}, {
+-	test_bad_address, my_sigwaitinfo, SIGUSR1}, {
+-	test_bad_address2, my_sigwaitinfo, SIGUSR1},
++	test_masked_matching_noinfo, my_sigwaitinfo, SIGUSR1},
+ #endif
+ #if defined TEST_SIGTIMEDWAIT
+ 	{
+-	test_empty_set, my_sigtimedwait, SIGUSR1}, {
+ 	test_unmasked_matching, my_sigtimedwait, SIGUSR1}, {
+ 	test_masked_matching, my_sigtimedwait, SIGUSR1}, {
+ 	test_unmasked_matching_noinfo, my_sigtimedwait, SIGUSR1}, {
+-	test_masked_matching_noinfo, my_sigtimedwait, SIGUSR1}, {
+-	test_bad_address, my_sigtimedwait, SIGUSR1}, {
+-	test_bad_address2, my_sigtimedwait, SIGUSR1}, {
+-	test_bad_address3, my_sigtimedwait, SIGUSR1}, {
+-	test_timeout, my_sigtimedwait, 0},
++	test_masked_matching_noinfo, my_sigtimedwait, SIGUSR1},
+ #endif
+ };
+ 
+-- 
+2.26.2
 
-> Unlike TPM 1.2, the TPM 2.0 device driver doesn't export the TPM PCRs.
-> =A0Not only would you have a dependency on ima-evm-utils, but also on a
-> userspace application(s) for reading the TPM PCRs. =A0That dependency
-> exists whether you're using evmctl to calculate the boot_aggregate or
-> doing it yourself.
-Hm, things get complicated.
-Yep I remember your patch to skip verifying TPM 2.0 PCR values
-https://patchwork.ozlabs.org/project/ltp/patch/1558041162.3971.2.camel@linu=
-x.ibm.com/
-At least thanks to Jerry Snitselaar since v5.6 we have
-/sys/class/tpm/tpm*/tpm_version_major. We could check this (+ try also
-/sys/class/tpm/tpm0/device/description for older kernels).
 
-BTW on my system there is also /sys/class/tpm/tpm0/ppi/version, which has 1=
-.2,
-not sure if it indicate TPM 1.2, but I wouldn't rely on that.
-
-...
-> > > There's also a new test to verify the boot_aggregate.
-
-> > > $ VERBOSE=3D1 make check TESTS=3Dboog_aggregate.test
-> > BTW I got some errors
-> > ...
-> > make  check-TESTS
-> > make[2]: Entering directory '/home/foo/ima-evm-utils/tests'
-> > make[3]: Entering directory '/home/foo/ima-evm-utils/tests'
-> > make[4]: Entering directory '/home/foo/ima-evm-utils/tests'
-> > make[4]: Nothing to be done for 'boog_aggregate.log'.
-> > make[4]: Leaving directory '/home/foo/ima-evm-utils/tests'
-> > fatal: making test-suite.log: failed to create boog_aggregate.trs
-> > fatal: making test-suite.log: failed to create boog_aggregate.log
-> > make[3]: *** [Makefile:516: test-suite.log] Error 1
-> > make[3]: Leaving directory '/home/foo/ima-evm-utils/tests'
-> > make[2]: *** [Makefile:625: check-TESTS] Error 2
-> > make[2]: Leaving directory '/home/foo/ima-evm-utils/tests'
-> > make[1]: *** [Makefile:692: check-am] Error 2
-> > make[1]: Leaving directory '/home/foo/ima-evm-utils/tests'
-> > make: *** [Makefile:514: check-recursive] Error 1
-
-> [Cc'ing Vitaly]
-
-> The boot_aggregate.trs and boot_aggregate.log files are being created
-> in the tests/ directory. =A0Is that directory read-only?
-Yes, drwxr-xr-x. Testing on fresh clone and issue persists.
-
-> > > Both need some review and testing before being released.
-> > Any estimation when code is released?
-
-> Probably not before the next open window, but definitely before it is
-> released.
-Thanks for info.
-
-Kind regards,
-Petr
-
--- =
-
+-- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
