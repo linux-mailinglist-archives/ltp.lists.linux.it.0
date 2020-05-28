@@ -1,39 +1,43 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 391CD1E5E87
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 May 2020 13:41:02 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 469B51E5ED5
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 May 2020 13:56:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DD71D3C31C4
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 May 2020 13:41:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B624A3C31D6
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 May 2020 13:56:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id AA61C3C31C0
- for <ltp@lists.linux.it>; Thu, 28 May 2020 13:40:57 +0200 (CEST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id E0E3D3C050E
+ for <ltp@lists.linux.it>; Thu, 28 May 2020 13:56:38 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2116E243166
- for <ltp@lists.linux.it>; Thu, 28 May 2020 13:40:56 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8C44961F75B
+ for <ltp@lists.linux.it>; Thu, 28 May 2020 13:56:38 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 019C8AC46
- for <ltp@lists.linux.it>; Thu, 28 May 2020 11:40:55 +0000 (UTC)
-Date: Thu, 28 May 2020 13:40:54 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 793FBAB5C
+ for <ltp@lists.linux.it>; Thu, 28 May 2020 11:56:37 +0000 (UTC)
+Date: Thu, 28 May 2020 13:56:36 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Message-ID: <20200528114054.GA16726@dell5510>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <20200528115636.GB16726@dell5510>
 References: <20200528110554.10179-1-pvorel@suse.cz>
+ <20200528110554.10179-2-pvorel@suse.cz>
+ <858875ff-2137-38b6-8301-f44e745f8026@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200528110554.10179-1-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+In-Reply-To: <858875ff-2137-38b6-8301-f44e745f8026@suse.cz>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH 0/2] LVM: Drop legacy scripts and runtest files
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH 1/2] LVM: Don't require root for
+ generate_lvm_runfile.sh
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,22 +50,26 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+> On 28. 05. 20 13:05, Petr Vorel wrote:
+> > LTPROOT can be in user writable directory. Having rights for make
+> > install is user responsibility, it does not have to be guarded by
+> > TST_NEEDS_ROOT=1.
 
-growfiles are used also in other runtest files: fs, fs_readonly, scsi_debug.part1.
-I wonder how to reduce duplicity for fs and fs_readonly.
+> TST_NEEDS_ROOT=1 is there for tst_supported_fs. It won't find any mkfs
+> programs if it's not running as root.
+Right, thanks for info. Hm, there can be some tests which just want to know
+supported filesystems without running them and we have to require root for them.
 
-runtest/scsi_debug.part1 should be IMHO deleted. And
-testscripts/ltp-scsi_debug.sh should be either deleted, or, if the idea is
-valid (using scsi_debug kernel module for testing), it should be rewritten.
-
-Other candidate for deleting are ltpfs tests (testcases/kernel/fs/scsi/ltpfs/).
-They're not maintained, ltpfsio.sh and ltpfstest is not even installed.
+There could be a solutions (tst_get_supported_fs_types() could have warning
+about PATH when user is not root and no mkfs.* found or just changing in
+has_mkfs() "mkfs.%s does not exist" to "mkfs.%s does not found" to give more
+obvious hint). But it's just a corner case issue, no need to bother with it.
 
 Kind regards,
 Petr
