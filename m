@@ -2,84 +2,36 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 356661E7B33
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 May 2020 13:05:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 705641E9D5C
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Jun 2020 07:37:26 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DE72E3C3189
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 May 2020 13:05:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7B4363C30A9
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Jun 2020 07:37:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 65FB93C3175
- for <ltp@lists.linux.it>; Fri, 29 May 2020 13:05:56 +0200 (CEST)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BB40A140B562
- for <ltp@lists.linux.it>; Fri, 29 May 2020 13:05:55 +0200 (CEST)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04TB1pVn182752;
- Fri, 29 May 2020 11:05:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=O6wkOFJ+FUoe+zTCKAinIxQi5jp6h9LsFVXKAU/YtUI=;
- b=A3E2dirvCMW64Et10GkFkpmrgfZiKpN/ZRvt3Ma1uMhm9hCkutcf9EgEyOelvPVetZpQ
- 2T0LCoi21QssW+GbFRtgt5y2NSmbygEUt8lsgPjCoAjnUg65PwAD0BcPwr2Q+3i/GFa7
- ppDsvsUbwUR0FjgT8NfcxBk47zWX2rS7nSvAbU+CuR5PJiInA92n+Mk64sIiPgufZQVP
- m41ri4+9BtQmJPxGuS3d0azRzx79+MMIZE7/lKoFtJo/9zs1CKw2zQCp1ozp0GXotlUf
- uVCet5cdhD0oKqAgArFq6qAyTVKft24mV53keYY0IutVFwPuM4UYExkkso2aajUUuHrs zA== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by userp2120.oracle.com with ESMTP id 318xbk9tsn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 29 May 2020 11:05:53 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04TAx0bS046649;
- Fri, 29 May 2020 11:05:53 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by userp3030.oracle.com with ESMTP id 317ds44vm5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 29 May 2020 11:05:53 +0000
-Received: from abhmp0003.oracle.com (abhmp0003.oracle.com [141.146.116.9])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 04TB5oXh009149;
- Fri, 29 May 2020 11:05:52 GMT
-Received: from [10.175.59.138] (/10.175.59.138)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Fri, 29 May 2020 04:05:50 -0700
-To: Jan Stancek <jstancek@redhat.com>
-References: <20200526113847.6837-1-stanislav.kholmanskikh@oracle.com>
- <1158333456.13771112.1590570252412.JavaMail.zimbra@redhat.com>
-From: Stanislav Kholmanskikh <stanislav.kholmanskikh@oracle.com>
-Message-ID: <fa945f1f-f1ea-ab6c-f70c-6bee9a99db64@oracle.com>
-Date: Fri, 29 May 2020 14:05:45 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
-MIME-Version: 1.0
-In-Reply-To: <1158333456.13771112.1590570252412.JavaMail.zimbra@redhat.com>
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9635
- signatures=668686
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- phishscore=0 malwarescore=0
- mlxlogscore=999 adultscore=0 suspectscore=0 bulkscore=0 mlxscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2004280000
- definitions=main-2005290088
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9635
- signatures=668686
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
- spamscore=0 mlxscore=0
- lowpriorityscore=0 priorityscore=1501 phishscore=0 cotscore=-2147483648
- suspectscore=0 bulkscore=0 clxscore=1011 impostorscore=0 malwarescore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2004280000 definitions=main-2005290088
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id C0C433C3078
+ for <ltp@lists.linux.it>; Mon,  1 Jun 2020 07:37:20 +0200 (CEST)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 007BD200B1D
+ for <ltp@lists.linux.it>; Mon,  1 Jun 2020 07:37:18 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8E7FF1FB;
+ Sun, 31 May 2020 22:37:17 -0700 (PDT)
+Received: from a077208.arm.com (unknown [10.163.55.231])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 818C53F305;
+ Sun, 31 May 2020 22:36:52 -0700 (PDT)
+From: Vikas Kumar <vikas.kumar2@arm.com>
+To: ltp@lists.linux.it
+Date: Mon,  1 Jun 2020 11:05:50 +0530
+Message-Id: <20200601053550.3848-1-vikas.kumar2@arm.com>
+X-Mailer: git-send-email 2.17.1
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] acct02: fix the ac_version check on big endian
- platforms
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH V6] syscall: Add io_uring related tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,30 +43,271 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: vikas.kumar2@arm.com, viresh.kumar@linaro.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-VGhhbmsgeW91LiBDb21taXR0ZWQuCgpPbiAyNy4wNS4yMDIwIDEyOjA0LCBKYW4gU3RhbmNlayB3
-cm90ZToKPiAKPiAKPiAtLS0tLSBPcmlnaW5hbCBNZXNzYWdlIC0tLS0tCj4+IElmIHdlIGFyZSBv
-biBhIGJpZyBlbmRpYW4gcGxhdGZvcm0gd2hlcmUgY2hhciBpcyBzaWduZWQsCj4+IHRoZSBmb2xs
-b3dpbmcgY29tcGlsYXRpb24gZXJyb3IgaXMgZW1pdHRlZDoKPj4KPj4gYWNjdDAyLmM6IEluIGZ1
-bmN0aW9uIOKAmHZlcmlmeV9hY2N04oCZOgo+PiBhY2N0MDIuYzozODozNzogd2FybmluZzogY29t
-cGFyaXNvbiBpcyBhbHdheXMgdHJ1ZSBkdWUgdG8gbGltaXRlZCByYW5nZSBvZgo+PiBkYXRhIHR5
-cGUgWy1XdHlwZS1saW1pdHNdCj4+ICAgI2RlZmluZSBBQ0NUX01FTUJFUl9WMyh4KSAoKChzdHJ1
-Y3QgYWNjdF92MyAqKWFjYyktPngpCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgXgo+PiBhY2N0MDIuYzoxNDQ6Njogbm90ZTogaW4gZXhwYW5zaW9uIG9mIG1hY3JvIOKA
-mEFDQ1RfTUVNQkVSX1Yz4oCZCj4+ICAgIGlmIChBQ0NUX01FTUJFUl9WMyhhY192ZXJzaW9uKSAh
-PSAoMyB8IEFDQ1RfQllURU9SREVSKSkgewo+Pgo+PiBhbmQgdGhlIHRlc3QgY2FzZSBmYWlscywg
-YmVjYXVzZSBpdCBjYW5ub3QgJ2RlY3J5cHQnIHRoZSBhY192ZXJzaW9uCj4+IGZyb20gdGhlIGZp
-bGU6Cj4+Cj4+IGFjY3QwMi5jOjIzODogSU5GTzogVmVyaWZ5aW5nIHVzaW5nICdzdHJ1Y3QgYWNj
-dF92MycKPj4gYWNjdDAyLmM6MTkxOiBJTkZPOiA9PSBlbnRyeSAxID09Cj4+IGFjY3QwMi5jOjE0
-NjogSU5GTzogYWNfdmVyc2lvbiAhPSAzICgtMTI1KQo+Pgo+PiBPbmUgd2F5IHRvIGFkZHJlc3Mg
-dGhhdCBpcyB0byBleHBsaWNpdGx5IGNhc3QgdGhlIGV4cHJlc3Npb24KPj4gd2UgY29tcGFyZSB0
-byAod2hpY2ggaXMgaW50KSB0byB0aGUgdHlwZSBvZiBhY192ZXJzaW9uICh3aGljaCBpcyBjaGFy
-KS4KPj4KPj4gU2lnbmVkLW9mZi1ieTogU3RhbmlzbGF2IEtob2xtYW5za2lraCA8c3RhbmlzbGF2
-Lmtob2xtYW5za2lraEBvcmFjbGUuY29tPgo+IAo+IEFja2VkLWJ5OiBKYW4gU3RhbmNlayA8anN0
-YW5jZWtAcmVkaGF0LmNvbT4KPiAKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0
-cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+Added asynchronous I/O API tests for io_uring_setup(), io_uring_register()
+and io_uring_enter(). These tests intend to validate io_uring operations.
+
+1. io_uring_setup() creates submission queue and completion queue to
+   perform subsequent operations on the io_uring instance.
+2. io_uring_register() registers user buffers in kernel for long term
+   usese.
+3. io_uring_enter() initiates I/O operations using the shared SQ and CQ
+   queue.
+
+Signed-off-by: Vikas Kumar <vikas.kumar2@arm.com>
+---
+ include/lapi/io_uring.h                       |  12 ++
+ testcases/kernel/syscalls/io_uring/Makefile   |   7 +
+ .../kernel/syscalls/io_uring/io_uring01.c     | 196 ++++++++++++++++++
+ 3 files changed, 215 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/io_uring/Makefile
+ create mode 100644 testcases/kernel/syscalls/io_uring/io_uring01.c
+
+diff --git a/include/lapi/io_uring.h b/include/lapi/io_uring.h
+index 5fde58e22..8e47501a5 100644
+--- a/include/lapi/io_uring.h
++++ b/include/lapi/io_uring.h
+@@ -280,4 +280,16 @@ int io_uring_enter(int fd, unsigned int to_submit, unsigned int min_complete,
+ }
+ #endif /* HAVE_IO_URING_ENTER */
+ 
++void io_uring_setup_supported_by_kernel(void)
++{
++	if ((tst_kvercmp(5, 1, 0)) < 0) {
++		TEST(syscall(__NR_io_uring_setup, NULL, 0));
++		if (TST_RET != -1)
++			SAFE_CLOSE(TST_RET);
++		else if (TST_ERR == ENOSYS)
++			tst_brk(TCONF,
++				"Test not supported on kernel version < v5.1");
++	}
++}
++
+ #endif /* IO_URING_H__ */
+diff --git a/testcases/kernel/syscalls/io_uring/Makefile b/testcases/kernel/syscalls/io_uring/Makefile
+new file mode 100644
+index 000000000..94a19de2f
+--- /dev/null
++++ b/testcases/kernel/syscalls/io_uring/Makefile
+@@ -0,0 +1,7 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (C) 2020 ARM Ltd.  All rights reserved.
++
++top_srcdir		?= ../../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/io_uring/io_uring01.c b/testcases/kernel/syscalls/io_uring/io_uring01.c
+new file mode 100644
+index 000000000..92bf5cb44
+--- /dev/null
++++ b/testcases/kernel/syscalls/io_uring/io_uring01.c
+@@ -0,0 +1,196 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2020 ARM Ltd. All rights reserved.
++ * Author: Vikas Kumar <vikas.kumar2@arm.com>
++ *
++ * Tests for asynchronous I/O raw API i.e io_uring_setup(), io_uring_register()
++ * and io_uring_enter(). This tests validate basic API operation by creating a
++ * submission queue and a completion queue using io_uring_setup(). User buffer
++ * registered in the kernel for long term operation using io_uring_register().
++ * This tests initiates I/O operations with the help of io_uring_enter().
++ */
++#include <stdlib.h>
++#include <errno.h>
++#include <string.h>
++#include <fcntl.h>
++#include "config.h"
++#include "tst_test.h"
++#include "lapi/io_uring.h"
++
++#define QUEUE_DEPTH 1
++#define BLOCK_SZ    1024
++
++static struct tcase {
++	unsigned int setup_flags;
++	unsigned int register_opcode;
++	unsigned int enter_flags;
++} tcases[] = {
++	{IORING_SETUP_IOPOLL, IORING_REGISTER_BUFFERS, IORING_OP_READ_FIXED},
++};
++
++struct io_sq_ring {
++	unsigned int *head;
++	unsigned int *tail;
++	unsigned int *ring_mask;
++	unsigned int *ring_entries;
++	unsigned int *flags;
++	unsigned int *array;
++};
++
++struct io_cq_ring {
++	unsigned int *head;
++	unsigned int *tail;
++	unsigned int *ring_mask;
++	unsigned int *ring_entries;
++	struct io_uring_cqe *cqes;
++};
++
++struct submitter {
++	int ring_fd;
++	struct io_sq_ring sq_ring;
++	struct io_uring_sqe *sqes;
++	struct io_cq_ring cq_ring;
++};
++
++struct buff_info {
++	unsigned int buff_sz;
++	struct iovec iovecs[];
++};
++
++static struct submitter *s;
++static struct buff_info *bi;
++static sigset_t sig;
++
++static int setup_io_uring_test(struct submitter *s, struct tcase *tc)
++{
++	struct io_sq_ring *sring = &s->sq_ring;
++	struct io_cq_ring *cring = &s->cq_ring;
++	struct io_uring_params p;
++	void *ptr;
++
++	memset(&p, 0, sizeof(p));
++	p.flags |= tc->setup_flags;
++	s->ring_fd = io_uring_setup(QUEUE_DEPTH, &p);
++	if (s->ring_fd == -1) {
++		tst_res(TFAIL | TTERRNO, "io_uring_setup() failed");
++		return 1;
++	}
++
++	/* Submission queue ring buffer mapping */
++	ptr = SAFE_MMAP(0, p.sq_off.array +
++			p.sq_entries * sizeof(unsigned int),
++			PROT_READ | PROT_WRITE,
++			MAP_SHARED | MAP_POPULATE,
++			s->ring_fd, IORING_OFF_SQ_RING);
++	if (ptr == MAP_FAILED)
++		return 1;
++
++	/* Save global submission queue struct info */
++	sring->head = ptr + p.sq_off.head;
++	sring->tail = ptr + p.sq_off.tail;
++	sring->ring_mask = ptr + p.sq_off.ring_mask;
++	sring->ring_entries = ptr + p.sq_off.ring_entries;
++	sring->flags = ptr + p.sq_off.flags;
++	sring->array = ptr + p.sq_off.array;
++
++	/* Submission queue entries ring buffer mapping */
++	s->sqes = SAFE_MMAP(0, p.sq_entries *
++			sizeof(struct io_uring_sqe),
++			PROT_READ | PROT_WRITE,
++			MAP_SHARED | MAP_POPULATE,
++			s->ring_fd, IORING_OFF_SQES);
++	if (s->sqes == MAP_FAILED)
++		return 1;
++
++	/* Completion queue ring buffer mapping */
++	ptr = SAFE_MMAP(0,
++			p.cq_off.cqes + p.cq_entries *
++			sizeof(struct io_uring_cqe),
++			PROT_READ | PROT_WRITE,
++			MAP_SHARED | MAP_POPULATE,
++			s->ring_fd, IORING_OFF_CQ_RING);
++	if (ptr == MAP_FAILED)
++		return 1;
++
++	/* Save global completion queue struct info */
++	cring->head = ptr + p.cq_off.head;
++	cring->tail = ptr + p.cq_off.tail;
++	cring->ring_mask = ptr + p.cq_off.ring_mask;
++	cring->ring_entries = ptr + p.cq_off.ring_entries;
++	cring->cqes = ptr + p.cq_off.cqes;
++
++	return 0;
++}
++
++static int submit_to_uring_sq(struct submitter *s, struct tcase *tc)
++{
++	unsigned int index = 0, tail = 0, next_tail = 0;
++	struct io_sq_ring *sring = &s->sq_ring;
++	struct io_uring_sqe *sqe;
++	void  *iov_base;
++	size_t iov_len;
++	int ret;
++
++	bi = SAFE_MALLOC(sizeof(*bi));
++	iov_len = BLOCK_SZ;
++	iov_base = SAFE_MALLOC(iov_len);
++	memset(iov_base, 0, iov_len);
++	bi->iovecs[index].iov_base = (void *)iov_base;
++	bi->iovecs[index].iov_len = (size_t)iov_len;
++
++	ret = io_uring_register(s->ring_fd, tc->register_opcode,
++				bi->iovecs, QUEUE_DEPTH);
++	if (ret != 0) {
++		tst_res(TFAIL | TTERRNO, "io_uring_register() failed");
++		return 1;
++	}
++
++	/* Submission queue entry addition to SQE ring buffer tail */
++	tail = *sring->tail;
++	next_tail = tail;
++	next_tail++;
++	index = tail & *s->sq_ring.ring_mask;
++	sqe = &s->sqes[index];
++	sqe->flags = 0;
++	sqe->opcode = tc->enter_flags;
++	sqe->addr = (unsigned long)bi->iovecs;
++	sqe->user_data = (unsigned long long)bi;
++	sring->array[index] = index;
++	tail = next_tail;
++
++	/* Kernel to notice the tail update */
++	if (*sring->tail != tail)
++		*sring->tail = tail;
++
++	ret =  io_uring_enter(s->ring_fd, 1, 1, IORING_ENTER_GETEVENTS, &sig);
++	if (ret < 0) {
++		tst_res(TFAIL | TTERRNO, "io_uring_enter() failed");
++		return 1;
++	}
++
++	return 0;
++}
++
++static void run(unsigned int n)
++{
++	struct tcase *tc = &tcases[n];
++
++	s = SAFE_MALLOC(sizeof(*s));
++	memset(s, 0, sizeof(*s));
++	if (setup_io_uring_test(s, tc)) {
++		tst_res(TFAIL | TTERRNO, "io_uring_setup error");
++		return;
++	}
++	if (submit_to_uring_sq(s, tc)) {
++		tst_res(TFAIL | TTERRNO, "io_uring_submit error");
++		return;
++	}
++	tst_res(TPASS, "functionality of io_uring API is correct");
++}
++
++static struct tst_test test = {
++	.setup = io_uring_setup_supported_by_kernel,
++	.test = run,
++	.tcnt = ARRAY_SIZE(tcases),
++};
++
+-- 
+2.17.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
