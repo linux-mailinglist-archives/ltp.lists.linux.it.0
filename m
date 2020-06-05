@@ -1,65 +1,65 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7649E1EF5B0
-	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jun 2020 12:50:26 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8798B1EF728
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jun 2020 14:20:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2DE543C2F67
-	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jun 2020 12:50:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A30713C2F64
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jun 2020 14:20:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 3600D3C2F5D
- for <ltp@lists.linux.it>; Fri,  5 Jun 2020 12:50:24 +0200 (CEST)
-Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
- [IPv6:2a00:1450:4864:20::143])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 76F833C201F
+ for <ltp@lists.linux.it>; Fri,  5 Jun 2020 14:20:15 +0200 (CEST)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 990E61B601BC
- for <ltp@lists.linux.it>; Fri,  5 Jun 2020 12:50:23 +0200 (CEST)
-Received: by mail-lf1-x143.google.com with SMTP id x22so5533049lfd.4
- for <ltp@lists.linux.it>; Fri, 05 Jun 2020 03:50:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=A6PBqcu4dVcPaFrw4BGh+fD0tEbF0DBVHcXKAqEgRwQ=;
- b=wJA8AXXEALmx6h3BWpbD9/vkieuXWksBsDZWq9Pl2uDeXenuSDoa0dznCTcn+aMeH1
- FDIoPzENIOa7kle1EeAj9gaWffiLBBFmuAngkJioqKpQekFVlm6P0k9pkF5h2JIR5qAg
- 1sndcEZykPljB5wOYiMZa+ML8HJ98KRc/fLqhiZketrr8WCL5b5gk0CKHY8OgGK0JirH
- SrOXZPgxeIIZZEuIxfWlJIeUu9CUFvtJLJQaSXgkyiNvFiZil1NumLc9kpGLuzKLh/dq
- J6IaWNL2ex89PXCoVGoLet+kf9ulu9/9GpwsVhF0mQYfKxQVU9ZnK6wCSQlm89kVsN4s
- gSyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=A6PBqcu4dVcPaFrw4BGh+fD0tEbF0DBVHcXKAqEgRwQ=;
- b=hBt6DZs8gLidf9Js7PJ7IoDfW/zclVj97DZjRAr1JJwLTG+4+NLF6tYRkaScidTQqd
- vhe4Ox+RmOemVmQ7Ea+1kBmBsAcUXHc7Yn+cMxjY3BHCnIZR8fwFlEigQkhT3fGumPaj
- 4MDLg5YFNG/xb5dMFrqB5epjkST+YhZhMea9sKi/Mnyz96WMvxqL9M0+2VSac4WXWzKA
- P2EpvRs0ixjeedH+9sFl1CA+09e8g7hsUAjWxz/nYOUAUX3G1CnuJprfHoBr/xCCR/S+
- XUGBfOhxCUFagqC5IcoWi35Ppb7YpgvzBZlqmOoEHKvg/3tp1WSCw4MnTmS36x7qQSId
- WS2Q==
-X-Gm-Message-State: AOAM532UtV4FqEEhSdh0SLC1x4wVfUvK30uApe0+RNAjnPBz6uNTm3S5
- i7uEQSZBZvC0BrE37mv7uJ2hpl1509d7JTH7Co3gBw==
-X-Google-Smtp-Source: ABdhPJzOJiojtwmNr5SOMrlaeXW50qJdj5r2rISr3n1YjgPpD4saq3YvUGnbwmqz/JJwarjnkhdVjFMdX/8wIL2olCA=
-X-Received: by 2002:ac2:55b2:: with SMTP id y18mr5064475lfg.55.1591354222649; 
- Fri, 05 Jun 2020 03:50:22 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A676C141CE6A
+ for <ltp@lists.linux.it>; Fri,  5 Jun 2020 14:20:14 +0200 (CEST)
+Received: from mail-qv1-f51.google.com ([209.85.219.51]) by
+ mrelayeu.kundenserver.de (mreue109 [212.227.15.145]) with ESMTPSA (Nemesis)
+ id 1Mgek6-1j2bJJ38dY-00h8QE for <ltp@lists.linux.it>; Fri, 05 Jun 2020
+ 14:20:13 +0200
+Received: by mail-qv1-f51.google.com with SMTP id e20so4567643qvu.0
+ for <ltp@lists.linux.it>; Fri, 05 Jun 2020 05:20:13 -0700 (PDT)
+X-Gm-Message-State: AOAM532zcMTQZSktldlQCc+170/n1xaCxDkayrfQRpYwQNTInqOWhE0g
+ 1Fth/1dKp8hMSDQaHEmbNYMsIP7dVNhN2s44Res=
+X-Google-Smtp-Source: ABdhPJwZtq6fGxeC9ph1McSAcOQKEvBK6MrAejzEVWn0TsioYGqEgIPj7s0X0ugAnEmJ+hs4u+BTe6tQB0U0Aq3ZrnI=
+X-Received: by 2002:ad4:4b33:: with SMTP id s19mr8664475qvw.211.1591359612597; 
+ Fri, 05 Jun 2020 05:20:12 -0700 (PDT)
 MIME-Version: 1.0
-References: <CA+G9fYuGwcE3zyMFQPpfA0CyW=4WOg9V=kCfKhS7b8930jQofA@mail.gmail.com>
- <203212099.14886500.1591345676708.JavaMail.zimbra@redhat.com>
-In-Reply-To: <203212099.14886500.1591345676708.JavaMail.zimbra@redhat.com>
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Fri, 5 Jun 2020 16:20:10 +0530
-Message-ID: <CA+G9fYv=2xqP0ue69jk-xMa7VRwg0dOm14TqkNUazsqvxbU0_A@mail.gmail.com>
-To: Jan Stancek <jstancek@redhat.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+References: <e15907ed42f0276f09c4120b9255db5764d4e9b6.1591343286.git.viresh.kumar@linaro.org>
+In-Reply-To: <e15907ed42f0276f09c4120b9255db5764d4e9b6.1591343286.git.viresh.kumar@linaro.org>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Fri, 5 Jun 2020 14:19:56 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a0b2BbZq_yYBKJHUfZgzCYUtdidpzJEj-HzuBKf1Q_nnQ@mail.gmail.com>
+Message-ID: <CAK8P3a0b2BbZq_yYBKJHUfZgzCYUtdidpzJEj-HzuBKf1Q_nnQ@mail.gmail.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+X-Provags-ID: V03:K1:9MK3KfMkiLEzbWLv6NNh07nMI8UbQRQOUGB3mdgR52Tf3TP9viy
+ JPGiI6s7LgLZIpDYOyOVfHViOlUKm6tIzQuFFVqTYC0/uNY16yLaBQHA7iQpyHPVPKuPc/2
+ DBjghgPLPwhfSmZKeIOrYGJ5n+Q7Z3gyzqCUsl8cp7ftq7M/5erYLteN7RO+wboH4+E71Q5
+ 2wZLV9ItqP3quqrvazgWg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:q+sjsIdi7hA=:kPbzcgVkiAHt48MolftD6Q
+ xSJF3k+EhXi6At0ba0faWp59KjGwXkQUKOTgTLqvMPBcUK0ys1dcMRkNzxO/GYa1zYg2FU820
+ 4IlgZhrPN9T/lfaFjIMGWp0MmyIzrknF+F/rdoH6IH9BahxoKlNQ/iinprcG2sp12Y9QYmWdv
+ vnlFIYbqB8IpDr7emSbog0cJqlD+u3XvuPWJpSf4/FxfVG28fOX4kjINX6NVhAND2wec0ABzJ
+ m9UQYEw6Yc+/xiLVaufhfYknjz5H/ZMibwr8/HtWYWPZ8BrVWVc4UtiIXJt/NqeblmgV+n7GQ
+ nTTxWv6Fl7YHQSdWhqiz93LoAoz5byUiK9XIzRRXXotGC1xhPXqbbP7itbZ8dnsuvmgRweRNx
+ d3sFrabE7xOMuJ+J7noTGU0iuTPCwGSc49aTxO1BpvcE7Mvf+g2ahd7uYyc6gAzPhf1HFyKJq
+ RFlFzAYNwXZnrgZeAuV6+O0NTFbegzdh9Py/htWQUxZUZGiCAdVbsaFYYAEVgpJyKP4bqb7Ho
+ w4nIUT+cyy/z8Iru5XRHybLVGxZtc36kfHlC66SKFWPsfkcHFBAQsFVj/aZ4RihsXtC+YgWvm
+ 7YLHt4yGjhTI+WWmHezwHIaDBvRDJTlZD7AzTTjW+wzDbtFtj9LODo37zUXde4xKFEBWtAu9A
+ 2s0dpjC/yo2qu3HDg4MH3wOP9yjyCGeyM/Q+XPC+PYu91ufpgTm0Mx8tfKS0yj8nbmqpSnBgk
+ 4woTb9CHKpKV4AucruMd8Y5h037iH59bWCypjh5QaRiF7aNVQq0sXb2FGdz+DR6uTdHbHenNA
+ sBy9hBrI2DZjJ1bkWpISXZQSNi4gQyahdYv89SgwvwQ1u+pLGs=
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] LTP: syscalls: regression on mainline - ioctl_loop01
- mknod07 setns01
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/clock_gettime: Add test to check bug
+ during successive readings
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,44 +71,99 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, Arnd Bergmann <arnd@arndb.de>,
- open list <linux-kernel@vger.kernel.org>,
- Richard Palethorpe <rpalethorpe@suse.com>, lkft-triage@lists.linaro.org,
- Viresh Kumar <viresh.kumar@linaro.org>, Martijn Coenen <maco@android.com>,
- Christoph Hellwig <hch@lst.de>, LTP List <ltp@lists.linux.it>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Fri, 5 Jun 2020 at 13:58, Jan Stancek <jstancek@redhat.com> wrote:
->
->
->
-> ----- Original Message -----
-> > Following three test cases reported as regression on Linux mainline kernel
-> > on x86_64, arm64, arm and i386
-> >
-> >   ltp-syscalls-tests:
-> >     * ioctl_loop01
-> >     * mknod07
->
-> Test updated:
->   https://github.com/linux-test-project/ltp/commit/13fcfa2d6bdd1fb71c4528b47170e8e8fb3a8a32
+On Fri, Jun 5, 2020 at 9:48 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
 
-ack.
+> +static struct test_variants {
+> +       int (*gettime)(clockid_t clk_id, void *ts);
+> +       enum tst_ts_type type;
+> +       char *desc;
+> +} variants[] = {
+> +       { .gettime = libc_clock_gettime, .type = TST_LIBC_TIMESPEC, .desc = "vDSO or syscall with libc spec"},
+> +
+> +#if (__NR_clock_gettime != __LTP__NR_INVALID_SYSCALL)
+> +       { .gettime = sys_clock_gettime, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
+> +#endif
+> +
+> +#if (__NR_clock_gettime64 != __LTP__NR_INVALID_SYSCALL)
+> +       { .gettime = sys_clock_gettime64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
+> +#endif
+> +};
 
->
-> >     * setns01
->
-> commit 303cc571d107 ("nsproxy: attach to namespaces via pidfds")
-> changed errno that is returned for regular file from EINVAL to EBADF.
-> This appears to fit more current man page, so I think we need to fix
-> test to accept both. (I'm looking into that)
+Would it be possible to add a direct call to the two vdso
+implementations here as well?
+This test would not catch the bug that we had because only the
+clock_gettime64 vdso
+implementation was affected, but on most systems the libc clock_gettime calls
+the clock_gettime vdso functions, not clock_gettime64.
 
-Thanks for investigating these failures.
+> +static void run(unsigned int i)
+> +{
+> +       struct tst_ts ts_start, ts_end;
+> +       long long start, end, diff;
+> +       struct test_variants *tv;
+> +       int count = 10000;
+> +       unsigned int j;
+> +
+> +       while (--count) {
+> +               /* Store reference time in start */
+> +               if (clks[i] == CLOCK_REALTIME) {
+> +                       struct timeval tval;
+> +
+> +                       /* Compare CLOCK_REALTIME with gettimeofday() as well */
+> +                       if (gettimeofday(&tval, NULL) < 0)
+> +                               tst_brk(TBROK | TERRNO, "gettimeofday() failed");
+> +
+> +                       start = tst_timeval_to_ms(tval);
+> +               } else {
+> +                       tv = &variants[0];
+> +                       ts_start.type = tv->type;
+> +                       tv->gettime(clks[i], tst_ts_get(&ts_start));
+> +                       start = tst_ts_to_ms(ts_start);
+> +               }
+> +
+> +               for (j = 0; j < ARRAY_SIZE(variants); j++) {
+> +                       tv = &variants[j];
+> +                       ts_end.type = tv->type;
+> +
+> +                       tv->gettime(clks[i], tst_ts_get(&ts_end));
+> +                       end = tst_ts_to_ms(ts_end);
+> +
+> +                       diff = end - start;
+> +                       if (diff < 0) {
+> +                               tst_res(TFAIL, "%s: Time travelled backwards: %lld",
+> +                                               tst_clock_name(clks[i]), diff);
+> +                               return;
+> +                       }
 
- - Naresh
+I think this check should be done on the nanoseconds, not after the
+conversion to milliseconds -- otherwise you miss when time goes
+backwards by less than a millisecond.
+
+> +
+> +                       if (diff >= 5) {
+> +                               tst_res(TFAIL, "%s: Difference between successive readings greater than 5 ms: %lld",
+> +                                               tst_clock_name(clks[i]), diff);
+> +                               return;
+> +                       }
+> +
+> +                       /* Refresh time in start */
+> +                       start = end;
+
+resetting start here seems like the right choice in order to check for
+backward jumps between loop iterations, but I see that the start of
+the loop invalidates that by overwriting it again.
+
+One way to solve this would be by having the gettimeofday() call
+as part of the loop but skip it for !CLOCK_REALTIME, and adding
+a special case for the lower resolution.
+
+     Arnd
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
