@@ -2,50 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE4751EF0EF
-	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jun 2020 07:40:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C2C81EF146
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jun 2020 08:14:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 579D93C2F87
-	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jun 2020 07:40:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 47BFE3C2F5B
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jun 2020 08:14:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 1A4333C223E
- for <ltp@lists.linux.it>; Fri,  5 Jun 2020 07:40:09 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 7EA2F200C9F
- for <ltp@lists.linux.it>; Fri,  5 Jun 2020 07:40:07 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.73,474,1583164800"; d="scan'208,217";a="93883997"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 05 Jun 2020 13:40:05 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 2C08950A9975;
- Fri,  5 Jun 2020 13:40:00 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Fri, 5 Jun 2020 13:39:57 +0800
-To: Jan Stancek <jstancek@redhat.com>, <ltp@lists.linux.it>
-References: <588f29555a93919a5ea47e5cf786eca6a08f85f1.1591185180.git.jstancek@redhat.com>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <3d927f64-438c-f52e-93c4-969a0d2d7c02@cn.fujitsu.com>
-Date: Fri, 5 Jun 2020 13:39:55 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 581223C222C
+ for <ltp@lists.linux.it>; Fri,  5 Jun 2020 08:14:07 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 3D8111A01117
+ for <ltp@lists.linux.it>; Fri,  5 Jun 2020 08:14:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1591337644;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=hlT8nvgjOcgBAtBIJElTYbUHMMxTz6gIfXnc3+jBNDA=;
+ b=LhjOnfPM4lgOGpMLIvng3vgErXLlhyIUj6/cZT1MS4vdptNflbwkUrhMzcvH97QYrhFayY
+ U/jyMzwR+G3Wpqa7z4XxGhisPCuPSGf+S7wvdC8Hr0+Q2FQDEffiWCZRtSc8tGC4YJyq0B
+ 5d3TZKzxold5nu9MC9hZAfH2f7YF2q8=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-314-y6_CiH2iNZC0hKmNBm4BuA-1; Fri, 05 Jun 2020 02:14:00 -0400
+X-MC-Unique: y6_CiH2iNZC0hKmNBm4BuA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+ [10.5.11.16])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3FED580572E;
+ Fri,  5 Jun 2020 06:13:59 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 35E695C557;
+ Fri,  5 Jun 2020 06:13:59 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id EF01618095FF;
+ Fri,  5 Jun 2020 06:13:58 +0000 (UTC)
+Date: Fri, 5 Jun 2020 02:13:58 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <1283643675.14872901.1591337638680.JavaMail.zimbra@redhat.com>
+In-Reply-To: <4e69e550-d11e-2b0a-2e98-36b186b983e7@cn.fujitsu.com>
+References: <0e99163dd0deef5e3c0e7276533998e80a93d16e.1591016352.git.jstancek@redhat.com>
+ <2f353cb69600740308c196dcfa8f570ba6420bfa.1591087232.git.jstancek@redhat.com>
+ <4e69e550-d11e-2b0a-2e98-36b186b983e7@cn.fujitsu.com>
 MIME-Version: 1.0
-In-Reply-To: <588f29555a93919a5ea47e5cf786eca6a08f85f1.1591185180.git.jstancek@redhat.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 2C08950A9975.AB40B
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=HTML_MESSAGE, KHOP_HELO_FCRDNS,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Originating-IP: [10.43.17.25, 10.4.195.4]
+Thread-Topic: syscalls/ioctl_loop05: set loop blksize to bdev blksize
+Thread-Index: EpxXPVyy4EWhY4hi++KsU97/795uKw==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/mknod07: whiteout creation no longer
- requires privileges
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] syscalls/ioctl_loop05: set loop blksize to
+ bdev blksize
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,171 +77,21 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1329814665=="
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1329814665==
-Content-Type: multipart/alternative;
-	boundary="------------CCE4039162587BD546BDD9CC"
-
---------------CCE4039162587BD546BDD9CC
-Content-Type: text/plain; charset="gbk"; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Hi Jan
-
-Acked.
-Also Theses mknod/mknodat cases should convert into new api.
-
-Best Regards
-Yang Xu
-
-> Since commit a3c751a50fe6 ("vfs: allow unprivileged whiteout creation"),
-> privileges are no longer required to create whiteout (0,0) char device.
->
-> Use /dev/null instead for EPERM test.
->
-> Signed-off-by: Jan Stancek <jstancek@redhat.com>
-> ---
->   testcases/kernel/syscalls/mknod/mknod07.c | 17 ++++++++++-------
->   1 file changed, 10 insertions(+), 7 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/mknod/mknod07.c b/testcases/kernel/syscalls/mknod/mknod07.c
-> index 69cff02d95d1..829199061532 100644
-> --- a/testcases/kernel/syscalls/mknod/mknod07.c
-> +++ b/testcases/kernel/syscalls/mknod/mknod07.c
-> @@ -43,6 +43,7 @@
->   #include <sys/types.h>
->   #include <sys/stat.h>
->   #include <sys/mount.h>
-> +#include <sys/sysmacros.h>
->   
->   #include "test.h"
->   #include "safe_macros.h"
-> @@ -69,13 +70,14 @@ static struct test_case_t {
->   	char *pathname;
->   	int mode;
->   	int exp_errno;
-> +	int major, minor;
->   } test_cases[] = {
-> -	{ "testdir_1/tnode_1", SOCKET_MODE, EACCES },
-> -	{ "testdir_1/tnode_2", FIFO_MODE, EACCES },
-> -	{ "tnode_3", CHR_MODE, EPERM },
-> -	{ "tnode_4", BLK_MODE, EPERM },
-> -	{ "mntpoint/tnode_5", SOCKET_MODE, EROFS },
-> -	{ elooppathname, FIFO_MODE, ELOOP },
-> +	{ "testdir_1/tnode_1", SOCKET_MODE, EACCES, 0, 0 },
-> +	{ "testdir_1/tnode_2", FIFO_MODE, EACCES, 0, 0 },
-> +	{ "tnode_3", CHR_MODE, EPERM, 1, 3 },
-> +	{ "tnode_4", BLK_MODE, EPERM, 0, 0 },
-> +	{ "mntpoint/tnode_5", SOCKET_MODE, EROFS, 0, 0 },
-> +	{ elooppathname, FIFO_MODE, ELOOP, 0, 0 },
->   };
->   
->   char *TCID = "mknod07";
-> @@ -149,7 +151,8 @@ static void setup(void)
->   
->   static void mknod_verify(const struct test_case_t *test_case)
->   {
-> -	TEST(mknod(test_case->pathname, test_case->mode, 0));
-> +	TEST(mknod(test_case->pathname, test_case->mode,
-> +		makedev(test_case->major, test_case->minor)));
->   
->   	if (TEST_RETURN != -1) {
->   		tst_resm(TFAIL, "mknod succeeded unexpectedly");
 
 
+----- Original Message -----
+> Hi Jan
+> 
+> Looks good to me, acked.
 
---------------CCE4039162587BD546BDD9CC
-Content-Type: text/html; charset="gbk"
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=GBK">
-  </head>
-  <body>
-    <pre>Hi Jan
-</pre>
-    <div class="moz-cite-prefix">
-      <pre>Acked.
-Also Theses mknod/mknodat cases should convert into new api.
-
-Best Regards
-Yang Xu
-</pre>
-    </div>
-    <blockquote type="cite"
-cite="mid:588f29555a93919a5ea47e5cf786eca6a08f85f1.1591185180.git.jstancek@redhat.com">
-      <pre class="moz-quote-pre" wrap="">Since commit a3c751a50fe6 ("vfs: allow unprivileged whiteout creation"),
-privileges are no longer required to create whiteout (0,0) char device.
-
-Use /dev/null instead for EPERM test.
-
-Signed-off-by: Jan Stancek <a class="moz-txt-link-rfc2396E" href="mailto:jstancek@redhat.com">&lt;jstancek@redhat.com&gt;</a>
----
- testcases/kernel/syscalls/mknod/mknod07.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/mknod/mknod07.c b/testcases/kernel/syscalls/mknod/mknod07.c
-index 69cff02d95d1..829199061532 100644
---- a/testcases/kernel/syscalls/mknod/mknod07.c
-+++ b/testcases/kernel/syscalls/mknod/mknod07.c
-@@ -43,6 +43,7 @@
- #include &lt;sys/types.h&gt;
- #include &lt;sys/stat.h&gt;
- #include &lt;sys/mount.h&gt;
-+#include &lt;sys/sysmacros.h&gt;
- 
- #include "test.h"
- #include "safe_macros.h"
-@@ -69,13 +70,14 @@ static struct test_case_t {
- 	char *pathname;
- 	int mode;
- 	int exp_errno;
-+	int major, minor;
- } test_cases[] = {
--	{ "testdir_1/tnode_1", SOCKET_MODE, EACCES },
--	{ "testdir_1/tnode_2", FIFO_MODE, EACCES },
--	{ "tnode_3", CHR_MODE, EPERM },
--	{ "tnode_4", BLK_MODE, EPERM },
--	{ "mntpoint/tnode_5", SOCKET_MODE, EROFS },
--	{ elooppathname, FIFO_MODE, ELOOP },
-+	{ "testdir_1/tnode_1", SOCKET_MODE, EACCES, 0, 0 },
-+	{ "testdir_1/tnode_2", FIFO_MODE, EACCES, 0, 0 },
-+	{ "tnode_3", CHR_MODE, EPERM, 1, 3 },
-+	{ "tnode_4", BLK_MODE, EPERM, 0, 0 },
-+	{ "mntpoint/tnode_5", SOCKET_MODE, EROFS, 0, 0 },
-+	{ elooppathname, FIFO_MODE, ELOOP, 0, 0 },
- };
- 
- char *TCID = "mknod07";
-@@ -149,7 +151,8 @@ static void setup(void)
- 
- static void mknod_verify(const struct test_case_t *test_case)
- {
--	TEST(mknod(test_case-&gt;pathname, test_case-&gt;mode, 0));
-+	TEST(mknod(test_case-&gt;pathname, test_case-&gt;mode,
-+		makedev(test_case-&gt;major, test_case-&gt;minor)));
- 
- 	if (TEST_RETURN != -1) {
- 		tst_resm(TFAIL, "mknod succeeded unexpectedly");
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------CCE4039162587BD546BDD9CC--
-
---===============1329814665==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Pushed.
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1329814665==--
