@@ -2,68 +2,54 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 820AD1EF26D
-	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jun 2020 09:48:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEC1E1EF2FD
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jun 2020 10:21:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 83EE83C2F79
-	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jun 2020 09:48:27 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 16D213C2F65
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jun 2020 10:21:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 6BEFA3C2232
- for <ltp@lists.linux.it>; Fri,  5 Jun 2020 09:48:22 +0200 (CEST)
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D8E0420E74F
- for <ltp@lists.linux.it>; Fri,  5 Jun 2020 09:48:21 +0200 (CEST)
-Received: by mail-pf1-x444.google.com with SMTP id a127so4523927pfa.12
- for <ltp@lists.linux.it>; Fri, 05 Jun 2020 00:48:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=1JGBBvI36wCGos6gXklWMaqqlNYB2AMjdJo/M3bRyYc=;
- b=oCOS2ZLCgTv99Mxa8SAp3Czp3PH4TSepMR+U+bjLurUIPNIt3f0rxyM9d6N4oiX5I1
- rfeKEQySc2Q/5eg/mhySts9bdXxP+fwE48RvpbKBBzoUXM++Z/AtTQc0ByKfH458ZcBs
- cppzlYPrgfZtjFyTTwBZe8rx29aW2pODcZvFtY6FX0uG27ComcywQRFPEgq6jp41TYD7
- q6xKIq5vYVWZCoWQtIe9o6ebXufzcdA1B2wOLpxDvNM2v+fthQu1U0a/FgWB8ikg8703
- jmP8JTXQTLf+j9qytcd/7ShBNlr+9SdgpmE+ebJrhznuZD/5bc8EcnwaXhZ6QFP2hpO4
- b/lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=1JGBBvI36wCGos6gXklWMaqqlNYB2AMjdJo/M3bRyYc=;
- b=qXuwtagA8MCHuY3g7JoH9rPAreZm9IQ7CFahAmw1F79+bh+eU9LCXGQLOUeCaQ9ElJ
- KgbVI01/rPJ1RqBjvMYmlU1s16xljORmqdftr1WcuO1rjY4OH/EIKS/aQt0MFLbgb5MS
- f6xmmBLvS+pCGuULzertd9Se0WZRpxHCZNTKuyXrAUTLSQDY7ZUXFHxrAG0Mw8cHCxU7
- AdJX+Jmj7tdXbW/Hvt5LTzVnJR/TQg54GwSbzZycJ4MztI2+zDOetw+1XnFcIQ2LBzVN
- sySNxePgf5qoPm11onKv0TdtcjWYIEdu03o7SoOTjPpMVKoAqS+7Ue/ab3j3n4ao6Reb
- oGgA==
-X-Gm-Message-State: AOAM531fNeELHBiMck1N8eduiYpCs+5Vxf296d+RRp3Ef0cWjv5EIJ6H
- ZSAJ4oXVC+kujt2Ph3bh6eI+cA6C01U=
-X-Google-Smtp-Source: ABdhPJyK2mBzRRiB1Q+yRs1QQ5jQZLy2EaWVfETSdn5RIe5wQCsFvgmLcyqw1waqsFjoHtViZnRCmg==
-X-Received: by 2002:a63:f316:: with SMTP id l22mr7924616pgh.38.1591343299877; 
- Fri, 05 Jun 2020 00:48:19 -0700 (PDT)
-Received: from localhost ([122.172.62.209])
- by smtp.gmail.com with ESMTPSA id w186sm6845523pff.83.2020.06.05.00.48.18
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 05 Jun 2020 00:48:19 -0700 (PDT)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: ltp@lists.linux.it
-Date: Fri,  5 Jun 2020 13:18:13 +0530
-Message-Id: <e15907ed42f0276f09c4120b9255db5764d4e9b6.1591343286.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 914C53C201F
+ for <ltp@lists.linux.it>; Fri,  5 Jun 2020 10:21:44 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 7F02D60171D
+ for <ltp@lists.linux.it>; Fri,  5 Jun 2020 10:21:41 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.73,475,1583164800"; d="scan'208";a="93895131"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 05 Jun 2020 16:21:39 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 65CB250A996F;
+ Fri,  5 Jun 2020 16:21:35 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Fri, 5 Jun 2020 16:21:35 +0800
+To: Martijn Coenen <maco@android.com>, Naresh Kamboju
+ <naresh.kamboju@linaro.org>
+References: <CA+G9fYuGwcE3zyMFQPpfA0CyW=4WOg9V=kCfKhS7b8930jQofA@mail.gmail.com>
+ <CA+G9fYuUvjDeLXVm2ax_5UF=OJeH7fog0U7GG2vEUXg-HXWRqg@mail.gmail.com>
+ <CAB0TPYGo5ePYrah3Wgv_M1fx91+niRe12YaBBXGfs5b87Fjtrg@mail.gmail.com>
+ <CAB0TPYEx4Z8do3qL1KVpnGGnorTLGqKtrwi1uQgxQ6Xw3JqiYw@mail.gmail.com>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <ca8a4087-8c8b-6105-3f2c-1e2deee5f987@cn.fujitsu.com>
+Date: Fri, 5 Jun 2020 16:21:32 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+In-Reply-To: <CAB0TPYEx4Z8do3qL1KVpnGGnorTLGqKtrwi1uQgxQ6Xw3JqiYw@mail.gmail.com>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 65CB250A996F.AF3EE
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH] syscalls/clock_gettime: Add test to check bug during
- successive readings
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] LTP: syscalls: regression on mainline - ioctl_loop01
+ mknod07 setns01
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,152 +61,180 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
- Viresh Kumar <viresh.kumar@linaro.org>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Jens Axboe <axboe@kernel.dk>, Arnd Bergmann <arnd@arndb.de>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Richard Palethorpe <rpalethorpe@suse.com>,
+ linux-block <linux-block@vger.kernel.org>, lkft-triage@lists.linaro.org,
+ Christoph Hellwig <hch@lst.de>, LTP List <ltp@lists.linux.it>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-An issue was reported recently where a bug was found during successive
-reading of 64 bit time on arm32 platforms. Add a test for that.
+Hi Martijn
 
-https://github.com/richfelker/musl-cross-make/issues/96
+> Hi Naresh,
+> 
+> I just sent a patch and cc'd you. I verified all the loop tests pass
+> again with that patch.
+I think you want to say "without".  I verified the ioctl_loop01 fails 
+with faf1d25440 ("loop: Clean up LOOP_SET_STATUS lo_flags handling").
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
----
- runtest/syscalls                              |  1 +
- .../kernel/syscalls/clock_gettime/.gitignore  |  1 +
- .../syscalls/clock_gettime/clock_gettime04.c  | 96 +++++++++++++++++++
- 3 files changed, 98 insertions(+)
- create mode 100644 testcases/kernel/syscalls/clock_gettime/clock_gettime04.c
+This kernel commit breaks old behaviour(if old flag all 0, new flag is 
+always 0 regradless your flag setting).
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index f9a6397560fa..d7c3cbed611a 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -96,6 +96,7 @@ clock_nanosleep04 clock_nanosleep04
- clock_gettime01 clock_gettime01
- clock_gettime02 clock_gettime02
- clock_gettime03 clock_gettime03
-+clock_gettime04 clock_gettime04
- leapsec01 leapsec01
- 
- clock_settime01 clock_settime01
-diff --git a/testcases/kernel/syscalls/clock_gettime/.gitignore b/testcases/kernel/syscalls/clock_gettime/.gitignore
-index 9d06613b6f41..304eedab68c6 100644
---- a/testcases/kernel/syscalls/clock_gettime/.gitignore
-+++ b/testcases/kernel/syscalls/clock_gettime/.gitignore
-@@ -1,4 +1,5 @@
- clock_gettime01
- clock_gettime02
- clock_gettime03
-+clock_gettime04
- leapsec01
-diff --git a/testcases/kernel/syscalls/clock_gettime/clock_gettime04.c b/testcases/kernel/syscalls/clock_gettime/clock_gettime04.c
-new file mode 100644
-index 000000000000..139883033dce
---- /dev/null
-+++ b/testcases/kernel/syscalls/clock_gettime/clock_gettime04.c
-@@ -0,0 +1,96 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2020 Linaro Limited. All rights reserved.
-+ * Author: Viresh Kumar<viresh.kumar@linaro.org>
-+ *
-+ * Check time difference between successive readings and report a bug if
-+ * difference found to be over 5 ms.
-+ */
-+
-+#include "config.h"
-+#include "tst_timer.h"
-+#include "tst_safe_clocks.h"
-+
-+clockid_t clks[] = {
-+	CLOCK_REALTIME,
-+	CLOCK_REALTIME_COARSE,
-+	CLOCK_MONOTONIC,
-+	CLOCK_MONOTONIC_COARSE,
-+	CLOCK_MONOTONIC_RAW,
-+	CLOCK_BOOTTIME,
-+};
-+
-+static struct test_variants {
-+	int (*gettime)(clockid_t clk_id, void *ts);
-+	enum tst_ts_type type;
-+	char *desc;
-+} variants[] = {
-+	{ .gettime = libc_clock_gettime, .type = TST_LIBC_TIMESPEC, .desc = "vDSO or syscall with libc spec"},
-+
-+#if (__NR_clock_gettime != __LTP__NR_INVALID_SYSCALL)
-+	{ .gettime = sys_clock_gettime, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
-+#endif
-+
-+#if (__NR_clock_gettime64 != __LTP__NR_INVALID_SYSCALL)
-+	{ .gettime = sys_clock_gettime64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
-+#endif
-+};
-+
-+static void run(unsigned int i)
-+{
-+	struct tst_ts ts_start, ts_end;
-+	long long start, end, diff;
-+	struct test_variants *tv;
-+	int count = 10000;
-+	unsigned int j;
-+
-+	while (--count) {
-+		/* Store reference time in start */
-+		if (clks[i] == CLOCK_REALTIME) {
-+			struct timeval tval;
-+
-+			/* Compare CLOCK_REALTIME with gettimeofday() as well */
-+			if (gettimeofday(&tval, NULL) < 0)
-+				tst_brk(TBROK | TERRNO, "gettimeofday() failed");
-+
-+			start = tst_timeval_to_ms(tval);
-+		} else {
-+			tv = &variants[0];
-+			ts_start.type = tv->type;
-+			tv->gettime(clks[i], tst_ts_get(&ts_start));
-+			start = tst_ts_to_ms(ts_start);
-+		}
-+
-+		for (j = 0; j < ARRAY_SIZE(variants); j++) {
-+			tv = &variants[j];
-+			ts_end.type = tv->type;
-+
-+			tv->gettime(clks[i], tst_ts_get(&ts_end));
-+			end = tst_ts_to_ms(ts_end);
-+
-+			diff = end - start;
-+			if (diff < 0) {
-+				tst_res(TFAIL, "%s: Time travelled backwards: %lld",
-+						tst_clock_name(clks[i]), diff);
-+				return;
-+			}
-+
-+			if (diff >= 5) {
-+				tst_res(TFAIL, "%s: Difference between successive readings greater than 5 ms: %lld",
-+						tst_clock_name(clks[i]), diff);
-+				return;
-+			}
-+
-+			/* Refresh time in start */
-+			start = end;
-+		}
-+	}
-+
-+	tst_res(TPASS, "%s: Difference between successive readings is reasonable",
-+		tst_clock_name(clks[i]));
-+}
-+
-+static struct tst_test test = {
-+	.test = run,
-+	.tcnt = ARRAY_SIZE(clks),
-+};
--- 
-2.25.0.rc1.19.g042ed3e048af
+I think we should modify code as below:
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index 13518ba191f5..c6ba8cf486ce 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -1364,11 +1364,9 @@ loop_set_status(struct loop_device *lo, const 
+struct loop_info64 *info)
+         if (err)
+                 goto out_unfreeze;
+
+-       /* Mask out flags that can't be set using LOOP_SET_STATUS. */
+-       lo->lo_flags &= ~LOOP_SET_STATUS_SETTABLE_FLAGS;
+-       /* For those flags, use the previous values instead */
+-       lo->lo_flags |= prev_lo_flags & ~LOOP_SET_STATUS_SETTABLE_FLAGS;
+-       /* For flags that can't be cleared, use previous values too */
++       /* Mask out flags that can be set using LOOP_SET_STATUS. */
++       lo->lo_flags &= LOOP_SET_STATUS_SETTABLE_FLAGS;
++       /* For flags that can't be cleared, use previous values. */
+         lo->lo_flags |= prev_lo_flags &~LOOP_SET_STATUS_CLEARABLE_FLAGS;
+
+Best Regards
+Yang Xu
+> 
+> Thanks,
+> Martijn
+> 
+> 
+> On Thu, Jun 4, 2020 at 9:10 PM Martijn Coenen <maco@android.com> wrote:
+>>
+>> Hi Naresh,
+>>
+>> I suspect the loop failures are due to
+>> faf1d25440d6ad06d509dada4b6fe62fea844370 ("loop: Clean up
+>> LOOP_SET_STATUS lo_flags handling"), I will investigate and get back
+>> to you.
+>>
+>> Thanks,
+>> Martijn
+>>
+>> On Thu, Jun 4, 2020 at 7:19 PM Naresh Kamboju <naresh.kamboju@linaro.org> wrote:
+>>>
+>>> + linux-block@vger.kernel.org
+>>>
+>>> On Thu, 4 Jun 2020 at 22:47, Naresh Kamboju <naresh.kamboju@linaro.org> wrote:
+>>>>
+>>>> Following three test cases reported as regression on Linux mainline kernel
+>>>> on x86_64, arm64, arm and i386
+>>>>
+>>>>    ltp-syscalls-tests:
+>>>>      * ioctl_loop01
+>>>>      * mknod07
+>>>>      * setns01
+>>>>
+>>>> git repo: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+>>>> git branch: master
+>>>> GOOD:
+>>>>    git commit: b23c4771ff62de8ca9b5e4a2d64491b2fb6f8f69
+>>>>    git describe: v5.7-1230-gb23c4771ff62
+>>>> BAD:
+>>>>    git commit: 1ee08de1e234d95b5b4f866878b72fceb5372904
+>>>>    git describe: v5.7-3523-g1ee08de1e234
+>>>>
+>>>> kernel-config: https://builds.tuxbuild.com/U3bU0dMA62OVHb4DvZIVuw/kernel.config
+>>>>
+>>>> We are investigating these failures.
+>>>>
+>>>> tst_test.c:906: CONF: btrfs driver not available
+>>>> tst_test.c:1246: INFO: Timeout per run is 0h 15m 00s
+>>>> tst_device.c:88: INFO: Found free device 1 '/dev/loop1'
+>>>> ioctl_loop01.c:49: PASS: /sys/block/loop1/loop/partscan = 0
+>>>> [ 1073.639677] loop_set_status: loop1 () has still dirty pages (nrpages=1)
+>>>> ioctl_loop01.c:50: PASS: /sys/block/loop1/loop/autoclear = 0
+>>>> ioctl_loop01.c:51: PASS: /sys/block/loop1/loop/backing_file =
+>>>> '/scratch/ltp-mnIdulzriQ/9cPtLQ/test.img'
+>>>> ioctl_loop01.c:63: FAIL: expect 12 but got 17
+>>>> ioctl_loop01.c:67: FAIL: /sys/block/loop1/loop/partscan != 1 got 0
+>>>> ioctl_loop01.c:68: FAIL: /sys/block/loop1/loop/autoclear != 1 got 0
+>>>> ioctl_loop01.c:79: FAIL: access /dev/loop1p1 fails
+>>>> [ 1073.679678] loop_set_status: loop1 () has still dirty pages (nrpages=1)
+>>>> ioctl_loop01.c:85: FAIL: access /sys/block/loop1/loop1p1 fails
+>>>>
+>>>> HINT: You _MAY_ be missing kernel fixes, see:
+>>>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=10c70d95c0f2
+>>>>
+>>>> mke2fs 1.43.8 (1-Jan-2018)
+>>>> [ 1264.711379] EXT4-fs (loop0): mounting ext2 file system using the
+>>>> ext4 subsystem
+>>>> [ 1264.716642] EXT4-fs (loop0): mounted filesystem without journal. Opts: (null)
+>>>> mknod07     0  TINFO  :  Using test device LTP_DEV='/dev/loop0'
+>>>> mknod07     0  TINFO  :  Formatting /dev/loop0 with ext2 opts='' extra opts=''
+>>>> mknod07     1  TPASS  :  mknod failed as expected:
+>>>> TEST_ERRNO=EACCES(13): Permission denied
+>>>> mknod07     2  TPASS  :  mknod failed as expected:
+>>>> TEST_ERRNO=EACCES(13): Permission denied
+>>>> mknod07     3  TFAIL  :  mknod07.c:155: mknod succeeded unexpectedly
+>>>> mknod07     4  TPASS  :  mknod failed as expected:
+>>>> TEST_ERRNO=EPERM(1): Operation not permitted
+>>>> mknod07     5  TPASS  :  mknod failed as expected:
+>>>> TEST_ERRNO=EROFS(30): Read-only file system
+>>>> mknod07     6  TPASS  :  mknod failed as expected:
+>>>> TEST_ERRNO=ELOOP(40): Too many levels of symbolic links
+>>>>
+>>>>
+>>>> setns01     0  TINFO  :  ns_name=ipc, ns_fds[0]=6, ns_types[0]=0x8000000
+>>>> setns01     0  TINFO  :  ns_name=mnt, ns_fds[1]=7, ns_types[1]=0x20000
+>>>> setns01     0  TINFO  :  ns_name=net, ns_fds[2]=8, ns_types[2]=0x40000000
+>>>> setns01     0  TINFO  :  ns_name=pid, ns_fds[3]=9, ns_types[3]=0x20000000
+>>>> setns01     0  TINFO  :  ns_name=uts, ns_fds[4]=10, ns_types[4]=0x4000000
+>>>> setns01     0  TINFO  :  setns(-1, 0x8000000)
+>>>> setns01     1  TPASS  :  invalid fd exp_errno=9
+>>>> setns01     0  TINFO  :  setns(-1, 0x20000)
+>>>> setns01     2  TPASS  :  invalid fd exp_errno=9
+>>>> setns01     0  TINFO  :  setns(-1, 0x40000000)
+>>>> setns01     3  TPASS  :  invalid fd exp_errno=9
+>>>> setns01     0  TINFO  :  setns(-1, 0x20000000)
+>>>> setns01     4  TPASS  :  invalid fd exp_errno=9
+>>>> setns01     0  TINFO  :  setns(-1, 0x4000000)
+>>>> setns01     5  TPASS  :  invalid fd exp_errno=9
+>>>> setns01     0  TINFO  :  setns(11, 0x8000000)
+>>>> setns01     6  TFAIL  :  setns01.c:176: regular file fd exp_errno=22:
+>>>> errno=EBADF(9): Bad file descriptor
+>>>> setns01     0  TINFO  :  setns(11, 0x20000)
+>>>> setns01     7  TFAIL  :  setns01.c:176: regular file fd exp_errno=22:
+>>>> errno=EBADF(9): Bad file descriptor
+>>>> setns01     0  TINFO  :  setns(11, 0x40000000)
+>>>> setns01     8  TFAIL  :  setns01.c:176: regular file fd exp_errno=22:
+>>>> errno=EBADF(9): Bad file descriptor
+>>>> setns01     0  TINFO  :  setns(11, 0x20000000)
+>>>> setns01     9  TFAIL  :  setns01.c:176: regular file fd exp_errno=22:
+>>>> errno=EBADF(9): Bad file descriptor
+>>>> setns01     0  TINFO  :  setns(11, 0x4000000)
+>>>> setns01    10  TFAIL  :  setns01.c:176: regular file fd exp_errno=22:
+>>>> errno=EBADF(9): Bad file descriptor
+>>>>
+>>>> Full test log link,
+>>>> https://lkft.validation.linaro.org/scheduler/job/1467931#L8047
+>>>>
+>>>> test results comparison shows this test case started failing from June-2-2020
+>>>> https://qa-reports.linaro.org/lkft/linux-mainline-oe/build/v5.7-4092-g38696e33e2bd/testrun/2779586/suite/ltp-syscalls-tests/test/ioctl_loop01/history/
+>>>>
+>>>> https://qa-reports.linaro.org/lkft/linux-mainline-oe/build/v5.7-4092-g38696e33e2bd/testrun/2779586/suite/ltp-syscalls-tests/test/setns01/history/
+>>>>
+>>>> https://qa-reports.linaro.org/lkft/linux-mainline-oe/build/v5.7-4092-g38696e33e2bd/testrun/2779586/suite/ltp-syscalls-tests/test/mknod07/history/
+>>>>
+>>>>
+>>>> --
+>>>> Linaro LKFT
+>>>> https://lkft.linaro.org
+> 
+> 
+
 
 
 -- 
