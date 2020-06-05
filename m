@@ -2,46 +2,64 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89B7E1EF587
-	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jun 2020 12:41:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7649E1EF5B0
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jun 2020 12:50:26 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5B99A3C2F64
-	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jun 2020 12:41:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2DE543C2F67
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 Jun 2020 12:50:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 8E8473C223E
- for <ltp@lists.linux.it>; Fri,  5 Jun 2020 12:41:18 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id F03DE601659
- for <ltp@lists.linux.it>; Fri,  5 Jun 2020 12:41:16 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.73,475,1583164800"; d="scan'208";a="93906774"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 05 Jun 2020 18:41:13 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 2EEAA4BCC8BC
- for <ltp@lists.linux.it>; Fri,  5 Jun 2020 18:41:11 +0800 (CST)
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Fri, 5 Jun 2020 18:41:12 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Fri, 5 Jun 2020 18:41:21 +0800
-Message-ID: <1591353681-1079-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 3600D3C2F5D
+ for <ltp@lists.linux.it>; Fri,  5 Jun 2020 12:50:24 +0200 (CEST)
+Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
+ [IPv6:2a00:1450:4864:20::143])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 990E61B601BC
+ for <ltp@lists.linux.it>; Fri,  5 Jun 2020 12:50:23 +0200 (CEST)
+Received: by mail-lf1-x143.google.com with SMTP id x22so5533049lfd.4
+ for <ltp@lists.linux.it>; Fri, 05 Jun 2020 03:50:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=A6PBqcu4dVcPaFrw4BGh+fD0tEbF0DBVHcXKAqEgRwQ=;
+ b=wJA8AXXEALmx6h3BWpbD9/vkieuXWksBsDZWq9Pl2uDeXenuSDoa0dznCTcn+aMeH1
+ FDIoPzENIOa7kle1EeAj9gaWffiLBBFmuAngkJioqKpQekFVlm6P0k9pkF5h2JIR5qAg
+ 1sndcEZykPljB5wOYiMZa+ML8HJ98KRc/fLqhiZketrr8WCL5b5gk0CKHY8OgGK0JirH
+ SrOXZPgxeIIZZEuIxfWlJIeUu9CUFvtJLJQaSXgkyiNvFiZil1NumLc9kpGLuzKLh/dq
+ J6IaWNL2ex89PXCoVGoLet+kf9ulu9/9GpwsVhF0mQYfKxQVU9ZnK6wCSQlm89kVsN4s
+ gSyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=A6PBqcu4dVcPaFrw4BGh+fD0tEbF0DBVHcXKAqEgRwQ=;
+ b=hBt6DZs8gLidf9Js7PJ7IoDfW/zclVj97DZjRAr1JJwLTG+4+NLF6tYRkaScidTQqd
+ vhe4Ox+RmOemVmQ7Ea+1kBmBsAcUXHc7Yn+cMxjY3BHCnIZR8fwFlEigQkhT3fGumPaj
+ 4MDLg5YFNG/xb5dMFrqB5epjkST+YhZhMea9sKi/Mnyz96WMvxqL9M0+2VSac4WXWzKA
+ P2EpvRs0ixjeedH+9sFl1CA+09e8g7hsUAjWxz/nYOUAUX3G1CnuJprfHoBr/xCCR/S+
+ XUGBfOhxCUFagqC5IcoWi35Ppb7YpgvzBZlqmOoEHKvg/3tp1WSCw4MnTmS36x7qQSId
+ WS2Q==
+X-Gm-Message-State: AOAM532UtV4FqEEhSdh0SLC1x4wVfUvK30uApe0+RNAjnPBz6uNTm3S5
+ i7uEQSZBZvC0BrE37mv7uJ2hpl1509d7JTH7Co3gBw==
+X-Google-Smtp-Source: ABdhPJzOJiojtwmNr5SOMrlaeXW50qJdj5r2rISr3n1YjgPpD4saq3YvUGnbwmqz/JJwarjnkhdVjFMdX/8wIL2olCA=
+X-Received: by 2002:ac2:55b2:: with SMTP id y18mr5064475lfg.55.1591354222649; 
+ Fri, 05 Jun 2020 03:50:22 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 2EEAA4BCC8BC.A1B2C
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+References: <CA+G9fYuGwcE3zyMFQPpfA0CyW=4WOg9V=kCfKhS7b8930jQofA@mail.gmail.com>
+ <203212099.14886500.1591345676708.JavaMail.zimbra@redhat.com>
+In-Reply-To: <203212099.14886500.1591345676708.JavaMail.zimbra@redhat.com>
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Fri, 5 Jun 2020 16:20:10 +0530
+Message-ID: <CA+G9fYv=2xqP0ue69jk-xMa7VRwg0dOm14TqkNUazsqvxbU0_A@mail.gmail.com>
+To: Jan Stancek <jstancek@redhat.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] syscalls/ioctl_loop01: Add test for clear loop flag
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] LTP: syscalls: regression on mainline - ioctl_loop01
+ mknod07 setns01
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,113 +71,44 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Jens Axboe <axboe@kernel.dk>, Arnd Bergmann <arnd@arndb.de>,
+ open list <linux-kernel@vger.kernel.org>,
+ Richard Palethorpe <rpalethorpe@suse.com>, lkft-triage@lists.linaro.org,
+ Viresh Kumar <viresh.kumar@linaro.org>, Martijn Coenen <maco@android.com>,
+ Christoph Hellwig <hch@lst.de>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-After seeing loop driver kernel code, I found LO_FLAGS_PARTSCAN can
-not be clear and LO_FLAGS_AUTOCLEAR can be clear. Test this.
+On Fri, 5 Jun 2020 at 13:58, Jan Stancek <jstancek@redhat.com> wrote:
+>
+>
+>
+> ----- Original Message -----
+> > Following three test cases reported as regression on Linux mainline kernel
+> > on x86_64, arm64, arm and i386
+> >
+> >   ltp-syscalls-tests:
+> >     * ioctl_loop01
+> >     * mknod07
+>
+> Test updated:
+>   https://github.com/linux-test-project/ltp/commit/13fcfa2d6bdd1fb71c4528b47170e8e8fb3a8a32
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
-v1->v2:
-1.also check partpath whether existed when clear flag
-2. check_loop_flag -> check_loog_value
- .../kernel/syscalls/ioctl/ioctl_loop01.c      | 47 +++++++++++--------
- 1 file changed, 27 insertions(+), 20 deletions(-)
+ack.
 
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop01.c b/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
-index 2d9733f95..e11807df2 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
-@@ -13,6 +13,9 @@
-  * But we also check whether we can scan partition table correctly ie check
-  * whether /dev/loopnp1 and /sys/bloclk/loop0/loop0p1 existed.
-  *
-+ * For LO_FLAGS_AUTOCLEAR flag, it can be clear. For LO_FLAGS_PARTSCAN flag,
-+ * it cannot be clear. We also check this.
-+ *
-  * It is also a regression test for kernel
-  * commit 10c70d95c0f2 ("block: remove the bd_openers checks in blk_drop_partitions").
-  */
-@@ -38,38 +41,26 @@ static int dev_num, attach_flag, dev_fd, parted_sup;
- static char partscan_path[1024], autoclear_path[1024];
- static char loop_partpath[1026], sys_loop_partpath[1026];
- 
--static void verify_ioctl_loop(void)
-+static void check_loop_value(int set_flag, int get_flag, int autoclear_field)
- {
-+	struct loop_info loopinfo = {0}, loopinfoget = {0};
- 	int ret;
--	struct loop_info loopinfo, loopinfoget;
- 
--	tst_attach_device(dev_path, "test.img");
--	attach_flag = 1;
--
--	TST_ASSERT_INT(partscan_path, 0);
--	TST_ASSERT_INT(autoclear_path, 0);
--	TST_ASSERT_STR(backing_path, backing_file_path);
--
--	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
--	memset(&loopinfo, 0, sizeof(loopinfo));
--	memset(&loopinfoget, 0, sizeof(loopinfoget));
--
--	loopinfo.lo_flags = SET_FLAGS;
-+	loopinfo.lo_flags = set_flag;
- 	SAFE_IOCTL(dev_fd, LOOP_SET_STATUS, &loopinfo);
--
- 	SAFE_IOCTL(dev_fd, LOOP_GET_STATUS, &loopinfoget);
- 
--	if (loopinfoget.lo_flags & ~GET_FLAGS)
--		tst_res(TFAIL, "expect %d but got %d", GET_FLAGS, loopinfoget.lo_flags);
-+	if (loopinfoget.lo_flags & ~get_flag)
-+		tst_res(TFAIL, "expect %d but got %d", get_flag, loopinfoget.lo_flags);
- 	else
- 		tst_res(TPASS, "get expected lo_flag %d", loopinfoget.lo_flags);
- 
- 	TST_ASSERT_INT(partscan_path, 1);
--	TST_ASSERT_INT(autoclear_path, 1);
-+	TST_ASSERT_INT(autoclear_path, autoclear_field);
- 
- 	if (!parted_sup) {
- 		tst_res(TINFO, "Current environment doesn't have parted disk, skip it");
--		goto detach_device;
-+		return;
- 	}
- 
- 	ret = access(loop_partpath, F_OK);
-@@ -83,8 +74,24 @@ static void verify_ioctl_loop(void)
- 		tst_res(TPASS, "access %s succeeds", sys_loop_partpath);
- 	else
- 		tst_res(TFAIL, "access %s fails", sys_loop_partpath);
-+}
-+
-+static void verify_ioctl_loop(void)
-+{
-+	tst_attach_device(dev_path, "test.img");
-+	attach_flag = 1;
-+
-+	TST_ASSERT_INT(partscan_path, 0);
-+	TST_ASSERT_INT(autoclear_path, 0);
-+	TST_ASSERT_STR(backing_path, backing_file_path);
-+
-+	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
-+
-+	check_loop_value(SET_FLAGS, GET_FLAGS, 1);
-+
-+	tst_res(TINFO, "Test flag can be clear");
-+	check_loop_value(0, LO_FLAGS_PARTSCAN, 0);
- 
--detach_device:
- 	SAFE_CLOSE(dev_fd);
- 	tst_detach_device(dev_path);
- 	attach_flag = 0;
--- 
-2.23.0
+>
+> >     * setns01
+>
+> commit 303cc571d107 ("nsproxy: attach to namespaces via pidfds")
+> changed errno that is returned for regular file from EINVAL to EBADF.
+> This appears to fit more current man page, so I think we need to fix
+> test to accept both. (I'm looking into that)
 
+Thanks for investigating these failures.
 
-
+ - Naresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
