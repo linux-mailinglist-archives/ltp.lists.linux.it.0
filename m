@@ -2,78 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CFD61F1695
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Jun 2020 12:18:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C7741F1698
+	for <lists+linux-ltp@lfdr.de>; Mon,  8 Jun 2020 12:21:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A4A9E3C2E80
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Jun 2020 12:18:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 993CD3C2E80
+	for <lists+linux-ltp@lfdr.de>; Mon,  8 Jun 2020 12:21:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id E1DE33C2029
- for <ltp@lists.linux.it>; Mon,  8 Jun 2020 12:18:48 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [207.211.31.120])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 6A395201012
- for <ltp@lists.linux.it>; Mon,  8 Jun 2020 12:18:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1591611526;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Xb0NXK/hEBNIzesXGRMu/AJn5Fu2avSaGDL+Em/GfwU=;
- b=Eju1ZhQMaarKpJxVcHPv3XYYXPsFw4SmYTiqVR7/U8+acjvAY1JuWW5aizXQCjCsc6mFEj
- QHD5Olxko4w9dEQQEoc/kK4pVduNR6rB8s1IrFCWNJkRfumz4t/sdczTk8lYoxDzfoNpPG
- f3PJuxaRRj6+BJ3TAy1NmtCbEvkj2Tw=
-Received: from mail-lj1-f199.google.com (mail-lj1-f199.google.com
- [209.85.208.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-269-VOnDDG65Nfi0vHBaqJfI3w-1; Mon, 08 Jun 2020 06:18:44 -0400
-X-MC-Unique: VOnDDG65Nfi0vHBaqJfI3w-1
-Received: by mail-lj1-f199.google.com with SMTP id u3so1758975ljo.0
- for <ltp@lists.linux.it>; Mon, 08 Jun 2020 03:18:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Xb0NXK/hEBNIzesXGRMu/AJn5Fu2avSaGDL+Em/GfwU=;
- b=d513asx0BkJiMs+VnkmY5Kr4I1MtJondjgNGVervKTJlvKGmCkYEfIMIthi/QWESbP
- RK52Ey6ktYHgA+7oJImMhNY9yuytqiLoy4ROgyYfqyUfLobn+5biFJ0xndeESM5WX0jV
- +2QA5jf+Vdx/NMefXwH09nSgqdjONbmFx2p/sdoSPE1fVxtVOoIQboJxzmxxRVx49ZDe
- loeOsKeEYg7cS2uD+rre+yqLgBlc5wvLiReYB9n5x6OGBm8z+RrzA18olNGecw7WtJdw
- 7RezO5BQdAGgcHRhLzZwpOueugg0kHF4yp1rEe3KiZZqY79nDnoOsEsAx2iS1VJ9ImHP
- HGEg==
-X-Gm-Message-State: AOAM530ZvYbielYJc3GIx2Tfvnl1fdTrjrSlrDIpa0JqbIeHDN+8aVtm
- 8WM7HmP7x03ZBqtLPdUgf10DsLTB6imeWnDXlGwUzViI3/Tw7dEFsjH6h4ovhf1BYMcy7DBSU/1
- ej61NtOfZNe7UIqnwxBaRGwYOR2s=
-X-Received: by 2002:a2e:5757:: with SMTP id r23mr10997458ljd.468.1591611523299; 
- Mon, 08 Jun 2020 03:18:43 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzCubSYefjO9mcDHMriIfxz+BLetayOTjlMSWBKpKdBsoJWOq0bANzcKPV3o9Fh2g+waAgVR9bIomm07GKP4vM=
-X-Received: by 2002:a2e:5757:: with SMTP id r23mr10997453ljd.468.1591611523071; 
- Mon, 08 Jun 2020 03:18:43 -0700 (PDT)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 27A513C176C
+ for <ltp@lists.linux.it>; Mon,  8 Jun 2020 12:21:32 +0200 (CEST)
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.73])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id EC191600A54
+ for <ltp@lists.linux.it>; Mon,  8 Jun 2020 12:20:51 +0200 (CEST)
+Received: from mail-qt1-f170.google.com ([209.85.160.170]) by
+ mrelayeu.kundenserver.de (mreue106 [212.227.15.145]) with ESMTPSA (Nemesis)
+ id 1N1xdf-1iyZAA0U1p-012KHU for <ltp@lists.linux.it>; Mon, 08 Jun 2020
+ 12:21:31 +0200
+Received: by mail-qt1-f170.google.com with SMTP id c12so14136993qtq.11
+ for <ltp@lists.linux.it>; Mon, 08 Jun 2020 03:21:30 -0700 (PDT)
+X-Gm-Message-State: AOAM530OcPsQTKIOeeZha0TpayQoX5igz0wC1Tj6o2zx0D93mrJVfsRG
+ vJG9R2Mj9cC22BaCr6ilaE6hkE+GCMAySJzzz7Q=
+X-Google-Smtp-Source: ABdhPJw/9UL/zKGHMhIlnwVbQLxNImmblrXg8xDlB2AbNTb9Htt5q+DgQ8CHDP3fPh2WkksM47rAdcIkS9/nyWbFx2w=
+X-Received: by 2002:ac8:4742:: with SMTP id k2mr22744310qtp.304.1591611689986; 
+ Mon, 08 Jun 2020 03:21:29 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200601100459.32511-1-liwang@redhat.com>
- <CAEemH2ffNHY6Ej-Er5a4Ng_9zw+RX+wEBc0widntmYqDLNRqxw@mail.gmail.com>
- <20200602121232.GA22599@janakin.usersys.redhat.com>
- <CAEemH2d7OzG6jBZ15bYGRHm7ry-gVjzuwJYhbHp3yitB3_928w@mail.gmail.com>
- <20200603104314.GA12583@janakin.usersys.redhat.com>
- <CAEemH2ey08M+-ddqh1DNWSOWSi7RNYz8ho=MSPQryYHSqamffg@mail.gmail.com>
- <20200605101443.GA6826@janakin.usersys.redhat.com>
- <CAEemH2cCLY1htBYPm9tuefyzdg6EqmFRrcMin76kf_LcMA2f3A@mail.gmail.com>
- <595558785.15122565.1591609722778.JavaMail.zimbra@redhat.com>
-In-Reply-To: <595558785.15122565.1591609722778.JavaMail.zimbra@redhat.com>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 8 Jun 2020 18:18:31 +0800
-Message-ID: <CAEemH2cDdCowDZEYVuqV4aTFgBK69CO10hhFRM2X-XHEazK1Tg@mail.gmail.com>
-To: Jan Stancek <jstancek@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+References: <e15907ed42f0276f09c4120b9255db5764d4e9b6.1591343286.git.viresh.kumar@linaro.org>
+ <CAK8P3a0b2BbZq_yYBKJHUfZgzCYUtdidpzJEj-HzuBKf1Q_nnQ@mail.gmail.com>
+ <20200608100900.c4fi7pw7euie6tnt@vireshk-i7>
+In-Reply-To: <20200608100900.c4fi7pw7euie6tnt@vireshk-i7>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Mon, 8 Jun 2020 12:21:13 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a004cavRhyWx+uXYYteBi1LviahAv11+9JyGadN-vo8og@mail.gmail.com>
+Message-ID: <CAK8P3a004cavRhyWx+uXYYteBi1LviahAv11+9JyGadN-vo8og@mail.gmail.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+X-Provags-ID: V03:K1:Y1abvt1B5E20lgCnrf/CVCx6aOk7+1iZTAjbJzzxQo6IA5g0yUt
+ 1SluJXFQMs3E1Kcsat6WbVr3/uCTPIPvMJtqgb+vh01EgeFduEb80/iNk2lEhTf4et+aexu
+ MzyTKeAfHnZYseYNPbHlrkHcJvp8BW61rMHoFhpzKsjRoy64bZgQK5C/DsxHHrrDx74EdLr
+ UQffUIW/w4I2avHwlU5eA==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:3/cX3CwTMIw=:rnRfftIPpfdhjaSjm+qjY8
+ 8ePVBuCxor/xqHLASY+yQwG4qWpDo7H2cyW1jPW8iLGT/qk1sOxTUDnDMLUbf6EC///Ihpc1T
+ p2Hj6YpCc0u13fAiD6EGF9S68nJFfIWcEqynJS4DyqqfHJNCT8CN7S8lqt/HKjjYvBzDLGzZy
+ +2kZsNqbTb7ekzx3QFLGuFaQH0mB1l/A419mHDEVW11j9MqpKD1HZnqF7JCLMjxplfO4N/1/O
+ p+E9YTKyWnCxwdWtkNzMy4MCU2N+KvwQ9Dzcoa9B+d0BpbB0Nw65Mus6B/jzHXhfEeM6fUp8F
+ AwhmewPL2z3uUfCAyRQwqH4unOHqWgNOwjrV9qsXxH7Eyjs19zUFJsIKVw48WtizKQMw5n45S
+ lxYaaiJgADH42Fj7ji1fG36x24lYaIveKm9QSWQ2r+NoZLCMsUlktHeiVqcIAgEazhpKENHl/
+ VD22U1gmZtcqvwG87QMVHe3SXRidc4CDTg/RGw7DHpEdiNZYPTbQqj+YMhUAk3AwV1gP1IqsL
+ +abgx/7ByiCXCgQ6rqpnyRF13GRJxeXuE7XOsgSY73dE97JI2damsJYextJNmNjztEw+rjRpo
+ 8WRPe0y7FfkqNWaFN2oXDLXi28G/NUpJDj2N165wJfLokW8b96rRmZO7ft068dRRc63zygDz/
+ noObiZM5Y9WtOMBSx6oaqcZ0ri2PcZorUt8xiJElWTdC/GBOC+ajJYdgwU4DOE8wnOrZwlACp
+ IDQ+SzQNfQ4yVkHcmMD0qGNm+tFG+FJu/H8ELXWZipAScHzjhY2NdZqW7lSlZFGmiIRY9DIwm
+ IMUZDkfIpuA8ULgG6YIiwk7cFXYoeEn/yLt5YI3/N5VWKJOVHw=
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/4] lib: add new cgroup test API
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/clock_gettime: Add test to check bug
+ during successive readings
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,108 +74,117 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0628465720=="
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0628465720==
-Content-Type: multipart/alternative; boundary="00000000000074178805a78fefe2"
-
---00000000000074178805a78fefe2
-Content-Type: text/plain; charset="UTF-8"
-
-On Mon, Jun 8, 2020 at 5:48 PM Jan Stancek <jstancek@redhat.com> wrote:
-
-> ...
+On Mon, Jun 8, 2020 at 12:09 PM Viresh Kumar <viresh.kumar@linaro.org> wrote:
 >
-> But there would be clear connection between function and variable.
->   new_path = tst_cgroup_get_path(cgroup_dir);
+> On 05-06-20, 14:19, Arnd Bergmann wrote:
+> > On Fri, Jun 5, 2020 at 9:48 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
+> >
+> > > +static struct test_variants {
+> > > +       int (*gettime)(clockid_t clk_id, void *ts);
+> > > +       enum tst_ts_type type;
+> > > +       char *desc;
+> > > +} variants[] = {
+> > > +       { .gettime = libc_clock_gettime, .type = TST_LIBC_TIMESPEC, .desc = "vDSO or syscall with libc spec"},
+> > > +
+> > > +#if (__NR_clock_gettime != __LTP__NR_INVALID_SYSCALL)
+> > > +       { .gettime = sys_clock_gettime, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
+> > > +#endif
+> > > +
+> > > +#if (__NR_clock_gettime64 != __LTP__NR_INVALID_SYSCALL)
+> > > +       { .gettime = sys_clock_gettime64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
+> > > +#endif
+> > > +};
+> >
+> > Would it be possible to add a direct call to the two vdso
+> > implementations here as well?
 >
+> Which two vdso calls are you talking about here ?
 
-Yes, that's easier to understand the code workflow.
+I mean clock_gettime() and clock_gettime() as implemented in the vdso,
+see https://github.com/nlynch-mentor/vdsotest/tree/master/src for how
+to call them.
 
-> vs.
->   tst_cgroup_get_path(cgroup_dir);
->   // fyi, tst_cgroup_new_path is updated as side-effect of call above
->   // What other calls do update tst_cgroup_new_path? Have a look at
-> implementation.
-
-...
+>  static void run(unsigned int i)
+>  {
+> -       struct tst_ts ts_start, ts_end;
+> +       struct tst_ts ts;
+>         long long start, end, diff;
+>         struct test_variants *tv;
+>         int count = 10000;
+>         unsigned int j;
 >
-> That makes it somewhat better, since it's only concern of library code now.
-> But since there are no tests using "tst_cgroup_new_path", does it still
-> need to be global variable?
+> -       while (--count) {
+> -               /* Store reference time in start */
+> -               if (clks[i] == CLOCK_REALTIME) {
+> -                       struct timeval tval;
+> -
+> -                       /* Compare CLOCK_REALTIME with gettimeofday() as well */
+> -                       if (gettimeofday(&tval, NULL) < 0)
+> -                               tst_brk(TBROK | TERRNO, "gettimeofday() failed");
+> -
+> -                       start = tst_timeval_to_ms(tval);
+> -               } else {
+> -                       tv = &variants[0];
+> -                       ts_start.type = tv->type;
+> -                       tv->gettime(clks[i], tst_ts_get(&ts_start));
+> -                       start = tst_ts_to_ms(ts_start);
+> -               }
+> +       /* Store reference time in start */
+> +       if (clks[i] == CLOCK_REALTIME) {
+> +               struct timeval tval;
 >
+> +               /* Compare CLOCK_REALTIME with gettimeofday() as well */
+> +               if (gettimeofday(&tval, NULL) < 0)
+> +                       tst_brk(TBROK | TERRNO, "gettimeofday() failed");
+> +
+> +               start = tst_timeval_to_us(tval) * 1000;
+> +       } else {
+> +               tv = &variants[0];
+> +               ts.type = tv->type;
+> +               tv->gettime(clks[i], tst_ts_get(&ts));
+> +               start = tst_ts_to_ns(ts);
+> +       }
 
-Sure, we could delete tst_cgorup_mnt/new_path variables, since we have
-tracking all mount paths in the list, so it will be easy to find new_path
-in each
-function.
+So now you only call gettimeofday() once instead of in each loop, right?
+This won't test for spurious failures any more, but I suppose it would catch
+any case where gettimeofday() and clock_gettime() are out of sync by
+a lot. The only case you don't catch is where clock_gettime() sometimes
+returns a value that is slightly earlier than gettimeofday().
 
-Hope v4 is the final version:).
+> +       while (--count) {
+>                 for (j = 0; j < ARRAY_SIZE(variants); j++) {
+>                         tv = &variants[j];
+> -                       ts_end.type = tv->type;
+> +                       ts.type = tv->type;
+>
+> -                       tv->gettime(clks[i], tst_ts_get(&ts_end));
+> -                       end = tst_ts_to_ms(ts_end);
+> +                       tv->gettime(clks[i], tst_ts_get(&ts));
+> +                       end = tst_ts_to_ns(ts);
+>
+>                         diff = end - start;
+>                         if (diff < 0) {
+> -                               tst_res(TFAIL, "%s: Time travelled backwards: %lld",
+> -                                               tst_clock_name(clks[i]), diff);
+> +                               tst_res(TFAIL, "%s: Time travelled backwards: %lld ns",
+> +                                       tst_clock_name(clks[i]), diff);
+>                                 return;
+>                         }
+>
+> +                       diff /= 1000000;
+> +
 
--- 
-Regards,
-Li Wang
+Right, this seems reasonable. I noticed that tst_ts_to_ns() might overflow
+for bad timestamp values, but those would also likely cause jumps, so
+you don't have to add an extra check.
 
---00000000000074178805a78fefe2
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Mon, Jun 8, 2020 at 5:48 PM Jan Stancek &lt;<a h=
-ref=3D"mailto:jstancek@redhat.com">jstancek@redhat.com</a>&gt; wrote:<br></=
-div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
-der-left:1px solid rgb(204,204,204);padding-left:1ex"><span class=3D"gmail_=
-default" style=3D"font-size:small">...</span><br>
-<br>
-But there would be clear connection between function and variable.<br>
-=C2=A0 new_path =3D tst_cgroup_get_path(cgroup_dir);<br></blockquote><div><=
-br></div><div class=3D"gmail_default" style=3D"font-size:small"><span class=
-=3D"gmail_default"></span>Yes, that&#39;s easier to understand the code wor=
-kflow.=C2=A0<span class=3D"gmail_default"></span></div><div class=3D"gmail_=
-default" style=3D"font-size:small"></div><blockquote class=3D"gmail_quote" =
-style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pa=
-dding-left:1ex">
-vs.<br>
-=C2=A0 tst_cgroup_get_path(cgroup_dir);<br>
-=C2=A0 // fyi, tst_cgroup_new_path is updated as side-effect of call above<=
-br>
-=C2=A0 // What other calls do update tst_cgroup_new_path? Have a look at im=
-plementation.=C2=A0</blockquote></div><div class=3D"gmail_quote"><blockquot=
-e class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px s=
-olid rgb(204,204,204);padding-left:1ex">
-<span class=3D"gmail_default" style=3D"font-size:small">...</span><br>
-<br>
-That makes it somewhat better, since it&#39;s only concern of library code =
-now.<br>
-But since there are no tests using &quot;tst_cgroup_new_path&quot;, does it=
- still<br>
-need to be global variable?<br></blockquote><div><br></div><div class=3D"gm=
-ail_default" style=3D"font-size:small">Sure, we could delete tst_cgorup_mnt=
-/new_path variables, since we have</div><div class=3D"gmail_default" style=
-=3D"font-size:small">tracking all mount paths in the list, so it will be ea=
-sy to find new_path in each</div><div class=3D"gmail_default" style=3D"font=
--size:small">function.</div><div class=3D"gmail_default" style=3D"font-size=
-:small"><br></div><div class=3D"gmail_default" style=3D"font-size:small">Ho=
-pe v4 is the final version:).</div></div><div><br></div>-- <br><div dir=3D"=
-ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div=
->Li Wang<br></div></div></div></div>
-
---00000000000074178805a78fefe2--
-
-
---===============0628465720==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+     Arnd
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0628465720==--
-
