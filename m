@@ -1,75 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 930541F15DB
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Jun 2020 11:48:53 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id EC96D1F15F9
+	for <lists+linux-ltp@lfdr.de>; Mon,  8 Jun 2020 11:58:04 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 44B8A3C2EB6
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Jun 2020 11:48:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 329743C2E96
+	for <lists+linux-ltp@lfdr.de>; Mon,  8 Jun 2020 11:58:04 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id DF5313C2068
- for <ltp@lists.linux.it>; Mon,  8 Jun 2020 11:48:48 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id BA618140124C
- for <ltp@lists.linux.it>; Mon,  8 Jun 2020 11:48:47 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id E06693C2068
+ for <ltp@lists.linux.it>; Mon,  8 Jun 2020 11:57:58 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 18BE6200DFF
+ for <ltp@lists.linux.it>; Mon,  8 Jun 2020 11:57:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1591609726;
+ s=mimecast20190719; t=1591610276;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=tRnztmZlHcNnCg/nMyyyplv47MMGqK23AyxN/jmC7V0=;
- b=Q4/Hv89490oQBAj0yu756jmvm1Z/g6OJqQiw57kaSvT67/hQK7gsJ+mTkbQkGoOeaGzrMf
- dqPag/fqHS4fNX0Uy5UXQhQPD0Lg4oWForAy4MGJzEhpWTIQLQH07YkBV9/eBSjhMDtZYP
- 8IB5TmAEqCAOqC6MrmaKWe9GQsoyA9M=
+ bh=fQLaF/yl/uBhQidTra0B7MaA+TaluiJXE1zc2/G8cSM=;
+ b=VU7C5T+soVPyuX0SotnJM8AA6LRGiZy6EOcLiczzgYtolarVmM3XSYldXuGR5WnHJhQylU
+ PUCMiriIv5GSWlg87H2MyDZ4vtCcefwTnmXEJ2jDFebWbdbT+j8P97zHiaWWg/9TxCw0s/
+ oNJjwcB2+BbDmQahrfxZMaB+EMMsJEs=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-1-Oo8qTcptOKe1DePKdtcfvw-1; Mon, 08 Jun 2020 05:48:44 -0400
-X-MC-Unique: Oo8qTcptOKe1DePKdtcfvw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
+ us-mta-216-8poZLoIoNqyOgA2R3X8Q3g-1; Mon, 08 Jun 2020 05:57:53 -0400
+X-MC-Unique: 8poZLoIoNqyOgA2R3X8Q3g-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 683E81902EA1
- for <ltp@lists.linux.it>; Mon,  8 Jun 2020 09:48:43 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6CB7A800053;
+ Mon,  8 Jun 2020 09:57:52 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com
- (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 623D1891F7
- for <ltp@lists.linux.it>; Mon,  8 Jun 2020 09:48:43 +0000 (UTC)
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 64F397BA1A;
+ Mon,  8 Jun 2020 09:57:52 +0000 (UTC)
 Received: from zmail17.collab.prod.int.phx2.redhat.com
  (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 09C2418095FF;
- Mon,  8 Jun 2020 09:48:43 +0000 (UTC)
-Date: Mon, 8 Jun 2020 05:48:42 -0400 (EDT)
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4D1C114CCF;
+ Mon,  8 Jun 2020 09:57:52 +0000 (UTC)
+Date: Mon, 8 Jun 2020 05:57:52 -0400 (EDT)
 From: Jan Stancek <jstancek@redhat.com>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <595558785.15122565.1591609722778.JavaMail.zimbra@redhat.com>
-In-Reply-To: <CAEemH2cCLY1htBYPm9tuefyzdg6EqmFRrcMin76kf_LcMA2f3A@mail.gmail.com>
-References: <20200601100459.32511-1-liwang@redhat.com>
- <CAEemH2ffNHY6Ej-Er5a4Ng_9zw+RX+wEBc0widntmYqDLNRqxw@mail.gmail.com>
- <20200602121232.GA22599@janakin.usersys.redhat.com>
- <CAEemH2d7OzG6jBZ15bYGRHm7ry-gVjzuwJYhbHp3yitB3_928w@mail.gmail.com>
- <20200603104314.GA12583@janakin.usersys.redhat.com>
- <CAEemH2ey08M+-ddqh1DNWSOWSi7RNYz8ho=MSPQryYHSqamffg@mail.gmail.com>
- <20200605101443.GA6826@janakin.usersys.redhat.com>
- <CAEemH2cCLY1htBYPm9tuefyzdg6EqmFRrcMin76kf_LcMA2f3A@mail.gmail.com>
+To: Kushal Chand <kushalchand@zilogic.com>
+Message-ID: <472905204.15124870.1591610272008.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20200608092635.15248-1-kushalchand@zilogic.com>
+References: <20200608092635.15248-1-kushalchand@zilogic.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.25, 10.4.195.7]
-Thread-Topic: add new cgroup test API
-Thread-Index: 52DOHGdrtPVoo53Axu27MAPTleGalA==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Originating-IP: [10.43.17.25, 10.4.195.5]
+Thread-Topic: Added test case to test mmap with MAP_FIXED_NOREPLACE flag
+Thread-Index: iTWsA1vHiR1dXkrMSIh0ybc6wexgSQ==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/4] lib: add new cgroup test API
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1] Added test case to test mmap with
+ MAP_FIXED_NOREPLACE flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,7 +75,7 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it, "Vijay Kumar B ." <vijaykumar@zilogic.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
@@ -90,86 +84,41 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 
 ----- Original Message -----
-> On Fri, Jun 5, 2020 at 6:14 PM Jan Stancek <jstancek@redhat.com> wrote:
 > 
-> > On Wed, Jun 03, 2020 at 08:51:37PM +0800, Li Wang wrote:
-> > >> I don't get why global variables are necessary.
-> > >>
-> > >
-> > >The only reason to export them as global variables is to make the legacy
-> > >read/write_cpuse_files() happy. So that I said it is a compromise.
-> > >
-> > >$ git grep tst_cgroup_new_path
-> > >cpuset/cpuset01.c:      write_cpuset_files(tst_cgroup_new_path, "cpus",
-> > >buf);
-> > >cpuset/cpuset01.c:      write_cpuset_files(tst_cgroup_new_path, "mems",
-> > >mems);
-> > >cpuset/cpuset01.c:      write_cpuset_files(tst_cgroup_new_path, "mems",
-> > >buf);
-> > >cpuset/cpuset01.c:      write_cpuset_files(tst_cgroup_new_path, "mems",
-> > >buf);
-> > >lib/mem.c:      write_cpuset_files(tst_cgroup_new_path, "mems", buf);
-> > >lib/mem.c:              write_cpuset_files(tst_cgroup_new_path, "cpus",
-> > >cpus);
-> > >lib/mem.c:              write_cpuset_files(tst_cgroup_new_path, "cpus",
-> > >"0");
-> > >oom/oom04.c:            write_cpuset_files(tst_cgroup_new_path,
-> > >"memory_migrate", "1");
-> > >oom/oom05.c:            write_cpuset_files(tst_cgroup_new_path,
-> > >"memory_migrate", "1");
-> >
-> > What if we provided access to it via API? Would we still need these
-> > global variables?
-> >
-> >   char *tst_cgroup_get_path(const char *cgroup_mnt)
-> >       // return ptr to tst_cgroup_paths->new_path
-> >
+> This patch adds a new test case for the mmap syscall. It tests the
+> MAP_FIXED_NOREPLACE flag of mmap. The code checks if MAP_FIXED_NOREPLACE
+> returns with EEXIST when mapped with an already mapped address. It does
+> so by allocating an available address by passing NULL to first argument
+> of mmap and tries to mmap with MAP_FIXED_NOREPLACE flag at the same
+> address returned by the first mmap call. This fails as expected. It also
+> does the necessary changes required to run the syscall using the runltp
+> command after building the LTP test suite.
+> Git Hub Issue link - https://github.com/linux-test-project/ltp/issues/299
 > 
-> The series of list operating function are hiding in the library. My thought
-> is
-> to make the list transparent to users.
+> Signed-off-by: Kushal Chand <kushalchand@zilogic.com>
+> Reviewed-by: Vijay Kumar B. <vijaykumar@zilogic.com>
 > 
-> In your method, we have to export the tst_cgroup_get_path() as an external
-> function, it stills needs an extra local pointer in testcase to store the
-> got new_path,
-> it doesn't seem tidier too.
 
-But there would be clear connection between function and variable.
-  new_path = tst_cgroup_get_path(cgroup_dir);
-vs.
-  tst_cgroup_get_path(cgroup_dir);
-  // fyi, tst_cgroup_new_path is updated as side-effect of call above
-  // What other calls do update tst_cgroup_new_path? Have a look at implementation.
+Hi,
 
-> 
-> 
-> > mount path is always known to test, because it passes it to
-> > tst_cgroup_mount(),
-> > so it just needs to find out "new path".
-> >
-> > Would that satisfy the need of this legacy test?
-> 
-> 
-> How about moving the cpuset legacy code to the library as part of APIs?
-> That'd
-> help to capsulate all the operation of cgroup control in lib, and people
-> just need
-> to invoke the related function as what he/she wants.
-> 
-> +void tst_cgroup_cpuset_read_files(const char *cgroup_dir, const char
-> *filename, char *buf);
-> +void tst_cgroup_cpuset_write_files(const char *cgroup_dir, const char
-> *filename, const char *buf);
-> 
-> Then 'tst_cgroup_new_path' searching work will all located internally. And
-> 'tst_cgroup_ctl_knob' can
-> be local variable too.
-> 
-> Any other comments? (attach the v3.1)
+> +static void test_mmap(void)
+> +{
+> +	int str_len;
+> +	void *address;
+> +
+> +	str_len = strlen(str);
+> +
+> +	SAFE_WRITE(1, fd_file1, str, str_len);
+> +	mapped_address = SAFE_MMAP(NULL, str_len, PROT_WRITE,
+> +				   MAP_PRIVATE, fd_file1, 0);
+> +
+> +	SAFE_WRITE(1, fd_file2, str, str_len);
+> +
+> +	address = mmap(mapped_address, str_len, PROT_WRITE,
+> +		  MAP_PRIVATE | MAP_FIXED_NOREPLACE, fd_file2, 0);
 
-That makes it somewhat better, since it's only concern of library code now.
-But since there are no tests using "tst_cgroup_new_path", does it still
-need to be global variable?
+This needs fallback definition in lapi/mmap.h, otherwise it won't compile
+on older distros.
 
 
 -- 
