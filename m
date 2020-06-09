@@ -2,53 +2,54 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 653411F385E
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 12:46:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD4021F38CE
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 12:56:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 208153C2E4B
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 12:46:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 907143C2E4B
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 12:56:01 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 30B553C12D0
- for <ltp@lists.linux.it>; Tue,  9 Jun 2020 12:46:31 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id CFE4E20118B
- for <ltp@lists.linux.it>; Tue,  9 Jun 2020 12:46:30 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.73,491,1583164800"; d="scan'208";a="94165496"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 09 Jun 2020 18:46:28 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id AB90E4CE1C97;
- Tue,  9 Jun 2020 18:46:27 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Tue, 9 Jun 2020 18:46:26 +0800
-To: Jan Stancek <jstancek@redhat.com>
-References: <1591691583-12442-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <218497387.15286923.1591694653027.JavaMail.zimbra@redhat.com>
- <b1a7a025-3875-86db-222d-5a1e40737b24@cn.fujitsu.com>
- <1837993622.15296660.1591697802060.JavaMail.zimbra@redhat.com>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <96ba542d-4ec7-bc5d-41d9-f533952f94cd@cn.fujitsu.com>
-Date: Tue, 9 Jun 2020 18:46:17 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
-MIME-Version: 1.0
-In-Reply-To: <1837993622.15296660.1591697802060.JavaMail.zimbra@redhat.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: AB90E4CE1C97.A10A6
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+ by picard.linux.it (Postfix) with ESMTP id 37D653C0EB6
+ for <ltp@lists.linux.it>; Tue,  9 Jun 2020 12:56:00 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [205.139.110.61])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 6C316200C04
+ for <ltp@lists.linux.it>; Tue,  9 Jun 2020 12:55:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1591700157;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:content-type:content-type;
+ bh=maez5PEcJUkPEi6H6gcaFzVRw4s8xEbQMkTsR+pMI38=;
+ b=J0zzh69+FGxdqo3ogzaGFqbhREgE05oPOeup91n8i2b4oTJT7Y+vFdobarjQOrtKtiSOjV
+ tCQZBweUINYZVoX8s73SmbNQiVwy1tbiSoeY+nIEMIp4VXP8js8wmKFQPczQk0JAimDq7V
+ YPIxpYRcp/4SmPj3tDrL/qTqWakBslM=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-232-Y53y66wGMimvoJt3e4kMoA-1; Tue, 09 Jun 2020 06:55:55 -0400
+X-MC-Unique: Y53y66wGMimvoJt3e4kMoA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EF94E81A3FF
+ for <ltp@lists.linux.it>; Tue,  9 Jun 2020 10:55:54 +0000 (UTC)
+Received: from janakin.usersys.redhat.com (unknown [10.43.17.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 758E36111F
+ for <ltp@lists.linux.it>; Tue,  9 Jun 2020 10:55:54 +0000 (UTC)
+From: Jan Stancek <jstancek@redhat.com>
+To: ltp@lists.linux.it
+Date: Tue,  9 Jun 2020 12:55:51 +0200
+Message-Id: <33c4abf347e2de96f89b9acea02d731e47dbf2a9.1591700131.git.jstancek@redhat.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/ioctl_loop05: Get the logic_block_size
- dynamically
+Subject: [LTP] [PATCH] read_all: scale down how many times we read by default
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,36 +61,45 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgSmFuCgo+IAo+IAo+IC0tLS0tIE9yaWdpbmFsIE1lc3NhZ2UgLS0tLS0KPj4gSGkgSmFuCj4+
-Cj4+Pgo+Pj4gLS0tLS0gT3JpZ2luYWwgTWVzc2FnZSAtLS0tLQo+Pj4+IEluIGxvb3AgZHJpdmVy
-IGNvZGUsIHRoZSBzYl9ic2l6ZSB3YXMgY2FsY3VsYXRlZCBhcyBiZWxvdwo+Pj4+IHNiX2JzaXpl
-ID0gYmRldl9sb2dpY2FsX2Jsb2NrX3NpemUoaW5vZGUtPmlfc2ItPnNfYmRldiksCj4+Pj4KPj4+
-PiBpdCBpcyB0aGUgc3VwZXIgYmxvY2sncyBibG9jayBzaXplIHRoYXQgdGhlIGJhY2tpbmcgZmls
-ZSdzIGlub2RlIGJlbG9uZ3MKPj4+PiB0bywKPj4+PiBub3QgYnkgdXNpbmcgdGhlIHN0X2Jsa3Np
-emUgbWVtYmVyIG9mIHN0YXQgc3RydWN0KGl0IHVzZXMKPj4+PiBpbm9kZS0+aV9ibGtiaXRzKS4K
-Pj4+IEknbSBub3Qgc3VyZSBJIGZvbGxvdyB0aGUgYWJvdmUsIGFyZSB5b3Ugc2F5aW5nIHRoZSBk
-aWZmZXJlbmNlIGlzIGJkZXYKPj4+IGJsa3NpemUKPj4+IHZzLiBmaWxlc3lzdGVtIGJsa3NpemU/
-Cj4+Cj4+IEkgc2FpZCB0aGUgbG9vcCBkcml2ZXIgdXNlZCAgZGV2X2xvZ2ljYWxfYmxvY2tfc2l6
-ZShpbm9kZS0+aV9zYi0+c19iZGV2KSBidXQKPj4gbm90IHVzaW5nCj4+IHN0X2Jsa3NpemUuCj4g
-Cj4gSSBrbm93LCBidXQgSSdtIHRyeWluZyB0byB1bmRlcnN0YW5kIHdoYXQgdGhlIGRpZmZlcmVu
-Y2UgaXMgYmV0d2VlbiB0aG9zZSB0d28uCkFGQUlLLCBzdF9ibGtzaXplIGlzIHVzZWQgdG8gc3Rh
-bmRhcmQgaW8gaW4gdXNlciBzcGFjZSBhcyBtYW4tcGFnZSBzYWlkIAoiLyogQmxvY2sgc2l6ZSBm
-b3IgZmlsZXN5c3RlbSBJL08gKi8iLCBpdCBtYXliZSBhIGJ1ZmZlciB3cml0ZSB1c2VkLiBJdCAK
-aXMgYSAgYmxvY2sgc2l6ZSB0aGF0IGJsb2NrIGluIGlub2RlIHVzZWQuCkJ1dCBkZXZfbG9naWNh
-bF9ibG9ja19zaXplIGlzIGEgbWluIHVuaXQgdGhhdHJlcXVlc3QgcXVldWUgdXNlZCBvbiBibG9j
-ayAKbGF5ZXIuCgpwc++8miB0aGlzIGlzIG15IHVuZGVyc3RhbmRpbmcuIElmIGl0J3Mgd3Jvbmcs
-IHBsZWFzZSBjb3JyZWN0IG1lLgo+IAo+Pj4gV291bGQgQkxLU1NaR0VUIHdvcms/IEl0IHJldHVy
-bnMgYmRldl9sb2dpY2FsX2Jsb2NrX3NpemUoKS4KPj4KPj4gQnV0IGl0IG5lZWRzIGEgYmxvY2tk
-ZXYsIGluIHVzZXIgc3BhY2UsIHdlIGNhbiBzcGVjaWZ5IGJkZXYsIGJ1dCBob3cgY2FuIHdlCj4+
-IGZpZ3VyZSBvdXQgdGhpcyBpbm9kZS0+aV9zYi0+c19iZGV2IGJsb2NrIGRldi4KPiAKPiBJc24n
-dCB0aGF0IHRoZSBibG9jayBkZXZpY2UgInRlc3QuaW1nIiBpcyBvbj8KRG8geW91IG1lYW4gdGhl
-IHRlc3QuaW1nIGJlbG9uZyB0byBzb21lIGJsb2NrIGRldiwgc3VjaCBhcyAvZGV2L3NkYTEgb3Ig
-Cm91ciBtb3VudGVkIGJsb2NrX2Rldj8gSWYgc28sIEkgdGhpbmsgaXQgaXMuCj4gCj4gCj4gCgoK
-Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
-dHAK
+read_all is running into timeouts on high cpu systems, where
+access to some per-cpu files is protected by a lock. Latest
+example is /sys/kernel/tracing/per_cpu/*.
+
+At the moment we read each file 10 times, and we have been
+excluding files that take too long. Rather than expanding
+blacklist, scale the default down to 3.
+
+Signed-off-by: Jan Stancek <jstancek@redhat.com>
+---
+ runtest/fs | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/runtest/fs b/runtest/fs
+index 464ba8fb9686..5892e9fdaee5 100644
+--- a/runtest/fs
++++ b/runtest/fs
+@@ -69,9 +69,9 @@ fs_di fs_di -d $TMPDIR
+ # Was not sure why it should reside in runtest/crashme and won't get tested ever
+ proc01 proc01 -m 128
+ 
+-read_all_dev read_all -d /dev -p -q -r 10
+-read_all_proc read_all -d /proc -q -r 10
+-read_all_sys read_all -d /sys -q -r 10
++read_all_dev read_all -d /dev -p -q -r 3
++read_all_proc read_all -d /proc -q -r 3
++read_all_sys read_all -d /sys -q -r 3
+ 
+ #Run the File System Race Condition Check tests as well
+ fs_racer fs_racer.sh -t 5
+-- 
+2.18.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
