@@ -1,60 +1,35 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B90B91F3625
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 10:34:03 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id DDF5A1F366E
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 10:52:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 15E213C61C5
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 10:34:03 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6F9063C2E62
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 10:52:12 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 200463C2E46
- for <ltp@lists.linux.it>; Tue,  9 Jun 2020 10:33:58 +0200 (CEST)
-Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
- [IPv6:2607:f8b0:4864:20::644])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 9F3183C2E44
+ for <ltp@lists.linux.it>; Tue,  9 Jun 2020 10:52:08 +0200 (CEST)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 49B321001432
- for <ltp@lists.linux.it>; Tue,  9 Jun 2020 10:33:58 +0200 (CEST)
-Received: by mail-pl1-x644.google.com with SMTP id bg4so7763034plb.3
- for <ltp@lists.linux.it>; Tue, 09 Jun 2020 01:33:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=zRms961ku//CmjuBW6h+h1iL7YbAtsR7ASp8Rss4bh0=;
- b=QlyJOe1deWIs2xeVioGYgvLwOgiKIzHGita/H9JIKeK3ddfh3Tb3fUUwFvUxcD9FsY
- +AcduO8ZrSvv/3hyr8bMWU89CrFu75+9bNXfvoOaiOQfl5xyzD4jVitXHRoe75oNGH4V
- tUHTxEREmalf09Sb7DuVZ9/lekWC3USyF920UhSujDutIbbmHp29JkAr7BUoiEqO/O9j
- 3iYz8rFGW82UBfho9KmdFaHYte2kjS7sSqZbpBZKAABg+R2oAu23Z2W/ofM2PTbWy9cJ
- wAJwwB+VTb2jkhpyG6S6S5xJAHkD0YRkmGm6eY2TKigVqyQy3j9c/I/1FyFXf0U0teHr
- rIQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=zRms961ku//CmjuBW6h+h1iL7YbAtsR7ASp8Rss4bh0=;
- b=pBaVQJkrAKWOz5nKZdWdJ8TNEEXjKZSxSghde1ttGnRyhwgadEKyuxaxpSO+HTbFAx
- WgHuOYI9Dv3dO3dP2X0tztDhMA3yRQrb50AxaM9YW710jaPa4hypW97J3Y4NkSwhWRFU
- K0520J3HO8D2YUDjT40a8JleyfBgDkRmrYe4bK5IxxLPwDw5WX2XsJ07F2vs7fy76j3p
- uG9u/A+0yXymTGo6R8fmaXW0ZhDStm0qEJWJbkjt6PuR1OrSKzJvnjH2xEtPlLssfZ+A
- BDOuQrEuSgPkg2FRzH7u6HtN9+J4wuywp2OtqcZFbVEeP4pcB8CtoAP6y2gELllLgyY7
- BhAg==
-X-Gm-Message-State: AOAM530fd43SCLgj0PmTPVNm1Z21xTyQdd+m+p4pEOjx9LD0aKJcwz01
- lZ+f7pKskSzXnlNg3dmAdO+yLg==
-X-Google-Smtp-Source: ABdhPJwRIvf6fSyzW687XwdQjqsot9vZeImMrYjtZ/pkB3ERZ5o4Kxz9tNEA2djWQljFCM0PW9WjhQ==
-X-Received: by 2002:a17:90a:30a9:: with SMTP id
- h38mr3371893pjb.7.1591691636847; 
- Tue, 09 Jun 2020 01:33:56 -0700 (PDT)
-Received: from localhost ([122.172.62.209])
- by smtp.gmail.com with ESMTPSA id 77sm9238610pfx.172.2020.06.09.01.33.55
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 09 Jun 2020 01:33:56 -0700 (PDT)
-Date: Tue, 9 Jun 2020 14:03:54 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Message-ID: <20200609083354.haqmv2yg4ns7up7a@vireshk-i7>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D099010014A8
+ for <ltp@lists.linux.it>; Tue,  9 Jun 2020 10:52:07 +0200 (CEST)
+Received: from mail-qt1-f172.google.com ([209.85.160.172]) by
+ mrelayeu.kundenserver.de (mreue109 [212.227.15.145]) with ESMTPSA (Nemesis)
+ id 1N7zJl-1ivTjI0FJT-014zIu for <ltp@lists.linux.it>; Tue, 09 Jun 2020
+ 10:52:07 +0200
+Received: by mail-qt1-f172.google.com with SMTP id z1so16993772qtn.2
+ for <ltp@lists.linux.it>; Tue, 09 Jun 2020 01:52:06 -0700 (PDT)
+X-Gm-Message-State: AOAM533lwE7xdOVU3EfeVrX+z7Gh6Z7hzaqMV7iWP2/Ssq8L3cS3A/2n
+ knU5tQGZpjZge9aZeR8/xFwnF9O4DMnS79IU1GM=
+X-Google-Smtp-Source: ABdhPJyQs9R3TmFRU+kzzWmbHdkzkAykHx0pVHIjqXKJZ3grLoOVaVVOINnKSUcxZI/+fthKsmYzlmfqhyNQyBmwqpg=
+X-Received: by 2002:ac8:7417:: with SMTP id p23mr23830482qtq.204.1591692725813; 
+ Tue, 09 Jun 2020 01:52:05 -0700 (PDT)
+MIME-Version: 1.0
 References: <e15907ed42f0276f09c4120b9255db5764d4e9b6.1591343286.git.viresh.kumar@linaro.org>
  <CAK8P3a0b2BbZq_yYBKJHUfZgzCYUtdidpzJEj-HzuBKf1Q_nnQ@mail.gmail.com>
  <20200608100900.c4fi7pw7euie6tnt@vireshk-i7>
@@ -64,14 +39,33 @@ References: <e15907ed42f0276f09c4120b9255db5764d4e9b6.1591343286.git.viresh.kuma
  <20200609070535.iym6m5n2v5urykbc@vireshk-i7>
  <CAK8P3a0giS2A=4Hc4SO7cVn_nOU4rz-KzbSkQJcddM2Hc=KRxg@mail.gmail.com>
  <20200609083219.5473zf2tq4tmjxac@vireshk-i7>
-MIME-Version: 1.0
-Content-Disposition: inline
 In-Reply-To: <20200609083219.5473zf2tq4tmjxac@vireshk-i7>
-User-Agent: NeoMutt/20180716-391-311a52
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Tue, 9 Jun 2020 10:51:49 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a2BaLtcyyfNQUJq-gvO6C_53hvLaNhajcpREwqHCEBYqg@mail.gmail.com>
+Message-ID: <CAK8P3a2BaLtcyyfNQUJq-gvO6C_53hvLaNhajcpREwqHCEBYqg@mail.gmail.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+X-Provags-ID: V03:K1:E23CnSyw9iGuMjHoO2FUgX0a4paUmIf55VcttjhkkEIspcC2e36
+ J04FA9lSCG2VYnyJ2UNlzfpf9y/7Rq9IonWPtu/2yA4F8ifJuK+sH2dvyIMKgDc4zSeyLKM
+ sefVcdQbnQBALHIIo0WVQ44VjnzFWmOklW39zjREVErPMRqwLU26nr8fTmF7NaxZhqWThT8
+ aKTaSeS06QA2eAdxeQF7g==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:8Qsrhd/diyE=:GQQZ/3IH+tTvNYp2YmeZIQ
+ rpsKdaaKYhKxtwNp/2gGUU4YAmwocbhuDb+8gjiOiJU/QN/iPrSlOrmCmSp7uxTyxYfAOyjNu
+ o/IGngmkW+rSpEG5OY78bClKJF63mNN45Swmc6qGR2kvGX9H803GtmIu2SC4n9G1p4vY3Lvw/
+ ZYpOWCsnW4k638MM+xHWWOC3qIQEjdDJzAGN9di1uMU0mzmxXPwPM4d/VFp7qQ45dJiLQolOH
+ QT5x4KgrhzfuFLQx82blzK7Q9MKiN80QBJrUz94k5jgff2kM0PiY2xVOlGztlGB5Z0usMspU+
+ 502sHuXWe77AMyGsh9Nzle1jdXztG4lEjKFc13MqN4cqYyRmVdvDfX+njPB8tp9enLvHU/eVn
+ N78VEbBd97nuE4kbDYlfGCMt7TMh+dPwFwFWkYQ2Tu8KKL569/QnCkc92tkepCA50Ssy41g8I
+ 598LB0FTSoKZ9bbarh0GwlgrUDvf1zNxaaoQVHydEFvJiH1FS4s6CjKd8HfPMMtxa1soaqZqF
+ 59yZOxvcj+KK0MgzidpdlXMsVhqDfS4ylTvtSgD3nxv00NHltwudK9yvKo5x583Au+TctIOzQ
+ QM9jMHNwaT9E/DSwuK2zgB78ukngxPAG/0SrETiqhM5EZhcQ86iJ/0WsWoHneZVSeJN4zYJes
+ 8O974o+GiIeHBmNegBbb1aSiehz5xyurv3pBQxCrDZbvLLRAb4gBOE3nl942rqIw+EN2RoEuc
+ QwN2WstZIqZVyh2+DNMdgSA2zDgsGAKWGIkftr46yvb3+m04BS5O86h4SJI0X/Rc8rknv6laL
+ QROMMQa9FPHEt0QhhkkO+ObhpUG8ieKb5d3PBBqN4H0T/ApYdk=
 X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] syscalls/clock_gettime: Add test to check bug
  during successive readings
@@ -92,7 +86,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 09-06-20, 14:02, Viresh Kumar wrote:
+On Tue, Jun 9, 2020 at 10:32 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
 > On 09-06-20, 09:43, Arnd Bergmann wrote:
 > > On Tue, Jun 9, 2020 at 9:05 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
 > > >
@@ -114,17 +108,57 @@ On 09-06-20, 14:02, Viresh Kumar wrote:
 > > > +                        */
 > > > +                       if (tv->gettime == my_gettimeofday && end < start)
 > > > +                               end += start % 1000;
-> > 
+> >
 > > This looks like it should work correctly, but it feels a bit more fragile than
-> > 
+> >
 > >                        if (tv->gettime == my_gettimeofday)
 > >                                start -= start % 1000;
+> >
+> > which would bring the start and end values to the same resolution
+> > rather than making up values that were never read.
+>
+> This sounds better, will pick it up.
+>
+> > Your approach however has the advantage of adding less overhead
+> > as the % operator on a 64-bit integer is going to turn into a very
+> > expensive calculation on most 32-bit processors that itself can
+> > skew the timing.
+>
+> I am not sure of what you meant here, both the approaches are using
+> the % operation.
 
-And this can be
-        start /= 1000;
+Yours only needs it when the nanoseconds are actually lower, which
+is only the case if no the actual time has not crossed into the next
+microsecond. If the gettimeofday() call itself takes over a microsecond
+to complete, then it usually will have wrapped, but this is highly
+hardware specific as the amount of time it takes to read the current
+clock registers can be anywhere from 'almost free' to 'several
+microseconds'.
 
--- 
-viresh
+Doing a division would be the same as the modulo operator.
+
+Using a 32-bit modulo or division on the tv_nsec portion instead
+of doing it on the 64-bit nanoseconds is much faster but also
+a little more complex.
+
+Another option would be to allow up to 999 nanoseconds of
+time going backwards before printing an error for the case
+of gettimeofday() after clock_gettime(), like
+
+if ((tv->gettime == my_gettimeofday)
+    slack = 999;
+else
+    slack = 0;
+
+if (start + slack < end)
+      failure();
+
+This is much faster as it avoids the division but does not catch
+the corner case of gettimeofday() returning a value that is
+slightly before the previous clock_gettime() but that is actually
+in the previous microsecond interval.
+
+     Arnd
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
