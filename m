@@ -2,69 +2,38 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8AAA1F3CA4
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 15:33:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F1711F4196
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 18:59:26 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 656A33C2E57
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 15:33:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D72EF3C2E5B
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 18:59:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 4A0C13C2E47
- for <ltp@lists.linux.it>; Tue,  9 Jun 2020 15:33:28 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 5B618601A71
- for <ltp@lists.linux.it>; Tue,  9 Jun 2020 15:33:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1591709606;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=bi9GTTywwq8UCtxW9CtR/Ee1li4iqf01TRq9flrWdvc=;
- b=O8vS708kq9XFteiAfSY6EE8x9r3WqAdpHkoYoYkPESNe/WSNztXxuI2ffpU/9m0B9S7OP+
- HHUU1VA9S9uzl8ngdkt9LCgJrzyRT70pi+OFjECWwWxH0paK1bC4dtT/T/OBJ5bp1di48/
- SlDfF6rQjgvrYdL35Nv7H2v2JTh/O3E=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-45-IagQwQjKPPqmj_uADMC5sA-1; Tue, 09 Jun 2020 09:33:24 -0400
-X-MC-Unique: IagQwQjKPPqmj_uADMC5sA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id A2C473C2E50
+ for <ltp@lists.linux.it>; Tue,  9 Jun 2020 18:59:24 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BDF83107ACF4;
- Tue,  9 Jun 2020 13:33:23 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B6E739F4B;
- Tue,  9 Jun 2020 13:33:23 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7BF49B3495;
- Tue,  9 Jun 2020 13:33:23 +0000 (UTC)
-Date: Tue, 9 Jun 2020 09:33:23 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
-To: rpalethorpe@suse.de, Li Wang <liwang@redhat.com>
-Message-ID: <1521498136.15325724.1591709603454.JavaMail.zimbra@redhat.com>
-In-Reply-To: <877dwgxv96.fsf@our.domain.is.not.set>
-References: <33c4abf347e2de96f89b9acea02d731e47dbf2a9.1591700131.git.jstancek@redhat.com>
- <877dwgxv96.fsf@our.domain.is.not.set>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A6F04140111E
+ for <ltp@lists.linux.it>; Tue,  9 Jun 2020 18:59:23 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 703D7AD7C;
+ Tue,  9 Jun 2020 16:59:26 +0000 (UTC)
+Date: Tue, 9 Jun 2020 18:59:21 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <20200609165921.GA28805@dell5510>
+References: <20200609113421.10936-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.43.17.25, 10.4.195.23]
-Thread-Topic: read_all: scale down how many times we read by default
-Thread-Index: VCn6W4LtHeVXw2fa1BPCznhklgSU4g==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200609113421.10936-1-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] read_all: scale down how many times we read by
- default
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] Wrapper for Syzkaller reproducers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,20 +45,118 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Dmitry Vyukov <dvyukov@google.com>, ltp@lists.linux.it,
+ Shuah Khan <skhan@linuxfoundation.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Hi Richard,
+
+> So this has now being floating in limbo for some time. My preference is to
+> merge it to make it easy for users to try out with plenty of time before the
+> next LTP release. It shouldn't break anything because it is hidden behind a
+> configure switch.
++1
+
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+
+I plan to test it a bit and appreciate if somebody else also test it,
+but I see no problem to include this patchset.
+
+> V3:
+> + Updated linux-arts commit (thanks Dmitry and Shuah for updating those!)
+> + Fixed AC macro
+
+...
+> +ifeq ($(WITH_SYZKALLER_REPROS),yes)
+> +
+> +# This is mainly due to the -m32 flag, but there could be other problems.
+> +ifneq ($(HOST_CPU), x86_64))
+nit: I guess, there should not be space, it should be
+ifneq ($(HOST_CPU),x86_64))
+
+include/mk/config.mk
+HOST_CPU		:= x86_64
+=> I thought that the trailing space is omitted.
+But working with it => not important.
+
+> +$(error "We currently only support building the Syzkaller reproducers on x86_64")
+> +endif
+> +
+> +# The number of reproducers in each runtest file
+> +SYZKALLER_RUNFILES_SIZE ?= 100
+> +
+> +# Extra arguments to pass to syzwrap. Uncomment the below to add some
+> +# sandboxing.
+> +# SYZWRAP_ARGS ?= -s
+> +
+> +# Location where reproducers are installed
+> +SYZKALLER_INSTALL_DIR ?= $(abspath $(DESTDIR)/$(prefix)/testcases/bin)
+> +
+> +# If the reproducers directory is missing then we automatically clone the repo.
+> +# We then have to call make recursively to revaluate the targets
+> +SYZKALLER_REPROS_DIR ?= $(abs_top_srcdir)/testcases/linux-arts/syzkaller-repros/linux
+> +$(SYZKALLER_REPROS_DIR):
+> +	git submodule update --init $(abs_top_srcdir)/testcases/linux-arts
+> +	$(MAKE) syzkaller_runfiles
+> +
+> +SYZKALLER_REPROS_SRCS = $(wildcard $(SYZKALLER_REPROS_DIR)/*.c)
+> +
+> +# Some useful compiler flags for the LTP will cause problems with the
+> +# syzkaller repros so the repros have seperate flags
+> +SYZKALLER_CFLAGS ?= -pthread
+> +SYZKALLER_REPROS = $(subst $(abs_top_srcdir),$(abs_top_builddir),$(SYZKALLER_REPROS_SRCS:.c=))
+
+> +$(SYZKALLER_REPROS): %: %.c
+> +	-@if grep -q "__NR_mmap2" $^; then \
+> +		M32="-m32"; \
+> +	fi; \
+> +	$(CC) $(SYZKALLER_CFLAGS) $$M32 $(SYZKALLER_LDFLAGS) $^ -o $@; \
+> +	echo $(CC) $(SYZKALLER_CFLAGS) $$M32 $(SYZKALLER_LDFLAGS) $^ -o $@;
+nit: it'd be worth to mention 32bit compilation environment.
+And I like this Makefile :)
+
+I experimentally enabled it on all intel native builds in my LTP fork travis [1]
+and it runs well. Failed only in minimal variant [2] (no surprise).
+Fedora required to add glibc-devel.i686, other have support by default.
+It failed on ubuntu eon on timeout.
+I'd suggest to chose one target where this would be running.
+Whole job was prolonged from 2 hrs to 2,75 hrs, but running a single job
+wouldn't be that bad.
+
+[1] https://travis-ci.org/github/pevik/ltp/builds/696513565
+[2] https://travis-ci.org/github/pevik/ltp/jobs/696513571
+
+> +
+> +# Generate the names of the runtest files. This uses Shell arithmetic to
+> +# calculate how many runtest files there will be.
+> +define SYZKALLER_RUNFILES !=
+> +	n=$(words $(SYZKALLER_REPROS));
+> +	m=$(SYZKALLER_RUNFILES_SIZE);
+> +	i=$$(( $$n / $$m + ($$n % $$m > 0) ));
+> +	while test $$i -gt 0;
+> +	do
+> +		echo $(top_srcdir)/runtest/syzkaller$$i;
+> +		i=$$(($$i - 1));
+> +	done
+> +endef
+> +
+> +++ b/testcases/kernel/syzkaller-repros/README.md
+...
+> +## Instructions
+> +
+> +1. Run `ltp/configure` with `--with-syzkaller-repros`.
+nit: I'd omit ltp/ (=> ./configure).
+
+> +2. Build and install the LTP as normal.
+> +3. Run one or more of syzkallerN runtest files where N is a number.
 
 
------ Original Message -----
-> OK this makes sense. We shouldn't be stress testing the system in this
-> runtest file.
-
-Pushed.
-
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
