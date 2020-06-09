@@ -1,56 +1,60 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14C9E1F3743
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 11:51:16 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 74D9F1F3745
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 11:51:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 937053C2E54
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 11:51:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3BAA13C2E4A
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 11:51:36 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 9AAA63C2E49
- for <ltp@lists.linux.it>; Tue,  9 Jun 2020 11:51:11 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 9D8DC10014D4
- for <ltp@lists.linux.it>; Tue,  9 Jun 2020 11:51:09 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 261E73C2E64
+ for <ltp@lists.linux.it>; Tue,  9 Jun 2020 11:51:13 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id E6C9120117A
+ for <ltp@lists.linux.it>; Tue,  9 Jun 2020 11:51:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1591696268;
+ s=mimecast20190719; t=1591696271;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=qJMilcn2GGtMYaaWLBOa7B+gLaCEExZggSbna4B7jXI=;
- b=R1wb9gWj4I3N8jHeXEcUqp0Qx4bgg3t5mVByui/2kBiVsG0h3tMaCIvhXpoUnkJkYN82L5
- I72CzcrueQk6tiEEFI03nvpiMILIZybADoQa6OxBYuON5Mb5Qf5DuIoE5PXRmz3V2iv2zg
- N4hiEVQE+QtVpWXEAY/wlU1oFdoQdkE=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=wzdWAs0XgR2OKXOsEzkB6v1sZ53tqOLwKnSymnWwPrE=;
+ b=L5jiIDPfLVNSsu29IMVxD5GYFyhBDkpZ5MNtUq8U14suVZ9Se715SBswqF27dTap1AuODg
+ qtp2awDHGkA2j7wdUtG6n1s4VH0rGxiBYtN3CGUM/gziyRt9Mnwdc2cfpDrhhWvd2eVX2g
+ v2+QsvZMq+eD8ULvNRx9eYlt3iQUNSA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-380-BIsY8PFbPwiZgqFgCOTSwQ-1; Tue, 09 Jun 2020 05:51:05 -0400
-X-MC-Unique: BIsY8PFbPwiZgqFgCOTSwQ-1
+ us-mta-472-vGJgGlcRMIOfyq28SoqqwA-1; Tue, 09 Jun 2020 05:51:07 -0400
+X-MC-Unique: vGJgGlcRMIOfyq28SoqqwA-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
  [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D985619057A2
- for <ltp@lists.linux.it>; Tue,  9 Jun 2020 09:51:04 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 75DE3800053
+ for <ltp@lists.linux.it>; Tue,  9 Jun 2020 09:51:06 +0000 (UTC)
 Received: from liwang-workstation.nay.redhat.com (unknown [10.66.81.246])
- by smtp.corp.redhat.com (Postfix) with ESMTP id C746389288
- for <ltp@lists.linux.it>; Tue,  9 Jun 2020 09:51:03 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 63F91891E2
+ for <ltp@lists.linux.it>; Tue,  9 Jun 2020 09:51:05 +0000 (UTC)
 From: Li Wang <liwang@redhat.com>
 To: ltp@lists.linux.it
-Date: Tue,  9 Jun 2020 17:50:59 +0800
-Message-Id: <20200609095102.21153-1-liwang@redhat.com>
+Date: Tue,  9 Jun 2020 17:51:00 +0800
+Message-Id: <20200609095102.21153-2-liwang@redhat.com>
+In-Reply-To: <20200609095102.21153-1-liwang@redhat.com>
+References: <20200609095102.21153-1-liwang@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 1/4] lib: add new cgroup test API
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 2/4] mem: take use of new cgroup API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,318 +66,503 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-TWFueSBvZiBvdXIgTFRQIHRlc3RzIG5lZWQgQ29udHJvbCBHcm91cCBpbiB0aGUgY29uZmlndXJh
-dGlvbiwKdGhpcyBwYXRjaCBtYWtlcyBjZ3JvdXAgdW5pZmllZCBtb3VudGluZyBhdCBzZXR1cCBw
-aGFzZSB0byBiZQpwb3NzaWJsZS4gVGhlIG1ldGhvZMKgaXMgZXh0cmFjdGVkIGZyb20gbWVtLmgg
-d2l0aCB0aGUgcHVycG9zZQpvZsKgZXh0ZW5kaWJsZSBmb3IgZnVydGhlciBkZXZlbG9waW5nLCBh
-bmQgdHJ5aW5nwqB0byBjb21wYXRpYmxlCnRoZSBjdXJyZW50IHR3byB2ZXJzaW9ucyBvZiBjZ3Jv
-dXAsCgpJdCdzIGhhcmQgdG8gbWFrZSBhbGwgQVBJcyBiZSBzdHJpY3RseSBjb25zaXN0ZW50IGJl
-Y2F1c2UgdGhlcmUKYXJlIG1hbnkgZGlmZmVyZW5jZXMgYmV0d2VlbiB2MSBhbmQgdjIuIEJ1dCBp
-dMKgY2Fwc3VsYXRlIHRoZSBkZXRhaWwKb2YgY2dyb3VwIG1vdW50aW5nIGluIGhpZ2gtbGV2ZWwg
-ZnVuY3Rpb25zLCB3aGljaCB3aWxsIGJlIGVhc2llcgp0byB1c2UgY2dyb3VwIHdpdGhvdXQgY29u
-c2lkZXJpbmcgdG9vIG11Y2ggdGVjaG5pY2FsIHRoaW5nLsKgIMKgCgpCdHcsIHRlc3QgZ2V0IHBh
-c3NlZCBvbiBSSEVMNyh4ODZfNjQpLCBSSEVMOChwcGM2NGxlKSwgRmVkb3JhMzIoeDg2XzY0KS4K
-ClNpZ25lZC1vZmYtYnk6IExpIFdhbmcgPGxpd2FuZ0ByZWRoYXQuY29tPgotLS0KCk5vdGVzOgog
-ICAgdjMgLS0+IHY0CiAgICAgICAgKiByZW1vdmUgdHN0X2Nncm91cF9tbnQvbmV3X3BhdGgKICAg
-ICAgICAqIHRzdF9jZ3JvdXBfZ2V0X3BhdGgoKSByZXR1cm4gYSBwb2ludGVyIHRvIG5ld19wYXRo
-CiAgICAgICAgKiBhZGQgdHN0X2Nncm91cF9jcHVzZXRfcmVhZC93cml0ZV9maWxlcygpCgogZG9j
-L3Rlc3Qtd3JpdGluZy1ndWlkZWxpbmVzLnR4dCB8ICA0NCArKysrCiBpbmNsdWRlL3RzdF9jZ3Jv
-dXAuaCAgICAgICAgICAgIHwgIDM5ICsrKwogaW5jbHVkZS90c3RfdGVzdC5oICAgICAgICAgICAg
-ICB8ICAgMSArCiBsaWIvbmV3bGliX3Rlc3RzL3Rlc3QyMS5jICAgICAgIHwgIDc2ICsrKysrKwog
-bGliL3RzdF9jZ3JvdXAuYyAgICAgICAgICAgICAgICB8IDQyMCArKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKwogNSBmaWxlcyBjaGFuZ2VkLCA1ODAgaW5zZXJ0aW9ucygrKQogY3JlYXRl
-IG1vZGUgMTAwNjQ0IGluY2x1ZGUvdHN0X2Nncm91cC5oCiBjcmVhdGUgbW9kZSAxMDA2NDQgbGli
-L25ld2xpYl90ZXN0cy90ZXN0MjEuYwogY3JlYXRlIG1vZGUgMTAwNjQ0IGxpYi90c3RfY2dyb3Vw
-LmMKCmRpZmYgLS1naXQgYS9kb2MvdGVzdC13cml0aW5nLWd1aWRlbGluZXMudHh0IGIvZG9jL3Rl
-c3Qtd3JpdGluZy1ndWlkZWxpbmVzLnR4dAppbmRleCA5M2NhNTA2ZDkuLjQyYjM2MGRhMCAxMDA2
-NDQKLS0tIGEvZG9jL3Rlc3Qtd3JpdGluZy1ndWlkZWxpbmVzLnR4dAorKysgYi9kb2MvdGVzdC13
-cml0aW5nLWd1aWRlbGluZXMudHh0CkBAIC0yMDUzLDYgKzIwNTMsNTAgQEAgdGhlIHByZWZpeCBm
-aWVsZCBvZiBmaWxlIHBvaW50ZWQgYnkgcGF0aCBlcXVhbHMgdG8gdGhlIHZhbHVlIHBhc3NlZCB0
-byB0aGlzIGZ1bmMKIEFsc28gaGF2aW5nIGEgc2ltaWxhciBhcGkgcGFpciBUU1RfQVNTRVJUX0ZJ
-TEVfSU5UL1NUUihwYXRoLCBwcmVmaXgsIHZhbCkgdG8gYXNzZXJ0CiB0aGUgZmllbGQgdmFsdWUg
-b2YgZmlsZS4KIAorMi4yLjM2IFVzaW5nIENvbnRyb2wgR3JvdXAKK15eXl5eXl5eXl5eXl5eXl5e
-Xl5eXl5eXl5eCitTb21lIG9mIExUUCB0ZXN0cyBuZWVkIENvbnRyb2wgR3JvdXAgaW4gdGhlaXIg
-Y29uZmlndXJhdGlvbiwgdHN0X2Nncm91cC5oIHByb3ZpZGVzCitBUElzIHRvIG1ha2UgY2dyb3Vw
-IHVuaWZpZWQgbW91bnRpbmcgYXQgc2V0dXAgcGhhc2UgdG8gYmUgcG9zc2libGUuIFRoZSBtZXRo
-b2TCoGlzCitleHRyYWN0ZWQgZnJvbSBtZW0uaCB3aXRoIHRoZSBwdXJwb3NlIG9mwqBleHRlbmRp
-YmxlIGZvciBmdXJ0aGVyIGRldmVsb3BpbmcsIGFuZAordHJ5aW5nIHRvIGNvbXBhdGlibGUgdGhl
-IGN1cnJlbnQgdHdvIHZlcnNpb25zIG9mIGNncm91cC4KKworQ29uc2lkZXJpbmcgdGhlcmUgYXJl
-IG1hbnkgZGlmZmVyZW5jZXMgYmV0d2VlbiBjZ3JvdXAgdjEgYW5kIHYyLCBoZXJlIHdlIGNhcHN1
-bGF0ZQordGhlIGRldGFpbCBvZiBjZ3JvdXAgbW91bnRpbmcgaW4gaGlnaC1sZXZlbCBmdW5jdGlv
-bnMsIHdoaWNoIHdpbGwgYmUgZWFzaWVyIHRvIHVzZQorY2dyb3VwIHdpdGhvdXQgY2FyaW5nIGFi
-b3V0IHRvbyBtdWNoIHRlY2huaWNhbCB0aGluZy7CoCDCoAorCitBbHNvLCB3ZSBkbyBjZ3JvdXAg
-bW91bnQvdW1vdW50IHdvcmsgZm9yIHRoZSBkaWZmZXJlbnQgaGllcmFyY2h5IGF1dG9tYXRpY2Fs
-bHkuCisKK1tzb3VyY2UsY10KKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KKyNpbmNsdWRlICJ0c3Rf
-dGVzdC5oIgorCitzdGF0aWMgdm9pZCBydW4odm9pZCkKK3sKKwkuLi4KKworCXRzdF9jZ3JvdXBf
-bW92ZV9jdXJyZW50KFBBVEhfVE1QX0NHX01FTSk7CisJdHN0X2Nncm91cF9tZW1fc2V0X21heGJ5
-dGVzKFBBVEhfVE1QX0NHX01FTSwgTUVNU0laRSk7CisKKwkvLyBkbyB0ZXN0IHVuZGVyIGNncm91
-cAorCS4uLgorfQorCitzdGF0aWMgdm9pZCBzZXR1cCh2b2lkKQoreworCXRzdF9jZ3JvdXBfbW91
-bnQoVFNUX0NHUk9VUF9NRU1DRywgUEFUSF9UTVBfQ0dfTUVNKTsKK30KKworc3RhdGljIHZvaWQg
-Y2xlYW51cCh2b2lkKQoreworCXRzdF9jZ3JvdXBfdW1vdW50KFBBVEhfVE1QX0NHX01FTSk7Cit9
-CisKK3N0cnVjdCB0c3RfdGVzdCB0ZXN0ID0geworCS50ZXN0X2FsbCA9IHJ1biwKKwkuLi4KK307
-CisKKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KIDIuMyBXcml0aW5nIGEgdGVzdGNhc2UgaW4gc2hl
-bGwKIH5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn4KIApkaWZmIC0tZ2l0IGEvaW5jbHVk
-ZS90c3RfY2dyb3VwLmggYi9pbmNsdWRlL3RzdF9jZ3JvdXAuaApuZXcgZmlsZSBtb2RlIDEwMDY0
-NAppbmRleCAwMDAwMDAwMDAuLjBiYzczYjU0MgotLS0gL2Rldi9udWxsCisrKyBiL2luY2x1ZGUv
-dHN0X2Nncm91cC5oCkBAIC0wLDAgKzEsMzkgQEAKKy8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVy
-OiBHUEwtMi4wLW9yLWxhdGVyCisvKgorICogQ29weXJpZ2h0IChjKSAyMDIwIFJlZCBIYXQsIElu
-Yy4KKyAqIENvcHlyaWdodCAoYykgMjAyMCBMaSBXYW5nIDxsaXdhbmdAcmVkaGF0LmNvbT4KKyAq
-LworCisjaWZuZGVmIFRTVF9DR1JPVVBfSAorI2RlZmluZSBUU1RfQ0dST1VQX0gKKworI2RlZmlu
-ZSBQQVRIX1RNUF9DR19NRU0JIi90bXAvY2dyb3VwX21lbSIKKyNkZWZpbmUgUEFUSF9UTVBfQ0df
-Q1NUCSIvdG1wL2Nncm91cF9jc3QiCisKK2VudW0gdHN0X2Nncm91cF92ZXIgeworCVRTVF9DR1JP
-VVBfVjEgPSAxLAorCVRTVF9DR1JPVVBfVjIgPSAyLAorfTsKKworZW51bSB0c3RfY2dyb3VwX2N0
-cmwgeworCVRTVF9DR1JPVVBfTUVNQ0cgPSAxLAorCVRTVF9DR1JPVVBfQ1BVU0VUID0gMiwKKwkv
-KiBhZGQgY2dyb3VwIGNvbnRyb2xsZXIgKi8KK307CisKK2VudW0gdHN0X2Nncm91cF92ZXIgdHN0
-X2Nncm91cF92ZXJzaW9uKHZvaWQpOworCit2b2lkIHRzdF9jZ3JvdXBfbW91bnQoZW51bSB0c3Rf
-Y2dyb3VwX2N0cmwgY3RybCwgY29uc3QgY2hhciAqY2dyb3VwX2Rpcik7Cit2b2lkIHRzdF9jZ3Jv
-dXBfdW1vdW50KGNvbnN0IGNoYXIgKmNncm91cF9kaXIpOworCit2b2lkIHRzdF9jZ3JvdXBfbW92
-ZV9jdXJyZW50KGNvbnN0IGNoYXIgKmNncm91cF9kaXIpOwordm9pZCB0c3RfY2dyb3VwX3NldF9r
-bm9iKGNvbnN0IGNoYXIgKmNncm91cF9kaXIsIGNvbnN0IGNoYXIgKmtub2IsIGxvbmcgdmFsdWUp
-OworCit2b2lkIHRzdF9jZ3JvdXBfbWVtX3NldF9tYXhieXRlcyhjb25zdCBjaGFyICpjZ3JvdXBf
-ZGlyLCBsb25nIG1lbXN6KTsKK2ludCAgdHN0X2Nncm91cF9tZW1fc3dhcGFjY3RfZW5hYmxlZChj
-b25zdCBjaGFyICpjZ3JvdXBfZGlyKTsKK3ZvaWQgdHN0X2Nncm91cF9tZW1fc2V0X21heHN3YXAo
-Y29uc3QgY2hhciAqY2dyb3VwX2RpciwgbG9uZyBtZW1zeik7CisKK3ZvaWQgdHN0X2Nncm91cF9j
-cHVzZXRfcmVhZF9maWxlcyhjb25zdCBjaGFyICpjZ3JvdXBfZGlyLCBjb25zdCBjaGFyICpmaWxl
-bmFtZSwgY2hhciAqcmV0YnVmKTsKK3ZvaWQgdHN0X2Nncm91cF9jcHVzZXRfd3JpdGVfZmlsZXMo
-Y29uc3QgY2hhciAqY2dyb3VwX2RpciwgY29uc3QgY2hhciAqZmlsZW5hbWUsIGNvbnN0IGNoYXIg
-KmJ1Zik7CisKKyNlbmRpZiAvKiBUU1RfQ0dST1VQX0ggKi8KZGlmZiAtLWdpdCBhL2luY2x1ZGUv
-dHN0X3Rlc3QuaCBiL2luY2x1ZGUvdHN0X3Rlc3QuaAppbmRleCA1YmVkYjRmNmYuLmI4NGY3Yjlk
-ZCAxMDA2NDQKLS0tIGEvaW5jbHVkZS90c3RfdGVzdC5oCisrKyBiL2luY2x1ZGUvdHN0X3Rlc3Qu
-aApAQCAtMzksNiArMzksNyBAQAogI2luY2x1ZGUgInRzdF9jYXBhYmlsaXR5LmgiCiAjaW5jbHVk
-ZSAidHN0X2h1Z2VwYWdlLmgiCiAjaW5jbHVkZSAidHN0X2Fzc2VydC5oIgorI2luY2x1ZGUgInRz
-dF9jZ3JvdXAuaCIKIAogLyoKICAqIFJlcG9ydHMgdGVzdGNhc2UgcmVzdWx0LgpkaWZmIC0tZ2l0
-IGEvbGliL25ld2xpYl90ZXN0cy90ZXN0MjEuYyBiL2xpYi9uZXdsaWJfdGVzdHMvdGVzdDIxLmMK
-bmV3IGZpbGUgbW9kZSAxMDA2NDQKaW5kZXggMDAwMDAwMDAwLi5jM2ZhNTU4NGUKLS0tIC9kZXYv
-bnVsbAorKysgYi9saWIvbmV3bGliX3Rlc3RzL3Rlc3QyMS5jCkBAIC0wLDAgKzEsNzYgQEAKKy8v
-IFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wLW9yLWxhdGVyCisvKgorICogQ29weXJp
-Z2h0IChjKSAyMDIwIFJlZCBIYXQsIEluYy4KKyAqIENvcHlyaWdodCAoYykgMjAyMCBMaSBXYW5n
-IDxsaXdhbmdAcmVkaGF0LmNvbT4KKyAqLworCisvKgorICogVGVzdHMgdHN0X2Nncm91cC5oIEFQ
-SXMKKyAqLworCisjaW5jbHVkZSAidHN0X3Rlc3QuaCIKKyNpbmNsdWRlICJ0c3RfY2dyb3VwLmgi
-CisKKyNkZWZpbmUgUEFUSF9DR1JPVVAxICIvbW50L2xpd2FuZzEiCisjZGVmaW5lIFBBVEhfQ0dS
-T1VQMiAiL21udC9saXdhbmcyIgorI2RlZmluZSBNRU1TSVpFIDEwMjQgKiAxMDI0CisKK3N0YXRp
-YyB2b2lkIGRvX3Rlc3Qodm9pZCkKK3sKKwkvKiB3ZSBzaG91bGQgYXNzaWduIG9uZSBvciBtb3Jl
-IG1lbW9yeSBub2RlcyB0byBjcHVzZXQubWVtcworCSAqIGFuZCBjcHVzZXQuY3B1cywgb3RoZXJ3
-aXNlLCBlY2hvICQkID4gdGFza3MgZ2l2ZXMg4oCcbm8gc3BhY2UKKwkgKiBsZWZ0IG9uIGRldmlj
-ZeKAnSB3aGVuIHRyeWluZyB0byB1c2UgY3B1c2V0LgorCSAqCisJICogT3IsIHNldHRpbmcgY2dy
-b3VwLmNsb25lX2NoaWxkcmVuIHRvIDEgY2FuIGhlbHAgaW4gYXV0b21hdGljYWxseQorCSAqIGlu
-aGVyaXRpbmcgbWVtb3J5IGFuZCBub2RlIHNldHRpbmcgZnJvbSBwYXJlbnQgY2dyb3VwIHdoZW4K
-KwkgKiBhIGNoaWxkIGNncm91cCBpcyBjcmVhdGVkLgorCSAqLworCXRzdF9jZ3JvdXBfc2V0X2tu
-b2IoUEFUSF9UTVBfQ0dfQ1NULCAiLi4vY2dyb3VwLmNsb25lX2NoaWxkcmVuIiwgMSk7CisKKwlw
-aWRfdCBwaWQgPSBTQUZFX0ZPUksoKTsKKworCXN3aXRjaCAocGlkKSB7CisJY2FzZSAwOgorCQl0
-c3RfY2dyb3VwX21vdmVfY3VycmVudChQQVRIX0NHUk9VUDEpOworCQl0c3RfY2dyb3VwX21lbV9z
-ZXRfbWF4Ynl0ZXMoUEFUSF9DR1JPVVAxLCBNRU1TSVpFKTsKKwkJdHN0X2Nncm91cF9tZW1fc2V0
-X21heHN3YXAoUEFUSF9DR1JPVVAxLCBNRU1TSVpFKTsKKworCQl0c3RfY2dyb3VwX21vdmVfY3Vy
-cmVudChQQVRIX0NHUk9VUDIpOworCisJYnJlYWs7CisJZGVmYXVsdDoKKwkJdHN0X2Nncm91cF9t
-b3ZlX2N1cnJlbnQoUEFUSF9UTVBfQ0dfQ1NUKTsKKworCQl0c3RfY2dyb3VwX21vdmVfY3VycmVu
-dChQQVRIX1RNUF9DR19NRU0pOworCQl0c3RfY2dyb3VwX21lbV9zZXRfbWF4Ynl0ZXMoUEFUSF9U
-TVBfQ0dfTUVNLCBNRU1TSVpFKTsKKwkJdHN0X2Nncm91cF9tZW1fc2V0X21heHN3YXAoUEFUSF9U
-TVBfQ0dfTUVNLCBNRU1TSVpFKTsKKwlicmVhazsKKwl9CisKKwl0c3RfcmVzKFRQQVNTLCAiQ2dy
-b3VwIG1vdW50IHRlc3QiKTsKK30KKworc3RhdGljIHZvaWQgc2V0dXAodm9pZCkKK3sKKwl0c3Rf
-Y2dyb3VwX21vdW50KFRTVF9DR1JPVVBfTUVNQ0csIFBBVEhfVE1QX0NHX01FTSk7CisJdHN0X2Nn
-cm91cF9tb3VudChUU1RfQ0dST1VQX01FTUNHLCBQQVRIX0NHUk9VUDEpOworCisJdHN0X2Nncm91
-cF9tb3VudChUU1RfQ0dST1VQX0NQVVNFVCwgUEFUSF9UTVBfQ0dfQ1NUKTsKKwl0c3RfY2dyb3Vw
-X21vdW50KFRTVF9DR1JPVVBfQ1BVU0VULCBQQVRIX0NHUk9VUDIpOworfQorCitzdGF0aWMgdm9p
-ZCBjbGVhbnVwKHZvaWQpCit7CisJdHN0X2Nncm91cF91bW91bnQoUEFUSF9UTVBfQ0dfTUVNKTsK
-Kwl0c3RfY2dyb3VwX3Vtb3VudChQQVRIX0NHUk9VUDEpOworCisJdHN0X2Nncm91cF91bW91bnQo
-UEFUSF9UTVBfQ0dfQ1NUKTsKKwl0c3RfY2dyb3VwX3Vtb3VudChQQVRIX0NHUk9VUDIpOworfQor
-CitzdGF0aWMgc3RydWN0IHRzdF90ZXN0IHRlc3QgPSB7CisJLnRlc3RfYWxsID0gZG9fdGVzdCwK
-Kwkuc2V0dXAgPSBzZXR1cCwKKwkuY2xlYW51cCA9IGNsZWFudXAsCisJLmZvcmtzX2NoaWxkID0g
-MSwKK307CmRpZmYgLS1naXQgYS9saWIvdHN0X2Nncm91cC5jIGIvbGliL3RzdF9jZ3JvdXAuYwpu
-ZXcgZmlsZSBtb2RlIDEwMDY0NAppbmRleCAwMDAwMDAwMDAuLmY5MThlN2U4NQotLS0gL2Rldi9u
-dWxsCisrKyBiL2xpYi90c3RfY2dyb3VwLmMKQEAgLTAsMCArMSw0MjAgQEAKKy8vIFNQRFgtTGlj
-ZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wLW9yLWxhdGVyCisvKgorICogQ29weXJpZ2h0IChjKSAy
-MDIwIFJlZCBIYXQsIEluYy4KKyAqIENvcHlyaWdodCAoYykgMjAyMCBMaSBXYW5nIDxsaXdhbmdA
-cmVkaGF0LmNvbT4KKyAqLworCisjZGVmaW5lIFRTVF9OT19ERUZBVUxUX01BSU4KKworI2luY2x1
-ZGUgPHN0ZGlvLmg+CisjaW5jbHVkZSA8c3RkbGliLmg+CisjaW5jbHVkZSA8c3lzL21vdW50Lmg+
-CisKKyNpbmNsdWRlICJ0c3RfdGVzdC5oIgorI2luY2x1ZGUgInRzdF9zYWZlX21hY3Jvcy5oIgor
-I2luY2x1ZGUgInRzdF9zYWZlX3N0ZGlvLmgiCisjaW5jbHVkZSAidHN0X2Nncm91cC5oIgorI2lu
-Y2x1ZGUgInRzdF9kZXZpY2UuaCIKKworc3RhdGljIGVudW0gdHN0X2Nncm91cF92ZXIgdHN0X2Nn
-X3ZlcjsKKworc3RhdGljIGludCB0c3RfY2dyb3VwX2NoZWNrKGNvbnN0IGNoYXIgKmNncm91cCkK
-K3sKKwljaGFyIGxpbmVbUEFUSF9NQVhdOworCUZJTEUgKmZpbGU7CisJaW50IGNnX2NoZWNrID0g
-MDsKKworCWZpbGUgPSBTQUZFX0ZPUEVOKCIvcHJvYy9maWxlc3lzdGVtcyIsICJyIik7CisJd2hp
-bGUgKGZnZXRzKGxpbmUsIHNpemVvZihsaW5lKSwgZmlsZSkpIHsKKwkJaWYgKHN0cnN0cihsaW5l
-LCBjZ3JvdXApICE9IE5VTEwpIHsKKwkJCWNnX2NoZWNrID0gMTsKKwkJCWJyZWFrOworCQl9CisJ
-fQorCVNBRkVfRkNMT1NFKGZpbGUpOworCisJcmV0dXJuIGNnX2NoZWNrOworfQorCitlbnVtIHRz
-dF9jZ3JvdXBfdmVyIHRzdF9jZ3JvdXBfdmVyc2lvbih2b2lkKQoreworCWlmICh0c3RfY2dyb3Vw
-X2NoZWNrKCJjZ3JvdXAyIikpIHsKKwkJaWYgKCF0c3RfaXNfbW91bnRlZCgiY2dyb3VwMiIpICYm
-IHRzdF9pc19tb3VudGVkKCJjZ3JvdXAiKSkKKwkJCXJldHVybiBUU1RfQ0dST1VQX1YxOworCQll
-bHNlCisJCQlyZXR1cm4gVFNUX0NHUk9VUF9WMjsKKwl9CisKKwlpZiAodHN0X2Nncm91cF9jaGVj
-aygiY2dyb3VwIikpCisJCXJldHVybiBUU1RfQ0dST1VQX1YxOworCisJdHN0X2JyayhUQ09ORiwg
-IkNncm91cCBpcyBub3QgY29uZmlndXJlZCIpOworfQorCitzdGF0aWMgdm9pZCB0c3RfY2dyb3Vw
-MV9tb3VudChjb25zdCBjaGFyICpuYW1lLCBjb25zdCBjaGFyICpvcHRpb24sCisJCQljb25zdCBj
-aGFyICptbnRfcGF0aCwgY29uc3QgY2hhciAqbmV3X3BhdGgpCit7CisJaWYgKHRzdF9pc19tb3Vu
-dGVkKG1udF9wYXRoKSkKKwkJZ290byBvdXQ7CisKKwlTQUZFX01LRElSKG1udF9wYXRoLCAwNzc3
-KTsKKwlpZiAobW91bnQobmFtZSwgbW50X3BhdGgsICJjZ3JvdXAiLCAwLCBvcHRpb24pID09IC0x
-KSB7CisJCWlmIChlcnJubyA9PSBFTk9ERVYpIHsKKwkJCWlmIChybWRpcihtbnRfcGF0aCkgPT0g
-LTEpCisJCQkJdHN0X3JlcyhUV0FSTiB8IFRFUlJOTywgInJtZGlyICVzIGZhaWxlZCIsIG1udF9w
-YXRoKTsKKwkJCXRzdF9icmsoVENPTkYsCisJCQkJICJDZ3JvdXAgdjEgaXMgbm90IGNvbmZpZ3Vy
-ZWQgaW4ga2VybmVsIik7CisJCX0KKwkJdHN0X2JyayhUQlJPSyB8IFRFUlJOTywgIm1vdW50ICVz
-IiwgbW50X3BhdGgpOworCX0KKworb3V0OgorCVNBRkVfTUtESVIobmV3X3BhdGgsIDA3NzcpOwor
-CisJdHN0X3JlcyhUSU5GTywgIkNncm91cCglcykgdjEgbW91bnQgYXQgJXMgc3VjY2VzcyIsIG9w
-dGlvbiwgbW50X3BhdGgpOworfQorCitzdGF0aWMgdm9pZCB0c3RfY2dyb3VwMl9tb3VudChjb25z
-dCBjaGFyICptbnRfcGF0aCwgY29uc3QgY2hhciAqbmV3X3BhdGgpCit7CisJaWYgKHRzdF9pc19t
-b3VudGVkKG1udF9wYXRoKSkKKwkJZ290byBvdXQ7CisKKwlTQUZFX01LRElSKG1udF9wYXRoLCAw
-Nzc3KTsKKwlpZiAobW91bnQoImNncm91cDIiLCBtbnRfcGF0aCwgImNncm91cDIiLCAwLCBOVUxM
-KSA9PSAtMSkgeworCQlpZiAoZXJybm8gPT0gRU5PREVWKSB7CisJCQlpZiAocm1kaXIobW50X3Bh
-dGgpID09IC0xKQorCQkJCXRzdF9yZXMoVFdBUk4gfCBURVJSTk8sICJybWRpciAlcyBmYWlsZWQi
-LCBtbnRfcGF0aCk7CisJCQl0c3RfYnJrKFRDT05GLAorCQkJCSAiQ2dyb3VwIHYyIGlzIG5vdCBj
-b25maWd1cmVkIGluIGtlcm5lbCIpOworCQl9CisJCXRzdF9icmsoVEJST0sgfCBURVJSTk8sICJt
-b3VudCAlcyIsIG1udF9wYXRoKTsKKwl9CisKK291dDoKKwlTQUZFX01LRElSKG5ld19wYXRoLCAw
-Nzc3KTsKKworCXRzdF9yZXMoVElORk8sICJDZ3JvdXAgdjIgbW91bnQgYXQgJXMgc3VjY2VzcyIs
-IG1udF9wYXRoKTsKK30KKworc3RhdGljIHZvaWQgdHN0X2Nncm91cE5fdW1vdW50KGNvbnN0IGNo
-YXIgKm1udF9wYXRoLCBjb25zdCBjaGFyICpuZXdfcGF0aCkKK3sKKwlGSUxFICpmcDsKKwlpbnQg
-ZmQ7CisJY2hhciBzX25ld1tCVUZTSVpdLCBzW0JVRlNJWl0sIHZhbHVlW0JVRlNJWl07CisKKwlp
-ZiAoIXRzdF9pc19tb3VudGVkKG1udF9wYXRoKSkKKwkJcmV0dXJuOworCisJLyogTW92ZSBhbGwg
-cHJvY2Vzc2VzIGluIHRhc2sodjI6IGNncm91cC5wcm9jcykgdG8gaXRzIHBhcmVudCBub2RlLiAq
-LworCWlmICh0c3RfY2dfdmVyICYgVFNUX0NHUk9VUF9WMSkKKwkJc3ByaW50ZihzLCAiJXMvdGFz
-a3MiLCBtbnRfcGF0aCk7CisJaWYgKHRzdF9jZ192ZXIgJiBUU1RfQ0dST1VQX1YyKQorCQlzcHJp
-bnRmKHMsICIlcy9jZ3JvdXAucHJvY3MiLCBtbnRfcGF0aCk7CisKKwlmZCA9IG9wZW4ocywgT19X
-Uk9OTFkpOworCWlmIChmZCA9PSAtMSkKKwkJdHN0X3JlcyhUV0FSTiB8IFRFUlJOTywgIm9wZW4g
-JXMiLCBzKTsKKworCWlmICh0c3RfY2dfdmVyICYgVFNUX0NHUk9VUF9WMSkKKwkJc25wcmludGYo
-c19uZXcsIEJVRlNJWiwgIiVzL3Rhc2tzIiwgbmV3X3BhdGgpOworCWlmICh0c3RfY2dfdmVyICYg
-VFNUX0NHUk9VUF9WMikKKwkJc25wcmludGYoc19uZXcsIEJVRlNJWiwgIiVzL2Nncm91cC5wcm9j
-cyIsIG5ld19wYXRoKTsKKworCWZwID0gZm9wZW4oc19uZXcsICJyIik7CisJaWYgKGZwID09IE5V
-TEwpCisJCXRzdF9yZXMoVFdBUk4gfCBURVJSTk8sICJmb3BlbiAlcyIsIHNfbmV3KTsKKwlpZiAo
-KGZkICE9IC0xKSAmJiAoZnAgIT0gTlVMTCkpIHsKKwkJd2hpbGUgKGZnZXRzKHZhbHVlLCBCVUZT
-SVosIGZwKSAhPSBOVUxMKQorCQkJaWYgKHdyaXRlKGZkLCB2YWx1ZSwgc3RybGVuKHZhbHVlKSAt
-IDEpCisJCQkgICAgIT0gKHNzaXplX3Qpc3RybGVuKHZhbHVlKSAtIDEpCisJCQkJdHN0X3JlcyhU
-V0FSTiB8IFRFUlJOTywgIndyaXRlICVzIiwgcyk7CisJfQorCWlmIChmZCAhPSAtMSkKKwkJY2xv
-c2UoZmQpOworCWlmIChmcCAhPSBOVUxMKQorCQlmY2xvc2UoZnApOworCWlmIChybWRpcihuZXdf
-cGF0aCkgPT0gLTEpCisJCXRzdF9yZXMoVFdBUk4gfCBURVJSTk8sICJybWRpciAlcyIsIG5ld19w
-YXRoKTsKKwlpZiAodW1vdW50KG1udF9wYXRoKSA9PSAtMSkKKwkJdHN0X3JlcyhUV0FSTiB8IFRF
-UlJOTywgInVtb3VudCAlcyIsIG1udF9wYXRoKTsKKwlpZiAocm1kaXIobW50X3BhdGgpID09IC0x
-KQorCQl0c3RfcmVzKFRXQVJOIHwgVEVSUk5PLCAicm1kaXIgJXMiLCBtbnRfcGF0aCk7CisKKwlp
-ZiAodHN0X2NnX3ZlciAmIFRTVF9DR1JPVVBfVjEpCisJCXRzdF9yZXMoVElORk8sICJDZ3JvdXAg
-djEgdW5tb3VudCBzdWNjZXNzIik7CisJaWYgKHRzdF9jZ192ZXIgJiBUU1RfQ0dST1VQX1YyKQor
-CQl0c3RfcmVzKFRJTkZPLCAiQ2dyb3VwIHYyIHVubW91bnQgc3VjY2VzcyIpOworfQorCitzdHJ1
-Y3QgdHN0X2Nncm91cF9wYXRoIHsKKwljaGFyICptbnRfcGF0aDsKKwljaGFyICpuZXdfcGF0aDsK
-KwlzdHJ1Y3QgdHN0X2Nncm91cF9wYXRoICpuZXh0OworfTsKKworc3RhdGljIHN0cnVjdCB0c3Rf
-Y2dyb3VwX3BhdGggKnRzdF9jZ3JvdXBfcGF0aHM7CisKK3N0YXRpYyB2b2lkIHRzdF9jZ3JvdXBf
-c2V0X3BhdGgoY29uc3QgY2hhciAqY2dyb3VwX2RpcikKK3sKKwljaGFyIGNncm91cF9uZXdfZGly
-W1BBVEhfTUFYXTsKKwlzdHJ1Y3QgdHN0X2Nncm91cF9wYXRoICp0c3RfY2dyb3VwX3BhdGgsICph
-OworCisJaWYgKCFjZ3JvdXBfZGlyKQorCQl0c3RfYnJrKFRCUk9LLCAiSW52YWxpZCBjZ3JvdXAg
-ZGlyLCBwbGVzZSBjaGVjayBjZ3JvdXBfZGlyIik7CisKKwlzcHJpbnRmKGNncm91cF9uZXdfZGly
-LCAiJXMvbHRwXyVkIiwgY2dyb3VwX2RpciwgcmFuZCgpKTsKKworCS8qIFRvIHN0b3JlIGNncm91
-cCBwYXRoIGluIHRoZSAncGF0aCcgbGlzdCAqLworCXRzdF9jZ3JvdXBfcGF0aCA9IFNBRkVfTU1B
-UChOVUxMLCAoc2l6ZW9mKHN0cnVjdCB0c3RfY2dyb3VwX3BhdGgpKSwKKwkJCVBST1RfUkVBRCB8
-IFBST1RfV1JJVEUsIE1BUF9QUklWQVRFIHwgTUFQX0FOT05ZTU9VUywgLTEsIDApOworCXRzdF9j
-Z3JvdXBfcGF0aC0+bW50X3BhdGggPSBTQUZFX01NQVAoTlVMTCwgKHN0cmxlbihjZ3JvdXBfZGly
-KSArIDEpLAorCQkJUFJPVF9SRUFEIHwgUFJPVF9XUklURSwgTUFQX1BSSVZBVEUgfCBNQVBfQU5P
-TllNT1VTLCAtMSwgMCk7CisJdHN0X2Nncm91cF9wYXRoLT5uZXdfcGF0aCA9IFNBRkVfTU1BUChO
-VUxMLCAoc3RybGVuKGNncm91cF9uZXdfZGlyKSArIDEpLAorCQkJUFJPVF9SRUFEIHwgUFJPVF9X
-UklURSwgTUFQX1BSSVZBVEUgfCBNQVBfQU5PTllNT1VTLCAtMSwgMCk7CisKKwlpZiAoIXRzdF9j
-Z3JvdXBfcGF0aHMpIHsKKwkJdHN0X2Nncm91cF9wYXRocyA9IHRzdF9jZ3JvdXBfcGF0aDsKKwl9
-IGVsc2UgeworCQlhID0gdHN0X2Nncm91cF9wYXRoczsKKwkJZG8geworCQkJaWYgKCFhLT5uZXh0
-KSB7CisJCQkJYS0+bmV4dCA9IHRzdF9jZ3JvdXBfcGF0aDsKKwkJCQlicmVhazsKKwkJCX0KKwkJ
-CWEgPSBhLT5uZXh0OworCQl9IHdoaWxlIChhKTsKKwl9CisKKwlzcHJpbnRmKHRzdF9jZ3JvdXBf
-cGF0aC0+bW50X3BhdGgsICIlcyIsIGNncm91cF9kaXIpOworCXNwcmludGYodHN0X2Nncm91cF9w
-YXRoLT5uZXdfcGF0aCwgIiVzIiwgY2dyb3VwX25ld19kaXIpOworfQorCitzdGF0aWMgY2hhciAq
-dHN0X2Nncm91cF9nZXRfcGF0aChjb25zdCBjaGFyICpjZ3JvdXBfZGlyKQoreworCXN0cnVjdCB0
-c3RfY2dyb3VwX3BhdGggKmE7CisKKwlpZiAoIXRzdF9jZ3JvdXBfcGF0aHMpCisJCXJldHVybiBO
-VUxMOworCisJYSA9IHRzdF9jZ3JvdXBfcGF0aHM7CisKKwl3aGlsZSAoc3RyY21wKGEtPm1udF9w
-YXRoLCBjZ3JvdXBfZGlyKSAhPSAwKXsKKwkJaWYgKCFhLT5uZXh0KSB7CisJCQl0c3RfcmVzKFRJ
-TkZPLCAiJXMgaXMgbm90IGZvdW5kIiwgY2dyb3VwX2Rpcik7CisJCQlyZXR1cm4gTlVMTDsKKwkJ
-fQorCQlhID0gYS0+bmV4dDsKKwl9OworCisJcmV0dXJuIGEtPm5ld19wYXRoOworfQorCitzdGF0
-aWMgdm9pZCB0c3RfY2dyb3VwX2RlbF9wYXRoKGNvbnN0IGNoYXIgKmNncm91cF9kaXIpCit7CisJ
-c3RydWN0IHRzdF9jZ3JvdXBfcGF0aCAqYSwgKmI7CisKKwlpZiAodHN0X2Nncm91cF9wYXRocykK
-KwkJcmV0dXJuOworCisJYSA9IGIgPSB0c3RfY2dyb3VwX3BhdGhzOworCisJd2hpbGUgKHN0cmNt
-cChiLT5tbnRfcGF0aCwgY2dyb3VwX2RpcikgIT0gMCkgeworCQlpZiAoIWItPm5leHQpIHsKKwkJ
-CXRzdF9yZXMoVElORk8sICIlcyBpcyBub3QgZm91bmQiLCBjZ3JvdXBfZGlyKTsKKwkJCXJldHVy
-bjsKKwkJfQorCQlhID0gYjsKKwkJYiA9IGItPm5leHQ7CisJfTsKKworCWlmIChiID09IHRzdF9j
-Z3JvdXBfcGF0aHMpCisJCXRzdF9jZ3JvdXBfcGF0aHMgPSBiLT5uZXh0OworCWVsc2UKKwkJYS0+
-bmV4dCA9IGItPm5leHQ7CisKKwlTQUZFX01VTk1BUChiLT5tbnRfcGF0aCwgc2l6ZW9mKGItPm1u
-dF9wYXRoKSk7CisJU0FGRV9NVU5NQVAoYi0+bmV3X3BhdGgsIHNpemVvZihiLT5uZXdfcGF0aCkp
-OworCVNBRkVfTVVOTUFQKGIsIHNpemVvZihiKSk7Cit9CisKK3ZvaWQgdHN0X2Nncm91cF9tb3Vu
-dChlbnVtIHRzdF9jZ3JvdXBfY3RybCBjdHJsLCBjb25zdCBjaGFyICpjZ3JvdXBfZGlyKQorewor
-CWNoYXIgKmNncm91cF9uZXdfZGlyOworCWNoYXIga25vYl9wYXRoW1BBVEhfTUFYXTsKKworCXRz
-dF9jZ192ZXIgPSB0c3RfY2dyb3VwX3ZlcnNpb24oKTsKKworCXRzdF9jZ3JvdXBfc2V0X3BhdGgo
-Y2dyb3VwX2Rpcik7CisJY2dyb3VwX25ld19kaXIgPSB0c3RfY2dyb3VwX2dldF9wYXRoKGNncm91
-cF9kaXIpOworCisJaWYgKHRzdF9jZ192ZXIgJiBUU1RfQ0dST1VQX1YxKSB7CisJCXN3aXRjaChj
-dHJsKSB7CisJCWNhc2UgVFNUX0NHUk9VUF9NRU1DRzoKKwkJCXRzdF9jZ3JvdXAxX21vdW50KCJt
-ZW1jZyIsICJtZW1vcnkiLCBjZ3JvdXBfZGlyLCBjZ3JvdXBfbmV3X2Rpcik7CisJCWJyZWFrOwor
-CQljYXNlIFRTVF9DR1JPVVBfQ1BVU0VUOgorCQkJdHN0X2Nncm91cDFfbW91bnQoImNwdXNldGNn
-IiwgImNwdXNldCIsIGNncm91cF9kaXIsIGNncm91cF9uZXdfZGlyKTsKKwkJYnJlYWs7CisJCWRl
-ZmF1bHQ6CisJCQl0c3RfYnJrKFRCUk9LLCAiSW52YWxpZCBjZ3JvdXAgY29udHJvbGxlcjogJWQi
-LCBjdHJsKTsKKwkJfQorCX0KKworCWlmICh0c3RfY2dfdmVyICYgVFNUX0NHUk9VUF9WMikgewor
-CQl0c3RfY2dyb3VwMl9tb3VudChjZ3JvdXBfZGlyLCBjZ3JvdXBfbmV3X2Rpcik7CisKKwkJc3dp
-dGNoKGN0cmwpIHsKKwkJY2FzZSBUU1RfQ0dST1VQX01FTUNHOgorCQkJc3ByaW50Zihrbm9iX3Bh
-dGgsICIlcy9jZ3JvdXAuc3VidHJlZV9jb250cm9sIiwgY2dyb3VwX2Rpcik7CisJCQlTQUZFX0ZJ
-TEVfUFJJTlRGKGtub2JfcGF0aCwgIiVzIiwgIittZW1vcnkiKTsKKwkJYnJlYWs7CisJCWNhc2Ug
-VFNUX0NHUk9VUF9DUFVTRVQ6CisJCQl0c3RfYnJrKFRDT05GLCAiQ2dyb3VwIHYyIGhhc24ndCBh
-Y2hpZXZlIGNwdXNldCBzdWJzeXN0ZW0iKTsKKwkJYnJlYWs7CisJCWRlZmF1bHQ6CisJCQl0c3Rf
-YnJrKFRCUk9LLCAiSW52YWxpZCBjZ3JvdXAgY29udHJvbGxlcjogJWQiLCBjdHJsKTsKKwkJfQor
-CX0KK30KKwordm9pZCB0c3RfY2dyb3VwX3Vtb3VudChjb25zdCBjaGFyICpjZ3JvdXBfZGlyKQor
-eworCWNoYXIgKmNncm91cF9uZXdfZGlyOworCisJY2dyb3VwX25ld19kaXIgPSB0c3RfY2dyb3Vw
-X2dldF9wYXRoKGNncm91cF9kaXIpOworCXRzdF9jZ3JvdXBOX3Vtb3VudChjZ3JvdXBfZGlyLCBj
-Z3JvdXBfbmV3X2Rpcik7CisJdHN0X2Nncm91cF9kZWxfcGF0aChjZ3JvdXBfZGlyKTsKK30KKwor
-dm9pZCB0c3RfY2dyb3VwX3NldF9rbm9iKGNvbnN0IGNoYXIgKmNncm91cF9kaXIsIGNvbnN0IGNo
-YXIgKmtub2IsIGxvbmcgdmFsdWUpCit7CisJY2hhciAqY2dyb3VwX25ld19kaXI7CisJY2hhciBr
-bm9iX3BhdGhbUEFUSF9NQVhdOworCisJY2dyb3VwX25ld19kaXIgPSB0c3RfY2dyb3VwX2dldF9w
-YXRoKGNncm91cF9kaXIpOworCXNwcmludGYoa25vYl9wYXRoLCAiJXMvJXMiLCBjZ3JvdXBfbmV3
-X2Rpciwga25vYik7CisJU0FGRV9GSUxFX1BSSU5URihrbm9iX3BhdGgsICIlbGQiLCB2YWx1ZSk7
-Cit9CisKK3ZvaWQgdHN0X2Nncm91cF9tb3ZlX2N1cnJlbnQoY29uc3QgY2hhciAqY2dyb3VwX2Rp
-cikKK3sKKwlpZiAodHN0X2NnX3ZlciAmIFRTVF9DR1JPVVBfVjEpCisJCXRzdF9jZ3JvdXBfc2V0
-X2tub2IoY2dyb3VwX2RpciwgInRhc2tzIiwgZ2V0cGlkKCkpOworCisJaWYgKHRzdF9jZ192ZXIg
-JiBUU1RfQ0dST1VQX1YyKQorCQl0c3RfY2dyb3VwX3NldF9rbm9iKGNncm91cF9kaXIsICJjZ3Jv
-dXAucHJvY3MiLCBnZXRwaWQoKSk7Cit9CisKK3ZvaWQgdHN0X2Nncm91cF9tZW1fc2V0X21heGJ5
-dGVzKGNvbnN0IGNoYXIgKmNncm91cF9kaXIsIGxvbmcgbWVtc3opCit7CisJaWYgKHRzdF9jZ192
-ZXIgJiBUU1RfQ0dST1VQX1YxKQorCQl0c3RfY2dyb3VwX3NldF9rbm9iKGNncm91cF9kaXIsICJt
-ZW1vcnkubGltaXRfaW5fYnl0ZXMiLCBtZW1zeik7CisKKwlpZiAodHN0X2NnX3ZlciAmIFRTVF9D
-R1JPVVBfVjIpCisJCXRzdF9jZ3JvdXBfc2V0X2tub2IoY2dyb3VwX2RpciwgIm1lbW9yeS5tYXgi
-LCBtZW1zeik7Cit9CisKK2ludCB0c3RfY2dyb3VwX21lbV9zd2FwYWNjdF9lbmFibGVkKGNvbnN0
-IGNoYXIgKmNncm91cF9kaXIpCit7CisJY2hhciAqY2dyb3VwX25ld19kaXI7CisJY2hhciBrbm9i
-X3BhdGhbUEFUSF9NQVhdOworCisJY2dyb3VwX25ld19kaXIgPSB0c3RfY2dyb3VwX2dldF9wYXRo
-KGNncm91cF9kaXIpOworCisJaWYgKHRzdF9jZ192ZXIgJiBUU1RfQ0dST1VQX1YxKSB7CisJCXNw
-cmludGYoa25vYl9wYXRoLCAiJXMvJXMiLAorCQkJCWNncm91cF9uZXdfZGlyLCAiL21lbW9yeS5t
-ZW1zdy5saW1pdF9pbl9ieXRlcyIpOworCisJCWlmICgoYWNjZXNzKGtub2JfcGF0aCwgRl9PSykg
-PT0gLTEpKSB7CisJCQlpZiAoZXJybm8gPT0gRU5PRU5UKQorCQkJCXRzdF9yZXMoVENPTkYsICJt
-ZW1jZyBzd2FwIGFjY291bnRpbmcgaXMgZGlzYWJsZWQiKTsKKwkJCWVsc2UKKwkJCQl0c3RfYnJr
-KFRCUk9LIHwgVEVSUk5PLCAiZmFpbGVkIHRvIGFjY2VzcyAlcyIsIGtub2JfcGF0aCk7CisJCX0g
-ZWxzZSB7CisJCQlyZXR1cm4gMTsKKwkJfQorCX0KKworCWlmICh0c3RfY2dfdmVyICYgVFNUX0NH
-Uk9VUF9WMikgeworCQlzcHJpbnRmKGtub2JfcGF0aCwgIiVzLyVzIiwKKwkJCQljZ3JvdXBfbmV3
-X2RpciwgIi9tZW1vcnkuc3dhcC5tYXgiKTsKKworCQlpZiAoKGFjY2Vzcyhrbm9iX3BhdGgsIEZf
-T0spID09IC0xKSkgeworCQkJaWYgKGVycm5vID09IEVOT0VOVCkKKwkJCQl0c3RfcmVzKFRDT05G
-LCAibWVtY2cgc3dhcCBhY2NvdW50aW5nIGlzIGRpc2FibGVkIik7CisJCQllbHNlCisJCQkJdHN0
-X2JyayhUQlJPSyB8IFRFUlJOTywgImZhaWxlZCB0byBhY2Nlc3MgJXMiLCBrbm9iX3BhdGgpOwor
-CQl9IGVsc2UgeworCQkJcmV0dXJuIDE7CisJCX0KKwl9CisKKwlyZXR1cm4gMDsKK30KKwordm9p
-ZCB0c3RfY2dyb3VwX21lbV9zZXRfbWF4c3dhcChjb25zdCBjaGFyICpjZ3JvdXBfZGlyLCBsb25n
-IG1lbXN6KQoreworCWlmICh0c3RfY2dfdmVyICYgVFNUX0NHUk9VUF9WMSkKKwkJdHN0X2Nncm91
-cF9zZXRfa25vYihjZ3JvdXBfZGlyLCAibWVtb3J5Lm1lbXN3LmxpbWl0X2luX2J5dGVzIiwgbWVt
-c3opOworCisJaWYgKHRzdF9jZ192ZXIgJiBUU1RfQ0dST1VQX1YyKQorCQl0c3RfY2dyb3VwX3Nl
-dF9rbm9iKGNncm91cF9kaXIsICJtZW1vcnkuc3dhcC5tYXgiLCBtZW1zeik7Cit9CisKK3ZvaWQg
-dHN0X2Nncm91cF9jcHVzZXRfcmVhZF9maWxlcyhjb25zdCBjaGFyICpjZ3JvdXBfZGlyLCBjb25z
-dCBjaGFyICpmaWxlbmFtZSwgY2hhciAqcmV0YnVmKQoreworCWludCBmZDsKKwljaGFyICpjZ3Jv
-dXBfbmV3X2RpcjsKKwljaGFyIGtub2JfcGF0aFtQQVRIX01BWF07CisKKwljZ3JvdXBfbmV3X2Rp
-ciA9IHRzdF9jZ3JvdXBfZ2V0X3BhdGgoY2dyb3VwX2Rpcik7CisKKwkvKgorCSAqIHRyeSBlaXRo
-ZXIgJy9kZXYvY3B1c2V0L1hYWFgnIG9yICcvZGV2L2NwdXNldC9jcHVzZXQuWFhYWCcKKwkgKiBw
-bGVhc2Ugc2VlIERvY3VtZW50YXRpb24vY2dyb3Vwcy9jcHVzZXRzLnR4dCBmcm9tIGtlcm5lbCBz
-cmMKKwkgKiBmb3IgZGV0YWlscworCSAqLworCXNwcmludGYoa25vYl9wYXRoLCAiJXMvJXMiLCBj
-Z3JvdXBfbmV3X2RpciwgZmlsZW5hbWUpOworCWZkID0gb3Blbihrbm9iX3BhdGgsIE9fUkRPTkxZ
-KTsKKwlpZiAoZmQgPT0gLTEpIHsKKwkJaWYgKGVycm5vID09IEVOT0VOVCkgeworCQkJc3ByaW50
-Zihrbm9iX3BhdGgsICIlcy9jcHVzZXQuJXMiLAorCQkJCQljZ3JvdXBfbmV3X2RpciwgZmlsZW5h
-bWUpOworCQkJZmQgPSBTQUZFX09QRU4oa25vYl9wYXRoLCBPX1JET05MWSk7CisJCX0gZWxzZQor
-CQkJdHN0X2JyayhUQlJPSyB8IFRFUlJOTywgIm9wZW4gJXMiLCBrbm9iX3BhdGgpOworCX0KKwor
-CWlmIChyZWFkKGZkLCByZXRidWYsIHNpemVvZihyZXRidWYpKSA8IDApCisJCXRzdF9icmsoVEJS
-T0sgfCBURVJSTk8sICJyZWFkICVzIiwga25vYl9wYXRoKTsKKworCWNsb3NlKGZkKTsKK30KKwor
-dm9pZCB0c3RfY2dyb3VwX2NwdXNldF93cml0ZV9maWxlcyhjb25zdCBjaGFyICpjZ3JvdXBfZGly
-LCBjb25zdCBjaGFyICpmaWxlbmFtZSwgY29uc3QgY2hhciAqYnVmKQoreworCWludCBmZDsKKwlj
-aGFyICpjZ3JvdXBfbmV3X2RpcjsKKwljaGFyIGtub2JfcGF0aFtQQVRIX01BWF07CisKKwljZ3Jv
-dXBfbmV3X2RpciA9IHRzdF9jZ3JvdXBfZ2V0X3BhdGgoY2dyb3VwX2Rpcik7CisKKwkvKgorCSAq
-IHRyeSBlaXRoZXIgJy9kZXYvY3B1c2V0L1hYWFgnIG9yICcvZGV2L2NwdXNldC9jcHVzZXQuWFhY
-WCcKKwkgKiBwbGVhc2Ugc2VlIERvY3VtZW50YXRpb24vY2dyb3Vwcy9jcHVzZXRzLnR4dCBmcm9t
-IGtlcm5lbCBzcmMKKwkgKiBmb3IgZGV0YWlscworCSAqLworCXNwcmludGYoa25vYl9wYXRoLCAi
-JXMvJXMiLCBjZ3JvdXBfbmV3X2RpciwgZmlsZW5hbWUpOworCWZkID0gb3Blbihrbm9iX3BhdGgs
-IE9fV1JPTkxZKTsKKwlpZiAoZmQgPT0gLTEpIHsKKwkJaWYgKGVycm5vID09IEVOT0VOVCkgewor
-CQkJc3ByaW50Zihrbm9iX3BhdGgsICIlcy9jcHVzZXQuJXMiLCBjZ3JvdXBfbmV3X2RpciwgZmls
-ZW5hbWUpOworCQkJZmQgPSBTQUZFX09QRU4oa25vYl9wYXRoLCBPX1dST05MWSk7CisJCX0gZWxz
-ZQorCQkJdHN0X2JyayhUQlJPSyB8IFRFUlJOTywgIm9wZW4gJXMiLCBrbm9iX3BhdGgpOworCX0K
-KworCVNBRkVfV1JJVEUoMSwgZmQsIGJ1Ziwgc3RybGVuKGJ1ZikpOworCisJY2xvc2UoZmQpOwor
-fQotLSAKMi4yMS4xCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4
-Lml0L2xpc3RpbmZvL2x0cAo=
+For issue #611:
+  https://github.com/linux-test-project/ltp/issues/611
+
+Signed-off-by: Li Wang <liwang@redhat.com>
+---
+ testcases/kernel/mem/cpuset/cpuset01.c | 19 +++++++------
+ testcases/kernel/mem/include/mem.h     |  3 +-
+ testcases/kernel/mem/ksm/ksm02.c       | 12 ++++----
+ testcases/kernel/mem/ksm/ksm03.c       | 12 +++-----
+ testcases/kernel/mem/ksm/ksm04.c       | 21 ++++++--------
+ testcases/kernel/mem/lib/mem.c         | 10 +++----
+ testcases/kernel/mem/oom/oom03.c       | 22 ++++-----------
+ testcases/kernel/mem/oom/oom04.c       | 14 ++++-----
+ testcases/kernel/mem/oom/oom05.c       | 39 ++++++++------------------
+ 9 files changed, 57 insertions(+), 95 deletions(-)
+
+diff --git a/testcases/kernel/mem/cpuset/cpuset01.c b/testcases/kernel/mem/cpuset/cpuset01.c
+index 853f7fe55..8b1b6fcdf 100644
+--- a/testcases/kernel/mem/cpuset/cpuset01.c
++++ b/testcases/kernel/mem/cpuset/cpuset01.c
+@@ -51,11 +51,11 @@ static void test_cpuset(void)
+ 	unsigned long nmask[MAXNODES / BITS_PER_LONG] = { 0 };
+ 	char mems[BUFSIZ], buf[BUFSIZ];
+ 
+-	read_cpuset_files(CPATH, "cpus", buf);
+-	write_cpuset_files(CPATH_NEW, "cpus", buf);
+-	read_cpuset_files(CPATH, "mems", mems);
+-	write_cpuset_files(CPATH_NEW, "mems", mems);
+-	SAFE_FILE_PRINTF(CPATH_NEW "/tasks", "%d", getpid());
++	tst_cgroup_move_current(PATH_TMP_CG_CST);
++	tst_cgroup_cpuset_read_files(PATH_TMP_CG_CST, "cpus", buf);
++	tst_cgroup_cpuset_write_files(PATH_TMP_CG_CST, "cpus", buf);
++	tst_cgroup_cpuset_read_files(PATH_TMP_CG_CST, "mems", mems);
++	tst_cgroup_cpuset_write_files(PATH_TMP_CG_CST, "mems", mems);
+ 
+ 	child = SAFE_FORK();
+ 	if (child == 0) {
+@@ -70,9 +70,9 @@ static void test_cpuset(void)
+ 	}
+ 
+ 	snprintf(buf, BUFSIZ, "%d", nodes[0]);
+-	write_cpuset_files(CPATH_NEW, "mems", buf);
++	tst_cgroup_cpuset_write_files(PATH_TMP_CG_CST, "mems", buf);
+ 	snprintf(buf, BUFSIZ, "%d", nodes[1]);
+-	write_cpuset_files(CPATH_NEW, "mems", buf);
++	tst_cgroup_cpuset_write_files(PATH_TMP_CG_CST, "mems", buf);
+ 
+ 	SAFE_WAITPID(child, &status, WUNTRACED | WCONTINUED);
+ 	if (WEXITSTATUS(status) != 0) {
+@@ -85,7 +85,7 @@ static void test_cpuset(void)
+ 
+ static void setup(void)
+ {
+-	mount_mem("cpuset", "cpuset", NULL, CPATH, CPATH_NEW);
++	tst_cgroup_mount(TST_CGROUP_CPUSET, PATH_TMP_CG_CST);
+ 	ncpus = count_cpu();
+ 	if (get_allowed_nodes_arr(NH_MEMS | NH_CPUS, &nnodes, &nodes) < 0)
+ 		tst_brk(TBROK | TERRNO, "get_allowed_nodes_arr");
+@@ -95,7 +95,7 @@ static void setup(void)
+ 
+ static void cleanup(void)
+ {
+-	umount_mem(CPATH, CPATH_NEW);
++	tst_cgroup_umount(PATH_TMP_CG_CST);
+ }
+ 
+ static void sighandler(int signo LTP_ATTRIBUTE_UNUSED)
+@@ -183,6 +183,7 @@ static long count_cpu(void)
+ 
+ static struct tst_test test = {
+ 	.needs_root = 1,
++	.forks_child = 1,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.test_all = test_cpuset,
+diff --git a/testcases/kernel/mem/include/mem.h b/testcases/kernel/mem/include/mem.h
+index cce9c0497..c5dca1d9b 100644
+--- a/testcases/kernel/mem/include/mem.h
++++ b/testcases/kernel/mem/include/mem.h
+@@ -2,6 +2,7 @@
+ #define _MEM_H
+ #include "config.h"
+ #include "tst_test.h"
++#include "tst_cgroup.h"
+ #include "ksm_helper.h"
+ 
+ #if defined(__powerpc__) || defined(__powerpc64__)
+@@ -74,7 +75,7 @@ void write_memcg(void);
+ 
+ void read_cpuset_files(char *prefix, char *filename, char *retbuf);
+ void write_cpuset_files(char *prefix, char *filename, char *buf);
+-void write_cpusets(long nd);
++void write_cpusets(const char *cgroup_dir, long nd);
+ void mount_mem(char *name, char *fs, char *options, char *path, char *path_new);
+ void umount_mem(char *path, char *path_new);
+ 
+diff --git a/testcases/kernel/mem/ksm/ksm02.c b/testcases/kernel/mem/ksm/ksm02.c
+index 3d4c19deb..771f4dd65 100644
+--- a/testcases/kernel/mem/ksm/ksm02.c
++++ b/testcases/kernel/mem/ksm/ksm02.c
+@@ -59,13 +59,13 @@
+ #ifdef HAVE_NUMA_V2
+ #include <numaif.h>
+ 
+-static int cpuset_mounted;
+-
+ static void verify_ksm(void)
+ {
+ 	unsigned long nmask[MAXNODES / BITS_PER_LONG] = { 0 };
+ 	unsigned int node;
+ 
++	tst_cgroup_move_current(PATH_TMP_CG_CST);
++
+ 	node = get_a_numa_node();
+ 	set_node(nmask, node);
+ 
+@@ -78,7 +78,7 @@ static void verify_ksm(void)
+ 	}
+ 	create_same_memory(size, num, unit);
+ 
+-	write_cpusets(node);
++	write_cpusets(PATH_TMP_CG_CST, node);
+ 	create_same_memory(size, num, unit);
+ }
+ 
+@@ -88,8 +88,7 @@ static void cleanup(void)
+ 		FILE_PRINTF(PATH_KSM "merge_across_nodes",
+ 				 "%d", merge_across_nodes);
+ 
+-	if (cpuset_mounted)
+-		umount_mem(CPATH, CPATH_NEW);
++	tst_cgroup_umount(PATH_TMP_CG_CST);
+ }
+ 
+ static void setup(void)
+@@ -105,8 +104,7 @@ static void setup(void)
+ 		SAFE_FILE_PRINTF(PATH_KSM "merge_across_nodes", "1");
+ 	}
+ 
+-	mount_mem("cpuset", "cpuset", NULL, CPATH, CPATH_NEW);
+-	cpuset_mounted = 1;
++	tst_cgroup_mount(TST_CGROUP_CPUSET, PATH_TMP_CG_CST);
+ }
+ 
+ static struct tst_test test = {
+diff --git a/testcases/kernel/mem/ksm/ksm03.c b/testcases/kernel/mem/ksm/ksm03.c
+index 0e5131654..cc3695e95 100644
+--- a/testcases/kernel/mem/ksm/ksm03.c
++++ b/testcases/kernel/mem/ksm/ksm03.c
+@@ -59,11 +59,10 @@
+ #include "mem.h"
+ #include "ksm_common.h"
+ 
+-static int memcg_mounted;
+-
+ static void verify_ksm(void)
+ {
+-	write_memcg();
++	tst_cgroup_move_current(PATH_TMP_CG_MEM);
++	tst_cgroup_mem_set_maxbytes(PATH_TMP_CG_MEM, TESTMEM);
+ 	create_same_memory(size, num, unit);
+ }
+ 
+@@ -79,8 +78,7 @@ static void setup(void)
+ 	}
+ 
+ 	parse_ksm_options(opt_sizestr, &size, opt_numstr, &num, opt_unitstr, &unit);
+-	mount_mem("memcg", "cgroup", "memory", MEMCG_PATH, MEMCG_PATH_NEW);
+-	memcg_mounted = 1;
++	tst_cgroup_mount(TST_CGROUP_MEMCG, PATH_TMP_CG_MEM);
+ }
+ 
+ static void cleanup(void)
+@@ -88,9 +86,7 @@ static void cleanup(void)
+ 	if (access(PATH_KSM "merge_across_nodes", F_OK) == 0)
+ 		FILE_PRINTF(PATH_KSM "merge_across_nodes",
+ 				 "%d", merge_across_nodes);
+-
+-	if (memcg_mounted)
+-		umount_mem(MEMCG_PATH, MEMCG_PATH_NEW);
++	tst_cgroup_umount(PATH_TMP_CG_MEM);
+ }
+ 
+ static struct tst_test test = {
+diff --git a/testcases/kernel/mem/ksm/ksm04.c b/testcases/kernel/mem/ksm/ksm04.c
+index e393dbd40..8af529d91 100644
+--- a/testcases/kernel/mem/ksm/ksm04.c
++++ b/testcases/kernel/mem/ksm/ksm04.c
+@@ -59,9 +59,6 @@
+ #ifdef HAVE_NUMA_V2
+ #include <numaif.h>
+ 
+-static int cpuset_mounted;
+-static int memcg_mounted;
+-
+ static void verify_ksm(void)
+ {
+ 	unsigned long nmask[MAXNODES / BITS_PER_LONG] = { 0 };
+@@ -70,7 +67,8 @@ static void verify_ksm(void)
+ 	node = get_a_numa_node();
+ 	set_node(nmask, node);
+ 
+-	write_memcg();
++	tst_cgroup_move_current(PATH_TMP_CG_MEM);
++	tst_cgroup_mem_set_maxbytes(PATH_TMP_CG_MEM, TESTMEM);
+ 
+ 	if (set_mempolicy(MPOL_BIND, nmask, MAXNODES) == -1) {
+ 		if (errno != ENOSYS)
+@@ -81,7 +79,8 @@ static void verify_ksm(void)
+ 	}
+ 	create_same_memory(size, num, unit);
+ 
+-	write_cpusets(node);
++	tst_cgroup_move_current(PATH_TMP_CG_CST);
++	write_cpusets(PATH_TMP_CG_CST, node);
+ 	create_same_memory(size, num, unit);
+ }
+ 
+@@ -91,10 +90,8 @@ static void cleanup(void)
+ 		FILE_PRINTF(PATH_KSM "merge_across_nodes",
+ 				 "%d", merge_across_nodes);
+ 
+-	if (cpuset_mounted)
+-		umount_mem(CPATH, CPATH_NEW);
+-	if (memcg_mounted)
+-		umount_mem(MEMCG_PATH, MEMCG_PATH_NEW);
++	tst_cgroup_umount(PATH_TMP_CG_MEM);
++	tst_cgroup_umount(PATH_TMP_CG_CST);
+ }
+ 
+ static void setup(void)
+@@ -110,10 +107,8 @@ static void setup(void)
+ 
+ 	parse_ksm_options(opt_sizestr, &size, opt_numstr, &num, opt_unitstr, &unit);
+ 
+-	mount_mem("cpuset", "cpuset", NULL, CPATH, CPATH_NEW);
+-	cpuset_mounted = 1;
+-	mount_mem("memcg", "cgroup", "memory", MEMCG_PATH, MEMCG_PATH_NEW);
+-	memcg_mounted = 1;
++	tst_cgroup_mount(TST_CGROUP_MEMCG, PATH_TMP_CG_MEM);
++	tst_cgroup_mount(TST_CGROUP_CPUSET, PATH_TMP_CG_CST);
+ }
+ 
+ static struct tst_test test = {
+diff --git a/testcases/kernel/mem/lib/mem.c b/testcases/kernel/mem/lib/mem.c
+index eca4c61c8..50bee39cb 100644
+--- a/testcases/kernel/mem/lib/mem.c
++++ b/testcases/kernel/mem/lib/mem.c
+@@ -686,13 +686,13 @@ void write_cpuset_files(char *prefix, char *filename, char *buf)
+ 	close(fd);
+ }
+ 
+-void write_cpusets(long nd)
++void write_cpusets(const char *cgroup_dir, long nd)
+ {
+ 	char buf[BUFSIZ];
+ 	char cpus[BUFSIZ] = "";
+ 
+ 	snprintf(buf, BUFSIZ, "%ld", nd);
+-	write_cpuset_files(CPATH_NEW, "mems", buf);
++	tst_cgroup_cpuset_write_files(cgroup_dir, "mems", buf);
+ 
+ 	gather_node_cpus(cpus, nd);
+ 	/*
+@@ -701,14 +701,12 @@ void write_cpusets(long nd)
+ 	 * the value of cpuset.cpus.
+ 	 */
+ 	if (strlen(cpus) != 0) {
+-		write_cpuset_files(CPATH_NEW, "cpus", cpus);
++		tst_cgroup_cpuset_write_files(cgroup_dir, "cpus", cpus);
+ 	} else {
+ 		tst_res(TINFO, "No CPUs in the node%ld; "
+ 				"using only CPU0", nd);
+-		write_cpuset_files(CPATH_NEW, "cpus", "0");
++		tst_cgroup_cpuset_write_files(cgroup_dir, "cpus", "0");
+ 	}
+-
+-	SAFE_FILE_PRINTF(CPATH_NEW "/tasks", "%d", getpid());
+ }
+ 
+ void umount_mem(char *path, char *path_new)
+diff --git a/testcases/kernel/mem/oom/oom03.c b/testcases/kernel/mem/oom/oom03.c
+index ce0b34c31..fc860c660 100644
+--- a/testcases/kernel/mem/oom/oom03.c
++++ b/testcases/kernel/mem/oom/oom03.c
+@@ -36,27 +36,19 @@
+ 
+ #ifdef HAVE_NUMA_V2
+ 
+-static int memcg_mounted;
+-
+ static void verify_oom(void)
+ {
+ #ifdef TST_ABI32
+ 	tst_brk(TCONF, "test is not designed for 32-bit system.");
+ #endif
+ 
+-	SAFE_FILE_PRINTF(MEMCG_PATH_NEW "/tasks", "%d", getpid());
+-	SAFE_FILE_PRINTF(MEMCG_LIMIT, "%ld", TESTMEM);
++	tst_cgroup_move_current(PATH_TMP_CG_MEM);
++	tst_cgroup_mem_set_maxbytes(PATH_TMP_CG_MEM, TESTMEM);
+ 
+ 	testoom(0, 0, ENOMEM, 1);
+ 
+-	if (access(MEMCG_SW_LIMIT, F_OK) == -1) {
+-		if (errno == ENOENT)
+-			tst_res(TCONF,
+-				"memcg swap accounting is disabled");
+-		else
+-			tst_brk(TBROK | TERRNO, "access");
+-	} else {
+-		SAFE_FILE_PRINTF(MEMCG_SW_LIMIT, "%ld", TESTMEM);
++	if (tst_cgroup_mem_swapacct_enabled(PATH_TMP_CG_MEM)) {
++		tst_cgroup_mem_set_maxswap(PATH_TMP_CG_MEM, TESTMEM);
+ 		testoom(0, 1, ENOMEM, 1);
+ 	}
+ 
+@@ -73,16 +65,14 @@ static void setup(void)
+ {
+ 	overcommit = get_sys_tune("overcommit_memory");
+ 	set_sys_tune("overcommit_memory", 1, 1);
+-	mount_mem("memcg", "cgroup", "memory", MEMCG_PATH, MEMCG_PATH_NEW);
+-	memcg_mounted = 1;
++	tst_cgroup_mount(TST_CGROUP_MEMCG, PATH_TMP_CG_MEM);
+ }
+ 
+ static void cleanup(void)
+ {
+ 	if (overcommit != -1)
+ 		set_sys_tune("overcommit_memory", overcommit, 0);
+-	if (memcg_mounted)
+-		umount_mem(MEMCG_PATH, MEMCG_PATH_NEW);
++	tst_cgroup_umount(PATH_TMP_CG_MEM);
+ }
+ 
+ static struct tst_test test = {
+diff --git a/testcases/kernel/mem/oom/oom04.c b/testcases/kernel/mem/oom/oom04.c
+index 7185ef973..582663275 100644
+--- a/testcases/kernel/mem/oom/oom04.c
++++ b/testcases/kernel/mem/oom/oom04.c
+@@ -36,14 +36,14 @@
+ 
+ #ifdef HAVE_NUMA_V2
+ 
+-static int cpuset_mounted;
+-
+ static void verify_oom(void)
+ {
+ #ifdef TST_ABI32
+ 	tst_brk(TCONF, "test is not designed for 32-bit system.");
+ #endif
+ 
++	tst_cgroup_move_current(PATH_TMP_CG_CST);
++
+ 	tst_res(TINFO, "OOM on CPUSET...");
+ 	testoom(0, 0, ENOMEM, 1);
+ 
+@@ -53,7 +53,7 @@ static void verify_oom(void)
+ 		 * is in charge of cpuset.memory_migrate, we can write
+ 		 * 1 to cpuset.memory_migrate to enable the migration.
+ 		 */
+-		write_cpuset_files(CPATH_NEW, "memory_migrate", "1");
++		tst_cgroup_cpuset_write_files(PATH_TMP_CG_CST, "memory_migrate", "1");
+ 		tst_res(TINFO, "OOM on CPUSET with mem migrate:");
+ 		testoom(0, 0, ENOMEM, 1);
+ 	}
+@@ -69,8 +69,7 @@ static void setup(void)
+ 	overcommit = get_sys_tune("overcommit_memory");
+ 	set_sys_tune("overcommit_memory", 1, 1);
+ 
+-	mount_mem("cpuset", "cpuset", NULL, CPATH, CPATH_NEW);
+-	cpuset_mounted = 1;
++	tst_cgroup_mount(TST_CGROUP_CPUSET, PATH_TMP_CG_CST);
+ 
+ 	/*
+ 	 * Some nodes do not contain memory, so use
+@@ -82,15 +81,14 @@ static void setup(void)
+ 	if (ret < 0)
+ 		tst_brk(TBROK, "Failed to get a memory node "
+ 			      "using get_allowed_nodes()");
+-	write_cpusets(memnode);
++	write_cpusets(PATH_TMP_CG_CST, memnode);
+ }
+ 
+ static void cleanup(void)
+ {
+ 	if (overcommit != -1)
+ 		set_sys_tune("overcommit_memory", overcommit, 0);
+-	if (cpuset_mounted)
+-		umount_mem(CPATH, CPATH_NEW);
++	tst_cgroup_umount(PATH_TMP_CG_CST);
+ }
+ 
+ static struct tst_test test = {
+diff --git a/testcases/kernel/mem/oom/oom05.c b/testcases/kernel/mem/oom/oom05.c
+index db24df6de..871f302e3 100644
+--- a/testcases/kernel/mem/oom/oom05.c
++++ b/testcases/kernel/mem/oom/oom05.c
+@@ -36,18 +36,16 @@
+ 
+ #ifdef HAVE_NUMA_V2
+ 
+-static int memcg_mounted;
+-static int cpuset_mounted;
+-
+ static void verify_oom(void)
+ {
+-	int swap_acc_on = 1;
+-
+ #ifdef TST_ABI32
+ 	tst_brk(TCONF, "test is not designed for 32-bit system.");
+ #endif
+ 
+ 	tst_res(TINFO, "OOM on CPUSET & MEMCG...");
++	tst_cgroup_move_current(PATH_TMP_CG_MEM);
++	tst_cgroup_move_current(PATH_TMP_CG_CST);
++	tst_cgroup_mem_set_maxbytes(PATH_TMP_CG_MEM, TESTMEM);
+ 	testoom(0, 0, ENOMEM, 1);
+ 
+ 	/*
+@@ -56,29 +54,21 @@ static void verify_oom(void)
+ 	 * 1 to cpuset.memory_migrate to enable the migration.
+ 	 */
+ 	if (is_numa(NULL, NH_MEMS, 2)) {
+-		write_cpuset_files(CPATH_NEW, "memory_migrate", "1");
++		tst_cgroup_cpuset_write_files(PATH_TMP_CG_CST, "memory_migrate", "1");
+ 		tst_res(TINFO, "OOM on CPUSET & MEMCG with "
+ 				"cpuset.memory_migrate=1");
+ 		testoom(0, 0, ENOMEM, 1);
+ 	}
+ 
+-	if (access(MEMCG_SW_LIMIT, F_OK) == -1) {
+-		if (errno == ENOENT) {
+-			tst_res(TCONF, "memcg swap accounting is disabled");
+-			swap_acc_on = 0;
+-		} else
+-			tst_brk(TBROK|TERRNO, "access");
+-	}
+-
+-	if (swap_acc_on) {
++	if (tst_cgroup_mem_swapacct_enabled(PATH_TMP_CG_MEM)) {
+ 		tst_res(TINFO, "OOM on CPUSET & MEMCG with "
+ 				"special memswap limitation:");
+-		SAFE_FILE_PRINTF(MEMCG_SW_LIMIT, "%ld", TESTMEM);
++		tst_cgroup_mem_set_maxswap(PATH_TMP_CG_MEM, TESTMEM);
+ 		testoom(0, 0, ENOMEM, 1);
+ 
+ 		tst_res(TINFO, "OOM on CPUSET & MEMCG with "
+ 				"disabled memswap limitation:");
+-		SAFE_FILE_PRINTF(MEMCG_SW_LIMIT, "-1");
++		tst_cgroup_mem_set_maxswap(PATH_TMP_CG_MEM, -1);
+ 		testoom(0, 0, ENOMEM, 1);
+ 	}
+ }
+@@ -93,11 +83,8 @@ void setup(void)
+ 	overcommit = get_sys_tune("overcommit_memory");
+ 	set_sys_tune("overcommit_memory", 1, 1);
+ 
+-	mount_mem("memcg", "cgroup", "memory", MEMCG_PATH, MEMCG_PATH_NEW);
+-	memcg_mounted = 1;
+-	mount_mem("cpuset", "cpuset", NULL, CPATH, CPATH_NEW);
+-	cpuset_mounted = 1;
+-	write_memcg();
++	tst_cgroup_mount(TST_CGROUP_MEMCG, PATH_TMP_CG_MEM);
++	tst_cgroup_mount(TST_CGROUP_CPUSET, PATH_TMP_CG_CST);
+ 
+ 	/*
+ 	 * Some nodes do not contain memory, so use
+@@ -109,17 +96,15 @@ void setup(void)
+ 	if (ret < 0)
+ 		tst_brk(TBROK, "Failed to get a memory node "
+ 			      "using get_allowed_nodes()");
+-	write_cpusets(memnode);
++	write_cpusets(PATH_TMP_CG_CST, memnode);
+ }
+ 
+ void cleanup(void)
+ {
+ 	if (overcommit != -1)
+ 		set_sys_tune("overcommit_memory", overcommit, 0);
+-	if (cpuset_mounted)
+-		umount_mem(CPATH, CPATH_NEW);
+-	if (memcg_mounted)
+-		umount_mem(MEMCG_PATH, MEMCG_PATH_NEW);
++	tst_cgroup_umount(PATH_TMP_CG_MEM);
++	tst_cgroup_umount(PATH_TMP_CG_CST);
+ }
+ 
+ static struct tst_test test = {
+-- 
+2.21.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
