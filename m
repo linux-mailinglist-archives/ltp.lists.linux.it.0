@@ -2,41 +2,34 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A8311F3327
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 06:39:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CB3E1F332B
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 06:47:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E57453C2E45
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 06:39:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 58B073C2E46
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Jun 2020 06:47:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id ABFA43C12D0
- for <ltp@lists.linux.it>; Tue,  9 Jun 2020 06:39:13 +0200 (CEST)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 5D6002005F1
- for <ltp@lists.linux.it>; Tue,  9 Jun 2020 06:39:12 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CDE5B1FB;
- Mon,  8 Jun 2020 21:39:10 -0700 (PDT)
-Received: from [10.163.78.226] (unknown [10.163.78.226])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 677DE3F66F;
- Mon,  8 Jun 2020 21:39:09 -0700 (PDT)
-From: Vikas Kumar <vikas.kumar2@arm.com>
+ by picard.linux.it (Postfix) with ESMTP id 1AF243C12D0
+ for <ltp@lists.linux.it>; Tue,  9 Jun 2020 06:47:16 +0200 (CEST)
+Received: from mail.zilogic.com (mail.zilogic.com [45.33.14.236])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 6F39D2010AA
+ for <ltp@lists.linux.it>; Tue,  9 Jun 2020 06:47:14 +0200 (CEST)
+Date: Tue, 09 Jun 2020 04:46:41 -0000
 To: ltp@lists.linux.it
-References: <20200601053550.3848-1-vikas.kumar2@arm.com>
-Message-ID: <14e7e598-b0aa-5c62-3cb3-726d29e315da@arm.com>
-Date: Tue, 9 Jun 2020 10:09:06 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+Message-ID: <20200609044641.3623-1-kushalchand@zilogic.com>
+From: "Kushal Chand" <kushalchand@zilogic.com>
+Received: from localhost.localdomain (broadband.actcorp.in [49.207.129.164])
+ by mail.zilogic.com; Tue, 09 Jun 2020 04:47:04 -0000
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20200601053550.3848-1-vikas.kumar2@arm.com>
-Content-Language: en-US
 X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=7.0 tests=MSGID_FROM_MTA_HEADER,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V6] syscall: Add io_uring related tests
+Subject: [LTP] [PATCH v2] Added test case to test mmap with
+ MAP_FIXED_NOREPLACE flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,96 +41,169 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: viresh.kumar@linaro.org
-Content-Type: multipart/mixed; boundary="===============0579475706=="
+Cc: "Vijay Kumar B ." <vijaykumar@zilogic.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This is a multi-part message in MIME format.
---===============0579475706==
-Content-Type: multipart/alternative;
- boundary="------------D1AA91E1E370B123803C1287"
-Content-Language: en-US
 
-This is a multi-part message in MIME format.
---------------D1AA91E1E370B123803C1287
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+This patch adds a new test case for the mmap syscall. It tests the
+MAP_FIXED_NOREPLACE flag of mmap. The code checks if MAP_FIXED_NOREPLACE
+returns with EEXIST when mapped with an already mapped address. It does
+so by allocating an available address by passing NULL to first argument
+of mmap and tries to mmap with MAP_FIXED_NOREPLACE flag at the same
+address returned by the first mmap call. This fails as expected. It also
+does the necessary changes required to run the syscall using the runltp
+command after building the LTP test suite.
+Git Hub Issue link - https://github.com/linux-test-project/ltp/issues/299
 
-On 01/06/20 11:05 am, Vikas Kumar wrote:
-> Added asynchronous I/O API tests for io_uring_setup(), io_uring_register()
-> and io_uring_enter(). These tests intend to validate io_uring operations.
->
-> 1. io_uring_setup() creates submission queue and completion queue to
->     perform subsequent operations on the io_uring instance.
-> 2. io_uring_register() registers user buffers in kernel for long term
->     usese.
-> 3. io_uring_enter() initiates I/O operations using the shared SQ and CQ
->     queue.
->
-> Signed-off-by: Vikas Kumar<vikas.kumar2@arm.com>
+Signed-off-by: Kushal Chand <kushalchand@zilogic.com>
+Reviewed-by: Vijay Kumar B. <vijaykumar@zilogic.com>
 
-Gentle reminder. Any updates on this patch ?
+---
+ include/lapi/mmap.h                       | 10 +++
+ runtest/syscalls                          |  1 +
+ testcases/kernel/syscalls/mmap/.gitignore |  1 +
+ testcases/kernel/syscalls/mmap/mmap17.c   | 85 +++++++++++++++++++++++
+ 4 files changed, 97 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/mmap/mmap17.c
 
-- Vikas
+diff --git a/include/lapi/mmap.h b/include/lapi/mmap.h
+index b3db94128..12845b76e 100644
+--- a/include/lapi/mmap.h
++++ b/include/lapi/mmap.h
+@@ -66,6 +66,16 @@
+ # define MADV_KEEPONFORK 19
+ #endif
 
++#ifndef MAP_FIXED_NOREPLACE
++
++#ifdef __alpha__
++# define MAP_FIXED_NOREPLACE 0x200000
++#else
++# define MAP_FIXED_NOREPLACE 0x100000
++#endif
++
++#endif /* MAP_FIXED_NOREPLACE */
++
+ #ifdef HAVE_SYS_SHM_H
+ # include <sys/shm.h>
+ # define MMAP_GRANULARITY SHMLBA
+diff --git a/runtest/syscalls b/runtest/syscalls
+index edd3e8de7..e685037c7 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -745,6 +745,7 @@ mmap14 mmap14
+ #mmap11 mmap11 -i 30000
+ mmap15 mmap15
+ mmap16 mmap16
++mmap17 mmap17
 
-
-
---------------D1AA91E1E370B123803C1287
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 01/06/20 11:05 am, Vikas Kumar
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:20200601053550.3848-1-vikas.kumar2@arm.com">
-      <pre class="moz-quote-pre" wrap="">Added asynchronous I/O API tests for io_uring_setup(), io_uring_register()
-and io_uring_enter(). These tests intend to validate io_uring operations.
-
-1. io_uring_setup() creates submission queue and completion queue to
-   perform subsequent operations on the io_uring instance.
-2. io_uring_register() registers user buffers in kernel for long term
-   usese.
-3. io_uring_enter() initiates I/O operations using the shared SQ and CQ
-   queue.
-
-Signed-off-by: Vikas Kumar <a class="moz-txt-link-rfc2396E" href="mailto:vikas.kumar2@arm.com" moz-do-not-send="true">&lt;vikas.kumar2@arm.com&gt;</a></pre>
-    </blockquote>
-    <p>Gentle reminder. Any updates on this patch ?</p>
-    <p>- Vikas<br>
-    </p>
-    <p><span style="color: rgb(209, 210, 211); font-family: Slack-Lato,
-        appleLogo, sans-serif; font-size: 15px; font-style: normal;
-        font-variant-ligatures: common-ligatures; font-variant-caps:
-        normal; font-weight: 400; letter-spacing: normal; orphans: 2;
-        text-align: left; text-indent: 0px; text-transform: none;
-        white-space: normal; widows: 2; word-spacing: 0px;
-        -webkit-text-stroke-width: 0px; background-color: rgb(34, 37,
-        41); text-decoration-style: initial; text-decoration-color:
-        initial; display: inline !important; float: none;"><br>
-      </span></p>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------D1AA91E1E370B123803C1287--
-
---===============0579475706==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+ modify_ldt01 modify_ldt01
+ modify_ldt02 modify_ldt02
+diff --git a/testcases/kernel/syscalls/mmap/.gitignore b/testcases/kernel/syscalls/mmap/.gitignore
+index 39ed2aab0..c5c083d4b 100644
+--- a/testcases/kernel/syscalls/mmap/.gitignore
++++ b/testcases/kernel/syscalls/mmap/.gitignore
+@@ -15,3 +15,4 @@
+ /mmap14
+ /mmap15
+ /mmap16
++/mmap17
+diff --git a/testcases/kernel/syscalls/mmap/mmap17.c b/testcases/kernel/syscalls/mmap/mmap17.c
+new file mode 100644
+index 000000000..a620f104a
+--- /dev/null
++++ b/testcases/kernel/syscalls/mmap/mmap17.c
+@@ -0,0 +1,85 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) Zilogic Systems Pvt. Ltd., 2020
++ * Email: code@zilogic.com
++ */
++
++/*
++ * Test mmap with MAP_FIXED_NOREPLACE flag
++ *
++ * We are testing the MAP_FIXED_NOREPLACE flag of mmap() syscall. To check
++ * if an attempt to mmap at an exisiting mapping fails with EEXIST.
++ * The code allocates a free address by passing NULL to first mmap call
++ * Then tries to mmap with the same address using MAP_FIXED_NOREPLACE flag
++ * and the mapping fails as expected.
++ */
++
++#include <stdio.h>
++#include <fcntl.h>
++#include <sys/types.h>
++#include <sys/mman.h>
++#include <sys/stat.h>
++#include <unistd.h>
++#include <error.h>
++#include <errno.h>
++#include <string.h>
++#include <stdlib.h>
++#include "tst_test.h"
++
++static int fd_file1;
++static int fd_file2;
++static void *mapped_address;
++static const char str[] = "Writing to mapped file";
++
++#define FNAME1 "file1_to_mmap"
++#define FNAME2 "file2_to_mmap"
++
++static void setup(void)
++{
++	fd_file1 = SAFE_OPEN(FNAME1, O_CREAT | O_RDWR, 0600);
++	fd_file2 = SAFE_OPEN(FNAME2, O_CREAT | O_RDWR, 0600);
++}
++
++static void cleanup(void)
++{
++	int str_len;
++
++	str_len = strlen(str);
++
++	if (fd_file2 > 0)
++		SAFE_CLOSE(fd_file2);
++	if (fd_file1 > 0)
++		SAFE_CLOSE(fd_file1);
++	if (mapped_address)
++		SAFE_MUNMAP(mapped_address, str_len);
++}
++
++static void test_mmap(void)
++{
++	int str_len;
++	void *address;
++
++	str_len = strlen(str);
++
++	SAFE_WRITE(1, fd_file1, str, str_len);
++	mapped_address = SAFE_MMAP(NULL, str_len, PROT_WRITE,
++				   MAP_PRIVATE, fd_file1, 0);
++
++	SAFE_WRITE(1, fd_file2, str, str_len);
++
++	address = mmap(mapped_address, str_len, PROT_WRITE,
++		  MAP_PRIVATE | MAP_FIXED_NOREPLACE, fd_file2, 0);
++	if (address == MAP_FAILED && errno == EEXIST)
++		tst_res(TPASS, "mmap set errno to EEXIST as expected");
++	else
++		tst_res(TFAIL | TERRNO, "mmap failed, with unexpected error "
++			"code, expected EEXIST");
++}
++
++static struct tst_test test = {
++	.setup = setup,
++	.cleanup = cleanup,
++	.test_all = test_mmap,
++	.min_kver = "4.17",
++	.needs_tmpdir = 1
++};
+--
+2.20.1
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0579475706==--
