@@ -2,50 +2,80 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 180791F4D0D
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jun 2020 07:37:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EE881F4E00
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jun 2020 08:17:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3F7413C2E3B
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jun 2020 07:37:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C2E6C3C2E1A
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jun 2020 08:17:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id F1B943C0198
- for <ltp@lists.linux.it>; Wed, 10 Jun 2020 07:37:05 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 7DBFB10016E9
- for <ltp@lists.linux.it>; Wed, 10 Jun 2020 07:37:03 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.73,494,1583164800"; d="scan'208";a="94223270"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 10 Jun 2020 13:36:59 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id B76684CE26EB;
- Wed, 10 Jun 2020 13:36:57 +0800 (CST)
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 10 Jun 2020 13:36:57 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <jstancek@redhat.com>
-Date: Wed, 10 Jun 2020 13:37:07 +0800
-Message-ID: <1591767427-29383-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <828833321.15301509.1591700517554.JavaMail.zimbra@redhat.com>
-References: <828833321.15301509.1591700517554.JavaMail.zimbra@redhat.com>
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id AF0093C0194
+ for <ltp@lists.linux.it>; Wed, 10 Jun 2020 08:17:41 +0200 (CEST)
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id F3E45600338
+ for <ltp@lists.linux.it>; Wed, 10 Jun 2020 08:17:40 +0200 (CEST)
+Received: by mail-pg1-x543.google.com with SMTP id u5so527899pgn.5
+ for <ltp@lists.linux.it>; Tue, 09 Jun 2020 23:17:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=9QyjPUENR4E2UD6/PddeK5AXQhSebOfEgPJLHEPP5Dk=;
+ b=N/gbBFlBKia/IpG0RzND4qjPLik/tK/GEC653DpsGxWO8bH3peMiuNygbtoKOujuTE
+ gdEoQbVp4A1VRuN/0oubC+3J/agvfIV6LDqKnS6Cy0yFUtpcLZuR4yhGYEMqszUuLwWx
+ lnq9MhBYXU/wYObbnk5tNUvB6Q7fWjQjBVUuL2AKeXsf3yT0INl2Btm2Cje2FHhDL/hv
+ WhFO7HsG1XOFz4WUflhqFFB9psrfrQCWZTn68c3f2oFaUBFYrDO2ujG3lMiY+jwAuXGC
+ 2rRAPm/hrQkA9sSz2sHnm2w73bzXcE3zh+hQrSYRqeh6ZRUXk0EBfhjDhVrwL7Kf/MOs
+ 9G7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=9QyjPUENR4E2UD6/PddeK5AXQhSebOfEgPJLHEPP5Dk=;
+ b=RE1w0y/NYQg5wjG5EWs1o4ul71yX5qF5Qpiehy5fZX8OKrv6PHMmdOicynwwLTqLY5
+ J6aZsvkFGvY5nUVG6QzYb31YHPam87G6NoGd6IM+b/8Avqqf3pyie9alvmUSLpIfiJQr
+ hGuHj/OX/COu2fYPNFOKo5g4PnB/ThqiTbQ2C/qPtk4rBi4cqZsVWSroBCpm3ddB7pRt
+ Ku181BKg3IQQTipmrq1g+V6aELkF7yrUUPTNrZFzKM0hPXepf463gNjXDi97LF5kSqKh
+ 4YWF+jTwWFYNZV1Np93sn2JIRBrGby82eSigvfjGjvkWs/bbE34CLh1dI7A05X8A4unl
+ 6NbQ==
+X-Gm-Message-State: AOAM532cgnqR6tEQr1YtT6iZXb/jwsNPKf7n6eBZjEtc/dP32g67YTyC
+ LrLphmdFoY1kDkT+2Yju7c/8ZQ==
+X-Google-Smtp-Source: ABdhPJx7Obe4sSM7oQNcNcFpu+8sq5hvK5+4fMiKaTSgpfvr+5tUIsZYF69CeXZXvI1QI++LYx+kyg==
+X-Received: by 2002:aa7:9252:: with SMTP id 18mr1359326pfp.17.1591769859392;
+ Tue, 09 Jun 2020 23:17:39 -0700 (PDT)
+Received: from localhost ([122.172.62.209])
+ by smtp.gmail.com with ESMTPSA id h8sm4501088pjb.1.2020.06.09.23.17.37
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 09 Jun 2020 23:17:38 -0700 (PDT)
+Date: Wed, 10 Jun 2020 11:47:36 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Arnd Bergmann <arnd@arndb.de>
+Message-ID: <20200610061736.pozfqs4fh4wakdep@vireshk-i7>
+References: <e15907ed42f0276f09c4120b9255db5764d4e9b6.1591343286.git.viresh.kumar@linaro.org>
+ <CAK8P3a0b2BbZq_yYBKJHUfZgzCYUtdidpzJEj-HzuBKf1Q_nnQ@mail.gmail.com>
+ <20200608100900.c4fi7pw7euie6tnt@vireshk-i7>
+ <CAK8P3a004cavRhyWx+uXYYteBi1LviahAv11+9JyGadN-vo8og@mail.gmail.com>
+ <20200608112000.sjrbvmqjciifgyub@vireshk-i7>
+ <CAK8P3a0PqtFWTZr9hvSy5Y0ZZOSNgfzw0x1DTTyuzfsfROpAvw@mail.gmail.com>
+ <20200609070535.iym6m5n2v5urykbc@vireshk-i7>
+ <CAK8P3a0giS2A=4Hc4SO7cVn_nOU4rz-KzbSkQJcddM2Hc=KRxg@mail.gmail.com>
+ <20200609083219.5473zf2tq4tmjxac@vireshk-i7>
+ <CAK8P3a2BaLtcyyfNQUJq-gvO6C_53hvLaNhajcpREwqHCEBYqg@mail.gmail.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: B76684CE26EB.AFE2A
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <CAK8P3a2BaLtcyyfNQUJq-gvO6C_53hvLaNhajcpREwqHCEBYqg@mail.gmail.com>
+User-Agent: NeoMutt/20180716-391-311a52
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] syscalls/ioctl_loop05: Use correct blockdev to get
- logical_block_size
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/clock_gettime: Add test to check bug
+ during successive readings
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,164 +87,78 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-At the first, we use BLKSSZGET ioctl to get this size, but using wrong
-block dev(/dev/loopN) intead of correct backing file block dev(such as /dev/sdaN).
+On 09-06-20, 10:51, Arnd Bergmann wrote:
+> Yours only needs it when the nanoseconds are actually lower, which
+> is only the case if no the actual time has not crossed into the next
+> microsecond.
 
-kernel code(driver/block/loop.c  __loop_update_dio function) as below:
----------------------------------------
-if (inode->i_sb->s_bdev) {
-	sb_bsize = bdev_logical_block_size(inode->i_sb->s_bdev);
-	dio_align = sb_bsize - 1;
-}
-if (dio) {
-	if (queue_logical_block_size(lo->lo_queue) >= sb_bsize &&
-		!(lo->lo_offset & dio_align) &&
-		mapping->a_ops->direct_IO &&!lo->transfer)
-		use_dio = true;
-	else
-		use_dio = false;
-} else {
-        use_dio = false;
-}
----------------------------------------
+That is a very small percentage of cases I believe, and so I won't
+count my version to be really better here :)
 
-Using inode block is wrong because it is for filesystem io(such as we formart
-filesystem can specify block size for data or log or metadata), it is not suitable
-for logical block size.
+> If the gettimeofday() call itself takes over a microsecond
+> to complete, then it usually will have wrapped, but this is highly
+> hardware specific as the amount of time it takes to read the current
+> clock registers can be anywhere from 'almost free' to 'several
+> microseconds'.
+> 
+> Doing a division would be the same as the modulo operator.
 
-Using df cmd (df -T /tmp/xxxxx/test.img)to get the correct block dev.
+Sure.
 
-Also, "offset is ignored" belongs to the last test(less than logical_block_size) but not
-the second test(equal to logical_block_size).
+> Using a 32-bit modulo or division on the tv_nsec portion instead
+> of doing it on the 64-bit nanoseconds is much faster but also
+> a little more complex.
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- .../kernel/syscalls/ioctl/ioctl_loop05.c      | 47 ++++++++++++++-----
- 1 file changed, 34 insertions(+), 13 deletions(-)
+Yeah, keeping separate values is a mess. Another thing I was thinking
+about, does the time it takes to do a division operation has the
+tendency to affect the output of the program? i.e. not catching bugs
+sometimes ? Otherwise who cares about the time spent doing division
+during testing of the kernel :)
 
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
-index a96997823..643892fff 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
-@@ -28,12 +28,13 @@
- #include <sys/mount.h>
- #include "lapi/loop.h"
- #include "tst_test.h"
-+#include "tst_safe_stdio.h"
- 
- #define DIO_MESSAGE "In dio mode"
- #define NON_DIO_MESSAGE "In non dio mode"
- 
- static char dev_path[1024], sys_loop_diopath[1024];
--static int dev_num, dev_fd, attach_flag, logical_block_size;
-+static int dev_num, dev_fd, block_devfd, attach_flag, logical_block_size;
- 
- static void check_dio_value(int flag)
- {
-@@ -71,7 +72,7 @@ static void verify_ioctl_loop(void)
- 	TST_RETRY_FUNC(ioctl(dev_fd, LOOP_SET_STATUS, &loopinfo), TST_RETVAL_EQ0);
- 	TEST(ioctl(dev_fd, LOOP_SET_DIRECT_IO, 1));
- 	if (TST_RET == 0) {
--		tst_res(TPASS, "LOOP_SET_DIRECT_IO succeeded, offset is ignored");
-+		tst_res(TPASS, "LOOP_SET_DIRECT_IO succeeded");
- 		check_dio_value(1);
- 		SAFE_IOCTL(dev_fd, LOOP_SET_DIRECT_IO, 0);
- 	} else {
-@@ -84,7 +85,7 @@ static void verify_ioctl_loop(void)
- 
- 	TEST(ioctl(dev_fd, LOOP_SET_DIRECT_IO, 1));
- 	if (TST_RET == 0) {
--		tst_res(TPASS, "LOOP_SET_DIRECT_IO succeeded");
-+		tst_res(TPASS, "LOOP_SET_DIRECT_IO succeeded, offset is ignored");
- 		SAFE_IOCTL(dev_fd, LOOP_SET_DIRECT_IO, 0);
- 		return;
- 	}
-@@ -94,10 +95,22 @@ static void verify_ioctl_loop(void)
- 		tst_res(TFAIL | TTERRNO, "LOOP_SET_DIRECT_IO failed expected EINVAL got");
- }
- 
-+static void find_backing_bdpath(char *buf)
-+{
-+	char line[PATH_MAX];
-+	FILE *file;
-+
-+	file = SAFE_FOPEN("1.txt", "r");
-+
-+	while (fgets(line, sizeof(line), file) != NULL)
-+		sscanf(line, "%s", buf);
-+	SAFE_FCLOSE(file);
-+}
-+
- static void setup(void)
- {
--	int fd;
--	struct stat buf;
-+	char buf[100];
-+	const char *const df_cmd[] = {"df", "-T", ".", NULL};
- 
- 	if (tst_fs_type(".") == TST_TMPFS_MAGIC)
- 		tst_brk(TCONF, "tmpfd doesn't support O_DIRECT flag");
-@@ -109,13 +122,6 @@ static void setup(void)
- 	sprintf(sys_loop_diopath, "/sys/block/loop%d/loop/dio", dev_num);
- 	tst_fill_file("test.img", 0, 1024, 1024);
- 
--	fd = SAFE_OPEN("test.img", O_RDONLY);
--	SAFE_FSTAT(fd, &buf);
--	SAFE_CLOSE(fd);
--
--	logical_block_size = buf.st_blksize;
--	tst_res(TINFO, "backing dev logical_block_size is %d", logical_block_size);
--
- 	tst_attach_device(dev_path, "test.img");
- 	attach_flag = 1;
- 	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
-@@ -130,13 +136,24 @@ static void setup(void)
- 	 *   size of loop is bigger than the backing device's and the loop
- 	 *   needn't transform transfer.
- 	 */
--	TST_RETRY_FUNC(ioctl(dev_fd, LOOP_SET_BLOCK_SIZE, logical_block_size), TST_RETVAL_EQ0);
-+	SAFE_CMD(df_cmd, "1.txt", NULL);
-+	find_backing_bdpath(buf);
-+	block_devfd = SAFE_OPEN(buf, O_RDWR);
-+
-+	SAFE_IOCTL(block_devfd, BLKSSZGET, &logical_block_size);
-+	tst_res(TINFO, "backing dev logical_block_size is %d", logical_block_size);
-+	SAFE_CLOSE(block_devfd);
-+
-+	if (logical_block_size > 512)
-+		TST_RETRY_FUNC(ioctl(dev_fd, LOOP_SET_BLOCK_SIZE, logical_block_size), TST_RETVAL_EQ0);
- }
- 
- static void cleanup(void)
- {
- 	if (dev_fd > 0)
- 		SAFE_CLOSE(dev_fd);
-+	if (block_devfd > 0)
-+		SAFE_CLOSE(block_devfd);
- 	if (attach_flag)
- 		tst_detach_device(dev_path);
- }
-@@ -150,5 +167,9 @@ static struct tst_test test = {
- 	.needs_drivers = (const char *const []) {
- 		"loop",
- 		NULL
-+	},
-+	.needs_cmds = (const char *const []) {
-+		"df",
-+		NULL
- 	}
- };
+> Another option would be to allow up to 999 nanoseconds of
+> time going backwards before printing an error for the case
+> of gettimeofday() after clock_gettime(), like
+> 
+> if ((tv->gettime == my_gettimeofday)
+>     slack = 999;
+> else
+>     slack = 0;
+> 
+> if (start + slack < end)
+>       failure();
+
+I like it, but I think you did it a bit incorrectly according to the
+current code:
+
+if (end + slack < start)
+      failure();
+
+> This is much faster as it avoids the division but does not catch
+> the corner case of gettimeofday() returning a value that is
+> slightly before the previous clock_gettime() but that is actually
+> in the previous microsecond interval.
+
+Hmm, I am not sure I understand it. The only bug that can happen with
+gettimeofday() is when it returns a value with a different microsecond
+value than clock_gettime(), as we can't capture values lower than 1
+us.
+
+So, clock_gettime() returns 4001 ns and gettimeofday() returns 3000
+(or 2000 or 1000) ns. This is the only bug possible here. And adding
+999 to gettimeofday() output will never make it cross the microsecond
+boundary (as it has 000 at the end) and so we should always catch the
+bug.
+
+Where am I wrong here now ? Of course I am :)
+
 -- 
-2.23.0
-
-
-
+viresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
