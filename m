@@ -2,70 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44D241F4BD3
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jun 2020 05:39:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 180791F4D0D
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jun 2020 07:37:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CB7163C02D9
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jun 2020 05:39:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3F7413C2E3B
+	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jun 2020 07:37:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id C45273C01FA
- for <ltp@lists.linux.it>; Wed, 10 Jun 2020 05:39:15 +0200 (CEST)
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B41871A0088E
- for <ltp@lists.linux.it>; Wed, 10 Jun 2020 05:39:14 +0200 (CEST)
-Received: by mail-pf1-x444.google.com with SMTP id 64so483233pfv.11
- for <ltp@lists.linux.it>; Tue, 09 Jun 2020 20:39:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=xP5hijCm0AZ2Qj3bGFXdk6M12LcVRIFAVkgME+2gYNw=;
- b=VCCT2urjR5dYLbkXuytnQjl5uSoTRFGrHLVkpJHKTjt6dFznI2bjCsbFl7hjt0Ga3N
- g5tvzIk0bYlDlso1Pjg7JbjCEYTEVlyg6sjV4fwUtcgij9UrODaPg1OXIGeMSdZjjnOT
- u4zwR2bNShqdwzpeCm0p4kAlA0nkAq53WXSLoL26wBB2SRLW1TEA0shQW06szwq/E5rj
- d2tXHO2IDXa0fVk0bcvmH/vPAzdB6ahfGTOxLKumTtqErrhc1KGGC5r7wEHPxBbT0oe5
- hxWXzel8KXDYJXekf7H/LpJ0Qk+yTj1JNeuKYvkTCgggfuh46VbxpLasdxSLERogX4Xx
- UFLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=xP5hijCm0AZ2Qj3bGFXdk6M12LcVRIFAVkgME+2gYNw=;
- b=m2VchNflUPTOcG6TrPCGIk17ZX5PiLJLMcguI/Ie/vNDMKPe0izbsBy8b2KGISQRhv
- WvNio56ebrNVOl00o39JpywQG/JKuUA0EQNsTD0KH+JIAJ8L3+IgRW0ps9aGECJDboDQ
- NWADGMjn22ZSOKYLxHt1qhSaARIX0eBepDJtBk7lKv8BP4/cEG0rso4yqOE8yN+Fb5Qq
- hjEok2hlstIYUSa/7XXK6b2VcnDjCeJLwG82mkx8dC+HrkSk19gBjlWhU93zzQNv1vZi
- btexnq6e78FIYrg7sKmcf/mku1t+54HTv811t9HsueuRmspBaoE5xkbnKMcyXQhUuGkZ
- s9FQ==
-X-Gm-Message-State: AOAM530XV2Eg1kTKAhjMAy9lYXSaK6AksJbBj2kUNSGACj+wWGFrM49P
- yYcp8IUrmUuqwbIk6zvj70hMZxA0K1A=
-X-Google-Smtp-Source: ABdhPJwZFJR2eXilW+pk1fnBuGklXrFf0dfMULLwnETa357k6t/XUtoscbUN3vFk/IRW2w7rBnXOow==
-X-Received: by 2002:aa7:9093:: with SMTP id i19mr893706pfa.152.1591760352629; 
- Tue, 09 Jun 2020 20:39:12 -0700 (PDT)
-Received: from localhost ([122.172.62.209])
- by smtp.gmail.com with ESMTPSA id j24sm9772737pga.51.2020.06.09.20.39.11
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 09 Jun 2020 20:39:12 -0700 (PDT)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: ltp@lists.linux.it
-Date: Wed, 10 Jun 2020 09:08:47 +0530
-Message-Id: <9621b4f97b539f2e080b00491eb9ba4973878028.1591760262.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
-In-Reply-To: <a4a628a637a6eeeed4249656836bd217f5cbb9ac.1590144577.git.viresh.kumar@linaro.org>
-References: <a4a628a637a6eeeed4249656836bd217f5cbb9ac.1590144577.git.viresh.kumar@linaro.org>
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id F1B943C0198
+ for <ltp@lists.linux.it>; Wed, 10 Jun 2020 07:37:05 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 7DBFB10016E9
+ for <ltp@lists.linux.it>; Wed, 10 Jun 2020 07:37:03 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.73,494,1583164800"; d="scan'208";a="94223270"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 10 Jun 2020 13:36:59 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id B76684CE26EB;
+ Wed, 10 Jun 2020 13:36:57 +0800 (CST)
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Wed, 10 Jun 2020 13:36:57 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <jstancek@redhat.com>
+Date: Wed, 10 Jun 2020 13:37:07 +0800
+Message-ID: <1591767427-29383-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <828833321.15301509.1591700517554.JavaMail.zimbra@redhat.com>
+References: <828833321.15301509.1591700517554.JavaMail.zimbra@redhat.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: B76684CE26EB.AFE2A
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH V6 01/17] syscalls/timer_gettime: Add support for
- time64 tests
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] syscalls/ioctl_loop05: Use correct blockdev to get
+ logical_block_size
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,263 +57,163 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
- Viresh Kumar <viresh.kumar@linaro.org>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This adds support for time64 tests to the existing timer_gettime()
-syscall tests.
+At the first, we use BLKSSZGET ioctl to get this size, but using wrong
+block dev(/dev/loopN) intead of correct backing file block dev(such as /dev/sdaN).
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+kernel code(driver/block/loop.c  __loop_update_dio function) as below:
+---------------------------------------
+if (inode->i_sb->s_bdev) {
+	sb_bsize = bdev_logical_block_size(inode->i_sb->s_bdev);
+	dio_align = sb_bsize - 1;
+}
+if (dio) {
+	if (queue_logical_block_size(lo->lo_queue) >= sb_bsize &&
+		!(lo->lo_offset & dio_align) &&
+		mapping->a_ops->direct_IO &&!lo->transfer)
+		use_dio = true;
+	else
+		use_dio = false;
+} else {
+        use_dio = false;
+}
+---------------------------------------
+
+Using inode block is wrong because it is for filesystem io(such as we formart
+filesystem can specify block size for data or log or metadata), it is not suitable
+for logical block size.
+
+Using df cmd (df -T /tmp/xxxxx/test.img)to get the correct block dev.
+
+Also, "offset is ignored" belongs to the last test(less than logical_block_size) but not
+the second test(equal to logical_block_size).
+
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 ---
-V6: Drop the binary files included by mistake.
+ .../kernel/syscalls/ioctl/ioctl_loop05.c      | 47 ++++++++++++++-----
+ 1 file changed, 34 insertions(+), 13 deletions(-)
 
- include/tst_timer.h                           |  45 +++++++
- .../syscalls/timer_gettime/timer_gettime01.c  | 124 ++++++++----------
- 2 files changed, 97 insertions(+), 72 deletions(-)
-
-diff --git a/include/tst_timer.h b/include/tst_timer.h
-index 256e1d71e1bc..708a1e9e9a7a 100644
---- a/include/tst_timer.h
-+++ b/include/tst_timer.h
-@@ -15,6 +15,7 @@
- #include <sys/time.h>
- #include <time.h>
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
+index a96997823..643892fff 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
+@@ -28,12 +28,13 @@
+ #include <sys/mount.h>
+ #include "lapi/loop.h"
  #include "tst_test.h"
-+#include "lapi/common_timers.h"
- #include "lapi/syscalls.h"
++#include "tst_safe_stdio.h"
  
- /*
-@@ -112,6 +113,16 @@ struct __kernel_timespec {
- 	__kernel_time64_t       tv_sec;                 /* seconds */
- 	long long               tv_nsec;                /* nanoseconds */
- };
-+
-+struct __kernel_old_itimerspec {
-+	struct __kernel_old_timespec it_interval;    /* timer period */
-+	struct __kernel_old_timespec it_value;       /* timer expiration */
-+};
-+
-+struct __kernel_itimerspec {
-+	struct __kernel_timespec it_interval;    /* timer period */
-+	struct __kernel_timespec it_value;       /* timer expiration */
-+};
- #endif
+ #define DIO_MESSAGE "In dio mode"
+ #define NON_DIO_MESSAGE "In non dio mode"
  
- enum tst_ts_type {
-@@ -129,6 +140,14 @@ struct tst_ts {
- 	} ts;
- };
+ static char dev_path[1024], sys_loop_diopath[1024];
+-static int dev_num, dev_fd, attach_flag, logical_block_size;
++static int dev_num, dev_fd, block_devfd, attach_flag, logical_block_size;
  
-+struct tst_its {
-+	enum tst_ts_type type;
-+	union {
-+		struct __kernel_old_itimerspec kern_old_its;
-+		struct __kernel_itimerspec kern_its;
-+	} ts;
-+};
-+
- static inline void *tst_ts_get(struct tst_ts *t)
+ static void check_dio_value(int flag)
  {
- 	if (!t)
-@@ -147,6 +166,22 @@ static inline void *tst_ts_get(struct tst_ts *t)
+@@ -71,7 +72,7 @@ static void verify_ioctl_loop(void)
+ 	TST_RETRY_FUNC(ioctl(dev_fd, LOOP_SET_STATUS, &loopinfo), TST_RETVAL_EQ0);
+ 	TEST(ioctl(dev_fd, LOOP_SET_DIRECT_IO, 1));
+ 	if (TST_RET == 0) {
+-		tst_res(TPASS, "LOOP_SET_DIRECT_IO succeeded, offset is ignored");
++		tst_res(TPASS, "LOOP_SET_DIRECT_IO succeeded");
+ 		check_dio_value(1);
+ 		SAFE_IOCTL(dev_fd, LOOP_SET_DIRECT_IO, 0);
+ 	} else {
+@@ -84,7 +85,7 @@ static void verify_ioctl_loop(void)
+ 
+ 	TEST(ioctl(dev_fd, LOOP_SET_DIRECT_IO, 1));
+ 	if (TST_RET == 0) {
+-		tst_res(TPASS, "LOOP_SET_DIRECT_IO succeeded");
++		tst_res(TPASS, "LOOP_SET_DIRECT_IO succeeded, offset is ignored");
+ 		SAFE_IOCTL(dev_fd, LOOP_SET_DIRECT_IO, 0);
+ 		return;
  	}
+@@ -94,10 +95,22 @@ static void verify_ioctl_loop(void)
+ 		tst_res(TFAIL | TTERRNO, "LOOP_SET_DIRECT_IO failed expected EINVAL got");
  }
  
-+static inline void *tst_its_get(struct tst_its *t)
++static void find_backing_bdpath(char *buf)
 +{
-+	if (!t)
-+		return NULL;
++	char line[PATH_MAX];
++	FILE *file;
 +
-+	switch (t->type) {
-+	case TST_KERN_OLD_TIMESPEC:
-+		return &t->ts.kern_old_its;
-+	case TST_KERN_TIMESPEC:
-+		return &t->ts.kern_its;
-+	default:
-+		tst_brk(TBROK, "Invalid type: %d", t->type);
-+		return NULL;
-+	}
++	file = SAFE_FOPEN("1.txt", "r");
++
++	while (fgets(line, sizeof(line), file) != NULL)
++		sscanf(line, "%s", buf);
++	SAFE_FCLOSE(file);
 +}
 +
- static inline int libc_clock_getres(clockid_t clk_id, void *ts)
+ static void setup(void)
  {
- 	return clock_getres(clk_id, ts);
-@@ -212,6 +247,16 @@ static inline int sys_clock_nanosleep64(clockid_t clk_id, int flags,
- 			   request, remain);
+-	int fd;
+-	struct stat buf;
++	char buf[100];
++	const char *const df_cmd[] = {"df", "-T", ".", NULL};
+ 
+ 	if (tst_fs_type(".") == TST_TMPFS_MAGIC)
+ 		tst_brk(TCONF, "tmpfd doesn't support O_DIRECT flag");
+@@ -109,13 +122,6 @@ static void setup(void)
+ 	sprintf(sys_loop_diopath, "/sys/block/loop%d/loop/dio", dev_num);
+ 	tst_fill_file("test.img", 0, 1024, 1024);
+ 
+-	fd = SAFE_OPEN("test.img", O_RDONLY);
+-	SAFE_FSTAT(fd, &buf);
+-	SAFE_CLOSE(fd);
+-
+-	logical_block_size = buf.st_blksize;
+-	tst_res(TINFO, "backing dev logical_block_size is %d", logical_block_size);
+-
+ 	tst_attach_device(dev_path, "test.img");
+ 	attach_flag = 1;
+ 	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
+@@ -130,13 +136,24 @@ static void setup(void)
+ 	 *   size of loop is bigger than the backing device's and the loop
+ 	 *   needn't transform transfer.
+ 	 */
+-	TST_RETRY_FUNC(ioctl(dev_fd, LOOP_SET_BLOCK_SIZE, logical_block_size), TST_RETVAL_EQ0);
++	SAFE_CMD(df_cmd, "1.txt", NULL);
++	find_backing_bdpath(buf);
++	block_devfd = SAFE_OPEN(buf, O_RDWR);
++
++	SAFE_IOCTL(block_devfd, BLKSSZGET, &logical_block_size);
++	tst_res(TINFO, "backing dev logical_block_size is %d", logical_block_size);
++	SAFE_CLOSE(block_devfd);
++
++	if (logical_block_size > 512)
++		TST_RETRY_FUNC(ioctl(dev_fd, LOOP_SET_BLOCK_SIZE, logical_block_size), TST_RETVAL_EQ0);
  }
  
-+static inline int sys_timer_gettime(timer_t timerid, void *its)
-+{
-+	return tst_syscall(__NR_timer_gettime, timerid, its);
-+}
-+
-+static inline int sys_timer_gettime64(timer_t timerid, void *its)
-+{
-+	return tst_syscall(__NR_timer_gettime64, timerid, its);
-+}
-+
- /*
-  * Returns tst_ts seconds.
-  */
-diff --git a/testcases/kernel/syscalls/timer_gettime/timer_gettime01.c b/testcases/kernel/syscalls/timer_gettime/timer_gettime01.c
-index 1c75f1cf0e45..d2b89eab4223 100644
---- a/testcases/kernel/syscalls/timer_gettime/timer_gettime01.c
-+++ b/testcases/kernel/syscalls/timer_gettime/timer_gettime01.c
-@@ -1,24 +1,5 @@
--/******************************************************************************
-- * Copyright (c) Crackerjack Project., 2007                                   *
-- * Porting from Crackerjack to LTP is done by:                                *
-- *              Manas Kumar Nayak <maknayak@in.ibm.com>                       *
-- * Copyright (c) 2013 Cyril Hrubis <chrubis@suse.cz>                          *
-- *                                                                            *
-- * This program is free software;  you can redistribute it and/or modify      *
-- * it under the terms of the GNU General Public License as published by       *
-- * the Free Software Foundation; either version 2 of the License, or          *
-- * (at your option) any later version.                                        *
-- *                                                                            *
-- * This program is distributed in the hope that it will be useful,            *
-- * but WITHOUT ANY WARRANTY;  without even the implied warranty of            *
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See                  *
-- * the GNU General Public License for more details.                           *
-- *                                                                            *
-- * You should have received a copy of the GNU General Public License          *
-- * along with this program;  if not, write to the Free Software Foundation,   *
-- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA           *
-- *                                                                            *
-- ******************************************************************************/
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/* Copyright (c) Crackerjack Project., 2007 */
- 
- #include <time.h>
- #include <signal.h>
-@@ -26,71 +7,70 @@
- #include <stdio.h>
- #include <errno.h>
- 
--#include "test.h"
--#include "lapi/syscalls.h"
-+#include "tst_timer.h"
- 
--char *TCID = "timer_gettime01";
--int TST_TOTAL = 3;
-+static struct test_variants {
-+	int (*func)(timer_t timer, void *its);
-+	enum tst_ts_type type;
-+	char *desc;
-+} variants[] = {
-+#if (__NR_timer_gettime != __LTP__NR_INVALID_SYSCALL)
-+	{ .func = sys_timer_gettime, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
-+#endif
- 
--static void cleanup(void)
--{
--	tst_rmdir();
--}
-+#if (__NR_timer_gettime64 != __LTP__NR_INVALID_SYSCALL)
-+	{ .func = sys_timer_gettime64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
-+#endif
-+};
- 
--static void setup(void)
--{
--	TEST_PAUSE;
--	tst_tmpdir();
--}
-+static timer_t timer;
- 
--int main(int ac, char **av)
-+static void setup(void)
+ static void cleanup(void)
  {
--	int lc;
--
- 	struct sigevent ev;
--	struct itimerspec spec;
--	int timer;
- 
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
-+	tst_res(TINFO, "Testing variant: %s", variants[tst_variant].desc);
- 
- 	ev.sigev_value = (union sigval) 0;
- 	ev.sigev_signo = SIGALRM;
- 	ev.sigev_notify = SIGEV_SIGNAL;
--	TEST(ltp_syscall(__NR_timer_create, CLOCK_REALTIME, &ev, &timer));
--
--	if (TEST_RETURN != 0)
--		tst_brkm(TBROK | TERRNO, cleanup, "Failed to create timer");
- 
--	for (lc = 0; TEST_LOOPING(lc); ++lc) {
--		tst_count = 0;
-+	TEST(tst_syscall(__NR_timer_create, CLOCK_REALTIME, &ev, &timer));
- 
--		TEST(ltp_syscall(__NR_timer_gettime, timer, &spec));
--		if (TEST_RETURN == 0) {
--			tst_resm(TPASS, "timer_gettime(CLOCK_REALTIME) Passed");
--		} else {
--			tst_resm(TFAIL | TERRNO,
--			         "timer_gettime(CLOCK_REALTIME) Failed");
--		}
--
--		TEST(ltp_syscall(__NR_timer_gettime, -1, &spec));
--		if (TEST_RETURN == -1 && TEST_ERRNO == EINVAL) {
--			tst_resm(TPASS,	"timer_gettime(-1) Failed: EINVAL");
--		} else {
--			tst_resm(TFAIL | TERRNO,
--			         "timer_gettime(-1) = %li", TEST_RETURN);
--		}
-+	if (TST_RET) {
-+		tst_res(TFAIL | TTERRNO, "timer_create() failed");
-+		return;
-+	}
-+}
- 
--		TEST(ltp_syscall(__NR_timer_gettime, timer, NULL));
--		if (TEST_RETURN == -1 && TEST_ERRNO == EFAULT) {
--			tst_resm(TPASS,	"timer_gettime(NULL) Failed: EFAULT");
--		} else {
--			tst_resm(TFAIL | TERRNO,
--			         "timer_gettime(-1) = %li", TEST_RETURN);
--		}
-+static void verify(void)
-+{
-+	struct test_variants *tv = &variants[tst_variant];
-+	struct tst_its spec = {.type = tv->type, };
-+
-+	TEST(tv->func(timer, tst_its_get(&spec)));
-+	if (TST_RET == 0) {
-+		tst_res(TPASS, "timer_gettime() Passed");
-+	} else {
-+		tst_res(TFAIL | TTERRNO, "timer_gettime() Failed");
+ 	if (dev_fd > 0)
+ 		SAFE_CLOSE(dev_fd);
++	if (block_devfd > 0)
++		SAFE_CLOSE(block_devfd);
+ 	if (attach_flag)
+ 		tst_detach_device(dev_path);
+ }
+@@ -150,5 +167,9 @@ static struct tst_test test = {
+ 	.needs_drivers = (const char *const []) {
+ 		"loop",
+ 		NULL
++	},
++	.needs_cmds = (const char *const []) {
++		"df",
++		NULL
  	}
- 
--	cleanup();
--	tst_exit();
-+	TEST(tv->func((timer_t)-1, tst_its_get(&spec)));
-+	if (TST_RET == -1 && TST_ERR == EINVAL)
-+		tst_res(TPASS, "timer_gettime(-1) Failed: EINVAL");
-+	else
-+		tst_res(TFAIL | TTERRNO, "timer_gettime(-1) = %li", TST_RET);
-+
-+	TEST(tv->func(timer, NULL));
-+	if (TST_RET == -1 && TST_ERR == EFAULT)
-+		tst_res(TPASS, "timer_gettime(NULL) Failed: EFAULT");
-+	else
-+		tst_res(TFAIL | TTERRNO, "timer_gettime(-1) = %li", TST_RET);
- }
-+
-+static struct tst_test test = {
-+	.test_all = verify,
-+	.test_variants = ARRAY_SIZE(variants),
-+	.setup = setup,
-+	.needs_tmpdir = 1,
-+};
+ };
 -- 
-2.25.0.rc1.19.g042ed3e048af
+2.23.0
+
+
 
 
 -- 
