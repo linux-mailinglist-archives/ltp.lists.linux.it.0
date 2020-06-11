@@ -2,67 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D5BB1F63AE
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jun 2020 10:34:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B04C51F63A9
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jun 2020 10:34:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0B0F23C2E0C
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jun 2020 10:34:44 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6B4633C2DF3
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jun 2020 10:34:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 6CF093C14A2
- for <ltp@lists.linux.it>; Thu, 11 Jun 2020 10:34:27 +0200 (CEST)
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 6C8223C01CE
+ for <ltp@lists.linux.it>; Thu, 11 Jun 2020 10:34:29 +0200 (CEST)
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 73855100023E
- for <ltp@lists.linux.it>; Thu, 11 Jun 2020 10:34:26 +0200 (CEST)
-Received: by mail-pf1-x443.google.com with SMTP id 64so2362724pfv.11
- for <ltp@lists.linux.it>; Thu, 11 Jun 2020 01:34:26 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 0D8EA2005DF
+ for <ltp@lists.linux.it>; Thu, 11 Jun 2020 10:34:29 +0200 (CEST)
+Received: by mail-pg1-x543.google.com with SMTP id m1so2262568pgk.1
+ for <ltp@lists.linux.it>; Thu, 11 Jun 2020 01:34:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Jz0CqmmMBnJhmmIxihg7YAwcxLCb3crQ94Xext+mVvQ=;
- b=xFn/JcxozBsiVxbIXFjro8/2FhiqT9eyUcsAtoLETYkFiyA72H7C6cRcmeEshwRnhU
- 7iB+5PW5oylpJgSG1vapr3AvUPii46YgxeJCr83GwA5iHTnpO2YjP2o8ZABBUCBgboje
- LEWRbq5gGX1t/A/v72k4AyPrCnZTKhwJJUTnKd5FFc/UewOJTLNQiT9zwaMGTDgUyQ9I
- 3iPiFI+XBBpfk5wT+HqM3pH57Xf47H06y3YL3O6veLUaRPJYOkMHJK+I/vDt98nnnarD
- CmQfYd2JYcpov+UsVkprVdU6G/ivO73zJoQ/RecpPrg1EpWD6+1YyjSdpueNK4ZIIDEl
- FqJg==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=Kwqy2fqKK8hpncb/BUfDaGRZ+l2xwFCqqA08AZM45C0=;
+ b=KJLngq6zNRz1ZTZ64/IDOVAljT68AahH718ZKhG9rOIChiotr4G2fuWYUIBR4U/9vH
+ b7YrcR3jc365qIm2O8avyoFaKY4FSY1+UY2JrrhDWiz2V1aEdyCuMStAhZbA8gEmRLF5
+ EUJcRH8KCCJWCB+Z3wKRPYfXA2sUIzU5t1AAM+HygoPQrh8ImKu8b4P5rp4frIUoRJz9
+ ZD98gXGQ6vQCyOibhNNb2njNdnJcgZkEriOYlwVYUmVnFQTRJ7IsyOMrep6TDGOvyfe6
+ dmYp9dB/FtUShXVG39KkHZNNkcB7CJFbil3dJBdHtCf6kPa4RStT7NtayMbYgFBWXtn+
+ OWXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Jz0CqmmMBnJhmmIxihg7YAwcxLCb3crQ94Xext+mVvQ=;
- b=MCj0WcQUnzhXuepc6gslcycj92GCY0aTD84UNiLb43ioKI6G8IqSXcGWso1Obcc5Rr
- wZbltE3CdCd8qJtt+FB3GPsH/O9gur95YFO9nEWJNshY9+0dVTerCiA1AR5RAXCk76BB
- xxfQi2RKaWVFMArdi5afIDNJaIXdPluihEo+KPikUB3K3JDJkI56Gc95JtoClhsi9oJT
- /mw0BVk0xM+usnVKJaM8QV2WqaJtj6NXckwGGPI5Wd3EICIdf28kMVHJydGl87pF1SDq
- fNpNmUDZBQK2fOIowlg28MJRTloclVGtY8Ss6g29f0MvDrCujbxsUquCIKruRYkXMeE1
- kEig==
-X-Gm-Message-State: AOAM532oSC+hxe90YuCWgOsAJ2kS2DE8tnoyOlQnAEjTGXQjSJjX3S5K
- Pyxur/moHEwW3kVwYZBCX3byDlwaQk0=
-X-Google-Smtp-Source: ABdhPJxZs31t3Td+pRzEczky3fHz5BLqxFE8+CIlh1s9LSu8xhgO6hB1CAU6wEr9UROmyfVYFC0RWQ==
-X-Received: by 2002:a62:c105:: with SMTP id i5mr6371766pfg.250.1591864464265; 
- Thu, 11 Jun 2020 01:34:24 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Kwqy2fqKK8hpncb/BUfDaGRZ+l2xwFCqqA08AZM45C0=;
+ b=Yp5wjD22FEbRkxBY3LyI1FfAOFvksqczNsE85r4BEl/ymS5kDN0X7m8UUjjxFBsHOO
+ bWvLYBrOji2U/qaHyCJMJAR857487AUrORilJwkBHTR3KP25slHDcrrqyxeHpeFWOefC
+ J77KANcu1lGq0iGJfpXkvJyGbwKclJxOp5NHSn7VX4JxijltMZL9I1EBZ/1AK/u/XiX8
+ 2yd9KFkzo2CM5eDwcA4Wr4ou8e7/D94rD0SPXEWS1UdxBiPaJIXUJI6W24L5oIJA0Ovz
+ Fpg4I4UgF5e5h44nSJMvWAMzPj6QFlyAsfBnT93uTLuHxk304PykQ9kBSGvr8BmAaiB8
+ lbig==
+X-Gm-Message-State: AOAM532pkGA66WwsKeRbYKEbYtgSQIV4Hjjf0SGgczbamn2SN2rbCxbp
+ yZJoTwFzYZxtuHeeoRh0+p8UqM0goDc=
+X-Google-Smtp-Source: ABdhPJwt3vOHRaYoiIcf3a0QwjPlGaudEVGnBEh8sx+iyiBcyG4KsvaiS9t4T2LT+Mit9xDKsvJDTw==
+X-Received: by 2002:aa7:96e7:: with SMTP id i7mr6232235pfq.217.1591864466969; 
+ Thu, 11 Jun 2020 01:34:26 -0700 (PDT)
 Received: from localhost ([122.172.62.209])
- by smtp.gmail.com with ESMTPSA id c12sm2087690pgt.91.2020.06.11.01.34.23
+ by smtp.gmail.com with ESMTPSA id m18sm2323705pfo.173.2020.06.11.01.34.25
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 11 Jun 2020 01:34:23 -0700 (PDT)
+ Thu, 11 Jun 2020 01:34:26 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Thu, 11 Jun 2020 14:04:19 +0530
-Message-Id: <0f1cc05d6d79238ed94b93417f300e9a026a2063.1591864369.git.viresh.kumar@linaro.org>
+Date: Thu, 11 Jun 2020 14:04:20 +0530
+Message-Id: <cc75beb4074b62e94b8ac92cba17af41b8f5fbdc.1591864369.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
+In-Reply-To: <0f1cc05d6d79238ed94b93417f300e9a026a2063.1591864369.git.viresh.kumar@linaro.org>
+References: <0f1cc05d6d79238ed94b93417f300e9a026a2063.1591864369.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH V2 1/2] libs: Import vdso parsing lib from kernel tree
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH V2 2/2] syscalls/clock_gettime: Add test to check bug
+ during successive readings
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,343 +84,266 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This imports the vdso symbol parsing library from the kernel tree.
+An issue was reported recently where a bug was found during successive
+reading of 64 bit time on arm32 platforms. Add a test for that.
+
+https://github.com/richfelker/musl-cross-make/issues/96
 
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
-V2: New patch.
+V2:
+- Test vDSOs as well and overall improved test.
 
- include/parse_vdso.h         |  16 +++
- libs/libltpvdso/Makefile     |  11 ++
- libs/libltpvdso/README       |   1 +
- libs/libltpvdso/parse_vdso.c | 269 +++++++++++++++++++++++++++++++++++
- 4 files changed, 297 insertions(+)
- create mode 100644 include/parse_vdso.h
- create mode 100644 libs/libltpvdso/Makefile
- create mode 100644 libs/libltpvdso/README
- create mode 100644 libs/libltpvdso/parse_vdso.c
+ runtest/syscalls                              |   1 +
+ .../kernel/syscalls/clock_gettime/.gitignore  |   1 +
+ .../kernel/syscalls/clock_gettime/Makefile    |   5 +-
+ .../syscalls/clock_gettime/clock_gettime04.c  | 197 ++++++++++++++++++
+ 4 files changed, 203 insertions(+), 1 deletion(-)
+ create mode 100644 testcases/kernel/syscalls/clock_gettime/clock_gettime04.c
 
-diff --git a/include/parse_vdso.h b/include/parse_vdso.h
+diff --git a/runtest/syscalls b/runtest/syscalls
+index f9a6397560fa..d7c3cbed611a 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -96,6 +96,7 @@ clock_nanosleep04 clock_nanosleep04
+ clock_gettime01 clock_gettime01
+ clock_gettime02 clock_gettime02
+ clock_gettime03 clock_gettime03
++clock_gettime04 clock_gettime04
+ leapsec01 leapsec01
+ 
+ clock_settime01 clock_settime01
+diff --git a/testcases/kernel/syscalls/clock_gettime/.gitignore b/testcases/kernel/syscalls/clock_gettime/.gitignore
+index 9d06613b6f41..304eedab68c6 100644
+--- a/testcases/kernel/syscalls/clock_gettime/.gitignore
++++ b/testcases/kernel/syscalls/clock_gettime/.gitignore
+@@ -1,4 +1,5 @@
+ clock_gettime01
+ clock_gettime02
+ clock_gettime03
++clock_gettime04
+ leapsec01
+diff --git a/testcases/kernel/syscalls/clock_gettime/Makefile b/testcases/kernel/syscalls/clock_gettime/Makefile
+index 79f671f1c597..1c1cbd7a8853 100644
+--- a/testcases/kernel/syscalls/clock_gettime/Makefile
++++ b/testcases/kernel/syscalls/clock_gettime/Makefile
+@@ -3,8 +3,11 @@
+ 
+ top_srcdir		?= ../../../..
+ 
++LTPLIBS = ltpvdso
++
+ include $(top_srcdir)/include/mk/testcases.mk
+ 
+ LDLIBS+=-lrt
++clock_gettime04: LDLIBS += -lltpvdso
+ 
+-include $(top_srcdir)/include/mk/generic_leaf_target.mk
+\ No newline at end of file
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/clock_gettime/clock_gettime04.c b/testcases/kernel/syscalls/clock_gettime/clock_gettime04.c
 new file mode 100644
-index 000000000000..d81bb30bb196
+index 000000000000..a70288ce0cb9
 --- /dev/null
-+++ b/include/parse_vdso.h
-@@ -0,0 +1,16 @@
++++ b/testcases/kernel/syscalls/clock_gettime/clock_gettime04.c
+@@ -0,0 +1,197 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) 2020 Linaro Limited. All rights reserved.
-+ * Author: Viresh Kumar <viresh.kumar@linaro.org>
++ * Author: Viresh Kumar<viresh.kumar@linaro.org>
++ *
++ * Check time difference between successive readings and report a bug if
++ * difference found to be over 5 ms.
 + */
 +
-+#ifndef PARSE_VDSO_H__
-+#define PARSE_VDSO_H__
++#include "config.h"
++#include "parse_vdso.h"
++#include "tst_timer.h"
++#include "tst_safe_clocks.h"
 +
-+#include <stdint.h>
++#include <sys/auxv.h>
 +
-+extern void vdso_init_from_auxv(void *auxv);
-+extern void vdso_init_from_sysinfo_ehdr(uintptr_t base);
-+extern void *vdso_sym(const char *version, const char *name);
++clockid_t clks[] = {
++	CLOCK_REALTIME,
++	CLOCK_REALTIME_COARSE,
++	CLOCK_MONOTONIC,
++	CLOCK_MONOTONIC_COARSE,
++	CLOCK_MONOTONIC_RAW,
++	CLOCK_BOOTTIME,
++};
 +
-+#endif /* PARSE_VDSO_H__ */
-diff --git a/libs/libltpvdso/Makefile b/libs/libltpvdso/Makefile
-new file mode 100644
-index 000000000000..cf308feaee16
---- /dev/null
-+++ b/libs/libltpvdso/Makefile
-@@ -0,0 +1,11 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) International Business Machines  Corp., 2001
++typedef int (*gettime_t)(clockid_t clk_id, void *ts);
++static gettime_t ptr_vdso_gettime, ptr_vdso_gettime64;
 +
-+top_srcdir		?= ../..
++static inline int _vdso_gettime(gettime_t vdso, clockid_t clk_id, void *ts)
++{
++	if (!vdso) {
++		errno = ENOSYS;
++		return -1;
++	}
 +
-+include $(top_srcdir)/include/mk/env_pre.mk
++	return vdso(clk_id, ts);
++}
 +
-+LIB			:= libltpvdso.a
++static inline int vdso_gettime(clockid_t clk_id, void *ts)
++{
++	return _vdso_gettime(ptr_vdso_gettime, clk_id, ts);
++}
 +
-+include $(top_srcdir)/include/mk/lib.mk
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/libs/libltpvdso/README b/libs/libltpvdso/README
-new file mode 100644
-index 000000000000..e208f7ef395e
---- /dev/null
-+++ b/libs/libltpvdso/README
-@@ -0,0 +1 @@
-+Copied from kernel tree: tools/testing/selftests/vDSO/parse_vdso.c
-diff --git a/libs/libltpvdso/parse_vdso.c b/libs/libltpvdso/parse_vdso.c
-new file mode 100644
-index 000000000000..1dbb4b87268f
---- /dev/null
-+++ b/libs/libltpvdso/parse_vdso.c
-@@ -0,0 +1,269 @@
-+/*
-+ * parse_vdso.c: Linux reference vDSO parser
-+ * Written by Andrew Lutomirski, 2011-2014.
-+ *
-+ * This code is meant to be linked in to various programs that run on Linux.
-+ * As such, it is available with as few restrictions as possible.  This file
-+ * is licensed under the Creative Commons Zero License, version 1.0,
-+ * available at http://creativecommons.org/publicdomain/zero/1.0/legalcode
-+ *
-+ * The vDSO is a regular ELF DSO that the kernel maps into user space when
-+ * it starts a program.  It works equally well in statically and dynamically
-+ * linked binaries.
-+ *
-+ * This code is tested on x86.  In principle it should work on any
-+ * architecture that has a vDSO.
-+ */
++static inline int vdso_gettime64(clockid_t clk_id, void *ts)
++{
++	return _vdso_gettime(ptr_vdso_gettime64, clk_id, ts);
++}
 +
-+#include <stdbool.h>
-+#include <stdint.h>
-+#include <string.h>
-+#include <limits.h>
-+#include <elf.h>
-+
-+/*
-+ * To use this vDSO parser, first call one of the vdso_init_* functions.
-+ * If you've already parsed auxv, then pass the value of AT_SYSINFO_EHDR
-+ * to vdso_init_from_sysinfo_ehdr.  Otherwise pass auxv to vdso_init_from_auxv.
-+ * Then call vdso_sym for each symbol you want.  For example, to look up
-+ * gettimeofday on x86_64, use:
-+ *
-+ *     <some pointer> = vdso_sym("LINUX_2.6", "gettimeofday");
-+ * or
-+ *     <some pointer> = vdso_sym("LINUX_2.6", "__vdso_gettimeofday");
-+ *
-+ * vdso_sym will return 0 if the symbol doesn't exist or if the init function
-+ * failed or was not called.  vdso_sym is a little slow, so its return value
-+ * should be cached.
-+ *
-+ * vdso_sym is threadsafe; the init functions are not.
-+ *
-+ * These are the prototypes:
-+ */
-+extern void vdso_init_from_auxv(void *auxv);
-+extern void vdso_init_from_sysinfo_ehdr(uintptr_t base);
-+extern void *vdso_sym(const char *version, const char *name);
-+
-+
-+/* And here's the code. */
-+#ifndef ELF_BITS
-+# if ULONG_MAX > 0xffffffffUL
-+#  define ELF_BITS 64
-+# else
-+#  define ELF_BITS 32
-+# endif
++static void find_vdso_helpers(void)
++{
++	/*
++	 * Some vDSO exports its clock_gettime() implementation with a different
++	 * name and version from other architectures, so we need to handle it as
++	 * a special case.
++	 */
++#if defined(__powerpc__) || defined(__powerpc64__)
++	const char *version = "LINUX_2.6.15";
++	const char *name = "__kernel_clock_gettime";
++#elif defined(__aarch64__)
++	const char *version = "LINUX_2.6.39";
++	const char *name = "__kernel_clock_gettime";
++#elif defined(__s390__)
++	const char *version = "LINUX_2.6.29";
++	const char *name = "__kernel_clock_gettime";
++#else
++	const char *version = "LINUX_2.6";
++	const char *name = "__vdso_clock_gettime";
 +#endif
 +
-+#define ELF_BITS_XFORM2(bits, x) Elf##bits##_##x
-+#define ELF_BITS_XFORM(bits, x) ELF_BITS_XFORM2(bits, x)
-+#define ELF(x) ELF_BITS_XFORM(ELF_BITS, x)
++	const char *version64 = "LINUX_2.6";
++	const char *name64 = "__vdso_clock_gettime64";
 +
-+static struct vdso_info
-+{
-+	bool valid;
++	unsigned long sysinfo_ehdr = getauxval(AT_SYSINFO_EHDR);
 +
-+	/* Load information */
-+	uintptr_t load_addr;
-+	uintptr_t load_offset;  /* load_addr - recorded vaddr */
-+
-+	/* Symbol table */
-+	ELF(Sym) *symtab;
-+	const char *symstrings;
-+	ELF(Word) *bucket, *chain;
-+	ELF(Word) nbucket, nchain;
-+
-+	/* Version table */
-+	ELF(Versym) *versym;
-+	ELF(Verdef) *verdef;
-+} vdso_info;
-+
-+/* Straight from the ELF specification. */
-+static unsigned long elf_hash(const unsigned char *name)
-+{
-+	unsigned long h = 0, g;
-+	while (*name)
-+	{
-+		h = (h << 4) + *name++;
-+		if (g = h & 0xf0000000)
-+			h ^= g >> 24;
-+		h &= ~g;
++	if (!sysinfo_ehdr) {
++		tst_res(TINFO, "Couldn't find AT_SYSINFO_EHDR");
++		return;
 +	}
-+	return h;
++
++	vdso_init_from_sysinfo_ehdr(sysinfo_ehdr);
++
++	ptr_vdso_gettime = vdso_sym(version, name);
++	if (!ptr_vdso_gettime)
++		tst_res(TINFO, "Couldn't find vdso_gettime()");
++
++	ptr_vdso_gettime64 = vdso_sym(version64, name64);
++	if (!ptr_vdso_gettime64)
++		tst_res(TINFO, "Couldn't find vdso_gettime64()");
 +}
 +
-+void vdso_init_from_sysinfo_ehdr(uintptr_t base)
++static inline int my_gettimeofday(clockid_t clk_id, void *ts)
 +{
-+	size_t i;
-+	bool found_vaddr = false;
++	struct timeval tval;
 +
-+	vdso_info.valid = false;
++	if (clk_id != CLOCK_REALTIME)
++		tst_brk(TBROK, "%s: Invalid clk_id, exiting", tst_clock_name(clk_id));
 +
-+	vdso_info.load_addr = base;
-+
-+	ELF(Ehdr) *hdr = (ELF(Ehdr)*)base;
-+	if (hdr->e_ident[EI_CLASS] !=
-+	    (ELF_BITS == 32 ? ELFCLASS32 : ELFCLASS64)) {
-+		return;  /* Wrong ELF class -- check ELF_BITS */
-+	}
-+
-+	ELF(Phdr) *pt = (ELF(Phdr)*)(vdso_info.load_addr + hdr->e_phoff);
-+	ELF(Dyn) *dyn = 0;
++	if (gettimeofday(&tval, NULL) < 0)
++		tst_brk(TBROK | TERRNO, "gettimeofday() failed");
 +
 +	/*
-+	 * We need two things from the segment table: the load offset
-+	 * and the dynamic table.
++	 * The array defines the type to TST_LIBC_TIMESPEC and so we can cast
++	 * this into struct timespec.
 +	 */
-+	for (i = 0; i < hdr->e_phnum; i++)
-+	{
-+		if (pt[i].p_type == PT_LOAD && !found_vaddr) {
-+			found_vaddr = true;
-+			vdso_info.load_offset =	base
-+				+ (uintptr_t)pt[i].p_offset
-+				- (uintptr_t)pt[i].p_vaddr;
-+		} else if (pt[i].p_type == PT_DYNAMIC) {
-+			dyn = (ELF(Dyn)*)(base + pt[i].p_offset);
-+		}
-+	}
-+
-+	if (!found_vaddr || !dyn)
-+		return;  /* Failed */
-+
-+	/*
-+	 * Fish out the useful bits of the dynamic table.
-+	 */
-+	ELF(Word) *hash = 0;
-+	vdso_info.symstrings = 0;
-+	vdso_info.symtab = 0;
-+	vdso_info.versym = 0;
-+	vdso_info.verdef = 0;
-+	for (i = 0; dyn[i].d_tag != DT_NULL; i++) {
-+		switch (dyn[i].d_tag) {
-+		case DT_STRTAB:
-+			vdso_info.symstrings = (const char *)
-+				((uintptr_t)dyn[i].d_un.d_ptr
-+				 + vdso_info.load_offset);
-+			break;
-+		case DT_SYMTAB:
-+			vdso_info.symtab = (ELF(Sym) *)
-+				((uintptr_t)dyn[i].d_un.d_ptr
-+				 + vdso_info.load_offset);
-+			break;
-+		case DT_HASH:
-+			hash = (ELF(Word) *)
-+				((uintptr_t)dyn[i].d_un.d_ptr
-+				 + vdso_info.load_offset);
-+			break;
-+		case DT_VERSYM:
-+			vdso_info.versym = (ELF(Versym) *)
-+				((uintptr_t)dyn[i].d_un.d_ptr
-+				 + vdso_info.load_offset);
-+			break;
-+		case DT_VERDEF:
-+			vdso_info.verdef = (ELF(Verdef) *)
-+				((uintptr_t)dyn[i].d_un.d_ptr
-+				 + vdso_info.load_offset);
-+			break;
-+		}
-+	}
-+	if (!vdso_info.symstrings || !vdso_info.symtab || !hash)
-+		return;  /* Failed */
-+
-+	if (!vdso_info.verdef)
-+		vdso_info.versym = 0;
-+
-+	/* Parse the hash table header. */
-+	vdso_info.nbucket = hash[0];
-+	vdso_info.nchain = hash[1];
-+	vdso_info.bucket = &hash[2];
-+	vdso_info.chain = &hash[vdso_info.nbucket + 2];
-+
-+	/* That's all we need. */
-+	vdso_info.valid = true;
-+}
-+
-+static bool vdso_match_version(ELF(Versym) ver,
-+			       const char *name, ELF(Word) hash)
-+{
-+	/*
-+	 * This is a helper function to check if the version indexed by
-+	 * ver matches name (which hashes to hash).
-+	 *
-+	 * The version definition table is a mess, and I don't know how
-+	 * to do this in better than linear time without allocating memory
-+	 * to build an index.  I also don't know why the table has
-+	 * variable size entries in the first place.
-+	 *
-+	 * For added fun, I can't find a comprehensible specification of how
-+	 * to parse all the weird flags in the table.
-+	 *
-+	 * So I just parse the whole table every time.
-+	 */
-+
-+	/* First step: find the version definition */
-+	ver &= 0x7fff;  /* Apparently bit 15 means "hidden" */
-+	ELF(Verdef) *def = vdso_info.verdef;
-+	while(true) {
-+		if ((def->vd_flags & VER_FLG_BASE) == 0
-+		    && (def->vd_ndx & 0x7fff) == ver)
-+			break;
-+
-+		if (def->vd_next == 0)
-+			return false;  /* No definition. */
-+
-+		def = (ELF(Verdef) *)((char *)def + def->vd_next);
-+	}
-+
-+	/* Now figure out whether it matches. */
-+	ELF(Verdaux) *aux = (ELF(Verdaux)*)((char *)def + def->vd_aux);
-+	return def->vd_hash == hash
-+		&& !strcmp(name, vdso_info.symstrings + aux->vda_name);
-+}
-+
-+void *vdso_sym(const char *version, const char *name)
-+{
-+	unsigned long ver_hash;
-+	if (!vdso_info.valid)
-+		return 0;
-+
-+	ver_hash = elf_hash(version);
-+	ELF(Word) chain = vdso_info.bucket[elf_hash(name) % vdso_info.nbucket];
-+
-+	for (; chain != STN_UNDEF; chain = vdso_info.chain[chain]) {
-+		ELF(Sym) *sym = &vdso_info.symtab[chain];
-+
-+		/* Check for a defined global or weak function w/ right name. */
-+		if (ELF64_ST_TYPE(sym->st_info) != STT_FUNC)
-+			continue;
-+		if (ELF64_ST_BIND(sym->st_info) != STB_GLOBAL &&
-+		    ELF64_ST_BIND(sym->st_info) != STB_WEAK)
-+			continue;
-+		if (sym->st_shndx == SHN_UNDEF)
-+			continue;
-+		if (strcmp(name, vdso_info.symstrings + sym->st_name))
-+			continue;
-+
-+		/* Check symbol version. */
-+		if (vdso_info.versym
-+		    && !vdso_match_version(vdso_info.versym[chain],
-+					   version, ver_hash))
-+			continue;
-+
-+		return (void *)(vdso_info.load_offset + sym->st_value);
-+	}
-+
++	*((struct timespec *)ts) = tst_timespec_from_us(tst_timeval_to_us(tval));
 +	return 0;
 +}
 +
-+void vdso_init_from_auxv(void *auxv)
-+{
-+	ELF(auxv_t) *elf_auxv = auxv;
-+	for (int i = 0; elf_auxv[i].a_type != AT_NULL; i++)
-+	{
-+		if (elf_auxv[i].a_type == AT_SYSINFO_EHDR) {
-+			vdso_init_from_sysinfo_ehdr(elf_auxv[i].a_un.a_val);
-+			return;
-+		}
-+	}
++static struct test_variants {
++	int (*gettime)(clockid_t clk_id, void *ts);
++	enum tst_ts_type type;
++	char *desc;
++} variants[] = {
++	{ .gettime = libc_clock_gettime, .type = TST_LIBC_TIMESPEC, .desc = "vDSO or syscall with libc spec"},
 +
-+	vdso_info.valid = false;
++#if (__NR_clock_gettime != __LTP__NR_INVALID_SYSCALL)
++	{ .gettime = sys_clock_gettime, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
++	{ .gettime = vdso_gettime, .type = TST_KERN_OLD_TIMESPEC, .desc = "vDSO with old kernel spec"},
++#endif
++
++#if (__NR_clock_gettime64 != __LTP__NR_INVALID_SYSCALL)
++	{ .gettime = sys_clock_gettime64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
++	{ .gettime = vdso_gettime64, .type = TST_KERN_TIMESPEC, .desc = "vDSO time64 with kernel spec"},
++#endif
++	{ .gettime = my_gettimeofday, .type = TST_LIBC_TIMESPEC, .desc = "gettimeofday"},
++};
++
++static void run(unsigned int i)
++{
++	struct tst_ts ts;
++	long long start, end = 0, diff, slack;
++	struct test_variants *tv;
++	int count = 10000, ret;
++	unsigned int j;
++
++	do {
++		for (j = 0; j < ARRAY_SIZE(variants); j++) {
++			/* Refresh time in start */
++			start = end;
++
++			tv = &variants[j];
++			ts.type = tv->type;
++
++			/* Do gettimeofday() test only for CLOCK_REALTIME */
++			if (tv->gettime == my_gettimeofday && clks[i] != CLOCK_REALTIME)
++				continue;
++
++			ret = tv->gettime(clks[i], tst_ts_get(&ts));
++			if (ret) {
++				if (errno != ENOSYS) {
++					tst_res(TFAIL | TERRNO, "%s: clock_gettime() failed (%d)",
++						tst_clock_name(clks[i]), j);
++				}
++				continue;
++			}
++
++			end = tst_ts_to_ns(ts);
++
++			/* Skip comparison on first traversal */
++			if (count == 10000 && !j)
++				continue;
++
++			/*
++			 * gettimeofday() doesn't capture time less than 1 us,
++			 * add 999 to it.
++			 */
++			if (tv->gettime == my_gettimeofday)
++				slack = 999;
++			else
++				slack = 0;
++
++			diff = end + slack - start;
++			if (diff < 0) {
++				tst_res(TFAIL, "%s: Time travelled backwards (%d): %lld ns",
++					tst_clock_name(clks[i]), j, diff);
++				return;
++			}
++
++			diff /= 1000000;
++
++			if (diff >= 5) {
++				tst_res(TFAIL, "%s: Difference between successive readings greater than 5 ms (%d): %lld",
++					tst_clock_name(clks[i]), j, diff);
++				return;
++			}
++		}
++	} while (--count);
++
++	tst_res(TPASS, "%s: Difference between successive readings is reasonable",
++		tst_clock_name(clks[i]));
 +}
++
++static struct tst_test test = {
++	.test = run,
++	.setup = find_vdso_helpers,
++	.tcnt = ARRAY_SIZE(clks),
++};
 -- 
 2.25.0.rc1.19.g042ed3e048af
 
