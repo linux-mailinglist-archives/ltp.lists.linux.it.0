@@ -1,48 +1,57 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5046C1F599E
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jun 2020 19:02:01 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FD031F611A
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jun 2020 06:56:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 119E03C61B4
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Jun 2020 19:02:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 412E43C2DE8
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jun 2020 06:56:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 6762B3C2E1A
- for <ltp@lists.linux.it>; Wed, 10 Jun 2020 19:01:44 +0200 (CEST)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id BD9411400F99
- for <ltp@lists.linux.it>; Wed, 10 Jun 2020 19:01:43 +0200 (CEST)
-Received: by linux.microsoft.com (Postfix, from userid 1066)
- id 88CF620B71CC; Wed, 10 Jun 2020 10:01:41 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 88CF620B71CC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1591808501;
- bh=D1wH1dK8bNPhiuEReUqysKhlwE/xussjWlR2j7MN71c=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Qm/JAsjiOas+sAhE/RT9H1QcoyBm6nm/IECJpdCRiIoBJhdS/S6Dlo6U7dRmYde6O
- zaR46+fy/fmLB67LTtkt0w31dhdpvkVIL1Zy28guFYgNV9szayJVDUM4a9VAp7fNaC
- 9pWvb3kW64IRRhF0V1JSE7lqSltgth6yrMajaIgc=
-From: Lachlan Sneff <t-josne@linux.microsoft.com>
-To: ltp@lists.linux.it,
-	pvorel@suse.cz,
-	zohar@linux.ibm.com
-Date: Wed, 10 Jun 2020 10:01:23 -0700
-Message-Id: <1591808483-22040-2-git-send-email-t-josne@linux.microsoft.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1591808483-22040-1-git-send-email-t-josne@linux.microsoft.com>
-References: <1591808483-22040-1-git-send-email-t-josne@linux.microsoft.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 5396D3C0887
+ for <ltp@lists.linux.it>; Thu, 11 Jun 2020 06:56:42 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 8FBF96014F0
+ for <ltp@lists.linux.it>; Thu, 11 Jun 2020 06:56:40 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.73,498,1583164800"; d="scan'208";a="94282064"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 11 Jun 2020 12:56:37 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 16A184CE281F;
+ Thu, 11 Jun 2020 12:56:37 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Thu, 11 Jun 2020 12:56:37 +0800
+To: Jan Stancek <jstancek@redhat.com>
+References: <828833321.15301509.1591700517554.JavaMail.zimbra@redhat.com>
+ <1591767427-29383-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <1904123764.15455071.1591784009893.JavaMail.zimbra@redhat.com>
+ <787d0f86-269b-1e23-2631-2c420d6dd884@cn.fujitsu.com>
+ <3cdd6be2-c27a-e9dc-2559-c6577239a1bc@cn.fujitsu.com>
+ <660069492.15476972.1591794243308.JavaMail.zimbra@redhat.com>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <4c75396e-6578-ecbb-e8e5-d0569d289f9f@cn.fujitsu.com>
+Date: Thu, 11 Jun 2020 12:56:35 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.0
+MIME-Version: 1.0
+In-Reply-To: <660069492.15476972.1591794243308.JavaMail.zimbra@redhat.com>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 16A184CE281F.AF8F2
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_PASS,SPF_PASS,
- USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] IMA: Add a test to verify importing a certificate
- into keyring
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] syscalls/ioctl_loop05: Use correct blockdev to
+ get logical_block_size
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,85 +63,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: nramas@linux.microsoft.com, linux-integrity@vger.kernel.org,
- balajib@linux.microsoft.com
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: ltp@lists.linux.it
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add an IMA measurement test that verifies that an x509 certificate
-can be imported into the .ima keyring and measured correctly.
-
-Signed-off-by: Lachlan Sneff <t-josne@linux.microsoft.com>
----
- .../security/integrity/ima/tests/ima_keys.sh  | 44 ++++++++++++++++++-
- 1 file changed, 43 insertions(+), 1 deletion(-)
-
-diff --git a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-index 1b0dd0aed..6904fabfa 100644
---- a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-+++ b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-@@ -7,7 +7,7 @@
- 
- TST_NEEDS_CMDS="awk cut"
- TST_SETUP="setup"
--TST_CNT=1
-+TST_CNT=2
- TST_NEEDS_DEVICE=1
- 
- . ima_setup.sh
-@@ -69,4 +69,46 @@ $(echo "$line" | cut -d' ' -f5) keyring"
- 	tst_res TPASS "specified keyrings were measured correctly"
- }
- 
-+
-+# Test that a cert can be imported into the ".ima" keyring correctly.
-+test2() {
-+	local keyring_id key_id
-+	CERT_FILE="/etc/keys/x509_ima.der" # Default
-+
-+	[ -f $CERT_FILE ] || tst_brk TCONF "missing $CERT_FILE"
-+
-+	if ! openssl x509 -in $CERT_FILE -inform der > /dev/null; then
-+		tst_brk TCONF "The suppled cert file ($CERT_FILE) is not \
-+a valid x509 certificate"
-+	fi
-+
-+	tst_res TINFO "adding a cert to the \".ima\" keyring ($CERT_FILE)"
-+
-+	keyring_id=$(sudo keyctl show %:.ima | sed -n 2p | \
-+		sed 's/^[[:space:]]*//' | cut -d' ' -f1) || \
-+		tst_btk TCONF "unable to retrieve .ima keyring id"
-+
-+	if ! tst_is_num	"$keyring_id"; then
-+		tst_brk TCONF "unable to parse keyring id from keyring"
-+	fi
-+
-+	sudo evmctl import $CERT_FILE "$keyring_id" > /dev/null || \
-+		tst_brk TCONF "unable to import a cert into the .ima keyring"
-+
-+	grep -F ".ima" "$ASCII_MEASUREMENTS" | tail -n1 | cut -d' ' -f6 | \
-+		xxd -r -p > $TEST_FILE || \
-+		tst_brk TCONF "cert not found in ascii_runtime_measurements log"
-+
-+	if ! openssl x509 -in $TEST_FILE -inform der > /dev/null; then
-+		tst_brk TCONF "The cert logged in ascii_runtime_measurements \
-+($CERT_FILE) is not a valid x509 certificate"
-+	fi
-+
-+	if cmp -s "$TEST_FILE" $CERT_FILE; then
-+		tst_res TPASS "logged cert matches original cert"
-+	else
-+		tst_res TFAIL "logged cert does not match original cert"
-+	fi
-+}
-+
- tst_run
--- 
-2.25.1
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkgSmFuCgoKPiAKPiAKPiAtLS0tLSBPcmlnaW5hbCBNZXNzYWdlIC0tLS0tCj4+Pj4KPj4+PiBX
+aGF0IEkgaGFkIGluIG1pbmQgd2hlbiBJIHJlZmVycmVkIHRvIGRmIHdhcyBzb21ldGhpbmcgbGlr
+ZToKPj4+PiAgwqDCoCBzdGF0KCJ0ZXN0LmltZyIsICZzdGF0YnVmKTsKPj4+PiAgwqDCoCBTQUZF
+X01LTk9EKCJibGtkZXYiLCBTX0lGQkxLIHwgU19JUldYVSwgc3RhdGJ1Zi5zdF9kZXYpOwo+Pj4+
+ICDCoMKgIGJsb2NrX2RldmZkID0gU0FGRV9PUEVOKCJibGtkZXYiLCBPX1JEV1IpOwo+Pj4+IFdo
+YXQgZG8geW91IHRoaW5rPwo+Pj4+Cj4+IEl0IHdvcmtzIHdlbGwgb24gZXh0NCBvciB4ZnMgZmls
+ZXN5c3RlbSh1c2VyIG1heSBtb3VudCB3YW50ZWQgZmlsZXN5c3RlbQo+PiBvbiB0bXBkaXIpLiBC
+dXQgaWYgd2UgdXNlIGJ0cmZzLCB0aGlzCj4+IEJMS1NTWkdFVCB3aWxsIGZhaWwgYmVjYXVzZSBt
+YWpvciBkZXYgbnVtZXIgaXMgMC4gV2hlbiB3ZSBtZWV0IHRoaXMKPj4gc2l0dWF0aW9uLCB3ZSBk
+b24ndCBuZWVkIHRvIGNhbGwgdGhpcyBpb2N0bCBhbmQgd2UgY2FuIGRpcmVjdGx5IHRlc3QKPj4g
+YmVjdWFzZSBpdCBkb2VzbicgdCBoYXZlIGJhY2tpbmcgZmlsZSBibG9jayBkZXZpY2UgYWxpZ24g
+bGltaXQuCj4+IFdoYXQgZG8geW91IHRoaW4gYWJvdXQgaXQ/Cj4gCj4gVGhpcyBJIGRpZG4ndCBl
+eHBlY3QuIElmIGl0J3Mgbm90IHJlbGlhYmxlIHRoZW4gcGVyaGFwcyB5b3VyIG1ldGhvZAo+IGlu
+IHYxIHRoYXQgaW5jcmVtZW50YWxseSBpbmNyZWFzZXMgaXQgdW50aWwgaXQgd29ya3MgaXMgcGVy
+aGFwcyBtb3N0Cj4gdW5pdmVyc2FsIGFwcHJvYWNoLiBTb3JyeSBmb3IgdGhlIGRldG91ciB0byBn
+ZXQgdGhlcmUuCj4gCkFmdGVyIEkgdHJhY2UgdGhlIHN0YXQgc3lzY2FsbCwgYnRyZnMgdXNlcyB2
+aXJ0dWFsIGJsb2NrIGRldiwgc28gbWFqb3IgCmRldiBudW1iZXIgaXMgMCBzaW5jZSBrZXJuZWwg
+Y29tbWl0WzFdLgoKT3JpZ2luYWxseSwgSSB3YW50IHRvIHVzZSB0aGF0IG1ham9yIGRldiBudW1i
+ZXIgaXMgMCB0byBqdWRnZSB3aGV0aGVyIApsb29wIGRyaXZlciBoYXMgYWxpZ24gbGltaXQgb24g
+c29tZSBmaWxleXN0ZW1zLiBCdXQgaXQgc2VlcyB0aGF0IHRoZXkgCmRvbid0IGhhdmUgZGlyZWN0
+IGNvbm5lY3Rpb24gYmV0d2VlbiBpbm9kZS0+aV9zYi0+c19iZGV2IChsb29wIHVzZWQpYW5kIApp
+bm9kZS0+c3RfZGV2KHN0YXQgdXNlZCkuIFNvIHVzaW5nIHRoZSBtYWpvciBkZXYgbnVtYmVyIHRv
+IGp1ZGdlIHdoZXRoZXIgCmxvb3AgZHJpdmVyIGNvZGUgaGFzIGFsaWduIGxpbWl0cyBzb3VuZHMg
+dW5yZWFzb25hYmxlLgoKVG8gYW92aWQgdGhpcywgSSB3aWxsIHVzZSB2MSBtZXRob2Qgd2l0aCBz
+b21lIGltcHJvdmVtZW50LgoKClsxXWh0dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51
+eC9rZXJuZWwvZ2l0L3RvcnZhbGRzL2xpbnV4LmdpdC9jb21taXQvZnMvYnRyZnMvaW5vZGUuYz9p
+ZD0zMzk0ZTE2MDdlYWY4NzBlYmJhMzdkMzAzZmJkNTkwYTRjNTY5OTA4IAoKPiAKPiAKCgoKLS0g
+Ck1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
