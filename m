@@ -1,68 +1,65 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A9601F7502
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jun 2020 10:04:55 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 266EF1F7508
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jun 2020 10:08:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DF94F3C2DC7
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jun 2020 10:04:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C97113C2DC7
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jun 2020 10:08:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id CC92D3C22CA
- for <ltp@lists.linux.it>; Fri, 12 Jun 2020 10:04:52 +0200 (CEST)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 053893C22CA
+ for <ltp@lists.linux.it>; Fri, 12 Jun 2020 10:08:15 +0200 (CEST)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A2C141A0174A
- for <ltp@lists.linux.it>; Fri, 12 Jun 2020 10:04:51 +0200 (CEST)
-Received: from mail-qt1-f174.google.com ([209.85.160.174]) by
- mrelayeu.kundenserver.de (mreue010 [212.227.15.129]) with ESMTPSA (Nemesis)
- id 1N17l4-1ilt7I3UhW-012VYt for <ltp@lists.linux.it>; Fri, 12 Jun 2020
- 10:04:51 +0200
-Received: by mail-qt1-f174.google.com with SMTP id i16so6506417qtr.7
- for <ltp@lists.linux.it>; Fri, 12 Jun 2020 01:04:50 -0700 (PDT)
-X-Gm-Message-State: AOAM532Dlbzqqf3nP6QLRDgd/Zk2CKQWx7FN7q+SpWEz5RElf12OaxJv
- mWdoK+i00D/cgSzV2G6Ur6StqHCj4Lcm/GvUsgU=
-X-Google-Smtp-Source: ABdhPJxBHY1VqiddQJhO/8E3dDHB2/wbJ6r2IgehnNg/UT+8C/skYRobdzGgK+i0Zd/YBBA0MNESETZ5WpGtX7CCUeA=
-X-Received: by 2002:ac8:2b98:: with SMTP id m24mr1836179qtm.7.1591949089669;
- Fri, 12 Jun 2020 01:04:49 -0700 (PDT)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 600491A00EB6
+ for <ltp@lists.linux.it>; Fri, 12 Jun 2020 10:08:15 +0200 (CEST)
+Received: from mail-qt1-f171.google.com ([209.85.160.171]) by
+ mrelayeu.kundenserver.de (mreue108 [212.227.15.145]) with ESMTPSA (Nemesis)
+ id 1N2m3G-1inXE233CG-013744 for <ltp@lists.linux.it>; Fri, 12 Jun 2020
+ 10:08:14 +0200
+Received: by mail-qt1-f171.google.com with SMTP id e16so6538327qtg.0
+ for <ltp@lists.linux.it>; Fri, 12 Jun 2020 01:08:14 -0700 (PDT)
+X-Gm-Message-State: AOAM533HjRJcaSBpXf9Cyh2McKkyt97XDma6x8ukIHOVdr0Do/RPqlJ0
+ c3Y6lOYB4mrm2ciix6WPPHUHOFj0m7jY1BqfyxY=
+X-Google-Smtp-Source: ABdhPJzVBeSSunMtlQDebDFe9oebT0R03qT6xVway1vTYf7uOQsF+QH/nGNQ01X3A8Hy+e72IiQKqE/q8l0pR7tY6fo=
+X-Received: by 2002:ac8:306d:: with SMTP id g42mr1816303qte.18.1591949293629; 
+ Fri, 12 Jun 2020 01:08:13 -0700 (PDT)
 MIME-Version: 1.0
-References: <0f1cc05d6d79238ed94b93417f300e9a026a2063.1591864369.git.viresh.kumar@linaro.org>
- <cc75beb4074b62e94b8ac92cba17af41b8f5fbdc.1591864369.git.viresh.kumar@linaro.org>
- <CAK8P3a1VEj=QhvmeSpzA1GKLhg9isM106yW1trntNVTqP5UZQw@mail.gmail.com>
- <20200612074009.t5ccj36nf7pd25sz@vireshk-i7>
-In-Reply-To: <20200612074009.t5ccj36nf7pd25sz@vireshk-i7>
+References: <cc75beb4074b62e94b8ac92cba17af41b8f5fbdc.1591864369.git.viresh.kumar@linaro.org>
+ <0fb91044431a04c2787bfa121a7e5f969664fc8b.1591948595.git.viresh.kumar@linaro.org>
+In-Reply-To: <0fb91044431a04c2787bfa121a7e5f969664fc8b.1591948595.git.viresh.kumar@linaro.org>
 From: Arnd Bergmann <arnd@arndb.de>
-Date: Fri, 12 Jun 2020 10:04:33 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a1aYf+jEEWbfjW0wv55U0UUv45occvxViMAu52J+OP_bQ@mail.gmail.com>
-Message-ID: <CAK8P3a1aYf+jEEWbfjW0wv55U0UUv45occvxViMAu52J+OP_bQ@mail.gmail.com>
+Date: Fri, 12 Jun 2020 10:07:57 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a3EQ2wbM=XKHaUQCK=_bhSc1pxGKCd9+oEf9y02GFs9_g@mail.gmail.com>
+Message-ID: <CAK8P3a3EQ2wbM=XKHaUQCK=_bhSc1pxGKCd9+oEf9y02GFs9_g@mail.gmail.com>
 To: Viresh Kumar <viresh.kumar@linaro.org>
-X-Provags-ID: V03:K1:B1nVh/dI6cWVDsKo0nkMOb60Oll4fPhDSxwuxCM8jBLL1WeOzcT
- TBLPJtfvfz5100fyz+h30aUBbXTeLvlVBQOe8wtaZbVB3TJTgp7Q0VlEOKso/WVM5RKTCb1
- VNINSiL4SilBz0WNc7c79ZtYzJPYEtaIUZ79U0u1vO7JvaLnVcx9bQmGnijK9bGxgZExu2+
- asOUr/hF2vathxaDecpvA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:UVDQUadUrus=:CX9NjdSwVsXuEYoUXSGw9Q
- bmfuVFYlwQwbCyXnAnjJhAqzXMDMF59Fk8f7ewPktTwRj5Ecocxnr6xQB9oCPpAllTm9s/j/4
- BPyrquT1vdVoV2IzdXR3SRQBgEdfbSN+ntx/2TpJCABbYP0OyeX9g8yDpHo9TZW/H0Oz7Nn9i
- 4jlFYMAzwm/uCeXv6Kh2ie+zbq7eZ0FIrq5A+seqdoqfhoBKHrP56NKT8lcOrqrpbLUCTxfl3
- uaFcAPNVExL9FVg1VCey0j6xAeUitTnsrGLOAbVAVAbbPcIuKnO9IZ2lxX5bJSCZPcCsi6Dll
- lFtdeEEWaKpd330WHxRUzFQ+WO6I//fDUdV17mrHr9JD6wHzYoVY7yRChGuGNDUUEq8ZQL5Ce
- o1UrjSZ+8PMtyLTxV8g2YLQ9KD0WGHwLVFTqaDFb32r5l52H9k0lCdYAqLFJUkR4NBMrxpRnP
- JBG2yxaUl8ibkUd+Fhkuo7SiGrnuzwMXHayH1coR8PuogR1hF27P4dUH7Blru7eMv9ZMzYN2K
- PvtsKtQ9mAX0YiyiBMGYMRZYavBU3CCguzuxPl7MhVA5mcsg22qNmNTBSiXcW8RysmghamXBf
- UmghbEiLj99mSMpsumBfrylulsSChZKd/kfJe355rdSeSk8FbaLzUgAFI//HgNoTwQ3jEr4RG
- SdCKk/6An7122qwBkrELNQGW/XXnZwovBsbHr0GtbfFpsMuG2jM4H82xPoREi60GacOe6sh2u
- rZ3+P15s/rSSVkikFK7Pn+1lXWy92TL6oo4Kc3IqoxV//s/Wr/+8nY5iculBH4B2x6AU0aiMr
- WPd5Cil+ZUpwX8SwFYBgv2Ge5M8iMLj78jAjLOO5kFcUNZZeUg=
+X-Provags-ID: V03:K1:oaZuAM7TbXjng0zKTdjP4hnJfu1TRk2Sj70JY8RO/cfIVakOAKj
+ xtSCmJYIMYE/Lhp84ihn6mi5Y/7thOQbkA18QgZHnYKbkYeHVEgVHWsmKylNyqZTiX2dRzN
+ 4tv00c67vEkHszxcMejdfA3nTvoPrGHR5IWGCZnTPvhjZBpAoXULgTjMRZYfIN2PUrTsQWw
+ YVqklWg+ALopK9GIG1VsQ==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:IjMRJqQas74=:baw5dCPIjm9cEcbKNTRcwL
+ puijdR0l/kyS7csOJS4EHk1kWOI9nAXDxWD5J2/uQ7ngN3b+keqrb7yXYMsE2+sj1bFx9dgNG
+ 1G4hZYN+k/eOymqLmj62trco9c33BYmbipSAY+QuV4IIDStn2SWhnT14v/CoQEJrVzzLHvV9p
+ iw/Bd+SfAtyYtgq4BMd3s0+WpWzHwhcUxnVLBegQPMyk2kIYK9W4S9tfJ17PFKUPXGcMOMVaE
+ SZri9+LgUZ7tINgBngb1NbRHchKifv51/GAxFm2sPDhAmVeMxSw7bpb/K73e1BH1KQobU2B83
+ ODbLmUrZNr2NMyttRbcAuB1ii5x/vIi7V55SurQD6Iv9sR/zYL25CuQ+vpvJvOHmcoIjm6YHz
+ qD74YJrcoWsFcPh0QinMuAxxgWT1qEcNURQ4T6+t+W91pOFLju0uq654nhg0MokU21ldd1+H9
+ wPdY3oEzkrgpeL0oM7cPkeJldNRiH7P/h9tqhbNOJIEl4AuNghUpWC4IB78jnpUJlHDXi0+Tw
+ MlvBpQVIpblkyUnfsEgb0cB157I/2LLwEkuBks1BGtN5deiSiLqQfcxa7+3WzmBlUKsP+iDT5
+ e24tH2Q9S2yRsW68+0vZTMH1GMQwplKpc24apb80hf1NwqthGimxkX6B840K3kLmKs62gdtcj
+ CWxPhav6Xd5RoCWUHIvW+3r6B6BSRkO4nFk/bzRY7aqkjfo4eY6UaXuiTdpzSVVZlwfRWKAIB
+ 8SOC9wVxpuWYyXORvWJVn9HK5O5GY0Ll4RNc4Yzi0Rg4hTYmD0DFY/Lb/qXYOWkgVhWKuB/Oh
+ z5COeqxhFJgKzKMs3JAUQ58I7j475mI+7GhRTzduaaSGaQYDx0=
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V2 2/2] syscalls/clock_gettime: Add test to check
+Subject: Re: [LTP] [PATCH V3 2/2] syscalls/clock_gettime: Add test to check
  bug during successive readings
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -81,22 +78,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Fri, Jun 12, 2020 at 9:40 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
-> On 11-06-20, 15:05, Arnd Bergmann wrote:
-
-
-> > When any of the variants (in particular vdso_clock_gettime64) don't
-> > exist, I think you just need to continue without printing anything.
+On Fri, Jun 12, 2020 at 9:58 AM Viresh Kumar <viresh.kumar@linaro.org> wrote:
 >
-> That is exactly why we are looking for ENOSYS here. The other code
-> (which you removed) explicitly sets the error to ENOSYS if
-> clock_gettime64() or clock_gettime() vdso isn't available. And so we
-> won't print an error here. Though the setup routine will print only
-> once if the vdso wasn't available, as general information.
+> An issue was reported recently where a bug was found during successive
+> reading of 64 bit time on arm32 platforms. Add a test for that.
+>
+> https://github.com/richfelker/musl-cross-make/issues/96
+>
+> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 
-Ok, got it, I misread the != ENOSYS check for ==ENOSYS.
+Acked-by: Arnd Bergmann <arnd@arndb.de>
 
-      Arnd
+There was one more thing I had originally suggested as an optional
+thing to test for:
+
+- ensure that CLOCK_REALTIME_COARSE/CLOCK_MONOTONIC_COARSE
+  is at most clock_getres() nanoseconds behind
+  CLOCK_REALTIME/CLOCK_MONOTONIC, and never ahead of it.
+
+It's probably too much to put into this test, and I'm not sure we really
+need to test for it. Are you still looking into this, or do you think we should
+stop here?
+
+     Arnd
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
