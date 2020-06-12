@@ -1,53 +1,48 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 024F71F724D
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jun 2020 04:57:18 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 820CE1F7279
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jun 2020 05:31:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BC0393C59AB
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jun 2020 04:57:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6B0E83C59B6
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jun 2020 05:31:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id A93E33C1042
- for <ltp@lists.linux.it>; Fri, 12 Jun 2020 04:57:13 +0200 (CEST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id E31BA3C232A
+ for <ltp@lists.linux.it>; Fri, 12 Jun 2020 05:31:10 +0200 (CEST)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id D98C2600489
- for <ltp@lists.linux.it>; Fri, 12 Jun 2020 04:56:28 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.73,501,1583164800"; d="scan'208";a="94345161"
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 79518601E07
+ for <ltp@lists.linux.it>; Fri, 12 Jun 2020 05:31:08 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.73,501,1583164800"; d="scan'208";a="94346837"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 12 Jun 2020 10:57:08 +0800
+ by heian.cn.fujitsu.com with ESMTP; 12 Jun 2020 11:31:06 +0800
 Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id DDFC04CE26E0;
- Fri, 12 Jun 2020 10:57:06 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
+ by cn.fujitsu.com (Postfix) with ESMTP id 99E634CE26F7
+ for <ltp@lists.linux.it>; Fri, 12 Jun 2020 11:31:03 +0800 (CST)
+Received: from localhost.localdomain (10.167.220.84) by
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Fri, 12 Jun 2020 10:57:07 +0800
-To: Jan Stancek <jstancek@redhat.com>
-References: <660069492.15476972.1591794243308.JavaMail.zimbra@redhat.com>
- <1591853524-17011-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <1004907592.15616646.1591873760020.JavaMail.zimbra@redhat.com>
+ (TLS) id 15.0.1497.2; Fri, 12 Jun 2020 11:31:04 +0800
 From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <9b93f001-49f4-27ec-8860-65b7ab75e442@cn.fujitsu.com>
-Date: Fri, 12 Jun 2020 10:57:04 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.0
+To: <ltp@lists.linux.it>
+Date: Fri, 12 Jun 2020 11:30:51 +0800
+Message-ID: <1591932651-3136-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-In-Reply-To: <1004907592.15616646.1591873760020.JavaMail.zimbra@redhat.com>
 X-Originating-IP: [10.167.220.84]
 X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: DDFC04CE26E0.AF583
+X-yoursite-MailScanner-ID: 99E634CE26F7.AF140
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] syscalls/ioctl_loop05: Use correct blockdev to
- get logical_block_size
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/mmap17: Remove useless error.h
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,33 +54,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Jan
+In this test, we don't use error() or error_at_line() function, so
+remove this header file. It also fix build error on alpine:latest.
 
-> 
-> 
-> ----- Original Message -----
->> Using inode block size is also wrong because it is for filesystem io(such as
->> we format
->> filesystem can specify block size for data or log or metadata), it is not
->> suitable
->> for logical block size.
-> 
-> If this copes correctly with btrfs too, I don't have objections.
-For btrfs, I think it is also right.
-> I retested on failing s390 setup and v3 works there OK.
-Thanks for your retest.
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+---
+ testcases/kernel/syscalls/mmap/mmap17.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Best Regards
-Yang Xu
-> 
-> 
-> 
+diff --git a/testcases/kernel/syscalls/mmap/mmap17.c b/testcases/kernel/syscalls/mmap/mmap17.c
+index bd3642e97..0001c3794 100644
+--- a/testcases/kernel/syscalls/mmap/mmap17.c
++++ b/testcases/kernel/syscalls/mmap/mmap17.c
+@@ -20,7 +20,6 @@
+ #include <sys/mman.h>
+ #include <sys/stat.h>
+ #include <unistd.h>
+-#include <error.h>
+ #include <errno.h>
+ #include <string.h>
+ #include <stdlib.h>
+-- 
+2.23.0
+
 
 
 
