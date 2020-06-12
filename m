@@ -2,49 +2,46 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 334E61F6F18
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jun 2020 22:58:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66D331F71DA
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jun 2020 03:51:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 10D7E3C59B9
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Jun 2020 22:58:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 376473C59A9
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Jun 2020 03:51:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 030383C2DF2
- for <ltp@lists.linux.it>; Thu, 11 Jun 2020 22:58:19 +0200 (CEST)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 7BEB61401355
- for <ltp@lists.linux.it>; Thu, 11 Jun 2020 22:58:18 +0200 (CEST)
-Received: from [192.168.1.21] (c-73-187-218-229.hsd1.pa.comcast.net
- [73.187.218.229])
- by linux.microsoft.com (Postfix) with ESMTPSA id CFAF920B7192;
- Thu, 11 Jun 2020 13:58:15 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com CFAF920B7192
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1591909096;
- bh=vJVqnIxqDoA1RV89Sk8LF0rRWTEFuSWHImmIu9VvSHo=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=WWJ4UxyjLXryFpRKvi0EbV65BIGj4mPRFoRn5f0tZCAsAP46AmWi1ktkdCEHwZ7SH
- ixUewPuKFgbfCqprDXm+D6ucdLPV7etdwUFlUN7xSThGKYei5asTFoCLBfUHyJvwdM
- Bowt+5NaoZ9f6WzRZgi3tJlmULbytuodg3t3GkWs=
-To: Petr Vorel <pvorel@suse.cz>
-References: <1591808483-22040-1-git-send-email-t-josne@linux.microsoft.com>
- <20200611153011.GA25057@dell5510>
-From: Lachlan Sneff <t-josne@linux.microsoft.com>
-Message-ID: <78a8c0a0-82ae-7323-5416-9631137032ed@linux.microsoft.com>
-Date: Thu, 11 Jun 2020 16:58:14 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 813863C0194
+ for <ltp@lists.linux.it>; Fri, 12 Jun 2020 03:51:49 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id D6F8D601BFF
+ for <ltp@lists.linux.it>; Fri, 12 Jun 2020 03:51:46 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.73,501,1583164800"; d="scan'208";a="94341624"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 12 Jun 2020 09:51:44 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 8A04B4CE2804
+ for <ltp@lists.linux.it>; Fri, 12 Jun 2020 09:51:40 +0800 (CST)
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Fri, 12 Jun 2020 09:51:41 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Fri, 12 Jun 2020 09:51:35 +0800
+Message-ID: <1591926695-1189-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-In-Reply-To: <20200611153011.GA25057@dell5510>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 8A04B4CE2804.ACA12
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_PASS,SPF_PASS,
- USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] IMA: Add a test to verify measurment of keys
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v3] syscalls/ioctl_loop01: Add test for clear loop flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,197 +53,123 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: nramas@linux.microsoft.com, linux-integrity@vger.kernel.org,
- zohar@linux.ibm.com, ltp@lists.linux.it, balajib@linux.microsoft.com
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Thank you for your review!
+In loop driver, LO_FLAGS_PARTSCAN can not be clear once set and
+LO_FLAGS_AUTOCLEAR can be clear once set. Test this.
 
-On 6/11/20 11:30 AM, Petr Vorel wrote:
-> Hi Lachlan,
->
-> thank you for updating LTP!
->
-> I have few comments below.
-> Mostly just tiny details, which I could fix before merge.
->
->> Add a testcase that verifies that the IMA subsystem has correctly
->> measured keys added to keyrings specified in the IMA policy file.
->> Additionally, add support for handling a new IMA template descriptor,
->> namely ima-buf[1], in the IMA measurement tests.
-> Great, thanks!
-:)
->> [1]: https://www.kernel.org/doc/html/latest/security/IMA-templates.html#use
-> ...
->> +++ b/runtest/ima
->> @@ -4,3 +4,4 @@ ima_policy ima_policy.sh
->>   ima_tpm ima_tpm.sh
->>   ima_violations ima_violations.sh
->>   evm_overlay evm_overlay.sh
->> +ima_keys ima_keys.sh
-> Please move evm_overlay after ima_keys.
-> EVM tests require specific configuration, that's why I put it on the end.
-> Or before ima_policy.sh (see comment below).
-Okay
->> diff --git a/testcases/kernel/security/integrity/ima/tests/compute_digest.sh b/testcases/kernel/security/integrity/ima/tests/compute_digest.sh
->> new file mode 100644
-> Please use 755 (shell libraries which are sources can be 644, but this is
-> meant to be executed).
-This makes sense, sorry!
->> index 000000000..85f6bf3da
->> --- /dev/null
->> +++ b/testcases/kernel/security/integrity/ima/tests/compute_digest.sh
-> Could you please move this to ima_setup.sh? That's the file we keep helper
-> functions. (BTW in LTP shell based tests it's usually foo_lib.sh, I named this
-> ima_setup.sh instead of ima_lib.sh, because it was first meant as tmpfs related
-> setup and still it does, although I later I added other helper functions there.
+Also adding other linux tag.
 
-I wasn't sure what to do with compute_digest. I didn't want to duplicate 
-it, so I added a
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+---
+ .../kernel/syscalls/ioctl/ioctl_loop01.c      | 51 +++++++++++--------
+ 1 file changed, 30 insertions(+), 21 deletions(-)
 
-a new file for it. Adding it to ima_setup.sh is a solid idea.
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop01.c b/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
+index 2d9733f95..f334b5eb2 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
+@@ -13,8 +13,12 @@
+  * But we also check whether we can scan partition table correctly ie check
+  * whether /dev/loopnp1 and /sys/bloclk/loop0/loop0p1 existed.
+  *
++ * For LO_FLAGS_AUTOCLEAR flag, it can be clear. For LO_FLAGS_PARTSCAN flag,
++ * it cannot be clear. We also check this.
++ *
+  * It is also a regression test for kernel
+- * commit 10c70d95c0f2 ("block: remove the bd_openers checks in blk_drop_partitions").
++ * commit 10c70d95c0f2 ("block: remove the bd_openers checks in blk_drop_partitions")
++ * commit 6ac92fb5cdff ("loop: Fix wrong masking of status flags").
+  */
+ 
+ #include <stdio.h>
+@@ -38,38 +42,26 @@ static int dev_num, attach_flag, dev_fd, parted_sup;
+ static char partscan_path[1024], autoclear_path[1024];
+ static char loop_partpath[1026], sys_loop_partpath[1026];
+ 
+-static void verify_ioctl_loop(void)
++static void check_loop_value(int set_flag, int get_flag, int autoclear_field)
+ {
++	struct loop_info loopinfo = {0}, loopinfoget = {0};
+ 	int ret;
+-	struct loop_info loopinfo, loopinfoget;
+ 
+-	tst_attach_device(dev_path, "test.img");
+-	attach_flag = 1;
+-
+-	TST_ASSERT_INT(partscan_path, 0);
+-	TST_ASSERT_INT(autoclear_path, 0);
+-	TST_ASSERT_STR(backing_path, backing_file_path);
+-
+-	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
+-	memset(&loopinfo, 0, sizeof(loopinfo));
+-	memset(&loopinfoget, 0, sizeof(loopinfoget));
+-
+-	loopinfo.lo_flags = SET_FLAGS;
++	loopinfo.lo_flags = set_flag;
+ 	SAFE_IOCTL(dev_fd, LOOP_SET_STATUS, &loopinfo);
+-
+ 	SAFE_IOCTL(dev_fd, LOOP_GET_STATUS, &loopinfoget);
+ 
+-	if (loopinfoget.lo_flags & ~GET_FLAGS)
+-		tst_res(TFAIL, "expect %d but got %d", GET_FLAGS, loopinfoget.lo_flags);
++	if (loopinfoget.lo_flags & ~get_flag)
++		tst_res(TFAIL, "expect %d but got %d", get_flag, loopinfoget.lo_flags);
+ 	else
+ 		tst_res(TPASS, "get expected lo_flag %d", loopinfoget.lo_flags);
+ 
+ 	TST_ASSERT_INT(partscan_path, 1);
+-	TST_ASSERT_INT(autoclear_path, 1);
++	TST_ASSERT_INT(autoclear_path, autoclear_field);
+ 
+ 	if (!parted_sup) {
+ 		tst_res(TINFO, "Current environment doesn't have parted disk, skip it");
+-		goto detach_device;
++		return;
+ 	}
+ 
+ 	ret = access(loop_partpath, F_OK);
+@@ -83,8 +75,24 @@ static void verify_ioctl_loop(void)
+ 		tst_res(TPASS, "access %s succeeds", sys_loop_partpath);
+ 	else
+ 		tst_res(TFAIL, "access %s fails", sys_loop_partpath);
++}
++
++static void verify_ioctl_loop(void)
++{
++	tst_attach_device(dev_path, "test.img");
++	attach_flag = 1;
++
++	TST_ASSERT_INT(partscan_path, 0);
++	TST_ASSERT_INT(autoclear_path, 0);
++	TST_ASSERT_STR(backing_path, backing_file_path);
++
++	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
++
++	check_loop_value(SET_FLAGS, GET_FLAGS, 1);
++
++	tst_res(TINFO, "Test flag can be clear");
++	check_loop_value(0, LO_FLAGS_PARTSCAN, 0);
+ 
+-detach_device:
+ 	SAFE_CLOSE(dev_fd);
+ 	tst_detach_device(dev_path);
+ 	attach_flag = 0;
+@@ -142,6 +150,7 @@ static struct tst_test test = {
+ 	},
+ 	.tags = (const struct tst_tag[]) {
+ 		{"linux-git", "10c70d95c0f2"},
++		{"linux-git", "6ac92fb5cdff"},
+ 		{}
+ 	},
+ 	.needs_tmpdir = 1,
+-- 
+2.23.0
 
-> ...
->> +++ b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
->> @@ -0,0 +1,72 @@
->> +#!/bin/sh
->> +# SPDX-License-Identifier: GPL-2.0-or-later
->> +# Copyright (c) 2020 Microsoft Corporation
->> +# Author: Lachlan Sneff <t-josne@linux.microsoft.com>
->> +#
->> +# Verify that keys are measured correctly based on policy.
->> +
->> +TST_NEEDS_CMDS="awk cut"
-> You missed xxd, which is IMHO less common than awk and cut, therefore it should
-> be specified.
-Good call.
->> +TST_SETUP="setup"
->> +TST_CNT=1
->> +TST_NEEDS_DEVICE=1
->> +
->> +. ima_setup.sh
->> +. compute_digest.sh
->> +
->> +setup()
->> +{
->> +    TEST_FILE="$PWD/test.txt"
-> This suggest that file tested in test2 (second commit) requires to be the
-> same. Is it true? If not, I'd set just local variable in each test function.
-They don't need to be the same file. I'll just create a new one in each 
-test.
->> +}
->> +
->> +# Based on https://lkml.org/lkml/2019/12/13/564.
-> Maybe also mention the commit?
-> 450d0fd51564 ("IMA: Call workqueue functions to measure queued keys")
-Good call. I'll expand this comment.
->> +test1()
->> +{
->> +	local keyrings keycheck_line templates
->> +
->> +	tst_res TINFO "verifying key measurement for keyrings and \
->> +templates specified in ima policy file"
-> Could you please keep string on single line? We prefer it over to 80 chars per
-> line rule (although I admit that super long string in check_policy_writable is awfull).
-Sounds good. I wasn't sure what to do with the long strings.
->> +
->> +	IMA_POLICY="$IMA_DIR/policy"
-> Could you please move IMA_POLICY to ima_setup.sh and remove the same definition
-> from ima_policy.sh?
-Yep.
->> +	[ -f $IMA_POLICY ] || tst_brk TCONF "missing $IMA_POLICY"
-> BTW to read IMA policy requires CONFIG_IMA_READ_POLICY=y. Maybe there could be
-> just some hint, because
->
-> grep: /sys/kernel/security/ima/policy: Permission denied
-> ima_keys 1 TCONF: ima policy does not specify "func=KEY_CHECK"
->
-> Could we have here something like
-> cat $IMA_POLICY > /dev/null || tst_res TCONF "cannot read IMA policy (CONFIG_IMA_READ_POLICY=y required)"
->
-Didn't realize it wasn't necessarily readable. Will add that check.
->> +
->> +	keycheck_line=$(grep "func=KEY_CHECK" $IMA_POLICY)
->> +	if [ -z "$keycheck_line" ]; then
->> +		tst_brk TCONF "ima policy does not specify \"func=KEY_CHECK\""
->> +	fi
-> Could we prepare policy example in
-> testcases/kernel/security/integrity/ima/datafiles/keycheck.policy?
->
-> I'm trying IMA tests to prepare themselves, otherwise most of the tests would be
-> TCONF. And the idea is that test has everything prepared when run as part of
-> runtest file or also on it's own. But here is getting complicated. Unless there is
-> CONFIG_IMA_WRITE_POLICY=y, we cannot load it in the test. And if we require
-> loading it before, then ima_policy.sh TCONF.
->
-> Not sure if we should have 2 versions of correct IMA policy.
-> in test2 in ima_policy.sh try to load first keycheck.policy and if it fails then
-> the old measure.policy. That way we would also avoid testing kernel version
-> (this functionality can be backported). We could also print support for new
-> feature. And try load keycheck.policy in ima_keys.sh, in case it's run on it's
-> own (not part of other tests in runtest file).
->
-> I understand if you don't want to play with this, I can add this after merging
-> your test. But providing keycheck.policy would help.
 
-I'll supply a keycheck.policy in my updated patch, but I need to think 
-more about what you've written here. Is the idea to have an example 
-policy that the test can load if the kernel was built with 
-CONFIG_IMA_WRITE_POLICY=y?
-
-What should the test do in that case if the kernel wasn't build with a 
-writable IMA policy?
-
->> +
->> +	if echo "$keycheck_line" | grep -q "*keyrings*"; then
->> +		tst_brk TCONF "ima policy does not specify a keyrings to check"
->> +	fi
->> +
->> +	keyrings=$(echo "$keycheck_line" | tr " " "\n" | grep "keyrings" | \
->> +		sed "s/\./\\\./g" | cut -d'=' -f2)
->> +	if [ -z "$keyrings" ]; then
->> +		tst_brk TCONF "ima policy has a keyring key-value specifier, \
->> +but no specified keyrings"
-> + also here put on single line.
-Yep
->> +	fi
->> +
->> +	templates=$(echo "$keycheck_line" | tr " " "\n" | grep "template" | \
->> +		cut -d'=' -f2)
->> +
->> +	grep -E "($templates)*($keyrings)" $ASCII_MEASUREMENTS | while read line
->> +	do
->> +		local digest expected_digest algorithm
->> +
->> +		digest=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f2)
->> +		algorithm=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f1)
->> +
->> +		echo "$line" | cut -d' ' -f6 | xxd -r -p > $TEST_FILE
->> +
->> +		expected_digest="$(compute_digest $algorithm $TEST_FILE)" || \
->> +			tst_brk TCONF "cannot compute digest for $algorithm"
->> +
->> +		if [ "$digest" != "$expected_digest" ]; then
->> +			tst_res TFAIL "incorrect digest was found for the \
->> +$(echo "$line" | cut -d' ' -f5) keyring"
-> Here as well. Maybe add $keyring and use it as variable.
-Okay
->> +		fi
->> +	done
->> +
->> +	tst_res TPASS "specified keyrings were measured correctly"
->> +}
-> ...
->
-> Kind regards,
-> Petr
-
-Thanks,
-
-Lachlan
 
 
 -- 
