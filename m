@@ -2,37 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49CA61F92BF
-	for <lists+linux-ltp@lfdr.de>; Mon, 15 Jun 2020 11:08:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73E081F931B
+	for <lists+linux-ltp@lfdr.de>; Mon, 15 Jun 2020 11:18:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 056B03C2D54
-	for <lists+linux-ltp@lfdr.de>; Mon, 15 Jun 2020 11:08:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 24EAF3C2D56
+	for <lists+linux-ltp@lfdr.de>; Mon, 15 Jun 2020 11:18:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id B3A063C03B2
- for <ltp@lists.linux.it>; Mon, 15 Jun 2020 11:08:20 +0200 (CEST)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id C80BB3C2D20
+ for <ltp@lists.linux.it>; Mon, 15 Jun 2020 11:18:38 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D421014139DB
- for <ltp@lists.linux.it>; Mon, 15 Jun 2020 11:08:19 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D063A1A014C7
+ for <ltp@lists.linux.it>; Mon, 15 Jun 2020 11:18:37 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 30C16AD65
- for <ltp@lists.linux.it>; Mon, 15 Jun 2020 09:08:23 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 7DEC3ABE3;
+ Mon, 15 Jun 2020 09:18:40 +0000 (UTC)
+Date: Mon, 15 Jun 2020 11:18:50 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon, 15 Jun 2020 11:08:33 +0200
-Message-Id: <20200615090833.23001-1-chrubis@suse.cz>
-X-Mailer: git-send-email 2.26.2
+To: kernel test robot <rong.a.chen@intel.com>
+Message-ID: <20200615091850.GA3373@yuki.lan>
+References: <20200615085836.GR12456@shao2-debian>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200615085836.GR12456@shao2-debian>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [COMMITTED] [PATCH] Fix syscalls/ipc: Move libraries to libs/
- directory
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] 303cc571d1: ltp.setns01.fail
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,285 +46,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: "Eric W. Biederman" <ebiederm@xmission.com>, Jann Horn <jannh@google.com>,
+ LKML <linux-kernel@vger.kernel.org>, lkp@lists.01.org,
+ Aleksa Sarai <cyphar@cyphar.com>, Michael Kerrisk <mtk.manpages@gmail.com>,
+ Christian Brauner <christian.brauner@ubuntu.com>, ltp@lists.linux.it,
+ Serge Hallyn <serge@hallyn.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Apparently I have forgotten to amend the changes when I applied the
-patch, sorry for that.
+Hi!
+> setns01     6  TFAIL  :  setns01.c:176: regular file fd exp_errno=22: errno=EBADF(9): Bad file descriptor
+> setns01     0  TINFO  :  setns(12, 0x20000)
+> setns01     7  TFAIL  :  setns01.c:176: regular file fd exp_errno=22: errno=EBADF(9): Bad file descriptor
+> setns01     0  TINFO  :  setns(12, 0x40000000)
+> setns01     8  TFAIL  :  setns01.c:176: regular file fd exp_errno=22: errno=EBADF(9): Bad file descriptor
+> setns01     0  TINFO  :  setns(12, 0x20000000)
+> setns01     9  TFAIL  :  setns01.c:176: regular file fd exp_errno=22: errno=EBADF(9): Bad file descriptor
+> setns01     0  TINFO  :  setns(12, 0x4000000)
+> setns01    10  TFAIL  :  setns01.c:176: regular file fd exp_errno=22: errno=EBADF(9): Bad file descriptor
 
-Fixes: afdd429714ad (syscalls/ipc: Move libraries to libs/ director)
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
----
- libs/libltpipc/Makefile                          | 2 +-
- testcases/kernel/syscalls/ipc/msgctl/Makefile    | 3 ++-
- testcases/kernel/syscalls/ipc/msgget/Makefile    | 3 ++-
- testcases/kernel/syscalls/ipc/msgrcv/Makefile    | 3 ++-
- testcases/kernel/syscalls/ipc/msgsnd/Makefile    | 3 ++-
- testcases/kernel/syscalls/ipc/msgstress/Makefile | 4 ++--
- testcases/kernel/syscalls/ipc/semctl/Makefile    | 3 ++-
- testcases/kernel/syscalls/ipc/semget/Makefile    | 3 ++-
- testcases/kernel/syscalls/ipc/semop/Makefile     | 3 ++-
- testcases/kernel/syscalls/ipc/shmat/Makefile     | 3 ++-
- testcases/kernel/syscalls/ipc/shmctl/Makefile    | 3 ++-
- testcases/kernel/syscalls/ipc/shmdt/Makefile     | 3 ++-
- testcases/kernel/syscalls/ipc/shmget/Makefile    | 3 ++-
- testcases/kernel/syscalls/kill/Makefile          | 6 ++++--
- testcases/kernel/syscalls/mremap/Makefile        | 5 +++--
- 15 files changed, 32 insertions(+), 18 deletions(-)
+The messages here are a bit cryptic, I will fix that later on, but what
+it means here is that the errno has changed from EINVAL to EBADF in a
+case we pass file descriptor to a regular file to setns().
 
-diff --git a/libs/libltpipc/Makefile b/libs/libltpipc/Makefile
-index fadd04833..ad8f5a23b 100644
---- a/libs/libltpipc/Makefile
-+++ b/libs/libltpipc/Makefile
-@@ -5,7 +5,7 @@ top_srcdir		?= ../..
- 
- include $(top_srcdir)/include/mk/env_pre.mk
- 
--INTERNAL_LIB		:= libltpipc.a libltpmsgctl.a
-+INTERNAL_LIB			:= libltpipc.a
- 
- include $(top_srcdir)/include/mk/lib.mk
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/ipc/msgctl/Makefile b/testcases/kernel/syscalls/ipc/msgctl/Makefile
-index e2b305573..a11cbcf2e 100644
---- a/testcases/kernel/syscalls/ipc/msgctl/Makefile
-+++ b/testcases/kernel/syscalls/ipc/msgctl/Makefile
-@@ -3,9 +3,10 @@
- 
- top_srcdir              ?= ../../../../..
- 
-+LTPLIBS = ltpnewipc
-+
- include $(top_srcdir)/include/mk/testcases.mk
- 
- LDLIBS  += -lltpnewipc
--LDFLAGS += -L$(top_builddir)/libs/libltpnewipc
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/ipc/msgget/Makefile b/testcases/kernel/syscalls/ipc/msgget/Makefile
-index e2b305573..a11cbcf2e 100644
---- a/testcases/kernel/syscalls/ipc/msgget/Makefile
-+++ b/testcases/kernel/syscalls/ipc/msgget/Makefile
-@@ -3,9 +3,10 @@
- 
- top_srcdir              ?= ../../../../..
- 
-+LTPLIBS = ltpnewipc
-+
- include $(top_srcdir)/include/mk/testcases.mk
- 
- LDLIBS  += -lltpnewipc
--LDFLAGS += -L$(top_builddir)/libs/libltpnewipc
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/ipc/msgrcv/Makefile b/testcases/kernel/syscalls/ipc/msgrcv/Makefile
-index aa211d37f..f62cd1f48 100644
---- a/testcases/kernel/syscalls/ipc/msgrcv/Makefile
-+++ b/testcases/kernel/syscalls/ipc/msgrcv/Makefile
-@@ -3,9 +3,10 @@
- 
- top_srcdir              ?= ../../../../..
- 
-+LTPLIBS = ltpipc
-+
- include $(top_srcdir)/include/mk/testcases.mk
- 
- LDLIBS  += -lltpipc
--LDFLAGS += -L$(top_builddir)/libs/libltpipc
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/ipc/msgsnd/Makefile b/testcases/kernel/syscalls/ipc/msgsnd/Makefile
-index b4930310f..17960cae3 100644
---- a/testcases/kernel/syscalls/ipc/msgsnd/Makefile
-+++ b/testcases/kernel/syscalls/ipc/msgsnd/Makefile
-@@ -3,6 +3,8 @@
- 
- top_srcdir              ?= ../../../../..
- 
-+LTPLIBS = ltpnewipc
-+
- ifeq ($(UCLINUX),1)
- FILTER_OUT_MAKE_TARGETS += msgsnd05 msgsnd06
- endif
-@@ -10,6 +12,5 @@ endif
- include $(top_srcdir)/include/mk/testcases.mk
- 
- LDLIBS  += -lltpnewipc
--LDFLAGS += -L$(top_builddir)/libs/libltpnewipc
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/ipc/msgstress/Makefile b/testcases/kernel/syscalls/ipc/msgstress/Makefile
-index 551463829..f62cd1f48 100644
---- a/testcases/kernel/syscalls/ipc/msgstress/Makefile
-+++ b/testcases/kernel/syscalls/ipc/msgstress/Makefile
-@@ -3,10 +3,10 @@
- 
- top_srcdir              ?= ../../../../..
- 
-+LTPLIBS = ltpipc
-+
- include $(top_srcdir)/include/mk/testcases.mk
- 
- LDLIBS  += -lltpipc
--LDLIBS  += -lltpmsgctl
--LDFLAGS += -L$(top_builddir)/libs/libltpipc
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/ipc/semctl/Makefile b/testcases/kernel/syscalls/ipc/semctl/Makefile
-index aa211d37f..f62cd1f48 100644
---- a/testcases/kernel/syscalls/ipc/semctl/Makefile
-+++ b/testcases/kernel/syscalls/ipc/semctl/Makefile
-@@ -3,9 +3,10 @@
- 
- top_srcdir              ?= ../../../../..
- 
-+LTPLIBS = ltpipc
-+
- include $(top_srcdir)/include/mk/testcases.mk
- 
- LDLIBS  += -lltpipc
--LDFLAGS += -L$(top_builddir)/libs/libltpipc
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/ipc/semget/Makefile b/testcases/kernel/syscalls/ipc/semget/Makefile
-index aa211d37f..f62cd1f48 100644
---- a/testcases/kernel/syscalls/ipc/semget/Makefile
-+++ b/testcases/kernel/syscalls/ipc/semget/Makefile
-@@ -3,9 +3,10 @@
- 
- top_srcdir              ?= ../../../../..
- 
-+LTPLIBS = ltpipc
-+
- include $(top_srcdir)/include/mk/testcases.mk
- 
- LDLIBS  += -lltpipc
--LDFLAGS += -L$(top_builddir)/libs/libltpipc
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/ipc/semop/Makefile b/testcases/kernel/syscalls/ipc/semop/Makefile
-index aa211d37f..f62cd1f48 100644
---- a/testcases/kernel/syscalls/ipc/semop/Makefile
-+++ b/testcases/kernel/syscalls/ipc/semop/Makefile
-@@ -3,9 +3,10 @@
- 
- top_srcdir              ?= ../../../../..
- 
-+LTPLIBS = ltpipc
-+
- include $(top_srcdir)/include/mk/testcases.mk
- 
- LDLIBS  += -lltpipc
--LDFLAGS += -L$(top_builddir)/libs/libltpipc
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/ipc/shmat/Makefile b/testcases/kernel/syscalls/ipc/shmat/Makefile
-index e2b305573..a11cbcf2e 100644
---- a/testcases/kernel/syscalls/ipc/shmat/Makefile
-+++ b/testcases/kernel/syscalls/ipc/shmat/Makefile
-@@ -3,9 +3,10 @@
- 
- top_srcdir              ?= ../../../../..
- 
-+LTPLIBS = ltpnewipc
-+
- include $(top_srcdir)/include/mk/testcases.mk
- 
- LDLIBS  += -lltpnewipc
--LDFLAGS += -L$(top_builddir)/libs/libltpnewipc
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/ipc/shmctl/Makefile b/testcases/kernel/syscalls/ipc/shmctl/Makefile
-index dda6d636f..cfa5d6e76 100644
---- a/testcases/kernel/syscalls/ipc/shmctl/Makefile
-+++ b/testcases/kernel/syscalls/ipc/shmctl/Makefile
-@@ -3,12 +3,13 @@
- 
- top_srcdir              ?= ../../../../..
- 
-+LTPLIBS = ltpipc
-+
- shmctl05: CFLAGS += -pthread
- shmctl05: LDLIBS += -lrt
- 
- include $(top_srcdir)/include/mk/testcases.mk
- 
- LDLIBS  += -lltpipc
--LDFLAGS += -L$(top_builddir)/libs/libltpipc
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/ipc/shmdt/Makefile b/testcases/kernel/syscalls/ipc/shmdt/Makefile
-index aa211d37f..f62cd1f48 100644
---- a/testcases/kernel/syscalls/ipc/shmdt/Makefile
-+++ b/testcases/kernel/syscalls/ipc/shmdt/Makefile
-@@ -3,9 +3,10 @@
- 
- top_srcdir              ?= ../../../../..
- 
-+LTPLIBS = ltpipc
-+
- include $(top_srcdir)/include/mk/testcases.mk
- 
- LDLIBS  += -lltpipc
--LDFLAGS += -L$(top_builddir)/libs/libltpipc
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/ipc/shmget/Makefile b/testcases/kernel/syscalls/ipc/shmget/Makefile
-index aa211d37f..f62cd1f48 100644
---- a/testcases/kernel/syscalls/ipc/shmget/Makefile
-+++ b/testcases/kernel/syscalls/ipc/shmget/Makefile
-@@ -3,9 +3,10 @@
- 
- top_srcdir              ?= ../../../../..
- 
-+LTPLIBS = ltpipc
-+
- include $(top_srcdir)/include/mk/testcases.mk
- 
- LDLIBS  += -lltpipc
--LDFLAGS += -L$(top_builddir)/libs/libltpipc
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/kill/Makefile b/testcases/kernel/syscalls/kill/Makefile
-index 3e32978fc..00cadabef 100644
---- a/testcases/kernel/syscalls/kill/Makefile
-+++ b/testcases/kernel/syscalls/kill/Makefile
-@@ -3,9 +3,11 @@
- 
- top_srcdir		?= ../../../..
- 
-+LTPLIBS = ltpipc
-+
- include $(top_srcdir)/include/mk/testcases.mk
- 
--LDLIBS  += -lltpipc
--LDFLAGS += -L$(top_builddir)/libs/libltpipc
-+kill07: LDLIBS  += -lltpipc
-+kill05: LDLIBS  += -lltpipc
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/mremap/Makefile b/testcases/kernel/syscalls/mremap/Makefile
-index 3e32978fc..7bdf425d2 100644
---- a/testcases/kernel/syscalls/mremap/Makefile
-+++ b/testcases/kernel/syscalls/mremap/Makefile
-@@ -3,9 +3,10 @@
- 
- top_srcdir		?= ../../../..
- 
-+LTPLIBS = ltpipc
-+
- include $(top_srcdir)/include/mk/testcases.mk
- 
--LDLIBS  += -lltpipc
--LDFLAGS += -L$(top_builddir)/libs/libltpipc
-+mremap04: LDLIBS  += -lltpipc
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
 -- 
-2.26.2
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
