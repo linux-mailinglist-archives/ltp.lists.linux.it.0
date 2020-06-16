@@ -1,52 +1,87 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B66B71FC0DF
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jun 2020 23:18:36 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D1F71FC1C6
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jun 2020 00:40:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 58B483C5FB9
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jun 2020 23:18:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6074D3C5FBD
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Jun 2020 00:40:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id E59503C02EF
- for <ltp@lists.linux.it>; Tue, 16 Jun 2020 23:18:30 +0200 (CEST)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id E91A5200D38
- for <ltp@lists.linux.it>; Tue, 16 Jun 2020 23:18:28 +0200 (CEST)
-Received: from [192.168.1.21] (c-73-187-218-229.hsd1.pa.comcast.net
- [73.187.218.229])
- by linux.microsoft.com (Postfix) with ESMTPSA id D387F20B4780;
- Tue, 16 Jun 2020 14:18:25 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D387F20B4780
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1592342306;
- bh=97NnOnumTDfA7ft0uXwH0H4kte4Ud399cPVa5QU6PaI=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=icuSg0vCJkG3WesvV5qB9rFPUlKgUUWK1DOj1vP91nQSBGkxifgLYySgjiLW3C+Gs
- KTf11guvZA280Z9F9qPXnSlP6EqR0bGsRuJ9+/kjw3zGNmfnKXPAIRDM41yZnqUTDI
- od9E1kX3giPwOnWJabTMA+ggLHd+BX9cIhPnqrR4=
-To: Petr Vorel <pvorel@suse.cz>
-References: <20200612143842.3993-1-t-josne@linux.microsoft.com>
- <20200612143842.3993-3-t-josne@linux.microsoft.com>
- <20200616155501.GB8754@dell5510>
-From: Lachlan Sneff <t-josne@linux.microsoft.com>
-Message-ID: <841954da-fbe5-4cde-5d07-f3374d512e10@linux.microsoft.com>
-Date: Tue, 16 Jun 2020 17:18:24 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
-MIME-Version: 1.0
-In-Reply-To: <20200616155501.GB8754@dell5510>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 345973C02EF
+ for <ltp@lists.linux.it>; Wed, 17 Jun 2020 00:40:21 +0200 (CEST)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4FDDD600A48
+ for <ltp@lists.linux.it>; Wed, 17 Jun 2020 00:39:32 +0200 (CEST)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 05GMX8hp025786; Tue, 16 Jun 2020 18:40:17 -0400
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 31q6j4grn2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Jun 2020 18:40:17 -0400
+Received: from m0098414.ppops.net (m0098414.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 05GMb6sB040484;
+ Tue, 16 Jun 2020 18:40:16 -0400
+Received: from ppma03ams.nl.ibm.com (62.31.33a9.ip4.static.sl-reverse.com
+ [169.51.49.98])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 31q6j4grmh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Jun 2020 18:40:16 -0400
+Received: from pps.filterd (ppma03ams.nl.ibm.com [127.0.0.1])
+ by ppma03ams.nl.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 05GMeF2k032083;
+ Tue, 16 Jun 2020 22:40:15 GMT
+Received: from b06cxnps4075.portsmouth.uk.ibm.com
+ (d06relay12.portsmouth.uk.ibm.com [9.149.109.197])
+ by ppma03ams.nl.ibm.com with ESMTP id 31q6bs81kx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Jun 2020 22:40:14 +0000
+Received: from d06av21.portsmouth.uk.ibm.com (d06av21.portsmouth.uk.ibm.com
+ [9.149.105.232])
+ by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 05GMeCeI983414
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 16 Jun 2020 22:40:12 GMT
+Received: from d06av21.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C60CA52097;
+ Tue, 16 Jun 2020 22:40:12 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.85.158.198])
+ by d06av21.portsmouth.uk.ibm.com (Postfix) with ESMTP id 94F5E52096;
+ Tue, 16 Jun 2020 22:40:11 +0000 (GMT)
+Message-ID: <1592347211.11061.250.camel@linux.ibm.com>
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: Bruno Meneguele <bmeneg@redhat.com>, Petr Vorel <pvorel@suse.cz>
+Date: Tue, 16 Jun 2020 18:40:11 -0400
+In-Reply-To: <20200615200121.GG129694@glitch>
+References: <20200527071434.28574-1-pvorel@suse.cz>
+ <1590601280.16219.1.camel@linux.ibm.com> <20200528140747.GA8401@dell5510>
+ <1590679145.4457.39.camel@linux.ibm.com> <20200528160527.GA27243@dell5510>
+ <20200615194134.GF129694@glitch> <20200615200121.GG129694@glitch>
+X-Mailer: Evolution 3.20.5 (3.20.5-1.fc24) 
+Mime-Version: 1.0
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
+ definitions=2020-06-16_13:2020-06-16,
+ 2020-06-16 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0
+ lowpriorityscore=0 mlxlogscore=999 bulkscore=0 impostorscore=0
+ adultscore=0 mlxscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
+ cotscore=-2147483648 spamscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2004280000 definitions=main-2006160154
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_PASS,SPF_PASS,
- USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/2] IMA: Add a test to verify importing a
- certificate into keyring
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [LTP v2 1/1] ima_tpm.sh: Fix for calculating boot
+ aggregate
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,77 +93,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: nramas@linux.microsoft.com, linux-integrity@vger.kernel.com,
- zohar@linux.ibm.com, ltp@lists.linux.it, balajib@linux.microsoft.com
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: Vitaly Chikunov <vt@altlinux.org>, linux-integrity@vger.kernel.org,
+ Mimi Zohar <zohar@linux.vnet.ibm.com>, ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-
-On 6/16/20 11:55 AM, Petr Vorel wrote:
->> Add an IMA measurement test that verifies that an x509 certificate
->> can be imported into the .ima keyring and measured correctly.
->> Signed-off-by: Lachlan Sneff <t-josne@linux.microsoft.com>
->> ---
->>   .../security/integrity/ima/tests/ima_keys.sh  | 45 ++++++++++++++++++-
->>   1 file changed, 43 insertions(+), 2 deletions(-)
->> diff --git a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
->> index f9c60a6fc..1eabb3e2e 100755
->> --- a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
->> +++ b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
->> @@ -5,10 +5,12 @@
->>   # Verify that keys are measured correctly based on policy.
->> -TST_NEEDS_CMDS="awk cut xxd"
->> -TST_CNT=1
->> +TST_NEEDS_CMDS="awk cut xxd keyctl evmctl openssl cmp"
->> +TST_CNT=2
->>   TST_NEEDS_DEVICE=1
->> +CERT_FILE="${CERT_FILE:-}/etc/keys/x509_ima.der"
-> Key setup is something what I'd like to be either set automatically
-> (ideally, but maybe too hard) or documented in
-> testcases/kernel/security/integrity/ima/README.md.
->
-> ima_keys 1 TINFO: verifying key measurement for keyrings and templates specified in IMA policy file
-> ima_keys 1 TPASS: specified keyrings were measured correctly
-> ima_keys 2 TCONF: missing /etc/keys/x509_ima.der
-> => many uses will TCONF, which is not what we want.
->
-> Running these scripts from examples/ in ima-evm-utils repository:
-> ./ima-gen-local-ca.sh && ./ima-genkey-self.sh && ./ima-genkey.sh
->
-> is obviously not enough:
->
-> ima_keys 1 TINFO: verifying key measurement for keyrings and templates specified in IMA policy file
-> ima_keys 1 TPASS: specified keyrings were measured correctly
-> ima_keys 2 TINFO: adding a cert to the .ima keyring (/etc/keys/x509_ima.der)
-> add_key failed
-> errno: Required key not available (126)
-> ima_keys 2 TCONF: unable to import a cert into the .ima keyring
->
-> Does it make sense to copy these scripts into LTP (most distros ship them in
-> development packages, but we cannot depend on it) and run them in the test
-> setup? If not, we should really document that.
-> + feel free to add anything relevant to README.md :)
->
-> Kind regards,
-> Petr
-
-Hi Petr,
-
-I'll look into whether it's doable to automatically generate keys. I 
-suspect that including the scripts to generate the key
-
-is the best way forward with this, as well as noting in the README how 
-to generate your own key and use that instead.
-
-Expect a further patch in the next few days.
-
-
-Thank you reviewing this further!
-
-Lachlan
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gTW9uLCAyMDIwLTA2LTE1IGF0IDE3OjAxIC0wMzAwLCBCcnVubyBNZW5lZ3VlbGUgd3JvdGU6
+Cj4gT24gTW9uLCBKdW4gMTUsIDIwMjAgYXQgMDQ6NDE6MzRQTSAtMDMwMCwgQnJ1bm8gTWVuZWd1
+ZWxlIHdyb3RlOgo+ID4gT24gVGh1LCBNYXkgMjgsIDIwMjAgYXQgMDY6MDU6MjdQTSArMDIwMCwg
+UGV0ciBWb3JlbCB3cm90ZToKCj4gPiA+ID4gVGhlIGJvb3RfYWdncmVnYXRlLnRycyBhbmQgYm9v
+dF9hZ2dyZWdhdGUubG9nIGZpbGVzIGFyZSBiZWluZyBjcmVhdGVkCj4gPiA+ID4gaW4gdGhlIHRl
+c3RzLyBkaXJlY3RvcnkuIMKgSXMgdGhhdCBkaXJlY3RvcnkgcmVhZC1vbmx5Pwo+ID4gPiBZZXMs
+IGRyd3hyLXhyLXguIFRlc3Rpbmcgb24gZnJlc2ggY2xvbmUgYW5kIGlzc3VlIHBlcnNpc3RzLgo+
+ID4gPiAKPiA+IAo+ID4gWWVzLCBzYW1lIHRoaW5nIGhlcmUuLiBidXQgZGlkbid0IHJlYWxseSBj
+aGVjayB0aGUgcmVhc29uIGZvciB0aGF0LiBXaWxsCj4gPiB0YWtlIGEgdGltZSBsYXRlciB0byBz
+ZWUgd2hhdCdzIGhhcHBlbmluZy4KCkNsb25pbmcgYXMgcm9vdCB3aWxsIGNhdXNlIHRoYXQgdG8g
+aGFwcGVuLgoKJCBzdWRvIGdpdCBjbG9uZSBnaXQ6Ly9naXQuY29kZS5zZi5uZXQvcC9saW51eC1p
+bWEvaW1hLWV2bS11dGlscyAtLWJyYW5jaCBuZXh0LXRlc3RpbmcKQ2xvbmluZyBpbnRvICdpbWEt
+ZXZtLXV0aWxzJy4uLgpyZW1vdGU6IEVudW1lcmF0aW5nIG9iamVjdHM6IDExNTQsIGRvbmUuCnJl
+bW90ZTogQ291bnRpbmcgb2JqZWN0czogMTAwJSAoMTE1NC8xMTU0KSwgZG9uZS4KcmVtb3RlOiBD
+b21wcmVzc2luZyBvYmplY3RzOiAxMDAlICgxMDUyLzEwNTIpLCBkb25lLgpyZW1vdGU6IFRvdGFs
+IDExNTQgKGRlbHRhIDczNiksIHJldXNlZCAxODIgKGRlbHRhIDk2KQpSZWNlaXZpbmcgb2JqZWN0
+czogMTAwJSAoMTE1NC8xMTU0KSwgMzM1LjEyIEtpQiB8IDAgYnl0ZXMvcywgZG9uZS4KUmVzb2x2
+aW5nIGRlbHRhczogMTAwJSAoNzM2LzczNiksIGRvbmUuCkNoZWNraW5nIGNvbm5lY3Rpdml0eS4u
+LiBkb25lLgoKJCBscyAtbGF0IGltYS1ldm0tdXRpbHMvIHwgZ3JlcCB0ZXN0cwpkcnd4ci14ci14
+LiAgMiByb290IHJvb3QgICAyMjAgSnVuIDE2IDE4OjI4IHRlc3RzCgpNaW1pCgotLSAKTWFpbGlu
+ZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
