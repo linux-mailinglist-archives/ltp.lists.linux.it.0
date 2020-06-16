@@ -2,60 +2,58 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9F1A1FADC9
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jun 2020 12:21:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 254511FADCC
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jun 2020 12:21:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 696CB3C2CFC
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jun 2020 12:21:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C851C3C2D06
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jun 2020 12:21:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 6587F3C2D13
- for <ltp@lists.linux.it>; Tue, 16 Jun 2020 12:20:42 +0200 (CEST)
-Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
- [IPv6:2607:f8b0:4864:20::643])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 793DD3C2D0B
+ for <ltp@lists.linux.it>; Tue, 16 Jun 2020 12:20:45 +0200 (CEST)
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 7BA88279906
- for <ltp@lists.linux.it>; Tue, 16 Jun 2020 12:20:41 +0200 (CEST)
-Received: by mail-pl1-x643.google.com with SMTP id k6so3228721pll.9
- for <ltp@lists.linux.it>; Tue, 16 Jun 2020 03:20:41 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 37216279906
+ for <ltp@lists.linux.it>; Tue, 16 Jun 2020 12:20:44 +0200 (CEST)
+Received: by mail-pf1-x444.google.com with SMTP id z63so8351058pfb.1
+ for <ltp@lists.linux.it>; Tue, 16 Jun 2020 03:20:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=TCgZGlw8LvJNPKWi3J4FTFnvZSBcvJzFsCHe17Stetg=;
- b=moDIfzOa/JjhAl5Vzn5A7I3yDNMu/wjRU1Yqhz2mynKvtRmIkhBDezTZcxD5ig53Ao
- zUKXs9uKgO3FZNJYIq/fUBUbE3OfW8VDUI7Xfj9j/Srxo9ouHo2sQTVnKXHAFmEWwo6m
- eBFtLBKlBd5SR6NvcQTJgC+VncDN+wNdwEvNt5BEIes2VBNlnLsuhwXSpISnsablmh0n
- BUfhwSc/yWkXiEyv+NrZQ0fv+uOLu0fgSaBxHQBhbtRkdEXWxGXmEKWsrScLjfhrG5fq
- iSEyvqYj93osOAghAX2reg9dKUhiS1Rq7AP60tY+etL1nKGHNJ6y3rOC3MfgP+Ce96lm
- uLXg==
+ bh=3YJTGb3QxaU9a99jVkwxiAFKCAZb8mdHwOVjnbcBxBc=;
+ b=J09vk6dMX89R3Z2mzs+fnrRpyJ7jMwLx0gx+WJSu5BpOG5c2MBQXGBS5CxcdDRdUZw
+ +VJqg/ndaBlC119p6WIjFznDI1KWLNRAwV9yGzetTyWlmXz673ptyVw50p3DTHxRKauK
+ 0/cS/bJ8dMoOicTaByxGQ0VTBngWJ9YGUMvJfhIPsi9eV/FIMkET5pfZP5kjGystnRpA
+ nMHlYC9JwMox6EBUeJ9gGHKhuwgIEvkoaQ9KUDuPY+QO4qiqFlMOdAFKYZ/7OLGoswH1
+ ylr8EXsqcS4G3nqFFSCq9hzBKIPUF74VPoDDyiyTiLwt5kqUC+0cvaU9SjUnHkAgpwN8
+ vOSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=TCgZGlw8LvJNPKWi3J4FTFnvZSBcvJzFsCHe17Stetg=;
- b=JZME0jpU5rfVh8uI3fCuuXCud8PfasT3ap4IvdN5+dt8XXnXVkXBIVp3M8mEYp82io
- YXUYgD4jhr/QtTjpHFey5fT7Cqwiv8yEkW9Zzgd23Y/OmiOldjgGBp/nuqs/pqoJP7la
- vajYAjhmJdEoCcWBqTsNC6oteqTkjSKa9DsZJaqhemY3VpBtog9BLf1jXdgC70YCeGIu
- qavALLX2it/2RkpF19EqIkppQYDaE2cutuKztIpzyV0j5L2gEh2NHdE9y5FIfTTdHDfB
- 4ZdiHR/RA9uOfRieJI3CXygR5FSK8TkUX3IBmVAD6IR5V/QmNneoLC2NBZI273ii7P4L
- kESw==
-X-Gm-Message-State: AOAM532gPVEPjvVirpDuc2Vze63Tf5OifqBs1SIyVNaghsFaTet0jLei
- RykuL9pe1cVgA64o2zjMoubQh5eXPqw=
-X-Google-Smtp-Source: ABdhPJz3e+Wg4RocNNoDLO6BO26in4pY38/KyOQ9aTX8lpIpBFVgBVcYcRxIYh5sFTZhbd83C7suRA==
-X-Received: by 2002:a17:902:599a:: with SMTP id
- p26mr1546626pli.322.1592302839649; 
- Tue, 16 Jun 2020 03:20:39 -0700 (PDT)
+ bh=3YJTGb3QxaU9a99jVkwxiAFKCAZb8mdHwOVjnbcBxBc=;
+ b=pkmcN4qZRXN2zUAbbSh4rLYU+5QD2OVM68+1sZHUazoHOcYf+jRyKv/vn3Xk2veamU
+ Q7gZGeKwEX8lPXr6kxLWt/Pz63+nQdqmekBDT89ZZMbDg8OndR/Q1X6iUeyC448E6Zm/
+ dSaq9lh75DW0BsqhZOs6qgchtb6uuTbAl1nZHUh4LPXOyo/PMeW7X8M9rcwZ7Ph4ha43
+ VFnYYyCLXsuYuFOvJGoKKDMJbwQRUe17RWNA+eSSnzHkCXvmbrIA5dfHo1hd01Vbye7l
+ cWIZGc7BWJ3RX7VRR0OveoRXt1u/s2AqbDOZ/x+yYBC37fULDYo9etvX7nIh5PVhN/rO
+ s/GQ==
+X-Gm-Message-State: AOAM533gQ1T737BeexXABy6poj5lp5Zj4fs1LNa1VzCR1E5OiPYglOoO
+ JgX4252riYutPAQ3k77tK9Q14num2GI=
+X-Google-Smtp-Source: ABdhPJz8qPudejrg42TNvg4IrryxayF67B9FrnMQwf/yejwHm0y2u+Y0h+qR+njLd2SDq8+rIXFBvw==
+X-Received: by 2002:aa7:8283:: with SMTP id s3mr1512878pfm.90.1592302842255;
+ Tue, 16 Jun 2020 03:20:42 -0700 (PDT)
 Received: from localhost ([122.172.119.132])
- by smtp.gmail.com with ESMTPSA id y7sm17052421pfq.43.2020.06.16.03.20.38
+ by smtp.gmail.com with ESMTPSA id w18sm6498206pgj.31.2020.06.16.03.20.41
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 16 Jun 2020 03:20:39 -0700 (PDT)
+ Tue, 16 Jun 2020 03:20:41 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Tue, 16 Jun 2020 15:50:22 +0530
-Message-Id: <7ed60e87527647505a71844b540a21db77ddae78.1592302358.git.viresh.kumar@linaro.org>
+Date: Tue, 16 Jun 2020 15:50:23 +0530
+Message-Id: <7616a6fa4f1502dde4417d33aa88836c8020419e.1592302358.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
 In-Reply-To: <cover.1592302358.git.viresh.kumar@linaro.org>
 References: <cover.1592302358.git.viresh.kumar@linaro.org>
@@ -65,8 +63,7 @@ X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH V2 4/6] syscalls: shmctl: Add new test to verify the
- _time_high fields
+Subject: [LTP] [PATCH V2 5/6] include: Add declaration of struct msqid64_ds
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,132 +82,340 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The _time_high fields must be reset by the kernel, add a test to verify
-that.
+This adds declaration of struct msqid64_ds, which will be used by
+following patches.
 
-Suggested-by: Arnd Bergmann <arnd@arndb.de>
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- runtest/syscalls                              |  1 +
- runtest/syscalls-ipc                          |  1 +
- .../kernel/syscalls/ipc/shmctl/.gitignore     |  1 +
- testcases/kernel/syscalls/ipc/shmctl/Makefile |  5 +-
- .../kernel/syscalls/ipc/shmctl/shmctl06.c     | 51 +++++++++++++++++++
- 5 files changed, 58 insertions(+), 1 deletion(-)
- create mode 100644 testcases/kernel/syscalls/ipc/shmctl/shmctl06.c
+ configure.ac          |   1 +
+ include/lapi/msgbuf.h | 306 ++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 307 insertions(+)
+ create mode 100644 include/lapi/msgbuf.h
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index eedd727fb617..f8b2277e0eda 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -1355,6 +1355,7 @@ shmctl02 shmctl02
- shmctl03 shmctl03
- shmctl04 shmctl04
- shmctl05 shmctl05
-+shmctl06 shmctl06
+diff --git a/configure.ac b/configure.ac
+index f1ee98b23cbe..05032d1cfd8f 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -153,6 +153,7 @@ AC_CHECK_TYPES([struct iovec],,,[#include <sys/uio.h>])
+ AC_CHECK_TYPES([struct ipc64_perm],,,[#include <sys/ipcbuf.h>])
+ AC_CHECK_TYPES([struct semid64_ds],,,[#include <sys/sem.h>])
+ AC_CHECK_TYPES([struct shmid64_ds],,,[#include <sys/shmbuf.h>])
++AC_CHECK_TYPES([struct msqid64_ds],,,[#include <sys/msgbuf.h>])
  
- shmdt01 shmdt01
- shmdt02 shmdt02
-diff --git a/runtest/syscalls-ipc b/runtest/syscalls-ipc
-index f912cb067f74..5ba3b1449a6c 100644
---- a/runtest/syscalls-ipc
-+++ b/runtest/syscalls-ipc
-@@ -55,6 +55,7 @@ shmctl02 shmctl02
- shmctl03 shmctl03
- shmctl04 shmctl04
- shmctl05 shmctl05
-+shmctl06 shmctl06
- 
- shmdt01 shmdt01
- shmdt02 shmdt02
-diff --git a/testcases/kernel/syscalls/ipc/shmctl/.gitignore b/testcases/kernel/syscalls/ipc/shmctl/.gitignore
-index d6777e3b8f1b..46b107344cf4 100644
---- a/testcases/kernel/syscalls/ipc/shmctl/.gitignore
-+++ b/testcases/kernel/syscalls/ipc/shmctl/.gitignore
-@@ -3,3 +3,4 @@
- /shmctl03
- /shmctl04
- /shmctl05
-+/shmctl06
-diff --git a/testcases/kernel/syscalls/ipc/shmctl/Makefile b/testcases/kernel/syscalls/ipc/shmctl/Makefile
-index cfa5d6e76489..252c11058bc5 100644
---- a/testcases/kernel/syscalls/ipc/shmctl/Makefile
-+++ b/testcases/kernel/syscalls/ipc/shmctl/Makefile
-@@ -3,13 +3,16 @@
- 
- top_srcdir              ?= ../../../../..
- 
--LTPLIBS = ltpipc
-+LTPLIBS = ltpipc ltpnewipc
- 
- shmctl05: CFLAGS += -pthread
- shmctl05: LDLIBS += -lrt
- 
- include $(top_srcdir)/include/mk/testcases.mk
- 
-+shmctl01 shmctl02 shmctl03 shmctl04 shmctl05: LDLIBS += -lltpipc
-+shmctl06: LDLIBS += -lltpnewipc
-+
- LDLIBS  += -lltpipc
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl06.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl06.c
+ AC_CHECK_TYPES([struct mmsghdr],,,[
+ #define _GNU_SOURCE
+diff --git a/include/lapi/msgbuf.h b/include/lapi/msgbuf.h
 new file mode 100644
-index 000000000000..368759980b74
+index 000000000000..779362c4f07a
 --- /dev/null
-+++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl06.c
-@@ -0,0 +1,51 @@
++++ b/include/lapi/msgbuf.h
+@@ -0,0 +1,306 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
-+ * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
-+ *
-+ * Description:
-+ * Cross verify the _high fields being set to 0 by the kernel.
++ * Copyright (c) 2020 Linaro Limited. All rights reserved.
++ * Author: Viresh Kumar <viresh.kumar@linaro.org>
 + */
-+#include <sys/shm.h>
-+#include "lapi/shmbuf.h"
-+#include "libnewipc.h"
-+#include "tst_test.h"
-+#include "tst_safe_sysv_ipc.h"
 +
-+#ifdef HAVE_SHMID64_DS_TIME_HIGH
++#ifndef IPC_MSGBUF_H
++#define IPC_MSGBUF_H
 +
-+static void run(void)
-+{
-+	struct shmid64_ds buf_ds = {
-+		.shm_atime_high = 0x0A0A,
-+		.shm_dtime_high = 0x0A0A,
-+		.shm_ctime_high = 0x0A0A,
-+	};
-+	int shmid;
-+	key_t key;
++#include <linux/posix_types.h>
++#include <sys/sem.h>
++#include "tst_timer.h"
++#include "ipcbuf.h"
 +
-+	/* get an IPC resource key */
-+	key = GETIPCKEY();
++#ifndef HAVE_MSQID64_DS
 +
-+	shmid = shmget(key, SHM_SIZE, IPC_CREAT | IPC_EXCL | SHM_RW);
-+	if (shmid == -1)
-+		tst_brk(TBROK | TERRNO, "couldn't create shared memory segment");
++#if defined(__mips__)
++#define HAVE_MSQID64_DS
 +
-+	TEST(shmctl(shmid, IPC_STAT, (struct shmid_ds *)&buf_ds));
-+	if (TST_RET == -1)
-+		tst_brk(TFAIL | TTERRNO, "shmctl() failed");
++#if defined(__arch64__)
++/*
++ * The msqid64_ds structure for the MIPS architecture.
++ * Note extra padding because this structure is passed back and forth
++ * between kernel and user space.
++ *
++ * Pad space is left for:
++ * - 2 miscellaneous unsigned long values
++ */
 +
-+	if (buf_ds.shm_atime_high || buf_ds.shm_dtime_high || buf_ds.shm_ctime_high)
-+		tst_res(TFAIL, "time_high fields aren't cleared by the kernel");
-+	else
-+		tst_res(TPASS, "time_high fields cleared by the kernel");
-+
-+	SAFE_SHMCTL(shmid, IPC_RMID, NULL);
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.needs_tmpdir = 1,
++struct msqid64_ds {
++	struct ipc64_perm msg_perm;
++	long msg_stime;			/* last msgsnd time */
++	long msg_rtime;			/* last msgrcv time */
++	long msg_ctime;			/* last change time */
++	unsigned long  msg_cbytes;	/* current number of bytes on queue */
++	unsigned long  msg_qnum;	/* number of messages in queue */
++	unsigned long  msg_qbytes;	/* max number of bytes on queue */
++	__kernel_pid_t msg_lspid;	/* pid of last msgsnd */
++	__kernel_pid_t msg_lrpid;	/* last receive pid */
++	unsigned long  __unused4;
++	unsigned long  __unused5;
 +};
-+#else
-+TST_TEST_TCONF("test requires struct shmid64_ds to have the time_high fields");
++#elif defined (__MIPSEB__)
++#define HAVE_MSQID64_DS_TIME_HIGH
++struct msqid64_ds {
++	struct ipc64_perm msg_perm;
++	unsigned long  msg_stime_high;
++	unsigned long  msg_stime;	/* last msgsnd time */
++	unsigned long  msg_rtime_high;
++	unsigned long  msg_rtime;	/* last msgrcv time */
++	unsigned long  msg_ctime_high;
++	unsigned long  msg_ctime;	/* last change time */
++	unsigned long  msg_cbytes;	/* current number of bytes on queue */
++	unsigned long  msg_qnum;	/* number of messages in queue */
++	unsigned long  msg_qbytes;	/* max number of bytes on queue */
++	__kernel_pid_t msg_lspid;	/* pid of last msgsnd */
++	__kernel_pid_t msg_lrpid;	/* last receive pid */
++	unsigned long  __unused4;
++	unsigned long  __unused5;
++};
++#elif defined (__MIPSEL__)
++#define HAVE_MSQID64_DS_TIME_HIGH
++struct msqid64_ds {
++	struct ipc64_perm msg_perm;
++	unsigned long  msg_stime;	/* last msgsnd time */
++	unsigned long  msg_stime_high;
++	unsigned long  msg_rtime;	/* last msgrcv time */
++	unsigned long  msg_rtime_high;
++	unsigned long  msg_ctime;	/* last change time */
++	unsigned long  msg_ctime_high;
++	unsigned long  msg_cbytes;	/* current number of bytes on queue */
++	unsigned long  msg_qnum;	/* number of messages in queue */
++	unsigned long  msg_qbytes;	/* max number of bytes on queue */
++	__kernel_pid_t msg_lspid;	/* pid of last msgsnd */
++	__kernel_pid_t msg_lrpid;	/* last receive pid */
++	unsigned long  __unused4;
++	unsigned long  __unused5;
++};
 +#endif
++
++#endif /* __mips__ */
++
++#if defined(__hppa__)
++#define HAVE_MSQID64_DS
++/* 
++ * The msqid64_ds structure for parisc architecture, copied from sparc.
++ * Note extra padding because this structure is passed back and forth
++ * between kernel and user space.
++ *
++ * Pad space is left for:
++ * - 2 miscellaneous 32-bit values
++ */
++
++struct msqid64_ds {
++	struct ipc64_perm msg_perm;
++#if __BITS_PER_LONG == 64
++	long		 msg_stime;	/* last msgsnd time */
++	long		 msg_rtime;	/* last msgrcv time */
++	long		 msg_ctime;	/* last change time */
++#else
++#define HAVE_MSQID64_DS_TIME_HIGH
++	unsigned long	msg_stime_high;
++	unsigned long	msg_stime;	/* last msgsnd time */
++	unsigned long	msg_rtime_high;
++	unsigned long	msg_rtime;	/* last msgrcv time */
++	unsigned long	msg_ctime_high;
++	unsigned long	msg_ctime;	/* last change time */
++#endif
++	unsigned long	msg_cbytes;	/* current number of bytes on queue */
++	unsigned long	msg_qnum;	/* number of messages in queue */
++	unsigned long	msg_qbytes;	/* max number of bytes on queue */
++	__kernel_pid_t	msg_lspid;	/* pid of last msgsnd */
++	__kernel_pid_t	msg_lrpid;	/* last receive pid */
++	unsigned long	__unused1;
++	unsigned long	__unused2;
++};
++
++#endif /* __hppa__ */
++
++#if defined(__powerpc__) || defined(__powerpc64__)
++#define HAVE_MSQID64_DS
++/*
++ * The msqid64_ds structure for the PowerPC architecture.
++ * Note extra padding because this structure is passed back and forth
++ * between kernel and user space.
++ */
++
++struct msqid64_ds {
++	struct ipc64_perm msg_perm;
++#ifdef __powerpc64__
++	long		 msg_stime;	/* last msgsnd time */
++	long		 msg_rtime;	/* last msgrcv time */
++	long		 msg_ctime;	/* last change time */
++#else
++#define HAVE_MSQID64_DS_TIME_HIGH
++	unsigned long  msg_stime_high;
++	unsigned long  msg_stime;	/* last msgsnd time */
++	unsigned long  msg_rtime_high;
++	unsigned long  msg_rtime;	/* last msgrcv time */
++	unsigned long  msg_ctime_high;
++	unsigned long  msg_ctime;	/* last change time */
++#endif
++	unsigned long  msg_cbytes;	/* current number of bytes on queue */
++	unsigned long  msg_qnum;	/* number of messages in queue */
++	unsigned long  msg_qbytes;	/* max number of bytes on queue */
++	__kernel_pid_t msg_lspid;	/* pid of last msgsnd */
++	__kernel_pid_t msg_lrpid;	/* last receive pid */
++	unsigned long  __unused4;
++	unsigned long  __unused5;
++};
++
++#endif /* defined(__powerpc__) || defined(__powerpc64__) */
++
++#if defined(__sparc__)
++#define HAVE_MSQID64_DS
++/*
++ * The msqid64_ds structure for sparc64 architecture.
++ * Note extra padding because this structure is passed back and forth
++ * between kernel and user space.
++ *
++ * Pad space is left for:
++ * - 2 miscellaneous 32-bit values
++ */
++struct msqid64_ds {
++	struct ipc64_perm msg_perm;
++#if defined(__arch64__)
++	long msg_stime;			/* last msgsnd time */
++	long msg_rtime;			/* last msgrcv time */
++	long msg_ctime;			/* last change time */
++#else
++#define HAVE_MSQID64_DS_TIME_HIGH
++	unsigned long msg_stime_high;
++	unsigned long msg_stime;	/* last msgsnd time */
++	unsigned long msg_rtime_high;
++	unsigned long msg_rtime;	/* last msgrcv time */
++	unsigned long msg_ctime_high;
++	unsigned long msg_ctime;	/* last change time */
++#endif
++	unsigned long  msg_cbytes;	/* current number of bytes on queue */
++	unsigned long  msg_qnum;	/* number of messages in queue */
++	unsigned long  msg_qbytes;	/* max number of bytes on queue */
++	__kernel_pid_t msg_lspid;	/* pid of last msgsnd */
++	__kernel_pid_t msg_lrpid;	/* last receive pid */
++	unsigned long  __unused1;
++	unsigned long  __unused2;
++};
++
++#endif /* __sparc__ */
++
++#if defined(__x86_64__) && defined(__ILP32__)
++#define HAVE_MSQID64_DS
++/*
++ * The msqid64_ds structure for x86 architecture with x32 ABI.
++ *
++ * On x86-32 and x86-64 we can just use the generic definition, but
++ * x32 uses the same binary layout as x86_64, which is differnet
++ * from other 32-bit architectures.
++ */
++
++struct msqid64_ds {
++	struct ipc64_perm msg_perm;
++	__kernel_long_t msg_stime;	/* last msgsnd time */
++	__kernel_long_t msg_rtime;	/* last msgrcv time */
++	__kernel_long_t msg_ctime;	/* last change time */
++	__kernel_ulong_t msg_cbytes;	/* current number of bytes on queue */
++	__kernel_ulong_t msg_qnum;	/* number of messages in queue */
++	__kernel_ulong_t msg_qbytes;	/* max number of bytes on queue */
++	__kernel_pid_t msg_lspid;	/* pid of last msgsnd */
++	__kernel_pid_t msg_lrpid;	/* last receive pid */
++	__kernel_ulong_t __unused4;
++	__kernel_ulong_t __unused5;
++};
++
++#endif /* defined(__x86_64__) && defined(__ILP32__) */
++
++#if defined(__xtensa__)
++#define HAVE_MSQID64_DS
++/*
++ * The msqid64_ds structure for the Xtensa architecture.
++ * Note extra padding because this structure is passed back and forth
++ * between kernel and user space.
++ *
++ * Pad space is left for:
++ * - 2 miscellaneous 32-bit values
++ */
++
++struct msqid64_ds {
++	struct ipc64_perm msg_perm;
++#ifdef __XTENSA_EB__
++#define HAVE_MSQID64_DS_TIME_HIGH
++	unsigned long  msg_stime_high;
++	unsigned long  msg_stime;	/* last msgsnd time */
++	unsigned long  msg_rtime_high;
++	unsigned long  msg_rtime;	/* last msgrcv time */
++	unsigned long  msg_ctime_high;
++	unsigned long  msg_ctime;	/* last change time */
++#elif defined(__XTENSA_EL__)
++#define HAVE_MSQID64_DS_TIME_HIGH
++	unsigned long  msg_stime;	/* last msgsnd time */
++	unsigned long  msg_stime_high;
++	unsigned long  msg_rtime;	/* last msgrcv time */
++	unsigned long  msg_rtime_high;
++	unsigned long  msg_ctime;	/* last change time */
++	unsigned long  msg_ctime_high;
++#else
++# error processor byte order undefined!
++#endif
++	unsigned long  msg_cbytes;	/* current number of bytes on queue */
++	unsigned long  msg_qnum;	/* number of messages in queue */
++	unsigned long  msg_qbytes;	/* max number of bytes on queue */
++	__kernel_pid_t msg_lspid;	/* pid of last msgsnd */
++	__kernel_pid_t msg_lrpid;	/* last receive pid */
++	unsigned long  __unused4;
++	unsigned long  __unused5;
++};
++
++#endif /* __xtensa__ */
++
++#ifndef HAVE_MSQID64_DS
++/*
++ * generic msqid64_ds structure.
++ *
++ * Note extra padding because this structure is passed back and forth
++ * between kernel and user space.
++ *
++ * msqid64_ds was originally meant to be architecture specific, but
++ * everyone just ended up making identical copies without specific
++ * optimizations, so we may just as well all use the same one.
++ *
++ * 64 bit architectures use a 64-bit long time field here, while
++ * 32 bit architectures have a pair of unsigned long values.
++ * On big-endian systems, the lower half is in the wrong place.
++ *
++ * Pad space is left for:
++ * - 2 miscellaneous 32-bit values
++ */
++
++struct msqid64_ds {
++	struct ipc64_perm msg_perm;
++#if __BITS_PER_LONG == 64
++	long		 msg_stime;	/* last msgsnd time */
++	long		 msg_rtime;	/* last msgrcv time */
++	long		 msg_ctime;	/* last change time */
++#else
++#define HAVE_MSQID64_DS_TIME_HIGH
++	unsigned long	msg_stime;	/* last msgsnd time */
++	unsigned long	msg_stime_high;
++	unsigned long	msg_rtime;	/* last msgrcv time */
++	unsigned long	msg_rtime_high;
++	unsigned long	msg_ctime;	/* last change time */
++	unsigned long	msg_ctime_high;
++#endif
++	unsigned long	msg_cbytes;	/* current number of bytes on queue */
++	unsigned long	msg_qnum;	/* number of messages in queue */
++	unsigned long	 msg_qbytes;	/* max number of bytes on queue */
++	__kernel_pid_t msg_lspid;	/* pid of last msgsnd */
++	__kernel_pid_t msg_lrpid;	/* last receive pid */
++	unsigned long	 __unused4;
++	unsigned long	 __unused5;
++};
++
++#endif /* msqid64_ds */
++
++#endif /* HAVE_MSQID64_DS */
++
++#endif /* IPC_MSGBUF_H */
 -- 
 2.25.0.rc1.19.g042ed3e048af
 
