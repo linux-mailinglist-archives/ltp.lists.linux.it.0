@@ -2,39 +2,60 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CD4D1FB204
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jun 2020 15:26:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CFE41FB211
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jun 2020 15:28:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 468933C2D0F
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jun 2020 15:26:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 318123C2D04
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Jun 2020 15:28:01 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 2EE823C1360
- for <ltp@lists.linux.it>; Tue, 16 Jun 2020 15:26:22 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id F2BC53C5FC2
+ for <ltp@lists.linux.it>; Tue, 16 Jun 2020 15:27:37 +0200 (CEST)
+Received: from merlin.infradead.org (merlin.infradead.org
+ [IPv6:2001:8b0:10b:1231::1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B38331BCC8FD
- for <ltp@lists.linux.it>; Tue, 16 Jun 2020 15:26:21 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 7C0C8B18D;
- Tue, 16 Jun 2020 13:26:24 +0000 (UTC)
-Date: Tue, 16 Jun 2020 15:26:34 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <20200616132634.GC2790@yuki.lan>
-References: <1592298082-21792-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4B7387DD545
+ for <ltp@lists.linux.it>; Tue, 16 Jun 2020 15:26:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=merlin.20170209; h=In-Reply-To:Content-Transfer-Encoding:
+ Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+ Sender:Reply-To:Content-ID:Content-Description;
+ bh=5RIE+8EpdHjIjWRy7eCN7J3sN/8pSSmTZHYw0/cpfDU=; b=Vgcn+56GvP50cYcunuXQVdBiO7
+ fnfxnwyIMROvsDSfTDI4ErZJQ9+vskcr3z3Yk+2eGwbt3Okc5V23CPLcgp15hFAfeL0JljOJcY/UH
+ WgWXzpbw+B/Vra96qzLvN6dBNy8C0ag7AcWU8ydnebZu8XKAd05XSrt9FXDqXTuGWC8SJAI3kJvIr
+ QP6NYtKBXO8odqOD8p2gwZsyHqqxhd+LlltYsLMJbVD/sK8/RkOOZX+V3RECoPFYvGHvj4yZK35t0
+ PAR6XWmUF+WAS4jSk/hQoxCj49XfrJRZujXhSfM8ymHRi115Tr7vNRuQPhIFW1al43R1TvGQH0BIx
+ UxcZzATA==;
+Received: from j217100.upc-j.chello.nl ([24.132.217.100]
+ helo=noisy.programming.kicks-ass.net)
+ by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1jlBcK-0002s1-JP; Tue, 16 Jun 2020 13:27:08 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id EBE3130018A;
+ Tue, 16 Jun 2020 15:27:05 +0200 (CEST)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id D8AA1203D48A4; Tue, 16 Jun 2020 15:27:05 +0200 (CEST)
+Date: Tue, 16 Jun 2020 15:27:05 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Andy Lutomirski <luto@amacapital.net>
+Message-ID: <20200616132705.GW2531@hirez.programming.kicks-ass.net>
+References: <87y2onbdtb.fsf@nanos.tec.linutronix.de>
+ <8E41B15F-D567-4C52-94E9-367015480345@amacapital.net>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1592298082-21792-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+In-Reply-To: <8E41B15F-D567-4C52-94E9-367015480345@amacapital.net>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1 1/2] libs/libltpnewipc: Add missing libmsgctl.c
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [x86/entry] 2bbc68f837: ltp.ptrace08.fail
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,24 +67,26 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alexandre Chartre <alexandre.chartre@oracle.com>,
+ kernel test robot <rong.a.chen@intel.com>, LKML <linux-kernel@vger.kernel.org>,
+ lkp@lists.01.org, Andy Lutomirski <luto@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Add libmsgctl.c into ltp new ipc libs, so the upcoming msgstress cleanup cases
-> can use its functions.
-
-First of all the code should be ported into new library, which among
-other things, means that the printf() should be replaced with tst_res(),
-and there would no longer be a reason to return the PASS/FAIL since that
-would be handled by the test library from that point on.
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gVHVlLCBKdW4gMTYsIDIwMjAgYXQgMDY6MjI6MTBBTSAtMDcwMCwgQW5keSBMdXRvbWlyc2tp
+IHdyb3RlOgo+IAo+ID4gT24gSnVuIDE2LCAyMDIwLCBhdCAxOjQ0IEFNLCBUaG9tYXMgR2xlaXhu
+ZXIgPHRnbHhAbGludXRyb25peC5kZT4gd3JvdGU6Cj4gPiAKPiA+IO+7v2tlcm5lbCB0ZXN0IHJv
+Ym90IDxyb25nLmEuY2hlbkBpbnRlbC5jb20+IHdyaXRlczoKPiA+PiBGWUksIHdlIG5vdGljZWQg
+dGhlIGZvbGxvd2luZyBjb21taXQgKGJ1aWx0IHdpdGggZ2NjLTkpOgo+ID4+IAo+ID4+IGNvbW1p
+dDogMmJiYzY4ZjgzNzNjMDYzMWViZjEzN2YzNzZmYmVhMDBlODA4NmJlNyAoIng4Ni9lbnRyeTog
+Q29udmVydCBEZWJ1ZyBleGNlcHRpb24gdG8gSURURU5UUllfREIiKQo+ID4+IGh0dHBzOi8vZ2l0
+Lmtlcm5lbC5vcmcvY2dpdC9saW51eC9rZXJuZWwvZ2l0L3RvcnZhbGRzL2xpbnV4LmdpdCBtYXN0
+ZXIKPiA+IAo+ID4gSXMgdGhlIGhlYWQgb2YgbGludXguZ2l0IGV4cG9zaW5nIHRoZSBzYW1lIHBy
+b2JsZW0gb3IgaXMgdGhpcyBhbgo+ID4gaW50ZXJtaXR0ZW50IGZhaWx1cmUsIHdoaWNoIG9ubHkg
+YWZmZWN0cyBiaXNlY3RhYmlsaXR5Pwo+IAo+IEl0IHN1cmUgbG9va3MgZGV0ZXJtaW5pc3RpYzoK
+PiAKPiBwdHJhY2UwOC5jOjYyOiBCUk9LOiBDYW5ub3QgZmluZCBhZGRyZXNzIG9mIGtlcm5lbCBz
+eW1ib2wgImRvX2RlYnVnIgoKUk9GTAoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xp
+c3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
