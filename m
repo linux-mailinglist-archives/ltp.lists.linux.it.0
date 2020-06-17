@@ -2,56 +2,93 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A39FE1FEF9A
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 Jun 2020 12:25:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD1881FEFD9
+	for <lists+linux-ltp@lfdr.de>; Thu, 18 Jun 2020 12:46:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 54AEC3C2C8B
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 Jun 2020 12:25:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7B9743C2C8A
+	for <lists+linux-ltp@lfdr.de>; Thu, 18 Jun 2020 12:46:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 5A50F3C2C7C
- for <ltp@lists.linux.it>; Thu, 18 Jun 2020 12:25:02 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id A07A4200914
- for <ltp@lists.linux.it>; Thu, 18 Jun 2020 12:25:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1592475900;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:content-type:content-type;
- bh=soQIuBK1lI0Gp+p8Avfzo3dTSUZaVSS09oNTzPhNLJo=;
- b=aQW3kYCLcrFoKrHczQgBegXfcN2vJtM1LdXHmlL2WMCbNlJu29ZgIfCtENX04++u1TtJpB
- 0NgYkVzZBIS71rmVpgBQmQfRnB9uOfqWY3TOmzHrLWzA7W4PmR6HNgg8OxWIjuvuOEh6l7
- aYIcCGVVWBZfK/nP9AWOzQF5OVD0lBo=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-21-fpL7oUK5PBiCQ_tMgjMJDA-1; Thu, 18 Jun 2020 06:24:55 -0400
-X-MC-Unique: fpL7oUK5PBiCQ_tMgjMJDA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id BAAF13C1C9A
+ for <ltp@lists.linux.it>; Thu, 18 Jun 2020 00:21:45 +0200 (CEST)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E8F218005AD;
- Thu, 18 Jun 2020 10:24:54 +0000 (UTC)
-Received: from janakin.usersys.redhat.com (unknown [10.43.17.25])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 4CB2E60BF3;
- Thu, 18 Jun 2020 10:24:51 +0000 (UTC)
-From: Jan Stancek <jstancek@redhat.com>
-To: ltp@lists.linux.it
-Date: Thu, 18 Jun 2020 12:24:49 +0200
-Message-Id: <53a3e9975f00c50c78528994472ec7e9f8adeb90.1592475774.git.jstancek@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id E433D601241
+ for <ltp@lists.linux.it>; Thu, 18 Jun 2020 00:21:44 +0200 (CEST)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 05HM3JlH034319; Wed, 17 Jun 2020 18:21:38 -0400
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 31q6j5mavf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 17 Jun 2020 18:21:37 -0400
+Received: from m0098414.ppops.net (m0098414.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 05HMLbSH087570;
+ Wed, 17 Jun 2020 18:21:37 -0400
+Received: from ppma04wdc.us.ibm.com (1a.90.2fa9.ip4.static.sl-reverse.com
+ [169.47.144.26])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 31q6j5ma3a-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 17 Jun 2020 18:20:07 -0400
+Received: from pps.filterd (ppma04wdc.us.ibm.com [127.0.0.1])
+ by ppma04wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 05HMFeDA020268;
+ Wed, 17 Jun 2020 22:19:07 GMT
+Received: from b03cxnp08026.gho.boulder.ibm.com
+ (b03cxnp08026.gho.boulder.ibm.com [9.17.130.18])
+ by ppma04wdc.us.ibm.com with ESMTP id 31q8rye3mf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 17 Jun 2020 22:19:07 +0000
+Received: from b03ledav002.gho.boulder.ibm.com
+ (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 05HMJ40x24969576
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 17 Jun 2020 22:19:04 GMT
+Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A5D1C13604F;
+ Wed, 17 Jun 2020 22:19:06 +0000 (GMT)
+Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9FEA213605D;
+ Wed, 17 Jun 2020 22:19:05 +0000 (GMT)
+Received: from [9.65.216.166] (unknown [9.65.216.166])
+ by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Wed, 17 Jun 2020 22:19:05 +0000 (GMT)
+To: Bruno Meneguele <bmeneg@redhat.com>, Jerry Snitselaar <jsnitsel@redhat.com>
+References: <20200527071434.28574-1-pvorel@suse.cz>
+ <1590601280.16219.1.camel@linux.ibm.com> <20200528140747.GA8401@dell5510>
+ <1590679145.4457.39.camel@linux.ibm.com> <20200528160527.GA27243@dell5510>
+ <20200615194134.GF129694@glitch> <1592252491.11061.181.camel@linux.ibm.com>
+ <20200617012148.hhpvxqov2py7fvvc@cantor> <20200617204500.GB40831@glitch>
+From: Maurizio Drocco <mdrocco@linux.vnet.ibm.com>
+Message-ID: <8b9bfe78-86ce-77aa-c84e-821ea69b4c86@linux.vnet.ibm.com>
+Date: Wed, 17 Jun 2020 18:19:05 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
+MIME-Version: 1.0
+In-Reply-To: <20200617204500.GB40831@glitch>
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
+ definitions=2020-06-17_12:2020-06-17,
+ 2020-06-17 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0
+ lowpriorityscore=0 mlxlogscore=999 bulkscore=0 impostorscore=0
+ adultscore=0 mlxscore=0 suspectscore=0 clxscore=1011 priorityscore=1501
+ cotscore=-2147483648 spamscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2004280000 definitions=main-2006170164
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH] clocks/invaliddates.c: relax acceptable delta
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+X-Mailman-Approved-At: Thu, 18 Jun 2020 12:46:52 +0200
+Subject: Re: [LTP] [LTP v2 1/1] ima_tpm.sh: Fix for calculating boot
+ aggregate
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,84 +100,87 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Vitaly Chikunov <vt@altlinux.org>, Mimi Zohar <zohar@linux.ibm.com>,
+ Maurizio Drocco <maurizio.drocco@ibm.com>, linux-integrity@vger.kernel.org,
+ Mimi Zohar <zohar@linux.vnet.ibm.com>, ltp@lists.linux.it
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="windows-1252"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Test allows just 5ms delta for PASS, and test randomly fails in
-environments with shared resources and increased steal time.
 
-Relax the condition and also print deltas if test fails.
-Remove DEBUG ifdefs and main parameters to avoid unused variable
-warning.
+On 6/17/2020 4:45 PM, Bruno Meneguele wrote:
+> On Tue, Jun 16, 2020 at 06:21:48PM -0700, Jerry Snitselaar wrote:
+>> On Mon Jun 15 20, Mimi Zohar wrote:
+>>> On Mon, 2020-06-15 at 16:41 -0300, Bruno Meneguele wrote:
+>>>> On Thu, May 28, 2020 at 06:05:27PM +0200, Petr Vorel wrote:
+>>>>> Hi Mimi,
+>>>>> ...
+>>>>>>>> With just this change, the ima_tpm.sh test is failing. =A0I assume=
+ it is
+>>>>>>>> failing because it is reading the SHA1 TPM bank, not the SHA256 ba=
+nk
+>>>>>>>> to calculate the boot_aggregate hash.
+>>>>>>> First question: is it correct to take sha256? Because on my test be=
+low it's
+>>>>>>> reading sha1, because that's the content of /sys/kernel/security/im=
+a/ascii_runtime_measurements
+>>>>>>> I thought just kernel commit: 6f1a1d103b48 ima: ("Switch to ima_has=
+h_algo for
+>>>>>>> boot aggregate") from current linux-integrity tree is needed, but I=
+ tested it on
+>>>>>>> b59fda449cf0 ("ima: Set again build_ima_appraise variable") (i.e. h=
+aving all
+>>>>>>> Robeto's ima patches,  missing just last 2 commits from next-integr=
+ity head).
+>>>>>>> What is needed to get your setup?
+>>>>>> This isn't a configuration problem, but an issue of reading PCRs and
+>>>>>> calculating the TPM bank appropriate boot_aggregate. =A0If you're
+>>>>>> calculating a sha256 boot_aggregate, then the test needs to read and
+>>>>>> calculate the boot_aggregate by reading the SHA256 TPM bank.
+>>>>> OK, I tested it on TPM 1.2 (no TPM 2.0 available atm).
+>>>>> I guess you have TPM 2.0, that's why I didn't spot this issue.
+>>>>>
+>>>>> To sum that: my patch is required for any system without physical TPM=
+ with with
+>>>>> kernel with b59fda449cf0 + it also works for TPM 1.2 (regardless kern=
+el
+>>>>> version), because TPM 1.2 supports sha1 only boot aggregate.
+>>>>>
+>>>>> But testing on kernel with b59fda449cf0 with TPM 2.0 is not only brok=
+en with
+>>>>> this patch, but also on current version in master, right? As you have
+>>>>> sha256:3fd5dc717f886ff7182526efc5edc3abb179a5aac1ab589c8ec888398233ae=
+5 anyway.
+>>>>> So this patch would help at least testing on VM without vTPM.
+>>>>>
+>>>> If we consider to delay this change until we have the ima-evm-utils
+>>>> released with the ima_boot_aggregate + make this test dependent on
+>>>> both ima-evm-utils and tsspcrread, would it be worth to SKIP the test =
+in
+>>>> case a TPM2.0 sha256 bank is detected instead of FAIL? Thus we could
+>>>> have the test fixed for TPM1.2 && no-TPM cases until we get the full
+>>>> support for multiple banks?
+>>> As long as we're dealing with the "boot_aggregate", Maurizio just
+>>> posted a kernel patch for including PCR 8 & 9 in the boot_aggregate.
+>>>  =A0The existing IMA LTP "boot_aggregate" test is going to need to
+>>> support this change.
+>>>
+>>> I'd appreciate if someone could send me a TPM event log, the PCRs, and
+>>> the associated IMA ascii_runtime_measurements "boot_aggregate" from a
+>>> system with a discrete TPM 2.0 with PCRs 8 & 9 events.
+>>>
+> Maybe Maurizio already have it at hand?
+> I can try to setup a system with grub2+tpm to get the log with pcr 8 and
+> 9 filled.
 
-Signed-off-by: Jan Stancek <jstancek@redhat.com>
----
- .../functional/timers/clocks/invaliddates.c   | 25 +++++++------------
- 1 file changed, 9 insertions(+), 16 deletions(-)
+Hi Bruno, I confirm I have a couple of systems on where 8 & 9 and the =
 
-diff --git a/testcases/open_posix_testsuite/functional/timers/clocks/invaliddates.c b/testcases/open_posix_testsuite/functional/timers/clocks/invaliddates.c
-index face334fd250..d4116b1e9bc0 100644
---- a/testcases/open_posix_testsuite/functional/timers/clocks/invaliddates.c
-+++ b/testcases/open_posix_testsuite/functional/timers/clocks/invaliddates.c
-@@ -18,8 +18,7 @@
- 
- #define NUMTESTS 5
- 
--#define ACCEPTABLESECDELTA 0
--#define ACCEPTABLENSECDELTA 5000000
-+#define ACCEPTABLESECDELTA 2
- 
- static int testtimes[NUMTESTS][2] = {
- 	{INT32_MAX, 999999999},	// large number
-@@ -29,7 +28,7 @@ static int testtimes[NUMTESTS][2] = {
- 	{1049623200, 999999999},	// daylight savings 2003
- };
- 
--int main(int argc, char *argv[])
-+int main(void)
- {
- 	struct timespec tpset, tpget, tsreset;
- 	int secdelta, nsecdelta;
-@@ -44,9 +43,6 @@ int main(int argc, char *argv[])
- 	for (i = 0; i < NUMTESTS; i++) {
- 		tpset.tv_sec = testtimes[i][0];
- 		tpset.tv_nsec = testtimes[i][1];
--#ifdef DEBUG
--		printf("Test: %ds %dns\n", testtimes[i][0], testtimes[i][1]);
--#endif
- 		if (clock_settime(CLOCK_REALTIME, &tpset) == 0) {
- 			if (clock_gettime(CLOCK_REALTIME, &tpget) == -1) {
- 				printf("Error in clock_gettime()\n");
-@@ -58,16 +54,13 @@ int main(int argc, char *argv[])
- 				nsecdelta = nsecdelta + 1000000000;
- 				secdelta = secdelta - 1;
- 			}
--#ifdef DEBUG
--			printf("Delta:  %ds %dns\n", secdelta, nsecdelta);
--#endif
--			if ((secdelta > ACCEPTABLESECDELTA) || (secdelta < 0)) {
--				printf("clock does not appear to be set\n");
--				failure = 1;
--			}
--			if ((nsecdelta > ACCEPTABLENSECDELTA) ||
--			    (nsecdelta < 0)) {
--				printf("clock does not appear to be set\n");
-+
-+			if ((secdelta > ACCEPTABLESECDELTA)
-+				|| (secdelta < 0)) {
-+				printf("FAIL: test(%d,%d), secdelta: %d,"
-+					" nsecdelta: %d\n",
-+					testtimes[i][0], testtimes[i][1],
-+					secdelta, nsecdelta);
- 				failure = 1;
- 			}
- 		} else {
--- 
-2.18.1
+IMA list are filled at boot (already shared with Mimi), now I am =
+
+figuring out how to produce TPM event logs as well.
 
 
--- 
+-- =
+
 Mailing list info: https://lists.linux.it/listinfo/ltp
