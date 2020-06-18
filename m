@@ -1,42 +1,51 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA2B01FEEC9
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 Jun 2020 11:36:53 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7284F1FEED2
+	for <lists+linux-ltp@lfdr.de>; Thu, 18 Jun 2020 11:41:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3AF2D3C2C9E
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 Jun 2020 11:36:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 390013C2C8D
+	for <lists+linux-ltp@lfdr.de>; Thu, 18 Jun 2020 11:41:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 834653C02EF
- for <ltp@lists.linux.it>; Thu, 18 Jun 2020 11:36:49 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 04F453C02EF
+ for <ltp@lists.linux.it>; Thu, 18 Jun 2020 11:41:48 +0200 (CEST)
+Received: from mail-m975.mail.163.com (mail-m975.mail.163.com [123.126.97.5])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id EB57D1400B86
- for <ltp@lists.linux.it>; Thu, 18 Jun 2020 11:36:48 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id B6623B137;
- Thu, 18 Jun 2020 09:36:47 +0000 (UTC)
-Date: Thu, 18 Jun 2020 11:36:46 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20200618093646.GA11962@dell5510>
-References: <20200617154926.32588-1-alexey.kodanev@oracle.com>
- <CAEemH2dOxAnaaMXhKyj36FqmYDQ_p_kfi-=pMQhrE3O9oQO8LA@mail.gmail.com>
- <20200618055105.GA42990@x230>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2C096200767
+ for <ltp@lists.linux.it>; Thu, 18 Jun 2020 11:41:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=UyKyh
+ rxxr6gudesJW5hO0s033Nc4XEuKyV3IrU2W2Z8=; b=npYBdjCYHy8nqRIh7XQFL
+ W9eitthu7DP80oPFDYMDvx9TgWtmXbd58FmRqkyuKJSUqazfwd+r479l+HIPiAnB
+ 43//t6KW8jk2WD4ym5iGe/KIDpxYG+Cj40N2bzYxMCbi2wJTUW+Ku20a3r0RSpkC
+ hSU5NU3S4C/A9LTtLUv/Es=
+Received: from localhost.localdomain (unknown [122.96.44.193])
+ by smtp5 (Coremail) with SMTP id HdxpCgCny1jUNuteU4DlAw--.73S2;
+ Thu, 18 Jun 2020 17:41:41 +0800 (CST)
+From: Yang Xu <xuyang_jy_0410@163.com>
+To: ltp@lists.linux.it
+Date: Thu, 18 Jun 2020 17:41:38 +0800
+Message-Id: <20200618094139.24579-1-xuyang_jy_0410@163.com>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200618055105.GA42990@x230>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-CM-TRANSID: HdxpCgCny1jUNuteU4DlAw--.73S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXF15Jry5JrWDuw4ktw17trb_yoWrGF43pa
+ nIkFZ8Kw4kAw1xCF4fWF4rJF1ava1vqa47CrWfuF1DAr4xJw17XrWFgFW7tF1fWan2qFy3
+ WrZ8XF45Kw4fXr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UIoGLUUUUU=
+X-Originating-IP: [122.96.44.193]
+X-CM-SenderInfo: p0x1t05jbm5saquriqqrwthudrp/1tbiyhVHhFQHIoFsVwAAsX
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] network/nsf_lib.sh: TCONF on mount (udp/udp6)
- failure for Linux v5.6+
+X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 1/2] libs/libltpnewipc: Add libnewmsgctl.c
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,39 +57,163 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li, Alexey, Cyril,
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+Add libnewmsgctl.c into ltp new ipc libs, so the upcoming msgstress cleanup cases
+can use doreader/dowirter functions such as old libmsgctl.c does.
 
-> > > +++ b/testcases/network/nfs/nfs_stress/nfs_lib.sh
-> > > @@ -87,11 +87,17 @@ nfs_mount()
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+---
+ include/libnewmsgctl.h           |  22 +++++++
+ libs/libltpnewipc/libnewmsgctl.c | 102 +++++++++++++++++++++++++++++++
+ 2 files changed, 124 insertions(+)
+ create mode 100644 include/libnewmsgctl.h
+ create mode 100644 libs/libltpnewipc/libnewmsgctl.c
 
-> > >         tst_res TINFO "Mounting NFS: $mnt_cmd"
-> > >         if [ -n "$LTP_NETNS" ] && [ -z "$LTP_NFS_NETNS_USE_LO" ]; then
-> > > -               tst_rhost_run -s -c "$mnt_cmd"
+diff --git a/include/libnewmsgctl.h b/include/libnewmsgctl.h
+new file mode 100644
+index 000000000..e48a04277
+--- /dev/null
++++ b/include/libnewmsgctl.h
+@@ -0,0 +1,22 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
++ */
++
++#ifndef __LIBNEWMSGCTL_H__
++#define __LIBNEWMSGCTL_H__
++
++struct mbuffer {
++	long type;
++	struct {
++		char len;
++		char pbytes[99];
++	} data;
++};
++
++void doreader(long key, int tid, long type, int child, int nreps);
++void dowriter(long key, int tid, long type, int child, int nreps);
++void fill_buffer(char *buf, char val, int size);
++int verify(char *buf, char val, int size, int child);
++
++#endif /*__LIBNEWMSGCTL_H__ */
+diff --git a/libs/libltpnewipc/libnewmsgctl.c b/libs/libltpnewipc/libnewmsgctl.c
+new file mode 100644
+index 000000000..1f6eed74a
+--- /dev/null
++++ b/libs/libltpnewipc/libnewmsgctl.c
+@@ -0,0 +1,102 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
++ */
++
++#include <errno.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <sys/stat.h>
++#include <sys/types.h>
++#include <sys/ipc.h>
++#include <sys/msg.h>
++
++#define TST_NO_DEFAULT_MAIN
++#include "tst_test.h"
++#include "tst_safe_sysv_ipc.h"
++#include "libnewmsgctl.h"
++
++void doreader(long key, int tid, long type, int child, int nreps)
++{
++	int i, size;
++	int id;
++	struct mbuffer buffer;
++
++	id = SAFE_MSGGET(key, 0);
++	if (id != tid) {
++		tst_res(TFAIL,
++			"Message queue mismatch in the reader of child group %d for message queue id %d\n",
++			child, id);
++		return;
++	}
++	for (i = 0; i < nreps; i++) {
++		memset(&buffer, 0, sizeof(buffer));
++
++		size = SAFE_MSGRCV(id, &buffer, 100, type, 0);
++		if (buffer.type != type) {
++			tst_res(TFAIL, "Type mismatch in child %d, read #%d, for message got %ld, exected %ld",
++				child, (i + 1), buffer.type, type);
++			return;
++		}
++		if (buffer.data.len + 1 != size) {
++			tst_res(TFAIL, "Size mismatch in child %d, read #%d, for message got %d, expected %d",
++				child, (i + 1), buffer.data.len + 1, size);
++			return;
++		}
++		if (verify(buffer.data.pbytes, (key % 255), size - 1, child)) {
++			tst_res(TFAIL, "Verify failed in child %d read # = %d, key = %lx\n",
++				child, (i + 1), key);
++			return;
++		}
++		key++;
++	}
++}
++
++void dowriter(long key, int tid, long type, int child, int nreps)
++{
++	int i, size;
++	int id;
++	struct mbuffer buffer;
++
++	id = SAFE_MSGGET(key, 0);
++	if (id != tid) {
++		tst_res(TFAIL, "Message queue mismatch in the reader of child group %d for message queue id %d\n",
++			child, id);
++		return;
++	}
++
++	for (i = 0; i < nreps; i++) {
++		memset(&buffer, 0, sizeof(buffer));
++
++		do {
++			size = (lrand48() % 99);
++		} while (size == 0);
++		fill_buffer(buffer.data.pbytes, (key % 255), size);
++		buffer.data.len = size;
++		buffer.type = type;
++		SAFE_MSGSND(id, &buffer, size + 1, 0);
++		key++;
++	}
++}
++
++void fill_buffer(char *buf, char val, int size)
++{
++	int i;
++
++	for (i = 0; i < size; i++)
++		buf[i] = val;
++}
++
++/* Check a buffer for correct values */
++int verify(char *buf, char val, int size, int child)
++{
++	while (size-- > 0) {
++		if (*buf++ != val) {
++			tst_res(TFAIL, "Verify error in child %d, *buf = %x, val = %x, size = %d\n",
++				child, *buf, val, size);
++			return 1;
++		}
++	}
++	return 0;
++}
+-- 
+2.23.0
 
-
-> > Or, maybe we can have a new function naming as 'tst_kconifg_check' to parse
-> > kernel .config in shell library as well?
-> +1, I was thinking about it for a long time.
-Thinking about the balance between base TCONF decision on kernel version vs.
-require kernel config to be presented I think for cases like this I'd prefer
-kernel version based check (i.e. the original patch).
-
-Requiring kernel config is ok for traditional distros (and even here is
-sometimes readable only for root, e.g. Debian/Ubuntu), but it's still rare on
-arm (other embedded archs). I guess it'd be nice to have some variable, which
-would turn kernel config based requirement into warning.
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
