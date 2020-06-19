@@ -2,38 +2,84 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 939AE200604
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jun 2020 12:07:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AB9B2008EE
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jun 2020 14:44:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5CA743C2C47
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jun 2020 12:07:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6184E3C2C4D
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jun 2020 14:44:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id D99963C0887
- for <ltp@lists.linux.it>; Fri, 19 Jun 2020 12:07:40 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 23F063C23CD
+ for <ltp@lists.linux.it>; Fri, 19 Jun 2020 14:44:07 +0200 (CEST)
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 1C80D1A01193
- for <ltp@lists.linux.it>; Fri, 19 Jun 2020 12:07:39 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 9AE8FB048;
- Fri, 19 Jun 2020 10:07:38 +0000 (UTC)
-Date: Fri, 19 Jun 2020 12:07:37 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Mimi Zohar <zohar@linux.ibm.com>
-Message-ID: <20200619100737.GB18704@dell5510>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 736071A008BE
+ for <ltp@lists.linux.it>; Fri, 19 Jun 2020 14:44:07 +0200 (CEST)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 05JCXiEx051063; Fri, 19 Jun 2020 08:44:04 -0400
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 31runckdpt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 19 Jun 2020 08:44:04 -0400
+Received: from m0098421.ppops.net (m0098421.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 05JCYDCj053630;
+ Fri, 19 Jun 2020 08:44:04 -0400
+Received: from ppma02fra.de.ibm.com (47.49.7a9f.ip4.static.sl-reverse.com
+ [159.122.73.71])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 31runckdp9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 19 Jun 2020 08:44:03 -0400
+Received: from pps.filterd (ppma02fra.de.ibm.com [127.0.0.1])
+ by ppma02fra.de.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 05JCZ54g012883;
+ Fri, 19 Jun 2020 12:44:02 GMT
+Received: from b06avi18626390.portsmouth.uk.ibm.com
+ (b06avi18626390.portsmouth.uk.ibm.com [9.149.26.192])
+ by ppma02fra.de.ibm.com with ESMTP id 31r0dvs272-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 19 Jun 2020 12:44:01 +0000
+Received: from d06av24.portsmouth.uk.ibm.com (d06av24.portsmouth.uk.ibm.com
+ [9.149.105.60])
+ by b06avi18626390.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP
+ id 05JCgfxb60358958
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 19 Jun 2020 12:42:41 GMT
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C4B874203F;
+ Fri, 19 Jun 2020 12:43:59 +0000 (GMT)
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A172B42045;
+ Fri, 19 Jun 2020 12:43:58 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.85.188.214])
+ by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+ Fri, 19 Jun 2020 12:43:58 +0000 (GMT)
+Message-ID: <1592570638.17802.8.camel@linux.ibm.com>
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: Petr Vorel <pvorel@suse.cz>, Bruno Meneguele <bmeneg@redhat.com>
+Date: Fri, 19 Jun 2020 08:43:58 -0400
+In-Reply-To: <20200619082134.GB23036@dell5510>
 References: <20200527071434.28574-1-pvorel@suse.cz>
- <1590601280.16219.1.camel@linux.ibm.com>
- <20200528140747.GA8401@dell5510>
- <1590679145.4457.39.camel@linux.ibm.com>
- <20200528160527.GA27243@dell5510> <20200615194134.GF129694@glitch>
- <1592252491.11061.181.camel@linux.ibm.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1592252491.11061.181.camel@linux.ibm.com>
+ <1590601280.16219.1.camel@linux.ibm.com> <20200528140747.GA8401@dell5510>
+ <1590679145.4457.39.camel@linux.ibm.com> <20200528160527.GA27243@dell5510>
+ <20200615194134.GF129694@glitch> <1592252491.11061.181.camel@linux.ibm.com>
+ <20200617012148.hhpvxqov2py7fvvc@cantor> <20200617204500.GB40831@glitch>
+ <20200619082134.GB23036@dell5510>
+X-Mailer: Evolution 3.20.5 (3.20.5-1.fc24) 
+Mime-Version: 1.0
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
+ definitions=2020-06-19_11:2020-06-19,
+ 2020-06-19 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=909
+ impostorscore=0 priorityscore=1501 mlxscore=0 spamscore=0 adultscore=0
+ malwarescore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
+ clxscore=1015 bulkscore=0 cotscore=-2147483648 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.12.0-2004280000
+ definitions=main-2006190089
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
@@ -52,69 +98,23 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Vitaly Chikunov <vt@altlinux.org>,
+Cc: Vitaly Chikunov <vt@altlinux.org>, Jerry Snitselaar <jsnitsel@redhat.com>,
  Maurizio Drocco <maurizio.drocco@ibm.com>, linux-integrity@vger.kernel.org,
  Mimi Zohar <zohar@linux.vnet.ibm.com>, ltp@lists.linux.it
-Content-Type: text/plain; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
-
-> On Mon, 2020-06-15 at 16:41 -0300, Bruno Meneguele wrote:
-> > On Thu, May 28, 2020 at 06:05:27PM +0200, Petr Vorel wrote:
-> > > Hi Mimi,
-...
-> > > To sum that: my patch is required for any system without physical TPM=
- with with
-> > > kernel with b59fda449cf0 + it also works for TPM 1.2 (regardless kern=
-el
-> > > version), because TPM 1.2 supports sha1 only boot aggregate.
-
-> > > But testing on kernel with b59fda449cf0 with TPM 2.0 is not only brok=
-en with
-> > > this patch, but also on current version in master, right? As you have
-> > > sha256:3fd5dc717f886ff7182526efc5edc3abb179a5aac1ab589c8ec888398233ae=
-5 anyway.
-> > > So this patch would help at least testing on VM without vTPM.
-
-
-> > If we consider to delay this change until we have the ima-evm-utils
-> > released with the ima_boot_aggregate + make this test dependent on
-> > both ima-evm-utils and tsspcrread, would it be worth to SKIP the test in
-> > case a TPM2.0 sha256 bank is detected instead of FAIL? Thus we could
-> > have the test fixed for TPM1.2 && no-TPM cases until we get the full
-> > support for multiple banks?
-+1
-
-> As long as we're dealing with the "boot_aggregate", Maurizio just
-> posted a kernel patch for including PCR 8 & 9 in the boot_aggregate.
-> =A0The existing IMA LTP "boot_aggregate" test is going to need to
-> support this change.
-I'm not sure if I did something wrong, but it looks to me that 'evmctl
-ima_boot_aggregate' does not provide backward compatibility with TPM 1.2.
-Or am I wrong?
-
-And given the fact that new evmctl is not released, I'd adapt the test just=
- for
-TPM 1.2 && no-TPM as Bruno suggested (TCONF if
-/sys/class/tpm/tpm0/tpm_version_major presented and not 1, print info about=
- TPM
-2.0 not yet supported otherwise).
-
-BTW what is the correct way for systems with more TPM (is there any? It loo=
-ks
-it's possible [1]). Which of them is used? Should I loop over
-/sys/class/tpm/tpm*/tpm_version_major or just use
-/sys/class/tpm/tpm0/tpm_version_major?
-
-Kind regards,
-Petr
-
-[1] https://letstrust.de/archives/29-New-fun-fact!.html
-
--- =
-
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gRnJpLCAyMDIwLTA2LTE5IGF0IDEwOjIxICswMjAwLCBQZXRyIFZvcmVsIHdyb3RlOgo+IEhp
+IGFsbCwKPiAKPiAuLi4KPiA+ID4gPiBJJ2QgYXBwcmVjaWF0ZSBpZiBzb21lb25lIGNvdWxkIHNl
+bmQgbWUgYSBUUE0gZXZlbnQgbG9nLCB0aGUgUENScywgYW5kCj4gPiA+ID4gdGhlIGFzc29jaWF0
+ZWQgSU1BIGFzY2lpX3J1bnRpbWVfbWVhc3VyZW1lbnRzICJib290X2FnZ3JlZ2F0ZSIgZnJvbSBh
+Cj4gPiA+ID4gc3lzdGVtIHdpdGggYSBkaXNjcmV0ZSBUUE0gMi4wIHdpdGggUENScyA4ICYgOSBl
+dmVudHMuCj4gCj4gCj4gPiBNYXliZSBNYXVyaXppbyBhbHJlYWR5IGhhdmUgaXQgYXQgaGFuZD8K
+PiBJJ2QgYXBwcmVjaWF0ZSB0byBoYXZlIHRoZXNlIGZpbGVzIGFzIHdlbGwuCj4gCj4gPiBJIGNh
+biB0cnkgdG8gc2V0dXAgYSBzeXN0ZW0gd2l0aCBncnViMit0cG0gdG8gZ2V0IHRoZSBsb2cgd2l0
+aCBwY3IgOCBhbmQKPiA+IDkgZmlsbGVkLgoKQm90aCBSSEVMIDggYW5kIFVidW50dSAyMC4wNCBM
+VFMgaGF2ZSBQQ1JzIDggJiA5LiDCoEknbGwgaW5jbHVkZSBvbmUgYXMKYW5vdGhlciBleGFtcGxl
+IGZvciB0aGUgdGVzdHMvYm9vdF9hZ2dyZWdhdGUudGVzdC4KCk1pbWkKCgotLSAKTWFpbGluZyBs
+aXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
