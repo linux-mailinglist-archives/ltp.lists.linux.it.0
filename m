@@ -1,74 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 800742003FB
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jun 2020 10:33:52 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C81D620047A
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jun 2020 10:56:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0BE833C2C56
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jun 2020 10:33:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6D29D3C2C64
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jun 2020 10:56:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id DB5FB3C2AB3
- for <ltp@lists.linux.it>; Fri, 19 Jun 2020 10:33:47 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 4F2F21A009A1
- for <ltp@lists.linux.it>; Fri, 19 Jun 2020 10:33:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1592555624;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=prDARn8AtPMTrrkFiNbq015EyhdfQp7ugACRD8qaEkE=;
- b=fszd+k/lkfZ3Vr5VS0O2YHRPJe1Il1MCbO/mj1BCWTMBkQGqgyBzEYiI2kzfHuu9fh3x0S
- x/pQlBAZvzboM/7BJNFw+FXcSIk5vCk5/oDz/8o4r3UHsVgIc2AGZ6u7kOcUmcNbG3PUTx
- 2PiHsrbHXEvfNMYLywzpMeGzpBEO7zA=
-Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
- [209.85.167.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-331-hwmVODInONaf6HbZPMLrvw-1; Fri, 19 Jun 2020 04:33:42 -0400
-X-MC-Unique: hwmVODInONaf6HbZPMLrvw-1
-Received: by mail-lf1-f72.google.com with SMTP id j21so3056970lfg.18
- for <ltp@lists.linux.it>; Fri, 19 Jun 2020 01:33:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=prDARn8AtPMTrrkFiNbq015EyhdfQp7ugACRD8qaEkE=;
- b=qP9Z6MdyhrlheWpiMlr8H0Ugem0/cy/3BylMtE3uC0GXKTpD1mpsTkZOuEqVV0DrbA
- S6ekMpIAW9SKN9b1v71nNTfM6lTo1Bhiiq1WGFYVFEEyUOt7YwFI+UHNWhg+84XFuM+i
- UBIKKgNTZPv9nsaGNJF3hvv4rx07IG8zYw1SpBwLNbrBTdb4wyxs1aTkXxHYVphIOtA/
- +vj0qci2oQA3EmeuyIW0dMm3DOcFapkI8qzxut5aP02jew8yygTDLUylFYSBkf7CGJl1
- UPLioBmAPZRcYvXqL28hturngmvNdmuaP5f20WlTuj9GDVoK87wW5vl9toSqPNnS9DOl
- mg2Q==
-X-Gm-Message-State: AOAM531RGMnOu9QA4ZGW67Ls8CafIqmv1uYNZizAaa8CBDnTGndEGURW
- l6OwxLtuHyyeyLlimMrJaq77kkrDP8351VkfiMNSuWMzwXMnO9TnP/6UTTWGsI1TTLPiTadYTLx
- rGUI/juAuBTC1XMd4qG1HyB2eJ+g=
-X-Received: by 2002:a05:651c:149:: with SMTP id
- c9mr1283772ljd.441.1592555621094; 
- Fri, 19 Jun 2020 01:33:41 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyRulpN2DGDQwe6EPQobe1+LLZUlJdGqjIcOdN9+MAZiORbLcCxHQQxu/azUOf8pqfiFroeIeGS5nWxZvfS7K8=
-X-Received: by 2002:a05:651c:149:: with SMTP id
- c9mr1283761ljd.441.1592555620881; 
- Fri, 19 Jun 2020 01:33:40 -0700 (PDT)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 81D703C1D1C
+ for <ltp@lists.linux.it>; Fri, 19 Jun 2020 10:56:46 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B6A011000A20
+ for <ltp@lists.linux.it>; Fri, 19 Jun 2020 10:56:43 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 7279BAB3D;
+ Fri, 19 Jun 2020 08:56:42 +0000 (UTC)
+Date: Fri, 19 Jun 2020 10:56:37 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Lachlan Sneff <t-josne@linux.microsoft.com>
+Message-ID: <20200619085637.GA9372@dell5510>
+References: <20200612143842.3993-1-t-josne@linux.microsoft.com>
+ <20200612143842.3993-2-t-josne@linux.microsoft.com>
 MIME-Version: 1.0
-References: <20200618091827.4143850-1-zhe.he@windriver.com>
-In-Reply-To: <20200618091827.4143850-1-zhe.he@windriver.com>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 19 Jun 2020 16:33:28 +0800
-Message-ID: <CAEemH2eCv=rSvbM=G2dr2OxW0CodbXJmasmVUVTCKCofEAOVJQ@mail.gmail.com>
-To: zhe.he@windriver.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200612143842.3993-2-t-josne@linux.microsoft.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/copy_file_range02: Expect EFBIG in
- subcase max length on 32-bit architectures
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/2] IMA: Add a test to verify measurment of
+ keys
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,93 +47,129 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0014448352=="
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: zohar@linux.ibm.com, ltp@lists.linux.it, linux-integrity@vger.kernel.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0014448352==
-Content-Type: multipart/alternative; boundary="0000000000001172fc05a86bc012"
+Hi Lachlan,
 
---0000000000001172fc05a86bc012
-Content-Type: text/plain; charset="UTF-8"
+...
+> +	keycheck_line=$(grep "func=KEY_CHECK" $IMA_POLICY)
+> +	if [ -z "$keycheck_line" ]; then
+> +		tst_brk TCONF "ima policy does not specify \"func=KEY_CHECK\""
+> +	fi
+> +
+> +	if echo "$keycheck_line" | grep -q "*keyrings*"; then
+I guess "*keyrings*" as grep parameter is wrong. * for regexp should be .*
+If you meant to grep for keyrings, it should be:
+if ! echo "$keycheck_line" | grep -q "keyrings"; then
+	tst_brk TCONF "ima policy does not specify a keyrings to check"
+fi
 
-On Thu, Jun 18, 2020 at 5:21 PM <zhe.he@windriver.com> wrote:
+Few more changes (mostly nits), is that ok for you?
 
-> From: He Zhe <zhe.he@windriver.com>
->
-> For syscall
-> ssize_t copy_file_range(int fd_in, loff_t *off_in,
->                                int fd_out, loff_t *off_out,
->                                size_t len, unsigned int flags);
-> off_out is loff_t* that is long long, 64 bits on 32-bit architectures,
-> while len is size_t that unsigned int, 32 bits on 32-bit architectures.
->
-> In subcase "max length", simplified as below,
->
-> dst = tst_max_lfs_filesize();
-> TEST(sys_copy_file_range(fd_src, 0, *tc->copy_to_fd, &dst, tc->len,
-> tc->flags));
->
-> where dst is 4K*4G and len is 4G, so (4K+1)*4G is always smaller than
-> 4G*4G,
-> it can never match the following kernel condition on 32-bit architectures.
->
+Kind regards,
+Petr
 
-Thanks for fixing this, pushed.
-
--- 
-Regards,
-Li Wang
-
---0000000000001172fc05a86bc012
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Thu, Jun 18, 2020 at 5:21 PM &lt;<a href=3D"mail=
-to:zhe.he@windriver.com">zhe.he@windriver.com</a>&gt; wrote:<br></div><bloc=
-kquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:=
-1px solid rgb(204,204,204);padding-left:1ex">From: He Zhe &lt;<a href=3D"ma=
-ilto:zhe.he@windriver.com" target=3D"_blank">zhe.he@windriver.com</a>&gt;<b=
-r>
-<br>
-For syscall<br>
-ssize_t copy_file_range(int fd_in, loff_t *off_in,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int fd_out, loff_t *off_out,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0size_t len, unsigned int flags);<br>
-off_out is loff_t* that is long long, 64 bits on 32-bit architectures,<br>
-while len is size_t that unsigned int, 32 bits on 32-bit architectures.<br>
-<br>
-In subcase &quot;max length&quot;, simplified as below,<br>
-<br>
-dst =3D tst_max_lfs_filesize();<br>
-TEST(sys_copy_file_range(fd_src, 0, *tc-&gt;copy_to_fd, &amp;dst, tc-&gt;le=
-n, tc-&gt;flags));<br>
-<br>
-where dst is 4K*4G and len is 4G, so (4K+1)*4G is always smaller than 4G*4G=
-,<br>
-it can never match the following kernel condition on 32-bit architectures.<=
-br></blockquote><div><br></div><div><div class=3D"gmail_default" style=3D"f=
-ont-size:small">Thanks for fixing this, pushed.</div></div><div><br></div><=
-/div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><di=
-v>Regards,<br></div><div>Li Wang<br></div></div></div></div>
-
---0000000000001172fc05a86bc012--
-
-
---===============0014448352==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+diff --git testcases/kernel/security/integrity/ima/README.md testcases/kernel/security/integrity/ima/README.md
+index 16a1f48c3..66d0f5308 100644
+--- testcases/kernel/security/integrity/ima/README.md
++++ testcases/kernel/security/integrity/ima/README.md
+@@ -16,6 +16,24 @@ CONFIG_INTEGRITY=y
+ CONFIG_IMA=y
+ ```
+ 
++IMA Key Import tests
++~~~~~~~~~~~~~~~~~~~~
++
++`ima_keys.sh` requires a x509 public key, by default in `/etc/keys/x509_ima.der`.
++The key must be signed by the private key you generate. Follow these instructions:
++https://manpages.ubuntu.com/manpages/disco/man1/evmctl.1.html#generate%20trusted%20keys.
++
++The test cannot be set-up automatically because the kernel must be built
++with one of the keys you generate.
++
++As well as what's required for the IMA tests, the following are also required
++in the kernel configuration:
++```
++CONFIG_IMA_READ_POLICY=y
++CONFIG_SYSTEM_TRUSTED_KEYRING=y
++CONFIG_SYSTEM_TRUSTED_KEYS="/etc/keys/ima-local-ca.pem"
++```
++
+ EVM tests
+ ---------
+ 
+diff --git testcases/kernel/security/integrity/ima/tests/ima_keys.sh testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+index 2b5324dbf..398ee141c 100755
+--- testcases/kernel/security/integrity/ima/tests/ima_keys.sh
++++ testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+@@ -5,17 +5,18 @@
+ #
+ # Verify that keys are measured correctly based on policy.
+ 
+-TST_NEEDS_CMDS="grep mktemp cut sed tr"
++TST_NEEDS_CMDS="cut grep sed tr xxd"
+ TST_CNT=1
+ TST_NEEDS_DEVICE=1
+ 
+ . ima_setup.sh
+ 
+-# Based on https://lkml.org/lkml/2019/12/13/564.
++# Based on https://lkml.org/lkml/2019/12/13/564
+ # (450d0fd51564 - "IMA: Call workqueue functions to measure queued keys")
+ test1()
+ {
+-	local keyrings keycheck_line templates test_file=$(mktemp)
++	local err keycheck_line keyrings line templates
++	local test_file="file.txt"
+ 
+ 	tst_res TINFO "verifying key measurement for keyrings and templates specified in IMA policy file"
+ 
+@@ -28,7 +29,7 @@ test1()
+ 		tst_brk TCONF "ima policy does not specify \"func=KEY_CHECK\""
+ 	fi
+ 
+-	if echo "$keycheck_line" | grep -q "*keyrings*"; then
++	if ! echo "$keycheck_line" | grep -q "keyrings"; then
+ 		tst_brk TCONF "ima policy does not specify a keyrings to check"
+ 	fi
+ 
+@@ -41,12 +42,12 @@ test1()
+ 	templates=$(echo "$keycheck_line" | tr " " "\n" | grep "template" | \
+ 		cut -d'=' -f2)
+ 
+-	grep -E "($templates)*($keyrings)" $ASCII_MEASUREMENTS | while read line
++	grep -E "($templates)*$keyrings" $ASCII_MEASUREMENTS | while read line
+ 	do
+-		local digest expected_digest algorithm
++		local algorithm digest expected_digest keyring
+ 
+-		digest=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f2)
+ 		algorithm=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f1)
++		digest=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f2)
+ 		keyring=$(echo "$line" | cut -d' ' -f5)
+ 
+ 		echo "$line" | cut -d' ' -f6 | xxd -r -p > $test_file
+@@ -56,12 +57,12 @@ test1()
+ 
+ 		if [ "$digest" != "$expected_digest" ]; then
+ 			tst_res TFAIL "incorrect digest was found for the ($keyring) keyring"
++			err=1
+ 		fi
+ 	done
+ 
+-	rm $test_file
+-
+-	tst_res TPASS "specified keyrings were measured correctly"
++	[ -z "$err" ] && \
++		tst_res TPASS "specified keyrings were measured correctly"
+ }
+ 
+ tst_run
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0014448352==--
-
