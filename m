@@ -2,36 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 929A7201B31
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jun 2020 21:25:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7454E2021C4
+	for <lists+linux-ltp@lfdr.de>; Sat, 20 Jun 2020 07:55:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D331E3C5F13
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Jun 2020 21:25:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C828E3C2C13
+	for <lists+linux-ltp@lfdr.de>; Sat, 20 Jun 2020 07:55:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 9DCA13C0887
- for <ltp@lists.linux.it>; Fri, 19 Jun 2020 21:25:52 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 84F103C2237
+ for <ltp@lists.linux.it>; Sat, 20 Jun 2020 07:55:35 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [205.139.110.61])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 39611601234
+ for <ltp@lists.linux.it>; Sat, 20 Jun 2020 07:55:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1592632532;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Mu1LvkhqTIPASyFJgb62Bz5lW184wt+inUx4PRdITbE=;
+ b=LE4K5ox1YbaXcQUmn1lNFojdd6omJ8phnoYLzbvXRbR3rmUqICPU+NdEGPhvCmoechQ6DQ
+ SbHx1yCfAobMYXl1E1xUT0OE4GHRHK/qzSWL1mWFtvx5etFEwEzU85kYCWC1W18JeH4ywQ
+ 6iJrlsgX0QV+xsOuIlO3Rquc4cVLdsU=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-312-rOHUgWNXP_ip_CLKjohSzg-1; Sat, 20 Jun 2020 01:55:30 -0400
+X-MC-Unique: rOHUgWNXP_ip_CLKjohSzg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 26ED71000A6A
- for <ltp@lists.linux.it>; Fri, 19 Jun 2020 21:25:51 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id AFB1AACA3;
- Fri, 19 Jun 2020 19:25:50 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Fri, 19 Jun 2020 21:25:42 +0200
-Message-Id: <20200619192542.20113-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.27.0
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5E3192CCC;
+ Sat, 20 Jun 2020 05:55:29 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2FCA85D9C9;
+ Sat, 20 Jun 2020 05:55:28 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id B4EC5833C1;
+ Sat, 20 Jun 2020 05:55:28 +0000 (UTC)
+Date: Sat, 20 Jun 2020 01:55:28 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <104572215.16889120.1592632528302.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20200619192542.20113-1-pvorel@suse.cz>
+References: <20200619192542.20113-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Originating-IP: [10.43.17.25, 10.4.195.27]
+Thread-Topic: tst_test.sh: Print tst_{res, brk} into stdout
+Thread-Index: pRP9TXms8YEHs9B0wdxe11CwGAB8cg==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH 1/1] tst_test.sh: Print tst_{res, brk} into stdout
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH 1/1] tst_test.sh: Print tst_{res,
+ brk} into stdout
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,77 +76,21 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This allows printing messages on functions which output is redirected
-into variable or used in eval. Also this change unifies the behavior
-with C new API, which printed into stderr from the beginning.
 
-Hope this change does not bring any regression.
 
-Legacy API kept printing into stdout (legacy C API also prints to
-stdout).
+----- Original Message -----
+> This allows printing messages on functions which output is redirected
+> into variable or used in eval. Also this change unifies the behavior
+> with C new API, which printed into stderr from the beginning.
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-Hi,
-
-some examples:
-
-Before:
-/opt/ltp/testcases/bin/tst_net.sh: line 885: 33mTCONF:: command not found
-/opt/ltp/testcases/bin/tst_net.sh: eval: line 888: syntax error near unexpected token `('
-/opt/ltp/testcases/bin/tst_net.sh: eval: line 888: `tst_rhost_run 1 TCONF: 'rsh' not found tst_rhost_run 1 TINFO: AppArmor enabled, this may affect test results tst_rhost_run 1 TINFO: it can be disabled with TST_DISABLE_APPARMOR=1 (requires super/root) tst_rhost_run 1 TINFO: loaded AppArmor profiles: none Summary: passed 0 failed 0 skipped 1 warnings 1'
-
-With this patch:
-tst_rhost_run 1 TCONF: 'rsh' not found
-/opt/ltp/testcases/bin/tst_net.sh: line 885: Summary:: command not found
-tst_rhost_run 1 TCONF: 'rsh' not found
-/opt/ltp/testcases/bin/tst_net.sh: line 888: Summary:: command not found
-tst_rhost_run 1 TINFO: Network config (local -- remote):
-tst_rhost_run 1 TINFO: ltp_ns_veth2 --
-tst_rhost_run 1 TINFO: 10.0.0.2/24 -- 10.0.0.1/24
-tst_rhost_run 1 TINFO: fd00:1:1:1::2/64 -- fd00:1:1:1::1/64
-tst_rhost_run 1 TCONF: 'rsh' not found
-tst_rhost_run 1 TINFO: timeout per run is 0h 5m 0s
-tst_rhost_run 1 TCONF: 'rsh' not found
-
-Kind regards,
-Petr
-
- testcases/lib/tst_test.sh | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-index 1cf724cbe..2e637b25b 100644
---- a/testcases/lib/tst_test.sh
-+++ b/testcases/lib/tst_test.sh
-@@ -1,6 +1,6 @@
- #!/bin/sh
- # SPDX-License-Identifier: GPL-2.0-or-later
--# Copyright (c) Linux Test Project, 2014-2019
-+# Copyright (c) Linux Test Project, 2014-2020
- # Author: Cyril Hrubis <chrubis@suse.cz>
- #
- # LTP test library for shell.
-@@ -102,9 +102,9 @@ tst_res()
- 
- 	_tst_inc_res "$res"
- 
--	printf "$TST_ID $TST_COUNT "
--	tst_print_colored $res "$res: "
--	echo "$@"
-+	printf "$TST_ID $TST_COUNT " >&2
-+	tst_print_colored $res "$res: " >&2
-+	echo "$@" >&2
- }
- 
- tst_brk()
--- 
-2.27.0
+Should the subject say "into stderr"? Other than that I'm OK
+with the change.
 
 
 -- 
