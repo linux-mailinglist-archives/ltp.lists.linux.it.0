@@ -1,68 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF49E2034A4
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jun 2020 12:16:46 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 98A332034A8
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jun 2020 12:18:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6E8AF3C227B
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jun 2020 12:16:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 60A323C227B
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jun 2020 12:18:11 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 449633C1D32
- for <ltp@lists.linux.it>; Mon, 22 Jun 2020 12:16:45 +0200 (CEST)
-Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
- [IPv6:2a00:1450:4864:20::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7D08B6011F6
- for <ltp@lists.linux.it>; Mon, 22 Jun 2020 12:15:52 +0200 (CEST)
-Received: by mail-lj1-x242.google.com with SMTP id 9so18615483ljv.5
- for <ltp@lists.linux.it>; Mon, 22 Jun 2020 03:16:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=R3B47LhSzlhf0CyG1tgvim2OLOrvyZ3razYI3nJme5U=;
- b=F7/MYp6K3ALqvV1Pk4dcuMsGKwszBlgZe6Wswk+bxqBKID6d74blxWVWa8ithjNlbB
- f+ZfUhB55CLLROLEhJ/H71hH4eGx/w74csavIqcgv2EUFST86ArC2UEIQN/srrf83gGj
- 5UbUUqyvat9aUPnhxdtMeGggVsExXeL7vO3xXKMMMybrsHMSNMAr8IwdwtSbEZJM6JaM
- 25hZeuIRs4MnuCB81nu7KQGTa+ZxC2MHgMzQOgAj/vZT5c+jKs39G2PVD6hKP6fNq31j
- 981OSedENF5UJm6cPOHI+q/RjPTzDzvIvgFpySUuC1ijacExCY4BKFyAOTEpmQqF49Xb
- rP3A==
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 719573C1D32
+ for <ltp@lists.linux.it>; Mon, 22 Jun 2020 12:18:09 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id DAF7E601204
+ for <ltp@lists.linux.it>; Mon, 22 Jun 2020 12:17:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1592821087;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=0QALCfx3izsWFZSRgYbw29F+44MfPU03krkSwxSjF2k=;
+ b=F3M7Ka0PuNVARnNs+6XLmCEgvTM/pi4BIQr8ExjyAVJ6ftwe5GzgwWObAYKWcxqGLOo93c
+ JxKm+wbGmafwjGMRyUpeDo+Ri/KzMrprBrq6UV+Q91pWA6gZiMUxtVlrM4C36CNE1LxEL3
+ T9vKbCVwSLKhC1C8whf8ZHYeuqs4jX4=
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-334-0CaUoY5NP-qqRT0X146LeQ-1; Mon, 22 Jun 2020 06:18:03 -0400
+X-MC-Unique: 0CaUoY5NP-qqRT0X146LeQ-1
+Received: by mail-lf1-f72.google.com with SMTP id r10so6088854lfc.6
+ for <ltp@lists.linux.it>; Mon, 22 Jun 2020 03:18:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=R3B47LhSzlhf0CyG1tgvim2OLOrvyZ3razYI3nJme5U=;
- b=YAfnckigEY3fFAbWPsgSXGd1+9Q3T+whkueSc7MZbh3PtDtHtRAVPle+rAGTH4UGH2
- IM2BYOSvPHZIZ1oyONCxinsJWKHH5CZO0NN9DC6BfPqLL/GuFKxd6/Ewu/AZ+d0H+xRP
- uPtMJagmV0ASAEhgVu4pzkKen0VDRmejUxwMaYrVq5OFdYzjzBel4g8NFV2hgWGRI/2F
- jrqTHkD0WFWR6MH1PTh+BM9AGrvSeGCN8mS7h3FwcXHy8Hd+iWrL5py8pX3RsMjgeD64
- JptSpmHyZLdwvzxAD0VMpVGfjhNi+aa1XOm/JXc9nchB0FROqT9hAIa/c3xl1IK2VZIV
- uyYA==
-X-Gm-Message-State: AOAM530Ty192ZU7ALRaRWEiAOvIV3MzGOxsguIZ7IOfZ9vtp5Z4q31LV
- NMo5dBL6/nVubLRpDkmQuVVf0mWLrwAlntGeCl2Zpw==
-X-Google-Smtp-Source: ABdhPJyKVFwQEbwtY+Abdz6wmfxYTSKmli499smwlc6siT5OYxo93F6Kbx9OmqeCMdTsTov+7kmIswdfNAfgYfOBi4o=
-X-Received: by 2002:a2e:984b:: with SMTP id e11mr7726051ljj.358.1592821003711; 
- Mon, 22 Jun 2020 03:16:43 -0700 (PDT)
+ :message-id:subject:to;
+ bh=0QALCfx3izsWFZSRgYbw29F+44MfPU03krkSwxSjF2k=;
+ b=bdrbyNkpG0Fx93OnS+5KOX0joHnNo/mdYfz4eosjMzoxkfxuTEzu8ANs8HRd9x1BM8
+ 2RUv7SzoG5f5M4PH6tHu5u9wGGbTHrgGjJp0xBGWgDb/469N9HcKMIzxaNpHs2MxPV6p
+ eX6S4lA/Lks0Lf/Ybvs1w9AEzemHHqzfMaVsecCDhN0thAv+8F4KzNS1xcRzAFVlxOGS
+ gMxShrD1VvxDuM/uorBehmC1hOabqZbZzQv452rJaGxXi1S0TdKBBiZccSGnzV3vZTEj
+ 4h2+9cm5/yXSzZr8RN9xTYL3sTgHynsmU11LkEJ6GG1ElR5M2tDiqWUKL4zln2F3o3J1
+ sZ/g==
+X-Gm-Message-State: AOAM531FGdS/ycRAnh83GZAYcqP1xhgxpa6zUV6mQJmhvhcU01L28sLm
+ 81BxbAcUS0Uw+KoEDYAvj++VPnullvquAW7qNi7qBVYmoOQikxeddBzMxmnj3RGlQ3f0cyv6Pcx
+ 8RotMdJtOfVMFgmuOrcUolWYaGGo=
+X-Received: by 2002:a05:6512:3089:: with SMTP id
+ z9mr9274759lfd.83.1592821080988; 
+ Mon, 22 Jun 2020 03:18:00 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJx8dhLM3UdD9/DbR26f1uIT+zab8tba9q0EssEGXKMyUc85d9+EbK341RfGRvDNvTfk1p/6kYcTn+Z7setG868=
+X-Received: by 2002:a05:6512:3089:: with SMTP id
+ z9mr9274748lfd.83.1592821080796; 
+ Mon, 22 Jun 2020 03:18:00 -0700 (PDT)
 MIME-Version: 1.0
-References: <87y2onbdtb.fsf@nanos.tec.linutronix.de>
- <8E41B15F-D567-4C52-94E9-367015480345@amacapital.net>
- <20200616132705.GW2531@hirez.programming.kicks-ass.net>
- <20200617131742.GD8389@yuki.lan>
- <87r1ucb0rt.fsf@nanos.tec.linutronix.de>
-In-Reply-To: <87r1ucb0rt.fsf@nanos.tec.linutronix.de>
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Mon, 22 Jun 2020 15:46:32 +0530
-Message-ID: <CA+G9fYu18y4iWOkTCDWi9dUj+FosStVTH-6swN7wE4GePZa=Ng@mail.gmail.com>
-To: Thomas Gleixner <tglx@linutronix.de>, Cyril Hrubis <chrubis@suse.cz>,
- LTP List <ltp@lists.linux.it>, lkft-triage@lists.linaro.org
+References: <20200622100506.4285-1-liwang@redhat.com>
+In-Reply-To: <20200622100506.4285-1-liwang@redhat.com>
+From: Li Wang <liwang@redhat.com>
+Date: Mon, 22 Jun 2020 18:17:46 +0800
+Message-ID: <CAEemH2fqTMuHhBx6FjYy68shwsYk5K6WyQk=8JcAWhYHpXVM0g@mail.gmail.com>
+To: LTP List <ltp@lists.linux.it>, Pter Vorel <pvorel@suse.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [LKP] Re:  [x86/entry] 2bbc68f837: ltp.ptrace08.fail
+Subject: Re: [LTP] [PATCH v2] tst_cgroup: fix tst_cgroup_version to cover
+ more situations
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,66 +80,182 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Alexandre Chartre <alexandre.chartre@oracle.com>,
- Masami Hiramatsu <masami.hiramatsu@linaro.org>,
- Peter Zijlstra <peterz@infradead.org>, LKML <linux-kernel@vger.kernel.org>,
- Andy Lutomirski <luto@amacapital.net>, lkp@lists.01.org,
- Andy Lutomirski <luto@kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1786864845=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Fri, 19 Jun 2020 at 01:32, Thomas Gleixner <tglx@linutronix.de> wrote:
+--===============1786864845==
+Content-Type: multipart/alternative; boundary="000000000000b6455405a8a98e27"
+
+--000000000000b6455405a8a98e27
+Content-Type: text/plain; charset="UTF-8"
+
+On Mon, Jun 22, 2020 at 6:05 PM Li Wang <liwang@redhat.com> wrote:
+
+>   * system doesn't support any cgroup(v1, v2): TCONF
+>   * system only support cgroup v1: choose v1
+>   * system only support cgroup v2: choose v2
+>   * system support v1 & v2 but mounting v1: chosse v1
+>   * systep support v1 & v2 but mounting v2: choose v2
 >
-> Cyril Hrubis <chrubis@suse.cz> writes:
-> > What is does is to write:
-> >
-> >       (void*)1 to u_debugreg[0]
-> >       (void*)1 to u_debugreg[7]
-> >       do_debug addr to u_debugreg[0]
-> >
-> > Looking at the kernel code the write to register 7 enables the breakpoints and
-> > what we attempt here is to change an invalid address to a valid one after we
-> > enabled the breakpoint but that's as far I can go.
-> >
-> > So does anyone has an idea how to trigger the bug without the do_debug function
-> > address? Would any valid kernel function address suffice?
+> Signed-off-by: Li Wang <liwang@redhat.com>
+> ---
+>  lib/tst_cgroup.c | 19 ++++++++++---------
+>  1 file changed, 10 insertions(+), 9 deletions(-)
 >
-> According to https://www.openwall.com/lists/oss-security/2018/05/01/3
-> the trigger is to set the breakpoint to do_debug() and then execute
-> INT1, aka. ICEBP which ends up in do_debug() ....
+> diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+> index 0118dd7b2..010baa69e 100644
+> --- a/lib/tst_cgroup.c
+> +++ b/lib/tst_cgroup.c
+> @@ -38,18 +38,19 @@ static int tst_cgroup_check(const char *cgroup)
 >
-> In principle each kernel address is ok, but do_debug() is interesting
-> due to the recursion issue because user space can reach it by executing
-> INT1.
+>  enum tst_cgroup_ver tst_cgroup_version(void)
+>  {
+> -       if (tst_cgroup_check("cgroup2")) {
+> -               if (!tst_is_mounted("cgroup2") && tst_is_mounted("cgroup"))
+> -                       return TST_CGROUP_V1;
+> -               else
+> -                       return TST_CGROUP_V2;
+> -       }
+> +       enum tst_cgroup_ver cg_ver;
 >
-> So you might check for exc_debug() if do_debug() is not available and
-> make the whole thing fail gracefully with a usefu error message.
+>         if (tst_cgroup_check("cgroup"))
+> -               return TST_CGROUP_V1;
+> +               cg_ver = TST_CGROUP_V1;
+>
 
-My two cents,
-LTP test case ptrace08 fails on x86_64 and i386.
+Ah sorry, it seems we shouldn't searching "cgroup" first, because that will
+be misled by "cgroup2" too. Plz ignore this patch
 
-ptrace08.c:62: BROK: Cannot find address of kernel symbol \"do_debug\"
+This is a little bit tricky, let me think over.
 
-This error is coming from test case setup
-KERNEL_SYM = do_debug
 
-if (strcmp(symname, KERNEL_SYM))
-tst_brk(TBROK, "Cannot find address of kernel symbol \"%s\"",
-KERNEL_SYM);
 
-Test case got pass when DEBUG_INFO config enabled
+> +
+> +       if (tst_cgroup_check("cgroup2"))
+> +               if (!cg_ver || tst_is_mounted("cgroup2"))
+> +                       cg_ver = TST_CGROUP_V2;
+> +
+> +       if (!cg_ver)
+> +               tst_brk(TCONF, "Cgroup is not configured");
+>
+> -       tst_brk(TCONF, "Cgroup is not configured");
+> -       return TST_CGROUP_V1; /* fix -Werror=return-type */
+> +       return cg_ver;
+>  }
+>
+>  static void tst_cgroup1_mount(const char *name, const char *option,
+> --
+> 2.21.1
+>
+>
+> --
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+>
+>
 
-CONFIG_DEBUG_INFO=y
+-- 
+Regards,
+Li Wang
 
-ptrace08.c:68: INFO: Kernel symbol \"do_debug\" found at 0xd8898410
+--000000000000b6455405a8a98e27
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Full test log,
-https://lkft.validation.linaro.org/scheduler/job/1483117#L1325
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Mon, Jun 22, 2020 at 6:05 PM Li Wang &lt;<a href=
+=3D"mailto:liwang@redhat.com">liwang@redhat.com</a>&gt; wrote:<br></div><bl=
+ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
+t:1px solid rgb(204,204,204);padding-left:1ex">=C2=A0 * system doesn&#39;t =
+support any cgroup(v1, v2): TCONF<br>
+=C2=A0 * system only support cgroup v1: choose v1<br>
+=C2=A0 * system only support cgroup v2: choose v2<br>
+=C2=A0 * system support v1 &amp; v2 but mounting v1: chosse v1<br>
+=C2=A0 * systep support v1 &amp; v2 but mounting v2: choose v2<br>
+<br>
+Signed-off-by: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com" target=3D"_=
+blank">liwang@redhat.com</a>&gt;<br>
+---<br>
+=C2=A0lib/tst_cgroup.c | 19 ++++++++++---------<br>
+=C2=A01 file changed, 10 insertions(+), 9 deletions(-)<br>
+<br>
+diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c<br>
+index 0118dd7b2..010baa69e 100644<br>
+--- a/lib/tst_cgroup.c<br>
++++ b/lib/tst_cgroup.c<br>
+@@ -38,18 +38,19 @@ static int tst_cgroup_check(const char *cgroup)<br>
+<br>
+=C2=A0enum tst_cgroup_ver tst_cgroup_version(void)<br>
+=C2=A0{<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0if (tst_cgroup_check(&quot;cgroup2&quot;)) {<br=
+>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!tst_is_mounted=
+(&quot;cgroup2&quot;) &amp;&amp; tst_is_mounted(&quot;cgroup&quot;))<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0return TST_CGROUP_V1;<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0else<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0return TST_CGROUP_V2;<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0enum tst_cgroup_ver cg_ver;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (tst_cgroup_check(&quot;cgroup&quot;))<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return TST_CGROUP_V=
+1;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0cg_ver =3D TST_CGRO=
+UP_V1;<br></blockquote><div><br></div><div><div class=3D"gmail_default" sty=
+le=3D"font-size:small">Ah sorry, it=C2=A0seems we shouldn&#39;t searching &=
+quot;cgroup&quot; first, because=C2=A0that will be misled by &quot;cgroup2&=
+quot; too. Plz ignore this patch</div><div class=3D"gmail_default" style=3D=
+"font-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size=
+:small">This is a little bit tricky, let me think over.</div><br></div><div=
+>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
+0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (tst_cgroup_check(&quot;cgroup2&quot;))<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!cg_ver || tst_=
+is_mounted(&quot;cgroup2&quot;))<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0cg_ver =3D TST_CGROUP_V2;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!cg_ver)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_brk(TCONF, &quo=
+t;Cgroup is not configured&quot;);<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_brk(TCONF, &quot;Cgroup is not configured&q=
+uot;);<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0return TST_CGROUP_V1; /* fix -Werror=3Dreturn-t=
+ype */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return cg_ver;<br>
+=C2=A0}<br>
+<br>
+=C2=A0static void tst_cgroup1_mount(const char *name, const char *option,<b=
+r>
+-- <br>
+2.21.1<br>
+<br>
+<br>
+-- <br>
+Mailing list info: <a href=3D"https://lists.linux.it/listinfo/ltp" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.linux.it/listinfo/ltp</a><br>
+<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
+Wang<br></div></div></div></div>
 
-ref:
-https://bugs.linaro.org/show_bug.cgi?id=5651#c1
+--000000000000b6455405a8a98e27--
+
+
+--===============1786864845==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1786864845==--
+
