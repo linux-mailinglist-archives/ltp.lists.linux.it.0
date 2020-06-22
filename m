@@ -2,69 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EB702022D3
-	for <lists+linux-ltp@lfdr.de>; Sat, 20 Jun 2020 11:24:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE080202F65
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jun 2020 07:11:44 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 18F8E3C5EE7
-	for <lists+linux-ltp@lfdr.de>; Sat, 20 Jun 2020 11:24:33 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 410833C2D20
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jun 2020 07:11:44 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id C23003C2C89
- for <ltp@lists.linux.it>; Sat, 20 Jun 2020 11:24:30 +0200 (CEST)
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
- [IPv6:2a00:1450:4864:20::543])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id C5BA63C2BDB
+ for <ltp@lists.linux.it>; Mon, 22 Jun 2020 07:11:40 +0200 (CEST)
+Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
+ [IPv6:2607:f8b0:4864:20::1043])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 553DA1000B22
- for <ltp@lists.linux.it>; Sat, 20 Jun 2020 11:24:30 +0200 (CEST)
-Received: by mail-ed1-x543.google.com with SMTP id x25so9662855edr.8
- for <ltp@lists.linux.it>; Sat, 20 Jun 2020 02:24:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:reply-to:references:mime-version
- :content-disposition:in-reply-to;
- bh=hh2GKHcU7+qJLb7Rp2gdmkRNPrB6myL3NHuodTdSpkw=;
- b=Dgnt0bPfjh9RKazsdumnEc9ULQwiyRs/ozoEcHnYMV/LzctscGaGBxQV+op3fYy6pd
- WZDal+mBqom7BA4lIq1bmz0eFEm6dEDhe1L3HYZ6jstZp6v6cka+P1OTH16S6GLENCgw
- N8HYZUG/Dus7EYl+65IL0gk2wUYSYZPn2+xLHEFST9cRNi+AXXPCLgotg4s+AXXOFBIi
- WG1p70g5Bs6uS3hRkUU2B087+r+ay25l8jTz8+iUkQQ/19p2lsn85Fq7Fv6KDYAjUT7m
- iEFD76Fd5mpWkKOYBo2iWr5Qumr1Qqw4auX8w7r1ci3lWure28N3IXJ70Qyt9ZpLG1Mo
- lRUQ==
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 13CE22011C8
+ for <ltp@lists.linux.it>; Mon, 22 Jun 2020 07:11:40 +0200 (CEST)
+Received: by mail-pj1-x1043.google.com with SMTP id s88so8036822pjb.5
+ for <ltp@lists.linux.it>; Sun, 21 Jun 2020 22:11:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=WntBQOKsyjWOjmqPUed1CXWnZWVWy4lDU/0MPNSjky8=;
+ b=iiSz/PXCWDrwcXbCD6ZWVUFKi++s8C1AA2HakYo0LMnnej60FmNT9ie9AsMgHbSLIi
+ JwXq7bjLTvmXmGdY6ER21M670CWSsK0VZP8r0hKD695EljaR8s//ps3D9p3k2tyUpGkG
+ mw8YttYVf7V7qY2mzV5b9+f2e9kyzeipNDDj7yANBLAZ+4Gd3UlbVwaQXcdAgNN065i/
+ 6X3hAEi6vh8ELUWCpGwBDq3XVqzNw4ZsdraicUm0xhy0z+hxSmI52JxfiCf7hL8z4dxd
+ yzteHYc/jOXeb8EhFYXYPiXH8+TfbcFlzULm44czbYfCAPj8yU6i4IO6bf2jt7cJIJbB
+ Xl5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:reply-to
- :references:mime-version:content-disposition:in-reply-to;
- bh=hh2GKHcU7+qJLb7Rp2gdmkRNPrB6myL3NHuodTdSpkw=;
- b=sA5LxBHhN0dETRzRMG/MCs7y22BnTnhBOFo/SZ7RCooapvJpv/PmGpoDMmYTP6/BXJ
- HivqNvF6/OK6eLbKu+yKamCkB/GFBdZDLv38rc7oM/mOv/+WoxMC5D1+AOhDeL3khjZE
- i20Bz+DRTCALeqLQrPrce4Fn/B8k7SYO9iDDJxR/B43gyYxPuzR54BQUlcXVKzEf9XSC
- HmPnC8fRIdnwsg41hZqS7llH1n1b7AKE/VyEKL24c1GkVz7OhGE4MRB//bg23O+9CDSc
- HfUp9Ak2F0XmfsbBPqNYHssHa55+FGK/aIMNV8nlyoa2SV8lh4IGpbXpKD1H98cpLIUZ
- dcJw==
-X-Gm-Message-State: AOAM530vw71YYpj4WlOYxQSyhsQGs8TCIWk56XCIdgvL0yJbtP43Y36R
- SUY8vyOeBhHkH2PavyOWu+Hz+9VS3v8=
-X-Google-Smtp-Source: ABdhPJxhYY+gYKbjhbUrrL7SK6eIxKR48FOs9y9bByC/HQLSR4ZdnweLZd0r2upoqmTOKo8avWOmHQ==
-X-Received: by 2002:aa7:c790:: with SMTP id n16mr7627436eds.54.1592645069943; 
- Sat, 20 Jun 2020 02:24:29 -0700 (PDT)
-Received: from x230 ([62.201.25.198])
- by smtp.gmail.com with ESMTPSA id a7sm6954620edx.3.2020.06.20.02.24.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 20 Jun 2020 02:24:29 -0700 (PDT)
-Date: Sat, 20 Jun 2020 11:24:27 +0200
-From: Petr Vorel <petr.vorel@gmail.com>
-To: Nirav Parmar <niravparmar@zilogic.com>
-Message-ID: <20200620092427.GB281578@x230>
-References: <20200620063713.5330-1-niravparmar@zilogic.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=WntBQOKsyjWOjmqPUed1CXWnZWVWy4lDU/0MPNSjky8=;
+ b=FVHQn8jBQfSzovwMRE2O4tfXRCxrveqfm0VE8lEaVWz8cZDtpOeC1S+8CZuGArE99K
+ 1MvHLRW+bL15L0pXTbIMvvvb22EGzwaxPy1Dojqiaj9l3KndmSYEEZ9q11Y5rl7ZaCpO
+ wSdiVk4FZXEYpddcvTe4SgLh4+T6bcM7CX5Xq4QQ73NlpZYNvmBehx59IoXOVwo4tBr5
+ D25R+wgZrtqvQpGipjZIrE8XbAhq6wcclSBkQAdXo1nfAdE8mtW0pLSucAFVVuFgjFMt
+ XfLZwCsDHNG0isxiLw+/o/Fkk52T7vf0HulDeEak2euHyAPz5w+oqU3wtMR8SPJjRndg
+ HD8g==
+X-Gm-Message-State: AOAM531bnwIcbfp4Q2fML8rQp2+OwQIrajdcqj9I12HOmH4nl7ak3tbi
+ aIUEDHGnmDWkPN2e3VqWkHCd5g==
+X-Google-Smtp-Source: ABdhPJz+0pv8z5mZ2NJoHPtHZvOcOfytM7PEi3Cab8K25JfdjazOg6f9+0INCPULMCdNwEciBAYAmQ==
+X-Received: by 2002:a17:902:ee12:: with SMTP id
+ z18mr17861371plb.308.1592802698461; 
+ Sun, 21 Jun 2020 22:11:38 -0700 (PDT)
+Received: from localhost ([122.172.111.76])
+ by smtp.gmail.com with ESMTPSA id y7sm12265376pjy.21.2020.06.21.22.11.37
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Sun, 21 Jun 2020 22:11:37 -0700 (PDT)
+Date: Mon, 22 Jun 2020 10:41:35 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <20200622051135.dzitlt3tpyftfvqc@vireshk-i7>
+References: <8b9a7e8ea27894090f1e31e178d7328f118163d0.1591270889.git.viresh.kumar@linaro.org>
+ <CA+G9fYuHsezzit3pzHiz-6ad4AfbgRsdbuqfUKvLif7_Jk5WkA@mail.gmail.com>
+ <20200618134205.GB19072@dell5510>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200620063713.5330-1-niravparmar@zilogic.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+In-Reply-To: <20200618134205.GB19072@dell5510>
+User-Agent: NeoMutt/20180716-391-311a52
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] Add test case for CVE-2018-11508
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] clock_gettime03: Fix issues with negative offset
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,50 +79,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <petr.vorel@gmail.com>
-Cc: ltp@lists.linux.it, vijaykumar@zilogic.com
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, Arnd Bergmann <arnd@arndb.de>,
+ LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Nirav,
+On 18-06-20, 15:42, Petr Vorel wrote:
+> > Test ran for 100 iterations on x86 device and confirmed test getting pass.
+> FYI with very high number of the tests it still can fail, but it's
+> much less likely:
+> 
+> ./clock_gettime03 -i 100000
+> Summary:
+> passed   3599972
+> failed   28
+> skipped  0
+> warnings 0
 
-thanks for your patch!
+I am not able to hit it on my x86 box, even after suppressing all the print
+messages (in order to get rid of any delays). Looks like a hardware/platform bug
+to me. I tried a loop of 100,00,000 as well :)
 
-...
-> + * This proves that there are 4 bytes of info leaked. The bug was fixed in
-> + * Kernel Version 4.16.9. Therefore, the below test case will only be
-> + * applicable for the kernel version 4.16.9 and above.
-This is IMHO wrong. The fix 3a4d44b61625 fixes 3a4d44b61625 ("ntp: Move adjtimex
-related compat syscalls to native counterparts"), which was released in
-v4.13-rc1.
-
-...
-> +static struct tst_test test = {
-> +	.setup = setup,
-> +	.cleanup = cleanup,
-> +	.min_kver = "4.16.9",
-Thus there should be .min_kver = "4.13",
-
-And most of the tests doesn't have .min_kver anyway, it might be removed
-entirely.
-
-> +	.test_all = verify_adjtimex,
-> +	.bufs = (struct tst_buffers []) {
-> +		{&buf, .size = sizeof(*buf)},
-> +		{&tim_save, .size = sizeof(*tim_save)},
-> +		{},
-> +	},
-> +	.tags = (const struct tst_tag[]) {
-> +		{"CVE", "2018-11508"},
-> +		{"linux-git", "3a4d44b61625"},
-> +		{},
-> +	}
-> +};
-
-Kind regards,
-Petr
+-- 
+viresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
