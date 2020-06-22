@@ -2,73 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98A332034A8
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jun 2020 12:18:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8A0B2035E8
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jun 2020 13:40:57 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 60A323C227B
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jun 2020 12:18:11 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B15153C22CC
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Jun 2020 13:40:57 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 719573C1D32
- for <ltp@lists.linux.it>; Mon, 22 Jun 2020 12:18:09 +0200 (CEST)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 142193C1CFB
+ for <ltp@lists.linux.it>; Mon, 22 Jun 2020 13:40:56 +0200 (CEST)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id DAF7E601204
- for <ltp@lists.linux.it>; Mon, 22 Jun 2020 12:17:16 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 6A6941A00F81
+ for <ltp@lists.linux.it>; Mon, 22 Jun 2020 13:40:56 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1592821087;
+ s=mimecast20190719; t=1592826054;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0QALCfx3izsWFZSRgYbw29F+44MfPU03krkSwxSjF2k=;
- b=F3M7Ka0PuNVARnNs+6XLmCEgvTM/pi4BIQr8ExjyAVJ6ftwe5GzgwWObAYKWcxqGLOo93c
- JxKm+wbGmafwjGMRyUpeDo+Ri/KzMrprBrq6UV+Q91pWA6gZiMUxtVlrM4C36CNE1LxEL3
- T9vKbCVwSLKhC1C8whf8ZHYeuqs4jX4=
+ bh=PUIwnoa9AL5FCVWAbneGkUfusSOmQ/MXDwNg/yg01k4=;
+ b=YMlEf0/mVJTdyzknvwbujerThZLuXa+Vo4bu/gOhN43VCSFp+7YA+gFYEnnwKpL7tvOxyk
+ /9EZEsX6Cgr00RFVh0pQuudez9SChWoRIBzBgmQCK6xttfLkONcqrk4v9yDBLgs2Y7HON0
+ Z4nPlXMzaGR4cYIwFaeIQtjYwHsILXU=
 Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
  [209.85.167.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-334-0CaUoY5NP-qqRT0X146LeQ-1; Mon, 22 Jun 2020 06:18:03 -0400
-X-MC-Unique: 0CaUoY5NP-qqRT0X146LeQ-1
-Received: by mail-lf1-f72.google.com with SMTP id r10so6088854lfc.6
- for <ltp@lists.linux.it>; Mon, 22 Jun 2020 03:18:02 -0700 (PDT)
+ us-mta-396-xOW35JbGOO2E2_R8JjFUfg-1; Mon, 22 Jun 2020 07:40:52 -0400
+X-MC-Unique: xOW35JbGOO2E2_R8JjFUfg-1
+Received: by mail-lf1-f72.google.com with SMTP id t6so817381lfc.3
+ for <ltp@lists.linux.it>; Mon, 22 Jun 2020 04:40:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=0QALCfx3izsWFZSRgYbw29F+44MfPU03krkSwxSjF2k=;
- b=bdrbyNkpG0Fx93OnS+5KOX0joHnNo/mdYfz4eosjMzoxkfxuTEzu8ANs8HRd9x1BM8
- 2RUv7SzoG5f5M4PH6tHu5u9wGGbTHrgGjJp0xBGWgDb/469N9HcKMIzxaNpHs2MxPV6p
- eX6S4lA/Lks0Lf/Ybvs1w9AEzemHHqzfMaVsecCDhN0thAv+8F4KzNS1xcRzAFVlxOGS
- gMxShrD1VvxDuM/uorBehmC1hOabqZbZzQv452rJaGxXi1S0TdKBBiZccSGnzV3vZTEj
- 4h2+9cm5/yXSzZr8RN9xTYL3sTgHynsmU11LkEJ6GG1ElR5M2tDiqWUKL4zln2F3o3J1
- sZ/g==
-X-Gm-Message-State: AOAM531FGdS/ycRAnh83GZAYcqP1xhgxpa6zUV6mQJmhvhcU01L28sLm
- 81BxbAcUS0Uw+KoEDYAvj++VPnullvquAW7qNi7qBVYmoOQikxeddBzMxmnj3RGlQ3f0cyv6Pcx
- 8RotMdJtOfVMFgmuOrcUolWYaGGo=
-X-Received: by 2002:a05:6512:3089:: with SMTP id
- z9mr9274759lfd.83.1592821080988; 
- Mon, 22 Jun 2020 03:18:00 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJx8dhLM3UdD9/DbR26f1uIT+zab8tba9q0EssEGXKMyUc85d9+EbK341RfGRvDNvTfk1p/6kYcTn+Z7setG868=
-X-Received: by 2002:a05:6512:3089:: with SMTP id
- z9mr9274748lfd.83.1592821080796; 
- Mon, 22 Jun 2020 03:18:00 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=PUIwnoa9AL5FCVWAbneGkUfusSOmQ/MXDwNg/yg01k4=;
+ b=qznT1AbKFVHDnrXEPT+PV+7X9yGiWqQkYNI0NJTzApqJ+YmBW1Afx7+PVJLzmkaJM3
+ ugfrrEPTfI6ZYcuXpU3BoEB8cMisp5WOBr7HQ1FTuiyKWSre3uTOsbH3aoM9iQyNFBIn
+ nS4ZFXlK4vApuZH8MO+XUfDvV4fmDKgXExjOhFTsg19BeYf1+e6QSDETAaXe3iyp07EM
+ zJmXx2Q/Da2dlzlEzBRwgXXb4Pe8Cw6qTnOUwN6WSXkvoROsFKlHDwgk1sx3dBWyvKfr
+ NCUyu/YHKLtcZ7YkMzrJerHoTlan+L5DYlYIaD/e+E3MIZWVBz/GVFZ7KzEIHYFaUBqI
+ vEPA==
+X-Gm-Message-State: AOAM533oDFUABlIeuug/PQ0QAmdAmaK0rvU548mReXXLr/NOd3295arw
+ J7G9QAH6DqvUqzCqIBxeU5rZq5098k6l3VhmgsBnDAidUKebhc310Er6441lKdp9k2h0BGRwcej
+ uqomxQUf08ThS4tace3DZuUIp9zg=
+X-Received: by 2002:a05:651c:149:: with SMTP id
+ c9mr8622238ljd.441.1592826050595; 
+ Mon, 22 Jun 2020 04:40:50 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwf+1HOBzn+VSdHx1PfbOUaIeiCiRfjk5m6xblRxM+s2xkaCQfQfOf/evbecO+C0y+WzyeBtxWgWOf0W07aFYw=
+X-Received: by 2002:a05:651c:149:: with SMTP id
+ c9mr8622223ljd.441.1592826050297; 
+ Mon, 22 Jun 2020 04:40:50 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200622100506.4285-1-liwang@redhat.com>
-In-Reply-To: <20200622100506.4285-1-liwang@redhat.com>
+References: <20200622074314.22098-1-petr.vorel@suse.com>
+ <CAEemH2cz9s71E+VidezUAfYGarOzgpPTf0VucY+OYCYmjBjTGQ@mail.gmail.com>
+ <20200622092213.GA27392@dell5510>
+In-Reply-To: <20200622092213.GA27392@dell5510>
 From: Li Wang <liwang@redhat.com>
-Date: Mon, 22 Jun 2020 18:17:46 +0800
-Message-ID: <CAEemH2fqTMuHhBx6FjYy68shwsYk5K6WyQk=8JcAWhYHpXVM0g@mail.gmail.com>
-To: LTP List <ltp@lists.linux.it>, Pter Vorel <pvorel@suse.com>
+Date: Mon, 22 Jun 2020 19:40:38 +0800
+Message-ID: <CAEemH2dOpFaJY0DCLwULGBpf6ENEouirRuA2pOK-MzQvfyKR=A@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] tst_cgroup: fix tst_cgroup_version to cover
- more situations
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] cgroup: Fix build with -Werror=return-type
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,174 +80,76 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1786864845=="
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0407409607=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1786864845==
-Content-Type: multipart/alternative; boundary="000000000000b6455405a8a98e27"
+--===============0407409607==
+Content-Type: multipart/alternative; boundary="000000000000eada7e05a8aab605"
 
---000000000000b6455405a8a98e27
+--000000000000eada7e05a8aab605
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Jun 22, 2020 at 6:05 PM Li Wang <liwang@redhat.com> wrote:
+On Mon, Jun 22, 2020 at 5:22 PM Petr Vorel <pvorel@suse.com> wrote:
 
->   * system doesn't support any cgroup(v1, v2): TCONF
->   * system only support cgroup v1: choose v1
->   * system only support cgroup v2: choose v2
->   * system support v1 & v2 but mounting v1: chosse v1
->   * systep support v1 & v2 but mounting v2: choose v2
+> Hi Li,
 >
-> Signed-off-by: Li Wang <liwang@redhat.com>
-> ---
->  lib/tst_cgroup.c | 19 ++++++++++---------
->  1 file changed, 10 insertions(+), 9 deletions(-)
+> > >         tst_brk(TCONF, "Cgroup is not configured");
+> > > +       return TST_CGROUP_V1; /* fix -Werror=return-type */
 >
-> diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
-> index 0118dd7b2..010baa69e 100644
-> --- a/lib/tst_cgroup.c
-> +++ b/lib/tst_cgroup.c
-> @@ -38,18 +38,19 @@ static int tst_cgroup_check(const char *cgroup)
 >
->  enum tst_cgroup_ver tst_cgroup_version(void)
->  {
-> -       if (tst_cgroup_check("cgroup2")) {
-> -               if (!tst_is_mounted("cgroup2") && tst_is_mounted("cgroup"))
-> -                       return TST_CGROUP_V1;
-> -               else
-> -                       return TST_CGROUP_V2;
-> -       }
-> +       enum tst_cgroup_ver cg_ver;
+> > This return looks strange since it will never go to here.
 >
->         if (tst_cgroup_check("cgroup"))
-> -               return TST_CGROUP_V1;
-> +               cg_ver = TST_CGROUP_V1;
+> > How about this?
+>
+> I'm sorry, I overlooked your mail and push whole patchset.
+>
+> LGTM, feel free to merge.
+> Tested-by: Petr Vorel <pvorel@suse.cz>
 >
 
-Ah sorry, it seems we shouldn't searching "cgroup" first, because that will
-be misled by "cgroup2" too. Plz ignore this patch
-
-This is a little bit tricky, let me think over.
-
-
-
-> +
-> +       if (tst_cgroup_check("cgroup2"))
-> +               if (!cg_ver || tst_is_mounted("cgroup2"))
-> +                       cg_ver = TST_CGROUP_V2;
-> +
-> +       if (!cg_ver)
-> +               tst_brk(TCONF, "Cgroup is not configured");
->
-> -       tst_brk(TCONF, "Cgroup is not configured");
-> -       return TST_CGROUP_V1; /* fix -Werror=return-type */
-> +       return cg_ver;
->  }
->
->  static void tst_cgroup1_mount(const char *name, const char *option,
-> --
-> 2.21.1
->
->
-> --
-> Mailing list info: https://lists.linux.it/listinfo/ltp
->
->
+This is correct, I go back to this v1 way and pushed. Thanks Petr!
 
 -- 
 Regards,
 Li Wang
 
---000000000000b6455405a8a98e27
+--000000000000eada7e05a8aab605
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
 t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Mon, Jun 22, 2020 at 6:05 PM Li Wang &lt;<a href=
-=3D"mailto:liwang@redhat.com">liwang@redhat.com</a>&gt; wrote:<br></div><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
-t:1px solid rgb(204,204,204);padding-left:1ex">=C2=A0 * system doesn&#39;t =
-support any cgroup(v1, v2): TCONF<br>
-=C2=A0 * system only support cgroup v1: choose v1<br>
-=C2=A0 * system only support cgroup v2: choose v2<br>
-=C2=A0 * system support v1 &amp; v2 but mounting v1: chosse v1<br>
-=C2=A0 * systep support v1 &amp; v2 but mounting v2: choose v2<br>
+r" class=3D"gmail_attr">On Mon, Jun 22, 2020 at 5:22 PM Petr Vorel &lt;<a h=
+ref=3D"mailto:pvorel@suse.com">pvorel@suse.com</a>&gt; wrote:<br></div><blo=
+ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
+:1px solid rgb(204,204,204);padding-left:1ex">Hi Li,<br>
 <br>
-Signed-off-by: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com" target=3D"_=
-blank">liwang@redhat.com</a>&gt;<br>
----<br>
-=C2=A0lib/tst_cgroup.c | 19 ++++++++++---------<br>
-=C2=A01 file changed, 10 insertions(+), 9 deletions(-)<br>
-<br>
-diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c<br>
-index 0118dd7b2..010baa69e 100644<br>
---- a/lib/tst_cgroup.c<br>
-+++ b/lib/tst_cgroup.c<br>
-@@ -38,18 +38,19 @@ static int tst_cgroup_check(const char *cgroup)<br>
-<br>
-=C2=A0enum tst_cgroup_ver tst_cgroup_version(void)<br>
-=C2=A0{<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0if (tst_cgroup_check(&quot;cgroup2&quot;)) {<br=
->
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!tst_is_mounted=
-(&quot;cgroup2&quot;) &amp;&amp; tst_is_mounted(&quot;cgroup&quot;))<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0return TST_CGROUP_V1;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0else<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0return TST_CGROUP_V2;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0enum tst_cgroup_ver cg_ver;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (tst_cgroup_check(&quot;cgroup&quot;))<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return TST_CGROUP_V=
-1;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0cg_ver =3D TST_CGRO=
-UP_V1;<br></blockquote><div><br></div><div><div class=3D"gmail_default" sty=
-le=3D"font-size:small">Ah sorry, it=C2=A0seems we shouldn&#39;t searching &=
-quot;cgroup&quot; first, because=C2=A0that will be misled by &quot;cgroup2&=
-quot; too. Plz ignore this patch</div><div class=3D"gmail_default" style=3D=
-"font-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size=
-:small">This is a little bit tricky, let me think over.</div><br></div><div=
->=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
-0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (tst_cgroup_check(&quot;cgroup2&quot;))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!cg_ver || tst_=
-is_mounted(&quot;cgroup2&quot;))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0cg_ver =3D TST_CGROUP_V2;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!cg_ver)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_brk(TCONF, &quo=
-t;Cgroup is not configured&quot;);<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_brk(TCONF, &quot;Cgroup is not configured&q=
-uot;);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0return TST_CGROUP_V1; /* fix -Werror=3Dreturn-t=
-ype */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return cg_ver;<br>
-=C2=A0}<br>
-<br>
-=C2=A0static void tst_cgroup1_mount(const char *name, const char *option,<b=
-r>
--- <br>
-2.21.1<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_brk(TCONF, &quot;Cgroup is n=
+ot configured&quot;);<br>
+&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0return TST_CGROUP_V1; /* fix -Werror=
+=3Dreturn-type */<br>
 <br>
 <br>
--- <br>
-Mailing list info: <a href=3D"https://lists.linux.it/listinfo/ltp" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.linux.it/listinfo/ltp</a><br>
+&gt; This return looks strange since it will never go to here.<br>
 <br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
-Wang<br></div></div></div></div>
+&gt; How about this?<br>
+<br>
+I&#39;m sorry, I overlooked your mail and push whole patchset.<br>
+<br>
+LGTM, feel free to merge.<br>
+Tested-by: Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz" target=3D"_blan=
+k">pvorel@suse.cz</a>&gt;<br></blockquote><div><br></div><div><div class=3D=
+"gmail_default" style=3D"font-size:small">This is correct, I go back to thi=
+s v1 way and pushed. Thanks Petr!</div></div><div><br></div></div>-- <br><d=
+iv dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br>=
+</div><div>Li Wang<br></div></div></div></div>
 
---000000000000b6455405a8a98e27--
+--000000000000eada7e05a8aab605--
 
 
---===============1786864845==
+--===============0407409607==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -257,5 +159,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============1786864845==--
+--===============0407409607==--
 
