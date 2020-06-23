@@ -1,63 +1,45 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4848A204F9F
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jun 2020 12:53:47 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CCB9204FA0
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jun 2020 12:53:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DC27B3C5DDE
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jun 2020 12:53:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6D5CA3C5E20
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jun 2020 12:53:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id DE5CF3C2246
- for <ltp@lists.linux.it>; Tue, 23 Jun 2020 00:49:25 +0200 (CEST)
-Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com
- [209.85.216.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 86FED3C0133
+ for <ltp@lists.linux.it>; Tue, 23 Jun 2020 08:41:30 +0200 (CEST)
+Received: from fornost.hmeau.com (unknown [216.24.177.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A6C3D1400431
- for <ltp@lists.linux.it>; Tue, 23 Jun 2020 00:49:24 +0200 (CEST)
-Received: by mail-pj1-f68.google.com with SMTP id h22so611283pjf.1
- for <ltp@lists.linux.it>; Mon, 22 Jun 2020 15:49:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=NRLLTFiwZxDKq/UwBSbDFy971kDvxfQAmSgAS+YPpaA=;
- b=Aue6gCby0uuUxOvnXilXLIDf1W2qF4bVB15bc9nvqiwC50l9B/DpXG8ai8pgmZf/Qh
- KHD2jgwXyzayOS9+ya3aPvzWaQxxVquTG/961goPCUgMyp+fDnAwoamXv9FyCdYRm1LB
- xK6IhsqZ9NjcssxSmC2L2IjD0WtT3C6Yxy+o7xkGBqXT0X72czBuUPXIANTTBKOdgUY6
- +i+naqFOtYasHRxrw4wbz2z+vGDDuzuuK3pPj5wU57XfLoDxqDGv9F1CGnKHS8J9cFVV
- VP0PN7BlBnGKpZuEeEGt5cV4nRkC7RvQsabkqhy8RnIsz1WG3llZJ5sITrVQjzaw7QM2
- a2ZQ==
-X-Gm-Message-State: AOAM532Hz7A4CE5v/mdPDxjD/AEVh3b1a541NvpS5Nk/4hMKbgnHPzga
- F70YYLb5l3Fvn12tiNwQqZ0=
-X-Google-Smtp-Source: ABdhPJx/+PEc3BXj+aia8dA4DGanmyAqnY+W338FP/SRY+vlhb8mNBBvvVGc8cPShawEulLOlDWGKw==
-X-Received: by 2002:a17:902:fe02:: with SMTP id
- g2mr20581503plj.204.1592866163068; 
- Mon, 22 Jun 2020 15:49:23 -0700 (PDT)
-Received: from 42.do-not-panic.com (42.do-not-panic.com. [157.230.128.187])
- by smtp.gmail.com with ESMTPSA id l83sm15073102pfd.150.2020.06.22.15.49.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Jun 2020 15:49:21 -0700 (PDT)
-Received: by 42.do-not-panic.com (Postfix, from userid 1000)
- id B728940430; Mon, 22 Jun 2020 22:49:20 +0000 (UTC)
-Date: Mon, 22 Jun 2020 22:49:20 +0000
-From: Luis Chamberlain <mcgrof@kernel.org>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CA926600F9E
+ for <ltp@lists.linux.it>; Tue, 23 Jun 2020 08:40:33 +0200 (CEST)
+Received: from gwarestrin.arnor.me.apana.org.au ([192.168.0.7])
+ by fornost.hmeau.com with smtp (Exim 4.92 #5 (Debian))
+ id 1jncc4-0003im-6c; Tue, 23 Jun 2020 16:40:57 +1000
+Received: by gwarestrin.arnor.me.apana.org.au (sSMTP sendmail emulation);
+ Tue, 23 Jun 2020 16:40:56 +1000
+Date: Tue, 23 Jun 2020 16:40:56 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
 To: Naresh Kamboju <naresh.kamboju@linaro.org>
-Message-ID: <20200622224920.GA4332@42.do-not-panic.com>
+Message-ID: <20200623064056.GA8121@gondor.apana.org.au>
 References: <CA+G9fYvHFs5Yx8TnT6VavtfjMN8QLPuXg6us-dXVJqUUt68adA@mail.gmail.com>
+ <20200622224920.GA4332@42.do-not-panic.com>
+ <CA+G9fYsXDZUspc5OyfqrGZn=k=2uRiGzWY_aPePK2C_kZ+dYGQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CA+G9fYvHFs5Yx8TnT6VavtfjMN8QLPuXg6us-dXVJqUUt68adA@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+In-Reply-To: <CA+G9fYsXDZUspc5OyfqrGZn=k=2uRiGzWY_aPePK2C_kZ+dYGQ@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM, HEADER_FROM_DIFFERENT_DOMAINS, SPF_HELO_NONE, SPF_PASS,
- TRACKER_ID autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+X-Spam-Status: No, score=1.3 required=7.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
 X-Mailman-Approved-At: Tue, 23 Jun 2020 12:53:45 +0200
 Subject: Re: [LTP] LTP: crypto: af_alg02 regression on linux-next 20200621
  tag
@@ -72,120 +54,40 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>,
+Cc: "David S. Miller" <davem@davemloft.net>,
  Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
- James Morris <jmorris@namei.org>, David Howells <dhowells@redhat.com>,
+ Luis Chamberlain <mcgrof@kernel.org>, lkft-triage@lists.linaro.org,
+ open list <linux-kernel@vger.kernel.org>, David Howells <dhowells@redhat.com>,
  linux-security-module@vger.kernel.org, keyrings@vger.kernel.org,
  Eric Biggers <ebiggers@google.com>, linux-crypto@vger.kernel.org,
- LTP List <ltp@lists.linux.it>, "Serge E. Hallyn" <serge@hallyn.com>
+ James Morris <jmorris@namei.org>, LTP List <ltp@lists.linux.it>,
+ "Serge E. Hallyn" <serge@hallyn.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, Jun 23, 2020 at 12:04:06AM +0530, Naresh Kamboju wrote:
-> LTP crypto regressions noticed on linux next 20200621.
-> 
-> The common case for all tests is timeout after 15 minutes which
-> means tests got hung and LTP timers killed those test runs after
-> timeout.
-> The root cause of the failure is under investigation.
-> 
->   ltp-crypto-tests:
->     * af_alg02 - failed
->     * af_alg05 - failed
+On Tue, Jun 23, 2020 at 11:53:43AM +0530, Naresh Kamboju wrote:
+>
+> Thanks for the investigation.
+> After reverting, two test cases got PASS out of four reported failure cases.
+>  ltp-crypto-tests:
+>      * af_alg02 - still failing - Hung and time out
+>      * af_alg05 - still failing - Hung and time out
 >   ltp-syscalls-tests:
->     * keyctl07 - failed
->     * request_key03 - failed
+>      * keyctl07 - PASS
+>      * request_key03 - PASS
 > 
-> Output log:
-> --------------
-> af_alg02:
-> af_alg02.c:52: BROK: Timed out while reading from request socket.
-> 
-> Test code at line number 52 is
-> 
-> pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
-> SAFE_PTHREAD_CREATE(&thr, NULL, verify_encrypt, NULL);
-> 
-> TST_CHECKPOINT_WAIT(0);
-> 
-> while (pthread_kill(thr, 0) != ESRCH) {
->     if (tst_timeout_remaining() <= 10) {
->         pthread_cancel(thr);
->         tst_brk(TBROK,
->                    "Timed out while reading from request socket.");
-> 
-> 
-> af_alg05:
-> tst_test.c:1246: INFO: Timeout per run is 0h 15m 00s
-> [  362.599868] kworker/dying (137) used greatest stack depth: 11600 bytes left
-> Test timeouted, sending SIGKILL!
-> tst_test.c:1286: INFO: If you are running on slow machine, try
-> exporting LTP_TIMEOUT_MUL > 1
-> tst_test.c:1287: BROK: Test killed! (timeout?)
-> 
-> request_key03:
-> tst_test.c:1246: INFO: Timeout per run is 0h 15m 00s
-> request_key03.c:65: CONF: kernel doesn't support key type 'encrypted'
-> request_key03.c:65: CONF: kernel doesn't support key type 'trusted'
-> Test timeouted, sending SIGKILL!
-> tst_test.c:1286: INFO: If you are running on slow machine, try
-> exporting LTP_TIMEOUT_MUL > 1
-> tst_test.c:1287: BROK: Test killed! (timeout?)
-> 
-> keyctl07
-> tst_test.c:1246: INFO: Timeout per run is 0h 15m 00s
-> Test timeouted, sending SIGKILL!
-> tst_test.c:1286: INFO: If you are running on slow machine, try
-> exporting LTP_TIMEOUT_MUL > 1
-> tst_test.c:1287: BROK: Test killed! (timeout?)
-> 
-> metadata:
->   git branch: master
->   git repo: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
->   git commit: 5a94f5bc041ea9e4d17c93b11ea6f6a2e5ad361b
->   git describe: next-20200621
->   kernel-config:
-> https://builds.tuxbuild.com/PB-45Luvlx0yYJ8MZgpijA/kernel.config
-> 
-> ref:
-> https://lkft.validation.linaro.org/scheduler/job/1511938#L2211
-> https://lkft.validation.linaro.org/scheduler/job/1511935#L9225
+> Please suggest the way to debug / fix the af_alg02 and af_alg05 failures.
 
-Can you try reverting:
+Did you clear the MSG_MORE flag in the final send(2) call before
+you call recv(2)?
 
-d13ef8e10756873b0a8b7cc8f230a2d1026710ea
-
-The patch is titled "umh: fix processed error when UMH_WAIT_PROC is used"
-
-If this fixes the  issue we have to ask ourselves then why, given that
-anything other than 0 is a return code and prior to this patch we were
-not accepting negative return codes, but we were never getting them
-as the invalid return code was being returned when UMH_WAIT_PROC was
-used and an error code was returned. So now, *any* non-zero value is
-a return code.  The onlything I can think of is that we may want to
-special-case the -ENOMEM error code, or maybe some other one to not
-skip it as in the below patch.
-
-If reverting the commit does not fix the issue, this is not the droid
-we are looking for.
-
-diff --git a/security/keys/request_key.c b/security/keys/request_key.c
-index ff462f3d46ca..94ed23a8991f 100644
---- a/security/keys/request_key.c
-+++ b/security/keys/request_key.c
-@@ -193,7 +193,7 @@ static int call_sbin_request_key(struct key *authkey, void *aux)
- 	ret = call_usermodehelper_keys(request_key, argv, envp, keyring,
- 				       UMH_WAIT_PROC);
- 	kdebug("usermode -> 0x%x", ret);
--	if (ret != 0) {
-+	if (ret != -ENOMEM && ret != 0) {
- 		/* ret is the exit/wait code */
- 		if (test_bit(KEY_FLAG_USER_CONSTRUCT, &key->flags) ||
- 		    key_validate(key) < 0)
+Cheers,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
