@@ -2,38 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D77E0205228
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jun 2020 14:14:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05FBE205229
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jun 2020 14:14:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E0BD73C2A79
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jun 2020 14:14:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A03003C2BB1
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jun 2020 14:14:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id E2A103C14BD
- for <ltp@lists.linux.it>; Tue, 23 Jun 2020 14:14:39 +0200 (CEST)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 6A7843C2BBA
+ for <ltp@lists.linux.it>; Tue, 23 Jun 2020 14:14:49 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 57B0C600564
- for <ltp@lists.linux.it>; Tue, 23 Jun 2020 14:13:46 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 1F0C31A00CCF
+ for <ltp@lists.linux.it>; Tue, 23 Jun 2020 14:14:48 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2D92DAD5D;
- Tue, 23 Jun 2020 12:14:38 +0000 (UTC)
-Date: Tue, 23 Jun 2020 14:14:57 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 152BAAFDB;
+ Tue, 23 Jun 2020 12:14:48 +0000 (UTC)
+Date: Tue, 23 Jun 2020 14:15:06 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Yixin Zhang <yixin.zhang@intel.com>
-Message-ID: <20200623121457.GA11500@yuki.lan>
-References: <20200623064424.15273-1-yixin.zhang@intel.com>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <20200623121506.GB11500@yuki.lan>
+References: <20200622211534.27270-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200623064424.15273-1-yixin.zhang@intel.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+In-Reply-To: <20200622211534.27270-1-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH ltp] lib/newlib_tests: add test21 into .gitignore
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] fzsync: Add 10% margin of error to delay
+ calculation
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
