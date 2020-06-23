@@ -1,43 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96E3220490C
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jun 2020 07:17:19 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B0ABE204953
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jun 2020 07:52:30 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 022A53C5DE2
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jun 2020 07:17:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F19263C2BB5
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Jun 2020 07:52:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 8C4F83C2209
- for <ltp@lists.linux.it>; Tue, 23 Jun 2020 07:17:15 +0200 (CEST)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 5D5D93C2209
+ for <ltp@lists.linux.it>; Tue, 23 Jun 2020 07:52:26 +0200 (CEST)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 44A211A01171
- for <ltp@lists.linux.it>; Tue, 23 Jun 2020 07:17:11 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.75,270,1589212800"; d="scan'208";a="95129480"
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 73E951A01078
+ for <ltp@lists.linux.it>; Tue, 23 Jun 2020 07:52:23 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.75,270,1589212800"; d="scan'208";a="95131238"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 23 Jun 2020 13:16:50 +0800
+ by heian.cn.fujitsu.com with ESMTP; 23 Jun 2020 13:52:21 +0800
 Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id B79584CE4BD3;
- Tue, 23 Jun 2020 13:06:22 +0800 (CST)
+ by cn.fujitsu.com (Postfix) with ESMTP id A58284CE3F0A;
+ Tue, 23 Jun 2020 13:41:54 +0800 (CST)
 Received: from [10.167.220.69] (10.167.220.69) by
  G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Tue, 23 Jun 2020 13:16:43 +0800
-Message-ID: <5EF19034.9070507@cn.fujitsu.com>
-Date: Tue, 23 Jun 2020 13:16:36 +0800
+ (TLS) id 15.0.1497.2; Tue, 23 Jun 2020 13:52:14 +0800
+Message-ID: <5EF1988C.3090008@cn.fujitsu.com>
+Date: Tue, 23 Jun 2020 13:52:12 +0800
 From: Xiao Yang <yangx.jy@cn.fujitsu.com>
 User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
  rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
 To: Petr Vorel <petr.vorel@suse.com>
 References: <20200622070911.16123-1-petr.vorel@suse.com>
- <20200622070911.16123-3-petr.vorel@suse.com>
-In-Reply-To: <20200622070911.16123-3-petr.vorel@suse.com>
+ <20200622070911.16123-6-petr.vorel@suse.com>
+In-Reply-To: <20200622070911.16123-6-petr.vorel@suse.com>
 X-Originating-IP: [10.167.220.69]
 X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
  G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
-X-yoursite-MailScanner-ID: B79584CE4BD3.AD8A0
+X-yoursite-MailScanner-ID: A58284CE3F0A.ADB35
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
@@ -45,7 +46,8 @@ X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [RESENT PATCH 2/5] net: Update README.md
+Subject: Re: [LTP] [RESENT RFC PATCH 5/5] st_net.sh: tst_rhost_run: Add -d
+ option (debug)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,125 +60,146 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gMjAyMC82LzIyIDE1OjA5LCBQZXRyIFZvcmVsIHdyb3RlOgo+IEZyb206IFBldHIgVm9yZWw8
-cHZvcmVsQHN1c2UuY3o+Cj4KPiAqIHRvIHByZXZpb3VzIGNvbW1pdCAoZHJvcHBlZCByc2ggYmFz
-ZWQgdGVzdGluZykKPiAqIGZpeCBmb3JtYXR0aW5nCj4gKiByZW1vdmUgc3VnZ2VzdGlvbiB0byBy
-dW4gdGVzdHMgZm9yIDI0IGhycyAod2UgbG93ZXIgdmFyaWFibGVzIGZvcgo+ICAgIHN0cmVzcyB0
-ZXN0aW5nIGluIHRoZSBwYXN0KQo+ICogdXBkYXRlIHBhY2thZ2UgbmFtZXMKPiAqIG1lbnRpb24g
-dGVzdGNhc2VzL25ldHdvcmsvc3RyZXNzL1JFQURNRQpIaSBQZXRyLAoKSXMgaXQgbmVjZXNzYXJ5
-IHRvIG1ldGlvbiB0aGUgZm9sbG93aW5nIHJlcXVpcmVtZW50cyBhYm91dCBzc2g/CjEpIFN0YXJ0
-IHNzaGQgc2VydmljZSBvbiByZW1vdGUgaG9zdC4KMikgTWFrZSBzc2ggYWNjZXNzIHJlbW90ZSBo
-b3N0IHdpdGhvdXQgcGFzc3dvcmQuCgo+IFNpZ25lZC1vZmYtYnk6IFBldHIgVm9yZWw8cHZvcmVs
-QHN1c2UuY3o+Cj4gLS0tCj4gICB0ZXN0Y2FzZXMvbmV0d29yay9SRUFETUUubWQgfCA3MyArKysr
-KysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgMzQg
-aW5zZXJ0aW9ucygrKSwgMzkgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2Vz
-L25ldHdvcmsvUkVBRE1FLm1kIGIvdGVzdGNhc2VzL25ldHdvcmsvUkVBRE1FLm1kCj4gaW5kZXgg
-M2E5Yzk4MTI1Li5hN2ViNDA5NzQgMTAwNjQ0Cj4gLS0tIGEvdGVzdGNhc2VzL25ldHdvcmsvUkVB
-RE1FLm1kCj4gKysrIGIvdGVzdGNhc2VzL25ldHdvcmsvUkVBRE1FLm1kCj4gQEAgLTEsMjUgKzEs
-MjUgQEAKPiAgICMgTFRQIE5ldHdvcmsgVGVzdHMKPgo+IC0jIyBQcmUtcmVxdWlzaXRlcwo+IC1F
-bmFibGUgYWxsIHRoZSBuZXR3b3JraW5nIHNlcnZpY2VzIG9uIHRlc3QgbWFjaGluZShzKTogcnNo
-ZCwgbmZzZCwgZmluZ2VyZC4KPiAtCj4gICAjIyBTaW5nbGUgSG9zdCBDb25maWd1cmF0aW9uCj4K
-PiAtSXQgaXMgYSBkZWZhdWx0IGNvbmZpZ3VyYXRpb24gKCdSSE9TVCcgaXMgbm90IGRlZmluZWQp
-LiBMVFAgYWRkcyAnbHRwX25zJwo+IC1uZXR3b3JrIG5hbWVzcGFjZSBhbmQgYXV0by1jb25maWd1
-cmUgJ3ZldGgnIHBhaXIgYWNjb3JkaW5nIHRvIExUUCBuZXR3b3JrCj4gLWVudmlyb25tZW50IHZh
-cmlhYmxlcy4KPiArSXQgaXMgYSBkZWZhdWx0IGNvbmZpZ3VyYXRpb24gKGlmIHRoZSBgUkhPU1Rg
-IGVudmlyb25tZW50IHZhcmlhYmxlIGlzIG5vdAo+ICtkZWZpbmVkKS4gTFRQIGFkZHMgYGx0cF9u
-c2AgbmV0d29yayBuYW1lc3BhY2UgYW5kIGF1dG8tY29uZmlndXJlIGB2ZXRoYCBwYWlyCj4gK2Fj
-Y29yZGluZyB0byBMVFAgbmV0d29yayBlbnZpcm9ubWVudCB2YXJpYWJsZXMuCj4KPiAgICMjIFR3
-byBIb3N0IENvbmZpZ3VyYXRpb24KPgo+IC1UaGlzIHNldHVwIHJlcXVpcmVzICdSSE9TVCcgZW52
-aXJvbm1lbnQgdmFyaWFibGUgdG8gYmUgc2V0IHByb3Blcmx5IGFuZAo+IC1jb25maWd1cmVkIFNT
-SCBvciBSU0ggKGRlZmF1bHQpIGFjY2VzcyB0byBhIHJlbW90ZSBob3N0Lgo+ICtUaGlzIHNldHVw
-IHJlcXVpcmVzIHRoZSBgUkhPU1RgIGVudmlyb25tZW50IHZhcmlhYmxlIHRvIGJlIHNldCBwcm9w
-ZXJseSBhbmQKPiArY29uZmlndXJlZCBTU0ggYWNjZXNzIHRvIGEgcmVtb3RlIGhvc3QuCj4KPiAg
-IFRoZSAnUkhPU1QnIHZhcmlhYmxlIG5hbWUgbXVzdCBiZSBzZXQgdG8gdGhlIGhvc3RuYW1lIG9m
-IHRoZSBzZXJ2ZXIKPiAtKHRlc3QgbWFuYWdlbWVudCBsaW5rKSBhbmQgUEFTU1dEIHNob3VsZCBi
-ZSBzZXQgdG8gdGhlIHJvb3QgcGFzc3dvcmQKPiArKHRlc3QgbWFuYWdlbWVudCBsaW5rKSBhbmQg
-YFBBU1NXRGAgc2hvdWxkIGJlIHNldCB0byB0aGUgcm9vdCBwYXNzd29yZAo+ICAgb2YgdGhlIHJl
-bW90ZSBzZXJ2ZXIuCj4KPiAtSW4gb3JkZXIgdG8gaGF2ZSBSU0ggYWNjZXNzOgo+IC0qIEVkaXQg
-dGhlICIvcm9vdC8ucmhvc3RzIiBmaWxlLiBQbGVhc2Ugbm90ZSB0aGF0IHRoZSBmaWxlIG1heSBu
-b3QgZXhpc3QsCj4gK1NvbWUgb2YgdGhlIG5ldHdvcmsgc3RyZXNzIHRlc3RzIGhhc24ndCBiZWVu
-IHBvcnRlZCB0byBuZXR3b3JrIEFQSSBhbmQgc3RpbGwKPiArdXNlIGByc2hgIHZpYSBgTFRQX1JT
-SGAgZW52aXJvbm1lbnQgdmFyaWFibGUuIFRvIHdvcmthcm91bmQgdGhpcyBpcyBiZXN0IHRvIHNl
-dAoKRG8geW91IG1lYW4gdGhhdCB3b3JrYXJvdW5kIHRoaXMgYnkgc2V0dGluZyBMVFBfUlNIIHRv
-IHNzaChMVFBfUlNIPSJzc2giKT8KSSB3b25kZXIgaWYgd2UgY2FuIGluaXQgTFRQX1JTSCB0byBz
-c2ggZGlyZWN0bHk/CgpUaGFua3MsClhpYW8gWWFuZwo+ICtpdCB0byBTU0gsIGluIG9yZGVyIHRv
-IHJ1biB0aGVzZSB0ZXN0cyB3aXRoIFJTSCBmb2xsb3dpbmcgc2V0dXAgaXMgbmVlZGVkOgo+ICsK
-PiArKiBFZGl0IHRoZSBgL3Jvb3QvLnJob3N0c2AgZmlsZS4gUGxlYXNlIG5vdGUgdGhhdCB0aGUg
-ZmlsZSBtYXkgbm90IGV4aXN0LAo+ICAgc28geW91IG11c3QgY3JlYXRlIG9uZSBpZiBpdCBkb2Vz
-IG5vdC4gWW91IG11c3QgYWRkIHRoZSBmdWxseSBxdWFsaWZpZWQKPiAgIGhvc3RuYW1lIG9mIHRo
-ZSBtYWNoaW5lIHlvdSBhcmUgdGVzdGluZyBvbiB0byB0aGlzIGZpbGUuIEJ5IGFkZGluZyB0aGUg
-dGVzdAo+ICAgbWFjaGluZSdzIGhvc3RuYW1lIHRvIHRoaXMgZmlsZSwgeW91IHdpbGwgYmUgYWxs
-b3dpbmcgdGhlIG1hY2hpbmUgdG8gcnNoIHRvIGl0c2VsZiwKPiBAQCAtMjksMTMgKzI5LDEzIEBA
-IGFzIHJvb3QsIHdpdGhvdXQgdGhlIHJlcXVpcmVtZW50IG9mIGEgcGFzc3dvcmQuCj4gICBlY2hv
-ICRjbGllbnRfaG9zdG5hbWU+PiAgL3Jvb3QvLnJob3N0cwo+ICAgYGBgCj4KPiAtWW91IG1heSBu
-ZWVkIHRvIHJlLWxhYmVsICcucmhvc3QnIGZpbGUgdG8gbWFrZSBzdXJlIHJsb2dpbmQgd2lsbCBo
-YXZlIGFjY2VzcyB0byBpdDoKPiArWW91IG1heSBuZWVkIHRvIHJlLWxhYmVsIGAucmhvc3RgIGZp
-bGUgdG8gbWFrZSBzdXJlIHJsb2dpbmQgd2lsbCBoYXZlIGFjY2VzcyB0byBpdDoKPgo+ICAgYGBg
-c2gKPiAgIC9zYmluL3Jlc3RvcmVjb24gLXYgL3Jvb3QvLnJob3N0cwo+ICAgYGBgCj4KPiAtKiBB
-ZGQgcmxvZ2luLCByc2gsIHJleGVjIGludG8gL2V0Yy9zZWN1cmV0dHkgZmlsZToKPiArKiBBZGQg
-cmxvZ2luLCByc2gsIHJleGVjIGludG8gYC9ldGMvc2VjdXJldHR5YCBmaWxlOgo+Cj4gICBgYGBz
-aAo+ICAgZm9yIGkgaW4gcmxvZ2luIHJzaCByZXhlYzsgZG8gZWNobyAkaT4+ICAvZXRjL3NlY3Vy
-ZXR0eTsgZG9uZQo+IEBAIC00NCw0OCArNDQsNDMgQEAgZm9yIGkgaW4gcmxvZ2luIHJzaCByZXhl
-YzsgZG8gZWNobyAkaT4+ICAvZXRjL3NlY3VyZXR0eTsgZG9uZQo+ICAgIyMgU2VydmVyIFNlcnZp
-Y2VzIENvbmZpZ3VyYXRpb24KPiAgIFZlcmlmeSB0aGF0IHRoZSBiZWxvdyBkYWVtb24gc2Vydmlj
-ZXMgYXJlIHJ1bm5pbmcuIElmIG5vdCwgcGxlYXNlIGluc3RhbGwKPiAgIGFuZCBzdGFydCB0aGVt
-Ogo+IC1yc2gtc2VydmVyLCB0ZWxuZXQtc2VydmVyLCBmaW5nZXItc2VydmVyLCByZGlzdCwgcnN5
-bmMsIGRoY3Atc2VydmVyLCBodHRwLXNlcnZlci4KPiArZGhjcC1zZXJ2ZXIsIGRuc21hc3EsIGh0
-dHAtc2VydmVyLCBuZnMta2VybmVsLXNlcnZlciwgcnBjYmluZCwgcnN5bmMsIHZzZnRwZAo+ICsK
-PiArUlNIIGJhc2VkIHRlc3RpbmcgcmVxdWlyZXMgYWxzbzoKPiArcnNoLXNlcnZlciwgdGVsbmV0
-LXNlcnZlciwgZmluZ2VyLXNlcnZlciwgcmRpc3QKPgo+ICAgTm90ZTogSWYgYW55IG9mIHRoZSBh
-Ym92ZSBkYWVtb24gaXMgbm90IHJ1bm5pbmcgb24gc2VydmVyLCB0aGUgdGVzdCByZWxhdGVkIHRv
-Cj4gICB0aGF0IHNlcnZpY2UgcnVubmluZyBmcm9tIGNsaWVudCB3aWxsIGZhaWwuCj4KPiAgICMj
-IyBGVFAgc2V0dXAKPiAtKiBJbiDigJwvZXRjL2Z0cHVzZXJz4oCdIFtvciB2aSAvZXRjL3ZzZnRw
-ZC5mdHB1c2Vyc10sIGNvbW1lbnQgdGhlIGxpbmUgY29udGFpbmluZwo+IC3igJxyb2904oCdIHN0
-cmluZy4gVGhpcyBmaWxlIGxpc3RzIGFsbCB0aG9zZSB1c2VycyB3aG8gYXJlIG5vdCBnaXZlbiBh
-Y2Nlc3MgdG8gZG8gZnRwCj4gKyogSW4gYC9ldGMvZnRwdXNlcnNgIChvciBgL2V0Yy92c2Z0cGQu
-ZnRwdXNlcnNgKSwgY29tbWVudCB0aGUgbGluZSBjb250YWluaW5nCj4gKyJyb290IiBzdHJpbmcu
-IFRoaXMgZmlsZSBsaXN0cyBhbGwgdGhvc2UgdXNlcnMgd2hvIGFyZSBub3QgZ2l2ZW4gYWNjZXNz
-IHRvIGRvIGZ0cAo+ICAgb24gdGhlIGN1cnJlbnQgc3lzdGVtLgo+Cj4gLSogSWYgeW91IGRvbuKA
-mXQgd2FudCB0byBkbyB0aGUgcHJldmlvdXMgc3RlcCwgcHV0IGZvbGxvd2luZyBlbnRyeSBpbnRv
-IC9yb290Ly5uZXRyYwo+IC1tYWNoaW5lPHJlbW90ZV9zZXJ2ZXJfbmFtZT4gIGxvZ2luIHJvb3Qg
-cGFzc3dvcmQ8cmVtb3RlX3Jvb3RfcGFzc3dvcmQ+Lgo+IC1PdGhlcndpc2UsIGZ0cCxybG9naW4m
-ICB0ZWxuZXQgZmFpbHMgZm9yIOKAmHJvb3TigJkgdXNlciYgIGhlbmNlIG5lZWRzIHRvIGJlCj4g
-LWV4ZWN1dGVkIHVzaW5nIOKAmHRlc3TigJkgdXNlciB0byBnZXQgc3VjY2Vzc2Z1bCByZXN1bHRz
-Lgo+ICsqIElmIHlvdSBkb27igJl0IHdhbnQgdG8gZG8gdGhlIHByZXZpb3VzIHN0ZXAsIHB1dCBm
-b2xsb3dpbmcgZW50cnkgaW50byBgL3Jvb3QvLm5ldHJjYDoKPiArYGBgCj4gK21hY2hpbmU8cmVt
-b3RlX3NlcnZlcl9uYW1lPgo+ICtsb2dpbiByb290Cj4gK3Bhc3N3b3JkPHJlbW90ZV9yb290X3Bh
-c3N3b3JkPgo+ICtgYGAKPiArT3RoZXJ3aXNlLCBgZnRwYCwgYHJsb2dpbmAgYW5kIGB0ZWxuZXRg
-IHRlc3RzIGZhaWxzIGZvciBgcm9vdGAgdXNlci4KPgo+ICAgIyMgTFRQIHNldHVwCj4gLUluc3Rh
-bGwgTFRQIHRlc3RzdWl0ZS4gSW4gY2FzZSBvZiB0d28gaG9zdHMgY29uZmlndXJhdGlvbiwgbWFr
-ZSBzdXJlIExUUCBpcyBpbnN0YWxsZWQKPiAtb24gYm90aCBjbGllbnQgYW5kIHNlcnZlciBtYWNo
-aW5lcy4KPiAtCj4gLVRlc3RjYXNlcyBhbmQgbmV0d29yayB0b29scyBtdXN0IGJlIGluIFBBVEgs
-IGUuZy46Cj4gK0luc3RhbGwgTFRQIHRlc3RzdWl0ZS4gSW4gY2FzZSBvZiB0d28gaG9zdHMgY29u
-ZmlndXJhdGlvbiwgTFRQIG5lZWRzIHRvIGJlIGluc3RhbGxlZAo+ICthbmQgYExUUFJPT1RgIGFu
-ZCBgUEFUSGAgZW52aXJvbm1lbnQgdmFyaWFibGVzIHNldCBvbiBib3RoIGNsaWVudCBhbmQgc2Vy
-dmVyCj4gK21hY2hpbmVzIChhc3N1bWluZyB1c2luZyB0aGUgZGVmYXVsdCBwcmVmaXggYC9vcHQv
-bHRwYCk6Cj4KPiAgIGBgYHNoCj4gLWV4cG9ydCBQQVRIPS9vcHQvbHRwL3Rlc3RjYXNlcy9iaW46
-L3Vzci9iaW46JFBBVEgKPiArZXhwb3J0IExUUFJPT1Q9Ii9vcHQvbHRwIjsgZXhwb3J0IFBBVEg9
-IiRMVFBST09UL3Rlc3RjYXNlcy9iaW46JFBBVEgiCj4gICBgYGAKPiAtRGVmYXVsdCB2YWx1ZXMg
-Zm9yIGFsbCBMVFAgbmV0d29yayB2YXJpYWJsZXMgYXJlIHNldCBpbiB0ZXN0Y2FzZXMvbGliL3Rz
-dF9uZXQuc2guCj4gLUlmIHlvdSBuZWVkIHRvIG92ZXJyaWRlIHNvbWUgcGFyYW1ldGVycyBwbGVh
-c2UgZXhwb3J0IHRoZW0gYmVmb3JlIHRlc3QgcnVuIG9yCj4gLXNwZWNpZnkgdGhlbSB3aGVuIHJ1
-bm5pbmcgbHRwLXBhbiBvciB0ZXN0c2NyaXB0cy9uZXR3b3JrLnNoLgo+ICtEZWZhdWx0IHZhbHVl
-cyBmb3IgYWxsIExUUCBuZXR3b3JrIHBhcmFtZXRlcnMgYXJlIHNldCBpbiBgdGVzdGNhc2VzL2xp
-Yi90c3RfbmV0LnNoYC4KPiArTmV0d29yayBzdHJlc3MgcGFyYW1ldGVycyBhcmUgZG9jdW1lbnRl
-ZCBpbiBgdGVzdGNhc2VzL25ldHdvcmsvc3RyZXNzL1JFQURNRWAuCj4KPiAgICMjIFJ1bm5pbmcg
-dGhlIHRlc3RzCj4gLVRvIHJ1biB0aGUgdGVzdCB0eXBlIHRoZSBmb2xsb3dpbmc6Cj4KPiAgIGBg
-YHNoCj4gICBURVNUX1ZBUlMgLi9uZXR3b3JrLnNoIE9QVElPTlMKPiAgIGBgYAo+ICAgV2hlcmUK
-PiAtKiBURVNUX1ZBUlMgLSBub24tZGVmYXVsdCBuZXR3b3JrIHBhcmFtZXRlcnMgKHNlZSB0ZXN0
-Y2FzZXMvbGliL3RzdF9uZXQuc2gpLCB0aGV5Cj4gLSAgY291bGQgYmUgZXhwb3J0ZWQgYmVmb3Jl
-IHRlc3QgcnVuOwo+IC0qIE9QVElPTlMgLSB0ZXN0IGdyb3VwKHMpLCB1c2UgJy1oJyB0byBzZWUg
-YXZhaWxhYmxlIG9uZXMuCj4gLQo+IC0jIyBBbmFseXppbmcgdGhlIHJlc3VsdHMKPiAtR2VuZXJh
-bGx5IHRoaXMgdGVzdCBtdXN0IGJlIHJ1biBtb3JlIHRoYW4gMjQgaG91cnMuIFdoZW4geW91IHdh
-bnQgdG8gc3RvcCB0aGUgdGVzdAo+IC1wcmVzcyBDVFJMK0MgdG8gc3RvcCAuL25ldHdvcmsuc2gu
-Cj4gLQo+IC1TZWFyY2ggZmFpbGVkIHRlc3RzIGluIExUUCBsb2dmaWxlIHVzaW5nIGdyZXAgRkFJ
-TDxsb2dmaWxlPi4gRm9yIGFueSBmYWlsdXJlcywKPiAtcnVuIHRoZSBpbmRpdmlkdWFsIHRlc3Rz
-IGFuZCB0aGVuIHRyeSB0byBjb21lIHRvIHRoZSBjb25jbHVzaW9uLgo+ICsqIFRFU1RfVkFSUyAt
-IG5vbi1kZWZhdWx0IG5ldHdvcmsgcGFyYW1ldGVycwo+ICsqIE9QVElPTlMgLSB0ZXN0IGdyb3Vw
-KHMpLCB1c2UgYC1oYCB0byBzZWUgYXZhaWxhYmxlIG9uZXMuCgoKCgotLSAKTWFpbGluZyBsaXN0
-IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+On 2020/6/22 15:09, Petr Vorel wrote:
+> From: Petr Vorel <pvorel@suse.cz>
+>
+> -d debug mode (print command and netns/ssh handling into stderr)
+>
+> Add tst_net_debug() simple helper for printing into stderr.
+>
+> Also use new parameter in tst_rhost_run.sh.
+>
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> Hi,
+>
+> RFC: I use it quite a lot, but not sure if needed.
+>
+> Probably using $TST_NET_DEBUG instead of -d would be better.
+Hi Petr,
+
+Agreed. $TST_NET_DEBUG is better for user to print debug info because we
+don't need to change code(i.e. pass -d to tst_rhost_run()).
+Debug info is only related to tst_rhost_run() so is $TST_RHOST_RUN_DEBUG
+meaningful?
+> If we merge "tst_test.sh: Print tst_{res, brk} into stdout" [1],
+> simple tst_res_ could be used. I was also thinking about adding new flag
+> "DEBUG", but that's probably not needed.
+I think tst_res TINFO is enough. :-)
+
+Thanks,
+Xiao Yang
+> Kind regards,
+> Petr
+>
+> [1] https://patchwork.ozlabs.org/project/ltp/patch/20200619192542.20113-1-pvorel@suse.cz/
+>
+>  lib/newlib_tests/shell/net/tst_rhost_run.sh |  8 +++---
+>  testcases/lib/tst_net.sh                    | 29 ++++++++++++++++-----
+>  2 files changed, 27 insertions(+), 10 deletions(-)
+>
+> diff --git a/lib/newlib_tests/shell/net/tst_rhost_run.sh b/lib/newlib_tests/shell/net/tst_rhost_run.sh
+> index 4c034a4ac..ebcd4ca03 100755
+> --- a/lib/newlib_tests/shell/net/tst_rhost_run.sh
+> +++ b/lib/newlib_tests/shell/net/tst_rhost_run.sh
+> @@ -10,14 +10,14 @@ do_test()
+>  {
+>  	local file="/etc/fstab"
+>  
+> -	tst_rhost_run -c 'which grep > /dev/null' || \
+> +	tst_rhost_run -d -c 'which grep > /dev/null' || \
+>  		tst_res TCONF "grep not found on rhost"
+>  
+> -	tst_rhost_run -c "[ -f $file ]" || \
+> +	tst_rhost_run -d -c "[ -f $file ]" || \
+>  		tst_res TCONF "$file not found on rhost"
+>  
+> -	tst_rhost_run -s -c "grep -q \"[^ ]\" $file"
+> -	tst_rhost_run -s -c "grep -q '[^ ]' $file"
+> +	tst_rhost_run -ds -c "grep -q \"[^ ]\" $file"
+> +	tst_rhost_run -ds -c "grep -q '[^ ]' $file"
+>  
+>  	tst_res TPASS "tst_rhost_run is working"
+>  }
+> diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
+> index 2ed570a6b..d6845618d 100644
+> --- a/testcases/lib/tst_net.sh
+> +++ b/testcases/lib/tst_net.sh
+> @@ -130,11 +130,17 @@ init_ltp_netspace()
+>  	tst_restore_ipaddr rhost
+>  }
+>  
+> +tst_net_debug()
+> +{
+> +	echo "DEBUG: $@" >&2
+> +}
+> +
+>  # Run command on remote host.
+>  # tst_rhost_run -c CMD [-b] [-s] [-u USER]
+>  # Options:
+>  # -b run in background
+>  # -c CMD specify command to run (this must be binary, not shell builtin/function)
+> +# -d debug mode (print command and netns/ssh handling into stderr)
+>  # -s safe option, if something goes wrong, will exit with TBROK
+>  # -u USER for ssh (default root)
+>  # RETURN: 0 on success, 1 on failure
+> @@ -143,16 +149,17 @@ tst_rhost_run()
+>  	local post_cmd=' || echo RTERR'
+>  	local user="root"
+>  	local ret=0
+> -	local cmd out output pre_cmd safe
+> +	local cmd debug out output pre_cmd rcmd sh_cmd safe use
+>  
+>  	local OPTIND
+> -	while getopts :bsc:u: opt; do
+> +	while getopts :bc:dsu: opt; do
+>  		case "$opt" in
+>  		b) [ "${TST_USE_NETNS:-}" ] && pre_cmd= || pre_cmd="nohup"
+>  		   post_cmd=" > /dev/null 2>&1 &"
+>  		   out="1> /dev/null"
+>  		;;
+>  		c) cmd="$OPTARG" ;;
+> +		d) debug=1 ;;
+>  		s) safe=1 ;;
+>  		u) user="$OPTARG" ;;
+>  		*) tst_brk_ TBROK "tst_rhost_run: unknown option: $OPTARG" ;;
+> @@ -166,14 +173,24 @@ tst_rhost_run()
+>  		return 1
+>  	fi
+>  
+> +	sh_cmd="$pre_cmd $cmd $post_cmd"
+> +
+>  	if [ -n "${TST_USE_NETNS:-}" ]; then
+> -		output=$($LTP_NETNS sh -c \
+> -			"$pre_cmd $cmd $post_cmd" $out 2>&1 || echo 'RTERR')
+> +		use="NETNS"
+> +		rcmd="$LTP_NETNS sh -c"
+>  	else
+>  		tst_require_cmds ssh
+> -		output=$(ssh -n -q $user@$RHOST \
+> -			"$pre_cmd $cmd $post_cmd" $out 2>&1 || echo 'RTERR')
+> +		use="SSH"
+> +		rcmd="ssh -n -q $user@$RHOST"
+>  	fi
+> +
+> +	if [ "$debug" ]; then
+> +		tst_net_debug "tst_rhost_run: cmd: $cmd"
+> +		tst_net_debug "$use: $rcmd \"$sh_cmd\" $out 2>&1"
+> +	fi
+> +
+> +	output=$($rcmd "$sh_cmd" $out 2>&1 || echo 'RTERR')
+> +
+>  	echo "$output" | grep -q 'RTERR$' && ret=1
+>  	if [ $ret -eq 1 ]; then
+>  		output=$(echo "$output" | sed 's/RTERR//')
+
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
