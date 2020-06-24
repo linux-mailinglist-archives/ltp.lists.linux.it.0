@@ -2,30 +2,30 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44E62206FB2
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Jun 2020 11:07:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16E41206FE7
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Jun 2020 11:21:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 00A353C2B9E
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Jun 2020 11:07:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 771FB3C2BAD
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Jun 2020 11:21:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 3BE7A3C0639
- for <ltp@lists.linux.it>; Wed, 24 Jun 2020 11:07:27 +0200 (CEST)
-Received: from NAM04-CO1-obe.outbound.protection.outlook.com
- (mail-eopbgr690049.outbound.protection.outlook.com [40.107.69.49])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 6608C3C0639
+ for <ltp@lists.linux.it>; Wed, 24 Jun 2020 11:21:50 +0200 (CEST)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2045.outbound.protection.outlook.com [40.107.92.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 321E260068F
- for <ltp@lists.linux.it>; Wed, 24 Jun 2020 11:07:26 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7A75D600F16
+ for <ltp@lists.linux.it>; Wed, 24 Jun 2020 11:20:56 +0200 (CEST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MjmESbEVKguKZIrFFYtnUAGgxiwTXrE0aYO7kOzfLFWlrdq8dVufrucZOvah/dullERaRPWHpn+EhDmZc0q3w7a3YqqHIITFuRn1Xpq13ThJB6d1lqsQf3FiTV4boSDCClMpXNetmAqthocxGtIRldSzT8V98fCkdj/ShxO4KfkOQExcIEyKR0L27QOSjZSUEVkPwWrklQCTg07RTALbNpm+igU9YTfpblaXy4G8owyksf/Wt1ILtd3D7PZ4Ry8ntphapfGI/5mj8yemqOHUWySl9EgqCeSE9o6ZU+cn51JVvvI6bVH1RsF/VOIpPsRBZ07qch4uM0d9cS/B15Gecw==
+ b=kViB+OzMwY4FgEejBdCRtQZB2RF+m+NSQiNKRO26Fa/ABfWZTqkYdgFn3dudAoFolvgKOCgE19DPJjqqn8fVCO523/M1RPeIlUMyBgEMr7N909T/F3JD78Dik6HEFW6RiIsc5p1jleZ1iTGltyVGY146Z5mQGkHCGtjO7WG4eVxNmzXu+l1XHyUcMJX7J7XO3bgCbv2Q5+ivN6aIBRR5SO3H02mQNK4z5PzG70alvfvY76oCO+QE4lkf6YrQjilwJOr10KQhxGzQcQLiqbXowZ6WdvkMOeTSRSxMHVJR/JKPUVeqBA+xaQkX4BO9ixKHueaUI7mQdUAQA7qwlkGjPA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VPT5VRRpq0b6vr7ntz42I9ldJdG7+IJdCCoJKlfxI0s=;
- b=bRwAiVOecaZpApHmlhAQdwucqe3YpNMqG/Vj4xh+CLpuRX5n64Mv/kwh5AMM63da+bsTnjt0zaW9JD2WOPZ8ywJJnCCNr0SmWmsZNVgQ8QXlXdUsg05wtvJYM6fy9pLoTeWKu+fhOi4eM5a/xhrkJZASZWO73EjM6P6fpCJDg8dJzfNemhYVDmqgw9Jk5ZXdgG7Myas1pZ66tDD2PXHVUtncELtDPDr4aCgA5R29bpfctc4rJHUtkJDpEFUNZxhcQRKardGVN49Ft4NqurZ4hheFV0+YnIu+2hv+BSj/uN5LuVJvriRpVS7q+S746b0zlqFdbgyzRf8zt99JjQVCXg==
+ bh=MJ4d53Hep0Aeha1IbuFzI0Ux6xjkjAwj/LmkStVJOwY=;
+ b=irqZLihsFpYEUL29+S8QX449OdRlxC58CxqVhkCf4O5LGcJyTp8bcYJrF2N7b3c3o8nO3GOGOfnvO9BZl8L65IGtK777GS6s6j7WbrMqiVTepObG77Xik5v+H9h3AqclrwgUR62LPf/nKfc5PN9O1z99kBVT7kPXWC8s+885pR93HTIZMjJwdlO/vfLjpWICCLUo6tPHnDN53uMiQThaFIzYcbd+RJEu0SNlBisX0z1WJ0jqMo2q/ZeVNS+pWDDDxUFSWkhlJOsarq0Ek5gHrBC+pxnTES8AyUJXNUqE5InKmv0EpZm128aBGpg0eGyxpP3UDcvI9p4/iA4Swh/IyA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  149.199.60.83) smtp.rcpttodomain=yoctoproject.org smtp.mailfrom=xilinx.com;
  dmarc=bestguesspass action=none header.from=xilinx.com; dkim=none (message
@@ -33,18 +33,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VPT5VRRpq0b6vr7ntz42I9ldJdG7+IJdCCoJKlfxI0s=;
- b=eJYG7VcarIA8bYV6945dEDTpQr5PTpTvBi6WGUnAG0WfeIt15LB6h1AN6cSRo34JW0set6TU8WUG7q9NM0wTWOmrxwerDZmLXG7hFFbNfbpSKpZcz+8JwbmirEg/rcOLAKtG7KsO6Gh8fmamGNB1Y5pYMlajeRBD90MM55+eDIw=
-Received: from SN4PR0501CA0074.namprd05.prod.outlook.com
- (2603:10b6:803:22::12) by BYAPR02MB5622.namprd02.prod.outlook.com
- (2603:10b6:a03:9b::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.23; Wed, 24 Jun
- 2020 09:07:23 +0000
-Received: from SN1NAM02FT013.eop-nam02.prod.protection.outlook.com
- (2603:10b6:803:22:cafe::ca) by SN4PR0501CA0074.outlook.office365.com
- (2603:10b6:803:22::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3153.10 via Frontend
- Transport; Wed, 24 Jun 2020 09:07:23 +0000
+ bh=MJ4d53Hep0Aeha1IbuFzI0Ux6xjkjAwj/LmkStVJOwY=;
+ b=mHc54lm0NzGXdn99uN++f2qkGHg5U4PuS/xH7VV5R64zF3RvTPIn2twz73EdmC8EIGY5g3FI4ceBtygxihIKAHm76/fNhwVja8mJqXSG4VRvfe8goz6HS+kFdHLKNl67iyzg/J8oW0MPojRpR5IbmdEx9XVtqlJHzVqrEO0IGNw=
+Received: from CY4PR2201CA0006.namprd22.prod.outlook.com
+ (2603:10b6:910:5f::16) by DM6PR02MB6171.namprd02.prod.outlook.com
+ (2603:10b6:5:1d1::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.22; Wed, 24 Jun
+ 2020 09:21:47 +0000
+Received: from CY1NAM02FT035.eop-nam02.prod.protection.outlook.com
+ (2603:10b6:910:5f:cafe::c7) by CY4PR2201CA0006.outlook.office365.com
+ (2603:10b6:910:5f::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.22 via Frontend
+ Transport; Wed, 24 Jun 2020 09:21:47 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.60.83)
  smtp.mailfrom=xilinx.com; yoctoproject.org; dkim=none (message not signed)
  header.d=none;yoctoproject.org; dmarc=bestguesspass action=none
@@ -53,23 +53,25 @@ Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
  149.199.60.83 as permitted sender) receiver=protection.outlook.com;
  client-ip=149.199.60.83; helo=xsj-pvapsmtpgw01;
 Received: from xsj-pvapsmtpgw01 (149.199.60.83) by
- SN1NAM02FT013.mail.protection.outlook.com (10.152.72.98) with Microsoft SMTP
- Server id 15.20.3131.20 via Frontend Transport; Wed, 24 Jun 2020 09:07:22
+ CY1NAM02FT035.mail.protection.outlook.com (10.152.75.186) with Microsoft SMTP
+ Server id 15.20.3131.20 via Frontend Transport; Wed, 24 Jun 2020 09:21:46
  +0000
-Received: from [149.199.38.66] (port=46399 helo=xsj-pvapsmtp01)
+Received: from [149.199.38.66] (port=58911 helo=xsj-pvapsmtp01)
  by xsj-pvapsmtpgw01 with esmtp (Exim 4.90)
  (envelope-from <michal.simek@xilinx.com>)
- id 1jo1M8-00042B-Qs; Wed, 24 Jun 2020 02:06:08 -0700
+ id 1jo1a4-0004G8-WA; Wed, 24 Jun 2020 02:20:33 -0700
 Received: from localhost ([127.0.0.1] helo=xsj-pvapsmtp01)
  by xsj-pvapsmtp01 with esmtp (Exim 4.63)
  (envelope-from <michal.simek@xilinx.com>)
- id 1jo1NK-0002Qs-Co; Wed, 24 Jun 2020 02:07:22 -0700
+ id 1jo1bG-0002fe-HI; Wed, 24 Jun 2020 02:21:46 -0700
 Received: from [172.30.17.109] by xsj-pvapsmtp01 with esmtp (Exim 4.63)
  (envelope-from <michals@xilinx.com>)
- id 1jo1NJ-0002Q3-Ih; Wed, 24 Jun 2020 02:07:21 -0700
-To: chrubis@suse.cz, ltp@lists.linux.it
+ id 1jo1bF-0002fM-5Z; Wed, 24 Jun 2020 02:21:45 -0700
+To: Cyril Hrubis <chrubis@suse.cz>
 References: <20200623112827.10744-1-chrubis@suse.cz>
- <20200623112827.10744-3-chrubis@suse.cz>
+ <20200623112827.10744-2-chrubis@suse.cz>
+ <574e52f4-8988-a562-57c5-274a86e6e8cb@xilinx.com>
+ <20200624090523.GA29350@yuki.lan>
 From: Michal Simek <michal.simek@xilinx.com>
 Autocrypt: addr=michals@xilinx.com; keydata=
  xsFNBFFuvDEBEAC9Amu3nk79+J+4xBOuM5XmDmljuukOc6mKB5bBYOa4SrWJZTjeGRf52VMc
@@ -133,12 +135,12 @@ Autocrypt: addr=michals@xilinx.com; keydata=
  oa0OZXydlVP7wrnJdi3m8DnljxyInPxbxdKGN5XnMq/r9Y70uRVyeqwp97sKLXd9GsxuaSg7
  QJKUaltvN/i7ng1UOT/xsKeVdfXuqDIIElZ+dyEVTweDM011Zv0NN3OWFz6oD+GzyBetuBwD
  0Z1MQlmNcq2bhOMzTxuXX2NDzUZs4aqEyZQ=
-Message-ID: <4c402cbf-768a-9188-2877-d37168df662d@xilinx.com>
-Date: Wed, 24 Jun 2020 11:07:19 +0200
+Message-ID: <adafab63-4390-a4a3-b3aa-923b31d5ac37@xilinx.com>
+Date: Wed, 24 Jun 2020 11:21:43 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.9.0
 MIME-Version: 1.0
-In-Reply-To: <20200623112827.10744-3-chrubis@suse.cz>
+In-Reply-To: <20200624090523.GA29350@yuki.lan>
 Content-Language: en-US
 X-TM-AS-Product-Ver: IMSS-7.1.0.1224-8.2.0.1013-23620.005
 X-TM-AS-User-Approved-Sender: Yes;Yes
@@ -147,33 +149,33 @@ X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:149.199.60.83; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:xsj-pvapsmtpgw01; PTR:unknown-60-83.xilinx.com; CAT:NONE;
  SFTY:;
- SFS:(136003)(376002)(346002)(396003)(39860400002)(46966005)(356005)(82310400002)(2616005)(81166007)(31696002)(82740400003)(4744005)(47076004)(9786002)(5660300002)(8936002)(8676002)(336012)(426003)(83380400001)(44832011)(70206006)(70586007)(31686004)(186003)(4326008)(26005)(2906002)(36756003)(316002)(54906003)(478600001)(43740500002);
+ SFS:(39860400002)(136003)(376002)(346002)(396003)(46966005)(356005)(70206006)(70586007)(83380400001)(81166007)(5660300002)(31696002)(47076004)(2616005)(31686004)(82740400003)(426003)(44832011)(54906003)(4326008)(26005)(8676002)(186003)(82310400002)(336012)(9786002)(36756003)(316002)(6916009)(478600001)(2906002)(8936002)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7092cfcf-abb3-452d-a7c4-08d8181e019c
-X-MS-TrafficTypeDiagnostic: BYAPR02MB5622:
-X-Microsoft-Antispam-PRVS: <BYAPR02MB56228062D194D261DF895A81C6950@BYAPR02MB5622.namprd02.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 177075f9-a343-4c9f-0050-08d8182004af
+X-MS-TrafficTypeDiagnostic: DM6PR02MB6171:
+X-Microsoft-Antispam-PRVS: <DM6PR02MB6171FB0C8DADE839F1D81FBFC6950@DM6PR02MB6171.namprd02.prod.outlook.com>
 X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
-X-MS-Oob-TLC-OOBClassifiers: OLM:1148;
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-Forefront-PRVS: 0444EB1997
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: A+XMCv2v8jjmv+VKmTLThGLPutA6gqcqXuuNNimEAzi/2NqdKvtIcc6wBwUmApbQdNy1WF/ZHtbn/0dEOLec4w6MxD7qsqnt0Sz9DyIuMnoW/YbrSPYX4CrVqAT2dLsonvkhyMTLwvyb7dJkYMMuIj1GczsmXLszWZyh++enVhsY8RFMZO0gWRLXhhlbxolsHc/7LKqFaYeVC6hSHw37l7eziRWsk65YnKkyLZqTfAOi+7QM2PXysXJizN3tJfGood7b1P2HND7WHuLGpPt+0pnkH/M+vBpXL3PzmBEEFm1zNY56DSpgmJaHLxMjJf1nY2f1z3T1yKCe8W/qvPBijG4T8fJl0P1Ha6p0AB6j//Dst+j803R7g35PQcUFs46HTMgOPuuS32+CEL7wNs4WrQlfOT+SLTfbDLyZtat8apAP4Xp8fCpKE4ghKnYUBSra
+X-Microsoft-Antispam-Message-Info: mP9gQN3IiTtRZaVK1WauiBs6g7orMYZf2i84n/e/SXmpH4yaEkYZllng/PxPjKp9j/XJQutefsx4yA4n3ORxEgeVK3nY7kWdsY4ZGB4WDLwG7wHYwBzzaG+FgG+mRX6eJlwG0W871wCD0/QXzg32+pgRBS/EMf/eijHbH1zPE3mcBwIprjDOCdz01Ki/FkyzVXmUZPySOULK3rgmp7RS3r5hWAhZ2b2O61pZLnYigzHWj9iYe0LGpWoNDo3saQncth6yOd+KPDon0xBDzo43Nx6QrUcJT5J+BlXvBZ8fFkPRuaiFMTUxTmz+j4TVxxpQph4VnJShu19Wcqd5Ym2cAqGs0U0JdhhcBKlBtoL41h1yKcYZOohuhMtUJpJZ/z0rlHH/UWQSIlC8zNhW9nlm6fZR8y0ZnggZpyNCLWb0MxE=
 X-OriginatorOrg: xilinx.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2020 09:07:22.7964 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7092cfcf-abb3-452d-a7c4-08d8181e019c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2020 09:21:46.9433 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 177075f9-a343-4c9f-0050-08d8182004af
 X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c; Ip=[149.199.60.83];
  Helo=[xsj-pvapsmtpgw01]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR02MB5622
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR02MB6171
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [Automated-testing] [PATCH 2/2] device_drivers/uart01:
- Add uart01 test
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [Automated-testing] [PATCH 1/2] tst_test: Add support for
+ device discovery
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -185,7 +187,8 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: automated-testing@yoctoproject.org, Carlos Hernandez <ceh@ti.com>
+Cc: automated-testing@yoctoproject.org, Carlos Hernandez <ceh@ti.com>,
+ ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
@@ -193,31 +196,82 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 
 
-On 23. 06. 20 13:28, Cyril Hrubis via lists.yoctoproject.org wrote:
-> This is a first example for a device-driver test.
+On 24. 06. 20 11:05, Cyril Hrubis wrote:
+> Hi!
+>>> +++ b/device-discovery.sh
+>>> @@ -0,0 +1,5 @@
+>>> +#!/bin/sh
+>>> +
+>>> +if [ "$1" = "UART_RX-UART_TX" ]; then
+>>
+>> I am not getting this condition and what exactly you want to tell by that.
+>>> +	echo "UART_RX=/dev/ttyUSB0 UART_TX=/dev/ttyUSB0"
+>>
+>> In fpga world you can connect two uart inside chip and test different
+>> device drivers that's why at the end of day only user knows which uarts
+>> are connected to each other and none will be able to come up with
+>> universal device-deiscovery.sh script to cover all these cases.
 > 
-> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-> ---
->  runtest/kernel_misc                           |   5 +
->  .../kernel/device-drivers/uart/.gitignore     |   1 +
->  testcases/kernel/device-drivers/uart/Makefile |   4 +
+> That's the whole point of the patchset.
+> 
+> This is a script I've used for testing with a hardware loopback on the
+> USB-to-serial bridge, it's not supposed to be included in the end
+> result. I've kept it there so that people will get the idea how it
+> should look like.
+> 
+> Also script is passed which devices the test requests, so for i2c eeprom
+> the parameters would be different and the script would output, for each
+> present eeprom, a line with an address, bus, etc.
+> 
+> The whole point of the script is to do plug into a Lab CI so that the
+> information about test device, in this case UART loops, is exposed to
+> the test. In a real world situation it would either do a call to a
+> whatever is maintaining a lab hardware inventory, or be written down by
+> a user before these tests are executed.
 
-I am missing uart folder wiring here.
+I understand that you want to run a script which can be wired with Lab CI.
 
-diff --git a/testcases/kernel/device-drivers/Makefile
-b/testcases/kernel/device-drivers/Makefile
-index 55e0d25a0..522445b01 100644
---- a/testcases/kernel/device-drivers/Makefile
-+++ b/testcases/kernel/device-drivers/Makefile
-@@ -26,6 +26,7 @@ SUBDIRS               := acpi \
-                   rcu \
-                   rtc \
-                   tbio \
-+                  uart \
-                   uaccess \
-                   zram
+> 
+>> Not exactly sure how LTP handles this in general but I think it makes
+>> sense to extend your test (txt_test) parameters to pass TX/RX channel
+>> via parameters directly to test.
+>>
+>> Something like this
+>> uart01_115200 uart01 -b 115200 -t /dev/ttyXX0 -r /dev/ttyXX1
+> 
+> You can pass them in an environment variables. If UART_TX and UART_RX
+> are set the device discovery is not attempted at all and the test just
+> uses these.
+> 
+> If they are not the script is executed and the test loops over the
+> result(s). It would be more complicated if the devices were passed over
+> command line parameters since we would have to re-execute the binary.
 
-M
+I didn't run LTP for quite a long time myself but on xilinx devices you
+have 3 different uart instances which you can wire: cadence uart (or
+pl011), ns16550 and uartlite.
+That means with the same hw design you should be able to to test
+cadence<=>ns16550 and ns16550<=>uartlite. It means you need to exchange
+variables in the middle of testing.
+
+Not sure if this is supported but I would simply generate runtest
+description based on information I got from device discovery.
+But I am far from testing at this stage.
+
+
+> 
+>> IIRC RX and TX device could be the same which can mean that you want to
+>> use internal or external loopbacks.
+> 
+> The test works fine with external loopback. We will have to add a way
+> how to pass "enable loopback in MCR" to the test if we want to use that,
+> but that falls under the "Missing pieces" in the patch description.
+
+I am happy with todo. :-)
+
+Cheers,
+Michal
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
