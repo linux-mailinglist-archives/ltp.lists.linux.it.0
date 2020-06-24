@@ -2,80 +2,53 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC8A5207C94
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Jun 2020 22:02:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16509209B9F
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jun 2020 10:59:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 84ACC3C58F2
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Jun 2020 22:02:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 433D23C5890
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jun 2020 10:59:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 8E9473C0ECB
- for <ltp@lists.linux.it>; Wed, 24 Jun 2020 22:02:54 +0200 (CEST)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 904D93C05A2
+ for <ltp@lists.linux.it>; Wed, 24 Jun 2020 17:27:36 +0200 (CEST)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D32EA200922
+ for <ltp@lists.linux.it>; Wed, 24 Jun 2020 17:27:35 +0200 (CEST)
+Received: from localhost.localdomain
+ (pool-96-246-152-186.nycmny.fios.verizon.net [96.246.152.186])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4E45B600B6E
- for <ltp@lists.linux.it>; Wed, 24 Jun 2020 22:02:52 +0200 (CEST)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 05OK1POd189367; Wed, 24 Jun 2020 16:02:49 -0400
-Received: from ppma06ams.nl.ibm.com (66.31.33a9.ip4.static.sl-reverse.com
- [169.51.49.102])
- by mx0b-001b2d01.pphosted.com with ESMTP id 31uwyye319-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 24 Jun 2020 16:02:49 -0400
-Received: from pps.filterd (ppma06ams.nl.ibm.com [127.0.0.1])
- by ppma06ams.nl.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 05OJfj2F001152;
- Wed, 24 Jun 2020 20:02:47 GMT
-Received: from b06avi18626390.portsmouth.uk.ibm.com
- (b06avi18626390.portsmouth.uk.ibm.com [9.149.26.192])
- by ppma06ams.nl.ibm.com with ESMTP id 31uusjgyd4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 24 Jun 2020 20:02:47 +0000
-Received: from d06av21.portsmouth.uk.ibm.com (d06av21.portsmouth.uk.ibm.com
- [9.149.105.232])
- by b06avi18626390.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP
- id 05OK1QjI52560220
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 24 Jun 2020 20:01:26 GMT
-Received: from d06av21.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6B1B552063;
- Wed, 24 Jun 2020 20:02:45 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.85.142.225])
- by d06av21.portsmouth.uk.ibm.com (Postfix) with ESMTP id 642E35204F;
- Wed, 24 Jun 2020 20:02:44 +0000 (GMT)
-Message-ID: <1593028963.27152.153.camel@linux.ibm.com>
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Lachlan Sneff <t-josne@linux.microsoft.com>, ltp@lists.linux.it,
+ by mail.kernel.org (Postfix) with ESMTPSA id C358420723;
+ Wed, 24 Jun 2020 15:27:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1593012453;
+ bh=Yr6spdNrll7oUOWqWGrs5rYWniDz8G74d4C+lHYWeqA=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+ b=FGWath9ExccgBWHxUvajAVlDJq4QDAVtNJkrYpCqiHvuOGNX7PwUbrQaJsH0AXbMv
+ 8kWysw0OShnjXpVU9wHkaaaxsm0R6F4sVuh2hJS6T7kaZhOB6cB8l+i2kOas22YEjT
+ 7509SoGSx0/qLtC4zTTeRiYWd8V5x8Qz3yM/LxB4=
+Message-ID: <1593012448.27152.59.camel@kernel.org>
+From: Mimi Zohar <zohar@kernel.org>
+To: Lachlan Sneff <t-josne@linux.microsoft.com>, ltp@lists.linux.it, 
  pvorel@suse.cz
-Date: Wed, 24 Jun 2020 16:02:43 -0400
-In-Reply-To: <20418d14-d464-ec09-e1f2-c1b96e9df5f6@linux.microsoft.com>
+Date: Wed, 24 Jun 2020 11:27:28 -0400
+In-Reply-To: <1593004901.27152.17.camel@linux.ibm.com>
 References: <20200617234957.10611-1-t-josne@linux.microsoft.com>
- <20200617234957.10611-3-t-josne@linux.microsoft.com>
- <1593016868.27152.88.camel@linux.ibm.com>
- <20418d14-d464-ec09-e1f2-c1b96e9df5f6@linux.microsoft.com>
+ <20200617234957.10611-2-t-josne@linux.microsoft.com>
+ <1593004901.27152.17.camel@linux.ibm.com>
 X-Mailer: Evolution 3.20.5 (3.20.5-1.fc24) 
 Mime-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
- definitions=2020-06-24_15:2020-06-24,
- 2020-06-24 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0
- clxscore=1015 bulkscore=0 cotscore=-2147483648 mlxlogscore=999
- phishscore=0 mlxscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
- priorityscore=1501 malwarescore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2004280000 definitions=main-2006240128
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 2/2] IMA: Add a test to verify importing a
- certificate into keyring
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+X-Mailman-Approved-At: Thu, 25 Jun 2020 10:59:30 +0200
+Subject: Re: [LTP] [PATCH v3 1/2] IMA: Add a test to verify measurment of
+ keys
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,27 +62,82 @@ List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: nramas@linux.microsoft.com, balajib@linux.microsoft.com,
  linux-integrity@vger.kernel.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gV2VkLCAyMDIwLTA2LTI0IGF0IDE1OjU5IC0wNDAwLCBMYWNobGFuIFNuZWZmIHdyb3RlOgo+
-IAo+ID4+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3NlY3VyaXR5L2ludGVncml0eS9p
-bWEvUkVBRE1FLm1kIGIvdGVzdGNhc2VzL2tlcm5lbC9zZWN1cml0eS9pbnRlZ3JpdHkvaW1hL1JF
-QURNRS5tZAo+ID4+IGluZGV4IDE2YTFmNDhjMy4uZTQxZjdiNTcwIDEwMDY0NAo+ID4+IC0tLSBh
-L3Rlc3RjYXNlcy9rZXJuZWwvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9SRUFETUUubWQKPiA+PiAr
-KysgYi90ZXN0Y2FzZXMva2VybmVsL3NlY3VyaXR5L2ludGVncml0eS9pbWEvUkVBRE1FLm1kCj4g
-Pj4gQEAgLTE2LDYgKzE2LDI3IEBAIENPTkZJR19JTlRFR1JJVFk9eQo+ID4+ICAgQ09ORklHX0lN
-QT15Cj4gPj4gICBgYGAKPiA+PiAgIAo+ID4+ICtJTUEgS2V5IEltcG9ydCB0ZXN0Cj4gPj4gKy0t
-LS0tLS0tLS0tLS0KPiA+PiArCj4gPj4gK2BpbWFfa2V5cy5zaGAgcmVxdWlyZXMgYW4geDUwOSBr
-ZXkgdG8gYmUgZ2VuZXJhdGVkIGFuZCBwbGFjZWQKPiA+PiArYXQgYC9ldGMva2V5cy94NTA5X2lt
-YS5kZXJgLgo+ID4gVGhlIGZpbGVuYW1lICIvZXRjL2tleXMveDUwOV9pbWEuZGVyIiBpcyBjb25m
-aWd1cmFibGUuIMKgSXQncyBiYXNlZCBvbgo+ID4gQ09ORklHX0lNQV9YNTA5X1BBVEggS2NvbmZp
-ZyBvcHRpb24uIMKgUGVyaGFwcyBleHRyYWN0IGl0IGZyb20gdGhlCj4gPiBydW5uaW5nIGtlcm5l
-bCdzIEtjb25maWc/Cj4gSSBkaWRuJ3QgdGhpbmsgcHVsbGluZyBpdCBmcm9tIHRoZSBrZXJuZWwg
-Y29uZmlnLiBXaWxsIHRyeSB0aGlzLiBJIAo+IGFzc3VtZSBgZ3JlcCAiLi4uIiAvYm9vdC9jb25m
-aWctJCh1bmFtZSAtcilgIGlzIHRoZSByaWdodCB3YXkgdG8gZ3JhYiBhIAo+IGxpbmUgZnJvbSB0
-aGUgY29uZmlnPwoKVHJ5IHVzaW5nIHNjcmlwdHMvZXh0cmFjdC1pa2NvbmZpZy4KCk1pbWkKCgot
-LSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRw
-Cg==
+[Resending due to mailer issues]
+
+On Wed, 2020-06-24 at 09:21 -0400, Mimi Zohar wrote:
+> Hi Lachian,
+> 
+> > +
+> > +# Based on https://lkml.org/lkml/2019/12/13/564.
+> > +# (450d0fd51564 - "IMA: Call workqueue functions to measure queued keys")
+> > +test1()
+> > +{
+> > +	local keyrings keycheck_line templates test_file=$(mktemp)
+> > +
+> > +	tst_res TINFO "verifying key measurement for keyrings and templates specified in IMA policy file"
+> > +
+> > +	[ -f $IMA_POLICY ] || tst_brk TCONF "missing $IMA_POLICY"
+> > +
+> > +	[ -r $IMA_POLICY ] || tst_brk TCONF "cannot read IMA policy (CONFIG_IMA_READ_POLICY=y required)"
+> > +
+> > +	keycheck_line=$(grep "func=KEY_CHECK" $IMA_POLICY)
+> > +	if [ -z "$keycheck_line" ]; then
+> > +		tst_brk TCONF "ima policy does not specify \"func=KEY_CHECK\""
+> > +	fi
+> > +
+> > +	if echo "$keycheck_line" | grep -q "*keyrings*"; then
+> > +		tst_brk TCONF "ima policy does not specify a keyrings to check"
+> > +	fi
+> > +
+> > +	keyrings=$(echo "$keycheck_line" | tr " " "\n" | grep "keyrings" | \
+> > +		sed "s/\./\\\./g" | cut -d'=' -f2)
+> > +	if [ -z "$keyrings" ]; then
+> > +		tst_brk TCONF "ima policy has a keyring key-value specifier, but no specified keyrings"
+> > +	fi
+> > +
+> > +	templates=$(echo "$keycheck_line" | tr " " "\n" | grep "template" | \
+> > +		cut -d'=' -f2)
+> > +
+> > +	grep -E "($templates)*($keyrings)" $ASCII_MEASUREMENTS | while read line
+> 
+> Probably because I have multiple KEY_CHECK rules, this is failing:
+> 
+> grep: Unmatched ( or \(
+> 
+> And then it continues merrily alongs its way.
+> 
+> ima_keys 1 TPASS: specified keyrings were measured correctly
+> ima_keys 2 TCONF: missing /etc/keys/x509_ima.der
+> 
+> Mimi
+> 
+> > +	do
+> > +		local digest expected_digest algorithm
+> > +
+> > +		digest=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f2)
+> > +		algorithm=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f1)
+> > +		keyring=$(echo "$line" | cut -d' ' -f5)
+> > +
+> > +		echo "$line" | cut -d' ' -f6 | xxd -r -p > $test_file
+> > +
+> > +		expected_digest="$(compute_digest $algorithm $test_file)" || \
+> > +			tst_brk TCONF "cannot compute digest for $algorithm"
+> > +
+> > +		if [ "$digest" != "$expected_digest" ]; then
+> > +			tst_res TFAIL "incorrect digest was found for the ($keyring) keyring"
+> > +		fi
+> > +	done
+> > +
+> > +	rm $test_file
+> > +
+> > +	tst_res TPASS "specified keyrings were measured correctly"
+> > +}
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
