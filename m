@@ -1,43 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B1D1209D48
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jun 2020 13:12:13 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id E8DE0209D4C
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jun 2020 13:13:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F2F003C58BA
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jun 2020 13:12:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 817313C58A4
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jun 2020 13:13:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id E9B453C2B82
- for <ltp@lists.linux.it>; Thu, 25 Jun 2020 13:12:08 +0200 (CEST)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 932DB3C2B8C
+ for <ltp@lists.linux.it>; Thu, 25 Jun 2020 13:13:11 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1668C2010EC
- for <ltp@lists.linux.it>; Thu, 25 Jun 2020 13:12:07 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 1110810018B6
+ for <ltp@lists.linux.it>; Thu, 25 Jun 2020 13:13:10 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 05CA3AD60;
- Thu, 25 Jun 2020 11:12:07 +0000 (UTC)
-Date: Thu, 25 Jun 2020 13:12:28 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 271F1AD60;
+ Thu, 25 Jun 2020 11:13:10 +0000 (UTC)
+Date: Thu, 25 Jun 2020 13:13:31 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20200625111228.GC23637@yuki.lan>
-References: <cover.1590144577.git.viresh.kumar@linaro.org>
- <db9669587a1c19b056a1cca6908fb8b5f316a76d.1590144577.git.viresh.kumar@linaro.org>
- <20200624143056.GB5181@yuki.lan>
- <20200625095610.6g5p3tsfsmfl6zrh@vireshk-i7>
+Message-ID: <20200625111331.GD23637@yuki.lan>
+References: <a4a628a637a6eeeed4249656836bd217f5cbb9ac.1590144577.git.viresh.kumar@linaro.org>
+ <9621b4f97b539f2e080b00491eb9ba4973878028.1591760262.git.viresh.kumar@linaro.org>
+ <20200624142327.GA5181@yuki.lan>
+ <20200625095006.d6ndameqblecadp4@vireshk-i7>
+ <20200625110751.GB23637@yuki.lan>
+ <20200625111017.5yjsqi56u6q3u3s2@vireshk-i7>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200625095610.6g5p3tsfsmfl6zrh@vireshk-i7>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+In-Reply-To: <20200625111017.5yjsqi56u6q3u3s2@vireshk-i7>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V4 02/17] syscalls/timer_settime: Add support for
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V6 01/17] syscalls/timer_gettime: Add support for
  time64 tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -58,17 +59,16 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > So this test depends on the previous one since we are adding the tst_its
-> > piece by piece, shouldn't we add all the functions into the tst_timer.h
-> > in a separate patch?
+> > Indeed that's what I had in mind, can we please abstract this properly
+> > as well? I guess that we can add helpers such as tst_its_interval_sec()
+> > tst_its_inverval_nsec, etc.
 > 
-> You mean functions related only to "its" ? Or all the wrappers for
-> various syscalls that are getting added to tst_timer.h ?
+> I preferred it this way as no one else uses it and so maybe we can
+> live without adding those helpers ?
 
-I guess that it would be easier to add all the code to tst_timer.h in
-one go, then we can focus on the actual tests. This avoids having
-dependencies between the patches touching the tests and allows them to
-be merged out of order...
+I'm pretty sure we will need them for the timer_settime() tests anyway,
+i.e. test that would do timer_settime() and then timer_gettime() to
+check that the timer is read back correclty.
 
 -- 
 Cyril Hrubis
