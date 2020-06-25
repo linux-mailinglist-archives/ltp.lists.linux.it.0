@@ -2,44 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8DE0209D4C
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jun 2020 13:13:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B1AD209E7F
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jun 2020 14:34:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 817313C58A4
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jun 2020 13:13:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 633FC3C58CA
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Jun 2020 14:34:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 932DB3C2B8C
- for <ltp@lists.linux.it>; Thu, 25 Jun 2020 13:13:11 +0200 (CEST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id CEB013C2CA5
+ for <ltp@lists.linux.it>; Thu, 25 Jun 2020 14:34:36 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 1110810018B6
- for <ltp@lists.linux.it>; Thu, 25 Jun 2020 13:13:10 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3F93C6008A2
+ for <ltp@lists.linux.it>; Thu, 25 Jun 2020 14:34:36 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 271F1AD60;
- Thu, 25 Jun 2020 11:13:10 +0000 (UTC)
-Date: Thu, 25 Jun 2020 13:13:31 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 54C45AC90;
+ Thu, 25 Jun 2020 12:34:35 +0000 (UTC)
+Date: Thu, 25 Jun 2020 14:34:56 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20200625111331.GD23637@yuki.lan>
-References: <a4a628a637a6eeeed4249656836bd217f5cbb9ac.1590144577.git.viresh.kumar@linaro.org>
- <9621b4f97b539f2e080b00491eb9ba4973878028.1591760262.git.viresh.kumar@linaro.org>
- <20200624142327.GA5181@yuki.lan>
- <20200625095006.d6ndameqblecadp4@vireshk-i7>
- <20200625110751.GB23637@yuki.lan>
- <20200625111017.5yjsqi56u6q3u3s2@vireshk-i7>
+To: Carlos Hernandez <ceh@ti.com>
+Message-ID: <20200625123456.GE23637@yuki.lan>
+References: <20200623112827.10744-1-chrubis@suse.cz>
+ <20200623112827.10744-2-chrubis@suse.cz>
+ <a1189d10-1539-2486-3d78-ede985d0f79e@ti.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200625111017.5yjsqi56u6q3u3s2@vireshk-i7>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+In-Reply-To: <a1189d10-1539-2486-3d78-ede985d0f79e@ti.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V6 01/17] syscalls/timer_gettime: Add support for
- time64 tests
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] tst_test: Add support for device discovery
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,24 +47,52 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
- ltp@lists.linux.it
+Cc: automated-testing@yoctoproject.org, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > Indeed that's what I had in mind, can we please abstract this properly
-> > as well? I guess that we can add helpers such as tst_its_interval_sec()
-> > tst_its_inverval_nsec, etc.
+> I think we a need:
 > 
-> I preferred it this way as no one else uses it and so maybe we can
-> live without adding those helpers ?
+> 1) A common way to define Hardware capabilities, i.e. UART_RX and 
+> UART_TX in your example.
+> 
+> I suspect for device-driver tests, ltp would be called by a test 
+> automation framework. It should be the test automation framework 
+> responsibility to setup the equipment per the HW capabilities requested 
+> by the test.
+>
+> So from ltp point of view, the only requirement is to advertise the 
+> required capabilities. Of course, this implies a common understanding of 
+> the capabilities' tags.
 
-I'm pretty sure we will need them for the timer_settime() tests anyway,
-i.e. test that would do timer_settime() and then timer_gettime() to
-check that the timer is read back correclty.
+I do agree here, but this will not work until we have the metadata
+export in place. Once we have the infrastructure to generate the
+description of the tests the test automation will simply load the JSON
+file and then run tests and reconfigure the hardware between loops as
+needed.
+
+But that would mean that we will not have an upstream solution until we
+get rid of ltp-pan and runtest files. This is fine with me as I actually
+want to get the metadata generator in LTP tree soon enough.
+
+> 2) A way to set platform-specific values when required. Ideally the test 
+> logic can figure out the values to use dynamically but for some test 
+> cases, it is required to statically defined them based on the platform 
+> the test is running on.
+> 
+> In ltp-ddt we added this functionality as platform overrides 
+> http://arago-project.org/git/projects/?p=test-automation/ltp-ddt.git;a=blob;f=README-DDT;h=78b79cd3ca0f66a6ef30b5dc05737188c146a9ca;hb=HEAD#l46, 
+> borrowing an idea from OE/Yocto world. I think a different approach 
+> where these info is maintained in a separate file with an API that it is 
+> called by the test case logic would work. However, I think that this 
+> information is not lab-specific but board-specific and it should be part 
+> of ltp.
+
+I'm not convinced that this belongs to LTP git but we can setup a shared
+git repo for platform descriptions if things go well.
 
 -- 
 Cyril Hrubis
