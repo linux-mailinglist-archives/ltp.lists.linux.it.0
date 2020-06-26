@@ -1,41 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D1DB20AF34
-	for <lists+linux-ltp@lfdr.de>; Fri, 26 Jun 2020 11:49:12 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 767FB20AF35
+	for <lists+linux-ltp@lfdr.de>; Fri, 26 Jun 2020 11:49:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A12F03C5844
-	for <lists+linux-ltp@lfdr.de>; Fri, 26 Jun 2020 11:49:11 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2D0DD3C2B61
+	for <lists+linux-ltp@lfdr.de>; Fri, 26 Jun 2020 11:49:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 0D4D23C1360
- for <ltp@lists.linux.it>; Fri, 26 Jun 2020 11:49:07 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 087793C1360
+ for <ltp@lists.linux.it>; Fri, 26 Jun 2020 11:49:18 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C3DF0200A1C
- for <ltp@lists.linux.it>; Fri, 26 Jun 2020 11:49:06 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1FDB1601786
+ for <ltp@lists.linux.it>; Fri, 26 Jun 2020 11:48:22 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B7F6DAF21;
- Fri, 26 Jun 2020 09:49:05 +0000 (UTC)
-Date: Fri, 26 Jun 2020 11:49:27 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 8758FAF23;
+ Fri, 26 Jun 2020 09:49:17 +0000 (UTC)
+Date: Fri, 26 Jun 2020 11:49:39 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20200626094927.GA12208@yuki.lan>
+Message-ID: <20200626094939.GB12208@yuki.lan>
 References: <cover.1593152309.git.viresh.kumar@linaro.org>
- <6c96466165bb88f052676e6ce5c8eed41cbe628a.1593152309.git.viresh.kumar@linaro.org>
+ <b5c196e5216fe30c1d828242abbc95cebcfee931.1593152309.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <6c96466165bb88f052676e6ce5c8eed41cbe628a.1593152309.git.viresh.kumar@linaro.org>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+In-Reply-To: <b5c196e5216fe30c1d828242abbc95cebcfee931.1593152309.git.viresh.kumar@linaro.org>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V7 01/19] tst_timer: Add new definitions
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V7 02/19] syscalls/timer_gettime: Add support for
+ time64 tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
