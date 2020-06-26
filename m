@@ -1,60 +1,60 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 787D220AC45
-	for <lists+linux-ltp@lfdr.de>; Fri, 26 Jun 2020 08:24:15 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6974820AC47
+	for <lists+linux-ltp@lfdr.de>; Fri, 26 Jun 2020 08:24:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 04E273C585A
-	for <lists+linux-ltp@lfdr.de>; Fri, 26 Jun 2020 08:24:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 33AEB3C5863
+	for <lists+linux-ltp@lfdr.de>; Fri, 26 Jun 2020 08:24:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 708B43C5843
- for <ltp@lists.linux.it>; Fri, 26 Jun 2020 08:23:05 +0200 (CEST)
-Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
- [IPv6:2607:f8b0:4864:20::1041])
+ by picard.linux.it (Postfix) with ESMTP id 0698E3C2B5E
+ for <ltp@lists.linux.it>; Fri, 26 Jun 2020 08:23:07 +0200 (CEST)
+Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
+ [IPv6:2607:f8b0:4864:20::643])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 826941000D3D
- for <ltp@lists.linux.it>; Fri, 26 Jun 2020 08:23:04 +0200 (CEST)
-Received: by mail-pj1-x1041.google.com with SMTP id h22so4519183pjf.1
- for <ltp@lists.linux.it>; Thu, 25 Jun 2020 23:23:04 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id EF6851000D34
+ for <ltp@lists.linux.it>; Fri, 26 Jun 2020 08:23:06 +0200 (CEST)
+Received: by mail-pl1-x643.google.com with SMTP id x11so3896941plo.7
+ for <ltp@lists.linux.it>; Thu, 25 Jun 2020 23:23:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=LFZd9P5Q5kn9z9zCL7gKYfyvogwPWXJbq0lUe8BU1ic=;
- b=NEB/UmRuUhUzZWOUZorP/YXM2qa9P/oUPV4nHIf+68yrgYD3sjnHe8Z+koZ/zlU4t2
- hRdSx1Oxhw6bjk7Pz2C8AK1evDHygE0bp3xh9cVPAJxEyU16skWsOkfBFxAybWROA732
- el5nxUhIxN1zOeckZz1EHsw3c2raYAvvQ+gl0nfzS55m05mbMl1/OOeFfhU4La4kuYiM
- 5v89nhLdB89Pyh3QCy8LadZG5aPZ3yQZAd8RHq2YPCNQOQ6jwB3QRS7OEhm3n4566pgC
- Bs5HNAVKtRd8uhPEDT9kv37AczCBB9zR/ARUsOB3JmqrOjshuMSiFslcPKzZj5mlkbSq
- MDjA==
+ bh=3jXLBmcNFgzJSxHlaCxvGwXW6yHMAmlPCFPo7wxrKMQ=;
+ b=Q5AVrKjsSc0lBCIoiH1mHGcfOqv/0iOGFe/eBL3B9KoRwr+os9UFkrca0p2SzckAki
+ TznbVw+beqX4woAXyYO529WX21ovSv7mnV1gUg4bI/5CzoDPF1PPO2EkQNBPel3XUvh0
+ uAZdk0GWT5698TXVv1l8ReoJ9mS39hEiDjFk22RtpiviH52OWEiQI5VWYfN+rhu4s5Wb
+ 5z3h+ugWsm+7OCaQFmpNqkFNnL4kYCgyrqqvGCelupcKfdhPaT6ATbXQggu2Ql49uKXp
+ Hda8yYxl8cIRrpZ7+BYmAYyRqd2BHChgBln1JMh26pw8bhIS64HZouQ+/AGWX900Qi0B
+ ccuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=LFZd9P5Q5kn9z9zCL7gKYfyvogwPWXJbq0lUe8BU1ic=;
- b=q947ZE12b0sAQD/CfOfRlUxcXj3h9gZlXKfPHe74mr1MSiZEPRrB4mWW3tahs0OVuy
- qOAPnlo2mTC96WrmSAGqs5cjZjY7tbGUh8XtSI9EzThMY7OU7kidJSfIis2mx2coZM68
- gjEvEBLEeNw3g/nj6tJnGjnnjp9GC2KU/8Ep0UQYJvAugXZmIZ26GNzzsRRXAGQfk2/g
- 0vRLEAwyW/XCZAp41kNR3Y0vd0cF2c58TMyGamR8Dd6E8+1m+E0iUG0aTtA/rK9Gxd/q
- Z2GbRa+AUEHdRglPf1O1YffI5943hINcTwIlksWYGuleZiokO8U6qNFQxKyhlng7WUvJ
- G6rA==
-X-Gm-Message-State: AOAM533sG1cw3F5+EQGp+ESej74t+99+DX9Ebx4/zi9ktzneX+RtOw6E
- /3aFQlCFB7SXJNW+ShwIxgaJtPRMz2Y=
-X-Google-Smtp-Source: ABdhPJxVb5MGcYAIstMnYENGtCou+E2jxQyDpmbPZz+67vO9B8L5qID/LamhA/JjEIu/+dn6Ibj6XQ==
-X-Received: by 2002:a17:902:7896:: with SMTP id
- q22mr1303480pll.338.1593152582450; 
- Thu, 25 Jun 2020 23:23:02 -0700 (PDT)
+ bh=3jXLBmcNFgzJSxHlaCxvGwXW6yHMAmlPCFPo7wxrKMQ=;
+ b=XI1636mr5IJHTMA3ocRBKobLkj2AtPw+3a5piGhztVS1T0F4w+4W3LKgUQe3r5NJMk
+ 6LV5LpIPP4s9ggF6mijbak3GqKMXjoYBxwqCB9i07PwO0mNMklvdTX8TSjr+9Om1uUSU
+ /XGpmDcq1wOKjKx3lI47V9SDONHrMaCS4cEQtYwePnwZlctNEIWCuQIkznM5d3+fzoGf
+ cWkDsDDqBebUIf+WqwX2aylRdsZKOuOAQze1w2xnPH40BOlzJzmxWzXWXgLtuwENMS7c
+ MejijvoeWTrht29UbRqgnhSWUpzVlax63E/aqQgB8EFEvYtMBJ+rW3cVwCfdSpQjJ+PL
+ aS4Q==
+X-Gm-Message-State: AOAM531zhO/9fUaPz/8VsklB+z4iFxK8RnQ53asTCfEDyr896IhM7kTv
+ LOGdWwM4peJcpAY8mAh9qfwux6jYY8Y=
+X-Google-Smtp-Source: ABdhPJw+Tk2/NIjN82wtL6Fawt6W135iDnMnZBVSuk5ywj8q4jd/FoaTzKsMs019KGv35DSssPRGhQ==
+X-Received: by 2002:a17:90a:ec13:: with SMTP id
+ l19mr1565694pjy.81.1593152585062; 
+ Thu, 25 Jun 2020 23:23:05 -0700 (PDT)
 Received: from localhost ([122.172.127.76])
- by smtp.gmail.com with ESMTPSA id 3sm15220552pfv.156.2020.06.25.23.23.01
+ by smtp.gmail.com with ESMTPSA id d7sm24789946pfh.78.2020.06.25.23.23.04
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 25 Jun 2020 23:23:01 -0700 (PDT)
+ Thu, 25 Jun 2020 23:23:04 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Fri, 26 Jun 2020 11:52:22 +0530
-Message-Id: <18d8603306f51f243faca04cf63bcaf2c7168d56.1593152309.git.viresh.kumar@linaro.org>
+Date: Fri, 26 Jun 2020 11:52:23 +0530
+Message-Id: <f4afe366039ddd138377666ee56139b22329c19c.1593152309.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
 In-Reply-To: <cover.1593152309.git.viresh.kumar@linaro.org>
 References: <cover.1593152309.git.viresh.kumar@linaro.org>
@@ -64,8 +64,8 @@ X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH V7 09/19] syscalls/sigwaitinfo: Migrate to new test
- framework
+Subject: [LTP] [PATCH V7 10/19] syscalls/rt_sigtimedwait: Add support for
+ time64 tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,447 +84,285 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This migrates the sigwaitinfo tests to use the new test framework.
+This adds support for time64 tests to the existing rt_sigtimedwait()
+syscall tests.
 
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- .../syscalls/sigwaitinfo/sigwaitinfo01.c      | 209 +++++++-----------
- 1 file changed, 84 insertions(+), 125 deletions(-)
+ .../syscalls/sigwaitinfo/sigwaitinfo01.c      | 112 +++++++++++++-----
+ 1 file changed, 80 insertions(+), 32 deletions(-)
 
 diff --git a/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c b/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c
-index 6a30c27f6f2f..1b976a271d28 100644
+index 1b976a271d28..05e62999ca6c 100644
 --- a/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c
 +++ b/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c
-@@ -1,93 +1,58 @@
--/*
-- * Copyright (c) Jiri Palecek<jpalecek@web.de>, 2009
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-- *
-- * Further, this software is distributed without any warranty that it is
-- * free of the rightful claim of any third person regarding infringement
-- * or the like.  Any license provided herein, whether implied or
-- * otherwise, applies only to this software file.  Patent licenses, if
-- * any, provided herein do not apply to combinations of this program with
-- * other software, or any other product whatsoever.
-- *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-- */
--#include "test.h"
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/* Copyright (c) Jiri Palecek<jpalecek@web.de>, 2009 */
-+
-+#include "tst_test.h"
+@@ -2,6 +2,7 @@
+ /* Copyright (c) Jiri Palecek<jpalecek@web.de>, 2009 */
+ 
+ #include "tst_test.h"
++#include "tst_timer.h"
  #include <errno.h>
-+#include <stdlib.h>
+ #include <stdlib.h>
  #include <signal.h>
--#include "../utils/include_j_h.h"
--#include "../utils/common_j_h.c"
- #include <limits.h>
- #include "lapi/syscalls.h"
-+#include "tst_sig_proc.h"
- 
- #define SUCCEED_OR_DIE(syscall, message, ...)				 \
- 	(errno = 0,							 \
- 		({int ret=syscall(__VA_ARGS__);				 \
- 			if (ret==-1)					 \
--				tst_brkm(TBROK|TERRNO, cleanup, message);\
-+				tst_brk(TBROK|TERRNO, message);\
- 			ret;}))
- 
--/* Report success iff TEST_RETURN and TEST_ERRNO are equal to
-+/* Report success iff TST_RET and TST_ERR are equal to
- 	 exp_return and exp_errno, resp., and cond is true. If cond is not
- 	 true, report condition_errmsg
- */
--static void report_success_cond(const char *func, const char *file, int line,
-+static void report_success_cond(const char *func, int line,
- 				long exp_return, int exp_errno, int condition,
- 				char *condition_errmsg)
- {
--	if (exp_return == TEST_RETURN
--	    && (exp_return != -1 || exp_errno == TEST_ERRNO))
-+	if (exp_return == TST_RET
-+	    && (exp_return != -1 || exp_errno == TST_ERR))
- 		if (condition)
--			tst_resm(TPASS, "Test passed");
-+			tst_res(TPASS, "%s (%d): Test passed", func, line);
- 		else
--			tst_resm(TFAIL, "%s (%s: %d): %s", func, file, line,
-+			tst_res(TFAIL, "%s (%d): %s", func, line,
- 				 condition_errmsg);
--	else if (TEST_RETURN != -1)
--		tst_resm(TFAIL,
--			 "%s (%s: %d): Unexpected return value; expected %ld, got %ld",
--			 func, file, line, exp_return, TEST_RETURN);
-+	else if (TST_RET != -1)
-+		tst_res(TFAIL,
-+			 "%s (%d): Unexpected return value; expected %ld, got %ld",
-+			 func, line, exp_return, TST_RET);
- 	else
--		tst_resm(TFAIL | TTERRNO, "%s (%s: %d): Unexpected failure",
--			 func, file, line);
-+		tst_res(TFAIL | TTERRNO, "%s (%d): Unexpected failure",
-+			 func, line);
+@@ -54,12 +55,12 @@ static void empty_handler(int sig)
  }
  
- #define REPORT_SUCCESS_COND(exp_return, exp_errno, condition, condition_errmsg)	\
--	report_success_cond(__FUNCTION__, __FILE__, __LINE__, exp_return, exp_errno, condition, condition_errmsg);
-+	report_success_cond(__FUNCTION__, __LINE__, exp_return, exp_errno, condition, condition_errmsg);
- 
--/* Report success iff TEST_RETURN and TEST_ERRNO are equal to
-+/* Report success iff TST_RET and TST_ERR are equal to
- 	 exp_return and exp_errno, resp.
- */
- #define REPORT_SUCCESS(exp_return, exp_errno)					\
- 	REPORT_SUCCESS_COND(exp_return, exp_errno, 1, "");
- 
--static void cleanup(void);
--
- static void empty_handler(int sig)
- {
- }
- 
--static void setup(void)
--{
--	tst_sig(FORK, DEF_HANDLER, cleanup);
--	signal(SIGUSR1, empty_handler);
--	signal(SIGALRM, empty_handler);
--	signal(SIGUSR2, SIG_IGN);
--
--	TEST_PAUSE;
--}
--
--static void cleanup(void)
--{
--}
--
  typedef int (*swi_func) (const sigset_t * set, siginfo_t * info,
- 			 struct timespec * timeout);
- typedef void (*test_func) (swi_func, int);
-@@ -110,7 +75,6 @@ static int my_sigwait(const sigset_t * set, siginfo_t * info,
- static int my_sigwaitinfo(const sigset_t * set, siginfo_t * info,
- 			  struct timespec *timeout)
+-			 struct timespec * timeout);
+-typedef void (*test_func) (swi_func, int);
++			 void * timeout);
++typedef void (*test_func) (swi_func, int, enum tst_ts_type type);
+ 
+ #ifdef TEST_SIGWAIT
+ static int my_sigwait(const sigset_t * set, siginfo_t * info,
+-		      struct timespec *timeout)
++		      void *timeout)
  {
--
+ 	int ret;
+ 	int err = sigwait(set, &ret);
+@@ -73,7 +74,7 @@ static int my_sigwait(const sigset_t * set, siginfo_t * info,
+ 
+ #ifdef TEST_SIGWAITINFO
+ static int my_sigwaitinfo(const sigset_t * set, siginfo_t * info,
+-			  struct timespec *timeout)
++			  void *timeout)
+ {
  	return sigwaitinfo(set, info);
  }
- #endif
-@@ -119,7 +83,6 @@ static int my_sigwaitinfo(const sigset_t * set, siginfo_t * info,
+@@ -81,7 +82,7 @@ static int my_sigwaitinfo(const sigset_t * set, siginfo_t * info,
+ 
+ #ifdef TEST_SIGTIMEDWAIT
  static int my_sigtimedwait(const sigset_t * set, siginfo_t * info,
- 			   struct timespec *timeout)
+-			   struct timespec *timeout)
++			   void *timeout)
  {
--
  	return sigtimedwait(set, info, timeout);
  }
- #endif
-@@ -129,7 +92,7 @@ static int my_rt_sigtimedwait(const sigset_t * set, siginfo_t * info,
- 			      struct timespec *timeout)
+@@ -89,14 +90,23 @@ static int my_sigtimedwait(const sigset_t * set, siginfo_t * info,
+ 
+ #ifdef TEST_RT_SIGTIMEDWAIT
+ static int my_rt_sigtimedwait(const sigset_t * set, siginfo_t * info,
+-			      struct timespec *timeout)
++			      void *timeout)
  {
  	/* _NSIG is always the right number of bits of signal map for all arches */
--	return ltp_syscall(__NR_rt_sigtimedwait, set, info, timeout, _NSIG/8);
-+	return tst_syscall(__NR_rt_sigtimedwait, set, info, timeout, _NSIG/8);
+ 	return tst_syscall(__NR_rt_sigtimedwait, set, info, timeout, _NSIG/8);
  }
++
++#if (__NR_rt_sigtimedwait_time64 != __LTP__NR_INVALID_SYSCALL)
++static int my_rt_sigtimedwait_time64(const sigset_t * set, siginfo_t * info,
++				     void *timeout)
++{
++	/* _NSIG is always the right number of bits of signal map for all arches */
++	return tst_syscall(__NR_rt_sigtimedwait_time64, set, info, timeout, _NSIG/8);
++}
++#endif
  #endif
  
-@@ -141,12 +104,13 @@ void test_empty_set(swi_func sigwaitinfo, int signo)
- 
- 	SUCCEED_OR_DIE(sigemptyset, "sigemptyset failed", &sigs);
- 	/* Run a child that will wake us up */
--	child = create_sig_proc(100000, signo, UINT_MAX);
-+	child = create_sig_proc(signo, INT_MAX, 100000);
- 
- 	TEST(sigwaitinfo(&sigs, &si, NULL));
- 	REPORT_SUCCESS(-1, EINTR);
- 
--	kill(child, SIGTERM);
-+	SAFE_KILL(child, SIGTERM);
-+	SAFE_WAIT(NULL);
+-void test_empty_set(swi_func sigwaitinfo, int signo)
++void test_empty_set(swi_func sigwaitinfo, int signo, enum tst_ts_type type)
+ {
+ 	sigset_t sigs;
+ 	siginfo_t si;
+@@ -113,19 +123,23 @@ void test_empty_set(swi_func sigwaitinfo, int signo)
+ 	SAFE_WAIT(NULL);
  }
  
- void test_timeout(swi_func sigwaitinfo, int signo)
-@@ -159,12 +123,13 @@ void test_timeout(swi_func sigwaitinfo, int signo)
+-void test_timeout(swi_func sigwaitinfo, int signo)
++void test_timeout(swi_func sigwaitinfo, int signo, enum tst_ts_type type)
+ {
+ 	sigset_t sigs;
+ 	siginfo_t si;
+ 	pid_t child;
+-	struct timespec ts = {.tv_sec = 1 };
++	struct tst_ts ts;
++
++	ts.type = type;
++	tst_ts_set_sec(&ts, 1);
++	tst_ts_set_nsec(&ts, 0);
+ 
  	SUCCEED_OR_DIE(sigemptyset, "sigemptyset failed", &sigs);
  
  	/* Run a child that will wake us up */
--	child = create_sig_proc(100000, signo, UINT_MAX);
-+	child = create_sig_proc(signo, INT_MAX, 100000);
+ 	child = create_sig_proc(signo, INT_MAX, 100000);
  
- 	TEST(sigwaitinfo(&sigs, &si, &ts));
+-	TEST(sigwaitinfo(&sigs, &si, &ts));
++	TEST(sigwaitinfo(&sigs, &si, tst_ts_get(&ts)));
  	REPORT_SUCCESS(-1, EAGAIN);
  
--	kill(child, SIGTERM);
-+	SAFE_KILL(child, SIGTERM);
-+	SAFE_WAIT(NULL);
- }
- 
+ 	SAFE_KILL(child, SIGTERM);
+@@ -135,7 +149,8 @@ void test_timeout(swi_func sigwaitinfo, int signo)
  /* Note: sigwait-ing for a signal that is not blocked is unspecified
-@@ -180,14 +145,15 @@ void test_unmasked_matching(swi_func sigwaitinfo, int signo)
- 	SUCCEED_OR_DIE(sigaddset, "sigaddset failed", &sigs, signo);
- 
- 	/* Run a child that will wake us up */
--	child = create_sig_proc(100000, signo, UINT_MAX);
-+	child = create_sig_proc(signo, INT_MAX, 100000);
- 
- 	TEST(sigwaitinfo(&sigs, &si, NULL));
- 	REPORT_SUCCESS_COND(signo, 0, si.si_pid == child
- 			    && si.si_code == SI_USER
- 			    && si.si_signo == signo, "Struct siginfo mismatch");
- 
--	kill(child, SIGTERM);
-+	SAFE_KILL(child, SIGTERM);
-+	SAFE_WAIT(NULL);
+  * by POSIX; but works for non-ignored signals under Linux
+  */
+-void test_unmasked_matching(swi_func sigwaitinfo, int signo)
++void test_unmasked_matching(swi_func sigwaitinfo, int signo,
++			    enum tst_ts_type type)
+ {
+ 	sigset_t sigs;
+ 	siginfo_t si;
+@@ -156,7 +171,8 @@ void test_unmasked_matching(swi_func sigwaitinfo, int signo)
+ 	SAFE_WAIT(NULL);
  }
  
- void test_unmasked_matching_noinfo(swi_func sigwaitinfo, int signo)
-@@ -198,12 +164,13 @@ void test_unmasked_matching_noinfo(swi_func sigwaitinfo, int signo)
+-void test_unmasked_matching_noinfo(swi_func sigwaitinfo, int signo)
++void test_unmasked_matching_noinfo(swi_func sigwaitinfo, int signo,
++				   enum tst_ts_type type)
+ {
+ 	sigset_t sigs;
+ 	pid_t child;
+@@ -173,7 +189,8 @@ void test_unmasked_matching_noinfo(swi_func sigwaitinfo, int signo)
+ 	SAFE_WAIT(NULL);
+ }
+ 
+-void test_masked_matching(swi_func sigwaitinfo, int signo)
++void test_masked_matching(swi_func sigwaitinfo, int signo,
++			  enum tst_ts_type type)
+ {
+ 	sigset_t sigs, oldmask;
+ 	siginfo_t si;
+@@ -211,7 +228,8 @@ void test_masked_matching(swi_func sigwaitinfo, int signo)
+ 	SAFE_WAIT(NULL);
+ }
+ 
+-void test_masked_matching_rt(swi_func sigwaitinfo, int signo)
++void test_masked_matching_rt(swi_func sigwaitinfo, int signo,
++			     enum tst_ts_type type)
+ {
+ 	sigset_t sigs, oldmask;
+ 	siginfo_t si;
+@@ -262,7 +280,8 @@ void test_masked_matching_rt(swi_func sigwaitinfo, int signo)
+ 			 "sigwaitinfo failed to restore the original mask");
+ }
+ 
+-void test_masked_matching_noinfo(swi_func sigwaitinfo, int signo)
++void test_masked_matching_noinfo(swi_func sigwaitinfo, int signo,
++				 enum tst_ts_type type)
+ {
+ 	sigset_t sigs, oldmask;
+ 	pid_t child;
+@@ -297,7 +316,7 @@ void test_masked_matching_noinfo(swi_func sigwaitinfo, int signo)
+ 	SAFE_WAIT(NULL);
+ }
+ 
+-void test_bad_address(swi_func sigwaitinfo, int signo)
++void test_bad_address(swi_func sigwaitinfo, int signo, enum tst_ts_type type)
+ {
+ 	sigset_t sigs, oldmask;
+ 	pid_t child;
+@@ -326,7 +345,7 @@ void test_bad_address(swi_func sigwaitinfo, int signo)
+ 	SAFE_WAIT(NULL);
+ }
+ 
+-void test_bad_address2(swi_func sigwaitinfo, int signo)
++void test_bad_address2(swi_func sigwaitinfo, int signo, enum tst_ts_type type)
+ {
+ 	pid_t pid;
+ 	int status;
+@@ -372,7 +391,7 @@ void test_bad_address2(swi_func sigwaitinfo, int signo)
+ 	}
+ }
+ 
+-void test_bad_address3(swi_func sigwaitinfo, int signo)
++void test_bad_address3(swi_func sigwaitinfo, int signo, enum tst_ts_type type)
+ {
+ 	sigset_t sigs;
  	SUCCEED_OR_DIE(sigemptyset, "sigemptyset failed", &sigs);
- 	SUCCEED_OR_DIE(sigaddset, "sigaddset failed", &sigs, signo);
- 	/* Run a child that will wake us up */
--	child = create_sig_proc(100000, signo, UINT_MAX);
-+	child = create_sig_proc(signo, INT_MAX, 100000);
- 
- 	TEST(sigwaitinfo(&sigs, NULL, NULL));
- 	REPORT_SUCCESS(signo, 0);
- 
--	kill(child, SIGTERM);
-+	SAFE_KILL(child, SIGTERM);
-+	SAFE_WAIT(NULL);
- }
- 
- void test_masked_matching(swi_func sigwaitinfo, int signo)
-@@ -224,7 +191,7 @@ void test_masked_matching(swi_func sigwaitinfo, int signo)
- 	SUCCEED_OR_DIE(sigdelset, "sigaddset failed", &sigs, SIGCHLD);
- 
- 	/* Run a child that will wake us up */
--	child = create_sig_proc(0, signo, 1);
-+	child = create_sig_proc(signo, 1, 0);
- 
- 	TEST(sigwaitinfo(&sigs, &si, NULL));
- 	REPORT_SUCCESS_COND(signo, 0, si.si_pid == child
-@@ -234,13 +201,14 @@ void test_masked_matching(swi_func sigwaitinfo, int signo)
- 	SUCCEED_OR_DIE(sigprocmask, "restoring original signal mask failed",
- 		       SIG_SETMASK, &oldmask, &oldmask);
- 
--	tst_count--;
--
- 	if (sigismember(&oldmask, signo))
--		tst_resm(TPASS, "sigwaitinfo restored the original mask");
-+		tst_res(TPASS, "sigwaitinfo restored the original mask");
- 	else
--		tst_resm(TFAIL,
-+		tst_res(TFAIL,
- 			 "sigwaitinfo failed to restore the original mask");
-+
-+	SAFE_KILL(child, SIGTERM);
-+	SAFE_WAIT(NULL);
- }
- 
- void test_masked_matching_rt(swi_func sigwaitinfo, int signo)
-@@ -265,12 +233,12 @@ void test_masked_matching_rt(swi_func sigwaitinfo, int signo)
- 	SUCCEED_OR_DIE(sigdelset, "sigdelset failed", &sigs, SIGCHLD);
- 
- 	/* Run a child that will wake us up */
--	child[0] = create_sig_proc(0, signo, 1);
--	child[1] = create_sig_proc(0, signo + 1, 1);
-+	child[0] = create_sig_proc(signo, 1, 0);
-+	child[1] = create_sig_proc(signo + 1, 1, 0);
- 
- 	/* Ensure that the signals have been sent */
--	waitpid(child[0], &status, 0);
--	waitpid(child[1], &status, 0);
-+	SAFE_WAITPID(child[0], &status, 0);
-+	SAFE_WAITPID(child[1], &status, 0);
- 
- 	TEST(sigwaitinfo(&sigs, &si, NULL));
- 	REPORT_SUCCESS_COND(signo, 0, si.si_pid == child[0]
-@@ -278,7 +246,6 @@ void test_masked_matching_rt(swi_func sigwaitinfo, int signo)
- 			    && si.si_signo == signo, "Struct siginfo mismatch");
- 
- 	/* eat the other signal */
--	tst_count--;
- 	TEST(sigwaitinfo(&sigs, &si, NULL));
- 	REPORT_SUCCESS_COND(signo + 1, 0, si.si_pid == child[1]
- 			    && si.si_code == SI_USER
-@@ -288,12 +255,10 @@ void test_masked_matching_rt(swi_func sigwaitinfo, int signo)
- 	SUCCEED_OR_DIE(sigprocmask, "restoring original signal mask failed",
- 		       SIG_SETMASK, &oldmask, &oldmask);
- 
--	tst_count--;
--
- 	if (sigismember(&oldmask, signo))
--		tst_resm(TPASS, "sigwaitinfo restored the original mask");
-+		tst_res(TPASS, "sigwaitinfo restored the original mask");
- 	else
--		tst_resm(TFAIL,
-+		tst_res(TFAIL,
- 			 "sigwaitinfo failed to restore the original mask");
- }
- 
-@@ -314,7 +279,7 @@ void test_masked_matching_noinfo(swi_func sigwaitinfo, int signo)
- 	SUCCEED_OR_DIE(sigdelset, "sigaddset failed", &sigs, SIGCHLD);
- 
- 	/* Run a child that will wake us up */
--	child = create_sig_proc(0, signo, 1);
-+	child = create_sig_proc(signo, 1, 0);
- 
- 	TEST(sigwaitinfo(&sigs, NULL, NULL));
- 	REPORT_SUCCESS(signo, 0);
-@@ -322,14 +287,14 @@ void test_masked_matching_noinfo(swi_func sigwaitinfo, int signo)
- 	SUCCEED_OR_DIE(sigprocmask, "restoring original signal mask failed",
- 		       SIG_SETMASK, &oldmask, &oldmask);
- 
--	tst_count--;
--
- 	if (sigismember(&oldmask, signo))
--		tst_resm(TPASS, "sigwaitinfo restored the original mask");
-+		tst_res(TPASS, "sigwaitinfo restored the original mask");
- 	else
--		tst_resm(TFAIL,
-+		tst_res(TFAIL,
- 			 "sigwaitinfo failed to restore the original mask");
- 
-+	SAFE_KILL(child, SIGTERM);
-+	SAFE_WAIT(NULL);
- }
- 
- void test_bad_address(swi_func sigwaitinfo, int signo)
-@@ -349,7 +314,7 @@ void test_bad_address(swi_func sigwaitinfo, int signo)
- 	SUCCEED_OR_DIE(sigdelset, "sigaddset failed", &sigs, SIGCHLD);
- 
- 	/* Run a child that will wake us up */
--	child = create_sig_proc(0, signo, 1);
-+	child = create_sig_proc(signo, 1, 0);
- 
- 	TEST(sigwaitinfo(&sigs, (void *)1, NULL));
- 	REPORT_SUCCESS(-1, EFAULT);
-@@ -357,7 +322,8 @@ void test_bad_address(swi_func sigwaitinfo, int signo)
- 	SUCCEED_OR_DIE(sigprocmask, "sigprocmask failed", SIG_SETMASK, &oldmask,
- 		       &oldmask);
- 
--	kill(child, SIGTERM);
-+	SAFE_KILL(child, SIGTERM);
-+	SAFE_WAIT(NULL);
- }
- 
- void test_bad_address2(swi_func sigwaitinfo, int signo)
-@@ -367,7 +333,7 @@ void test_bad_address2(swi_func sigwaitinfo, int signo)
- 
- 	switch (pid = fork()) {
- 	case -1:
--		tst_brkm(TBROK | TERRNO, NULL, "fork() failed");
-+		tst_brk(TBROK | TERRNO, "fork() failed");
- 	case 0:
- 		signal(SIGSEGV, SIG_DFL);
- 
-@@ -377,31 +343,31 @@ void test_bad_address2(swi_func sigwaitinfo, int signo)
- 		 */
- 		TEST(sigwaitinfo((void *)1, NULL, NULL));
- 
--		if (TEST_RETURN == -1 && TEST_ERRNO == EFAULT)
-+		if (TST_RET == -1 && TST_ERR == EFAULT)
- 			_exit(0);
- 
--		tst_resm(TINFO | TTERRNO, "swi_func returned: %ld",
--			TEST_RETURN);
-+		tst_res(TINFO | TTERRNO, "swi_func returned: %ld",
-+			TST_RET);
- 		_exit(1);
- 		break;
- 	default:
- 		break;
- 	}
- 
--	SUCCEED_OR_DIE(waitpid, "waitpid failed", pid, &status, 0);
-+	SAFE_WAITPID(pid, &status, 0);
- 
- 	if ((WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV)
- 		|| (WIFEXITED(status) && WEXITSTATUS(status) == 0)) {
--		tst_resm(TPASS, "Test passed");
-+		tst_res(TPASS, "Test passed");
- 		return;
- 	}
- 
- 	if (WIFEXITED(status)) {
--		tst_resm(TFAIL, "Unrecognised child exit code: %d",
-+		tst_res(TFAIL, "Unrecognised child exit code: %d",
- 			WEXITSTATUS(status));
- 	}
- 	if (WIFSIGNALED(status)) {
--		tst_resm(TFAIL, "Unrecognised child termsig: %d",
-+		tst_res(TFAIL, "Unrecognised child termsig: %d",
- 			WTERMSIG(status));
- 	}
- }
-@@ -474,38 +440,31 @@ struct test_desc {
+@@ -388,28 +407,28 @@ struct test_desc {
+ } tests[] = {
+ #ifdef TEST_RT_SIGTIMEDWAIT
+ 	{
+-	test_empty_set, my_rt_sigtimedwait, SIGUSR1}, {
+-	test_unmasked_matching, my_rt_sigtimedwait, SIGUSR1}, {
+-	test_masked_matching, my_rt_sigtimedwait, SIGUSR1}, {
+-	test_unmasked_matching_noinfo, my_rt_sigtimedwait, SIGUSR1}, {
+-	test_masked_matching_noinfo, my_rt_sigtimedwait, SIGUSR1}, {
+-	test_bad_address, my_rt_sigtimedwait, SIGUSR1}, {
+-	test_bad_address2, my_rt_sigtimedwait, SIGUSR1}, {
+-	test_bad_address3, my_rt_sigtimedwait, SIGUSR1}, {
+-	test_timeout, my_rt_sigtimedwait, 0},
++	test_empty_set, NULL, SIGUSR1}, {
++	test_unmasked_matching, NULL, SIGUSR1}, {
++	test_masked_matching, NULL, SIGUSR1}, {
++	test_unmasked_matching_noinfo, NULL, SIGUSR1}, {
++	test_masked_matching_noinfo, NULL, SIGUSR1}, {
++	test_bad_address, NULL, SIGUSR1}, {
++	test_bad_address2, NULL, SIGUSR1}, {
++	test_bad_address3, NULL, SIGUSR1}, {
++	test_timeout, NULL, 0},
+ 	    /* Special cases */
+ 	    /* 1: sigwaitinfo does respond to ignored signal */
+ 	{
+-	test_masked_matching, my_rt_sigtimedwait, SIGUSR2},
++	test_masked_matching, NULL, SIGUSR2},
+ 	    /* 2: An ignored signal doesn't cause sigwaitinfo to return EINTR */
+ 	{
+-	test_timeout, my_rt_sigtimedwait, SIGUSR2},
++	test_timeout, NULL, SIGUSR2},
+ 	    /* 3: The handler is not called when the signal is waited for by sigwaitinfo */
+ 	{
+-	test_masked_matching, my_rt_sigtimedwait, SIGTERM},
++	test_masked_matching, NULL, SIGTERM},
+ 	    /* 4: Simultaneous realtime signals are delivered in the order of increasing signal number */
+ 	{
+-	test_masked_matching_rt, my_rt_sigtimedwait, -1},
++	test_masked_matching_rt, NULL, -1},
+ #endif
+ #if defined TEST_SIGWAIT
+ 	{
+@@ -440,15 +459,43 @@ struct test_desc {
  #endif
  };
  
--#if defined TEST_SIGWAITINFO
--const char *TCID = "sigwaitinfo01";
--#elif defined TEST_RT_SIGTIMEDWAIT
--const char *TCID = "rt_sigtimedwait01";
--#elif defined TEST_SIGTIMEDWAIT
--const char *TCID = "sigtimedwait01";
--#elif defined TEST_SIGWAIT
--const char *TCID = "sigwait01";
--#endif
--
--int TST_TOTAL = ARRAY_SIZE(tests);
--
--int main(int argc, char **argv)
-+static void run(unsigned int i)
- {
--	unsigned i;
--	int lc;
--
--	tst_parse_opts(argc, argv, NULL, NULL);
-+	struct test_desc *tc = &tests[i];
- 
--	setup();
-+	tc->tf(tc->swi, tc->signo);
-+}
- 
--	for (lc = 0; TEST_LOOPING(lc); ++lc) {
--		tst_count = 0;
-+static void setup(void)
-+{
-+	signal(SIGUSR1, empty_handler);
-+	signal(SIGALRM, empty_handler);
-+	signal(SIGUSR2, SIG_IGN);
- 
--		for (i = 0; i < ARRAY_SIZE(tests); i++) {
--			alarm(10);	/* arrange a 10 second timeout */
--			tst_resm(TINFO, "%p, %d", tests[i].swi, tests[i].signo);
--			tests[i].tf(tests[i].swi, tests[i].signo);
--		}
--		alarm(0);
--	}
-+	alarm(10);	/* arrange a 10 second timeout */
-+}
- 
--	cleanup();
--	tst_exit();
-+static void cleanup(void)
-+{
-+	alarm(0);
- }
++static struct test_variants {
++	swi_func swi;
++	enum tst_ts_type type;
++	char *desc;
++} variants[] = {
++#ifdef TEST_RT_SIGTIMEDWAIT
 +
-+static struct tst_test test = {
-+	.test= run,
-+	.tcnt = ARRAY_SIZE(tests),
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.forks_child = 1,
++#if (__NR_rt_sigtimedwait != __LTP__NR_INVALID_SYSCALL)
++	{ .swi = my_rt_sigtimedwait, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
++#endif
++
++#if (__NR_rt_sigtimedwait_time64 != __LTP__NR_INVALID_SYSCALL)
++	{ .swi = my_rt_sigtimedwait_time64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
++#endif
++
++#else /* !TEST_RT_SIGTIMEDWAIT */
++
++	{ .swi = NULL, .type = TST_LIBC_TIMESPEC, .desc = "syscall with libc spec"},
++
++#endif /* TEST_RT_SIGTIMEDWAIT */
 +};
++
+ static void run(unsigned int i)
+ {
++	struct test_variants *tv = &variants[tst_variant];
+ 	struct test_desc *tc = &tests[i];
++	swi_func swi;
+ 
+-	tc->tf(tc->swi, tc->signo);
++	swi = tv->swi ? tv->swi : tc->swi;
++
++	tc->tf(swi, tc->signo, tv->type);
+ }
+ 
+ static void setup(void)
+ {
++	tst_res(TINFO, "Testing variant: %s", variants[tst_variant].desc);
++
+ 	signal(SIGUSR1, empty_handler);
+ 	signal(SIGALRM, empty_handler);
+ 	signal(SIGUSR2, SIG_IGN);
+@@ -464,6 +511,7 @@ static void cleanup(void)
+ static struct tst_test test = {
+ 	.test= run,
+ 	.tcnt = ARRAY_SIZE(tests),
++	.test_variants = ARRAY_SIZE(variants),
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.forks_child = 1,
 -- 
 2.25.0.rc1.19.g042ed3e048af
 
