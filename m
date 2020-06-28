@@ -2,53 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19D9620C598
-	for <lists+linux-ltp@lfdr.de>; Sun, 28 Jun 2020 05:36:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9CD420C6D4
+	for <lists+linux-ltp@lfdr.de>; Sun, 28 Jun 2020 09:42:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2AA963C2B8A
-	for <lists+linux-ltp@lfdr.de>; Sun, 28 Jun 2020 05:36:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 76B313C2AFE
+	for <lists+linux-ltp@lfdr.de>; Sun, 28 Jun 2020 09:42:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id D5D4A3C074B
- for <ltp@lists.linux.it>; Sun, 28 Jun 2020 05:36:10 +0200 (CEST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id B67143C12E6
+ for <ltp@lists.linux.it>; Sun, 28 Jun 2020 09:42:06 +0200 (CEST)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 95751200B3B
- for <ltp@lists.linux.it>; Sun, 28 Jun 2020 05:36:08 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.75,290,1589212800"; d="scan'208";a="95406230"
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 3D8CC6011A5
+ for <ltp@lists.linux.it>; Sun, 28 Jun 2020 09:42:04 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.75,290,1589212800"; d="scan'208";a="95413842"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 28 Jun 2020 11:36:06 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id D512C4CE49BA;
- Sun, 28 Jun 2020 11:25:39 +0800 (CST)
-Received: from [10.167.220.69] (10.167.220.69) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Sun, 28 Jun 2020 11:36:06 +0800
-Message-ID: <5EF81024.4050502@cn.fujitsu.com>
-Date: Sun, 28 Jun 2020 11:36:04 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+ by heian.cn.fujitsu.com with ESMTP; 28 Jun 2020 15:42:01 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 5E9894CE49B5;
+ Sun, 28 Jun 2020 15:31:33 +0800 (CST)
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Sun, 28 Jun 2020 15:42:02 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <chrubis@suse.cz>, <jstancek@redhat.com>
+Date: Sun, 28 Jun 2020 15:42:02 +0800
+Message-ID: <1593330123-19631-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <20200624113217.GC30917@yuki.lan>
+References: <20200624113217.GC30917@yuki.lan>
 MIME-Version: 1.0
-To: Alexey Kodanev <alexey.kodanev@oracle.com>, Petr Vorel
- <petr.vorel@suse.com>
-References: <20200622070911.16123-1-petr.vorel@suse.com>
- <20200622070911.16123-2-petr.vorel@suse.com>
- <3c3327ea-3132-255c-f853-c5c2d3f3c338@oracle.com>
- <746f495c-b079-4ead-147a-ab21bb357464@oracle.com>
-In-Reply-To: <746f495c-b079-4ead-147a-ab21bb357464@oracle.com>
-X-Originating-IP: [10.167.220.69]
+X-Originating-IP: [10.167.220.84]
 X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
-X-yoursite-MailScanner-ID: D512C4CE49BA.AC92A
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 5E9894CE49B5.AFD6D
 X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [RESENT PATCH 1/5] tst_net.sh: Remove rsh support
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 1/2] tst_device: Add new api
+ tst_find_backing_dev(path, dev)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,95 +58,144 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 2020/6/26 14:27, Alexey Kodanev wrote:
-> On 25.06.2020 19:42, Alexey Kodanev wrote:
->> On 22.06.2020 10:09, Petr Vorel wrote:
->>> From: Petr Vorel<pvorel@suse.cz>
->>>
->> Hi Petr,
->>
->>> rsh is not used nowadays. When was the first network library version
->>> added in 18739ff06 (2014), it was a default + and ssh replacement was
->>> optional. Netns based single machine testing was added in 5f8ca6cf0
->>> (2016). After 6 years it's time to drop legacy rsh.
->>>
->>> ssh based testing setup requires only RHOST variable, TST_USE_SSH has
->>> been removed as unneeded. Also check for ssh in tst_rhost_run().
->>>
->>> We still keep $LTP_RSH for some of the network stress tests, which has
->>> not been ported to tst_net.sh yet.
->> But tst_net.sh not used in such tests, so why keeping LTP_RSH there?
-> Ok, tst_net.sh included in testscripts/network.sh, we could change it
-> to ssh too:
->
-> diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
-> index 41938b1ac..0e10945da 100644
-> --- a/testcases/lib/tst_net.sh
-> +++ b/testcases/lib/tst_net.sh
-> @@ -856,7 +856,7 @@ tst_default_max_pkt()
->   export RHOST="$RHOST"
->   export PASSWD="${PASSWD:-}"
->   # Don't use it in new tests, use tst_rhost_run() from tst_net.sh instead.
-> -export LTP_RSH="${LTP_RSH:-rsh -n}"
-> +export LTP_RSH="${LTP_RSH:-ssh -nq -l root}"
-Hi,
+This api reads the /proc/self/mountinfo and compare path with
+the 5th column each row in this file, assign the 10th column
+value to dev when match succeed.
 
-I also prefer to init it to ssh directly. :-)
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+---
+ doc/test-writing-guidelines.txt | 11 ++++++++
+ include/tst_device.h            |  7 +++++
+ lib/newlib_tests/tst_device.c   |  8 ++++++
+ lib/tst_device.c                | 47 +++++++++++++++++++++++++++++++++
+ 4 files changed, 73 insertions(+)
 
-BTW: Is it necessary to add fixed 'root' user? we can choose the user by 
-current login user.
-
-Best Regards,
-Xiao Yang
->
->   # Test Links
->   # IPV{4,6}_{L,R}HOST can be set with or without prefix (e.g. IP or IP/prefix),
->
->>> Suggested-by: Alexey Kodanev<alexey.kodanev@oracle.com>
->>> Signed-off-by: Petr Vorel<pvorel@suse.cz>
->>> ---
->>>   testcases/lib/tst_net.sh | 10 ++++------
->>>   1 file changed, 4 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
->>> index 806b540cd..1b96b3bf4 100644
->>> --- a/testcases/lib/tst_net.sh
->>> +++ b/testcases/lib/tst_net.sh
->>> @@ -136,7 +136,7 @@ init_ltp_netspace()
->>>   # -b run in background
->>>   # -c CMD specify command to run (this must be binary, not shell builtin/function)
->>>   # -s safe option, if something goes wrong, will exit with TBROK
->>> -# -u USER for ssh/rsh (default root)
->>> +# -u USER for ssh (default root)
->>>   # RETURN: 0 on success, 1 on failure
->>>   tst_rhost_run()
->>>   {
->>> @@ -166,14 +166,12 @@ tst_rhost_run()
->>>   		return 1
->>>   	fi
->>>
->>> -	if [ -n "${TST_USE_SSH:-}" ]; then
->>> -		output=`ssh -n -q $user@$RHOST "sh -c \
->>> -			'$pre_cmd $cmd $post_cmd'" $out 2>&1 || echo 'RTERR'`
->>> -	elif [ -n "${TST_USE_NETNS:-}" ]; then
->>> +	if [ -n "${TST_USE_NETNS:-}" ]; then
->>>   		output=`$LTP_NETNS sh -c \
->>>   			"$pre_cmd $cmd $post_cmd" $out 2>&1 || echo 'RTERR'`
->>>   	else
->>> -		output=`rsh -n -l $user $RHOST "sh -c \
->>> +		tst_require_cmds ssh
->>> +		output=`ssh -n -q $user@$RHOST "sh -c \
->>>   			'$pre_cmd $cmd $post_cmd'" $out 2>&1 || echo 'RTERR'`
->>>   	fi
->>>   	echo "$output" | grep -q 'RTERR$'&&  ret=1
->>>
->>
->
+diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
+index 6e466ed0f..1fe11abca 100644
+--- a/doc/test-writing-guidelines.txt
++++ b/doc/test-writing-guidelines.txt
+@@ -1089,6 +1089,17 @@ FS deferred IO metadata/cache interference, we suggest doing "syncfs" before the
+ tst_dev_bytes_written first invocation. And an inline function named tst_dev_sync
+ is created for that intention.
+ 
++[source,c]
++-------------------------------------------------------------------------------
++#include "tst_test.h"
++
++voud tst_find_backing_dev(const char *path, char *dev);
++-------------------------------------------------------------------------------
++
++This function finds the block dev that this path belongs to, it compares path buf
++with the fifth column of each row in "/proc/self/mountinfo" and list 10th column
++as its block dev.
++
+ 2.2.16 Formatting a device with a filesystem
+ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 
+diff --git a/include/tst_device.h b/include/tst_device.h
+index 950cfe1ed..6a1fc5186 100644
+--- a/include/tst_device.h
++++ b/include/tst_device.h
+@@ -84,4 +84,11 @@ unsigned long tst_dev_bytes_written(const char *dev);
+  */
+ void tst_purge_dir(const char *path);
+ 
++/*
++ * Find the file or path belongs to which block dev
++ * @path  Path to find the backing dev
++ * @dev   The block dev
++ */
++void tst_find_backing_dev(const char *path, char *dev);
++
+ #endif	/* TST_DEVICE_H__ */
+diff --git a/lib/newlib_tests/tst_device.c b/lib/newlib_tests/tst_device.c
+index 1344495b3..ad077affd 100644
+--- a/lib/newlib_tests/tst_device.c
++++ b/lib/newlib_tests/tst_device.c
+@@ -13,6 +13,7 @@ static void do_test(void)
+ {
+ 	int fd;
+ 	const char *dev;
++	char block_dev[100];
+ 	uint64_t ltp_dev_size;
+ 
+ 	dev = tst_device->dev;
+@@ -29,6 +30,13 @@ static void do_test(void)
+ 		tst_res(TPASS, "Got expected device size");
+ 	else
+ 		tst_res(TFAIL, "Got unexpected device size");
++
++	tst_find_backing_dev("/boot", block_dev);
++	tst_res(TPASS, "/boot belongs to %s block dev", block_dev);
++	tst_find_backing_dev("/", block_dev);
++	tst_res(TPASS, "/ belongs to %s block dev", block_dev);
++	tst_find_backing_dev("/tmp", block_dev);
++	tst_find_backing_dev("/boot/xuyang", block_dev);
+ }
+ 
+ static struct tst_test test = {
+diff --git a/lib/tst_device.c b/lib/tst_device.c
+index 67fe90ed6..97b42eb4f 100644
+--- a/lib/tst_device.c
++++ b/lib/tst_device.c
+@@ -488,3 +488,50 @@ unsigned long tst_dev_bytes_written(const char *dev)
+ 
+ 	return dev_bytes_written;
+ }
++
++void tst_find_backing_dev(const char *path, char *dev)
++{
++	char fmt[100];
++	char mnt_root[100];
++	char bd_device[100];
++	char line[1024];
++	FILE *file;
++	int flag = 0;
++	int ret;
++	int fd;
++	struct stat st;
++
++	if (access(path, F_OK))
++		tst_brkm(TCONF, NULL, "path(%s) doesn't exist", path);
++
++	sprintf(fmt, "%%*i %%*i %%*u:%%*u %%*s %%s %%*s %%*s %%*s %%*s %%s %%*s");
++	file = SAFE_FOPEN(NULL, "/proc/self/mountinfo", "r");
++	while (fgets(line, sizeof(line), file) != NULL) {
++		ret = sscanf(line, fmt, mnt_root, bd_device);
++		if (ret != 2)
++			 tst_brkm(TCONF, NULL, "paring /proc/self/mountfinfo file failed, expected 2, got %d", ret);
++		if (!strcmp(mnt_root, path)) {
++			strcpy(dev, bd_device);
++			flag = 1;
++			break;
++		}
++		if (!strncmp(mnt_root, path, strlen(mnt_root))) {
++			strcpy(dev, bd_device);
++			flag = 1;
++		}
++	}
++	SAFE_FCLOSE(NULL, file);
++	if (!flag || access(dev, F_OK))
++		tst_brkm(TCONF, NULL, "Can not find backing dev(%s)", path);
++
++	fd = open(dev, O_RDONLY);
++	if (fd < 0)
++		tst_brkm(TWARN | TERRNO, NULL, "open(%s, O_RDONLY) failed", dev);
++	if (stat(dev, &st) < 0) {
++		close(fd);
++		tst_brkm(TWARN | TERRNO, NULL, "stat() failed");
++	}
++	close(fd);
++	if (S_ISBLK(st.st_mode) != 1)
++		tst_brkm(TCONF, NULL, "dev(%s) isn't a block dev", dev);
++}
+-- 
+2.23.0
 
 
 
