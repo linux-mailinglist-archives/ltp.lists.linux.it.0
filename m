@@ -2,37 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F82120CCA4
-	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jun 2020 08:00:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6568920CD13
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jun 2020 09:56:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1CBE53C2AF1
-	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jun 2020 08:00:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 037F53C2AE2
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jun 2020 09:56:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 0BC743C12A0
- for <ltp@lists.linux.it>; Mon, 29 Jun 2020 08:00:16 +0200 (CEST)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id B1C85600712
- for <ltp@lists.linux.it>; Mon, 29 Jun 2020 08:00:14 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 54066101E;
- Sun, 28 Jun 2020 23:00:12 -0700 (PDT)
-Received: from a077208.arm.com (unknown [10.163.63.106])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 30EE53F68F;
- Sun, 28 Jun 2020 23:00:09 -0700 (PDT)
-From: Vikas Kumar <vikas.kumar2@arm.com>
-To: ltp@lists.linux.it
-Date: Mon, 29 Jun 2020 11:29:56 +0530
-Message-Id: <20200629055956.32677-1-vikas.kumar2@arm.com>
-X-Mailer: git-send-email 2.17.1
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 51DDD3C185E
+ for <ltp@lists.linux.it>; Mon, 29 Jun 2020 09:56:38 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
+ [205.139.110.61])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id C65C82001A6
+ for <ltp@lists.linux.it>; Mon, 29 Jun 2020 09:56:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1593417396;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=hJQIsrXxb9m97Ancy8ClxMwGi101HNYe7NrOaPUtQW4=;
+ b=crlttEV7bL+LBmyG5fmfggG2s720nRxbYYBr44lVAKMECwbmzT+0bzR0jvs5qXfGIwb7xM
+ CMZKlDVaORTZ8KDKAXq08b76HM7FfOxuuH0hCbR4n67OFH5iTYlRnoJYbZSc2kNvVNilNR
+ rAQCL15uN2NUlP9Bk2g1C9b8sL1hy94=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-164-Te-k1bCxNFSv6Oj6xGPhng-1; Mon, 29 Jun 2020 03:56:32 -0400
+X-MC-Unique: Te-k1bCxNFSv6Oj6xGPhng-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+ [10.5.11.16])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8BA1580183C;
+ Mon, 29 Jun 2020 07:56:31 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 55F845C1BD;
+ Mon, 29 Jun 2020 07:56:31 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 20C5218095FF;
+ Mon, 29 Jun 2020 07:56:31 +0000 (UTC)
+Date: Mon, 29 Jun 2020 03:56:30 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <1418968619.19068649.1593417390787.JavaMail.zimbra@redhat.com>
+In-Reply-To: <1593330123-19631-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+References: <20200624113217.GC30917@yuki.lan>
+ <1593330123-19631-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+MIME-Version: 1.0
+X-Originating-IP: [10.43.17.25, 10.4.195.7]
+Thread-Topic: tst_device: Add new api tst_find_backing_dev(path, dev)
+Thread-Index: QfQoihFWsVFxnQtD8T2ncKCkfIko0Q==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH V7] syscall: Add io_uring related tests
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 1/2] tst_device: Add new api
+ tst_find_backing_dev(path, dev)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,277 +77,26 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: vikas.kumar2@arm.com, viresh.kumar@linaro.org
-MIME-Version: 1.0
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Added asynchronous I/O API tests for io_uring_setup(), io_uring_register()
-and io_uring_enter(). These tests intend to validate io_uring operations.
 
-1. io_uring_setup() creates submission queue and completion queue to
-   perform subsequent operations on the io_uring instance.
-2. io_uring_register() registers user buffers in kernel for long term
-   usese.
-3. io_uring_enter() initiates I/O operations using the shared SQ and CQ
-   queue.
 
-Signed-off-by: Vikas Kumar <vikas.kumar2@arm.com>
----
- include/lapi/io_uring.h                       |  12 ++
- testcases/kernel/syscalls/io_uring/Makefile   |   7 +
- .../kernel/syscalls/io_uring/io_uring01.c     | 203 ++++++++++++++++++
- 3 files changed, 222 insertions(+)
- create mode 100644 testcases/kernel/syscalls/io_uring/Makefile
- create mode 100644 testcases/kernel/syscalls/io_uring/io_uring01.c
+----- Original Message -----
+> +This function finds the block dev that this path belongs to, it compares
+> path buf
+> +with the fifth column of each row in "/proc/self/mountinfo" and list 10th
+> column
+> +as its block dev.
 
-diff --git a/include/lapi/io_uring.h b/include/lapi/io_uring.h
-index 5fde58e22..8e47501a5 100644
---- a/include/lapi/io_uring.h
-+++ b/include/lapi/io_uring.h
-@@ -280,4 +280,16 @@ int io_uring_enter(int fd, unsigned int to_submit, unsigned int min_complete,
- }
- #endif /* HAVE_IO_URING_ENTER */
- 
-+void io_uring_setup_supported_by_kernel(void)
-+{
-+	if ((tst_kvercmp(5, 1, 0)) < 0) {
-+		TEST(syscall(__NR_io_uring_setup, NULL, 0));
-+		if (TST_RET != -1)
-+			SAFE_CLOSE(TST_RET);
-+		else if (TST_ERR == ENOSYS)
-+			tst_brk(TCONF,
-+				"Test not supported on kernel version < v5.1");
-+	}
-+}
-+
- #endif /* IO_URING_H__ */
-diff --git a/testcases/kernel/syscalls/io_uring/Makefile b/testcases/kernel/syscalls/io_uring/Makefile
-new file mode 100644
-index 000000000..94a19de2f
---- /dev/null
-+++ b/testcases/kernel/syscalls/io_uring/Makefile
-@@ -0,0 +1,7 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (C) 2020 ARM Ltd.  All rights reserved.
-+
-+top_srcdir		?= ../../../..
-+
-+include $(top_srcdir)/include/mk/testcases.mk
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/io_uring/io_uring01.c b/testcases/kernel/syscalls/io_uring/io_uring01.c
-new file mode 100644
-index 000000000..738a2cb46
---- /dev/null
-+++ b/testcases/kernel/syscalls/io_uring/io_uring01.c
-@@ -0,0 +1,203 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2020 ARM Ltd. All rights reserved.
-+ * Author: Vikas Kumar <vikas.kumar2@arm.com>
-+ *
-+ * Tests for asynchronous I/O raw API i.e io_uring_setup(), io_uring_register()
-+ * and io_uring_enter(). This tests validate basic API operation by creating a
-+ * submission queue and a completion queue using io_uring_setup(). User buffer
-+ * registered in the kernel for long term operation using io_uring_register().
-+ * This tests initiates I/O operations with the help of io_uring_enter().
-+ */
-+#include <stdlib.h>
-+#include <errno.h>
-+#include <string.h>
-+#include <fcntl.h>
-+#include "config.h"
-+#include "tst_test.h"
-+#include "lapi/io_uring.h"
-+
-+#define QUEUE_DEPTH 1
-+#define BLOCK_SZ    1024
-+
-+static struct tcase {
-+	unsigned int setup_flags;
-+	unsigned int register_opcode;
-+	unsigned int enter_flags;
-+} tcases[] = {
-+	{IORING_SETUP_IOPOLL, IORING_REGISTER_BUFFERS, IORING_OP_READ_FIXED},
-+};
-+
-+struct io_sq_ring {
-+	unsigned int *head;
-+	unsigned int *tail;
-+	unsigned int *ring_mask;
-+	unsigned int *ring_entries;
-+	unsigned int *flags;
-+	unsigned int *array;
-+};
-+
-+struct io_cq_ring {
-+	unsigned int *head;
-+	unsigned int *tail;
-+	unsigned int *ring_mask;
-+	unsigned int *ring_entries;
-+	struct io_uring_cqe *cqes;
-+};
-+
-+struct submitter {
-+	int ring_fd;
-+	struct io_sq_ring sq_ring;
-+	struct io_uring_sqe *sqes;
-+	struct io_cq_ring cq_ring;
-+};
-+
-+struct buff_info {
-+	unsigned int buff_sz;
-+	struct iovec iovecs[];
-+};
-+
-+static struct submitter sub_ring;
-+static struct submitter *s;
-+static struct buff_info *bi;
-+static sigset_t sig;
-+
-+static int setup_io_uring_test(struct submitter *s, struct tcase *tc)
-+{
-+	struct io_sq_ring *sring = &s->sq_ring;
-+	struct io_cq_ring *cring = &s->cq_ring;
-+	struct io_uring_params p;
-+	void *ptr;
-+
-+	memset(&p, 0, sizeof(p));
-+	p.flags |= tc->setup_flags;
-+	s->ring_fd = io_uring_setup(QUEUE_DEPTH, &p);
-+	if (s->ring_fd != -1) {
-+		tst_res(TPASS, "io_uring_setup() passed");
-+	} else {
-+		tst_res(TFAIL | TTERRNO, "io_uring_setup() failed");
-+		return 1;
-+	}
-+
-+	/* Submission queue ring buffer mapping */
-+	ptr = SAFE_MMAP(0, p.sq_off.array +
-+			p.sq_entries * sizeof(unsigned int),
-+			PROT_READ | PROT_WRITE,
-+			MAP_SHARED | MAP_POPULATE,
-+			s->ring_fd, IORING_OFF_SQ_RING);
-+
-+	/* Save global submission queue struct info */
-+	sring->head = ptr + p.sq_off.head;
-+	sring->tail = ptr + p.sq_off.tail;
-+	sring->ring_mask = ptr + p.sq_off.ring_mask;
-+	sring->ring_entries = ptr + p.sq_off.ring_entries;
-+	sring->flags = ptr + p.sq_off.flags;
-+	sring->array = ptr + p.sq_off.array;
-+
-+	/* Submission queue entries ring buffer mapping */
-+	s->sqes = SAFE_MMAP(0, p.sq_entries *
-+			sizeof(struct io_uring_sqe),
-+			PROT_READ | PROT_WRITE,
-+			MAP_SHARED | MAP_POPULATE,
-+			s->ring_fd, IORING_OFF_SQES);
-+
-+	/* Completion queue ring buffer mapping */
-+	ptr = SAFE_MMAP(0,
-+			p.cq_off.cqes + p.cq_entries *
-+			sizeof(struct io_uring_cqe),
-+			PROT_READ | PROT_WRITE,
-+			MAP_SHARED | MAP_POPULATE,
-+			s->ring_fd, IORING_OFF_CQ_RING);
-+
-+	/* Save global completion queue struct info */
-+	cring->head = ptr + p.cq_off.head;
-+	cring->tail = ptr + p.cq_off.tail;
-+	cring->ring_mask = ptr + p.cq_off.ring_mask;
-+	cring->ring_entries = ptr + p.cq_off.ring_entries;
-+	cring->cqes = ptr + p.cq_off.cqes;
-+
-+	return 0;
-+}
-+
-+static int submit_to_uring_sq(struct submitter *s, struct tcase *tc)
-+{
-+	unsigned int index = 0, tail = 0, next_tail = 0;
-+	struct io_sq_ring *sring = &s->sq_ring;
-+	struct io_uring_sqe *sqe;
-+	void  *iov_base;
-+	size_t iov_len;
-+	int ret;
-+
-+	bi = SAFE_MALLOC(sizeof(*bi));
-+	iov_len = BLOCK_SZ;
-+	iov_base = SAFE_MALLOC(iov_len);
-+	memset(iov_base, 0, iov_len);
-+	bi->iovecs[index].iov_base = (void *)iov_base;
-+	bi->iovecs[index].iov_len = (size_t)iov_len;
-+
-+	ret = io_uring_register(s->ring_fd, tc->register_opcode,
-+				bi->iovecs, QUEUE_DEPTH);
-+	if (ret == 0) {
-+		tst_res(TPASS, "io_uring_register() passed");
-+	} else {
-+		tst_res(TFAIL | TTERRNO, "io_uring_register() failed");
-+		return 1;
-+	}
-+
-+	/* Submission queue entry addition to SQE ring buffer tail */
-+	tail = *sring->tail;
-+	next_tail = tail;
-+	next_tail++;
-+	index = tail & *s->sq_ring.ring_mask;
-+	sqe = &s->sqes[index];
-+	sqe->flags = 0;
-+	sqe->opcode = tc->enter_flags;
-+	sqe->addr = (unsigned long)bi->iovecs;
-+	sqe->user_data = (unsigned long long)bi;
-+	sring->array[index] = index;
-+	tail = next_tail;
-+
-+	/* Kernel to notice the tail update */
-+	if (*sring->tail != tail)
-+		*sring->tail = tail;
-+
-+	ret =  io_uring_enter(s->ring_fd, 1, 1, IORING_ENTER_GETEVENTS, &sig);
-+	if (ret >= 0) {
-+		tst_res(TPASS, "io_uring_enter() passed");
-+	} else {
-+		tst_res(TFAIL | TTERRNO, "io_uring_enter() failed");
-+		return 1;
-+	}
-+
-+	return 0;
-+}
-+
-+static void cleanup_io_uring_test(void)
-+{
-+	io_uring_register(s->ring_fd, IORING_UNREGISTER_BUFFERS,
-+			  NULL, QUEUE_DEPTH);
-+	SAFE_MUNMAP(s->sqes, sizeof(struct io_uring_sqe));
-+}
-+
-+static void run(unsigned int n)
-+{
-+	struct tcase *tc = &tcases[n];
-+
-+	s = &sub_ring;
-+	memset(s, 0, sizeof(*s));
-+	if (setup_io_uring_test(s, tc))
-+		return;
-+
-+	if (submit_to_uring_sq(s, tc))
-+		return;
-+
-+	cleanup_io_uring_test();
-+	tst_res(TPASS, "functionality of io_uring API is correct");
-+}
-+
-+static struct tst_test test = {
-+	.setup = io_uring_setup_supported_by_kernel,
-+	.test = run,
-+	.tcnt = ARRAY_SIZE(tcases),
-+};
-+
--- 
-2.17.1
+Why not match major/minor numbers?
+
+You said "But stat function has problem when filsystem uses virtual block
+(such as btrfs,fuse, then major numer is 0)." - Why is that a problem
+for comparison against /proc/self/mountinfo?
 
 
 -- 
