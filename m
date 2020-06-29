@@ -2,51 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8738420CDF0
-	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jun 2020 12:38:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6E4320CE14
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jun 2020 13:08:30 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 363F33C5736
-	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jun 2020 12:38:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 961443C5737
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jun 2020 13:08:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 60E8E3C2AE0
- for <ltp@lists.linux.it>; Mon, 29 Jun 2020 12:38:00 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id EDCE710011A8
- for <ltp@lists.linux.it>; Mon, 29 Jun 2020 12:37:58 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.75,294,1589212800"; d="scan'208";a="95482820"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 29 Jun 2020 18:37:55 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 0E2574CE4B12;
- Mon, 29 Jun 2020 18:27:25 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 29 Jun 2020 18:37:55 +0800
-To: Jan Stancek <jstancek@redhat.com>
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 55A4A3C0781
+ for <ltp@lists.linux.it>; Mon, 29 Jun 2020 13:08:29 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
+ [207.211.31.81])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 9E21B140186D
+ for <ltp@lists.linux.it>; Mon, 29 Jun 2020 13:08:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1593428907;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=haycexLXOcxWRKkFhh3NacDbUsVAaempWxpP+wjhxlg=;
+ b=Ql6k0alVq2FvClutLBQck59MM6BjjsFanzgA+a3ldrl33qpANYtqbakzu9CtIz5tJrmu2v
+ UrKAyt9Qld6c2cUSRQxNxLYXNShCmJWvCjn++8bwXugFg2hCEDK3YwN3LfH/XOJtEYwnlr
+ CpL3mcu3URUo728YRkZAeOEFoKBqT9Y=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-97-wciUjV3mMG6z0kODZahXXA-1; Mon, 29 Jun 2020 07:08:16 -0400
+X-MC-Unique: wciUjV3mMG6z0kODZahXXA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 564BD1005512;
+ Mon, 29 Jun 2020 11:08:14 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4C5EA29367;
+ Mon, 29 Jun 2020 11:08:14 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 43F8A18095FF;
+ Mon, 29 Jun 2020 11:08:14 +0000 (UTC)
+Date: Mon, 29 Jun 2020 07:08:14 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <1904309747.19085433.1593428894028.JavaMail.zimbra@redhat.com>
+In-Reply-To: <c11e8d9b-bd16-da32-e9eb-490226f4f4c1@cn.fujitsu.com>
 References: <20200624113217.GC30917@yuki.lan>
  <1593330123-19631-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
  <1418968619.19068649.1593417390787.JavaMail.zimbra@redhat.com>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <c11e8d9b-bd16-da32-e9eb-490226f4f4c1@cn.fujitsu.com>
-Date: Mon, 29 Jun 2020 18:37:51 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ <c11e8d9b-bd16-da32-e9eb-490226f4f4c1@cn.fujitsu.com>
 MIME-Version: 1.0
-In-Reply-To: <1418968619.19068649.1593417390787.JavaMail.zimbra@redhat.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 0E2574CE4B12.AF51C
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Originating-IP: [10.43.17.25, 10.4.195.22]
+Thread-Topic: tst_device: Add new api tst_find_backing_dev(path, dev)
+Thread-Index: CJlrLuJP7wGrm9PI+spPfGYgx0sdtg==
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v4 1/2] tst_device: Add new api
  tst_find_backing_dev(path, dev)
 X-BeenThere: ltp@lists.linux.it
@@ -61,59 +81,21 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Jan
+> > You said "But stat function has problem when filsystem uses virtual block
+> > (such as btrfs,fuse, then major numer is 0)." - Why is that a problem
+> > for comparison against /proc/self/mountinfo?
+> > 
+> Yes, you are right. I wrongly think btrfs filesystem affects the 10th
+> columu value in /proc/self/mountinfo. In actually, it can show the
+> correct backing block dev.
 
-
-> 
-> 
-> ----- Original Message -----
->> +This function finds the block dev that this path belongs to, it compares
->> path buf
->> +with the fifth column of each row in "/proc/self/mountinfo" and list 10th
->> column
->> +as its block dev.
-> 
-> Why not match major/minor numbers?
-> 
-> You said "But stat function has problem when filsystem uses virtual block
-> (such as btrfs,fuse, then major numer is 0)." - Why is that a problem
-> for comparison against /proc/self/mountinfo?
-> 
-Yes, you are right. I wrongly think btrfs filesystem affects the 10th 
-columu value in /proc/self/mountinfo. In actually, it can show the 
-correct backing block dev.
-so this functon code as below:
-void tst_find_backing_dev(const char *path, char *dev)
-{
-         char fmt[1024];
-         struct stat buf;
-
-         if (stat(path, &buf) < 0)
-                  tst_brkm(TWARN | TERRNO, NULL, "stat() failed");
-
-         snprintf(fmt, sizeof(fmt), "%%*i %%*i %u:%u %%*s %%*s %%*s %%*s 
-%%*s %%*s %%s %%*s",
-                         major(buf.st_dev), minor(buf.st_dev));
-
-         SAFE_FILE_LINES_SCANF(NULL, "/proc/self/mountinfo", fmt, dev);
-
-         if (stat(dev, &buf) < 0)
-                  tst_brkm(TWARN | TERRNO, NULL, "stat(%s) failed", dev);
-
-         if (S_ISBLK(buf.st_mode) != 1)
-                 tst_brkm(TCONF, NULL, "dev(%s) isn't a block dev", dev);
-}
-
-
-ps: If you think it is ok, I will send a v5 patch about this.
-> 
-> 
-
+I haven't tested your pasted version, but that approach seems better,
+since that should work for any path, not just the mount point.
 
 
 -- 
