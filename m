@@ -2,51 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A995720CE46
-	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jun 2020 13:41:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96B4620CE50
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jun 2020 13:43:33 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5B7AD3C573A
-	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jun 2020 13:41:44 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 47D343C573D
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Jun 2020 13:43:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 634003C2AE3
- for <ltp@lists.linux.it>; Mon, 29 Jun 2020 13:41:43 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id E7C126009B3
- for <ltp@lists.linux.it>; Mon, 29 Jun 2020 13:40:43 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.75,294,1589212800"; d="scan'208";a="95484787"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 29 Jun 2020 19:41:38 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 6BF944CE4B0B;
- Mon, 29 Jun 2020 19:31:08 +0800 (CST)
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 29 Jun 2020 19:41:39 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <chrubis@suse.cz>, <jstancek@redhat.com>
-Date: Mon, 29 Jun 2020 19:41:23 +0800
-Message-ID: <1593430883-6131-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1593430883-6131-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-References: <1904309747.19085433.1593428894028.JavaMail.zimbra@redhat.com>
- <1593430883-6131-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id F38AC3C2AE3
+ for <ltp@lists.linux.it>; Mon, 29 Jun 2020 13:43:30 +0200 (CEST)
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4D624600669
+ for <ltp@lists.linux.it>; Mon, 29 Jun 2020 13:42:32 +0200 (CEST)
+Received: by mail-pl1-x642.google.com with SMTP id u9so3391613pls.13
+ for <ltp@lists.linux.it>; Mon, 29 Jun 2020 04:43:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=dzGq0L91dBYG984t39JtjmCcjwULQeN3HFZjBLR11ps=;
+ b=n+RDO8kupxaRe2a7s4hxNTJLARfLkCzCQiRo4XHTePNq+zO1VwtIxtaXvbowT0MrR4
+ xCxYMNtdqmXMDqFwqHZc9gs48rf79nwkWimTEB0vl/cV8dsCsxs4uNSYO5or3xksg9fQ
+ KK731NwQdjXjtDYUGZJ16oms8RSySLIu479ofCIGZm6UCCxAFLHfsyJ3hjNBSN/EHVv6
+ WOIp6e0ZLXyWz75svbhL8AuzIBdaseIRMFDQlu+1THAq7gWNd6RE8dwMCKg0K3aIDlei
+ DXlN1bXJ/9K1SdgCFmRQ+8QE1nbs0KwIfK8hdtz7qhPTYxN5R1b9O5nX+5Ty6Ng9kP92
+ 1e4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=dzGq0L91dBYG984t39JtjmCcjwULQeN3HFZjBLR11ps=;
+ b=n7h2v0yMucPyE4QpqEKKTFToUIlvHWSo3yG8RImdAwO/BYuSyW4ov7sJI/wvskrGVc
+ ylQwSHnJ5LIxo0EjW3tlII4Jxuo867z2HFufLrGL7b5wzS5Ws9xvlBdTD+2/x+sHm9LT
+ V0Pd97iPDygMQNiWX5A0sEn+NTr1Wg4A243fFlqeNFD6fQTQmGpkhNpoNECVvfgAa74Y
+ G0A4mB//QlY92RjoCJawFHeJCTwvY9RpoBDp52L5K9licwFdFnYdpwRuECkQztjorcbU
+ 2xEnxGnOFeRgVT5ThzdsmtI4XFcrqCJkW5YXaIJEVtONE+gTANjBp3l3Y9p10emgfzlP
+ iHwQ==
+X-Gm-Message-State: AOAM5304y7Or7tSrRbV4BXUD4sTuVQMj3dFy0DPcwhbBudXQxfjfnaOl
+ ulMmO1K3U6GubyAX0GEjiA5BbU/7/T4=
+X-Google-Smtp-Source: ABdhPJwlQDNRATeY80zOlx6UJDfeyAPgP7dNuiT6w59QchIOi2XrTLw36Xd9kd5OWx62Gmn1BGaZBw==
+X-Received: by 2002:a17:902:7109:: with SMTP id
+ a9mr13574233pll.58.1593431008362; 
+ Mon, 29 Jun 2020 04:43:28 -0700 (PDT)
+Received: from localhost ([122.172.127.76])
+ by smtp.gmail.com with ESMTPSA id l15sm3794434pja.2.2020.06.29.04.43.27
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 29 Jun 2020 04:43:27 -0700 (PDT)
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: ltp@lists.linux.it
+Date: Mon, 29 Jun 2020 17:13:23 +0530
+Message-Id: <7c68854a1b6ef828ed8dd83cb611bd5b5d53c2f8.1593430825.git.viresh.kumar@linaro.org>
+X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 6BF944CE4B0B.AF323
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
 X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v5 2/2] syscalls/ioctl_loop05: Use correct blockdev to
- get logical_block_size
+Subject: [LTP] [PATCH 1/2] syscalls/timer_settime01: Improve print messages
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,132 +74,86 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
+ Viresh Kumar <viresh.kumar@linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-At the first, we use BLKSSZGET ioctl to get this size, but using wrong
-block dev(/dev/loopN) intead of correct backing file block dev(such as /dev/sdaN).
+This improves the print messages by providing additional information
+about the tests.
 
-kernel code(driver/block/loop.c  __loop_update_dio function) as below:
----------------------------------------
-if (inode->i_sb->s_bdev) {
-	sb_bsize = bdev_logical_block_size(inode->i_sb->s_bdev);
-	dio_align = sb_bsize - 1;
-}
-if (dio) {
-	if (queue_logical_block_size(lo->lo_queue) >= sb_bsize &&
-		!(lo->lo_offset & dio_align) &&
-		mapping->a_ops->direct_IO &&!lo->transfer)
-		use_dio = true;
-	else
-		use_dio = false;
-} else {
-        use_dio = false;
-}
--------------------------------------
-
-Using inode block size is also wrong because it is for filesystem io(such as we format
-filesystem can specify block size for data or log or metadata), it is not suitable
-for logical block size.
-
-Using tst_find_backing_dev(path, dev)to get the correct block dev.
-
-Also, "offset is ignored" belongs to the third test(less than logical_block_size) but not
-the second test(equal to logical_block_size)
-
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- .../kernel/syscalls/ioctl/ioctl_loop05.c      | 29 ++++++++++---------
- 1 file changed, 15 insertions(+), 14 deletions(-)
+ .../syscalls/timer_settime/timer_settime01.c  | 31 ++++++++++---------
+ 1 file changed, 16 insertions(+), 15 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
-index a96997823..e3c14faab 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
-@@ -32,8 +32,8 @@
- #define DIO_MESSAGE "In dio mode"
- #define NON_DIO_MESSAGE "In non dio mode"
+diff --git a/testcases/kernel/syscalls/timer_settime/timer_settime01.c b/testcases/kernel/syscalls/timer_settime/timer_settime01.c
+index 08fb56e4943a..52c435ee3d91 100644
+--- a/testcases/kernel/syscalls/timer_settime/timer_settime01.c
++++ b/testcases/kernel/syscalls/timer_settime/timer_settime01.c
+@@ -82,12 +82,12 @@ static void run(unsigned int n)
+ 		if (TST_RET != 0) {
+ 			if (possibly_unsupported(clock) &&
+ 				(TST_ERR == EINVAL || TST_ERR == ENOTSUP)) {
+-				tst_res(TCONF | TTERRNO, "%s unsupported",
+-					get_clock_str(clock));
++				tst_res(TCONF | TTERRNO, "%s: %s unsupported",
++					tv->desc, get_clock_str(clock));
+ 			} else {
+ 				tst_res(TFAIL | TTERRNO,
+-					"timer_create(%s) failed",
+-					get_clock_str(clock));
++					"%s: timer_create(%s) failed",
++					tv->desc, get_clock_str(clock));
+ 			}
+ 			continue;
+ 		}
+@@ -102,9 +102,8 @@ static void run(unsigned int n)
+ 		if (tc->flag & TIMER_ABSTIME) {
+ 			timenow.type = tv->type;
+ 			if (tv->gettime(clock, tst_ts_get(&timenow)) < 0) {
+-				tst_res(TFAIL,
+-					"clock_gettime(%s) failed - skipping the test",
+-					get_clock_str(clock));
++				tst_res(TFAIL, "%s: clock_gettime(%s) failed - skipping the test",
++					tv->desc, get_clock_str(clock));
+ 				continue;
+ 			}
+ 			val += tst_ts_get_sec(timenow);
+@@ -115,19 +114,21 @@ static void run(unsigned int n)
+ 		tst_its_set_value_sec(&new_set, val);
+ 		tst_its_set_value_nsec(&new_set, 0);
  
--static char dev_path[1024], sys_loop_diopath[1024];
--static int dev_num, dev_fd, attach_flag, logical_block_size;
-+static char dev_path[1024], sys_loop_diopath[1024], backing_file_path[1024];;
-+static int dev_num, dev_fd, block_devfd, attach_flag, logical_block_size;
+-		TEST(tv->func(timer, tc->flag, tst_its_get(&new_set), tst_its_get(tc->old_ptr)));
+-
++		TEST(tv->func(timer, tc->flag, tst_its_get(&new_set),
++			      tst_its_get(tc->old_ptr)));
+ 		if (TST_RET != 0) {
+-			tst_res(TFAIL | TTERRNO, "%s failed",
+-					get_clock_str(clock));
++			tst_res(TFAIL | TTERRNO, "%s: timer_settime(%s) failed",
++				tv->desc, get_clock_str(clock));
+ 		} else {
+-			tst_res(TPASS, "%s was successful",
+-					get_clock_str(clock));
++			tst_res(TPASS, "%s: timer_settime(%s) was successful",
++				tv->desc, get_clock_str(clock));
+ 		}
  
- static void check_dio_value(int flag)
- {
-@@ -71,7 +71,7 @@ static void verify_ioctl_loop(void)
- 	TST_RETRY_FUNC(ioctl(dev_fd, LOOP_SET_STATUS, &loopinfo), TST_RETVAL_EQ0);
- 	TEST(ioctl(dev_fd, LOOP_SET_DIRECT_IO, 1));
- 	if (TST_RET == 0) {
--		tst_res(TPASS, "LOOP_SET_DIRECT_IO succeeded, offset is ignored");
-+		tst_res(TPASS, "LOOP_SET_DIRECT_IO succeeded");
- 		check_dio_value(1);
- 		SAFE_IOCTL(dev_fd, LOOP_SET_DIRECT_IO, 0);
- 	} else {
-@@ -84,7 +84,7 @@ static void verify_ioctl_loop(void)
- 
- 	TEST(ioctl(dev_fd, LOOP_SET_DIRECT_IO, 1));
- 	if (TST_RET == 0) {
--		tst_res(TPASS, "LOOP_SET_DIRECT_IO succeeded");
-+		tst_res(TPASS, "LOOP_SET_DIRECT_IO succeeded, offset is ignored");
- 		SAFE_IOCTL(dev_fd, LOOP_SET_DIRECT_IO, 0);
- 		return;
+ 		TEST(tst_syscall(__NR_timer_delete, timer));
+-		if (TST_RET != 0)
+-			tst_res(TFAIL | TTERRNO, "timer_delete() failed!");
++		if (TST_RET != 0) {
++			tst_res(TFAIL | TTERRNO, "%s: %s: timer_delete() failed!",
++				tv->desc, get_clock_str(clock));
++		}
  	}
-@@ -96,8 +96,7 @@ static void verify_ioctl_loop(void)
- 
- static void setup(void)
- {
--	int fd;
--	struct stat buf;
-+	char bd_path[100];
- 
- 	if (tst_fs_type(".") == TST_TMPFS_MAGIC)
- 		tst_brk(TCONF, "tmpfd doesn't support O_DIRECT flag");
-@@ -109,13 +108,6 @@ static void setup(void)
- 	sprintf(sys_loop_diopath, "/sys/block/loop%d/loop/dio", dev_num);
- 	tst_fill_file("test.img", 0, 1024, 1024);
- 
--	fd = SAFE_OPEN("test.img", O_RDONLY);
--	SAFE_FSTAT(fd, &buf);
--	SAFE_CLOSE(fd);
--
--	logical_block_size = buf.st_blksize;
--	tst_res(TINFO, "backing dev logical_block_size is %d", logical_block_size);
--
- 	tst_attach_device(dev_path, "test.img");
- 	attach_flag = 1;
- 	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
-@@ -130,13 +122,22 @@ static void setup(void)
- 	 *   size of loop is bigger than the backing device's and the loop
- 	 *   needn't transform transfer.
- 	 */
--	TST_RETRY_FUNC(ioctl(dev_fd, LOOP_SET_BLOCK_SIZE, logical_block_size), TST_RETVAL_EQ0);
-+	sprintf(backing_file_path, "%s/test.img", tst_get_tmpdir());
-+	tst_find_backing_dev(backing_file_path, bd_path);
-+	block_devfd = SAFE_OPEN(bd_path, O_RDWR);
-+	SAFE_IOCTL(block_devfd, BLKSSZGET, &logical_block_size);
-+	tst_res(TINFO, "backing dev(%s) logical_block_size is %d", bd_path, logical_block_size);
-+	SAFE_CLOSE(block_devfd);
-+	if (logical_block_size > 512)
-+		TST_RETRY_FUNC(ioctl(dev_fd, LOOP_SET_BLOCK_SIZE, logical_block_size), TST_RETVAL_EQ0);
  }
  
- static void cleanup(void)
- {
- 	if (dev_fd > 0)
- 		SAFE_CLOSE(dev_fd);
-+	if (block_devfd > 0)
-+		SAFE_CLOSE(block_devfd);
- 	if (attach_flag)
- 		tst_detach_device(dev_path);
- }
 -- 
-2.23.0
-
-
+2.25.0.rc1.19.g042ed3e048af
 
 
 -- 
