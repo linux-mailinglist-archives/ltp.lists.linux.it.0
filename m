@@ -2,92 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B56520F568
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Jun 2020 15:06:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E3F120F80E
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Jun 2020 17:16:14 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E4DF43C56E6
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Jun 2020 15:06:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8C9A53C56D1
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Jun 2020 17:16:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id D21983C2AE5
- for <ltp@lists.linux.it>; Tue, 30 Jun 2020 15:06:42 +0200 (CEST)
-Received: from IND01-MA1-obe.outbound.protection.outlook.com
- (mail-eopbgr1380119.outbound.protection.outlook.com [40.107.138.119])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id ACBEC3C2AAD
+ for <ltp@lists.linux.it>; Tue, 30 Jun 2020 17:16:09 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4468F600351
- for <ltp@lists.linux.it>; Tue, 30 Jun 2020 15:06:41 +0200 (CEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YLiJKufAYMvW0r9fJcCKrzGU+sV9k0zJJ8xNrfNR/2Yc7oOwKr6bRTNILUBzj1X25kq9D1rbE2vCdMdDmXTfs48IgM0Ah5Bzy5FyrWwEp8ToHJrbHM9UtfDb6UrWvc5SErn2Jo8nuGuCCF0bq8TfFhgwbXcr5RnmcpkHXWwRWruUniTulS+S9XlzpkLizLMgwB4A7a5g3EZUSgkG0dzfcJz4CGhtZUa6o8wa94nAYUO3DvRk6MfecJqTi04NOmYGLjRN3cqZB6IYcGpHTFZvu7OdQizrTULd5GoleVkqMq/S0xkj/Lfb4YsAokOb/MCR/zI+rZqCU6oZhfAaVaEpDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IIJcf9kZq1VRnnUITIbpq4tcA63+AXEvsjVjb3NsE24=;
- b=lae7r28furLZcyY0+7meaV4QJV589pxkOQpCFsLqZRa4PLdX/WTFkrHhltbFnoBOklJABI1SL3kDIpGibcRCgZAclsOttEOd0UUsU6SsX5qF2KkukGiN/7p/lAwnOIETFfvFWg1/vW0qI81EdikLGCim0KT13dq1Tx1MqtlkJFVALjdS1ARXI1b366WOg4q+Xaq5Rpb1j8dL7PV27I4T2v5UXxBZXv+DSU+VLFp8RHPtHG204sASeGW7JgfUisrNjsr8ego9u+0BcBJa75RoQHMHGBnBCExccJltlmlC3oRgKE3BMLHco40NcDMUvehZYQGqCWY4AxySBsfszyn9kw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=exaleapsemi.com; dmarc=pass action=none
- header.from=exaleapsemi.com; dkim=pass header.d=exaleapsemi.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=exaleapsemi.onmicrosoft.com; s=selector2-exaleapsemi-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IIJcf9kZq1VRnnUITIbpq4tcA63+AXEvsjVjb3NsE24=;
- b=RM3iNUpGjrwqEvfviC8aYXzgRpfKQxf6TsZTxkinnZiD8ezP3B8Uw2guHnBVm6M2P4lCoZC0W8tjlV/5HnZZriY3O0/loJuRy3ItWiyeuFfYaq1DaP4F4iwJwP4mZ3jPNq1P+OxvSfyo04/YWlbgSUe/GzKvjr/zFXfHKt4qaPY=
-Received: from BMXPR01MB2344.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:36::20)
- by BMXPR01MB0951.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:12::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3131.20; Tue, 30 Jun
- 2020 13:06:38 +0000
-Received: from BMXPR01MB2344.INDPRD01.PROD.OUTLOOK.COM
- ([fe80::adf5:6e2d:b2df:3e72]) by BMXPR01MB2344.INDPRD01.PROD.OUTLOOK.COM
- ([fe80::adf5:6e2d:b2df:3e72%2]) with mapi id 15.20.3131.028; Tue, 30 Jun 2020
- 13:06:37 +0000
-From: "Pankaj  Vinadrao Joshi" <Pankaj.VJ@exaleapsemi.com>
-To: Li Wang <liwang@redhat.com>
-Thread-Topic: Memcg testcase failure
-Thread-Index: AQHWTt8KnS8ycf5pIUS8F0JmiLlOAg==
-Date: Tue, 30 Jun 2020 13:06:37 +0000
-Message-ID: <BMXPR01MB2344F43177589233AA67FF27EE6F0@BMXPR01MB2344.INDPRD01.PROD.OUTLOOK.COM>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: redhat.com; dkim=none (message not signed)
- header.d=none; redhat.com; dmarc=none action=none header.from=exaleapsemi.com; 
-x-originating-ip: [2409:4042:e0f:aecf:980b:247c:8eba:dc69]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 680f2841-364e-4e9b-7971-08d81cf66c69
-x-ms-traffictypediagnostic: BMXPR01MB0951:
-x-microsoft-antispam-prvs: <BMXPR01MB0951E0F696435B86A7AB86EAEE6F0@BMXPR01MB0951.INDPRD01.PROD.OUTLOOK.COM>
-x-ms-oob-tlc-oobclassifiers: OLM:2043;
-x-forefront-prvs: 0450A714CB
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: iScU6+nSBfe6gd+2YUqTd81BGHpIvMBq2F1KYTYJQSVrOWbI3oiGjZUA2wz5u07CjN6+3Qty+dzBGSglzHY7CSpwXukYY2Hxi334LG3ipeavjA6wq7OMwX8hTwlb2fUrx/P6ze4pll5NerHgayE4qkzwC4fofhS1S1bpai89q1IUY4xX2hOgFiy5hq4tnAgp7a0qQnRSgI3Gb4xr2CBSoGlGYRTbeHy4tsGAo1zYv5rtZ5+ht5VVrWdxJiDiFaNy9oQhpLLmZTZNaVT718CoH+CNjsQPRwbAbYJcR0i1+oY6rP5Wa3jNoAHlh33UCw5tsd6rU0kkxw/w+F9pq0NOeQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BMXPR01MB2344.INDPRD01.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFTY:;
- SFS:(376002)(346002)(39830400003)(366004)(396003)(136003)(8676002)(86362001)(186003)(316002)(19627405001)(8936002)(5660300002)(33656002)(7116003)(83380400001)(66476007)(3480700007)(9686003)(66556008)(55016002)(66946007)(7696005)(64756008)(66446008)(6506007)(6916009)(508600001)(52536014)(4326008)(2906002)(71200400001)(76116006);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: Q/R74NWCyxk6jPNRH9zsOzjr/fVVChT4dvByryW6ELDoVka0DeVOH8+BufzJWTxZ8Ll+9L8r+k0z0d8e3+C5rgdHrLH1T4QfAkSWNxpVb1eLx7G2cHPQWHK2oJ5fuygJA6+Qz1Zi54Swhv6rmNlTBTeN2CX+8cv83QfrVGtUAnnP9YlLvoEz25MYkpRewCSaKXADhw1Rjjv7SvO4QG48wT+DDty/AZMVljhNTKLgU6UcQaPNyylxI4vL2i4Agjg1oDmCaoHlwtctBkei7RkKNWuexHVql+jUugs8Fjyjfc5rMnzQLqQ2LCDqQ9lFhM4Pr6CwFwHzKnbOmz7HCurE1uQMgyRmPjUibgEncGJlPBDT705K19iOrIgqVJ8vd4LrKGETIaf4HWl8fqZoJyBExeiJhClZ8aRuosYoiVRDErtMmzcfktb627RvkCPG+lXg5+vzoZJ7GxHx4whiwOK/u+CDUzKc1/Ai9rqO9jBcftpv0GSGW4rIC1kITEWe3KbMzD7OX8bwmnFfswhjIeEG6K6qt55JoJ+t7VsISEpUzNPPcLYI4s1d96fr6mu3U28F
-x-ms-exchange-transport-forked: True
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 02F621A014D2
+ for <ltp@lists.linux.it>; Tue, 30 Jun 2020 17:16:08 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 27C94AC4E;
+ Tue, 30 Jun 2020 15:16:08 +0000 (UTC)
+Date: Tue, 30 Jun 2020 17:16:29 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Vikas Kumar <vikas.kumar2@arm.com>
+Message-ID: <20200630151629.GC12948@yuki.lan>
+References: <20200629055956.32677-1-vikas.kumar2@arm.com>
 MIME-Version: 1.0
-X-OriginatorOrg: exaleapsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BMXPR01MB2344.INDPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 680f2841-364e-4e9b-7971-08d81cf66c69
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jun 2020 13:06:37.6960 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 34df156e-9bc4-4450-9e80-487c0e7f9471
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7mMIdw9j6dygtKB41Z9PL0aHVYcY09jDFmURY5l95lvYROMbvxEy+yM3yI1ko2VmFCVXOerto5d9HsPtT7eYOqqMXN47JkBayuqUvadYurQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BMXPR01MB0951
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200629055956.32677-1-vikas.kumar2@arm.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] Memcg testcase failure
+X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V7] syscall: Add io_uring related tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,198 +46,301 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0743354875=="
+Cc: ltp@lists.linux.it, viresh.kumar@linaro.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0743354875==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BMXPR01MB2344F43177589233AA67FF27EE6F0BMXPR01MB2344INDP_"
+Hi!
+> Added asynchronous I/O API tests for io_uring_setup(), io_uring_register()
+> and io_uring_enter(). These tests intend to validate io_uring operations.
+> 
+> 1. io_uring_setup() creates submission queue and completion queue to
+>    perform subsequent operations on the io_uring instance.
+> 2. io_uring_register() registers user buffers in kernel for long term
+>    usese.
+> 3. io_uring_enter() initiates I/O operations using the shared SQ and CQ
+>    queue.
+> 
+> Signed-off-by: Vikas Kumar <vikas.kumar2@arm.com>
+> ---
+>  include/lapi/io_uring.h                       |  12 ++
+>  testcases/kernel/syscalls/io_uring/Makefile   |   7 +
+>  .../kernel/syscalls/io_uring/io_uring01.c     | 203 ++++++++++++++++++
 
---_000_BMXPR01MB2344F43177589233AA67FF27EE6F0BMXPR01MB2344INDP_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+You are missing runtest entry, I guess at least in runtest/syscalls
 
-Hi,
-I am trying to run ltp with kernel 5.5.6 and i found that the few tests fro=
-m the memcg groups are failing i didnt understood the exact reason of failu=
-re am listing the test cases along with error log of few test can you help =
-me on this??
+>  3 files changed, 222 insertions(+)
+>  create mode 100644 testcases/kernel/syscalls/io_uring/Makefile
+>  create mode 100644 testcases/kernel/syscalls/io_uring/io_uring01.c
+> 
+> diff --git a/include/lapi/io_uring.h b/include/lapi/io_uring.h
+> index 5fde58e22..8e47501a5 100644
+> --- a/include/lapi/io_uring.h
+> +++ b/include/lapi/io_uring.h
+> @@ -280,4 +280,16 @@ int io_uring_enter(int fd, unsigned int to_submit, unsigned int min_complete,
+>  }
+>  #endif /* HAVE_IO_URING_ENTER */
+>  
+> +void io_uring_setup_supported_by_kernel(void)
+> +{
+> +	if ((tst_kvercmp(5, 1, 0)) < 0) {
+> +		TEST(syscall(__NR_io_uring_setup, NULL, 0));
+> +		if (TST_RET != -1)
+> +			SAFE_CLOSE(TST_RET);
+> +		else if (TST_ERR == ENOSYS)
+> +			tst_brk(TCONF,
+> +				"Test not supported on kernel version < v5.1");
+> +	}
+> +}
+> +
+>  #endif /* IO_URING_H__ */
+> diff --git a/testcases/kernel/syscalls/io_uring/Makefile b/testcases/kernel/syscalls/io_uring/Makefile
+> new file mode 100644
+> index 000000000..94a19de2f
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/io_uring/Makefile
+> @@ -0,0 +1,7 @@
+> +# SPDX-License-Identifier: GPL-2.0-or-later
+> +# Copyright (C) 2020 ARM Ltd.  All rights reserved.
+> +
+> +top_srcdir		?= ../../../..
+> +
+> +include $(top_srcdir)/include/mk/testcases.mk
+> +include $(top_srcdir)/include/mk/generic_leaf_target.mk
+> diff --git a/testcases/kernel/syscalls/io_uring/io_uring01.c b/testcases/kernel/syscalls/io_uring/io_uring01.c
+> new file mode 100644
+> index 000000000..738a2cb46
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/io_uring/io_uring01.c
+> @@ -0,0 +1,203 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (C) 2020 ARM Ltd. All rights reserved.
+> + * Author: Vikas Kumar <vikas.kumar2@arm.com>
+> + *
+> + * Tests for asynchronous I/O raw API i.e io_uring_setup(), io_uring_register()
+> + * and io_uring_enter(). This tests validate basic API operation by creating a
+> + * submission queue and a completion queue using io_uring_setup(). User buffer
+> + * registered in the kernel for long term operation using io_uring_register().
+> + * This tests initiates I/O operations with the help of io_uring_enter().
+> + */
+> +#include <stdlib.h>
+> +#include <errno.h>
+> +#include <string.h>
+> +#include <fcntl.h>
+> +#include "config.h"
+> +#include "tst_test.h"
+> +#include "lapi/io_uring.h"
+> +
+> +#define QUEUE_DEPTH 1
+> +#define BLOCK_SZ    1024
+> +
+> +static struct tcase {
+> +	unsigned int setup_flags;
+> +	unsigned int register_opcode;
+> +	unsigned int enter_flags;
+> +} tcases[] = {
+> +	{IORING_SETUP_IOPOLL, IORING_REGISTER_BUFFERS, IORING_OP_READ_FIXED},
+> +};
+> +
+> +struct io_sq_ring {
+> +	unsigned int *head;
+> +	unsigned int *tail;
+> +	unsigned int *ring_mask;
+> +	unsigned int *ring_entries;
+> +	unsigned int *flags;
+> +	unsigned int *array;
+> +};
+> +
+> +struct io_cq_ring {
+> +	unsigned int *head;
+> +	unsigned int *tail;
+> +	unsigned int *ring_mask;
+> +	unsigned int *ring_entries;
+> +	struct io_uring_cqe *cqes;
+> +};
+> +
+> +struct submitter {
+> +	int ring_fd;
+> +	struct io_sq_ring sq_ring;
+> +	struct io_uring_sqe *sqes;
+> +	struct io_cq_ring cq_ring;
+> +};
+> +
+> +struct buff_info {
+> +	unsigned int buff_sz;
+> +	struct iovec iovecs[];
+> +};
+> +
+> +static struct submitter sub_ring;
+> +static struct submitter *s;
+> +static struct buff_info *bi;
+> +static sigset_t sig;
+> +
+> +static int setup_io_uring_test(struct submitter *s, struct tcase *tc)
+> +{
+> +	struct io_sq_ring *sring = &s->sq_ring;
+> +	struct io_cq_ring *cring = &s->cq_ring;
+> +	struct io_uring_params p;
+> +	void *ptr;
+> +
+> +	memset(&p, 0, sizeof(p));
+> +	p.flags |= tc->setup_flags;
+> +	s->ring_fd = io_uring_setup(QUEUE_DEPTH, &p);
+> +	if (s->ring_fd != -1) {
+> +		tst_res(TPASS, "io_uring_setup() passed");
+> +	} else {
+> +		tst_res(TFAIL | TTERRNO, "io_uring_setup() failed");
+> +		return 1;
+> +	}
+> +
+> +	/* Submission queue ring buffer mapping */
+> +	ptr = SAFE_MMAP(0, p.sq_off.array +
+> +			p.sq_entries * sizeof(unsigned int),
+> +			PROT_READ | PROT_WRITE,
+> +			MAP_SHARED | MAP_POPULATE,
+> +			s->ring_fd, IORING_OFF_SQ_RING);
+> +
+> +	/* Save global submission queue struct info */
+> +	sring->head = ptr + p.sq_off.head;
+> +	sring->tail = ptr + p.sq_off.tail;
+> +	sring->ring_mask = ptr + p.sq_off.ring_mask;
+> +	sring->ring_entries = ptr + p.sq_off.ring_entries;
+> +	sring->flags = ptr + p.sq_off.flags;
+> +	sring->array = ptr + p.sq_off.array;
+> +
+> +	/* Submission queue entries ring buffer mapping */
+> +	s->sqes = SAFE_MMAP(0, p.sq_entries *
+> +			sizeof(struct io_uring_sqe),
+> +			PROT_READ | PROT_WRITE,
+> +			MAP_SHARED | MAP_POPULATE,
+> +			s->ring_fd, IORING_OFF_SQES);
+> +
+> +	/* Completion queue ring buffer mapping */
+> +	ptr = SAFE_MMAP(0,
+> +			p.cq_off.cqes + p.cq_entries *
+> +			sizeof(struct io_uring_cqe),
+> +			PROT_READ | PROT_WRITE,
+> +			MAP_SHARED | MAP_POPULATE,
+> +			s->ring_fd, IORING_OFF_CQ_RING);
+> +
+> +	/* Save global completion queue struct info */
+> +	cring->head = ptr + p.cq_off.head;
+> +	cring->tail = ptr + p.cq_off.tail;
+> +	cring->ring_mask = ptr + p.cq_off.ring_mask;
+> +	cring->ring_entries = ptr + p.cq_off.ring_entries;
+> +	cring->cqes = ptr + p.cq_off.cqes;
+> +
+> +	return 0;
+> +}
+> +
+> +static int submit_to_uring_sq(struct submitter *s, struct tcase *tc)
+> +{
+> +	unsigned int index = 0, tail = 0, next_tail = 0;
+> +	struct io_sq_ring *sring = &s->sq_ring;
+> +	struct io_uring_sqe *sqe;
+> +	void  *iov_base;
+> +	size_t iov_len;
+> +	int ret;
+> +
+> +	bi = SAFE_MALLOC(sizeof(*bi));
+> +	iov_len = BLOCK_SZ;
+> +	iov_base = SAFE_MALLOC(iov_len);
+> +	memset(iov_base, 0, iov_len);
+> +	bi->iovecs[index].iov_base = (void *)iov_base;
+> +	bi->iovecs[index].iov_len = (size_t)iov_len;
+> +
+> +	ret = io_uring_register(s->ring_fd, tc->register_opcode,
+> +				bi->iovecs, QUEUE_DEPTH);
+> +	if (ret == 0) {
+> +		tst_res(TPASS, "io_uring_register() passed");
+> +	} else {
+> +		tst_res(TFAIL | TTERRNO, "io_uring_register() failed");
+> +		return 1;
+> +	}
+> +
+> +	/* Submission queue entry addition to SQE ring buffer tail */
+> +	tail = *sring->tail;
+> +	next_tail = tail;
+> +	next_tail++;
+> +	index = tail & *s->sq_ring.ring_mask;
+> +	sqe = &s->sqes[index];
+> +	sqe->flags = 0;
+> +	sqe->opcode = tc->enter_flags;
+> +	sqe->addr = (unsigned long)bi->iovecs;
+> +	sqe->user_data = (unsigned long long)bi;
 
-1) memcg_max_usage_in_bytes
-2) memcg_stat
-3) memcg_use_hierarchy
+Shouldn't we set the sqe->fd and sqe->len here?
 
-when i am trying to run memcg_max_usage_in_bytes
+As far as I can see we request to read 0 bytes from stdin, which is
+no-op but I would be happier if we actually read a bytes from a file
+here and then checked that we actually read some bytes.
 
-$#cmdline=3D"memcg_usage_in_bytes_test.sh"
-contacts=3D""
-analysis=3Dexit
-<<<test_output>>>
-memcg_usage_in_bytes_test 1 TINFO: Starting test 1
-/opt/ltp/testcases/bin/memcg_lib.sh: line 522: echo: write error: Device or=
- resource busy
-memcg_usage_in_bytes_test 1 TINFO: set /dev/memcg/memory.use_hierarchy to 0=
- failed
-memcg_usage_in_bytes_test 1 TINFO: Running memcg_process --mmap-anon -s 419=
-4304
-memcg_usage_in_bytes_test 1 TINFO: Warming up pid: 98968
-memcg_usage_in_bytes_test 1 TINFO: Process is still here after warm up: 989=
-68
-memcg_usage_in_bytes_test 1 TFAIL: memory.usage_in_bytes is 4202496, 419430=
-4 expected
-memcg_usage_in_bytes_test 2 TINFO: Starting test 2
-/opt/ltp/testcases/bin/memcg_lib.sh: line 522: echo: write error: Device or=
- resource busy
-memcg_usage_in_bytes_test 2 TINFO: set /dev/memcg/memory.use_hierarchy to 0=
- failed
-memcg_usage_in_bytes_test 2 TINFO: Running memcg_process --mmap-anon -s 419=
-4304
-memcg_usage_in_bytes_test 2 TINFO: Warming up pid: 98988
-memcg_usage_in_bytes_test 2 TINFO: Process is still here after warm up: 989=
-88
-memcg_usage_in_bytes_test 2 TFAIL: memory.memsw.usage_in_bytes is 4325376, =
-4194304 expected
-<<<execution_status>>>
+> +	sring->array[index] = index;
+> +	tail = next_tail;
+> +
+> +	/* Kernel to notice the tail update */
+> +	if (*sring->tail != tail)
+> +		*sring->tail = tail;
+> +
+> +	ret =  io_uring_enter(s->ring_fd, 1, 1, IORING_ENTER_GETEVENTS, &sig);
+> +	if (ret >= 0) {
+> +		tst_res(TPASS, "io_uring_enter() passed");
+> +	} else {
+> +		tst_res(TFAIL | TTERRNO, "io_uring_enter() failed");
+> +		return 1;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static void cleanup_io_uring_test(void)
+> +{
+> +	io_uring_register(s->ring_fd, IORING_UNREGISTER_BUFFERS,
+> +			  NULL, QUEUE_DEPTH);
+> +	SAFE_MUNMAP(s->sqes, sizeof(struct io_uring_sqe));
+> +}
+> +
+> +static void run(unsigned int n)
+> +{
+> +	struct tcase *tc = &tcases[n];
+> +
+> +	s = &sub_ring;
 
- i would like to mention that memory resource controller is not available o=
-n my arch because of this can they fail ??Can you help me on this?? I am st=
-uck with this from long back
+Can we please just pass &sub_right to the functions below?
 
-Thanks!
+There is no point in defining a pointer to a global variable if we can
+easily get the pointer anyways.
 
+> +	memset(s, 0, sizeof(*s));
+> +	if (setup_io_uring_test(s, tc))
+> +		return;
+> +
+> +	if (submit_to_uring_sq(s, tc))
+> +		return;
+> +
+> +	cleanup_io_uring_test();
+> +	tst_res(TPASS, "functionality of io_uring API is correct");
 
---_000_BMXPR01MB2344F43177589233AA67FF27EE6F0BMXPR01MB2344INDP_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+No need to print overall pass message here now that we print pass/fail
+for each io_uring opearation we do.
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<div style=3D"margin: 0px; font-size: 12pt; font-family: Calibri, Arial, He=
-lvetica, sans-serif; color: black; background-color: rgb(255, 255, 255)">
-<span style=3D"margin: 0px">Hi,</span><br>
-</div>
-<div style=3D"margin: 0px; font-size: 15px; font-family: &quot;Segoe UI&quo=
-t;, &quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-=
-system, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif;=
- color: rgb(32, 31, 30); background-color: rgb(255, 255, 255)">
-<div dir=3D"ltr" style=3D"margin: 0px">
-<div style=3D"margin: 0px; font-size: 12pt; font-family: Calibri, Arial, He=
-lvetica, sans-serif; color: black">
-<div style=3D"margin: 0px">I am trying to run ltp with kernel 5.5.6 and i f=
-ound that the few tests from the memcg groups are failing i didnt understoo=
-d the exact reason of failure am listing the test cases along with error lo=
-g of few test can you help me on this??</div>
-<div style=3D"margin: 0px"><br>
-</div>
-<div style=3D"margin: 0px"><span style=3D"margin: 0px">1) memcg_max_usage_i=
-n_bytes<br>
-</span>
-<div style=3D"margin: 0px">2) memcg_stat<br>
-</div>
-<div style=3D"margin: 0px">3) memcg_use_hierarchy<br>
-</div>
-<span style=3D"margin: 0px"></span><br>
-</div>
-<div style=3D"margin: 0px">when i am trying to run&nbsp;<span style=3D"marg=
-in: 0px; background-color: white">memcg_max_usage_in_bytes</span></div>
-<div style=3D"margin: 0px"><span style=3D"margin: 0px; background-color: wh=
-ite"><br>
-</span></div>
-<div style=3D"margin: 0px"><span style=3D"margin: 0px; background-color: wh=
-ite"><b>$#</b><span style=3D"margin: 0px"><b>cmdline=3D&quot;memcg_usage_in=
-_bytes_test.sh&quot;</b><br>
-</span>
-<div style=3D"margin: 0px">contacts=3D&quot;&quot;<br>
-</div>
-<div style=3D"margin: 0px">analysis=3Dexit<br>
-</div>
-<div style=3D"margin: 0px">&lt;&lt;&lt;test_output&gt;&gt;&gt;<br>
-</div>
-<div style=3D"margin: 0px">memcg_usage_in_bytes_test 1 TINFO: Starting test=
- 1<br>
-</div>
-<div style=3D"margin: 0px"><b>/opt/ltp/testcases/bin/memcg_lib.sh: line 522=
-: echo: write error: Device or resource busy<br>
-</b></div>
-<div style=3D"margin: 0px"><b>memcg_usage_in_bytes_test 1 TINFO: set /dev/m=
-emcg/memory.use_hierarchy to 0 failed</b><br>
-</div>
-<div style=3D"margin: 0px">memcg_usage_in_bytes_test 1 TINFO: Running memcg=
-_process --mmap-anon -s 4194304<br>
-</div>
-<div style=3D"margin: 0px">memcg_usage_in_bytes_test 1 TINFO: Warming up pi=
-d: 98968<br>
-</div>
-<div style=3D"margin: 0px">memcg_usage_in_bytes_test 1 TINFO: Process is st=
-ill here after warm up: 98968<br>
-</div>
-<div style=3D"margin: 0px">memcg_usage_in_bytes_test 1 TFAIL: memory.usage_=
-in_bytes is 4202496, 4194304 expected<br>
-</div>
-<div style=3D"margin: 0px">memcg_usage_in_bytes_test 2 TINFO: Starting test=
- 2<br>
-</div>
-<div style=3D"margin: 0px"><b>/opt/ltp/testcases/bin/memcg_lib.sh: line 522=
-: echo: write error: Device or resource busy<br>
-</b></div>
-<div style=3D"margin: 0px"><b>memcg_usage_in_bytes_test 2 TINFO: set /dev/m=
-emcg/memory.use_hierarchy to 0 failed</b><br>
-</div>
-<div style=3D"margin: 0px">memcg_usage_in_bytes_test 2 TINFO: Running memcg=
-_process --mmap-anon -s 4194304<br>
-</div>
-<div style=3D"margin: 0px">memcg_usage_in_bytes_test 2 TINFO: Warming up pi=
-d: 98988<br>
-</div>
-<div style=3D"margin: 0px">memcg_usage_in_bytes_test 2 TINFO: Process is st=
-ill here after warm up: 98988<br>
-</div>
-<div style=3D"margin: 0px">memcg_usage_in_bytes_test 2 TFAIL: memory.memsw.=
-usage_in_bytes is 4325376, 4194304 expected<br>
-</div>
-<div style=3D"margin: 0px">&lt;&lt;&lt;execution_status&gt;&gt;&gt;<br>
-</div>
-<span style=3D"margin: 0px"></span></span></div>
-<div style=3D"margin: 0px"><span style=3D"margin: 0px; background-color: wh=
-ite"><br>
-</span></div>
-<div style=3D"margin: 0px">&nbsp;i would like to mention that<span style=3D=
-"margin: 0px">&nbsp;</span><b>memory resource controller is not available</=
-b><span style=3D"margin: 0px">&nbsp;</span>on my arch because of this can t=
-hey fail ??Can you help me on this?? I am stuck with
- this from long back</div>
-<div style=3D"margin: 0px"><br>
-</div>
-<div style=3D"margin: 0px">Thanks!</div>
-</div>
-</div>
-</div>
-<br>
-</div>
-</body>
-</html>
+> +}
+> +
+> +static struct tst_test test = {
+> +	.setup = io_uring_setup_supported_by_kernel,
+> +	.test = run,
+> +	.tcnt = ARRAY_SIZE(tcases),
+> +};
+> +
 
---_000_BMXPR01MB2344F43177589233AA67FF27EE6F0BMXPR01MB2344INDP_--
+Other than these the test looks good now.
 
---===============0743354875==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0743354875==--
