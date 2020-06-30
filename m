@@ -2,73 +2,92 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3695920F33C
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Jun 2020 12:57:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B56520F568
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Jun 2020 15:06:47 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4577E3C56EE
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Jun 2020 12:57:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E4DF43C56E6
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Jun 2020 15:06:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id D16853C2AAD
- for <ltp@lists.linux.it>; Tue, 30 Jun 2020 12:57:16 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [207.211.31.120])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id EDEEF1000D8A
- for <ltp@lists.linux.it>; Tue, 30 Jun 2020 12:57:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1593514634;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=c+pP851bw+JblIskriLVIhC1uohKhdemum8FZw4Dmbg=;
- b=OBQ7DDoG7E/xNAoiXamBtkHhvHFSP5uMtMCh85SL7oOqtGmQ0HSpjDvZthqNHSFJ0huY/S
- h7B1SVTZnLuaQc/3ct6jASUiSWFopuVqRYLsOzunBcDVbTagLI/W1SEuYDdQeixtSXOz3L
- l2MV7xPUawkC+OYJCsD806jW+29noB8=
-Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
- [209.85.167.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-293-uGy4pJoBOCGA-jIMWOT_8w-1; Tue, 30 Jun 2020 06:57:11 -0400
-X-MC-Unique: uGy4pJoBOCGA-jIMWOT_8w-1
-Received: by mail-lf1-f71.google.com with SMTP id y21so11554105lfg.12
- for <ltp@lists.linux.it>; Tue, 30 Jun 2020 03:57:11 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=c+pP851bw+JblIskriLVIhC1uohKhdemum8FZw4Dmbg=;
- b=cSyq05B30jCkvvTYLZ3W5qkxQdCDot5M9SuUd+XpxA+ZLeHtQOoXwYnO6fm2Bfx9Jy
- 6S+aD1hJeeVI4ZUiGvJ/ITy1k/ou6QMIAZig5YibtF2FhF2IoPChXrtIKf92ZblL175I
- C2f5GcIIRWRPyblqNE9O5jAt3ygmQiaLnMnSouz63An9lfCDQ2Wd31Vz1vUkEMy9gdbt
- PIbQ9TY0t15blUnSchnkhjikLTtiONdfctDOBnv2kAIuTS7GjXScPy2b3fVOmcOvTKDY
- 1FRwn4w9hGmdGUFaKgIz41Jkx+/ktrSucDNrw8w3keV3qdkBye4cp9+tJ+f0mT47wJlB
- R7KA==
-X-Gm-Message-State: AOAM533CsbH/ouLLnFxMCwYj8hx+tpRIbFRcJutcO7aLyrzfbaGLgcNg
- tnKibSYIiz0qUqKywgCMm4cFXtJBuyvCWkZC9wFPLXdPp/cFbZuXGTQ/iPDXAnE4aiFOmMr7Oj/
- hlmzfCeOBIxCzzgCtYigfQzgfR4w=
-X-Received: by 2002:a2e:5d8:: with SMTP id 207mr9697126ljf.257.1593514629636; 
- Tue, 30 Jun 2020 03:57:09 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyOK9+sTj3j9AeO04pztcWA1U3jRxEjgklNaz/KC7yyOMFJVlziiaUmst0wRSuytiKFwNER29GaiPwNtbEc1Sg=
-X-Received: by 2002:a2e:5d8:: with SMTP id 207mr9697118ljf.257.1593514629398; 
- Tue, 30 Jun 2020 03:57:09 -0700 (PDT)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id D21983C2AE5
+ for <ltp@lists.linux.it>; Tue, 30 Jun 2020 15:06:42 +0200 (CEST)
+Received: from IND01-MA1-obe.outbound.protection.outlook.com
+ (mail-eopbgr1380119.outbound.protection.outlook.com [40.107.138.119])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4468F600351
+ for <ltp@lists.linux.it>; Tue, 30 Jun 2020 15:06:41 +0200 (CEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YLiJKufAYMvW0r9fJcCKrzGU+sV9k0zJJ8xNrfNR/2Yc7oOwKr6bRTNILUBzj1X25kq9D1rbE2vCdMdDmXTfs48IgM0Ah5Bzy5FyrWwEp8ToHJrbHM9UtfDb6UrWvc5SErn2Jo8nuGuCCF0bq8TfFhgwbXcr5RnmcpkHXWwRWruUniTulS+S9XlzpkLizLMgwB4A7a5g3EZUSgkG0dzfcJz4CGhtZUa6o8wa94nAYUO3DvRk6MfecJqTi04NOmYGLjRN3cqZB6IYcGpHTFZvu7OdQizrTULd5GoleVkqMq/S0xkj/Lfb4YsAokOb/MCR/zI+rZqCU6oZhfAaVaEpDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IIJcf9kZq1VRnnUITIbpq4tcA63+AXEvsjVjb3NsE24=;
+ b=lae7r28furLZcyY0+7meaV4QJV589pxkOQpCFsLqZRa4PLdX/WTFkrHhltbFnoBOklJABI1SL3kDIpGibcRCgZAclsOttEOd0UUsU6SsX5qF2KkukGiN/7p/lAwnOIETFfvFWg1/vW0qI81EdikLGCim0KT13dq1Tx1MqtlkJFVALjdS1ARXI1b366WOg4q+Xaq5Rpb1j8dL7PV27I4T2v5UXxBZXv+DSU+VLFp8RHPtHG204sASeGW7JgfUisrNjsr8ego9u+0BcBJa75RoQHMHGBnBCExccJltlmlC3oRgKE3BMLHco40NcDMUvehZYQGqCWY4AxySBsfszyn9kw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=exaleapsemi.com; dmarc=pass action=none
+ header.from=exaleapsemi.com; dkim=pass header.d=exaleapsemi.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=exaleapsemi.onmicrosoft.com; s=selector2-exaleapsemi-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IIJcf9kZq1VRnnUITIbpq4tcA63+AXEvsjVjb3NsE24=;
+ b=RM3iNUpGjrwqEvfviC8aYXzgRpfKQxf6TsZTxkinnZiD8ezP3B8Uw2guHnBVm6M2P4lCoZC0W8tjlV/5HnZZriY3O0/loJuRy3ItWiyeuFfYaq1DaP4F4iwJwP4mZ3jPNq1P+OxvSfyo04/YWlbgSUe/GzKvjr/zFXfHKt4qaPY=
+Received: from BMXPR01MB2344.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:36::20)
+ by BMXPR01MB0951.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:12::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3131.20; Tue, 30 Jun
+ 2020 13:06:38 +0000
+Received: from BMXPR01MB2344.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::adf5:6e2d:b2df:3e72]) by BMXPR01MB2344.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::adf5:6e2d:b2df:3e72%2]) with mapi id 15.20.3131.028; Tue, 30 Jun 2020
+ 13:06:37 +0000
+From: "Pankaj  Vinadrao Joshi" <Pankaj.VJ@exaleapsemi.com>
+To: Li Wang <liwang@redhat.com>
+Thread-Topic: Memcg testcase failure
+Thread-Index: AQHWTt8KnS8ycf5pIUS8F0JmiLlOAg==
+Date: Tue, 30 Jun 2020 13:06:37 +0000
+Message-ID: <BMXPR01MB2344F43177589233AA67FF27EE6F0@BMXPR01MB2344.INDPRD01.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: redhat.com; dkim=none (message not signed)
+ header.d=none; redhat.com; dmarc=none action=none header.from=exaleapsemi.com; 
+x-originating-ip: [2409:4042:e0f:aecf:980b:247c:8eba:dc69]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 680f2841-364e-4e9b-7971-08d81cf66c69
+x-ms-traffictypediagnostic: BMXPR01MB0951:
+x-microsoft-antispam-prvs: <BMXPR01MB0951E0F696435B86A7AB86EAEE6F0@BMXPR01MB0951.INDPRD01.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:2043;
+x-forefront-prvs: 0450A714CB
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: iScU6+nSBfe6gd+2YUqTd81BGHpIvMBq2F1KYTYJQSVrOWbI3oiGjZUA2wz5u07CjN6+3Qty+dzBGSglzHY7CSpwXukYY2Hxi334LG3ipeavjA6wq7OMwX8hTwlb2fUrx/P6ze4pll5NerHgayE4qkzwC4fofhS1S1bpai89q1IUY4xX2hOgFiy5hq4tnAgp7a0qQnRSgI3Gb4xr2CBSoGlGYRTbeHy4tsGAo1zYv5rtZ5+ht5VVrWdxJiDiFaNy9oQhpLLmZTZNaVT718CoH+CNjsQPRwbAbYJcR0i1+oY6rP5Wa3jNoAHlh33UCw5tsd6rU0kkxw/w+F9pq0NOeQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BMXPR01MB2344.INDPRD01.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(376002)(346002)(39830400003)(366004)(396003)(136003)(8676002)(86362001)(186003)(316002)(19627405001)(8936002)(5660300002)(33656002)(7116003)(83380400001)(66476007)(3480700007)(9686003)(66556008)(55016002)(66946007)(7696005)(64756008)(66446008)(6506007)(6916009)(508600001)(52536014)(4326008)(2906002)(71200400001)(76116006);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: Q/R74NWCyxk6jPNRH9zsOzjr/fVVChT4dvByryW6ELDoVka0DeVOH8+BufzJWTxZ8Ll+9L8r+k0z0d8e3+C5rgdHrLH1T4QfAkSWNxpVb1eLx7G2cHPQWHK2oJ5fuygJA6+Qz1Zi54Swhv6rmNlTBTeN2CX+8cv83QfrVGtUAnnP9YlLvoEz25MYkpRewCSaKXADhw1Rjjv7SvO4QG48wT+DDty/AZMVljhNTKLgU6UcQaPNyylxI4vL2i4Agjg1oDmCaoHlwtctBkei7RkKNWuexHVql+jUugs8Fjyjfc5rMnzQLqQ2LCDqQ9lFhM4Pr6CwFwHzKnbOmz7HCurE1uQMgyRmPjUibgEncGJlPBDT705K19iOrIgqVJ8vd4LrKGETIaf4HWl8fqZoJyBExeiJhClZ8aRuosYoiVRDErtMmzcfktb627RvkCPG+lXg5+vzoZJ7GxHx4whiwOK/u+CDUzKc1/Ai9rqO9jBcftpv0GSGW4rIC1kITEWe3KbMzD7OX8bwmnFfswhjIeEG6K6qt55JoJ+t7VsISEpUzNPPcLYI4s1d96fr6mu3U28F
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-References: <20200630054405.6115-1-pravinraghul@zilogic.com>
-In-Reply-To: <20200630054405.6115-1-pravinraghul@zilogic.com>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 30 Jun 2020 18:56:57 +0800
-Message-ID: <CAEemH2egVWiSB+uzMMFb4oBFxRoP9bVLXa2B0Y39BBpZEH4yLg@mail.gmail.com>
-To: pravin <pravinraghul@zilogic.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-OriginatorOrg: exaleapsemi.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BMXPR01MB2344.INDPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 680f2841-364e-4e9b-7971-08d81cf66c69
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jun 2020 13:06:37.6960 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 34df156e-9bc4-4450-9e80-487c0e7f9471
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7mMIdw9j6dygtKB41Z9PL0aHVYcY09jDFmURY5l95lvYROMbvxEy+yM3yI1ko2VmFCVXOerto5d9HsPtT7eYOqqMXN47JkBayuqUvadYurQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BMXPR01MB0951
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] Add a test case for mmap() MAP_GROWSDOWN flag
+ HTML_MESSAGE,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] Memcg testcase failure
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,208 +99,191 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>, vijaykumar@zilogic.com
-Content-Type: multipart/mixed; boundary="===============1568864291=="
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0743354875=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1568864291==
-Content-Type: multipart/alternative; boundary="0000000000006e209005a94b09d6"
+--===============0743354875==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BMXPR01MB2344F43177589233AA67FF27EE6F0BMXPR01MB2344INDP_"
 
---0000000000006e209005a94b09d6
-Content-Type: text/plain; charset="UTF-8"
-
-On Tue, Jun 30, 2020 at 1:45 PM pravin <pravinraghul@zilogic.com> wrote:
-
->
-> We assign the memory region allocated using MAP_GROWSDOWN to a thread,
-> as a stack, to test the effect of MAP_GROWSDOWN. This is because the
-> kernel only grows the memory region when the stack pointer, is within
-> guard page, when the guard page is touched.
->
->   1. Map an anyonymous memory region of size X, and unmap it.
->   2. Split the unmapped memory region into two.
->   3. The lower memory region is left unmapped.
->   4. The higher memory region is mapped for use as stack, using MAP_FIXED
-> | MAP_GROWSDOWN.
->   5. The higher memory region is provided as stack to a thread, where
->      a recursive function is invoked.
->   6. The stack grows beyond the allocated region, into the lower memory
-> area.
->   7. If this results in the memory region being extended, into the
->      unmapped region, the test is considered to have passed.
->
-> ...
-> +
-> +void split_unmapped_plus_stack(void *start, size_t size, void **stack)
-> +{
-> +       /*
-> +         * +---------------------+----------------------+
-> +         * + unmapped            | stack                |
-> +         * +---------------------+----------------------+
-> +         */
-> +       *stack = SAFE_MMAP(start, size, PROT_READ | PROT_WRITE,
->
-
-This does not match what you describe in the code comments, here we still
-map the total size of the memory area, and stack can not grow into an
-unmapped region.
-
-Looking at the address which printed from your code, the mem == stack and
-&limit grows down in mapped address.
-
-# ./mmap18
-tst_test.c:1247: INFO: Timeout per run is 0h 05m 00s
-mmap18.c:132: INFO: mem = 0x7ffff7fa5000, stack = 0x7ffff7fa5000
-mmap18.c:96: INFO: &limit = 0x7ffff7fa8fe8, limit = 0x7ffff7fa9000
-mmap18.c:141: PASS: stack grows in unmapped region
-
-
-Maybe this below could achieve your method, or you can take the way which
-Cyril suggests using multiple page_size.
-
---- a/testcases/kernel/syscalls/mmap/mmap18.c
-+++ b/testcases/kernel/syscalls/mmap/mmap18.c
-@@ -84,15 +84,17 @@ void split_unmapped_plus_stack(void *start, size_t
-size, void **stack)
-          * + unmapped            | stack                |
-          * +---------------------+----------------------+
-          */
--       *stack = SAFE_MMAP(start, size, PROT_READ | PROT_WRITE,
-+       *stack = SAFE_MMAP(start + size/2, size/2, PROT_READ | PROT_WRITE,
-                           MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS |
-MAP_GROWSDOWN,
-                           -1, 0);
- }
-
- static void *check_depth_recursive(void *limit)
- {
--       if ((off_t) &limit < (off_t) limit)
-+       if ((off_t) &limit < (off_t) limit) {
-+               tst_res(TINFO, "&limit = %p, limit = %p", &limit, limit);
-                return NULL;
-+       }
-
-        return check_depth_recursive(limit);
- }
-@@ -125,10 +127,11 @@ static void run_test(void)
-
-        mem = find_free_range(UNITS(16));
-        split_unmapped_plus_stack(mem, UNITS(16), &stack);
-+       tst_res(TINFO, "mem = %p, stack = %p", mem, stack);
-
-        child_pid = SAFE_FORK();
-        if (child_pid == 0) {
--               grow_stack(stack, UNITS(8), mem + UNITS(1));
-+               grow_stack(stack, UNITS(8), stack - UNITS(1));
-        } else {
-                SAFE_WAIT(&wstatus);
-                if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) == 0)
-
--- 
-Regards,
-Li Wang
-
---0000000000006e209005a94b09d6
-Content-Type: text/html; charset="UTF-8"
+--_000_BMXPR01MB2344F43177589233AA67FF27EE6F0BMXPR01MB2344INDP_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Tue, Jun 30, 2020 at 1:45 PM pravin &lt;<a href=
-=3D"mailto:pravinraghul@zilogic.com" target=3D"_blank">pravinraghul@zilogic=
-.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"mar=
-gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
-ex"><br>
-We assign the memory region allocated using MAP_GROWSDOWN to a thread,<br>
-as a stack, to test the effect of MAP_GROWSDOWN. This is because the<br>
-kernel only grows the memory region when the stack pointer, is within<br>
-guard page, when the guard page is touched.<br>
-<br>
-=C2=A0 1. Map an anyonymous memory region of size X, and unmap it.<br>
-=C2=A0 2. Split the unmapped memory region into two.<br>
-=C2=A0 3. The lower memory region is left unmapped.<br>
-=C2=A0 4. The higher memory region is mapped for use as stack, using MAP_FI=
-XED | MAP_GROWSDOWN.<br>
-=C2=A0 5. The higher memory region is provided as stack to a thread, where<=
-br>
-=C2=A0 =C2=A0 =C2=A0a recursive function is invoked.<br>
-=C2=A0 6. The stack grows beyond the allocated region, into the lower memor=
-y area.<br>
-=C2=A0 7. If this results in the memory region being extended, into the<br>
-=C2=A0 =C2=A0 =C2=A0unmapped region, the test is considered to have passed.=
-<br>
-<br>
-<span class=3D"gmail_default" style=3D"font-size:small">...</span><br>
-+<br>
-+void split_unmapped_plus_stack(void *start, size_t size, void **stack)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* +---------------------+---------------=
--------+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* + unmapped=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 | stack=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 |<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* +---------------------+---------------=
--------+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0*stack =3D SAFE_MMAP(start, size, PROT_READ | P=
-ROT_WRITE,<br></blockquote><div><br></div><div class=3D"gmail_default" styl=
-e=3D"font-size:small">This does not match what you describe in the code com=
-ments, here we still map the total size of the memory area, and=C2=A0stack=
-=C2=A0can not grow=C2=A0into an unmapped region.</div><div class=3D"gmail_d=
-efault" style=3D"font-size:small"><br></div><div class=3D"gmail_default" st=
-yle=3D"font-size:small">Looking at the address which printed from your code=
-, the mem =3D=3D stack and &amp;limit grows down in mapped address.</div><d=
-iv class=3D"gmail_default" style=3D"font-size:small"><br></div><div class=
-=3D"gmail_default" style=3D"font-size:small"># ./mmap18<br>tst_test.c:1247:=
- INFO: Timeout per run is 0h 05m 00s<br>mmap18.c:132: INFO: mem =3D 0x7ffff=
-7fa5000, stack =3D 0x7ffff7fa5000<br>mmap18.c:96: INFO: &amp;limit =3D 0x7f=
-fff7fa8fe8, limit =3D 0x7ffff7fa9000<br>mmap18.c:141: PASS: stack grows in =
-unmapped region<br></div><div><br></div><div><br></div><div class=3D"gmail_=
-default" style=3D"font-size:small">Maybe this below could achieve your meth=
-od, or you can take the way which Cyril suggests using multiple page_size.<=
-/div><div class=3D"gmail_default" style=3D"font-size:small"><br></div>--- a=
-/testcases/kernel/syscalls/mmap/mmap18.c<br>+++ b/testcases/kernel/syscalls=
-/mmap/mmap18.c<br>@@ -84,15 +84,17 @@ void split_unmapped_plus_stack(void *=
-start, size_t size, void **stack)<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * +=
- unmapped =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| stack =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 * +---------------------+----------------------+<br>=C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 */<br>- =C2=A0 =C2=A0 =C2=A0 *stack =3D SAFE_MMAP(star=
-t, size, PROT_READ | PROT_WRITE,<br>+ =C2=A0 =C2=A0 =C2=A0 *stack =3D SAFE_=
-MMAP(start + size/2, size/2, PROT_READ | PROT_WRITE,<br>=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS | MAP_GROWSDOWN,<br>=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0-1, 0);<br>=C2=A0}<br>=C2=A0<br>=C2=A0static void *check_d=
-epth_recursive(void *limit)<br>=C2=A0{<br>- =C2=A0 =C2=A0 =C2=A0 if ((off_t=
-) &amp;limit &lt; (off_t) limit)<br>+ =C2=A0 =C2=A0 =C2=A0 if ((off_t) &amp=
-;limit &lt; (off_t) limit) {<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 tst_res(TINFO, &quot;&amp;limit =3D %p, limit =3D %p&quot;, &amp;li=
-mit, limit);<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ret=
-urn NULL;<br>+ =C2=A0 =C2=A0 =C2=A0 }<br>=C2=A0<br>=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 return check_depth_recursive(limit);<br>=C2=A0}<br>@@ -125,10 +127,11 @=
-@ static void run_test(void)<br>=C2=A0<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 mem =
-=3D find_free_range(UNITS(16));<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 split_unmapp=
-ed_plus_stack(mem, UNITS(16), &amp;stack);<br>+ =C2=A0 =C2=A0 =C2=A0 tst_re=
-s(TINFO, &quot;mem =3D %p, stack =3D %p&quot;, mem, stack);<br>=C2=A0<br>=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 child_pid =3D SAFE_FORK();<br>=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 if (child_pid =3D=3D 0) {<br>- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 grow_stack(stack, UNITS(8), mem + UNITS(1));<br>+ =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 grow_stack(stack, UNITS(8), stack=
- - UNITS(1));<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 } else {<br>=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 SAFE_WAIT(&amp;wstatus);<br>=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (WIFEXITED(wstatus) &am=
-p;&amp; WEXITSTATUS(wstatus) =3D=3D 0)<br><div class=3D"gmail_default" styl=
-e=3D"font-size:small"></div><div><br></div></div>-- <br><div dir=3D"ltr"><d=
-iv dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></d=
-iv>
+Hi,
+I am trying to run ltp with kernel 5.5.6 and i found that the few tests fro=
+m the memcg groups are failing i didnt understood the exact reason of failu=
+re am listing the test cases along with error log of few test can you help =
+me on this??
 
---0000000000006e209005a94b09d6--
+1) memcg_max_usage_in_bytes
+2) memcg_stat
+3) memcg_use_hierarchy
+
+when i am trying to run memcg_max_usage_in_bytes
+
+$#cmdline=3D"memcg_usage_in_bytes_test.sh"
+contacts=3D""
+analysis=3Dexit
+<<<test_output>>>
+memcg_usage_in_bytes_test 1 TINFO: Starting test 1
+/opt/ltp/testcases/bin/memcg_lib.sh: line 522: echo: write error: Device or=
+ resource busy
+memcg_usage_in_bytes_test 1 TINFO: set /dev/memcg/memory.use_hierarchy to 0=
+ failed
+memcg_usage_in_bytes_test 1 TINFO: Running memcg_process --mmap-anon -s 419=
+4304
+memcg_usage_in_bytes_test 1 TINFO: Warming up pid: 98968
+memcg_usage_in_bytes_test 1 TINFO: Process is still here after warm up: 989=
+68
+memcg_usage_in_bytes_test 1 TFAIL: memory.usage_in_bytes is 4202496, 419430=
+4 expected
+memcg_usage_in_bytes_test 2 TINFO: Starting test 2
+/opt/ltp/testcases/bin/memcg_lib.sh: line 522: echo: write error: Device or=
+ resource busy
+memcg_usage_in_bytes_test 2 TINFO: set /dev/memcg/memory.use_hierarchy to 0=
+ failed
+memcg_usage_in_bytes_test 2 TINFO: Running memcg_process --mmap-anon -s 419=
+4304
+memcg_usage_in_bytes_test 2 TINFO: Warming up pid: 98988
+memcg_usage_in_bytes_test 2 TINFO: Process is still here after warm up: 989=
+88
+memcg_usage_in_bytes_test 2 TFAIL: memory.memsw.usage_in_bytes is 4325376, =
+4194304 expected
+<<<execution_status>>>
+
+ i would like to mention that memory resource controller is not available o=
+n my arch because of this can they fail ??Can you help me on this?? I am st=
+uck with this from long back
+
+Thanks!
 
 
---===============1568864291==
+--_000_BMXPR01MB2344F43177589233AA67FF27EE6F0BMXPR01MB2344INDP_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"margin: 0px; font-size: 12pt; font-family: Calibri, Arial, He=
+lvetica, sans-serif; color: black; background-color: rgb(255, 255, 255)">
+<span style=3D"margin: 0px">Hi,</span><br>
+</div>
+<div style=3D"margin: 0px; font-size: 15px; font-family: &quot;Segoe UI&quo=
+t;, &quot;Segoe UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-=
+system, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif;=
+ color: rgb(32, 31, 30); background-color: rgb(255, 255, 255)">
+<div dir=3D"ltr" style=3D"margin: 0px">
+<div style=3D"margin: 0px; font-size: 12pt; font-family: Calibri, Arial, He=
+lvetica, sans-serif; color: black">
+<div style=3D"margin: 0px">I am trying to run ltp with kernel 5.5.6 and i f=
+ound that the few tests from the memcg groups are failing i didnt understoo=
+d the exact reason of failure am listing the test cases along with error lo=
+g of few test can you help me on this??</div>
+<div style=3D"margin: 0px"><br>
+</div>
+<div style=3D"margin: 0px"><span style=3D"margin: 0px">1) memcg_max_usage_i=
+n_bytes<br>
+</span>
+<div style=3D"margin: 0px">2) memcg_stat<br>
+</div>
+<div style=3D"margin: 0px">3) memcg_use_hierarchy<br>
+</div>
+<span style=3D"margin: 0px"></span><br>
+</div>
+<div style=3D"margin: 0px">when i am trying to run&nbsp;<span style=3D"marg=
+in: 0px; background-color: white">memcg_max_usage_in_bytes</span></div>
+<div style=3D"margin: 0px"><span style=3D"margin: 0px; background-color: wh=
+ite"><br>
+</span></div>
+<div style=3D"margin: 0px"><span style=3D"margin: 0px; background-color: wh=
+ite"><b>$#</b><span style=3D"margin: 0px"><b>cmdline=3D&quot;memcg_usage_in=
+_bytes_test.sh&quot;</b><br>
+</span>
+<div style=3D"margin: 0px">contacts=3D&quot;&quot;<br>
+</div>
+<div style=3D"margin: 0px">analysis=3Dexit<br>
+</div>
+<div style=3D"margin: 0px">&lt;&lt;&lt;test_output&gt;&gt;&gt;<br>
+</div>
+<div style=3D"margin: 0px">memcg_usage_in_bytes_test 1 TINFO: Starting test=
+ 1<br>
+</div>
+<div style=3D"margin: 0px"><b>/opt/ltp/testcases/bin/memcg_lib.sh: line 522=
+: echo: write error: Device or resource busy<br>
+</b></div>
+<div style=3D"margin: 0px"><b>memcg_usage_in_bytes_test 1 TINFO: set /dev/m=
+emcg/memory.use_hierarchy to 0 failed</b><br>
+</div>
+<div style=3D"margin: 0px">memcg_usage_in_bytes_test 1 TINFO: Running memcg=
+_process --mmap-anon -s 4194304<br>
+</div>
+<div style=3D"margin: 0px">memcg_usage_in_bytes_test 1 TINFO: Warming up pi=
+d: 98968<br>
+</div>
+<div style=3D"margin: 0px">memcg_usage_in_bytes_test 1 TINFO: Process is st=
+ill here after warm up: 98968<br>
+</div>
+<div style=3D"margin: 0px">memcg_usage_in_bytes_test 1 TFAIL: memory.usage_=
+in_bytes is 4202496, 4194304 expected<br>
+</div>
+<div style=3D"margin: 0px">memcg_usage_in_bytes_test 2 TINFO: Starting test=
+ 2<br>
+</div>
+<div style=3D"margin: 0px"><b>/opt/ltp/testcases/bin/memcg_lib.sh: line 522=
+: echo: write error: Device or resource busy<br>
+</b></div>
+<div style=3D"margin: 0px"><b>memcg_usage_in_bytes_test 2 TINFO: set /dev/m=
+emcg/memory.use_hierarchy to 0 failed</b><br>
+</div>
+<div style=3D"margin: 0px">memcg_usage_in_bytes_test 2 TINFO: Running memcg=
+_process --mmap-anon -s 4194304<br>
+</div>
+<div style=3D"margin: 0px">memcg_usage_in_bytes_test 2 TINFO: Warming up pi=
+d: 98988<br>
+</div>
+<div style=3D"margin: 0px">memcg_usage_in_bytes_test 2 TINFO: Process is st=
+ill here after warm up: 98988<br>
+</div>
+<div style=3D"margin: 0px">memcg_usage_in_bytes_test 2 TFAIL: memory.memsw.=
+usage_in_bytes is 4325376, 4194304 expected<br>
+</div>
+<div style=3D"margin: 0px">&lt;&lt;&lt;execution_status&gt;&gt;&gt;<br>
+</div>
+<span style=3D"margin: 0px"></span></span></div>
+<div style=3D"margin: 0px"><span style=3D"margin: 0px; background-color: wh=
+ite"><br>
+</span></div>
+<div style=3D"margin: 0px">&nbsp;i would like to mention that<span style=3D=
+"margin: 0px">&nbsp;</span><b>memory resource controller is not available</=
+b><span style=3D"margin: 0px">&nbsp;</span>on my arch because of this can t=
+hey fail ??Can you help me on this?? I am stuck with
+ this from long back</div>
+<div style=3D"margin: 0px"><br>
+</div>
+<div style=3D"margin: 0px">Thanks!</div>
+</div>
+</div>
+</div>
+<br>
+</div>
+</body>
+</html>
+
+--_000_BMXPR01MB2344F43177589233AA67FF27EE6F0BMXPR01MB2344INDP_--
+
+--===============0743354875==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -291,5 +293,4 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============1568864291==--
-
+--===============0743354875==--
