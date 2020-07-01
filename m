@@ -2,38 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8103A210ED5
-	for <lists+linux-ltp@lfdr.de>; Wed,  1 Jul 2020 17:15:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF70F2116AB
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Jul 2020 01:31:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DD5FC3C5685
-	for <lists+linux-ltp@lfdr.de>; Wed,  1 Jul 2020 17:15:08 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3C7E33C56A9
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Jul 2020 01:31:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id B577D3C2A86
- for <ltp@lists.linux.it>; Wed,  1 Jul 2020 17:14:58 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 16B123C29E5
+ for <ltp@lists.linux.it>; Thu,  2 Jul 2020 01:31:42 +0200 (CEST)
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
+ [IPv6:2a00:1450:4864:20::543])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id CCE7960091D
- for <ltp@lists.linux.it>; Wed,  1 Jul 2020 17:14:57 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 26800ACBD
- for <ltp@lists.linux.it>; Wed,  1 Jul 2020 15:14:57 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 00DB1200CE7
+ for <ltp@lists.linux.it>; Thu,  2 Jul 2020 01:31:42 +0200 (CEST)
+Received: by mail-ed1-x543.google.com with SMTP id g20so21423387edm.4
+ for <ltp@lists.linux.it>; Wed, 01 Jul 2020 16:31:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=+sYN3yCDL5OosbxQ7xaElD+BUL2wBF5Z7fVqblRq9Jo=;
+ b=WU+D6QnTcAYaTEbgnrCXOjMwgbopRXXX8iDbwjY6w0FFN21QsRkc/VXmFq++h2lvwb
+ YQKe7uu64ERFfkuHx83unSgxVHEeEDoA7GNxV67A5DFj+6lAlPWlSYGrPNvhmJdtDg/d
+ RzGZgkr6DRFzhQBq+Bg6Pl1H3K/IXhRA49Ra4egiyjXW2Qo8Ryq28M8YmLRqANhOSwjM
+ 9ej04QXGsByB1rx6LSEd1zjHxmN02Lg3lOjeBd8GxnYMfCFgPsAOGXpVNp6FsszT0kxC
+ jfanhOCOpfumHqGuFXsFa5Jw6L8sOPn0UQyvIJNMMAH5TROCgFgvTIex0tYn/aJDOi68
+ Zh+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=+sYN3yCDL5OosbxQ7xaElD+BUL2wBF5Z7fVqblRq9Jo=;
+ b=ZO++TTTrkXOo/BpQp4/m6cyo5z20rcdSTPXOe7ltMX7U6XbP96gXAIfs0DUcwoTMff
+ EiGghiTYe7OBkk2fSYEAX0gHonZ586XLOZ+ku1t4D6xFkzGxCCo8TvBMO+r2Xdp1SfWd
+ Ejq1zGaRSxDxOtPIsKzICHi3slHklpVKuA6IzF7iR1KhxDzWiYHZW/KlqSXWzQMXrSpQ
+ mv37PLQL+kQZNW7JV0iDwQePq2BESqAocwqGTbkHgDDnuTIf9Pt9MGL2c4+PpPUuqpqq
+ vZAEr+3h/TS5BKACpd6iAEsgN2BzpB0tlRoDB721O1/MXrqPetLMLVtcb8eNJKHpfL6h
+ 3bew==
+X-Gm-Message-State: AOAM5330v41NjHwGJCnc8uIlOUEodrIq4NvMXOYZ/p5PMF2vg/Kc/PE3
+ iIYn4C4fLwj3aIi3H6on5IMUoVpHmSA=
+X-Google-Smtp-Source: ABdhPJy689R+PzqDDYANeUNmvbLCg7jB5CBL+79321FPNyNP/w/1m/Z+m0oSBVk2b12LGgzJ1E7V4g==
+X-Received: by 2002:a05:6402:888:: with SMTP id
+ e8mr32816043edy.210.1593646301267; 
+ Wed, 01 Jul 2020 16:31:41 -0700 (PDT)
+Received: from localhost.localdomain ([62.201.25.198])
+ by smtp.gmail.com with ESMTPSA id m14sm5341828ejx.80.2020.07.01.16.31.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Jul 2020 16:31:40 -0700 (PDT)
+From: Petr Vorel <petr.vorel@gmail.com>
 To: ltp@lists.linux.it
-Date: Wed,  1 Jul 2020 17:14:56 +0200
-Message-Id: <20200701151456.851-2-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200701151456.851-1-mdoucha@suse.cz>
-References: <20200701151456.851-1-mdoucha@suse.cz>
+Date: Thu,  2 Jul 2020 01:31:33 +0200
+Message-Id: <20200701233133.122801-1-petr.vorel@gmail.com>
+X-Mailer: git-send-email 2.27.0.rc0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/2] Add test for CVE 2017-1000405
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/1] numa01.sh: Handle computation error
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,239 +81,301 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Fixes #316
+when numastat -p did not give a value, the resulting bc calculation was
+empty string instead of 0, thus shell -eq comparison lacked the first
+operator:
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+Mem_curr=$(echo "$(extract_numastat_p $pid $node) * $MB" |bc)
+if [ $(echo "$Mem_curr < $MB" |bc ) -eq 1 ]; then
+
+(standard_in) 1: syntax error
+(standard_in) 1: syntax error
+/root/ltp-install/testcases/bin/numa01.sh: line 93: [: -eq: unary operator expected
+
+Also fix style (use local and lowercase local function variables).
+
+Fixes: 702
+
+Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
 ---
+Hi,
 
-Changes since v1:
-- include lapi/mmap.h
-- TCONF if madvise(MADV_HUGEPAGE) fails with EINVAL
+Simple fix for https://github.com/linux-test-project/ltp/issues/702,
+I guess there should be more checks. Not tested.
+BTW I thought numa01.sh was intended to be replaced with C (@Cyril: am I
+correct?), thus I didn't bother to split syntax fix into 2 commits.
 
- runtest/cve                       |   1 +
- runtest/mm                        |   1 +
- testcases/kernel/mem/.gitignore   |   1 +
- testcases/kernel/mem/thp/Makefile |   1 +
- testcases/kernel/mem/thp/thp04.c  | 160 ++++++++++++++++++++++++++++++
- 5 files changed, 164 insertions(+)
- create mode 100644 testcases/kernel/mem/thp/thp04.c
 
-diff --git a/runtest/cve b/runtest/cve
-index a3a25dbe1..fdb455af1 100644
---- a/runtest/cve
-+++ b/runtest/cve
-@@ -43,6 +43,7 @@ cve-2017-18075 pcrypt_aead01
- cve-2017-1000111 setsockopt07
- cve-2017-1000112 setsockopt05
- cve-2017-1000380 snd_timer01
-+cve-2017-1000405 thp04
- cve-2018-5803 sctp_big_chunk
- cve-2018-7566 snd_seq01
- cve-2018-8897 ptrace09
-diff --git a/runtest/mm b/runtest/mm
-index 612a4d066..4701a14bd 100644
---- a/runtest/mm
-+++ b/runtest/mm
-@@ -86,6 +86,7 @@ swapping01 swapping01 -i 5
- thp01 thp01 -I 120
- thp02 thp02
- thp03 thp03
-+thp04 thp04
- 
- vma01 vma01
- vma02 vma02
-diff --git a/testcases/kernel/mem/.gitignore b/testcases/kernel/mem/.gitignore
-index ce21ca70f..b95ada109 100644
---- a/testcases/kernel/mem/.gitignore
-+++ b/testcases/kernel/mem/.gitignore
-@@ -65,6 +65,7 @@
- /thp/thp01
- /thp/thp02
- /thp/thp03
-+/thp/thp04
- /tunable/max_map_count
- /tunable/min_free_kbytes
- /tunable/overcommit_memory
-diff --git a/testcases/kernel/mem/thp/Makefile b/testcases/kernel/mem/thp/Makefile
-index 867dcf089..89abdc7cd 100644
---- a/testcases/kernel/mem/thp/Makefile
-+++ b/testcases/kernel/mem/thp/Makefile
-@@ -18,6 +18,7 @@
+Kind regards,
+Petr
+
+ testcases/kernel/numa/numa01.sh | 95 ++++++++++++++++++---------------
+ 1 file changed, 51 insertions(+), 44 deletions(-)
+
+diff --git a/testcases/kernel/numa/numa01.sh b/testcases/kernel/numa/numa01.sh
+index 1d626327d..a217db033 100755
+--- a/testcases/kernel/numa/numa01.sh
++++ b/testcases/kernel/numa/numa01.sh
+@@ -1,7 +1,7 @@
+ #!/bin/sh
+ # SPDX-License-Identifier: GPL-2.0-or-later
+ # Copyright (c) International Business Machines Corp., 2007
+-# Copyright (c) Linux Test Project, 2016
++# Copyright (c) Linux Test Project, 2016-2020
+ # Author: Sivakumar Chinnaiah <Sivakumar.C@in.ibm.com>
  #
+ # Test Basic functionality of numactl command.
+@@ -12,9 +12,9 @@
+ # Test #5: Verifies localalloc
+ # Test #6: Verifies memhog
+ # Test #7: Verifies numa_node_size api
+-# Test #8:Verifies Migratepages
+-# Test #9:Verifies hugepage alloacted on specified node
+-# Test #10:Verifies THP memory allocated on preferred node
++# Test #8: Verifies Migratepages
++# Test #9: Verifies hugepage alloacted on specified node
++# Test #10: Verifies THP memory allocated on preferred node
  
- top_srcdir		?= ../../../..
-+thp04:			LDLIBS += -lrt
+ TST_CNT=10
+ TST_SETUP=setup
+@@ -25,15 +25,24 @@ TST_NEEDS_CMDS="awk bc numactl numastat"
  
- include $(top_srcdir)/include/mk/testcases.mk
- include $(top_srcdir)/testcases/kernel/mem/include/libmem.mk
-diff --git a/testcases/kernel/mem/thp/thp04.c b/testcases/kernel/mem/thp/thp04.c
-new file mode 100644
-index 000000000..a8d806c42
---- /dev/null
-+++ b/testcases/kernel/mem/thp/thp04.c
-@@ -0,0 +1,160 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2019 SUSE LLC <mdoucha@suse.cz>
-+ */
+ . tst_test.sh
+ 
+-# Extracts the value of given numa node from the `numastat -p` output.
+-# $1 - Pid number.
+-# $2 - Node number.
+-extract_numastat_p()
++# Convert the value of given numa node from the `numastat -p` output,
++# multiply by size.
++# $1 - Pid number
++# $2 - Node number
++# $3 - Size for multiplication (e.g. 1024, $MB)
++get_mem_cur()
+ {
+ 	local pid=$1
+ 	local node=$(($2 + 2))
++	local size=$3
++	local numstat=$(numastat -p $pid |awk '/^Total/ {print $'$node'}')
+ 
+-	echo $(numastat -p $pid |awk '/^Total/ {print $'$node'}')
++	if [ -z "$numstat" ]; then
++		echo 0
++		return
++	fi
 +
-+/*
-+ * CVE-2017-1000405
-+ *
-+ * Check for the Huge Dirty Cow vulnerability which allows a userspace process
-+ * to overwrite the huge zero page. Race fixed in:
-+ *
-+ *  commit a8f97366452ed491d13cf1e44241bc0b5740b1f0
-+ *  Author: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
-+ *  Date:   Mon Nov 27 06:21:25 2017 +0300
-+ *
-+ *   mm, thp: Do not make page table dirty unconditionally in touch_p[mu]d()
-+ */
-+
-+#include <sys/mman.h>
-+
-+#include "tst_test.h"
-+#include "lapi/mmap.h"
-+#include "tst_fuzzy_sync.h"
-+
-+static char *write_thp, *read_thp;
-+static int *write_ptr, *read_ptr;
-+static size_t thp_size;
-+static int writefd = -1, readfd = -1;
-+static struct tst_fzsync_pair fzsync_pair;
-+
-+static void *alloc_zero_page(void *baseaddr)
-+{
-+	int i;
-+	void *ret;
-+
-+	/* Find aligned chunk of address space. MAP_HUGETLB doesn't work. */
-+	for (i = 0; i < 16; i++, baseaddr += thp_size) {
-+		ret = mmap(baseaddr, thp_size, PROT_READ,
-+			MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+
-+		if (ret == baseaddr) {
-+			TEST(madvise(ret, thp_size, MADV_HUGEPAGE));
-+
-+			if (TST_RET == -1 && TST_ERR == EINVAL) {
-+				tst_brk(TCONF | TTERRNO,
-+					"madvise(MADV_HUGEPAGE) not supported");
-+			}
-+
-+			if (TST_RET) {
-+				tst_brk(TBROK | TTERRNO,
-+					"madvise(MADV_HUGEPAGE) failed");
-+			}
-+
-+			return ret;
-+		}
-+
-+		if (ret != MAP_FAILED)
-+			SAFE_MUNMAP(ret, thp_size);
-+	}
-+
-+	tst_brk(TBROK, "Cannot map huge zero page near the specified address");
-+	return NULL;	/* Silence compiler warning */
-+}
-+
-+static void setup(void)
-+{
-+	size_t i;
-+
-+	thp_size = tst_get_hugepage_size();
-+
-+	if (!thp_size)
-+		tst_brk(TCONF, "Kernel does not support huge pages");
-+
-+	write_thp = alloc_zero_page((void*)thp_size);
-+
-+	for (i = 0; i < thp_size; i++) {
-+		if (write_thp[i]) {
-+			tst_brk(TCONF, "Huge zero page is pre-polluted");
-+		}
-+	}
-+
-+	/* leave a hole between read and write THP to prevent merge */
-+	read_thp = alloc_zero_page(write_thp + 2 * thp_size);
-+	write_ptr = (int*)(write_thp + thp_size - sizeof(int));
-+	read_ptr = (int*)(read_thp + thp_size - sizeof(int));
-+	writefd = SAFE_OPEN("/proc/self/mem", O_RDWR);
-+	readfd = SAFE_OPEN("/proc/self/mem", O_RDWR);
-+
-+	fzsync_pair.exec_loops = 100000;
-+	tst_fzsync_pair_init(&fzsync_pair);
-+}
-+
-+static void *thread_run(void *arg)
-+{
-+	int c;
-+
-+	while (tst_fzsync_run_b(&fzsync_pair)) {
-+		tst_fzsync_start_race_b(&fzsync_pair);
-+		madvise(write_thp, thp_size, MADV_DONTNEED);
-+		memcpy(&c, write_ptr, sizeof(c));
-+		SAFE_LSEEK(readfd, (off_t)write_ptr, SEEK_SET);
-+		SAFE_READ(1, readfd, &c, sizeof(int));
-+		tst_fzsync_end_race_b(&fzsync_pair);
-+		/* Wait for dirty page handling before next madvise() */
-+		usleep(10);
-+	}
-+
-+	return arg;
-+}
-+
-+static void run(void)
-+{
-+	int c = 0xdeadbeef;
-+
-+	tst_fzsync_pair_reset(&fzsync_pair, thread_run);
-+
-+	while (tst_fzsync_run_a(&fzsync_pair)) {
-+		/* Write into the main huge page */
-+		tst_fzsync_start_race_a(&fzsync_pair);
-+		SAFE_LSEEK(writefd, (off_t)write_ptr, SEEK_SET);
-+		madvise(write_thp, thp_size, MADV_DONTNEED);
-+		SAFE_WRITE(1, writefd, &c, sizeof(int));
-+		tst_fzsync_end_race_a(&fzsync_pair);
-+
-+		/* Check the other huge zero page for pollution */
-+		madvise(read_thp, thp_size, MADV_DONTNEED);
-+
-+		if (*read_ptr != 0) {
-+			tst_res(TFAIL, "Huge zero page was polluted");
-+			return;
-+		}
-+	}
-+
-+	tst_res(TPASS, "Huge zero page is still clean");
-+}
-+
-+static void cleanup(void)
-+{
-+	tst_fzsync_pair_cleanup(&fzsync_pair);
-+
-+	if (readfd >= 0)
-+		SAFE_CLOSE(readfd);
-+
-+	if (writefd >= 0)
-+		SAFE_CLOSE(writefd);
-+
-+	SAFE_MUNMAP(read_thp, thp_size);
-+	SAFE_MUNMAP(write_thp, thp_size);
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.tags = (const struct tst_tag[]) {
-+		{"linux-git", "a8f97366452e"},
-+		{"CVE", "2017-1000405"},
-+		{}
-+	}
-+};
++	echo $(echo "$numstat * $size" | bc)
+ }
+ 
+ check_for_support_numa()
+@@ -72,7 +81,7 @@ setup()
+ # Verification of memory allocated on a node
+ test1()
+ {
+-	Mem_curr=0
++	local mem_curr
+ 
+ 	for node in $nodes_list; do
+ 		numactl --cpunodebind=$node --membind=$node support_numa alloc_1MB &
+@@ -80,8 +89,8 @@ test1()
+ 
+ 		TST_RETRY_FUNC "check_for_support_numa $pid" 0
+ 
+-		Mem_curr=$(echo "$(extract_numastat_p $pid $node) * $MB" |bc)
+-		if [ $(echo "$Mem_curr < $MB" | bc) -eq 1 ]; then
++		mem_curr=$(get_mem_cur $pid $node $MB)
++		if [ $(echo "$mem_curr < $MB" | bc) -eq 1 ]; then
+ 			tst_res TFAIL \
+ 				"NUMA memory allocated in node$node is less than expected"
+ 			kill -CONT $pid >/dev/null 2>&1
+@@ -97,16 +106,16 @@ test1()
+ # Verification of memory allocated on preferred node
+ test2()
+ {
+-	Mem_curr=0
++	local mem_curr
++	local cnt=1
+ 
+-	COUNTER=1
+ 	for node in $nodes_list; do
+ 
+-		if [ $COUNTER -eq $total_nodes ]; then   #wrap up for last node
++		if [ $cnt -eq $total_nodes ]; then   #wrap up for last node
+ 			Preferred_node=$(echo $nodes_list | cut -d ' ' -f 1)
+ 		else
+ 			# always next node is preferred node
+-			Preferred_node=$(echo $nodes_list | cut -d ' ' -f $((COUNTER+1)))
++			Preferred_node=$(echo $nodes_list | cut -d ' ' -f $((cnt+1)))
+ 		fi
+ 
+ 		numactl --cpunodebind=$node --preferred=$Preferred_node support_numa alloc_1MB &
+@@ -114,15 +123,15 @@ test2()
+ 
+ 		TST_RETRY_FUNC "check_for_support_numa $pid" 0
+ 
+-		Mem_curr=$(echo "$(extract_numastat_p $pid $Preferred_node) * $MB" |bc)
+-		if [ $(echo "$Mem_curr < $MB" |bc ) -eq 1 ]; then
++		mem_curr=$(get_mem_cur $pid $Preferred_node $MB)
++		if [ $(echo "$mem_curr < $MB" |bc ) -eq 1 ]; then
+ 			tst_res TFAIL \
+ 				"NUMA memory allocated in node$Preferred_node is less than expected"
+ 			kill -CONT $pid >/dev/null 2>&1
+ 			return
+ 		fi
+ 
+-		COUNTER=$((COUNTER+1))
++		cnt=$((cnt+1))
+ 		kill -CONT $pid >/dev/null 2>&1
+ 	done
+ 
+@@ -132,7 +141,7 @@ test2()
+ # Verification of memory interleaved on all nodes
+ test3()
+ {
+-	Mem_curr=0
++	local mem_curr
+ 	# Memory will be allocated using round robin on nodes.
+ 	Exp_incr=$(echo "$MB / $total_nodes" |bc)
+ 
+@@ -142,9 +151,9 @@ test3()
+ 	TST_RETRY_FUNC "check_for_support_numa $pid" 0
+ 
+ 	for node in $nodes_list; do
+-		Mem_curr=$(echo "$(extract_numastat_p $pid $node) * $MB" |bc)
++		mem_curr=$(get_mem_cur $pid $node $MB)
+ 
+-		if [ $(echo "$Mem_curr < $Exp_incr" |bc ) -eq 1 ]; then
++		if [ $(echo "$mem_curr < $Exp_incr" |bc ) -eq 1 ]; then
+ 			tst_res TFAIL \
+ 				"NUMA interleave memory allocated in node$node is less than expected"
+ 			kill -CONT $pid >/dev/null 2>&1
+@@ -191,7 +200,7 @@ test4()
+ # Verification of local node allocation
+ test5()
+ {
+-	Mem_curr=0
++	local mem_curr
+ 
+ 	for node in $nodes_list; do
+ 		numactl --cpunodebind=$node --localalloc support_numa alloc_1MB &
+@@ -199,8 +208,8 @@ test5()
+ 
+ 		TST_RETRY_FUNC "check_for_support_numa $pid" 0
+ 
+-		Mem_curr=$(echo "$(extract_numastat_p $pid $node) * $MB" |bc)
+-		if [ $(echo "$Mem_curr < $MB" |bc ) -eq 1 ]; then
++		mem_curr=$(get_mem_cur $pid $node $MB)
++		if [ $(echo "$mem_curr < $MB" |bc ) -eq 1 ]; then
+ 			tst_res TFAIL \
+ 				"NUMA localnode memory allocated in node$node is less than expected"
+ 			kill -CONT $pid >/dev/null 2>&1
+@@ -221,7 +230,7 @@ check_ltp_numa_test8_log()
+ # Verification of memhog with interleave policy
+ test6()
+ {
+-	Mem_curr=0
++	local mem_curr
+ 	# Memory will be allocated using round robin on nodes.
+ 	Exp_incr=$(echo "$MB / $total_nodes" |bc)
+ 
+@@ -231,9 +240,9 @@ test6()
+ 	TST_RETRY_FUNC "check_ltp_numa_test8_log" 0
+ 
+ 	for node in $nodes_list; do
+-		Mem_curr=$(echo "$(extract_numastat_p $pid $node) * $MB" |bc)
++		mem_curr=$(get_mem_cur $pid $node $MB)
+ 
+-		if [ $(echo "$Mem_curr < $Exp_incr" |bc ) -eq 1 ]; then
++		if [ $(echo "$mem_curr < $Exp_incr" |bc ) -eq 1 ]; then
+ 			tst_res TFAIL \
+ 				"NUMA interleave memhog in node$node is less than expected"
+ 			kill -KILL $pid >/dev/null 2>&1
+@@ -283,15 +292,14 @@ test7()
+ # Verification of migratepages
+ test8()
+ {
+-	Mem_curr=0
+-	COUNTER=1
++	local mem_curr
++	local cnt=1
+ 
+ 	for node in $nodes_list; do
+-
+-		if [ $COUNTER -eq $total_nodes ]; then
++		if [ $cnt -eq $total_nodes ]; then
+ 			Preferred_node=$(echo $nodes_list | cut -d ' ' -f 1)
+ 		else
+-			Preferred_node=$(echo $nodes_list | cut -d ' ' -f $((COUNTER+1)))
++			Preferred_node=$(echo $nodes_list | cut -d ' ' -f $((cnt+1)))
+ 		fi
+ 
+ 		numactl --preferred=$node support_numa alloc_1MB &
+@@ -301,15 +309,15 @@ test8()
+ 
+ 		migratepages $pid $node $Preferred_node
+ 
+-		Mem_curr=$(echo "$(extract_numastat_p $pid $Preferred_node) * $MB" |bc)
+-		if [ $(echo "$Mem_curr < $MB" |bc ) -eq 1 ]; then
++		mem_curr=$(get_mem_cur $pid $Preferred_node $MB)
++		if [ $(echo "$mem_curr < $MB" |bc ) -eq 1 ]; then
+ 			tst_res TFAIL \
+ 				"NUMA migratepages is not working fine"
+ 			kill -CONT $pid >/dev/null 2>&1
+ 			return
+ 		fi
+ 
+-		COUNTER=$((COUNTER+1))
++		cnt=$((cnt+1))
+ 		kill -CONT $pid >/dev/null 2>&1
+ 	done
+ 
+@@ -363,21 +371,20 @@ test9()
+ # Verification of THP memory allocated on preferred node
+ test10()
+ {
+-	Mem_curr=0
++	local mem_curr
++	local cnt=1
+ 
+ 	if ! grep -q '\[always\]' /sys/kernel/mm/transparent_hugepage/enabled; then
+ 		tst_res TCONF "THP is not supported/enabled"
+ 		return
+ 	fi
+ 
+-	COUNTER=1
+ 	for node in $nodes_list; do
+-
+-		if [ $COUNTER -eq $total_nodes ]; then   #wrap up for last node
++		if [ $cnt -eq $total_nodes ]; then   #wrap up for last node
+ 			Preferred_node=$(echo $nodes_list | cut -d ' ' -f 1)
+ 		else
+ 			# always next node is preferred node
+-			Preferred_node=$(echo $nodes_list | cut -d ' ' -f $((COUNTER+1)))
++			Preferred_node=$(echo $nodes_list | cut -d ' ' -f $((cnt+1)))
+ 		fi
+ 
+ 		numactl --cpunodebind=$node --preferred=$Preferred_node support_numa alloc_2HPSZ_THP &
+@@ -385,15 +392,15 @@ test10()
+ 
+ 		TST_RETRY_FUNC "check_for_support_numa $pid" 0
+ 
+-		Mem_curr=$(echo "$(extract_numastat_p $pid $Preferred_node) * 1024" |bc)
+-		if [ $(echo "$Mem_curr < $HPAGE_SIZE * 2" |bc ) -eq 1 ]; then
++		mem_curr=$(get_mem_cur $pid $Preferred_node 1024)
++		if [ $(echo "$mem_curr < $HPAGE_SIZE * 2" |bc ) -eq 1 ]; then
+ 			tst_res TFAIL \
+ 				"NUMA memory allocated in node$Preferred_node is less than expected"
+ 			kill -CONT $pid >/dev/null 2>&1
+ 			return
+ 		fi
+ 
+-		COUNTER=$((COUNTER+1))
++		cnt=$((cnt+1))
+ 		kill -CONT $pid >/dev/null 2>&1
+ 	done
+ 
 -- 
-2.26.2
+2.27.0.rc0
 
 
 -- 
