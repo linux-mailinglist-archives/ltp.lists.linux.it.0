@@ -2,69 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF70F2116AB
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Jul 2020 01:31:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6451211A8A
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Jul 2020 05:12:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3C7E33C56A9
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Jul 2020 01:31:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 204023C56AA
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Jul 2020 05:12:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 16B123C29E5
- for <ltp@lists.linux.it>; Thu,  2 Jul 2020 01:31:42 +0200 (CEST)
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
- [IPv6:2a00:1450:4864:20::543])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 00DB1200CE7
- for <ltp@lists.linux.it>; Thu,  2 Jul 2020 01:31:42 +0200 (CEST)
-Received: by mail-ed1-x543.google.com with SMTP id g20so21423387edm.4
- for <ltp@lists.linux.it>; Wed, 01 Jul 2020 16:31:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=+sYN3yCDL5OosbxQ7xaElD+BUL2wBF5Z7fVqblRq9Jo=;
- b=WU+D6QnTcAYaTEbgnrCXOjMwgbopRXXX8iDbwjY6w0FFN21QsRkc/VXmFq++h2lvwb
- YQKe7uu64ERFfkuHx83unSgxVHEeEDoA7GNxV67A5DFj+6lAlPWlSYGrPNvhmJdtDg/d
- RzGZgkr6DRFzhQBq+Bg6Pl1H3K/IXhRA49Ra4egiyjXW2Qo8Ryq28M8YmLRqANhOSwjM
- 9ej04QXGsByB1rx6LSEd1zjHxmN02Lg3lOjeBd8GxnYMfCFgPsAOGXpVNp6FsszT0kxC
- jfanhOCOpfumHqGuFXsFa5Jw6L8sOPn0UQyvIJNMMAH5TROCgFgvTIex0tYn/aJDOi68
- Zh+A==
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 9B6833C2A7F
+ for <ltp@lists.linux.it>; Thu,  2 Jul 2020 05:12:51 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id B5E0D1400E4C
+ for <ltp@lists.linux.it>; Thu,  2 Jul 2020 05:12:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1593659569;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ym8hZBR726eT1ObVqdeP/AB3AAYV2kOr0WtLuiRjktg=;
+ b=YxuKbqzz4ODytcs9yq+JC8Lj6bfWnVBn7itgI1g1LjpzJWyFLihCI2Zo4WEssaPhphqtan
+ CHpSd1Sm90nM37ZI7m2CzEdq3BMO8yzJ3IqPofpmL9xkGJo18r3MShVcGPYREsHP2bV1e2
+ K597X6goekOkJcAKe9WDWwP8lNhd/v4=
+Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
+ [209.85.208.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-187-_zduN9TeMe-onadaeMGl9Q-1; Wed, 01 Jul 2020 23:12:43 -0400
+X-MC-Unique: _zduN9TeMe-onadaeMGl9Q-1
+Received: by mail-lj1-f200.google.com with SMTP id h14so11303168ljk.7
+ for <ltp@lists.linux.it>; Wed, 01 Jul 2020 20:12:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=+sYN3yCDL5OosbxQ7xaElD+BUL2wBF5Z7fVqblRq9Jo=;
- b=ZO++TTTrkXOo/BpQp4/m6cyo5z20rcdSTPXOe7ltMX7U6XbP96gXAIfs0DUcwoTMff
- EiGghiTYe7OBkk2fSYEAX0gHonZ586XLOZ+ku1t4D6xFkzGxCCo8TvBMO+r2Xdp1SfWd
- Ejq1zGaRSxDxOtPIsKzICHi3slHklpVKuA6IzF7iR1KhxDzWiYHZW/KlqSXWzQMXrSpQ
- mv37PLQL+kQZNW7JV0iDwQePq2BESqAocwqGTbkHgDDnuTIf9Pt9MGL2c4+PpPUuqpqq
- vZAEr+3h/TS5BKACpd6iAEsgN2BzpB0tlRoDB721O1/MXrqPetLMLVtcb8eNJKHpfL6h
- 3bew==
-X-Gm-Message-State: AOAM5330v41NjHwGJCnc8uIlOUEodrIq4NvMXOYZ/p5PMF2vg/Kc/PE3
- iIYn4C4fLwj3aIi3H6on5IMUoVpHmSA=
-X-Google-Smtp-Source: ABdhPJy689R+PzqDDYANeUNmvbLCg7jB5CBL+79321FPNyNP/w/1m/Z+m0oSBVk2b12LGgzJ1E7V4g==
-X-Received: by 2002:a05:6402:888:: with SMTP id
- e8mr32816043edy.210.1593646301267; 
- Wed, 01 Jul 2020 16:31:41 -0700 (PDT)
-Received: from localhost.localdomain ([62.201.25.198])
- by smtp.gmail.com with ESMTPSA id m14sm5341828ejx.80.2020.07.01.16.31.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jul 2020 16:31:40 -0700 (PDT)
-From: Petr Vorel <petr.vorel@gmail.com>
-To: ltp@lists.linux.it
-Date: Thu,  2 Jul 2020 01:31:33 +0200
-Message-Id: <20200701233133.122801-1-petr.vorel@gmail.com>
-X-Mailer: git-send-email 2.27.0.rc0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ym8hZBR726eT1ObVqdeP/AB3AAYV2kOr0WtLuiRjktg=;
+ b=pkmuGa4H7IcAJjIhqdU7C0V0c6aVD83wwiUTLvtFh1myvAK9wL3iury8FuoU2jwioo
+ 72stDaDHKUwdyXKSyPD8fCw+kEVGO6Emt2jVeMHN+GhwL6ZVoD8+AqULdyBiEo24xwer
+ SPW05qw4E1lltVcmJbmpoAlPEeuNUn7dP9a4zOsMU0oPo+adIhEI617WH7mFn+ECHoeN
+ UjQPeLacDoU5a06HA3SW0jjpJawqczxi0KpQljUXEm6zznCox4wfyCa/v1T0mv3caT3N
+ 6Z3ChFmVbMg1qlaxVMwEPbBGJ2wWTfA9GkYrgFBpq7wzWKO6SjRKyNQ7wKJ912dsJN7V
+ ot8g==
+X-Gm-Message-State: AOAM531e9oW+8Z3A5Rx/CJZVQ8H2OI+Q4xscpiAS/GJZZyzL8+pwSMJY
+ fAd3VsyQ7+UNbFsLkiXfMd/41cutwth5l3XvuviT9VS7fm3puYDVQs9BLhca6L78Js2jvbbzQYr
+ d726IMF1jlKom9+Vx68FILMKRpII=
+X-Received: by 2002:a2e:6d02:: with SMTP id i2mr688167ljc.309.1593659561688;
+ Wed, 01 Jul 2020 20:12:41 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxai5n/1jBNtwjNJSXUTx6LbLEahWKvGxX0wVgNd89l34uSmyRbKU0fStKUmchLTv+Su3w2mpHjiPeamNMbpGU=
+X-Received: by 2002:a2e:6d02:: with SMTP id i2mr688163ljc.309.1593659561499;
+ Wed, 01 Jul 2020 20:12:41 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+References: <20200701233133.122801-1-petr.vorel@gmail.com>
+In-Reply-To: <20200701233133.122801-1-petr.vorel@gmail.com>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 2 Jul 2020 11:12:29 +0800
+Message-ID: <CAEemH2d7RxH+33nMGsPYTpKUUy-T+Nfw_uAO2OJFTYLUiWkE-A@mail.gmail.com>
+To: Petr Vorel <petr.vorel@gmail.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/1] numa01.sh: Handle computation error
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] numa01.sh: Handle computation error
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,307 +79,119 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1420179790=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-when numastat -p did not give a value, the resulting bc calculation was
-empty string instead of 0, thus shell -eq comparison lacked the first
-operator:
+--===============1420179790==
+Content-Type: multipart/alternative; boundary="0000000000000e7aed05a96cc825"
 
-Mem_curr=$(echo "$(extract_numastat_p $pid $node) * $MB" |bc)
-if [ $(echo "$Mem_curr < $MB" |bc ) -eq 1 ]; then
+--0000000000000e7aed05a96cc825
+Content-Type: text/plain; charset="UTF-8"
 
-(standard_in) 1: syntax error
-(standard_in) 1: syntax error
-/root/ltp-install/testcases/bin/numa01.sh: line 93: [: -eq: unary operator expected
+On Thu, Jul 2, 2020 at 7:31 AM Petr Vorel <petr.vorel@gmail.com> wrote:
 
-Also fix style (use local and lowercase local function variables).
+> when numastat -p did not give a value, the resulting bc calculation was
+> empty string instead of 0, thus shell -eq comparison lacked the first
+> operator:
+>
+> Mem_curr=$(echo "$(extract_numastat_p $pid $node) * $MB" |bc)
+> if [ $(echo "$Mem_curr < $MB" |bc ) -eq 1 ]; then
+>
+> (standard_in) 1: syntax error
+> (standard_in) 1: syntax error
+> /root/ltp-install/testcases/bin/numa01.sh: line 93: [: -eq: unary operator
+> expected
+>
+> Also fix style (use local and lowercase local function variables).
+>
+> Fixes: 702
+>
+> Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
 
-Fixes: 702
-
-Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
----
-Hi,
-
-Simple fix for https://github.com/linux-test-project/ltp/issues/702,
-I guess there should be more checks. Not tested.
-BTW I thought numa01.sh was intended to be replaced with C (@Cyril: am I
-correct?), thus I didn't bother to split syntax fix into 2 commits.
+Reviewed-by: Li Wang <liwang@redhat.com>
 
 
-Kind regards,
-Petr
+> ---
+> Hi,
+>
+> Simple fix for https://github.com/linux-test-project/ltp/issues/702,
+> I guess there should be more checks. Not tested.
+> BTW I thought numa01.sh was intended to be replaced with C (@Cyril: am I
+> correct?), thus I didn't bother to split syntax fix into 2 commits.
+>
 
- testcases/kernel/numa/numa01.sh | 95 ++++++++++++++++++---------------
- 1 file changed, 51 insertions(+), 44 deletions(-)
+I think yes, I remember the syscalls/set_mempolicy* is going to replace
+numa.sh tests.
 
-diff --git a/testcases/kernel/numa/numa01.sh b/testcases/kernel/numa/numa01.sh
-index 1d626327d..a217db033 100755
---- a/testcases/kernel/numa/numa01.sh
-+++ b/testcases/kernel/numa/numa01.sh
-@@ -1,7 +1,7 @@
- #!/bin/sh
- # SPDX-License-Identifier: GPL-2.0-or-later
- # Copyright (c) International Business Machines Corp., 2007
--# Copyright (c) Linux Test Project, 2016
-+# Copyright (c) Linux Test Project, 2016-2020
- # Author: Sivakumar Chinnaiah <Sivakumar.C@in.ibm.com>
- #
- # Test Basic functionality of numactl command.
-@@ -12,9 +12,9 @@
- # Test #5: Verifies localalloc
- # Test #6: Verifies memhog
- # Test #7: Verifies numa_node_size api
--# Test #8:Verifies Migratepages
--# Test #9:Verifies hugepage alloacted on specified node
--# Test #10:Verifies THP memory allocated on preferred node
-+# Test #8: Verifies Migratepages
-+# Test #9: Verifies hugepage alloacted on specified node
-+# Test #10: Verifies THP memory allocated on preferred node
- 
- TST_CNT=10
- TST_SETUP=setup
-@@ -25,15 +25,24 @@ TST_NEEDS_CMDS="awk bc numactl numastat"
- 
- . tst_test.sh
- 
--# Extracts the value of given numa node from the `numastat -p` output.
--# $1 - Pid number.
--# $2 - Node number.
--extract_numastat_p()
-+# Convert the value of given numa node from the `numastat -p` output,
-+# multiply by size.
-+# $1 - Pid number
-+# $2 - Node number
-+# $3 - Size for multiplication (e.g. 1024, $MB)
-+get_mem_cur()
- {
- 	local pid=$1
- 	local node=$(($2 + 2))
-+	local size=$3
-+	local numstat=$(numastat -p $pid |awk '/^Total/ {print $'$node'}')
- 
--	echo $(numastat -p $pid |awk '/^Total/ {print $'$node'}')
-+	if [ -z "$numstat" ]; then
-+		echo 0
-+		return
-+	fi
-+
-+	echo $(echo "$numstat * $size" | bc)
- }
- 
- check_for_support_numa()
-@@ -72,7 +81,7 @@ setup()
- # Verification of memory allocated on a node
- test1()
- {
--	Mem_curr=0
-+	local mem_curr
- 
- 	for node in $nodes_list; do
- 		numactl --cpunodebind=$node --membind=$node support_numa alloc_1MB &
-@@ -80,8 +89,8 @@ test1()
- 
- 		TST_RETRY_FUNC "check_for_support_numa $pid" 0
- 
--		Mem_curr=$(echo "$(extract_numastat_p $pid $node) * $MB" |bc)
--		if [ $(echo "$Mem_curr < $MB" | bc) -eq 1 ]; then
-+		mem_curr=$(get_mem_cur $pid $node $MB)
-+		if [ $(echo "$mem_curr < $MB" | bc) -eq 1 ]; then
- 			tst_res TFAIL \
- 				"NUMA memory allocated in node$node is less than expected"
- 			kill -CONT $pid >/dev/null 2>&1
-@@ -97,16 +106,16 @@ test1()
- # Verification of memory allocated on preferred node
- test2()
- {
--	Mem_curr=0
-+	local mem_curr
-+	local cnt=1
- 
--	COUNTER=1
- 	for node in $nodes_list; do
- 
--		if [ $COUNTER -eq $total_nodes ]; then   #wrap up for last node
-+		if [ $cnt -eq $total_nodes ]; then   #wrap up for last node
- 			Preferred_node=$(echo $nodes_list | cut -d ' ' -f 1)
- 		else
- 			# always next node is preferred node
--			Preferred_node=$(echo $nodes_list | cut -d ' ' -f $((COUNTER+1)))
-+			Preferred_node=$(echo $nodes_list | cut -d ' ' -f $((cnt+1)))
- 		fi
- 
- 		numactl --cpunodebind=$node --preferred=$Preferred_node support_numa alloc_1MB &
-@@ -114,15 +123,15 @@ test2()
- 
- 		TST_RETRY_FUNC "check_for_support_numa $pid" 0
- 
--		Mem_curr=$(echo "$(extract_numastat_p $pid $Preferred_node) * $MB" |bc)
--		if [ $(echo "$Mem_curr < $MB" |bc ) -eq 1 ]; then
-+		mem_curr=$(get_mem_cur $pid $Preferred_node $MB)
-+		if [ $(echo "$mem_curr < $MB" |bc ) -eq 1 ]; then
- 			tst_res TFAIL \
- 				"NUMA memory allocated in node$Preferred_node is less than expected"
- 			kill -CONT $pid >/dev/null 2>&1
- 			return
- 		fi
- 
--		COUNTER=$((COUNTER+1))
-+		cnt=$((cnt+1))
- 		kill -CONT $pid >/dev/null 2>&1
- 	done
- 
-@@ -132,7 +141,7 @@ test2()
- # Verification of memory interleaved on all nodes
- test3()
- {
--	Mem_curr=0
-+	local mem_curr
- 	# Memory will be allocated using round robin on nodes.
- 	Exp_incr=$(echo "$MB / $total_nodes" |bc)
- 
-@@ -142,9 +151,9 @@ test3()
- 	TST_RETRY_FUNC "check_for_support_numa $pid" 0
- 
- 	for node in $nodes_list; do
--		Mem_curr=$(echo "$(extract_numastat_p $pid $node) * $MB" |bc)
-+		mem_curr=$(get_mem_cur $pid $node $MB)
- 
--		if [ $(echo "$Mem_curr < $Exp_incr" |bc ) -eq 1 ]; then
-+		if [ $(echo "$mem_curr < $Exp_incr" |bc ) -eq 1 ]; then
- 			tst_res TFAIL \
- 				"NUMA interleave memory allocated in node$node is less than expected"
- 			kill -CONT $pid >/dev/null 2>&1
-@@ -191,7 +200,7 @@ test4()
- # Verification of local node allocation
- test5()
- {
--	Mem_curr=0
-+	local mem_curr
- 
- 	for node in $nodes_list; do
- 		numactl --cpunodebind=$node --localalloc support_numa alloc_1MB &
-@@ -199,8 +208,8 @@ test5()
- 
- 		TST_RETRY_FUNC "check_for_support_numa $pid" 0
- 
--		Mem_curr=$(echo "$(extract_numastat_p $pid $node) * $MB" |bc)
--		if [ $(echo "$Mem_curr < $MB" |bc ) -eq 1 ]; then
-+		mem_curr=$(get_mem_cur $pid $node $MB)
-+		if [ $(echo "$mem_curr < $MB" |bc ) -eq 1 ]; then
- 			tst_res TFAIL \
- 				"NUMA localnode memory allocated in node$node is less than expected"
- 			kill -CONT $pid >/dev/null 2>&1
-@@ -221,7 +230,7 @@ check_ltp_numa_test8_log()
- # Verification of memhog with interleave policy
- test6()
- {
--	Mem_curr=0
-+	local mem_curr
- 	# Memory will be allocated using round robin on nodes.
- 	Exp_incr=$(echo "$MB / $total_nodes" |bc)
- 
-@@ -231,9 +240,9 @@ test6()
- 	TST_RETRY_FUNC "check_ltp_numa_test8_log" 0
- 
- 	for node in $nodes_list; do
--		Mem_curr=$(echo "$(extract_numastat_p $pid $node) * $MB" |bc)
-+		mem_curr=$(get_mem_cur $pid $node $MB)
- 
--		if [ $(echo "$Mem_curr < $Exp_incr" |bc ) -eq 1 ]; then
-+		if [ $(echo "$mem_curr < $Exp_incr" |bc ) -eq 1 ]; then
- 			tst_res TFAIL \
- 				"NUMA interleave memhog in node$node is less than expected"
- 			kill -KILL $pid >/dev/null 2>&1
-@@ -283,15 +292,14 @@ test7()
- # Verification of migratepages
- test8()
- {
--	Mem_curr=0
--	COUNTER=1
-+	local mem_curr
-+	local cnt=1
- 
- 	for node in $nodes_list; do
--
--		if [ $COUNTER -eq $total_nodes ]; then
-+		if [ $cnt -eq $total_nodes ]; then
- 			Preferred_node=$(echo $nodes_list | cut -d ' ' -f 1)
- 		else
--			Preferred_node=$(echo $nodes_list | cut -d ' ' -f $((COUNTER+1)))
-+			Preferred_node=$(echo $nodes_list | cut -d ' ' -f $((cnt+1)))
- 		fi
- 
- 		numactl --preferred=$node support_numa alloc_1MB &
-@@ -301,15 +309,15 @@ test8()
- 
- 		migratepages $pid $node $Preferred_node
- 
--		Mem_curr=$(echo "$(extract_numastat_p $pid $Preferred_node) * $MB" |bc)
--		if [ $(echo "$Mem_curr < $MB" |bc ) -eq 1 ]; then
-+		mem_curr=$(get_mem_cur $pid $Preferred_node $MB)
-+		if [ $(echo "$mem_curr < $MB" |bc ) -eq 1 ]; then
- 			tst_res TFAIL \
- 				"NUMA migratepages is not working fine"
- 			kill -CONT $pid >/dev/null 2>&1
- 			return
- 		fi
- 
--		COUNTER=$((COUNTER+1))
-+		cnt=$((cnt+1))
- 		kill -CONT $pid >/dev/null 2>&1
- 	done
- 
-@@ -363,21 +371,20 @@ test9()
- # Verification of THP memory allocated on preferred node
- test10()
- {
--	Mem_curr=0
-+	local mem_curr
-+	local cnt=1
- 
- 	if ! grep -q '\[always\]' /sys/kernel/mm/transparent_hugepage/enabled; then
- 		tst_res TCONF "THP is not supported/enabled"
- 		return
- 	fi
- 
--	COUNTER=1
- 	for node in $nodes_list; do
--
--		if [ $COUNTER -eq $total_nodes ]; then   #wrap up for last node
-+		if [ $cnt -eq $total_nodes ]; then   #wrap up for last node
- 			Preferred_node=$(echo $nodes_list | cut -d ' ' -f 1)
- 		else
- 			# always next node is preferred node
--			Preferred_node=$(echo $nodes_list | cut -d ' ' -f $((COUNTER+1)))
-+			Preferred_node=$(echo $nodes_list | cut -d ' ' -f $((cnt+1)))
- 		fi
- 
- 		numactl --cpunodebind=$node --preferred=$Preferred_node support_numa alloc_2HPSZ_THP &
-@@ -385,15 +392,15 @@ test10()
- 
- 		TST_RETRY_FUNC "check_for_support_numa $pid" 0
- 
--		Mem_curr=$(echo "$(extract_numastat_p $pid $Preferred_node) * 1024" |bc)
--		if [ $(echo "$Mem_curr < $HPAGE_SIZE * 2" |bc ) -eq 1 ]; then
-+		mem_curr=$(get_mem_cur $pid $Preferred_node 1024)
-+		if [ $(echo "$mem_curr < $HPAGE_SIZE * 2" |bc ) -eq 1 ]; then
- 			tst_res TFAIL \
- 				"NUMA memory allocated in node$Preferred_node is less than expected"
- 			kill -CONT $pid >/dev/null 2>&1
- 			return
- 		fi
- 
--		COUNTER=$((COUNTER+1))
-+		cnt=$((cnt+1))
- 		kill -CONT $pid >/dev/null 2>&1
- 	done
- 
 -- 
-2.27.0.rc0
+Regards,
+Li Wang
+
+--0000000000000e7aed05a96cc825
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Thu, Jul 2, 2020 at 7:31 AM Petr Vorel &lt;<a hr=
+ef=3D"mailto:petr.vorel@gmail.com">petr.vorel@gmail.com</a>&gt; wrote:<br><=
+/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
+rder-left:1px solid rgb(204,204,204);padding-left:1ex">when numastat -p did=
+ not give a value, the resulting bc calculation was<br>
+empty string instead of 0, thus shell -eq comparison lacked the first<br>
+operator:<br>
+<br>
+Mem_curr=3D$(echo &quot;$(extract_numastat_p $pid $node) * $MB&quot; |bc)<b=
+r>
+if [ $(echo &quot;$Mem_curr &lt; $MB&quot; |bc ) -eq 1 ]; then<br>
+<br>
+(standard_in) 1: syntax error<br>
+(standard_in) 1: syntax error<br>
+/root/ltp-install/testcases/bin/numa01.sh: line 93: [: -eq: unary operator =
+expected<br>
+<br>
+Also fix style (use local and lowercase local function variables).<br>
+<br>
+Fixes: 702<br>
+<br>
+Signed-off-by: Petr Vorel &lt;<a href=3D"mailto:petr.vorel@gmail.com" targe=
+t=3D"_blank">petr.vorel@gmail.com</a>&gt;</blockquote><div><span class=3D"g=
+mail_default" style=3D"font-size:small">Reviewed-by: Li Wang &lt;<a href=3D=
+"mailto:liwang@redhat.com">liwang@redhat.com</a>&gt;</span></div><div><span=
+ class=3D"gmail_default" style=3D"font-size:small"></span>=C2=A0</div><bloc=
+kquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:=
+1px solid rgb(204,204,204);padding-left:1ex">
+---<br>
+Hi,<br>
+<br>
+Simple fix for <a href=3D"https://github.com/linux-test-project/ltp/issues/=
+702" rel=3D"noreferrer" target=3D"_blank">https://github.com/linux-test-pro=
+ject/ltp/issues/702</a>,<br>
+I guess there should be more checks. Not tested.<br>
+BTW I thought numa01.sh was intended to be replaced with C (@Cyril: am I<br=
+>
+correct?), thus I didn&#39;t bother to split syntax fix into 2 commits.<br>=
+</blockquote><div><br></div><div><div class=3D"gmail_default" style=3D"font=
+-size:small">I think yes, I remember the syscalls/set_mempolicy* is going t=
+o replace numa.sh tests.</div></div><div class=3D"gmail_default" style=3D"f=
+ont-size:small"><br></div></div>-- <br><div dir=3D"ltr" class=3D"gmail_sign=
+ature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div>=
+</div></div>
+
+--0000000000000e7aed05a96cc825--
+
+
+--===============1420179790==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1420179790==--
+
