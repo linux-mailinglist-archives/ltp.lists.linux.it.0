@@ -2,74 +2,85 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10135213643
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 10:19:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 070DB213687
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 10:37:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 868FA3C5608
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 10:19:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AD0CF3C2A2A
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 10:37:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 21B943C0271
- for <ltp@lists.linux.it>; Fri,  3 Jul 2020 10:18:58 +0200 (CEST)
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id A2FB43C1360
+ for <ltp@lists.linux.it>; Thu,  2 Jul 2020 11:51:22 +0200 (CEST)
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 234C5601792
- for <ltp@lists.linux.it>; Fri,  3 Jul 2020 10:17:56 +0200 (CEST)
-Received: by mail-pf1-x442.google.com with SMTP id a14so9116734pfi.2
- for <ltp@lists.linux.it>; Fri, 03 Jul 2020 01:18:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=DQIZLe6csvY5nlO3sHHt6IhlNEP5LnLoTT8f+ps3KfM=;
- b=hdZtJtIdtkPUJfFc9XeJ+o/KahiU8I3ezqawwsGPpHSDMiG9d8Ak2W51PpBXqFLVYb
- fQBCMJilzMZ4ip2Smf3y5TWShPiBcvhVKD/VSfbQkVeQIh5p5GjZznqmFLPsdQmEFoG/
- eXUd01l/sp3e7mE1LzI+pD/9mS/5m4v2FHSXJRCc8pkzCcV9WeAtqNCXktVnC7v3xYdT
- xx7e8DQM5RK+id4XQejcFiiCuIOeyrKVjdpPKozwnOF5owISIz5iv/Gd9tzn9CcgvJ6c
- 2awkgQxchPRhORD0r1p2b/2TtEPNaPIRGJYyS65TL8lTrLAReDQJYt47czMU4Lqed/DY
- /sdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=DQIZLe6csvY5nlO3sHHt6IhlNEP5LnLoTT8f+ps3KfM=;
- b=bbV8xGamrDXFJ9w2kwMjqJVxK0uXrASdp73L80rVxko9SyLqeO9B+d1HMi5aUypyMC
- pDATVoZlAU5fYMUzHtRrDcYiedkBrNT/cojjCNHqBLMIAQkfYUhXwHqnDmEcEY/iFflJ
- rOa88BlkToLqojIw9DTBbJGzHiOKL1JmXy7/TmYBUqy3+a5DksFni/TRsfQn/uNaS4Cw
- OAksoJbSfCvT4qm2Kl7YTAi2K00sLAhE+E4PlOo2rNIahXKLCwonh2ur+J8o2ub7YJc5
- LyHajL5sG4n+p1SFpV+iIZIGVnRQsRfeYhmWIIM/Zkr0vD7k1e76JSSCIYlpK1q8hFBW
- 36Sw==
-X-Gm-Message-State: AOAM5332TqiIWJm1iTB8+LYFl3UTJ/i+AZfb49VXLvzw8iCWiQqMXMSc
- yRKIOWPuWfSpDDP+8JBT1avbAA==
-X-Google-Smtp-Source: ABdhPJwxVr1+7cZKb1jMGlMzLNoGIu1Lf7NlHNebsVm2kte7ljCmmSN85Ya60SOw2VxZyOztUnkeaQ==
-X-Received: by 2002:a63:5808:: with SMTP id m8mr28173427pgb.110.1593764335777; 
- Fri, 03 Jul 2020 01:18:55 -0700 (PDT)
-Received: from localhost ([122.172.40.201])
- by smtp.gmail.com with ESMTPSA id d4sm10667715pgf.9.2020.07.03.01.18.54
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 03 Jul 2020 01:18:54 -0700 (PDT)
-Date: Fri, 3 Jul 2020 13:48:52 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <20200703081852.7mxbhkfz6vgjfwak@vireshk-i7>
-References: <325a43a851acca8bb242011a1d62063c8154653c.1593152309.git.viresh.kumar@linaro.org>
- <0744cfd7d2f14d8e8c6d8e74420b35ef273a7737.1593761725.git.viresh.kumar@linaro.org>
- <902db9f8-22d9-b641-746b-6ec61b8eaa21@cn.fujitsu.com>
- <20200703075136.enu2ovlfo25cwyca@vireshk-i7>
- <2ced43d0-4bf0-982a-fd7e-3628716890c4@cn.fujitsu.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 006071001754
+ for <ltp@lists.linux.it>; Thu,  2 Jul 2020 11:51:21 +0200 (CEST)
+Received: from pps.filterd (m0127361.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0629WiD2054845
+ for <ltp@lists.linux.it>; Thu, 2 Jul 2020 05:51:19 -0400
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 32041fsb94-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <ltp@lists.linux.it>; Thu, 02 Jul 2020 05:51:18 -0400
+Received: from m0127361.ppops.net (m0127361.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0629Wp1E055084
+ for <ltp@lists.linux.it>; Thu, 2 Jul 2020 05:51:17 -0400
+Received: from ppma06ams.nl.ibm.com (66.31.33a9.ip4.static.sl-reverse.com
+ [169.51.49.102])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 32041fsaky-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 02 Jul 2020 05:51:16 -0400
+Received: from pps.filterd (ppma06ams.nl.ibm.com [127.0.0.1])
+ by ppma06ams.nl.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 0629kiQW001363;
+ Thu, 2 Jul 2020 09:50:38 GMT
+Received: from b06avi18626390.portsmouth.uk.ibm.com
+ (b06avi18626390.portsmouth.uk.ibm.com [9.149.26.192])
+ by ppma06ams.nl.ibm.com with ESMTP id 31wwch5h7y-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 02 Jul 2020 09:50:38 +0000
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com
+ (b06wcsmtp001.portsmouth.uk.ibm.com [9.149.105.160])
+ by b06avi18626390.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP
+ id 0629nGcK57410030
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 2 Jul 2020 09:49:16 GMT
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6EF3BA4060;
+ Thu,  2 Jul 2020 09:50:36 +0000 (GMT)
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5BB10A405C;
+ Thu,  2 Jul 2020 09:50:35 +0000 (GMT)
+Received: from localhost.localdomain.com (unknown [9.85.74.29])
+ by b06wcsmtp001.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+ Thu,  2 Jul 2020 09:50:35 +0000 (GMT)
+From: Harish <harish@linux.ibm.com>
+To: ltp@lists.linux.it
+Date: Thu,  2 Jul 2020 15:20:29 +0530
+Message-Id: <20200702095029.35220-1-harish@linux.ibm.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <2ced43d0-4bf0-982a-fd7e-3628716890c4@cn.fujitsu.com>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-07-02_04:2020-07-01,
+ 2020-07-02 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0
+ priorityscore=1501 spamscore=0 mlxscore=0 suspectscore=1 adultscore=0
+ clxscore=1011 phishscore=0 lowpriorityscore=0 mlxlogscore=991
+ malwarescore=0 impostorscore=0 cotscore=-2147483648 classifier=spam
+ adjust=0 reason=mlx scancount=1 engine=8.12.0-2004280000
+ definitions=main-2007020070
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/sched_rr_get_interval: Validate the
- timeslice
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+X-Mailman-Approved-At: Fri, 03 Jul 2020 10:37:40 +0200
+Subject: [LTP] [PATCH] numa01.sh: Fix parsing numastat for given node
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,34 +92,78 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
- ltp@lists.linux.it
+Cc: Harish <harish@linux.ibm.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 03-07-20, 16:00, Yang Xu wrote:
-> We only need to check /proc/sys/kernel/sched_rr_timeslice_ms whether existed in setup phase and
-> then check proc value in run like prctl08.c[1].
-> 
-> [1]https://github.com/linux-test-project/ltp/blob/master/testcases/kernel/syscalls/prctl/prctl08.c
+In few systems, the node numbering is not necessarily ordered.
+E.g.
 
-This is certainly better, thanks.
+Per-node process memory usage (in MBs) for PID 2069 (systemd-udevd)
+                           Node 0          Node 8           Total
+                  --------------- --------------- ---------------
+...
+...
+----------------  --------------- --------------- ---------------
+Total                       17.50            0.00           17.50
 
-> > What's the regression test you are suggesting here ?
-> 
-> The following kernel patch.
-> 
->  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=975e155ed8732cb81f55c021c441ae662dd040b5
+Patch fixes parsing numastat for given node by finding its awk
+index so that proper value is utilized in the test.
 
-Yeah I got that you were talking about this, but I am not sure of what
-regression test you are asking for and if we should be adding a test
-towards it at all as this is a kernel bug and we should keep showing
-the error for such kernels, isn't it ?
+Signed-off-by: Harish <harish@linux.ibm.com>
+---
+ testcases/kernel/numa/numa01.sh | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
 
+diff --git a/testcases/kernel/numa/numa01.sh b/testcases/kernel/numa/numa01.sh
+index 1d626327d..fd437cd15 100755
+--- a/testcases/kernel/numa/numa01.sh
++++ b/testcases/kernel/numa/numa01.sh
+@@ -25,15 +25,26 @@ TST_NEEDS_CMDS="awk bc numactl numastat"
+ 
+ . tst_test.sh
+ 
++# Awk the field matching the node value for numastat
++# $1 - Pid number
++# $2 - Node number
++get_node_index()
++{
++	local pid=$1
++	local nid="Node $2"
++	echo $(numastat -p $pid | sed '3q;d' | awk -F '[[:space:]][[:space:]]+' \
++		-v node="$nid" '{ for (i = 1; i <= NF; ++i) if($i==node) print i; exit }')
++}
++
+ # Extracts the value of given numa node from the `numastat -p` output.
+ # $1 - Pid number.
+ # $2 - Node number.
+ extract_numastat_p()
+ {
+ 	local pid=$1
+-	local node=$(($2 + 2))
++	local index=$(echo "$(get_node_index $pid $2)")
+ 
+-	echo $(numastat -p $pid |awk '/^Total/ {print $'$node'}')
++	echo $(numastat -p $pid |awk '/^Total/ {print $'$index'}')
+ }
+ 
+ check_for_support_numa()
+@@ -341,8 +352,8 @@ test9()
+ 		numactl --cpunodebind=$node --membind=$node support_numa alloc_1huge_page &
+ 		pid=$!
+ 		TST_RETRY_FUNC "check_for_support_numa $pid" 0
+-
+-		Mem_huge=$(echo $(numastat -p $pid |awk '/^Huge/ {print $'$((node+2))'}'))
++		local index=$(echo "$(get_node_index $pid $node)")
++		Mem_huge=$(echo $(numastat -p $pid |awk '/^Huge/ {print $'$index'}'))
+ 		Mem_huge=$((${Mem_huge%.*} * 1024))
+ 
+ 		if [ "$Mem_huge" -lt "$HPAGE_SIZE" ]; then
 -- 
-viresh
+2.25.4
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
