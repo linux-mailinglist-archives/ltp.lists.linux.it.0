@@ -2,76 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 516432130F0
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 03:21:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9A94213151
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 04:22:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 008363C247C
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 03:21:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8C95C3C247C
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 04:22:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id F419F3C0B90
- for <ltp@lists.linux.it>; Fri,  3 Jul 2020 03:21:15 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
- [205.139.110.61])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 4D61D1000967
- for <ltp@lists.linux.it>; Fri,  3 Jul 2020 03:21:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1593739272;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=J69cf2cZOnFeeVuK/ntLKHN+t3bBtii3fiJcIMCtrpk=;
- b=HE9UGCZcPM2wju7PKOQbMeK4nCyD9S+Qalnab6jM5eNlthtYs5AA7OhiF6BmhyAaI0r8XJ
- mYzr3wofY4oTNdUkckMj+QXawEr9N2AJSw6eCgRF+eyYfZHfDm0rhcyoI36Hu5Il8p7PaD
- RvGE6rC3VRhJvBs6H1ky9FUV2T4AU8E=
-Received: from mail-lj1-f199.google.com (mail-lj1-f199.google.com
- [209.85.208.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-474-Geyd22dyNd6cJb3agtub6w-1; Thu, 02 Jul 2020 21:21:10 -0400
-X-MC-Unique: Geyd22dyNd6cJb3agtub6w-1
-Received: by mail-lj1-f199.google.com with SMTP id e3so14558149ljp.14
- for <ltp@lists.linux.it>; Thu, 02 Jul 2020 18:21:10 -0700 (PDT)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id BADBA3C0EC0
+ for <ltp@lists.linux.it>; Fri,  3 Jul 2020 04:22:29 +0200 (CEST)
+Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
+ [IPv6:2607:f8b0:4864:20::541])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 905691A01163
+ for <ltp@lists.linux.it>; Fri,  3 Jul 2020 04:22:28 +0200 (CEST)
+Received: by mail-pg1-x541.google.com with SMTP id o13so11424409pgf.0
+ for <ltp@lists.linux.it>; Thu, 02 Jul 2020 19:22:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=PGNP8i64OD11kzmHw1hwOqKtnUxU/V9R6uXYxun8jhU=;
+ b=Yp8yTyJoeMwte8w0BkzXhNZFFrV7/cdIpQeHGMIqr+vJERzOritccrrY8wohxaAQ1O
+ kq4k6YApr4c7p+Iv7IHFRehzjEQezTiUPys46KRv52L4UAnPQi1SGJoi4YogqC6md6AA
+ mNCAYpxbUesNscgd4AU7DYSwPXiD/XKG14B3deCiACzm7Mb+oMNJ3Lhr2UHLsf0NVdCo
+ H4vHothrvhykOHHscg9UcHuRrhuVZ8kz/rr8ISBvxFfrKpRkmH/6iOXGTJJ1+Hbwi8xV
+ 5+EgjaHsDh9OMGJROwpDt/JxD8UxDYjvCBhz55j377u8MnaCjAadwtNN7QScOfRwKpwt
+ jq8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=J69cf2cZOnFeeVuK/ntLKHN+t3bBtii3fiJcIMCtrpk=;
- b=A9G83nv1Hw0B2NdRJ2UaxDQy7Z52qAHCWuzdTovvc/zFjfY/bNpkqRdzwcgDShmdgi
- zZGax6Jc2iEUPLLP8zVSpkaY3iILlGd3m6Pw21byDS6O9iziJYsJ3ewfnEnBjAYwP63T
- L9dxfF20vv7WkMlpynmsEMebMxKrnfd76lICWRW2FcDtc/UqYKHF8AqyVEGwRHrTugXF
- w4xfdeSJvTFSZE+A2l0pHeXBePNpzlP2mq3e8q6cFp4UGZAl3FwB9LP6D9rgFGoAUWC+
- Oqf1kHUR1cJeNle3GoCGLiGdpV4piRfeNpbFCszi9wc6H77UgQ080oBuSokBb+yJ8OW/
- HkFg==
-X-Gm-Message-State: AOAM530FJ0Y2gfSXgq/dMlzCRbdnKimSFSq6dRjzH3RAf2pxy2n5m5R3
- dW/ntg9yovpSquj/zboKtCPOHsp0v4MaUIQyVXCej3nAVG8+GDkWfNxar7TIwS3uxQfv3KvFyS5
- IUaMetqqFD3L6zTsYZxc4SOlwkSM=
-X-Received: by 2002:a19:701:: with SMTP id 1mr19898020lfh.138.1593739269064;
- Thu, 02 Jul 2020 18:21:09 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxemas6W1QXc67Bj0qqcZKmVj0RuWkY51T3AfvOxHDapoIt1gDraCHpcIn567XQN8UYBtCZS/FOxfHWmlDwwZI=
-X-Received: by 2002:a19:701:: with SMTP id 1mr19898007lfh.138.1593739268882;
- Thu, 02 Jul 2020 18:21:08 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=PGNP8i64OD11kzmHw1hwOqKtnUxU/V9R6uXYxun8jhU=;
+ b=UxFGj9RGdT+1LEjlt+MpDnpO8R731P0sFvGuM2zf2t7/369VNIcCkzWkKul6nLHQ3e
+ ez3kGulUuDW7+qOZ/jPGdQHRSVYi8lRKyDIz1htviHO2DD2Xi6QbSoOJa76e/6f5Vbgu
+ GBxni0a6G+NMvxOtPwgow6QHBhWbp0sAOFH4plNdZ3bsp7cy+vTkH9PCNlaiEwGqdFOB
+ CYJYOpPfE1poqbq98HudOTr9bt9U6WRogzmoEUBR8V/jkEHQMm2ZP29unQLi8jHjoDWC
+ Fm3YK7/yoVLSJxMpe6gnrGnvhDQFECjzhDD5gEHqzUUVIvOHP1Ra20t821XJVk2VoOUD
+ Id3w==
+X-Gm-Message-State: AOAM531R6SzfZs1rVhWWay97Dx/3xzxyiX0fsYGy4joXslHQhTh6cZtn
+ E49AcRzqoGqJlpC2H5GWGl+4Fw==
+X-Google-Smtp-Source: ABdhPJzSgW3bteW8J5+JjbGJ7J/h02QsQKt9lhSERy5ol1yt5aIk3xL5i5JCHuDbh9P1Gp4qgkV3tg==
+X-Received: by 2002:a63:475c:: with SMTP id w28mr27922492pgk.222.1593742946913; 
+ Thu, 02 Jul 2020 19:22:26 -0700 (PDT)
+Received: from localhost ([122.172.40.201])
+ by smtp.gmail.com with ESMTPSA id s6sm9646485pfd.20.2020.07.02.19.22.25
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 02 Jul 2020 19:22:25 -0700 (PDT)
+Date: Fri, 3 Jul 2020 07:52:21 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20200703022221.upylhdvugtnp6hr2@vireshk-i7>
+References: <7c68854a1b6ef828ed8dd83cb611bd5b5d53c2f8.1593430825.git.viresh.kumar@linaro.org>
+ <20200702133418.GD9101@yuki.lan>
 MIME-Version: 1.0
-References: <20200701151456.851-1-mdoucha@suse.cz>
- <20200701151456.851-2-mdoucha@suse.cz>
- <CAEemH2f2D9xBYxeQ33w0thxZFpkSHK3gn1bBQWMZSA=X5y-AWQ@mail.gmail.com>
- <d0bd1421-500a-bc84-bd0a-7b5f25ade684@suse.cz>
-In-Reply-To: <d0bd1421-500a-bc84-bd0a-7b5f25ade684@suse.cz>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 3 Jul 2020 09:20:56 +0800
-Message-ID: <CAEemH2eCD8vMH38guqwiPR64qePVYkCR0EkUsvDZXP3Vs_1OfQ@mail.gmail.com>
-To: Martin Doucha <mdoucha@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200702133418.GD9101@yuki.lan>
+User-Agent: NeoMutt/20180716-391-311a52
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/2] Add test for CVE 2017-1000405
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] syscalls/timer_settime01: Improve print
+ messages
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,117 +79,27 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1126489156=="
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
+ ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1126489156==
-Content-Type: multipart/alternative; boundary="000000000000fc9f1d05a97f56aa"
+On 02-07-20, 15:34, Cyril Hrubis wrote:
+> Hi!
+> > This improves the print messages by providing additional information
+> > about the tests.
+> 
+> Do we really need this?
+> 
+> We do print which test variant we test at the start of each block and no
+> other tests with test variant prefix the messages like this...
 
---000000000000fc9f1d05a97f56aa
-Content-Type: text/plain; charset="UTF-8"
-
-On Thu, Jul 2, 2020 at 8:15 PM Martin Doucha <mdoucha@suse.cz> wrote:
-
-> On 02. 07. 20 11:48, Li Wang wrote:
-> >
-> > Martin Doucha <mdoucha@suse.cz <mailto:mdoucha@suse.cz>> wrote:
-> >
-> >     ...
-> >     +static void *alloc_zero_page(void *baseaddr)
-> >     +{
-> >     +       int i;
-> >     +       void *ret;
-> >     +
-> >     +       /* Find aligned chunk of address space. MAP_HUGETLB doesn't
-> >     work. */
-> >     +       for (i = 0; i < 16; i++, baseaddr += thp_size) {
-> >     +               ret = mmap(baseaddr, thp_size, PROT_READ,
-> >     +                       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-> >
-> >
-> > I'm wondering why here request the READ ONLY memory, shouldn't we write
-> > something into the write_thp loopingly then?
->
-> We do write into it. Except we do it through /proc/self/mem file
-> descriptor. I didn't try with PROT_WRITE but presume that mapping the
-> memory as read-only is important for confusing the kernel into thinking
-> that the address space doesn't need to be copied on write.
->
-> Nevertheless, I've tested the reproducer on a vulnerable kernel and it
-> works reliably.
->
-
-Thanks for the explanation, I helped merge the patchset v3.
+Damn, I missed that somehow and thought some information is missing :(
 
 -- 
-Regards,
-Li Wang
-
---000000000000fc9f1d05a97f56aa
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Thu, Jul 2, 2020 at 8:15 PM Martin Doucha &lt;<a=
- href=3D"mailto:mdoucha@suse.cz">mdoucha@suse.cz</a>&gt; wrote:<br></div><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex">On 02. 07. 20 11:48, Li Wan=
-g wrote:<br>
-&gt; <br>
-&gt; Martin Doucha &lt;<a href=3D"mailto:mdoucha@suse.cz" target=3D"_blank"=
->mdoucha@suse.cz</a> &lt;mailto:<a href=3D"mailto:mdoucha@suse.cz" target=
-=3D"_blank">mdoucha@suse.cz</a>&gt;&gt; wrote:<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0...<br>
-&gt;=C2=A0 =C2=A0 =C2=A0+static void *alloc_zero_page(void *baseaddr)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0+{<br>
-&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0int i;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0void *ret;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0+<br>
-&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Find aligned chunk o=
-f address space. MAP_HUGETLB doesn&#39;t<br>
-&gt;=C2=A0 =C2=A0 =C2=A0work. */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; 16=
-; i++, baseaddr +=3D thp_size) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0ret =3D mmap(baseaddr, thp_size, PROT_READ,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);<br>
-&gt; <br>
-&gt; <br>
-&gt; I&#39;m wondering why here request the READ ONLY memory, shouldn&#39;t=
- we write<br>
-&gt; something into the write_thp loopingly then?<br>
-<br>
-We do write into it. Except we do it through /proc/self/mem file<br>
-descriptor. I didn&#39;t try with PROT_WRITE but presume that mapping the<b=
-r>
-memory as read-only is important for confusing the kernel into thinking<br>
-that the address space doesn&#39;t need to be copied on write.<br>
-<br>
-Nevertheless, I&#39;ve tested the reproducer on a vulnerable kernel and it<=
-br>
-works reliably.<br></blockquote><div><br></div><div><div class=3D"gmail_def=
-ault" style=3D"font-size:small">Thanks for the explanation, I helped merge =
-the patchset v3.</div></div></div><div><br></div>-- <br><div dir=3D"ltr" cl=
-ass=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wan=
-g<br></div></div></div></div>
-
---000000000000fc9f1d05a97f56aa--
-
-
---===============1126489156==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+viresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1126489156==--
-
