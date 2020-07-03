@@ -1,71 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E4AE2131B4
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 04:40:04 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4205A2131F5
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 05:00:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2A4F23C247C
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 04:40:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C69643C26E8
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 05:00:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 02A0A3C0EC0
- for <ltp@lists.linux.it>; Fri,  3 Jul 2020 04:40:02 +0200 (CEST)
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E02991000952
- for <ltp@lists.linux.it>; Fri,  3 Jul 2020 04:40:01 +0200 (CEST)
-Received: by mail-pf1-x444.google.com with SMTP id u5so13364878pfn.7
- for <ltp@lists.linux.it>; Thu, 02 Jul 2020 19:40:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=LWcYs045wtO223b2piSJh0bmcq36gAnOnX44lVpSh1Q=;
- b=HR8rz+56XHsWORhvjF3chIoOHISAhOd4N7cJyHTk+SK5OJKH6oXKbjHIxCJjk9xKT9
- ZrSAbRFlhXFjAuWjjPwcg1Lg3+vE6ePjRx/eK9vlLKPBQ14YASq3tN0s/00KmlHtdGre
- e9KG6DOlgoWGI27awNsd0Svbe1A8PrxXlJC6KGPgdn5TRhtY7O4y3HZNzcH7NrsP9D/L
- SfBUE8xobhDnxGXHrjFJ56AHScmEoQPr0nJKV5nVt4IU8SCKqYMnQB4fTgPjaTFHP99D
- v4Ste2q4lvKy4A74NS+TOMRlA4rseEiD5rUVJQPd8yL+lNEHpl9QkfCliOWf9KEXwKcI
- lgcg==
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id B14D23C088F
+ for <ltp@lists.linux.it>; Fri,  3 Jul 2020 05:00:38 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 8A26C14012A0
+ for <ltp@lists.linux.it>; Fri,  3 Jul 2020 05:00:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1593745235;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=lm19WKete85yNM4T2FtYpdPgQMdXuyghunjH1N4x3fA=;
+ b=SIoQb6iikvWUOusruH533tyCkB/uK0u+vyhPmN20U4bU7wm/1nIRqIzpXOai9dGjeZAITI
+ cYWFFBWlCJIX/egpua+TfFwJxHM94IudaNa4edF9ZKWuhOsK+Se88Ys9923F18LKTPd5mJ
+ Ye6jZbmhYrsFFw+7l8fO9Q6KoBqNgbg=
+Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
+ [209.85.167.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-344-E-oKPQP6N8qcQgIuH6Dtxw-1; Thu, 02 Jul 2020 23:00:32 -0400
+X-MC-Unique: E-oKPQP6N8qcQgIuH6Dtxw-1
+Received: by mail-lf1-f69.google.com with SMTP id t7so20703660lfl.4
+ for <ltp@lists.linux.it>; Thu, 02 Jul 2020 20:00:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=LWcYs045wtO223b2piSJh0bmcq36gAnOnX44lVpSh1Q=;
- b=fh6+KJZAd65UKmxoomUuq8OQQ1ZOPu5r2TyaMPjJ6t1iUZzRBMolkKRjQeZ4zzrAGI
- wz49HgDLDe57CLKulsUhV9drALx0TTSaohE+nf8YHfxUIYeTWSQcmwqKjlvps3okpRPm
- rzfP/rZoDnAZe8ZimEwsPtL5YXdCBfWtkO18ZgpE6Ds3C9vAOJuIYmwpepDIB/Q6QUZP
- c24eG9ZgmLLZA5CpSfJ3pqY/L4N65mo6WCsLVbLRjDTULSJfxiEsFmuZeJWumYSdhB2Q
- +vUmug8KrnWC99YgT9kkHtORpZrPXC+p78Wa2DKrlEsbSVEj87tfi40uyCn9+nOwriXh
- FbYA==
-X-Gm-Message-State: AOAM532dfR/Bc5NUwqbCFtEXm+zOnoiPlehjD+tCZTZV8yPrK/SR4mTm
- dxw8DOQNosVohebXB4AfG68rHYRDcyk=
-X-Google-Smtp-Source: ABdhPJz88kCJjqUAvrflLKEP4fHgdOtPGNEBSsVQaszVNN9iVu8SUXO3va0vVqfBMwkXUEZVle/SXw==
-X-Received: by 2002:a62:8482:: with SMTP id
- k124mr21849428pfd.285.1593743999996; 
- Thu, 02 Jul 2020 19:39:59 -0700 (PDT)
-Received: from localhost ([122.172.40.201])
- by smtp.gmail.com with ESMTPSA id v28sm10053914pgc.44.2020.07.02.19.39.58
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 02 Jul 2020 19:39:59 -0700 (PDT)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: ltp@lists.linux.it
-Date: Fri,  3 Jul 2020 08:09:52 +0530
-Message-Id: <ede8d1c6a1ad1b23d8dca2297c740c301b329e37.1593743927.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
-In-Reply-To: <7c68854a1b6ef828ed8dd83cb611bd5b5d53c2f8.1593430825.git.viresh.kumar@linaro.org>
-References: <7c68854a1b6ef828ed8dd83cb611bd5b5d53c2f8.1593430825.git.viresh.kumar@linaro.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=lm19WKete85yNM4T2FtYpdPgQMdXuyghunjH1N4x3fA=;
+ b=cg+e4esa8UYafrhKD4XUK0CmYRCnV1YNbi4/FpQ3OZNErj2+WCNxZstmZ4k5otSBAb
+ LGkAMKud86vc5LNHb4oqGG7QmZ6yES3FKCatFttdgLy8t59gTcYBolO9C3DAa8MNowPq
+ eU8YzPeV3+DQ3FB2sG+oKEFLJycV8JJRyqwfLLdE5lu2PWmYKpk8d5BILibpyjFeCEPn
+ 4TZvaHDDm5UNEu3jRPSWoC2QyS+5SCL0jyPGcuP4+v9UD/zSSoRRLgffEWVhinltz3Yl
+ lYuIVW6ElHspsirpVSV2IVe0gE9461/XacuF1GH6s5Jbqhbop8zui6BEXyonmLnOgq2Z
+ ucLA==
+X-Gm-Message-State: AOAM532y80yQb7ZdSlC10gYy2nOCK2t+VCV91LU0zd+/oLexYpjEjaP8
+ LqqMixrAtHu3WSHhk9DmEi8BpjE7ZStwukswcpWTkcQOe66g3Jnrwt0mp//WGKZXMKo1fILK8ZP
+ zM6g73Xgdka/LFItQ0a4+EmpSpOw=
+X-Received: by 2002:a2e:a484:: with SMTP id h4mr18587521lji.468.1593745230715; 
+ Thu, 02 Jul 2020 20:00:30 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxhDRCBi2PAeyg5ugyoCd95SFMkpdV48rPZSYJF2fltqHROK48P7r9XnXvOXNRakdQvGQAv7QVnUHErrY8ZQaQ=
+X-Received: by 2002:a2e:a484:: with SMTP id h4mr18587513lji.468.1593745230518; 
+ Thu, 02 Jul 2020 20:00:30 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+References: <20200701233133.122801-1-petr.vorel@gmail.com>
+In-Reply-To: <20200701233133.122801-1-petr.vorel@gmail.com>
+From: Li Wang <liwang@redhat.com>
+Date: Fri, 3 Jul 2020 11:00:18 +0800
+Message-ID: <CAEemH2cHWqRQ+bkUCof8mrK7jfy-DsuA9wegmOT8D-h8F1Cu2g@mail.gmail.com>
+To: Petr Vorel <petr.vorel@gmail.com>, Harish <harish@linux.ibm.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH V2] syscalls/timer_settime01: Make sure the timer fires
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] numa01.sh: Handle computation error
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,150 +79,101 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
- Viresh Kumar <viresh.kumar@linaro.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0113859717=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This patch improves the testcase by doing multiple things:
+--===============0113859717==
+Content-Type: multipart/alternative; boundary="00000000000054022605a980baf3"
 
-- Make sure the timer fires and catch the signals.
+--00000000000054022605a980baf3
+Content-Type: text/plain; charset="UTF-8"
 
-- Verify the values set to the itimerspec by reading them again using
-  timer_gettime() syscalls.
+Hi Petr, Harish,
 
-- Reduce the timer interval, 5 seconds was way too much.
+Though the root cause is from the non-ordered node in a special machine, I
+still think this patch makes sense to numa01, because the function
+get_mem_cur() make code more readable.
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
----
-V1.1->V2:
-- 1/2 patch removed and solved rebase conflicts.
+So I'm going to merge both this one and Harish's patch, after doing that, I
+will also follow Cyril's comment to remove test8(migrate_pages).
 
- .../syscalls/timer_settime/timer_settime01.c  | 70 ++++++++++++++-----
- 1 file changed, 52 insertions(+), 18 deletions(-)
+Any objections? or comments?
 
-diff --git a/testcases/kernel/syscalls/timer_settime/timer_settime01.c b/testcases/kernel/syscalls/timer_settime/timer_settime01.c
-index 08fb56e4943a..67769d088ab8 100644
---- a/testcases/kernel/syscalls/timer_settime/timer_settime01.c
-+++ b/testcases/kernel/syscalls/timer_settime/timer_settime01.c
-@@ -38,28 +38,42 @@ static struct testcase {
- 	int			flag;
- 	char			*description;
- } tcases[] = {
--	{NULL,     5, 0, 0, "general initialization"},
--	{&old_set, 5, 0, 0, "setting old_value"},
--	{&old_set, 0, 5, 0, "using periodic timer"},
--	{&old_set, 5, 0, TIMER_ABSTIME, "using absolute time"},
-+	{NULL, 1, 0, 0, "general initialization"},
-+	{&old_set, 1, 0, 0, "setting old_value"},
-+	{&old_set, 1, 1, 0, "using periodic timer"},
-+	{&old_set, 1, 0, TIMER_ABSTIME, "using absolute time"},
- };
- 
- static struct test_variants {
--	int (*gettime)(clockid_t clk_id, void *ts);
--	int (*func)(timer_t timerid, int flags, void *its,
--		    void *old_its);
-+	int (*cgettime)(clockid_t clk_id, void *ts);
-+	int (*tgettime)(timer_t timer, void *its);
-+	int (*func)(timer_t timerid, int flags, void *its, void *old_its);
- 	enum tst_ts_type type;
- 	char *desc;
- } variants[] = {
- #if (__NR_timer_settime != __LTP__NR_INVALID_SYSCALL)
--	{ .gettime = sys_clock_gettime, .func = sys_timer_settime, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
-+	{ .cgettime = sys_clock_gettime, .tgettime = sys_timer_gettime, .func = sys_timer_settime, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
- #endif
- 
- #if (__NR_timer_settime64 != __LTP__NR_INVALID_SYSCALL)
--	{ .gettime = sys_clock_gettime64, .func = sys_timer_settime64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
-+	{ .cgettime = sys_clock_gettime64, .tgettime = sys_timer_gettime64, .func = sys_timer_settime64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
- #endif
- };
- 
-+static volatile int caught_signal;
-+
-+static void clear_signal(void)
-+{
-+	/*
-+	 * The busy loop is intentional. The signal is sent after X
-+	 * seconds of CPU time has been accumulated for the process and
-+	 * thread specific clocks.
-+	 */
-+	while (!caught_signal);
-+
-+	caught_signal = 0;
-+}
-+
- static void run(unsigned int n)
- {
- 	struct test_variants *tv = &variants[tst_variant];
-@@ -101,7 +115,7 @@ static void run(unsigned int n)
- 
- 		if (tc->flag & TIMER_ABSTIME) {
- 			timenow.type = tv->type;
--			if (tv->gettime(clock, tst_ts_get(&timenow)) < 0) {
-+			if (tv->cgettime(clock, tst_ts_get(&timenow)) < 0) {
- 				tst_res(TFAIL,
- 					"clock_gettime(%s) failed - skipping the test",
- 					get_clock_str(clock));
-@@ -118,23 +132,43 @@ static void run(unsigned int n)
- 		TEST(tv->func(timer, tc->flag, tst_its_get(&new_set), tst_its_get(tc->old_ptr)));
- 
- 		if (TST_RET != 0) {
--			tst_res(TFAIL | TTERRNO, "%s failed",
--					get_clock_str(clock));
--		} else {
--			tst_res(TPASS, "%s was successful",
--					get_clock_str(clock));
-+			tst_res(TFAIL | TTERRNO, "timer_settime(%s) failed",
-+				get_clock_str(clock));
-+		}
-+
-+		TEST(tv->tgettime(timer, tst_its_get(&new_set)));
-+		if (TST_RET != 0) {
-+			tst_res(TFAIL | TTERRNO, "timer_gettime(%s) failed",
-+				get_clock_str(clock));
-+		}
-+
-+		if (tst_its_get_interval_sec(new_set) > tc->it_interval_tv_sec ||
-+		    tst_its_get_value_sec(new_set) > val) {
-+			tst_res(TFAIL | TTERRNO,
-+				"timer_gettime(%s) reported bad values (%llu: %llu)",
-+				get_clock_str(clock),
-+				tst_its_get_interval_sec(new_set),
-+				tst_its_get_value_sec(new_set));
- 		}
- 
-+		clear_signal();
-+
-+		/* Wait for another event when interval was set */
-+		if (tc->it_interval_tv_sec)
-+			clear_signal();
-+
-+		tst_res(TPASS, "timer_settime(%s) passed",
-+			get_clock_str(clock));
-+
- 		TEST(tst_syscall(__NR_timer_delete, timer));
- 		if (TST_RET != 0)
- 			tst_res(TFAIL | TTERRNO, "timer_delete() failed!");
- 	}
- }
- 
--static void sighandler(int sig)
-+static void sighandler(int sig LTP_ATTRIBUTE_UNUSED)
- {
--	/* sighandler for CLOCK_*_ALARM */
--	tst_res(TINFO, "Caught signal %s", tst_strsig(sig));
-+	caught_signal = 1;
- }
- 
- static void setup(void)
+On Thu, Jul 2, 2020 at 7:31 AM Petr Vorel <petr.vorel@gmail.com> wrote:
+
+> ...
+> +get_mem_cur()
+>  {
+>         local pid=$1
+>         local node=$(($2 + 2))
+> +       local size=$3
+> +       local numstat=$(numastat -p $pid |awk '/^Total/ {print $'$node'}')
+>
+> -       echo $(numastat -p $pid |awk '/^Total/ {print $'$node'}')
+> +       if [ -z "$numstat" ]; then
+> +               echo 0
+> +               return
+>
+
+Maybe we'd better do TBROK from here if numstat doesn't work well?
+
 -- 
-2.25.0.rc1.19.g042ed3e048af
+Regards,
+Li Wang
+
+--00000000000054022605a980baf3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi=C2=A0Petr, Harish,</div></div><div><br></div><div><div cla=
+ss=3D"gmail_default" style=3D"font-size:small">Though the root cause is fro=
+m the non-ordered node in a special machine, I still think this patch makes=
+ sense to numa01, because the function get_mem_cur() make code more readabl=
+e.</div><div class=3D"gmail_default" style=3D"font-size:small"><br></div><d=
+iv class=3D"gmail_default" style=3D"font-size:small">So I&#39;m going to me=
+rge both this one and Harish&#39;s patch, after doing that, I will also fol=
+low Cyril&#39;s comment to remove test8(migrate_pages).</div><div class=3D"=
+gmail_default" style=3D"font-size:small"><br></div><div class=3D"gmail_defa=
+ult" style=3D"font-size:small">Any objections? or comments?</div></div><br>=
+<div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Ju=
+l 2, 2020 at 7:31 AM Petr Vorel &lt;<a href=3D"mailto:petr.vorel@gmail.com"=
+ target=3D"_blank">petr.vorel@gmail.com</a>&gt; wrote:<br></div><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
+lid rgb(204,204,204);padding-left:1ex"><span class=3D"gmail_default" style=
+=3D"font-size:small">...</span><br>
++get_mem_cur()<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 local pid=3D$1<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 local node=3D$(($2 + 2))<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0local size=3D$3<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0local numstat=3D$(numastat -p $pid |awk &#39;/^=
+Total/ {print $&#39;$node&#39;}&#39;)<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0echo $(numastat -p $pid |awk &#39;/^Total/ {pri=
+nt $&#39;$node&#39;}&#39;)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if [ -z &quot;$numstat&quot; ]; then<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0echo 0<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return<br></blockqu=
+ote><div><br></div><div class=3D"gmail_default" style=3D"font-size:small">M=
+aybe we&#39;d better do TBROK from here if numstat doesn&#39;t work well?</=
+div></div><div><br></div>-- <br><div dir=3D"ltr"><div dir=3D"ltr"><div>Rega=
+rds,<br></div><div>Li Wang<br></div></div></div></div>
+
+--00000000000054022605a980baf3--
+
+
+--===============0113859717==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0113859717==--
+
