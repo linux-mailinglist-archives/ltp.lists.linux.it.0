@@ -2,72 +2,34 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4205A2131F5
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 05:00:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E28A21320A
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 05:09:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C69643C26E8
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 05:00:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4851D3C247C
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 05:09:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id B14D23C088F
- for <ltp@lists.linux.it>; Fri,  3 Jul 2020 05:00:38 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 8A26C14012A0
- for <ltp@lists.linux.it>; Fri,  3 Jul 2020 05:00:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1593745235;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=lm19WKete85yNM4T2FtYpdPgQMdXuyghunjH1N4x3fA=;
- b=SIoQb6iikvWUOusruH533tyCkB/uK0u+vyhPmN20U4bU7wm/1nIRqIzpXOai9dGjeZAITI
- cYWFFBWlCJIX/egpua+TfFwJxHM94IudaNa4edF9ZKWuhOsK+Se88Ys9923F18LKTPd5mJ
- Ye6jZbmhYrsFFw+7l8fO9Q6KoBqNgbg=
-Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
- [209.85.167.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-344-E-oKPQP6N8qcQgIuH6Dtxw-1; Thu, 02 Jul 2020 23:00:32 -0400
-X-MC-Unique: E-oKPQP6N8qcQgIuH6Dtxw-1
-Received: by mail-lf1-f69.google.com with SMTP id t7so20703660lfl.4
- for <ltp@lists.linux.it>; Thu, 02 Jul 2020 20:00:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=lm19WKete85yNM4T2FtYpdPgQMdXuyghunjH1N4x3fA=;
- b=cg+e4esa8UYafrhKD4XUK0CmYRCnV1YNbi4/FpQ3OZNErj2+WCNxZstmZ4k5otSBAb
- LGkAMKud86vc5LNHb4oqGG7QmZ6yES3FKCatFttdgLy8t59gTcYBolO9C3DAa8MNowPq
- eU8YzPeV3+DQ3FB2sG+oKEFLJycV8JJRyqwfLLdE5lu2PWmYKpk8d5BILibpyjFeCEPn
- 4TZvaHDDm5UNEu3jRPSWoC2QyS+5SCL0jyPGcuP4+v9UD/zSSoRRLgffEWVhinltz3Yl
- lYuIVW6ElHspsirpVSV2IVe0gE9461/XacuF1GH6s5Jbqhbop8zui6BEXyonmLnOgq2Z
- ucLA==
-X-Gm-Message-State: AOAM532y80yQb7ZdSlC10gYy2nOCK2t+VCV91LU0zd+/oLexYpjEjaP8
- LqqMixrAtHu3WSHhk9DmEi8BpjE7ZStwukswcpWTkcQOe66g3Jnrwt0mp//WGKZXMKo1fILK8ZP
- zM6g73Xgdka/LFItQ0a4+EmpSpOw=
-X-Received: by 2002:a2e:a484:: with SMTP id h4mr18587521lji.468.1593745230715; 
- Thu, 02 Jul 2020 20:00:30 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxhDRCBi2PAeyg5ugyoCd95SFMkpdV48rPZSYJF2fltqHROK48P7r9XnXvOXNRakdQvGQAv7QVnUHErrY8ZQaQ=
-X-Received: by 2002:a2e:a484:: with SMTP id h4mr18587513lji.468.1593745230518; 
- Thu, 02 Jul 2020 20:00:30 -0700 (PDT)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 196073C088F
+ for <ltp@lists.linux.it>; Fri,  3 Jul 2020 05:09:44 +0200 (CEST)
+Received: from mail.zilogic.com (mail.zilogic.com [45.33.14.236])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id D3E096011C6
+ for <ltp@lists.linux.it>; Fri,  3 Jul 2020 05:09:42 +0200 (CEST)
+Date: Fri, 03 Jul 2020 03:08:11 -0000
+To: ltp@lists.linux.it
+Message-ID: <20200703030811.11521-1-pravinraghul@zilogic.com>
+From: "pravin" <pravinraghul@zilogic.com>
+Received: from localhost.localdomain (157.50.203.145 [157.50.203.145])
+ by mail.zilogic.com; Fri, 03 Jul 2020 03:08:50 -0000
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20200701233133.122801-1-petr.vorel@gmail.com>
-In-Reply-To: <20200701233133.122801-1-petr.vorel@gmail.com>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 3 Jul 2020 11:00:18 +0800
-Message-ID: <CAEemH2cHWqRQ+bkUCof8mrK7jfy-DsuA9wegmOT8D-h8F1Cu2g@mail.gmail.com>
-To: Petr Vorel <petr.vorel@gmail.com>, Harish <harish@linux.ibm.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] numa01.sh: Handle computation error
+X-Spam-Status: No, score=0.0 required=7.0 tests=MSGID_FROM_MTA_HEADER,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] Add a test case for mmap MAP_GROWSDOWN flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,101 +41,226 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0113859717=="
+Cc: pravin <pravinraghul@zilogic.com>, vijaykumar@zilogic.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0113859717==
-Content-Type: multipart/alternative; boundary="00000000000054022605a980baf3"
 
---00000000000054022605a980baf3
-Content-Type: text/plain; charset="UTF-8"
+We assign the memory region allocated using MAP_GROWSDOWN to a thread,
+as a stack, to test the effect of MAP_GROWSDOWN. This is because the
+kernel only grows the memory region when the stack pointer, is within
+guard page, when the guard page is touched.
 
-Hi Petr, Harish,
+  1. Map an anyonymous memory region of size X, and unmap it.
+  2. Split the unmapped memory region into two.
+  3. The lower memory region is left unmapped.
+  4. The higher memory region is mapped for use as stack, using MAP_FIXED | MAP_GROWSDOWN.
+  5. The higher memory region is provided as stack to a thread, where
+     a recursive function is invoked.
+  6. The stack grows beyond the allocated region, into the lower memory area.
+  7. If this results in the memory region being extended, into the
+     unmapped region, the test is considered to have passed.
 
-Though the root cause is from the non-ordered node in a special machine, I
-still think this patch makes sense to numa01, because the function
-get_mem_cur() make code more readable.
+Resolves #300
+Signed-off-by: Pravin Raghul S. <pravinraghul@zilogic.com>
+Reviewed-by: Vijay Kumar B. <vijaykumar@zilogic.com>
 
-So I'm going to merge both this one and Harish's patch, after doing that, I
-will also follow Cyril's comment to remove test8(migrate_pages).
+---
+ runtest/syscalls                          |   1 +
+ testcases/kernel/syscalls/mmap/.gitignore |   1 +
+ testcases/kernel/syscalls/mmap/Makefile   |   7 ++
+ testcases/kernel/syscalls/mmap/mmap18.c   | 141 ++++++++++++++++++++++
+ 4 files changed, 150 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/mmap/mmap18.c
 
-Any objections? or comments?
-
-On Thu, Jul 2, 2020 at 7:31 AM Petr Vorel <petr.vorel@gmail.com> wrote:
-
-> ...
-> +get_mem_cur()
->  {
->         local pid=$1
->         local node=$(($2 + 2))
-> +       local size=$3
-> +       local numstat=$(numastat -p $pid |awk '/^Total/ {print $'$node'}')
->
-> -       echo $(numastat -p $pid |awk '/^Total/ {print $'$node'}')
-> +       if [ -z "$numstat" ]; then
-> +               echo 0
-> +               return
->
-
-Maybe we'd better do TBROK from here if numstat doesn't work well?
-
+diff --git a/runtest/syscalls b/runtest/syscalls
+index b4d523319..d8c9dbe92 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -747,6 +747,7 @@ mmap14 mmap14
+ mmap15 mmap15
+ mmap16 mmap16
+ mmap17 mmap17
++mmap18 mmap18
+ 
+ modify_ldt01 modify_ldt01
+ modify_ldt02 modify_ldt02
+diff --git a/testcases/kernel/syscalls/mmap/.gitignore b/testcases/kernel/syscalls/mmap/.gitignore
+index c5c083d4b..4fd90ab5f 100644
+--- a/testcases/kernel/syscalls/mmap/.gitignore
++++ b/testcases/kernel/syscalls/mmap/.gitignore
+@@ -16,3 +16,4 @@
+ /mmap15
+ /mmap16
+ /mmap17
++/mmap18
+diff --git a/testcases/kernel/syscalls/mmap/Makefile b/testcases/kernel/syscalls/mmap/Makefile
+index 743ca36e7..bdc49e4be 100644
+--- a/testcases/kernel/syscalls/mmap/Makefile
++++ b/testcases/kernel/syscalls/mmap/Makefile
+@@ -8,3 +8,10 @@ include $(top_srcdir)/include/mk/testcases.mk
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+ 
+ LDLIBS 			+= -lpthread
++#
++# We use recursive calls to to grow the stack, to test the
++# MAP_GROSWDOWN flag. But tail call optimization by the compiler
++# can prevent the recusive call and stack growth. Disable tail
++# call optmization using -fno-optimize-sibling-calls
++#
++mmap18: CFLAGS          += -fno-optimize-sibling-calls
+diff --git a/testcases/kernel/syscalls/mmap/mmap18.c b/testcases/kernel/syscalls/mmap/mmap18.c
+new file mode 100644
+index 000000000..497d5997e
+--- /dev/null
++++ b/testcases/kernel/syscalls/mmap/mmap18.c
+@@ -0,0 +1,141 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) Zilogic Systems Pvt. Ltd., 2020
++ * Email: code@zilogic.com
++ */
++
++/*
++ * Test mmap() MAP_GROWSDOWN flag
++ *
++ * We assign the memory region allocated using MAP_GROWSDOWN to a thread,
++ * as a stack, to test the effect of MAP_GROWSDOWN. This is because the
++ * kernel only grows the memory region when the stack pointer, is within
++ * guard page, when the guard page is touched.
++ *
++ * 1. Map an anyonymous memory region of size X, and unmap it.
++ * 2. Split the unmapped memory region into two.
++ * 3. The lower memory region is left unmapped.
++ * 4. The higher memory region is mapped for use as stack, using
++ *    MAP_FIXED | MAP_GROWSDOWN.
++ * 5. The higher memory region is provided as stack to a thread, where
++ *    a recursive function is invoked.
++ * 6. The stack grows beyond the allocated region, into the lower memory area.
++ * 7. If this results in the memory region being extended, into the
++ *    unmapped region, the test is considered to have passed.
++ */
++
++#include <unistd.h>
++#include <pthread.h>
++#include <sys/mman.h>
++#include <sys/wait.h>
++#include <sys/types.h>
++#include <stdlib.h>
++#include <stdbool.h>
++
++#include "tst_test.h"
++#include "tst_safe_pthread.h"
++
++#define UNITS(x) ((x) * PTHREAD_STACK_MIN)
++
++static void *stack;
++
++static bool check_stackgrow_up(int *local_var_1)
++{
++	int local_var_2;
++
++	return !(local_var_1 < &local_var_2);
++}
++
++static void setup(void)
++{
++	int local_var_1;
++
++	if (check_stackgrow_up(&local_var_1))
++		tst_brk(TCONF, "Test can't be performed with stack grows up architecture");
++}
++
++static void cleanup(void)
++{
++	if (stack)
++		SAFE_MUNMAP(stack, UNITS(8));
++}
++
++static void *find_free_range(size_t size)
++{
++	void *mem;
++
++	mem = SAFE_MMAP(NULL, size, PROT_READ | PROT_WRITE,
++			MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	SAFE_MUNMAP(mem, size);
++
++	return mem;
++}
++
++static void split_unmapped_plus_stack(void *start, size_t size)
++{
++	/* start           start + size
++	 * +---------------------+----------------------+
++	 * + unmapped            | mapped               |
++	 * +---------------------+----------------------+
++	 *                       stack
++	 */
++	stack = SAFE_MMAP(start + size, size, PROT_READ | PROT_WRITE,
++			  MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS | MAP_GROWSDOWN,
++			  -1, 0);
++}
++
++static void *check_depth_recursive(void *limit)
++{
++	if ((off_t) &limit < (off_t) limit)
++		return NULL;
++
++	return check_depth_recursive(limit);
++}
++
++static void grow_stack(void *stack, size_t size, void *limit)
++{
++	pthread_t test_thread;
++	pthread_attr_t attr;
++	int ret;
++
++	ret = pthread_attr_init(&attr);
++	if (ret)
++		tst_brk(TBROK, "pthread_attr_init failed during setup");
++
++	ret = pthread_attr_setstack(&attr, stack, size);
++	if (ret)
++		tst_brk(TBROK, "pthread_attr_setstack failed during setup");
++	SAFE_PTHREAD_CREATE(&test_thread, &attr, check_depth_recursive, limit);
++	SAFE_PTHREAD_JOIN(test_thread, NULL);
++
++	exit(0);
++}
++
++static void run_test(void)
++{
++	void *mem;
++	pid_t child_pid;
++	int wstatus;
++
++	mem = find_free_range(UNITS(16));
++	split_unmapped_plus_stack(mem, UNITS(8));
++
++	child_pid = SAFE_FORK();
++	if (!child_pid)
++		grow_stack(stack, UNITS(8), mem + UNITS(1));
++
++	SAFE_WAIT(&wstatus);
++	if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) == 0)
++		tst_res(TPASS, "Stack grows in unmapped region");
++	else if (WIFSIGNALED(wstatus))
++		tst_res(TFAIL, "Child killed by %s", tst_strsig(WTERMSIG(wstatus)));
++	else
++		tst_res(TFAIL, "Child %s", tst_strstatus(wstatus));
++}
++
++static struct tst_test test = {
++	.setup = setup,
++	.cleanup = cleanup,
++	.test_all = run_test,
++	.forks_child = 1,
++};
 -- 
-Regards,
-Li Wang
-
---00000000000054022605a980baf3
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Hi=C2=A0Petr, Harish,</div></div><div><br></div><div><div cla=
-ss=3D"gmail_default" style=3D"font-size:small">Though the root cause is fro=
-m the non-ordered node in a special machine, I still think this patch makes=
- sense to numa01, because the function get_mem_cur() make code more readabl=
-e.</div><div class=3D"gmail_default" style=3D"font-size:small"><br></div><d=
-iv class=3D"gmail_default" style=3D"font-size:small">So I&#39;m going to me=
-rge both this one and Harish&#39;s patch, after doing that, I will also fol=
-low Cyril&#39;s comment to remove test8(migrate_pages).</div><div class=3D"=
-gmail_default" style=3D"font-size:small"><br></div><div class=3D"gmail_defa=
-ult" style=3D"font-size:small">Any objections? or comments?</div></div><br>=
-<div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Ju=
-l 2, 2020 at 7:31 AM Petr Vorel &lt;<a href=3D"mailto:petr.vorel@gmail.com"=
- target=3D"_blank">petr.vorel@gmail.com</a>&gt; wrote:<br></div><blockquote=
- class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
-lid rgb(204,204,204);padding-left:1ex"><span class=3D"gmail_default" style=
-=3D"font-size:small">...</span><br>
-+get_mem_cur()<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 local pid=3D$1<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 local node=3D$(($2 + 2))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0local size=3D$3<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0local numstat=3D$(numastat -p $pid |awk &#39;/^=
-Total/ {print $&#39;$node&#39;}&#39;)<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0echo $(numastat -p $pid |awk &#39;/^Total/ {pri=
-nt $&#39;$node&#39;}&#39;)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if [ -z &quot;$numstat&quot; ]; then<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0echo 0<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return<br></blockqu=
-ote><div><br></div><div class=3D"gmail_default" style=3D"font-size:small">M=
-aybe we&#39;d better do TBROK from here if numstat doesn&#39;t work well?</=
-div></div><div><br></div>-- <br><div dir=3D"ltr"><div dir=3D"ltr"><div>Rega=
-rds,<br></div><div>Li Wang<br></div></div></div></div>
-
---00000000000054022605a980baf3--
-
-
---===============0113859717==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+2.25.1
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0113859717==--
-
