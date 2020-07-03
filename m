@@ -1,72 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3EBB213211
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 05:15:40 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 869C72133BC
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 07:52:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A75523C247C
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 05:15:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2ECCF3C5603
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jul 2020 07:52:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 8B3443C0271
- for <ltp@lists.linux.it>; Fri,  3 Jul 2020 05:15:38 +0200 (CEST)
-Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
- [IPv6:2607:f8b0:4864:20::644])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C9FA2200BB6
- for <ltp@lists.linux.it>; Fri,  3 Jul 2020 05:15:37 +0200 (CEST)
-Received: by mail-pl1-x644.google.com with SMTP id bf7so2770503plb.2
- for <ltp@lists.linux.it>; Thu, 02 Jul 2020 20:15:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=HmuC4l4SQfbZsLxvqKdBgShKVWxOuK4xknloy6zUdC8=;
- b=yZmmWKyTBHVkkPCY7i4gG6nw9kpJttlV9e8oaqIo/a1O+jyODk6bucBWnLm93E+Osi
- W/mMzQFUnsikk1DSN7aOflu3+DohUdDXLbUMe2pIfGAJxcj4GrhL4cN7NPG2Bg2E+LTk
- BhGZJ1IZ1z+7/tu2qzpLKrwlbbdUHCZ/yvBAbdqdGK59GbuIcSj9KAiMDT2U6/n4eM/s
- bbz6IulvJbhwOXLAoU9BdgF3wT8Ig/B1+ORuOKJHWXUS2O3XRke8Ac373Owu4UGuvdR+
- hX3RLTxBYdrnqhcpXtxpL1/4JXX0p5niIe0mbRV7VkTzmDXOJ/FkpVAWWe91Qp11GpFj
- BDmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=HmuC4l4SQfbZsLxvqKdBgShKVWxOuK4xknloy6zUdC8=;
- b=PH9l2VG1KPYr5PB0SjpYHl9hoowWHe4pbffzGqBXvpsO28FwKMkrNjMGFfO42A/k4W
- i3xuvCi/KPb7tFRkRrvEUDW0vhKCVhdLntYsbH5LUY2Ldxm5KbIx2AG6ZJEpDbf4dmbk
- UUFhRvgEfR+3DV1j/PzoOk2qbmBErqoGMwJtmsxN76rZiTpN09b9wh/nCspak186JOHR
- Ncz/TovcUPX6Az8JJWV+0nEAF8FgMT6raMzVffqm7ThaLhTma9tyW20LuEq93SZSCkC/
- rZIERI6pjCdy0gOUIv28jkgvDt5PmFTKg6H2mkeCZIgo2N3PgF7mSTamMi8ja/UISMFQ
- bYwQ==
-X-Gm-Message-State: AOAM532o+jlvz9WP4Km01fEQ0rmaTGMBEQQNku89TEvRZVycTlvfHoPg
- lHhB2U6IPGtldZ+3cf/+Hs/YXQ==
-X-Google-Smtp-Source: ABdhPJy7FhC1BCplzKPXSzY4GmMIgJ16SPsQMTW4gsRwga/QJE9oSATk4mEJq6syf0saL5YWz+zllA==
-X-Received: by 2002:a17:90a:1117:: with SMTP id
- d23mr36210338pja.136.1593746135860; 
- Thu, 02 Jul 2020 20:15:35 -0700 (PDT)
-Received: from localhost ([122.172.40.201])
- by smtp.gmail.com with ESMTPSA id w64sm9812886pgd.67.2020.07.02.20.15.34
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 02 Jul 2020 20:15:35 -0700 (PDT)
-Date: Fri, 3 Jul 2020 08:45:32 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20200703031532.bjkwhkpfobdsxj4p@vireshk-i7>
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 309143C0ECC
+ for <ltp@lists.linux.it>; Fri,  3 Jul 2020 07:52:43 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 67AEB600F00
+ for <ltp@lists.linux.it>; Fri,  3 Jul 2020 07:51:39 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.75,307,1589212800"; d="scan'208,217";a="95749634"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 03 Jul 2020 13:52:38 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 6BE164CE4BD6;
+ Fri,  3 Jul 2020 13:52:33 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Fri, 3 Jul 2020 13:52:34 +0800
+To: Viresh Kumar <viresh.kumar@linaro.org>, Cyril Hrubis <chrubis@suse.cz>
 References: <cover.1593152309.git.viresh.kumar@linaro.org>
  <325a43a851acca8bb242011a1d62063c8154653c.1593152309.git.viresh.kumar@linaro.org>
- <20200702130654.GC9101@yuki.lan>
+ <20200702130654.GC9101@yuki.lan> <20200703031532.bjkwhkpfobdsxj4p@vireshk-i7>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <fb2f4706-2739-9ab7-3b1f-a741cf055680@cn.fujitsu.com>
+Date: Fri, 3 Jul 2020 13:52:32 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200702130654.GC9101@yuki.lan>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+In-Reply-To: <20200703031532.bjkwhkpfobdsxj4p@vireshk-i7>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 6BE164CE4BD6.A03D0
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=HTML_MESSAGE, KHOP_HELO_FCRDNS,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH V7 05/19] syscalls/sched_rr_get_interval: Add
  support for time64 tests
 X-BeenThere: ltp@lists.linux.it
@@ -80,17 +60,107 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
- ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it,
+ arnd@arndb.de
+Content-Type: multipart/mixed; boundary="===============1350983280=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 02-07-20, 15:06, Cyril Hrubis wrote:
-> Btw, we may as well add a check that the value is consistent with
-> /proc/sys/kernel/sched_rr_timeslice_ms.
+--===============1350983280==
+Content-Type: multipart/alternative;
+	boundary="------------E35D7B9C0939D0BF92212452"
 
+--------------E35D7B9C0939D0BF92212452
+Content-Type: text/plain; charset="gbk"; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Hi Viresh
+
+> On 02-07-20, 15:06, Cyril Hrubis wrote:
+>> Btw, we may as well add a check that the value is consistent with
+>> /proc/sys/kernel/sched_rr_timeslice_ms.
+
+I guess cyril may want to add a check using TST_ASSERT_INT api like this
+
+TST_ASSERT_INT("/proc/sys/kernel/sched_rr_timeslice_ms", tst_ts_to_ms(tp));
+
+> diff --git a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c
+> index 31d7b5d56a52..0641b6651502 100644
+> --- a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c
+> +++ b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c
+> @@ -44,6 +44,7 @@ static void setup(void)
+>   static void run(void)
+>   {
+>          struct test_variants *tv = &variants[tst_variant];
+> +       unsigned long long timeslice_ms;
+>   
+>          TEST(tv->func(0, tst_ts_get(&tp)));
+>   
+> @@ -54,6 +55,8 @@ static void run(void)
+>                          TST_RET);
+>          }
+>   
+> +       SAFE_FILE_SCANF("/proc/sys/kernel/sched_rr_timeslice_ms", "%llu", &timeslice_ms);
+> +
+>          if (!tst_ts_valid(&tp)) {
+>                  tst_res(TPASS, "Time quantum %llis %llins",
+>                          tst_ts_get_sec(tp), tst_ts_get_nsec(tp));
+> @@ -62,6 +65,7 @@ static void run(void)
+>                          tst_ts_get_sec(tp), tst_ts_get_nsec(tp));
+>          }
+>   
+> +       tst_res(TINFO, "%llu: %llu", timeslice_ms, tst_ts_to_ms(tp));
+>   }
+>   
+>   static struct tst_test test = {
+>
+>
+>
+> and it is coming as:
+>
+> sched_rr_get_interval01.c:68: INFO: 25: 100
+>
+> They aren't consistent here. Perhaps because first one is system wide
+> while other one is per process ?
+
+It is strange.
+On my machine, the two values are all 100. AFAIK, it has a bug (set in milliseconds but the result is shown in jiffies.) on old kernel whenCONFIG_HZ is not 1000. what kernel version do you test?
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=975e155ed8732cb81f55c021c441ae662dd040b5
+
+>
+
+
+
+--------------E35D7B9C0939D0BF92212452
+Content-Type: text/html; charset="gbk"
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=GBK">
+  </head>
+  <body>
+    <pre>Hi Viresh
+</pre>
+    <div class="moz-cite-prefix">
+      <pre>
+</pre>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20200703031532.bjkwhkpfobdsxj4p@vireshk-i7">
+      <pre class="moz-quote-pre" wrap="">On 02-07-20, 15:06, Cyril Hrubis wrote:
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">Btw, we may as well add a check that the value is consistent with
+/proc/sys/kernel/sched_rr_timeslice_ms.
+</pre>
+      </blockquote>
+    </blockquote>
+    <pre>I guess cyril may want to add a check using TST_ASSERT_INT api like this</pre>
+    <pre>TST_ASSERT_INT("/proc/sys/kernel/sched_rr_timeslice_ms", tst_ts_to_ms(tp));</pre>
+    <blockquote type="cite"
+      cite="mid:20200703031532.bjkwhkpfobdsxj4p@vireshk-i7">
+      <pre class="moz-quote-pre" wrap="">
 diff --git a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c
 index 31d7b5d56a52..0641b6651502 100644
 --- a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c
@@ -98,18 +168,18 @@ index 31d7b5d56a52..0641b6651502 100644
 @@ -44,6 +44,7 @@ static void setup(void)
  static void run(void)
  {
-        struct test_variants *tv = &variants[tst_variant];
+        struct test_variants *tv = &amp;variants[tst_variant];
 +       unsigned long long timeslice_ms;
  
-        TEST(tv->func(0, tst_ts_get(&tp)));
+        TEST(tv-&gt;func(0, tst_ts_get(&amp;tp)));
  
 @@ -54,6 +55,8 @@ static void run(void)
                         TST_RET);
         }
  
-+       SAFE_FILE_SCANF("/proc/sys/kernel/sched_rr_timeslice_ms", "%llu", &timeslice_ms);
++       SAFE_FILE_SCANF("/proc/sys/kernel/sched_rr_timeslice_ms", "%llu", &amp;timeslice_ms);
 +
-        if (!tst_ts_valid(&tp)) {
+        if (!tst_ts_valid(&amp;tp)) {
                 tst_res(TPASS, "Time quantum %llis %llins",
                         tst_ts_get_sec(tp), tst_ts_get_nsec(tp));
 @@ -62,6 +65,7 @@ static void run(void)
@@ -128,10 +198,34 @@ and it is coming as:
 sched_rr_get_interval01.c:68: INFO: 25: 100
 
 They aren't consistent here. Perhaps because first one is system wide
-while other one is per process ?
+while other one is per process ?</pre>
+    </blockquote>
+    <pre>It is strange.
+On my machine, the two values are all 100. AFAIK, it has a bug (<span style="display: inline !important; float: none; background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-family: monospace; font-size: 13.33px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: pre; word-spacing: 0px;">set in milliseconds 
+but the result is shown in jiffies.</span>) on old kernel when <span style="display: inline !important; float: none; background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-family: monospace; font-size: 13.33px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: pre; word-spacing: 0px;">CONFIG_HZ is not 1000. what kernel version
+do you test?
+</span>
+[1] <a class="moz-txt-link-freetext" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=975e155ed8732cb81f55c021c441ae662dd040b5">https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=975e155ed8732cb81f55c021c441ae662dd040b5</a>
+</pre>
+    <blockquote type="cite"
+      cite="mid:20200703031532.bjkwhkpfobdsxj4p@vireshk-i7">
+      <pre class="moz-quote-pre" wrap="">
 
--- 
-viresh
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------E35D7B9C0939D0BF92212452--
+
+--===============1350983280==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1350983280==--
