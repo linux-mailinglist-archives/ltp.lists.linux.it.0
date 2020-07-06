@@ -1,96 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3349921548E
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jul 2020 11:21:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 441672155B8
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jul 2020 12:40:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D3A543C29D9
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jul 2020 11:21:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B4D333C5502
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jul 2020 12:40:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id C8A5E3C1CEF
- for <ltp@lists.linux.it>; Mon,  6 Jul 2020 11:21:29 +0200 (CEST)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 17F943C1CEF
+ for <ltp@lists.linux.it>; Mon,  6 Jul 2020 12:40:39 +0200 (CEST)
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4F4D4600961
- for <ltp@lists.linux.it>; Mon,  6 Jul 2020 11:20:24 +0200 (CEST)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 06693uJi090629; Mon, 6 Jul 2020 05:21:24 -0400
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com with ESMTP id 322m3bx6he-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 06 Jul 2020 05:21:23 -0400
-Received: from m0098396.ppops.net (m0098396.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 066947uD091517;
- Mon, 6 Jul 2020 05:21:23 -0400
-Received: from ppma02fra.de.ibm.com (47.49.7a9f.ip4.static.sl-reverse.com
- [159.122.73.71])
- by mx0a-001b2d01.pphosted.com with ESMTP id 322m3bx6gh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 06 Jul 2020 05:21:23 -0400
-Received: from pps.filterd (ppma02fra.de.ibm.com [127.0.0.1])
- by ppma02fra.de.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 0669EDmO026159;
- Mon, 6 Jul 2020 09:21:20 GMT
-Received: from b06cxnps4076.portsmouth.uk.ibm.com
- (d06relay13.portsmouth.uk.ibm.com [9.149.109.198])
- by ppma02fra.de.ibm.com with ESMTP id 322hd824qg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 06 Jul 2020 09:21:20 +0000
-Received: from b06wcsmtp001.portsmouth.uk.ibm.com
- (b06wcsmtp001.portsmouth.uk.ibm.com [9.149.105.160])
- by b06cxnps4076.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 0669LIJY51052716
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 6 Jul 2020 09:21:18 GMT
-Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 616F3A405F;
- Mon,  6 Jul 2020 09:21:18 +0000 (GMT)
-Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C2E51A405C;
- Mon,  6 Jul 2020 09:21:16 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.102.1.42])
- by b06wcsmtp001.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Mon,  6 Jul 2020 09:21:16 +0000 (GMT)
-To: Li Wang <liwang@redhat.com>
-References: <c47220ecab3c7570f5387cd71894c977009ad3d8.1590572545.git.viresh.kumar@linaro.org>
- <9562fdf4debd759439ee7f468008177003db9513.1592457867.git.viresh.kumar@linaro.org>
- <CAEemH2cu_o2eCHQB1_Bo0aQiR2WK6knbBtD83-5_77gZZbA-Ow@mail.gmail.com>
- <20200703125927.GA11556@yuki.lan>
- <CAEemH2cN735haDmyqbNa_LwDgumFqAspYfJaKRpsOg0Rij9tEA@mail.gmail.com>
- <1513894e-d23e-055e-df27-d8cf36b8c609@linux.ibm.com>
- <CAEemH2eSer9ewwSqfs5SA491veL1sy7Xhktkoi6gOT+r3uDQtg@mail.gmail.com>
-From: Harish <harish@linux.ibm.com>
-Message-ID: <8a9a0eb5-0ef1-6140-0dd3-93fe6f5d8910@linux.ibm.com>
-Date: Mon, 6 Jul 2020 14:51:15 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 77208600053
+ for <ltp@lists.linux.it>; Mon,  6 Jul 2020 12:40:38 +0200 (CEST)
+Received: by mail-pf1-x442.google.com with SMTP id 207so16615943pfu.3
+ for <ltp@lists.linux.it>; Mon, 06 Jul 2020 03:40:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=vkpqbBz+pSZ11xTNIkGB6caydw2mr4L8w/4OzK2fF6Q=;
+ b=mUSU6F7JNaNPGvQoiEkHOTsHXjK7yGqp9y/xJyT41cb85uQHtHxylFs0Hr7kt2SPFW
+ WWB9wksju3dgFT1jy9E5xAqrTvEvjPTdebNYta4xKnmY5rYQ0CRaAjPD3beb72D6yiiA
+ w4Am848Fi7KDwdKx/xcVFqvE6aqBcy7CJMemzhqdxT5N5XMs2Tn+NQYPOMUAhQDj4vJU
+ Y6X5Z9r0+4H3wBiicyS+zVE5KkhW1vISKZ/ol5NjDqYxMiqPtalIYQVWAxNCwGHPDR0n
+ isx8S+1YYo+J6gx7Mli+ZPE8ITZFfvKUtob2998npKquEScNyn30S+4da1QOr6smXglu
+ 0Rdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=vkpqbBz+pSZ11xTNIkGB6caydw2mr4L8w/4OzK2fF6Q=;
+ b=rDJqNzfw6Of7qzr/K/NHTKTE8p0tdcWQatOgKpoFS/Q4efwnLdH6UhO6ZAyk1Glwpf
+ uTGa7WGnFqiBr8WNXacR6iW/wUmnEYReJ7NjXILoXdz6tX4yCjLoGCVGveeX5WyDuQmP
+ jSVbHkgJuEJqfUPO6MheVwDrC+KngdwWgkEVALzvaI1V0N1Q4B2Ev2uACyX2tDqnuAw/
+ /L1TLtL2dE4E1Hy0V1AFRejVF7QoRrN+ZspsyBJzzp7todMcjkVziZdecM/urLhI70QQ
+ 5ciqZiIb2/AktgHJl4haIxtp4VHvwbzbOXo1A0JltCdvqErns9KzQvZD3bQ66KMSRJhw
+ ejGw==
+X-Gm-Message-State: AOAM532opAbLKUCaWn8/tfZwfus3QxVqHhUAIUrj5GqinyOh16Dq0GAr
+ YvBPStQItL9uyx7w0MlfkrhAcw==
+X-Google-Smtp-Source: ABdhPJx4C6FrOt+HVWTdzeC7O9Sg3mB76ovH89WzZ/bWFzujZCJq4yFS5C28H1iFn2Z8Rk/WkYGwwg==
+X-Received: by 2002:a63:7f53:: with SMTP id p19mr36774875pgn.299.1594032036761; 
+ Mon, 06 Jul 2020 03:40:36 -0700 (PDT)
+Received: from localhost ([122.172.40.201])
+ by smtp.gmail.com with ESMTPSA id d18sm18579236pjv.25.2020.07.06.03.40.35
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 06 Jul 2020 03:40:35 -0700 (PDT)
+Date: Mon, 6 Jul 2020 16:10:33 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20200706104033.6vk7eqmcdxtqbnjn@vireshk-i7>
+References: <cover.1593152309.git.viresh.kumar@linaro.org>
+ <6030fa8c1deda3aab977c7d5745c117fda87708a.1593152309.git.viresh.kumar@linaro.org>
+ <20200703124548.GB2308@yuki.lan>
 MIME-Version: 1.0
-In-Reply-To: <CAEemH2eSer9ewwSqfs5SA491veL1sy7Xhktkoi6gOT+r3uDQtg@mail.gmail.com>
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-07-06_07:2020-07-06,
- 2020-07-06 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- cotscore=-2147483648 phishscore=0 adultscore=0 mlxlogscore=999
- impostorscore=0 clxscore=1015 suspectscore=0 bulkscore=0 spamscore=0
- priorityscore=1501 malwarescore=0 mlxscore=0 classifier=spam adjust=0
- reason=mlx scancount=1 engine=8.12.0-2004280000
- definitions=main-2007060072
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200703124548.GB2308@yuki.lan>
+User-Agent: NeoMutt/20180716-391-311a52
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V4 5/6] syscalls: Don't pass struct timespec to
- tst_syscall()
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V7 07/19] syscalls/futex: Add support for time64
+ tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,137 +79,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Donghai Qiao <dqiao@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
- Viresh Kumar <viresh.kumar@linaro.org>, LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1379821494=="
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
+ ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This is a multi-part message in MIME format.
---===============1379821494==
-Content-Type: multipart/alternative;
- boundary="------------7C1AA9546C07AA96E4EFAC6C"
-Content-Language: en-US
+On 03-07-20, 14:45, Cyril Hrubis wrote:
+> > diff --git a/testcases/kernel/syscalls/futex/futex_wait05.c b/testcases/kernel/syscalls/futex/futex_wait05.c
+> > index 2573ae177d5b..8fad5d858716 100644
+> > --- a/testcases/kernel/syscalls/futex/futex_wait05.c
+> > +++ b/testcases/kernel/syscalls/futex/futex_wait05.c
+> > @@ -19,7 +19,7 @@ int sample_fn(int clk_id, long long usec)
+> >  	futex_t futex = FUTEX_INITIALIZER;
+> >  
+> >  	tst_timer_start(clk_id);
+> > -	TEST(futex_wait(&futex, futex, &to, 0));
+> > +	TEST(syscall(SYS_futex, &futex, FUTEX_WAIT, futex, &to, NULL, 0));
+> >  	tst_timer_stop();
+> >  	tst_timer_sample();
+> 
+> Why aren't we adding the two functions here as well?
 
-This is a multi-part message in MIME format.
---------------7C1AA9546C07AA96E4EFAC6C
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+I am not sure which two functions are you talking about here ..
 
-On 7/6/20 2:27 PM, Li Wang wrote:
->
-> Harish <harish@linux.ibm.com <mailto:harish@linux.ibm.com>> wrote:
->
->     Hi,
->
->     I tried the suggested patch, but was unsuccessful in running the
->     test. Here is my diff.
->     ...
->     Is there anything I am missing here? Thanks in advance.
->
-> Your diff version looks correct.
->
-> I doubt have you rebuild your LTP or at least rebuild the ltp-lib?
-My bad, I did rebuild the ltp with the diff. But it required a clean 
-before I do so.
-I can confirm tests are running now.
+> Is the timer library incompatible with test variants?
 
-Thanks.
->
-> -- 
-> Regards,
-> Li Wang
-
---------------7C1AA9546C07AA96E4EFAC6C
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 7/6/20 2:27 PM, Li Wang wrote:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CAEemH2eSer9ewwSqfs5SA491veL1sy7Xhktkoi6gOT+r3uDQtg@mail.gmail.com">
-      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-      <div dir="ltr">
-        <div dir="ltr">
-          <div class="gmail_default" style="font-size:small"><br>
-          </div>
-        </div>
-        <div class="gmail_quote">
-          <div dir="ltr" class="gmail_attr">Harish &lt;<a
-              href="mailto:harish@linux.ibm.com" moz-do-not-send="true">harish@linux.ibm.com</a>&gt;
-            wrote:<br>
-          </div>
-          <blockquote class="gmail_quote" style="margin:0px 0px 0px
-            0.8ex;border-left:1px solid
-            rgb(204,204,204);padding-left:1ex">
-            <div>
-              <p><font size="-1">Hi,<br>
-                  <br>
-                  I tried the suggested patch, but was unsuccessful in
-                  running the test. Here is my diff.<br>
-                  <span class="gmail_default" style="font-size:small">...</span><br>
-                  Is there anything I am missing here? Thanks in
-                  advance.<br>
-                </font></p>
-            </div>
-          </blockquote>
-          <div>
-            <div class="gmail_default" style="font-size:small">Your diff
-              version looks correct.<br>
-            </div>
-            <br>
-          </div>
-          <div class="gmail_default" style="font-size:small">I doubt
-            have you rebuild your LTP or at least rebuild the ltp-lib?<br>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-    <font size="-1">My bad, I did rebuild the ltp with the diff. But it
-      required a clean before I do so.<br>
-      I can confirm tests are running now.<br>
-      <br>
-      Thanks.<br>
-    </font>
-    <blockquote type="cite"
-cite="mid:CAEemH2eSer9ewwSqfs5SA491veL1sy7Xhktkoi6gOT+r3uDQtg@mail.gmail.com">
-      <div dir="ltr">
-        <div class="gmail_quote">
-          <div><br>
-          </div>
-        </div>
-        -- <br>
-        <div dir="ltr" class="gmail_signature">
-          <div dir="ltr">
-            <div>Regards,<br>
-            </div>
-            <div>Li Wang<br>
-            </div>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-  </body>
-</html>
-
---------------7C1AA9546C07AA96E4EFAC6C--
-
-
---===============1379821494==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+viresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1379821494==--
-
