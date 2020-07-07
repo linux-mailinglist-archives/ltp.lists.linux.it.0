@@ -1,37 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64DDD216C54
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Jul 2020 13:53:15 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id F4091216CED
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Jul 2020 14:37:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 242783C29DD
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Jul 2020 13:53:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A94D23C29E2
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Jul 2020 14:37:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id D3A1F3C29B5
- for <ltp@lists.linux.it>; Tue,  7 Jul 2020 13:53:13 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 194713C29B5
+ for <ltp@lists.linux.it>; Tue,  7 Jul 2020 14:37:14 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 62FDA201165
+ for <ltp@lists.linux.it>; Tue,  7 Jul 2020 14:37:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1594125431;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=nzCIoA3tbzinjRE4Y4tj+X9aDSduiZiGIxBj2a+cKcI=;
+ b=amhcl16YegpbplnaRxYb2geuaLzRokBK1XDNQLhVxCtrTqDbxVOJZbYq3xVAEhT9sg2rkh
+ 1lrTaCL+5Yogk0LYljdQW5WSckHBPA/WZxsmt5IXeLJlgODaFDHzea8HjGkMvDTSWNqcja
+ BBSExH3QKLj9A4lMMivO+zuJ5hBpcFU=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-97-9B0di0UGNnO8yoUUfVUDbQ-1; Tue, 07 Jul 2020 08:37:08 -0400
+X-MC-Unique: 9B0di0UGNnO8yoUUfVUDbQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 43B4D1A00880
- for <ltp@lists.linux.it>; Tue,  7 Jul 2020 13:53:13 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1CFFBAE35;
- Tue,  7 Jul 2020 11:53:13 +0000 (UTC)
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue,  7 Jul 2020 13:53:31 +0200
-Message-Id: <20200707115331.15806-1-chrubis@suse.cz>
-X-Mailer: git-send-email 2.26.2
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 20EDDA4412;
+ Tue,  7 Jul 2020 12:37:04 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 18F3860C87;
+ Tue,  7 Jul 2020 12:37:03 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8F2231809542;
+ Tue,  7 Jul 2020 12:37:03 +0000 (UTC)
+Date: Tue, 7 Jul 2020 08:37:03 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
+To: Shwetha Subramanian <shwetha@zilogic.com>
+Message-ID: <1535756409.1079792.1594125423402.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20200706050828.5134-1-shwetha@zilogic.com>
+References: <20200706050828.5134-1-shwetha@zilogic.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Originating-IP: [10.40.208.12, 10.4.195.30]
+Thread-Topic: Add mincore() test for anonymous mappings
+Thread-Index: +Y4t1eHXOSk39jAS2oL/qY79hvKqvA==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH] [COMMITTED] lib/tst_clocks: Fix syscall detection
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] Add mincore() test for anonymous mappings
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,88 +77,30 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it, vijaykumar@zilogic.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-We have call raw syscall() instead of the tst_syscall() because
-tst_sycall() exit the test with TCONF when kernel returned ENOSYS.
 
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-Tested-by: Li Wang <liwang@redhat.com>
----
- lib/tst_clocks.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/lib/tst_clocks.c b/lib/tst_clocks.c
-index bc0bef273..7b465b1f6 100644
---- a/lib/tst_clocks.c
-+++ b/lib/tst_clocks.c
-@@ -14,11 +14,11 @@
- 
- typedef int (*mysyscall)(clockid_t clk_id, void *ts);
- 
--int syscall_supported_by_kernel(mysyscall func)
-+int syscall_supported_by_kernel(long sysnr)
- {
- 	int ret;
- 
--	ret = func(0, NULL);
-+	ret = syscall(sysnr, 0, NULL);
- 	if (ret == -1 && errno == ENOSYS)
- 		return 0;
- 
-@@ -32,13 +32,13 @@ int tst_clock_getres(clockid_t clk_id, struct timespec *res)
- 	int ret;
- 
- #if (__NR_clock_getres_time64 != __LTP__NR_INVALID_SYSCALL)
--	if (!func && syscall_supported_by_kernel(sys_clock_getres64)) {
-+	if (!func && syscall_supported_by_kernel(__NR_clock_getres_time64)) {
- 		func = sys_clock_getres64;
- 		tts.type = TST_KERN_TIMESPEC;
- 	}
- #endif
- 
--	if (!func && syscall_supported_by_kernel(sys_clock_getres)) {
-+	if (!func && syscall_supported_by_kernel(__NR_clock_getres)) {
- 		func = sys_clock_getres;
- 		tts.type = TST_KERN_OLD_TIMESPEC;
- 	}
-@@ -62,13 +62,13 @@ int tst_clock_gettime(clockid_t clk_id, struct timespec *ts)
- 	int ret;
- 
- #if (__NR_clock_gettime64 != __LTP__NR_INVALID_SYSCALL)
--	if (!func && syscall_supported_by_kernel(sys_clock_gettime64)) {
-+	if (!func && syscall_supported_by_kernel(__NR_clock_gettime64)) {
- 		func = sys_clock_gettime64;
- 		tts.type = TST_KERN_TIMESPEC;
- 	}
- #endif
- 
--	if (!func && syscall_supported_by_kernel(sys_clock_gettime)) {
-+	if (!func && syscall_supported_by_kernel(__NR_clock_gettime)) {
- 		func = sys_clock_gettime;
- 		tts.type = TST_KERN_OLD_TIMESPEC;
- 	}
-@@ -91,13 +91,13 @@ int tst_clock_settime(clockid_t clk_id, struct timespec *ts)
- 	static mysyscall func;
- 
- #if (__NR_clock_settime64 != __LTP__NR_INVALID_SYSCALL)
--	if (!func && syscall_supported_by_kernel(sys_clock_settime64)) {
-+	if (!func && syscall_supported_by_kernel(__NR_clock_settime64)) {
- 		func = sys_clock_settime64;
- 		tts.type = TST_KERN_TIMESPEC;
- 	}
- #endif
- 
--	if (!func && syscall_supported_by_kernel(sys_clock_settime)) {
-+	if (!func && syscall_supported_by_kernel(__NR_clock_settime)) {
- 		func = sys_clock_settime;
- 		tts.type = TST_KERN_OLD_TIMESPEC;
- 	}
--- 
-2.26.2
+----- Original Message -----
+> 
+> Changes from v1:
+> 	1.Changed testcase description.
+> 	2.Checked ptr before executing SAFE_MUNMAP() in cleanup().
+> 	3.Added a setup() fuction.
+> 	4.Fixed formatting issues.
+> 	5.Changed TPASS and TFAIL messages.
+> 	6.Changed syntax for conditional statements.
+> 
+> References: #461
+> 
+> Signed-off-by: Shwetha Subramanian. <shwetha@zilogic.com>
+> Reviewed-by: Vijay Kumar B. <vijaykumar@zilogic.com>
+
+Acked-by: Jan Stancek <jstancek@redhat.com>
 
 
 -- 
