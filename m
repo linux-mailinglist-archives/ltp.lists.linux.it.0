@@ -2,43 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D3B6217046
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Jul 2020 17:17:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D09F217CEB
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 Jul 2020 04:06:38 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C61E73C54C5
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Jul 2020 17:17:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B7B193C54DE
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 Jul 2020 04:06:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 2B88B3C5497
- for <ltp@lists.linux.it>; Tue,  7 Jul 2020 17:17:15 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A943F1A01455
- for <ltp@lists.linux.it>; Tue,  7 Jul 2020 17:17:14 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 6A3C8AE47;
- Tue,  7 Jul 2020 15:17:14 +0000 (UTC)
-Date: Tue, 7 Jul 2020 17:16:31 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20200707151631.GA5197@rei.lan>
-References: <cover.1593152309.git.viresh.kumar@linaro.org>
- <18d8603306f51f243faca04cf63bcaf2c7168d56.1593152309.git.viresh.kumar@linaro.org>
- <20200703135812.GC2308@yuki.lan>
- <20200706023941.ievw6vsdp6gvr3g7@vireshk-i7>
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id BEEF33C223B
+ for <ltp@lists.linux.it>; Wed,  8 Jul 2020 04:06:32 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 2C747600725
+ for <ltp@lists.linux.it>; Wed,  8 Jul 2020 04:05:25 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.75,326,1589212800"; d="scan'208";a="95913404"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 08 Jul 2020 10:06:27 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id EA9FD49B1116;
+ Wed,  8 Jul 2020 10:06:22 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Wed, 8 Jul 2020 10:06:22 +0800
+To: Jan Stancek <jstancek@redhat.com>
+References: <1594016612-7975-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <150668383.1091545.1594129246387.JavaMail.zimbra@redhat.com>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <1690c3ad-a7d4-fa18-db19-343e3e345f8c@cn.fujitsu.com>
+Date: Wed, 8 Jul 2020 10:06:21 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200706023941.ievw6vsdp6gvr3g7@vireshk-i7>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+In-Reply-To: <150668383.1091545.1594129246387.JavaMail.zimbra@redhat.com>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: EA9FD49B1116.AE421
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V7 09/19] syscalls/sigwaitinfo: Migrate to new
- test framework
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/ioctl09: Add test for BLKRRPART ioctl
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,33 +57,56 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
- ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > Honestly I'm not sure what we should do about this test. Obviously this
-> > is a step into right direction but it still keeps the SUCCEED_OR_DIE()
-> > macro that produces many warnings.
-> > 
-> > I'm also not happy about the fact that we compile different test based
-> > on ifdefs and that there are empty directories where binaries are
-> > magically appear during the build. I would be much happier if we had a
-> > real test sources there and share the large enough common bits in a
-> > different way.
+Hi Jan
+
+Thanks for your review.
 > 
-> What about merging this patch as is (so I don't to keep sending it)
-> and then I fix all the issues you want to get fixed in this test
-> separately ?
+> 
+> ----- Original Message -----
+> 
+> Hi,
+> 
+>> +static void verify_ioctl(void)
+>> +{
+>> +	const char *const cmd_parted_old[] = {"parted", "-s", "test.img",
+>> "mklabel", "msdos", "mkpart",
+>> +						"primary", "ext4", "1M", "10M", NULL};
+>> +	const char *const cmd_parted_new[] = {"parted", "-s", "test.img",
+>> "mklabel", "msdos", "mkpart",
+>> +						"primary", "ext4", "1M", "10M", "mkpart", "primary", "ext4", "10M",
+>> "20M", NULL};
+> 
+> ^^ These (and other lines) goe way over 80 characters.
+> 
+OK.
+>> +	struct loop_info loopinfo = {0};
+>> +
+>> +	dev_num = tst_find_free_loopdev(dev_path, sizeof(dev_path));
+>> +	if (dev_num < 0)
+>> +		tst_brk(TBROK, "Failed to find free loop device");
+>> +
+>> +	tst_fill_file("test.img", 0, 1024 * 1024, 20);
+> 
+> 20MB feels a bit small, even though tests I ran passed on old and new kernels.
+> LTP default is 256, to cover various filesystems, but here we don't even
+> write anything..
+In actually, ioctl_loop01 test case also uses 10M size and we only cover 
+ext4 fileystem in here. I don't have objection about changing this size 
+to 256M. Just reconfirm. If so, we should also modify ioctl_loop01 code.
+> 
+> Other than that, it looks good to me:
+> Acked-by: Jan Stancek <jstancek@redhat.com>
+> 
+> 
+> 
 
-Fair enough, merged.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
