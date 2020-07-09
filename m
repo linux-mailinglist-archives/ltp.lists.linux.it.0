@@ -2,74 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44359219E1F
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jul 2020 12:46:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 060F8219EED
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jul 2020 13:12:44 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B41503C2976
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jul 2020 12:46:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C50253C2976
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jul 2020 13:12:43 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 3CD843C2921
- for <ltp@lists.linux.it>; Thu,  9 Jul 2020 12:46:41 +0200 (CEST)
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id E99CD3C02FA
+ for <ltp@lists.linux.it>; Thu,  9 Jul 2020 13:12:41 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 837312013E0
+ for <ltp@lists.linux.it>; Thu,  9 Jul 2020 13:12:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1594293160;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=YMOXQwLCtm9vn5jYD+QENFFWFDJAUROIlJse3N0egas=;
+ b=f3mBIryo1PjTYd07jtSQtIJQhc7zyqHEvpGJFSRoTN0c4EkgrOgoAdIVCcyJxIuahvKB9S
+ 1qc3eVcBPy270hOyBvm6z1DDUrqsFUOhj3ragf2FlZwttJlmn8CL6z45YaemB1cQ9UYA+E
+ 8NoywOCFMsClACUsUck0JF8iWKG45nA=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-305-br4Ox-6yOJuMWbXXy_4Q0Q-1; Thu, 09 Jul 2020 07:12:38 -0400
+X-MC-Unique: br4Ox-6yOJuMWbXXy_4Q0Q-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 492941401279
- for <ltp@lists.linux.it>; Thu,  9 Jul 2020 12:46:40 +0200 (CEST)
-Received: by mail-pf1-x442.google.com with SMTP id i14so839026pfu.13
- for <ltp@lists.linux.it>; Thu, 09 Jul 2020 03:46:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=EAll+SVtmrPbxdCLZUlUKZtTpMhP2KtDyoBQrUWamO8=;
- b=CXdFWci5kQ4vEZzb5sAP+9UayoBC50YVVA+0XcTWRcm3jsNADnB56PE/Md1wdhUWik
- buIP37clIZG3RasSId/8PoU8IjF/DBf0JWcygVoU56YePuLOUvgcglU2q+swY+IwJ+8i
- EUBbonU53uy9EBg/LEUTerGgDEgDdfO8eWq/uS7p7QWW3mzjRjn77Tr0ZNhDOhTEvi2T
- H0nkoIEr/1YV28GCtLPkZsyNPc/gHpZeH8zEPAhX2KsqimDZRTL5OS9TCk8cRSyMMlKf
- Hqh4aunnb9b9Tw8K/xY9ghtz6F2je/FnZ2cg2+7vhl7O7furqSu1duOhe/XSmjZC3K1k
- TfIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=EAll+SVtmrPbxdCLZUlUKZtTpMhP2KtDyoBQrUWamO8=;
- b=LZToiOeMf42l/qUSerIvd4sIY0D80zAqzoVlWGUN46HZeqTdV8Sjj1QgqtNu8ZG0Iv
- 9feQYxZuRwP9nxaFjchClIQD1qojuVxxqQ/6ZMMz/uWN9z48UfqyBFAvTjYCzQ1msBx3
- 4sIE8A78/vfKThVmwS2rAMdjUrmYpV7aEmzcL7U3A90aRtsJDvYA0dUvSHcATEUQR9vI
- 3obbqIkmNtmRI0hFNFVVfcUFA+hKbld/URaOS+O1YZn6b7ryLIPBLFiUKPo5VkHUM7E/
- GsJ50c+DGLR35oeTxNNswj/1FA+XGgKQqNBy8pAQTiivPI3Qo5yN0C71wH+SjMihWxAs
- Q4pQ==
-X-Gm-Message-State: AOAM531N7TJ1KI3o2UNyNBh9fZp5K3Q39jaPg21ktF+9EEFwPMWPtReA
- cifarwzHn5voTxRPCUUeep108w==
-X-Google-Smtp-Source: ABdhPJxlLeVJc81CZzqkIXuZhdIOE4l+akZ2HPEebuypjAvGDCs7ESBzyvGXEMGMR7h3L8blITnMpg==
-X-Received: by 2002:a63:1e20:: with SMTP id e32mr35159539pge.429.1594291598679; 
- Thu, 09 Jul 2020 03:46:38 -0700 (PDT)
-Received: from localhost ([122.172.40.201])
- by smtp.gmail.com with ESMTPSA id f29sm2455250pga.59.2020.07.09.03.46.37
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 09 Jul 2020 03:46:37 -0700 (PDT)
-Date: Thu, 9 Jul 2020 16:16:35 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20200709104635.ce3ehbfggpd32lqc@vireshk-i7>
-References: <cover.1593152309.git.viresh.kumar@linaro.org>
- <18d8603306f51f243faca04cf63bcaf2c7168d56.1593152309.git.viresh.kumar@linaro.org>
- <20200703135812.GC2308@yuki.lan>
- <20200706023941.ievw6vsdp6gvr3g7@vireshk-i7>
- <20200707151631.GA5197@rei.lan>
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AB7718015F7;
+ Thu,  9 Jul 2020 11:12:37 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A53BD5D9C9;
+ Thu,  9 Jul 2020 11:12:37 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9E58993F7D;
+ Thu,  9 Jul 2020 11:12:37 +0000 (UTC)
+Date: Thu, 9 Jul 2020 07:12:37 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
+To: Cyril Hrubis <chrubis@suse.cz>, Li Wang <liwang@redhat.com>
+Message-ID: <214581717.1374815.1594293157595.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20200709092238.GD2381@yuki.lan>
+References: <4cb36d04b5ac4dd60f073d5a5c2f96faaa03cbd4.1594280924.git.jstancek@redhat.com>
+ <20200709092238.GD2381@yuki.lan>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200707151631.GA5197@rei.lan>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Originating-IP: [10.40.208.12, 10.4.195.6]
+Thread-Topic: runltp: let each test acquire/release device
+Thread-Index: 8pRuj3YwAoelDW4OxQYs5oiBF1bfJw==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V7 09/19] syscalls/sigwaitinfo: Migrate to new
- test framework
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] runltp: let each test acquire/release device
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,36 +78,24 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
- ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 07-07-20, 17:16, Cyril Hrubis wrote:
-> Hi!
-> > > Honestly I'm not sure what we should do about this test. Obviously this
-> > > is a step into right direction but it still keeps the SUCCEED_OR_DIE()
-> > > macro that produces many warnings.
-> > > 
-> > > I'm also not happy about the fact that we compile different test based
-> > > on ifdefs and that there are empty directories where binaries are
-> > > magically appear during the build. I would be much happier if we had a
-> > > real test sources there and share the large enough common bits in a
-> > > different way.
-> > 
-> > What about merging this patch as is (so I don't to keep sending it)
-> > and then I fix all the issues you want to get fixed in this test
-> > separately ?
+
+
+----- Original Message -----
+> Shouldn't we remove the create_block() function as well?
 > 
-> Fair enough, merged.
+> Other than that, acked.
 
-I believe you will apply the next patch (10/19) as well, which touches
-this file and so I am starting to work on top of that now.
+Pushed with create_block() removed as well.
 
--- 
-viresh
+Thanks,
+Jan
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
