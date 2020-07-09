@@ -1,60 +1,62 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04547219B7D
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jul 2020 10:52:49 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E6DA219B7E
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jul 2020 10:53:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6E3E43C297A
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jul 2020 10:52:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3F7093C53E5
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jul 2020 10:53:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 4DAA03C0309
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 698FA3C296A
  for <ltp@lists.linux.it>; Thu,  9 Jul 2020 10:52:47 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [205.139.110.120])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id D4C7D1A011FC
- for <ltp@lists.linux.it>; Thu,  9 Jul 2020 10:52:45 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [205.139.110.61])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id E06D96013A9
+ for <ltp@lists.linux.it>; Thu,  9 Jul 2020 10:51:39 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
  s=mimecast20190719; t=1594284764;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=zbSuIbs6z5FevrEo0fQ3b0M8Z07ooCkZQzMHjI9yzHI=;
- b=Tggh8e5llnszHOBvrhG1cknG5jhgt9mIBFV2zvdGhNYuPF5BJ5VCJSqi6X+knhnob6t29E
- HXsnKHHojlZpO4ondt7VyvtL3U17BHbbFiuX9cg8Zoe4D+JcqrgJ/4YKcnkhbp/PtjKyKt
- /phABVEzdMwtXupuv/pnrbyalI6NRhg=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=/+XjNlVOa3BZdWwRkqoD1Rrj84NNkaJRDdbZiXQ0sZg=;
+ b=TzP4UeltyEZTJaWRf8v533Ai0LkjYtDkKuS9VvctyGutyF8tz/UkirYhmIv+wUy5PFIx86
+ bvwd5uXjHZBnTpfDt2pJ2p0IMNC9qiay6QQbdATp+rBxyoO/uZGu4Qwr/RUtSV5OgFGtl2
+ wOSM4s/Q47PETMuGHYF6Cw6U+u0T9UY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-328-X_4kEN-WOoCWGFs97KjK5w-1; Thu, 09 Jul 2020 04:52:41 -0400
-X-MC-Unique: X_4kEN-WOoCWGFs97KjK5w-1
+ us-mta-108-X3SpOXAuMTSrkz13-RHGbQ-1; Thu, 09 Jul 2020 04:52:43 -0400
+X-MC-Unique: X3SpOXAuMTSrkz13-RHGbQ-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
  [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7B0AC1005510
- for <ltp@lists.linux.it>; Thu,  9 Jul 2020 08:52:40 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 55E8A2FD1F
+ for <ltp@lists.linux.it>; Thu,  9 Jul 2020 08:52:42 +0000 (UTC)
 Received: from liwang-workstation.nay.redhat.com (unknown [10.66.81.246])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 285D45D9C9;
- Thu,  9 Jul 2020 08:52:38 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 0498A5D9C9;
+ Thu,  9 Jul 2020 08:52:40 +0000 (UTC)
 From: Li Wang <liwang@redhat.com>
 To: ltp@lists.linux.it
-Date: Thu,  9 Jul 2020 16:52:36 +0800
-Message-Id: <20200709085237.10158-1-liwang@redhat.com>
+Date: Thu,  9 Jul 2020 16:52:37 +0800
+Message-Id: <20200709085237.10158-2-liwang@redhat.com>
+In-Reply-To: <20200709085237.10158-1-liwang@redhat.com>
+References: <20200709085237.10158-1-liwang@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwang@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/2] iopl: convert to new API
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/2] ioperm: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,254 +68,566 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-U2lnbmVkLW9mZi1ieTogTGkgV2FuZyA8bGl3YW5nQHJlZGhhdC5jb20+CkNjOiBFcmljbyBOdW5l
-cyA8ZXJudW5lc0ByZWRoYXQuY29tPgotLS0KCk5vdGVzOgogICAgRXJpY28sCiAgICAKICAgIC0t
-IEZZSSAtLQogICAgCiAgICBMVFAgZG9lcyBzdXBwb3J0IHR3byBBUElzIGluIGdlbmVyYWwgdGVz
-dGNhc2UsIHdlJ3JlIG5vdyB3b3JraW5nCiAgICBvbiB0aGUgbWlncmF0aW9uIHRvIG5ldyBBUElb
-MV0gZm9yIGFsbCB0ZXN0cyBpbiBhIGxvbmcgdGVybSBwaGFzZS4KICAgIMKgIMKgCiAgICBDb25z
-aWRlcmluZyB5b3Ugd2lsbCBmaXggdGhlIGtlcm5lbCBsb2NrZG93biBwcm9ibGVtIGZvciBpb3Bs
-MDEKICAgIGFuZCBpb3Blcm0wMSh0aGFua3MgaW4gYWR2YW5jZSkuIFNvIEkgaGVscGVkIHRvIGNv
-bnZlcnQgdGhlc2UgdHdvCiAgICB0ZXN0cyB0byBuZXcgQVBJcyBmaXJzdGx5LCB5b3UgY2FuIHN0
-YXJ0IHRoZSBrZXJuZWwgbG9ja2Rvd24gZml4CiAgICBiYXNlIG9uIG15IHBhdGNoZXMuCiAgICAK
-ICAgIFsxXSBOZXcgQVBJcyBsaWIgZW50cnk6CiAgICAgICAgaHR0cHM6Ly9naXRodWIuY29tL2xp
-bnV4LXRlc3QtcHJvamVjdC9sdHAvYmxvYi9tYXN0ZXIvaW5jbHVkZS90c3RfdGVzdC5oCiAgICAg
-ICAgaHR0cHM6Ly9naXRodWIuY29tL2xpbnV4LXRlc3QtcHJvamVjdC9sdHAvYmxvYi9tYXN0ZXIv
-bGliL3RzdF90ZXN0LmMKICAgIAogICAgWzJdIExUUCBUZXN0IFdyaXRpbmcgR3VpZGVsaW5lczoK
-ICAgICAgICBodHRwczovL2dpdGh1Yi5jb20vbGludXgtdGVzdC1wcm9qZWN0L2x0cC93aWtpL1Rl
-c3QtV3JpdGluZy1HdWlkZWxpbmVzCgogdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9pb3BsL2lv
-cGwwMS5jIHwgMTcyICsrKystLS0tLS0tLS0tLS0KIHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMv
-aW9wbC9pb3BsMDIuYyB8IDI1MyArKysrKystLS0tLS0tLS0tLS0tLS0tLS0KIDIgZmlsZXMgY2hh
-bmdlZCwgOTYgaW5zZXJ0aW9ucygrKSwgMzI5IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL3Rl
-c3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvaW9wbC9pb3BsMDEuYyBiL3Rlc3RjYXNlcy9rZXJuZWwv
-c3lzY2FsbHMvaW9wbC9pb3BsMDEuYwppbmRleCAwYjE5NTI2NjguLmYyZjI4NTFhZiAxMDA2NDQK
-LS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9pb3BsL2lvcGwwMS5jCisrKyBiL3Rlc3Rj
-YXNlcy9rZXJuZWwvc3lzY2FsbHMvaW9wbC9pb3BsMDEuYwpAQCAtMSwxNjIgKzEsNjggQEAKKy8v
-IFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wLW9yLWxhdGVyCiAvKgotICogQ29weXJp
-Z2h0IChjKSBXaXBybyBUZWNobm9sb2dpZXMgTHRkLCAyMDAyLiAgQWxsIFJpZ2h0cyBSZXNlcnZl
-ZC4KLSAqCi0gKiBUaGlzIHByb2dyYW0gaXMgZnJlZSBzb2Z0d2FyZTsgeW91IGNhbiByZWRpc3Ry
-aWJ1dGUgaXQgYW5kL29yIG1vZGlmeSBpdAotICogdW5kZXIgdGhlIHRlcm1zIG9mIHZlcnNpb24g
-MiBvZiB0aGUgR05VIEdlbmVyYWwgUHVibGljIExpY2Vuc2UgYXMKLSAqIHB1Ymxpc2hlZCBieSB0
-aGUgRnJlZSBTb2Z0d2FyZSBGb3VuZGF0aW9uLgotICoKLSAqIFRoaXMgcHJvZ3JhbSBpcyBkaXN0
-cmlidXRlZCBpbiB0aGUgaG9wZSB0aGF0IGl0IHdvdWxkIGJlIHVzZWZ1bCwgYnV0Ci0gKiBXSVRI
-T1VUIEFOWSBXQVJSQU5UWTsgd2l0aG91dCBldmVuIHRoZSBpbXBsaWVkIHdhcnJhbnR5IG9mCi0g
-KiBNRVJDSEFOVEFCSUxJVFkgb3IgRklUTkVTUyBGT1IgQSBQQVJUSUNVTEFSIFBVUlBPU0UuCi0g
-KgotICogWW91IHNob3VsZCBoYXZlIHJlY2VpdmVkIGEgY29weSBvZiB0aGUgR05VIEdlbmVyYWwg
-UHVibGljIExpY2Vuc2UgYWxvbmcKLSAqIHdpdGggdGhpcyBwcm9ncmFtOyBpZiBub3QsIHdyaXRl
-IHRoZSBGcmVlIFNvZnR3YXJlIEZvdW5kYXRpb24sIEluYy4sCi0gKiA1MSBGcmFua2xpbiBTdHJl
-ZXQsIEZpZnRoIEZsb29yLCBCb3N0b24sIE1BIDAyMTEwLTEzMDEgVVNBLgotICoKKyAqICBDb3B5
-cmlnaHQgKGMpIExpbnV4IFRlc3QgUHJvamVjdCwgMjAyMAorICogIENvcHlyaWdodCAoYykgV2lw
-cm8gVGVjaG5vbG9naWVzIEx0ZCwgMjAwMgogICovCi0vKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKgotICoKLSAqICAgIFRFU1QgSURFTlRJ
-RklFUgk6IGlvcGwwMQotICoKLSAqICAgIEVYRUNVVEVEIEJZCTogc3VwZXJ1c2VyCi0gKgotICog
-ICAgVEVTVCBUSVRMRQk6IEJhc2ljIHRlc3QgZm9yIGlvcGwoMikKLSAqCi0gKiAgICBURVNUIENB
-U0UgVE9UQUwJOiA0Ci0gKgotICogICAgQVVUSE9SCQk6IFN1YmhhYiBCaXN3YXMgPHN1YmhhYnJh
-dGEuYmlzd2FzQHdpcHJvLmNvbT4KLSAqCi0gKiAgICBTSUdOQUxTCi0gKiAJVXNlcyBTSUdVU1Ix
-IHRvIHBhdXNlIGJlZm9yZSB0ZXN0IGlmIG9wdGlvbiBzZXQuCi0gKiAJKFNlZSB0aGUgcGFyc2Vf
-b3B0cygzKSBtYW4gcGFnZSkuCi0gKgotICogICAgREVTQ1JJUFRJT04KLSAqCVRoaXMgaXMgYSBQ
-aGFzZSBJIHRlc3QgZm9yIHRoZSBpb3BsKDIpIHN5c3RlbSBjYWxsLgotICoJSXQgaXMgaW50ZW5k
-ZWQgdG8gcHJvdmlkZSBhIGxpbWl0ZWQgZXhwb3N1cmUgb2YgdGhlIHN5c3RlbSBjYWxsLgotICoK
-LSAqIAlTZXR1cDoKLSAqIAkgIFNldHVwIHNpZ25hbCBoYW5kbGluZy4KLSAqCSAgVGVzdCBjYWxs
-ZXIgaXMgc3VwZXJ1c2VyCi0gKgkgIFBhdXNlIGZvciBTSUdVU1IxIGlmIG9wdGlvbiBzcGVjaWZp
-ZWQuCi0gKgotICogCVRlc3Q6Ci0gKgkgTG9vcCBpZiB0aGUgcHJvcGVyIG9wdGlvbnMgYXJlIGdp
-dmVuLgotICogCSAgRXhlY3V0ZSBzeXN0ZW0gY2FsbAotICogICAgICAgIENoZWNrIHJldHVybiBj
-b2RlLCBpZiBzeXN0ZW0gY2FsbCBmYWlsZWQgKHJldHVybj0tMSkKLSAqICAgICAgICAgICAgICBJ
-c3N1ZSBGQUlMIG1lc3NhZ2Ugd2l0aCBlcnJuby4KLSAqICAgICAgICBPdGhlcndpc2UsIElzc3Vl
-IFBBU1MgbWVzc2FnZS4KLSAqCi0gKiAJQ2xlYW51cDoKLSAqIAkgIFByaW50IGVycm5vIGxvZyBh
-bmQvb3IgdGltaW5nIHN0YXRzIGlmIG9wdGlvbnMgZ2l2ZW4KLSAqCi0gKiBVU0FHRTogIDxmb3Ig
-Y29tbWFuZC1saW5lPgotICogaW9wbDAxIFstYyBuXSBbLWVdIFstaSBuXSBbLUkgeF0gWy1QIHhd
-IFstdF0gWy1oXSBbLWZdIFstcF0KLSAqCQkJd2hlcmUsICAtYyBuIDogUnVuIG4gY29waWVzIGNv
-bmN1cnJlbnRseS4KLSAqCQkJCS1lICAgOiBUdXJuIG9uIGVycm5vIGxvZ2dpbmcuCi0gKgkJCQkt
-aCAgIDogU2hvdyBoZWxwIHNjcmVlbgotICoJCQkJLWYgICA6IFR1cm4gb2ZmIGZ1bmN0aW9uYWwg
-dGVzdGluZwotICoJCQkJLWkgbiA6IEV4ZWN1dGUgdGVzdCBuIHRpbWVzLgotICoJCQkJLUkgeCA6
-IEV4ZWN1dGUgdGVzdCBmb3IgeCBzZWNvbmRzLgotICoJCQkJLXAgICA6IFBhdXNlIGZvciBTSUdV
-U1IxIGJlZm9yZSBzdGFydGluZwotICoJCQkJLVAgeCA6IFBhdXNlIGZvciB4IHNlY29uZHMgYmV0
-d2VlbiBpdGVyYXRpb25zLgotICoJCQkJLXQgICA6IFR1cm4gb24gc3lzY2FsbCB0aW1pbmcuCi0g
-KgotICoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKiovCi0KLWNoYXIgKlRDSUQgPSAiaW9wbDAxIjsKIAotI2lmIGRlZmluZWQgX19p
-Mzg2X18gfHwgZGVmaW5lZChfX3g4Nl82NF9fKQorLyoKKyAqIFRoaXMgaXMgYSBiYXNpYyB0ZXN0
-IGZvciBpb3BsKDIpIHN5c3RlbSBjYWxsLgorICogSXQgaXMgaW50ZW5kZWQgdG8gcHJvdmlkZSBh
-IGxpbWl0ZWQgZXhwb3N1cmUgb2YgdGhlIHN5c3RlbSBjYWxsLgorICoKKyAqIEF1dGhvcjogU3Vi
-aGFiIEJpc3dhcyA8c3ViaGFicmF0YS5iaXN3YXNAd2lwcm8uY29tPgorICovCiAKICNpbmNsdWRl
-IDxlcnJuby5oPgogI2luY2x1ZGUgPHVuaXN0ZC5oPgogI2luY2x1ZGUgPHN5cy9pby5oPgogCi0j
-aW5jbHVkZSAidGVzdC5oIgorI2luY2x1ZGUgInRzdF90ZXN0LmgiCiAKLXN0YXRpYyB2b2lkIHNl
-dHVwKCk7Ci1zdGF0aWMgdm9pZCBjbGVhbnVwKCk7Ci0KLWludCBUU1RfVE9UQUwgPSA0OwotCi1p
-bnQgbGV2ZWw7CQkJLyogSS9PIHByaXZpbGVnZSBsZXZlbCBvZiB0aGUgcHJvY2VzcyAqLworI2lm
-IGRlZmluZWQgX19pMzg2X18gfHwgZGVmaW5lZChfX3g4Nl82NF9fKQogCi1pbnQgbWFpbihpbnQg
-YWMsIGNoYXIgKiphdikKK3N0YXRpYyB2b2lkIHZlcmlmeV9pb3BsKHZvaWQpCiB7CisJaW50IHRv
-dGFsX2xldmVsID0gNDsKKwlpbnQgbGV2ZWw7IC8qIEkvTyBwcml2aWxlZ2UgbGV2ZWwgb2YgdGhl
-IHByb2Nlc3MgKi8KIAotCWludCBsYzsKLQotCXRzdF9wYXJzZV9vcHRzKGFjLCBhdiwgTlVMTCwg
-TlVMTCk7Ci0KLQlzZXR1cCgpOwotCi0JZm9yIChsYyA9IDA7IFRFU1RfTE9PUElORyhsYyk7IGxj
-KyspIHsKLQotCQl0c3RfY291bnQgPSAwOwotCi0JCS8qCi0JCSAqIFRlc3QgdGhlIHN5c3RlbSBj
-YWxsIGZvciBwb3NzaWJsZSBwcml2ZWxlZ2UgbGV2ZWxzLgotCQkgKiBBcyB0aGUgcHJpdmVsZ2Ug
-bGV2ZWwgZm9yIGEgbm9ybWFsIHByb2Nlc3MgaXMgMCwKLQkJICogc3RhcnQgYnkgc2V0dGluZy9j
-aGFuZ2luZyB0aGUgbGV2ZWwgdG8gMC4KLQkJICovCi0JCWZvciAobGV2ZWwgPSAwOyBsZXZlbCA8
-IFRTVF9UT1RBTDsgKytsZXZlbCkgeworCS8qCisJICogVGVzdCB0aGUgc3lzdGVtIGNhbGwgZm9y
-IHBvc3NpYmxlIHByaXZlbGVnZSBsZXZlbHMuCisJICogQXMgdGhlIHByaXZlbGdlIGxldmVsIGZv
-ciBhIG5vcm1hbCBwcm9jZXNzIGlzIDAsCisJICogc3RhcnQgYnkgc2V0dGluZy9jaGFuZ2luZyB0
-aGUgbGV2ZWwgdG8gMC4KKwkgKi8KKwlmb3IgKGxldmVsID0gMDsgbGV2ZWwgPCB0b3RhbF9sZXZl
-bDsgKytsZXZlbCkgewogCi0JCQlURVNUKGlvcGwobGV2ZWwpKTsKKwkJVEVTVChpb3BsKGxldmVs
-KSk7CiAKLQkJCWlmIChURVNUX1JFVFVSTiA9PSAtMSkgewotCQkJCXRzdF9yZXNtKFRGQUlMLCAi
-aW9wbCgpIGZhaWxlZCBmb3IgbGV2ZWwgJWQsICIKLQkJCQkJICJlcnJubz0lZCA6ICVzIiwgbGV2
-ZWwsCi0JCQkJCSBURVNUX0VSUk5PLCBzdHJlcnJvcihURVNUX0VSUk5PKSk7Ci0JCQl9IGVsc2Ug
-ewotCQkJCXRzdF9yZXNtKFRQQVNTLCAiaW9wbCgpIHBhc3NlZCBmb3IgbGV2ZWwgJWQsICIKLQkJ
-CQkJICJyZXR1cm5lZCAlbGQiLCBsZXZlbCwgVEVTVF9SRVRVUk4pOwotCQkJfQorCQlpZiAoVFNU
-X1JFVCA9PSAtMSkgeworCQkJdHN0X3JlcyhURkFJTCwgImlvcGwoKSBmYWlsZWQgZm9yIGxldmVs
-ICVkLCAiCisJCQkJCSJlcnJubz0lZCA6ICVzIiwgbGV2ZWwsCisJCQkJCVRTVF9FUlIsIHRzdF9z
-dHJlcnJubyhURkFJTCB8IFRURVJSTk8pKTsKKwkJfSBlbHNlIHsKKwkJCXRzdF9yZXMoVFBBU1Ms
-ICJpb3BsKCkgcGFzc2VkIGZvciBsZXZlbCAlZCwgIgorCQkJCQkicmV0dXJuZWQgJWxkIiwgbGV2
-ZWwsIFRTVF9SRVQpOwogCQl9CiAJfQotCi0JLyogY2xlYW51cCBhbmQgZXhpdCAqLwotCWNsZWFu
-dXAoKTsKLQl0c3RfZXhpdCgpOwotCi19Ci0KLS8qIHNldHVwKCkgLSBwZXJmb3JtcyBhbGwgT05F
-IFRJTUUgc2V0dXAgZm9yIHRoaXMgdGVzdCAqLwotdm9pZCBzZXR1cCh2b2lkKQotewotCXRzdF9y
-ZXF1aXJlX3Jvb3QoKTsKLQotCXRzdF9zaWcoTk9GT1JLLCBERUZfSEFORExFUiwgY2xlYW51cCk7
-Ci0KLQlURVNUX1BBVVNFOwotCiB9CiAKIC8qCiAgKmNsZWFudXAoKSAtICBwZXJmb3JtcyBhbGwg
-T05FIFRJTUUgY2xlYW51cCBmb3IgdGhpcyB0ZXN0IGF0CiAgKgkJY29tcGxldGlvbiBvciBwcmVt
-YXR1cmUgZXhpdC4KICAqLwotdm9pZCBjbGVhbnVwKHZvaWQpCitzdGF0aWMgdm9pZCBjbGVhbnVw
-KHZvaWQpCiB7Ci0KIAkvKgogCSAqIGJhY2sgdG8gSS9PIHByaXZpbGVnZSBmb3Igbm9ybWFsIHBy
-b2Nlc3MuCiAJICovCi0JaWYgKGlvcGwoMCkgPT0gLTEpIHsKLQkJdHN0X3Jlc20oVFdBUk4sICJp
-b3BsKCkgY2xlYW51cCBmYWlsZWQiKTsKLQl9Ci0KKwlpZiAoaW9wbCgwKSA9PSAtMSkKKwkJdHN0
-X3JlcyhUV0FSTiwgImlvcGwoKSBjbGVhbnVwIGZhaWxlZCIpOwogfQogCi0jZWxzZSAvKiBfX2kz
-ODZfXyAqLwotCi0jaW5jbHVkZSAidGVzdC5oIgotCi1pbnQgVFNUX1RPVEFMID0gMDsKLQotaW50
-IG1haW4odm9pZCkKLXsKLQl0c3RfcmVzbShUUEFTUywKLQkJICJMU0IgdjEuMyBkb2VzIG5vdCBz
-cGVjaWZ5IGlvcGwoKSBmb3IgdGhpcyBhcmNoaXRlY3R1cmUuIik7Ci0JdHN0X2V4aXQoKTsKLX0K
-K3N0YXRpYyBzdHJ1Y3QgdHN0X3Rlc3QgdGVzdCA9IHsKKwkudGVzdF9hbGwgPSB2ZXJpZnlfaW9w
-bCwKKwkubmVlZHNfcm9vdCA9IDEsCisJLmNsZWFudXAgPSBjbGVhbnVwLAorfTsKIAotI2VuZGlm
-IC8qIF9faTM4Nl9fICovCisjZWxzZSAvKiBfX2kzODZfXywgX194ODZfNjRfXyovCitUU1RfVEVT
-VF9UQ09ORigiTFNCIHYxLjMgZG9lcyBub3Qgc3BlY2lmeSBpb3BsKCkgZm9yIHRoaXMgYXJjaGl0
-ZWN0dXJlLiAob25seSBmb3IgaTM4NiBvciB4ODZfNjQpIik7CisjZW5kaWYgLyogX19pMzg2Xywg
-X194ODZfNjRfXyovCmRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2lvcGwv
-aW9wbDAyLmMgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2lvcGwvaW9wbDAyLmMKaW5kZXgg
-MzVkMjM5MjY4Li43NDdhMWNhNTYgMTAwNjQ0Ci0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2Fs
-bHMvaW9wbC9pb3BsMDIuYworKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2lvcGwvaW9w
-bDAyLmMKQEAgLTEsMjIxICsxLDgyIEBACisvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BM
-LTIuMC1vci1sYXRlcgogLyoKLSAqIENvcHlyaWdodCAoYykgV2lwcm8gVGVjaG5vbG9naWVzIEx0
-ZCwgMjAwMi4gIEFsbCBSaWdodHMgUmVzZXJ2ZWQuCi0gKgotICogVGhpcyBwcm9ncmFtIGlzIGZy
-ZWUgc29mdHdhcmU7IHlvdSBjYW4gcmVkaXN0cmlidXRlIGl0IGFuZC9vciBtb2RpZnkgaXQKLSAq
-IHVuZGVyIHRoZSB0ZXJtcyBvZiB2ZXJzaW9uIDIgb2YgdGhlIEdOVSBHZW5lcmFsIFB1YmxpYyBM
-aWNlbnNlIGFzCi0gKiBwdWJsaXNoZWQgYnkgdGhlIEZyZWUgU29mdHdhcmUgRm91bmRhdGlvbi4K
-LSAqCi0gKiBUaGlzIHByb2dyYW0gaXMgZGlzdHJpYnV0ZWQgaW4gdGhlIGhvcGUgdGhhdCBpdCB3
-b3VsZCBiZSB1c2VmdWwsIGJ1dAotICogV0lUSE9VVCBBTlkgV0FSUkFOVFk7IHdpdGhvdXQgZXZl
-biB0aGUgaW1wbGllZCB3YXJyYW50eSBvZgotICogTUVSQ0hBTlRBQklMSVRZIG9yIEZJVE5FU1Mg
-Rk9SIEEgUEFSVElDVUxBUiBQVVJQT1NFLgotICoKLSAqIFlvdSBzaG91bGQgaGF2ZSByZWNlaXZl
-ZCBhIGNvcHkgb2YgdGhlIEdOVSBHZW5lcmFsIFB1YmxpYyBMaWNlbnNlIGFsb25nCi0gKiB3aXRo
-IHRoaXMgcHJvZ3JhbTsgaWYgbm90LCB3cml0ZSB0aGUgRnJlZSBTb2Z0d2FyZSBGb3VuZGF0aW9u
-LCBJbmMuLAotICogNTEgRnJhbmtsaW4gU3RyZWV0LCBGaWZ0aCBGbG9vciwgQm9zdG9uLCBNQSAw
-MjExMC0xMzAxIFVTQS4KLSAqCisgKiAgQ29weXJpZ2h0IChjKSBMaW51eCBUZXN0IFByb2plY3Qs
-IDIwMjAKKyAqICBDb3B5cmlnaHQgKGMpIFdpcHJvIFRlY2hub2xvZ2llcyBMdGQsIDIwMDIKICAq
-LwotLyoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioKLSAqCi0gKiAgICBURVNUIElERU5USUZJRVIJOiBpb3BsMDIKLSAqCi0gKiAgICBFWEVD
-VVRFRCBCWQk6IHN1cGVydXNlcgotICoKLSAqICAgIFRFU1QgVElUTEUJOiBUZXN0cyBmb3IgZXJy
-b3IgY29uZGl0aW9ucwotICoKLSAqICAgIFRFU1QgQ0FTRSBUT1RBTAk6IDIKLSAqCi0gKiAgICBB
-VVRIT1IJCTogU3ViaGFiIEJpd2FzIDxzdWJoYWJyYXRhLmJpc3dhc0B3aXByby5jb20+Ci0gKgot
-ICogICAgU0lHTkFMUwotICogCVVzZXMgU0lHVVNSMSB0byBwYXVzZSBiZWZvcmUgdGVzdCBpZiBv
-cHRpb24gc2V0LgotICogCShTZWUgdGhlIHBhcnNlX29wdHMoMykgbWFuIHBhZ2UpLgotICoKLSAq
-ICAgIERFU0NSSVBUSU9OCi0gKglWZXJpZnkgdGhhdAotICoJMSkgaW9wbCgyKSByZXR1cm5zIC0x
-IGFuZCBzZXRzIGVycm5vIHRvIEVJTlZBTCBmb3IgcHJpdmlsZWdlCi0gKgkgICBsZXZlbCBncmVh
-dGVyIHRoYW4gMy4KLSAqCTIpIGlvcGwoMikgcmV0dXJucyAtMSBhbmQgc2V0cyBlcnJubyB0byBF
-UEVSTSBpZiB0aGUgY3VycmVudAotICoJICAgdXNlciBpcyBub3QgdGhlIHN1cGVyLXVzZXIuCi0g
-KgotICogCVNldHVwOgotICogCSAgU2V0dXAgc2lnbmFsIGhhbmRsaW5nLgotICoJICBUZXN0IGNh
-bGxlciBpcyBzdXBlcnVzZXIKLSAqCSAgU2V0IGV4cGVjdGVkIGVycm5vcyBmb3IgbG9nZ2luZwot
-ICoJICBQYXVzZSBmb3IgU0lHVVNSMSBpZiBvcHRpb24gc3BlY2lmaWVkLgotICoKLSAqIAlUZXN0
-OgotICoJIExvb3AgaWYgdGhlIHByb3BlciBvcHRpb25zIGFyZSBnaXZlbi4KLSAqIAkgIEV4ZWN1
-dGUgc3lzdGVtIGNhbGwKLSAqCSAgQ2hlY2sgcmV0dXJuIGNvZGUgYW5kIGVycm9yIG51bWJlciwg
-aWYgbWF0Y2hpbmcsCi0gKgkJICAgICBJc3N1ZSBQQVNTIG1lc3NhZ2UKLSAqCSAgT3RoZXJ3aXNl
-LAotICoJCSAgICAgSXNzdWUgRkFJTCBtZXNzYWdlCi0gKgkgIFBlcmZvcm0gdGVzdGNhc2Ugc3Bl
-Y2lmaWMgY2xlYW51cCAoaWYgbmVlZGVkKQotICoKLSAqIAlDbGVhbnVwOgotICogCSAgUHJpbnQg
-ZXJybm8gbG9nIGFuZC9vciB0aW1pbmcgc3RhdHMgaWYgb3B0aW9ucyBnaXZlbgorCisvKgorICog
-VGhpcyBpcyBhbiBlcnJvciB0ZXN0IGZvciBpb3BsKDIpIHN5c3RlbSBjYWxsLgogICoKLSAqIFVT
-QUdFOiAgPGZvciBjb21tYW5kLWxpbmU+Ci0gKiBpb3BsMDIgWy1jIG5dIFstZV0gWy1pIG5dIFst
-SSB4XSBbLVAgeF0gWy10XSBbLWhdIFstZl0gWy1wXQotICoJCQl3aGVyZSwgIC1jIG4gOiBSdW4g
-biBjb3BpZXMgY29uY3VycmVudGx5LgotICoJCQkJLWUgICA6IFR1cm4gb24gZXJybm8gbG9nZ2lu
-Zy4KLSAqCQkJCS1oICAgOiBTaG93IGhlbHAgc2NyZWVuCi0gKgkJCQktZiAgIDogVHVybiBvZmYg
-ZnVuY3Rpb25hbCB0ZXN0aW5nCi0gKgkJCQktaSBuIDogRXhlY3V0ZSB0ZXN0IG4gdGltZXMuCi0g
-KgkJCQktSSB4IDogRXhlY3V0ZSB0ZXN0IGZvciB4IHNlY29uZHMuCi0gKgkJCQktcCAgIDogUGF1
-c2UgZm9yIFNJR1VTUjEgYmVmb3JlIHN0YXJ0aW5nCi0gKgkJCQktUCB4IDogUGF1c2UgZm9yIHgg
-c2Vjb25kcyBiZXR3ZWVuIGl0ZXJhdGlvbnMuCi0gKgkJCQktdCAgIDogVHVybiBvbiBzeXNjYWxs
-IHRpbWluZy4KKyAqIFZlcmlmeSB0aGF0CisgKiAgMSkgaW9wbCgyKSByZXR1cm5zIC0xIGFuZCBz
-ZXRzIGVycm5vIHRvIEVJTlZBTCBmb3IgcHJpdmlsZWdlCisgKiAgICAgbGV2ZWwgZ3JlYXRlciB0
-aGFuIDMuCisgKiAgMikgaW9wbCgyKSByZXR1cm5zIC0xIGFuZCBzZXRzIGVycm5vIHRvIEVQRVJN
-IGlmIHRoZSBjdXJyZW50CisgKiAgICAgdXNlciBpcyBub3QgdGhlIHN1cGVyLXVzZXIuCiAgKgot
-ICoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKiovCi0KLWNoYXIgKlRDSUQgPSAiaW9wbDAyIjsKLQotI2lmIGRlZmluZWQgX19pMzg2
-X18gfHwgZGVmaW5lZChfX3g4Nl82NF9fKQorICogQXV0aG9yOiBTdWJoYWIgQmlzd2FzIDxzdWJo
-YWJyYXRhLmJpc3dhc0B3aXByby5jb20+CisgKi8KIAogI2luY2x1ZGUgPGVycm5vLmg+CiAjaW5j
-bHVkZSA8dW5pc3RkLmg+CiAjaW5jbHVkZSA8c3lzL2lvLmg+CiAjaW5jbHVkZSA8cHdkLmg+Ci0j
-aW5jbHVkZSAidGVzdC5oIgotI2luY2x1ZGUgInNhZmVfbWFjcm9zLmgiCisjaW5jbHVkZSAidHN0
-X3Rlc3QuaCIKKyNpbmNsdWRlICJ0c3Rfc2FmZV9tYWNyb3MuaCIKKworI2lmIGRlZmluZWQgX19p
-Mzg2X18gfHwgZGVmaW5lZChfX3g4Nl82NF9fKQogCiAjZGVmaW5lIElOVkFMSURfTEVWRUwgNAkJ
-LyogSW52YWxpZCBwcml2aWxlZ2UgbGV2ZWwgKi8KICNkZWZpbmUgRVhQX1JFVF9WQUwgLTEKIAot
-c3RhdGljIHZvaWQgc2V0dXAoKTsKLXN0YXRpYyBpbnQgc2V0dXAxKHZvaWQpOwotc3RhdGljIHZv
-aWQgY2xlYW51cDEoKTsKLXN0YXRpYyB2b2lkIGNsZWFudXAoKTsKLQotc3RhdGljIGNoYXIgbm9i
-b2R5X3VpZFtdID0gIm5vYm9keSI7Ci1zdHJ1Y3QgcGFzc3dkICpsdHB1c2VyOwotCi1zdHJ1Y3Qg
-dGVzdF9jYXNlc190IHsKLQlpbnQgbGV2ZWw7CQkvKiBJL08gcHJpdmlsZWdlIGxldmVsICovCi0J
-Y2hhciAqZGVzYzsJCS8qIHRlc3QgY2FzZSBkZXNjcmlwdGlvbiAqLwotCWludCBleHBfZXJybm87
-CQkvKiBleHBlY3RlZCBlcnJvciBudW1iZXIgKi8KLX0gdGVzdF9jYXNlc1tdID0gewotCXsKLQlJ
-TlZBTElEX0xFVkVMLCAiSW52YWxpZCBwcml2aWxlZ2UgbGV2ZWwiLCBFSU5WQUx9LCB7Ci0JMSwg
-Ik5vbiBzdXBlci11c2VyIiwgRVBFUk19CitzdGF0aWMgc3RydWN0IHRjYXNlIHsKKwlpbnQgbGV2
-ZWw7CS8qIEkvTyBwcml2aWxlZ2UgbGV2ZWwgKi8KKwljaGFyICpkZXNjOwkvKiB0ZXN0IGNhc2Ug
-ZGVzY3JpcHRpb24gKi8KKwlpbnQgZXhwX2Vycm5vOwkvKiBleHBlY3RlZCBlcnJvciBudW1iZXIg
-Ki8KK30gdGNhc2VzW10gPSB7CisJe0lOVkFMSURfTEVWRUwsICJJbnZhbGlkIHByaXZpbGVnZSBs
-ZXZlbCIsIEVJTlZBTH0sCisJezEsICJOb24gc3VwZXItdXNlciIsIEVQRVJNfQogfTsKIAotaW50
-IFRTVF9UT1RBTCA9IHNpemVvZih0ZXN0X2Nhc2VzKSAvIHNpemVvZih0ZXN0X2Nhc2VzWzBdKTsK
-LQotaW50IG1haW4oaW50IGFjLCBjaGFyICoqYXYpCitzdGF0aWMgdm9pZCB2ZXJpZnlfaW9wbCh1
-bnNpZ25lZCBpbnQgaSkKIHsKLQotCWludCBsYywgaTsKLQotCXRzdF9wYXJzZV9vcHRzKGFjLCBh
-diwgTlVMTCwgTlVMTCk7Ci0KLQlzZXR1cCgpOwotCi0JZm9yIChsYyA9IDA7IFRFU1RfTE9PUElO
-RyhsYyk7IGxjKyspIHsKLQotCQl0c3RfY291bnQgPSAwOwotCi0JCWZvciAoaSA9IDA7IGkgPCBU
-U1RfVE9UQUw7ICsraSkgewotCi0JCQlpZiAoaSA9PSAxKSB7Ci0JCQkJLyogc2V0dXAgTm9uIHN1
-cGVyLXVzZXIgZm9yIHNlY29uZCB0ZXN0ICovCi0JCQkJaWYgKHNldHVwMSgpKSB7Ci0JCQkJCS8q
-IHNldHVwMSgpIGZhaWxlZCwgc2tpcCB0aGlzIHRlc3QgKi8KLQkJCQkJY29udGludWU7Ci0JCQkJ
-fQotCQkJfQotCi0JCQkvKgotCQkJICogQ2FsbCBpb3BsKDIpCi0JCQkgKi8KLQkJCVRFU1QoaW9w
-bCh0ZXN0X2Nhc2VzW2ldLmxldmVsKSk7Ci0KLQkJCWlmICgoVEVTVF9SRVRVUk4gPT0gRVhQX1JF
-VF9WQUwpICYmCi0JCQkgICAgKFRFU1RfRVJSTk8gPT0gdGVzdF9jYXNlc1tpXS5leHBfZXJybm8p
-KSB7Ci0JCQkJdHN0X3Jlc20oVFBBU1MsICJFeHBlY3RlZCBmYWlsdXJlIGZvciAlcywgIgotCQkJ
-CQkgImVycm5vOiAlZCIsIHRlc3RfY2FzZXNbaV0uZGVzYywKLQkJCQkJIFRFU1RfRVJSTk8pOwot
-CQkJfSBlbHNlIHsKLQkJCQl0c3RfcmVzbShURkFJTCwgIlVuZXhwZWN0ZWQgcmVzdWx0cyBmb3Ig
-JXMgOyAiCi0JCQkJCSAicmV0dXJuZWQgJWxkIChleHBlY3RlZCAlZCksIGVycm5vICVkICIKLQkJ
-CQkJICIoZXhwZWN0ZWQgZXJybm8gICVkKSIsCi0JCQkJCSB0ZXN0X2Nhc2VzW2ldLmRlc2MsCi0J
-CQkJCSBURVNUX1JFVFVSTiwgRVhQX1JFVF9WQUwsCi0JCQkJCSBURVNUX0VSUk5PLCB0ZXN0X2Nh
-c2VzW2ldLmV4cF9lcnJubyk7Ci0JCQl9Ci0KLQkJCWlmIChpID09IDEpIHsKLQkJCQkvKiByZXZl
-cnQgYmFjayB0byBzdXBlciB1c2VyICovCi0JCQkJY2xlYW51cDEoKTsKLQkJCX0KLQorCWlmIChp
-ID09IDEpIHsKKwkJLyogc2V0dXAgTm9uIHN1cGVyLXVzZXIgZm9yIHNlY29uZCB0ZXN0ICovCisJ
-CXN0cnVjdCBwYXNzd2QgKnB3OworCQlwdyA9IFNBRkVfR0VUUFdOQU0oIm5vYm9keSIpOworCQlp
-ZiAoc2V0ZXVpZChwdy0+cHdfdWlkKSA9PSAtMSkgeworCQkJdHN0X3JlcyhUV0FSTiwgIkZhaWxl
-ZCB0byBzZXQgZWZmZWN0aXZlIgorCQkJCQkidWlkIHRvICVkIiwgcHctPnB3X3VpZCk7CisJCQly
-ZXR1cm47CiAJCX0KIAl9CiAKLQkvKiBjbGVhbnVwIGFuZCBleGl0ICovCi0JY2xlYW51cCgpOwot
-Ci0JdHN0X2V4aXQoKTsKLQotfQotCi0vKiBzZXR1cDEoKSAtIHNldCB1cCBub24tc3VwZXIgdXNl
-ciBmb3Igc2Vjb25kIHRlc3QgY2FzZSAqLwotaW50IHNldHVwMSh2b2lkKQotewotCS8qIHN3aXRj
-aCB0byAibm9ib2R5IiB1c2VyICovCi0JaWYgKHNldGV1aWQobHRwdXNlci0+cHdfdWlkKSA9PSAt
-MSkgewotCQl0c3RfcmVzbShUV0FSTiwgIkZhaWxlZCB0byBzZXQgZWZmZWN0aXZlIgotCQkJICJ1
-aWQgdG8gJWQiLCBsdHB1c2VyLT5wd191aWQpOwotCQlyZXR1cm4gMTsKKwlURVNUKGlvcGwodGNh
-c2VzW2ldLmxldmVsKSk7CisKKwlpZiAoKFRTVF9SRVQgPT0gRVhQX1JFVF9WQUwpICYmIChUU1Rf
-RVJSID09IHRjYXNlc1tpXS5leHBfZXJybm8pKSB7CisJCXRzdF9yZXMoVFBBU1MsICJFeHBlY3Rl
-ZCBmYWlsdXJlIGZvciAlcywgIgorCQkJCSJlcnJubzogJWQiLCB0Y2FzZXNbaV0uZGVzYywKKwkJ
-CQlUU1RfRVJSKTsKKwl9IGVsc2UgeworCQl0c3RfcmVzKFRGQUlMLCAiVW5leHBlY3RlZCByZXN1
-bHRzIGZvciAlcyA7ICIKKwkJCQkicmV0dXJuZWQgJWxkIChleHBlY3RlZCAlZCksIGVycm5vICVk
-ICIKKwkJCQkiKGV4cGVjdGVkIGVycm5vICAlZCkiLAorCQkJCXRjYXNlc1tpXS5kZXNjLAorCQkJ
-CVRTVF9SRVQsIEVYUF9SRVRfVkFMLAorCQkJCVRTVF9FUlIsIHRjYXNlc1tpXS5leHBfZXJybm8p
-OwogCX0KLQlyZXR1cm4gMDsKLX0KLQotLyogY2xlYW51cDEoKSAtIHJlc2V0IHRvIHN1cGVyIHVz
-ZXIgZm9yIGZpcnN0IHRlc3QgY2FzZSAqLwotdm9pZCBjbGVhbnVwMSh2b2lkKQotewotCS8qIHJl
-c2V0IHVzZXIgYXMgcm9vdCAqLwotCVNBRkVfU0VURVVJRChOVUxMLCAwKTsKLX0KLQotLyogc2V0
-dXAoKSAtIHBlcmZvcm1zIGFsbCBPTkUgVElNRSBzZXR1cCBmb3IgdGhpcyB0ZXN0ICovCi12b2lk
-IHNldHVwKHZvaWQpCi17Ci0JdHN0X3JlcXVpcmVfcm9vdCgpOwogCi0JdHN0X3NpZyhOT0ZPUkss
-IERFRl9IQU5ETEVSLCBjbGVhbnVwKTsKLQotCS8qIENoZWNrIGlmICJub2JvZHkiIHVzZXIgaWQg
-ZXhpc3RzICovCi0JaWYgKChsdHB1c2VyID0gZ2V0cHduYW0obm9ib2R5X3VpZCkpID09IE5VTEwp
-IHsKLQkJdHN0X2Jya20oVEJST0ssIE5VTEwsICJcIm5vYm9keVwiIHVzZXIgaWQgZG9lc24ndCBl
-eGlzdCIpOworCWlmIChpID09IDEpIHsKKwkJLyogcmV2ZXJ0IGJhY2sgdG8gc3VwZXIgdXNlciAq
-LworCQlTQUZFX1NFVEVVSUQoMCk7CiAJfQotCi0JVEVTVF9QQVVTRTsKLQogfQogCi0vKgotICpj
-bGVhbnVwKCkgLSAgcGVyZm9ybXMgYWxsIE9ORSBUSU1FIGNsZWFudXAgZm9yIHRoaXMgdGVzdCBh
-dAotICoJCWNvbXBsZXRpb24gb3IgcHJlbWF0dXJlIGV4aXQuCi0gKi8KLXZvaWQgY2xlYW51cCh2
-b2lkKQotewotCi19Ci0KLSNlbHNlIC8qIF9faTM4Nl9fICovCi0KLSNpbmNsdWRlICJ0ZXN0Lmgi
-Ci0jaW5jbHVkZSAic2FmZV9tYWNyb3MuaCIKLQotaW50IFRTVF9UT1RBTCA9IDA7Ci0KLWludCBt
-YWluKHZvaWQpCi17Ci0JdHN0X3Jlc20oVFBBU1MsCi0JCSAiTFNCIHYxLjMgZG9lcyBub3Qgc3Bl
-Y2lmeSBpb3BsKCkgZm9yIHRoaXMgYXJjaGl0ZWN0dXJlLiIpOwotCXRzdF9leGl0KCk7Ci19Citz
-dGF0aWMgc3RydWN0IHRzdF90ZXN0IHRlc3QgPSB7CisJLnRjbnQgPSBBUlJBWV9TSVpFKHRjYXNl
-cyksCisJLnRlc3QgPSB2ZXJpZnlfaW9wbCwKKwkubmVlZHNfcm9vdCA9IDEsCit9OwogCi0jZW5k
-aWYgLyogX19pMzg2X18gKi8KKyNlbHNlIC8qIF9faTM4Nl9fLCBfX3g4Nl82NF9fKi8KK1RTVF9U
-RVNUX1RDT05GKCJMU0IgdjEuMyBkb2VzIG5vdCBzcGVjaWZ5IGlvcGwoKSBmb3IgdGhpcyBhcmNo
-aXRlY3R1cmUuIChvbmx5IGZvciBpMzg2IG9yIHg4Nl82NCkiKTsKKyNlbmRpZiAvKiBfX2kzODZf
-LCBfX3g4Nl82NF9fKi8KLS0gCjIuMjEuMQoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6
-Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+Signed-off-by: Li Wang <liwang@redhat.com>
+Cc: Erico Nunes <ernunes@redhat.com>
+---
+ testcases/kernel/syscalls/ioperm/ioperm01.c | 167 +++---------
+ testcases/kernel/syscalls/ioperm/ioperm02.c | 273 +++++---------------
+ testcases/kernel/syscalls/iopl/iopl02.c     |   2 +-
+ 3 files changed, 105 insertions(+), 337 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/ioperm/ioperm01.c b/testcases/kernel/syscalls/ioperm/ioperm01.c
+index e8bd18dd7..4fe803cb2 100644
+--- a/testcases/kernel/syscalls/ioperm/ioperm01.c
++++ b/testcases/kernel/syscalls/ioperm/ioperm01.c
+@@ -1,77 +1,23 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+- * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- *
++ *  Copyright (c) Linux Test Project, 2020
++ *  Copyright (c) Wipro Technologies Ltd, 2002
+  */
+-/**********************************************************
+- *
+- *    TEST IDENTIFIER	: ioperm01
+- *
+- *    EXECUTED BY	: superuser
+- *
+- *    TEST TITLE	: Basic test for ioperm(2)
+- *
+- *    TEST CASE TOTAL	: 1
+- *
+- *    AUTHOR		: Subhab Biswas <subhabrata.biswas@wipro.com>
+- *
+- *    SIGNALS
+- * 	Uses SIGUSR1 to pause before test if option set.
+- * 	(See the parse_opts(3) man page).
+- *
+- *    DESCRIPTION
+- *	This is a Phase I test for the ioperm(2) system call.
+- *	It is intended to provide a limited exposure of the system call.
+- *
+- * 	Setup:
+- * 	  Setup signal handling.
+- *	  Test caller is superuser
+- *	  Pause for SIGUSR1 if option specified.
+- *
+- * 	Test:
+- *	 Loop if the proper options are given.
+- * 	  Execute system call
+- *        Check return code, if system call failed (return=-1)
+- *              Issue FAIL message with errno.
+- *        Otherwise, Issue PASS message.
+- *
+- * 	Cleanup:
+- * 	  Print errno log and/or timing stats if options given
+- *
+- * USAGE:  <for command-line>
+- * ioperm01 [-c n] [-e] [-i n] [-I x] [-P x] [-t] [-h] [-f] [-p]
+- *			where,  -c n : Run n copies concurrently.
+- *				-e   : Turn on errno logging.
+- *				-h   : Show help screen
+- *				-f   : Turn off functional testing
+- *				-i n : Execute test n times.
+- *				-I x : Execute test for x seconds.
+- *				-p   : Pause for SIGUSR1 before starting
+- *				-P x : Pause for x seconds between iterations.
+- *				-t   : Turn on syscall timing.
+- *
+- ****************************************************************/
+-
+-char *TCID = "ioperm01";
+ 
+-#if defined __i386__ || defined(__x86_64__)
++/*
++ * This is a basic test for ioperm(2) system call.
++ * It is intended to provide a limited exposure of the system call.
++ *
++ * Author: Subhab Biswas <subhabrata.biswas@wipro.com>
++ */
+ 
+ #include <errno.h>
+ #include <unistd.h>
+ #include <sys/io.h>
+ 
+-#include "test.h"
++#include "tst_test.h"
++
++#if defined __i386__ || defined(__x86_64__)
+ 
+ unsigned long io_addr;		/*kernel version dependant io start address */
+ #define NUM_BYTES 3		/* number of bytes from start address */
+@@ -81,53 +27,23 @@ unsigned long io_addr;		/*kernel version dependant io start address */
+ #define IO_BITMAP_BITS 1024
+ #endif
+ 
+-static void setup();
+-static void cleanup();
+-
+-int TST_TOTAL = 1;
+-
+-int main(int ac, char **av)
++static void verify_ioperm(void)
+ {
++	TEST(ioperm(io_addr, NUM_BYTES, TURN_ON));
+ 
+-	int lc;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-
+-		tst_count = 0;
+-
+-		/*
+-		 * Test the system call.
+-		 */
+-		TEST(ioperm(io_addr, NUM_BYTES, TURN_ON));
+-
+-		if (TEST_RETURN == -1) {
+-			tst_resm(TFAIL, "ioperm() failed for port address "
+-				 "%lu,  errno=%d : %s", io_addr,
+-				 TEST_ERRNO, strerror(TEST_ERRNO));
+-		} else {
+-			tst_resm(TPASS, "ioperm() passed for port "
+-				 "address %lu, returned %lu",
+-				 io_addr, TEST_RETURN);
+-		}
++	if (TST_RET == -1) {
++		tst_res(TFAIL, "ioperm() failed for port address "
++				"%lu,  errno=%d : %s", io_addr,
++				TST_ERR, tst_strerrno(TFAIL | TTERRNO));
++	} else {
++		tst_res(TPASS, "ioperm() passed for port "
++				"address %lu, returned %lu",
++				io_addr, TST_RET);
+ 	}
+-
+-	/* cleanup and exit */
+-	cleanup();
+-	tst_exit();
+-
+ }
+ 
+-/* setup() - performs all ONE TIME setup for this test */
+-void setup(void)
++static void setup(void)
+ {
+-	tst_require_root();
+-
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-
+ 	/*
+ 	 * The value of IO_BITMAP_BITS (include/asm-i386/processor.h) changed
+ 	 * from kernel 2.6.8 to permit 16-bits ioperm
+@@ -141,38 +57,25 @@ void setup(void)
+ 		/*get ioperm on 65533, 65534, 65535 */
+ 		io_addr = IO_BITMAP_BITS - NUM_BYTES;
+ 	}
+-
+-	TEST_PAUSE;
+-
+ }
+ 
+-/*
+- *cleanup() -  performs all ONE TIME cleanup for this test at
+- *		completion or premature exit.
+- */
+-void cleanup(void)
++static void cleanup(void)
+ {
+-
+ 	/*
+ 	 * Reset I/O privileges for the specified port.
+ 	 */
+-	if ((ioperm(io_addr, NUM_BYTES, TURN_OFF)) == -1) {
+-		tst_brkm(TBROK, NULL, "ioperm() cleanup failed");
+-	}
++	if ((ioperm(io_addr, NUM_BYTES, TURN_OFF)) == -1)
++		tst_brk(TBROK, "ioperm() cleanup failed");
+ 
+ }
+ 
+-#else /* __i386__ */
+-
+-#include "test.h"
+-
+-int TST_TOTAL = 0;
+-
+-int main(void)
+-{
+-	tst_resm(TPASS,
+-		 "LSB v1.3 does not specify ioperm() for this architecture.");
+-	tst_exit();
+-}
++static struct tst_test test = {
++	.test_all = verify_ioperm,
++	.needs_root = 1,
++	.setup = setup,
++	.cleanup = cleanup,
++};
+ 
+-#endif /* __i386__ */
++#else /* __i386__, __x86_64__*/
++TST_TEST_TCONF("LSB v1.3 does not specify ioperm() for this architecture. (only for i386 or x86_64)");
++#endif /* __i386_, __x86_64__*/
+diff --git a/testcases/kernel/syscalls/ioperm/ioperm02.c b/testcases/kernel/syscalls/ioperm/ioperm02.c
+index 3d9b1445f..80806313b 100644
+--- a/testcases/kernel/syscalls/ioperm/ioperm02.c
++++ b/testcases/kernel/syscalls/ioperm/ioperm02.c
+@@ -1,83 +1,30 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+- * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- *
++ *  Copyright (c) Linux Test Project, 2020
++ *  Copyright (c) Wipro Technologies Ltd, 2002
+  */
+-/**********************************************************
+- *
+- *    TEST IDENTIFIER	: ioperm02
+- *
+- *    EXECUTED BY	: superuser
+- *
+- *    TEST TITLE	: Tests for error conditions
+- *
+- *    TEST CASE TOTAL	: 2
+- *
+- *    AUTHOR		: Subhab Biwas <subhabrata.biswas@wipro.com>
+- *
+- *    SIGNALS
+- * 	Uses SIGUSR1 to pause before test if option set.
+- * 	(See the parse_opts(3) man page).
+- *
+- *    DESCRIPTION
+- *	Verify that
+- *	1) ioperm(2) returns -1 and sets errno to EINVAL for I/O port
+- *	   address greater than 0x3ff.
+- *	2) ioperm(2) returns -1 and sets errno to EPERM if the current
+- *	   user is not the super-user.
+- *
+- * 	Setup:
+- * 	  Setup signal handling.
+- *	  Set expected errnos for logging
+- *	  Pause for SIGUSR1 if option specified.
+- *
+- * 	Test:
+- *	 Loop if the proper options are given.
+- * 	  Execute system call
+- *	  Check return code and error number, if matching,
+- *		     Issue PASS message
+- *	  Otherwise,
+- *		     Issue FAIL message
+- *	  Perform testcase specific cleanup (if needed)
+- *
+- * 	Cleanup:
+- * 	  Print errno log and/or timing stats if options given
++
++/*
++ * This is an error test for ioperm(2) system call.
+  *
+- * USAGE:  <for command-line>
+- * ioperm02 [-c n] [-e] [-i n] [-I x] [-P x] [-t] [-h] [-f] [-p]
+- *			where,  -c n : Run n copies concurrently.
+- *				-e   : Turn on errno logging.
+- *				-h   : Show help screen
+- *				-f   : Turn off functional testing
+- *				-i n : Execute test n times.
+- *				-I x : Execute test for x seconds.
+- *				-p   : Pause for SIGUSR1 before starting
+- *				-P x : Pause for x seconds between iterations.
+- *				-t   : Turn on syscall timing.
++ * Verify that
++ * 1) ioperm(2) returns -1 and sets errno to EINVAL for I/O port
++ *    address greater than 0x3ff.
++ * 2) ioperm(2) returns -1 and sets errno to EPERM if the current
++ *    user is not the super-user.
+  *
+- ****************************************************************/
+-
+-char *TCID = "ioperm02";
+-
+-#if defined __i386__ || defined(__x86_64__)
++ * Author: Subhab Biswas <subhabrata.biswas@wipro.com>
++ */
+ 
++#include <stdlib.h>
+ #include <errno.h>
+ #include <unistd.h>
+ #include <sys/io.h>
+ #include <pwd.h>
+-#include "test.h"
+-#include "safe_macros.h"
++#include "tst_test.h"
++#include "tst_safe_macros.h"
++
++#if defined __i386__ || defined(__x86_64__)
+ 
+ #define NUM_BYTES 3
+ #define TURN_ON 1
+@@ -88,163 +35,81 @@ char *TCID = "ioperm02";
+ #define IO_BITMAP_BITS_16 65536
+ #endif
+ 
+-static void setup();
+-static int setup1(void);
+-static void cleanup1();
+-static void cleanup();
+-
+-static char nobody_uid[] = "nobody";
+-struct passwd *ltpuser;
+-
+-struct test_cases_t {
+-	long from;		/* starting port address */
+-	long num;		/* no. of bytes from starting address */
++static struct tcase_t {
++	long from;	/* starting port address */
++	long num;	/* no. of bytes from starting address */
+ 	int turn_on;
+-	char *desc;		/* test case description */
+-	int exp_errno;		/* expected error number */
++	char *desc;	/* test case description */
++	int exp_errno;	/* expected error number */
++} tcases[] = {
++	{0, NUM_BYTES, TURN_ON, "Invalid I/O address", EINVAL},
++	{0, NUM_BYTES, TURN_ON, "Non super-user", EPERM},
+ };
+ 
+-int TST_TOTAL = 2;
+-struct test_cases_t *test_cases;
+-
+-int main(int ac, char **av)
++static void setup(void)
+ {
+-	int lc, i;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-
+-		tst_count = 0;
+-
+-		for (i = 0; i < TST_TOTAL; ++i) {
+-
+-			if (i == 1) {
+-				/* setup Non super-user for second test */
+-				if (setup1()) {
+-					/* setup1() failed, skip this test */
+-					continue;
+-				}
+-			}
+-
+-			/* Test the system call */
+-
+-			TEST(ioperm(test_cases[i].from,
+-				    test_cases[i].num, test_cases[i].turn_on));
+-
+-			if ((TEST_RETURN == EXP_RET_VAL) &&
+-			    (TEST_ERRNO == test_cases[i].exp_errno)) {
+-				tst_resm(TPASS, "Expected failure for %s, "
+-					 "errno: %d", test_cases[i].desc,
+-					 TEST_ERRNO);
+-			} else {
+-				tst_resm(TFAIL, "Unexpected results for %s ; "
+-					 "returned %ld (expected %d), errno %d "
+-					 "(expected errno  %d)",
+-					 test_cases[i].desc,
+-					 TEST_RETURN, EXP_RET_VAL,
+-					 TEST_ERRNO, test_cases[i].exp_errno);
+-			}
+-
+-			if (i == 1) {
+-				/* revert back to super user */
+-				cleanup1();
+-			} else {
+-			}
+-		}
+-
+-	}
+-
+-	/* cleanup and exit */
+-	cleanup();
+-
+-	tst_exit();
+-
+-}
+-
+-/* setup1() - set up non-super user for second test case */
+-int setup1(void)
+-{
+-	/* switch to "nobody" user */
+-	if (seteuid(ltpuser->pw_uid) == -1) {
+-		tst_resm(TWARN, "Failed to set effective"
+-			 "uid to %d", ltpuser->pw_uid);
+-		return 1;
+-	}
+-	return 0;
+-}
+-
+-/* cleanup1() - reset to super user for second test case */
+-void cleanup1(void)
+-{
+-	/* reset user as root */
+-	SAFE_SETEUID(NULL, 0);
+-}
+-
+-/* setup() - performs all ONE TIME setup for this test */
+-void setup(void)
+-{
+-	tst_require_root();
+-
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-
+-	/* Check if "nobody" user id exists */
+-	if ((ltpuser = getpwnam(nobody_uid)) == NULL) {
+-		tst_brkm(TBROK, NULL, "\"nobody\" user id doesn't exist");
+-	}
+-
+ 	/*
+ 	 * The value of IO_BITMAP_BITS (include/asm-i386/processor.h) changed
+ 	 * from kernel 2.6.8 to permit 16-bits (65536) ioperm
+ 	 *
+ 	 * Ricky Ng-Adam, rngadam@yahoo.com
+-	 * */
+-	test_cases = malloc(sizeof(struct test_cases_t) * 2);
+-	test_cases[0].num = NUM_BYTES;
+-	test_cases[0].turn_on = TURN_ON;
+-	test_cases[0].desc = "Invalid I/O address";
+-	test_cases[0].exp_errno = EINVAL;
+-	test_cases[1].num = NUM_BYTES;
+-	test_cases[1].turn_on = TURN_ON;
+-	test_cases[1].desc = "Non super-user";
+-	test_cases[1].exp_errno = EPERM;
++	 */
+ 	if ((tst_kvercmp(2, 6, 8) < 0) || (tst_kvercmp(2, 6, 9) == 0)) {
+ 		/*try invalid ioperm on 1022, 1023, 1024 */
+-		test_cases[0].from = (IO_BITMAP_BITS - NUM_BYTES) + 1;
++		tcases[0].from = (IO_BITMAP_BITS - NUM_BYTES) + 1;
+ 
+ 		/*try get valid ioperm on 1021, 1022, 1023 */
+-		test_cases[1].from = IO_BITMAP_BITS - NUM_BYTES;
++		tcases[1].from = IO_BITMAP_BITS - NUM_BYTES;
+ 	} else {
+ 		/*try invalid ioperm on 65534, 65535, 65536 */
+-		test_cases[0].from = (IO_BITMAP_BITS_16 - NUM_BYTES) + 1;
++		tcases[0].from = (IO_BITMAP_BITS_16 - NUM_BYTES) + 1;
+ 
+ 		/*try valid ioperm on 65533, 65534, 65535 */
+-		test_cases[1].from = IO_BITMAP_BITS_16 - NUM_BYTES;
++		tcases[1].from = IO_BITMAP_BITS_16 - NUM_BYTES;
+ 	}
+ 
+-	TEST_PAUSE;
+-
+ }
+ 
+-void cleanup(void)
++static void verify_ioperm(unsigned int i)
+ {
++	if (i == 1) {
++		/* set Non super-user for second test */
++		struct passwd *pw;
++		pw = SAFE_GETPWNAM("nobody");
++		if (seteuid(pw->pw_uid) == -1) {
++			tst_res(TWARN, "Failed to set effective"
++					"uid to %d", pw->pw_uid);
++			return;
++		}
++	}
+ 
+-}
+-
+-#else /* __i386__ */
+-
+-#include "test.h"
+-#include "safe_macros.h"
++	TEST(ioperm(tcases[i].from, tcases[i].num, tcases[i].turn_on));
+ 
+-int TST_TOTAL = 0;
++	if ((TST_RET == EXP_RET_VAL) && (TST_ERR == tcases[i].exp_errno)) {
++		tst_res(TPASS, "Expected failure for %s, "
++				"errno: %d", tcases[i].desc, TST_ERR);
++	} else {
++		tst_res(TFAIL, "Unexpected results for %s ; "
++				"returned %ld (expected %d), errno %d "
++				"(expected errno  %d)",
++				tcases[i].desc,
++				TST_RET, EXP_RET_VAL,
++				TST_ERR, tcases[i].exp_errno);
++	}
+ 
+-int main(void)
+-{
+-	tst_resm(TPASS,
+-		 "LSB v1.3 does not specify ioperm() for this architecture.");
+-	tst_exit();
++	if (i == 1) {
++		/* revert back to super user */
++		SAFE_SETEUID(0);
++	}
+ }
+ 
+-#endif /* __i386__ */
++static struct tst_test test = {
++	.tcnt = ARRAY_SIZE(tcases),
++	.test = verify_ioperm,
++	.needs_root = 1,
++	.setup = setup,
++};
++
++#else /* __i386__, __x86_64__*/
++TST_TEST_TCONF("LSB v1.3 does not specify ioperm() for this architecture. (only for i386 or x86_64)");
++#endif /* __i386_, __x86_64__*/
+diff --git a/testcases/kernel/syscalls/iopl/iopl02.c b/testcases/kernel/syscalls/iopl/iopl02.c
+index 747a1ca56..f8a76e757 100644
+--- a/testcases/kernel/syscalls/iopl/iopl02.c
++++ b/testcases/kernel/syscalls/iopl/iopl02.c
+@@ -40,7 +40,7 @@ static struct tcase {
+ static void verify_iopl(unsigned int i)
+ {
+ 	if (i == 1) {
+-		/* setup Non super-user for second test */
++		/* set Non super-user for second test */
+ 		struct passwd *pw;
+ 		pw = SAFE_GETPWNAM("nobody");
+ 		if (seteuid(pw->pw_uid) == -1) {
+-- 
+2.21.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
