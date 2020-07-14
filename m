@@ -1,39 +1,47 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id F03AB21F867
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jul 2020 19:45:12 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id BE3D221F909
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jul 2020 20:17:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 96F643C4F93
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jul 2020 19:45:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6424F3C4F92
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jul 2020 20:17:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 189053C286A
- for <ltp@lists.linux.it>; Tue, 14 Jul 2020 17:25:20 +0200 (CEST)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 617AF60165D
- for <ltp@lists.linux.it>; Tue, 14 Jul 2020 17:25:19 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BB1B930E;
- Tue, 14 Jul 2020 08:25:17 -0700 (PDT)
-Received: from e107158-lin.cambridge.arm.com (e107158-lin.cambridge.arm.com
- [10.1.195.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4B1A23F792;
- Tue, 14 Jul 2020 08:25:17 -0700 (PDT)
-From: Qais Yousef <qais.yousef@arm.com>
-To: ltp@lists.linux.it
-Date: Tue, 14 Jul 2020 16:25:10 +0100
-Message-Id: <20200714152510.13470-1-qais.yousef@arm.com>
-X-Mailer: git-send-email 2.17.1
+ by picard.linux.it (Postfix) with ESMTP id 56A943C286A
+ for <ltp@lists.linux.it>; Tue, 14 Jul 2020 20:17:17 +0200 (CEST)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 7B6A2600900
+ for <ltp@lists.linux.it>; Tue, 14 Jul 2020 20:17:16 +0200 (CEST)
+Received: from localhost.localdomain (c-73-187-218-229.hsd1.pa.comcast.net
+ [73.187.218.229])
+ by linux.microsoft.com (Postfix) with ESMTPSA id B678A20B4908;
+ Tue, 14 Jul 2020 11:17:13 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B678A20B4908
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1594750634;
+ bh=Ad1/fz3D4iUrimekvzH9B6xVELSEZ6B4e+CTu5517NI=;
+ h=From:To:Cc:Subject:Date:From;
+ b=i4/dMu7hq4Y2kgrmFnCbTIwVzF7vcAQw2qmUsG3TrwkROk3LhSYxgXtJ5ANvLQxcW
+ FbkDF9SxSU4ZEg2VDjFxUluaesHlebHkm4yResWMqbgq4eKIr+Hdrul5JWOppy8eP1
+ 6o032koryCUWBisMBX4gMbxk1W3R2T5vrKCZPdDo=
+From: Lachlan Sneff <t-josne@linux.microsoft.com>
+To: zohar@linux.ibm.com,
+	pvorel@suse.cz,
+	ltp@lists.linux.it
+Date: Tue, 14 Jul 2020 14:17:01 -0400
+Message-Id: <20200714181703.6374-1-t-josne@linux.microsoft.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_PASS,SPF_PASS,
+ USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-X-Mailman-Approved-At: Tue, 14 Jul 2020 19:45:09 +0200
-Subject: [LTP] [PATCH] cpuset_hotplug_test.sh: Fix a race condition
+Subject: [LTP] [PATCH v5 0/2] IMA: Verify measurement of certificates
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,65 +53,61 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Qais Yousef <qais.yousef@arm.com>
-MIME-Version: 1.0
+Cc: nramas@linux.microsoft.com, linux-integrity@vger.kernel.org,
+ balajib@linux.microsoft.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Cpuset performs hotplug updates asynchronously in the kernel. This would
-lead to a race window where userspace could read a stale value before
-the asynchronous update is performed (via a delayed work).
+The IMA subsystem is capable of importing and measuring certificates. This
+set of patches adds tests for verifying that keys are imported and measured
+correctly.
 
-An attempt to fix the issue in the kernel failed.
 
-https://lore.kernel.org/lkml/20200211141554.24181-1-qais.yousef@arm.com/T/#u
+Changelog:
 
-There was a patch to make the update synchronous, but it hit a wall and
-was dropped
+v5
+- Fix failure case of key measurement test.
 
-https://lore.kernel.org/lkml/F0388D99-84D7-453B-9B6B-EEFF0E7BE4CC@lca.pw/
+v4
+- Clarify documentation about required certificate.
+- Fix case where multiple KEY_CHECK rules are present.
 
-The sleep is not ideal, but the maintainer has pushed back for a fix in
-the kernel so far.
+v3
+- Document requirements for running the ima key tests and provide resources
+  for generating keys.
 
-Fixes #693.
-Signed-off-by: Qais Yousef <qais.yousef@arm.com>
----
- .../cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh  | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+v2
+- Un-linebreak a few strings
+- Enforce that some commands are available before running
+- Move compute_digest function to ima_setup.sh
+- Fix file permissions on ima_key.sh
+- Move IMA_POLICY variable to ima_setup.sh
+- Add keycheck.policy datafile
 
-diff --git a/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh b/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
-index e973de7b9..1337e0cd6 100755
---- a/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
-+++ b/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
-@@ -86,6 +86,11 @@ root_cpu_hotplug_test()
- 		return 1
- 	fi
- 
-+	# cpuset hotplug is asynchronous operation, we could end up reading a
-+	# stale value here. sleep is aweful, but we can't do better.
-+	# See https://github.com/linux-test-project/ltp/issues/693
-+	sleep 1
-+
- 	root_cpus="`cat $CPUSET/cpuset.cpus`"
- 
- 	task_cpus="`cat /proc/$tst_pid/status | grep Cpus_allowed_list`"
-@@ -155,6 +160,11 @@ general_cpu_hotplug_test()
- 		return 1
- 	fi
- 
-+	# cpuset hotplug is asynchronous operation, we could end up reading a
-+	# stale value here. sleep is aweful, but we can't do better.
-+	# See https://github.com/linux-test-project/ltp/issues/693
-+	sleep 1
-+
- 	cpus="`cat $path/cpuset.cpus`"
- 
- 	task_cpus="`cat /proc/$tst_pid/status | grep Cpus_allowed_list`"
+v1
+- The following patchsets should be applied in that order.
+- Add tests that verify measurement of keys and importing certificates.
+
+
+Lachlan Sneff (2):
+  IMA: Add a test to verify measurment of keys
+  IMA: Add a test to verify importing a certificate into keyring
+
+ runtest/ima                                   |   1 +
+ .../kernel/security/integrity/ima/README.md   |  22 ++++
+ .../integrity/ima/datafiles/keycheck.policy   |   1 +
+ .../security/integrity/ima/tests/ima_keys.sh  | 111 ++++++++++++++++++
+ .../integrity/ima/tests/ima_measurements.sh   |  36 +-----
+ .../integrity/ima/tests/ima_policy.sh         |   1 -
+ .../security/integrity/ima/tests/ima_setup.sh |  35 ++++++
+ 7 files changed, 171 insertions(+), 36 deletions(-)
+ create mode 100644 testcases/kernel/security/integrity/ima/datafiles/keycheck.policy
+ create mode 100755 testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+
 -- 
-2.17.1
+2.25.1
 
 
 -- 
