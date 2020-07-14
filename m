@@ -1,41 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8280B21F414
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jul 2020 16:28:29 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id F03AB21F867
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jul 2020 19:45:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1B9463C4F77
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jul 2020 16:28:29 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 96F643C4F93
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jul 2020 19:45:12 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 31C5F3C2992
- for <ltp@lists.linux.it>; Tue, 14 Jul 2020 16:28:24 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C90F76010F3
- for <ltp@lists.linux.it>; Tue, 14 Jul 2020 16:27:13 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3CBF4AC85;
- Tue, 14 Jul 2020 14:28:26 +0000 (UTC)
-Date: Tue, 14 Jul 2020 16:28:43 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20200714142843.GA14905@yuki.lan>
-References: <ede8d1c6a1ad1b23d8dca2297c740c301b329e37.1593743927.git.viresh.kumar@linaro.org>
- <47e40724c2a7a9612aca0265e493e62c69d65996.1594204153.git.viresh.kumar@linaro.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <47e40724c2a7a9612aca0265e493e62c69d65996.1594204153.git.viresh.kumar@linaro.org>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 189053C286A
+ for <ltp@lists.linux.it>; Tue, 14 Jul 2020 17:25:20 +0200 (CEST)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 617AF60165D
+ for <ltp@lists.linux.it>; Tue, 14 Jul 2020 17:25:19 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BB1B930E;
+ Tue, 14 Jul 2020 08:25:17 -0700 (PDT)
+Received: from e107158-lin.cambridge.arm.com (e107158-lin.cambridge.arm.com
+ [10.1.195.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4B1A23F792;
+ Tue, 14 Jul 2020 08:25:17 -0700 (PDT)
+From: Qais Yousef <qais.yousef@arm.com>
+To: ltp@lists.linux.it
+Date: Tue, 14 Jul 2020 16:25:10 +0100
+Message-Id: <20200714152510.13470-1-qais.yousef@arm.com>
+X-Mailer: git-send-email 2.17.1
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V3] syscalls/timer_settime01: Make sure the timer
- fires
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+X-Mailman-Approved-At: Tue, 14 Jul 2020 19:45:09 +0200
+Subject: [LTP] [PATCH] cpuset_hotplug_test.sh: Fix a race condition
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,74 +45,66 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
- ltp@lists.linux.it
+Cc: Qais Yousef <qais.yousef@arm.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Pushed with minor changes, thanks.
+Cpuset performs hotplug updates asynchronously in the kernel. This would
+lead to a race window where userspace could read a stale value before
+the asynchronous update is performed (via a delayed work).
 
-Among other fixes I've moved the signal check from the signal handler to
-the clear_signal() function, since the tst_res() function is not
-signal-async-safe...
+An attempt to fix the issue in the kernel failed.
 
-diff --git a/testcases/kernel/syscalls/timer_settime/timer_settime01.c b/testcases/kernel/syscalls/timer_settime/timer_settime01.c
-index f9d1456da..76f283b81 100644
---- a/testcases/kernel/syscalls/timer_settime/timer_settime01.c
-+++ b/testcases/kernel/syscalls/timer_settime/timer_settime01.c
-@@ -10,7 +10,7 @@
- /*
-  * This tests the timer_settime(2) syscall under various conditions:
-  *
-- * 1) General initialization: No old_value, no flags, 5-second-timer
-+ * 1) General initialization: No old_value, no flags
-  * 2) Setting a pointer to a itimerspec struct as old_set parameter
-  * 3) Using a periodic timer
-  * 4) Using absolute time
-@@ -38,10 +38,10 @@ static struct testcase {
- 	int			flag;
- 	char			*description;
- } tcases[] = {
--	{NULL, 100000, 0, 0, "general initialization"},
--	{&old_set, 100000, 0, 0, "setting old_value"},
--	{&old_set, 100000, 100000, 0, "using periodic timer"},
--	{&old_set, 100000, 0, TIMER_ABSTIME, "using absolute time"},
-+	{NULL, 50000, 0, 0, "general initialization"},
-+	{&old_set, 50000, 0, 0, "setting old_value"},
-+	{&old_set, 50000, 50000, 0, "using periodic timer"},
-+	{&old_set, 50000, 0, TIMER_ABSTIME, "using absolute time"},
- };
+https://lore.kernel.org/lkml/20200211141554.24181-1-qais.yousef@arm.com/T/#u
+
+There was a patch to make the update synchronous, but it hit a wall and
+was dropped
+
+https://lore.kernel.org/lkml/F0388D99-84D7-453B-9B6B-EEFF0E7BE4CC@lca.pw/
+
+The sleep is not ideal, but the maintainer has pushed back for a fix in
+the kernel so far.
+
+Fixes #693.
+Signed-off-by: Qais Yousef <qais.yousef@arm.com>
+---
+ .../cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh  | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh b/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
+index e973de7b9..1337e0cd6 100755
+--- a/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
++++ b/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
+@@ -86,6 +86,11 @@ root_cpu_hotplug_test()
+ 		return 1
+ 	fi
  
- static struct test_variants {
-@@ -71,15 +71,17 @@ static void clear_signal(void)
- 	 */
- 	while (!caught_signal);
- 
-+	if (caught_signal != SIGALRM) {
-+		tst_res(TFAIL, "Received incorrect signal: %s",
-+			tst_strsig(caught_signal));
-+	}
++	# cpuset hotplug is asynchronous operation, we could end up reading a
++	# stale value here. sleep is aweful, but we can't do better.
++	# See https://github.com/linux-test-project/ltp/issues/693
++	sleep 1
 +
- 	caught_signal = 0;
- }
+ 	root_cpus="`cat $CPUSET/cpuset.cpus`"
  
- static void sighandler(int sig)
- {
--	if (sig != SIGALRM)
--		tst_res(TFAIL, "Received incorrect signal: %d", sig);
--
--	caught_signal = 1;
-+	caught_signal = sig;
- }
+ 	task_cpus="`cat /proc/$tst_pid/status | grep Cpus_allowed_list`"
+@@ -155,6 +160,11 @@ general_cpu_hotplug_test()
+ 		return 1
+ 	fi
  
- static void setup(void)
-
++	# cpuset hotplug is asynchronous operation, we could end up reading a
++	# stale value here. sleep is aweful, but we can't do better.
++	# See https://github.com/linux-test-project/ltp/issues/693
++	sleep 1
++
+ 	cpus="`cat $path/cpuset.cpus`"
+ 
+ 	task_cpus="`cat /proc/$tst_pid/status | grep Cpus_allowed_list`"
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.17.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
