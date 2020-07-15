@@ -1,41 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1238220D8A
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jul 2020 15:00:46 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B0F122152B
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jul 2020 21:34:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9CED03C2AB0
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jul 2020 15:00:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 216953C2AB0
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jul 2020 21:34:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id B5B9D3C298D
- for <ltp@lists.linux.it>; Wed, 15 Jul 2020 15:00:44 +0200 (CEST)
-Received: from mx2.suse.de (unknown [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 16ACC20136C
- for <ltp@lists.linux.it>; Wed, 15 Jul 2020 15:00:43 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DBF74B053;
- Wed, 15 Jul 2020 13:00:45 +0000 (UTC)
-Date: Wed, 15 Jul 2020 15:00:41 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Lachlan Sneff <t-josne@linux.microsoft.com>
-Message-ID: <20200715130041.GA32414@dell5510>
-References: <20200714181703.6374-1-t-josne@linux.microsoft.com>
- <20200714181703.6374-2-t-josne@linux.microsoft.com>
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 201863C22AD
+ for <ltp@lists.linux.it>; Wed, 15 Jul 2020 21:34:14 +0200 (CEST)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 3DF821A006E5
+ for <ltp@lists.linux.it>; Wed, 15 Jul 2020 21:34:13 +0200 (CEST)
+Received: from [192.168.1.21] (c-73-187-218-229.hsd1.pa.comcast.net
+ [73.187.218.229])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 9CD1E20B4908;
+ Wed, 15 Jul 2020 12:34:11 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9CD1E20B4908
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1594841652;
+ bh=IglEbAJU+UyvchllfhMd0WugLDkSaTATtm5tCbv4SQs=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=XBUnSC+tn9e7wIJ0q7L7CHcqZPo0ryGEZo+t3C5Q6Z04WyH/fxkUeQXf6CHAbWdDy
+ 4jdhNyrl+1RKwvlb6w/DpTGPtYNWQ/tQfY0sweHs7g+1+PBDgAXBieTBtxkNEB5Eio
+ b6kITWk2e5SHGdbwy6QuO90rfOJ4TmgNjcyteUvg=
+To: Mimi Zohar <zohar@linux.ibm.com>, pvorel@suse.cz,
+ nramas@linux.microsoft.com, ltp@lists.linux.it
+References: <20200626021126.56760-1-t-josne@linux.microsoft.com>
+ <20200626021126.56760-2-t-josne@linux.microsoft.com>
+ <1594773355.12900.210.camel@linux.ibm.com>
+From: Lachlan Sneff <t-josne@linux.microsoft.com>
+Message-ID: <7d8ac937-00d6-3cc1-7d38-3417580512d9@linux.microsoft.com>
+Date: Wed, 15 Jul 2020 15:34:10 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200714181703.6374-2-t-josne@linux.microsoft.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+In-Reply-To: <1594773355.12900.210.camel@linux.ibm.com>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=1.3 required=7.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Level: *
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5 1/2] IMA: Add a test to verify measurment of
+X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,
+ USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 1/2] IMA: Add a test to verify measurment of
  keys
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -48,76 +59,19 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: nramas@linux.microsoft.com, linux-integrity@vger.kernel.org,
- ltp@lists.linux.it, balajib@linux.microsoft.com
-Content-Type: text/plain; charset="us-ascii"
+Cc: balajib@linux.microsoft.com, linux-integrity@vger.kernel.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Lachlan, Mimi,
-
-> Add a testcase that verifies that the IMA subsystem has correctly
-> measured keys added to keyrings specified in the IMA policy file.
-
-> Additionally, add support for handling a new IMA template descriptor,
-> namely ima-buf[1], in the IMA measurement tests.
-
-To speedup things, based on Mimi's comments and review of v4 I pushed this first
-commit with few changes (below diff, only ima_keys.sh part)
-* simplify error handling ($fail is not needed; I used tst_res and return
-  because there will be second test, otherwise I'd use tst_brk)
-* added modified docs into this commit
-* fix commit title
-
-TODO
-* I'll send a patch to read CONFIG_IMA_X509_PATH (I've amended the commit
-already enough)
-
-* @Lachlan: expect you send another version for test2.
-
-* @Lachlan: would you also implement Mimi's suggestion? [1]:
-An additional test might be to verify that only the keys in the
-measurement list are actually on the specified keyring and nothing
-else.
-
-Kind regards,
-Petr
-
-[1] http://lists.linux.it/pipermail/ltp/2020-July/018018.html
-
-diff --git testcases/kernel/security/integrity/ima/tests/ima_keys.sh testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-index 4d53cd04f..904b7515b 100755
---- testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-+++ testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-@@ -15,7 +15,7 @@ TST_NEEDS_DEVICE=1
- # (450d0fd51564 - "IMA: Call workqueue functions to measure queued keys")
- test1()
- {
--	local keyrings keycheck_lines keycheck_line templates test_file="file.txt" fail
-+	local keyrings keycheck_lines keycheck_line templates test_file="file.txt"
- 
- 	tst_res TINFO "verifying key measurement for keyrings and templates specified in IMA policy file"
- 
-@@ -57,15 +57,12 @@ test1()
- 			tst_brk TCONF "cannot compute digest for $algorithm"
- 
- 		if [ "$digest" != "$expected_digest" ]; then
--			fail=1
- 			tst_res TFAIL "incorrect digest was found for the ($keyring) keyring"
--			break
-+			return
- 		fi
- 	done
- 
--	if [ "$fail" ]; then
--		tst_res TPASS "specified keyrings were measured correctly"
--	fi
-+	tst_res TPASS "specified keyrings were measured correctly"
- }
- 
- tst_run
+On 7/14/20 8:35 PM, Mimi Zohar wrote:
+> An additional test might be to verify that only the keys in the
+> measurement list are actually on the specified keyring and nothing
+> else.
+That seems like a good idea. I may not have time to implement it however.
+> Reviewed-by: Mimi Zohar <zohar@linux.ibm.com>
+- Lachlan
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
