@@ -2,71 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EC2B220B91
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jul 2020 13:14:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1238220D8A
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jul 2020 15:00:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C8BB03C2A24
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jul 2020 13:13:59 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9CED03C2AB0
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Jul 2020 15:00:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id D9C873C1C67
- for <ltp@lists.linux.it>; Wed, 15 Jul 2020 13:13:57 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 5E8ED201296
- for <ltp@lists.linux.it>; Wed, 15 Jul 2020 13:13:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1594811635;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=wKUaWO9e7fa4sRKkOIzNzC3+3Xnh+pofO/mHky7hWl4=;
- b=jGcYQrgl4VMPwn9Lu7xfvmQYiPCRVfK0mXir1TQnWIOhdhi5zaqtERRXSRY6Ba1hgDRhGm
- uzntVUzbIY/vgruA30eCoHX5ldaioBcW9fb4x7E5uBVup/q6ZqdwgYzjOrbSkIsxG21rL/
- /xYaRfuMowb0/WzwT/EZbL35t6vNwd4=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-47-cLuQYJ87NsidBANh1AHWNw-1; Wed, 15 Jul 2020 07:13:51 -0400
-X-MC-Unique: cLuQYJ87NsidBANh1AHWNw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id B5B9D3C298D
+ for <ltp@lists.linux.it>; Wed, 15 Jul 2020 15:00:44 +0200 (CEST)
+Received: from mx2.suse.de (unknown [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E63081005260;
- Wed, 15 Jul 2020 11:13:50 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DE42772E73;
- Wed, 15 Jul 2020 11:13:50 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id D59C71809543;
- Wed, 15 Jul 2020 11:13:50 +0000 (UTC)
-Date: Wed, 15 Jul 2020 07:13:50 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>, chrubis@suse.cz
-Message-ID: <467071970.2954506.1594811630753.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20200715093312.5dbxlmkmolrha5vd@vireshk-i7>
-References: <bd80f928abee6dac85d051c022afe559f5da8d0a.1594758146.git.jstancek@redhat.com>
- <20200715093312.5dbxlmkmolrha5vd@vireshk-i7>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 16ACC20136C
+ for <ltp@lists.linux.it>; Wed, 15 Jul 2020 15:00:43 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id DBF74B053;
+ Wed, 15 Jul 2020 13:00:45 +0000 (UTC)
+Date: Wed, 15 Jul 2020 15:00:41 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Lachlan Sneff <t-josne@linux.microsoft.com>
+Message-ID: <20200715130041.GA32414@dell5510>
+References: <20200714181703.6374-1-t-josne@linux.microsoft.com>
+ <20200714181703.6374-2-t-josne@linux.microsoft.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.40.208.12, 10.4.195.8]
-Thread-Topic: tst_timer: pass kernel_timer_t type to syscalls
-Thread-Index: pIfcFXsyJzUXSEIIPzJGgS0QeKU5VQ==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+In-Reply-To: <20200714181703.6374-2-t-josne@linux.microsoft.com>
 X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=1.3 required=7.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Level: *
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] tst_timer: pass kernel_timer_t type to syscalls
+Subject: Re: [LTP] [PATCH v5 1/2] IMA: Add a test to verify measurment of
+ keys
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,22 +48,76 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: nramas@linux.microsoft.com, linux-integrity@vger.kernel.org,
+ ltp@lists.linux.it, balajib@linux.microsoft.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Hi Lachlan, Mimi,
 
------ Original Message -----
-> On 14-07-20, 22:24, Jan Stancek wrote:
-> > timer_[gs]etttime tests are failing on s390, which is big endian
-> > system, because tests are passing timer_t type, which is glibc
-> > type (void *). Kernel expects and sets only int portion, so the
-> > tests fail for all but first (0) timer id.
+> Add a testcase that verifies that the IMA subsystem has correctly
+> measured keys added to keyrings specified in the IMA policy file.
 
-Pushed.
+> Additionally, add support for handling a new IMA template descriptor,
+> namely ima-buf[1], in the IMA measurement tests.
 
+To speedup things, based on Mimi's comments and review of v4 I pushed this first
+commit with few changes (below diff, only ima_keys.sh part)
+* simplify error handling ($fail is not needed; I used tst_res and return
+  because there will be second test, otherwise I'd use tst_brk)
+* added modified docs into this commit
+* fix commit title
+
+TODO
+* I'll send a patch to read CONFIG_IMA_X509_PATH (I've amended the commit
+already enough)
+
+* @Lachlan: expect you send another version for test2.
+
+* @Lachlan: would you also implement Mimi's suggestion? [1]:
+An additional test might be to verify that only the keys in the
+measurement list are actually on the specified keyring and nothing
+else.
+
+Kind regards,
+Petr
+
+[1] http://lists.linux.it/pipermail/ltp/2020-July/018018.html
+
+diff --git testcases/kernel/security/integrity/ima/tests/ima_keys.sh testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+index 4d53cd04f..904b7515b 100755
+--- testcases/kernel/security/integrity/ima/tests/ima_keys.sh
++++ testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+@@ -15,7 +15,7 @@ TST_NEEDS_DEVICE=1
+ # (450d0fd51564 - "IMA: Call workqueue functions to measure queued keys")
+ test1()
+ {
+-	local keyrings keycheck_lines keycheck_line templates test_file="file.txt" fail
++	local keyrings keycheck_lines keycheck_line templates test_file="file.txt"
+ 
+ 	tst_res TINFO "verifying key measurement for keyrings and templates specified in IMA policy file"
+ 
+@@ -57,15 +57,12 @@ test1()
+ 			tst_brk TCONF "cannot compute digest for $algorithm"
+ 
+ 		if [ "$digest" != "$expected_digest" ]; then
+-			fail=1
+ 			tst_res TFAIL "incorrect digest was found for the ($keyring) keyring"
+-			break
++			return
+ 		fi
+ 	done
+ 
+-	if [ "$fail" ]; then
+-		tst_res TPASS "specified keyrings were measured correctly"
+-	fi
++	tst_res TPASS "specified keyrings were measured correctly"
+ }
+ 
+ tst_run
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
