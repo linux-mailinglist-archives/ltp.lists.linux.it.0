@@ -1,51 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6457223953
-	for <lists+linux-ltp@lfdr.de>; Fri, 17 Jul 2020 12:33:13 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 47276223980
+	for <lists+linux-ltp@lfdr.de>; Fri, 17 Jul 2020 12:37:58 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 567553C2911
-	for <lists+linux-ltp@lfdr.de>; Fri, 17 Jul 2020 12:33:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0B3A73C2911
+	for <lists+linux-ltp@lfdr.de>; Fri, 17 Jul 2020 12:37:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id B0A813C2687
- for <ltp@lists.linux.it>; Fri, 17 Jul 2020 12:33:11 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 72F6020149E
- for <ltp@lists.linux.it>; Fri, 17 Jul 2020 12:33:09 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.75,362,1589212800"; d="scan'208";a="96468539"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 17 Jul 2020 18:33:06 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 71B084CE2808;
- Fri, 17 Jul 2020 18:33:00 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Fri, 17 Jul 2020 18:33:02 +0800
-To: Petr Vorel <pvorel@suse.cz>
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id B8E503C2687
+ for <ltp@lists.linux.it>; Fri, 17 Jul 2020 12:37:56 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 511141A01A5E
+ for <ltp@lists.linux.it>; Fri, 17 Jul 2020 12:37:56 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 051F0B1B3;
+ Fri, 17 Jul 2020 10:38:00 +0000 (UTC)
+Date: Fri, 17 Jul 2020 12:38:16 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20200717103816.GA28835@yuki.lan>
 References: <1594959191-25155-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
  <20200717073842.GA31254@dell5510> <20200717080840.GB32407@dell5510>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <1eac1ed9-66dd-5141-0bc2-cc05312704c8@cn.fujitsu.com>
-Date: Fri, 17 Jul 2020 18:32:58 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
+ <1eac1ed9-66dd-5141-0bc2-cc05312704c8@cn.fujitsu.com>
 MIME-Version: 1.0
-In-Reply-To: <20200717080840.GB32407@dell5510>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 71B084CE2808.AE666
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <1eac1ed9-66dd-5141-0bc2-cc05312704c8@cn.fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] lapi/io_uring.h: Add declaration of __kernel_rwf_t
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -58,58 +48,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vikas Kumar <vikas.kumar2@arm.com>, ltp@lists.linux.it
+Cc: ltp@lists.linux.it, Vikas Kumar <vikas.kumar2@arm.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Petr
-
-
->>> Since kernel commit ddef7ed2b5cb ("annotate RWF_... flags"), fs.h introduced
->>>   __kernel_rwf_t data type in 4.14-rc1.
->>>
->>> Fix build error on old kernel.
+Hi!
+> how about the follwing change
 > 
->> Reviewed-by: Petr Vorel <pvorel@suse.cz>
->> Thanks for the fix.
->> Going to merge it, just wait for travis verification.
-> BTW the regression was caused by my changes to the lapi header in 95399bc87
-> ("lapi/io_uring: Preparation for io_uring tests") - I updated the header.
+> +#ifdef __CHECKER__
+> +#define __bitwise__ __attribute__((bitwise))
+> +#else
+> +#define __bitwise__
+> +#endif
+> +#define __bitwise __bitwise__
+> +
+> +#ifndef __kernel_rwf_t
+> +typedef int __bitwise __kernel_rwf_t;
+> +#endif
 > 
-> We might consider not including <linux/types.h>, it's needed just for
-> __kernel_rwf_t. I'm against these optimisations (as the definition can change),
-> but I remember Jan asked me to avoid including kernel header just for single use
-> [1], but maybe this is a different case.
-I still remember the similar case when clean up quotactl code(commit 
-c4bf6f66 lapi/quotactl.h: Use libc headers instead kernel uapi) last year.
+> Also, I think we should replace _u32 with uint32 in lapi/loop.h if we 
+> don't want to include linux kernel header for single use.
 
-how about the follwing change
+The whole __bitwise is used only by a sparse checker, there is no point
+to include it in LTP. So we can just typedef the __kernel_rwf_t to int.
 
-+#ifdef __CHECKER__
-+#define __bitwise__ __attribute__((bitwise))
-+#else
-+#define __bitwise__
-+#endif
-+#define __bitwise __bitwise__
-+
-+#ifndef __kernel_rwf_t
-+typedef int __bitwise __kernel_rwf_t;
-+#endif
-
-Also, I think we should replace _u32 with uint32 in lapi/loop.h if we 
-don't want to include linux kernel header for single use.
-
-> 
-> Kind regards,
-> Petr
-> 
-> [1] https://patchwork.ozlabs.org/project/ltp/patch/20191016211501.3777-1-petr.vorel@gmail.com/#2281586
-> 
-> 
-
-
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
