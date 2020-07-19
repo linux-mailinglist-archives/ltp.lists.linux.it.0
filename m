@@ -1,48 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA2C122457A
-	for <lists+linux-ltp@lfdr.de>; Fri, 17 Jul 2020 22:57:35 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D5BA224EC5
+	for <lists+linux-ltp@lfdr.de>; Sun, 19 Jul 2020 04:52:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8B6BB3C4E94
-	for <lists+linux-ltp@lfdr.de>; Fri, 17 Jul 2020 22:57:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E4B3F3C2A08
+	for <lists+linux-ltp@lfdr.de>; Sun, 19 Jul 2020 04:52:19 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 410B53C13D8
- for <ltp@lists.linux.it>; Fri, 17 Jul 2020 22:57:32 +0200 (CEST)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id F23C21000A5F
- for <ltp@lists.linux.it>; Fri, 17 Jul 2020 22:57:30 +0200 (CEST)
-Received: from localhost.localdomain (c-73-187-218-229.hsd1.pa.comcast.net
- [73.187.218.229])
- by linux.microsoft.com (Postfix) with ESMTPSA id 1D91620B4909;
- Fri, 17 Jul 2020 13:57:28 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 1D91620B4909
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1595019448;
- bh=YilxP5vOtbx5gBob2b5+iU4I/Tge45zELskxmu3VXuw=;
- h=From:To:Cc:Subject:Date:From;
- b=YmMwfnInRdOI2B9p9reL+wxfioCroIR0ylqrQY+8Nn/1GgQRphcJ2sai1SjB1SG9b
- nmLowUWIaZv8TO3p7LRO8SMIMVSfjUFf6IV9VUedAPeX1taQ9Mx+Wr/BtN32MFWR9/
- f0KUTmeHhF0UJ31A4vzod8vFZvaINzW9ZDRQ/tGk=
-From: Lachlan Sneff <t-josne@linux.microsoft.com>
-To: zohar@linux.ibm.com,
-	pvorel@suse.cz,
-	ltp@lists.linux.it
-Date: Fri, 17 Jul 2020 16:57:21 -0400
-Message-Id: <20200717205721.18173-1-t-josne@linux.microsoft.com>
-X-Mailer: git-send-email 2.25.1
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id A5BA23C13D8
+ for <ltp@lists.linux.it>; Sun, 19 Jul 2020 04:52:18 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 4A0471400E06
+ for <ltp@lists.linux.it>; Sun, 19 Jul 2020 04:52:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1595127135;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=mY7MqNdT6DFIjkq+8JZdYkSTqDwHaZlk7zFAeupzuXY=;
+ b=Jx77PJi682ZZ4ykcphQjzkfBrs2a37kZA4yLibe6Y/ZSn5F2N8AA/zkmzH/TPS5CAX84Dx
+ X7n9N+cm7vIVlA0b9idgkXqYFFvQz6hI6aUTw3mfhx4w1mJzMko6bGqRI+zZA7Bj1Y5it1
+ L1yxxeYx1x3Kze5kyvVyXpaHLolXVMk=
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-274-jrKrjv5HNgiPzGtHNGtR4g-1; Sat, 18 Jul 2020 22:52:11 -0400
+X-MC-Unique: jrKrjv5HNgiPzGtHNGtR4g-1
+Received: by mail-lf1-f72.google.com with SMTP id o65so6559236lff.19
+ for <ltp@lists.linux.it>; Sat, 18 Jul 2020 19:52:10 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=mY7MqNdT6DFIjkq+8JZdYkSTqDwHaZlk7zFAeupzuXY=;
+ b=FgmBhWgqvR2h0D3U5yVhEchbNnXvud/zdO28qCLranFhcFzdXSwsxKXQTeEQRpusF6
+ gOJvcpHo7jGv+6MqzmMVRkFAfahUMMPqbETSMNhJ/2ME9MaVxeRrv5YPaJwaC8P5agnx
+ p0ZHLT3J8BjE62SHvnuIOyrg0ngB+SmPHgu4ManPEAqfTkPos1NCfgq97S2Br8urjvpe
+ GbvWEeWHTKb3nQPGSyt60XjaW7luseZ9fljiJMFLheE5IdDxTJQcMqeDQluaiDe7O99y
+ 19u+MWesBT7RYg+7lnuo5Nu4yMX+3VEm6MEl/VvHZ+WdC7m5Sn5lCsTYVqqLZsRQ6b6M
+ U+hg==
+X-Gm-Message-State: AOAM531iT7dRKCtmxqbYWk1NZ5crnF75q2Xmu4E0Fmvl6xr9AJ6YKXmh
+ fb4+38DNmuBDfHGRXUMBGQssmoc72Y4004M+b+yCXXfYrrUkKUvSNzugiI4OCPAB45O/kcJp6KZ
+ hDRIKrsiiKLf4FDWG1lNBtMx4DAg=
+X-Received: by 2002:a05:6512:3047:: with SMTP id
+ b7mr7843570lfb.110.1595127129154; 
+ Sat, 18 Jul 2020 19:52:09 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxybQ5DqevRWNn9XFeBJG6yPs2JmlPXbNfv1ykbZc8VkaxgQRP8vyDeEY0lp1VpE62SEsCuA+evzTTRRwTBwek=
+X-Received: by 2002:a05:6512:3047:: with SMTP id
+ b7mr7843563lfb.110.1595127128905; 
+ Sat, 18 Jul 2020 19:52:08 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+References: <20200717163453.9587-1-chrubis@suse.cz>
+ <20200717163453.9587-2-chrubis@suse.cz>
+In-Reply-To: <20200717163453.9587-2-chrubis@suse.cz>
+From: Li Wang <liwang@redhat.com>
+Date: Sun, 19 Jul 2020 10:51:57 +0800
+Message-ID: <CAEemH2fj27_UtgapsRTisv6CcNzChdNuUHFDuG_YE3Tm7tQv7Q@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_PASS,SPF_PASS,
- USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH] IMA: Add a test to verify importing a certificate
- into custom keyring
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/9] syscalls/ipc: shmctl02: Convert to the new
+ library
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,286 +81,189 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: nramas@linux.microsoft.com, linux-integrity@vger.kernel.org,
- balajib@linux.microsoft.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0024210768=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-A test for verifying importing an x509 certificate into a keyring and
-validating the key measurement performed by IMA is needed.
+--===============0024210768==
+Content-Type: multipart/alternative; boundary="000000000000e3f6b105aac279b2"
 
-Add an IMA measurement test that verifies that an x509 certificate
-can be imported into a custom keyring and measured correctly.
+--000000000000e3f6b105aac279b2
+Content-Type: text/plain; charset="UTF-8"
 
-A certificate used by the test is included in the `datafiles/keys` directory.
+Hi Cyril,
 
-Using a custom keyring for the test is preferred over using a pre-existing/built-in keyring,
-such as `.ima`, since there may be restrictions to importing any cert into a built-in keyring.
-For example, the `.ima` keyring requires that the imported certs be signed by a kernel private
-key in certain kernel configurations.
+This patch looks quite good except for some typos.
+(Test get passed on both RHEL8(x86_64) and RHEL7(ppc64))
 
-Signed-off-by: Lachlan Sneff <t-josne@linux.microsoft.com>
----
- .../kernel/security/integrity/ima/README.md   |  20 +++-----
- .../security/integrity/ima/datafiles/Makefile |  11 ++---
- .../integrity/ima/datafiles/keys/Makefile     |  31 ++++++++++++
- .../integrity/ima/datafiles/keys/x509.der     | Bin 0 -> 784 bytes
- .../integrity/ima/datafiles/policy/Makefile   |  31 ++++++++++++
- .../datafiles/{ => policy}/keycheck.policy    |   0
- .../ima/datafiles/{ => policy}/measure.policy |   0
- .../{ => policy}/measure.policy-invalid       |   0
- .../security/integrity/ima/tests/ima_keys.sh  |  45 +++++++++++++++++-
- 9 files changed, 117 insertions(+), 21 deletions(-)
- create mode 100644 testcases/kernel/security/integrity/ima/datafiles/keys/Makefile
- create mode 100644 testcases/kernel/security/integrity/ima/datafiles/keys/x509.der
- create mode 100644 testcases/kernel/security/integrity/ima/datafiles/policy/Makefile
- rename testcases/kernel/security/integrity/ima/datafiles/{ => policy}/keycheck.policy (100%)
- rename testcases/kernel/security/integrity/ima/datafiles/{ => policy}/measure.policy (100%)
- rename testcases/kernel/security/integrity/ima/datafiles/{ => policy}/measure.policy-invalid (100%)
+On Sat, Jul 18, 2020 at 12:34 AM Cyril Hrubis <chrubis@suse.cz> wrote:
 
-diff --git a/testcases/kernel/security/integrity/ima/README.md b/testcases/kernel/security/integrity/ima/README.md
-index 732cd912f..db8819a99 100644
---- a/testcases/kernel/security/integrity/ima/README.md
-+++ b/testcases/kernel/security/integrity/ima/README.md
-@@ -16,25 +16,19 @@ space, may contain equivalent measurement tcb rules, detecting them would
- require `IMA_READ_POLICY=y` therefore ignore this option.
- 
- ### IMA key import test
--`ima_keys.sh` requires a x509 public key, by default in `/etc/keys/x509_ima.der`
--(defined in `CONFIG_IMA_X509_PATH` kernel config option).
--The key must be signed by the private key you generate. Follow these instructions:
--https://manpages.ubuntu.com/manpages/disco/man1/evmctl.1.html#generate%20trusted%20keys
- 
--The test cannot be set-up automatically because the x509 public key must be
--built into the kernel and loaded onto a trusted keyring
--(e.g. `.builtin_trusted_keys`, `.secondary_trusted_keyring`).
--
--As well as what's required for the IMA tests, the following are also required
-+As well as what's required for the IMA tests, the following is also required
- in the kernel configuration:
- ```
- CONFIG_IMA_READ_POLICY=y
--CONFIG_IMA_X509_PATH="/etc/keys/x509_ima.der"
--CONFIG_SYSTEM_TRUSTED_KEYRING=y
--CONFIG_SYSTEM_TRUSTED_KEYS="/etc/keys/ima-local-ca.pem"
- ```
- 
--Test also requires loaded policy with `func=KEY_CHECK`, see example in `keycheck.policy`.
-+You must also add the following line to /etc/ima/ima-policy and reboot.
-+```
-+measure func=KEY_CHECK keyrings=key_import_test template=ima-buf
-+```
-+
-+The test also requires loaded policy with `func=KEY_CHECK`, see example in `keycheck.policy`.
- 
- ## EVM tests
- 
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/Makefile b/testcases/kernel/security/integrity/ima/datafiles/Makefile
-index a960f9d84..5261b9321 100644
---- a/testcases/kernel/security/integrity/ima/datafiles/Makefile
-+++ b/testcases/kernel/security/integrity/ima/datafiles/Makefile
-@@ -1,5 +1,5 @@
- #
--#    testcases/kernel/security/integrity/ima/policy testcases Makefile.
-+#    kernel/security/integrity/ima testcase Makefile.
- #
- #    Copyright (C) 2009, Cisco Systems Inc.
- #
-@@ -18,14 +18,13 @@
- #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- #
- # Ngie Cooper, July 2009
-+# Lachlan Sneff, July 2020
- #
- 
- top_srcdir		?= ../../../../../..
- 
--include	$(top_srcdir)/include/mk/env_pre.mk
-+include $(top_srcdir)/include/mk/env_pre.mk
- 
--INSTALL_DIR		:= testcases/data/ima_policy
-+SUBDIRS			:= policy keys
- 
--INSTALL_TARGETS		:= measure*
--
--include $(top_srcdir)/include/mk/generic_leaf_target.mk
-+include $(top_srcdir)/include/mk/generic_trunk_target.mk
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/keys/Makefile b/testcases/kernel/security/integrity/ima/datafiles/keys/Makefile
-new file mode 100644
-index 000000000..3e381089c
---- /dev/null
-+++ b/testcases/kernel/security/integrity/ima/datafiles/keys/Makefile
-@@ -0,0 +1,31 @@
-+#
-+#    testcases/kernel/security/integrity/ima/policy testcases Makefile.
-+#
-+#    Copyright (C) 2009, Cisco Systems Inc.
-+#
-+#    This program is free software; you can redistribute it and/or modify
-+#    it under the terms of the GNU General Public License as published by
-+#    the Free Software Foundation; either version 2 of the License, or
-+#    (at your option) any later version.
-+#
-+#    This program is distributed in the hope that it will be useful,
-+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+#    GNU General Public License for more details.
-+#
-+#    You should have received a copy of the GNU General Public License along
-+#    with this program; if not, write to the Free Software Foundation, Inc.,
-+#    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-+#
-+# Lachlan Sneff, July 2020
-+#
-+
-+top_srcdir		?= ../../../../../../..
-+
-+include	$(top_srcdir)/include/mk/env_pre.mk
-+
-+INSTALL_DIR		:= testcases/data/ima_keys
-+
-+INSTALL_TARGETS		:= x509.der
-+
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/keys/x509.der b/testcases/kernel/security/integrity/ima/datafiles/keys/x509.der
-new file mode 100644
-index 0000000000000000000000000000000000000000..538611c7244eac17377031038a97bf5d02c53d3f
-GIT binary patch
-literal 784
-zcmXqLV&*YuV*IjznTe5!Nkm*%!l+fPYOa%w{pGeOu7W)g|5Ocl**LY@JlekVGBR?r
-zG8lv!@&kpKLs__Z*gSn5b)6jzH4M~10?a(}KmmQ%Fkgk_)S{Biw9Mqhl2nD_%=Em>
-zymW=^)Jj7M12MR1oQz_e$%zh`xrw^Ti3W1wyha8Frbd>ArbZS<mQg^iArjXhz);YD
-zA7U*>Mt*TgUSe*lp|pV{#A2cHjQqshOccB13}le);)f`4fN3^poR91^Mpg#q#$E=4
-z#!jZjMuvqS<2&d4={o*uW**0h|9T%Tw9S&_xXFEO!9t#YW*25;x2$<5W-0eWw?OBy
-z^v@jizdt`D%q<d|ReAl{bE_$0%^l11#6PRp?#-6J7PfX<qx=M^6KT?qw?*WN1?*@I
-z%Cqp^b9sffLXO?miT~#3|NU~~-j<6EKTciX{lAO7bFKR(@pL9;Mh3>ku?EowJU|c1
-z3NtePXJIm6FyIF9_*qz(nb;c)WI-H07BLo)gzIHKKP^@H&nbIpE!y9-E`Uo=(m)<0
-zt;_-p@&=LZk_VQ~bi1@pYvM`%j}JQk-GBc`6502_h-GeKWMs(U%{uxsJ8V$|&s^U*
-zuT)C?`L3+KeqYmBdG>)zfpWi7n6jqq>YI1K{O3*;XK_o1>WKamk9bck{$vuzdw37y
-zvA`0c_d5A+eCHjLThIIJa@MIAVc(m-U;nXmbAi*F0<FyFA#2;;#Isxf2xngNvA$<=
-z$CMi7RW8Ag|Jk3|uI6~;sc!ZA<5Qn=%P&bzdui}MisQ9MYhlhY|F7HrKV4$gX6yNt
-zC8pkE<;LwsPD}g`oc<&~`(D3i*QEZk`);XW=B4u<{+H1Ux#t$eaj2M|C+nQUOz~ec
-zU5)v!tl*ZMaObGw{B>uG+jphhdu=ZLZTh9(PmEsIm`5}$d$_dpOSj%iU{I%d0|3@i
-BE~)?k
+> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+>
 
-literal 0
-HcmV?d00001
+Reviewed-by: Li Wang <liwang@redhat.com>
 
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/policy/Makefile b/testcases/kernel/security/integrity/ima/datafiles/policy/Makefile
-new file mode 100644
-index 000000000..692bf61ab
---- /dev/null
-+++ b/testcases/kernel/security/integrity/ima/datafiles/policy/Makefile
-@@ -0,0 +1,31 @@
-+#
-+#    testcases/kernel/security/integrity/ima/policy testcases Makefile.
-+#
-+#    Copyright (C) 2009, Cisco Systems Inc.
-+#
-+#    This program is free software; you can redistribute it and/or modify
-+#    it under the terms of the GNU General Public License as published by
-+#    the Free Software Foundation; either version 2 of the License, or
-+#    (at your option) any later version.
-+#
-+#    This program is distributed in the hope that it will be useful,
-+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+#    GNU General Public License for more details.
-+#
-+#    You should have received a copy of the GNU General Public License along
-+#    with this program; if not, write to the Free Software Foundation, Inc.,
-+#    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-+#
-+# Ngie Cooper, July 2009
-+#
-+
-+top_srcdir		?= ../../../../../../..
-+
-+include	$(top_srcdir)/include/mk/env_pre.mk
-+
-+INSTALL_DIR		:= testcases/data/ima_policy
-+
-+INSTALL_TARGETS		:= measure*
-+
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/keycheck.policy b/testcases/kernel/security/integrity/ima/datafiles/policy/keycheck.policy
-similarity index 100%
-rename from testcases/kernel/security/integrity/ima/datafiles/keycheck.policy
-rename to testcases/kernel/security/integrity/ima/datafiles/policy/keycheck.policy
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/measure.policy b/testcases/kernel/security/integrity/ima/datafiles/policy/measure.policy
-similarity index 100%
-rename from testcases/kernel/security/integrity/ima/datafiles/measure.policy
-rename to testcases/kernel/security/integrity/ima/datafiles/policy/measure.policy
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/measure.policy-invalid b/testcases/kernel/security/integrity/ima/datafiles/policy/measure.policy-invalid
-similarity index 100%
-rename from testcases/kernel/security/integrity/ima/datafiles/measure.policy-invalid
-rename to testcases/kernel/security/integrity/ima/datafiles/policy/measure.policy-invalid
-diff --git a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-index 904b7515b..101d2ea92 100755
---- a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-+++ b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-@@ -5,8 +5,8 @@
- #
- # Verify that keys are measured correctly based on policy.
- 
--TST_NEEDS_CMDS="grep mktemp cut sed tr"
--TST_CNT=1
-+TST_NEEDS_CMDS="grep mktemp cut sed tr xxd keyctl evmctl openssl cmp"
-+TST_CNT=2
- TST_NEEDS_DEVICE=1
- 
- . ima_setup.sh
-@@ -65,4 +65,45 @@ test1()
- 	tst_res TPASS "specified keyrings were measured correctly"
- }
- 
-+# Create a custom keyring and import a certficate to that
-+test2() {
-+	local custom_keyring_id temp_file="file.txt" \
-+		cert_file="$TST_DATAROOT/x509.der"
-+
-+	tst_res TINFO "checking for correct IMA policy"
-+
-+	[ -f $IMA_POLICY ] || tst_brk TCONF "missing $IMA_POLICY"
-+
-+	[ -r $IMA_POLICY ] || tst_brk TCONF "cannot read IMA policy (CONFIG_IMA_READ_POLICY=y required)"
-+
-+	if ! grep "measure func=KEY_CHECK.*keyrings=.*key_import_test" $IMA_POLICY > /dev/null; then
-+		tst_brk TCONF "the IMA policy does not include the key_import_test keyring. See the LTP IMA README."
-+	fi
-+
-+	tst_res TINFO "creating a custom keyring (key_import_test keyring)"
-+
-+	custom_keyring_id=$(keyctl newring key_import_test @s) || \
-+		tst_brk TCONF "unable to create a new keyring"
-+
-+	tst_is_num "$custom_keyring_id" || \
-+		tst_brk TCONF "unable to parse custom keyring id"
-+
-+	evmctl import $cert_file "$custom_keyring_id" > /dev/null || \
-+		tst_brk TCONF "unable to import a cert into the key_import_test keyring"
-+
-+	grep "key_import_test" "$ASCII_MEASUREMENTS" | tail -n1 | cut -d' ' -f6 | \
-+		xxd -r -p > $temp_file || \
-+		tst_brk TCONF "keyring not found in $ASCII_MEASUREMENTS"
-+
-+	if ! openssl x509 -in $temp_file -inform der > /dev/null; then
-+		tst_brk TCONF "the cert logged in $ASCII_MEASUREMENTS is not a valid x509 certificate"
-+	fi
-+
-+	if cmp -s $temp_file $cert_file; then
-+		tst_res TPASS "logged cert matches original cert"
-+	else
-+		tst_res TFAIL "logged cert does not match original cert"
-+	fi
-+}
-+
- tst_run
+
+> ---
+>  testcases/kernel/syscalls/ipc/shmctl/Makefile |   4 +-
+>  .../kernel/syscalls/ipc/shmctl/shmctl02.c     | 263 ++++++------------
+>  2 files changed, 89 insertions(+), 178 deletions(-)
+>
+> diff --git a/testcases/kernel/syscalls/ipc/shmctl/Makefile
+> b/testcases/kernel/syscalls/ipc/shmctl/Makefile
+> index 0172bb495..bc5bd7c2e 100644
+> --- a/testcases/kernel/syscalls/ipc/shmctl/Makefile
+> +++ b/testcases/kernel/syscalls/ipc/shmctl/Makefile
+> @@ -10,7 +10,7 @@ shmctl05: LDLIBS += -lrt
+>
+>  include $(top_srcdir)/include/mk/testcases.mk
+>
+> -shmctl01 shmctl02 shmctl03 shmctl04 shmctl05: LDLIBS += -lltpipc
+> -shmctl06: LDLIBS += -lltpnewipc
+> +shmctl01 shmctl03 shmctl04 shmctl05: LDLIBS += -lltpipc
+> +shmctl02 shmctl06: LDLIBS += -lltpnewipc
+>
+> ...
+> + * * EFAULT - IPC_SET & buf isn't valid
+> + * * EFAULT - IPC_STAT & buf isn't valid
+> + * * EINVAL - the command is not valid
+> + * * EINVAL - the shmid is not valid
+> + * * EINVAL - the shmid belongs to removed shm
+>   *
+> - * RESTRICTIONS
+> - *     none
+> + * * EPERM - attempt to stat root owned shm
+>
+
+^ EACCES
+
+> + * * EPERM - attempt delete root owned shm
+> + * * EPERM - attempt to change root owned shm
+> + * * EPERM - attempt to lock root owned shm
+> + * * EPERM - attempt to unlock root owned shm
+>   */
+>
+> ...
+>
+> -       cleanup();
+> +       if (TST_ERR == tc[i].error) {
+> +               tst_res(TPASS | TTERRNO, "msgctl(%i, %i, %p)",
+>
+
+Here should be shmctl() but not msgctl().
+
+
+> +                       *tc[i].shm_id, tc[i].cmd, tc[i].buf);
+> +               return;
+> +       }
+>
+> -       tst_exit();
+> +       tst_res(TFAIL | TTERRNO, "msgctl(%i, %i, %p) expected %s",
+>
+
+msgctl -- > shmctl().
+
 -- 
-2.25.1
+Regards,
+Li Wang
+
+--000000000000e3f6b105aac279b2
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi Cyril,</div><div class=3D"gmail_default" style=3D"font-siz=
+e:small"><br></div><div class=3D"gmail_default" style=3D"font-size:small">T=
+his patch looks quite good except for some typos.</div><div class=3D"gmail_=
+default" style=3D"font-size:small">(Test get passed on both RHEL8(x86_64) a=
+nd RHEL7(ppc64))</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr"=
+ class=3D"gmail_attr">On Sat, Jul 18, 2020 at 12:34 AM Cyril Hrubis &lt;<a =
+href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><bl=
+ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
+t:1px solid rgb(204,204,204);padding-left:1ex">Signed-off-by: Cyril Hrubis =
+&lt;<a href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a=
+>&gt;<br></blockquote><div>=C2=A0</div><div><span class=3D"gmail_default" s=
+tyle=3D"font-size:small">Reviewed-by: Li Wang &lt;<a href=3D"mailto:liwang@=
+redhat.com">liwang@redhat.com</a>&gt;</span></div><div><span class=3D"gmail=
+_default" style=3D"font-size:small"></span>=C2=A0</div><blockquote class=3D=
+"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(2=
+04,204,204);padding-left:1ex">
+---<br>
+=C2=A0testcases/kernel/syscalls/ipc/shmctl/Makefile |=C2=A0 =C2=A04 +-<br>
+=C2=A0.../kernel/syscalls/ipc/shmctl/shmctl02.c=C2=A0 =C2=A0 =C2=A0| 263 ++=
+++++------------<br>
+=C2=A02 files changed, 89 insertions(+), 178 deletions(-)<br>
+<br>
+diff --git a/testcases/kernel/syscalls/ipc/shmctl/Makefile b/testcases/kern=
+el/syscalls/ipc/shmctl/Makefile<br>
+index 0172bb495..bc5bd7c2e 100644<br>
+--- a/testcases/kernel/syscalls/ipc/shmctl/Makefile<br>
++++ b/testcases/kernel/syscalls/ipc/shmctl/Makefile<br>
+@@ -10,7 +10,7 @@ shmctl05: LDLIBS +=3D -lrt<br>
+<br>
+=C2=A0include $(top_srcdir)/include/mk/<a href=3D"http://testcases.mk" rel=
+=3D"noreferrer" target=3D"_blank">testcases.mk</a><br>
+<br>
+-shmctl01 shmctl02 shmctl03 shmctl04 shmctl05: LDLIBS +=3D -lltpipc<br>
+-shmctl06: LDLIBS +=3D -lltpnewipc<br>
++shmctl01 shmctl03 shmctl04 shmctl05: LDLIBS +=3D -lltpipc<br>
++shmctl02 shmctl06: LDLIBS +=3D -lltpnewipc<br>
+<br>
+<span class=3D"gmail_default" style=3D"font-size:small">...</span><br>
++ * * EFAULT - IPC_SET &amp; buf isn&#39;t valid<br>
++ * * EFAULT - IPC_STAT &amp; buf isn&#39;t valid<br>
++ * * EINVAL - the command is not valid<br>
++ * * EINVAL - the shmid is not valid<br>
++ * * EINVAL - the shmid belongs to removed shm<br>
+=C2=A0 *<br>
+- * RESTRICTIONS<br>
+- *=C2=A0 =C2=A0 =C2=A0none<br>
++ * * EPERM - attempt to stat root owned shm<br></blockquote><div><br></div=
+><div class=3D"gmail_default" style=3D"font-size:small">^=C2=A0<span class=
+=3D"gmail_default"></span>EACCES</div><div class=3D"gmail_default" style=3D=
+"font-size:small"></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
++ * * EPERM - attempt delete root owned shm<br>
++ * * EPERM - attempt to change root owned shm<br>
++ * * EPERM - attempt to lock root owned shm<br>
++ * * EPERM - attempt to unlock root owned shm<br>
+=C2=A0 */<br>
+<br>
+<span class=3D"gmail_default" style=3D"font-size:small">...</span><br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0cleanup();<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (TST_ERR =3D=3D tc[i].error) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TPASS | TTE=
+RRNO, &quot;msgctl(%i, %i, %p)&quot;,<br></blockquote><div><br></div><div><=
+div class=3D"gmail_default" style=3D"font-size:small">Here should be shmctl=
+() but not msgctl().</div></div><div>=C2=A0</div><blockquote class=3D"gmail=
+_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204=
+,204);padding-left:1ex">
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0*tc[i].shm_id, tc[i].cmd, tc[i].buf);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_exit();<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TFAIL | TTERRNO, &quot;msgctl(%i, %i, %=
+p) expected %s&quot;,<br></blockquote><div><br></div><div><div class=3D"gma=
+il_default" style=3D"font-size:small">msgctl -- &gt; shmctl().</div></div><=
+/div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div =
+dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--000000000000e3f6b105aac279b2--
+
+
+--===============0024210768==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0024210768==--
+
