@@ -2,40 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B89D422623F
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 16:36:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 784AA2262A4
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 16:56:32 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6AC643C4E2E
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 16:36:27 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 283023C4E2F
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 16:56:32 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 364443C26E2
- for <ltp@lists.linux.it>; Mon, 20 Jul 2020 16:36:23 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 1D5E83C28CD
+ for <ltp@lists.linux.it>; Mon, 20 Jul 2020 16:56:27 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 55652601258
- for <ltp@lists.linux.it>; Mon, 20 Jul 2020 16:35:07 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0D9F9140184F
+ for <ltp@lists.linux.it>; Mon, 20 Jul 2020 16:56:26 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 72241B82E;
- Mon, 20 Jul 2020 14:36:28 +0000 (UTC)
-Date: Mon, 20 Jul 2020 16:36:20 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: "bfields@fieldses.org" <bfields@fieldses.org>
-Message-ID: <20200720143620.GD21201@dell5510>
-References: <20200720091449.19813-1-pvorel@suse.cz>
- <ffb5cd64d5d65b762bdc85b6044b7fdc526d27cb.camel@hammerspace.com>
- <20200720141255.GA25707@fieldses.org>
+ by mx2.suse.de (Postfix) with ESMTP id 8E5E9AF2C;
+ Mon, 20 Jul 2020 14:56:32 +0000 (UTC)
+Date: Mon, 20 Jul 2020 16:56:46 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20200720145646.GA20216@yuki.lan>
+References: <172872545.1186681.1594187187385.JavaMail.zimbra@redhat.com>
+ <1594188398-14148-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200720141255.GA25707@fieldses.org>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+In-Reply-To: <1594188398-14148-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH 1/1] Remove nfsv4
+X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] syscalls/ioctl09: Add test for BLKRRPART ioctl
+ syscalls/ioctl09: Add test for BLKRRPART ioctl
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,47 +48,218 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
- "chuck.lever@oracle.com" <chuck.lever@oracle.com>,
- Trond Myklebust <trondmy@hammerspace.com>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Bruce, Trond,
+Hi!
+> Fixes #699
 
-> On Mon, Jul 20, 2020 at 01:32:09PM +0000, Trond Myklebust wrote:
-> > On Mon, 2020-07-20 at 11:14 +0200, Petr Vorel wrote:
-> > > Reasons to drop:
-> > > * outdated tests (from 2005)
-> > > * not used (NFS kernel maintainers use pynfs [1])
-> > > * written in Python (we support C and shell, see [2])
+Looks good a couple of minor comments below.
 
-> > > [1] http://git.linux-nfs.org/?p=bfields/pynfs.git;a=summary
-> > > [2] https://github.com/linux-test-project/ltp/issues/547
+> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+> Acked-by: Jan Stancek <jstancek@redhat.com>
+> ---
+> v1->v2:
+> code style fix(below 80 characters)
+>  runtest/syscalls                           |   1 +
+>  testcases/kernel/syscalls/ioctl/.gitignore |   1 +
+>  testcases/kernel/syscalls/ioctl/ioctl09.c  | 126 +++++++++++++++++++++
+>  3 files changed, 128 insertions(+)
+>  create mode 100644 testcases/kernel/syscalls/ioctl/ioctl09.c
+> 
+> diff --git a/runtest/syscalls b/runtest/syscalls
+> index 5b3a0862f..aaa81e4ee 100644
+> --- a/runtest/syscalls
+> +++ b/runtest/syscalls
+> @@ -529,6 +529,7 @@ ioctl05      ioctl05
+>  ioctl06      ioctl06
+>  ioctl07      ioctl07
+>  ioctl08      ioctl08
+> +ioctl09      ioctl09
+>  
+>  ioctl_loop01 ioctl_loop01
+>  ioctl_loop02 ioctl_loop02
+> diff --git a/testcases/kernel/syscalls/ioctl/.gitignore b/testcases/kernel/syscalls/ioctl/.gitignore
+> index 3a3d49adc..5fff7a61d 100644
+> --- a/testcases/kernel/syscalls/ioctl/.gitignore
+> +++ b/testcases/kernel/syscalls/ioctl/.gitignore
+> @@ -6,6 +6,7 @@
+>  /ioctl06
+>  /ioctl07
+>  /ioctl08
+> +/ioctl09
+>  /ioctl_loop01
+>  /ioctl_loop02
+>  /ioctl_loop03
+> diff --git a/testcases/kernel/syscalls/ioctl/ioctl09.c b/testcases/kernel/syscalls/ioctl/ioctl09.c
+> new file mode 100644
+> index 000000000..b39ef9874
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/ioctl/ioctl09.c
+> @@ -0,0 +1,126 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
+> + * Author: Yang Xu <xuyang2018.jy@cn.jujitsu.com>
+> + *
+> + * Basic test for the BLKRRPART ioctl, it is the same as blockdev
+> + * --rereadpt command.
+> + */
+> +
+> +#include <stdio.h>
+> +#include <unistd.h>
+> +#include <string.h>
+> +#include <sys/mount.h>
+> +#include <stdbool.h>
+> +#include "lapi/loop.h"
+> +#include "tst_test.h"
+> +
+> +static char dev_path[1024];
+> +static int dev_num, attach_flag, dev_fd;
+> +static char loop_partpath[1026], sys_loop_partpath[1026];
+> +
+> +static void change_partition(const char *const cmd[])
+> +{
+> +	int ret;
+> +
+> +	ret = tst_cmd(cmd, NULL, NULL, TST_CMD_PASS_RETVAL);
+> +	switch (ret) {
+> +	case 0:
+> +	break;
+> +	case 255:
+> +		tst_res(TCONF, "parted binary not installed or failed");
+> +	break;
 
+We do have .needs_cmds in the test structure so we don't have to handle
+255 here, the test will not start if parted is not installed.
 
-> > Unlike pynfs, these tests run on a real NFS client, and were designed
-> > to test client implementations, as well as the servers.
+> +	default:
+> +		tst_res(TCONF, "parted exited with %i", ret);
 
-> > So if they get dropped from ltp, then we will have to figure out some
-> > other way of continuing to maintain them.
+Shouldn't this be TBROK?
 
-> Just for fun, I grepped through old mail to see if I could find any
-> cases of these tests being used.  I found one, in which Chuck reports an
-> nfslock01 failure.  Looks like it did find a real bug, which we fixed:
+Or at least tst_brk() because we will proceed with the test as it is and
+possibly fail the test since parted haven't modified the binary. Or does
+parted return non-zero when it succeeds?
 
-> 	https://lore.kernel.org/r/8DF85CB6-5FEB-4A25-9715-C9808F37A4B1@oracle.com
-> 	https://lore.kernel.org/r/20160807185024.11705.10864.stgit@klimt.1015granger.net
+Generally if we are going to handle only one failure case we can write it as:
 
-Thanks for your explanation, this obviously justify these tests in LTP, unless
-you want to move it to git.linux-nfs.org and maintain on your own.
+	ret = tst_cmd(...);
+	if (ret)
+		tst_brk(TBROK, "parted returned %i", ret);
 
-Kind regards,
-Petr
+> +	break;
+> +	}
+> +}
+> +
+> +static void check_partition(int part_num, bool value)
+> +{
+> +	int ret;
+> +
+> +	sprintf(sys_loop_partpath, "/sys/block/loop%d/loop%dp%d",
+> +		dev_num, dev_num, part_num);
+> +	sprintf(loop_partpath, "%sp%d", dev_path, part_num);
+> +
+> +	ret = access(sys_loop_partpath, F_OK);
+> +	if (ret == 0)
+> +		tst_res(value ? TPASS : TFAIL, "access %s succeeds",
+> +			sys_loop_partpath);
+> +	else
+> +		tst_res(value ? TFAIL : TPASS, "access %s fails",
+> +			sys_loop_partpath);
+> +
+> +	ret = access(loop_partpath, F_OK);
+> +	if (ret == 0)
+> +		tst_res(value ? TPASS : TFAIL, "access %s succeeds",
+> +			loop_partpath);
+> +	else
+> +		tst_res(value ? TFAIL : TPASS, "access %s fails",
+> +			loop_partpath);
+> +}
+> +
+> +static void verify_ioctl(void)
+> +{
+> +	const char *const cmd_parted_old[] = {"parted", "-s", "test.img",
+> +					      "mklabel", "msdos", "mkpart",
+> +					      "primary", "ext4", "1M", "10M",
+> +					      NULL};
+> +	const char *const cmd_parted_new[] = {"parted", "-s", "test.img",
+> +					      "mklabel", "msdos", "mkpart",
+> +					      "primary", "ext4", "1M", "10M",
+> +					      "mkpart", "primary", "ext4",
+> +					      "10M", "20M", NULL};
+> +	struct loop_info loopinfo = {0};
+> +
+> +	dev_num = tst_find_free_loopdev(dev_path, sizeof(dev_path));
+> +	if (dev_num < 0)
+> +		tst_brk(TBROK, "Failed to find free loop device");
+
+Shouldn't we move the tst_find_free_loopdev() to the test setup?
+
+> +	tst_fill_file("test.img", 0, 1024 * 1024, 20);
+
+I wonder if the recently introduced tst_prealloc_file() would make the
+test a bit faster. Have you tried that?
+
+> +	change_partition(cmd_parted_old);
+> +
+> +	tst_attach_device(dev_path, "test.img");
+> +	attach_flag = 1;
+> +
+> +	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
+> +	loopinfo.lo_flags =  LO_FLAGS_PARTSCAN;
+> +	SAFE_IOCTL(dev_fd, LOOP_SET_STATUS, &loopinfo);
+> +	check_partition(1, true);
+> +	check_partition(2, false);
+> +
+> +	change_partition(cmd_parted_new);
+> +	TST_RETRY_FUNC(ioctl(dev_fd, BLKRRPART, 0), TST_RETVAL_EQ0);
+> +	check_partition(1, true);
+> +	check_partition(2, true);
+> +
+> +	SAFE_CLOSE(dev_fd);
+> +	tst_detach_device(dev_path);
+> +	attach_flag = 0;
+> +	unlink("test.img");
+> +}
+> +
+> +static void cleanup(void)
+> +{
+> +	if (dev_fd > 0)
+> +		SAFE_CLOSE(dev_fd);
+> +	if (attach_flag)
+> +		tst_detach_device(dev_path);
+> +}
+> +
+> +static struct tst_test test = {
+> +	.cleanup = cleanup,
+> +	.test_all = verify_ioctl,
+> +	.needs_root = 1,
+> +	.needs_drivers = (const char *const []) {
+> +		"loop",
+> +		NULL
+> +	},
+> +	.needs_cmds = (const char *const []) {
+> +		"parted",
+> +		NULL
+> +	},
+> +	.needs_tmpdir = 1,
+> +};
+> -- 
+> 2.23.0
+> 
+> 
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
