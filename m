@@ -2,50 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 427A02258A4
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 09:32:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A32782258B9
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 09:37:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E95FB3C4E18
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 09:32:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 538B03C2834
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 09:37:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id A9C2F3C62FA
- for <ltp@lists.linux.it>; Mon, 20 Jul 2020 09:31:49 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 36FDE3C12A0
+ for <ltp@lists.linux.it>; Mon, 20 Jul 2020 09:37:49 +0200 (CEST)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 04B191A00145
- for <ltp@lists.linux.it>; Mon, 20 Jul 2020 09:31:47 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.75,374,1589212800"; d="scan'208";a="96607032"
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id BEC78201445
+ for <ltp@lists.linux.it>; Mon, 20 Jul 2020 09:37:47 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.75,374,1589212800"; d="scan'208";a="96607394"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 20 Jul 2020 15:31:47 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 6B0CB4CE1505
- for <ltp@lists.linux.it>; Mon, 20 Jul 2020 15:31:41 +0800 (CST)
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 20 Jul 2020 15:31:43 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Mon, 20 Jul 2020 15:30:27 +0800
-Message-ID: <1595230227-21468-4-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1595230227-21468-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-References: <1595230227-21468-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ by heian.cn.fujitsu.com with ESMTP; 20 Jul 2020 15:37:45 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id 1183F4CE1505;
+ Mon, 20 Jul 2020 15:37:42 +0800 (CST)
+Received: from [10.167.220.69] (10.167.220.69) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Mon, 20 Jul 2020 15:37:44 +0800
+Message-ID: <5F1549C4.9030609@cn.fujitsu.com>
+Date: Mon, 20 Jul 2020 15:37:40 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
+To: Petr Vorel <pvorel@suse.cz>
+References: <20200710172044.21592-1-pvorel@suse.cz>
+ <20200710172044.21592-2-pvorel@suse.cz>
+In-Reply-To: <20200710172044.21592-2-pvorel@suse.cz>
+X-Originating-IP: [10.167.220.69]
 X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 6B0CB4CE1505.AAE05
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
+X-yoursite-MailScanner-ID: 1183F4CE1505.AA3D8
 X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 3/3] syscalls/msgrcv09: Add error test for MSG_COPY
- flag
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/7] tst_net.sh: Remove rsh support
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,184 +57,66 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The MSG_COPY flag was added in 3.8 for the implementation of the kernel
-checkpoint-restore facility and is available only if the kernel was
-built with the CONFIG_CHECKPOINT_RESTORE option.
+On 2020/7/11 1:20, Petr Vorel wrote:
+> rsh is not used nowadays. When was the first network library version
+> added in 18739ff06 (2014), it was a default + and ssh replacement was
+> optional. Netns based single machine testing was added in 5f8ca6cf0
+> (2016). After 6 years it's time to drop legacy rsh.
+>
+> ssh based testing setup requires only RHOST variable, TST_USE_SSH has
+> been removed as unneeded. Also check for ssh in tst_rhost_run().
+>
+> We still keep $LTP_RSH for some of the network stress tests, which has
+> not been ported to tst_net.sh yet.
+Hi Petr,
 
-On old kernel without this support, it only ignores this flag and doesn't
-report ENOSYS/EINVAL error, so I add kconfig and min_kver check.
+Acked-by: Xiao Yang <yangx.jy@cn.fujitsu.com>
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- include/lapi/msg.h                            | 15 +++
- runtest/syscalls                              |  1 +
- runtest/syscalls-ipc                          |  1 +
- .../kernel/syscalls/ipc/msgrcv/.gitignore     |  1 +
- .../kernel/syscalls/ipc/msgrcv/msgrcv09.c     | 93 +++++++++++++++++++
- 5 files changed, 111 insertions(+)
- create mode 100644 include/lapi/msg.h
- create mode 100644 testcases/kernel/syscalls/ipc/msgrcv/msgrcv09.c
-
-diff --git a/include/lapi/msg.h b/include/lapi/msg.h
-new file mode 100644
-index 000000000..d649f3318
---- /dev/null
-+++ b/include/lapi/msg.h
-@@ -0,0 +1,15 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
-+ * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-+ */
-+#ifndef LAPI_MSG_H
-+#define LAPI_MSG_H
-+
-+#include <sys/msg.h>
-+
-+#ifndef MSG_COPY
-+# define MSG_COPY  040000  /* copy (not remove) all queue messages */
-+#endif
-+
-+#endif
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 9d3808d66..9d927935b 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -815,6 +815,7 @@ msgrcv05 msgrcv05
- msgrcv06 msgrcv06
- msgrcv07 msgrcv07
- msgrcv08 msgrcv08
-+msgrcv09 msgrcv09
- 
- msgsnd01 msgsnd01
- msgsnd02 msgsnd02
-diff --git a/runtest/syscalls-ipc b/runtest/syscalls-ipc
-index 61743be01..153e827cf 100644
---- a/runtest/syscalls-ipc
-+++ b/runtest/syscalls-ipc
-@@ -19,6 +19,7 @@ msgrcv05 msgrcv05
- msgrcv06 msgrcv06
- msgrcv07 msgrcv07
- msgrcv08 msgrcv08
-+msgrcv09 msgrcv09
- 
- msgsnd01 msgsnd01
- msgsnd02 msgsnd02
-diff --git a/testcases/kernel/syscalls/ipc/msgrcv/.gitignore b/testcases/kernel/syscalls/ipc/msgrcv/.gitignore
-index 0596ee00f..359f8adfa 100644
---- a/testcases/kernel/syscalls/ipc/msgrcv/.gitignore
-+++ b/testcases/kernel/syscalls/ipc/msgrcv/.gitignore
-@@ -4,3 +4,4 @@
- /msgrcv06
- /msgrcv07
- /msgrcv08
-+/msgrcv09
-diff --git a/testcases/kernel/syscalls/ipc/msgrcv/msgrcv09.c b/testcases/kernel/syscalls/ipc/msgrcv/msgrcv09.c
-new file mode 100644
-index 000000000..99f9a851b
---- /dev/null
-+++ b/testcases/kernel/syscalls/ipc/msgrcv/msgrcv09.c
-@@ -0,0 +1,93 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
-+ * Author: Yang Xu <xuyang2018.jy@cn.jujitsu.com>
-+ *
-+ * This is a basic test about MSG_COPY flag.
-+ *
-+ * 1)msgrcv(2) fails and sets errno to EINVAL if IPC_NOWAIT was not specified
-+ *   in msgflag.
-+ * 2)msgrcv(2) fails and sets errno to EINVAL if IPC_EXCEPT was specified
-+ *   in msgflag.
-+ * 3)msgrcv(2) fails and set errno to ENOMSG if IPC_NOWAIT and MSG_COPY were
-+ *  specified in msgflg and the queue contains less than msgtyp messages.
-+ */
-+#define  _GNU_SOURCE
-+#include <string.h>
-+#include <sys/wait.h>
-+#include <sys/msg.h>
-+#include <pwd.h>
-+#include "tst_test.h"
-+#include "tst_safe_sysv_ipc.h"
-+#include "libnewipc.h"
-+#include "lapi/msg.h"
-+
-+static key_t msgkey;
-+static int queue_id = -1;
-+static struct buf {
-+	long type;
-+	char mtext[MSGSIZE];
-+} rcv_buf, snd_buf = {MSGTYPE, "hello"};
-+
-+static struct tcase {
-+	int exp_err;
-+	int msg_flag;
-+	int msg_type;
-+	char *message;
-+} tcases[] = {
-+	{EINVAL, 0, MSGTYPE,
-+	"Test EINVAL error when msgflg specified MSG_COPY, but not IPC_NOWAIT"},
-+
-+	{EINVAL, MSG_EXCEPT, MSGTYPE,
-+	"Test EINVAL error when msgflg specified both MSG_COPY and MSG_EXCEPT"},
-+
-+	{ENOMSG, IPC_NOWAIT, 2,
-+	"Test ENOMSG error when using IPC_NOWAIT and MSG_COPY but not have"
-+	" corresponding msgtype msg"},
-+};
-+
-+static void verify_msgrcv(unsigned int n)
-+{
-+	struct tcase *tc = &tcases[n];
-+
-+	tst_res(TINFO, "%s", tc->message);
-+	TEST(msgrcv(queue_id, &rcv_buf, MSGSIZE, tc->msg_type, MSG_COPY | tc->msg_flag));
-+	if (TST_RET != -1) {
-+		tst_res(TFAIL, "smgrcv() succeeded unexpectedly");
-+		SAFE_MSGSND(queue_id, &snd_buf, MSGSIZE, 0);
-+		return;
-+	}
-+
-+	if (TST_ERR == tc->exp_err)
-+		tst_res(TPASS | TTERRNO, "msgrcv() failed as expected");
-+	else
-+		tst_res(TFAIL | TTERRNO, "msgrcv() failed unexpectedly,"
-+			" expected %s but got", tst_strerrno(tc->exp_err));
-+}
-+
-+static void setup(void)
-+{
-+	msgkey = GETIPCKEY();
-+	queue_id = SAFE_MSGGET(msgkey, IPC_CREAT | IPC_EXCL | MSG_RW);
-+	SAFE_MSGSND(queue_id, &snd_buf, MSGSIZE, 0);
-+}
-+
-+static void cleanup(void)
-+{
-+	if (queue_id != -1)
-+		SAFE_MSGCTL(queue_id, IPC_RMID, NULL);
-+}
-+
-+static struct tst_test test = {
-+	.needs_tmpdir = 1,
-+	.needs_root = 1,
-+	.needs_kconfigs = (const char *[]) {
-+		"CONFIG_CHECKPOINT_RESTORE",
-+		NULL
-+	},
-+	.min_kver = "3.8.0",
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.test = verify_msgrcv,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+};
--- 
-2.23.0
+Thanks,
+Xiao Yang
+> Suggested-by: Alexey Kodanev <alexey.kodanev@oracle.com>
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+>  testcases/lib/tst_net.sh | 10 ++++------
+>  1 file changed, 4 insertions(+), 6 deletions(-)
+>
+> diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
+> index 806b540cd..7ba267eda 100644
+> --- a/testcases/lib/tst_net.sh
+> +++ b/testcases/lib/tst_net.sh
+> @@ -136,7 +136,7 @@ init_ltp_netspace()
+>  # -b run in background
+>  # -c CMD specify command to run (this must be binary, not shell builtin/function)
+>  # -s safe option, if something goes wrong, will exit with TBROK
+> -# -u USER for ssh/rsh (default root)
+> +# -u USER for ssh (default root)
+>  # RETURN: 0 on success, 1 on failure
+>  tst_rhost_run()
+>  {
+> @@ -166,14 +166,12 @@ tst_rhost_run()
+>  		return 1
+>  	fi
+>  
+> -	if [ -n "${TST_USE_SSH:-}" ]; then
+> -		output=`ssh -n -q $user@$RHOST "sh -c \
+> -			'$pre_cmd $cmd $post_cmd'" $out 2>&1 || echo 'RTERR'`
+> -	elif [ -n "${TST_USE_NETNS:-}" ]; then
+> +	if [ -n "${TST_USE_NETNS:-}" ]; then
+>  		output=`$LTP_NETNS sh -c \
+>  			"$pre_cmd $cmd $post_cmd" $out 2>&1 || echo 'RTERR'`
+>  	else
+> -		output=`rsh -n -l $user $RHOST "sh -c \
+> +		tst_require_cmds ssh
+> +		output=`ssh -nq $user@$RHOST "sh -c \
+>  			'$pre_cmd $cmd $post_cmd'" $out 2>&1 || echo 'RTERR'`
+>  	fi
+>  	echo "$output" | grep -q 'RTERR$' && ret=1
 
 
 
