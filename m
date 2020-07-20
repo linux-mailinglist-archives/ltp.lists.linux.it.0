@@ -1,41 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F5EC226312
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 17:15:16 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 52A66226319
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 17:17:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DDB013C4E21
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 17:15:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id EBC883C62F5
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 17:17:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 1AF913C13E1
- for <ltp@lists.linux.it>; Mon, 20 Jul 2020 17:15:12 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 725073C13E1
+ for <ltp@lists.linux.it>; Mon, 20 Jul 2020 17:17:48 +0200 (CEST)
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7A34760165C
- for <ltp@lists.linux.it>; Mon, 20 Jul 2020 17:15:11 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 007B8AC79;
- Mon, 20 Jul 2020 15:15:16 +0000 (UTC)
-Date: Mon, 20 Jul 2020 17:15:08 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: "bfields@fieldses.org" <bfields@fieldses.org>
-Message-ID: <20200720151508.GA13786@dell5510>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 394791401AF9
+ for <ltp@lists.linux.it>; Mon, 20 Jul 2020 17:17:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=RTJCQoT4n3eWjZd87cifxoVNLQME7QIUwsdXFeCJ158=; b=Oly5kqo+KwadkUB4cUygk58rbp
+ MRC4xydVj5qb+0LEU7vRlfG1/kiqkmx/KptgXdtczWVZPp2A6vnQqDB252lEUtdXduN0P9qymCI5u
+ v89xLosSCAPb5i1lfhjBOxW3cjkLwvZY82rXdw6YJGJdvuOe/TxkQmDavE6j7Kr9QVigFKKrGCDbu
+ 1jEyTbbz86Lbrx5QrTIWinJqxdU74tYW6svxP25Au+S4E/EcrrGGiK1TQGJ0xwXOL8DbYH22eUbjj
+ 4ONW4mtlpQqZJcaTxIX95yEjU56QPWjuZdttlm8KutyHy08cvloYC8EOET3ORMu5cM6rLkpgrw2Fs
+ rRQITaXg==;
+Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
+ Linux)) id 1jxXXy-0004fJ-Na; Mon, 20 Jul 2020 15:17:42 +0000
+Date: Mon, 20 Jul 2020 16:17:42 +0100
+From: Christoph Hellwig <hch@infradead.org>
+To: Trond Myklebust <trondmy@hammerspace.com>
+Message-ID: <20200720151742.GA16973@infradead.org>
 References: <20200720091449.19813-1-pvorel@suse.cz>
  <ffb5cd64d5d65b762bdc85b6044b7fdc526d27cb.camel@hammerspace.com>
- <20200720141255.GA25707@fieldses.org>
- <20200720143620.GD21201@dell5510>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200720143620.GD21201@dell5510>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+In-Reply-To: <ffb5cd64d5d65b762bdc85b6044b7fdc526d27cb.camel@hammerspace.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ casper.infradead.org. See http://www.infradead.org/rpr.html
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+X-Spam-Status: No, score=0.2 required=7.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
 Subject: Re: [LTP] [RFC PATCH 1/1] Remove nfsv4
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -48,66 +59,33 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
+ "bfields@fieldses.org" <bfields@fieldses.org>,
  "chuck.lever@oracle.com" <chuck.lever@oracle.com>,
- Trond Myklebust <trondmy@hammerspace.com>,
  "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Bruce, Trond,
+On Mon, Jul 20, 2020 at 01:32:09PM +0000, Trond Myklebust wrote:
+> On Mon, 2020-07-20 at 11:14 +0200, Petr Vorel wrote:
+> > Reasons to drop:
+> > * outdated tests (from 2005)
+> > * not used (NFS kernel maintainers use pynfs [1])
+> > * written in Python (we support C and shell, see [2])
+> > 
+> > [1] http://git.linux-nfs.org/?p=bfields/pynfs.git;a=summary
+> > [2] https://github.com/linux-test-project/ltp/issues/547
+> > 
+> 
+> Unlike pynfs, these tests run on a real NFS client, and were designed
+> to test client implementations, as well as the servers.
+> 
+> So if they get dropped from ltp, then we will have to figure out some
+> other way of continuing to maintain them.
 
-> > On Mon, Jul 20, 2020 at 01:32:09PM +0000, Trond Myklebust wrote:
-> > > On Mon, 2020-07-20 at 11:14 +0200, Petr Vorel wrote:
-> > > > Reasons to drop:
-> > > > * outdated tests (from 2005)
-> > > > * not used (NFS kernel maintainers use pynfs [1])
-> > > > * written in Python (we support C and shell, see [2])
-
-> > > > [1] http://git.linux-nfs.org/?p=bfields/pynfs.git;a=summary
-> > > > [2] https://github.com/linux-test-project/ltp/issues/547
-
-
-> > > Unlike pynfs, these tests run on a real NFS client, and were designed
-> > > to test client implementations, as well as the servers.
-
-> > > So if they get dropped from ltp, then we will have to figure out some
-> > > other way of continuing to maintain them.
-
-> > Just for fun, I grepped through old mail to see if I could find any
-> > cases of these tests being used.  I found one, in which Chuck reports an
-> > nfslock01 failure.  Looks like it did find a real bug, which we fixed:
-
-> > 	https://lore.kernel.org/r/8DF85CB6-5FEB-4A25-9715-C9808F37A4B1@oracle.com
-> > 	https://lore.kernel.org/r/20160807185024.11705.10864.stgit@klimt.1015granger.net
-
-> Thanks for your explanation, this obviously justify these tests in LTP, unless
-> you want to move it to git.linux-nfs.org and maintain on your own.
-Actually, that fix 42691398be08 ("nfsd: Fix race between FREE_STATEID and LOCK")
-from v4.8-rc2 reported by Alexey Kodanev (LTP network maintainer) was found by
-nfslock01 test [1], which is integrated into other LTP NFS tests [2]. I'd
-definitely keep these in LTP.
-
-nfsv4 I proposed to remove as outdated and not being used are testing ACL [3]
-and fcntl locking [4]. ACL tests use rsh and aren't integrated into LTP
-framework (use their custom [5] runtest file thus I doubt anyone is using it).
-fcntl locktests are at least integrated into LTP (use fcntl-locktests runtest
-file[6], I forget to remove it in this patch).
-Both tests are written in 2005. I don't want to push for removal, if you see any
-use in it.
-
-Kind regards,
-Petr
-
-[1] https://github.com/linux-test-project/ltp/tree/master/testcases/network/nfs/nfslock01/
-[2] https://github.com/linux-test-project/ltp/blob/master/runtest/net.nfs
-[3] https://github.com/linux-test-project/ltp/tree/master/testcases/network/nfsv4/acl
-[4] https://github.com/linux-test-project/ltp/tree/master/testcases/network/nfsv4/locks
-[5] https://github.com/linux-test-project/ltp/blob/master/testcases/network/nfsv4/acl/runtest
-[6] https://github.com/linux-test-project/ltp/blob/master/runtest/fcntl-locktests
+NFS tests using the kernel sound like a prime candidate for xfstests.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
