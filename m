@@ -1,52 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CD5D225B55
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 11:23:11 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 65B52225C05
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 11:48:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4FA4C3C2932
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 11:23:11 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 232593C2932
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 11:48:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 298413C2123
- for <ltp@lists.linux.it>; Mon, 20 Jul 2020 11:23:08 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id AFF413C2123
+ for <ltp@lists.linux.it>; Mon, 20 Jul 2020 11:48:37 +0200 (CEST)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 9D12F1001DA6
- for <ltp@lists.linux.it>; Mon, 20 Jul 2020 11:23:06 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.75,374,1589212800"; d="scan'208";a="96614049"
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 0B1361401A52
+ for <ltp@lists.linux.it>; Mon, 20 Jul 2020 11:48:35 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.75,374,1589212800"; d="scan'208";a="96615613"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 20 Jul 2020 17:23:04 +0800
+ by heian.cn.fujitsu.com with ESMTP; 20 Jul 2020 17:48:33 +0800
 Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id 8BF704CE5059;
- Mon, 20 Jul 2020 17:23:03 +0800 (CST)
+ by cn.fujitsu.com (Postfix) with ESMTP id 129EB4CE1505;
+ Mon, 20 Jul 2020 17:48:28 +0800 (CST)
 Received: from [10.167.220.69] (10.167.220.69) by
  G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 20 Jul 2020 17:23:05 +0800
-Message-ID: <5F156275.6050602@cn.fujitsu.com>
-Date: Mon, 20 Jul 2020 17:23:01 +0800
+ (TLS) id 15.0.1497.2; Mon, 20 Jul 2020 17:48:30 +0800
+Message-ID: <5F15686A.1070605@cn.fujitsu.com>
+Date: Mon, 20 Jul 2020 17:48:26 +0800
 From: Xiao Yang <yangx.jy@cn.fujitsu.com>
 User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
  rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
 To: Petr Vorel <pvorel@suse.cz>
 References: <20200710172044.21592-1-pvorel@suse.cz>
- <20200710172044.21592-8-pvorel@suse.cz>
-In-Reply-To: <20200710172044.21592-8-pvorel@suse.cz>
+ <20200710172044.21592-5-pvorel@suse.cz>
+In-Reply-To: <20200710172044.21592-5-pvorel@suse.cz>
 X-Originating-IP: [10.167.220.69]
 X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
  G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
-X-yoursite-MailScanner-ID: 8BF704CE5059.AAD02
+X-yoursite-MailScanner-ID: 129EB4CE1505.AE1E1
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 7/7] tst_net.sh/tst_rhost_run: Add debugging
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 4/7] net: Update README.md
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,131 +59,124 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 2020/7/11 1:20, Petr Vorel wrote:
-> via TST_NET_RHOST_RUN_DEBUG=1 and use it in tst_rhost_run.sh.
-Hi Petr,
-
-Acked-by: Xiao Yang <yangx.jy@cn.fujitsu.com>
-
-Thanks,
-Xiao Yang
-
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
-> changes v1->v2:
-> * Use TST_NET_RHOST_RUN_DEBUG=1 instead of -d in tst_rhost_run
-> This requires to whitelist it in tst_test.sh.
-> * use tst_res_ TINFO instead of tst_net_debug
->
->
-> Kind regards,
-> Petr
->
->  lib/newlib_tests/shell/net/tst_rhost_run.sh |  2 ++
->  testcases/lib/tst_net.sh                    | 23 +++++++++++++++------
->  testcases/lib/tst_test.sh                   |  2 +-
->  testcases/network/README.md                 |  3 +++
->  4 files changed, 23 insertions(+), 7 deletions(-)
->
-> diff --git a/lib/newlib_tests/shell/net/tst_rhost_run.sh b/lib/newlib_tests/shell/net/tst_rhost_run.sh
-> index 4c034a4ac..9b058a57a 100755
-> --- a/lib/newlib_tests/shell/net/tst_rhost_run.sh
-> +++ b/lib/newlib_tests/shell/net/tst_rhost_run.sh
-> @@ -6,6 +6,8 @@ TST_TESTFUNC=do_test
->  PATH="$(dirname $0)/../../../../testcases/lib/:$PATH"
->  . tst_net.sh
->  
-> +export TST_NET_RHOST_RUN_DEBUG=1
-> +
->  do_test()
->  {
->  	local file="/etc/fstab"
-> diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
-> index f6ac4c087..d939a5780 100644
-> --- a/testcases/lib/tst_net.sh
-> +++ b/testcases/lib/tst_net.sh
-> @@ -138,15 +138,16 @@ init_ltp_netspace()
->  # -s safe option, if something goes wrong, will exit with TBROK
->  # -u USER for ssh (default root)
->  # RETURN: 0 on success, 1 on failure
-> +# TST_NET_RHOST_RUN_DEBUG=1 enables debugging
->  tst_rhost_run()
->  {
->  	local post_cmd=' || echo RTERR'
->  	local user="root"
->  	local ret=0
-> -	local cmd out output pre_cmd safe
-> +	local cmd out output pre_cmd rcmd sh_cmd safe use
->  
->  	local OPTIND
-> -	while getopts :bsc:u: opt; do
-> +	while getopts :bc:su: opt; do
->  		case "$opt" in
->  		b) [ "${TST_USE_NETNS:-}" ] && pre_cmd= || pre_cmd="nohup"
->  		   post_cmd=" > /dev/null 2>&1 &"
-> @@ -166,14 +167,24 @@ tst_rhost_run()
->  		return 1
->  	fi
->  
-> +	sh_cmd="$pre_cmd $cmd $post_cmd"
-> +
->  	if [ -n "${TST_USE_NETNS:-}" ]; then
-> -		output=$($LTP_NETNS sh -c \
-> -			"$pre_cmd $cmd $post_cmd" $out 2>&1 || echo 'RTERR')
-> +		use="NETNS"
-> +		rcmd="$LTP_NETNS sh -c"
->  	else
->  		tst_require_cmds ssh
-> -		output=$(ssh -nq $user@$RHOST \
-> -			"$pre_cmd $cmd $post_cmd" $out 2>&1 || echo 'RTERR')
-> +		use="SSH"
-> +		rcmd="ssh -nq $user@$RHOST"
-> +	fi
-> +
-> +	if [ "$TST_NET_RHOST_RUN_DEBUG" = 1 ]; then
-> +		tst_res_ TINFO "tst_rhost_run: cmd: $cmd"
-> +		tst_res_ TINFO "$use: $rcmd \"$sh_cmd\" $out 2>&1"
->  	fi
-> +
-> +	output=$($rcmd "$sh_cmd" $out 2>&1 || echo 'RTERR')
-> +
->  	echo "$output" | grep -q 'RTERR$' && ret=1
->  	if [ $ret -eq 1 ]; then
->  		output=$(echo "$output" | sed 's/RTERR//')
-> diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-> index 2e637b25b..fa97acbac 100644
-> --- a/testcases/lib/tst_test.sh
-> +++ b/testcases/lib/tst_test.sh
-> @@ -506,7 +506,7 @@ tst_run()
->  			NEEDS_DRIVERS|FS_TYPE|MNTPOINT|MNT_PARAMS);;
->  			IPV6|IPVER|TEST_DATA|TEST_DATA_IFS);;
->  			RETRY_FUNC|RETRY_FN_EXP_BACKOFF|TIMEOUT);;
-> -			NET_DATAROOT|NET_MAX_PKT);;
-> +			NET_DATAROOT|NET_MAX_PKT|NET_RHOST_RUN_DEBUG);;
->  			*) tst_res TWARN "Reserved variable TST_$_tst_i used!";;
->  			esac
->  		done
-> diff --git a/testcases/network/README.md b/testcases/network/README.md
-> index 1c19a2c15..081ce834a 100644
-> --- a/testcases/network/README.md
-> +++ b/testcases/network/README.md
-> @@ -1,5 +1,8 @@
->  # LTP Network Tests
->  
-> +Both single and two host configurations support debugging via
-> +`TST_NET_RHOST_RUN_DEBUG=1` environment variable.
-> +
->  ## Single Host Configuration
->  
->  It is the default configuration (if the `RHOST` environment variable is not
-
-
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gMjAyMC83LzExIDE6MjAsIFBldHIgVm9yZWwgd3JvdGU6Cj4gdG8gcHJldmlvdXMgY29tbWl0
+cyAoZHJvcHBlZCByc2ggYmFzZWQgdGVzdGluZyBhbmQgcnNoLCByY3AsIHJsb2dpbgo+IHRlc3Rz
+KToKPgo+ICogZHJvcCBybG9naW4sIHJzaCwgcmV4ZWMgc2V0dXAKPiAqIHJld3JpdGUgZnRwJiAg
+dGVsbmV0IHNldHVwCj4gKiByZW1vdmUgc3VnZ2VzdGlvbiB0byBydW4gdGVzdHMgZm9yIDI0IGhy
+cyAod2UgbG93ZXJlZCB2YWx1ZXMgaW4gdGhlCj4gICAgdmFyaWFibGVzIGZvciBzdHJlc3MgdGVz
+dGluZyBpbiA1Mjg1N2VmYjcpCj4gKiBtZW50aW9uIHRlc3RjYXNlcy9uZXR3b3JrL3N0cmVzcy9S
+RUFETUUKPiAqIHVwZGF0ZSBwYWNrYWdlIG5hbWVzCj4gKiBmaXggZm9ybWF0dGluZwo+Cj4gU2ln
+bmVkLW9mZi1ieTogUGV0ciBWb3JlbDxwdm9yZWxAc3VzZS5jej4KPiAtLS0KPiAgIHRlc3RjYXNl
+cy9uZXR3b3JrL1JFQURNRS5tZCB8IDk2ICsrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAzNiBpbnNlcnRpb25zKCspLCA2MCBkZWxldGlvbnMo
+LSkKPgo+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMvbmV0d29yay9SRUFETUUubWQgYi90ZXN0Y2Fz
+ZXMvbmV0d29yay9SRUFETUUubWQKPiBpbmRleCAzYTljOTgxMjUuLjFjMTlhMmMxNSAxMDA2NDQK
+PiAtLS0gYS90ZXN0Y2FzZXMvbmV0d29yay9SRUFETUUubWQKPiArKysgYi90ZXN0Y2FzZXMvbmV0
+d29yay9SRUFETUUubWQKPiBAQCAtMSw5MSArMSw2NyBAQAo+ICAgIyBMVFAgTmV0d29yayBUZXN0
+cwo+Cj4gLSMjIFByZS1yZXF1aXNpdGVzCj4gLUVuYWJsZSBhbGwgdGhlIG5ldHdvcmtpbmcgc2Vy
+dmljZXMgb24gdGVzdCBtYWNoaW5lKHMpOiByc2hkLCBuZnNkLCBmaW5nZXJkLgo+IC0KPiAgICMj
+IFNpbmdsZSBIb3N0IENvbmZpZ3VyYXRpb24KPgo+IC1JdCBpcyBhIGRlZmF1bHQgY29uZmlndXJh
+dGlvbiAoJ1JIT1NUJyBpcyBub3QgZGVmaW5lZCkuIExUUCBhZGRzICdsdHBfbnMnCj4gLW5ldHdv
+cmsgbmFtZXNwYWNlIGFuZCBhdXRvLWNvbmZpZ3VyZSAndmV0aCcgcGFpciBhY2NvcmRpbmcgdG8g
+TFRQIG5ldHdvcmsKPiAtZW52aXJvbm1lbnQgdmFyaWFibGVzLgo+ICtJdCBpcyB0aGUgZGVmYXVs
+dCBjb25maWd1cmF0aW9uIChpZiB0aGUgYFJIT1NUYCBlbnZpcm9ubWVudCB2YXJpYWJsZSBpcyBu
+b3QKPiArZGVmaW5lZCkuIExUUCBhZGRzIGBsdHBfbnNgIG5ldHdvcmsgbmFtZXNwYWNlIGFuZCBh
+dXRvLWNvbmZpZ3VyZSBgdmV0aGAgcGFpcgo+ICthY2NvcmRpbmcgdG8gTFRQIG5ldHdvcmsgZW52
+aXJvbm1lbnQgdmFyaWFibGVzLgo+Cj4gICAjIyBUd28gSG9zdCBDb25maWd1cmF0aW9uCj4KPiAt
+VGhpcyBzZXR1cCByZXF1aXJlcyAnUkhPU1QnIGVudmlyb25tZW50IHZhcmlhYmxlIHRvIGJlIHNl
+dCBwcm9wZXJseSBhbmQKPiAtY29uZmlndXJlZCBTU0ggb3IgUlNIIChkZWZhdWx0KSBhY2Nlc3Mg
+dG8gYSByZW1vdGUgaG9zdC4KPiAtCj4gLVRoZSAnUkhPU1QnIHZhcmlhYmxlIG5hbWUgbXVzdCBi
+ZSBzZXQgdG8gdGhlIGhvc3RuYW1lIG9mIHRoZSBzZXJ2ZXIKPiAtKHRlc3QgbWFuYWdlbWVudCBs
+aW5rKSBhbmQgUEFTU1dEIHNob3VsZCBiZSBzZXQgdG8gdGhlIHJvb3QgcGFzc3dvcmQKPiAtb2Yg
+dGhlIHJlbW90ZSBzZXJ2ZXIuCj4gLQo+IC1JbiBvcmRlciB0byBoYXZlIFJTSCBhY2Nlc3M6Cj4g
+LSogRWRpdCB0aGUgIi9yb290Ly5yaG9zdHMiIGZpbGUuIFBsZWFzZSBub3RlIHRoYXQgdGhlIGZp
+bGUgbWF5IG5vdCBleGlzdCwKPiAtc28geW91IG11c3QgY3JlYXRlIG9uZSBpZiBpdCBkb2VzIG5v
+dC4gWW91IG11c3QgYWRkIHRoZSBmdWxseSBxdWFsaWZpZWQKPiAtaG9zdG5hbWUgb2YgdGhlIG1h
+Y2hpbmUgeW91IGFyZSB0ZXN0aW5nIG9uIHRvIHRoaXMgZmlsZS4gQnkgYWRkaW5nIHRoZSB0ZXN0
+Cj4gLW1hY2hpbmUncyBob3N0bmFtZSB0byB0aGlzIGZpbGUsIHlvdSB3aWxsIGJlIGFsbG93aW5n
+IHRoZSBtYWNoaW5lIHRvIHJzaCB0byBpdHNlbGYsCj4gLWFzIHJvb3QsIHdpdGhvdXQgdGhlIHJl
+cXVpcmVtZW50IG9mIGEgcGFzc3dvcmQuCj4gLQo+IC1gYGBzaAo+IC1lY2hvICRjbGllbnRfaG9z
+dG5hbWU+PiAgL3Jvb3QvLnJob3N0cwo+IC1gYGAKPiAtCj4gLVlvdSBtYXkgbmVlZCB0byByZS1s
+YWJlbCAnLnJob3N0JyBmaWxlIHRvIG1ha2Ugc3VyZSBybG9naW5kIHdpbGwgaGF2ZSBhY2Nlc3Mg
+dG8gaXQ6Cj4gLQo+IC1gYGBzaAo+IC0vc2Jpbi9yZXN0b3JlY29uIC12IC9yb290Ly5yaG9zdHMK
+PiAtYGBgCj4gK1RoaXMgc2V0dXAgcmVxdWlyZXMgdGhlIGBSSE9TVGAgZW52aXJvbm1lbnQgdmFy
+aWFibGUgdG8gYmUgc2V0IHByb3Blcmx5IGFuZAo+ICtjb25maWd1cmVkIFNTSCBhY2Nlc3MgdG8g
+YSByZW1vdGUgaG9zdC4KPgo+IC0qIEFkZCBybG9naW4sIHJzaCwgcmV4ZWMgaW50byAvZXRjL3Nl
+Y3VyZXR0eSBmaWxlOgo+ICtUaGUgYFJIT1NUYCB2YXJpYWJsZSBtdXN0IGJlIHNldCB0byB0aGUg
+aG9zdG5hbWUgb2YgdGhlIHNlcnZlciAodGVzdCBtYW5hZ2VtZW50Cj4gK2xpbmspIGFuZCBwdWJs
+aWMga2V5IHNldHVwIG9yIGxvZ2luIHdpdGhvdXQgcGFzc3dvcmQgaXMgcmVxdWlyZWQuCj4KPiAt
+YGBgc2gKPiAtZm9yIGkgaW4gcmxvZ2luIHJzaCByZXhlYzsgZG8gZWNobyAkaT4+ICAvZXRjL3Nl
+Y3VyZXR0eTsgZG9uZQo+IC1gYGAKPiArU29tZSBvZiB0aGUgbmV0d29yayBzdHJlc3MgdGVzdHMg
+d2hpY2ggaGFzbid0IGJlZW4gcG9ydGVkIHRvIG5ldHdvcmsgQVBJIHdlcmUKPiArZGVzaWduZWQg
+dG8gYmUgdGVzdGVkIHdpdGggYHJzaGAgdmlhIGBMVFBfUlNIYCBlbnZpcm9ubWVudCB2YXJpYWJs
+ZS4gTm93IGl0J3MKPiArYnkgZGVmYXVsdCB1c2VkIGBzc2hgLCBmb3IgZGV0YWlscyBzZWUgYHRl
+c3RjYXNlcy9uZXR3b3JrL3N0cmVzcy9SRUFETUVgLgo+Cj4gICAjIyBTZXJ2ZXIgU2VydmljZXMg
+Q29uZmlndXJhdGlvbgo+ICAgVmVyaWZ5IHRoYXQgdGhlIGJlbG93IGRhZW1vbiBzZXJ2aWNlcyBh
+cmUgcnVubmluZy4gSWYgbm90LCBwbGVhc2UgaW5zdGFsbAo+ICAgYW5kIHN0YXJ0IHRoZW06Cj4g
+LXJzaC1zZXJ2ZXIsIHRlbG5ldC1zZXJ2ZXIsIGZpbmdlci1zZXJ2ZXIsIHJkaXN0LCByc3luYywg
+ZGhjcC1zZXJ2ZXIsIGh0dHAtc2VydmVyLgo+ICsKPiArZGhjcC1zZXJ2ZXIsIGRuc21hc3EsIGh0
+dHAtc2VydmVyLCBuZnMta2VybmVsLXNlcnZlciwgcnBjYmluZCwgcnN5bmMsCj4gK3RlbG5ldC1z
+ZXJ2ZXIsIHZzZnRwZApIaSBQZXRyLAoKVGhlc2UgcGFja2FnZSBuYW1lcyBhcmUgZnJvbSBEZWJp
+YW4vVWJ1bnR1LCBkbyB3ZSBuZWVkIHRvIG1lbnRpb24gaXQ/Cgo+Cj4gICBOb3RlOiBJZiBhbnkg
+b2YgdGhlIGFib3ZlIGRhZW1vbiBpcyBub3QgcnVubmluZyBvbiBzZXJ2ZXIsIHRoZSB0ZXN0IHJl
+bGF0ZWQgdG8KPiAgIHRoYXQgc2VydmljZSBydW5uaW5nIGZyb20gY2xpZW50IHdpbGwgZmFpbC4K
+Pgo+IC0jIyMgRlRQIHNldHVwCj4gLSogSW4g4oCcL2V0Yy9mdHB1c2Vyc+KAnSBbb3IgdmkgL2V0
+Yy92c2Z0cGQuZnRwdXNlcnNdLCBjb21tZW50IHRoZSBsaW5lIGNvbnRhaW5pbmcKPiAt4oCccm9v
+dOKAnSBzdHJpbmcuIFRoaXMgZmlsZSBsaXN0cyBhbGwgdGhvc2UgdXNlcnMgd2hvIGFyZSBub3Qg
+Z2l2ZW4gYWNjZXNzIHRvIGRvIGZ0cAo+ICsjIyMgRlRQIGFuZCB0ZWxuZXQgc2V0dXAKPiArQm90
+aCB0ZXN0cyByZXF1aXJlIGVudmlyb25tZW50IHZhcmlhYmxlcyBgUkhPU1RgIChyZW1vdGUgbWFj
+aGluZSksIGBSVVNFUmAKPiArKHJlbW90ZSB1c2VyKSBhbmQgYFBBU1NXRGAgKHJlbW90ZSBwYXNz
+d29yZCkuIE5PVEU6IGBSSE9TVGAgd2lsbCBpbXBseSB0d28gaG9zdAo+ICtjb25maWd1cmF0aW9l
+IGZvciBvdGhlciB0ZXN0cy4KPiArCj4gK0lmIGBSSE9TVGAgaXMgc2V0IHRvIGByb290YCwgZWl0
+aGVyIG9mIHRoZXNlIHN0ZXBzIGlzIHJlcXVpcmVkOgo+ICsKPiArKiBJbiBgL2V0Yy9mdHB1c2Vy
+c2AgKG9yIGAvZXRjL3ZzZnRwZC5mdHB1c2Vyc2ApLCBjb21tZW50IHRoZSBsaW5lIGNvbnRhaW5p
+bmcKPiArInJvb3QiIHN0cmluZy4gVGhpcyBmaWxlIGxpc3RzIGFsbCB0aG9zZSB1c2VycyB3aG8g
+YXJlIG5vdCBnaXZlbiBhY2Nlc3MgdG8gZG8gZnRwCj4gICBvbiB0aGUgY3VycmVudCBzeXN0ZW0u
+CkFyZSB0aGlzIGZpbGUgZnJvbSBEZWJpYW4vVWJ1bnR1IGFzIHdlbGw/CgpPdGhlciB0aGFuIHRo
+aXMsIGl0IGlzIGdvb2QgdG8gbWUuIDotKQpBY2tlZC1ieTogWGlhbyBZYW5nIDx5YW5neC5qeUBj
+bi5mdWppdHN1LmNvbT4KClRoYW5rcywKWGlhbyBZYW5nCj4KPiAtKiBJZiB5b3UgZG9u4oCZdCB3
+YW50IHRvIGRvIHRoZSBwcmV2aW91cyBzdGVwLCBwdXQgZm9sbG93aW5nIGVudHJ5IGludG8gL3Jv
+b3QvLm5ldHJjCj4gLW1hY2hpbmU8cmVtb3RlX3NlcnZlcl9uYW1lPiAgbG9naW4gcm9vdCBwYXNz
+d29yZDxyZW1vdGVfcm9vdF9wYXNzd29yZD4uCj4gLU90aGVyd2lzZSwgZnRwLHJsb2dpbiYgIHRl
+bG5ldCBmYWlscyBmb3Ig4oCYcm9vdOKAmSB1c2VyJiAgaGVuY2UgbmVlZHMgdG8gYmUKPiAtZXhl
+Y3V0ZWQgdXNpbmcg4oCYdGVzdOKAmSB1c2VyIHRvIGdldCBzdWNjZXNzZnVsIHJlc3VsdHMuCj4g
+KyogSWYgeW91IGRvbuKAmXQgd2FudCB0byBkbyB0aGUgcHJldmlvdXMgc3RlcCwgcHV0IGZvbGxv
+d2luZyBlbnRyeSBpbnRvIGAvcm9vdC8ubmV0cmNgOgo+ICtgYGAKPiArbWFjaGluZTxyZW1vdGVf
+c2VydmVyX25hbWU+Cj4gK2xvZ2luIHJvb3QKPiArcGFzc3dvcmQ8cmVtb3RlX3Jvb3RfcGFzc3dv
+cmQ+Cj4gK2BgYAo+Cj4gICAjIyBMVFAgc2V0dXAKPiAtSW5zdGFsbCBMVFAgdGVzdHN1aXRlLiBJ
+biBjYXNlIG9mIHR3byBob3N0cyBjb25maWd1cmF0aW9uLCBtYWtlIHN1cmUgTFRQIGlzIGluc3Rh
+bGxlZAo+IC1vbiBib3RoIGNsaWVudCBhbmQgc2VydmVyIG1hY2hpbmVzLgo+IC0KPiAtVGVzdGNh
+c2VzIGFuZCBuZXR3b3JrIHRvb2xzIG11c3QgYmUgaW4gUEFUSCwgZS5nLjoKPiArSW5zdGFsbCBM
+VFAgdGVzdHN1aXRlLiBJbiBjYXNlIG9mIHR3byBob3N0cyBjb25maWd1cmF0aW9uLCBMVFAgbmVl
+ZHMgdG8gYmUgaW5zdGFsbGVkCj4gK2FuZCBgTFRQUk9PVGAgYW5kIGBQQVRIYCBlbnZpcm9ubWVu
+dCB2YXJpYWJsZXMgc2V0IG9uIGJvdGggY2xpZW50IGFuZCBzZXJ2ZXIKPiArbWFjaGluZXMgKGFz
+c3VtaW5nIHVzaW5nIHRoZSBkZWZhdWx0IHByZWZpeCBgL29wdC9sdHBgKToKPgo+ICAgYGBgc2gK
+PiAtZXhwb3J0IFBBVEg9L29wdC9sdHAvdGVzdGNhc2VzL2JpbjovdXNyL2JpbjokUEFUSAo+ICtl
+eHBvcnQgTFRQUk9PVD0iL29wdC9sdHAiOyBleHBvcnQgUEFUSD0iJExUUFJPT1QvdGVzdGNhc2Vz
+L2JpbjokUEFUSCIKPiAgIGBgYAo+IC1EZWZhdWx0IHZhbHVlcyBmb3IgYWxsIExUUCBuZXR3b3Jr
+IHZhcmlhYmxlcyBhcmUgc2V0IGluIHRlc3RjYXNlcy9saWIvdHN0X25ldC5zaC4KPiAtSWYgeW91
+IG5lZWQgdG8gb3ZlcnJpZGUgc29tZSBwYXJhbWV0ZXJzIHBsZWFzZSBleHBvcnQgdGhlbSBiZWZv
+cmUgdGVzdCBydW4gb3IKPiAtc3BlY2lmeSB0aGVtIHdoZW4gcnVubmluZyBsdHAtcGFuIG9yIHRl
+c3RzY3JpcHRzL25ldHdvcmsuc2guCj4gK0RlZmF1bHQgdmFsdWVzIGZvciBhbGwgTFRQIG5ldHdv
+cmsgcGFyYW1ldGVycyBhcmUgc2V0IGluIGB0ZXN0Y2FzZXMvbGliL3RzdF9uZXQuc2hgLgo+ICtO
+ZXR3b3JrIHN0cmVzcyBwYXJhbWV0ZXJzIGFyZSBkb2N1bWVudGVkIGluIGB0ZXN0Y2FzZXMvbmV0
+d29yay9zdHJlc3MvUkVBRE1FYC4KPgo+ICAgIyMgUnVubmluZyB0aGUgdGVzdHMKPiAtVG8gcnVu
+IHRoZSB0ZXN0IHR5cGUgdGhlIGZvbGxvd2luZzoKPgo+ICAgYGBgc2gKPiAgIFRFU1RfVkFSUyAu
+L25ldHdvcmsuc2ggT1BUSU9OUwo+ICAgYGBgCj4gICBXaGVyZQo+IC0qIFRFU1RfVkFSUyAtIG5v
+bi1kZWZhdWx0IG5ldHdvcmsgcGFyYW1ldGVycyAoc2VlIHRlc3RjYXNlcy9saWIvdHN0X25ldC5z
+aCksIHRoZXkKPiAtICBjb3VsZCBiZSBleHBvcnRlZCBiZWZvcmUgdGVzdCBydW47Cj4gLSogT1BU
+SU9OUyAtIHRlc3QgZ3JvdXAocyksIHVzZSAnLWgnIHRvIHNlZSBhdmFpbGFibGUgb25lcy4KPiAt
+Cj4gLSMjIEFuYWx5emluZyB0aGUgcmVzdWx0cwo+IC1HZW5lcmFsbHkgdGhpcyB0ZXN0IG11c3Qg
+YmUgcnVuIG1vcmUgdGhhbiAyNCBob3Vycy4gV2hlbiB5b3Ugd2FudCB0byBzdG9wIHRoZSB0ZXN0
+Cj4gLXByZXNzIENUUkwrQyB0byBzdG9wIC4vbmV0d29yay5zaC4KPiAtCj4gLVNlYXJjaCBmYWls
+ZWQgdGVzdHMgaW4gTFRQIGxvZ2ZpbGUgdXNpbmcgZ3JlcCBGQUlMPGxvZ2ZpbGU+LiBGb3IgYW55
+IGZhaWx1cmVzLAo+IC1ydW4gdGhlIGluZGl2aWR1YWwgdGVzdHMgYW5kIHRoZW4gdHJ5IHRvIGNv
+bWUgdG8gdGhlIGNvbmNsdXNpb24uCj4gKyogYFRFU1RfVkFSU2AgLSBub24tZGVmYXVsdCBuZXR3
+b3JrIHBhcmFtZXRlcnMKPiArKiBgT1BUSU9OU2AgLSB0ZXN0IGdyb3VwKHMpLCB1c2UgYC1oYCB0
+byBzZWUgYXZhaWxhYmxlIG9uZXMuCgoKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8v
+bGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
