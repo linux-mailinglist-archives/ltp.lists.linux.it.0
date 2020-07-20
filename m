@@ -1,71 +1,57 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65C9D225C8B
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 12:19:49 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id CF293225D5A
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 13:25:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F24D93C0886
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 12:19:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5936E3C4E25
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 13:25:11 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 365383C0886
- for <ltp@lists.linux.it>; Mon, 20 Jul 2020 12:19:45 +0200 (CEST)
-Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
- [IPv6:2607:f8b0:4864:20::1041])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id A3D103C2490
+ for <ltp@lists.linux.it>; Mon, 20 Jul 2020 13:25:03 +0200 (CEST)
+Received: from m12-13.163.com (m12-13.163.com [220.181.12.13])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 9E8C42009D6
- for <ltp@lists.linux.it>; Mon, 20 Jul 2020 12:19:44 +0200 (CEST)
-Received: by mail-pj1-x1041.google.com with SMTP id k71so10012526pje.0
- for <ltp@lists.linux.it>; Mon, 20 Jul 2020 03:19:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=sx7ssW5NYFCtrFv2I5b+27qDXGufJMsNNHFTSAfCQOI=;
- b=NhR3E66F9zwPlkiXPSFR2s865YKYisSMKRoEWdWskProuAN8EDJAN/2TpXCJPeexhQ
- T4r2cVlY0R1TOLw6gYml9EZ39xLQAaTif857xL3pk0gR8kpEszVIeycMIXNyfpULG4bk
- kPmyZ07wdOUZc2DtIMlwJ/y55YIkjwpvLbl2rgeJCZHkdGkQMZcyvEjJ7PGG5cOFhEHO
- 9wnf3QvJSkDRS8A/owlRz9l+xuxYLftrHkO3goCHiuQvoKA05FuN1Ea/PZlXoGMWDpbw
- tBKJ9+HXs5KVz15C+I27GY1WBOATYdxCwcyt2clDa3QhiC/0HKBhShZxe7bMhOohVQD/
- pO1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=sx7ssW5NYFCtrFv2I5b+27qDXGufJMsNNHFTSAfCQOI=;
- b=jv/XQpuGWuXu6k0z9k92qECwEwxb/37/i36h4ODHnMlrACI74sG3dQ/Mr6UUimMJoi
- lingF+itRahrSAJY7W3dNZ19O//FgTrfOITdfDYJFo8KDk/NZmXPu8Ko1wir3JQle8dw
- SexWBLCrvQKowX2d7vgLqe3dAOP3j/DGZtlaPmcy+6u7uwEJTS6JdL2Gpc4NVUegyYFQ
- c17/pZfG9ZqOM0auusMS2fd1KZEKveU4aoaJ/IXQYsd5Lt6GnD6jR8DzePZfzT/YyRtq
- mrWJxvWkZPCiJu/Ztcanb9wVapkql6ghW4nvoq2Iu2EqvSAtrz4Ov/XV5RmS7jnh9ygm
- r19A==
-X-Gm-Message-State: AOAM531i6KLtQXREuTEOEt3JzZ5oyDtTwL4toLqsy4umFYQXzlTpJepW
- DBkaAwokTo3JJwij0EadRy7xGhAoUWk=
-X-Google-Smtp-Source: ABdhPJyX/DkY6b0y2CCu84+1DtqLkB3ynXtHNvxGLbX1hKDEhjUxW0EYWgwGvD8seZe/wZqL7FLAsA==
-X-Received: by 2002:a17:90a:b63:: with SMTP id
- 90mr23880538pjq.47.1595240382802; 
- Mon, 20 Jul 2020 03:19:42 -0700 (PDT)
-Received: from localhost ([223.179.133.67])
- by smtp.gmail.com with ESMTPSA id y6sm11698812pji.2.2020.07.20.03.19.41
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 20 Jul 2020 03:19:41 -0700 (PDT)
-Date: Mon, 20 Jul 2020 15:49:32 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: ltp@lists.linux.it
-Message-ID: <20200720101932.rw2uy3twdfftttem@vireshk-mac-ubuntu>
-References: <cover.1593152309.git.viresh.kumar@linaro.org>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5CA4C6006D9
+ for <ltp@lists.linux.it>; Mon, 20 Jul 2020 13:23:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=tdRy/
+ fsdbdEy8cMl8Fjgj2udKZBNKsuO8RsNzTFqr1w=; b=IxWtCsLiIlvcr0YlzzWSH
+ UZe4OIxdzA0V2Fm6+AYtNfo6YnUD2aqXeTvOhda2NykmUZ0FXC2BFewhjbhpoXbd
+ jUWhHE/tv6CGjNKwC86bZKaLAGD5HipJ11ERopxnMpbiqTWZsYjw3HGESf1jEqlV
+ nxHaJM5TEb0+CoCuFkiQNY=
+Received: from [192.168.0.10] (unknown [183.210.51.228])
+ by smtp9 (Coremail) with SMTP id DcCowABHXkoGfxVfXXB9KA--.1096S2;
+ Mon, 20 Jul 2020 19:24:55 +0800 (CST)
+To: Viresh Kumar <viresh.kumar@linaro.org>, Xiao Yang <yangx.jy@cn.fujitsu.com>
+References: <20200720052755.21105-1-yangx.jy@cn.fujitsu.com>
+ <20200720085311.h77zxzfsqrhmmy2w@vireshk-mac-ubuntu>
+From: Xiao Yang <ice_yangxiao@163.com>
+Message-ID: <19b160e1-be12-bb32-a2cd-1c2be24428cb@163.com>
+Date: Mon, 20 Jul 2020 19:24:54 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <cover.1593152309.git.viresh.kumar@linaro.org>
-User-Agent: NeoMutt/20170609 (1.8.3)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+In-Reply-To: <20200720085311.h77zxzfsqrhmmy2w@vireshk-mac-ubuntu>
+Content-Language: en-US
+X-CM-TRANSID: DcCowABHXkoGfxVfXXB9KA--.1096S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7JFWrCw45CFy7Gw4xZr4fXwb_yoW3Grb_Ca
+ yF9rZ7urWjgFnakaySkan8Z3s2ka1xX34UXF15XryrXrn0qa98XF93KrWvyr1DuFZ7XFnr
+ WF1ava4Iqr1IqjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU0uMKtUUUUU==
+X-Originating-IP: [183.210.51.228]
+X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/1tbiFgRnXl44MN86VwABsO
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V7 00/19] Syscalls: Add support for time64 variants
+ DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4] syscalls/pidfd_open01.c: Add check for
+ close-on-exec flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,28 +63,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 26-06-20, 11:52, Viresh Kumar wrote:
-> Hi,
-> 
-> This updates the pending syscall tests that lacked the time64 updates.
-> 
-> V7:
-> - Move all tst_timer.h changes to a single patch.
-> - Provide more generic helpers for itimerspec and update the patches
->   accordingly.
-> - Also include the y2038 patch in the series as that depends on the
->   first patch here.
+Hi Petr, Viresh
 
-Ping for a lot of patches from this series as well.
+Thanks a lot for your review, pushed. :-)
 
--- 
-viresh
+Thanks,
+
+Xiao Yang
+
+On 7/20/20 4:53 PM, Viresh Kumar wrote:
+> On 20-07-20, 13:27, Xiao Yang wrote:
+>> pidfd_open(2) will set close-on-exec flag on the file descriptor as
+>> it manpage states, so check close-on-exec flag by fcntl(2).
+>>
+>> Signed-off-by: Xiao Yang <yangx.jy@cn.fujitsu.com>
+>> ---
+>>
+>> 1) We don't care if the test uses the TEST() macro so just keep it.
+>> 2) Use bare fcntl() instead of SAFE_FCNTL() so that file descriptor
+>>     can be closed when fcntl(F_GETFD) fails.
+>>
+>>   .../kernel/syscalls/pidfd_open/pidfd_open01.c  | 18 ++++++++++++++++--
+>>   1 file changed, 16 insertions(+), 2 deletions(-)
+> Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
+>
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
