@@ -1,34 +1,33 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D0132258A2
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 09:31:51 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id F26FD2258A3
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 09:32:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 40D3B3C282A
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 09:31:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 966263C4E11
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 09:32:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 464673C4E22
- for <ltp@lists.linux.it>; Mon, 20 Jul 2020 09:31:42 +0200 (CEST)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id D86593C2932
+ for <ltp@lists.linux.it>; Mon, 20 Jul 2020 09:31:43 +0200 (CEST)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 65D801A01A5C
- for <ltp@lists.linux.it>; Mon, 20 Jul 2020 09:31:41 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.75,374,1589212800"; d="scan'208";a="96607025"
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id DFB701A01A5B
+ for <ltp@lists.linux.it>; Mon, 20 Jul 2020 09:31:42 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.75,374,1589212800"; d="scan'208";a="96607024"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
  by heian.cn.fujitsu.com with ESMTP; 20 Jul 2020 15:31:40 +0800
 Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 5D57D4CE1505
- for <ltp@lists.linux.it>; Mon, 20 Jul 2020 15:31:36 +0800 (CST)
+ by cn.fujitsu.com (Postfix) with ESMTP id A88CB4CE4BDF
+ for <ltp@lists.linux.it>; Mon, 20 Jul 2020 15:31:38 +0800 (CST)
 Received: from localhost.localdomain (10.167.220.84) by
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 20 Jul 2020 15:31:39 +0800
+ (TLS) id 15.0.1497.2; Mon, 20 Jul 2020 15:31:41 +0800
 From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 To: <ltp@lists.linux.it>
-Date: Mon, 20 Jul 2020 15:30:25 +0800
-Message-ID: <1595230227-21468-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+Date: Mon, 20 Jul 2020 15:30:26 +0800
+Message-ID: <1595230227-21468-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1595230227-21468-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 References: <1595230227-21468-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
@@ -36,7 +35,7 @@ MIME-Version: 1.0
 X-Originating-IP: [10.167.220.84]
 X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 5D57D4CE1505.AD178
+X-yoursite-MailScanner-ID: A88CB4CE4BDF.A152C
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
@@ -44,8 +43,7 @@ X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 1/3] syscalls/msgrcv: Add check for msg_lrpid and
- msg_rtime
+Subject: [LTP] [PATCH v1 2/3] syscalls/msgrcv07: Add different msgtyp test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,70 +60,129 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+After lookging msgcrv(2) man-page, the different msgtyp has the following effect:
+1) If msgtyp is 0, then the first message in the queue is read.
+2) If msgtyp is greater than 0, then the first message in the queue of type msgtyp is read.
+3) If msgtyp is less than 0, then the first message in the queue with the lowest type less
+ than or equal to the absolute value of msgtyp will be read.
+
 Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 ---
- .../kernel/syscalls/ipc/msgrcv/msgrcv01.c     | 28 ++++++++++++++++++-
- 1 file changed, 27 insertions(+), 1 deletion(-)
+ .../kernel/syscalls/ipc/msgrcv/msgrcv07.c     | 81 ++++++++++++++++++-
+ 1 file changed, 77 insertions(+), 4 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/ipc/msgrcv/msgrcv01.c b/testcases/kernel/syscalls/ipc/msgrcv/msgrcv01.c
-index 204bf0575..3bdfa5b37 100644
---- a/testcases/kernel/syscalls/ipc/msgrcv/msgrcv01.c
-+++ b/testcases/kernel/syscalls/ipc/msgrcv/msgrcv01.c
-@@ -12,7 +12,8 @@
- #include "libnewipc.h"
+diff --git a/testcases/kernel/syscalls/ipc/msgrcv/msgrcv07.c b/testcases/kernel/syscalls/ipc/msgrcv/msgrcv07.c
+index 39fbdb67a..9b04fd2ac 100644
+--- a/testcases/kernel/syscalls/ipc/msgrcv/msgrcv07.c
++++ b/testcases/kernel/syscalls/ipc/msgrcv/msgrcv07.c
+@@ -3,7 +3,8 @@
+  * Copyright (c) 2014-2020 Fujitsu Ltd.
+  * Author: Xiaoguang Wang <wangxg.fnst@cn.fujitsu.com>
+  *
+- * Basic test for msgrcv(2) using MSG_EXCEPT, MSG_NOERROR
++ * Basic test for msgrcv(2) using MSG_EXCEPT, MSG_NOERROR and different
++ * msg_typ(zero,positive,negative).
+  */
  
- static key_t msgkey;
--static int queue_id = -1;
-+static time_t creat_time, last_rcv_time;
-+static int queue_id = -1, pid;
+ #define  _GNU_SOURCE
+@@ -22,15 +23,20 @@ static int queue_id = -1;
  static struct buf {
  	long type;
  	char mtext[MSGSIZE];
-@@ -20,6 +21,8 @@ static struct buf {
+-} rcv_buf, snd_buf[2] = {
++} rcv_buf, snd_buf[3] = {
+ 	{MSGTYPE1, MSG1},
+-	{MSGTYPE2, MSG2}
++	{MSGTYPE2, MSG2},
+ };
  
- static void verify_msgrcv(void)
+ static void test_msg_except(void);
+ static void test_msg_noerror(void);
++static void test_zero_msgtyp(void);
++static void test_positive_msgtyp(void);
++static void test_negative_msgtyp(void);
+ static void cleanup(void);
+-static void (*testfunc[])(void) = {test_msg_except, test_msg_noerror};
++static void (*testfunc[])(void) = {test_msg_except, test_msg_noerror,
++				   test_zero_msgtyp, test_positive_msgtyp,
++				   test_negative_msgtyp};
+ 
+ static void verify_msgcrv(unsigned int n)
  {
-+	struct msqid_ds qs_buf;
-+
- 	SAFE_MSGSND(queue_id, &snd_buf, MSGSIZE, 0);
- 
- 	TEST(msgrcv(queue_id, &rcv_buf, MSGSIZE, 1, 0));
-@@ -33,12 +36,35 @@ static void verify_msgrcv(void)
- 	else
- 		tst_res(TFAIL, "message received(%s) != message sent(%s)",
- 			rcv_buf.mtext, snd_buf.mtext);
-+
-+	SAFE_MSGCTL(queue_id, IPC_STAT, &qs_buf);
-+	if (qs_buf.msg_cbytes == 0 && qs_buf.msg_qnum == 0)
-+		tst_res(TPASS, "queue bytes and number of queues matched");
-+	else
-+		tst_res(TFAIL, "queue bytes or number of queues mismatched");
-+	if (qs_buf.msg_lrpid == pid)
-+		tst_res(TPASS, "PID of last msgrcv(2) matched");
-+	else
-+		tst_res(TFAIL, "PID of last msgrcv(2) mismatched");
-+
-+	if (qs_buf.msg_rtime >= creat_time && qs_buf.msg_rtime >= last_rcv_time)
-+		tst_res(TPASS, "create time = %lu, last_snd_time = %lu, msg_stime = %lu",
-+			(unsigned long)creat_time, (unsigned long)last_rcv_time,
-+			(unsigned long)qs_buf.msg_rtime);
-+	else
-+		tst_res(TFAIL, "create time = %lu, last_rcv_time = %lu, msg_rtime = %lu",
-+			(unsigned long)creat_time, (unsigned long)last_rcv_time,
-+			(unsigned long)qs_buf.msg_rtime);
-+
-+	last_rcv_time = qs_buf.msg_rtime;
+@@ -81,6 +87,73 @@ static void test_msg_noerror(void)
+ 	SAFE_MSGCTL(queue_id, IPC_RMID, NULL);
  }
  
++static void test_zero_msgtyp(void)
++{
++	queue_id = SAFE_MSGGET(msgkey, IPC_CREAT | IPC_EXCL | MSG_RW);
++	SAFE_MSGSND(queue_id, &snd_buf[0], MSGSIZE, 0);
++	SAFE_MSGSND(queue_id, &snd_buf[1], MSGSIZE, 0);
++	memset(&rcv_buf, 0, sizeof(rcv_buf));
++
++	TEST(msgrcv(queue_id, &rcv_buf, MSGSIZE, 0, 0));
++	if (TST_RET == -1) {
++		tst_res(TFAIL | TTERRNO, "msgrcv(zero_msgtyp) failed");
++		cleanup();
++		return;
++	}
++	tst_res(TPASS, "msgrcv(zero_msgtyp) succeeded");
++	if (strcmp(rcv_buf.mtext, MSG1) == 0 && rcv_buf.type == MSGTYPE1)
++		tst_res(TPASS, "msgrcv(zero_msgtyp) got the first message");
++	else
++		tst_res(TFAIL, "msgrcv(zero_msgtyp) didn't get the first message");
++	SAFE_MSGCTL(queue_id, IPC_RMID, NULL);
++}
++
++static void test_positive_msgtyp(void)
++{
++	queue_id = SAFE_MSGGET(msgkey, IPC_CREAT | IPC_EXCL | MSG_RW);
++	SAFE_MSGSND(queue_id, &snd_buf[0], MSGSIZE, 0);
++	SAFE_MSGSND(queue_id, &snd_buf[1], MSGSIZE, 0);
++	memset(&rcv_buf, 0, sizeof(rcv_buf));
++
++	TEST(msgrcv(queue_id, &rcv_buf, MSGSIZE, MSGTYPE2, 0));
++	if (TST_RET == -1) {
++		tst_res(TFAIL | TTERRNO, "msgrcv(positive_msgtyp) failed");
++		cleanup();
++		return;
++	}
++	tst_res(TPASS, "msgrcv(positive_msgtyp) succeeded");
++	if (strcmp(rcv_buf.mtext, MSG2) == 0 && rcv_buf.type == MSGTYPE2)
++		tst_res(TPASS, "msgrcv(positive_msgtyp) got the first message"
++			       " in the queue of type msgtyp");
++	else
++		tst_res(TFAIL, "msgrcv(positive_msgtyp) didn't get the first "
++			       "message in the queue of type msgtyp");
++	SAFE_MSGCTL(queue_id, IPC_RMID, NULL);
++}
++
++static void test_negative_msgtyp(void)
++{
++	queue_id = SAFE_MSGGET(msgkey, IPC_CREAT | IPC_EXCL | MSG_RW);
++	SAFE_MSGSND(queue_id, &snd_buf[0], MSGSIZE, 0);
++	SAFE_MSGSND(queue_id, &snd_buf[1], MSGSIZE, 0);
++	memset(&rcv_buf, 0, sizeof(rcv_buf));
++
++	TEST(msgrcv(queue_id, &rcv_buf, MSGSIZE, -MSGTYPE2, 0));
++	if (TST_RET == -1) {
++		tst_res(TFAIL | TTERRNO, "msgrcv(negative_msgtyp) failed");
++		cleanup();
++		return;
++	}
++	tst_res(TPASS, "msgrcv(negative_msgtyp) succeeded");
++	if (strcmp(rcv_buf.mtext, MSG1) == 0 && rcv_buf.type == MSGTYPE1)
++		tst_res(TPASS, "msgrcv(negative_msgtyp) got the first message"
++				" in the queue with the lowest type");
++	else
++		tst_res(TFAIL, "msgrcv(negative_msgtyp) didn't get the first "
++				"message in the queue with the lowest type");
++	SAFE_MSGCTL(queue_id, IPC_RMID, NULL);
++}
++
  static void setup(void)
  {
  	msgkey = GETIPCKEY();
- 	queue_id = SAFE_MSGGET(msgkey, IPC_CREAT | IPC_EXCL | MSG_RW);
-+	pid = getpid();
-+	time(&creat_time);
- }
- 
- static void cleanup(void)
 -- 
 2.23.0
 
