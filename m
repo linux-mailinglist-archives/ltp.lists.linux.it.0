@@ -1,70 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF6DA225C7C
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 12:16:12 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 65C9D225C8B
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 12:19:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 595383C4E16
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 12:16:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F24D93C0886
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jul 2020 12:19:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 766183C0886
- for <ltp@lists.linux.it>; Mon, 20 Jul 2020 12:16:07 +0200 (CEST)
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 365383C0886
+ for <ltp@lists.linux.it>; Mon, 20 Jul 2020 12:19:45 +0200 (CEST)
+Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
+ [IPv6:2607:f8b0:4864:20::1041])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 936221401A09
- for <ltp@lists.linux.it>; Mon, 20 Jul 2020 12:16:06 +0200 (CEST)
-Received: by mail-pf1-x442.google.com with SMTP id 1so8832652pfn.9
- for <ltp@lists.linux.it>; Mon, 20 Jul 2020 03:16:06 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 9E8C42009D6
+ for <ltp@lists.linux.it>; Mon, 20 Jul 2020 12:19:44 +0200 (CEST)
+Received: by mail-pj1-x1041.google.com with SMTP id k71so10012526pje.0
+ for <ltp@lists.linux.it>; Mon, 20 Jul 2020 03:19:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=euB6Y6Ve7H2RKQakdy7VDcg5NDTlTfBMRHrtS8BNQ98=;
- b=oE+TicxBKnMNMLuJR+Ra10kFUpJtg78lTITrgICDJ2TScvRRMs4vTst5V05UQJ0KtK
- on9bqNniQLDUz5wF9mrcXRW/HVuK8VAHq/cuFlu8aZCiwcEBtBEnGBHGA/Xd8aB48Nc3
- Hxbkr5csLOvgyYNYPwxMNXZJqeYchsjYzpHs4rJv8IOTGh2wXTcgaCHPob2l1NVrAej0
- PSx2iVyG7N8WXZZQQwTOX+foE1sKdiUV/L3wCZQkFsML4CpC5/uNY1x1aSNDUNZrcn1l
- MPK7PNhErKh19fwqNXfYz7LFBJGcqbvzmyiocgR6PG3AATebLzJuUMgl1AJtmYRqjdli
- hZ2Q==
+ bh=sx7ssW5NYFCtrFv2I5b+27qDXGufJMsNNHFTSAfCQOI=;
+ b=NhR3E66F9zwPlkiXPSFR2s865YKYisSMKRoEWdWskProuAN8EDJAN/2TpXCJPeexhQ
+ T4r2cVlY0R1TOLw6gYml9EZ39xLQAaTif857xL3pk0gR8kpEszVIeycMIXNyfpULG4bk
+ kPmyZ07wdOUZc2DtIMlwJ/y55YIkjwpvLbl2rgeJCZHkdGkQMZcyvEjJ7PGG5cOFhEHO
+ 9wnf3QvJSkDRS8A/owlRz9l+xuxYLftrHkO3goCHiuQvoKA05FuN1Ea/PZlXoGMWDpbw
+ tBKJ9+HXs5KVz15C+I27GY1WBOATYdxCwcyt2clDa3QhiC/0HKBhShZxe7bMhOohVQD/
+ pO1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=euB6Y6Ve7H2RKQakdy7VDcg5NDTlTfBMRHrtS8BNQ98=;
- b=lw0MHkmFCD0nrIKjN38EGcqkCqU7bVdECP1iZtRBklVjRdcQVdQjvtoFGaN4C6yXXz
- RKXFqHPsV8X4zhtDWX6NUpTfuaaYvMyImmbFBxXkTZl1YMF4qYJlc/IHdCHbzUAsHJQo
- Fme85SwbfcZvwyznKCUvv4g7L5sFVctMJM2g3zJIWdMi62v1zv4/tqfuSl6Q51GPUXa3
- 02+xRTDMy/sK0rHepvyXsAD4hm8aNtSY/tXd3O4TxFDoekLoJb0AJTPLN4xzKeZuqiAe
- qYmS9GtPCFcVpjCSZoJTNcIbIl8BXoa2yQiPf/VE36NXHcCsx5oSsGxRTxwY0gu6GGPw
- kzLQ==
-X-Gm-Message-State: AOAM531UkYbSMyCvkq5oWFXfwSATYw1LKWE8NcyJwRk8AHzIlSjDSHAj
- 8v2VopkeBB7qv9XwV5NKJmelFNjOHeU=
-X-Google-Smtp-Source: ABdhPJznNPTpgJO35rxeiXvhirPpKZ7HJRV3Zej/2R5C6gOfqyxoVGsfgzek51EkRhGQEqHH+vON9w==
-X-Received: by 2002:a62:ce46:: with SMTP id y67mr17778651pfg.118.1595240164687; 
- Mon, 20 Jul 2020 03:16:04 -0700 (PDT)
+ bh=sx7ssW5NYFCtrFv2I5b+27qDXGufJMsNNHFTSAfCQOI=;
+ b=jv/XQpuGWuXu6k0z9k92qECwEwxb/37/i36h4ODHnMlrACI74sG3dQ/Mr6UUimMJoi
+ lingF+itRahrSAJY7W3dNZ19O//FgTrfOITdfDYJFo8KDk/NZmXPu8Ko1wir3JQle8dw
+ SexWBLCrvQKowX2d7vgLqe3dAOP3j/DGZtlaPmcy+6u7uwEJTS6JdL2Gpc4NVUegyYFQ
+ c17/pZfG9ZqOM0auusMS2fd1KZEKveU4aoaJ/IXQYsd5Lt6GnD6jR8DzePZfzT/YyRtq
+ mrWJxvWkZPCiJu/Ztcanb9wVapkql6ghW4nvoq2Iu2EqvSAtrz4Ov/XV5RmS7jnh9ygm
+ r19A==
+X-Gm-Message-State: AOAM531i6KLtQXREuTEOEt3JzZ5oyDtTwL4toLqsy4umFYQXzlTpJepW
+ DBkaAwokTo3JJwij0EadRy7xGhAoUWk=
+X-Google-Smtp-Source: ABdhPJyX/DkY6b0y2CCu84+1DtqLkB3ynXtHNvxGLbX1hKDEhjUxW0EYWgwGvD8seZe/wZqL7FLAsA==
+X-Received: by 2002:a17:90a:b63:: with SMTP id
+ 90mr23880538pjq.47.1595240382802; 
+ Mon, 20 Jul 2020 03:19:42 -0700 (PDT)
 Received: from localhost ([223.179.133.67])
- by smtp.gmail.com with ESMTPSA id h23sm16237250pfo.166.2020.07.20.03.16.03
+ by smtp.gmail.com with ESMTPSA id y6sm11698812pji.2.2020.07.20.03.19.41
  (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 20 Jul 2020 03:16:03 -0700 (PDT)
-Date: Mon, 20 Jul 2020 15:45:43 +0530
+ Mon, 20 Jul 2020 03:19:41 -0700 (PDT)
+Date: Mon, 20 Jul 2020 15:49:32 +0530
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Message-ID: <20200720101543.txvvfa5m7sua3evv@vireshk-mac-ubuntu>
-References: <cover.1594367611.git.viresh.kumar@linaro.org>
+Message-ID: <20200720101932.rw2uy3twdfftttem@vireshk-mac-ubuntu>
+References: <cover.1593152309.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <cover.1594367611.git.viresh.kumar@linaro.org>
+In-Reply-To: <cover.1593152309.git.viresh.kumar@linaro.org>
 User-Agent: NeoMutt/20170609 (1.8.3)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [RFC 0/3] syscalls: Rearrange sigwait syscall tests
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V7 00/19] Syscalls: Add support for time64 variants
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,49 +77,25 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 10-07-20, 13:31, Viresh Kumar wrote:
-> Hi Cyril,
+On 26-06-20, 11:52, Viresh Kumar wrote:
+> Hi,
 > 
-> As suggested by you I have tried to rearrange stuff here and having some
-> difficulty in getting rid of the last few build and runtime errors. And
-> so sending this as RFC.
+> This updates the pending syscall tests that lacked the time64 updates.
 > 
-> Problem 1: Build failure.
-> ---------
-> 
-> This fails with the error:
-> ltp/libs/libltpsigwait/sigwaitinfo01.c:53: undefined reference to `create_sig_proc'
-> 
-> create_sig_proc() is defined in lib/ and I am trying to use it in libs/.
-> Somehow linking is failing here as there is no local user of the routine
-> create_sig_proc() within lib/ directory. If I create a dummy user
-> (https://pastebin.com/LiNukt1n) there, then the build passes.
-> 
-> I don't know how to properly fix this.
-> 
-> Problem 2: Runtime breakage.
-> ---------
-> 
-> If I build it using the earlier hack then at runtime I have started to
-> get following error while running the tests now, right after the first
-> test passes:
-> 
-> tst_test.c:362: BROK: Child (14595) killed by signal SIGTERM
-> 
-> I don't really understand why this has started to come up now, while it
-> didn't happen earlier at all.
-> 
-> This is rebased over the earlier series which is under review
-> (specifically the following patch,
-> [PATCH V7 10/19] syscalls/rt_sigtimedwait: Add support for time64 tests).
+> V7:
+> - Move all tst_timer.h changes to a single patch.
+> - Provide more generic helpers for itimerspec and update the patches
+>   accordingly.
+> - Also include the y2038 patch in the series as that depends on the
+>   first patch here.
 
-Ping!
+Ping for a lot of patches from this series as well.
 
 -- 
 viresh
