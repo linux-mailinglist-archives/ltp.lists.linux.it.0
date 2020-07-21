@@ -1,40 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E78FC2279CD
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jul 2020 09:48:48 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 73E0B227A13
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jul 2020 10:01:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B00493C292B
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jul 2020 09:48:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3A0D13C2937
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jul 2020 10:01:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 6EDE93C26C4
- for <ltp@lists.linux.it>; Tue, 21 Jul 2020 09:48:47 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id BAF462348C5
- for <ltp@lists.linux.it>; Tue, 21 Jul 2020 09:48:46 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 38DA4B5F2;
- Tue, 21 Jul 2020 07:48:52 +0000 (UTC)
-Date: Tue, 21 Jul 2020 09:48:44 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Xiao Yang <yangx.jy@cn.fujitsu.com>
-Message-ID: <20200721074844.GB4088@dell5510>
-References: <20200720183208.3140-1-pvorel@suse.cz>
- <5F165D1A.80605@cn.fujitsu.com>
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id CC20F3C26CB
+ for <ltp@lists.linux.it>; Tue, 21 Jul 2020 10:01:16 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [205.139.110.61])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 899BD1A01DFE
+ for <ltp@lists.linux.it>; Tue, 21 Jul 2020 10:01:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1595318474;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=w2jCY5JRfragNaKo8nTL/yPZ7QPxvk4zkat35DoEyAQ=;
+ b=CYgz7ZDQKl6qnsPPjZRNnjsR571kyZ5DxBk9670T0GPmRgk5tGuZYzy5AhxRP9K03kxxXr
+ x4eEe3e2b/0gxGsjyaOmPC530Ydxkd/NKzJuVZ/Y1aQjGzySgukt7uhhkIPCA8c7QF2CQX
+ FvxO7ceKdEZyNdqgRX5dyELxojjzOcw=
+Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
+ [209.85.208.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-354-iOuBVU3ONqqV4IUeWyZuFA-1; Tue, 21 Jul 2020 04:01:11 -0400
+X-MC-Unique: iOuBVU3ONqqV4IUeWyZuFA-1
+Received: by mail-lj1-f200.google.com with SMTP id n24so4921398lji.11
+ for <ltp@lists.linux.it>; Tue, 21 Jul 2020 01:01:11 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=w2jCY5JRfragNaKo8nTL/yPZ7QPxvk4zkat35DoEyAQ=;
+ b=XLs5g+hVxtborckgEHQcI8/j6rKax4chdR0mDtaGOkQNqkzysqR8LV0aEjx6Cx+nTC
+ r0MbHDjOgEaync9AQSwQurpWyKVBLQbW/sT94ahv2eGBjt0dqlXxtMSu/2MrubeRcfO2
+ A1WexksgV/gEQkNaexLP8TrAw9ER32OB0Dr/q4s9RcvnGRX87MFGZr3Tyq92gJoqJrw5
+ ojoAW+XhJlPfGnRKH6SeHZ4HNCOh8tL9LUaPphgp3xL/5lTG6MhFY618HVe3BUKnM5/y
+ l87ggrNFZxINuUsm6izpKabZ8QR4u6HZ5L7aXK29WY8qotzZ7ndA5k+nyug2GVEWMNsu
+ bs7w==
+X-Gm-Message-State: AOAM5307A2g56H/qw5c2sgRHK3nyFxqJB4N/Xz1rWhQ7lfgL76HV8Mgu
+ +zQrcz7ySborTRnKTOkLKeOtA1fbQhyOW/vbhDLEFh89tpAoswm7OBLwHEROVgRYRg1h2cMCOJP
+ cgGzz+3KdsbZETKHlK2otkxCnlkA=
+X-Received: by 2002:a2e:8046:: with SMTP id p6mr12885254ljg.100.1595318469793; 
+ Tue, 21 Jul 2020 01:01:09 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyvH04/7j8Y3CqgpYJNN6lX885/Wdzjmbkd3NqJ6RHWMBdFWFYb0g9Ws7vbO9+c8Wl8/ZmZhnGH0GhIbEyVCLg=
+X-Received: by 2002:a2e:8046:: with SMTP id p6mr12885233ljg.100.1595318469340; 
+ Tue, 21 Jul 2020 01:01:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <5F165D1A.80605@cn.fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+References: <20200710143607.2546-1-pvorel@suse.cz>
+ <20200720142206.GC4457@yuki.lan>
+In-Reply-To: <20200720142206.GC4457@yuki.lan>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 21 Jul 2020 16:00:57 +0800
+Message-ID: <CAEemH2dy6y7CTie5QmsHY6E5CYDYVN+t3csA66Z3uHx5K-Sb9Q@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH 1/1] testscripts: Remove exportfs.sh
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [RESENT RFC PATCH 1/1] LVM: Drop legacy scripts and
+ runtest files
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,29 +79,62 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0523582434=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Yang,
+--===============0523582434==
+Content-Type: multipart/alternative; boundary="000000000000ab781a05aaef0695"
 
-> LGTM.
+--000000000000ab781a05aaef0695
+Content-Type: text/plain; charset="UTF-8"
 
-> Acked-by: Xiao Yang <yangx.jy@cn.fujitsu.com>
-Thanks! Waiting whether there are more responses.
+On Mon, Jul 20, 2020 at 10:21 PM Cyril Hrubis <chrubis@suse.cz> wrote:
 
-> One question:
-> We need to mount the specified filesystem(e.g. a partition formated with xfs) on $TMPDIR
-> manually if we try to test nfs with different underlying filesystems. Right?
-Yes. We don't have shell API variant for .all_filesystems = 1 (from C API),
-otherwise we could consider converting one NFS tests into all filesystems
-variant.
+> Hi!
+> Looks good to me, acked.
+>
+> I would wait a bit more to see if anyone complains about the removal
+> though.
+>
 
-Kind regards,
-Petr
+No objections from me. ACK.
+
+-- 
+Regards,
+Li Wang
+
+--000000000000ab781a05aaef0695
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Mon, Jul 20, 2020 at 10:21 PM Cyril Hrubis &lt;<=
+a href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><=
+blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
+eft:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
+Looks good to me, acked.<br>
+<br>
+I would wait a bit more to see if anyone complains about the removal<br>
+though.<br></blockquote><div><br></div><div><div class=3D"gmail_default" st=
+yle=3D"font-size:small">No objections from me. ACK.</div></div></div><div><=
+br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"=
+><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--000000000000ab781a05aaef0695--
+
+
+--===============0523582434==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0523582434==--
+
