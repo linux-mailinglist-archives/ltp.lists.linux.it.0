@@ -2,49 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13AA722758E
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jul 2020 04:26:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C9F42275A7
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jul 2020 04:35:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CA6EE3C4E1A
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jul 2020 04:26:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F35AB3C4E22
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jul 2020 04:35:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 437073C1D32
- for <ltp@lists.linux.it>; Tue, 21 Jul 2020 04:25:59 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id C30D43C4E19
+ for <ltp@lists.linux.it>; Tue, 21 Jul 2020 04:35:16 +0200 (CEST)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 110441000B15
- for <ltp@lists.linux.it>; Tue, 21 Jul 2020 04:25:56 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.75,377,1589212800"; d="scan'208";a="96674527"
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id BE7CF2009C2
+ for <ltp@lists.linux.it>; Tue, 21 Jul 2020 04:35:14 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.75,377,1589212800"; d="scan'208";a="96675036"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 21 Jul 2020 10:25:54 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id ECD934CE506F;
- Tue, 21 Jul 2020 10:25:50 +0800 (CST)
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Tue, 21 Jul 2020 10:25:49 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <chrubis@suse.cz>
-Date: Tue, 21 Jul 2020 10:26:19 +0800
-Message-ID: <1595298379-4585-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <20200720145646.GA20216@yuki.lan>
-References: <20200720145646.GA20216@yuki.lan>
+ by heian.cn.fujitsu.com with ESMTP; 21 Jul 2020 10:35:13 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id 253004CE5076;
+ Tue, 21 Jul 2020 10:35:11 +0800 (CST)
+Received: from [10.167.220.69] (10.167.220.69) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Tue, 21 Jul 2020 10:35:10 +0800
+Message-ID: <5F16545D.4090103@cn.fujitsu.com>
+Date: Tue, 21 Jul 2020 10:35:09 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
+To: Petr Vorel <pvorel@suse.cz>
+References: <20200710172044.21592-1-pvorel@suse.cz>
+ <20200710172044.21592-5-pvorel@suse.cz> <5F15686A.1070605@cn.fujitsu.com>
+ <20200720141547.GB21201@dell5510>
+In-Reply-To: <20200720141547.GB21201@dell5510>
+X-Originating-IP: [10.167.220.69]
 X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: ECD934CE506F.A134C
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
+X-yoursite-MailScanner-ID: 253004CE5076.A849B
 X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v3] syscalls/ioctl09: Add test for BLKRRPART ioctl
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 4/7] net: Update README.md
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,181 +59,65 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Fixes #699
-
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Acked-by: Jan Stancek <jstancek@redhat.com>
----
-v2->v3
-1. remove useless cmd judgement about 255 and use tst_brk
-2. move tst_find_free_loopdev into setup
-3. use new api tst_prealloc_file instead of tst_fill_file 
-   and move it into setup
- runtest/syscalls                           |   1 +
- testcases/kernel/syscalls/ioctl/.gitignore |   1 +
- testcases/kernel/syscalls/ioctl/ioctl09.c  | 119 +++++++++++++++++++++
- 3 files changed, 121 insertions(+)
- create mode 100644 testcases/kernel/syscalls/ioctl/ioctl09.c
-
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 819e8d8ee..c2bfc6df3 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -529,6 +529,7 @@ ioctl05      ioctl05
- ioctl06      ioctl06
- ioctl07      ioctl07
- ioctl08      ioctl08
-+ioctl09      ioctl09
- 
- ioctl_loop01 ioctl_loop01
- ioctl_loop02 ioctl_loop02
-diff --git a/testcases/kernel/syscalls/ioctl/.gitignore b/testcases/kernel/syscalls/ioctl/.gitignore
-index 3a3d49adc..5fff7a61d 100644
---- a/testcases/kernel/syscalls/ioctl/.gitignore
-+++ b/testcases/kernel/syscalls/ioctl/.gitignore
-@@ -6,6 +6,7 @@
- /ioctl06
- /ioctl07
- /ioctl08
-+/ioctl09
- /ioctl_loop01
- /ioctl_loop02
- /ioctl_loop03
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl09.c b/testcases/kernel/syscalls/ioctl/ioctl09.c
-new file mode 100644
-index 000000000..d159869d6
---- /dev/null
-+++ b/testcases/kernel/syscalls/ioctl/ioctl09.c
-@@ -0,0 +1,119 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
-+ * Author: Yang Xu <xuyang2018.jy@cn.jujitsu.com>
-+ *
-+ * Basic test for the BLKRRPART ioctl, it is the same as blockdev
-+ * --rereadpt command.
-+ */
-+
-+#include <stdio.h>
-+#include <unistd.h>
-+#include <string.h>
-+#include <sys/mount.h>
-+#include <stdbool.h>
-+#include "lapi/loop.h"
-+#include "tst_test.h"
-+
-+static char dev_path[1024];
-+static int dev_num, attach_flag, dev_fd;
-+static char loop_partpath[1026], sys_loop_partpath[1026];
-+
-+static void change_partition(const char *const cmd[])
-+{
-+	int ret;
-+
-+	ret = tst_cmd(cmd, NULL, NULL, TST_CMD_PASS_RETVAL);
-+	if (ret)
-+		tst_brk(TBROK, "parted return %i", ret);
-+}
-+
-+static void check_partition(int part_num, bool value)
-+{
-+	int ret;
-+
-+	sprintf(sys_loop_partpath, "/sys/block/loop%d/loop%dp%d",
-+		dev_num, dev_num, part_num);
-+	sprintf(loop_partpath, "%sp%d", dev_path, part_num);
-+
-+	ret = access(sys_loop_partpath, F_OK);
-+	if (ret == 0)
-+		tst_res(value ? TPASS : TFAIL, "access %s succeeds",
-+			sys_loop_partpath);
-+	else
-+		tst_res(value ? TFAIL : TPASS, "access %s fails",
-+			sys_loop_partpath);
-+
-+	ret = access(loop_partpath, F_OK);
-+	if (ret == 0)
-+		tst_res(value ? TPASS : TFAIL, "access %s succeeds",
-+			loop_partpath);
-+	else
-+		tst_res(value ? TFAIL : TPASS, "access %s fails",
-+			loop_partpath);
-+}
-+
-+static void verify_ioctl(void)
-+{
-+	const char *const cmd_parted_old[] = {"parted", "-s", "test.img",
-+					      "mklabel", "msdos", "mkpart",
-+					      "primary", "ext4", "1M", "10M",
-+					      NULL};
-+	const char *const cmd_parted_new[] = {"parted", "-s", "test.img",
-+					      "mklabel", "msdos", "mkpart",
-+					      "primary", "ext4", "1M", "10M",
-+					      "mkpart", "primary", "ext4",
-+					      "10M", "20M", NULL};
-+	struct loop_info loopinfo = {0};
-+
-+	change_partition(cmd_parted_old);
-+	tst_attach_device(dev_path, "test.img");
-+	attach_flag = 1;
-+
-+	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
-+	loopinfo.lo_flags =  LO_FLAGS_PARTSCAN;
-+	SAFE_IOCTL(dev_fd, LOOP_SET_STATUS, &loopinfo);
-+	check_partition(1, true);
-+	check_partition(2, false);
-+
-+	change_partition(cmd_parted_new);
-+	TST_RETRY_FUNC(ioctl(dev_fd, BLKRRPART, 0), TST_RETVAL_EQ0);
-+	check_partition(1, true);
-+	check_partition(2, true);
-+
-+	SAFE_CLOSE(dev_fd);
-+	tst_detach_device(dev_path);
-+	attach_flag = 0;
-+}
-+
-+static void setup(void)
-+{
-+	dev_num = tst_find_free_loopdev(dev_path, sizeof(dev_path));
-+	if (dev_num < 0)
-+		tst_brk(TBROK, "Failed to find free loop device");
-+	tst_prealloc_file("test.img", 1024 * 1024, 20);
-+}
-+
-+static void cleanup(void)
-+{
-+	if (dev_fd > 0)
-+		SAFE_CLOSE(dev_fd);
-+	if (attach_flag)
-+		tst_detach_device(dev_path);
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.test_all = verify_ioctl,
-+	.needs_root = 1,
-+	.needs_drivers = (const char *const []) {
-+		"loop",
-+		NULL
-+	},
-+	.needs_cmds = (const char *const []) {
-+		"parted",
-+		NULL
-+	},
-+	.needs_tmpdir = 1,
-+};
--- 
-2.23.0
-
-
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gMjAyMC83LzIwIDIyOjE1LCBQZXRyIFZvcmVsIHdyb3RlOgo+IEhpLAo+Cj4gLi4uCj4+PiAr
+KysgYi90ZXN0Y2FzZXMvbmV0d29yay9SRUFETUUubWQKPiAuLi4KPj4+ICAgICMjIFNlcnZlciBT
+ZXJ2aWNlcyBDb25maWd1cmF0aW9uCj4+PiAgICBWZXJpZnkgdGhhdCB0aGUgYmVsb3cgZGFlbW9u
+IHNlcnZpY2VzIGFyZSBydW5uaW5nLiBJZiBub3QsIHBsZWFzZSBpbnN0YWxsCj4+PiAgICBhbmQg
+c3RhcnQgdGhlbToKPj4+IC1yc2gtc2VydmVyLCB0ZWxuZXQtc2VydmVyLCBmaW5nZXItc2VydmVy
+LCByZGlzdCwgcnN5bmMsIGRoY3Atc2VydmVyLCBodHRwLXNlcnZlci4KPj4+ICsKPj4+ICtkaGNw
+LXNlcnZlciwgZG5zbWFzcSwgaHR0cC1zZXJ2ZXIsIG5mcy1rZXJuZWwtc2VydmVyLCBycGNiaW5k
+LCByc3luYywKPj4+ICt0ZWxuZXQtc2VydmVyLCB2c2Z0cGQKPj4gSGkgUGV0ciwKPj4gVGhlc2Ug
+cGFja2FnZSBuYW1lcyBhcmUgZnJvbSBEZWJpYW4vVWJ1bnR1LCBkbyB3ZSBuZWVkIHRvIG1lbnRp
+b24gaXQ/Cj4gQWxsIHRoZXNlIHBhY2thZ2VzIGFyZSBhdCBsZWFzdCBpbiBEZWJpYW4vVWJ1bnR1
+IGFuZCBvcGVuU1VTRS4gSU1ITyBvdGhlcgo+IGRpc3Ryb3MgaGF2ZSBzaW1pbGFyIG5hbWVzLiBF
+eGNlcHRpb24gaXMgbmZzLWtlcm5lbC1zZXJ2ZXIsIHdoaWNoIGlzIGF0IGxlYXN0IG9uCj4gRmVk
+b3JhL1JIRUwgbmZzLXNlcnZlci4gVGh1cyBzb21ldGhpbmcgbGlrZToKPgo+IGRoY3Atc2VydmVy
+LCBkbnNtYXNxLCBodHRwLXNlcnZlciwgbmZzLWtlcm5lbC1zZXJ2ZXIgb3IgbmZzLXNlcnZlciwg
+cnBjYmluZCwKPiByc3luYyx0ZWxuZXQtc2VydmVyLCB2c2Z0cGQKSGkgUGV0ciwKCklmIHRoZXNl
+IG5hbWUgcmVwcmVzZW50IHBha2NhZ2UgbmFtZSwgdGhlcmUgYXJlIHNvbWUgZGlmZmVybmV0cyBi
+ZXR3ZWVuIApEZWJpYW4vVWJ1bnR1L29wZW5TVVNFIGFuZCBGZWRvcmEvUkhFTDoKRGViaWFuL1Vi
+dW50dS9vcGVuU1VTRTogaXNjLWRoY3Atc2VydmVyLCBkbnNtYXNx77yMYXBhY2hlMiwgCm5mcy1r
+ZXJuZWwtc2VydmVyLCBycGNiaW5k77yMcnN5bmMsIHRlbG5ldGQgKyB4aW5ldGQsIHZzZnRwZApS
+SEVML0ZlZG9yYTogZGhjcCwgZG5zbWFzce+8jGh0dHBkLCBuZnMtdXRpbHPvvIxycGNiaW5k77yM
+cnN5bmMsIAp0ZWxuZXQtc2VydmVyLCB2c2Z0cGQKCkNvdWxkIHdlIGp1c3QgcmVwcmVzZW50IHNl
+cnZpY2UgbmFtZToKZGhjcGQob3IgaXNjLWRoY3Atc2VydmVyKSwgZG5zbWFzcSwgaHR0cGQob3Ig
+YXBhY2hlMiksIG5mcy1zZXJ2ZXIsIApycGNiaW5kLCB0ZWxuZXQuc29ja2V0KG9yIHhpbmV0ZCks
+IHZzZnRwZAoKQlRXOiBJIGNhbm5vdCBmaW5kIHdoaWNoIHRlc3QgdXNlIHJzeW5jLCBkaWQgSSBt
+aXNzIHNvbWV0aGluZz8KCj4+PiAgICBOb3RlOiBJZiBhbnkgb2YgdGhlIGFib3ZlIGRhZW1vbiBp
+cyBub3QgcnVubmluZyBvbiBzZXJ2ZXIsIHRoZSB0ZXN0IHJlbGF0ZWQgdG8KPj4+ICAgIHRoYXQg
+c2VydmljZSBydW5uaW5nIGZyb20gY2xpZW50IHdpbGwgZmFpbC4KPj4+IC0jIyMgRlRQIHNldHVw
+Cj4+PiAtKiBJbiDigJwvZXRjL2Z0cHVzZXJz4oCdIFtvciB2aSAvZXRjL3ZzZnRwZC5mdHB1c2Vy
+c10sIGNvbW1lbnQgdGhlIGxpbmUgY29udGFpbmluZwo+Pj4gLeKAnHJvb3TigJ0gc3RyaW5nLiBU
+aGlzIGZpbGUgbGlzdHMgYWxsIHRob3NlIHVzZXJzIHdobyBhcmUgbm90IGdpdmVuIGFjY2VzcyB0
+byBkbyBmdHAKPj4+ICsjIyMgRlRQIGFuZCB0ZWxuZXQgc2V0dXAKPj4+ICtCb3RoIHRlc3RzIHJl
+cXVpcmUgZW52aXJvbm1lbnQgdmFyaWFibGVzIGBSSE9TVGAgKHJlbW90ZSBtYWNoaW5lKSwgYFJV
+U0VSYAo+Pj4gKyhyZW1vdGUgdXNlcikgYW5kIGBQQVNTV0RgIChyZW1vdGUgcGFzc3dvcmQpLiBO
+T1RFOiBgUkhPU1RgIHdpbGwgaW1wbHkgdHdvIGhvc3QKPj4+ICtjb25maWd1cmF0aW9lIGZvciBv
+dGhlciB0ZXN0cy4KPj4+ICsKPj4+ICtJZiBgUkhPU1RgIGlzIHNldCB0byBgcm9vdGAsIGVpdGhl
+ciBvZiB0aGVzZSBzdGVwcyBpcyByZXF1aXJlZDoKPj4+ICsKPj4+ICsqIEluIGAvZXRjL2Z0cHVz
+ZXJzYCAob3IgYC9ldGMvdnNmdHBkLmZ0cHVzZXJzYCksIGNvbW1lbnQgdGhlIGxpbmUgY29udGFp
+bmluZwo+Pj4gKyJyb290IiBzdHJpbmcuIFRoaXMgZmlsZSBsaXN0cyBhbGwgdGhvc2UgdXNlcnMg
+d2hvIGFyZSBub3QgZ2l2ZW4gYWNjZXNzIHRvIGRvIGZ0cAo+Pj4gICAgb24gdGhlIGN1cnJlbnQg
+c3lzdGVtLgo+PiBBcmUgdGhpcyBmaWxlIGZyb20gRGViaWFuL1VidW50dSBhcyB3ZWxsPwo+IEFn
+YWluLCAvZXRjL2Z0cHVzZXJzIGlzIGF0IGxlYXN0IGZvciBvcGVuU1VTRSBhbmQgRGViaWFuL1Vi
+dW50dS4KPiBGZWRvcmEvUkhFTCBoYXMgL2V0Yy92c2Z0cGQvZnRwdXNlcnMgYW5kIC9ldGMvdnNm
+dHBkL3VzZXJfbGlzdAo+IC9ldGMvdnNmdHBkLmZ0cHVzZXJzIGxvb2tzIGxpa2UgdG8gYmUgb24g
+UkhFTCA0LyBzb21lIG9sZCBGZWRvcmEuCj4KPiBUaHVzOgo+ICogSW4gYC9ldGMvZnRwdXNlcnNg
+IChvciBgL2V0Yy92c2Z0cGQvZnRwdXNlcnNgIG9yIGAvZXRjL3ZzZnRwZC5mdHB1c2Vyc2ApLAo+
+ICogY29tbWVudCB0aGUgbGluZSBjb250YWluaW5nCj4gLi4uCgpUaGlzIGNoYW5nZSBsb29rcyBn
+b29kLiA6LSkKCj4gSSBhbHNvIHdvbmRlcmVkIGlmIHNldHVwIHNob3VsZCBtZW50aW9uIHNvbWV0
+aGluZyByZWxhdGVkIHRvIHNpbmdsZSB0ZXN0LAo+IGJ1dCBpdCBkaWRuJ3QgaGFybS4gSSB3YXMg
+dGhpbmtpbmcgd2hldGhlciBmdHAgdGVzdCBpcyB3b3J0aCB0byBrZWVwIChhbmQgdGh1cwo+IG5l
+ZWQgdG8gYmUgcmV3cml0dGVuKSwgYnV0IHVuZGVyc3RhbmQgaXQncyB1c2VmdWwgYXMgYSBoaWdo
+IGxldmVsIHNtb2tlIHRlc3QuCjEpIEl0IHNlZW1zIGJldHRlciB0byBtZW50aW9uIHNvbWV0aGlu
+ZyByZWxhdGVkIHRvIHNpbmdsZSB0ZXN0LgoyKSBQZXJmZXIgdG8ga2VlcCBhbmQgcmV3cml0ZSBm
+dHAgdGVzdC4KClRoYW5rcywKWGlhbyBZYW5nCj4gT0sgd2l0aCB0aGVzZSBjaGFuZ2VzPwo+Cj4g
+S2luZCByZWdhcmRzLAo+IFBldHIKPgo+PiBPdGhlciB0aGFuIHRoaXMsIGl0IGlzIGdvb2QgdG8g
+bWUuIDotKQo+PiBBY2tlZC1ieTogWGlhbyBZYW5nPHlhbmd4Lmp5QGNuLmZ1aml0c3UuY29tPgo+
+PiBUaGFua3MsCj4+IFhpYW8gWWFuZwo+Cj4gLgo+CgoKCgotLSAKTWFpbGluZyBsaXN0IGluZm86
+IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
