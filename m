@@ -2,84 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58D6D22849D
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jul 2020 18:03:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5797B228827
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jul 2020 20:24:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F050A3C281C
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jul 2020 18:03:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0AC603C2832
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Jul 2020 20:24:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id D4DA73C03B1
- for <ltp@lists.linux.it>; Tue, 21 Jul 2020 18:03:29 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 09691200DF3
- for <ltp@lists.linux.it>; Tue, 21 Jul 2020 18:03:28 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 32563AED2
- for <ltp@lists.linux.it>; Tue, 21 Jul 2020 16:03:35 +0000 (UTC)
-To: Cyril Hrubis <chrubis@suse.cz>, ltp@lists.linux.it
-References: <20200717163453.9587-1-chrubis@suse.cz>
- <20200717163453.9587-7-chrubis@suse.cz>
-From: Martin Doucha <mdoucha@suse.cz>
-Autocrypt: addr=mdoucha@suse.cz; keydata=
- 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
-Message-ID: <7a26989c-93b8-c390-a87c-3d19c6603721@suse.cz>
-Date: Tue, 21 Jul 2020 18:03:27 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 579FF3C072E
+ for <ltp@lists.linux.it>; Tue, 21 Jul 2020 20:24:48 +0200 (CEST)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 863EE600E32
+ for <ltp@lists.linux.it>; Tue, 21 Jul 2020 20:23:31 +0200 (CEST)
+Received: from localhost.localdomain (c-73-187-218-229.hsd1.pa.comcast.net
+ [73.187.218.229])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 643FF20B4908;
+ Tue, 21 Jul 2020 11:24:45 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 643FF20B4908
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1595355886;
+ bh=/VTibjakL9ELXNXCLpaG4W/MeSCeCvg41MnPXUUsxWQ=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Nu//DrmMWHY65Jxlrp5mBy40V+jzWFWBsy33cgAPkcjRonSWpC0jqeRCG5HGA3U9m
+ 5VAe4WI/Hx4mxYqTk7chL9ze6LXi9P8F/SdRVJLv/oaw0OBeVpBkvY/BdN3YLGrcG4
+ yHeQLR2Q3ZsL0UeWL69a3P1fd1Fa+AAcTm4vi6L4=
+From: Lachlan Sneff <t-josne@linux.microsoft.com>
+To: zohar@linux.ibm.com,
+	pvorel@suse.cz,
+	ltp@lists.linux.it
+Date: Tue, 21 Jul 2020 14:24:40 -0400
+Message-Id: <20200721182440.4169-1-t-josne@linux.microsoft.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20200717163453.9587-7-chrubis@suse.cz>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 6/9] syscalls/ipc: Add shmctl() IPC_INFO test
+X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_PASS,SPF_PASS,
+ USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH] IMA: Add test for kexec cmdline measurement
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,124 +54,163 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: nramas@linux.microsoft.com, linux-integrity@vger.kernel.org,
+ balajib@linux.microsoft.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
-for patches 2, 4 and 5:
-Reviewed-by: Martin Doucha <mdoucha@suse.cz>
+IMA policy can be set to measure the command line passed in the kexec system call.
+There needs to be a test to validate this kexec command line measurement.
 
-Patch 3 needs a test scenario redesign as reported by Li Wang.
+Add a testcase that verifies that the IMA subsystem has correctly
+measured the cmdline specified during a kexec.
 
-In this patch, you should also check for other negative return values
-from shmctl() besides -1.
+Note that this test does not actually reboot.
 
-On 17. 07. 20 18:34, Cyril Hrubis wrote:
-> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-> ---
->  runtest/syscalls                              |  1 +
->  runtest/syscalls-ipc                          |  1 +
->  .../kernel/syscalls/ipc/shmctl/.gitignore     |  1 +
->  .../kernel/syscalls/ipc/shmctl/shmctl03.c     | 38 +++++++++++++++++++
->  4 files changed, 41 insertions(+)
->  create mode 100644 testcases/kernel/syscalls/ipc/shmctl/shmctl03.c
-> 
-> diff --git a/runtest/syscalls b/runtest/syscalls
-> index 5ce482dc7..819e8d8ee 100644
-> --- a/runtest/syscalls
-> +++ b/runtest/syscalls
-> @@ -1355,6 +1355,7 @@ shmat03 shmat03
->  
->  shmctl01 shmctl01
->  shmctl02 shmctl02
-> +shmctl03 shmctl03
->  shmctl04 shmctl04
->  shmctl05 shmctl05
->  shmctl06 shmctl06
-> diff --git a/runtest/syscalls-ipc b/runtest/syscalls-ipc
-> index 10cb92c7d..c3a35896c 100644
-> --- a/runtest/syscalls-ipc
-> +++ b/runtest/syscalls-ipc
-> @@ -53,6 +53,7 @@ shmat02 shmat02
->  
->  shmctl01 shmctl01
->  shmctl02 shmctl02
-> +shmctl03 shmctl03
->  shmctl04 shmctl04
->  shmctl05 shmctl05
->  shmctl06 shmctl06
-> diff --git a/testcases/kernel/syscalls/ipc/shmctl/.gitignore b/testcases/kernel/syscalls/ipc/shmctl/.gitignore
-> index 08aa83c19..46b107344 100644
-> --- a/testcases/kernel/syscalls/ipc/shmctl/.gitignore
-> +++ b/testcases/kernel/syscalls/ipc/shmctl/.gitignore
-> @@ -1,5 +1,6 @@
->  /shmctl01
->  /shmctl02
-> +/shmctl03
->  /shmctl04
->  /shmctl05
->  /shmctl06
-> diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl03.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl03.c
-> new file mode 100644
-> index 000000000..7df8c12ce
-> --- /dev/null
-> +++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl03.c
-> @@ -0,0 +1,38 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (C) 2020 Cyril Hrubis <chrubis@suse.cz>
-> + */
-> +/*
-> + * Call shmctl() with IPC_INFO flag and check that the data are consistent with
-> + * /proc/sys/kernel/shm*.
-> + */
-> +
-> +#define _GNU_SOURCE
-> +#include "tst_test.h"
-> +#include "tst_safe_sysv_ipc.h"
-> +#include "libnewipc.h"
-> +
-> +static void verify_ipcinfo(void)
-> +{
-> +	struct shminfo info;
-> +
-> +	TEST(shmctl(0, IPC_INFO, (struct shmid_ds *)&info));
-> +
-> +	if (TST_RET == -1) {
-> +		tst_res(TFAIL | TTERRNO, "shmctl(0, IPC_INFO, ...)");
-> +		return;
-> +	}
-> +
+Signed-off-by: Lachlan Sneff <t-josne@linux.microsoft.com>
+---
+ runtest/ima                                   |  1 +
+ .../kernel/security/integrity/ima/README.md   | 11 +++
+ .../security/integrity/ima/tests/ima_kexec.sh | 93 +++++++++++++++++++
+ 3 files changed, 105 insertions(+)
+ create mode 100644 testcases/kernel/security/integrity/ima/tests/ima_kexec.sh
 
-if (TST_RET < 0)
-	tst_res(TFAIL...)
-
-> +	if (info.shmmin != 1)
-> +		tst_res(TFAIL, "shmmin = %li, expected 1", info.shmmin);
-> +	else
-> +		tst_res(TPASS, "shmmin = 1");
-> +
-> +	TST_ASSERT_ULONG("/proc/sys/kernel/shmmax", info.shmmax);
-> +	TST_ASSERT_ULONG("/proc/sys/kernel/shmmni", info.shmmni);
-> +	TST_ASSERT_ULONG("/proc/sys/kernel/shmall", info.shmall);
-> +}
-> +
-> +static struct tst_test test = {
-> +	.test_all = verify_ipcinfo,
-> +};
-> 
-
-
+diff --git a/runtest/ima b/runtest/ima
+index 309d47420..5f4b4a7a1 100644
+--- a/runtest/ima
++++ b/runtest/ima
+@@ -4,4 +4,5 @@ ima_policy ima_policy.sh
+ ima_tpm ima_tpm.sh
+ ima_violations ima_violations.sh
+ ima_keys ima_keys.sh
++ima_kexec ima_kexec.sh
+ evm_overlay evm_overlay.sh
+diff --git a/testcases/kernel/security/integrity/ima/README.md b/testcases/kernel/security/integrity/ima/README.md
+index db8819a99..926eb8478 100644
+--- a/testcases/kernel/security/integrity/ima/README.md
++++ b/testcases/kernel/security/integrity/ima/README.md
+@@ -30,6 +30,17 @@ measure func=KEY_CHECK keyrings=key_import_test template=ima-buf
+ 
+ The test also requires loaded policy with `func=KEY_CHECK`, see example in `keycheck.policy`.
+ 
++### IMA kexec test
++
++This test requires that the ima policy contains:
++```
++measure func=KEXEC_CMDLINE
++```
++
++Even though the test does not actually reboot, it does require a valid,
++signed kernel image. By default, the test will look in `/boot/vmlinuz-$(uname r)`,
++but if no image is accessible there, a valid image be must be placed at `/tmp/Image`.
++
+ ## EVM tests
+ 
+ `evm_overlay.sh` requires a builtin IMA appraise tcb policy (e.g. `ima_policy=appraise_tcb`
+diff --git a/testcases/kernel/security/integrity/ima/tests/ima_kexec.sh b/testcases/kernel/security/integrity/ima/tests/ima_kexec.sh
+new file mode 100644
+index 000000000..7d71557ee
+--- /dev/null
++++ b/testcases/kernel/security/integrity/ima/tests/ima_kexec.sh
+@@ -0,0 +1,93 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2020 Microsoft Corporation
++# Author: Lachlan Sneff <t-josne@linux.microsoft.com>
++#
++# Verify that kexec cmdline is measured correctly.
++
++TST_NEEDS_CMDS="kexec sed xargs printf grep"
++TST_CNT=1
++TST_NEEDS_DEVICE=1
++
++. ima_setup.sh
++
++# Since the test is executed inside some sort of
++# separate shell, *most* environment variables are
++# not accessible, so there's no way to set it from
++# the outside.
++#
++# `/boot/vmlinuz-$(uname-r)` is where the image is
++# located on many systems, but not all. Therefore,
++# if the image is not located there, require the
++# user to copy it to `/tmp/Image`.
++#
++# Ideally, this test shouldn't even require an image,
++# since it doesn't actually reboot, but the IMA cmdline
++# measurement occurs after the image is parsed and verified,
++# so we must pass a valid kernel image. There is a possiblity of
++# putting together a "faux" kernel image that has the right headers
++# and appears to be signed correctly, but doesn't actually contain any
++# code, but, after investigating that possiblity, it appears to be
++# quite difficult (and would require a new faux kernel for each arch).
++IMAGE="/boot/vmlinuz-$(uname -r)"
++if [ ! -f $IMAGE ]; then
++    IMAGE="/tmp/Image"
++fi
++
++measure() {
++    local found temp_file="file.txt" temp_file2="file2.txt" algorithm \
++        digest expected_digest
++
++    echo -n "$1" > $temp_file
++    grep "kexec-cmdline" $ASCII_MEASUREMENTS > $temp_file2
++
++    while read found
++    do
++        algorithm=$(echo "$found" | cut -d' ' -f4 | cut -d':' -f1)
++        digest=$(echo "$found" | cut -d' ' -f4 | cut -d':' -f2)
++
++        expected_digest=$(compute_digest $algorithm $temp_file)
++
++        if [ "$digest" = "$expected_digest" ]; then
++            return 0
++        fi
++    done < $temp_file2
++
++    return 1
++}
++
++# Test that the kexec cmdline is measured correctly.
++# NOTE: This does *not* actually reboot.
++test1() {
++    # Strip the `BOOT_IMAGE=...` part from the cmdline.
++    local cmdline="$(sed 's/BOOT_IMAGE=[^ ]* //' /proc/cmdline)"
++    if ! kexec -sl $IMAGE --reuse-cmdline; then
++        tst_brk TCONF "kexec failed: $?"
++    fi
++
++    if ! measure "$cmdline"; then
++        tst_brk TFAIL "kexec cmdline was measured incorrectly"
++    fi
++
++    cmdline="foo"
++    if ! kexec -sl $IMAGE --append=$cmdline; then
++        tst_brk TCONF "kexec failed: $?"
++    fi
++
++    if ! measure "$cmdline"; then
++        tst_brk TFAIL "kexec cmdline was measured incorrectly"
++    fi
++
++    cmdline="bar"
++    if ! kexec -sl $IMAGE --command-line=$cmdline; then
++        tst_brk TCONF "kexec failed: $?"
++    fi
++
++    if ! measure "$cmdline"; then
++        tst_brk TFAIL "kexec cmdline was measured incorrectly"
++    fi
++
++    tst_res TPASS "kexec cmldine was measured correctly"
++}
++
++tst_run
 -- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+2.25.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
