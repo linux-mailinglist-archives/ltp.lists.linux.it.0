@@ -2,77 +2,49 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0091229EFA
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Jul 2020 20:10:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 621E6229F47
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Jul 2020 20:32:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 338783C7F42
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Jul 2020 20:10:03 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1FED63C7F5C
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Jul 2020 20:32:12 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 088493C1D5C
- for <ltp@lists.linux.it>; Wed, 22 Jul 2020 20:09:58 +0200 (CEST)
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 153743C1D5C
+ for <ltp@lists.linux.it>; Wed, 22 Jul 2020 20:32:06 +0200 (CEST)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1B078600F22
+ for <ltp@lists.linux.it>; Wed, 22 Jul 2020 20:30:48 +0200 (CEST)
+Received: from localhost.localdomain
+ (pool-96-246-152-186.nycmny.fios.verizon.net [96.246.152.186])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 537521000956
- for <ltp@lists.linux.it>; Wed, 22 Jul 2020 20:09:58 +0200 (CEST)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 06MI3BvU158881; Wed, 22 Jul 2020 14:09:55 -0400
-Received: from ppma06fra.de.ibm.com (48.49.7a9f.ip4.static.sl-reverse.com
- [159.122.73.72])
- by mx0a-001b2d01.pphosted.com with ESMTP id 32e1vs4u1m-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 22 Jul 2020 14:09:55 -0400
-Received: from pps.filterd (ppma06fra.de.ibm.com [127.0.0.1])
- by ppma06fra.de.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 06MI7Dms030353;
- Wed, 22 Jul 2020 18:09:53 GMT
-Received: from b06cxnps4074.portsmouth.uk.ibm.com
- (d06relay11.portsmouth.uk.ibm.com [9.149.109.196])
- by ppma06fra.de.ibm.com with ESMTP id 32brbgtqn4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 22 Jul 2020 18:09:53 +0000
-Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
- [9.149.105.62])
- by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 06MI9pEW62259306
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 22 Jul 2020 18:09:51 GMT
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id F089BAE057;
- Wed, 22 Jul 2020 18:09:50 +0000 (GMT)
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0EE4EAE053;
- Wed, 22 Jul 2020 18:09:50 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.80.219.44])
- by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Wed, 22 Jul 2020 18:09:49 +0000 (GMT)
-Message-ID: <1595441389.5211.1.camel@linux.ibm.com>
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Lachlan Sneff <t-josne@linux.microsoft.com>, pvorel@suse.cz,
+ by mail.kernel.org (Postfix) with ESMTPSA id 0612420714;
+ Wed, 22 Jul 2020 18:32:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1595442723;
+ bh=Ej7eb6WRvQeFRdUgnRjsIBu5uXweOW5ytKzwLo5Afbk=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+ b=CbACEJnAveYL+vdtshYbCbyv7U5XmiAol7J6Hp0j1zM33YkK3mSGFLrxW7PUW1SRT
+ 41DSm1zZIiTx2468OO5N9pd9VpeddV4FMHxsBms9j7NwnKH/oCDWyVgumVYLVPSKxR
+ XgiB4TVt9h/FlmvNvqhBpwElXs6b0oglyRbUseHg=
+Message-ID: <1595442721.5211.7.camel@kernel.org>
+From: Mimi Zohar <zohar@kernel.org>
+To: Lachlan Sneff <t-josne@linux.microsoft.com>, pvorel@suse.cz, 
  ltp@lists.linux.it
-Date: Wed, 22 Jul 2020 14:09:49 -0400
-In-Reply-To: <20200722164040.23109-1-t-josne@linux.microsoft.com>
+Date: Wed, 22 Jul 2020 14:32:01 -0400
+In-Reply-To: <1595441389.5211.1.camel@linux.ibm.com>
 References: <20200722164040.23109-1-t-josne@linux.microsoft.com>
+ <1595441389.5211.1.camel@linux.ibm.com>
 X-Mailer: Evolution 3.20.5 (3.20.5-1.fc24) 
 Mime-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-07-22_10:2020-07-22,
- 2020-07-22 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- mlxlogscore=999 malwarescore=0 priorityscore=1501 adultscore=0 mlxscore=0
- impostorscore=0 bulkscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2007220114
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v2] IMA: Add test for kexec cmdline measurement
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -92,14 +64,39 @@ Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gV2VkLCAyMDIwLTA3LTIyIGF0IDEyOjQwIC0wNDAwLCBMYWNobGFuIFNuZWZmIHdyb3RlOgo+
+T24gV2VkLCAyMDIwLTA3LTIyIGF0IDE0OjA5IC0wNDAwLCBNaW1pIFpvaGFyIHdyb3RlOgo+IE9u
+IFdlZCwgMjAyMC0wNy0yMiBhdCAxMjo0MCAtMDQwMCwgTGFjaGxhbiBTbmVmZiB3cm90ZToKPiA+
 IElNQSBwb2xpY3kgY2FuIGJlIHNldCB0byBtZWFzdXJlIHRoZSBjb21tYW5kIGxpbmUgcGFzc2Vk
-IGluIHRoZSBrZXhlYyBzeXN0ZW0gY2FsbC4KPiBUaGVyZSBuZWVkcyB0byBiZSBhIHRlc3QgdG8g
-dmFsaWRhdGUgdGhpcyBrZXhlYyBjb21tYW5kIGxpbmUgbWVhc3VyZW1lbnQuCj4gCj4gQWRkIGEg
-dGVzdGNhc2UgdGhhdCB2ZXJpZmllcyB0aGF0IHRoZSBJTUEgc3Vic3lzdGVtIGhhcyBjb3JyZWN0
-bHkKPiBtZWFzdXJlZCB0aGUgY21kbGluZSBzcGVjaWZpZWQgZHVyaW5nIGEga2V4ZWMuCj4gCj4g
-Tm90ZSB0aGF0IHRoaXMgdGVzdCBkb2VzIG5vdCBhY3R1YWxseSByZWJvb3QuCj4gCj4gU2lnbmVk
-LW9mZi1ieTogTGFjaGxhbiBTbmVmZiA8dC1qb3NuZUBsaW51eC5taWNyb3NvZnQuY29tPgoKT3Ro
-ZXIgdGhhbiB0aGUgcGF0Y2ggbm90IGFwcGx5aW5nIGNsZWFubHkgYW5kIGxlYWRpbmcgYmxhbmtz
-LMKgCgpSZXZpZXdlZC1ieTogTWltaSBab2hhciA8em9oYXJAbGludXguaWJtLmNvbT4KCi0tIApN
-YWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+IGluIHRoZSBrZXhlYyBzeXN0ZW0gY2FsbC4KPiA+IFRoZXJlIG5lZWRzIHRvIGJlIGEgdGVzdCB0
+byB2YWxpZGF0ZSB0aGlzIGtleGVjIGNvbW1hbmQgbGluZSBtZWFzdXJlbWVudC4KPiA+IAo+ID4g
+QWRkIGEgdGVzdGNhc2UgdGhhdCB2ZXJpZmllcyB0aGF0IHRoZSBJTUEgc3Vic3lzdGVtIGhhcyBj
+b3JyZWN0bHkKPiA+IG1lYXN1cmVkIHRoZSBjbWRsaW5lIHNwZWNpZmllZCBkdXJpbmcgYSBrZXhl
+Yy4KPiA+IAo+ID4gTm90ZSB0aGF0IHRoaXMgdGVzdCBkb2VzIG5vdCBhY3R1YWxseSByZWJvb3Qu
+Cj4gPiAKPiA+IFNpZ25lZC1vZmYtYnk6IExhY2hsYW4gU25lZmYgPHQtam9zbmVAbGludXgubWlj
+cm9zb2Z0LmNvbT4KPiAKPiBPdGhlciB0aGFuIHRoZSBwYXRjaCBub3QgYXBwbHlpbmcgY2xlYW5s
+eSBhbmQgbGVhZGluZyBibGFua3MswqAKPiAKPiBSZXZpZXdlZC1ieTogTWltaSBab2hhciA8em9o
+YXJAbGludXguaWJtLmNvbT4KCk9vcHMsIHRoZSBrZXhlYyBsb2FkIGlzIHVzaW5nIHRoZSAnLXMn
+IG9wdGlvbiwgc2ltaWxhcmx5IHRoZSB1bmxvYWQKc2hvdWxkIHVzZSBpdCB0b28uIMKgUGxlYXNl
+IGNoYW5nZSBhbGwgdGhlICJrZXhlYyAtdSIgb2NjdXJlbmNlcyB0bwoia2V4ZWMgLXN1Ii4KCisg
+ICAgaWYgISBrZXhlYyAtc2wgJElNQUdFIC0tcmV1c2UtY21kbGluZTsgdGhlbgo+ICsgICAgICAg
+IHRzdF9yZXMgVENPTkYgImtleGVjIGZhaWxlZDogJD8iCj4gKyAgICAgICAgCj4gKyAgICAgICAg
+bG9jYWwgc2Jfc3RhdHVzPSIkKGJvb3RjdGwgc3RhdHVzIDI+L2Rldi9udWxsIHwgZ3JlcCAnU2Vj
+dXJlIEJvb3QnIFwKPiArICAgICAgICAgICAgfCB0ciAtZCAnICcgfCBzZWQgJ3MvU2VjdXJlQm9v
+dDoqLy8nKSIKPiArICAgICAgICAKPiArICAgICAgICBpZiBbICIkc2Jfc3RhdHVzIiA9ICJlbmFi
+bGVkIiBdOyB0aGVuCj4gKyAgICAgICAgICAgIHRzdF9yZXMgVElORk8gInNlY3VyZSBib290IGlz
+IGVuYWJsZWQsIHRoZSBzcGVjaWZpZWQga2VybmVsIGltYWdlIG1heSBub3QgYmUgc2lnbmVkIgo+
+ICsgICAgICAgIGZpCj4gKwo+ICsgICAgICAgIHJldHVybgo+ICsgICAgZmkKPiArCj4gKyAgICBr
+ZXhlYyAtdQo+ICsKPiArICAgIGlmICEgbWVhc3VyZSAiJGNtZGxpbmUiOyB0aGVuCj4gKyAgICAg
+ICAgdHN0X3JlcyBURkFJTCAidW5hYmxlIHRvIGZpbmQgYSBjb3JyZWN0IGVudHJ5IGluIHRoZSBJ
+TUEgbG9nIgo+ICsgICAgICAgIAo+ICsgICAgICAgIGlmIFsgISAtciAkSU1BX1BPTElDWSBdOyB0
+aGVuCj4gKyAgICAgICAgICAgIHRzdF9icmsgVENPTkYgImNhbm5vdCByZWFkIElNQSBwb2xpY3kg
+KENPTkZJR19JTUFfUkVBRF9QT0xJQ1k9eSByZXF1aXJlZCkgdG8gZ2l2ZSBjb250ZXh0dWFsIGlu
+Zm9ybWF0aW9uIgo+ICsgICAgICAgIGZpCj4gKwo+ICsgICAgICAgIGlmICEgZ3JlcCAibWVhc3Vy
+ZSBmdW5jPUtFWEVDX0NNRExJTkUiICRJTUFfUE9MSUNZID4vZGV2L251bGw7IHRoZW4KPiArICAg
+ICAgICAgICAgdHN0X2JyayBUQ09ORiAiVGhlIElNQSBwb2xpY3kgZG9lcyBub3Qgc3BlY2lmeSAn
+bWVhc3VyZSBmdW5jPUtFWEVDX0NNRExJTkUnLCBzZWUgSU1BIHRlc3QgUkVBRE1FIgo+ICsgICAg
+ICAgIGZpCj4gKwo+ICsgICAgICAgIHJldHVybgo+ICsgICAgZmkKPiArCj4gKyAgICBjbWRsaW5l
+PSJmb28iY21sZGluZQo+ICsgICAgaWYgISBrZXhlYyAtc2wgJElNQUdFIC0tYXBwZW5kPSRjbWRs
+aW5lOyB0aGVuCj4gKyAgICAgICAgdHN0X2JyayBUQ09ORiAia2V4ZWMgZmFpbGVkOiAkPyIKPiAr
+ICAgIGZpCj4gKwo+ICsgICAga2V4ZWMgLXUKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6
+Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
