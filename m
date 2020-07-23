@@ -2,59 +2,58 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36B9922B0B1
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jul 2020 15:42:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82F0722B0B2
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jul 2020 15:42:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BB86F3C4D4A
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jul 2020 15:42:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3C6633C1D48
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jul 2020 15:42:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id F317D3C4D4B
- for <ltp@lists.linux.it>; Thu, 23 Jul 2020 15:42:28 +0200 (CEST)
-Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
- [IPv6:2607:f8b0:4864:20::1042])
+ by picard.linux.it (Postfix) with ESMTP id 2FB703C6274
+ for <ltp@lists.linux.it>; Thu, 23 Jul 2020 15:42:33 +0200 (CEST)
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 08CEB601A60
- for <ltp@lists.linux.it>; Thu, 23 Jul 2020 15:42:28 +0200 (CEST)
-Received: by mail-pj1-x1042.google.com with SMTP id cv18so4341018pjb.1
- for <ltp@lists.linux.it>; Thu, 23 Jul 2020 06:42:28 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 74167601A60
+ for <ltp@lists.linux.it>; Thu, 23 Jul 2020 15:42:32 +0200 (CEST)
+Received: by mail-pf1-x442.google.com with SMTP id u185so3050666pfu.1
+ for <ltp@lists.linux.it>; Thu, 23 Jul 2020 06:42:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :in-reply-to:references;
- bh=bwG97sI0Axe0wnBZP+dvNkKNQ080yJ8vm/ENReRAas8=;
- b=cIYRzjBTqbpDPzXgqgPLv5v8eErG9LocReSrIfX3dtJvXvfLFfV2Q9nL3mOKP8m3g6
- NvskOTXLTmtOIRM1ErjkcGcipcAHhCcVduqGBIvzejP5g4lpXTqMaYIDt736gylnRWjt
- hARGYUT3D76+n58QV04/VLxpOo3zgdvD2S3jjzdUZzvJh6cL3shtZxLva45jG36MQVAg
- 0SW1zXEmaWXMc0PKS6a61PRejf89W0O+VpU+aze8Joj13a6tUNOs4w38yEYFK/gNCTwd
- P6LundrFN/f80DfL7hrMskOZfLlrW5GjYJRQ2X41CuKeo6k6/IxiI+07PpXkIWGyGlUZ
- Khog==
+ bh=DXonTN/pwabsmOIghDjny1mojV7weIuI26n4nT8R/Kc=;
+ b=RQWz0lh5rBL0lIfRrKpVUMFZxd9qdh0Nw+KnXh+p5cDTl+xitkzyFdxhoQZNA2mPCN
+ CJNLPEkUEqTqLWveQA3MCjJMFl+0GvENEV6IKWUM+3dXM3ZrCz5MxzZXVMZNfJdqaQbj
+ zcRIP0m8UB8CEFkWg9WaJ37R/5gekfvnMjTdNVUm/uvAVBrb58wA5E9CCI6Xs18kOhaI
+ 6/zbhrqzMtmfkpjm6lyt7xJMMxgKXJxl7UIv6dtolXXFCSDQ9ZLuR5aUUKvudGr8ft2z
+ +sDb0z2qqLO83xeopHs8A/XQkqJ2VIVXi3Aq8ay+dswqUUH/dHr6JV56kIDYP1EKxnXW
+ LjeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:in-reply-to:references;
- bh=bwG97sI0Axe0wnBZP+dvNkKNQ080yJ8vm/ENReRAas8=;
- b=rt6aEh7sUqqOneT1PwOncHD2Ba50d91W6w8QlaHuCX5Io8joOtc3Soy33R8PxTdCII
- Gu/+EN/tmRZIrpi5CIatnrMyZRgYjVAL8cyFgzkTDiIhjSE/j45LLvssue0wZ0kAbDb1
- pOqFS6RvQkcCfq8yjC26m1cwarshfaLzngcnzN3yMXgW7u7jNJkmNcQbUvf+RYymGoee
- EMeDxkc9boz2Y37n+Vo9gye8z3a99NHZX7v/xyoRw7q13Dlk8hRQoorNE/qZESXQQ5cx
- pHDaLBceXS/raT+IZCQtH80m8m6TvWVUsUHLpSFDS9hopM4eF0V/lvtb4iJ2aRbaPF6t
- ogMg==
-X-Gm-Message-State: AOAM533CIZA2T1FTGC/OWFJAMB04DwzAT7t8m+F2fyqZFdLf2skEhrQN
- Wk8PwQggl3C/+jXCdEMrUSz4nbw24Xg=
-X-Google-Smtp-Source: ABdhPJzz4caNPNqdDQOUu3vEjhya1eCYp8tFwVjW6uUBerssITycwxdHBK7YEs1u2OdTdnCoCpx/iw==
-X-Received: by 2002:a17:90a:80c3:: with SMTP id
- k3mr485000pjw.102.1595511746255; 
- Thu, 23 Jul 2020 06:42:26 -0700 (PDT)
+ bh=DXonTN/pwabsmOIghDjny1mojV7weIuI26n4nT8R/Kc=;
+ b=QQqySydNBu/yIjn7EmnZBE3TnytPefYm3YGZ3fG693ImPItt/N0DMBQxGuMe9Law3t
+ MMsXGuaw/QDJuOrG5WZ7OJ+ww2LCChEwu9mXo2zCujZ5pUMIYlWlB2bIeKe+7JaX2fBb
+ nJLuhfRpVdRljK2diST9G4VzF7DbHm+pG0Yy/eBvDFWp8pNg7JdUFT4gP9NloLes6yCc
+ aj8Jw+AJXeBdnJ1ITEXO9sPrlv3uCWgCETV/+MEBdf2J1mlFuzztid8Kdn7pJpTVo/u7
+ LJTmtjVit1RcdVIpZEe1B7KUCgMH7D8y6N16djG0AIrSaPVMOLSPy/RreG8Nc5djE94d
+ skMA==
+X-Gm-Message-State: AOAM532XYr1PvAGqRDtbnzQy0x5gQI/0wZuarLvOXZ15NtKVW58ys8CK
+ fNueq/cnuaOCJlEIBJG5/4BDiBt6Tik=
+X-Google-Smtp-Source: ABdhPJxTLv2Vxv+iQZRhhfrZ+GunRmPvGlxu9J5vJ0mUsvvx69tv4JIzId1Id/7F6iFyKl2PNB8gsg==
+X-Received: by 2002:aa7:930b:: with SMTP id 11mr4389714pfj.320.1595511749640; 
+ Thu, 23 Jul 2020 06:42:29 -0700 (PDT)
 Received: from localhost ([182.77.116.224])
- by smtp.gmail.com with ESMTPSA id f29sm3104920pga.59.2020.07.23.06.42.25
+ by smtp.gmail.com with ESMTPSA id v15sm3329312pgo.15.2020.07.23.06.42.28
  (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 23 Jul 2020 06:42:25 -0700 (PDT)
+ Thu, 23 Jul 2020 06:42:29 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Thu, 23 Jul 2020 19:12:06 +0530
-Message-Id: <8b0c584c86d4f45212ccf418e9840a53b6e62a09.1595511710.git.viresh.kumar@linaro.org>
+Date: Thu, 23 Jul 2020 19:12:07 +0530
+Message-Id: <d9c84f9453350ff1b844c0951624d508ef62e4dd.1595511710.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.14.1
 In-Reply-To: <e51142a397858a2fe6a040563d3c0795a7d0bb05.1595511710.git.viresh.kumar@linaro.org>
 References: <e51142a397858a2fe6a040563d3c0795a7d0bb05.1595511710.git.viresh.kumar@linaro.org>
@@ -65,7 +64,8 @@ X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/4] libs: sigwait: Add SAFE_SIG*() macros
+Subject: [LTP] [PATCH 3/4] libs: sigwait: Remove alarm() from setup() and
+ cleanup()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,271 +85,89 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add them to simplify code.
+These aren't required anymore as the new library maintains timeouts
+properly. While at it, remove sigwait_cleanup() as well.
 
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- include/tst_safe_macros.h    |  43 ++++++++++++++++++
- libs/libltpsigwait/sigwait.c | 103 ++++++++++---------------------------------
- 2 files changed, 67 insertions(+), 79 deletions(-)
+ include/libsigwait.h                                          | 1 -
+ libs/libltpsigwait/sigwait.c                                  | 7 -------
+ testcases/kernel/syscalls/rt_sigtimedwait/rt_sigtimedwait01.c | 1 -
+ testcases/kernel/syscalls/sigtimedwait/sigtimedwait01.c       | 1 -
+ testcases/kernel/syscalls/sigwait/sigwait01.c                 | 1 -
+ testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c         | 1 -
+ 6 files changed, 12 deletions(-)
 
-diff --git a/include/tst_safe_macros.h b/include/tst_safe_macros.h
-index c39d8768b1fb..3fce473cc380 100644
---- a/include/tst_safe_macros.h
-+++ b/include/tst_safe_macros.h
-@@ -431,6 +431,49 @@ int safe_sigaction(const char *file, const int lineno,
- #define SAFE_SIGACTION(signum, act, oldact) \
- 	safe_sigaction(__FILE__, __LINE__, (signum), (act), (oldact))
- 
-+static inline void safe_sigaddset(const char *file, const int lineno,
-+				  sigset_t *sigs, int signo)
-+{
-+	int rval;
-+
-+	rval = sigaddset(sigs, signo);
-+	if (rval == -1) {
-+		tst_brk_(file, lineno, TBROK | TERRNO, "sigaddset(%d) failed",
-+			 signo);
-+	}
-+}
-+
-+#define SAFE_SIGADDSET(sigs, signo) \
-+	safe_sigaddset(__FILE__, __LINE__, (sigs), (signo))
-+
-+static inline void safe_sigdelset(const char *file, const int lineno,
-+				  sigset_t *sigs, int signo)
-+{
-+	int rval;
-+
-+	rval = sigdelset(sigs, signo);
-+	if (rval == -1) {
-+		tst_brk_(file, lineno, TBROK | TERRNO, "sigdelset(%d) failed",
-+			 signo);
-+	}
-+}
-+
-+#define SAFE_SIGDELSET(sigs, signo) \
-+	safe_sigdelset(__FILE__, __LINE__, (sigs), (signo))
-+
-+static inline void safe_sigemptyset(const char *file, const int lineno,
-+				    sigset_t *sigs)
-+{
-+	int rval;
-+
-+	rval = sigemptyset(sigs);
-+	if (rval == -1)
-+		tst_brk_(file, lineno, TBROK | TERRNO, "sigemptyset() failed");
-+}
-+
-+#define SAFE_SIGEMPTYSET(sigs) \
-+	safe_sigemptyset(__FILE__, __LINE__, (sigs))
-+
- #define SAFE_EXECLP(file, arg, ...) do {                   \
- 	execlp((file), (arg), ##__VA_ARGS__);              \
- 	tst_brk_(__FILE__, __LINE__, TBROK | TERRNO,       \
+diff --git a/include/libsigwait.h b/include/libsigwait.h
+index 7202fc78fde8..2fca578b19ac 100644
+--- a/include/libsigwait.h
++++ b/include/libsigwait.h
+@@ -41,5 +41,4 @@ void test_bad_address2(swi_func sigwaitinfo, int signo LTP_ATTRIBUTE_UNUSED,
+ void test_bad_address3(swi_func sigwaitinfo, int signo LTP_ATTRIBUTE_UNUSED,
+ 		       enum tst_ts_type type LTP_ATTRIBUTE_UNUSED);
+ void sigwait_setup(void);
+-void sigwait_cleanup(void);
+ #endif /* SIGWAIT_H__ */
 diff --git a/libs/libltpsigwait/sigwait.c b/libs/libltpsigwait/sigwait.c
-index bb8d2dd05a30..0a658625a984 100644
+index 0a658625a984..dbd33a61f2b1 100644
 --- a/libs/libltpsigwait/sigwait.c
 +++ b/libs/libltpsigwait/sigwait.c
-@@ -49,9 +49,7 @@ void test_empty_set(swi_func sigwaitinfo, int signo,
- 	siginfo_t si;
- 	pid_t child;
- 
--	TEST(sigemptyset(&sigs));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigemptyset() failed");
-+	SAFE_SIGEMPTYSET(&sigs);
- 
- 	/* Run a child that will wake us up */
- 	child = create_sig_proc(signo, INT_MAX, 100000);
-@@ -74,9 +72,7 @@ void test_timeout(swi_func sigwaitinfo, int signo, enum tst_ts_type type)
- 	tst_ts_set_sec(&ts, 1);
- 	tst_ts_set_nsec(&ts, 0);
- 
--	TEST(sigemptyset(&sigs));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigemptyset() failed");
-+	SAFE_SIGEMPTYSET(&sigs);
- 
- 	/* Run a child that will wake us up */
- 	child = create_sig_proc(signo, INT_MAX, 100000);
-@@ -98,13 +94,8 @@ void test_unmasked_matching(swi_func sigwaitinfo, int signo,
- 	siginfo_t si;
- 	pid_t child;
- 
--	TEST(sigemptyset(&sigs));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigemptyset() failed");
+@@ -358,11 +358,4 @@ void sigwait_setup(void)
+ 	signal(SIGUSR1, empty_handler);
+ 	signal(SIGALRM, empty_handler);
+ 	signal(SIGUSR2, SIG_IGN);
 -
--	TEST(sigaddset(&sigs, signo));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigaddset() failed");
-+	SAFE_SIGEMPTYSET(&sigs);
-+	SAFE_SIGADDSET(&sigs, signo);
- 
- 	/* Run a child that will wake us up */
- 	child = create_sig_proc(signo, INT_MAX, 100000);
-@@ -124,13 +115,8 @@ void test_unmasked_matching_noinfo(swi_func sigwaitinfo, int signo,
- 	sigset_t sigs;
- 	pid_t child;
- 
--	TEST(sigemptyset(&sigs));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigemptyset() failed");
+-	alarm(10);	/* arrange a 10 second timeout */
+-}
 -
--	TEST(sigaddset(&sigs, signo));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigaddset() failed");
-+	SAFE_SIGEMPTYSET(&sigs);
-+	SAFE_SIGADDSET(&sigs, signo);
- 
- 	/* Run a child that will wake us up */
- 	child = create_sig_proc(signo, INT_MAX, 100000);
-@@ -149,27 +135,18 @@ void test_masked_matching(swi_func sigwaitinfo, int signo,
- 	siginfo_t si;
- 	pid_t child;
- 
--	TEST(sigemptyset(&sigs));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigemptyset() failed");
--
--	TEST(sigaddset(&sigs, signo));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigaddset() failed");
-+	SAFE_SIGEMPTYSET(&sigs);
-+	SAFE_SIGADDSET(&sigs, signo);
- 
- 	/* let's not get interrupted by our dying child */
--	TEST(sigaddset(&sigs, SIGCHLD));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigaddset() failed");
-+	SAFE_SIGADDSET(&sigs, SIGCHLD);
- 
- 	TEST(sigprocmask(SIG_SETMASK, &sigs, &oldmask));
- 	if (TST_RET == -1)
- 		tst_brk(TBROK | TTERRNO, "sigprocmask() failed");
- 
- 	/* don't wait on a SIGCHLD */
--	TEST(sigdelset(&sigs, SIGCHLD));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigdelset() failed");
-+	SAFE_SIGDELSET(&sigs, SIGCHLD);
- 
- 	/* Run a child that will wake us up */
- 	child = create_sig_proc(signo, 1, 0);
-@@ -203,31 +180,19 @@ void test_masked_matching_rt(swi_func sigwaitinfo, int signo,
- 
- 	signo = SIGRTMIN + 1;
- 
--	TEST(sigemptyset(&sigs));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigemptyset() failed");
--
--	TEST(sigaddset(&sigs, signo));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigaddset() failed");
--
--	TEST(sigaddset(&sigs, signo + 1));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigaddset() failed");
-+	SAFE_SIGEMPTYSET(&sigs);
-+	SAFE_SIGADDSET(&sigs, signo);
-+	SAFE_SIGADDSET(&sigs, signo + 1);
- 
- 	/* let's not get interrupted by our dying child */
--	TEST(sigaddset(&sigs, SIGCHLD));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigaddset() failed");
-+	SAFE_SIGADDSET(&sigs, SIGCHLD);
- 
- 	TEST(sigprocmask(SIG_SETMASK, &sigs, &oldmask));
- 	if (TST_RET == -1)
- 		tst_brk(TBROK | TTERRNO, "sigprocmask() failed");
- 
- 	/* don't wait on a SIGCHLD */
--	TEST(sigdelset(&sigs, SIGCHLD));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigdelset() failed");
-+	SAFE_SIGDELSET(&sigs, SIGCHLD);
- 
- 	/* Run a child that will wake us up */
- 	child[0] = create_sig_proc(signo, 1, 0);
-@@ -266,27 +231,18 @@ void test_masked_matching_noinfo(swi_func sigwaitinfo, int signo,
- 	sigset_t sigs, oldmask;
- 	pid_t child;
- 
--	TEST(sigemptyset(&sigs));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigemptyset() failed");
--
--	TEST(sigaddset(&sigs, signo));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigaddset() failed");
-+	SAFE_SIGEMPTYSET(&sigs);
-+	SAFE_SIGADDSET(&sigs, signo);
- 
- 	/* let's not get interrupted by our dying child */
--	TEST(sigaddset(&sigs, SIGCHLD));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigaddset() failed");
-+	SAFE_SIGADDSET(&sigs, SIGCHLD);
- 
- 	TEST(sigprocmask(SIG_SETMASK, &sigs, &oldmask));
- 	if (TST_RET == -1)
- 		tst_brk(TBROK | TTERRNO, "sigprocmask() failed");
- 
- 	/* don't wait on a SIGCHLD */
--	TEST(sigdelset(&sigs, SIGCHLD));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigdelset() failed");
-+	SAFE_SIGDELSET(&sigs, SIGCHLD);
- 
- 	/* Run a child that will wake us up */
- 	child = create_sig_proc(signo, 1, 0);
-@@ -314,27 +270,18 @@ void test_bad_address(swi_func sigwaitinfo, int signo,
- 	sigset_t sigs, oldmask;
- 	pid_t child;
- 
--	TEST(sigemptyset(&sigs));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigemptyset() failed");
--
--	TEST(sigaddset(&sigs, signo));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigaddset() failed");
-+	SAFE_SIGEMPTYSET(&sigs);
-+	SAFE_SIGADDSET(&sigs, signo);
- 
- 	/* let's not get interrupted by our dying child */
--	TEST(sigaddset(&sigs, SIGCHLD));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigaddset() failed");
-+	SAFE_SIGADDSET(&sigs, SIGCHLD);
- 
- 	TEST(sigprocmask(SIG_SETMASK, &sigs, &oldmask));
- 	if (TST_RET == -1)
- 		tst_brk(TBROK | TTERRNO, "sigprocmask() failed");
- 
- 	/* don't wait on a SIGCHLD */
--	TEST(sigdelset(&sigs, SIGCHLD));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigdelset() failed");
-+	SAFE_SIGDELSET(&sigs, SIGCHLD);
- 
- 	/* Run a child that will wake us up */
- 	child = create_sig_proc(signo, 1, 0);
-@@ -396,10 +343,8 @@ void test_bad_address3(swi_func sigwaitinfo, int signo LTP_ATTRIBUTE_UNUSED,
- 		       enum tst_ts_type type LTP_ATTRIBUTE_UNUSED)
- {
- 	sigset_t sigs;
--	TEST(sigemptyset(&sigs));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "sigemptyset() failed");
- 
-+	SAFE_SIGEMPTYSET(&sigs);
- 	TEST(sigwaitinfo(&sigs, NULL, (void *)1));
- 	REPORT_SUCCESS(-1, EFAULT);
+-void sigwait_cleanup(void)
+-{
+-	alarm(0);
  }
+diff --git a/testcases/kernel/syscalls/rt_sigtimedwait/rt_sigtimedwait01.c b/testcases/kernel/syscalls/rt_sigtimedwait/rt_sigtimedwait01.c
+index 8b6153744938..db4901a40ea1 100644
+--- a/testcases/kernel/syscalls/rt_sigtimedwait/rt_sigtimedwait01.c
++++ b/testcases/kernel/syscalls/rt_sigtimedwait/rt_sigtimedwait01.c
+@@ -73,6 +73,5 @@ static struct tst_test test = {
+ 	.tcnt = ARRAY_SIZE(tests),
+ 	.test_variants = ARRAY_SIZE(variants),
+ 	.setup = setup,
+-	.cleanup = sigwait_cleanup,
+ 	.forks_child = 1,
+ };
+diff --git a/testcases/kernel/syscalls/sigtimedwait/sigtimedwait01.c b/testcases/kernel/syscalls/sigtimedwait/sigtimedwait01.c
+index 946d8e7239a0..fa36c455fb6d 100644
+--- a/testcases/kernel/syscalls/sigtimedwait/sigtimedwait01.c
++++ b/testcases/kernel/syscalls/sigtimedwait/sigtimedwait01.c
+@@ -32,6 +32,5 @@ static struct tst_test test = {
+ 	.test= run,
+ 	.tcnt = ARRAY_SIZE(tests),
+ 	.setup = sigwait_setup,
+-	.cleanup = sigwait_cleanup,
+ 	.forks_child = 1,
+ };
+diff --git a/testcases/kernel/syscalls/sigwait/sigwait01.c b/testcases/kernel/syscalls/sigwait/sigwait01.c
+index 563d15635fd9..92544c141e85 100644
+--- a/testcases/kernel/syscalls/sigwait/sigwait01.c
++++ b/testcases/kernel/syscalls/sigwait/sigwait01.c
+@@ -32,6 +32,5 @@ static struct tst_test test = {
+ 	.test= run,
+ 	.tcnt = ARRAY_SIZE(tests),
+ 	.setup = sigwait_setup,
+-	.cleanup = sigwait_cleanup,
+ 	.forks_child = 1,
+ };
+diff --git a/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c b/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c
+index 6563d14f0ec7..f7d90047f8a2 100644
+--- a/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c
++++ b/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c
+@@ -30,6 +30,5 @@ static struct tst_test test = {
+ 	.test= run,
+ 	.tcnt = ARRAY_SIZE(tests),
+ 	.setup = sigwait_setup,
+-	.cleanup = sigwait_cleanup,
+ 	.forks_child = 1,
+ };
 -- 
 2.14.1
 
