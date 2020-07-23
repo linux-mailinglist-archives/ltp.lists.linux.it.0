@@ -2,79 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B18C22A0CB
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Jul 2020 22:34:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 884D422A4CC
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jul 2020 03:42:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 097313C7F56
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Jul 2020 22:34:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DA5203C23E6
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jul 2020 03:42:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 234B73C2879
- for <ltp@lists.linux.it>; Wed, 22 Jul 2020 22:34:02 +0200 (CEST)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D45141A009BB
- for <ltp@lists.linux.it>; Wed, 22 Jul 2020 22:34:01 +0200 (CEST)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 06MKXsKl168918; Wed, 22 Jul 2020 16:33:58 -0400
-Received: from ppma04ams.nl.ibm.com (63.31.33a9.ip4.static.sl-reverse.com
- [169.51.49.99])
- by mx0a-001b2d01.pphosted.com with ESMTP id 32e1xxu7bu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 22 Jul 2020 16:33:57 -0400
-Received: from pps.filterd (ppma04ams.nl.ibm.com [127.0.0.1])
- by ppma04ams.nl.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 06MKUfOT002372;
- Wed, 22 Jul 2020 20:33:55 GMT
-Received: from b06cxnps4074.portsmouth.uk.ibm.com
- (d06relay11.portsmouth.uk.ibm.com [9.149.109.196])
- by ppma04ams.nl.ibm.com with ESMTP id 32brq85dy2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 22 Jul 2020 20:33:55 +0000
-Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com
- [9.149.105.59])
- by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 06MKXqM161931584
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 22 Jul 2020 20:33:52 GMT
-Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id CFC4FA4053;
- Wed, 22 Jul 2020 20:33:52 +0000 (GMT)
-Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 07AC9A4040;
- Wed, 22 Jul 2020 20:33:52 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.80.219.44])
- by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Wed, 22 Jul 2020 20:33:51 +0000 (GMT)
-Message-ID: <1595450030.5211.53.camel@linux.ibm.com>
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Lachlan Sneff <t-josne@linux.microsoft.com>, pvorel@suse.cz,
- ltp@lists.linux.it
-Date: Wed, 22 Jul 2020 16:33:50 -0400
-In-Reply-To: <20200717205721.18173-1-t-josne@linux.microsoft.com>
-References: <20200717205721.18173-1-t-josne@linux.microsoft.com>
-X-Mailer: Evolution 3.20.5 (3.20.5-1.fc24) 
-Mime-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-07-22_13:2020-07-22,
- 2020-07-22 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0
- priorityscore=1501 bulkscore=0 mlxlogscore=999 clxscore=1015 phishscore=0
- mlxscore=0 lowpriorityscore=0 suspectscore=0 impostorscore=0 adultscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2007220128
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 2DC7E3C1CB4
+ for <ltp@lists.linux.it>; Thu, 23 Jul 2020 03:42:30 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 91C641000926
+ for <ltp@lists.linux.it>; Thu, 23 Jul 2020 03:42:27 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.75,383,1589212800"; d="scan'208";a="96772805"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 23 Jul 2020 09:42:26 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 8F30A4CE505C;
+ Thu, 23 Jul 2020 09:42:23 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Thu, 23 Jul 2020 09:42:23 +0800
+To: Martin Doucha <mdoucha@suse.cz>
+References: <20200722151951.21909-1-mdoucha@suse.cz>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <7706b4e4-429e-2db0-a911-cde4241ec200@cn.fujitsu.com>
+Date: Thu, 23 Jul 2020 09:42:20 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
+MIME-Version: 1.0
+In-Reply-To: <20200722151951.21909-1-mdoucha@suse.cz>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 8F30A4CE505C.A15B9
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] IMA: Add a test to verify importing a certificate
- into custom keyring
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] Port setsockopt01 to the new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,259 +57,317 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: nramas@linux.microsoft.com, linux-integrity@vger.kernel.org,
- balajib@linux.microsoft.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ltp@lists.linux.it
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gRnJpLCAyMDIwLTA3LTE3IGF0IDE2OjU3IC0wNDAwLCBMYWNobGFuIFNuZWZmIHdyb3RlOgo+
-IEEgdGVzdCBmb3IgdmVyaWZ5aW5nIGltcG9ydGluZyBhbiB4NTA5IGNlcnRpZmljYXRlIGludG8g
-YSBrZXlyaW5nIGFuZAo+IHZhbGlkYXRpbmcgdGhlIGtleSBtZWFzdXJlbWVudCBwZXJmb3JtZWQg
-YnkgSU1BIGlzIG5lZWRlZC4KCklzbid0IHRoZSBtYWluIHB1cnBvc2Ugb2YgdGhpcyBwYXRjaCB0
-byB2ZXJpZnkgdGhlIGNlcnRpZmljYXRlIGJlaW5nCmxvYWRlZCBvbnRvIGEga2V5cmluZyBpcyBw
-cm9wZXJseSBtZWFzdXJlZC4gwqBUaGUgcmVzdCBpcyBqdXN0IGRldGFpbHMuCsKgUGxlYXNlIHVw
-ZGF0ZSB0aGUgU3ViamVjdCBsaW5lIGFjY29yZGluZ2x5LgoKPiBBZGQgYW4gSU1BIG1lYXN1cmVt
-ZW50IHRlc3QgdGhhdCB2ZXJpZmllcyB0aGF0IGFuIHg1MDkgY2VydGlmaWNhdGUKPiBjYW4gYmUg
-aW1wb3J0ZWQgaW50byBhIGN1c3RvbSBrZXlyaW5nIGFuZCBtZWFzdXJlZCBjb3JyZWN0bHkuCj4g
-Cj4gQSBjZXJ0aWZpY2F0ZSB1c2VkIGJ5IHRoZSB0ZXN0IGlzIGluY2x1ZGVkIGluIHRoZSBgZGF0
-YWZpbGVzL2tleXNgIGRpcmVjdG9yeS4KPiAKPiBVc2luZyBhIGN1c3RvbSBrZXlyaW5nIGZvciB0
-aGUgdGVzdCBpcyBwcmVmZXJyZWQgb3ZlciB1c2luZyBhIHByZS1leGlzdGluZy9idWlsdC1pbiBr
-ZXlyaW5nLAo+IHN1Y2ggYXMgYC5pbWFgLCBzaW5jZSB0aGVyZSBtYXkgYmUgcmVzdHJpY3Rpb25z
-IHRvIGltcG9ydGluZyBhbnkgY2VydCBpbnRvIGEgYnVpbHQtaW4ga2V5cmluZy4KPiBGb3IgZXhh
-bXBsZSwgdGhlIGAuaW1hYCBrZXlyaW5nIHJlcXVpcmVzIHRoYXQgdGhlIGltcG9ydGVkIGNlcnRz
-IGJlIHNpZ25lZCBieSBhIGtlcm5lbCBwcml2YXRlCj4ga2V5IGluIGNlcnRhaW4ga2VybmVsIGNv
-bmZpZ3VyYXRpb25zLgo+IAoKRmlyc3QgZGVzY3JpYmUgdGhlIHByb2JsZW0sIHRoZW4gcHJvdmlk
-ZSB0aGUgc29sdXRpb24uIMKgSW4gdGhpcyBjYXNlLApwZXJoYXBzIHNvbWV0aGluZyBsaWtlOgoK
-VGhlcmUgbWF5IGJlIHJlc3RyaWN0aW9ucyBpbXBvcnRpbmcgYSBjZXJ0aWZpY2F0ZSBvbnRvIGEg
-YnVpbHRpbgp0cnVzdGVkIGtleXJpbmcuIMKgRm9yIGV4YW1wbGUgLi4uIMKgIEZvciB0aGlzIHJl
-YXNvbiwgdGhpcyB0ZXN0IGRlZmluZXMKYSB1c2Vyc3BhY2Uga2V5cmluZy4KCihQbGVhc2UgcmVt
-ZW1iZXIgdG8gbGltaXQgdGhlIHBhdGNoIGRlc2NyaXB0aW9uIGxpbmUgd2lkdGggdG8gNzIKY2hh
-cnMuKQoKCj4gU2lnbmVkLW9mZi1ieTogTGFjaGxhbiBTbmVmZiA8dC1qb3NuZUBsaW51eC5taWNy
-b3NvZnQuY29tPgo+IC0tLQo+ICAuLi4va2VybmVsL3NlY3VyaXR5L2ludGVncml0eS9pbWEvUkVB
-RE1FLm1kICAgfCAgMjAgKysrLS0tLS0KPiAgLi4uL3NlY3VyaXR5L2ludGVncml0eS9pbWEvZGF0
-YWZpbGVzL01ha2VmaWxlIHwgIDExICsrLS0tCj4gIC4uLi9pbnRlZ3JpdHkvaW1hL2RhdGFmaWxl
-cy9rZXlzL01ha2VmaWxlICAgICB8ICAzMSArKysrKysrKysrKysKPiAgLi4uL2ludGVncml0eS9p
-bWEvZGF0YWZpbGVzL2tleXMveDUwOS5kZXIgICAgIHwgQmluIDAgLT4gNzg0IGJ5dGVzCj4gIC4u
-Li9pbnRlZ3JpdHkvaW1hL2RhdGFmaWxlcy9wb2xpY3kvTWFrZWZpbGUgICB8ICAzMSArKysrKysr
-KysrKysKPiAgLi4uL2RhdGFmaWxlcy97ID0+IHBvbGljeX0va2V5Y2hlY2sucG9saWN5ICAgIHwg
-ICAwCj4gIC4uLi9pbWEvZGF0YWZpbGVzL3sgPT4gcG9saWN5fS9tZWFzdXJlLnBvbGljeSB8ICAg
-MAo+ICAuLi4veyA9PiBwb2xpY3l9L21lYXN1cmUucG9saWN5LWludmFsaWQgICAgICAgfCAgIDAK
-PiAgLi4uL3NlY3VyaXR5L2ludGVncml0eS9pbWEvdGVzdHMvaW1hX2tleXMuc2ggIHwgIDQ1ICsr
-KysrKysrKysrKysrKysrLQo+ICA5IGZpbGVzIGNoYW5nZWQsIDExNyBpbnNlcnRpb25zKCspLCAy
-MSBkZWxldGlvbnMoLSkKPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IHRlc3RjYXNlcy9rZXJuZWwvc2Vj
-dXJpdHkvaW50ZWdyaXR5L2ltYS9kYXRhZmlsZXMva2V5cy9NYWtlZmlsZQo+ICBjcmVhdGUgbW9k
-ZSAxMDA2NDQgdGVzdGNhc2VzL2tlcm5lbC9zZWN1cml0eS9pbnRlZ3JpdHkvaW1hL2RhdGFmaWxl
-cy9rZXlzL3g1MDkuZGVyCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCB0ZXN0Y2FzZXMva2VybmVsL3Nl
-Y3VyaXR5L2ludGVncml0eS9pbWEvZGF0YWZpbGVzL3BvbGljeS9NYWtlZmlsZQo+ICByZW5hbWUg
-dGVzdGNhc2VzL2tlcm5lbC9zZWN1cml0eS9pbnRlZ3JpdHkvaW1hL2RhdGFmaWxlcy97ID0+IHBv
-bGljeX0va2V5Y2hlY2sucG9saWN5ICgxMDAlKQo+ICByZW5hbWUgdGVzdGNhc2VzL2tlcm5lbC9z
-ZWN1cml0eS9pbnRlZ3JpdHkvaW1hL2RhdGFmaWxlcy97ID0+IHBvbGljeX0vbWVhc3VyZS5wb2xp
-Y3kgKDEwMCUpCj4gIHJlbmFtZSB0ZXN0Y2FzZXMva2VybmVsL3NlY3VyaXR5L2ludGVncml0eS9p
-bWEvZGF0YWZpbGVzL3sgPT4gcG9saWN5fS9tZWFzdXJlLnBvbGljeS1pbnZhbGlkICgxMDAlKQo+
-IAo+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3NlY3VyaXR5L2ludGVncml0eS9pbWEv
-UkVBRE1FLm1kIGIvdGVzdGNhc2VzL2tlcm5lbC9zZWN1cml0eS9pbnRlZ3JpdHkvaW1hL1JFQURN
-RS5tZAo+IGluZGV4IDczMmNkOTEyZi4uZGI4ODE5YTk5IDEwMDY0NAo+IC0tLSBhL3Rlc3RjYXNl
-cy9rZXJuZWwvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9SRUFETUUubWQKPiArKysgYi90ZXN0Y2Fz
-ZXMva2VybmVsL3NlY3VyaXR5L2ludGVncml0eS9pbWEvUkVBRE1FLm1kCj4gQEAgLTE2LDI1ICsx
-NiwxOSBAQCBzcGFjZSwgbWF5IGNvbnRhaW4gZXF1aXZhbGVudCBtZWFzdXJlbWVudCB0Y2IgcnVs
-ZXMsIGRldGVjdGluZyB0aGVtIHdvdWxkCj4gIHJlcXVpcmUgYElNQV9SRUFEX1BPTElDWT15YCB0
-aGVyZWZvcmUgaWdub3JlIHRoaXMgb3B0aW9uLgo+ICAKPiAgIyMjIElNQSBrZXkgaW1wb3J0IHRl
-c3QKPiAtYGltYV9rZXlzLnNoYCByZXF1aXJlcyBhIHg1MDkgcHVibGljIGtleSwgYnkgZGVmYXVs
-dCBpbiBgL2V0Yy9rZXlzL3g1MDlfaW1hLmRlcmAKPiAtKGRlZmluZWQgaW4gYENPTkZJR19JTUFf
-WDUwOV9QQVRIYCBrZXJuZWwgY29uZmlnIG9wdGlvbikuCj4gLVRoZSBrZXkgbXVzdCBiZSBzaWdu
-ZWQgYnkgdGhlIHByaXZhdGUga2V5IHlvdSBnZW5lcmF0ZS4gRm9sbG93IHRoZXNlIGluc3RydWN0
-aW9uczoKPiAtaHR0cHM6Ly9tYW5wYWdlcy51YnVudHUuY29tL21hbnBhZ2VzL2Rpc2NvL21hbjEv
-ZXZtY3RsLjEuaHRtbCNnZW5lcmF0ZSUyMHRydXN0ZWQlMjBrZXlzCj4gIAo+IC1UaGUgdGVzdCBj
-YW5ub3QgYmUgc2V0LXVwIGF1dG9tYXRpY2FsbHkgYmVjYXVzZSB0aGUgeDUwOSBwdWJsaWMga2V5
-IG11c3QgYmUKPiAtYnVpbHQgaW50byB0aGUga2VybmVsIGFuZCBsb2FkZWQgb250byBhIHRydXN0
-ZWQga2V5cmluZwo+IC0oZS5nLiBgLmJ1aWx0aW5fdHJ1c3RlZF9rZXlzYCwgYC5zZWNvbmRhcnlf
-dHJ1c3RlZF9rZXlyaW5nYCkuCj4gLQo+IC1BcyB3ZWxsIGFzIHdoYXQncyByZXF1aXJlZCBmb3Ig
-dGhlIElNQSB0ZXN0cywgdGhlIGZvbGxvd2luZyBhcmUgYWxzbyByZXF1aXJlZAoKVGhpcyBwYXRj
-aCBhZGRzIGEgbmV3IHRlc3QsIHRoYXQgc2hvdWxkbid0IGFmZmVjdCB0aGUgZXhpc3RpbmcgdGVz
-dC4KwqBJZiB0ZXN0MSBjaGFuZ2VzLCB0aGVuIGl0IG5lZWRzIHRvIGJlIGhpZ2hsaWdodGVkIGlu
-IHRoZSBwYXRjaApkZXNjcmlwdGlvbi4KCj4gK0FzIHdlbGwgYXMgd2hhdCdzIHJlcXVpcmVkIGZv
-ciB0aGUgSU1BIHRlc3RzLCB0aGUgZm9sbG93aW5nIGlzIGFsc28gcmVxdWlyZWQKPiAgaW4gdGhl
-IGtlcm5lbCBjb25maWd1cmF0aW9uOgo+ICBgYGAKPiAgQ09ORklHX0lNQV9SRUFEX1BPTElDWT15
-Cj4gLUNPTkZJR19JTUFfWDUwOV9QQVRIPSIvZXRjL2tleXMveDUwOV9pbWEuZGVyIgo+IC1DT05G
-SUdfU1lTVEVNX1RSVVNURURfS0VZUklORz15Cj4gLUNPTkZJR19TWVNURU1fVFJVU1RFRF9LRVlT
-PSIvZXRjL2tleXMvaW1hLWxvY2FsLWNhLnBlbSIKPiAgYGBgCj4gIAo+IC1UZXN0IGFsc28gcmVx
-dWlyZXMgbG9hZGVkIHBvbGljeSB3aXRoIGBmdW5jPUtFWV9DSEVDS2AsIHNlZSBleGFtcGxlIGlu
-IGBrZXljaGVjay5wb2xpY3lgLgo+ICtZb3UgbXVzdCBhbHNvIGFkZCB0aGUgZm9sbG93aW5nIGxp
-bmUgdG8gL2V0Yy9pbWEvaW1hLXBvbGljeSBhbmQgcmVib290LgoKRG9jdW1lbnRhdGlvbiBzaG91
-bGQgYmUgd3JpdHRlbiBpbiB0aGUgdGhpcmQgcGVyc29uLiDCoEZvciBleGFtcGxlLAppbnN0ZWFk
-IG9mICJ5b3UgbXVzdCIsICJBIGtleSBtZWFzdXJlbWVudCBydWxlIG11c3QgYmUgZGVmaW5lZCBp
-biB0aGUKSU1BIHBvbGljeS4gRm9yIGV4YW1wbGUsIC4uLi4iCgo+ICtgYGAKPiArbWVhc3VyZSBm
-dW5jPUtFWV9DSEVDSyBrZXlyaW5ncz1rZXlfaW1wb3J0X3Rlc3QgdGVtcGxhdGU9aW1hLWJ1Zgo+
-ICtgYGAKPiArCj4gK1RoZSB0ZXN0IGFsc28gcmVxdWlyZXMgbG9hZGVkIHBvbGljeSB3aXRoIGBm
-dW5jPUtFWV9DSEVDS2AsIHNlZSBleGFtcGxlIGluIGBrZXljaGVjay5wb2xpY3lgLgo+ICAKPiAg
-IyMgRVZNIHRlc3RzCj4gIAo+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3NlY3VyaXR5
-L2ludGVncml0eS9pbWEvZGF0YWZpbGVzL01ha2VmaWxlIGIvdGVzdGNhc2VzL2tlcm5lbC9zZWN1
-cml0eS9pbnRlZ3JpdHkvaW1hL2RhdGFmaWxlcy9NYWtlZmlsZQo+IGluZGV4IGE5NjBmOWQ4NC4u
-NTI2MWI5MzIxIDEwMDY0NAo+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvc2VjdXJpdHkvaW50ZWdy
-aXR5L2ltYS9kYXRhZmlsZXMvTWFrZWZpbGUKPiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3NlY3Vy
-aXR5L2ludGVncml0eS9pbWEvZGF0YWZpbGVzL01ha2VmaWxlCj4gQEAgLTEsNSArMSw1IEBACj4g
-ICMKPiAtIyAgICB0ZXN0Y2FzZXMva2VybmVsL3NlY3VyaXR5L2ludGVncml0eS9pbWEvcG9saWN5
-IHRlc3RjYXNlcyBNYWtlZmlsZS4KPiArIyAgICBrZXJuZWwvc2VjdXJpdHkvaW50ZWdyaXR5L2lt
-YSB0ZXN0Y2FzZSBNYWtlZmlsZS4KClRoaXMgY2hhbmdlIGRvZXNuJ3QgbG9vayByaWdodC4KCj4g
-ICMKPiAgIyAgICBDb3B5cmlnaHQgKEMpIDIwMDksIENpc2NvIFN5c3RlbXMgSW5jLgo+ICAjCj4g
-QEAgLTE4LDE0ICsxOCwxMyBAQAo+ICAjICAgIDUxIEZyYW5rbGluIFN0cmVldCwgRmlmdGggRmxv
-b3IsIEJvc3RvbiwgTUEgMDIxMTAtMTMwMSBVU0EuCj4gICMKPiAgIyBOZ2llIENvb3BlciwgSnVs
-eSAyMDA5Cj4gKyMgTGFjaGxhbiBTbmVmZiwgSnVseSAyMDIwCj4gICMKPiAgCj4gIHRvcF9zcmNk
-aXIJCT89IC4uLy4uLy4uLy4uLy4uLy4uCj4gIAo+IC1pbmNsdWRlCSQodG9wX3NyY2RpcikvaW5j
-bHVkZS9tay9lbnZfcHJlLm1rCj4gK2luY2x1ZGUgJCh0b3Bfc3JjZGlyKS9pbmNsdWRlL21rL2Vu
-dl9wcmUubWsKClBsZWFzZSByZXZpZXcgdGhlIGFjdHVhbCBwYXRjaCBiZWZvcmUgcG9zdGluZyBp
-dC4gwqBDaGFuZ2VzIGxpa2UgdGhpcwphcmUgdW5uZWNlc3NhcnkuCgo+ICAKPiAtSU5TVEFMTF9E
-SVIJCTo9IHRlc3RjYXNlcy9kYXRhL2ltYV9wb2xpY3kKPiArU1VCRElSUwkJCTo9IHBvbGljeSBr
-ZXlzCj4gIAo+IC1JTlNUQUxMX1RBUkdFVFMJCTo9IG1lYXN1cmUqCj4gLQo+IC1pbmNsdWRlICQo
-dG9wX3NyY2RpcikvaW5jbHVkZS9tay9nZW5lcmljX2xlYWZfdGFyZ2V0Lm1rCj4gK2luY2x1ZGUg
-JCh0b3Bfc3JjZGlyKS9pbmNsdWRlL21rL2dlbmVyaWNfdHJ1bmtfdGFyZ2V0Lm1rCgpXaGVuIG1h
-a2luZyBjaGFuZ2VzIHRvIHNvbWVvbmUgZWxzZSdzIGNvZGUsIHBsZWFzZSBDYyB0aGVtIG9uIHRo
-ZQpjaGFuZ2UuIMKgVXNlICJnaXQgYmxhbWUiIHRvIGdldCB0aGUgY29tbWl0IGF1dGhvci4KCj4g
-ZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9kYXRh
-ZmlsZXMva2V5cy9NYWtlZmlsZSBiL3Rlc3RjYXNlcy9rZXJuZWwvc2VjdXJpdHkvaW50ZWdyaXR5
-L2ltYS9kYXRhZmlsZXMva2V5cy9NYWtlZmlsZQo+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4gaW5k
-ZXggMDAwMDAwMDAwLi4zZTM4MTA4OWMKPiAtLS0gL2Rldi9udWxsCj4gKysrIGIvdGVzdGNhc2Vz
-L2tlcm5lbC9zZWN1cml0eS9pbnRlZ3JpdHkvaW1hL2RhdGFmaWxlcy9rZXlzL01ha2VmaWxlCj4g
-QEAgLTAsMCArMSwzMSBAQAo+ICsjCj4gKyMgICAgdGVzdGNhc2VzL2tlcm5lbC9zZWN1cml0eS9p
-bnRlZ3JpdHkvaW1hL3BvbGljeSB0ZXN0Y2FzZXMgTWFrZWZpbGUuCj4gKyMKPiArIyAgICBDb3B5
-cmlnaHQgKEMpIDIwMDksIENpc2NvIFN5c3RlbXMgSW5jLgoKSG0sIGFyZW4ndCB5b3Ugd29ya2lu
-ZyBmb3IgTWljcm9zb2Z0PyDCoElmIHlvdSdyZSBtb3ZpbmcgZXhpc3RpbmcgY29kZSwKcGxlYXNl
-IG1vdmUgdGhhdCBjb2RlIHNlcGFyYXRlbHkgZnJvbSBhbnkgb3RoZXIgY2hhbmdlcy4gwqBOZXdl
-ciBmaWxlcwpwcm9iYWJseSB1c2UgdGhlIFNQRFggZm9ybWF0LgoKPiArIwo+ICsjICAgIFRoaXMg
-cHJvZ3JhbSBpcyBmcmVlIHNvZnR3YXJlOyB5b3UgY2FuIHJlZGlzdHJpYnV0ZSBpdCBhbmQvb3Ig
-bW9kaWZ5Cj4gKyMgICAgaXQgdW5kZXIgdGhlIHRlcm1zIG9mIHRoZSBHTlUgR2VuZXJhbCBQdWJs
-aWMgTGljZW5zZSBhcyBwdWJsaXNoZWQgYnkKPiArIyAgICB0aGUgRnJlZSBTb2Z0d2FyZSBGb3Vu
-ZGF0aW9uOyBlaXRoZXIgdmVyc2lvbiAyIG9mIHRoZSBMaWNlbnNlLCBvcgo+ICsjICAgIChhdCB5
-b3VyIG9wdGlvbikgYW55IGxhdGVyIHZlcnNpb24uCj4gKyMKPiArIyAgICBUaGlzIHByb2dyYW0g
-aXMgZGlzdHJpYnV0ZWQgaW4gdGhlIGhvcGUgdGhhdCBpdCB3aWxsIGJlIHVzZWZ1bCwKPiArIyAg
-ICBidXQgV0lUSE9VVCBBTlkgV0FSUkFOVFk7IHdpdGhvdXQgZXZlbiB0aGUgaW1wbGllZCB3YXJy
-YW50eSBvZgo+ICsjICAgIE1FUkNIQU5UQUJJTElUWSBvciBGSVRORVNTIEZPUiBBIFBBUlRJQ1VM
-QVIgUFVSUE9TRS4gIFNlZSB0aGUKPiArIyAgICBHTlUgR2VuZXJhbCBQdWJsaWMgTGljZW5zZSBm
-b3IgbW9yZSBkZXRhaWxzLgo+ICsjCj4gKyMgICAgWW91IHNob3VsZCBoYXZlIHJlY2VpdmVkIGEg
-Y29weSBvZiB0aGUgR05VIEdlbmVyYWwgUHVibGljIExpY2Vuc2UgYWxvbmcKPiArIyAgICB3aXRo
-IHRoaXMgcHJvZ3JhbTsgaWYgbm90LCB3cml0ZSB0byB0aGUgRnJlZSBTb2Z0d2FyZSBGb3VuZGF0
-aW9uLCBJbmMuLAo+ICsjICAgIDUxIEZyYW5rbGluIFN0cmVldCwgRmlmdGggRmxvb3IsIEJvc3Rv
-biwgTUEgMDIxMTAtMTMwMSBVU0EuCj4gKyMKPiArIyBMYWNobGFuIFNuZWZmLCBKdWx5IDIwMjAK
-PiArIwo+ICsKPiArdG9wX3NyY2RpcgkJPz0gLi4vLi4vLi4vLi4vLi4vLi4vLi4KPiArCj4gK2lu
-Y2x1ZGUJJCh0b3Bfc3JjZGlyKS9pbmNsdWRlL21rL2Vudl9wcmUubWsKPiArCj4gK0lOU1RBTExf
-RElSCQk6PSB0ZXN0Y2FzZXMvZGF0YS9pbWFfa2V5cwo+ICsKPiArSU5TVEFMTF9UQVJHRVRTCQk6
-PSB4NTA5LmRlcgo+ICsKPiAraW5jbHVkZSAkKHRvcF9zcmNkaXIpL2luY2x1ZGUvbWsvZ2VuZXJp
-Y19sZWFmX3RhcmdldC5tawo+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3NlY3VyaXR5
-L2ludGVncml0eS9pbWEvZGF0YWZpbGVzL2tleXMveDUwOS5kZXIgYi90ZXN0Y2FzZXMva2VybmVs
-L3NlY3VyaXR5L2ludGVncml0eS9pbWEvZGF0YWZpbGVzL2tleXMveDUwOS5kZXIKPiBuZXcgZmls
-ZSBtb2RlIDEwMDY0NAo+IGluZGV4IDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
-MDAwMDAuLjUzODYxMWM3MjQ0ZWFjMTczNzcwMzEwMzhhOTdiZjVkMDJjNTNkM2YKPiBHSVQgYmlu
-YXJ5IHBhdGNoCj4gbGl0ZXJhbCA3ODQKPiB6Y21YcUxWJipZdVYqSWp6blRlNSFOa20qJSFsK2ZQ
-WU9hJXd7cEdlT3U3VylnfDVPY2wqKkxZQEpsZWtWR0JSP3IKPiB6RzhsdiFAJmtwS0xzX19aKmdT
-bjViKTZqekg0TX4xMD9hKH1LbW1RJUZrZ2tfKVN7Qml3OU1xaGwybkRfJT1FbT4KPiB6eW1XPV4p
-Smo3TTEyTVIxb1F6X2UkJXpoYHhyd15UaTNXMXd5aGE4RnJiZD5BcmJaUzxtUWdeaUFyalhoeik7
-WUQKPiB6QTdVKj5NdCpUZ1VTZSpscHxwVnsjQTJjSGpRcXNoT2NjQjEzfWxlKTspZmA0Zk4zXnBv
-UjkxXk1wZyNxIyRFPTQKPiB6IyFqWmpNdXZxUzwyJmQ0PXtvKnVXKiowaHw5VCVUdzlTJl94WEZF
-TyE5dCNZVyoyNTt4MiQ8NVctMGVXdz9PQnkKPiB6XnZAaml6ZHRgRCVxPGR8UmVBbHtiRV8kMCVe
-bDExIzZQUnA/Iy02SjdQZlg8cXg9TV42S1Q/cXc/KldOMT8qQEkKPiB6JUNxcF5iOXNmZkxYTz9t
-aVR+IzN8TlV+fi1qPDZFS1RjaVh7bEFPN2JGS1IoQHBMOTtNaDM+a3U/RW93SlV8YzEKPiB6M050
-ZVBYSkltNkZ5SUY5XypxeihuYjtjKVdJLUgwN0JMbylneklIS0tQXkBIJm5iSXBFIXk5LUVgVW89
-KG0pPDAKPiB6dDtfLXBAJj1MWmtfVlF+YmkxQHBZdk1gJWp9SlFrLUdCY2A2NTAyX2gtR2VLV01z
-KFUle3V4c0o4ViR8JnNeVSoKPiB6dVQpQz9gTDMrS2VxWW1CZEc+KXpmcFdpN242anFxPllJMUt7
-TzMqO1hLX28xPldLYW1rOWJja3skdnV6ZHczN3kKPiB6dkFgMGNfZDVBK2VDSGpMVGhJSUphQE1J
-QVZjKG0tVTtuWG1iQWkqRjA8RnlGQSMyOzsjSXN4ZjJ4bmdOdkEkPD0KPiB6JENNaTdSVzhBZ3xK
-azN8dUk2fjtzYyFaQTw1UW49JVAmYnpkdWl9TWlzUTlNWWhsaFl8RjdIcktWNCRnWDZ5TnQKPiB6
-Qzhwa0U8O0x3c1BEfWdgb2M8Jn5gKEQzaSpRRVprYCk7WFc9QjR1PHsrSDFVeCN0JGVhajJNfEMr
-blFVT3p+ZWMKPiB6VTUpdiF0bCpaTWFPYkd3e0I+dUcranBoaGR1PVpMWlRoOShQbUVzSW1gNX0k
-ZCRfZHBPU2olaVV7SSVkMHwzQGkKPiBCRX4pP2sKPiAKPiBsaXRlcmFsIDAKPiBIY21WP2QwMDAw
-MQo+IAo+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3NlY3VyaXR5L2ludGVncml0eS9p
-bWEvZGF0YWZpbGVzL3BvbGljeS9NYWtlZmlsZSBiL3Rlc3RjYXNlcy9rZXJuZWwvc2VjdXJpdHkv
-aW50ZWdyaXR5L2ltYS9kYXRhZmlsZXMvcG9saWN5L01ha2VmaWxlCj4gbmV3IGZpbGUgbW9kZSAx
-MDA2NDQKPiBpbmRleCAwMDAwMDAwMDAuLjY5MmJmNjFhYgo+IC0tLSAvZGV2L251bGwKPiArKysg
-Yi90ZXN0Y2FzZXMva2VybmVsL3NlY3VyaXR5L2ludGVncml0eS9pbWEvZGF0YWZpbGVzL3BvbGlj
-eS9NYWtlZmlsZQo+IEBAIC0wLDAgKzEsMzEgQEAKPiArIwo+ICsjICAgIHRlc3RjYXNlcy9rZXJu
-ZWwvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9wb2xpY3kgdGVzdGNhc2VzIE1ha2VmaWxlLgo+ICsj
-Cj4gKyMgICAgQ29weXJpZ2h0IChDKSAyMDA5LCBDaXNjbyBTeXN0ZW1zIEluYy4KPiArIwo+ICsj
-ICAgIFRoaXMgcHJvZ3JhbSBpcyBmcmVlIHNvZnR3YXJlOyB5b3UgY2FuIHJlZGlzdHJpYnV0ZSBp
-dCBhbmQvb3IgbW9kaWZ5Cj4gKyMgICAgaXQgdW5kZXIgdGhlIHRlcm1zIG9mIHRoZSBHTlUgR2Vu
-ZXJhbCBQdWJsaWMgTGljZW5zZSBhcyBwdWJsaXNoZWQgYnkKPiArIyAgICB0aGUgRnJlZSBTb2Z0
-d2FyZSBGb3VuZGF0aW9uOyBlaXRoZXIgdmVyc2lvbiAyIG9mIHRoZSBMaWNlbnNlLCBvcgo+ICsj
-ICAgIChhdCB5b3VyIG9wdGlvbikgYW55IGxhdGVyIHZlcnNpb24uCj4gKyMKPiArIyAgICBUaGlz
-IHByb2dyYW0gaXMgZGlzdHJpYnV0ZWQgaW4gdGhlIGhvcGUgdGhhdCBpdCB3aWxsIGJlIHVzZWZ1
-bCwKPiArIyAgICBidXQgV0lUSE9VVCBBTlkgV0FSUkFOVFk7IHdpdGhvdXQgZXZlbiB0aGUgaW1w
-bGllZCB3YXJyYW50eSBvZgo+ICsjICAgIE1FUkNIQU5UQUJJTElUWSBvciBGSVRORVNTIEZPUiBB
-IFBBUlRJQ1VMQVIgUFVSUE9TRS4gIFNlZSB0aGUKPiArIyAgICBHTlUgR2VuZXJhbCBQdWJsaWMg
-TGljZW5zZSBmb3IgbW9yZSBkZXRhaWxzLgo+ICsjCj4gKyMgICAgWW91IHNob3VsZCBoYXZlIHJl
-Y2VpdmVkIGEgY29weSBvZiB0aGUgR05VIEdlbmVyYWwgUHVibGljIExpY2Vuc2UgYWxvbmcKPiAr
-IyAgICB3aXRoIHRoaXMgcHJvZ3JhbTsgaWYgbm90LCB3cml0ZSB0byB0aGUgRnJlZSBTb2Z0d2Fy
-ZSBGb3VuZGF0aW9uLCBJbmMuLAo+ICsjICAgIDUxIEZyYW5rbGluIFN0cmVldCwgRmlmdGggRmxv
-b3IsIEJvc3RvbiwgTUEgMDIxMTAtMTMwMSBVU0EuCj4gKyMKPiArIyBOZ2llIENvb3BlciwgSnVs
-eSAyMDA5Cj4gKyMKPiArCj4gK3RvcF9zcmNkaXIJCT89IC4uLy4uLy4uLy4uLy4uLy4uLy4uCj4g
-Kwo+ICtpbmNsdWRlCSQodG9wX3NyY2RpcikvaW5jbHVkZS9tay9lbnZfcHJlLm1rCj4gKwo+ICtJ
-TlNUQUxMX0RJUgkJOj0gdGVzdGNhc2VzL2RhdGEvaW1hX3BvbGljeQo+ICsKPiArSU5TVEFMTF9U
-QVJHRVRTCQk6PSBtZWFzdXJlKgo+ICsKPiAraW5jbHVkZSAkKHRvcF9zcmNkaXIpL2luY2x1ZGUv
-bWsvZ2VuZXJpY19sZWFmX3RhcmdldC5tawo+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVs
-L3NlY3VyaXR5L2ludGVncml0eS9pbWEvZGF0YWZpbGVzL2tleWNoZWNrLnBvbGljeSBiL3Rlc3Rj
-YXNlcy9rZXJuZWwvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9kYXRhZmlsZXMvcG9saWN5L2tleWNo
-ZWNrLnBvbGljeQo+IHNpbWlsYXJpdHkgaW5kZXggMTAwJQo+IHJlbmFtZSBmcm9tIHRlc3RjYXNl
-cy9rZXJuZWwvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9kYXRhZmlsZXMva2V5Y2hlY2sucG9saWN5
-Cj4gcmVuYW1lIHRvIHRlc3RjYXNlcy9rZXJuZWwvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9kYXRh
-ZmlsZXMvcG9saWN5L2tleWNoZWNrLnBvbGljeQo+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2Vy
-bmVsL3NlY3VyaXR5L2ludGVncml0eS9pbWEvZGF0YWZpbGVzL21lYXN1cmUucG9saWN5IGIvdGVz
-dGNhc2VzL2tlcm5lbC9zZWN1cml0eS9pbnRlZ3JpdHkvaW1hL2RhdGFmaWxlcy9wb2xpY3kvbWVh
-c3VyZS5wb2xpY3kKPiBzaW1pbGFyaXR5IGluZGV4IDEwMCUKPiByZW5hbWUgZnJvbSB0ZXN0Y2Fz
-ZXMva2VybmVsL3NlY3VyaXR5L2ludGVncml0eS9pbWEvZGF0YWZpbGVzL21lYXN1cmUucG9saWN5
-Cj4gcmVuYW1lIHRvIHRlc3RjYXNlcy9rZXJuZWwvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9kYXRh
-ZmlsZXMvcG9saWN5L21lYXN1cmUucG9saWN5Cj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJu
-ZWwvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9kYXRhZmlsZXMvbWVhc3VyZS5wb2xpY3ktaW52YWxp
-ZCBiL3Rlc3RjYXNlcy9rZXJuZWwvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9kYXRhZmlsZXMvcG9s
-aWN5L21lYXN1cmUucG9saWN5LWludmFsaWQKPiBzaW1pbGFyaXR5IGluZGV4IDEwMCUKPiByZW5h
-bWUgZnJvbSB0ZXN0Y2FzZXMva2VybmVsL3NlY3VyaXR5L2ludGVncml0eS9pbWEvZGF0YWZpbGVz
-L21lYXN1cmUucG9saWN5LWludmFsaWQKPiByZW5hbWUgdG8gdGVzdGNhc2VzL2tlcm5lbC9zZWN1
-cml0eS9pbnRlZ3JpdHkvaW1hL2RhdGFmaWxlcy9wb2xpY3kvbWVhc3VyZS5wb2xpY3ktaW52YWxp
-ZAo+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3NlY3VyaXR5L2ludGVncml0eS9pbWEv
-dGVzdHMvaW1hX2tleXMuc2ggYi90ZXN0Y2FzZXMva2VybmVsL3NlY3VyaXR5L2ludGVncml0eS9p
-bWEvdGVzdHMvaW1hX2tleXMuc2gKPiBpbmRleCA5MDRiNzUxNWIuLjEwMWQyZWE5MiAxMDA3NTUK
-PiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3NlY3VyaXR5L2ludGVncml0eS9pbWEvdGVzdHMvaW1h
-X2tleXMuc2gKPiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3NlY3VyaXR5L2ludGVncml0eS9pbWEv
-dGVzdHMvaW1hX2tleXMuc2gKPiBAQCAtNSw4ICs1LDggQEAKPiAgIwo+ICAjIFZlcmlmeSB0aGF0
-IGtleXMgYXJlIG1lYXN1cmVkIGNvcnJlY3RseSBiYXNlZCBvbiBwb2xpY3kuCj4gIAo+IC1UU1Rf
-TkVFRFNfQ01EUz0iZ3JlcCBta3RlbXAgY3V0IHNlZCB0ciIKPiAtVFNUX0NOVD0xCj4gK1RTVF9O
-RUVEU19DTURTPSJncmVwIG1rdGVtcCBjdXQgc2VkIHRyIHh4ZCBrZXljdGwgZXZtY3RsIG9wZW5z
-c2wgY21wIgo+ICtUU1RfQ05UPTIKPiAgVFNUX05FRURTX0RFVklDRT0xCj4gIAo+ICAuIGltYV9z
-ZXR1cC5zaAo+IEBAIC02NSw0ICs2NSw0NSBAQCB0ZXN0MSgpCj4gIAl0c3RfcmVzIFRQQVNTICJz
-cGVjaWZpZWQga2V5cmluZ3Mgd2VyZSBtZWFzdXJlZCBjb3JyZWN0bHkiCj4gIH0KPiAgCj4gKyMg
-Q3JlYXRlIGEgY3VzdG9tIGtleXJpbmcgYW5kIGltcG9ydCBhIGNlcnRmaWNhdGUgdG8gdGhhdAoK
-V2hhdCBpcyBhIGN1c3RvbSBrZXlyaW5nPyDCoFRyeSBpbnZlcnRpbmcgdGhlIHNlbnRlbmNlIC0g
-IkltcG9ydCBhCmNlcnRpZmljYXRlIG9udG8gYSBuZXdseSBjcmVhdGVkIGtleXJpbmcuIgoKPiAr
-dGVzdDIoKSB7CgpUaGUgcGF0Y2ggZGVzY3JpcHRpb24gc2hvdWxkIG1lbnRpb24gdGhpcyBwYXRj
-aCBkZWZpbmVzIGFuIGFkZGl0aW9uYWwKaW1hX2tleXMuc2ggdGVzdC4gwqBBbm90aGVyIGRpZmZl
-cmVuY2UgYmV0d2VlbiB0ZXN0MSBhbmQgdGVzdDIgaXMgdGhhdApkb2Vzbid0IHJlcXVpcmUgcm9v
-dCBwcml2aWxlZ2VzLgoKCj4gKwlsb2NhbCBjdXN0b21fa2V5cmluZ19pZCB0ZW1wX2ZpbGU9ImZp
-bGUudHh0IiBcCj4gKwkJY2VydF9maWxlPSIkVFNUX0RBVEFST09UL3g1MDkuZGVyIgo+ICsKPiAr
-CXRzdF9yZXMgVElORk8gImNoZWNraW5nIGZvciBjb3JyZWN0IElNQSBwb2xpY3kiCj4gKwo+ICsJ
-WyAtZiAkSU1BX1BPTElDWSBdIHx8IHRzdF9icmsgVENPTkYgIm1pc3NpbmcgJElNQV9QT0xJQ1ki
-Cj4gKwo+ICsJWyAtciAkSU1BX1BPTElDWSBdIHx8IHRzdF9icmsgVENPTkYgImNhbm5vdCByZWFk
-IElNQSBwb2xpY3kgKENPTkZJR19JTUFfUkVBRF9QT0xJQ1k9eSByZXF1aXJlZCkiCj4gKwo+ICsJ
-aWYgISBncmVwICJtZWFzdXJlIGZ1bmM9S0VZX0NIRUNLLiprZXlyaW5ncz0uKmtleV9pbXBvcnRf
-dGVzdCIgJElNQV9QT0xJQ1kgPiAvZGV2L251bGw7IHRoZW4KPiArCQl0c3RfYnJrIFRDT05GICJ0
-aGUgSU1BIHBvbGljeSBkb2VzIG5vdCBpbmNsdWRlIHRoZSBrZXlfaW1wb3J0X3Rlc3Qga2V5cmlu
-Zy4gU2VlIHRoZSBMVFAgSU1BIFJFQURNRS4iCj4gKwlmaQo+ICsKPiArCXRzdF9yZXMgVElORk8g
-ImNyZWF0aW5nIGEgY3VzdG9tIGtleXJpbmcgKGtleV9pbXBvcnRfdGVzdCBrZXlyaW5nKSIKPiAr
-Cj4gKwljdXN0b21fa2V5cmluZ19pZD0kKGtleWN0bCBuZXdyaW5nIGtleV9pbXBvcnRfdGVzdCBA
-cykgfHwgXAo+ICsJCXRzdF9icmsgVENPTkYgInVuYWJsZSB0byBjcmVhdGUgYSBuZXcga2V5cmlu
-ZyIKPiArCj4gKwl0c3RfaXNfbnVtICIkY3VzdG9tX2tleXJpbmdfaWQiIHx8IFwKPiArCQl0c3Rf
-YnJrIFRDT05GICJ1bmFibGUgdG8gcGFyc2UgY3VzdG9tIGtleXJpbmcgaWQiCj4gKwo+ICsJZXZt
-Y3RsIGltcG9ydCAkY2VydF9maWxlICIkY3VzdG9tX2tleXJpbmdfaWQiID4gL2Rldi9udWxsIHx8
-IFwKPiArCQl0c3RfYnJrIFRDT05GICJ1bmFibGUgdG8gaW1wb3J0IGEgY2VydCBpbnRvIHRoZSBr
-ZXlfaW1wb3J0X3Rlc3Qga2V5cmluZyIKPiArCj4gKwlncmVwICJrZXlfaW1wb3J0X3Rlc3QiICIk
-QVNDSUlfTUVBU1VSRU1FTlRTIiB8IHRhaWwgLW4xIHwgY3V0IC1kJyAnIC1mNiB8IFwKPiArCQl4
-eGQgLXIgLXAgPiAkdGVtcF9maWxlIHx8IFwKPiArCQl0c3RfYnJrIFRDT05GICJrZXlyaW5nIG5v
-dCBmb3VuZCBpbiAkQVNDSUlfTUVBU1VSRU1FTlRTIgo+ICsKPiArCWlmICEgb3BlbnNzbCB4NTA5
-IC1pbiAkdGVtcF9maWxlIC1pbmZvcm0gZGVyID4gL2Rldi9udWxsOyB0aGVuCj4gKwkJdHN0X2Jy
-ayBUQ09ORiAidGhlIGNlcnQgbG9nZ2VkIGluICRBU0NJSV9NRUFTVVJFTUVOVFMgaXMgbm90IGEg
-dmFsaWQgeDUwOSBjZXJ0aWZpY2F0ZSIKPiArCWZpCj4gKwo+ICsJaWYgY21wIC1zICR0ZW1wX2Zp
-bGUgJGNlcnRfZmlsZTsgdGhlbgo+ICsJCXRzdF9yZXMgVFBBU1MgImxvZ2dlZCBjZXJ0IG1hdGNo
-ZXMgb3JpZ2luYWwgY2VydCIKPiArCWVsc2UKPiArCQl0c3RfcmVzIFRGQUlMICJsb2dnZWQgY2Vy
-dCBkb2VzIG5vdCBtYXRjaCBvcmlnaW5hbCBjZXJ0Igo+ICsJZmkKPiArfQo+ICsKPiAgdHN0X3J1
-bgoKTm9ybWFsbHkgd2hlbiBjb2RlIGlzIGR1cGxpY2F0ZWQgd2l0aCBvbmx5IG1pbm9yIGNoYW5n
-ZXMsIGl0IGltcGxpZXMKdGhhdCB0aGUgY29kZSBjYW4gYmUgcmVmYWN0b3JlZC4KCk1pbWkKCgoK
-LS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0
-cAo=
+HI Martin
+
+Looks good to me,
+Reviewed-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+
+> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+> ---
+> 
+> Changes since v1:
+> - Use SAFE_CLOSE() instead of close() in EBADF testcase setup
+> - Improve setsockopt() result checks
+> 
+>   .../kernel/syscalls/setsockopt/setsockopt01.c | 243 +++++-------------
+>   1 file changed, 69 insertions(+), 174 deletions(-)
+> 
+> diff --git a/testcases/kernel/syscalls/setsockopt/setsockopt01.c b/testcases/kernel/syscalls/setsockopt/setsockopt01.c
+> index 743c6be14..4c48a0d95 100644
+> --- a/testcases/kernel/syscalls/setsockopt/setsockopt01.c
+> +++ b/testcases/kernel/syscalls/setsockopt/setsockopt01.c
+> @@ -1,72 +1,27 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+>   /*
+> - *
+>    *   Copyright (c) International Business Machines  Corp., 2001
+> - *
+> - *   This program is free software;  you can redistribute it and/or modify
+> - *   it under the terms of the GNU General Public License as published by
+> - *   the Free Software Foundation; either version 2 of the License, or
+> - *   (at your option) any later version.
+> - *
+> - *   This program is distributed in the hope that it will be useful,
+> - *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+> - *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+> - *   the GNU General Public License for more details.
+> - *
+> - *   You should have received a copy of the GNU General Public License
+> - *   along with this program;  if not, write to the Free Software
+> - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+> + *	07/2001 John George
+> + *   Copyright (c) 2020 Martin Doucha <mdoucha@suse.cz>
+>    */
+>   
+>   /*
+> - * Test Name: setsockopt01
+> - *
+>    * Test Description:
+>    *  Verify that setsockopt() returns the proper errno for various failure cases
+> - *
+> - * Usage:  <for command-line>
+> - *  setsockopt01 [-c n] [-e] [-i n] [-I x] [-p x] [-t]
+> - *	where,  -c n : Run n copies concurrently.
+> - *		-e   : Turn on errno logging.
+> - *		-i n : Execute test n times.
+> - *		-I x : Execute test for x seconds.
+> - *		-P x : Pause for x seconds between iterations.
+> - *		-t   : Turn on syscall timing.
+> - *
+> - * History
+> - *	07/2001 John George
+> - *		-Ported
+> - *
+> - * Restrictions:
+> - *  None.
+> - *
+>    */
+>   
+> -#include <stdio.h>
+>   #include <unistd.h>
+> -#include <errno.h>
+> -#include <fcntl.h>
+> -
+>   #include <sys/types.h>
+>   #include <sys/socket.h>
+> -#include <sys/signal.h>
+>   #include <sys/ioctl.h>
+> -
+>   #include <netinet/in.h>
+>   
+> -#include "test.h"
+> -#include "safe_macros.h"
+> +#include "tst_test.h"
+>   
+> -char *TCID = "setsockopt01";
+> -int testno;
+> +static struct sockaddr_in addr;
+> +static int optval;
+>   
+> -int s;				/* socket descriptor */
+> -struct sockaddr_in sin0, fsin1;
+> -int optval;
+> -
+> -void setup(void), setup0(void), setup1(void),
+> -cleanup(void), cleanup0(void), cleanup1(void);
+> -
+> -struct test_case_t {		/* test case structure */
+> +static struct test_case {	/* test case structure */
+>   	int domain;		/* PF_INET, PF_UNIX, ... */
+>   	int type;		/* SOCK_STREAM, SOCK_DGRAM ... */
+>   	int proto;		/* protocol number (usually 0 = default) */
+> @@ -74,140 +29,80 @@ struct test_case_t {		/* test case structure */
+>   	int optname;
+>   	void *optval;
+>   	int optlen;
+> -	struct sockaddr *sin;
+> -	int salen;
+> -	int retval;		/* syscall return value */
+>   	int experrno;		/* expected errno */
+> -	void (*setup) (void);
+> -	void (*cleanup) (void);
+>   	char *desc;
+> -} tdat[] = {
+> -	{
+> -	PF_INET, SOCK_STREAM, 0, SOL_SOCKET, SO_OOBINLINE, &optval,
+> -		    sizeof(optval), (struct sockaddr *)&fsin1,
+> -		    sizeof(fsin1), -1, EBADF, setup0, cleanup0,
+> -		    "bad file descriptor"}
+> -	, {
+> -	PF_INET, SOCK_STREAM, 0, SOL_SOCKET, SO_OOBINLINE, &optval,
+> -		    sizeof(optval), (struct sockaddr *)&fsin1,
+> -		    sizeof(fsin1), -1, ENOTSOCK, setup0, cleanup0,
+> -		    "bad file descriptor"}
+> -	,
+> -#if !defined(UCLINUX)
+> -	{
+> -	PF_INET, SOCK_STREAM, 0, SOL_SOCKET, SO_OOBINLINE, 0,
+> -		    sizeof(optval), (struct sockaddr *)&fsin1,
+> -		    sizeof(fsin1), -1, EFAULT, setup1, cleanup1,
+> -		    "invalid option buffer"}
+> -	,
+> -#endif
+> -	{
+> -	PF_INET, SOCK_STREAM, 0, SOL_SOCKET, SO_OOBINLINE, &optval, 0,
+> -		    (struct sockaddr *)&fsin1, sizeof(fsin1), -1,
+> -		    EINVAL, setup1, cleanup1, "invalid optlen"}
+> -	, {
+> -	PF_INET, SOCK_STREAM, 0, 500, SO_OOBINLINE, &optval,
+> -		    sizeof(optval), (struct sockaddr *)&fsin1,
+> -		    sizeof(fsin1), -1, ENOPROTOOPT, setup1, cleanup1,
+> -		    "invalid level"}
+> -	, {
+> -	PF_INET, SOCK_STREAM, 0, IPPROTO_UDP, SO_OOBINLINE, &optval,
+> -		    sizeof(optval), (struct sockaddr *)&fsin1,
+> -		    sizeof(fsin1), -1, ENOPROTOOPT, setup1, cleanup1,
+> -		    "invalid option name (UDP)"}
+> -	, {
+> -	PF_INET, SOCK_STREAM, 0, IPPROTO_IP, -1, &optval,
+> -		    sizeof(optval), (struct sockaddr *)&fsin1,
+> -		    sizeof(fsin1), -1, ENOPROTOOPT, setup1, cleanup1,
+> -		    "invalid option name (IP)"}
+> -	, {
+> -	PF_INET, SOCK_STREAM, 0, IPPROTO_TCP, -1, &optval,
+> -		    sizeof(optval), (struct sockaddr *)&fsin1,
+> -		    sizeof(fsin1), -1, ENOPROTOOPT, setup1, cleanup1,
+> -		    "invalid option name (TCP)"}
+> -,};
+> -
+> -int TST_TOTAL = sizeof(tdat) / sizeof(tdat[0]);
+> -
+> -int main(int argc, char *argv[])
+> +} testcase_list[] = {
+> +	{-1, -1, -1, SOL_SOCKET, SO_OOBINLINE, &optval, sizeof(optval),
+> +		EBADF, "invalid file descriptor"},
+> +	{-1, -1, -1, SOL_SOCKET, SO_OOBINLINE, &optval, sizeof(optval),
+> +		ENOTSOCK, "non-socket file descriptor"},
+> +	{PF_INET, SOCK_STREAM, 0, SOL_SOCKET, SO_OOBINLINE, NULL,
+> +		sizeof(optval), EFAULT, "invalid option buffer"},
+> +	{PF_INET, SOCK_STREAM, 0, SOL_SOCKET, SO_OOBINLINE, &optval, 0,
+> +		EINVAL, "invalid optlen"},
+> +	{PF_INET, SOCK_STREAM, 0, 500, SO_OOBINLINE, &optval, sizeof(optval),
+> +		ENOPROTOOPT, "invalid level"},
+> +	{PF_INET, SOCK_STREAM, 0, IPPROTO_UDP, SO_OOBINLINE, &optval,
+> +		sizeof(optval), ENOPROTOOPT, "invalid option name (UDP)"},
+> +	{PF_INET, SOCK_STREAM, 0, IPPROTO_IP, -1, &optval, sizeof(optval),
+> +		ENOPROTOOPT, "invalid option name (IP)"},
+> +	{PF_INET, SOCK_STREAM, 0, IPPROTO_TCP, -1, &optval, sizeof(optval),
+> +		ENOPROTOOPT, "invalid option name (TCP)"}
+> +};
+> +
+> +static void setup(void)
+>   {
+> -	int lc;
+> -
+> -	tst_parse_opts(argc, argv, NULL, NULL);
+> -	setup();
+> -
+> -	for (lc = 0; TEST_LOOPING(lc); ++lc) {
+> -		tst_count = 0;
+> -		for (testno = 0; testno < TST_TOTAL; ++testno) {
+> -			tdat[testno].setup();
+> -
+> -			TEST(setsockopt(s, tdat[testno].level,
+> -					tdat[testno].optname,
+> -					tdat[testno].optval,
+> -					tdat[testno].optlen));
+> -
+> -			if (TEST_RETURN == -1) {
+> -			}
+> -
+> -			if (TEST_RETURN != tdat[testno].retval ||
+> -			    (TEST_RETURN < 0 &&
+> -			     TEST_ERRNO != tdat[testno].experrno)) {
+> -				tst_resm(TFAIL, "%s ; returned"
+> -					 " %ld (expected %d), errno %d (expected"
+> -					 " %d)", tdat[testno].desc,
+> -					 TEST_RETURN, tdat[testno].retval,
+> -					 TEST_ERRNO, tdat[testno].experrno);
+> -			} else {
+> -				tst_resm(TPASS, "%s successful",
+> -					 tdat[testno].desc);
+> -			}
+> -			tdat[testno].cleanup();
+> -		}
+> -	}
+> -	cleanup();
+> -	tst_exit();
+> +	/* initialize local sockaddr */
+> +	addr.sin_family = AF_INET;
+> +	addr.sin_port = 0;
+> +	addr.sin_addr.s_addr = INADDR_ANY;
+>   }
+>   
+> -void setup(void)
+> +static void run(unsigned int n)
+>   {
+> +	struct test_case *tc = testcase_list + n;
+> +	int tmpfd, fd;
+>   
+> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+> +	tst_res(TINFO, "Testing %s", tc->desc);
+>   
+> -	TEST_PAUSE;
+> +	if (tc->domain == -1) {
+> +		tmpfd = fd = SAFE_OPEN("/dev/null", O_WRONLY);
+> +	} else {
+> +		tmpfd = fd = SAFE_SOCKET(tc->domain, tc->type, tc->proto);
+> +		SAFE_BIND(fd, (struct sockaddr *)&addr, sizeof(addr));
+> +	}
+>   
+> -	/* initialize local sockaddr */
+> -	sin0.sin_family = AF_INET;
+> -	sin0.sin_port = 0;
+> -	sin0.sin_addr.s_addr = INADDR_ANY;
+> -}
+> +	/* Use closed file descriptor rather than -1 */
+> +	if (tc->experrno == EBADF)
+> +		SAFE_CLOSE(tmpfd);
+>   
+> -void cleanup(void)
+> -{
+> -}
+> +	TEST(setsockopt(fd, tc->level, tc->optname, tc->optval, tc->optlen));
+>   
+> -void setup0(void)
+> -{
+> -	if (tdat[testno].experrno == EBADF)
+> -		s = 400;	/* anything not an open file */
+> -	else if ((s = open("/dev/null", O_WRONLY)) == -1)
+> -		tst_brkm(TBROK, cleanup, "error opening /dev/null - "
+> -			 "errno: %s", strerror(errno));
+> -}
+> +	if (tc->experrno != EBADF)
+> +		SAFE_CLOSE(fd);
+>   
+> -void cleanup0(void)
+> -{
+> -	s = -1;
+> -}
+> +	if (TST_RET == 0) {
+> +		tst_res(TFAIL, "setsockopt() succeeded unexpectedly");
+> +		return;
+> +	}
+>   
+> -void setup1(void)
+> -{
+> -	s = SAFE_SOCKET(cleanup, tdat[testno].domain, tdat[testno].type,
+> -			tdat[testno].proto);
+> -	SAFE_BIND(cleanup, s, (struct sockaddr *)&sin0, sizeof(sin0));
+> -}
+> +	if (TST_RET != -1) {
+> +		tst_res(TFAIL | TTERRNO,
+> +			"Invalid setsockopt() return value %ld", TST_RET);
+> +		return;
+> +	}
+>   
+> -void cleanup1(void)
+> -{
+> -	(void)close(s);
+> -	s = -1;
+> +	if (TST_ERR != tc->experrno) {
+> +		tst_res(TFAIL | TTERRNO,
+> +			"setsockopt() returned unexpected error");
+> +		return;
+> +	}
+> +
+> +	tst_res(TPASS | TTERRNO, "setsockopt() returned the expected error");
+>   }
+> +
+> +static struct tst_test test = {
+> +	.test = run,
+> +	.tcnt = ARRAY_SIZE(testcase_list),
+> +	.setup = setup
+> +};
+> 
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
