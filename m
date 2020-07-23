@@ -2,39 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D04D22AAA3
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jul 2020 10:29:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FDD622AAA2
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jul 2020 10:29:45 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F1C2B3C4D4A
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jul 2020 10:29:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B50753C4D5F
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Jul 2020 10:29:44 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id C52C23C20F6
- for <ltp@lists.linux.it>; Thu, 23 Jul 2020 10:29:41 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id CB2431000DB6
+ by picard.linux.it (Postfix) with ESMTP id 593BC3C1D48
  for <ltp@lists.linux.it>; Thu, 23 Jul 2020 10:29:40 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.75,386,1589212800"; d="scan'208";a="96792918"
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 40CEB1000DB6
+ for <ltp@lists.linux.it>; Thu, 23 Jul 2020 10:29:38 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.75,386,1589212800"; d="scan'208";a="96792917"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
  by heian.cn.fujitsu.com with ESMTP; 23 Jul 2020 16:29:34 +0800
 Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 0022B4CE4BD0
- for <ltp@lists.linux.it>; Thu, 23 Jul 2020 16:29:30 +0800 (CST)
+ by cn.fujitsu.com (Postfix) with ESMTP id B354F4CE4BDF
+ for <ltp@lists.linux.it>; Thu, 23 Jul 2020 16:29:31 +0800 (CST)
 Received: from localhost.localdomain (10.167.220.84) by
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Thu, 23 Jul 2020 16:29:30 +0800
+ (TLS) id 15.0.1497.2; Thu, 23 Jul 2020 16:29:32 +0800
 From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 To: <ltp@lists.linux.it>
-Date: Thu, 23 Jul 2020 16:30:00 +0800
-Message-ID: <1595493001-15724-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+Date: Thu, 23 Jul 2020 16:30:01 +0800
+Message-ID: <1595493001-15724-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <1595493001-15724-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+References: <1595493001-15724-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.167.220.84]
 X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 0022B4CE4BD0.AC778
+X-yoursite-MailScanner-ID: B354F4CE4BDF.A1778
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.0 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
@@ -42,8 +44,7 @@ X-Spam-Status: No, score=0.0 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
 X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 1/2] Allow detach file from loop device with
- opening dev_fd
+Subject: [LTP] [PATCH v1 2/2] syscalls/ioctl: Use tst_detach_device_by_fd api
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,117 +61,134 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Before this api, it will report the following error when using
-tst_attach_device with opening device fd because the device was
-opened twice at this point.
-
-tst_device.c:223: WARN: ioctl(/dev/loop0, LOOP_CLR_FD, 0) no ENXIO for
->> too long
-
-Add a tst_detach_device_by_fd() and change the library so that
-tst_detach_device() opens/close the dev_path and calls tst_detach_device_by_fd()
-internally.
-
-Suggested-by: Cyril Hrubis <chrubis@suse.cz>
 Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 ---
- include/tst_device.h | 11 +++++++++++
- lib/tst_device.c     | 31 ++++++++++++++++++-------------
- 2 files changed, 29 insertions(+), 13 deletions(-)
+ testcases/kernel/syscalls/ioctl/ioctl09.c      | 5 ++---
+ testcases/kernel/syscalls/ioctl/ioctl_loop01.c | 6 ++----
+ testcases/kernel/syscalls/ioctl/ioctl_loop02.c | 5 +----
+ testcases/kernel/syscalls/ioctl/ioctl_loop04.c | 5 ++---
+ 4 files changed, 7 insertions(+), 14 deletions(-)
 
-diff --git a/include/tst_device.h b/include/tst_device.h
-index 6a1fc5186..59cc5b96c 100644
---- a/include/tst_device.h
-+++ b/include/tst_device.h
-@@ -57,11 +57,22 @@ int tst_find_free_loopdev(const char *path, size_t path_len);
-  */
- int tst_attach_device(const char *dev_path, const char *file_path);
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl09.c b/testcases/kernel/syscalls/ioctl/ioctl09.c
+index 6a7f4042b..151618df4 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl09.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl09.c
+@@ -70,7 +70,6 @@ static void verify_ioctl(void)
+ 	tst_attach_device(dev_path, "test.img");
+ 	attach_flag = 1;
  
-+/*
-+ * Detaches a file from a loop device fd.
-+ *
-+ * @dev_path Path to the loop device e.g. /dev/loop0
-+ * @dev_fd a open fd for the loop device
-+ * @return Zero on succes, non-zero otherwise.
-+ * */
-+
-+int tst_detach_device_by_fd(const char *dev_path, int dev_fd);
-+
- /*
-  * Detaches a file from a loop device.
-  *
-  * @dev_path Path to the loop device e.g. /dev/loop0
-  * @return Zero on succes, non-zero otherwise.
-+ * In internal, call tst_detach_device_by_fd api.
-  */
- int tst_detach_device(const char *dev_path);
+-	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
+ 	loopinfo.lo_flags =  LO_FLAGS_PARTSCAN;
+ 	SAFE_IOCTL(dev_fd, LOOP_SET_STATUS, &loopinfo);
+ 	check_partition(1, true);
+@@ -81,8 +80,7 @@ static void verify_ioctl(void)
+ 	check_partition(1, true);
+ 	check_partition(2, true);
  
-diff --git a/lib/tst_device.c b/lib/tst_device.c
-index 131a223be..8d8bc5b40 100644
---- a/lib/tst_device.c
-+++ b/lib/tst_device.c
-@@ -187,43 +187,48 @@ int tst_attach_device(const char *dev, const char *file)
- 	return 0;
+-	SAFE_CLOSE(dev_fd);
+-	tst_detach_device(dev_path);
++	tst_detach_device_by_fd(dev_path, dev_fd);
+ 	attach_flag = 0;
  }
  
--int tst_detach_device(const char *dev)
-+int tst_detach_device_by_fd(const char *dev, int dev_fd)
- {
--	int dev_fd, ret, i;
+@@ -92,6 +90,7 @@ static void setup(void)
+ 	if (dev_num < 0)
+ 		tst_brk(TBROK, "Failed to find free loop device");
+ 	tst_prealloc_file("test.img", 1024 * 1024, 20);
++	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
+ }
+ 
+ static void cleanup(void)
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop01.c b/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
+index f334b5eb2..845a1399b 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
+@@ -86,15 +86,12 @@ static void verify_ioctl_loop(void)
+ 	TST_ASSERT_INT(autoclear_path, 0);
+ 	TST_ASSERT_STR(backing_path, backing_file_path);
+ 
+-	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
 -
--	dev_fd = open(dev, O_RDONLY);
--	if (dev_fd < 0) {
--		tst_resm(TWARN | TERRNO, "open(%s) failed", dev);
--		return 1;
--	}
-+	int ret, i;
+ 	check_loop_value(SET_FLAGS, GET_FLAGS, 1);
  
- 	/* keep trying to clear LOOPDEV until we get ENXIO, a quick succession
- 	 * of attach/detach might not give udev enough time to complete */
- 	for (i = 0; i < 40; i++) {
- 		ret = ioctl(dev_fd, LOOP_CLR_FD, 0);
+ 	tst_res(TINFO, "Test flag can be clear");
+ 	check_loop_value(0, LO_FLAGS_PARTSCAN, 0);
  
--		if (ret && (errno == ENXIO)) {
--			close(dev_fd);
-+		if (ret && (errno == ENXIO))
- 			return 0;
--		}
+-	SAFE_CLOSE(dev_fd);
+-	tst_detach_device(dev_path);
++	tst_detach_device_by_fd(dev_path, dev_fd);
+ 	attach_flag = 0;
+ }
  
- 		if (ret && (errno != EBUSY)) {
- 			tst_resm(TWARN,
- 				 "ioctl(%s, LOOP_CLR_FD, 0) unexpectedly failed with: %s",
- 				 dev, tst_strerrno(errno));
--			close(dev_fd);
- 			return 1;
- 		}
+@@ -129,6 +126,7 @@ static void setup(void)
+ 	sprintf(sys_loop_partpath, "/sys/block/loop%d/loop%dp1", dev_num, dev_num);
+ 	sprintf(backing_file_path, "%s/test.img", tst_get_tmpdir());
+ 	sprintf(loop_partpath, "%sp1", dev_path);
++	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
+ }
  
- 		usleep(50000);
+ static void cleanup(void)
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop02.c b/testcases/kernel/syscalls/ioctl/ioctl_loop02.c
+index 3a03d052a..ac6184216 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_loop02.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_loop02.c
+@@ -50,7 +50,6 @@ static void verify_ioctl_loop(unsigned int n)
+ 
+ 	tst_res(TINFO, "%s", tc->message);
+ 	file_fd = SAFE_OPEN("test.img", tc->mode);
+-	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
+ 
+ 	if (tc->ioctl == LOOP_SET_FD) {
+ 		SAFE_IOCTL(dev_fd, LOOP_SET_FD, file_fd);
+@@ -97,9 +96,8 @@ static void verify_ioctl_loop(unsigned int n)
+ 		tst_res(TFAIL, "LOOP_CHANGE_FD succeeded");
  	}
  
--	close(dev_fd);
- 	tst_resm(TWARN,
- 		"ioctl(%s, LOOP_CLR_FD, 0) no ENXIO for too long", dev);
- 	return 1;
+-	SAFE_CLOSE(dev_fd);
+ 	SAFE_CLOSE(file_fd);
+-	tst_detach_device(dev_path);
++	tst_detach_device_by_fd(dev_path, dev_fd);
+ 	attach_flag = 0;
  }
  
-+int tst_detach_device(const char *dev)
-+{
-+	int dev_fd, ret;
-+
-+	dev_fd = open(dev, O_RDONLY);
-+	if (dev_fd < 0) {
-+		tst_resm(TWARN | TERRNO, "open(%s) failed", dev);
-+		return 1;
-+	}
-+
-+	ret = tst_detach_device_by_fd(dev, dev_fd);
-+	close(dev_fd);
-+	return ret;
-+}
-+
- int tst_dev_sync(int fd)
- {
- 	return syscall(__NR_syncfs, fd);
+@@ -136,7 +134,6 @@ static void setup(void)
+ 		loop_configure_sup = 0;
+ 	}
+ 	loopconfig.info.lo_flags = LO_FLAGS_READ_ONLY;
+-	SAFE_CLOSE(dev_fd);
+ }
+ 
+ static void cleanup(void)
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop04.c b/testcases/kernel/syscalls/ioctl/ioctl_loop04.c
+index b882728fc..af3e90ddc 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_loop04.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_loop04.c
+@@ -33,7 +33,6 @@ static void verify_ioctl_loop(void)
+ 	attach_flag = 1;
+ 
+ 	TST_ASSERT_INT(sys_loop_sizepath, OLD_SIZE/512);
+-	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
+ 	file_fd = SAFE_OPEN("test.img", O_RDWR);
+ 	SAFE_IOCTL(dev_fd, LOOP_GET_STATUS, &loopinfoget);
+ 
+@@ -55,8 +54,7 @@ static void verify_ioctl_loop(void)
+ 	TST_ASSERT_INT(sys_loop_sizepath, NEW_SIZE/512);
+ 
+ 	SAFE_CLOSE(file_fd);
+-	SAFE_CLOSE(dev_fd);
+-	tst_detach_device(dev_path);
++	tst_detach_device_by_fd(dev_path, dev_fd);
+ 	unlink("test.img");
+ 	attach_flag = 0;
+ }
+@@ -70,6 +68,7 @@ static void setup(void)
+ 	wrbuf = SAFE_MALLOC(OLD_SIZE);
+ 	memset(wrbuf, 'x', OLD_SIZE);
+ 	sprintf(sys_loop_sizepath, "/sys/block/loop%d/size", dev_num);
++	dev_fd = SAFE_OPEN(dev_path, O_RDWR);
+ }
+ 
+ static void cleanup(void)
 -- 
 2.23.0
 
