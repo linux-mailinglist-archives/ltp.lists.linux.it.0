@@ -2,41 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2FD522C535
-	for <lists+linux-ltp@lfdr.de>; Fri, 24 Jul 2020 14:32:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4E5E22C543
+	for <lists+linux-ltp@lfdr.de>; Fri, 24 Jul 2020 14:36:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 826243C4CFE
-	for <lists+linux-ltp@lfdr.de>; Fri, 24 Jul 2020 14:32:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9361B3C4CFE
+	for <lists+linux-ltp@lfdr.de>; Fri, 24 Jul 2020 14:36:11 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id E01FD3C13D8
- for <ltp@lists.linux.it>; Fri, 24 Jul 2020 14:32:11 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 3D27F3C13D8
+ for <ltp@lists.linux.it>; Fri, 24 Jul 2020 14:36:10 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5C9011000A20
- for <ltp@lists.linux.it>; Fri, 24 Jul 2020 14:32:11 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E2A96600A04
+ for <ltp@lists.linux.it>; Fri, 24 Jul 2020 14:34:50 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D659CAF73;
- Fri, 24 Jul 2020 12:32:18 +0000 (UTC)
-Date: Fri, 24 Jul 2020 14:32:35 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20200724123235.GA3539@yuki.lan>
-References: <e51142a397858a2fe6a040563d3c0795a7d0bb05.1595511710.git.viresh.kumar@linaro.org>
- <a83166af3a2b432bb11a0876e18e15705479f32d.1595511710.git.viresh.kumar@linaro.org>
+ by mx2.suse.de (Postfix) with ESMTP id 473CEAF73;
+ Fri, 24 Jul 2020 12:36:17 +0000 (UTC)
+Date: Fri, 24 Jul 2020 14:36:06 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20200724123606.GA24626@dell5510>
+References: <20200717152450.10787-1-mdoucha@suse.cz>
+ <2b209b61-2bbc-c35f-5704-7b84bab9254d@cn.fujitsu.com>
+ <20200723113317.GA18525@dell5510> <20200724080732.GA16478@yuki.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <a83166af3a2b432bb11a0876e18e15705479f32d.1595511710.git.viresh.kumar@linaro.org>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+In-Reply-To: <20200724080732.GA16478@yuki.lan>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 4/4] libs: sigwait: Get rid of REPORT_SUCCESS()
- macro
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] Convert chdir01 to the new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,42 +47,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
->  void test_empty_set(swi_func sigwaitinfo, int signo,
->  		    enum tst_ts_type type LTP_ATTRIBUTE_UNUSED)
->  {
-> @@ -55,7 +22,15 @@ void test_empty_set(swi_func sigwaitinfo, int signo,
->  	child = create_sig_proc(signo, INT_MAX, 100000);
->  
->  	TEST(sigwaitinfo(&sigs, &si, NULL));
-> -	REPORT_SUCCESS(-1, EINTR);
-> +	if (TST_RET == -1) {
-> +		if (TST_ERR == EINTR)
-> +			tst_res(TPASS, "%s: Test passed", __func__);
-> +		else
-> +			tst_res(TFAIL | TTERRNO, "%s: Unexpected failure", __func__);
+Hi,
 
-Can we please make the messages a bit more user friendly?
+> > > Honestly speak, I don't like merge chdir02 into chdir01 and we should
+> > > cleanup chdir02 case individually.
 
-- the tst_res() already prints line and filename the __func__ is a bit
-  redundant
+> We usually tend to split test into possitive and negative testcases
+> in order to avoid overly complex code. In this case the code looks clean
+> enough though.
 
-- it also prints PASS/FAIL so we can omit the "Test passed" we can print
-  something that describes the testcase instead e.g.
-  "Wait interrupted by a signal"
+> I guess that if we wanted to have a separate test for possitive tests,
+> we would do something more interesting. Maybe something that does
+> chdir() and getcwd() in a loop for a while for a random path from a set
+> of paths, e.g. $TMPDIR, /, "..", "." and would expect the getcwd() to
+> match the new path after successful chdir() and remain unchanged after
+> failure. It would probably even more interesting to run chdir() and
+> getcwd() in a loop in several different threads, in such case we would
+> expect a valid return from getcwd(), i.e. any of the paths we pass to
+> chdir().
+Nice plan. I'd merge current patchset and put this into some TODO (could be and
+easyhack for newcommers, because test is already converted to the new API).
 
-- also in the "Unexpected failure" case we should print which error we
-  expected with someting as: tst_res(TFAIL | TTERRNO, "Expected to return EINTER, got");
+> > chdir02.c tests chdir("/"); and chdir("/tmp"). Not sure whether full path is
+> > more coverage than relative path from chdir01.c.
+> > If we consider these useful, we can just add it into chdir01.c.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+> > Although it looks a bit strange to chroot into root, I'd use just that and avoid
+> > /tmp (it breaks at least for Android with no good reason).
+
+> I guess that we can add /etc or something that is generally present on
+> the system.
+/etc is a symlink to /system/etc (maybe not presented everywhere). /sbin or /bin
+are symlinks on distros which has done usr merge, thus might disappear in the
+future.  I'd vote for /dev, which is everywhere (so far).
+
+Kind regards,
+Petr
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
