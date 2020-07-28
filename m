@@ -2,48 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CFF522FEB3
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Jul 2020 03:06:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C5B5230002
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Jul 2020 05:21:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5ED033C26CD
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Jul 2020 03:06:08 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 07D873C26CE
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Jul 2020 05:21:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 2CB3F3C232B
- for <ltp@lists.linux.it>; Tue, 28 Jul 2020 03:06:07 +0200 (CEST)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 012941000A4D
- for <ltp@lists.linux.it>; Tue, 28 Jul 2020 03:06:05 +0200 (CEST)
-Received: from [192.168.1.21] (c-73-187-218-229.hsd1.pa.comcast.net
- [73.187.218.229])
- by linux.microsoft.com (Postfix) with ESMTPSA id 3C27F20B4908;
- Mon, 27 Jul 2020 18:06:03 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 3C27F20B4908
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1595898364;
- bh=OKMktzltgqBq+thzV080FxgNHMcJfv52gdWpPOP/Yrk=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=Rh10ZEzpIJmof3WP7ALwMH7sga3FA84Jh96Hb9pfe9yL2pMDD++M8rx2CjxthLhkV
- U+MHeIMK1APO4APQzq/WGpMFtJSJAIZYfEjXq2lu9GfVvHFGAI7cEIvVdCx5yw3tCh
- DJEs1l4RYcEjxOtyBRhb+HSQ68Vqoz6ZnfGsRlqM=
-To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
-References: <20200728001301.31121-1-pvorel@suse.cz>
-From: Lachlan Sneff <t-josne@linux.microsoft.com>
-Message-ID: <9b0ee5b1-2d8f-35d8-88ee-da193ad66a0d@linux.microsoft.com>
-Date: Mon, 27 Jul 2020 21:06:01 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 88FDE3C0EAD
+ for <ltp@lists.linux.it>; Tue, 28 Jul 2020 05:21:19 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 941DE200904
+ for <ltp@lists.linux.it>; Tue, 28 Jul 2020 05:21:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1595906476;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=SsaNYQeh9ik5FENDwaDtmvjdb/DQhf8MU190H4Gs14Y=;
+ b=iYOCXPYsLNlJ4J4vtktUYw0MgZL6AcyHEp1Px8vRE0J00MT7WFH5o2jP7954TyMQn+XlJz
+ bZoJrBvO2viWjgXUDPh0xWIDJs3oJMbzNeREPaiC5126mQ1WbRYi3AORiTKXzMIchAJOFc
+ 6jP2PIu93SyHZ/pzWcoIjM7PY+Hf1Sw=
+Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
+ [209.85.167.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-30-F8AzeZHUP2WOQ88oxp5UxA-1; Mon, 27 Jul 2020 23:21:12 -0400
+X-MC-Unique: F8AzeZHUP2WOQ88oxp5UxA-1
+Received: by mail-lf1-f71.google.com with SMTP id q16so3047071lfm.2
+ for <ltp@lists.linux.it>; Mon, 27 Jul 2020 20:21:11 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=SsaNYQeh9ik5FENDwaDtmvjdb/DQhf8MU190H4Gs14Y=;
+ b=W0ujpIP4wYHhSHVNRtrs4M7lcknZxGo91zyaCyv9YmVjxuxPc0fUCJO4OzdHJbHhAk
+ K4B3lBoAJ68GzpHdCD79XMpx0CSNrw3AZotrvs5qrgKcqc5c9VgPWKxjMJwvTlivgRKV
+ qTwI/qepK7sYTJvz5Lce+4EYDcsBaNWyFn1UW04pG3Y265w9pI6PO4So+1fz2TvFLF6G
+ iJEDZ77dRM2Ix+wAfHJnZiMWf9UCJXp9pjdqQiye9uyuzpjVE0ZjejS4DbKsJ7AkYZSp
+ l5ySHdSKIYybBsG2Pjwer/H36KcPyjyOoCPD6RmtR3tbyyNoSNFmQtc0n97YDsm92xTa
+ +Q0w==
+X-Gm-Message-State: AOAM5300JwNBdx93iqxeWG21QR1pFAAVrn7dKt3lTurvEm8dGqt4d3uu
+ /Na8fB/TF+c454U17KwEU2lL2eGHL+tOHeUdeaL59mhHvIkkDfwc2cJwMU3+6nCbncOtWcxst6o
+ AHNN/QBAl858d2UllFUa1db0MMYg=
+X-Received: by 2002:a2e:9e43:: with SMTP id g3mr11738650ljk.309.1595906470593; 
+ Mon, 27 Jul 2020 20:21:10 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJybNEx+umSCtyfWv4meD8AcY/0Vtl5UQgWnHz9y5hMxfFP0xVNj+y4k7mEHPXeMXsBMI6MwQC4aXGsqJ2Hd3bU=
+X-Received: by 2002:a2e:9e43:: with SMTP id g3mr11738643ljk.309.1595906470357; 
+ Mon, 27 Jul 2020 20:21:10 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200728001301.31121-1-pvorel@suse.cz>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+References: <20200703030811.11521-1-pravinraghul@zilogic.com>
+In-Reply-To: <20200703030811.11521-1-pravinraghul@zilogic.com>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 28 Jul 2020 11:20:58 +0800
+Message-ID: <CAEemH2febKOruSdyVDMa8sOTFNnSEdEwZkY1OP_34=Ac2GDxSA@mail.gmail.com>
+To: pravin <pravinraghul@zilogic.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-15.7 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,
- USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v6 4/4] IMA: Add test for kexec cmdline measurement
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] Add a test case for mmap MAP_GROWSDOWN flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,208 +80,193 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
- linux-integrity@vger.kernel.org, Mimi Zohar <zohar@linux.vnet.ibm.com>,
- balajib@linux.microsoft.com
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: LTP List <ltp@lists.linux.it>, vijaykumar@zilogic.com
+Content-Type: multipart/mixed; boundary="===============0416284639=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Looks great, thank you for working on this, Petr!
+--===============0416284639==
+Content-Type: multipart/alternative; boundary="00000000000042cf4505ab77ee99"
 
-On 7/27/20 8:13 PM, Petr Vorel wrote:
-> From: Lachlan Sneff <t-josne@linux.microsoft.com>
->
-> IMA policy can be set to measure the command line passed in the kexec
-> system call. Add a testcase that verifies that the IMA subsystem
-> correctly measure the cmdline specified during a kexec.
->
-> Reviewed-by: Petr Vorel <pvorel@suse.cz>
-> Reviewed-by: Mimi Zohar <zohar@linux.ibm.com>
-> Signed-off-by: Lachlan Sneff <t-josne@linux.microsoft.com>
-> [ pvorel: improved setup, various LTP API cleanup ]
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
-> Changes v5->v6:
-> * move --reuse-cmdline from setup to kexec_test()
->
-> Sorry for the noise.
->
-> Kind regards,
-> Petr
->
->   runtest/ima                                   |   1 +
->   .../kernel/security/integrity/ima/README.md   |   8 ++
->   .../integrity/ima/datafiles/kexec.policy      |   1 +
->   .../security/integrity/ima/tests/ima_kexec.sh | 120 ++++++++++++++++++
->   4 files changed, 130 insertions(+)
->   create mode 100644 testcases/kernel/security/integrity/ima/datafiles/kexec.policy
->   create mode 100755 testcases/kernel/security/integrity/ima/tests/ima_kexec.sh
->
-> diff --git a/runtest/ima b/runtest/ima
-> index 309d47420..5f4b4a7a1 100644
-> --- a/runtest/ima
-> +++ b/runtest/ima
-> @@ -4,4 +4,5 @@ ima_policy ima_policy.sh
->   ima_tpm ima_tpm.sh
->   ima_violations ima_violations.sh
->   ima_keys ima_keys.sh
-> +ima_kexec ima_kexec.sh
->   evm_overlay evm_overlay.sh
-> diff --git a/testcases/kernel/security/integrity/ima/README.md b/testcases/kernel/security/integrity/ima/README.md
-> index 732cd912f..d4644ba39 100644
-> --- a/testcases/kernel/security/integrity/ima/README.md
-> +++ b/testcases/kernel/security/integrity/ima/README.md
-> @@ -36,6 +36,14 @@ CONFIG_SYSTEM_TRUSTED_KEYS="/etc/keys/ima-local-ca.pem"
->   
->   Test also requires loaded policy with `func=KEY_CHECK`, see example in `keycheck.policy`.
->   
-> +### IMA kexec test
+--00000000000042cf4505ab77ee99
+Content-Type: text/plain; charset="UTF-8"
+
+Hi,
+
+
+On Fri, Jul 3, 2020 at 11:09 AM pravin <pravinraghul@zilogic.com> wrote:
+
+> ...
+> +/*
+> + * Test mmap() MAP_GROWSDOWN flag
+> + *
+> + * We assign the memory region allocated using MAP_GROWSDOWN to a thread,
+> + * as a stack, to test the effect of MAP_GROWSDOWN. This is because the
+> + * kernel only grows the memory region when the stack pointer, is within
+> + * guard page, when the guard page is touched.
+> + *
+> + * 1. Map an anyonymous memory region of size X, and unmap it.
+> + * 2. Split the unmapped memory region into two.
+> + * 3. The lower memory region is left unmapped.
+> + * 4. The higher memory region is mapped for use as stack, using
+> + *    MAP_FIXED | MAP_GROWSDOWN.
+> + * 5. The higher memory region is provided as stack to a thread, where
+> + *    a recursive function is invoked.
+> + * 6. The stack grows beyond the allocated region, into the lower memory
+> area.
+> + * 7. If this results in the memory region being extended, into the
+> + *    unmapped region, the test is considered to have passed.
+> + */
 > +
-> +`ima_kexec.sh` requires loaded policy which contains `measure func=KEXEC_CMDLINE`,
-> +see example in `kexec.policy`.
+> +#include <unistd.h>
+> +#include <pthread.h>
+> +#include <sys/mman.h>
+> +#include <sys/wait.h>
+> +#include <sys/types.h>
+> +#include <stdlib.h>
+> +#include <stdbool.h>
 > +
-> +The test attempts to kexec the existing running kernel image.
-> +To kexec a different kernel image export `IMA_KEXEC_IMAGE=<pathname>`.
+> +#include "tst_test.h"
+> +#include "tst_safe_pthread.h"
 > +
->   ## EVM tests
->   
->   `evm_overlay.sh` requires a builtin IMA appraise tcb policy (e.g. `ima_policy=appraise_tcb`
-> diff --git a/testcases/kernel/security/integrity/ima/datafiles/kexec.policy b/testcases/kernel/security/integrity/ima/datafiles/kexec.policy
-> new file mode 100644
-> index 000000000..58d66369e
-> --- /dev/null
-> +++ b/testcases/kernel/security/integrity/ima/datafiles/kexec.policy
-> @@ -0,0 +1 @@
-> +measure func=KEXEC_CMDLINE
-> diff --git a/testcases/kernel/security/integrity/ima/tests/ima_kexec.sh b/testcases/kernel/security/integrity/ima/tests/ima_kexec.sh
-> new file mode 100755
-> index 000000000..30bbd066e
-> --- /dev/null
-> +++ b/testcases/kernel/security/integrity/ima/tests/ima_kexec.sh
-> @@ -0,0 +1,120 @@
-> +#!/bin/sh
-> +# SPDX-License-Identifier: GPL-2.0-or-later
-> +# Copyright (c) 2020 Microsoft Corporation
-> +# Copyright (c) 2020 Petr Vorel <pvorel@suse.cz>
-> +# Author: Lachlan Sneff <t-josne@linux.microsoft.com>
-> +#
-> +# Verify that kexec cmdline is measured correctly.
-> +# Test attempts to kexec the existing running kernel image.
-> +# To kexec a different kernel image export IMA_KEXEC_IMAGE=<pathname>.
+> +#define UNITS(x) ((x) * PTHREAD_STACK_MIN)
 > +
-> +TST_NEEDS_CMDS="grep kexec sed"
-> +TST_CNT=3
-> +TST_NEEDS_DEVICE=1
-> +TST_SETUP="setup"
+> +static void *stack;
 > +
-> +. ima_setup.sh
-> +
-> +IMA_KEXEC_IMAGE="${IMA_KEXEC_IMAGE:-/boot/vmlinuz-$(uname -r)}"
-> +REQUIRED_POLICY='^measure.*func=KEXEC_CMDLINE'
-> +
-> +measure()
+> +static bool check_stackgrow_up(int *local_var_1)
 > +{
-> +	local cmdline="$1"
-> +	local algorithm digest expected_digest found
+> +       int local_var_2;
 > +
-> +	printf "$cmdline" > file1
-> +	grep "kexec-cmdline" $ASCII_MEASUREMENTS > file2
-> +
-> +	while read found
-> +	do
-> +		algorithm=$(echo "$found" | cut -d' ' -f4 | cut -d':' -f1)
-> +		digest=$(echo "$found" | cut -d' ' -f4 | cut -d':' -f2)
-> +
-> +		expected_digest=$(compute_digest $algorithm file1)
-> +
-> +		if [ "$digest" = "$expected_digest" ]; then
-> +			return 0
-> +		fi
-> +	done < file2
-> +
-> +	return 1
-> +}
-> +
-> +setup()
-> +{
-> +	tst_res TINFO "using kernel $IMA_KEXEC_IMAGE"
-> +
-> +	if [ ! -f "$IMA_KEXEC_IMAGE" ]; then
-> +		tst_brk TCONF "kernel image not found, specify path in \$IMA_KEXEC_IMAGE"
-> +	fi
-> +
-> +	if check_policy_readable; then
-> +		require_ima_policy_content "$REQUIRED_POLICY"
-> +		policy_readable=1
-> +	fi
-> +}
-> +
-> +kexec_failure_hint()
-> +{
-> +	local sb_enabled
-> +
-> +	if tst_cmd_available bootctl; then
-> +		if bootctl status 2>/dev/null | grep -qi 'Secure Boot: enabled'; then
-> +			sb_enabled=1
-> +		fi
-> +	elif tst_cmd_available dmesg; then
-> +		if dmesg | grep -qi 'Secure boot enabled'; then
-> +			sb_enabled=1
-> +		fi
-> +	fi
-> +	if [ "$sb_enabled" ]; then
-> +		tst_res TWARN "secure boot is enabled, kernel image may not be signed"
-> +	fi
-> +
-> +	if check_ima_policy_content '^appraise.*func=KEXEC_KERNEL_CHECK'; then
-> +		tst_res TWARN "'func=KEXEC_KERNEL_CHECK' appraise policy loaded, kernel image may not be signed"
-> +	fi
-> +}
-> +
-> +kexec_test()
-> +{
-> +	local param="$1"
-> +	local cmdline="$2"
-> +	local res=TFAIL
-> +	local kexec_cmd
-> +
-> +	kexec_cmd="$param=$cmdline"
-> +	if [ "$param" = '--reuse-cmdline' ]; then
-> +		cmdline="$(sed 's/BOOT_IMAGE=[^ ]* //' /proc/cmdline)"
-> +		kexec_cmd="$param"
-> +	fi
-> +
-> +	kexec_cmd="kexec -s -l $IMA_KEXEC_IMAGE $kexec_cmd"
-> +	tst_res TINFO "testing $kexec_cmd"
-> +	if ! $kexec_cmd 2>err; then
-> +		kexec_failure_hint
-> +		tst_brk TBROK "kexec failed: $(cat err)"
-> +	fi
-> +
-> +	ROD kexec -su
-> +	if ! measure "$cmdline"; then
-> +		if [ "$policy_readable" != 1 ]; then
-> +			tst_res TWARN "policy not readable, it might not contain required policy '$REQUIRED_POLICY'"
-> +			res=TBROK
-> +		fi
-> +		tst_brk $res "unable to find a correct measurement"
-> +	fi
-> +	tst_res TPASS "kexec cmdline was measured correctly"
-> +}
-> +
-> +test()
-> +{
-> +	case $1 in
-> +	1) kexec_test '--reuse-cmdline';;
-> +	2) kexec_test '--append' 'foo';;
-> +	3) kexec_test '--command-line' 'bar';;
-> +	esac
-> +}
-> +
-> +tst_run
+> +       return !(local_var_1 < &local_var_2);
+>
+
+Shouldn't local_var_1 less than local_var_2 on a stack grow up arch? why we
+return the reverse value here?
+
+And the worth to say that the optimization of GCC will break this rule in
+the compilation.
+
+ -O2  (ltp default gcc flag)
+mmap18.c:46: INFO: local_var_1 = 0x3ffd177dea0, loval_var_2 = 0x3ffd177dea4
+-O0
+mmap18.c:46: INFO: local_var_1 = 0x3ffc86fe614, loval_var_2 = 0x3ffc86fe56c
+
+--------
+
+Apart from that, mmap18 also gets FAIL with s390x platform like:
+
+# ./mmap18
+tst_test.c:1247: INFO: Timeout per run is 0h 05m 00s
+mmap18.c:46: INFO: local_var_1 = 0x3fff537e5d4, loval_var_2 = 0x3fff537e52c
+mmap18.c:126: INFO: mem = 0x3ff8dd3a000, stack = 0x3ff8dd5a000
+mmap18.c:136: FAIL: Child killed by SIGSEGV
+
+Summary:
+passed   0
+failed   1
+skipped  0
+warnings 0
+
+-- 
+Regards,
+Li Wang
+
+--00000000000042cf4505ab77ee99
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi,</div><div class=3D"gmail_default" style=3D"font-size:smal=
+l"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D=
+"gmail_attr">On Fri, Jul 3, 2020 at 11:09 AM pravin &lt;<a href=3D"mailto:p=
+ravinraghul@zilogic.com" target=3D"_blank">pravinraghul@zilogic.com</a>&gt;=
+ wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
+0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><span cl=
+ass=3D"gmail_default" style=3D"font-size:small">...</span><br>
++/*<br>
++ * Test mmap() MAP_GROWSDOWN flag<br>
++ *<br>
++ * We assign the memory region allocated using MAP_GROWSDOWN to a thread,<=
+br>
++ * as a stack, to test the effect of MAP_GROWSDOWN. This is because the<br=
+>
++ * kernel only grows the memory region when the stack pointer, is within<b=
+r>
++ * guard page, when the guard page is touched.<br>
++ *<br>
++ * 1. Map an anyonymous memory region of size X, and unmap it.<br>
++ * 2. Split the unmapped memory region into two.<br>
++ * 3. The lower memory region is left unmapped.<br>
++ * 4. The higher memory region is mapped for use as stack, using<br>
++ *=C2=A0 =C2=A0 MAP_FIXED | MAP_GROWSDOWN.<br>
++ * 5. The higher memory region is provided as stack to a thread, where<br>
++ *=C2=A0 =C2=A0 a recursive function is invoked.<br>
++ * 6. The stack grows beyond the allocated region, into the lower memory a=
+rea.<br>
++ * 7. If this results in the memory region being extended, into the<br>
++ *=C2=A0 =C2=A0 unmapped region, the test is considered to have passed.<br=
+>
++ */<br>
++<br>
++#include &lt;unistd.h&gt;<br>
++#include &lt;pthread.h&gt;<br>
++#include &lt;sys/mman.h&gt;<br>
++#include &lt;sys/wait.h&gt;<br>
++#include &lt;sys/types.h&gt;<br>
++#include &lt;stdlib.h&gt;<br>
++#include &lt;stdbool.h&gt;<br>
++<br>
++#include &quot;tst_test.h&quot;<br>
++#include &quot;tst_safe_pthread.h&quot;<br>
++<br>
++#define UNITS(x) ((x) * PTHREAD_STACK_MIN)<br>
++<br>
++static void *stack;<br>
++<br>
++static bool check_stackgrow_up(int *local_var_1)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0int local_var_2;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return !(local_var_1 &lt; &amp;local_var_2);<br=
+></blockquote><div><br></div><div><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Shouldn&#39;t local_var_1 less than local_var_2 on a stack gr=
+ow up arch? why we return the reverse value here?</div><br></div><div><div =
+class=3D"gmail_default" style=3D"font-size:small">And=C2=A0the worth to say=
+ that the optimization of GCC will break this rule in the compilation.=C2=
+=A0</div><div class=3D"gmail_default" style=3D"font-size:small"><br></div><=
+div class=3D"gmail_default" style=3D"font-size:small">=C2=A0-O2=C2=A0 (ltp =
+default gcc flag)</div><div class=3D"gmail_default" style=3D"font-size:smal=
+l">mmap18.c:46: INFO: local_var_1 =3D 0x3ffd177dea0, loval_var_2 =3D 0x3ffd=
+177dea4<br></div><div class=3D"gmail_default" style=3D"font-size:small"> -O=
+0</div><div class=3D"gmail_default" style=3D"font-size:small">mmap18.c:46: =
+INFO: local_var_1 =3D 0x3ffc86fe614, loval_var_2 =3D 0x3ffc86fe56c</div><br=
+></div><div><div class=3D"gmail_default" style=3D"font-size:small">--------=
+</div><br></div><div><div class=3D"gmail_default" style=3D"font-size:small"=
+>Apart from that, mmap18 also gets FAIL with s390x platform like:</div><div=
+ class=3D"gmail_default" style=3D"font-size:small"><br></div># ./mmap1<span=
+ class=3D"gmail_default" style=3D"font-size:small">8</span><br>tst_test.c:1=
+247: INFO: Timeout per run is 0h 05m 00s<br>mmap18.c:46: INFO: local_var_1 =
+=3D 0x3fff537e5d4, loval_var_2 =3D 0x3fff537e52c<br>mmap18.c:126: INFO: mem=
+ =3D 0x3ff8dd3a000, stack =3D 0x3ff8dd5a000<br>mmap18.c:136: FAIL: Child ki=
+lled by SIGSEGV<br><div class=3D"gmail_default" style=3D"font-size:small"><=
+br></div>Summary:<br>passed =C2=A0 0<br>failed =C2=A0 1<br>skipped =C2=A00<=
+br>warnings 0<br><div class=3D"gmail_default" style=3D"font-size:small"></d=
+iv></div></div><div><br></div>-- <br><div dir=3D"ltr"><div dir=3D"ltr"><div=
+>Regards,<br></div><div>Li Wang<br></div></div></div>
+</div>
+
+--00000000000042cf4505ab77ee99--
+
+
+--===============0416284639==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0416284639==--
+
