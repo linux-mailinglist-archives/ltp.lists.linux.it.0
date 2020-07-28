@@ -2,34 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7304A230366
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Jul 2020 09:00:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76A882303FD
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Jul 2020 09:24:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 252873C2681
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Jul 2020 09:00:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 45BF73C2681
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Jul 2020 09:24:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id E741F3C25A5
- for <ltp@lists.linux.it>; Tue, 28 Jul 2020 09:00:50 +0200 (CEST)
-Received: from mail.zilogic.com (mail.zilogic.com [45.33.14.236])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id E65362010FA
- for <ltp@lists.linux.it>; Tue, 28 Jul 2020 09:00:49 +0200 (CEST)
-Date: Tue, 28 Jul 2020 06:59:10 -0000
-To: ltp@lists.linux.it
-Message-ID: <20200728065910.6942-1-shwetha@zilogic.com>
-From: "Shwetha Subramanian" <shwetha@zilogic.com>
-Received: from shwetha.shwetha (broadband.actcorp.in [183.83.155.166])
- by mail.zilogic.com; Tue, 28 Jul 2020 07:00:23 -0000
-X-Mailer: git-send-email 2.20.1
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id A28833C25A5
+ for <ltp@lists.linux.it>; Tue, 28 Jul 2020 09:24:06 +0200 (CEST)
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C7E641400E6F
+ for <ltp@lists.linux.it>; Tue, 28 Jul 2020 09:24:05 +0200 (CEST)
+Received: by mail-pf1-x442.google.com with SMTP id m8so3579193pfh.3
+ for <ltp@lists.linux.it>; Tue, 28 Jul 2020 00:24:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=fl/TkPlxmb98Tquv00P1JhxyWEY/eE7FBLKgqqWzv5k=;
+ b=vVNnjqX3+w1GOfBGr5/GBBA6gWCBW52/0umH4dN66JZBIIh1/bdCCAc7SJbJdBAByZ
+ JztpscQoA15FISc2LQG3tSnAKK9srcRtcRb2YyTVWO2ZMST0xLODsBArc5ON+ZJKLYFn
+ Qe2eIK1OsKjD+LpqulI0XCxJE0AXTL3RiqPgKw3Nw4KM2pNNyhccv7uPNiu8/4gDTPzz
+ mIHwjrlJGN8c6RoupdUdQJLz4Hdt86/oSG2UPkecK8Ss/Qtr7I8N6zfwFIkyMp77ITXo
+ o66i8KhAiYws1lnd/ymZON05UX1eoBoeDKAdxpCgXLWzPh/5NXecViG9STdIW5BIyPro
+ SG1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=fl/TkPlxmb98Tquv00P1JhxyWEY/eE7FBLKgqqWzv5k=;
+ b=L+FOvqWdGjwqBrIgwPgRHgMzcYSO9pjEmOwi/4dI7kLWWJINT/D3TtTHXzZTQsgR3q
+ g7QrNdgnWnR/BvYOAq+PuWQ6fQwAxO6rEqhXiuZ5wca4RbsS1Syb/2kJVmw0fQa6xUvj
+ p1tcqpcJ1J0e+yINNY+xs/hvMnWz5Jj6uKNzT4IhSY00kJLQ3PZb9600vSnilHXrMAUM
+ vpUUBQKi3RCwKFsLsmpFRRe7U1I4x4wgrXaDw5r7Iz/jNhgs3yI51OX1syee2MGcIb2I
+ kDz6AhO1QX6I9xVKwkFUsBHjpK46ZmbbzHTWTQPPED2knTjZqyulxCbNnOhI2Rrdcq2k
+ ZagQ==
+X-Gm-Message-State: AOAM531ymXuOZsqx9k6rvOXVl6KSFgJAyNHdS2CiFNIC9uZeCR1Ryugb
+ unozmyEJxRsD9WOnL+u8IouAmw==
+X-Google-Smtp-Source: ABdhPJy9B/q5hKq6G7ALGZN9keR+Lg41pxTv6EhT1x4QURGpg12qJnwBNqQD6wTB7s0wR+mdL/MxdQ==
+X-Received: by 2002:a63:6c1:: with SMTP id 184mr24021227pgg.262.1595921044129; 
+ Tue, 28 Jul 2020 00:24:04 -0700 (PDT)
+Received: from localhost ([223.190.9.130])
+ by smtp.gmail.com with ESMTPSA id p11sm1945641pjb.3.2020.07.28.00.24.02
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Tue, 28 Jul 2020 00:24:03 -0700 (PDT)
+Date: Tue, 28 Jul 2020 12:53:57 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20200728072357.22lyy2b4auyqqmvs@vireshk-mac-ubuntu>
+References: <cover.1593152309.git.viresh.kumar@linaro.org>
+ <883a188e83c201b23074bf0ac974b41d89d818c7.1593152309.git.viresh.kumar@linaro.org>
+ <20200727094030.GB7863@yuki.lan>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200727094030.GB7863@yuki.lan>
+User-Agent: NeoMutt/20170609 (1.8.3)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=MSGID_FROM_MTA_HEADER,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] Add mincore() test for pages cached by another
- process
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V7 14/19] syscalls/select6: Add support for time64
+ tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,181 +79,103 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: vijaykumar@zilogic.com
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, arnd@arndb.de,
+ ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+On 27-07-20, 11:40, Cyril Hrubis wrote:
+> > @@ -38,7 +39,7 @@ static int do_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *except
+> >  	}
+> >  	case 2: {
+> >  		int ret;
+> > -		struct timespec ts = {
+> > +		struct __kernel_old_timespec ts = {
+> >  			.tv_sec = timeout->tv_sec,
+> >  			.tv_nsec = timeout->tv_usec * 1000,
+> >  		};
+> 
+> I'm a bit lost here, should we actually pass the __kernel_old_timespec
+> to all the tst_syscall() fuctions here?
 
-It tests the result of mincore when memory is mapped and cached by
-another process. A file is mapped in both parent and child
-process.Then the mapped memory is accessed in the child process. The
-results of mincore are tested in the parent process.
+select, pselect6, pselect6_time64, and newselect, all have different
+requirements, some take timespec and others take timeval.
 
-Changes from v1
-1. Added cleanup actions to child process
-2. Fixed formatting issues
-3. Expanded mem_sync() and file_setup() in setup function
-4. Reformatted forked processes
-5. Altered test result statements
+Though after looking again at kernel sources I feel pselect6 may need
+__kernel_timespec instead of __kernel_old_timespec, which is different than what
+we did with other syscalls.
 
-References:#460
+Arnd, can you confirm this please ?
 
-Signed-off-by: Shwetha Subramanian. <shwetha@zilogic.com> 
-Reviewed-by:Vijay Kumar B. <vijaykumar@zilogic.com>
----
- runtest/syscalls                              |   1 +
- testcases/kernel/syscalls/mincore/.gitignore  |   1 +
- testcases/kernel/syscalls/mincore/mincore04.c | 115 ++++++++++++++++++
- 3 files changed, 117 insertions(+)
- create mode 100644 testcases/kernel/syscalls/mincore/mincore04.c
+> I guess that the only function that would take the argument as struct
+> timeval is the select() glibc function, or do I miss something?
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index c2bfc6df3..bd3a5145a 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -881,6 +881,7 @@ open_tree02 open_tree02
- mincore01 mincore01
- mincore02 mincore02
- mincore03 mincore03
-+mincore04 mincore04
- 
- madvise01 madvise01
- madvise02 madvise02
-diff --git a/testcases/kernel/syscalls/mincore/.gitignore b/testcases/kernel/syscalls/mincore/.gitignore
-index 71c3e9864..25a5e8ab1 100644
---- a/testcases/kernel/syscalls/mincore/.gitignore
-+++ b/testcases/kernel/syscalls/mincore/.gitignore
-@@ -1,3 +1,4 @@
- /mincore01
- /mincore02
- /mincore03
-+/mincore04
-diff --git a/testcases/kernel/syscalls/mincore/mincore04.c b/testcases/kernel/syscalls/mincore/mincore04.c
-new file mode 100644
-index 000000000..284c284d5
---- /dev/null
-+++ b/testcases/kernel/syscalls/mincore/mincore04.c
-@@ -0,0 +1,115 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) Zilogic Systems Pvt. Ltd., 2020
-+ * Email: code@zilogic.com
-+ */
-+
-+/*
-+ * mincore04
-+ * Test shows that pages mapped in one process(parent) and
-+ * faulted in another(child) results in mincore(in parent) reporting
-+ * that all mapped pages are resident.
-+ */
-+
-+#include <unistd.h>
-+#include <sys/types.h>
-+#include <sys/mman.h>
-+#include <sys/types.h>
-+#include <sys/stat.h>
-+#include <sys/wait.h>
-+#include <fcntl.h>
-+#include <stdlib.h>
-+#include "tst_test.h"
-+
-+#define NUM_PAGES 3
-+
-+static int fd;
-+static int size;
-+static void *ptr;
-+
-+static void cleanup(void)
-+{
-+	if (fd > 0)
-+		SAFE_CLOSE(fd);
-+	if (ptr)
-+		SAFE_MUNMAP(ptr, size);
-+}
-+
-+static void setup(void)
-+{
-+	int page_size, ret;
-+
-+	page_size = getpagesize();
-+	size = page_size * NUM_PAGES;
-+	fd = SAFE_OPEN("FILE", O_CREAT | O_RDWR, 0600);
-+	SAFE_FTRUNCATE(fd, size);
-+
-+	/* File pages from file creation are cleared from cache. */
-+	SAFE_FSYNC(fd);
-+	ret = posix_fadvise(fd, 0, size, POSIX_FADV_DONTNEED);
-+	if (ret == -1)
-+		tst_brk(TBROK | TERRNO, "fadvise failed");
-+}
-+
-+static void mmap_lock_file(void)
-+{
-+	ptr = SAFE_MMAP(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
-+	SAFE_MLOCK(ptr, size);
-+	TST_CHECKPOINT_WAKE(0);
-+	TST_CHECKPOINT_WAIT(1);
-+
-+	SAFE_CLOSE(fd);
-+	SAFE_MUNLOCK(ptr, size);
-+	SAFE_MUNMAP(ptr, size);
-+}
-+
-+static int count_pages_in_cache(void)
-+{
-+	int locked_pages = 0;
-+	int count, ret;
-+	unsigned char vec[NUM_PAGES];
-+
-+	TST_CHECKPOINT_WAIT(0);
-+	ptr = SAFE_MMAP(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
-+
-+	ret = mincore(ptr, size, vec);
-+	if (ret == -1)
-+		tst_brk(TBROK | TERRNO, "mincore failed");
-+	for (count = 0; count < NUM_PAGES; count++) {
-+		if (vec[count] & 1)
-+			locked_pages++;
-+	}
-+
-+	TST_CHECKPOINT_WAKE(1);
-+	return locked_pages;
-+}
-+
-+static void test_mincore(void)
-+{
-+	int  locked_pages;
-+
-+	pid_t child_pid = SAFE_FORK();
-+
-+	if (child_pid == 0) {
-+		mmap_lock_file();
-+		exit(0);
-+	}
-+
-+	locked_pages = count_pages_in_cache();
-+	tst_reap_children();
-+
-+	if (locked_pages == NUM_PAGES)
-+		tst_res(TPASS, "mincore reports all %d pages locked by child process "
-+			"are resident", locked_pages);
-+	else
-+		tst_res(TFAIL, "mincore reports %d pages resident but %d pages "
-+			"locked by child process", locked_pages, NUM_PAGES);
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.forks_child = 1,
-+	.test_all = test_mincore,
-+	.needs_checkpoints = 1,
-+};
+select in kernel also takes old timeval.
+
+> > @@ -47,7 +48,22 @@ static int do_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *except
+> >  		timeout->tv_usec = ts.tv_nsec / 1000;
+> >  		return ret;
+> >  	}
+> > -	case 3:
+> > +	case 3: {
+> > +		int ret = 0;
+> > +#if (__NR_clock_settime64 != __LTP__NR_INVALID_SYSCALL)
+>             ^
+> 	    __NR_pselect6_time64 ?
+> 
+> > +		struct __kernel_timespec ts = {
+> > +			.tv_sec = timeout->tv_sec,
+> > +			.tv_nsec = timeout->tv_usec * 1000,
+> > +		};
+> > +		ret = tst_syscall(__NR_pselect6_time64, nfds, readfds, writefds, exceptfds, &ts, NULL);
+> > +		timeout->tv_sec = ts.tv_sec;
+> > +		timeout->tv_usec = ts.tv_nsec / 1000;
+> > +#else
+> > +		tst_brk(TCONF, "__NR_pselect6 time64 variant not supported");
+> > +#endif
+> > +		return ret;
+> > +	}
+> > +	case 4:
+> >  #ifdef __NR__newselect
+> >  		return tst_syscall(__NR__newselect, nfds, readfds, writefds, exceptfds, timeout);
+> >  #else
+> > @@ -72,11 +88,14 @@ static void select_info(void)
+> >  		tst_res(TINFO, "Testing SYS_pselect6 syscall");
+> >  	break;
+> >  	case 3:
+> > +		tst_res(TINFO, "Testing SYS_pselect6 time64 syscall");
+> > +	break;
+> > +	case 4:
+> >  		tst_res(TINFO, "Testing SYS__newselect syscall");
+> >  	break;
+> >  	}
+> >  }
+> >  
+> > -#define TEST_VARIANTS 4
+> > +#define TEST_VARIANTS 5
+> 
+> Also lastly but not least we should clean up the rest of the select
+> tests and add support for the different variants there as well.
+
+Maybe not. IIUC only pselect6 got changed to adapt to different timespec
+structures and the other ones aren't.
+
+Arnd: Can you confirm this as well ?
+
+> Looking at them these are just copy&paste of the same test with a
+> different fds, we can easily merge them into a single test.
+> 
+> And the coverate in these tests is a bit lacking, we do not have a
+> single tests that would send a data over a pipe to a fd select is
+> watching and check that select was woken up by that. There is no such
+> test in the pselect/ directory either.
+
+Hmm, I will look at that separately then.
+
 -- 
-2.20.1
-
+viresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
