@@ -2,72 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9EFF231AAD
-	for <lists+linux-ltp@lfdr.de>; Wed, 29 Jul 2020 09:56:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4858231AFF
+	for <lists+linux-ltp@lfdr.de>; Wed, 29 Jul 2020 10:16:58 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 556373C4C0C
-	for <lists+linux-ltp@lfdr.de>; Wed, 29 Jul 2020 09:56:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 877B33C2658
+	for <lists+linux-ltp@lfdr.de>; Wed, 29 Jul 2020 10:16:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 45EFD3C5A22
- for <ltp@lists.linux.it>; Wed, 29 Jul 2020 09:56:28 +0200 (CEST)
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 693EC1A01D2B
- for <ltp@lists.linux.it>; Wed, 29 Jul 2020 09:56:27 +0200 (CEST)
-Received: by mail-pg1-x544.google.com with SMTP id o13so13854326pgf.0
- for <ltp@lists.linux.it>; Wed, 29 Jul 2020 00:56:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :in-reply-to:references;
- bh=3LRze7MFfQTHFPjWzmxLRYkouAjBOBpw/vjSrhPWDYk=;
- b=I0NhozcJ/hQyiS9n4UFFHGUsJK96MwtYyHLu30qXQixN3m6KXHRktd8SyeKDKrzB4b
- 2fUgf2ox21kh5AvhCfXw5ZVoo3Olerh9BWJi8U7CKh//0SWurx3yo3TlmaHvfHbmMubP
- 6j6NslD0Cgpi4LLkLsNSoicifKkleLAfjZdgwDLtQVnhN6Ayqp/hfO13XJ5Q0tpYZDRL
- u4yQ2FX9Kl43MspTQfJTPP44jMeGUrSxIwKkhUF9ekIAFKQYok6LMHEWqnxqfFQU9zNa
- oA5rOgDFJApg+BtEaswADuBcMR6k173Ugq0VnDAGzagxZTwJzRF+LGLS3XVBj3Lzvgt5
- Z0hA==
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 621353C2624
+ for <ltp@lists.linux.it>; Wed, 29 Jul 2020 10:16:57 +0200 (CEST)
+Received: from us-smtp-delivery-74.mimecast.com
+ (us-smtp-delivery-74.mimecast.com [63.128.21.74])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id A14DE601649
+ for <ltp@lists.linux.it>; Wed, 29 Jul 2020 10:16:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1596010615;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Rv0DSVli+QWGXbRFE6sLIcagLpfcENcGTkz+YJS70W0=;
+ b=BRcItP1b0yVd14kZUcUQtWUjhhrNgNpO0uJmWHZTjo3K49SjBFjXPAVLcHb7fHpQVrF/LV
+ QL7bQV8YvS2QcIWUEL7uydk74lW954Ti44XJL9O0rRgUWb79jUbVaj2PFhklybbVa9Yj9A
+ vKQJwB4PsWRjRcVAybRo7DinYflGru8=
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-176-5cv2-NyEMVuKRem5NfPGsQ-1; Wed, 29 Jul 2020 04:16:52 -0400
+X-MC-Unique: 5cv2-NyEMVuKRem5NfPGsQ-1
+Received: by mail-lf1-f72.google.com with SMTP id k1so6543553lfm.4
+ for <ltp@lists.linux.it>; Wed, 29 Jul 2020 01:16:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:in-reply-to:references;
- bh=3LRze7MFfQTHFPjWzmxLRYkouAjBOBpw/vjSrhPWDYk=;
- b=GlOm4yDWAt2RltcoeQrOW/LdCe6vAeib0dJvQC3EO185kEvZYDVr4EQ6BukmKoCNWd
- bbcRceLa8KO+bCDjF7gbSiHm+8mQpJ2Klo9VFyQT94Pz9sswSXBxcKuM/XXK0q2vwxex
- rne2Q9ggMmNPw7yKLSc9+Jx4L1INLq1gP6c5nj+ef6J6w1ZikEHUnDKirDu6xPUIMKhy
- IyQ6DP88chaTHjbNMviwJiSxjSYoQJp2vLvuaimuukexZA3MXBEyxfigRVEa08Cf3UXD
- LwNUDa402v+CH5KezP22vcYIzbjF7ZVOyUepVJnHLHWF93QhCfIiV2/AKD+N0YXe4psa
- tXrg==
-X-Gm-Message-State: AOAM531tpOgTn+weMJJUmkWHVIvuOgD3bxlKaVjwczZXGySIwCN6i6bR
- mpLGbPxLq/G1EXBS1GN1uCxlPgz9LRc=
-X-Google-Smtp-Source: ABdhPJwfGe79uvVByO+fsqF4zqzkbJQ8eyHqobRoFauTak/R2BEP+bK5DLXPSUDj5SBw0ztA++txJw==
-X-Received: by 2002:a05:6a00:158b:: with SMTP id
- u11mr27845539pfk.92.1596009385432; 
- Wed, 29 Jul 2020 00:56:25 -0700 (PDT)
-Received: from localhost ([106.215.77.228])
- by smtp.gmail.com with ESMTPSA id 76sm1361472pfu.139.2020.07.29.00.56.24
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 29 Jul 2020 00:56:24 -0700 (PDT)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: ltp@lists.linux.it
-Date: Wed, 29 Jul 2020 13:25:53 +0530
-Message-Id: <c1ca12b5df0510279a8b2f0a93106b1ca153c4a7.1596008484.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.14.1
-In-Reply-To: <fab6e65d02767b60594916da89cca34221989229.1596008484.git.viresh.kumar@linaro.org>
-References: <fab6e65d02767b60594916da89cca34221989229.1596008484.git.viresh.kumar@linaro.org>
-In-Reply-To: <fab6e65d02767b60594916da89cca34221989229.1596008484.git.viresh.kumar@linaro.org>
-References: <fab6e65d02767b60594916da89cca34221989229.1596008484.git.viresh.kumar@linaro.org>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Rv0DSVli+QWGXbRFE6sLIcagLpfcENcGTkz+YJS70W0=;
+ b=lqCD5KAS/pPpTd50uySEkgwqmwRfK1jjhyY8R88Fi4sDEaFts5U9iMcGG9hDVtOwCP
+ tQz4X8KykyYO9mD/DByIAOc5EWjuvrB4KpuP3ir3Dj22Oz7Zzgk4jy2jeuaAd61O8xZ3
+ PgmVhjdRdAPhGYZkesNuvPW0s8g3Dybh5YUoZwvtBseF9Dc5fd57eCeueMfYz1nkoL9y
+ durSAqVJ0OOk12PY14CO8v6lT8zn2hEQJTNos2r21cKAmm6PkEGES+nAyyk+OuehyEEM
+ Ix5wTMDPMbfac2Vz2l11wFgmevC2AwvkCvwMPTrBjfzX+byatS8hTFRmN8fg6+XoCsaE
+ 1jLQ==
+X-Gm-Message-State: AOAM5300ds7vmrXUlDddPro4839/mEkQK3s3cnW4s9Zd4GJV2lH8GnmD
+ Zp/TWcOr2HCI0Odd8+dcMUuUizI9eySHYJZ6wQYcRmH3Fc1tyT+3uZJbSSN+vYjIRQtRI9tLZnj
+ sMGhjB6P/VfcmPgRtgcwGk00hzBM=
+X-Received: by 2002:ac2:43ca:: with SMTP id u10mr12763283lfl.147.1596010610863; 
+ Wed, 29 Jul 2020 01:16:50 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyi4hDThacsLCBuWXY4JHgy6BdS45PfUKZrnUvod9M9jZB6B7FESJyZlQ83yFgIaP+vLGtkylfb6dlFvxNeTb0=
+X-Received: by 2002:ac2:43ca:: with SMTP id u10mr12763277lfl.147.1596010610619; 
+ Wed, 29 Jul 2020 01:16:50 -0700 (PDT)
+MIME-Version: 1.0
+References: <1595911224-12470-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <1595911224-12470-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <CAEemH2eFrsa0rNfjcKrdQpUkV6YvbQR10tbzy4F5jXVQOrra7w@mail.gmail.com>
+ <9916b020-27b6-bc12-919b-9046dc7dcee5@cn.fujitsu.com>
+In-Reply-To: <9916b020-27b6-bc12-919b-9046dc7dcee5@cn.fujitsu.com>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 29 Jul 2020 16:16:38 +0800
+Message-ID: <CAEemH2ckxPDkncT9m2nyv0-tvJ70SKogun7EfzAN912sc5662A@mail.gmail.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH V8 5/5] syscalls/semtimedop: Add support for
- semtimedop and its time64 version
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 2/2] libs/libltpnewipc: Add libmsgctl.c into
+ new ipc library
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,249 +82,91 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
- Vincent Guittot <vincent.guittot@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1172806409=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This adds support for semtimedop() and its time64 variant to the
-existing semop() syscall tests.
+--===============1172806409==
+Content-Type: multipart/alternative; boundary="0000000000008113b605ab902d4b"
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
----
- testcases/kernel/syscalls/ipc/semop/semop.h   | 55 +++++++++++++++++++++++++++
- testcases/kernel/syscalls/ipc/semop/semop01.c | 14 ++++++-
- testcases/kernel/syscalls/ipc/semop/semop02.c | 15 +++++++-
- testcases/kernel/syscalls/ipc/semop/semop03.c | 16 +++++++-
- 4 files changed, 97 insertions(+), 3 deletions(-)
- create mode 100644 testcases/kernel/syscalls/ipc/semop/semop.h
+--0000000000008113b605ab902d4b
+Content-Type: text/plain; charset="UTF-8"
 
-diff --git a/testcases/kernel/syscalls/ipc/semop/semop.h b/testcases/kernel/syscalls/ipc/semop/semop.h
-new file mode 100644
-index 000000000000..584d12c68e0d
---- /dev/null
-+++ b/testcases/kernel/syscalls/ipc/semop/semop.h
-@@ -0,0 +1,55 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+#ifndef SEMOP_VAR__
-+#define SEMOP_VAR__
-+
-+#include <sys/sem.h>
-+#include "tst_timer.h"
-+
-+static inline int sys_semtimedop(int semid, struct sembuf *sops, size_t nsops,
-+		void *timeout)
-+{
-+	return tst_syscall(__NR_semtimedop, semid, sops, nsops, timeout);
-+}
-+
-+static inline int sys_semtimedop_time64(int semid, struct sembuf *sops,
-+					size_t nsops, void *timeout)
-+{
-+	return tst_syscall(__NR_semtimedop_time64, semid, sops, nsops, timeout);
-+}
-+
-+struct test_variants {
-+	int (*semop)(int semid, struct sembuf *sops, size_t nsops);
-+	int (*semtimedop)(int semid, struct sembuf *sops, size_t nsops, void *timeout);
-+	enum tst_ts_type type;
-+	char *desc;
-+} variants[] = {
-+	{ .semop = semop, .type = TST_LIBC_TIMESPEC, .desc = "semop: vDSO or syscall"},
-+
-+#if (__NR_semtimedop != __LTP__NR_INVALID_SYSCALL)
-+	{ .semtimedop = sys_semtimedop, .type = TST_KERN_OLD_TIMESPEC, .desc = "semtimedop: syscall with old kernel spec"},
-+#endif
-+
-+#if (__NR_semtimedop_time64 != __LTP__NR_INVALID_SYSCALL)
-+	{ .semtimedop = sys_semtimedop_time64, .type = TST_KERN_TIMESPEC, .desc = "semtimedop: syscall time64 with kernel spec"},
-+#endif
-+};
-+
-+static inline int call_semop(struct test_variants *tv, int semid,
-+		struct sembuf *sops, size_t nsops, struct tst_ts *timeout)
-+{
-+	if (tv->semop)
-+		return tv->semop(semid, sops, nsops);
-+
-+	return tv->semtimedop(semid, sops, nsops, tst_ts_get(timeout));
-+}
-+
-+static inline void semop_supported_by_kernel(struct test_variants *tv)
-+{
-+       /* Check if the syscall is implemented on the platform */
-+       TEST(call_semop(tv, 0, NULL, 0, NULL));
-+       if (TST_RET == -1 && TST_ERR == ENOSYS)
-+               tst_brk(TCONF, "Test not supported on kernel/platform");
-+}
-+
-+#endif /* SEMOP_VAR__ */
-diff --git a/testcases/kernel/syscalls/ipc/semop/semop01.c b/testcases/kernel/syscalls/ipc/semop/semop01.c
-index 19607ee6d653..c3443da58af4 100644
---- a/testcases/kernel/syscalls/ipc/semop/semop01.c
-+++ b/testcases/kernel/syscalls/ipc/semop/semop01.c
-@@ -12,6 +12,7 @@
- #include "tst_test.h"
- #include "libnewipc.h"
- #include "lapi/semun.h"
-+#include "semop.h"
- 
- #define NSEMS	4		/* the number of primitive semaphores to test */
- 
-@@ -23,11 +24,17 @@ static struct sembuf sops[PSEMS];
- 
- static void run(void)
- {
-+	struct test_variants *tv = &variants[tst_variant];
- 	union semun arr = { .val = 0 };
-+	struct tst_ts timeout;
- 	int fail = 0;
- 	int i;
- 
--	TEST(semop(sem_id, sops, NSEMS));
-+	timeout.type = tv->type;
-+	tst_ts_set_sec(&timeout, 1);
-+	tst_ts_set_nsec(&timeout, 10000);
-+
-+	TEST(call_semop(tv, sem_id, sops, NSEMS, &timeout));
- 	if (TST_RET == -1) {
- 		tst_res(TFAIL | TTERRNO, "semop() failed");
- 	} else {
-@@ -54,8 +61,12 @@ static void run(void)
- 
- static void setup(void)
- {
-+	struct test_variants *tv = &variants[tst_variant];
- 	int i;
- 
-+	tst_res(TINFO, "Testing variant: %s", tv->desc);
-+	semop_supported_by_kernel(tv);
-+
- 	get_arr.array = malloc(sizeof(unsigned short int) * PSEMS);
- 	if (get_arr.array == NULL)
- 		tst_brk(TBROK, "malloc failed");
-@@ -86,6 +97,7 @@ static void cleanup(void)
- 
- static struct tst_test test = {
- 	.test_all = run,
-+	.test_variants = ARRAY_SIZE(variants),
- 	.setup = setup,
- 	.cleanup = cleanup,
- 	.needs_tmpdir = 1,
-diff --git a/testcases/kernel/syscalls/ipc/semop/semop02.c b/testcases/kernel/syscalls/ipc/semop/semop02.c
-index 7a49b2648b2b..1b9b768f5e63 100644
---- a/testcases/kernel/syscalls/ipc/semop/semop02.c
-+++ b/testcases/kernel/syscalls/ipc/semop/semop02.c
-@@ -14,6 +14,7 @@
- #include "tst_test.h"
- #include "libnewipc.h"
- #include "lapi/semun.h"
-+#include "semop.h"
- 
- static int sem_id_1 = -1;	/* a semaphore set with read & alter permissions */
- static int sem_id_2 = -1;	/* a semaphore set without read & alter permissions */
-@@ -53,11 +54,15 @@ static struct test_case_t {
- 
- static void setup(void)
- {
-+	struct test_variants *tv = &variants[tst_variant];
- 	char nobody_uid[] = "nobody";
- 	struct passwd *ltpuser;
- 	key_t semkey2;
- 	struct seminfo ipc_buf;
- 
-+	tst_res(TINFO, "Testing variant: %s", tv->desc);
-+	semop_supported_by_kernel(tv);
-+
- 	ltpuser = SAFE_GETPWNAM(nobody_uid);
- 	SAFE_SETUID(ltpuser->pw_uid);
- 
-@@ -83,6 +88,13 @@ static void setup(void)
- 
- static void run(unsigned int i)
- {
-+	struct test_variants *tv = &variants[tst_variant];
-+	struct tst_ts timeout;
-+
-+	timeout.type = tv->type;
-+	tst_ts_set_sec(&timeout, 1);
-+	tst_ts_set_nsec(&timeout, 10000);
-+
- 	if (*tc[i].buf != faulty_buf) {
- 		arr.val = tc[i].arr_val;
- 
-@@ -94,7 +106,7 @@ static void run(unsigned int i)
- 		s_buf[0].sem_num = tc[i].sem_num;
- 	}
- 
--	TEST(semop(*(tc[i].semid), *tc[i].buf, tc[i].t_ops));
-+	TEST(call_semop(tv, *(tc[i].semid), *tc[i].buf, tc[i].t_ops, &timeout));
- 
- 	if (TST_RET != -1) {
- 		tst_res(TFAIL | TTERRNO, "call succeeded unexpectedly");
-@@ -127,6 +139,7 @@ static void cleanup(void)
- static struct tst_test test = {
- 	.test = run,
- 	.tcnt = ARRAY_SIZE(tc),
-+	.test_variants = ARRAY_SIZE(variants),
- 	.setup = setup,
- 	.cleanup = cleanup,
- 	.needs_tmpdir = 1,
-diff --git a/testcases/kernel/syscalls/ipc/semop/semop03.c b/testcases/kernel/syscalls/ipc/semop/semop03.c
-index df8ce7d16ee5..d0fea1ed1dd5 100644
---- a/testcases/kernel/syscalls/ipc/semop/semop03.c
-+++ b/testcases/kernel/syscalls/ipc/semop/semop03.c
-@@ -15,6 +15,7 @@
- #include "tst_test.h"
- #include "libnewipc.h"
- #include "lapi/semun.h"
-+#include "semop.h"
- 
- static key_t semkey;
- static int sem_id = -1;
-@@ -64,7 +65,14 @@ static inline int process_state_wait2(pid_t pid, const char state)
- 
- static void do_child(int i)
- {
--	TEST(semop(sem_id, &s_buf, 1));
-+	struct test_variants *tv = &variants[tst_variant];
-+	struct tst_ts timeout;
-+
-+	timeout.type = tv->type;
-+	tst_ts_set_sec(&timeout, 1);
-+	tst_ts_set_nsec(&timeout, 10000);
-+
-+	TEST(call_semop(tv, sem_id, &s_buf, 1, &timeout));
- 	if (TST_RET != -1) {
- 		tst_res(TFAIL, "call succeeded when error expected");
- 		exit(-1);
-@@ -86,6 +94,11 @@ static void sighandler(int sig)
- 
- static void setup(void)
- {
-+	struct test_variants *tv = &variants[tst_variant];
-+
-+	tst_res(TINFO, "Testing variant: %s", tv->desc);
-+	semop_supported_by_kernel(tv);
-+
- 	SAFE_SIGNAL(SIGHUP, sighandler);
- 	semkey = GETIPCKEY();
- 
-@@ -149,6 +162,7 @@ static void run(unsigned int i)
- static struct tst_test test = {
- 	.test = run,
- 	.tcnt = ARRAY_SIZE(tc),
-+	.test_variants = ARRAY_SIZE(variants),
- 	.setup = setup,
- 	.cleanup = cleanup,
- 	.needs_tmpdir = 1,
+Yang Xu <xuyang2018.jy@cn.fujitsu.com> wrote:
+
+> ...
+> > It's fine to maintain only a single System V IPC library in LTP.
+> > BTW, do you have a plan to remove the old libmsgctl.c after merging this?
+> Yes. I have a plan[1] to  remove this old libmsgctl when I clean up
+> msgstress case(I am doing it).
+>
+
+Great, thank you!
+
+
+> Also, I plan to remove get_max_msgqueues()  function in old libipc.c
+> because we can directly use SAFE_FILE_SCANF("/proc/sys/kernel/msgmni",
+> "%d", &nr_msgqs) in test case.
+>
+
++1
+
+Or, maybe if you'd like to do more in next, the libipc.c also could be
+merged into libnewipc.c since they have some overlaps too. Anyway, it
+depends on your thoughts :).
+
 -- 
-2.14.1
+Regards,
+Li Wang
+
+--0000000000008113b605ab902d4b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><div class=3D"gmail_quote"><div dir=3D"ltr" c=
+lass=3D"gmail_attr">Yang Xu &lt;<a href=3D"mailto:xuyang2018.jy@cn.fujitsu.=
+com">xuyang2018.jy@cn.fujitsu.com</a>&gt; wrote:<br></div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
+b(204,204,204);padding-left:1ex"><span class=3D"gmail_default" style=3D"fon=
+t-size:small">...</span><br>
+&gt; It&#39;s fine to maintain only a single System V IPC library in LTP.<b=
+r>
+&gt; BTW, do you have a plan to remove the old libmsgctl.c after merging th=
+is?<br>
+Yes. I have a plan[1] to=C2=A0 remove this old libmsgctl when I clean up <b=
+r>
+msgstress case(I am doing it).<br></blockquote><div><br></div><div><div cla=
+ss=3D"gmail_default" style=3D"font-size:small">Great, thank you!</div></div=
+><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
+ 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+Also, I plan to remove get_max_msgqueues()=C2=A0 function in old libipc.c <=
+br>
+because we can directly use SAFE_FILE_SCANF(&quot;/proc/sys/kernel/msgmni&q=
+uot;, <br>
+&quot;%d&quot;, &amp;nr_msgqs) in test case.<br></blockquote><div><br></div=
+><div><div class=3D"gmail_default" style=3D"font-size:small">+1</div></div>=
+<div class=3D"gmail_default" style=3D"font-size:small"><br></div><div><div =
+class=3D"gmail_default" style=3D"font-size:small">Or, maybe if you&#39;d li=
+ke to do more in next, the libipc.c also could be merged into libnewipc.c s=
+ince they have some overlaps too. Anyway, it depends on your thoughts :).</=
+div></div></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signa=
+ture"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div><=
+/div></div>
+
+--0000000000008113b605ab902d4b--
+
+
+--===============1172806409==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1172806409==--
+
