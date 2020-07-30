@@ -2,39 +2,45 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E601323301F
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jul 2020 12:16:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07212233074
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jul 2020 12:38:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 95FA73C4C03
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jul 2020 12:16:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 727943C4BFD
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jul 2020 12:38:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id CE01F3C0515
- for <ltp@lists.linux.it>; Thu, 30 Jul 2020 12:16:46 +0200 (CEST)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 906363C260D
+ for <ltp@lists.linux.it>; Thu, 30 Jul 2020 12:38:02 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 410581003A78
- for <ltp@lists.linux.it>; Thu, 30 Jul 2020 12:16:45 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B9DBA601230
+ for <ltp@lists.linux.it>; Thu, 30 Jul 2020 12:38:01 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 989E8AB55
- for <ltp@lists.linux.it>; Thu, 30 Jul 2020 10:16:57 +0000 (UTC)
-Date: Thu, 30 Jul 2020 12:16:43 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20200730101643.GA6381@dell5510>
-References: <20200730092637.487-1-pvorel@suse.cz>
- <20200730094842.GB3457@yuki.lan>
+ by mx2.suse.de (Postfix) with ESMTP id 8CF41ABE9;
+ Thu, 30 Jul 2020 10:38:13 +0000 (UTC)
+Date: Thu, 30 Jul 2020 12:38:22 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20200730103822.GC3457@yuki.lan>
+References: <20200722125946.GA22573@yuki.lan>
+ <1595556357-29932-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <1595556357-29932-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20200729113946.GB7152@yuki.lan>
+ <924c3fc1-c56c-a752-0720-bb12d6cf8ec0@cn.fujitsu.com>
+ <20200730092802.GA3457@yuki.lan>
+ <8d7cf7a7-1408-877c-05f2-e5566d7717d1@cn.fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200730094842.GB3457@yuki.lan>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+In-Reply-To: <8d7cf7a7-1408-877c-05f2-e5566d7717d1@cn.fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] semctl: Fix 32 bit build
+X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 2/2] syscalls/ioctl_loop05: Using
+ LOOP_CONFIGURE to set direct io
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,54 +52,61 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+Hi!
+> index 8d8bc5b40..bdd93f19e 100644
+> --- a/lib/tst_device.c
+> +++ b/lib/tst_device.c
+> @@ -497,17 +497,30 @@ unsigned long tst_dev_bytes_written(const char *dev)
+> 
+>   void tst_find_backing_dev(const char *path, char *dev)
+>   {
+> -       char fmt[1024];
+> +       char fmt[20];
+>          struct stat buf;
+> +       FILE *file;
+> +       char line[PATH_MAX];
+> +       char *pre = NULL;
+> +       char *next = NULL;
+> 
+>          if (stat(path, &buf) < 0)
+>                   tst_brkm(TWARN | TERRNO, NULL, "stat() failed");
+> 
+> -       snprintf(fmt, sizeof(fmt), "%%*i %%*i %u:%u %%*s %%*s %%*s %%*s 
+> %%*s %%*s %%s %%*s",
+> -                       major(buf.st_dev), minor(buf.st_dev));
+> +       snprintf(fmt, sizeof(fmt), "%u:%u", major(buf.st_dev), 
+> minor(buf.st_dev));
+> +       file = SAFE_FOPEN(NULL, "/proc/self/mountinfo", "r");
+> 
+> -       SAFE_FILE_LINES_SCANF(NULL, "/proc/self/mountinfo", fmt, dev);
+> +       while (fgets(line, sizeof(line), file)) {
+> +               if (strstr(line, fmt) != NULL) {
+> +                       pre = strstr(line, " - ");
+> +                       pre = strtok_r(pre, " ", &next);
+> +                       pre = strtok_r(NULL, " ", &next);
+> +                       pre = strtok_r(NULL, " ", &next);
+> +                       strcpy(dev, pre);
 
-> Hi!
-> >  testcases/kernel/syscalls/ipc/semctl/Makefile | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
+We should break; here as well, since we already found the result.
 
-> > diff --git a/testcases/kernel/syscalls/ipc/semctl/Makefile b/testcases/kernel/syscalls/ipc/semctl/Makefile
-> > index 99971a7db..2559b4c28 100644
-> > --- a/testcases/kernel/syscalls/ipc/semctl/Makefile
-> > +++ b/testcases/kernel/syscalls/ipc/semctl/Makefile
-> > @@ -8,6 +8,6 @@ LTPLIBS = ltpipc ltpnewipc
-> >  include $(top_srcdir)/include/mk/testcases.mk
+> +               }
+> +       }
+> 
+> +       SAFE_FCLOSE(NULL, file);
+>          if (stat(dev, &buf) < 0)
+>                   tst_brkm(TWARN | TERRNO, NULL, "stat(%s) failed", dev);
 
-> >  semctl01 semctl02 semctl03 semctl04 semctl05 semctl06 semctl07: LDLIBS += -lltpipc
-> > -semctl08: LDLIBS += -lltpnewipc
-> > +semctl08: LDLIBS = -lltpnewipc -lltp
+Otherwise it looks good.
 
-> If nothing else this may break things if user passed something in
-> LDLIBS, so it should be:
-
-> LDLIBS = -lltpnewipc $(LDLIBS)
-
-Thanks! I tried that before, but without ':' before '=':
-semctl08: LDLIBS = -lltpnewipc $(LDLIBS)
-Makefile:12: *** Recursive variable 'LDLIBS' references itself (eventually).  Stop.
-
-Assigning as := fixes that:
--semctl08: LDLIBS += -lltpnewipc
-+semctl08: LDLIBS := -lltpnewipc $(LDLIBS)
-
-Sorry for overlooking obvious error.
-
-> And I guess the safest rule would be to add the -lltp* libraries first,
-> because naturally none of the code in LTP but the test depends on these.
-Are you're going to fix by changing order somewhere in include/mk/?
-Or shell I push the fix with your ack?
-I'd prefer proper fix so commits like this or 22f510de8 ("Fix static linking
-with musl-fts") aren't needed any more.
-
-Kind regards,
-Petr
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
