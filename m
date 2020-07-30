@@ -1,38 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE4712331F0
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jul 2020 14:22:12 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A6CD23326F
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jul 2020 14:53:37 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3D6F93C4C0A
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jul 2020 14:22:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 19A133C4C08
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jul 2020 14:53:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 2F14A3C0EAD
- for <ltp@lists.linux.it>; Thu, 30 Jul 2020 14:22:07 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTP id 4A2143C0EAD
+ for <ltp@lists.linux.it>; Thu, 30 Jul 2020 14:53:33 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 8CFF714070AD
- for <ltp@lists.linux.it>; Thu, 30 Jul 2020 14:22:06 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id B62CF14060C8
+ for <ltp@lists.linux.it>; Thu, 30 Jul 2020 14:53:32 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1D912AFC8
- for <ltp@lists.linux.it>; Thu, 30 Jul 2020 12:22:18 +0000 (UTC)
-Date: Thu, 30 Jul 2020 14:22:26 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20200730122226.GD3457@yuki.lan>
+ by mx2.suse.de (Postfix) with ESMTP id 424F2ADE4
+ for <ltp@lists.linux.it>; Thu, 30 Jul 2020 12:53:44 +0000 (UTC)
+Date: Thu, 30 Jul 2020 14:53:29 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20200730125329.GA31867@dell5510>
 References: <20200730092637.487-1-pvorel@suse.cz>
  <20200730094842.GB3457@yuki.lan> <20200730101643.GA6381@dell5510>
+ <20200730122226.GD3457@yuki.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200730101643.GA6381@dell5510>
+In-Reply-To: <20200730122226.GD3457@yuki.lan>
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 1/1] semctl: Fix 32 bit build
 X-BeenThere: ltp@lists.linux.it
@@ -46,47 +47,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > If nothing else this may break things if user passed something in
-> > LDLIBS, so it should be:
-> 
-> > LDLIBS = -lltpnewipc $(LDLIBS)
-> 
-> Thanks! I tried that before, but without ':' before '=':
-> semctl08: LDLIBS = -lltpnewipc $(LDLIBS)
-> Makefile:12: *** Recursive variable 'LDLIBS' references itself (eventually).  Stop.
-> 
-> Assigning as := fixes that:
-> -semctl08: LDLIBS += -lltpnewipc
-> +semctl08: LDLIBS := -lltpnewipc $(LDLIBS)
-> 
-> Sorry for overlooking obvious error.
-> 
-> > And I guess the safest rule would be to add the -lltp* libraries first,
-> > because naturally none of the code in LTP but the test depends on these.
-> Are you're going to fix by changing order somewhere in include/mk/?
-> Or shell I push the fix with your ack?
-> I'd prefer proper fix so commits like this or 22f510de8 ("Fix static linking
-> with musl-fts") aren't needed any more.
+Hi Cyril,
 
-I wonder what would be the easiest solution here.
+> > > And I guess the safest rule would be to add the -lltp* libraries first,
+> > > because naturally none of the code in LTP but the test depends on these.
+> > Are you're going to fix by changing order somewhere in include/mk/?
+> > Or shell I push the fix with your ack?
+> > I'd prefer proper fix so commits like this or 22f510de8 ("Fix static linking
+> > with musl-fts") aren't needed any more.
 
-The main problem is that these flags are per-testcase defined and are
-not expanded before we enter rule to build a test. And as we are using
-implicit rules to compile C code we cannot easily change that.
+> I wonder what would be the easiest solution here.
 
-I guess that we can write down our rules and do whatever we want there
-though.
+> The main problem is that these flags are per-testcase defined and are
+> not expanded before we enter rule to build a test. And as we are using
+> implicit rules to compile C code we cannot easily change that.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+> I guess that we can write down our rules and do whatever we want there
+> though.
+Thanks for info. Well, I'll probably merge the original fix then.
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
