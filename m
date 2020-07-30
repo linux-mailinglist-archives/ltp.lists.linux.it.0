@@ -1,57 +1,51 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CF74232A4A
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jul 2020 05:16:02 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 05A8C232AAA
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jul 2020 06:02:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 74D813C268D
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jul 2020 05:16:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6B7BF3C268F
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jul 2020 06:02:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id D45043C0515
- for <ltp@lists.linux.it>; Thu, 30 Jul 2020 05:15:55 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 3F9AB1000B63
- for <ltp@lists.linux.it>; Thu, 30 Jul 2020 05:15:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1596078952;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=jNH/ApIsedOwT4mVK+Cp0oieJiXrvR58bwSFIERgdGU=;
- b=fRv5uA+BJJDwoIw2cT/ZdQsWYMjuKKIK9ffIaUpSxfEhCerzLUzr/qIZnau69JnXWxjtWk
- DB8Ap8AuM+WMfgUGLGEM/8luqOYAXYPANWmGTBLRpJNR7OaI5h5Q3XtzLEFcs7pgFz7jOa
- 76vUUWv0t5anEuYiBjXynC6BxD5QBGc=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-433-XaPpO7TCMaibomFWy-90Xw-1; Wed, 29 Jul 2020 23:15:50 -0400
-X-MC-Unique: XaPpO7TCMaibomFWy-90Xw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6705D801504
- for <ltp@lists.linux.it>; Thu, 30 Jul 2020 03:15:49 +0000 (UTC)
-Received: from liwang-workstation.nay.redhat.com (unknown [10.66.81.246])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 972BF5D992
- for <ltp@lists.linux.it>; Thu, 30 Jul 2020 03:15:48 +0000 (UTC)
-From: Li Wang <liwang@redhat.com>
-To: ltp@lists.linux.it
-Date: Thu, 30 Jul 2020 11:15:47 +0800
-Message-Id: <20200730031547.24630-1-liwang@redhat.com>
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id CA11F3C14A2
+ for <ltp@lists.linux.it>; Thu, 30 Jul 2020 06:02:01 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 8DBDF1401FA2
+ for <ltp@lists.linux.it>; Thu, 30 Jul 2020 06:02:00 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.75,412,1589212800"; d="scan'208";a="97090439"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 30 Jul 2020 12:01:58 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id 367864CE5440;
+ Thu, 30 Jul 2020 12:01:54 +0800 (CST)
+Received: from [10.167.220.69] (10.167.220.69) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Thu, 30 Jul 2020 12:01:55 +0800
+Message-ID: <5F224630.7090600@cn.fujitsu.com>
+Date: Thu, 30 Jul 2020 12:01:52 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+To: Yuan Gao <aiden.gaoyuan@gmail.com>
+References: <20200729185344.3318703-1-aiden.gaoyuan@gmail.com>
+In-Reply-To: <20200729185344.3318703-1-aiden.gaoyuan@gmail.com>
+X-Originating-IP: [10.167.220.69]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
+X-yoursite-MailScanner-ID: 367864CE5440.A704C
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=-0.6 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH COMMITTED] futex: take use of the .request_hugepages
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] hotplug/memory_hotplug: Remove unused goto
+ label
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,78 +57,43 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: kernel-team@android.com, ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-To get rid of warnings when hugetlbfs is not supported.
+Hi,
 
-  futex_wake04.c:65: CONF: Huge page is not supported.
-  safe_file_ops.c:299: WARN: Failed to close FILE '/proc/sys/vm/nr_hugepages' at futex_wake04.c:76: EOPNOTSUPP (95)
+I have pushed with this change, so you don't need to send the v2 path.
 
-Signed-off-by: Li Wang <liwang@redhat.com>
----
- .../kernel/syscalls/futex/futex_wake04.c      | 21 ++++---------------
- 1 file changed, 4 insertions(+), 17 deletions(-)
+Thanks,
+Xiao Yang
+On 2020/7/30 2:53, Yuan Gao wrote:
+> Remove unused goto label in parse_command_line_args function
+>
+> Change from v1
+> 1. Remove a redundant blank line
+>
+> Signed-off-by: Yuan Gao<aiden.gaoyuan@gmail.com>
+> ---
+>   testcases/kernel/hotplug/memory_hotplug/memtoy.c | 1 -
+>   1 file changed, 1 deletion(-)
+>
+> diff --git a/testcases/kernel/hotplug/memory_hotplug/memtoy.c b/testcases/kernel/hotplug/memory_hotplug/memtoy.c
+> index 8ac9600de..e647f86b6 100644
+> --- a/testcases/kernel/hotplug/memory_hotplug/memtoy.c
+> +++ b/testcases/kernel/hotplug/memory_hotplug/memtoy.c
+> @@ -447,7 +447,6 @@ int parse_command_line_args(int argc, char *argv[])
+>   			break;
+>   		}
+>   	}
+> -done:
+>
+>   	return (error);
+>   }
 
-diff --git a/testcases/kernel/syscalls/futex/futex_wake04.c b/testcases/kernel/syscalls/futex/futex_wake04.c
-index 8fae7ced9..f6f571ac4 100644
---- a/testcases/kernel/syscalls/futex/futex_wake04.c
-+++ b/testcases/kernel/syscalls/futex/futex_wake04.c
-@@ -36,8 +36,6 @@ static futex_t *futex1, *futex2;
- 
- static struct tst_ts to;
- 
--static long orig_hugepages;
--
- static struct test_variants {
- 	enum futex_fn_type fntype;
- 	enum tst_ts_type tstype;
-@@ -54,26 +52,15 @@ static struct test_variants {
- 
- static void setup(void)
- {
-+	if (tst_hugepages == 0)
-+		tst_brk(TCONF, "No enough hugepages for testing.");
-+
- 	struct test_variants *tv = &variants[tst_variant];
- 
- 	tst_res(TINFO, "Testing variant: %s", tv->desc);
- 	futex_supported_by_kernel(tv->fntype);
- 
- 	to = tst_ts_from_ns(tv->tstype, 30 * NSEC_PER_SEC);
--
--	if (access(PATH_HUGEPAGES, F_OK))
--		tst_brk(TCONF, "Huge page is not supported.");
--
--	SAFE_FILE_SCANF(PATH_NR_HPAGES, "%ld", &orig_hugepages);
--
--	if (orig_hugepages <= 0)
--		SAFE_FILE_PRINTF(PATH_NR_HPAGES, "%d", 1);
--}
--
--static void cleanup(void)
--{
--	if (orig_hugepages <= 0)
--		SAFE_FILE_PRINTF(PATH_NR_HPAGES, "%ld", orig_hugepages);
- }
- 
- static void *wait_thread1(void *arg LTP_ATTRIBUTE_UNUSED)
-@@ -147,10 +134,10 @@ static void wakeup_thread2(void)
- 
- static struct tst_test test = {
- 	.setup = setup,
--	.cleanup = cleanup,
- 	.test_all = wakeup_thread2,
- 	.test_variants = ARRAY_SIZE(variants),
- 	.needs_root = 1,
- 	.min_kver = "2.6.32",
- 	.needs_tmpdir = 1,
-+	.request_hugepages = 1,
- };
--- 
-2.21.1
+
 
 
 -- 
