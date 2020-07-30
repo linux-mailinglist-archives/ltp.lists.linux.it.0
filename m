@@ -2,40 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 593A22333F0
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jul 2020 16:08:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9566D233543
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jul 2020 17:24:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EA3333C4C04
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jul 2020 16:08:56 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 211DA3C220D
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Jul 2020 17:24:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 7B0D53C093E
- for <ltp@lists.linux.it>; Thu, 30 Jul 2020 16:08:52 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id F2FD73C220D
+ for <ltp@lists.linux.it>; Thu, 30 Jul 2020 17:24:45 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D1F421000AC9
- for <ltp@lists.linux.it>; Thu, 30 Jul 2020 16:08:51 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C0B611401499
+ for <ltp@lists.linux.it>; Thu, 30 Jul 2020 17:24:44 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7DA7EB165
- for <ltp@lists.linux.it>; Thu, 30 Jul 2020 14:09:03 +0000 (UTC)
-Date: Thu, 30 Jul 2020 16:09:12 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 7543EACF3;
+ Thu, 30 Jul 2020 15:24:56 +0000 (UTC)
+Date: Thu, 30 Jul 2020 17:25:05 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20200730140912.GE3457@yuki.lan>
-References: <20200730092637.487-1-pvorel@suse.cz>
- <20200730094842.GB3457@yuki.lan> <20200730101643.GA6381@dell5510>
- <20200730122226.GD3457@yuki.lan> <20200730125329.GA31867@dell5510>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Message-ID: <20200730152505.GF3457@yuki.lan>
+References: <53c9ed8dc17ea6fa0b46502cd1c724a3a8539c8c.1595842740.git.viresh.kumar@linaro.org>
+ <e964452fdb6c526a2cc61650573905e27adb83d5.1595842740.git.viresh.kumar@linaro.org>
+ <20200729144054.GI7152@yuki.lan>
+ <20200729151317.evk2cphq7tclcww5@vireshk-mac-ubuntu>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200730125329.GA31867@dell5510>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+In-Reply-To: <20200729151317.evk2cphq7tclcww5@vireshk-mac-ubuntu>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] semctl: Fix 32 bit build
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V2 2/2] libs: sigwait: Get rid of REPORT_SUCCESS()
+ macro
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,54 +49,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > I wonder what would be the easiest solution here.
+> > Unfortunately half of this patch does not apply after the changes in the
+> > first one, can you please rebase?
 > 
-> > The main problem is that these flags are per-testcase defined and are
-> > not expanded before we enter rule to build a test. And as we are using
-> > implicit rules to compile C code we cannot easily change that.
-> 
-> > I guess that we can write down our rules and do whatever we want there
-> > though.
-> Thanks for info. Well, I'll probably merge the original fix then.
+> I didn't see any issues with normal rebase of this patch over the other one, git
+> probably resolved issues itself.
 
-So I've been looking into the problem for a while and due to a make
-limitations the best bet for a solution would be adding a special
-variable for the LTP libraries as:
+Well the original v2 patch contains references to the sigprocmask()
+lines that the previous patch changes, what I got bunch of these:
 
-diff --git a/include/mk/testcases.mk b/include/mk/testcases.mk
-index bb22be82e..03937516a 100644
---- a/include/mk/testcases.mk
-+++ b/include/mk/testcases.mk
-@@ -59,5 +59,8 @@ LDFLAGS += $(addprefix -L$(top_builddir)/libs/lib, $(LTPLIBS))
- 
- endif
- 
-+%: %.c
-+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $< $(LTPLDLIBS) $(LDLIBS) -o $@
-+
- $(LTPLIBS_DIRS) $(APICMDS_DIR) $(LIBLTP_DIR): %:
- 	mkdir -p "$@"
-diff --git a/testcases/kernel/syscalls/ipc/shmctl/Makefile b/testcases/kernel/syscalls/ipc/shmctl/Makefile
-index 0172bb495..2e0ed0ceb 100644
---- a/testcases/kernel/syscalls/ipc/shmctl/Makefile
-+++ b/testcases/kernel/syscalls/ipc/shmctl/Makefile
-@@ -10,7 +10,7 @@ shmctl05: LDLIBS += -lrt
- 
- include $(top_srcdir)/include/mk/testcases.mk
- 
--shmctl01 shmctl02 shmctl03 shmctl04 shmctl05: LDLIBS += -lltpipc
--shmctl06: LDLIBS += -lltpnewipc
-+shmctl01 shmctl02 shmctl03 shmctl04 shmctl05: LTPLDLIBS = -lltpipc
-+shmctl06: LTPLDLIBS = -lltpnewipc
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
+Checking patch libs/libltpsigwait/sigwait.c...
+error: while searching for:
+        child = create_sig_proc(signo, 1, 0);
+
+        TEST(sigwaitinfo(&sigs, &si, NULL));
+        REPORT_SUCCESS_COND(signo, 0, si.si_pid == child
+                            && si.si_code == SI_USER
+                            && si.si_signo == signo, "Struct siginfo mismatch");
+
+        TEST(sigprocmask(SIG_SETMASK, &sigs, &oldmask));
+        if (TST_RET == -1)
+
+Because the sigprocmask(SIG_SETMASK, &sigs, &oldmask)); couldn't be found.
+
+The patch that you resend has corrected these.
 
 -- 
 Cyril Hrubis
