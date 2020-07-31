@@ -2,37 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F732234920
-	for <lists+linux-ltp@lfdr.de>; Fri, 31 Jul 2020 18:24:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76692234926
+	for <lists+linux-ltp@lfdr.de>; Fri, 31 Jul 2020 18:24:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A29183C4BAA
-	for <lists+linux-ltp@lfdr.de>; Fri, 31 Jul 2020 18:24:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2F1D43C2600
+	for <lists+linux-ltp@lfdr.de>; Fri, 31 Jul 2020 18:24:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 1E2603C14BD
- for <ltp@lists.linux.it>; Fri, 31 Jul 2020 18:24:19 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id AAB103C4BAA
+ for <ltp@lists.linux.it>; Fri, 31 Jul 2020 18:24:21 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 57887601256
- for <ltp@lists.linux.it>; Fri, 31 Jul 2020 18:22:52 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BA2AE1400C52
+ for <ltp@lists.linux.it>; Fri, 31 Jul 2020 18:24:20 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 6B5FDAB3E;
- Fri, 31 Jul 2020 16:24:30 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 4EDD6AF13;
+ Fri, 31 Jul 2020 16:24:33 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 31 Jul 2020 18:24:09 +0200
-Message-Id: <20200731162410.2637-1-pvorel@suse.cz>
+Date: Fri, 31 Jul 2020 18:24:10 +0200
+Message-Id: <20200731162410.2637-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20200731162410.2637-1-pvorel@suse.cz>
+References: <20200731162410.2637-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 1/2] net: Remove rsh, rcp, rlogin tests
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 2/2] net: Update network related docs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,543 +46,187 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-as they've been replaced by ssh/scp long time ago.
-
-As we still keep telnet test for testing basic network functionality we
-can safely drop these tests.
-
-Reviewed-by: Xiao Yang <yangx.jy@cn.fujitsu.com>
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- runtest/net.tcp_cmds                          |   3 -
- testcases/network/tcp_cmds/Makefile           |   2 +-
- testcases/network/tcp_cmds/rcp/Makefile       |  30 ----
- testcases/network/tcp_cmds/rcp/rcp01.sh       | 144 ------------------
- testcases/network/tcp_cmds/rlogin/Makefile    |  31 ----
- testcases/network/tcp_cmds/rlogin/rlogin01.sh |  91 -----------
- testcases/network/tcp_cmds/rsh/Makefile       |  31 ----
- testcases/network/tcp_cmds/rsh/rsh01.sh       | 115 --------------
- 8 files changed, 1 insertion(+), 446 deletions(-)
- delete mode 100644 testcases/network/tcp_cmds/rcp/Makefile
- delete mode 100755 testcases/network/tcp_cmds/rcp/rcp01.sh
- delete mode 100644 testcases/network/tcp_cmds/rlogin/Makefile
- delete mode 100755 testcases/network/tcp_cmds/rlogin/rlogin01.sh
- delete mode 100644 testcases/network/tcp_cmds/rsh/Makefile
- delete mode 100755 testcases/network/tcp_cmds/rsh/rsh01.sh
-
-diff --git a/runtest/net.tcp_cmds b/runtest/net.tcp_cmds
-index afe6d7c71..db47dfd5b 100644
---- a/runtest/net.tcp_cmds
-+++ b/runtest/net.tcp_cmds
-@@ -11,9 +11,6 @@ host host01.sh
- netstat netstat01.sh
- ping01 ping01.sh
- ping02 ping02.sh
--rcp rcp01.sh
--rlogin rlogin01.sh
--rsh rsh01.sh
- sendfile sendfile01.sh
- tcpdump tcpdump01.sh
- telnet telnet01.sh
-diff --git a/testcases/network/tcp_cmds/Makefile b/testcases/network/tcp_cmds/Makefile
-index 748e02469..5719b1fe3 100644
---- a/testcases/network/tcp_cmds/Makefile
-+++ b/testcases/network/tcp_cmds/Makefile
-@@ -26,7 +26,7 @@ top_srcdir		?= ../../..
- include $(top_srcdir)/include/mk/env_pre.mk
- 
- ifneq ($(WITH_EXPECT),yes)
--FILTER_OUT_SUBDIRS	:= ftp rlogin ssh telnet
-+FILTER_OUT_SUBDIRS	:= ftp ssh telnet
- endif
- 
- INSTALL_DEPS		:= ../datafiles/bin.sm
-diff --git a/testcases/network/tcp_cmds/rcp/Makefile b/testcases/network/tcp_cmds/rcp/Makefile
-deleted file mode 100644
-index f8131a986..000000000
---- a/testcases/network/tcp_cmds/rcp/Makefile
-+++ /dev/null
-@@ -1,30 +0,0 @@
--#
--#    network/tcp_cmds/rcp testcases Makefile.
--#
--#    Copyright (C) 2009, Cisco Systems Inc.
--#
--#    This program is free software; you can redistribute it and/or modify
--#    it under the terms of the GNU General Public License as published by
--#    the Free Software Foundation; either version 2 of the License, or
--#    (at your option) any later version.
--#
--#    This program is distributed in the hope that it will be useful,
--#    but WITHOUT ANY WARRANTY; without even the implied warranty of
--#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
--#    GNU General Public License for more details.
--#
--#    You should have received a copy of the GNU General Public License along
--#    with this program; if not, write to the Free Software Foundation, Inc.,
--#    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
--#
--# Ngie Cooper, September 2009
--#
--
--top_srcdir		?= ../../../..
--
--include $(top_srcdir)/include/mk/testcases.mk
--include $(abs_srcdir)/../Makefile.inc
--
--INSTALL_TARGETS		:= rcp01.sh
--
--include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/network/tcp_cmds/rcp/rcp01.sh b/testcases/network/tcp_cmds/rcp/rcp01.sh
-deleted file mode 100755
-index 4eaeca175..000000000
---- a/testcases/network/tcp_cmds/rcp/rcp01.sh
-+++ /dev/null
-@@ -1,144 +0,0 @@
--#!/bin/sh
--#
--#   Copyright (c) International Business Machines  Corp., 2000
--#
--#   This program is free software;  you can redistribute it and/or modify
--#   it under the terms of the GNU General Public License as published by
--#   the Free Software Foundation; either version 2 of the License, or
--#   (at your option) any later version.
--#
--#   This program is distributed in the hope that it will be useful,
--#   but WITHOUT ANY WARRANTY;  without even the implied warranty of
--#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
--#   the GNU General Public License for more details.
--#
--#   You should have received a copy of the GNU General Public License
--#   along with this program;  if not, write to the Free Software
--#   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
--#
--#
--#
--#  FILE   : rcp
--#
--#  PURPOSE: To test the basic functionality of the `rcp` command.
--#
--#  SETUP: The home directory of root on the machine exported as "RHOST"
--#         MUST have a ".rhosts" file with the hostname of the machine
--#         where the test is executed.
--#
--#  HISTORY:
--#    06/06/03 Manoj Iyer manjo@mail.utexas.edu
--#    - Modified testcases to use test APIS and fixed bugs
--#    03/01 Robbie Williamson (robbiew@us.ibm.com)
--#      -Ported
--#
--#
--#-----------------------------------------------------------------------
--
--#-----------------------------------------------------------------------
--#
--# FUNCTION:  do_setup
--#
--#-----------------------------------------------------------------------
--
--do_setup()
--{
--
--    TCtmp=${TCtmp:-$LTPROOT/testcases/bin/$TC${EXEC_SUFFIX}$$}
--    TCdat=${TCdat:-$LTPROOT/testcases/bin/datafiles}
--    LHOST=`hostname`
--    RHOST=${RHOST:-$LHOST}
--    SLEEPTIME=${SLEEPTIME:-0}
--    FILES=${FILES:-"bin.sm bin.med bin.lg bin.jmb"}
--
--    tst_setup
--
--    exists awk rcp rsh sum
--
--    if ! rsh -n -l root $RHOST mkdir -p $TCtmp >/dev/null 2>&1; then
--        end_testcase "Remote mkdir failed"
--    fi
--
--    trap do_cleanup EXIT
--
--}
--
--#-----------------------------------------------------------------------
--#
--# FUNCTION:  do_test
--#
--#-----------------------------------------------------------------------
--
--do_test()
--{
--
--    for j in $FILES; do
--
--        if ! rcp $TCdat/$j $RHOST:$TCtmp/$j; then
--            end_testcase "Failed to rcp file."
--        fi
--
--        SUM1=`sum $TCdat/$j | awk '{print $1}'`
--        SUM2=`rsh -n -l root $RHOST sum $TCtmp/$j | awk '{print $1}'`
--        rsh -n -l root $RHOST "rm -f $TCtmp/$j"
--        sleep $SLEEPTIME
--
--        if [ "$SUM1" = "$SUM2" ]; then
--            tst_resm TINFO "rcp $TCdat/$j $RHOST:$TCtmp/$j successful"
--        else
--            end_testcase "FAILED: wrong sum in transfer to $RHOST"
--        fi
--
--        sleep $SLEEPTIME
--
--    done
--
--    for j in $FILES; do
--
--        tst_resm TINFO "remote copying $RHOST:$TCdat/$j to $TCtmp/$j"
--        if ! rcp $RHOST:$TCdat/$j $TCtmp/$j >/dev/null 2>&1; then
--            tst_resm TFAIL "Failed to rcp file."; continue
--        fi
--
--        SUM1=`sum $TCtmp/$j | awk '{print $1}'`
--        SUM2=`rsh -n -l root $RHOST sum $TCdat/$j | awk '{print $1}'`
--        rm -f $TCtmp/$j
--        sleep $SLEEPTIME
--
--        if [ "$SUM1" = "$SUM2" ]; then
--            tst_resm TINFO "rcp $RHOST:$TCdat/$j $TCtmp/$j successful"
--        else
--            end_testcase "FAILED: wrong sum in transfer to $LHOST from $RHOST"
--        fi
--        sleep $SLEEPTIME
--
--    done
--
--}
--
--#-----------------------------------------------------------------------
--#
--# FUNCTION:  do_cleanup
--#
--#-----------------------------------------------------------------------
--
--do_cleanup()
--{
--    rsh -n -l root $RHOST rmdir $TCtmp
--    tst_cleanup
--}
--
--#----------------------------------------------------------------------
--# FUNCTION: MAIN
--# PURPOSE:  To invoke the functions to perform the tasks described in
--#           the prologue.
--# INPUT:    None.
--# OUTPUT:   A testcase run log with the results of the execution of this
--#           test.
--#----------------------------------------------------------------------
--. net_cmdlib.sh
--
--read_opts $*
--do_setup
--do_test
--end_testcase
-diff --git a/testcases/network/tcp_cmds/rlogin/Makefile b/testcases/network/tcp_cmds/rlogin/Makefile
-deleted file mode 100644
-index 1e8d10ea4..000000000
---- a/testcases/network/tcp_cmds/rlogin/Makefile
-+++ /dev/null
-@@ -1,31 +0,0 @@
--#
--#    network/tcp_cmds/rlogin testcases Makefile.
--#
--#    Copyright (C) 2009, Cisco Systems Inc.
--#
--#    This program is free software; you can redistribute it and/or modify
--#    it under the terms of the GNU General Public License as published by
--#    the Free Software Foundation; either version 2 of the License, or
--#    (at your option) any later version.
--#
--#    This program is distributed in the hope that it will be useful,
--#    but WITHOUT ANY WARRANTY; without even the implied warranty of
--#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
--#    GNU General Public License for more details.
--#
--#    You should have received a copy of the GNU General Public License along
--#    with this program; if not, write to the Free Software Foundation, Inc.,
--#    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
--#
--# Ngie Cooper, July 2009
--#
--
--top_srcdir		?= ../../../..
--
--include $(top_srcdir)/include/mk/env_pre.mk
--
--INSTALL_TARGETS		:= rlogin01.sh
--
--MAKE_TARGETS		:=
--
--include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/network/tcp_cmds/rlogin/rlogin01.sh b/testcases/network/tcp_cmds/rlogin/rlogin01.sh
-deleted file mode 100755
-index c34ab1c4e..000000000
---- a/testcases/network/tcp_cmds/rlogin/rlogin01.sh
-+++ /dev/null
-@@ -1,91 +0,0 @@
--#!/bin/sh
--#   Copyright (c) International Business Machines  Corp., 2000
--#
--#   This program is free software;  you can redistribute it and/or modify
--#   it under the terms of the GNU General Public License as published by
--#   the Free Software Foundation; either version 2 of the License, or
--#   (at your option) any later version.
--#
--#   This program is distributed in the hope that it will be useful,
--#   but WITHOUT ANY WARRANTY;  without even the implied warranty of
--#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
--#   the GNU General Public License for more details.
--#
--#   You should have received a copy of the GNU General Public License
--#   along with this program;  if not, write to the Free Software
--#   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
--#
--#    03/01 Robbie Williamson (robbiew@us.ibm.com)
--
--TCID="rlogin01"
--TST_TOTAL=1
--
--TST_USE_LEGACY_API=1
--. tst_net.sh
--
--setup()
--{
--	tst_require_cmds rlogin expect
--
--	if [ -z $RUSER ]; then
--		RUSER=root
--	fi
--
--	if [ -z $PASSWD ]; then
--		tst_brkm TCONF "Please set PASSWD for $RUSER."
--	fi
--
--	if [ -z $RHOST ]; then
--		tst_brkm TCONF "Please set RHOST."
--	fi
--
--	if [ -z $LOOPCOUNT ]; then
--		LOOPCOUNT=25
--	fi
--}
--
--do_test()
--{
--	tst_resm TINFO "Starting"
--
--	for i in $(seq 1 ${LOOPCOUNT})
--	do
--		rlogin_test || return 1
--	done
--}
--
--rlogin_test()
--{
--	tst_resm TINFO "login with rlogin($i/$LOOPCOUNT)"
--
--	expect -c "
--		spawn rlogin $RHOST -l $RUSER
--
--		expect {
--			\"Password:\" {
--				send \"$PASSWD\r\"; exp_continue
--			} \"incorrect\" {
--				exit 1
--			} \"$RUSER@\" {
--				send \"LC_ALL=C; ls -l /etc/hosts | \\
--				       wc -w > $RUSER.$RHOST\rexit\r\";
--				exp_continue
--			}
--		}
--	" > /dev/null || return 1
--
--	tst_resm TINFO "checking rlogin status($i/$LOOPCOUNT)"
--	tst_rhost_run -u $RUSER -c "grep -q 9 $RUSER.$RHOST" || return 1
--	tst_rhost_run -u $RUSER -c "rm -f $RUSER.$RHOST"
--}
--
--setup
--
--do_test
--if [ $? -ne 0 ]; then
--	tst_resm TFAIL "Test $TCID failed."
--else
--	tst_resm TPASS "Test $TCID succeeded."
--fi
--
--tst_exit
-diff --git a/testcases/network/tcp_cmds/rsh/Makefile b/testcases/network/tcp_cmds/rsh/Makefile
-deleted file mode 100644
-index 00ae49d8b..000000000
---- a/testcases/network/tcp_cmds/rsh/Makefile
-+++ /dev/null
-@@ -1,31 +0,0 @@
--#
--#    network/tcp_cmds/rsh testcases Makefile.
--#
--#    Copyright (C) 2009, Cisco Systems Inc.
--#
--#    This program is free software; you can redistribute it and/or modify
--#    it under the terms of the GNU General Public License as published by
--#    the Free Software Foundation; either version 2 of the License, or
--#    (at your option) any later version.
--#
--#    This program is distributed in the hope that it will be useful,
--#    but WITHOUT ANY WARRANTY; without even the implied warranty of
--#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
--#    GNU General Public License for more details.
--#
--#    You should have received a copy of the GNU General Public License along
--#    with this program; if not, write to the Free Software Foundation, Inc.,
--#    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
--#
--# Ngie Cooper, July 2009
--#
--
--top_srcdir		?= ../../../..
--
--include $(top_srcdir)/include/mk/env_pre.mk
--
--INSTALL_TARGETS		:= rsh01.sh
--
--MAKE_TARGETS		:=
--
--include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/network/tcp_cmds/rsh/rsh01.sh b/testcases/network/tcp_cmds/rsh/rsh01.sh
-deleted file mode 100755
-index 3968f9056..000000000
---- a/testcases/network/tcp_cmds/rsh/rsh01.sh
-+++ /dev/null
-@@ -1,115 +0,0 @@
--#!/bin/sh
--#
--#   Copyright (c) International Business Machines  Corp., 2000
--#
--#   This program is free software;  you can redistribute it and/or modify
--#   it under the terms of the GNU General Public License as published by
--#   the Free Software Foundation; either version 2 of the License, or
--#   (at your option) any later version.
--#
--#   This program is distributed in the hope that it will be useful,
--#   but WITHOUT ANY WARRANTY;  without even the implied warranty of
--#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
--#   the GNU General Public License for more details.
--#
--#   You should have received a copy of the GNU General Public License
--#   along with this program;  if not, write to the Free Software
--#   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
--#
--#
--#
--#  FILE   : rsh
--#
--#  PURPOSE: To test the basic functionality of the `rsh` command.
--#
--#  SETUP: The home directory of root on the machine exported as "RHOST"
--#         MUST have a ".rhosts" file with the hostname of the machine
--#         where the test is executed.
--#
--#  HISTORY:
--#    03/01 Robbie Williamson (robbiew@us.ibm.com)
--#      -Ported
--#
--#
--#
--#----------------------------------------------------------------------
--
--do_setup()
--{
--
--    FAIL_IMMEDIATELY=${FAIL_IMMEDIATELY:-1}
--    SLEEPTIME=${SLEEPTIME:-0}
--    NUMLOOPS=${NUMLOOPS:-1}
--
--    export TST_TOTAL=$NUMLOOPS
--
--    tst_setup
--
--    exists awk hostname rsh
--
--    RHOST=${RHOST:-`hostname`}
--
--}
--
--#-----------------------------------------------------------------------
--#
--# FUNCTION:  do_test
--#
--#-----------------------------------------------------------------------
--
--do_test()
--{
--
--    while [ $TST_COUNT -le $NUMLOOPS ]; do
--
--        PASSED=0
--
--        if OUT=$(rsh -n -l root $RHOST 'ls -l /etc/hosts'); then
--
--            #
--            # Successful output would be something of the form:
--            #
--            # gcooper@orangebox ~ $ ls -l /etc/hosts
--            # -rw-r--r-- 1 root root 463 Jul  5 09:26 /etc/hosts
--            #
--            echo "$OUT" |
--                awk 'BEGIN { RET=1 } NF == 9 && $NF == "/etc/hosts" { RET=0 } END { exit RET }' \
--                > /dev/null 2>&1
--
--            if [ $? -eq 0 ] ; then
--                tst_resm TPASS "rsh to $RHOST test succeeded"
--                PASSED=1
--            fi
--
--        fi
--
--        if [ $PASSED -ne 1 ] ; then
--            tst_resm TFAIL "rsh to $RHOST failed"
--            # If the first rsh failed, the likelihood that the rest will
--            # succeed is low.
--            if [ "$FAIL_IMMEDIATELY" = "1" ] && [ $TST_COUNT -eq 1 ]; then
--                exit 2
--            fi
--        fi
--
--        sleep $SLEEPTIME
--        incr_tst_count
--
--    done
--
--}
--
--#----------------------------------------------------------------------
--# FUNCTION: MAIN
--# PURPOSE:  To invoke the functions to perform the tasks described in
--#           the prologue.
--# INPUT:    None.
--# OUTPUT:   A testcase run log with the results of the execution of this
--#           test.
--#----------------------------------------------------------------------
--. net_cmdlib.sh
--
--read_opts $*
--do_setup
--do_test
--end_testcase
--- 
-2.27.0
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+KiB0ZXN0Y2FzZXMvbmV0d29yay9SRUFETUUubWQKLSBkcm9wIHJsb2dpbiwgcnNoLCByZXhlYyBz
+ZXR1cCAocmVtb3ZlZCBpbiBwcmV2aW91cyBjb21taXQgIm5ldDogUmVtb3ZlCiAgcnNoLCByY3As
+IHJsb2dpbiB0ZXN0cyIpCi0gcmV3cml0ZSBzZXJ2ZXIgc2lkZSBjb25maWd1cmF0aW9uIChtb3N0
+IG9mIHRoZSBzZXJ2aWNlcyBhcmUgc3RhcnRlZAogIHRodXMgbm90IG5lZWRlZCB0byBiZSBydW5u
+aW5nLCBpbXByb3ZlIGZ0cCAmIHRlbG5ldCBzZXR1cDsgYWRkIEhUVFAsCiAgTkZTIGFuZCBUSS1S
+UEMgLyBTdW4gUlBDIChnbGliYykgc2V0dXApCi0gcmVtb3ZlIHN1Z2dlc3Rpb24gdG8gcnVuIHRl
+c3RzIGZvciAyNCBocnMgKHdlIGxvd2VyZWQgdmFsdWVzIGluIHRoZQogIHZhcmlhYmxlcyBmb3Ig
+c3RyZXNzIHRlc3RpbmcgaW4gNTI4NTdlZmI3KQotIG1lbnRpb24gdGVzdGNhc2VzL25ldHdvcmsv
+c3RyZXNzL1JFQURNRQotIHVwZGF0ZSBwYWNrYWdlIG5hbWVzCi0gZml4IGZvcm1hdHRpbmcKCiog
+SU5TVEFMTAotIG1vdmUgZXZlcnl0aGluZyByZWxldmFudCB0byB0ZXN0Y2FzZXMvbmV0d29yay9S
+RUFETUUubWQgKHJwY2JpbmQpLgotIGRyb3AgeGluZXRkIHNldHVwIChvbmx5IGluLnRlbG5ldGQg
+aXMgdGVzdGVkIG5vd2FkYXlzIGFuZCBkb2VzIG5vdAogIGhhdmUgdG8gYmUgcnVubmluZywganVz
+dCBpbnN0YWxsZWQpCi0gZHJvcCAvZXRjL3NlY3VyZXR0eSBzZWN0aW9uIChybG9naW4sIHJzaCwg
+cmV4ZWMgYXJlbid0IHVzZWQgYW55IG1vcmUKICBhbmQgc3NoIGFjY2VzcyBJTUhPIGRvZXMgbm90
+IHJlcXVpcmUgcHRzL1swLTldKQoKU2lnbmVkLW9mZi1ieTogUGV0ciBWb3JlbCA8cHZvcmVsQHN1
+c2UuY3o+Ci0tLQogSU5TVEFMTCAgICAgICAgICAgICAgICAgICAgIHwgIDQ5ICstLS0tLS0tLS0t
+LS0tLS0KIHRlc3RjYXNlcy9uZXR3b3JrL1JFQURNRS5tZCB8IDExMyArKysrKysrKysrKysrKysr
+Ky0tLS0tLS0tLS0tLS0tLS0tLS0KIDIgZmlsZXMgY2hhbmdlZCwgNTQgaW5zZXJ0aW9ucygrKSwg
+MTA4IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL0lOU1RBTEwgYi9JTlNUQUxMCmluZGV4IDIw
+NTZlOGVhMC4uNTJkNjExMDFlIDEwMDY0NAotLS0gYS9JTlNUQUxMCisrKyBiL0lOU1RBTEwKQEAg
+LTE1MSw1NCArMTUxLDcgQEAgY29udHJpYnV0aW9ucyBhcmUgd2VsY29tZS4KICAgIGluIHRoZSBD
+RC1ST00gZHJpdmUuICBUaGUgY29ycmVzcG9uZGluZyB0ZXN0cyB3aWxsIGZhaWwgaWYgZWl0aGVy
+IGRpc2sgaXMKICAgIG1pc3NpbmcuCiAKLTUuIFRoZSBuZXR3b3JrIHRlc3RzIGFyZSBleGVjdXRl
+ZCBieSBydW5uaW5nIHRoZSBuZXR3b3JrLnNoIHNjcmlwdC4gVGhlIG5ldHdvcmsKLSAgIHRlc3Rz
+IHJlcXVpcmUgc29tZSBjb25maWd1cmF0aW9uIGZvciB0aGVtIHRvIHdvcmsgY29ycmVjdGx5Ogot
+Ci0gICAgIGkpIEZpcnN0LCB0aGVyZSBNVVNUIGJlIGFub3RoZXIgdGVzdCBtYWNoaW5lIHNldHVw
+IHRvIGFjdCBhcyB0aGUgc2VydmVyCi0JdG8gdGhlc2UgY2xpZW50IHNpZGUgdGVzdHMuICBUaGlz
+IG1hY2hpbmUgTVVTVCBoYXZlIHRoZSBMVFAgaW5zdGFsbGVkCi0JaW4gdGhlIHNhbWUgZXhhY3Qg
+bG9jYXRpb24sIGkuZS4gaWYgdGhlIGNsaWVudCBoYXMgL3Jvb3QvbHRwLCB0aGVuIHRoZQotCXNl
+cnZlciBtdXN0IGhhdmUgL3Jvb3QvbHRwLiAgVGhpcyBpcyByZXF1aXJlZCBiZWNhdXNlIGNlcnRh
+aW4gdGVzdHMKLQlleHBlY3QgdG8gZmluZCBzZXJ2ZXIgZmlsZXMgaW4gY2VydGFpbiBsb2NhdGlv
+bnMuICBNYWtlIHN1cmUgdG8gY29tcGlsZQotCXRoZSBMVFAgb24gdGhpcyBzZXJ2ZXIgbWFjaGlu
+ZSBhbHNvLgotCi0gICAgaWkpIFNlY29uZCwgdGhlIHNlcnZlciBtdXN0IGJlIHNldHVwIHRvIGFs
+bG93IHRoZSBjbGllbnQgdG8gY29ubmVjdCB1c2luZwotCXRoZSAiciIgY29tbWFuZHMsIHN1Y2gg
+YXMgcnNoLiAgVGhpcyBpcyBkb25lIGJ5IHNpbXBseSBjcmVhdGluZy9lZGl0aW5nCi0JdGhlICIu
+cmhvc3RzIiBmaWxlIHVuZGVyIC9yb290LiAgUGxhY2UgdGhlIGhvc3RuYW1lIG9mIHRoZSBjbGll
+bnQKLQltYWNoaW5lIGluIHRoaXMgZmlsZSB0byBhbGxvdyByb290IHRvIHJlbW90ZWx5IGNvbm5l
+Y3Qgd2l0aG91dCB0aGUgdXNlCi0Jb2YgYSBwYXNzd29yZC4gSWYgc2VydmVyIGhhcyB0aGUgUEFN
+IHN5c3RlbSBzZWN1cml0eSB0b29sLCB5b3UgbmVlZAotCXRvIGFkZCB0aGUgZm9sbG93aW5nIGxp
+bmVzIHRvIC9ldGMvc2VjdXJldHR5OgotCQlybG9naW4KLQkJcnNoCi0JCXJleGVjCi0JCXB0cy8w
+Ci0JCXB0cy8xCi0JCSAgOgotCQlwdHMvOQotCi0gICBpaWkpIE5leHQsIGNlcnRhaW4gc2Vydmlj
+ZXMgbXVzdCBiZSBhY3RpdmF0ZWQgaW4gb3JkZXIgZm9yIGNlcnRhaW4gdGVzdHMgdG8KLQlleGVj
+dXRlLiAgVGhlIGZvbGxvd2luZyBzZXJ2aWNlcyBhcmUgYWN0aXZhdGVkIHZpYSBpbmV0ZC94aW5l
+dGQ6Ci0JCXJsb2dpbmQKLQkJZnRwZAotCQl0ZWxuZXRkCi0JCWVjaG8gKHN0cmVhbSkKLQkJZmlu
+Z2VyZAotCQlyc2hkCi0JIEFsc28sIGJlY2F1c2UgY2VydGFpbiBSUEMgcHJvZ3JhbXMgYXJlIHRl
+c3RlZCwgdGhlIHBvcnRtYXBwZXIgZGFlbW9uCi0JIChycGNiaW5kLCBvciBwb3J0bWFwIG9uIG9s
+ZCBkaXN0cmlidXRpb25zKSBNVVNUIGJlIHN0YXJ0ZWQsIGFzIHdlbGwgYXMgTkZTCi0JIHNlcnZl
+ciBBTkQgbG9jayBzZXJ2aWNlcy4KLQotICAgIGl2KSBGaW5hbGx5LCBiZWZvcmUgcnVubmluZyB0
+aGUgbmV0d29yay5zaCBzY3JpcHQsIHR3byB2YXJpYWJsZXMgbXVzdCBiZQotCXNldDogVGhlICJS
+SE9TVCIgdmFyaWFibGUgc2hvdWxkIGJlIHNldCB0byB0aGUgaG9zdG5hbWUgb2YgdGhlIHNlcnZl
+ci4KLQlUaGUgIlBBU1NXRCIgdmFyaWFibGUgc2hvdWxkIGJlIHNldCB0byByb290J3MgcGFzc3dv
+cmQgb24gdGhlIHNlcnZlcgotCW1hY2hpbmUuIFRoaXMgaXMgbmVjZXNzYXJ5IGZvciB0ZXN0cyBz
+dWNoIGFzIHRlbG5ldDAxLnNoIGFuZCBmdHAwMS5zaC4KLQotICAgWW91IGNhbiBub3cgc3VjY2Vz
+c2Z1bGx5IGV4ZWN1dGUgdGhlIG5ldHdvcmsuc2ggc2NyaXB0LgotCi0gICBZb3UgY2FuIHJ1biB0
+aGUgdGVzdCBjYXRlZ29yeSB3aGljaCB5b3UgYXJlIGludGVyZXN0ZWQgaW4sIC1oIG9wdGlvbiBz
+aG93cwotICAgdGhlIGxpc3Qgb2YgdGhlIHRlc3QgY2F0ZWdvcnk6Ci0gICAgICAgIyAuL25ldHdv
+cmsuc2ggLWgKLQotICAgRm9yIG1vcmUgaW5mbyBhYm91dCBob3d0byBydW4gbmV0d29yay5zaCBz
+ZWUgdGVzdGNhc2VzL25ldHdvcmsvUkVBRE1FLm1kLgorNS4gVGhlIG5ldHdvcmsgdGVzdHMgcmVs
+YXRlZCBpbnN0YWxsYXRpb24gc2VlIHRlc3RjYXNlcy9uZXR3b3JrL1JFQURNRS5tZC4KIAogQ3Jv
+c3MgY29tcGlsaW5nCiAtLS0tLS0tLS0tLS0tLS0KZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9uZXR3
+b3JrL1JFQURNRS5tZCBiL3Rlc3RjYXNlcy9uZXR3b3JrL1JFQURNRS5tZAppbmRleCBlNTg5YWRj
+NjQuLjM0NzI4ZmJlYiAxMDA2NDQKLS0tIGEvdGVzdGNhc2VzL25ldHdvcmsvUkVBRE1FLm1kCisr
+KyBiL3Rlc3RjYXNlcy9uZXR3b3JrL1JFQURNRS5tZApAQCAtMSw5NCArMSw4NyBAQAogIyBMVFAg
+TmV0d29yayBUZXN0cwogCi0jIyBQcmUtcmVxdWlzaXRlcwotRW5hYmxlIGFsbCB0aGUgbmV0d29y
+a2luZyBzZXJ2aWNlcyBvbiB0ZXN0IG1hY2hpbmUocyk6IHJzaGQsIG5mc2QsIGZpbmdlcmQuCi0K
+LUJvdGggc2luZ2xlIGFuZCB0d28gaG9zdCBjb25maWd1cmF0aW9ucyBzdXBwb3J0IGRlYnVnZ2lu
+ZyB2aWEKLWBUU1RfTkVUX1JIT1NUX1JVTl9ERUJVRz0xYCBlbnZpcm9ubWVudCB2YXJpYWJsZS4K
+LQogIyMgU2luZ2xlIEhvc3QgQ29uZmlndXJhdGlvbgogCi1JdCBpcyBhIGRlZmF1bHQgY29uZmln
+dXJhdGlvbiAoJ1JIT1NUJyBpcyBub3QgZGVmaW5lZCkuIExUUCBhZGRzICdsdHBfbnMnCi1uZXR3
+b3JrIG5hbWVzcGFjZSBhbmQgYXV0by1jb25maWd1cmUgJ3ZldGgnIHBhaXIgYWNjb3JkaW5nIHRv
+IExUUCBuZXR3b3JrCi1lbnZpcm9ubWVudCB2YXJpYWJsZXMuCitJdCdzIHRoZSBkZWZhdWx0IGNv
+bmZpZ3VyYXRpb24gKGlmIHRoZSBgUkhPU1RgIGVudmlyb25tZW50IHZhcmlhYmxlIGlzIG5vdAor
+ZGVmaW5lZCkuIExUUCBhZGRzIGBsdHBfbnNgIG5ldHdvcmsgbmFtZXNwYWNlIGFuZCBhdXRvLWNv
+bmZpZ3VyZSBgdmV0aGAgcGFpcgorYWNjb3JkaW5nIHRvIExUUCBuZXR3b3JrIGVudmlyb25tZW50
+IHZhcmlhYmxlcy4KIAogIyMgVHdvIEhvc3QgQ29uZmlndXJhdGlvbgogCi1UaGlzIHNldHVwIHJl
+cXVpcmVzICdSSE9TVCcgZW52aXJvbm1lbnQgdmFyaWFibGUgdG8gYmUgc2V0IHByb3Blcmx5IGFu
+ZAotY29uZmlndXJlZCBTU0ggb3IgUlNIIChkZWZhdWx0KSBhY2Nlc3MgdG8gYSByZW1vdGUgaG9z
+dC4KK1RoaXMgc2V0dXAgcmVxdWlyZXMgdGhlIGBSSE9TVGAgZW52aXJvbm1lbnQgdmFyaWFibGUg
+dG8gYmUgc2V0IHByb3Blcmx5IGFuZAorY29uZmlndXJlZCBTU0ggYWNjZXNzIHRvIGEgcmVtb3Rl
+IGhvc3QuCiAKLVRoZSAnUkhPU1QnIHZhcmlhYmxlIG5hbWUgbXVzdCBiZSBzZXQgdG8gdGhlIGhv
+c3RuYW1lIG9mIHRoZSBzZXJ2ZXIKLSh0ZXN0IG1hbmFnZW1lbnQgbGluaykgYW5kIFBBU1NXRCBz
+aG91bGQgYmUgc2V0IHRvIHRoZSByb290IHBhc3N3b3JkCi1vZiB0aGUgcmVtb3RlIHNlcnZlci4K
+K1RoZSBgUkhPU1RgIHZhcmlhYmxlIG11c3QgYmUgc2V0IHRvIHRoZSBob3N0bmFtZSBvZiB0aGUg
+c2VydmVyICh0ZXN0IG1hbmFnZW1lbnQKK2xpbmspIGFuZCBwdWJsaWMga2V5IHNldHVwIG9yIGxv
+Z2luIHdpdGhvdXQgcGFzc3dvcmQgaXMgcmVxdWlyZWQuCiAKLUluIG9yZGVyIHRvIGhhdmUgUlNI
+IGFjY2VzczoKLSogRWRpdCB0aGUgIi9yb290Ly5yaG9zdHMiIGZpbGUuIFBsZWFzZSBub3RlIHRo
+YXQgdGhlIGZpbGUgbWF5IG5vdCBleGlzdCwKLXNvIHlvdSBtdXN0IGNyZWF0ZSBvbmUgaWYgaXQg
+ZG9lcyBub3QuIFlvdSBtdXN0IGFkZCB0aGUgZnVsbHkgcXVhbGlmaWVkCi1ob3N0bmFtZSBvZiB0
+aGUgbWFjaGluZSB5b3UgYXJlIHRlc3Rpbmcgb24gdG8gdGhpcyBmaWxlLiBCeSBhZGRpbmcgdGhl
+IHRlc3QKLW1hY2hpbmUncyBob3N0bmFtZSB0byB0aGlzIGZpbGUsIHlvdSB3aWxsIGJlIGFsbG93
+aW5nIHRoZSBtYWNoaW5lIHRvIHJzaCB0byBpdHNlbGYsCi1hcyByb290LCB3aXRob3V0IHRoZSBy
+ZXF1aXJlbWVudCBvZiBhIHBhc3N3b3JkLgorU1NIIHNlcnZlciBuZWVkcyB0byBiZSBjb25maWd1
+cmVkIHRvIGFsbG93IHJvb3QgbG9naW4gYW5kIHVzZSBQdWJsaWMgS2V5CitBdXRoZW50aWNhdGlv
+biAoYFBlcm1pdFJvb3RMb2dpbiB5ZXNgIGFuZCBgUHVia2V5QXV0aGVudGljYXRpb24geWVzYCBp
+bgorYC9ldGMvc3NoL3NzaGRfY29uZmlnYCkuCiAKLWBgYHNoCi1lY2hvICRjbGllbnRfaG9zdG5h
+bWUgPj4gL3Jvb3QvLnJob3N0cwotYGBgCitTb21lIG9mIHRoZSBuZXR3b3JrIHN0cmVzcyB0ZXN0
+cyB3aGljaCBoYXNuJ3QgYmVlbiBwb3J0ZWQgdG8gbmV0d29yayBBUEkgd2VyZQorZGVzaWduZWQg
+dG8gYmUgdGVzdGVkIHdpdGggYHJzaGAgdmlhIGBMVFBfUlNIYCBlbnZpcm9ubWVudCB2YXJpYWJs
+ZS4gTm93IGl0J3MKK2J5IGRlZmF1bHQgdXNlZCBgc3NoYCwgZm9yIGRldGFpbHMgc2VlIGB0ZXN0
+Y2FzZXMvbmV0d29yay9zdHJlc3MvUkVBRE1FYC4KIAotWW91IG1heSBuZWVkIHRvIHJlLWxhYmVs
+ICcucmhvc3QnIGZpbGUgdG8gbWFrZSBzdXJlIHJsb2dpbmQgd2lsbCBoYXZlIGFjY2VzcyB0byBp
+dDoKKyMjIFNlcnZlciBTZXJ2aWNlcyBDb25maWd1cmF0aW9uCitUZXN0cyBoYXZlIHZhcmlvdXMg
+ZXh0ZXJuYWwgZGVwZW5kZW5jaWVzLCBleGl0IHdpdGggYFRDT05GYCB3aGVuIG5vdCBpbnN0YWxs
+ZWQuCitTb21lIHRlc3RzIHJlcXVpcmUgYWRkaXRpb25hbCBzZXR1cC4KIAotYGBgc2gKLS9zYmlu
+L3Jlc3RvcmVjb24gLXYgL3Jvb3QvLnJob3N0cwotYGBgCisjIyMgRlRQIGFuZCB0ZWxuZXQgc2V0
+dXAKK0ZUUCBzdHJlc3MgdGVzdHMgYW5kIHRlbG5ldCBzZXJ2ZXIgdGVzdHMgcmVxdWlyZSBlbnZp
+cm9ubWVudCB2YXJpYWJsZXMgYFJIT1NUYAorKHJlbW90ZSBtYWNoaW5lKSwgYFJVU0VSYCAocmVt
+b3RlIHVzZXIpIGFuZCBgUEFTU1dEYCAocmVtb3RlIHBhc3N3b3JkKS4gTk9URToKK2BSSE9TVGAg
+d2lsbCBpbXBseSB0d28gaG9zdCBjb25maWd1cmF0aW9uIGZvciBvdGhlciB0ZXN0cy4KIAotKiBB
+ZGQgcmxvZ2luLCByc2gsIHJleGVjIGludG8gL2V0Yy9zZWN1cmV0dHkgZmlsZToKK0lmIGBSSE9T
+VGAgaXMgc2V0IHRvIGByb290YCwgZWl0aGVyIG9mIHRoZXNlIHN0ZXBzIGlzIHJlcXVpcmVkOgog
+Ci1gYGBzaAotZm9yIGkgaW4gcmxvZ2luIHJzaCByZXhlYzsgZG8gZWNobyAkaSA+PiAvZXRjL3Nl
+Y3VyZXR0eTsgZG9uZQorKiBJbiBgL2V0Yy9mdHB1c2Vyc2AgKG9yIGAvZXRjL3ZzZnRwZC5mdHB1
+c2Vyc2ApLCBjb21tZW50IHRoZSBsaW5lIGNvbnRhaW5pbmcKKyJyb290IiBzdHJpbmcuIFRoaXMg
+ZmlsZSBsaXN0cyBhbGwgdGhvc2UgdXNlcnMgd2hvIGFyZSBub3QgZ2l2ZW4gYWNjZXNzIHRvIGRv
+IGZ0cAorb24gdGhlIGN1cnJlbnQgc3lzdGVtLgorCisqIElmIHlvdSBkb27igJl0IHdhbnQgdG8g
+ZG8gdGhlIHByZXZpb3VzIHN0ZXAsIHB1dCBmb2xsb3dpbmcgZW50cnkgaW50byBgL3Jvb3QvLm5l
+dHJjYDoKK2BgYAorbWFjaGluZSA8cmVtb3RlX3NlcnZlcl9uYW1lPgorbG9naW4gcm9vdAorcGFz
+c3dvcmQgPHJlbW90ZV9yb290X3Bhc3N3b3JkPgogYGBgCiAKLSMjIFNlcnZlciBTZXJ2aWNlcyBD
+b25maWd1cmF0aW9uCi1WZXJpZnkgdGhhdCB0aGUgYmVsb3cgZGFlbW9uIHNlcnZpY2VzIGFyZSBy
+dW5uaW5nLiBJZiBub3QsIHBsZWFzZSBpbnN0YWxsCi1hbmQgc3RhcnQgdGhlbToKLXJzaC1zZXJ2
+ZXIsIHRlbG5ldC1zZXJ2ZXIsIGZpbmdlci1zZXJ2ZXIsIHJkaXN0LCByc3luYywgZGhjcC1zZXJ2
+ZXIsIGh0dHAtc2VydmVyLgorIyMjIEhUVFAgc2V0dXAKK0hUVFAgc3RyZXNzIHRlc3RzIHJlcXVp
+cmUgY29uZmlndXJlZCBhbmQgcnVubmluZyB3ZWIgc2VydmVyIChBcGFjaGUyLCBOZ2lueCwgZXRj
+LikuCiAKLU5vdGU6IElmIGFueSBvZiB0aGUgYWJvdmUgZGFlbW9uIGlzIG5vdCBydW5uaW5nIG9u
+IHNlcnZlciwgdGhlIHRlc3QgcmVsYXRlZCB0bwotdGhhdCBzZXJ2aWNlIHJ1bm5pbmcgZnJvbSBj
+bGllbnQgd2lsbCBmYWlsLgorIyMjIE5GUyBzZXR1cAorTkZTIHRlc3RzIHJlcXVpcmUgcnVubmlu
+ZyBORlMgc2VydmVyIG11c3QgYmUgcnVubmluZywgZW5hYmxlIGFuZCBzdGFydCBgbmZzLXNlcnZl
+ci5zZXJ2aWNlYAorKERlYmlhbi9VYnVudHUgYW5kIG9wZW5TVVNFL1NMRVM6IGBuZnMta2VybmVs
+LXNlcnZlcmAgcGFja2FnZSwgb3RoZXJzIGBuZnMtc2VydmVyYCBwYWNrYWdlKS4KIAotIyMjIEZU
+UCBzZXR1cAotKiBJbiDigJwvZXRjL2Z0cHVzZXJz4oCdIFtvciB2aSAvZXRjL3ZzZnRwZC5mdHB1
+c2Vyc10sIGNvbW1lbnQgdGhlIGxpbmUgY29udGFpbmluZwot4oCccm9vdOKAnSBzdHJpbmcuIFRo
+aXMgZmlsZSBsaXN0cyBhbGwgdGhvc2UgdXNlcnMgd2hvIGFyZSBub3QgZ2l2ZW4gYWNjZXNzIHRv
+IGRvIGZ0cAotb24gdGhlIGN1cnJlbnQgc3lzdGVtLgorVGhlcmUgaXMgbm8gZGV0ZWN0aW9uIHdo
+ZXRoZXIgc2VydmljZSBpcyBydW5uaW5nLCB0ZXN0IHdpbGwgc2ltcGx5IGZhaWwgd2l0aG91dCB3
+YXJuaW5nLgogCi0qIElmIHlvdSBkb27igJl0IHdhbnQgdG8gZG8gdGhlIHByZXZpb3VzIHN0ZXAs
+IHB1dCBmb2xsb3dpbmcgZW50cnkgaW50byAvcm9vdC8ubmV0cmMKLW1hY2hpbmUgPHJlbW90ZV9z
+ZXJ2ZXJfbmFtZT4gbG9naW4gcm9vdCBwYXNzd29yZCA8cmVtb3RlX3Jvb3RfcGFzc3dvcmQ+Lgot
+T3RoZXJ3aXNlLCBmdHAscmxvZ2luICYgdGVsbmV0IGZhaWxzIGZvciDigJhyb2904oCZIHVzZXIg
+JiBoZW5jZSBuZWVkcyB0byBiZQotZXhlY3V0ZWQgdXNpbmcg4oCYdGVzdOKAmSB1c2VyIHRvIGdl
+dCBzdWNjZXNzZnVsIHJlc3VsdHMuCisjIyMgVEktUlBDIC8gU3VuIFJQQyBzZXR1cAorVEktUlBD
+IChvciBnbGliYyBsZWdhY3kgU3VuIFJQQykgdGVzdHMgcmVxdWlyZSBydW5uaW5nIHJwY2JpbmQg
+KG9yIHBvcnRtYXAgb24KK29sZCBkaXN0cmlidXRpb25zKSwgZW5hYmxlIGFuZCBzdGFydCBgcnBj
+YmluZC5zZXJ2aWNlYC4KIAogIyMgTFRQIHNldHVwCi1JbnN0YWxsIExUUCB0ZXN0c3VpdGUuIElu
+IGNhc2Ugb2YgdHdvIGhvc3RzIGNvbmZpZ3VyYXRpb24sIG1ha2Ugc3VyZSBMVFAgaXMgaW5zdGFs
+bGVkCi1vbiBib3RoIGNsaWVudCBhbmQgc2VydmVyIG1hY2hpbmVzLgorSW5zdGFsbCBMVFAgdGVz
+dHN1aXRlIChzZWUgSU5TVEFMTCkuIEluIGNhc2Ugb2YgdHdvIGhvc3RzIGNvbmZpZ3VyYXRpb24s
+IExUUAorbmVlZHMgdG8gYmUgaW5zdGFsbGVkIHRoZSBzYW1lIGV4YWN0IGxvY2F0aW9uIGFuZCBg
+TFRQUk9PVGAgYW5kIGBQQVRIYAorZW52aXJvbm1lbnQgdmFyaWFibGVzIHNldCBvbiAqYm90aCog
+Y2xpZW50IGFuZCBzZXJ2ZXIgbWFjaGluZXMuIFRoaXMgaXMKK3JlcXVpcmVkIGJlY2F1c2Ugc29t
+ZSB0ZXN0cyBleHBlY3QgdG8gZmluZCBzZXJ2ZXIgZmlsZXMgaW4gY2VydGFpbiBsb2NhdGlvbnMu
+CiAKLVRlc3RjYXNlcyBhbmQgbmV0d29yayB0b29scyBtdXN0IGJlIGluIFBBVEgsIGUuZy46CitF
+eGFtcGxlIGZvciB0aGUgZGVmYXVsdCBwcmVmaXggYC9vcHQvbHRwYDoKIAogYGBgc2gKLWV4cG9y
+dCBQQVRIPS9vcHQvbHRwL3Rlc3RjYXNlcy9iaW46L3Vzci9iaW46JFBBVEgKK2V4cG9ydCBMVFBS
+T09UPSIvb3B0L2x0cCI7IGV4cG9ydCBQQVRIPSIkTFRQUk9PVC90ZXN0Y2FzZXMvYmluOiRQQVRI
+IgogYGBgCi1EZWZhdWx0IHZhbHVlcyBmb3IgYWxsIExUUCBuZXR3b3JrIHZhcmlhYmxlcyBhcmUg
+c2V0IGluIHRlc3RjYXNlcy9saWIvdHN0X25ldC5zaC4KLUlmIHlvdSBuZWVkIHRvIG92ZXJyaWRl
+IHNvbWUgcGFyYW1ldGVycyBwbGVhc2UgZXhwb3J0IHRoZW0gYmVmb3JlIHRlc3QgcnVuIG9yCi1z
+cGVjaWZ5IHRoZW0gd2hlbiBydW5uaW5nIGx0cC1wYW4gb3IgdGVzdHNjcmlwdHMvbmV0d29yay5z
+aC4KIAogIyMgUnVubmluZyB0aGUgdGVzdHMKLVRvIHJ1biB0aGUgdGVzdCB0eXBlIHRoZSBmb2xs
+b3dpbmc6CitUaGUgbmV0d29yayB0ZXN0cyBhcmUgZXhlY3V0ZWQgYnkgcnVubmluZyB0aGUgbmV0
+d29yay5zaCBzY3JpcHQ6CiAKIGBgYHNoCiBURVNUX1ZBUlMgLi9uZXR3b3JrLnNoIE9QVElPTlMK
+IGBgYAogV2hlcmUKLSogVEVTVF9WQVJTIC0gbm9uLWRlZmF1bHQgbmV0d29yayBwYXJhbWV0ZXJz
+IChzZWUgdGVzdGNhc2VzL2xpYi90c3RfbmV0LnNoKSwgdGhleQotICBjb3VsZCBiZSBleHBvcnRl
+ZCBiZWZvcmUgdGVzdCBydW47Ci0qIE9QVElPTlMgLSB0ZXN0IGdyb3VwKHMpLCB1c2UgJy1oJyB0
+byBzZWUgYXZhaWxhYmxlIG9uZXMuCisqIGBURVNUX1ZBUlNgIC0gbm9uLWRlZmF1bHQgbmV0d29y
+ayBwYXJhbWV0ZXJzCisqIGBPUFRJT05TYCAtIHRlc3QgZ3JvdXAocyksIHVzZSBgLWhgIHRvIHNl
+ZSBhdmFpbGFibGUgb25lcy4KIAotIyMgQW5hbHl6aW5nIHRoZSByZXN1bHRzCi1HZW5lcmFsbHkg
+dGhpcyB0ZXN0IG11c3QgYmUgcnVuIG1vcmUgdGhhbiAyNCBob3Vycy4gV2hlbiB5b3Ugd2FudCB0
+byBzdG9wIHRoZSB0ZXN0Ci1wcmVzcyBDVFJMK0MgdG8gc3RvcCAuL25ldHdvcmsuc2guCitEZWZh
+dWx0IHZhbHVlcyBmb3IgYWxsIExUUCBuZXR3b3JrIHBhcmFtZXRlcnMgYXJlIHNldCBpbiBgdGVz
+dGNhc2VzL2xpYi90c3RfbmV0LnNoYC4KK05ldHdvcmsgc3RyZXNzIHBhcmFtZXRlcnMgYXJlIGRv
+Y3VtZW50ZWQgaW4gYHRlc3RjYXNlcy9uZXR3b3JrL3N0cmVzcy9SRUFETUVgLgogCi1TZWFyY2gg
+ZmFpbGVkIHRlc3RzIGluIExUUCBsb2dmaWxlIHVzaW5nIGdyZXAgRkFJTCA8bG9nZmlsZT4uIEZv
+ciBhbnkgZmFpbHVyZXMsCi1ydW4gdGhlIGluZGl2aWR1YWwgdGVzdHMgYW5kIHRoZW4gdHJ5IHRv
+IGNvbWUgdG8gdGhlIGNvbmNsdXNpb24uCisjIyBEZWJ1Z2dpbmcKK0JvdGggc2luZ2xlIGFuZCB0
+d28gaG9zdCBjb25maWd1cmF0aW9ucyBzdXBwb3J0IGRlYnVnZ2luZyB2aWEKK2BUU1RfTkVUX1JI
+T1NUX1JVTl9ERUJVRz0xYCBlbnZpcm9ubWVudCB2YXJpYWJsZS4KLS0gCjIuMjcuMAoKCi0tIApN
+YWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
