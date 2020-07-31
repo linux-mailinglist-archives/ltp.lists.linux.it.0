@@ -2,51 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FD8423CAAD
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Aug 2020 14:47:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F6A123CAAE
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Aug 2020 14:47:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DC9593C3267
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Aug 2020 14:47:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E214A3C325C
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Aug 2020 14:47:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 941303C076F
- for <ltp@lists.linux.it>; Fri, 31 Jul 2020 19:16:04 +0200 (CEST)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id AF9D960213D
- for <ltp@lists.linux.it>; Fri, 31 Jul 2020 19:16:03 +0200 (CEST)
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9BDB62074B;
- Fri, 31 Jul 2020 17:16:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596215761;
- bh=9bNhpovPSTGi6X3LF9twzY/MMA9zySnTVDjOd55Ntxc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=2dlBa5GvxepmB1bZWS6B4sDbxrGegsTyQ4h4AQ1rmaWhT1WYYuPVBcjLzEYBROrYs
- eI8bf1euA96BCgOWN+O8i/1WbCxMhrQb/d5IwLpc+PWlibzAt7QRE5yyqaBRBahQpf
- HKwa1SAokQSMNQqWrUcwplngTMoq0no3Ux2vRfxc=
-Date: Fri, 31 Jul 2020 19:15:47 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Naresh Kamboju <naresh.kamboju@linaro.org>
-Message-ID: <20200731171547.GC2012979@kroah.com>
-References: <20200730074420.502923740@linuxfoundation.org>
- <CA+G9fYvCPwwmF-k=Z9Z6P2KYrOMHurcORwa3RW2H1j6pq1QEDg@mail.gmail.com>
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 480BE3C14BD
+ for <ltp@lists.linux.it>; Fri, 31 Jul 2020 23:31:27 +0200 (CEST)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 7DD2320136E
+ for <ltp@lists.linux.it>; Fri, 31 Jul 2020 23:31:26 +0200 (CEST)
+Received: from [192.168.0.104] (c-73-42-176-67.hsd1.wa.comcast.net
+ [73.42.176.67])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 4A3CB20B4908;
+ Fri, 31 Jul 2020 14:31:24 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 4A3CB20B4908
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1596231084;
+ bh=S4cTyhHoE+e/ZUW8inxxRdk7qNFQf+4rRLYkoIY0bi0=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=XWFKsrXff+XTGjLVr0uyHzTS4nxNB+vGdgDR0Le89hWAKGSMsXDUzUyeeakkeA0WE
+ 3gFxaJtt6+MrdgBMhwAgHdGk5VTCa8eGweHT8CEp/6oljeLIUEsJvMDAACH996G+aj
+ lEEkjnlSEyvAuyv7J89ZJB1TUzCgXTHefgzomK8c=
+To: Petr Vorel <pvorel@suse.cz>, Lachlan Sneff <t-josne@linux.microsoft.com>
+References: <20200717205721.18173-1-t-josne@linux.microsoft.com>
+ <20200731080221.GA14041@dell5510>
+From: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+Message-ID: <edf26ac1-6378-c632-9e91-5c09141639af@linux.microsoft.com>
+Date: Fri, 31 Jul 2020 14:31:23 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CA+G9fYvCPwwmF-k=Z9Z6P2KYrOMHurcORwa3RW2H1j6pq1QEDg@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+In-Reply-To: <20200731080221.GA14041@dell5510>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
+X-Spam-Status: No, score=-15.6 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,
+ USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
 X-Mailman-Approved-At: Wed, 05 Aug 2020 14:47:31 +0200
-Subject: Re: [LTP] [PATCH 5.4 00/19] 5.4.55-rc1 review
+Subject: Re: [LTP] [PATCH] IMA: Add a test to verify importing a certificate
+ into custom keyring
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,50 +58,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Peter Zijlstra <peterz@infradead.org>, lkft-triage@lists.linaro.org,
- patches@kernelci.org, linux-mm <linux-mm@kvack.org>,
- Basil Eljuse <Basil.Eljuse@arm.com>, Christoph Lameter <cl@linux.com>,
- Shuah Khan <shuah@kernel.org>, Ben Hutchings <ben.hutchings@codethink.co.uk>,
- Vincent Guittot <vincent.guittot@linaro.org>, Hugh Dickins <hughd@google.com>,
- LTP List <ltp@lists.linux.it>, David Rientjes <rientjes@google.com>,
- Guenter Roeck <linux@roeck-us.net>, Arnd Bergmann <arnd@arndb.de>,
- Shakeel Butt <shakeelb@google.com>, Muchun Song <songmuchun@bytedance.com>,
- Cgroups <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Vlastimil Babka <vbabka@suse.cz>, open list <linux-kernel@vger.kernel.org>,
- linux- stable <stable@vger.kernel.org>, Pekka Enberg <penberg@kernel.org>,
- Joonsoo Kim <iamjoonsoo.kim@lge.com>,
- Linus Torvalds <torvalds@linux-foundation.org>, Roman Gushchin <guro@fb.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: linux-integrity@vger.kernel.org, ltp@lists.linux.it,
+ balajib@linux.microsoft.com
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gRnJpLCBKdWwgMzEsIDIwMjAgYXQgMDQ6MDI6MTZQTSArMDUzMCwgTmFyZXNoIEthbWJvanUg
-d3JvdGU6Cj4gT24gVGh1LCAzMCBKdWwgMjAyMCBhdCAxMzozNiwgR3JlZyBLcm9haC1IYXJ0bWFu
-Cj4gPGdyZWdraEBsaW51eGZvdW5kYXRpb24ub3JnPiB3cm90ZToKPiA+Cj4gPiBUaGlzIGlzIHRo
-ZSBzdGFydCBvZiB0aGUgc3RhYmxlIHJldmlldyBjeWNsZSBmb3IgdGhlIDUuNC41NSByZWxlYXNl
-Lgo+ID4gVGhlcmUgYXJlIDE5IHBhdGNoZXMgaW4gdGhpcyBzZXJpZXMsIGFsbCB3aWxsIGJlIHBv
-c3RlZCBhcyBhIHJlc3BvbnNlCj4gPiB0byB0aGlzIG9uZS4gIElmIGFueW9uZSBoYXMgYW55IGlz
-c3VlcyB3aXRoIHRoZXNlIGJlaW5nIGFwcGxpZWQsIHBsZWFzZQo+ID4gbGV0IG1lIGtub3cuCj4g
-Pgo+ID4gUmVzcG9uc2VzIHNob3VsZCBiZSBtYWRlIGJ5IFNhdCwgMDEgQXVnIDIwMjAgMDc6NDQ6
-MDUgKzAwMDAuCj4gPiBBbnl0aGluZyByZWNlaXZlZCBhZnRlciB0aGF0IHRpbWUgbWlnaHQgYmUg
-dG9vIGxhdGUuCj4gPgo+ID4gVGhlIHdob2xlIHBhdGNoIHNlcmllcyBjYW4gYmUgZm91bmQgaW4g
-b25lIHBhdGNoIGF0Ogo+ID4gICAgICAgICBodHRwczovL3d3dy5rZXJuZWwub3JnL3B1Yi9saW51
-eC9rZXJuZWwvdjUueC9zdGFibGUtcmV2aWV3L3BhdGNoLTUuNC41NS1yYzEuZ3oKPiA+IG9yIGlu
-IHRoZSBnaXQgdHJlZSBhbmQgYnJhbmNoIGF0Ogo+ID4gICAgICAgICBnaXQ6Ly9naXQua2VybmVs
-Lm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvc3RhYmxlL2xpbnV4LXN0YWJsZS1yYy5naXQg
-bGludXgtNS40LnkKPiA+IGFuZCB0aGUgZGlmZnN0YXQgY2FuIGJlIGZvdW5kIGJlbG93Lgo+ID4K
-PiA+IHRoYW5rcywKPiA+Cj4gPiBncmVnIGstaAo+IAo+IFJlc3VsdHMgZnJvbSBMaW5hcm/igJlz
-IHRlc3QgZmFybS4KPiBSZWdyZXNzaW9ucyBvbiBhcm02NCBKdW5vLXIyIGRldmljZSBydW5uaW5n
-IExUUCBjb250cm9sbGVycy10ZXN0cwo+IAo+IENPTkZJR19BUk02NF82NEtfUEFHRVM9eQo+IAo+
-IFVuYWJsZSB0byBoYW5kbGUga2VybmVsIHBhZ2luZyByZXF1ZXN0IGF0IHZpcnR1YWwgYWRkcmVz
-cyBkZWFkMDAwMDAwMDAwMTA4Cj4gW2RlYWQwMDAwMDAwMDAxMDhdIGFkZHJlc3MgYmV0d2VlbiB1
-c2VyIGFuZCBrZXJuZWwgYWRkcmVzcyByYW5nZXMKPiBJbnRlcm5hbCBlcnJvcjogT29wczogOTYw
-MDAwNDQgWyMxXSBQUkVFTVBUIFNNUAo+IAo+IHBjIDogZ2V0X3BhZ2VfZnJvbV9mcmVlbGlzdCsw
-eGE2NC8weDEwMzAKPiBsciA6IGdldF9wYWdlX2Zyb21fZnJlZWxpc3QrMHg5YzQvMHgxMDMwCj4g
-Cj4gV2UgYXJlIHRyeWluZyB0byByZXByb2R1Y2UgdGhpcyBrZXJuZWwgcGFuaWMgYW5kIHRyeWlu
-ZyB0byBuYXJyb3cgZG93biB0bwo+IHNwZWNpZmljIHRlc3QgY2FzZXMuCgpJZiB5b3UgY29tZSB1
-cCB3aXRoIHNvbWV0aGluZyB0aGF0IG5lZWRzIHRvIGJlIHJldmVydGVkLCBwbGVhc2UgbGV0IG1l
-Cmtub3cuCgpPdGhlcndpc2UsIHRoYW5rcyBmb3IgdGVzdGluZyBhbGwgb2YgdGhlc2UuCgpncmVn
-IGstaAoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3Rp
-bmZvL2x0cAo=
+On 7/31/20 1:02 AM, Petr Vorel wrote:
+
+Hi Petr,
+
+>> A test for verifying importing an x509 certificate into a keyring and
+>> validating the key measurement performed by IMA is needed.
+> 
+> I suppose you're going to send new version of this patch (rebased + fix
+> according to Mimi's comments).
+> 
+> IMHO that should be your last not yet merged patch.
+> 
+> FYI: I'm planning to fix ima_tpm.sh and then implement autoloading IMA policy
+> (when possible).
+> 
+
+Yes - Lachlan will send the new version of the patch set (rebased to 
+your latest changes and also addressing Mimi's comments).
+
+thanks,
+  -lakshmi
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
