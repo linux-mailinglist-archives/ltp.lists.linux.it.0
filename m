@@ -1,48 +1,49 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 855DE23AC0E
-	for <lists+linux-ltp@lfdr.de>; Mon,  3 Aug 2020 19:59:58 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1555123AC0A
+	for <lists+linux-ltp@lfdr.de>; Mon,  3 Aug 2020 19:59:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 18D883C3354
-	for <lists+linux-ltp@lfdr.de>; Mon,  3 Aug 2020 19:59:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8849E3C335A
+	for <lists+linux-ltp@lfdr.de>; Mon,  3 Aug 2020 19:59:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 8F3A73C3346
- for <ltp@lists.linux.it>; Mon,  3 Aug 2020 19:59:43 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 4409A3C3346
+ for <ltp@lists.linux.it>; Mon,  3 Aug 2020 19:59:44 +0200 (CEST)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 35B2760071C
- for <ltp@lists.linux.it>; Mon,  3 Aug 2020 19:58:15 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id B236C200AE0
+ for <ltp@lists.linux.it>; Mon,  3 Aug 2020 19:59:43 +0200 (CEST)
 Received: from localhost.localdomain (c-73-187-218-229.hsd1.pa.comcast.net
  [73.187.218.229])
- by linux.microsoft.com (Postfix) with ESMTPSA id E49EB20B4908;
- Mon,  3 Aug 2020 10:59:39 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E49EB20B4908
+ by linux.microsoft.com (Postfix) with ESMTPSA id 272FC20B490A;
+ Mon,  3 Aug 2020 10:59:41 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 272FC20B490A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1596477580;
- bh=c6g4N5GTfq2Sy3Ud3da7Wg3nyPStYNaPqXbluSJ6JCQ=;
- h=From:To:Cc:Subject:Date:From;
- b=IvwkEq1yI66MJikOn5ZfDdQPFUCdl/4ryPFhv1OyY4X6TBM9vNOjev9Q40KgOUyVr
- obc7k8cQQ7q0qnHi4tqtV3eZVIWNY6F+Jr6Et9G8hRzWf/3xNBnIvrHmOrXZKjNdsc
- cA1Cb3KiE3KQBeJBhh10a6TRlzSc8zejHga+6/68=
+ s=default; t=1596477582;
+ bh=+dFj7dCuj0185ShJTiqY0XRK9Voy3eIJ3vAQPDuPtos=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=G21+stlPx18eHz5jSTg/MuJCj5biz+YUFWi5HaAFTbI7yZxkjgHmGvOchsHdroBi3
+ vou3k0GYm9PulHl8IddI44MWjXvzWOEG21T48SBkMo+HrV2q4ZJjM8fJnnSNNEdOEP
+ I28leVOF0q237hP+zSvC6s0yPq8rolBk0044jaZ4=
 From: Lachlan Sneff <t-josne@linux.microsoft.com>
 To: pvorel@suse.cz,
 	zohar@linux.ibm.com,
 	ltp@lists.linux.it
-Date: Mon,  3 Aug 2020 13:59:01 -0400
-Message-Id: <20200803175904.40269-1-t-josne@linux.microsoft.com>
+Date: Mon,  3 Aug 2020 13:59:02 -0400
+Message-Id: <20200803175904.40269-2-t-josne@linux.microsoft.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200803175904.40269-1-t-josne@linux.microsoft.com>
+References: <20200803175904.40269-1-t-josne@linux.microsoft.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_PASS,SPF_PASS,
  USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 0/3] Verify measurement of certificate imported
- into a keyring
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/3] IMA: Update key test documentation
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,42 +62,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The IMA subsystem supports measuring certificates that have been loaded into
-user-defined keyrings and system built-in keyrings. A test to verify that
-those measurements are correct is required.
+The current documentation for the existing IMA key test was
+left in by accident by a previous merge. It does not apply
+to the test that is currently included in the LTP.
 
-The first two patches in this patchset fix up left-over documentation and
-move some datafiles around to prepare for more datafiles in the 3rd patch.
+Update the documentation for the IMA key test.
 
-The third patch adds a new test to the `ima_keys.sh` file, which imports
-a certificate into a user-defined keyring, and then verifies that the
-certificate has been measured correctly by the IMA subsystem.
+Signed-off-by: Lachlan Sneff <t-josne@linux.microsoft.com>
+---
+ .../kernel/security/integrity/ima/README.md   | 22 +++++--------------
+ 1 file changed, 5 insertions(+), 17 deletions(-)
 
-Lachlan Sneff (3):
-  IMA: Update key test documentation
-  IMA: Refactor datafiles directory
-  IMA: Add a test to verify measurement of certificate imported into a
-    keyring
-
- .../kernel/security/integrity/ima/README.md   |  32 +++++++------
- .../security/integrity/ima/datafiles/Makefile |   6 +--
- .../integrity/ima/datafiles/keys/Makefile     |  15 ++++++
- .../integrity/ima/datafiles/keys/x509_ima.der | Bin 0 -> 650 bytes
- .../integrity/ima/datafiles/policy/Makefile   |  15 ++++++
- .../ima/datafiles/{ => policy}/kexec.policy   |   0
- .../datafiles/{ => policy}/keycheck.policy    |   0
- .../ima/datafiles/{ => policy}/measure.policy |   0
- .../{ => policy}/measure.policy-invalid       |   0
- .../security/integrity/ima/tests/ima_keys.sh  |  44 +++++++++++++++++-
- 10 files changed, 91 insertions(+), 21 deletions(-)
- create mode 100644 testcases/kernel/security/integrity/ima/datafiles/keys/Makefile
- create mode 100644 testcases/kernel/security/integrity/ima/datafiles/keys/x509_ima.der
- create mode 100644 testcases/kernel/security/integrity/ima/datafiles/policy/Makefile
- rename testcases/kernel/security/integrity/ima/datafiles/{ => policy}/kexec.policy (100%)
- rename testcases/kernel/security/integrity/ima/datafiles/{ => policy}/keycheck.policy (100%)
- rename testcases/kernel/security/integrity/ima/datafiles/{ => policy}/measure.policy (100%)
- rename testcases/kernel/security/integrity/ima/datafiles/{ => policy}/measure.policy-invalid (100%)
-
+diff --git a/testcases/kernel/security/integrity/ima/README.md b/testcases/kernel/security/integrity/ima/README.md
+index d4644ba39..2956ac7fd 100644
+--- a/testcases/kernel/security/integrity/ima/README.md
++++ b/testcases/kernel/security/integrity/ima/README.md
+@@ -15,27 +15,15 @@ Although a custom policy, loaded via dracut, systemd or manually from user
+ space, may contain equivalent measurement tcb rules, detecting them would
+ require `IMA_READ_POLICY=y` therefore ignore this option.
+ 
+-### IMA key import test
+-`ima_keys.sh` requires a x509 public key, by default in `/etc/keys/x509_ima.der`
+-(defined in `CONFIG_IMA_X509_PATH` kernel config option).
+-The key must be signed by the private key you generate. Follow these instructions:
+-https://manpages.ubuntu.com/manpages/disco/man1/evmctl.1.html#generate%20trusted%20keys
+-
+-The test cannot be set-up automatically because the x509 public key must be
+-built into the kernel and loaded onto a trusted keyring
+-(e.g. `.builtin_trusted_keys`, `.secondary_trusted_keyring`).
+-
+-As well as what's required for the IMA tests, the following are also required
+-in the kernel configuration:
++### IMA key test
++`ima_keys.sh` requires a readable IMA policy, as well as a loaded policy
++with `func=KEY_CHECK keyrings=...`, see example in `keycheck.policy`.
++
++Mandatory kernel configuration for IMA:
+ ```
+ CONFIG_IMA_READ_POLICY=y
+-CONFIG_IMA_X509_PATH="/etc/keys/x509_ima.der"
+-CONFIG_SYSTEM_TRUSTED_KEYRING=y
+-CONFIG_SYSTEM_TRUSTED_KEYS="/etc/keys/ima-local-ca.pem"
+ ```
+ 
+-Test also requires loaded policy with `func=KEY_CHECK`, see example in `keycheck.policy`.
+-
+ ### IMA kexec test
+ 
+ `ima_kexec.sh` requires loaded policy which contains `measure func=KEXEC_CMDLINE`,
 -- 
 2.25.1
 
