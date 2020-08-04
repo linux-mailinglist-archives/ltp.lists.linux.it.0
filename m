@@ -1,53 +1,54 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5904523CAB3
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Aug 2020 14:48:21 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id DBFDA23CAB4
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Aug 2020 14:48:32 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 093EF3C25C5
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Aug 2020 14:48:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 962DB3C3285
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Aug 2020 14:48:32 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id AE8B13C1CFB
- for <ltp@lists.linux.it>; Tue,  4 Aug 2020 16:41:02 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 071483C1CFB
+ for <ltp@lists.linux.it>; Tue,  4 Aug 2020 16:41:03 +0200 (CEST)
 Received: from EUR03-AM5-obe.outbound.protection.outlook.com
  (mail-eopbgr30133.outbound.protection.outlook.com [40.107.3.133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1CD7E60098E
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7CC88600A0D
  for <ltp@lists.linux.it>; Tue,  4 Aug 2020 16:39:34 +0200 (CEST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OggTZJlCu0EDX2djN8HQfbVt1dmg8td82Lfsl+bIf7dbvX0lvHqw9VJWamUGtivkkbY0qa5/vOBXfMKkOpEb7EiVGaH6hAguCsG4YvyytkTOGbW1wrX00Rljj+8z7u8T+CmxXglBhctclRVCNpUl63jmrwnsuPEFKxmR9eOXAorQ4FzzA0pZb/aBSuimvEsqPEqL7SxbiEmWC9xljmXl4lPTEUZJ5niuirYi+KFznGsObMkWNZ1BIIFNEMYp7DETzEsSCux8ehZYrCbNE7FhHfvPse/SXM3tmSR8N+iATGduFI9TrCTRwDycDjziLa35WnJ3HLIhMCHdXAV/pz+z5A==
+ b=bcW/r5Wb4E2pADjH6gub/ZmTCqIMU2CQ8bz/MLgjK8pWVtqGEFwyHqdVPbiA2x8iiWZo0YoKQOLNE5FUVCszML4SQGE9Okq18OdX1+KDYP7lx060HUgKnGSBVR9lxj8hlJ7Jeh6ZBB4FScyTrI8iqyuyHxhX5rWqpJQ9bFtYsYGAo9/d932I/JBv374DFtdc0vRrGWLe87QFfO1GH8zneY5VzlS2quS46PfP5gih0bPb0NoatSJ5njRASwTQ30tPtXeYfo0YJiaAnHjK5ishnoP+SFuqK05NHjugCV30wq1hjMPiWx2nwSXLH84XjatBv23ux7ZdWefXEFFuRtzWYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=32OhpJELrt1y+R5OF99TZMpLSgu8S8H8mQSz3Gm+FUM=;
- b=nuLBVCqnt59V0j11HtCSaV4jO3vQ/wfwb6hpwhcAEpCmaOEm41bN3EqC9y9JdN89MdQFTdQWvgEPHUzY274T0rfjxg5Xm87XqgGbhBvEYoaaVG3tyOzrWkkI3APLif1HktWogI12pqfV2zHy8J1RtL+jhDWaXVLMbYi45xQ7BkUdx++UWDtsJCriSvN2yVXEx3DmQ0fumBZFauyzMR/sWicokRHeLz9b25O61O2gsRpbhgNqHwsLDPEE0l6bGZI08GF+2Vd+vF6bf6ad06083opXwfQ+LZ7b8cVNVSzydpofxSZ33OYEiVcyHfs6o4WJXuA96FF1Tr5oRm2aIEiGeA==
+ bh=ogJACsui18cTzmlFm9JNpyUvVuHejW06gWVXiNIUe7E=;
+ b=hMHEVXRHo5SBqeLqLeIfz1AtAtqm/akHf4FALfgoL76wssjDJk3qOVkG7z9LEsKGRvufesf/gNl+u8z3XgiUzJ/Wgbo5y0zegGRRZksxZQ3fL+Rx9j+BT9lVZjYWPqOZY0P9Lg359p8eHq1XpgG8MQ1yinNKh2WDmS969Tpki/DjdtiYDV8tou0XGQGsoefNaw6sHrnevZSAV9AwwoO/NxIY6IQOrjJDSMxXxpfjY3cI01gRBScW+0NFVOB+tLlTFJLUvBMFFRcuFHtf0Ayk0U4OCpckw80lnaJLd9MxnPF6QAQqtkgh62VxoXpfDhZiLTUOnARVB018hYDqgBa7FA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=syrmia.com; dmarc=pass action=none header.from=syrmia.com;
  dkim=pass header.d=syrmia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=syrmia.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=32OhpJELrt1y+R5OF99TZMpLSgu8S8H8mQSz3Gm+FUM=;
- b=QOTtaiJ8dEELDx5sQrgJSMDDG5RSpM/ZWV87vPgLCb0fsIdCI2QngwTioGkLLYUKOlwttb+MdYd4yaOjBbXYHjGiXrvmRZev5JcmrQ6wkUZDVRseCFGrDCCzkF2gNb1J8KeAIhHDunvp+ogiFqOpbUOdDaiOz2KjPgFI7bXWYM8=
+ bh=ogJACsui18cTzmlFm9JNpyUvVuHejW06gWVXiNIUe7E=;
+ b=Pp13Qn2nh4OnyfwOge7wcJGkK+wkC96U2rIZWMy2tluwCKIt9nIitk7YxqVqelOd3TsPuUFTv3lwXHwgyQzCsPQPEW3Z4N0QJP9cXvQDQ1Z6EspRHsY7RnP0cGepoPcjagy88LXC+OoH46UOaoKqeFJRJzbKIG0qmmuH7zM+Fko=
 Authentication-Results: lists.linux.it; dkim=none (message not signed)
  header.d=none;lists.linux.it; dmarc=none action=none header.from=syrmia.com;
 Received: from AM6PR03MB5233.eurprd03.prod.outlook.com (2603:10a6:20b:d1::19)
  by AM7PR03MB6673.eurprd03.prod.outlook.com (2603:10a6:20b:1b9::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.16; Tue, 4 Aug
- 2020 14:41:01 +0000
+ 2020 14:41:02 +0000
 Received: from AM6PR03MB5233.eurprd03.prod.outlook.com
  ([fe80::98f0:b948:78a8:f618]) by AM6PR03MB5233.eurprd03.prod.outlook.com
  ([fe80::98f0:b948:78a8:f618%7]) with mapi id 15.20.3239.022; Tue, 4 Aug 2020
- 14:41:01 +0000
+ 14:41:02 +0000
 From: Filip Bozuta <Filip.Bozuta@syrmia.com>
 To: ltp@lists.linux.it
-Date: Tue,  4 Aug 2020 16:40:43 +0200
-Message-Id: <20200804144045.18875-2-Filip.Bozuta@syrmia.com>
+Date: Tue,  4 Aug 2020 16:40:44 +0200
+Message-Id: <20200804144045.18875-3-Filip.Bozuta@syrmia.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200804144045.18875-1-Filip.Bozuta@syrmia.com>
 References: <20200804144045.18875-1-Filip.Bozuta@syrmia.com>
@@ -59,32 +60,32 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from localhost.localdomain (147.91.217.237) by
  LO2P265CA0048.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:61::36) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3239.22 via Frontend Transport; Tue, 4 Aug 2020 14:40:59 +0000
+ 15.20.3239.22 via Frontend Transport; Tue, 4 Aug 2020 14:41:01 +0000
 X-Mailer: git-send-email 2.25.1
 X-Originating-IP: [147.91.217.237]
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4c788462-e919-42a9-20a1-08d8388467e3
+X-MS-Office365-Filtering-Correlation-Id: 9df725e8-286a-4a86-75fa-08d8388468b1
 X-MS-TrafficTypeDiagnostic: AM7PR03MB6673:
-X-Microsoft-Antispam-PRVS: <AM7PR03MB6673C2CAB52BB89C657A99E5EB4A0@AM7PR03MB6673.eurprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-Microsoft-Antispam-PRVS: <AM7PR03MB6673C320D31CCC8A8D67D73FEB4A0@AM7PR03MB6673.eurprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: O9GJtg7SFMpEDrQBUg1ZYLp8kWyM3KoKrhfPV9bmR/ksp8Db6dDC77a/pORpcmyWEVICEd8p8Lru79wMDeOXEn2ZrmWYBiORSQaHy8ieRpAOYIWuxlG8H0SWnJ5ZD9SgfWywssZj/IjAlmrYq5Z/etZD/OEaFOuApY6K9lF2d/Nxohn8EAA3H4biqfDsgDfJOzLS7gaIlc6Kb6yHsx938U2vcLMQetEDgr0xdTRFZC5h4e3x/4esa0PklN8A/4J9bXcVWz4WpHZmcEuiiE6IoTvpWSh5N1G6rPMZ2hLjxYhB2jzkXVLJsZQ3EWXMppS7vANjytT9tRMZu0L7ypjMoQCDBoLBhNGIvj18QC+Nr3QyHRsXQuo5gaGNOblP/FIh
+X-Microsoft-Antispam-Message-Info: TBHZZnH9skQZuzj9Ng7/cy5+yj7tNAPMj7dnAPKu6Yj3xjVoan/CjVHx2ZPXYG6j0BfEXxTP5K1X+NMCnJBLwVC2FZ2SXTjiEiZ5Bluc0ERbw9nKlWp6sen0VKYhCbmzOJk9YwfkGPRrTc3DeZF2KNfy3eJi92Q2SvrIFhi/s2CUS4HfIe9qfbZVu4p61Ny0tFk+1Tp5ZYjE4Zbk5wyiwDtoOa9zWdPoL8pHZk0HfcMttyKww+lGGlf8TfQyqx6l2xJp39aqZCRwlA9QjERbc1aD6a83QGjX6jRO/nfNFZHvipbHDy6cF0eggR/+Zeyk2wThWC5N5KOox4ZlP/I7XAtcNpWZHnm7JGGC5o24Gj9JQ/1/xq4FGJicJGa3ANHl
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:AM6PR03MB5233.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
  SFS:(136003)(376002)(396003)(366004)(39830400003)(346002)(508600001)(36756003)(16526019)(26005)(186003)(6512007)(316002)(52116002)(5660300002)(86362001)(6506007)(1076003)(6486002)(8936002)(66476007)(66556008)(956004)(2616005)(6666004)(83380400001)(66946007)(2906002)(6916009)(69590400007)(8676002);
  DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData: dLToal4CKQ5oogCDD8S5Wr7JZJPdrizBZlSxz82HhpCTD59UhxAxXvcNcK9tmBEoOryRQw44QyONcOtSsWq8FDEZHDpKzDA2UgBG8fTmxGQO4OHe8hqQAKSt0QpSMxl7CY3xZN2tFndTuyqZ+ZVGjUrqSbflRROw6GBAaeVuDTulz7VKda3SCKc4UKXH6yx+IGKAchl+93DBe5oTc46iURJa6BwuJHmBAT47l0jzEl8UxHTh6hE6Se8bT8k5of4F68hMaK5aNEfagSlBReJwYRujsPNbKoXOU7W7SGaKcdvotcWU2/eBMo7Egh9tlXOdtl5Oix8aJK813YMVORvrnWNmQgVYUimf/08zBKyX9R3hTeDUfHSSkrWAWmgekgaNsrrO3jrWDiJ9SHDx3XcBhyYkA4A/lyHDRtMR5qDVvAau7wTndS2hxLAkPf/0u7fSYkBMOtmdbf8ft8p44bf0EENDh2qV1sK2A43bYXBwlqOgJiKypb3mYetNFVkQHonDm/+Tbs6OGMtz2ZuSu8k3+BRzMia4KoZinIQZ6BE3aaDDm9ylElG6APDAShL2qeC7K2dBzvCoM5ap3w0ibvRUR6QbDY+7zyWHrSXJh3PcuoVlLv7c7wP6+4jlhbyLugYGK3X1DY0YRiY91u/wfi5akA==
+X-MS-Exchange-AntiSpam-MessageData: rI/meJUcGoVhIIM3I0RbM0dKguJY82jR24nypZLEy6Co57aE5YMWFuW6YNUk86hiCtzIEtPLKfbmPPLSrz5GuXkXOXTC1/S26Efbxd9ke4fEglQvnsZLs4sb8FgcLiu2U9XG2U9as4aoJ2H/zPPd+7pJHSvqty6egYDDP+ZdISMsYZ/rvlF9m3JM3kixNif6zL7PQcCIdNg0H+I7CJUipNk9E5tVDi2b0uVvNfWLcNlVDoELNd9Y1FtqKrRyj4xkkSwzJXajBM7SKi79KfF9PlTYzY2miuwIc3vb+kMENKw/Qpg9FCl0yspe2xJHWPM9jYl8PTVdBKOnj0BV2Tu+xtW/nnJanLabumOBGFs3z0CzRtF+5unSldpjuPRqAAucGcj9gtJ3ImLe2KQzHZG+Ov4xdz+zByDooozP0mIvFMuR3aiXtiJJtQIkMrR8AnOnRN6MalkxMhMwZ5YzgxhxC+Dr4M8LM1kRnU6QHiVbLDu8ETXo2Sk1fqzJPvAS41Wld//UbE/ZznkgSZXHviwY7NMTSCpToirvIq1ejfDKPnj6K8ejUJGE2uPgop7IibYUpbNT0LyqujBpmRRyhPKMJGP+l8wEvw07WWHgjdb+2K1Btc4o24op6+AcKIBQ3L5uRgRRW66wbtZw736T5RX+tA==
 X-OriginatorOrg: syrmia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c788462-e919-42a9-20a1-08d8388467e3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9df725e8-286a-4a86-75fa-08d8388468b1
 X-MS-Exchange-CrossTenant-AuthSource: AM6PR03MB5233.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2020 14:41:00.9158 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2020 14:41:01.9072 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 19214a73-c1ab-4e19-8f59-14bdcb09a66e
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: r7KEmzRymUxckK5sy2n8WZoQe5nNXHZYiH8fyKrkz8KOHjIOIL7dfv5XR8R197rklw6O8HbvhPlT7QOs4DziiA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1GYxk+/sJZ2eWeB2lS6p4Xn/B1CV27lLc737Z7/XhHt+Y9RwAkgaXWBAQP8EpFKD2AHcUWiqSPsa04jW+0trMQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR03MB6673
 X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
@@ -93,8 +94,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
 X-Mailman-Approved-At: Wed, 05 Aug 2020 14:47:31 +0200
-Subject: [LTP] [PATCH 1/3] syscalls/mq_timed{send|receive}: Add test cases
- for bad address
+Subject: [LTP] [PATCH 2/3] syscalls/clock_nanosleep: add a test case for bad
+ timespec address
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,124 +112,85 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This patch introduces test cases for already existing
-tests for syscalls 'mq_timedsend()' and 'mq_timedreceive()'
-(mq_timedsend01, mq_timedreceive01). These test cases are for
-situations when bad addresses are passed for arguments 'msg_ptr'
-and 'abs_timeout' in which case errno 'EFAULT' is expected to be set.
-Value '(void *)1' is used as a bad address for these arguments.
+This patch introduces test cases for already existing test
+for syscall 'clock_nanosleep()' (clock_nanosleep01). These test
+cases are for situations when bad timespec addresses are passed
+for arguments 'request' and 'remain' in which case errno
+EFAULT ('Bad address') is expected to be set. Value '(void *)1'
+is used as a bad address for these arguments.
 
 Implementation notes:
 
-   Structure 'struct test_case' from file 'mq_timed.h' was modified
-   with addition of two fields (bad_msg_addr and bad_ts_addr) which
-   represent indicators for the implemented testcases. They are set
-   to 1 for the new added test cases. These fileds are checked before
-   running the test to see if bad address value '(void *)1' should be
-   passed for the above mentioned arguments.
-
-   For 'mq_timedreceive()' only the test case for bad 'abs_timeout'
-   was included because the syscall blocks when a bad address for
-   'msg_ptr' is passed.
+   New test types are added in 'enum test_type': BAD_TS_REQ,
+   BAD_TS_REM, for cases when bad timespec addresses are
+   passed for the 'request' and 'remain' argument respectively.
+   Appropriate test cases are added for these types where the
+   'exp_err' is EFAULT. The test checks whether the test case type
+   are one of the newly added types and passes the value '(void *)1'
+   for the above mentioned arguments accordingly.
 
 Signed-off-by: Filip Bozuta <Filip.Bozuta@syrmia.com>
 ---
- .../mq_timedreceive/mq_timedreceive01.c       | 12 +++++++++-
- .../syscalls/mq_timedsend/mq_timedsend01.c    | 23 +++++++++++++++++--
- testcases/kernel/syscalls/utils/mq_timed.h    |  2 ++
- 3 files changed, 34 insertions(+), 3 deletions(-)
+ .../clock_nanosleep/clock_nanosleep01.c       | 27 +++++++++++++++++--
+ 1 file changed, 25 insertions(+), 2 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/mq_timedreceive/mq_timedreceive01.c b/testcases/kernel/syscalls/mq_timedreceive/mq_timedreceive01.c
-index 8e24651c9..01973c76b 100644
---- a/testcases/kernel/syscalls/mq_timedreceive/mq_timedreceive01.c
-+++ b/testcases/kernel/syscalls/mq_timedreceive/mq_timedreceive01.c
-@@ -123,6 +123,13 @@ static struct test_case tcase[] = {
- 		.ret = -1,
- 		.err = EINTR,
- 	},
-+	{
-+		.fd = &fd,
-+		.len = 16,
-+		.bad_ts_addr = 1,
-+		.ret = -1,
-+		.err = EFAULT,
-+	}
+diff --git a/testcases/kernel/syscalls/clock_nanosleep/clock_nanosleep01.c b/testcases/kernel/syscalls/clock_nanosleep/clock_nanosleep01.c
+index 4542995f2..a9cafe1b5 100644
+--- a/testcases/kernel/syscalls/clock_nanosleep/clock_nanosleep01.c
++++ b/testcases/kernel/syscalls/clock_nanosleep/clock_nanosleep01.c
+@@ -20,6 +20,8 @@ static void sighandler(int sig LTP_ATTRIBUTE_UNUSED)
+ enum test_type {
+ 	NORMAL,
+ 	SEND_SIGINT,
++	BAD_TS_ADDR_REQ,
++	BAD_TS_ADDR_REM,
  };
  
- static void setup(void)
-@@ -164,7 +171,10 @@ static void do_test(unsigned int i)
- 	if (tc->invalid_msg)
- 		len -= 1;
- 
--	TEST(tv->receive(*tc->fd, rmsg, len, &prio, tst_ts_get(tc->rq)));
-+	if (tc->bad_ts_addr)
-+		TEST(tv->receive(*tc->fd, rmsg, len, &prio, (void *)1));
-+	else
-+		TEST(tv->receive(*tc->fd, rmsg, len, &prio, tst_ts_get(tc->rq)));
- 
- 	if (pid > 0)
- 		kill_pid(pid);
-diff --git a/testcases/kernel/syscalls/mq_timedsend/mq_timedsend01.c b/testcases/kernel/syscalls/mq_timedsend/mq_timedsend01.c
-index f7fc2c533..dbef665dc 100644
---- a/testcases/kernel/syscalls/mq_timedsend/mq_timedsend01.c
-+++ b/testcases/kernel/syscalls/mq_timedsend/mq_timedsend01.c
-@@ -129,6 +129,20 @@ static struct test_case tcase[] = {
- 		.ret = -1,
- 		.err = EINTR,
+ #define TYPE_NAME(x) .ttype = x, .desc = #x
+@@ -78,6 +80,22 @@ static struct test_case tcase[] = {
+ 		.exp_ret = -1,
+ 		.exp_err = EINTR,
  	},
 +	{
-+		.fd = &fd,
-+		.len = 16,
-+		.bad_msg_addr = 1,
-+		.ret = -1,
-+		.err = EFAULT,
++		TYPE_NAME(BAD_TS_ADDR_REQ),
++		.clk_id = CLOCK_REALTIME,
++		.flags = 0,
++		.exp_ret = -1,
++		.exp_err = EFAULT,
 +	},
 +	{
-+		.fd = &fd,
-+		.len = 16,
-+		.bad_ts_addr = 1,
-+		.ret = -1,
-+		.err = EFAULT,
-+	}
++		TYPE_NAME(BAD_TS_ADDR_REM),
++		.clk_id = CLOCK_REALTIME,
++		.flags = 0,
++		.tv_sec = 10,
++		.tv_nsec = 0,
++		.exp_ret = -1,
++		.exp_err = EFAULT,
++	},
  };
  
- static void setup(void)
-@@ -168,7 +182,12 @@ static void do_test(unsigned int i)
- 			}
- 	}
+ static struct tst_ts *rq;
+@@ -117,13 +135,18 @@ static void do_test(unsigned int i)
  
--	TEST(tv->send(*tc->fd, smsg, tc->len, tc->prio, tst_ts_get(tc->rq)));
-+	if (tc->bad_msg_addr)
-+		TEST(tv->send(*tc->fd, (void *)1, tc->len, tc->prio, tst_ts_get(tc->rq)));
-+	else if (tc->bad_ts_addr)
-+		TEST(tv->send(*tc->fd, smsg, tc->len, tc->prio, (void *)1));
+ 	tst_res(TINFO, "case %s", tc->desc);
+ 
+-	if (tc->ttype == SEND_SIGINT)
++	if (tc->ttype == SEND_SIGINT || tc->ttype == BAD_TS_ADDR_REM)
+ 		pid = create_sig_proc(SIGINT, 40, 500000);
+ 
+ 	tst_ts_set_sec(rq, tc->tv_sec);
+ 	tst_ts_set_nsec(rq, tc->tv_nsec);
+ 
+-	TEST(tv->func(tc->clk_id, tc->flags, tst_ts_get(rq), tst_ts_get(rm)));
++	if (tc->ttype == BAD_TS_ADDR_REQ)
++		TEST(tv->func(tc->clk_id, tc->flags, (void *) 1, NULL));
++	else if (tc->ttype == BAD_TS_ADDR_REM)
++		TEST(tv->func(tc->clk_id, tc->flags, tst_ts_get(rq), (void *)1));
 +	else
-+		TEST(tv->send(*tc->fd, smsg, tc->len, tc->prio, tst_ts_get(tc->rq)));
++		TEST(tv->func(tc->clk_id, tc->flags, tst_ts_get(rq), tst_ts_get(rm)));
  
- 	if (pid > 0)
- 		kill_pid(pid);
-@@ -179,7 +198,7 @@ static void do_test(unsigned int i)
- 				"mq_timedsend() failed unexpectedly, expected %s",
- 				tst_strerrno(tc->err));
- 		else
--			tst_res(TPASS | TTERRNO, "mq_timedreceive() failed expectedly");
-+			tst_res(TPASS | TTERRNO, "mq_timedsend() failed expectedly");
- 
- 		if (*tc->fd == fd)
- 			cleanup_queue(fd);
-diff --git a/testcases/kernel/syscalls/utils/mq_timed.h b/testcases/kernel/syscalls/utils/mq_timed.h
-index 3a99d9eef..a217e864e 100644
---- a/testcases/kernel/syscalls/utils/mq_timed.h
-+++ b/testcases/kernel/syscalls/utils/mq_timed.h
-@@ -41,6 +41,8 @@ struct test_case {
- 	int send;
- 	int signal;
- 	int timeout;
-+	int bad_msg_addr;
-+	int bad_ts_addr;
- 	int ret;
- 	int err;
- };
+ 	if (tv->func == libc_clock_nanosleep) {
+ 		/*
 -- 
 2.25.1
 
