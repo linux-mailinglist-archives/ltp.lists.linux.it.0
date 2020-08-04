@@ -1,39 +1,38 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFE9923BAF8
-	for <lists+linux-ltp@lfdr.de>; Tue,  4 Aug 2020 15:18:14 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AE4D23BC12
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 Aug 2020 16:27:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B06FE3C32CC
-	for <lists+linux-ltp@lfdr.de>; Tue,  4 Aug 2020 15:18:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 50F683C32CE
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 Aug 2020 16:27:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id E867E3C13D9
- for <ltp@lists.linux.it>; Tue,  4 Aug 2020 15:18:12 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id A56EF3C254F
+ for <ltp@lists.linux.it>; Tue,  4 Aug 2020 16:27:13 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 55265601563
- for <ltp@lists.linux.it>; Tue,  4 Aug 2020 15:16:44 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 99D0F2011BA
+ for <ltp@lists.linux.it>; Tue,  4 Aug 2020 16:27:12 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9BEA8AEFB
- for <ltp@lists.linux.it>; Tue,  4 Aug 2020 13:18:27 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id CF717B184
+ for <ltp@lists.linux.it>; Tue,  4 Aug 2020 14:27:27 +0000 (UTC)
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue,  4 Aug 2020 15:18:11 +0200
-Message-Id: <20200804131811.26515-2-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200804131811.26515-1-mdoucha@suse.cz>
-References: <20200804131811.26515-1-mdoucha@suse.cz>
+Date: Tue,  4 Aug 2020 16:27:05 +0200
+Message-Id: <20200804142705.12377-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/2] Add test for CVE 2017-2636
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/1] make: Drop 3.80 support
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,187 +49,287 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Fixes #498
+make 3.81 was released 14 years ago, we can safely require it now.
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+Removed also make check as not necessary any more because the latest LTP
+release does not compile on systems with make 3.81 due old libc and
+kernel headers.
+
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
+Hi,
 
-Changes since v2:
-- LAPI changes split off to separate patch
-- added forgotten .gitignore entry
+I need to adjust some rule for other WIP patchset, thus decided to do
+cleanup first.
 
-Sorry about resubmitting so quickly.
+NOTE: I guess Cyril should first merge his "Build system fixes" patchset
+[1] and I'll rebase.
 
- runtest/cve                     |   1 +
- runtest/pty                     |   1 +
- testcases/kernel/pty/.gitignore |   1 +
- testcases/kernel/pty/Makefile   |   4 +-
- testcases/kernel/pty/pty05.c    | 107 ++++++++++++++++++++++++++++++++
- 5 files changed, 112 insertions(+), 2 deletions(-)
- create mode 100644 testcases/kernel/pty/pty05.c
+Kind regards,
+Petr
 
-diff --git a/runtest/cve b/runtest/cve
-index fdb455af1..fa37ed38e 100644
---- a/runtest/cve
-+++ b/runtest/cve
-@@ -17,6 +17,7 @@ cve-2016-9604 keyctl08
- cve-2016-9793 setsockopt04
- cve-2016-10044 cve-2016-10044
- cve-2017-2618 cve-2017-2618
-+cve-2017-2636 pty05
- cve-2017-2671 cve-2017-2671
- cve-2017-6951 request_key05
- cve-2017-7308 setsockopt02
-diff --git a/runtest/pty b/runtest/pty
-index 5587312d3..a43b18f2d 100644
---- a/runtest/pty
-+++ b/runtest/pty
-@@ -3,6 +3,7 @@ pty01 pty01
- pty02 pty02
- pty03 pty03
- pty04 pty04
-+pty05 pty05
- ptem01 ptem01
- hangup01 hangup01
+[1] https://patchwork.ozlabs.org/project/ltp/list/?series=193503&state=*
+
+ Makefile                |  8 ++------
+ include/mk/env_post.mk  | 21 ++-------------------
+ include/mk/env_pre.mk   | 36 ++++--------------------------------
+ include/mk/functions.mk | 33 ++-------------------------------
+ include/mk/lib.mk       | 10 ++--------
+ 5 files changed, 12 insertions(+), 96 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 768ca4606..bf5077231 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,8 +1,8 @@
+ #
+ #    Top-level Makefile for LTP. See INSTALL for more info.
+ #
+-#    Copyright (C) 2009-2010, Cisco Systems Inc.
+-#    Copyright (C) 2010-2011, Linux Test Project.
++#    Copyright (c) Linux Test Project, 2009-2020
++#    Copyright (c) Cisco Systems Inc., 2009-2010
+ #
+ #    This program is free software; you can redistribute it and/or modify
+ #    it under the terms of the GNU General Public License as published by
+@@ -89,11 +89,7 @@ include-install: $(top_builddir)/include/config.h include/mk/config.mk include-a
+ INSTALL_DIR		:= $(DESTDIR)/$(prefix)
  
-diff --git a/testcases/kernel/pty/.gitignore b/testcases/kernel/pty/.gitignore
-index c67d723d2..7f1048483 100644
---- a/testcases/kernel/pty/.gitignore
-+++ b/testcases/kernel/pty/.gitignore
-@@ -4,3 +4,4 @@
- /pty02
- /pty03
- /pty04
-+/pty05
-diff --git a/testcases/kernel/pty/Makefile b/testcases/kernel/pty/Makefile
-index 4469775aa..87d70ac1d 100644
---- a/testcases/kernel/pty/Makefile
-+++ b/testcases/kernel/pty/Makefile
-@@ -24,7 +24,7 @@ top_srcdir		?= ../../..
+ # DO NOT REMOVE THIS CALL (see clean_install_dir call below...)!!!!
+-ifdef MAKE_3_80_COMPAT
+-INSTALL_DIR		:= $(call MAKE_3_80_abspath,$(INSTALL_DIR))
+-else
+ INSTALL_DIR		:= $(abspath $(INSTALL_DIR))
+-endif
  
- include $(top_srcdir)/include/mk/testcases.mk
+ # build tree bootstrap targets and $(INSTALL_DIR) target.
+ $(sort $(addprefix $(abs_top_builddir)/,$(BOOTSTRAP_TARGETS)) $(INSTALL_DIR) $(DESTDIR)/$(bindir)):
+diff --git a/include/mk/env_post.mk b/include/mk/env_post.mk
+index f4169ad66..56bc7d454 100644
+--- a/include/mk/env_post.mk
++++ b/include/mk/env_post.mk
+@@ -1,7 +1,8 @@
+ #
+ #    Environment post-setup Makefile.
+ #
+-#    Copyright (C) 2009, Cisco Systems Inc.
++#    Copyright (c) Linux Test Project, 2009-2020
++#    Copyright (c) Cisco Systems Inc., 2009
+ #
+ #    This program is free software; you can redistribute it and/or modify
+ #    it under the terms of the GNU General Public License as published by
+@@ -79,28 +80,10 @@ INSTALL_TARGETS			:= $(patsubst $(abs_srcdir)/%,%,$(INSTALL_TARGETS))
+ # scripts, so let's chmod them like that.
+ INSTALL_MODE			?= 00775
  
--pty03: CFLAGS += -pthread
--pty03: LDLIBS += -lrt
-+pty03 pty05: CFLAGS += -pthread
-+pty03 pty05: LDLIBS += -lrt
+-ifdef MAKE_3_80_COMPAT
+-
+-INSTALL_PATH			:= $(call MAKE_3_80_abspath,$(DESTDIR)/$(INSTALL_DIR))
+-
+-INSTALL_TARGETS_ABS		:= $(call MAKE_3_80_abspath,$(addprefix $(INSTALL_PATH)/,$(INSTALL_TARGETS)))
+-MAKE_TARGETS_ABS		:= $(call MAKE_3_80_abspath,$(addprefix $(INSTALL_PATH)/,$(MAKE_TARGETS)))
+-
+-INSTALL_FILES			:= $(INSTALL_TARGETS_ABS) $(MAKE_TARGETS_ABS)
+-
+-$(INSTALL_TARGETS_ABS):
+-	test -d "$(@D)" || mkdir -p "$(@D)"
+-	install -m $(INSTALL_MODE) "$(abs_srcdir)/$(subst $(INSTALL_PATH)/,,$@)" "$@"
+-
+-$(MAKE_TARGETS_ABS):
+-	test -d "$(@D)" || mkdir -p "$(@D)"
+-	install -m $(INSTALL_MODE) "$(abs_builddir)/$(subst $(INSTALL_PATH)/,,$@)" "$@"
+-else
+ $(abspath $(addprefix $(DESTDIR)/$(INSTALL_DIR)/,$(sort $(dir $(INSTALL_TARGETS) $(MAKE_TARGETS))))):
+ 	mkdir -p "$@"
+ $(foreach install_target,$(INSTALL_TARGETS),$(eval $(call generate_install_rule,$(install_target),$(abs_srcdir),$(INSTALL_DIR))))
+ $(foreach make_target,$(MAKE_TARGETS),$(eval $(call generate_install_rule,$(make_target),$(abs_builddir),$(INSTALL_DIR))))
+-endif
  
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/pty/pty05.c b/testcases/kernel/pty/pty05.c
-new file mode 100644
-index 000000000..6e1d7972a
---- /dev/null
-+++ b/testcases/kernel/pty/pty05.c
-@@ -0,0 +1,107 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2020 SUSE LLC <mdoucha@suse.cz>
-+ */
-+
-+/*
-+ * CVE-2017-2636
-+ *
-+ * Check for race between flush_tx_queue() and n_hdlc_send_frames(). Kernel
-+ * crash fixed in:
-+ *
-+ *  commit 82f2341c94d270421f383641b7cd670e474db56b
-+ *  Author: Alexander Popov <alex.popov@linux.com>
-+ *  Date:   Tue Feb 28 19:54:40 2017 +0300
-+ *
-+ *  tty: n_hdlc: get rid of racy n_hdlc.tbuf
-+ */
-+
-+#define _GNU_SOURCE
-+#include <termios.h>
-+#include "lapi/ioctl.h"
-+#include "lapi/tty.h"
-+
-+#include "tst_test.h"
-+#include "tst_taint.h"
-+#include "tst_fuzzy_sync.h"
-+
-+#define BUF_SIZE 1
-+
-+static struct tst_fzsync_pair fzsync_pair;
-+static volatile int ptmx = -1;
-+static char buf[BUF_SIZE];
-+
-+static void setup(void)
-+{
-+	tst_taint_init(TST_TAINT_W | TST_TAINT_D);
-+
-+	fzsync_pair.exec_loops = 100000;
-+	tst_fzsync_pair_init(&fzsync_pair);
-+}
-+
-+static void *thread_run(void *arg)
-+{
-+	while (tst_fzsync_run_b(&fzsync_pair)) {
-+		tst_fzsync_start_race_b(&fzsync_pair);
-+		ioctl(ptmx, TCFLSH, TCIOFLUSH);
-+		tst_fzsync_end_race_b(&fzsync_pair);
-+	}
-+
-+	return arg;
-+}
-+
-+static void run(void)
-+{
-+	int ldisc = N_HDLC;
-+
-+	tst_fzsync_pair_reset(&fzsync_pair, thread_run);
-+
-+	while (tst_fzsync_run_a(&fzsync_pair)) {
-+		ptmx = SAFE_OPEN("/dev/ptmx", O_RDWR);
-+		TEST(ioctl(ptmx, TIOCSETD, &ldisc));
-+
-+		if (TST_RET == -1 && TST_ERR == EINVAL) {
-+			tst_brk(TCONF, "HDLC line discipline not available");
-+		} else if (TST_RET == -1) {
-+			tst_brk(TBROK | TTERRNO, "Cannot set line discipline");
-+		} else if (TST_RET != 0) {
-+			tst_brk(TBROK | TTERRNO,
-+				"Invalid ioctl() return value %ld", TST_RET);
-+		}
-+
-+		SAFE_IOCTL(ptmx, TCXONC, TCOOFF);
-+		SAFE_WRITE(1, ptmx, buf, BUF_SIZE);
-+
-+		tst_fzsync_start_race_a(&fzsync_pair);
-+		ioctl(ptmx, TCXONC, TCOON);
-+		tst_fzsync_end_race_a(&fzsync_pair);
-+
-+		SAFE_CLOSE(ptmx);
-+
-+		if (tst_taint_check()) {
-+			tst_res(TFAIL, "Kernel is vulnerable");
-+			return;
-+		}
-+	}
-+
-+	tst_res(TPASS, "Nothing bad happened, probably");
-+}
-+
-+static void cleanup(void)
-+{
-+	tst_fzsync_pair_cleanup(&fzsync_pair);
-+
-+	if (ptmx >= 0)
-+		SAFE_CLOSE(ptmx);
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.tags = (const struct tst_tag[]) {
-+		{"linux-git", "82f2341c94d27"},
-+		{"CVE", "2017-2636"},
-+		{}
-+	}
-+};
+ else  # else ! $(filter-out install,$(MAKECMDGOALS)),$(MAKECMDGOALS)
+ $(error You must define $$(prefix) before executing install)
+diff --git a/include/mk/env_pre.mk b/include/mk/env_pre.mk
+index c4a1f4708..f87c15c37 100644
+--- a/include/mk/env_pre.mk
++++ b/include/mk/env_pre.mk
+@@ -1,7 +1,8 @@
+ #
+ #    Make pre-include environment Makefile.
+ #
+-#    Copyright (C) 2009, Cisco Systems Inc.
++#    Copyright (c) Linux Test Project, 2009-2020
++#    Copyright (c) Cisco Systems Inc., 2009
+ #
+ #    This program is free software; you can redistribute it and/or modify
+ #    it under the terms of the GNU General Public License as published by
+@@ -36,28 +37,13 @@ BUILD_TREE_NONSRCDIR_INSTALL	:= 3
+ # configure not run.
+ BUILD_TREE_UNCONFIGURED		:= 4
+ 
+-ifndef MAKE_VERSION_CHECK
+-export MAKE_VERSION_CHECK = 1
+-ifneq ($(firstword $(sort 3.80 $(MAKE_VERSION))),3.80)
+-$(error Your version of make $(MAKE_VERSION) is too old. Upgrade to at least 3.80; 3.81+ is preferred)
+-else
+-ifneq ($(filter 3.80%,$(MAKE_VERSION)),)
+-export MAKE_3_80_COMPAT	:= 1
+-endif # make 3.80?
+-endif # At least make 3.80?
+-endif # MAKE_VERSION_CHECK
+-
+ # Get the absolute path for the source directory.
+ top_srcdir			?= $(error You must define top_srcdir before including this file)
+ 
+ include $(top_srcdir)/include/mk/functions.mk
+ 
+ # Where's the root source directory?
+-ifdef MAKE_3_80_COMPAT
+-abs_top_srcdir			:= $(call MAKE_3_80_abspath,$(top_srcdir))
+-else
+ abs_top_srcdir			:= $(abspath $(top_srcdir))
+-endif
+ 
+ #
+ # Where's the root object directory?
+@@ -67,12 +53,8 @@ endif
+ #
+ top_builddir			?= $(top_srcdir)
+ 
+-# We need the absolute path...
+-ifdef MAKE_3_80_COMPAT
+-abs_top_builddir		:= $(call MAKE_3_80_abspath,$(top_builddir))
+-else
++# We need the absolute path
+ abs_top_builddir		:= $(abspath $(top_builddir))
+-endif
+ 
+ # Where's the root object directory?
+ builddir			:= .
+@@ -81,12 +63,8 @@ abs_builddir			:= $(CURDIR)
+ 
+ cwd_rel_from_top		:= $(subst $(abs_top_builddir),,$(abs_builddir))
+ 
+-# Where's the source located at? Squish all of the / away by using abspath...
+-ifdef MAKE_3_80_COMPAT
+-abs_srcdir			:= $(call MAKE_3_80_abspath,$(abs_top_srcdir)/$(cwd_rel_from_top))
+-else
++# Where's the source located at? Squish all of the / away by using abspath
+ abs_srcdir			:= $(abspath $(abs_top_srcdir)/$(cwd_rel_from_top))
+-endif
+ 
+ srcdir				:= $(strip $(subst $(abs_top_srcdir)/,,$(abs_srcdir)))
+ 
+@@ -136,13 +114,7 @@ BUILD_TREE_STATE		:= $(BUILD_TREE_NONSRCDIR_INSTALL)
+ endif
+ endif
+ 
+-ifeq ($(MAKE_3_80_COMPAT),1)
+-# Trick make 3.80 into thinking that the default goal is all.
+-.PHONY: default
+-default: all
+-else
+ .DEFAULT_GOAL			:= all
+-endif
+ 
+ endif	# END autotools, *clean...
+ 
+diff --git a/include/mk/functions.mk b/include/mk/functions.mk
+index 6f67b5af8..79c6193ca 100644
+--- a/include/mk/functions.mk
++++ b/include/mk/functions.mk
+@@ -1,7 +1,8 @@
+ #
+ #  A Makefile with a collection of reusable functions.
+ #
+-#    Copyright (C) 2009, Cisco Systems Inc.
++#    Copyright (c) Linux Test Project, 2009-2020
++#    Copyright (c) Cisco Systems Inc., 2009
+ #
+ #    This program is free software; you can redistribute it and/or modify
+ #    it under the terms of the GNU General Public License as published by
+@@ -20,25 +21,6 @@
+ # Ngie Cooper, July 2009
+ #
+ 
+-SQUOTE			:= '
+-
+-# ' # to keep colorized editors from going nuts
+-
+-MAKE_3_80_realpath	= $(shell $(top_srcdir)/scripts/realpath.sh '$(subst $(SQUOTE),\\$(SQUOTE),$(1))')
+-
+-MAKE_3_80_abspath	= $(shell $(top_srcdir)/scripts/abspath.sh '$(subst $(SQUOTE),\\$(SQUOTE),$(1))')
+-
+-#
+-# NOTE (garrcoop):
+-#
+-# The following functions are (sometimes) split into 3.80 and 3.81+
+-# counterparts, and not conditionalized inside of the define(s) to work around
+-# an issue with how make 3.80 evaluates defines.
+-#
+-# SO DO NOT INTERNALIZE CONDITIONALS IN DEFINES OR YOU WILL BREAK MAKE 3.80!
+-#
+-
+-#
+ # Generate an install rule which also creates the install directory if needed
+ # to avoid unnecessary bourne shell based for-loops and install errors, as well
+ # as adhoc install rules.
+@@ -46,17 +28,7 @@ MAKE_3_80_abspath	= $(shell $(top_srcdir)/scripts/abspath.sh '$(subst $(SQUOTE),
+ # 1 -> Target basename.
+ # 2 -> Source directory.
+ # 3 -> Destination directory.
+-#
+-ifdef MAKE_3_80_COMPAT
+-define generate_install_rule
+ 
+-INSTALL_FILES		+= $$(call MAKE_3_80_abspath,$$(DESTDIR)/$(3)/$(1))
+-
+-$$(call MAKE_3_80_abspath,$$(DESTDIR)/$(3)/$(1)): \
+-    $$(call MAKE_3_80_abspath,$$(dir $$(DESTDIR)/$(3)/$(1)))
+-	install -m $$(INSTALL_MODE) "$(2)/$(1)" "$$@"
+-endef
+-else # not MAKE_3_80_COMPAT
+ define generate_install_rule
+ 
+ INSTALL_FILES		+= $$(abspath $$(DESTDIR)/$(3)/$(1))
+@@ -65,7 +37,6 @@ $$(abspath $$(DESTDIR)/$(3)/$(1)): \
+     $$(abspath $$(dir $$(DESTDIR)/$(3)/$(1)))
+ 	install -m $$(INSTALL_MODE) "$(2)/$(1)" "$$@"
+ endef
+-endif # END MAKE_3_80_COMPAT
+ 
+ #
+ # Set SUBDIRS to the subdirectories where Makefiles were found.
+diff --git a/include/mk/lib.mk b/include/mk/lib.mk
+index 36e1ba17b..f0e56cb00 100644
+--- a/include/mk/lib.mk
++++ b/include/mk/lib.mk
+@@ -1,7 +1,8 @@
+ #
+ #    library include Makefile.
+ #
+-#    Copyright (C) 2009, Cisco Systems Inc.
++#    Copyright (c) Linux Test Project, 2009-2020
++#    Copyright (c) Cisco Systems Inc., 2009
+ #
+ #    This program is free software; you can redistribute it and/or modify
+ #    it under the terms of the GNU General Public License as published by
+@@ -49,15 +50,8 @@ endif
+ MAKE_TARGETS	+= $(LIB)
+ 
+ LIBSRCS		?= $(wildcard $(abs_srcdir)/*.c)
+-
+-ifdef MAKE_3_80_COMPAT
+-LIBSRCS		:= $(call MAKE_3_80_abspath,$(LIBSRCS))
+-else
+ LIBSRCS		:= $(abspath $(LIBSRCS))
+-endif
+-
+ LIBSRCS		:= $(subst $(abs_srcdir)/,,$(wildcard $(LIBSRCS)))
+-
+ LIBSRCS		:= $(filter-out $(FILTER_OUT_LIBSRCS),$(LIBSRCS))
+ 
+ LIBOBJS		:= $(LIBSRCS:.c=.o)
 -- 
-2.27.0
+2.28.0
 
 
 -- 
