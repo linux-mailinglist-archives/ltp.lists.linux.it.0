@@ -1,72 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4227723CB82
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Aug 2020 16:32:29 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id ED75223CBA5
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Aug 2020 17:11:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DAD813C3284
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Aug 2020 16:32:28 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A5F0C3C325C
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Aug 2020 17:11:28 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id B69E13C25C5
- for <ltp@lists.linux.it>; Wed,  5 Aug 2020 16:32:27 +0200 (CEST)
-Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
- [IPv6:2607:f8b0:4864:20::642])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id B194E3C2244
+ for <ltp@lists.linux.it>; Wed,  5 Aug 2020 17:11:27 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 57D4560195D
- for <ltp@lists.linux.it>; Wed,  5 Aug 2020 16:32:26 +0200 (CEST)
-Received: by mail-pl1-x642.google.com with SMTP id t10so20016415plz.10
- for <ltp@lists.linux.it>; Wed, 05 Aug 2020 07:32:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :in-reply-to:references;
- bh=vrhiy6NmvpECS4kpliPEzMzOd34df3jNv0N51+kZm/8=;
- b=CbRxcsc9BKG5QRCNFihQL2Nc1bYXtdobGmI+vS1NZmwNl2uynDMN2EWGjrddvMXJgH
- in2eMTBHstVx+B2NO0YNIVjTB1cWBAIXB4qIp7aAR9fRnQdE2z4LfiwWU09+2c0H6SJu
- tz5vSaEpDZ22nRHwwAtmDt7Pc8mCQKYg2XyQuenp5/+VA8Pxzzk3ssYCpqH09BTmOybj
- y1xsjdyfDDb6u6h2QVNKGP857qQ8aXRYNzLEbjqPuTQrc6PKISLlSLKZnBarfa69xf3W
- 0sIbEzgCw2XK17XIOitOd7J4ud1RJnFZNfAZ0SwjBOchFEeM8boGNTpgCdGhEeCmbUc1
- ODDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:in-reply-to:references;
- bh=vrhiy6NmvpECS4kpliPEzMzOd34df3jNv0N51+kZm/8=;
- b=XS/ldNzz4Gj5ZiA1OmSpmKC/LuPzTRCfqrv9NjrkzFVkUyBQeuHTJd5d4DSQMpYR5b
- LiRocnOPALBJ41qXvkBiypX/vkuamZd4U3nE+5OVX26GpyDJ43JaDStfiQk+GqU1ERZU
- IgoKIY1s2S3fkuTpNhIGpp17589zG1S36nLA6bQaZTMcV3S+7+oEQrJ98Of2Hp6GoZhK
- lZCd36xtcKS92n7L4puY6HXHmHYvhe3K4pwcsJyUVAOxFIIxTjpvF8L5HJpPsvUOjZqX
- iFpucPwik7DL9Vdq1UVezQqIpeuChvJZskg/iCfvPORtQ5p8Mbr5iVgxUNoJGvmi1fe6
- pk4A==
-X-Gm-Message-State: AOAM533HVO5gBhuOEOoAZ9NceCFjmDhmnoB8uiXVlHBgoHKvFiB4JbmH
- PKT/mpqqSpPYGKjE5eGxhD+0hOcoqgg=
-X-Google-Smtp-Source: ABdhPJyx9tjHEB/XECtKFusfpycCai5H3Qp5bH2HYfxrF6jl2jiBY1tCcMkkm0+rMuBy8kfzZSTD0g==
-X-Received: by 2002:a17:90a:f481:: with SMTP id
- bx1mr3593976pjb.172.1596637929530; 
- Wed, 05 Aug 2020 07:32:09 -0700 (PDT)
-Received: from localhost ([223.190.59.99])
- by smtp.gmail.com with ESMTPSA id s2sm3458760pjb.33.2020.08.05.07.32.08
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 05 Aug 2020 07:32:08 -0700 (PDT)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: ltp@lists.linux.it
-Date: Wed,  5 Aug 2020 20:01:53 +0530
-Message-Id: <eed1e927d5502e99cb702f66e63649decfbad903.1596637728.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.14.1
-In-Reply-To: <ebc888947b095fd6a359ad749e50217d0b38954e.1596637728.git.viresh.kumar@linaro.org>
-References: <ebc888947b095fd6a359ad749e50217d0b38954e.1596637728.git.viresh.kumar@linaro.org>
-In-Reply-To: <ebc888947b095fd6a359ad749e50217d0b38954e.1596637728.git.viresh.kumar@linaro.org>
-References: <ebc888947b095fd6a359ad749e50217d0b38954e.1596637728.git.viresh.kumar@linaro.org>
-X-Virus-Scanned: clamav-milter 0.99.2 at in-2.smtp.seeweb.it
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D12CD1A017DC
+ for <ltp@lists.linux.it>; Wed,  5 Aug 2020 17:11:26 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id AA2A8AF99;
+ Wed,  5 Aug 2020 15:11:42 +0000 (UTC)
+Date: Wed, 5 Aug 2020 17:11:45 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Message-ID: <20200805151145.GA631@yuki.lan>
+References: <96ce72a605e365a040b258db9323d3962ab80e29.1596545279.git.viresh.kumar@linaro.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <96ce72a605e365a040b258db9323d3962ab80e29.1596545279.git.viresh.kumar@linaro.org>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH V8 2/2] syscalls/utimensat: Add support for time64
- tests
+X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V8] syscalls: clock_settime: Add test around y2038
+ vulnerability
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,151 +46,140 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
- Vincent Guittot <vincent.guittot@linaro.org>
-MIME-Version: 1.0
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This adds support for time64 tests to the existing utimensat() syscall
-tests.
+Hi!
+> This adds a test around the y2038 vulnerability, it sets the system time
+> to just before y2038 time (i.e. max value that can be stored in s32),
+> and adds a timer to expire just after crossing it.
+> 
+> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+> ---
+> V8:
+> - Check compatibility issues for TST_KERN_OLD_TIMESPEC and not the new
+>   timespec.
+> - s/TFAIL/TCONF/ in setup()
+> - Use kernel_timer_t
+> - rearrange code and don't expect timer to fire before.
+> 
+>  runtest/syscalls                                   |   1 +
+>  testcases/kernel/syscalls/clock_settime/.gitignore |   1 +
+>  .../syscalls/clock_settime/clock_settime03.c       | 123 +++++++++++++++++++++
+>  3 files changed, 125 insertions(+)
+>  create mode 100644 testcases/kernel/syscalls/clock_settime/clock_settime03.c
+> 
+> diff --git a/runtest/syscalls b/runtest/syscalls
+> index 3c6e78a4c6d0..3c2f5f6c0b37 100644
+> --- a/runtest/syscalls
+> +++ b/runtest/syscalls
+> @@ -99,6 +99,7 @@ leapsec01 leapsec01
+>  
+>  clock_settime01 clock_settime01
+>  clock_settime02 clock_settime02
+> +clock_settime03 clock_settime03
+>  
+>  clone01 clone01
+>  clone02 clone02
+> diff --git a/testcases/kernel/syscalls/clock_settime/.gitignore b/testcases/kernel/syscalls/clock_settime/.gitignore
+> index 28121755006b..b66169b3eb7b 100644
+> --- a/testcases/kernel/syscalls/clock_settime/.gitignore
+> +++ b/testcases/kernel/syscalls/clock_settime/.gitignore
+> @@ -1,2 +1,3 @@
+>  clock_settime01
+>  clock_settime02
+> +clock_settime03
+> diff --git a/testcases/kernel/syscalls/clock_settime/clock_settime03.c b/testcases/kernel/syscalls/clock_settime/clock_settime03.c
+> new file mode 100644
+> index 000000000000..da062a8d0333
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/clock_settime/clock_settime03.c
+> @@ -0,0 +1,123 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2020 Linaro Limited. All rights reserved.
+> + * Author: Viresh Kumar<viresh.kumar@linaro.org>
+> + *
+> + * Check Year 2038 related vulnerabilities.
+> + */
+> +
+> +#include <signal.h>
+> +#include "config.h"
+> +#include "tst_timer.h"
+> +#include "tst_safe_clocks.h"
+> +
+> +#define TIMER_DELTA	3
+> +#define ALLOWED_DELTA	(50 * 1000) /* 50 ms */
+> +
+> +static struct tst_ts start, end;
+> +static struct tst_its its;
+> +
+> +static struct test_variants {
+> +	int (*clock_gettime)(clockid_t clk_id, void *ts);
+> +	int (*clock_settime)(clockid_t clk_id, void *ts);
+> +	int (*timer_settime)(kernel_timer_t timerid, int flags, void *its,
+> +			     void *old_its);
+> +	enum tst_ts_type type;
+> +	char *desc;
+> +} variants[] = {
+> +#if (__NR_clock_settime != __LTP__NR_INVALID_SYSCALL)
+> +	{ .clock_gettime = sys_clock_gettime, .clock_settime = sys_clock_settime, .timer_settime = sys_timer_settime, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
+> +#endif
+> +
+> +#if (__NR_clock_settime64 != __LTP__NR_INVALID_SYSCALL)
+> +	{ .clock_gettime = sys_clock_gettime64, .clock_settime = sys_clock_settime64, .timer_settime = sys_timer_settime64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
+> +#endif
+> +};
+> +
+> +static void setup(void)
+> +{
+> +	struct test_variants *tv = &variants[tst_variant];
+> +
+> +	tst_res(TINFO, "Testing variant: %s", tv->desc);
+> +	start.type = end.type = its.type = tv->type;
+> +
+> +	/* Check if the kernel is y2038 safe */
+> +	if (tv->type == TST_KERN_OLD_TIMESPEC &&
+> +	    sizeof(start.ts.kern_old_ts) == 8)
+> +		tst_brk(TCONF, "Not Y2038 safe to run test");
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
----
-V8: Resolved rebase conflicts
+Thinking of this again, it may be safer to assert the size of the
+kernel_old_ts.tv_sec, since the compiler is technically allowed to padd
+the structure. So what about sizeof(start.ts.kernel_old_ts.tv_sec) == 4?
 
- testcases/kernel/syscalls/utimensat/utimensat01.c | 71 +++++++++++++++++++----
- 1 file changed, 61 insertions(+), 10 deletions(-)
+> +}
+> +
+> +static void run(void)
+> +{
+> +	struct test_variants *tv = &variants[tst_variant];
+> +	unsigned long long time = 0x7FFFFFFE; /* Time just before y2038 */
+> +	struct sigevent ev = {
+> +		.sigev_notify = SIGEV_SIGNAL,
+> +		.sigev_signo = SIGABRT,
+> +	};
+> +	long long diff;
+> +	kernel_timer_t timer;
+> +	sigset_t set;
+> +	int sig, ret;
+> +
+> +	if (sigemptyset(&set) == -1)
+> +		tst_brk(TBROK, "sigemptyset() failed");
+> +
+> +	if (sigaddset(&set, SIGABRT) == -1)
+> +		tst_brk(TBROK, "sigaddset() failed");
 
-diff --git a/testcases/kernel/syscalls/utimensat/utimensat01.c b/testcases/kernel/syscalls/utimensat/utimensat01.c
-index 6e14e1f150db..fbdc6a1ce1ed 100644
---- a/testcases/kernel/syscalls/utimensat/utimensat01.c
-+++ b/testcases/kernel/syscalls/utimensat/utimensat01.c
-@@ -16,8 +16,7 @@
- #include <string.h>
- #include <sys/stat.h>
- #include "lapi/fs.h"
--#include "tst_test.h"
--#include "lapi/syscalls.h"
-+#include "tst_timer.h"
- 
- #define UTIME_NOW	((1l << 30) - 1l)
- #define UTIME_OMIT	((1l << 30) - 2l)
-@@ -100,13 +99,67 @@ struct test_case {
- };
- 
- static inline int sys_utimensat(int dirfd, const char *pathname,
--				const struct timespec times[2], int flags)
-+				void *times, int flags)
- {
- 	return tst_syscall(__NR_utimensat, dirfd, pathname, times, flags);
- }
- 
-+static inline int sys_utimensat_time64(int dirfd, const char *pathname,
-+				       void *times, int flags)
-+{
-+	return tst_syscall(__NR_utimensat_time64, dirfd, pathname, times, flags);
-+}
-+
-+static struct test_variants {
-+	int (*utimensat)(int dirfd, const char *pathname, void *times,
-+			 int flags);
-+	enum tst_ts_type type;
-+	char *desc;
-+} variants[] = {
-+#if (__NR_utimensat != __LTP__NR_INVALID_SYSCALL)
-+	{ .utimensat = sys_utimensat, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
-+#endif
-+
-+#if (__NR_utimensat_time64 != __LTP__NR_INVALID_SYSCALL)
-+	{ .utimensat = sys_utimensat_time64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
-+#endif
-+};
-+
-+union tst_multi {
-+	struct timespec libc_ts[2];
-+	struct __kernel_old_timespec kern_old_ts[2];
-+	struct __kernel_timespec kern_ts[2];
-+} ts;
-+
-+static void tst_multi_set_time(enum tst_ts_type type, struct mytime *mytime)
-+{
-+	switch (type) {
-+	case TST_LIBC_TIMESPEC:
-+		ts.libc_ts[0].tv_sec = mytime->access_tv_sec;
-+		ts.libc_ts[0].tv_nsec = mytime->access_tv_nsec;
-+		ts.libc_ts[1].tv_sec = mytime->mod_tv_sec;
-+		ts.libc_ts[1].tv_nsec = mytime->mod_tv_nsec;
-+		break;
-+	case TST_KERN_OLD_TIMESPEC:
-+		ts.kern_old_ts[0].tv_sec = mytime->access_tv_sec;
-+		ts.kern_old_ts[0].tv_nsec = mytime->access_tv_nsec;
-+		ts.kern_old_ts[1].tv_sec = mytime->mod_tv_sec;
-+		ts.kern_old_ts[1].tv_nsec = mytime->mod_tv_nsec;
-+		break;
-+	case TST_KERN_TIMESPEC:
-+		ts.kern_ts[0].tv_sec = mytime->access_tv_sec;
-+		ts.kern_ts[0].tv_nsec = mytime->access_tv_nsec;
-+		ts.kern_ts[1].tv_sec = mytime->mod_tv_sec;
-+		ts.kern_ts[1].tv_nsec = mytime->mod_tv_nsec;
-+		break;
-+	default:
-+		tst_brk(TBROK, "Invalid type: %d", type);
-+	}
-+}
-+
- static void setup(void)
- {
-+	tst_res(TINFO, "Testing variant: %s", variants[tst_variant].desc);
- 	bad_addr = tst_get_bad_addr(NULL);
- 	SAFE_MKDIR(TEST_DIR, 0700);
- }
-@@ -165,8 +218,8 @@ static void reset_time(char *pathname, int dfd, int flags)
- 
- static void run(unsigned int i)
- {
-+	struct test_variants *tv = &variants[tst_variant];
- 	struct test_case *tc = &tcase[i];
--	struct timespec ts[2];
- 	void *tsp = NULL;
- 	char *pathname = NULL;
- 	int dfd = AT_FDCWD, fd = 0, atime_change, mtime_change;
-@@ -179,11 +232,8 @@ static void run(unsigned int i)
- 		dfd = SAFE_OPEN(TEST_DIR, tc->oflags);
- 
- 	if (mytime) {
--		ts[0].tv_sec = mytime->access_tv_sec;
--		ts[0].tv_nsec = mytime->access_tv_nsec;
--		ts[1].tv_sec = mytime->mod_tv_sec;
--		ts[1].tv_nsec = mytime->mod_tv_nsec;
--		tsp = ts;
-+		tst_multi_set_time(tv->type, mytime);
-+		tsp = &ts.libc_ts;
- 	} else if (tc->exp_err == EFAULT) {
- 		tsp = bad_addr;
- 	}
-@@ -198,7 +248,7 @@ static void run(unsigned int i)
- 		pathname = bad_addr;
- 	}
- 
--	TEST(sys_utimensat(dfd, pathname, tsp, tc->flags));
-+	TEST(tv->utimensat(dfd, pathname, tsp, tc->flags));
- 	if (tc->pathname)
- 		change_attr(tc, fd, 0);
- 
-@@ -241,6 +291,7 @@ static void run(unsigned int i)
- static struct tst_test test = {
- 	.test = run,
- 	.tcnt = ARRAY_SIZE(tcase),
-+	.test_variants = ARRAY_SIZE(variants),
- 	.setup = setup,
- 	.needs_root = 1,
- 	.needs_tmpdir = 1,
+We do have a safe macros for these two now.
+
+
+Other than that these the code looks good. I can fix these two before
+applying if you agree.
+
 -- 
-2.14.1
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
