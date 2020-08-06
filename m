@@ -2,84 +2,64 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3BDD23DB2B
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Aug 2020 16:31:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17B0E23DB35
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Aug 2020 16:45:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7972B3C321F
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Aug 2020 16:31:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CD2683C321E
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Aug 2020 16:45:04 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id E1A293C0EAD
- for <ltp@lists.linux.it>; Thu,  6 Aug 2020 16:31:08 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id D876D3C2334
+ for <ltp@lists.linux.it>; Thu,  6 Aug 2020 16:45:02 +0200 (CEST)
+Received: from mail-il1-x141.google.com (mail-il1-x141.google.com
+ [IPv6:2607:f8b0:4864:20::141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 68C9A14070FE
- for <ltp@lists.linux.it>; Thu,  6 Aug 2020 16:31:08 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 00479B5D0
- for <ltp@lists.linux.it>; Thu,  6 Aug 2020 14:31:24 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
-To: ltp@lists.linux.it
-References: <20200806142334.30494-1-mdoucha@suse.cz>
-Autocrypt: addr=mdoucha@suse.cz; keydata=
- mQINBF1D6M0BEAC5BHC0NuN/v+UBXDYuwuYeAJA4leuKz0H76YBevziJKUtnzMsBA+GT9vdH
- bs60wdsTbBJ1XqmQ/HWDPBV0OIGox195GSZQFblKOY1YoFXV6cv9Kyw4LyYeqozRhGx8NuE8
- +qC62nuV97k7GgiDE8onWfPd7wsLBdavZO7qgxRTqbjnf/hReHCPqcts3QEYaLaL5eCfW9gY
- 6m8wGuF3k7xg7z591dkI7Xfu5rB5IhFcZGLIc+Q1RNEYz+OBP+MnNUSrGPdbFOIgd2jyYRFR
- npj+OkrPFaZvteQvj8GCwPv/HIStRM9gW6RTGIVw2fTMGGCQb2Jp7Fq51GkKIECRnlhQVJ11
- CIndtWP8p2NoxcWA0GH1Y1jjWcV+YvbtflFTQAwsJ5wIiZYvaHhN8VQlS5o1wCjSjPSAzlId
- XaN3BqM0w2su/dH9EqVZsGee04U2ZqNfrRmGfUICW6XDZRP2ozlJEKHNO0ZZqRt5bjFaelAf
- X1MgkyDFUikAkstZ6MErt89DlegUNo6GQqAYtk5675HXUbIND0l9foKGvAjuPA+xf3is2Uqj
- XC5+DtswSOh3UV+3I8QEB1nTnq1qq9yswbT0vrnwiRw0F4jNCsbSXkTUeIb+kcJp10Ov4TeM
- 4jzV1tNtinI3U9eB4sMj165EAFO4B25/6e7c0jFDHVvwcOZKZQARAQABtB9NYXJ0aW4gRG91
- Y2hhIDxtZG91Y2hhQHN1c2UuY3o+iQJUBBMBCAA+FiEEFQyxgp89HCoFzxM584srZkRBd9kF
- Al1D6M0CGyMFCQlmAYAFCwkIBwIGFQoJCAsCBBYCAwECHgECF4AACgkQ84srZkRBd9lXJw//
- d/9S4ZYfjqAlZnVVsr6lKxkZ9bpK5HafnPITkNVmAsOTFndUAwyu2TEGCv5yedGfedFOcFy7
- JWdDhqNkPg2xLUhEf37T/rmoWxW7PrLKx+D1ewiSIyfFAQQBJD/6RjTLfRPUQQLCEyZ31Y50
- 6xoGMx21YM2jq7RByKzYR01Bs5u96av5kGR5wNqb2jh/E0Fo1jiPvLSn7HKYY0UEjOEafkmj
- mfUnlBKwbHBbHOOegNlGPHMdil4RlaxRufL6OgSdKM0Dk81ctlUK3C2prmEAN9hPpwi/aDfP
- IcfJ6GN3EMaMPmfCr1YavuD3bGfyIU7bjUyPQfADbFFybPJ2BLVc0T9qAQqI7r2nkI99zqTC
- Cd7bZYXvNVgUTKtxhapsZ++1+UI7XJ6rwmS5kmE56bNugIXrB+84ROoqlWp4ZHZ2Bm5b96o8
- uiDcCKfoj+bh9PAdGPqaL3GCAKyP6ApbEIU5FQLawTdVBCeINNplLjePnZ6aY/LTny8fOZpp
- FJwP6+TuEOzXLOKgtfVDWW5mpyxQhSw+hES1o+IqTY8UN1vCSw6EwuFRA3fpMkC5L38sL0EE
- 3gAh1+CT1krfE3pdL+pL3LAJc2DJXc14mF1DH2hdz0Dy8yucc76ypHqJAHPgPc+qidYq3b09
- EpWloNx1yZ1YH/UtEx+TtJBo0fvPhrABbG25Ag0EXUPozQEQAL81/TIX7o/+C+8SnyIHm71Z
- e0dDpXXREkQMmrrYbLE7DiFpXK+1JVm39mESmEIIZORyMVGLkG49wXsfTxVkFdk4IRjRNyXz
- wSkzo7CF1ORC4Jo0CtumNDyIU464uDHdK91AOWW2OwlTfcsUgA5PKM3w4HPbc4MBd/u6YX5Q
- 8HSBWbLrxNE59BBbyUBFeLiLzr0afnyvPPYc2nMIw8TxcA1UfsQz1uBHq8XE2/XjoSUoThhB
- qGdQlWWRGBI/rElz7IJhwbRx+cw5Lgxc9JRG63gelMGLHHAgRiTrajalJXJQA9oDDUk/Qunc
- 2wh2MkUafJfvOR4U1YM+dTCc78+xSuG57/aatdkI1iRuyJbkM1MfvSVnmWr69JytGc/ZlDCm
- CdwV8OCTX7zZL+1xfQXBSmuHkbe68j3Mk41ZWegi95RAu5mCvCeDjv2ki+Snez4p3USkY0R4
- lVDKNnmCy9ZZrR/YHXgj+sDi2hRB05VT27NayMWB8ywMuD1bxV93NhZKx3/JliQyCDg9fUBc
- 5aLG51Has+y16AdcN8XYeFAOL8K/36PNeTAS4vlYZPPiIja4fD/VUswO8jns713ZxTWPou+v
- 0pV/5jykprWwIy+jNv6Dbor/JKjcG0GxnHb8U0xMIFv4/DIqzOG1pkERR+Hmg7YvpIlVokfo
- Hkvu5qs5xOrzABEBAAGJAjwEGAEIACYWIQQVDLGCnz0cKgXPEznziytmREF32QUCXUPozQIb
- DAUJCWYBgAAKCRDziytmREF32XWvD/0fuW2SC3dOOk1XhHua2JOezT1HQpxyFpCNPESRoL8N
- J1PCMyDWO4l7NhsAGbqCfA6a7XpsYpD3VC8kIZk/P3JOFM11OSUszK/pSUdiKuaURy6TAxFZ
- 3FO9OZ016uJuBQ8J9qdpvcGRtNnyL9gOmvSWkUV4mHokJeQ4CFWV5A38vg1EGpR49UOm6RhH
- LDyXxng1uJ58RuaXRAUvM/RG0vg7O2+4TP/IelhKGIYtNc4louyPZEAjaXJ3eNt4Selo5RFe
- uCl8/k6dNvUc3ZWUxd5CISdwn0GsVbCBnpYDhPgoCEbP30Sr+Jdo8asicZ3XUhQ0aPFLb7D0
- IMfRwEkXUK0LvwnBJ2hTtLZRxrqusibeRSj14j0xAuEsDZD3VbMD7fnlTDSyjdY0ghHygq/5
- YchPWWq+T2P32r/hxymkw0EiQptA13TElxj13Pbc2hP+e0SoEKFkHfyb63rik3dlPmxGk5eM
- Rz4zFhW8KQ9+zrae5rL/6vwz3d/MpEeOmDm9uutE6xyzXRl/RxeFZ8P7KlACXWm7VjSyc74E
- eCNL6GOOeqzE77fDcBf4HvNGn8w7IX/FvNzmu78wzT2MDwMi8ug8T4KEKzIYUIRibe7cl0LG
- 2dSj02pOT7E5/x4gKQB/OZqnTTQxJ0OL8BJKNFeSYqaMzKFKiYaArwuFkGnCknwh5A==
-Message-ID: <4b59056f-cad1-b662-f4b3-e8abdee06d30@suse.cz>
-Date: Thu, 6 Aug 2020 16:31:07 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 9490860B7AE
+ for <ltp@lists.linux.it>; Thu,  6 Aug 2020 16:43:31 +0200 (CEST)
+Received: by mail-il1-x141.google.com with SMTP id j9so37228920ilc.11
+ for <ltp@lists.linux.it>; Thu, 06 Aug 2020 07:45:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=W4cJ9kP3/QwzZNthUtsOjhu6rTVF+wY/ZoFelfzu+s4=;
+ b=enQ46/8UJpafoTUsx6GsvtfMUmNj8dZqxhKn+aekJLw24TGyQe/9DB4NMJrXz8Gn3X
+ 3b8hQW1zt5ezg94/dlUE4j8oCdS173qlNMiCdLG8K2BfsoCmfCERxTEOAhj42XxdGKgE
+ KvwVkfS2Lessc5mXmUyz2vADfJJWRjk6rpTdhboV/e+8IVyqnK4vGqIkEib5X05o6zOm
+ XgjdZY+T09eZ100PUl6LzLJBDftBKLDGrLi8+JgHNxwZw5Jtqxn1Hc2lsok+1FPDxJ9q
+ E+NLTBSs3wkCkdi+G+CAXN+V36HZms5s1ZjpxEJIJ8Db9qlBcOXc7SldMjuo92CmNbn3
+ /vWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=W4cJ9kP3/QwzZNthUtsOjhu6rTVF+wY/ZoFelfzu+s4=;
+ b=C9fvUP0rKQvqfqTHbpr1VCnTL3j+NMjmHmDZgfhu1rXyFhMcgaVuI68Wape7QjDKQf
+ f5SRZmMJ1zBLDzIvqrrn8BnjliykF3dGjH60I9EvOxo2n8cKddxFcYbjdc5FgM6wqOo7
+ VsYIO8UaukP9JJt3YYh5WbQCPohy1Qo3ONobLWW7f84WT9ItM6Ta1tnfuqblRpiU/x73
+ OX0xdxf5fNC3JsKNRANr06aqc+ZrWQjsIHyBcm6knIVtJgCamrtpiDGFIS+qOOnTGwKI
+ I3RroqiL1FxWPgn+hbft/sE7yvnhn2+khR0Ek0JmgTkxkDmx6wELjWV5H6A9MKQ8D+8T
+ 1mag==
+X-Gm-Message-State: AOAM530cCQon4b4NEwWjMVj9h+APMcEYznV+wTlP0X5k5p4e4QtiaRPR
+ 6RoP1xigjTWsSy6U3A/Jlq04gU4azmg6QYDDROImnw==
+X-Google-Smtp-Source: ABdhPJwu/iLGRyqF0WyJN5ax5yp/CiX30nzRev10q3kB+HJmWGfUejCN7JqZDvohvLvyDAkwALRDLN5XJzctNqyJ27w=
+X-Received: by 2002:a92:1805:: with SMTP id 5mr10588552ily.127.1596725099915; 
+ Thu, 06 Aug 2020 07:44:59 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200806142334.30494-1-mdoucha@suse.cz>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+References: <20200728163416.556521-1-hch@lst.de>
+ <20200728163416.556521-3-hch@lst.de>
+In-Reply-To: <20200728163416.556521-3-hch@lst.de>
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Thu, 6 Aug 2020 20:14:48 +0530
+Message-ID: <CA+G9fYuYxGBKR5aQqCQwA=SjLRDbyQKwQYJvbJRaKT7qwy7voQ@mail.gmail.com>
+To: Christoph Hellwig <hch@lst.de>
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-1.5 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] Add test for CVE-2019-8912
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 02/23] fs: refactor ksys_umount
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,32 +71,248 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
+ linux-raid@vger.kernel.org, Al Viro <viro@zeniv.linux.org.uk>,
+ linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ Linus Torvalds <torvalds@linux-foundation.org>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 06. 08. 20 16:23, Martin Doucha wrote:
-> Fixes #504
-> 
-> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+On Tue, 28 Jul 2020 at 22:04, Christoph Hellwig <hch@lst.de> wrote:
+>
+> Factor out a path_umount helper that takes a struct path * instead of the
+> actual file name.  This will allow to convert the init and devtmpfs code
+> to properly mount based on a kernel pointer instead of relying on the
+> implicit set_fs(KERNEL_DS) during early init.
+>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 > ---
+>  fs/namespace.c | 40 ++++++++++++++++++----------------------
+>  1 file changed, 18 insertions(+), 22 deletions(-)
+>
+> diff --git a/fs/namespace.c b/fs/namespace.c
+> index 6f8234f74bed90..43834b59eff6c3 100644
+> --- a/fs/namespace.c
+> +++ b/fs/namespace.c
+> @@ -1706,36 +1706,19 @@ static inline bool may_mandlock(void)
+>  }
+>  #endif
+>
+> -/*
+> - * Now umount can handle mount points as well as block devices.
+> - * This is important for filesystems which use unnamed block devices.
+> - *
+> - * We now support a flag for forced unmount like the other 'big iron'
+> - * unixes. Our API is identical to OSF/1 to avoid making a mess of AMD
+> - */
+> -
+> -int ksys_umount(char __user *name, int flags)
+> +static int path_umount(struct path *path, int flags)
+>  {
+> -       struct path path;
+>         struct mount *mnt;
+>         int retval;
+> -       int lookup_flags = LOOKUP_MOUNTPOINT;
+>
+>         if (flags & ~(MNT_FORCE | MNT_DETACH | MNT_EXPIRE | UMOUNT_NOFOLLOW))
+>                 return -EINVAL;
+> -
+>         if (!may_mount())
+>                 return -EPERM;
+>
+> -       if (!(flags & UMOUNT_NOFOLLOW))
+> -               lookup_flags |= LOOKUP_FOLLOW;
+> -
+> -       retval = user_path_at(AT_FDCWD, name, lookup_flags, &path);
+> -       if (retval)
+> -               goto out;
+> -       mnt = real_mount(path.mnt);
+> +       mnt = real_mount(path->mnt);
+>         retval = -EINVAL;
+> -       if (path.dentry != path.mnt->mnt_root)
+> +       if (path->dentry != path->mnt->mnt_root)
+>                 goto dput_and_out;
+>         if (!check_mnt(mnt))
+>                 goto dput_and_out;
+> @@ -1748,12 +1731,25 @@ int ksys_umount(char __user *name, int flags)
+>         retval = do_umount(mnt, flags);
+>  dput_and_out:
+>         /* we mustn't call path_put() as that would clear mnt_expiry_mark */
+> -       dput(path.dentry);
+> +       dput(path->dentry);
+>         mntput_no_expire(mnt);
+> -out:
+>         return retval;
+>  }
+>
+> +int ksys_umount(char __user *name, int flags)
+> +{
+> +       int lookup_flags = LOOKUP_MOUNTPOINT;
+> +       struct path path;
+> +       int ret;
+> +
+> +       if (!(flags & UMOUNT_NOFOLLOW))
+> +               lookup_flags |= LOOKUP_FOLLOW;
+> +       ret = user_path_at(AT_FDCWD, name, lookup_flags, &path);
+> +       if (ret)
+> +               return ret;
+> +       return path_umount(&path, flags);
+> +}
+> +
+>  SYSCALL_DEFINE2(umount, char __user *, name, int, flags)
+>  {
+>         return ksys_umount(name, flags);
 
-I forgot to mention here that it'd be great to verify this reproducer
-using KASAN. The bug should be present in vanilla kernels up until
-4.20.10. If you have one of those with KASAN enabled, please check that
-af_alg07 will trigger use-after-free error in sockfs_setattr(). Example
-KASAN backtrace:
-https://patchwork.ozlabs.org/project/netdev/patch/20190215142415.149153-1-maowenan@huawei.com/
+Regressions on linux next 20200803 tag kernel.
+LTP syscalls test umount03 mount a path for testing and
+umount failed and retired for 50 times and test exit with warning
+and following test cases using that mount path failed.
 
--- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+LTP syscalls tests failed list,
+    * umount03
+    * umount2_01
+    * umount2_02
+    * umount2_03
+    * utime06
+    * copy_file_range01
+
+
+Summary
+------------------------------------------------------------------------
+
+kernel: 5.8.0
+git repo: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+git branch: master
+git describe: next-20200803
+Test details: https://qa-reports.linaro.org/lkft/linux-next-oe/build/next-20200803
+------------------------------------------------------------------------
+
+test failed log:
+tst_device.c:262: INFO: Using test device LTP_DEV='/dev/loop0'
+tst_mkfs.c:90: INFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
+mke2fs 1.43.8 (1-Jan-2018)
+tst_test.c:1246: INFO: Timeout per run is 0h 15m 00s
+[  870.449934] EXT4-fs (loop0): mounting ext2 file system using the
+ext4 subsystem
+[  870.454338] EXT4-fs (loop0): mounted filesystem without journal. Opts: (null)
+[  870.456412] ext2 filesystem being mounted at
+/tmp/ltp-YQrzWZNEEy/jVhqum/mntpoint supports timestamps until 2038
+(0x7fffffff)
+umount03.c:35: PASS: umount() fails as expected: EPERM (1)
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try  1...
+tst_device.c:388: INFO: Likely gvfsd-trash is probing newly mounted
+fs, kill it to speed up tests.
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try  2...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try  3...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try  4...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try  5...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try  6...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try  7...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try  8...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try  9...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 10...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 11...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 12...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 13...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 14...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 15...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 16...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 17...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 18...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 19...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 20...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 21...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 22...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 23...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 24...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 25...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 26...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 27...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 28...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 29...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 30...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 31...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 32...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 33...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 34...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 35...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 36...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 37...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 38...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 39...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 40...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 41...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 42...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 43...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 44...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 45...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 46...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 47...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 48...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 49...
+tst_device.c:384: INFO: umount('mntpoint') failed with EBUSY, try 50...
+tst_device.c:394: WARN: Failed to umount('mntpoint') after 50 retries
+tst_tmpdir.c:337: WARN: tst_rmdir: rmobj(/tmp/ltp-YQrzWZNEEy/jVhqum)
+failed: remove(/tmp/ltp-YQrzWZNEEy/jVhqum/mntpoint) failed; errno=16:
+EBUSY
+Summary:
+passed   1
+failed   0
+skipped  0
+warnings 1
+
+mke2fs 1.43.8 (1-Jan-2018)
+/dev/loop0 is mounted; will not make a filesystem here!
+umount2_01    0  TINFO  :  Using test device LTP_DEV='/dev/loop0'
+umount2_01    0  TINFO  :  Formatting /dev/loop0 with ext2 opts='' extra opts=''
+umount2_01    1  TBROK  :  tst_mkfs.c:103: umount2_01.c:81: mkfs.ext2
+failed with 1
+umount2_01    2  TBROK  :  tst_mkfs.c:103: Remaining cases broken
+mke2fs 1.43.8 (1-Jan-2018)
+/dev/loop0 is mounted; will not make a filesystem here!
+umount2_02    0  TINFO  :  Using test device LTP_DEV='/dev/loop0'
+umount2_02    0  TINFO  :  Formatting /dev/loop0 with ext2 opts='' extra opts=''
+umount2_02    1  TBROK  :  tst_mkfs.c:103: umount2_02.c:121: mkfs.ext2
+failed with 1
+umount2_02    2  TBROK  :  tst_mkfs.c:103: Remaining cases broken
+mke2fs 1.43.8 (1-Jan-2018)
+/dev/loop0 is mounted; will not make a filesystem here!
+umount2_03    0  TINFO  :  Using test device LTP_DEV='/dev/loop0'
+umount2_03    0  TINFO  :  Formatting /dev/loop0 with ext2 opts='' extra opts=''
+umount2_03    1  TBROK  :  tst_mkfs.c:103: umount2_03.c:101: mkfs.ext2
+failed with 1
+umount2_03    2  TBROK  :  tst_mkfs.c:103: Remaining cases broken
+
+mke2fs 1.43.8 (1-Jan-2018)
+/dev/loop0 is mounted; will not make a filesystem here!
+utime06     0  TINFO  :  Using test device LTP_DEV='/dev/loop0'
+utime06     0  TINFO  :  Formatting /dev/loop0 with ext2 opts='' extra opts=''
+utime06     1  TBROK  :  tst_mkfs.c:103: utime06.c:122: mkfs.ext2 failed with 1
+utime06     2  TBROK  :  tst_mkfs.c:103: Remaining cases broken
+
+Steps to reproduce:
+-------------------------
+cd /opt/ltp
+./runltp -s umount                 --> FAILS
+
+Above command runs all umount tests.
+
+Test case description,
+Verify that umount(2) returns -1 and sets errno to EPERM if the user
+is not the super-user.
+Test case link,
+https://github.com/linux-test-project/ltp/blob/master/testcases/kernel/syscalls/umount/umount03.c
+
+full test log,
+https://lkft.validation.linaro.org/scheduler/job/1642287
+
+--
+Linaro LKFT
+https://lkft.linaro.org
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
