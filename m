@@ -2,37 +2,84 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C662F23DB1A
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Aug 2020 16:23:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3BDD23DB2B
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Aug 2020 16:31:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 54F6B3C321C
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Aug 2020 16:23:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7972B3C321F
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 Aug 2020 16:31:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 89F583C0EAD
- for <ltp@lists.linux.it>; Thu,  6 Aug 2020 16:23:36 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTP id E1A293C0EAD
+ for <ltp@lists.linux.it>; Thu,  6 Aug 2020 16:31:08 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 9BBBC140005A
- for <ltp@lists.linux.it>; Thu,  6 Aug 2020 16:23:35 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 68C9A14070FE
+ for <ltp@lists.linux.it>; Thu,  6 Aug 2020 16:31:08 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 397A8B5B9
- for <ltp@lists.linux.it>; Thu,  6 Aug 2020 14:23:52 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 00479B5D0
+ for <ltp@lists.linux.it>; Thu,  6 Aug 2020 14:31:24 +0000 (UTC)
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu,  6 Aug 2020 16:23:34 +0200
-Message-Id: <20200806142334.30494-1-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.27.0
+References: <20200806142334.30494-1-mdoucha@suse.cz>
+Autocrypt: addr=mdoucha@suse.cz; keydata=
+ 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
+Message-ID: <4b59056f-cad1-b662-f4b3-e8abdee06d30@suse.cz>
+Date: Thu, 6 Aug 2020 16:31:07 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <20200806142334.30494-1-mdoucha@suse.cz>
+Content-Language: en-US
 X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-1.5 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH] Add test for CVE-2019-8912
+Subject: Re: [LTP] [PATCH] Add test for CVE-2019-8912
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,192 +96,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Fixes #504
+On 06. 08. 20 16:23, Martin Doucha wrote:
+> Fixes #504
+> 
+> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+> ---
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
- runtest/crypto                     |   1 +
- runtest/cve                        |   1 +
- testcases/kernel/crypto/.gitignore |   1 +
- testcases/kernel/crypto/Makefile   |   4 +-
- testcases/kernel/crypto/af_alg07.c | 117 +++++++++++++++++++++++++++++
- 5 files changed, 122 insertions(+), 2 deletions(-)
- create mode 100644 testcases/kernel/crypto/af_alg07.c
+I forgot to mention here that it'd be great to verify this reproducer
+using KASAN. The bug should be present in vanilla kernels up until
+4.20.10. If you have one of those with KASAN enabled, please check that
+af_alg07 will trigger use-after-free error in sockfs_setattr(). Example
+KASAN backtrace:
+https://patchwork.ozlabs.org/project/netdev/patch/20190215142415.149153-1-maowenan@huawei.com/
 
-diff --git a/runtest/crypto b/runtest/crypto
-index be8bc81d2..446559efc 100644
---- a/runtest/crypto
-+++ b/runtest/crypto
-@@ -4,6 +4,7 @@ af_alg03 af_alg03
- af_alg04 af_alg04
- af_alg05 af_alg05
- af_alg06 af_alg06
-+af_alg07 af_alg07
- pcrypt_aead01 pcrypt_aead01
- crypto_user01 crypto_user01
- crypto_user02 crypto_user02
-diff --git a/runtest/cve b/runtest/cve
-index fdb455af1..dff08396f 100644
---- a/runtest/cve
-+++ b/runtest/cve
-@@ -53,5 +53,6 @@ cve-2018-1000199 ptrace08
- cve-2018-1000204 ioctl_sg01
- cve-2018-18559 bind06
- cve-2018-19854 crypto_user01
-+cve-2019-8912 af_alg07
- cve-2020-11494 pty04
- cve-2020-14416 pty03
-diff --git a/testcases/kernel/crypto/.gitignore b/testcases/kernel/crypto/.gitignore
-index c5be01180..448f986a6 100644
---- a/testcases/kernel/crypto/.gitignore
-+++ b/testcases/kernel/crypto/.gitignore
-@@ -4,6 +4,7 @@ af_alg03
- af_alg04
- af_alg05
- af_alg06
-+af_alg07
- pcrypt_aead01
- crypto_user01
- crypto_user02
-diff --git a/testcases/kernel/crypto/Makefile b/testcases/kernel/crypto/Makefile
-index 7cbdb72d1..8175a346a 100644
---- a/testcases/kernel/crypto/Makefile
-+++ b/testcases/kernel/crypto/Makefile
-@@ -21,6 +21,6 @@ CFLAGS			+= -D_GNU_SOURCE
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
- 
--af_alg02: CFLAGS += -pthread
-+af_alg02 af_alg07: CFLAGS += -pthread
- 
--crypto_user02: LDLIBS += -lrt
-+af_alg07 crypto_user02: LDLIBS += -lrt
-diff --git a/testcases/kernel/crypto/af_alg07.c b/testcases/kernel/crypto/af_alg07.c
-new file mode 100644
-index 000000000..efcdd0016
---- /dev/null
-+++ b/testcases/kernel/crypto/af_alg07.c
-@@ -0,0 +1,117 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2020 SUSE LLC <mdoucha@suse.cz>
-+ */
-+
-+/*
-+ * CVE-2019-8912
-+ *
-+ * Check for possible use-after-free in sockfs_setattr() on AF_ALG socket
-+ * closed by dup2() or dup3(). Unlike regular close(), dup*() syscalls don't
-+ * set sock->sk = NULL after closing the socket. Racing fchownat() against
-+ * dup2() may then result in sockfs_setattr() using the stale pointer and
-+ * writing into a block of released memory that may have been reused in the
-+ * mean time.
-+ *
-+ * The race window is small and it's hard to trigger a kernel crash but
-+ * fchownat() will return ENOENT as it should only when the bug is not
-+ * present. Race fixed in:
-+ *
-+ *  commit 9060cb719e61b685ec0102574e10337fa5f445ea
-+ *  Author: Mao Wenan <maowenan@huawei.com>
-+ *  Date:   Mon Feb 18 10:44:44 2019 +0800
-+ *
-+ *  net: crypto set sk to NULL when af_alg_release.
-+ */
-+
-+#include <sys/types.h>
-+#include <sys/stat.h>
-+#include <unistd.h>
-+#include <pwd.h>
-+
-+#include "tst_test.h"
-+#include "tst_af_alg.h"
-+#include "tst_fuzzy_sync.h"
-+#include "tst_taint.h"
-+
-+static int fd = -1, sock = -1;
-+static int uid, gid;
-+static struct tst_fzsync_pair fzsync_pair;
-+
-+static void setup(void)
-+{
-+	uid = getuid();
-+	gid = getgid();
-+	tst_taint_init(TST_TAINT_W | TST_TAINT_D);
-+
-+	fd = SAFE_OPEN("tmpfile", O_RDWR | O_CREAT, 0644);
-+
-+	tst_fzsync_pair_init(&fzsync_pair);
-+}
-+
-+static void *thread_run(void *arg)
-+{
-+	while (tst_fzsync_run_b(&fzsync_pair)) {
-+		tst_fzsync_start_race_b(&fzsync_pair);
-+		dup2(fd, sock);
-+		tst_fzsync_end_race_b(&fzsync_pair);
-+	}
-+
-+	return arg;
-+}
-+
-+static void run(void)
-+{
-+	tst_fzsync_pair_reset(&fzsync_pair, thread_run);
-+
-+	while (tst_fzsync_run_a(&fzsync_pair)) {
-+		sock = tst_alg_setup_reqfd("hash", "sha1", NULL, 0);
-+		tst_fzsync_start_race_a(&fzsync_pair);
-+		TEST(fchownat(sock, "", uid, gid, AT_EMPTY_PATH));
-+		tst_fzsync_end_race_a(&fzsync_pair);
-+		SAFE_CLOSE(sock);
-+
-+		if (tst_taint_check()) {
-+			tst_res(TFAIL, "Kernel is vulnerable");
-+			return;
-+		}
-+
-+		if (TST_RET == -1 && TST_ERR == ENOENT) {
-+			tst_res(TPASS | TTERRNO,
-+				"fchownat() failed successfully");
-+			return;
-+		}
-+
-+		if (TST_RET == -1) {
-+			tst_brk(TBROK | TTERRNO,
-+				"fchownat() failed unexpectedly");
-+		}
-+
-+		if (TST_RET) {
-+			tst_brk(TBROK | TTERRNO,
-+				"Invalid fchownat() return value");
-+		}
-+	}
-+
-+	tst_res(TFAIL, "fchownat() failed to fail, kernel may be vulnerable");
-+}
-+
-+static void cleanup(void)
-+{
-+	tst_fzsync_pair_cleanup(&fzsync_pair);
-+
-+	if (fd >= 0)
-+		SAFE_CLOSE(fd);
-+}
-+
-+static struct tst_test test = {
-+	.needs_tmpdir = 1,
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.tags = (const struct tst_tag[]) {
-+		{"linux-git", "9060cb719e61"},
-+		{"CVE", "2019-8912"},
-+		{}
-+	}
-+};
 -- 
-2.27.0
-
+Martin Doucha   mdoucha@suse.cz
+QA Engineer for Software Maintenance
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
