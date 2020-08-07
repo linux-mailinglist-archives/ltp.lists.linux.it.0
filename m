@@ -2,75 +2,36 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11C7523EC5D
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Aug 2020 13:24:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7E3923EC81
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Aug 2020 13:29:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C214D3C31F0
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Aug 2020 13:24:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 99DD63C31F0
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Aug 2020 13:29:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 27AF03C2A76
- for <ltp@lists.linux.it>; Fri,  7 Aug 2020 13:24:40 +0200 (CEST)
-Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
- [IPv6:2607:f8b0:4864:20::1044])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 224F03C2A76
+ for <ltp@lists.linux.it>; Fri,  7 Aug 2020 13:29:39 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 23B1E1000CB5
- for <ltp@lists.linux.it>; Fri,  7 Aug 2020 13:24:40 +0200 (CEST)
-Received: by mail-pj1-x1044.google.com with SMTP id f9so758073pju.4
- for <ltp@lists.linux.it>; Fri, 07 Aug 2020 04:24:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=kn8K8avwWnwZeaIFWvW8Ii0GSyoJUBtivkmqBqJgOwA=;
- b=RHPULnhJ1BljaGoP6CnSQAzbWuQ4ZE6IzpkRhTDrDE4yoXKRPSdpnoXvEGZ7i4KhNE
- /4lV1rUXiDoQMPt4fO+w6fNVXJFcFfk1cbIIJEHlKOqcBjB3z8AcTWEvr9g637KDvpr8
- fHO+9Dp0qqqPZoPYo58R2cRlvMXgfQH+W4D8oKzgiM+zO3yzJy4t4jtEwNlwZvQuxhZY
- Mbu8Mnomb1B6OuuP2K99KZrDyJrS0b9zjXisBv2dJNuOSIYH3eUFdn7FOd8nEnr5Ij68
- bDHmJyDU4U/NXnsXQCE+NvByxwGMi9MnXCEc5/0TboVrpzvk3HipV8qDYTsU0msDVzlZ
- jqoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=kn8K8avwWnwZeaIFWvW8Ii0GSyoJUBtivkmqBqJgOwA=;
- b=HQCRXNcXr0I9VdIX8uBb6p/atSMo389MwN9oXQROyCKFDkkgA+ypPToFflKDvQuyWa
- 48DPwo1zrTwCcQE3OESiKefGV+SHm+8zwrkfDWXMgh96IyX1kbq5VojE1W7RBQaaopMF
- NV963t+/c4qmmjvYITb9u71B9hVnrgekJaDPdAmccZJNdunK5b8PVa5x5V8hwTG3473x
- xA+wP7vpyvsnv9PPm1kpjUt4/fZtLwxChy2QRIywixmpqMmHceC6VKhuzX9ysYiSZ8Yw
- M5vqQo0+JLTyak1xu4eEIrhbAjo4s+Y5HtGQHon5RwOsF0hTpcEjul1xqu8AMWQ9U8X5
- uFYw==
-X-Gm-Message-State: AOAM532Tn1xOAgPiBE+JvDy0Qe0upsu2fHcCH+R0rkQcI/Kvfd12L2kZ
- Nuloku5dl12x8o5a1aCgOSLGtmBRqwM=
-X-Google-Smtp-Source: ABdhPJzuDIsMrBaLt1Dq801LcAeUPqrVGM9jsYhgcsktFh1SeNPY5c2o1zLSwMQy8agQgvO7+5+J2A==
-X-Received: by 2002:a17:902:7446:: with SMTP id
- e6mr12233349plt.267.1596799478683; 
- Fri, 07 Aug 2020 04:24:38 -0700 (PDT)
-Received: from localhost ([106.198.244.73])
- by smtp.gmail.com with ESMTPSA id y65sm12320790pfb.155.2020.08.07.04.24.37
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Fri, 07 Aug 2020 04:24:37 -0700 (PDT)
-Date: Fri, 7 Aug 2020 16:54:34 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20200807112320.fb5r3myiczldyovx@vireshk-mac-ubuntu>
-References: <ebc888947b095fd6a359ad749e50217d0b38954e.1596637728.git.viresh.kumar@linaro.org>
- <20200806125603.GC3315@yuki.lan>
- <20200807044234.basdp5ic4xzleqsx@vireshk-mac-ubuntu>
- <20200807084544.GB4931@yuki.lan>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8F1741A010C2
+ for <ltp@lists.linux.it>; Fri,  7 Aug 2020 13:29:38 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id C6B0EAFCF;
+ Fri,  7 Aug 2020 11:29:55 +0000 (UTC)
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Fri,  7 Aug 2020 13:29:29 +0200
+Message-Id: <20200807112929.8984-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200807084544.GB4931@yuki.lan>
-User-Agent: NeoMutt/20170609 (1.8.3)
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V8 1/2] syscalls/utimensat: Migrate to new test
- framework
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/1] IMA/ima_keys.sh Fix policy content check usage
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,33 +43,83 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
+Cc: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
+ Mimi Zohar <zohar@linux.vnet.ibm.com>, linux-integrity@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 07-08-20, 10:45, Cyril Hrubis wrote:
-> Hi!
-> > > Also we do pass libc timespec to a syscall that is supposed to take the
-> > > old kernel type, right?
-> > > 
-> > > I guess that the options are:
-> > > 
-> > > * Use the glibc function here instead
-> > > 
-> > > * Change the type in the follow up patch
-> > 
-> > This is already properly fixed in 2/2.
-> 
-> Maybe I'm blind but I do not see anything that would touch the
-> reset_time() function in 2/2.
+require_ima_policy_content cannot be used in subshell $() evaluation,
+because tst_brk does not quit the test. It calls cleanup for the
+subshell process and main process then continue:
 
-I mistakenly thought about the one used in the run() call. Sent V9
-now.
+ima_keys 1 TCONF: IMA policy does not specify 'func=KEY_CHECK'
+=> Here it's running first cleanup. umount errors are because parent
+shell process still has $PWD in directory to be unmounted:
+umount: /tmp/LTP_ima_keys.0dIVrwJKIG/mntpoint: target is busy.
+ima_keys 1 TINFO: umount(/dev/loop0) failed, try 1 ...
+ima_keys 1 TINFO: Likely gvfsd-trash is probing newly mounted  fs, kill it to speed up tests.
+umount: /tmp/LTP_ima_keys.0dIVrwJKIG/mntpoint: target is busy.
+...
+ima_keys 1 TINFO: umount(/dev/loop0) failed, try 50 ...
+ima_keys 1 TINFO: Likely gvfsd-trash is probing newly mounted  fs, kill it to speed up tests.
+ima_keys 1 TWARN: Failed to umount(/dev/loop0) after 50 retries
+tst_device.c:222: WARN: ioctl(/dev/loop0, LOOP_CLR_FD, 0) no ENXIO for too long
 
+Usage: tst_device acquire [size [filename]]
+   or: tst_device release /path/to/device
+
+ima_keys 1 TWARN: Failed to release device '/dev/loop0'
+rm: cannot remove '/tmp/LTP_ima_keys.0dIVrwJKIG/mntpoint': Device or resource busy
+ima_keys 1 TINFO: AppArmor enabled, this may affect test results
+ima_keys 1 TINFO: it can be disabled with TST_DISABLE_APPARMOR=1 (requires super/root)
+ima_keys 1 TINFO: loaded AppArmor profiles: none
+/opt/ltp/testcases/bin/ima_keys.sh: line 25:  6166 Terminated              sleep $sec && tst_res TBROK "test killed, timeout! If you are running on slow machine, try exporting LTP_TIMEOUT_MUL > 1" && kill -9 -$pid  (wd: ~)
+
+=> Here it should quit after running cleanup, but instead continue running:
+ima_keys 1 TCONF: ima policy does not specify a keyrings to check
+
+Fixes: f20f44d72 ("IMA/ima_keys.sh: Fix policy readability check")
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+Hi,
+
+do I miss some obvious way how to fix either the test,
+require_ima_policy_content or LTP shell API to be able to run just
+require_ima_policy_content in the previous form? (i.e. using subshell
+assigment)
+
+Kind regards,
+Petr
+
+ testcases/kernel/security/integrity/ima/tests/ima_keys.sh | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+index 3aea26056..b5c5c0542 100755
+--- a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
++++ b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+@@ -16,11 +16,14 @@ TST_NEEDS_DEVICE=1
+ # (450d0fd51564 - "IMA: Call workqueue functions to measure queued keys")
+ test1()
+ {
+-	local keyrings keycheck_lines keycheck_line templates test_file="file.txt"
++	local keyrings keycheck_lines keycheck_line templates
++	local policy="func=KEY_CHECK"
++	local test_file="file.txt"
+ 
+ 	tst_res TINFO "verifying key measurement for keyrings and templates specified in IMA policy file"
+ 
+-	keycheck_lines=$(require_ima_policy_content "func=KEY_CHECK" "")
++	require_ima_policy_content $policy
++	keycheck_lines=$(check_ima_policy_content $policy "")
+ 	keycheck_line=$(echo "$keycheck_lines" | grep "keyrings" | head -n1)
+ 
+ 	if [ -z "$keycheck_line" ]; then
 -- 
-viresh
+2.28.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
