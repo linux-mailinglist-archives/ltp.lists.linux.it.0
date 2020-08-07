@@ -2,58 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 166D323EBC4
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Aug 2020 12:59:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90A9B23EC31
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Aug 2020 13:16:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C77803C31E6
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Aug 2020 12:58:59 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5FA8E3C31F9
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Aug 2020 13:16:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 6A47F3C31D3
- for <ltp@lists.linux.it>; Fri,  7 Aug 2020 12:58:58 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [205.139.110.120])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 120C060094B
- for <ltp@lists.linux.it>; Fri,  7 Aug 2020 12:57:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1596797936;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:content-type:content-type;
- bh=BhHTB32XcywZL97P6CvT/3mcd21mdJUZJQ5CFy28/bQ=;
- b=iakaeIq7Ly5hVsZ6volLNMCR10BnPMxjeorhWl0mM2Ce6k9Qo5cz/5uKbLF8dvh8LK0Sd6
- irwqm5gfQBq17L9mEDQ6/jfUuq/Efn96O8D/MjHjIv4GtRx+OANbs8TBiLYAYj6o6HwFDy
- u6pZ5sMgCeOc+ddTv9uCPyL4g2QDlGQ=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-310-EkRoettQP7KHSAxkhbK9iw-1; Fri, 07 Aug 2020 06:58:54 -0400
-X-MC-Unique: EkRoettQP7KHSAxkhbK9iw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 32E9A8005B0;
- Fri,  7 Aug 2020 10:58:53 +0000 (UTC)
-Received: from janakin.usersys.redhat.com (unknown [10.40.208.12])
- by smtp.corp.redhat.com (Postfix) with ESMTP id EA00A61176;
- Fri,  7 Aug 2020 10:58:51 +0000 (UTC)
-From: Jan Stancek <jstancek@redhat.com>
-To: ltp@lists.linux.it
-Date: Fri,  7 Aug 2020 12:58:44 +0200
-Message-Id: <8eefb21d278f0846024a16281c5e19b0e3936979.1596797812.git.jstancek@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 50EF03C31E2
+ for <ltp@lists.linux.it>; Fri,  7 Aug 2020 13:16:20 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 39C891A011F3
+ for <ltp@lists.linux.it>; Fri,  7 Aug 2020 13:16:17 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.75,445,1589212800"; d="scan'208";a="97771121"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 07 Aug 2020 19:16:14 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 441D54CE34EF;
+ Fri,  7 Aug 2020 19:16:09 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Fri, 7 Aug 2020 19:16:11 +0800
+To: Li Wang <liwang@redhat.com>
+References: <1596793326-21639-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <CAEemH2d7+05ZT7UwePjtOuDKws-kK-5kt5LbyzV_zicFp51z2A@mail.gmail.com>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <1ca03e90-6885-4345-9be8-c1f37a6227ab@cn.fujitsu.com>
+Date: Fri, 7 Aug 2020 19:16:08 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <CAEemH2d7+05ZT7UwePjtOuDKws-kK-5kt5LbyzV_zicFp51z2A@mail.gmail.com>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 441D54CE34EF.A24EB
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=-1.1 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] syscalls/clone302: drop CLONE_CHILD_SETTID and
- CLONE_PARENT_SETTID
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] lib/tst_cgroup: Reset cgroup.clone_children value
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,95 +58,64 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: viresh.kumar@linaro.org, christian.brauner@ubuntu.com
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Per https://lore.kernel.org/linux-m68k/20200627122332.ki2otaiw3v7wndbl@wittgenstein/T/#u
-EFAULT isn't propagated back to userspace so these will always appear
-to succeed. Also issue is that multiple flags are tested together
-and some arguments persisted between calls, because they were set
-only when argument != NULL.
-
-Cc: Christian Brauner <christian.brauner@ubuntu.com>
-Reported-by: Naresh Kamboju <naresh.kamboju@linaro.org>
-Signed-off-by: Jan Stancek <jstancek@redhat.com>
----
- testcases/kernel/syscalls/clone3/clone302.c | 42 +++++++++++----------
- 1 file changed, 23 insertions(+), 19 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/clone3/clone302.c b/testcases/kernel/syscalls/clone3/clone302.c
-index a30df6f8286e..54d59a1f571a 100644
---- a/testcases/kernel/syscalls/clone3/clone302.c
-+++ b/testcases/kernel/syscalls/clone3/clone302.c
-@@ -21,27 +21,33 @@ static struct tcase {
- 	size_t size;
- 	uint64_t flags;
- 	int **pidfd;
--	int **child_tid;
--	int **parent_tid;
- 	int exit_signal;
- 	unsigned long stack;
- 	unsigned long stack_size;
- 	unsigned long tls;
- 	int exp_errno;
- } tcases[] = {
--	{"invalid args", &invalid_args, sizeof(*valid_args), 0, NULL, NULL, NULL, SIGCHLD, 0, 0, 0, EFAULT},
--	{"zero size", &valid_args, 0, 0, NULL, NULL, NULL, SIGCHLD, 0, 0, 0, EINVAL},
--	{"short size", &valid_args, sizeof(*valid_args) - 1, 0, NULL, NULL, NULL, SIGCHLD, 0, 0, 0, EINVAL},
--	{"extra size", &valid_args, sizeof(*valid_args) + 1, 0, NULL, NULL, NULL, SIGCHLD, 0, 0, 0, EFAULT},
--	{"sighand-no-VM", &valid_args, sizeof(*valid_args), CLONE_SIGHAND, NULL, NULL, NULL, SIGCHLD, 0, 0, 0, EINVAL},
--	{"thread-no-sighand", &valid_args, sizeof(*valid_args), CLONE_THREAD, NULL, NULL, NULL, SIGCHLD, 0, 0, 0, EINVAL},
--	{"fs-newns", &valid_args, sizeof(*valid_args), CLONE_FS | CLONE_NEWNS, NULL, NULL, NULL, SIGCHLD, 0, 0, 0, EINVAL},
--	{"invalid pidfd", &valid_args, sizeof(*valid_args), CLONE_PARENT_SETTID | CLONE_CHILD_SETTID | CLONE_PIDFD, &invalid_address, NULL, NULL, SIGCHLD, 0, 0, 0, EFAULT},
--	{"invalid childtid", &valid_args, sizeof(*valid_args), CLONE_PARENT_SETTID | CLONE_CHILD_SETTID | CLONE_PIDFD, NULL, &invalid_address, NULL, SIGCHLD, 0, 0, 0, EFAULT},
--	{"invalid parenttid", &valid_args, sizeof(*valid_args), CLONE_PARENT_SETTID | CLONE_CHILD_SETTID | CLONE_PIDFD, NULL, NULL, &invalid_address, SIGCHLD, 0, 0, 0, EFAULT},
--	{"invalid signal", &valid_args, sizeof(*valid_args), 0, NULL, NULL, NULL, CSIGNAL + 1, 0, 0, 0, EINVAL},
--	{"zero-stack-size", &valid_args, sizeof(*valid_args), 0, NULL, NULL, NULL, SIGCHLD, (unsigned long)&stack, 0, 0, EINVAL},
--	{"invalid-stack", &valid_args, sizeof(*valid_args), 0, NULL, NULL, NULL, SIGCHLD, 0, 4, 0, EINVAL},
-+	{"invalid args", &invalid_args, sizeof(*valid_args), 0, NULL, SIGCHLD, 0, 0, 0, EFAULT},
-+	{"zero size", &valid_args, 0, 0, NULL, SIGCHLD, 0, 0, 0, EINVAL},
-+	{"short size", &valid_args, sizeof(*valid_args) - 1, 0, NULL, SIGCHLD, 0, 0, 0, EINVAL},
-+	{"extra size", &valid_args, sizeof(*valid_args) + 1, 0, NULL, SIGCHLD, 0, 0, 0, EFAULT},
-+	{"sighand-no-VM", &valid_args, sizeof(*valid_args), CLONE_SIGHAND, NULL, SIGCHLD, 0, 0, 0, EINVAL},
-+	{"thread-no-sighand", &valid_args, sizeof(*valid_args), CLONE_THREAD, NULL, SIGCHLD, 0, 0, 0, EINVAL},
-+	{"fs-newns", &valid_args, sizeof(*valid_args), CLONE_FS | CLONE_NEWNS, NULL, SIGCHLD, 0, 0, 0, EINVAL},
-+	{"invalid pidfd", &valid_args, sizeof(*valid_args), CLONE_PIDFD, &invalid_address, SIGCHLD, 0, 0, 0, EFAULT},
-+	{"invalid signal", &valid_args, sizeof(*valid_args), 0, NULL, CSIGNAL + 1, 0, 0, 0, EINVAL},
-+	{"zero-stack-size", &valid_args, sizeof(*valid_args), 0, NULL, SIGCHLD, (unsigned long)&stack, 0, 0, EINVAL},
-+	{"invalid-stack", &valid_args, sizeof(*valid_args), 0, NULL, SIGCHLD, 0, 4, 0, EINVAL},
-+	/*
-+	 * Don't test CLONE_CHILD_SETTID and CLONE_PARENT_SETTID:
-+	 * When the parent tid is written to the memory location for
-+	 * CLONE_PARENT_SETTID we're past the point of no return of process
-+	 * creation, i.e. the return value from put_user() isn't checked and
-+	 * can't be checked anymore so you'd never receive EFAULT for a bogus
-+	 * parent_tid memory address.
-+	 *
-+	 * https://lore.kernel.org/linux-m68k/20200627122332.ki2otaiw3v7wndbl@wittgenstein/T/#u
-+	 */
- };
- 
- static void setup(void)
-@@ -63,10 +69,8 @@ static void run(unsigned int n)
- 		args->flags = tc->flags;
- 		if (tc->pidfd)
- 			args->pidfd = (uint64_t)(*tc->pidfd);
--		if (tc->child_tid)
--			args->child_tid = (uint64_t)(*tc->child_tid);
--		if (tc->parent_tid)
--			args->parent_tid = (uint64_t)(*tc->parent_tid);
-+		else
-+			args->pidfd = 0;
- 		args->exit_signal = tc->exit_signal;
- 		args->stack = tc->stack;
- 		args->stack_size = tc->stack_size;
--- 
-2.18.1
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkgTGkKCgo+IAo+IAo+IE9uIEZyaSwgQXVnIDcsIDIwMjAgYXQgNTo0MiBQTSBZYW5nIFh1IDx4
+dXlhbmcyMDE4Lmp5QGNuLmZ1aml0c3UuY29tIAo+IDxtYWlsdG86eHV5YW5nMjAxOC5qeUBjbi5m
+dWppdHN1LmNvbT4+IHdyb3RlOgo+IAo+ICAgICBXaGVuIHJ1bm5pbmcgY2dyb3VwIHRlc3QgY2Fz
+ZXMobGlrZSBjcHVzZXQwMSBvciBvb20wNSkgYWJvdXQgY3B1c2V0Cj4gICAgIHN1YnN5c3RlbQo+
+ICAgICBmaXJzdGx5LCB0aGVuIGNwdXNldF9pbmhlcml0IGNhc2Ugd2lsbCBmYWlsIGJlY2F1c2Ug
+dGhlIHZhbHVlIG9mCj4gICAgIGNncm91cC5jbG9uZV9jaGlsZHJlbiBoYXMgYmVlbiBjaGFuZ2Vk
+IGludG8gMSBvbiBjZ3JvdXAtdjEuIFJlc2V0Cj4gICAgIHRoaXMgdmFsdWUKPiAgICAgd2hlbiBj
+YWxsaW5nIHRzdF9jZ3JvdXBOX3Vtb3VudC4KPiAKPiAgICAgU2lnbmVkLW9mZi1ieTogWWFuZyBY
+dSA8eHV5YW5nMjAxOC5qeUBjbi5mdWppdHN1LmNvbQo+ICAgICA8bWFpbHRvOnh1eWFuZzIwMTgu
+anlAY24uZnVqaXRzdS5jb20+Pgo+ICAgICAtLS0KPiAgICAgIMKgbGliL3RzdF9jZ3JvdXAuYyB8
+IDggKysrKysrKysKPiAgICAgIMKgMSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKQo+IAo+
+ICAgICBkaWZmIC0tZ2l0IGEvbGliL3RzdF9jZ3JvdXAuYyBiL2xpYi90c3RfY2dyb3VwLmMKPiAg
+ICAgaW5kZXggOTQ1OWY3ZWEwLi43NjQ5NTFhZmEgMTAwNjQ0Cj4gICAgIC0tLSBhL2xpYi90c3Rf
+Y2dyb3VwLmMKPiAgICAgKysrIGIvbGliL3RzdF9jZ3JvdXAuYwo+ICAgICBAQCAtOSw2ICs5LDgg
+QEAKPiAgICAgIMKgI2luY2x1ZGUgPHN0ZGlvLmg+Cj4gICAgICDCoCNpbmNsdWRlIDxzdGRsaWIu
+aD4KPiAgICAgIMKgI2luY2x1ZGUgPHN5cy9tb3VudC5oPgo+ICAgICArI2luY2x1ZGUgPGZjbnRs
+Lmg+Cj4gICAgICsjaW5jbHVkZSA8dW5pc3RkLmg+Cj4gCj4gICAgICDCoCNpbmNsdWRlICJ0c3Rf
+dGVzdC5oIgo+ICAgICAgwqAjaW5jbHVkZSAidHN0X3NhZmVfbWFjcm9zLmgiCj4gICAgIEBAIC0x
+MjMsNiArMTI1LDcgQEAgc3RhdGljIHZvaWQgdHN0X2Nncm91cE5fdW1vdW50KGNvbnN0IGNoYXIK
+PiAgICAgKm1udF9wYXRoLCBjb25zdCBjaGFyICpuZXdfcGF0aCkKPiAgICAgIMKgIMKgIMKgIMKg
+IEZJTEUgKmZwOwo+ICAgICAgwqAgwqAgwqAgwqAgaW50IGZkOwo+ICAgICAgwqAgwqAgwqAgwqAg
+Y2hhciBzX25ld1tCVUZTSVpdLCBzW0JVRlNJWl0sIHZhbHVlW0JVRlNJWl07Cj4gICAgICvCoCDC
+oCDCoCDCoGNoYXIga25vYl9wYXRoW1BBVEhfTUFYXTsKPiAKPiAgICAgIMKgIMKgIMKgIMKgIGlm
+ICghdHN0X2lzX21vdW50ZWQobW50X3BhdGgpKQo+ICAgICAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgcmV0dXJuOwo+ICAgICBAQCAtMTUxLDYgKzE1NCwxMSBAQCBzdGF0aWMgdm9pZCB0c3RfY2dy
+b3VwTl91bW91bnQoY29uc3QgY2hhcgo+ICAgICAqbW50X3BhdGgsIGNvbnN0IGNoYXIgKm5ld19w
+YXRoKQo+ICAgICAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgIT0g
+KHNzaXplX3Qpc3RybGVuKHZhbHVlKSAtIDEpCj4gICAgICDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCB0c3RfcmVzKFRXQVJOIHwgVEVSUk5PLCAid3JpdGUg
+JXMiLCBzKTsKPiAgICAgIMKgIMKgIMKgIMKgIH0KPiAgICAgK8KgIMKgIMKgIMKgaWYgKHRzdF9j
+Z192ZXIgJiBUU1RfQ0dST1VQX1YxKSB7Cj4gCj4gCj4gVG8gcmVjb2duaXplIGNncm91cF92MSBp
+cyBub3QgZW5vdWdoIGhlcmUsIGJlY2F1c2UgaXQgd2lsbCAKPiBiZcKgZmFpbGVkwqAid2l0aMKg
+bm8gc3VjaCBjZ3JvdXAuY2xvbmVfY2hpbGRyZW4gZmlsZSIgb24gTUVNQ0cgdW1vdW50wqBpZiAK
+PiB0aGUgc3lzdGVtIG5vIENQVVNFVCBtb3VudGluZy4KSSBoYXMgdW1vdW50ZWQgY3B1c2V0LCBi
+dXQgSSBzdGlsbCBzZWUgdGhpcyBmaWxlIGluIG1lbW9yeSBhcyBiZWxvdzoKCiNtb3VudCB8Z3Jl
+cCBjcHVzZXQKbm90aGluZwojIGxzIC1sIC9zeXMvZnMvY2dyb3VwL21lbW9yeS9jZ3JvdXAuY2xv
+bmVfY2hpbGRyZW4KLXJ3LXItLXItLS4gMSByb290IHJvb3QgMCBBdWcgIDcgMDg6MTYgCi9zeXMv
+ZnMvY2dyb3VwL21lbW9yeS9jZ3JvdXAuY2xvbmVfY2hpbGRyZW4KCj4gCj4gTWF5YmUgYSBzbWFy
+dCB3YXkgaXMgdG8gc2F2ZSB0aGUgY2dyb3VwLmNsb25lX2NoaWxkcmVuwqB2YWx1ZSwgcmVzdG9y
+ZSBpdCAKPiBpZiBpdCBoYXMgYmVlbiBjaGFuZ2VkIGluIHRoZSBzZXR1cCBwaGFzZS4gV2hhdCBk
+byB1IHRoaW5rPwpXZSBjYW4ganVzdCB1c2UgcHJpbnQgYW5kIHNjYW5mIGFwaSB0byBkbyB0aGlz
+LgpCdXQgSSBkb24ndCBrbm93IHRoaXMgd2hldGhlciB0YWtlcyBiYWQgZWZmZWN0cyBvbiBjb21w
+bGV4ZCBuZXN0aW5nIApzaXR1YXRpb24oaGFzIHN1YiBjZ3JvdXApLgoKPiAKPiAgICAgK8KgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgc3ByaW50Zihrbm9iX3BhdGgsICIlcy9jZ3JvdXAuY2xvbmVfY2hp
+bGRyZW4iLAo+ICAgICBtbnRfcGF0aCk7Cj4gICAgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGlm
+ICghYWNjZXNzKGtub2JfcGF0aCwgRl9PSykpCkhlcmUgaGFzIGEgY2hlY2sgZm9yIGNncm91cC5j
+bG9uZV9jaGlsZHJlbiBzbyBpdCBzaG91bGQgbm90IHRyaWdnZXIgdW4gCnN1Y2ggZmlsZSBlcnJv
+ci4KCnBzOiBJIHdpbGwgYWRkIGNsb25lX2NoaWxkcmVuIHN3aXRoIGludG8gY3B1X2luaGVyaXQg
+Y2FzZS4KCkJlc3QgUmVnYXJkcwpZYW5nIFh1Cj4gICAgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoFNBRkVfRklMRV9QUklOVEYoa25vYl9wYXRoLCAiJWQiLCAwKTsKPiAgICAg
+K8KgIMKgIMKgIMKgfQo+ICAgICAgwqAgwqAgwqAgwqAgaWYgKGZkICE9IC0xKQo+ICAgICAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgY2xvc2UoZmQpOwo+ICAgICAgwqAgwqAgwqAgwqAgaWYgKGZw
+ICE9IE5VTEwpCj4gICAgIC0tIAo+ICAgICAyLjIzLjAKPiAKPiAKPiAKPiAKPiAKPiAtLSAKPiBS
+ZWdhcmRzLAo+IExpIFdhbmcKCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3Rz
+LmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
