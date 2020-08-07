@@ -1,73 +1,59 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 584B823EB64
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Aug 2020 12:21:51 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 166D323EBC4
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Aug 2020 12:59:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0468E3C31E5
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Aug 2020 12:21:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C77803C31E6
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Aug 2020 12:58:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id BA3F93C25BE
- for <ltp@lists.linux.it>; Fri,  7 Aug 2020 12:21:49 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [205.139.110.61])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id EE8BE1003772
- for <ltp@lists.linux.it>; Fri,  7 Aug 2020 12:21:48 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 6A47F3C31D3
+ for <ltp@lists.linux.it>; Fri,  7 Aug 2020 12:58:58 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 120C060094B
+ for <ltp@lists.linux.it>; Fri,  7 Aug 2020 12:57:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1596795707;
+ s=mimecast20190719; t=1596797936;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=RI12W8gSCmQb/ViwUfp1W8QfAFLrOOK5zNfRAA3Knv8=;
- b=K8G380KRS2jF+Xa97VGQdUawp+8B61MuVmPXoyotV2sVES18YvEtotRiTtuq/gY1u6u2cb
- N1iF58weDr6ygaHqcutFgGGE6Y1jHUworD9vV0tN+pBMvomjCRrLYFYZxn3TK74NA2pwX8
- fgh9P4J6ZbtrAP7VLpVJ2kL90IEKMso=
-Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
- [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-92-jFxWZq77MKy-sczfdIE5yg-1; Fri, 07 Aug 2020 06:21:45 -0400
-X-MC-Unique: jFxWZq77MKy-sczfdIE5yg-1
-Received: by mail-yb1-f199.google.com with SMTP id g127so2186033ybf.11
- for <ltp@lists.linux.it>; Fri, 07 Aug 2020 03:21:45 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=RI12W8gSCmQb/ViwUfp1W8QfAFLrOOK5zNfRAA3Knv8=;
- b=NNCiT1vnv/OdEeT+j4YLvWg5ZaYxXGI1Uvaazw2KiSGnxQtuwNFbT8qa6i4p8kne5L
- CmIZobfJ4esxSdiUMa9cCpAsu1Ep6FrpFCvt05U8gfPvtBmbNlRs5Z0Pn7dqEyOel1tG
- qIXMJPufltZ+jAegLxVbzomFV0MnhqB8yJvD62kFLRN6zfA2xY6kufOw5w3VqYVDtHz6
- 35jKN67prFdXolsO2faB8raPORdhtKb8AbnzkWn7XkNhiE0StjRyubgBkgUxdLCxbyDX
- j+tNR/1jiBFHoWXkMEmSZup79MYnVbC9RidcQPMXbJfH2VDRqBiCn+Wgc3Kwm9jUXlig
- EweQ==
-X-Gm-Message-State: AOAM530hfbkMUZAPMnRrtms4iUb7AMTvTwB8cpnea+tVGC314JJnJwXx
- 697YFmGIKCed1sK5bZctYtKt0MutRVit0Od0q1CNxshOGgvZomC5a/TVzFehVsWR4Ku6VzzUtgc
- cc4V3ZMZ4R0ykQY/Tl+AEHSNPr3Y=
-X-Received: by 2002:a25:7708:: with SMTP id s8mr20737644ybc.86.1596795704352; 
- Fri, 07 Aug 2020 03:21:44 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwCwDo8XkaaeOcl1T6uy6vWKb8dovE1gvsB7JQbPdQC3eSAhbdgF3w2DQo97c8wL8gIc3isSbodqWUs6wSOseE=
-X-Received: by 2002:a25:7708:: with SMTP id s8mr20737627ybc.86.1596795704117; 
- Fri, 07 Aug 2020 03:21:44 -0700 (PDT)
-MIME-Version: 1.0
-References: <1596793326-21639-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-In-Reply-To: <1596793326-21639-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 7 Aug 2020 18:21:32 +0800
-Message-ID: <CAEemH2d7+05ZT7UwePjtOuDKws-kK-5kt5LbyzV_zicFp51z2A@mail.gmail.com>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+ to:to:cc:cc:content-type:content-type;
+ bh=BhHTB32XcywZL97P6CvT/3mcd21mdJUZJQ5CFy28/bQ=;
+ b=iakaeIq7Ly5hVsZ6volLNMCR10BnPMxjeorhWl0mM2Ce6k9Qo5cz/5uKbLF8dvh8LK0Sd6
+ irwqm5gfQBq17L9mEDQ6/jfUuq/Efn96O8D/MjHjIv4GtRx+OANbs8TBiLYAYj6o6HwFDy
+ u6pZ5sMgCeOc+ddTv9uCPyL4g2QDlGQ=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-310-EkRoettQP7KHSAxkhbK9iw-1; Fri, 07 Aug 2020 06:58:54 -0400
+X-MC-Unique: EkRoettQP7KHSAxkhbK9iw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 32E9A8005B0;
+ Fri,  7 Aug 2020 10:58:53 +0000 (UTC)
+Received: from janakin.usersys.redhat.com (unknown [10.40.208.12])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id EA00A61176;
+ Fri,  7 Aug 2020 10:58:51 +0000 (UTC)
+From: Jan Stancek <jstancek@redhat.com>
+To: ltp@lists.linux.it
+Date: Fri,  7 Aug 2020 12:58:44 +0200
+Message-Id: <8eefb21d278f0846024a16281c5e19b0e3936979.1596797812.git.jstancek@redhat.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.99.2 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.99.2 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] lib/tst_cgroup: Reset cgroup.clone_children value
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/clone302: drop CLONE_CHILD_SETTID and
+ CLONE_PARENT_SETTID
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,185 +65,95 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0963913070=="
+Cc: viresh.kumar@linaro.org, christian.brauner@ubuntu.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0963913070==
-Content-Type: multipart/alternative; boundary="000000000000b9223505ac46f8fe"
+Per https://lore.kernel.org/linux-m68k/20200627122332.ki2otaiw3v7wndbl@wittgenstein/T/#u
+EFAULT isn't propagated back to userspace so these will always appear
+to succeed. Also issue is that multiple flags are tested together
+and some arguments persisted between calls, because they were set
+only when argument != NULL.
 
---000000000000b9223505ac46f8fe
-Content-Type: text/plain; charset="UTF-8"
+Cc: Christian Brauner <christian.brauner@ubuntu.com>
+Reported-by: Naresh Kamboju <naresh.kamboju@linaro.org>
+Signed-off-by: Jan Stancek <jstancek@redhat.com>
+---
+ testcases/kernel/syscalls/clone3/clone302.c | 42 +++++++++++----------
+ 1 file changed, 23 insertions(+), 19 deletions(-)
 
-On Fri, Aug 7, 2020 at 5:42 PM Yang Xu <xuyang2018.jy@cn.fujitsu.com> wrote:
-
-> When running cgroup test cases(like cpuset01 or oom05) about cpuset
-> subsystem
-> firstly, then cpuset_inherit case will fail because the value of
-> cgroup.clone_children has been changed into 1 on cgroup-v1. Reset this
-> value
-> when calling tst_cgroupN_umount.
->
-> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-> ---
->  lib/tst_cgroup.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
->
-> diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
-> index 9459f7ea0..764951afa 100644
-> --- a/lib/tst_cgroup.c
-> +++ b/lib/tst_cgroup.c
-> @@ -9,6 +9,8 @@
->  #include <stdio.h>
->  #include <stdlib.h>
->  #include <sys/mount.h>
-> +#include <fcntl.h>
-> +#include <unistd.h>
->
->  #include "tst_test.h"
->  #include "tst_safe_macros.h"
-> @@ -123,6 +125,7 @@ static void tst_cgroupN_umount(const char *mnt_path,
-> const char *new_path)
->         FILE *fp;
->         int fd;
->         char s_new[BUFSIZ], s[BUFSIZ], value[BUFSIZ];
-> +       char knob_path[PATH_MAX];
->
->         if (!tst_is_mounted(mnt_path))
->                 return;
-> @@ -151,6 +154,11 @@ static void tst_cgroupN_umount(const char *mnt_path,
-> const char *new_path)
->                             != (ssize_t)strlen(value) - 1)
->                                 tst_res(TWARN | TERRNO, "write %s", s);
->         }
-> +       if (tst_cg_ver & TST_CGROUP_V1) {
->
-
-To recognize cgroup_v1 is not enough here, because it will
-be failed "with no such cgroup.clone_children file" on MEMCG umount if the
-system no CPUSET mounting.
-
-Maybe a smart way is to save the cgroup.clone_children value, restore it if
-it has been changed in the setup phase. What do u think?
-
-
-
-> +               sprintf(knob_path, "%s/cgroup.clone_children", mnt_path);
-> +               if (!access(knob_path, F_OK))
-> +                       SAFE_FILE_PRINTF(knob_path, "%d", 0);
-> +       }
->         if (fd != -1)
->                 close(fd);
->         if (fp != NULL)
-> --
-> 2.23.0
->
->
->
->
-
+diff --git a/testcases/kernel/syscalls/clone3/clone302.c b/testcases/kernel/syscalls/clone3/clone302.c
+index a30df6f8286e..54d59a1f571a 100644
+--- a/testcases/kernel/syscalls/clone3/clone302.c
++++ b/testcases/kernel/syscalls/clone3/clone302.c
+@@ -21,27 +21,33 @@ static struct tcase {
+ 	size_t size;
+ 	uint64_t flags;
+ 	int **pidfd;
+-	int **child_tid;
+-	int **parent_tid;
+ 	int exit_signal;
+ 	unsigned long stack;
+ 	unsigned long stack_size;
+ 	unsigned long tls;
+ 	int exp_errno;
+ } tcases[] = {
+-	{"invalid args", &invalid_args, sizeof(*valid_args), 0, NULL, NULL, NULL, SIGCHLD, 0, 0, 0, EFAULT},
+-	{"zero size", &valid_args, 0, 0, NULL, NULL, NULL, SIGCHLD, 0, 0, 0, EINVAL},
+-	{"short size", &valid_args, sizeof(*valid_args) - 1, 0, NULL, NULL, NULL, SIGCHLD, 0, 0, 0, EINVAL},
+-	{"extra size", &valid_args, sizeof(*valid_args) + 1, 0, NULL, NULL, NULL, SIGCHLD, 0, 0, 0, EFAULT},
+-	{"sighand-no-VM", &valid_args, sizeof(*valid_args), CLONE_SIGHAND, NULL, NULL, NULL, SIGCHLD, 0, 0, 0, EINVAL},
+-	{"thread-no-sighand", &valid_args, sizeof(*valid_args), CLONE_THREAD, NULL, NULL, NULL, SIGCHLD, 0, 0, 0, EINVAL},
+-	{"fs-newns", &valid_args, sizeof(*valid_args), CLONE_FS | CLONE_NEWNS, NULL, NULL, NULL, SIGCHLD, 0, 0, 0, EINVAL},
+-	{"invalid pidfd", &valid_args, sizeof(*valid_args), CLONE_PARENT_SETTID | CLONE_CHILD_SETTID | CLONE_PIDFD, &invalid_address, NULL, NULL, SIGCHLD, 0, 0, 0, EFAULT},
+-	{"invalid childtid", &valid_args, sizeof(*valid_args), CLONE_PARENT_SETTID | CLONE_CHILD_SETTID | CLONE_PIDFD, NULL, &invalid_address, NULL, SIGCHLD, 0, 0, 0, EFAULT},
+-	{"invalid parenttid", &valid_args, sizeof(*valid_args), CLONE_PARENT_SETTID | CLONE_CHILD_SETTID | CLONE_PIDFD, NULL, NULL, &invalid_address, SIGCHLD, 0, 0, 0, EFAULT},
+-	{"invalid signal", &valid_args, sizeof(*valid_args), 0, NULL, NULL, NULL, CSIGNAL + 1, 0, 0, 0, EINVAL},
+-	{"zero-stack-size", &valid_args, sizeof(*valid_args), 0, NULL, NULL, NULL, SIGCHLD, (unsigned long)&stack, 0, 0, EINVAL},
+-	{"invalid-stack", &valid_args, sizeof(*valid_args), 0, NULL, NULL, NULL, SIGCHLD, 0, 4, 0, EINVAL},
++	{"invalid args", &invalid_args, sizeof(*valid_args), 0, NULL, SIGCHLD, 0, 0, 0, EFAULT},
++	{"zero size", &valid_args, 0, 0, NULL, SIGCHLD, 0, 0, 0, EINVAL},
++	{"short size", &valid_args, sizeof(*valid_args) - 1, 0, NULL, SIGCHLD, 0, 0, 0, EINVAL},
++	{"extra size", &valid_args, sizeof(*valid_args) + 1, 0, NULL, SIGCHLD, 0, 0, 0, EFAULT},
++	{"sighand-no-VM", &valid_args, sizeof(*valid_args), CLONE_SIGHAND, NULL, SIGCHLD, 0, 0, 0, EINVAL},
++	{"thread-no-sighand", &valid_args, sizeof(*valid_args), CLONE_THREAD, NULL, SIGCHLD, 0, 0, 0, EINVAL},
++	{"fs-newns", &valid_args, sizeof(*valid_args), CLONE_FS | CLONE_NEWNS, NULL, SIGCHLD, 0, 0, 0, EINVAL},
++	{"invalid pidfd", &valid_args, sizeof(*valid_args), CLONE_PIDFD, &invalid_address, SIGCHLD, 0, 0, 0, EFAULT},
++	{"invalid signal", &valid_args, sizeof(*valid_args), 0, NULL, CSIGNAL + 1, 0, 0, 0, EINVAL},
++	{"zero-stack-size", &valid_args, sizeof(*valid_args), 0, NULL, SIGCHLD, (unsigned long)&stack, 0, 0, EINVAL},
++	{"invalid-stack", &valid_args, sizeof(*valid_args), 0, NULL, SIGCHLD, 0, 4, 0, EINVAL},
++	/*
++	 * Don't test CLONE_CHILD_SETTID and CLONE_PARENT_SETTID:
++	 * When the parent tid is written to the memory location for
++	 * CLONE_PARENT_SETTID we're past the point of no return of process
++	 * creation, i.e. the return value from put_user() isn't checked and
++	 * can't be checked anymore so you'd never receive EFAULT for a bogus
++	 * parent_tid memory address.
++	 *
++	 * https://lore.kernel.org/linux-m68k/20200627122332.ki2otaiw3v7wndbl@wittgenstein/T/#u
++	 */
+ };
+ 
+ static void setup(void)
+@@ -63,10 +69,8 @@ static void run(unsigned int n)
+ 		args->flags = tc->flags;
+ 		if (tc->pidfd)
+ 			args->pidfd = (uint64_t)(*tc->pidfd);
+-		if (tc->child_tid)
+-			args->child_tid = (uint64_t)(*tc->child_tid);
+-		if (tc->parent_tid)
+-			args->parent_tid = (uint64_t)(*tc->parent_tid);
++		else
++			args->pidfd = 0;
+ 		args->exit_signal = tc->exit_signal;
+ 		args->stack = tc->stack;
+ 		args->stack_size = tc->stack_size;
 -- 
-Regards,
-Li Wang
-
---000000000000b9223505ac46f8fe
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Fri, Aug 7, 2020 at 5:42 PM Yang Xu &lt;<a href=
-=3D"mailto:xuyang2018.jy@cn.fujitsu.com">xuyang2018.jy@cn.fujitsu.com</a>&g=
-t; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
-x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">When r=
-unning cgroup test cases(like cpuset01 or oom05) about cpuset subsystem<br>
-firstly, then cpuset_inherit case will fail because the value of<br>
-cgroup.clone_children has been changed into 1 on cgroup-v1. Reset this valu=
-e<br>
-when calling tst_cgroupN_umount.<br>
-<br>
-Signed-off-by: Yang Xu &lt;<a href=3D"mailto:xuyang2018.jy@cn.fujitsu.com" =
-target=3D"_blank">xuyang2018.jy@cn.fujitsu.com</a>&gt;<br>
----<br>
-=C2=A0lib/tst_cgroup.c | 8 ++++++++<br>
-=C2=A01 file changed, 8 insertions(+)<br>
-<br>
-diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c<br>
-index 9459f7ea0..764951afa 100644<br>
---- a/lib/tst_cgroup.c<br>
-+++ b/lib/tst_cgroup.c<br>
-@@ -9,6 +9,8 @@<br>
-=C2=A0#include &lt;stdio.h&gt;<br>
-=C2=A0#include &lt;stdlib.h&gt;<br>
-=C2=A0#include &lt;sys/mount.h&gt;<br>
-+#include &lt;fcntl.h&gt;<br>
-+#include &lt;unistd.h&gt;<br>
-<br>
-=C2=A0#include &quot;tst_test.h&quot;<br>
-=C2=A0#include &quot;tst_safe_macros.h&quot;<br>
-@@ -123,6 +125,7 @@ static void tst_cgroupN_umount(const char *mnt_path, co=
-nst char *new_path)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 FILE *fp;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 int fd;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 char s_new[BUFSIZ], s[BUFSIZ], value[BUFSIZ];<b=
-r>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0char knob_path[PATH_MAX];<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!tst_is_mounted(mnt_path))<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return;<br>
-@@ -151,6 +154,11 @@ static void tst_cgroupN_umount(const char *mnt_path, c=
-onst char *new_path)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 !=3D (ssize_t)strlen(value) - 1)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_res(TWARN | TERRNO, &quot;write =
-%s&quot;, s);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (tst_cg_ver &amp; TST_CGROUP_V1) {<br></bloc=
-kquote><div><br></div><div><div class=3D"gmail_default" style=3D"font-size:=
-small">To recognize cgroup_v1 is not enough here, because it will be=C2=A0f=
-ailed=C2=A0&quot;with=C2=A0no such=C2=A0<span class=3D"gmail_default"></spa=
-n>cgroup.clone_children file&quot; on MEMCG umount=C2=A0if the system no CP=
-USET mounting.</div><br></div><div><div class=3D"gmail_default" style=3D"fo=
-nt-size:small">Maybe a smart way is to save the <span class=3D"gmail_defaul=
-t"></span>cgroup.clone_children=C2=A0value, restore it if it has been chang=
-ed in the setup phase. What do u think?</div><br></div><div>=C2=A0</div><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
-t:1px solid rgb(204,204,204);padding-left:1ex">
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0sprintf(knob_path, =
-&quot;%s/<span class=3D"gmail_default" style=3D"font-size:small"></span><sp=
-an class=3D"gmail_default" style=3D"font-size:small"></span>cgroup.clone_ch=
-ildren&quot;, mnt_path);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!access(knob_pa=
-th, F_OK))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0SAFE_FILE_PRINTF(knob_path, &quot;%d&quot;, 0);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (fd !=3D -1)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 close(fd);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (fp !=3D NULL)<br>
--- <br>
-2.23.0<br>
-<br>
-<br>
-<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
-Wang<br></div></div></div></div>
-
---000000000000b9223505ac46f8fe--
-
-
---===============0963913070==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+2.18.1
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0963913070==--
-
