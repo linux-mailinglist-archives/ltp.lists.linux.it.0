@@ -2,38 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 125C523DB98
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Aug 2020 18:24:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8513B23E6DD
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Aug 2020 06:42:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B43D23C3220
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 Aug 2020 18:24:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4206E3C31D7
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Aug 2020 06:42:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 0EDC13C2244
- for <ltp@lists.linux.it>; Thu,  6 Aug 2020 18:23:58 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 6E1F33C1CB6
+ for <ltp@lists.linux.it>; Fri,  7 Aug 2020 06:42:44 +0200 (CEST)
+Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
+ [IPv6:2607:f8b0:4864:20::1041])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 59DD8140044D
- for <ltp@lists.linux.it>; Thu,  6 Aug 2020 18:23:58 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E5BA4ACA3;
- Thu,  6 Aug 2020 16:24:14 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
-To: Michal Hocko <mhocko@suse.com>,
-	ltp@lists.linux.it
-Date: Thu,  6 Aug 2020 18:23:56 +0200
-Message-Id: <20200806162356.16920-1-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.27.0
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 977F9200907
+ for <ltp@lists.linux.it>; Fri,  7 Aug 2020 06:42:43 +0200 (CEST)
+Received: by mail-pj1-x1041.google.com with SMTP id ha11so306860pjb.1
+ for <ltp@lists.linux.it>; Thu, 06 Aug 2020 21:42:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=IZmGO82FBTEPOdT/6mYrnZpFd4IiJiTvSMrulC6zv+E=;
+ b=nJ72IkigUPgBTRCxGdxgk/7UjGMUnReurdPS4kIOFSqkbIE7Pmo0jsu/QnyUfz8E5D
+ wGTHjmVHJzqhTT01fV4NNjw9p+R+Mh0OAXqwC2LGdyW/J7ZfOi1aShJGqLIzbH9yH45w
+ FfOXXKsxlLnWlQzLDzYJte4Q7MXxwo1pANe+rhNoaivhj4NfXQotsRY3sNSyjmDO3jnh
+ SDHicriT1iRGyi5NEwMux1S+ObSIQEK2PqsrzGQqtDUXEpAdKYoCqu/ReOh54vQD/Uh7
+ O0i1fixxW52aB5368vG8AqI0iyGwcoKF/yrtbZC6IoXBFoAHNf37sn3FneLWiBBNosqQ
+ exsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=IZmGO82FBTEPOdT/6mYrnZpFd4IiJiTvSMrulC6zv+E=;
+ b=Wwp4fA8QLmCnscjPWxYmcYWAoNIoRAYm60NOEblRTzUxlYaZgmcEc72l0E2z6OZhWS
+ 8jS0ooq+BVHLMzCTZOyImBCzyJ6xVPoe+YG0iaMHefHxgCWOC1QHz7AP13h8lVulHO66
+ YN9NfK6XLrguQXI1nNSO0/ioja0fleC9zzDUt9a5DTOU7B051r/vJs29HdKDtbdD0YRS
+ O1wvO3td21VpzRQWXj10r41eksyC2tUUbBVrBa88/1PM0et5/w9t/DvxwTZk6+rSAc+R
+ B3XuX+m01f6zbb8+kyWGDBh3lnW6KMwFJRIBxO6LidLjoy85+pX8JX44FqE5eHtTpbED
+ IXfA==
+X-Gm-Message-State: AOAM532dGt1VTiWHOYkkYpjjPTW/zMVydJi3ZVxNB1kFtRuKU/VobAvB
+ n1KCdb5TGS5OyUgPkGna4G8EBQ==
+X-Google-Smtp-Source: ABdhPJwc/5ZsOYhmB1nC3DjI1mU4yjYej/jiN5y6wjOlt9FQh28LfNROI2bsubz2yOrQBKl2Diqqqw==
+X-Received: by 2002:a17:90a:6a8d:: with SMTP id
+ u13mr10956037pjj.166.1596775362013; 
+ Thu, 06 Aug 2020 21:42:42 -0700 (PDT)
+Received: from localhost ([223.190.59.99])
+ by smtp.gmail.com with ESMTPSA id r91sm8896495pja.56.2020.08.06.21.42.40
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Thu, 06 Aug 2020 21:42:41 -0700 (PDT)
+Date: Fri, 7 Aug 2020 10:12:34 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20200807044234.basdp5ic4xzleqsx@vireshk-mac-ubuntu>
+References: <ebc888947b095fd6a359ad749e50217d0b38954e.1596637728.git.viresh.kumar@linaro.org>
+ <20200806125603.GC3315@yuki.lan>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200806125603.GC3315@yuki.lan>
+User-Agent: NeoMutt/20170609 (1.8.3)
+X-Virus-Scanned: clamav-milter 0.99.2 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH] Drop the mem01 test
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V8 1/2] syscalls/utimensat: Migrate to new test
+ framework
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,323 +80,54 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The mem01 test often fails on PPC systems mainly because it doesn't take into
-account page sizes larger than 4KB. Test scenario review revealed that it's
-not particularly useful because it doesn't have any more specific goal than
-filling large amount of memory and the hardcoded allocation limits are too
-low for modern and future systems. The useful part of this test mostly
-overlaps with coverage by existing OOM tests.
+On 06-08-20, 14:56, Cyril Hrubis wrote:
+> Hi!
+> > +static void reset_time(char *pathname, int dfd, int flags)
+> > +{
+> > +	struct timespec ts[2];
+> > +	struct stat sb;
+> >  
+> > -		ts[1].tv_sec = atoi(argv[optind + 3]);
+> > -		if (argv[optind + 4][0] == 'n') {
+> > -			ts[1].tv_nsec = UTIME_NOW;
+> > -		} else if (argv[optind + 4][0] == 'o') {
+> > -			ts[1].tv_nsec = UTIME_OMIT;
+> > -		} else {
+> > -			ts[1].tv_nsec = atoi(argv[optind + 4]);
+> > -		}
+> > +	ts[0].tv_sec = 0;
+> > +	ts[0].tv_nsec = 0;
+> > +	ts[1].tv_sec = 0;
+> > +	ts[1].tv_nsec = 0;
+> >  
+> > -		tsp = ts;
+> > +	TEST(sys_utimensat(dfd, pathname, ts, flags));
+> > +	TEST(stat(pathname, &sb));
+> 
+> Wrapping the calls to TEST() macro here is useless.
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
- runtest/crashme                  |   3 -
- runtest/mm                       |   1 -
- testcases/kernel/mem/.gitignore  |   1 -
- testcases/kernel/mem/mem/mem01.c | 249 -------------------------------
- 4 files changed, 254 deletions(-)
- delete mode 100644 testcases/kernel/mem/mem/mem01.c
+The TEST() thing always look like the SAFE_() macros to me somehow and
+so did this mistake.
 
-diff --git a/runtest/crashme b/runtest/crashme
-index 14750749d..47f5f93b4 100644
---- a/runtest/crashme
-+++ b/runtest/crashme
-@@ -10,9 +10,6 @@ crash01 crash01
- crash02 crash02 -v 2
- # Generate random syscalls and execute them, less probability
- # to hose your system, but still.
--mem01 mem01 -r
--# Memory eater. Loves to be run in parallel with other programs.
--# May panic on buggy systems if the OOM killer was not fast enough :-)
- fork12 fork12
- # Fork as many children as possible.  On systems with lots of memory
- # and kernels prior to 2.4.19, this can hang the system by using up all pids
-diff --git a/runtest/mm b/runtest/mm
-index 4701a14bd..481d39691 100644
---- a/runtest/mm
-+++ b/runtest/mm
-@@ -20,7 +20,6 @@ mtest06_3 mmap3 -x 0.002 -p
- # Remains diabled till the infinite loop problem is solved
- #mtest-6_4 shmat1 -x 0.00005
- 
--mem01 mem01
- mem02 mem02
- mem03 mem03
- 
-diff --git a/testcases/kernel/mem/.gitignore b/testcases/kernel/mem/.gitignore
-index b95ada109..ff2910533 100644
---- a/testcases/kernel/mem/.gitignore
-+++ b/testcases/kernel/mem/.gitignore
-@@ -23,7 +23,6 @@
- /ksm/ksm04
- /ksm/ksm05
- /ksm/ksm06
--/mem/mem01
- /mem/mem02
- /mmapstress/mmap-corruption01
- /mmapstress/mmapstress01
-diff --git a/testcases/kernel/mem/mem/mem01.c b/testcases/kernel/mem/mem/mem01.c
-deleted file mode 100644
-index b8fa5b7a0..000000000
---- a/testcases/kernel/mem/mem/mem01.c
-+++ /dev/null
-@@ -1,249 +0,0 @@
--/*
-- * mem01.c - Basic memory and swapper stress test
-- *
-- * Copyright (C) 2001 Stephane Fillod <f4cfe@free.fr>
-- * Original idea from Rene Cougnenc
-- *
-- * Copyright (C) 2012 Cyril Hrubis <chrubis@suse.cz>
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-- *
-- * Further, this software is distributed without any warranty that it is
-- * free of the rightful claim of any third person regarding infringement
-- * or the like.  Any license provided herein, whether implied or
-- * otherwise, applies only to this software file.  Patent licenses, if
-- * any, provided herein do not apply to combinations of this program with
-- * other software, or any other product whatsoever.
-- *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-- *
-- */
--
--#include <unistd.h>
--#include <errno.h>
--#include <string.h>
--#include <signal.h>
--#include <sys/types.h>
--#include <sys/sysinfo.h>
--#include <stdio.h>
--#include <stdlib.h>
--#include <sys/user.h>
--#include <time.h>
--#include <limits.h>
--
--#include "lapi/abisize.h"
--#include "test.h"
--
--/* in KB */
--#define PROGRESS_LEAP 100
--
--/*
-- * TODO:
-- *  - add option for growing direction, when doing linear touching
-- *  - add option for touch running time (or infinite loop?)
-- *  - make it multithreaded with random access to test r/w mm_sem
-- */
--
--char *TCID = "mem01";
--int TST_TOTAL = 1;
--
--static int m_opt = 0;		/* memsize */
--static char *m_copt;
--
--static int r_opt = 0;		/* random access versus linear */
--static int v_opt = 0;		/* verbose progress indication */
--
--static void cleanup(void)
--{
--	tst_rmdir();
--	tst_exit();
--}
--
--static void setup(void)
--{
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
--
--	tst_tmpdir();
--}
--
--static void help(void)
--{
--	printf("  -m x    size of malloc in MB (default from /proc/meminfo)\n");
--	printf("  -r      random touching versus linear\n");
--	printf("  -v      verbose progress indication\n");
--}
--
--/*
-- * return MemFree+SwapFree, from /proc/meminfo
-- * returned value is in bytes.
-- */
--size_t get_memsize(void)
--{
--	struct sysinfo info;
--	unsigned long long res;
--	unsigned long long freeswap;
--	unsigned long long freeram;
--	int ret;
--
--	ret = sysinfo(&info);
--	if (ret != 0) {
--		tst_resm(TFAIL,
--			 "Could not retrieve memory information using sysinfo()");
--		cleanup();
--	}
--
--	freeram =
--	    (unsigned long long)info.freeram *
--	    (unsigned long long)info.mem_unit;
--	tst_resm(TINFO, "Free Mem:\t%llu Mb", freeram / 1024 / 1024);
--	res = freeram;
--
--	freeswap =
--	    (unsigned long long)info.freeswap *
--	    (unsigned long long)info.mem_unit;
--	tst_resm(TINFO, "Free Swap:\t%llu Mb", freeswap / 1024 / 1024);
--	res = res + freeswap;
--
--	tst_resm(TINFO, "Total Free:\t%llu Mb", res / 1024 / 1024);
--#if defined(__s390__)
--	if (res > 1 * 1024 * 1024 * 1024)
--		res = 500 * 1024 * 1024;	/* s390's unique 31bit architecture needs smaller default */
--#elif defined(TST_ABI32)
--	if (res > 1 * 1024 * 1024 * 1024)
--		res = 1 * 1024 * 1024 * 1024;
--#elif defined(TST_ABI64)
--	if (res > (unsigned long long)3 * 1024 * 1024 * 1024)
--		res = (unsigned long long)3 *1024 * 1024 * 1024;
--#endif
--
--	/* Always reserve 16MB memory to avoid OOM Killer. */
--	res -= 16 * 1024 * 1024;
--	tst_resm(TINFO, "Total Tested:\t%llu Mb", res / 1024 / 1024);
--	return (size_t) res;
--}
--
--/*
-- * add the -m option whose parameter is the
-- * memory size (MB) to allocate.
-- */
--option_t options[] = {
--	{"m:", &m_opt, &m_copt}
--	,
--	{"r", &r_opt, NULL}
--	,
--	{"v", &v_opt, NULL}
--	,
--	{NULL, NULL, NULL}
--};
--
--int main(int argc, char *argv[])
--{
--	size_t memsize = 0;	/* at first in MB, limited to 4Gb on 32 bits */
--	int pagesize;
--
--	int i;
--	int lc;
--	char *p, *bigmalloc;
--	int loop_count;		/* limited to 16Go on 32 bits systems */
--
--	pagesize = sysconf(_SC_PAGESIZE);
--
--	tst_parse_opts(argc, argv, options, help);
--
--	if (m_opt) {
--		memsize = (size_t) atoi(m_copt) * 1024 * 1024;
--
--		if (memsize < 1) {
--			tst_brkm(TBROK, cleanup, "Invalid arg for -m: %s",
--				 m_copt);
--		}
--	}
--
--	if (r_opt)
--		srand(time(NULL));
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--
--		tst_count = 0;
--
--		if (!m_opt) {
--			/* find out by ourselves! */
--			memsize = get_memsize();
--			if (memsize < 1) {
--				tst_brkm(TBROK, cleanup,
--					 "Unable to guess maxmemsize from /proc/meminfo");
--			}
--		}
--
--		/* Allocate (virtual) memory */
--		bigmalloc = p = malloc(memsize);
--
--		if (!p) {
--			tst_resm(TFAIL, "malloc - alloc of %zuMB failed",
--				 memsize / 1024 / 1024);
--			cleanup();
--		}
--
--		/*
--		 * Dirty all the pages, to force physical RAM allocation
--		 * and exercise eventually the swapper
--		 */
--		tst_resm(TINFO, "touching %zuMB of malloc'ed memory (%s)",
--			 memsize / 1024 / 1024, r_opt ? "random" : "linear");
--
--		loop_count = memsize / pagesize;
--
--		for (i = 0; i < loop_count; i++) {
--			if (v_opt
--			    && (i % (PROGRESS_LEAP * 1024 / pagesize) == 0)) {
--				printf(".");
--				fflush(stdout);
--			}
--			/*
--			 * Make the page dirty,
--			 * and make sure compiler won't optimize it away
--			 * Touching more than one word per page is useless
--			 * because of cache.
--			 */
--			*(int *)p = 0xdeadbeef ^ i;
--
--			if (r_opt) {
--				p = bigmalloc +
--				    (size_t) ((double)(memsize - sizeof(int)) *
--					      rand() / (RAND_MAX + 1.0));
--			} else {
--				p += pagesize;
--			}
--		}
--
--		if (v_opt)
--			printf("\n");
--
--		/* This is not mandatory (except in a loop), but it exercise mm again */
--		free(bigmalloc);
--
--		/*
--		 * seems that if the malloc'ed area was bad, we'd get SEGV (or kicked
--		 * somehow by the OOM killer?), hence we can indicate a PASS.
--		 */
--		tst_resm(TPASS, "malloc - alloc of %zuMB succeeded",
--			 memsize / 1024 / 1024);
--
--	}
--
--	cleanup();
--
--	return 0;
--}
+> Also we do pass libc timespec to a syscall that is supposed to take the
+> old kernel type, right?
+> 
+> I guess that the options are:
+> 
+> * Use the glibc function here instead
+> 
+> * Change the type in the follow up patch
+
+This is already properly fixed in 2/2.
+
 -- 
-2.27.0
-
+viresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
