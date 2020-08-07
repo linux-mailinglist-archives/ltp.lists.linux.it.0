@@ -2,51 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90A9B23EC31
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Aug 2020 13:16:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 581FE23EC59
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Aug 2020 13:23:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5FA8E3C31F9
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Aug 2020 13:16:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 26A583C31F0
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Aug 2020 13:23:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 50EF03C31E2
- for <ltp@lists.linux.it>; Fri,  7 Aug 2020 13:16:20 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 39C891A011F3
- for <ltp@lists.linux.it>; Fri,  7 Aug 2020 13:16:17 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.75,445,1589212800"; d="scan'208";a="97771121"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 07 Aug 2020 19:16:14 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 441D54CE34EF;
- Fri,  7 Aug 2020 19:16:09 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Fri, 7 Aug 2020 19:16:11 +0800
-To: Li Wang <liwang@redhat.com>
-References: <1596793326-21639-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <CAEemH2d7+05ZT7UwePjtOuDKws-kK-5kt5LbyzV_zicFp51z2A@mail.gmail.com>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <1ca03e90-6885-4345-9be8-c1f37a6227ab@cn.fujitsu.com>
-Date: Fri, 7 Aug 2020 19:16:08 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by picard.linux.it (Postfix) with ESMTP id 6AA983C2A76
+ for <ltp@lists.linux.it>; Fri,  7 Aug 2020 13:23:52 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
+ [205.139.110.61])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 66F3E1A01017
+ for <ltp@lists.linux.it>; Fri,  7 Aug 2020 13:23:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1596799429;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=WLk45tPE+WUIZ+TWLghGUARb9SM6riasZ/jfBJm1TnI=;
+ b=d+h6Tru2klzqOm1DB7HXw+x3ylD8MLF0Tq5YbCnsBBTJzKoh525jfjbgU7XT1+4t9LEH1P
+ pm6EWVRJxTdHXzo+3DcxYEGxyG095CAMG4v3yZFjMwGm3hbIi6hWlA5LWN9px50E3//43A
+ eryhGxtb91Bjj01dRAmAhrzJpOuLqi0=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-324-q7r9Zj59MDOIhXTbmjlS4w-1; Fri, 07 Aug 2020 07:23:47 -0400
+X-MC-Unique: q7r9Zj59MDOIhXTbmjlS4w-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+ [10.5.11.22])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CFD8F58;
+ Fri,  7 Aug 2020 11:23:45 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C1FA01001B2B;
+ Fri,  7 Aug 2020 11:23:45 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id AF26818095FF;
+ Fri,  7 Aug 2020 11:23:45 +0000 (UTC)
+Date: Fri, 7 Aug 2020 07:23:45 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <282506361.7043502.1596799425598.JavaMail.zimbra@redhat.com>
+In-Reply-To: <2103348435.6776074.1596632339725.JavaMail.zimbra@redhat.com>
+References: <9927ed18c642db002e43afe5e36fb9c18c4f9495.1594811090.git.jstancek@redhat.com>
+ <1881588710.5797015.1596457102422.JavaMail.zimbra@redhat.com>
+ <20200805125357.GE5522@yuki.lan>
+ <2103348435.6776074.1596632339725.JavaMail.zimbra@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <CAEemH2d7+05ZT7UwePjtOuDKws-kK-5kt5LbyzV_zicFp51z2A@mail.gmail.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 441D54CE34EF.A24EB
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=-1.1 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Originating-IP: [10.40.208.12, 10.4.195.2]
+Thread-Topic: selftests: vdso: hash entry size on alpha, s390x is 8 bytes
+Thread-Index: LErn1s/S3CQkYyPud6YH5FoxnTRnDI7iYEbs
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-Virus-Scanned: clamav-milter 0.99.2 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] lib/tst_cgroup: Reset cgroup.clone_children value
+Subject: Re: [LTP] [PATCH] selftests: vdso: hash entry size on alpha,
+ s390x is 8 bytes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,64 +77,27 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: broonie@kernel.org, linux-kernel@vger.kernel.org, ltp@lists.linux.it,
+ skhan@linuxfoundation.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgTGkKCgo+IAo+IAo+IE9uIEZyaSwgQXVnIDcsIDIwMjAgYXQgNTo0MiBQTSBZYW5nIFh1IDx4
-dXlhbmcyMDE4Lmp5QGNuLmZ1aml0c3UuY29tIAo+IDxtYWlsdG86eHV5YW5nMjAxOC5qeUBjbi5m
-dWppdHN1LmNvbT4+IHdyb3RlOgo+IAo+ICAgICBXaGVuIHJ1bm5pbmcgY2dyb3VwIHRlc3QgY2Fz
-ZXMobGlrZSBjcHVzZXQwMSBvciBvb20wNSkgYWJvdXQgY3B1c2V0Cj4gICAgIHN1YnN5c3RlbQo+
-ICAgICBmaXJzdGx5LCB0aGVuIGNwdXNldF9pbmhlcml0IGNhc2Ugd2lsbCBmYWlsIGJlY2F1c2Ug
-dGhlIHZhbHVlIG9mCj4gICAgIGNncm91cC5jbG9uZV9jaGlsZHJlbiBoYXMgYmVlbiBjaGFuZ2Vk
-IGludG8gMSBvbiBjZ3JvdXAtdjEuIFJlc2V0Cj4gICAgIHRoaXMgdmFsdWUKPiAgICAgd2hlbiBj
-YWxsaW5nIHRzdF9jZ3JvdXBOX3Vtb3VudC4KPiAKPiAgICAgU2lnbmVkLW9mZi1ieTogWWFuZyBY
-dSA8eHV5YW5nMjAxOC5qeUBjbi5mdWppdHN1LmNvbQo+ICAgICA8bWFpbHRvOnh1eWFuZzIwMTgu
-anlAY24uZnVqaXRzdS5jb20+Pgo+ICAgICAtLS0KPiAgICAgIMKgbGliL3RzdF9jZ3JvdXAuYyB8
-IDggKysrKysrKysKPiAgICAgIMKgMSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKQo+IAo+
-ICAgICBkaWZmIC0tZ2l0IGEvbGliL3RzdF9jZ3JvdXAuYyBiL2xpYi90c3RfY2dyb3VwLmMKPiAg
-ICAgaW5kZXggOTQ1OWY3ZWEwLi43NjQ5NTFhZmEgMTAwNjQ0Cj4gICAgIC0tLSBhL2xpYi90c3Rf
-Y2dyb3VwLmMKPiAgICAgKysrIGIvbGliL3RzdF9jZ3JvdXAuYwo+ICAgICBAQCAtOSw2ICs5LDgg
-QEAKPiAgICAgIMKgI2luY2x1ZGUgPHN0ZGlvLmg+Cj4gICAgICDCoCNpbmNsdWRlIDxzdGRsaWIu
-aD4KPiAgICAgIMKgI2luY2x1ZGUgPHN5cy9tb3VudC5oPgo+ICAgICArI2luY2x1ZGUgPGZjbnRs
-Lmg+Cj4gICAgICsjaW5jbHVkZSA8dW5pc3RkLmg+Cj4gCj4gICAgICDCoCNpbmNsdWRlICJ0c3Rf
-dGVzdC5oIgo+ICAgICAgwqAjaW5jbHVkZSAidHN0X3NhZmVfbWFjcm9zLmgiCj4gICAgIEBAIC0x
-MjMsNiArMTI1LDcgQEAgc3RhdGljIHZvaWQgdHN0X2Nncm91cE5fdW1vdW50KGNvbnN0IGNoYXIK
-PiAgICAgKm1udF9wYXRoLCBjb25zdCBjaGFyICpuZXdfcGF0aCkKPiAgICAgIMKgIMKgIMKgIMKg
-IEZJTEUgKmZwOwo+ICAgICAgwqAgwqAgwqAgwqAgaW50IGZkOwo+ICAgICAgwqAgwqAgwqAgwqAg
-Y2hhciBzX25ld1tCVUZTSVpdLCBzW0JVRlNJWl0sIHZhbHVlW0JVRlNJWl07Cj4gICAgICvCoCDC
-oCDCoCDCoGNoYXIga25vYl9wYXRoW1BBVEhfTUFYXTsKPiAKPiAgICAgIMKgIMKgIMKgIMKgIGlm
-ICghdHN0X2lzX21vdW50ZWQobW50X3BhdGgpKQo+ICAgICAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgcmV0dXJuOwo+ICAgICBAQCAtMTUxLDYgKzE1NCwxMSBAQCBzdGF0aWMgdm9pZCB0c3RfY2dy
-b3VwTl91bW91bnQoY29uc3QgY2hhcgo+ICAgICAqbW50X3BhdGgsIGNvbnN0IGNoYXIgKm5ld19w
-YXRoKQo+ICAgICAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgIT0g
-KHNzaXplX3Qpc3RybGVuKHZhbHVlKSAtIDEpCj4gICAgICDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCB0c3RfcmVzKFRXQVJOIHwgVEVSUk5PLCAid3JpdGUg
-JXMiLCBzKTsKPiAgICAgIMKgIMKgIMKgIMKgIH0KPiAgICAgK8KgIMKgIMKgIMKgaWYgKHRzdF9j
-Z192ZXIgJiBUU1RfQ0dST1VQX1YxKSB7Cj4gCj4gCj4gVG8gcmVjb2duaXplIGNncm91cF92MSBp
-cyBub3QgZW5vdWdoIGhlcmUsIGJlY2F1c2UgaXQgd2lsbCAKPiBiZcKgZmFpbGVkwqAid2l0aMKg
-bm8gc3VjaCBjZ3JvdXAuY2xvbmVfY2hpbGRyZW4gZmlsZSIgb24gTUVNQ0cgdW1vdW50wqBpZiAK
-PiB0aGUgc3lzdGVtIG5vIENQVVNFVCBtb3VudGluZy4KSSBoYXMgdW1vdW50ZWQgY3B1c2V0LCBi
-dXQgSSBzdGlsbCBzZWUgdGhpcyBmaWxlIGluIG1lbW9yeSBhcyBiZWxvdzoKCiNtb3VudCB8Z3Jl
-cCBjcHVzZXQKbm90aGluZwojIGxzIC1sIC9zeXMvZnMvY2dyb3VwL21lbW9yeS9jZ3JvdXAuY2xv
-bmVfY2hpbGRyZW4KLXJ3LXItLXItLS4gMSByb290IHJvb3QgMCBBdWcgIDcgMDg6MTYgCi9zeXMv
-ZnMvY2dyb3VwL21lbW9yeS9jZ3JvdXAuY2xvbmVfY2hpbGRyZW4KCj4gCj4gTWF5YmUgYSBzbWFy
-dCB3YXkgaXMgdG8gc2F2ZSB0aGUgY2dyb3VwLmNsb25lX2NoaWxkcmVuwqB2YWx1ZSwgcmVzdG9y
-ZSBpdCAKPiBpZiBpdCBoYXMgYmVlbiBjaGFuZ2VkIGluIHRoZSBzZXR1cCBwaGFzZS4gV2hhdCBk
-byB1IHRoaW5rPwpXZSBjYW4ganVzdCB1c2UgcHJpbnQgYW5kIHNjYW5mIGFwaSB0byBkbyB0aGlz
-LgpCdXQgSSBkb24ndCBrbm93IHRoaXMgd2hldGhlciB0YWtlcyBiYWQgZWZmZWN0cyBvbiBjb21w
-bGV4ZCBuZXN0aW5nIApzaXR1YXRpb24oaGFzIHN1YiBjZ3JvdXApLgoKPiAKPiAgICAgK8KgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgc3ByaW50Zihrbm9iX3BhdGgsICIlcy9jZ3JvdXAuY2xvbmVfY2hp
-bGRyZW4iLAo+ICAgICBtbnRfcGF0aCk7Cj4gICAgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGlm
-ICghYWNjZXNzKGtub2JfcGF0aCwgRl9PSykpCkhlcmUgaGFzIGEgY2hlY2sgZm9yIGNncm91cC5j
-bG9uZV9jaGlsZHJlbiBzbyBpdCBzaG91bGQgbm90IHRyaWdnZXIgdW4gCnN1Y2ggZmlsZSBlcnJv
-ci4KCnBzOiBJIHdpbGwgYWRkIGNsb25lX2NoaWxkcmVuIHN3aXRoIGludG8gY3B1X2luaGVyaXQg
-Y2FzZS4KCkJlc3QgUmVnYXJkcwpZYW5nIFh1Cj4gICAgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoFNBRkVfRklMRV9QUklOVEYoa25vYl9wYXRoLCAiJWQiLCAwKTsKPiAgICAg
-K8KgIMKgIMKgIMKgfQo+ICAgICAgwqAgwqAgwqAgwqAgaWYgKGZkICE9IC0xKQo+ICAgICAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgY2xvc2UoZmQpOwo+ICAgICAgwqAgwqAgwqAgwqAgaWYgKGZw
-ICE9IE5VTEwpCj4gICAgIC0tIAo+ICAgICAyLjIzLjAKPiAKPiAKPiAKPiAKPiAKPiAtLSAKPiBS
-ZWdhcmRzLAo+IExpIFdhbmcKCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3Rz
-LmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+
+----- Original Message -----
+> 
+> ----- Original Message -----
+> > Hi!
+> > As much as it's worth the changes looks good to me.
+> > 
+> > @Jan: I guess that we can as well fix this in LTP first then we can try
+> >       to get the kernel version fixed...
+> 
+> Fine by me, I'll give it couple more days then push it.
+
+Pushed.
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
