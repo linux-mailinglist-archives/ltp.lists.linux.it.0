@@ -1,38 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BD68241B59
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Aug 2020 15:05:36 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 36D3D241B57
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Aug 2020 15:05:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DBE973C3142
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Aug 2020 15:05:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D41E43C1CB2
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Aug 2020 15:05:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id CDC543C1CB2
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 8F0A23C312C
  for <ltp@lists.linux.it>; Tue, 11 Aug 2020 15:05:05 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id F36931A01964
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 0B3791001391
  for <ltp@lists.linux.it>; Tue, 11 Aug 2020 15:05:04 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0C0D2B038
+ by mx2.suse.de (Postfix) with ESMTP id 2915DB03F
  for <ltp@lists.linux.it>; Tue, 11 Aug 2020 13:05:25 +0000 (UTC)
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 11 Aug 2020 15:04:59 +0200
-Message-Id: <20200811130502.12010-1-mdoucha@suse.cz>
+Date: Tue, 11 Aug 2020 15:05:00 +0200
+Message-Id: <20200811130502.12010-2-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20200811130502.12010-1-mdoucha@suse.cz>
+References: <20200811130502.12010-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/4] Integrate tst_taint_check() into main LTP library
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/4] Update tests to new taint check API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,191 +50,297 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add .taint_check attribute to struct tst_test and use it to initialize
-taint checking functions. Then call tst_taint_check() automatically at the end
-of testing if needed.
-
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
- doc/test-writing-guidelines.txt | 37 ++++++++++++++++++---------------
- include/tst_taint.h             | 21 ++++++++++++-------
- include/tst_test.h              |  9 ++++++++
- lib/tst_test.c                  |  6 ++++++
- 4 files changed, 48 insertions(+), 25 deletions(-)
 
-diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
-index 67aed1ac9..b2265a778 100644
---- a/doc/test-writing-guidelines.txt
-+++ b/doc/test-writing-guidelines.txt
-@@ -1535,38 +1535,41 @@ test.c:8: INFO: do_action(arg) failed
- 2.2.24 Tainted kernels
- ^^^^^^^^^^^^^^^^^^^^^^
+These are just trivial changes of tst_taint_init(mask) to .taint_check = mask.
+I intentionally didn't remove any tst_taint_check() calls here.
+
+ testcases/cve/cve-2017-17053.c                        | 4 +---
+ testcases/kernel/pty/pty05.c                          | 4 +---
+ testcases/kernel/sound/snd_seq01.c                    | 3 +--
+ testcases/kernel/sound/snd_timer01.c                  | 3 +--
+ testcases/kernel/syscalls/connect/connect02.c         | 4 +---
+ testcases/kernel/syscalls/sendmsg/sendmsg03.c         | 3 +--
+ testcases/kernel/syscalls/setsockopt/setsockopt05.c   | 7 +++----
+ testcases/kernel/syscalls/setsockopt/setsockopt06.c   | 4 +---
+ testcases/kernel/syscalls/timerfd/timerfd_settime02.c | 3 +--
+ 9 files changed, 11 insertions(+), 24 deletions(-)
+
+diff --git a/testcases/cve/cve-2017-17053.c b/testcases/cve/cve-2017-17053.c
+index 08a08211d..a4c418986 100644
+--- a/testcases/cve/cve-2017-17053.c
++++ b/testcases/cve/cve-2017-17053.c
+@@ -22,7 +22,6 @@
+ #include <unistd.h>
+ #include <stdio.h>
  
--If you need to detect, if a testcase triggers a kernel warning, bug or oops,
--the following can be used to detect TAINT_W or TAINT_D:
-+If you need to detect whether a testcase triggers a kernel warning, bug or
-+oops, the following can be used to detect TAINT_W or TAINT_D:
+-#include "tst_taint.h"
+ #include "lapi/syscalls.h"
  
- [source,c]
- -------------------------------------------------------------------------------
+ #define EXEC_USEC   5000000
+@@ -85,8 +84,6 @@ static void install_sighandler(void)
+ 
+ static void setup(void)
+ {
+-	tst_taint_init(TST_TAINT_W | TST_TAINT_D);
+-
+ 	shm = SAFE_MMAP(NULL, sizeof(struct shm_data),
+ 			PROT_READ | PROT_WRITE,
+ 			MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+@@ -154,6 +151,7 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.test_all = run,
++	.taint_check = TST_TAINT_W | TST_TAINT_D,
+ 	.tags = (const struct tst_tag[]) {
+ 		{"linux-git", "ccd5b3235180"},
+ 		{"CVE", "2017-17053"},
+diff --git a/testcases/kernel/pty/pty05.c b/testcases/kernel/pty/pty05.c
+index 6e1d7972a..afef051c8 100644
+--- a/testcases/kernel/pty/pty05.c
++++ b/testcases/kernel/pty/pty05.c
+@@ -22,7 +22,6 @@
+ #include "lapi/tty.h"
+ 
  #include "tst_test.h"
 -#include "tst_taint.h"
+ #include "tst_fuzzy_sync.h"
  
--void setup(void)
--{
-+static struct tst_test test = {
- 	...
--	tst_taint_init(TST_TAINT_W | TST_TAINT_D);
-+	.taint_check = TST_TAINT_W | TST_TAINT_D,
- 	...
--}
--...
-+};
-+
- void run(void)
+ #define BUF_SIZE 1
+@@ -33,8 +32,6 @@ static char buf[BUF_SIZE];
+ 
+ static void setup(void)
  {
- 	...
--	if (tst_taint_check() == 0)
--		tst_res(TPASS, "kernel is not tainted");
-+	if (tst_taint_check() != 0)
-+		tst_res(TFAIL, "kernel has issues");
- 	else
--		tst_res(TFAIL, "kernel is tainted");
-+		tst_res(TPASS, "kernel seems to be fine");
+-	tst_taint_init(TST_TAINT_W | TST_TAINT_D);
+-
+ 	fzsync_pair.exec_loops = 100000;
+ 	tst_fzsync_pair_init(&fzsync_pair);
  }
- -------------------------------------------------------------------------------
+@@ -99,6 +96,7 @@ static struct tst_test test = {
+ 	.test_all = run,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
++	.taint_check = TST_TAINT_W | TST_TAINT_D,
+ 	.tags = (const struct tst_tag[]) {
+ 		{"linux-git", "82f2341c94d27"},
+ 		{"CVE", "2017-2636"},
+diff --git a/testcases/kernel/sound/snd_seq01.c b/testcases/kernel/sound/snd_seq01.c
+index 0c1a44f48..c56752230 100644
+--- a/testcases/kernel/sound/snd_seq01.c
++++ b/testcases/kernel/sound/snd_seq01.c
+@@ -22,7 +22,6 @@
  
--You have to call 'tst_taint_init()' with non-zero flags first, preferably during
--setup(). The function will generate a 'TCONF' if the requested flags are not
--fully supported on the running kernel, and 'TBROK' if either a zero mask was
--supplied or if the kernel is already tainted before executing the test.
-+To initialize taint checks, you have to set the taint flags you want to test
-+for in the 'taint_check' attribute of the tst_test struct. LTP library will
-+then automatically call 'tst_taint_init()' during test setup. The function
-+will generate a 'TCONF' if the requested flags are not fully supported on the
-+running kernel, and 'TBROK' if the kernel is already tainted before executing
-+the test.
+ #include "tst_test.h"
+ #include "tst_fuzzy_sync.h"
+-#include "tst_taint.h"
  
--Then you can call 'tst_taint_check()' during 'run()', which returns 0 or the
--tainted flags set in '/proc/sys/kernel/tainted' as specified earlier.
-+LTP library will then automatically check kernel taint at the end of testing.
-+If '.all_filesystems' is set in struct tst_test, taint check will be performed
-+after each file system and testing may be aborted early by 'TBROK'. You can
-+optionally also call 'tst_taint_check()' during 'run()', which returns 0 or
-+the tainted flags set in '/proc/sys/kernel/tainted' as specified earlier.
+ static int fd = -1;
+ static int client_id;
+@@ -64,7 +63,6 @@ static void setup(void)
+ {
+ 	struct snd_seq_queue_info qconf = { .queue = 0 };
  
- Depending on your kernel version, not all tainted-flags will be supported.
+-	tst_taint_init(TST_TAINT_W | TST_TAINT_D);
+ 	errno = 0;
+ 	fd = open("/dev/snd/seq", O_RDWR);
  
-diff --git a/include/tst_taint.h b/include/tst_taint.h
-index cfa84dded..bd8076c1c 100644
---- a/include/tst_taint.h
-+++ b/include/tst_taint.h
-@@ -7,14 +7,12 @@
-  *
-  * ...
-  * #include "tst_test.h"
-- * #include "tst_taint.h"
-  * ..
-- * void setup(void)
-- * {
-+ * static struct tst_test test = {
-  *	...
-- *	tst_taint_init(TST_TAINT_W | TST_TAINT_D));
-+ *	.taint_check = TST_TAINT_W | TST_TAINT_D,
-  *	...
-- * }
-+ * };
-  *
-  * void run(void)
-  * {
-@@ -29,10 +27,14 @@
-  *
-  *
-  *
-- * The above code checks, if the kernel issued a warning (TST_TAINT_W)
-+ * The above code checks whether the kernel issued a warning (TST_TAINT_W)
-  * or even died (TST_TAINT_D) during test execution.
-  * If these are set after running a test case, we most likely
-  * triggered a kernel bug.
+@@ -126,6 +124,7 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.timeout = 120,
++	.taint_check = TST_TAINT_W | TST_TAINT_D,
+ 	.tags = (const struct tst_tag[]) {
+ 		{"linux-git", "d15d662e89fc"},
+ 		{"CVE", "2018-7566"},
+diff --git a/testcases/kernel/sound/snd_timer01.c b/testcases/kernel/sound/snd_timer01.c
+index e339ec862..51591c18e 100644
+--- a/testcases/kernel/sound/snd_timer01.c
++++ b/testcases/kernel/sound/snd_timer01.c
+@@ -18,7 +18,6 @@
+ 
+ #include "config.h"
+ #include "tst_test.h"
+-#include "tst_taint.h"
+ #include "tst_fuzzy_sync.h"
+ #include "tst_safe_macros.h"
+ #include "tst_safe_pthread.h"
+@@ -71,7 +70,6 @@ static void setup(void)
+ 		tst_brk(TCONF, "The file '/dev/snd/timer' is not exist");
+ 
+ 	tst_fzsync_pair_init(&fzsync_pair);
+-	tst_taint_init(TST_TAINT_W | TST_TAINT_D);
+ 	snd_fd = SAFE_OPEN("/dev/snd/timer",
+ 			O_RDONLY|O_CREAT|O_NOCTTY|O_SYNC|O_LARGEFILE, 0);
+ }
+@@ -140,6 +138,7 @@ static struct tst_test test = {
+ 	.test_all = run,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
++	.taint_check = TST_TAINT_W | TST_TAINT_D,
+ 	.tags = (const struct tst_tag[]) {
+ 		{"linux-git", "d11662f4f798"},
+ 		{"linux-git", "ba3021b2c79b"},
+diff --git a/testcases/kernel/syscalls/connect/connect02.c b/testcases/kernel/syscalls/connect/connect02.c
+index cf80213d6..e20214e24 100644
+--- a/testcases/kernel/syscalls/connect/connect02.c
++++ b/testcases/kernel/syscalls/connect/connect02.c
+@@ -35,7 +35,6 @@
+ 
+ #include "tst_test.h"
+ #include "tst_net.h"
+-#include "tst_taint.h"
+ 
+ static int listenfd = -1, fd = -1, confd1 = -1, confd2 = -1, confd3 = -1;
+ static struct sockaddr_in6 bind_addr;
+@@ -46,8 +45,6 @@ static void setup(void)
+ {
+ 	socklen_t size = sizeof(bind_addr);
+ 
+-	tst_taint_init(TST_TAINT_W | TST_TAINT_D);
+-
+ 	tst_init_sockaddr_inet6_bin(&bind_addr, &in6addr_any, 0);
+ 	tst_init_sockaddr_inet_bin(&bind_addr4, INADDR_ANY, 0);
+ 	memset(&reset_addr, 0, sizeof(reset_addr));
+@@ -132,6 +129,7 @@ static struct tst_test test = {
+ 	.test_all = run,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
++	.taint_check = TST_TAINT_W | TST_TAINT_D,
+ 	.tags = (const struct tst_tag[]) {
+ 		{"linux-git", "9d538fa60bad"},
+ 		{"linux-git", "82c9ae440857"},
+diff --git a/testcases/kernel/syscalls/sendmsg/sendmsg03.c b/testcases/kernel/syscalls/sendmsg/sendmsg03.c
+index 7dc491f75..c7d72f686 100644
+--- a/testcases/kernel/syscalls/sendmsg/sendmsg03.c
++++ b/testcases/kernel/syscalls/sendmsg/sendmsg03.c
+@@ -22,7 +22,6 @@
+ #include <sched.h>
+ #include "tst_test.h"
+ #include "tst_fuzzy_sync.h"
+-#include "tst_taint.h"
+ 
+ #define IOVEC_COUNT 4
+ #define PACKET_SIZE 100
+@@ -39,7 +38,6 @@ static void setup(void)
+ {
+ 	int i;
+ 
+-	tst_taint_init(TST_TAINT_W | TST_TAINT_D);
+ 	SAFE_UNSHARE(CLONE_NEWUSER);
+ 	SAFE_UNSHARE(CLONE_NEWNET);
+ 	sockfd = SAFE_SOCKET(AF_INET, SOCK_RAW, IPPROTO_ICMP);
+@@ -106,6 +104,7 @@ static struct tst_test test = {
+ 	.test_all = run,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
++	.taint_check = TST_TAINT_W | TST_TAINT_D,
+ 	.tags = (const struct tst_tag[]) {
+ 		{"linux-git", "8f659a03a0ba"},
+ 		{"CVE", "2017-17712"},
+diff --git a/testcases/kernel/syscalls/setsockopt/setsockopt05.c b/testcases/kernel/syscalls/setsockopt/setsockopt05.c
+index 6e938aa60..e78ef236e 100644
+--- a/testcases/kernel/syscalls/setsockopt/setsockopt05.c
++++ b/testcases/kernel/syscalls/setsockopt/setsockopt05.c
+@@ -9,7 +9,7 @@
+  * Check that UDP fragmentation offload doesn't cause memory corruption
+  * if the userspace process turns off UFO in between two send() calls.
+  * Kernel crash fixed in:
+- * 
 + *
-+ * You do not need to use tst_taint_check() explicitly because it'll be called
-+ * automatically at the end of testing by the LTP library if
-+ * tst_test.taint_check in non-zero.
-  */
+  *  commit 85f1bd9a7b5a79d5baa8bf44af19658f7bf77bfa
+  *  Author: Willem de Bruijn <willemb@google.com>
+  *  Date:   Thu Aug 10 12:29:19 2017 -0400
+@@ -27,7 +27,6 @@
  
- #ifndef TST_TAINTED_H__
-@@ -64,7 +66,10 @@
- #define TST_TAINT_T     (1 << 17) /* kernel was built with the struct randomization plugin */
+ #include "tst_test.h"
+ #include "tst_net.h"
+-#include "tst_taint.h"
  
- /*
-- * Initialize and prepare support for checking tainted kernel.
-+ * Initialize and prepare support for checking tainted kernel. Called
-+ * automatically by LTP library during test setup if tst_test.taint_check
-+ * is non-zero. The value of tst_test.taint_check will be passed as the mask
-+ * argument.
-  *
-  * supply the mask of TAINT-flags you want to check, for example
-  * (TST_TAINT_W | TST_TAINT_D) when you want to check if the kernel issued
-@@ -72,7 +77,7 @@
-  *
-  * This function tests if the requested flags are supported on the
-  * locally running kernel. In case the tainted-flags are already set by
-- * the kernel, there is no reason to continue and TCONF is generated.
-+ * the kernel, there is no reason to continue and TBROK is generated.
-  *
-  * The mask must not be zero.
-  */
-diff --git a/include/tst_test.h b/include/tst_test.h
-index b02de4597..c91d3f18a 100644
---- a/include/tst_test.h
-+++ b/include/tst_test.h
-@@ -41,6 +41,7 @@
- #include "tst_assert.h"
- #include "tst_cgroup.h"
- #include "tst_lockdown.h"
-+#include "tst_taint.h"
+ #define BUFSIZE 4000
  
- /*
-  * Reports testcase result.
-@@ -168,6 +169,14 @@ struct tst_test {
- 	 */
- 	unsigned long request_hugepages;
+@@ -40,8 +39,6 @@ static void setup(void)
+ 	int sock;
+ 	struct ifreq ifr;
  
-+	/*
-+	 * If set to non-zero, call tst_taint_init(taint_check) during setup
-+	 * and check kernel taint at the end of the test. If all_filesystems
-+	 * is non-zero, taint check will be performed after each FS test and
-+	 * testing will be terminated by TBROK if taint is detected.
-+	 */
-+	unsigned int taint_check;
+-	tst_taint_init(TST_TAINT_W | TST_TAINT_D);
+-
+ 	SAFE_UNSHARE(CLONE_NEWUSER);
+ 	SAFE_UNSHARE(CLONE_NEWNET);
+ 	SAFE_FILE_PRINTF("/proc/self/setgroups", "deny");
+@@ -62,6 +59,7 @@ static void run(void)
+ {
+ 	int sock, i;
+ 	char buf[BUFSIZE];
 +
- 	/*
- 	 * If set non-zero denotes number of test variant, the test is executed
- 	 * variants times each time with tst_variant set to different number.
-diff --git a/lib/tst_test.c b/lib/tst_test.c
-index 175dea7c4..3a37f61ca 100644
---- a/lib/tst_test.c
-+++ b/lib/tst_test.c
-@@ -1001,6 +1001,9 @@ static void do_setup(int argc, char *argv[])
+ 	memset(buf, 0x42, BUFSIZE);
  
- 	if (tst_test->restore_wallclock)
- 		tst_wallclock_save();
-+
-+	if (tst_test->taint_check)
-+		tst_taint_init(tst_test->taint_check);
- }
+ 	for (i = 0; i < 1000; i++) {
+@@ -84,6 +82,7 @@ static void run(void)
+ static struct tst_test test = {
+ 	.test_all = run,
+ 	.setup = setup,
++	.taint_check = TST_TAINT_W | TST_TAINT_D,
+ 	.needs_kconfigs = (const char *[]) {
+ 		"CONFIG_USER_NS=y",
+ 		"CONFIG_NET_NS=y",
+diff --git a/testcases/kernel/syscalls/setsockopt/setsockopt06.c b/testcases/kernel/syscalls/setsockopt/setsockopt06.c
+index dfc5f70cf..33284e5a6 100644
+--- a/testcases/kernel/syscalls/setsockopt/setsockopt06.c
++++ b/testcases/kernel/syscalls/setsockopt/setsockopt06.c
+@@ -24,7 +24,6 @@
  
- static void do_test_setup(void)
-@@ -1279,6 +1282,9 @@ static int fork_testrun(void)
- 	alarm(0);
- 	SAFE_SIGNAL(SIGINT, SIG_DFL);
+ #include "tst_test.h"
+ #include "tst_fuzzy_sync.h"
+-#include "tst_taint.h"
+ #include "lapi/if_packet.h"
+ #include "lapi/if_ether.h"
  
-+	if (tst_test->taint_check && tst_taint_check())
-+		tst_brk(TBROK, "Kernel is now tainted.");
-+
- 	if (WIFEXITED(status) && WEXITSTATUS(status))
- 		return WEXITSTATUS(status);
+@@ -36,8 +35,6 @@ static void setup(void)
+ 	int real_uid = getuid();
+ 	int real_gid = getgid();
  
+-	tst_taint_init(TST_TAINT_W | TST_TAINT_D);
+-
+ 	SAFE_UNSHARE(CLONE_NEWUSER);
+ 	SAFE_UNSHARE(CLONE_NEWNET);
+ 	SAFE_FILE_PRINTF("/proc/self/setgroups", "deny");
+@@ -122,6 +119,7 @@ static struct tst_test test = {
+ 	.test_all = run,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
++	.taint_check = TST_TAINT_W | TST_TAINT_D,
+ 	.needs_kconfigs = (const char *[]) {
+ 		"CONFIG_USER_NS=y",
+ 		"CONFIG_NET_NS=y",
+diff --git a/testcases/kernel/syscalls/timerfd/timerfd_settime02.c b/testcases/kernel/syscalls/timerfd/timerfd_settime02.c
+index c15b69dca..ab978bde5 100644
+--- a/testcases/kernel/syscalls/timerfd/timerfd_settime02.c
++++ b/testcases/kernel/syscalls/timerfd/timerfd_settime02.c
+@@ -18,7 +18,6 @@
+ #include "tst_timer.h"
+ #include "tst_safe_timerfd.h"
+ #include "tst_fuzzy_sync.h"
+-#include "tst_taint.h"
+ 
+ #define TIMERFD_FLAGS "timerfd_settime(TFD_TIMER_ABSTIME | TFD_TIMER_CANCEL_ON_SET)"
+ 
+@@ -51,7 +50,6 @@ static void setup(void)
+ 	tst_res(TINFO, "Testing variant: %s", tv->desc);
+ 	its.type = tv->type;
+ 
+-	tst_taint_init(TST_TAINT_W | TST_TAINT_D);
+ 	fd = SAFE_TIMERFD_CREATE(CLOCK_REALTIME, 0);
+ 
+ 	fzsync_pair.exec_loops = 1000000;
+@@ -116,6 +114,7 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.min_kver = "2.6.25",
++	.taint_check = TST_TAINT_W | TST_TAINT_D,
+ 	.tags = (const struct tst_tag[]) {
+ 		{"linux-git", "1e38da300e1e"},
+ 		{"CVE", "2017-10661"},
 -- 
 2.27.0
 
