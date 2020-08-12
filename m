@@ -2,40 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2900B242A75
-	for <lists+linux-ltp@lfdr.de>; Wed, 12 Aug 2020 15:36:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 593AC242B7C
+	for <lists+linux-ltp@lfdr.de>; Wed, 12 Aug 2020 16:39:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BC9B83C3112
-	for <lists+linux-ltp@lfdr.de>; Wed, 12 Aug 2020 15:36:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0C4153C3114
+	for <lists+linux-ltp@lfdr.de>; Wed, 12 Aug 2020 16:39:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 634413C262E
- for <ltp@lists.linux.it>; Wed, 12 Aug 2020 15:36:56 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id D35253C3105
+ for <ltp@lists.linux.it>; Wed, 12 Aug 2020 16:39:48 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id EC5B710005C2
- for <ltp@lists.linux.it>; Wed, 12 Aug 2020 15:36:55 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 39C79200AD3
+ for <ltp@lists.linux.it>; Wed, 12 Aug 2020 16:39:48 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9DD75AB71;
- Wed, 12 Aug 2020 13:37:16 +0000 (UTC)
-Date: Wed, 12 Aug 2020 15:35:07 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Message-ID: <20200812133507.GE4994@gacrux.arch.suse.de>
-References: <20200807204652.5928-1-pvorel@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id 23456B79E;
+ Wed, 12 Aug 2020 14:40:09 +0000 (UTC)
+Date: Wed, 12 Aug 2020 16:40:07 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20200812144007.GA23472@yuki.lan>
+References: <1595245614-24814-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200807204652.5928-1-pvorel@suse.cz>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <1595245614-24814-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 0/4] IMA: verify measurement of certificate
- imported into a keyring
+X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/msgget04: Add test for
+ /proc/sys/kernel/msg_next_id
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,37 +47,107 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
- Mimi Zohar <zohar@linux.vnet.ibm.com>, linux-integrity@vger.kernel.org
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Mimi,
+Hi!
+> diff --git a/testcases/kernel/syscalls/ipc/msgget/msgget04.c b/testcases/kernel/syscalls/ipc/msgget/msgget04.c
+> new file mode 100644
+> index 000000000..3791f331a
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/ipc/msgget/msgget04.c
+> @@ -0,0 +1,66 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
+> + * Author: Yang Xu <xuyang2018.jy@cn.jujitsu.com>
+> + *
+> + * It is a basic test about msg_next_id.
+> + * msg_next_id specifies desired id for next allocated IPC message. By default
+> + * they are equal to -1, which means generic allocation logic. Possible values
+> + * to set are in range {0..INT_MAX}.
+> + * Toggle with non-default value will be set back to -1 by kernel after
+> + * successful IPC object allocation.
+> + */
+> +
+> +#include <errno.h>
+> +#include <string.h>
+> +#include <sys/types.h>
+> +#include <sys/ipc.h>
+> +#include <sys/msg.h>
+> +#include "tst_test.h"
+> +#include "tst_safe_sysv_ipc.h"
+> +#include "libnewipc.h"
+> +
+> +#define NEXT_ID_PATH "/proc/sys/kernel/msg_next_id"
+> +static int queue_id = 1, pid;
+> +static key_t msgkey;
+> +
+> +static void verify_msgget(void)
+> +{
+> +	SAFE_FILE_PRINTF(NEXT_ID_PATH, "%d", pid);
+> +
+> +	TEST(msgget(msgkey, IPC_CREAT | MSG_RW));
+> +	if (TST_RET == -1) {
+> +		tst_res(TFAIL | TTERRNO, "msgget() failed");
+> +		return;
+> +	}
+> +
+> +	queue_id = TST_RET;
+> +	if (queue_id == pid)
+> +		tst_res(TPASS, "msg_next_id succeeded, queue id %d", pid);
+> +	else
+> +		tst_res(TFAIL, "msg_next_id failed, expected id %d, but got %d", pid, queue_id);
+> +
+> +	TST_ASSERT_INT(NEXT_ID_PATH, -1);
+> +	SAFE_MSGCTL(queue_id, IPC_RMID, NULL);
+> +	pid++;
+> +}
+> +
+> +static void setup(void)
+> +{
+> +	msgkey = GETIPCKEY();
+> +	pid = getpid();
+> +}
+> +
+> +static void cleanup(void)
+> +{
+> +	if (queue_id != -1)
+> +		SAFE_MSGCTL(queue_id, IPC_RMID, NULL);
+> +	SAFE_FILE_SCANF(NEXT_ID_PATH, "-1");
 
-> sending enhanced Lachlan's version.
-> I haven't tested this patchset, could please anybody test it?
+Shouldn't this be SAFE_FILE_PRINTF() ?
 
-@Mimi FYI, I'm waiting for your review to merge this patchset (when you have
-time).
+Otherwise it looks fine, also I can fix this one before pushing.
 
-Kind regards,
-Petr
 
-> Lachlan Sneff (1):
->   IMA: Add a test to verify measurement of certificate imported into a
->     keyring
-I guess I should shorten this message.
 
-> Petr Vorel (3):
->   IMA/ima_keys.sh Fix policy content check usage
->   IMA: Refactor datafiles directory
->   IMA/ima_keys.sh: Enhance policy checks
+Also what happens when we write id of existing id to that file? I guess
+that we can write another test that tries that...
 
-Kind regards,
-Petr
+> +}
+> +
+> +static struct tst_test test = {
+> +	.setup = setup,
+> +	.cleanup = cleanup,
+> +	.test_all = verify_msgget,
+> +	.needs_root = 1,
+> +};
+> -- 
+> 2.23.0
+> 
+> 
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
