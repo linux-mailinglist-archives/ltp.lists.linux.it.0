@@ -2,47 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82442243391
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Aug 2020 07:24:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94D75243465
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Aug 2020 09:08:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 38FBA3C30BF
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Aug 2020 07:24:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4317E3C30F8
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Aug 2020 09:08:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id EAB7A3C04C3
- for <ltp@lists.linux.it>; Thu, 13 Aug 2020 07:24:07 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 3A51E3C08AB
+ for <ltp@lists.linux.it>; Thu, 13 Aug 2020 09:08:21 +0200 (CEST)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id E0D891A009B9
- for <ltp@lists.linux.it>; Thu, 13 Aug 2020 07:24:05 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.76,307,1592841600"; d="scan'208";a="98054482"
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id C6FED600568
+ for <ltp@lists.linux.it>; Thu, 13 Aug 2020 09:08:20 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.76,307,1592841600"; d="scan'208";a="98057142"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 13 Aug 2020 13:24:02 +0800
+ by heian.cn.fujitsu.com with ESMTP; 13 Aug 2020 15:08:16 +0800
 Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id CAD474CE34E3
- for <ltp@lists.linux.it>; Thu, 13 Aug 2020 13:23:58 +0800 (CST)
+ by cn.fujitsu.com (Postfix) with ESMTP id 1F6384CE34F6
+ for <ltp@lists.linux.it>; Thu, 13 Aug 2020 15:08:13 +0800 (CST)
 Received: from localhost.localdomain (10.167.220.84) by
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Thu, 13 Aug 2020 13:23:59 +0800
+ (TLS) id 15.0.1497.2; Thu, 13 Aug 2020 15:08:14 +0800
 From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 To: <ltp@lists.linux.it>
-Date: Thu, 13 Aug 2020 13:24:12 +0800
-Message-ID: <1597296252-4978-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+Date: Thu, 13 Aug 2020 15:08:36 +0800
+Message-ID: <1597302516-6495-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
 X-Originating-IP: [10.167.220.84]
 X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: CAD474CE34E3.A0179
+X-yoursite-MailScanner-ID: 1F6384CE34F6.AD809
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.0 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v3] syscalls/msgget04: Add test for
- /proc/sys/kernel/msg_next_id
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/msgget05: Add test when the id of
+ msg_next_id has existed
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,70 +59,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+When message queue identifier that msg_next_id has existed, msgget() with
+different key will return the another msg id. But kernel doesn't guarantee
+desired id, I just compare with existed id, if not equal, the test succeeded.
+
 Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 ---
-v2->v3:
-1.use SAFE_MSGGET Macro
-2.add kconfig check
-3.Remove resetting value in cleanup because only successful msgget can
-reset value to -1, we only set value from[0,int_max]
  runtest/syscalls                              |  1 +
  runtest/syscalls-ipc                          |  1 +
  .../kernel/syscalls/ipc/msgget/.gitignore     |  1 +
- .../kernel/syscalls/ipc/msgget/msgget04.c     | 63 +++++++++++++++++++
- 4 files changed, 66 insertions(+)
- create mode 100644 testcases/kernel/syscalls/ipc/msgget/msgget04.c
+ .../kernel/syscalls/ipc/msgget/msgget05.c     | 68 +++++++++++++++++++
+ 4 files changed, 71 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/ipc/msgget/msgget05.c
 
 diff --git a/runtest/syscalls b/runtest/syscalls
-index 98d79271d..41cd8a159 100644
+index 41cd8a159..860c5c36d 100644
 --- a/runtest/syscalls
 +++ b/runtest/syscalls
-@@ -810,6 +810,7 @@ msgctl12 msgctl12
- msgget01 msgget01
+@@ -811,6 +811,7 @@ msgget01 msgget01
  msgget02 msgget02
  msgget03 msgget03
-+msgget04 msgget04
+ msgget04 msgget04
++msgget05 msgget05
  
  msgrcv01 msgrcv01
  msgrcv02 msgrcv02
 diff --git a/runtest/syscalls-ipc b/runtest/syscalls-ipc
-index 41d54d939..d4baaa262 100644
+index d4baaa262..e6837414c 100644
 --- a/runtest/syscalls-ipc
 +++ b/runtest/syscalls-ipc
-@@ -12,6 +12,7 @@ msgctl12 msgctl12
- msgget01 msgget01
+@@ -13,6 +13,7 @@ msgget01 msgget01
  msgget02 msgget02
  msgget03 msgget03
-+msgget04 msgget04
+ msgget04 msgget04
++msgget05 msgget05
  
  msgrcv01 msgrcv01
  msgrcv02 msgrcv02
 diff --git a/testcases/kernel/syscalls/ipc/msgget/.gitignore b/testcases/kernel/syscalls/ipc/msgget/.gitignore
-index 3b2dfb518..7a9d5e340 100644
+index 7a9d5e340..3372016ea 100644
 --- a/testcases/kernel/syscalls/ipc/msgget/.gitignore
 +++ b/testcases/kernel/syscalls/ipc/msgget/.gitignore
-@@ -1,3 +1,4 @@
- /msgget01
+@@ -2,3 +2,4 @@
  /msgget02
  /msgget03
-+/msgget04
-diff --git a/testcases/kernel/syscalls/ipc/msgget/msgget04.c b/testcases/kernel/syscalls/ipc/msgget/msgget04.c
+ /msgget04
++/msgget05
+diff --git a/testcases/kernel/syscalls/ipc/msgget/msgget05.c b/testcases/kernel/syscalls/ipc/msgget/msgget05.c
 new file mode 100644
-index 000000000..72cd4497b
+index 000000000..e282d559c
 --- /dev/null
-+++ b/testcases/kernel/syscalls/ipc/msgget/msgget04.c
-@@ -0,0 +1,63 @@
++++ b/testcases/kernel/syscalls/ipc/msgget/msgget05.c
+@@ -0,0 +1,68 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
 + * Author: Yang Xu <xuyang2018.jy@cn.jujitsu.com>
 + *
 + * It is a basic test about msg_next_id.
-+ * msg_next_id specifies desired id for next allocated IPC message. By default
-+ * they are equal to -1, which means generic allocation logic. Possible values
-+ * to set are in range {0..INT_MAX}.
-+ * Toggle with non-default value will be set back to -1 by kernel after
-+ * successful IPC object allocation.
++ * When the message queue identifier that msg_next_id stored has existed,
++ * call msgget with different key just use another unused value in range
++ * [0,INT_MAX]. kernel doesn't guarantee the desired id.
 + */
 +
 +#include <errno.h>
@@ -135,34 +132,41 @@ index 000000000..72cd4497b
 +#include "libnewipc.h"
 +
 +#define NEXT_ID_PATH "/proc/sys/kernel/msg_next_id"
-+static int queue_id, pid;
-+static key_t msgkey;
++
++static int queue_id[2], pid;
++static key_t msgkey[2];
 +
 +static void verify_msgget(void)
 +{
-+	SAFE_FILE_PRINTF(NEXT_ID_PATH, "%d", pid);
++	SAFE_FILE_PRINTF(NEXT_ID_PATH, "%d", queue_id[0]);
 +
-+	queue_id = SAFE_MSGGET(msgkey, IPC_CREAT | MSG_RW);
-+	if (queue_id == pid)
-+		tst_res(TPASS, "msg_next_id succeeded, queue id %d", pid);
++	queue_id[1] = SAFE_MSGGET(msgkey[1], IPC_CREAT | MSG_RW);
++	if (queue_id[1] == queue_id[0])
++		tst_res(TFAIL, "msg id %d has existed, msgget() returns the"
++			" same msg id unexpectedly", queue_id[0]);
 +	else
-+		tst_res(TFAIL, "msg_next_id failed, expected id %d, but got %d", pid, queue_id);
++		tst_res(TPASS, "msg id %d has existed, msgget() returns the"
++			" new msgid %d", queue_id[0], queue_id[1]);
 +
-+	TST_ASSERT_INT(NEXT_ID_PATH, -1);
-+	SAFE_MSGCTL(queue_id, IPC_RMID, NULL);
-+	pid++;
++	SAFE_MSGCTL(queue_id[1], IPC_RMID, NULL);
 +}
 +
 +static void setup(void)
 +{
-+	msgkey = GETIPCKEY();
++	msgkey[0] = GETIPCKEY();
++	msgkey[1] = GETIPCKEY();
 +	pid = getpid();
++	SAFE_FILE_PRINTF(NEXT_ID_PATH, "%d", pid);
++	queue_id[0] = SAFE_MSGGET(msgkey[0], IPC_CREAT | MSG_RW);
++	tst_res(TINFO, "Test msg_next_id effects on msgget(different key) "
++		"when this message queue identifier has existed");
 +}
 +
 +static void cleanup(void)
 +{
-+	if (queue_id != -1)
-+		SAFE_MSGCTL(queue_id, IPC_RMID, NULL);
++	for (int i = 0; i < 2; i++)
++		if (queue_id[i] != -1)
++			SAFE_MSGCTL(queue_id[i], IPC_RMID, NULL);
 +}
 +
 +static struct tst_test test = {
