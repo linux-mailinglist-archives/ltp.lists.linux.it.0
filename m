@@ -2,40 +2,36 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 682B2243A56
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Aug 2020 14:53:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EAA1243A5C
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Aug 2020 14:57:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 105203C30C8
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Aug 2020 14:53:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2A0353C30C8
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Aug 2020 14:57:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 295433C0194
- for <ltp@lists.linux.it>; Thu, 13 Aug 2020 14:53:36 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id A21323C0194
+ for <ltp@lists.linux.it>; Thu, 13 Aug 2020 14:57:16 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 527E810004A3
- for <ltp@lists.linux.it>; Thu, 13 Aug 2020 14:53:35 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 4AB441400763
+ for <ltp@lists.linux.it>; Thu, 13 Aug 2020 14:57:16 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D09DFAC55;
- Thu, 13 Aug 2020 12:53:56 +0000 (UTC)
-Date: Thu, 13 Aug 2020 14:53:55 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 07B99AC55
+ for <ltp@lists.linux.it>; Thu, 13 Aug 2020 12:57:38 +0000 (UTC)
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <20200813125355.GD13292@yuki.lan>
-References: <1595230227-21468-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <1595230227-21468-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+To: ltp@lists.linux.it
+Date: Thu, 13 Aug 2020 14:57:37 +0200
+Message-Id: <20200813125737.20114-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1595230227-21468-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1 1/3] syscalls/msgrcv: Add check for msg_lrpid
- and msg_rtime
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH] [COMMITTED] msgget05: Fix build on centos 6
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,18 +43,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Pushed with the same changes as in msgsnd01, thanks.
+Which has old gcc that does not allow variables decleared inside of the
+for loop.
 
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+---
+ testcases/kernel/syscalls/ipc/msgget/msgget05.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/testcases/kernel/syscalls/ipc/msgget/msgget05.c b/testcases/kernel/syscalls/ipc/msgget/msgget05.c
+index a0758d46d..d6177bbed 100644
+--- a/testcases/kernel/syscalls/ipc/msgget/msgget05.c
++++ b/testcases/kernel/syscalls/ipc/msgget/msgget05.c
+@@ -51,7 +51,9 @@ static void setup(void)
+ 
+ static void cleanup(void)
+ {
+-	for (int i = 0; i < 2; i++) {
++	int i;
++
++	for (i = 0; i < 2; i++) {
+ 		if (queue_id[i] != -1)
+ 			SAFE_MSGCTL(queue_id[i], IPC_RMID, NULL);
+ 	}
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.26.2
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
