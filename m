@@ -2,52 +2,66 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 779BA244B23
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Aug 2020 16:17:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C325244B39
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Aug 2020 16:27:58 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 07FD43C309B
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Aug 2020 16:17:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 408B33C309B
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Aug 2020 16:27:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 84B4E3C1452
- for <ltp@lists.linux.it>; Fri, 14 Aug 2020 16:17:22 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id F34E920113D
- for <ltp@lists.linux.it>; Fri, 14 Aug 2020 16:17:21 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.76,312,1592841600"; d="scan'208";a="98100345"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 14 Aug 2020 22:17:18 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 54ECB49B1116;
- Fri, 14 Aug 2020 22:17:15 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Fri, 14 Aug 2020 22:17:17 +0800
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <1597392640-26678-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <20200814132855.GC5559@yuki.lan>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <97143254-ae68-9bd7-ea28-b276e9e50325@cn.fujitsu.com>
-Date: Fri, 14 Aug 2020 22:17:14 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 02AAF3C1452
+ for <ltp@lists.linux.it>; Fri, 14 Aug 2020 16:27:56 +0200 (CEST)
+Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
+ [IPv6:2607:f8b0:4864:20::d43])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 6A8DD1A009B6
+ for <ltp@lists.linux.it>; Fri, 14 Aug 2020 16:27:56 +0200 (CEST)
+Received: by mail-io1-xd43.google.com with SMTP id k23so10878959iom.10
+ for <ltp@lists.linux.it>; Fri, 14 Aug 2020 07:27:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=BQhwH7MFqLmI8YjCU5gOMtThxJSGR8nuWwc+QkdqkrQ=;
+ b=ylaNAWxMMiOZBRtVdDDLvc3fZQdX71lhMBLz8zZIbntlqVeUIFSERmkwuQh9dFjKF0
+ pcEXBn4Qz4N/PXKAXMGbyA2e+i+JNdf2nLcegayJOmzNe252AfdH9Yb9d8hssWP7O6ew
+ eI6Np5GsBBk3SeBCV0t2vyr4CB0ksyhd9yY7QveyckDt2C34Xz19ngkjAkV/YkD33FDW
+ ExrCXcf1qBPTnMa/dlSinOA6fTJC1XGSoXUf476tUAkaizZElBt6feNhELB8M+6Fdzun
+ koEzraVZcZ7UbD00r/HJBP7TCn2XLe18dImgdrD81Lmru7kpxd6q0LE1QAV1UbNbBZva
+ WuCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=BQhwH7MFqLmI8YjCU5gOMtThxJSGR8nuWwc+QkdqkrQ=;
+ b=TciZnusIL5GMZUB6iUpWENnaSbg40euM8mcfpe2J2fyv1h1UkUh7UleCvVY7bhUdfz
+ 2NIrWi8eK4v8VqiEXaIGULGd0dEKrRrNmze7IXggtN9KsJPjLesMlJ2st8HrM1lSGgpR
+ utSxYJjLxOcjhpHF+0i5+F/rkElT16ILnk/wBFPbF6vTRdqOuin8wMfwsJkQ01/afPgM
+ k4aoW3u9A0MSSspTEwOGciQSvuqDpoeLVBxiPhyCAR4mzCZ3QxluAMSEQYrsG11Linrg
+ jXNw698CNMyhiZLI4eetF9tsDpr+T5IAy/BVo8pW2ew7yLKV2umv+OQeQeavWhAe/0Nw
+ 3WLg==
+X-Gm-Message-State: AOAM532oa4ehb8bKf2iGBRBt1L7KSwcH6H3ioGIYbWVbm0YPYJPk6oTy
+ kA0T7CsugJDFpjGNT6AaqPSDuKzgzzHyVqTPtLqBTg==
+X-Google-Smtp-Source: ABdhPJxfVWKgAkHvD+ZnFZB4/BrNkEkCSaGv8tgICSNyYEuGjPse5IgsWT/R0Aw/PWCH8CktsU1Zguch8BBRpz9Ll8M=
+X-Received: by 2002:a02:9047:: with SMTP id y7mr3025875jaf.128.1597415259662; 
+ Fri, 14 Aug 2020 07:27:39 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200814132855.GC5559@yuki.lan>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 54ECB49B1116.ACC9C
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+References: <CA+G9fYvVEhs_HROaXaW70mWrp_z6N4mJ-3rfFs0iAcT9Kg3A1A@mail.gmail.com>
+ <20200814084123.5b64c0cf@oasis.local.home>
+In-Reply-To: <20200814084123.5b64c0cf@oasis.local.home>
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Fri, 14 Aug 2020 19:57:27 +0530
+Message-ID: <CA+G9fYv0mhj1VVb99mS1akTaQxZD9TBcrFVoU9pdctMhG1r8BQ@mail.gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/msgrcv07: Add functional test for
- MSG_COPY flag
+X-Spam-Status: No, score=-0.0 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] WARNING: at kernel/trace/trace.c:1727
+ update_max_tr_single.part.0+0xa8/0x148
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,88 +73,137 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Masami Hiramatsu <masami.hiramatsu@linaro.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
+ Linux-Next Mailing List <linux-next@vger.kernel.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Sean Paul <sean@poorly.run>,
+ Ingo Molnar <mingo@redhat.com>, LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril
+On Fri, 14 Aug 2020 at 18:11, Steven Rostedt <rostedt@goodmis.org> wrote:
+>
+> On Fri, 14 Aug 2020 14:53:36 +0530
+> Naresh Kamboju <naresh.kamboju@linaro.org> wrote:
+>
+> > steps to reproduce:
+> > # Boot qemu arm64 with trace configs enabled ^.
+> > # cd /opt/ltp
+> > # ./runltp -f tracing
+>
+> I don't run ltp, what  exactly is this doing?
 
-> Hi!
->> +static void test_msg_copy(void)
->> +{
->> +	struct msqid_ds buf = {0};
->> +
->> +	if (!msg_copy_sup)
->> +		tst_res(TCONF, "kernel doesn't support MSG_COPY flag, skip it");
->> +	prepare_queue();
->> +
->> +	/*
->> +	 * If MSG_COPY flag was specified, then mtype is interpreted as number
->> +	 * of the message to copy.
->> +	 */
->> +	SAFE_MSGRCV(queue_id, &rcv_buf, MSGSIZE, 0, MSG_COPY | IPC_NOWAIT);
->> +	if (strcmp(rcv_buf.mtext, MSG1) == 0 && rcv_buf.type == MSGTYPE1)
->> +		tst_res(TPASS, "msgrcv(MSG_COPY) got MSGTYPE1 msg data"
->> +			" correctly");
->> +	else
->> +		tst_res(TFAIL, "msgrcv(MSG_COPY) got MSGTYPE1 msg data"
->> +			" incorrectly");
->> +
->> +	SAFE_MSGRCV(queue_id, &rcv_buf, MSGSIZE, 1, MSG_COPY | IPC_NOWAIT);
->> +	if (strcmp(rcv_buf.mtext, MSG2) == 0 && rcv_buf.type == MSGTYPE2)
->> +		tst_res(TPASS, "msgrcv(MSG_COPY) got MSGTYPE2 msg data"
->> +			" correctly");
->> +	else
->> +		tst_res(TFAIL, "msgrcv(MSG_COPY) got MSGTYPE2 msg data"
->> +			" incorrectly");
->> +
->> +	SAFE_MSGCTL(queue_id, IPC_STAT, &buf);
->> +	if (buf.msg_qnum == 2)
->> +		tst_res(TPASS, "msgrcv(MSG_COPY) succeeded, msg queue "
->> +			"still has 2 msg");
->> +	else
->> +		tst_res(TFAIL, "msgrcv(MSG_COPY) msg queue expected 2 msg num,"
->> +			" but only got %d", (int)buf.msg_qnum);
->> +	SAFE_MSGCTL(queue_id, IPC_RMID, NULL);
->> +}
->>   
->>   static void setup(void)
->>   {
->>   	msgkey = GETIPCKEY();
->> +	prepare_queue();
->> +	TEST(msgrcv(queue_id, &rcv_buf, MSGSIZE, MSGTYPE1, MSG_COPY));
->> +	if (TST_RET != -1)
->> +		tst_res(TINFO, "msgrcv succeeded unexpectedly, kernel doesn't"
->> +			" support MSG_COPY flag");
->> +
->> +	if (TST_ERR == EINVAL) {
->> +		tst_res(TINFO, "msgrcv failed as expected when not using"
->> +			" MSG_COPY and IPC_NOWAIT concurrently");
->> +		msg_copy_sup = 1;
->> +	} else if (TST_ERR == ENOSYS) {
->> +		tst_res(TINFO, "kernel doesn't enable CONFIG_CHECKPOINT_RESTORE");
->> +	} else {
->> +		tst_res(TINFO | TTERRNO, "msgrcv failed when not using MSG_COPY"
->> +			"and IPC_NOWAIT concurrently, expected EINVAL but got");
->> +	}
-> 
-> Why can't we just check for ENOSYS in the test_msg_copy() instead?
-In here, ENOSYS is differnt from other syscalls. only specifying 
-MSG_COPY flag and CONFIG_CHECKPOINT_RESTORE was not enabled, returns 
-ENOSYS. See[1]
+LTP running ftrace stress testing
 
-So I use MSG_COPY without IPC_NOWAIT to check whether kernel supports 
-MSG_COPY flag(It will trigger EINVAL error as man-page said).
+Test case :
+------------
+LOOP=200
 
-If I misunderstand you, please let me know.
+# Use up to 10% of free memory
+free_mem=`cat /proc/meminfo | grep '^MemFree' | awk '{ print $2 }'`
+cpus=`tst_ncpus`
 
-[1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=4a674f34ba04a0
+step=$(( $free_mem / 10 / $LOOP / $cpus ))
 
-> 
+if [ $step -eq 0 ]; then
+    step=1
+    LOOP=50
+fi
+
+while true; do
+    new_size=1
+    i=0
+    while [ $i -lt $LOOP ]; do
+        echo $new_size > "$TRACING_PATH"/buffer_size_kb  ----> Test
+got failed here
+        new_size=$(( $new_size + $step ))
+        i=$((i + 1))
+    done
+
+    i=0
+    while [ $i -lt $LOOP ]; do
+        new_size=$(( $new_size - $step ))
+        echo $new_size > "$TRACING_PATH"/buffer_size_kb
+        i=$((i + 1))
+    done
+    sleep 1
+done
 
 
+test case link,
+https://raw.githubusercontent.com/linux-test-project/ltp/master/testcases/kernel/tracing/ftrace_test/ftrace_stress/ftrace_buffer_size_kb.sh
+
+ftrace_buffer_size_kb.sh: line 33: echo: write error: Cannot allocate memory
+ftrace_buffer_size_kb.sh: line 33: echo: write error: Cannot allocate memory
+ftrace_buffer_size_kb.sh: line 33: echo: write error: Cannot allocate memory
+ftrace_buffer_size_kb.sh: line 33: echo: write error: Cannot allocate memory
+ftrace_buffer_size_kb.sh: line 33: echo: write error: Cannot allocate memory
+[   90.729590] ------------[ cut here ]------------
+[   90.729882] WARNING: CPU: 1 PID: 2840 at
+kernel/trace/ring_buffer.c:1273 rb_set_head_page+0x7c/0x108
+[   90.733593] Modules linked in: rfkill snd_soc_hdmi_codec
+crct10dif_ce adv7511 cec qcom_spmi_temp_alarm rtc_pm8xxx msm
+snd_soc_msm8916_analog qcom_camss mdt_loader videobuf2_dma_sg
+v4l2_fwnode videobuf2_memops snd_soc_lpass_apq8016 i2c_qcom_cci
+drm_kms_helper snd_soc_lpass_cpu qcom_rng snd_soc_msm8916_digital
+videobuf2_v4l2 snd_soc_lpass_platform snd_soc_apq8016_sbc
+snd_soc_qcom_common videobuf2_common qrtr ns socinfo display_connector
+drm rmtfs_mem fuse
+[   90.761426] CPU: 1 PID: 2840 Comm: cat Not tainted 5.8.0-next-20200814 #1
+[   90.782653] Hardware name: Qualcomm Technologies, Inc. APQ 8016 SBC (DT)
+[   90.789423] pstate: 60000085 (nZCv daIf -PAN -UAO BTYPE=--)
+[   90.796165] pc : rb_set_head_page+0x7c/0x108
+[   90.801416] lr : rb_per_cpu_empty+0x18/0x88
+[   90.805922] sp : ffff80001673bc30
+
+File and line number:
+kernel/trace/ring_buffer.c:1273 rb_set_head_page
+
+static struct buffer_page *
+rb_set_head_page(struct ring_buffer_per_cpu *cpu_buffer)
+{
+    struct buffer_page *head;
+    struct buffer_page *page;
+    struct list_head *list;
+    int i;
+
+    if (RB_WARN_ON(cpu_buffer, !cpu_buffer->head_page))
+        return NULL;
+
+    /* sanity check */
+    list = cpu_buffer->pages;
+    if (RB_WARN_ON(cpu_buffer, rb_list_head(list->prev->next) != list))
+        return NULL;
+
+    page = head = cpu_buffer->head_page;
+    /*
+     * It is possible that the writer moves the header behind
+     * where we started, and we miss in one loop.
+     * A second loop should grab the header, but we'll do
+     * three loops just because I'm paranoid.
+     */
+    for (i = 0; i < 3; i++) {
+        do {
+            if (rb_is_head_page(cpu_buffer, page, page->list.prev)) {
+                cpu_buffer->head_page = page;
+                return page;
+            }
+            rb_inc_page(cpu_buffer, &page);
+        } while (page != head);
+    }
+
+    RB_WARN_ON(cpu_buffer, 1);  ---> pointing this link number 1273
+
+Full test case output and kernel warning,
+https://qa-reports.linaro.org/lkft/linux-next-oe/build/next-20200814/testrun/3066187/suite/linux-log-parser/test/check-kernel-bug-1668287/log
+
+- Naresh Kamboju
+
+>
+> -- Steve
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
