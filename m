@@ -2,40 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 074EA24666C
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Aug 2020 14:33:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E6AF24667C
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Aug 2020 14:41:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B056F3C3017
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Aug 2020 14:33:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E86403C58D6
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Aug 2020 14:41:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 054E03C3000
- for <ltp@lists.linux.it>; Mon, 17 Aug 2020 14:33:37 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 8C9FD3C3000
+ for <ltp@lists.linux.it>; Mon, 17 Aug 2020 14:41:37 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6828F200B10
- for <ltp@lists.linux.it>; Mon, 17 Aug 2020 14:33:37 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4BB79600727
+ for <ltp@lists.linux.it>; Mon, 17 Aug 2020 14:41:36 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BF41DB05D;
- Mon, 17 Aug 2020 12:34:01 +0000 (UTC)
-Date: Mon, 17 Aug 2020 14:34:03 +0200
+ by mx2.suse.de (Postfix) with ESMTP id B99ADB05D;
+ Mon, 17 Aug 2020 12:42:00 +0000 (UTC)
+Date: Mon, 17 Aug 2020 14:42:02 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Po-Hsu Lin <po-hsu.lin@canonical.com>
-Message-ID: <20200817123403.GA8445@yuki.lan>
+Message-ID: <20200817124202.GB8445@yuki.lan>
 References: <20200817120644.9401-1-po-hsu.lin@canonical.com>
- <20200817120644.9401-2-po-hsu.lin@canonical.com>
+ <20200817120644.9401-3-po-hsu.lin@canonical.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200817120644.9401-2-po-hsu.lin@canonical.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20200817120644.9401-3-po-hsu.lin@canonical.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] lib/tst_kvercmp: Add support to get distname
- for Ubuntu in tst_kvcmp_distname
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] syscalls/utimensat01: add exception for
+ Ubuntu 4.4 kernel
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,37 +55,60 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> * 4.4.0-187-generic
-> * 5.4.0-1021-kvm
-> * 4.15.0-1093-azure
-> 
-> So it's better to grep for ^ID=ubuntu in /etc/os-release to determine
-> the distname, instead of doing this from checking kver substring like
-> what we did for RHEL / Oracle Linux
-> 
 > Signed-off-by: Po-Hsu Lin <po-hsu.lin@canonical.com>
 > ---
->  lib/tst_kvercmp.c | 5 +++++
->  1 file changed, 5 insertions(+)
+>  testcases/kernel/syscalls/utimensat/utimensat01.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
 > 
-> diff --git a/lib/tst_kvercmp.c b/lib/tst_kvercmp.c
-> index dc3bb669b..349d45543 100644
-> --- a/lib/tst_kvercmp.c
-> +++ b/lib/tst_kvercmp.c
-> @@ -139,6 +139,11 @@ const char *tst_kvcmp_distname(const char *kver)
->  	if (strstr(kver, ".el6"))
->  		return "RHEL6";
+> diff --git a/testcases/kernel/syscalls/utimensat/utimensat01.c b/testcases/kernel/syscalls/utimensat/utimensat01.c
+> index 7dabfed6d..469cb61c5 100644
+> --- a/testcases/kernel/syscalls/utimensat/utimensat01.c
+> +++ b/testcases/kernel/syscalls/utimensat/utimensat01.c
+> @@ -158,6 +158,10 @@ static void tst_multi_set_time(enum tst_ts_type type, struct mytime *mytime)
 >  
-> +	// Special case for Ubuntu, kernel version cannot reveal the dist_name
-> +	int rc = WEXITSTATUS(system("grep -q ^ID=ubuntu /etc/os-release 2>/dev/null"));
-> +	if (rc == 0)
-> +		return "UBUNTU";
+>  static void update_error(struct test_case *tc)
+>  {
+> +	static struct tst_kern_exv kvers[] = {
+> +		{ "UBUNTU", "4.4.0-48.69" },
+> +	};
+> +
+>  	if (tc->exp_err != -1)
+>  		return;
+>  
+> @@ -167,9 +171,12 @@ static void update_error(struct test_case *tc)
+>  	 * This patch has also been merged to stable 4.4 with
+>  	 * b3b4283 ("vfs: move permission checking into notify_change() for utimes(NULL)")
+>  	 */
+> -	if (tst_kvercmp(4, 4, 27) < 0)
+> +	if (tst_kvercmp(4, 4, 27) < 0) {
+>  		tc->exp_err = EACCES;
+> -	else
+> +		// Special case for Ubuntu kernel, which got this patch since 4.4.0-48.69
+> +		if (tst_kvercmp2(4, 4, 0, kvers))
+> +			tc->exp_err = EPERM;
+> +	} else
+>  		tc->exp_err = EPERM;
 
-Can we please properly parse the /etc/os-release file insetad of this
-hackery?
+This whole thing looks broken, this is not how the tst_kvercmp2() is
+supposed to work. The generic kernel version is supposed to be passed in
+the first parameters and the kvers overrides that option.
 
-It should be as easy as one SAFE_FILE_SCANF() in the case that the file
-exists.
+So this should be something like:
+
+	if (tst_kvercmp2(4, 4, 27, kvers) < 0)
+		tc->exp_err = EACCESS;
+	else
+		tc->exp_err = EPERM;
+
+
+And in a case that the distro matches to UBUNTU the kernel version is
+compared against the "4.4.0-48.69" instead of the generic one.
+
+>  }
+>  
+> -- 
+> 2.17.1
+> 
 
 -- 
 Cyril Hrubis
