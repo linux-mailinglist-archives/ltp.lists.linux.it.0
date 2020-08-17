@@ -2,39 +2,66 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBA24246703
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Aug 2020 15:09:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 967E6246791
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Aug 2020 15:44:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A907C3C58CC
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Aug 2020 15:09:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 56D343C58D5
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Aug 2020 15:44:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id E2FCA3C2FFF
- for <ltp@lists.linux.it>; Mon, 17 Aug 2020 15:09:24 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 25C533C2FFF
+ for <ltp@lists.linux.it>; Mon, 17 Aug 2020 15:44:20 +0200 (CEST)
+Received: from mail-ua1-x942.google.com (mail-ua1-x942.google.com
+ [IPv6:2607:f8b0:4864:20::942])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8EABC600B13
- for <ltp@lists.linux.it>; Mon, 17 Aug 2020 15:09:24 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 38578AC2F;
- Mon, 17 Aug 2020 13:09:49 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon, 17 Aug 2020 15:09:16 +0200
-Message-Id: <20200817130916.27634-5-pvorel@suse.cz>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200817130916.27634-1-pvorel@suse.cz>
-References: <20200817130916.27634-1-pvorel@suse.cz>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E4A751A00682
+ for <ltp@lists.linux.it>; Mon, 17 Aug 2020 15:44:19 +0200 (CEST)
+Received: by mail-ua1-x942.google.com with SMTP id g11so4762964ual.2
+ for <ltp@lists.linux.it>; Mon, 17 Aug 2020 06:44:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=YK1g7CpAj1uxdUMop0TAQ/KlG7NubSk4gl7YMK07x3k=;
+ b=ckeoC9vO/EDF3YhPTlzEiluCGyrsP53BCP34FHVrdI8dpxxDV3K+SwS1hVvx0mZcmM
+ e2O91NKmU+NTYcN/tz61BiWW9QlDpE/ctnp1RkSV1f3S0tJquoPdWFtFvwbM/qj+ig42
+ Zx0Etpm3KzjpWimA7LfYgeTbvIYJ+MqLP2/1WK0GsLq/AJ4Gq3/IYaIVHao2TI3hcZfP
+ 68I7yu3R0UWmbe6eTH+cBL+DEwLUN/83wu07NWUwmKKz3AZctOS6JJatO5ps/e1MpIEc
+ FG4FYDE5qqMgZ9NiMEdTtKRZS7MBhdsf9UCzEXzeLnjCseF8vqop52zofptLynay9JjQ
+ 6qpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=YK1g7CpAj1uxdUMop0TAQ/KlG7NubSk4gl7YMK07x3k=;
+ b=Cekbg4ktmFFs7Rr4IcjXOe6IF6O9nf7/C07yurTG95GPeBAWE3eq6yZJe2pTYVnhJB
+ h1ZSF9sTu5ZtABfVVMX2d7wc+i/WwVVCXhjaLnDceyoJpHsBgcI+upeQx4weYlZcT9YD
+ VWLiyS5/t3phYVNF+lN6IbRNsrNwityDN6tZiRL9+7ZLsMDicNsaKtfPghXNJ8Ak8uqc
+ pGkpY2NZwf7qr5tQBcdhmU1zL/EcXI2GjfxISLKbr0jXSHS82rpYLqBY18ceE6quMS4I
+ 8w1Jmkthe9K3KzU12cGZHd5NiCdO0v0K17AzODEf2J3mS5a1FcKxniH53qZgrUo8fN0D
+ Ju9Q==
+X-Gm-Message-State: AOAM533i+SOvvO6+DwHHvrxgPt34Hjt3pqRwGajVLatc5Yp4GtOEXog8
+ 468eXzN+TDGMuaR6wdQrWm282qGIrVN3II8YyZIVXg==
+X-Google-Smtp-Source: ABdhPJx2boyWtvrgXSxzxAFNpocIavvkFNhc8FhgjvFzGZM8f5Qera674/ApAjhCKTryvJlmcUOHc2HfleHlukxtHlM=
+X-Received: by 2002:a9f:35d0:: with SMTP id u16mr7432899uad.113.1597671858524; 
+ Mon, 17 Aug 2020 06:44:18 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+References: <20200728163416.556521-1-hch@lst.de>
+ <20200728163416.556521-3-hch@lst.de>
+ <CA+G9fYuYxGBKR5aQqCQwA=SjLRDbyQKwQYJvbJRaKT7qwy7voQ@mail.gmail.com>
+In-Reply-To: <CA+G9fYuYxGBKR5aQqCQwA=SjLRDbyQKwQYJvbJRaKT7qwy7voQ@mail.gmail.com>
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Mon, 17 Aug 2020 19:14:04 +0530
+Message-ID: <CA+G9fYs4w46bZtgaKTzTLgaqNDcw3vdRaKWuGJ4wN4SSKJqUKA@mail.gmail.com>
+To: Christoph Hellwig <hch@lst.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 4/4] IMA/ima_keys.sh: Enhance policy checks
+X-Spam-Status: No, score=-0.0 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 02/23] fs: refactor ksys_umount
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,124 +73,61 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Mimi Zohar <zohar@linux.vnet.ibm.com>, linux-integrity@vger.kernel.org,
- Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
+ linux-raid@vger.kernel.org, Al Viro <viro@zeniv.linux.org.uk>,
+ linux-api@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ Linus Torvalds <torvalds@linux-foundation.org>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Reuse policy check code.
+On Thu, 6 Aug 2020 at 20:14, Naresh Kamboju <naresh.kamboju@linaro.org> wrote:
+>
+> On Tue, 28 Jul 2020 at 22:04, Christoph Hellwig <hch@lst.de> wrote:
+> >
+> > Factor out a path_umount helper that takes a struct path * instead of the
+> > actual file name.  This will allow to convert the init and devtmpfs code
+> > to properly mount based on a kernel pointer instead of relying on the
+> > implicit set_fs(KERNEL_DS) during early init.
+> >
+> > Signed-off-by: Christoph Hellwig <hch@lst.de>
+> > ---
+> >  fs/namespace.c | 40 ++++++++++++++++++----------------------
+> >  1 file changed, 18 insertions(+), 22 deletions(-)
+> >
+> > diff --git a/fs/namespace.c b/fs/namespace.c
+> > index 6f8234f74bed90..43834b59eff6c3 100644
+> > --- a/fs/namespace.c
+> > +++ b/fs/namespace.c
 
-Also check for all policy keyrings and templates.
+<trim>
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-changes v2->v3:
-Fixed regression in my third commit.
-Verified on:
+>
+> Regressions on linux next 20200803 tag kernel.
+> LTP syscalls test umount03 mount a path for testing and
+> umount failed and retired for 50 times and test exit with warning
+> and following test cases using that mount path failed.
+>
+> LTP syscalls tests failed list,
+>     * umount03
+>     * umount2_01
+>     * umount2_02
+>     * umount2_03
+>     * utime06
+>     * copy_file_range01
 
-cat /sys/kernel/security/ima/policy
-measure func=KEY_CHECK keyrings=.ima|.builtin_trusted_keys template=ima-buf
-measure func=KEY_CHECK keyrings=key_import_test template=ima-buf
+The reported issue has been fixed in linux next 20200817 tag by
+below patch.
 
- .../security/integrity/ima/tests/ima_keys.sh  | 49 ++++++++++++-------
- 1 file changed, 31 insertions(+), 18 deletions(-)
+fs: fix a struct path leak in path_umount
+Make sure we also put the dentry and vfsmnt in the illegal flags and
+!may_umount cases.
+Fixes: 41525f56e256 ("fs: refactor ksys_umount")
 
-diff --git a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-index 30950904e..ce15296fc 100755
---- a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-+++ b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-@@ -6,40 +6,54 @@
- #
- # Verify that keys are measured correctly based on policy.
- 
--TST_NEEDS_CMDS="cmp cut grep sed tr xxd"
-+TST_NEEDS_CMDS="cmp cut grep sed sort xxd"
- TST_CNT=2
- TST_NEEDS_DEVICE=1
-+TST_SETUP="setup"
- 
- . ima_setup.sh
- 
-+KEYCHECK_POLICY='func=KEY_CHECK'
-+
-+setup()
-+{
-+	require_ima_policy_content "^measure.*$KEYCHECK_POLICY"
-+}
-+
-+check_keys_policy()
-+{
-+	local pattern="$1"
-+
-+	pattern="^measure.*($KEYCHECK_POLICY.*$pattern|$pattern.*$KEYCHECK_POLICY)"
-+	if ! check_ima_policy_content "$pattern" '-E'; then
-+		tst_res TCONF "IMA policy does not specify '$pattern'"
-+		return 1
-+	fi
-+	return 0
-+}
-+
-+
- # Based on https://lkml.org/lkml/2019/12/13/564.
- # (450d0fd51564 - "IMA: Call workqueue functions to measure queued keys")
- test1()
- {
--	local keyrings keycheck_lines keycheck_line templates
--	local pattern="func=KEY_CHECK"
-+	local keycheck_lines i keyrings templates
-+	local pattern='keyrings=[^[:space:]]+'
- 	local test_file="file.txt"
- 
- 	tst_res TINFO "verify key measurement for keyrings and templates specified in IMA policy"
- 
--	require_ima_policy_content "$pattern"
--	keycheck_lines=$(check_ima_policy_content "$pattern" "")
--	keycheck_line=$(echo "$keycheck_lines" | grep "keyrings" | head -n1)
-+	keycheck_lines=$(check_keys_policy "$pattern") || return
- 
--	if [ -z "$keycheck_line" ]; then
--		tst_res TCONF "IMA policy does not specify a keyrings to check"
--		return
--	fi
--
--	keyrings=$(echo "$keycheck_line" | tr " " "\n" | grep "keyrings" | \
--		sed "s/\./\\\./g" | cut -d'=' -f2)
-+	keyrings=$(for i in $keycheck_lines; do echo "$i" | grep "keyrings" | \
-+		sed "s/\./\\\./g" | cut -d'=' -f2; done | sort -u)
- 	if [ -z "$keyrings" ]; then
- 		tst_res TCONF "IMA policy has a keyring key-value specifier, but no specified keyrings"
- 		return
- 	fi
- 
--	templates=$(echo "$keycheck_line" | tr " " "\n" | grep "template" | \
--		cut -d'=' -f2)
-+	templates=$(for i in $keycheck_lines; do echo "$i" | grep "template" | \
-+		cut -d'=' -f2; done | sort -u)
- 
- 	grep -E "($templates)*($keyrings)" $ASCII_MEASUREMENTS | while read line
- 	do
-@@ -73,14 +87,13 @@ test2()
- 
- 	local cert_file="$TST_DATAROOT/x509_ima.der"
- 	local keyring_name="key_import_test"
-+	local pattern="keyrings=[^[:space:]]*$keyring_name"
- 	local temp_file="file.txt"
- 	local keyring_id
- 
- 	tst_res TINFO "verify measurement of certificate imported into a keyring"
- 
--	if ! check_ima_policy_content "^measure.*func=KEY_CHECK.*keyrings=.*$keyring_name"; then
--		tst_brk TCONF "IMA policy does not contain $keyring_name keyring"
--	fi
-+	check_keys_policy "$pattern" >/dev/null || return
- 
- 	keyctl new_session > /dev/null
- 
--- 
-2.28.0
-
+- Naresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
