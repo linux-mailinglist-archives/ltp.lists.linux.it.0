@@ -2,68 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9E7524827B
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Aug 2020 12:04:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7FE024827D
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Aug 2020 12:04:57 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5F7A53C587C
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Aug 2020 12:04:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 91E763C5884
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Aug 2020 12:04:57 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id CBFAC3C24E2
- for <ltp@lists.linux.it>; Tue, 18 Aug 2020 12:04:37 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 08EC53C5886
+ for <ltp@lists.linux.it>; Tue, 18 Aug 2020 12:04:43 +0200 (CEST)
 Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 048AB1000F5F
- for <ltp@lists.linux.it>; Tue, 18 Aug 2020 12:04:36 +0200 (CEST)
-Received: from mail-pl1-f197.google.com ([209.85.214.197])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 39F021401656
+ for <ltp@lists.linux.it>; Tue, 18 Aug 2020 12:04:40 +0200 (CEST)
+Received: from mail-pg1-f197.google.com ([209.85.215.197])
  by youngberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <po-hsu.lin@canonical.com>) id 1k7yTs-00009m-2A
- for ltp@lists.linux.it; Tue, 18 Aug 2020 10:04:36 +0000
-Received: by mail-pl1-f197.google.com with SMTP id bg5so11891504plb.18
- for <ltp@lists.linux.it>; Tue, 18 Aug 2020 03:04:35 -0700 (PDT)
+ (envelope-from <po-hsu.lin@canonical.com>) id 1k7yTv-0000A3-3V
+ for ltp@lists.linux.it; Tue, 18 Aug 2020 10:04:39 +0000
+Received: by mail-pg1-f197.google.com with SMTP id n32so11877186pgb.22
+ for <ltp@lists.linux.it>; Tue, 18 Aug 2020 03:04:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Fjgtj70lj+s3VfMdS5UnUcERCnmU5Om+AkhRT5nloeI=;
- b=XojQ82hPwDBZwyWj4ZTKDGp2lbGDUj6DBtILxqCfzwHrDX4DdSkoJquOa9LvDAw0Fa
- pUU2ewCBUC7UYUPVegDNYSpVQSzJov0Iy3Q9eMoWp8pGSB20nFxEEUrpd3ijHWiQLWTY
- DCdSeS1bSN1HLDTHr/3STlnntlHZDKihRdXnujXtDaajOXv+XJv4xvouWSMbV62ilNQi
- yr6V0u+HsWl91gV4kyMiBB4WAzUx73HXzc5kLYC1sZ9bYRBiYly/lVSA+Q4LCqKrvKZt
- N1dHMnGom9bjeCGh5aTbw839rQqaaMclT3v+5hBiHRTO214hwVe3+0MDb57XxvgcGUhc
- wwpg==
-X-Gm-Message-State: AOAM530AWfURnP3/9MHxrnPfq4oWHELY0EaJqCYS+plxOMCoQT/xvGMh
- zy9QL09lO8mW5/nrV/En3RaKr7yyd8Zzo8yVZf4GUrcDmUY40yLfj62iNyd7zB9ako9LCn0fa6s
- wSS1TzZ9fcoOt6JUSleJwfpcn9fQ=
-X-Received: by 2002:a63:8f41:: with SMTP id r1mr12305137pgn.375.1597745074260; 
- Tue, 18 Aug 2020 03:04:34 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzEPcGaXGZvSHpo8Q7rjlWyTKcoxR77a3jbxXi4hdUbkCNRciTQXhIfUNbzCVIs/OfsQiq2lQ==
-X-Received: by 2002:a63:8f41:: with SMTP id r1mr12305113pgn.375.1597745073760; 
- Tue, 18 Aug 2020 03:04:33 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=PyG0lzRclc4VKQA43T6MfcEMsIvtfLV8g1xxdlLWSNg=;
+ b=WKwi2aUiyUVHYlxIRY1nPBTu6eB4a0enXKbqsILyGrv9LrJEfx35hg0v852ycNdwmz
+ 4jXUDTjsCWOi6wsPxnDWGzOPLtSAdP83NqNB8ZhVlupbKggl3DFa33wn93/+4ZbyO2fz
+ Utk7Srz1OUvlju1+hDOT9qDq1Vv/5Mo1TLY8mgC2BJ3XEFQBW20TdmISl8LLQhzW1qLp
+ HiZhFCC7QuXe3mAcNG6PodSMlzg9kk0PuYvXucv5lvJX6irWrP2ruPiDQjA11/cAKAPu
+ oqm8/3iRU042y/EeDOObpdRrG02VpZl3inpzUXPevnyofLzzBHsEkgjZXkgKVOZpI6TG
+ KiAA==
+X-Gm-Message-State: AOAM532BiDvqCdsTefEpvjF9NWrGK2rem90aoW4Lc0w9NnX5KXHwCoOY
+ vSUTR+0zU/pfKqNV8+KHuL0xUjn2zz483vq5WYwlG+OGCetFNBHb5tn6i+An9tG3d4UzZrcKoMk
+ gW5+ABkfY7kpC7uOx0S77fNdaz8g=
+X-Received: by 2002:a63:8f1c:: with SMTP id n28mr9891732pgd.330.1597745076935; 
+ Tue, 18 Aug 2020 03:04:36 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyIfsUK3KRTYgQUDUQ6BhiF6DET2epM4uWFMB/eBKj4BYv0LBKtpsQ2FH3pWtaBbFEDRVeRVw==
+X-Received: by 2002:a63:8f1c:: with SMTP id n28mr9891716pgd.330.1597745076606; 
+ Tue, 18 Aug 2020 03:04:36 -0700 (PDT)
 Received: from localhost.localdomain (223-137-244-244.emome-ip.hinet.net.
  [223.137.244.244])
- by smtp.gmail.com with ESMTPSA id q10sm23433222pfs.75.2020.08.18.03.04.31
+ by smtp.gmail.com with ESMTPSA id q10sm23433222pfs.75.2020.08.18.03.04.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Aug 2020 03:04:32 -0700 (PDT)
+ Tue, 18 Aug 2020 03:04:35 -0700 (PDT)
 From: Po-Hsu Lin <po-hsu.lin@canonical.com>
 To: ltp@lists.linux.it,
 	viresh.kumar@linaro.org,
 	chrubis@suse.cz
-Date: Tue, 18 Aug 2020 18:04:20 +0800
-Message-Id: <20200818100422.27775-1-po-hsu.lin@canonical.com>
+Date: Tue, 18 Aug 2020 18:04:21 +0800
+Message-Id: <20200818100422.27775-2-po-hsu.lin@canonical.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200818100422.27775-1-po-hsu.lin@canonical.com>
+References: <20200818100422.27775-1-po-hsu.lin@canonical.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCHv2 0/2] Fix for syscalls/utimensat01 test on Ubuntu 4.4
- kernel
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCHv2 1/2] lib/tst_kvercmp: Add support to get distname
+ for different OS in tst_kvcmp_distname
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,28 +83,77 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Ubuntu 4.4 kernel got the backported kernel patch (b3b4283) for
-syscalls/utimensat01 since 4.4.0-48.69, therefore it will return
-EPERM instead of EACCES.
+The kver on Ubuntu will be something like these:
+* 4.4.0-187-generic
+* 5.4.0-1021-kvm
+* 4.15.0-1093-azure
 
-Without this fix, the test will fail on Ubuntu 4.4 kernel with:
-  FAIL: 18: utimensat() failed with incorrect error, expected EACCES: EPERM (1)
-  FAIL: 19: utimensat() failed with incorrect error, expected EACCES: EPERM (1)
+So it's better to parse OS name from ID= in /etc/os-release, instead
+of doing this from checking kver substring like what we did for RHEL
+and Oracle Linux here.
 
-Add Ubuntu kernel version comparison to fix this.
+From the document [1] this string will alway be in lowercase. Example:
+"ID=fedora" or "ID=debian". Thus it needs to be converted to uppercase
+to make it consistent with other return values in tst_kvcmp_distname().
 
-Also add support to get the distname for different OS by parsing ID=
-from /etc/os-release in tst_kvcmp_distname()
+Note that if ID was not set, it will default to "ID=linux". Thus we
+can expect to get LINUX on some distros.
 
-Po-Hsu Lin (2):
-  lib/tst_kvercmp: Add support to get distname for different OS in
-    tst_kvcmp_distname
-  syscalls/utimensat01: add exception for Ubuntu 4.4 kernel
+[1] https://www.freedesktop.org/software/systemd/man/os-release.html
 
- lib/tst_kvercmp.c                                | 16 ++++++++++++++++
- .../kernel/syscalls/utimensat/utimensat01.c      |  7 ++++++-
- 2 files changed, 22 insertions(+), 1 deletion(-)
+Signed-off-by: Po-Hsu Lin <po-hsu.lin@canonical.com>
+---
+ lib/tst_kvercmp.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
+diff --git a/lib/tst_kvercmp.c b/lib/tst_kvercmp.c
+index dc3bb669b..af6c6de69 100644
+--- a/lib/tst_kvercmp.c
++++ b/lib/tst_kvercmp.c
+@@ -18,6 +18,7 @@
+  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+  */
+ 
++#include <ctype.h>
+ #include <stdlib.h>
+ #include <unistd.h>
+ #include <string.h>
+@@ -25,6 +26,8 @@
+ #include <sys/utsname.h>
+ #include "test.h"
+ 
++#define OSRELEASE_PATH "/etc/os-release"
++
+ static char *parse_digit(const char *str, int *d)
+ {
+ 	unsigned long v;
+@@ -127,6 +130,8 @@ int tst_kvexcmp(const char *tst_exv, const char *cur_ver)
+ 
+ const char *tst_kvcmp_distname(const char *kver)
+ {
++	static char distname[64];
++	char *tok;
+ 	if (strstr(kver, ".el5uek"))
+ 		return "OL5UEK";
+ 
+@@ -139,6 +144,17 @@ const char *tst_kvcmp_distname(const char *kver)
+ 	if (strstr(kver, ".el6"))
+ 		return "RHEL6";
+ 
++	// Special case for other releases with the presencse of /etc/os-release
++	if (access(OSRELEASE_PATH, F_OK) != -1) {
++		SAFE_FILE_LINES_SCANF(NULL, OSRELEASE_PATH, "ID=%s", distname);
++		tok = strtok(distname,"\0");
++		while (*tok) {
++			*tok = toupper((unsigned char) *tok);
++			tok++;
++		}
++		return distname;
++	}
++
+ 	return NULL;
+ }
+ 
 -- 
 2.25.1
 
