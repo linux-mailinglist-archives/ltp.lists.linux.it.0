@@ -1,39 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92ADB24B1B6
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Aug 2020 11:09:01 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 706FB24B1AE
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Aug 2020 11:08:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 50C103C2FAC
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Aug 2020 11:09:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 047413C2FCE
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Aug 2020 11:08:43 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id F1CFA3C2F99
+ by picard.linux.it (Postfix) with ESMTP id E05E13C04C3
  for <ltp@lists.linux.it>; Thu, 20 Aug 2020 11:08:38 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6AACE20096D
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6DB01200979
  for <ltp@lists.linux.it>; Thu, 20 Aug 2020 11:08:38 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8B77EB75B;
+ by mx2.suse.de (Postfix) with ESMTP id AC165AC7F;
  Thu, 20 Aug 2020 09:09:04 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 20 Aug 2020 11:08:19 +0200
-Message-Id: <20200820090824.3033-1-pvorel@suse.cz>
+Date: Thu, 20 Aug 2020 11:08:20 +0200
+Message-Id: <20200820090824.3033-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200820090824.3033-1-pvorel@suse.cz>
+References: <20200820090824.3033-1-pvorel@suse.cz>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [LTP v4 0/5] IMA: verify measurement of certificate imported
- into a keyring
+Subject: [LTP] [LTP v4 1/5] IMA/ima_keys.sh: Fix policy content check usage
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,55 +53,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Mimi, Lakshmi,
+require_ima_policy_content cannot be used in subshell $() evaluation,
+because tst_brk does not quit the test. It calls cleanup for the
+subshell process and main process then continue:
 
-changes v3->v4:
-* Add new commit to add another policy dependency (template=ima-buf) and
-and fix missing '.' in grep pattern
-* Add cleanup function for test2: remove key with keyctl clear ID
-instead of running keyctl new_session > /dev/null which was reported
-as problematic (and still affects other tests which are run after this one)
-* Update check_keys_policy() and checking the policy in general
-* Remove new line when working policy to find keyrings and templates
-* Replace tr with sed
+ima_keys 1 TCONF: IMA policy does not specify 'func=KEY_CHECK'
+=> Here it's running first cleanup. umount errors are because parent
+shell process still has $PWD in directory to be unmounted:
+umount: /tmp/LTP_ima_keys.0dIVrwJKIG/mntpoint: target is busy.
+ima_keys 1 TINFO: umount(/dev/loop0) failed, try 1 ...
+ima_keys 1 TINFO: Likely gvfsd-trash is probing newly mounted  fs, kill it to speed up tests.
+umount: /tmp/LTP_ima_keys.0dIVrwJKIG/mntpoint: target is busy.
+...
+ima_keys 1 TINFO: umount(/dev/loop0) failed, try 50 ...
+ima_keys 1 TINFO: Likely gvfsd-trash is probing newly mounted  fs, kill it to speed up tests.
+ima_keys 1 TWARN: Failed to umount(/dev/loop0) after 50 retries
+tst_device.c:222: WARN: ioctl(/dev/loop0, LOOP_CLR_FD, 0) no ENXIO for too long
 
-I still kept keyctl new_session > /dev/null. Should I remove it?
-Works for me without it, but that would probably require a cleanup.
+Usage: tst_device acquire [size [filename]]
+   or: tst_device release /path/to/device
 
-Kind regards,
-Petr
+ima_keys 1 TWARN: Failed to release device '/dev/loop0'
+rm: cannot remove '/tmp/LTP_ima_keys.0dIVrwJKIG/mntpoint': Device or resource busy
+ima_keys 1 TINFO: AppArmor enabled, this may affect test results
+ima_keys 1 TINFO: it can be disabled with TST_DISABLE_APPARMOR=1 (requires super/root)
+ima_keys 1 TINFO: loaded AppArmor profiles: none
+/opt/ltp/testcases/bin/ima_keys.sh: line 25:  6166 Terminated              sleep $sec && tst_res TBROK "test killed, timeout! If you are running on slow machine, try exporting LTP_TIMEOUT_MUL > 1" && kill -9 -$pid  (wd: ~)
 
-Lachlan Sneff (1):
-  IMA: Add a test to verify measurement of certificate imported into a
-    keyring
+=> Here it should quit after running cleanup, but instead continue running:
+ima_keys 1 TCONF: ima policy does not specify a keyrings to check
 
-Petr Vorel (4):
-  IMA/ima_keys.sh: Fix policy content check usage
-  IMA/ima_keys.sh: Require template=ima-buf, fix grep pattern
-  IMA: Refactor datafiles directory
-  IMA/ima_keys.sh: Enhance policy checks
+NOTE: The same limitation for using subshell $() is for
+check_ima_policy_content, but it's safe due previous
+require_ima_policy_content check.
 
- .../kernel/security/integrity/ima/README.md   |  12 +-
- .../security/integrity/ima/datafiles/Makefile |  10 +-
- .../ima/datafiles/ima_kexec/Makefile          |  11 ++
- .../datafiles/{ => ima_kexec}/kexec.policy    |   0
- .../integrity/ima/datafiles/ima_keys/Makefile |  11 ++
- .../datafiles/{ => ima_keys}/keycheck.policy  |   2 +-
- .../ima/datafiles/ima_keys/x509_ima.der       | Bin 0 -> 650 bytes
- .../ima/datafiles/ima_policy/Makefile         |  11 ++
- .../datafiles/{ => ima_policy}/measure.policy |   0
- .../{ => ima_policy}/measure.policy-invalid   |   0
- .../security/integrity/ima/tests/ima_keys.sh  | 115 +++++++++++++++---
- 11 files changed, 142 insertions(+), 30 deletions(-)
- create mode 100644 testcases/kernel/security/integrity/ima/datafiles/ima_kexec/Makefile
- rename testcases/kernel/security/integrity/ima/datafiles/{ => ima_kexec}/kexec.policy (100%)
- create mode 100644 testcases/kernel/security/integrity/ima/datafiles/ima_keys/Makefile
- rename testcases/kernel/security/integrity/ima/datafiles/{ => ima_keys}/keycheck.policy (59%)
- create mode 100644 testcases/kernel/security/integrity/ima/datafiles/ima_keys/x509_ima.der
- create mode 100644 testcases/kernel/security/integrity/ima/datafiles/ima_policy/Makefile
- rename testcases/kernel/security/integrity/ima/datafiles/{ => ima_policy}/measure.policy (100%)
- rename testcases/kernel/security/integrity/ima/datafiles/{ => ima_policy}/measure.policy-invalid (100%)
+Fixes: f20f44d72 ("IMA/ima_keys.sh: Fix policy readability check")
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ testcases/kernel/security/integrity/ima/tests/ima_keys.sh | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
+diff --git a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+index 3aea26056..53c289054 100755
+--- a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
++++ b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+@@ -16,11 +16,14 @@ TST_NEEDS_DEVICE=1
+ # (450d0fd51564 - "IMA: Call workqueue functions to measure queued keys")
+ test1()
+ {
+-	local keyrings keycheck_lines keycheck_line templates test_file="file.txt"
++	local keyrings keycheck_lines keycheck_line templates
++	local pattern="func=KEY_CHECK"
++	local test_file="file.txt"
+ 
+ 	tst_res TINFO "verifying key measurement for keyrings and templates specified in IMA policy file"
+ 
+-	keycheck_lines=$(require_ima_policy_content "func=KEY_CHECK" "")
++	require_ima_policy_content "$pattern"
++	keycheck_lines=$(check_ima_policy_content "$pattern" "")
+ 	keycheck_line=$(echo "$keycheck_lines" | grep "keyrings" | head -n1)
+ 
+ 	if [ -z "$keycheck_line" ]; then
 -- 
 2.28.0
 
