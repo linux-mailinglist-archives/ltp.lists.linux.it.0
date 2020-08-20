@@ -1,39 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3166A24B1B5
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Aug 2020 11:08:50 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 17D8124B1B7
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Aug 2020 11:09:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CD6933C57FD
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Aug 2020 11:08:49 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C7A7C3C580E
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Aug 2020 11:09:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id EF8813C2F91
- for <ltp@lists.linux.it>; Thu, 20 Aug 2020 11:08:38 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 52E513C04C3
+ for <ltp@lists.linux.it>; Thu, 20 Aug 2020 11:08:39 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7DE81600879
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 98A3E20097D
  for <ltp@lists.linux.it>; Thu, 20 Aug 2020 11:08:38 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1C308B75F;
+ by mx2.suse.de (Postfix) with ESMTP id 4DA0FB75E;
  Thu, 20 Aug 2020 09:09:05 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 20 Aug 2020 11:08:22 +0200
-Message-Id: <20200820090824.3033-4-pvorel@suse.cz>
+Date: Thu, 20 Aug 2020 11:08:23 +0200
+Message-Id: <20200820090824.3033-5-pvorel@suse.cz>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200820090824.3033-1-pvorel@suse.cz>
 References: <20200820090824.3033-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [LTP v4 3/5] IMA: Refactor datafiles directory
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [LTP v4 4/5] IMA: Add a test to verify measurement of
+ certificate imported into a keyring
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,142 +46,226 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-integrity@vger.kernel.org, Mimi Zohar <zohar@linux.vnet.ibm.com>,
- Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+Cc: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
+ Mimi Zohar <zohar@linux.vnet.ibm.com>, linux-integrity@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The IMA datafiles directory is structured so that it cannot be directly
-expanded to include datafiles for tests other than `ima_policy.sh`
-as it's installed into /opt/ltp/testcases/data/ima_policy.
+From: Lachlan Sneff <t-josne@linux.microsoft.com>
 
-Also not all policies are meant to be for ima_policy.sh, thus
-move policies into their own directories based on the test which they
-belong to. Rename policy directory to ima_policy to follow the
-pattern that directory in sources match the installed directory.
+The IMA subsystem supports measuring certificates that have been
+imported into either system built-in or user-defined keyrings.
+A test to verify measurement of a certificate imported
+into a keyring is required.
 
-Reported-by: Lachlan Sneff <t-josne@linux.microsoft.com>
+Add an IMA measurement test that verifies that an x509 certificate
+can be imported into a newly-created, user-defined keyring and measured
+correctly by the IMA subsystem.
+
+A certificate used by the test is included in the `datafiles/keys`
+directory.
+
+There can be restrictions on importing a certificate into a builtin
+trusted keyring. For example, the `.ima` keyring requires that
+imported certs be signed by a kernel private key in certain
+kernel configurations. For this reason, this test defines
+a user-defined keyring and imports a certificate into that.
+
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 Signed-off-by: Lachlan Sneff <t-josne@linux.microsoft.com>
-[ pvorel: based on Lachlan's patch, rewritten ]
+[ pvorel: Added key_import_test into keycheck.policy, cleanup key,
+reword instructions in README.md, LTP API related fixes ]
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
-The same as in v3.
+changes v3->v4:
+* Add cleanup function for test2: remove key with keyctl clear ID
+instead of running keyctl new_session > /dev/null which was reported
+as problematic (and still affects other tests which are run after this one)
 
- .../kernel/security/integrity/ima/datafiles/Makefile  | 10 +++++-----
- .../integrity/ima/datafiles/ima_kexec/Makefile        | 11 +++++++++++
- .../ima/datafiles/{ => ima_kexec}/kexec.policy        |  0
- .../integrity/ima/datafiles/ima_keys/Makefile         | 11 +++++++++++
- .../ima/datafiles/{ => ima_keys}/keycheck.policy      |  0
- .../integrity/ima/datafiles/ima_policy/Makefile       | 11 +++++++++++
- .../ima/datafiles/{ => ima_policy}/measure.policy     |  0
- .../datafiles/{ => ima_policy}/measure.policy-invalid |  0
- 8 files changed, 38 insertions(+), 5 deletions(-)
- create mode 100644 testcases/kernel/security/integrity/ima/datafiles/ima_kexec/Makefile
- rename testcases/kernel/security/integrity/ima/datafiles/{ => ima_kexec}/kexec.policy (100%)
- create mode 100644 testcases/kernel/security/integrity/ima/datafiles/ima_keys/Makefile
- rename testcases/kernel/security/integrity/ima/datafiles/{ => ima_keys}/keycheck.policy (100%)
- create mode 100644 testcases/kernel/security/integrity/ima/datafiles/ima_policy/Makefile
- rename testcases/kernel/security/integrity/ima/datafiles/{ => ima_policy}/measure.policy (100%)
- rename testcases/kernel/security/integrity/ima/datafiles/{ => ima_policy}/measure.policy-invalid (100%)
+ .../kernel/security/integrity/ima/README.md   |  12 ++-
+ .../integrity/ima/datafiles/ima_keys/Makefile |   2 +-
+ .../ima/datafiles/ima_keys/keycheck.policy    |   2 +-
+ .../ima/datafiles/ima_keys/x509_ima.der       | Bin 0 -> 650 bytes
+ .../security/integrity/ima/tests/ima_keys.sh  |  70 ++++++++++++++++--
+ 5 files changed, 73 insertions(+), 13 deletions(-)
+ create mode 100644 testcases/kernel/security/integrity/ima/datafiles/ima_keys/x509_ima.der
 
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/Makefile b/testcases/kernel/security/integrity/ima/datafiles/Makefile
-index 369407112..6857ccfee 100644
---- a/testcases/kernel/security/integrity/ima/datafiles/Makefile
-+++ b/testcases/kernel/security/integrity/ima/datafiles/Makefile
-@@ -1,6 +1,8 @@
- #
- #    testcases/kernel/security/integrity/ima/policy testcases Makefile.
- #
-+#    Copyright (c) Linux Test Project, 2019-2020
-+#    Copyright (c) 2020 Microsoft Corporation
- #    Copyright (C) 2009, Cisco Systems Inc.
- #
- #    This program is free software; you can redistribute it and/or modify
-@@ -20,12 +22,10 @@
- # Ngie Cooper, July 2009
- #
+diff --git a/testcases/kernel/security/integrity/ima/README.md b/testcases/kernel/security/integrity/ima/README.md
+index 392e1e868..68d046678 100644
+--- a/testcases/kernel/security/integrity/ima/README.md
++++ b/testcases/kernel/security/integrity/ima/README.md
+@@ -16,11 +16,15 @@ space, may contain equivalent measurement tcb rules, detecting them would
+ require `IMA_READ_POLICY=y` therefore ignore this option.
  
--top_srcdir		?= ../../../../../..
-+top_srcdir	?= ../../../../../..
+ ### IMA key test
+-`ima_keys.sh` requires a readable IMA policy, as well as a loaded policy
+-with `func=KEY_CHECK keyrings=...`, see example in `keycheck.policy`.
++The measuring keys test (first test) in `ima_keys.sh` requires a readable IMA
++policy, as well as a loaded measure policy with `func=KEY_CHECK keyrings=...`.
  
+-As well as what's required for the IMA tests, the following are also required
+--in the kernel configuration:
++The certificate import test (second test) require measure policy with
++`func=KEY_CHECK keyrings=key_import_test`. Valid policy for both is in
++`keycheck.policy`.
++
++As well as what's required for the IMA tests, key tests require reading the IMA
++policy allowed in the kernel configuration:
+ ```
+ CONFIG_IMA_READ_POLICY=y
+ ```
+diff --git a/testcases/kernel/security/integrity/ima/datafiles/ima_keys/Makefile b/testcases/kernel/security/integrity/ima/datafiles/ima_keys/Makefile
+index 452321843..ac7ce33ab 100644
+--- a/testcases/kernel/security/integrity/ima/datafiles/ima_keys/Makefile
++++ b/testcases/kernel/security/integrity/ima/datafiles/ima_keys/Makefile
+@@ -6,6 +6,6 @@ top_srcdir	?= ../../../../../../..
  include	$(top_srcdir)/include/mk/env_pre.mk
  
--INSTALL_DIR		:= testcases/data/ima_policy
-+SUBDIRS	:= ima_*
+ INSTALL_DIR		:= testcases/data/ima_keys
+-INSTALL_TARGETS	:= *.policy
++INSTALL_TARGETS	:= *.policy x509_ima.der
  
--INSTALL_TARGETS		:= measure.policy-invalid *.policy
--
--include $(top_srcdir)/include/mk/generic_leaf_target.mk
-+include $(top_srcdir)/include/mk/generic_trunk_target.mk
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/ima_kexec/Makefile b/testcases/kernel/security/integrity/ima/datafiles/ima_kexec/Makefile
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/security/integrity/ima/datafiles/ima_keys/keycheck.policy b/testcases/kernel/security/integrity/ima/datafiles/ima_keys/keycheck.policy
+index 3f1934a3d..623162002 100644
+--- a/testcases/kernel/security/integrity/ima/datafiles/ima_keys/keycheck.policy
++++ b/testcases/kernel/security/integrity/ima/datafiles/ima_keys/keycheck.policy
+@@ -1 +1 @@
+-measure func=KEY_CHECK keyrings=.ima|.evm|.builtin_trusted_keys|.blacklist template=ima-buf
++measure func=KEY_CHECK keyrings=.ima|.evm|.builtin_trusted_keys|.blacklist|key_import_test template=ima-buf
+diff --git a/testcases/kernel/security/integrity/ima/datafiles/ima_keys/x509_ima.der b/testcases/kernel/security/integrity/ima/datafiles/ima_keys/x509_ima.der
 new file mode 100644
-index 000000000..5e0d632a7
---- /dev/null
-+++ b/testcases/kernel/security/integrity/ima/datafiles/ima_kexec/Makefile
-@@ -0,0 +1,11 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) Linux Test Project, 2020
+index 0000000000000000000000000000000000000000..92be058da22adffa9d6b6e51efa0c737ebbbbdcd
+GIT binary patch
+literal 650
+zcmXqLVrnyJVtl`VnTe5!NhJD#vj69`9|BBf8}FEsx@^_9$Clp>c-c6$+C196^D;7W
+zvoaV27z!HjvoVLVaPe?t<QJFZCFZ6YN*hRmgqV4R$}{p4b2Al+Gt=`j^U@WvQ!5SS
+z3}oO&a59SVLzFncG#ki?^BP(jSQr@@7#Ud_7)6Qm8W{k&hEOgIY;2s5>?=lA2Ij_I
+z27|^<rp88wchfeduxmMW^j9qUxkIugeev4q7u7yrJR_rW$*!>VOo=tim8DK0r^FsU
+zl)K`}`+CO4@4KBkoLmcj?fH`%wbDvU<d=4Z>6-SMf6Eh}{&)1rdsOoNQ-1fgBQ1t{
+zVTqGwuK95LlFE)6i{@=vlP6!2`Y}x<BF&oXU_nlDxy@C+CNp&=W=00a#jys_20XwZ
+zl@(@W{LjK<z+k`);_<VvFf*|?7|4P+d@N!tBCNWX-0#?!UAx9s`mgFmW+nI2#6kmk
+zkhC(3gn?Lt$m4W@56wQ)?QVKW<nOtpT)HJrB?Q^`z&K?FdV8b(y8m)~mOOvswu^9m
+z-o7mOwCAzaT*~`Y4wxFtmNA_89`W;j{r#iww*5OC5vgEziqD_%=ki$*`;s}`Pfwi{
+zbotZ0X`ckHOmaVLm85n@E9hN_K;~PUB>DFAzh(;(UoMln9V>g;W#-LUGS7A`nYQKY
+WBem{7L5JThS+;$vggi%(*E;~nlJ80Y
+
+literal 0
+HcmV?d00001
+
+diff --git a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+index 015a3c115..ad3cbbdc7 100755
+--- a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
++++ b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+@@ -6,12 +6,18 @@
+ #
+ # Verify that keys are measured correctly based on policy.
+ 
+-TST_NEEDS_CMDS="cut grep sed tr xxd"
+-TST_CNT=1
++TST_NEEDS_CMDS="cmp cut grep sed tr xxd"
++TST_CNT=2
+ TST_NEEDS_DEVICE=1
++TST_CLEANUP=cleanup
+ 
+ . ima_setup.sh
+ 
++cleanup()
++{
++	tst_is_num $KEYRING_ID && keyctl clear $KEYRING_ID
++}
 +
-+top_srcdir	?= ../../../../../../..
+ # Based on https://lkml.org/lkml/2019/12/13/564.
+ # (450d0fd51564 - "IMA: Call workqueue functions to measure queued keys")
+ test1()
+@@ -29,13 +35,15 @@ test1()
+ 	keycheck_line=$(echo "$keycheck_lines" | grep "keyrings" | head -n1)
+ 
+ 	if [ -z "$keycheck_line" ]; then
+-		tst_brk TCONF "ima policy does not specify a keyrings to check"
++		tst_res TCONF "IMA policy does not specify a keyrings to check"
++		return
+ 	fi
+ 
+ 	keyrings=$(echo "$keycheck_line" | tr " " "\n" | grep "keyrings" | \
+ 		sed "s/\./\\\./g" | cut -d'=' -f2)
+ 	if [ -z "$keyrings" ]; then
+-		tst_brk TCONF "ima policy has a keyring key-value specifier, but no specified keyrings"
++		tst_res TCONF "IMA policy has a keyring key-value specifier, but no specified keyrings"
++		return
+ 	fi
+ 
+ 	templates=$(echo "$keycheck_line" | tr " " "\n" | grep "template" | \
+@@ -51,11 +59,13 @@ test1()
+ 
+ 		echo "$line" | cut -d' ' -f6 | xxd -r -p > $test_file
+ 
+-		expected_digest="$(compute_digest $algorithm $test_file)" || \
+-			tst_brk TCONF "cannot compute digest for $algorithm"
++		if ! expected_digest="$(compute_digest $algorithm $test_file)"; then
++			tst_res TCONF "cannot compute digest for $algorithm"
++			return
++		fi
+ 
+ 		if [ "$digest" != "$expected_digest" ]; then
+-			tst_res TFAIL "incorrect digest was found for the ($keyring) keyring"
++			tst_res TFAIL "incorrect digest was found for $keyring keyring"
+ 			return
+ 		fi
+ 	done
+@@ -63,4 +73,50 @@ test1()
+ 	tst_res TPASS "specified keyrings were measured correctly"
+ }
+ 
++# Create a new keyring, import a certificate into it, and verify
++# that the certificate is measured correctly by IMA.
++test2()
++{
++	tst_require_cmds evmctl keyctl openssl
 +
-+include	$(top_srcdir)/include/mk/env_pre.mk
++	local cert_file="$TST_DATAROOT/x509_ima.der"
++	local keyring_name="key_import_test"
++	local temp_file="file.txt"
 +
-+INSTALL_DIR		:= testcases/data/ima_kexec
-+INSTALL_TARGETS	:= *.policy
++	tst_res TINFO "verify measurement of certificate imported into a keyring"
 +
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/kexec.policy b/testcases/kernel/security/integrity/ima/datafiles/ima_kexec/kexec.policy
-similarity index 100%
-rename from testcases/kernel/security/integrity/ima/datafiles/kexec.policy
-rename to testcases/kernel/security/integrity/ima/datafiles/ima_kexec/kexec.policy
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/ima_keys/Makefile b/testcases/kernel/security/integrity/ima/datafiles/ima_keys/Makefile
-new file mode 100644
-index 000000000..452321843
---- /dev/null
-+++ b/testcases/kernel/security/integrity/ima/datafiles/ima_keys/Makefile
-@@ -0,0 +1,11 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) Linux Test Project, 2020
++	if ! check_ima_policy_content "^measure.*func=KEY_CHECK.*keyrings=.*$keyring_name"; then
++		tst_brk TCONF "IMA policy does not contain $keyring_name keyring"
++	fi
 +
-+top_srcdir	?= ../../../../../../..
++	KEYRING_ID=$(keyctl newring $keyring_name @s) || \
++		tst_brk TBROK "unable to create a new keyring"
 +
-+include	$(top_srcdir)/include/mk/env_pre.mk
++	if ! tst_is_num $KEYRING_ID; then
++		tst_brk TBROK "unable to parse the new keyring id ('$KEYRING_ID')"
++	fi
 +
-+INSTALL_DIR		:= testcases/data/ima_keys
-+INSTALL_TARGETS	:= *.policy
++	evmctl import $cert_file $KEYRING_ID > /dev/null || \
++		tst_brk TBROK "unable to import a certificate into $keyring_name keyring"
 +
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/keycheck.policy b/testcases/kernel/security/integrity/ima/datafiles/ima_keys/keycheck.policy
-similarity index 100%
-rename from testcases/kernel/security/integrity/ima/datafiles/keycheck.policy
-rename to testcases/kernel/security/integrity/ima/datafiles/ima_keys/keycheck.policy
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/ima_policy/Makefile b/testcases/kernel/security/integrity/ima/datafiles/ima_policy/Makefile
-new file mode 100644
-index 000000000..953e21556
---- /dev/null
-+++ b/testcases/kernel/security/integrity/ima/datafiles/ima_policy/Makefile
-@@ -0,0 +1,11 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) Linux Test Project, 2020
++	grep $keyring_name $ASCII_MEASUREMENTS | tail -n1 | cut -d' ' -f6 | \
++		xxd -r -p > $temp_file
 +
-+top_srcdir	?= ../../../../../../..
++	if [ ! -s $temp_file ]; then
++		tst_res TFAIL "keyring $keyring_name not found in $ASCII_MEASUREMENTS"
++		return
++	fi
 +
-+include	$(top_srcdir)/include/mk/env_pre.mk
++	if ! openssl x509 -in $temp_file -inform der > /dev/null; then
++		tst_res TFAIL "logged certificate is not a valid x509 certificate"
++		return
++	fi
 +
-+INSTALL_DIR		:= testcases/data/ima_policy
-+INSTALL_TARGETS	:= *.policy-invalid *.policy
++	if cmp -s $temp_file $cert_file; then
++		tst_res TPASS "logged certificate matches the original"
++	else
++		tst_res TFAIL "logged certificate does not match original"
++	fi
++}
 +
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/measure.policy b/testcases/kernel/security/integrity/ima/datafiles/ima_policy/measure.policy
-similarity index 100%
-rename from testcases/kernel/security/integrity/ima/datafiles/measure.policy
-rename to testcases/kernel/security/integrity/ima/datafiles/ima_policy/measure.policy
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/measure.policy-invalid b/testcases/kernel/security/integrity/ima/datafiles/ima_policy/measure.policy-invalid
-similarity index 100%
-rename from testcases/kernel/security/integrity/ima/datafiles/measure.policy-invalid
-rename to testcases/kernel/security/integrity/ima/datafiles/ima_policy/measure.policy-invalid
+ tst_run
 -- 
 2.28.0
 
