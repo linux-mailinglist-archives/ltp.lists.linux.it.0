@@ -1,40 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5042124B1BB
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Aug 2020 11:09:28 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 36F4224B1EF
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Aug 2020 11:16:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 161633C2FAA
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Aug 2020 11:09:28 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E7B7F3C2FCF
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Aug 2020 11:16:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id BEE2C3C2F91
- for <ltp@lists.linux.it>; Thu, 20 Aug 2020 11:08:39 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 1526C1A00E3F
- for <ltp@lists.linux.it>; Thu, 20 Aug 2020 11:08:39 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7A79CB761;
- Thu, 20 Aug 2020 09:09:05 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Thu, 20 Aug 2020 11:08:24 +0200
-Message-Id: <20200820090824.3033-6-pvorel@suse.cz>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200820090824.3033-1-pvorel@suse.cz>
-References: <20200820090824.3033-1-pvorel@suse.cz>
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id A558C3C2F99
+ for <ltp@lists.linux.it>; Thu, 20 Aug 2020 11:16:02 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
+ [207.211.31.81])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 38D8D10008F0
+ for <ltp@lists.linux.it>; Thu, 20 Aug 2020 11:16:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1597914960;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Y3xj1X7AS3nxS/MnTMcDkfgbrukYo3lsefdl9gbpOks=;
+ b=elgZYuN3vPR6EUjX/ulfrwnaY2JQCO5wGLAjLH0FtVM+0+E28NkoHrG+wri1cS+LRFF07j
+ YEaphq5k6o602MGnS3yWEpG7qwp4MGLNZPnwwUPFh7+mrfO/K4ckV0D3GkTNRZolTt50m5
+ I9wv3TKG0hoH/1IRwb5douWsI+KhM/k=
+Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
+ [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-39-yahCJoPWNWCJANDNeQiF6Q-1; Thu, 20 Aug 2020 05:15:56 -0400
+X-MC-Unique: yahCJoPWNWCJANDNeQiF6Q-1
+Received: by mail-yb1-f199.google.com with SMTP id e1so1620113ybk.14
+ for <ltp@lists.linux.it>; Thu, 20 Aug 2020 02:15:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Y3xj1X7AS3nxS/MnTMcDkfgbrukYo3lsefdl9gbpOks=;
+ b=Yw8wxMoK6oVriJF/7ZqcSz5NNnlcKOdTXnksFgJIA/eJgfo5bo7oXBcZ/a1vc34Da3
+ crSzpGjapdcMs/t7fLyG+g5vnRU77uLYtUK1oARgjsjmAmvpX/Pisa105QQuH7R7KMw1
+ JzByWzddpxokW83gPXxzXD9zRCS6jl1ou8uJk/h50ynwoIlI/2Jng0AHEBy+rYkOm3kJ
+ pqwrpf7PNYRQPHGCd2Q5eyFMLyaOjdBFo+0OCP8aenp02mqkuWgj3FVcDYFJQitUmdxf
+ uyanujT8P19tY5kNq5GwNRpeQ2EsnehXs3+YiLvimrCm/67xGPw1pmbgEwPoUjPAvVZU
+ BxeA==
+X-Gm-Message-State: AOAM533+2xjYzT+sZAB1w+0qhEq2TwMu582PFH4UCSyj5XltzPwZJEqt
+ hgaWIm8nIavZI2oj1VRxWnScPR/xNvTPGX6+bXht98Bi8NIhaU3dY+YGYZz6QZHmKyMJLVcdYXC
+ rNuenYdYp6jsD5DCOrh6SjUMR9aI=
+X-Received: by 2002:a25:414:: with SMTP id 20mr3592476ybe.97.1597914955578;
+ Thu, 20 Aug 2020 02:15:55 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyV89OEx5nr1flFvBjbSF3T00Lno3rqiaPGu6voQRUWlryx15gpo1D+MHxPbWBRQfe2tGcxdbx/kFQBGISOuOk=
+X-Received: by 2002:a25:414:: with SMTP id 20mr3592452ybe.97.1597914955252;
+ Thu, 20 Aug 2020 02:15:55 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+References: <20200811180604.4073173-1-aiden.gaoyuan@gmail.com>
+In-Reply-To: <20200811180604.4073173-1-aiden.gaoyuan@gmail.com>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 20 Aug 2020 17:15:43 +0800
+Message-ID: <CAEemH2dxX2-t7S0TN3p7=zMLY_=TquSZdKUgqDRE9fpg_t8hdA@mail.gmail.com>
+To: Yuan Gao <aiden.gaoyuan@gmail.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0.0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.0 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [LTP v4 5/5] IMA/ima_keys.sh: Enhance policy checks
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/3] hotplug/memory_hotplug: Handle NULL
+ returned by strtok_r when parsing inputs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,150 +80,66 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-integrity@vger.kernel.org, Mimi Zohar <zohar@linux.vnet.ibm.com>,
- Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: kernel-team@android.com, LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============2079270395=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add check_keys_policy helper to check for all policy's keyrings and
-templates (removed head) and reuse policy check code.
+--===============2079270395==
+Content-Type: multipart/alternative; boundary="0000000000004a246c05ad4b9157"
 
-Replaced tr with sed to cut down the dependencies.
+--0000000000004a246c05ad4b9157
+Content-Type: text/plain; charset="UTF-8"
 
-Log keyrings and templates for easier debugging.
+Hi Yuan,
 
-NOTE: check_keys_policy cannot be used with subhell $() redirection
-(unless previously checked with other helpers), thus use redirection to
-the file.
+Thanks for contributing to the memory-hotplug test. I have no objection to
+these patches, but it seems quite a long time(since it imported to LTP from
+Linux foundation at the year 2008) nobody actually touches this
+memtoy except some code cleanup work.
 
-Tested on 2 policies with more lines than example policy
-in keycheck.policy:
+I'm wondering whether you guys play with the memtoy regularly? and how do
+you use it?
 
-measure func=KEY_CHECK keyrings=.ima|.evm|.builtin_trusted_keys|.blacklist|key_import_test template=ima-buf
-measure func=KEY_CHECK keyrings=key_import_test template=ima-buf
+I take a rough look at the README file but got nothing useful to get
+a start.
 
-measure func=KEY_CHECK template=ima-buf keyrings=.ima|.builtin_trusted_keys
-measure func=KEY_CHECK template=ima-buf keyrings=key_import_test
-
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-changes v3->v4:
-* update check_keys_policy() and checking the policy in general
-* remove new line when working policy to find keyrings and templates
-* replace tr with sed
-
- .../security/integrity/ima/tests/ima_keys.sh  | 60 ++++++++++++-------
- 1 file changed, 37 insertions(+), 23 deletions(-)
-
-diff --git a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-index ad3cbbdc7..c5a6d2591 100755
---- a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-+++ b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-@@ -6,48 +6,63 @@
- #
- # Verify that keys are measured correctly based on policy.
- 
--TST_NEEDS_CMDS="cmp cut grep sed tr xxd"
-+TST_NEEDS_CMDS="cmp cut grep sed xxd"
- TST_CNT=2
- TST_NEEDS_DEVICE=1
-+TST_SETUP=setup
- TST_CLEANUP=cleanup
- 
- . ima_setup.sh
- 
-+FUNC_KEYCHECK='func=KEY_CHECK'
-+TEMPLATE_BUF='template=ima-buf'
-+REQUIRED_POLICY="^measure.*($FUNC_KEYCHECK.*$TEMPLATE_BUF|$TEMPLATE_BUF.*$FUNC_KEYCHECK)"
-+
-+setup()
-+{
-+	require_ima_policy_content "$REQUIRED_POLICY" '-E' > policy.txt
-+}
-+
- cleanup()
- {
- 	tst_is_num $KEYRING_ID && keyctl clear $KEYRING_ID
- }
- 
-+check_keys_policy()
-+{
-+	local pattern="$1"
-+
-+	if ! grep -E "$pattern" policy.txt; then
-+		tst_res TCONF "IMA policy must specify $pattern, $FUNC_KEYCHECK, $TEMPLATE_BUF"
-+		return 1
-+	fi
-+	return 0
-+}
-+
- # Based on https://lkml.org/lkml/2019/12/13/564.
- # (450d0fd51564 - "IMA: Call workqueue functions to measure queued keys")
- test1()
- {
--	local keyrings keycheck_lines keycheck_line templates
--	local func='func=KEY_CHECK'
--	local buf='template=ima-buf'
--	local pattern="($func.*$buf|$buf.*$func)"
--	local test_file="file.txt"
--
--	tst_res TINFO "verifying key measurement for keyrings and templates specified in IMA policy file"
-+	local keycheck_lines i keyrings templates
-+	local pattern='keyrings=[^[:space:]]+'
-+	local test_file="file.txt" tmp_file="file2.txt"
- 
--	require_ima_policy_content "$pattern" '-Eq'
--	keycheck_lines=$(check_ima_policy_content "$pattern" '-E')
--	keycheck_line=$(echo "$keycheck_lines" | grep "keyrings" | head -n1)
-+	tst_res TINFO "verify key measurement for keyrings and templates specified in IMA policy"
- 
--	if [ -z "$keycheck_line" ]; then
--		tst_res TCONF "IMA policy does not specify a keyrings to check"
--		return
--	fi
--
--	keyrings=$(echo "$keycheck_line" | tr " " "\n" | grep "keyrings" | \
--		sed "s/\./\\\./g" | cut -d'=' -f2)
-+	check_keys_policy "$pattern" > $tmp_file || return
-+	keycheck_lines=$(cat $tmp_file)
-+	keyrings=$(for i in $keycheck_lines; do echo "$i" | grep "keyrings" | \
-+		sed "s/\./\\\./g" | cut -d'=' -f2; done | sed ':a;N;$!ba;s/\n/|/g')
- 	if [ -z "$keyrings" ]; then
- 		tst_res TCONF "IMA policy has a keyring key-value specifier, but no specified keyrings"
- 		return
- 	fi
- 
--	templates=$(echo "$keycheck_line" | tr " " "\n" | grep "template" | \
--		cut -d'=' -f2)
-+	templates=$(for i in $keycheck_lines; do echo "$i" | grep "template" | \
-+		cut -d'=' -f2; done | sed ':a;N;$!ba;s/\n/|/g')
-+
-+	tst_res TINFO "keyrings: '$keyrings'"
-+	tst_res TINFO "templates: '$templates'"
- 
- 	grep -E "($templates).*($keyrings)" $ASCII_MEASUREMENTS | while read line
- 	do
-@@ -81,13 +96,12 @@ test2()
- 
- 	local cert_file="$TST_DATAROOT/x509_ima.der"
- 	local keyring_name="key_import_test"
-+	local pattern="keyrings=[^[:space:]]*$keyring_name"
- 	local temp_file="file.txt"
- 
- 	tst_res TINFO "verify measurement of certificate imported into a keyring"
- 
--	if ! check_ima_policy_content "^measure.*func=KEY_CHECK.*keyrings=.*$keyring_name"; then
--		tst_brk TCONF "IMA policy does not contain $keyring_name keyring"
--	fi
-+	check_keys_policy "$pattern" >/dev/null || return
- 
- 	KEYRING_ID=$(keyctl newring $keyring_name @s) || \
- 		tst_brk TBROK "unable to create a new keyring"
 -- 
-2.28.0
+Regards,
+Li Wang
+
+--0000000000004a246c05ad4b9157
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi=C2=A0Yuan,</div><div class=3D"gmail_default" style=3D"font=
+-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size:smal=
+l">Thanks for contributing to the memory-hotplug test. I have no objection =
+to these patches, but it seems quite a long time(since it imported to LTP f=
+rom Linux foundation at the year 2008)=C2=A0nobody actually touches this me=
+mtoy=C2=A0except some code cleanup work.</div><div class=3D"gmail_default" =
+style=3D"font-size:small"><br></div><div class=3D"gmail_default" style=3D"f=
+ont-size:small">I&#39;m wondering whether you guys play with the memtoy=C2=
+=A0regularly? and how do you use it?</div><div class=3D"gmail_default" styl=
+e=3D"font-size:small">=C2=A0</div></div><div class=3D"gmail_default" style=
+=3D"font-size:small">I take a rough look at the README file but got nothing=
+ useful to get a=C2=A0start.</div><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr"><br></div></div>-- <br><div dir=3D"ltr"><div dir=3D=
+"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--0000000000004a246c05ad4b9157--
+
+
+--===============2079270395==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============2079270395==--
+
