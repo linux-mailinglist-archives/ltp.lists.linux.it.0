@@ -2,68 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42A6924ACBA
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Aug 2020 03:52:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3240024AF23
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Aug 2020 08:16:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DD4FD3C5842
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Aug 2020 03:52:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C41813C2F9F
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Aug 2020 08:16:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 577963C2FBD
- for <ltp@lists.linux.it>; Thu, 20 Aug 2020 03:52:22 +0200 (CEST)
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id F07D520027D
- for <ltp@lists.linux.it>; Thu, 20 Aug 2020 03:52:21 +0200 (CEST)
-Received: by mail-pg1-x542.google.com with SMTP id x6so380282pgx.12
- for <ltp@lists.linux.it>; Wed, 19 Aug 2020 18:52:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:subject:message-id:mime-version:content-disposition;
- bh=69vfUi3k/mIq67a1Z+iXDQCBeg8m4wbqp/eqw/xLnvk=;
- b=S3DN5H0ZRE+NSxD811aI3SIfo4dXJxzYv1fJIQ2TuoRQVn1/njAHh8Qpx9Z4NbtqDN
- Gkepd7knclOc9xkZawgU+j2x6pGFrtrzwEfLQvH0l7x/mWVUPjDqFuiYgGOAlsM8QGf6
- huC5Qhf08Z73Z4gyRhehO5Gk7OmUyFMIsKnlBh+X4FxGAqyPjRKxq0MJR6Ih5r4f0bij
- 54z3Ewgqqyka6lA80pjLE6ny7mqkBCSg69ETzV05+o9f0NkwNBlTzR9rzgILqRTKPqXQ
- TT0YsoZxQVJf4sw8TI1lPWwdza++Q1ABYuiZCHhrZfULj2xWYIJIeHN+knktOp5RUhRj
- rCnA==
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 459EE3C0515
+ for <ltp@lists.linux.it>; Thu, 20 Aug 2020 08:16:24 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 35C1D1A0066B
+ for <ltp@lists.linux.it>; Thu, 20 Aug 2020 08:16:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1597904182;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Rf4xHKcrlQLpcdr5HWlcT6kMoLSqnvqxpXt1N8fr5QM=;
+ b=ball6DkFlizEwzRBqZ4rhF34fUepPTx5V0O+rghYfy+ZkmOLmodY5zIXhOsxI3A3Cjf02d
+ GRfn9miOadIhZBKsY1iQRxPb/QN7v8OSN9cMC+iMg9XM0Cm0UWNlyKgfIh+Fm2s8LyAThc
+ +8bbfNitsgHWDcg40KREg01YlLxTe4E=
+Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
+ [209.85.219.197]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-580-xABpntj8ORSWU4lE1efNNA-1; Thu, 20 Aug 2020 02:16:20 -0400
+X-MC-Unique: xABpntj8ORSWU4lE1efNNA-1
+Received: by mail-yb1-f197.google.com with SMTP id x6so1196761ybp.10
+ for <ltp@lists.linux.it>; Wed, 19 Aug 2020 23:16:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:subject:message-id:mime-version
- :content-disposition;
- bh=69vfUi3k/mIq67a1Z+iXDQCBeg8m4wbqp/eqw/xLnvk=;
- b=eR3bXwMA+XWTLwbr2fbp0b7j81Q3+vm/3/H/7pw/MVPZ/ZpDpHYqjwR9QcNQIST61Y
- rfTfSvJX141JRFe9IlL7qzgzNFO4yBqatnBBuTWRdbvrdCMi7KOaMQ2MI4/QfWRWELp2
- jePI9/ZRI1xZ5PYUTVxMSxWrPRsa7rG2i0+3ud5WngjAWHf5jZ3lexRrzq5htoaaV+db
- 9tNdfwg90EJcYTf18g5K0rcIR3eDpxjPsCykJ2TNAPJwJfy5Zv9mIJFBRVE7jJ3Si8WG
- MgDYuF/+/KVatu3YISX3Cud2apmG30NYWq6zyt4SRI6gw1wQZzD59a4vU+GNrHBYTi1e
- SOnQ==
-X-Gm-Message-State: AOAM533ea9jm3tmA4XbQNYyL66Fd+NU/fY+rT634BYfaAkWkwjamaCT7
- JvR2pNBp14rDu6am+EI8/fKTaljimdmw7g==
-X-Google-Smtp-Source: ABdhPJyUAPEPmItk9KRbwWHXatPC1zL2vF8befTluUPOmlqtdeWciKLnPVACPfUWbT3O2/x76DUO4w==
-X-Received: by 2002:a63:af01:: with SMTP id w1mr872225pge.23.1597888339130;
- Wed, 19 Aug 2020 18:52:19 -0700 (PDT)
-Received: from localhost ([209.132.188.80])
- by smtp.gmail.com with ESMTPSA id n1sm574893pfu.2.2020.08.19.18.52.17
- for <ltp@lists.linux.it>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Aug 2020 18:52:18 -0700 (PDT)
-Date: Thu, 20 Aug 2020 09:52:11 +0800
-From: Murphy Zhou <jencce.kernel@gmail.com>
-To: ltp@lists.linux.it
-Message-ID: <20200820015211.u7xdye5ggbe34fsp@xzhoux.usersys.redhat.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Rf4xHKcrlQLpcdr5HWlcT6kMoLSqnvqxpXt1N8fr5QM=;
+ b=ZPfoE6/hqm5ytDTm4jnm2SdjiEMGJAUlokyXOWelFpcpDiQlgDJwqAx6VnL/KLJ7Q8
+ HRPxkv1QuTUi4N0kLbqwBSERBr2XlgqhX8ZGqNaZddDsJ+GZyjxJNPJVEMyZXgG4lvp+
+ RIgValflaI/B/6fLsrSFLNmItp/2lWLv3p6tusjdfZW5OVJMC+Iv0X3AwPHkaFmKmhFH
+ wulewg4rHNo5EbzjwioTZUZ//8Tjjfe77EJb5MyyGPGdktQ7bK0oX33c1QBvzlVcPhUW
+ CXw1Li1f8Va7GEcxyTgfNAR6fV7ZkUGOfukwjaxyHKfuGIZtw1rLLLlfYY+C+VD/NTu2
+ gTmg==
+X-Gm-Message-State: AOAM531HkJQ6NA4W0zFFR07fALoiXkYzFazuA7nxflhf7aPG9JK60+nu
+ w5w7bKBJeqLz0ExNimBoAK6aPdhQel1jiaRMnQvoonDPzZmOE8zsglcygBeg3XuVyL0GK/vPD+D
+ LNtlo/3mILvy9UxKoJqOfcu242kI=
+X-Received: by 2002:a25:ca41:: with SMTP id a62mr2910350ybg.252.1597904179621; 
+ Wed, 19 Aug 2020 23:16:19 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyZx/Q0dZ6jq9AM69GuZLe9Zcz6CzD9U6L2jSQF5Hb3HtSoRwzchaHbRD41HB6ZWgESvZY1s0MXWhFbMEU2VtQ=
+X-Received: by 2002:a25:ca41:: with SMTP id a62mr2910334ybg.252.1597904179388; 
+ Wed, 19 Aug 2020 23:16:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+References: <20200820015211.u7xdye5ggbe34fsp@xzhoux.usersys.redhat.com>
+In-Reply-To: <20200820015211.u7xdye5ggbe34fsp@xzhoux.usersys.redhat.com>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 20 Aug 2020 14:16:07 +0800
+Message-ID: <CAEemH2faf5g0JUdBFNvqrNRHB5orbTvHnrwHCm5enF7tt7N=YA@mail.gmail.com>
+To: Murphy Zhou <jencce.kernel@gmail.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0.0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-0.0 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH] setxattr03: TCONF if failed to set immutable flag
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] setxattr03: TCONF if failed to set immutable flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,35 +79,61 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1503157155=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Instead of TBROK, probably the underlying filesystem not support this flag.
+--===============1503157155==
+Content-Type: multipart/alternative; boundary="000000000000ff7c7105ad490e59"
 
-Signed-off-by: Murphy Zhou <jencce.kernel@gmail.com>
----
- testcases/kernel/syscalls/setxattr/setxattr03.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+--000000000000ff7c7105ad490e59
+Content-Type: text/plain; charset="UTF-8"
 
-diff --git a/testcases/kernel/syscalls/setxattr/setxattr03.c b/testcases/kernel/syscalls/setxattr/setxattr03.c
-index 58ee0f880..b2de3bc79 100644
---- a/testcases/kernel/syscalls/setxattr/setxattr03.c
-+++ b/testcases/kernel/syscalls/setxattr/setxattr03.c
-@@ -138,8 +138,8 @@ static void setup(void)
- 	/* Create test files and set file immutable or append-only */
- 	immu_fd = SAFE_CREAT(IMMU_FILE, 0644);
- 	if (set_immutable_on(immu_fd))
--		tst_brk(TBROK | TERRNO, "Set %s immutable failed",
--			 IMMU_FILE);
-+		tst_brk(TCONF | TERRNO, "Set %s immutable failed, "
-+			 " maybe it's unsupported", IMMU_FILE);
- 
- 	append_fd = SAFE_CREAT(APPEND_FILE, 0644);
- 	if (set_append_on(append_fd))
+Hi Murphy,
+
+On Thu, Aug 20, 2020 at 9:52 AM Murphy Zhou <jencce.kernel@gmail.com> wrote:
+
+> Instead of TBROK, probably the underlying filesystem not support this flag.
+>
+
+Which filesystem do you mean here? What kind of error it was given?
+Maybe we should confirm the errno is EINVAL or ENOTSUP before TCONF.
+
 -- 
-2.20.1
+Regards,
+Li Wang
+
+--000000000000ff7c7105ad490e59
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi=C2=A0Murphy,</div></div><br><div class=3D"gmail_quote"><di=
+v dir=3D"ltr" class=3D"gmail_attr">On Thu, Aug 20, 2020 at 9:52 AM Murphy Z=
+hou &lt;<a href=3D"mailto:jencce.kernel@gmail.com">jencce.kernel@gmail.com<=
+/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">I=
+nstead of TBROK, probably the underlying filesystem not support this flag.<=
+br></blockquote><div><br></div><div><div class=3D"gmail_default" style=3D"f=
+ont-size:small">Which filesystem do you mean=C2=A0here?=C2=A0<span class=3D=
+"gmail_default">What</span>=C2=A0kind of error it was given?=C2=A0</div>May=
+be we should confirm the errno is EINVAL or ENOTSUP before TCONF.</div><div=
+>=C2=A0</div></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div d=
+ir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--000000000000ff7c7105ad490e59--
+
+
+--===============1503157155==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1503157155==--
+
