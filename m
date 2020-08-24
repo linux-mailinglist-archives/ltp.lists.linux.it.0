@@ -2,27 +2,27 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 485C724FFC9
-	for <lists+linux-ltp@lfdr.de>; Mon, 24 Aug 2020 16:28:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEB78250007
+	for <lists+linux-ltp@lfdr.de>; Mon, 24 Aug 2020 16:42:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8BEAD3C56C9
-	for <lists+linux-ltp@lfdr.de>; Mon, 24 Aug 2020 16:28:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6A87B3C56C2
+	for <lists+linux-ltp@lfdr.de>; Mon, 24 Aug 2020 16:42:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 309023C0639
- for <ltp@lists.linux.it>; Mon, 24 Aug 2020 16:28:05 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 0CA7C3C13D8
+ for <ltp@lists.linux.it>; Mon, 24 Aug 2020 16:42:07 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 8931C1400B69
- for <ltp@lists.linux.it>; Mon, 24 Aug 2020 16:28:04 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id AAD412003B0
+ for <ltp@lists.linux.it>; Mon, 24 Aug 2020 16:42:06 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id ABDECAB89
- for <ltp@lists.linux.it>; Mon, 24 Aug 2020 14:28:33 +0000 (UTC)
-To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
-References: <20200824112109.2995-1-pvorel@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id D4873B036;
+ Mon, 24 Aug 2020 14:42:35 +0000 (UTC)
+To: Jan Stancek <jstancek@redhat.com>, ltp@lists.linux.it
+References: <c73f6b2e1232d6a892ecef76370ea2cf6c7dd044.1598270814.git.jstancek@redhat.com>
 From: Martin Doucha <mdoucha@suse.cz>
 Autocrypt: addr=mdoucha@suse.cz; keydata=
  mQINBF1D6M0BEAC5BHC0NuN/v+UBXDYuwuYeAJA4leuKz0H76YBevziJKUtnzMsBA+GT9vdH
@@ -67,20 +67,20 @@ Autocrypt: addr=mdoucha@suse.cz; keydata=
  Rz4zFhW8KQ9+zrae5rL/6vwz3d/MpEeOmDm9uutE6xyzXRl/RxeFZ8P7KlACXWm7VjSyc74E
  eCNL6GOOeqzE77fDcBf4HvNGn8w7IX/FvNzmu78wzT2MDwMi8ug8T4KEKzIYUIRibe7cl0LG
  2dSj02pOT7E5/x4gKQB/OZqnTTQxJ0OL8BJKNFeSYqaMzKFKiYaArwuFkGnCknwh5A==
-Message-ID: <648dc99d-5079-23ec-eba2-b10215ae8130@suse.cz>
-Date: Mon, 24 Aug 2020 16:28:03 +0200
+Message-ID: <de536b1b-0751-f50c-3869-b1b7956bda84@suse.cz>
+Date: Mon, 24 Aug 2020 16:42:05 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200824112109.2995-1-pvorel@suse.cz>
+In-Reply-To: <c73f6b2e1232d6a892ecef76370ea2cf6c7dd044.1598270814.git.jstancek@redhat.com>
 Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-2.2 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
  SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/1] prepare_lvm.sh: Allow to define tmp
- directory
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/setsockopt05: associate receiver with
+ destination address
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,64 +97,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 24. 08. 20 13:21, Petr Vorel wrote:
-> Many distros don't have enough /tmp size for LVM tests, thus
-> allow to set $LVM_DIR to use different temporary directory.
+Hi,
+
+On 24. 08. 20 14:10, Jan Stancek wrote:
+> to avoid sporadic ECONNREFUSED errors:
+>   safe_net.c:202: BROK: setsockopt05.c:70: send(6, 0x3ffcaf7d828, 4000, 32768) failed: ECONNREFUSED (111)
 > 
-> Most of the space take backing files ($LVM_IMGDIR), but for consistency
-> changed both directories. $LVM_TMPDIR requires to update
-> generate_lvm_runfile.sh.
-> 
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> Signed-off-by: Jan Stancek <jstancek@redhat.com>
 > ---
-> Changes v1->v2:
-> * Update all required scripts
+>  testcases/kernel/syscalls/setsockopt/setsockopt05.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 > 
->  testcases/misc/lvm/cleanup_lvm.sh          | 5 +++--
->  testcases/misc/lvm/generate_lvm_runfile.sh | 4 +++-
->  testcases/misc/lvm/prepare_lvm.sh          | 5 +++--
->  3 files changed, 9 insertions(+), 5 deletions(-)
+> diff --git a/testcases/kernel/syscalls/setsockopt/setsockopt05.c b/testcases/kernel/syscalls/setsockopt/setsockopt05.c
+> index e78ef236e337..469e5a64bf71 100644
+> --- a/testcases/kernel/syscalls/setsockopt/setsockopt05.c
+> +++ b/testcases/kernel/syscalls/setsockopt/setsockopt05.c
+> @@ -37,6 +37,7 @@ static void setup(void)
+>  	int real_uid = getuid();
+>  	int real_gid = getgid();
+>  	int sock;
+> +	int port = TST_GET_UNUSED_PORT(AF_INET, SOCK_DGRAM);
+>  	struct ifreq ifr;
+>  
+>  	SAFE_UNSHARE(CLONE_NEWUSER);
+> @@ -45,14 +46,14 @@ static void setup(void)
+>  	SAFE_FILE_PRINTF("/proc/self/uid_map", "0 %d 1", real_uid);
+>  	SAFE_FILE_PRINTF("/proc/self/gid_map", "0 %d 1", real_gid);
+>  
+> -	tst_init_sockaddr_inet_bin(&addr, INADDR_LOOPBACK, 12345);
+> +	tst_init_sockaddr_inet_bin(&addr, INADDR_LOOPBACK, port);
+
+Please don't use TST_GET_UNUSED_PORT() this way. The correct way to do
+this is to set port to 0 and then read the address back using
+SAFE_GETSOCKNAME() after bind(). It's the same amount of code but
+without any race conditions.
+
+>  	sock = SAFE_SOCKET(AF_INET, SOCK_DGRAM, 0);
+>  	strcpy(ifr.ifr_name, "lo");
+>  	ifr.ifr_mtu = 1500;
+>  	SAFE_IOCTL(sock, SIOCSIFMTU, &ifr);
+>  	ifr.ifr_flags = IFF_UP;
+>  	SAFE_IOCTL(sock, SIOCSIFFLAGS, &ifr);
+> -	SAFE_CLOSE(sock);
+
+Don't forget to close the socket in cleanup().
+
+> +	SAFE_BIND(sock, (struct sockaddr *)&addr, sizeof(struct sockaddr));
+>  }
+>  
+>  static void run(void)
 > 
-> diff --git a/testcases/misc/lvm/cleanup_lvm.sh b/testcases/misc/lvm/cleanup_lvm.sh
-> index e18efe2b0..03eb384be 100755
-> --- a/testcases/misc/lvm/cleanup_lvm.sh
-> +++ b/testcases/misc/lvm/cleanup_lvm.sh
-> @@ -9,8 +9,9 @@ TST_NEEDS_ROOT=1
->  TST_NEEDS_CMDS="losetup umount vgremove"
->  . tst_test.sh
->  
-> -LVM_TMPDIR="/tmp/ltp/growfiles"
-> -LVM_IMGDIR="/tmp/ltp/imgfiles"
-> +LVM_DIR="${LVM_DIR:-/tmp}"
-> +LVM_TMPDIR="$LVM_DIR/ltp/growfiles"
-> +LVM_IMGDIR="$LVM_DIR/ltp/imgfiles"
->  
->  cleanup_lvm()
->  {
-> diff --git a/testcases/misc/lvm/generate_lvm_runfile.sh b/testcases/misc/lvm/generate_lvm_runfile.sh
-> index 5ca035f22..a8388cf3d 100755
-> --- a/testcases/misc/lvm/generate_lvm_runfile.sh
-> +++ b/testcases/misc/lvm/generate_lvm_runfile.sh
-> @@ -9,6 +9,8 @@ TST_NEEDS_ROOT=1
->  TST_NEEDS_CMDS="sed"
->  . tst_test.sh
->  
-> +LVM_DIR="${LVM_DIR:-/tmp}"
-> +
->  generate_runfile()
->  {
->  	trap 'tst_brk TBROK "Cannot create LVM runfile"' ERR
-> @@ -20,7 +22,7 @@ generate_runfile()
->  	for fsname in $FS_LIST; do
->  		# Btrfs needs too much space for reliable stress testing
->  		if [ "x$fsname" != "xbtrfs" ]; then
-> -			sed -e "s/{fsname}/$fsname/g" "$INFILE" >>"$OUTFILE"
-> +			sed -e "s/{fsname}/$fsname/g; s^/tmp/ltp^$LVM_DIR/ltp^g" "$INFILE" >>"$OUTFILE"
 
-If you want to change the path in the runfile instead, it'd be cleaner
-to use a placeholder like {tempdir}. Otherwise:
-
-Acked-by: Martin Doucha <mdoucha@suse.cz>
+Though I wonder whether setsockopt(SO_NO_CHECK, 1) is really supposed to
+flush the partial packet. Are you sure it's not a bug in the kernel?
 
 -- 
 Martin Doucha   mdoucha@suse.cz
