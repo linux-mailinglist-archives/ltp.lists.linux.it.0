@@ -2,83 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEB78250007
-	for <lists+linux-ltp@lfdr.de>; Mon, 24 Aug 2020 16:42:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3632025004F
+	for <lists+linux-ltp@lfdr.de>; Mon, 24 Aug 2020 17:01:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6A87B3C56C2
-	for <lists+linux-ltp@lfdr.de>; Mon, 24 Aug 2020 16:42:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id EEB693C2EF4
+	for <lists+linux-ltp@lfdr.de>; Mon, 24 Aug 2020 17:01:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 0CA7C3C13D8
- for <ltp@lists.linux.it>; Mon, 24 Aug 2020 16:42:07 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 0A1A33C12A1
+ for <ltp@lists.linux.it>; Mon, 24 Aug 2020 17:01:22 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 59A331000A6C
+ for <ltp@lists.linux.it>; Mon, 24 Aug 2020 17:01:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1598281280;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=uqP22uwwe4Vgsi9cCtki/HUOTV22Xat7oGtrfT+e6kI=;
+ b=GX90rGsmO8RI7kpMwRL0AYOU6Bd3q/llUD9O0JSJnNGwWqtvbJLkYbvgj/z8SqzhVqCxJz
+ dbxs0J3XzeUAbjHY4bVLrzwmS8XqD9GodsrTsyGUXXdft0h5syBDcxbnaH5QB32bnSSats
+ BHpHHEKfLryP9/m+4PHREIsuuYp91KI=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-318-11_rCIF9MnuPuG8nzUPiRA-1; Mon, 24 Aug 2020 11:01:18 -0400
+X-MC-Unique: 11_rCIF9MnuPuG8nzUPiRA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id AAD412003B0
- for <ltp@lists.linux.it>; Mon, 24 Aug 2020 16:42:06 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D4873B036;
- Mon, 24 Aug 2020 14:42:35 +0000 (UTC)
-To: Jan Stancek <jstancek@redhat.com>, ltp@lists.linux.it
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 07E73801AF8;
+ Mon, 24 Aug 2020 15:01:18 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id F1AC46FDB7;
+ Mon, 24 Aug 2020 15:01:17 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id EABCF66915;
+ Mon, 24 Aug 2020 15:01:17 +0000 (UTC)
+Date: Mon, 24 Aug 2020 11:01:17 -0400 (EDT)
+From: Jan Stancek <jstancek@redhat.com>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <1425720351.9865762.1598281277578.JavaMail.zimbra@redhat.com>
+In-Reply-To: <de536b1b-0751-f50c-3869-b1b7956bda84@suse.cz>
 References: <c73f6b2e1232d6a892ecef76370ea2cf6c7dd044.1598270814.git.jstancek@redhat.com>
-From: Martin Doucha <mdoucha@suse.cz>
-Autocrypt: addr=mdoucha@suse.cz; keydata=
- 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
-Message-ID: <de536b1b-0751-f50c-3869-b1b7956bda84@suse.cz>
-Date: Mon, 24 Aug 2020 16:42:05 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ <de536b1b-0751-f50c-3869-b1b7956bda84@suse.cz>
 MIME-Version: 1.0
-In-Reply-To: <c73f6b2e1232d6a892ecef76370ea2cf6c7dd044.1598270814.git.jstancek@redhat.com>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Originating-IP: [10.40.208.12, 10.4.195.6]
+Thread-Topic: syscalls/setsockopt05: associate receiver with destination
+ address
+Thread-Index: R88WE9NfWyk/s7HC0KIliePS/RoASg==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
+X-Mimecast-Spam-Score: 0.002
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-2.2 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Spam-Status: No, score=-0.0 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] syscalls/setsockopt05: associate receiver with
  destination address
 X-BeenThere: ltp@lists.linux.it
@@ -92,73 +81,79 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
 
-On 24. 08. 20 14:10, Jan Stancek wrote:
-> to avoid sporadic ECONNREFUSED errors:
->   safe_net.c:202: BROK: setsockopt05.c:70: send(6, 0x3ffcaf7d828, 4000, 32768) failed: ECONNREFUSED (111)
+----- Original Message -----
+> Hi,
 > 
-> Signed-off-by: Jan Stancek <jstancek@redhat.com>
-> ---
->  testcases/kernel/syscalls/setsockopt/setsockopt05.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+> On 24. 08. 20 14:10, Jan Stancek wrote:
+> > to avoid sporadic ECONNREFUSED errors:
+> >   safe_net.c:202: BROK: setsockopt05.c:70: send(6, 0x3ffcaf7d828, 4000,
+> >   32768) failed: ECONNREFUSED (111)
+> > 
+> > Signed-off-by: Jan Stancek <jstancek@redhat.com>
+> > ---
+> >  testcases/kernel/syscalls/setsockopt/setsockopt05.c | 5 +++--
+> >  1 file changed, 3 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/testcases/kernel/syscalls/setsockopt/setsockopt05.c
+> > b/testcases/kernel/syscalls/setsockopt/setsockopt05.c
+> > index e78ef236e337..469e5a64bf71 100644
+> > --- a/testcases/kernel/syscalls/setsockopt/setsockopt05.c
+> > +++ b/testcases/kernel/syscalls/setsockopt/setsockopt05.c
+> > @@ -37,6 +37,7 @@ static void setup(void)
+> >  	int real_uid = getuid();
+> >  	int real_gid = getgid();
+> >  	int sock;
+> > +	int port = TST_GET_UNUSED_PORT(AF_INET, SOCK_DGRAM);
+> >  	struct ifreq ifr;
+> >  
+> >  	SAFE_UNSHARE(CLONE_NEWUSER);
+> > @@ -45,14 +46,14 @@ static void setup(void)
+> >  	SAFE_FILE_PRINTF("/proc/self/uid_map", "0 %d 1", real_uid);
+> >  	SAFE_FILE_PRINTF("/proc/self/gid_map", "0 %d 1", real_gid);
+> >  
+> > -	tst_init_sockaddr_inet_bin(&addr, INADDR_LOOPBACK, 12345);
+> > +	tst_init_sockaddr_inet_bin(&addr, INADDR_LOOPBACK, port);
 > 
-> diff --git a/testcases/kernel/syscalls/setsockopt/setsockopt05.c b/testcases/kernel/syscalls/setsockopt/setsockopt05.c
-> index e78ef236e337..469e5a64bf71 100644
-> --- a/testcases/kernel/syscalls/setsockopt/setsockopt05.c
-> +++ b/testcases/kernel/syscalls/setsockopt/setsockopt05.c
-> @@ -37,6 +37,7 @@ static void setup(void)
->  	int real_uid = getuid();
->  	int real_gid = getgid();
->  	int sock;
-> +	int port = TST_GET_UNUSED_PORT(AF_INET, SOCK_DGRAM);
->  	struct ifreq ifr;
->  
->  	SAFE_UNSHARE(CLONE_NEWUSER);
-> @@ -45,14 +46,14 @@ static void setup(void)
->  	SAFE_FILE_PRINTF("/proc/self/uid_map", "0 %d 1", real_uid);
->  	SAFE_FILE_PRINTF("/proc/self/gid_map", "0 %d 1", real_gid);
->  
-> -	tst_init_sockaddr_inet_bin(&addr, INADDR_LOOPBACK, 12345);
-> +	tst_init_sockaddr_inet_bin(&addr, INADDR_LOOPBACK, port);
+> Please don't use TST_GET_UNUSED_PORT() this way. The correct way to do
+> this is to set port to 0 and then read the address back using
+> SAFE_GETSOCKNAME() after bind(). It's the same amount of code but
+> without any race conditions.
 
-Please don't use TST_GET_UNUSED_PORT() this way. The correct way to do
-this is to set port to 0 and then read the address back using
-SAFE_GETSOCKNAME() after bind(). It's the same amount of code but
-without any race conditions.
+Fair point.
 
->  	sock = SAFE_SOCKET(AF_INET, SOCK_DGRAM, 0);
->  	strcpy(ifr.ifr_name, "lo");
->  	ifr.ifr_mtu = 1500;
->  	SAFE_IOCTL(sock, SIOCSIFMTU, &ifr);
->  	ifr.ifr_flags = IFF_UP;
->  	SAFE_IOCTL(sock, SIOCSIFFLAGS, &ifr);
-> -	SAFE_CLOSE(sock);
-
-Don't forget to close the socket in cleanup().
-
-> +	SAFE_BIND(sock, (struct sockaddr *)&addr, sizeof(struct sockaddr));
->  }
->  
->  static void run(void)
 > 
+> >  	sock = SAFE_SOCKET(AF_INET, SOCK_DGRAM, 0);
+> >  	strcpy(ifr.ifr_name, "lo");
+> >  	ifr.ifr_mtu = 1500;
+> >  	SAFE_IOCTL(sock, SIOCSIFMTU, &ifr);
+> >  	ifr.ifr_flags = IFF_UP;
+> >  	SAFE_IOCTL(sock, SIOCSIFFLAGS, &ifr);
+> > -	SAFE_CLOSE(sock);
+> 
+> Don't forget to close the socket in cleanup().
+> 
+> > +	SAFE_BIND(sock, (struct sockaddr *)&addr, sizeof(struct sockaddr));
+> >  }
+> >  
+> >  static void run(void)
+> > 
+> 
+> Though I wonder whether setsockopt(SO_NO_CHECK, 1) is really supposed to
+> flush the partial packet. Are you sure it's not a bug in the kernel?
 
-Though I wonder whether setsockopt(SO_NO_CHECK, 1) is really supposed to
-flush the partial packet. Are you sure it's not a bug in the kernel?
+I assumed it's from previous one, not partial one. From man(7) udp:
 
--- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+ ECONNREFUSED
+              No receiver was associated with the destination address.
+              This might be caused by a previous packet sent over the socket.
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
