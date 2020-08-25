@@ -2,68 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EFF4250E61
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Aug 2020 03:54:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36290250EA8
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Aug 2020 04:07:38 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D1FB83C2F3B
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Aug 2020 03:54:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F12E43C2F53
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Aug 2020 04:07:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 303CE3C1CDD
- for <ltp@lists.linux.it>; Tue, 25 Aug 2020 03:54:10 +0200 (CEST)
-Received: from mail-yb1-f178.google.com (mail-yb1-f178.google.com
- [209.85.219.178])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5694010006CC
- for <ltp@lists.linux.it>; Tue, 25 Aug 2020 03:54:10 +0200 (CEST)
-Received: by mail-yb1-f178.google.com with SMTP id e187so6276910ybc.5
- for <ltp@lists.linux.it>; Mon, 24 Aug 2020 18:54:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Gb6trp7STM65xaFroKPSmYAAG28ZdlrZYk7NONEZ0+k=;
- b=kHivlQ52AgxYw/VPFXIaKkRlME3GF5kAKs54SD6Rrg5EuGjeRYeAMeeVtsTHdWzEau
- pouPpG3Jq8yh9QFz2ApFQsgr5ECrj6urcSNT8DT8LkXtQ7wzNR0XfL7+KUXBkiCh4C76
- RijRF6v6NauFfbcRuPxSNFedHEkG7rqUOOLCFTv7WY2msbd83mQWv6uMU+jPc27dPG9r
- W2XXbgVLHds1+1J2j5Ix4UrZejWS9d4usxIBv4PCsBy05+A/SFM9k6u4yDhIi0khu+yW
- nxBliSlB954HDQO9zzgh6tCGjZaVcxGsUQpTlIFEvMoloQbMKdpEGkpc9TFQJTSWgT3v
- coSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Gb6trp7STM65xaFroKPSmYAAG28ZdlrZYk7NONEZ0+k=;
- b=KxhL/ipjf1d03h62pwUlqugbWSYovfo+jRlVWUmLgcYdtdADTCF3l/apfNI5wS2Q7H
- MwDK0JO4PUMF0ujrO7iwy4o68fA530ng0UNqHF56sDpSHupKLlrFSj7djN9l2C5Ah9K6
- sx5C8FCK6iNsTZKNCf+wIVBRKVqs1AfCHptmdWpYZX+QMiFZuS5Z5oDgWF45JXc4uy6g
- b2c5zpI7Y9lIQzwQQBEZEjlBlv0ajUXtRH9o0gQ52VkvxODJ9A7Qs64841Sy5jrOE69G
- skYNU+YXpE2zeb/TU+TOHCF2KErrPkXiU+qr7TiISQb8WUBg8Cd8i9ddLeHQphjdVEo/
- bZOw==
-X-Gm-Message-State: AOAM531yR+/NLF7EZsGHW1n2gnCRI5+hlfjjN9QH8szkt/+LmQMSlgc7
- k9Uin0Wwjrok5LFuW03aybCesoCCWvj2a4deRXI=
-X-Google-Smtp-Source: ABdhPJxS7nMW8LB+Yfru/yCbuAbKQ8CnCQA1yBXVrUnEMJw2666p6FGz053MepkPAlq6n94lyOmybsUnw2ywDv2R5xs=
-X-Received: by 2002:a25:40cb:: with SMTP id
- n194mr11050798yba.380.1598320389287; 
- Mon, 24 Aug 2020 18:53:09 -0700 (PDT)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 14AB53C136A
+ for <ltp@lists.linux.it>; Tue, 25 Aug 2020 04:07:34 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 0DAFC1400343
+ for <ltp@lists.linux.it>; Tue, 25 Aug 2020 04:07:32 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.76,350,1592841600"; d="scan'208";a="98497006"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 25 Aug 2020 10:07:31 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id AF55A48990E0;
+ Tue, 25 Aug 2020 10:07:29 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Tue, 25 Aug 2020 10:07:26 +0800
+To: Li Wang <liwang@redhat.com>
+References: <1597042181-12722-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <b0e940e7-945b-cdd9-695d-025bdc4a1ba1@cn.fujitsu.com>
+Date: Tue, 25 Aug 2020 10:07:24 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-References: <CAF12kFuE=4-T=eitwSb0F3fkGLLsmM3VEg4VNbioqJt2JiAEww@mail.gmail.com>
- <20200824074226.GB2466@yuki.lan>
-In-Reply-To: <20200824074226.GB2466@yuki.lan>
-From: Cixi Geng <gengcixi@gmail.com>
-Date: Tue, 25 Aug 2020 09:52:33 +0800
-Message-ID: <CAF12kFvScxqxhY5wXTGL2RKnyM5vM0hEKDc+sHD-3Y=_C7FWcw@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <1597042181-12722-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: AF55A48990E0.AD1AC
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=-1.9 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [RFC] ltp test add reboot function
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] cpuset_inherit_test: Add cgroup.clone_children
+ swith for cpuset.cpus and mems
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,39 +58,221 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it, Orson Zhai <orsonzhai@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ltp@lists.linux.it
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-VGhhbmtzIGZvciB5b3UgZXhwZXJpZW5jZXMgb24gdGhlIHJlYm9vdO+8jApTbyBmYXIgbXkgb3Bp
-bmlvbiBpcyBhZGQgYSByZWJvb3Qgc2VydmljZSBieSBjaGtjb25maWcgb3Igc29tZXRoaW5nIGxp
-a2UgdGhhdC4KdGhlIHNlcnZpY2Ugd2lsbCBzdGFydCBydW5sdHAgc2NyaXB0cyBmcm9tIGxhc3Qg
-YnJlYWsgb2ZmIHBvaW50Lgp3aGVuIHRoZSB0c3RfdGVzdCBoYXZlIC50c3RfbmVlZHNfcmVib290
-ID0xIGZsYWcsIGl0IHdpbCBzdHJvcmUgdGhlCnJ1biBzdGF0dXMgYW5kCnJlYm9vdCB0aGUgbWFj
-aGluZSBiZWZvcmUgcnVuIHRoZSB0ZXN0IGNhc2UuCk5vdyBJIHdhbnQgdG8ga25vdyB3aGF0IG5l
-ZWRzIHRvIGJlIHByZXNlcnZlZO+8nwoKQ3lyaWwgSHJ1YmlzIDxjaHJ1YmlzQHN1c2UuY3o+IOS6
-jjIwMjDlubQ45pyIMjTml6XlkajkuIAg5LiL5Y2IMzo0MeWGmemBk++8mgo+Cj4gSGkhCj4gPiBJ
-IHdhbnQgdG8gYWRkIGEgcmVib290IGZ1bmN0aW9uIGluIExUUCBmb3IgbXkgdGVhbSB3cml0ZSBh
-IG1lbW9yeSBwYWdlCj4gPiByZWxhdGVkIGNhc2U/Pz8KPiA+IGFuZCBuZWVkIHJlYm9vdCB0byBt
-YWtlIHRoZSBtZW1vcnkgY2FjaGUgb3Igc29tZSBsaWtlbHkgaXQgcHVyZSBjbGVhci4KPiA+Cj4g
-PiBTbyBJIHdhbnQgdG8gYWRkIGEgdHN0X25lZWRzX3JlYm9vdC4gd2hlbiBpdCB3YXMgc2V0LCBy
-ZWJvb3QgdGhlCj4gPiBtYWNoaW5lIGFuZCBjb250aW51ZSBydW4gdGVzdCBmcm9tIHRoZSBwb2lu
-dCBiZWZvcmUuCj4gPgo+ID4gSSB0aGluayAgdGhpcyByZXF1aXJlbWVudCBpcyBtZWFuaW5nZnVs
-Pz8/IFNvIGNhbiB5b3UgZ2l2ZSBtZSBzb21lIGFkdmlzZT8KPgo+IFllcyBpdCBpcywgYWN0dWFs
-bHkgeW91IGFyZSBub3QgdGhlIG9ubHkgb25lIHdobyBuZWVkcyB0aGF0LiBUaGVyZSBhcmUKPiBw
-bGVudHkgb2Ygb3RoZXIgdGVzdGNhc2VzIHRoYXQgd2lsbCBoYXZlIHRvIHJlYm9vdCB0aGUgbWFj
-aGluZSwgZm9yCj4gZXhhbXBsZSB0aGUga2V4ZWMoKSBzeXNjYWxsIHRlc3RzLCBNQ0UgaW5qZWN0
-aW9uIHRlc3RzLCBldGMuCj4KPiBXaGF0IEkgd2FudGVkIHRvIGFkZCBpcyBhIGJpdCBzaW1pbGFy
-IHRvIHlvdXIgcHJvcG9zYWwuCj4KPiBJIHdhbnRlZCB0byBhZGQgcmVib290c19tYWNoaW5lIGZs
-YWcgdG8gdGhlIHRzdF90ZXN0IHN0cnVjdHVyZSwgd2hpY2gKPiB3aWxsIGluZm9ybSB0aGUgdGVz
-dCBmcmFtZXdvcmsgdGhhdCB0aGUgdGVzdCB3aWxsIHJlYm9vdCB0aGUgbWFjaGluZSBpbgo+IHRo
-ZSBtaWRkbGUgb2YgdGhlIHRlc3QuCj4KPiAqIFRoZSBmcmFtZXdvcmsgd2lsbCBoYXZlIHRvIGlu
-ZXZpdGFibHkgcnVuIG9uIGEgZGlmZmVyZW4gbWFjaGluZSwgYnV0IHRoZQo+ICAgcnVubHRwLW5n
-IGFscmVhZHkgZG9lcyB0aGF0Lgo+Cj4gKiBUaGUgZnJhbWV3b3JrIHdpbGwgcmVjb25uZWN0IHRv
-IHRoZSBtYWNoaW5lIGFmdGVyIGEgcmVib290IGFuZAo+ICAgcmUtZXhlY3V0ZSB0aGUgdGVzdCB3
-aXRoIGEgZmxhZyB0aGF0IHdvdWxkIHNheSB0aGF0IHRoaXMgaXMgYSBzZWNvbmQKPiAgIHN0YWdl
-IG9mIHRoZSB0ZXN0LCBpLmUuIGFmdGVyIHJlYm9vdC4KPgo+IC0tCj4gQ3lyaWwgSHJ1YmlzCj4g
-Y2hydWJpc0BzdXNlLmN6CgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGlu
-dXguaXQvbGlzdGluZm8vbHRwCg==
+Hi Li
+
+Do you have some comments for this patch?
+
+Best Regards
+Yang Xu
+> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+> ---
+>   .../kernel/controllers/cpuset/cpuset_funcs.sh |  8 +-
+>   .../cpuset_inherit_testset.sh                 | 82 +++++++++++--------
+>   2 files changed, 55 insertions(+), 35 deletions(-)
+> 
+> diff --git a/testcases/kernel/controllers/cpuset/cpuset_funcs.sh b/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
+> index 935a41ed0..6706561b2 100755
+> --- a/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
+> +++ b/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
+> @@ -32,12 +32,14 @@ if [ -f "/sys/devices/system/node/has_high_memory" ]; then
+>   else
+>   	N_NODES="`cat /sys/devices/system/node/has_normal_memory`"
+>   fi
+> +mem_string="$N_NODES"
+>   N_NODES=${N_NODES#*-*}
+>   N_NODES=$(($N_NODES + 1))
+>   
+>   CPUSET="/dev/cpuset"
+>   CPUSET_TMP="/tmp/cpuset_tmp"
+> -
+> +CLONE_CHILDREN="/dev/cpuset/cgroup.clone_children"
+> +CHILDREN_VALUE="0"
+>   HOTPLUG_CPU="1"
+>   
+>   cpuset_log()
+> @@ -134,6 +136,8 @@ setup()
+>   		tst_brkm TFAIL "Could not mount cgroup filesystem with"\
+>   					" cpuset on $CPUSET..Exiting test"
+>   	fi
+> +
+> +	CHILDREN_VALUE="`cat $CLONE_CHILDREN`"
+>   }
+>   
+>   # Write the cleanup function
+> @@ -144,6 +148,8 @@ cleanup()
+>   		return 0
+>   	}
+>   
+> +	echo $CHILDREN_VALUE > $CLONE_CHILDREN
+> +
+>   	find "$CPUSET" -type d | sort | sed -n '2,$p' | tac | while read subdir
+>   	do
+>   		while read pid
+> diff --git a/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh b/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh
+> index 1b4f314f9..2facf3a0e 100755
+> --- a/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh
+> +++ b/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh
+> @@ -23,7 +23,7 @@
+>   ################################################################################
+>   
+>   export TCID="cpuset_inherit"
+> -export TST_TOTAL=27
+> +export TST_TOTAL=33
+>   export TST_COUNT=1
+>   
+>   . cpuset_funcs.sh
+> @@ -44,10 +44,13 @@ cfile_name=
+>   base_op_write_and_test()
+>   {
+>   	local write_file="$1"
+> -	local write_string="$2"
+> -	local expect_string="$3"
+> +	local inherit_value="$2"
+> +	local write_string="$3"
+> +	local expect_string="$4"
+>   	local return_result=
+>   
+> +	echo $inherit_value > $CLONE_CHILDREN
+> +
+>   	mkdir -p "$(dirname $write_file)" || {
+>   		tst_brkm TFAIL "Failed to mkdir -p $(basename $write_file)"
+>   		return 1
+> @@ -103,13 +106,21 @@ inherit_test()
+>   test_cpus()
+>   {
+>   	cfile_name="cpus"
+> -	while read cpus result
+> +	let "num=$nr_cpus-1"
+> +	cpu_string="0-$num"
+> +	if [ $nr_cpus -eq 1 ]; then
+> +		cpu_string="0"
+> +	fi
+> +	while read inherit cpus result
+>   	do
+> -		inherit_test "$CPUSET/1/cpuset.cpus" "$cpus" "$result"
+> +		inherit_test "$CPUSET/1/cpuset.cpus" "$inherit" "$cpus" "$result"
+>   	done <<- EOF
+> -		NULL					EMPTY
+> -		0					EMPTY
+> -		$cpus_all				EMPTY
+> +		0	NULL					EMPTY
+> +		0	0					EMPTY
+> +		0	$cpus_all				EMPTY
+> +		1	NULL					EMPTY
+> +		1	0					0
+> +		1	$cpus_all				$cpu_string
+>   	EOF
+>   	# while read cpus result
+>   }
+> @@ -117,13 +128,16 @@ test_cpus()
+>   test_mems()
+>   {
+>   	cfile_name="mems"
+> -	while read mems result
+> +	while read inherit mems result
+>   	do
+> -		inherit_test "$CPUSET/1/cpuset.mems" "$mems" "$result"
+> +		inherit_test "$CPUSET/1/cpuset.mems" "$inherit" "$mems" "$result"
+>   	done <<- EOF
+> -		NULL					EMPTY
+> -		0					EMPTY
+> -		$mems_all				EMPTY
+> +		0	NULL					EMPTY
+> +		0	0					EMPTY
+> +		0	$mems_all				EMPTY
+> +		1	NULL					EMPTY
+> +		1	0					0
+> +		1	$mems_all				$mem_string
+>   	EOF
+>   	# while read mems result
+>   }
+> @@ -135,12 +149,12 @@ test_three_result_similar_flags()
+>   			memory_migrate
+>   	do
+>   		cfile_name="$filename"
+> -		while read flags result
+> +		while read inherit flags result
+>   		do
+> -			inherit_test "$CPUSET/1/cpuset.$filename" "$flags" "$result"
+> +			inherit_test "$CPUSET/1/cpuset.$filename" "$inherit" "$flags" "$result"
+>   		done <<- EOF
+> -			0	0
+> -			1	0
+> +			0	0	0
+> +			0	1	0
+>   		EOF
+>   		# while read flags, result
+>   	done # for filename in flagfiles
+> @@ -152,12 +166,12 @@ test_spread_flags()
+>   	for filename in memory_spread_page memory_spread_slab
+>   	do
+>   		cfile_name="$filename"
+> -		while read flags result
+> +		while read inherit flags result
+>   		do
+> -			inherit_test "$CPUSET/1/cpuset.$filename" "$flags" "$result"
+> +			inherit_test "$CPUSET/1/cpuset.$filename" "$inherit" "$flags" "$result"
+>   		done <<- EOF
+> -			0	0
+> -			1	1
+> +			0	0	0
+> +			0	1	1
+>   		EOF
+>   		# while read flags, result
+>   	done # for filename in flagfiles
+> @@ -166,12 +180,12 @@ test_spread_flags()
+>   test_sched_load_balance_flag()
+>   {
+>   	cfile_name="sched_load_balance"
+> -	while read flag result
+> +	while read inherit flag result
+>   	do
+> -		inherit_test "$CPUSET/1/cpuset.sched_load_balance" "$flag" "$result"
+> +		inherit_test "$CPUSET/1/cpuset.sched_load_balance" "$inherit" "$flag" "$result"
+>   	done <<- EOF
+> -		0	1
+> -		1	1
+> +		0	0	1
+> +		0	1	1
+>   	EOF
+>   	# while read mems result
+>   }
+> @@ -179,17 +193,17 @@ test_sched_load_balance_flag()
+>   test_domain()
+>   {
+>   	cfile_name="sched_relax_domain_level"
+> -	while read domain_level result
+> +	while read inherit domain_level result
+>   	do
+> -		inherit_test "$CPUSET/1/cpuset.sched_relax_domain_level" "$domain_level" "$result"
+> +		inherit_test "$CPUSET/1/cpuset.sched_relax_domain_level" "$inherit" "$domain_level" "$result"
+>   	done <<- EOF
+> -		-1	-1
+> -		0	-1
+> -		1	-1
+> -		2	-1
+> -		3	-1
+> -		4	-1
+> -		5	-1
+> +		0	-1	-1
+> +		0	0	-1
+> +		0	1	-1
+> +		0	2	-1
+> +		0	3	-1
+> +		0	4	-1
+> +		0	5	-1
+>   	EOF
+>   	# while read domain_level result
+>   }
+> 
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
