@@ -2,67 +2,88 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 680572514A5
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Aug 2020 10:53:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 866A12515AB
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Aug 2020 11:43:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C1C0C3C5686
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Aug 2020 10:53:44 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 42CEF3C2ECC
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Aug 2020 11:43:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id A97B43C02FA
- for <ltp@lists.linux.it>; Tue, 25 Aug 2020 10:53:41 +0200 (CEST)
-Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
- [IPv6:2a00:1450:4864:20::243])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 7DA703C011E
+ for <ltp@lists.linux.it>; Tue, 25 Aug 2020 11:43:20 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 020241A00F3E
- for <ltp@lists.linux.it>; Tue, 25 Aug 2020 10:53:40 +0200 (CEST)
-Received: by mail-lj1-x243.google.com with SMTP id w25so12846214ljo.12
- for <ltp@lists.linux.it>; Tue, 25 Aug 2020 01:53:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=EtDubTWcya3bFNIMWt5cpovVHx+/aPFuncLPAlV9+q8=;
- b=hg6SynizBYW+QsJT+XYq5YMt+Nz9cUWGDuKfmhI4lW4tNZLzeavZKk99fUlOfxyi3K
- Xpd9KmZG48QT9+r1neCW3o7qMudIsjtFIcM+bIzkTcE0TIoXL7AZY/DZKfPQR6q4aStp
- Aw+O8kqksFZnlvLi/ts/FSdbod4DZn/D/i4Qc69TTNj3r3FB9Qm9KBePALuNWpXltBOL
- JMeBNp+Td70msn2CiW6D4fci8cxU8LWo/wVPF7q5RLXfyryBurHJYXOfm0AZ/jKgjGtO
- DfnjUAUme1d/Scto+d5AOyLGFXsAirGuVKhAWnINjL+U6DbWPP2d6wikmR8RyiRxUw40
- imMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=EtDubTWcya3bFNIMWt5cpovVHx+/aPFuncLPAlV9+q8=;
- b=IQbPLZxqjZWBPfkAnZSxdG1U7YXj/wImQP/32GppPkq5/nK18iHbc2SXObp1VAMbck
- 6o9+QBV1ijTqsmyiA9b1Z9lahMoBDyBX/DIWZQdJ8z7TleOoGU23dUpiFNtvxBEXBegl
- A2Iyr70+CpgU+f9LK7cKnod/rE4m3e1PVa11OEfvgAGvY/HdbIbEd6FPF4lQQ3wQQlF8
- XtNh7um/BmP9zZ1bg9iVH3P+MUITd21zfwUpEFAcut0IHitQW2nW4F51miIruYnJ7L4M
- G+6hT/ua9SCiBT4Db9VPTGyUDo47DBX14/v/2VTEAgB9Pkt3ZXXoc+loZo1/aRlBfV0C
- nqrQ==
-X-Gm-Message-State: AOAM533H9dNRZwBlfpNYA6aT4020fAZtvZZNsozlNP+cpbBqXNBoov/t
- UgYjwitDEJyPbto36ObmOQD4y6ypF2GWH9xBmw4SiQ==
-X-Google-Smtp-Source: ABdhPJzgd8VhaITc7beto8F5Oa1lQp4WYJZVsedInRAxlBWhJv7ZxzqrbHw+79LvHxCSjX2KcL7GkSO6u2tVrErxAxM=
-X-Received: by 2002:a2e:920c:: with SMTP id k12mr4632919ljg.29.1598345613076; 
- Tue, 25 Aug 2020 01:53:33 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D103210005C5
+ for <ltp@lists.linux.it>; Tue, 25 Aug 2020 11:43:19 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 6C898AF33;
+ Tue, 25 Aug 2020 09:43:49 +0000 (UTC)
+To: Jan Stancek <jstancek@redhat.com>
+References: <c73f6b2e1232d6a892ecef76370ea2cf6c7dd044.1598270814.git.jstancek@redhat.com>
+ <de536b1b-0751-f50c-3869-b1b7956bda84@suse.cz>
+ <1425720351.9865762.1598281277578.JavaMail.zimbra@redhat.com>
+ <9821e566-3263-36fd-651e-4f5019e486e1@suse.cz>
+ <285733961.9872750.1598285502957.JavaMail.zimbra@redhat.com>
+From: Martin Doucha <mdoucha@suse.cz>
+Autocrypt: addr=mdoucha@suse.cz; keydata=
+ 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
+Message-ID: <d2a4fdfb-4686-eedc-a22b-464f9ed5982d@suse.cz>
+Date: Tue, 25 Aug 2020 11:43:18 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-References: <CA+G9fYt=oYWHEG6VNkfEh8+UxbReS6_+9hnz+1bOYZHj5j1F_Q@mail.gmail.com>
- <20200824110645.GC17456@casper.infradead.org>
- <CA+G9fYvjKGF3HZXyd=JQHzRG=r=bmD0hYQn02VL4Y=5y57OgaA@mail.gmail.com>
- <20200825083119.GA69694@linux.ibm.com>
-In-Reply-To: <20200825083119.GA69694@linux.ibm.com>
-From: Anders Roxell <anders.roxell@linaro.org>
-Date: Tue, 25 Aug 2020 10:53:22 +0200
-Message-ID: <CADYN=9+2RDeUdbNT+XT6WgTW70UCdsARqaAL7PQ0+OPLvrkNng@mail.gmail.com>
-To: Mike Rapoport <rppt@linux.ibm.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <285733961.9872750.1598285502957.JavaMail.zimbra@redhat.com>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] BUG: Bad page state in process true pfn:a8fed on arm
+X-Spam-Status: No, score=-2.6 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/setsockopt05: associate receiver with
+ destination address
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,168 +95,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>, opendmb@gmail.com,
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- lkft-triage@lists.linaro.org, Russell King - ARM Linux <linux@armlinux.org.uk>,
- linux-mm <linux-mm@kvack.org>, Peter Xu <peterx@redhat.com>,
- Linux-Next Mailing List <linux-next@vger.kernel.org>,
- Matthew Wilcox <willy@infradead.org>, Andy Lutomirski <luto@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andrew Morton <akpm@linux-foundation.org>, afzal.mohd.ma@gmail.com,
- Christoph Hellwig <hch@lst.de>, LTP List <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, 25 Aug 2020 at 10:32, Mike Rapoport <rppt@linux.ibm.com> wrote:
->
-> On Tue, Aug 25, 2020 at 01:03:53PM +0530, Naresh Kamboju wrote:
-> > On Mon, 24 Aug 2020 at 16:36, Matthew Wilcox <willy@infradead.org> wrote:
-> > >
-> > > On Mon, Aug 24, 2020 at 03:14:55PM +0530, Naresh Kamboju wrote:
-> > > > [   67.545247] BUG: Bad page state in process true  pfn:a8fed
-> > > > [   67.550767] page:9640c0ab refcount:0 mapcount:-1024
-> > >
-> > > Somebody freed a page table without calling __ClearPageTable() on it.
-> >
-> > After running git bisect on this problem,
-> > The first suspecting of this problem on arm architecture this patch.
-> > 424efe723f7717430bec7c93b4d28bba73e31cf6
-> > ("mm: account PMD tables like PTE tables ")
-> >
-> > Reported-by: Naresh Kamboju <naresh.kamboju@linaro.org>
-> > Reported-by: Anders Roxell <anders.roxell@linaro.org>
->
-> Can you please check if this fix helps?
+On 24. 08. 20 18:11, Jan Stancek wrote:
+> Aren't we getting propagated ICMP error to send() from previous iteration
+> of the loop?
+> 
+> Per https://tools.ietf.org/html/rfc1122#page-78
+>   The application is also responsible to avoid confusion from a delayed ICMP
+>   error message resulting from an earlier use of the same port(s).
 
-That fixed the problem.
+The test is using the loopback address. There should be no delay. We're
+running this test daily on 7 different kernel versions and 4 different
+archs and I've never seen it fail with ECONNREFUSED, ever.
 
-Cheers,
-Anders
+But you can prove me wrong by adding a few debug prints around both
+send() calls.
 
->
-> diff --git a/arch/arm/include/asm/tlb.h b/arch/arm/include/asm/tlb.h
-> index 9415222b49ad..b8cbe03ad260 100644
-> --- a/arch/arm/include/asm/tlb.h
-> +++ b/arch/arm/include/asm/tlb.h
-> @@ -59,6 +59,7 @@ __pmd_free_tlb(struct mmu_gather *tlb, pmd_t *pmdp, unsigned long addr)
->  #ifdef CONFIG_ARM_LPAE
->         struct page *page = virt_to_page(pmdp);
->
-> +       pgtable_pmd_page_dtor(page);
->         tlb_remove_table(tlb, page);
->  #endif
->  }
->
-> > Additional information:
-> > We have tested linux next by reverting this patch and confirmed
-> > that the reported BUG is not reproduced.
-> >
-> > These configs enabled on the running device,
-> >
-> > CONFIG_TRANSPARENT_HUGEPAGE=y
-> > CONFIG_TRANSPARENT_HUGEPAGE_MADVISE=y
-> >
-> >
-> > -- Suspecting patch --
-> > commit 424efe723f7717430bec7c93b4d28bba73e31cf6
-> > Author: Matthew Wilcox <willy@infradead.org>
-> > Date:   Thu Aug 20 10:01:30 2020 +1000
-> >
-> >     mm: account PMD tables like PTE tables
-> >
-> >     We account the PTE level of the page tables to the process in order to
-> >     make smarter OOM decisions and help diagnose why memory is fragmented.
-> >     For these same reasons, we should account pages allocated for PMDs.  With
-> >     larger process address spaces and ASLR, the number of PMDs in use is
-> >     higher than it used to be so the inaccuracy is starting to matter.
-> >
-> >     Link: http://lkml.kernel.org/r/20200627184642.GF25039@casper.infradead.org
-> >     Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-> >     Reviewed-by: Mike Rapoport <rppt@linux.ibm.com>
-> >     Cc: Abdul Haleem <abdhalee@linux.vnet.ibm.com>
-> >     Cc: Andy Lutomirski <luto@kernel.org>
-> >     Cc: Arnd Bergmann <arnd@arndb.de>
-> >     Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
-> >     Cc: Joerg Roedel <joro@8bytes.org>
-> >     Cc: Max Filippov <jcmvbkbc@gmail.com>
-> >     Cc: Peter Zijlstra <peterz@infradead.org>
-> >     Cc: Satheesh Rajendran <sathnaga@linux.vnet.ibm.com>
-> >     Cc: Stafford Horne <shorne@gmail.com>
-> >     Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> >     Signed-off-by: Stephen Rothwell <sfr@canb.auug.org.au>
-> >
-> > diff --git a/include/linux/mm.h b/include/linux/mm.h
-> > index b0a15ee77b8a..a4e5b806347c 100644
-> > --- a/include/linux/mm.h
-> > +++ b/include/linux/mm.h
-> > @@ -2239,7 +2239,7 @@ static inline spinlock_t *pmd_lockptr(struct
-> > mm_struct *mm, pmd_t *pmd)
-> >   return ptlock_ptr(pmd_to_page(pmd));
-> >  }
-> >
-> > -static inline bool pgtable_pmd_page_ctor(struct page *page)
-> > +static inline bool pmd_ptlock_init(struct page *page)
-> >  {
-> >  #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-> >   page->pmd_huge_pte = NULL;
-> > @@ -2247,7 +2247,7 @@ static inline bool pgtable_pmd_page_ctor(struct
-> > page *page)
-> >   return ptlock_init(page);
-> >  }
-> >
-> > -static inline void pgtable_pmd_page_dtor(struct page *page)
-> > +static inline void pmd_ptlock_free(struct page *page)
-> >  {
-> >  #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-> >   VM_BUG_ON_PAGE(page->pmd_huge_pte, page);
-> > @@ -2264,8 +2264,8 @@ static inline spinlock_t *pmd_lockptr(struct
-> > mm_struct *mm, pmd_t *pmd)
-> >   return &mm->page_table_lock;
-> >  }
-> >
-> > -static inline bool pgtable_pmd_page_ctor(struct page *page) { return true; }
-> > -static inline void pgtable_pmd_page_dtor(struct page *page) {}
-> > +static inline bool pmd_ptlock_init(struct page *page) { return true; }
-> > +static inline void pmd_ptlock_free(struct page *page) {}
-> >
-> >  #define pmd_huge_pte(mm, pmd) ((mm)->pmd_huge_pte)
-> >
-> > @@ -2278,6 +2278,22 @@ static inline spinlock_t *pmd_lock(struct
-> > mm_struct *mm, pmd_t *pmd)
-> >   return ptl;
-> >  }
-> >
-> > +static inline bool pgtable_pmd_page_ctor(struct page *page)
-> > +{
-> > + if (!pmd_ptlock_init(page))
-> > + return false;
-> > + __SetPageTable(page);
-> > + inc_zone_page_state(page, NR_PAGETABLE);
-> > + return true;
-> > +}
-> > +
-> > +static inline void pgtable_pmd_page_dtor(struct page *page)
-> > +{
-> > + pmd_ptlock_free(page);
-> > + __ClearPageTable(page);
-> > + dec_zone_page_state(page, NR_PAGETABLE);
-> > +}
-> > +
-> >  /*
-> >   * No scalability reason to split PUD locks yet, but follow the same pattern
-> >   * as the PMD locks to make it easier if we decide to.  The VM should not be
-> >
-> >
-> >
-> >
-> > - Naresh
->
-> --
-> Sincerely yours,
-> Mike.
+-- 
+Martin Doucha   mdoucha@suse.cz
+QA Engineer for Software Maintenance
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
