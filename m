@@ -1,30 +1,29 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87F07251CEF
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Aug 2020 18:08:09 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 35ED3251CED
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Aug 2020 18:07:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 516F93C2FE0
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Aug 2020 18:08:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id EBB0F3C2975
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Aug 2020 18:07:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id EABF33C13D8
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id C81CD3C1A4E
  for <ltp@lists.linux.it>; Tue, 25 Aug 2020 18:07:37 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 416A21400B62
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 42D411400B65
  for <ltp@lists.linux.it>; Tue, 25 Aug 2020 18:07:37 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 58AB0B5A2
+ by mx2.suse.de (Postfix) with ESMTP id 69735B5A9
  for <ltp@lists.linux.it>; Tue, 25 Aug 2020 16:08:07 +0000 (UTC)
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 25 Aug 2020 18:07:34 +0200
-Message-Id: <20200825160735.24602-4-mdoucha@suse.cz>
+Date: Tue, 25 Aug 2020 18:07:35 +0200
+Message-Id: <20200825160735.24602-5-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200825160735.24602-1-mdoucha@suse.cz>
 References: <20200825160735.24602-1-mdoucha@suse.cz>
@@ -34,7 +33,7 @@ X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 3/4] ioctl_sg01: Pollute free memory in setup
+Subject: [LTP] [PATCH v2 4/4] ioctl_sg01: Loop data leak check 100 times
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,57 +50,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The test wasn't reliable if most of available memory was full of zeroes.
-Pollute free memory to increase the chance of detecting data leak.
+Even with pre-polluted memory, running the test just once might result in
+a false negative. Loop it a few times to increase reliability.
 
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
 
 Changes since v1:
-- Split patch
-- Use tst_pollute_memory() instead of allocating and pre-polluting
-  a fixed-size block of memory in setup().
+- New patch (split)
 
- testcases/kernel/syscalls/ioctl/ioctl_sg01.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ testcases/kernel/syscalls/ioctl/ioctl_sg01.c | 21 +++++++++++---------
+ 1 file changed, 12 insertions(+), 9 deletions(-)
 
 diff --git a/testcases/kernel/syscalls/ioctl/ioctl_sg01.c b/testcases/kernel/syscalls/ioctl/ioctl_sg01.c
-index daaa96be5..8c9fd0dae 100644
+index 8c9fd0dae..8ad2ffed5 100644
 --- a/testcases/kernel/syscalls/ioctl/ioctl_sg01.c
 +++ b/testcases/kernel/syscalls/ioctl/ioctl_sg01.c
-@@ -7,9 +7,7 @@
-  * CVE-2018-1000204
-  *
-  * Test ioctl(SG_IO) and check that kernel doesn't leak data. Requires
-- * a read-accessible SCSI-compatible device (e.g. SATA disk). Running oom*
-- * test program before this one may increase the chance of successfully
-- * reproducing the bug.
-+ * a read-accessible generic SCSI device (e.g. a DVD drive).
-  *
-  * Leak fixed in:
-  *
-@@ -29,8 +27,9 @@
- #include <sys/ioctl.h>
- #include <stdio.h>
- #include "tst_test.h"
-+#include "tst_memutils.h"
+@@ -100,19 +100,22 @@ static void cleanup(void)
  
--#define BUF_SIZE 128 * 4096
-+#define BUF_SIZE (128 * 4096)
- #define CMD_SIZE 6
+ static void run(void)
+ {
+-	size_t i;
++	size_t i, j;
  
- static int devfd = -1;
-@@ -80,6 +79,10 @@ static void setup(void)
- 		tst_brk(TCONF, "Could not find any usable SCSI device");
+ 	memset(buffer, 0, BUF_SIZE);
+-	TEST(ioctl(devfd, SG_IO, &query));
  
- 	tst_res(TINFO, "Found SCSI device %s", devpath);
+-	if (TST_RET != 0 && TST_RET != -1)
+-		tst_brk(TBROK | TTERRNO, "Invalid ioctl() return value");
++	for (i = 0; i < 100; i++) {
++		TEST(ioctl(devfd, SG_IO, &query));
+ 
+-	/* Check the output buffer even if ioctl() failed, just in case. */
+-	for (i = 0; i < BUF_SIZE; i++) {
+-		if (buffer[i]) {
+-			tst_res(TFAIL, "Kernel memory leaked");
+-			return;
++		if (TST_RET != 0 && TST_RET != -1)
++			tst_brk(TBROK|TTERRNO, "Invalid ioctl() return value");
 +
-+	/* Pollute some memory to avoid false negatives */
-+	tst_pollute_memory(0, 0x42);
-+
- 	devfd = SAFE_OPEN(devpath, O_RDONLY);
- 	query.interface_id = 'S';
- 	query.dxfer_direction = SG_DXFER_FROM_DEV;
++		/* Check the buffer even if ioctl() failed, just in case. */
++		for (j = 0; j < BUF_SIZE; j++) {
++			if (buffer[j]) {
++				tst_res(TFAIL, "Kernel memory leaked");
++				return;
++			}
+ 		}
+ 	}
+ 
 -- 
 2.28.0
 
