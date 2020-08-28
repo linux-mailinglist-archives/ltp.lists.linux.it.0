@@ -2,28 +2,28 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A2AC25589F
-	for <lists+linux-ltp@lfdr.de>; Fri, 28 Aug 2020 12:33:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA9212558AC
+	for <lists+linux-ltp@lfdr.de>; Fri, 28 Aug 2020 12:40:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id ADD1E3C2218
-	for <lists+linux-ltp@lfdr.de>; Fri, 28 Aug 2020 12:33:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7B7523C2E52
+	for <lists+linux-ltp@lfdr.de>; Fri, 28 Aug 2020 12:40:28 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 8C28E3C2218
- for <ltp@lists.linux.it>; Fri, 28 Aug 2020 12:33:54 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTP id 4AD9F3C2218
+ for <ltp@lists.linux.it>; Fri, 28 Aug 2020 12:40:24 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 135D2200D45
- for <ltp@lists.linux.it>; Fri, 28 Aug 2020 12:33:53 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D7805200D3E
+ for <ltp@lists.linux.it>; Fri, 28 Aug 2020 12:40:23 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 224C2AD52;
- Fri, 28 Aug 2020 10:34:26 +0000 (UTC)
-Date: Fri, 28 Aug 2020 12:33:51 +0200
+ by mx2.suse.de (Postfix) with ESMTP id E4E0DB74E;
+ Fri, 28 Aug 2020 10:40:55 +0000 (UTC)
+Date: Fri, 28 Aug 2020 12:40:21 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <20200828103351.GA12046@dell5510>
+Message-ID: <20200828104021.GB12046@dell5510>
 References: <1598005119-2147-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
  <20200828084818.GB1648@dell5510>
  <373798f7-d1e4-330a-0911-efcd6f1d1480@cn.fujitsu.com>
@@ -55,11 +55,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Xu,
-
-> Hi Petr
-
-> > Hi,
+Hi,
 
 > > ...
 > > > --- a/configure.ac
@@ -78,6 +74,7 @@ Hi Xu,
 > > > +])
 > Yes. Do you merge this patch with deleting this ifdef? Or I sent a v2 patch
 > for this.
+Merged.
 
 > Also, I think you can remove" #ifdef HAVE_LINUX_IF_PACKET_H" pair in
 > configure.ac
@@ -86,13 +83,11 @@ Hi Xu,
 > # include <linux/if_packet.h>
 > #endif
 > ])
-I'll fix it and merge.
+I'll cleanup this in a separate patch.
+
 
 Kind regards,
 Petr
-
-> Best Regards
-> Yang Xu
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
