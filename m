@@ -1,75 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C7C125A59E
-	for <lists+linux-ltp@lfdr.de>; Wed,  2 Sep 2020 08:35:50 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id DB4DE25A859
+	for <lists+linux-ltp@lfdr.de>; Wed,  2 Sep 2020 11:10:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C71D33C2D77
-	for <lists+linux-ltp@lfdr.de>; Wed,  2 Sep 2020 08:35:49 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 51AB13C5517
+	for <lists+linux-ltp@lfdr.de>; Wed,  2 Sep 2020 11:10:01 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 273C03C181A
- for <ltp@lists.linux.it>; Wed,  2 Sep 2020 08:35:47 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 6474D1000970
- for <ltp@lists.linux.it>; Wed,  2 Sep 2020 08:35:47 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 2C8D43C2D58
+ for <ltp@lists.linux.it>; Wed,  2 Sep 2020 11:09:54 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 3F40F2009A9
+ for <ltp@lists.linux.it>; Wed,  2 Sep 2020 11:09:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1599028546;
+ s=mimecast20190719; t=1599037791;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=eb8KKPnO/8R/L7Snc2nUvLEc2F7dZrq/jMjzFZHllHM=;
- b=bSLHrstORjJWQYqqq8n1uZT5MouTjMNthxeAO4yUSvSYCX2HzCMg0qZi62+KpqNGHVvFcN
- DQZ6eT6rk3dbL3d7sJrWHMCr9HP20PQiiDdXhWr3rgwVBgFT2ie3xnaCGbSSqkaJcVcNaN
- 2HLIt8h2kf+trxh9pV03+WfOR85Mi74=
+ bh=ryneeMGTeq8HhR3Oh5qB8d9yeb2XApBm6XTdIXIGEmo=;
+ b=PSJsSgikxZHLV7FvJ7qcjFSGTLhijP5n0Q5eM3qkVqz2I8735RMP8HfQ9sQ3spkyO7V8nK
+ Amq4kKj3HgKod5y6CBj11vsN5CILi3sPHoPqRJUgL7OEed/QSDxfbjt2Y7HJOrgACt2UQv
+ ZMAvOD6MZBzYQgfBAVhqYR7Lq+hvYWY=
 Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
  [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-140-SfUbFW2VON2Xaxfo_GJbGQ-1; Wed, 02 Sep 2020 02:35:43 -0400
-X-MC-Unique: SfUbFW2VON2Xaxfo_GJbGQ-1
-Received: by mail-yb1-f200.google.com with SMTP id j20so3999155ybt.10
- for <ltp@lists.linux.it>; Tue, 01 Sep 2020 23:35:43 -0700 (PDT)
+ us-mta-360-_DmBLLMJPEG8ivyBAnZRLQ-1; Wed, 02 Sep 2020 05:09:47 -0400
+X-MC-Unique: _DmBLLMJPEG8ivyBAnZRLQ-1
+Received: by mail-yb1-f200.google.com with SMTP id k11so4444576ybp.1
+ for <ltp@lists.linux.it>; Wed, 02 Sep 2020 02:09:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=eb8KKPnO/8R/L7Snc2nUvLEc2F7dZrq/jMjzFZHllHM=;
- b=EB9emiY0ziD1a1P4VaGOY2YVGswB67+fuxZxjBV8Pc9kUTdmXJNlw7gfO8h5ZSkAy6
- npyYFWE8F3fgKwMVD8/2qZvPUHklYwqayudBiApIZn5hYW7yZY2nx75fmzCy22DVgLkd
- TYR+j6C9FWE3l9UAP6A2jJWeiB9M/oPvqcL0RPUxkLhoZWl9EAbndrXfWlBrDybXMzu1
- Mpt6jVWOllJkiNZaFQiZoXfS1tMLpEVKAso9fzUXcv5XtbiOI1jQrlc2Oo+SYHHgaLhG
- 9AD4xFdGVawIi+aRCR7xJWVAEhkwPinV9GPbvLjPiAM/sbnEbusFzR6qVaofpW71SxoG
- zesQ==
-X-Gm-Message-State: AOAM532ZBFC/sAGju37l2VPdZ3aEfY4iYsLts6vkz+0GqsKlV1ujIH+9
- YTyaiVbbbHwb6XHzsyG7twNvsosESE0iW6lwx89AJRoSyfR52vRJTCrM5qj5AjPWsuFq7iB2c6w
- PAg9H4oqrfnOQPyZN6CQ+2WZ8Iko=
-X-Received: by 2002:a05:6902:6c1:: with SMTP id
- m1mr8091607ybt.252.1599028542977; 
- Tue, 01 Sep 2020 23:35:42 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyLv5gknToXtflTP/YA6iP8uhCaOCPqP7XUvyrNHRWprQfikNTntwZX7IF0LtwkQGiU0aB7tbYorrpvmVeCnF0=
-X-Received: by 2002:a05:6902:6c1:: with SMTP id
- m1mr8091569ybt.252.1599028542471; 
- Tue, 01 Sep 2020 23:35:42 -0700 (PDT)
+ bh=ryneeMGTeq8HhR3Oh5qB8d9yeb2XApBm6XTdIXIGEmo=;
+ b=VkhG5OO6IZYEhQzuOelL0sGJc15sUE6nF8JVqmAUA2eHPGKpIHEKrVDJgj/YAcLTlS
+ h/kYKAKzy4nMNsLS6O9jOO9SdwnPuSDroaDo/bhmkpcijjlO6nHZpR87NAtjo184GujX
+ Z2ST5te8oF1/9+3w75n/wbZFDMVKqBTMBKKE1O3hj/HA4nt3CpYtB/wu+Ma3gnM2q+GH
+ +cJWVNROZa5iTPqtExUCdv7GqJSiqf2tlhaJDzXqRqItv1qVH6m9HIPqIrrcIanM8VSX
+ Jrv4GKa3Bcci5M52GNsyiMWaTqJBk6QLieV7XczvrTWQi2MH4fUsaKOACHceTrlUNsas
+ hWIA==
+X-Gm-Message-State: AOAM530R0d6AF7Xu5noiL4aQKpf2cEufDAUTjDYw1rNlW7kRqiXA91dc
+ C877K8U8/9Ps+krn6I6lTzqUHs3J0i2sa379paUbQwE9GpzqgFuaUJzKgTFYrbGJcIsSwiCTWd0
+ WnXW1CvDXn1qlvW4bm25iqnHdAZc=
+X-Received: by 2002:a25:cc14:: with SMTP id l20mr9298520ybf.110.1599037787408; 
+ Wed, 02 Sep 2020 02:09:47 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzvDaIXIap5oNglkSo90TI+/kDq7wgnubq9rk9rZMDjJU/Xv93qA7O/fAQqkHz/aWv87lKPCKRckmyeP8v0Elg=
+X-Received: by 2002:a25:cc14:: with SMTP id l20mr9298479ybf.110.1599037787022; 
+ Wed, 02 Sep 2020 02:09:47 -0700 (PDT)
 MIME-Version: 1.0
-References: <1599020410-17254-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-In-Reply-To: <1599020410-17254-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+References: <b0d7642a89808c93e059beda06d8519361784686.1597839878.git.viresh.kumar@linaro.org>
+ <a9e6d98c722a92d1981fcc2b7ddeba547195c40e.1597839878.git.viresh.kumar@linaro.org>
+In-Reply-To: <a9e6d98c722a92d1981fcc2b7ddeba547195c40e.1597839878.git.viresh.kumar@linaro.org>
 From: Li Wang <liwang@redhat.com>
-Date: Wed, 2 Sep 2020 14:35:31 +0800
-Message-ID: <CAEemH2ej=mTXky_TS8Bu5wt7-EFmbmN3od2QbFqWO3Q+dt=CGw@mail.gmail.com>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Date: Wed, 2 Sep 2020 17:09:31 +0800
+Message-ID: <CAEemH2eH6YnKXfVrAQmPGK5zj1x71f=gHZcDUN-QVjZ41F8_6A@mail.gmail.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
 X-Mimecast-Spam-Score: 0.0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-0.0 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] security/dirtyc0w: Add CVE tag
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V9 2/2] syscalls/semtimedop: Add failure test for
+ invalid timeout pointer
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,54 +81,122 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0196587323=="
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1668840804=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0196587323==
-Content-Type: multipart/alternative; boundary="00000000000042993905ae4ed8b8"
+--===============1668840804==
+Content-Type: multipart/alternative; boundary="000000000000473dc605ae50ff35"
 
---00000000000042993905ae4ed8b8
+--000000000000473dc605ae50ff35
 Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 2, 2020 at 12:20 PM Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Hi Viresh,
+
+On Wed, Aug 19, 2020 at 8:28 PM Viresh Kumar <viresh.kumar@linaro.org>
 wrote:
 
-> Also use correct fix commit id.
 >
-> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+> +       {1, &valid_sem_id, NULL, &sem_op_1, 0, 0, 0, BIGOPS, 1, &valid_to,
+> E2BIG},
+> +       {1, &noperm_sem_id, NULL, &sem_op_1, 0, 0, 0, NSOPS, 1, &valid_to,
+> EACCES},
+> +       {1, &valid_sem_id, &faulty_buf, &sem_op_1, 0, 0, 0, NSOPS, 1,
+> &valid_to, EFAULT},
+> +       {1, &valid_sem_id, NULL, &sem_op_1, 0, 0, 0, 0, 1, &valid_to,
+> EINVAL},
+> +       {1, &bad_sem_id, NULL, &sem_op_1, 0, 0, 0, NSOPS, 1, &valid_to,
+> EINVAL},
+> +       {1, &valid_sem_id, NULL, &sem_op_max, 0, 0, 0, 1, 1, &valid_to,
+> ERANGE},
+> +       {1, &valid_sem_id, NULL, &sem_op_1, 0, -1, SEM_UNDO, 1, 1,
+> &valid_to, EFBIG},
+> +       {1, &valid_sem_id, NULL, &sem_op_1, 0, PSEMS + 1, SEM_UNDO, 1, 1,
+> &valid_to, EFBIG},
+> +       {1, &valid_sem_id, NULL, &sem_op_zero, 2, 2, IPC_NOWAIT, 1, 1,
+> &valid_to, EAGAIN},
+> +       {1, &valid_sem_id, NULL, &sem_op_negative, 2, 2, IPC_NOWAIT, 1, 0,
+> &valid_to, EAGAIN},
+> +       {0, &valid_sem_id, NULL, &sem_op_zero, 0, 0, SEM_UNDO, 1, 1,
+> &valid_to, EAGAIN},
+> +       {0, &valid_sem_id, NULL, &sem_op_negative, 0, 0, SEM_UNDO, 1, 0,
+> &valid_to, EAGAIN},
 >
 
-Pushed.
+
+> +       {0, &valid_sem_id, NULL, &sem_op_zero, 0, 0, SEM_UNDO, 1, 1,
+> &invalid_to, EFAULT},
+>
+
+This '&invalid_to' can't be passed to the semtimedop(.., timeout) correctly,
+because in that wrapper function call_semop(), you invoke
+tst_ts_get(timeout)
+to resolve an invalid address which will be caused a segmental fault
+eventually.
+
+Apart from this, the rest code looks good to me.
 
 -- 
 Regards,
 Li Wang
 
---00000000000042993905ae4ed8b8
+--000000000000473dc605ae50ff35
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Wed, Sep 2, 2020 at 12:20 PM Yang Xu &lt;<a href=
-=3D"mailto:xuyang2018.jy@cn.fujitsu.com">xuyang2018.jy@cn.fujitsu.com</a>&g=
-t; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
-x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Also u=
-se correct fix commit id.<br>
-<br>
-Signed-off-by: Yang Xu &lt;<a href=3D"mailto:xuyang2018.jy@cn.fujitsu.com" =
-target=3D"_blank">xuyang2018.jy@cn.fujitsu.com</a>&gt;<br></blockquote><div=
-><br></div><div><div class=3D"gmail_default" style=3D"font-size:small">Push=
-ed.</div></div><div><br></div></div>-- <br><div dir=3D"ltr" class=3D"gmail_=
-signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></=
-div></div></div>
+t-size:small">Hi Viresh,</div></div><br><div class=3D"gmail_quote"><div dir=
+=3D"ltr" class=3D"gmail_attr">On Wed, Aug 19, 2020 at 8:28 PM Viresh Kumar =
+&lt;<a href=3D"mailto:viresh.kumar@linaro.org" target=3D"_blank">viresh.kum=
+ar@linaro.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" sty=
+le=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddi=
+ng-left:1ex"><br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0{1, &amp;valid_sem_id, NULL, &amp;sem_op_1, 0, =
+0, 0, BIGOPS, 1, &amp;valid_to, E2BIG},<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0{1, &amp;noperm_sem_id, NULL, &amp;sem_op_1, 0,=
+ 0, 0, NSOPS, 1, &amp;valid_to, EACCES},<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0{1, &amp;valid_sem_id, &amp;faulty_buf, &amp;se=
+m_op_1, 0, 0, 0, NSOPS, 1, &amp;valid_to, EFAULT},<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0{1, &amp;valid_sem_id, NULL, &amp;sem_op_1, 0, =
+0, 0, 0, 1, &amp;valid_to, EINVAL},<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0{1, &amp;bad_sem_id, NULL, &amp;sem_op_1, 0, 0,=
+ 0, NSOPS, 1, &amp;valid_to, EINVAL},<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0{1, &amp;valid_sem_id, NULL, &amp;sem_op_max, 0=
+, 0, 0, 1, 1, &amp;valid_to, ERANGE},<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0{1, &amp;valid_sem_id, NULL, &amp;sem_op_1, 0, =
+-1, SEM_UNDO, 1, 1, &amp;valid_to, EFBIG},<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0{1, &amp;valid_sem_id, NULL, &amp;sem_op_1, 0, =
+PSEMS + 1, SEM_UNDO, 1, 1, &amp;valid_to, EFBIG},<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0{1, &amp;valid_sem_id, NULL, &amp;sem_op_zero, =
+2, 2, IPC_NOWAIT, 1, 1, &amp;valid_to, EAGAIN},<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0{1, &amp;valid_sem_id, NULL, &amp;sem_op_negati=
+ve, 2, 2, IPC_NOWAIT, 1, 0, &amp;valid_to, EAGAIN},<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0{0, &amp;valid_sem_id, NULL, &amp;sem_op_zero, =
+0, 0, SEM_UNDO, 1, 1, &amp;valid_to, EAGAIN},<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0{0, &amp;valid_sem_id, NULL, &amp;sem_op_negati=
+ve, 0, 0, SEM_UNDO, 1, 0, &amp;valid_to, EAGAIN},<br></blockquote><div>=C2=
+=A0<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
+0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
++=C2=A0 =C2=A0 =C2=A0 =C2=A0{0, &amp;valid_sem_id, NULL, &amp;sem_op_zero, =
+0, 0, SEM_UNDO, 1, 1, &amp;invalid_to, EFAULT},<br></blockquote><div><br></=
+div><div><div class=3D"gmail_default" style=3D"font-size:small">This &#39;&=
+amp;invalid_to&#39; can&#39;t be passed to the semtimedop(.., timeout) corr=
+ectly,</div><div class=3D"gmail_default" style=3D"font-size:small">because =
+in that wrapper function call_semop(), you invoke tst_ts_get(timeout)=C2=A0=
+</div><div class=3D"gmail_default" style=3D"font-size:small">to resolve an =
+invalid address which will be caused a segmental fault eventually.</div></d=
+iv><div class=3D"gmail_default" style=3D"font-size:small"><br></div><div cl=
+ass=3D"gmail_default" style=3D"font-size:small">Apart from this, the rest c=
+ode looks good to me.</div><div class=3D"gmail_default" style=3D"font-size:=
+small"><br></div></div>-- <br><div dir=3D"ltr"><div dir=3D"ltr"><div>Regard=
+s,<br></div><div>Li Wang<br></div></div></div>
+</div>
 
---00000000000042993905ae4ed8b8--
+--000000000000473dc605ae50ff35--
 
 
---===============0196587323==
+--===============1668840804==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -138,5 +206,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============0196587323==--
+--===============1668840804==--
 
