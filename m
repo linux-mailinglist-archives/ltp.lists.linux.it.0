@@ -2,75 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8CAD25A921
-	for <lists+linux-ltp@lfdr.de>; Wed,  2 Sep 2020 12:09:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7BE125A927
+	for <lists+linux-ltp@lfdr.de>; Wed,  2 Sep 2020 12:10:30 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4B9B73C54FE
-	for <lists+linux-ltp@lfdr.de>; Wed,  2 Sep 2020 12:09:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A0BA13C2DDD
+	for <lists+linux-ltp@lfdr.de>; Wed,  2 Sep 2020 12:10:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 6B7F93C180A
- for <ltp@lists.linux.it>; Wed,  2 Sep 2020 12:08:56 +0200 (CEST)
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 375173C180A
+ for <ltp@lists.linux.it>; Wed,  2 Sep 2020 12:10:28 +0200 (CEST)
+Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
+ [IPv6:2607:f8b0:4864:20::634])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 675B31000C0D
- for <ltp@lists.linux.it>; Wed,  2 Sep 2020 12:08:56 +0200 (CEST)
-Received: by mail-pg1-x544.google.com with SMTP id 31so2282546pgy.13
- for <ltp@lists.linux.it>; Wed, 02 Sep 2020 03:08:56 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CC96F200072
+ for <ltp@lists.linux.it>; Wed,  2 Sep 2020 12:10:27 +0200 (CEST)
+Received: by mail-pl1-x634.google.com with SMTP id c15so2069182plq.4
+ for <ltp@lists.linux.it>; Wed, 02 Sep 2020 03:10:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=5MWSZG+xwQBbRIh3Hf0hhCrgQD4e3albCJfOd3HqYTg=;
- b=LlPHTlIAE0b+k3yiPHmpB+5U0ekBHvst7GFlAsHJEEmWP73md5a8S0yPDpP/OEO/n7
- KRRCyLzMzRf5B8YX49qarPgTvQj9RAvj8/PYjgzgJn8LtQH2hAF9Chm99KKp5ZlogZOP
- vMqqH9kt0FQAJichMmLW3Cl5BOHn1Bhffb/GvRvkO6IMq1kjRUM31LCV2svdDESGi+UD
- Mu7Za7Tq/ID11epzXbnhi4SH1Tyq5Pm7fLjkwnlFCWhHUyNvooUiO+GgUweYC3W9IwAu
- BOS7SSdYLI3vRWN7UaiBOEMa8NYpDC04UuhCea8PgX4JLyUVmfrQfO3/cy2/OGgCQzT4
- n0wA==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=rs5Au3wB7S+y7kWGG/AEEFkQPdhntqHL+ikayasZZWU=;
+ b=fM42Xp6bhyMSBQ5072IaWUDgJBhSxPMcSqQJyA7xSrex86066wCNK/hbWNsNOTuTJb
+ EZGLSJVbu5RrJAaB4wyO4//1Wryi8z9Rk4ZD+uQnTydpy9ZpjVQbFm8I2L0hzAuesOCa
+ UiHgmdoCtbo82SO6fYz/OsJWJq5lwEfen7pGiUGOW0jH3vllJ7Hoy0hhvTl69Jyi/lL1
+ 3udSrvHP3vJDZWoGo6VjY/arCyp5TMvdYBKcuMd7ADQwb5WOB58W6vRZCf+jKCJpHXsY
+ c39vD36xckVG6jc5cwgKPc+KdwgaoO7R2nNXhuDF2XaJu08/kBpXbJe4QBcfuM43exe7
+ m10w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=5MWSZG+xwQBbRIh3Hf0hhCrgQD4e3albCJfOd3HqYTg=;
- b=Ly9flm/xgcf0rihFgFzUSNXDbQWoxaHlQLCyMDvsdtDdOat+cwoB4pfJY9iT47IBkl
- F17X1AvNbC9OQRH6EBjppEs6RX4iBP7TzIBbaOTHIiCBsXeGDujg5rhHhYbglUdVgHvk
- pUpsEDPb3BhMINqil2kMn/7UqD74m8iS3TIJgt46gynZ30mxls6vBhSRL9L3ZtFR6WqP
- UlJSkrHPtOYJD8X2wTLGku2YCycF+mLa1TxhgTN+bTGf+ygaNA79qcWdCR3L3ThImSXr
- jc0BOTMFMuzPbOnHvBS6d8fsn+CDVhpNSBtF6lSSzbGOAXGmB5O5sYwneWMhyI4wXG5a
- zlAw==
-X-Gm-Message-State: AOAM533HPhqvKxguTG1EnodKWmSgm+69EQcUrvv2R8yFg5q317qLo+7G
- qpglh7MdymBXqrmN2hFpk0ry2w==
-X-Google-Smtp-Source: ABdhPJx/i4ikUqZdv11mVhZ2HoKA+r2B689mIkcw8u2lR7VChDtDvwGviHHMn668341qwQnIUhMnFQ==
-X-Received: by 2002:aa7:9d8b:: with SMTP id f11mr2535681pfq.206.1599041302708; 
- Wed, 02 Sep 2020 03:08:22 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=rs5Au3wB7S+y7kWGG/AEEFkQPdhntqHL+ikayasZZWU=;
+ b=E49CU8S1CaUZZbQbHqz1LlaMOSZuV9NWkWah57qgcqBrdkAKNj/KIywnQmXMh6HRZr
+ UglJvOm97aNbIGWN9XZ7++WFrWLqwMY4tulr5ELczCrN5Q0m4KYxFiD0BnTo2GsWDBva
+ CjZ3MnicimUdou80JxjPIyr9pShdyOvMEyXINWZ3shDIiEvvXRPwaZDgRUOz0nG4zgm9
+ rPNwPlmmFXED8gRYkjaPIKZ4upmUc+uGQoAcgwHZyukIq/2lds2BiOU2l8R3e3FlVQ4b
+ ZA5yuMQDu9aNhqJLM1KbLE3CEuZj2fhnsDBxS9/s2s0KlDWExI8KU+5P1eH433kkO2d7
+ GgGg==
+X-Gm-Message-State: AOAM5300WQPLzt63QpQvVOKr8qPJzBfJumBNDH9rnNVnnJ2Cq5fizOrn
+ uFhyGhFUmY5FK3NaLisKn0J1UGOjYFNHRw==
+X-Google-Smtp-Source: ABdhPJyPFWPnhWwb8nezrt3/qjl+VwHMAwgLePrZ7MalsIfnTXNSGL+EXMB4Z91L4YKCbZpP0TlyoQ==
+X-Received: by 2002:a17:90b:4ac9:: with SMTP id
+ mh9mr1614871pjb.40.1599041418494; 
+ Wed, 02 Sep 2020 03:10:18 -0700 (PDT)
 Received: from localhost ([122.167.135.199])
- by smtp.gmail.com with ESMTPSA id b15sm4855284pft.84.2020.09.02.03.08.21
+ by smtp.gmail.com with ESMTPSA id i14sm4001923pjy.24.2020.09.02.03.10.17
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 02 Sep 2020 03:08:22 -0700 (PDT)
-Date: Wed, 2 Sep 2020 15:38:10 +0530
+ Wed, 02 Sep 2020 03:10:17 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20200902100810.dka3khkk4gplq22c@vireshk-i7>
-References: <b0d7642a89808c93e059beda06d8519361784686.1597839878.git.viresh.kumar@linaro.org>
- <a9e6d98c722a92d1981fcc2b7ddeba547195c40e.1597839878.git.viresh.kumar@linaro.org>
- <CAEemH2eH6YnKXfVrAQmPGK5zj1x71f=gHZcDUN-QVjZ41F8_6A@mail.gmail.com>
+To: ltp@lists.linux.it
+Date: Wed,  2 Sep 2020 15:40:04 +0530
+Message-Id: <551441b4bce2d9dfd1567ffcd536f50f14a049d0.1599041148.git.viresh.kumar@linaro.org>
+X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2eH6YnKXfVrAQmPGK5zj1x71f=gHZcDUN-QVjZ41F8_6A@mail.gmail.com>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-0.0 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH V9 2/2] syscalls/semtimedop: Add failure test for
- invalid timeout pointer
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH V10 1/2] syscalls/semtimedop: Add support for
+ semtimedop and its time64 version
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,24 +78,332 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 02-09-20, 17:09, Li Wang wrote:
-> This '&invalid_to' can't be passed to the semtimedop(.., timeout) correctly,
-> because in that wrapper function call_semop(), you invoke
-> tst_ts_get(timeout)
-> to resolve an invalid address which will be caused a segmental fault
-> eventually.
+This adds support for semtimedop() and its time64 variant to the
+existing semop() syscall tests.
 
-Thanks a lot for figuring out the crash that I wasn't able to solve
-then :)
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+---
+V10:
+- Update comment in semop02.c.
+- Let callers call tst_ts_get() on the timeout.
 
+ testcases/kernel/syscalls/ipc/semop/semop.h   | 55 +++++++++++++++++++
+ testcases/kernel/syscalls/ipc/semop/semop01.c | 26 ++++++++-
+ testcases/kernel/syscalls/ipc/semop/semop02.c | 44 +++++++++++----
+ testcases/kernel/syscalls/ipc/semop/semop03.c | 15 ++++-
+ 4 files changed, 125 insertions(+), 15 deletions(-)
+ create mode 100644 testcases/kernel/syscalls/ipc/semop/semop.h
+
+diff --git a/testcases/kernel/syscalls/ipc/semop/semop.h b/testcases/kernel/syscalls/ipc/semop/semop.h
+new file mode 100644
+index 000000000000..1fac31818108
+--- /dev/null
++++ b/testcases/kernel/syscalls/ipc/semop/semop.h
+@@ -0,0 +1,55 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++
++#ifndef SEMOP_VAR__
++#define SEMOP_VAR__
++
++#include <sys/sem.h>
++#include "tst_timer.h"
++
++static inline int sys_semtimedop(int semid, struct sembuf *sops, size_t nsops,
++		void *timeout)
++{
++	return tst_syscall(__NR_semtimedop, semid, sops, nsops, timeout);
++}
++
++static inline int sys_semtimedop_time64(int semid, struct sembuf *sops,
++					size_t nsops, void *timeout)
++{
++	return tst_syscall(__NR_semtimedop_time64, semid, sops, nsops, timeout);
++}
++
++struct test_variants {
++	int (*semop)(int semid, struct sembuf *sops, size_t nsops);
++	int (*semtimedop)(int semid, struct sembuf *sops, size_t nsops, void *timeout);
++	enum tst_ts_type type;
++	char *desc;
++} variants[] = {
++	{ .semop = semop, .type = TST_LIBC_TIMESPEC, .desc = "semop: syscall"},
++
++#if (__NR_semtimedop != __LTP__NR_INVALID_SYSCALL)
++	{ .semtimedop = sys_semtimedop, .type = TST_KERN_OLD_TIMESPEC, .desc = "semtimedop: syscall with old kernel spec"},
++#endif
++
++#if (__NR_semtimedop_time64 != __LTP__NR_INVALID_SYSCALL)
++	{ .semtimedop = sys_semtimedop_time64, .type = TST_KERN_TIMESPEC, .desc = "semtimedop: syscall time64 with kernel spec"},
++#endif
++};
++
++static inline int call_semop(struct test_variants *tv, int semid,
++		struct sembuf *sops, size_t nsops, void *timeout)
++{
++	if (tv->semop)
++		return tv->semop(semid, sops, nsops);
++
++	return tv->semtimedop(semid, sops, nsops, timeout);
++}
++
++static inline void semop_supported_by_kernel(struct test_variants *tv)
++{
++       /* Check if the syscall is implemented on the platform */
++       TEST(call_semop(tv, 0, NULL, 0, NULL));
++       if (TST_RET == -1 && TST_ERR == ENOSYS)
++               tst_brk(TCONF, "Test not supported on kernel/platform");
++}
++
++#endif /* SEMOP_VAR__ */
+diff --git a/testcases/kernel/syscalls/ipc/semop/semop01.c b/testcases/kernel/syscalls/ipc/semop/semop01.c
+index 2daf6bbc5c4e..0524a8098e23 100644
+--- a/testcases/kernel/syscalls/ipc/semop/semop01.c
++++ b/testcases/kernel/syscalls/ipc/semop/semop01.c
+@@ -12,6 +12,7 @@
+ #include "tst_test.h"
+ #include "libnewipc.h"
+ #include "lapi/semun.h"
++#include "semop.h"
+ 
+ #define NSEMS 4
+ 
+@@ -21,14 +22,23 @@ static key_t semkey;
+ static unsigned short int sarr[PSEMS];
+ static union semun get_arr = {.array = sarr};
+ static struct sembuf sops[PSEMS];
++static struct tst_ts timeout;
+ 
+-static void run(void)
++static struct test_case_t {
++	struct tst_ts *to;
++} tc[] = {
++	{NULL},
++	{&timeout}
++};
++
++static void run(unsigned int n)
+ {
++	struct test_variants *tv = &variants[tst_variant];
+ 	union semun arr = { .val = 0 };
+ 	int fail = 0;
+ 	int i;
+ 
+-	TEST(semop(sem_id, sops, NSEMS));
++	TEST(call_semop(tv, sem_id, sops, NSEMS, tst_ts_get(tc[n].to)));
+ 	if (TST_RET == -1) {
+ 		tst_res(TFAIL | TTERRNO, "semop() failed");
+ 		return;
+@@ -56,8 +66,16 @@ static void run(void)
+ 
+ static void setup(void)
+ {
++	struct test_variants *tv = &variants[tst_variant];
+ 	int i;
+ 
++	tst_res(TINFO, "Testing variant: %s", tv->desc);
++	semop_supported_by_kernel(tv);
++
++	timeout.type = tv->type;
++	tst_ts_set_sec(&timeout, 1);
++	tst_ts_set_nsec(&timeout, 10000);
++
+ 	semkey = GETIPCKEY();
+ 
+ 	sem_id = semget(semkey, PSEMS, IPC_CREAT | IPC_EXCL | SEM_RA);
+@@ -80,7 +98,9 @@ static void cleanup(void)
+ }
+ 
+ static struct tst_test test = {
+-	.test_all = run,
++	.test = run,
++	.tcnt = ARRAY_SIZE(tc),
++	.test_variants = ARRAY_SIZE(variants),
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.needs_tmpdir = 1,
+diff --git a/testcases/kernel/syscalls/ipc/semop/semop02.c b/testcases/kernel/syscalls/ipc/semop/semop02.c
+index 0dff8e537719..22fdb5cbef4c 100644
+--- a/testcases/kernel/syscalls/ipc/semop/semop02.c
++++ b/testcases/kernel/syscalls/ipc/semop/semop02.c
+@@ -10,6 +10,8 @@
+  * EFBIG   - sem_num > number of semaphores in a set
+  * EAGAIN  - semop = 0 for non-zero semaphore and IPC_NOWAIT passed in flags
+  * EAGAIN  - semop = -1 for zero semaphore and IPC_NOWAIT passed in flags
++ * EAGAIN  - semop = 0 and timeout happens
++ * EAGAIN  - semop = -1 and timeout happens
+  *
+  * Copyright (c) International Business Machines  Corp., 2001
+  *	03/2001 - Written by Wayne Boyer
+@@ -23,17 +25,20 @@
+ #include "tst_test.h"
+ #include "libnewipc.h"
+ #include "lapi/semun.h"
++#include "semop.h"
+ 
+ static int valid_sem_id = -1;
+ static int noperm_sem_id = -1;
+ static int bad_sem_id = -1;
+ static short sem_op_max, sem_op_1 = 1, sem_op_negative = -1, sem_op_zero = 0;
+ static struct sembuf *faulty_buf;
++static struct tst_ts timeout;
+ 
+ #define NSOPS	1
+ #define	BIGOPS	1024
+ 
+ static struct test_case_t {
++	int all_variants;
+ 	int *semid;
+ 	struct sembuf **buf;
+ 	short *sem_op;
+@@ -44,25 +49,35 @@ static struct test_case_t {
+ 	int arr_val;
+ 	int error;
+ } tc[] = {
+-	{&valid_sem_id, NULL, &sem_op_1, 0, 0, 0, BIGOPS, 1, E2BIG},
+-	{&noperm_sem_id, NULL, &sem_op_1, 0, 0, 0, NSOPS, 1, EACCES},
+-	{&valid_sem_id, &faulty_buf, &sem_op_1, 0, 0, 0, NSOPS, 1, EFAULT},
+-	{&valid_sem_id, NULL, &sem_op_1, 0, 0, 0, 0, 1, EINVAL},
+-	{&bad_sem_id,   NULL, &sem_op_1, 0, 0, 0, NSOPS, 1, EINVAL},
+-	{&valid_sem_id, NULL, &sem_op_max, 0, 0, 0, 1, 1, ERANGE},
+-	{&valid_sem_id, NULL, &sem_op_1, 0, -1, SEM_UNDO, 1, 1, EFBIG},
+-	{&valid_sem_id, NULL, &sem_op_1, 0, PSEMS + 1, SEM_UNDO, 1, 1, EFBIG},
+-	{&valid_sem_id, NULL, &sem_op_zero, 2, 2, IPC_NOWAIT, 1, 1, EAGAIN},
+-	{&valid_sem_id, NULL, &sem_op_negative, 2, 2, IPC_NOWAIT, 1, 0, EAGAIN}
++	{1, &valid_sem_id, NULL, &sem_op_1, 0, 0, 0, BIGOPS, 1, E2BIG},
++	{1, &noperm_sem_id, NULL, &sem_op_1, 0, 0, 0, NSOPS, 1, EACCES},
++	{1, &valid_sem_id, &faulty_buf, &sem_op_1, 0, 0, 0, NSOPS, 1, EFAULT},
++	{1, &valid_sem_id, NULL, &sem_op_1, 0, 0, 0, 0, 1, EINVAL},
++	{1, &bad_sem_id, NULL, &sem_op_1, 0, 0, 0, NSOPS, 1, EINVAL},
++	{1, &valid_sem_id, NULL, &sem_op_max, 0, 0, 0, 1, 1, ERANGE},
++	{1, &valid_sem_id, NULL, &sem_op_1, 0, -1, SEM_UNDO, 1, 1, EFBIG},
++	{1, &valid_sem_id, NULL, &sem_op_1, 0, PSEMS + 1, SEM_UNDO, 1, 1, EFBIG},
++	{1, &valid_sem_id, NULL, &sem_op_zero, 2, 2, IPC_NOWAIT, 1, 1, EAGAIN},
++	{1, &valid_sem_id, NULL, &sem_op_negative, 2, 2, IPC_NOWAIT, 1, 0, EAGAIN},
++	{0, &valid_sem_id, NULL, &sem_op_zero, 0, 0, SEM_UNDO, 1, 1, EAGAIN},
++	{0, &valid_sem_id, NULL, &sem_op_negative, 0, 0, SEM_UNDO, 1, 0, EAGAIN},
+ };
+ 
+ static void setup(void)
+ {
++	struct test_variants *tv = &variants[tst_variant];
+ 	struct passwd *ltpuser;
+ 	key_t semkey;
+ 	union semun arr;
+ 	struct seminfo ipc_buf;
+ 
++	tst_res(TINFO, "Testing variant: %s", tv->desc);
++	semop_supported_by_kernel(tv);
++
++	timeout.type = tv->type;
++	tst_ts_set_sec(&timeout, 1);
++	tst_ts_set_nsec(&timeout, 10000);
++
+ 	ltpuser = SAFE_GETPWNAM("nobody");
+ 	SAFE_SETUID(ltpuser->pw_uid);
+ 
+@@ -88,6 +103,7 @@ static void setup(void)
+ 
+ static void run(unsigned int i)
+ {
++	struct test_variants *tv = &variants[tst_variant];
+ 	union semun arr = {.val = tc[i].arr_val};
+ 	struct sembuf buf = {
+ 		.sem_op = *tc[i].sem_op,
+@@ -96,6 +112,11 @@ static void run(unsigned int i)
+ 	};
+ 	struct sembuf *ptr = &buf;
+ 
++	if (!tc[i].all_variants && tv->semop == semop) {
++		tst_res(TCONF, "Test not supported for variant");
++		return;
++	}
++
+ 	if (*tc[i].semid == valid_sem_id) {
+ 		if (semctl(valid_sem_id, tc[i].ctl_sem_num, SETVAL, arr) == -1)
+ 			tst_brk(TBROK | TERRNO, "semctl() SETVAL failed");
+@@ -104,7 +125,7 @@ static void run(unsigned int i)
+ 	if (tc[i].buf)
+ 		ptr = *tc[i].buf;
+ 
+-	TEST(semop(*(tc[i].semid), ptr, tc[i].t_ops));
++	TEST(call_semop(tv, *(tc[i].semid), ptr, tc[i].t_ops, tst_ts_get(&timeout)));
+ 
+ 	if (TST_RET != -1) {
+ 		tst_res(TFAIL | TTERRNO, "call succeeded unexpectedly");
+@@ -136,6 +157,7 @@ static void cleanup(void)
+ static struct tst_test test = {
+ 	.test = run,
+ 	.tcnt = ARRAY_SIZE(tc),
++	.test_variants = ARRAY_SIZE(variants),
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.needs_tmpdir = 1,
+diff --git a/testcases/kernel/syscalls/ipc/semop/semop03.c b/testcases/kernel/syscalls/ipc/semop/semop03.c
+index 25123f08c239..19f3d7fb1499 100644
+--- a/testcases/kernel/syscalls/ipc/semop/semop03.c
++++ b/testcases/kernel/syscalls/ipc/semop/semop03.c
+@@ -15,9 +15,11 @@
+ #include "tst_test.h"
+ #include "libnewipc.h"
+ #include "lapi/semun.h"
++#include "semop.h"
+ 
+ static key_t semkey;
+ static int sem_id = -1;
++static struct tst_ts timeout;
+ 
+ struct test_case_t {
+ 	union semun semunptr;
+@@ -34,13 +36,14 @@ struct test_case_t {
+ 
+ static void do_child(int i)
+ {
++	struct test_variants *tv = &variants[tst_variant];
+ 	struct sembuf s_buf = {
+ 		.sem_op = tc[i].op,
+ 		.sem_flg = tc[i].flg,
+ 		.sem_num = tc[i].num,
+ 	};
+ 
+-	TEST(semop(sem_id, &s_buf, 1));
++	TEST(call_semop(tv, sem_id, &s_buf, 1, tst_ts_get(&timeout)));
+ 	if (TST_RET != -1) {
+ 		tst_res(TFAIL, "call succeeded when error expected");
+ 		exit(0);
+@@ -62,6 +65,15 @@ static void sighandler(int sig)
+ 
+ static void setup(void)
+ {
++	struct test_variants *tv = &variants[tst_variant];
++
++	tst_res(TINFO, "Testing variant: %s", tv->desc);
++	semop_supported_by_kernel(tv);
++
++	timeout.type = tv->type;
++	tst_ts_set_sec(&timeout, 1);
++	tst_ts_set_nsec(&timeout, 10000);
++
+ 	SAFE_SIGNAL(SIGHUP, sighandler);
+ 	semkey = GETIPCKEY();
+ 
+@@ -119,6 +131,7 @@ static void run(unsigned int i)
+ static struct tst_test test = {
+ 	.test = run,
+ 	.tcnt = ARRAY_SIZE(tc),
++	.test_variants = ARRAY_SIZE(variants),
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.needs_tmpdir = 1,
 -- 
-viresh
+2.25.0.rc1.19.g042ed3e048af
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
