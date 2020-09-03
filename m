@@ -1,38 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2851925C0BB
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Sep 2020 14:06:10 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B2A4725C0BF
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Sep 2020 14:08:26 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DCEE43C54E2
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Sep 2020 14:06:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 661933C54E3
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Sep 2020 14:08:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 6F8313C2D13
- for <ltp@lists.linux.it>; Thu,  3 Sep 2020 14:06:08 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id B41733C2D13
+ for <ltp@lists.linux.it>; Thu,  3 Sep 2020 14:08:24 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id AF1FA10005C0
- for <ltp@lists.linux.it>; Thu,  3 Sep 2020 14:06:07 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 61178140116E
+ for <ltp@lists.linux.it>; Thu,  3 Sep 2020 14:08:24 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 72C1AAF1D;
- Thu,  3 Sep 2020 12:06:07 +0000 (UTC)
-Date: Thu, 3 Sep 2020 14:06:34 +0200
+ by mx2.suse.de (Postfix) with ESMTP id CCD22AC8C;
+ Thu,  3 Sep 2020 12:08:24 +0000 (UTC)
+Date: Thu, 3 Sep 2020 14:08:52 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20200903120634.GA15281@yuki.lan>
+Message-ID: <20200903120852.GB15281@yuki.lan>
 References: <9ba8ffe0a93eb8d6c722ce22e9042f146f83bec9.1599058700.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <9ba8ffe0a93eb8d6c722ce22e9042f146f83bec9.1599058700.git.viresh.kumar@linaro.org>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH V11 1/2] syscalls/semtimedop: Add support for
  semtimedop and its time64 version
 X-BeenThere: ltp@lists.linux.it
@@ -53,7 +54,12 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Both pushed, thanks.
+> - Change timeout to 10 us for all the tests except semop03, that fails
+>   randomly if the timeout is less than 10 ms.
+
+The short timeout is important only to semop02, where we actually wait
+for the timeout. We can raise the timeout for semop03 to minutes if
+needed, since we actually do not wait for it to expire.
 
 -- 
 Cyril Hrubis
