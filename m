@@ -1,53 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1512C260C36
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Sep 2020 09:39:46 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F8D1260C51
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Sep 2020 09:46:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9EF5E3C2C31
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Sep 2020 09:39:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C5FED3C53BF
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Sep 2020 09:46:04 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 3479C3C093E
- for <ltp@lists.linux.it>; Tue,  8 Sep 2020 09:39:42 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 8DB0D600B61
- for <ltp@lists.linux.it>; Tue,  8 Sep 2020 09:39:41 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.76,404,1592841600"; d="scan'208";a="98998056"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 08 Sep 2020 15:39:40 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 2025348990E4;
- Tue,  8 Sep 2020 15:39:37 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Tue, 8 Sep 2020 15:39:36 +0800
-To: Viresh Kumar <viresh.kumar@linaro.org>, <ltp@lists.linux.it>
-References: <728ce5d6b7e0f3eba8015c078bfc23ec144ce1c2.1599115178.git.viresh.kumar@linaro.org>
- <f7855857470b26fdbebcfe4adf1cd4779852f7ff.1599115178.git.viresh.kumar@linaro.org>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <a68a049a-c362-ae0e-3cc8-19cac4cfd741@cn.fujitsu.com>
-Date: Tue, 8 Sep 2020 15:39:36 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 3D1E13C093E
+ for <ltp@lists.linux.it>; Tue,  8 Sep 2020 09:46:00 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id A1EBC1A01068
+ for <ltp@lists.linux.it>; Tue,  8 Sep 2020 09:45:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1599551158;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=KFmc0edPAR73IdhXd8gq969YgbhiHzVOpLjmgTGziRQ=;
+ b=UGrZwG/HKhoZdx+61FhatZRvOHfUuY/h5cLK7udWuINLRWZyI5eftsYOpYhfZJ+tLbMA5F
+ A0ZuYz8jYN+qeFLry3G2yz8bmRSeUnD+ByLlSHKwdHf9k8bdbusDHl9G4f9edkSrotT6CP
+ +J7U55RxHSUEuwHJDbiHRp1miRUHIC0=
+Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
+ [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-301-hwmZt-obNbW55kR8WfT1IA-1; Tue, 08 Sep 2020 03:45:54 -0400
+X-MC-Unique: hwmZt-obNbW55kR8WfT1IA-1
+Received: by mail-yb1-f200.google.com with SMTP id a84so14630096ybb.9
+ for <ltp@lists.linux.it>; Tue, 08 Sep 2020 00:45:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=KFmc0edPAR73IdhXd8gq969YgbhiHzVOpLjmgTGziRQ=;
+ b=b64Ss/OmxOstKYM8qbMBEFM65iExZ2VD0I82tapELWWWjWeHvy4STvBTfSGpNUyWRN
+ jqKOKrVY+ZJfzArzqJd1HIRdFVhf/+k8uYE8DvfJgS06IpcBAKGQMTw6X2DwOIZzsyYt
+ H0/qP4dsL8dNhVlFXeKO+JD15yE/xD3GJ0xENG4zbfP5+3J21PJZaXkIyreACVfyitSS
+ ycfihnJmyFji2TrZZI3yo6odPNNmGKZ+smGTLPp/mrxwAYoQydLzeVGc+OWXjUadTDXL
+ nzfPP8E+22w/a6zDbvjM8qs6x5+/MvPn4hTEGOVojOVTeJ2OJ7D8NJUIs4Sk0Okz059K
+ PPYw==
+X-Gm-Message-State: AOAM533TnTvJpgbw8aHb5Ofa5ijZLoa+vDakbVMSBZ+Ng+rLCNaONG/7
+ SgvAV8HsLkyk14k3aRWgBG2zgmlqu6e1ETJ7CD8YowmpH1m2XRpVInygzFcWrKyRbNnkzlvS5aq
+ 2Nb+J1PZGcHjr7Mr/hkUaT8d2vt8=
+X-Received: by 2002:a25:902:: with SMTP id 2mr30504897ybj.366.1599551153726;
+ Tue, 08 Sep 2020 00:45:53 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzlGisRlfXgoK81/4NwXkY8VQ4ypDdz1DQEE9dd8nS3V3w2gSP4ErClqJjsH9Q6Ol5NtXm6hkr9EjhyuvhapXo=
+X-Received: by 2002:a25:902:: with SMTP id 2mr30504883ybj.366.1599551153553;
+ Tue, 08 Sep 2020 00:45:53 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <f7855857470b26fdbebcfe4adf1cd4779852f7ff.1599115178.git.viresh.kumar@linaro.org>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 2025348990E4.AB52B
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=-1.2 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+References: <20200908073138.GB2475@yuki.lan>
+In-Reply-To: <20200908073138.GB2475@yuki.lan>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 8 Sep 2020 15:45:41 +0800
+Message-ID: <CAEemH2cHvM_KD7W6fyX6z3bc0qfVtkp=yEM8MDvvohouyj5N2w@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0.0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/3] syscalls: select: Rename select04.c to
- select02.c
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] LTP release
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,71 +80,109 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1273347032=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Viresh
+--===============1273347032==
+Content-Type: multipart/alternative; boundary="0000000000004edcd305aec886e1"
 
-IMO, we don't need to rename select04 to select02. The later new case 
-can use select02 name. It makes select history more clean.
+--0000000000004edcd305aec886e1
+Content-Type: text/plain; charset="UTF-8"
 
-Best Regards
-Yang Xu
-> Do the rename.
-> 
-> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-> ---
->   runtest/quickhit                                            | 2 +-
->   runtest/syscalls                                            | 2 +-
->   testcases/kernel/syscalls/select/.gitignore                 | 2 +-
->   testcases/kernel/syscalls/select/{select04.c => select02.c} | 0
->   4 files changed, 3 insertions(+), 3 deletions(-)
->   rename testcases/kernel/syscalls/select/{select04.c => select02.c} (100%)
-> 
-> diff --git a/runtest/quickhit b/runtest/quickhit
-> index c01dc4f30b9f..9ada4c4c47c2 100644
-> --- a/runtest/quickhit
-> +++ b/runtest/quickhit
-> @@ -180,7 +180,7 @@ sbrk01 sbrk01
->   # Basic test for sbrk(2)
->   select01 select01
->   # Basic select tests
-> -select04 select04
-> +select02 select02
->   setgid01 setgid01
->   # Basic test for setgid(2)
->   setpgid01 setpgid01
-> diff --git a/runtest/syscalls b/runtest/syscalls
-> index 105ca29dd29b..0c6bf0e4d0a7 100644
-> --- a/runtest/syscalls
-> +++ b/runtest/syscalls
-> @@ -1150,7 +1150,7 @@ sched_getattr01 sched_getattr01
->   sched_getattr02 sched_getattr02
->   
->   select01 select01
-> -select04 select04
-> +select02 select02
->   
->   semctl01 semctl01
->   semctl02 semctl02
-> diff --git a/testcases/kernel/syscalls/select/.gitignore b/testcases/kernel/syscalls/select/.gitignore
-> index 243a092ac6ca..f5a43c23326a 100644
-> --- a/testcases/kernel/syscalls/select/.gitignore
-> +++ b/testcases/kernel/syscalls/select/.gitignore
-> @@ -1,2 +1,2 @@
->   /select01
-> -/select04
-> +/select02
-> diff --git a/testcases/kernel/syscalls/select/select04.c b/testcases/kernel/syscalls/select/select02.c
-> similarity index 100%
-> rename from testcases/kernel/syscalls/select/select04.c
-> rename to testcases/kernel/syscalls/select/select02.c
-> 
+On Tue, Sep 8, 2020 at 3:31 PM Cyril Hrubis <chrubis@suse.cz> wrote:
 
+> Hi!
+> As usual we should start preparing for a next release.
+>
+> As usuall we will have a week or two where we should merge everthing
+> that should go in before the release, then git freeze for another week
+> and finally a release.
+>
+> So let's start with a list of things that should go in.
+>
+> For me it would be:
+>
+> * ptrace08 fix
+>
+> * if possible the shmctl() rewrite
+>
++1 these rewrite looks good, I will finish my test by the end of today.
+
+
+>
+>
+> What else should go in?
+>
+
+It may be better to fix ioctl_loop01 too.
+https://github.com/linux-test-project/ltp/issues/718
+
+And I'd like to add the MAP_GROWSDOWN test too, but I haven't come up with
+a way to solve the segment fault on s390x.
+http://lists.linux.it/pipermail/ltp/2020-August/018416.html
+
+-- 
+Regards,
+Li Wang
+
+--0000000000004edcd305aec886e1
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Tue, Sep 8, 2020 at 3:31 PM Cyril Hrubis &lt;<a =
+href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a>&gt; w=
+rote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
+x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
+As usual we should start preparing for a next release.<br>
+<br>
+As usuall we will have a week or two where we should merge everthing<br>
+that should go in before the release, then git freeze for another week<br>
+and finally a release.<br>
+<br>
+So let&#39;s start with a list of things that should go in.<br>
+<br>
+For me it would be:<br>
+<br>
+* ptrace08 fix<br>
+<br>
+* if possible the shmctl() rewrite<br></blockquote><div><span class=3D"gmai=
+l_default" style=3D"font-size:small">+1 these rewrite looks good, I will fi=
+nish my test by the end of today.</span></div><div><span class=3D"gmail_def=
+ault" style=3D"font-size:small"></span>=C2=A0</div><blockquote class=3D"gma=
+il_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,2=
+04,204);padding-left:1ex">
+<br>
+<br>
+What else should go in?<br></blockquote><div><br></div><div><div class=3D"g=
+mail_default" style=3D"font-size:small">It may be=C2=A0better to fix ioctl_=
+loop01 too.</div><div class=3D"gmail_default" style=3D"font-size:small"><a =
+href=3D"https://github.com/linux-test-project/ltp/issues/718" target=3D"_bl=
+ank">https://github.com/linux-test-project/ltp/issues/718</a></div></div></=
+div><div><br></div>And I&#39;d like to add the MAP_GROWSDOWN<span class=3D"=
+gmail_default" style=3D"font-size:small"> test too, but I haven&#39;t come =
+up with a way to solve the segment fault on s390x.</span><div><div class=3D=
+"gmail_default" style=3D"font-size:small"><a href=3D"http://lists.linux.it/=
+pipermail/ltp/2020-August/018416.html" target=3D"_blank">http://lists.linux=
+.it/pipermail/ltp/2020-August/018416.html</a></div><br></div>-- <br><div di=
+r=3D"ltr"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></d=
+iv></div></div>
+
+--0000000000004edcd305aec886e1--
+
+
+--===============1273347032==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1273347032==--
+
