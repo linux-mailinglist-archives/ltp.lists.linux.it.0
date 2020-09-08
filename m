@@ -1,74 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C45FA260AD1
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Sep 2020 08:21:22 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5244A260AD2
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Sep 2020 08:21:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8F7D23C53C1
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Sep 2020 08:21:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 223F83C53BA
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Sep 2020 08:21:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 2887D3C2C2F
- for <ltp@lists.linux.it>; Tue,  8 Sep 2020 08:20:14 +0200 (CEST)
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 000383C53CF
+ for <ltp@lists.linux.it>; Tue,  8 Sep 2020 08:20:17 +0200 (CEST)
+Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
+ [IPv6:2607:f8b0:4864:20::541])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C53AC600BDC
- for <ltp@lists.linux.it>; Tue,  8 Sep 2020 08:20:13 +0200 (CEST)
-Received: by mail-pg1-x542.google.com with SMTP id 31so9289901pgy.13
- for <ltp@lists.linux.it>; Mon, 07 Sep 2020 23:20:13 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 75E7B201008
+ for <ltp@lists.linux.it>; Tue,  8 Sep 2020 08:20:17 +0200 (CEST)
+Received: by mail-pg1-x541.google.com with SMTP id l191so9316492pgd.5
+ for <ltp@lists.linux.it>; Mon, 07 Sep 2020 23:20:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=TZiGIclA2EVKeBvx43CgcG/E+bOuNe8Wx2vdmYcHmxA=;
- b=Krsvz6Z8axgWZkbQ8tG88tCXxlslfFa4Dcu98M2t2NIZ8ArAsBZ2Pq5MDu9/Ldsv3g
- lOSj4KdA+7jLz4RtQed238SI1la3J6yO0uar4nVceqz8WdHKZt7LY2wzMmDj4FBvy8Ui
- OBofe6JN8EFaw1Us8/MJ9JJktYqMIfQmXeGhzKN3bOWxk1SIahFWpn1iHX7bWxWBgdDG
- snl3n9lxiGWjUENn1BLaAbBzmL85eVuNz0PV3DMnCzibZQLg0ynvxyXh85IhEhFZuZhX
- +0eqpXdXKAteX4pVZE0fk5QhN8DIg/Z0Qu2lwevKlFj3QTWcBoKfW7wyfg0sKV2d3ojJ
- J7GQ==
+ bh=SlPjsip7eXR8lr94MdYcmy29T+5MgL8zaEQ1Y8tggMI=;
+ b=necQ0BQrF2mGfZ/xEE8oeBDFqa+vxC+M2IWryxhDbwa3ynCsBh8pLu5DZeGbTjsayB
+ M6Tqy2Fv8R/c3DNjZh9SdDwYkIPIh2M0K6mv5OLuGEHeWvb4Zv4vIM8qwYlPmlKlZmcX
+ uSvrVJFJlGWdiElb42n0ByBi7OkcCJvCrspiGohsveMltkGqZOv5bCtMC32F//7/SISK
+ WCMiiGU5s2ZYJ7aGrt1M5vOJqxgiKR0J0hAJaq2U6jAVRvk3FE9z8d7VGHMdXXA7oruA
+ zhTwJfS0nACnQViBTMtVb8IDSq9BmSEcx0gYTye9HLqWMRexBWqFWJB1uftLIFbaQxgL
+ gsKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=TZiGIclA2EVKeBvx43CgcG/E+bOuNe8Wx2vdmYcHmxA=;
- b=S5+xm5MVJIbtSDMTUr4TSaUNWoZwyj9YEBHoNC8IXy/JpYHapzquRpXneulB1DZR4p
- PIlA2dQBatwUrunGmMwGBznCug/uefm1463SDUY5oQtkGbqkT7wTdIiYlatPRqipMILg
- PmqSnZw/oC9Q9aDi1jurnZa2A91RRxrtcSx8a5MacA4JDFzAkcBgKC44gJDMgvHhi7ic
- DvX45Q1J6GmIAVKYRhxUhMh8fwDRWatrE+Cn0gIpe9zL0vm7eOb8WuxyJjKcCeT0VfEq
- oFhCHo07LrTzzaOzC6QiNdt4lJpbwZvenkic7A5B/xub5n8iaVCCMFZ0LUONUaaf7rCN
- wKDQ==
-X-Gm-Message-State: AOAM531mdF26mCMN48DoxzhTJneEzpSdtDLOqFH3CMcF8kdwlTXqboTi
- qS4GtGWL3BAbY4s66UUyoUnej9HjZLlw5A==
-X-Google-Smtp-Source: ABdhPJzCDGQ2Kqbecvj1QOcxy1+Q0cdK1/WM7nN7AJkVWWPAeGdm6D6xS8s4nl8eXBWJS4qg98mVPg==
-X-Received: by 2002:a17:902:b18e:: with SMTP id
- s14mr15548482plr.72.1599546011939; 
- Mon, 07 Sep 2020 23:20:11 -0700 (PDT)
+ bh=SlPjsip7eXR8lr94MdYcmy29T+5MgL8zaEQ1Y8tggMI=;
+ b=Ou2v+dxxvA3gdPFebbZKhB1tRjGpiaweWgjqkx7JCoqcL1q4WoB4AzrseEaDjf78jH
+ xwTIthZpTBxI5Z9UUZe9EOWqpiXDcddTtc8gfJiFh4EtKmRsCdQZ5ceuFBHiiAmaYmx8
+ XhMd6mWwZ4vdueJTJqjlNTHWgT9FPYTx/OeupvuI87u3zBRenVZK6vCWFIjVWMtxkQqD
+ c8OKdzSj1PFFa+2XSoXT3PsIflp6r/S6a1dTttBsdqoPxHcNjp94dRNMtSL+0LiV2Zvr
+ VGAVKYXnQHaAIpv10p+IB8g/MYt3dQSHyfJLo4a6Nd2DhgODNGBbfSphW/eWNx/+JdnA
+ 246A==
+X-Gm-Message-State: AOAM532NvHYoYSx3ZpQJNzDw7GxSIhXcM/drF4xd9bgONY1XTC10D0Gp
+ LpZVltvVMtvSySIh13rYhr+nFxwECuPfJQ==
+X-Google-Smtp-Source: ABdhPJw4dNskRKEFHTyb8KB7URBzyLK6CI+YEPWCBaN9wGVcOtSFn4FE8Ia3h+4FjQIyKBvt59izDw==
+X-Received: by 2002:a65:6119:: with SMTP id z25mr19908670pgu.52.1599546015707; 
+ Mon, 07 Sep 2020 23:20:15 -0700 (PDT)
 Received: from localhost ([122.181.54.133])
- by smtp.gmail.com with ESMTPSA id r6sm17245475pfq.11.2020.09.07.23.20.11
+ by smtp.gmail.com with ESMTPSA id d15sm16974514pfh.151.2020.09.07.23.20.13
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 07 Sep 2020 23:20:11 -0700 (PDT)
+ Mon, 07 Sep 2020 23:20:15 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Tue,  8 Sep 2020 11:49:23 +0530
-Message-Id: <26a1aa0c61d71ae5a2ce738ee08d1e3ba4c663c8.1599545766.git.viresh.kumar@linaro.org>
+Date: Tue,  8 Sep 2020 11:49:24 +0530
+Message-Id: <9282311ec60bb1bb2181e79d14336d26d3f073d0.1599545766.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
 In-Reply-To: <cover.1599545766.git.viresh.kumar@linaro.org>
 References: <cover.1599545766.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 10/16] syscalls: sched_rr_get_interval: Reuse struct
- time64_variants
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 11/16] syscalls: sendmmsg: Reuse struct time64_variants
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,201 +88,74 @@ Lets reuse the common structure here.
 
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- .../sched_rr_get_interval01.c                 | 21 ++++++++-----------
- .../sched_rr_get_interval02.c                 | 21 ++++++++-----------
- .../sched_rr_get_interval03.c                 | 21 ++++++++-----------
- 3 files changed, 27 insertions(+), 36 deletions(-)
+ .../kernel/syscalls/sendmmsg/sendmmsg01.c     | 24 +++++++------------
+ 1 file changed, 9 insertions(+), 15 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c
-index 0466be36bec0..9d9ddf32eec1 100644
---- a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c
-+++ b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval01.c
-@@ -12,6 +12,7 @@
-  */
+diff --git a/testcases/kernel/syscalls/sendmmsg/sendmmsg01.c b/testcases/kernel/syscalls/sendmmsg/sendmmsg01.c
+index 54febf661530..d6a717687ee7 100644
+--- a/testcases/kernel/syscalls/sendmmsg/sendmmsg01.c
++++ b/testcases/kernel/syscalls/sendmmsg/sendmmsg01.c
+@@ -11,6 +11,7 @@
+ #include <string.h>
+ #include <sys/types.h>
  
- #include <sched.h>
 +#include "time64_variants.h"
- #include "tst_timer.h"
- 
- #define PROC_SCHED_RR_TIMESLICE_MS	"/proc/sys/kernel/sched_rr_timeslice_ms"
-@@ -19,30 +20,26 @@ static int proc_flag;
- 
- struct tst_ts tp;
+ #include "tst_test.h"
+ #include "lapi/socket.h"
+ #include "tst_safe_macros.h"
+@@ -24,32 +25,25 @@ static int receive_sockfd;
+ static struct mmsghdr *snd_msg, *rcv_msg;
+ static struct iovec *snd1, *snd2, *rcv1, *rcv2;
  
 -static struct test_variants {
--	int (*func)(pid_t pid, void *ts);
+-	int (*receive)(int sockfd, struct mmsghdr *msgvec, unsigned int vlen,
+-		       unsigned int flags, void *timeout);
+-	int (*send)(int sockfd, struct mmsghdr *msgvec, unsigned int vlen,
+-		    unsigned int flags);
 -	enum tst_ts_type type;
 -	char *desc;
 -} variants[] = {
--	{ .func = libc_sched_rr_get_interval, .type = TST_LIBC_TIMESPEC, .desc = "vDSO or syscall with libc spec"},
+-	{ .receive = libc_recvmmsg, .send = libc_sendmmsg, .type = TST_LIBC_TIMESPEC, .desc = "vDSO or syscall with libc spec"},
 +static struct time64_variants variants[] = {
-+	{ .sched_rr_get_interval = libc_sched_rr_get_interval, .ts_type = TST_LIBC_TIMESPEC, .desc = "vDSO or syscall with libc spec"},
++	{ .recvmmsg = libc_recvmmsg, .sendmmsg = libc_sendmmsg, .ts_type = TST_LIBC_TIMESPEC, .desc = "vDSO or syscall with libc spec"},
  
- #if (__NR_sched_rr_get_interval != __LTP__NR_INVALID_SYSCALL)
--	{ .func = sys_sched_rr_get_interval, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
-+	{ .sched_rr_get_interval = sys_sched_rr_get_interval, .ts_type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
+ #if (__NR_recvmmsg != __LTP__NR_INVALID_SYSCALL)
+-	{ .receive = sys_recvmmsg, .send = sys_sendmmsg, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
++	{ .recvmmsg = sys_recvmmsg, .sendmmsg = sys_sendmmsg, .ts_type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
  #endif
  
- #if (__NR_sched_rr_get_interval_time64 != __LTP__NR_INVALID_SYSCALL)
--	{ .func = sys_sched_rr_get_interval64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
-+	{ .sched_rr_get_interval = sys_sched_rr_get_interval64, .ts_type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
+ #if (__NR_recvmmsg_time64 != __LTP__NR_INVALID_SYSCALL)
+-	{ .receive = sys_recvmmsg64, .send = sys_sendmmsg, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
++	{ .recvmmsg = sys_recvmmsg64, .sendmmsg = sys_sendmmsg, .ts_type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
  #endif
  };
- 
- static void setup(void)
- {
--	struct test_variants *tv = &variants[tst_variant];
-+	struct time64_variants *tv = &variants[tst_variant];
- 	struct sched_param p = { 1 };
- 
- 	tst_res(TINFO, "Testing variant: %s", tv->desc);
- 
--	tp.type = tv->type;
-+	tp.type = tv->ts_type;
- 
- 	if ((sched_setscheduler(0, SCHED_RR, &p)) == -1)
- 		tst_res(TFAIL | TTERRNO, "sched_setscheduler() failed");
-@@ -52,9 +49,9 @@ static void setup(void)
  
  static void run(void)
  {
 -	struct test_variants *tv = &variants[tst_variant];
 +	struct time64_variants *tv = &variants[tst_variant];
+ 	struct tst_ts timeout;
+ 	int retval;
  
--	TEST(tv->func(0, tst_ts_get(&tp)));
-+	TEST(tv->sched_rr_get_interval(0, tst_ts_get(&tp)));
+-	retval = tv->send(send_sockfd, snd_msg, VLEN, 0);
++	retval = tv->sendmmsg(send_sockfd, snd_msg, VLEN, 0);
+ 	if (retval < 0 || snd_msg[0].msg_len != 6 || snd_msg[1].msg_len != 6) {
+ 		tst_res(TFAIL | TERRNO, "sendmmsg() failed");
+ 		return;
+@@ -58,11 +52,11 @@ static void run(void)
+ 	memset(rcv1->iov_base, 0, rcv1->iov_len);
+ 	memset(rcv2->iov_base, 0, rcv2->iov_len);
  
- 	if (!TST_RET) {
- 		tst_res(TPASS, "sched_rr_get_interval() passed");
-diff --git a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval02.c b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval02.c
-index 5b38e5bff0d3..0e98fec5608f 100644
---- a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval02.c
-+++ b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval02.c
-@@ -9,34 +9,31 @@
-  */
+-	timeout.type = tv->type;
++	timeout.type = tv->ts_type;
+ 	tst_ts_set_sec(&timeout, 1);
+ 	tst_ts_set_nsec(&timeout, 0);
  
- #include <sched.h>
-+#include "time64_variants.h"
- #include "tst_timer.h"
+-	retval = tv->receive(receive_sockfd, rcv_msg, VLEN, 0, tst_ts_get(&timeout));
++	retval = tv->recvmmsg(receive_sockfd, rcv_msg, VLEN, 0, tst_ts_get(&timeout));
  
- static struct tst_ts tp;
- 
--static struct test_variants {
--	int (*func)(pid_t pid, void *ts);
--	enum tst_ts_type type;
--	char *desc;
--} variants[] = {
--	{ .func = libc_sched_rr_get_interval, .type = TST_LIBC_TIMESPEC, .desc = "vDSO or syscall with libc spec"},
-+static struct time64_variants variants[] = {
-+	{ .sched_rr_get_interval = libc_sched_rr_get_interval, .ts_type = TST_LIBC_TIMESPEC, .desc = "vDSO or syscall with libc spec"},
- 
- #if (__NR_sched_rr_get_interval != __LTP__NR_INVALID_SYSCALL)
--	{ .func = sys_sched_rr_get_interval, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
-+	{ .sched_rr_get_interval = sys_sched_rr_get_interval, .ts_type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
- #endif
- 
- #if (__NR_sched_rr_get_interval_time64 != __LTP__NR_INVALID_SYSCALL)
--	{ .func = sys_sched_rr_get_interval64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
-+	{ .sched_rr_get_interval = sys_sched_rr_get_interval64, .ts_type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
- #endif
- };
- 
- static void setup(void)
- {
--	struct test_variants *tv = &variants[tst_variant];
-+	struct time64_variants *tv = &variants[tst_variant];
- 	struct sched_param p = { 1 };
- 
- 	tst_res(TINFO, "Testing variant: %s", tv->desc);
- 
--	tp.type = tv->type;
-+	tp.type = tv->ts_type;
- 
- 	if ((sched_setscheduler(0, SCHED_FIFO, &p)) == -1)
- 		tst_res(TFAIL | TTERRNO, "sched_setscheduler() failed");
-@@ -44,12 +41,12 @@ static void setup(void)
- 
- static void run(void)
- {
--	struct test_variants *tv = &variants[tst_variant];
-+	struct time64_variants *tv = &variants[tst_variant];
- 
- 	tst_ts_set_sec(&tp, 99);
- 	tst_ts_set_nsec(&tp, 99);
- 
--	TEST(tv->func(0, tst_ts_get(&tp)));
-+	TEST(tv->sched_rr_get_interval(0, tst_ts_get(&tp)));
- 
- 	if (!TST_RET && tst_ts_valid(&tp) == -1) {
- 		tst_res(TPASS, "sched_rr_get_interval() passed");
-diff --git a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval03.c b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval03.c
-index d7bbe268689c..6a64ca2c6b94 100644
---- a/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval03.c
-+++ b/testcases/kernel/syscalls/sched_rr_get_interval/sched_rr_get_interval03.c
-@@ -13,6 +13,7 @@
-  */
- 
- #include <sched.h>
-+#include "time64_variants.h"
- #include "tst_timer.h"
- 
- static pid_t unused_pid;
-@@ -32,31 +33,27 @@ struct test_cases_t {
- 	{ &zero_pid, NULL, EFAULT}
- };
- 
--static struct test_variants {
--	int (*func)(pid_t pid, void *ts);
--	enum tst_ts_type type;
--	char *desc;
--} variants[] = {
--	{ .func = libc_sched_rr_get_interval, .type = TST_LIBC_TIMESPEC, .desc = "vDSO or syscall with libc spec"},
-+static struct time64_variants variants[] = {
-+	{ .sched_rr_get_interval = libc_sched_rr_get_interval, .ts_type = TST_LIBC_TIMESPEC, .desc = "vDSO or syscall with libc spec"},
- 
- #if (__NR_sched_rr_get_interval != __LTP__NR_INVALID_SYSCALL)
--	{ .func = sys_sched_rr_get_interval, .type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
-+	{ .sched_rr_get_interval = sys_sched_rr_get_interval, .ts_type = TST_KERN_OLD_TIMESPEC, .desc = "syscall with old kernel spec"},
- #endif
- 
- #if (__NR_sched_rr_get_interval_time64 != __LTP__NR_INVALID_SYSCALL)
--	{ .func = sys_sched_rr_get_interval64, .type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
-+	{ .sched_rr_get_interval = sys_sched_rr_get_interval64, .ts_type = TST_KERN_TIMESPEC, .desc = "syscall time64 with kernel spec"},
- #endif
- };
- 
- static void setup(void)
- {
--	struct test_variants *tv = &variants[tst_variant];
-+	struct time64_variants *tv = &variants[tst_variant];
- 	struct sched_param p = { 1 };
- 
- 	tst_res(TINFO, "Testing variant: %s", tv->desc);
- 
- 	bad_addr = tst_get_bad_addr(NULL);
--	tp.type = tv->type;
-+	tp.type = tv->ts_type;
- 
- 	if ((sched_setscheduler(0, SCHED_RR, &p)) == -1)
- 		tst_res(TFAIL | TTERRNO, "sched_setscheduler() failed");
-@@ -66,7 +63,7 @@ static void setup(void)
- 
- static void run(unsigned int i)
- {
--	struct test_variants *tv = &variants[tst_variant];
-+	struct time64_variants *tv = &variants[tst_variant];
- 	struct test_cases_t *tc = &test_cases[i];
- 	struct timerspec *ts;
- 
-@@ -75,7 +72,7 @@ static void run(unsigned int i)
- 	else
- 		ts = tst_ts_get(tc->tp);
- 
--	TEST(tv->func(*tc->pid, ts));
-+	TEST(tv->sched_rr_get_interval(*tc->pid, ts));
- 
- 	if (TST_RET != -1) {
- 		tst_res(TFAIL, "sched_rr_get_interval() passed unexcpectedly");
+ 	if (retval == -1) {
+ 		tst_res(TFAIL | TERRNO, "recvmmsg() failed");
 -- 
 2.25.0.rc1.19.g042ed3e048af
 
