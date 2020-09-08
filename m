@@ -2,73 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E85C260EF0
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Sep 2020 11:44:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24643260EF2
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Sep 2020 11:45:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6154F3C53EB
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Sep 2020 11:44:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DCACE3C53D7
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Sep 2020 11:45:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 28DB03C53E3
- for <ltp@lists.linux.it>; Tue,  8 Sep 2020 11:44:42 +0200 (CEST)
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id A26B93C53C5
+ for <ltp@lists.linux.it>; Tue,  8 Sep 2020 11:44:51 +0200 (CEST)
+Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
+ [IPv6:2607:f8b0:4864:20::1041])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8E74A1000CCA
- for <ltp@lists.linux.it>; Tue,  8 Sep 2020 11:44:42 +0200 (CEST)
-Received: by mail-pg1-x542.google.com with SMTP id 34so234850pgo.13
- for <ltp@lists.linux.it>; Tue, 08 Sep 2020 02:44:42 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 4ABAB2010A7
+ for <ltp@lists.linux.it>; Tue,  8 Sep 2020 11:44:51 +0200 (CEST)
+Received: by mail-pj1-x1041.google.com with SMTP id kk9so5381149pjb.2
+ for <ltp@lists.linux.it>; Tue, 08 Sep 2020 02:44:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=WPbyJvYM53oF0Foz6WIkHYvlPDrTl3dmyR0zZ8ciRRY=;
- b=uIEDSqg2jASUxK4gTmLylV8tK3LfzzJWrJy/SeE8rLnnHaZ0uBahWm4ZYb0Q2ez01Z
- kSTDYRmOlOF2hyBFd8sp/BBAydJLIwRiyGJlNh88u3GD7OrsbWll3fN1A8q/ApBw+3fq
- xrAswJzmmu5jjdsfW7eEBjvoeelmowKw1EBHHWHA04F9KMO5DYQPI0semlxr518pWc/p
- T2dYmt/IRgNvY9qOHBRkJ5JXXLsI/7oVL3MqvWxSJzswhKdBKRMbcCVVqsvjHmZd4eYz
- UOseOWtoZ+4sJkEnIxpEbArZxLuAVsGQAt+G8+qWaz+O7bxLnVlxKMAa8s039OHLsDWc
- VELQ==
+ bh=2eAdSK1KJhE4D069hBfJ0PkbLSBgdUPaeQOudu8a0YQ=;
+ b=XlFeRvOwsAmEALbTwl5zzOr2RI9mXQXWWgyVAB1itME+PHN6HBh9nGgll5yvVKCxnw
+ mhGbUZGfR9HltNkB2PEzMcKzT1t68/rAldkjhtKEf3WsAcRJEmt/iEEUVKva+MtlAo6A
+ wt7oWe7M1eBhzqAJevjiZATQrVfCFOq9X+23qsTQdPT1kylrCFgqyAUOxKTHO8uUbpFF
+ n4XVx3qVMUQIm3upE7QYXxCRGNY/6IcAE4m3SjLWTD5ttS30a7gRtWR/t5hhtXad8rn5
+ ig5NcdAwDrnX8/k5LiLBfo/7c+X56nOPPZ1QO44AW+/IHn+k8UjvH3tC1L3YjX5hySwn
+ NEdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=WPbyJvYM53oF0Foz6WIkHYvlPDrTl3dmyR0zZ8ciRRY=;
- b=a9wyLgLSKpL9O+pI5qvnEbMlQJh6Pb+Qewzo2C2AUIUbddrwGnmNVF+mw2KKWyq6rD
- kBFeTlapgELpf+hmr7X7Z1saEcsoIxEADZiHFFdbDkvO7xCZiLApu4eokkLbOJMA4z3U
- N5VFGRXqE0fGRF/9NSCZvvtwQ++aXDhm1Z893tdAfpg1KEvr1OKP9FKYK0E3iODcU3K0
- 6yNFawtj2NXBNBlhm0DgmInx/s5aVqh0ATENaLo7kP95R3xTd7ol7J2O4fzGYd71bnW9
- BOXDSRHnx3frcz0EyskI3Soxh+V5Tx+pB3MP6QToh18odVYsXDMNwaHV0deSM7CVRfSt
- 0lbw==
-X-Gm-Message-State: AOAM531THEF+OQsTYadSsZ0ynnfMBLFN6j2OufAAYPUO/racQZgkE/Ge
- HFMvDgBmHp9/Gy2xRgBuLR+28mAsgm+/xQ==
-X-Google-Smtp-Source: ABdhPJwUjJKCxge7toX7315CgqXN5NEl3OaScQ0ii/L50XiqedRxVWZ+Os1NRrsk0s90VufEc/N/IA==
-X-Received: by 2002:a62:7b55:0:b029:13e:7367:2b2e with SMTP id
- w82-20020a627b550000b029013e73672b2emr8115756pfc.7.1599558280681; 
- Tue, 08 Sep 2020 02:44:40 -0700 (PDT)
+ bh=2eAdSK1KJhE4D069hBfJ0PkbLSBgdUPaeQOudu8a0YQ=;
+ b=NayXUm+4Mek4A+sCBzsaxFh1Bi0Aw/FM0zRlOkrMEgYGDWJcjL9rXUkwiQRXCvXPAI
+ kU5+K+Yy0YWsc60U4Ctg5YL/WKf6GaeuFUbIgD3jkecp+rgcOQAeL5ZfhQHgViU35UeY
+ YmcP75pEzPNZXTBQEpeUIRlvedPSFmrkbWkKc6FwSR9QBzZA4xcossACqMY2MlhaO4I6
+ nLAjVSVhMdN2KIYRyarSF5LBqI0eA9tE7D9H68EUAMlgVz3JxhUGJWzm8nHEdmUx4jCm
+ 4R4nIZ3/yHemdOPXuAtLzdBuchzUzq1vpCQAFTmkQtN3Z0ZKdWIvj3PCOqfoQLtYewAq
+ oDUA==
+X-Gm-Message-State: AOAM53008PdYsAzoop0IbRgt7xpTbay7XU+JF1F+y1IvSlJIAB4bvJWN
+ rFnsG8YQWpiIFXFNFSB9JrwHZAIYQh1IBw==
+X-Google-Smtp-Source: ABdhPJw8Va0kEDZHjbDnRK5u/EN2hjT1/7wyPfG+A0qkNJ/6+9H4pVZZ9EIGFMaPdIR3QBCipwFXjQ==
+X-Received: by 2002:a17:90a:d703:: with SMTP id
+ y3mr3234648pju.183.1599558289590; 
+ Tue, 08 Sep 2020 02:44:49 -0700 (PDT)
 Received: from localhost ([122.181.54.133])
- by smtp.gmail.com with ESMTPSA id 138sm478293pfu.180.2020.09.08.02.44.39
+ by smtp.gmail.com with ESMTPSA id f12sm3301716pjm.5.2020.09.08.02.44.48
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 08 Sep 2020 02:44:40 -0700 (PDT)
+ Tue, 08 Sep 2020 02:44:49 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Tue,  8 Sep 2020 15:14:26 +0530
-Message-Id: <fb31dd18ad396ab602ba8957ee01a666f79ad9bb.1599558175.git.viresh.kumar@linaro.org>
+Date: Tue,  8 Sep 2020 15:14:27 +0530
+Message-Id: <e9bcd007772ffadd6326dca29532bb4d3f8e7f0a.1599558175.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
 In-Reply-To: <6fbfc6919c0000e7a7745afbc3c94baab02603fa.1599558175.git.viresh.kumar@linaro.org>
 References: <6fbfc6919c0000e7a7745afbc3c94baab02603fa.1599558175.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH V3 2/3] syscalls: select: Verify that data is
- available to read
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH V3 3/3] syscalls: select: Rename select04.c to
+ select02.c
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,56 +87,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-select() returns a positive value on success if timeout hasn't happened,
-else returns 0. Check that and send some data to the write file
-descriptor for the same.
+Do the rename.
 
 Acked-by: Li Wang <liwang@redhat.com>
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- testcases/kernel/syscalls/select/select01.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ runtest/quickhit                                            | 2 +-
+ runtest/syscalls                                            | 2 +-
+ testcases/kernel/syscalls/select/.gitignore                 | 2 +-
+ testcases/kernel/syscalls/select/{select04.c => select02.c} | 0
+ 4 files changed, 3 insertions(+), 3 deletions(-)
+ rename testcases/kernel/syscalls/select/{select04.c => select02.c} (100%)
 
-diff --git a/testcases/kernel/syscalls/select/select01.c b/testcases/kernel/syscalls/select/select01.c
-index 1213aa931251..c6b30aa67dd7 100644
---- a/testcases/kernel/syscalls/select/select01.c
-+++ b/testcases/kernel/syscalls/select/select01.c
-@@ -25,25 +25,32 @@ static struct select_info {
- 	int *nfds;
- 	fd_set *readfds;
- 	fd_set *writefds;
-+	int *writefd;
- 	char *desc;
- } tests[] = {
--	{&fd_reg, &readfds_reg, NULL, "with regular file"},
--	{&fds_pipe[1], &readfds_pipe, &writefds_pipe, "with system pipe"},
--	{&fd_npipe, &readfds_npipe, &writefds_npipe, "with named pipe (FIFO)"},
-+	{&fd_reg, &readfds_reg, NULL, NULL, "with regular file"},
-+	{&fds_pipe[1], &readfds_pipe, &writefds_pipe, &fds_pipe[1], "with system pipe"},
-+	{&fd_npipe, &readfds_npipe, &writefds_npipe, &fd_npipe, "with named pipe (FIFO)"},
- };
+diff --git a/runtest/quickhit b/runtest/quickhit
+index c01dc4f30b9f..9ada4c4c47c2 100644
+--- a/runtest/quickhit
++++ b/runtest/quickhit
+@@ -180,7 +180,7 @@ sbrk01 sbrk01
+ # Basic test for sbrk(2)
+ select01 select01
+ # Basic select tests
+-select04 select04
++select02 select02
+ setgid01 setgid01
+ # Basic test for setgid(2)
+ setpgid01 setpgid01
+diff --git a/runtest/syscalls b/runtest/syscalls
+index cf8e989969e5..f299c030ecaa 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -1150,7 +1150,7 @@ sched_getattr01 sched_getattr01
+ sched_getattr02 sched_getattr02
  
- static void run(unsigned int n)
- {
- 	struct select_info *tc = &tests[n];
- 	struct timeval timeout;
-+	char buf;
+ select01 select01
+-select04 select04
++select02 select02
  
- 	timeout.tv_sec = 0;
- 	timeout.tv_usec = 100000;
- 
-+	if (tc->writefd)
-+		SAFE_WRITE(0, *tc->writefd, &buf, sizeof(buf));
-+
- 	TEST(do_select(*tc->nfds + 1, tc->readfds, tc->writefds, 0, &timeout));
- 
- 	if (TST_RET == -1)
- 		tst_res(TFAIL | TTERRNO, "select() failed %s", tc->desc);
-+	else if (!TST_RET)
-+		tst_res(TFAIL, "select() timed out %s", tc->desc);
- 	else
- 		tst_res(TPASS, "select() passed %s", tc->desc);
- }
+ semctl01 semctl01
+ semctl02 semctl02
+diff --git a/testcases/kernel/syscalls/select/.gitignore b/testcases/kernel/syscalls/select/.gitignore
+index 243a092ac6ca..f5a43c23326a 100644
+--- a/testcases/kernel/syscalls/select/.gitignore
++++ b/testcases/kernel/syscalls/select/.gitignore
+@@ -1,2 +1,2 @@
+ /select01
+-/select04
++/select02
+diff --git a/testcases/kernel/syscalls/select/select04.c b/testcases/kernel/syscalls/select/select02.c
+similarity index 100%
+rename from testcases/kernel/syscalls/select/select04.c
+rename to testcases/kernel/syscalls/select/select02.c
 -- 
 2.25.0.rc1.19.g042ed3e048af
 
