@@ -1,40 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D083725FC92
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Sep 2020 17:03:04 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id F36DC2609D6
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Sep 2020 07:11:13 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 80ECD3C597E
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Sep 2020 17:03:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9887E3C53C2
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Sep 2020 07:11:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 8D4613C5451
- for <ltp@lists.linux.it>; Mon,  7 Sep 2020 17:01:33 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C67456000EA
- for <ltp@lists.linux.it>; Mon,  7 Sep 2020 17:01:32 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3F026B6CE
- for <ltp@lists.linux.it>; Mon,  7 Sep 2020 15:01:33 +0000 (UTC)
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon,  7 Sep 2020 17:01:57 +0200
-Message-Id: <20200907150157.23886-11-chrubis@suse.cz>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200907150157.23886-1-chrubis@suse.cz>
-References: <20200907150157.23886-1-chrubis@suse.cz>
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 9E52E3C2214
+ for <ltp@lists.linux.it>; Tue,  8 Sep 2020 07:11:09 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id D3DBF10007EF
+ for <ltp@lists.linux.it>; Tue,  8 Sep 2020 07:11:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1599541867;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=oPrgamHOWvJLqmjzPX/dEj8okMTLeOYuxCc8UyzEW5U=;
+ b=iQCUmmWqWvj69mWodG/niCUH9JH4JFd7IXfbtyj4JRMcbgdWVYtqIIKvoowkuIboTOW/ox
+ gKM46XVtjCqcplNHyZunWHWszbVDFIKyBWU7xRGn5i8EOdyxcsTgxMXB00tosDjENuHqJ+
+ fRL9au1jvYAokCg5fkAe+ZEiaOKXH3I=
+Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
+ [209.85.219.197]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-514-ZdCcfBa9Nzq59RIMG086Rw-1; Tue, 08 Sep 2020 01:11:01 -0400
+X-MC-Unique: ZdCcfBa9Nzq59RIMG086Rw-1
+Received: by mail-yb1-f197.google.com with SMTP id 129so14575331ybn.15
+ for <ltp@lists.linux.it>; Mon, 07 Sep 2020 22:11:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=oPrgamHOWvJLqmjzPX/dEj8okMTLeOYuxCc8UyzEW5U=;
+ b=eJdwWv14LW4fM1OW6OTqhFLkMDuWZb6FyPhsyaZ0uNs1CHc3zeH5iKcOYn4TNS/yNI
+ Nxq/oB3ZeApYEe6OHCtJE2RKtjSopff+CZyzhASojEXCUcNH3R8CUiIsV06Q/zd7FIru
+ E1a5h+BQe5KU0+X6KwILM7tskWRX2yfD45AMl4jokjDbso9y6xQ0qha8TEwXzLwYmIB2
+ CaZPxN8W+D4SLhATk3UDFsUfdBXd1hlLxmqVRDqnTmsoNjOmr83E1Ev5HpHXH1MqCkv9
+ SabjvfjNNb1KBFO8MHkPKnlVwodpL6YEOtwH2zYwazhmNJ+qIwh24SsNLud49ore4e/i
+ eVFg==
+X-Gm-Message-State: AOAM532gWOjI82RVtk6mI1ZB9eIQ4JKyyAcPZeACLHx4b3ZYX3mnJxck
+ 9vHXexN0C0pR9HUDIpR8NsytTsYu0fs8xYLZKIr9mFq7KYSyTwOxdbiF/y+lToYEmzfkrH7gj9E
+ BuiqYo1CMST6QJSmEFqcFip0dDU4=
+X-Received: by 2002:a25:c049:: with SMTP id c70mr11838892ybf.403.1599541860651; 
+ Mon, 07 Sep 2020 22:11:00 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyca5dYXBCGtIqiTbZsQvhiPPN4rbnTd9mGPP1hX6t7nH/XbBUxk8ynKg1g8glnJeW7qa1KoAmSfoFwTP60fsk=
+X-Received: by 2002:a25:c049:: with SMTP id c70mr11838853ybf.403.1599541860219; 
+ Mon, 07 Sep 2020 22:11:00 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+References: <fa29d6d05e385170a74a06fbe752fbaac3965358.1599469171.git.viresh.kumar@linaro.org>
+In-Reply-To: <fa29d6d05e385170a74a06fbe752fbaac3965358.1599469171.git.viresh.kumar@linaro.org>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 8 Sep 2020 13:10:48 +0800
+Message-ID: <CAEemH2cfwkYPR-BKRnDBwKMFcz9DzEvZCzMkcE9uuGfcKUhyww@mail.gmail.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0.0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 10/10] syscalls/ipc: Rewrite shmctl01
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V2 1/3] syscalls: select: Merge few tests and
+ migrate to new format
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,718 +81,70 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0618029871=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This commit rewrites the shmctl01 and only keep testcases not covered
-by the rest of the testcases.
+--===============0618029871==
+Content-Type: multipart/alternative; boundary="00000000000061d5ed05aec65cf6"
 
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-Reviewed-by: Martin Doucha <mdoucha@suse.cz>
----
- testcases/kernel/syscalls/ipc/shmctl/Makefile |   1 -
- .../kernel/syscalls/ipc/shmctl/shmctl01.c     | 586 ++++++------------
- 2 files changed, 178 insertions(+), 409 deletions(-)
+--00000000000061d5ed05aec65cf6
+Content-Type: text/plain; charset="UTF-8"
 
-diff --git a/testcases/kernel/syscalls/ipc/shmctl/Makefile b/testcases/kernel/syscalls/ipc/shmctl/Makefile
-index 9d535014f..106b73697 100644
---- a/testcases/kernel/syscalls/ipc/shmctl/Makefile
-+++ b/testcases/kernel/syscalls/ipc/shmctl/Makefile
-@@ -10,7 +10,6 @@ shmctl05: LDLIBS += -lrt
- 
- include $(top_srcdir)/include/mk/testcases.mk
- 
--shmctl01: LTPLDLIBS = -lltpipc
- shmctl02 shmctl04 shmctl06: LTPLDLIBS = -lltpnewipc
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
-index 52bf23a40..3a39a4d74 100644
---- a/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
-+++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
-@@ -1,499 +1,269 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) International Business Machines  Corp., 2001
-- *
-- * This program is free software;  you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY;  without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-- * the GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program;  if not, write to the Free Software
-- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-+ * Copyright (C) 2020 Cyril Hrubis <chrubis@suse.cz>
-  */
--
- /*
-- * NAME
-- *	shmctl01.c
-+ * Verify that shmctl() IPC_STAT and SHM_STAT reports correct data.
-+ *
-+ * The shm_nattach is excercised by:
-  *
-- * DESCRIPTION
-- *	shmctl01 - test the IPC_STAT, IPC_SET and IPC_RMID commands as
-- *		   they are used with shmctl()
-+ * 1. forking() children that attach and detach SHM
-+ * 2. attaching the SHM before fork and letting the children detach it
-  *
-- * ALGORITHM
-- *	loop if that option was specified
-- *	create a shared memory segment with read and write permission
-- *	set up any test case specific conditions
-- *	call shmctl() using the TEST macro
-- *	check the return code
-- *	  if failure, issue a FAIL message.
-- *	otherwise,
-- *	  if doing functionality testing
-- *		call the correct test function
-- *		if the conditions are correct,
-- *			issue a PASS message
-- *		otherwise
-- *			issue a FAIL message
-- *	  otherwise
-- *	    issue a PASS message
-- *	call cleanup
-+ * We check that the number shm_nattach is correct after each step we do.
-  */
- 
--#ifndef _GNU_SOURCE
- #define _GNU_SOURCE
--#endif
--#include "ipcshm.h"
--#include "safe_macros.h"
--
--char *TCID = "shmctl01";
--
--static int shm_id_1 = -1;
--static int shm_index;
--static struct shmid_ds buf;
--static struct shminfo info;
--static long save_time;
--
--#define FIRST	0
--#define SECOND	1
--static int stat_time;
--
--static void *set_shared;
--
--#define N_ATTACH	4
--
--static pid_t pid_arr[N_ATTACH];
--
--/* Setup, cleanup and check routines for IPC_STAT */
--static void stat_setup(void), func_istat(int ret);
--static void stat_cleanup(void);
--
--/* Setup and check routines for IPC_SET */
--static void set_setup(void), func_set(int ret);
--
--/* Check routine for IPC_INFO */
--static void func_info(int ret);
--
--/* Check routine for SHM_STAT */
--static void func_sstat(int ret);
--static void func_sstat_setup(void);
--
--/* Check routine for SHM_LOCK */
--static void func_lock(int ret);
--
--/* Check routine for SHM_UNLOCK */
--static void func_unlock(int ret);
--
--/* Check routine for IPC_RMID */
--static void func_rmid(int ret);
--
--/* Child function */
--static void do_child(void);
--
--static struct test_case_t {
--	int *shmid;
--	int cmd;
--	struct shmid_ds *arg;
--	void (*func_test) (int);
--	void (*func_setup) (void);
--} TC[] = {
--	{&shm_id_1, IPC_STAT, &buf, func_istat, stat_setup},
--#ifndef UCLINUX
--	    /*
--	     * The second test is not applicable to uClinux;
--	     * shared memory segments are detached on exec(),
--	     * so cannot be passed to uClinux children.
--	     */
--	{&shm_id_1, IPC_STAT, &buf, func_istat, stat_setup},
--#endif
--	{&shm_id_1, IPC_SET, &buf, func_set, set_setup},
--	{&shm_id_1, IPC_INFO, (struct shmid_ds *) &info, func_info, NULL},
--	{&shm_index, SHM_STAT, &buf, func_sstat, func_sstat_setup},
--	{&shm_id_1, SHM_LOCK, NULL, func_lock, NULL},
--	{&shm_id_1, SHM_UNLOCK, NULL, func_unlock, NULL},
--	{&shm_id_1, IPC_RMID, NULL, func_rmid, NULL},
--};
-+#include <stdlib.h>
-+#include "tst_test.h"
-+#include "tst_safe_sysv_ipc.h"
-+#include "libnewipc.h"
- 
--static int TST_TOTAL = ARRAY_SIZE(TC);
-+#define NCHILD 20
- 
--#define NEWMODE	0066
-+static pid_t children[NCHILD];
- 
--#ifdef UCLINUX
--#define PIPE_NAME	"shmctl01"
--static char *argv0;
--#endif
-+static int shm_id;
-+static int shm_idx;
-+static time_t ctime_min, ctime_max;
- 
--static int stat_i;
-+static void *addr;
- 
--int main(int argc, char *argv[])
-+static void attach_child(void)
- {
--	int lc;
--	int i;
--
--	tst_parse_opts(argc, argv, NULL, NULL);
--#ifdef UCLINUX
--	argv0 = argv[0];
--	maybe_run_child(do_child, "ddd", &stat_i, &stat_time, &shm_id_1);
--#endif
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		tst_count = 0;
--
--		stat_time = FIRST;
--
--		/*
--		 * Create a shared memory segment with read and write
--		 * permissions.  Do this here instead of in setup()
--		 * so that looping (-i) will work correctly.
--		 */
--		shm_id_1 = shmget(shmkey, SHM_SIZE,
--				  IPC_CREAT | IPC_EXCL | SHM_RW);
--		if (shm_id_1 == -1)
--			tst_brkm(TBROK, cleanup, "couldn't create the shared"
--				 " memory segment");
--
--		for (i = 0; i < TST_TOTAL; i++) {
--
--			/*
--			 * if needed, set up any required conditions by
--			 * calling the appropriate setup function
--			 */
--			if (TC[i].func_setup != NULL)
--				(*TC[i].func_setup) ();
--
--			TEST(shmctl(*(TC[i].shmid), TC[i].cmd, TC[i].arg));
--
--			if (TEST_RETURN == -1) {
--				tst_resm(TFAIL, "%s call failed - errno "
--					 "= %d : %s", TCID, TEST_ERRNO,
--					 strerror(TEST_ERRNO));
--				continue;
--			}
--			(*TC[i].func_test) (TEST_RETURN);
--		}
--	}
-+	pause();
-+
-+	addr = SAFE_SHMAT(shm_id, NULL, 0);
-+
-+	pause();
- 
--	cleanup();
--	tst_exit();
-+	SAFE_SHMDT(addr);
-+
-+	pause();
-+
-+	exit(0);
- }
- 
--/*
-- * set_shmat() - Attach the shared memory and return the pointer.  Use
-- *		 this seperate routine to avoid code duplication in
-- *		 stat_setup() below.
-- */
--void *set_shmat(void)
-+static void detach_child(void)
- {
--	void *rval;
--
--	/* attach the shared memory */
--	rval = shmat(shm_id_1, 0, 0);
--
--	/*
--	 * if shmat() fails, the only thing we can do is
--	 * print a message to that effect.
--	 */
--	if (rval == (void *)-1) {
--		tst_resm(TBROK, "shmat() failed - %s", strerror(errno));
--		cleanup();
--	}
-+	pause();
-+
-+	SAFE_SHMDT(addr);
- 
--	return rval;
-+	pause();
-+
-+	exit(0);
- }
- 
--/*
-- * stat_setup() - Set up for the IPC_STAT command with shmctl().
-- *		  Make things interesting by forking some children
-- *		  that will either attach or inherit the shared memory.
-- */
--void stat_setup(void)
-+static void fork_children(void (*child_func)(void))
- {
--	void *set_shmat();
--	pid_t pid;
--
--	/*
--	 * The first time through, let the children attach the memory.
--	 * The second time through, attach the memory first and let
--	 * the children inherit the memory.
--	 */
--
--	if (stat_time == SECOND)
--		/*
--		 * use the global "set_shared" variable here so that
--		 * it can be removed in the stat_func() routine.
--		 */
--		set_shared = set_shmat();
--
--	tst_old_flush();
--	for (stat_i = 0; stat_i < N_ATTACH; stat_i++) {
--		pid = FORK_OR_VFORK();
--		if (pid == -1)
--			tst_brkm(TBROK, cleanup, "could not fork");
--
--		if (pid == 0) {
--#ifdef UCLINUX
--			if (self_exec(argv0, "ddd", stat_i, stat_time,
--				      shm_id_1) < 0)
--				tst_brkm(TBROK, cleanup, "could not self_exec");
--#else
--			do_child();
--#endif
--
--		} else {
--			/* save the child's pid for cleanup later */
--			pid_arr[stat_i] = pid;
--			TST_PROCESS_STATE_WAIT(cleanup, pid, 'S');
--		}
-+	unsigned int i;
-+
-+	for (i = 0; i < NCHILD; i++) {
-+		pid_t pid = SAFE_FORK();
-+
-+		if (!pid)
-+			child_func();
-+
-+		children[i] = pid;
- 	}
- }
- 
--void do_child(void)
-+static void wait_for_children(void)
- {
--	void *test;
-+	unsigned int i;
- 
--	if (stat_time == FIRST)
--		test = set_shmat();
--	else
--		test = set_shared;
-+	for (i = 0; i < NCHILD; i++)
-+		TST_PROCESS_STATE_WAIT(children[i], 'S', 0);
-+}
- 
--	memcpy(test, &stat_i, sizeof(stat_i));
-+static void signal_children(void)
-+{
-+	unsigned int i;
- 
--	/* pause until we get a signal from stat_cleanup() */
--	pause();
-+	for (i = 0; i < NCHILD; i++)
-+		SAFE_KILL(children[i], SIGUSR1);
-+}
- 
--	/* now we're back - detach the memory and exit */
--	if (shmdt(test) == -1)
--		tst_resm(TBROK, "shmdt() failed - %d", errno);
-+static void reap_children(void)
-+{
-+	unsigned int i;
- 
--	tst_exit();
-+	for (i = 0; i < NCHILD; i++)
-+		SAFE_WAITPID(children[i], NULL, 0);
- }
- 
--/*
-- * func_istat() - check the functionality of the IPC_STAT command with shmctl()
-- *		 by looking at the pid of the creator, the segement size,
-- *		 the number of attaches and the mode.
-- */
--void func_istat(int ret)
-+static void check_nattch(int exp_nattch, const char *msg)
- {
--	int fail = 0;
--	pid_t pid;
-+	struct shmid_ds ds1;
-+	struct shmid_ds ds2;
- 
--	/* check perm, pid, nattach and size */
-+	SAFE_SHMCTL(shm_id, IPC_STAT, &ds1);
-+	SAFE_SHMCTL(shm_idx, SHM_STAT, &ds2);
- 
--	pid = getpid();
--
--	if (buf.shm_cpid != pid) {
--		tst_resm(TFAIL, "creator pid is incorrect");
--		fail = 1;
-+	if (ds1.shm_nattch != ds2.shm_nattch) {
-+		tst_res(TFAIL, "IPC_STAT nattch=%li SHM_STAT nattch=%li",
-+			(long)ds1.shm_nattch, (long)ds2.shm_nattch);
-+		return;
- 	}
- 
--	if (!fail && buf.shm_segsz != SHM_SIZE) {
--		tst_resm(TFAIL, "segment size is incorrect");
--		fail = 1;
-+	if ((int)ds1.shm_nattch == exp_nattch) {
-+		tst_res(TPASS, "%s shm_nattch=%i", msg, exp_nattch);
-+		return;
- 	}
- 
--	/*
--	 * The first time through, only the children attach the memory, so
--	 * the attaches equal N_ATTACH + stat_time (0).  The second time
--	 * through, the parent attaches the memory and the children inherit
--	 * that memory so the attaches equal N_ATTACH + stat_time (1).
--	 */
--	if (!fail && buf.shm_nattch != N_ATTACH + stat_time) {
--		tst_resm(TFAIL, "# of attaches is incorrect - %ld",
--			 buf.shm_nattch);
--		fail = 1;
--	}
-+	tst_res(TFAIL, "%s shm_nattcg=%li expected %i",
-+	        msg, (long)ds1.shm_nattch, exp_nattch);
-+}
- 
--	/* use MODE_MASK to make sure we are comparing the last 9 bits */
--	if (!fail && (buf.shm_perm.mode & MODE_MASK) !=
--			((SHM_RW) & MODE_MASK)) {
--		tst_resm(TFAIL, "segment mode is incorrect");
--		fail = 1;
--	}
-+static void verify_shmstat_attach(void)
-+{
-+	fork_children(attach_child);
-+	wait_for_children();
- 
--	stat_cleanup();
-+	check_nattch(0, "before child shmat()");
- 
--	/* save the change time for use in the next test */
--	save_time = buf.shm_ctime;
-+	signal_children();
-+	wait_for_children();
- 
--	if (fail)
--		return;
-+	check_nattch(NCHILD, "after child shmat()");
-+
-+	signal_children();
-+	wait_for_children();
-+
-+	check_nattch(0, "after child shmdt()");
- 
--	tst_resm(TPASS, "pid, size, # of attaches and mode are correct "
--		 "- pass #%d", stat_time);
-+	signal_children();
-+	reap_children();
- }
- 
--/*
-- * stat_cleanup() - signal the children to clean up after themselves and
-- *		    have the parent make dessert, er, um, make that remove
-- *		    the shared memory that is no longer needed.
-- */
--void stat_cleanup(void)
-+static void verify_shmstat_inherit(void)
- {
--	int i;
-+	addr = SAFE_SHMAT(shm_id, NULL, 0);
- 
--	/* wake up the childern so they can detach the memory and exit */
--	for (i = 0; i < N_ATTACH; i++) {
--		SAFE_KILL(cleanup, pid_arr[i], SIGUSR1);
--	}
-+	fork_children(detach_child);
-+	wait_for_children();
- 
--	/* remove the parent's shared memory the second time through */
--	if (stat_time == SECOND) {
--		if (shmdt(set_shared) == -1)
--			tst_resm(TINFO, "shmdt() failed");
--	}
-+	check_nattch(NCHILD+1, "inherited after fork()");
- 
--	for (i = 0; i < N_ATTACH; i++) {
--		SAFE_WAITPID(cleanup, pid_arr[i], NULL, 0);
--	}
-+	signal_children();
-+	wait_for_children();
- 
--	stat_time++;
--}
-+	check_nattch(1, "after child shmdt()");
- 
--/*
-- * set_setup() - set up for the IPC_SET command with shmctl()
-- */
--void set_setup(void)
--{
--	/* set up a new mode for the shared memory segment */
--	buf.shm_perm.mode = SHM_RW | NEWMODE;
-+	SAFE_SHMDT(addr);
- 
--	/* sleep for one second to get a different shm_ctime value */
--	sleep(1);
-+	check_nattch(0, "after parent shmdt()");
-+
-+	signal_children();
-+	reap_children();
- }
- 
--/*
-- * func_set() - check the functionality of the IPC_SET command with shmctl()
-- */
--void func_set(int ret)
-+static void check_ds(struct shmid_ds *ds, const char *desc)
- {
--	int fail = 0;
-+	pid_t pid = getpid();
- 
--	/* first stat the shared memory to get the new data */
--	if (shmctl(shm_id_1, IPC_STAT, &buf) == -1) {
--		tst_resm(TBROK, "stat failed in func_set()");
--		return;
-+	if (ds->shm_segsz != SHM_SIZE) {
-+		tst_res(TFAIL, "%s: shm_segsz=%zu, expected %i",
-+		        desc, ds->shm_segsz, SHM_SIZE);
-+	} else {
-+		tst_res(TPASS, "%s: shm_segsz=%i", desc, SHM_SIZE);
- 	}
- 
--	if ((buf.shm_perm.mode & MODE_MASK) !=
--			((SHM_RW | NEWMODE) & MODE_MASK)) {
--		tst_resm(TFAIL, "new mode is incorrect");
--		fail = 1;
-+	if (ds->shm_cpid != pid) {
-+		tst_res(TFAIL, "%s: shm_cpid=%i, expected %i",
-+		        desc, ds->shm_cpid, pid);
-+	} else {
-+		tst_res(TPASS, "%s: shm_cpid=%i", desc, pid);
- 	}
- 
--	if (!fail && save_time >= buf.shm_ctime) {
--		tst_resm(TFAIL, "change time is incorrect");
--		fail = 1;
-+	if (ds->shm_ctime < ctime_min || ds->shm_ctime > ctime_max) {
-+		tst_res(TFAIL, "%s: shm_ctime=%li, expected <%li,%li>",
-+			desc, ds->shm_ctime, ctime_min, ctime_max);
-+	} else {
-+		tst_res(TPASS, "%s: shm_ctime=%li in range <%li,%li>",
-+			desc, ds->shm_ctime, ctime_min, ctime_max);
- 	}
--
--	if (fail)
--		return;
--
--	tst_resm(TPASS, "new mode and change time are correct");
- }
- 
--static void func_info(int ret)
-+static void shmstat_basic_check(void)
- {
--	if (info.shmmin != 1)
--		tst_resm(TFAIL, "value of shmmin is incorrect");
--	else
--		tst_resm(TPASS, "get correct shared memory limits");
--}
-+	struct shmid_ds ds;
- 
--static void func_sstat(int ret)
--{
--	if (ret >= 0)
--		tst_resm(TPASS, "get correct shared memory id for index: %d",
--			shm_index);
--	else
--		tst_resm(TFAIL, "shared memory id is incorrect, index: %d",
--			shm_index);
--}
-+	memset(&ds, 0, sizeof(ds));
-+	SAFE_SHMCTL(shm_id, IPC_STAT, &ds);
- 
--static void func_sstat_setup(void)
--{
--	struct shm_info tmp;
--	int ret;
--
--	ret = shmctl(shm_id_1, SHM_INFO, (void *)&tmp);
--	if (ret < 0)
--		tst_resm(TFAIL|TERRNO, "shmctl(SHM_INFO)");
--	else
--		shm_index = ret;
--}
-+	check_ds(&ds, "IPC_STAT");
- 
--static void func_lock(int ret)
--{
--	if (shmctl(shm_id_1, IPC_STAT, &buf) == -1) {
--		tst_resm(TBROK, "stat failed in func_lock()");
--		return;
--	}
-+	memset(&ds, 0, sizeof(ds));
-+	SAFE_SHMCTL(shm_idx, SHM_STAT, &ds);
- 
--	if (buf.shm_perm.mode & SHM_LOCKED)
--		tst_resm(TPASS, "SHM_LOCK is set");
--	else
--		tst_resm(TFAIL, "SHM_LOCK is cleared");
-+	check_ds(&ds, "SHM_STAT");
- }
- 
--static void func_unlock(int ret)
--{
--	if (shmctl(shm_id_1, IPC_STAT, &buf) == -1) {
--		tst_resm(TBROK, "stat failed in func_unlock()");
--		return;
--	}
-+static struct tcase {
-+	void (*func)(void);
-+	const char *desc;
-+} tcases[] = {
-+	{shmstat_basic_check, "Basic checks"},
-+	{verify_shmstat_attach, "Children attach SHM"},
-+	{verify_shmstat_inherit, "Chidlren inherit SHM"},
-+};
- 
--	if (buf.shm_perm.mode & SHM_LOCKED)
--		tst_resm(TFAIL, "SHM_LOCK is set");
--	else
--		tst_resm(TPASS, "SHM_LOCK is cleared");
-+static void verify_shmstat(unsigned int n)
-+{
-+	tst_res(TINFO, "%s", tcases[n].desc);
-+	tcases[n].func();
- }
- 
-+static void dummy_sighandler(int sig)
-+{
-+	(void)sig;
-+}
- 
--/*
-- * func_rmid() - check the functionality of the IPC_RMID command with shmctl()
-- */
--void func_rmid(int ret)
-+static int get_shm_idx_from_id(int shm_id)
- {
--	/* Do another shmctl() - we should get EINVAL */
--	if (shmctl(shm_id_1, IPC_STAT, &buf) != -1)
--		tst_brkm(TBROK, cleanup, "shmctl succeeded on expected fail");
-+	struct shm_info dummy;
-+	struct shmid_ds dummy_ds;
-+	int max_idx, i;
- 
--	if (errno != EINVAL)
--		tst_resm(TFAIL, "returned unexpected errno %d", errno);
--	else
--		tst_resm(TPASS, "shared memory appears to be removed");
-+	max_idx = SAFE_SHMCTL(shm_id, SHM_INFO, (void*)&dummy);
- 
--	shm_id_1 = -1;
--}
-+	for (i = 0; i <= max_idx; i++) {
-+		if (shmctl(i, SHM_STAT, &dummy_ds) == shm_id)
-+			return i;
-+	}
- 
--/*
-- * sighandler() - handle signals, in this case SIGUSR1 is the only one expected
-- */
--void sighandler(int sig)
--{
--	if (sig != SIGUSR1)
--		tst_resm(TBROK, "received unexpected signal %d", sig);
-+	return -1;
- }
- 
--void setup(void)
-+static void setup(void)
- {
--	tst_sig(FORK, sighandler, cleanup);
-+	ctime_min = time(NULL);
-+	shm_id = SAFE_SHMGET(IPC_PRIVATE, SHM_SIZE, IPC_CREAT | SHM_RW);
-+	ctime_max = time(NULL);
-+
-+	shm_idx = get_shm_idx_from_id(shm_id);
- 
--	TEST_PAUSE;
-+	if (shm_idx < 0)
-+		tst_brk(TBROK, "Failed to get shm_id to idx mapping");
- 
--	tst_tmpdir();
-+	tst_res(TINFO, "shm_id=%i maps to kernel index=%i", shm_id, shm_idx);
- 
--	shmkey = getipckey();
-+	SAFE_SIGNAL(SIGUSR1, dummy_sighandler);
- }
- 
--void cleanup(void)
-+static void cleanup(void)
- {
--	rm_shm(shm_id_1);
--
--	tst_rmdir();
-+	if (shm_id >= 0)
-+		SAFE_SHMCTL(shm_id, IPC_RMID, NULL);
- }
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.forks_child = 1,
-+	.test = verify_shmstat,
-+	.tcnt = ARRAY_SIZE(tcases),
-+};
+Viresh Kumar <viresh.kumar@linaro.org> wrote:
+
+
+> + * 1.) select(2) to fd of regular file with no I/O and small timeout
+> + * 2.) select(2) to fd of system pipe with no I/O and small timeout
+> + * 2.) select(2) of fd of a named-pipe (FIFO) with no I/O and small
+> timeout value
+>
+
+"3.) select(2) to..."  ^  someone who merges this can help fix the typo.
+
+For the series:
+Acked-by: Li Wang <liwang@redhat.com>
+
 -- 
-2.26.2
+Regards,
+Li Wang
+
+--00000000000061d5ed05aec65cf6
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><div class=3D"gmail_quote"><div dir=3D"ltr" c=
+lass=3D"gmail_attr">Viresh Kumar &lt;<a href=3D"mailto:viresh.kumar@linaro.=
+org">viresh.kumar@linaro.org</a>&gt; wrote:<br></div><div>=C2=A0</div><bloc=
+kquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:=
+1px solid rgb(204,204,204);padding-left:1ex">
++ * 1.) select(2) to fd of regular file with no I/O and small timeout<br>
++ * 2.) select(2) to fd of system pipe with no I/O and small timeout<br>
++ * 2.) select(2) of fd of a named-pipe (FIFO) with no I/O and small timeou=
+t value<br></blockquote><div><br></div><div><div class=3D"gmail_default" st=
+yle=3D"font-size:small">&quot;3.) select(2) to...&quot;=C2=A0 ^=C2=A0 someo=
+ne who merges this can help fix the typo.</div></div><div><div class=3D"gma=
+il_default" style=3D"font-size:small"><br></div><div class=3D"gmail_default=
+" style=3D"font-size:small">For the series:</div><div class=3D"gmail_defaul=
+t" style=3D"font-size:small">Acked-by: Li Wang &lt;<a href=3D"mailto:liwang=
+@redhat.com">liwang@redhat.com</a>&gt;</div></div></div><div><br></div>-- <=
+br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards=
+,<br></div><div>Li Wang<br></div></div></div></div>
+
+--00000000000061d5ed05aec65cf6--
+
+
+--===============0618029871==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0618029871==--
+
