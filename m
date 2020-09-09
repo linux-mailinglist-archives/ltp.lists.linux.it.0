@@ -1,71 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B31D262AB1
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 10:44:17 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id EFA5A262ACD
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 10:46:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0BE6B3C2C98
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 10:44:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B12933C2C27
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 10:46:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 3327B3C262C
- for <ltp@lists.linux.it>; Wed,  9 Sep 2020 10:44:12 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 4170D1A009BB
- for <ltp@lists.linux.it>; Wed,  9 Sep 2020 10:44:11 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 73B143C262C
+ for <ltp@lists.linux.it>; Wed,  9 Sep 2020 10:46:48 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id C681B6008D8
+ for <ltp@lists.linux.it>; Wed,  9 Sep 2020 10:46:47 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1599641050;
+ s=mimecast20190719; t=1599641206;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=CApwAjM+8mvgVSc/9i8h+J1J0l1HUhtLNYjoLHo6KlQ=;
- b=VeBtzzIss1VOuTL0g2GUIjquXp3/QLM0Mpi/u+alVZ71WTuAxNl+DFAgzOq80zbD6pnvAE
- k0baku/mufa0XCne8hRvmNu7QY+BqylYB2YETn76dd5Nd6OUtsbsEmlfia0wlupHkyE3Cf
- LzykuiotK6wZHKvoXD7YTflIq+xx938=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-336-ZcZnzl-6NEamaS0QAKGbYQ-1; Wed, 09 Sep 2020 04:44:09 -0400
-X-MC-Unique: ZcZnzl-6NEamaS0QAKGbYQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 15A3D10ABDA2;
- Wed,  9 Sep 2020 08:44:08 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0DCF77EED4;
- Wed,  9 Sep 2020 08:44:08 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0433B18095FF;
- Wed,  9 Sep 2020 08:44:08 +0000 (UTC)
-Date: Wed, 9 Sep 2020 04:44:07 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <1908270893.11577594.1599641047815.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20200909075347.2863-1-liwang@redhat.com>
-References: <20200909075347.2863-1-liwang@redhat.com>
+ bh=3U3j0GKiv/C6QgFfQaUkV2N8yojiekpTCjhJOshM0vs=;
+ b=Rbn9qYe3rBGhzGboAcEr4j9+cnzPTxDt5L+8vNswz6SvU1scU5n23fzi5gjobTy8f9gN/h
+ +G+Vyt9JPBYeJJcaAcBC/GffFkENnvIQ2/Wg+CerYDlM3n3i9mVAacmOKk0iwbjhJBYzAB
+ bpu6HikE9463rnjsIEb0us8b/S6yp30=
+Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
+ [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-333-6Wvhpq7RPLq8Tj7UJHGgJw-1; Wed, 09 Sep 2020 04:46:41 -0400
+X-MC-Unique: 6Wvhpq7RPLq8Tj7UJHGgJw-1
+Received: by mail-yb1-f200.google.com with SMTP id u128so1794477ybg.17
+ for <ltp@lists.linux.it>; Wed, 09 Sep 2020 01:46:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Jj4/IA1mP7H0ZdtCMys3HrkTMdl2w+fd32spEf/4znY=;
+ b=uYnfXPHPqH+oQEr5Yw9nyq+9DTlWs6QNaF4XyW6mGssUAjzUF+uL2azTEAjalqTvZa
+ lwgc9kBjfCSbbTd8yAq5kO/0SjemjiJANcBTptL80HIxh8ulS0rbyq0wF3N8viE+UyfK
+ CfpFVPYboXBUiUGbwjVOiIaTm9RnhAPN4qTBmVGScZ+vx11WyJ/eUon/zeTZVMtibsuW
+ z7rhUHSgdRFEx24kpzhy9u7UCEQBZqa2yyFBZQzo8I2Zh3XUKux8ypwf723/nfUCNpfT
+ Q902fnW+myu+cBIcxSI9yAbDQN9F22vnMEhSNCnlC70nLk2Ipafdb8b5xh55fLU01GMs
+ cUNg==
+X-Gm-Message-State: AOAM532xB1gkgxT59hjJhf7ZtcMrl+SVkkQ+3uz3FtCzndC/nUAMR6XI
+ EAZWtWZbW5Rm36MowefYiA0COSYHko7UiiFBw0S4kndRioUxJ6p6J/9UBvO3DyUOrkyXpt9tJoi
+ FvoqBFcnIEvd+38iS2yxG5PxKZng=
+X-Received: by 2002:a25:cc14:: with SMTP id l20mr4509468ybf.110.1599641201023; 
+ Wed, 09 Sep 2020 01:46:41 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzckUdPP1+Zeu3uVyLDQbFYX6LnQJyi0Z/VAtE8+EMzYhEs0QVJvqggFf8ZwSal5+zL8zFP761awF9mzZej05k=
+X-Received: by 2002:a25:cc14:: with SMTP id l20mr4509451ybf.110.1599641200827; 
+ Wed, 09 Sep 2020 01:46:40 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.40.193.55, 10.4.195.15]
-Thread-Topic: ioctl: take use of TST_RETRY_FN* macro
-Thread-Index: +h5zzmVv1Rv4K/SCHPbOpIwgw1y8jA==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+References: <20200908073138.GB2475@yuki.lan>
+ <CAEemH2cHvM_KD7W6fyX6z3bc0qfVtkp=yEM8MDvvohouyj5N2w@mail.gmail.com>
+ <20200908153659.GA16066@yuki.lan>
+In-Reply-To: <20200908153659.GA16066@yuki.lan>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 9 Sep 2020 16:46:29 +0800
+Message-ID: <CAEemH2eq0fwF8zt1uez5vuwM0vtrLtoFd_45sFqE=iQ8hpudfQ@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
 Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
-X-Mimecast-Spam-Score: 0.002
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0.0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] ioctl: take use of TST_RETRY_FN* macro
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] LTP release
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,67 +82,126 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Pravin Raghul S." <pravinraghul@zilogic.com>,
+ LTP List <ltp@lists.linux.it>, "Vijay Kumar B." <vijaykumar@zilogic.com>
+Content-Type: multipart/mixed; boundary="===============1828955096=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+--===============1828955096==
+Content-Type: multipart/alternative; boundary="0000000000008b31ee05aedd7dd8"
+
+--0000000000008b31ee05aedd7dd8
+Content-Type: text/plain; charset="UTF-8"
+
+On Tue, Sep 8, 2020 at 11:36 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+
+> Hi!
+> > And I'd like to add the MAP_GROWSDOWN test too, but I haven't come up
+> with
+> > a way to solve the segment fault on s390x.
+> > http://lists.linux.it/pipermail/ltp/2020-August/018416.html
+>
+> Maybe we end up allocating a mapping that is too close to something
+> else, see:
+>
+>
+> https://stackoverflow.com/questions/56888725/why-is-map-growsdown-mapping-does-not-grow
+>
+> I guess that we should make the initial mmap in find_free_range() larger
+> and return and adress that is quaranteed not to have a mapping that is
+> closer than 256 pages in the direction we want to grow.
+>
+
+Sounds reasonable. I tried to reserve more space for the mapping grows, and
+that works for me:).
+
+static void *find_free_range(size_t size)
+{
+    void *mem;
+
+    /*
+    * To avoid the mapping grows to within a page of the high end of
+    * the next lower mapping, which might result in a SIGSEGV signal.
+    * Here reserve twifold memory spaces for growing, especially for s390x.
+    */
+    mem = SAFE_MMAP(NULL, size * 2, PROT_READ | PROT_WRITE,
+    MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    SAFE_MUNMAP(mem, size * 2);
+
+    return mem;
+}
+
+-- 
+Regards,
+Li Wang
+
+--0000000000008b31ee05aedd7dd8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Tue, Sep 8, 2020 at 11:36 PM Cyril Hrubis &lt;<a=
+ href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a>&gt; =
+wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
+px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
+&gt; And I&#39;d like to add the MAP_GROWSDOWN test too, but I haven&#39;t =
+come up with<br>
+&gt; a way to solve the segment fault on s390x.<br>
+&gt; <a href=3D"http://lists.linux.it/pipermail/ltp/2020-August/018416.html=
+" rel=3D"noreferrer" target=3D"_blank">http://lists.linux.it/pipermail/ltp/=
+2020-August/018416.html</a><br>
+<br>
+Maybe we end up allocating a mapping that is too close to something<br>
+else, see:<br>
+<br>
+<a href=3D"https://stackoverflow.com/questions/56888725/why-is-map-growsdow=
+n-mapping-does-not-grow" rel=3D"noreferrer" target=3D"_blank">https://stack=
+overflow.com/questions/56888725/why-is-map-growsdown-mapping-does-not-grow<=
+/a><br>
+<br>
+I guess that we should make the initial mmap in find_free_range() larger<br=
+>
+and return and adress that is quaranteed not to have a mapping that is<br>
+closer than 256 pages in the direction we want to grow.<br></blockquote><di=
+v><br></div><div class=3D"gmail_default" style=3D"font-size:small">Sounds r=
+easonable. I tried to reserve more space for the mapping grows, and that wo=
+rks for me:). </div><div class=3D"gmail_default" style=3D"font-size:small">=
+<br></div></div><div class=3D"gmail_default" style=3D"font-size:small">stat=
+ic void *find_free_range(size_t size)</div>{<br>=09<span class=3D"gmail_def=
+ault" style=3D"font-size:small">=C2=A0 =C2=A0 </span>void *mem;<br><br>=09<=
+span class=3D"gmail_default" style=3D"font-size:small">=C2=A0 =C2=A0 </span=
+>/*<br>=09 <span class=3D"gmail_default" style=3D"font-size:small">=C2=A0 =
+=C2=A0 </span>* To avoid the mapping grows to within a page of the high end=
+ of<br>=09 <span class=3D"gmail_default" style=3D"font-size:small">=C2=A0 =
+=C2=A0 </span>* the next lower mapping, which might result in a SIGSEGV sig=
+nal.<br>=09 <span class=3D"gmail_default" style=3D"font-size:small">=C2=A0 =
+=C2=A0 </span>* Here reserve twifold memory spaces for growing, especially =
+for s390x.<br>=09 <span class=3D"gmail_default" style=3D"font-size:small">=
+=C2=A0 =C2=A0 </span>*/<br>=09<span class=3D"gmail_default" style=3D"font-s=
+ize:small">=C2=A0 =C2=A0 </span>mem =3D SAFE_MMAP(NULL, size * 2, PROT_READ=
+ | PROT_WRITE,<br>=09=09=09<span class=3D"gmail_default" style=3D"font-size=
+:small">=C2=A0 =C2=A0 </span>MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);<br>=09<sp=
+an class=3D"gmail_default" style=3D"font-size:small">=C2=A0 =C2=A0 </span>S=
+AFE_MUNMAP(mem, size * 2);<br><br>=09<span class=3D"gmail_default" style=3D=
+"font-size:small">=C2=A0 =C2=A0 </span>return mem;<br>}<br><div class=3D"gm=
+ail_default" style=3D"font-size:small"></div><div><br></div>-- <br><div dir=
+=3D"ltr"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></di=
+v></div></div>
+
+--0000000000008b31ee05aedd7dd8--
 
 
------ Original Message -----
->  static void check_partition(int part_num, bool value)
->  {
-> -	int ret;
-> +	int ret, time_delay;
->  
->  	sprintf(sys_loop_partpath, "/sys/block/loop%d/loop%dp%d",
->  		dev_num, dev_num, part_num);
->  	sprintf(loop_partpath, "%sp%d", dev_path, part_num);
->  
-> -	ret = access(sys_loop_partpath, F_OK);
-> +	value ? (time_delay = 30) : (time_delay = 1);
-> +
-> +	ret = TST_RETRY_FN_EXP_BACKOFF(access(sys_loop_partpath, F_OK),
-> TST_RETVAL_EQ0, time_delay);
-
-Shouldn't we invert also the check when value == 0? At the moment
-there's TST_RETVAL_EQ0 for all cases, but we expect path to exist
-only for value == 1, correct?
-
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl09.c b/testcases/kernel/syscalls/ioctl/ioctl09.c
-index 151618df41db..dff31d58a054 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl09.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl09.c
-@@ -28,6 +28,9 @@ static void change_partition(const char *const cmd[])
-                tst_brk(TBROK, "parted return %i", ret);
- }
- 
-+#define RETVAL_CHECK(x) \
-+       ({ value ? TST_RETVAL_EQ0(x) : TST_RETVAL_NOTNULL(x); })
-+
- static void check_partition(int part_num, bool value)
- {
-        int ret;
-@@ -36,7 +39,7 @@ static void check_partition(int part_num, bool value)
-                dev_num, dev_num, part_num);
-        sprintf(loop_partpath, "%sp%d", dev_path, part_num);
- 
--       ret = access(sys_loop_partpath, F_OK);
-+       ret = TST_RETRY_FN_EXP_BACKOFF(access(sys_loop_partpath, F_OK), RETVAL_CHECK, 30);
-        if (ret == 0)
-                tst_res(value ? TPASS : TFAIL, "access %s succeeds",
-                        sys_loop_partpath);
-@@ -44,7 +47,7 @@ static void check_partition(int part_num, bool value)
-                tst_res(value ? TFAIL : TPASS, "access %s fails",
-                        sys_loop_partpath);
- 
--       ret = access(loop_partpath, F_OK);
-+       ret = TST_RETRY_FN_EXP_BACKOFF(access(loop_partpath, F_OK), RETVAL_CHECK, 30);
-        if (ret == 0)
-                tst_res(value ? TPASS : TFAIL, "access %s succeeds",
-                        loop_partpath);
+--===============1828955096==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1828955096==--
+
