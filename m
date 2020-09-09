@@ -2,70 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96858263524
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 19:57:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A45B263525
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 19:57:47 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 502BD3C2CCF
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 19:57:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 521FA3C2C0E
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 19:57:47 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id F17033C2E8F
- for <ltp@lists.linux.it>; Wed,  9 Sep 2020 19:57:18 +0200 (CEST)
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 8A2DA3C2C43
+ for <ltp@lists.linux.it>; Wed,  9 Sep 2020 19:57:20 +0200 (CEST)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 87AA9100079C
- for <ltp@lists.linux.it>; Wed,  9 Sep 2020 19:57:18 +0200 (CEST)
-Received: by mail-wm1-x341.google.com with SMTP id e17so3165655wme.0
- for <ltp@lists.linux.it>; Wed, 09 Sep 2020 10:57:18 -0700 (PDT)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 1987A1A00E3A
+ for <ltp@lists.linux.it>; Wed,  9 Sep 2020 19:57:20 +0200 (CEST)
+Received: by mail-wr1-x444.google.com with SMTP id x14so3884595wrl.12
+ for <ltp@lists.linux.it>; Wed, 09 Sep 2020 10:57:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=3SxaYBZJpJ4Mso3aGJmfNLoc/++Q0UZHYubuwhSE0bk=;
- b=RpsfW+DqV47OdKLwjfxCiwPdHCbcfoMHrbgco4H+RsOQ8B5I0fWcifAQTa55DUi2Ve
- 6UEUYoLi7qnrSnkhH/kXZRiloCij0IhsmWs1jGOIawL14PNvTAVFJSEF76HEhNN7nkNP
- kF+yHVxK1go5cU2uduNc3StkrVS3Y72u+QNzvWfNfRpvXb8v8BJsCati/WzI/FqZqwdb
- LuzLh6Jaic4dTg0Xs9nucAVmTai0By1bKiDJmPdrJxy1ZzgpptTugdREBdyRMoorwRt4
- EleMxAwH+N3uzJYdfDQRFdMI+P9B3trV5Mxb/EH73FY2S+2EZ+qasPxu3Lu249iXXk7g
- qYUw==
+ bh=I2/TEQ3hdW1F8PkxGJQDHzwgXbLG3e9+AmpyMNd2k0w=;
+ b=s6t3zAZ7FpyWvchq09EO3fUzz1/23e0KHQNgeNkqZR5B7lcDYiBIApo7f4YCHPCCcy
+ CGaIM0eaCEkq9tCLx/zqgNG2l+lC13VbRAwMrN+gybCOi6ojxwiN1JQWwbNBgJQa0EBY
+ xoaxeCiX5GOXDMTM17az/nq5A6bVn0DvWJa0wOjO8ScUZMpiqz7nYwGhTwWXcZmqfMnG
+ cVZTXvVM0+NmoYQocioMGmr+oTL9UEniM9taZaJTlXCXzsY7JDzAg0E7IdulDea0bbAz
+ sP/iUNA+LfCYLepVTZUNbMi2hx3C47AdSoyJ6tGPzxK1e53TkV1OJGXuU7kD41j9QOY+
+ z/Tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=3SxaYBZJpJ4Mso3aGJmfNLoc/++Q0UZHYubuwhSE0bk=;
- b=VkWPF01sKjlu0woZaNCMD0ZMJmYlgUPPL9QRl/nrju8p6xcNOPgZ4agOxezi0A/vzQ
- b/elNjbNmMo9QqyJZY7Yk9vwSUqvOc/WLZX0iTK78HT3y3TINHXH4COvp1y7tJkMro9G
- 9M5WvfDwr1xEMRpg3vDUTsg8LRw9Q4IGoDdvxX8wnDiDA4ls340HbThSGd65zCPawebX
- h3+2E0PMeWLBJ4fUJAWcMxuM+QApwotU54RZWZUBC/HWhUSObc2g7hQ8R0bhmoCE3zrA
- ZVXIHOMcbGa8W0EPf3e/tX87+6n3pUSuKnC6w8/jOR15zR8peRFcksmULnBfa7sq3mjY
- uTAA==
-X-Gm-Message-State: AOAM532PQH14rYeB5pEtayB2T9nBN8HhlZZ4DD29sKlQLmFAh9uxjSlQ
- q8r/Rin2rnkn+Hgw1Sj9e0M=
-X-Google-Smtp-Source: ABdhPJzuIRJAR7rAGwF1pfp0YtlcWlvSxW7xtqYjcAjsv9dWMdw6L9yxREJLcIe+H3VUHtr1jnNdiQ==
-X-Received: by 2002:a1c:4886:: with SMTP id v128mr4703613wma.139.1599674238058; 
- Wed, 09 Sep 2020 10:57:18 -0700 (PDT)
+ bh=I2/TEQ3hdW1F8PkxGJQDHzwgXbLG3e9+AmpyMNd2k0w=;
+ b=lXwN1iF298ySjDPmbU/2VbABOLF63ygqwYIXHgCDWH7RWZai3WXbtEgXyFc0RtM8ie
+ 4r8anl4tgWIrRIXD4Kk/p/G4pnVRYOUi1hoIsKYBaBFhRQKd1YPY5QdxSPiEom+hIwSd
+ bh7Q5F+67MiD66oiy7ertVEzlRnfKnQt3HwtftfR59kIKSo40BPl32K43C4SHdyszUdB
+ N/2vyapVrQfc7uEZGVdI3XMDFpieEseDWW0iFUiqEV+ocyN8Z76e9ZHYMaRsvdBNs22N
+ iD/l0M+O4JHi1N1i3whhLNtVI8H1TvQGLN/u3XWmuBwTdJF2cPOIqZd6xg4ErnasnGmt
+ UTaw==
+X-Gm-Message-State: AOAM531NqTq5fZyrmp/VFforkJhYl4Ie23YPhBwBegLOiwzMmiXZu3ap
+ M92M3fQ7ulb+DXSXo6LSP7k=
+X-Google-Smtp-Source: ABdhPJzqiUlZ7BCc6qQTm2dvi2MzdIYTQXcDcg9PnH95T7ECYNc5Sv/+BQfohPzvDZxv3fm//cQRiA==
+X-Received: by 2002:adf:a35d:: with SMTP id d29mr4997933wrb.307.1599674239320; 
+ Wed, 09 Sep 2020 10:57:19 -0700 (PDT)
 Received: from localhost.localdomain ([141.226.8.56])
- by smtp.gmail.com with ESMTPSA id z83sm4979714wmb.4.2020.09.09.10.57.16
+ by smtp.gmail.com with ESMTPSA id z83sm4979714wmb.4.2020.09.09.10.57.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Sep 2020 10:57:17 -0700 (PDT)
+ Wed, 09 Sep 2020 10:57:18 -0700 (PDT)
 From: Amir Goldstein <amir73il@gmail.com>
 To: Petr Vorel <pvorel@suse.cz>
-Date: Wed,  9 Sep 2020 20:56:59 +0300
-Message-Id: <20200909175707.10670-3-amir73il@gmail.com>
+Date: Wed,  9 Sep 2020 20:57:00 +0300
+Message-Id: <20200909175707.10670-4-amir73il@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200909175707.10670-1-amir73il@gmail.com>
 References: <20200909175707.10670-1-amir73il@gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 02/10] syscalls/fanotify16: Adjust test to use
- FAN_REPORT_DFID_NAME
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 03/10] syscalls/fanotify16: Test more event types with
+ name
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,237 +84,235 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The new FAN_DIR_MODIFY event was removed before final v5.7 release
-and will be replaced with a new group flag FAN_REPORT_DFID_NAME to
-report name info for FAN_CREATE, FAN_DELETE and FAN_MOVE events.
-Adjust the test to use this new API.
+- Test events "on child" reported with name
+- Test events on directory itself reported with name "."
+- Test move self event on directory and file
+
+Events open/close are not supported on filesystem mark, so they are set
+on either a subdir inode mark or mount mark.
+
+Events "on child" may or may not be merged with directory modification
+events with same file name, depending on group init flags, so relax the
+exact check to event mask and instead, just expect that all execpted
+event types will arrive.
 
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
- testcases/kernel/syscalls/fanotify/fanotify.h | 11 ++-
- .../kernel/syscalls/fanotify/fanotify16.c     | 69 ++++++++++---------
- 2 files changed, 44 insertions(+), 36 deletions(-)
+ .../kernel/syscalls/fanotify/fanotify16.c     | 102 +++++++++++++-----
+ 1 file changed, 77 insertions(+), 25 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify.h b/testcases/kernel/syscalls/fanotify/fanotify.h
-index 4a7959989..91535718b 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify.h
-+++ b/testcases/kernel/syscalls/fanotify/fanotify.h
-@@ -89,9 +89,6 @@ static long fanotify_mark(int fd, unsigned int flags, uint64_t mask,
- #ifndef FAN_OPEN_EXEC_PERM
- #define FAN_OPEN_EXEC_PERM	0x00040000
- #endif
--#ifndef FAN_DIR_MODIFY
--#define FAN_DIR_MODIFY		0x00080000
--#endif
- 
- /*
-  * FAN_ALL_PERM_EVENTS has been deprecated, so any new permission events
-@@ -103,6 +100,11 @@ static long fanotify_mark(int fd, unsigned int flags, uint64_t mask,
- #define LTP_ALL_PERM_EVENTS	(FAN_OPEN_PERM | FAN_OPEN_EXEC_PERM | \
- 				 FAN_ACCESS_PERM)
- 
-+struct fanotify_group_type {
-+	unsigned int flag;
-+	const char * name;
-+};
-+
- struct fanotify_mark_type {
- 	unsigned int flag;
- 	const char * name;
-@@ -201,6 +203,9 @@ static inline void fanotify_save_fid(const char *path,
- }
- #endif /* HAVE_NAME_TO_HANDLE_AT */
- 
-+#define INIT_FANOTIFY_GROUP_TYPE(t) \
-+	{ FAN_ ## t, "FAN_" #t }
-+
- #define INIT_FANOTIFY_MARK_TYPE(t) \
- 	{ FAN_MARK_ ## t, "FAN_MARK_" #t }
- 
 diff --git a/testcases/kernel/syscalls/fanotify/fanotify16.c b/testcases/kernel/syscalls/fanotify/fanotify16.c
-index d366a455f..f3fbd3bc0 100644
+index f3fbd3bc0..76f053fd7 100644
 --- a/testcases/kernel/syscalls/fanotify/fanotify16.c
 +++ b/testcases/kernel/syscalls/fanotify/fanotify16.c
-@@ -5,7 +5,8 @@
+@@ -5,8 +5,8 @@
   * Started by Amir Goldstein <amir73il@gmail.com>
   *
   * DESCRIPTION
-- *     Check FAN_DIR_MODIFY events with name info
-+ *     Check fanotify directory entry modification events with group
-+ *     init flags FAN_REPORT_DFID_NAME (dir fid + name)
+- *     Check fanotify directory entry modification events with group
+- *     init flags FAN_REPORT_DFID_NAME (dir fid + name)
++ *     Check fanotify directory entry modification events, events on child and
++ *     on self with group init flags FAN_REPORT_DFID_NAME (dir fid + name)
   */
  #define _GNU_SOURCE
  #include "config.h"
-@@ -23,7 +24,6 @@
- 
+@@ -25,7 +25,7 @@
  #if defined(HAVE_SYS_FANOTIFY_H)
  #include <sys/fanotify.h>
--#include <sys/inotify.h>
  
- #define EVENT_MAX 10
+-#define EVENT_MAX 10
++#define EVENT_MAX 20
  
-@@ -59,27 +59,30 @@ static char event_buf[EVENT_BUF_LEN];
- 
- static struct test_case_t {
- 	const char *tname;
-+	struct fanotify_group_type group;
- 	struct fanotify_mark_type mark;
- 	unsigned long mask;
- 	struct fanotify_mark_type sub_mark;
+ /* Size of the event structure, not including file handle */
+ #define EVENT_SIZE (sizeof(struct fanotify_event_metadata) + \
+@@ -66,29 +66,29 @@ static struct test_case_t {
  	unsigned long sub_mask;
  } test_cases[] = {
  	{
--		/* Filesystem watch for dir modify and delete self events */
--		"FAN_REPORT_FID on filesystem with FAN_DIR_MODIFY",
-+		/* Filesystem watch for directory entry modification events */
-+		"FAN_REPORT_DFID_NAME monitor filesystem for create/delete/move",
-+		INIT_FANOTIFY_GROUP_TYPE(REPORT_DFID_NAME),
+-		/* Filesystem watch for directory entry modification events */
+-		"FAN_REPORT_DFID_NAME monitor filesystem for create/delete/move",
++		"FAN_REPORT_DFID_NAME monitor filesystem for create/delete/move/open/close",
+ 		INIT_FANOTIFY_GROUP_TYPE(REPORT_DFID_NAME),
  		INIT_FANOTIFY_MARK_TYPE(FILESYSTEM),
--		FAN_DIR_MODIFY | FAN_DELETE_SELF | FAN_ONDIR,
-+		FAN_CREATE | FAN_DELETE| FAN_MOVE | FAN_DELETE_SELF | FAN_ONDIR,
- 		{},
- 		0,
+-		FAN_CREATE | FAN_DELETE| FAN_MOVE | FAN_DELETE_SELF | FAN_ONDIR,
+-		{},
+-		0,
++		FAN_CREATE | FAN_DELETE | FAN_MOVE | FAN_DELETE_SELF | FAN_MOVE_SELF | FAN_ONDIR,
++		/* Mount watch for events possible on children */
++		INIT_FANOTIFY_MARK_TYPE(MOUNT),
++		FAN_OPEN | FAN_CLOSE | FAN_ONDIR,
  	},
  	{
--		/* Recursive watches for dir modify events */
--		"FAN_REPORT_FID on directories with FAN_DIR_MODIFY",
-+		/* Recursive watches for directory entry modification events */
-+		"FAN_REPORT_DFID_NAME monitor directories for create/delete/move",
-+		INIT_FANOTIFY_GROUP_TYPE(REPORT_DFID_NAME),
+-		/* Recursive watches for directory entry modification events */
+-		"FAN_REPORT_DFID_NAME monitor directories for create/delete/move",
++		"FAN_REPORT_DFID_NAME monitor directories for create/delete/move/open/close",
+ 		INIT_FANOTIFY_GROUP_TYPE(REPORT_DFID_NAME),
  		INIT_FANOTIFY_MARK_TYPE(INODE),
--		FAN_DIR_MODIFY,
--		/* Watches for delete self event on subdir */
-+		FAN_CREATE | FAN_DELETE | FAN_MOVE | FAN_ONDIR,
-+		/* Watches for directory entry modification events on subdir */
+ 		FAN_CREATE | FAN_DELETE | FAN_MOVE | FAN_ONDIR,
+-		/* Watches for directory entry modification events on subdir */
++		/* Watches for self events on subdir and events on subdir's children */
  		INIT_FANOTIFY_MARK_TYPE(INODE),
--		FAN_DIR_MODIFY | FAN_DELETE_SELF | FAN_ONDIR,
-+		FAN_CREATE | FAN_DELETE | FAN_MOVE | FAN_DELETE_SELF | FAN_ONDIR,
+-		FAN_CREATE | FAN_DELETE | FAN_MOVE | FAN_DELETE_SELF | FAN_ONDIR,
++		FAN_CREATE | FAN_DELETE | FAN_MOVE | FAN_DELETE_SELF | FAN_MOVE_SELF | FAN_ONDIR |
++		FAN_OPEN | FAN_CLOSE | FAN_EVENT_ON_CHILD,
  	},
  };
  
-@@ -87,20 +90,23 @@ static void do_test(unsigned int number)
+ static void do_test(unsigned int number)
  {
- 	int fd, len = 0, i = 0, test_num = 0, tst_count = 0;
+-	int fd, len = 0, i = 0, test_num = 0, tst_count = 0;
++	int fd, dirfd, len = 0, i = 0, test_num = 0, tst_count = 0;
  	struct test_case_t *tc = &test_cases[number];
-+	struct fanotify_group_type *group = &tc->group;
+ 	struct fanotify_group_type *group = &tc->group;
  	struct fanotify_mark_type *mark = &tc->mark;
- 	struct fanotify_mark_type *sub_mark = &tc->sub_mark;
- 	struct fanotify_fid_t root_fid, dir_fid, file_fid;
- 
- 	tst_res(TINFO, "Test #%d: %s", number, tc->tname);
- 
--	fd_notify = fanotify_init(FAN_REPORT_FID, 0);
-+	fd_notify = fanotify_init(group->flag, 0);
- 	if (fd_notify == -1) {
--		if (errno == EINVAL)
--			tst_brk(TCONF,
--				"FAN_REPORT_FID not supported by kernel");
-+		if (errno == EINVAL) {
-+			tst_res(TCONF,
-+				"%s not supported by kernel", group->name);
-+			return;
-+		}
- 
- 		tst_brk(TBROK | TERRNO,
--			"fanotify_init(FAN_REPORT_FID, 0) failed");
-+			"fanotify_init(%s, 0) failed", group->name);
- 	}
+@@ -125,8 +125,10 @@ static void do_test(unsigned int number)
  
  	/*
-@@ -108,10 +114,6 @@ static void do_test(unsigned int number)
+ 	 * Create subdir and watch open events "on children" with name.
++	 * Make it a mount root.
  	 */
- 	if (fanotify_mark(fd_notify, FAN_MARK_ADD | mark->flag, tc->mask,
- 			  AT_FDCWD, MOUNT_PATH) < 0) {
--		if (errno == EINVAL)
--			tst_brk(TCONF,
--				"FAN_DIR_MODIFY not supported by kernel");
--
- 		tst_brk(TBROK | TERRNO,
- 		    "fanotify_mark (%d, FAN_MARK_ADD | %s, 0x%lx, "
- 		    "AT_FDCWD, '"MOUNT_PATH"') failed",
-@@ -138,7 +140,7 @@ static void do_test(unsigned int number)
- 		    fd_notify, sub_mark->name, tc->sub_mask, dname1);
- 	}
+ 	SAFE_MKDIR(dname1, 0755);
++	SAFE_MOUNT(dname1, dname1, "none", MS_BIND, NULL);
  
--	event_set[tst_count].mask = FAN_DIR_MODIFY;
-+	event_set[tst_count].mask = FAN_CREATE | FAN_ONDIR;
- 	event_set[tst_count].fid = &root_fid;
- 	strcpy(event_set[tst_count].name, DIR_NAME1);
- 	tst_count++;
-@@ -160,22 +162,22 @@ static void do_test(unsigned int number)
- 	len += SAFE_READ(0, fd_notify, event_buf + len, EVENT_BUF_LEN - len);
+ 	/* Save the subdir fid */
+ 	fanotify_save_fid(dname1, &dir_fid);
+@@ -153,6 +155,7 @@ static void do_test(unsigned int number)
  
- 	/*
--	 * FAN_DIR_MODIFY events with the same name are merged.
-+	 * FAN_CREATE|FAN_DELETE|FAN_MOVE events with the same name are merged.
- 	 */
--	event_set[tst_count].mask = FAN_DIR_MODIFY;
-+	event_set[tst_count].mask = FAN_CREATE | FAN_MOVED_FROM;
+ 	SAFE_WRITE(1, fd, "1", 1);
+ 	SAFE_RENAME(fname1, fname2);
++
+ 	SAFE_CLOSE(fd);
+ 
+ 	/* Generate delete events with fname2 */
+@@ -168,6 +171,16 @@ static void do_test(unsigned int number)
  	event_set[tst_count].fid = &dir_fid;
  	strcpy(event_set[tst_count].name, FILE_NAME1);
  	tst_count++;
--	event_set[tst_count].mask = FAN_DIR_MODIFY;
-+	event_set[tst_count].mask = FAN_DELETE | FAN_MOVED_TO;
++	/*
++	 * Event on non-dir child with the same name may be merged with the
++	 * directory entry modification events above, unless FAN_REPORT_FID is
++	 * set and child fid is reported.
++	 */
++	event_set[tst_count].mask = FAN_OPEN;
++	event_set[tst_count].fid = &dir_fid;
++	strcpy(event_set[tst_count].name, FILE_NAME1);
++	tst_count++;
++
+ 	event_set[tst_count].mask = FAN_DELETE | FAN_MOVED_TO;
  	event_set[tst_count].fid = &dir_fid;
  	strcpy(event_set[tst_count].name, FILE_NAME2);
- 	tst_count++;
--
- 	/*
- 	 * Directory watch does not get self events on children.
--	 * Filesystem watch gets self event w/o name info.
-+	 * Filesystem watch gets self event w/o name info if FAN_REPORT_FID
-+	 * is set.
+@@ -178,11 +191,37 @@ static void do_test(unsigned int number)
+ 	 * is set.
  	 */
--	if (mark->flag == FAN_MARK_FILESYSTEM) {
-+	if (mark->flag == FAN_MARK_FILESYSTEM && (group->flag & FAN_REPORT_FID)) {
- 		event_set[tst_count].mask = FAN_DELETE_SELF;
+ 	if (mark->flag == FAN_MARK_FILESYSTEM && (group->flag & FAN_REPORT_FID)) {
+-		event_set[tst_count].mask = FAN_DELETE_SELF;
++		event_set[tst_count].mask = FAN_DELETE_SELF | FAN_MOVE_SELF;
  		event_set[tst_count].fid = &file_fid;
  		strcpy(event_set[tst_count].name, "");
-@@ -188,19 +190,20 @@ static void do_test(unsigned int number)
- 	/* Read more events on dirs */
- 	len += SAFE_READ(0, fd_notify, event_buf + len, EVENT_BUF_LEN - len);
+ 		tst_count++;
+ 	}
++	event_set[tst_count].mask = FAN_CLOSE_WRITE;
++	event_set[tst_count].fid = &dir_fid;
++	strcpy(event_set[tst_count].name, FILE_NAME2);
++	tst_count++;
++
++	dirfd = SAFE_OPEN(dname1, O_RDONLY | O_DIRECTORY);
++	SAFE_CLOSE(dirfd);
++
++	SAFE_UMOUNT(dname1);
++
++	/*
++	 * Directory watch gets open/close events on itself and on its subdirs.
++	 * Filesystem watch gets open/close event on all directories with name ".".
++	 */
++	event_set[tst_count].mask = FAN_OPEN | FAN_CLOSE_NOWRITE | FAN_ONDIR;
++	event_set[tst_count].fid = &dir_fid;
++	strcpy(event_set[tst_count].name, ".");
++	tst_count++;
++	/*
++	 * Directory watch gets self event on itself and filesystem watch gets
++	 * self event on all directories with name ".".
++	 */
++	event_set[tst_count].mask = FAN_DELETE_SELF | FAN_MOVE_SELF | FAN_ONDIR;
++	event_set[tst_count].fid = &dir_fid;
++	strcpy(event_set[tst_count].name, ".");
++	tst_count++;
  
--	event_set[tst_count].mask = FAN_DIR_MODIFY;
-+	event_set[tst_count].mask = FAN_MOVED_FROM | FAN_ONDIR;
- 	event_set[tst_count].fid = &root_fid;
- 	strcpy(event_set[tst_count].name, DIR_NAME1);
- 	tst_count++;
--	event_set[tst_count].mask = FAN_DIR_MODIFY;
-+	event_set[tst_count].mask = FAN_DELETE | FAN_MOVED_TO | FAN_ONDIR;
+ 	SAFE_RENAME(dname1, dname2);
+ 	SAFE_RMDIR(dname2);
+@@ -198,14 +237,8 @@ static void do_test(unsigned int number)
  	event_set[tst_count].fid = &root_fid;
  	strcpy(event_set[tst_count].name, DIR_NAME2);
  	tst_count++;
- 	/*
--	 * Directory watch gets self event on itself w/o name info.
-+	 * Directory watch gets self event on itself and filesystem watch gets
-+	 * self event on all directories with name ".".
- 	 */
- 	event_set[tst_count].mask = FAN_DELETE_SELF | FAN_ONDIR;
--	strcpy(event_set[tst_count].name, "");
-+	strcpy(event_set[tst_count].name, ".");
- 	event_set[tst_count].fid = &dir_fid;
- 	tst_count++;
+-	/*
+-	 * Directory watch gets self event on itself and filesystem watch gets
+-	 * self event on all directories with name ".".
+-	 */
+-	event_set[tst_count].mask = FAN_DELETE_SELF | FAN_ONDIR;
+-	strcpy(event_set[tst_count].name, ".");
+-	event_set[tst_count].fid = &dir_fid;
+-	tst_count++;
++	/* Expect no more events */
++	event_set[tst_count].mask = 0;
  
-@@ -224,8 +227,8 @@ static void do_test(unsigned int number)
- 		file_handle = (struct file_handle *)event_fid->handle;
- 		fhlen = file_handle->handle_bytes;
- 		filename = (char *)file_handle->f_handle + fhlen;
--		namelen = ((char *)event + event->event_len) - filename;
--		/* End of event could have name, zero padding, both or none */
-+		namelen = ((char *)event_fid + event_fid->hdr.len) - filename;
-+		/* End of event_fid could have name, zero padding, both or none */
- 		if (namelen > 0) {
- 			namelen = strlen(filename);
- 		} else {
-@@ -236,7 +239,7 @@ static void do_test(unsigned int number)
- 		if (expected->name[0]) {
- 			info_type = FAN_EVENT_INFO_TYPE_DFID_NAME;
- 		} else {
--			info_type = FAN_EVENT_INFO_TYPE_FID;
-+			info_type = FAN_EVENT_INFO_TYPE_DFID;
+ 	/*
+ 	 * Cleanup the marks
+@@ -220,7 +253,7 @@ static void do_test(unsigned int number)
+ 		struct file_handle *file_handle;
+ 		unsigned int fhlen;
+ 		const char *filename;
+-		int namelen, info_type;
++		int namelen, info_type, mask_match;
+ 
+ 		event = (struct fanotify_event_metadata *)&event_buf[i];
+ 		event_fid = (struct fanotify_event_info_fid *)(event + 1);
+@@ -242,6 +275,16 @@ static void do_test(unsigned int number)
+ 			info_type = FAN_EVENT_INFO_TYPE_DFID;
  		}
  
++		/*
++		 * Event may contain more than the expected mask, but it must
++		 * have all the bits in expected mask.
++		 * Expected event on dir must not get event on non dir and the
++		 * other way around.
++		 */
++		mask_match = ((event->mask & expected->mask) &&
++			      !(expected->mask & ~event->mask) &&
++			      !((event->mask ^ expected->mask) & FAN_ONDIR));
++
  		if (test_num >= tst_count) {
+ 			tst_res(TFAIL,
+ 				"got unnecessary event: mask=%llx "
+@@ -259,7 +302,7 @@ static void do_test(unsigned int number)
+ 				(unsigned)event->pid, event->fd,
+ 				event->event_len, event_fid->hdr.info_type,
+ 				event_fid->hdr.len, fhlen);
+-		} else if (event->mask != expected->mask) {
++		} else if (!mask_match) {
+ 			tst_res(TFAIL,
+ 				"got event: mask=%llx (expected %llx) "
+ 				"pid=%u fd=%d name='%s' "
+@@ -356,10 +399,19 @@ static void do_test(unsigned int number)
+ 				event_fid->hdr.len, fhlen);
+ 		}
+ 
++		if (test_num < tst_count)
++			test_num++;
++
++		if (mask_match) {
++			/* In case of merged event match next expected mask */
++			event->mask &= ~expected->mask | FAN_ONDIR;
++			if (event->mask & ~FAN_ONDIR)
++				continue;
++		}
++
+ 		i += event->event_len;
+ 		if (event->fd > 0)
+ 			SAFE_CLOSE(event->fd);
+-		test_num++;
+ 	}
+ 
+ 	for (; test_num < tst_count; test_num++) {
 -- 
 2.17.1
 
