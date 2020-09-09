@@ -2,40 +2,38 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF8512636E1
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 21:51:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1504C263722
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 22:11:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 708C93C2A76
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 21:51:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BDF623C2A76
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 22:11:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id BC0703C078F
- for <ltp@lists.linux.it>; Wed,  9 Sep 2020 21:51:50 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 96C393C180A
+ for <ltp@lists.linux.it>; Wed,  9 Sep 2020 22:11:20 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id BB414600C6F
- for <ltp@lists.linux.it>; Wed,  9 Sep 2020 21:51:49 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 9FBF31400153
+ for <ltp@lists.linux.it>; Wed,  9 Sep 2020 22:11:19 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 97CEAB17B;
- Wed,  9 Sep 2020 19:52:04 +0000 (UTC)
-Date: Wed, 9 Sep 2020 21:51:47 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 99507AF48
+ for <ltp@lists.linux.it>; Wed,  9 Sep 2020 20:11:34 +0000 (UTC)
+Date: Wed, 9 Sep 2020 22:11:17 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
-Message-ID: <20200909195147.GA27395@dell5510>
-References: <1599555370-11375-1-git-send-email-zhufy.jy@cn.fujitsu.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20200909201117.GB27395@dell5510>
+References: <20200908073138.GB2475@yuki.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1599555370-11375-1-git-send-email-zhufy.jy@cn.fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <20200908073138.GB2475@yuki.lan>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] route{4,
- 6}-rmmod: Declare variables before using them
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] LTP release
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,56 +52,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Feiyu,
+Hi Cyril,
 
-> When running route4-rmmod case, it reports the following error:
-> /opt/ltp/testcases/bin/route4-rmmod: line 100: lhost_module: unbound variable.
+> As usual we should start preparing for a next release.
 
-> It fails because "set -u" is used in .testcases/lib/cmdlib.sh and
-> "set -u" treats unset variables and parameters as errors.
+...
+> What else should go in?
 
-Right, this is the only reason to take these patches.
-Because these patches wait for rewrite, see
-https://github.com/linux-test-project/ltp/issues/310
+I haven't done review of Amir's fanotify tests for v5.9, but on first look they
+look ok
+https://patchwork.ozlabs.org/project/ltp/list/?series=200606
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+How about Richie's Wrapper for Syzkaller reproducers?
+https://patchwork.ozlabs.org/project/ltp/patch/20200610072928.1331-1-rpalethorpe@suse.com/
 
->  testcases/network/stress/route/route4-rmmod | 3 +++
->  testcases/network/stress/route/route6-rmmod | 3 +++
->  2 files changed, 6 insertions(+)
-
-> diff --git a/testcases/network/stress/route/route4-rmmod b/testcases/network/stress/route/route4-rmmod
-> index 5947bb3..e449cc7 100644
-> --- a/testcases/network/stress/route/route4-rmmod
-> +++ b/testcases/network/stress/route/route4-rmmod
-> @@ -125,6 +125,9 @@ do_setup()
->  	exit $TST_TOTAL
->      fi
-
-> +    # The module name of the interface at the local host
-> +    lhost_module=""
-
-I'd prefer
-       lhost_module=
-> +
->      # Make sure to clean up
->      do_cleanup
-
-> diff --git a/testcases/network/stress/route/route6-rmmod b/testcases/network/stress/route/route6-rmmod
-> index 73f26f2..ffd09bd 100644
-> --- a/testcases/network/stress/route/route6-rmmod
-> +++ b/testcases/network/stress/route/route6-rmmod
-> @@ -121,6 +121,9 @@ do_setup()
->  	exit $TST_TOTAL
->      fi
-
-> +    # The module name of the interface at the local host
-> +    lhost_module=""
-And obviously here as well.
-
-> +
->      # Make sure to clean up
->      do_cleanup
+I wanted to post docparser patch in next few days. But that will be probably too
+late for including in this release.
 
 Kind regards,
 Petr
