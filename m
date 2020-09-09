@@ -1,72 +1,43 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09214262EE5
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 15:06:27 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 10B38262EF9
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 15:13:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B3A043C2C0D
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 15:06:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B52C23C2C0D
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 15:12:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 089F93C14F7
- for <ltp@lists.linux.it>; Wed,  9 Sep 2020 15:06:25 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
- [207.211.31.81])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 843B620096F
- for <ltp@lists.linux.it>; Wed,  9 Sep 2020 15:06:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1599656783;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ZT/scz/3A5CR8efWN6o2lo+tWRt3HjxV+g2vQBH7GNo=;
- b=aL7Ms8MGfoHyvBLx94oTHRtW85rDJuA/XQcEhfIOmWl7OZdTFriakQdhpeup61Iry/Xgut
- Q+rHeZRk1rUQU4bCCQT3oP238uFeC7dJF7jfPNaZIFr2CVdumE0pDNN2ww3oHAqRmfaRf/
- /RivALM3gCF6uaWZ+T/rcUGP0mmJwhA=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-551-ahHFdWatOMyYVlmU7ydPBA-1; Wed, 09 Sep 2020 09:06:21 -0400
-X-MC-Unique: ahHFdWatOMyYVlmU7ydPBA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 95E153C14F7
+ for <ltp@lists.linux.it>; Wed,  9 Sep 2020 15:12:58 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 60A661017DDA;
- Wed,  9 Sep 2020 13:06:20 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 57A92100239A;
- Wed,  9 Sep 2020 13:06:20 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4DDA118095FF;
- Wed,  9 Sep 2020 13:06:20 +0000 (UTC)
-Date: Wed, 9 Sep 2020 09:06:20 -0400 (EDT)
-From: Jan Stancek <jstancek@redhat.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 094FE1000A85
+ for <ltp@lists.linux.it>; Wed,  9 Sep 2020 15:12:57 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 6E3E3B253;
+ Wed,  9 Sep 2020 13:13:12 +0000 (UTC)
+Date: Wed, 9 Sep 2020 15:13:27 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
 To: Li Wang <liwang@redhat.com>
-Message-ID: <1322097859.11602601.1599656780160.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20200909125753.7724-1-liwang@redhat.com>
-References: <20200909125753.7724-1-liwang@redhat.com>
+Message-ID: <20200909131327.GA3241@yuki.lan>
+References: <20200908073138.GB2475@yuki.lan>
+ <CAEemH2cHvM_KD7W6fyX6z3bc0qfVtkp=yEM8MDvvohouyj5N2w@mail.gmail.com>
+ <20200908153659.GA16066@yuki.lan>
+ <CAEemH2eq0fwF8zt1uez5vuwM0vtrLtoFd_45sFqE=iQ8hpudfQ@mail.gmail.com>
+ <CAEemH2es3sMSfAar8Xj4_Vr+2nsD0isPws4v=8=csLyYROAQGQ@mail.gmail.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.40.193.55, 10.4.195.18]
-Thread-Topic: ioctl: take use of TST_RETRY_FN* macro
-Thread-Index: kKDx68dq4Ur+nIk4yBrRoSHWBL95Hw==
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
-X-Mimecast-Spam-Score: 0.001
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <CAEemH2es3sMSfAar8Xj4_Vr+2nsD0isPws4v=8=csLyYROAQGQ@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [Patch v2] ioctl: take use of TST_RETRY_FN* macro
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] LTP release
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,34 +49,83 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: "Pravin Raghul S." <pravinraghul@zilogic.com>,
+ LTP List <ltp@lists.linux.it>, "Vijay Kumar B." <vijaykumar@zilogic.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-
------ Original Message -----
-> To avoid of race with udev, let's use TST_RETRY_FN* macro to loop
-> access() function for more times.
+Hi!
+> > Sounds reasonable. I tried to reserve more space for the mapping grows,
+> > and that works for me:).
+> >
 > 
-> ---Errors---
-> ioctl_loop01.c:59: PASS: /sys/block/loop0/loop/partscan = 1
-> ioctl_loop01.c:60: PASS: /sys/block/loop0/loop/autoclear = 0
-> ioctl_loop01.c:71: FAIL: access /dev/loop0p1 fails
-> ioctl_loop01.c:77: FAIL: access /sys/block/loop0/loop0p1 fails
+> To precisely, we could reserve 256 pages size at the end of the free-range
+> memory to let the stack keep away from a preceding mapping in its growing
+> then.
+> (my only concern is the stack_guard_gap can be changed via kernel command
+> line, but I assume that happen rarely, so here use the default 256 pages)
 > 
-> ioctl09.c:41: PASS: access /sys/block/loop0/loop0p1 succeeds
-> ioctl09.c:52: FAIL: access /dev/loop0p1 fails
+> If there is no objection, I'd make these changes in patch V4.
 > 
-> Fixes: #718
-> Suggested-by: Cyril Hrubis <chrubis@suse.cz>
-> Signed-off-by: Li Wang <liwang@redhat.com>
-> Cc: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-> Cc: Jan Stancek <jstancek@redhat.com>
+> --------
+> 
+> static void *find_free_range(size_t size)
+> {
+>     void *mem;
+>     long stack_guard_gap = 256 * getpageszie();
+> 
+>     /*
+>     * Since the newer kernel does not allow a MAP_GROWSDOWN mapping to grow
+>     * closer than stack_guard_gap pages away from a preceding mapping.
+>     * The guard then ensures that the next-highest mapped page remains more
+>     * than stack_guard_gap below the lowest stack address, and if not then
+>     * it will trigger a segfault. So, here let's reserve 256 pages memory
+>     * spacing for stack growing safely.
+>     */
+>     mem = SAFE_MMAP(NULL, size + stack_guard_gap, PROT_READ | PROT_WRITE,
+>                       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+>     SAFE_MUNMAP(mem, size + stack_guard_gap);
+> 
+>     return mem;
+> }
+> 
+> static void split_unmapped_plus_stack(void *start, size_t size)
+> {
+>     /* start           start + size
+>     * +---------------------+----------------------+-----------+
+>     * + unmapped            | mapped               | 256 pages |
+>     * +---------------------+----------------------+-----------+
+>     *                       stack
+>     */
 
-Acked-by: Jan Stancek <jstancek@redhat.com>
+Shouldn't the 256 pages follow the unmapped part?
 
+If I'm not mistaken if stack grows down the address decreases with stack
+allocations, so it should be as:
+
+| 256 pages | unmapped | mapped |
+
+
+That would also mean that we should map the stack at address start +
+total_size - size if I'm not mistaken. I guess that we can put all the
+mess into a single function as well and have just allocate_stack() that
+will find a suitable address, mmap the stack together, splitting this
+into two functions is unnecessary confusing.
+
+>     stack = SAFE_MMAP(start + size, size, PROT_READ | PROT_WRITE,
+>                              MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS |
+> MAP_GROWSDOWN,
+>                              -1, 0);
+> }
+
+Also I would like to get rid of the -fno-optimize-sibling-calls in the
+Makefile, this makes the test a bit fragile and less portable.
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
