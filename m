@@ -2,70 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E693226352A
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 19:58:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC61D26352C
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 19:58:37 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 984DA3C2C25
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 19:58:28 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 818E13C267D
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 19:58:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 4DAA23C3228
- for <ltp@lists.linux.it>; Wed,  9 Sep 2020 19:57:26 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id BDE003C3228
+ for <ltp@lists.linux.it>; Wed,  9 Sep 2020 19:57:27 +0200 (CEST)
 Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
  [IPv6:2a00:1450:4864:20::344])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id F34871A00E5F
- for <ltp@lists.linux.it>; Wed,  9 Sep 2020 19:57:25 +0200 (CEST)
-Received: by mail-wm1-x344.google.com with SMTP id q9so3169038wmj.2
- for <ltp@lists.linux.it>; Wed, 09 Sep 2020 10:57:25 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6A537140074B
+ for <ltp@lists.linux.it>; Wed,  9 Sep 2020 19:57:27 +0200 (CEST)
+Received: by mail-wm1-x344.google.com with SMTP id w2so3163028wmi.1
+ for <ltp@lists.linux.it>; Wed, 09 Sep 2020 10:57:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=O3mF9HS/Umpd6BDIUTfY84J4Iag8BHPy8RyC+lI9oUk=;
- b=YDZDyOrj24Xn6gLYTURjBqlRwE18PUsmE+06wRRkSx/nrSO5vwQObhGEm6YgxlP6+X
- FpPFl8gxPvyz1FR4IiN3iLkPd8jnnqclh8bZPjp6ThZZyvtD5cHB/MeRHZk8gT9zJ0io
- XbtYxm/aBrQypBgwh2njhrBclGOLbukvc9exaySpSBvooYs1wYB5emKjRAYXNAKOR6Ap
- lzOGN07gkUlPwRvE7TM57iZBE/KbmSrwM0flPqvL8IYUjl7IjDYV+ykt6uPdAXXm5009
- XojQqhzMUCFMfgnxtnxH6aIRPv+NrwPUID8Xnn9Pzt1gQQAR6daB861zusq8u9FXDdnD
- 1H5g==
+ bh=PzJEgBHJwFG7cam8Xnz7ZG0KIsjKVA8HlbRTsFKM5HI=;
+ b=WcBGDD8p44TOAXzx7mtSdlNQSDz1TSAL9IEpk2Rdno6rB5U7K2nSlU52TFOqNmitli
+ /tANCzoZ+7NzxL3PHkxxwtZbXdQFnbsY4mRFM8GQYNcP/5+aQhtFqAWFe5PGgpwhquAL
+ tRpI2m3GNXdeESWS52O5Eg5HRcq5gMNWVAbqdfQitv2Qgy2rIfuCSwOGleXxvhaUQmsP
+ 564t88KFntDXZEipnEFNl508X4swVFNolOBmmsOnZ1u6sgLT3rbfyEZeRPb3982Lah4c
+ ybZHzQdp2wd1KjRlsvqENSlPJGO5+Im9ymwKVG8eOd7IAWTLGWfRPaUT9qtV2rvGiDNH
+ o5Hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=O3mF9HS/Umpd6BDIUTfY84J4Iag8BHPy8RyC+lI9oUk=;
- b=oVjwv66eZTT2KUyBSa/t6xuHfLRMmh1FFK0vGq3X83HUevlV4YpWI51JSqt35iGM2n
- NFGooBw0zQAdoAKvI61BRPf7T6jHSwSnYTxjpyBO+F9M3/iENA5Ic7YvvAUwi/ilrTmm
- OeWKEsyqRVN3ey9dNHzOS+eXqrAFZu5uo47NvuFqoiYf3rvip/7qUtcebIYv3C0SYpXw
- PcQ052wrVRolmLitqqu32nBYtAQlJRCVOleKKXfvl9pvYIUaADDfM9JX51+4whMKm3RU
- eiSkmM71/sN7EL4Oh2cgZn4WF2syQKnqW5LDGCRcRENqIJ23CdSnKDrstvA+MJz3eHH5
- yUTQ==
-X-Gm-Message-State: AOAM530a8FePEcKhY7hLmN4Afj3ViH2+gAGmK4KHNf6uDbtX8wuWZHXn
- Oac0BMCY4s04rwOg/NvuS2w=
-X-Google-Smtp-Source: ABdhPJyL3sZJnLxD/3/aBvUA9WX8AzwMTJJSRR7QIanoPDRfiY1JOWP+PFQ/+hMvIp8KOtCabKhMFQ==
-X-Received: by 2002:a1c:81c6:: with SMTP id c189mr4607916wmd.124.1599674245478; 
- Wed, 09 Sep 2020 10:57:25 -0700 (PDT)
+ bh=PzJEgBHJwFG7cam8Xnz7ZG0KIsjKVA8HlbRTsFKM5HI=;
+ b=hSs+rN9FnR6A10gDqHcm4x6ff6Eg2r9yv4U/MW+gZ1i2avmazCInd1o19LLYLlNIG+
+ f66y1Lumjsbh4sLGpl5ufEKaJY/wbgIeniJ2lmLvhRqrnU9TG7CAfYj4BTaZRx5Ifi/6
+ Oqm73ExqHZaIw9kldAyolT7mKBZE4LzsyqfEm/6EyU8p/vBh7/jvcyJnzmNkGD9XPVUa
+ C7rECV6n1NTTt6bQGHwftfkQdggIzUsDkAi47Svl2MX/Hc02z/bUvYSTvIg8DmnuajZJ
+ tT1WUZRJTu1f8gbxjbfj4FHw1/HT+bAWIda62Y+dxmicJX8quqKjMRdMzjc08sRrgzaT
+ Ejaw==
+X-Gm-Message-State: AOAM531sHn5B7hXmDFf/EeDxGoHPgrn9/4MasS2DPBFS8ib38iKCwxFl
+ 6mNKDF1CdsMTf3SDGoIfWfE=
+X-Google-Smtp-Source: ABdhPJwK02q/NwLB5HBM4GiyRVUeTTksuEwtPv4ivdC+9wyABYH3fomqIa5NCWPih+J2dKZZFfQNQg==
+X-Received: by 2002:a7b:c241:: with SMTP id b1mr4658439wmj.98.1599674246910;
+ Wed, 09 Sep 2020 10:57:26 -0700 (PDT)
 Received: from localhost.localdomain ([141.226.8.56])
- by smtp.gmail.com with ESMTPSA id z83sm4979714wmb.4.2020.09.09.10.57.23
+ by smtp.gmail.com with ESMTPSA id z83sm4979714wmb.4.2020.09.09.10.57.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Sep 2020 10:57:25 -0700 (PDT)
+ Wed, 09 Sep 2020 10:57:26 -0700 (PDT)
 From: Amir Goldstein <amir73il@gmail.com>
 To: Petr Vorel <pvorel@suse.cz>
-Date: Wed,  9 Sep 2020 20:57:04 +0300
-Message-Id: <20200909175707.10670-8-amir73il@gmail.com>
+Date: Wed,  9 Sep 2020 20:57:05 +0300
+Message-Id: <20200909175707.10670-9-amir73il@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200909175707.10670-1-amir73il@gmail.com>
 References: <20200909175707.10670-1-amir73il@gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 07/10] syscalls/inotify: New test for watches on both
- parent and child
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 08/10] syscalls/fanotify09: Add test case with parent
+ and subdir marks
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,193 +83,150 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Check that an inotify event is reported to both watching parent and
-watching child when the child metadata changes.
+This test checks handling of events with both parent and mount marks.
+Generalize the test, and add test case of both parent and subdir marks.
+
+Verified that existing test cases still fail on old kernels without the
+relevant fix commits.
 
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
- runtest/syscalls                              |   1 +
- testcases/kernel/syscalls/inotify/.gitignore  |   1 +
- testcases/kernel/syscalls/inotify/inotify10.c | 149 ++++++++++++++++++
- 3 files changed, 151 insertions(+)
- create mode 100644 testcases/kernel/syscalls/inotify/inotify10.c
+ .../kernel/syscalls/fanotify/fanotify09.c     | 57 ++++++++++++-------
+ 1 file changed, 35 insertions(+), 22 deletions(-)
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 376a2bc6b..b556fb85d 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -564,6 +564,7 @@ inotify06 inotify06
- inotify07 inotify07
- inotify08 inotify08
- inotify09 inotify09
-+inotify10 inotify10
+diff --git a/testcases/kernel/syscalls/fanotify/fanotify09.c b/testcases/kernel/syscalls/fanotify/fanotify09.c
+index 4336f498f..83210bc1c 100644
+--- a/testcases/kernel/syscalls/fanotify/fanotify09.c
++++ b/testcases/kernel/syscalls/fanotify/fanotify09.c
+@@ -6,17 +6,17 @@
+  *
+  * DESCRIPTION
+  *     Check that fanotify handles events on children correctly when
+- *     both inode and mountpoint marks exist.
++ *     both parent and subdir or mountpoint marks exist.
+  *
+  * This is a regression test for commit 54a307ba8d3c:
+  *
+  *      fanotify: fix logic of events on child
+  *
+- * Test case #2 is a regression test for commit b469e7e47c8a:
++ * Test case #1 is a regression test for commit b469e7e47c8a:
+  *
+  *      fanotify: fix handling of events on child sub-directory
+  *
+- * Test case #3 is a regression test for commit 55bf882c7f13:
++ * Test case #2 is a regression test for commit 55bf882c7f13:
+  *
+  *      fanotify: fix merging marks masks with FAN_ONDIR
+  */
+@@ -60,33 +60,45 @@ static int mount_created;
  
- fanotify01 fanotify01
- fanotify02 fanotify02
-diff --git a/testcases/kernel/syscalls/inotify/.gitignore b/testcases/kernel/syscalls/inotify/.gitignore
-index 32ccab5de..da9bfc767 100644
---- a/testcases/kernel/syscalls/inotify/.gitignore
-+++ b/testcases/kernel/syscalls/inotify/.gitignore
-@@ -7,3 +7,4 @@
- /inotify07
- /inotify08
- /inotify09
-+/inotify10
-diff --git a/testcases/kernel/syscalls/inotify/inotify10.c b/testcases/kernel/syscalls/inotify/inotify10.c
-new file mode 100644
-index 000000000..1c43915a8
---- /dev/null
-+++ b/testcases/kernel/syscalls/inotify/inotify10.c
-@@ -0,0 +1,149 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2020 CTERA Networks. All Rights Reserved.
-+ *
-+ * Started by Amir Goldstein <amir73il@gmail.com>
-+ *
-+ * DESCRIPTION
-+ *     Check that event is reported to both watching parent and watching child
-+ */
-+
-+#include "config.h"
-+
-+#if defined(HAVE_SYS_INOTIFY_H)
-+# include <sys/inotify.h>
-+#endif
-+#include <errno.h>
-+#include <string.h>
-+#include "tst_test.h"
-+#include "inotify.h"
-+
-+#if defined(HAVE_SYS_INOTIFY_H)
-+
-+#define EVENT_MAX 10
-+/* Size of the event structure, not including the name */
-+#define EVENT_SIZE  (sizeof(struct inotify_event))
-+#define EVENT_BUF_LEN        (EVENT_MAX * (EVENT_SIZE + 16))
-+
-+
-+#define BUF_SIZE 256
-+
-+struct event_t {
-+	char name[BUF_SIZE];
-+	unsigned int mask;
-+	int wd;
-+};
-+
-+#define	TEST_DIR	"test_dir"
-+#define	TEST_FILE	"test_file"
-+
-+struct event_t event_set[EVENT_MAX];
-+
-+char event_buf[EVENT_BUF_LEN];
-+
-+int fd_notify;
-+
-+static void verify_inotify(void)
-+{
-+	int i = 0, test_num = 0, len;
-+	int wd_parent, wd_dir, wd_file;
-+	int test_cnt = 0;
-+
-+	fd_notify = SAFE_MYINOTIFY_INIT();
-+
-+	/* Set watch on both parent dir and children */
-+	wd_parent = SAFE_MYINOTIFY_ADD_WATCH(fd_notify, ".", IN_ATTRIB);
-+	wd_dir = SAFE_MYINOTIFY_ADD_WATCH(fd_notify, TEST_DIR, IN_ATTRIB);
-+	wd_file = SAFE_MYINOTIFY_ADD_WATCH(fd_notify, TEST_FILE, IN_ATTRIB);
-+
-+	/*
-+	 * Generate events on file and subdir that should be reported to parent
-+	 * dir with name and to children without name.
-+	 */
-+	SAFE_CHMOD(TEST_DIR, 0755);
-+	SAFE_CHMOD(TEST_FILE, 0644);
-+
-+	event_set[test_cnt].wd = wd_parent;
-+	event_set[test_cnt].mask = IN_ATTRIB | IN_ISDIR;
-+	strcpy(event_set[test_cnt].name, TEST_DIR);
-+	test_cnt++;
-+	event_set[test_cnt].wd = wd_dir;
-+	event_set[test_cnt].mask = IN_ATTRIB | IN_ISDIR;
-+	strcpy(event_set[test_cnt].name, "");
-+	test_cnt++;
-+	event_set[test_cnt].wd = wd_parent;
-+	event_set[test_cnt].mask = IN_ATTRIB;
-+	strcpy(event_set[test_cnt].name, TEST_FILE);
-+	test_cnt++;
-+	event_set[test_cnt].wd = wd_file;
-+	event_set[test_cnt].mask = IN_ATTRIB;
-+	strcpy(event_set[test_cnt].name, "");
-+	test_cnt++;
-+
-+	len = read(fd_notify, event_buf, EVENT_BUF_LEN);
-+	if (len == -1)
-+		tst_brk(TBROK | TERRNO, "read failed");
-+
-+	while (i < len) {
-+		struct event_t *expected = &event_set[test_num];
-+		struct inotify_event *event;
-+		event = (struct inotify_event *)&event_buf[i];
-+		if (test_num >= test_cnt) {
-+			tst_res(TFAIL,
-+				"got unnecessary event: "
-+				"wd=%d mask=%04x len=%u "
-+				"name=\"%.*s\"", event->wd, event->mask,
-+				event->len, event->len, event->name);
-+
-+		} else if (expected->wd == event->wd &&
-+			   expected->mask == event->mask &&
-+			   !strncmp(expected->name, event->name, event->len)) {
-+			tst_res(TPASS,
-+				"got event: wd=%d mask=%04x "
-+				"cookie=%u len=%u name=\"%.*s\"",
-+				event->wd, event->mask, event->cookie,
-+				event->len, event->len, event->name);
-+
-+		} else {
-+			tst_res(TFAIL, "got event: wd=%d (expected %d) "
-+				"mask=%04x (expected %x) len=%u "
-+				"name=\"%.*s\" (expected \"%s\")",
-+				event->wd, expected->wd,
-+				event->mask, expected->mask,
-+				event->len, event->len,
-+				event->name, expected->name);
-+		}
-+		test_num++;
-+		i += EVENT_SIZE + event->len;
-+	}
-+
-+	for (; test_num < test_cnt; test_num++) {
-+		tst_res(TFAIL, "didn't get event: mask=%04x ",
-+			event_set[test_num].mask);
-+	}
-+
-+	SAFE_CLOSE(fd_notify);
-+}
-+
-+static void setup(void)
-+{
-+	SAFE_MKDIR(TEST_DIR, 00700);
-+	SAFE_FILE_PRINTF(TEST_FILE, "1");
-+}
-+
-+static void cleanup(void)
-+{
-+	if (fd_notify > 0)
-+		SAFE_CLOSE(fd_notify);
-+}
-+
-+static struct tst_test test = {
-+	.needs_tmpdir = 1,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.test_all = verify_inotify,
-+};
-+
-+#else
-+	TST_TEST_TCONF("system doesn't have required inotify support");
-+#endif /* defined(HAVE_SYS_INOTIFY_H) */
+ static struct tcase {
+ 	const char *tname;
++	struct fanotify_mark_type mark;
+ 	unsigned int ondir;
+ 	const char *testdir;
+ 	int nevents;
+ } tcases[] = {
+ 	{
+-		"Events on children with both inode and mount marks",
++		"Events on non-dir child with both parent and mount marks",
++		INIT_FANOTIFY_MARK_TYPE(MOUNT),
+ 		0,
+ 		DIR_NAME,
+ 		1,
+ 	},
+ 	{
+-		"Events on children and subdirs with both inode and mount marks",
++		"Events on non-dir child and subdir with both parent and mount marks",
++		INIT_FANOTIFY_MARK_TYPE(MOUNT),
+ 		FAN_ONDIR,
+ 		DIR_NAME,
+ 		2,
+ 	},
+ 	{
+-		"Events on files and dirs with both inode and mount marks",
++		"Events on non-dir child and parent with both parent and mount marks",
++		INIT_FANOTIFY_MARK_TYPE(MOUNT),
+ 		FAN_ONDIR,
+ 		".",
+ 		2,
+ 	},
++	{
++		"Events on non-dir child and subdir with both parent and subdir marks",
++		INIT_FANOTIFY_MARK_TYPE(INODE),
++		FAN_ONDIR,
++		DIR_NAME,
++		2,
++	},
+ };
+ 
+-static void create_fanotify_groups(unsigned int ondir)
++static void create_fanotify_groups(struct tcase *tc)
+ {
+-	unsigned int i, onchild;
++	struct fanotify_mark_type *mark = &tc->mark;
++	unsigned int i, onchild, ondir = tc->ondir;
+ 	int ret;
+ 
+ 	for (i = 0; i < NUM_GROUPS; i++) {
+@@ -94,22 +106,25 @@ static void create_fanotify_groups(unsigned int ondir)
+ 						  FAN_NONBLOCK,
+ 						  O_RDONLY);
+ 
+-		/* Add mount mark for each group without MODIFY event */
++		/*
++		 * Add subdir or mount mark for each group with CLOSE event,
++		 * but only the first group requests events on dir.
++		 */
+ 		onchild = (i == 0) ? FAN_EVENT_ON_CHILD | ondir : 0;
+ 		ret = fanotify_mark(fd_notify[i],
+-				    FAN_MARK_ADD | FAN_MARK_MOUNT,
++				    FAN_MARK_ADD | mark->flag,
+ 				    FAN_CLOSE_NOWRITE | onchild,
+-				    AT_FDCWD, ".");
++				    AT_FDCWD, tc->testdir);
+ 		if (ret < 0) {
+ 			tst_brk(TBROK | TERRNO,
+-				"fanotify_mark(%d, FAN_MARK_ADD | "
+-				"FAN_MARK_MOUNT, FAN_MODIFY%s, AT_FDCWD,"
+-				" '.') failed", fd_notify[i],
+-				ondir ? " | FAN_ONDIR" : "");
++				"fanotify_mark(%d, FAN_MARK_ADD | %s, "
++				"%x, AT_FDCWD, '%s') failed",
++				fd_notify[i], mark->name,
++				FAN_CLOSE_NOWRITE | ondir, tc->testdir);
+ 		}
+ 		/*
+-		 * Add inode mark on parent for each group with MODIFY
+-		 * event, but only one group requests events on child.
++		 * Add inode mark on parent for each group with MODIFY event,
++		 * but only the first group requests events on child.
+ 		 * The one mark with FAN_EVENT_ON_CHILD is needed for
+ 		 * setting the DCACHE_FSNOTIFY_PARENT_WATCHED dentry
+ 		 * flag.
+@@ -120,10 +135,8 @@ static void create_fanotify_groups(unsigned int ondir)
+ 		if (ret < 0) {
+ 			tst_brk(TBROK | TERRNO,
+ 				"fanotify_mark(%d, FAN_MARK_ADD, "
+-				"FAN_MODIFY%s%s, AT_FDCWD, '.') failed",
+-				fd_notify[i],
+-				ondir ? " | FAN_ONDIR" : "",
+-				onchild ? " | FAN_EVENT_ON_CHILD" : "");
++				"%x, AT_FDCWD, '.') failed",
++				fd_notify[i], FAN_MODIFY | ondir | onchild);
+ 		}
+ 	}
+ }
+@@ -179,7 +192,7 @@ static void test_fanotify(unsigned int n)
+ 
+ 	tst_res(TINFO, "Test #%d: %s", n, tc->tname);
+ 
+-	create_fanotify_groups(tc->ondir);
++	create_fanotify_groups(tc);
+ 
+ 	/*
+ 	 * generate MODIFY event and no FAN_CLOSE_NOWRITE event.
 -- 
 2.17.1
 
