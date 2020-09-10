@@ -2,54 +2,77 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA46B263D26
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Sep 2020 08:20:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80660263E33
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Sep 2020 09:12:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9C0893C2C03
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Sep 2020 08:20:29 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 122D43C5275
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Sep 2020 09:12:36 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 8A45F3C21AE
- for <ltp@lists.linux.it>; Thu, 10 Sep 2020 08:20:27 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 1CF0D200C1D
- for <ltp@lists.linux.it>; Thu, 10 Sep 2020 08:20:25 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.76,411,1592841600"; d="scan'208";a="99084357"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 10 Sep 2020 14:20:22 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 92B6C48990D3;
- Thu, 10 Sep 2020 14:20:16 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Thu, 10 Sep 2020 14:20:16 +0800
-To: Pankaj Vinadrao Joshi <Pankaj.VJ@exaleapsemi.com>
-References: <BMXPR01MB234415DBFA9A047126CABB85EE260@BMXPR01MB2344.INDPRD01.PROD.OUTLOOK.COM>
- <1ca0f38c-59b5-4e9d-5090-8af0ee8a2c98@cn.fujitsu.com>
- <BMXPR01MB2344600330F2585F9F6609A6EE260@BMXPR01MB2344.INDPRD01.PROD.OUTLOOK.COM>
- <241fc12f-a7ad-7285-579d-07f2de4d7b73@cn.fujitsu.com>
- <BMXPR01MB2344CBD58CD8BDB60301BF47EE270@BMXPR01MB2344.INDPRD01.PROD.OUTLOOK.COM>
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <866cbf20-ceb1-e7f1-b63f-362c4815b5c4@cn.fujitsu.com>
-Date: Thu, 10 Sep 2020 14:20:15 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 392DE3C240A
+ for <ltp@lists.linux.it>; Thu, 10 Sep 2020 09:12:32 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 79FA8600ECA
+ for <ltp@lists.linux.it>; Thu, 10 Sep 2020 09:12:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1599721949;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=jKqZhhvfM5yKAJxikaE55rWUE/VdAahmRaxmdap/CCc=;
+ b=SNJowYfqJZLx3uC1S6/qMH4Nzno/0cWNxjzvbdZPYgKAr49FsaTLktSxVIwzX9vPF9k/+G
+ WCmF472jcyfzVqWz3dUkMQZmsVPxWHEcJ3WvDH0cVl67suNTLMNM86IOWxvliUDzxUfEfI
+ 9ZzWPRCgEIgDrVANLeF4NeVTL9iXl30=
+Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
+ [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-247-XWdfm3RuNRG-ExVliJoA9g-1; Thu, 10 Sep 2020 03:12:26 -0400
+X-MC-Unique: XWdfm3RuNRG-ExVliJoA9g-1
+Received: by mail-yb1-f199.google.com with SMTP id u128so4585917ybg.17
+ for <ltp@lists.linux.it>; Thu, 10 Sep 2020 00:12:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=jKqZhhvfM5yKAJxikaE55rWUE/VdAahmRaxmdap/CCc=;
+ b=X7bVK4K7FQK5bbEfNfoFPKEFI7Z3h23Wb7R+4VD0+QrKhUAeM0LP7eV++O09BV5ReD
+ gDWWGtpA/i5gM2Id8TUt1QSLdNHbC7uEWT2qM7i4Vq+Hz0XTaAXb9xFoG4UgV07Lanba
+ FttC129HzsthEXcAq0rezXBiS3bC8H45pbu5flBHfPzM95UC5TSv77fGDm1yxuFsXLe8
+ 2brRvBQwMJGYgxi3etkUUzvsOEqmD7jogyVTqu6cuOyyNrAvAE7UPDMA5o0k3I4VdbBF
+ EgZlDwxYllY1kRFXWtV9GUOu8KVujw+DhUz1lpmgnXj1zSpnPXbsa7rSXP3bl4uCgwqJ
+ e1sQ==
+X-Gm-Message-State: AOAM530ufir8kOWduRCzd1GuVvx35rbN1meR03AhfQVDpsmL9kWpXBMa
+ DQqWLwoRaGPeCzXSIMTiF0QMFlUkIMIBwv/icQC249WehfdMM/hYOSST83dSe/QzS1Kc32VV2Tk
+ RimaUHlSD/JJAewdYFdlHiyJfqZg=
+X-Received: by 2002:a25:2d59:: with SMTP id s25mr11484464ybe.86.1599721946303; 
+ Thu, 10 Sep 2020 00:12:26 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzsG8zj+Zs6oY6JsumwsmwPGg6LIoj/h+3irjGEejdcPgJiL+cJoTt/T3fobzs0NP5E3Sa7DCf6ru7kOvuIgBw=
+X-Received: by 2002:a25:2d59:: with SMTP id s25mr11484437ybe.86.1599721945988; 
+ Thu, 10 Sep 2020 00:12:25 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <BMXPR01MB2344CBD58CD8BDB60301BF47EE270@BMXPR01MB2344.INDPRD01.PROD.OUTLOOK.COM>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 92B6C48990D3.AE805
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=-3.2 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+References: <20200908073138.GB2475@yuki.lan>
+ <CAEemH2cHvM_KD7W6fyX6z3bc0qfVtkp=yEM8MDvvohouyj5N2w@mail.gmail.com>
+ <20200908153659.GA16066@yuki.lan>
+ <CAEemH2eq0fwF8zt1uez5vuwM0vtrLtoFd_45sFqE=iQ8hpudfQ@mail.gmail.com>
+ <CAEemH2es3sMSfAar8Xj4_Vr+2nsD0isPws4v=8=csLyYROAQGQ@mail.gmail.com>
+ <20200909131327.GA3241@yuki.lan>
+In-Reply-To: <20200909131327.GA3241@yuki.lan>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 10 Sep 2020 15:12:14 +0800
+Message-ID: <CAEemH2e7QZu3HeGfo2-+8jAOhVCatw7X+A4dEq_1PEasU3N1CQ@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0.001
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] Error with cpuset_inherit
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] LTP release
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,236 +84,158 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="windows-1252"; Format="flowed"
+Cc: "Pravin Raghul S." <pravinraghul@zilogic.com>,
+ LTP List <ltp@lists.linux.it>, "Vijay Kumar B." <vijaykumar@zilogic.com>
+Content-Type: multipart/mixed; boundary="===============1637642245=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Pankaj
+--===============1637642245==
+Content-Type: multipart/alternative; boundary="000000000000549cff05aef04ad2"
+
+--000000000000549cff05aef04ad2
+Content-Type: text/plain; charset="UTF-8"
+
+On Wed, Sep 9, 2020 at 9:13 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+
+> ...
+> > static void split_unmapped_plus_stack(void *start, size_t size)
+> > {
+> >     /* start           start + size
+> >     * +---------------------+----------------------+-----------+
+> >     * + unmapped            | mapped               | 256 pages |
+> >     * +---------------------+----------------------+-----------+
+> >     *                       stack
+> >     */
+>
+> Shouldn't the 256 pages follow the unmapped part?
+>
+
+Yes, you're right. I made a mistake on draw that. Will fix in V4.
 
 
-> Hi Yang,
-> It seems NUMA is not supported on my arch.
-Enable this kernel config, this case is ok? Do you try it?
-> I have other question, I saw LTP is getting maintained on Master branch =
+>
+> If I'm not mistaken if stack grows down the address decreases with stack
+> allocations, so it should be as:
+>
+> | 256 pages | unmapped | mapped |
+>
+>
+> That would also mean that we should map the stack at address start +
+> total_size - size if I'm not mistaken. I guess that we can put all the
+> mess into a single function as well and have just allocate_stack() that
+> will find a suitable address, mmap the stack together, splitting this
+> into two functions is unnecessary confusing.
+>
 
-> only but i am able to see there are some tags i want to know on what =
-
-> basis these tags are getting updated ??
-ltp announces a release every four months(Jan, May, Sep),  here has the =
-
-more info
-https://github.com/linux-test-project/ltp/releases
-> =
-
-> =
-
-> =
-
-> Thanks!
-> ------------------------------------------------------------------------
-> *From:* Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-> *Sent:* Thursday, September 10, 2020 8:09 AM
-> *To:* Pankaj Vinadrao Joshi <Pankaj.VJ@exaleapsemi.com>
-> *Cc:* ltp@lists.linux.it <ltp@lists.linux.it>
-> *Subject:* Re: [LTP] Error with cpuset_inherit
-> Hi Pankaj
-> =
-
-> grep it on kernel code as below:
-> [root@localhost linux]# grep -nsr has_normal_memory
-> drivers/base/node.c:971:=A0=A0=A0=A0=A0=A0=A0 [N_NORMAL_MEMORY] =3D
-> _NODE_ATTR(has_normal_memory, N_NORMAL_MEMORY),
-> Documentation/ABI/stable/sysfs-devices-node:13:What:
-> /sys/devices/system/node/has_normal_memory
-> [root@localhost linux]#
-> =
-
-> vim driver/base/Makefile
-> obj-$(CONFIG_NUMA)=A0=A0=A0=A0=A0 +=3D node.o
-> =
-
-> I guess your kernel doesn't enable CONFIG_NUMA.
-> =
-
->> Hi,
->> Can you suggest what all configs are needed for this testcase??
->> ------------------------------------------------------------------------
->> *From:* Yang Xu <xuyang2018.jy@cn.fujitsu.com>
->> *Sent:* Wednesday, September 9, 2020 2:19 PM
->> *To:* Pankaj Vinadrao Joshi <Pankaj.VJ@exaleapsemi.com>;
->> ltp@lists.linux.it <ltp@lists.linux.it>
->> *Subject:* Re: [LTP] Error with cpuset_inherit
->> Hi Pankaj
->>
->> :
->>> Hi,
->>> i am running cpuset_inherit from LTP version:20200515-267-g9677c5573 on
->>> custom kernel 5.5.6 but i am getting following failure with the
->>> mentioned testcase
->>>
->>> earlycon=3Dsbi earlycon=3Dsbi root=3D/dev/mmcblk0p3 rootwait console=3D=
-ttySIF0
->>> console=3Dtty0
->>>
->>> Gnu C=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 gcc (GCC) 8.3.0
->>> Clang
->>> Gnu make=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 4.2.1
->>> util-linux=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2.34
->>> mount=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 linux 2.34 (li=
-bmount 2.34.0: btrfs, namespaces,
->>> assert, debug)
->>> modutils=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 26
->>> e2fsprogs=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 1.45.4
->>> Linux C Library=A0=A0=A0=A0=A0=A0=A0 > libc.2.30
->>> Dynamic linker (ldd)=A0=A0 2.30
->>> Linux C++ Library=A0=A0=A0=A0=A0 6.0.25
->>> Procps=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 3.3.15
->>> iproute2=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 iproute2-ss190924
->>> iputils=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 'V'
->>> Kbd=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2.2.0
->>> Sh-utils=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 8.31
->>> Modules Loaded=A0=A0=A0=A0=A0=A0=A0=A0 veth ofpart cmdlinepart spi_nor
->>>
->>> free reports:
->>>=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 total=A0=A0=A0=A0=A0=A0=A0=
- used=A0=A0=A0=A0=A0=A0=A0 free=A0=A0=A0=A0=A0 shared=A0 buff/cache
->>> available
->>> Mem:=A0=A0=A0=A0=A0=A0=A0 8167360=A0=A0=A0=A0=A0=A0 63568=A0=A0=A0=A0 7=
-098176=A0=A0=A0=A0=A0=A0 17980=A0=A0=A0=A0 1005616
->>> 7994892
->>> Swap:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0 0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 0
->>>
->>> cpuinfo:
->>> Architecture:=A0=A0=A0=A0=A0=A0=A0 riscv64
->>> Byte Order:=A0=A0=A0=A0=A0=A0=A0=A0=A0 Little Endian
->>> CPU(s):=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 4
->>> On-line CPU(s) list: 0-3
->>> Thread(s) per core:=A0 4
->>> Core(s) per socket:=A0 1
->>> Socket(s):=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 1
->>> L1d cache:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 32 KiB
->>> L1i cache:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 32 KiB
->>> L2 cache:=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2 MiB
->>>
->>> AppArmor disabled
->>>
->>> SELinux mode: unknown
->>> no big block device was specified on commandline.
->>> Tests which require a big block device are disabled.
->>> You can specify it with option -z
->>> COMMAND:=A0=A0=A0 /opt/ltp/bin/ltp-pan=A0=A0 -e -S=A0=A0 -a 10318=A0=A0=
-=A0=A0 -n 10318 -p -f
->>> /tmp/ltp-NOCHmuGYM1/alltests -l
->>> /opt/ltp/results/LTP_RUN_ON-2020_09_08-11h_09m_36s.log=A0 -C
->>> /opt/ltp/output/LTP_RUN_ON-2020_09_08-11h_09m_36s.failed -T
->>> /opt/ltp/output/LTP_RUN_ON-2020_09_08-11h_09m_36s.tconf
->>> INFO: Restricted to cpuset_inherit
->>> LOG File: /opt/ltp/results/LTP_RUN_ON-2020_09_08-11h_09m_36s.log
->>> FAILED COMMAND File:
->>> /opt/ltp/output/LTP_RUN_ON-2020_09_08-11h_09m_36s.failed
->>> TCONF COMMAND File: /opt/ltp/output/LTP_RUN_ON-2020_09_08-11h_09m_36s.t=
-conf
->>> Running tests.......
->>> <<<test_start>>>
->>> tag=3Dcpuset_inherit stime=3D1599563376
->>> cmdline=3D"cpuset_inherit_testset.sh"
->>> contacts=3D""
->>> analysis=3Dexit
->>> <<<test_output>>>
->>> cat: /sys/devices/system/node/has_normal_memory: No such file or direct=
-ory
->> You should investigate why your system doesn't have this file because we
->> use this file value to compare in test case.
->>
->> I guess you may miss some kernel config.
->>
->>
->>> cpuset_inherit 1 TPASS: cpus: Inherited information is right!
->>> cpuset_inherit 3 TPASS: cpus: Inherited information is right!
->>> cpuset_inherit 5 TPASS: cpus: Inherited information is right!
->>> cpuset_inherit 7 TPASS: cpus: Inherited information is right!
->>> cpuset_inherit 9 TPASS: cpus: Inherited information is right!
->>> cpuset_inherit 11 TPASS: cpus: Inherited information is right!
->>> cpuset_inherit 13 TPASS: mems: Inherited information is right!
->>> cpuset_inherit 15 TPASS: mems: Inherited information is right!
->>> cpuset_inherit 17 TPASS: mems: Inherited information is right!
->>> cpuset_inherit 19 TPASS: mems: Inherited information is right!
->>> cpuset_inherit 21 TPASS: mems: Inherited information is right!
->>> *cpuset_inherit 23 TFAIL: mems: Test result - 0 Expected string - ""*
->>> cpuset_inherit 25 TPASS: cpu_exclusive: Inherited information is right!
->>> cpuset_inherit 27 TPASS: cpu_exclusive: Inherited information is right!
->>> cpuset_inherit 29 TPASS: mem_exclusive: Inherited information is right!
->>> cpuset_inherit 31 TPASS: mem_exclusive: Inherited information is right!
->>> cpuset_inherit 33 TPASS: mem_hardwall: Inherited information is right!
->>> cpuset_inherit 35 TPASS: mem_hardwall: Inherited information is right!
->>> cpuset_inherit 37 TPASS: memory_migrate: Inherited information is right!
->>> cpuset_inherit 39 TPASS: memory_migrate: Inherited information is right!
->>> cpuset_inherit 41 TPASS: memory_spread_page: Inherited information is r=
-ight!
->>> cpuset_inherit 43 TPASS: memory_spread_page: Inherited information is r=
-ight!
->>> cpuset_inherit 45 TPASS: memory_spread_slab: Inherited information is r=
-ight!
->>> cpuset_inherit 47 TPASS: memory_spread_slab: Inherited information is r=
-ight!
->>> cpuset_inherit 49 TPASS: sched_load_balance: Inherited information is r=
-ight!
->>> cpuset_inherit 51 TPASS: sched_load_balance: Inherited information is r=
-ight!
->>> cpuset_inherit 53 TPASS: sched_relax_domain_level: Inherited information
->>> is right!
->>> cpuset_inherit 55 TPASS: sched_relax_domain_level: Inherited information
->>> is right!
->>> cpuset_inherit 57 TPASS: sched_relax_domain_level: Inherited information
->>> is right!
->>> cpuset_inherit 59 TPASS: sched_relax_domain_level: Inherited information
->>> is right!
->>> cpuset_inherit 61 TPASS: sched_relax_domain_level: Inherited information
->>> is right!
->>> cpuset_inherit 63 TPASS: sched_relax_domain_level: Inherited information
->>> is right!
->>> cpuset_inherit 65 TPASS: sched_relax_domain_level: Inherited information
->>> is right!
->>> incrementing stop
->>> <<<execution_status>>>
->>> initiation_status=3D"ok"
->>> duration=3D3 termination_type=3Dexited termination_id=3D1 corefile=3Dno
->>> cutime=3D131 cstime=3D194
->>> <<<test_end>>>
->>> INFO: ltp-pan reported some tests FAIL
->>> LTP Version: 20200515-267-g9677c5573
->>>
->>>=A0=A0=A0=A0=A0=A0=A0=A0 ###############################################=
-################
->>>
->>>=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 Done executing testcases.
->>>=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 LTP Version:=A0 20200515-267-g96=
-77c5573
->>>=A0=A0=A0=A0=A0=A0=A0=A0 ###############################################=
-################
->>>
->>> Can someone help me why this test is getting failed and how i can
->>> resolve it??
->>>
->>> Thanks!
->>>
->>>
->>>
->>>
->>
->>
->> [EXT]
-> =
-
-> =
-
-> [EXT]
+Good point, it makes sense to me.
 
 
 
--- =
+>
+> >     stack = SAFE_MMAP(start + size, size, PROT_READ | PROT_WRITE,
+> >                              MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS |
+> > MAP_GROWSDOWN,
+> >                              -1, 0);
+> > }
+>
+> Also I would like to get rid of the -fno-optimize-sibling-calls in the
+> Makefile, this makes the test a bit fragile and less portable.
+>
+> --
+> Cyril Hrubis
+> chrubis@suse.cz
+>
+>
 
+-- 
+Regards,
+Li Wang
+
+--000000000000549cff05aef04ad2
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Wed, Sep 9, 2020 at 9:13 PM Cyril Hrubis &lt;<a =
+href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a>&gt; w=
+rote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
+x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><span clas=
+s=3D"gmail_default" style=3D"font-size:small">...</span><br>
+&gt; static void split_unmapped_plus_stack(void *start, size_t size)<br>
+&gt; {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0/* start=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0st=
+art + size<br>
+&gt;=C2=A0 =C2=A0 =C2=A0* +---------------------+----------------------+---=
+--------+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0* + unmapped=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 | mapped=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 256 pa=
+ges |<br>
+&gt;=C2=A0 =C2=A0 =C2=A0* +---------------------+----------------------+---=
+--------+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0*=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0stack<br>
+&gt;=C2=A0 =C2=A0 =C2=A0*/<br>
+<br>
+Shouldn&#39;t the 256 pages follow the unmapped part?<br></blockquote><div>=
+<br></div><div><div class=3D"gmail_default" style=3D"font-size:small">Yes, =
+you&#39;re right. I made a mistake on draw that. Will fix in V4.</div></div=
+><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
+ 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+If I&#39;m not mistaken if stack grows down the address decreases with stac=
+k<br>
+allocations, so it should be as:<br>
+<br>
+| 256 pages | unmapped | mapped |<br>
+<br>
+<br>
+That would also mean that we should map the stack at address start +<br>
+total_size - size if I&#39;m not mistaken. I guess that we can put all the<=
+br>
+mess into a single function as well and have just allocate_stack() that<br>
+will find a suitable address, mmap the stack together, splitting this<br>
+into two functions is unnecessary confusing.<br></blockquote><div><br></div=
+><div><div class=3D"gmail_default" style=3D"font-size:small">Good point, it=
+ makes sense to me.</div><br></div><div>=C2=A0</div><blockquote class=3D"gm=
+ail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,=
+204,204);padding-left:1ex">
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0stack =3D SAFE_MMAP(start + size, size, PROT_READ |=
+ PROT_WRITE,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS =
+|<br>
+&gt; MAP_GROWSDOWN,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 -1, 0);<br>
+&gt; }<br>
+<br>
+Also I would like to get rid of the -fno-optimize-sibling-calls in the<br>
+Makefile, this makes the test a bit fragile and less portable.<br>
+<br>
+-- <br>
+Cyril Hrubis<br>
+<a href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a><br=
+>
+<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div>=
+</div>
+
+--000000000000549cff05aef04ad2--
+
+
+--===============1637642245==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+
+-- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1637642245==--
+
