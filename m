@@ -1,78 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E79E0263E66
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Sep 2020 09:19:38 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id DC225263EAC
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Sep 2020 09:24:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9BB1E3C527A
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Sep 2020 09:19:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 643523C2C03
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Sep 2020 09:24:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 6D0D53C240A
- for <ltp@lists.linux.it>; Thu, 10 Sep 2020 09:19:35 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [207.211.31.120])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id DD6991A00F4A
- for <ltp@lists.linux.it>; Thu, 10 Sep 2020 09:19:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1599722373;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=29MpzuyEuncliX7TiOxEXeQM8Td6v1HA0kaxZkqVRSo=;
- b=e+X2GLVQ9XTUMZs2/ACBoVFbdtKeBBzDWzitIS+KmARu2WhFdhEA9raQZVdSdxpFwoYe+r
- hz39DDB5NWnjg/mP2qvbDeyYCRkpmr5J03pTa7iTxQ+/nP8Dxb8Jd/NTOteglKrPc42VY8
- WYmAJmdGWExTcgJr3bqKTYY5Pxwmw8U=
-Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
- [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-303-J1tTMyjdMTOI2XRnld9UCQ-1; Thu, 10 Sep 2020 03:19:31 -0400
-X-MC-Unique: J1tTMyjdMTOI2XRnld9UCQ-1
-Received: by mail-yb1-f199.google.com with SMTP id t127so4596095ybf.16
- for <ltp@lists.linux.it>; Thu, 10 Sep 2020 00:19:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=29MpzuyEuncliX7TiOxEXeQM8Td6v1HA0kaxZkqVRSo=;
- b=puMsj+jdyu9lfoUgumc3VnQKcFyeT1GdZIP8x/V6uFYbzSkGG11DWadMzhXk1tyxzO
- Y9MoxN0RseFgVhy9zrFBo46Ihr5OWXR1EwKXfsu9YTwVkbYdNajhhC+KiBbWSqVZ/hAN
- BiKoa1XqkEnnnR5XkUxYrkN+fWJUFA3WaB9Dy8/jQJG5w3P/BB8X3SSjuK3ZHk/OlRE0
- t0GdWWyQGITiCrKDVKYcf132p8NnzwN91OdcwYL/kO3k1gbmFtYUyOdUNq9FkuzlVf58
- cQXIuwtuOPQMtGjiD2P6zhWfzA8aWBralY3k+EK5TWzRINo+sQia1FmJKOLO9Glu5Mws
- dFjQ==
-X-Gm-Message-State: AOAM532k/UHFedWhDQY5UaKxgTm+GJtYydSgadV9FXCzSP7Kk7q2b31E
- cZ9gBJYoOTDEn8adCHDsL9xSfeOFWCmhZg6wvt+Cc9Hu0eca2v87Tpgvkqo6nfzqlgNfKLPddGv
- WKv52c4H0sdX80jgeUwhRK3utyV8=
-X-Received: by 2002:a25:902:: with SMTP id 2mr10437088ybj.366.1599722370900;
- Thu, 10 Sep 2020 00:19:30 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwtQvjgSnVISvtwBELKfYCjCoHxYaWkp7cOJvaOuSRMiAPINqYIWnr+PK+fJ51kB6cC9LWV8sZzzd5le6u/hIY=
-X-Received: by 2002:a25:902:: with SMTP id 2mr10437071ybj.366.1599722370728;
- Thu, 10 Sep 2020 00:19:30 -0700 (PDT)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 847F93C240A
+ for <ltp@lists.linux.it>; Thu, 10 Sep 2020 09:24:45 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id E781F600ED6
+ for <ltp@lists.linux.it>; Thu, 10 Sep 2020 09:24:44 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9978BAC97;
+ Thu, 10 Sep 2020 07:24:59 +0000 (UTC)
+Date: Thu, 10 Sep 2020 09:24:42 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+Message-ID: <20200910072442.GA3946@dell5510>
+References: <20200829011427.12893-1-tusharsu@linux.microsoft.com>
+ <20200901060740.GA4117@dell5510>
+ <64b16589-f16a-eff0-47f3-8456853fc205@linux.microsoft.com>
 MIME-Version: 1.0
-References: <20200908073138.GB2475@yuki.lan>
- <CAEemH2cHvM_KD7W6fyX6z3bc0qfVtkp=yEM8MDvvohouyj5N2w@mail.gmail.com>
- <20200908153659.GA16066@yuki.lan>
- <CAEemH2eq0fwF8zt1uez5vuwM0vtrLtoFd_45sFqE=iQ8hpudfQ@mail.gmail.com>
- <CAEemH2es3sMSfAar8Xj4_Vr+2nsD0isPws4v=8=csLyYROAQGQ@mail.gmail.com>
- <20200909131327.GA3241@yuki.lan> <20200909132703.GB3241@yuki.lan>
-In-Reply-To: <20200909132703.GB3241@yuki.lan>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 10 Sep 2020 15:19:19 +0800
-Message-ID: <CAEemH2e+Ck8M22gdgL0OQ24ekBPyDu4FwGrdG+da9E62UZWjRQ@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0.0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <64b16589-f16a-eff0-47f3-8456853fc205@linux.microsoft.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] LTP release
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] IMA: Add test for dm-crypt measurement
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,93 +47,105 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "Pravin Raghul S." <pravinraghul@zilogic.com>,
- LTP List <ltp@lists.linux.it>, "Vijay Kumar B." <vijaykumar@zilogic.com>
-Content-Type: multipart/mixed; boundary="===============1762263586=="
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: snitzer@redhat.com, nramas@linux.microsoft.com, dm-devel@redhat.com,
+ ltp@lists.linux.it, linux-integrity@vger.kernel.org, gmazyland@gmail.com,
+ agk@redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1762263586==
-Content-Type: multipart/alternative; boundary="000000000000a5a0ad05aef06329"
-
---000000000000a5a0ad05aef06329
-Content-Type: text/plain; charset="UTF-8"
-
-On Wed, Sep 9, 2020 at 9:26 PM Cyril Hrubis <chrubis@suse.cz> wrote:
-
-> Hi!
-> > Also I would like to get rid of the -fno-optimize-sibling-calls in the
-> > Makefile, this makes the test a bit fragile and less portable.
->
-
-I'm not very sure, let me think/check a while.
-
-
-> /*
->  * Returns negative number if stack grows down, possitive if stack grows up
->  */
-> static int stack_dir(void)
-> {
->         intptr_t addr = addr_func();
->
->         printf("%p %p\n", &addr, (void*)addr);
->
-
-This method may be doable, but the second %p print (nil), I don't why.
-
-# ./test
-0x3ffe70feb48 (nil)
-418387128
--- 
-Regards,
-Li Wang
-
---000000000000a5a0ad05aef06329
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Wed, Sep 9, 2020 at 9:26 PM Cyril Hrubis &lt;<a =
-href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
-t:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
-&gt; Also I would like to get rid of the -fno-optimize-sibling-calls in the=
-<br>
-&gt; Makefile, this makes the test a bit fragile and less portable.<br></bl=
-ockquote><div><br></div><div><div class=3D"gmail_default" style=3D"font-siz=
-e:small">I&#39;m not very sure, let me think/check a while.</div></div><div=
->=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
-0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-/*<br>
-=C2=A0* Returns negative number if stack grows down, possitive if stack gro=
-ws up<br>
-=C2=A0*/<br>
-static int stack_dir(void)<br>
-{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 intptr_t addr =3D addr_func();<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 printf(&quot;%p %p\n&quot;, &amp;addr, (void*)a=
-ddr);<br></blockquote><div><br></div><div><div class=3D"gmail_default" styl=
-e=3D"font-size:small">This method may be=C2=A0doable, but the second %p pri=
-nt (nil), I don&#39;t why.</div><br></div><div><div class=3D"gmail_default"=
- style=3D"font-size:small"># ./test=C2=A0</div>0x3ffe70feb48 (nil)<br>41838=
-7128<br><div class=3D"gmail_default" style=3D"font-size:small"></div></div>=
-</div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><d=
-iv>Regards,<br></div><div>Li Wang<br></div></div></div></div>
-
---000000000000a5a0ad05aef06329--
-
-
---===============1762263586==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1762263586==--
-
+SGkgVHVzaGFyLAoKPiA+ID4gSU1BIHN1YnN5c3RlbSBzdXBwb3J0cyBtZWFzdXJpbmcgZGF0YSBm
+cm9tIG90aGVyIGtlcm5lbCBjb21wb25lbnRzCj4gPiA+IHRocm91Z2ggZnVuYz1DUklUSUNBTF9E
+QVRBIHBvbGljeSAnY3JpdGljYWxfa2VybmVsX2RhdGFfc291cmNlcycuCj4gPiA+IFRoaXMgSU1B
+IHBvbGljeSBjYW4gYmUgc2V0IHRvIG1lYXN1cmUgdGhlIGRhdGEgY29taW5nIGZyb20gZGV2aWNl
+LW1hcHBlcgo+ID4gPiB0YXJnZXRzLiBUaGlzIHNjZW5hcmlvIG5lZWRzIHRlc3QgY292ZXJhZ2Uu
+Cj4gPiBUaGFuayB5b3UgZm9yIHlvdXIgcGF0Y2guCgo+ID4gRmlyc3QsIHlvdSBoYXZlbid0IHNl
+bmQgdGhpcyBwYXRjaCB0byBMVFAgbWFpbGluZyBsaXN0Cj4gPiAoaHR0cHM6Ly9saXN0cy5saW51
+eC5pdC9saXN0aW5mby9sdHApLiBJIENjIGl0LCBwbGVhc2UgZG8gbmV4dCB0aW1lLgoKPiBBcG9s
+b2dpZXMgZm9yIG15IGlnbm9yYW5jZS4KPiBJIHdpbGwgaW5jbHVkZSBpdCBuZXh0IHRpbWUuClRo
+YW5rcyEgTm8gYmlnIGRlYWwgOikuCgo+ID4gPiBBZGQgYSB0ZXN0Y2FzZSB3aGljaCB2ZXJpZmll
+cyB0aGF0IHRoZSBJTUEgc3Vic3lzdGVtIGNvcnJlY3RseSBtZWFzdXJlcwo+ID4gPiB0aGUgZGF0
+YSBwcm92aWRlZCBieSBvbmUgc3VjaCBETSB0YXJnZXQgLSBkbS1jcnlwdC4KCj4gPiA+IFRoaXMg
+c2VyaWVzIG5lZWRzIGEga2VybmVsIGJ1aWx0IG9uIHRoZSBmb2xsb3dpbmcgcmVwby9icmFuY2gv
+cGF0Y2hlczoKPiA+ID4gICByZXBvOiBodHRwczovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGlu
+dXgva2VybmVsL2dpdC96b2hhci9saW51eC1pbnRlZ3JpdHkuZ2l0Cj4gPiA+ICAgYnJhbmNoOiBu
+ZXh0LWludGVncml0eQo+ID4gPiAgIGNvbW1pdCBkMDEyYTcxOTBmYzEgKCJMaW51eCA1LjktcmMy
+IikKCj4gPiA+IEFuZCB0aGUgZm9sbG93aW5nIHBhdGNoIHNlcmllcyBzaG91bGQgYmUgYXBwbGll
+ZCBpbiB0aGUgb3JkZXIgYmVsb3c6Cj4gPiA+ICAgMS4gaHR0cHM6Ly9wYXRjaHdvcmsua2VybmVs
+Lm9yZy9wYXRjaC8xMTcwOTUyNy8KPiA+ID4gICAyLiBodHRwczovL3BhdGNod29yay5rZXJuZWwu
+b3JnL3BhdGNoLzExNzQyMDQ3Lwo+ID4gPiAgIDMuIGh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5v
+cmcvcGF0Y2gvMTE3NDMyNjUvCj4gPiA+ICAgNC4gaHR0cHM6Ly9wYXRjaHdvcmsua2VybmVsLm9y
+Zy9wYXRjaC8xMTc0MzcxNS8KCj4gPiBUaGFua3MgZm9yIGEgZGV0YWlsZWQgaW5mby4KPiBTdXJl
+LiA6KQoKLi4uCj4gPiA+ICsjIyMgSU1BIERNIHRhcmdldCAoZG0tY3J5cHQpIG1lYXN1cmVtZW50
+IHRlc3QKPiA+ID4gKwo+ID4gPiArVG8gZW5hYmxlIElNQSB0byBtZWFzdXJlIGRldmljZS1tYXBw
+ZXIgdGFyZ2V0IC0gZG0tY3J5cHQsCj4gPiA+ICtgaW1hX2RtX2NyeXB0LnNoYCByZXF1aXJlcyBh
+IHJlYWRhYmxlIElNQSBwb2xpY3ksIGFzIHdlbGwgYXMKPiA+ID4gK2EgbG9hZGVkIG1lYXN1cmUg
+cG9saWN5IHdpdGgKPiA+ID4gK2BmdW5jPUNSSVRJQ0FMX0RBVEEgY3JpdGljYWxfa2VybmVsX2Rh
+dGFfc291cmNlcz1kbS1jcnlwdGAKPiA+IENvdWxkIHlvdSBwbGVhc2UgYWxzbyBjcmVhdGUgaW1h
+X2RtX2NyeXB0LnBvbGljeSBmaWxlIGluCj4gPiB0ZXN0Y2FzZXMva2VybmVsL3NlY3VyaXR5L2lu
+dGVncml0eS9pbWEvZGF0YWZpbGVzL2ltYV9kbV9jcnlwdC8gZGlyZWN0b3J5PwoKPiBNYXliZSBJ
+IHNob3VsZCBjcmVhdGUgYSBkaXJlY3Rvcnkg4oCYaW1hX2RldmljZV9tYXBwZXLigJkgcmF0aGVy
+IHRoYW4KPiDigJhpbWFfZG1fY3J5cHTigJkgLSBiZWNhdXNlIHRoZXJlIGNvdWxkIGJlIG1vcmUg
+RE0gdGFyZ2V0cyBsaWtlIOKAmGNyeXB04oCZLgo+IEFuZCBJIHdpbGwgcGxhY2UgYWxsIHRoZSBk
+bSB0YXJnZXQgcG9saWN5IGZpbGVzIHRoZXJlLgo+IERvZXMgaXQgc291bmQgZ29vZD8KVGhlIGRp
+cmVjdG9yeSBtdXN0IGhhdmUgdGhlIHNhbWUgbmFtZSBhcyB0aGUgdGVzdCBmaWxlbmFtZSB3aXRo
+b3V0IGV4dGVuc2lvbiwKYmVjYXVzZSB0aGF0IGlzICRUU1RfSUQsIHNlZSB0c3RfdGVzdC5zaDoK
+CmlmIFsgLXogIiRUU1RfSUQiIF07IHRoZW4KCV90c3RfZmlsZW5hbWU9JChiYXNlbmFtZSAkMCkg
+fHwgXAoJCXRzdF9icmsgVENPTkYgIkZhaWxlZCB0byBzZXQgVFNUX0lEIGZyb20gXCQwICgnJDAn
+KSwgZml4IGl0IHdpdGggc2V0dGluZyBUU1RfSUQgYmVmb3JlIHNvdXJjaW5nIHRzdF90ZXN0LnNo
+IgoJVFNUX0lEPSR7X3RzdF9maWxlbmFtZSUlLip9CmZpCmV4cG9ydCBUU1RfSUQ9IiRUU1RfSUQi
+CgouLi4KCWV4cG9ydCBUU1RfREFUQVJPT1Q9IiRMVFBST09UL3Rlc3RjYXNlcy9kYXRhLyRUU1Rf
+SUQiCgpVbmZvcnR1bmF0ZWx5IHRoYXQncyB0aGUgY3VycmVudCBsaW1pdGF0aW9uIGZvciBMVFAg
+ZGF0YSBmaWxlcy4KCi4uLgo+ID4gPiArdGVzdDEoKQo+ID4gPiArewo+ID4gPiArCWxvY2FsIGRt
+Y2hlY2tfbGluZXMgaSBkbV90YXJnZXRzIHRlbXBsYXRlcwo+ID4gPiArCWxvY2FsIHBvbGljeT0i
+Y3JpdGljYWxfa2VybmVsX2RhdGFfc291cmNlcyIKPiA+ID4gKwlsb2NhbCBwYXR0ZXJuPSdjcml0
+aWNhbF9rZXJuZWxfZGF0YV9zb3VyY2VzPVteWzpzcGFjZTpdXSsnCj4gPiA+ICsJbG9jYWwgdG1w
+X2ZpbGU9InRtcC50eHQiCj4gPiA+ICsJbG9jYWwgdG9rZW5zX2ZpbGU9InRva2Vuc19maWxlLnR4
+dCIgZ3JlcF9maWxlPSJncmVwX2ZpbGUudHh0Igo+ID4gPiArCWxvY2FsIGFyZyBjbWQga2V5IHRn
+dF9uYW1lCj4gPiA+ICsJbG9jYWwgcmVzPTAKPiA+IG5pdDogbG9jYWwgcmVzCj4gPiBMYXRlciB5
+b3UgY2FuIGNoZWNrCj4gPiBpZiBbICIkcmVzIiA9IDEgXTsgdGhlbgoKPiBJIGJlbGlldmUgSSBk
+byBuZWVkIHRvIGluaXRpYWxpemUgcmVzPTAuCj4gUGxlYXNlIHNlZSBteSBjb21tZW50IGJlbG93
+LgpJJ2xsIHJlcGx5IHRoZXJlLgoKLi4uCj4gPiA+ICsJZG1jaGVja19saW5lcz0kKGNhdCAkdG1w
+X2ZpbGUpCj4gPiA+ICsJZG1fdGFyZ2V0cz0kKGZvciBpIGluICRkbWNoZWNrX2xpbmVzOyBkbyBl
+Y2hvICIkaSIgfCBncmVwICIkcG9saWN5IiB8IFwKPiA+ID4gKwkJc2VkICJzL1wuL1xcXC4vZyIg
+fCBjdXQgLWQnPScgLWYyOyBkb25lIHwgc2VkICc6YTtOOyQhYmE7cy9cbi98L2cnKQo+ID4gQWdh
+aW4sIGNvcHkgcGFzdGUgZnJvbSBpbWFfa2V5cy5zaC4gQ291bGQgdGhpcyBiZSBnZW5lcmFsaXpl
+ZCBhbmQgbW92ZWQgdG8KPiA+IGltYV9zZXR1cC5zaD8gU2VlIG15IGhpbnQgYmVsb3cuCj4gT2su
+IEkgd2lsbCBzZWUgaG93IEkgY2FuIGdlbmVyYWxpemUgdGhpcy4gVGhhbmtzLgpUaGFua3MgYSBs
+b3QhCgouLi4KPiA+IEJUVyBJIHBsYW4gdG8gc2VuZCB2MiBmb3IgaW1hX3RwbS5zaCBwYXRjaAo+
+ID4gaHR0cHM6Ly9wYXRjaHdvcmsub3psYWJzLm9yZy9wcm9qZWN0L2x0cC9wYXRjaC8yMDIwMDUy
+NzA3MTQzNC4yODU3NC0xLXB2b3JlbEBzdXNlLmN6Lwo+ID4gTWF5YmUgdGhpcyBjb3VsZCB1c2Ug
+aXQgc29tZWhvdyBhcyB3ZWxsLCBidXQgbm90IHJlcXVpcmVkLiBNYWluIHJlYXNvbiB3YXMgdG8K
+PiA+IHVzZSAkRElHRVNUX0lOREVYIChkZWZhdWx0IDQpLCB3aGljaCB3b3VsZCBoZWxwIHRvIHVz
+ZSB0ZXN0cyBhbHNvIG9uIGltYV90ZW1wbGF0ZV9mbXQuCj4gPiBJbiB0aGUgZnV0dXJlLCB3aGVu
+IHJlYm9vdCByZXF1aXJlbWVudCBpcyBhZGRlZCBpbnRvIExUUCBBUEkgdGhpcyBjb3VsZCBiZSB1
+c2VkCj4gPiB0byB0ZXN0cyBtb3JlIHNldHVwLiBCdXQgeW91IGNhbiBpZ25vcmUgaXQgbm93LgoK
+PiBPay4gSSB3aWxsIHRha2UgYSBsb29rIGF0IHlvdXIgdjIuIEJ1dCB3b27igJl0IHRha2UgYSBk
+ZXBlbmRlbmN5IG9uIGl0LCBmb3IKPiB0aGUgdGltZSBiZWluZy4KKzEgVGhhbmtzISAoaXQncyBy
+ZWFsbHkgbGVzcyBpbXBvcnRhbnQgdGhhbiBwcmV2aW91cyBnZW5lcmFsaXphdGlvbnMgd2l0aApp
+bWFfa2V5cy5zaCkuCgouLi4KPiA+ID4gKwkJCXRzdF9yZXMgVElORk8gIlJlbW92aW5nIERNIHRh
+cmdldCAkdGd0X25hbWUuIgo+ID4gPiArCQkJZG1zZXR1cCByZW1vdmUgJHRndF9uYW1lCj4gPiA+
+ICsJCQlyZXR1cm4KPiA+ID4gKwkJZmkKPiA+ID4gKwo+ID4gPiArCQlpZiBbICIkYWN0X2RpZ2Vz
+dCIgPSAiJGV4cF9kaWdlc3QiIF07IHRoZW4KPiA+ID4gKwkJCXJlcz0xCj4gPiBNYXliZSBhbHNv
+IFRGQUlMIGFuZCByZXR1cm4gaGVyZSBpbnN0ZWFkIG9mIHVzaW5nICRyZXM/Cj4gVGhhbmtzIGZv
+ciB0aGUgZmVlZGJhY2suCj4gVGhlIHdoaWxlIGxvb3AgaW52b2tlcyBhIHN1Yi1zaGVsbC4gQW5k
+IHJlcz0xIHdvdWxkIG1lYW4gdGhlIGhhc2ggaXMKPiBmb3VuZCwgYW5kIEkgZmFpbCBpZiB0aGUg
+aGFzaCBpcyAqbm90KiBmb3VuZCAocmVzPTApLgo+IFdpdGggdGhhdCwgaXTigJlzIGxpdHRsZSB0
+cmlja3kgdG8gZG8gd2hhdCB5b3UgYXJlIHN1Z2dlc3RpbmcuIEJ1dCBJIHdpbGwgc2VlCj4gd2hh
+dCBJIGNhbiBkbyB0byBzaW1wbGlmeSB0aGUgbG9naWMuCkl0J3MganVzdCBhIHNtYWxsIGRldGFp
+bCwgeW91IGNhbiBpZ25vcmUgaXQuIEJ1dCB3ZSBzdGFydGVkIHRoZSBkaXNjdXNzaW9uLCB0aHVz
+CmhlcmUgaXMgYW4gZXhwbGFuYXRpb246ClsgIiRyZXMiID0gMSBdIGlzIG5vdCB0cnVlIGZvciB1
+bmluaXRpYWxpemVkICRyZXMuIFRoYXQgd291bGRuJ3Qgd29yayBmb3IgWyAkcmVzCi1lcSAxIF0g
+YW5kIGFsc28gZGlkbid0IHdvcmsgWyAkcmVzID0gMSBdICgiYmFzaDogWzogPTogdW5hcnkgb3Bl
+cmF0b3IKZXhwZWN0ZWQiKS4gVGhlIHRyaWNrIGlzIHRoYXQgPSBvcGVyYXRvciBjb21wYXJlcyBz
+dGluZ3MgYnV0IGFsc28gZG9lcyBudW1lcmljCmV2YWx1YXRpb24gYW5kIGFsc28gIiR1bmluaXRp
+YWxpemVkX3ZhcmlhYmxlIiBldmFsdWF0ZXMgYXMgIiIgKHVubGlrZQokdW5pbml0aWFsaXplZF92
+YXJpYWJsZSAtIHdpdGhvdXQgcXVvdGVzKS4KClRodXMgaW5zdGVhZCBvZiAwIHZzLiAxIHlvdSBj
+YW4gdXNlIHVuaW5pdGlhbGl6ZWQgdnMgMSAodW5saWtlIEMsIHdoZXJlIDAgdnMgMQptdXN0IGJl
+IHVzZWQgZS5nLiB2YXJpYWJsZSBtdXN0IGJlIGluaXRpYWxpemVkLCB1bmxlc3MgaXQncyBzdGF0
+aWMgdmFyaWFibGUKd2hpY2ggaXMgYXV0b21hdGljYWxseSBpbml0aWFsaXplZCB0byAwKS4gV2Ug
+dXNlIGl0IG9mdGVuIHNoZWxsIChpbiBMVFApLCBoYXZlIGEKbG9vayBhdCB0c3RfbmV0LnNoIGFu
+ZCB0c3RfdGVzdC5zaAoKS2luZCByZWdhcmRzLApQZXRyCgotLSAKTWFpbGluZyBsaXN0IGluZm86
+IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
