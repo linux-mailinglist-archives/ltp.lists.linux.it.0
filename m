@@ -2,76 +2,66 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 235F0264660
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Sep 2020 14:54:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0752F264717
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Sep 2020 15:36:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B49533C5356
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Sep 2020 14:54:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 915293C52EB
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Sep 2020 15:36:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id C95853C2891
- for <ltp@lists.linux.it>; Thu, 10 Sep 2020 14:54:26 +0200 (CEST)
-Received: from us-smtp-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [207.211.31.120])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 432601401197
- for <ltp@lists.linux.it>; Thu, 10 Sep 2020 14:54:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1599742464;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=oSIExgAQ0ke//HIfvh4b3gpu2i8SEc50pKtZonuDAN8=;
- b=dA+1JNjJ5ZSVYVQjdbYGl7wGY/te/OSxNqnGQjHo0HILj74/iB2PFFrCtuUgDjXbUFmXRV
- y0pTv1tv1f0kS+Iu2TZ4M0HKqubQbVnAhPJYbkQM468GFXMjLucjDs2cJSHt50h+6bvSYn
- Ur8PAEXsyeMrT0C/lwRs74R2sreqOGA=
-Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
- [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-285-7I6gTGdjOpm3VJ9VB-Anew-1; Thu, 10 Sep 2020 08:54:22 -0400
-X-MC-Unique: 7I6gTGdjOpm3VJ9VB-Anew-1
-Received: by mail-yb1-f199.google.com with SMTP id b127so5328608ybh.21
- for <ltp@lists.linux.it>; Thu, 10 Sep 2020 05:54:22 -0700 (PDT)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id EF1EB3C2891
+ for <ltp@lists.linux.it>; Thu, 10 Sep 2020 15:36:17 +0200 (CEST)
+Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
+ [IPv6:2607:f8b0:4864:20::d44])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 9CD136005CE
+ for <ltp@lists.linux.it>; Thu, 10 Sep 2020 15:36:17 +0200 (CEST)
+Received: by mail-io1-xd44.google.com with SMTP id r9so7093262ioa.2
+ for <ltp@lists.linux.it>; Thu, 10 Sep 2020 06:36:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=4vMQsIeZIlMHk8ZaaX6RWXplLeWRfPbrVewmy6neHlY=;
+ b=JpLRrn56ufaDOUVWRkJNKzEubzEN62F5xHgk1U0MFq3+JKMd5Q99tqCeFUo6SM+lw6
+ Ezx3WX1gHKIMZHpJ1Cf+FqJ+JEW5CqYkeEfJr53kNEnk2bN4EcqMbmiojf5NzpqHEu5H
+ wNIALpJ/M+Pw2kefl757WSvbIl8flqeIdTZcHmKf9oWz6RCdoyYSpYJkyLhQESgxOUQd
+ pWYDp0aSpt+ZpUz4kgiPnA0e5efSeglor/PdP4KV7sz0/53hfszxrh30OwSQRnKHZYez
+ mAoXNTgih5inLc8oWW7H7jU4EMaDdJnRYsUPRs3num5C+975HMy139oIbUwKI1T9TmuC
+ 65Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=oSIExgAQ0ke//HIfvh4b3gpu2i8SEc50pKtZonuDAN8=;
- b=XMQ/IYtczJ0EeI9QctrTylvsjIRZql2XHVkaAGiUXFSJOd+TCQoRtcVU1gtp8x2g4B
- O5k+WL3+VmLzRKJ8n1kHfNumIjSs+LBQ8WXP5CLXc1VPlik4HEIEikyTk7uTXApULKKB
- cZdaOVhgwcK2xWEbo/0zL0IyKXufqGOFG0C2Hjwev/DC1Zn0nW91dphK7/vuKuYnKz/6
- X4F06xUSeSsvUl8MXUhCaSdR8dj5vmFiQOOQCbTxUfUZIujH2gAa0m+qEczc6lrkmJZ8
- bR/hqOwh39KvMu0NwahE09eYqLTo65sh49kDnH4/qcafSj3uGeJUytvxtmhfhi4Vm6Fl
- HhtA==
-X-Gm-Message-State: AOAM530a9C1Ew8V8x2xsPRNA0GCOxuIaoptpKNyEdwb12O0De7gNPcg0
- WvzNLg8cwm47tL7UAe3nP7/CSNXBvsEuxcgcW1FyXX2TDFIhy+DmOUljxUmUqwU/ZRg/KmTAOKX
- w9aYhwuGEZnOL2sEMlMpgjnJQd+c=
-X-Received: by 2002:a05:6902:6c1:: with SMTP id
- m1mr12545519ybt.252.1599742462170; 
- Thu, 10 Sep 2020 05:54:22 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzPe7Yi6nrnVoDMaYWscom1wtnCB4ARg6SUebEZjjlaFhInN8YDgU1iZLF3KVG3ANaTumX56YThnBOgIVWmX6I=
-X-Received: by 2002:a05:6902:6c1:: with SMTP id
- m1mr12545496ybt.252.1599742461891; 
- Thu, 10 Sep 2020 05:54:21 -0700 (PDT)
+ bh=4vMQsIeZIlMHk8ZaaX6RWXplLeWRfPbrVewmy6neHlY=;
+ b=JQ5hGcJt/6nBUamjHdQ5Z3OGB+mA2hQrZz1NMUyYJ6B9+nun8BLUhR4NB9giBMZCyQ
+ 3cIeagL8b0sU8A7n2w5mt9OGMU5l5PgWrB8ke6MVKraRF+dVmxNDoh/wMYrrgQdLuF7o
+ CDIeNTYxfzliP5raMT8quwlNMaLGPTXh387sXtZM3aG/0dl7IncvbyGz5Hl8iQuCQcNd
+ kmFXwDl87oSamrgxidimzlje/7PvmNF7P0c2fB97+f/itTSZEbqefxlquJoCnMnsn0UB
+ JHdDDJNFIek7eXD/KxNOcA2dUpV7W7Oq/Ko7YW//pGuW4gsvtFfubK32p2CLz5TxxhrN
+ TJlw==
+X-Gm-Message-State: AOAM5316fO8yonuyHYmPufkYyHrISu7pa+qCe2ZcdlH3axltI3GFi7Ew
+ 78b+/OGTcXsvyFg2QhoaDSuN+YNqQJemLCXkbMw=
+X-Google-Smtp-Source: ABdhPJy3gAhcJMSGUtP5SYO5s7OB4QGP5tutsz9MadVF1AgJ3yqz8ap7tnrGLVl/Fkdcml1/sUdZXDSZLy5BS7msf9k=
+X-Received: by 2002:a02:734f:: with SMTP id a15mr8862354jae.120.1599744976187; 
+ Thu, 10 Sep 2020 06:36:16 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200910093532.20223-1-liwang@redhat.com>
- <20200910095542.GA4275@yuki.lan>
-In-Reply-To: <20200910095542.GA4275@yuki.lan>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 10 Sep 2020 20:54:09 +0800
-Message-ID: <CAEemH2eFR63=G-sJyRPv+KwAELh3ukCoZ4NMUsDFQcM=oCNc-A@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0.0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+References: <20200909175707.10670-1-amir73il@gmail.com>
+ <20200910112730.GA7194@dell5510>
+In-Reply-To: <20200910112730.GA7194@dell5510>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Thu, 10 Sep 2020 16:36:05 +0300
+Message-ID: <CAOQ4uxjAwQcmSnsJ5=O88bi2zxAzAe8uXCgg4+5mF6qOmSBfGQ@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4] Add a test case for mmap MAP_GROWSDOWN flag
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 00/10] Fanotify tests for v5.9
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,128 +73,43 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: pravin <pravinraghul@zilogic.com>, LTP List <ltp@lists.linux.it>,
- "Vijay Kumar B ." <vijaykumar@zilogic.com>
-Content-Type: multipart/mixed; boundary="===============1622976815=="
+Cc: Jan Kara <jack@suse.cz>, LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1622976815==
-Content-Type: multipart/alternative; boundary="0000000000002c703905aef5114f"
-
---0000000000002c703905aef5114f
-Content-Type: text/plain; charset="UTF-8"
-
-> +     child_pid = SAFE_FORK();
-> > +     if (!child_pid)
-> > +             grow_stack(stack, stack_size, stack - stack_size +
-> UNITS(1));
+On Thu, Sep 10, 2020 at 2:27 PM Petr Vorel <pvorel@suse.cz> wrote:
 >
-> Why don't we allocate the stack here in the child process? That way we
-> can also get rid of the cleanup() function.
+> Hi Amir,
 >
-
-Ok, that's no problem.
-
-
-> Also when we are at it, can we also add a second test where we mmap() a
-> page in the space the stack is supposed to grow into i.e. do
-> allocate_stack() then mmap() a page in the free address space and check
-> that the child is killed by a SIGSEGV?
+> > Following are the tests that were used to develop the upcoming fanotify
+> > features in v5.9.
 >
-
-Sure, it is a strict way to verify everything goes well with
-MAP_GROWSDOWN:).
-And to guarantee SIGSEGV, it needs mapping into the address higher than the
-(void *)(stack - stack_size), because older kernel set 'stack_guard_gap' as
-1 page.
-
-I'll try this in V5 tomorrow.
-
-
+> > The inotify/dnotify tests and fanotify09 test case are regression tests
+> > for a mid series bug that has been fixed before the merge.
+> Patchset merged.
 >
-> > +     SAFE_WAIT(&wstatus);
-> > +     if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) == 0)
-> > +             tst_res(TPASS, "Stack grows in unmapped region");
-> > +     else if (WIFSIGNALED(wstatus))
-> > +             tst_res(TFAIL, "Child killed by %s",
-> tst_strsig(WTERMSIG(wstatus)));
->
-> There is no point in this else if and tst_res(), the tst_strstatus() will
-> print that info
-> for you.
->
-Agree.
+> > fanotify10 gets another set of test cases to catch yet another ignored
+> > mask logic bug. The fix commit will be too hard to backport IMO, so
+> > perhaps these test cases should go into a new test with .min_kver = "5.9".
+> Can we just skip particular test with tst_parse_kver() or tst_kvcmp()? Because
+> other tests are valid, thus why to skip them (which would be when using
+> .min_kver).
 
--- 
-Regards,
-Li Wang
+Sure I did not know about tst_parse_kver() I will send a patch.
 
---0000000000002c703905aef5114f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+BTW, sorry for the wrong commit id in the test.
+Your fix missed removing the old commit from comment:
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><div class=3D"gmail_quote"><div><br></div><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
-t:1px solid rgb(204,204,204);padding-left:1ex">
-&gt; +=C2=A0 =C2=A0 =C2=A0child_pid =3D SAFE_FORK();<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (!child_pid)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0grow_stack(stack, sta=
-ck_size, stack - stack_size + UNITS(1));<br>
-<br>
-Why don&#39;t we allocate the stack here in the child process? That way we<=
-br>
-can also get rid of the cleanup() function.<br></blockquote><div><br></div>=
-<div class=3D"gmail_default" style=3D"font-size:small">Ok, that&#39;s no pr=
-oblem.</div><div class=3D"gmail_default" style=3D"font-size:small"><br></di=
-v><div class=3D"gmail_default" style=3D"font-size:small"></div><blockquote =
-class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px sol=
-id rgb(204,204,204);padding-left:1ex">
-<br>
-Also when we are at it, can we also add a second test where we mmap() a<br>
-page in the space the stack is supposed to grow into i.e. do<br>
-allocate_stack() then mmap() a page in the free address space and check<br>
-that the child is killed by a SIGSEGV?<br></blockquote><div><br></div><div>=
-<div class=3D"gmail_default" style=3D"font-size:small">Sure, it is a strict=
- way to verify everything goes well with MAP_GROWSDOWN:).</div></div><div c=
-lass=3D"gmail_default" style=3D"font-size:small">And to=C2=A0guarantee SIGS=
-EGV, it needs=C2=A0mapping into the address higher than the</div><div class=
-=3D"gmail_default" style=3D"font-size:small">(void *)(stack - stack_size), =
-because older kernel set &#39;stack_guard_gap&#39; as 1 page.</div><div cla=
-ss=3D"gmail_default" style=3D"font-size:small"><br></div><div class=3D"gmai=
-l_default" style=3D"font-size:small">I&#39;ll try this in V5 tomorrow.</div=
-><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0SAFE_WAIT(&amp;wstatus);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (WIFEXITED(wstatus) &amp;&amp; WEXITSTATUS(wst=
-atus) =3D=3D 0)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TPASS, &quot;=
-Stack grows in unmapped region&quot;);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0else if (WIFSIGNALED(wstatus))<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TFAIL, &quot;=
-Child killed by %s&quot;, tst_strsig(WTERMSIG(wstatus)));<br>
-<br>
-There is no point in this else if and tst_res(), the tst_strstatus() will p=
-rint that info<br>
-for you.<br></blockquote><div><span class=3D"gmail_default" style=3D"font-s=
-ize:small">Agree.</span></div><div><span class=3D"gmail_default" style=3D"f=
-ont-size:small"></span>=C2=A0</div></div>-- <br><div dir=3D"ltr"><div dir=
-=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+  * Test cases #17-#23 are regression tests for commit:
+  *
+  *     497b0c5a7c06 fsnotify: send event to parent and child with single...
+  *     eca4784cbb18 fsnotify: send event to parent and child with single...
+  */
 
---0000000000002c703905aef5114f--
-
-
---===============1622976815==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thanks,
+Amir.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1622976815==--
-
