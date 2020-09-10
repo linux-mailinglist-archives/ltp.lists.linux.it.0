@@ -2,38 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1504C263722
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 22:11:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FF5B2639EA
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Sep 2020 04:13:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BDF623C2A76
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Sep 2020 22:11:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 320443C2D13
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Sep 2020 04:13:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 96C393C180A
- for <ltp@lists.linux.it>; Wed,  9 Sep 2020 22:11:20 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 9FBF31400153
- for <ltp@lists.linux.it>; Wed,  9 Sep 2020 22:11:19 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 99507AF48
- for <ltp@lists.linux.it>; Wed,  9 Sep 2020 20:11:34 +0000 (UTC)
-Date: Wed, 9 Sep 2020 22:11:17 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20200909201117.GB27395@dell5510>
-References: <20200908073138.GB2475@yuki.lan>
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 030D93C224B
+ for <ltp@lists.linux.it>; Thu, 10 Sep 2020 04:13:49 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 710FF1A006BE
+ for <ltp@lists.linux.it>; Thu, 10 Sep 2020 04:13:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1599704027;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=8AdsU5rYJy8eYWseZ4B4KtR4oCJHG7sXkdlnt/D3wvI=;
+ b=bJ8HBOVtciv5MT9Ew9c3y6LNvPGqFh9DkYQLc6chOfj2/OOIMDQMiLZqaMjWMOFUxQuzyb
+ 0KS/GkhDFm7GlRhWhhsy3jr4a0ly9ynRmeJo9ND/6mdUKHmCzt9nipQY3omoeWF14zP7/v
+ CsXLxwXp+0LGNqjX4W0NuFCeRAMB5L0=
+Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
+ [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-218-l8VqtgAvMTGfhfaDbBI1uQ-1; Wed, 09 Sep 2020 22:13:42 -0400
+X-MC-Unique: l8VqtgAvMTGfhfaDbBI1uQ-1
+Received: by mail-yb1-f200.google.com with SMTP id j20so4004894ybt.10
+ for <ltp@lists.linux.it>; Wed, 09 Sep 2020 19:13:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=8AdsU5rYJy8eYWseZ4B4KtR4oCJHG7sXkdlnt/D3wvI=;
+ b=EsykCFXauwinY+R+aiu9mkFxuMSHiZ67Lw+z15GfJbJSJHyRZvrqAiYmayE2Adpk9n
+ cCVP+GiNKtkKht98tTxTPcu5eqXUpq0L/NXJeQgyg5EakXG4l0GQ9s/4XT1TKAUBLoSF
+ T8ZbSvyzr2Q0Ck1DbPhM3loe60vGHNlXSRF+OrWMbMNGck/An2jFpdkRbObj8k66okPi
+ ZtcWfL/id783Qa6km8ju4mHu2GrLv8WfKzLruD/DPYLrIj0tdxuD9YMmTq4R/oWinFMz
+ XgZ9s/Xu2z55FXuyJ2wFZSwunAMUR5H3HSRmsdpkZVc+6a62/6XiyinwOodvQAQ+hmw7
+ ee8A==
+X-Gm-Message-State: AOAM533K1AhFGuUdNH0D7fwctzWHcUtKaX37QwMalWy2pdfQ5SP4Ttoi
+ SNshygkR5dsnGc4ewVmnL6yQxXav7v6sIRPd+1xoevOHt6rLGLFVKArr0ADiinJIT11JYxdoehw
+ tq+iQyX4uLtDpFQfNMUqPBg2o2IM=
+X-Received: by 2002:a25:d14b:: with SMTP id i72mr9958431ybg.286.1599704022096; 
+ Wed, 09 Sep 2020 19:13:42 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxpv0JUHeN+d782xfxtP69S2sGPucaL8bg+wOQlS0/gFnBLjsi76RaBTR+sW5wgQHA2j3MZTctP9LoH1NjXpeY=
+X-Received: by 2002:a25:d14b:: with SMTP id i72mr9958414ybg.286.1599704021879; 
+ Wed, 09 Sep 2020 19:13:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200908073138.GB2475@yuki.lan>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+References: <20200909125753.7724-1-liwang@redhat.com>
+ <1322097859.11602601.1599656780160.JavaMail.zimbra@redhat.com>
+In-Reply-To: <1322097859.11602601.1599656780160.JavaMail.zimbra@redhat.com>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 10 Sep 2020 10:13:30 +0800
+Message-ID: <CAEemH2ftPnsdaeQeD0Uib-XMVJ9+a_S_MPyEY7iGHGse60oT3g@mail.gmail.com>
+To: Jan Stancek <jstancek@redhat.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0.0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] LTP release
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [Patch v2] ioctl: take use of TST_RETRY_FN* macro
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,32 +81,52 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1326319271=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+--===============1326319271==
+Content-Type: multipart/alternative; boundary="000000000000f8641d05aeec1d96"
 
-> As usual we should start preparing for a next release.
+--000000000000f8641d05aeec1d96
+Content-Type: text/plain; charset="UTF-8"
 
-...
-> What else should go in?
+Acked-by: Jan Stancek <jstancek@redhat.com>
+>
 
-I haven't done review of Amir's fanotify tests for v5.9, but on first look they
-look ok
-https://patchwork.ozlabs.org/project/ltp/list/?series=200606
+Pushed, thanks for the review.
 
-How about Richie's Wrapper for Syzkaller reproducers?
-https://patchwork.ozlabs.org/project/ltp/patch/20200610072928.1331-1-rpalethorpe@suse.com/
+-- 
+Regards,
+Li Wang
 
-I wanted to post docparser patch in next few days. But that will be probably too
-late for including in this release.
+--000000000000f8641d05aeec1d96
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Kind regards,
-Petr
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div>=C2=A0</div><div><br></div=
+><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border=
+-left:1px solid rgb(204,204,204);padding-left:1ex">
+Acked-by: Jan Stancek &lt;<a href=3D"mailto:jstancek@redhat.com" target=3D"=
+_blank">jstancek@redhat.com</a>&gt;<br></blockquote><div><br></div><div cla=
+ss=3D"gmail_default" style=3D"font-size:small">Pushed, thanks for the revie=
+w.</div></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signatu=
+re"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></d=
+iv></div>
+
+--000000000000f8641d05aeec1d96--
+
+
+--===============1326319271==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1326319271==--
+
