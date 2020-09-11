@@ -1,39 +1,43 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FA1926599F
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Sep 2020 08:51:37 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B6B122659B2
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Sep 2020 08:56:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 91D913C4FB8
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Sep 2020 08:51:36 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 17CA53C4FB4
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Sep 2020 08:56:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 2EC4E3C25D9
- for <ltp@lists.linux.it>; Fri, 11 Sep 2020 08:51:33 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id ECA0D3C25D9
+ for <ltp@lists.linux.it>; Fri, 11 Sep 2020 08:56:37 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id AD9D71A00FA3
- for <ltp@lists.linux.it>; Fri, 11 Sep 2020 08:51:32 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 9279C1400B80
+ for <ltp@lists.linux.it>; Fri, 11 Sep 2020 08:56:37 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 929F3AD29;
- Fri, 11 Sep 2020 06:51:47 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 77287ABAD;
+ Fri, 11 Sep 2020 06:56:52 +0000 (UTC)
+Date: Fri, 11 Sep 2020 08:56:35 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Fri, 11 Sep 2020 08:51:24 +0200
-Message-Id: <20200911065124.18992-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.28.0
+To: Amir Goldstein <amir73il@gmail.com>
+Message-ID: <20200911065635.GB3425@dell5510>
+References: <20200910121628.18505-1-pvorel@suse.cz>
+ <20200910153035.GA12601@yuki.lan>
+ <CAOQ4uxjaiT4N1uvwzh8Jer4wc3HR+pqxNM_CLzFWZDbxZDxEHA@mail.gmail.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <CAOQ4uxjaiT4N1uvwzh8Jer4wc3HR+pqxNM_CLzFWZDbxZDxEHA@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 1/1] fanotify10: Skip non zero ignored_onchild
- tests for < v5.9
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] fanotify10: Treat ignore mask bug as TCONF
+ for < v5.9
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,64 +49,43 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jan Kara <jack@suse.cz>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-ignored mask in combination with flag FAN_EVENT_ON_CHILD has
-undefined behavior on kernel < 5.9.
+Hi Amir,
 
-Also remove wrong kernel commit (left in e8189ff3c).
+> What I suggested was to skip only the test cases with non zero
+> tc->ignored_onchild for kernel < 5.9.
 
-Acked-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- testcases/kernel/syscalls/fanotify/fanotify10.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+> Those are the new test cases that are failing due to missing fix
+> "497b0c5a7c06 fsnotify: send event to parent and child with single"
+> Which is not likely to be backported.
 
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify10.c b/testcases/kernel/syscalls/fanotify/fanotify10.c
-index 2c4401f61..64426b876 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify10.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify10.c
-@@ -20,10 +20,10 @@
-  *
-  *     2f02fd3fa13e fanotify: fix ignore mask logic for events on child...
-  *
-- * Test cases #17-#23 are regression tests for commit:
-+ * Test cases #17-#23 are regression tests for commit (from v5.9, unlikely to be
-+ * backported thus not in .tags):
-  *
-  *     497b0c5a7c06 fsnotify: send event to parent and child with single...
-- *     eca4784cbb18 fsnotify: send event to parent and child with single...
-  */
- #define _GNU_SOURCE
- #include "config.h"
-@@ -451,6 +451,12 @@ static void test_fanotify(unsigned int n)
- 
- 	tst_res(TINFO, "Test #%d: %s", n, tc->tname);
- 
-+	if (tc->ignored_onchild && tst_kvercmp(5, 9, 0) < 0) {
-+		tst_res(TCONF, "ignored mask in combination with flag FAN_EVENT_ON_CHILD"
-+				" has undefined behavior on kernel < 5.9");
-+		return;
-+	}
-+
- 	if (create_fanotify_groups(n) != 0)
- 		goto cleanup;
- 
-@@ -567,7 +573,6 @@ static struct tst_test test = {
- 	.tags = (const struct tst_tag[]) {
- 		{"linux-git", "9bdda4e9cf2d"},
- 		{"linux-git", "2f02fd3fa13e"},
--		{"linux-git", "497b0c5a7c06"},
- 		{}
- 	}
- };
--- 
-2.28.0
+> I see no reason to run those test cases and then report the failure as
+> TCONF.
+> The TCONF message can say that ignored mask in combination with
+> flag FAN_EVENT_ON_CHILD have undefined behavior on kernel < 5.9.
+Yep, that makes more sense.
 
+> While at it, please remove the stray line from header comment:
+>  *     497b0c5a7c06 fsnotify: send event to parent and child with single...
+>  *     eca4784cbb18 fsnotify: send event to parent and child with single...
+Apologize for not removing eca4784cbb18.
+
+> And please remove commit id 497b0c5a7c06 from .tags, otherwise,
+> stable kernel maintainers are still going to be bothered by attempting
+> to find a backport if that test fails due to other reasons on a stable kernel.
++1. I kept comment in the commit (in v2) and explicitly mention why it's not in
+tags.
+
+Thanks for all suggestions. Just in case I sent v2 instead of merging it directly.
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
