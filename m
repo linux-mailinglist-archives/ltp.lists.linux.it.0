@@ -2,66 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03D43265AA0
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Sep 2020 09:39:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D959E265AA5
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Sep 2020 09:42:29 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 80CD83C2BF7
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Sep 2020 09:39:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 582E23C2BF7
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Sep 2020 09:42:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id CB07E3C262C
- for <ltp@lists.linux.it>; Fri, 11 Sep 2020 09:39:04 +0200 (CEST)
-Received: from mail-il1-x141.google.com (mail-il1-x141.google.com
- [IPv6:2607:f8b0:4864:20::141])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5EE261000D91
- for <ltp@lists.linux.it>; Fri, 11 Sep 2020 09:39:04 +0200 (CEST)
-Received: by mail-il1-x141.google.com with SMTP id y2so8185822ilp.7
- for <ltp@lists.linux.it>; Fri, 11 Sep 2020 00:39:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=R09jV3EFzcz54ocXphMWdz+tbSUs+0qqgDafbeBEAMQ=;
- b=GLnV1IfHM5TrrOmy3SANBuQMFeIcRJVntBPJx7PuYDPwPeeXJSPV+PHI/30nc6E5Na
- yCIvpwv4tFTpdojzdTEKjfSCrHx1UX9KsfnpPU9bVDCPsnvcOo9QmZaWPtPA1B28E7Dj
- YMFuWtvfm82TTUCzq0JESv6P5Yt5wb1yrt0AXcBX/apxBuEZ5aQryBmyp4ukXIS3kycs
- 4mAd6KBCVPDErg3pIs/i2QdWAwKO3bR/05XlYj+++pUP8q1ehjTwvx00yv4wSNDBRsdB
- t+xF+MOekkNRbzVvA5ykmscuvpNfIxs0aa18i8Z6433EcS+nb8GJeqPx6O+TgvRTcie/
- oqAw==
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 16C223C262C
+ for <ltp@lists.linux.it>; Fri, 11 Sep 2020 09:42:28 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 5D9F814001F4
+ for <ltp@lists.linux.it>; Fri, 11 Sep 2020 09:42:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1599810145;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=iXw1FBYfyw63P+orxol1OQnXrLfvEpp9Sq2jhTeFIbg=;
+ b=YiuOJ8KGlqzo6wV8QqtKNtCSt5+yievW9z3+MMW8MVGbi4I2BmbthBaAH6v7RrZeLeUVb9
+ 9DPjpatX5Q70/MXtPyhRtSATlpaIM/O5v8g4SkKyLn58RZalABo90JXUz4viOK24Us7gtB
+ kaaInFS2jUf/t7vnQjgrPHWbd0AlnaU=
+Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
+ [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-540-3m5Msw4DOFG30Z60DNV7DA-1; Fri, 11 Sep 2020 03:42:23 -0400
+X-MC-Unique: 3m5Msw4DOFG30Z60DNV7DA-1
+Received: by mail-yb1-f200.google.com with SMTP id u128so8038045ybg.17
+ for <ltp@lists.linux.it>; Fri, 11 Sep 2020 00:42:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=R09jV3EFzcz54ocXphMWdz+tbSUs+0qqgDafbeBEAMQ=;
- b=FWtMnABIGL3iRGVLNhdSONKgcgXs22YTyItuFDY+h3pc13U7BHxZ1VkXMCN8N/acGv
- 68OJc2aWfJrmuJ0QMpusB/O+PSGR4Z6L/ZBbAZRc0ySqBgAOtikMv/SxksqjAQjT3Idu
- 1MSfAuqckFCi4xls6qwXkEaWkgXgJW/s7imPoFI2uZkzFOCqndmsqIRJKjzgjBXd9wPq
- 1a96QB9X5CkvHOyJHYbpd+4cSVTKwN/RNm47LzAXijdRRdnenFjFgLPve1bUlO0USVMb
- hL1R63cGuPumDxoVHqboVr4G5N/cxh6zptmuoL/GqWMLnJyhLngvxLnDLbDI6vafbG5K
- YxHA==
-X-Gm-Message-State: AOAM530fJV/9krHze25p6x2r60jDB6ljZfz86M1yompnJBsspXFBeb9e
- SqLmyXF+py3WY0Xdv+K/YTbQQJ9g4LzoNOv78PAzTuW9XZA=
-X-Google-Smtp-Source: ABdhPJwhk2ptRMc+Mv/Mc4XaaBHXTK+4BCEZ9UoIzAjt7MVSV4Gop6+rSvFVBKQwNmE2Ch46nZ8xSjljO8ZXuXQngks=
-X-Received: by 2002:a92:d482:: with SMTP id p2mr824014ilg.9.1599809943130;
- Fri, 11 Sep 2020 00:39:03 -0700 (PDT)
+ bh=iXw1FBYfyw63P+orxol1OQnXrLfvEpp9Sq2jhTeFIbg=;
+ b=jPibRVV9gul9ORim/0iS1wb7K9JJl6lwYJdyJXm+r3gg3B09Ewf+w8BgsmdeUvRqUH
+ fQYv2FsU5EJsEL7avylM5TN+SsEU6Gu2vUtNzzw314qtbzyEJX3H7mhkWTAEdrqXgyUv
+ mVe4wVWu6Gb+KQql1hjXeCHt+NGM/FCcl1bfDuDcM3VgfwEhju9Q19JD0krC9f1hhcAu
+ 6xtqLHANCZrgOP3RvgnFk6s3rHaU3R6oIONxilHd2mtDXgyXBjvr/NT5ieVZwRObCmGV
+ LmpfJcKbxas5O7s6g6zZi2U03400vuoOGq/qIJQgcOv4DM6o0INNUMiCYmF0Q2y3lAMa
+ lL7A==
+X-Gm-Message-State: AOAM532ixu0ZW7Sk/jTD+Uneb2grAcvLIZlREnBgNiIakf+Rk4e+vmSb
+ IqBIYU7Xwcv2nYQY33HeTNg+MtMLLdkenGf4lud8NZ160fis4vE1FYtOJv5yyrhTk/VYJtIv5lw
+ dRnc4VbO60mFeJlsJDIeSlfVTrNs=
+X-Received: by 2002:a25:2d59:: with SMTP id s25mr819146ybe.86.1599810143238;
+ Fri, 11 Sep 2020 00:42:23 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyR7eVTh89UcyfbeTW4tEpdGETykLzMHggXhPtf+32SiSyRPZ73x9hs2CbUDKIImJFcOH3KK+9OHRlCfRAA6v0=
+X-Received: by 2002:a25:2d59:: with SMTP id s25mr819121ybe.86.1599810142981;
+ Fri, 11 Sep 2020 00:42:22 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200911065124.18992-1-pvorel@suse.cz>
-In-Reply-To: <20200911065124.18992-1-pvorel@suse.cz>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Fri, 11 Sep 2020 10:38:52 +0300
-Message-ID: <CAOQ4uxjUj35ePAzQuEO6BrTskrrp0TLX-tnV7L4Opcda0Mm8gg@mail.gmail.com>
+References: <20200911035533.30538-1-liwang@redhat.com>
+ <20200911070540.GA22970@dell5510>
+In-Reply-To: <20200911070540.GA22970@dell5510>
+From: Li Wang <liwang@redhat.com>
+Date: Fri, 11 Sep 2020 15:42:11 +0800
+Message-ID: <CAEemH2eC-2SckKbWbQXLYZa=W8RM3hzA4-vWTKJasVFW_HnQKw@mail.gmail.com>
 To: Petr Vorel <pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0.0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/1] fanotify10: Skip non zero ignored_onchild
- tests for < v5.9
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v5] Add a test case for mmap MAP_GROWSDOWN flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,82 +81,147 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jan Kara <jack@suse.cz>, LTP List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: pravin <pravinraghul@zilogic.com>, LTP List <ltp@lists.linux.it>,
+ "Vijay Kumar B ." <vijaykumar@zilogic.com>
+Content-Type: multipart/mixed; boundary="===============0443202178=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Fri, Sep 11, 2020 at 9:51 AM Petr Vorel <pvorel@suse.cz> wrote:
->
-> ignored mask in combination with flag FAN_EVENT_ON_CHILD has
-> undefined behavior on kernel < 5.9.
->
-> Also remove wrong kernel commit (left in e8189ff3c).
->
-> Acked-by: Jan Kara <jack@suse.cz>
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+--===============0443202178==
+Content-Type: multipart/alternative; boundary="00000000000047f0b805af04d304"
 
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+--00000000000047f0b805af04d304
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> ---
->  testcases/kernel/syscalls/fanotify/fanotify10.c | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/fanotify/fanotify10.c b/testcases/kernel/syscalls/fanotify/fanotify10.c
-> index 2c4401f61..64426b876 100644
-> --- a/testcases/kernel/syscalls/fanotify/fanotify10.c
-> +++ b/testcases/kernel/syscalls/fanotify/fanotify10.c
-> @@ -20,10 +20,10 @@
->   *
->   *     2f02fd3fa13e fanotify: fix ignore mask logic for events on child...
->   *
-> - * Test cases #17-#23 are regression tests for commit:
-> + * Test cases #17-#23 are regression tests for commit (from v5.9, unlikely to be
-> + * backported thus not in .tags):
+On Fri, Sep 11, 2020 at 3:05 PM Petr Vorel <pvorel@suse.cz> wrote:
 
-If we are being accurate, it is only the 4 test cases with non zero
-ignored_onchild
-that are regression tests for this commit. The other 3 test cases are
-just completing
-the test matrix of possible combinations of marks.
+> Hi Li,
+>
+> > From: pravin <pravinraghul@zilogic.com>
+>
+> > We assign the memory region allocated using MAP_GROWSDOWN to a thread,
+> > as a stack, to test the effect of MAP_GROWSDOWN. This is because the
+> > kernel only grows the memory region when the stack pointer, is within
+> > guard page, when the guard page is touched.
+>
+> >   1. Map an anyonymous memory region of size X, and unmap it.
+> >   2. Split the unmapped memory region into two.
+> >   3. The lower memory region is left unmapped.
+> >   4. The higher memory region is mapped for use as stack, using
+> MAP_FIXED | MAP_GROWSDOWN.
+> >   5. The higher memory region is provided as stack to a thread, where
+> >      a recursive function is invoked.
+> >   6. The stack grows beyond the allocated region, into the lower memory
+> area.
+> >   7. If this results in the memory region being extended, into the
+> >      unmapped region, the test is considered to have passed.
+>
+> > Also, to verify that(Test2) the stack grows to within a page of the hig=
+h
+> > end of the next lower map=E2=80=90ping will result in a SIGSEGV signal.
+>
+> > Resolves #300
+> > Signed-off-by: Pravin Raghul S. <pravinraghul@zilogic.com>
+> > Reviewed-by: Vijay Kumar B. <vijaykumar@zilogic.com>
+> > Signed-off-by: Li Wang <liwang@redhat.com>
+> > Cc: Cyril Hrubis <chrubis@suse.cz>
+>
+> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> LGTM.
+>
+> Just please fix using spaces instead of tabs in check_stackgrow_up() and
+> run_test() (I suppose your modifications to pravis's code):
+>
 
-So you may rephrase above as "Test cases with 'ignored_onchild'..."
-or what not.
+Sorry for the chaotic indent, I guess it was caused by my editor.
 
-Thanks,
-Amir.
+Anyway, thanks for the review, will fix it after getting Cyril's reviewing.
 
->   *
->   *     497b0c5a7c06 fsnotify: send event to parent and child with single...
-> - *     eca4784cbb18 fsnotify: send event to parent and child with single...
->   */
->  #define _GNU_SOURCE
->  #include "config.h"
-> @@ -451,6 +451,12 @@ static void test_fanotify(unsigned int n)
+--=20
+Regards,
+Li Wang
+
+--00000000000047f0b805af04d304
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Fri, Sep 11, 2020 at 3:05 PM Petr Vorel &lt;<a h=
+ref=3D"mailto:pvorel@suse.cz">pvorel@suse.cz</a>&gt; wrote:<br></div><block=
+quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
+px solid rgb(204,204,204);padding-left:1ex">Hi Li,<br>
+<br>
+&gt; From: pravin &lt;<a href=3D"mailto:pravinraghul@zilogic.com" target=3D=
+"_blank">pravinraghul@zilogic.com</a>&gt;<br>
+<br>
+&gt; We assign the memory region allocated using MAP_GROWSDOWN to a thread,=
+<br>
+&gt; as a stack, to test the effect of MAP_GROWSDOWN. This is because the<b=
+r>
+&gt; kernel only grows the memory region when the stack pointer, is within<=
+br>
+&gt; guard page, when the guard page is touched.<br>
+<br>
+&gt;=C2=A0 =C2=A01. Map an anyonymous memory region of size X, and unmap it=
+.<br>
+&gt;=C2=A0 =C2=A02. Split the unmapped memory region into two.<br>
+&gt;=C2=A0 =C2=A03. The lower memory region is left unmapped.<br>
+&gt;=C2=A0 =C2=A04. The higher memory region is mapped for use as stack, us=
+ing MAP_FIXED | MAP_GROWSDOWN.<br>
+&gt;=C2=A0 =C2=A05. The higher memory region is provided as stack to a thre=
+ad, where<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 a recursive function is invoked.<br>
+&gt;=C2=A0 =C2=A06. The stack grows beyond the allocated region, into the l=
+ower memory area.<br>
+&gt;=C2=A0 =C2=A07. If this results in the memory region being extended, in=
+to the<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 unmapped region, the test is considered to have pa=
+ssed.<br>
+<br>
+&gt; Also, to verify that(Test2) the stack grows to within a page of the hi=
+gh<br>
+&gt; end of the next lower map=E2=80=90ping will result in a SIGSEGV signal=
+.<br>
+<br>
+&gt; Resolves #300<br>
+&gt; Signed-off-by: Pravin Raghul S. &lt;<a href=3D"mailto:pravinraghul@zil=
+ogic.com" target=3D"_blank">pravinraghul@zilogic.com</a>&gt;<br>
+&gt; Reviewed-by: Vijay Kumar B. &lt;<a href=3D"mailto:vijaykumar@zilogic.c=
+om" target=3D"_blank">vijaykumar@zilogic.com</a>&gt;<br>
+&gt; Signed-off-by: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com" target=
+=3D"_blank">liwang@redhat.com</a>&gt;<br>
+&gt; Cc: Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz" target=3D"_bla=
+nk">chrubis@suse.cz</a>&gt;<br>
+<br>
+Reviewed-by: Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz" target=3D"_bl=
+ank">pvorel@suse.cz</a>&gt;<br>
+LGTM.<br>
+<br>
+Just please fix using spaces instead of tabs in check_stackgrow_up() and<br=
 >
->         tst_res(TINFO, "Test #%d: %s", n, tc->tname);
->
-> +       if (tc->ignored_onchild && tst_kvercmp(5, 9, 0) < 0) {
-> +               tst_res(TCONF, "ignored mask in combination with flag FAN_EVENT_ON_CHILD"
-> +                               " has undefined behavior on kernel < 5.9");
-> +               return;
-> +       }
-> +
->         if (create_fanotify_groups(n) != 0)
->                 goto cleanup;
->
-> @@ -567,7 +573,6 @@ static struct tst_test test = {
->         .tags = (const struct tst_tag[]) {
->                 {"linux-git", "9bdda4e9cf2d"},
->                 {"linux-git", "2f02fd3fa13e"},
-> -               {"linux-git", "497b0c5a7c06"},
->                 {}
->         }
->  };
-> --
-> 2.28.0
->
+run_test() (I suppose your modifications to pravis&#39;s code):<br></blockq=
+uote><div><br></div><div class=3D"gmail_default" style=3D"font-size:small">=
+Sorry for the=C2=A0chaotic indent, I guess it was caused by my editor.</div=
+><div class=3D"gmail_default" style=3D"font-size:small"><br></div><div clas=
+s=3D"gmail_default" style=3D"font-size:small">Anyway, thanks for the review=
+, will fix it after getting Cyril&#39;s reviewing.</div></div><div><br></di=
+v>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>R=
+egards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--00000000000047f0b805af04d304--
+
+
+--===============0443202178==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0443202178==--
+
