@@ -1,41 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EA81265EF5
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Sep 2020 13:45:44 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B6676266002
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Sep 2020 15:08:13 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B361D3C4FB5
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Sep 2020 13:45:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DBA0A3C4FB9
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Sep 2020 15:08:12 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 933183C2BF4
- for <ltp@lists.linux.it>; Fri, 11 Sep 2020 13:45:39 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTP id F2D4A3C2BF1
+ for <ltp@lists.linux.it>; Fri, 11 Sep 2020 15:08:08 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 260ED60049D
- for <ltp@lists.linux.it>; Fri, 11 Sep 2020 13:45:38 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 373C9600F1C
+ for <ltp@lists.linux.it>; Fri, 11 Sep 2020 15:08:08 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BD336ACDB;
- Fri, 11 Sep 2020 11:45:53 +0000 (UTC)
-Date: Fri, 11 Sep 2020 13:45:36 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20200911114536.GA14099@dell5510>
-References: <cover.1599545766.git.viresh.kumar@linaro.org>
- <20200911095314.GA9505@dell5510>
- <20200911103950.kehhklgyie2tqpxh@vireshk-i7>
+ by mx2.suse.de (Postfix) with ESMTP id 2DB0DACC8;
+ Fri, 11 Sep 2020 13:08:23 +0000 (UTC)
+Date: Fri, 11 Sep 2020 15:08:36 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <20200911130836.GA2582@yuki.lan>
+References: <20200911035533.30538-1-liwang@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200911103950.kehhklgyie2tqpxh@vireshk-i7>
+In-Reply-To: <20200911035533.30538-1-liwang@redhat.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 00/16] syscalls: Use common variants structure
+Subject: Re: [LTP] [PATCH v5] Add a test case for mmap MAP_GROWSDOWN flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,59 +45,281 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
+Cc: pravin <pravinraghul@zilogic.com>, ltp@lists.linux.it,
+ "Vijay Kumar B ." <vijaykumar@zilogic.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Viresh,
+Hi!
+> We assign the memory region allocated using MAP_GROWSDOWN to a thread,
+> as a stack, to test the effect of MAP_GROWSDOWN. This is because the
+> kernel only grows the memory region when the stack pointer, is within
+> guard page, when the guard page is touched.
+> 
+>   1. Map an anyonymous memory region of size X, and unmap it.
+>   2. Split the unmapped memory region into two.
+>   3. The lower memory region is left unmapped.
+>   4. The higher memory region is mapped for use as stack, using MAP_FIXED | MAP_GROWSDOWN.
+>   5. The higher memory region is provided as stack to a thread, where
+>      a recursive function is invoked.
+>   6. The stack grows beyond the allocated region, into the lower memory area.
+>   7. If this results in the memory region being extended, into the
+>      unmapped region, the test is considered to have passed.
+> 
+> Also, to verify that(Test2) the stack grows to within a page of the high
+> end of the next lower map???ping will result in a SIGSEGV signal.
+> 
+> Resolves #300
+> Signed-off-by: Pravin Raghul S. <pravinraghul@zilogic.com>
+> Reviewed-by: Vijay Kumar B. <vijaykumar@zilogic.com>
+> Signed-off-by: Li Wang <liwang@redhat.com>
+> Cc: Cyril Hrubis <chrubis@suse.cz>
+> ---
+>  runtest/syscalls                          |   1 +
+>  testcases/kernel/syscalls/mmap/.gitignore |   1 +
+>  testcases/kernel/syscalls/mmap/mmap18.c   | 177 ++++++++++++++++++++++
+>  3 files changed, 179 insertions(+)
+>  create mode 100644 testcases/kernel/syscalls/mmap/mmap18.c
+> 
+> diff --git a/runtest/syscalls b/runtest/syscalls
+> index dc0ca5626..ed86bb593 100644
+> --- a/runtest/syscalls
+> +++ b/runtest/syscalls
+> @@ -747,6 +747,7 @@ mmap14 mmap14
+>  mmap15 mmap15
+>  mmap16 mmap16
+>  mmap17 mmap17
+> +mmap18 mmap18
+>  
+>  modify_ldt01 modify_ldt01
+>  modify_ldt02 modify_ldt02
+> diff --git a/testcases/kernel/syscalls/mmap/.gitignore b/testcases/kernel/syscalls/mmap/.gitignore
+> index c5c083d4b..4fd90ab5f 100644
+> --- a/testcases/kernel/syscalls/mmap/.gitignore
+> +++ b/testcases/kernel/syscalls/mmap/.gitignore
+> @@ -16,3 +16,4 @@
+>  /mmap15
+>  /mmap16
+>  /mmap17
+> +/mmap18
+> diff --git a/testcases/kernel/syscalls/mmap/mmap18.c b/testcases/kernel/syscalls/mmap/mmap18.c
+> new file mode 100644
+> index 000000000..b5008497d
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/mmap/mmap18.c
+> @@ -0,0 +1,177 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) Zilogic Systems Pvt. Ltd., 2020
+> + * Email: code@zilogic.com
+> + */
+> +
+> +/*
+> + * Test mmap() MAP_GROWSDOWN flag
+> + *
+> + * # Test1:
+> + *   We assign the memory region allocated using MAP_GROWSDOWN to a thread,
+> + *   as a stack, to test the effect of MAP_GROWSDOWN. This is because the
+> + *   kernel only grows the memory region when the stack pointer, is within
+> + *   guard page, when the guard page is touched.
+> + *
+> + *   1. Map an anyonymous memory region of size X, and unmap it.
+> + *   2. Split the unmapped memory region into two.
+> + *   3. The lower memory region is left unmapped.
+> + *   4. The higher memory region is mapped for use as stack, using
+> + *      MAP_FIXED | MAP_GROWSDOWN.
+> + *   5. The higher memory region is provided as stack to a thread, where
+> + *      a recursive function is invoked.
+> + *   6. The stack grows beyond the allocated region, into the lower memory area.
+> + *   7. If this results in the memory region being extended, into the
+> + *      unmapped region, the test is considered to have passed.
+> + *
+> + * # Test2:
+> + *   Steps mostly like Test1, but mmaping a page in the space the stack is
+> + *   supposed to grow into. To verify that the stack grows to within a page
+> + *   of the high end of the next lower map???ping, at which point touching
+> + *   the "guard" page will result in a SIGSEGV signal.
+> + */
+> +
+> +#include <unistd.h>
+> +#include <pthread.h>
+> +#include <sys/mman.h>
+> +#include <sys/wait.h>
+> +#include <sys/types.h>
+> +#include <stdlib.h>
+> +#include <stdbool.h>
+> +
+> +#include "tst_test.h"
+> +#include "tst_safe_pthread.h"
+> +
+> +#define UNITS(x) ((x) * PTHREAD_STACK_MIN)
+> +
+> +static void *stack;
+> +static long stack_size = UNITS(8);
+> +
+> +static bool __attribute__((noinline)) check_stackgrow_up(void)
+> +{
+> +	char local_var;
+> +	static char *addr;
+> +
+> +       if (!addr) {
+> +               addr = &local_var;
+> +               return check_stackgrow_up();
+> +       }
+> +
+> +       return (addr < &local_var);
+> +}
+> +
+> +static void setup(void)
+> +{
+> +	if (check_stackgrow_up())
+> +		tst_brk(TCONF, "Test can't be performed with stack grows up architecture");
+> +}
+> +
+> +static void allocate_stack(size_t size)
+> +{
+> +	void *start;
+> +
+> +	/*
+> +	 * Since the newer kernel does not allow a MAP_GROWSDOWN mapping to grow
+> +	 * closer than 'stack_guard_gap' pages away from a preceding mapping.
+> +	 * The guard then ensures that the next-highest mapped page remains more
+> +	 * than 'stack_guard_gap' below the lowest stack address, and if not then
+> +	 * it will trigger a segfault. So, here adding 256 pages memory spacing
+> +	 * for stack growing safely.
+> +	 *
+> +	 * Btw, kernel default 'stack_guard_gap' size is '256 * getpagesize()'.
+> +	 */
+> +	long total_size = 256 * getpagesize() + size * 2;
+> +
+> +	start = SAFE_MMAP(NULL, total_size, PROT_READ | PROT_WRITE,
+> +			MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+> +	SAFE_MUNMAP(start, total_size);
+> +
+> +	/* start                             stack
+> +	 * +-----------+---------------------+----------------------+
+> +	 * | 256 pages | unmapped (size)     | mapped (size)        |
+> +	 * +-----------+---------------------+----------------------+
+> +	 *
+> +	 */
+> +	stack = SAFE_MMAP((start + total_size - size), size, PROT_READ | PROT_WRITE,
+> +			  MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS | MAP_GROWSDOWN,
+> +			  -1, 0);
 
-> On 11-09-20, 11:53, Petr Vorel wrote:
-> > Hi Viresh,
-> > One of the commits fails on various tests [1].
+Well it's not wrong per se but as it is we do not use the pre-allocated
+part of the stack at all, we directly jump for the guard page as we use
+the stack pointer as a base for the pthread stack. The actual pointer
+that points to the start of the region is stack - stack_size.
 
-> > Some failures (I haven't checked all):
+There is no point in adding size * 2 here. We can as well reserve 256 *
+page_size + size. Then map() a single page at the end, which would be at
+start + total_size - page_size and finally return start + total_size
+from this function and pass that to pthread_attr_setstack().
 
-> > * missing nfds_t (<poll.h> is probably from old commits) [2]:
+That way it would look like:
 
-> > CC testcases/kernel/syscalls/mq_open/mq_open01
-> > In file included from ../../../../include/time64_variants.h:13,
-> >                  from /usr/src/ltp/testcases/kernel/syscalls/mq_timedreceive/../utils/mq_timed.h:10,
-> >                  from mq_timedreceive01.c:17:
-> > /usr/include/sys/poll.h:1:2: warning: #warning redirecting incorrect #include <sys/poll.h> to <poll.h> [-Wcpp]
-> >     1 | #warning redirecting incorrect #include <sys/poll.h> to <poll.h>
-> >       |  ^~~~~~~
-> > In file included from /usr/src/ltp/testcases/kernel/syscalls/mq_timedreceive/../utils/mq_timed.h:10,
-> >                  from mq_timedreceive01.c:17:
-> > ../../../../include/time64_variants.h:41:35: error: unknown type name 'nfds_t'
-> > 41 |  int (*ppoll)(struct pollfd *fds, nfds_t nfds, void *tmo_p,
+| 256 pages | unmapped | 1 mapped page |
 
-> > * <libaio.h> not found [3]:
-> > BUILD libltpnewipc.a
-> > make[6]: Nothing to be done for 'all'.
-> > In file included from /usr/src/ltp/testcases/kernel/syscalls/ipc/semop/semop02.c:29:
-> > In file included from In file included from /usr/src/ltp/testcases/kernel/syscalls/ipc/semop/semop01.c:15:
-> > In file included from /usr/src/ltp/testcases/kernel/syscalls/ipc/semop/semop.h:7:
-> > /usr/src/ltp/include/time64_variants.h:10:10: fatal error: /usr/src/ltp/testcases/kernel/syscalls/ipc/semop/semop.h'libaio.h' file not
-> >       found
-> > :7:
-> > /usr/src/ltp/include/time64_variants.h:10:10: fatal error: 'libaio.h' file#include <libaio.h>
-> >          ^~~~~~~~~~
-> >  not
-> >       found
-> > #include <libaio.h>
+            | - - -  stack_size  - - - |
 
-> I didn't get any of these on my x86 box :(
 
-This is also confusing for me.
+> +	tst_res(TINFO, "start = %p, stack = %p", start, stack);
+> +}
+> +
+> +static __attribute__((noinline)) void *check_depth_recursive(void *limit)
+> +{
+> +	if ((off_t) &limit < (off_t) limit) {
+> +		tst_res(TINFO, "&limit = %p, limit = %p", &limit, limit);
+> +		return NULL;
+> +	}
+> +
+> +	return check_depth_recursive(limit);
+> +}
+> +
+> +static void grow_stack(void *stack, size_t size, void *limit)
+> +{
+> +	pthread_t test_thread;
+> +	pthread_attr_t attr;
+> +	int ret;
+> +
+> +	ret = pthread_attr_init(&attr);
+> +	if (ret)
+> +		tst_brk(TBROK, "pthread_attr_init failed during setup");
+> +
+> +	ret = pthread_attr_setstack(&attr, stack, size);
+> +	if (ret)
+> +		tst_brk(TBROK, "pthread_attr_setstack failed during setup");
+> +
+> +	SAFE_PTHREAD_CREATE(&test_thread, &attr, check_depth_recursive, limit);
+> +	SAFE_PTHREAD_JOIN(test_thread, NULL);
+> +
+> +	if (stack)
+> +		SAFE_MUNMAP(stack, stack_size);
 
-Maybe enable travis CI builds for your ltp fork?
-You contribute a lot, catching bugs early would be great.
+I'ts a bit unexpected to unmap the stack here. I guess that unamping it
+in the run_test() after the grow_stack() call would be a bit cleaner but
+we would have to move the exit(0) there as well.
 
-Kind regards,
-Petr
+> +	exit(0);
+> +}
+> +
+> +static void run_test(void)
+> +{
+> +	pid_t child_pid;
+> +	int wstatus;
+> +
+> +	/* Test 1 */
+> +	child_pid = SAFE_FORK();
+> +	if (!child_pid) {
+> +		allocate_stack(stack_size);
+> +		grow_stack(stack, stack_size, stack - stack_size + UNITS(1));
+
+
+> +	}
+> +
+> +	SAFE_WAIT(&wstatus);
+> +	if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) == 0)
+> +		tst_res(TPASS, "Stack grows in unmapped region");
+> +	else
+> +		tst_res(TFAIL, "Child: %s", tst_strstatus(wstatus));
+> +
+> +	/* Test 2 */
+> +	child_pid = SAFE_FORK();
+> +	if (!child_pid) {
+> +		tst_no_corefile(0);
+                  ^
+		 This should go to the test setup.
+
+> +		allocate_stack(stack_size);
+> +
+> +		SAFE_MMAP(stack - stack_size, UNITS(1), PROT_READ | PROT_WRITE,
+> +			  MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+> +
+> +		/* This will cause to segment fault (SIGSEGV) */
+> +		grow_stack(stack, stack_size, stack - stack_size + UNITS(1));
+> +	}
+> +
+> +	SAFE_WAIT(&wstatus);
+> +        if (WIFSIGNALED(wstatus) && WTERMSIG(wstatus) == SIGSEGV)
+> +		tst_res(TPASS, "Child ended by %s as expected", tst_strsig(SIGSEGV));
+> +        else
+> +                tst_res(TFAIL, "Child: %s", tst_strstatus(wstatus));
+> +}
+> +
+> +static struct tst_test test = {
+> +	.setup = setup,
+> +	.test_all = run_test,
+> +	.forks_child = 1,
+> +};
+> -- 
+> 2.21.1
+> 
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
