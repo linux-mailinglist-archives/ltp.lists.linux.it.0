@@ -2,62 +2,65 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CF4E2682E3
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Sep 2020 05:06:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75A8226833B
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Sep 2020 05:41:02 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 800543C2BFB
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Sep 2020 05:06:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 128353C2BFB
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Sep 2020 05:41:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id CDBB63C1351
- for <ltp@lists.linux.it>; Mon, 14 Sep 2020 05:06:23 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 8A194600490
- for <ltp@lists.linux.it>; Mon, 14 Sep 2020 05:06:22 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTP id 05C6A3C224B
+ for <ltp@lists.linux.it>; Mon, 14 Sep 2020 05:40:59 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 5D6496005FE
+ for <ltp@lists.linux.it>; Mon, 14 Sep 2020 05:40:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1600052780;
+ s=mimecast20190719; t=1600054857;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=2uwgwb56fAXlvLTTToezi6CiNcGMwkVt+eGb8zWN2Pw=;
- b=VZ+834BrsKg/WuwO9/vWzYlhGA5Al2t6g/cAkyumkv0lvg9JRReSNk9MX+zBY8GCbIc184
- WrGQkQK7yX91u5J0P0bkf31tTHZXtEQPSvSjeb0tSTJGOsahDAu4fC4coeXG+HfWUN6FlJ
- 5b0h7sNP3lC8NwFB5dTC0YXT6CYLrdE=
+ bh=yzrkTv3V7+M6TDCEIU+aSdwvpu68ve1ZZUgE53H4nw0=;
+ b=CaSUNep93v+BOQU24iLpWkt7qjQMJXUzVU+AjmuX/3hte3t+FExPILpektOCXWzeAGrBhA
+ hYXh5RgjTS/40FYPoeDiuztiDD/YVqaABYiggwR55k12FZ7Z/IGr+kPGObd7fzX5Fxnr9P
+ 6JGmTgHJPLrXw3ymG6KFIu0QaZTSLTY=
 Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
  [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-587-AJorH6WhNpWyLYlpby46rA-1; Sun, 13 Sep 2020 23:06:18 -0400
-X-MC-Unique: AJorH6WhNpWyLYlpby46rA-1
-Received: by mail-yb1-f200.google.com with SMTP id 125so15436575ybg.12
- for <ltp@lists.linux.it>; Sun, 13 Sep 2020 20:06:18 -0700 (PDT)
+ us-mta-450-PCVCTIQlPDa7xr5TTZmcTA-1; Sun, 13 Sep 2020 23:40:52 -0400
+X-MC-Unique: PCVCTIQlPDa7xr5TTZmcTA-1
+Received: by mail-yb1-f200.google.com with SMTP id g189so11389437ybg.9
+ for <ltp@lists.linux.it>; Sun, 13 Sep 2020 20:40:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=2uwgwb56fAXlvLTTToezi6CiNcGMwkVt+eGb8zWN2Pw=;
- b=stMRGMQ7+ktWrlMOn+hX8AF1rF3sKnMBqDcwHzmt25xWQAxKG3axTHZrC9O4aEqc5K
- ZfZmf3z07H4Ec3LKMEZq7ugng2tIGoIiLRbnPCxBX+bpc+ZeyIXPspBIcqpueaWw6PH/
- XQt4+3FWRY0C1mvSVE1G3WHOc9S9QbOSwgTrjuGE6wFX3R0BmNosoN1BAwVJ464kLQtO
- 7bHAknfJtz+dHvq5mBkZ/U+7y9Ir09v1eKWY3fodSmUErfMIYNSjT6YolDPwfqqcDIwq
- shmNMOJO08ukvvr1ulQvgALkGE4VH8kMzDA5vyLyV1HEZlXd8iz6tEZAOaIiLzN4kG7+
- 4KRg==
-X-Gm-Message-State: AOAM530Y2hKbqUPhUiefNXCd5K6/T+mJcjfYIURhn3qBDefvL38OklCs
- lj+c1pbRXunsjyAG49/m0FXU2BhluVSDLCC2Jvi6pAZlrr2zqOvpwuSnTxegVEarT7O+7tadIr7
- H55Lt+5t02u/LcDbCiB95NE9FRcM=
-X-Received: by 2002:a25:69cb:: with SMTP id e194mr2356655ybc.243.1600052777815; 
- Sun, 13 Sep 2020 20:06:17 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJy3f2zSsl4bwYqu9oOOHx2vznZyFnZuiqWGXNTGU/5K7DzWYVOMVzktrNR8c56aTkPuH3IXu5C5kaTNRaZLdBI=
-X-Received: by 2002:a25:69cb:: with SMTP id e194mr2356626ybc.243.1600052777550; 
- Sun, 13 Sep 2020 20:06:17 -0700 (PDT)
+ bh=yzrkTv3V7+M6TDCEIU+aSdwvpu68ve1ZZUgE53H4nw0=;
+ b=UYaMi3fjETSbMl8cksA0W9r9UVmGeuBSIhg5DqqR8s3PY45rkb3615K0fujeTm+MfJ
+ vN4B/hlieFCp3KUhoAxamtzEkcpH7octvtMB1QWffXf7+8O0c68d1Ipsxz7w2LEpasYp
+ JozlKSx3JkKim3c2DANo4dbaM8efBiHraq/zd5XaIvWVf5kSX5McSpE48TtZwKkqvgmr
+ Y9qtzovp+EEJOfFMN/3PaMiL8nXGjhbLg+1cypTvG52LemjiEcIBsViLJvdcGpYSbVS3
+ ECRdtBPdbSjWEiY+/1MlQ9hmvF1Qj0Zebzq9u07S/v+72LeDLK9V5FgZfQqQgpUy1tKw
+ Y9rw==
+X-Gm-Message-State: AOAM531szx162VfeKzjI48/7MJPWEYuxRFFxdkFJCwLkC0vtXS/AkEVp
+ /ZXrwmZbw/5ewOd3lrJLQ86MrXNbT+lmesk87iYOWOVwvAikCB4CfIk1m0FwezOAjHKXD/yL274
+ /XopnB1yS8ERnrTYNnd47SpJrw3Y=
+X-Received: by 2002:a05:6902:6c1:: with SMTP id
+ m1mr18012667ybt.252.1600054852275; 
+ Sun, 13 Sep 2020 20:40:52 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzhWdQcHeiF/MOxc+0viTI2bR5POuCNyvMB6RQR3OkmW9vCzCR5fytb0xKiL79CVBH8Nhne3BeZ4nHU9MCPncs=
+X-Received: by 2002:a05:6902:6c1:: with SMTP id
+ m1mr18012651ybt.252.1600054852097; 
+ Sun, 13 Sep 2020 20:40:52 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200911035533.30538-1-liwang@redhat.com>
  <20200911130836.GA2582@yuki.lan>
  <CAEemH2fPRTh6drs=h=U7OG07SZDgpDfEB0xRadF8Y1FbaHR8Nw@mail.gmail.com>
  <20200911145730.GA6157@yuki.lan>
-In-Reply-To: <20200911145730.GA6157@yuki.lan>
+ <CAEemH2cXY+-Dgq8PB-ZunzRnjM1iH0KiB5gK5=CLnFDSEiKLdQ@mail.gmail.com>
+In-Reply-To: <CAEemH2cXY+-Dgq8PB-ZunzRnjM1iH0KiB5gK5=CLnFDSEiKLdQ@mail.gmail.com>
 From: Li Wang <liwang@redhat.com>
-Date: Mon, 14 Sep 2020 11:06:05 +0800
-Message-ID: <CAEemH2cXY+-Dgq8PB-ZunzRnjM1iH0KiB5gK5=CLnFDSEiKLdQ@mail.gmail.com>
+Date: Mon, 14 Sep 2020 11:40:40 +0800
+Message-ID: <CAEemH2foCpQqDdBNZ8A5OcpoKzLTUn1Od+KE8TSMN=vk-F5=kA@mail.gmail.com>
 To: Cyril Hrubis <chrubis@suse.cz>
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
@@ -83,139 +86,105 @@ List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: pravin <pravinraghul@zilogic.com>, LTP List <ltp@lists.linux.it>,
  "Vijay Kumar B ." <vijaykumar@zilogic.com>
-Content-Type: multipart/mixed; boundary="===============1232349698=="
+Content-Type: multipart/mixed; boundary="===============0480245797=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1232349698==
-Content-Type: multipart/alternative; boundary="0000000000006da22805af3d5187"
+--===============0480245797==
+Content-Type: multipart/alternative; boundary="00000000000014ada005af3dcdf3"
 
---0000000000006da22805af3d5187
+--00000000000014ada005af3dcdf3
 Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 11, 2020 at 10:57 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+On Mon, Sep 14, 2020 at 11:06 AM Li Wang <liwang@redhat.com> wrote:
 
-> Hi!
-> > > Well it's not wrong per se but as it is we do not use the pre-allocated
-> > > part of the stack at all, we directly jump for the guard page as we use
-> > >
-> >
-> > Really? But I think the pthread_attr_setstack(&attr, stack, stack_size)
-> will
-> > take use of the whole stack memory in function recursive performing.
-> > How can we say NOT use the pre-allocated stack? I fell a bit confused
-> > about your words here.
 >
-> I've been confused as well I looked at pthread_attr_setstack() function
-> manual and it's expecting to get the lowest pointer of the stack. So I
-> suppose that the stack really started at the stack + stack_size address.
+> ...
 >
-
-I guess you probably misread the "lowest pointer of the stack", it is not
-mean
-the bottom of the stack, it is actually the lowest addressable byte of a
-buffer of
-stacksize. From what I understand, we should NOT pass the 'stack +
-stack_size'
-address to pthread_attr_setstack().
-
-
-
-> But still the code wasn't exactly right, because the lowest address of
-> the stack in the previous code was stack - stack_size, which would be
-> start of the unmapped region and the size of the stack would be 2 *
-> stack_size, as we expected the mapping to grow.
+>
+>> But still the code wasn't exactly right, because the lowest address of
+>> the stack in the previous code was stack - stack_size, which would be
+>> start of the unmapped region and the size of the stack would be 2 *
+>> stack_size, as we expected the mapping to grow.
+>>
+>
+> No, I don't think so, the lowest address of the stack in the previous code
+> is:
+>     stack = start + total_size - size;
+> and we pass this stack pointer to ptrehad_attr_setstack() is correct here,
+> indeed the stack really starts at stack + stack_size, that's internal
+> steps.
 >
 
-No, I don't think so, the lowest address of the stack in the previous code
-is:
-    stack = start + total_size - size;
-and we pass this stack pointer to ptrehad_attr_setstack() is correct here,
-indeed the stack really starts at stack + stack_size, that's internal steps.
+Here print debug info to verify that stack grows down from 'stack + size'
+address:
 
-If we go with 'stack + stack_size' as you suggested, that will easily get
-segmental fault. So I stand by myself understanding unless someone can
-give enough explanation/demo :).
-
-PTHREAD_ATTR_SETSTACK(3) manual says:
-  "stackaddr should point to the lowest addressable byte of a buffer of
-stacksize bytes that was allocated by the caller.  The pages of the
-allocated buffer should be both readable and writable."
+mmap18.c:99: INFO: start = 0x7f4831293000, stack - size = 0x7f4831393000,
+stack = 0x7f48313b3000, stack + size = 0x7f48313d3000
+mmap18.c:110: INFO: &limit = 0x7f48313d1ee8, limit = 0x7f4831397000
+mmap18.c:110: INFO: &limit = 0x7f48313d1ec8, limit = 0x7f4831397000
+mmap18.c:110: INFO: &limit = 0x7f48313d1ea8, limit = 0x7f4831397000
+mmap18.c:110: INFO: &limit = 0x7f48313d1e88, limit = 0x7f4831397000
+mmap18.c:110: INFO: &limit = 0x7f48313d1e68, limit = 0x7f4831397000
+mmap18.c:110: INFO: &limit = 0x7f48313d1e48, limit = 0x7f4831397000
+mmap18.c:110: INFO: &limit = 0x7f48313d1e28, limit = 0x7f4831397000
+mmap18.c:110: INFO: &limit = 0x7f48313d1e08, limit = 0x7f4831397000
+mmap18.c:110: INFO: &limit = 0x7f48313d1de8, limit = 0x7f4831397000
+...
 
 -- 
 Regards,
 Li Wang
 
---0000000000006da22805af3d5187
+--00000000000014ada005af3dcdf3
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Fri, Sep 11, 2020 at 10:57 PM Cyril Hrubis &lt;<=
-a href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><=
-blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
-eft:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
-&gt; &gt; Well it&#39;s not wrong per se but as it is we do not use the pre=
--allocated<br>
-&gt; &gt; part of the stack at all, we directly jump for the guard page as =
-we use<br>
-&gt; &gt;<br>
-&gt; <br>
-&gt; Really? But I think the pthread_attr_setstack(&amp;attr, stack, stack_=
-size) will<br>
-&gt; take use of the whole stack memory in function recursive performing.<b=
-r>
-&gt; How can we say NOT use the pre-allocated stack? I fell a bit confused<=
-br>
-&gt; about your words here.<br>
-<br>
-I&#39;ve been confused as well I looked at pthread_attr_setstack() function=
-<br>
-manual and it&#39;s expecting to get the lowest pointer of the stack. So I<=
-br>
-suppose that the stack really started at the stack + stack_size address.<br=
-></blockquote><div><br></div><div><div class=3D"gmail_default" style=3D"fon=
-t-size:small">I guess you probably misread the &quot;lowest pointer of the =
-stack&quot;, it is not mean</div><div class=3D"gmail_default" style=3D"font=
--size:small">the bottom of the stack, it is actually the lowest addressable=
- byte of a buffer of</div><div class=3D"gmail_default" style=3D"font-size:s=
-mall">stacksize. From what I understand, we should NOT pass the &#39;stack=
-=C2=A0+ stack_size&#39;</div><div class=3D"gmail_default" style=3D"font-siz=
-e:small">address to=C2=A0pthread_attr_setstack().=C2=A0</div><br></div><div=
->=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
-0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_defa=
+ult" style=3D"font-size:small"><br></div></div><br><div class=3D"gmail_quot=
+e"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Sep 14, 2020 at 11:06 AM L=
+i Wang &lt;<a href=3D"mailto:liwang@redhat.com">liwang@redhat.com</a>&gt; w=
+rote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
+x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=
+=3D"ltr"><div dir=3D"ltr"><div style=3D"font-size:small"><br></div></div><d=
+iv class=3D"gmail_default" style=3D"font-size:small">...</div><div class=3D=
+"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">=C2=A0<br></div><blockq=
+uote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1p=
+x solid rgb(204,204,204);padding-left:1ex">
 But still the code wasn&#39;t exactly right, because the lowest address of<=
 br>
 the stack in the previous code was stack - stack_size, which would be<br>
 start of the unmapped region and the size of the stack would be 2 *<br>
 stack_size, as we expected the mapping to grow.<br></blockquote><div><br></=
-div><div><div class=3D"gmail_default" style=3D"font-size:small">No, I don&#=
-39;t think so, the lowest address of the stack in the previous code is:</di=
-v><div class=3D"gmail_default" style=3D"font-size:small">=C2=A0 =C2=A0 stac=
-k =3D start + total_size - size;</div></div><div class=3D"gmail_default" st=
-yle=3D"font-size:small">and we pass this stack pointer to=C2=A0ptrehad_attr=
-_setstack() is correct here,</div><div class=3D"gmail_default" style=3D"fon=
-t-size:small">indeed the stack really starts at stack=C2=A0+ stack_size, th=
-at&#39;s internal steps.</div><div class=3D"gmail_default" style=3D"font-si=
-ze:small"><br></div><div class=3D"gmail_default" style=3D"font-size:small">=
-If we go with &#39;stack=C2=A0+ stack_size&#39; as you suggested, that will=
- easily get</div><div class=3D"gmail_default" style=3D"font-size:small">seg=
-mental fault. So I stand by myself understanding unless someone can</div><d=
-iv class=3D"gmail_default" style=3D"font-size:small">give enough explanatio=
-n/demo :).</div><div><br></div><div><div class=3D"gmail_default" style=3D"f=
-ont-size:small">PTHREAD_ATTR_SETSTACK(3) manual says:</div><div class=3D"gm=
-ail_default" style=3D"font-size:small">=C2=A0 &quot;stackaddr should point =
-to the lowest addressable byte of a buffer of stacksize bytes that was allo=
-cated by the caller.=C2=A0 The pages of the allocated buffer should be both=
- readable and writable.&quot;</div><br></div></div>-- <br><div dir=3D"ltr" =
-class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li W=
-ang<br></div></div></div></div>
+div><div><div style=3D"font-size:small">No, I don&#39;t think so, the lowes=
+t address of the stack in the previous code is:</div><div style=3D"font-siz=
+e:small">=C2=A0 =C2=A0 stack =3D start + total_size - size;</div></div><div=
+ style=3D"font-size:small">and we pass this stack pointer to=C2=A0ptrehad_a=
+ttr_setstack() is correct here,</div><div style=3D"font-size:small">indeed =
+the stack really starts at stack=C2=A0+ stack_size, that&#39;s internal ste=
+ps.</div></div></div></blockquote><div><br></div><div class=3D"gmail_defaul=
+t" style=3D"font-size:small">Here print debug info to verify that stack gro=
+ws down from &#39;stack + size&#39; address:</div><div class=3D"gmail_defau=
+lt" style=3D"font-size:small"><br></div>mmap18.c:99: INFO: start =3D 0x7f48=
+31293000, stack - size =3D 0x7f4831393000, stack =3D 0x7f48313b3000, stack =
++ size =3D 0x7f48313d3000<br>mmap18.c:110: INFO: &amp;limit =3D 0x7f48313d1=
+ee8, limit =3D 0x7f4831397000<br>mmap18.c:110: INFO: &amp;limit =3D 0x7f483=
+13d1ec8, limit =3D 0x7f4831397000<br>mmap18.c:110: INFO: &amp;limit =3D 0x7=
+f48313d1ea8, limit =3D 0x7f4831397000<br>mmap18.c:110: INFO: &amp;limit =3D=
+ 0x7f48313d1e88, limit =3D 0x7f4831397000<br>mmap18.c:110: INFO: &amp;limit=
+ =3D 0x7f48313d1e68, limit =3D 0x7f4831397000<br>mmap18.c:110: INFO: &amp;l=
+imit =3D 0x7f48313d1e48, limit =3D 0x7f4831397000<br>mmap18.c:110: INFO: &a=
+mp;limit =3D 0x7f48313d1e28, limit =3D 0x7f4831397000<br>mmap18.c:110: INFO=
+: &amp;limit =3D 0x7f48313d1e08, limit =3D 0x7f4831397000<br>mmap18.c:110: =
+INFO: &amp;limit =3D 0x7f48313d1de8, limit =3D 0x7f4831397000<br><div class=
+=3D"gmail_default" style=3D"font-size:small">...</div><div>=C2=A0</div></di=
+v>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>R=
+egards,<br></div><div>Li Wang<br></div></div></div></div></div>
 
---0000000000006da22805af3d5187--
+--00000000000014ada005af3dcdf3--
 
 
---===============1232349698==
+--===============0480245797==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -225,5 +194,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============1232349698==--
+--===============0480245797==--
 
