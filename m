@@ -1,78 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75A8226833B
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Sep 2020 05:41:02 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 369EE26868F
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Sep 2020 09:53:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 128353C2BFB
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Sep 2020 05:41:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 74D113C4F20
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Sep 2020 09:53:19 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 05C6A3C224B
- for <ltp@lists.linux.it>; Mon, 14 Sep 2020 05:40:59 +0200 (CEST)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 5D6496005FE
- for <ltp@lists.linux.it>; Mon, 14 Sep 2020 05:40:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1600054857;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=yzrkTv3V7+M6TDCEIU+aSdwvpu68ve1ZZUgE53H4nw0=;
- b=CaSUNep93v+BOQU24iLpWkt7qjQMJXUzVU+AjmuX/3hte3t+FExPILpektOCXWzeAGrBhA
- hYXh5RgjTS/40FYPoeDiuztiDD/YVqaABYiggwR55k12FZ7Z/IGr+kPGObd7fzX5Fxnr9P
- 6JGmTgHJPLrXw3ymG6KFIu0QaZTSLTY=
-Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
- [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-450-PCVCTIQlPDa7xr5TTZmcTA-1; Sun, 13 Sep 2020 23:40:52 -0400
-X-MC-Unique: PCVCTIQlPDa7xr5TTZmcTA-1
-Received: by mail-yb1-f200.google.com with SMTP id g189so11389437ybg.9
- for <ltp@lists.linux.it>; Sun, 13 Sep 2020 20:40:52 -0700 (PDT)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 7AD4A3C24E4
+ for <ltp@lists.linux.it>; Mon, 14 Sep 2020 09:53:15 +0200 (CEST)
+Received: from mail-yb1-xb29.google.com (mail-yb1-xb29.google.com
+ [IPv6:2607:f8b0:4864:20::b29])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5F93B200C71
+ for <ltp@lists.linux.it>; Mon, 14 Sep 2020 09:53:14 +0200 (CEST)
+Received: by mail-yb1-xb29.google.com with SMTP id x10so11148197ybj.13
+ for <ltp@lists.linux.it>; Mon, 14 Sep 2020 00:53:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=tPJS32njs1p0TAmh/zajoLaecsftajZZsMooXqDnxZ8=;
+ b=Ow6fFLwWaE/JAX643w0JJE4NxdJLiRsqdvxySaFrrlVNIoqoxFkS7gEeY1CVZW5NPW
+ dKvSdFS2olh6JDrkqrUSs+D+TzWYerBolc5vATaFRP+t2XzfYARtSPNZ0WwqTiPgjr73
+ /G560U54hX+jrVncDmqqpnIprxWZCNldKNKMqlTVqVYWPgtNcuWct4uCzmzRYEIXs/do
+ 5QiHy8w7BDfugRVQGCdDgWQ3G3d0mUihxk5h75hDCAsqe5qCubxKzrLwXe+7UnQsV1wc
+ MqzoB0h1FQWbh4srRw2cHuAysJ6qBT2MvjuHPzKcpWo4EBqYz8wgl+YZ6juXInPMl+we
+ LF2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=yzrkTv3V7+M6TDCEIU+aSdwvpu68ve1ZZUgE53H4nw0=;
- b=UYaMi3fjETSbMl8cksA0W9r9UVmGeuBSIhg5DqqR8s3PY45rkb3615K0fujeTm+MfJ
- vN4B/hlieFCp3KUhoAxamtzEkcpH7octvtMB1QWffXf7+8O0c68d1Ipsxz7w2LEpasYp
- JozlKSx3JkKim3c2DANo4dbaM8efBiHraq/zd5XaIvWVf5kSX5McSpE48TtZwKkqvgmr
- Y9qtzovp+EEJOfFMN/3PaMiL8nXGjhbLg+1cypTvG52LemjiEcIBsViLJvdcGpYSbVS3
- ECRdtBPdbSjWEiY+/1MlQ9hmvF1Qj0Zebzq9u07S/v+72LeDLK9V5FgZfQqQgpUy1tKw
- Y9rw==
-X-Gm-Message-State: AOAM531szx162VfeKzjI48/7MJPWEYuxRFFxdkFJCwLkC0vtXS/AkEVp
- /ZXrwmZbw/5ewOd3lrJLQ86MrXNbT+lmesk87iYOWOVwvAikCB4CfIk1m0FwezOAjHKXD/yL274
- /XopnB1yS8ERnrTYNnd47SpJrw3Y=
-X-Received: by 2002:a05:6902:6c1:: with SMTP id
- m1mr18012667ybt.252.1600054852275; 
- Sun, 13 Sep 2020 20:40:52 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzhWdQcHeiF/MOxc+0viTI2bR5POuCNyvMB6RQR3OkmW9vCzCR5fytb0xKiL79CVBH8Nhne3BeZ4nHU9MCPncs=
-X-Received: by 2002:a05:6902:6c1:: with SMTP id
- m1mr18012651ybt.252.1600054852097; 
- Sun, 13 Sep 2020 20:40:52 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=tPJS32njs1p0TAmh/zajoLaecsftajZZsMooXqDnxZ8=;
+ b=Z5QpdNTAUG/7YDcU/X9Sr0ttADE/nssGMx6EQypC1sA82lnU0+Jon0HmyWFr+zZjZ3
+ +5emPP1jopONRu/OxUmAcnJXNEPOJE12pkCbItRUPIhb3FtirzRMn539ZFdZNruh0azZ
+ 2aTzDPnIekZqqWvXJet5iz1Fis2I1UllEZdRiGVfwy7u840c6LmgerwLuOITMDzatP5/
+ EgEOIawlalsg1QD0Mi4AUp927evr7y1XMhrrGjktHDRHrkpnXzSmCjdFu/dBfdjgQwaJ
+ 9J3DNlXT7nXvxi9+asA8tpvkdU9RZWf+H9YlB7CfDoviXN/EcVr6usyqQgCXAD6Q8EZM
+ IYcw==
+X-Gm-Message-State: AOAM5335x5XzzyzW7EyNDnOb8vMmVXgYflPOKZI5BHOQw06ENBocL4mc
+ b33opRTgiowuIwrMEYg/KZSWELx6no/uylAMSK4=
+X-Google-Smtp-Source: ABdhPJzhyFfV6baymzlTtIi0lG3ZnAxFP3FNVjF2eV0l5gfNgSzGcCqFuB/b1sTolXNiK29unAvbWsGI/t9DG0Qo2uM=
+X-Received: by 2002:a25:354:: with SMTP id 81mr17788614ybd.292.1600069993241; 
+ Mon, 14 Sep 2020 00:53:13 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200911035533.30538-1-liwang@redhat.com>
- <20200911130836.GA2582@yuki.lan>
- <CAEemH2fPRTh6drs=h=U7OG07SZDgpDfEB0xRadF8Y1FbaHR8Nw@mail.gmail.com>
- <20200911145730.GA6157@yuki.lan>
- <CAEemH2cXY+-Dgq8PB-ZunzRnjM1iH0KiB5gK5=CLnFDSEiKLdQ@mail.gmail.com>
-In-Reply-To: <CAEemH2cXY+-Dgq8PB-ZunzRnjM1iH0KiB5gK5=CLnFDSEiKLdQ@mail.gmail.com>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 14 Sep 2020 11:40:40 +0800
-Message-ID: <CAEemH2foCpQqDdBNZ8A5OcpoKzLTUn1Od+KE8TSMN=vk-F5=kA@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0.001
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+References: <20200908073138.GB2475@yuki.lan>
+ <CAEemH2cHvM_KD7W6fyX6z3bc0qfVtkp=yEM8MDvvohouyj5N2w@mail.gmail.com>
+ <20200908153659.GA16066@yuki.lan>
+ <CAEemH2eq0fwF8zt1uez5vuwM0vtrLtoFd_45sFqE=iQ8hpudfQ@mail.gmail.com>
+ <CAEemH2es3sMSfAar8Xj4_Vr+2nsD0isPws4v=8=csLyYROAQGQ@mail.gmail.com>
+ <20200909131327.GA3241@yuki.lan> <20200909132703.GB3241@yuki.lan>
+ <CAEemH2e+Ck8M22gdgL0OQ24ekBPyDu4FwGrdG+da9E62UZWjRQ@mail.gmail.com>
+ <CAEemH2eJCUuf=SQF_GdQ7U9q_8+BD9LsxPAgwuJS9wx8zBzNww@mail.gmail.com>
+In-Reply-To: <CAEemH2eJCUuf=SQF_GdQ7U9q_8+BD9LsxPAgwuJS9wx8zBzNww@mail.gmail.com>
+From: Cixi Geng <gengcixi@gmail.com>
+Date: Mon, 14 Sep 2020 15:52:37 +0800
+Message-ID: <CAF12kFs+Wzm2rt5uE7WoHDXZSpdtZaZPgspKTACpYnw7zR+sgA@mail.gmail.com>
+To: Li Wang <liwang@redhat.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5] Add a test case for mmap MAP_GROWSDOWN flag
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] LTP release
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,115 +80,40 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: pravin <pravinraghul@zilogic.com>, LTP List <ltp@lists.linux.it>,
- "Vijay Kumar B ." <vijaykumar@zilogic.com>
-Content-Type: multipart/mixed; boundary="===============0480245797=="
+Cc: "Pravin Raghul S." <pravinraghul@zilogic.com>, xingfeng.kang@unisoc.com,
+ "Vijay Kumar B." <vijaykumar@zilogic.com>, Orson Zhai <orsonzhai@gmail.com>,
+ LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0480245797==
-Content-Type: multipart/alternative; boundary="00000000000014ada005af3dcdf3"
-
---00000000000014ada005af3dcdf3
-Content-Type: text/plain; charset="UTF-8"
-
-On Mon, Sep 14, 2020 at 11:06 AM Li Wang <liwang@redhat.com> wrote:
-
->
-> ...
->
->
->> But still the code wasn't exactly right, because the lowest address of
->> the stack in the previous code was stack - stack_size, which would be
->> start of the unmapped region and the size of the stack would be 2 *
->> stack_size, as we expected the mapping to grow.
->>
->
-> No, I don't think so, the lowest address of the stack in the previous code
-> is:
->     stack = start + total_size - size;
-> and we pass this stack pointer to ptrehad_attr_setstack() is correct here,
-> indeed the stack really starts at stack + stack_size, that's internal
-> steps.
->
-
-Here print debug info to verify that stack grows down from 'stack + size'
-address:
-
-mmap18.c:99: INFO: start = 0x7f4831293000, stack - size = 0x7f4831393000,
-stack = 0x7f48313b3000, stack + size = 0x7f48313d3000
-mmap18.c:110: INFO: &limit = 0x7f48313d1ee8, limit = 0x7f4831397000
-mmap18.c:110: INFO: &limit = 0x7f48313d1ec8, limit = 0x7f4831397000
-mmap18.c:110: INFO: &limit = 0x7f48313d1ea8, limit = 0x7f4831397000
-mmap18.c:110: INFO: &limit = 0x7f48313d1e88, limit = 0x7f4831397000
-mmap18.c:110: INFO: &limit = 0x7f48313d1e68, limit = 0x7f4831397000
-mmap18.c:110: INFO: &limit = 0x7f48313d1e48, limit = 0x7f4831397000
-mmap18.c:110: INFO: &limit = 0x7f48313d1e28, limit = 0x7f4831397000
-mmap18.c:110: INFO: &limit = 0x7f48313d1e08, limit = 0x7f4831397000
-mmap18.c:110: INFO: &limit = 0x7f48313d1de8, limit = 0x7f4831397000
-...
-
--- 
-Regards,
-Li Wang
-
---00000000000014ada005af3dcdf3
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_defa=
-ult" style=3D"font-size:small"><br></div></div><br><div class=3D"gmail_quot=
-e"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Sep 14, 2020 at 11:06 AM L=
-i Wang &lt;<a href=3D"mailto:liwang@redhat.com">liwang@redhat.com</a>&gt; w=
-rote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
-x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=
-=3D"ltr"><div dir=3D"ltr"><div style=3D"font-size:small"><br></div></div><d=
-iv class=3D"gmail_default" style=3D"font-size:small">...</div><div class=3D=
-"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">=C2=A0<br></div><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1p=
-x solid rgb(204,204,204);padding-left:1ex">
-But still the code wasn&#39;t exactly right, because the lowest address of<=
-br>
-the stack in the previous code was stack - stack_size, which would be<br>
-start of the unmapped region and the size of the stack would be 2 *<br>
-stack_size, as we expected the mapping to grow.<br></blockquote><div><br></=
-div><div><div style=3D"font-size:small">No, I don&#39;t think so, the lowes=
-t address of the stack in the previous code is:</div><div style=3D"font-siz=
-e:small">=C2=A0 =C2=A0 stack =3D start + total_size - size;</div></div><div=
- style=3D"font-size:small">and we pass this stack pointer to=C2=A0ptrehad_a=
-ttr_setstack() is correct here,</div><div style=3D"font-size:small">indeed =
-the stack really starts at stack=C2=A0+ stack_size, that&#39;s internal ste=
-ps.</div></div></div></blockquote><div><br></div><div class=3D"gmail_defaul=
-t" style=3D"font-size:small">Here print debug info to verify that stack gro=
-ws down from &#39;stack + size&#39; address:</div><div class=3D"gmail_defau=
-lt" style=3D"font-size:small"><br></div>mmap18.c:99: INFO: start =3D 0x7f48=
-31293000, stack - size =3D 0x7f4831393000, stack =3D 0x7f48313b3000, stack =
-+ size =3D 0x7f48313d3000<br>mmap18.c:110: INFO: &amp;limit =3D 0x7f48313d1=
-ee8, limit =3D 0x7f4831397000<br>mmap18.c:110: INFO: &amp;limit =3D 0x7f483=
-13d1ec8, limit =3D 0x7f4831397000<br>mmap18.c:110: INFO: &amp;limit =3D 0x7=
-f48313d1ea8, limit =3D 0x7f4831397000<br>mmap18.c:110: INFO: &amp;limit =3D=
- 0x7f48313d1e88, limit =3D 0x7f4831397000<br>mmap18.c:110: INFO: &amp;limit=
- =3D 0x7f48313d1e68, limit =3D 0x7f4831397000<br>mmap18.c:110: INFO: &amp;l=
-imit =3D 0x7f48313d1e48, limit =3D 0x7f4831397000<br>mmap18.c:110: INFO: &a=
-mp;limit =3D 0x7f48313d1e28, limit =3D 0x7f4831397000<br>mmap18.c:110: INFO=
-: &amp;limit =3D 0x7f48313d1e08, limit =3D 0x7f4831397000<br>mmap18.c:110: =
-INFO: &amp;limit =3D 0x7f48313d1de8, limit =3D 0x7f4831397000<br><div class=
-=3D"gmail_default" style=3D"font-size:small">...</div><div>=C2=A0</div></di=
-v>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>R=
-egards,<br></div><div>Li Wang<br></div></div></div></div></div>
-
---00000000000014ada005af3dcdf3--
-
-
---===============0480245797==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0480245797==--
-
+SGkgQ3lyaWw6CkNhbiB3ZSBtZXJnZSB0aGUgdWFydCBkZXZpY2UgZHJpdmVyIHRlc3RjYXNlIGFu
+ZCB0aGUgZGV2aWNlLWRpc2NvdmVyIGZyYW1ld29yayDvvJ8KU28gdGhhdCB3ZSBjYW4gY29udGlu
+dWUgd3JpdGUgb3RoZXIgZGV2aWNlIGRyaXZlciBjYXNlIGluIExUUC4KSSBhbSBsb29raW5nIGZv
+cndhcmQgY29udHJpYnV0ZSB0byBsdHAgb24gdGhlIGRyaXZlciB0ZXN0IC4KCmh0dHBzOi8vcGF0
+Y2h3b3JrLm96bGFicy5vcmcvcHJvamVjdC9sdHAvbGlzdC8/c2VyaWVzPTE4NTI0MApodHRwczov
+L3BhdGNod29yay5vemxhYnMub3JnL3Byb2plY3QvbHRwL2xpc3QvP3Nlcmllcz0xOTUxNTEKCkxp
+IFdhbmcgPGxpd2FuZ0ByZWRoYXQuY29tPiDkuo4yMDIw5bm0OeaciDEw5pel5ZGo5ZubIOS4i+WN
+iDU6MjPlhpnpgZPvvJoKPgo+Cj4KPiBPbiBUaHUsIFNlcCAxMCwgMjAyMCBhdCAzOjE5IFBNIExp
+IFdhbmcgPGxpd2FuZ0ByZWRoYXQuY29tPiB3cm90ZToKPj4KPj4KPj4KPj4gT24gV2VkLCBTZXAg
+OSwgMjAyMCBhdCA5OjI2IFBNIEN5cmlsIEhydWJpcyA8Y2hydWJpc0BzdXNlLmN6PiB3cm90ZToK
+Pj4+Cj4+PiBIaSEKPj4+ID4gQWxzbyBJIHdvdWxkIGxpa2UgdG8gZ2V0IHJpZCBvZiB0aGUgLWZu
+by1vcHRpbWl6ZS1zaWJsaW5nLWNhbGxzIGluIHRoZQo+Pj4gPiBNYWtlZmlsZSwgdGhpcyBtYWtl
+cyB0aGUgdGVzdCBhIGJpdCBmcmFnaWxlIGFuZCBsZXNzIHBvcnRhYmxlLgo+Pgo+Pgo+PiBJJ20g
+bm90IHZlcnkgc3VyZSwgbGV0IG1lIHRoaW5rL2NoZWNrIGEgd2hpbGUuCj4KPgo+IEZyb20gdGhl
+IGRvY3VtZW50LCBpdCBjb3VsZCBhbHNvIGhlbHAgcHJldmVudHMgb3B0aW1pemF0aW9uIHB1cnBv
+c2VzLgo+IEkgdGhpbmsgd2UgY2FuIGhhdmUgYSB0cnksIGlmIG5vIG1vcmUgaXNzdWVzLCB0aGF0
+IHdpbGwgYmUgZ3JlYXQuCj4KPj4KPj4KPj4+Cj4+PiAvKgo+Pj4gICogUmV0dXJucyBuZWdhdGl2
+ZSBudW1iZXIgaWYgc3RhY2sgZ3Jvd3MgZG93biwgcG9zc2l0aXZlIGlmIHN0YWNrIGdyb3dzIHVw
+Cj4+PiAgKi8KPj4+IHN0YXRpYyBpbnQgc3RhY2tfZGlyKHZvaWQpCj4+PiB7Cj4+PiAgICAgICAg
+IGludHB0cl90IGFkZHIgPSBhZGRyX2Z1bmMoKTsKPj4+Cj4+PiAgICAgICAgIHByaW50ZigiJXAg
+JXBcbiIsICZhZGRyLCAodm9pZCopYWRkcik7Cj4+Cj4+Cj4+IFRoaXMgbWV0aG9kIG1heSBiZSBk
+b2FibGUsIGJ1dCB0aGUgc2Vjb25kICVwIHByaW50IChuaWwpLCBJIGRvbid0IHdoeS4KPgo+Cj4g
+VGhlIHJlYXNvbiBzZWVtcyB0aGF0IHRoZSBsb2NhbCB2YXJpYWJsZSBpcyByZXZva2VkIGFmdGVy
+IHRoZSBmdW5jdGlvbgo+IGlzIGNhbGxpbmcsIHNvIHdlIGdldCBOVUxMIG9mIHRoZSBsb2NhbCB2
+YXJpYWJsZSBhZGRyZXNzLiBJdCB3b3JrcyBhcyB3ZQo+IGV4cGVjdGVkIHdoZW4gaW50cm9kdWNp
+bmcgYSBnbG9iYWwgcG9pbnRlciB0byBzYXZlIGFuZCByZXR1cm4gdGhlICcmYScuCj4KPiAtLQo+
+IFJlZ2FyZHMsCj4gTGkgV2FuZwo+Cj4gLS0KPiBNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9s
+aXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6
+Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
