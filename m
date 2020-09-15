@@ -2,47 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E604C26A29B
-	for <lists+linux-ltp@lfdr.de>; Tue, 15 Sep 2020 11:58:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 077E426A3C3
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Sep 2020 13:00:04 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A9B2E3C2B47
-	for <lists+linux-ltp@lfdr.de>; Tue, 15 Sep 2020 11:58:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4794F3C4EDE
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Sep 2020 13:00:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 401063C13DC
- for <ltp@lists.linux.it>; Tue, 15 Sep 2020 11:58:53 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A748660121C
- for <ltp@lists.linux.it>; Tue, 15 Sep 2020 11:58:52 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 72C20B19A;
- Tue, 15 Sep 2020 09:59:07 +0000 (UTC)
-Date: Tue, 15 Sep 2020 11:59:18 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: "Bird, Tim" <Tim.Bird@sony.com>
-Message-ID: <20200915095918.GA14713@yuki.lan>
-References: <20200908153659.GA16066@yuki.lan>
- <CAEemH2eq0fwF8zt1uez5vuwM0vtrLtoFd_45sFqE=iQ8hpudfQ@mail.gmail.com>
- <CAEemH2es3sMSfAar8Xj4_Vr+2nsD0isPws4v=8=csLyYROAQGQ@mail.gmail.com>
- <20200909131327.GA3241@yuki.lan> <20200909132703.GB3241@yuki.lan>
- <CAEemH2e+Ck8M22gdgL0OQ24ekBPyDu4FwGrdG+da9E62UZWjRQ@mail.gmail.com>
- <CAEemH2eJCUuf=SQF_GdQ7U9q_8+BD9LsxPAgwuJS9wx8zBzNww@mail.gmail.com>
- <CAF12kFs+Wzm2rt5uE7WoHDXZSpdtZaZPgspKTACpYnw7zR+sgA@mail.gmail.com>
- <20200914110006.GD5524@yuki.lan>
- <CY4PR13MB117519BB030877EC596EDB75FD230@CY4PR13MB1175.namprd13.prod.outlook.com>
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 28B683C13DB
+ for <ltp@lists.linux.it>; Tue, 15 Sep 2020 12:59:59 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 84885140165F
+ for <ltp@lists.linux.it>; Tue, 15 Sep 2020 12:59:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1600167597;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=EURfZo1Q+1fkG9vuZ0t3P/81MbGdArhq69zQwIe5eb4=;
+ b=dtxZ6fF8YzKxkUl5QpVXDd2h5Lic5dyDJo/xprNqAZ0aVooqwRGTeJVdz0IAzNQGP2Ej3/
+ L21p/h6HdebYlfd8ShceatpFYQmRVCSE9afgKdVkS25BCj2oPHEug3aZyOk5jbqPp7WRQ8
+ 3YwPrS2P84DrKjmPUwQEPJcYdolfUFw=
+Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
+ [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-424-r9hrVEjPNWWr5mwGJuSeig-1; Tue, 15 Sep 2020 06:59:54 -0400
+X-MC-Unique: r9hrVEjPNWWr5mwGJuSeig-1
+Received: by mail-yb1-f200.google.com with SMTP id q2so3039973ybo.5
+ for <ltp@lists.linux.it>; Tue, 15 Sep 2020 03:59:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=EURfZo1Q+1fkG9vuZ0t3P/81MbGdArhq69zQwIe5eb4=;
+ b=tORbOH+Kg7vlIuZmyoKvgeTmNfp56SFNflspLqEuLnPVW87JzMjpGZdYjtN28FL2aE
+ LHdyBwmH8gzVV0KLVLIpRTybMs2qlTsm59Qs5hjBVQRkyLBuZOYM4lGLe/avm4kOh4g2
+ srAnV5TGEHw9FaOqzmudbA3HkN+LwpSMkK2XK9DC8KYTLCH6exhvN8zJJ0fHKNfFhF0/
+ Q14IBJRkqCW6fS9ms9GcYaVkKgsy+Ve5sNVNq3/lX5ZoOJFBtxuJx1hrqHKRbmEUIomL
+ CwjjQ5KRlKuMHY7gvoEvHdxzOT1ZvR8pmktmd393DJUqJLFMBJTya11surx5xTkd0fko
+ 9vYQ==
+X-Gm-Message-State: AOAM533OveFLNBX52gbYhrbzNLGyRI02q3ZqQ9cBobD08KSblV81otkI
+ bsXQl0syLMFNE3KUffcZypgQ826KeiQRlM2N0VZB8lMb4lPRvSD4D6q/KtniIlQrpk8kWGqIMYe
+ qGZak5ONWILaSXXjtawAAPV6jv6E=
+X-Received: by 2002:a25:254f:: with SMTP id l76mr18951854ybl.366.1600167594137; 
+ Tue, 15 Sep 2020 03:59:54 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxIDqE0UEcxHLhfGOAOZxTczwI9XRh0zJ7/fEjYkcb0k1fi8ownTylw4I7ci+lQaZAZuU4tVpGdEwsES895CPQ=
+X-Received: by 2002:a25:254f:: with SMTP id l76mr18951845ybl.366.1600167593942; 
+ Tue, 15 Sep 2020 03:59:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CY4PR13MB117519BB030877EC596EDB75FD230@CY4PR13MB1175.namprd13.prod.outlook.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+References: <20200915084406.8633-1-liwang@redhat.com>
+ <20200915091217.GA6261@yuki.lan>
+In-Reply-To: <20200915091217.GA6261@yuki.lan>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 15 Sep 2020 18:59:42 +0800
+Message-ID: <CAEemH2f6Z7o0S98-L401TQxGg0mF73iMRB2v5k0OL7TdY2pq5g@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0.0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] LTP release
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] clock_gettime04: multiply the timediff if test
+ in VM
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,107 +81,56 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "Pravin Raghul S." <pravinraghul@zilogic.com>,
- "Vijay Kumar B." <vijaykumar@zilogic.com>,
- "xingfeng.kang@unisoc.com" <xingfeng.kang@unisoc.com>,
- Orson Zhai <orsonzhai@gmail.com>, LTP List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Viresh Kumar <viresh.kumar@linaro.org>, LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1475055433=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > Can we please postpone it a little bit again? I've been talking to Tim
-> > Bird recenlty and he is interesting in helping to shape the interface so
-> > better that it fits into existing hardware labs.
-> 
-> I'm very interested in this work, and how to integrate it with 
-> external test frameworks that manage lab equipment (and may
-> need to communicate test parameters to tests).
-> 
-> I'm not sure the best way to proceed.  I reviewed the device-discovery
-> code on patchworks, but I'm not sure I understand the anticipated flow of
-> control between the LTP test, the device discovery part, and the test
-> framework.
-> 
-> I know you're busy with the LTP release, so I'm not sure this is the best
-> time to open up a big thread asking a lot of questions about device discovery
-> or describing my own proposal for this - to work towards harmonizing the two.
-> 
-> But I'm keen on following up on this in the short term (next 4 weeks or so).
-> I'm giving a talk at Open Source Summit Europe the end of October,
-> where I'll be talking about lab management APIs, and this dovetails
-> into that work.
-> 
-> Let me know when would be a good time to try to hash this out.
+--===============1475055433==
+Content-Type: multipart/alternative; boundary="00000000000004b77605af580d3d"
 
-I guess that I can allocate some time between pre-release testing that
-will happen soon after we freeze the git.
+--00000000000004b77605af580d3d
+Content-Type: text/plain; charset="UTF-8"
 
-Let me just dump what I have in mind, I guess that the proof-of-concept
-and the potential directions will be easier to understand with a few
-hints.
+> One minor nit, variables are supposed to be lowercase.
+>
+> Other than that, Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+>
 
-Each hardware type has a specific name that identifies it, in a case of
-serial port the test requires "UART_RX" and "UART_TX" which defines an
-UART loop. In a case of i2c EEPROM that would probably be
-"I2C_EEPROM_ADDR" and "I2C_EEPROM_BUS" etc. This is what is going to be
-used to query the lab mamagenent software and the reply would be a list
-of suitable devices along with their capabilities. In a case of UART it
-may be declaring supported speeds, if hardware flow is supported etc. In
-a case of EEPROM it will add a device size along with the bus and
-address.
-
-The interface to the lab mamagement software was choosen to be an
-executable, in the simplest cases it could be just a shell script that
-enumerates all unused serial ports, in more complex cases it may connect
-to a REST API on a lab management server and get the reply from there.
-
-Once the hardware has been discovered the test will iterate over the
-list of suitable devices and do a testrun for each of these. But since
-some hardware needs to be possibly reserved/freed and reconfigured there
-has to be hooks for that, which would be probably executables again.
-
-The proof-of-concept that I wrote was quite simple, it includes a code
-in the LTP test library that can loop over a list of available devices
-returned by the discovery script and a sample empty script where the
-hardware discovery code should be put into along with a UART test that
-uses all that newly added functionality. There are a few open problems
-with the current code though, the parameters are passed to the test via
-shell variables, which is not going to work well for a more structured
-data. Maybe the discovery script should return JSON which would be
-translated by the shell library into a command line parameters.
-
-Something as:
-
-{
-  "uart_tx": "/dev/ttyS0",
-  "uart_rx": "/dev/ttyS1",
-  "speeds": [
-     "9600",
-     "19200",
-  ],
-  "hwflow": [
-   true,
-   false
-  ],
-  "reconfigure": "/usr/bin/lab_reconfigure --connect-uart /dev/ttyS0 /dev/ttyS1"
-},
-
-Which would result in running:
-
-	/usr/bin/lab_reconfigure --connect-uart /dev/ttyS0 /dev/ttyS1
-	/opt/ltp/testcases/bin/uart01 --uart_tx "/dev/ttyS0" --uart_rx "/dev/ttyS1" --speed 9600 --hwflow true
-	/opt/ltp/testcases/bin/uart01 --uart_tx "/dev/ttyS0" --uart_rx "/dev/ttyS1" --speed 9600 --hwflow false
-	/opt/ltp/testcases/bin/uart01 --uart_tx "/dev/ttyS0" --uart_rx "/dev/ttyS1" --speed 19200 --hwflow true
-	/opt/ltp/testcases/bin/uart01 --uart_tx "/dev/ttyS0" --uart_rx "/dev/ttyS1" --speed 19200 --hwflow false
-
-And the test would only need to declare that it requires "UART_LOOP" or
-something like that.
+Thanks for the review, pushed with lowercase tweaked.
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+Regards,
+Li Wang
+
+--00000000000004b77605af580d3d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div>=C2=A0</div><blockquote cl=
+ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid=
+ rgb(204,204,204);padding-left:1ex">
+One minor nit, variables are supposed to be lowercase.<br>
+<br>
+Other than that, Reviewed-by: Cyril Hrubis &lt;<a href=3D"mailto:chrubis@su=
+se.cz" target=3D"_blank">chrubis@suse.cz</a>&gt;<br></blockquote><div><br><=
+/div><div><div class=3D"gmail_default" style=3D"font-size:small">Thanks for=
+ the review, pushed with lowercase=C2=A0tweaked.</div></div><div><br></div>=
+</div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><d=
+iv>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--00000000000004b77605af580d3d--
+
+
+--===============1475055433==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1475055433==--
+
