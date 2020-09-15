@@ -1,77 +1,62 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26177269AF7
-	for <lists+linux-ltp@lfdr.de>; Tue, 15 Sep 2020 03:18:50 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A06C269C5B
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Sep 2020 05:14:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C37073C4F25
-	for <lists+linux-ltp@lfdr.de>; Tue, 15 Sep 2020 03:18:49 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id EA2FC3C4F26
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Sep 2020 05:14:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id D43BD3C21AE
- for <ltp@lists.linux.it>; Tue, 15 Sep 2020 03:18:47 +0200 (CEST)
-Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com
- [IPv6:2607:f8b0:4864:20::b35])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTP id C9EEB3C2551
+ for <ltp@lists.linux.it>; Tue, 15 Sep 2020 05:14:15 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 43583600951
+ for <ltp@lists.linux.it>; Tue, 15 Sep 2020 05:14:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1600139653;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=GQ5ekS82m9UdkP/Tqogxen220mo8LiydlyDbFnyXfVA=;
+ b=bVqTbNN4u/aUOgmpWR20sdpmPIKA0h3t1fIACpp/BayQD01MekqTCA5GefuT6+TiMKBTKI
+ JQWvStq1B+Zfc1/ZbYlWy3UlhcHtqD1QCnJHBBy6pH/IAYOsLgkRQQQ5DOLNfQ2Y37oeSA
+ cx5I9uN9e2657c1eHhmNs2fwcvUws58=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-261-X9RjodDeOFKKQRMucGi0hQ-1; Mon, 14 Sep 2020 23:14:11 -0400
+X-MC-Unique: X9RjodDeOFKKQRMucGi0hQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5CD43600946
- for <ltp@lists.linux.it>; Tue, 15 Sep 2020 03:18:47 +0200 (CEST)
-Received: by mail-yb1-xb35.google.com with SMTP id a2so1322465ybj.2
- for <ltp@lists.linux.it>; Mon, 14 Sep 2020 18:18:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Mf8EzxM/ejnghdTasap0x6lKJhT6UYz1hp+nPiQpvbU=;
- b=vDL0bcqgjYpCNPHiao6ezzvoOQa/qrwKe2B2p/akROHAySI8YasMwWUg8pBetAHTwp
- bfensT8Es8rYLCknC6YCAncKl2UTHbBEQV63midUOuDKBIzmAyWXH+6kI9tet4huHloX
- G9n08gdYkxoCDM8yZJysKSBiWzKSbg59cJwJt+hl1z7ouHVpdwigAw4sKrR1CyoEqQQY
- QD+TMrjJTCnw3uDkTHq3aVD3Hjoin6zjCosv8vp6xkkYfSCYWb8W5f5+a7xKDvx1zgn0
- igs7EF/LI4FdkFj6q3DU6Ef/0JQ3G9cxQBBrV1cXi51twoK1DO3JIYNuFUGCjO08Ud4p
- BHGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Mf8EzxM/ejnghdTasap0x6lKJhT6UYz1hp+nPiQpvbU=;
- b=oPM+mBcoLwBfKyznDA4lcQ3BwbU1orS79XEE9qk2yyLos56j57bOghb113nmZXmlhw
- psoGEWwtfYFNPPR6aFW/pqdCKX0Ox/Z0JPMVWRpT9p7RkgMWxMaP4NmPX3Z4M9fRRAeF
- Tra6B8VHDNRX5wC2BQitoep/5FkNRDgXL/R7UPtue/XXc82RPhKDJimAyKJUmBn8tkyy
- r3vSt0D5mfe4GImZEwSHF1Yz2fDZWmNJD91iriL2XwwzEVV+JMKpXTeO1so9lBz075aG
- zoy6bKQsbDzVkRPgjhzwCgO/t5HnRISu1WURE9eBAJg7+DHFnhCiWxY7G8Km2GcaewL5
- 3DlQ==
-X-Gm-Message-State: AOAM5337bfDoot2cim8DvbSMtz4N4AStrtn4uCweTKFNzIEx9iLj0/1L
- 1akDkrJC9899edtaUtUvBm9NpflyXkCAHrTMh28=
-X-Google-Smtp-Source: ABdhPJxtv+odnSuJHTfjYtUrGv5wXf4LPeZqXG4y/Z6WydE3e8fkJ16OYGt2S7vb12XY0qmOdXfGBBB599WJLttPvgo=
-X-Received: by 2002:a25:354:: with SMTP id 81mr23262300ybd.292.1600132726156; 
- Mon, 14 Sep 2020 18:18:46 -0700 (PDT)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A6D8481C478;
+ Tue, 15 Sep 2020 03:14:10 +0000 (UTC)
+Received: from liwang-laptop.redhat.com (ovpn-12-95.pek2.redhat.com
+ [10.72.12.95])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 8105475137;
+ Tue, 15 Sep 2020 03:14:09 +0000 (UTC)
+From: Li Wang <liwang@redhat.com>
+To: ltp@lists.linux.it
+Date: Tue, 15 Sep 2020 11:14:02 +0800
+Message-Id: <20200915031402.26519-1-liwang@redhat.com>
 MIME-Version: 1.0
-References: <20200908073138.GB2475@yuki.lan>
- <CAEemH2cHvM_KD7W6fyX6z3bc0qfVtkp=yEM8MDvvohouyj5N2w@mail.gmail.com>
- <20200908153659.GA16066@yuki.lan>
- <CAEemH2eq0fwF8zt1uez5vuwM0vtrLtoFd_45sFqE=iQ8hpudfQ@mail.gmail.com>
- <CAEemH2es3sMSfAar8Xj4_Vr+2nsD0isPws4v=8=csLyYROAQGQ@mail.gmail.com>
- <20200909131327.GA3241@yuki.lan> <20200909132703.GB3241@yuki.lan>
- <CAEemH2e+Ck8M22gdgL0OQ24ekBPyDu4FwGrdG+da9E62UZWjRQ@mail.gmail.com>
- <CAEemH2eJCUuf=SQF_GdQ7U9q_8+BD9LsxPAgwuJS9wx8zBzNww@mail.gmail.com>
- <CAF12kFs+Wzm2rt5uE7WoHDXZSpdtZaZPgspKTACpYnw7zR+sgA@mail.gmail.com>
- <20200914110006.GD5524@yuki.lan>
- <CY4PR13MB117519BB030877EC596EDB75FD230@CY4PR13MB1175.namprd13.prod.outlook.com>
-In-Reply-To: <CY4PR13MB117519BB030877EC596EDB75FD230@CY4PR13MB1175.namprd13.prod.outlook.com>
-From: Cixi Geng <gengcixi@gmail.com>
-Date: Tue, 15 Sep 2020 09:18:10 +0800
-Message-ID: <CAF12kFtLT7dvqL5HK6B71uj3Y5Fd-A+WEQd3e14g2Nr=PgE3tQ@mail.gmail.com>
-To: "Bird, Tim" <Tim.Bird@sony.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwang@redhat.com
+X-Mimecast-Spam-Score: 0.001
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] LTP release
+Subject: [LTP] [PATCH] clock_gettime04: relax the time diff in VM
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,39 +68,62 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Orson Zhai <orsonzhai@gmail.com>, LTP List <ltp@lists.linux.it>,
- "xingfeng.kang@unisoc.com" <xingfeng.kang@unisoc.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Viresh Kumar <viresh.kumar@linaro.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-VGhhbmtzIEJpcmQgYW5kIEN5cmlsLCAgSSB3aWxsIGJlIHdhaXRpbmcgZm9yIHdvcmsgdG8gc3Rh
-cnQgdGhpcyB3b3JrCmFzIHNvb24gYXMgeW91ciBoYXZhIHRoZSB0aW1lCnRvIGd1aWRlIG1lCklm
-IHRoZXJlIGhhdmUgYW55dGhpbmcgdG8gZG8gYmVmb3JlIGl0LCBqdXN0IHRlbGwgbWUuCgpCaXJk
-LCBUaW0gPFRpbS5CaXJkQHNvbnkuY29tPiDkuo4yMDIw5bm0OeaciDE15pel5ZGo5LqMIOS4iuWN
-iDE6NTHlhpnpgZPvvJoKPgo+ID4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiA+IEZyb206
-IEN5cmlsIEhydWJpcwo+ID4KPiA+IEhpIQo+ID4gPiBDYW4gd2UgbWVyZ2UgdGhlIHVhcnQgZGV2
-aWNlIGRyaXZlciB0ZXN0Y2FzZSBhbmQgdGhlIGRldmljZS1kaXNjb3Zlcgo+ID4gPiBmcmFtZXdv
-cmsgPz8/Cj4gPgo+ID4gQ2FuIHdlIHBsZWFzZSBwb3N0cG9uZSBpdCBhIGxpdHRsZSBiaXQgYWdh
-aW4/IEkndmUgYmVlbiB0YWxraW5nIHRvIFRpbQo+ID4gQmlyZCByZWNlbmx0eSBhbmQgaGUgaXMg
-aW50ZXJlc3RpbmcgaW4gaGVscGluZyB0byBzaGFwZSB0aGUgaW50ZXJmYWNlIHNvCj4gPiBiZXR0
-ZXIgdGhhdCBpdCBmaXRzIGludG8gZXhpc3RpbmcgaGFyZHdhcmUgbGFicy4KPgo+IEknbSB2ZXJ5
-IGludGVyZXN0ZWQgaW4gdGhpcyB3b3JrLCBhbmQgaG93IHRvIGludGVncmF0ZSBpdCB3aXRoCj4g
-ZXh0ZXJuYWwgdGVzdCBmcmFtZXdvcmtzIHRoYXQgbWFuYWdlIGxhYiBlcXVpcG1lbnQgKGFuZCBt
-YXkKPiBuZWVkIHRvIGNvbW11bmljYXRlIHRlc3QgcGFyYW1ldGVycyB0byB0ZXN0cykuCj4KPiBJ
-J20gbm90IHN1cmUgdGhlIGJlc3Qgd2F5IHRvIHByb2NlZWQuICBJIHJldmlld2VkIHRoZSBkZXZp
-Y2UtZGlzY292ZXJ5Cj4gY29kZSBvbiBwYXRjaHdvcmtzLCBidXQgSSdtIG5vdCBzdXJlIEkgdW5k
-ZXJzdGFuZCB0aGUgYW50aWNpcGF0ZWQgZmxvdyBvZgo+IGNvbnRyb2wgYmV0d2VlbiB0aGUgTFRQ
-IHRlc3QsIHRoZSBkZXZpY2UgZGlzY292ZXJ5IHBhcnQsIGFuZCB0aGUgdGVzdAo+IGZyYW1ld29y
-ay4KPgo+IEkga25vdyB5b3UncmUgYnVzeSB3aXRoIHRoZSBMVFAgcmVsZWFzZSwgc28gSSdtIG5v
-dCBzdXJlIHRoaXMgaXMgdGhlIGJlc3QKPiB0aW1lIHRvIG9wZW4gdXAgYSBiaWcgdGhyZWFkIGFz
-a2luZyBhIGxvdCBvZiBxdWVzdGlvbnMgYWJvdXQgZGV2aWNlIGRpc2NvdmVyeQo+IG9yIGRlc2Ny
-aWJpbmcgbXkgb3duIHByb3Bvc2FsIGZvciB0aGlzIC0gdG8gd29yayB0b3dhcmRzIGhhcm1vbml6
-aW5nIHRoZSB0d28uCj4KPiBCdXQgSSdtIGtlZW4gb24gZm9sbG93aW5nIHVwIG9uIHRoaXMgaW4g
-dGhlIHNob3J0IHRlcm0gKG5leHQgNCB3ZWVrcyBvciBzbykuCj4gSSdtIGdpdmluZyBhIHRhbGsg
-YXQgT3BlbiBTb3VyY2UgU3VtbWl0IEV1cm9wZSB0aGUgZW5kIG9mIE9jdG9iZXIsCj4gd2hlcmUg
-SSdsbCBiZSB0YWxraW5nIGFib3V0IGxhYiBtYW5hZ2VtZW50IEFQSXMsIGFuZCB0aGlzIGRvdmV0
-YWlscwo+IGludG8gdGhhdCB3b3JrLgo+Cj4gTGV0IG1lIGtub3cgd2hlbiB3b3VsZCBiZSBhIGdv
-b2QgdGltZSB0byB0cnkgdG8gaGFzaCB0aGlzIG91dC4KPiAgLS0gVGltCj4KCi0tIApNYWlsaW5n
-IGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+To balance that the test inside a VM can NOT get enough CPU time, which
+result in sporadically fails with the time comparing.
+
+clock_gettime04.c:155: PASS: CLOCK_REALTIME: Difference between successive readings is reasonable
+clock_gettime04.c:155: PASS: CLOCK_REALTIME_COARSE: Difference between successive readings is reasonable
+clock_gettime04.c:148: FAIL: CLOCK_MONOTONIC: Difference between successive readings greater than 5 ms (2): 22
+clock_gettime04.c:155: PASS: CLOCK_MONOTONIC_COARSE: Difference between successive readings is reasonable
+clock_gettime04.c:148: FAIL: CLOCK_MONOTONIC_RAW: Difference between successive readings greater than 5 ms (1): 22
+clock_gettime04.c:148: FAIL: CLOCK_BOOTTIME: Difference between successive readings greater than 5 ms (1): 29
+
+Signed-off-by: Li Wang <liwang@redhat.com>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>
+---
+ .../kernel/syscalls/clock_gettime/clock_gettime04.c      | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/testcases/kernel/syscalls/clock_gettime/clock_gettime04.c b/testcases/kernel/syscalls/clock_gettime/clock_gettime04.c
+index 2f484c43f..5c4a5d751 100644
+--- a/testcases/kernel/syscalls/clock_gettime/clock_gettime04.c
++++ b/testcases/kernel/syscalls/clock_gettime/clock_gettime04.c
+@@ -92,6 +92,7 @@ static void run(unsigned int i)
+ 	struct test_variants *tv;
+ 	int count = 10000, ret;
+ 	unsigned int j;
++	int virt_env = tst_is_virt(VIRT_ANY);
+ 
+ 	do {
+ 		for (j = 0; j < ARRAY_SIZE(variants); j++) {
+@@ -143,11 +144,17 @@ static void run(unsigned int i)
+ 
+ 			diff /= 1000000;
+ 
+-			if (diff >= 5) {
++			if (!virt_env && diff >= 5) {
+ 				tst_res(TFAIL, "%s: Difference between successive readings greater than 5 ms (%d): %lld",
+ 					tst_clock_name(clks[i]), j, diff);
+ 				return;
+ 			}
++
++			if (virt_env && diff >= 50) {
++				tst_res(TFAIL, "%s: Difference between successive readings(in VM) greater than 50 ms (%d): %lld",
++					tst_clock_name(clks[i]), j, diff);
++				return;
++			}
+ 		}
+ 	} while (--count);
+ 
+-- 
+2.21.3
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
