@@ -2,61 +2,64 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E370026C1BD
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Sep 2020 12:38:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B95A26C1BE
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Sep 2020 12:38:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A39B73C4EAC
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Sep 2020 12:38:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 13DC03C2B6C
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Sep 2020 12:38:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 474AB3C2ADA
- for <ltp@lists.linux.it>; Wed, 16 Sep 2020 12:38:10 +0200 (CEST)
-Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
- [IPv6:2607:f8b0:4864:20::1043])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id EEC5F3C2CB0
+ for <ltp@lists.linux.it>; Wed, 16 Sep 2020 12:38:13 +0200 (CEST)
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C7CAE1A00FD9
- for <ltp@lists.linux.it>; Wed, 16 Sep 2020 12:38:09 +0200 (CEST)
-Received: by mail-pj1-x1043.google.com with SMTP id mm21so1368752pjb.4
- for <ltp@lists.linux.it>; Wed, 16 Sep 2020 03:38:09 -0700 (PDT)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id AA1721A00FA9
+ for <ltp@lists.linux.it>; Wed, 16 Sep 2020 12:38:12 +0200 (CEST)
+Received: by mail-pf1-x444.google.com with SMTP id k8so371438pfk.2
+ for <ltp@lists.linux.it>; Wed, 16 Sep 2020 03:38:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=N60d3CdYKSa1AB/vnxSJBjJ2gcSUvfceeBtBkIwnCIY=;
- b=k8AVrb+KueE4memaeq+bUVcEGjMQiddO7Rg6yiX2QuhsNU/byfhS+UvUor/2jxvUIS
- eIlNjQ8vAF3iKcnDs8UoY7VbMV+z46QSC6fGJjOkBiZtSn2V1Ms+woLvRAACsMR9lccS
- PjxWcUrA7olb6Rp0wU9jlDioCXpTVn2PSR/77Z9xfYHZSwjRIVf7noQ5W+Wwo830EZqA
- ZjiQtwZ0AgrVKQjc8AXG8jDIzp86EgKIi+JKIC5GZeMbC9FZ6Bwtazx1pbmAop2mjTZq
- TwG27fXA9akNSNoN0F3Wf7L6QzGYAjITQ2SJb2r0uftEWbOm6xAsZZsybbu/6hHkwst/
- tExQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=9gngPOu2PefRmAgahyAxG0+/1EP2tsOsQMl/fbKATV8=;
+ b=i5YAT3SSzFOcnxAB+XjhkC2O4Rqs7Ny2uwzIwr7LeGTI8allKn8Le+hfBRabf5mCwh
+ qzfsqKpqUnegPJaAZSfKUGJT3sHG8dgHaQbV9DTeWnoJN8rlX5JioMJoU62ogH7fODst
+ lF+hFK9iyCvDaONyah+Dm8V7oNDYaFzTrPLM7wVnNi5G6DHrg+bLE413KcKHn+zzHqjY
+ puPGp7QJEOClCqVfQUgiPApoxeKs6DpX+EMzrZL2dmVL+zNCDf0yjidxYRrZts8dZWbr
+ Y/P0GL4YskWIQcT0wPbP39TuLELvHqZrOJ8CrTJ8PB7j9pXy14i2lEKWEgDln693N87R
+ cKEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=N60d3CdYKSa1AB/vnxSJBjJ2gcSUvfceeBtBkIwnCIY=;
- b=XAej0ItsfLdKkDSijLpcltGoE2O+o8CNNdFe2/DUoE6gwFMu2Lyjur+NuNvz7zrqTV
- FL84yKdC0VRb+ND/X10ev9shuRLjOmmhDZuxC2J+Gp2YU6N7EV83kDwl3fSRf5zfJTFo
- ps7fcI8ZHjLPFdpoRF2ZP95ySkYXYIPNpmRj4WLITqfMmq+1LF6P8cLz3BZpYi3tC69w
- h4KRBEdNTgwqBQR62Z5y+E5k/jDjzSQ5VCcbMGccLf4mu5nMUUb2kWDxof3WC9MArBME
- mRl6cVHeCZIzMTX4tQjBSAJ1GwJQFR3mhd77KoeUhicHo5FPTBPEMUTbl+F8WeHu++EI
- Dgaw==
-X-Gm-Message-State: AOAM5317ev4yLr2p5Mmib7MP4ifr3hedgPur7as6rzpN3lxxQ7BZW5MD
- pgB3TjKyFXyBfYfkZwooBIPoFaZfBfhc+g==
-X-Google-Smtp-Source: ABdhPJxUKfNN19t0KSIPJN2EIINriDrLZT1JlOzqzp2/WkQ8612c+pT884QmriNFewXmRImP90uYAA==
-X-Received: by 2002:a17:90a:b88c:: with SMTP id
- o12mr3324763pjr.43.1600252687945; 
- Wed, 16 Sep 2020 03:38:07 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=9gngPOu2PefRmAgahyAxG0+/1EP2tsOsQMl/fbKATV8=;
+ b=rObgywhmAZoxFpazBTSEahhqdDWllcwD4OXi8gj3s6Sb5/X6z/Ea4uBHZYopldcUwz
+ 0K7xq+gAddovlo0I0DIHYOZZmgm9/kysOdCORE0YvlNtQk8np08PpJ5TIE7HYFBOoAwd
+ 37Oc0VL99pg+pf8fHt7e1T8dsUGw4wPwlYy4eXhPoQAMEPHWieOIEiJfygun+vUYR6tq
+ FP5VDChLcOJUHvWJzMJgJE+FTFhgfKY5XthPrSeB32jh6wN4O0h/pgylYHHW3f5Cx4qs
+ hejOrGcHqoD4Q14ZylUhgrd+dcVENzhnBoEOr4XzZZk88dgZnL4fLwxLkCYB0VO2m28I
+ m8jA==
+X-Gm-Message-State: AOAM533mbHX6xL8UYfVDzBEJoGR7ZWOtvIqIIvs24fZPVEjbPnFNj5SR
+ xK+nE/84KUOW9PtAeWoW4l8Nvx6+z+ASmA==
+X-Google-Smtp-Source: ABdhPJwnFa+YsuUyzI1CtTwtH6KDIoWQapl+emsVQTt9h7sEqzzjYCWNaHnoPrt30X613TUXjwQN2Q==
+X-Received: by 2002:a05:6a00:1481:b029:142:2501:35d7 with SMTP id
+ v1-20020a056a001481b0290142250135d7mr5891693pfu.55.1600252690921; 
+ Wed, 16 Sep 2020 03:38:10 -0700 (PDT)
 Received: from localhost ([122.181.54.133])
- by smtp.gmail.com with ESMTPSA id x3sm16932724pfo.95.2020.09.16.03.38.06
+ by smtp.gmail.com with ESMTPSA id g1sm16729759pfm.124.2020.09.16.03.38.09
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 16 Sep 2020 03:38:07 -0700 (PDT)
+ Wed, 16 Sep 2020 03:38:10 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Wed, 16 Sep 2020 16:07:45 +0530
-Message-Id: <cover.1600252542.git.viresh.kumar@linaro.org>
+Date: Wed, 16 Sep 2020 16:07:46 +0530
+Message-Id: <2c5695ebf7d13bd25651faf09d0fb78bbdd4bc31.1600252542.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
+In-Reply-To: <cover.1600252542.git.viresh.kumar@linaro.org>
+References: <cover.1600252542.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
@@ -64,7 +67,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH V2 00/17] syscalls: Use common variants structure
+Subject: [LTP] [PATCH V2 01/17] syscalls: utils: Remove local copy of poll.h
+ definitions
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,95 +87,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+The local copy of these definitions and this file conflicts with the
+system wide ones and make the builds fail sometimes, for example when
+this copy gets included instead of the system wide one.
 
-As you suggested earlier, here is an attempt to use a common structure
-prototype at most of the places.
+Remove it.
 
-futex, clock_adjtime() and clock_getres() tests are left with their own
-implementations due to compatibility issues.
-
-V2:
-- Remove local copy of poll.h as it was making the build fail with this
-  patchset for some of the syscalls (mq_timedsend/receive).
-- Use poll.h instead of sys/poll.h
-- Use libaio stuff from within macros in the 2st patch.
-- Only first two patches are updated, rest are all the same.
-
---
-viresh
-
-Viresh Kumar (17):
-  syscalls: utils: Remove local copy of poll.h definitions
-  syscalls: Add common time64 variants structure
-  syscalls: clock_gettime: Reuse struct time64_variants
-  syscalls: clock_nanosleep: Reuse struct time64_variants
-  syscalls: clock_settime: Reuse struct time64_variants
-  syscalls: io_pgetevents: Reuse struct time64_variants
-  syscalls: semop: Reuse struct time64_variants
-  syscalls: mq_timed: Reuse struct time64_variants
-  syscalls: ppoll: Reuse struct time64_variants
-  syscalls: rt_sigtimedwait: Reuse struct time64_variants
-  syscalls: sched_rr_get_interval: Reuse struct time64_variants
-  syscalls: sendmmsg: Reuse struct time64_variants
-  syscalls: timer_settime: Reuse struct time64_variants
-  syscalls: timer_gettime: Reuse struct time64_variants
-  syscalls: timerfd: Reuse struct time64_variants
-  syscalls: utimensat: Reuse struct time64_variants
-  futex: Move variants struct definition to common header
-
- include/time64_variants.h                     | 65 +++++++++++++++++++
- .../syscalls/clock_gettime/clock_gettime01.c  | 19 +++---
- .../syscalls/clock_gettime/clock_gettime02.c  | 17 ++---
- .../syscalls/clock_gettime/clock_gettime03.c  | 27 ++++----
- .../syscalls/clock_gettime/clock_gettime04.c  | 29 ++++-----
- .../clock_nanosleep/clock_nanosleep01.c       | 21 +++---
- .../clock_nanosleep/clock_nanosleep03.c       | 26 ++++----
- .../clock_nanosleep/clock_nanosleep04.c       | 22 +++----
- .../syscalls/clock_settime/clock_settime01.c  | 26 ++++----
- .../syscalls/clock_settime/clock_settime02.c  | 20 +++---
- .../syscalls/clock_settime/clock_settime03.c  | 22 +++----
- .../syscalls/futex/futex_cmp_requeue01.c      | 12 ++--
- .../syscalls/futex/futex_cmp_requeue02.c      |  9 +--
- .../kernel/syscalls/futex/futex_wait01.c      | 10 +--
- .../kernel/syscalls/futex/futex_wait02.c      | 11 ++--
- .../kernel/syscalls/futex/futex_wait03.c      | 11 ++--
- .../kernel/syscalls/futex/futex_wait04.c      | 10 +--
- .../syscalls/futex/futex_wait_bitset01.c      | 11 +---
- .../kernel/syscalls/futex/futex_wake01.c      |  9 +--
- .../kernel/syscalls/futex/futex_wake02.c      | 11 ++--
- .../kernel/syscalls/futex/futex_wake03.c      | 13 ++--
- .../kernel/syscalls/futex/futex_wake04.c      | 14 ++--
- testcases/kernel/syscalls/futex/futextest.h   |  7 ++
- .../syscalls/io_pgetevents/io_pgetevents01.c  | 16 ++---
- .../syscalls/io_pgetevents/io_pgetevents02.c  | 18 ++---
- testcases/kernel/syscalls/ipc/semop/semop.h   | 18 ++---
- testcases/kernel/syscalls/ipc/semop/semop01.c |  6 +-
- testcases/kernel/syscalls/ipc/semop/semop02.c |  6 +-
- testcases/kernel/syscalls/ipc/semop/semop03.c |  6 +-
- .../mq_timedreceive/mq_timedreceive01.c       | 14 ++--
- .../syscalls/mq_timedsend/mq_timedsend01.c    | 16 ++---
- testcases/kernel/syscalls/ppoll/ppoll01.c     | 21 +++---
- .../rt_sigtimedwait/rt_sigtimedwait01.c       | 15 ++---
- .../sched_rr_get_interval01.c                 | 21 +++---
- .../sched_rr_get_interval02.c                 | 21 +++---
- .../sched_rr_get_interval03.c                 | 21 +++---
- .../kernel/syscalls/sendmmsg/sendmmsg01.c     | 24 +++----
- .../syscalls/timer_gettime/timer_gettime01.c  | 21 +++---
- .../syscalls/timer_settime/timer_settime01.c  | 25 +++----
- .../syscalls/timer_settime/timer_settime02.c  | 18 ++---
- testcases/kernel/syscalls/timerfd/timerfd01.c | 27 ++++----
- testcases/kernel/syscalls/timerfd/timerfd04.c | 20 +++---
- .../syscalls/timerfd/timerfd_gettime01.c      |  8 +--
- .../syscalls/timerfd/timerfd_settime01.c      | 17 ++---
- .../syscalls/timerfd/timerfd_settime02.c      | 15 ++---
- testcases/kernel/syscalls/utils/mq_timed.h    | 18 ++---
- testcases/kernel/syscalls/utils/poll.h        | 27 --------
- .../kernel/syscalls/utimensat/utimensat01.c   | 18 ++---
- 48 files changed, 376 insertions(+), 483 deletions(-)
- create mode 100644 include/time64_variants.h
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+---
+ testcases/kernel/syscalls/utils/poll.h | 27 --------------------------
+ 1 file changed, 27 deletions(-)
  delete mode 100644 testcases/kernel/syscalls/utils/poll.h
 
+diff --git a/testcases/kernel/syscalls/utils/poll.h b/testcases/kernel/syscalls/utils/poll.h
+deleted file mode 100644
+index 2cd4929abd40..000000000000
+--- a/testcases/kernel/syscalls/utils/poll.h
++++ /dev/null
+@@ -1,27 +0,0 @@
+-#ifndef __i386_POLL_H
+-#define __i386_POLL_H
+-
+-/* These are specified by iBCS2 */
+-#define POLLIN		0x0001
+-#define POLLPRI		0x0002
+-#define POLLOUT		0x0004
+-#define POLLERR		0x0008
+-#define POLLHUP		0x0010
+-#define POLLNVAL	0x0020
+-
+-/* The rest seem to be more-or-less nonstandard. Check them! */
+-#define POLLRDNORM	0x0040
+-#define POLLRDBAND	0x0080
+-#define POLLWRNORM	0x0100
+-#define POLLWRBAND	0x0200
+-#define POLLMSG		0x0400
+-#define POLLREMOVE	0x1000
+-#define POLLRDHUP       0x2000
+-
+-struct pollfd {
+-	int fd;
+-	short events;
+-	short revents;
+-};
+-
+-#endif
 -- 
 2.25.0.rc1.19.g042ed3e048af
 
