@@ -2,73 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B95A26C1BE
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Sep 2020 12:38:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85CCC26C1BF
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Sep 2020 12:38:30 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 13DC03C2B6C
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Sep 2020 12:38:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 34D673C4EA8
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Sep 2020 12:38:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id EEC5F3C2CB0
- for <ltp@lists.linux.it>; Wed, 16 Sep 2020 12:38:13 +0200 (CEST)
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 267D93C2F32
+ for <ltp@lists.linux.it>; Wed, 16 Sep 2020 12:38:21 +0200 (CEST)
+Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
+ [IPv6:2607:f8b0:4864:20::643])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id AA1721A00FA9
- for <ltp@lists.linux.it>; Wed, 16 Sep 2020 12:38:12 +0200 (CEST)
-Received: by mail-pf1-x444.google.com with SMTP id k8so371438pfk.2
- for <ltp@lists.linux.it>; Wed, 16 Sep 2020 03:38:12 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BE1AE1400E48
+ for <ltp@lists.linux.it>; Wed, 16 Sep 2020 12:38:20 +0200 (CEST)
+Received: by mail-pl1-x643.google.com with SMTP id c3so2965769plz.5
+ for <ltp@lists.linux.it>; Wed, 16 Sep 2020 03:38:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=9gngPOu2PefRmAgahyAxG0+/1EP2tsOsQMl/fbKATV8=;
- b=i5YAT3SSzFOcnxAB+XjhkC2O4Rqs7Ny2uwzIwr7LeGTI8allKn8Le+hfBRabf5mCwh
- qzfsqKpqUnegPJaAZSfKUGJT3sHG8dgHaQbV9DTeWnoJN8rlX5JioMJoU62ogH7fODst
- lF+hFK9iyCvDaONyah+Dm8V7oNDYaFzTrPLM7wVnNi5G6DHrg+bLE413KcKHn+zzHqjY
- puPGp7QJEOClCqVfQUgiPApoxeKs6DpX+EMzrZL2dmVL+zNCDf0yjidxYRrZts8dZWbr
- Y/P0GL4YskWIQcT0wPbP39TuLELvHqZrOJ8CrTJ8PB7j9pXy14i2lEKWEgDln693N87R
- cKEg==
+ bh=MJPLEXxKtkVxwnnHDwP4kUV/iQ3FxP9uhDz+UHSyYG8=;
+ b=tlYSlxY6ZRaHgtCuDuUpTpA8B+m3Bv8qd7+1oMO1NCjZ6gb/laTT8JMFeKBAzd753E
+ Pex4SnCYKExZGADDomJHQNghNcsczXsb9Y8ElilsevbuEiYRMP1CrWAgLeUjyYRVbTWu
+ er9sBrDb6KRpa+myojEU9Gp0ojzuYe1Tv1szBBEju5ew0JplVok2NAs3z3wv1fnGjyYR
+ VnFXAxevSWi4fm+fp+JpROXNZvr7+38c3jsPoME3ffqLt33tZp1J2hX6gX5rTpdLVKV0
+ dC5013V8LxE5Cg7RHSfpAfKaJGiod3gVRUaxBL4ME4L/yLUlApOmUjmKC/DPcM2If4n0
+ SdPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=9gngPOu2PefRmAgahyAxG0+/1EP2tsOsQMl/fbKATV8=;
- b=rObgywhmAZoxFpazBTSEahhqdDWllcwD4OXi8gj3s6Sb5/X6z/Ea4uBHZYopldcUwz
- 0K7xq+gAddovlo0I0DIHYOZZmgm9/kysOdCORE0YvlNtQk8np08PpJ5TIE7HYFBOoAwd
- 37Oc0VL99pg+pf8fHt7e1T8dsUGw4wPwlYy4eXhPoQAMEPHWieOIEiJfygun+vUYR6tq
- FP5VDChLcOJUHvWJzMJgJE+FTFhgfKY5XthPrSeB32jh6wN4O0h/pgylYHHW3f5Cx4qs
- hejOrGcHqoD4Q14ZylUhgrd+dcVENzhnBoEOr4XzZZk88dgZnL4fLwxLkCYB0VO2m28I
- m8jA==
-X-Gm-Message-State: AOAM533mbHX6xL8UYfVDzBEJoGR7ZWOtvIqIIvs24fZPVEjbPnFNj5SR
- xK+nE/84KUOW9PtAeWoW4l8Nvx6+z+ASmA==
-X-Google-Smtp-Source: ABdhPJwnFa+YsuUyzI1CtTwtH6KDIoWQapl+emsVQTt9h7sEqzzjYCWNaHnoPrt30X613TUXjwQN2Q==
-X-Received: by 2002:a05:6a00:1481:b029:142:2501:35d7 with SMTP id
- v1-20020a056a001481b0290142250135d7mr5891693pfu.55.1600252690921; 
- Wed, 16 Sep 2020 03:38:10 -0700 (PDT)
+ bh=MJPLEXxKtkVxwnnHDwP4kUV/iQ3FxP9uhDz+UHSyYG8=;
+ b=ckuxmmmJQetz3EZElK5RpDsr6ZM+F+nv1la9yHj6ob5q/bkk+u9bc/d9dESgBH+Gu/
+ b/KITrSubdQa+tLM1ZnQkFwNRVtQEjPJbFsLn7bhioerRgaeml+ArNTCAFWJ1S2vN2HC
+ pOL+1i3FVTywpAgU0D6wbow77KwI6AqViDtijnQryRKZ3+QAznOkS2G0mIp4uwNrNsFR
+ iLjYe2TS3Bf2t/Tb8ppUg3iw2WBv6yP7AME6MY7n64k8jfG+njjugpbss2G8p+aAPkyg
+ xUcGESn/1MPK9t6+9uo4QxNITCvr6QnJC5tJ8xeeL3a8qs9yuE2sXterJegQUO0XIqfU
+ Ergw==
+X-Gm-Message-State: AOAM5332v5uolye88Y5xw8lL9u+HJWOBBQsfXaxxRlrFo38XcxedvhEM
+ HzT1LyXs0cUuxLQF6BMyETrY4ZbvYgx99A==
+X-Google-Smtp-Source: ABdhPJzS08Ow+VDazn0SbFj4y0M4yyD9bl2xVEhPmoBEO0yIGKvNU8HVnD6hzwnRpV/lZE/kg2RLRw==
+X-Received: by 2002:a17:90a:ed8e:: with SMTP id
+ k14mr3480387pjy.178.1600252698895; 
+ Wed, 16 Sep 2020 03:38:18 -0700 (PDT)
 Received: from localhost ([122.181.54.133])
- by smtp.gmail.com with ESMTPSA id g1sm16729759pfm.124.2020.09.16.03.38.09
+ by smtp.gmail.com with ESMTPSA id t15sm3299286pjq.3.2020.09.16.03.38.17
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 16 Sep 2020 03:38:10 -0700 (PDT)
+ Wed, 16 Sep 2020 03:38:18 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Wed, 16 Sep 2020 16:07:46 +0530
-Message-Id: <2c5695ebf7d13bd25651faf09d0fb78bbdd4bc31.1600252542.git.viresh.kumar@linaro.org>
+Date: Wed, 16 Sep 2020 16:07:47 +0530
+Message-Id: <e1291939d012be2f67b34c5bbb8e6f504d8c2fac.1600252542.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
 In-Reply-To: <cover.1600252542.git.viresh.kumar@linaro.org>
 References: <cover.1600252542.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH V2 01/17] syscalls: utils: Remove local copy of poll.h
- definitions
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH V2 02/17] syscalls: Add common time64 variants
+ structure
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,51 +86,87 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The local copy of these definitions and this file conflicts with the
-system wide ones and make the builds fail sometimes, for example when
-this copy gets included instead of the system wide one.
+This adds a common variants structure which all other syscall tests can
+use.
 
-Remove it.
-
+Suggested-by: Cyril Hrubis <chrubis@suse.cz>
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- testcases/kernel/syscalls/utils/poll.h | 27 --------------------------
- 1 file changed, 27 deletions(-)
- delete mode 100644 testcases/kernel/syscalls/utils/poll.h
+ include/time64_variants.h | 65 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 65 insertions(+)
+ create mode 100644 include/time64_variants.h
 
-diff --git a/testcases/kernel/syscalls/utils/poll.h b/testcases/kernel/syscalls/utils/poll.h
-deleted file mode 100644
-index 2cd4929abd40..000000000000
---- a/testcases/kernel/syscalls/utils/poll.h
-+++ /dev/null
-@@ -1,27 +0,0 @@
--#ifndef __i386_POLL_H
--#define __i386_POLL_H
--
--/* These are specified by iBCS2 */
--#define POLLIN		0x0001
--#define POLLPRI		0x0002
--#define POLLOUT		0x0004
--#define POLLERR		0x0008
--#define POLLHUP		0x0010
--#define POLLNVAL	0x0020
--
--/* The rest seem to be more-or-less nonstandard. Check them! */
--#define POLLRDNORM	0x0040
--#define POLLRDBAND	0x0080
--#define POLLWRNORM	0x0100
--#define POLLWRBAND	0x0200
--#define POLLMSG		0x0400
--#define POLLREMOVE	0x1000
--#define POLLRDHUP       0x2000
--
--struct pollfd {
--	int fd;
--	short events;
--	short revents;
--};
--
--#endif
+diff --git a/include/time64_variants.h b/include/time64_variants.h
+new file mode 100644
+index 000000000000..fc52623c868a
+--- /dev/null
++++ b/include/time64_variants.h
+@@ -0,0 +1,65 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020 Linaro Limited. All rights reserved.
++ * Author: Viresh Kumar <viresh.kumar@linaro.org>
++ */
++
++#ifndef TIME64_VARIANTS_H
++#define TIME64_VARIANTS_H
++
++#include "config.h"
++
++#ifdef HAVE_LIBAIO
++#include <libaio.h>
++#endif
++
++#include <signal.h>
++#include <stdio.h>
++#include <poll.h>
++#include <time.h>
++#include "tst_timer.h"
++
++struct tst_ts;
++struct pollfd;
++struct io_event;
++struct sembuf;
++struct mmsghdr;
++
++struct time64_variants {
++	char *desc;
++
++	enum tst_ts_type ts_type;
++	int (*clock_gettime)(clockid_t clk_id, void *ts);
++	int (*clock_settime)(clockid_t clk_id, void *ts);
++	int (*clock_nanosleep)(clockid_t clock_id, int flags, void *request, void *remain);
++
++	int (*timer_gettime)(kernel_timer_t timer, void *its);
++	int (*timer_settime)(kernel_timer_t timerid, int flags, void *its, void *old_its);
++	int (*tfd_gettime)(int fd, void *its);
++	int (*tfd_settime)(int fd, int flags, void *new_value, void *old_value);
++
++#ifdef HAVE_LIBAIO
++	int (*io_pgetevents)(io_context_t ctx, long min_nr, long max_nr,
++			struct io_event *events, void *timeout, sigset_t *sigmask);
++#endif
++
++	int (*mqt_send)(mqd_t mqdes, const char *msg_ptr, size_t msg_len,
++			unsigned int msg_prio, void *abs_timeout);
++	ssize_t (*mqt_receive)(mqd_t mqdes, char *msg_ptr, size_t msg_len,
++			       unsigned int *msg_prio, void *abs_timeout);
++	int (*ppoll)(struct pollfd *fds, nfds_t nfds, void *tmo_p,
++		     const sigset_t *sigmask, size_t sigsetsize);
++	int (*sched_rr_get_interval)(pid_t pid, void *ts);
++	int (*semop)(int semid, struct sembuf *sops, size_t nsops);
++	int (*semtimedop)(int semid, struct sembuf *sops, size_t nsops, void *timeout);
++	int (*sigwait) (const sigset_t * set, siginfo_t * info,
++			 void * timeout);
++	int (*recvmmsg)(int sockfd, struct mmsghdr *msgvec, unsigned int vlen,
++		       unsigned int flags, void *timeout);
++	int (*sendmmsg)(int sockfd, struct mmsghdr *msgvec, unsigned int vlen,
++		    unsigned int flags);
++	int (*utimensat)(int dirfd, const char *pathname, void *times,
++			 int flags);
++};
++
++#endif /* TIME64_VARIANTS_H */
 -- 
 2.25.0.rc1.19.g042ed3e048af
 
