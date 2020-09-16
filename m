@@ -1,39 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0427426C1F3
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Sep 2020 13:07:24 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id EEDC426C2C0
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Sep 2020 14:32:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 879083C2DB4
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Sep 2020 13:07:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B3E5F3C4EB6
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Sep 2020 14:32:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 1B4923C2891
- for <ltp@lists.linux.it>; Wed, 16 Sep 2020 13:07:19 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTP id E53BE3C27EE
+ for <ltp@lists.linux.it>; Wed, 16 Sep 2020 14:32:51 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2DD27200C90
- for <ltp@lists.linux.it>; Wed, 16 Sep 2020 13:07:18 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6B6A52009B2
+ for <ltp@lists.linux.it>; Wed, 16 Sep 2020 14:32:51 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C5C92ACBF;
- Wed, 16 Sep 2020 11:07:32 +0000 (UTC)
-Date: Wed, 16 Sep 2020 13:07:45 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 2862AB2CC;
+ Wed, 16 Sep 2020 12:33:06 +0000 (UTC)
+Date: Wed, 16 Sep 2020 14:33:18 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <20200916110745.GA10696@yuki.lan>
-References: <fdae254836743a2200145a3883bdd869fb610bc2.1600252429.git.viresh.kumar@linaro.org>
+Message-ID: <20200916123318.GA13889@yuki.lan>
+References: <cover.1600252542.git.viresh.kumar@linaro.org>
+ <2c5695ebf7d13bd25651faf09d0fb78bbdd4bc31.1600252542.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <fdae254836743a2200145a3883bdd869fb610bc2.1600252429.git.viresh.kumar@linaro.org>
+In-Reply-To: <2c5695ebf7d13bd25651faf09d0fb78bbdd4bc31.1600252542.git.viresh.kumar@linaro.org>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls: fcntl: Update .gitignore
+Subject: Re: [LTP] [PATCH V2 01/17] syscalls: utils: Remove local copy of
+ poll.h definitions
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,7 +54,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Applied, thanks.
+Good catch, applied.
 
 -- 
 Cyril Hrubis
