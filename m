@@ -2,40 +2,77 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87811270050
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Sep 2020 16:57:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58FF0270061
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Sep 2020 17:00:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 81F5C3C4E6E
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Sep 2020 16:57:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DC1463C66F5
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Sep 2020 17:00:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 989C73C4E57
- for <ltp@lists.linux.it>; Fri, 18 Sep 2020 16:57:25 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E3E701000A62
- for <ltp@lists.linux.it>; Fri, 18 Sep 2020 16:57:24 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 6C7CEAD2F;
- Fri, 18 Sep 2020 14:57:58 +0000 (UTC)
-Date: Fri, 18 Sep 2020 16:57:52 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: "Bird, Tim" <Tim.Bird@sony.com>
-Message-ID: <20200918145752.GA16897@yuki.lan>
-References: <20200908073138.GB2475@yuki.lan> <20200910084554.GA21741@dell5510>
- <20200914111543.GE5524@yuki.lan>
- <CY4PR13MB117529F882F68FED2C60AD09FD230@CY4PR13MB1175.namprd13.prod.outlook.com>
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id CB1D53C24E4
+ for <ltp@lists.linux.it>; Fri, 18 Sep 2020 17:00:42 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 40B961401123
+ for <ltp@lists.linux.it>; Fri, 18 Sep 2020 17:00:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1600441240;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=76ipI+QI1z0fHc6CrzqgFiEibXIwt9ctAcmc8sJj5ec=;
+ b=BQil6sj/oSlQMrQyOnvC0Iqg163/7OZieYSNCsDXoKGqRvkXzC19wjkVM97kOW54WGHL5s
+ nXOfRQqkMdrmXlp+uutXUz482pnA1r48NmeK4mAeNRUTq7xiGWi1J+sq27Mt/YiexOJkLk
+ e/dWa69W/rmpU/Inhmp7jlV6Dx0vXpQ=
+Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
+ [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-573-EenskGcLMzi49A03WfWppw-1; Fri, 18 Sep 2020 11:00:33 -0400
+X-MC-Unique: EenskGcLMzi49A03WfWppw-1
+Received: by mail-yb1-f198.google.com with SMTP id v106so5715716ybi.6
+ for <ltp@lists.linux.it>; Fri, 18 Sep 2020 08:00:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=76ipI+QI1z0fHc6CrzqgFiEibXIwt9ctAcmc8sJj5ec=;
+ b=F6Uiy168pCygKcgYBP5tZoy9gap7ERFrJSn6SK/nYXClqo+OEluMvOnTJzrQ8Gnfok
+ hPHMMRROlqVQO3MGhMH5e12pzVOtX6m3sU9fhrVnea7hahqG3WCk5PkmKg0qqUbFneYx
+ SLXS0fLjSwM/mYKN2MKygoyiTUvnpXaJXdOa+2v0AGPEtxnN4rfQwrNbFn5jY/59PCty
+ j58YctFeIOUzYS6JqloV68dXbIQ7f4Re1rXYnOFRjzLGpFWoEgFWhPpUUW4NUeCZpDIB
+ rtn20RUm3WzEX5K/y+4KhzYxRcsG7qCj0Ilhg/S2X1uzESgegjiiDVpFTg24QQzEUJSg
+ 4YPg==
+X-Gm-Message-State: AOAM530RN+Ne2LkQ5iKLIAFNIwVZ7eHZBHYmgxQaeG6j7wiJw5GZe70I
+ jjQZq12BbX030YMyicxKITfFB1/vbBzDk+aA924I3895rOZynotfa5CVlXzPIO41u1C/DhJP6fl
+ Qfxaob+bLm/JhJ8MqQPbx1n/7UWE=
+X-Received: by 2002:a25:b792:: with SMTP id n18mr9705512ybh.286.1600441233398; 
+ Fri, 18 Sep 2020 08:00:33 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyCcENKqkwEAbCQE1FtX83hFXDtEcuOtTiJe90Cq1/lksT+3qEgKf57mKaNg/Is4p7Xr3n4oTpwhZP+4Tj6WnU=
+X-Received: by 2002:a25:b792:: with SMTP id n18mr9705491ybh.286.1600441233161; 
+ Fri, 18 Sep 2020 08:00:33 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CY4PR13MB117529F882F68FED2C60AD09FD230@CY4PR13MB1175.namprd13.prod.outlook.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+References: <20200911035533.30538-1-liwang@redhat.com>
+ <20200911130836.GA2582@yuki.lan>
+ <CAEemH2fPRTh6drs=h=U7OG07SZDgpDfEB0xRadF8Y1FbaHR8Nw@mail.gmail.com>
+ <20200911145730.GA6157@yuki.lan>
+ <CAEemH2cXY+-Dgq8PB-ZunzRnjM1iH0KiB5gK5=CLnFDSEiKLdQ@mail.gmail.com>
+ <20200915134023.GA18311@yuki.lan> <20200918114301.GA13453@yuki.lan>
+In-Reply-To: <20200918114301.GA13453@yuki.lan>
+From: Li Wang <liwang@redhat.com>
+Date: Fri, 18 Sep 2020 23:00:20 +0800
+Message-ID: <CAEemH2fFQXv=DydGYAyf3jqgUA0dnEYPYPY3y4jDvJ0dWqWKUg@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] LTP release
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v5] Add a test case for mmap MAP_GROWSDOWN flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,95 +84,68 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: pravin <pravinraghul@zilogic.com>, LTP List <ltp@lists.linux.it>,
+ "Vijay Kumar B ." <vijaykumar@zilogic.com>
+Content-Type: multipart/mixed; boundary="===============2080385526=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> I don't think that it should be very many.  Otherwise, people will get
-> the idea that it is useful for actual device testing. ;-)
-> 
-> The current 'quickhit' runtest file has 107 tests.  With the exception of
-> qmm01 (which calls mmap001 with '-n 1') and a bunch of tests that do sub-tests
-> of symlink01 (12 of them), the remaining test definitions
-> just consist of the test name and the test executable (with the same names).
-> I only see binary programs - no tests using shell scripts.  So there's really not much variety
-> here.
-> 
-> Apparently a pipe is allowed in the command invocation line for a test, but there's only
-> one example of this in all of the runtests, in syscalls:
-> splice02 seq 1 2000 | splice02
+--===============2080385526==
+Content-Type: multipart/alternative; boundary="0000000000002fd8dc05af97c30d"
 
-Actually the logic in LTP pan is:
+--0000000000002fd8dc05af97c30d
+Content-Type: text/plain; charset="UTF-8"
 
-* If the command part is single string the test is executed by execve()
+Hi Cyril,
 
-* Otherwise it's passed as a command to run to /bin/sh
+On Fri, Sep 18, 2020 at 7:42 PM Cyril Hrubis <chrubis@suse.cz> wrote:
 
-I'm not sure it we would want to retain that behaivor for a future
-though.
+> Hi!
+> Li are you working on this, or should I try to finish the test?
+>
 
-> Really, as an infrastructure test, I only need to run a few testcases to validate that Fuego's
-> plumbing around runltp (and ltp-pan) works properly.  And it would be nice if
-> the run was very short, so I could do the check quickly.
-> 
-> Do you want me to create a runtest for a framework/LTP integration test, by picking a
-> few different "representative" tests, as a replacement for quickhit?
-> 
-> IMHO, the selected tests should behave the same on all possible systems, to avoid
-> getting results that are inconsistent due to the system under test, rather than a
-> problem with the integration between the framework and LTP.
-> 
-> Should I add some outlier cases:
->  - something that times out
->  - something that always fails
->  - tests that return TBROK, TCONF, TWARN, etc.
->  - something where the command doesn't exist
-> 
-> This would be helpful for checking that my parsing for different results works.
-> 
-> Do you have a preferred name for the runtest file?  My proposal, just off the top
-> of my head, is: "ltp-selftest-quick", but I'm open to other suggestions.
+Sorry for the late reply.
 
-Maybe we should call it smoketest, but I'm okay selftest as well.
-
-> I'm also open to suggestions for possible tests.  I'd like a shell script command
-> to add to the list of binary programs.  Here is what I've chosen so far:
-> access01 access01
-> chdir01 chdir01
-> fork01 fork01
-> time01 time01
-> wait02 wait02
-> write01 write01
-> symlink01 symlink01
-> stat04 symlink01 -T stat04
-> utime01A symlink01 -T utime01
-> rename01A symlink01 -T rename01
-> splice02 seq 1 20 | splice02
-> 
-> This takes about 5 seconds on one of my test machines.
-
-So I will add a network test to the set and push that before a patch
-that removes quickhit.
-
-It would be nice to have the outliners, but that is a bit more
-complicated change, so I would like to add these after a release, is
-that okay?
-
-> P.S. Maybe, if you're moving away from runltp and ltp-pan, it's a little late to be
-> adding some selftests to make sure they work correctly.  But Fuego is using them.
-> I don't know what other frameworks use when they invoke LTP to perform
-> tests.
-
-I do expect that we will have ltp-pan included for compatibility reasons
-at least for a year or two once the replacement would be in place
-anyways, so having a smoketest wouldn't harm at all.
+No, I'm working on another urgent issue so far. Feel free work out the
+patch V6,
+I think you can finish it better than me.
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+Regards,
+Li Wang
+
+--0000000000002fd8dc05af97c30d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi Cyril,</div></div><br><div class=3D"gmail_quote"><div dir=
+=3D"ltr" class=3D"gmail_attr">On Fri, Sep 18, 2020 at 7:42 PM Cyril Hrubis =
+&lt;<a href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></=
+div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
+der-left:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
+Li are you working on this, or should I try to finish the test?<br></blockq=
+uote><div><br></div><div><div class=3D"gmail_default" style=3D"font-size:sm=
+all">Sorry for the late reply.</div><div class=3D"gmail_default" style=3D"f=
+ont-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size:s=
+mall">No, I&#39;m working on another urgent issue so far. Feel free work ou=
+t the patch V6,</div><div class=3D"gmail_default" style=3D"font-size:small"=
+>I think you can finish it better than me.</div></div></div><div><br></div>=
+-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Reg=
+ards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--0000000000002fd8dc05af97c30d--
+
+
+--===============2080385526==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============2080385526==--
+
