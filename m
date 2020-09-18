@@ -1,78 +1,38 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58FF0270061
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Sep 2020 17:00:46 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id BE77F270303
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Sep 2020 19:16:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DC1463C66F5
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Sep 2020 17:00:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 75C573C4E71
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Sep 2020 19:16:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id CB1D53C24E4
- for <ltp@lists.linux.it>; Fri, 18 Sep 2020 17:00:42 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 40B961401123
- for <ltp@lists.linux.it>; Fri, 18 Sep 2020 17:00:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1600441240;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=76ipI+QI1z0fHc6CrzqgFiEibXIwt9ctAcmc8sJj5ec=;
- b=BQil6sj/oSlQMrQyOnvC0Iqg163/7OZieYSNCsDXoKGqRvkXzC19wjkVM97kOW54WGHL5s
- nXOfRQqkMdrmXlp+uutXUz482pnA1r48NmeK4mAeNRUTq7xiGWi1J+sq27Mt/YiexOJkLk
- e/dWa69W/rmpU/Inhmp7jlV6Dx0vXpQ=
-Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
- [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-573-EenskGcLMzi49A03WfWppw-1; Fri, 18 Sep 2020 11:00:33 -0400
-X-MC-Unique: EenskGcLMzi49A03WfWppw-1
-Received: by mail-yb1-f198.google.com with SMTP id v106so5715716ybi.6
- for <ltp@lists.linux.it>; Fri, 18 Sep 2020 08:00:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=76ipI+QI1z0fHc6CrzqgFiEibXIwt9ctAcmc8sJj5ec=;
- b=F6Uiy168pCygKcgYBP5tZoy9gap7ERFrJSn6SK/nYXClqo+OEluMvOnTJzrQ8Gnfok
- hPHMMRROlqVQO3MGhMH5e12pzVOtX6m3sU9fhrVnea7hahqG3WCk5PkmKg0qqUbFneYx
- SLXS0fLjSwM/mYKN2MKygoyiTUvnpXaJXdOa+2v0AGPEtxnN4rfQwrNbFn5jY/59PCty
- j58YctFeIOUzYS6JqloV68dXbIQ7f4Re1rXYnOFRjzLGpFWoEgFWhPpUUW4NUeCZpDIB
- rtn20RUm3WzEX5K/y+4KhzYxRcsG7qCj0Ilhg/S2X1uzESgegjiiDVpFTg24QQzEUJSg
- 4YPg==
-X-Gm-Message-State: AOAM530RN+Ne2LkQ5iKLIAFNIwVZ7eHZBHYmgxQaeG6j7wiJw5GZe70I
- jjQZq12BbX030YMyicxKITfFB1/vbBzDk+aA924I3895rOZynotfa5CVlXzPIO41u1C/DhJP6fl
- Qfxaob+bLm/JhJ8MqQPbx1n/7UWE=
-X-Received: by 2002:a25:b792:: with SMTP id n18mr9705512ybh.286.1600441233398; 
- Fri, 18 Sep 2020 08:00:33 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyCcENKqkwEAbCQE1FtX83hFXDtEcuOtTiJe90Cq1/lksT+3qEgKf57mKaNg/Is4p7Xr3n4oTpwhZP+4Tj6WnU=
-X-Received: by 2002:a25:b792:: with SMTP id n18mr9705491ybh.286.1600441233161; 
- Fri, 18 Sep 2020 08:00:33 -0700 (PDT)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 136A53C1CB6
+ for <ltp@lists.linux.it>; Fri, 18 Sep 2020 19:16:43 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 8E3281401126
+ for <ltp@lists.linux.it>; Fri, 18 Sep 2020 19:16:42 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 43C40AF01;
+ Fri, 18 Sep 2020 17:17:16 +0000 (UTC)
+From: Cyril Hrubis <chrubis@suse.cz>
+To: ltp@lists.linux.it
+Date: Fri, 18 Sep 2020 19:17:10 +0200
+Message-Id: <20200918171710.19227-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-References: <20200911035533.30538-1-liwang@redhat.com>
- <20200911130836.GA2582@yuki.lan>
- <CAEemH2fPRTh6drs=h=U7OG07SZDgpDfEB0xRadF8Y1FbaHR8Nw@mail.gmail.com>
- <20200911145730.GA6157@yuki.lan>
- <CAEemH2cXY+-Dgq8PB-ZunzRnjM1iH0KiB5gK5=CLnFDSEiKLdQ@mail.gmail.com>
- <20200915134023.GA18311@yuki.lan> <20200918114301.GA13453@yuki.lan>
-In-Reply-To: <20200918114301.GA13453@yuki.lan>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 18 Sep 2020 23:00:20 +0800
-Message-ID: <CAEemH2fFQXv=DydGYAyf3jqgUA0dnEYPYPY3y4jDvJ0dWqWKUg@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5] Add a test case for mmap MAP_GROWSDOWN flag
+Subject: [LTP] [PATCH v6] Add a test case for mmap MAP_GROWSDOWN flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,68 +44,281 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: pravin <pravinraghul@zilogic.com>, LTP List <ltp@lists.linux.it>,
+Cc: pravin <pravinraghul@zilogic.com>,
  "Vijay Kumar B ." <vijaykumar@zilogic.com>
-Content-Type: multipart/mixed; boundary="===============2080385526=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============2080385526==
-Content-Type: multipart/alternative; boundary="0000000000002fd8dc05af97c30d"
+From: pravin <pravinraghul@zilogic.com>
 
---0000000000002fd8dc05af97c30d
-Content-Type: text/plain; charset="UTF-8"
+This test implements two cases.
 
-Hi Cyril,
+First one uses MAP_GROWSDOWN mapping as a thread stack and expects that
+the thread will grow the stack successfully.
 
-On Fri, Sep 18, 2020 at 7:42 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+The second one will have a 'break' page allocated into the space the
+mapping is supposed to grow and expects that the thread will be killed
+with SIGSEGV.
 
-> Hi!
-> Li are you working on this, or should I try to finish the test?
->
+Resolves #300
+Signed-off-by: Pravin Raghul S. <pravinraghul@zilogic.com>
+Reviewed-by: Vijay Kumar B. <vijaykumar@zilogic.com>
+Signed-off-by: Li Wang <liwang@redhat.com>
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+---
+ runtest/syscalls                          |   1 +
+ testcases/kernel/syscalls/mmap/.gitignore |   1 +
+ testcases/kernel/syscalls/mmap/mmap18.c   | 215 ++++++++++++++++++++++
+ 3 files changed, 217 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/mmap/mmap18.c
 
-Sorry for the late reply.
-
-No, I'm working on another urgent issue so far. Feel free work out the
-patch V6,
-I think you can finish it better than me.
-
+diff --git a/runtest/syscalls b/runtest/syscalls
+index ef1a1ba0b..a165ffed5 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -750,6 +750,7 @@ mmap14 mmap14
+ mmap15 mmap15
+ mmap16 mmap16
+ mmap17 mmap17
++mmap18 mmap18
+ 
+ modify_ldt01 modify_ldt01
+ modify_ldt02 modify_ldt02
+diff --git a/testcases/kernel/syscalls/mmap/.gitignore b/testcases/kernel/syscalls/mmap/.gitignore
+index c5c083d4b..4fd90ab5f 100644
+--- a/testcases/kernel/syscalls/mmap/.gitignore
++++ b/testcases/kernel/syscalls/mmap/.gitignore
+@@ -16,3 +16,4 @@
+ /mmap15
+ /mmap16
+ /mmap17
++/mmap18
+diff --git a/testcases/kernel/syscalls/mmap/mmap18.c b/testcases/kernel/syscalls/mmap/mmap18.c
+new file mode 100644
+index 000000000..966bf673e
+--- /dev/null
++++ b/testcases/kernel/syscalls/mmap/mmap18.c
+@@ -0,0 +1,215 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) Zilogic Systems Pvt. Ltd., 2020
++ * Email: code@zilogic.com
++ */
++
++/*
++ * Test mmap() MAP_GROWSDOWN flag
++ *
++ * # Test1:
++ *
++ *   We assign the memory region partially allocated with MAP_GROWSDOWN flag to
++ *   a thread as a stack and expect the mapping to grow when we touch the
++ *   guard page by calling a recusive function in the thread that uses the
++ *   growable mapping as a stack.
++ *
++ *   The kernel only grows the memory region when the stack pointer is within
++ *   guard page when the guard page is touched so simply faulting the guard
++ *   page will not cause the mapping to grow.
++ *
++ *   Newer kernels does not allow a MAP_GROWSDOWN mapping to grow closer than
++ *   'stack_guard_gap' pages to an existing mapping. So when we map the stack we
++ *   make sure there is enough of free address space before the lowest stack
++ *   address.
++ *
++ *   Kernel default 'stack_guard_gap' size is '256 * getpagesize()'.
++ *
++ *   The stack memory map would look like:
++ *
++ *   |  -  -  -   reserved  size   -  -  -  |
++ *
++ *   +-- - - - --+------------+-------------+
++ *   | 256 pages |  unmapped  |   mapped    |
++ *   +-- - - - --+------------+-------------+
++ *                            | mapped size |
++ *   ^           |  -  -  stack size  -  -  |
++ *   start
++ *               ^                          ^
++ *               stack bottom       stack top
++ *
++ * # Test2:
++ *
++ *   We allocate stack as we do in the first test but we mmap a page in the
++ *   space the stack is supposed to grow into and we expect the thread to
++ *   segfault when the guard page is faulted.
++ */
++
++#include <unistd.h>
++#include <pthread.h>
++#include <sys/mman.h>
++#include <sys/wait.h>
++#include <sys/types.h>
++#include <stdlib.h>
++#include <stdbool.h>
++
++#include "tst_test.h"
++#include "tst_safe_pthread.h"
++
++static long page_size;
++
++static bool __attribute__((noinline)) check_stackgrow_up(void)
++{
++	char local_var;
++	static char *addr;
++
++       if (!addr) {
++               addr = &local_var;
++               return check_stackgrow_up();
++       }
++
++       return (addr < &local_var);
++}
++
++static void setup(void)
++{
++	if (check_stackgrow_up())
++		tst_brk(TCONF, "Test can't be performed with stack grows up architecture");
++
++	page_size = getpagesize();
++}
++
++/*
++ * Returns stack lowest address. Note that the address is not mapped and will
++ * be mapped on page fault when we grow the stack to the lowest address possible.
++ */
++static void *allocate_stack(size_t stack_size, size_t mapped_size)
++{
++	void *start, *stack_top, *stack_bottom;
++
++	long reserved_size = 256 * page_size + stack_size;
++
++	start = SAFE_MMAP(NULL, reserved_size, PROT_READ | PROT_WRITE,
++	                  MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	SAFE_MUNMAP(start, reserved_size);
++
++	SAFE_MMAP((start + reserved_size - mapped_size), mapped_size, PROT_READ | PROT_WRITE,
++		  MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS | MAP_GROWSDOWN,
++		  -1, 0);
++
++	stack_top = start + reserved_size;
++	stack_bottom = start + reserved_size - stack_size;
++
++	tst_res(TINFO, "start = %p, stack_top = %p, stack bottom = %p",
++		start, stack_top, stack_bottom);
++	tst_res(TINFO, "mapped pages %zu, stack pages %zu",
++	        mapped_size/page_size, stack_size/page_size);
++
++	return stack_bottom;
++}
++
++static __attribute__((noinline)) void *check_depth_recursive(void *limit)
++{
++	if ((off_t) &limit < (off_t) limit) {
++		tst_res(TINFO, "&limit = %p, limit = %p", &limit, limit);
++		return NULL;
++	}
++
++	return check_depth_recursive(limit);
++}
++
++/*
++ * We set the limit one page above the stack bottom to make sure that the stack
++ * frame will not overflow to the next page, which would potentially cause
++ * segfault if we are unlucky and there is a mapping right after the guard gap.
++ *
++ * Generally the stack frame would be much smaller than page_size so moving the
++ * pointer by a few bytes would probably be enough, but we do not want to take
++ * any chances.
++ */
++static void grow_stack(void *stack, size_t size)
++{
++	pthread_t test_thread;
++	pthread_attr_t attr;
++	int ret;
++	void *limit = stack + page_size;
++
++	ret = pthread_attr_init(&attr);
++	if (ret)
++		tst_brk(TBROK, "pthread_attr_init failed during setup");
++
++	ret = pthread_attr_setstack(&attr, stack, size);
++	if (ret)
++		tst_brk(TBROK, "pthread_attr_setstack failed during setup");
++
++	SAFE_PTHREAD_CREATE(&test_thread, &attr, check_depth_recursive, limit);
++	SAFE_PTHREAD_JOIN(test_thread, NULL);
++
++	exit(0);
++}
++
++static void grow_stack_success(size_t stack_size, size_t mapped_size)
++{
++	pid_t child_pid;
++	int wstatus;
++	void *stack;
++
++	child_pid = SAFE_FORK();
++	if (!child_pid) {
++		stack = allocate_stack(stack_size, mapped_size);
++		grow_stack(stack, stack_size);
++	}
++
++	SAFE_WAIT(&wstatus);
++	if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) == 0)
++		tst_res(TPASS, "Stack grows in unmapped region");
++	else
++		tst_res(TFAIL, "Child: %s", tst_strstatus(wstatus));
++
++}
++
++/*
++ * We map a page at the bottom of the stack which will cause the thread to be
++ * killed with SIGSEGV on faulting the guard page.
++ */
++static void grow_stack_fail(size_t stack_size, size_t mapped_size)
++{
++	pid_t child_pid;
++	int wstatus;
++	void *stack;
++
++	child_pid = SAFE_FORK();
++	if (!child_pid) {
++		tst_no_corefile(0);
++		stack = allocate_stack(stack_size, mapped_size);
++
++		SAFE_MMAP(stack, page_size, PROT_READ | PROT_WRITE,
++			  MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++
++		tst_res(TINFO, "mapped page at %p", stack);
++
++		grow_stack(stack, stack_size);
++	}
++
++	SAFE_WAIT(&wstatus);
++        if (WIFSIGNALED(wstatus) && WTERMSIG(wstatus) == SIGSEGV)
++		tst_res(TPASS, "Child killed by %s as expected", tst_strsig(SIGSEGV));
++        else
++                tst_res(TFAIL, "Child: %s", tst_strstatus(wstatus));
++}
++
++static void run_test(void)
++{
++	size_t stack_size = 8 * PTHREAD_STACK_MIN;
++
++	grow_stack_success(stack_size, page_size);
++	grow_stack_success(stack_size, stack_size/2);
++	grow_stack_fail(stack_size, page_size);
++	grow_stack_fail(stack_size, stack_size/2);
++}
++
++static struct tst_test test = {
++	.setup = setup,
++	.test_all = run_test,
++	.forks_child = 1,
++};
 -- 
-Regards,
-Li Wang
-
---0000000000002fd8dc05af97c30d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Hi Cyril,</div></div><br><div class=3D"gmail_quote"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Fri, Sep 18, 2020 at 7:42 PM Cyril Hrubis =
-&lt;<a href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></=
-div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
-der-left:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
-Li are you working on this, or should I try to finish the test?<br></blockq=
-uote><div><br></div><div><div class=3D"gmail_default" style=3D"font-size:sm=
-all">Sorry for the late reply.</div><div class=3D"gmail_default" style=3D"f=
-ont-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size:s=
-mall">No, I&#39;m working on another urgent issue so far. Feel free work ou=
-t the patch V6,</div><div class=3D"gmail_default" style=3D"font-size:small"=
->I think you can finish it better than me.</div></div></div><div><br></div>=
--- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Reg=
-ards,<br></div><div>Li Wang<br></div></div></div></div>
-
---0000000000002fd8dc05af97c30d--
-
-
---===============2080385526==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+2.26.2
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============2080385526==--
-
