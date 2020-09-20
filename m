@@ -2,37 +2,102 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE77F270303
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Sep 2020 19:16:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC79A27156F
+	for <lists+linux-ltp@lfdr.de>; Sun, 20 Sep 2020 17:45:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 75C573C4E71
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Sep 2020 19:16:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5B4063C4E2C
+	for <lists+linux-ltp@lfdr.de>; Sun, 20 Sep 2020 17:45:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 136A53C1CB6
- for <ltp@lists.linux.it>; Fri, 18 Sep 2020 19:16:43 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 878B43C250E
+ for <ltp@lists.linux.it>; Sun, 20 Sep 2020 17:45:17 +0200 (CEST)
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr70137.outbound.protection.outlook.com [40.107.7.137])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 8E3281401126
- for <ltp@lists.linux.it>; Fri, 18 Sep 2020 19:16:42 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 43C40AF01;
- Fri, 18 Sep 2020 17:17:16 +0000 (UTC)
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Fri, 18 Sep 2020 19:17:10 +0200
-Message-Id: <20200918171710.19227-1-chrubis@suse.cz>
-X-Mailer: git-send-email 2.26.2
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 54382200A18
+ for <ltp@lists.linux.it>; Sun, 20 Sep 2020 17:45:16 +0200 (CEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XZvHY9H9EnlVTQysfyxGKJYvPAgqbZBi3eJ01kBtvWc3R0c9J4qOz6tmnO5vkqhFKJ79zaGDiKSrX4lNuf1xcXO7S8cKwjR98xezam7ag3heH2EZnoizxepmFtZ6FC9nAeyhPJZLjui+ioVTKkRpVVzoPoC6ORmsuGQ3+hTDXoy004BXu/PwMYjzSeheERGIhzk0eFWkyHMRSfWvsEN5Wty3wlrh3JBrkark8n0GvwHr/ONaBvY+kmPpgBDA47VQ1yIjn2itEPctz/xQICjvQfpOdyuxWlK9egp/ESFWlEpHKxvlZ3zu4fcdlO5grMjXdMwQXPbP1sDb1JfK0krRcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6tgf9PjnL8mHM21iQPixsLQIXX/yOz1o659UoupetNw=;
+ b=ObQfPOr5EJaVDbi/0aRIc7QjikwvVnZuz729HDZQKNYnFjDBrctU8ovZHcz/JegwijCASJjso4W6uXqcnVrYZcOm+xAtaNtPCjjZxmmhWcUprTislp+p8+zKjhVVAAkIS+BA/nbHKnd6Th1akl+uh6a7q8LqHALv/xo1BYuOBCyBVoaaNMRk0le2GwGdZx3URz5bMBIX4UUOrvmotbgvZBa4EyDfqRzbllwuh2SbE/hqoGiXKoxgAR8edi1LeIczOPg7SOybCV9ETqoxcUeqPu1vEIE/cIFSY4hua354rqtn5QQGKsjTOLsRnFwfAS9bIntwf2ypHI/cN7dKcqxpag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=syrmia.com; dmarc=pass action=none header.from=syrmia.com;
+ dkim=pass header.d=syrmia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=syrmia.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6tgf9PjnL8mHM21iQPixsLQIXX/yOz1o659UoupetNw=;
+ b=W9RCW5H7tY9s7Csy7NLzhDES2rj0+llWEC8PkHz3ERtRYMThW3lMhLrrw1eszwKYdNiWqFsnB2kp+QaStzZKKOR+k11KTvRzyRGBuJJhSJDWyTFTmsv2Wb5Nyi9Yq4EojgKIxIKEdgLTSjb09FS0piS3jfsnenPbzjhO0iDJyRs=
+Authentication-Results: lists.linux.it; dkim=none (message not signed)
+ header.d=none;lists.linux.it; dmarc=none action=none header.from=syrmia.com;
+Received: from AM6PR03MB5233.eurprd03.prod.outlook.com (2603:10a6:20b:d1::19)
+ by AM6PR03MB5941.eurprd03.prod.outlook.com (2603:10a6:20b:ea::27)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.19; Sun, 20 Sep
+ 2020 15:45:14 +0000
+Received: from AM6PR03MB5233.eurprd03.prod.outlook.com
+ ([fe80::7918:e8f:d41f:6e68]) by AM6PR03MB5233.eurprd03.prod.outlook.com
+ ([fe80::7918:e8f:d41f:6e68%4]) with mapi id 15.20.3391.015; Sun, 20 Sep 2020
+ 15:45:14 +0000
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <20200817102232.5902-1-Filip.Bozuta@syrmia.com>
+ <20200817102232.5902-3-Filip.Bozuta@syrmia.com>
+ <20200818143715.GC27964@yuki.lan> <20200908151202.GC17482@yuki.lan>
+From: Filip Bozuta <Filip.Bozuta@syrmia.com>
+Message-ID: <d15a3c4f-0b43-26a5-87de-36a42f41924e@syrmia.com>
+Date: Sun, 20 Sep 2020 17:45:14 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.2.2
+In-Reply-To: <20200908151202.GC17482@yuki.lan>
+Content-Language: en-US
+X-ClientProxiedBy: AM0PR01CA0079.eurprd01.prod.exchangelabs.com
+ (2603:10a6:208:10e::20) To AM6PR03MB5233.eurprd03.prod.outlook.com
+ (2603:10a6:20b:d1::19)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.43.153] (109.245.227.194) by
+ AM0PR01CA0079.eurprd01.prod.exchangelabs.com (2603:10a6:208:10e::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.14 via Frontend
+ Transport; Sun, 20 Sep 2020 15:45:14 +0000
+X-Originating-IP: [109.245.227.194]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0e0874dd-c3d4-4617-c13f-08d85d7c2a91
+X-MS-TrafficTypeDiagnostic: AM6PR03MB5941:
+X-Microsoft-Antispam-PRVS: <AM6PR03MB59412B3304E6D3F4FF11F03CEB3D0@AM6PR03MB5941.eurprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2KjChOU5qCtej1MPn2fwJpJxiaXrDE/1G8eyhTVlu6vIfYd3QTAFVwaxHuD/UU9F+xMTSw+22v2WiO1WadloZy1ALkDegTGQrevccfPkOxM0hTbkQnCEQvqDVDP8dULqd42ryAFi15ALr0yH6rpfSqXTGQOXOFd5zezLZ1m8T/usR4pME+WFk3kLwEAqlRqaOQP6kYxNMk9ogEiFFsxKxPFbw3ZXi9KxMVUnpNEc1qHChBN3yoNndmHIuQrAtEEzex4N33T7aaza9M1o2TcSx/nfAbUyU3tzyDTmJhS9t61oco9GwiBgTODOJhl8yp+tT9Pg1lZHf/jHuvraT+Y9jp30//lgua8vMbyWT+TRxHw2ajUkC8zGrNBMBRXnVQDq4HaHQjtusdB97ZXIFAIRrKLk5GSpQjNtoyKF9TCbWz0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM6PR03MB5233.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(346002)(376002)(366004)(136003)(39830400003)(396003)(86362001)(956004)(31696002)(8676002)(26005)(4326008)(2616005)(31686004)(52116002)(6486002)(186003)(478600001)(16526019)(6916009)(36756003)(5660300002)(316002)(66476007)(8936002)(66946007)(16576012)(4744005)(53546011)(66556008)(2906002)(43740500002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData: Imh2Jzokm7AGb8S7tJEjEyxVwFFzXFfFY84cmQfOmT5s0fA6UcDuWyoXPxToG0iWiNubdt7zKicq8sRY8tGPbtZW9XoqDRAI7jCGN/BFmUASnGEMMfK0LxpgwnKJPBdPPdDLwI/ZWEgOOUhS3lH0ZLkZmgVh3km1994DKR+TpubncsaLyhw+aNJ7jriOhgkzktSAO753m54eBUCiv8QkgY/AqAAcBGBQgQUTvG+zSVrM2C8TrPfd+DM2RQmUfqSxrhbJ5suSxnwQbNq62PSTwBa9eiqfo1HPj+fzdyhuv3+NM1UWkiD9DQ++wI2kJhUKLhaY3dpia2zFQesB5d5ATJ7yZfWKOY3uN8GJQmacgCBWbD0VTGm4lUvSfRKGFWr3Yatr+NhuGS2ZkA1MiLpi2Xh2iBgaMrR2/Ed80fp3HAjMvHMpurqe1GDyp4D5TAHaAGApnBJ+kihrx09AFOACTxhdKHkLJ9rcZvvaDVxXL6Sw+vcbbSG6GdLyaSv0NNDHhXPFZZgKdOxca4H/9aIn8FbMsP0D6HH98V5NKIWHZkxSOE24FeWgTbXpfyndcx/PBtUZkf2CKRvxS3/UeyEKVT3ly01MamFU430Um01o74ViuoSxskcxNz8i/Us8fCRwXCXdH4o2zGyCrVMUnggSFQ==
+X-OriginatorOrg: syrmia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e0874dd-c3d4-4617-c13f-08d85d7c2a91
+X-MS-Exchange-CrossTenant-AuthSource: AM6PR03MB5233.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2020 15:45:14.6087 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 19214a73-c1ab-4e19-8f59-14bdcb09a66e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uExEAoFiRoQ5j2XkFeYC/6X/0EdPPCstiV96shDnyl1yMQrQrN1jpGLG0jjSJvcUbjTXRP7QMHgiRVFcpYu+Tw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR03MB5941
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v6] Add a test case for mmap MAP_GROWSDOWN flag
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
+ SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 2/2] syscalls/{send|recv}mmsg: add a test case
+ for timeout and errno test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,281 +109,30 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: pravin <pravinraghul@zilogic.com>,
- "Vijay Kumar B ." <vijaykumar@zilogic.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: laurent@vivier.eu, ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: pravin <pravinraghul@zilogic.com>
+Hello,
 
-This test implements two cases.
+On 9/8/2020 5:12 PM, Cyril Hrubis wrote:
+> Hi!
+> Ping. Are you going to send v4?
 
-First one uses MAP_GROWSDOWN mapping as a thread stack and expects that
-the thread will grow the stack successfully.
+Sorry for my late response. I had some obligations and haven't got to 
+seeing the mails.
 
-The second one will have a 'break' page allocated into the space the
-mapping is supposed to grow and expects that the thread will be killed
-with SIGSEGV.
+I have sent v4 about 20 days ago but I marked it as v3 by mistake. I 
+will resend the patch now as v4 sou you can take a look.
 
-Resolves #300
-Signed-off-by: Pravin Raghul S. <pravinraghul@zilogic.com>
-Reviewed-by: Vijay Kumar B. <vijaykumar@zilogic.com>
-Signed-off-by: Li Wang <liwang@redhat.com>
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
----
- runtest/syscalls                          |   1 +
- testcases/kernel/syscalls/mmap/.gitignore |   1 +
- testcases/kernel/syscalls/mmap/mmap18.c   | 215 ++++++++++++++++++++++
- 3 files changed, 217 insertions(+)
- create mode 100644 testcases/kernel/syscalls/mmap/mmap18.c
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index ef1a1ba0b..a165ffed5 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -750,6 +750,7 @@ mmap14 mmap14
- mmap15 mmap15
- mmap16 mmap16
- mmap17 mmap17
-+mmap18 mmap18
- 
- modify_ldt01 modify_ldt01
- modify_ldt02 modify_ldt02
-diff --git a/testcases/kernel/syscalls/mmap/.gitignore b/testcases/kernel/syscalls/mmap/.gitignore
-index c5c083d4b..4fd90ab5f 100644
---- a/testcases/kernel/syscalls/mmap/.gitignore
-+++ b/testcases/kernel/syscalls/mmap/.gitignore
-@@ -16,3 +16,4 @@
- /mmap15
- /mmap16
- /mmap17
-+/mmap18
-diff --git a/testcases/kernel/syscalls/mmap/mmap18.c b/testcases/kernel/syscalls/mmap/mmap18.c
-new file mode 100644
-index 000000000..966bf673e
---- /dev/null
-+++ b/testcases/kernel/syscalls/mmap/mmap18.c
-@@ -0,0 +1,215 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) Zilogic Systems Pvt. Ltd., 2020
-+ * Email: code@zilogic.com
-+ */
-+
-+/*
-+ * Test mmap() MAP_GROWSDOWN flag
-+ *
-+ * # Test1:
-+ *
-+ *   We assign the memory region partially allocated with MAP_GROWSDOWN flag to
-+ *   a thread as a stack and expect the mapping to grow when we touch the
-+ *   guard page by calling a recusive function in the thread that uses the
-+ *   growable mapping as a stack.
-+ *
-+ *   The kernel only grows the memory region when the stack pointer is within
-+ *   guard page when the guard page is touched so simply faulting the guard
-+ *   page will not cause the mapping to grow.
-+ *
-+ *   Newer kernels does not allow a MAP_GROWSDOWN mapping to grow closer than
-+ *   'stack_guard_gap' pages to an existing mapping. So when we map the stack we
-+ *   make sure there is enough of free address space before the lowest stack
-+ *   address.
-+ *
-+ *   Kernel default 'stack_guard_gap' size is '256 * getpagesize()'.
-+ *
-+ *   The stack memory map would look like:
-+ *
-+ *   |  -  -  -   reserved  size   -  -  -  |
-+ *
-+ *   +-- - - - --+------------+-------------+
-+ *   | 256 pages |  unmapped  |   mapped    |
-+ *   +-- - - - --+------------+-------------+
-+ *                            | mapped size |
-+ *   ^           |  -  -  stack size  -  -  |
-+ *   start
-+ *               ^                          ^
-+ *               stack bottom       stack top
-+ *
-+ * # Test2:
-+ *
-+ *   We allocate stack as we do in the first test but we mmap a page in the
-+ *   space the stack is supposed to grow into and we expect the thread to
-+ *   segfault when the guard page is faulted.
-+ */
-+
-+#include <unistd.h>
-+#include <pthread.h>
-+#include <sys/mman.h>
-+#include <sys/wait.h>
-+#include <sys/types.h>
-+#include <stdlib.h>
-+#include <stdbool.h>
-+
-+#include "tst_test.h"
-+#include "tst_safe_pthread.h"
-+
-+static long page_size;
-+
-+static bool __attribute__((noinline)) check_stackgrow_up(void)
-+{
-+	char local_var;
-+	static char *addr;
-+
-+       if (!addr) {
-+               addr = &local_var;
-+               return check_stackgrow_up();
-+       }
-+
-+       return (addr < &local_var);
-+}
-+
-+static void setup(void)
-+{
-+	if (check_stackgrow_up())
-+		tst_brk(TCONF, "Test can't be performed with stack grows up architecture");
-+
-+	page_size = getpagesize();
-+}
-+
-+/*
-+ * Returns stack lowest address. Note that the address is not mapped and will
-+ * be mapped on page fault when we grow the stack to the lowest address possible.
-+ */
-+static void *allocate_stack(size_t stack_size, size_t mapped_size)
-+{
-+	void *start, *stack_top, *stack_bottom;
-+
-+	long reserved_size = 256 * page_size + stack_size;
-+
-+	start = SAFE_MMAP(NULL, reserved_size, PROT_READ | PROT_WRITE,
-+	                  MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	SAFE_MUNMAP(start, reserved_size);
-+
-+	SAFE_MMAP((start + reserved_size - mapped_size), mapped_size, PROT_READ | PROT_WRITE,
-+		  MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS | MAP_GROWSDOWN,
-+		  -1, 0);
-+
-+	stack_top = start + reserved_size;
-+	stack_bottom = start + reserved_size - stack_size;
-+
-+	tst_res(TINFO, "start = %p, stack_top = %p, stack bottom = %p",
-+		start, stack_top, stack_bottom);
-+	tst_res(TINFO, "mapped pages %zu, stack pages %zu",
-+	        mapped_size/page_size, stack_size/page_size);
-+
-+	return stack_bottom;
-+}
-+
-+static __attribute__((noinline)) void *check_depth_recursive(void *limit)
-+{
-+	if ((off_t) &limit < (off_t) limit) {
-+		tst_res(TINFO, "&limit = %p, limit = %p", &limit, limit);
-+		return NULL;
-+	}
-+
-+	return check_depth_recursive(limit);
-+}
-+
-+/*
-+ * We set the limit one page above the stack bottom to make sure that the stack
-+ * frame will not overflow to the next page, which would potentially cause
-+ * segfault if we are unlucky and there is a mapping right after the guard gap.
-+ *
-+ * Generally the stack frame would be much smaller than page_size so moving the
-+ * pointer by a few bytes would probably be enough, but we do not want to take
-+ * any chances.
-+ */
-+static void grow_stack(void *stack, size_t size)
-+{
-+	pthread_t test_thread;
-+	pthread_attr_t attr;
-+	int ret;
-+	void *limit = stack + page_size;
-+
-+	ret = pthread_attr_init(&attr);
-+	if (ret)
-+		tst_brk(TBROK, "pthread_attr_init failed during setup");
-+
-+	ret = pthread_attr_setstack(&attr, stack, size);
-+	if (ret)
-+		tst_brk(TBROK, "pthread_attr_setstack failed during setup");
-+
-+	SAFE_PTHREAD_CREATE(&test_thread, &attr, check_depth_recursive, limit);
-+	SAFE_PTHREAD_JOIN(test_thread, NULL);
-+
-+	exit(0);
-+}
-+
-+static void grow_stack_success(size_t stack_size, size_t mapped_size)
-+{
-+	pid_t child_pid;
-+	int wstatus;
-+	void *stack;
-+
-+	child_pid = SAFE_FORK();
-+	if (!child_pid) {
-+		stack = allocate_stack(stack_size, mapped_size);
-+		grow_stack(stack, stack_size);
-+	}
-+
-+	SAFE_WAIT(&wstatus);
-+	if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) == 0)
-+		tst_res(TPASS, "Stack grows in unmapped region");
-+	else
-+		tst_res(TFAIL, "Child: %s", tst_strstatus(wstatus));
-+
-+}
-+
-+/*
-+ * We map a page at the bottom of the stack which will cause the thread to be
-+ * killed with SIGSEGV on faulting the guard page.
-+ */
-+static void grow_stack_fail(size_t stack_size, size_t mapped_size)
-+{
-+	pid_t child_pid;
-+	int wstatus;
-+	void *stack;
-+
-+	child_pid = SAFE_FORK();
-+	if (!child_pid) {
-+		tst_no_corefile(0);
-+		stack = allocate_stack(stack_size, mapped_size);
-+
-+		SAFE_MMAP(stack, page_size, PROT_READ | PROT_WRITE,
-+			  MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+
-+		tst_res(TINFO, "mapped page at %p", stack);
-+
-+		grow_stack(stack, stack_size);
-+	}
-+
-+	SAFE_WAIT(&wstatus);
-+        if (WIFSIGNALED(wstatus) && WTERMSIG(wstatus) == SIGSEGV)
-+		tst_res(TPASS, "Child killed by %s as expected", tst_strsig(SIGSEGV));
-+        else
-+                tst_res(TFAIL, "Child: %s", tst_strstatus(wstatus));
-+}
-+
-+static void run_test(void)
-+{
-+	size_t stack_size = 8 * PTHREAD_STACK_MIN;
-+
-+	grow_stack_success(stack_size, page_size);
-+	grow_stack_success(stack_size, stack_size/2);
-+	grow_stack_fail(stack_size, page_size);
-+	grow_stack_fail(stack_size, stack_size/2);
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.test_all = run_test,
-+	.forks_child = 1,
-+};
--- 
-2.26.2
+Best regards,
 
+Filip
+
+>
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
