@@ -1,55 +1,53 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 268912758D9
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Sep 2020 15:36:20 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 66298275A3E
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Sep 2020 16:36:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C8C483C5831
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Sep 2020 15:36:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E321F3C4D5C
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Sep 2020 16:36:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 9E8EB3C2B26
- for <ltp@lists.linux.it>; Wed, 23 Sep 2020 15:36:14 +0200 (CEST)
-Received: from m12-12.163.com (m12-12.163.com [220.181.12.12])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 5B1323C29D5
+ for <ltp@lists.linux.it>; Wed, 23 Sep 2020 16:36:02 +0200 (CEST)
+Received: from mail-m973.mail.163.com (mail-m973.mail.163.com [123.126.97.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 74881140126F
- for <ltp@lists.linux.it>; Wed, 23 Sep 2020 15:36:12 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 46143600A07
+ for <ltp@lists.linux.it>; Wed, 23 Sep 2020 16:35:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=MybLE
- 7wHWTWGudLJFVlcC24o8elMvldzF+XdrxV1bJo=; b=fHv80T4SGXLmMWyIXhxOW
- NnVyXEW0J0T7ma4i/A5Fs3PdjpTmVIsTU8LR1ZPVxLH/2na1J4YVifE8nYhVNz9j
- ZVgXIfGlkhtJbsQprKfWPgRUnIAJcyZCNZrW27XEHsB1Erolb+HVwN8gyNfT05oZ
- MCaYMW2bWHqk8Nu0HamF64=
-Received: from [192.168.0.10] (unknown [112.23.238.72])
- by smtp8 (Coremail) with SMTP id DMCowABHTsJIT2tf0uaOOg--.8443S2;
- Wed, 23 Sep 2020 21:36:10 +0800 (CST)
-To: Petr Vorel <pvorel@suse.cz>, Xiao Yang <yangx.jy@cn.fujitsu.com>
-References: <20200923084422.13101-1-yangx.jy@cn.fujitsu.com>
- <20200923095106.GB31351@dell5510>
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=joXg1
+ ckgMqherHWGE+Ez8kiMPAExLFEZXZrbufTbb1w=; b=Uc22K/dl4aC8PPD7NfHRy
+ Jd5EZfoEk8hjPQgORxSLMVVaGJIj37fd0G9T+xwLhgQlOCTzO79vxPQrQRQzuFjB
+ PLG9gR7du9ek0ZODOy38T3wRi0c36V93v11GT5tsglWxbm1iTH41ANYGcxZN8cqp
+ zYgsPhC3frPy9+aA11kA74=
+Received: from localhost.localdomain (unknown [122.96.46.107])
+ by smtp3 (Coremail) with SMTP id G9xpCgDnm0U5XWtf9QZODw--.10984S2;
+ Wed, 23 Sep 2020 22:35:38 +0800 (CST)
 From: Xiao Yang <ice_yangxiao@163.com>
-Message-ID: <7cbd84c9-1594-06dd-429b-a0822dd39637@163.com>
-Date: Wed, 23 Sep 2020 21:36:08 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+To: ltp@lists.linux.it
+Date: Wed, 23 Sep 2020 22:35:35 +0800
+Message-Id: <20200923143535.6124-1-ice_yangxiao@163.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <20200923095106.GB31351@dell5510>
-Content-Language: en-US
-X-CM-TRANSID: DMCowABHTsJIT2tf0uaOOg--.8443S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
- VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxU6IztUUUUU
-X-Originating-IP: [112.23.238.72]
-X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/xtbB0gqoXlUMY3jqWQAAsf
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-CM-TRANSID: G9xpCgDnm0U5XWtf9QZODw--.10984S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrAF1kJr1UtrW3XF13uFWruFg_yoWxArb_KF
+ 1UWFy8KFW5tFWvq3WrCrs5WF4jyry3Jr48GrsxCrZ5Gw43Zw1DC3ZYvryjyFn5W3W09F93
+ Cw45Gws09ryFyjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbwZ2PUUUUU==
+X-Originating-IP: [122.96.46.107]
+X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/xtbB0hqoXlUMY3lsSgAAsb
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/recvmmsg01.c: Fix a compiler error
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/recvmmsg: Add missing .gitignore
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,33 +59,29 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
 
-On 9/23/20 5:51 PM, Petr Vorel wrote:
-> BTW: reported by Li Wang
->
-> and also by P.-H. Lin:
-> https://github.com/linux-test-project/ltp/issues/727
+Fixes: 135af8ededd4 ("syscalls/{send|recv}mmsg: add a test case for timeout and errno test")
+Signed-off-by: Xiao Yang <yangx.jy@cn.fujitsu.com>
+---
+ testcases/kernel/syscalls/recvmmsg/.gitignore | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 testcases/kernel/syscalls/recvmmsg/.gitignore
 
-Hi Petr and Jan,
-
-Sure, I will add Reported-by and the number of issue.
-
-Also thanks for your review. :-)
-
-Thanks,
-
-Xiao Yang
-
->
-> Kind regards,
-> Petr
->
+diff --git a/testcases/kernel/syscalls/recvmmsg/.gitignore b/testcases/kernel/syscalls/recvmmsg/.gitignore
+new file mode 100644
+index 000000000..974ae1ef9
+--- /dev/null
++++ b/testcases/kernel/syscalls/recvmmsg/.gitignore
+@@ -0,0 +1 @@
++recvmmsg01
+-- 
+2.26.2
 
 
 -- 
