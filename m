@@ -2,77 +2,48 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08FD827869F
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Sep 2020 14:04:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7FA32786F4
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Sep 2020 14:20:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B59163C3029
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Sep 2020 14:04:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 832DD3C3029
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Sep 2020 14:20:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id A070E3C1841
- for <ltp@lists.linux.it>; Fri, 25 Sep 2020 14:04:52 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id BF77F14012C5
- for <ltp@lists.linux.it>; Fri, 25 Sep 2020 14:04:51 +0200 (CEST)
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1601035490;
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 952AC3C1841
+ for <ltp@lists.linux.it>; Fri, 25 Sep 2020 14:20:39 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 0C885200DF6
+ for <ltp@lists.linux.it>; Fri, 25 Sep 2020 14:20:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1601036438;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Cy2hNStxiI1FaO/e3e3sGYuzZK0U8nVXpKKwmAUiz+M=;
- b=Sjy9NJqFfd3+KG/Rjz85caPawKm39dk9FejmCW06PkfgYaLWQfMhkLiKo1LKMSYMpNftH+
- xJmgRLdycKC7/v7KdRZHsGXB91FOu33xxaTIQ1lXwrUD7BjxcAE0TIaDlXLV1FAKdF0UMY
- rqDzNz1junnzXtbqbO3/kM2sy0yyTAY=
-Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
- [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-575-BJyuAVe8NoWL9cuFA4DHjA-1; Fri, 25 Sep 2020 08:04:47 -0400
-X-MC-Unique: BJyuAVe8NoWL9cuFA4DHjA-1
-Received: by mail-yb1-f200.google.com with SMTP id 140so2512001ybf.2
- for <ltp@lists.linux.it>; Fri, 25 Sep 2020 05:04:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Cy2hNStxiI1FaO/e3e3sGYuzZK0U8nVXpKKwmAUiz+M=;
- b=iPNLnHNsJ65D+v6Ua76MrbFyNnnGiIRz2VcpzBwnYokCiiZh7i4JYoutUqIIdYTvp3
- fX/upPL7pwgoMuCCOfDiE2Ia+Cn1TiXKt1TVJGeIUo/6TPPUnRKW/aXii3OiQ/uLsPit
- lf3yzQ3xWbzAJ9yjhFBB750fzKNpd2ynu7X1TuWnbe/MV0qn7aE8bdn+qqanSKx4R+8R
- UrDVa3tNEDP5W81wGR/0RPH9xQDhV3BCW5qdsWle5CFV4bNfFEtb5fVTfh8CbIydN87L
- XO8NXACUNLdd/dS7ug22OPxUdoOe2RUgL+SRq3StPVcRXSmA67GrwP0vMi7kvwxeYwxy
- SHfg==
-X-Gm-Message-State: AOAM530GdWshiS6LbU+JIB0TahVpwtwAk9NF6OBOUqeSdNRn6HQCj3L2
- 01BmBIFvsxe/Z6tuUahJVQyVyDH/APs305RrO+qVz+lAQyE2NmZyn+4TsGSHjUVA+QzGLfdlKMU
- AsFX8qyN9XAmrZms4fdlC93ke9Ls=
-X-Received: by 2002:a25:730a:: with SMTP id o10mr5039148ybc.403.1601035486663; 
- Fri, 25 Sep 2020 05:04:46 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJz1m1CfYLU0Rz+kK1hotoFbi5Iet7qijAURffW3gkVPM4Q43//5G3kAMuK26y63JWPrfdrosjEs4sUriHOXq14=
-X-Received: by 2002:a25:730a:: with SMTP id o10mr5039110ybc.403.1601035486353; 
- Fri, 25 Sep 2020 05:04:46 -0700 (PDT)
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=US3NgQrsZ878WiAERQcYgWpMONZ5lyrdS4wrWMW6qWk=;
+ b=N2VONAd69ObTOicQqc55Zq1pKvzJuG2uKSplqoChqoum3WI5CdGlsvPr02arQhAjkHK6FJ
+ PtIiv0MH0XJOGmYzMjpI/PZuKG1fKZ+RWyTEwbZgF9ds0gag+k62a5KR23B/Dx9xTcxAQS
+ 9SxtGL7MwEyuqu5b4Sj5tXiMAEwT7rk=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 6365DAC5F;
+ Fri, 25 Sep 2020 12:20:38 +0000 (UTC)
+From: Richard Palethorpe <rpalethorpe@suse.com>
+To: ltp@lists.linux.it
+Date: Fri, 25 Sep 2020 13:19:41 +0100
+Message-Id: <20200925121941.10475-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-References: <20200924111124.5666-1-rpalethorpe@suse.com>
- <CAEemH2eDPzfdUR78d_mSuaDgi=v1RuboDotNwAGrLHCCg1Q41A@mail.gmail.com>
- <877dsjxoak.fsf@suse.de>
- <CAEemH2f_PdJABqTYF6JUH-BVAPO+1kH1AOK0b+x9gpvbELzVKA@mail.gmail.com>
- <874knmxq2y.fsf@suse.de>
-In-Reply-To: <874knmxq2y.fsf@suse.de>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 25 Sep 2020 20:04:34 +0800
-Message-ID: <CAEemH2e26TD5A2V8va6aBk1AaOiS65Qg9LK9YCr4gc+HPct4nA@mail.gmail.com>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] tst_cgroup: Don't try to use V2 if V1 controllers
- are mounted
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [RFC][PATCH] tst_cgroup: Attempt to use CGroups V2 then V1
+ instead of guessing
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,83 +55,217 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Pter Vorel <pvorel@suse.com>, LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1650283931=="
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1650283931==
-Content-Type: multipart/alternative; boundary="0000000000006ff84605b0221f23"
+The best way to find out if we can do something is to try it, we don't
+check if the system has enough RAM and PIDs available before calling
+fork() in safe_fork(). Currently we try to guess what cgroups are
+currently in use then try to use the same version. We guess by
+grepping the mounts and filesystem files, these files need to be
+parsed in a structured way and even then, it is not the job of all
+tests which *use* cgroups to test that if cgroup(2) is present in
+mounts or filesystem that it can then be used.
 
---0000000000006ff84605b0221f23
-Content-Type: text/plain; charset="UTF-8"
+The cpuset group is only available on V1 and we can mount and use V1
+even if V2 is active. Just because the system has V2 active does not
+mean we cannot execute tests which require V1. This is one example
+where trying to figure out ahead of time what can or can't be used
+results in less testing.
 
-Richard Palethorpe <rpalethorpe@suse.de> wrote:
+Furthermore removing these checks results in a ~50% reduction in code
+and this is without correct parsing and checking of mounts and
+filesystems. We also have to consider that just because one V1
+controller is mounted, this does not prevent all V2 controllers from
+being used. So someone may mount V1 cpuset for legacy reasons, while
+using V2 for other controllers. To account for this we would need to
+check each controller individually.
 
-...
-> >> I wonder if it would be better to simply try mounting/using V2 and if
-> >> that fails try V1?
-> >>
-> >
-> > That will be work but not good, because if cgroup mount fails, how do we
-> > know it is a bug or not support?
->
-> I think this is a valid point if you are writing a test for mounting
-> cgroups. However if we are testing something else then trying to guess
-> if cgroups should be available before using them, makes the test
-> fragile. I suppose we could check *after* trying to use the cgroups so
-> we can report some diagnostic info.
->
+Note that the above may be a valid thing to do in a test checking
+specific cgroup behavior, but this library code is meant for use by
+all tests which need cgroups for some reason.
+---
+ include/tst_cgroup.h |   2 -
+ lib/tst_cgroup.c     | 118 ++++++++++++++-----------------------------
+ 2 files changed, 39 insertions(+), 81 deletions(-)
 
-This sounds practicable, please feel free to work out the patch.
-
+diff --git a/include/tst_cgroup.h b/include/tst_cgroup.h
+index 77780e0d6..62d381ce9 100644
+--- a/include/tst_cgroup.h
++++ b/include/tst_cgroup.h
+@@ -21,8 +21,6 @@ enum tst_cgroup_ctrl {
+ 	/* add cgroup controller */
+ };
+ 
+-enum tst_cgroup_ver tst_cgroup_version(void);
+-
+ /* To mount/umount specified cgroup controller on 'cgroup_dir' path */
+ void tst_cgroup_mount(enum tst_cgroup_ctrl ctrl, const char *cgroup_dir);
+ void tst_cgroup_umount(const char *cgroup_dir);
+diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+index ba413d874..887423bc6 100644
+--- a/lib/tst_cgroup.c
++++ b/lib/tst_cgroup.c
+@@ -21,47 +21,6 @@
+ static enum tst_cgroup_ver tst_cg_ver;
+ static int clone_children;
+ 
+-static int tst_cgroup_check(const char *cgroup)
+-{
+-	char line[PATH_MAX];
+-	FILE *file;
+-	int cg_check = 0;
+-
+-	file = SAFE_FOPEN("/proc/filesystems", "r");
+-	while (fgets(line, sizeof(line), file)) {
+-		if (strstr(line, cgroup) != NULL) {
+-			cg_check = 1;
+-			break;
+-		}
+-	}
+-	SAFE_FCLOSE(file);
+-
+-	return cg_check;
+-}
+-
+-enum tst_cgroup_ver tst_cgroup_version(void)
+-{
+-        enum tst_cgroup_ver cg_ver;
+-
+-        if (tst_cgroup_check("cgroup2")) {
+-                if (!tst_is_mounted("cgroup2") && tst_is_mounted("cgroup"))
+-                        cg_ver = TST_CGROUP_V1;
+-                else
+-                        cg_ver = TST_CGROUP_V2;
+-
+-                goto out;
+-        }
+-
+-        if (tst_cgroup_check("cgroup"))
+-                cg_ver = TST_CGROUP_V1;
+-
+-        if (!cg_ver)
+-                tst_brk(TCONF, "Cgroup is not configured");
+-
+-out:
+-        return cg_ver;
+-}
+-
+ static void tst_cgroup1_mount(const char *name, const char *option,
+ 			const char *mnt_path, const char *new_path)
+ {
+@@ -100,26 +59,18 @@ out:
+ 	tst_res(TINFO, "Cgroup(%s) v1 mount at %s success", option, mnt_path);
+ }
+ 
+-static void tst_cgroup2_mount(const char *mnt_path, const char *new_path)
++static int cgroup2_mount(const char *mnt_path, const char *new_path)
+ {
+-	if (tst_is_mounted(mnt_path))
+-		goto out;
++	if (!tst_is_mounted(mnt_path)) {
++		SAFE_MKDIR(mnt_path, 0777);
+ 
+-	SAFE_MKDIR(mnt_path, 0777);
+-	if (mount("cgroup2", mnt_path, "cgroup2", 0, NULL) == -1) {
+-		if (errno == ENODEV) {
+-			if (rmdir(mnt_path) == -1)
+-				tst_res(TWARN | TERRNO, "rmdir %s failed", mnt_path);
+-			tst_brk(TCONF,
+-				 "Cgroup v2 is not configured in kernel");
+-		}
+-		tst_brk(TBROK | TERRNO, "mount %s", mnt_path);
++		if (mount("cgroup2", mnt_path, "cgroup2", 0, NULL) == -1)
++			return -1;
+ 	}
+ 
+-out:
+ 	SAFE_MKDIR(new_path, 0777);
+ 
+-	tst_res(TINFO, "Cgroup v2 mount at %s success", mnt_path);
++	return 0;
+ }
+ 
+ static void tst_cgroupN_umount(const char *mnt_path, const char *new_path)
+@@ -274,39 +225,48 @@ void tst_cgroup_mount(enum tst_cgroup_ctrl ctrl, const char *cgroup_dir)
+ 	char *cgroup_new_dir;
+ 	char knob_path[PATH_MAX];
+ 
+-	tst_cg_ver = tst_cgroup_version();
+-
+ 	tst_cgroup_set_path(cgroup_dir);
+ 	cgroup_new_dir = tst_cgroup_get_path(cgroup_dir);
+ 
+-	if (tst_cg_ver & TST_CGROUP_V1) {
+-		switch(ctrl) {
+-		case TST_CGROUP_MEMCG:
+-			tst_cgroup1_mount("memcg", "memory", cgroup_dir, cgroup_new_dir);
+-		break;
+-		case TST_CGROUP_CPUSET:
+-			tst_cgroup1_mount("cpusetcg", "cpuset", cgroup_dir, cgroup_new_dir);
+-		break;
+-		default:
+-			tst_brk(TBROK, "Invalid cgroup controller: %d", ctrl);
+-		}
++	if (ctrl == TST_CGROUP_CPUSET) {
++		tst_res(TINFO, "CGroup V2 lacks cpuset subsystem, trying V1");
++		goto cgroup_v1;
+ 	}
+ 
+-	if (tst_cg_ver & TST_CGROUP_V2) {
+-		tst_cgroup2_mount(cgroup_dir, cgroup_new_dir);
++	if (cgroup2_mount(cgroup_dir, cgroup_new_dir)) {
++		tst_res(TINFO | TERRNO, "Mounting CGroup V2 failed, trying V1");
++		goto cgroup_v1;
++	}
++
++	tst_res(TINFO, "Mounted CGroup V2");
++
++	switch(ctrl) {
++	case TST_CGROUP_MEMCG:
++		sprintf(knob_path, "%s/cgroup.subtree_control", cgroup_dir);
++		if (FILE_PRINTF(knob_path, "%s", "+memory")) {
++			tst_res(TINFO,
++				"Can't add V2 memory controller, this might be because it is mounted as V1");
++			break;
++		}
++		tst_cg_ver = TST_CGROUP_V2;
++		return;
++	default:
++		tst_brk(TBROK, "Invalid cgroup controller: %d", ctrl);
++	}
+ 
+-		switch(ctrl) {
+-		case TST_CGROUP_MEMCG:
+-			sprintf(knob_path, "%s/cgroup.subtree_control", cgroup_dir);
+-			SAFE_FILE_PRINTF(knob_path, "%s", "+memory");
++cgroup_v1:
++	switch(ctrl) {
++	case TST_CGROUP_MEMCG:
++		tst_cgroup1_mount("memcg", "memory", cgroup_dir, cgroup_new_dir);
+ 		break;
+-		case TST_CGROUP_CPUSET:
+-			tst_brk(TCONF, "Cgroup v2 hasn't achieve cpuset subsystem");
++	case TST_CGROUP_CPUSET:
++		tst_cgroup1_mount("cpusetcg", "cpuset", cgroup_dir, cgroup_new_dir);
+ 		break;
+-		default:
+-			tst_brk(TBROK, "Invalid cgroup controller: %d", ctrl);
+-		}
++	default:
++		tst_brk(TBROK, "Invalid cgroup controller: %d", ctrl);
+ 	}
++
++	tst_cg_ver = TST_CGROUP_V1;
+ }
+ 
+ void tst_cgroup_umount(const char *cgroup_dir)
 -- 
-Regards,
-Li Wang
-
---0000000000006ff84605b0221f23
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><div class=3D"gmail_quote"><div dir=3D"ltr" c=
-lass=3D"gmail_attr">Richard Palethorpe &lt;<a href=3D"mailto:rpalethorpe@su=
-se.de" target=3D"_blank">rpalethorpe@suse.de</a>&gt; wrote:<br></div><div d=
-ir=3D"ltr" class=3D"gmail_attr"><br></div><blockquote class=3D"gmail_quote"=
- style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);p=
-adding-left:1ex"><span class=3D"gmail_default" style=3D"font-size:small">..=
-.</span><br>
-&gt;&gt; I wonder if it would be better to simply try mounting/using V2 and=
- if<br>
-&gt;&gt; that fails try V1?<br>
-&gt;&gt;<br>
-&gt;<br>
-&gt; That will be work but not good, because if cgroup mount fails, how do =
-we<br>
-&gt; know it is a bug or not support?<br>
-<br>
-I think this is a valid point if you are writing a test for mounting<br>
-cgroups. However if we are testing something else then trying to guess<br>
-if cgroups should be available before using them, makes the test<br>
-fragile. I suppose we could check *after* trying to use the cgroups so<br>
-we can report some diagnostic info.<br></blockquote><div><br></div><div><di=
-v class=3D"gmail_default" style=3D"font-size:small">This sounds practicable=
-, please feel free to work out the patch.</div></div><div>=C2=A0</div></div=
->-- <br><div dir=3D"ltr"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wa=
-ng<br></div></div></div></div>
-
---0000000000006ff84605b0221f23--
-
-
---===============1650283931==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+2.28.0
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1650283931==--
-
