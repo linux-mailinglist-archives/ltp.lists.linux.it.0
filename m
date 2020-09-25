@@ -2,44 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB74A27872F
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Sep 2020 14:26:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B604E27874D
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Sep 2020 14:33:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 90D4F3C3032
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Sep 2020 14:26:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 82A333C3032
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Sep 2020 14:33:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id E216E3C1841
- for <ltp@lists.linux.it>; Fri, 25 Sep 2020 14:26:21 +0200 (CEST)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 9BC9B3C1841
+ for <ltp@lists.linux.it>; Fri, 25 Sep 2020 14:33:49 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8E281600696
- for <ltp@lists.linux.it>; Fri, 25 Sep 2020 14:26:21 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 308121000F67
+ for <ltp@lists.linux.it>; Fri, 25 Sep 2020 14:33:48 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EB956AC5F;
- Fri, 25 Sep 2020 12:26:20 +0000 (UTC)
-References: <20200924111124.5666-1-rpalethorpe@suse.com>
- <CAEemH2eDPzfdUR78d_mSuaDgi=v1RuboDotNwAGrLHCCg1Q41A@mail.gmail.com>
- <877dsjxoak.fsf@suse.de>
- <CAEemH2f_PdJABqTYF6JUH-BVAPO+1kH1AOK0b+x9gpvbELzVKA@mail.gmail.com>
- <874knmxq2y.fsf@suse.de>
- <CAEemH2e26TD5A2V8va6aBk1AaOiS65Qg9LK9YCr4gc+HPct4nA@mail.gmail.com>
-User-agent: mu4e 1.4.13; emacs 27.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Li Wang <liwang@redhat.com>
-In-reply-to: <CAEemH2e26TD5A2V8va6aBk1AaOiS65Qg9LK9YCr4gc+HPct4nA@mail.gmail.com>
-Date: Fri, 25 Sep 2020 13:26:20 +0100
-Message-ID: <871riqxcsz.fsf@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 7D65AAD83
+ for <ltp@lists.linux.it>; Fri, 25 Sep 2020 12:33:48 +0000 (UTC)
+Date: Fri, 25 Sep 2020 14:34:19 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <20200925123419.GD6554@yuki.lan>
+References: <20200924144246.12750-1-mdoucha@suse.cz>
+ <20200924144246.12750-2-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200924144246.12750-2-mdoucha@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] tst_cgroup: Don't try to use V2 if V1 controllers
- are mounted
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] mmap18: Increase minimal stack mapping to 8KB
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,44 +47,61 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: Pter Vorel <pvorel@suse.com>, LTP List <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello Li,
+Hi!
+> The first testcase keeps segfaulting on older kernels with only 4KB initial
+> stack mapping
+> 
+> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+> ---
+> 
+> Note: Increasing initial stack size to 8KB fixes the segfaults but I'm not
+> entirely sure whether we shouldn't use PTHREAD_STACK_MIN as the minimal size
+> instead. Pthread man page isn't entirely clear whether PTHREAD_STACK_MIN is
+> the minimal value for stack size after it grows to the limit, or the minimal
+> size of the initial stack mapping (before it starts growing).
 
-Li Wang <liwang@redhat.com> writes:
+I vote for passing down PTHREAD_STACK_MIN for the initial mapping.
 
-> Richard Palethorpe <rpalethorpe@suse.de> wrote:
->
-> ...
->> >> I wonder if it would be better to simply try mounting/using V2 and if
->> >> that fails try V1?
->> >>
->> >
->> > That will be work but not good, because if cgroup mount fails, how do we
->> > know it is a bug or not support?
->>
->> I think this is a valid point if you are writing a test for mounting
->> cgroups. However if we are testing something else then trying to guess
->> if cgroups should be available before using them, makes the test
->> fragile. I suppose we could check *after* trying to use the cgroups so
->> we can report some diagnostic info.
->>
->
-> This sounds practicable, please feel free to work out the patch.
-
-OK, I just sent a new patch. However there is no diagnostic info yet,
-I'm not sure if actually it would be better to make a test specifically
-checking if cgroups can be mounted and checking what is in filesystems
-and mounts.
+> On x86_64, PTHREAD_STACK_MIN is 4 pages (16KB). On PPC64, it's 2 pages
+> (128KB).
+> 
+>  testcases/kernel/syscalls/mmap/mmap18.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/testcases/kernel/syscalls/mmap/mmap18.c b/testcases/kernel/syscalls/mmap/mmap18.c
+> index 966bf673e..8b149fb93 100644
+> --- a/testcases/kernel/syscalls/mmap/mmap18.c
+> +++ b/testcases/kernel/syscalls/mmap/mmap18.c
+> @@ -201,10 +201,11 @@ static void grow_stack_fail(size_t stack_size, size_t mapped_size)
+>  static void run_test(void)
+>  {
+>  	size_t stack_size = 8 * PTHREAD_STACK_MIN;
+> +	size_t minsize = MAX(page_size, 8192);
+>  
+> -	grow_stack_success(stack_size, page_size);
+> +	grow_stack_success(stack_size, minsize);
+>  	grow_stack_success(stack_size, stack_size/2);
+> -	grow_stack_fail(stack_size, page_size);
+> +	grow_stack_fail(stack_size, minsize);
+>  	grow_stack_fail(stack_size, stack_size/2);
+>  }
+>  
+> -- 
+> 2.28.0
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
 
 -- 
-Thank you,
-Richard.
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
