@@ -1,49 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47AF427A792
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Sep 2020 08:32:31 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4563027A796
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Sep 2020 08:34:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 07B063C2B2E
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Sep 2020 08:32:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C43E63C2B2B
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Sep 2020 08:34:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id DBB493C285E
- for <ltp@lists.linux.it>; Mon, 28 Sep 2020 08:32:28 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 81FBF1A00678
- for <ltp@lists.linux.it>; Mon, 28 Sep 2020 08:32:26 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.77,312,1596470400"; d="scan'208";a="99669190"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 28 Sep 2020 14:32:22 +0800
-Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
- by cn.fujitsu.com (Postfix) with ESMTP id EB75848990F4
- for <ltp@lists.linux.it>; Mon, 28 Sep 2020 14:32:19 +0800 (CST)
-Received: from G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) by
- G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 28 Sep 2020 14:32:21 +0800
-Received: from Fedora-31.g08.fujitsu.local (10.167.220.31) by
- G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) with Microsoft SMTP Server
- id 15.0.1497.2 via Frontend Transport; Mon, 28 Sep 2020 14:32:17 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Mon, 28 Sep 2020 14:13:47 +0800
-Message-ID: <20200928061347.275858-1-yangx.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 2.25.1
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 1D4963C003D
+ for <ltp@lists.linux.it>; Mon, 28 Sep 2020 08:34:39 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id E4F216404A1
+ for <ltp@lists.linux.it>; Mon, 28 Sep 2020 08:34:37 +0200 (CEST)
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1601274876;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=KGlOKGRgNysHo+/BO6GuQlco1rNhgNZEP482uMe2rLI=;
+ b=WyS11UP5VBTymJHLHGpbxhWWU0GPZYINxarij6tUfDjFLj9LbHuayxBxWGdpASChYX59k4
+ j6y1YLjo3CrY9V5krVnpMoFyNmsPyuJnc977GGlwu/SO7zs71WePynpPI2XGuYzGxADpK0
+ wqxrYwVTF7VJp1arQ/qhCWCvdKUrwlw=
+Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
+ [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-20-5HPWcPdENeGYBrj39xZs8A-1; Mon, 28 Sep 2020 02:34:33 -0400
+X-MC-Unique: 5HPWcPdENeGYBrj39xZs8A-1
+Received: by mail-yb1-f198.google.com with SMTP id 139so61868ybe.15
+ for <ltp@lists.linux.it>; Sun, 27 Sep 2020 23:34:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=KGlOKGRgNysHo+/BO6GuQlco1rNhgNZEP482uMe2rLI=;
+ b=QI1Cjbz49r/9/6fZIQY9dixG/Ipv2rvLOKFHVW6LPh0WMPcqZaOjQtgvMvAbA5Fd7o
+ uADH5fal9NuGbJJxUf/vwq4+xqfxqIxc0V0D+zlHq3F/JXXfrXlFricm9c07snT0gBiu
+ Hxk3HY3jtuTAm2Baub/34l9G82jkeIuOXRcklgVUCFE9g3I/+fKf7U7PHo1Znmp8xikm
+ 3MZ5LefK9G7aXvHzJ8vdB9QDenjMrQIJ9zxzuIAHLS+A7aicOCKolj/L11a10iUQf0G9
+ pOQo+XfSDS9gDUMYWdKcGFHO50FcUcp9hacLsTS3ZUU8Zrc31qNg4MizmutKDpkPkL7z
+ /iPA==
+X-Gm-Message-State: AOAM5324wlAMJDF52vLW49YNmPZYiO++TwqXRssFXQ9XjvmH6f2iu+kt
+ 56SHH0vufq3jngLs+0fURIjbynHrLu8QiddsONMB1rTsQxvIeCwGhpZUs+Qna8F4tfi70ct+1tR
+ p2rCGZBfDK7suDdzSPYhM8Sgwzcs=
+X-Received: by 2002:a25:730a:: with SMTP id o10mr91080ybc.403.1601274872516;
+ Sun, 27 Sep 2020 23:34:32 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzyxJ8gsYMQJiIipL3OH7p5ngwKSBYEl5C4iGD0tQwe2Jv5qc7hC9LVfwLYrrhSag8SN2bkKJqZsOy6FzKBQNk=
+X-Received: by 2002:a25:730a:: with SMTP id o10mr91066ybc.403.1601274872311;
+ Sun, 27 Sep 2020 23:34:32 -0700 (PDT)
 MIME-Version: 1.0
-X-yoursite-MailScanner-ID: EB75848990F4.A8BF8
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+References: <20200928054043.17058-1-po-hsu.lin@canonical.com>
+In-Reply-To: <20200928054043.17058-1-po-hsu.lin@canonical.com>
+From: Li Wang <liwang@redhat.com>
+Date: Mon, 28 Sep 2020 14:34:20 +0800
+Message-ID: <CAEemH2dfGU3ieQhrFY7t+=1oUp_rji_eAY37tt30z=QzpeYrQA@mail.gmail.com>
+To: Po-Hsu Lin <po-hsu.lin@canonical.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH] controllers/libcpuset.c: Add 'cpuset' prefix for
- cpuset files
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] cpuset_inherit_test: compatibility fix for DASH
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,126 +80,72 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0501250338=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-cpuset_cpusetofpid() in cpuset_cpu_hog.c cannot find cpuset files by
-wrong names(without 'cpuset' prefix) so cpuset_load_balance_test.sh
-reported the following error:
----------------------------------------
-cpuset_load_balance 1 TFAIL: load balance test failed.
----------------------------------------
+--===============0501250338==
+Content-Type: multipart/alternative; boundary="000000000000f3cafc05b059db04"
 
-Use correct names(with 'cpuset' prefix) to find cpuset files.
+--000000000000f3cafc05b059db04
+Content-Type: text/plain; charset="UTF-8"
 
-Fixes: #690
-Signed-off-by: Xiao Yang <yangx.jy@cn.fujitsu.com>
----
- .../controllers/cpuset/cpuset_lib/libcpuset.c | 36 +++++++++----------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+On Mon, Sep 28, 2020 at 1:41 PM Po-Hsu Lin <po-hsu.lin@canonical.com> wrote:
 
-diff --git a/testcases/kernel/controllers/cpuset/cpuset_lib/libcpuset.c b/testcases/kernel/controllers/cpuset/cpuset_lib/libcpuset.c
-index 172e23714..a687ad2ee 100644
---- a/testcases/kernel/controllers/cpuset/cpuset_lib/libcpuset.c
-+++ b/testcases/kernel/controllers/cpuset/cpuset_lib/libcpuset.c
-@@ -2093,11 +2093,11 @@ int cpuset_query(struct cpuset *cp, const char *relpath)
- 
- 	fullpath(buf, sizeof(buf), relpath);
- 
--	if (load_flag(buf, &cp->cpu_exclusive, "cpu_exclusive") < 0)
-+	if (load_flag(buf, &cp->cpu_exclusive, "cpuset.cpu_exclusive") < 0)
- 		goto err;
- 	cp->cpu_exclusive_valid = 1;
- 
--	if (load_flag(buf, &cp->mem_exclusive, "mem_exclusive") < 0)
-+	if (load_flag(buf, &cp->mem_exclusive, "cpuset.mem_exclusive") < 0)
- 		goto err;
- 	cp->mem_exclusive_valid = 1;
- 
-@@ -2105,60 +2105,60 @@ int cpuset_query(struct cpuset *cp, const char *relpath)
- 		goto err;
- 	cp->notify_on_release_valid = 1;
- 
--	if (exists_flag(buf, "memory_migrate")) {
--		if (load_flag(buf, &cp->memory_migrate, "memory_migrate") < 0)
-+	if (exists_flag(buf, "cpuset.memory_migrate")) {
-+		if (load_flag(buf, &cp->memory_migrate, "cpuset.memory_migrate") < 0)
- 			goto err;
- 		cp->memory_migrate_valid = 1;
- 	}
- 
--	if (exists_flag(buf, "mem_hardwall")) {
--		if (load_flag(buf, &cp->mem_hardwall, "mem_hardwall") < 0)
-+	if (exists_flag(buf, "cpuset.mem_hardwall")) {
-+		if (load_flag(buf, &cp->mem_hardwall, "cpuset.mem_hardwall") < 0)
- 			goto err;
- 		cp->mem_hardwall_valid = 1;
- 	}
- 
--	if (exists_flag(buf, "memory_pressure_enabled")) {
-+	if (exists_flag(buf, "cpuset.memory_pressure_enabled")) {
- 		if (load_flag
- 		    (buf, &cp->memory_pressure_enabled,
--		     "memory_pressure_enabled") < 0)
-+		     "cpuset.memory_pressure_enabled") < 0)
- 			goto err;
- 		cp->memory_pressure_enabled_valid = 1;
- 	}
- 
--	if (exists_flag(buf, "memory_spread_page")) {
-+	if (exists_flag(buf, "cpuset.memory_spread_page")) {
- 		if (load_flag
--		    (buf, &cp->memory_spread_page, "memory_spread_page") < 0)
-+		    (buf, &cp->memory_spread_page, "cpuset.memory_spread_page") < 0)
- 			goto err;
- 		cp->memory_spread_page_valid = 1;
- 	}
- 
--	if (exists_flag(buf, "memory_spread_slab")) {
-+	if (exists_flag(buf, "cpuset.memory_spread_slab")) {
- 		if (load_flag
--		    (buf, &cp->memory_spread_slab, "memory_spread_slab") < 0)
-+		    (buf, &cp->memory_spread_slab, "cpuset.memory_spread_slab") < 0)
- 			goto err;
- 		cp->memory_spread_slab_valid = 1;
- 	}
- 
--	if (exists_flag(buf, "sched_load_balance")) {
-+	if (exists_flag(buf, "cpuset.sched_load_balance")) {
- 		if (load_flag
--		    (buf, &cp->sched_load_balance, "sched_load_balance") < 0)
-+		    (buf, &cp->sched_load_balance, "cpuset.sched_load_balance") < 0)
- 			goto err;
- 		cp->sched_load_balance_valid = 1;
- 	}
- 
--	if (exists_flag(buf, "sched_relax_domain_level")) {
-+	if (exists_flag(buf, "cpuset.sched_relax_domain_level")) {
- 		if (load_number
- 		    (buf, &cp->sched_relax_domain_level,
--		     "sched_relax_domain_level") < 0)
-+		     "cpuset.sched_relax_domain_level") < 0)
- 			goto err;
- 		cp->sched_relax_domain_level_valid = 1;
- 	}
- 
--	if (load_mask(buf, &cp->cpus, cpuset_cpus_nbits(), "cpus") < 0)
-+	if (load_mask(buf, &cp->cpus, cpuset_cpus_nbits(), "cpuset.cpus") < 0)
- 		goto err;
- 	cp->cpus_valid = 1;
- 
--	if (load_mask(buf, &cp->mems, cpuset_mems_nbits(), "mems") < 0)
-+	if (load_mask(buf, &cp->mems, cpuset_mems_nbits(), "cpuset.mems") < 0)
- 		goto err;
- 	cp->mems_valid = 1;
- 
+> The /bin/sh was symbolically link to dash in Ubuntu, in which the
+> "let" expression does not work, it will complain about:
+>     cpuset_inherit_testset.sh: let: not found
+>
+> Fix it with double parentheses arithmetic expansion to improve the
+> compatibility.
+>
+> Signed-off-by: Po-Hsu Lin <po-hsu.lin@canonical.com>
+>
+
+Pushed, thanks!
+
+
 -- 
-2.25.1
+Regards,
+Li Wang
+
+--000000000000f3cafc05b059db04
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Mon, Sep 28, 2020 at 1:41 PM Po-Hsu Lin &lt;<a h=
+ref=3D"mailto:po-hsu.lin@canonical.com">po-hsu.lin@canonical.com</a>&gt; wr=
+ote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
+ 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">The /bin/sh=
+ was symbolically link to dash in Ubuntu, in which the<br>
+&quot;let&quot; expression does not work, it will complain about:<br>
+=C2=A0 =C2=A0 cpuset_inherit_testset.sh: let: not found<br>
+<br>
+Fix it with double parentheses arithmetic expansion to improve the<br>
+compatibility.<br>
+<br>
+Signed-off-by: Po-Hsu Lin &lt;<a href=3D"mailto:po-hsu.lin@canonical.com" t=
+arget=3D"_blank">po-hsu.lin@canonical.com</a>&gt;<br></blockquote><div><br>=
+</div><div><div class=3D"gmail_default" style=3D"font-size:small">Pushed, t=
+hanks!</div><br></div><div><br></div></div>-- <br><div dir=3D"ltr" class=3D=
+"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br><=
+/div></div></div></div>
+
+--000000000000f3cafc05b059db04--
 
 
+--===============0501250338==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0501250338==--
+
