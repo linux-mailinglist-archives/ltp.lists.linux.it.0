@@ -1,41 +1,46 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA85B27AA1E
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Sep 2020 11:00:16 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C3C127B5A1
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Sep 2020 21:47:38 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7B4B73C4CAF
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Sep 2020 11:00:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 47AA13C2B92
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Sep 2020 21:47:38 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id C80503C04C3
- for <ltp@lists.linux.it>; Mon, 28 Sep 2020 11:00:12 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id CDEDB1000955
- for <ltp@lists.linux.it>; Mon, 28 Sep 2020 11:00:11 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 21EFDADA8;
- Mon, 28 Sep 2020 09:00:11 +0000 (UTC)
-References: <20200925121941.10475-1-rpalethorpe@suse.com>
- <CAEemH2eo6qVt0D36QVDFeW_2csWFEDnnghxRjd3_Ysu=CD-8Hw@mail.gmail.com>
-User-agent: mu4e 1.4.13; emacs 27.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Li Wang <liwang@redhat.com>
-In-reply-to: <CAEemH2eo6qVt0D36QVDFeW_2csWFEDnnghxRjd3_Ysu=CD-8Hw@mail.gmail.com>
-Date: Mon, 28 Sep 2020 10:00:10 +0100
-Message-ID: <87y2kuwa1x.fsf@suse.de>
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 18F7D3C061B
+ for <ltp@lists.linux.it>; Mon, 28 Sep 2020 21:47:36 +0200 (CEST)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 2DA6660095F
+ for <ltp@lists.linux.it>; Mon, 28 Sep 2020 21:47:35 +0200 (CEST)
+Received: from localhost.localdomain (c-73-42-176-67.hsd1.wa.comcast.net
+ [73.42.176.67])
+ by linux.microsoft.com (Postfix) with ESMTPSA id CF09120B7178;
+ Mon, 28 Sep 2020 12:47:33 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com CF09120B7178
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1601322454;
+ bh=mp/cwU/D1jFQ2uxW67x5UACNptiiB8HeXLS+UpRGtuA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=DVtyyviQ/DcGrJim5lBcPFk6thGBshSZJL2YXwKo+iqaJZrz+EsLLUfZSmkhQNi11
+ h35D+BWZ8mmLQOdJ939TI0nuy1sSVmCYPF1v90zE9ETjBeMq+myIIRoxZ0XgB2cxVy
+ SjWwuV5VI8KgA+1xmVyqK3bt+qKesx5/8HjjCW3Y=
+From: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+To: pvorel@suse.cz, zohar@linux.ibm.com, stephen.smalley.work@gmail.com,
+ paul@paul-moore.com
+Date: Mon, 28 Sep 2020 12:47:29 -0700
+Message-Id: <20200928194730.20862-1-nramas@linux.microsoft.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [RFC][PATCH] tst_cgroup: Attempt to use CGroups V2 then
- V1 instead of guessing
+X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_PASS,SPF_PASS,
+ USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v1 0/1] ima: Add test for selinux measurement
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,50 +52,55 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: LTP List <ltp@lists.linux.it>
+Cc: tusharsu@linux.microsoft.com, linux-integrity@vger.kernel.org,
+ ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello Li,
+New functionality is being added to IMA to measure data provided by
+kernel components. With this feature, IMA policy can be set to enable
+measuring data provided by Linux Security Modules (LSM). Currently one
+such LSM namely selinux is being updated to use this functionality.
+This new functionality needs test automation in LTP.
 
-Li Wang <liwang@redhat.com> writes:
+This patch set adds tests which verify that the IMA subsystem correctly
+measures the data provided by selinux.
 
->>
->> -static void tst_cgroup2_mount(const char *mnt_path, const char *new_path)
->> +static int cgroup2_mount(const char *mnt_path, const char *new_path)
->>
->
-> We'd like to make the series function name starts with tst_*.
->
+This patch is based on 
+commit 286401a1c1f3 ("thp04: Add linux tag")
+in "master" branch in https://github.com/linux-test-project/ltp
 
-The idea is this will be an internal/static function and
-tst_cgroup2_mount will be a public function if it is needed. I guess
-that eventually there will be features only available in cgroup2, in
-which case the test author will want to call tst_cgroup2_mount not
-tst_cgroup_mount and they will just want it to fail with tst_brk if
-cgroup2 can't be mounted.
+This patch is dependent on the following patch series in LTP
+https://patchwork.kernel.org/patch/11802771/
 
-Infact, if the user wants cpuset or some other V1 only controller, then
-they should probably call tst_cgroup1_mount. AFAICT some of these
-controllers will not be moved to V2. OTOH a functionally similar feature
-may be available in V2, but with a different interface. There is a
-difference between requiring a specific controller to test it and
-needing some functionality without caring how it is provided.
+This series needs a kernel built on the following repo/branch/patches:
+repo: https://git.kernel.org/pub/scm/linux/kernel/git/pcmoore/selinux.git
+branch: next
+commit 8861d0af642c ("selinux: Add helper functions to get and set checkreqprot")
 
-So I suggest providing an API for mounting specific cgroup versions and
-controllers and an API to mount specific controllers of either version
-(i.e. tst_cgroup_mount). Then we can create helper functions to provide
-functionality without caring how it is achieved, if we need to do that.
+And the following patch series should be applied in the following order:
+  1, https://patchwork.kernel.org/patch/11709527/
+  2, https://patchwork.kernel.org/patch/11795559/
+  3, https://patchwork.kernel.org/patch/11801525/
+  4, https://patchwork.kernel.org/patch/11801585/
 
-Other comments sound good! I will try creating another patch with
-diagnostics.
+Lakshmi Ramasubramanian (1):
+  ima: Add test for selinux measurement
+
+ runtest/ima                                   |   2 +
+ .../kernel/security/integrity/ima/README.md   |  19 +++
+ .../integrity/ima/tests/ima_selinux_policy.sh |  72 ++++++++++
+ .../integrity/ima/tests/ima_selinux_state.sh  | 136 ++++++++++++++++++
+ .../security/integrity/ima/tests/ima_setup.sh |  28 ++++
+ 5 files changed, 257 insertions(+)
+ create mode 100755 testcases/kernel/security/integrity/ima/tests/ima_selinux_policy.sh
+ create mode 100755 testcases/kernel/security/integrity/ima/tests/ima_selinux_state.sh
 
 -- 
-Thank you,
-Richard.
+2.28.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
