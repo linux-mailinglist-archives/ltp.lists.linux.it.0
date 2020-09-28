@@ -1,48 +1,66 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF9A727A60A
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Sep 2020 05:56:23 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E36F027A704
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Sep 2020 07:41:26 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 624E13C2A29
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Sep 2020 05:56:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 957CE3C2B0E
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Sep 2020 07:41:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id D4FCF3C0151
- for <ltp@lists.linux.it>; Mon, 28 Sep 2020 05:56:21 +0200 (CEST)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id DC9272002C9
- for <ltp@lists.linux.it>; Mon, 28 Sep 2020 05:56:20 +0200 (CEST)
-Received: from tusharsu-Ubuntu.lan (c-71-197-163-6.hsd1.wa.comcast.net
- [71.197.163.6])
- by linux.microsoft.com (Postfix) with ESMTPSA id 73DD9208ABC7;
- Sun, 27 Sep 2020 20:56:19 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 73DD9208ABC7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1601265379;
- bh=rzh9do29mmz5gxBiNXt0gG2p7pXuvKOF0Ny99h/ur8o=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=S+ur5vCfr4zMrfzvWHeoy9ro+gwLce9UZ0zvY+d69GNtc5cnHfEgjfx8lZQJWoRkE
- dMtizeiTeu4zbjfz57Fpq4vXEysjsn6QVzFaYmKBp9Oo2q6HHiGfr4ZcWX2avFzIY9
- ESM+6vBee947haVG4G2oWmzN+HMK2IrwJFbOBWxM=
-From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-To: zohar@linux.ibm.com, agk@redhat.com, snitzer@redhat.com,
- gmazyland@gmail.com, pvorel@suse.cz
-Date: Sun, 27 Sep 2020 20:56:05 -0700
-Message-Id: <20200928035605.22701-3-tusharsu@linux.microsoft.com>
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 559303C061B
+ for <ltp@lists.linux.it>; Mon, 28 Sep 2020 07:41:24 +0200 (CEST)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 98BB810006B1
+ for <ltp@lists.linux.it>; Mon, 28 Sep 2020 07:41:23 +0200 (CEST)
+Received: from mail-pf1-f200.google.com ([209.85.210.200])
+ by youngberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <po-hsu.lin@canonical.com>) id 1kMluc-0001kb-Dl
+ for ltp@lists.linux.it; Mon, 28 Sep 2020 05:41:22 +0000
+Received: by mail-pf1-f200.google.com with SMTP id c197so6984583pfb.23
+ for <ltp@lists.linux.it>; Sun, 27 Sep 2020 22:41:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=kcBfAyNN9HAJrugSFMc8u0N4UJN1IG6HUkJmVWkGfu4=;
+ b=SH/neV7kpxkL+JvFZGJBQdFm19L4vp9Eqhy7EOmh8C1q6cNvpLApxZhMPwqByfiulc
+ xl/g+H6cOgecpT1ciOacr27xWuXdN72MWeePIcIVmHwVNwNOYL2ZuDLisIolv1qSrN2P
+ SO6t7dEJfaUfuw/5vWTZpg+ISXV0YeI/6jKxXytwzwEp2zhcO1VIL+k3yeGIZm+uH5vQ
+ W5jiZwBD182uOmjcqLCMf2XGA8pLmV7Rm/caC8pwRrKqWXg80YVpZhCg33mYzsls9q82
+ ijGQyzqNQBuVZqnwUkE/E5P5bE1x6ETJTSFmFDrrmxMBlqkhjD0i3JDs4+tR43AuFv4/
+ YQkA==
+X-Gm-Message-State: AOAM531eyLmhYiJzFNz+ebycmrRmxHKMs9d/AFJxfMIAYFWKNBSQr2Me
+ JipxxGytM31Lt3nTzedsBSu1UShBldos1VW3NtRx2uHb16t5l967ZxaC8HDuCRV4V26IwBOFhUI
+ 6Hmhnj8pUQL+jwr4PojMU5/fWHeA=
+X-Received: by 2002:a17:902:309:b029:d1:e5e7:ca3f with SMTP id
+ 9-20020a1709020309b02900d1e5e7ca3fmr69613pld.43.1601271680855; 
+ Sun, 27 Sep 2020 22:41:20 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxrLRf/cBYztlLP6IA23wP0xF7529/78wLV+T/2dZvQbARqyPY8m+2UThUEVRoTQewMoJN/Ow==
+X-Received: by 2002:a17:902:309:b029:d1:e5e7:ca3f with SMTP id
+ 9-20020a1709020309b02900d1e5e7ca3fmr69584pld.43.1601271680395; 
+ Sun, 27 Sep 2020 22:41:20 -0700 (PDT)
+Received: from Leggiero.taipei.internal (61-220-137-37.HINET-IP.hinet.net.
+ [61.220.137.37])
+ by smtp.gmail.com with ESMTPSA id q18sm10125702pfg.158.2020.09.27.22.41.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 27 Sep 2020 22:41:19 -0700 (PDT)
+From: Po-Hsu Lin <po-hsu.lin@canonical.com>
+To: ltp@lists.linux.it
+Date: Mon, 28 Sep 2020 13:40:43 +0800
+Message-Id: <20200928054043.17058-1-po-hsu.lin@canonical.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200928035605.22701-1-tusharsu@linux.microsoft.com>
-References: <20200928035605.22701-1-tusharsu@linux.microsoft.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_PASS,SPF_PASS,
- USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/2] IMA: Add test for dm-crypt measurement
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH] cpuset_inherit_test: compatibility fix for DASH
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,138 +72,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: nramas@linux.microsoft.com, linux-integrity@vger.kernel.org,
- dm-devel@redhat.com, ltp@lists.linux.it
+Cc: po-hsu.lin@canonical.com
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-New functionality is being added to IMA to measure data provided by
-kernel components. With this feature, IMA policy can be set to enable
-measuring data provided by device-mapper targets. Currently one such
-device-mapper target - dm-crypt, is being updated to use this
-functionality. This new functionality needs test automation in LTP.
+The /bin/sh was symbolically link to dash in Ubuntu, in which the
+"let" expression does not work, it will complain about:
+    cpuset_inherit_testset.sh: let: not found
 
-Add a testcase which verifies that the IMA subsystem correctly measures
-the data coming from a device-mapper target - dm-crypt.
+Fix it with double parentheses arithmetic expansion to improve the
+compatibility.
 
-Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+Signed-off-by: Po-Hsu Lin <po-hsu.lin@canonical.com>
 ---
- runtest/ima                                   |  1 +
- .../kernel/security/integrity/ima/README.md   | 20 +++++++
- .../integrity/ima/tests/ima_dm_crypt.sh       | 60 +++++++++++++++++++
- 3 files changed, 81 insertions(+)
- create mode 100755 testcases/kernel/security/integrity/ima/tests/ima_dm_crypt.sh
+ .../cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh        | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/runtest/ima b/runtest/ima
-index 5f4b4a7a1..123b6c8b0 100644
---- a/runtest/ima
-+++ b/runtest/ima
-@@ -5,4 +5,5 @@ ima_tpm ima_tpm.sh
- ima_violations ima_violations.sh
- ima_keys ima_keys.sh
- ima_kexec ima_kexec.sh
-+ima_dm_crypt ima_dm_crypt.sh
- evm_overlay evm_overlay.sh
-diff --git a/testcases/kernel/security/integrity/ima/README.md b/testcases/kernel/security/integrity/ima/README.md
-index 68d046678..007662fae 100644
---- a/testcases/kernel/security/integrity/ima/README.md
-+++ b/testcases/kernel/security/integrity/ima/README.md
-@@ -37,6 +37,26 @@ see example in `kexec.policy`.
- The test attempts to kexec the existing running kernel image.
- To kexec a different kernel image export `IMA_KEXEC_IMAGE=<pathname>`.
- 
-+### IMA DM target (dm-crypt) measurement test
-+
-+To enable IMA to measure device-mapper target - dm-crypt,
-+`ima_dm_crypt.sh` requires a readable IMA policy, as well as
-+a loaded measure policy with
-+`func=CRITICAL_DATA data_sources=dm-crypt`
-+
-+As well as what's required for the IMA tests, dm-crypt measurement test require
-+reading the IMA policy allowed in the kernel configuration:
-+```
-+CONFIG_IMA_READ_POLICY=y
-+```
-+
-+The following kernel configuration is also required. It enables compiling
-+the device-mapper target module dm-crypt, which allows to create a device
-+that transparently encrypts the data on it.
-+```
-+CONFIG_DM_CRYPT
-+```
-+
- ## EVM tests
- 
- `evm_overlay.sh` requires a builtin IMA appraise tcb policy (e.g. `ima_policy=appraise_tcb`
-diff --git a/testcases/kernel/security/integrity/ima/tests/ima_dm_crypt.sh b/testcases/kernel/security/integrity/ima/tests/ima_dm_crypt.sh
-new file mode 100755
-index 000000000..396033f8d
---- /dev/null
-+++ b/testcases/kernel/security/integrity/ima/tests/ima_dm_crypt.sh
-@@ -0,0 +1,60 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2020 Microsoft Corporation
-+# Author: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-+#
-+# Verify that DM target dm-crypt are measured correctly based on policy.
-+
-+TST_NEEDS_CMDS="dmsetup"
-+TST_CNT=1
-+TST_NEEDS_DEVICE=1
-+TST_SETUP=setup
-+TST_CLEANUP=cleanup
-+
-+. ima_setup.sh
-+
-+FUNC_CRIT_DATA='func=CRITICAL_DATA'
-+TEMPLATE_BUF='template=ima-buf'
-+REQUIRED_POLICY="^measure.*($FUNC_CRIT_DATA.*$TEMPLATE_BUF|$TEMPLATE_BUF.*$FUNC_CRIT_DATA)"
-+
-+setup()
-+{
-+	require_ima_policy_content "$REQUIRED_POLICY" '-E' > $TST_TMPDIR/policy.txt
-+}
-+
-+cleanup()
-+{
-+	ROD "dmsetup remove test-crypt"
-+}
-+
-+test1()
-+{
-+	local input_digest="039d8ff71918608d585adca3e5aab2e3f41f84d6"
-+	local pattern='data_sources=[^[:space:]]+'
-+	local tmp_file="$TST_TMPDIR/dm_crypt_tmp.txt"
-+	local policy="data_sources"
-+	local arg key res
-+
-+	tst_res TINFO "verifying dm target - dmcrypt gets measured correctly"
-+
-+	check_policy_pattern "$pattern" $FUNC_CRIT_DATA $TEMPLATE_BUF > $tmp_file || return
-+
-+	tgt="crypt"
-+	key="faf453b4ee938cff2f0d2c869a0b743f59125c0a37f5bcd8f1dbbd911a78abaa"
-+
-+	arg="'0 1953125 crypt aes-xts-plain64 "
-+	arg="$arg $key 0 "
-+	arg="$arg /dev/loop0 0 1 allow_discards'"
-+
-+	ROD "dmsetup create test-crypt --table $arg"
-+
-+	res="$(check_ima_ascii_log_for_policy $policy $tmp_file $input_digest)"
-+
-+	if [ $res = "0" ]; then
-+		tst_res TPASS "dm-crypt target verification passed"
-+	else
-+		tst_res TFAIL "dm-crypt target verification failed"
-+	fi
-+}
-+
-+tst_run
+diff --git a/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh b/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh
+index 86856c3fb..73eed2cb9 100755
+--- a/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh
++++ b/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh
+@@ -106,7 +106,7 @@ inherit_test()
+ test_cpus()
+ {
+ 	cfile_name="cpus"
+-	let "num=$nr_cpus-1"
++	num=$((nr_cpus-1))
+ 	cpu_string="0-$num"
+ 	if [ $nr_cpus -eq 1 ]; then
+ 		cpu_string="0"
 -- 
 2.17.1
 
