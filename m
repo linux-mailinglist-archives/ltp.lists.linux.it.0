@@ -2,39 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4362D27E6A6
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 12:29:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38DCA27E6F8
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 12:46:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8F7873C4C11
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 12:29:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DF2C53C4C0D
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 12:46:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 9E42A3C2824
- for <ltp@lists.linux.it>; Wed, 30 Sep 2020 12:29:01 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id C719B3C2824
+ for <ltp@lists.linux.it>; Wed, 30 Sep 2020 12:46:42 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1DB1A600671
- for <ltp@lists.linux.it>; Wed, 30 Sep 2020 12:29:00 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 46B891400C42
+ for <ltp@lists.linux.it>; Wed, 30 Sep 2020 12:46:42 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 719DDAC79;
- Wed, 30 Sep 2020 10:29:00 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Wed, 30 Sep 2020 12:28:55 +0200
-Message-Id: <20200930102855.5967-2-pvorel@suse.cz>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200930102855.5967-1-pvorel@suse.cz>
-References: <20200930102855.5967-1-pvorel@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id AA91AAC85;
+ Wed, 30 Sep 2020 10:46:41 +0000 (UTC)
+Date: Wed, 30 Sep 2020 12:47:09 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Xiao Yang <yangx.jy@cn.fujitsu.com>
+Message-ID: <20200930104709.GC6611@yuki.lan>
+References: <20200929025606.322543-1-yangx.jy@cn.fujitsu.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200929025606.322543-1-yangx.jy@cn.fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/2] virt_lib.sh: Remove checks for tst_ipaddr()
- output
+X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] controllers/cpuset_base_ops_testset.sh: Accept
+ either 0 or -EINVAL when passing '0-'
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,127 +46,48 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it, rpalethorpe@suse.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-+ now unused $ip_local and $ip_remote variables.
+Hi!
+> When we write '0-' to cpuset.cpus/cpuset.mems, new bitmap_parselist()
+> in kernel(e.g. newer than v4.2) treats it as an invalid value and old
+> one treats it as a valid '0':
+> -------------------------------------------
+> on v5.8.0:
+>  # echo 0- > cpuset.cpus
+>  -bash: echo: write error: Invalid argument
+>  # echo 0- > cpuset.mems
+>  -bash: echo: write error: Invalid argument
+> 
+> on v4.0.0:
+>  # echo '0-' >cpuset.cpus
+>  # cat cpuset.cpus
+>  0
+>  # echo '0-' >cpuset.mems
+>  # cat cpuset.cpus
+>  0
+> -------------------------------------------
+> Note: commit d9282cb66353b changes the behavior.
+> 
+> Drop the check of kernel version and accept either 0 or -EINVAL
+> because the change of behavior can be backported into old kernel.
 
-These checks were originally (before f275363d7) in tests which use
-virt_compare_netperf also with variables.
+Why can't we just simply adjust the kernel check, it looks like the
+commit you mentioned was added to 4.3 so it should be fixed by changing
+the line to:
 
-It should be safe to expect tst_ipaddr() output to be safe even for SSH
-based setup ("two host" configuration) due various checks in tst_net.sh.
+	if tst_kvcmp -lt "4.3 RHEL6:2.6.32"; then
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- testcases/network/virt/geneve01.sh |  4 ----
- testcases/network/virt/virt_lib.sh |  6 ------
- testcases/network/virt/vlan03.sh   | 10 +---------
- testcases/network/virt/vxlan03.sh  |  4 ----
- testcases/network/virt/vxlan04.sh  |  4 ----
- 5 files changed, 1 insertion(+), 27 deletions(-)
+We want to at least keep the check for kernels newer than 4.3 just to
+make sure that kernel keeps rejecting the '0-' invalid value.
 
-diff --git a/testcases/network/virt/geneve01.sh b/testcases/network/virt/geneve01.sh
-index 9a746d5df..b731343c8 100755
---- a/testcases/network/virt/geneve01.sh
-+++ b/testcases/network/virt/geneve01.sh
-@@ -23,10 +23,6 @@ VIRT_PERF_THRESHOLD_MIN=160
- 
- do_test()
- {
--	if [ -z $ip_local -o -z $ip_remote ]; then
--		tst_brk TBROK "you must specify IP address"
--	fi
--
- 	tst_res TINFO "the same VNI must work"
- 	# VNI is 24 bits long, so max value, which is not reserved, is 0xFFFFFE
- 	vxlan_setup_subnet_$vxlan_dst_addr "id 0xFFFFFE" "id 0xFFFFFE"
-diff --git a/testcases/network/virt/virt_lib.sh b/testcases/network/virt/virt_lib.sh
-index 827829633..cb2b2ba97 100644
---- a/testcases/network/virt/virt_lib.sh
-+++ b/testcases/network/virt/virt_lib.sh
-@@ -61,11 +61,9 @@ virt_lib_setup()
- TST_NEEDS_ROOT=1
- . tst_net.sh
- 
--ip_local=$(tst_ipaddr)
- ip_virt_local="$(TST_IPV6= tst_ipaddr_un)"
- ip6_virt_local="$(TST_IPV6=6 tst_ipaddr_un)"
- 
--ip_remote=$(tst_ipaddr rhost)
- ip_virt_remote="$(TST_IPV6= tst_ipaddr_un rhost)"
- ip6_virt_remote="$(TST_IPV6=6 tst_ipaddr_un rhost)"
- 
-@@ -376,10 +374,6 @@ virt_gre_setup()
- 	[ "$TST_IPV6" ] && virt_type="ip6gre"
- 	virt_lib_setup
- 
--	if [ -z $ip_local -o -z $ip_remote ]; then
--		tst_brk TBROK "you must specify IP address"
--	fi
--
- 	tst_res TINFO "test $virt_type"
- 	virt_setup "local $(tst_ipaddr) remote $(tst_ipaddr rhost) dev $(tst_iface)" \
- 	"local $(tst_ipaddr rhost) remote $(tst_ipaddr) dev $(tst_iface rhost)"
-diff --git a/testcases/network/virt/vlan03.sh b/testcases/network/virt/vlan03.sh
-index adadd76fd..b7125ae7a 100755
---- a/testcases/network/virt/vlan03.sh
-+++ b/testcases/network/virt/vlan03.sh
-@@ -24,18 +24,10 @@ TST_NEEDS_TMPDIR=1
- TST_TEST_DATA=",$p0 $lb0 $rh1,$p1 $lb1 $rh1"
- TST_TEST_DATA_IFS=","
- TST_TESTFUNC=do_test
--TST_SETUP=do_setup
-+TST_SETUP=virt_lib_setup
- TST_CLEANUP=virt_cleanup
- . virt_lib.sh
- 
--do_setup()
--{
--	if [ -z $ip_local -o -z $ip_remote ]; then
--		tst_brk TBROK "you must specify IP address"
--	fi
--	virt_lib_setup
--}
--
- do_test()
- {
- 	virt_check_cmd virt_add ltp_v0 id 0 $2 || return
-diff --git a/testcases/network/virt/vxlan03.sh b/testcases/network/virt/vxlan03.sh
-index ef66a57fe..7e5453222 100755
---- a/testcases/network/virt/vxlan03.sh
-+++ b/testcases/network/virt/vxlan03.sh
-@@ -36,10 +36,6 @@ VIRT_PERF_THRESHOLD_MIN=160
- 
- do_test()
- {
--	if [ -z $ip_local -o -z $ip_remote ]; then
--		tst_brk TBROK "you must specify IP address"
--	fi
--
- 	virt_check_cmd virt_add ltp_v0 id 0 $2 || return
- 
- 	tst_res TINFO "the same VNI must work"
-diff --git a/testcases/network/virt/vxlan04.sh b/testcases/network/virt/vxlan04.sh
-index a59b1183f..2418e5edd 100755
---- a/testcases/network/virt/vxlan04.sh
-+++ b/testcases/network/virt/vxlan04.sh
-@@ -20,10 +20,6 @@ VIRT_PERF_THRESHOLD_MIN=160
- 
- do_test()
- {
--	if [ -z $ip_local -o -z $ip_remote ]; then
--		tst_brk TBROK "you must specify IP address"
--	fi
--
- 	virt_check_cmd virt_add ltp_v0 id 0 $2 || return
- 
- 	tst_res TINFO "the same VNI must work"
 -- 
-2.28.0
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
