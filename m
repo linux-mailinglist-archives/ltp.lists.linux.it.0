@@ -2,40 +2,54 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4C7D27E802
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 13:57:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF21727E810
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 13:59:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2B4103C2A1F
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 13:57:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5930B3C4C00
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 13:59:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 32F783C297E
- for <ltp@lists.linux.it>; Wed, 30 Sep 2020 13:57:25 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 284E83C297E
+ for <ltp@lists.linux.it>; Wed, 30 Sep 2020 13:59:48 +0200 (CEST)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id BE04960076A
- for <ltp@lists.linux.it>; Wed, 30 Sep 2020 13:57:24 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1D188AD39;
- Wed, 30 Sep 2020 11:57:24 +0000 (UTC)
-Date: Wed, 30 Sep 2020 13:57:51 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Message-ID: <20200930115751.GE6611@yuki.lan>
-References: <20200930110913.28436-1-rpalethorpe@suse.com>
- <20200930111930.GD6611@yuki.lan> <87pn63wlc8.fsf@suse.de>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 14ED11000B70
+ for <ltp@lists.linux.it>; Wed, 30 Sep 2020 13:59:46 +0200 (CEST)
+IronPort-SDR: sD58ZuOtectf0sj/nrAYqaLEUoa8azPPuO7ecOqQr9p5Y8vQyQoT1m2FRXTLz9BuoxInkJu4M9
+ 6846QGn5LusQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9759"; a="180590301"
+X-IronPort-AV: E=Sophos;i="5.77,322,1596524400"; d="scan'208";a="180590301"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2020 04:59:44 -0700
+IronPort-SDR: gu367M5H2ZN4V7avZSxV5vhUUKmsscYKkex41phaa8EYkUSvBzRcdNs7o+aVxO7VqxRbqeRA3T
+ UB8Fky3LGTiQ==
+X-IronPort-AV: E=Sophos;i="5.77,322,1596524400"; d="scan'208";a="497212937"
+Received: from lbentzio-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.32.88])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Sep 2020 04:59:41 -0700
+Date: Wed, 30 Sep 2020 14:59:39 +0300
+From: Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <20200930115939.GB7612@linux.intel.com>
+References: <20200929165021.11731-1-pvorel@suse.cz>
+ <20200929231118.GA805493@linux.intel.com>
+ <20200930055314.GA21664@dell5510>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <87pn63wlc8.fsf@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <20200930055314.GA21664@dell5510>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] utimensat01: Use common FS (ext4) with
- timestamps and attributes
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 0/4] TPM 2.0 fixes in IMA tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,121 +61,44 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: viresh.kumar@linaro.org, ltp@lists.linux.it
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ James Bottomley <James.Bottomley@HansenPartnership.com>,
+ Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
+ linux-integrity@vger.kernel.org, Mimi Zohar <zohar@linux.vnet.ibm.com>,
+ ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> >> If tmpdir is mounted on tmpfs then the test will fail with ENOTTY as
-> >> this FS apparently does not support file attributes (inode
-> >> flags). Instead we can test on ext4 where setting attributes and high
-> >> precision timestamps is known to work.
-> >> 
-> >> We can not set all_filesystems because utimensat will fail to reset
-> >> the timestamp to zero on at least exFAT and NTFS (FUSE and kernel
-> >> versions). It is not clear yet what the expected behavior is or how
-> >> the test could fail gracefully and requires investigation.
-> >> 
-> >> Also if we now get ENOTTY then it is assumed the file system does not
-> >> support attributes and the test fails with TCONF. However the
-> >> underlying FS could return some other errno (e.g. EINVAL on FUSE
-> >> NTFS), but it is not clear what to expect, if anything and also
-> >> requires further investigation.
-> >> 
-> >> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
-> >> ---
-> >> 
-> >> V2: Instead of trying to use all filesystems, just use one we know
-> >>     works and is on most distros.
-> >> 
-> >> Obviously this is not ideal as this also expected to work on BTRFS,
-> >> XFS etc. However the library doesn't allow us to specify this and
-> >> modifying it would be quite intrusive. After the release this needs to
-> >> be looked into.
-> >> 
-> >>  .../kernel/syscalls/utimensat/utimensat01.c   | 22 ++++++++++++++-----
-> >>  1 file changed, 17 insertions(+), 5 deletions(-)
-> >> 
-> >> diff --git a/testcases/kernel/syscalls/utimensat/utimensat01.c b/testcases/kernel/syscalls/utimensat/utimensat01.c
-> >> index fe490f441..42299eda8 100644
-> >> --- a/testcases/kernel/syscalls/utimensat/utimensat01.c
-> >> +++ b/testcases/kernel/syscalls/utimensat/utimensat01.c
-> >> @@ -21,8 +21,9 @@
-> >>  #include "time64_variants.h"
-> >>  #include "tst_timer.h"
-> >>  
-> >> -#define TEST_FILE	"test_file"
-> >> -#define TEST_DIR	"test_dir"
-> >> +#define MNTPOINT 	"mntpoint"
-> >> +#define TEST_FILE	MNTPOINT"/test_file"
-> >> +#define TEST_DIR	MNTPOINT"/test_dir"
-> >>  
-> >>  static void *bad_addr;
-> >>  
-> >> @@ -182,7 +183,12 @@ static void change_attr(struct test_case *tc, int fd, int set)
-> >>  	if (!tc->attr)
-> >>  		return;
-> >>  
-> >> -	SAFE_IOCTL(fd, FS_IOC_GETFLAGS, &attr);
-> >> +	if (ioctl(fd, FS_IOC_GETFLAGS, &attr)) {
-> >> +		if (errno == ENOTTY)
-> >> +			tst_brk(TCONF | TERRNO, "Attributes not supported by FS");
-> >> +		else
-> >> +			tst_brk(TBROK | TERRNO, "ioctl(fd, FS_IOC_GETFLAGS, &attr) failed");
-> >> +	}
-> >>  
-> >>  	if (set)
-> >>  		attr |= tc->attr;
-> >> @@ -198,7 +204,11 @@ static void reset_time(char *pathname, int dfd, int flags, int i)
-> >>  	struct stat sb;
-> >>  
-> >>  	memset(&ts, 0, sizeof(ts));
-> >> -	tv->utimensat(dfd, pathname, &ts, flags);
-> >> +	TEST(tv->utimensat(dfd, pathname, &ts, flags));
-> >> +	if (TST_RET) {
-> >> +		tst_res(TINFO | TTERRNO, "%2d: utimensat(%d, %s, {0, 0}, %d) failed",
-> >> +			i, dfd, pathname, flags);
-> >> +	}
-> >>  
-> >>  	TEST(stat(pathname, &sb));
-> >>  	if (TST_RET) {
-> >> @@ -305,5 +315,7 @@ static struct tst_test test = {
-> >>  	.test_variants = ARRAY_SIZE(variants),
-> >>  	.setup = setup,
-> >>  	.needs_root = 1,
-> >> -	.needs_tmpdir = 1,
-> >> +	.mount_device = 1,
-> >> +	.mntpoint = MNTPOINT,
-> >> +	.dev_fs_type = "ext4",
-> >
-> > Do we have to specify ext4 here? Shouldn't that work with a default FS
-> > for loop devices i.e. ext2?
-> >
-> > I do worry that this would disable the test on small embedded devices
-> > without ext4 driver, not sure if there are still some around.
-> >
-> > But I think that defaulting to whatever have been choosen as a default
-> > filesystem (may be passed in LTP_DEV_FS_TYPE env variable) would be
-> > better band aid for now.
+On Wed, Sep 30, 2020 at 07:53:14AM +0200, Petr Vorel wrote:
+> Hi Jarkko,
 > 
-> Oh, I didn't think ext2 supported these timestamps, but the test works
-> so OK!
+> > Hi, is there something specific I should look at in this patch set?
+> 
+> I'm sorry to bother you with LTP specific code. Can you have a quick look if I
+> didn't overlook anything obvious in reading PCR files (read_pcr_tpm*())?
+> 
+> I'm surprised that it's working on my TPM 2.0 which does not export
+> /sys/kernel/security/tpm0/binary_bios_measurements (using evmctl).
 
-I guess that it really depends on the inode size the mkfs defaults to.
-If we end up with 256 bytes there is extra space for sub-second timestamps.
+Thank you, this was actually really important remark and reminder.
 
-I suppose that newer mkfs defaults to 256 bytes even for ext2 because
-the 32bit values will overflow in 2038 anyways and changing these to
-64bit gives two extra bits for the seconds value.
+OK so I think James' patch is stuck because of me, i.e.
 
-So my guess is that it may still produce TCONF on 10 year old
-distributions, but the question here is if we really care.
+https://lore.kernel.org/linux-integrity/20200911114820.GB6877@linux.intel.com/
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+I'm sorry about this. The final final conclusion is that the way it
+exports PCRs is just fine.
+
+Can you test this version?
+
+https://patchwork.kernel.org/patch/11759729/
+
+I can then add reviewd-by and apply it and you don't have to do any sort
+of stupid hacks.
+
+/Jarkkko
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
