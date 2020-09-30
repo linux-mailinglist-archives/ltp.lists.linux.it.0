@@ -2,39 +2,87 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70AB627E4F2
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 11:19:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB78C27E577
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 11:45:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2E9753C2A13
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 11:19:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9DF553C2A14
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 11:45:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 798453C27DE
- for <ltp@lists.linux.it>; Wed, 30 Sep 2020 11:19:23 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 4E3093C27DE
+ for <ltp@lists.linux.it>; Wed, 30 Sep 2020 11:45:25 +0200 (CEST)
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 015E0601236
- for <ltp@lists.linux.it>; Wed, 30 Sep 2020 11:19:22 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 70A6AB016;
- Wed, 30 Sep 2020 09:19:22 +0000 (UTC)
-Date: Wed, 30 Sep 2020 11:19:48 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Qian Cai <cai@redhat.com>
-Message-ID: <20200930091948.GB6611@yuki.lan>
-References: <766e56497d9e5e10bf676422f6cfe63c9bd1590d.camel@redhat.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 9B9B21000CBD
+ for <ltp@lists.linux.it>; Wed, 30 Sep 2020 11:45:24 +0200 (CEST)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08U9hjWQ195734;
+ Wed, 30 Sep 2020 09:45:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : subject : to :
+ cc : references : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=4NAgi9+BLQBJ6QhK3Kj/6cKmQlVpN5UHh4DKfiD5JHg=;
+ b=xYPfWBRhoUfzdbpYjT2MauGoYTQVrnmEGog2yuHb95MdsDt6RHCnDRUxe6e2Uc4hWZEn
+ HvizHXGIfB2eQIGaKuo+lDTVgJ4zlBMHkq+Bu31GeG+wSJUAEfkeONnnpfRsDWOzKDjy
+ +bLsIISPEYDw01DDgDOy48T23CDsiIe7vpvRI8F32PUNg4ebirPOHWJU7QZCOz0KpRBK
+ 92Qig9h+phO99EWYuP0EGrMdqNuysS0GYSy8Yi/6bBUUTy+wfOCyC0fsy04xmccF3wh1
+ D6WFUD5cij9/rq2xmD740yzn59mdCc+oQD8JaYNUuZqfERXrsw0rDYZ423HS7KkaRjKR wg== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by aserp2120.oracle.com with ESMTP id 33swkkyk69-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 30 Sep 2020 09:45:20 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08U9imhX014678;
+ Wed, 30 Sep 2020 09:45:19 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by userp3020.oracle.com with ESMTP id 33tfdtjyh1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 30 Sep 2020 09:45:19 +0000
+Received: from abhmp0002.oracle.com (abhmp0002.oracle.com [141.146.116.8])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 08U9jGks013453;
+ Wed, 30 Sep 2020 09:45:18 GMT
+Received: from [192.168.1.35] (/95.161.221.177)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 30 Sep 2020 02:45:16 -0700
+From: Alexey Kodanev <alexey.kodanev@oracle.com>
+To: Petr Vorel <pvorel@suse.cz>
+References: <20200924071740.6963-1-alexey.kodanev@oracle.com>
+ <20200924071740.6963-5-alexey.kodanev@oracle.com>
+ <20200930080734.GA3983@dell5510>
+Message-ID: <fb819f27-74d8-3639-6b13-64810f96b74c@oracle.com>
+Date: Wed, 30 Sep 2020 12:45:14 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <766e56497d9e5e10bf676422f6cfe63c9bd1590d.camel@redhat.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <20200930080734.GA3983@dell5510>
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9759
+ signatures=668680
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
+ phishscore=0
+ adultscore=0 malwarescore=0 spamscore=0 mlxscore=0 bulkscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2009300076
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9759
+ signatures=668680
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ mlxscore=0 phishscore=0
+ suspectscore=0 mlxlogscore=999 clxscore=1015 priorityscore=1501
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2009300076
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] diotest4: Fix false postives on FUSE
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 5/5] network/ipneigh01: use ROD when deleting the
+ entries
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,141 +94,29 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Mike Frysinger <vapier@gentoo.org>, Miklos Szeredi <miklos@szeredi.hu>,
- Vivek Goyal <vgoyal@redhat.com>, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> It looks like FUSE does not support the unaligned IO, because it does
-> not directly backed by a block device. Therefore, in fuse_direct_IO(),
-> there is no checking of unaligned IO to return -EINVAL like other
-> filesystems from iomap_dio_bio_actor().
+On 30.09.2020 11:07, Petr Vorel wrote:
+> Hi Alexey,
 > 
-> diotest4    3  TFAIL  :  diotest4.c:114: read allows odd count. returns 1: Success
-> diotest4    4  TFAIL  :  diotest4.c:129: write allows odd count.returns 1: Success
-> diotest4    5  TFAIL  :  diotest4.c:180: Odd count of read and write
-> ...
-> diotest4   16  TFAIL  :  diotest4.c:114: read allows  nonaligned buf. returns 4096: Success
-> diotest4   17  TFAIL  :  diotest4.c:129: write allows  nonaligned buf.returns 4096: Success
-> diotest4   18  TFAIL  :  diotest4.c:180: read, write with non-aligned buffer
+> sorry for late review.
 > 
-> Signed-off-by: Qian Cai <cai@redhat.com>
-> ---
->  include/tst_fs.h                         | 45 ++++++++++++------------
->  lib/tst_fs_type.c                        |  2 ++
->  testcases/kernel/io/direct_io/diotest4.c |  2 ++
->  3 files changed, 27 insertions(+), 22 deletions(-)
+> For whole patchset.
+> Reviewed-by: Petr Vorel <pvorel@suse.cz>
 > 
-> diff --git a/include/tst_fs.h b/include/tst_fs.h
-> index fc0390582..a44d5e3b2 100644
-> --- a/include/tst_fs.h
-> +++ b/include/tst_fs.h
-> @@ -6,29 +6,30 @@
->  #define TST_FS_H__
->  
->  /* man 2 statfs or kernel-source/include/linux/magic.h */
-> -#define TST_BTRFS_MAGIC    0x9123683E
-> -#define TST_NFS_MAGIC      0x6969
-> -#define TST_RAMFS_MAGIC    0x858458f6
-> -#define TST_TMPFS_MAGIC    0x01021994
-> -#define TST_V9FS_MAGIC     0x01021997
-> -#define TST_XFS_MAGIC      0x58465342
-> -#define TST_EXT2_OLD_MAGIC 0xEF51
-> +#define TST_BTRFS_MAGIC      0x9123683E
-> +#define TST_NFS_MAGIC        0x6969
-> +#define TST_RAMFS_MAGIC      0x858458f6
-> +#define TST_TMPFS_MAGIC      0x01021994
-> +#define TST_V9FS_MAGIC       0x01021997
-> +#define TST_XFS_MAGIC        0x58465342
-> +#define TST_EXT2_OLD_MAGIC   0xEF51
->  /* ext2, ext3, ext4 have the same magic number */
-> -#define TST_EXT234_MAGIC   0xEF53
-> -#define TST_MINIX_MAGIC    0x137F
-> -#define TST_MINIX_MAGIC2   0x138F
-> -#define TST_MINIX2_MAGIC   0x2468
-> -#define TST_MINIX2_MAGIC2  0x2478
-> -#define TST_MINIX3_MAGIC   0x4D5A
-> -#define TST_UDF_MAGIC      0x15013346
-> -#define TST_SYSV2_MAGIC    0x012FF7B6
-> -#define TST_SYSV4_MAGIC    0x012FF7B5
-> -#define TST_UFS_MAGIC      0x00011954
-> -#define TST_UFS2_MAGIC     0x19540119
-> -#define TST_F2FS_MAGIC     0xF2F52010
-> -#define TST_NILFS_MAGIC    0x3434
-> -#define TST_EXOFS_MAGIC    0x5DF5
-> -#define TST_OVERLAYFS_MAGIC 0x794c7630
-> +#define TST_EXT234_MAGIC     0xEF53
-> +#define TST_MINIX_MAGIC      0x137F
-> +#define TST_MINIX_MAGIC2     0x138F
-> +#define TST_MINIX2_MAGIC     0x2468
-> +#define TST_MINIX2_MAGIC2    0x2478
-> +#define TST_MINIX3_MAGIC     0x4D5A
-> +#define TST_UDF_MAGIC        0x15013346
-> +#define TST_SYSV2_MAGIC      0x012FF7B6
-> +#define TST_SYSV4_MAGIC      0x012FF7B5
-> +#define TST_UFS_MAGIC        0x00011954
-> +#define TST_UFS2_MAGIC       0x19540119
-> +#define TST_F2FS_MAGIC       0xF2F52010
-> +#define TST_NILFS_MAGIC      0x3434
-> +#define TST_EXOFS_MAGIC      0x5DF5
-> +#define TST_OVERLAYFS_MAGIC  0x794c7630
-> +#define TST_FUSE_SUPER_MAGIC 0x65735546
+> I'm going to merge it so it gets into the release (should be done today).
 
-The rest of the constants here does not include the SUPER string, please
-make it just TST_FUSE_MAGIC.
+Thank you Petr!
 
->  enum {
->  	TST_BYTES = 1,
-> diff --git a/lib/tst_fs_type.c b/lib/tst_fs_type.c
-> index 1d0ac9669..21eb58a78 100644
-> --- a/lib/tst_fs_type.c
-> +++ b/lib/tst_fs_type.c
-> @@ -84,6 +84,8 @@ const char *tst_fs_type_name(long f_type)
->  		return "EXOFS";
->  	case TST_OVERLAYFS_MAGIC:
->  		return "OVERLAYFS";
-> +	case TST_FUSE_SUPER_MAGIC:
-> +		return "FUSE"
+> 
+> Kind regards,
+> Petr
+> 
 
-This does not even compile.
-
->  	default:
->  		return "Unknown";
->  	}
-> diff --git a/testcases/kernel/io/direct_io/diotest4.c
-> b/testcases/kernel/io/direct_io/diotest4.c
-
-This part of the patch has been line wrapped by your email client.
-Please configure it properly so that it does not mangle patches.
-
-> index bf200cd41..5f866bd93 100644
-> --- a/testcases/kernel/io/direct_io/diotest4.c
-> +++ b/testcases/kernel/io/direct_io/diotest4.c
-> @@ -270,6 +270,7 @@ int main(int argc, char *argv[])
->  	switch (fs_type) {
->  	case TST_NFS_MAGIC:
->  	case TST_BTRFS_MAGIC:
-> +	case TST_FUSE_SUPER_MAGIC:
->  		tst_resm(TCONF, "%s supports odd count IO",
->  			 tst_fs_type_name(fs_type));
->  	break;
-> @@ -442,6 +443,7 @@ int main(int argc, char *argv[])
->  	switch (fs_type) {
->  	case TST_NFS_MAGIC:
->  	case TST_BTRFS_MAGIC:
-> +	case TST_FUSE_SUPER_MAGIC:
->  		tst_resm(TCONF, "%s supports non-aligned buffer",
->  			 tst_fs_type_name(fs_type));
->  	break;
-
-Other than that the patch looks fine.
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
