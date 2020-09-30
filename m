@@ -2,48 +2,45 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A77927EA69
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 15:57:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB63627EA8E
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 16:04:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2113E3C2A24
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 15:57:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8C0BE3C2A24
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 16:04:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 485FF3C04C3
- for <ltp@lists.linux.it>; Wed, 30 Sep 2020 15:57:33 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id E70766009AD
- for <ltp@lists.linux.it>; Wed, 30 Sep 2020 15:57:32 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.77,322,1596470400"; d="scan'208";a="99788195"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 30 Sep 2020 21:57:29 +0800
-Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
- by cn.fujitsu.com (Postfix) with ESMTP id 0D9E248990DE;
- Wed, 30 Sep 2020 21:57:27 +0800 (CST)
-Received: from G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) by
- G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 30 Sep 2020 21:57:26 +0800
-Received: from Fedora-31.g08.fujitsu.local (10.167.220.31) by
- G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) with Microsoft SMTP Server
- id 15.0.1497.2 via Frontend Transport; Wed, 30 Sep 2020 21:57:24 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Wed, 30 Sep 2020 21:38:46 +0800
-Message-ID: <20200930133846.10034-1-yangx.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 2.25.1
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id DB5243C297B
+ for <ltp@lists.linux.it>; Wed, 30 Sep 2020 16:04:42 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3AC4C1000CB8
+ for <ltp@lists.linux.it>; Wed, 30 Sep 2020 16:04:41 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 645B0AC8B;
+ Wed, 30 Sep 2020 14:04:41 +0000 (UTC)
+Date: Wed, 30 Sep 2020 16:05:08 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Cixi Geng <gengcixi@gmail.com>
+Message-ID: <20200930140508.GA12097@yuki.lan>
+References: <CAF12kFuE=4-T=eitwSb0F3fkGLLsmM3VEg4VNbioqJt2JiAEww@mail.gmail.com>
+ <20200824074226.GB2466@yuki.lan>
+ <CAF12kFvScxqxhY5wXTGL2RKnyM5vM0hEKDc+sHD-3Y=_C7FWcw@mail.gmail.com>
+ <20200828130638.GD10501@yuki.lan>
+ <CY4PR13MB11754F0072967B32B007D273FD520@CY4PR13MB1175.namprd13.prod.outlook.com>
+ <CAF12kFspG2fQKUrA=HGWGQuHy=xJaL0gntqvksq+QmUK3mAdKw@mail.gmail.com>
+ <20200903092448.GC6285@yuki.lan>
+ <CAF12kFvbGhhwyAFnkv+3w2dwvVovTOeE5z+OnqiGz+rQ-5y6ZA@mail.gmail.com>
 MIME-Version: 1.0
-X-yoursite-MailScanner-ID: 0D9E248990DE.AD391
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <CAF12kFvbGhhwyAFnkv+3w2dwvVovTOeE5z+OnqiGz+rQ-5y6ZA@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] controllers/cpuset_base_ops_testset.sh: Only
- verify '0-' subtest on kernel v4.3 or newer
+X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [RFC] ltp test add reboot function
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,78 +52,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: rpalethorpe@suse.com
+Cc: Orson Zhai <orsonzhai@gmail.com>, xingfeng.kang@unisoc.com,
+ "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-1) According to the previous kernel check, '0-' is an invalid
-   value on very old kernel(i.e. v3.0 or older).
-2) '0-' becomes a valid '0' on old kernel(e.g. between v3.1 and v4.2).
-3) '0-' becomes an invalid value again by commit d9282cb66353b
-   on new kernel(e.g. v4.3 kernel or newer).
-For example:
--------------------------------------------
-On v5.8.0:
- # echo 0- > cpuset.cpus
- -bash: echo: write error: Invalid argument
- # echo 0- > cpuset.mems
- -bash: echo: write error: Invalid argument
+Hi!
+> I considered  running ltp with reboot function by HOST controller.
+> And here I found that if case need reboot before or after it run. the
+> HOST controller
+> is easy to implement, BUT when the case want reboot between it's verify_func
+> I hava no idea that how to continue run the rest verify_func
+> continuing after reboot.
+> Can you give some guidance?
 
-On v4.0.0:
- # echo '0-' >cpuset.cpus
- # cat cpuset.cpus
- 0
- # echo '0-' >cpuset.mems
- # cat cpuset.cpus
- 0
--------------------------------------------
+I guess that we would have to add a command line parameter to the test
+library to tell the testcase to continue with the second half of the
+test. Then after the reboot the testcase would be executed with that
+option so that it knows that we are running it for a second time and
+then we have to pass that to the testcases.
 
-In this case, only verify(focus on) '0-' subtest on kernel v4.3
-or newer due to two reasons:
-1) It may catch a bug on mainline kernel in future.
-2) It doesn't trigger any bug on old kernel currently.
+And since the uClinux support is dead, we are free to reuse the -C flag
+for this purpose. Probably easiest solution would be to set a global
+variable (named tst_rebooted or something similar) if -C was passed to
+the test on a command line, then we can use the value of this variable
+in the test setup/verify/cleanup functions.
 
-Fixes: #695
-Signed-off-by: Xiao Yang <yangx.jy@cn.fujitsu.com>
----
- .../cpuset_base_ops_test/cpuset_base_ops_testset.sh       | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
-
-diff --git a/testcases/kernel/controllers/cpuset/cpuset_base_ops_test/cpuset_base_ops_testset.sh b/testcases/kernel/controllers/cpuset/cpuset_base_ops_test/cpuset_base_ops_testset.sh
-index 67f3611d7..367c95d2b 100755
---- a/testcases/kernel/controllers/cpuset/cpuset_base_ops_test/cpuset_base_ops_testset.sh
-+++ b/testcases/kernel/controllers/cpuset/cpuset_base_ops_test/cpuset_base_ops_testset.sh
-@@ -128,10 +128,8 @@ test_cpus()
- 		base_op_test "$CPUSET/1/cpuset.cpus" "0,1-$((nr_cpus-2))," "0-$((nr_cpus-2))"
- 	fi
- 
--	if tst_kvcmp -lt "3.0 RHEL6:2.6.32"; then
-+	if tst_kvcmp -ge "4.3"; then
- 		base_op_test "$CPUSET/1/cpuset.cpus" "0-" "WRITE_ERROR"
--	else
--		base_op_test "$CPUSET/1/cpuset.cpus" "0-" "0"
- 	fi
- }
- 
-@@ -163,10 +161,8 @@ test_mems()
- 		base_op_test "$CPUSET/1/cpuset.mems" "0,1-$((nr_mems-2))," "0-$((nr_mems-2))"
- 	fi
- 
--	if tst_kvcmp -lt "3.0 RHEL6:2.6.32"; then
-+	if tst_kvcmp -ge "4.3"; then
- 		base_op_test "$CPUSET/1/cpuset.mems" "0-" "WRITE_ERROR"
--	else
--		base_op_test "$CPUSET/1/cpuset.mems" "0-" "0"
- 	fi
- }
- 
 -- 
-2.25.1
-
-
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
