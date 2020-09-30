@@ -1,39 +1,127 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC52627EE0E
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 17:57:56 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3989427EE1C
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 18:01:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 73BD63C2A93
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 17:57:56 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C7AEF3C2A93
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 18:01:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 619B63C2824
- for <ltp@lists.linux.it>; Wed, 30 Sep 2020 17:57:54 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTP id 61B3D3C2A0C
+ for <ltp@lists.linux.it>; Wed, 30 Sep 2020 18:01:07 +0200 (CEST)
+Received: from mx07-001d1705.pphosted.com (mx07-001d1705.pphosted.com
+ [185.132.183.11])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 83E671000CE0
- for <ltp@lists.linux.it>; Wed, 30 Sep 2020 17:57:53 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E9FEAACDF;
- Wed, 30 Sep 2020 15:57:52 +0000 (UTC)
-Date: Wed, 30 Sep 2020 17:58:20 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it, linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
-Message-ID: <20200930155820.GE12097@yuki.lan>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 156D710006C5
+ for <ltp@lists.linux.it>; Wed, 30 Sep 2020 18:01:05 +0200 (CEST)
+Received: from pps.filterd (m0209326.ppops.net [127.0.0.1])
+ by mx08-001d1705.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 08UFxq3Y017713; Wed, 30 Sep 2020 16:01:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com;
+ h=from : to : cc :
+ subject : date : message-id : references : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=S1;
+ bh=XKugp65XUUkL9Ywh081hJiEwAa14RG7Dwlt8ue1KpfM=;
+ b=YyscBC3sBg7LJQ+p7UOnQOypZcECqE8sZFTibkr/PbwrGu3DZXEBUfoKKTvn0m04HRzI
+ 8/Kh8cVAWXd5a+hHffC6y6s+spsgLcADnEAJvdsn+OWjJ3L69hhpPtryVXjXSnZ6adjH
+ DRHBwmYO3nwdqAY4U4fipRyg+mla75Mpz4OJhRkIZTyHyTbuYiDHX81z3aaGB28j7MNY
+ V8KW7ARC1RSQw7KjLdQ2U7j1jk+WQPdMYW74NlLDkFWY9mwQ4zgQHDxvjunhVc6KjI81
+ 3jK5ehEVW07UzO+QcrjktcCL4f3Wz+A9c+4BJtquEKJAKZXhErsTsdGEd1qBm1No1g1o 1Q== 
+Received: from nam11-dm6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11lp2173.outbound.protection.outlook.com [104.47.57.173])
+ by mx08-001d1705.pphosted.com with ESMTP id 33suufanp7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 30 Sep 2020 16:01:04 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fJ41NRo40iWuMx3WlPlxS9eE29khSLsH9N2ZvOYcO7l3HpacL1zLR0qSCdWCCYcuw0Szp+gdV5TgJ6rHdwq4Mj0IjJfI33uiD5MUldJwa/u2AXPusdV8JubllcR/IYHozptXjWlHq+jdb7OXRF0DO/hU+5KBlPPQdD+wFW+6M+T4WZcHnLzqUBmmDVefsMPZMfzjbWMN6hGdHlz/0yZiYINdWd705M8fqRjuybtiApoorlTqvAlMcUj22LXGFzlQ+Pd6ZLPvq9kxx2xk8ecG+8ioyuHmpYxYzt8vmwyr6ADP0TMBMNvirUoZKYLeaUn74gcz2lleykFos/av8zYnvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XKugp65XUUkL9Ywh081hJiEwAa14RG7Dwlt8ue1KpfM=;
+ b=LGCNYMk8PGDMOankyXlj4iDdFSv3xi6ioF8022a57D0nEGHEMSFE56yvBMqONaZ4/H5q3Bu0c9yON+Vql1eIAYyas8ZcR3yGGVQ2CvZ7NXmbRVc4tADxoC+YCzf04sRAoq5x9a8EOgWtUoCXJLWNNs+9y4qfUsJvCxEKHtHIItZIjXDFaYyfF1gwKG3OzPPBjNdGu53e8SRH0VAp9rPE1eCG/TODCNFQp1b5vGO4RnHClhZvB/mz2pZ+6GZQExHyLGbs/OmkkYiiuwNHXSS7TMzsGMaE6sA+TXDuuRNiTIaHm6PjPHVhivoYoCYLjSSzhKGsQ19j53aXY4I4F9ZpOA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=sony.com; dmarc=pass action=none header.from=sony.com;
+ dkim=pass header.d=sony.com; arc=none
+Received: from CY4PR13MB1175.namprd13.prod.outlook.com (2603:10b6:903:40::23)
+ by CY4PR13MB1382.namprd13.prod.outlook.com (2603:10b6:903:9f::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.13; Wed, 30 Sep
+ 2020 16:01:00 +0000
+Received: from CY4PR13MB1175.namprd13.prod.outlook.com
+ ([fe80::882:fde6:250d:4bc3]) by CY4PR13MB1175.namprd13.prod.outlook.com
+ ([fe80::882:fde6:250d:4bc3%12]) with mapi id 15.20.3433.030; Wed, 30 Sep 2020
+ 16:01:00 +0000
+From: "Bird, Tim" <Tim.Bird@sony.com>
+To: Cyril Hrubis <chrubis@suse.cz>, Cixi Geng <gengcixi@gmail.com>
+Thread-Topic: [LTP] [RFC] ltp test add reboot function
+Thread-Index: AQHWfTwJrXyUoa07s0uKrksDE2kaNqlNpkbggDL5FE2AAMuWAIAAFn3Q
+Date: Wed, 30 Sep 2020 16:01:00 +0000
+Message-ID: <CY4PR13MB11757A2A70B0B80BACEA79E0FD330@CY4PR13MB1175.namprd13.prod.outlook.com>
+References: <CAF12kFuE=4-T=eitwSb0F3fkGLLsmM3VEg4VNbioqJt2JiAEww@mail.gmail.com>
+ <20200824074226.GB2466@yuki.lan>
+ <CAF12kFvScxqxhY5wXTGL2RKnyM5vM0hEKDc+sHD-3Y=_C7FWcw@mail.gmail.com>
+ <20200828130638.GD10501@yuki.lan>
+ <CY4PR13MB11754F0072967B32B007D273FD520@CY4PR13MB1175.namprd13.prod.outlook.com>
+ <CAF12kFspG2fQKUrA=HGWGQuHy=xJaL0gntqvksq+QmUK3mAdKw@mail.gmail.com>
+ <20200903092448.GC6285@yuki.lan>
+ <CAF12kFvbGhhwyAFnkv+3w2dwvVovTOeE5z+OnqiGz+rQ-5y6ZA@mail.gmail.com>
+ <20200930140508.GA12097@yuki.lan>
+In-Reply-To: <20200930140508.GA12097@yuki.lan>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: suse.cz; dkim=none (message not signed)
+ header.d=none;suse.cz; dmarc=none action=none header.from=sony.com;
+x-originating-ip: [192.34.114.49]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 20d4f08a-0e57-4628-b458-08d8655a0690
+x-ms-traffictypediagnostic: CY4PR13MB1382:
+x-microsoft-antispam-prvs: <CY4PR13MB138277DE68858CC8BE9CBB53FD330@CY4PR13MB1382.namprd13.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Fy4bKoQAdPm4YQg0sbG9KoCnPzf05S0MwKM2gsclTN52+8zz02xLraNxB7p04yOYwo6FYrw/GBCRpr91dGoziLWz2R5go6/Wjkg/qR1XP8OIwTeOH7Rc04noeg1VmV9f947PUzDCQJRgu0rYQ0RHpgjJNagw5gBpxQwArHXcsfNQBLLlyG+CAQnZOGM7pL9nwhWOcOeUqO9+3t/LceyQVDdHtr7rqLdYBQ39lfufaVpNjlK7gTAoxtvKFP6yUsqjKgVCz7LvV5R0YKtof/sIdTOqws+LiN+aFMB3cC96GE/D147JGDvLBJdVeuqYkPvwitemSWnp46atBbU/bBK4Pw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR13MB1175.namprd13.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(366004)(136003)(376002)(396003)(39860400002)(55016002)(316002)(54906003)(9686003)(966005)(2906002)(52536014)(66446008)(76116006)(8676002)(33656002)(8936002)(64756008)(66946007)(66556008)(66476007)(83380400001)(478600001)(86362001)(186003)(5660300002)(26005)(110136005)(7696005)(4326008)(6506007)(71200400001);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: QYitoXsqNnMkEnRe6qpGNZ6kXR5IhztCezZUi7TKJVLTKaO/ytqg8E2TIv4QABUDwhxjnKUQtjyHAo2fNtBzsQsiq8PISF2XjtjfsOogxuatvP5KsmfpHnH+XW4lZxc5hHGk05tsjK8r4gDjWg/6huSFcs8+8QrsyvR4eWdyKhrewq2GSFK4EGE6Camnxe6UnHBwCf3lZhqD8yzPOirvNwhrzMT6XHtQnHR0y6d0FSqMKJrcIAvNxNqAD7j7g9X/1f2dav14YSy6qz8lrIGGsDJmDtGBD9ZPftWYO0D5dI1uULvl3liTdbSPRr9Yx2DvNgKmHG9I4LhBkxc2TOFCorGyCb1OBZ+cSlF8kcebNiHNqaZNKIH0HmrvD4CGKNFHIv2RDjA959qe6k/ceG4vnI7+AIl7jtUnxtl8+NEB+Swc4Z6/MGa/rPQg0JUEsHh60BNEzZhEAK1K7U4o33e3EYAFAsQWjTFdrDaWleonrzUg475nXVpddAijVm+q8+C6oytBxS/+A8/kgGwviH95JUCs2lOGYvMsUonaXeI5kaZ0hAkV8afk03tUwWNPFdFqhnLOaQqHKbRCT1RwTQQA/AdguzjKRCFQPeJthK35I+a3ISuWH+Si59gPS3cb9sc2Fx/OJCvXk1pF0FMFI60Sfg==
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-Content-Disposition: inline
+X-OriginatorOrg: sony.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR13MB1175.namprd13.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20d4f08a-0e57-4628-b458-08d8655a0690
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Sep 2020 16:01:00.3104 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 66c65d8a-9158-4521-a2d8-664963db48e4
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: f/VFpeGFO5/9eQ0o1WWsXRIo2P6I7h2kG2MDIP8zNmghtmL6gSMnpocvIlFV51uJqRSYKYw2NQ4uEM+TcHGOrA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR13MB1382
+X-Sony-Outbound-GUID: WGnbWD9AoUICyx9HcUgxwzeGKmM_rYox
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-09-30_08:2020-09-30,
+ 2020-09-30 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0
+ bulkscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015 spamscore=0
+ malwarescore=0 mlxscore=0 adultscore=0 priorityscore=1501 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2009300127
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [ANNOUNCE] The Linux Test Project has been released for
- SEPTEMBER 2020
+Subject: Re: [LTP] [RFC] ltp test add reboot function
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,220 +133,95 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: lwn@lwn.net, akpm@linux-foundation.org, torvalds@linux-foundation.org
+Cc: Orson Zhai <orsonzhai@gmail.com>,
+ "xingfeng.kang@unisoc.com" <xingfeng.kang@unisoc.com>,
+ "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Good news everyone,
-
-the Linux Test Project test suite stable release for *September 2020* has been
-released.
-
-Since the last release 357 patches by 38 authors were merged.
-
-NOTABLE CHANGES
-===============
-
-* New tests
-  - mmap17 for MAP_FIXED_NOREPLACE
-  - semctl08 to verify the _time_high fields
-  - shmctl06 to verify the _time_high fields
-  - msgctl05 to verify the _time_high fields
-  - clock_gettime04 to check consistency during successive timer readings
-  - mincore03 test for anonymous mappings
-  - io_uring01 basic test for asynchronous read()
-  - ioctl09 test for BLKRRPART
-  - mincore04 test for pages faulted in child
-  - clock_settime03 test if timers works fine when clocks overflows 32bit timestamp
-  - msgget04 for /proc/sys/kernel/msg_next_id
-  - msgget05 for /proc/sys/kernel/msg_next_id
-  - send02 for send() with MSG_MORE flag
-  - msgrcv03 for MSG_COPY flag
-  - msgrcv07 for MSG_COPY flag
-  - fcntl38 for F_SETSIG and F_NOTIFY
-  - shmctl03 for IPC_INFO flag
-  - shmctl07 for SHM_LOCK and SHM_UNLOCK flags
-  - shmctl08 for IPC_SET flag
-  - mmap18 for MAP_GROWSDOWN flag
-  - ima_keys.sh, ima_kexec.sh new IMA tests + examples of required policies
-
-* New regression tests
-  - setsockopt07 race condition between packet_set_ring() and tp_reserve() aka CVE-2017-1000111
-  - fanotify10 for 2f02fd3fa13e (fanotify: fix ignore mask logic for events on child and on dir)
-  - thp04 Huge Dirty Cow aka CVE-2017-1000405
-  - pty05 race between flush_tx_queue() and n_hdlc_send_frames() aka CVE-2017-2636
-  - adjtimex03 4-byte kernel data leak via adjtimex CVE-2018-11508
-  - af_alg07 use-after-free in sockfs_setattr() aka CVE-2019-8912
-  - bpf_prog04 bug in 32bit eBFP verifier aka CVE-2018-18445
-  - timer_settime03 overflow of posix timer overrun counter aka CVE-2018-12896
-
-* Increased coverage
-  - ioctl_loop01 added LO_FLAGS_AUTOCLEAR flag coverage
-  - timer_gettime01 added timer_gettime64() coverage
-  - timer_settime{01,02} added timer_settime64() coverage
-  - timerfd{01,04} added timerfd_gettime64() coverage
-  - timerfd_gettime01 added timerfd_gettime64() coverage
-  - timerfd_settime{01,02} added timerfd_gettime64() coverage
-  - sched_rr_get_interval{01,02,03} added sched_rr_get_interval_time64() coverage
-  - sched_rr_get_interval01 checks the return value against /proc/sys/kernel/sched_rr_timeslice_ms
-  - io_pgetevents{01,02} added io_pgetevents_time64() coverage
-  - ioctl_loop02 added LOOP_CONFIGURE test for LO_FLAGS_READ_ONLY
-  - pidfd_open01 added check for CLOEXEC handling
-  - rt_sigtimedwait01 added rt_sigtimedwait_time64() coverage
-  - futex_cmp_requeue{01,02} added futex_time64() coverage
-  - futex_wait{01,02,03,04} added futex_time64() coverage
-  - futex_wait_bitset01 added futex_time64() coverage
-  - mq_timedreceive01 added mq_timedreceive64() coverage
-  - mq_timedsend01 added mq_timedsend64() coverage
-  - sendmmsg01 added sys_recvmmsg64() coverage
-  - ppoll01 added ppoll_time64 coverage
-  - ioctl_loop06 added LOOP_CONFIGURE test for block_size
-  - select04 added pselect6_time64() coverage
-  - utimensat01 added utimensat_time64() coverage
-  - msgsnd01 added check for msg_lspid and msg_stime
-  - msgrcv01 added check for msg_lrpid and msg_rtime
-  - msgrcv07 added more msgtyp tests
-  - semop{01,02,03} added semtimedop() and semtimedop_time64() coverage
-  - fanotify{14,16} added FAN_REPORT_DFID_NAME and FAN_REPORT_* coverage
-  - fanotify09 added cases with subdirectory marks
-  - fanotify10 added cets for FAN_REPORT_NAME and ignore mask
-  - ioctl_loop07 added LOOP_CONFIGURE test for lo_sizelimit
-
-* As you can see this release got the rest of the the 64bit timestamp
-  testcases, 64bit timestamp syscalls should be reasonably covered now
-
-* The quickhit runtest file was removed and replaced for quick integration
-  tests with smoketest runtest file
-
-* Additional 26 tests were converted to the new test library, significant part
-  of these were cleaned up and rewritten SystemV IPC testcases
-
-* LTP now includes VDSO parser and explicitly tests timer VDSO functions
-
-* The backing files for a loop devices are now created by fallocate(), if
-  possible, which speeds up loop device based tests quite a bit
-
-* The build system was tweaked to produce much cleaner output,
-  verbose output could be enabled by setting an environment variable V=1
-
-+ The usual amount of fixes and cleanups.
 
 
-NOTABLE CHANGES IN NETWORK TESTS
-================================
-brought to you by Petr Vorel
+> -----Original Message-----
+> From: Cyril Hrubis <chrubis@suse.cz>
+> 
+> Hi!
+> > I considered  running ltp with reboot function by HOST controller.
+> > And here I found that if case need reboot before or after it run. the
+> > HOST controller
+> > is easy to implement, BUT when the case want reboot between it's verify_func
+> > I hava no idea that how to continue run the rest verify_func
+> > continuing after reboot.
+> > Can you give some guidance?
+> 
+> I guess that we would have to add a command line parameter to the test
+> library to tell the testcase to continue with the second half of the
+> test. Then after the reboot the testcase would be executed with that
+> option so that it knows that we are running it for a second time and
+> then we have to pass that to the testcases.
+> 
+> And since the uClinux support is dead, we are free to reuse the -C flag
+> for this purpose. Probably easiest solution would be to set a global
+> variable (named tst_rebooted or something similar) if -C was passed to
+> the test on a command line, then we can use the value of this variable
+> in the test setup/verify/cleanup functions.
 
-* remove RSH support (for legacy tests use SSH by default in $LTP_RSH)
+Just brainstorming here...
 
-* removed rsh, rcp, rlogin tests
+How about an environment variable that contains the location to resume
+execution.  It could be a specific test case (within a test), or some value that the verify
+function uses to skip down to the place to resume.
 
-* NFS: detect disabled UDP, expect it being disabled on v5.6+
-       (NFS_DISABLE_UDP_SUPPORT is default y)
+If set, the library would skip the setup operation (or modify it appropriately).
 
-* TST_NET_RHOST_RUN_DEBUG=1 enables debugging
+Something like this:
 
-+ various fixes and updated docs
+LTP_RESUME_POS=reboot_test:testcase_6
 
-DOWNLOAD AND LINKS
-==================
+(or some better name :-) )
 
-The latest version of the test-suite contains 3000+ tests for the Linux
-and can be downloaded at:
+The value for the resume position would have to be sent to the test framework,
+so it could set it (in the variable) on machine reboot.  The test framework has to know
+to set something (either -C or LTP_RESUME_POS) so that the test can recognize it is
+in a resume-after-reboot condition.
 
-https://github.com/linux-test-project/ltp/releases/tag/20200930
+OR
 
-The project pages as well as GIT repository are hosted on GitHub:
+Maybe it's sufficient for the test to create a temp file (in a temp directory that is known
+to be persistent across a reboot, which not all of them are).  The presence of the temp
+file could indicate a resume-after-reboot condition, and it's contents could be used
+to indicate the resume position.
 
-https://github.com/linux-test-project/ltp
-http://linux-test-project.github.io/
+Question: does this "resume-after-reboot" condition need to be recognized by ltp-pan?
 
-If you ever wondered how to write a LTP testcase, don't miss our developer
-documentation at:
+I'm still not sure what is envisioned for the interface between the test and the
+test framework, to detect that it should resume a particular test on DUT reboot.
+If the test is initiating the reboot, maybe it needs to communicate some data to 
+the test framework (or whatever is performing the reboot), so that things can be
+set up during boot to continue where the test left off.
 
-https://github.com/linux-test-project/ltp/wiki/C-Test-Case-Tutorial
-https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelines
-https://github.com/linux-test-project/ltp/wiki/BuildSystem
+We have been envisioning in Fuego supporting an API like the following, for 
+a generic reboot mechanism for rebooting a board:
 
-Patches, new tests, bugs, comments or questions should go to to our mailing
-list at ltp@lists.linux.it.
+CLI:
+lc board {board_name} reboot
 
+REST API:
+wget https://{lab-control-server}/api/devices/{board_name}/power/reboot
 
-CREDITS
-=======
+These are both intended to support immediate reboot of the board, and don't take
+any parameters.  It seems like there's a bit of "knowledge" about the board
+bringup that is outside the scope of just a simple board reboot operation, that would have
+to be conveyed to the test framework and possibly the on-board boot initialization
+code, to accomplish a resume operation for a test.  It's a bit hard to figure out
+where the extra information should reside.  Should the data be placed in
+the reboot API?  Should there be a separate call to the test framework/board control
+software to prepare for a reboot-and-resume-test operation?
 
-Many thanks to the people contributing to this release:
+Just my 2 cents.
+ -- Tim
 
-git shortlog -s -e -n 20200515..
-
-    70  Petr Vorel <pvorel@suse.cz>
-    66  Viresh Kumar <viresh.kumar@linaro.org>
-    37  Cyril Hrubis <chrubis@suse.cz>
-    35  Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-    33  Martin Doucha <mdoucha@suse.cz>
-    19  Li Wang <liwang@redhat.com>
-    13  Jan Stancek <jstancek@redhat.com>
-    11  Amir Goldstein <amir73il@gmail.com>
-    10  Xiao Yang <yangx.jy@cn.fujitsu.com>
-     6  Richard Palethorpe <rpalethorpe@suse.com>
-     5  Alexey Kodanev <alexey.kodanev@oracle.com>
-     5  Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
-     4  Filip Bozuta <Filip.Bozuta@syrmia.com>
-     4  Lachlan Sneff <t-josne@linux.microsoft.com>
-     4  Po-Hsu Lin <po-hsu.lin@canonical.com>
-     3  Erico Nunes <ernunes@redhat.com>
-     3  Petr Vorel <petr.vorel@gmail.com>
-     3  Yixin Zhang <yixin.zhang@intel.com>
-     2  Eric Biggers <ebiggers@google.com>
-     2  Khem Raj <raj.khem@gmail.com>
-     2  Michal Kowalczyk <mkow@invisiblethingslab.com>
-     2  Shwetha Subramanian <shwetha@zilogic.com>
-     2  Vikas Kumar <vikas.kumar2@arm.com>
-     2  Yuan Gao <aiden.gaoyuan@gmail.com>
-     1  Bird, Tim <Tim.Bird@sony.com>
-     1  Fabrice Fontaine <fontaine.fabrice@gmail.com>
-     1  Harish <harish@linux.ibm.com>
-     1  He Zhe <zhe.he@windriver.com>
-     1  Kushal Chand <kushalchand@zilogic.com>
-     1  Nirav Parmar <niravparmar@zilogic.com>
-     1  Qais Yousef <qais.yousef@arm.com>
-     1  Qian Cai <cai@redhat.com>
-     1  Stanislav Kholmanskikh <stanislav.kholmanskikh@oracle.com>
-     1  Tree Davies <tdavies@darkphysics.net>
-     1  Vishwajith-K <31800616+Vishwajith-K@users.noreply.github.com>
-     1  Vitaly Chikunov <vt@altlinux.org>
-     1  aidengao <aidengao@google.com>
-     1  pravin <pravinraghul@zilogic.com>
-
-
-And also thanks to patch reviewers:
-
-git log 20200515.. | grep -Ei '(reviewed|acked)-by:' | sed 's/.*by: //' | sort | uniq -c | sort -n -r
-
-    136 Cyril Hrubis <chrubis@suse.cz>
-     72 Petr Vorel <pvorel@suse.cz>
-     48 Li Wang <liwang@redhat.com>
-     22 Jan Stancek <jstancek@redhat.com>
-     11 Xiao Yang <yangx.jy@cn.fujitsu.com>
-      9 Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-      9 Alexey Kodanev <alexey.kodanev@oracle.com>
-      8 Martin Doucha <mdoucha@suse.cz>
-      7 Mimi Zohar <zohar@linux.ibm.com>
-      5 Vijay Kumar B. <vijaykumar@zilogic.com>
-      4 Viresh Kumar <viresh.kumar@linaro.org>
-      4 Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
-      2 Tim Bird <tim.bird@sony.com>
-      2 Petr Vorel <petr.vorel@gmail.com>
-      2 Arnd Bergmann <arnd@arndb.de>
-      2 Amir Goldstein <amir73il@gmail.com>
-      1 Richard Palethorpe <rpalethorpe@suse.com>
-      1 Jan Kara <jack@suse.cz>
-      1 Christian Brauner <christian.brauner@ubuntu.com>
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
