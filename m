@@ -2,64 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 861AC27EAB2
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 16:11:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D22B227EAE3
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 16:26:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1C3403C2A24
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 16:11:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 97B7C3C2A24
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 16:26:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 4074F3C297B
- for <ltp@lists.linux.it>; Wed, 30 Sep 2020 16:11:52 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id BA5661000CC1
- for <ltp@lists.linux.it>; Wed, 30 Sep 2020 16:11:51 +0200 (CEST)
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1601475110;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=t7h+dVMilMNV1VheG6/kZqPP3e+BFtEroi8yDggsd4k=;
- b=ZOJt0P4cEoR40KyOzQ6SJXnyeOrEGll+VAxezygFgfnccu1sWSURbe3HV/JMb2yF0Ekhdz
- X4LdgiPX8CgQtIbnQ57mFqsJmpb7zfxQMBNefE6DBgZcDvUZLR9KfnsLUg1bXwU3Cq2qaC
- B1h1/PoPPx+3Y3F1t17sf4rRc09EKWQ=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-269-6vEbz0idNEmQ0SC4J1tf0g-1; Wed, 30 Sep 2020 10:11:48 -0400
-X-MC-Unique: 6vEbz0idNEmQ0SC4J1tf0g-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 61108802B5D;
- Wed, 30 Sep 2020 14:11:46 +0000 (UTC)
-Received: from localhost.localdomain.com (ovpn-115-71.rdu2.redhat.com
- [10.10.115.71])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 367075D9D3;
- Wed, 30 Sep 2020 14:11:45 +0000 (UTC)
-From: Qian Cai <cai@redhat.com>
-To: Cyril Hrubis <chrubis@suse.cz>, Mike Frysinger <vapier@gentoo.org>,
- Wanlong Gao <wanlong.gao@gmail.com>, Jan Stancek <jstancek@redhat.com>,
- Stanislav Kholmanskikh <stanislav.kholmanskikh@oracle.com>,
- Alexey Kodanev <alexey.kodanev@oracle.com>
-Date: Wed, 30 Sep 2020 10:11:30 -0400
-Message-Id: <20200930141130.13100-1-cai@redhat.com>
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 02C003C297B
+ for <ltp@lists.linux.it>; Wed, 30 Sep 2020 16:26:23 +0200 (CEST)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 70B666009B7
+ for <ltp@lists.linux.it>; Wed, 30 Sep 2020 16:26:22 +0200 (CEST)
+Received: from [192.168.0.104] (c-73-42-176-67.hsd1.wa.comcast.net
+ [73.42.176.67])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 879D720B7178;
+ Wed, 30 Sep 2020 07:26:20 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 879D720B7178
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1601475980;
+ bh=/TmI+R+MOE67+Ea8E2HPwFjBBTPt64CHISo+2O7ANIE=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=iGoLWk5KJ76k+m1oEMSlCadtbYcyywe5jCu/x2Uji+76pVJugELXYyQDy9FDebRSq
+ xRazxBIBqJa998WLBnl6IwUylU3FrFGZOc06pc2ZxzKxzrT9R2V6xPZ89TQjLF6QR6
+ ns4au3ejy1olW3vPyoVz4iVvwEv3WuCQUAGBxD4s=
+To: Petr Vorel <pvorel@suse.cz>
+References: <20200928194730.20862-1-nramas@linux.microsoft.com>
+ <20200929052340.GA4976@dell5510>
+From: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+Message-ID: <281c5fa0-8d3a-0812-9d20-a5c7ee4f7666@linux.microsoft.com>
+Date: Wed, 30 Sep 2020 07:26:20 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cai@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <20200929052340.GA4976@dell5510>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,NICE_REPLY_A,SPF_HELO_PASS,
+ SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] diotest4: Fix false postives on FUSE
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 0/1] ima: Add test for selinux measurement
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,80 +58,87 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it, Vivek Goyal <vgoyal@redhat.com>,
- Miklos Szeredi <miklos@szeredi.hu>
-Content-Type: text/plain; charset="us-ascii"
+Cc: paul@paul-moore.com, stephen.smalley.work@gmail.com,
+ tusharsu@linux.microsoft.com, linux-integrity@vger.kernel.org,
+ ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-It looks like FUSE does not support the unaligned IO, because it does
-not directly backed by a block device. Therefore, in fuse_direct_IO(),
-there is no checking of unaligned IO to return -EINVAL like other
-filesystems from iomap_dio_bio_actor().
+On 9/28/20 10:23 PM, Petr Vorel wrote:
+> Hi Lakshmi,
+> 
+> Thanks for your patch. FYI I'll try to have look ASAP, but as there is LTP
+> freeze and work needed to review fixes before release I'll probably review this
+> after the release (1, max. 2 weeks).
+> 
+> Could you please have a look at fix planned to be part of the release?
+> https://patchwork.ozlabs.org/project/ltp/list/?series=204230
+> 
 
-diotest4    3  TFAIL  :  diotest4.c:114: read allows odd count. returns 1: Success
-diotest4    4  TFAIL  :  diotest4.c:129: write allows odd count.returns 1: Success
-diotest4    5  TFAIL  :  diotest4.c:180: Odd count of read and write
-...
-diotest4   16  TFAIL  :  diotest4.c:114: read allows  nonaligned buf. returns 4096: Success
-diotest4   17  TFAIL  :  diotest4.c:129: write allows  nonaligned buf.returns 4096: Success
-diotest4   18  TFAIL  :  diotest4.c:180: read, write with non-aligned buffer
+Will do Petr.
 
-Signed-off-by: Qian Cai <cai@redhat.com>
----
- include/tst_fs.h                         | 1 +
- lib/tst_fs_type.c                        | 2 ++
- testcases/kernel/io/direct_io/diotest4.c | 2 ++
- 3 files changed, 5 insertions(+)
+> 
+>> New functionality is being added to IMA to measure data provided by
+>> kernel components. With this feature, IMA policy can be set to enable
+>> measuring data provided by Linux Security Modules (LSM). Currently one
+>> such LSM namely selinux is being updated to use this functionality.
+>> This new functionality needs test automation in LTP.
+> 
+>> This patch set adds tests which verify that the IMA subsystem correctly
+>> measures the data provided by selinux.
+> 
+>> This patch is based on
+>> commit 286401a1c1f3 ("thp04: Add linux tag")
+>> in "master" branch in https://github.com/linux-test-project/ltp
+> 
+>> This patch is dependent on the following patch series in LTP
+>> https://patchwork.kernel.org/patch/11802771/
+> I put link to LTP patchwork to avoid the confusion.
+> https://patchwork.ozlabs.org/project/ltp/list/?series=204486
 
-diff --git a/include/tst_fs.h b/include/tst_fs.h
-index fc0390582..4f7dd68d2 100644
---- a/include/tst_fs.h
-+++ b/include/tst_fs.h
-@@ -29,6 +29,7 @@
- #define TST_NILFS_MAGIC    0x3434
- #define TST_EXOFS_MAGIC    0x5DF5
- #define TST_OVERLAYFS_MAGIC 0x794c7630
-+#define TST_FUSE_MAGIC     0x65735546
- 
- enum {
- 	TST_BYTES = 1,
-diff --git a/lib/tst_fs_type.c b/lib/tst_fs_type.c
-index 1d0ac9669..d661d5b2a 100644
---- a/lib/tst_fs_type.c
-+++ b/lib/tst_fs_type.c
-@@ -84,6 +84,8 @@ const char *tst_fs_type_name(long f_type)
- 		return "EXOFS";
- 	case TST_OVERLAYFS_MAGIC:
- 		return "OVERLAYFS";
-+	case TST_FUSE_MAGIC:
-+		return "FUSE";
- 	default:
- 		return "Unknown";
- 	}
-diff --git a/testcases/kernel/io/direct_io/diotest4.c b/testcases/kernel/io/direct_io/diotest4.c
-index bf200cd41..f3c9c19d7 100644
---- a/testcases/kernel/io/direct_io/diotest4.c
-+++ b/testcases/kernel/io/direct_io/diotest4.c
-@@ -270,6 +270,7 @@ int main(int argc, char *argv[])
- 	switch (fs_type) {
- 	case TST_NFS_MAGIC:
- 	case TST_BTRFS_MAGIC:
-+	case TST_FUSE_MAGIC:
- 		tst_resm(TCONF, "%s supports odd count IO",
- 			 tst_fs_type_name(fs_type));
- 	break;
-@@ -442,6 +443,7 @@ int main(int argc, char *argv[])
- 	switch (fs_type) {
- 	case TST_NFS_MAGIC:
- 	case TST_BTRFS_MAGIC:
-+	case TST_FUSE_MAGIC:
- 		tst_resm(TCONF, "%s supports non-aligned buffer",
- 			 tst_fs_type_name(fs_type));
- 	break;
--- 
-2.28.0
+Thanks. On the next update I'll add the LTP patchwork URL.
+
+> 
+>> This series needs a kernel built on the following repo/branch/patches:
+>> repo: https://git.kernel.org/pub/scm/linux/kernel/git/pcmoore/selinux.git
+>> branch: next
+>> commit 8861d0af642c ("selinux: Add helper functions to get and set checkreqprot")
+> Thanks for adding this info. It'd be great if it were part of kernel commit
+> message and also added as a comment in the test itself (we don't want to get it
+> lost).
+> 
+> BTW LTP has 2 kind ways of handling of kernel versions:
+> 
+> * fixes which are meant to be backported to the stable trees:
+> In C API it looks like (here also with CVE entry):
+> https://github.com/linux-test-project/ltp/blob/master/testcases/kernel/syscalls/bpf/bpf_prog03.c#L187
+> .tags = (const struct tst_tag[]) {
+> 		{"linux-git", "95a762e2c8c9"},
+> 		{"CVE", "2017-16995"},
+> 		{}
+> This is not part of shell API, but I'll add it after the release. Thus we don't
+> want to loose this info.
+> 
+> * new kernel features, which are likely not to be backported
+> You either have some way to detect this feature is presented (ideally) or you
+> specify kernel version since it should be run
+> This is used in shell API as:
+> https://github.com/linux-test-project/ltp/blob/master/testcases/network/tcp_cc/bbr02.sh#L8
+> TST_MIN_KVER="4.13"
+
+Thanks for the info.
+
+  -lakshmi
+
+> 
+>> And the following patch series should be applied in the following order:
+>>    1, https://patchwork.kernel.org/patch/11709527/
+>>    2, https://patchwork.kernel.org/patch/11795559/
+>>    3, https://patchwork.kernel.org/patch/11801525/
+>>    4, https://patchwork.kernel.org/patch/11801585/
+> 
 
 
 -- 
