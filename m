@@ -2,40 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D4D527E0A8
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 07:53:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D4B527E1DC
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 08:53:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 067D13C29F8
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 07:53:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DFF993C4C08
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 08:53:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id D8A7B3C04C3
- for <ltp@lists.linux.it>; Wed, 30 Sep 2020 07:53:17 +0200 (CEST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id D3AD03C297E
+ for <ltp@lists.linux.it>; Wed, 30 Sep 2020 08:53:51 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1B9D6600A42
- for <ltp@lists.linux.it>; Wed, 30 Sep 2020 07:53:16 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E99D3200CE2
+ for <ltp@lists.linux.it>; Wed, 30 Sep 2020 08:53:50 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 63473AC3F;
- Wed, 30 Sep 2020 05:53:16 +0000 (UTC)
-Date: Wed, 30 Sep 2020 07:53:14 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 45450ABAD;
+ Wed, 30 Sep 2020 06:53:50 +0000 (UTC)
+Date: Wed, 30 Sep 2020 08:53:48 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>
-Message-ID: <20200930055314.GA21664@dell5510>
+To: Mimi Zohar <zohar@linux.ibm.com>
+Message-ID: <20200930065348.GB21664@dell5510>
 References: <20200929165021.11731-1-pvorel@suse.cz>
- <20200929231118.GA805493@linux.intel.com>
+ <20200929165021.11731-3-pvorel@suse.cz>
+ <4c0ec7617f2686ffdd4565a05beddd34ebf0b6aa.camel@linux.ibm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200929231118.GA805493@linux.intel.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <4c0ec7617f2686ffdd4565a05beddd34ebf0b6aa.camel@linux.ibm.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 0/4] TPM 2.0 fixes in IMA tests
+X-Spam-Status: No, score=1.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SUSPICIOUS_RECIPS autolearn=disabled version=3.4.4
+X-Spam-Level: *
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 2/4] IMA: Rewrite ima_boot_aggregate.c to new
+ API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,23 +53,35 @@ List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
 Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
  linux-integrity@vger.kernel.org, Mimi Zohar <zohar@linux.vnet.ibm.com>,
- ltp@lists.linux.it
+ Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Jarkko,
+Hi Mimi,
 
-> Hi, is there something specific I should look at in this patch set?
+> <snip>
 
-I'm sorry to bother you with LTP specific code. Can you have a quick look if I
-didn't overlook anything obvious in reading PCR files (read_pcr_tpm*())?
+> > diff --git a/testcases/kernel/security/integrity/ima/tests/ima_tpm.sh b/testcases/kernel/security/integrity/ima/tests/ima_tpm.sh
+> > index c69f891f1..dc958eb5c 100755
+> > --- a/testcases/kernel/security/integrity/ima/tests/ima_tpm.sh
+> > +++ b/testcases/kernel/security/integrity/ima/tests/ima_tpm.sh
+> > @@ -33,7 +33,7 @@ test1()
+> >  			tst_res TFAIL "bios boot aggregate is not 0"
+> >  		fi
+> >  	else
+> > -		boot_aggregate=$(ima_boot_aggregate $tpm_bios | grep "boot_aggregate:" | cut -d':' -f2)
+> > +		boot_aggregate=$(ima_boot_aggregate -f $tpm_bios | grep "sha1:" | cut -d':' -f2)
+> >  		if [ "$boot_hash" = "$boot_aggregate" ]; then
+> >  			tst_res TPASS "bios aggregate matches IMA boot aggregate"
+> >  		else
 
-I'm surprised that it's working on my TPM 2.0 which does not export
-/sys/kernel/security/tpm0/binary_bios_measurements (using evmctl).
-
-> /Jarkko
+> The original "ima" template is just the hash digest, without the
+> algorithm.
+Yes, but this code is output of ima_boot_aggregate.c. And code detecting old
+format is still working (verified on ima_measurements.sh with ima_tcb kernel
+parameter on 3.10).
 
 Kind regards,
 Petr
