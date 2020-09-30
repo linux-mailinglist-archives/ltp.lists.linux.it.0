@@ -1,40 +1,49 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38DCA27E6F8
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 12:46:46 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id BFAC527E771
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 13:09:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DF2C53C4C0D
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 12:46:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 251AD3C4C10
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Sep 2020 13:09:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id C719B3C2824
- for <ltp@lists.linux.it>; Wed, 30 Sep 2020 12:46:42 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 365F03C297E
+ for <ltp@lists.linux.it>; Wed, 30 Sep 2020 13:09:18 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 46B891400C42
- for <ltp@lists.linux.it>; Wed, 30 Sep 2020 12:46:42 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 28E831400E6F
+ for <ltp@lists.linux.it>; Wed, 30 Sep 2020 13:09:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1601464157;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=sgOdgDWCx/sTxxs0YC5VYVHsgmO/QYcDnNk/mQ8oRAg=;
+ b=GruDjfNrxZj1pKX05OLYPJgN/6yJrwRfN/VOjCt7J/ZMtOU5q23D/uP0pAsa8kAwJv7rtk
+ p3xKbuqRIlWDuSr+SfPcASmmYbm/QWgJvHixRomS0f/ObjU8f0X2bVs2urdgTaEdlmdz4s
+ RZYK91ebyn4PtjicWwrU18RTNc2kL8E=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id AA91AAC85;
- Wed, 30 Sep 2020 10:46:41 +0000 (UTC)
-Date: Wed, 30 Sep 2020 12:47:09 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Xiao Yang <yangx.jy@cn.fujitsu.com>
-Message-ID: <20200930104709.GC6611@yuki.lan>
-References: <20200929025606.322543-1-yangx.jy@cn.fujitsu.com>
+ by mx2.suse.de (Postfix) with ESMTP id 80CB9ABC1;
+ Wed, 30 Sep 2020 11:09:17 +0000 (UTC)
+From: Richard Palethorpe <rpalethorpe@suse.com>
+To: ltp@lists.linux.it
+Date: Wed, 30 Sep 2020 12:09:13 +0100
+Message-Id: <20200930110913.28436-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200929025606.322543-1-yangx.jy@cn.fujitsu.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] controllers/cpuset_base_ops_testset.sh: Accept
- either 0 or -EINVAL when passing '0-'
+Subject: [LTP] [PATCH v2] utimensat01: Use common FS (ext4) with timestamps
+ and attributes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,48 +55,97 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it, rpalethorpe@suse.com
+Cc: viresh.kumar@linaro.org, Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> When we write '0-' to cpuset.cpus/cpuset.mems, new bitmap_parselist()
-> in kernel(e.g. newer than v4.2) treats it as an invalid value and old
-> one treats it as a valid '0':
-> -------------------------------------------
-> on v5.8.0:
->  # echo 0- > cpuset.cpus
->  -bash: echo: write error: Invalid argument
->  # echo 0- > cpuset.mems
->  -bash: echo: write error: Invalid argument
-> 
-> on v4.0.0:
->  # echo '0-' >cpuset.cpus
->  # cat cpuset.cpus
->  0
->  # echo '0-' >cpuset.mems
->  # cat cpuset.cpus
->  0
-> -------------------------------------------
-> Note: commit d9282cb66353b changes the behavior.
-> 
-> Drop the check of kernel version and accept either 0 or -EINVAL
-> because the change of behavior can be backported into old kernel.
+If tmpdir is mounted on tmpfs then the test will fail with ENOTTY as
+this FS apparently does not support file attributes (inode
+flags). Instead we can test on ext4 where setting attributes and high
+precision timestamps is known to work.
 
-Why can't we just simply adjust the kernel check, it looks like the
-commit you mentioned was added to 4.3 so it should be fixed by changing
-the line to:
+We can not set all_filesystems because utimensat will fail to reset
+the timestamp to zero on at least exFAT and NTFS (FUSE and kernel
+versions). It is not clear yet what the expected behavior is or how
+the test could fail gracefully and requires investigation.
 
-	if tst_kvcmp -lt "4.3 RHEL6:2.6.32"; then
+Also if we now get ENOTTY then it is assumed the file system does not
+support attributes and the test fails with TCONF. However the
+underlying FS could return some other errno (e.g. EINVAL on FUSE
+NTFS), but it is not clear what to expect, if anything and also
+requires further investigation.
 
-We want to at least keep the check for kernels newer than 4.3 just to
-make sure that kernel keeps rejecting the '0-' invalid value.
+Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+---
 
+V2: Instead of trying to use all filesystems, just use one we know
+    works and is on most distros.
+
+Obviously this is not ideal as this also expected to work on BTRFS,
+XFS etc. However the library doesn't allow us to specify this and
+modifying it would be quite intrusive. After the release this needs to
+be looked into.
+
+ .../kernel/syscalls/utimensat/utimensat01.c   | 22 ++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/utimensat/utimensat01.c b/testcases/kernel/syscalls/utimensat/utimensat01.c
+index fe490f441..42299eda8 100644
+--- a/testcases/kernel/syscalls/utimensat/utimensat01.c
++++ b/testcases/kernel/syscalls/utimensat/utimensat01.c
+@@ -21,8 +21,9 @@
+ #include "time64_variants.h"
+ #include "tst_timer.h"
+ 
+-#define TEST_FILE	"test_file"
+-#define TEST_DIR	"test_dir"
++#define MNTPOINT 	"mntpoint"
++#define TEST_FILE	MNTPOINT"/test_file"
++#define TEST_DIR	MNTPOINT"/test_dir"
+ 
+ static void *bad_addr;
+ 
+@@ -182,7 +183,12 @@ static void change_attr(struct test_case *tc, int fd, int set)
+ 	if (!tc->attr)
+ 		return;
+ 
+-	SAFE_IOCTL(fd, FS_IOC_GETFLAGS, &attr);
++	if (ioctl(fd, FS_IOC_GETFLAGS, &attr)) {
++		if (errno == ENOTTY)
++			tst_brk(TCONF | TERRNO, "Attributes not supported by FS");
++		else
++			tst_brk(TBROK | TERRNO, "ioctl(fd, FS_IOC_GETFLAGS, &attr) failed");
++	}
+ 
+ 	if (set)
+ 		attr |= tc->attr;
+@@ -198,7 +204,11 @@ static void reset_time(char *pathname, int dfd, int flags, int i)
+ 	struct stat sb;
+ 
+ 	memset(&ts, 0, sizeof(ts));
+-	tv->utimensat(dfd, pathname, &ts, flags);
++	TEST(tv->utimensat(dfd, pathname, &ts, flags));
++	if (TST_RET) {
++		tst_res(TINFO | TTERRNO, "%2d: utimensat(%d, %s, {0, 0}, %d) failed",
++			i, dfd, pathname, flags);
++	}
+ 
+ 	TEST(stat(pathname, &sb));
+ 	if (TST_RET) {
+@@ -305,5 +315,7 @@ static struct tst_test test = {
+ 	.test_variants = ARRAY_SIZE(variants),
+ 	.setup = setup,
+ 	.needs_root = 1,
+-	.needs_tmpdir = 1,
++	.mount_device = 1,
++	.mntpoint = MNTPOINT,
++	.dev_fs_type = "ext4",
+ };
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.28.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
