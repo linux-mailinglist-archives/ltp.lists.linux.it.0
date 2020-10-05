@@ -2,35 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8EB32832A5
-	for <lists+linux-ltp@lfdr.de>; Mon,  5 Oct 2020 10:56:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EA82283314
+	for <lists+linux-ltp@lfdr.de>; Mon,  5 Oct 2020 11:21:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 190B13C2694
-	for <lists+linux-ltp@lfdr.de>; Mon,  5 Oct 2020 10:56:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B5AE33C59B3
+	for <lists+linux-ltp@lfdr.de>; Mon,  5 Oct 2020 11:21:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id CDB8D3C260A
- for <ltp@lists.linux.it>; Mon,  5 Oct 2020 10:56:35 +0200 (CEST)
-Received: from mail.zilogic.com (mail.zilogic.com [45.33.14.236])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 875091A00242
- for <ltp@lists.linux.it>; Mon,  5 Oct 2020 10:56:34 +0200 (CEST)
-Date: Mon, 05 Oct 2020 08:55:55 -0000
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 0C5853C2601
+ for <ltp@lists.linux.it>; Mon,  5 Oct 2020 11:20:47 +0200 (CEST)
+Received: from mo-csw.securemx.jp (mo-csw1514.securemx.jp [210.130.202.153])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 38B721400DCB
+ for <ltp@lists.linux.it>; Mon,  5 Oct 2020 11:20:42 +0200 (CEST)
+Received: by mo-csw.securemx.jp (mx-mo-csw1514) id 0959KdX7025217;
+ Mon, 5 Oct 2020 18:20:39 +0900
+X-Iguazu-Qid: 34trc0u0FBqxsGGyVJ
+X-Iguazu-QSIG: v=2; s=0; t=1601889639; q=34trc0u0FBqxsGGyVJ;
+ m=aippuYxWK0LA7b7z2kgJr6wNpwwdWGWXSL6raWXcGpw=
+Received: from imx12.toshiba.co.jp (imx12.toshiba.co.jp [61.202.160.132])
+ by relay.securemx.jp (mx-mr1511) id 0959Kc7b016270;
+ Mon, 5 Oct 2020 18:20:39 +0900
+Received: from enc02.toshiba.co.jp ([61.202.160.51])
+ by imx12.toshiba.co.jp  with ESMTP id 0959Kcsk021220
+ for <ltp@lists.linux.it>; Mon, 5 Oct 2020 18:20:38 +0900 (JST)
+Received: from hop101.toshiba.co.jp ([133.199.85.107])
+ by enc02.toshiba.co.jp  with ESMTP id 0959Kcob006854
+ for <ltp@lists.linux.it>; Mon, 5 Oct 2020 18:20:38 +0900
+From: Punit Agrawal <punit1.agrawal@toshiba.co.jp>
 To: ltp@lists.linux.it
-Message-ID: <20201005085555.2072-1-paulson@zilogic.com>
-From: "Paulson Raja L" <paulson@zilogic.com>
-Received: from localhost.localdomain (27.62.59.103 [27.62.59.103])
- by mail.zilogic.com; Mon, 05 Oct 2020 08:56:24 -0000
-X-Mailer: git-send-email 2.20.1
+Date: Mon,  5 Oct 2020 18:20:29 +0900
+X-TSB-HOP: ON
+Message-Id: <20201005092029.3482531-1-punit1.agrawal@toshiba.co.jp>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=MSGID_FROM_MTA_HEADER,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] RFC:[PATCH v1] Added test case to test mmap with
- MAP_SHARED_VALIDATE flag
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+X-Mailman-Approved-At: Mon, 05 Oct 2020 11:21:37 +0200
+Subject: [LTP] [PATCH] syscalls/mq_notify: Don't fail if mq_notify is not
+ supported
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,102 +58,47 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Paulson Raja L <paulson@zilogic.com>,
- "Vijay Kumar B ." <vijaykumar@zilogic.com>
+Cc: Punit Agrawal <punit1.agrawal@toshiba.co.jp>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+When CONFIG_POSIX_MQUEUE is configured off, the mq_notify02 test
+erroneously reports a failure rather than a missing configuration.
 
-This patch adds a new test case for the mmap syscall. It tests the
-MAP_SHARED_VALIDATE flag of mmap. The code checks if MAP_SHARED_VALIDATE
-returns EOPNOTSUPP when mapped with an invalid flag value. It does so by
-setting the unused bits of the flag argument.
-Git Hub Issue link - https://github.com/linux-test-project/ltp/issues/298
+Update the test case to call this out separate to the failure case.
 
-Signed-off-by: Paulson Raja L. <paulson@zilogic.com>
-Reviewed-by: Vijay Kumar B. <vijaykumar@zilogic.com>
-
+Signed-off-by: Punit Agrawal <punit1.agrawal@toshiba.co.jp>
 ---
- testcases/kernel/syscalls/mmap/mmap18.c | 66 +++++++++++++++++++++++++
- 1 file changed, 66 insertions(+)
- create mode 100644 testcases/kernel/syscalls/mmap/mmap18.c
+Hi,
 
-diff --git a/testcases/kernel/syscalls/mmap/mmap18.c b/testcases/kernel/syscalls/mmap/mmap18.c
-new file mode 100644
-index 000000000..e9ed4dfa6
---- /dev/null
-+++ b/testcases/kernel/syscalls/mmap/mmap18.c
-@@ -0,0 +1,66 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) Zilogic Systems Pvt. Ltd., 2020
-+ * Email: code@zilogic.com
-+ */
-+
-+/*
-+ * Test mmap with MAP_SHARED_VALIDATE flag
-+ *
-+ * We are testing the MAP_SHARED_VALIDATE flag of mmap() syscall. To check
-+ * if there is an invalid flag value, the MAP_SHARED_VALIDATE returns
-+ * EOPNOTSUPP.The unused bits in the MAP_SHARED_VALIDATE is found,
-+ * and by setting the unused bits of the flag argument the flag value
-+ * becomes invalid and the error EOPNOTSUPP is produced as expected.
-+ */
-+
-+#include <sys/types.h>
-+#include <sys/stat.h>
-+#include <fcntl.h>
-+#include <unistd.h>
-+#include <sys/mman.h>
-+#include <linux/mman.h>
-+#include <errno.h>
-+#include "tst_test.h"
-+
-+#define TEST_FILE "file_to_mmap"
-+#define TEST_FILE_SIZE 1024
-+#define TEST_FILE_MODE 0600
-+
-+static int fd_file;
-+static void *mapped_address;
-+
-+static void setup(void)
-+{
-+	fd_file = SAFE_OPEN(TEST_FILE, O_CREAT | O_RDWR, TEST_FILE_MODE);
-+	if (tst_fill_file(TEST_FILE, 'a', TEST_FILE_SIZE, 1))
-+		tst_brk(TBROK, "Could not fill Testfile !");
-+}
-+
-+static void cleanup(void)
-+{
-+	if (fd_file > 0)
-+		SAFE_CLOSE(fd_file);
-+	if (mapped_address != MAP_FAILED && mapped_address != NULL)
-+		SAFE_MUNMAP(mapped_address, TEST_FILE_SIZE);
-+}
-+
-+static void test_mmap(void)
-+{
-+	mapped_address = mmap(NULL, TEST_FILE_SIZE, PROT_READ | PROT_WRITE,
-+			(1 << 7) | (1 << 9) | MAP_SHARED_VALIDATE, fd_file, 0);
-+	if (mapped_address != MAP_FAILED)
-+		tst_res(TFAIL | TERRNO, "mmap() is successful,but it should have failed");
-+	else if (errno == EOPNOTSUPP)
-+		tst_res(TPASS, "mmap() failed with errno set to EOPNOTSUPP");
-+	else
-+		tst_res(TFAIL | TERRNO, "mmap() failed with the unexpected error");
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.test_all = test_mmap,
-+	.min_kver = "4.15",
-+	.needs_tmpdir = 1,
-+};
+Noticed the issue while analysing test report on a system with
+CONFIG_POSIX_MQUEUE turned off.
+
+Please cc me on comments as I'm not subscribed to the list.
+
+Thanks,
+Punit
+
+ testcases/kernel/syscalls/mq_notify/mq_notify02.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/testcases/kernel/syscalls/mq_notify/mq_notify02.c b/testcases/kernel/syscalls/mq_notify/mq_notify02.c
+index fe59b5a11..e2269cd8e 100644
+--- a/testcases/kernel/syscalls/mq_notify/mq_notify02.c
++++ b/testcases/kernel/syscalls/mq_notify/mq_notify02.c
+@@ -77,6 +77,8 @@ static void mq_notify_verify(struct test_case_t *test)
+ 
+ 	if (TEST_ERRNO == test->exp_errno) {
+ 		tst_resm(TPASS | TTERRNO, "mq_notify failed as expected");
++	} else if (TEST_ERRNO == ENOSYS) {
++		tst_resm(TCONF | TTERRNO, "mq_notify not available (ENOSYS)");
+ 	} else {
+ 		tst_resm(TFAIL | TTERRNO,
+ 			 "mq_notify failed unexpectedly; expected: %d - %s",
 -- 
-2.20.1
+2.28.0
 
 
 -- 
