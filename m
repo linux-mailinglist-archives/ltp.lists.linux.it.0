@@ -1,74 +1,36 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2994F2823D4
-	for <lists+linux-ltp@lfdr.de>; Sat,  3 Oct 2020 13:30:15 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B8EB32832A5
+	for <lists+linux-ltp@lfdr.de>; Mon,  5 Oct 2020 10:56:38 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C54353C2979
-	for <lists+linux-ltp@lfdr.de>; Sat,  3 Oct 2020 13:30:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 190B13C2694
+	for <lists+linux-ltp@lfdr.de>; Mon,  5 Oct 2020 10:56:38 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 48DE03C223B
- for <ltp@lists.linux.it>; Sat,  3 Oct 2020 13:30:10 +0200 (CEST)
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com
- [IPv6:2a00:1450:4864:20::642])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 08C676012D6
- for <ltp@lists.linux.it>; Sat,  3 Oct 2020 13:30:10 +0200 (CEST)
-Received: by mail-ej1-x642.google.com with SMTP id u8so5276547ejg.1
- for <ltp@lists.linux.it>; Sat, 03 Oct 2020 04:30:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:reply-to:references:mime-version
- :content-disposition:in-reply-to;
- bh=ZQeZoiwCDx2xELwgkO86877s0U92u34kFID65nXJRkU=;
- b=hccmxm1iEHlcAtzEdT4yVILvdVLlTg+t30EsWKXjPRqO3m0nyi2cVRdkVhoNRyNGX7
- 4LAL1lLleAvRWWt51cVQrK/je55/PTHSQ7M3HO5Gzyjxg1lTeaG2UEd6lbdBS0EhSwuO
- UAw/ocJrCqWShlDTZYDRCJcyw81oHwUMiwsJgUw01+b4ZlfDizMSjlRh4gRDlZFrXyY1
- eAUuv7FWmNkL7kanVAtJVWkoCvRVcdUsBXBlWk5Rx3HmXGnDBNfH3zJyvaSTkPi6NG7j
- ZRVXcjW/3HT9Ib1uWWz1Y+2OrYHE1IWFWtRR/Lx96A7//DOrE6sK98/SQ/VhXRNm5Cbl
- j1vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:reply-to
- :references:mime-version:content-disposition:in-reply-to;
- bh=ZQeZoiwCDx2xELwgkO86877s0U92u34kFID65nXJRkU=;
- b=g2foQtdQswtmhrynIBwc+pfawgD65ftiXixzrUXO0jWXsDwTFZxMRaxmotJAljzu0Q
- mYK+yxF5rUQ1nKfIB7mBUYjJCuFZ4MImJnMKlwTNZKxvT1g5VygT3IrAQWp45MQsqZR1
- UKUX+98PZctOpBgPOHr5zMEmccuS7RNFjWDPC0A+JPG8jMfj54tJApx4rm1bfs6G/8f+
- 7+pXtlNzXC3jKPVFDP7rUkrLtZNjN1CBiXqRTvCLMnPSUvyGfJy8tPfB0hXpUh9D6nJe
- 25C6zf1emTSn2JOQva94S76SODvIS7i2StmtEdWZotnWDRk3TCnA8o7E/EO5R/8gQcIL
- g5ow==
-X-Gm-Message-State: AOAM531YEewtgT6Dc4FA6MiTkaY7K5Pd0S1UQXQBVw6j0a+oDXZeTZjR
- 5O+IQi9xytDR5qTMZ7nzVIs=
-X-Google-Smtp-Source: ABdhPJwRODFrfQD6aef2kkRN3puRlendt72yBKsrHJcZchqrAkoy7H6h/9pqNO0dx7f4/M/pYv/IRg==
-X-Received: by 2002:a17:906:4b4a:: with SMTP id
- j10mr6189977ejv.498.1601724609591; 
- Sat, 03 Oct 2020 04:30:09 -0700 (PDT)
-Received: from x230 ([62.201.25.198])
- by smtp.gmail.com with ESMTPSA id a20sm2786514ejb.81.2020.10.03.04.30.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 03 Oct 2020 04:30:09 -0700 (PDT)
-Date: Sat, 3 Oct 2020 13:30:07 +0200
-From: Petr Vorel <petr.vorel@gmail.com>
-To: Vineet Gupta <Vineet.Gupta1@synopsys.com>
-Message-ID: <20201003113007.GA289020@x230>
-References: <20201002202416.28972-1-petr.vorel@gmail.com>
- <6b5f52e8-0c0c-f83f-d7aa-6ab307d5621f@synopsys.com>
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id CDB8D3C260A
+ for <ltp@lists.linux.it>; Mon,  5 Oct 2020 10:56:35 +0200 (CEST)
+Received: from mail.zilogic.com (mail.zilogic.com [45.33.14.236])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 875091A00242
+ for <ltp@lists.linux.it>; Mon,  5 Oct 2020 10:56:34 +0200 (CEST)
+Date: Mon, 05 Oct 2020 08:55:55 -0000
+To: ltp@lists.linux.it
+Message-ID: <20201005085555.2072-1-paulson@zilogic.com>
+From: "Paulson Raja L" <paulson@zilogic.com>
+Received: from localhost.localdomain (27.62.59.103 [27.62.59.103])
+ by mail.zilogic.com; Mon, 05 Oct 2020 08:56:24 -0000
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <6b5f52e8-0c0c-f83f-d7aa-6ab307d5621f@synopsys.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] cacheflush01: Rewrite into new API
+X-Spam-Status: No, score=0.0 required=7.0 tests=MSGID_FROM_MTA_HEADER,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] RFC:[PATCH v1] Added test case to test mmap with
+ MAP_SHARED_VALIDATE flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,28 +42,103 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <petr.vorel@gmail.com>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: Paulson Raja L <paulson@zilogic.com>,
+ "Vijay Kumar B ." <vijaykumar@zilogic.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Vineet,
 
-...
-> > FYI: I was going to ask for removal of this test, but all these archs are
-> > still supported. This test compiles on all archs now, but I haven't run
-> > it (I don't have access to none of these archs, not sure if LTP is even
-> > tested on these archs).
+This patch adds a new test case for the mmap syscall. It tests the
+MAP_SHARED_VALIDATE flag of mmap. The code checks if MAP_SHARED_VALIDATE
+returns EOPNOTSUPP when mapped with an invalid flag value. It does so by
+setting the unused bits of the flag argument.
+Git Hub Issue link - https://github.com/linux-test-project/ltp/issues/298
 
-> LTP is pretty much regularly tested on ARC and yes we do support/need the
-> cachflush syscall test.
+Signed-off-by: Paulson Raja L. <paulson@zilogic.com>
+Reviewed-by: Vijay Kumar B. <vijaykumar@zilogic.com>
 
-Thanks for a confirmation!
+---
+ testcases/kernel/syscalls/mmap/mmap18.c | 66 +++++++++++++++++++++++++
+ 1 file changed, 66 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/mmap/mmap18.c
 
-Kind regards,
-Petr
+diff --git a/testcases/kernel/syscalls/mmap/mmap18.c b/testcases/kernel/syscalls/mmap/mmap18.c
+new file mode 100644
+index 000000000..e9ed4dfa6
+--- /dev/null
++++ b/testcases/kernel/syscalls/mmap/mmap18.c
+@@ -0,0 +1,66 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) Zilogic Systems Pvt. Ltd., 2020
++ * Email: code@zilogic.com
++ */
++
++/*
++ * Test mmap with MAP_SHARED_VALIDATE flag
++ *
++ * We are testing the MAP_SHARED_VALIDATE flag of mmap() syscall. To check
++ * if there is an invalid flag value, the MAP_SHARED_VALIDATE returns
++ * EOPNOTSUPP.The unused bits in the MAP_SHARED_VALIDATE is found,
++ * and by setting the unused bits of the flag argument the flag value
++ * becomes invalid and the error EOPNOTSUPP is produced as expected.
++ */
++
++#include <sys/types.h>
++#include <sys/stat.h>
++#include <fcntl.h>
++#include <unistd.h>
++#include <sys/mman.h>
++#include <linux/mman.h>
++#include <errno.h>
++#include "tst_test.h"
++
++#define TEST_FILE "file_to_mmap"
++#define TEST_FILE_SIZE 1024
++#define TEST_FILE_MODE 0600
++
++static int fd_file;
++static void *mapped_address;
++
++static void setup(void)
++{
++	fd_file = SAFE_OPEN(TEST_FILE, O_CREAT | O_RDWR, TEST_FILE_MODE);
++	if (tst_fill_file(TEST_FILE, 'a', TEST_FILE_SIZE, 1))
++		tst_brk(TBROK, "Could not fill Testfile !");
++}
++
++static void cleanup(void)
++{
++	if (fd_file > 0)
++		SAFE_CLOSE(fd_file);
++	if (mapped_address != MAP_FAILED && mapped_address != NULL)
++		SAFE_MUNMAP(mapped_address, TEST_FILE_SIZE);
++}
++
++static void test_mmap(void)
++{
++	mapped_address = mmap(NULL, TEST_FILE_SIZE, PROT_READ | PROT_WRITE,
++			(1 << 7) | (1 << 9) | MAP_SHARED_VALIDATE, fd_file, 0);
++	if (mapped_address != MAP_FAILED)
++		tst_res(TFAIL | TERRNO, "mmap() is successful,but it should have failed");
++	else if (errno == EOPNOTSUPP)
++		tst_res(TPASS, "mmap() failed with errno set to EOPNOTSUPP");
++	else
++		tst_res(TFAIL | TERRNO, "mmap() failed with the unexpected error");
++}
++
++static struct tst_test test = {
++	.setup = setup,
++	.cleanup = cleanup,
++	.test_all = test_mmap,
++	.min_kver = "4.15",
++	.needs_tmpdir = 1,
++};
+-- 
+2.20.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
