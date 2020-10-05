@@ -1,40 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45524283694
-	for <lists+linux-ltp@lfdr.de>; Mon,  5 Oct 2020 15:31:58 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 27F8328368B
+	for <lists+linux-ltp@lfdr.de>; Mon,  5 Oct 2020 15:30:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 09C793C26E0
-	for <lists+linux-ltp@lfdr.de>; Mon,  5 Oct 2020 15:31:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id EC4023C268B
+	for <lists+linux-ltp@lfdr.de>; Mon,  5 Oct 2020 15:30:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 988E93C4AF7
- for <ltp@lists.linux.it>; Mon,  5 Oct 2020 15:30:38 +0200 (CEST)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 325E93C2612
+ for <ltp@lists.linux.it>; Mon,  5 Oct 2020 15:30:35 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id AC1E11000B1C
- for <ltp@lists.linux.it>; Mon,  5 Oct 2020 15:30:33 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 189DF1A0080C
+ for <ltp@lists.linux.it>; Mon,  5 Oct 2020 15:30:34 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E8DB0B200;
- Mon,  5 Oct 2020 13:30:32 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 9B3FAB202;
+ Mon,  5 Oct 2020 13:30:33 +0000 (UTC)
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Mon,  5 Oct 2020 15:30:44 +0200
-Message-Id: <20201005133054.23587-2-chrubis@suse.cz>
+Date: Mon,  5 Oct 2020 15:30:45 +0200
+Message-Id: <20201005133054.23587-3-chrubis@suse.cz>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201005133054.23587-1-chrubis@suse.cz>
 References: <20201005133054.23587-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 01/11] make: Support compiling native build tools
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 02/11] travis: Add git
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,137 +52,64 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Petr Vorel <pvorel@suse.cz>
 
-Add HOST_MAKE_TARGETS make target and HOSTCC,
-HOST_{CFLAGS,LDFLAGS} make variables.
-
-Needed for cross-compilation.
-
-NOTE: detect cross compilation with comparing $(build) and $(host)
-instead of using $cross_compiling configure variable, which would
-require move the detection into m4 macro.
+Needed in parse.sh script in next commit.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- configure.ac                       |  2 ++
- include/mk/config.mk.in            | 21 +++++++++++++++++++++
- include/mk/env_post.mk             |  3 +--
- include/mk/generic_leaf_target.inc |  6 ++++++
- include/mk/rules.mk                |  8 ++++++++
- 5 files changed, 38 insertions(+), 2 deletions(-)
+ travis/alpine.sh     | 1 +
+ travis/debian.sh     | 1 +
+ travis/fedora.sh     | 1 +
+ travis/tumbleweed.sh | 1 +
+ 4 files changed, 4 insertions(+)
 
-diff --git a/configure.ac b/configure.ac
-index 03e4e09c9..05672f8f6 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -13,6 +13,8 @@ AC_CONFIG_FILES([ \
-     execltp \
- ])
- 
-+AC_ARG_VAR(HOSTCC, [The C compiler on the host])
-+
- AM_MAINTAINER_MODE([enable])
- 
- AC_CANONICAL_HOST
-diff --git a/include/mk/config.mk.in b/include/mk/config.mk.in
-index 427608a17..8f73a6a34 100644
---- a/include/mk/config.mk.in
-+++ b/include/mk/config.mk.in
-@@ -31,6 +31,19 @@ RANLIB			:= @RANLIB@
- STRIP			:= @STRIP@
- YACC			:= @YACC@
- 
-+HOSTCC  = @HOSTCC@
-+build := @build@
-+host := @host@
-+ifeq ($(strip $(HOSTCC)),)
-+# native build, respect CC
-+ifeq ($(build),$(host))
-+HOSTCC := $(CC)
-+else
-+# cross compilation
-+HOSTCC := cc
-+endif
-+endif
-+
- AIO_LIBS		:= @AIO_LIBS@
- CAP_LIBS		:= @CAP_LIBS@
- ACL_LIBS		:= @ACL_LIBS@
-@@ -70,6 +83,14 @@ WCFLAGS			?= -Wall -W @GCC_WARN_OLDSTYLE@
- LDFLAGS			+= $(WLDFLAGS)
- CFLAGS			+= $(DEBUG_CFLAGS) $(OPT_CFLAGS) $(WCFLAGS)
- 
-+ifeq ($(strip $(HOST_CFLAGS)),)
-+HOST_CFLAGS := $(CFLAGS)
-+endif
-+
-+ifeq ($(strip $(HOST_LDFLAGS)),)
-+HOST_LDFLAGS := $(LDFLAGS)
-+endif
-+
- LINUX_VERSION		:= @LINUX_VERSION@
- LINUX_DIR		:= @LINUX_DIR@
- LINUX_VERSION_MAJOR	:= @LINUX_VERSION_MAJOR@
-diff --git a/include/mk/env_post.mk b/include/mk/env_post.mk
-index 44a333198..d52ad9f0b 100644
---- a/include/mk/env_post.mk
-+++ b/include/mk/env_post.mk
-@@ -48,11 +48,10 @@ LDFLAGS				+= -L$(top_builddir)/lib/android_librt
- endif
- 
- MAKE_TARGETS			?= $(notdir $(patsubst %.c,%,$(wildcard $(abs_srcdir)/*.c)))
--
- MAKE_TARGETS			:= $(filter-out $(FILTER_OUT_MAKE_TARGETS),$(MAKE_TARGETS))
- 
- # with only *.dwo, .[0-9]+.dwo can not be cleaned
--CLEAN_TARGETS			+= $(MAKE_TARGETS) *.o *.pyc .cache.mk *.dwo .*.dwo
-+CLEAN_TARGETS			+= $(MAKE_TARGETS) $(HOST_MAKE_TARGETS) *.o *.pyc .cache.mk *.dwo .*.dwo
- 
- # Majority of the files end up in testcases/bin...
- INSTALL_DIR			?= testcases/bin
-diff --git a/include/mk/generic_leaf_target.inc b/include/mk/generic_leaf_target.inc
-index dd54d05e9..e6fa107d1 100644
---- a/include/mk/generic_leaf_target.inc
-+++ b/include/mk/generic_leaf_target.inc
-@@ -57,6 +57,8 @@
- #				     rope to hang one's self in the event of
- #				     unwanted behavior.
- #
-+# $(HOST_MAKE_TARGETS)	: Host tools which use $HOSTCC.
-+#
- # $(CLEAN_TARGETS)		: What targets should be cleaned (must be
- #				  real files). This will automatically append
- #				  adds the .o suffix to all files referenced
-@@ -92,6 +94,10 @@
- 
- .PHONY: all clean install
- 
-+ifneq ($(strip $(MAKE_TARGETS)),)
-+$(MAKE_TARGETS) += $(HOST_MAKE_TARGETS)
-+endif
-+
- $(MAKE_TARGETS): | $(MAKE_DEPS)
- 
- all: $(MAKE_TARGETS)
-diff --git a/include/mk/rules.mk b/include/mk/rules.mk
-index 6a22e43af..c8f4bbbbe 100644
---- a/include/mk/rules.mk
-+++ b/include/mk/rules.mk
-@@ -22,6 +22,14 @@ else
- 	@echo LD $(target_rel_dir)$@
- endif
- 
-+$(HOST_MAKE_TARGETS): %: %.c
-+ifdef VERBOSE
-+	$(HOSTCC) $(HOST_CFLAGS) $(HOST_LDFLAGS) $< $(HOST_LDLIBS) -o $@
-+else
-+	@$(HOSTCC) $(HOST_CFLAGS) $(HOST_LDFLAGS) $< $(HOST_LDLIBS) -o $@
-+	@echo HOSTCC $(target_rel_dir)$@
-+endif
-+
- %: %.c
- ifdef VERBOSE
- 	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) $^ $(LTPLDLIBS) $(LDLIBS) -o $@
+diff --git a/travis/alpine.sh b/travis/alpine.sh
+index 61ef144a8..f8960bed0 100755
+--- a/travis/alpine.sh
++++ b/travis/alpine.sh
+@@ -10,6 +10,7 @@ apk add \
+ 	automake \
+ 	clang \
+ 	gcc \
++	git \
+ 	keyutils-dev \
+ 	libaio-dev \
+ 	libacl \
+diff --git a/travis/debian.sh b/travis/debian.sh
+index b759a9576..28685f4d3 100755
+--- a/travis/debian.sh
++++ b/travis/debian.sh
+@@ -17,6 +17,7 @@ apt install -y --no-install-recommends \
+ 	devscripts \
+ 	clang \
+ 	gcc \
++	git \
+ 	libacl1 \
+ 	libacl1-dev \
+ 	libaio-dev \
+diff --git a/travis/fedora.sh b/travis/fedora.sh
+index 990a84daf..3c224f71e 100755
+--- a/travis/fedora.sh
++++ b/travis/fedora.sh
+@@ -8,6 +8,7 @@ yum -y install \
+ 	make \
+ 	clang \
+ 	gcc \
++	git \
+ 	findutils \
+ 	libtirpc \
+ 	libtirpc-devel \
+diff --git a/travis/tumbleweed.sh b/travis/tumbleweed.sh
+index 4d5e9da79..6247daa98 100755
+--- a/travis/tumbleweed.sh
++++ b/travis/tumbleweed.sh
+@@ -8,6 +8,7 @@ zypper --non-interactive install --force-resolution --no-recommends \
+ 	clang \
+ 	findutils \
+ 	gcc \
++	git \
+ 	gzip \
+ 	make \
+ 	kernel-default-devel \
 -- 
 2.26.2
 
