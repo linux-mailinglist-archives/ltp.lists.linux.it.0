@@ -2,39 +2,54 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECC8728CFC4
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Oct 2020 16:02:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29E4B28D7A0
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Oct 2020 02:44:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 88B733C26C6
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Oct 2020 16:02:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BC4403C5835
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Oct 2020 02:44:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id A0AC53C26A4
- for <ltp@lists.linux.it>; Tue, 13 Oct 2020 16:02:51 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id A69C03C2594
+ for <ltp@lists.linux.it>; Wed, 14 Oct 2020 02:44:18 +0200 (CEST)
+Received: from mo-csw.securemx.jp (mo-csw1515.securemx.jp [210.130.202.154])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DB930200C64
- for <ltp@lists.linux.it>; Tue, 13 Oct 2020 16:02:50 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3F919AC82;
- Tue, 13 Oct 2020 14:02:50 +0000 (UTC)
-Date: Tue, 13 Oct 2020 16:03:15 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Thadeu Lima de Souza Cascardo <cascardo@canonical.com>
-Message-ID: <20201013140315.GD29925@yuki.lan>
-References: <20201006085309.32227-1-cascardo@canonical.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 21F141400189
+ for <ltp@lists.linux.it>; Wed, 14 Oct 2020 02:44:13 +0200 (CEST)
+Received: by mo-csw.securemx.jp (mx-mo-csw1515) id 09E0i8h6028696;
+ Wed, 14 Oct 2020 09:44:08 +0900
+X-Iguazu-Qid: 34trXB0LGDM6pLRGbo
+X-Iguazu-QSIG: v=2; s=0; t=1602636248; q=34trXB0LGDM6pLRGbo;
+ m=YyOYmMr9bnSPpxDwJQuaNWLTxX/fnvYUgzg8kIJAZyw=
+Received: from imx2.toshiba.co.jp (imx2.toshiba.co.jp [106.186.93.51])
+ by relay.securemx.jp (mx-mr1510) id 09E0i7bd036769;
+ Wed, 14 Oct 2020 09:44:07 +0900
+Received: from enc01.toshiba.co.jp ([106.186.93.100])
+ by imx2.toshiba.co.jp  with ESMTP id 09E0i7vb013856;
+ Wed, 14 Oct 2020 09:44:07 +0900 (JST)
+Received: from hop001.toshiba.co.jp ([133.199.164.63])
+ by enc01.toshiba.co.jp  with ESMTP id 09E0i6Va030488;
+ Wed, 14 Oct 2020 09:44:06 +0900
+From: Punit Agrawal <punit1.agrawal@toshiba.co.jp>
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <20201005092029.3482531-1-punit1.agrawal@toshiba.co.jp>
+ <20201013122555.GC29925@yuki.lan>
+Date: Wed, 14 Oct 2020 09:44:05 +0900
+In-Reply-To: <20201013122555.GC29925@yuki.lan> (Cyril Hrubis's message of
+ "Tue, 13 Oct 2020 14:25:55 +0200")
+X-TSB-HOP: ON
+Message-ID: <871ri1d4bu.fsf@kokedama.swc.toshiba.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.3 (gnu/linux)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201006085309.32227-1-cascardo@canonical.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/timer_settime01: adjust for rounding
- from nsec to usec
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/mq_notify: Don't fail if mq_notify is
+ not supported
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,43 +61,24 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Kelsey Skunberg <kelsey.skunberg@canonical.com>, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-What about this change instead?
+Hi Cyril,
 
-diff --git a/testcases/kernel/syscalls/timer_settime/timer_settime01.c b/testcases/kernel/syscalls/timer_settime/timer_settime01.c
-index 67143e8f8..599ef2891 100644
---- a/testcases/kernel/syscalls/timer_settime/timer_settime01.c
-+++ b/testcases/kernel/syscalls/timer_settime/timer_settime01.c
-@@ -132,11 +132,13 @@ static void run(unsigned int n)
- 					get_clock_str(clock));
- 				continue;
- 			}
--			val += tst_ts_to_us(timenow);
-+			tst_ts_add_us(timenow, val);
-+			tst_its_set_value_from_ts(&new_set, timenow);
-+		} else {
-+			tst_its_set_value_from_us(&new_set, val);
- 		}
- 
- 		tst_its_set_interval_from_us(&new_set, tc->it_interval_tv_usec);
--		tst_its_set_value_from_us(&new_set, val);
- 
- 		TEST(tv->timer_settime(timer, tc->flag, tst_its_get(&new_set), tst_its_get(tc->old_ptr)));
- 
+Cyril Hrubis <chrubis@suse.cz> writes:
 
+> Hi!
+>> +	} else if (TEST_ERRNO == ENOSYS) {
+>> +		tst_resm(TCONF | TTERRNO, "mq_notify not available (ENOSYS)");
+>
+> Pushed with a minor change, removed the ENOSYS from the string since it
+> will be printed because of the TTERRNO flag, thanks.
 
-By adding the us to the timenow first and then setting the its.value
-from it we can avoid the rounding completely.
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
+I see the committed patch. Thanks for fixing it up.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
