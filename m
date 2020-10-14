@@ -2,80 +2,58 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A67328D9FF
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Oct 2020 08:27:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3AF828DA80
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Oct 2020 09:32:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9C38D3C269F
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Oct 2020 08:27:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4F5A83C580D
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Oct 2020 09:32:28 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 70E143C2219
- for <ltp@lists.linux.it>; Wed, 14 Oct 2020 08:27:51 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 45C5F200D53
- for <ltp@lists.linux.it>; Wed, 14 Oct 2020 08:27:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1602656869;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=xK8d2nmQnK6z5tPuHX+EOTjEby7B8ts6VtSspjtj7Ow=;
- b=HGXk+UggWRqIAgXtSLPkNWiLex1Dtg9wyGqr278IbqglwpRDrh2d7tWUcH8KjKnFD7QyUS
- 1nfDgWiP+WtpG5q/YZaf1c0mUskiCqS+/AJTVtq6E1+j8Ft6/jRGC1qEPU6roqdi1qZ+Wn
- Ul/OEpJQLDLUy+U4NJ2IOMxbVr7jTdY=
-Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
- [209.85.219.197]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-577-JpT6mzH0Mzie6-t2_27jAQ-1; Wed, 14 Oct 2020 02:27:46 -0400
-X-MC-Unique: JpT6mzH0Mzie6-t2_27jAQ-1
-Received: by mail-yb1-f197.google.com with SMTP id x14so2224957ybg.7
- for <ltp@lists.linux.it>; Tue, 13 Oct 2020 23:27:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=xK8d2nmQnK6z5tPuHX+EOTjEby7B8ts6VtSspjtj7Ow=;
- b=mjSxzV6MsuiRZCbY6mxwsCl2wX3TbbqEdqejI3xkVEuAaEJbqv8ph68whMAgRai/vc
- L89Hil2lD3/abN4s8sLviF+MlBCEBYifGLFOyHGCfR4zpBA5J6FviUFCzxIJMDi/8ViV
- RCxDyYpbShfLVRyg6YECBD2UQvnuLvw59tC5D+SmNYeyYUMT6HVYUY370v/AH2pxT/m6
- nhe8vUWosIg1NAgLuaVEWXnXKawsUiNybZUutRzSzqVcUr9yRi1PAkIL2Zl4SgNV4kRz
- M2ob0C0qYxpxFJFaaLprSlTFHvyNfRa04+LAXvUUd2qpLMX85llr5qxeKuG8KGLRKLJj
- 3olw==
-X-Gm-Message-State: AOAM530e9qFTmwxKeTVycDZzpV2kbAtWIEWOFHQAdG5DNPM0a7UFbadm
- I1/TDiHD++Lf3qLNPhZEA47mMRl2RF//8Tf4rlrvSa45T54UExRNNR8dJX4wFTQH4yJXqQyBgz8
- lvQyn6WrSXfXnkM1polW5Cw4nO+s=
-X-Received: by 2002:a25:5f45:: with SMTP id h5mr4833840ybm.286.1602656865596; 
- Tue, 13 Oct 2020 23:27:45 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzxFX8ueE7jqvog4CMnTT5pIKnrVi3SxCg0ycJo+nWIIce90iywWTIvORRCb6utDyJIoSI0SN4AXaHiwrym4mk=
-X-Received: by 2002:a25:5f45:: with SMTP id h5mr4833817ybm.286.1602656865280; 
- Tue, 13 Oct 2020 23:27:45 -0700 (PDT)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 7743B3C2236
+ for <ltp@lists.linux.it>; Wed, 14 Oct 2020 09:32:24 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 290951A00F1F
+ for <ltp@lists.linux.it>; Wed, 14 Oct 2020 09:32:20 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.77,373,1596470400"; 
+ d="scan'208,217";a="100146621"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 14 Oct 2020 15:32:03 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id DB46F48990FB;
+ Wed, 14 Oct 2020 15:31:58 +0800 (CST)
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Wed, 14 Oct 2020 15:31:57 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local ([fe80::549d:26ce:6b90:da77])
+ by G08CNEXMBPEKD04.g08.fujitsu.local
+ ([fe80::549d:26ce:6b90:da77%14]) with
+ mapi id 15.00.1497.006; Wed, 14 Oct 2020 15:31:57 +0800
+From: "Chen, Hanxiao" <chenhx.fnst@cn.fujitsu.com>
+To: Li Wang <liwang@redhat.com>
+Thread-Topic: =?utf-8?B?IOetlOWkjTogW0xUUF0gW1BBVENIXSBtZW1jZ191c2VfaGllcmFyY2h5X3Rl?=
+ =?utf-8?B?c3Quc2g6IHNraXAgc2V0dGluZyB1c2VfaGllcmFyY2h5IGlmIG5vdCBhdmFp?=
+ =?utf-8?Q?lable?=
+Thread-Index: Adah+KhiBohilI7oSt+1/fH4MFeQ0A==
+Date: Wed, 14 Oct 2020 07:31:57 +0000
+Message-ID: <57e1161dae434ffda48b0e0cc261e706@G08CNEXMBPEKD04.g08.fujitsu.local>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.167.225.189]
 MIME-Version: 1.0
-References: <20200911092121.1917-1-chenhx.fnst@cn.fujitsu.com>
- <7584a7ab-bc37-111f-f9bf-38da2d1e8099@cn.fujitsu.com>
- <ebd86e7d991642cbb13e3ce46d032a69@G08CNEXMBPEKD04.g08.fujitsu.local>
- <5F851CD7.8030005@cn.fujitsu.com>
-In-Reply-To: <5F851CD7.8030005@cn.fujitsu.com>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 14 Oct 2020 14:27:33 +0800
-Message-ID: <CAEemH2fNrmOcY_wa3xC0GoHBqpnZkOkkMkoBDqeV1vs8pzHfgA@mail.gmail.com>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>, 
- =?UTF-8?B?Q2hlbiwgSGFueGlhby/pmYgg5pmX6ZyE?= <chenhx.fnst@cn.fujitsu.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-yoursite-MailScanner-ID: DB46F48990FB.A6768
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: chenhx.fnst@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=HTML_MESSAGE, KHOP_HELO_FCRDNS,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] 
-	=?utf-8?b?562U5aSNOiAgW1BBVENIXSBtZW1jZ191c2VfaGllcmFyY2h5?=
-	=?utf-8?q?=5Ftest=2Esh=3A_skip_setting_use=5Fhierarchy_if_not_avai?=
-	=?utf-8?q?lable?=
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] =?utf-8?b?562U5aSNOiAgW1BBVENIXSBtZW1jZ191c2VfaGllcmFyY2h5?=
+ =?utf-8?q?=5Ftest=2Esh=3A_skip_setting_use=5Fhierarchy_if_not_available?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,164 +65,382 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0364204784=="
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0800204077=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0364204784==
-Content-Type: multipart/alternative; boundary="00000000000026fa6505b19ba1ba"
+--===============0800204077==
+Content-Language: zh-CN
+Content-Type: multipart/alternative;
+	boundary="_000_57e1161dae434ffda48b0e0cc261e706G08CNEXMBPEKD04g08fujit_"
 
---00000000000026fa6505b19ba1ba
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+--_000_57e1161dae434ffda48b0e0cc261e706G08CNEXMBPEKD04g08fujit_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Tue, Oct 13, 2020 at 11:19 AM Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-wrote:
+DQoNCkhpLCBMaQ0KDQo+5Y+R5Lu25Lq6OiBMaSBXYW5nIDxsaXdhbmdAcmVk
+aGF0LmNvbT4NCj7lj5HpgIHml7bpl7Q6IDIwMjDlubQxMOaciDE05pelIDE0
+OjI4DQo+5pS25Lu25Lq6OiBYdSwgWWFuZyA8eHV5YW5nMjAxOC5qeUBjbi5m
+dWppdHN1LmNvbT47IENoZW4sIEhhbnhpYW8gPGNoZW5oeC5mbnN0QGNuLmZ1
+aml0c3UuY29tPg0KPuaKhOmAgTogTFRQIExpc3QgPGx0cEBsaXN0cy5saW51
+eC5pdD4NCj7kuLvpopg6IFJlOiDnrZTlpI06IFtMVFBdIFtQQVRDSF0gbWVt
+Y2dfdXNlX2hpZXJhcmNoeV90ZXN0LnNoOiBza2lwIHNldHRpbmcgdXNlX2hp
+ZXJhcmNoeSBpZiBub3QgYXZhaWxhYmxlDQo+DQo+DQo+DQo+T24gVHVlLCBP
+Y3QgMTMsIDIwMjAgYXQgMTE6MTkgQU0gWWFuZyBYdSA8eHV5YW5nMjAxOC5q
+eUBjbi5mdWppdHN1LmNvbT4gd3JvdGU6DQo+SGkgSGFueGlhbw0KPg0KPj4g
+SGksIFlhbmcNCj4+DQo+Pj4gLS0tLS3plq3uhrvmrKLpjZjnhrbmrKItLS0t
+LQ0KPj4+IOa2k+Wpmu6VvTogUmU6IFtMVFBdIFtQQVRDSF0gbWVtY2dfdXNl
+X2hpZXJhcmNoeV90ZXN0LnNoOiBza2lwIHNldHRpbmcNCj4+PiB1c2VfaGll
+cmFyY2h5IGlmIG5vdCBhdmFpbGFibGUNCltzbmlwXQ0KPj4gVGhlIGJlaGF2
+aW9yIGFib3ZlIGxvb2tzIGNvbmZsaWN0aW5nIHdpdGggaHR0cHM6Ly93d3cu
+a2VybmVsLm9yZy9kb2MvRG9jdW1lbnRhdGlvbi9jZ3JvdXAtdjEvbWVtb3J5
+LnR4dC4NCj5ZZXMuIENlbnRvczcgYmVoYXZpb3IgaXMgZGlmZmVyZW50IGZy
+b20gdGhlIGRvY3VtZW50YXRpb24uDQo+Pj4gU28gd2h5IG5vdCBkaXJlY3Rs
+eSB1c2UgL2Rldi9tZW1jZy9tZW1vcnkudXNlX2hpZXJhcmNoeSB2YWx1ZSB0
+byBqdWRnZSBpbg0KPj4+IHRlc3RjYXNlIGFmdGVyIHNldHRpbmcgMC4NCj4+
+IEluIHNldHVwX3Rlc3QgZnJvbSBtZW1jZ19saWIuc2gsIHdlIGFjdHVhbGx5
+IGRpZDoNCj4+ICAgICBtb3VudCAtdCBjZ3JvdXAgLW9tZW1vcnkgbWVtY2cg
+L2Rldi9tZW1jZw0KPj4gVGhlbiBrZXJuZWwgd2lsbCBmaW5kIGEgc3VpdGFi
+bGUgY2dyb3VwIHJvb3QgZm9yIHVzIGluIGNncm91cDFfbW91bnQuDQo+Pg0K
+Pj4gSW4gdGhpcyBjYXNlLCAvc3lzL2ZzL2Nncm91cC9tZW1vcnkvIHdvdWxk
+IGJlIHRoZSBnb29kIGNob2ljZS4NCj4+IFNvIGl0J3MgZXF1aXZhbGVudCB0
+byByZWFkIG1lbW9yeS51c2VfaGllcmFyY2h5IGZyb20gZWl0aGVyIHNpZGUu
+DQo+SSB1bmRlcnN0YW5kLiBPbmx5IGEgbWlub3Igc3VnZ2VzdGlvbiwgcGxl
+YXNlIHVzZSB0YWJzIGluc3RlYWQgb2Ygc3BhY2VzDQo+YXQgdGhlIGJlZ2lu
+bmluZyBvZiB0aGUgbGluZS4NCj4NCj4NCj5UaGlzIHBhdGNoIGxvb2tzIGdv
+b2QgdG8gbWUsDQo+QWNrZWQtYnk6IFlhbmcgWHUgPHh1eWFuZzIwMTguanlA
+Y24uZnVqaXRzdS5jb20+DQo+DQo+QExpLCBJIHRoaW5rIHRoaXMgcGF0Y2gg
+aXMgb2ssIERvIHlvdSBoYXZlIHNvbWUgY29tbWVudCBhYm91dCBpdD8NCj4N
+Cj5JJ20gb2sgdG8gZ28gd2l0aCBtZW1vcnkudXNlX2hpZXJhcmNoeSBjaGVj
+a2luZyBpbiB0aGUgcHJlY29uZGl0aW9uaW5nIHBoYXNlLg0KPg0KPkJ1dCBo
+b3cgY2FuIHlvdSBhc3NlcnQgdGhlIGRlZmF1bHQgbWVtb3J5IGNncm91cCBp
+cyBtb3VudCBhdCBwYXRoOiAiL3N5cy9mcy9jZ3JvdXAvbWVtb3J5IiwgaXMg
+dGhlcmUgYW55IHBvc3NpYmlsaXR5IHRoZSBkZWZhdWx0IHBhdGggbW91bnQg
+YXQgb3RoZXIgcGxhY2VzKGZvciBkaWZmZXJlbnQgZGlzdHJpYnV0aW9uKT8N
+Cg0KaHR0cHM6Ly9naXRodWIuY29tL3RvcnZhbGRzL2xpbnV4L2Jsb2IvYjVm
+YzdhODllNThiY2MwNTlhM2Q1ZTRkYjc5YzQ4MWZiNDM3ZGU1OS9rZXJuZWwv
+Y2dyb3VwL2Nncm91cC5jI0w1NzY4DQoNCldBUk5fT04oc3lzZnNfY3JlYXRl
+X21vdW50X3BvaW50KGZzX2tvYmosICJjZ3JvdXAiKSk7DQoNClNvIHRoZSBk
+ZWZhdWx0IG1vdW50IHBsYWNlIHNob3VsZCBiZSAvc3lzL2ZzL2Nncm91cCBp
+ZiBkaXN0cmlidXRpb25zDQpkaWQgbm90IG1vZGlmeSB0aGVzZSBsaW5lcy4N
+Cg0KQXMgdGhlIGRpc2N1c3Npb24gYWJvdmUsDQptb3VudCAtdCBjZ3JvdXAg
+LW9tZW1vcnkgbWVtY2cgL2Rldi9tZW1jZw0Ka2VybmVsIHdpbGwgZmluZCBh
+IHN1aXRhYmxlIGNncm91cCByb290IGZvciB1cy4NCg0KSG93IGFib3V0IHJl
+YWRpbmcgL2Rldi9tZW1jZy9tZW1vcnkudXNlX2hpZXJhcmNoeSBhcyBZYW5n
+IHJlY29tbWVuZGVkIGluc3RlYWQ/DQoNClJlZ2FyZHMsDQoNCi0gICBIYW54
+aWFvDQoNCj4tLQ0KPlJlZ2FyZHMsDQo+TGkgV2FuZw0KCgo=
 
-> Hi Hanxiao
->
-> > Hi, Yang
-> >
-> >> -----=E9=96=AD=EE=86=BB=E6=AC=A2=E9=8D=98=E7=86=B6=E6=AC=A2-----
-> >> =E6=B6=93=E5=A9=9A=EE=95=BD: Re: [LTP] [PATCH] memcg_use_hierarchy_tes=
-t.sh: skip setting
-> >> use_hierarchy if not available
-> >>
-> >> Hi hanxiao
-> >>
-> >>
-> >>> The precondition of this case is that we can disable use_hierarchy.
-> >>> But some distributions such as CentOS 8 had enabled it in root cgroup
-> >>> and hard to disabled.
-> > [snip]
-> >> /dev/memcg/memory.use_hierarchy" \
-> >>> +                                    "to 0 failed"
-> >>> +                        fi
-> >>> +                fi
-> >> I test this patch on centos7 and testcase2 skips. On centos7(without
-> installing
-> >> docker), /sys/fs/cgroup/memory/memory.use_hierarchy value is equal to =
-1
-> and I
-> >> still can disable value for /dev/memcg/memory.use_hierarchy.
-> >>
-> > The behavior above looks conflicting with
-> https://www.kernel.org/doc/Documentation/cgroup-v1/memory.txt.
-> Yes. Centos7 behavior is different from the documentation.
-> >> So why not directly use /dev/memcg/memory.use_hierarchy value to judge
-> in
-> >> testcase after setting 0.
-> > In setup_test from memcg_lib.sh, we actually did:
-> >     mount -t cgroup -omemory memcg /dev/memcg
-> > Then kernel will find a suitable cgroup root for us in cgroup1_mount.
-> >
-> > In this case, /sys/fs/cgroup/memory/ would be the good choice.
-> > So it's equivalent to read memory.use_hierarchy from either side.
-> I understand. Only a minor suggestion, please use tabs instead of spaces
-> at the beginning of the line.
->
->
-> This patch looks good to me,
-> Acked-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
->
-> @Li, I think this patch is ok, Do you have some comment about it?
->
+--_000_57e1161dae434ffda48b0e0cc261e706G08CNEXMBPEKD04g08fujit_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-I'm ok to go with memory.use_hierarchy checking in the preconditioning
-phase.
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwi
+IHhtbG5zOm89InVybjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9m
+ZmljZSIgeG1sbnM6dz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZp
+Y2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNv
+bS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5v
+cmcvVFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9
+IkNvbnRlbnQtVHlwZSIgY29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0
+Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRvciIgY29udGVudD0iTWljcm9z
+b2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxlPjwhLS0N
+Ci8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1m
+YW1pbHk6V2luZ2RpbmdzOw0KCXBhbm9zZS0xOjUgMCAwIDAgMCAwIDAgMCAw
+IDA7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseTrlrovkvZM7DQoJcGFu
+b3NlLTE6MiAxIDYgMCAzIDEgMSAxIDEgMTt9DQpAZm9udC1mYWNlDQoJe2Zv
+bnQtZmFtaWx5OiJDYW1icmlhIE1hdGgiOw0KCXBhbm9zZS0xOjIgNCA1IDMg
+NSA0IDYgMyAyIDQ7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseToiXEDl
+rovkvZMiOw0KCXBhbm9zZS0xOjIgMSA2IDAgMyAxIDEgMSAxIDE7fQ0KQGZv
+bnQtZmFjZQ0KCXtmb250LWZhbWlseTpDb25zb2xhczsNCglwYW5vc2UtMToy
+IDExIDYgOSAyIDIgNCAzIDIgNDt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAq
+Lw0KcC5Nc29Ob3JtYWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0K
+CXttYXJnaW46MGNtOw0KCW1hcmdpbi1ib3R0b206LjAwMDFwdDsNCglmb250
+LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OuWui+S9kzt9DQphOmxpbmss
+IHNwYW4uTXNvSHlwZXJsaW5rDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsN
+Cgljb2xvcjpibHVlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0K
+YTp2aXNpdGVkLCBzcGFuLk1zb0h5cGVybGlua0ZvbGxvd2VkDQoJe21zby1z
+dHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjpwdXJwbGU7DQoJdGV4dC1kZWNv
+cmF0aW9uOnVuZGVybGluZTt9DQpwLk1zb0xpc3RQYXJhZ3JhcGgsIGxpLk1z
+b0xpc3RQYXJhZ3JhcGgsIGRpdi5Nc29MaXN0UGFyYWdyYXBoDQoJe21zby1z
+dHlsZS1wcmlvcml0eTozNDsNCgltYXJnaW46MGNtOw0KCW1hcmdpbi1ib3R0
+b206LjAwMDFwdDsNCgl0ZXh0LWluZGVudDoyMS4wcHQ7DQoJZm9udC1zaXpl
+OjEyLjBwdDsNCglmb250LWZhbWlseTrlrovkvZM7fQ0KcC5tc29ub3JtYWww
+LCBsaS5tc29ub3JtYWwwLCBkaXYubXNvbm9ybWFsMA0KCXttc28tc3R5bGUt
+bmFtZTptc29ub3JtYWw7DQoJbXNvLW1hcmdpbi10b3AtYWx0OmF1dG87DQoJ
+bWFyZ2luLXJpZ2h0OjBjbTsNCgltc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0
+bzsNCgltYXJnaW4tbGVmdDowY207DQoJZm9udC1zaXplOjEyLjBwdDsNCglm
+b250LWZhbWlseTrlrovkvZM7fQ0Kc3Bhbi5FbWFpbFN0eWxlMTgNCgl7bXNv
+LXN0eWxlLXR5cGU6cGVyc29uYWwtcmVwbHk7DQoJZm9udC1mYW1pbHk6562J
+57q/Ow0KCWNvbG9yOiMxRjQ5N0Q7fQ0Kc3Bhbi5wbC1jMQ0KCXttc28tc3R5
+bGUtbmFtZTpwbC1jMTt9DQpzcGFuLnBsLXMNCgl7bXNvLXN0eWxlLW5hbWU6
+cGwtczt9DQpzcGFuLnBsLXBkcw0KCXttc28tc3R5bGUtbmFtZTpwbC1wZHM7
+fQ0KLk1zb0NocERlZmF1bHQNCgl7bXNvLXN0eWxlLXR5cGU6ZXhwb3J0LW9u
+bHk7DQoJZm9udC1mYW1pbHk6562J57q/O30NCkBwYWdlIFdvcmRTZWN0aW9u
+MQ0KCXtzaXplOjYxMi4wcHQgNzkyLjBwdDsNCgltYXJnaW46NzIuMHB0IDkw
+LjBwdCA3Mi4wcHQgOTAuMHB0O30NCmRpdi5Xb3JkU2VjdGlvbjENCgl7cGFn
+ZTpXb3JkU2VjdGlvbjE7fQ0KLyogTGlzdCBEZWZpbml0aW9ucyAqLw0KQGxp
+c3QgbDANCgl7bXNvLWxpc3QtaWQ6MjEyMjcyODA2Ow0KCW1zby1saXN0LXR5
+cGU6aHlicmlkOw0KCW1zby1saXN0LXRlbXBsYXRlLWlkczotNzc4MDAxNjcw
+IDIwNzk4NzgzMzIgNjc2OTg2OTEgNjc2OTg2OTMgNjc2OTg2ODkgNjc2OTg2
+OTEgNjc2OTg2OTMgNjc2OTg2ODkgNjc2OTg2OTEgNjc2OTg2OTM7fQ0KQGxp
+c3QgbDA6bGV2ZWwxDQoJe21zby1sZXZlbC1zdGFydC1hdDowOw0KCW1zby1s
+ZXZlbC1udW1iZXItZm9ybWF0OmJ1bGxldDsNCgltc28tbGV2ZWwtdGV4dDot
+Ow0KCW1zby1sZXZlbC10YWItc3RvcDpub25lOw0KCW1zby1sZXZlbC1udW1i
+ZXItcG9zaXRpb246bGVmdDsNCgltYXJnaW4tbGVmdDoxOC4wcHQ7DQoJdGV4
+dC1pbmRlbnQ6LTE4LjBwdDsNCglmb250LWZhbWlseTpDb25zb2xhczsNCglt
+c28tZmFyZWFzdC1mb250LWZhbWlseTrlrovkvZM7DQoJbXNvLWJpZGktZm9u
+dC1mYW1pbHk65a6L5L2TO30NCkBsaXN0IGwwOmxldmVsMg0KCXttc28tbGV2
+ZWwtbnVtYmVyLWZvcm1hdDpidWxsZXQ7DQoJbXNvLWxldmVsLXRleHQ674Gu
+Ow0KCW1zby1sZXZlbC10YWItc3RvcDpub25lOw0KCW1zby1sZXZlbC1udW1i
+ZXItcG9zaXRpb246bGVmdDsNCgltYXJnaW4tbGVmdDo0Mi4wcHQ7DQoJdGV4
+dC1pbmRlbnQ6LTIxLjBwdDsNCglmb250LWZhbWlseTpXaW5nZGluZ3M7fQ0K
+QGxpc3QgbDA6bGV2ZWwzDQoJe21zby1sZXZlbC1udW1iZXItZm9ybWF0OmJ1
+bGxldDsNCgltc28tbGV2ZWwtdGV4dDrvgbU7DQoJbXNvLWxldmVsLXRhYi1z
+dG9wOm5vbmU7DQoJbXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpsZWZ0Ow0K
+CW1hcmdpbi1sZWZ0OjYzLjBwdDsNCgl0ZXh0LWluZGVudDotMjEuMHB0Ow0K
+CWZvbnQtZmFtaWx5OldpbmdkaW5nczt9DQpAbGlzdCBsMDpsZXZlbDQNCgl7
+bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6YnVsbGV0Ow0KCW1zby1sZXZlbC10
+ZXh0Ou+BrDsNCgltc28tbGV2ZWwtdGFiLXN0b3A6bm9uZTsNCgltc28tbGV2
+ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJbWFyZ2luLWxlZnQ6ODQuMHB0
+Ow0KCXRleHQtaW5kZW50Oi0yMS4wcHQ7DQoJZm9udC1mYW1pbHk6V2luZ2Rp
+bmdzO30NCkBsaXN0IGwwOmxldmVsNQ0KCXttc28tbGV2ZWwtbnVtYmVyLWZv
+cm1hdDpidWxsZXQ7DQoJbXNvLWxldmVsLXRleHQ674GuOw0KCW1zby1sZXZl
+bC10YWItc3RvcDpub25lOw0KCW1zby1sZXZlbC1udW1iZXItcG9zaXRpb246
+bGVmdDsNCgltYXJnaW4tbGVmdDoxMDUuMHB0Ow0KCXRleHQtaW5kZW50Oi0y
+MS4wcHQ7DQoJZm9udC1mYW1pbHk6V2luZ2RpbmdzO30NCkBsaXN0IGwwOmxl
+dmVsNg0KCXttc28tbGV2ZWwtbnVtYmVyLWZvcm1hdDpidWxsZXQ7DQoJbXNv
+LWxldmVsLXRleHQ674G1Ow0KCW1zby1sZXZlbC10YWItc3RvcDpub25lOw0K
+CW1zby1sZXZlbC1udW1iZXItcG9zaXRpb246bGVmdDsNCgltYXJnaW4tbGVm
+dDoxMjYuMHB0Ow0KCXRleHQtaW5kZW50Oi0yMS4wcHQ7DQoJZm9udC1mYW1p
+bHk6V2luZ2RpbmdzO30NCkBsaXN0IGwwOmxldmVsNw0KCXttc28tbGV2ZWwt
+bnVtYmVyLWZvcm1hdDpidWxsZXQ7DQoJbXNvLWxldmVsLXRleHQ674GsOw0K
+CW1zby1sZXZlbC10YWItc3RvcDpub25lOw0KCW1zby1sZXZlbC1udW1iZXIt
+cG9zaXRpb246bGVmdDsNCgltYXJnaW4tbGVmdDoxNDcuMHB0Ow0KCXRleHQt
+aW5kZW50Oi0yMS4wcHQ7DQoJZm9udC1mYW1pbHk6V2luZ2RpbmdzO30NCkBs
+aXN0IGwwOmxldmVsOA0KCXttc28tbGV2ZWwtbnVtYmVyLWZvcm1hdDpidWxs
+ZXQ7DQoJbXNvLWxldmVsLXRleHQ674GuOw0KCW1zby1sZXZlbC10YWItc3Rv
+cDpub25lOw0KCW1zby1sZXZlbC1udW1iZXItcG9zaXRpb246bGVmdDsNCglt
+YXJnaW4tbGVmdDoxNjguMHB0Ow0KCXRleHQtaW5kZW50Oi0yMS4wcHQ7DQoJ
+Zm9udC1mYW1pbHk6V2luZ2RpbmdzO30NCkBsaXN0IGwwOmxldmVsOQ0KCXtt
+c28tbGV2ZWwtbnVtYmVyLWZvcm1hdDpidWxsZXQ7DQoJbXNvLWxldmVsLXRl
+eHQ674G1Ow0KCW1zby1sZXZlbC10YWItc3RvcDpub25lOw0KCW1zby1sZXZl
+bC1udW1iZXItcG9zaXRpb246bGVmdDsNCgltYXJnaW4tbGVmdDoxODkuMHB0
+Ow0KCXRleHQtaW5kZW50Oi0yMS4wcHQ7DQoJZm9udC1mYW1pbHk6V2luZ2Rp
+bmdzO30NCm9sDQoJe21hcmdpbi1ib3R0b206MGNtO30NCnVsDQoJe21hcmdp
+bi1ib3R0b206MGNtO30NCi0tPjwvc3R5bGU+PCEtLVtpZiBndGUgbXNvIDld
+Pjx4bWw+DQo8bzpzaGFwZWRlZmF1bHRzIHY6ZXh0PSJlZGl0IiBzcGlkbWF4
+PSIxMDI2IiAvPg0KPC94bWw+PCFbZW5kaWZdLS0+PCEtLVtpZiBndGUgbXNv
+IDldPjx4bWw+DQo8bzpzaGFwZWxheW91dCB2OmV4dD0iZWRpdCI+DQo8bzpp
+ZG1hcCB2OmV4dD0iZWRpdCIgZGF0YT0iMSIgLz4NCjwvbzpzaGFwZWxheW91
+dD48L3htbD48IVtlbmRpZl0tLT4NCjwvaGVhZD4NCjxib2R5IGxhbmc9IlpI
+LUNOIiBsaW5rPSJibHVlIiB2bGluaz0icHVycGxlIj4NCjxkaXYgY2xhc3M9
+IldvcmRTZWN0aW9uMSI+DQo8ZGl2Pg0KPGRpdj4NCjxkaXY+DQo8ZGl2Pg0K
+PHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxl
+PSJjb2xvcjojMUY0OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5
+bGU9ImNvbG9yOiMxRjQ5N0QiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwv
+cD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIiBz
+dHlsZT0iY29sb3I6IzFGNDk3RCI+SGksIExpPG86cD48L286cD48L3NwYW4+
+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMi
+IHN0eWxlPSJjb2xvcjojMUY0OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bh
+bj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1V
+UyIgc3R5bGU9ImNvbG9yOiMxRjQ5N0QiPiZndDs8L3NwYW4+PHNwYW4gc3R5
+bGU9ImNvbG9yOiMxRjQ5N0QiPuWPkeS7tuS6ujxzcGFuIGxhbmc9IkVOLVVT
+Ij46IExpIFdhbmcgJmx0O2xpd2FuZ0ByZWRoYXQuY29tJmd0Ow0KPG86cD48
+L286cD48L3NwYW4+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+PjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iY29sb3I6IzFGNDk3RCI+Jmd0
+Ozwvc3Bhbj48c3BhbiBzdHlsZT0iY29sb3I6IzFGNDk3RCI+5Y+R6YCB5pe2
+6Ze0PHNwYW4gbGFuZz0iRU4tVVMiPjogMjAyMDwvc3Bhbj7lubQ8c3BhbiBs
+YW5nPSJFTi1VUyI+MTA8L3NwYW4+5pyIPHNwYW4gbGFuZz0iRU4tVVMiPjE0
+PC9zcGFuPuaXpTxzcGFuIGxhbmc9IkVOLVVTIj4gMTQ6Mjg8bzpwPjwvbzpw
+Pjwvc3Bhbj48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNw
+YW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJjb2xvcjojMUY0OTdEIj4mZ3Q7PC9z
+cGFuPjxzcGFuIHN0eWxlPSJjb2xvcjojMUY0OTdEIj7mlLbku7bkuro8c3Bh
+biBsYW5nPSJFTi1VUyI+OiBYdSwgWWFuZyAmbHQ7eHV5YW5nMjAxOC5qeUBj
+bi5mdWppdHN1LmNvbSZndDs7IENoZW4sIEhhbnhpYW8gJmx0O2NoZW5oeC5m
+bnN0QGNuLmZ1aml0c3UuY29tJmd0OzxvOnA+PC9vOnA+PC9zcGFuPjwvc3Bh
+bj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1V
+UyIgc3R5bGU9ImNvbG9yOiMxRjQ5N0QiPiZndDs8L3NwYW4+PHNwYW4gc3R5
+bGU9ImNvbG9yOiMxRjQ5N0QiPuaKhOmAgTxzcGFuIGxhbmc9IkVOLVVTIj46
+IExUUCBMaXN0ICZsdDtsdHBAbGlzdHMubGludXguaXQmZ3Q7PG86cD48L286
+cD48L3NwYW4+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxz
+cGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iY29sb3I6IzFGNDk3RCI+Jmd0Ozwv
+c3Bhbj48c3BhbiBzdHlsZT0iY29sb3I6IzFGNDk3RCI+5Li76aKYPHNwYW4g
+bGFuZz0iRU4tVVMiPjogUmU6DQo8L3NwYW4+562U5aSNPHNwYW4gbGFuZz0i
+RU4tVVMiPjogW0xUUF0gW1BBVENIXSBtZW1jZ191c2VfaGllcmFyY2h5X3Rl
+c3Quc2g6IHNraXAgc2V0dGluZyB1c2VfaGllcmFyY2h5IGlmIG5vdCBhdmFp
+bGFibGU8bzpwPjwvbzpwPjwvc3Bhbj48L3NwYW4+PC9wPg0KPHAgY2xhc3M9
+Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJjb2xvcjoj
+MUY0OTdEIj4mZ3Q7PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAg
+Y2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJj
+b2xvcjojMUY0OTdEIj4mZ3Q7PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9w
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0
+eWxlPSJjb2xvcjojMUY0OTdEIj4mZ3Q7PG86cD4mbmJzcDs8L286cD48L3Nw
+YW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4t
+VVMiIHN0eWxlPSJjb2xvcjojMUY0OTdEIj4mZ3Q7T24gVHVlLCBPY3QgMTMs
+IDIwMjAgYXQgMTE6MTkgQU0gWWFuZyBYdSAmbHQ7eHV5YW5nMjAxOC5qeUBj
+bi5mdWppdHN1LmNvbSZndDsgd3JvdGU6PG86cD48L286cD48L3NwYW4+PC9w
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0
+eWxlPSJjb2xvcjojMUY0OTdEIj4mZ3Q7SGkgSGFueGlhbzxvOnA+PC9vOnA+
+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9
+IkVOLVVTIiBzdHlsZT0iY29sb3I6IzFGNDk3RCI+Jmd0OzxvOnA+Jm5ic3A7
+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFu
+IGxhbmc9IkVOLVVTIiBzdHlsZT0iY29sb3I6IzFGNDk3RCI+Jmd0OyZndDsg
+SGksIFlhbmc8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNv
+Tm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImNvbG9yOiMxRjQ5
+N0QiPiZndDsmZ3Q7PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAg
+Y2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJj
+b2xvcjojMUY0OTdEIj4mZ3Q7Jmd0OyZndDsgLS0tLS08L3NwYW4+PHNwYW4g
+c3R5bGU9ImNvbG9yOiMxRjQ5N0QiPumWrTxzcGFuIGxhbmc9IkVOLVVTIj7u
+hrs8L3NwYW4+5qyi6Y2Y54a25qyiPHNwYW4gbGFuZz0iRU4tVVMiPi0tLS0t
+PG86cD48L286cD48L3NwYW4+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29O
+b3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iY29sb3I6IzFGNDk3
+RCI+Jmd0OyZndDsmZ3Q7IDwvc3Bhbj48c3BhbiBzdHlsZT0iY29sb3I6IzFG
+NDk3RCI+5raT5amaPHNwYW4gbGFuZz0iRU4tVVMiPu6VvTogUmU6IFtMVFBd
+IFtQQVRDSF0gbWVtY2dfdXNlX2hpZXJhcmNoeV90ZXN0LnNoOiBza2lwIHNl
+dHRpbmc8bzpwPjwvbzpwPjwvc3Bhbj48L3NwYW4+PC9wPg0KPHAgY2xhc3M9
+Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJjb2xvcjoj
+MUY0OTdEIj4mZ3Q7Jmd0OyZndDsgdXNlX2hpZXJhcmNoeSBpZiBub3QgYXZh
+aWxhYmxlPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05v
+cm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJjb2xvcjojMUY0OTdE
+Ij5bc25pcF08bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNv
+Tm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImNvbG9yOiMxRjQ5
+N0QiPiZndDsmZ3Q7IFRoZSBiZWhhdmlvciBhYm92ZSBsb29rcyBjb25mbGlj
+dGluZyB3aXRoIGh0dHBzOi8vd3d3Lmtlcm5lbC5vcmcvZG9jL0RvY3VtZW50
+YXRpb24vY2dyb3VwLXYxL21lbW9yeS50eHQuPG86cD48L286cD48L3NwYW4+
+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMi
+IHN0eWxlPSJjb2xvcjojMUY0OTdEIj4mZ3Q7WWVzLiBDZW50b3M3IGJlaGF2
+aW9yIGlzIGRpZmZlcmVudCBmcm9tIHRoZSBkb2N1bWVudGF0aW9uLjxvOnA+
+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFu
+IGxhbmc9IkVOLVVTIiBzdHlsZT0iY29sb3I6IzFGNDk3RCI+Jmd0OyZndDsm
+Z3Q7IFNvIHdoeSBub3QgZGlyZWN0bHkgdXNlIC9kZXYvbWVtY2cvbWVtb3J5
+LnVzZV9oaWVyYXJjaHkgdmFsdWUgdG8ganVkZ2UgaW48bzpwPjwvbzpwPjwv
+c3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJF
+Ti1VUyIgc3R5bGU9ImNvbG9yOiMxRjQ5N0QiPiZndDsmZ3Q7Jmd0OyB0ZXN0
+Y2FzZSBhZnRlciBzZXR0aW5nIDAuPG86cD48L286cD48L3NwYW4+PC9wPg0K
+PHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxl
+PSJjb2xvcjojMUY0OTdEIj4mZ3Q7Jmd0OyBJbiBzZXR1cF90ZXN0IGZyb20g
+bWVtY2dfbGliLnNoLCB3ZSBhY3R1YWxseSBkaWQ6PG86cD48L286cD48L3Nw
+YW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4t
+VVMiIHN0eWxlPSJjb2xvcjojMUY0OTdEIj4mZ3Q7Jmd0OyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyBtb3VudCAtdCBjZ3JvdXAgLW9tZW1vcnkgbWVtY2cg
+L2Rldi9tZW1jZzxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iY29sb3I6IzFG
+NDk3RCI+Jmd0OyZndDsgVGhlbiBrZXJuZWwgd2lsbCBmaW5kIGEgc3VpdGFi
+bGUgY2dyb3VwIHJvb3QgZm9yIHVzIGluIGNncm91cDFfbW91bnQuPG86cD48
+L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4g
+bGFuZz0iRU4tVVMiIHN0eWxlPSJjb2xvcjojMUY0OTdEIj4mZ3Q7Jmd0Ozxv
+OnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3Jt
+YWwiPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iY29sb3I6IzFGNDk3RCI+
+Jmd0OyZndDsgSW4gdGhpcyBjYXNlLCAvc3lzL2ZzL2Nncm91cC9tZW1vcnkv
+IHdvdWxkIGJlIHRoZSBnb29kIGNob2ljZS48bzpwPjwvbzpwPjwvc3Bhbj48
+L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIg
+c3R5bGU9ImNvbG9yOiMxRjQ5N0QiPiZndDsmZ3Q7IFNvIGl0J3MgZXF1aXZh
+bGVudCB0byByZWFkIG1lbW9yeS51c2VfaGllcmFyY2h5IGZyb20gZWl0aGVy
+IHNpZGUuPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05v
+cm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJjb2xvcjojMUY0OTdE
+Ij4mZ3Q7SSB1bmRlcnN0YW5kLiBPbmx5IGEgbWlub3Igc3VnZ2VzdGlvbiwg
+cGxlYXNlIHVzZSB0YWJzIGluc3RlYWQgb2Ygc3BhY2VzPG86cD48L286cD48
+L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0i
+RU4tVVMiIHN0eWxlPSJjb2xvcjojMUY0OTdEIj4mZ3Q7YXQgdGhlIGJlZ2lu
+bmluZyBvZiB0aGUgbGluZS48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBj
+bGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImNv
+bG9yOiMxRjQ5N0QiPiZndDs8bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5
+bGU9ImNvbG9yOiMxRjQ5N0QiPiZndDs8bzpwPiZuYnNwOzwvbzpwPjwvc3Bh
+bj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1V
+UyIgc3R5bGU9ImNvbG9yOiMxRjQ5N0QiPiZndDtUaGlzIHBhdGNoIGxvb2tz
+IGdvb2QgdG8gbWUsPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9
+Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJjb2xvcjoj
+MUY0OTdEIj4mZ3Q7QWNrZWQtYnk6IFlhbmcgWHUgJmx0O3h1eWFuZzIwMTgu
+anlAY24uZnVqaXRzdS5jb20mZ3Q7PG86cD48L286cD48L3NwYW4+PC9wPg0K
+PHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxl
+PSJjb2xvcjojMUY0OTdEIj4mZ3Q7PG86cD4mbmJzcDs8L286cD48L3NwYW4+
+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMi
+IHN0eWxlPSJjb2xvcjojMUY0OTdEIj4mZ3Q7QExpLCBJIHRoaW5rIHRoaXMg
+cGF0Y2ggaXMgb2ssIERvIHlvdSBoYXZlIHNvbWUgY29tbWVudCBhYm91dCBp
+dD88bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+Ij48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImNvbG9yOiMxRjQ5N0QiPiZn
+dDs8bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNv
+Tm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImNvbG9yOiMxRjQ5
+N0QiPiZndDtJJ20gb2sgdG8gZ28gd2l0aCBtZW1vcnkudXNlX2hpZXJhcmNo
+eSBjaGVja2luZyBpbiB0aGUgcHJlY29uZGl0aW9uaW5nIHBoYXNlLjxvOnA+
+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFu
+IGxhbmc9IkVOLVVTIiBzdHlsZT0iY29sb3I6IzFGNDk3RCI+Jmd0OzxvOnA+
+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+PjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iY29sb3I6IzFGNDk3RCI+Jmd0
+O0J1dCBob3cgY2FuIHlvdSBhc3NlcnQgdGhlIGRlZmF1bHQgbWVtb3J5IGNn
+cm91cCBpcyBtb3VudCBhdCBwYXRoOiAmcXVvdDsvc3lzL2ZzL2Nncm91cC9t
+ZW1vcnkmcXVvdDssIGlzIHRoZXJlIGFueSBwb3NzaWJpbGl0eSB0aGUgZGVm
+YXVsdCBwYXRoIG1vdW50IGF0IG90aGVyIHBsYWNlcyhmb3IgZGlmZmVyZW50
+IGRpc3RyaWJ1dGlvbik/PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xh
+c3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJjb2xv
+cjojMUY0OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBj
+bGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImNv
+bG9yOiMxRjQ5N0QiPjxhIGhyZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS90b3J2
+YWxkcy9saW51eC9ibG9iL2I1ZmM3YTg5ZTU4YmNjMDU5YTNkNWU0ZGI3OWM0
+ODFmYjQzN2RlNTkva2VybmVsL2Nncm91cC9jZ3JvdXAuYyNMNTc2OCI+PHNw
+YW4gc3R5bGU9ImNvbG9yOiMxRjQ5N0Q7dGV4dC1kZWNvcmF0aW9uOm5vbmUi
+Pmh0dHBzOi8vZ2l0aHViLmNvbS90b3J2YWxkcy9saW51eC9ibG9iL2I1ZmM3
+YTg5ZTU4YmNjMDU5YTNkNWU0ZGI3OWM0ODFmYjQzN2RlNTkva2VybmVsL2Nn
+cm91cC9jZ3JvdXAuYyNMNTc2ODwvc3Bhbj48L2E+PG86cD48L286cD48L3Nw
+YW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4t
+VVMiIHN0eWxlPSJjb2xvcjojMUY0OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwv
+c3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJF
+Ti1VUyIgc3R5bGU9ImNvbG9yOiMxRjQ5N0QiPldBUk5fT04oc3lzZnNfY3Jl
+YXRlX21vdW50X3BvaW50KGZzX2tvYmosICZxdW90O2Nncm91cCZxdW90Oykp
+OzxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+PjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iY29sb3I6IzFGNDk3RCI+PG86
+cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJjb2xvcjojMUY0OTdEIj5T
+byB0aGUgZGVmYXVsdCBtb3VudCBwbGFjZSBzaG91bGQgYmUgL3N5cy9mcy9j
+Z3JvdXAgaWYgZGlzdHJpYnV0aW9uczxvOnA+PC9vOnA+PC9zcGFuPjwvcD4N
+CjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHls
+ZT0iY29sb3I6IzFGNDk3RCI+ZGlkIG5vdCBtb2RpZnkgdGhlc2UgbGluZXMu
+PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJjb2xvcjojMUY0OTdEIj48bzpw
+PiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+Ij48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImNvbG9yOiMxRjQ5N0QiPkFz
+IHRoZSBkaXNjdXNzaW9uIGFib3ZlLA0KPG86cD48L286cD48L3NwYW4+PC9w
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0
+eWxlPSJjb2xvcjojMUY0OTdEIj5tb3VudCAtdCBjZ3JvdXAgLW9tZW1vcnkg
+bWVtY2cgL2Rldi9tZW1jZzxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNs
+YXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iY29s
+b3I6IzFGNDk3RCI+a2VybmVsIHdpbGwgZmluZCBhIHN1aXRhYmxlIGNncm91
+cCByb290IGZvciB1cy48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFz
+cz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImNvbG9y
+OiMxRjQ5N0QiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNs
+YXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iY29s
+b3I6IzFGNDk3RCI+SG93IGFib3V0IHJlYWRpbmcgL2Rldi9tZW1jZy9tZW1v
+cnkudXNlX2hpZXJhcmNoeSBhcyBZYW5nIHJlY29tbWVuZGVkIGluc3RlYWQ/
+PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJjb2xvcjojMUY0OTdEIj48bzpw
+PiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+Ij48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImNvbG9yOiMxRjQ5N0QiPlJl
+Z2FyZHMsPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb0xp
+c3RQYXJhZ3JhcGgiIHN0eWxlPSJtYXJnaW4tbGVmdDoxOC4wcHQ7dGV4dC1p
+bmRlbnQ6LTE4LjBwdDttc28tbGlzdDpsMCBsZXZlbDEgbGZvMSI+DQo8IVtp
+ZiAhc3VwcG9ydExpc3RzXT48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImZv
+bnQtZmFtaWx5OkNvbnNvbGFzO2NvbG9yOiMxRjQ5N0QiPjxzcGFuIHN0eWxl
+PSJtc28tbGlzdDpJZ25vcmUiPi08c3BhbiBzdHlsZT0iZm9udDo3LjBwdCAm
+cXVvdDtUaW1lcyBOZXcgUm9tYW4mcXVvdDsiPiZuYnNwOyZuYnNwOw0KPC9z
+cGFuPjwvc3Bhbj48L3NwYW4+PCFbZW5kaWZdPjxzcGFuIGxhbmc9IkVOLVVT
+IiBzdHlsZT0iY29sb3I6IzFGNDk3RCI+SGFueGlhbzxvOnA+PC9vOnA+PC9z
+cGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVO
+LVVTIiBzdHlsZT0iY29sb3I6IzFGNDk3RCI+PG86cD4mbmJzcDs8L286cD48
+L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0i
+RU4tVVMiIHN0eWxlPSJjb2xvcjojMUY0OTdEIj4mZ3Q7LS0gPG86cD48L286
+cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFu
+Zz0iRU4tVVMiIHN0eWxlPSJjb2xvcjojMUY0OTdEIj4mZ3Q7UmVnYXJkcyw8
+bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
+c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImNvbG9yOiMxRjQ5N0QiPiZndDtM
+aSBXYW5nPC9zcGFuPjxzcGFuIGxhbmc9IkVOLVVTIj48bzpwPjwvbzpwPjwv
+c3Bhbj48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwv
+ZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
 
-But how can you assert the default memory cgroup is mount at path:
-"/sys/fs/cgroup/memory", is there any possibility the default path mount at
-other places(for different distribution)?
---=20
-Regards,
-Li Wang
+--_000_57e1161dae434ffda48b0e0cc261e706G08CNEXMBPEKD04g08fujit_--
 
---00000000000026fa6505b19ba1ba
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Tue, Oct 13, 2020 at 11:19 AM Yang Xu &lt;<a hre=
-f=3D"mailto:xuyang2018.jy@cn.fujitsu.com">xuyang2018.jy@cn.fujitsu.com</a>&=
-gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
-px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi Ha=
-nxiao<br>
-<br>
-&gt; Hi, Yang<br>
-&gt;<br>
-&gt;&gt; -----=E9=96=AD=EE=86=BB=E6=AC=A2=E9=8D=98=E7=86=B6=E6=AC=A2-----<b=
-r>
-&gt;&gt; =E6=B6=93=E5=A9=9A=EE=95=BD: Re: [LTP] [PATCH] memcg_use_hierarchy=
-_test.sh: skip setting<br>
-&gt;&gt; use_hierarchy if not available<br>
-&gt;&gt;<br>
-&gt;&gt; Hi hanxiao<br>
-&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt;&gt; The precondition of this case is that we can disable use_hiera=
-rchy.<br>
-&gt;&gt;&gt; But some distributions such as CentOS 8 had enabled it in root=
- cgroup<br>
-&gt;&gt;&gt; and hard to disabled.<br>
-&gt; [snip]<br>
-&gt;&gt; /dev/memcg/memory.use_hierarchy&quot; \<br>
-&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;to=
- 0 failed&quot;<br>
-&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 fi<br>
-&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 fi<br=
->
-&gt;&gt; I test this patch on centos7 and testcase2 skips. On centos7(witho=
-ut installing<br>
-&gt;&gt; docker), /sys/fs/cgroup/memory/memory.use_hierarchy value is equal=
- to 1 and I<br>
-&gt;&gt; still can disable value for /dev/memcg/memory.use_hierarchy.<br>
-&gt;&gt;<br>
-&gt; The behavior above looks conflicting with <a href=3D"https://www.kerne=
-l.org/doc/Documentation/cgroup-v1/memory.txt" rel=3D"noreferrer" target=3D"=
-_blank">https://www.kernel.org/doc/Documentation/cgroup-v1/memory.txt</a>.<=
-br>
-Yes. Centos7 behavior is different from the documentation.<br>
-&gt;&gt; So why not directly use /dev/memcg/memory.use_hierarchy value to j=
-udge in<br>
-&gt;&gt; testcase after setting 0.<br>
-&gt; In setup_test from memcg_lib.sh, we actually did:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0mount -t cgroup -omemory memcg /dev/memcg<br>
-&gt; Then kernel will find a suitable cgroup root for us in cgroup1_mount.<=
-br>
-&gt;<br>
-&gt; In this case, /sys/fs/cgroup/memory/ would be the good choice.<br>
-&gt; So it&#39;s equivalent to read memory.use_hierarchy from either side.<=
-br>
-I understand. Only a minor suggestion, please use tabs instead of spaces<br=
->
-at the beginning of the line.<br>
-<br>
-<br>
-This patch looks good to me,<br>
-Acked-by: Yang Xu &lt;<a href=3D"mailto:xuyang2018.jy@cn.fujitsu.com" targe=
-t=3D"_blank">xuyang2018.jy@cn.fujitsu.com</a>&gt;<br>
-<br>
-@Li, I think this patch is ok, Do you have some comment about it?<br></bloc=
-kquote><div><br></div><div class=3D"gmail_default" style=3D"font-size:small=
-">I&#39;m ok to go with memory.use_hierarchy checking in the preconditionin=
-g phase.</div><div class=3D"gmail_default" style=3D"font-size:small"><br></=
-div><div class=3D"gmail_default" style=3D"font-size:small">But how can you =
-assert the default memory cgroup is mount at path: &quot;/sys/fs/cgroup/mem=
-ory&quot;, is there any possibility the default path mount at other places(=
-for different distribution)?</div><div class=3D"gmail_default" style=3D"fon=
-t-size:small"></div></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"=
-><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div>=
-</div>
-
---00000000000026fa6505b19ba1ba--
-
-
---===============0364204784==
+--===============0800204077==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -254,5 +450,4 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============0364204784==--
-
+--===============0800204077==--
