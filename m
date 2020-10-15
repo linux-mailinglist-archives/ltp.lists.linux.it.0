@@ -1,55 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ABCF28F1FC
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Oct 2020 14:22:51 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 692FF28F92A
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Oct 2020 21:06:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D696C3C325A
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Oct 2020 14:22:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 163533C57E0
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Oct 2020 21:06:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 49DE53C23F5
- for <ltp@lists.linux.it>; Thu, 15 Oct 2020 14:22:49 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTP id 621013C2411
+ for <ltp@lists.linux.it>; Thu, 15 Oct 2020 21:06:23 +0200 (CEST)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CD3FE20099A
- for <ltp@lists.linux.it>; Thu, 15 Oct 2020 14:22:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1602764568;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=O3E1pC9UGTTt4nprLSiUqABd2GQPiIsCgYSgfRuYliQ=;
- b=Ykf3d86Z3+f9jbCUC7X8f0cbnMTdZA65/bvHBAhZVj869a4ZulOk456qdgRS3OqXlSMU4/
- c6/z9DPUQcllBbXn4AVwCwcs7bPT9SKG3wIm7O39X4m3IDoGXjO/aGjszNcn4TsFeE7bvP
- +fB2bScxULYBI2EiImGUd/IV4zGsiUk=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EC176B27B;
- Thu, 15 Oct 2020 12:22:47 +0000 (UTC)
-Date: Thu, 15 Oct 2020 14:22:46 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: John Ogness <john.ogness@linutronix.de>,
- Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <20201015122246.GD8871@alley>
-References: <CA+G9fYt46oC7-BKryNDaaXPJ9GztvS2cs_7GjYRjanRi4+ryCQ@mail.gmail.com>
- <20201014140514.GB17231@alley> <20201014151311.GB13775@alley>
- <20201014175051.GC13775@alley>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 57F852000D5
+ for <ltp@lists.linux.it>; Thu, 15 Oct 2020 21:06:23 +0200 (CEST)
+Received: by mail-wm1-x344.google.com with SMTP id e23so43851wme.2
+ for <ltp@lists.linux.it>; Thu, 15 Oct 2020 12:06:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:reply-to:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=zMkzq8dBBdIeUk4GkF8fk6jM/gOffsF4VPT6AeFBTbc=;
+ b=myWThgz9ZNNmfvOz1fLGqlNknas0xuZx3vgs/MdEysvApuh67hvu9TszS8zKwIyn1g
+ yy82Q4hiUpW5wOKxLoMVjwD5cW2LyFUJtCc3jLelT4W+qnVjcPdPFuWYpscjshlR/2kc
+ JHANnakOZnHTQuOAFxXKzF27CP6H1oys4LmwuEkq19Oa05FVofkzMrVMqa0Prw8XKtwv
+ 1x/RGdmUZsVZ62liNSpU9h2ZrlKq0kOqk/qHcwu9YYcJj0Jz6yqPSC01RpFj09zlJZj8
+ 3uPd9y8w5WAm7xjXoGpFZtStuil436b7Ez05QG9PkgWtfrPfN0wvDG50IFUJqkLZMoSA
+ u4/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:reply-to
+ :references:mime-version:content-disposition:in-reply-to;
+ bh=zMkzq8dBBdIeUk4GkF8fk6jM/gOffsF4VPT6AeFBTbc=;
+ b=OywO/ZRNVFhAnjiOE2Fm1k70wO560itf4eU7Ah8lej6oDlDSa6aMC6XUZoy5NG5TYT
+ 7MfcnkmpO5CHXRiiHnQrUJsPq4dWFmBUb1TQvbbea3OzQYzpnGR3enXjugk+ZEtullg3
+ gxlmGDEYRfcgNr+v/+0S7wL/Tb2P4WRqsYQe7fm/yai55j+F8J4yDtiiQI0e7XOCUTnS
+ 2REhi91zaN1Lq50Nl/acszYPgi8ra+a1SCXLkZFHNPhSiBOZRqg4zZNwQ6/E4KR6Mm1d
+ GZa9r9gzqLtrUZvK/Ka0Cb242ftphOVPYRJszT7hmkGEfynrLAgnPWyB3Vbl44hn1z/R
+ dLJA==
+X-Gm-Message-State: AOAM530CtdzKg6HMPVBE2nUF4t9V3PVkpbuFuwtRnUjJbLm94W4ywp8R
+ Z+AqvYEsyP0qgzmApN7vEE0=
+X-Google-Smtp-Source: ABdhPJy9B+Cz01Xx+VEVauIL0uecZpKN7bhzWHjPBuliv/ORbyNISC7+e6YpXVvfDzh0x9qcwsSUgA==
+X-Received: by 2002:a05:600c:214c:: with SMTP id
+ v12mr105992wml.23.1602788782839; 
+ Thu, 15 Oct 2020 12:06:22 -0700 (PDT)
+Received: from dell5510 ([62.201.25.198])
+ by smtp.gmail.com with ESMTPSA id y5sm275257wrw.52.2020.10.15.12.06.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Oct 2020 12:06:22 -0700 (PDT)
+Date: Thu, 15 Oct 2020 21:06:20 +0200
+From: Petr Vorel <petr.vorel@gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20201015190620.GA9408@dell5510>
+References: <20201001231256.6930-1-petr.vorel@gmail.com>
+ <20201014143317.GC13224@yuki.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201014175051.GC13775@alley>
+In-Reply-To: <20201014143317.GC13224@yuki.lan>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] printk: ringbuffer: Wrong data pointer when
- appending small string
+Subject: Re: [LTP] [RFC PATCH 1/1] lapi: Add sysinfo.h to fix build with
+ MUSL libc
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,40 +81,58 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
- Rasmus Villemoes <rasmus.villemoes@prevas.dk>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
- Mike Rapoport <rppt@linux.ibm.com>, linux-mm <linux-mm@kvack.org>,
- Linux-Next Mailing List <linux-next@vger.kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Thomas Gleixner <tglx@linutronix.de>, LTP List <ltp@lists.linux.it>
+Reply-To: Petr Vorel <petr.vorel@gmail.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed 2020-10-14 19:50:54, Petr Mladek wrote:
-> data_realloc() returns wrong data pointer when the block is wrapped and
-> the size is not increased. It might happen when pr_cont() wants to
-> add only few characters and there is already a space for them because
-> of alignment.
-> 
-> It might cause writing outsite the buffer. It has been detected by LTP
-> tests with KASAN enabled:
-> 
-> Link: https://lore.kernel.org/r/CA+G9fYt46oC7-BKryNDaaXPJ9GztvS2cs_7GjYRjanRi4+ryCQ@mail.gmail.com
-> Fixes: 4cfc7258f876a7feba673ac ("printk: ringbuffer: add finalization/extension support")
-> Reported-by: Naresh Kamboju <naresh.kamboju@linaro.org>
-> Signed-off-by: Petr Mladek <pmladek@suse.com>
+Hi Cyril,
 
-The patch is committed into printk/linux.git, branch for-5.10-fixup.
+thanks for your review!
 
-I am going to send a pull request with it tomorrow unless something
-happens in the meantime.
+...
+> > +++ b/include/lapi/sysinfo.h
+> > @@ -0,0 +1,22 @@
+> > +// SPDX-License-Identifier: GPL-2.0-or-later
+> > +/*
+> > + * Copyright (c) 2020 Petr Vorel <petr.vorel@gmail.com>
+> > + */
+> > +
+> > +#ifndef SYSINFO_H__
+> > +
+> > +/*
+> > + * Don't use <sys/sysinfo.h> as it breaks build MUSL toolchain.
+> > + * Use <linux/sysinfo.h> instead.
+> > + *
+> > + * Some kernel UAPI headers do indirect <linux/sysinfo.h> include:
+> > + * <linux/netlink.h> or others -> <linux/kernel.h> -> <linux/sysinfo.h>
+> > + *
+> > + * This indirect include causes on MUSL redefinition of struct sysinfo when
+> > + * included both <sys/sysinfo.h> and some of UAPI headers:
+> > + */
+> > +#include <linux/sysinfo.h>
+> > +
+> > +#define SYSINFO_H__
+> > +
+> > +#endif /* SYSINFO_H__ */
 
-Best Regards,
+> Well the #define SYSINFO_H__ usually goes right after the #ifndef on the
+> top.
++1. It'd be in v2 if needed.
+I've added this patch already to buildroot, but if kernel patch get accepted,
+it'd be kept only temporarily (I think they don't have patches for musl based
+toolchains, otherwise they'd take Alpine's patch by now. But they instead drop
+support for these toolchains in packages which don't upstream the solution.
+
+> Apart from that it looks like the kernel patch has been ignored. I guess
+> that you should try to push it a bit more before we give up and apply
+> workarounds...
+Tried next version, let's see.
+https://lore.kernel.org/linux-api/20201015190013.8901-1-petr.vorel@gmail.com/
+
+Kind regards,
 Petr
 
 -- 
