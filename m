@@ -2,84 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D751290515
-	for <lists+linux-ltp@lfdr.de>; Fri, 16 Oct 2020 14:32:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C63B29367F
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Oct 2020 10:12:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AD8433C57CE
-	for <lists+linux-ltp@lfdr.de>; Fri, 16 Oct 2020 14:32:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A08E73C56D3
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Oct 2020 10:12:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 0B97D3C23F2
- for <ltp@lists.linux.it>; Fri, 16 Oct 2020 14:32:22 +0200 (CEST)
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id E70A93C242F
+ for <ltp@lists.linux.it>; Fri, 16 Oct 2020 16:54:46 +0200 (CEST)
+Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
+ [IPv6:2607:f8b0:4864:20::d44])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 98B74600209
- for <ltp@lists.linux.it>; Fri, 16 Oct 2020 14:32:21 +0200 (CEST)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09GCUTrB116350;
- Fri, 16 Oct 2020 12:32:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=nJV+gQI4qzXq576knw9nxwiP3UJZegXnk8nKQmAH++g=;
- b=B1IsXzAJiZybFNZxhhbwkFScvibIJmENWZZ67xFyUSdq7/XtRHO5ApAZF6Z/+4VXJ4sW
- 1BGeg5Fp6FjaRQ5sODIzJwen4n/qAzLYJPO0/VnVsV3NRPh4pmwk7vGWESTgtVDO1RCT
- WLs1dzhtESwsXGA0MjUThYR4U+VIhJaPh4Vr4RqqNIWj/rm5dcO/D3mCkprbodJzSy7X
- o3LVcD9jrn/YKoSxKjKXkN710B5keih4343J0ZppH3MUFr1vwMSIlzYRJfMrYrfBeKme
- 0hJhhsn5e/YMmZBTmpCCEtT/DPJohsUpr5joFT60uAVA8joKmlO9K/X7Sn1qpZ9iOzcg MQ== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by aserp2120.oracle.com with ESMTP id 3434wm1gnh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 16 Oct 2020 12:32:15 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09GCOgtc179620;
- Fri, 16 Oct 2020 12:30:14 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by userp3030.oracle.com with ESMTP id 343pw1saed-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 16 Oct 2020 12:30:14 +0000
-Received: from abhmp0011.oracle.com (abhmp0011.oracle.com [141.146.116.17])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 09GCUAYw022169;
- Fri, 16 Oct 2020 12:30:13 GMT
-Received: from [192.168.1.35] (/95.161.221.177)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Fri, 16 Oct 2020 05:30:10 -0700
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>, ltp@lists.linux.it
-References: <1602834345-24019-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-From: Alexey Kodanev <alexey.kodanev@oracle.com>
-Message-ID: <71c2d6b7-5c49-96c6-f1ba-1370fd7a5dd6@oracle.com>
-Date: Fri, 16 Oct 2020 15:30:07 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3464310013B2
+ for <ltp@lists.linux.it>; Fri, 16 Oct 2020 16:54:46 +0200 (CEST)
+Received: by mail-io1-xd44.google.com with SMTP id d20so4114078iop.10
+ for <ltp@lists.linux.it>; Fri, 16 Oct 2020 07:54:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cmpxchg-org.20150623.gappssmtp.com; s=20150623;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=P+wWygljj49b/Jwoyua6AHD+Ku/LFmb5gdhqTAfvLEg=;
+ b=LfWcB5jJyrh0MulkzzuGDm88OUPUpKQE8o53FteBypfuv4DTJIqcilO5fbMfXFgYXI
+ lNzpYppun7sYKDcWP9drg2dRRpqy3ivRLLdyLTh5O5yrcim1D+Rl1p43Fc8Ww1Dlnq75
+ UduIWxVs7cKdmtuQ99t4hyO12AovSFAZgo1uUGJ5obm0Il7FaQHkzj9QMdXK9zopXcSF
+ PLwlynbaqdXAtnJzQ89MJ+Lzr1Vb/40fbGXEsslJk7dWbQwUd777LR4USiIBmWG9Zm6f
+ 7A4U32UBKsGWK71FaDROAEtzkzsNLPZWM6FOj2Bt9j8CrzMDRFddJUzI7S5C99xjuZd5
+ KqJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=P+wWygljj49b/Jwoyua6AHD+Ku/LFmb5gdhqTAfvLEg=;
+ b=eiR8A4TBgcFXgwFx+CW1vEk+V4Uzoy5AAjeHCUW+dc68EpUiTbWlErcQTlikXLobq1
+ XoeTeX4UVIjTELbrnwjf60IEIldm6+CYMT4E4MKtIpCNnRMAQoxn7SIqN7MKokOP8Wwf
+ zfsRgouUkIJRznP5uKNZrQ222wVhGdyPvoK0uKrPe9fKq9TaR784p5LuCAyIzvuxRq+M
+ Z4JKP40G1LtRH59J2Y0FlFdjwKueZZfimpADm3HrnLWWrn2hddzPJFwXCeEAHyPcDm2E
+ DfMUXpBaCBHxpIRSjRxprwc2GxOC2MhH0voB9TUidb2YQQEHlZpHgMQNNEJlDCeV4aEg
+ vAgQ==
+X-Gm-Message-State: AOAM530cs2MXdKldimsA6H5TBk0RpIRla8IC2lEFN03oWQxVGqH4oDTo
+ K1zOF3nYrGx0OF3ZF30EWxkS1Q==
+X-Google-Smtp-Source: ABdhPJzFogEG6IQkoTlKAgWk1KT+gJK3ZP6L/JPWVdkauPYFnSZXzWhrRw9D+btj4vw97vn8oJI+tQ==
+X-Received: by 2002:a02:9441:: with SMTP id a59mr2934832jai.122.1602860084430; 
+ Fri, 16 Oct 2020 07:54:44 -0700 (PDT)
+Received: from localhost ([2620:10d:c091:480::1:b51d])
+ by smtp.gmail.com with ESMTPSA id b14sm2815853ilg.63.2020.10.16.07.54.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 16 Oct 2020 07:54:43 -0700 (PDT)
+Date: Fri, 16 Oct 2020 10:53:08 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>
+Message-ID: <20201016145308.GA312010@cmpxchg.org>
+References: <20201014190749.24607-1-rpalethorpe@suse.com>
+ <20201016094702.GA95052@blackbook>
 MIME-Version: 1.0
-In-Reply-To: <1602834345-24019-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9775
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- mlxscore=0 adultscore=0
- bulkscore=0 mlxlogscore=999 suspectscore=0 malwarescore=0 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2010160092
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9775
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 mlxscore=0
- malwarescore=0 phishscore=0 suspectscore=0 impostorscore=0 clxscore=1011
- spamscore=0 priorityscore=1501 bulkscore=0 adultscore=0 mlxlogscore=999
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2010160092
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20201016094702.GA95052@blackbook>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.2 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/send02: Improve message
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+X-Mailman-Approved-At: Tue, 20 Oct 2020 10:11:56 +0200
+Subject: Re: [LTP] [RFC PATCH] mm: memcg/slab: Stop reparented obj_cgroups
+ from charging root
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,156 +81,56 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: linux-kernel@vger.kernel.org, Richard Palethorpe <rpalethorpe@suse.com>,
+ linux-mm@kvack.org, Shakeel Butt <shakeelb@google.com>,
+ Vlastimil Babka <vbabka@suse.cz>, Roman Gushchin <guro@fb.com>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@linux.com>,
+ Michal Hocko <mhocko@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ ltp@lists.linux.it
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 16.10.2020 10:45, Yang Xu wrote:
-> This case sometimes fails, output as below:
-> 
-> tst_test.c:1250: TINFO: Timeout per run is 0h 05m 00s
-> send02.c:86: TFAIL: recv() error: EAGAIN/EWOULDBLOCK (11)
-> send02.c:86: TFAIL: recv() error: EAGAIN/EWOULDBLOCK (11)
-> send02.c:86: TFAIL: recv() error: EAGAIN/EWOULDBLOCK (11)
-> send02.c:86: TFAIL: recv() error: EAGAIN/EWOULDBLOCK (11)
-> 
-> From this output, we don't know which subcase fails(tcp,udp,send,sendto).
-> So add some message and make this clear.
-> 
-> Now this case fails as below:
-> tst_test.c:1250: TINFO: Timeout per run is 0h 05m 00s
-> send02.c:124: TINFO: Testing TCP send
-> send02.c:87: TFAIL: recv() error at the 776 times(expsize 17): EAGAIN/EWOULDBLOCK (11)
+On Fri, Oct 16, 2020 at 11:47:02AM +0200, Michal Koutn=FD wrote:
+> Hello.
+> =
 
-recv(..., MSG_DONTWAIT) can fail with EAGAIN/EWOULDBLOCK at any time,
-so it should be a valid error... why it is a failure in the test?
+> On Wed, Oct 14, 2020 at 08:07:49PM +0100, Richard Palethorpe <rpalethorpe=
+@suse.com> wrote:
+> > SLAB objects which outlive their memcg are moved to their parent
+> > memcg where they may be uncharged. However if they are moved to the
+> > root memcg, uncharging will result in negative page counter values as
+> > root has no page counters.
+> Why do you think those are reparented objects? If those are originally
+> charged in a non-root cgroup, then the charge value should be propagated =
+up the
+> hierarchy, including root memcg, so if they're later uncharged in root
+> after reparenting, it should still break even. (Or did I miss some stock
+> imbalance?)
 
-If we expect some message to receive, we should call recv() again
-for EAGAIN/EWOULDBLOCK errors. And with MSG_MORE case, just return
-immediately, i.e. something like this:
+Looking a bit closer at this code, it's kind of a mess right now.
 
-       while (1) {
-                TEST(recv(sock, recvbuf, RECVSIZE, MSG_DONTWAIT));
+The central try_charge() function charges recursively all the way up
+to and including the root. But not if it's called directly on the
+root, in which case it bails and does nothing.
 
-                if (TST_RET == -1) {
-                        if (TST_ERR == EAGAIN || TST_ERR == EWOULDBLOCK) {
-                                if (expsize)
-                                        continue;
-                                else
-                                        break;
-                        }
+kmem and objcg use try_charge(), so they have the same
+behavior. get_obj_cgroup_from_current() does it's own redundant
+filtering for root_mem_cgroup, whereas get_mem_cgroup_from_current()
+does not, but its callsite __memcg_kmem_charge_page() does.
 
-                        /* unexpected error */
-                        tst_res(TFAIL | TTERRNO, "recv() error, expsize %ld, it %d", expsize, i);
-                        return 0;
-                }
+We should clean this up one way or another: either charge the root or
+don't, but do it consistently.
 
-		if (TST_RET < 0) {
-                        tst_res(TFAIL | TTERRNO, "Invalid recv() return value %ld",
-                                TST_RET);
-                        return 0;
-                }
+Since we export memory.stat at the root now, we should probably just
+always charge the root instead of special-casing it all over the place
+and risking bugs.
 
-                if (!expsize || TST_RET != expsize) {
-                        tst_res(TFAIL, "recv() read %ld bytes, expected %ld", TST_RET,
-                                expsize);
-                        return 0;
-                }
+Indeed, it looks like there is at least one bug where the root-level
+memory.stat shows non-root slab objects, but not root ones, whereas it
+shows all anon and cache pages, root or no root.
 
-		break;
-	}
+-- =
 
-
-> send02.c:124: TINFO: Testing UDP send
-> send02.c:87: TFAIL: recv() error at the 1 times(expsize 16): EAGAIN/EWOULDBLOCK (11)
-> send02.c:124: TINFO: Testing UDP sendto
-> send02.c:87: TFAIL: recv() error at the 1 times(expsize 16): EAGAIN/EWOULDBLOCK (11)
-> send02.c:124: TINFO: Testing UDP sendmsg
-> send02.c:87: TFAIL: recv() error at the 1 times(expsize 16): EAGAIN/EWOULDBLOCK (11)
-> 
-> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-> ---
->  testcases/kernel/syscalls/send/send02.c | 20 +++++++++++---------
->  1 file changed, 11 insertions(+), 9 deletions(-)
-> 
-> diff --git a/testcases/kernel/syscalls/send/send02.c b/testcases/kernel/syscalls/send/send02.c
-> index 5630230fa..719e86a90 100644
-> --- a/testcases/kernel/syscalls/send/send02.c
-> +++ b/testcases/kernel/syscalls/send/send02.c
-> @@ -71,7 +71,7 @@ static void setup(void)
->  	memset(sendbuf, 0x42, SENDSIZE);
->  }
->  
-> -static int check_recv(int sock, long expsize)
-> +static int check_recv(int sock, long expsize, int loop)
->  {
->  	char recvbuf[RECVSIZE] = {0};
->  
-> @@ -83,19 +83,20 @@ static int check_recv(int sock, long expsize)
->  			return 1;
->  
->  		/* unexpected error */
-> -		tst_res(TFAIL | TTERRNO, "recv() error");
-> +		tst_res(TFAIL | TTERRNO, "recv() error at the %d times(expsize"
-> +			" %ld)", loop, expsize);
-
-It's better to have a single line message, and arguments on another one:
-tst_res(TFAIL | TTERRNO, "recv() error at step %d, expsize %ld",
-        ...);
-
->  		return 0;
->  	}
->  
->  	if (TST_RET < 0) {
-> -		tst_res(TFAIL | TTERRNO, "Invalid recv() return value %ld",
-> -			TST_RET);
-> +		tst_res(TFAIL | TTERRNO, "Invalid recv() return value %ld at"
-> +			" the %d times(expsize %ld)", TST_RET, loop, expsize);
->  		return 0;
->  	}
->  
->  	if (TST_RET != expsize) {
-> -		tst_res(TFAIL, "recv() read %ld bytes, expected %ld", TST_RET,
-> -			expsize);
-> +		tst_res(TFAIL, "recv() read %ld bytes, expected %ld at the"
-> +			" %d times", TST_RET, expsize, loop);
->  		return 0;
->  	}
->  
-> @@ -120,6 +121,7 @@ static void run(unsigned int n)
->  	struct test_case *tc = testcase_list + n;
->  	socklen_t len = sizeof(addr);
->  
-> +	tst_res(TINFO, "Testing %s", tc->name);
->  	tst_init_sockaddr_inet_bin(&addr, INADDR_LOOPBACK, 0);
->  	listen_sock = SAFE_SOCKET(tc->domain, tc->type, tc->protocol);
->  	dst_sock = listen_sock;
-> @@ -139,19 +141,19 @@ static void run(unsigned int n)
->  			dst_sock = SAFE_ACCEPT(listen_sock, NULL, NULL);
->  
->  		tc->send(sock, sendbuf, SENDSIZE, 0);
-> -		ret = check_recv(dst_sock, SENDSIZE);
-> +		ret = check_recv(dst_sock, SENDSIZE, i + 1);
->  
->  		if (!ret)
->  			break;
->  
->  		tc->send(sock, sendbuf, SENDSIZE, MSG_MORE);
-> -		ret = check_recv(dst_sock, 0);
-> +		ret = check_recv(dst_sock, 0, i + 1);
->  
->  		if (!ret)
->  			break;
->  
->  		tc->send(sock, sendbuf, 1, 0);
-> -		ret = check_recv(dst_sock, SENDSIZE + 1);
-> +		ret = check_recv(dst_sock, SENDSIZE + 1, i + 1);
->  
->  		if (!ret)
->  			break;
-> 
-
-
--- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
