@@ -2,41 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA24228FDA8
-	for <lists+linux-ltp@lfdr.de>; Fri, 16 Oct 2020 07:41:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 401D428FE5C
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Oct 2020 08:34:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 845EF3C2665
-	for <lists+linux-ltp@lfdr.de>; Fri, 16 Oct 2020 07:41:03 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9D7733C57B9
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Oct 2020 08:34:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 244533C247B
- for <ltp@lists.linux.it>; Fri, 16 Oct 2020 07:41:01 +0200 (CEST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 5CB6F3C2411
+ for <ltp@lists.linux.it>; Fri, 16 Oct 2020 08:34:38 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 911361A008B1
- for <ltp@lists.linux.it>; Fri, 16 Oct 2020 07:40:59 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 3B7D5600849
+ for <ltp@lists.linux.it>; Fri, 16 Oct 2020 08:34:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1602830076;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=sOHlnw0t7bkbgX9Ky1enkfnJE2T0k9vNdGEtN31Vme8=;
+ b=IsEh41AwQzryZMS0HBMV4iHcNmaSogHZ+YN+s8AyBSKxpCGoB+jGW55c2MfspdSQCqmyOC
+ e9ESFEBXVG6nPdAzxsa3Pf1GKgGtoYswnQrfYcc3VbJtTk80hKCXUgEhlDZiJEPEMMoGbi
+ vhIcq7Ns/puDYUlok4Dr9cpfN2/3ZRo=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B9BECADC2;
- Fri, 16 Oct 2020 05:40:58 +0000 (UTC)
-References: <20201014190749.24607-1-rpalethorpe@suse.com>
- <20201014200833.GA19363@carbon.lan>
-User-agent: mu4e 1.4.13; emacs 27.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 8A029AAB2;
+ Fri, 16 Oct 2020 06:34:36 +0000 (UTC)
+From: Richard Palethorpe <rpalethorpe@suse.com>
 To: Roman Gushchin <guro@fb.com>
-In-reply-to: <20201014200833.GA19363@carbon.lan>
-Date: Fri, 16 Oct 2020 06:40:57 +0100
-Message-ID: <87v9fasp7a.fsf@suse.de>
+Date: Fri, 16 Oct 2020 07:32:04 +0100
+Message-Id: <20201016063204.14058-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <87v9fasp7a.fsf@suse.de>
+References: <87v9fasp7a.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH] mm: memcg/slab: Stop reparented obj_cgroups
- from charging root
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] mm: memcg/slab: Stop reparented obj_cgroups from
+ charging root
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,47 +57,146 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: linux-kernel@vger.kernel.org, Michal Hocko <mhocko@kernel.org>,
- linux-mm@kvack.org, Shakeel Butt <shakeelb@google.com>,
- Vlastimil Babka <vbabka@suse.cz>, Johannes Weiner <hannes@cmpxchg.org>,
- Tejun Heo <tj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Christoph Lameter <cl@linux.com>, ltp@lists.linux.it
+Cc: Richard Palethorpe <rpalethorpe@suse.com>,
+ Shakeel Butt <shakeelb@google.com>, Vlastimil Babka <vbabka@suse.cz>,
+ Johannes Weiner <hannes@cmpxchg.org>, Tejun Heo <tj@kernel.org>,
+ Christoph Lameter <cl@linux.com>, Michal Hocko <mhocko@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello Roman,
+SLAB objects which outlive their memcg are moved to their parent
+memcg where they may be uncharged. However if they are moved to the
+root memcg, uncharging will result in negative page counter values as
+root has no page counters.
 
-Roman Gushchin <guro@fb.com> writes:
+To prevent this, we check whether we are about to uncharge the root
+memcg and skip it if we are.
 
-> Hi Richard!
->
->> SLAB objects which outlive their memcg are moved to their parent
->> memcg where they may be uncharged. However if they are moved to the
->> root memcg, uncharging will result in negative page counter values as
->> root has no page counters.
->> 
->> To prevent this, we check whether we are about to uncharge the root
->> memcg and skip it if we are. Possibly instead; the obj_cgroups should
->> be removed from their slabs and any per cpu stocks instead of
->> reparenting them to root?
->
-> It would be really complex. I think your fix is totally fine.
-> We have similar checks in cancel_charge(), uncharge_batch(),
-> mem_cgroup_swapout(), mem_cgroup_uncharge_swap() etc.
->
->
-> Acked-by: Roman Gushchin <guro@fb.com>
->
-> Thanks!
+The warning can be, unreliably, reproduced with the LTP test
+madvise06 if the entire patch series
+https://lore.kernel.org/linux-mm/20200623174037.3951353-1-guro@fb.com/
+is present. Although the listed commit in 'fixes' appears to introduce
+the bug, I can not reproduce it with just that commit and bisecting
+runs into other bugs.
 
-Great I will respin.
+[   12.029417] WARNING: CPU: 2 PID: 21 at mm/page_counter.c:57 page_counter_uncharge (mm/page_counter.c:57 mm/page_counter.c:50 mm/page_counter.c:156)
+[   12.029539] Modules linked in:
+[   12.029611] CPU: 2 PID: 21 Comm: ksoftirqd/2 Not tainted 5.9.0-rc7-22-default #76
+[   12.029729] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.13.0-48-gd9c812d-rebuilt.opensuse.org 04/01/2014
+[   12.029908] RIP: 0010:page_counter_uncharge (mm/page_counter.c:57 mm/page_counter.c:50 mm/page_counter.c:156)
+[ 12.029991] Code: 0f c1 45 00 4c 29 e0 48 89 ef 48 89 c3 48 89 c6 e8 2a fe ff ff 48 85 db 78 10 48 8b 6d 28 48 85 ed 75 d8 5b 5d 41 5c 41 5d c3 <0f> 0b eb ec 90 e8 db 47 36 27 48 8b 17 48 39 d6 72 41 41 54 49 89
+[   12.030258] RSP: 0018:ffffa5d8000efd08 EFLAGS: 00010086
+[   12.030344] RAX: ffffffffffffffff RBX: ffffffffffffffff RCX: 0000000000000009
+[   12.030455] RDX: 000000000000000b RSI: ffffffffffffffff RDI: ffff8ef8c7d2b248
+[   12.030561] RBP: ffff8ef8c7d2b248 R08: ffff8ef8c78b19c8 R09: 0000000000000001
+[   12.030672] R10: 0000000000000000 R11: ffff8ef8c780e0d0 R12: 0000000000000001
+[   12.030784] R13: ffffffffffffffff R14: ffff8ef9478b19c8 R15: 0000000000000000
+[   12.030895] FS:  0000000000000000(0000) GS:ffff8ef8fbc80000(0000) knlGS:0000000000000000
+[   12.031017] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   12.031104] CR2: 00007f72c0af93ec CR3: 000000005c40a000 CR4: 00000000000006e0
+[   12.031209] Call Trace:
+[   12.031267] __memcg_kmem_uncharge (mm/memcontrol.c:3022)
+[   12.031470] drain_obj_stock (./include/linux/rcupdate.h:689 mm/memcontrol.c:3114)
+[   12.031594] refill_obj_stock (mm/memcontrol.c:3166)
+[   12.031733] ? rcu_do_batch (kernel/rcu/tree.c:2438)
+[   12.032075] memcg_slab_free_hook (./include/linux/mm.h:1294 ./include/linux/mm.h:1441 mm/slab.h:368 mm/slab.h:348)
+[   12.032339] kmem_cache_free (mm/slub.c:3107 mm/slub.c:3143 mm/slub.c:3158)
+[   12.032464] rcu_do_batch (kernel/rcu/tree.c:2438)
+[   12.032567] rcu_core (kernel/rcu/tree_plugin.h:2122 kernel/rcu/tree_plugin.h:2157 kernel/rcu/tree.c:2661)
+[   12.032664] __do_softirq (./arch/x86/include/asm/jump_label.h:25 ./include/linux/jump_label.h:200 ./include/trace/events/irq.h:142 kernel/softirq.c:299)
+[   12.032766] run_ksoftirqd (./arch/x86/include/asm/irqflags.h:54 ./arch/x86/include/asm/irqflags.h:94 kernel/softirq.c:653 kernel/softirq.c:644)
+[   12.032852] smpboot_thread_fn (kernel/smpboot.c:165)
+[   12.032940] ? smpboot_register_percpu_thread (kernel/smpboot.c:108)
+[   12.033059] kthread (kernel/kthread.c:292)
+[   12.033148] ? __kthread_bind_mask (kernel/kthread.c:245)
+[   12.033269] ret_from_fork (arch/x86/entry/entry_64.S:300)
+[   12.033357] ---[ end trace 961dbfc01c109d1f ]---
 
+[    9.841552] ------------[ cut here ]------------
+[    9.841788] WARNING: CPU: 0 PID: 12 at mm/page_counter.c:57 page_counter_uncharge (mm/page_counter.c:57 mm/page_counter.c:50 mm/page_counter.c:156)
+[    9.841982] Modules linked in:
+[    9.842072] CPU: 0 PID: 12 Comm: kworker/0:1 Not tainted 5.9.0-rc7-22-default #77
+[    9.842266] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.13.0-48-gd9c812d-rebuilt.opensuse.org 04/01/2014
+[    9.842571] Workqueue: events drain_local_stock
+[    9.842750] RIP: 0010:page_counter_uncharge (mm/page_counter.c:57 mm/page_counter.c:50 mm/page_counter.c:156)
+[ 9.842894] Code: 0f c1 45 00 4c 29 e0 48 89 ef 48 89 c3 48 89 c6 e8 2a fe ff ff 48 85 db 78 10 48 8b 6d 28 48 85 ed 75 d8 5b 5d 41 5c 41 5d c3 <0f> 0b eb ec 90 e8 4b f9 88 2a 48 8b 17 48 39 d6 72 41 41 54 49 89
+[    9.843438] RSP: 0018:ffffb1c18006be28 EFLAGS: 00010086
+[    9.843585] RAX: ffffffffffffffff RBX: ffffffffffffffff RCX: ffff94803bc2cae0
+[    9.843806] RDX: 0000000000000001 RSI: ffffffffffffffff RDI: ffff948007d2b248
+[    9.844026] RBP: ffff948007d2b248 R08: ffff948007c58eb0 R09: ffff948007da05ac
+[    9.844248] R10: 0000000000000018 R11: 0000000000000018 R12: 0000000000000001
+[    9.844477] R13: ffffffffffffffff R14: 0000000000000000 R15: ffff94803bc2cac0
+[    9.844696] FS:  0000000000000000(0000) GS:ffff94803bc00000(0000) knlGS:0000000000000000
+[    9.844915] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    9.845096] CR2: 00007f0579ee0384 CR3: 000000002cc0a000 CR4: 00000000000006f0
+[    9.845319] Call Trace:
+[    9.845429] __memcg_kmem_uncharge (mm/memcontrol.c:3022)
+[    9.845582] drain_obj_stock (./include/linux/rcupdate.h:689 mm/memcontrol.c:3114)
+[    9.845684] drain_local_stock (mm/memcontrol.c:2255)
+[    9.845789] process_one_work (./arch/x86/include/asm/jump_label.h:25 ./include/linux/jump_label.h:200 ./include/trace/events/workqueue.h:108 kernel/workqueue.c:2274)
+[    9.845898] worker_thread (./include/linux/list.h:282 kernel/workqueue.c:2416)
+[    9.846034] ? process_one_work (kernel/workqueue.c:2358)
+[    9.846162] kthread (kernel/kthread.c:292)
+[    9.846271] ? __kthread_bind_mask (kernel/kthread.c:245)
+[    9.846420] ret_from_fork (arch/x86/entry/entry_64.S:300)
+[    9.846531] ---[ end trace 8b5647c1eba9d18a ]---
+
+Reported-By: ltp@lists.linux.it
+Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+Acked-by: Roman Gushchin <guro@fb.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Shakeel Butt <shakeelb@google.com>
+Cc: Christoph Lameter <cl@linux.com>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Tejun Heo <tj@kernel.org>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Fixes: bf4f059954dc ("mm: memcg/slab: obj_cgroup API")
+---
+
+V2: Remove RFC and update commit message
+
+ mm/memcontrol.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 6877c765b8d0..214e1fe4e9a2 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -291,7 +291,7 @@ static void obj_cgroup_release(struct percpu_ref *ref)
+ 
+ 	spin_lock_irqsave(&css_set_lock, flags);
+ 	memcg = obj_cgroup_memcg(objcg);
+-	if (nr_pages)
++	if (nr_pages && !mem_cgroup_is_root(memcg))
+ 		__memcg_kmem_uncharge(memcg, nr_pages);
+ 	list_del(&objcg->list);
+ 	mem_cgroup_put(memcg);
+@@ -3100,6 +3100,7 @@ static bool consume_obj_stock(struct obj_cgroup *objcg, unsigned int nr_bytes)
+ static void drain_obj_stock(struct memcg_stock_pcp *stock)
+ {
+ 	struct obj_cgroup *old = stock->cached_objcg;
++	struct mem_cgroup *memcg;
+ 
+ 	if (!old)
+ 		return;
+@@ -3110,7 +3111,9 @@ static void drain_obj_stock(struct memcg_stock_pcp *stock)
+ 
+ 		if (nr_pages) {
+ 			rcu_read_lock();
+-			__memcg_kmem_uncharge(obj_cgroup_memcg(old), nr_pages);
++			memcg = obj_cgroup_memcg(old);
++			if (!mem_cgroup_is_root(memcg))
++				__memcg_kmem_uncharge(memcg, nr_pages);
+ 			rcu_read_unlock();
+ 		}
+ 
 -- 
-Thank you,
-Richard.
+2.28.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
