@@ -1,48 +1,51 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6EB728FF6B
-	for <lists+linux-ltp@lfdr.de>; Fri, 16 Oct 2020 09:46:23 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id D26DB290228
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Oct 2020 11:48:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8D2363C266E
-	for <lists+linux-ltp@lfdr.de>; Fri, 16 Oct 2020 09:46:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 90BF93C3238
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Oct 2020 11:48:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 0E1073C242F
- for <ltp@lists.linux.it>; Fri, 16 Oct 2020 09:46:21 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id B74B01400DB2
- for <ltp@lists.linux.it>; Fri, 16 Oct 2020 09:46:20 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.77,381,1596470400"; d="scan'208";a="100223069"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 16 Oct 2020 15:46:13 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 362FB48990F4
- for <ltp@lists.linux.it>; Fri, 16 Oct 2020 15:46:11 +0800 (CST)
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Fri, 16 Oct 2020 15:46:11 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Fri, 16 Oct 2020 15:45:45 +0800
-Message-ID: <1602834345-24019-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 4C5503C3230
+ for <ltp@lists.linux.it>; Fri, 16 Oct 2020 11:47:08 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 874BB60123A
+ for <ltp@lists.linux.it>; Fri, 16 Oct 2020 11:47:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1602841627;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=BDB5UEUrkBNCh2xtKefDnttBa3itZcKarLkBKMAP85c=;
+ b=GHhY115QpXOP/li/piMyOcErB3jxQAbmT6uDTeto7iEt7jEEWDFm46UWJgxB4J70q7CxEx
+ Y9R+JypcumFRJAyZvNv3+bF70X6pTJk+b/87IhZz5Oire3KSpPPdvRmWezqnb2y3L7LfJs
+ Mr50b0oRnRY9v94DQAmV5cY48PP8mRg=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id ACAD6ACF1;
+ Fri, 16 Oct 2020 09:47:07 +0000 (UTC)
+Date: Fri, 16 Oct 2020 11:47:02 +0200
+From: Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <20201016094702.GA95052@blackbook>
+References: <20201014190749.24607-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 362FB48990F4.AAC3A
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <20201014190749.24607-1-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH] syscalls/send02: Improve message
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+X-Mailman-Approved-At: Fri, 16 Oct 2020 11:48:26 +0200
+Subject: Re: [LTP] [RFC PATCH] mm: memcg/slab: Stop reparented obj_cgroups
+ from charging root
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,113 +57,77 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: linux-kernel@vger.kernel.org, Roman Gushchin <guro@fb.com>,
+ linux-mm@kvack.org, Shakeel Butt <shakeelb@google.com>,
+ Vlastimil Babka <vbabka@suse.cz>, Johannes Weiner <hannes@cmpxchg.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@linux.com>,
+ Michal Hocko <mhocko@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ ltp@lists.linux.it
+Content-Type: multipart/mixed; boundary="===============0161695819=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This case sometimes fails, output as below:
 
-tst_test.c:1250: TINFO: Timeout per run is 0h 05m 00s
-send02.c:86: TFAIL: recv() error: EAGAIN/EWOULDBLOCK (11)
-send02.c:86: TFAIL: recv() error: EAGAIN/EWOULDBLOCK (11)
-send02.c:86: TFAIL: recv() error: EAGAIN/EWOULDBLOCK (11)
-send02.c:86: TFAIL: recv() error: EAGAIN/EWOULDBLOCK (11)
-
-From this output, we don't know which subcase fails(tcp,udp,send,sendto).
-So add some message and make this clear.
-
-Now this case fails as below:
-tst_test.c:1250: TINFO: Timeout per run is 0h 05m 00s
-send02.c:124: TINFO: Testing TCP send
-send02.c:87: TFAIL: recv() error at the 776 times(expsize 17): EAGAIN/EWOULDBLOCK (11)
-send02.c:124: TINFO: Testing UDP send
-send02.c:87: TFAIL: recv() error at the 1 times(expsize 16): EAGAIN/EWOULDBLOCK (11)
-send02.c:124: TINFO: Testing UDP sendto
-send02.c:87: TFAIL: recv() error at the 1 times(expsize 16): EAGAIN/EWOULDBLOCK (11)
-send02.c:124: TINFO: Testing UDP sendmsg
-send02.c:87: TFAIL: recv() error at the 1 times(expsize 16): EAGAIN/EWOULDBLOCK (11)
-
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- testcases/kernel/syscalls/send/send02.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/send/send02.c b/testcases/kernel/syscalls/send/send02.c
-index 5630230fa..719e86a90 100644
---- a/testcases/kernel/syscalls/send/send02.c
-+++ b/testcases/kernel/syscalls/send/send02.c
-@@ -71,7 +71,7 @@ static void setup(void)
- 	memset(sendbuf, 0x42, SENDSIZE);
- }
- 
--static int check_recv(int sock, long expsize)
-+static int check_recv(int sock, long expsize, int loop)
- {
- 	char recvbuf[RECVSIZE] = {0};
- 
-@@ -83,19 +83,20 @@ static int check_recv(int sock, long expsize)
- 			return 1;
- 
- 		/* unexpected error */
--		tst_res(TFAIL | TTERRNO, "recv() error");
-+		tst_res(TFAIL | TTERRNO, "recv() error at the %d times(expsize"
-+			" %ld)", loop, expsize);
- 		return 0;
- 	}
- 
- 	if (TST_RET < 0) {
--		tst_res(TFAIL | TTERRNO, "Invalid recv() return value %ld",
--			TST_RET);
-+		tst_res(TFAIL | TTERRNO, "Invalid recv() return value %ld at"
-+			" the %d times(expsize %ld)", TST_RET, loop, expsize);
- 		return 0;
- 	}
- 
- 	if (TST_RET != expsize) {
--		tst_res(TFAIL, "recv() read %ld bytes, expected %ld", TST_RET,
--			expsize);
-+		tst_res(TFAIL, "recv() read %ld bytes, expected %ld at the"
-+			" %d times", TST_RET, expsize, loop);
- 		return 0;
- 	}
- 
-@@ -120,6 +121,7 @@ static void run(unsigned int n)
- 	struct test_case *tc = testcase_list + n;
- 	socklen_t len = sizeof(addr);
- 
-+	tst_res(TINFO, "Testing %s", tc->name);
- 	tst_init_sockaddr_inet_bin(&addr, INADDR_LOOPBACK, 0);
- 	listen_sock = SAFE_SOCKET(tc->domain, tc->type, tc->protocol);
- 	dst_sock = listen_sock;
-@@ -139,19 +141,19 @@ static void run(unsigned int n)
- 			dst_sock = SAFE_ACCEPT(listen_sock, NULL, NULL);
- 
- 		tc->send(sock, sendbuf, SENDSIZE, 0);
--		ret = check_recv(dst_sock, SENDSIZE);
-+		ret = check_recv(dst_sock, SENDSIZE, i + 1);
- 
- 		if (!ret)
- 			break;
- 
- 		tc->send(sock, sendbuf, SENDSIZE, MSG_MORE);
--		ret = check_recv(dst_sock, 0);
-+		ret = check_recv(dst_sock, 0, i + 1);
- 
- 		if (!ret)
- 			break;
- 
- 		tc->send(sock, sendbuf, 1, 0);
--		ret = check_recv(dst_sock, SENDSIZE + 1);
-+		ret = check_recv(dst_sock, SENDSIZE + 1, i + 1);
- 
- 		if (!ret)
- 			break;
--- 
-2.23.0
+--===============0161695819==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="jI8keyz6grp/JLjh"
+Content-Disposition: inline
 
 
+--jI8keyz6grp/JLjh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hello.
+
+On Wed, Oct 14, 2020 at 08:07:49PM +0100, Richard Palethorpe <rpalethorpe@suse.com> wrote:
+> SLAB objects which outlive their memcg are moved to their parent
+> memcg where they may be uncharged. However if they are moved to the
+> root memcg, uncharging will result in negative page counter values as
+> root has no page counters.
+Why do you think those are reparented objects? If those are originally
+charged in a non-root cgroup, then the charge value should be propagated up the
+hierarchy, including root memcg, so if they're later uncharged in root
+after reparenting, it should still break even. (Or did I miss some stock
+imbalance?)
+
+(But the patch seems justifiable to me as objects (not)charged directly to
+root memcg may be incorrectly uncharged.)
+
+Thanks,
+Michal
+
+--jI8keyz6grp/JLjh
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEEoQaUCWq8F2Id1tNia1+riC5qSgFAl+JbBAACgkQia1+riC5
+qSjC0w//aMd+WraEXQVcGywU5HBwq4ZhMLA8dUsyH97TuiT8gtiKLwMm/uwbS7HC
+D7h+DRxt7TdyUrTAqmmQpqbfDL1hBRUXvBHpy8SxLYqulPYmSpt2WIKNP7ph3e6J
+A4RGJqUxI5p0tepxMYD9ixRNaGH8mR7koXgGsxBsFTgXOnQiwwDbJuXoVcf4zpAR
+Niel4m7H4BHrzqeas8NQMN6oe+cLyMVz3M3pH/GCNwDRztVFSe+23ygJYxZ3R+3M
+Kd7FGn/Ny8izuDDEL786DojBi+uar+FlXMKPvhk6WJqGKsmMs63vxpClKnHECJ0d
+V/7ZQlqQeFkjyp1No+JnGOQbHUlgX4J9LQwF1mI9PpOP6u1enzk2briQ7GA1+kEd
+bMC8oyFdALFTUFqZNaNOKdrFLp2cTJLzxmy7FxGEfBtVkey/FGSFLFwPhi7EGKnQ
+fyIsIlZJnPE0LqNkj3WUJquGpA6YJLlJHsXAn79UI2qZaHLBH0IiebP8fUmkAwwX
+rg9v6BuK1/jOEJK79L6dTPrkbnuhyCpM79ww3opWdg67VOLdaPvvD14VL7ovPClE
+QO2p4PRN8soZo+bjSP0wx8N1FDKMsn0DN8GWdblqKxlS3rPltNcIjx7HZs1Nf8ef
+uMFg1Tf61euYE/nJxP7sxBMW+I+O6OtGo8Z15FqmjhO4K6UJv3c=
+=pMdi
+-----END PGP SIGNATURE-----
+
+--jI8keyz6grp/JLjh--
+
+--===============0161695819==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0161695819==--
