@@ -2,74 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 692FF28F92A
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Oct 2020 21:06:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64B1528FCAE
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Oct 2020 05:21:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 163533C57E0
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Oct 2020 21:06:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 271073C264E
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Oct 2020 05:21:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 621013C2411
- for <ltp@lists.linux.it>; Thu, 15 Oct 2020 21:06:23 +0200 (CEST)
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 57F852000D5
- for <ltp@lists.linux.it>; Thu, 15 Oct 2020 21:06:23 +0200 (CEST)
-Received: by mail-wm1-x344.google.com with SMTP id e23so43851wme.2
- for <ltp@lists.linux.it>; Thu, 15 Oct 2020 12:06:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:reply-to:references:mime-version
- :content-disposition:in-reply-to;
- bh=zMkzq8dBBdIeUk4GkF8fk6jM/gOffsF4VPT6AeFBTbc=;
- b=myWThgz9ZNNmfvOz1fLGqlNknas0xuZx3vgs/MdEysvApuh67hvu9TszS8zKwIyn1g
- yy82Q4hiUpW5wOKxLoMVjwD5cW2LyFUJtCc3jLelT4W+qnVjcPdPFuWYpscjshlR/2kc
- JHANnakOZnHTQuOAFxXKzF27CP6H1oys4LmwuEkq19Oa05FVofkzMrVMqa0Prw8XKtwv
- 1x/RGdmUZsVZ62liNSpU9h2ZrlKq0kOqk/qHcwu9YYcJj0Jz6yqPSC01RpFj09zlJZj8
- 3uPd9y8w5WAm7xjXoGpFZtStuil436b7Ez05QG9PkgWtfrPfN0wvDG50IFUJqkLZMoSA
- u4/g==
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 51DC23C2403
+ for <ltp@lists.linux.it>; Fri, 16 Oct 2020 05:21:14 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 16D2E600BD8
+ for <ltp@lists.linux.it>; Fri, 16 Oct 2020 05:21:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1602818471;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=oo+UHZqr40GkpqPUf9nABCNLBEM5Ie/CghwjUIjDZc8=;
+ b=g6s743t6wNA6LRNhfDu0eVI8+raWCSH2FnaXmGWRQaZM9quy41uS1Rs6tKq6VlcuAkoW8L
+ mRQFrcvfBDlPnhEqrvaP3onGNvgsB/cAqZHFaLBz1kKIXsfy7XUcyJLtEcYVNau1S/6FQH
+ v4W1qdxYL+0jM01GFnC9yqEDDAxh8pg=
+Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
+ [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-561-su2G_AdWN_WvciUvMsrBig-1; Thu, 15 Oct 2020 23:21:07 -0400
+X-MC-Unique: su2G_AdWN_WvciUvMsrBig-1
+Received: by mail-yb1-f200.google.com with SMTP id c9so1205416ybs.8
+ for <ltp@lists.linux.it>; Thu, 15 Oct 2020 20:21:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:reply-to
- :references:mime-version:content-disposition:in-reply-to;
- bh=zMkzq8dBBdIeUk4GkF8fk6jM/gOffsF4VPT6AeFBTbc=;
- b=OywO/ZRNVFhAnjiOE2Fm1k70wO560itf4eU7Ah8lej6oDlDSa6aMC6XUZoy5NG5TYT
- 7MfcnkmpO5CHXRiiHnQrUJsPq4dWFmBUb1TQvbbea3OzQYzpnGR3enXjugk+ZEtullg3
- gxlmGDEYRfcgNr+v/+0S7wL/Tb2P4WRqsYQe7fm/yai55j+F8J4yDtiiQI0e7XOCUTnS
- 2REhi91zaN1Lq50Nl/acszYPgi8ra+a1SCXLkZFHNPhSiBOZRqg4zZNwQ6/E4KR6Mm1d
- GZa9r9gzqLtrUZvK/Ka0Cb242ftphOVPYRJszT7hmkGEfynrLAgnPWyB3Vbl44hn1z/R
- dLJA==
-X-Gm-Message-State: AOAM530CtdzKg6HMPVBE2nUF4t9V3PVkpbuFuwtRnUjJbLm94W4ywp8R
- Z+AqvYEsyP0qgzmApN7vEE0=
-X-Google-Smtp-Source: ABdhPJy9B+Cz01Xx+VEVauIL0uecZpKN7bhzWHjPBuliv/ORbyNISC7+e6YpXVvfDzh0x9qcwsSUgA==
-X-Received: by 2002:a05:600c:214c:: with SMTP id
- v12mr105992wml.23.1602788782839; 
- Thu, 15 Oct 2020 12:06:22 -0700 (PDT)
-Received: from dell5510 ([62.201.25.198])
- by smtp.gmail.com with ESMTPSA id y5sm275257wrw.52.2020.10.15.12.06.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Oct 2020 12:06:22 -0700 (PDT)
-Date: Thu, 15 Oct 2020 21:06:20 +0200
-From: Petr Vorel <petr.vorel@gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20201015190620.GA9408@dell5510>
-References: <20201001231256.6930-1-petr.vorel@gmail.com>
- <20201014143317.GC13224@yuki.lan>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=oo+UHZqr40GkpqPUf9nABCNLBEM5Ie/CghwjUIjDZc8=;
+ b=nl0lGiUQUfKl+J653EGsOncmlI9aIv8Cq14594drisal40zLBfSpDmcvkPW7LFgm+q
+ A11TXTK215L2K29G5u50qsSNyZ6r7003v66tgS6KXifP4XjrtjRtr8+JDPZ/lkufCo3n
+ BlWvZTP5sGaeVXrrIsBI5+FMNesbKxwxr+uMqcwCeJ4ggJI13BeeN/LG5+FT5NmXg31n
+ jTVCNH37ti1a/340Ut/3YRW6Vtbn8y1+q19xn+EzRwZfEtw4TxHEM4VZ/O2RnJJv44Bp
+ Omxxi20Py7mk1Dlgbq5kpY5gYIwDMsUvMuR09jgpZMbDPvheIkjwVJeCv97KGHlgqQAi
+ +ngg==
+X-Gm-Message-State: AOAM533yHB6KMFa55n21ZT/sTmNtGwCRbaWcNKD9Nw45xx4ilzp4u9FB
+ 2gD4Uec0tCZoXSkhR32VwtbDeZsuD9kbxwUoNCJoGvyQyYZ8nLkfD84Fqt2CsWhMntmWGDShkd5
+ vR44gcERNR5Ebm5QOTj6Pskbk2Jo=
+X-Received: by 2002:a25:c7c6:: with SMTP id w189mr2220230ybe.403.1602818467424; 
+ Thu, 15 Oct 2020 20:21:07 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwOc/h5xwym/kGmqFbPiUhzPumZNjjAfGPFlhWc86DBWDRmH77JlfcROoP5/AGW2fKjrGdOnra63bwJ2euousU=
+X-Received: by 2002:a25:c7c6:: with SMTP id w189mr2220207ybe.403.1602818467079; 
+ Thu, 15 Oct 2020 20:21:07 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201014143317.GC13224@yuki.lan>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+References: <20200428113501.24711-1-pvorel@suse.cz>
+ <20201014134648.GA13224@yuki.lan> <20201014180221.GC19540@dell5510>
+In-Reply-To: <20201014180221.GC19540@dell5510>
+From: Li Wang <liwang@redhat.com>
+Date: Fri, 16 Oct 2020 11:20:55 +0800
+Message-ID: <CAEemH2eg7RZCWu66Z81x9RLmHGX=XC06ttK4x3_zmbw2jZnG9A@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH 1/1] lapi: Add sysinfo.h to fix build with
- MUSL libc
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] fanotify: Move safe_fanotify_init() + safe
+ macro into fanotify.h
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,59 +82,94 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <petr.vorel@gmail.com>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0078994172=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+--===============0078994172==
+Content-Type: multipart/alternative; boundary="0000000000005ec23105b1c141a9"
 
-thanks for your review!
+--0000000000005ec23105b1c141a9
+Content-Type: text/plain; charset="UTF-8"
 
-...
-> > +++ b/include/lapi/sysinfo.h
-> > @@ -0,0 +1,22 @@
-> > +// SPDX-License-Identifier: GPL-2.0-or-later
-> > +/*
-> > + * Copyright (c) 2020 Petr Vorel <petr.vorel@gmail.com>
-> > + */
-> > +
-> > +#ifndef SYSINFO_H__
-> > +
-> > +/*
-> > + * Don't use <sys/sysinfo.h> as it breaks build MUSL toolchain.
-> > + * Use <linux/sysinfo.h> instead.
-> > + *
-> > + * Some kernel UAPI headers do indirect <linux/sysinfo.h> include:
-> > + * <linux/netlink.h> or others -> <linux/kernel.h> -> <linux/sysinfo.h>
-> > + *
-> > + * This indirect include causes on MUSL redefinition of struct sysinfo when
-> > + * included both <sys/sysinfo.h> and some of UAPI headers:
-> > + */
-> > +#include <linux/sysinfo.h>
-> > +
-> > +#define SYSINFO_H__
-> > +
-> > +#endif /* SYSINFO_H__ */
+On Thu, Oct 15, 2020 at 2:02 AM Petr Vorel <pvorel@suse.cz> wrote:
 
-> Well the #define SYSINFO_H__ usually goes right after the #ifndef on the
-> top.
-+1. It'd be in v2 if needed.
-I've added this patch already to buildroot, but if kernel patch get accepted,
-it'd be kept only temporarily (I think they don't have patches for musl based
-toolchains, otherwise they'd take Alpine's patch by now. But they instead drop
-support for these toolchains in packages which don't upstream the solution.
+> Hi,
+>
+> > > Fanotify code is used only in testcases/kernel/syscalls/fanotify/,
+> which
+> > > justify breaking rule of having safe function and macro outside of
+> > > library. This will be further cleaned in next commit.
+>
+> > I guess that this is OK, I doubt that we will need a fanotify_init()
+> > anywhere else but the fanotify testcases.
+> Amir acked whole patch some time ago, thus I guess he's not against this
+> first one.
+>
+> The original motivation was to do further modifications for libc wrapper
+> vs.
+> syscall() for fanotify_init() and fanotify_mark(). But I guess even without
+> second commit it makes sense to have all fanotify helpers together.
+> We can always revert it if really need them as safe macros.
+>
++1
 
-> Apart from that it looks like the kernel patch has been ignored. I guess
-> that you should try to push it a bit more before we give up and apply
-> workarounds...
-Tried next version, let's see.
-https://lore.kernel.org/linux-api/20201015190013.8901-1-petr.vorel@gmail.com/
+Reviewed-by: Li Wang <liwang@redhat.com>
 
-Kind regards,
-Petr
+-- 
+Regards,
+Li Wang
+
+--0000000000005ec23105b1c141a9
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Thu, Oct 15, 2020 at 2:02 AM Petr Vorel &lt;<a h=
+ref=3D"mailto:pvorel@suse.cz">pvorel@suse.cz</a>&gt; wrote:<br></div><block=
+quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
+px solid rgb(204,204,204);padding-left:1ex">Hi,<br>
+<br>
+&gt; &gt; Fanotify code is used only in testcases/kernel/syscalls/fanotify/=
+, which<br>
+&gt; &gt; justify breaking rule of having safe function and macro outside o=
+f<br>
+&gt; &gt; library. This will be further cleaned in next commit.<br>
+<br>
+&gt; I guess that this is OK, I doubt that we will need a fanotify_init()<b=
+r>
+&gt; anywhere else but the fanotify testcases.<br>
+Amir acked whole patch some time ago, thus I guess he&#39;s not against thi=
+s first one.<br>
+<br>
+The original motivation was to do further modifications for libc wrapper vs=
+.<br>
+syscall() for fanotify_init() and fanotify_mark(). But I guess even without=
+<br>
+second commit it makes sense to have all fanotify helpers together.<br>
+We can always revert it if really need them as safe macros.<br></blockquote=
+><div><span class=3D"gmail_default" style=3D"font-size:small">+1</span></di=
+v><div><span class=3D"gmail_default" style=3D"font-size:small"><br></span><=
+/div><div><span class=3D"gmail_default" style=3D"font-size:small">Reviewed-=
+by: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com">liwang@redhat.com</a>&=
+gt;</span>=C2=A0</div><div><br></div></div>-- <br><div dir=3D"ltr" class=3D=
+"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br><=
+/div></div></div></div>
+
+--0000000000005ec23105b1c141a9--
+
+
+--===============0078994172==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0078994172==--
+
