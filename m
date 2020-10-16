@@ -2,72 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C63B29367F
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Oct 2020 10:12:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FBAA2907F1
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Oct 2020 17:05:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A08E73C56D3
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Oct 2020 10:12:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C4CC93C57CC
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Oct 2020 17:05:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id E70A93C242F
- for <ltp@lists.linux.it>; Fri, 16 Oct 2020 16:54:46 +0200 (CEST)
-Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
- [IPv6:2607:f8b0:4864:20::d44])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 017B43C011E
+ for <ltp@lists.linux.it>; Fri, 16 Oct 2020 17:05:23 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3464310013B2
- for <ltp@lists.linux.it>; Fri, 16 Oct 2020 16:54:46 +0200 (CEST)
-Received: by mail-io1-xd44.google.com with SMTP id d20so4114078iop.10
- for <ltp@lists.linux.it>; Fri, 16 Oct 2020 07:54:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cmpxchg-org.20150623.gappssmtp.com; s=20150623;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=P+wWygljj49b/Jwoyua6AHD+Ku/LFmb5gdhqTAfvLEg=;
- b=LfWcB5jJyrh0MulkzzuGDm88OUPUpKQE8o53FteBypfuv4DTJIqcilO5fbMfXFgYXI
- lNzpYppun7sYKDcWP9drg2dRRpqy3ivRLLdyLTh5O5yrcim1D+Rl1p43Fc8Ww1Dlnq75
- UduIWxVs7cKdmtuQ99t4hyO12AovSFAZgo1uUGJ5obm0Il7FaQHkzj9QMdXK9zopXcSF
- PLwlynbaqdXAtnJzQ89MJ+Lzr1Vb/40fbGXEsslJk7dWbQwUd777LR4USiIBmWG9Zm6f
- 7A4U32UBKsGWK71FaDROAEtzkzsNLPZWM6FOj2Bt9j8CrzMDRFddJUzI7S5C99xjuZd5
- KqJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=P+wWygljj49b/Jwoyua6AHD+Ku/LFmb5gdhqTAfvLEg=;
- b=eiR8A4TBgcFXgwFx+CW1vEk+V4Uzoy5AAjeHCUW+dc68EpUiTbWlErcQTlikXLobq1
- XoeTeX4UVIjTELbrnwjf60IEIldm6+CYMT4E4MKtIpCNnRMAQoxn7SIqN7MKokOP8Wwf
- zfsRgouUkIJRznP5uKNZrQ222wVhGdyPvoK0uKrPe9fKq9TaR784p5LuCAyIzvuxRq+M
- Z4JKP40G1LtRH59J2Y0FlFdjwKueZZfimpADm3HrnLWWrn2hddzPJFwXCeEAHyPcDm2E
- DfMUXpBaCBHxpIRSjRxprwc2GxOC2MhH0voB9TUidb2YQQEHlZpHgMQNNEJlDCeV4aEg
- vAgQ==
-X-Gm-Message-State: AOAM530cs2MXdKldimsA6H5TBk0RpIRla8IC2lEFN03oWQxVGqH4oDTo
- K1zOF3nYrGx0OF3ZF30EWxkS1Q==
-X-Google-Smtp-Source: ABdhPJzFogEG6IQkoTlKAgWk1KT+gJK3ZP6L/JPWVdkauPYFnSZXzWhrRw9D+btj4vw97vn8oJI+tQ==
-X-Received: by 2002:a02:9441:: with SMTP id a59mr2934832jai.122.1602860084430; 
- Fri, 16 Oct 2020 07:54:44 -0700 (PDT)
-Received: from localhost ([2620:10d:c091:480::1:b51d])
- by smtp.gmail.com with ESMTPSA id b14sm2815853ilg.63.2020.10.16.07.54.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Oct 2020 07:54:43 -0700 (PDT)
-Date: Fri, 16 Oct 2020 10:53:08 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>
-Message-ID: <20201016145308.GA312010@cmpxchg.org>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 33AC0200E1D
+ for <ltp@lists.linux.it>; Fri, 16 Oct 2020 17:05:23 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 594B3B1AB;
+ Fri, 16 Oct 2020 15:05:22 +0000 (UTC)
 References: <20201014190749.24607-1-rpalethorpe@suse.com>
- <20201016094702.GA95052@blackbook>
+ <20201016094702.GA95052@blackbook> <87sgaesba0.fsf@suse.de>
+User-agent: mu4e 1.4.13; emacs 27.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
+In-reply-to: <87sgaesba0.fsf@suse.de>
+Date: Fri, 16 Oct 2020 16:05:21 +0100
+Message-ID: <87pn5irz2m.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201016094702.GA95052@blackbook>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-X-Mailman-Approved-At: Tue, 20 Oct 2020 10:11:56 +0200
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] [RFC PATCH] mm: memcg/slab: Stop reparented obj_cgroups
  from charging root
 X-BeenThere: ltp@lists.linux.it
@@ -81,56 +48,48 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, Richard Palethorpe <rpalethorpe@suse.com>,
- linux-mm@kvack.org, Shakeel Butt <shakeelb@google.com>,
- Vlastimil Babka <vbabka@suse.cz>, Roman Gushchin <guro@fb.com>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@linux.com>,
- Michal Hocko <mhocko@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- ltp@lists.linux.it
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Reply-To: rpalethorpe@suse.de
+Cc: linux-kernel@vger.kernel.org, Roman Gushchin <guro@fb.com>,
+ linux-mm@kvack.org, Shakeel
+ Butt <shakeelb@google.com>, Vlastimil Babka <vbabka@suse.cz>,
+ Johannes Weiner <hannes@cmpxchg.org>, Tejun Heo <tj@kernel.org>,
+ Christoph Lameter <cl@linux.com>, Michal Hocko <mhocko@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Fri, Oct 16, 2020 at 11:47:02AM +0200, Michal Koutn=FD wrote:
-> Hello.
-> =
-
-> On Wed, Oct 14, 2020 at 08:07:49PM +0100, Richard Palethorpe <rpalethorpe=
-@suse.com> wrote:
-> > SLAB objects which outlive their memcg are moved to their parent
-> > memcg where they may be uncharged. However if they are moved to the
-> > root memcg, uncharging will result in negative page counter values as
-> > root has no page counters.
-> Why do you think those are reparented objects? If those are originally
-> charged in a non-root cgroup, then the charge value should be propagated =
-up the
-> hierarchy, including root memcg, so if they're later uncharged in root
-> after reparenting, it should still break even. (Or did I miss some stock
-> imbalance?)
-
-Looking a bit closer at this code, it's kind of a mess right now.
-
-The central try_charge() function charges recursively all the way up
-to and including the root. But not if it's called directly on the
-root, in which case it bails and does nothing.
-
-kmem and objcg use try_charge(), so they have the same
-behavior. get_obj_cgroup_from_current() does it's own redundant
-filtering for root_mem_cgroup, whereas get_mem_cgroup_from_current()
-does not, but its callsite __memcg_kmem_charge_page() does.
-
-We should clean this up one way or another: either charge the root or
-don't, but do it consistently.
-
-Since we export memory.stat at the root now, we should probably just
-always charge the root instead of special-casing it all over the place
-and risking bugs.
-
-Indeed, it looks like there is at least one bug where the root-level
-memory.stat shows non-root slab objects, but not root ones, whereas it
-shows all anon and cache pages, root or no root.
-
--- =
-
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGVsbG8sCgpSaWNoYXJkIFBhbGV0aG9ycGUgPHJwYWxldGhvcnBlQHN1c2UuZGU+IHdyaXRlczoK
+Cj4gSGVsbG8gTWljaGFsLAo+Cj4gTWljaGFsIEtvdXRuw70gPG1rb3V0bnlAc3VzZS5jb20+IHdy
+aXRlczoKPgo+PiBIZWxsby4KPj4KPj4gT24gV2VkLCBPY3QgMTQsIDIwMjAgYXQgMDg6MDc6NDlQ
+TSArMDEwMCwgUmljaGFyZCBQYWxldGhvcnBlIDxycGFsZXRob3JwZUBzdXNlLmNvbT4gd3JvdGU6
+Cj4+PiBTTEFCIG9iamVjdHMgd2hpY2ggb3V0bGl2ZSB0aGVpciBtZW1jZyBhcmUgbW92ZWQgdG8g
+dGhlaXIgcGFyZW50Cj4+PiBtZW1jZyB3aGVyZSB0aGV5IG1heSBiZSB1bmNoYXJnZWQuIEhvd2V2
+ZXIgaWYgdGhleSBhcmUgbW92ZWQgdG8gdGhlCj4+PiByb290IG1lbWNnLCB1bmNoYXJnaW5nIHdp
+bGwgcmVzdWx0IGluIG5lZ2F0aXZlIHBhZ2UgY291bnRlciB2YWx1ZXMgYXMKPj4+IHJvb3QgaGFz
+IG5vIHBhZ2UgY291bnRlcnMuCj4+IFdoeSBkbyB5b3UgdGhpbmsgdGhvc2UgYXJlIHJlcGFyZW50
+ZWQgb2JqZWN0cz8gSWYgdGhvc2UgYXJlIG9yaWdpbmFsbHkKPj4gY2hhcmdlZCBpbiBhIG5vbi1y
+b290IGNncm91cCwgdGhlbiB0aGUgY2hhcmdlIHZhbHVlIHNob3VsZCBiZSBwcm9wYWdhdGVkIHVw
+IHRoZQo+PiBoaWVyYXJjaHksIGluY2x1ZGluZyByb290IG1lbWNnLCBzbyBpZiB0aGV5J3JlIGxh
+dGVyIHVuY2hhcmdlZCBpbiByb290Cj4+IGFmdGVyIHJlcGFyZW50aW5nLCBpdCBzaG91bGQgc3Rp
+bGwgYnJlYWsgZXZlbi4gKE9yIGRpZCBJIG1pc3Mgc29tZSBzdG9jawo+PiBpbWJhbGFuY2U/KQo+
+Cj4gSSB0cmFjZWQgaXQgYW5kIGNhbiBzZWUgdGhleSBhcmUgcmVwYXJlbnRlZCBvYmplY3RzIGFu
+ZCB0aGF0IHRoZSByb290Cj4gZ3JvdXBzIGNvdW50ZXJzIGFyZSB6ZXJvIChvciBuZWdhdGl2ZSBp
+ZiBJIHJ1biBtYWR2aXNlMDYgbXVsdGlwbGUgdGltZXMpCj4gYmVmb3JlIGEgZHJhaW4gdGFrZXMg
+cGxhY2UuIEknbSBndWVzc2luZyB0aGlzIGlzIGJlY2F1c2UgdGhlIHJvb3QgZ3JvdXAKPiBoYXMg
+J3VzZV9oaWVyYWNoeScgc2V0IHRvIGZhbHNlIHNvIHRoYXQgdGhlIGNoaWxkcyBwYWdlX2NvdW50
+ZXIgcGFyZW50cwo+IGFyZSBzZXQgdG8gTlVMTC4gSG93ZXZlciBJIHdpbGwgY2hlY2ssIGJlY2F1
+c2UgSSdtIG5vdCBzdXJlIGFib3V0Cj4gZWl0aGVyLgoKWWVzLCBpdCBhcHBlYXJzIHRoYXQgdXNl
+X2hpZXJhcmNoeT0wIHdoaWNoIGlzIHByb2JhYmx5IGJlY2F1c2UgdGhlIHRlc3QKbW91bnRzIGNn
+cm91cCB2MSwgY3JlYXRlcyBhIGNoaWxkIGdyb3VwIHdpdGhpbiB0aGF0IGFuZCBkb2VzIG5vdCBz
+ZXQKdXNlX2hpZXJhcmNoeSBvbiB0aGUgcm9vdC4gT24gdjIgcm9vdCBhbHdheXMgaGFzIHVzZV9o
+aWVyYXJjaHkgZW5hYmxlZC4KCj4KPj4KPj4gKEJ1dCB0aGUgcGF0Y2ggc2VlbXMganVzdGlmaWFi
+bGUgdG8gbWUgYXMgb2JqZWN0cyAobm90KWNoYXJnZWQgZGlyZWN0bHkgdG8KPj4gcm9vdCBtZW1j
+ZyBtYXkgYmUgaW5jb3JyZWN0bHkgdW5jaGFyZ2VkLikKPj4KPj4gVGhhbmtzLAo+PiBNaWNoYWwK
+CkknbSBkb24ndCBrbm93IGlmIHRoYXQgY291bGQgaGFwcGVuIHdpdGhvdXQgcmVwYXJlbnRpbmcu
+IEkgc3VwcG9zZSBpZgp1c2VfaGllcmFyY2h5PTEgdGhlbiBhY3R1YWxseSB0aGlzIHBhdGNoIHdp
+bGwgcmVzdWx0IGluIHJvb3QgYmVpbmcKb3ZlcmNoYXJnZWQsIHNvIHBlcmhhcHMgaXQgc2hvdWxk
+IGFsc28gY2hlY2sgZm9yIHVzZV9oaWVyYXJjaHk/CgotLSAKVGhhbmsgeW91LApSaWNoYXJkLgoK
+LS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0
+cAo=
