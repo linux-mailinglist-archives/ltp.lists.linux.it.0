@@ -1,87 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29813292A82
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Oct 2020 17:33:51 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CD71292BFE
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Oct 2020 18:58:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B47993C31E4
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Oct 2020 17:33:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D18EF3C31E4
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Oct 2020 18:58:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 8D2243C25D3
- for <ltp@lists.linux.it>; Mon, 19 Oct 2020 17:33:49 +0200 (CEST)
-Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id BCD713C2532
+ for <ltp@lists.linux.it>; Mon, 19 Oct 2020 18:58:16 +0200 (CEST)
+Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
+ [IPv6:2a00:1450:4864:20::242])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 84F2C20039B
- for <ltp@lists.linux.it>; Mon, 19 Oct 2020 17:33:48 +0200 (CEST)
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
- by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09JFEqvs164077;
- Mon, 19 Oct 2020 15:33:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=Ul8/F3N1ZY4PRHHjGXg1kDYNbH4o96WSPe+Yh7x0/FU=;
- b=ebdhFxEvKJNILS5nX8D3dt3ylO0wOlMBZvDMAsJz/dsk7IxzIk7tsb/1HFPQnO1d7jt9
- 5BORFj0DsrwLMEhpNfLO4LYLQDHmByBKFD2gAKfUN/Xq+Sr81hm09fUAF76+CSyhzwxy
- DViJlrqL6I/OCRuR4ufRXVoYhQD2i1+8uoLdDcLMf245V1mHXanwm0bT4E7hq/EX9P3T
- wWHpzpLpmQCpIqH+TAs7yZEhROiWaiL+O0dS3iuX1rlv4eoiVBbRYm37M6D8JBhEg2rr
- cGbEWKCkVhq0aun10bQ1FoArb3Z7OOtrbUp/wTTY5Z9ryvGjgJgYIpmyvPnT5eCTTu1n 8w== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by aserp2130.oracle.com with ESMTP id 347p4apbuc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 19 Oct 2020 15:33:23 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09JFUDmX101199;
- Mon, 19 Oct 2020 15:31:23 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserp3030.oracle.com with ESMTP id 348a6m1nyt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 19 Oct 2020 15:31:23 +0000
-Received: from abhmp0020.oracle.com (abhmp0020.oracle.com [141.146.116.26])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 09JFVJvr004869;
- Mon, 19 Oct 2020 15:31:21 GMT
-Received: from [192.168.1.35] (/95.161.221.177)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 19 Oct 2020 08:31:19 -0700
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-References: <71c2d6b7-5c49-96c6-f1ba-1370fd7a5dd6@oracle.com>
- <1603107373-20807-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-From: Alexey Kodanev <alexey.kodanev@oracle.com>
-Message-ID: <8a4dec7c-92c1-10c9-ecfe-40678ace1ad1@oracle.com>
-Date: Mon, 19 Oct 2020 18:31:17 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 1B1A7100054F
+ for <ltp@lists.linux.it>; Mon, 19 Oct 2020 18:58:16 +0200 (CEST)
+Received: by mail-lj1-x242.google.com with SMTP id p15so823448ljj.8
+ for <ltp@lists.linux.it>; Mon, 19 Oct 2020 09:58:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=LEDVn+7ztnB9MFuURGPeJs5Y1j+r09pr3fMQDwzo7Dw=;
+ b=aDA9MUM0Ggj8TMH6A1huKsBqH2Y+X/voex1+2Vog+GF1TCnjy2M4cXnSUhrZos0ujb
+ XcwH8a0vIWkZns7wW2qnpU5f4XVHzy0//SzDYK0a12+UFwmVYtXB1tg7OlP/VCz9I4wW
+ X5xxXQ1i7VtlFDGIjXnCoJ7EFxB1pcsLHPQTS+heiH19PceSUc9YcBwh6PghGRNRSPUL
+ bCQ+w0H0xYSTx9piu15mnCMTQofWqWw5TBkNbZNnrMB11GZEH9FfWF0uSghzBTxrSSqt
+ InQ/yRjcJ+Ekom1fWtUTGDH5cJtgdf5Jjf78xxKnOoGl7vA3In/aH44WiyPXLlTKMcqt
+ 91JQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=LEDVn+7ztnB9MFuURGPeJs5Y1j+r09pr3fMQDwzo7Dw=;
+ b=QM7ynbvU7hZEhhE0/+mLBpopc59EN2pUMGRLFVIMMZUHgpSkVQ6BybFwoHklrqgoli
+ reXYZwc6RnZ72p1Mb0/hOnu5nfXjCK3v2Wme8MZxDkp/a4VFNQasZhmSTh6mLmr2Lh87
+ Ld3M/ULRJfEZbZ7wcwz8d34YEJY3CGXi4CewMTu1qSUFKslchIpQ875qW/iY9scLp7nV
+ XArt1rqmXjBHIih8iXNf2+go/9m27Zk4lbmAC9BvWG3N3LtLT+C/XqT7TQ/b+vYaakrC
+ xwi6JgHsILng1h+bBoTQVopV1WEmuOgrCYO0yQSH9gj6zFi2Jb65FvY3B9eYhVldhG4R
+ eoRw==
+X-Gm-Message-State: AOAM532rHZL12ck+ug8dHcYFnvpQZ6H1Kmrzz/rNOBu7FEPsdKreTCM/
+ rw63pWpfYFt5zoOUR1ptGUVF8zzJiI5+lTJmm8wPng==
+X-Google-Smtp-Source: ABdhPJxQlgTW4x10aMVY40VlaTegYsQF8+2HwlJzB9141AWE6i0q5N5e4kk00Px3IUWj635TY7GGlgGkL302hYOUQmE=
+X-Received: by 2002:a2e:879a:: with SMTP id n26mr396484lji.347.1603126695044; 
+ Mon, 19 Oct 2020 09:58:15 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1603107373-20807-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9778
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- mlxlogscore=999
- bulkscore=0 spamscore=0 adultscore=0 suspectscore=0 mlxscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2010190108
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9778
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- priorityscore=1501
- clxscore=1011 malwarescore=0 mlxscore=0 bulkscore=0 lowpriorityscore=0
- phishscore=0 adultscore=0 mlxlogscore=999 impostorscore=0 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2010190107
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+References: <87lfg2ob83.fsf@suse.de>
+ <20201019095812.25710-1-rpalethorpe@suse.com>
+In-Reply-To: <20201019095812.25710-1-rpalethorpe@suse.com>
+Date: Mon, 19 Oct 2020 09:58:03 -0700
+Message-ID: <CALvZod6FNH3cZfZxLSFXtQR5bV_2Tese0793Ve9rd1YNW22MKg@mail.gmail.com>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] syscalls/send02: Ensure recv() succeed when
- not using MSG_MORE flag
+X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,
+ SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] mm: memcg/slab: Stop reparented obj_cgroups
+ from charging root
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,143 +74,167 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+From: Shakeel Butt via ltp <ltp@lists.linux.it>
+Reply-To: Shakeel Butt <shakeelb@google.com>
+Cc: Christoph Lameter <cl@linux.com>, LKML <linux-kernel@vger.kernel.org>,
+ Michal Hocko <mhocko@kernel.org>, Linux MM <linux-mm@kvack.org>,
+ Vlastimil Babka <vbabka@suse.cz>, Johannes Weiner <hannes@cmpxchg.org>,
+ Tejun Heo <tj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Roman Gushchin <guro@fb.com>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 19.10.2020 14:36, Yang Xu wrote:
-> In this test, we only check send()/sendto()/sendmsg() calls
-> with MSG_MORE flag whether get EAGAIN/EWOULDBLOCK error immediately.
-> 
-> For other flag, we just call recv again when meeting EAGAIN/EWOULDBLOCK
-> error.
-> 
-> Also, improve message and make this case more clean when failed.
-> 
-
-Hi Yang,
-
-Fixed quoted strings and applied, thanks!
-
-> Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+On Mon, Oct 19, 2020 at 2:59 AM Richard Palethorpe <rpalethorpe@suse.com> wrote:
+>
+> SLAB objects which outlive their descendant memcg are moved to their
+> parent memcg where they may be uncharged. However if they are moved to
+> the root memcg and use_hierarchy=0, uncharging will result in negative
+> page counter values. This is because when use_hierarchy=0, the root
+> memcg's page counters are disconnected from its children.
+>
+> To prevent this, we check whether we are about to uncharge the root
+> memcg and whether use_hierarchy=0. If this is the case then we skip
+> uncharging.
+>
+> Note that on the default hierarchy (CGroupV2 now) root always has
+> use_hierarchy=1. So this only effects CGroupV1. Also it is possible to
+> have a deeper hierarchy where descendants also have use_hierarchy=0;
+> this is not considered valid by the kernel, but it is still allowed
+> and in such cases reparenting may still result in negative page
+> counter values.
+>
+> The warning can be, unreliably, reproduced with the LTP test
+> madvise06 if the entire patch series
+> https://lore.kernel.org/linux-mm/20200623174037.3951353-1-guro@fb.com/
+> is present. Although the listed commit in 'fixes' appears to introduce
+> the bug, I can not reproduce it with just that commit and bisecting
+> runs into other bugs.
+>
+> [   12.029417] WARNING: CPU: 2 PID: 21 at mm/page_counter.c:57 page_counter_uncharge (mm/page_counter.c:57 mm/page_counter.c:50 mm/page_counter.c:156)
+> [   12.029539] Modules linked in:
+> [   12.029611] CPU: 2 PID: 21 Comm: ksoftirqd/2 Not tainted 5.9.0-rc7-22-default #76
+> [   12.029729] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.13.0-48-gd9c812d-rebuilt.opensuse.org 04/01/2014
+> [   12.029908] RIP: 0010:page_counter_uncharge (mm/page_counter.c:57 mm/page_counter.c:50 mm/page_counter.c:156)
+> [ 12.029991] Code: 0f c1 45 00 4c 29 e0 48 89 ef 48 89 c3 48 89 c6 e8 2a fe ff ff 48 85 db 78 10 48 8b 6d 28 48 85 ed 75 d8 5b 5d 41 5c 41 5d c3 <0f> 0b eb ec 90 e8 db 47 36 27 48 8b 17 48 39 d6 72 41 41 54 49 89
+> [   12.030258] RSP: 0018:ffffa5d8000efd08 EFLAGS: 00010086
+> [   12.030344] RAX: ffffffffffffffff RBX: ffffffffffffffff RCX: 0000000000000009
+> [   12.030455] RDX: 000000000000000b RSI: ffffffffffffffff RDI: ffff8ef8c7d2b248
+> [   12.030561] RBP: ffff8ef8c7d2b248 R08: ffff8ef8c78b19c8 R09: 0000000000000001
+> [   12.030672] R10: 0000000000000000 R11: ffff8ef8c780e0d0 R12: 0000000000000001
+> [   12.030784] R13: ffffffffffffffff R14: ffff8ef9478b19c8 R15: 0000000000000000
+> [   12.030895] FS:  0000000000000000(0000) GS:ffff8ef8fbc80000(0000) knlGS:0000000000000000
+> [   12.031017] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [   12.031104] CR2: 00007f72c0af93ec CR3: 000000005c40a000 CR4: 00000000000006e0
+> [   12.031209] Call Trace:
+> [   12.031267] __memcg_kmem_uncharge (mm/memcontrol.c:3022)
+> [   12.031470] drain_obj_stock (./include/linux/rcupdate.h:689 mm/memcontrol.c:3114)
+> [   12.031594] refill_obj_stock (mm/memcontrol.c:3166)
+> [   12.031733] ? rcu_do_batch (kernel/rcu/tree.c:2438)
+> [   12.032075] memcg_slab_free_hook (./include/linux/mm.h:1294 ./include/linux/mm.h:1441 mm/slab.h:368 mm/slab.h:348)
+> [   12.032339] kmem_cache_free (mm/slub.c:3107 mm/slub.c:3143 mm/slub.c:3158)
+> [   12.032464] rcu_do_batch (kernel/rcu/tree.c:2438)
+> [   12.032567] rcu_core (kernel/rcu/tree_plugin.h:2122 kernel/rcu/tree_plugin.h:2157 kernel/rcu/tree.c:2661)
+> [   12.032664] __do_softirq (./arch/x86/include/asm/jump_label.h:25 ./include/linux/jump_label.h:200 ./include/trace/events/irq.h:142 kernel/softirq.c:299)
+> [   12.032766] run_ksoftirqd (./arch/x86/include/asm/irqflags.h:54 ./arch/x86/include/asm/irqflags.h:94 kernel/softirq.c:653 kernel/softirq.c:644)
+> [   12.032852] smpboot_thread_fn (kernel/smpboot.c:165)
+> [   12.032940] ? smpboot_register_percpu_thread (kernel/smpboot.c:108)
+> [   12.033059] kthread (kernel/kthread.c:292)
+> [   12.033148] ? __kthread_bind_mask (kernel/kthread.c:245)
+> [   12.033269] ret_from_fork (arch/x86/entry/entry_64.S:300)
+> [   12.033357] ---[ end trace 961dbfc01c109d1f ]---
+>
+> [    9.841552] ------------[ cut here ]------------
+> [    9.841788] WARNING: CPU: 0 PID: 12 at mm/page_counter.c:57 page_counter_uncharge (mm/page_counter.c:57 mm/page_counter.c:50 mm/page_counter.c:156)
+> [    9.841982] Modules linked in:
+> [    9.842072] CPU: 0 PID: 12 Comm: kworker/0:1 Not tainted 5.9.0-rc7-22-default #77
+> [    9.842266] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.13.0-48-gd9c812d-rebuilt.opensuse.org 04/01/2014
+> [    9.842571] Workqueue: events drain_local_stock
+> [    9.842750] RIP: 0010:page_counter_uncharge (mm/page_counter.c:57 mm/page_counter.c:50 mm/page_counter.c:156)
+> [ 9.842894] Code: 0f c1 45 00 4c 29 e0 48 89 ef 48 89 c3 48 89 c6 e8 2a fe ff ff 48 85 db 78 10 48 8b 6d 28 48 85 ed 75 d8 5b 5d 41 5c 41 5d c3 <0f> 0b eb ec 90 e8 4b f9 88 2a 48 8b 17 48 39 d6 72 41 41 54 49 89
+> [    9.843438] RSP: 0018:ffffb1c18006be28 EFLAGS: 00010086
+> [    9.843585] RAX: ffffffffffffffff RBX: ffffffffffffffff RCX: ffff94803bc2cae0
+> [    9.843806] RDX: 0000000000000001 RSI: ffffffffffffffff RDI: ffff948007d2b248
+> [    9.844026] RBP: ffff948007d2b248 R08: ffff948007c58eb0 R09: ffff948007da05ac
+> [    9.844248] R10: 0000000000000018 R11: 0000000000000018 R12: 0000000000000001
+> [    9.844477] R13: ffffffffffffffff R14: 0000000000000000 R15: ffff94803bc2cac0
+> [    9.844696] FS:  0000000000000000(0000) GS:ffff94803bc00000(0000) knlGS:0000000000000000
+> [    9.844915] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    9.845096] CR2: 00007f0579ee0384 CR3: 000000002cc0a000 CR4: 00000000000006f0
+> [    9.845319] Call Trace:
+> [    9.845429] __memcg_kmem_uncharge (mm/memcontrol.c:3022)
+> [    9.845582] drain_obj_stock (./include/linux/rcupdate.h:689 mm/memcontrol.c:3114)
+> [    9.845684] drain_local_stock (mm/memcontrol.c:2255)
+> [    9.845789] process_one_work (./arch/x86/include/asm/jump_label.h:25 ./include/linux/jump_label.h:200 ./include/trace/events/workqueue.h:108 kernel/workqueue.c:2274)
+> [    9.845898] worker_thread (./include/linux/list.h:282 kernel/workqueue.c:2416)
+> [    9.846034] ? process_one_work (kernel/workqueue.c:2358)
+> [    9.846162] kthread (kernel/kthread.c:292)
+> [    9.846271] ? __kthread_bind_mask (kernel/kthread.c:245)
+> [    9.846420] ret_from_fork (arch/x86/entry/entry_64.S:300)
+> [    9.846531] ---[ end trace 8b5647c1eba9d18a ]---
+>
+> Reported-by: ltp@lists.linux.it
+> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+> Acked-by: Roman Gushchin <guro@fb.com>
+> Cc: Johannes Weiner <hannes@cmpxchg.org>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Shakeel Butt <shakeelb@google.com>
+> Cc: Christoph Lameter <cl@linux.com>
+> Cc: Michal Hocko <mhocko@kernel.org>
+> Cc: Tejun Heo <tj@kernel.org>
+> Cc: Vlastimil Babka <vbabka@suse.cz>
+> Fixes: bf4f059954dc ("mm: memcg/slab: obj_cgroup API")
 > ---
->  testcases/kernel/syscalls/send/send02.c | 65 +++++++++++++++----------
->  1 file changed, 38 insertions(+), 27 deletions(-)
-> 
-> diff --git a/testcases/kernel/syscalls/send/send02.c b/testcases/kernel/syscalls/send/send02.c
-> index 5630230fa..b2ab3b79c 100644
-> --- a/testcases/kernel/syscalls/send/send02.c
-> +++ b/testcases/kernel/syscalls/send/send02.c
-> @@ -71,32 +71,41 @@ static void setup(void)
->  	memset(sendbuf, 0x42, SENDSIZE);
->  }
->  
-> -static int check_recv(int sock, long expsize)
-> +static int check_recv(int sock, long expsize, int loop)
->  {
->  	char recvbuf[RECVSIZE] = {0};
->  
-> -	TEST(recv(sock, recvbuf, RECVSIZE, MSG_DONTWAIT));
-> -
-> -	if (TST_RET == -1) {
-> -		/* expected error immediately after send(MSG_MORE) */
-> -		if (!expsize && (TST_ERR == EAGAIN || TST_ERR == EWOULDBLOCK))
-> -			return 1;
-> -
-> -		/* unexpected error */
-> -		tst_res(TFAIL | TTERRNO, "recv() error");
-> -		return 0;
-> -	}
-> -
-> -	if (TST_RET < 0) {
-> -		tst_res(TFAIL | TTERRNO, "Invalid recv() return value %ld",
-> -			TST_RET);
-> -		return 0;
-> -	}
-> -
-> -	if (TST_RET != expsize) {
-> -		tst_res(TFAIL, "recv() read %ld bytes, expected %ld", TST_RET,
-> -			expsize);
-> -		return 0;
-> +	while (1) {
-> +		TEST(recv(sock, recvbuf, RECVSIZE, MSG_DONTWAIT));
-> +
-> +		if (TST_RET == -1) {
-> +			/* expected error immediately after send(MSG_MORE) */
-> +			if (TST_ERR == EAGAIN || TST_ERR == EWOULDBLOCK) {
-> +				if (expsize)
-> +					continue;
-> +				else
-> +					break;
-> +			}
-> +
-> +			/* unexpected error */
-> +			tst_res(TFAIL | TTERRNO, "recv() error at step %d, expsize %ld",
-> +				loop, expsize);
-> +			return 0;
-> +		}
-> +
-> +		if (TST_RET < 0) {
-> +			tst_res(TFAIL | TTERRNO, "Invalid recv() return value %ld"
-> +				" at step %d, expsize is %ld",
-> +				TST_RET, loop, expsize);
-> +			return 0;
-> +		}
-> +
-> +		if (TST_RET != expsize) {
-> +			tst_res(TFAIL, "recv() read %ld bytes, expected %ld"
-> +				" at step %d ", TST_RET, expsize, loop);
-> +			return 0;
-> +		}
-> +		return 1;
->  	}
->  
->  	return 1;
-> @@ -120,6 +129,8 @@ static void run(unsigned int n)
->  	struct test_case *tc = testcase_list + n;
->  	socklen_t len = sizeof(addr);
->  
-> +	tst_res(TINFO, "Tesing %s", tc->name);
-> +
->  	tst_init_sockaddr_inet_bin(&addr, INADDR_LOOPBACK, 0);
->  	listen_sock = SAFE_SOCKET(tc->domain, tc->type, tc->protocol);
->  	dst_sock = listen_sock;
-> @@ -139,19 +150,19 @@ static void run(unsigned int n)
->  			dst_sock = SAFE_ACCEPT(listen_sock, NULL, NULL);
->  
->  		tc->send(sock, sendbuf, SENDSIZE, 0);
-> -		ret = check_recv(dst_sock, SENDSIZE);
-> +		ret = check_recv(dst_sock, SENDSIZE, i + 1);
->  
->  		if (!ret)
->  			break;
->  
->  		tc->send(sock, sendbuf, SENDSIZE, MSG_MORE);
-> -		ret = check_recv(dst_sock, 0);
-> +		ret = check_recv(dst_sock, 0, i + 1);
->  
->  		if (!ret)
->  			break;
->  
->  		tc->send(sock, sendbuf, 1, 0);
-> -		ret = check_recv(dst_sock, SENDSIZE + 1);
-> +		ret = check_recv(dst_sock, SENDSIZE + 1, i + 1);
->  
->  		if (!ret)
->  			break;
-> @@ -163,7 +174,7 @@ static void run(unsigned int n)
->  	}
->  
->  	if (ret)
-> -		tst_res(TPASS, "%s(MSG_MORE) works correctly", tc->name);
-> +		tst_res(TPASS, "MSG_MORE works correctly");
->  
->  	cleanup();
->  	dst_sock = -1;
-> 
+>
+> V3: Handle common case where use_hierarchy=1 and update description.
+>
+>  mm/memcontrol.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index 6877c765b8d0..34b8c4a66853 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -291,7 +291,7 @@ static void obj_cgroup_release(struct percpu_ref *ref)
+>
+>         spin_lock_irqsave(&css_set_lock, flags);
+>         memcg = obj_cgroup_memcg(objcg);
+> -       if (nr_pages)
+> +       if (nr_pages && (!mem_cgroup_is_root(memcg) || memcg->use_hierarchy))
 
+If we have non-root memcg with use_hierarchy as 0 and this objcg was
+reparented then this __memcg_kmem_uncharge() can potentially underflow
+the page counter and give the same warning.
+
+We never set root_mem_cgroup->objcg, so, no need to check for root
+here. I think checking just memcg->use_hierarchy should be sufficient.
+
+>                 __memcg_kmem_uncharge(memcg, nr_pages);
+>         list_del(&objcg->list);
+>         mem_cgroup_put(memcg);
+> @@ -3100,6 +3100,7 @@ static bool consume_obj_stock(struct obj_cgroup *objcg, unsigned int nr_bytes)
+>  static void drain_obj_stock(struct memcg_stock_pcp *stock)
+>  {
+>         struct obj_cgroup *old = stock->cached_objcg;
+> +       struct mem_cgroup *memcg;
+>
+>         if (!old)
+>                 return;
+> @@ -3110,7 +3111,9 @@ static void drain_obj_stock(struct memcg_stock_pcp *stock)
+>
+>                 if (nr_pages) {
+>                         rcu_read_lock();
+> -                       __memcg_kmem_uncharge(obj_cgroup_memcg(old), nr_pages);
+> +                       memcg = obj_cgroup_memcg(old);
+> +                       if (!mem_cgroup_is_root(memcg) || memcg->use_hierarchy)
+> +                               __memcg_kmem_uncharge(memcg, nr_pages);
+>                         rcu_read_unlock();
+>                 }
+>
+> --
+> 2.28.0
+>
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
