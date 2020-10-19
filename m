@@ -2,49 +2,76 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03C6A29266B
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Oct 2020 13:36:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E18B292674
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Oct 2020 13:37:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BD1CC3C31CC
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Oct 2020 13:36:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E9B713C31C7
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Oct 2020 13:37:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 6F4CC3C26D3
- for <ltp@lists.linux.it>; Mon, 19 Oct 2020 13:36:18 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 4160F1000457
- for <ltp@lists.linux.it>; Mon, 19 Oct 2020 13:36:16 +0200 (CEST)
-X-IronPort-AV: E=Sophos;i="5.77,394,1596470400"; d="scan'208";a="100296264"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 19 Oct 2020 19:36:14 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 9FD4C48990D3;
- Mon, 19 Oct 2020 19:36:09 +0800 (CST)
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 19 Oct 2020 19:36:11 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <alexey.kodanev@oracle.com>
-Date: Mon, 19 Oct 2020 19:36:13 +0800
-Message-ID: <1603107373-20807-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <71c2d6b7-5c49-96c6-f1ba-1370fd7a5dd6@oracle.com>
-References: <71c2d6b7-5c49-96c6-f1ba-1370fd7a5dd6@oracle.com>
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 3ADCD3C26D3
+ for <ltp@lists.linux.it>; Mon, 19 Oct 2020 13:37:50 +0200 (CEST)
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 7251C1A0036A
+ for <ltp@lists.linux.it>; Mon, 19 Oct 2020 13:37:49 +0200 (CEST)
+Received: by mail-pf1-x441.google.com with SMTP id 144so5849715pfb.4
+ for <ltp@lists.linux.it>; Mon, 19 Oct 2020 04:37:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=NmojT54HTtFrI2qPkGQOKUj2z7/FuKGg5skIMExoCMo=;
+ b=lo66rK1trbmDva8lxp/ByRLZKmXYnJXnQhfsugAbTzr8+XQgUOaVwgEIurYi1jNbwv
+ jsFy5u8ze89nL5/+Z9QmHDEann+HTi95mcXqRWeLgbsnuuTJTxxhWvfJBehpstzmmXPC
+ TCLF87tr1DA8I367G0DaN5p2miz4P05BMok5oqiOOCy0/r1+A8VYXGSUGKLwO/6s5F42
+ RwMP76yRrBOZ2AOW+JtDVhNwGVw9ISI3rDQ6D1EkpFWC5d+BVnfpotAAUk3KimuiVZhK
+ IifPBlhimcPKynFX6ZXv92wh7LTxYegt31e5H0BNl9cjeAIvkaFlFLeY+qRLvaRxW/MF
+ 12PA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=NmojT54HTtFrI2qPkGQOKUj2z7/FuKGg5skIMExoCMo=;
+ b=Hb7QMlHITUoK+DrsD04ekhWmLtipH2pvM1au2YrwvV6rfxwrbwnE+myYB84ajLtkoB
+ Rv7MKdynQZYdyVg7GvoRoiLDKjjJaUdIDFL9aZZ4sKy+MU2WfuggzOCSs7c0I7SK8VKZ
+ yrADWsD1Q6DtvqMD9uL7qSAcS+O6IUpEDgpEHgOy7ehRbz7mb5Y8W8xPpeJVROxzCX3w
+ gOkdkm4VinDbN5TqYSrY4JGqCgFZyRq+3jR8Z4lCsiFL9LucX8m7281Vmi1xfje2lQ1x
+ OGzPCV4i8QggSVsG6dQdPhnmU1oWL+01pVp2ljqRNcM9t/TabjrvJeEZXS3UXCPO3G4u
+ 8Zfw==
+X-Gm-Message-State: AOAM53007RGpNbfYwX4Qtsn9NXszXfWtlQm1yhTTSF1SqnBgiS3tTqx9
+ TQoR6XIrGbUVXUFpKKDB7PT3Wg==
+X-Google-Smtp-Source: ABdhPJyyaYkwrcGESVR2jkE9aqj/6ZvGf6898AvtJdhwuWlzHbq+7urPY/PAJn+1+2zrbItbChSPzQ==
+X-Received: by 2002:a62:2c16:0:b029:15d:8d2:2e6d with SMTP id
+ s22-20020a622c160000b029015d08d22e6dmr5491897pfs.52.1603107467886; 
+ Mon, 19 Oct 2020 04:37:47 -0700 (PDT)
+Received: from localhost ([122.181.54.133])
+ by smtp.gmail.com with ESMTPSA id gf20sm11565079pjb.55.2020.10.19.04.37.46
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 19 Oct 2020 04:37:46 -0700 (PDT)
+Date: Mon, 19 Oct 2020 17:07:44 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20201019113744.7zr55gnv2tt2iuyt@vireshk-i7>
+References: <6fbfc6919c0000e7a7745afbc3c94baab02603fa.1599558175.git.viresh.kumar@linaro.org>
+ <e9bcd007772ffadd6326dca29532bb4d3f8e7f0a.1599558175.git.viresh.kumar@linaro.org>
+ <20201014121509.GE31816@yuki.lan>
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 9FD4C48990D3.AD8AF
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20201014121509.GE31816@yuki.lan>
+User-Agent: NeoMutt/20180716-391-311a52
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] syscalls/send02: Ensure recv() succeed when not
- using MSG_MORE flag
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V3 3/3] syscalls: select: Rename select04.c to
+ select02.c
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,139 +83,161 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-In this test, we only check send()/sendto()/sendmsg() calls
-with MSG_MORE flag whether get EAGAIN/EWOULDBLOCK error immediately.
+On 14-10-20, 14:15, Cyril Hrubis wrote:
+> Hi!
+> We will have to implement a test for the errors as well, so I wouldn't
+> rename the test like this yet.
 
-For other flag, we just call recv again when meeting EAGAIN/EWOULDBLOCK
-error.
+Maybe just pick it up as is (so I don't need to resend it) and then
+apply below patch:
 
-Also, improve message and make this case more clean when failed.
+-------------------------8<-------------------------
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+From b35b85ecaab98f3e3711a7f6fc2642c96657ee18 Mon Sep 17 00:00:00 2001
+Message-Id: <b35b85ecaab98f3e3711a7f6fc2642c96657ee18.1603107392.git.viresh.kumar@linaro.org>
+From: Viresh Kumar <viresh.kumar@linaro.org>
+Date: Mon, 19 Oct 2020 17:06:02 +0530
+Subject: [PATCH] syscalls: select: Add failure tests
+
+This adds a variety of failure tests to select() syscall.
+
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- testcases/kernel/syscalls/send/send02.c | 65 +++++++++++++++----------
- 1 file changed, 38 insertions(+), 27 deletions(-)
+ runtest/syscalls                            |  1 +
+ testcases/kernel/syscalls/select/.gitignore |  1 +
+ testcases/kernel/syscalls/select/select03.c | 95 +++++++++++++++++++++
+ 3 files changed, 97 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/select/select03.c
 
-diff --git a/testcases/kernel/syscalls/send/send02.c b/testcases/kernel/syscalls/send/send02.c
-index 5630230fa..b2ab3b79c 100644
---- a/testcases/kernel/syscalls/send/send02.c
-+++ b/testcases/kernel/syscalls/send/send02.c
-@@ -71,32 +71,41 @@ static void setup(void)
- 	memset(sendbuf, 0x42, SENDSIZE);
- }
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 12ae10464d9f..0443f9f3d51b 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -1157,6 +1157,7 @@ sched_getattr02 sched_getattr02
  
--static int check_recv(int sock, long expsize)
-+static int check_recv(int sock, long expsize, int loop)
- {
- 	char recvbuf[RECVSIZE] = {0};
+ select01 select01
+ select02 select02
++select03 select03
  
--	TEST(recv(sock, recvbuf, RECVSIZE, MSG_DONTWAIT));
--
--	if (TST_RET == -1) {
--		/* expected error immediately after send(MSG_MORE) */
--		if (!expsize && (TST_ERR == EAGAIN || TST_ERR == EWOULDBLOCK))
--			return 1;
--
--		/* unexpected error */
--		tst_res(TFAIL | TTERRNO, "recv() error");
--		return 0;
--	}
--
--	if (TST_RET < 0) {
--		tst_res(TFAIL | TTERRNO, "Invalid recv() return value %ld",
--			TST_RET);
--		return 0;
--	}
--
--	if (TST_RET != expsize) {
--		tst_res(TFAIL, "recv() read %ld bytes, expected %ld", TST_RET,
--			expsize);
--		return 0;
-+	while (1) {
-+		TEST(recv(sock, recvbuf, RECVSIZE, MSG_DONTWAIT));
+ semctl01 semctl01
+ semctl02 semctl02
+diff --git a/testcases/kernel/syscalls/select/.gitignore b/testcases/kernel/syscalls/select/.gitignore
+index f5a43c23326a..b6bff2d4f961 100644
+--- a/testcases/kernel/syscalls/select/.gitignore
++++ b/testcases/kernel/syscalls/select/.gitignore
+@@ -1,2 +1,3 @@
+ /select01
+ /select02
++/select03
+diff --git a/testcases/kernel/syscalls/select/select03.c b/testcases/kernel/syscalls/select/select03.c
+new file mode 100644
+index 000000000000..2de976cdd977
+--- /dev/null
++++ b/testcases/kernel/syscalls/select/select03.c
+@@ -0,0 +1,95 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020 Linaro Ltd.
++ *
++ * Failure tests.
++ */
 +
-+		if (TST_RET == -1) {
-+			/* expected error immediately after send(MSG_MORE) */
-+			if (TST_ERR == EAGAIN || TST_ERR == EWOULDBLOCK) {
-+				if (expsize)
-+					continue;
-+				else
-+					break;
-+			}
++#include <unistd.h>
++#include <errno.h>
++#include <sys/time.h>
++#include <sys/types.h>
++#include <fcntl.h>
++#include "select_var.h"
 +
-+			/* unexpected error */
-+			tst_res(TFAIL | TTERRNO, "recv() error at step %d, expsize %ld",
-+				loop, expsize);
-+			return 0;
-+		}
++static fd_set readfds_reg, writefds_reg, fds_closed;
++static fd_set *preadfds_reg = &readfds_reg, *pwritefds_reg = &writefds_reg;
++static fd_set *pfds_closed = &fds_closed, *nullfds = NULL, *faulty_fds;
++static int fd_closed, fd[2];
++static struct timeval timeout;
++static struct timeval *valid_to = &timeout, *invalid_to;
 +
-+		if (TST_RET < 0) {
-+			tst_res(TFAIL | TTERRNO, "Invalid recv() return value %ld"
-+				" at step %d, expsize is %ld",
-+				TST_RET, loop, expsize);
-+			return 0;
-+		}
++static struct tcases {
++	char *name;
++	int nfds;
++	fd_set **readfds;
++	fd_set **writefds;
++	fd_set **exceptfds;
++	struct timeval **timeout;
++	int exp_errno;
++} tests[] = {
++	{ "Negative nfds", -1, &preadfds_reg, &pwritefds_reg, &nullfds, &valid_to, EINVAL },
++	{ "Invalid readfds", 6, &pfds_closed, &pwritefds_reg, &nullfds, &valid_to, EBADF },
++	{ "Invalid writefds", 6, &preadfds_reg, &pfds_closed, &nullfds, &valid_to, EBADF },
++	{ "Invalid exceptfds", 6, &preadfds_reg, &pwritefds_reg, &pfds_closed, &valid_to, EBADF },
++	{ "Faulty readfds", 6, &faulty_fds, &pwritefds_reg, &nullfds, &valid_to, EFAULT },
++	{ "Faulty writefds", 6, &preadfds_reg, &faulty_fds, &nullfds, &valid_to, EFAULT },
++	{ "Faulty exceptfds", 6, &preadfds_reg, &pwritefds_reg, &faulty_fds, &valid_to, EFAULT },
++	{ "Faulty timeout", 6, &preadfds_reg, &pwritefds_reg, &nullfds, &invalid_to, EFAULT },
++};
 +
-+		if (TST_RET != expsize) {
-+			tst_res(TFAIL, "recv() read %ld bytes, expected %ld"
-+				" at step %d ", TST_RET, expsize, loop);
-+			return 0;
-+		}
-+		return 1;
- 	}
- 
- 	return 1;
-@@ -120,6 +129,8 @@ static void run(unsigned int n)
- 	struct test_case *tc = testcase_list + n;
- 	socklen_t len = sizeof(addr);
- 
-+	tst_res(TINFO, "Tesing %s", tc->name);
++static void run(unsigned int n)
++{
++	struct tcases *tc = &tests[n];
 +
- 	tst_init_sockaddr_inet_bin(&addr, INADDR_LOOPBACK, 0);
- 	listen_sock = SAFE_SOCKET(tc->domain, tc->type, tc->protocol);
- 	dst_sock = listen_sock;
-@@ -139,19 +150,19 @@ static void run(unsigned int n)
- 			dst_sock = SAFE_ACCEPT(listen_sock, NULL, NULL);
- 
- 		tc->send(sock, sendbuf, SENDSIZE, 0);
--		ret = check_recv(dst_sock, SENDSIZE);
-+		ret = check_recv(dst_sock, SENDSIZE, i + 1);
- 
- 		if (!ret)
- 			break;
- 
- 		tc->send(sock, sendbuf, SENDSIZE, MSG_MORE);
--		ret = check_recv(dst_sock, 0);
-+		ret = check_recv(dst_sock, 0, i + 1);
- 
- 		if (!ret)
- 			break;
- 
- 		tc->send(sock, sendbuf, 1, 0);
--		ret = check_recv(dst_sock, SENDSIZE + 1);
-+		ret = check_recv(dst_sock, SENDSIZE + 1, i + 1);
- 
- 		if (!ret)
- 			break;
-@@ -163,7 +174,7 @@ static void run(unsigned int n)
- 	}
- 
- 	if (ret)
--		tst_res(TPASS, "%s(MSG_MORE) works correctly", tc->name);
-+		tst_res(TPASS, "MSG_MORE works correctly");
- 
- 	cleanup();
- 	dst_sock = -1;
++	TEST(do_select(tc->nfds, *tc->readfds, *tc->writefds, *tc->exceptfds,
++		       *tc->timeout));
++
++	if (TST_RET != -1) {
++		tst_res(TFAIL, "%s: select() passed unexpectedly", tc->name);
++		return;
++	}
++
++	if (tc->exp_errno != TST_ERR) {
++		tst_res(TFAIL | TTERRNO, "%s: select()() should fail with %s",
++			tc->name, tst_strerrno(tc->exp_errno));
++		return;
++	}
++
++	tst_res(TPASS, "%s: select() failed as expected", tc->name);
++}
++
++static void setup(void)
++{
++	void *faulty_address;
++
++	select_info();
++
++	timeout.tv_sec = 0;
++	timeout.tv_usec = 100000;
++
++	/* Regular file */
++	fd_closed = SAFE_OPEN("tmpfile1", O_CREAT | O_RDWR, 0777);
++	FD_ZERO(&fds_closed);
++	FD_SET(fd_closed, &fds_closed);
++
++	SAFE_PIPE(fd);
++	FD_ZERO(&readfds_reg);
++	FD_ZERO(&writefds_reg);
++	FD_SET(fd[0], &readfds_reg);
++	FD_SET(fd[1], &writefds_reg);
++
++	SAFE_CLOSE(fd_closed);
++
++	faulty_address = tst_get_bad_addr(NULL);
++	invalid_to = faulty_address;
++	faulty_fds = faulty_address;
++}
++
++static struct tst_test test = {
++	.test = run,
++	.tcnt = ARRAY_SIZE(tests),
++	.test_variants = TEST_VARIANTS,
++	.setup = setup,
++	.needs_tmpdir = 1,
++};
 -- 
-2.23.0
-
-
+2.25.0.rc1.19.g042ed3e048af
 
 
 -- 
