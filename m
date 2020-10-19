@@ -2,67 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CD71292BFE
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Oct 2020 18:58:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0129B292F43
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Oct 2020 22:18:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D18EF3C31E4
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Oct 2020 18:58:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B29AD3C5718
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Oct 2020 22:18:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id BCD713C2532
- for <ltp@lists.linux.it>; Mon, 19 Oct 2020 18:58:16 +0200 (CEST)
-Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
- [IPv6:2a00:1450:4864:20::242])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 365783C245D
+ for <ltp@lists.linux.it>; Mon, 19 Oct 2020 22:18:04 +0200 (CEST)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 1B1A7100054F
- for <ltp@lists.linux.it>; Mon, 19 Oct 2020 18:58:16 +0200 (CEST)
-Received: by mail-lj1-x242.google.com with SMTP id p15so823448ljj.8
- for <ltp@lists.linux.it>; Mon, 19 Oct 2020 09:58:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=LEDVn+7ztnB9MFuURGPeJs5Y1j+r09pr3fMQDwzo7Dw=;
- b=aDA9MUM0Ggj8TMH6A1huKsBqH2Y+X/voex1+2Vog+GF1TCnjy2M4cXnSUhrZos0ujb
- XcwH8a0vIWkZns7wW2qnpU5f4XVHzy0//SzDYK0a12+UFwmVYtXB1tg7OlP/VCz9I4wW
- X5xxXQ1i7VtlFDGIjXnCoJ7EFxB1pcsLHPQTS+heiH19PceSUc9YcBwh6PghGRNRSPUL
- bCQ+w0H0xYSTx9piu15mnCMTQofWqWw5TBkNbZNnrMB11GZEH9FfWF0uSghzBTxrSSqt
- InQ/yRjcJ+Ekom1fWtUTGDH5cJtgdf5Jjf78xxKnOoGl7vA3In/aH44WiyPXLlTKMcqt
- 91JQ==
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 8BBDC200243
+ for <ltp@lists.linux.it>; Mon, 19 Oct 2020 22:18:03 +0200 (CEST)
+Received: by mail-wr1-x444.google.com with SMTP id s9so1132017wro.8
+ for <ltp@lists.linux.it>; Mon, 19 Oct 2020 13:18:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:reply-to:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=B4Glb9xDdLu5iWc2KsKtOEeByRwywRslCn4Cmf1IlBc=;
+ b=vV4YxSaSXc2hYcXWTEFXQXo64kL4pNyV7RQUEM8HvWzUym0nnB5LMQJGOrfn0A0nnY
+ WIbL4AAF2c1xMOsj3fE9UbnlHEPydXOA9IAy0VGSbEFxt9Lg0hk0U9tLnscus2FPzb00
+ 5XZG6Y+ahq1rhlXxheE3Vd0GcBBTVP3bWGn0JbsLCBwaNHIPRLLtb5on4v7L4Nqx0kWC
+ GG1v9Jb+iv5/WTi94s9B7aFcSzEBhRgpkG/ZCwNoDg+zv8pSvRG5Oz5y+VWIDKMpuGTn
+ zalT8JR/fNzqAe/Q3tf9CsHW2goXxVM/kRRk0xN/o+791a1o/uNvfFkqXj8aCm6KOnD6
+ 2WWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=LEDVn+7ztnB9MFuURGPeJs5Y1j+r09pr3fMQDwzo7Dw=;
- b=QM7ynbvU7hZEhhE0/+mLBpopc59EN2pUMGRLFVIMMZUHgpSkVQ6BybFwoHklrqgoli
- reXYZwc6RnZ72p1Mb0/hOnu5nfXjCK3v2Wme8MZxDkp/a4VFNQasZhmSTh6mLmr2Lh87
- Ld3M/ULRJfEZbZ7wcwz8d34YEJY3CGXi4CewMTu1qSUFKslchIpQ875qW/iY9scLp7nV
- XArt1rqmXjBHIih8iXNf2+go/9m27Zk4lbmAC9BvWG3N3LtLT+C/XqT7TQ/b+vYaakrC
- xwi6JgHsILng1h+bBoTQVopV1WEmuOgrCYO0yQSH9gj6zFi2Jb65FvY3B9eYhVldhG4R
- eoRw==
-X-Gm-Message-State: AOAM532rHZL12ck+ug8dHcYFnvpQZ6H1Kmrzz/rNOBu7FEPsdKreTCM/
- rw63pWpfYFt5zoOUR1ptGUVF8zzJiI5+lTJmm8wPng==
-X-Google-Smtp-Source: ABdhPJxQlgTW4x10aMVY40VlaTegYsQF8+2HwlJzB9141AWE6i0q5N5e4kk00Px3IUWj635TY7GGlgGkL302hYOUQmE=
-X-Received: by 2002:a2e:879a:: with SMTP id n26mr396484lji.347.1603126695044; 
- Mon, 19 Oct 2020 09:58:15 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:reply-to
+ :references:mime-version:content-disposition:in-reply-to;
+ bh=B4Glb9xDdLu5iWc2KsKtOEeByRwywRslCn4Cmf1IlBc=;
+ b=KXOeadkIPMxRZINSgJKaDtVsO7CcO78Qg9EyRzqqirLdiwemKa9Y5E8vvn5ZgGms4Z
+ dU2O3I+nLwByye+4jM9v/NfXKS8ns29/99IBna13cDDL7Fe4okxlS/XqWg4t/XzpRCnm
+ KIBsRTVYmkEem15VGgsJN7aeIY/RQhrq+HOig64w0E69jgiHvTNFYQFtRqcUQPGLpD9u
+ +1qxYakpqlNVPwNPTKs93dcpXWBSaAaPcimRcRwiOhro2+epBJt/6tnE3NDUFsdhhL+d
+ OfbJBrvZzTObxV08ps6oJ8HPqi3XaSdjJEI3FRW5wiCa3zxGZ7Ktbry9e3LeEMtxjjcg
+ ndRw==
+X-Gm-Message-State: AOAM533sb9CTLb162iCLB65Ij7XQjgge4Q2Ue6hKboNHbo+rVRl40fpX
+ /PZAeGfZaJ54UAeA87+BeKw=
+X-Google-Smtp-Source: ABdhPJzWsX03jhU5LzIoDQ9d0hIVqAGiQ5sNlpM593xRhoerFThDhoKA6NUkj6SX3inVx7rtZY43jw==
+X-Received: by 2002:adf:e741:: with SMTP id c1mr1120882wrn.16.1603138683079;
+ Mon, 19 Oct 2020 13:18:03 -0700 (PDT)
+Received: from dell5510 ([62.201.25.198])
+ by smtp.gmail.com with ESMTPSA id y10sm1017998wrq.73.2020.10.19.13.18.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Oct 2020 13:18:02 -0700 (PDT)
+Date: Mon, 19 Oct 2020 22:18:00 +0200
+From: Petr Vorel <petr.vorel@gmail.com>
+To: Khem Raj <raj.khem@gmail.com>
+Message-ID: <20201019201800.GA12642@dell5510>
+References: <20200529014448.3815022-1-raj.khem@gmail.com>
 MIME-Version: 1.0
-References: <87lfg2ob83.fsf@suse.de>
- <20201019095812.25710-1-rpalethorpe@suse.com>
-In-Reply-To: <20201019095812.25710-1-rpalethorpe@suse.com>
-Date: Mon, 19 Oct 2020 09:58:03 -0700
-Message-ID: <CALvZod6FNH3cZfZxLSFXtQR5bV_2Tese0793Ve9rd1YNW22MKg@mail.gmail.com>
-To: Richard Palethorpe <rpalethorpe@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20200529014448.3815022-1-raj.khem@gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,
- SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] mm: memcg/slab: Stop reparented obj_cgroups
- from charging root
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] sigwaitinfo: Do not run invalid/undefined test
+ cases
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,167 +78,89 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Shakeel Butt via ltp <ltp@lists.linux.it>
-Reply-To: Shakeel Butt <shakeelb@google.com>
-Cc: Christoph Lameter <cl@linux.com>, LKML <linux-kernel@vger.kernel.org>,
- Michal Hocko <mhocko@kernel.org>, Linux MM <linux-mm@kvack.org>,
- Vlastimil Babka <vbabka@suse.cz>, Johannes Weiner <hannes@cmpxchg.org>,
- Tejun Heo <tj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Roman Gushchin <guro@fb.com>, LTP List <ltp@lists.linux.it>
+Reply-To: Petr Vorel <petr.vorel@gmail.com>
+Cc: ltp@lists.linux.it, openembedded-core@lists.openembedded.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Mon, Oct 19, 2020 at 2:59 AM Richard Palethorpe <rpalethorpe@suse.com> wrote:
->
-> SLAB objects which outlive their descendant memcg are moved to their
-> parent memcg where they may be uncharged. However if they are moved to
-> the root memcg and use_hierarchy=0, uncharging will result in negative
-> page counter values. This is because when use_hierarchy=0, the root
-> memcg's page counters are disconnected from its children.
->
-> To prevent this, we check whether we are about to uncharge the root
-> memcg and whether use_hierarchy=0. If this is the case then we skip
-> uncharging.
->
-> Note that on the default hierarchy (CGroupV2 now) root always has
-> use_hierarchy=1. So this only effects CGroupV1. Also it is possible to
-> have a deeper hierarchy where descendants also have use_hierarchy=0;
-> this is not considered valid by the kernel, but it is still allowed
-> and in such cases reparenting may still result in negative page
-> counter values.
->
-> The warning can be, unreliably, reproduced with the LTP test
-> madvise06 if the entire patch series
-> https://lore.kernel.org/linux-mm/20200623174037.3951353-1-guro@fb.com/
-> is present. Although the listed commit in 'fixes' appears to introduce
-> the bug, I can not reproduce it with just that commit and bisecting
-> runs into other bugs.
->
-> [   12.029417] WARNING: CPU: 2 PID: 21 at mm/page_counter.c:57 page_counter_uncharge (mm/page_counter.c:57 mm/page_counter.c:50 mm/page_counter.c:156)
-> [   12.029539] Modules linked in:
-> [   12.029611] CPU: 2 PID: 21 Comm: ksoftirqd/2 Not tainted 5.9.0-rc7-22-default #76
-> [   12.029729] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.13.0-48-gd9c812d-rebuilt.opensuse.org 04/01/2014
-> [   12.029908] RIP: 0010:page_counter_uncharge (mm/page_counter.c:57 mm/page_counter.c:50 mm/page_counter.c:156)
-> [ 12.029991] Code: 0f c1 45 00 4c 29 e0 48 89 ef 48 89 c3 48 89 c6 e8 2a fe ff ff 48 85 db 78 10 48 8b 6d 28 48 85 ed 75 d8 5b 5d 41 5c 41 5d c3 <0f> 0b eb ec 90 e8 db 47 36 27 48 8b 17 48 39 d6 72 41 41 54 49 89
-> [   12.030258] RSP: 0018:ffffa5d8000efd08 EFLAGS: 00010086
-> [   12.030344] RAX: ffffffffffffffff RBX: ffffffffffffffff RCX: 0000000000000009
-> [   12.030455] RDX: 000000000000000b RSI: ffffffffffffffff RDI: ffff8ef8c7d2b248
-> [   12.030561] RBP: ffff8ef8c7d2b248 R08: ffff8ef8c78b19c8 R09: 0000000000000001
-> [   12.030672] R10: 0000000000000000 R11: ffff8ef8c780e0d0 R12: 0000000000000001
-> [   12.030784] R13: ffffffffffffffff R14: ffff8ef9478b19c8 R15: 0000000000000000
-> [   12.030895] FS:  0000000000000000(0000) GS:ffff8ef8fbc80000(0000) knlGS:0000000000000000
-> [   12.031017] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [   12.031104] CR2: 00007f72c0af93ec CR3: 000000005c40a000 CR4: 00000000000006e0
-> [   12.031209] Call Trace:
-> [   12.031267] __memcg_kmem_uncharge (mm/memcontrol.c:3022)
-> [   12.031470] drain_obj_stock (./include/linux/rcupdate.h:689 mm/memcontrol.c:3114)
-> [   12.031594] refill_obj_stock (mm/memcontrol.c:3166)
-> [   12.031733] ? rcu_do_batch (kernel/rcu/tree.c:2438)
-> [   12.032075] memcg_slab_free_hook (./include/linux/mm.h:1294 ./include/linux/mm.h:1441 mm/slab.h:368 mm/slab.h:348)
-> [   12.032339] kmem_cache_free (mm/slub.c:3107 mm/slub.c:3143 mm/slub.c:3158)
-> [   12.032464] rcu_do_batch (kernel/rcu/tree.c:2438)
-> [   12.032567] rcu_core (kernel/rcu/tree_plugin.h:2122 kernel/rcu/tree_plugin.h:2157 kernel/rcu/tree.c:2661)
-> [   12.032664] __do_softirq (./arch/x86/include/asm/jump_label.h:25 ./include/linux/jump_label.h:200 ./include/trace/events/irq.h:142 kernel/softirq.c:299)
-> [   12.032766] run_ksoftirqd (./arch/x86/include/asm/irqflags.h:54 ./arch/x86/include/asm/irqflags.h:94 kernel/softirq.c:653 kernel/softirq.c:644)
-> [   12.032852] smpboot_thread_fn (kernel/smpboot.c:165)
-> [   12.032940] ? smpboot_register_percpu_thread (kernel/smpboot.c:108)
-> [   12.033059] kthread (kernel/kthread.c:292)
-> [   12.033148] ? __kthread_bind_mask (kernel/kthread.c:245)
-> [   12.033269] ret_from_fork (arch/x86/entry/entry_64.S:300)
-> [   12.033357] ---[ end trace 961dbfc01c109d1f ]---
->
-> [    9.841552] ------------[ cut here ]------------
-> [    9.841788] WARNING: CPU: 0 PID: 12 at mm/page_counter.c:57 page_counter_uncharge (mm/page_counter.c:57 mm/page_counter.c:50 mm/page_counter.c:156)
-> [    9.841982] Modules linked in:
-> [    9.842072] CPU: 0 PID: 12 Comm: kworker/0:1 Not tainted 5.9.0-rc7-22-default #77
-> [    9.842266] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.13.0-48-gd9c812d-rebuilt.opensuse.org 04/01/2014
-> [    9.842571] Workqueue: events drain_local_stock
-> [    9.842750] RIP: 0010:page_counter_uncharge (mm/page_counter.c:57 mm/page_counter.c:50 mm/page_counter.c:156)
-> [ 9.842894] Code: 0f c1 45 00 4c 29 e0 48 89 ef 48 89 c3 48 89 c6 e8 2a fe ff ff 48 85 db 78 10 48 8b 6d 28 48 85 ed 75 d8 5b 5d 41 5c 41 5d c3 <0f> 0b eb ec 90 e8 4b f9 88 2a 48 8b 17 48 39 d6 72 41 41 54 49 89
-> [    9.843438] RSP: 0018:ffffb1c18006be28 EFLAGS: 00010086
-> [    9.843585] RAX: ffffffffffffffff RBX: ffffffffffffffff RCX: ffff94803bc2cae0
-> [    9.843806] RDX: 0000000000000001 RSI: ffffffffffffffff RDI: ffff948007d2b248
-> [    9.844026] RBP: ffff948007d2b248 R08: ffff948007c58eb0 R09: ffff948007da05ac
-> [    9.844248] R10: 0000000000000018 R11: 0000000000000018 R12: 0000000000000001
-> [    9.844477] R13: ffffffffffffffff R14: 0000000000000000 R15: ffff94803bc2cac0
-> [    9.844696] FS:  0000000000000000(0000) GS:ffff94803bc00000(0000) knlGS:0000000000000000
-> [    9.844915] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [    9.845096] CR2: 00007f0579ee0384 CR3: 000000002cc0a000 CR4: 00000000000006f0
-> [    9.845319] Call Trace:
-> [    9.845429] __memcg_kmem_uncharge (mm/memcontrol.c:3022)
-> [    9.845582] drain_obj_stock (./include/linux/rcupdate.h:689 mm/memcontrol.c:3114)
-> [    9.845684] drain_local_stock (mm/memcontrol.c:2255)
-> [    9.845789] process_one_work (./arch/x86/include/asm/jump_label.h:25 ./include/linux/jump_label.h:200 ./include/trace/events/workqueue.h:108 kernel/workqueue.c:2274)
-> [    9.845898] worker_thread (./include/linux/list.h:282 kernel/workqueue.c:2416)
-> [    9.846034] ? process_one_work (kernel/workqueue.c:2358)
-> [    9.846162] kthread (kernel/kthread.c:292)
-> [    9.846271] ? __kthread_bind_mask (kernel/kthread.c:245)
-> [    9.846420] ret_from_fork (arch/x86/entry/entry_64.S:300)
-> [    9.846531] ---[ end trace 8b5647c1eba9d18a ]---
->
-> Reported-by: ltp@lists.linux.it
-> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
-> Acked-by: Roman Gushchin <guro@fb.com>
-> Cc: Johannes Weiner <hannes@cmpxchg.org>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Shakeel Butt <shakeelb@google.com>
-> Cc: Christoph Lameter <cl@linux.com>
-> Cc: Michal Hocko <mhocko@kernel.org>
-> Cc: Tejun Heo <tj@kernel.org>
-> Cc: Vlastimil Babka <vbabka@suse.cz>
-> Fixes: bf4f059954dc ("mm: memcg/slab: obj_cgroup API")
+Hi Khem,
+
+> These testcases run for eternity on musl
+
+> test_bad_address* cases are passing invalid pointers to a function; that's always UB
+> empty_set and timeout rely on the implementation-defined "may fail" for EINTR in sigtimedwait [1]
+
+> normally "may fail" is an "unspecified" but here the impl
+> is supposed to document it so it's "impl-defined"
+
+> [1] https://pubs.opengroup.org/onlinepubs/9699919799/functions/sigtimedwait.html
+
+Sorry for the delay. Could you please verify, if test still fails in the current
+master? If yes, would you please update the patch?
+
+Now, I dropped it from the latest update:
+https://lists.openembedded.org/g/openembedded-core/topic/patch_1_1_ltp_update_to/77667273?p=,,,20,0,0,0::recentpostdate%2Fsticky,,,20,2,0,77667273
+
+Kind regards,
+Petr
+
+
+> Signed-off-by: Khem Raj <raj.khem@gmail.com>
+> Cc: Rich Felker <dalias@aerifal.cx>
 > ---
->
-> V3: Handle common case where use_hierarchy=1 and update description.
->
->  mm/memcontrol.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
->
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 6877c765b8d0..34b8c4a66853 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -291,7 +291,7 @@ static void obj_cgroup_release(struct percpu_ref *ref)
->
->         spin_lock_irqsave(&css_set_lock, flags);
->         memcg = obj_cgroup_memcg(objcg);
-> -       if (nr_pages)
-> +       if (nr_pages && (!mem_cgroup_is_root(memcg) || memcg->use_hierarchy))
+> v2: Extend same fixes to include sigwaitinfo01
 
-If we have non-root memcg with use_hierarchy as 0 and this objcg was
-reparented then this __memcg_kmem_uncharge() can potentially underflow
-the page counter and give the same warning.
+>  .../kernel/syscalls/sigwaitinfo/sigwaitinfo01.c      | 12 ++----------
+>  1 file changed, 2 insertions(+), 10 deletions(-)
 
-We never set root_mem_cgroup->objcg, so, no need to check for root
-here. I think checking just memcg->use_hierarchy should be sufficient.
-
->                 __memcg_kmem_uncharge(memcg, nr_pages);
->         list_del(&objcg->list);
->         mem_cgroup_put(memcg);
-> @@ -3100,6 +3100,7 @@ static bool consume_obj_stock(struct obj_cgroup *objcg, unsigned int nr_bytes)
->  static void drain_obj_stock(struct memcg_stock_pcp *stock)
->  {
->         struct obj_cgroup *old = stock->cached_objcg;
-> +       struct mem_cgroup *memcg;
->
->         if (!old)
->                 return;
-> @@ -3110,7 +3111,9 @@ static void drain_obj_stock(struct memcg_stock_pcp *stock)
->
->                 if (nr_pages) {
->                         rcu_read_lock();
-> -                       __memcg_kmem_uncharge(obj_cgroup_memcg(old), nr_pages);
-> +                       memcg = obj_cgroup_memcg(old);
-> +                       if (!mem_cgroup_is_root(memcg) || memcg->use_hierarchy)
-> +                               __memcg_kmem_uncharge(memcg, nr_pages);
->                         rcu_read_unlock();
->                 }
->
-> --
-> 2.28.0
->
+> --- a/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c
+> +++ b/testcases/kernel/syscalls/sigwaitinfo/sigwaitinfo01.c
+> @@ -422,15 +422,10 @@ struct test_desc {
+>  } tests[] = {
+>  #ifdef TEST_RT_SIGTIMEDWAIT
+>  	{
+> -	test_empty_set, my_rt_sigtimedwait, SIGUSR1}, {
+>  	test_unmasked_matching, my_rt_sigtimedwait, SIGUSR1}, {
+>  	test_masked_matching, my_rt_sigtimedwait, SIGUSR1}, {
+>  	test_unmasked_matching_noinfo, my_rt_sigtimedwait, SIGUSR1}, {
+> -	test_masked_matching_noinfo, my_rt_sigtimedwait, SIGUSR1}, {
+> -	test_bad_address, my_rt_sigtimedwait, SIGUSR1}, {
+> -	test_bad_address2, my_rt_sigtimedwait, SIGUSR1}, {
+> -	test_bad_address3, my_rt_sigtimedwait, SIGUSR1}, {
+> -	test_timeout, my_rt_sigtimedwait, 0},
+> +	test_masked_matching_noinfo, my_rt_sigtimedwait, SIGUSR1}, 
+>  	    /* Special cases */
+>  	    /* 1: sigwaitinfo does respond to ignored signal */
+>  	{
+> @@ -452,25 +447,17 @@ struct test_desc {
+>  #endif
+>  #if defined TEST_SIGWAITINFO
+>  	{
+> -	test_empty_set, my_sigwaitinfo, SIGUSR1}, {
+>  	test_unmasked_matching, my_sigwaitinfo, SIGUSR1}, {
+>  	test_masked_matching, my_sigwaitinfo, SIGUSR1}, {
+>  	test_unmasked_matching_noinfo, my_sigwaitinfo, SIGUSR1}, {
+> -	test_masked_matching_noinfo, my_sigwaitinfo, SIGUSR1}, {
+> -	test_bad_address, my_sigwaitinfo, SIGUSR1}, {
+> -	test_bad_address2, my_sigwaitinfo, SIGUSR1},
+> +	test_masked_matching_noinfo, my_sigwaitinfo, SIGUSR1},
+>  #endif
+>  #if defined TEST_SIGTIMEDWAIT
+>  	{
+> -	test_empty_set, my_sigtimedwait, SIGUSR1}, {
+>  	test_unmasked_matching, my_sigtimedwait, SIGUSR1}, {
+>  	test_masked_matching, my_sigtimedwait, SIGUSR1}, {
+>  	test_unmasked_matching_noinfo, my_sigtimedwait, SIGUSR1}, {
+> -	test_masked_matching_noinfo, my_sigtimedwait, SIGUSR1}, {
+> -	test_bad_address, my_sigtimedwait, SIGUSR1}, {
+> -	test_bad_address2, my_sigtimedwait, SIGUSR1}, {
+> -	test_bad_address3, my_sigtimedwait, SIGUSR1}, {
+> -	test_timeout, my_sigtimedwait, 0},
+> +	test_masked_matching_noinfo, my_sigtimedwait, SIGUSR1},
+>  #endif
+>  };
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
