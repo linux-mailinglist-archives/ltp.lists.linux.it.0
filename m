@@ -2,42 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB9A9293DA8
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Oct 2020 15:49:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A502293DCA
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Oct 2020 15:52:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 637653C31B1
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Oct 2020 15:49:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2C5253C31B0
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Oct 2020 15:52:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 6B45A3C2403
- for <ltp@lists.linux.it>; Tue, 20 Oct 2020 15:49:49 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id A69A73C2403
+ for <ltp@lists.linux.it>; Tue, 20 Oct 2020 15:52:13 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id EA89A140013E
- for <ltp@lists.linux.it>; Tue, 20 Oct 2020 15:49:48 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 262D7140013E
+ for <ltp@lists.linux.it>; Tue, 20 Oct 2020 15:52:12 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 49988AD72;
- Tue, 20 Oct 2020 13:49:48 +0000 (UTC)
-References: <87lfg2ob83.fsf@suse.de>
- <20201019095812.25710-1-rpalethorpe@suse.com>
- <CALvZod6FNH3cZfZxLSFXtQR5bV_2Tese0793Ve9rd1YNW22MKg@mail.gmail.com>
- <87mu0hwik7.fsf@suse.de>
-User-agent: mu4e 1.4.13; emacs 27.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Shakeel Butt <shakeelb@google.com>
-In-reply-to: <87mu0hwik7.fsf@suse.de>
-Date: Tue, 20 Oct 2020 14:49:47 +0100
-Message-ID: <87eeltvwg4.fsf@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 67FE1AC65;
+ Tue, 20 Oct 2020 13:52:12 +0000 (UTC)
+Date: Tue, 20 Oct 2020 15:52:10 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Alexey Kodanev <alexey.kodanev@oracle.com>
+Message-ID: <20201020135210.GA23197@dell5510>
+References: <20201015122056.20715-1-alexey.kodanev@oracle.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20201015122056.20715-1-alexey.kodanev@oracle.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] mm: memcg/slab: Stop reparented obj_cgroups
- from charging root
+Subject: Re: [LTP] [PATCH 1/5] lib/tst_net: add generic tst_netload_compare()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,68 +46,94 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: Christoph Lameter <cl@linux.com>, LKML <linux-kernel@vger.kernel.org>,
- Michal Hocko <mhocko@kernel.org>, Linux MM <linux-mm@kvack.org>,
- Vlastimil Babka <vbabka@suse.cz>, Johannes Weiner <hannes@cmpxchg.org>,
- Tejun Heo <tj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Roman Gushchin <guro@fb.com>, LTP List <ltp@lists.linux.it>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Hi Alexey,
 
-Richard Palethorpe <rpalethorpe@suse.de> writes:
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
-> Hello Shakeel,
->
-> Shakeel Butt <shakeelb@google.com> writes:
->>>
->>> V3: Handle common case where use_hierarchy=1 and update description.
->>>
->>>  mm/memcontrol.c | 7 +++++--
->>>  1 file changed, 5 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
->>> index 6877c765b8d0..34b8c4a66853 100644
->>> --- a/mm/memcontrol.c
->>> +++ b/mm/memcontrol.c
->>> @@ -291,7 +291,7 @@ static void obj_cgroup_release(struct percpu_ref *ref)
->>>
->>>         spin_lock_irqsave(&css_set_lock, flags);
->>>         memcg = obj_cgroup_memcg(objcg);
->>> -       if (nr_pages)
->>> +       if (nr_pages && (!mem_cgroup_is_root(memcg) || memcg->use_hierarchy))
->>
->> If we have non-root memcg with use_hierarchy as 0 and this objcg was
->> reparented then this __memcg_kmem_uncharge() can potentially underflow
->> the page counter and give the same warning.
->
-> Yes, although the kernel considers such a config to be broken, and
-> prints a warning to the log, it does allow it.
+> * Remove duplicate code for comparing time-based results in
+>   network tests (bbr, busy_poll, sctp, tcp fastopen, virt tests)
 
-Actually this can not happen because if use_hierarchy=0 then the objcg
-will be reparented to root.
+> * Expand thresholds for sctp, bbr test-cases, in order to avoid
+>   false-positive failures.
+I'm ok to keep more changes in single commit, but this change is affecting the
+result, thus maybe put into separate commit?
+(easier if somebody wants to bisect).
 
->
->>
->> We never set root_mem_cgroup->objcg, so, no need to check for root
->
-> I don't think that is relevant as we get the memcg from objcg->memcg
-> which is set during reparenting. I suppose however, we can determine if
-> the objcg was reparented by inspecting memcg->objcg.
->
->> here. I think checking just memcg->use_hierarchy should be sufficient.
->
-> If we just check use_hierarchy then objects directly charged to the
-> memcg where use_hierarchy=0 will not be uncharged. However, maybe it is
-> better to check if it was reparented and if use_hierarchy=0.
+> * In virt_lib.sh, keep sign for VIRT_PERF_THRESHOLD.
 
--- 
-Thank you,
-Richard.
+> * TWARN when the base result is too bad (threshold_hi arg is set)
+
+> Signed-off-by: Alexey Kodanev <alexey.kodanev@oracle.com>
+> ---
+>  testcases/lib/tst_net.sh                      | 31 +++++++++++++++++++
+>  testcases/network/busy_poll/busy_poll01.sh    | 10 ++----
+>  testcases/network/busy_poll/busy_poll02.sh    |  8 +----
+>  testcases/network/busy_poll/busy_poll03.sh    |  8 +----
+>  testcases/network/dccp/dccp01.sh              | 15 ++-------
+>  testcases/network/sctp/sctp01.sh              |  8 +----
+>  testcases/network/tcp_cc/bbr01.sh             |  2 +-
+>  testcases/network/tcp_cc/bbr02.sh             |  2 +-
+>  testcases/network/tcp_cc/dctcp01.sh           |  2 +-
+>  testcases/network/tcp_cc/tcp_cc_lib.sh        |  8 +----
+>  .../network/tcp_fastopen/tcp_fastopen_run.sh  | 15 ++-------
+>  testcases/network/virt/virt_lib.sh            | 21 ++-----------
+>  12 files changed, 46 insertions(+), 84 deletions(-)
+
+> diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
+> index d939a5780..b29e076c3 100644
+> --- a/testcases/lib/tst_net.sh
+> +++ b/testcases/lib/tst_net.sh
+> @@ -741,6 +741,37 @@ tst_netload()
+>  	return $ret
+>  }
+
+> +# Compares results for netload runs.
+> +# tst_netload_compare TIME_BASE TIME THRESHOLD_LOW [THRESHOLD_HI]
+> +# TIME_BASE: time taken to run netstress load test - 100%
+> +# TIME: time that is compared to the base one
+> +# THRESHOD_LOW: lower limit for TFAIL
+> +# THRESHOD_HIGH: upper limit for TWARN
+> +tst_netload_compare()
+> +{
+> +	local base_time=$1
+> +	local new_time=$2
+> +	local threshold_low=$3
+> +	local threshold_hi=$4
+> +
+> +	if [ -z "$base_time" -o -z "$new_time" -o -z "$threshold_low" ]; then
+> +		tst_brk_ TBROK "tst_netload_compare: invalid argument(s)"
+> +	fi
+> +
+> +	local res=$(((base_time - new_time) * 100 / base_time))
+> +	local msg="performance result is ${res}%"
+> +
+> +	if [ "$res" -lt "$threshold_low" ]; then
+> +		tst_res_ TFAIL "$msg < threshold ${threshold_low}%"
+> +		return
+> +	fi
+> +
+> +	[ "$threshold_hi" ] && [ "$res" -gt "$threshold_hi" ] && \
+> +		tst_res_ TWARN "$msg > threshold ${threshold_hi}%"
+> +
+> +	tst_res_ TPASS "$msg, in range [${threshold_low}:${threshold_hi:-}]%"
+
+Do you mean ${threshold_hi:--} (to print "-" when $threshold_hi not set?)
+As ${threshold_hi:-} prints empty string when unset (equivalent of ${threshold_hi}).
+
+
+> +}
+
+...
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
