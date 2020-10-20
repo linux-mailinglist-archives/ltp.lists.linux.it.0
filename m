@@ -1,129 +1,130 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2E55294111
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Oct 2020 19:07:47 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C3A929413A
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Oct 2020 19:17:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A67903C56CB
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Oct 2020 19:07:47 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 270653C56CB
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Oct 2020 19:17:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 80B533C31AB
- for <ltp@lists.linux.it>; Tue, 20 Oct 2020 19:07:45 +0200 (CEST)
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 780883C31AB
+ for <ltp@lists.linux.it>; Tue, 20 Oct 2020 19:17:37 +0200 (CEST)
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3F134200936
- for <ltp@lists.linux.it>; Tue, 20 Oct 2020 19:07:43 +0200 (CEST)
-Received: from pps.filterd (m0044012.ppops.net [127.0.0.1])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 240556009FF
+ for <ltp@lists.linux.it>; Tue, 20 Oct 2020 19:17:36 +0200 (CEST)
+Received: from pps.filterd (m0148460.ppops.net [127.0.0.1])
  by mx0a-00082601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 09KH0Cce027153; Tue, 20 Oct 2020 10:07:32 -0700
+ 09KHEMt6026349; Tue, 20 Oct 2020 10:17:26 -0700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
  h=date : from : to : cc :
  subject : message-id : references : content-type : in-reply-to :
- mime-version; s=facebook; bh=aOug9L2PY1geTP5x0no1Joayj3ek0GwafW1LZSea/UE=;
- b=pLX6XUxhMnuEDCdiM/aEbvk+QMzHaS1orNOlQNhJizHlgG0Af6FFxNIAFhNnXpG/lCXo
- 9zb1uv+7pqYcc6CXwMOnOF1ya1kNuuEUF6tGi0tYyLkwrZX2qJBGrb+FDSLuXx2Ze9ku
- v/OIvQ/Ed0DEFVijrc8XOeQ7y3kRHICE12c= 
-Received: from mail.thefacebook.com ([163.114.132.120])
- by mx0a-00082601.pphosted.com with ESMTP id 34a1s2ruae-20
+ mime-version; s=facebook; bh=7DvJejlDHSjkgi47GxBXQrOaEMENuGwHXs5uGdOaLyw=;
+ b=KAjr1dAr5ZTm8nXq0uehracToFo5QlNgGG8zy3pXG31HboGRnChiyMtUsjPip/eLRlTJ
+ iIa/XB2jFL4AW8E5iGq2ofwQKbfh5g+Scili4pOLsoLO3kOb7UMF/EITqW8D4ysXP7qu
+ ocCcpJz9/Yh4PT3CPpOc8gTB+DdnCdC0rM0= 
+Received: from maileast.thefacebook.com ([163.114.130.16])
+ by mx0a-00082601.pphosted.com with ESMTP id 34a01e1g24-4
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 20 Oct 2020 10:07:31 -0700
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com (100.104.98.9) by
- o365-in.thefacebook.com (100.104.94.230) with Microsoft SMTP Server
+ Tue, 20 Oct 2020 10:17:26 -0700
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (100.104.31.183)
+ by o365-in.thefacebook.com (100.104.36.100) with Microsoft SMTP
+ Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1979.3; Tue, 20 Oct 2020 10:07:25 -0700
+ 15.1.1979.3; Tue, 20 Oct 2020 10:17:20 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bssAY+aCTlQ15E5nFhh2+ZFfxIAbWKKYEskZKsmWrIW3pCd7jSy7u10cZ8WAtailVdAfbVQLjIaRJX+lqrt6T1JqgyMxDWJRpztKpMgdCcZaWhTf9wbXlF2k2NG/RjLIZiF6BO/HcltCSOxv8HLjENU4snf1mfYYo9GsxEbJ680MWVr83TWz4rdQ5myd1nzUsA9BAI3EZbzSfj81gj34qWbTp+rRp8MWHs7kML0XEIsl/doKhwtD+PCnw5GJR7UEhxX/d7KTVhVOx17spjOb7/2wUc7GeRwnO/8B26OKdieuRStBbDS4BBnyEWnYOVb44Lm3oyU+i0K7UBDKJ4sUEg==
+ b=XeoFsyk8rqAHw/uykbPCSDK7Pq2XQuFb5a4ii/RPnIPL019TGqdxI/x8k5vu5tdqYYcikz6Qb21NCnBxZY4GxF/gvvykpEwQchy24OfMrCxGA19STaIaBt5trOmueLGMea7e+PZMi16deOM2MCV/+FgdduaGSNBztbELhg6PSKBFhBdejhmWZBoLV9P/86A1YQWkmr1q50+/PeyEpeMFQmCvyv6oJaXSabLMVIMVCtC6Dy01W/v1ftSrlGwU7HRnUMSlbWG6joxMe1LMNfZmDrPxutzTcCisv+MjHibRuNNISaX/oUPwwff+9M7zQm7VkXU5d/GiKOcdZZWJvyMScg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aOug9L2PY1geTP5x0no1Joayj3ek0GwafW1LZSea/UE=;
- b=JQy0g7PHIoxbE5wGEVwKiC4oq8JlDqW0QVrAjVWH2AsnJq2K9DePoYDB9qR6f0BA4GfSppsaRxker8RpgLuOYVUf/Mcl4q1ytITWOkFzd4vWsjCsdk4js4YAG54MX7VcBz1AialMpMlikQwkux1MvpReLnTk15gq/a3LdCD2x0UuoIiqIR6LWVXnMGThVH4YgOFz780IhECOWZ8+y8XWe2g3S5r9a70ntjd8Mw50O1gZWnVzGpMH6izaky22Md+tqZYPAcY74DwvJvR+bQcssziEZ+IXMWBdx6hJXHjsEJ+hiRFIj773dbAP7/IyUQmZwxupTAYxh44CPbuV/LYt0g==
+ bh=7DvJejlDHSjkgi47GxBXQrOaEMENuGwHXs5uGdOaLyw=;
+ b=gsjH54zt6VcVTafMJ+uASOxGSP8/WItpux9gcKMOsaNjvt4zusme5rnHH95OU+yw3+9YYdCiuvVYyGvUrTnZg9G0VjgHCIUAeG4cUI2EjfZwkjW61ksajaaBn93fmxv+ByVvspsg1RsG8fMr+LndXLIhgylH73Q6v6ZSe8b42pgx4iRv9S0PnuJqvOYbfCX9UdNHn0ij9Acbv9mG7UANVv3hYn7WRsLQEr+uyXemNRHLFWlCrzJq0OfMy1a0/KMh3T4DiOt7YVkddIXsHjlOAH8uwrx4QL8PwFk6LO6LRU1CmxtV25gPsSu9C6VY4Hu3C+/gQJX9V3Yvw+jJagLc/A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=fb.com; dmarc=pass action=none header.from=fb.com; dkim=pass
  header.d=fb.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
  s=selector2-fb-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aOug9L2PY1geTP5x0no1Joayj3ek0GwafW1LZSea/UE=;
- b=BIhLcvzcdl5n18w3qOi3MxF1h+imIR9EO88RDQk5h3D4atSC400ibs9Qz4mwfOG8DabgAjYPgXdwpbXFh14OTtJeh1onJ1JjRZQHICMJcXI2mbuRZw5/2hyTFwlISDKYDcSX2dum1GPhiW/HGdVxFIyyLsmuoyU5UvcWmT+d00k=
-Authentication-Results: suse.com; dkim=none (message not signed)
- header.d=none;suse.com; dmarc=none action=none header.from=fb.com;
+ bh=7DvJejlDHSjkgi47GxBXQrOaEMENuGwHXs5uGdOaLyw=;
+ b=PaDqVN68PKd83Kpt+WJDgqQVPKHmh9JALY/e7QwgxMN4OAYM+/lCB/vcAfBnTi7HhCO7uWGGw+ivpGJzcrUERuvn05I4JSlp561M8zj3pj5keAKNVAXhWjEvEsS/N7RiEK2h4GbqC/BrBSqLzGo5Ly2TIF6ShUPc+r87EYs0+9M=
+Authentication-Results: google.com; dkim=none (message not signed)
+ header.d=none;google.com; dmarc=none action=none header.from=fb.com;
 Received: from BYAPR15MB4136.namprd15.prod.outlook.com (2603:10b6:a03:96::24)
- by BY5PR15MB3524.namprd15.prod.outlook.com (2603:10b6:a03:1f5::12)
+ by SJ0PR15MB4155.namprd15.prod.outlook.com (2603:10b6:a03:2ee::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.22; Tue, 20 Oct
- 2020 17:07:22 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.28; Tue, 20 Oct
+ 2020 17:17:19 +0000
 Received: from BYAPR15MB4136.namprd15.prod.outlook.com
  ([fe80::d834:4987:4916:70f2]) by BYAPR15MB4136.namprd15.prod.outlook.com
  ([fe80::d834:4987:4916:70f2%5]) with mapi id 15.20.3477.028; Tue, 20 Oct 2020
- 17:07:22 +0000
-Date: Tue, 20 Oct 2020 10:07:17 -0700
-To: Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>
-Message-ID: <20201020170717.GA153102@carbon.DHCP.thefacebook.com>
+ 17:17:19 +0000
+Date: Tue, 20 Oct 2020 10:17:14 -0700
+To: Shakeel Butt <shakeelb@google.com>
+Message-ID: <20201020171714.GB153102@carbon.DHCP.thefacebook.com>
 References: <20201014190749.24607-1-rpalethorpe@suse.com>
  <20201016094702.GA95052@blackbook>
  <20201016145308.GA312010@cmpxchg.org>
  <20201016171502.GA102311@blackbook>
  <20201019222845.GA64774@carbon.dhcp.thefacebook.com>
- <20201020162714.GC46039@blackbook>
+ <CALvZod66ETQR2rKhZQfEZwdovuF0AaVTZ1g1JNjkLgLGgMKY8g@mail.gmail.com>
 Content-Disposition: inline
-In-Reply-To: <20201020162714.GC46039@blackbook>
+In-Reply-To: <CALvZod66ETQR2rKhZQfEZwdovuF0AaVTZ1g1JNjkLgLGgMKY8g@mail.gmail.com>
 X-Originating-IP: [2620:10d:c090:400::5:41b5]
-X-ClientProxiedBy: MWHPR21CA0026.namprd21.prod.outlook.com
- (2603:10b6:300:129::12) To BYAPR15MB4136.namprd15.prod.outlook.com
+X-ClientProxiedBy: MWHPR22CA0041.namprd22.prod.outlook.com
+ (2603:10b6:300:69::27) To BYAPR15MB4136.namprd15.prod.outlook.com
  (2603:10b6:a03:96::24)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from carbon.DHCP.thefacebook.com (2620:10d:c090:400::5:41b5) by
- MWHPR21CA0026.namprd21.prod.outlook.com (2603:10b6:300:129::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.17 via Frontend
- Transport; Tue, 20 Oct 2020 17:07:20 +0000
+ MWHPR22CA0041.namprd22.prod.outlook.com (2603:10b6:300:69::27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3499.18 via Frontend Transport; Tue, 20 Oct 2020 17:17:18 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b8d90ae6-0594-4f09-5aaf-08d8751a9be1
-X-MS-TrafficTypeDiagnostic: BY5PR15MB3524:
-X-Microsoft-Antispam-PRVS: <BY5PR15MB352457A2778CC98C41A2EB2EBE1F0@BY5PR15MB3524.namprd15.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: eb3f56e2-4784-48fb-3da1-08d8751c0001
+X-MS-TrafficTypeDiagnostic: SJ0PR15MB4155:
+X-Microsoft-Antispam-PRVS: <SJ0PR15MB41555219836FD2B9C395EEE6BE1F0@SJ0PR15MB4155.namprd15.prod.outlook.com>
 X-FB-Source: Internal
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VNLPcpAPVkFMCGfQRsoKg8Yex9X3lNGuOHgQsF18w86bNErwWImz+oAcjFp/9HE5eNDKK4TfHGjyBUD22RBFxogA+AP1Q7YzHA8DC7mgwz6kwt7M3C6pawHRDVrkmHAvk/GkHAKpb3kurQ9sgF8NWcU4xAnk3g6EnR+N0Si8mcatyYhRUQqWYukxVEiyFk8cqBVOW0sZI9ANbl0VWlXiR6vYZeDs4DINYTzzJzPsQUeGLdXJzafBKWLznkJOB64D6ZE9kOSbROxYy6DosBQvN4vU6blGc/Vh/h0HSrXQZyHx5XGBxXaDL/bFDll/UfNVM2sJ3O9wtFKVuFazNC2Bew==
+X-Microsoft-Antispam-Message-Info: UuUIpzhhcwXYSTGlIdkHYF4Omk/b3yC/A6WtFYpoGFUo8Gxvo+z6O+s0pPhuUHOEi2QPYH2E8klQDJqa9RXX4np3qjOD1Fj3OOta4MJ4HjuSrwkl8tefLR9e06IiSmF66Y9/08QIqPUCRZpWGRNqczLxjWT8a4dYu4FyT3eUctKc3cQEFy84zqyqHexQqZ0zaeMad3UKuv249OnhDMNYKxma/6clwD2daBRJGq1zHiuIier7O7sr558uqm2xIjAdnle+6dCovtjgwoawqHMnQNdbNRxii1lXfmzV5BaGJTiwdRz8AYdKK/DqvbSSnWSC/VbP/MmXLA5woWBQy1X+kw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BYAPR15MB4136.namprd15.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(396003)(136003)(366004)(346002)(376002)(39860400002)(83380400001)(66556008)(9686003)(186003)(8936002)(5660300002)(55016002)(478600001)(1076003)(7416002)(33656002)(16526019)(316002)(6506007)(6666004)(7696005)(4326008)(66946007)(8676002)(6916009)(86362001)(2906002)(52116002)(54906003)(66476007);
+ SFS:(396003)(366004)(376002)(136003)(346002)(39860400002)(33656002)(6666004)(7416002)(66946007)(66476007)(66556008)(16526019)(83380400001)(86362001)(478600001)(54906003)(5660300002)(2906002)(8936002)(1076003)(316002)(4326008)(55016002)(53546011)(6506007)(9686003)(8676002)(6916009)(52116002)(7696005)(186003);
  DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData: NnYZwT/pLRT8/pYXLaUacnr6AIgdG/Db7mi6us0NzEIx9sIJ6KGG4miOkpbr/V9nEC/tdJvUsT05MAkVH9CydgnDXcBKDYQ8rkWsOFC7aixyUMWIoR2u3QV5wiyv9HTrSNuzib3FWiQ+fx6JTGJ5XrAqRttUlIHD8GEB0JNdFl+UeP/9WrBDEcEpAJEr9mqFN/MYCrfV7uY+p30nCv6MuGqwcXUmyDC03Xhxh7oYuwwElzgw7fFs3YDCc3A+FcnI7xbqVysAl11WUPYOr0yRavl+lDDnxmAG9dbjUPdnzzpB5bh9POiTGRKjnO/qpZgrM9BfTdH+Xl2fpayhxEYLQhBLr6ArZgwLvB7l0ZAu9GnGqo8cXbX84WS84mntPNKNHk5VaT4a9jxrFgpXJoflyi9L3SWQgC+gBVUarBUv787lgWoxXpYHpYxS6lq6kmtI+cke3xYr0vXWpZIjjedyfVuFqCjZHhQH46OHjtIzyW2IDdWQIYxh0vRL7ZYVfSv45Md398STiixG19wC1XSEU2XOpm/k0wkzPhopZMHeoSwrQd8Ju/TuNOeJTJu/jOKXGMuj60mHoK7W/Hj5rrBEFcZWJZKku/skwe/JCgZ/ECvOmDERbPIzF21+eESuLR6oixXJIYwlLokTowmVfbS+RWWSIadN2YCIOMYhhV8hp0JAFVwyT+mnKLxRaNGO+X23
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8d90ae6-0594-4f09-5aaf-08d8751a9be1
+X-MS-Exchange-AntiSpam-MessageData: cgpaODUgWbLZyJrWD5r1+OhRhS3gXVHQ3hWvJTZKdb9WHkcMTKAwdCM0V5TZSaAwOHWULV40sJKxGa6KKU9VWqTXJTs18WF6E5zAJWjLRqfWXgJxJZL8eCy6ZxlAfOLaZjQIlOC/lpDiaKxms3miiHdE3RRZvw0rvBUEpym6R6ZNKEq4X/AGRbIqdk9Dbx9/kUV03642C5iijo4KI1wL+8UEftzulfg0lMtvbhLr/eu0BrZ3hZzu7acy4DFRSVixi5cR1uwol6mzfk0ZF3HFfaL6Y1D8ypWe9gbtgS43uGfQUzOMZYw0aIcc0RoNlaB8hlVC6MyBX+70j5eB4/rGYT4cHSdk9gc+xXZ5RnpyvT3L5Gy3XJOlpEHwXzjlIFwzi6hHxRKfNleI2syA+VGqhGxYShNb6LVcY+8usFAlbhEd6wQyRMsGgxIhLHJBOK2YAWujGmT43i7Flbal5gYJ/+5c/2D7Qp2lZr4HFrdqQh2kHv0b8Q+3Cw9yEKEbClFI0E06uGGdrGDDRsCQHWyXEg2qvyWIJk39+CO7tbxbW0aETiwoDWH5DAzMzoNsSwTMEE05R0nQymF3Y+xT5354LrIHRPyyfNxDDKJZLzTtqUgUkXSqpwb9g2+Go5kgqZ7gcz8XB4t/+pZPk0TjowLBvbNo3+pb0vAs9LTOtccHWkY=
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb3f56e2-4784-48fb-3da1-08d8751c0001
 X-MS-Exchange-CrossTenant-AuthSource: BYAPR15MB4136.namprd15.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2020 17:07:21.9311 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2020 17:17:19.4089 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: r47qdsfVyB1JlNSuJVQot2eUaesvl/GofIpjDVjiG4aYP+ZDHfRORhioZAkIH1vJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR15MB3524
+X-MS-Exchange-CrossTenant-UserPrincipalName: iDAVKpvKmjnV4MjDrmFZYpn4y8U/+oOu1fODNF5r6IX/wxTP9I50NU3Ga83hJ9Sz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR15MB4155
 X-OriginatorOrg: fb.com
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.737
  definitions=2020-10-20_10:2020-10-20,
  2020-10-20 signatures=0
 X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0
- priorityscore=1501
- impostorscore=0 lowpriorityscore=0 mlxscore=0 suspectscore=1
- mlxlogscore=937 adultscore=0 spamscore=0 bulkscore=0 phishscore=0
- malwarescore=0 clxscore=1015 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2009150000 definitions=main-2010200116
+ malwarescore=0 mlxscore=0
+ bulkscore=0 adultscore=0 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 spamscore=0 phishscore=0 clxscore=1015 mlxlogscore=574
+ suspectscore=1 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2010200118
 X-FB-Internal: deliver
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,
  SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [RFC PATCH] mm: memcg/slab: Stop reparented obj_cgroups
  from charging root
 X-BeenThere: ltp@lists.linux.it
@@ -139,54 +140,100 @@ List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 From: Roman Gushchin via ltp <ltp@lists.linux.it>
 Reply-To: Roman Gushchin <guro@fb.com>
-Cc: Michal Hocko <mhocko@suse.com>, linux-kernel@vger.kernel.org,
- Richard Palethorpe <rpalethorpe@suse.com>, linux-mm@kvack.org,
- Shakeel Butt <shakeelb@google.com>, Vlastimil Babka <vbabka@suse.cz>,
- Johannes Weiner <hannes@cmpxchg.org>, Tejun Heo <tj@kernel.org>,
- Christoph Lameter <cl@linux.com>, Michal Hocko <mhocko@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, ltp@lists.linux.it
+Cc: Michal Hocko <mhocko@suse.com>, LKML <linux-kernel@vger.kernel.org>,
+ Richard Palethorpe <rpalethorpe@suse.com>, Linux MM <linux-mm@kvack.org>,
+ Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+ Vlastimil Babka <vbabka@suse.cz>, Johannes Weiner <hannes@cmpxchg.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@linux.com>,
+ Michal Hocko <mhocko@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, Oct 20, 2020 at 06:27:14PM +0200, Michal Koutny wrote:
-> Hi.
-> 
-> On Mon, Oct 19, 2020 at 03:28:45PM -0700, Roman Gushchin <guro@fb.com> wrote:
+On Tue, Oct 20, 2020 at 09:55:38AM -0700, Shakeel Butt wrote:
+> On Mon, Oct 19, 2020 at 3:28 PM Roman Gushchin <guro@fb.com> wrote:
+> >
+> > On Fri, Oct 16, 2020 at 07:15:02PM +0200, Michal Koutny wrote:
+> > > On Fri, Oct 16, 2020 at 10:53:08AM -0400, Johannes Weiner <hannes@cmpxchg.org> wrote:
+> > > > The central try_charge() function charges recursively all the way up
+> > > > to and including the root.
+> > > Except for use_hiearchy=0 (which is the case here as Richard
+> > > wrote). The reparenting is hence somewhat incompatible with
+> > > new_parent.use_hiearchy=0 :-/
+> > >
+> > > > We should clean this up one way or another: either charge the root or
+> > > > don't, but do it consistently.
+> > > I agree this'd be good to unify. One upside of excluding root memcg from
+> > > charging is that users are spared from the charging overhead when memcg
+> > > tree is not created.  (Actually, I thought that was the reason for this
+> > > exception.)
+> >
+> > Yeah, I'm completely on the same page. Moving a process to the root memory
+> > cgroup is currently a good way to estimate the memory cgroup overhead.
+> >
+> > How about the patch below, which consistently avoids charging the root
+> > memory cgroup? It seems like it doesn't add too many checks.
+> >
+> > Thanks!
+> >
+> > --
+> >
+> > From f50ea74d8f118b9121da3754acdde630ddc060a7 Mon Sep 17 00:00:00 2001
+> > From: Roman Gushchin <guro@fb.com>
+> > Date: Mon, 19 Oct 2020 14:37:35 -0700
+> > Subject: [PATCH RFC] mm: memcontrol: do not charge the root memory cgroup
+> >
 > > Currently the root memory cgroup is never charged directly, but
 > > if an ancestor cgroup is charged, the charge is propagated up to the
-> s/ancestor/descendant/
-
-Oops, will fix, thanks!
-
-> 
-> > The root memory cgroup doesn't show the charge to a user, neither it
-> > does allow to set any limits/protections.
-> An appealing claim, I'd like this to be true...
-> 
+> > root memory cgroup. The root memory cgroup doesn't show the charge
+> > to a user, neither it does allow to set any limits/protections.
+> > So the information about the current charge is completely useless.
+> >
+> > Avoiding to charge the root memory cgroup allows to:
+> > 1) simplify the model and the code, so, hopefully, fewer bugs will
+> >    be introduced in the future;
+> > 2) avoid unnecessary atomic operations, which are used to (un)charge
+> >    corresponding root page counters.
+> >
+> > In the default hierarchy case or if use_hiearchy == true, it's very
+> > straightforward: when the page counters tree is traversed to the root,
+> > the root page counter (the one with parent == NULL), should be
+> > skipped. To avoid multiple identical checks over the page counters
+> > code, for_each_nonroot_ancestor() macro is introduced.
+> >
+> > To handle the use_hierarchy == false case without adding custom
+> > checks, let's make page counters of all non-root memory cgroup
+> > direct ascendants of the corresponding root memory cgroup's page
+> > counters. In this case for_each_nonroot_ancestor() will work correctly
+> > as well.
+> >
 > > Please, note, that cgroup v1 provides root level memory.usage_in_bytes.
 > > However, it's not based on page counters (refer to mem_cgroup_usage()).
-> ...and it almost is. But there are still exposed kmem and tcpmem counters.
+> >
+> > Signed-off-by: Roman Gushchin <guro@fb.com>
+> 
+> This patch is only doing the page counter part of the cleanup (i.e. to
+> not update root's page counters when descendent's page counter is
+> updated) but not the stats part.
+> 
+> For the user memory, we do update the stats for the root memcg and do
+> set page->mem_cgroup = root_mem_cgroup. However this is not done for
+> the kmem/obj. I thought this is what Johannes was asking for the
+> cleanup.
 
-Hm, I wonder what do they show given that we never set sk->sk_memcg
-to the root_mem_cgroup (see mem_cgroup_sk_alloc()) and we never charge
-the root_mem_cgroup for !slab kmem allocations (see __memcg_kmem_charge_page()).
+Yes, it's not the whole story, of course.
 
-So yeah, it's quite a mess now, and it looks like it has been broken
-in multiple places and for a while.
+Actually I missed that we do export root kmem and tcpmem counters
+on cgroup v1 (thanks Michal to pointing at it!). If we want them to function
+properly, we have to go into the opposite direction and start charging
+the root cgroup for all kinds of kernel memory allocations.
 
-If we want these counter to function properly, then we should go into the opposite
-direction and remove the special handling of the root memory cgroup in many places.
+We also have the same problem with root MEMCG_SOCK stats, which seems
+to be broken now.
 
-> > To avoid multiple identical checks over the page counters
-> > code, for_each_nonroot_ancestor() macro is introduced.
-> If the assumptions behind this patch's idea were true, I think the
-> implementation would be simpler by merely (not)connecting the root
-> counters and keep the traversal as is.
-
-We use some fields in root page counters to calculate protections:
-see propagate_protected_usage().
+I'll master a patch.
 
 Thanks!
 
