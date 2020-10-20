@@ -1,42 +1,38 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D141293560
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Oct 2020 09:00:30 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 276902938E3
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Oct 2020 12:08:47 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1A4A23C31E4
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Oct 2020 09:00:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BD0383C28EC
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Oct 2020 12:08:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 6FCDE3C262A
- for <ltp@lists.linux.it>; Tue, 20 Oct 2020 09:00:26 +0200 (CEST)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 3B2893C25E9
+ for <ltp@lists.linux.it>; Tue, 20 Oct 2020 12:08:44 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C1E2410007DA
- for <ltp@lists.linux.it>; Tue, 20 Oct 2020 09:00:25 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6E15A1400DE6
+ for <ltp@lists.linux.it>; Tue, 20 Oct 2020 12:08:43 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A41B0B8F3;
- Tue, 20 Oct 2020 07:00:24 +0000 (UTC)
-Date: Tue, 20 Oct 2020 09:00:17 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Amir Goldstein <amir73il@gmail.com>
-Message-ID: <20201020070017.GA4263@dell5510>
-References: <20201016112441.4838-1-pvorel@suse.cz>
- <CAOQ4uxixzOtXjyVTUNR03ffJHgTQCm5+L46zNNgdxvB0n9ZuhA@mail.gmail.com>
+ by mx2.suse.de (Postfix) with ESMTP id 95963B8F2;
+ Tue, 20 Oct 2020 10:08:42 +0000 (UTC)
+From: Cyril Hrubis <chrubis@suse.cz>
+To: ltp@lists.linux.it
+Date: Tue, 20 Oct 2020 12:09:07 +0200
+Message-Id: <20201020100910.10828-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAOQ4uxixzOtXjyVTUNR03ffJHgTQCm5+L46zNNgdxvB0n9ZuhA@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] fanotify16: Introduce SAFE_FANOTIFY_MARK()
- macro
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/3] Add support for kconfig constraints
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,23 +44,44 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Matthew Bobrowski <mbobrowski@mbobrowski.org>,
- LTP List <ltp@lists.linux.it>
+Cc: automated-testing@yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Amir,
+This patchset adds a support for generic boolean expressions in order to
+be able to check for a more complex kernel configurations.
 
-thanks for your suggestions, I'll send v2 shortly.
-I've been thinking about it for a while and agree it's better to simplify
-safe_fanotify_mark() hints.
-I'll also separate fixes into more commits to be more readable.
+The motivation for this is recent rename in kernel config names that
+cannot be checked for by a simplistic approach we previously
+implemented.
 
-Kind regards,
-Petr
+The boolean expression parser was written as a generic as possible since
+I do expect that we will reuse it for different types of assertions in
+the future.
+
+Cyril Hrubis (3):
+  lib/tst_kconfig: Rewrite the parser internals
+  lib: Add generic boolean expression parser and eval
+  lib/tst_kconfig: Make use of boolean expression eval
+
+ doc/test-writing-guidelines.txt  |  21 +-
+ include/tst_bool_expr.h          |  80 +++++
+ include/tst_kconfig.h            |  34 ++-
+ lib/newlib_tests/.gitignore      |   1 +
+ lib/newlib_tests/test_kconfig.c  |   1 +
+ lib/newlib_tests/tst_bool_expr.c | 127 ++++++++
+ lib/tst_bool_expr.c              | 504 +++++++++++++++++++++++++++++++
+ lib/tst_kconfig.c                | 310 ++++++++++++-------
+ 8 files changed, 939 insertions(+), 139 deletions(-)
+ create mode 100644 include/tst_bool_expr.h
+ create mode 100644 lib/newlib_tests/tst_bool_expr.c
+ create mode 100644 lib/tst_bool_expr.c
+
+-- 
+2.26.2
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
