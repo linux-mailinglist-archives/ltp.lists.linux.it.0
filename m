@@ -2,41 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B37F294CD5
-	for <lists+linux-ltp@lfdr.de>; Wed, 21 Oct 2020 14:39:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AB30294D1D
+	for <lists+linux-ltp@lfdr.de>; Wed, 21 Oct 2020 14:58:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A0CA03C31A7
-	for <lists+linux-ltp@lfdr.de>; Wed, 21 Oct 2020 14:39:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D58503C56B0
+	for <lists+linux-ltp@lfdr.de>; Wed, 21 Oct 2020 14:58:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 5E3903C25E9
- for <ltp@lists.linux.it>; Wed, 21 Oct 2020 14:39:21 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 5D2111400E11
- for <ltp@lists.linux.it>; Wed, 21 Oct 2020 14:39:21 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BE6B2AC1F;
- Wed, 21 Oct 2020 12:39:20 +0000 (UTC)
-References: <20201020100910.10828-1-chrubis@suse.cz>
- <20201020100910.10828-2-chrubis@suse.cz> <878sbzx66b.fsf@suse.de>
- <20201021100605.GA10861@yuki.lan>
-User-agent: mu4e 1.4.13; emacs 27.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Cyril Hrubis <chrubis@suse.cz>
-In-reply-to: <20201021100605.GA10861@yuki.lan>
-Date: Wed, 21 Oct 2020 13:39:19 +0100
-Message-ID: <874kmnwy6g.fsf@suse.de>
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 6E1473C2474
+ for <ltp@lists.linux.it>; Wed, 21 Oct 2020 14:58:11 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 2237E2009C8
+ for <ltp@lists.linux.it>; Wed, 21 Oct 2020 14:58:09 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.77,401,1596470400"; d="scan'208";a="100375798"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 21 Oct 2020 20:58:07 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id EBD3B48990FF;
+ Wed, 21 Oct 2020 20:58:06 +0800 (CST)
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Wed, 21 Oct 2020 20:58:02 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <chrubis@suse.cz>
+Date: Wed, 21 Oct 2020 20:57:51 +0800
+Message-ID: <1603285074-28392-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <20200722154558.GB2714@yuki.lan>
+References: <20200722154558.GB2714@yuki.lan>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: EBD3B48990FF.A054D
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/3] lib/tst_kconfig: Rewrite the parser internals
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 1/4] syscalls/msgstress: Add common file for
+ msgstress
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,332 +57,92 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it, automated-testing@yoctoproject.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
-
-Cyril Hrubis <chrubis@suse.cz> writes:
-
->> >  
->> > -static inline int match(struct match *match, const char *conf,
->> > -                        struct tst_kconfig_res *result, const char *line)
->> > +static inline int kconfig_parse_line(const char *line,
->> > +                                     struct tst_kconfig_var *vars,
->> > +                                     unsigned int vars_len)
->> >  {
->> > -	if (match->match)
->> > -		return 0;
->> > +	unsigned int i;
->> >  
->> > -	const char *cfg = strstr(line, "CONFIG_");
->> > +	for (i = 0; i < vars_len; i++) {
->> > +		if (!strncmp(vars[i].id, line, vars[i].id_len)) {
->> > +			const char *val = &line[vars[i].id_len];
->> > +
->> 
->> It is valid to have 'CONFIG_VAR = y'. We should probably tokenize the
->> lines first to remove whitespace issues and expose the parser to all
->> possible variable name symbols and values instead of just the ones which
->> appear in our current tests.
->
-> I guess that it's techincally possible to have a whitespaces there, but
-> will not happen unless you hand-edit the config file before compilation,
-> which I doubt will ever happen.
->
-
-It can also happen if someone has their own script to modify the
-config. At any rate, if you are confident that it will never happen then
-there should be no problem failing hard if it does.
-
->> > +			switch (val[0]) {
->> > +			case '=':
->> > +				break;
->> > +			case ' ':
->> > +				if (is_set(val, "is not set")) {
->> > +					vars[i].choice = 'n';
->> > +					return 1;
->> > +				}
->> 
->> Typically such lines begin with a comment '#' and I don't see where that
->> is handled. Possibly this will only match non standard configs?
->
-> It does work actually, since we use strstr() to get the "CONFIG_" prefix
-> from each line of the configuration, but I guess this needs to be fixed
-> anyways since we would detect "# CONFIG_FOO=y" as enabled config feature
-> even if it's commented. Again this will not happen unless you hand-edit
-> the file, but it's probably worth fixing in a follow up patch.
-
-We don't actually use the result of strstr anymore?
-
->
->> > +				return 1;
->> > +			/* vars[i].id may be prefix to longer config var */
->> > +			default:
->> > +				return 0;
->> > +			}
->> >  
->> > -	if (!cfg)
->> > -		return 0;
->> > +			if (is_set(val, "=y")) {
->> > +				vars[i].choice = 'y';
->> > +				return 1;
->> > +			}
->> >  
->> > -	if (strncmp(cfg, conf, match->len))
->> > -		return 0;
->> > +			if (is_set(val, "=m")) {
->> > +				vars[i].choice = 'm';
->> > +				return 1;
->> > +			}
->> >  
->> > -	const char *val = &cfg[match->len];
->> > +			vars[i].choice = 'v';
->> > +			vars[i].val = strndup(val+1, strlen(val)-2);
->> >  
->> > -	switch (cfg[match->len]) {
->> > -	case '=':
->> > -		break;
->> > -	case ' ':
->> > -		if (is_set(val, "is not set")) {
->> > -			result->match = 'n';
->> > -			goto match;
->> > +			return 1;
->> >  		}
->> > -	/* fall through */
->> > -	default:
->> > -		return 0;
->> > -	}
->> > -
->> > -	if (is_set(val, "=y")) {
->> > -		result->match = 'y';
->> > -		goto match;
->> >  	}
->> >  
->> > -	if (is_set(val, "=m")) {
->> > -		result->match = 'm';
->> > -		goto match;
->> > -	}
->> > -
->> > -	result->match = 'v';
->> > -	result->value = strndup(val+1, strlen(val)-2);
->> > -
->> > -match:
->> > -	match->match = 1;
->> > -	return 1;
->> > +	return 0;
->> >  }
->> >  
->> > -void tst_kconfig_read(const char *const *kconfigs,
->> > -                      struct tst_kconfig_res results[], size_t cnt)
->> > +void tst_kconfig_read(struct tst_kconfig_var vars[], size_t vars_len)
->> >  {
->> > -	struct match matches[cnt];
->> > -	FILE *fp;
->> > -	unsigned int i, j;
->> > -	char buf[1024];
->> > -
->> > -	for (i = 0; i < cnt; i++) {
->> > -		const char *val = strchr(kconfigs[i], '=');
->> > -
->> > -		if (strncmp("CONFIG_", kconfigs[i], 7))
->> > -			tst_brk(TBROK, "Invalid config string '%s'", kconfigs[i]);
->> > +	char line[128];
->> > +	unsigned int vars_found = 0;
->> >  
->> > -		matches[i].match = 0;
->> > -		matches[i].len = strlen(kconfigs[i]);
->> > -
->> > -		if (val) {
->> > -			matches[i].val = val + 1;
->> > -			matches[i].len -= strlen(val);
->> > -		}
->> > -
->> > -		results[i].match = 0;
->> > -		results[i].value = NULL;
->> > -	}
->> > -
->> > -	fp = open_kconfig();
->> > +	FILE *fp = open_kconfig();
->> >  	if (!fp)
->> >  		tst_brk(TBROK, "Cannot parse kernel .config");
->> >  
->> > -	while (fgets(buf, sizeof(buf), fp)) {
->> > -		for (i = 0; i < cnt; i++) {
->> > -			if (match(&matches[i], kconfigs[i], &results[i], buf)) {
->> > -				for (j = 0; j < cnt; j++) {
->> > -					if (matches[j].match)
->> > -						break;
->> > -				}
->> > +	while (fgets(line, sizeof(line), fp)) {
->> > +		char *cfg = strstr(line, "CONFIG_");
->> >  
->> > -				if (j == cnt)
->> > -					goto exit;
->> > -			}
->> > -		}
->> > +		if (!cfg)
->> > +			continue;
->> 
->> This filtering seems unecessary and maybe will hide some corner cases
->> because it reduces kconfig_parses_line's exposure. Also practically
->> every line has 'CONFIG_' in it.
->
-> Not really, there are empty lines and plenty of comments in the file
-> generated by kernel infrastructure.
-
-It seems about 80-90% of lines contain CONFIG_, however if you pass it
-to kconfig_parse_line then this makes more sense. Still I think with
-proper parsing this shouldn't be there.
-
->
->> > +
->> > +		if (kconfig_parse_line(line, vars, vars_len))
->> > +			vars_found++;
->> >  
->> > +		if (vars_found == vars_len)
->> > +			goto exit;
->> >  	}
->> 
->> Generally, this approach seems like to result in spurious TCONFs. We
->> need to properly parse the file and fail if some line can't be
->> interpreted.
->
-> Well we do expect well formatted .config file from a start, if you hand
-> edit it and put whitespaces into unexpected places more things may
-> fail.
-
-Kernel build system seems to have no problem with it. More generally
-though we should fail hard if there is something unexpected, not produce
-TCONF which people don't check.
-
->
->> >  exit:
->> > @@ -219,42 +184,63 @@ static size_t array_len(const char *const kconfigs[])
->> >  	return i;
->> >  }
->> >  
->> > -static int compare_res(struct tst_kconfig_res *res, const char *kconfig,
->> > -                       char match, const char *val)
->> > +static int compare_res(struct tst_kconfig_var *var, const char *kconfig,
->> > +                       char choice, const char *val)
->> >  {
->> > -	if (res->match != match) {
->> > -		tst_res(TINFO, "Needs kernel %s, have %c", kconfig, res->match);
->> > +	if (var->choice != choice) {
->> > +		tst_res(TINFO, "Needs kernel %s, have %c", kconfig, var->choice);
->> >  		return 1;
->> >  	}
->> >  
->> > -	if (match != 'v')
->> > +	if (choice != 'v')
->> >  		return 0;
->> >  
->> > -	if (strcmp(res->value, val)) {
->> > -		tst_res(TINFO, "Needs kernel %s, have %s", kconfig, res->value);
->> > +	if (strcmp(var->val, val)) {
->> > +		tst_res(TINFO, "Needs kernel %s, have %s", kconfig, var->val);
->> >  		return 1;
->> >  	}
->> >  
->> >  	return 0;
->> >  }
->> >  
->> > +static inline unsigned int get_len(const char* kconfig)
->> > +{
->> > +	char *sep = index(kconfig, '=');
->> > +
->> > +	if (!sep)
->> > +		return strlen(kconfig);
->> > +
->> > +	return sep - kconfig;
->> > +}
->> > +
->> >  void tst_kconfig_check(const char *const kconfigs[])
->> >  {
->> > -	size_t cnt = array_len(kconfigs);
->> > -	struct tst_kconfig_res results[cnt];
->> > +	size_t vars_cnt = array_len(kconfigs);
->> > +	struct tst_kconfig_var vars[vars_cnt];
->> >  	unsigned int i;
->> >  	int abort_test = 0;
->> >  
->> > -	tst_kconfig_read(kconfigs, results, cnt);
->> > +	memset(vars, 0, sizeof(*vars) * vars_cnt);
->> > +
->> > +	for (i = 0; i < vars_cnt; i++) {
->> > +		vars[i].id_len = get_len(kconfigs[i]);
->> > +
->> > +		if (vars[i].id_len >= sizeof(vars[i].id))
->> > +			tst_brk(TBROK, "kconfig var id too long!");
->> > +
->> > +		strncpy(vars[i].id, kconfigs[i], vars[i].id_len);
->> > +	}
->> > +
->> > +	tst_kconfig_read(vars, vars_cnt);
->> >  
->> > -	for (i = 0; i < cnt; i++) {
->> > -		if (results[i].match == 0) {
->> > +	for (i = 0; i < vars_cnt; i++) {
->> > +		if (vars[i].choice == 0) {
->> >  			tst_res(TINFO, "Missing kernel %s", kconfigs[i]);
->> >  			abort_test = 1;
->> >  			continue;
->> >  		}
->> >  
->> > -		if (results[i].match == 'n') {
->> > +		if (vars[i].choice == 'n') {
->> >  			tst_res(TINFO, "Kernel %s is not set", kconfigs[i]);
->> >  			abort_test = 1;
->> >  			continue;
->> > @@ -263,21 +249,21 @@ void tst_kconfig_check(const char *const kconfigs[])
->> >  		const char *val = strchr(kconfigs[i], '=');
->> >  
->> >  		if (val) {
->> > -			char match = 'v';
->> > +			char choice = 'v';
->> >  			val++;
->> >  
->> >  			if (!strcmp(val, "y"))
->> > -				match = 'y';
->> > +				choice = 'y';
->> >  
->> >  			if (!strcmp(val, "m"))
->> > -				match = 'm';
->> > +				choice = 'm';
->> >  
->> > -			if (compare_res(&results[i], kconfigs[i], match, val))
->> > +			if (compare_res(&vars[i], kconfigs[i], choice, val))
->> >  				abort_test = 1;
->> >  
->> >  		}
->> >  
->> > -		free(results[i].value);
->> > +		free(vars[i].val);
->> >  	}
->> >  
->> >  	if (abort_test)
->> > -- 
->> > 2.26.2
->> 
->> I suppose most of the problems here stem from the original code, but
->> your patch may as well clear it up :-)
->
-> Actually the clear way how to fix this is in a separate patch so that
-> logical changes are split into different patches.
-
-I suppose that elements of the boolean parser can be used to parse the
-kconfig and it can be combined (in a later patch). It's kind of
-unecessary to parse a config file into RPN, but will work perfectly well
-so we can share some code here.
-
--- 
-Thank you,
-Richard.
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+Q29weSBvbGQgbGlibXNnY3RsLmMgdGhyZWUgZnVuY3Rpb25zKGRvcmVhZGVyLGRvd3JpdGVyLCBm
+aWxsX2J1ZmZlciwgdmVyaWZ5KQppbnRvIHRoaXMgY29tbW9uIGZpbGUuIFRoZSByZWFzb24gZm9y
+IG5vdCBwdXR0aW5nIGl0IGludG8gbGliIGRpcmVjdG9yeSBiZWNhdXNlCm9ubHkgbXNnc3RyZXNz
+IGNhc2VzIHVzZSB0aGVzZSBmdW5jdGlvbnMuIFNvIHJhaXNpbmcgdGhlbSBpbnRvIGxpYiBsZXZl
+bCBtYWtlcwpubyBzZW5zZS4KClNpZ25lZC1vZmYtYnk6IFlhbmcgWHUgPHh1eWFuZzIwMTguanlA
+Y24uZnVqaXRzdS5jb20+Ci0tLQogLi4uL2tlcm5lbC9zeXNjYWxscy9pcGMvbXNnc3RyZXNzL01h
+a2VmaWxlICAgIHwgIDIgKy0KIC4uLi9zeXNjYWxscy9pcGMvbXNnc3RyZXNzL21zZ3N0cmVzc19j
+b21tb24uYyB8IDk1ICsrKysrKysrKysrKysrKysrKysKIC4uLi9zeXNjYWxscy9pcGMvbXNnc3Ry
+ZXNzL21zZ3N0cmVzc19jb21tb24uaCB8IDI2ICsrKysrCiAzIGZpbGVzIGNoYW5nZWQsIDEyMiBp
+bnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCiBjcmVhdGUgbW9kZSAxMDA2NDQgdGVzdGNhc2Vz
+L2tlcm5lbC9zeXNjYWxscy9pcGMvbXNnc3RyZXNzL21zZ3N0cmVzc19jb21tb24uYwogY3JlYXRl
+IG1vZGUgMTAwNjQ0IHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvaXBjL21zZ3N0cmVzcy9tc2dz
+dHJlc3NfY29tbW9uLmgKCmRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2lw
+Yy9tc2dzdHJlc3MvTWFrZWZpbGUgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2lwYy9tc2dz
+dHJlc3MvTWFrZWZpbGUKaW5kZXggYjgyMWJkYTAxLi4yYzhmYThlNWIgMTAwNjQ0Ci0tLSBhL3Rl
+c3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvaXBjL21zZ3N0cmVzcy9NYWtlZmlsZQorKysgYi90ZXN0
+Y2FzZXMva2VybmVsL3N5c2NhbGxzL2lwYy9tc2dzdHJlc3MvTWFrZWZpbGUKQEAgLTYsNyArNiw3
+IEBAIHRvcF9zcmNkaXIgICAgICAgICAgICAgID89IC4uLy4uLy4uLy4uLy4uCiBMVFBMSUJTID0g
+bHRwaXBjCiAKIGluY2x1ZGUgJCh0b3Bfc3JjZGlyKS9pbmNsdWRlL21rL3Rlc3RjYXNlcy5tawot
+CitGSUxURVJfT1VUX01BS0VfVEFSR0VUUyAgICAgICAgIDo9IG1zZ3N0cmVzc19jb21tb24KIExU
+UExETElCUyAgKz0gLWxsdHBpcGMKIAogaW5jbHVkZSAkKHRvcF9zcmNkaXIpL2luY2x1ZGUvbWsv
+Z2VuZXJpY19sZWFmX3RhcmdldC5tawpkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNj
+YWxscy9pcGMvbXNnc3RyZXNzL21zZ3N0cmVzc19jb21tb24uYyBiL3Rlc3RjYXNlcy9rZXJuZWwv
+c3lzY2FsbHMvaXBjL21zZ3N0cmVzcy9tc2dzdHJlc3NfY29tbW9uLmMKbmV3IGZpbGUgbW9kZSAx
+MDA2NDQKaW5kZXggMDAwMDAwMDAwLi4zNDMxMzU1ZjYKLS0tIC9kZXYvbnVsbAorKysgYi90ZXN0
+Y2FzZXMva2VybmVsL3N5c2NhbGxzL2lwYy9tc2dzdHJlc3MvbXNnc3RyZXNzX2NvbW1vbi5jCkBA
+IC0wLDAgKzEsOTUgQEAKKy8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wLW9yLWxh
+dGVyCisvKgorICogQ29weXJpZ2h0IChjKSBJbnRlcm5hdGlvbmFsIEJ1c2luZXNzIE1hY2hpbmVz
+ICBDb3JwLiwgMjAwMgorICogQ29weXJpZ2h0IChjKSAyMDEzIE9yYWNsZSBhbmQvb3IgaXRzIGFm
+ZmlsaWF0ZXMuIEFsbCBSaWdodHMgUmVzZXJ2ZWQuCisgKiBDb3B5cmlnaHQgKGMpIDIwMjAgRlVK
+SVRTVSBMSU1JVEVELiBBbGwgcmlnaHRzIHJlc2VydmVk44CCCisgKi8KKworI2RlZmluZSBUU1Rf
+Tk9fREVGQVVMVF9NQUlOCisjaW5jbHVkZSAibXNnc3RyZXNzX2NvbW1vbi5oIgorCitpbnQgdmVy
+aWZ5KGNoYXIgKmJ1ZiwgY2hhciB2YWwsIGludCBzaXplLCBpbnQgY2hpbGQpCit7CisJd2hpbGUg
+KHNpemUtLSA+IDApIHsKKwkJaWYgKCpidWYrKyAhPSB2YWwpIHsKKwkJCXRzdF9yZXMoVEZBSUws
+ICJWZXJpZnkgZXJyb3IgaW4gY2hpbGQgJWQsICpidWYgPSAleCwgIgorCQkJCSJ2YWwgPSAleCwg
+c2l6ZSA9ICVkXG4iLCBjaGlsZCwgKmJ1ZiwgdmFsLAorCQkJCXNpemUpOworCQkJcmV0dXJuIDE7
+CisJCX0KKwl9CisJcmV0dXJuIDA7Cit9CisKK3ZvaWQgZG9fcmVhZGVyKGxvbmcga2V5LCBpbnQg
+dGlkLCBsb25nIHR5cGUsIGludCBjaGlsZCwgaW50IG5yZXBzKQoreworCWludCBpLCBzaXplOwor
+CWludCBpZDsKKwlzdHJ1Y3QgbWJ1ZmZlciBidWZmZXI7CisKKwlpZCA9IFNBRkVfTVNHR0VUKGtl
+eSwgMCk7CisJaWYgKGlkICE9IHRpZCkgeworCQl0c3RfcmVzKFRGQUlMLAorCQkJIk1lc3NhZ2Ug
+cXVldWUgbWlzbWF0Y2ggaW4gdGhlIHJlYWRlciBvZiBjaGlsZCBncm91cCIKKwkJCSIgJWQgZm9y
+IG1lc3NhZ2UgcXVldWUgaWQgJWRcbiIsIGNoaWxkLCBpZCk7CisJCXJldHVybjsKKwl9CisJZm9y
+IChpID0gMDsgaSA8IG5yZXBzOyBpKyspIHsKKwkJbWVtc2V0KCZidWZmZXIsIDAsIHNpemVvZihi
+dWZmZXIpKTsKKworCQlzaXplID0gU0FGRV9NU0dSQ1YoaWQsICZidWZmZXIsIDEwMCwgdHlwZSwg
+MCk7CisJCWlmIChidWZmZXIudHlwZSAhPSB0eXBlKSB7CisJCQl0c3RfcmVzKFRGQUlMLCAiVHlw
+ZSBtaXNtYXRjaCBpbiBjaGlsZCAlZCwgcmVhZCAjJWQsICIKKwkJCQkiZm9yIG1lc3NhZ2UgZ290
+ICVsZCwgZXhlY3RlZCAlbGQiLAorCQkJCWNoaWxkLCAoaSArIDEpLCBidWZmZXIudHlwZSwgdHlw
+ZSk7CisJCQlyZXR1cm47CisJCX0KKwkJaWYgKGJ1ZmZlci5kYXRhLmxlbiArIDEgIT0gc2l6ZSkg
+eworCQkJdHN0X3JlcyhURkFJTCwgIlNpemUgbWlzbWF0Y2ggaW4gY2hpbGQgJWQsIHJlYWQgIyVk
+LCAiCisJCQkJImZvciBtZXNzYWdlIGdvdCAlZCwgZXhwZWN0ZWQgJWQiLAorCQkJCWNoaWxkLCAo
+aSArIDEpLCBidWZmZXIuZGF0YS5sZW4gKyAxLCBzaXplKTsKKwkJCXJldHVybjsKKwkJfQorCQlp
+ZiAodmVyaWZ5KGJ1ZmZlci5kYXRhLnBieXRlcywgKGtleSAlIDI1NSksIHNpemUgLSAxLCBjaGls
+ZCkpIHsKKwkJCXRzdF9yZXMoVEZBSUwsICJWZXJpZnkgZmFpbGVkIGluIGNoaWxkICVkIHJlYWQg
+IyA9ICVkLCAiCisJCQkJImtleSA9ICVseFxuIiwgY2hpbGQsIChpICsgMSksIGtleSk7CisJCQly
+ZXR1cm47CisJCX0KKwkJa2V5Kys7CisJfQorfQorCit2b2lkIGZpbGxfYnVmZmVyKGNoYXIgKmJ1
+ZiwgY2hhciB2YWwsIGludCBzaXplKQoreworCWludCBpOworCisJZm9yIChpID0gMDsgaSA8IHNp
+emU7IGkrKykKKwkJYnVmW2ldID0gdmFsOworfQorCit2b2lkIGRvX3dyaXRlcihsb25nIGtleSwg
+aW50IHRpZCwgbG9uZyB0eXBlLCBpbnQgY2hpbGQsIGludCBucmVwcykKK3sKKwlpbnQgaSwgc2l6
+ZTsKKwlpbnQgaWQ7CisJc3RydWN0IG1idWZmZXIgYnVmZmVyOworCisJaWQgPSBTQUZFX01TR0dF
+VChrZXksIDApOworCWlmIChpZCAhPSB0aWQpIHsKKwkJdHN0X3JlcyhURkFJTCwgIk1lc3NhZ2Ug
+cXVldWUgbWlzbWF0Y2ggaW4gdGhlIHJlYWRlciBvZiBjaGlsZCIKKwkJCSIgZ3JvdXAgJWQgZm9y
+IG1lc3NhZ2UgcXVldWUgaWQgJWRcbiIsIGNoaWxkLCBpZCk7CisJCXJldHVybjsKKwl9CisKKwlm
+b3IgKGkgPSAwOyBpIDwgbnJlcHM7IGkrKykgeworCQltZW1zZXQoJmJ1ZmZlciwgMCwgc2l6ZW9m
+KGJ1ZmZlcikpOworCisJCWRvIHsKKwkJCXNpemUgPSAobHJhbmQ0OCgpICUgOTkpOworCQl9IHdo
+aWxlIChzaXplID09IDApOworCQlmaWxsX2J1ZmZlcihidWZmZXIuZGF0YS5wYnl0ZXMsIChrZXkg
+JSAyNTUpLCBzaXplKTsKKwkJYnVmZmVyLmRhdGEubGVuID0gc2l6ZTsKKwkJYnVmZmVyLnR5cGUg
+PSB0eXBlOworCQlTQUZFX01TR1NORChpZCwgJmJ1ZmZlciwgc2l6ZSArIDEsIDApOworCQlrZXkr
+KzsKKwl9Cit9CmRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2lwYy9tc2dz
+dHJlc3MvbXNnc3RyZXNzX2NvbW1vbi5oIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9pcGMv
+bXNnc3RyZXNzL21zZ3N0cmVzc19jb21tb24uaApuZXcgZmlsZSBtb2RlIDEwMDY0NAppbmRleCAw
+MDAwMDAwMDAuLjgxZTJmMjg4YgotLS0gL2Rldi9udWxsCisrKyBiL3Rlc3RjYXNlcy9rZXJuZWwv
+c3lzY2FsbHMvaXBjL21zZ3N0cmVzcy9tc2dzdHJlc3NfY29tbW9uLmgKQEAgLTAsMCArMSwyNiBA
+QAorLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIKKy8qCisgKiBD
+b3B5cmlnaHQgKGMpIDIwMjAgRlVKSVRTVSBMSU1JVEVELiBBbGwgcmlnaHRzIHJlc2VydmVkLgor
+ICogQXV0aG9yOiBZYW5nIFh1IDx4dXlhbmcyMDE4Lmp5QGNuLmZ1aml0c3UuY29tPgorICovCisK
+KyNpZm5kZWYgTVNHU1RSRVNTX0NPTU1PTl9ICisjZGVmaW5lIE1TR1NUUkVTU19DT01NT05fSAor
+CisjaW5jbHVkZSA8c3RkbGliLmg+CisjaW5jbHVkZSAidHN0X3NhZmVfc3lzdl9pcGMuaCIKKyNp
+bmNsdWRlICJ0c3RfdGVzdC5oIgorCitzdHJ1Y3QgbWJ1ZmZlciB7CisJbG9uZyB0eXBlOworCXN0
+cnVjdCB7CisJCWNoYXIgbGVuOworCQljaGFyIHBieXRlc1s5OV07CisJfSBkYXRhOworfTsKKwor
+dm9pZCBkb19yZWFkZXIobG9uZyBrZXksIGludCB0aWQsIGxvbmcgdHlwZSwgaW50IGNoaWxkLCBp
+bnQgbnJlcHMpOwordm9pZCBkb193cml0ZXIobG9uZyBrZXksIGludCB0aWQsIGxvbmcgdHlwZSwg
+aW50IGNoaWxkLCBpbnQgbnJlcHMpOworCisjZW5kaWYKKwotLSAKMi4yMy4wCgoKCgotLSAKTWFp
+bGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
