@@ -2,74 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D332294B58
-	for <lists+linux-ltp@lfdr.de>; Wed, 21 Oct 2020 12:38:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0C46294C2D
+	for <lists+linux-ltp@lfdr.de>; Wed, 21 Oct 2020 14:04:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B36623C3295
-	for <lists+linux-ltp@lfdr.de>; Wed, 21 Oct 2020 12:38:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6920E3C56B1
+	for <lists+linux-ltp@lfdr.de>; Wed, 21 Oct 2020 14:04:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 9CF983C2474
- for <ltp@lists.linux.it>; Wed, 21 Oct 2020 12:38:21 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id B68B8200AFB
- for <ltp@lists.linux.it>; Wed, 21 Oct 2020 12:38:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1603276699;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gVVNeErMB9IIU3UUVkJy7rSd6Y7mxk+z+rK8yypYD40=;
- b=fi1mG6CR1pSb2BE82Sa9G8IB7ar1Pl8+xwc9e10LPQlWYAUpSZQE9/fHioM/lfl/oicRVv
- wGmstWjcgJqqCTZIIU3U3GsoIfp+ptXtp57/MepG++jH17bZivLNEsbUGgklrc3u7KRLDY
- o5FfJcGlQuta3X4xps6VJvwW2hOgPgg=
-Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
- [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-288-Aqt6KroHOKiRT6jVXf_EzA-1; Wed, 21 Oct 2020 06:38:17 -0400
-X-MC-Unique: Aqt6KroHOKiRT6jVXf_EzA-1
-Received: by mail-yb1-f199.google.com with SMTP id h6so1993323ybk.4
- for <ltp@lists.linux.it>; Wed, 21 Oct 2020 03:38:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=gVVNeErMB9IIU3UUVkJy7rSd6Y7mxk+z+rK8yypYD40=;
- b=rjOtG24YbjFAJpoEwRJKSazZPgZYepSrqbpQLpB3upsCOGDKopPvXJRSGZOJeChJWU
- 1ZZTsJhjZNF34TYOrqZwm9Pdt4RQVNZd3wwMRSh/SC82lJcf0Me11/LIGgVzqp+5twS6
- e/+r+6BHOmxlvrMd7qNXnOrQOJiI2yokkqrVve86HufitEddYWpaosKc2tUo3kfdwyXo
- E3yYJrw4Lw4nxgfnb2XyPnpFBxDYbIYXMf+jmewvkh4TSy2NqRuXjbefd1SLlvvIgz17
- oBQj/7t8BNXLQSVV4vpwtQBIRb3HpniXZLfvtIOIAVQ66JmDSc5mHdI1twe5WOWCdgfi
- 2E0A==
-X-Gm-Message-State: AOAM532I0JRyvwR45zN4UbrTEdRpVAuSlbwgNVI68WQMAG7UUqjylC62
- LSzjw3TxrSwK4BdD8/JKLWSWg18XsKHNJNiOfmnrvyB1rvUkhj5QZe2DjXmKNPDob/TPtrrjmeP
- fRtsm+ShxUoeHA/omtYC1n6YwfWI=
-X-Received: by 2002:a25:ba4c:: with SMTP id z12mr4031521ybj.366.1603276697067; 
- Wed, 21 Oct 2020 03:38:17 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyV145gktput82SXXK98j1gEfO1Afv73HFIb0+Pjj30wPPvx345hvZrt2abo5vf2pdqEu6kHcPZubdxIdjc2yA=
-X-Received: by 2002:a25:ba4c:: with SMTP id z12mr4031493ybj.366.1603276696743; 
- Wed, 21 Oct 2020 03:38:16 -0700 (PDT)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 512A93C25E9
+ for <ltp@lists.linux.it>; Wed, 21 Oct 2020 14:04:06 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D1571600935
+ for <ltp@lists.linux.it>; Wed, 21 Oct 2020 14:04:05 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id EC76BAE53;
+ Wed, 21 Oct 2020 12:04:04 +0000 (UTC)
+Date: Wed, 21 Oct 2020 14:04:34 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Message-ID: <20201021120434.GB10861@yuki.lan>
+References: <fb31dd18ad396ab602ba8957ee01a666f79ad9bb.1599558175.git.viresh.kumar@linaro.org>
+ <63646c1ba9e1a3061b44be4f1f9a29d9d6d03f2e.1603254560.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-References: <20201005133054.23587-1-chrubis@suse.cz>
- <20201005133054.23587-10-chrubis@suse.cz>
-In-Reply-To: <20201005133054.23587-10-chrubis@suse.cz>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 21 Oct 2020 18:38:05 +0800
-Message-ID: <CAEemH2eAy-037WvoBVqGfUVOvHNuFv=mRdexgS77xhpxGKXJeg@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <63646c1ba9e1a3061b44be4f1f9a29d9d6d03f2e.1603254560.git.viresh.kumar@linaro.org>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 09/11] travis: Install docparse dependencies
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V4 2/3] syscalls: select: Verify that data is
+ available to read
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,40 +47,32 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Cyril Hrubis <chrubis@suse.cz> wrote:
-...
-> --- a/travis/fedora.sh
-> +++ b/travis/fedora.sh
-> @@ -2,7 +2,10 @@
->  # Copyright (c) 2018-2020 Petr Vorel <pvorel@suse.cz>
->  set -ex
->
-> -yum -y install \
-> +yum="yum -y install"
-> +
-> +$yum \
-> +       asciidoc \
->         autoconf \
->         automake \
->         make \
-> @@ -12,8 +15,10 @@ yum -y install \
->         findutils \
->         libtirpc \
->         libtirpc-devel \
-> +       perl-JSON \
+Hi!
+> +	else if (!TST_RET)
+> +		tst_res(TFAIL, "select() timed out %s", tc->desc);
+> +	else if (TST_RET != exp_ret)
+> +		tst_res(TFAIL, "select() returned incorrect value %s, expected: %d, got: %lu", tc->desc, exp_ret, TST_RET);
+> +	else if (FD_ISSET(*tc->readfd, tc->readfds) && (!tc->writefd || FD_ISSET(*tc->writefd, tc->writefds)))
+>  		tst_res(TPASS, "select() passed %s", tc->desc);
+> +	else
+> +		tst_res(TFAIL, "select() returned expected value %s, but all file descriptors aren't ready", tc->desc);
 
-Package perl-libwww-perl is needed for fedora/centos as well.
+In the end I've rewritten this part to use returns in order to avoid
+this if else maze with overly long lines and pushed, thanks.
+
+I guess that we still need a test where select would clear the bits from
+fd->set though, I supposes that the easiest solution would be to add
+select04.c for that...
 
 -- 
-Regards,
-Li Wang
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
