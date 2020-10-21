@@ -2,67 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40134295173
-	for <lists+linux-ltp@lfdr.de>; Wed, 21 Oct 2020 19:23:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9711295213
+	for <lists+linux-ltp@lfdr.de>; Wed, 21 Oct 2020 20:19:37 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C499D3C56A7
-	for <lists+linux-ltp@lfdr.de>; Wed, 21 Oct 2020 19:23:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1AE753C56BC
+	for <lists+linux-ltp@lfdr.de>; Wed, 21 Oct 2020 20:19:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 0A0303C263E
- for <ltp@lists.linux.it>; Wed, 21 Oct 2020 19:23:09 +0200 (CEST)
-Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
- [IPv6:2607:f8b0:4864:20::d41])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 2C47D3C3199
+ for <ltp@lists.linux.it>; Wed, 21 Oct 2020 20:19:33 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6E1EE1000232
- for <ltp@lists.linux.it>; Wed, 21 Oct 2020 19:23:08 +0200 (CEST)
-Received: by mail-io1-xd41.google.com with SMTP id k21so3975520ioa.9
- for <ltp@lists.linux.it>; Wed, 21 Oct 2020 10:23:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7535FUlfM8DZDchGw8aykWjhU0FVacKPwMt6VunyyW4=;
- b=ub1i2qnqq5gc5yWa++WfJbKGLRDF3XgcjuF4SNEwsZorMl0qqBlkzzk65jDvd1rIp6
- lsc7BJmCFH+/nkMbVQcVwn4bYWFUNTGPYV9LnCocI598fe1uL6/mDLuJIxfahYegMgmV
- O6P5shfiwBpbj5CWne+FmGk5phLqk0nId5IETHoA04NJ3VI8BSq+2EJbyBFyDYvD9KOQ
- SIXqL0Q6SqAfgMBeJW3/ZMjqQX2LwKMlStEFUHBOIC/HAkX92HVDxbei5SvC4AtBDDgM
- BjeK/N4wHt0pTqvRnrqr83fx4BR3FWwhR0strhBEMc39uPq0fD7cDyRbXeouxt7OuCWl
- kfYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=7535FUlfM8DZDchGw8aykWjhU0FVacKPwMt6VunyyW4=;
- b=b95zSz83gleER+jBsZFRgdEEqi50GC4RrxiVXL4bfZYRqgOG7rEa9e8vMv36kYStuA
- EOS/aPjLRedbV7uy9saRi/2J8wegFVpw75ZAU6qb6WyN4hFhcGxjbOFhM4YkLxjAnHfF
- UpTIQ/6PkFSH/2XrNITgKpjhpUSjCqLMWVemP/Tv8M4BtWOHqf84gXYGmAz7Ju8d0ist
- LICW/XqIGiUmmEKi58HY2xhDrRuuRAweNqSUr4YYsl2zvaIUGr8UK33wm1geq0hwvH5S
- jyPfrXtAWHTltlNNYlKxoZydBjjfHb1xmmpzBtrNfFJXZCsOUaaoM1SNO9ukBsy/Pu9n
- /VMA==
-X-Gm-Message-State: AOAM530VQAahvIXxpQdeNiJpQIkaJ+/DCbtSTvjTQPC6QWqUXhZc3GoH
- z0A0Tp0r4KwQwp02Ml4rFMAnjst0vFkVAZqHpweF2w==
-X-Google-Smtp-Source: ABdhPJwAHwzHnXyK/Q61hpqVatVAWev4QhEe6lQZY+aucdSgk3iXPP53Fr7H1mN9nTWnRSkEsIkHirrQTjnUX0bFcLQ=
-X-Received: by 2002:a6b:5c06:: with SMTP id z6mr3661750ioh.49.1603300986883;
- Wed, 21 Oct 2020 10:23:06 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2654820006C
+ for <ltp@lists.linux.it>; Wed, 21 Oct 2020 20:19:32 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 79845AC6D;
+ Wed, 21 Oct 2020 18:19:31 +0000 (UTC)
+Date: Wed, 21 Oct 2020 20:20:01 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.de>
+Message-ID: <20201021182001.GF10861@yuki.lan>
+References: <20201020100910.10828-1-chrubis@suse.cz>
+ <20201020100910.10828-3-chrubis@suse.cz> <871rhrwnb7.fsf@suse.de>
 MIME-Version: 1.0
-References: <CA+G9fYvHze+hKROmiB0uL90S8h9ppO9S9Xe7RWwv808QwOd_Yw@mail.gmail.com>
- <CAHk-=wg5-P79Hr4iaC_disKR2P+7cRVqBA9Dsria9jdVwHo0+A@mail.gmail.com>
-In-Reply-To: <CAHk-=wg5-P79Hr4iaC_disKR2P+7cRVqBA9Dsria9jdVwHo0+A@mail.gmail.com>
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Wed, 21 Oct 2020 22:52:55 +0530
-Message-ID: <CA+G9fYv=DUanNfL2yza=y9kM7Y9bFpVv22Wd4L9NP28i0y7OzA@mail.gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <871rhrwnb7.fsf@suse.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] mmstress[1309]: segfault at 7f3d71a36ee8 ip
- 00007f3d77132bdf sp 00007f3d71a36ee8 error 4 in
- libc-2.27.so[7f3d77058000+1aa000]
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/3] lib: Add generic boolean expression parser
+ and eval
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,43 +47,459 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
- "Matthew Wilcox \(Oracle\)" <willy@infradead.org>, zenglg.jy@cn.fujitsu.com,
- "Peter Zijlstra \(Intel\)" <peterz@infradead.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, X86 ML <x86@kernel.org>,
- open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
- "Eric W. Biederman" <ebiederm@xmission.com>, linux-mm <linux-mm@kvack.org>,
- linux-m68k <linux-m68k@lists.linux-m68k.org>,
- Linux-Next Mailing List <linux-next@vger.kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, kasan-dev <kasan-dev@googlegroups.com>,
- Dmitry Vyukov <dvyukov@google.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
- Christian Brauner <christian.brauner@ubuntu.com>,
- Ingo Molnar <mingo@redhat.com>, LTP List <ltp@lists.linux.it>,
- Al Viro <viro@zeniv.linux.org.uk>
+Cc: ltp@lists.linux.it, automated-testing@yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed, 21 Oct 2020 at 22:35, Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
->
-> On Wed, Oct 21, 2020 at 9:58 AM Naresh Kamboju
-> <naresh.kamboju@linaro.org> wrote:
-> >
-> > LTP mm mtest05 (mmstress), mtest06_3 and mallocstress01 (mallocstress) tested on
-> > x86 KASAN enabled build. But tests are getting PASS on Non KASAN builds.
-> > This regression started happening from next-20201015 nowards
->
-> Is it repeatable enough to be bisectable?
+Hi!
+> > diff --git a/lib/tst_bool_expr.c b/lib/tst_bool_expr.c
+> > new file mode 100644
+> > index 000000000..3cb395664
+> > --- /dev/null
+> > +++ b/lib/tst_bool_expr.c
+> > @@ -0,0 +1,504 @@
+> > +// SPDX-License-Identifier: GPL-2.0-or-later
+> > +/*
+> > + * Copyright (c) 2020 Cyril Hrubis <chrubis@suse.cz>
+> > + */
+> > +/*
+> > + * Boolean expression is evaluated in three steps.
+> > + *
+> > + * First of all the string containing the expression is tokenized.
+> > + *
+> > + * Secondly the the expression is transformed to a postfix (RPN) notation by
+> > + * the shunting yard algorithm and the correctness of the expression is checked
+> > + * during the transformation as well. The fact that parenthesis are matched is
+> > + * asserted by the shunting yard algorithm itself while the rest is checked
+> > + * simply by checking if the preceding token is in a set of allowed tokens.
+> > + * This could be thought of as a simple open-coded state machine.
+> > + *
+> > + * An expression in the RPN form can be evaluated given a variable mapping
+> > + * function. The evaluation ignores most of errors because invalid expression
+> > + * will be rejected in the second step.
+> > + */
+> > +
+> > +#include <string.h>
+> > +#include <stdlib.h>
+> > +#include <stdio.h>
+> > +#include "tst_bool_expr.h"
+> > +
+> > +#define MAX_TOK 1024
+> > +
+> > +struct tok {
+> > +	unsigned int pos;
+> > +	char buf[MAX_TOK];
+> 
+> Instead we could save an index into the input string here and record the
+> length. Then there is no need to copy the string or guess a suitable
+> buffer length and we record the original token location for error
+> reporting (although it seems you reconstruct the expression so it's not
+> so useful).
 
-Yes. This is easily reproducible.
-I will bisect and report here.
+I guess that this may be easier to work with, I will try to implement
+such changes.
 
->
->              Linus
+> > +enum tst_op char_to_op(char c)
+> > +{
+> > +	switch (c) {
+> > +	case '(':
+> > +		return TST_OP_LPAR;
+> > +	case ')':
+> > +		return TST_OP_RPAR;
+> > +	case '&':
+> > +		return TST_OP_AND;
+> > +	case '|':
+> > +		return TST_OP_OR;
+> > +	case '!':
+> > +		return TST_OP_NOT;
+> > +	default:
+> > +		return -1;
+> 
+> This should probably be an enum value like TST_OP_INVAL (still may be
+> -1), otherwise it is likely to confuse static anlyses tools.
 
-- Naresh
+I tried to avoid adding more enum values since that means that we have
+to explicitly handle them in all switch () bodies. So I'm not sure what
+is worse, adding nop case to a few of these or having numeric value like
+that.
+
+> > +	}
+> > +}
+> > +
+> > +static struct tst_expr *new_op(char c)
+> > +{
+> > +	struct tst_expr *ret;
+> > +
+> > +	ret = malloc(sizeof(struct tst_expr));
+> > +	if (!ret)
+> > +		return NULL;
+> > +
+> > +	ret->op = char_to_op(c);
+> > +	ret->next = NULL;
+> > +	ret->err = NULL;
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +struct op_list {
+> > +	struct tst_expr *first;
+> > +	struct tst_expr *last;
+> > +	unsigned int cnt;
+> > +};
+> > +
+> > +static void op_list_append(struct op_list *list, struct tst_expr *val)
+> > +{
+> > +	if (!val)
+> > +		return;
+> > +
+> > +	if (!list->first)
+> > +		list->first = val;
+> > +
+> > +	if (list->last)
+> > +		list->last->next = val;
+> > +
+> > +	list->last = val;
+> > +
+> > +	list->cnt++;
+> > +}
+> > +
+> > +static void tokenize(const char *expr, struct op_list *ret)
+> > +{
+> > +	struct tok buf = {};
+> > +	size_t i;
+> > +
+> > +	for (i = 0; expr[i]; i++) {
+> > +		switch (expr[i]) {
+> > +		case '(':
+> > +		case ')':
+> > +		case '!':
+> > +		case '&':
+> > +		case '|':
+> > +			op_list_append(ret, new_var(tok_get(&buf)));
+> > +			op_list_append(ret, new_op(expr[i]));
+> > +		break;
+> > +		case '\t':
+> > +		case ' ':
+> > +			op_list_append(ret, new_var(tok_get(&buf)));
+> > +		break;
+> > +		default:
+> > +			tok_append(&buf, expr[i]);
+> > +		break;
+> > +		}
+> > +	}
+> > +
+> > +	op_list_append(ret, new_var(tok_get(&buf)));
+> > +}
+> > +
+> > +void tst_bool_expr_print(FILE *f, struct tst_expr *expr)
+> > +{
+> > +	struct tst_expr *i;
+> > +	int prev_op = 0;
+> > +
+> > +	for (i = expr; i; i = i->next) {
+> > +		if (i->op != TST_OP_VAR && prev_op)
+> > +			fprintf(f, " ");
+> > +
+> > +		switch (i->op) {
+> > +		case TST_OP_AND:
+> > +			fprintf(f, "&");
+> > +		break;
+> > +		case TST_OP_OR:
+> > +			fprintf(f, "|");
+> > +		break;
+> > +		case TST_OP_NOT:
+> > +			fprintf(f, "!");
+> > +		break;
+> > +		case TST_OP_LPAR:
+> > +			fprintf(f, "(");
+> > +		break;
+> > +		case TST_OP_RPAR:
+> > +			fprintf(f, ")");
+> > +		break;
+> > +		case TST_OP_VAR:
+> > +			fprintf(f, " %s ", i->val);
+> > +		break;
+> > +		}
+> > +
+> > +		if (i->op == TST_OP_VAR)
+> > +			prev_op = 0;
+> > +		else
+> > +			prev_op = 1;
+> > +	}
+> > +}
+> > +
+> > +static void tst_bool_expr_err(FILE *f, struct tst_expr *expr)
+> > +{
+> > +	struct tst_expr *i;
+> > +	int prev_op = 0;
+> > +	unsigned int spaces = 0;
+> > +
+> > +	fprintf(f, "\n");
+> > +
+> > +	for (i = expr; i; i = i->next) {
+> > +		if (i->err)
+> > +			break;
+> > +
+> > +		if (i->op != TST_OP_VAR && prev_op)
+> > +			spaces++;
+> > +
+> > +		switch (i->op) {
+> > +		case TST_OP_VAR:
+> > +			spaces += 2 + strlen(i->val);
+> > +		break;
+> > +		default:
+> > +			spaces++;
+> > +		}
+> > +
+> > +		if (i->op == TST_OP_VAR)
+> > +			prev_op = 0;
+> > +		else
+> > +			prev_op = 1;
+> > +	}
+> > +
+> > +	while (spaces--)
+> > +		putc(' ', f);
+> > +
+> > +	fprintf(f, "^\n");
+> > +	fprintf(f, "%s\n", i->err);
+> > +}
+> > +
+> > +static inline void stack_push(struct tst_expr *stack[], unsigned int *stack_pos,
+> > +                              struct tst_expr *op)
+> > +{
+> > +	stack[(*stack_pos)++] = op;
+> > +}
+> > +
+> > +static inline int stack_empty(unsigned int stack_pos)
+> > +{
+> > +	return stack_pos == 0;
+> > +}
+> > +
+> > +static inline struct tst_expr *stack_pop(struct tst_expr *stack[],
+> > +                                          unsigned int *stack_pos)
+> > +{
+> > +	if (stack_empty(*stack_pos))
+> > +		return NULL;
+> > +
+> > +	return stack[--(*stack_pos)];
+> > +}
+> > +
+> > +static inline enum tst_op stack_top_op(struct tst_expr *stack[],
+> > +                                       unsigned int stack_pos)
+> 
+> Just a nit, but usually this is called peek, right?
+> 
+> As we are peeking at the top/next entry without removing it.
+
+I guess that stack_peek_op() may be better name, it has to have the
+_op there since we dereference.
+
+> > +{
+> > +	if (stack_empty(stack_pos))
+> > +		return -1;
+> > +
+> > +	return stack[stack_pos - 1]->op;
+> > +}
+> 
+> Perhaps we should copy & paste the dynamic preallocated vector we
+> created for gfxprim? We are doing a bunch of mallocs and reinventing
+> linked lists and stacks, which can all be represented by the vector
+> IIRC.
+
+I do not think that it would work for the tokenizer/RPN since we reorder
+that and free things from the middle vector is not ideal data structure
+for that, link list is better suited for that work. And as for the stack
+we use, these have nice upper bound on size so we do not really need
+dynamic array for that.
+
+> > +
+> > +/*
+> > + * This is a complete list of which tokens can happen before any of:
+> > + *  - variable
+> > + *  - left parentesis
+> > + *  - negation
+> > + *
+> > + * The -1 represents start of the expression.
+> 
+> Then it should have an entry in the enum.
+
+Same here, if we do that we will end up with nop cases in a few switches
+to avoid warnings.
+
+> > + */
+> > +static inline int check_one(int op)
+> 
+> I guess there is no good name for this xD
+
+As far as I can tell no there isn't :-).
+
+> > +{
+> > +	switch (op) {
+> > +	case TST_OP_AND:
+> > +	case TST_OP_OR:
+> > +	case TST_OP_NOT:
+> > +	case -1:
+> > +	case TST_OP_LPAR:
+> > +		return 0;
+> > +	default:
+> > +		return 1;
+> > +	}
+> > +}
+> > +
+> > +/*
+> > + * And this checks for tokens that can happen before any of:
+> > + * - right parentesis
+> > + * - and
+> > + * - or
+> > + *
+> > + * This is also used to check that the last token in expression is correct one.
+> > + */
+> > +static inline int check_two(int op)
+> > +{
+> > +	switch (op) {
+> > +	case TST_OP_VAR:
+> > +	case TST_OP_RPAR:
+> > +		return 1;
+> > +	default:
+> > +		return 0;
+> > +	}
+> > +}
+> > +
+> > +static struct tst_expr *shunting_yard(struct op_list *list)
+> > +{
+> 
+>         /* Translator stack */
+> > +	struct tst_expr *stack[list->cnt];
+> > +	unsigned int stack_pos = 0;
+
+Or we can reame this to op_stack[]; I prefer naming variables
+reasonably.
+
+> > +	struct tst_expr *out[list->cnt + 1];
+> > +	unsigned int out_pos = 0;
+> > +	struct tst_expr *pars[list->cnt];
+> > +	unsigned int pars_pos = 0;
+> 
+> It seems we just push stuff to this stack then free everything at the
+> end?
+
+Yes, since we eliminate parentesis during the RPN transformation but we
+have to free the allocated memory at the end.
+
+> > +	struct tst_expr *i;
+> > +	unsigned int j;
+> > +	int prev_op = -1;
+> 
+> enum tst_op prev_op = TST_OP_START;
+> 
+> > +
+> > +	for (i = list->first; i; i = i->next) {
+> > +		switch (i->op) {
+> > +		case TST_OP_VAR:
+> > +			if (check_one(prev_op) && prev_op != TST_OP_LPAR) {
+> > +				i->err = "Expected operation";
+> > +				goto err;
+> > +			}
+> > +
+> > +			stack_push(out, &out_pos, i);
+> > +
+> > +			/* pop all negations */
+> 
+> Clearly :-)
+> 
+> This is not the hardest thing to understand here!
+
+I guess so, will remove the comment.
+
+Are there any places in the code that are not commented and should be?
+
+> > +			while (stack_top_op(stack, stack_pos) == TST_OP_NOT)
+> > +				stack_push(out, &out_pos, stack_pop(stack, &stack_pos));
+> > +		break;
+> > +		case TST_OP_LPAR:
+> > +			if (check_one(prev_op)) {
+> > +				i->err = "Expected operation";
+> > +				goto err;
+> > +			}
+> > +
+> > +			stack_push(stack, &stack_pos, i);
+> > +		break;
+> > +		case TST_OP_RPAR:
+> > +			if (!check_two(prev_op)) {
+> > +				i->err = "Expected variable or )";
+> > +				goto err;
+> > +			}
+> > +
+> > +			stack_push(pars, &pars_pos, i);
+> > +
+> > +			/* pop everything till ( */
+> > +			for (;;) {
+> > +				struct tst_expr *op = stack_pop(stack, &stack_pos);
+> > +
+> > +				if (!op) {
+> > +					i->err = "Missing (";
+> > +					goto err;
+> > +				}
+> > +
+> > +				if (op->op == TST_OP_LPAR) {
+> > +					stack_push(pars, &pars_pos, op);
+> > +					break;
+> > +				}
+> > +
+> > +				stack_push(out, &out_pos, op);
+> > +			}
+> > +
+> > +			/* pop all negations */
+> > +			while (stack_top_op(stack, stack_pos) == TST_OP_NOT)
+> > +				stack_push(out, &out_pos, stack_pop(stack, &stack_pos));
+> > +		break;
+> > +		case TST_OP_NOT:
+> > +			if (check_one(prev_op)) {
+> > +				i->err = "Expected operation";
+> > +				goto err;
+> > +			}
+> > +			stack_push(stack, &stack_pos, i);
+> > +		break;
+> > +		case TST_OP_AND:
+> > +		case TST_OP_OR:
+> > +			if (!check_two(prev_op)) {
+> > +				i->err = "Expected variable or (";
+> > +				goto err;
+> > +			}
+> > +
+> > +			/* pop all binary ops */
+> > +			for (;;) {
+> 
+> It seems that we can only have at most one previous binary op (i.e. '&'
+> or '|') on the stack before '(' or NULL. Any additional ops after '(' or
+> NULL are removed.
+> 
+> So the loop can be limited to two iterations and we can assert it never
+> reaches a third.
+> 
+> > +				enum tst_op top_op;
+> > +
+> > +				if (stack_empty(stack_pos))
+> > +					break;
+> > +
+> > +				top_op = stack_top_op(stack, stack_pos);
+> > +
+> > +				if (top_op == TST_OP_LPAR ||
+> > +				    top_op == TST_OP_NOT)
+> > +					break;
+> 
+> '!'s are removed directly after a variable is seen or a '(' is
+> removed. So it should be an error to find one on the stack at this
+> point.
+
+I will have a closer look at this two tomorrow, it's quite late in the
+evening for me now.
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
