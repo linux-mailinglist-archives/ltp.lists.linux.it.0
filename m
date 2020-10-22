@@ -2,42 +2,46 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE80C295B11
-	for <lists+linux-ltp@lfdr.de>; Thu, 22 Oct 2020 10:57:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8FAE295C80
+	for <lists+linux-ltp@lfdr.de>; Thu, 22 Oct 2020 12:13:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 713043C318D
-	for <lists+linux-ltp@lfdr.de>; Thu, 22 Oct 2020 10:57:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4D65F3C6228
+	for <lists+linux-ltp@lfdr.de>; Thu, 22 Oct 2020 12:13:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 6364F3C25F7
- for <ltp@lists.linux.it>; Thu, 22 Oct 2020 10:57:27 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0062160068B
- for <ltp@lists.linux.it>; Thu, 22 Oct 2020 10:57:26 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 77DCEAC48;
- Thu, 22 Oct 2020 08:57:26 +0000 (UTC)
-Date: Thu, 22 Oct 2020 10:57:56 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Message-ID: <20201022085756.GB2427@yuki.lan>
-References: <20201020100910.10828-1-chrubis@suse.cz>
- <20201020100910.10828-3-chrubis@suse.cz> <871rhrwnb7.fsf@suse.de>
- <20201021182001.GF10861@yuki.lan> <87pn5avgob.fsf@suse.de>
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 010AE3C5690
+ for <ltp@lists.linux.it>; Thu, 22 Oct 2020 12:13:13 +0200 (CEST)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id DE2F91A00E7F
+ for <ltp@lists.linux.it>; Thu, 22 Oct 2020 12:13:12 +0200 (CEST)
+X-IronPort-AV: E=Sophos;i="5.77,404,1596470400"; d="scan'208";a="100407945"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 22 Oct 2020 18:13:09 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id A65D648990D3
+ for <ltp@lists.linux.it>; Thu, 22 Oct 2020 18:13:05 +0800 (CST)
+Received: from RHEL74GA.g08.fujitsu.local (10.167.220.25) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Thu, 22 Oct 2020 18:12:58 +0800
+From: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Thu, 22 Oct 2020 06:12:28 -0400
+Message-ID: <1603361548-1534-1-git-send-email-zhufy.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <87pn5avgob.fsf@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Originating-IP: [10.167.220.25]
+X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: A65D648990D3.A7C43
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: zhufy.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/3] lib: Add generic boolean expression parser
- and eval
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH] route{4,6}-rmmod: Filter out ":" and fix typos
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,79 +53,65 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it, automated-testing@yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> >> > +enum tst_op char_to_op(char c)
-> >> > +{
-> >> > +	switch (c) {
-> >> > +	case '(':
-> >> > +		return TST_OP_LPAR;
-> >> > +	case ')':
-> >> > +		return TST_OP_RPAR;
-> >> > +	case '&':
-> >> > +		return TST_OP_AND;
-> >> > +	case '|':
-> >> > +		return TST_OP_OR;
-> >> > +	case '!':
-> >> > +		return TST_OP_NOT;
-> >> > +	default:
-> >> > +		return -1;
-> >> 
-> >> This should probably be an enum value like TST_OP_INVAL (still may be
-> >> -1), otherwise it is likely to confuse static anlyses tools.
-> >
-> > I tried to avoid adding more enum values since that means that we have
-> > to explicitly handle them in all switch () bodies. So I'm not sure what
-> > is worse, adding nop case to a few of these or having numeric value like
-> > that.
-> 
-> I think it is usually enough to have a 'default' in the switch statement
-> to prevent warnings about unhandled values?
+Reported-by: Jin Cao <caoj.fnst@cn.fujitsu.com>
+Signed-off-by: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
+---
+ testcases/network/stress/route/route4-rmmod | 4 ++--
+ testcases/network/stress/route/route6-rmmod | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-That is IMHO wrong as well since this solution defeats the purpose of
-the warning in the first place. I do actually like that warning since it
-tells me that I have forgotten something.
-
-> Of course there is still a tradeoff here, because you end up with an
-> enum containing unrelated values.
-
-And loose the warning as well.
-
-> >> > +{
-> >> > +	if (stack_empty(stack_pos))
-> >> > +		return -1;
-> >> > +
-> >> > +	return stack[stack_pos - 1]->op;
-> >> > +}
-> >> 
-> >> Perhaps we should copy & paste the dynamic preallocated vector we
-> >> created for gfxprim? We are doing a bunch of mallocs and reinventing
-> >> linked lists and stacks, which can all be represented by the vector
-> >> IIRC.
-> >
-> > I do not think that it would work for the tokenizer/RPN since we reorder
-> > that and free things from the middle vector is not ideal data structure
-> > for that, link list is better suited for that work. And as for the stack
-> > we use, these have nice upper bound on size so we do not really need
-> > dynamic array for that.
-> 
-> Well it is not really about needing it just for this, I'm more thinking
-> about deduplicating array, stack and list code in general. However I
-> guess this can be dealt with separately.
-
-Actually I think that with the token with indexes I can simplify the
-code even further and get rid of some.
-
-Thanks for the review I will send a v2 later on.
-
+diff --git a/testcases/network/stress/route/route4-rmmod b/testcases/network/stress/route/route4-rmmod
+index 7aa1958..1ba255e 100644
+--- a/testcases/network/stress/route/route4-rmmod
++++ b/testcases/network/stress/route/route4-rmmod
+@@ -164,14 +164,14 @@ do_setup()
+     lhost_module=`ethtool -i $lhost_ifname | grep driver | sed "s/driver:[[:blank:]]*//"`
+ 
+     # Chack the other active interface uses the same driver
+-    for ifname in `ifconfig | grep ^eth | awk '{ print $1}'`; do
++    for ifname in `ifconfig | grep ^eth | awk '{print $1}' | sed "s/://"`; do
+ 	if [ $lhost_ifname = $ifname ]; then
+ 	    continue
+ 	fi
+ 
+ 	module=`ethtool -i $ifname | grep driver | sed "s/driver:[[:blank:]]*//"`
+ 	if [ $lhost_module = $module ]; then
+-	    tst_resm TBROK "An active interface $ifname uses the same network deriver $module with the test intreface."
++	    tst_resm TBROK "An active interface $ifname uses the same network driver $module with the test interface."
+ 	    exit $TST_TOTAL
+ 	fi
+     done
+diff --git a/testcases/network/stress/route/route6-rmmod b/testcases/network/stress/route/route6-rmmod
+index 765a57a..146fa77 100644
+--- a/testcases/network/stress/route/route6-rmmod
++++ b/testcases/network/stress/route/route6-rmmod
+@@ -160,14 +160,14 @@ do_setup()
+     lhost_module=`ethtool -i $lhost_ifname | grep driver | sed "s/driver:[[:blank:]]*//"`
+ 
+     # Chack the other active interface uses the same driver
+-    for ifname in `ifconfig | grep ^eth | awk '{ print $1}'`; do
++    for ifname in `ifconfig | grep ^eth | awk '{print $1}' | sed "s/://"`; do
+ 	if [ $lhost_ifname = $ifname ]; then
+ 	    continue
+ 	fi
+ 
+ 	module=`ethtool -i $ifname | grep driver | sed "s/driver:[[:blank:]]*//"`
+ 	if [ $lhost_module = $module ]; then
+-	    tst_resm TBROK "An active interface $ifname uses the same network deriver $module with the test intreface."
++	    tst_resm TBROK "An active interface $ifname uses the same network driver $module with the test interface."
+ 	    exit $TST_TOTAL
+ 	fi
+     done
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+1.8.3.1
+
+
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
