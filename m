@@ -1,42 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71067296A27
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Oct 2020 09:18:44 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C9160296A2F
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Oct 2020 09:19:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DD0033C5673
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Oct 2020 09:18:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 898923C3181
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Oct 2020 09:19:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 61EDE3C23C7
- for <ltp@lists.linux.it>; Fri, 23 Oct 2020 09:18:40 +0200 (CEST)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id E21F33C23C7
+ for <ltp@lists.linux.it>; Fri, 23 Oct 2020 09:19:41 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id BBFE1200B3E
- for <ltp@lists.linux.it>; Fri, 23 Oct 2020 09:18:39 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 99D5C1A00A26
+ for <ltp@lists.linux.it>; Fri, 23 Oct 2020 09:19:41 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id AC10EABD1;
- Fri, 23 Oct 2020 07:18:38 +0000 (UTC)
-Date: Fri, 23 Oct 2020 09:18:36 +0200
+ by mx2.suse.de (Postfix) with ESMTP id E68DBACC4;
+ Fri, 23 Oct 2020 07:19:40 +0000 (UTC)
+Date: Fri, 23 Oct 2020 09:19:39 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Li Wang <liwang@redhat.com>
-Message-ID: <20201023071836.GA2310@x230>
-References: <5F913024.7050303@cn.fujitsu.com>
- <1603352029-11446-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <CAEemH2enndeLbZ8Kr8EgVEc1OF7znrtB4vJwpacpBxyTY7YdGA@mail.gmail.com>
+Message-ID: <20201023071939.GB2310@x230>
+References: <20201005133054.23587-1-chrubis@suse.cz>
+ <20201005133054.23587-12-chrubis@suse.cz>
+ <CAEemH2cE64fq2Qn1AEuLQN5aBWv7MRykEpc5Bw=_4H5N1ZJYkw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEemH2enndeLbZ8Kr8EgVEc1OF7znrtB4vJwpacpBxyTY7YdGA@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <CAEemH2cE64fq2Qn1AEuLQN5aBWv7MRykEpc5Bw=_4H5N1ZJYkw@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] Remove ftime and sys/timeb.h
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 11/11] docparse: Generate html and pdf using
+ asciidoc{, tor}
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,27 +55,15 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+Hi,
 
-> Yang Xu <xuyang2018.jy@cn.fujitsu.com> wrote:
+> Cyril Hrubis <chrubis@suse.cz> wrote:
 
-> > The two case uses ftime to get the current milliseconds and it was
-> > used to generate random value. Using gettimeofday() to get the microseconds
-> > can reach the same aim.
+> > +
+> > +CLEAN_TARGETS          := *.txt
 
-> > This also fixes the travis build error[1] on Fedora:Rawhide because the <sys/timeb.h>
-> > has been deprecated[2].
-
-> > [1] https://travis-ci.org/github/linux-test-project/ltp/jobs/737698948
-> > [2] https://www.spinics.net/lists/fedora-devel/msg279545.html
-
-> > Reviewed-by: Li Wang <liwang@redhat.com>
-> > Acked-by: Jan Stancek <jstancek@redhat.com>
-> > Acked-by: Xiao Yang <yangx.jy@cn.fujitsu.com>
-> > Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-
-> Pushed, thanks!
-Thanks for handling these!
+> I guess the generated  *.css *.js files should be deleted as well.
++1
 
 Kind regards,
 Petr
