@@ -1,71 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D3CE2974CA
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Oct 2020 18:42:03 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id DA47E29756F
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Oct 2020 19:00:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0C07E3C3180
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Oct 2020 18:42:03 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A25593C3181
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Oct 2020 19:00:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 51F723C23CB
- for <ltp@lists.linux.it>; Fri, 23 Oct 2020 18:42:01 +0200 (CEST)
-Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
- [IPv6:2a00:1450:4864:20::143])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id E313D3C3176
+ for <ltp@lists.linux.it>; Fri, 23 Oct 2020 19:00:25 +0200 (CEST)
+Received: from mail-il1-x141.google.com (mail-il1-x141.google.com
+ [IPv6:2607:f8b0:4864:20::141])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8D5B5601331
- for <ltp@lists.linux.it>; Fri, 23 Oct 2020 18:42:00 +0200 (CEST)
-Received: by mail-lf1-x143.google.com with SMTP id 77so2866715lfl.2
- for <ltp@lists.linux.it>; Fri, 23 Oct 2020 09:42:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 16244200D08
+ for <ltp@lists.linux.it>; Fri, 23 Oct 2020 19:00:24 +0200 (CEST)
+Received: by mail-il1-x141.google.com with SMTP id y17so2036952ilg.4
+ for <ltp@lists.linux.it>; Fri, 23 Oct 2020 10:00:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4+nAaUgoJjn1GQQL32t4mHWQAk8gM2x+fHttImUTwKg=;
- b=gZYzE2Wyu9NfbAuQl968/JXo1ZhCIPYLE6wxIP+CB4bWgLYHDuhie8M+a6Os9bY3Dc
- 3VzE0z0qYdmpNEIF6kN4ikCY+XJiuGnZ2+VSk2EcrlNz8yB6iboOEbDjbz5YGc7pFCUU
- IeMOR2/UGwHXVW7+KYrRWhze4FTSmtywNIGs1yVaKnQqDJaxn5xnqBnV1KQtLv90LFRj
- 1ZaWjS7aUU6F4MZMhnmfussVIdp6KjZ1N6vGSLX91hJbT7yHIUzoOGcWUp+7kYV0FCrU
- J6oKHaXfQUBlxZdQ9pJ4/+Om5zikFNqFqZHCgKa9wMkxy/0uiQJQaSuNKKSMd3UxAFcm
- OkAg==
+ :cc:content-transfer-encoding;
+ bh=o1VEizSN6TM+raklNtIXpsapMZWxETouBV0mamAPQo0=;
+ b=V+Gg9uICyKn5tIe46atfWAON+AixWQBBQ6Pn1mKsJ9LTyk3eEKENj8UdU0jz8oEJ/T
+ iY3pDKKGEDsjM5zsL71qeD2upMbTwf/0oJPU2qhreG0VoH8Btr+eBgBDvB9g58CZSQ96
+ Sgr8eEMx01tJ+JJaSGqxsdIW8XuWtidjH3RUren590Av2KVvyiUDBkwd3pzRSI5r/akg
+ 4Be7/bT6OAM0TaD6IR1KR8VzV6ouQZqBCGjLPr0uzK1WtJoC3shbqQqA3Z4hhhb9EDl9
+ hZ/RmeUyYqgXTzKPMWN2s3dmpVJISsGiyopT/jpiQLJijpHH+ZJruUA+qldH7HfKM+2Z
+ DsWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4+nAaUgoJjn1GQQL32t4mHWQAk8gM2x+fHttImUTwKg=;
- b=C7lfgoX4CC09chWVdMka2sDycH7+zeV9cS66TkTv8q85SIlkT5wuF+XyooR4jI46Sp
- SjoY9YLclwkMnohPLP5o24WPX/7rqWUU8FltucvdN5aJkRGn1iJ0SK7j/PAx9mhgy/iG
- LPfN0JQebAXfw4Bk6OkZLubvrU6FLC6/UP//xCVJtOXtWuGnfSQzxvixwufXCIcN2kve
- 1Kh2BJZIzukqdcPlNed1SeHz+X42y8jPDKsq5PdVKMEMZfQFoWpaDJxMsugEHjQwgduw
- 1Rc/D3wyst0fS4W3UODSQGcP9m994fkUSu4ZSl337ynDfesUAuwfyenffbPPQOiVDxAO
- gW0w==
-X-Gm-Message-State: AOAM531FjO5tmbHoh1A4iMDZQ9hfUHVosnm3aEHTfsCXT0Sa96UC54nP
- shjBWAL/uWf825Oeqkewngcbw0y6rKBw0YVuqNlSO4JDZus=
-X-Google-Smtp-Source: ABdhPJwpQ5H7r233jV7T3JW/pOsMBOSVEoi/WJkVU2RAvFICk4MZO8C+MOb2CV7Xv3qeJUojo70vLZ5+E4EO7ck5Atg=
-X-Received: by 2002:a19:7f43:: with SMTP id a64mr1012830lfd.449.1603471319533; 
- Fri, 23 Oct 2020 09:41:59 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=o1VEizSN6TM+raklNtIXpsapMZWxETouBV0mamAPQo0=;
+ b=A5wCJYiWt5qpw4HiZtarzv/aoTIKsaBxMQShfCXAq1Ba5+Bv2JwPqgdg2h33DUQa7F
+ vM6NX+inMAZblVyEdrMPHyzFHMEx9mf+Si0rK+WjosEk0cdZXT1q+qMZWtMfwE8fb2G6
+ REbQFHWDtUSCUfi/dWVYBC9ThbjqlnsIcRy+DVVxuVwhwMQmJLuK9noAtJjRlDEge3Hu
+ mvVthoPRGVMq/AOP+DNv1HiEPN74b8V3SqQzofVraGj0jLA4bZ7/zlp+H7XUUSkjxaM4
+ +WfmO2tK778zLiv5/sG2YFf/oTHw9ljJ8lYIz8VpG+lCD/ssvynlFLvVqbBoKW2TTyG0
+ CF9w==
+X-Gm-Message-State: AOAM530+/yfgxeH7ZI2yoEk28j9ogmC2Hm4meq34cKRdNutLPULLp3nR
+ mfob24kFJXfDm3pkm/BHSSYnRfp16s3es/UcvO/ejQ==
+X-Google-Smtp-Source: ABdhPJwrgJp/OuJrOp+n+UP8gE/pj8wa+8lsTQ0hX8+Y+rO4ME9yioa2pi9mLHL+KrbDWGnIoZjFUeIWTh+m6MuqhEo=
+X-Received: by 2002:a92:b6d2:: with SMTP id m79mr1190406ill.216.1603472422474; 
+ Fri, 23 Oct 2020 10:00:22 -0700 (PDT)
 MIME-Version: 1.0
-References: <87sga6vizp.fsf@suse.de>
- <20201022122858.8638-1-rpalethorpe@suse.com>
- <CALvZod4u79DSwyM=Kg8g5tR1L5eomHgUkaJmp6s9D3jC7OnN0A@mail.gmail.com>
- <20201022172508.GF300658@carbon.dhcp.thefacebook.com>
- <CALvZod5p-O72gCY-R+oLcDZjEkPRioz7e7p5Jg=nXxhmtiwKWw@mail.gmail.com>
- <20201023004026.GG300658@carbon.dhcp.thefacebook.com>
-In-Reply-To: <20201023004026.GG300658@carbon.dhcp.thefacebook.com>
-Date: Fri, 23 Oct 2020 09:41:48 -0700
-Message-ID: <CALvZod7opFD4RTWmcXP_BHpW=t3uAJQNLx_UKRMw=UtfFA+jSA@mail.gmail.com>
-To: Roman Gushchin <guro@fb.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+References: <CA+G9fYvHze+hKROmiB0uL90S8h9ppO9S9Xe7RWwv808QwOd_Yw@mail.gmail.com>
+ <CAHk-=wg5-P79Hr4iaC_disKR2P+7cRVqBA9Dsria9jdVwHo0+A@mail.gmail.com>
+ <CA+G9fYv=DUanNfL2yza=y9kM7Y9bFpVv22Wd4L9NP28i0y7OzA@mail.gmail.com>
+ <CA+G9fYudry0cXOuSfRTqHKkFKW-sMrA6Z9BdQFmtXsnzqaOgPg@mail.gmail.com>
+ <CAHk-=who8WmkWuuOJeGKa-7QCtZHqp3PsOSJY0hadyywucPMcQ@mail.gmail.com>
+ <CAHk-=wi=sf4WtmZXgGh=nAp4iQKftCKbdQqn56gjifxWNpnkxw@mail.gmail.com>
+ <CAEUSe78A4fhsyF6+jWKVjd4isaUeuFWLiWqnhic87BF6cecN3w@mail.gmail.com>
+ <CAHk-=wgqAp5B46SWzgBt6UkheVGFPs2rrE6H4aqLExXE1TXRfQ@mail.gmail.com>
+In-Reply-To: <CAHk-=wgqAp5B46SWzgBt6UkheVGFPs2rrE6H4aqLExXE1TXRfQ@mail.gmail.com>
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Fri, 23 Oct 2020 22:30:11 +0530
+Message-ID: <CA+G9fYu5aGbMHaR1tewV9dPwXrUR5cbGHJC1BT=GSLsYYwN6Nw@mail.gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,
- SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4] mm: memcg/slab: Stop reparented obj_cgroups
- from charging root
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] mmstress[1309]: segfault at 7f3d71a36ee8 ip
+ 00007f3d77132bdf sp 00007f3d71a36ee8 error 4 in
+ libc-2.27.so[7f3d77058000+1aa000]
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,108 +82,105 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Shakeel Butt via ltp <ltp@lists.linux.it>
-Reply-To: Shakeel Butt <shakeelb@google.com>
-Cc: Christoph Lameter <cl@linux.com>, LKML <linux-kernel@vger.kernel.org>,
- Michal Hocko <mhocko@kernel.org>, Linux MM <linux-mm@kvack.org>,
- Vlastimil Babka <vbabka@suse.cz>, Johannes Weiner <hannes@cmpxchg.org>,
- Tejun Heo <tj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Richard Palethorpe <rpalethorpe@suse.com>, LTP List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
+ "Peter Zijlstra \(Intel\)" <peterz@infradead.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, X86 ML <x86@kernel.org>,
+ LTP List <ltp@lists.linux.it>, open list <linux-kernel@vger.kernel.org>,
+ "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
+ Al Viro <viro@zeniv.linux.org.uk>, linux-mm <linux-mm@kvack.org>,
+ linux-m68k <linux-m68k@lists.linux-m68k.org>,
+ Linux-Next Mailing List <linux-next@vger.kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, lkft-triage@lists.linaro.org,
+ Thomas Gleixner <tglx@linutronix.de>, kasan-dev <kasan-dev@googlegroups.com>,
+ Ingo Molnar <mingo@redhat.com>,
+ Christian Brauner <christian.brauner@ubuntu.com>,
+ Dmitry Vyukov <dvyukov@google.com>,
+ "Eric W. Biederman" <ebiederm@xmission.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Thu, Oct 22, 2020 at 5:40 PM Roman Gushchin <guro@fb.com> wrote:
->
-> On Thu, Oct 22, 2020 at 04:59:56PM -0700, Shakeel Butt wrote:
-> > On Thu, Oct 22, 2020 at 10:25 AM Roman Gushchin <guro@fb.com> wrote:
-> > >
-> > [snip]
-> > > >
-> > > > Since bf4f059954dc ("mm: memcg/slab: obj_cgroup API") is in 5.9, I
-> > > > think we can take this patch for 5.9 and 5.10 but keep Roman's cleanup
-> > > > for 5.11.
-> > > >
-> > > > What does everyone think?
-> > >
-> > > I think we should use the link to the root approach both for stable backports
-> > > and for 5.11+, to keep them in sync. The cleanup (always charging the root cgroup)
-> > > is not directly related to this problem, and we can keep it for 5.11+ only.
-> > >
-> > > Thanks!
-> >
-> > Roman, can you send the signed-off patch for the root linking for
-> > use_hierarchy=0?
->
-> Sure, here we are.
->
-> Thanks!
->
-> --
->
-> From 19d66695f0ef1bf1ef7c51073ab91d67daa91362 Mon Sep 17 00:00:00 2001
-> From: Roman Gushchin <guro@fb.com>
-> Date: Thu, 22 Oct 2020 17:12:32 -0700
-> Subject: [PATCH] mm: memcg: link page counters to root if use_hierarchy is false
->
-> Richard reported a warning which can be reproduced by running the LTP
-> madvise6 test (cgroup v1 in the non-hierarchical mode should be used):
->
-> [    9.841552] ------------[ cut here ]------------
-> [    9.841788] WARNING: CPU: 0 PID: 12 at mm/page_counter.c:57 page_counter_uncharge (mm/page_counter.c:57 mm/page_counter.c:50 mm/page_counter.c:156)
-> [    9.841982] Modules linked in:
-> [    9.842072] CPU: 0 PID: 12 Comm: kworker/0:1 Not tainted 5.9.0-rc7-22-default #77
-> [    9.842266] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.13.0-48-gd9c812d-rebuilt.opensuse.org 04/01/2014
-> [    9.842571] Workqueue: events drain_local_stock
-> [    9.842750] RIP: 0010:page_counter_uncharge (mm/page_counter.c:57 mm/page_counter.c:50 mm/page_counter.c:156)
-> [ 9.842894] Code: 0f c1 45 00 4c 29 e0 48 89 ef 48 89 c3 48 89 c6 e8 2a fe ff ff 48 85 db 78 10 48 8b 6d 28 48 85 ed 75 d8 5b 5d 41 5c 41 5d c3 <0f> 0b eb ec 90 e8 4b f9 88 2a 48 8b 17 48 39 d6 72 41 41 54 49 89
-> [    9.843438] RSP: 0018:ffffb1c18006be28 EFLAGS: 00010086
-> [    9.843585] RAX: ffffffffffffffff RBX: ffffffffffffffff RCX: ffff94803bc2cae0
-> [    9.843806] RDX: 0000000000000001 RSI: ffffffffffffffff RDI: ffff948007d2b248
-> [    9.844026] RBP: ffff948007d2b248 R08: ffff948007c58eb0 R09: ffff948007da05ac
-> [    9.844248] R10: 0000000000000018 R11: 0000000000000018 R12: 0000000000000001
-> [    9.844477] R13: ffffffffffffffff R14: 0000000000000000 R15: ffff94803bc2cac0
-> [    9.844696] FS:  0000000000000000(0000) GS:ffff94803bc00000(0000) knlGS:0000000000000000
-> [    9.844915] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [    9.845096] CR2: 00007f0579ee0384 CR3: 000000002cc0a000 CR4: 00000000000006f0
-> [    9.845319] Call Trace:
-> [    9.845429] __memcg_kmem_uncharge (mm/memcontrol.c:3022)
-> [    9.845582] drain_obj_stock (./include/linux/rcupdate.h:689 mm/memcontrol.c:3114)
-> [    9.845684] drain_local_stock (mm/memcontrol.c:2255)
-> [    9.845789] process_one_work (./arch/x86/include/asm/jump_label.h:25 ./include/linux/jump_label.h:200 ./include/trace/events/workqueue.h:108 kernel/workqueue.c:2274)
-> [    9.845898] worker_thread (./include/linux/list.h:282 kernel/workqueue.c:2416)
-> [    9.846034] ? process_one_work (kernel/workqueue.c:2358)
-> [    9.846162] kthread (kernel/kthread.c:292)
-> [    9.846271] ? __kthread_bind_mask (kernel/kthread.c:245)
-> [    9.846420] ret_from_fork (arch/x86/entry/entry_64.S:300)
-> [    9.846531] ---[ end trace 8b5647c1eba9d18a ]---
->
-> The problem occurs because in the non-hierarchical mode non-root page
-> counters are not linked to root page counters, so the charge is not
-> propagated to the root memory cgroup.
->
-> After the removal of the original memory cgroup and reparenting of the
-> object cgroup, the root cgroup might be uncharged by draining a objcg
-> stock, for example. It leads to an eventual underflow of the charge
-> and triggers a warning.
->
-> Fix it by linking all page counters to corresponding root page
-> counters in the non-hierarchical mode.
->
-> The patch doesn't affect how the hierarchical mode is working,
-> which is the only sane and truly supported mode now.
->
-> Thanks to Richard for reporting, debugging and providing an
-> alternative version of the fix!
->
-> Reported-by: ltp@lists.linux.it
-> Debugged-by: Richard Palethorpe <rpalethorpe@suse.com>
-> Fixes: bf4f059954dc ("mm: memcg/slab: obj_cgroup API")
-> Signed-off-by: Roman Gushchin <guro@fb.com>
-> Cc: stable@vger.kernel.org
-
-Reviewed-by: Shakeel Butt <shakeelb@google.com>
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gRnJpLCAyMyBPY3QgMjAyMCBhdCAwODozNSwgTGludXMgVG9ydmFsZHMKPHRvcnZhbGRzQGxp
+bnV4LWZvdW5kYXRpb24ub3JnPiB3cm90ZToKPgo+IE9uIFRodSwgT2N0IDIyLCAyMDIwIGF0IDY6
+MzYgUE0gRGFuaWVsIETDrWF6IDxkYW5pZWwuZGlhekBsaW5hcm8ub3JnPiB3cm90ZToKPiA+Cj4g
+PiBUaGUga2VybmVsIE5hcmVzaCBvcmlnaW5hbGx5IHJlZmVycmVkIHRvIGlzIGhlcmU6Cj4gPiAg
+IGh0dHBzOi8vYnVpbGRzLnR1eGJ1aWxkLmNvbS9TQ0k3WHlqYjdWMk5iZlEybGJLQlp3Lwo+Cj4g
+aXMgdW5uZWNlc3NhcnkgKGJlY2F1c2UgdGhlIDgtYnl0ZSBjYXNlIGlzIHN0aWxsIGp1c3QgYSBz
+aW5nbGUKPiByZWdpc3Rlciwgbm8gJWVheDolZWR4IGdhbWVzIG5lZWRlZCksIGl0IHdvdWxkIGJl
+IGludGVyZXN0aW5nIHRvIGhlYXIKPiBpZiB0aGUgYXR0YWNoZWQgcGF0Y2ggZml4ZXMgaXQuIFRo
+YXQgd291bGQgY29uZmlybSB0aGF0IHRoZSBwcm9ibGVtCj4gcmVhbGx5IGlzIGR1ZSB0byBzb21l
+IHJlZ2lzdGVyIGFsbG9jYXRpb24gaXNzdWUgaW50ZXJhY3Rpb24gKG9yLAo+IGFsdGVybmF0aXZl
+bHksIGl0IHdvdWxkIHRlbGwgbWUgdGhhdCB0aGVyZSdzIHNvbWV0aGluZyBlbHNlIGdvaW5nIG9u
+KS4KCltPbGQgcGF0Y2ggZnJvbSB5ZXN0ZXJkYXldCgpBZnRlciBhcHBseWluZyB5b3VyIHBhdGNo
+IG9uIHRvcCBvbiBsaW51eCBuZXh0IHRhZyAyMDIwMTAxNQp0aGVyZSBhcmUgdHdvIG9ic2VydmF0
+aW9ucywKICAxKSBpMzg2IGJ1aWxkIGZhaWxlZC4gcGxlYXNlIGZpbmQgYnVpbGQgZXJyb3IgYnVp
+bGQKICAyKSB4ODZfNjQga2FzYW4gdGVzdCBQQVNTIGFuZCB0aGUgcmVwb3J0ZWQgZXJyb3Igbm90
+IGZvdW5kLgoKCmkzODYgYnVpbGQgZmFpbHVyZSwKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQptYWtl
+IC1zayBLQlVJTERfQlVJTERfVVNFUj1UdXhCdWlsZCAtQy9saW51eCAtajE2IEFSQ0g9aTM4NiBI
+T1NUQ0M9Z2NjCkNDPSJzY2NhY2hlIGdjYyIgTz1idWlsZAojCkluIGZpbGUgaW5jbHVkZWQgZnJv
+bSAuLi9pbmNsdWRlL2xpbnV4L3VhY2Nlc3MuaDoxMSwKICAgICAgICAgICAgICAgICBmcm9tIC4u
+L2FyY2gveDg2L2luY2x1ZGUvYXNtL2ZwdS94c3RhdGUuaDo1LAogICAgICAgICAgICAgICAgIGZy
+b20gLi4vYXJjaC94ODYvaW5jbHVkZS9hc20vcGd0YWJsZS5oOjI2LAogICAgICAgICAgICAgICAg
+IGZyb20gLi4vaW5jbHVkZS9saW51eC9wZ3RhYmxlLmg6NiwKICAgICAgICAgICAgICAgICBmcm9t
+IC4uL2luY2x1ZGUvbGludXgvbW0uaDozMywKICAgICAgICAgICAgICAgICBmcm9tIC4uL2luY2x1
+ZGUvbGludXgvbWVtYmxvY2suaDoxMywKICAgICAgICAgICAgICAgICBmcm9tIC4uL2ZzL3Byb2Mv
+cGFnZS5jOjI6Ci4uL2ZzL3Byb2MvcGFnZS5jOiBJbiBmdW5jdGlvbiDigJhrcGFnZWNncm91cF9y
+ZWFk4oCZOgouLi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS91YWNjZXNzLmg6MjE3OjI6IGVycm9yOiBp
+bmNvbnNpc3RlbnQgb3BlcmFuZApjb25zdHJhaW50cyBpbiBhbiDigJhhc23igJkKICAyMTcgfCAg
+YXNtIHZvbGF0aWxlKCJjYWxsIF9fIiAjZm4gIl8lUFtzaXplXSIgICAgXAogICAgICB8ICBefn4K
+Li4vYXJjaC94ODYvaW5jbHVkZS9hc20vdWFjY2Vzcy5oOjI0NDo0NDogbm90ZTogaW4gZXhwYW5z
+aW9uIG9mIG1hY3JvCuKAmGRvX3B1dF91c2VyX2NhbGzigJkKICAyNDQgfCAjZGVmaW5lIHB1dF91
+c2VyKHgsIHB0cikgKHsgbWlnaHRfZmF1bHQoKTsKZG9fcHV0X3VzZXJfY2FsbChwdXRfdXNlcix4
+LHB0cik7IH0pCiAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIF5+fn5+fn5+fn5+fn5+fn4KLi4vZnMvcHJvYy9wYWdlLmM6MzA3Ojc6IG5vdGU6IGluIGV4
+cGFuc2lvbiBvZiBtYWNybyDigJhwdXRfdXNlcuKAmQogIDMwNyB8ICAgaWYgKHB1dF91c2VyKGlu
+bywgb3V0KSkgewogICAgICB8ICAgICAgIF5+fn5+fn5+Cm1ha2VbM106ICoqKiBbLi4vc2NyaXB0
+cy9NYWtlZmlsZS5idWlsZDoyODM6IGZzL3Byb2MvcGFnZS5vXSBFcnJvciAxCm1ha2VbM106IFRh
+cmdldCAnX19idWlsZCcgbm90IHJlbWFkZSBiZWNhdXNlIG9mIGVycm9ycy4KbWFrZVsyXTogKioq
+IFsuLi9zY3JpcHRzL01ha2VmaWxlLmJ1aWxkOjUwMDogZnMvcHJvY10gRXJyb3IgMgpJbiBmaWxl
+IGluY2x1ZGVkIGZyb20gLi4vaW5jbHVkZS9saW51eC91YWNjZXNzLmg6MTEsCiAgICAgICAgICAg
+ICAgICAgZnJvbSAuLi9pbmNsdWRlL2xpbnV4L3NjaGVkL3Rhc2suaDoxMSwKICAgICAgICAgICAg
+ICAgICBmcm9tIC4uL2luY2x1ZGUvbGludXgvc2NoZWQvc2lnbmFsLmg6OSwKICAgICAgICAgICAg
+ICAgICBmcm9tIC4uL2luY2x1ZGUvbGludXgvcmN1d2FpdC5oOjYsCiAgICAgICAgICAgICAgICAg
+ZnJvbSAuLi9pbmNsdWRlL2xpbnV4L3BlcmNwdS1yd3NlbS5oOjcsCiAgICAgICAgICAgICAgICAg
+ZnJvbSAuLi9pbmNsdWRlL2xpbnV4L2ZzLmg6MzMsCiAgICAgICAgICAgICAgICAgZnJvbSAuLi9p
+bmNsdWRlL2xpbnV4L2Nncm91cC5oOjE3LAogICAgICAgICAgICAgICAgIGZyb20gLi4vaW5jbHVk
+ZS9saW51eC9tZW1jb250cm9sLmg6MTMsCiAgICAgICAgICAgICAgICAgZnJvbSAuLi9pbmNsdWRl
+L2xpbnV4L3N3YXAuaDo5LAogICAgICAgICAgICAgICAgIGZyb20gLi4vaW5jbHVkZS9saW51eC9z
+dXNwZW5kLmg6NSwKICAgICAgICAgICAgICAgICBmcm9tIC4uL2tlcm5lbC9wb3dlci91c2VyLmM6
+MTA6Ci4uL2tlcm5lbC9wb3dlci91c2VyLmM6IEluIGZ1bmN0aW9uIOKAmHNuYXBzaG90X2lvY3Rs
+4oCZOgouLi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS91YWNjZXNzLmg6MjE3OjI6IGVycm9yOiBpbmNv
+bnNpc3RlbnQgb3BlcmFuZApjb25zdHJhaW50cyBpbiBhbiDigJhhc23igJkKICAyMTcgfCAgYXNt
+IHZvbGF0aWxlKCJjYWxsIF9fIiAjZm4gIl8lUFtzaXplXSIgICAgXAogICAgICB8ICBefn4KLi4v
+YXJjaC94ODYvaW5jbHVkZS9hc20vdWFjY2Vzcy5oOjI0NDo0NDogbm90ZTogaW4gZXhwYW5zaW9u
+IG9mIG1hY3JvCuKAmGRvX3B1dF91c2VyX2NhbGzigJkKICAyNDQgfCAjZGVmaW5lIHB1dF91c2Vy
+KHgsIHB0cikgKHsgbWlnaHRfZmF1bHQoKTsKZG9fcHV0X3VzZXJfY2FsbChwdXRfdXNlcix4LHB0
+cik7IH0pCiAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IF5+fn5+fn5+fn5+fn5+fn4KLi4va2VybmVsL3Bvd2VyL3VzZXIuYzozNDA6MTE6IG5vdGU6IGlu
+IGV4cGFuc2lvbiBvZiBtYWNybyDigJhwdXRfdXNlcuKAmQogIDM0MCB8ICAgZXJyb3IgPSBwdXRf
+dXNlcihzaXplLCAobG9mZl90IF9fdXNlciAqKWFyZyk7CiAgICAgIHwgICAgICAgICAgIF5+fn5+
+fn5+Ci4uL2FyY2gveDg2L2luY2x1ZGUvYXNtL3VhY2Nlc3MuaDoyMTc6MjogZXJyb3I6IGluY29u
+c2lzdGVudCBvcGVyYW5kCmNvbnN0cmFpbnRzIGluIGFuIOKAmGFzbeKAmQogIDIxNyB8ICBhc20g
+dm9sYXRpbGUoImNhbGwgX18iICNmbiAiXyVQW3NpemVdIiAgICBcCiAgICAgIHwgIF5+fgouLi9h
+cmNoL3g4Ni9pbmNsdWRlL2FzbS91YWNjZXNzLmg6MjQ0OjQ0OiBub3RlOiBpbiBleHBhbnNpb24g
+b2YgbWFjcm8K4oCYZG9fcHV0X3VzZXJfY2FsbOKAmQogIDI0NCB8ICNkZWZpbmUgcHV0X3VzZXIo
+eCwgcHRyKSAoeyBtaWdodF9mYXVsdCgpOwpkb19wdXRfdXNlcl9jYWxsKHB1dF91c2VyLHgscHRy
+KTsgfSkKICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+Xn5+fn5+fn5+fn5+fn5+fgouLi9rZXJuZWwvcG93ZXIvdXNlci5jOjM0NjoxMTogbm90ZTogaW4g
+ZXhwYW5zaW9uIG9mIG1hY3JvIOKAmHB1dF91c2Vy4oCZCiAgMzQ2IHwgICBlcnJvciA9IHB1dF91
+c2VyKHNpemUsIChsb2ZmX3QgX191c2VyICopYXJnKTsKICAgICAgfCAgICAgICAgICAgXn5+fn5+
+fn4KLi4vYXJjaC94ODYvaW5jbHVkZS9hc20vdWFjY2Vzcy5oOjIxNzoyOiBlcnJvcjogaW5jb25z
+aXN0ZW50IG9wZXJhbmQKY29uc3RyYWludHMgaW4gYW4g4oCYYXNt4oCZCiAgMjE3IHwgIGFzbSB2
+b2xhdGlsZSgiY2FsbCBfXyIgI2ZuICJfJVBbc2l6ZV0iICAgIFwKICAgICAgfCAgXn5+Ci4uL2Fy
+Y2gveDg2L2luY2x1ZGUvYXNtL3VhY2Nlc3MuaDoyNDQ6NDQ6IG5vdGU6IGluIGV4cGFuc2lvbiBv
+ZiBtYWNybwrigJhkb19wdXRfdXNlcl9jYWxs4oCZCiAgMjQ0IHwgI2RlZmluZSBwdXRfdXNlcih4
+LCBwdHIpICh7IG1pZ2h0X2ZhdWx0KCk7CmRvX3B1dF91c2VyX2NhbGwocHV0X3VzZXIseCxwdHIp
+OyB9KQogICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBe
+fn5+fn5+fn5+fn5+fn5+Ci4uL2tlcm5lbC9wb3dlci91c2VyLmM6MzU3OjEyOiBub3RlOiBpbiBl
+eHBhbnNpb24gb2YgbWFjcm8g4oCYcHV0X3VzZXLigJkKICAzNTcgfCAgICBlcnJvciA9IHB1dF91
+c2VyKG9mZnNldCwgKGxvZmZfdCBfX3VzZXIgKilhcmcpOwogICAgICB8ICAgICAgICAgICAgXn5+
+fn5+fn4KCgp4ODZfNjQgS2FzYW4gdGVzdGVkIGFuZCB0aGUgcmVwb3J0ZWQgaXNzdWUgbm90IGZv
+dW5kLgpodHRwczovL2xrZnQudmFsaWRhdGlvbi5saW5hcm8ub3JnL3NjaGVkdWxlci9qb2IvMTg2
+ODAyOSNMMjM3NAoKLSBOYXJlc2gKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0
+cy5saW51eC5pdC9saXN0aW5mby9sdHAK
