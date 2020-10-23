@@ -1,79 +1,85 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B083E2972C1
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Oct 2020 17:46:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B95452972EC
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Oct 2020 17:53:13 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 72F353C317D
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Oct 2020 17:46:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6995C3C317C
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Oct 2020 17:53:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 73FA93C23E0
- for <ltp@lists.linux.it>; Fri, 23 Oct 2020 17:46:29 +0200 (CEST)
-Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
- [IPv6:2607:f8b0:4864:20::742])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id C59813C2620
+ for <ltp@lists.linux.it>; Fri, 23 Oct 2020 17:53:11 +0200 (CEST)
+Received: from mail-lf1-x144.google.com (mail-lf1-x144.google.com
+ [IPv6:2a00:1450:4864:20::144])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DE859200DE9
- for <ltp@lists.linux.it>; Fri, 23 Oct 2020 17:46:28 +0200 (CEST)
-Received: by mail-qk1-x742.google.com with SMTP id 140so1549350qko.2
- for <ltp@lists.linux.it>; Fri, 23 Oct 2020 08:46:28 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8D5591001130
+ for <ltp@lists.linux.it>; Fri, 23 Oct 2020 17:53:10 +0200 (CEST)
+Received: by mail-lf1-x144.google.com with SMTP id l2so2689343lfk.0
+ for <ltp@lists.linux.it>; Fri, 23 Oct 2020 08:53:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cmpxchg-org.20150623.gappssmtp.com; s=20150623;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=p9SFHHcOJsampx1Cl5KD5pxmm62xezQzkl2AgXwIg08=;
- b=nMYtmfd7Kd0yx5RlvYYLzj90UoXDci6rmRFq7EPOhF/dJ2LTfSJHSEkkB+1OSlNe+w
- GiqkvSr1GKKUiy4PC53Tq4qvdqDZ/pev7wi/gB2rav3NCiDDuTIEcQ2FHfFIzGBIbirm
- kbjdDjXHa8ed6K9qDRZ/mpdAhJ8cjKXgfPV66k7KSWtrPTx9z8iX4xcaOPJCp06KUevt
- ze/AJxkW/LqTiLVjD3Lqxgx8nyU4cByWSskhBd3vfPkjlE9YgVAPnHoA4R1kCoM2Rcj+
- BPBPV1UpX1SuDfLGu0eZSDNPNp3aM+tVNH+5rjnDPzwhm+lfy3ZcUwh1euuv8lXaVbqP
- eSWA==
+ d=linux-foundation.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=So975owvkkTFfYXQ470Q4DlssmIVIFu2QdqnJrTF8xg=;
+ b=TzWUN3CTm+h3r1g9oyCsI8lQvw43xzR9vIG57jNVIMScon9dkhOPSHSU0YuPTCTEbW
+ xSUTXNkTa/xHcxjOZm+H+owVFWXNWx30+II0u/JJDBaUgnHNJQKAZRQgLvSR8UT7JBoq
+ 5hUnMcwfEz4zN7MfPmgGe/s+oSgXWn8ttaA2A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=p9SFHHcOJsampx1Cl5KD5pxmm62xezQzkl2AgXwIg08=;
- b=jfqofaoAIqo9ZyWVG7JU1EDDg87mYqQawO8rz/Ed5v3qAKgYvm4r5YA87BD1+68+DS
- n2swJxGMOF+eSy9pgvYOOOBEBeLtZccBaKpcaByhxEzLZSbbi2Yv7YkWvhnFqXGe83V+
- x+tH5urg91NIe+fxlcmQ31Dnxn91Ms2rP11AFyXpJnpHUHCCQER1VT68n52rc+iMmdPl
- iFsoEZ4CieSRXgVB4ya5L2fukdIs1mj0he15Zs3rUiKInsfhFtyec7AtSSSIz8I/GVhO
- mAbFSGhAvfd/nYV+Zaz+TSsAlo6A/3AWsw+XRf0bDa7tY35A/wY/UFYYo6gbFxjEyGdb
- XznA==
-X-Gm-Message-State: AOAM532zldoxhWgGv/v9v0OwVgHUHasGv/owai1UXjHsfhjQd46g9GwB
- Jo1yytTaH9ea2AT4VJRHsV7Rmw==
-X-Google-Smtp-Source: ABdhPJwtvG2d9rSTATn31XuUhkceHwaPagnD81bc37HcvcRtjxv7m8kqirsNscOdOjRY92diI2gYow==
-X-Received: by 2002:a05:620a:a41:: with SMTP id
- j1mr2893258qka.426.1603467987657; 
- Fri, 23 Oct 2020 08:46:27 -0700 (PDT)
-Received: from localhost ([2620:10d:c091:480::1:c400])
- by smtp.gmail.com with ESMTPSA id t12sm942096qkg.132.2020.10.23.08.46.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Oct 2020 08:46:26 -0700 (PDT)
-Date: Fri, 23 Oct 2020 11:44:47 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Roman Gushchin <guro@fb.com>
-Message-ID: <20201023154447.GA535375@cmpxchg.org>
-References: <87sga6vizp.fsf@suse.de>
- <20201022122858.8638-1-rpalethorpe@suse.com>
- <CALvZod4u79DSwyM=Kg8g5tR1L5eomHgUkaJmp6s9D3jC7OnN0A@mail.gmail.com>
- <20201022172508.GF300658@carbon.dhcp.thefacebook.com>
- <CALvZod5p-O72gCY-R+oLcDZjEkPRioz7e7p5Jg=nXxhmtiwKWw@mail.gmail.com>
- <20201023004026.GG300658@carbon.dhcp.thefacebook.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=So975owvkkTFfYXQ470Q4DlssmIVIFu2QdqnJrTF8xg=;
+ b=IM9Z7DnTMwwt1q8Bs/DvntaAQsSTlJBbtv1neibA0TdO0Qmf3hMV81/3wc5siHXQfw
+ 8sS5ujNfida21O4GFBRn/rExqSw+qWmKosAi929FhWERnGD7zqEzJdwxWHKWu7qfm/ci
+ Fr8iUsmT/v6wC1naLc+5XPZQmccIFa+LK5MgEmdGF2UQzlhGYlSVK9qQlm+qKKEJr0zT
+ +2e9enbsUyT+ndIN7AbB8ZKm6hCU4JjVhA1UuAd+2QKu9JV6xuDhK04F8mFw4qUtYilk
+ avVUqsvecLrg3eJjTkwr+naY0/0O0zBa6wHrmOBrrjQandQwVno6NMGyVLd8E/evPorT
+ QGvA==
+X-Gm-Message-State: AOAM530NLHRdwm0U14nu6WkZ2vqKPqfeZWSYwO9LW1/4HkFSQdqMKrNY
+ WFlSSw8t/Qv5QVg8XYlZad8NKwh8HJlDeg==
+X-Google-Smtp-Source: ABdhPJxk1mRD5905Nt0pc0DrJwDGaZi+uLzKjxizokAcmeNZeATV0qigOEtAtRKEl4zuZQsO1SW/NA==
+X-Received: by 2002:ac2:5597:: with SMTP id v23mr1094538lfg.301.1603468389463; 
+ Fri, 23 Oct 2020 08:53:09 -0700 (PDT)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com.
+ [209.85.167.42])
+ by smtp.gmail.com with ESMTPSA id z80sm177599lfc.190.2020.10.23.08.53.07
+ for <ltp@lists.linux.it>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 23 Oct 2020 08:53:09 -0700 (PDT)
+Received: by mail-lf1-f42.google.com with SMTP id l2so2689175lfk.0
+ for <ltp@lists.linux.it>; Fri, 23 Oct 2020 08:53:07 -0700 (PDT)
+X-Received: by 2002:a2e:898c:: with SMTP id c12mr1248002lji.285.1603468386475; 
+ Fri, 23 Oct 2020 08:53:06 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201023004026.GG300658@carbon.dhcp.thefacebook.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+References: <CA+G9fYvHze+hKROmiB0uL90S8h9ppO9S9Xe7RWwv808QwOd_Yw@mail.gmail.com>
+ <CAHk-=wg5-P79Hr4iaC_disKR2P+7cRVqBA9Dsria9jdVwHo0+A@mail.gmail.com>
+ <CA+G9fYv=DUanNfL2yza=y9kM7Y9bFpVv22Wd4L9NP28i0y7OzA@mail.gmail.com>
+ <CA+G9fYudry0cXOuSfRTqHKkFKW-sMrA6Z9BdQFmtXsnzqaOgPg@mail.gmail.com>
+ <CAHk-=who8WmkWuuOJeGKa-7QCtZHqp3PsOSJY0hadyywucPMcQ@mail.gmail.com>
+ <CAHk-=wi=sf4WtmZXgGh=nAp4iQKftCKbdQqn56gjifxWNpnkxw@mail.gmail.com>
+ <CAEUSe78A4fhsyF6+jWKVjd4isaUeuFWLiWqnhic87BF6cecN3w@mail.gmail.com>
+ <CAHk-=wgqAp5B46SWzgBt6UkheVGFPs2rrE6H4aqLExXE1TXRfQ@mail.gmail.com>
+ <20201023050214.GG23681@linux.intel.com>
+In-Reply-To: <20201023050214.GG23681@linux.intel.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 23 Oct 2020 08:52:50 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wjBjUvjN_Mw2Oo5XMUJFSREi3d9AHTSFmgp-a42ZH_K_w@mail.gmail.com>
+Message-ID: <CAHk-=wjBjUvjN_Mw2Oo5XMUJFSREi3d9AHTSFmgp-a42ZH_K_w@mail.gmail.com>
+To: Sean Christopherson <sean.j.christopherson@intel.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4] mm: memcg/slab: Stop reparented obj_cgroups
- from charging root
+X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] mmstress[1309]: segfault at 7f3d71a36ee8 ip
+ 00007f3d77132bdf sp 00007f3d71a36ee8 error 4 in
+ libc-2.27.so[7f3d77058000+1aa000]
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,79 +91,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Christoph Lameter <cl@linux.com>, LKML <linux-kernel@vger.kernel.org>,
- Michal Hocko <mhocko@kernel.org>, Linux MM <linux-mm@kvack.org>,
- Shakeel Butt <shakeelb@google.com>, Vlastimil Babka <vbabka@suse.cz>,
- Tejun Heo <tj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Richard Palethorpe <rpalethorpe@suse.com>, LTP List <ltp@lists.linux.it>
+Cc: zenglg.jy@cn.fujitsu.com, "Peter Zijlstra \(Intel\)" <peterz@infradead.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, lkft-triage@lists.linaro.org,
+ linux-mm <linux-mm@kvack.org>, kasan-dev <kasan-dev@googlegroups.com>,
+ Christian Brauner <christian.brauner@ubuntu.com>,
+ Stephen Rothwell <sfr@canb.auug.org.au>, X86 ML <x86@kernel.org>,
+ "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
+ Linux-Next Mailing List <linux-next@vger.kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Dmitry Vyukov <dvyukov@google.com>,
+ linux-m68k <linux-m68k@lists.linux-m68k.org>,
+ Al Viro <viro@zeniv.linux.org.uk>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, LTP List <ltp@lists.linux.it>,
+ open list <linux-kernel@vger.kernel.org>,
+ "Eric W. Biederman" <ebiederm@xmission.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Thu, Oct 22, 2020 at 05:40:26PM -0700, Roman Gushchin wrote:
-> From 19d66695f0ef1bf1ef7c51073ab91d67daa91362 Mon Sep 17 00:00:00 2001
-> From: Roman Gushchin <guro@fb.com>
-> Date: Thu, 22 Oct 2020 17:12:32 -0700
-> Subject: [PATCH] mm: memcg: link page counters to root if use_hierarchy is false
-> 
-> Richard reported a warning which can be reproduced by running the LTP
-> madvise6 test (cgroup v1 in the non-hierarchical mode should be used):
-> 
-> [    9.841552] ------------[ cut here ]------------
-> [    9.841788] WARNING: CPU: 0 PID: 12 at mm/page_counter.c:57 page_counter_uncharge (mm/page_counter.c:57 mm/page_counter.c:50 mm/page_counter.c:156)
-> [    9.841982] Modules linked in:
-> [    9.842072] CPU: 0 PID: 12 Comm: kworker/0:1 Not tainted 5.9.0-rc7-22-default #77
-> [    9.842266] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.13.0-48-gd9c812d-rebuilt.opensuse.org 04/01/2014
-> [    9.842571] Workqueue: events drain_local_stock
-> [    9.842750] RIP: 0010:page_counter_uncharge (mm/page_counter.c:57 mm/page_counter.c:50 mm/page_counter.c:156)
-> [ 9.842894] Code: 0f c1 45 00 4c 29 e0 48 89 ef 48 89 c3 48 89 c6 e8 2a fe ff ff 48 85 db 78 10 48 8b 6d 28 48 85 ed 75 d8 5b 5d 41 5c 41 5d c3 <0f> 0b eb ec 90 e8 4b f9 88 2a 48 8b 17 48 39 d6 72 41 41 54 49 89
-> [    9.843438] RSP: 0018:ffffb1c18006be28 EFLAGS: 00010086
-> [    9.843585] RAX: ffffffffffffffff RBX: ffffffffffffffff RCX: ffff94803bc2cae0
-> [    9.843806] RDX: 0000000000000001 RSI: ffffffffffffffff RDI: ffff948007d2b248
-> [    9.844026] RBP: ffff948007d2b248 R08: ffff948007c58eb0 R09: ffff948007da05ac
-> [    9.844248] R10: 0000000000000018 R11: 0000000000000018 R12: 0000000000000001
-> [    9.844477] R13: ffffffffffffffff R14: 0000000000000000 R15: ffff94803bc2cac0
-> [    9.844696] FS:  0000000000000000(0000) GS:ffff94803bc00000(0000) knlGS:0000000000000000
-> [    9.844915] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [    9.845096] CR2: 00007f0579ee0384 CR3: 000000002cc0a000 CR4: 00000000000006f0
-> [    9.845319] Call Trace:
-> [    9.845429] __memcg_kmem_uncharge (mm/memcontrol.c:3022)
-> [    9.845582] drain_obj_stock (./include/linux/rcupdate.h:689 mm/memcontrol.c:3114)
-> [    9.845684] drain_local_stock (mm/memcontrol.c:2255)
-> [    9.845789] process_one_work (./arch/x86/include/asm/jump_label.h:25 ./include/linux/jump_label.h:200 ./include/trace/events/workqueue.h:108 kernel/workqueue.c:2274)
-> [    9.845898] worker_thread (./include/linux/list.h:282 kernel/workqueue.c:2416)
-> [    9.846034] ? process_one_work (kernel/workqueue.c:2358)
-> [    9.846162] kthread (kernel/kthread.c:292)
-> [    9.846271] ? __kthread_bind_mask (kernel/kthread.c:245)
-> [    9.846420] ret_from_fork (arch/x86/entry/entry_64.S:300)
-> [    9.846531] ---[ end trace 8b5647c1eba9d18a ]---
-> 
-> The problem occurs because in the non-hierarchical mode non-root page
-> counters are not linked to root page counters, so the charge is not
-> propagated to the root memory cgroup.
-> 
-> After the removal of the original memory cgroup and reparenting of the
-> object cgroup, the root cgroup might be uncharged by draining a objcg
-> stock, for example. It leads to an eventual underflow of the charge
-> and triggers a warning.
-> 
-> Fix it by linking all page counters to corresponding root page
-> counters in the non-hierarchical mode.
-> 
-> The patch doesn't affect how the hierarchical mode is working,
-> which is the only sane and truly supported mode now.
-> 
-> Thanks to Richard for reporting, debugging and providing an
-> alternative version of the fix!
-> 
-> Reported-by: ltp@lists.linux.it
-> Debugged-by: Richard Palethorpe <rpalethorpe@suse.com>
-> Fixes: bf4f059954dc ("mm: memcg/slab: obj_cgroup API")
-> Signed-off-by: Roman Gushchin <guro@fb.com>
-> Cc: stable@vger.kernel.org
+On Thu, Oct 22, 2020 at 10:02 PM Sean Christopherson
+<sean.j.christopherson@intel.com> wrote:
+>
+> I haven't reproduced the crash, but I did find a smoking gun that confirms the
+> "register shenanigans are evil shenanigans" theory.  I ran into a similar thing
+> recently where a seemingly innocuous line of code after loading a value into a
+> register variable wreaked havoc because it clobbered the input register.
 
-Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+Yup, that certainly looks like the smoking gun.
+
+Thanks for finding an example of this, clearly I'll have to either go
+back to the "conditionally use 'A' or 'a' depending on size" model, or
+perhaps try Rasmus' patch.
+
+              Linus
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
