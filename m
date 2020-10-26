@@ -2,69 +2,46 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6E63298A92
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Oct 2020 11:42:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 275B8298CCC
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Oct 2020 13:16:25 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 72A123C5618
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Oct 2020 11:42:35 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E1C953C3133
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Oct 2020 13:16:24 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id BC4B53C23CB
- for <ltp@lists.linux.it>; Fri, 23 Oct 2020 23:16:10 +0200 (CEST)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id CCA2B3C0B87
+ for <ltp@lists.linux.it>; Mon, 26 Oct 2020 13:16:22 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D4C4B600A3F
- for <ltp@lists.linux.it>; Fri, 23 Oct 2020 23:16:09 +0200 (CEST)
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B16282467D
- for <ltp@lists.linux.it>; Fri, 23 Oct 2020 21:16:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603487767;
- bh=qQcFmOGTx12wPD63RiThRe7Vh0MNAYSb3WtVSv6KO9I=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=ylYjv002r5/d4PJz5MfpZMB4thciSwlk1eXkJiCA3bvenmoPxzuiHjvcXDcackAcE
- w6VNJ7rBH6083fbGYBlG3chnrNZbtJNPqO54/g2gQKHUjVIOrFDXlaNINXtFbJdoKt
- OK0nV4hNeaJ18/R+8VfmdHAtYYky9/5RkmV0QCgE=
-Received: by mail-lj1-f175.google.com with SMTP id c21so3031765ljj.0
- for <ltp@lists.linux.it>; Fri, 23 Oct 2020 14:16:06 -0700 (PDT)
-X-Gm-Message-State: AOAM533SpgTpAr2FeDqFl3Wtn3QjcYwKWlyBin7Toe3/aP8VC41uh9gF
- EMBblvYK1eJ+59nApvSvDnE+06CwsjrxfoQYC6k=
-X-Google-Smtp-Source: ABdhPJxMP4Oqfuc0h+oHI0VayAXX1a002RyckvG+CEYT7Qe0w/jJqsSdKxhG124OF9Ag+jl4aWynWIOTPbYK55JDXo0=
-X-Received: by 2002:a05:651c:cd:: with SMTP id
- 13mr1498277ljr.392.1603487764782; 
- Fri, 23 Oct 2020 14:16:04 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 3D7A060076A
+ for <ltp@lists.linux.it>; Mon, 26 Oct 2020 13:16:21 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1603714581;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=vH4UvcpcfWRhMy4DPDrVYktgMkni7e8lgqowBYaUfA4=;
+ b=g0HM9xejZinFPCmAHE7DkDq5rsRIRQXEUN/5cBrKr43G5qesLBHe6petHwH6yHXnDx8Qel
+ Tk4c1Y8W7k3MQmg7GSJ2Sgp66HEJvGKSHTP1xfqhcouqq4Oxlj/fvB4sl7WSGTaecAUmRA
+ TmhcD1lpVW7wo9dLyBW9UZ/+SIdl8dM=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 55F9EACDF;
+ Mon, 26 Oct 2020 12:16:21 +0000 (UTC)
+From: Richard Palethorpe <rpalethorpe@suse.com>
+To: ltp@lists.linux.it
+Date: Mon, 26 Oct 2020 12:16:05 +0000
+Message-Id: <20201026121605.20100-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-References: <CA+G9fYvHze+hKROmiB0uL90S8h9ppO9S9Xe7RWwv808QwOd_Yw@mail.gmail.com>
- <CAHk-=wg5-P79Hr4iaC_disKR2P+7cRVqBA9Dsria9jdVwHo0+A@mail.gmail.com>
- <CA+G9fYv=DUanNfL2yza=y9kM7Y9bFpVv22Wd4L9NP28i0y7OzA@mail.gmail.com>
- <CA+G9fYudry0cXOuSfRTqHKkFKW-sMrA6Z9BdQFmtXsnzqaOgPg@mail.gmail.com>
- <CAHk-=who8WmkWuuOJeGKa-7QCtZHqp3PsOSJY0hadyywucPMcQ@mail.gmail.com>
- <CAHk-=wi=sf4WtmZXgGh=nAp4iQKftCKbdQqn56gjifxWNpnkxw@mail.gmail.com>
- <CAEUSe78A4fhsyF6+jWKVjd4isaUeuFWLiWqnhic87BF6cecN3w@mail.gmail.com>
- <CAHk-=wgqAp5B46SWzgBt6UkheVGFPs2rrE6H4aqLExXE1TXRfQ@mail.gmail.com>
- <CA+G9fYu5aGbMHaR1tewV9dPwXrUR5cbGHJC1BT=GSLsYYwN6Nw@mail.gmail.com>
- <CAHk-=wjyp3Y_vXJwvoieBJpmmTrs46kc4GKbq5x_nvonHvPJBw@mail.gmail.com>
-In-Reply-To: <CAHk-=wjyp3Y_vXJwvoieBJpmmTrs46kc4GKbq5x_nvonHvPJBw@mail.gmail.com>
-From: Song Liu <song@kernel.org>
-Date: Fri, 23 Oct 2020 14:15:53 -0700
-X-Gmail-Original-Message-ID: <CAPhsuW6wZRVoT3Bu6YBVjWVm6JBz9n6_RoZKGM7KrVAXx89SFQ@mail.gmail.com>
-Message-ID: <CAPhsuW6wZRVoT3Bu6YBVjWVm6JBz9n6_RoZKGM7KrVAXx89SFQ@mail.gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-X-Mailman-Approved-At: Mon, 26 Oct 2020 11:42:14 +0100
-Subject: Re: [LTP] mmstress[1309]: segfault at 7f3d71a36ee8 ip
- 00007f3d77132bdf sp 00007f3d71a36ee8 error 4 in
- libc-2.27.so[7f3d77058000+1aa000]
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH] madvise06: Increase reliability and diagnostic info
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,64 +53,231 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
- "Peter Zijlstra \(Intel\)" <peterz@infradead.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, X86 ML <x86@kernel.org>,
- LTP List <ltp@lists.linux.it>, open list <linux-kernel@vger.kernel.org>,
- "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
- Al Viro <viro@zeniv.linux.org.uk>, linux-mm <linux-mm@kvack.org>,
- linux-m68k <linux-m68k@lists.linux-m68k.org>,
- Linux-Next Mailing List <linux-next@vger.kernel.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, lkft-triage@lists.linaro.org,
- Thomas Gleixner <tglx@linutronix.de>, kasan-dev <kasan-dev@googlegroups.com>,
- Ingo Molnar <mingo@redhat.com>,
- Christian Brauner <christian.brauner@ubuntu.com>,
- Dmitry Vyukov <dvyukov@google.com>,
- "Eric W. Biederman" <ebiederm@xmission.com>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Fri, Oct 23, 2020 at 10:51 AM Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
->
-> On Fri, Oct 23, 2020 at 10:00 AM Naresh Kamboju
-> <naresh.kamboju@linaro.org> wrote:
-> >
-> > [Old patch from yesterday]
-> >
-> > After applying your patch on top on linux next tag 20201015
-> > there are two observations,
-> >   1) i386 build failed. please find build error build
->
-> Yes, this was expected. That patch explicitly only works on x86-64,
-> because 32-bit needs the double register handling for 64-bit values
-> (mainly loff_t).
->
-> >   2) x86_64 kasan test PASS and the reported error not found.
->
-> Ok, good. That confirms that the problem you reported is indeed the
-> register allocation.
->
-> The patch I sent an hour ago (the one based on Rasmus' one from
-> yesterday) should fix things too, and - unlike yesterday's - work on
-> 32-bit.
->
-> But I'll wait for confirmation (and hopefully a sign-off from Rasmus
-> so that I can give him authorship) before actually committing it.
->
->               Linus
+When memcg.limit_in_bytes is set to PASS_THRESHOLD it's unlikely
+swapcached will increase by more than PASS_THRESHOLD unless processes
+in other memcgs are also increasing it. Additionally MADV_WILLNEED
+must remove pages from memory as it adds more so that the first page
+may not be in memory by the time the last page is faulted if the
+amount exceeds the memory limit (which it does because CHUNK_SZ >
+PASS_THRESSHOLD). Worse if pages are faulted in a non-linear way, or
+the process must access some other pages, then there is no guarantee
+which parts of the range will be resident in memory. This results in
+spurious test failures.
 
-My test vm failed to boot since
+To solve this we can set PASS_THRESHOLD to 1/4 of CHUNK_SZ and
+memcg.limit_in_bytes to 1/2 of CHUNK_SZ (MEM_LIMIT), then mark
+MEM_LIMIT bytes as needed. That way the amount in the SwapCache will
+easily be more than the threshold. Secondly we can run madvise again
+on PASS_THRESHOLD bytes and check that dirtying all of these does not
+result in too many page faults. We also run the second test on every
+occasion to ensure the test code itself is still valid. If the
+original bug is present then both tests fail.
 
-commit d55564cfc222326e944893eff0c4118353e349ec
-x86: Make __put_user() generate an out-of-line call
+Finally this prints more diagnostic information to help with debugging
+the test.
 
-The patch also fixed it.
+While debugging the test a kernel bug was found in 5.9 which effects
+CGroupV1 when use_hierarchy=0. This is unlikely to effect many users,
+but a fix is pending and will be referenced in the test when
+available. It is recommended that you set use_hierarchy=1.
 
-Thanks!
-Song
+Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+---
+ testcases/kernel/syscalls/madvise/madvise06.c | 107 ++++++++++++++----
+ 1 file changed, 84 insertions(+), 23 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/madvise/madvise06.c b/testcases/kernel/syscalls/madvise/madvise06.c
+index f76f3f6aa..3e70da37e 100644
+--- a/testcases/kernel/syscalls/madvise/madvise06.c
++++ b/testcases/kernel/syscalls/madvise/madvise06.c
+@@ -19,6 +19,23 @@
+  *   Date:   Thu May 22 11:54:17 2014 -0700
+  *
+  *       mm: madvise: fix MADV_WILLNEED on shmem swapouts
++ *
++ *   Two checks are performed, the first looks at how SwapCache
++ *   changes during madvise. When the pages are dirtied, about half
++ *   will be accounted for under Cached and the other half will be
++ *   moved into Swap. When madvise is run it will cause the pages
++ *   under Cached to also be moved to Swap while rotating the pages
++ *   already in Swap into SwapCached. So we expect that SwapCached has
++ *   roughly MEM_LIMIT bytes added to it, but for reliability the
++ *   PASS_THRESHOLD is much lower than that.
++ *
++ *   Secondly we run madvise again, but only on the first
++ *   PASS_THRESHOLD bytes to ensure these are entirely in RAM. Then we
++ *   dirty these pages and check there were (almost) no page
++ *   faults. Two faults are allowed incase some tasklet or something
++ *   else unexpected, but irrelevant procedure, registers a fault to
++ *   our process.
++ *
+  */
+ 
+ #include <errno.h>
+@@ -28,8 +45,10 @@
+ #include "tst_test.h"
+ 
+ #define CHUNK_SZ (400*1024*1024L)
+-#define CHUNK_PAGES (CHUNK_SZ / pg_sz)
++#define MEM_LIMIT (CHUNK_SZ / 2)
++#define MEMSW_LIMIT (2 * CHUNK_SZ)
+ #define PASS_THRESHOLD (CHUNK_SZ / 4)
++#define PASS_THRESHOLD_KB (PASS_THRESHOLD / 1024)
+ 
+ #define MNT_NAME "memory"
+ #define GROUP_NAME "madvise06"
+@@ -37,12 +56,39 @@
+ static const char drop_caches_fname[] = "/proc/sys/vm/drop_caches";
+ static int pg_sz;
+ 
++static long init_swap, init_swap_cached, init_cached;
++
+ static void check_path(const char *path)
+ {
+ 	if (access(path, R_OK | W_OK))
+ 		tst_brk(TCONF, "file needed: %s\n", path);
+ }
+ 
++#define READ_CGMEM(item)						\
++	({long tst_rval;						\
++	  SAFE_FILE_LINES_SCANF(MNT_NAME"/"GROUP_NAME"/memory."item, 	\
++				"%ld",					\
++				&tst_rval);				\
++	  tst_rval;})
++
++static void meminfo_diag(const char *point)
++{
++	FILE_PRINTF("/proc/sys/vm/stat_refresh", "1");
++	tst_res(TINFO, point);
++	tst_res(TINFO, "\tSwap: %ld Kb",
++		SAFE_READ_MEMINFO("SwapTotal:") - SAFE_READ_MEMINFO("SwapFree:") - init_swap);
++	tst_res(TINFO, "\tSwapCached: %ld Kb",
++		SAFE_READ_MEMINFO("SwapCached:") - init_swap_cached);
++	tst_res(TINFO, "\tCached: %ld Kb",
++		SAFE_READ_MEMINFO("Cached:") - init_cached);
++	tst_res(TINFO, "\tcgmem.usage_in_bytes: %ld Kb",
++		READ_CGMEM("usage_in_bytes") / 1024);
++	tst_res(TINFO, "\tcgmem.memsw.usage_in_bytes: %ld Kb",
++		READ_CGMEM("memsw.usage_in_bytes") / 1024);
++	tst_res(TINFO, "\tcgmem.kmem.usage_in_bytes: %ld Kb",
++		READ_CGMEM("kmem.usage_in_bytes") / 1024);
++}
++
+ static void setup(void)
+ {
+ 	struct sysinfo sys_buf_start;
+@@ -77,9 +123,19 @@ static void setup(void)
+ 
+ 	SAFE_FILE_PRINTF("/proc/self/oom_score_adj", "%d", -1000);
+ 	SAFE_FILE_PRINTF(MNT_NAME"/"GROUP_NAME"/memory.limit_in_bytes", "%ld\n",
+-		PASS_THRESHOLD);
++			 MEM_LIMIT);
++	SAFE_FILE_PRINTF(MNT_NAME"/"GROUP_NAME"/memory.memsw.limit_in_bytes", "%ld\n",
++			 MEMSW_LIMIT);
+ 	SAFE_FILE_PRINTF(MNT_NAME"/"GROUP_NAME"/memory.swappiness", "60");
+ 	SAFE_FILE_PRINTF(MNT_NAME"/"GROUP_NAME"/tasks", "%d\n", getpid());
++
++	meminfo_diag("Initial meminfo, later values are relative to this (except memcg)");
++	init_swap = SAFE_READ_MEMINFO("SwapTotal:") - SAFE_READ_MEMINFO("SwapFree:");
++	init_swap_cached = SAFE_READ_MEMINFO("SwapCached:");
++	init_cached = SAFE_READ_MEMINFO("Cached:");
++
++	tst_res(TINFO, "mapping %ld Kb (%ld pages), limit %ld Kb, pass threshold %ld Kb",
++		CHUNK_SZ / 1024, CHUNK_SZ / pg_sz, MEM_LIMIT / 1024, PASS_THRESHOLD_KB);
+ }
+ 
+ static void cleanup(void)
+@@ -112,55 +168,60 @@ static int get_page_fault_num(void)
+ 
+ static void test_advice_willneed(void)
+ {
+-	int loops = 50;
++	int loops = 50, res;
+ 	char *target;
+ 	long swapcached_start, swapcached;
+ 	int page_fault_num_1, page_fault_num_2;
+ 
++	meminfo_diag("Before mmap");
++	tst_res(TINFO, "PageFault(before mmap): %d", get_page_fault_num());
+ 	target = SAFE_MMAP(NULL, CHUNK_SZ, PROT_READ | PROT_WRITE,
+ 			MAP_SHARED | MAP_ANONYMOUS,
+ 			-1, 0);
++	meminfo_diag("Before dirty");
++	tst_res(TINFO, "PageFault(before dirty): %d", get_page_fault_num());
+ 	dirty_pages(target, CHUNK_SZ);
++	tst_res(TINFO, "PageFault(after dirty): %d", get_page_fault_num());
+ 
++	meminfo_diag("Before madvise");
+ 	SAFE_FILE_LINES_SCANF("/proc/meminfo", "SwapCached: %ld",
+ 		&swapcached_start);
+-	tst_res(TINFO, "SwapCached (before madvise): %ld", swapcached_start);
+ 
+-	TEST(madvise(target, CHUNK_SZ, MADV_WILLNEED));
++	TEST(madvise(target, MEM_LIMIT, MADV_WILLNEED));
+ 	if (TST_RET == -1)
+ 		tst_brk(TBROK | TERRNO, "madvise failed");
+ 
+ 	do {
+ 		loops--;
+ 		usleep(100000);
++		FILE_PRINTF("/proc/sys/vm/stat_refresh", "1");
+ 		SAFE_FILE_LINES_SCANF("/proc/meminfo", "SwapCached: %ld",
+ 			&swapcached);
+-	} while (swapcached < swapcached_start + PASS_THRESHOLD / 1024
+-		&& loops > 0);
+-
+-	tst_res(TINFO, "SwapCached (after madvise): %ld", swapcached);
+-	if (swapcached > swapcached_start + PASS_THRESHOLD / 1024) {
+-		tst_res(TPASS, "Regression test pass");
+-		SAFE_MUNMAP(target, CHUNK_SZ);
+-		return;
+-	}
++	} while (swapcached < swapcached_start + PASS_THRESHOLD_KB && loops > 0);
++
++	meminfo_diag("After madvise");
++	res = swapcached > swapcached_start + PASS_THRESHOLD_KB;
++	tst_res(res ? TPASS : TFAIL,
++		"%s than %ld Kb were moved to the swap cache",
++		res ? "more" : "less", PASS_THRESHOLD_KB);
++
++
++	TEST(madvise(target, PASS_THRESHOLD, MADV_WILLNEED));
++	if (TST_RET == -1)
++		tst_brk(TBROK | TERRNO, "madvise failed");
+ 
+-	/*
+-	 * We may have hit a bug or we just have slow I/O,
+-	 * try accessing first page.
+-	 */
+ 	page_fault_num_1 = get_page_fault_num();
+ 	tst_res(TINFO, "PageFault(madvice / no mem access): %d",
+ 			page_fault_num_1);
+-	target[0] = 'a';
++	dirty_pages(target, PASS_THRESHOLD);
+ 	page_fault_num_2 = get_page_fault_num();
+ 	tst_res(TINFO, "PageFault(madvice / mem access): %d",
+ 			page_fault_num_2);
++	meminfo_diag("After page access");
+ 
+-	if (page_fault_num_1 != page_fault_num_2)
+-		tst_res(TFAIL, "Bug has been reproduced");
+-	else
+-		tst_res(TPASS, "Regression test pass");
++	res = page_fault_num_2 - page_fault_num_1;
++	tst_res(res < 3 ? TPASS : TFAIL,
++		"%d pages were faulted out of 2 max", res);
+ 
+ 	SAFE_MUNMAP(target, CHUNK_SZ);
+ }
+-- 
+2.28.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
