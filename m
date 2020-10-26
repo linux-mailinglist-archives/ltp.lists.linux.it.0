@@ -2,36 +2,38 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 482B72992D8
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Oct 2020 17:48:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D00572992D2
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Oct 2020 17:48:34 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DAAAD3C2639
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Oct 2020 17:48:46 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9575E3C2657
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Oct 2020 17:48:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 592873C1C9E
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 3E9AC3C12E6
  for <ltp@lists.linux.it>; Mon, 26 Oct 2020 17:48:06 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A3D7B600A72
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A2CAF60082D
  for <ltp@lists.linux.it>; Mon, 26 Oct 2020 17:48:05 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D0C55AD0B
+ by mx2.suse.de (Postfix) with ESMTP id EA0D4AD1A
  for <ltp@lists.linux.it>; Mon, 26 Oct 2020 16:48:04 +0000 (UTC)
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Mon, 26 Oct 2020 17:47:37 +0100
-Message-Id: <20201026164756.30556-1-mdoucha@suse.cz>
+Date: Mon, 26 Oct 2020 17:47:38 +0100
+Message-Id: <20201026164756.30556-2-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20201026164756.30556-1-mdoucha@suse.cz>
+References: <20201026164756.30556-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 00/19] Unify error handling in LTP library
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 01/19] Unify error handling in lib/tst_safe_macros.c
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,58 +50,438 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-LTP helper functions, mainly safe syscalls, often report two different source
-code locations in error messages and sometimes handle syscall return values
-incorrectly. This patchset unifies source code location formatting to only
-show the calling line in the test program and fixes invalid return value
-handling. Safe syscalls now make pedantic distinction between common errors
-and invalid return values where applicable.
+- Properly format caller file:line location
+- Pedantically check for invalid syscall return values, don't ignore silently
+- Always return syscall result so that all SAFE_*() functions can be called
+  in test cleanup
 
-Some safe syscalls returned no value so they were not usable in test cleanup.
-This is also fixed along with potential control flow issues when tst_brk()
-does not immediately terminate the program.
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
+ include/tst_safe_macros.h |  30 ++++----
+ lib/tst_safe_macros.c     | 154 ++++++++++++++++++++++++++++++--------
+ 2 files changed, 137 insertions(+), 47 deletions(-)
 
-Martin Doucha (19):
-  Unify error handling in lib/tst_safe_macros.c
-  Unify error handling in lib/tst_safe_sysv_ipc.c
-  Unify error handling in lib/tst_safe_timerfd.c
-  Unify error handling in lib/safe_file_ops.c
-  Unify error handling in lib/safe_macros.c
-  Unify error handling in lib/safe_net.c
-  Unify error handling in lib/safe_stdio.c
-  Unify error handling in lib/tst_mkfs.c
-  Unify error handling in lib/tst_checkpoint.c
-  Unify error handling in lib/tst_net.c
-  Unify error handling in lib/tst_fs_setup.c
-  Unify error handling in include/tst_safe_clocks.h
-  Move executable code out of tst_safe_macros.h
-  Unify error handling in moved functions
-  Unify error handling in include/tst_safe_macros.h
-  Unify error handling in include/tst_safe_posix_ipc.h
-  Unify error handling in include/tst_safe_prw.h
-  Unify error handling in lib/tst_resource.c
-  Unify error handling in include/lapi/safe_rt_signal.h
-
- include/lapi/safe_rt_signal.h |  25 +-
- include/safe_file_ops_fn.h    |   8 +-
- include/tst_safe_clocks.h     |  48 ++-
- include/tst_safe_macros.h     | 130 ++++----
- include/tst_safe_posix_ipc.h  |   6 +-
- include/tst_safe_prw.h        |  16 +-
- lib/safe_file_ops.c           | 207 +++++++-----
- lib/safe_macros.c             | 602 ++++++++++++++++++++++------------
- lib/safe_net.c                | 262 +++++++++------
- lib/safe_stdio.c              |  34 +-
- lib/tst_checkpoint.c          |  23 +-
- lib/tst_fs_setup.c            |   8 +-
- lib/tst_mkfs.c                |  36 +-
- lib/tst_net.c                 |   9 +-
- lib/tst_resource.c            |   9 +-
- lib/tst_safe_macros.c         | 201 ++++++++++--
- lib/tst_safe_sysv_ipc.c       |  79 +++--
- lib/tst_safe_timerfd.c        |  32 +-
- 18 files changed, 1100 insertions(+), 635 deletions(-)
-
+diff --git a/include/tst_safe_macros.h b/include/tst_safe_macros.h
+index fd0fcd278..42d923370 100644
+--- a/include/tst_safe_macros.h
++++ b/include/tst_safe_macros.h
+@@ -130,7 +130,7 @@ int safe_setreuid(const char *file, const int lineno,
+ int safe_setpgid(const char *file, const int lineno, pid_t pid, pid_t pgid);
+ 
+ #define SAFE_SETPGID(pid, pgid) \
+-	safe_setpgid(__FILE__, __LINE__, (pid), (pgid));
++	safe_setpgid(__FILE__, __LINE__, (pid), (pgid))
+ 
+ pid_t safe_getpgid(const char *file, const int lineno, pid_t pid);
+ 
+@@ -141,7 +141,7 @@ pid_t safe_getpgid(const char *file, const int lineno, pid_t pid);
+ 	safe_unlink(__FILE__, __LINE__, NULL, (pathname))
+ 
+ #define SAFE_LINK(oldpath, newpath) \
+-        safe_link(__FILE__, __LINE__, NULL, (oldpath), (newpath))
++	safe_link(__FILE__, __LINE__, NULL, (oldpath), (newpath))
+ 
+ #define SAFE_LINKAT(olddirfd, oldpath, newdirfd, newpath, flags) \
+ 	safe_linkat(__FILE__, __LINE__, NULL, (olddirfd), (oldpath), \
+@@ -151,7 +151,7 @@ pid_t safe_getpgid(const char *file, const int lineno, pid_t pid);
+ 	safe_readlink(__FILE__, __LINE__, NULL, (path), (buf), (bufsize))
+ 
+ #define SAFE_SYMLINK(oldpath, newpath) \
+-        safe_symlink(__FILE__, __LINE__, NULL, (oldpath), (newpath))
++	safe_symlink(__FILE__, __LINE__, NULL, (oldpath), (newpath))
+ 
+ #define SAFE_WRITE(len_strict, fildes, buf, nbyte) \
+ 	safe_write(__FILE__, __LINE__, NULL, (len_strict), (fildes), (buf), (nbyte))
+@@ -178,10 +178,10 @@ pid_t safe_getpgid(const char *file, const int lineno, pid_t pid);
+ 	safe_fchown(__FILE__, __LINE__, NULL, (fd), (owner), (group))
+ 
+ #define SAFE_WAIT(status) \
+-        safe_wait(__FILE__, __LINE__, NULL, (status))
++	safe_wait(__FILE__, __LINE__, NULL, (status))
+ 
+ #define SAFE_WAITPID(pid, status, opts) \
+-        safe_waitpid(__FILE__, __LINE__, NULL, (pid), (status), (opts))
++	safe_waitpid(__FILE__, __LINE__, NULL, (pid), (status), (opts))
+ 
+ #define SAFE_KILL(pid, sig) \
+ 	safe_kill(__FILE__, __LINE__, NULL, (pid), (sig))
+@@ -350,7 +350,7 @@ static inline int safe_statfs(const char *file, const int lineno,
+ 	return rval;
+ }
+ #define SAFE_STATFS(path, buf) \
+-        safe_statfs(__FILE__, __LINE__, (path), (buf))
++	safe_statfs(__FILE__, __LINE__, (path), (buf))
+ 
+ static inline off_t safe_lseek(const char *file, const int lineno,
+                                int fd, off_t offset, int whence)
+@@ -432,32 +432,32 @@ int safe_sigaction(const char *file, const int lineno,
+ #define SAFE_SIGACTION(signum, act, oldact) \
+ 	safe_sigaction(__FILE__, __LINE__, (signum), (act), (oldact))
+ 
+-void safe_sigaddset(const char *file, const int lineno,
++int safe_sigaddset(const char *file, const int lineno,
+                     sigset_t *sigs, int signo);
+ #define SAFE_SIGADDSET(sigs, signo) \
+ 	safe_sigaddset(__FILE__, __LINE__, (sigs), (signo))
+ 
+-void safe_sigdelset(const char *file, const int lineno,
++int safe_sigdelset(const char *file, const int lineno,
+                     sigset_t *sigs, int signo);
+ #define SAFE_SIGDELSET(sigs, signo) \
+ 	safe_sigdelset(__FILE__, __LINE__, (sigs), (signo))
+ 
+-void safe_sigemptyset(const char *file, const int lineno,
++int safe_sigemptyset(const char *file, const int lineno,
+                       sigset_t *sigs);
+ #define SAFE_SIGEMPTYSET(sigs) \
+ 	safe_sigemptyset(__FILE__, __LINE__, (sigs))
+ 
+-void safe_sigfillset(const char *file, const int lineno,
++int safe_sigfillset(const char *file, const int lineno,
+ 		     sigset_t *sigs);
+ #define SAFE_SIGFILLSET(sigs) \
+ 	safe_sigfillset(__FILE__, __LINE__, (sigs))
+ 
+-void safe_sigprocmask(const char *file, const int lineno,
++int safe_sigprocmask(const char *file, const int lineno,
+                       int how, sigset_t *set, sigset_t *oldset);
+ #define SAFE_SIGPROCMASK(how, set, oldset) \
+ 	safe_sigprocmask(__FILE__, __LINE__, (how), (set), (oldset))
+ 
+-void safe_sigwait(const char *file, const int lineno,
++int safe_sigwait(const char *file, const int lineno,
+                   sigset_t *set, int *sig);
+ #define SAFE_SIGWAIT(set, sig) \
+ 	safe_sigwait(__FILE__, __LINE__, (set), (sig))
+@@ -563,11 +563,11 @@ int safe_personality(const char *filename, unsigned int lineno,
+ 	}							\
+ 	} while (0)
+ 
+-void safe_unshare(const char *file, const int lineno, int flags);
++int safe_unshare(const char *file, const int lineno, int flags);
+ #define SAFE_UNSHARE(flags) safe_unshare(__FILE__, __LINE__, (flags))
+ 
+-void safe_setns(const char *file, const int lineno, int fd, int nstype);
+-#define SAFE_SETNS(fd, nstype) safe_setns(__FILE__, __LINE__, (fd), (nstype));
++int safe_setns(const char *file, const int lineno, int fd, int nstype);
++#define SAFE_SETNS(fd, nstype) safe_setns(__FILE__, __LINE__, (fd), (nstype))
+ 
+ static inline void safe_cmd(const char *file, const int lineno, const char *const argv[],
+ 				  const char *stdout_path, const char *stderr_path)
+diff --git a/lib/tst_safe_macros.c b/lib/tst_safe_macros.c
+index 41b2141d7..dd7f604eb 100644
+--- a/lib/tst_safe_macros.c
++++ b/lib/tst_safe_macros.c
+@@ -23,10 +23,14 @@ int safe_setpgid(const char *file, const int lineno, pid_t pid, pid_t pgid)
+ 	int rval;
+ 
+ 	rval = setpgid(pid, pgid);
+-	if (rval) {
+-		tst_brk(TBROK | TERRNO,
+-		        "%s:%d: setpgid(%i, %i) failed",
+-			file, lineno, pid, pgid);
++
++	if (rval == -1) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"setpgid(%i, %i) failed", pid, pgid);
++	} else if (rval) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"Invalid setpgid(%i, %i) return value %d", pid, pgid,
++			rval);
+ 	}
+ 
+ 	return rval;
+@@ -37,9 +41,13 @@ pid_t safe_getpgid(const char *file, const int lineno, pid_t pid)
+ 	pid_t pgid;
+ 
+ 	pgid = getpgid(pid);
++
+ 	if (pgid == -1) {
+-		tst_brk(TBROK | TERRNO,
+-			"%s:%d: getpgid(%i) failed", file, lineno, pid);
++		tst_brk_(file, lineno, TBROK | TERRNO, "getpgid(%i) failed",
++			pid);
++	} else if (pgid < 0) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"Invalid getpgid(%i) return value %d", pid, pgid);
+ 	}
+ 
+ 	return pgid;
+@@ -50,9 +58,13 @@ int safe_personality(const char *filename, unsigned int lineno,
+ {
+ 	int prev_persona = personality(persona);
+ 
+-	if (prev_persona < 0) {
++	if (prev_persona == -1) {
+ 		tst_brk_(filename, lineno, TBROK | TERRNO,
+ 			 "persona(%ld) failed", persona);
++	} else if (prev_persona < 0) {
++		tst_brk_(filename, lineno, TBROK | TERRNO,
++			 "Invalid persona(%ld) return value %d", persona,
++			 prev_persona);
+ 	}
+ 
+ 	return prev_persona;
+@@ -64,10 +76,14 @@ int safe_setregid(const char *file, const int lineno,
+ 	int rval;
+ 
+ 	rval = setregid(rgid, egid);
++
+ 	if (rval == -1) {
+ 		tst_brk_(file, lineno, TBROK | TERRNO,
+-			 "setregid(%li, %li) failed",
+-			 (long)rgid, (long)egid);
++			 "setregid(%li, %li) failed", (long)rgid, (long)egid);
++	} else if (rval) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			 "Invalid setregid(%li, %li) return value %d",
++			 (long)rgid, (long)egid, rval);
+ 	}
+ 
+ 	return rval;
+@@ -79,10 +95,14 @@ int safe_setreuid(const char *file, const int lineno,
+ 	int rval;
+ 
+ 	rval = setreuid(ruid, euid);
++
+ 	if (rval == -1) {
+ 		tst_brk_(file, lineno, TBROK | TERRNO,
+-			 "setreuid(%li, %li) failed",
+-			 (long)ruid, (long)euid);
++			 "setreuid(%li, %li) failed", (long)ruid, (long)euid);
++	} else if (rval) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			 "Invalid setreuid(%li, %li) return value %d",
++			 (long)ruid, (long)euid, rval);
+ 	}
+ 
+ 	return rval;
+@@ -101,55 +121,87 @@ int safe_sigaction(const char *file, const int lineno,
+ 		tst_brk_(file, lineno, TBROK | TERRNO,
+ 			"sigaction(%s (%d), %p, %p) failed",
+ 			tst_strsig(signum), signum, act, oldact);
++	} else if (rval) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"Invalid sigaction(%s (%d), %p, %p) return value %d",
++			tst_strsig(signum), signum, act, oldact, rval);
+ 	}
+ 
+ 	return rval;
+ }
+ 
+-void safe_sigaddset(const char *file, const int lineno,
++int safe_sigaddset(const char *file, const int lineno,
+                     sigset_t *sigs, int signo)
+ {
+ 	int rval;
+ 
+ 	rval = sigaddset(sigs, signo);
++
+ 	if (rval == -1) {
+ 		tst_brk_(file, lineno, TBROK | TERRNO,
+-		         "sigaddset() %s (%i) failed",
+-			 tst_strsig(signo), signo);
++			"sigaddset() %s (%i) failed", tst_strsig(signo),
++			signo);
++	} else if (rval) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"Invalid sigaddset() %s (%i) return value %d",
++			tst_strsig(signo), signo, rval);
+ 	}
++
++	return rval;
+ }
+ 
+-void safe_sigdelset(const char *file, const int lineno,
++int safe_sigdelset(const char *file, const int lineno,
+                     sigset_t *sigs, int signo)
+ {
+ 	int rval;
+ 
+ 	rval = sigdelset(sigs, signo);
++
+ 	if (rval == -1) {
+ 		tst_brk_(file, lineno, TBROK | TERRNO,
+-		         "sigdelset() %s (%i) failed",
+-			 tst_strsig(signo), signo);
++			"sigdelset() %s (%i) failed", tst_strsig(signo),
++			signo);
++	} else if (rval) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"Invalid sigdelset() %s (%i) return value %d",
++			tst_strsig(signo), signo, rval);
+ 	}
++
++	return rval;
+ }
+ 
+-void safe_sigemptyset(const char *file, const int lineno,
++int safe_sigemptyset(const char *file, const int lineno,
+                       sigset_t *sigs)
+ {
+ 	int rval;
+ 
+ 	rval = sigemptyset(sigs);
+-	if (rval == -1)
++
++	if (rval == -1) {
+ 		tst_brk_(file, lineno, TBROK | TERRNO, "sigemptyset() failed");
++	} else if (rval) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"Invalid sigemptyset() return value %d", rval);
++	}
++
++	return rval;
+ }
+ 
+-void safe_sigfillset(const char *file, const int lineno,
++int safe_sigfillset(const char *file, const int lineno,
+ 		     sigset_t *sigs)
+ {
+ 	int rval;
+ 
+ 	rval = sigfillset(sigs);
+-	if (rval == -1)
++
++	if (rval == -1) {
+ 		tst_brk_(file, lineno, TBROK | TERRNO, "sigfillset() failed");
++	} else if (rval) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"Invalid sigfillset() return value %d", rval);
++	}
++
++	return rval;
+ }
+ 
+ static const char *strhow(int how)
+@@ -166,28 +218,44 @@ static const char *strhow(int how)
+ 	}
+ }
+ 
+-void safe_sigprocmask(const char *file, const int lineno,
++int safe_sigprocmask(const char *file, const int lineno,
+                       int how, sigset_t *set, sigset_t *oldset)
+ {
+ 	int rval;
+ 
+ 	rval = sigprocmask(how, set, oldset);
++
+ 	if (rval == -1) {
+ 		tst_brk_(file, lineno, TBROK | TERRNO,
+-		         "sigprocmask(%s, %p, %p)", strhow(how), set, oldset);
++			"sigprocmask(%s, %p, %p) failed", strhow(how), set,
++			oldset);
++	} else if (rval) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"Invalid sigprocmask(%s, %p, %p) return value %d",
++			strhow(how), set, oldset, rval);
+ 	}
++
++	return rval;
+ }
+ 
+-void safe_sigwait(const char *file, const int lineno,
++int safe_sigwait(const char *file, const int lineno,
+                   sigset_t *set, int *sig)
+ {
+ 	int rval;
+ 
+ 	rval = sigwait(set, sig);
+-	if (rval != 0) {
++
++	if (rval > 0) {
+ 		errno = rval;
+-		tst_brk_(file, lineno, TBROK, "sigwait(%p, %p)", set, sig);
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"sigwait(%p, %p) failed", set, sig);
++	} else if (rval) {
++		tst_brk_(file, lineno, TBROK,
++			"Invalid sigwait(%p, %p) return value %d", set, sig,
++			rval);
+ 	}
++
++	return rval;
+ }
+ 
+ struct group *safe_getgrnam(const char *file, const int lineno,
+@@ -241,19 +309,24 @@ int safe_chroot(const char *file, const int lineno, const char *path)
+ 	int rval;
+ 
+ 	rval = chroot(path);
++
+ 	if (rval == -1) {
++		tst_brk_(file, lineno, TBROK | TERRNO, "chroot(%s) failed",
++			path);
++	} else if (rval) {
+ 		tst_brk_(file, lineno, TBROK | TERRNO,
+-			 "chroot(%s) failed", path);
++			 "Invalid chroot(%s) return value %d", path, rval);
+ 	}
+ 
+ 	return rval;
+ }
+ 
+-void safe_unshare(const char *file, const int lineno, int flags)
++int safe_unshare(const char *file, const int lineno, int flags)
+ {
+ 	int res;
+ 
+ 	res = unshare(flags);
++
+ 	if (res == -1) {
+ 		if (errno == EINVAL) {
+ 			tst_brk_(file, lineno, TCONF | TERRNO,
+@@ -262,18 +335,30 @@ void safe_unshare(const char *file, const int lineno, int flags)
+ 			tst_brk_(file, lineno, TBROK | TERRNO,
+ 				 "unshare(%d) failed", flags);
+ 		}
++	} else if (res) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			 "Invalid unshare(%d) return value %d", flags, res);
+ 	}
++
++	return res;
+ }
+ 
+-void safe_setns(const char *file, const int lineno, int fd, int nstype)
++int safe_setns(const char *file, const int lineno, int fd, int nstype)
+ {
+ 	int ret;
+ 
+ 	ret = setns(fd, nstype);
++
+ 	if (ret == -1) {
+ 		tst_brk_(file, lineno, TBROK | TERRNO, "setns(%i, %i) failed",
+-		         fd, nstype);
++			fd, nstype);
++	} else if (ret) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"Invalid setns(%i, %i) return value %d", fd, nstype,
++			ret);
+ 	}
++
++	return ret;
+ }
+ 
+ long tst_safe_ptrace(const char *file, const int lineno, int req, pid_t pid,
+@@ -299,10 +384,15 @@ int safe_pipe2(const char *file, const int lineno, int fildes[2], int flags)
+ 	int ret;
+ 
+ 	ret = pipe2(fildes, flags);
++
+ 	if (ret == -1) {
+ 		tst_brk_(file, lineno, TBROK | TERRNO,
+-			"pipe2({%d,%d}) failed with flag(%d)",
+-			fildes[0], fildes[1], flags);
++			"pipe2({%d,%d}) failed with flag(%d)", fildes[0],
++			fildes[1], flags);
++	} else if (ret) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"Invalid pipe2({%d,%d}, %d) return value %d",
++			fildes[0], fildes[1], flags, ret);
+ 	}
+ 
+ 	return ret;
 -- 
 2.28.0
 
