@@ -1,40 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7F1D29AA38
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Oct 2020 12:04:31 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4ECF629AC3A
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Oct 2020 13:38:41 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 706F83C30FE
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Oct 2020 12:04:31 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 052203C55F4
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Oct 2020 13:38:41 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 4346F3C6181
- for <ltp@lists.linux.it>; Tue, 27 Oct 2020 12:04:29 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 0DA8D600EA3
- for <ltp@lists.linux.it>; Tue, 27 Oct 2020 12:04:12 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A34FBAD49;
- Tue, 27 Oct 2020 11:04:11 +0000 (UTC)
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue, 27 Oct 2020 12:04:46 +0100
-Message-Id: <20201027110446.20416-3-chrubis@suse.cz>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201027110446.20416-1-chrubis@suse.cz>
-References: <20201027110446.20416-1-chrubis@suse.cz>
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id BA33D3C246A
+ for <ltp@lists.linux.it>; Tue, 27 Oct 2020 13:38:39 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id A2956200BD8
+ for <ltp@lists.linux.it>; Tue, 27 Oct 2020 13:38:38 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1603802317;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=40HdEEhKtTDf/myhB9tr841C/ycoqA+0LSgRDDN+L2E=;
+ b=iETjmKhv/V7WAHHU3xr6YORf3gpmvtA1NQwZlDB6AM/JG8cFG6E3CosunH+jiRWn3CcJrS
+ SGft78I/RZXWReyuciDhKByuRzmCI2zJ1pPBNflV6UI9lYzxk47y0j/xBqKUWKE9UlmgaN
+ OiUL8g/EAs3tg8SXC11ZsBnwwV2rmNs=
+Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
+ [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-580-YctFNPIOMB-OaEyQ2FhmoQ-1; Tue, 27 Oct 2020 08:38:34 -0400
+X-MC-Unique: YctFNPIOMB-OaEyQ2FhmoQ-1
+Received: by mail-yb1-f200.google.com with SMTP id b189so1274362ybh.5
+ for <ltp@lists.linux.it>; Tue, 27 Oct 2020 05:38:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=40HdEEhKtTDf/myhB9tr841C/ycoqA+0LSgRDDN+L2E=;
+ b=Vn04zuKXCWCp7OXSH7G8sPL8xidbJX4Dk3BS9S19Q79iQ5ODHuCUDkwd6INR7yXfpi
+ I9Gfi7uT2UnJa2I/niSANfmcVkKSX2k6zDGEIlRha+VQWZtB56NsitkEFmPXsp30jZSr
+ DCHVZ7gmM0Uk+febhYZRwuTG2lrA0qetBWWyxK68NcHXsKPCl97XnGB1GRI6fwtz9SCw
+ E2JVuT4uUNLssBOPfZURbDwad2T6fYDw4rmGvZqrRlUky+fW13chC0aeRCR8tzn/pj6A
+ 6PyRYK9rSGsdNork2LC/jDyRSMmDjH+zHnIMCk869b3amM4uRx8oemV2VMHR/3tDW5/Q
+ dNOg==
+X-Gm-Message-State: AOAM530BG2wMGXkzaV2BlPkQelAhGgiIuoVLMXJm2TxLOM/6WIvmPTsi
+ 40eoIZWx7zs0OSuWjky8prKUu/lp3o/G/fVkPhK7+De6SiE9DsWOmEsQxGMqcgsT/ZGneW4KSw0
+ JsRJy9T7r2u+zSfgAeEc4YORYEQ4=
+X-Received: by 2002:a25:3417:: with SMTP id b23mr2746394yba.97.1603802313909; 
+ Tue, 27 Oct 2020 05:38:33 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJymC5esp3x+LkPUC/8mZq2TNTuJWPfQNxo3V6hszkkZN74NVCBdbe/f+zDxIXf1KSeIYFBDBW+NceOHREpneTk=
+X-Received: by 2002:a25:3417:: with SMTP id b23mr2746368yba.97.1603802313617; 
+ Tue, 27 Oct 2020 05:38:33 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+References: <20201026121605.20100-1-rpalethorpe@suse.com>
+In-Reply-To: <20201026121605.20100-1-rpalethorpe@suse.com>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 27 Oct 2020 20:38:22 +0800
+Message-ID: <CAEemH2d8+5qLLKWsuf5WJeLHdv2VfPZiyM9-oW=WyH4m==h=8g@mail.gmail.com>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/2] lib/tst_kconfig: Make use of boolean
- expression eval
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] madvise06: Increase reliability and diagnostic
+ info
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,605 +80,312 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: automated-testing@yoctoproject.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0059261999=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Now each string in the kconfig[] array in tst_test structure is an
-boolean expression which is evaluated. All expressions has to be true in
-order for the test to continue.
+--===============0059261999==
+Content-Type: multipart/alternative; boundary="00000000000031904205b2a6531f"
 
-This also makes the parser for the kernel config a bit more robust as it
-was pointed out that there may have been cases where it could be mislead
-by hand edited config files.
+--00000000000031904205b2a6531f
+Content-Type: text/plain; charset="UTF-8"
 
-+ Update the docs.
+On Mon, Oct 26, 2020 at 8:16 PM Richard Palethorpe <rpalethorpe@suse.com>
+wrote:
 
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-CC: Pengfei Xu <pengfei.xu@intel.com>
+> When memcg.limit_in_bytes is set to PASS_THRESHOLD it's unlikely
+> swapcached will increase by more than PASS_THRESHOLD unless processes
+> in other memcgs are also increasing it. Additionally MADV_WILLNEED
+> must remove pages from memory as it adds more so that the first page
+> may not be in memory by the time the last page is faulted if the
+> amount exceeds the memory limit (which it does because CHUNK_SZ >
+> PASS_THRESSHOLD). Worse if pages are faulted in a non-linear way, or
+> the process must access some other pages, then there is no guarantee
+> which parts of the range will be resident in memory. This results in
+> spurious test failures.
+>
+> To solve this we can set PASS_THRESHOLD to 1/4 of CHUNK_SZ and
+> memcg.limit_in_bytes to 1/2 of CHUNK_SZ (MEM_LIMIT), then mark
+> MEM_LIMIT bytes as needed. That way the amount in the SwapCache will
+> easily be more than the threshold. Secondly we can run madvise again
+> on PASS_THRESHOLD bytes and check that dirtying all of these does not
+> result in too many page faults. We also run the second test on every
+> occasion to ensure the test code itself is still valid. If the
+> original bug is present then both tests fail.
+>
+> Finally this prints more diagnostic information to help with debugging
+> the test.
+>
+> While debugging the test a kernel bug was found in 5.9 which effects
+> CGroupV1 when use_hierarchy=0. This is unlikely to effect many users,
+> but a fix is pending and will be referenced in the test when
+> available. It is recommended that you set use_hierarchy=1.
+>
+
+Great, we could add the commit info as well after patch merging in the
+mainline kernel.
+
+
+> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+>
+Reviewed-by: Li Wang <liwang@redhat.com>
+
+This improvement makes sense to me apart from a tiny syntax error below.
+
+One additional comment, I found this test now only run with CGroupV1,
+and maybe we could make use of the LTP-cgroup new library after we
+updating that(tst_cgroup.c) to make it works well with CGroupV2.
+
 ---
+>  testcases/kernel/syscalls/madvise/madvise06.c | 107 ++++++++++++++----
+>  1 file changed, 84 insertions(+), 23 deletions(-)
+>
+> diff --git a/testcases/kernel/syscalls/madvise/madvise06.c
+> b/testcases/kernel/syscalls/madvise/madvise06.c
+> index f76f3f6aa..3e70da37e 100644
+> --- a/testcases/kernel/syscalls/madvise/madvise06.c
+> +++ b/testcases/kernel/syscalls/madvise/madvise06.c
+> @@ -19,6 +19,23 @@
+>   *   Date:   Thu May 22 11:54:17 2014 -0700
+>   *
+>   *       mm: madvise: fix MADV_WILLNEED on shmem swapouts
+> + *
+> + *   Two checks are performed, the first looks at how SwapCache
+> + *   changes during madvise. When the pages are dirtied, about half
+> + *   will be accounted for under Cached and the other half will be
+> + *   moved into Swap. When madvise is run it will cause the pages
+> + *   under Cached to also be moved to Swap while rotating the pages
+> + *   already in Swap into SwapCached. So we expect that SwapCached has
+> + *   roughly MEM_LIMIT bytes added to it, but for reliability the
+> + *   PASS_THRESHOLD is much lower than that.
+> + *
+> + *   Secondly we run madvise again, but only on the first
+> + *   PASS_THRESHOLD bytes to ensure these are entirely in RAM. Then we
+> + *   dirty these pages and check there were (almost) no page
+> + *   faults. Two faults are allowed incase some tasklet or something
+> + *   else unexpected, but irrelevant procedure, registers a fault to
+> + *   our process.
+> + *
+>   */
+>
+>  #include <errno.h>
+> @@ -28,8 +45,10 @@
+>  #include "tst_test.h"
+>
+>  #define CHUNK_SZ (400*1024*1024L)
+> -#define CHUNK_PAGES (CHUNK_SZ / pg_sz)
+> +#define MEM_LIMIT (CHUNK_SZ / 2)
+> +#define MEMSW_LIMIT (2 * CHUNK_SZ)
+>  #define PASS_THRESHOLD (CHUNK_SZ / 4)
+> +#define PASS_THRESHOLD_KB (PASS_THRESHOLD / 1024)
+>
+>  #define MNT_NAME "memory"
+>  #define GROUP_NAME "madvise06"
+> @@ -37,12 +56,39 @@
+>  static const char drop_caches_fname[] = "/proc/sys/vm/drop_caches";
+>  static int pg_sz;
+>
+> +static long init_swap, init_swap_cached, init_cached;
+> +
+>  static void check_path(const char *path)
+>  {
+>         if (access(path, R_OK | W_OK))
+>                 tst_brk(TCONF, "file needed: %s\n", path);
+>  }
+>
+> +#define READ_CGMEM(item)                                               \
+> +       ({long tst_rval;                                                \
+> +         SAFE_FILE_LINES_SCANF(MNT_NAME"/"GROUP_NAME"/memory."item,    \
+> +                               "%ld",                                  \
+> +                               &tst_rval);                             \
+> +         tst_rval;})
+> +
+> +static void meminfo_diag(const char *point)
+> +{
+> +       FILE_PRINTF("/proc/sys/vm/stat_refresh", "1");
+> +       tst_res(TINFO, point);
+>
 
-v2:
-   - squashed the two patches since we are doing more extensive changes
-   - made the parser a bit more robust
-   - renamed a few fucntions and identifiers to make the code easier to
-     understand
-   - sprinkled the code with consts
+Here is a syntax error, to fix it as:
+    tst_res(TINFO, "%s", point);
 
- doc/test-writing-guidelines.txt |  21 +-
- include/tst_kconfig.h           |  34 +--
- lib/newlib_tests/config06       |   1 +
- lib/newlib_tests/test_kconfig.c |   1 +
- lib/tst_kconfig.c               | 362 +++++++++++++++++++++-----------
- 5 files changed, 270 insertions(+), 149 deletions(-)
- create mode 100644 lib/newlib_tests/config06
-
-diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
-index 1a51ef7c7..3c2ab7166 100644
---- a/doc/test-writing-guidelines.txt
-+++ b/doc/test-writing-guidelines.txt
-@@ -1643,21 +1643,26 @@ on the system, disabled syscalls can be detected by checking for 'ENOSYS'
- errno etc.
- 
- However in rare cases core kernel features couldn't be detected based on the
--kernel userspace API and we have to resort to kernel .config parsing.
-+kernel userspace API and we have to resort to parse the kernel .config.
- 
--For this cases the test should set the 'NULL' terminated '.needs_kconfigs' array
--of kernel config options required for the test. The config option can be
--specified either as plain "CONFIG_FOO" in which case it's sufficient for the
--test continue if it's set to any value (typically =y or =m). Or with a value
--as "CONFIG_FOO=bar" in which case the value has to match as well. The test is
--aborted with 'TCONF' if any of the required options were not set.
-+For this cases the test should set the 'NULL' terminated '.needs_kconfigs'
-+array of boolean expressions with constraints on the kconfig variables. The
-+boolean expression consits of variables, two binary operations '&' and '|',
-+negation '!' and correct sequence of parentesis '()'. Variables are expected
-+to be in a form of "CONFIG_FOO[=bar]".
-+
-+The test will continue to run if all expressions are evaluated to 'True'.
-+Missing variable is mapped to 'False' as well as variable with different than
-+specified value, e.g. 'CONFIG_FOO=bar' will evaluate to 'False' if the value
-+is anything else but 'bar'. If config variable is specified as plain
-+'CONFIG_FOO' it's evaluated to true it's set to any value (typically =y or =m).
- 
- [source,c]
- -------------------------------------------------------------------------------
- #include "tst_test.h"
- 
- static const char *kconfigs[] = {
--	"CONFIG_X86_INTEL_UMIP",
-+	"CONFIG_X86_INTEL_UMIP | CONFIG_X86_UMIP",
- 	NULL
- };
- 
-diff --git a/include/tst_kconfig.h b/include/tst_kconfig.h
-index 2d2cfd782..1bb21fea8 100644
---- a/include/tst_kconfig.h
-+++ b/include/tst_kconfig.h
-@@ -6,27 +6,27 @@
- #ifndef TST_KCONFIG_H__
- #define TST_KCONFIG_H__
- 
--struct tst_kconfig_res {
--	char match;
--	char *value;
-+struct tst_kconfig_var {
-+	char id[64];
-+	unsigned int id_len;
-+	char choice;
-+	char *val;
- };
- 
- /**
-- * Reads a kernel config and parses it for values defined in kconfigs array.
-+ *
-+ * Reads a kernel config, parses it and writes results into an array of
-+ * tst_kconfig_var structures.
-  *
-  * The path to the kernel config should be autodetected in most of the cases as
-  * the code looks for know locations. It can be explicitely set/overrided with
-  * the KCONFIG_PATH environment variable as well.
-  *
-- * The kcofings array is expected to contain strings in a format "CONFIG_FOO"
-- * or "CONFIG_FOO=bar". The result array has to be suitably sized to fit the
-- * results.
-- *
-- * @param kconfigs array of config strings to look for
-- * @param results array to store results to
-- * @param cnt size of the arrays
-+ * The caller has to initialize the tst_kconfig_var structure. The id has to be
-+ * filled with config variable name such as 'CONFIG_FOO', the id_len should
-+ * hold the id string length and the choice and val has to be zeroed.
-  *
-- * The match in the tst_kconfig_res structure is set as follows:
-+ * After a call to this function each choice be set as follows:
-  *
-  *  'm' - config option set to m
-  *  'y' - config option set to y
-@@ -34,11 +34,13 @@ struct tst_kconfig_res {
-  *  'n' - config option is not set
-  *   0  - config option not found
-  *
-- * In the case that match is set to 'v' the value points to a newly allocated
-- * string that holds the value.
-+ * In the case that match is set to 'v' the val pointer points to a newly
-+ * allocated string that holds the value.
-+ *
-+ * @param vars An array of caller initalized tst_kconfig_var structures.
-+ * @param vars_len Length of the vars array.
-  */
--void tst_kconfig_read(const char *const kconfigs[],
--		      struct tst_kconfig_res results[], size_t cnt);
-+void tst_kconfig_read(struct tst_kconfig_var vars[], size_t vars_len);
- 
- /**
-  * Checks if required kernel configuration options are set in the kernel
-diff --git a/lib/newlib_tests/config06 b/lib/newlib_tests/config06
-new file mode 100644
-index 000000000..b7db25411
---- /dev/null
-+++ b/lib/newlib_tests/config06
-@@ -0,0 +1 @@
-+# Empty
-diff --git a/lib/newlib_tests/test_kconfig.c b/lib/newlib_tests/test_kconfig.c
-index d9c662fc5..183d55611 100644
---- a/lib/newlib_tests/test_kconfig.c
-+++ b/lib/newlib_tests/test_kconfig.c
-@@ -14,6 +14,7 @@ static const char *kconfigs[] = {
- 	"CONFIG_MMU",
- 	"CONFIG_EXT4_FS=m",
- 	"CONFIG_PGTABLE_LEVELS=4",
-+	"CONFIG_MMU & CONFIG_EXT4_FS=m",
- 	NULL
- };
- 
-diff --git a/lib/tst_kconfig.c b/lib/tst_kconfig.c
-index d49187b6f..f3159b981 100644
---- a/lib/tst_kconfig.c
-+++ b/lib/tst_kconfig.c
-@@ -12,6 +12,7 @@
- #define TST_NO_DEFAULT_MAIN
- #include "tst_test.h"
- #include "tst_kconfig.h"
-+#include "tst_bool_expr.h"
- 
- static const char *kconfig_path(char *path_buf, size_t path_buf_len)
- {
-@@ -84,126 +85,108 @@ static void close_kconfig(FILE *fp)
- 		fclose(fp);
- }
- 
--struct match {
--	/* match len, string length up to \0 or = */
--	size_t len;
--	/* if set part of conf string after = */
--	const char *val;
--	/* if set the config option was matched already */
--	int match;
--};
--
--static int is_set(const char *str, const char *val)
-+static inline int kconfig_parse_line(const char *line,
-+                                     struct tst_kconfig_var *vars,
-+                                     unsigned int vars_len)
- {
--	size_t vlen = strlen(val);
-+	unsigned int i, var_len = 0;
-+	const char *var;
-+	int is_not_set = 0;
- 
--	while (isspace(*str))
--		str++;
-+	while (isspace(*line))
-+		line++;
- 
--	if (strncmp(str, val, vlen))
--		return 0;
-+	if (*line == '#') {
-+		if (!strstr(line, "is not set"))
-+			return 0;
- 
--	switch (str[vlen]) {
--	case ' ':
--	case '\n':
--	case '\0':
--		return 1;
--	break;
--	default:
--		return 0;
-+		is_not_set = 1;
- 	}
--}
--
--static inline int match(struct match *match, const char *conf,
--                        struct tst_kconfig_res *result, const char *line)
--{
--	if (match->match)
--		return 0;
- 
--	const char *cfg = strstr(line, "CONFIG_");
-+	var = strstr(line, "CONFIG_");
- 
--	if (!cfg)
-+	if (!var)
- 		return 0;
- 
--	if (strncmp(cfg, conf, match->len))
--		return 0;
--
--	const char *val = &cfg[match->len];
--
--	switch (cfg[match->len]) {
--	case '=':
-+	for (;;) {
-+		switch (var[var_len]) {
-+		case 'A' ... 'Z':
-+		case '0' ... '9':
-+		case '_':
-+			var_len++;
-+		break;
-+		default:
-+			goto out;
- 		break;
--	case ' ':
--		if (is_set(val, "is not set")) {
--			result->match = 'n';
--			goto match;
- 		}
--	/* fall through */
--	default:
--		return 0;
- 	}
- 
--	if (is_set(val, "=y")) {
--		result->match = 'y';
--		goto match;
--	}
-+out:
- 
--	if (is_set(val, "=m")) {
--		result->match = 'm';
--		goto match;
--	}
-+	for (i = 0; i < vars_len; i++) {
-+		const char *val;
-+		unsigned int val_len = 0;
- 
--	result->match = 'v';
--	result->value = strndup(val+1, strlen(val)-2);
-+		if (vars[i].id_len != var_len)
-+			continue;
- 
--match:
--	match->match = 1;
--	return 1;
--}
-+		if (strncmp(vars[i].id, var, var_len))
-+			continue;
- 
--void tst_kconfig_read(const char *const *kconfigs,
--                      struct tst_kconfig_res results[], size_t cnt)
--{
--	struct match matches[cnt];
--	FILE *fp;
--	unsigned int i, j;
--	char buf[1024];
-+		if (is_not_set) {
-+			vars[i].choice = 'n';
-+			return 1;
-+		}
- 
--	for (i = 0; i < cnt; i++) {
--		const char *val = strchr(kconfigs[i], '=');
-+		val = var + var_len;
- 
--		if (strncmp("CONFIG_", kconfigs[i], 7))
--			tst_brk(TBROK, "Invalid config string '%s'", kconfigs[i]);
-+		while (isspace(*val))
-+			val++;
-+
-+		if (*val != '=')
-+			return 0;
-+
-+		val++;
- 
--		matches[i].match = 0;
--		matches[i].len = strlen(kconfigs[i]);
-+		while (isspace(*val))
-+			val++;
- 
--		if (val) {
--			matches[i].val = val + 1;
--			matches[i].len -= strlen(val);
-+		while (!isspace(val[val_len]))
-+			val_len++;
-+
-+		if (val_len == 1) {
-+			switch (val[0]) {
-+			case 'y':
-+				vars[i].choice = 'y';
-+				return 1;
-+			case 'm':
-+				vars[i].choice = 'm';
-+				return 1;
-+			}
- 		}
- 
--		results[i].match = 0;
--		results[i].value = NULL;
-+		vars[i].choice = 'v';
-+		vars[i].val = strndup(val, val_len);
- 	}
- 
--	fp = open_kconfig();
-+	return 0;
-+}
-+
-+void tst_kconfig_read(struct tst_kconfig_var vars[], size_t vars_len)
-+{
-+	char line[128];
-+	unsigned int vars_found = 0;
-+
-+	FILE *fp = open_kconfig();
- 	if (!fp)
- 		tst_brk(TBROK, "Cannot parse kernel .config");
- 
--	while (fgets(buf, sizeof(buf), fp)) {
--		for (i = 0; i < cnt; i++) {
--			if (match(&matches[i], kconfigs[i], &results[i], buf)) {
--				for (j = 0; j < cnt; j++) {
--					if (matches[j].match)
--						break;
--				}
--
--				if (j == cnt)
--					goto exit;
--			}
--		}
-+	while (fgets(line, sizeof(line), fp)) {
-+		if (kconfig_parse_line(line, vars, vars_len))
-+			vars_found++;
- 
-+		if (vars_found == vars_len)
-+			goto exit;
- 	}
- 
- exit:
-@@ -219,65 +202,194 @@ static size_t array_len(const char *const kconfigs[])
- 	return i;
- }
- 
--static int compare_res(struct tst_kconfig_res *res, const char *kconfig,
--                       char match, const char *val)
-+static const char *strnchr(const char *s, int c, unsigned int len)
- {
--	if (res->match != match) {
--		tst_res(TINFO, "Needs kernel %s, have %c", kconfig, res->match);
--		return 1;
-+	unsigned int i;
-+
-+	for (i = 0; i < len; i++) {
-+		if (s[i] == c)
-+			return s + i;
- 	}
- 
--	if (match != 'v')
--		return 0;
-+	return NULL;
-+}
-+
-+static inline unsigned int get_len(const char* kconfig, unsigned int len)
-+{
-+	const char *sep = strnchr(kconfig, '=', len);
-+
-+	if (!sep)
-+		return len;
-+
-+	return sep - kconfig;
-+}
-+
-+static inline unsigned int get_var_cnt(struct tst_expr *const exprs[],
-+                                       unsigned int expr_cnt)
-+{
-+	unsigned int i;
-+	const struct tst_expr *j;
-+	unsigned int cnt = 0;
- 
--	if (strcmp(res->value, val)) {
--		tst_res(TINFO, "Needs kernel %s, have %s", kconfig, res->value);
--		return 1;
-+	for (i = 0; i < expr_cnt; i++) {
-+		for (j = exprs[i]; j; j = j->next) {
-+			if (j->op == TST_OP_VAR)
-+				cnt++;
-+		}
- 	}
- 
--	return 0;
-+	return cnt;
- }
- 
--void tst_kconfig_check(const char *const kconfigs[])
-+static const struct tst_kconfig_var *find_var(const struct tst_kconfig_var vars[],
-+                                        unsigned int var_cnt,
-+                                        const char *var)
- {
--	size_t cnt = array_len(kconfigs);
--	struct tst_kconfig_res results[cnt];
- 	unsigned int i;
--	int abort_test = 0;
- 
--	tst_kconfig_read(kconfigs, results, cnt);
-+	for (i = 0; i < var_cnt; i++) {
-+		if (!strcmp(vars[i].id, var))
-+			return &vars[i];
-+	}
- 
--	for (i = 0; i < cnt; i++) {
--		if (results[i].match == 0) {
--			tst_res(TINFO, "Missing kernel %s", kconfigs[i]);
--			abort_test = 1;
-+	return NULL;
-+}
-+
-+/*
-+ * Fill in the kconfig variables array from the expressions. Also makes sure
-+ * that each variable is copied to the array exaclty once.
-+ */
-+static inline unsigned int populate_vars(struct tst_expr *exprs[],
-+                                         unsigned int expr_cnt,
-+                                    struct tst_kconfig_var vars[])
-+{
-+	unsigned int i;
-+	struct tst_expr *j;
-+	unsigned int cnt = 0;
-+
-+	for (i = 0; i < expr_cnt; i++) {
-+		for (j = exprs[i]; j; j = j->next) {
-+			const struct tst_kconfig_var *var;
-+
-+			if (j->op != TST_OP_VAR)
-+				continue;
-+
-+			vars[cnt].id_len = get_len(j->tok, j->tok_len);
-+
-+			if (vars[cnt].id_len + 1 >= sizeof(vars[cnt].id))
-+				tst_brk(TBROK, "kconfig var id too long!");
-+
-+			strncpy(vars[cnt].id, j->tok, vars[cnt].id_len);
-+			vars[cnt].id[vars[cnt].id_len] = 0;
-+			vars[cnt].choice = 0;
-+
-+			var = find_var(vars, cnt, vars[cnt].id);
-+
-+			if (var)
-+				j->priv = var;
-+			else
-+				j->priv = &vars[cnt++];
-+		}
-+	}
-+
-+	return cnt;
-+}
-+
-+static int map(struct tst_expr *expr)
-+{
-+	const struct tst_kconfig_var *var = expr->priv;
-+
-+	if (var->choice == 0)
-+		return 0;
-+
-+	const char *val = strnchr(expr->tok, '=', expr->tok_len);
-+
-+	/* CONFIG_FOO evaluates to true if y or m */
-+	if (!val)
-+		return var->choice == 'y' || var->choice == 'm';
-+
-+	unsigned int len = expr->tok_len - (val - expr->tok);
-+	char choice = 'v';
-+	val++;
-+
-+	if (!strncmp(val, "n", len))
-+		choice = 'n';
-+
-+	if (!strncmp(val, "y", len))
-+		choice = 'y';
-+
-+	if (!strncmp(val, "m", len))
-+		choice = 'm';
-+
-+	if (choice != 'v')
-+		return var->choice == choice;
-+
-+	return !strncmp(val, var->val, len);
-+}
-+
-+static void dump_vars(const struct tst_expr *expr)
-+{
-+	const struct tst_expr *i;
-+	const struct tst_kconfig_var *var;
-+
-+	tst_res(TINFO, "Variables:");
-+
-+	for (i = expr; i; i = i->next) {
-+		if (i->op != TST_OP_VAR)
-+			continue;
-+
-+		var = i->priv;
-+
-+		if (!var->choice) {
-+			tst_res(TINFO, " %s Undefined", var->id);
- 			continue;
- 		}
- 
--		if (results[i].match == 'n') {
--			tst_res(TINFO, "Kernel %s is not set", kconfigs[i]);
--			abort_test = 1;
-+		if (var->choice == 'v') {
-+			tst_res(TINFO, " %s=%s", var->id, var->val);
- 			continue;
- 		}
- 
--		const char *val = strchr(kconfigs[i], '=');
-+		tst_res(TINFO, " %s=%c", var->id, var->choice);
-+	}
-+}
- 
--		if (val) {
--			char match = 'v';
--			val++;
-+void tst_kconfig_check(const char *const kconfigs[])
-+{
-+	size_t expr_cnt = array_len(kconfigs);
-+	struct tst_expr *exprs[expr_cnt];
-+	unsigned int i, var_cnt;
-+	int abort_test = 0;
- 
--			if (!strcmp(val, "y"))
--				match = 'y';
-+	for (i = 0; i < expr_cnt; i++) {
-+		exprs[i] = tst_bool_expr_parse(kconfigs[i]);
- 
--			if (!strcmp(val, "m"))
--				match = 'm';
-+		if (!exprs[i])
-+			tst_brk(TBROK, "Invalid kconfig expression!");
-+	}
- 
--			if (compare_res(&results[i], kconfigs[i], match, val))
--				abort_test = 1;
-+	var_cnt = get_var_cnt(exprs, expr_cnt);
-+	struct tst_kconfig_var vars[var_cnt];
- 
-+	var_cnt = populate_vars(exprs, expr_cnt, vars);
-+
-+	tst_kconfig_read(vars, var_cnt);
-+
-+	for (i = 0; i < expr_cnt; i++) {
-+		int val = tst_bool_expr_eval(exprs[i], map);
-+
-+		if (val != 1) {
-+			abort_test = 1;
-+			tst_res(TINFO, "Expression '%s' not satisfied!", kconfigs[i]);
-+			dump_vars(exprs[i]);
- 		}
- 
--		free(results[i].value);
-+		tst_bool_expr_free(exprs[i]);
-+	}
-+
-+	for (i = 0; i < var_cnt; i++) {
-+		if (vars[i].choice == 'v')
-+			free(vars[i].val);
- 	}
- 
- 	if (abort_test)
 -- 
-2.26.2
+Regards,
+Li Wang
+
+--00000000000031904205b2a6531f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Mon, Oct 26, 2020 at 8:16 PM Richard Palethorpe =
+&lt;<a href=3D"mailto:rpalethorpe@suse.com" target=3D"_blank">rpalethorpe@s=
+use.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"=
+margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-lef=
+t:1ex">When memcg.limit_in_bytes is set to PASS_THRESHOLD it&#39;s unlikely=
+<br>
+swapcached will increase by more than PASS_THRESHOLD unless processes<br>
+in other memcgs are also increasing it. Additionally MADV_WILLNEED<br>
+must remove pages from memory as it adds more so that the first page<br>
+may not be in memory by the time the last page is faulted if the<br>
+amount exceeds the memory limit (which it does because CHUNK_SZ &gt;<br>
+PASS_THRESSHOLD). Worse if pages are faulted in a non-linear way, or<br>
+the process must access some other pages, then there is no guarantee<br>
+which parts of the range will be resident in memory. This results in<br>
+spurious test failures.<br>
+<br>
+To solve this we can set PASS_THRESHOLD to 1/4 of CHUNK_SZ and<br>
+memcg.limit_in_bytes to 1/2 of CHUNK_SZ (MEM_LIMIT), then mark<br>
+MEM_LIMIT bytes as needed. That way the amount in the SwapCache will<br>
+easily be more than the threshold. Secondly we can run madvise again<br>
+on PASS_THRESHOLD bytes and check that dirtying all of these does not<br>
+result in too many page faults. We also run the second test on every<br>
+occasion to ensure the test code itself is still valid. If the<br>
+original bug is present then both tests fail.<br>
+<br>
+Finally this prints more diagnostic information to help with debugging<br>
+the test.<br>
+<br>
+While debugging the test a kernel bug was found in 5.9 which effects<br>
+CGroupV1 when use_hierarchy=3D0. This is unlikely to effect many users,<br>
+but a fix is pending and will be referenced in the test when<br>
+available. It is recommended that you set use_hierarchy=3D1.<br></blockquot=
+e><div><br></div><div><div class=3D"gmail_default" style=3D"font-size:small=
+">Great, we could add the commit info as well after patch merging in the ma=
+inline kernel.=C2=A0</div></div><div class=3D"gmail_default" style=3D"font-=
+size:small"><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
+ 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+Signed-off-by: Richard Palethorpe &lt;<a href=3D"mailto:rpalethorpe@suse.co=
+m" target=3D"_blank">rpalethorpe@suse.com</a>&gt;<br></blockquote><div><spa=
+n class=3D"gmail_default" style=3D"font-size:small">Reviewed-by: Li Wang &l=
+t;<a href=3D"mailto:liwang@redhat.com" target=3D"_blank">liwang@redhat.com<=
+/a>&gt;</span></div><div><span class=3D"gmail_default" style=3D"font-size:s=
+mall"></span>=C2=A0</div><div><div class=3D"gmail_default" style=3D"font-si=
+ze:small">This improvement makes sense to me apart from a tiny syntax=C2=A0=
+error below.</div><div class=3D"gmail_default" style=3D"font-size:small"><b=
+r></div><div class=3D"gmail_default" style=3D"font-size:small">One addition=
+al comment, I found this test now only run with CGroupV1,=C2=A0</div><div c=
+lass=3D"gmail_default" style=3D"font-size:small">and maybe we could make us=
+e of the LTP-cgroup new library=C2=A0after we=C2=A0</div><div class=3D"gmai=
+l_default" style=3D"font-size:small">updating that(tst_cgroup.c) to make it=
+ works well with CGroupV2.</div><br></div><blockquote class=3D"gmail_quote"=
+ style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);p=
+adding-left:1ex">
+---<br>
+=C2=A0testcases/kernel/syscalls/madvise/madvise06.c | 107 ++++++++++++++---=
+-<br>
+=C2=A01 file changed, 84 insertions(+), 23 deletions(-)<br>
+<br>
+diff --git a/testcases/kernel/syscalls/madvise/madvise06.c b/testcases/kern=
+el/syscalls/madvise/madvise06.c<br>
+index f76f3f6aa..3e70da37e 100644<br>
+--- a/testcases/kernel/syscalls/madvise/madvise06.c<br>
++++ b/testcases/kernel/syscalls/madvise/madvise06.c<br>
+@@ -19,6 +19,23 @@<br>
+=C2=A0 *=C2=A0 =C2=A0Date:=C2=A0 =C2=A0Thu May 22 11:54:17 2014 -0700<br>
+=C2=A0 *<br>
+=C2=A0 *=C2=A0 =C2=A0 =C2=A0 =C2=A0mm: madvise: fix MADV_WILLNEED on shmem =
+swapouts<br>
++ *<br>
++ *=C2=A0 =C2=A0Two checks are performed, the first looks at how SwapCache<=
+br>
++ *=C2=A0 =C2=A0changes during madvise. When the pages are dirtied, about h=
+alf<br>
++ *=C2=A0 =C2=A0will be accounted for under Cached and the other half will =
+be<br>
++ *=C2=A0 =C2=A0moved into Swap. When madvise is run it will cause the page=
+s<br>
++ *=C2=A0 =C2=A0under Cached to also be moved to Swap while rotating the pa=
+ges<br>
++ *=C2=A0 =C2=A0already in Swap into SwapCached. So we expect that SwapCach=
+ed has<br>
++ *=C2=A0 =C2=A0roughly MEM_LIMIT bytes added to it, but for reliability th=
+e<br>
++ *=C2=A0 =C2=A0PASS_THRESHOLD is much lower than that.<br>
++ *<br>
++ *=C2=A0 =C2=A0Secondly we run madvise again, but only on the first<br>
++ *=C2=A0 =C2=A0PASS_THRESHOLD bytes to ensure these are entirely in RAM. T=
+hen we<br>
++ *=C2=A0 =C2=A0dirty these pages and check there were (almost) no page<br>
++ *=C2=A0 =C2=A0faults. Two faults are allowed incase some tasklet or somet=
+hing<br>
++ *=C2=A0 =C2=A0else unexpected, but irrelevant procedure, registers a faul=
+t to<br>
++ *=C2=A0 =C2=A0our process.<br>
++ *<br>
+=C2=A0 */<br>
+<br>
+=C2=A0#include &lt;errno.h&gt;<br>
+@@ -28,8 +45,10 @@<br>
+=C2=A0#include &quot;tst_test.h&quot;<br>
+<br>
+=C2=A0#define CHUNK_SZ (400*1024*1024L)<br>
+-#define CHUNK_PAGES (CHUNK_SZ / pg_sz)<br>
++#define MEM_LIMIT (CHUNK_SZ / 2)<br>
++#define MEMSW_LIMIT (2 * CHUNK_SZ)<br>
+=C2=A0#define PASS_THRESHOLD (CHUNK_SZ / 4)<br>
++#define PASS_THRESHOLD_KB (PASS_THRESHOLD / 1024)<br>
+<br>
+=C2=A0#define MNT_NAME &quot;memory&quot;<br>
+=C2=A0#define GROUP_NAME &quot;madvise06&quot;<br>
+@@ -37,12 +56,39 @@<br>
+=C2=A0static const char drop_caches_fname[] =3D &quot;/proc/sys/vm/drop_cac=
+hes&quot;;<br>
+=C2=A0static int pg_sz;<br>
+<br>
++static long init_swap, init_swap_cached, init_cached;<br>
++<br>
+=C2=A0static void check_path(const char *path)<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (access(path, R_OK | W_OK))<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_brk(TCONF, &quo=
+t;file needed: %s\n&quot;, path);<br>
+=C2=A0}<br>
+<br>
++#define READ_CGMEM(item)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0\<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0({long tst_rval;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 \<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_FILE_LINES_SCANF(MNT_NAME&quot;/&qu=
+ot;GROUP_NAME&quot;/memory.&quot;item,=C2=A0 =C2=A0 \<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;%ld&quot;,=C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 \<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;tst_rval);=C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0\<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_rval;})<br>
++<br>
++static void meminfo_diag(const char *point)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0FILE_PRINTF(&quot;/proc/sys/vm/stat_refresh&quo=
+t;, &quot;1&quot;);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TINFO, point);<br></blockquote><div><br=
+></div><div><div class=3D"gmail_default" style=3D"font-size:small">Here is =
+a syntax error, to fix it as:</div><div class=3D"gmail_default" style=3D"fo=
+nt-size:small">=C2=A0 =C2=A0 tst_res(TINFO, &quot;%s&quot;, point);</div></=
+div><div>=C2=A0</div></div>-- <br><div dir=3D"ltr"><div dir=3D"ltr"><div>Re=
+gards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--00000000000031904205b2a6531f--
+
+
+--===============0059261999==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0059261999==--
+
