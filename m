@@ -1,41 +1,67 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07E1C2A09E5
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Oct 2020 16:31:55 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A94422A1C7F
+	for <lists+linux-ltp@lfdr.de>; Sun,  1 Nov 2020 08:04:57 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BEF793C5564
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Oct 2020 16:31:54 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 21AF83C3078
+	for <lists+linux-ltp@lfdr.de>; Sun,  1 Nov 2020 08:04:57 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id E74BD3C23B8
- for <ltp@lists.linux.it>; Fri, 30 Oct 2020 16:31:52 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 808653C23B8
+ for <ltp@lists.linux.it>; Sun,  1 Nov 2020 08:04:55 +0100 (CET)
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
+ [IPv6:2a00:1450:4864:20::542])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 4AA871400BE2
- for <ltp@lists.linux.it>; Fri, 30 Oct 2020 16:31:52 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7161FAE2C;
- Fri, 30 Oct 2020 15:31:51 +0000 (UTC)
-Date: Fri, 30 Oct 2020 16:32:23 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Radoslav Kolev <radoslav.kolev@suse.com>
-Message-ID: <20201030153223.GA2962@yuki.lan>
-References: <20201030145350.23829-1-radoslav.kolev@suse.com>
- <20201030145350.23829-2-radoslav.kolev@suse.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id E71466404B0
+ for <ltp@lists.linux.it>; Sun,  1 Nov 2020 08:04:54 +0100 (CET)
+Received: by mail-ed1-x542.google.com with SMTP id o18so10928761edq.4
+ for <ltp@lists.linux.it>; Sun, 01 Nov 2020 00:04:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=FhEY5xf3E+aW2yCGV8SL4Wn8WcDv8DyQUUrSCoTvQic=;
+ b=tBk5o58fI/RgVowcC/WnLBizxhTkfQK71COkcedg81q5jTYfWCkM/9NOtJtgRjMx4u
+ rJMpCRXTaMc6CzD5SsvObnOqLrWbZmOyILoS3zAWHHmdBF5n5Wh8u6zueBsg5Uzkg0UL
+ 9LfqUg5UNyDw9EoD1uxVvpOhCbXeTI0/S3wUW0G2IV+jGL51AJAlN5hbCW+PRQYHaHuw
+ QyuC4KQEjBIwHMnec+j9Qxx6EWlLHcftY4gV3TvQvXn64zCxPL3oagFQZ4RZIyaxoMe8
+ KZomw3kdcuRKJzuSmldAA7F/7Ja+Zu877HuW68+5u1VTonaaCr/j2XnDy/ibSpmQ2wS1
+ gn6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=FhEY5xf3E+aW2yCGV8SL4Wn8WcDv8DyQUUrSCoTvQic=;
+ b=kNS0Mo1SSKqpi4HLEdmYiuf6CgzJB9O/SKOeXhrdkRBYb11Mys+tieUM5HjtlwvCPB
+ 9FEv/Ef/mmkHo/NV1Y5OjJ8uL245xQ3U/E8nKIPOc/3L39XTLbZmgtNV/FrfsjDRLxv1
+ 4Cnr1/mPzmaYuxhDTRmACfXqndHuv44oUIdx3xUaiQOFLeD43MpLV0KnFpW6syk8Llw0
+ xgwtASkw/2jz9aEbpIDfA2jwQiAEEBd5C5vVlFXj3Yf45pYmBpwigotKZoC2hemfQH1R
+ MaER1MePVuGHIZP9jgq+OwuBN5B3s82duZV/DHOisaTQ/RiLmqqxyUCSOiJXMRzA5ubN
+ k9dg==
+X-Gm-Message-State: AOAM530kr+njUi82P9dMPq95Uu35GOH+qIgcxGNdWqeVxivXFYyrHN/x
+ H57iG5r1Vx553oNaG59qeIa0c5jY+5Pdl7S1BbRj0w==
+X-Google-Smtp-Source: ABdhPJynmej9nQmQpBCToQImgdYv/KcAPb5cD+mw+03564+9kS+eWrzYzkMmvOcg1KajXMH9+WTjTfDWM+L/LvccZZU=
+X-Received: by 2002:aa7:c2d7:: with SMTP id m23mr10910678edp.230.1604214294256; 
+ Sun, 01 Nov 2020 00:04:54 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201030145350.23829-2-radoslav.kolev@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+References: <20201031113500.031279088@linuxfoundation.org>
+In-Reply-To: <20201031113500.031279088@linuxfoundation.org>
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Sun, 1 Nov 2020 12:34:42 +0530
+Message-ID: <CA+G9fYshNJgQFZ_oxb4VgSbe2xWym9am6ajpr-SVH_bw4psa1Q@mail.gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] Convert dup01 to new API and clean up
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 5.9 00/74] 5.9.3-rc1 review
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,144 +73,54 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: pavel@denx.de, LTP List <ltp@lists.linux.it>,
+ open list <linux-kernel@vger.kernel.org>,
+ linux- stable <stable@vger.kernel.org>, patches@kernelci.org,
+ Linus Torvalds <torvalds@linux-foundation.org>, lkft-triage@lists.linaro.org,
+ Andrew Morton <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> + * Copyright (c) 2020 SUSE LLC
-> + * 
-> + * 03/30/1992 AUTHOR: William Roske CO-PILOT: Dave Fenner
-> + * 30/10/2020 Convert to new api Radoslav Kolev <radoslav.kolev@suse.com>
-
-While I tend to keep the historical changelog in the tests I do not add
-new entries since that information is being kept in git metadata now.
-
-> -#include <sys/types.h>
-> -#include <fcntl.h>
-> -#include <errno.h>
-> -#include <string.h>
-> -#include <signal.h>
-> -#include "test.h"
-> -#include "safe_macros.h"
-> +#include "tst_test.h"
->  
-> -void setup();
-> -void cleanup();
-> +static int fd;
-> +static int dup_fd;
->  
-> -char *TCID = "dup01";
-> -int TST_TOTAL = 1;
-> -
-> -char filename[255];
-> -int fd;
-> -
-> -int main(int ac, char **av)
-> +static void verify_dup(void)
->  {
-> -	int lc;
-> -
-> -	tst_parse_opts(ac, av, NULL, NULL);
-> -
-> -	setup();
-> -
-> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
-> -
-> -		tst_count = 0;
-> -
-> -		/*
-> -		 * Call dup(2)
-> -		 */
-> -		TEST(dup(fd));
-> -
-> -		/* check return code */
-> -		if (TEST_RETURN == -1) {
-> -			tst_resm(TFAIL, "dup(%s) Failed, errno=%d : %s",
-> -				 filename, TEST_ERRNO, strerror(TEST_ERRNO));
-> -		} else {
-> -			tst_resm(TPASS, "dup(%s) returned %ld",
-> -				 filename, TEST_RETURN);
-> -
-> -			/* close the new file so loops do not open too many files */
-> -			SAFE_CLOSE(cleanup, TEST_RETURN);
-> -		}
-> -
-> +	TEST(dup_fd = dup(fd));
-> +
-> +	if (TST_RET == -1) {
-> +		tst_res(TFAIL | TERRNO, "dup(%d) Failed, %s",
-> +			fd);
-
-This line does not seem to be over 80 characters, why it's broken before
-the fd?
-
-Also the format string does not match parameters.
-
-And maybe we should be more pedantic with the check here, since any
-negative value != -1 will be caught at the SAFE_CLOSE() which less than
-optimal.
-
-> +	} else {
-> +		tst_res(TPASS, "dup(%d) returned %ld",
-> +			fd, TST_RET);
-
-Here as well, the line does not need to be broken.
-
-> +		SAFE_CLOSE(dup_fd);
-
-What's wrong with SAFE_CLOSE(TST_RET) ?
-
->  	}
-> -
-> -	cleanup();
-> -	tst_exit();
->  }
->  
-> -void setup(void)
-> +static void setup(void)
->  {
-> -	fd = -1;
-> -
-> -	tst_sig(FORK, DEF_HANDLER, cleanup);
-> -
-> -	TEST_PAUSE;
-> -
-> -	tst_tmpdir();
-> -
-> -	sprintf(filename, "dupfile");
-> -	if ((fd = open(filename, O_RDWR | O_CREAT, 0700)) == -1)
-> -		tst_brkm(TBROK | TERRNO, cleanup, "open failed");
-> +	fd = SAFE_OPEN("dupfile", O_RDWR | O_CREAT, 0700);
->  }
->  
-> -void cleanup(void)
-> +static void cleanup(void)
->  {
-> -	if (fd != -1)
-> -		if (close(fd) == -1)
-> -			tst_resm(TWARN | TERRNO, "closing %s failed", filename);
-> -
-> -	tst_rmdir();
-> -
-> +	if (fd > 0)
-> +		SAFE_CLOSE(fd);
->  }
-> +
-> +static struct tst_test test = {
-> +	.test_all = verify_dup,
-> +	.setup = setup,
-> +	.cleanup = cleanup,
-> +	.needs_tmpdir = 1,
-> +};
-
-Other than these the rest looks fine.
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gU2F0LCAzMSBPY3QgMjAyMCBhdCAxNzoxNywgR3JlZyBLcm9haC1IYXJ0bWFuCjxncmVna2hA
+bGludXhmb3VuZGF0aW9uLm9yZz4gd3JvdGU6Cj4KPiBUaGlzIGlzIHRoZSBzdGFydCBvZiB0aGUg
+c3RhYmxlIHJldmlldyBjeWNsZSBmb3IgdGhlIDUuOS4zIHJlbGVhc2UuCj4gVGhlcmUgYXJlIDc0
+IHBhdGNoZXMgaW4gdGhpcyBzZXJpZXMsIGFsbCB3aWxsIGJlIHBvc3RlZCBhcyBhIHJlc3BvbnNl
+Cj4gdG8gdGhpcyBvbmUuICBJZiBhbnlvbmUgaGFzIGFueSBpc3N1ZXMgd2l0aCB0aGVzZSBiZWlu
+ZyBhcHBsaWVkLCBwbGVhc2UKPiBsZXQgbWUga25vdy4KPgo+IFJlc3BvbnNlcyBzaG91bGQgYmUg
+bWFkZSBieSBNb24sIDAyIE5vdiAyMDIwIDExOjM0OjQyICswMDAwLgo+IEFueXRoaW5nIHJlY2Vp
+dmVkIGFmdGVyIHRoYXQgdGltZSBtaWdodCBiZSB0b28gbGF0ZS4KPgo+IFRoZSB3aG9sZSBwYXRj
+aCBzZXJpZXMgY2FuIGJlIGZvdW5kIGluIG9uZSBwYXRjaCBhdDoKPiAgICAgICAgIGh0dHBzOi8v
+d3d3Lmtlcm5lbC5vcmcvcHViL2xpbnV4L2tlcm5lbC92NS54L3N0YWJsZS1yZXZpZXcvcGF0Y2gt
+NS45LjMtcmMxLmd6Cj4gb3IgaW4gdGhlIGdpdCB0cmVlIGFuZCBicmFuY2ggYXQ6Cj4gICAgICAg
+ICBnaXQ6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvc3RhYmxlL2xp
+bnV4LXN0YWJsZS1yYy5naXQgbGludXgtNS45LnkKPiBhbmQgdGhlIGRpZmZzdGF0IGNhbiBiZSBm
+b3VuZCBiZWxvdy4KPgo+IHRoYW5rcywKPgo+IGdyZWcgay1oCj4KClJlc3VsdHMgZnJvbSBMaW5h
+cm/igJlzIHRlc3QgZmFybS4KTm8gcmVncmVzc2lvbnMgb24gYXJtNjQsIGFybSwgeDg2XzY0LCBh
+bmQgaTM4Ni4KClRlc3RlZC1ieTogTGludXggS2VybmVsIEZ1bmN0aW9uYWwgVGVzdGluZyA8bGtm
+dEBsaW5hcm8ub3JnPgoKTk9URToKTFRQIHZlcnNpb24gdXBncmFkZSB0byAyMDIwMDkzMC4gRHVl
+IHRvIHRoaXMgY2hhbmdlIHdlIGhhdmUgbm90aWNlZCBmZXcgdGVzdApmYWlsdXJlcyBhbmQgZml4
+ZXMgd2hpY2ggYXJlIG5vdCByZWxhdGVkIHRvIGtlcm5lbCBjaGFuZ2VzLgoKU3VtbWFyeQotLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0KCmtlcm5lbDogNS45LjMtcmMxCmdpdCByZXBvOiBodHRwczovL2dpdC5rZXJu
+ZWwub3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dpdC9zdGFibGUvbGludXgtc3RhYmxlLXJjLmdp
+dApnaXQgYnJhbmNoOiBsaW51eC01LjkueQpnaXQgY29tbWl0OiBkYWUyYzkwMmQwNDgwZjllNTE4
+OTE3Njg4NjJmMDM0ZWU5N2Y0ZGIxCmdpdCBkZXNjcmliZTogdjUuOS4yLTc1LWdkYWUyYzkwMmQw
+NDgKVGVzdCBkZXRhaWxzOiBodHRwczovL3FhLXJlcG9ydHMubGluYXJvLm9yZy9sa2Z0L2xpbnV4
+LXN0YWJsZS1yYy1saW51eC01LjkueS9idWlsZC92NS45LjItNzUtZ2RhZTJjOTAyZDA0OAoKTm8g
+cmVncmVzc2lvbnMgKGNvbXBhcmVkIHRvIGJ1aWxkIHY1LjkuMikKCk5vIGZpeGVzIChjb21wYXJl
+ZCB0byBidWlsZCB2NS45LjIpCgpGaXhlcyAoY29tcGFyZWQgdG8gTFRQIDIwMjAwNTE1KQpUaGVz
+ZSBmaXhlcyBhcmUgY29taW5nIGZyb20gTFRQIHVwZ3JhZGUgMjAyMDA5MzAuCiAgbHRwLWNvbW1h
+bmRzLXRlc3RzOgogICAgKiBsb2dyb3RhdGVfc2gKCiAgbHRwLWNvbnRhaW5lcnMtdGVzdHM6CiAg
+ICAqIG5ldG5zX25ldGxpbmsKCiAgbHRwLWNvbnRyb2xsZXJzLXRlc3RzOgogICAgKiBjcHVzZXRf
+aG90cGx1ZwoKICBsdHAtY3J5cHRvLXRlc3RzOgogICAgKiBhZl9hbGcwMgoKICBsdHAtY3ZlLXRl
+c3RzOgogICAgKiBjdmUtMjAxNy0xNzgwNQogICAgKiBjdmUtMjAxOC0xMDAwMTk5CgogIGx0cC1z
+eXNjYWxscy10ZXN0czoKICAgICogY2xvY2tfZ2V0dGltZTAzCiAgICAqIGNsb25lMzAyCiAgICAq
+IGNvcHlfZmlsZV9yYW5nZTAyCiAgICAqIG1rbm9kMDcKICAgICogcHRyYWNlMDgKICAgICogc3lz
+bG9nMDEKICAgICogc3lzbG9nMDIKICAgICogc3lzbG9nMDMKICAgICogc3lzbG9nMDQKICAgICog
+c3lzbG9nMDUKICAgICogc3lzbG9nMDcKICAgICogc3lzbG9nMDgKICAgICogc3lzbG9nMDkKICAg
+ICogc3lzbG9nMTAKCiAgbHRwLW9wZW4tcG9zaXgtdGVzdHM6CiAgICAqIGNsb2Nrc19pbnZhbGlk
+ZGF0ZXMKCi0tIApMaW5hcm8gTEtGVApodHRwczovL2xrZnQubGluYXJvLm9yZwoKLS0gCk1haWxp
+bmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
