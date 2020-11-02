@@ -2,52 +2,64 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA3B92A22AA
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Nov 2020 02:07:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89E742A2324
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Nov 2020 03:43:20 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2A58C3C2888
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Nov 2020 02:07:43 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 01BAE3C3071
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Nov 2020 03:43:20 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 154ED3C25AA
- for <ltp@lists.linux.it>; Mon,  2 Nov 2020 02:07:38 +0100 (CET)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 479353C24CF
+ for <ltp@lists.linux.it>; Mon,  2 Nov 2020 03:43:15 +0100 (CET)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D2ABE1A00CBC
- for <ltp@lists.linux.it>; Mon,  2 Nov 2020 02:07:37 +0100 (CET)
-Received: from localhost.localdomain (c-73-231-172-41.hsd1.ca.comcast.net
- [73.231.172.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D5DC7206E5;
- Mon,  2 Nov 2020 01:07:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604279255;
- bh=Rvybe/Rx/O6ZTeDLUGOCMcvuzDgq2U09DPFIWAqvfeY=;
- h=Date:From:To:Subject:In-Reply-To:From;
- b=oaBEqRsNfKDdN7QduktQLBTTLCD90o4wHXMiRWfPv+HATVlOFT0LAk2VQhroIAyNh
- bI85dooajjc/ruJjXnEWQKvcqRZ4TcqcWRWiyvCAihPgmd1GURtHqkYBxbk/mNO0so
- KzFxgI6qXmddQz0qgjOgHsZNp7J2oo/sU2V7ZK+8=
-Date: Sun, 01 Nov 2020 17:07:34 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: akpm@linux-foundation.org, guro@fb.com, hannes@cmpxchg.org,
- linux-mm@kvack.org, ltp@lists.linux.it, mhocko@kernel.org,
- mkoutny@suse.com, mm-commits@vger.kernel.org, rpalethorpe@suse.com,
- shakeelb@google.com, stable@vger.kernel.org, torvalds@linux-foundation.org
-Message-ID: <20201102010734.L07vYi-Dp%akpm@linux-foundation.org>
-In-Reply-To: <20201101170656.48abbd5e88375219f868af5e@linux-foundation.org>
-User-Agent: s-nail v14.8.16
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 7BCD4200B76
+ for <ltp@lists.linux.it>; Mon,  2 Nov 2020 03:43:14 +0100 (CET)
+Received: from mail-lj1-f199.google.com ([209.85.208.199])
+ by youngberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <po-hsu.lin@canonical.com>) id 1kZPoP-0003aK-AO
+ for ltp@lists.linux.it; Mon, 02 Nov 2020 02:43:13 +0000
+Received: by mail-lj1-f199.google.com with SMTP id d5so2793064ljo.17
+ for <ltp@lists.linux.it>; Sun, 01 Nov 2020 18:43:13 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=hbNEN3cN+P8wJIaGHaanPWVZF+5Lkmz/vDH163goETU=;
+ b=QdJrcDqC30rfQqMBBAr9hraJvsQU0DCmVGVzg28m0nMPy/RoQic+ZcaZrm/u6pu6aL
+ 5NfaXR6ZxgTdmuWm5xOPFQWpaIVSqNDHlmIgyU8FQ+R8PxRrsgnLydQiz2710uLz9JxH
+ 1DNwV/xD+tHK9nKDiDyIO/lu5luFqWzpOpBKmrp3X0OknYuaJoP5JAsX0IP+5FbFOBHJ
+ hXhmkDAHB1RedcXTV/gLiMMvy007rasxzNM5C274s8GRey2gjP0ORdT1Td+EzeocG24r
+ LMF/S1aj8W7vMgarC2JElLxMpVGdMzqpCBvwrIeVp9P3gSOdui0HfZ6OpPI8WxvW6M0y
+ W1Uw==
+X-Gm-Message-State: AOAM530O+5i0vXtfPbHEKm/dFG8f/jRP4i4xZItwNSZ+ODP0acjIKmyt
+ xSUxfAWbz+U1sXcjLHxePQZ9ZGx3pAgNthEG9+1hkrSME5IUc9BY55r7XmMiEQnOwgxEJvzxl2v
+ y0Ja3nM91UWDsnSTtcuRM7n2s9jYfJwNwrFuifb8rnrU=
+X-Received: by 2002:a2e:8815:: with SMTP id x21mr6040411ljh.312.1604284992785; 
+ Sun, 01 Nov 2020 18:43:12 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxnWj84GRQZjBn5DLt1jEtBxsofAwzNPs8HeqTQNLQbekwQ5V+MYcIAzdPL4YJlhAJXW7Kptckvn8lw+2ZrLao=
+X-Received: by 2002:a2e:8815:: with SMTP id x21mr6040405ljh.312.1604284992506; 
+ Sun, 01 Nov 2020 18:43:12 -0800 (PST)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+References: <20201029140031.40968-1-po-hsu.lin@canonical.com>
+ <20201030131214.GA32451@yuki.lan>
+In-Reply-To: <20201030131214.GA32451@yuki.lan>
+From: Po-Hsu Lin <po-hsu.lin@canonical.com>
+Date: Mon, 2 Nov 2020 10:43:01 +0800
+Message-ID: <CAMy_GT_zEnmgD4Sr1PC8PgyhDXhLoor=9yT2JpmS5EeGOjjo8Q@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=2.6 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- SORTED_RECIPS,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Level: **
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [patch 04/15] mm: memcg: link page counters to root if
- use_hierarchy is false
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/statx05: add mkfs.ext4 package version
+ check
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,105 +71,32 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-RnJvbTogUm9tYW4gR3VzaGNoaW4gPGd1cm9AZmIuY29tPgpTdWJqZWN0OiBtbTogbWVtY2c6IGxp
-bmsgcGFnZSBjb3VudGVycyB0byByb290IGlmIHVzZV9oaWVyYXJjaHkgaXMgZmFsc2UKClJpY2hh
-cmQgcmVwb3J0ZWQgYSB3YXJuaW5nIHdoaWNoIGNhbiBiZSByZXByb2R1Y2VkIGJ5IHJ1bm5pbmcg
-dGhlIExUUAptYWR2aXNlNiB0ZXN0IChjZ3JvdXAgdjEgaW4gdGhlIG5vbi1oaWVyYXJjaGljYWwg
-bW9kZSBzaG91bGQgYmUgdXNlZCk6CgpbICAgIDkuODQxNTUyXSAtLS0tLS0tLS0tLS1bIGN1dCBo
-ZXJlIF0tLS0tLS0tLS0tLS0KWyAgICA5Ljg0MTc4OF0gV0FSTklORzogQ1BVOiAwIFBJRDogMTIg
-YXQgbW0vcGFnZV9jb3VudGVyLmM6NTcgcGFnZV9jb3VudGVyX3VuY2hhcmdlIChtbS9wYWdlX2Nv
-dW50ZXIuYzo1NyBtbS9wYWdlX2NvdW50ZXIuYzo1MCBtbS9wYWdlX2NvdW50ZXIuYzoxNTYpClsg
-ICAgOS44NDE5ODJdIE1vZHVsZXMgbGlua2VkIGluOgpbICAgIDkuODQyMDcyXSBDUFU6IDAgUElE
-OiAxMiBDb21tOiBrd29ya2VyLzA6MSBOb3QgdGFpbnRlZCA1LjkuMC1yYzctMjItZGVmYXVsdCAj
-NzcKWyAgICA5Ljg0MjI2Nl0gSGFyZHdhcmUgbmFtZTogUUVNVSBTdGFuZGFyZCBQQyAoaTQ0MEZY
-ICsgUElJWCwgMTk5NiksIEJJT1MgcmVsLTEuMTMuMC00OC1nZDljODEyZC1yZWJ1aWx0Lm9wZW5z
-dXNlLm9yZyAwNC8wMS8yMDE0ClsgICAgOS44NDI1NzFdIFdvcmtxdWV1ZTogZXZlbnRzIGRyYWlu
-X2xvY2FsX3N0b2NrClsgICAgOS44NDI3NTBdIFJJUDogMDAxMDpwYWdlX2NvdW50ZXJfdW5jaGFy
-Z2UgKG1tL3BhZ2VfY291bnRlci5jOjU3IG1tL3BhZ2VfY291bnRlci5jOjUwIG1tL3BhZ2VfY291
-bnRlci5jOjE1NikKWyA5Ljg0Mjg5NF0gQ29kZTogMGYgYzEgNDUgMDAgNGMgMjkgZTAgNDggODkg
-ZWYgNDggODkgYzMgNDggODkgYzYgZTggMmEgZmUgZmYgZmYgNDggODUgZGIgNzggMTAgNDggOGIg
-NmQgMjggNDggODUgZWQgNzUgZDggNWIgNWQgNDEgNWMgNDEgNWQgYzMgPDBmPiAwYiBlYiBlYyA5
-MCBlOCA0YiBmOSA4OCAyYSA0OCA4YiAxNyA0OCAzOSBkNiA3MiA0MSA0MSA1NCA0OSA4OQpbICAg
-IDkuODQzNDM4XSBSU1A6IDAwMTg6ZmZmZmIxYzE4MDA2YmUyOCBFRkxBR1M6IDAwMDEwMDg2Clsg
-ICAgOS44NDM1ODVdIFJBWDogZmZmZmZmZmZmZmZmZmZmZiBSQlg6IGZmZmZmZmZmZmZmZmZmZmYg
-UkNYOiBmZmZmOTQ4MDNiYzJjYWUwClsgICAgOS44NDM4MDZdIFJEWDogMDAwMDAwMDAwMDAwMDAw
-MSBSU0k6IGZmZmZmZmZmZmZmZmZmZmYgUkRJOiBmZmZmOTQ4MDA3ZDJiMjQ4ClsgICAgOS44NDQw
-MjZdIFJCUDogZmZmZjk0ODAwN2QyYjI0OCBSMDg6IGZmZmY5NDgwMDdjNThlYjAgUjA5OiBmZmZm
-OTQ4MDA3ZGEwNWFjClsgICAgOS44NDQyNDhdIFIxMDogMDAwMDAwMDAwMDAwMDAxOCBSMTE6IDAw
-MDAwMDAwMDAwMDAwMTggUjEyOiAwMDAwMDAwMDAwMDAwMDAxClsgICAgOS44NDQ0NzddIFIxMzog
-ZmZmZmZmZmZmZmZmZmZmZiBSMTQ6IDAwMDAwMDAwMDAwMDAwMDAgUjE1OiBmZmZmOTQ4MDNiYzJj
-YWMwClsgICAgOS44NDQ2OTZdIEZTOiAgMDAwMDAwMDAwMDAwMDAwMCgwMDAwKSBHUzpmZmZmOTQ4
-MDNiYzAwMDAwKDAwMDApIGtubEdTOjAwMDAwMDAwMDAwMDAwMDAKWyAgICA5Ljg0NDkxNV0gQ1M6
-ICAwMDEwIERTOiAwMDAwIEVTOiAwMDAwIENSMDogMDAwMDAwMDA4MDA1MDAzMwpbICAgIDkuODQ1
-MDk2XSBDUjI6IDAwMDA3ZjA1NzllZTAzODQgQ1IzOiAwMDAwMDAwMDJjYzBhMDAwIENSNDogMDAw
-MDAwMDAwMDAwMDZmMApbICAgIDkuODQ1MzE5XSBDYWxsIFRyYWNlOgpbICAgIDkuODQ1NDI5XSBf
-X21lbWNnX2ttZW1fdW5jaGFyZ2UgKG1tL21lbWNvbnRyb2wuYzozMDIyKQpbICAgIDkuODQ1NTgy
-XSBkcmFpbl9vYmpfc3RvY2sgKC4vaW5jbHVkZS9saW51eC9yY3VwZGF0ZS5oOjY4OSBtbS9tZW1j
-b250cm9sLmM6MzExNCkKWyAgICA5Ljg0NTY4NF0gZHJhaW5fbG9jYWxfc3RvY2sgKG1tL21lbWNv
-bnRyb2wuYzoyMjU1KQpbICAgIDkuODQ1Nzg5XSBwcm9jZXNzX29uZV93b3JrICguL2FyY2gveDg2
-L2luY2x1ZGUvYXNtL2p1bXBfbGFiZWwuaDoyNSAuL2luY2x1ZGUvbGludXgvanVtcF9sYWJlbC5o
-OjIwMCAuL2luY2x1ZGUvdHJhY2UvZXZlbnRzL3dvcmtxdWV1ZS5oOjEwOCBrZXJuZWwvd29ya3F1
-ZXVlLmM6MjI3NCkKWyAgICA5Ljg0NTg5OF0gd29ya2VyX3RocmVhZCAoLi9pbmNsdWRlL2xpbnV4
-L2xpc3QuaDoyODIga2VybmVsL3dvcmtxdWV1ZS5jOjI0MTYpClsgICAgOS44NDYwMzRdID8gcHJv
-Y2Vzc19vbmVfd29yayAoa2VybmVsL3dvcmtxdWV1ZS5jOjIzNTgpClsgICAgOS44NDYxNjJdIGt0
-aHJlYWQgKGtlcm5lbC9rdGhyZWFkLmM6MjkyKQpbICAgIDkuODQ2MjcxXSA/IF9fa3RocmVhZF9i
-aW5kX21hc2sgKGtlcm5lbC9rdGhyZWFkLmM6MjQ1KQpbICAgIDkuODQ2NDIwXSByZXRfZnJvbV9m
-b3JrIChhcmNoL3g4Ni9lbnRyeS9lbnRyeV82NC5TOjMwMCkKWyAgICA5Ljg0NjUzMV0gLS0tWyBl
-bmQgdHJhY2UgOGI1NjQ3YzFlYmE5ZDE4YSBdLS0tCgpUaGUgcHJvYmxlbSBvY2N1cnMgYmVjYXVz
-ZSBpbiB0aGUgbm9uLWhpZXJhcmNoaWNhbCBtb2RlIG5vbi1yb290IHBhZ2UKY291bnRlcnMgYXJl
-IG5vdCBsaW5rZWQgdG8gcm9vdCBwYWdlIGNvdW50ZXJzLCBzbyB0aGUgY2hhcmdlIGlzIG5vdApw
-cm9wYWdhdGVkIHRvIHRoZSByb290IG1lbW9yeSBjZ3JvdXAuCgpBZnRlciB0aGUgcmVtb3ZhbCBv
-ZiB0aGUgb3JpZ2luYWwgbWVtb3J5IGNncm91cCBhbmQgcmVwYXJlbnRpbmcgb2YgdGhlCm9iamVj
-dCBjZ3JvdXAsIHRoZSByb290IGNncm91cCBtaWdodCBiZSB1bmNoYXJnZWQgYnkgZHJhaW5pbmcg
-YSBvYmpjZwpzdG9jaywgZm9yIGV4YW1wbGUuICBJdCBsZWFkcyB0byBhbiBldmVudHVhbCB1bmRl
-cmZsb3cgb2YgdGhlIGNoYXJnZSBhbmQKdHJpZ2dlcnMgYSB3YXJuaW5nLgoKRml4IGl0IGJ5IGxp
-bmtpbmcgYWxsIHBhZ2UgY291bnRlcnMgdG8gY29ycmVzcG9uZGluZyByb290IHBhZ2UgY291bnRl
-cnMgaW4KdGhlIG5vbi1oaWVyYXJjaGljYWwgbW9kZS4KClBsZWFzZSBub3RlLCB0aGF0IGluIHRo
-ZSBub24taGllcmFyY2hpY2FsIG1vZGUgYWxsIG9iamNncyBhcmUgYWx3YXlzCnJlcGFyZW50ZWQg
-dG8gdGhlIHJvb3QgbWVtb3J5IGNncm91cCwgZXZlbiBpZiB0aGUgaGllcmFyY2h5IGhhcyBtb3Jl
-IHRoYW4KMSBsZXZlbC4gIFRoaXMgcGF0Y2ggZG9lc24ndCBjaGFuZ2UgaXQuCgpUaGUgcGF0Y2gg
-YWxzbyBkb2Vzbid0IGFmZmVjdCBob3cgdGhlIGhpZXJhcmNoaWNhbCBtb2RlIGlzIHdvcmtpbmcs
-IHdoaWNoCmlzIHRoZSBvbmx5IHNhbmUgYW5kIHRydWx5IHN1cHBvcnRlZCBtb2RlIG5vdy4KClRo
-YW5rcyB0byBSaWNoYXJkIGZvciByZXBvcnRpbmcsIGRlYnVnZ2luZyBhbmQgcHJvdmlkaW5nIGFu
-IGFsdGVybmF0aXZlCnZlcnNpb24gb2YgdGhlIGZpeCEKCkxpbms6IGh0dHBzOi8vbGttbC5rZXJu
-ZWwub3JnL3IvMjAyMDEwMjYyMzEzMjYuMzIxMjIyNS0xLWd1cm9AZmIuY29tCkZpeGVzOiBiZjRm
-MDU5OTU0ZGMgKCJtbTogbWVtY2cvc2xhYjogb2JqX2Nncm91cCBBUEkiKQpTaWduZWQtb2ZmLWJ5
-OiBSb21hbiBHdXNoY2hpbiA8Z3Vyb0BmYi5jb20+CkRlYnVnZ2VkLWJ5OiBSaWNoYXJkIFBhbGV0
-aG9ycGUgPHJwYWxldGhvcnBlQHN1c2UuY29tPgpSZXBvcnRlZC1ieTogPGx0cEBsaXN0cy5saW51
-eC5pdD4KUmV2aWV3ZWQtYnk6IFNoYWtlZWwgQnV0dCA8c2hha2VlbGJAZ29vZ2xlLmNvbT4KQWNr
-ZWQtYnk6IEpvaGFubmVzIFdlaW5lciA8aGFubmVzQGNtcHhjaGcub3JnPgpSZXZpZXdlZC1ieTog
-TWljaGFsIEtvdXRuw70gPG1rb3V0bnlAc3VzZS5jb20+CkNjOiBNaWNoYWwgSG9ja28gPG1ob2Nr
-b0BrZXJuZWwub3JnPgpDYzogPHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+ClNpZ25lZC1vZmYtYnk6
-IEFuZHJldyBNb3J0b24gPGFrcG1AbGludXgtZm91bmRhdGlvbi5vcmc+Ci0tLQoKIG1tL21lbWNv
-bnRyb2wuYyB8ICAgMTUgKysrKysrKysrKy0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTAgaW5zZXJ0
-aW9ucygrKSwgNSBkZWxldGlvbnMoLSkKCi0tLSBhL21tL21lbWNvbnRyb2wuY35tbS1tZW1jZy1s
-aW5rLXBhZ2UtY291bnRlcnMtdG8tcm9vdC1pZi11c2VfaGllcmFyY2h5LWlzLWZhbHNlCisrKyBh
-L21tL21lbWNvbnRyb2wuYwpAQCAtNTM0NSwxNyArNTM0NSwyMiBAQCBtZW1fY2dyb3VwX2Nzc19h
-bGxvYyhzdHJ1Y3QgY2dyb3VwX3N1YnN5CiAJCW1lbWNnLT5zd2FwcGluZXNzID0gbWVtX2Nncm91
-cF9zd2FwcGluZXNzKHBhcmVudCk7CiAJCW1lbWNnLT5vb21fa2lsbF9kaXNhYmxlID0gcGFyZW50
-LT5vb21fa2lsbF9kaXNhYmxlOwogCX0KLQlpZiAocGFyZW50ICYmIHBhcmVudC0+dXNlX2hpZXJh
-cmNoeSkgeworCWlmICghcGFyZW50KSB7CisJCXBhZ2VfY291bnRlcl9pbml0KCZtZW1jZy0+bWVt
-b3J5LCBOVUxMKTsKKwkJcGFnZV9jb3VudGVyX2luaXQoJm1lbWNnLT5zd2FwLCBOVUxMKTsKKwkJ
-cGFnZV9jb3VudGVyX2luaXQoJm1lbWNnLT5rbWVtLCBOVUxMKTsKKwkJcGFnZV9jb3VudGVyX2lu
-aXQoJm1lbWNnLT50Y3BtZW0sIE5VTEwpOworCX0gZWxzZSBpZiAocGFyZW50LT51c2VfaGllcmFy
-Y2h5KSB7CiAJCW1lbWNnLT51c2VfaGllcmFyY2h5ID0gdHJ1ZTsKIAkJcGFnZV9jb3VudGVyX2lu
-aXQoJm1lbWNnLT5tZW1vcnksICZwYXJlbnQtPm1lbW9yeSk7CiAJCXBhZ2VfY291bnRlcl9pbml0
-KCZtZW1jZy0+c3dhcCwgJnBhcmVudC0+c3dhcCk7CiAJCXBhZ2VfY291bnRlcl9pbml0KCZtZW1j
-Zy0+a21lbSwgJnBhcmVudC0+a21lbSk7CiAJCXBhZ2VfY291bnRlcl9pbml0KCZtZW1jZy0+dGNw
-bWVtLCAmcGFyZW50LT50Y3BtZW0pOwogCX0gZWxzZSB7Ci0JCXBhZ2VfY291bnRlcl9pbml0KCZt
-ZW1jZy0+bWVtb3J5LCBOVUxMKTsKLQkJcGFnZV9jb3VudGVyX2luaXQoJm1lbWNnLT5zd2FwLCBO
-VUxMKTsKLQkJcGFnZV9jb3VudGVyX2luaXQoJm1lbWNnLT5rbWVtLCBOVUxMKTsKLQkJcGFnZV9j
-b3VudGVyX2luaXQoJm1lbWNnLT50Y3BtZW0sIE5VTEwpOworCQlwYWdlX2NvdW50ZXJfaW5pdCgm
-bWVtY2ctPm1lbW9yeSwgJnJvb3RfbWVtX2Nncm91cC0+bWVtb3J5KTsKKwkJcGFnZV9jb3VudGVy
-X2luaXQoJm1lbWNnLT5zd2FwLCAmcm9vdF9tZW1fY2dyb3VwLT5zd2FwKTsKKwkJcGFnZV9jb3Vu
-dGVyX2luaXQoJm1lbWNnLT5rbWVtLCAmcm9vdF9tZW1fY2dyb3VwLT5rbWVtKTsKKwkJcGFnZV9j
-b3VudGVyX2luaXQoJm1lbWNnLT50Y3BtZW0sICZyb290X21lbV9jZ3JvdXAtPnRjcG1lbSk7CiAJ
-CS8qCiAJCSAqIERlZXBlciBoaWVyYWNoeSB3aXRoIHVzZV9oaWVyYXJjaHkgPT0gZmFsc2UgZG9l
-c24ndCBtYWtlCiAJCSAqIG11Y2ggc2Vuc2Ugc28gbGV0IGNncm91cCBzdWJzeXN0ZW0ga25vdyBh
-Ym91dCB0aGlzCl8KCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5p
-dC9saXN0aW5mby9sdHAK
+On Fri, Oct 30, 2020 at 9:11 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+>
+> Hi!
+> > +     int ret, rc, major, minor, patch;
+> > +
+> > +     f = SAFE_POPEN("mkfs.ext4 -V 2>&1 | awk '/mke2fs/ {print $2}'", "r");
+> > +     rc = fscanf(f, "%d.%d.%d", &major, &minor, &patch);
+>
+> I wonder if the awk is necessary, it may produce TWARN on minimal
+> embedded systems where awk is not present. Why can't we use scanf() instead?
+>
+> As far as I can tell fscanf(f, "mke2fs %d.%d.%d", &major, &minor,
+> &patch); should work fine without the awk.
+Yes this works,
+I will send V2 for this, thanks!
+
+>
+> --
+> Cyril Hrubis
+> chrubis@suse.cz
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
