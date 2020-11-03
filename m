@@ -1,40 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B60A2A4B9E
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Nov 2020 17:34:07 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 30ADD2A4E2A
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Nov 2020 19:17:02 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 458CB3C302A
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Nov 2020 17:34:07 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DCA153C5465
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Nov 2020 19:17:01 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id F1EF03C3019
- for <ltp@lists.linux.it>; Tue,  3 Nov 2020 17:34:05 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 7AE7D632820
- for <ltp@lists.linux.it>; Tue,  3 Nov 2020 17:34:05 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E30EDACF5
- for <ltp@lists.linux.it>; Tue,  3 Nov 2020 16:34:04 +0000 (UTC)
-References: <20201028171056.2151-1-rpalethorpe@suse.com>
- <20201103154247.GA10565@yuki.lan>
-User-agent: mu4e 1.4.13; emacs 27.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Cyril Hrubis <chrubis@suse.cz>
-In-reply-to: <20201103154247.GA10565@yuki.lan>
-Date: Tue, 03 Nov 2020 16:34:04 +0000
-Message-ID: <875z6m5rib.fsf@suse.de>
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 03A353C3019
+ for <ltp@lists.linux.it>; Tue,  3 Nov 2020 19:16:59 +0100 (CET)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C5F7A601231
+ for <ltp@lists.linux.it>; Tue,  3 Nov 2020 19:16:58 +0100 (CET)
+Received: from localhost.localdomain (c-71-198-47-131.hsd1.ca.comcast.net
+ [71.198.47.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9DA7A207BB;
+ Tue,  3 Nov 2020 18:16:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1604427415;
+ bh=YWXD/g1RdgBXEoQrbh+xr1Ib84t3pHEoj4KNTOEYIHM=;
+ h=Date:From:To:Subject:From;
+ b=Uc7mmefN76aO+mtLUqP3d22TffA+Z91EDE5HebjK9qKAKFXlhmOfvNJEKvPprqz6j
+ E5aMrDTiqaajpWnee3Jk6zLlCimTCpPryaoqhmq9vJAz4sU+pkDNfJLkEresnTQp1H
+ WjwCGArgXGpWDFGP4DiaMf5n/VyQLbz22jKJCRss=
+Date: Tue, 03 Nov 2020 10:16:55 -0800
+From: akpm@linux-foundation.org
+To: guro@fb.com, hannes@cmpxchg.org, ltp@lists.linux.it,
+ mhocko@kernel.org, mkoutny@suse.com, mm-commits@vger.kernel.org,
+ rpalethorpe@suse.com, shakeelb@google.com, stable@vger.kernel.org
+Message-ID: <20201103181655.kLttb0Xdl%akpm@linux-foundation.org>
+User-Agent: s-nail v14.8.16
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=2.6 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SORTED_RECIPS,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Level: **
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] pty04: Limit the number of packets sent to avoid
- timeout
+Subject: [LTP] [merged]
+ mm-memcg-link-page-counters-to-root-if-use_hierarchy-is-false.patch removed
+ from -mm tree
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,122 +58,119 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
-
-Cyril Hrubis <chrubis@suse.cz> writes:
-
-> Hi!
->> At the end of the test we transmit many packets while closing the PTY
->> to check for races in the kernel. However if the process which closes
->> the PTY is delayed this can result a very large number of packets
->> being transmitted. The kernel appears to handle this quite slowly
->> which can cause the test to timeout or even a softlockup.
->> 
->> This is not supposed to be a performance test, so this commit puts an
->> upper bound on the number of packets transmitted.
->> 
->> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
->> ---
->> 
->> Hopefully will solve: https://github.com/linux-test-project/ltp/issues/674
->> 
->>  testcases/kernel/pty/pty04.c | 9 ++++++---
->>  1 file changed, 6 insertions(+), 3 deletions(-)
->> 
->> diff --git a/testcases/kernel/pty/pty04.c b/testcases/kernel/pty/pty04.c
->> index 4adf2cbb7..a59de7830 100644
->> --- a/testcases/kernel/pty/pty04.c
->> +++ b/testcases/kernel/pty/pty04.c
->> @@ -136,7 +136,8 @@ static int open_pty(const struct ldisc_info *ldisc)
->>  static ssize_t try_write(int fd, const char *data,
->>  			 ssize_t size, ssize_t *written)
->>  {
->> -	ssize_t ret = write(fd, data, size);
->> +	ssize_t off = written ? *written : 0;
->> +	ssize_t ret = write(fd, data + off, size);
->
-> This seems to be correct, but should be send in a seprate patch.
-
-I suppose I can, but this is actually part of limiting the number of
-packets otherwise we don't care that we try to resend the whole packet
-each time.
-
->
->>  	if (ret < 0)
->>  		return -(errno != EAGAIN);
->> @@ -149,6 +150,7 @@ static void write_pty(const struct ldisc_info *ldisc)
->>  	char *data;
->>  	ssize_t written, ret;
->>  	size_t len = 0;
->> +	int max_writes = 1000;
->>  
->>  	switch (ldisc->n) {
->>  	case N_SLIP:
->> @@ -190,7 +192,8 @@ static void write_pty(const struct ldisc_info *ldisc)
->>  
->>  	tst_res(TPASS, "Wrote PTY %s %d (2)", ldisc->name, ptmx);
->>  
->> -	while (try_write(ptmx, data, len, NULL) >= 0)
->> +	TST_CHECKPOINT_WAIT2(0, 100000);
->> +	while (max_writes-- && try_write(ptmx, data, len, NULL) >= 0)
->>  		;
->
-> I wonder if we should change this to be time based instead. I.e. try to
-> write packets for 10 seconds or so, since hardcoding number of
-> iterations usually does not scale from embedded to supercomputers.
-
-Writing is most likely far quicker than reading on any computer, so
-limiting it by time worries me more. On a system that is very fast, but
-highly contended (e.g. OpenQA guests), one CPU may be able to fill the
-TTY buffer before another gets chance to start converting that data to
-CAN packets. This will most likely result in a softlockup/timeout which
-is what we are trying to avoid. With an iteration limit the fast system
-will simply exit the loop before we get chance to read (if contended).
-
-On a slow system which is also highly contended we just have to hope the
-iteration limit is low enough. If we set a time limit instead, we still
-have the issue of how many seconds to set before the TTY buffers are
-full enough to queue up too much work.
-
-I guess we could do two-way communication instead of just writing to the
-PTY...
-
->
->>  	tst_res(TPASS, "Writing to PTY interrupted by hangup");
->
-> And this should be true only if we do not run out of tries meanwhile,
-> right?
-
-Yes, I suppose we should not print that if the while loop finishes
-
->
->> @@ -331,7 +334,7 @@ static void read_netdev(const struct ldisc_info *ldisc)
->>  	check_data(ldisc, data, plen);
->>  	tst_res(TPASS, "Read netdev %s %d (2)", ldisc->name, sk);
->>  
->> -	TST_CHECKPOINT_WAKE(0);
->> +	TST_CHECKPOINT_WAKE2(0, 2);
->>  	while ((rlen = read(sk, data, plen)) > 0)
->>  		check_data(ldisc, data, rlen);
->>  
->> -- 
->> 2.28.0
->> 
->> 
->> -- 
->> Mailing list info: https://lists.linux.it/listinfo/ltp
-
-
--- 
-Thank you,
-Richard.
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+ClRoZSBwYXRjaCB0aXRsZWQKICAgICBTdWJqZWN0OiBtbTogbWVtY2c6IGxpbmsgcGFnZSBjb3Vu
+dGVycyB0byByb290IGlmIHVzZV9oaWVyYXJjaHkgaXMgZmFsc2UKaGFzIGJlZW4gcmVtb3ZlZCBm
+cm9tIHRoZSAtbW0gdHJlZS4gIEl0cyBmaWxlbmFtZSB3YXMKICAgICBtbS1tZW1jZy1saW5rLXBh
+Z2UtY291bnRlcnMtdG8tcm9vdC1pZi11c2VfaGllcmFyY2h5LWlzLWZhbHNlLnBhdGNoCgpUaGlz
+IHBhdGNoIHdhcyBkcm9wcGVkIGJlY2F1c2UgaXQgd2FzIG1lcmdlZCBpbnRvIG1haW5saW5lIG9y
+IGEgc3Vic3lzdGVtIHRyZWUKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLQpGcm9tOiBSb21hbiBHdXNoY2hpbiA8Z3Vyb0BmYi5jb20+ClN1Ympl
+Y3Q6IG1tOiBtZW1jZzogbGluayBwYWdlIGNvdW50ZXJzIHRvIHJvb3QgaWYgdXNlX2hpZXJhcmNo
+eSBpcyBmYWxzZQoKUmljaGFyZCByZXBvcnRlZCBhIHdhcm5pbmcgd2hpY2ggY2FuIGJlIHJlcHJv
+ZHVjZWQgYnkgcnVubmluZyB0aGUgTFRQCm1hZHZpc2U2IHRlc3QgKGNncm91cCB2MSBpbiB0aGUg
+bm9uLWhpZXJhcmNoaWNhbCBtb2RlIHNob3VsZCBiZSB1c2VkKToKClsgICAgOS44NDE1NTJdIC0t
+LS0tLS0tLS0tLVsgY3V0IGhlcmUgXS0tLS0tLS0tLS0tLQpbICAgIDkuODQxNzg4XSBXQVJOSU5H
+OiBDUFU6IDAgUElEOiAxMiBhdCBtbS9wYWdlX2NvdW50ZXIuYzo1NyBwYWdlX2NvdW50ZXJfdW5j
+aGFyZ2UgKG1tL3BhZ2VfY291bnRlci5jOjU3IG1tL3BhZ2VfY291bnRlci5jOjUwIG1tL3BhZ2Vf
+Y291bnRlci5jOjE1NikKWyAgICA5Ljg0MTk4Ml0gTW9kdWxlcyBsaW5rZWQgaW46ClsgICAgOS44
+NDIwNzJdIENQVTogMCBQSUQ6IDEyIENvbW06IGt3b3JrZXIvMDoxIE5vdCB0YWludGVkIDUuOS4w
+LXJjNy0yMi1kZWZhdWx0ICM3NwpbICAgIDkuODQyMjY2XSBIYXJkd2FyZSBuYW1lOiBRRU1VIFN0
+YW5kYXJkIFBDIChpNDQwRlggKyBQSUlYLCAxOTk2KSwgQklPUyByZWwtMS4xMy4wLTQ4LWdkOWM4
+MTJkLXJlYnVpbHQub3BlbnN1c2Uub3JnIDA0LzAxLzIwMTQKWyAgICA5Ljg0MjU3MV0gV29ya3F1
+ZXVlOiBldmVudHMgZHJhaW5fbG9jYWxfc3RvY2sKWyAgICA5Ljg0Mjc1MF0gUklQOiAwMDEwOnBh
+Z2VfY291bnRlcl91bmNoYXJnZSAobW0vcGFnZV9jb3VudGVyLmM6NTcgbW0vcGFnZV9jb3VudGVy
+LmM6NTAgbW0vcGFnZV9jb3VudGVyLmM6MTU2KQpbIDkuODQyODk0XSBDb2RlOiAwZiBjMSA0NSAw
+MCA0YyAyOSBlMCA0OCA4OSBlZiA0OCA4OSBjMyA0OCA4OSBjNiBlOCAyYSBmZSBmZiBmZiA0OCA4
+NSBkYiA3OCAxMCA0OCA4YiA2ZCAyOCA0OCA4NSBlZCA3NSBkOCA1YiA1ZCA0MSA1YyA0MSA1ZCBj
+MyA8MGY+IDBiIGViIGVjIDkwIGU4IDRiIGY5IDg4IDJhIDQ4IDhiIDE3IDQ4IDM5IGQ2IDcyIDQx
+IDQxIDU0IDQ5IDg5ClsgICAgOS44NDM0MzhdIFJTUDogMDAxODpmZmZmYjFjMTgwMDZiZTI4IEVG
+TEFHUzogMDAwMTAwODYKWyAgICA5Ljg0MzU4NV0gUkFYOiBmZmZmZmZmZmZmZmZmZmZmIFJCWDog
+ZmZmZmZmZmZmZmZmZmZmZiBSQ1g6IGZmZmY5NDgwM2JjMmNhZTAKWyAgICA5Ljg0MzgwNl0gUkRY
+OiAwMDAwMDAwMDAwMDAwMDAxIFJTSTogZmZmZmZmZmZmZmZmZmZmZiBSREk6IGZmZmY5NDgwMDdk
+MmIyNDgKWyAgICA5Ljg0NDAyNl0gUkJQOiBmZmZmOTQ4MDA3ZDJiMjQ4IFIwODogZmZmZjk0ODAw
+N2M1OGViMCBSMDk6IGZmZmY5NDgwMDdkYTA1YWMKWyAgICA5Ljg0NDI0OF0gUjEwOiAwMDAwMDAw
+MDAwMDAwMDE4IFIxMTogMDAwMDAwMDAwMDAwMDAxOCBSMTI6IDAwMDAwMDAwMDAwMDAwMDEKWyAg
+ICA5Ljg0NDQ3N10gUjEzOiBmZmZmZmZmZmZmZmZmZmZmIFIxNDogMDAwMDAwMDAwMDAwMDAwMCBS
+MTU6IGZmZmY5NDgwM2JjMmNhYzAKWyAgICA5Ljg0NDY5Nl0gRlM6ICAwMDAwMDAwMDAwMDAwMDAw
+KDAwMDApIEdTOmZmZmY5NDgwM2JjMDAwMDAoMDAwMCkga25sR1M6MDAwMDAwMDAwMDAwMDAwMApb
+ICAgIDkuODQ0OTE1XSBDUzogIDAwMTAgRFM6IDAwMDAgRVM6IDAwMDAgQ1IwOiAwMDAwMDAwMDgw
+MDUwMDMzClsgICAgOS44NDUwOTZdIENSMjogMDAwMDdmMDU3OWVlMDM4NCBDUjM6IDAwMDAwMDAw
+MmNjMGEwMDAgQ1I0OiAwMDAwMDAwMDAwMDAwNmYwClsgICAgOS44NDUzMTldIENhbGwgVHJhY2U6
+ClsgICAgOS44NDU0MjldIF9fbWVtY2dfa21lbV91bmNoYXJnZSAobW0vbWVtY29udHJvbC5jOjMw
+MjIpClsgICAgOS44NDU1ODJdIGRyYWluX29ial9zdG9jayAoLi9pbmNsdWRlL2xpbnV4L3JjdXBk
+YXRlLmg6Njg5IG1tL21lbWNvbnRyb2wuYzozMTE0KQpbICAgIDkuODQ1Njg0XSBkcmFpbl9sb2Nh
+bF9zdG9jayAobW0vbWVtY29udHJvbC5jOjIyNTUpClsgICAgOS44NDU3ODldIHByb2Nlc3Nfb25l
+X3dvcmsgKC4vYXJjaC94ODYvaW5jbHVkZS9hc20vanVtcF9sYWJlbC5oOjI1IC4vaW5jbHVkZS9s
+aW51eC9qdW1wX2xhYmVsLmg6MjAwIC4vaW5jbHVkZS90cmFjZS9ldmVudHMvd29ya3F1ZXVlLmg6
+MTA4IGtlcm5lbC93b3JrcXVldWUuYzoyMjc0KQpbICAgIDkuODQ1ODk4XSB3b3JrZXJfdGhyZWFk
+ICguL2luY2x1ZGUvbGludXgvbGlzdC5oOjI4MiBrZXJuZWwvd29ya3F1ZXVlLmM6MjQxNikKWyAg
+ICA5Ljg0NjAzNF0gPyBwcm9jZXNzX29uZV93b3JrIChrZXJuZWwvd29ya3F1ZXVlLmM6MjM1OCkK
+WyAgICA5Ljg0NjE2Ml0ga3RocmVhZCAoa2VybmVsL2t0aHJlYWQuYzoyOTIpClsgICAgOS44NDYy
+NzFdID8gX19rdGhyZWFkX2JpbmRfbWFzayAoa2VybmVsL2t0aHJlYWQuYzoyNDUpClsgICAgOS44
+NDY0MjBdIHJldF9mcm9tX2ZvcmsgKGFyY2gveDg2L2VudHJ5L2VudHJ5XzY0LlM6MzAwKQpbICAg
+IDkuODQ2NTMxXSAtLS1bIGVuZCB0cmFjZSA4YjU2NDdjMWViYTlkMThhIF0tLS0KClRoZSBwcm9i
+bGVtIG9jY3VycyBiZWNhdXNlIGluIHRoZSBub24taGllcmFyY2hpY2FsIG1vZGUgbm9uLXJvb3Qg
+cGFnZQpjb3VudGVycyBhcmUgbm90IGxpbmtlZCB0byByb290IHBhZ2UgY291bnRlcnMsIHNvIHRo
+ZSBjaGFyZ2UgaXMgbm90CnByb3BhZ2F0ZWQgdG8gdGhlIHJvb3QgbWVtb3J5IGNncm91cC4KCkFm
+dGVyIHRoZSByZW1vdmFsIG9mIHRoZSBvcmlnaW5hbCBtZW1vcnkgY2dyb3VwIGFuZCByZXBhcmVu
+dGluZyBvZiB0aGUKb2JqZWN0IGNncm91cCwgdGhlIHJvb3QgY2dyb3VwIG1pZ2h0IGJlIHVuY2hh
+cmdlZCBieSBkcmFpbmluZyBhIG9iamNnCnN0b2NrLCBmb3IgZXhhbXBsZS4gIEl0IGxlYWRzIHRv
+IGFuIGV2ZW50dWFsIHVuZGVyZmxvdyBvZiB0aGUgY2hhcmdlIGFuZAp0cmlnZ2VycyBhIHdhcm5p
+bmcuCgpGaXggaXQgYnkgbGlua2luZyBhbGwgcGFnZSBjb3VudGVycyB0byBjb3JyZXNwb25kaW5n
+IHJvb3QgcGFnZSBjb3VudGVycyBpbgp0aGUgbm9uLWhpZXJhcmNoaWNhbCBtb2RlLgoKUGxlYXNl
+IG5vdGUsIHRoYXQgaW4gdGhlIG5vbi1oaWVyYXJjaGljYWwgbW9kZSBhbGwgb2JqY2dzIGFyZSBh
+bHdheXMKcmVwYXJlbnRlZCB0byB0aGUgcm9vdCBtZW1vcnkgY2dyb3VwLCBldmVuIGlmIHRoZSBo
+aWVyYXJjaHkgaGFzIG1vcmUgdGhhbgoxIGxldmVsLiAgVGhpcyBwYXRjaCBkb2Vzbid0IGNoYW5n
+ZSBpdC4KClRoZSBwYXRjaCBhbHNvIGRvZXNuJ3QgYWZmZWN0IGhvdyB0aGUgaGllcmFyY2hpY2Fs
+IG1vZGUgaXMgd29ya2luZywgd2hpY2gKaXMgdGhlIG9ubHkgc2FuZSBhbmQgdHJ1bHkgc3VwcG9y
+dGVkIG1vZGUgbm93LgoKVGhhbmtzIHRvIFJpY2hhcmQgZm9yIHJlcG9ydGluZywgZGVidWdnaW5n
+IGFuZCBwcm92aWRpbmcgYW4gYWx0ZXJuYXRpdmUKdmVyc2lvbiBvZiB0aGUgZml4IQoKTGluazog
+aHR0cHM6Ly9sa21sLmtlcm5lbC5vcmcvci8yMDIwMTAyNjIzMTMyNi4zMjEyMjI1LTEtZ3Vyb0Bm
+Yi5jb20KRml4ZXM6IGJmNGYwNTk5NTRkYyAoIm1tOiBtZW1jZy9zbGFiOiBvYmpfY2dyb3VwIEFQ
+SSIpClNpZ25lZC1vZmYtYnk6IFJvbWFuIEd1c2hjaGluIDxndXJvQGZiLmNvbT4KRGVidWdnZWQt
+Ynk6IFJpY2hhcmQgUGFsZXRob3JwZSA8cnBhbGV0aG9ycGVAc3VzZS5jb20+ClJlcG9ydGVkLWJ5
+OiA8bHRwQGxpc3RzLmxpbnV4Lml0PgpSZXZpZXdlZC1ieTogU2hha2VlbCBCdXR0IDxzaGFrZWVs
+YkBnb29nbGUuY29tPgpBY2tlZC1ieTogSm9oYW5uZXMgV2VpbmVyIDxoYW5uZXNAY21weGNoZy5v
+cmc+ClJldmlld2VkLWJ5OiBNaWNoYWwgS291dG7DvSA8bWtvdXRueUBzdXNlLmNvbT4KQ2M6IE1p
+Y2hhbCBIb2NrbyA8bWhvY2tvQGtlcm5lbC5vcmc+CkNjOiA8c3RhYmxlQHZnZXIua2VybmVsLm9y
+Zz4KU2lnbmVkLW9mZi1ieTogQW5kcmV3IE1vcnRvbiA8YWtwbUBsaW51eC1mb3VuZGF0aW9uLm9y
+Zz4KLS0tCgogbW0vbWVtY29udHJvbC5jIHwgICAxNSArKysrKysrKysrLS0tLS0KIDEgZmlsZSBj
+aGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQoKLS0tIGEvbW0vbWVtY29u
+dHJvbC5jfm1tLW1lbWNnLWxpbmstcGFnZS1jb3VudGVycy10by1yb290LWlmLXVzZV9oaWVyYXJj
+aHktaXMtZmFsc2UKKysrIGEvbW0vbWVtY29udHJvbC5jCkBAIC01MzQ1LDE3ICs1MzQ1LDIyIEBA
+IG1lbV9jZ3JvdXBfY3NzX2FsbG9jKHN0cnVjdCBjZ3JvdXBfc3Vic3kKIAkJbWVtY2ctPnN3YXBw
+aW5lc3MgPSBtZW1fY2dyb3VwX3N3YXBwaW5lc3MocGFyZW50KTsKIAkJbWVtY2ctPm9vbV9raWxs
+X2Rpc2FibGUgPSBwYXJlbnQtPm9vbV9raWxsX2Rpc2FibGU7CiAJfQotCWlmIChwYXJlbnQgJiYg
+cGFyZW50LT51c2VfaGllcmFyY2h5KSB7CisJaWYgKCFwYXJlbnQpIHsKKwkJcGFnZV9jb3VudGVy
+X2luaXQoJm1lbWNnLT5tZW1vcnksIE5VTEwpOworCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ct
+PnN3YXAsIE5VTEwpOworCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPmttZW0sIE5VTEwpOwor
+CQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPnRjcG1lbSwgTlVMTCk7CisJfSBlbHNlIGlmIChw
+YXJlbnQtPnVzZV9oaWVyYXJjaHkpIHsKIAkJbWVtY2ctPnVzZV9oaWVyYXJjaHkgPSB0cnVlOwog
+CQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPm1lbW9yeSwgJnBhcmVudC0+bWVtb3J5KTsKIAkJ
+cGFnZV9jb3VudGVyX2luaXQoJm1lbWNnLT5zd2FwLCAmcGFyZW50LT5zd2FwKTsKIAkJcGFnZV9j
+b3VudGVyX2luaXQoJm1lbWNnLT5rbWVtLCAmcGFyZW50LT5rbWVtKTsKIAkJcGFnZV9jb3VudGVy
+X2luaXQoJm1lbWNnLT50Y3BtZW0sICZwYXJlbnQtPnRjcG1lbSk7CiAJfSBlbHNlIHsKLQkJcGFn
+ZV9jb3VudGVyX2luaXQoJm1lbWNnLT5tZW1vcnksIE5VTEwpOwotCQlwYWdlX2NvdW50ZXJfaW5p
+dCgmbWVtY2ctPnN3YXAsIE5VTEwpOwotCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPmttZW0s
+IE5VTEwpOwotCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPnRjcG1lbSwgTlVMTCk7CisJCXBh
+Z2VfY291bnRlcl9pbml0KCZtZW1jZy0+bWVtb3J5LCAmcm9vdF9tZW1fY2dyb3VwLT5tZW1vcnkp
+OworCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPnN3YXAsICZyb290X21lbV9jZ3JvdXAtPnN3
+YXApOworCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPmttZW0sICZyb290X21lbV9jZ3JvdXAt
+PmttZW0pOworCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPnRjcG1lbSwgJnJvb3RfbWVtX2Nn
+cm91cC0+dGNwbWVtKTsKIAkJLyoKIAkJICogRGVlcGVyIGhpZXJhY2h5IHdpdGggdXNlX2hpZXJh
+cmNoeSA9PSBmYWxzZSBkb2Vzbid0IG1ha2UKIAkJICogbXVjaCBzZW5zZSBzbyBsZXQgY2dyb3Vw
+IHN1YnN5c3RlbSBrbm93IGFib3V0IHRoaXMKXwoKUGF0Y2hlcyBjdXJyZW50bHkgaW4gLW1tIHdo
+aWNoIG1pZ2h0IGJlIGZyb20gZ3Vyb0BmYi5jb20gYXJlCgptbS1tZW1jb250cm9sLXVzZS1oZWxw
+ZXJzLXRvLXJlYWQtcGFnZXMtbWVtY2ctZGF0YS5wYXRjaAptbS1tZW1jb250cm9sLXNsYWItdXNl
+LWhlbHBlcnMtdG8tYWNjZXNzLXNsYWItcGFnZXMtbWVtY2dfZGF0YS5wYXRjaAptbS1pbnRyb2R1
+Y2UtcGFnZS1tZW1jZy1mbGFncy5wYXRjaAptbS1jb252ZXJ0LXBhZ2Uta21lbWNnLXR5cGUtdG8t
+YS1wYWdlLW1lbWNnLWZsYWcucGF0Y2gKbW0tdm1zdGF0LWZpeC1wcm9jLXN5cy12bS1zdGF0X3Jl
+ZnJlc2gtZ2VuZXJhdGluZy1mYWxzZS13YXJuaW5ncy5wYXRjaAptbS12bXN0YXQtZml4LXByb2Mt
+c3lzLXZtLXN0YXRfcmVmcmVzaC1nZW5lcmF0aW5nLWZhbHNlLXdhcm5pbmdzLWZpeC5wYXRjaAoK
+Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
+dHAK
