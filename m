@@ -2,37 +2,134 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F124D2A4FCD
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Nov 2020 20:15:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7B312A56BA
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Nov 2020 22:30:48 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 795293C6122
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Nov 2020 20:15:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 63F963C5467
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Nov 2020 22:30:48 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id B9FCD3C300B
- for <ltp@lists.linux.it>; Tue,  3 Nov 2020 20:13:42 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 08FB9601238
- for <ltp@lists.linux.it>; Tue,  3 Nov 2020 20:13:42 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D10F9AF26;
- Tue,  3 Nov 2020 19:13:41 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue,  3 Nov 2020 20:13:27 +0100
-Message-Id: <20201103191327.11081-12-pvorel@suse.cz>
-X-Mailer: git-send-email 2.29.1
-In-Reply-To: <20201103191327.11081-1-pvorel@suse.cz>
-References: <20201103191327.11081-1-pvorel@suse.cz>
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id B0F7E3C245E
+ for <ltp@lists.linux.it>; Tue,  3 Nov 2020 22:30:46 +0100 (CET)
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 952FF600AAB
+ for <ltp@lists.linux.it>; Tue,  3 Nov 2020 22:30:44 +0100 (CET)
+Received: from pps.filterd (m0109332.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0A3LSN4U025642; Tue, 3 Nov 2020 13:30:36 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=date : from : to : cc :
+ subject : message-id : references : content-type : in-reply-to :
+ mime-version; s=facebook; bh=LP6opMSWxNcjDSqFuR0gqv8A3mmPzOUlXucNgO8B324=;
+ b=FM1yuchRJ14ocZYSD5GMi9CMn3AyoZsb1UQL06aLQbjbsJmOXGy860gfZTl4WnB7JmuR
+ pXxKhQl+EuoTWEDZuU750qjoRp51uqwyFmP5j5MC6rbI99Alcw3YrF+mQ+G9BmyN2xoF
+ HMyVYy6L9bCltoZnOJ1PLqZweMjpmhuPbpY= 
+Received: from mail.thefacebook.com ([163.114.132.120])
+ by mx0a-00082601.pphosted.com with ESMTP id 34kf5c008x-12
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 03 Nov 2020 13:30:36 -0800
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (100.104.98.9) by
+ o365-in.thefacebook.com (100.104.94.198) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1979.3; Tue, 3 Nov 2020 13:30:18 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WYBW33r9gnXPxR5v/nIhx65jVwblg+4sXOvb7e8CJ8de8nt65Nf5CgdvgKODKzMSYlzbjxTMJtMpFmM8+XkF/lev64yBLgPyBWpZlPvWoACdGOfHlRlnQcCzT8YBvRNVxphYfu/MSD+XavUqQCg/5MnduQgM6qpjgaZe2T2YQe1VFwzd+dHxHdhF+MAJeXAqatP516MvyEXGdnn19Cs8p+dakWX/wDHxqrWWahC1EmF3e1pLTjVJ1a54+pMIdRPc4pnNaMz+13JizwaWOpcvcGSQMjFjXEly/eG/Mr2dn3oDbifwUE9ui7gu4c2OT/W16qs6wuoO069DaYZvcZxPqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LP6opMSWxNcjDSqFuR0gqv8A3mmPzOUlXucNgO8B324=;
+ b=c1yt7X6DvmKFNLaAUHZNNtofUbunzN3pq8V9SyLb7cZ+uwPQg3RxVlWc+6QFkn/Ffhxo1pHjO38NfYruTcjNOVeHl3Q5oHDj4mXhl/Xl2/9835Gn9Raj4Fv9kecBVzfe7Rg+fAACFim4TPdiBUAol5CSeUKm3adaHkkeTl8K17Dnw+HT3nhDZHgneKPaAGNPzv8kZ0cq3UYBz/c30i5VrSQlTMLe7ZxuiXSnE5xW27zmy3OiFu9rF3doAXoP0HwYmTtMwk4OeS/HJLVqv5j1EYo8xi4xJcUgtjO9xz18YjdZ9aefV7WxnU2XI98nmn0sH5o3kuVfoD4CPNTOpTzTfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=fb.com; dmarc=pass action=none header.from=fb.com; dkim=pass
+ header.d=fb.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector2-fb-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LP6opMSWxNcjDSqFuR0gqv8A3mmPzOUlXucNgO8B324=;
+ b=EsHQqAkpfIcvaqzYPYVceEUUr6ovyUPaOT7LP+a5dM1MrAU5L0Uo935bzN43JfqTPzcZmF67cgk1vKcqNUaNH1MowRtNkIKbN62VA7o0Dvvk4EHDzmeT8PFkp83/uZEOjLuJ4lG9RKYzq2+6xeknmBs1+gzaIcwxyEuX0nHvgrg=
+Authentication-Results: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=fb.com;
+Received: from BYAPR15MB4136.namprd15.prod.outlook.com (2603:10b6:a03:96::24)
+ by BYAPR15MB3445.namprd15.prod.outlook.com (2603:10b6:a03:110::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18; Tue, 3 Nov
+ 2020 21:30:17 +0000
+Received: from BYAPR15MB4136.namprd15.prod.outlook.com
+ ([fe80::d834:4987:4916:70f2]) by BYAPR15MB4136.namprd15.prod.outlook.com
+ ([fe80::d834:4987:4916:70f2%5]) with mapi id 15.20.3499.032; Tue, 3 Nov 2020
+ 21:30:17 +0000
+Date: Tue, 3 Nov 2020 13:30:10 -0800
+To: Michal Hocko <mhocko@suse.com>
+Message-ID: <20201103213010.GA1938922@carbon.dhcp.thefacebook.com>
+References: <20201014190749.24607-1-rpalethorpe@suse.com>
+ <20201016094702.GA95052@blackbook>
+ <20201016145308.GA312010@cmpxchg.org>
+ <20201016171502.GA102311@blackbook>
+ <20201019222845.GA64774@carbon.dhcp.thefacebook.com>
+ <20201020162714.GC46039@blackbook>
+ <20201020170717.GA153102@carbon.DHCP.thefacebook.com>
+ <20201020181822.GA397401@cmpxchg.org>
+ <20201021193322.GA300658@carbon.dhcp.thefacebook.com>
+ <20201103132221.GI21990@dhcp22.suse.cz>
+Content-Disposition: inline
+In-Reply-To: <20201103132221.GI21990@dhcp22.suse.cz>
+X-Originating-IP: [2620:10d:c090:400::5:6cce]
+X-ClientProxiedBy: MWHPR13CA0022.namprd13.prod.outlook.com
+ (2603:10b6:300:16::32) To BYAPR15MB4136.namprd15.prod.outlook.com
+ (2603:10b6:a03:96::24)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from carbon.dhcp.thefacebook.com (2620:10d:c090:400::5:6cce) by
+ MWHPR13CA0022.namprd13.prod.outlook.com (2603:10b6:300:16::32) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3541.10 via Frontend Transport; Tue, 3 Nov 2020 21:30:15 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a8810314-e3eb-4bf9-68bd-08d8803fa857
+X-MS-TrafficTypeDiagnostic: BYAPR15MB3445:
+X-Microsoft-Antispam-PRVS: <BYAPR15MB3445E6D33CF0F727E632A90CBE110@BYAPR15MB3445.namprd15.prod.outlook.com>
+X-FB-Source: Internal
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: pNjctyuogJnAmdSXoC9xUHlkL1IOrJZEOSibiG/Rc1LC3KQJ7VDLMe6jloOjakOrkg7Z7yBdUYoCFrQauLmmOR4fTYXy6IIa4DdslL4GibJ/7da0W1wSspsC9dloYSCSLWpSRSx34xnB8KRFu53vln4OpvyqkRZfnC09YT7uSD4gCj26/j5mIc0ZMtEC0D4RbjzFFcBPlZ0IUwH714qGJqyqc6KUNWYU8BrnuttLEpUEiLFhOzrx/cPiqACXOu9lKp2do2x7nX038+UA25pTLP/okEUaWN632UarnDluFf8Q83KJah+XddCFv8tmYUATRuJ/udZ4ZSp6GaBGXp7dJQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR15MB4136.namprd15.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(346002)(366004)(136003)(396003)(376002)(39860400002)(2906002)(5660300002)(33656002)(6916009)(1076003)(55016002)(4326008)(86362001)(7416002)(478600001)(54906003)(8676002)(8936002)(6506007)(66946007)(186003)(66476007)(66556008)(16526019)(7696005)(83380400001)(6666004)(9686003)(52116002)(316002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData: V6Cw4kJsQr8OftNtXkyOtb5TrlcP9upQHN1mYs7p2cEE8DzMJRK1yNhiKzYIR+TBUR7/UFTJ6Fnr9GOjRGmBaJ0IpMlpo6Ff1+mA9kc3IVIFDdW1VMJe+OtC2JENJtQcvJ3XekU8ISKfZE8Ryd+C1O8sq0tVell5R3WEB4pofqwRHycGyihtFSHfV6bNwzVD3rj7zhq//VwZ1RVGoOHBtzQczNG91Q7vSP8vZE+4ROapPVWk5IQlRCi0ZafMo6Yjw257mta0jyX7Ax14Ym9zkmWIfxPjSu+im70mB+CrZpCnxi/zKoVNIoKS0/ezKBdZZCVVOQoXjHHGA0Z8AUvlC63ZyqoGIz2cB6c95TLhIf/5dMKJOkZVT4xnqVNIRiDZrTFUbCWnZzMJFMo803IVcax+CMGEbb2Ibj0AaFTCdVxLUMtex9u0yyO78RUeFq1y9+T9v3cn4a6N84q+LmgIwNoyw2K7wacgQKhCUd4C/WRCBHJ6ihhgAXbpJCfRGXHnZ+hk/Cf97+zFO++Ofz0wmXMFbNrtU8hy9d8nEpEk+hshwfrAd/KA4D3/sBCJWfZ3qqQSJ4LCVWlurmT7p1Cqb6Uo2ifOhKMuLHXGvzW/eQ98/JGAHZ7F6bSKn0LyE4Bk0Am5Ish1D+lNZKAuE2UOXP2XxrrbsFZfLLfxn3jMMSo=
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8810314-e3eb-4bf9-68bd-08d8803fa857
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR15MB4136.namprd15.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2020 21:30:17.0719 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: g8ggpXwjuVTy6k6lPOTM5Vh5J3y1ADGNABL6xkq7j81HlMupoOCaPuItL5vHNYwq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR15MB3445
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+ definitions=2020-11-03_14:2020-11-03,
+ 2020-11-03 signatures=0
+X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0
+ adultscore=0 spamscore=0
+ clxscore=1015 phishscore=0 impostorscore=0 mlxscore=0 mlxlogscore=999
+ suspectscore=1 priorityscore=1501 malwarescore=0 bulkscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2011030142
+X-FB-Internal: deliver
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 11/11] docparse: Generate html and pdf using
- asciidoc{, tor}
+Subject: Re: [LTP] [RFC PATCH] mm: memcg/slab: Stop reparented obj_cgroups
+ from charging root
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,564 +141,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: automated-testing@yoctoproject.org
+From: Roman Gushchin via ltp <ltp@lists.linux.it>
+Reply-To: Roman Gushchin <guro@fb.com>
+Cc: Christoph Lameter <cl@linux.com>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, Shakeel Butt <shakeelb@google.com>,
+ Vlastimil Babka <vbabka@suse.cz>, Johannes Weiner <hannes@cmpxchg.org>,
+ Tejun Heo <tj@kernel.org>, Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Rewrite testinfo.pl to generate *.txt pages in asciidoc format which is
-then regenerated to html (and pdf if enabled) using asciidoc,{tor}.
+On Tue, Nov 03, 2020 at 02:22:21PM +0100, Michal Hocko wrote:
+> Hi,
+> I am sorry but I was quite busy at the time this has been discussed.
+> Now that I got to this thread finally I am wondering whether this
+> resp. other root cgroup exceptions have any follow up.
 
-Replace getting Linux kernel git commit messages from local git
-repository (needed after having all tests in single page, because API
-has access limits; it's also better to generate everything once thus
-don't depend on network connection).
+I'll address a feedback I've got from Johannes and will post and updated
+version soon.
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- docparse/.gitignore  |   5 +
- docparse/Makefile    |  58 +++++++
- docparse/testinfo.pl | 406 +++++++++++++++++++++++++++++++++++++++++--
- 3 files changed, 458 insertions(+), 11 deletions(-)
+> 
+> I have seen the issue is fixed in Linus tree by 8de15e920dc8 ("mm:
+> memcg: link page counters to root if use_hierarchy is false"). Thanks
+> for taking care of that! I do agree that this approach is the most
+> reasonable immediate fix.
 
-diff --git a/docparse/.gitignore b/docparse/.gitignore
-index f636ed847..7a87b4234 100644
---- a/docparse/.gitignore
-+++ b/docparse/.gitignore
-@@ -1,2 +1,7 @@
-+/*.txt
-+/docbook-xsl.css
- /docparse
- /metadata.json
-+/metadata.html
-+/metadata.pdf
-+/metadata.chunked/
-diff --git a/docparse/Makefile b/docparse/Makefile
-index 94ba83ffe..e2defad38 100644
---- a/docparse/Makefile
-+++ b/docparse/Makefile
-@@ -1,19 +1,77 @@
- # SPDX-License-Identifier: GPL-2.0-or-later
- # Copyright (c) 2019 Cyril Hrubis <chrubis@suse.cz>
-+# Copyright (c) 2020 Petr Vorel <pvorel@suse.cz>
- 
- top_srcdir		?= ..
- 
- include $(top_srcdir)/include/mk/env_pre.mk
- include $(top_srcdir)/include/mk/functions.mk
- 
-+ifeq ($(METADATA_GENERATOR),asciidoctor)
-+METADATA_GENERATOR_CMD := asciidoctor
-+METADATA_GENERATOR_PARAMS := -d book metadata.txt
-+METADATA_GENERATOR_PARAMS_HTML := -b xhtml
-+METADATA_GENERATOR_PARAMS_PDF := -b pdf -r asciidoctor-pdf
-+else ifeq ($(METADATA_GENERATOR),asciidoc)
-+METADATA_GENERATOR_CMD := a2x
-+METADATA_GENERATOR_PARAMS := --xsltproc-opts "--stringparam toc.section.depth 1" -d book -L  --resource="$(PWD)" metadata.txt
-+METADATA_GENERATOR_PARAMS_HTML := -f xhtml
-+METADATA_GENERATOR_PARAMS_PDF := -f pdf
-+METADATA_GENERATOR_PARAMS_HTML_CHUNKED := -f chunked
-+else ifeq ($(METADATA_GENERATOR),)
-+$(error 'METADATA_GENERATOR' not not configured, run ./configure in the root directory)
-+else
-+$(error '$(METADATA_GENERATOR)' not supported, only asciidoctor and asciidoc are supported)
-+endif
-+
-+ifdef VERBOSE
-+METADATA_GENERATOR_PARAMS += -v
-+endif
-+
-+CLEAN_TARGETS		:= *.css *.js *.txt
- MAKE_TARGETS		:= metadata.json
-+
-+ifeq ($(WITH_METADATA_HTML),yes)
-+MAKE_TARGETS		+= metadata.html
-+ifneq ($(METADATA_GENERATOR_PARAMS_HTML_CHUNKED),)
-+MAKE_TARGETS		+= metadata.chunked
-+endif
-+endif
-+
-+ifeq ($(WITH_METADATA_PDF),yes)
-+MAKE_TARGETS		+= metadata.pdf
-+endif
-+
- HOST_MAKE_TARGETS	:= docparse
- 
- INSTALL_DIR = metadata
-+INSTALL_TARGETS = *.css *.js
-+
-+ifndef METADATA_GENERATOR
-+METADATA_GENERATOR := asciidoctor
-+endif
- 
- .PHONY: metadata.json
- 
- metadata.json: docparse
- 	$(abs_srcdir)/parse.sh > metadata.json
- 
-+txt: metadata.json
-+	$(abs_srcdir)/testinfo.pl metadata.json
-+
-+ifeq ($(WITH_METADATA_HTML),yes)
-+metadata.html: txt
-+	$(METADATA_GENERATOR_CMD) $(METADATA_GENERATOR_PARAMS) $(METADATA_GENERATOR_PARAMS_HTML)
-+
-+ifneq ($(METADATA_GENERATOR_PARAMS_HTML_CHUNKED),)
-+metadata.chunked: txt
-+	$(METADATA_GENERATOR_CMD) $(METADATA_GENERATOR_PARAMS) $(METADATA_GENERATOR_PARAMS_HTML_CHUNKED)
-+endif
-+endif
-+
-+ifeq ($(WITH_METADATA_PDF),yes)
-+metadata.pdf: txt
-+	$(METADATA_GENERATOR_CMD) $(METADATA_GENERATOR_PARAMS) $(METADATA_GENERATOR_PARAMS_PDF)
-+endif
-+
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/docparse/testinfo.pl b/docparse/testinfo.pl
-index d93d7d701..d8d9ea663 100755
---- a/docparse/testinfo.pl
-+++ b/docparse/testinfo.pl
-@@ -1,16 +1,21 @@
- #!/usr/bin/perl
- # SPDX-License-Identifier: GPL-2.0-or-later
- # Copyright (c) 2019 Cyril Hrubis <chrubis@suse.cz>
-+# Copyright (c) 2020 Petr Vorel <pvorel@suse.cz>
- 
- use strict;
- use warnings;
- 
- use JSON;
--use Data::Dumper;
-+use LWP::Simple;
-+use Cwd qw(abs_path);
-+use File::Basename qw(dirname);
-+
-+use constant OUTDIR => dirname(abs_path($0));
- 
- sub load_json
- {
--	my ($fname) = @_;
-+	my ($fname, $mode) = @_;
- 	local $/;
- 
- 	open(my $fh, '<', $fname) or die("Can't open $fname $!");
-@@ -18,23 +23,402 @@ sub load_json
- 	return <$fh>;
- }
- 
--sub query_flag
-+sub log_info
-+{
-+	my $msg = shift;
-+	print STDERR "INFO: $msg\n";
-+}
-+
-+sub log_warn
-+{
-+	my $msg = shift;
-+	print STDERR "WARN: $msg\n";
-+}
-+
-+sub print_asciidoc_page
-+{
-+	my ($fh, $json, $title, $content) = @_;
-+
-+	print $fh <<EOL;
-+// -*- mode:doc; -*-
-+// vim: set syntax=asciidoc:
-+
-+$title
-+
-+$content
-+EOL
-+}
-+
-+sub tag_url {
-+	my ($tag, $value, $scm_url_base) = @_;
-+
-+    if ($tag eq "CVE") {
-+        return "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-" . $value;
-+	}
-+    if ($tag eq "linux-git") {
-+        return "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=" . $value;
-+	}
-+    if ($tag eq "fname") {
-+        return $scm_url_base . $value;
-+	}
-+}
-+
-+sub bold
-+{
-+	return "*$_[0]*";
-+}
-+
-+sub code
-+{
-+	return "+$_[0]+";
-+}
-+
-+sub hr
-+{
-+	return "\n\n'''\n\n";
-+}
-+
-+sub html_a
-+{
-+	my ($url, $text) = @_;
-+	return "$url\[$text\]";
-+}
-+
-+sub h1
-+{
-+	return "== $_[0]\n";
-+}
-+
-+sub h2
-+{
-+	return "=== $_[0]\n";
-+}
-+
-+sub h3
-+{
-+	return "==== $_[0]\n";
-+}
-+
-+sub label
-+{
-+	return "[[$_[0]]]\n";
-+}
-+
-+sub paragraph
-+{
-+	return "$_[0]\n\n";
-+}
-+
-+sub reference
-+{
-+	return "xref:$_[0]\[$_[0]\]" . (defined($_[1]) ? $_[1] : "") . "\n";
-+}
-+
-+sub table
-+{
-+	return "|===\n";
-+}
-+
-+sub print_defined
-+{
-+	my ($key, $val, $val2) = @_;
-+
-+	if (defined($val)) {
-+		return paragraph(bold($key) . ": " . $val . (defined($val2) ? " $val2" : ""));
-+	}
-+}
-+
-+sub content_about
-+{
-+	my $json = shift;
-+	my $content;
-+
-+	$content .= print_defined("URL", $json->{'url'});
-+	$content .= print_defined("Version", $json->{'version'});
-+	$content .= print_defined("Default timeout", $json->{'timeout'}, "seconds");
-+
-+	return $content;
-+}
-+
-+sub uniq {
-+	my %seen;
-+	grep !$seen{$_}++, @_;
-+}
-+
-+sub get_test_names
-+{
-+	my @names = @{$_[0]};
-+	my ($letter, $prev_letter);
-+	my $content;
-+
-+	for my $name (sort @names) {
-+		$letter = substr($name, 0, 1);
-+		if (defined($prev_letter) && $letter ne $prev_letter) {
-+			$content .= "\n";
-+		}
-+
-+		$content .= reference($name, " ");
-+		$prev_letter = $letter;
-+	}
-+	$content .= "\n";
-+
-+	return $content;
-+}
-+
-+sub get_test_letters
-+{
-+	my @names = @{$_[0]};
-+	my $letter;
-+	my $prev_letter = "";
-+	my $content;
-+
-+	for (@names) {
-+		$_ = substr($_, 0, 1);
-+	}
-+	@names = uniq(@names);
-+
-+	for my $letter (@names) {
-+		$content .= reference($letter);
-+	}
-+	$content .= "\n";
-+
-+	return $content;
-+}
-+
-+sub tag2title
- {
--	my ($json, $flag) = @_;
-+	my $tag = shift;
-+	return code(".$tag");
-+}
-+
-+sub get_filters
-+{
-+	my $json = shift;
-+	my %data;
-+	while (my ($k, $v) = each %{$json->{'tests'}}) {
-+		for my $j (keys %{$v}) {
-+
-+			next if ($j eq 'fname' || $j eq 'doc');
-+
-+			$data{$j} = () unless (defined($data{$j}));
-+			push @{$data{$j}}, $k;
-+		}
-+	}
-+	return \%data;
-+}
-+
-+# TODO: Handle better .tags (and anything else which contains array)
-+# e.g. for .tags there could be separate list for CVE and linux-git
-+# (now it's together in single list).
-+sub content_filters
-+{
-+	my $json = shift;
-+	my $data = get_filters($json);
-+	my %h = %$data;
-+	my $content;
-+
-+	for my $k (sort keys %$data) {
-+		my $tag = tag2title($k);
-+		my ($letter, $prev_letter);
-+		$content .= h2($tag);
-+		$content .= paragraph("Tests containing $tag flag.");
-+		$content .= get_test_names(\@{$h{$k}});
-+	}
-+
-+	return $content;
-+}
-+
-+sub detect_git
-+{
-+	unless (defined $ENV{'LINUX_GIT'} && $ENV{'LINUX_GIT'}) {
-+		log_warn("kernel git repository not defined. Define it in \$LINUX_GIT");
-+		return 0;
-+	}
-+
-+	unless (-d $ENV{'LINUX_GIT'}) {
-+		log_warn("\$LINUX_GIT does not exit ('$ENV{'LINUX_GIT'}')");
-+		return 0;
-+	}
-+
-+	my $ret = 0;
-+	if (system("which git >/dev/null")) {
-+		log_warn("git not in \$PATH ('$ENV{'PATH'}')");
-+		return 0;
-+	}
-+
-+	chdir($ENV{'LINUX_GIT'});
-+	if (!system("git log -1 > /dev/null")) {
-+		log_info("using '$ENV{'LINUX_GIT'}' as kernel git repository");
-+		$ret = 1;
-+	} else {
-+		log_warn("git failed, git not installed or \$LINUX_GIT is not a git repository? ('$ENV{'LINUX_GIT'}')");
-+	}
-+	chdir(OUTDIR);
-+
-+	return $ret;
-+}
-+
-+sub content_all_tests
-+{
-+	my $json = shift;
-+	my @names = sort keys %{$json->{'tests'}};
-+	my $letters = paragraph(get_test_letters(\@names));
-+	my $has_kernel_git = detect_git();
-+	my $tmp = undef;
-+	my $printed = "";
-+	my $content;
-+
-+	unless ($has_kernel_git) {
-+		log_info("Parsing git messages from linux git repository skipped due previous error");
-+	}
-+
-+	$content .= paragraph("Total $#names tests.");
-+	$content .= $letters;
-+	$content .= get_test_names(\@names);
-+
-+	for my $name (@names) {
-+		my $letter = substr($name, 0, 1);
- 
--	my $tests = $json->{'tests'};
-+		if ($printed ne $letter) {
-+			$content .= label($letter);
-+			$content .= h2($letter);
-+			$printed = $letter;
-+		}
-+
-+		$content .= hr() if (defined($tmp));
-+		$content .= label($name);
-+		$content .= h3($name);
-+		$content .= $letters;
-+
-+		if (defined($json->{'scm_url_base'}) &&
-+			defined($json->{'tests'}{$name}{fname})) {
-+			$content .= paragraph(html_a(tag_url("fname", $json->{'tests'}{$name}{fname},
-+					$json->{'scm_url_base'}), "source"));
-+		}
-+
-+		if (defined $json->{'tests'}{$name}{doc}) {
-+			for my $doc (@{$json->{'tests'}{$name}{doc}}) {
- 
--	foreach my $key (sort(keys %$tests)) {
--		if ($tests->{$key}->{$flag}) {
--			if ($tests->{$key}->{$flag} eq "1") {
--				print("$key\n");
-+				# fix formatting for asciidoc [DOCUMENTATION] => *DOCUMENTATION*
-+				if ($doc =~ s/^\[(.*)\]$/$1/) {
-+					$doc = paragraph(bold($doc));
-+				}
-+
-+				$content .= "$doc\n";
-+			}
-+			$content .= "\n";
-+		}
-+
-+		if ($json->{'tests'}{$name}{timeout}) {
-+			if ($json->{'tests'}{$name}{timeout} eq -1) {
-+				$content .= paragraph("Test timeout is disabled");
- 			} else {
--				print("$key:\n" . Dumper($tests->{$key}->{$flag}) . "\n");
-+				$content .= paragraph("Test timeout is $json->{'tests'}{$name}{timeout} seconds");
- 			}
-+		} else {
-+			$content .= paragraph("Test timeout defaults to $json->{'timeout'} seconds");
- 		}
-+
-+		my $tmp2 = undef;
-+		for my $k (sort keys %{$json->{'tests'}{$name}}) {
-+			my $v = $json->{'tests'}{$name}{$k};
-+			next if ($k eq "tags" || $k eq "fname" || $k eq "doc");
-+			if (!defined($tmp2)) {
-+				$content .= table . "|Key|Value\n\n"
-+			}
-+
-+			$content .= "|" . tag2title($k) . "\n|";
-+			if (ref($v) eq 'ARRAY') {
-+				$content .= join(', ', @$v),
-+			} else {
-+				$content .= $v;
-+			}
-+			$content .= "\n";
-+
-+			$tmp2 = 1;
-+		}
-+		if (defined($tmp2)) {
-+			$content .= table . "\n";
-+		}
-+
-+		$tmp2 = undef;
-+		my %commits;
-+
-+		for my $tag (@{$json->{'tests'}{$name}{tags}}) {
-+			if (!defined($tmp2)) {
-+				$content .= table . "|Tags|Info\n"
-+			}
-+			my $k = @$tag[0];
-+			my $v = @$tag[1];
-+			my $text = $k;
-+
-+            if ($has_kernel_git && $k eq "linux-git") {
-+				$text .= "-$v";
-+				unless (defined($commits{$v})) {
-+					chdir($ENV{'LINUX_GIT'});
-+					$commits{$v} = `git log --pretty=format:'%s' -1 $v`;
-+					chdir(OUTDIR);
-+				}
-+				$v = $commits{$v};
-+			}
-+			my $a = html_a(tag_url($k, @$tag[1]), $text);
-+			$content .= "\n|$a\n|$v\n";
-+			$tmp2 = 1;
-+		}
-+		if (defined($tmp2)) {
-+			$content .= table . "\n";
-+		}
-+
-+		$tmp = 1;
- 	}
-+
-+	return $content;
- }
- 
-+
- my $json = decode_json(load_json($ARGV[0]));
- 
--query_flag($json, $ARGV[1]);
-+my $config = [
-+    {
-+		file => "about.txt",
-+		title => h2("About $json->{'testsuite'}"),
-+		content => \&content_about,
-+    },
-+    {
-+		file => "filters.txt",
-+		title => h1("Test filtered by used flags"),
-+		content => \&content_filters,
-+    },
-+    {
-+		file => "all-tests.txt",
-+		title => h1("All tests"),
-+		content => \&content_all_tests,
-+    },
-+];
-+
-+sub print_asciidoc_main
-+{
-+	my $config = shift;
-+	my $file = "metadata.txt";
-+	my $content;
-+
-+	open(my $fh, '>', $file) or die("Can't open $file $!");
-+
-+	$content = <<EOL;
-+:doctype: inline
-+:sectanchors:
-+:toc:
-+
-+EOL
-+	for my $c (@{$config}) {
-+		$content .= "include::$c->{'file'}\[\]\n";
-+	}
-+	print_asciidoc_page($fh, $json, h1($json->{'testsuite_short'} . " test catalog"), $content);
-+}
-+
-+for my $c (@{$config}) {
-+	open(my $fh, '>', $c->{'file'}) or die("Can't open $c->{'file'} $!");
-+	print_asciidoc_page($fh, $json, $c->{'title'}, $c->{'content'}->($json));
-+}
-+
-+print_asciidoc_main($config);
--- 
-2.29.1
+Thanks!
 
+> 
+> Btw. we have been carrying a warning about non hierarchical hierarchies
+> for years in our distribution kernels and haven't heard of any actual
+> bug reports (except for LTP driven ones). So we might be really close to
+> simply drop this functionality completely. This would simplify the code
+> and prevent from future surprises.
+
+Just sent an rfc patchset. Your feedback will be greatly appreciated!
+
+Thanks!
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
