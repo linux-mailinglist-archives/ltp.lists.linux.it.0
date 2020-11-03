@@ -1,46 +1,36 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70CF12A4A57
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Nov 2020 16:50:11 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D0D22A4AD0
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Nov 2020 17:10:11 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 259C73C3025
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Nov 2020 16:50:06 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1BAC53C3041
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Nov 2020 17:10:11 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id C1A613C2BFD
- for <ltp@lists.linux.it>; Tue,  3 Nov 2020 16:50:04 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 498613C3019
+ for <ltp@lists.linux.it>; Tue,  3 Nov 2020 17:10:10 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 6EA006009A3
- for <ltp@lists.linux.it>; Tue,  3 Nov 2020 16:50:04 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1604418603;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=6d5HUu14f4NMAPXebIIHMxY9I2/lFQY6h3IuweKPI0k=;
- b=A5YmZ0ZE6dTMHVyNLC0iIUq8AtwYLQQkQn2S+PIPPUk3wvpadTvVpdFuxo/jpSCGI4qz5O
- SY5mWzXaqfG5nNY9ak6cXC57EobU2+KczyTYodyLcHHIOPACxesjfjqEc+UqtYWs2eYBn6
- wQbyMTFygovHMaUPM9c8ooCYAWiTf4w=
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id C58351A00E50
+ for <ltp@lists.linux.it>; Tue,  3 Nov 2020 17:10:09 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D76AEACB5;
- Tue,  3 Nov 2020 15:50:03 +0000 (UTC)
-From: Richard Palethorpe <rpalethorpe@suse.com>
+ by mx2.suse.de (Postfix) with ESMTP id 2C121ADC5;
+ Tue,  3 Nov 2020 16:10:09 +0000 (UTC)
+From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue,  3 Nov 2020 15:49:50 +0000
-Message-Id: <20201103154950.32000-1-rpalethorpe@suse.com>
-X-Mailer: git-send-email 2.29.1
+Date: Tue,  3 Nov 2020 17:10:50 +0100
+Message-Id: <20201103161052.13260-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] madvise06: Add tag for "mm: memcg: link page counters
- to root ..."
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 0/2] Add support for kconfig constraints
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,37 +42,47 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: automated-testing@yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The test may trigger a warning if bf4f059 is present (5.9) and
-use_hierarchy=0 which is fixed by 8de15e920dc8. Full details of the
-bug are in the kernel commit description and I do not want to repeat
-them in the test description as they are likely to be irrelevant to
-most readers.
+This patchset adds a support for generic boolean expressions in order to
+be able to check for a more complex kernel configurations.
 
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
----
- testcases/kernel/syscalls/madvise/madvise06.c | 1 +
- 1 file changed, 1 insertion(+)
+The motivation for this is recent rename in kernel config names that
+cannot be checked for by a simplistic approach we previously
+implemented.
 
-diff --git a/testcases/kernel/syscalls/madvise/madvise06.c b/testcases/kernel/syscalls/madvise/madvise06.c
-index 23ebbead6..817faae39 100644
---- a/testcases/kernel/syscalls/madvise/madvise06.c
-+++ b/testcases/kernel/syscalls/madvise/madvise06.c
-@@ -235,6 +235,7 @@ static struct tst_test test = {
- 	.needs_root = 1,
- 	.tags = (const struct tst_tag[]) {
- 		{"linux-git", "55231e5c898c"},
-+		{"linux-git", "8de15e920dc8"},
- 		{}
- 	}
- };
+The boolean expression parser was written as a generic as possible since
+I do expect that we will reuse it for different types of assertions in
+the future.
+
+Cyril Hrubis (2):
+  lib: Add generic boolean expression parser and eval
+  lib/tst_kconfig: Make use of boolean expression eval
+
+ doc/test-writing-guidelines.txt         |  21 +-
+ include/tst_bool_expr.h                 |  85 +++++
+ include/tst_kconfig.h                   |  34 +-
+ lib/newlib_tests/.gitignore             |   2 +
+ lib/newlib_tests/config06               |   1 +
+ lib/newlib_tests/test_kconfig.c         |   2 +
+ lib/newlib_tests/test_kconfig01.c       |  23 ++
+ lib/newlib_tests/tst_bool_expr.c        | 128 ++++++++
+ lib/tst_bool_expr.c                     | 398 ++++++++++++++++++++++++
+ lib/tst_kconfig.c                       | 366 ++++++++++++++--------
+ testcases/kernel/syscalls/acct/acct02.c |  14 +-
+ 11 files changed, 919 insertions(+), 155 deletions(-)
+ create mode 100644 include/tst_bool_expr.h
+ create mode 100644 lib/newlib_tests/config06
+ create mode 100644 lib/newlib_tests/test_kconfig01.c
+ create mode 100644 lib/newlib_tests/tst_bool_expr.c
+ create mode 100644 lib/tst_bool_expr.c
+
 -- 
-2.29.1
+2.26.2
 
 
 -- 
