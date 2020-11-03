@@ -2,38 +2,34 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 686C92A45F8
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Nov 2020 14:10:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF3022A4613
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Nov 2020 14:17:33 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 271893C3041
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Nov 2020 14:10:03 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BD6AD3C3026
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Nov 2020 14:17:33 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id AF3B53C245E
- for <ltp@lists.linux.it>; Tue,  3 Nov 2020 14:10:01 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTP id E6EA83C301A
+ for <ltp@lists.linux.it>; Tue,  3 Nov 2020 14:17:31 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 4AA67601194
- for <ltp@lists.linux.it>; Tue,  3 Nov 2020 14:10:01 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 67EF7601091
+ for <ltp@lists.linux.it>; Tue,  3 Nov 2020 14:17:31 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B0CAEABF4;
- Tue,  3 Nov 2020 13:10:00 +0000 (UTC)
-Date: Tue, 3 Nov 2020 14:10:43 +0100
+ by mx2.suse.de (Postfix) with ESMTP id C96C4ADCF
+ for <ltp@lists.linux.it>; Tue,  3 Nov 2020 13:17:30 +0000 (UTC)
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Message-ID: <20201103131043.GB8061@yuki.lan>
-References: <20201103113821.6820-1-chrubis@suse.cz>
- <20201103113821.6820-2-chrubis@suse.cz> <87blge62vs.fsf@suse.de>
+To: ltp@lists.linux.it
+Date: Tue,  3 Nov 2020 14:18:13 +0100
+Message-Id: <20201103131813.9098-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <87blge62vs.fsf@suse.de>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 1/2] lib: Add generic boolean expression parser
- and eval
+Subject: [LTP] [PATCH] [COMMITTED] openposix: Fix another three failures
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,42 +41,72 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it, automated-testing@yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > +struct tst_expr {
-> > +	struct tst_expr_tok *expr;
-> 
-> Maybe call this 'first' or 'head'?
-> 
-> > +	struct tst_expr_tok *buf;
-> 
-> I suppose that buf could be a trailing array saving a call to malloc and
-> free :-)
+This is a continuation of:
 
-Good point I do not know how I missed the simplest solution here.
+commit 38cc030092a54067a9f08dea0173a0d032a15820
+Author: Cyril Hrubis <chrubis@suse.cz>
+Date:   Thu Oct 29 15:16:30 2020 +0100
 
-> > +	if (!check_two(expr->buf[cnt-1].op)) {
-> > +		expr->buf[cnt-1].priv = "Unfinished expression";
-> > +		goto err;
-> > +	}
-> 
-> This looks a bit odd as it is the only place you use buf like this. Why
-> not only use buf until setting expr=out[0] (and only set buf=tok
-> initially) or only use expr until free(expr->buf) and/or do --i and use
-> that?
+    openposix: Fix two test failures
 
-I guess that makes sense. I will changed that anyways if I convert the
-structure to a trailing array.
+Where I missed three more testcases that depended on variable being
+changed from a different thread or signal handler.
 
+Fixes: 8c22a59107dc (openposix: add "static" to all global variables and functions)
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+---
+ .../conformance/interfaces/pthread_setschedparam/5-1.c          | 2 +-
+ .../conformance/interfaces/pthread_sigmask/18-1.c               | 2 +-
+ .../conformance/interfaces/sem_unlink/9-1.c                     | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_setschedparam/5-1.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_setschedparam/5-1.c
+index 52b7ff629..db155d033 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_setschedparam/5-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_setschedparam/5-1.c
+@@ -76,7 +76,7 @@
+ /*****************************    Test case   *********************************/
+ /******************************************************************************/
+ 
+-static char do_it = 1;
++static volatile char do_it = 1;
+ static unsigned long count_ope = 0;
+ #ifdef WITH_SYNCHRO
+ static sem_t semsig1;
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_sigmask/18-1.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_sigmask/18-1.c
+index 0617210bf..7e2906c7d 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_sigmask/18-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_sigmask/18-1.c
+@@ -75,7 +75,7 @@
+ /***********************************    Test cases  *****************************************/
+ /********************************************************************************************/
+ 
+-static char do_it = 1;
++static volatile char do_it = 1;
+ static unsigned long count_ope = 0;
+ #ifdef WITH_SYNCHRO
+ static sem_t semsig1;
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/sem_unlink/9-1.c b/testcases/open_posix_testsuite/conformance/interfaces/sem_unlink/9-1.c
+index 288f1224f..24a575ff9 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/sem_unlink/9-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/sem_unlink/9-1.c
+@@ -82,7 +82,7 @@
+ /******************************************************************************/
+ /***************************    Test case   ***********************************/
+ /******************************************************************************/
+-static int thread_state = 0;
++static int volatile thread_state = 0;
+ 
+ static void *threaded(void *arg)
+ {
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.26.2
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
