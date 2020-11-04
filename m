@@ -2,134 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7B312A56BA
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Nov 2020 22:30:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64DFD2A5C2C
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Nov 2020 02:50:47 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 63F963C5467
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Nov 2020 22:30:48 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 20A483C5469
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Nov 2020 02:50:47 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id B0F7E3C245E
- for <ltp@lists.linux.it>; Tue,  3 Nov 2020 22:30:46 +0100 (CET)
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 952FF600AAB
- for <ltp@lists.linux.it>; Tue,  3 Nov 2020 22:30:44 +0100 (CET)
-Received: from pps.filterd (m0109332.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0A3LSN4U025642; Tue, 3 Nov 2020 13:30:36 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=date : from : to : cc :
- subject : message-id : references : content-type : in-reply-to :
- mime-version; s=facebook; bh=LP6opMSWxNcjDSqFuR0gqv8A3mmPzOUlXucNgO8B324=;
- b=FM1yuchRJ14ocZYSD5GMi9CMn3AyoZsb1UQL06aLQbjbsJmOXGy860gfZTl4WnB7JmuR
- pXxKhQl+EuoTWEDZuU750qjoRp51uqwyFmP5j5MC6rbI99Alcw3YrF+mQ+G9BmyN2xoF
- HMyVYy6L9bCltoZnOJ1PLqZweMjpmhuPbpY= 
-Received: from mail.thefacebook.com ([163.114.132.120])
- by mx0a-00082601.pphosted.com with ESMTP id 34kf5c008x-12
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 03 Nov 2020 13:30:36 -0800
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (100.104.98.9) by
- o365-in.thefacebook.com (100.104.94.198) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1979.3; Tue, 3 Nov 2020 13:30:18 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WYBW33r9gnXPxR5v/nIhx65jVwblg+4sXOvb7e8CJ8de8nt65Nf5CgdvgKODKzMSYlzbjxTMJtMpFmM8+XkF/lev64yBLgPyBWpZlPvWoACdGOfHlRlnQcCzT8YBvRNVxphYfu/MSD+XavUqQCg/5MnduQgM6qpjgaZe2T2YQe1VFwzd+dHxHdhF+MAJeXAqatP516MvyEXGdnn19Cs8p+dakWX/wDHxqrWWahC1EmF3e1pLTjVJ1a54+pMIdRPc4pnNaMz+13JizwaWOpcvcGSQMjFjXEly/eG/Mr2dn3oDbifwUE9ui7gu4c2OT/W16qs6wuoO069DaYZvcZxPqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LP6opMSWxNcjDSqFuR0gqv8A3mmPzOUlXucNgO8B324=;
- b=c1yt7X6DvmKFNLaAUHZNNtofUbunzN3pq8V9SyLb7cZ+uwPQg3RxVlWc+6QFkn/Ffhxo1pHjO38NfYruTcjNOVeHl3Q5oHDj4mXhl/Xl2/9835Gn9Raj4Fv9kecBVzfe7Rg+fAACFim4TPdiBUAol5CSeUKm3adaHkkeTl8K17Dnw+HT3nhDZHgneKPaAGNPzv8kZ0cq3UYBz/c30i5VrSQlTMLe7ZxuiXSnE5xW27zmy3OiFu9rF3doAXoP0HwYmTtMwk4OeS/HJLVqv5j1EYo8xi4xJcUgtjO9xz18YjdZ9aefV7WxnU2XI98nmn0sH5o3kuVfoD4CPNTOpTzTfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fb.com; dmarc=pass action=none header.from=fb.com; dkim=pass
- header.d=fb.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector2-fb-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LP6opMSWxNcjDSqFuR0gqv8A3mmPzOUlXucNgO8B324=;
- b=EsHQqAkpfIcvaqzYPYVceEUUr6ovyUPaOT7LP+a5dM1MrAU5L0Uo935bzN43JfqTPzcZmF67cgk1vKcqNUaNH1MowRtNkIKbN62VA7o0Dvvk4EHDzmeT8PFkp83/uZEOjLuJ4lG9RKYzq2+6xeknmBs1+gzaIcwxyEuX0nHvgrg=
-Authentication-Results: suse.com; dkim=none (message not signed)
- header.d=none;suse.com; dmarc=none action=none header.from=fb.com;
-Received: from BYAPR15MB4136.namprd15.prod.outlook.com (2603:10b6:a03:96::24)
- by BYAPR15MB3445.namprd15.prod.outlook.com (2603:10b6:a03:110::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18; Tue, 3 Nov
- 2020 21:30:17 +0000
-Received: from BYAPR15MB4136.namprd15.prod.outlook.com
- ([fe80::d834:4987:4916:70f2]) by BYAPR15MB4136.namprd15.prod.outlook.com
- ([fe80::d834:4987:4916:70f2%5]) with mapi id 15.20.3499.032; Tue, 3 Nov 2020
- 21:30:17 +0000
-Date: Tue, 3 Nov 2020 13:30:10 -0800
-To: Michal Hocko <mhocko@suse.com>
-Message-ID: <20201103213010.GA1938922@carbon.dhcp.thefacebook.com>
-References: <20201014190749.24607-1-rpalethorpe@suse.com>
- <20201016094702.GA95052@blackbook>
- <20201016145308.GA312010@cmpxchg.org>
- <20201016171502.GA102311@blackbook>
- <20201019222845.GA64774@carbon.dhcp.thefacebook.com>
- <20201020162714.GC46039@blackbook>
- <20201020170717.GA153102@carbon.DHCP.thefacebook.com>
- <20201020181822.GA397401@cmpxchg.org>
- <20201021193322.GA300658@carbon.dhcp.thefacebook.com>
- <20201103132221.GI21990@dhcp22.suse.cz>
-Content-Disposition: inline
-In-Reply-To: <20201103132221.GI21990@dhcp22.suse.cz>
-X-Originating-IP: [2620:10d:c090:400::5:6cce]
-X-ClientProxiedBy: MWHPR13CA0022.namprd13.prod.outlook.com
- (2603:10b6:300:16::32) To BYAPR15MB4136.namprd15.prod.outlook.com
- (2603:10b6:a03:96::24)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id BE2A73C2610
+ for <ltp@lists.linux.it>; Wed,  4 Nov 2020 02:50:45 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 18975140051B
+ for <ltp@lists.linux.it>; Wed,  4 Nov 2020 02:50:44 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1604454643;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vnEPm2mtubrMXXilzPMTbN8f6zDJWtzj6q4T8hIR4R0=;
+ b=BzwkiVWo/8bk5abD41VTHkSRQZAKXxj0d500I5oT2h34b4PCxONtO6AMnPrqrRNDhVxJ2M
+ qcMjOdZFFCEHOypl9YhMfGX/uoO0hoYJ24ce/JW0CUOYG+CHp9BVZvP0+7cw3Sb3rj88Ps
+ P4W7Xj7rBU2RqqBBEVSIgzfsSO+M5lQ=
+Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
+ [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-509-NsEHaaJOOHeh2y9t367CQA-1; Tue, 03 Nov 2020 20:50:41 -0500
+X-MC-Unique: NsEHaaJOOHeh2y9t367CQA-1
+Received: by mail-yb1-f199.google.com with SMTP id h6so20320354ybk.4
+ for <ltp@lists.linux.it>; Tue, 03 Nov 2020 17:50:41 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=vnEPm2mtubrMXXilzPMTbN8f6zDJWtzj6q4T8hIR4R0=;
+ b=QPyx+EYUPZU3o/E8yls2TybRvT/UFl9YwVvhLkDJQGueUO1G7Do0oJkYoT+35+G/Ok
+ G/K0jy59+A7wvDU9SsR64ZvG99AFlhrxXu1c/l6C7dF6uIHa4KiEOeaO93nH89qEgUMS
+ VZ/9S6cWtC1TazOi8Ygpi3FpibBHT+i7xVFa6QDijSEwg2mL5crgkHM6VPv1AYuybtEq
+ hlfIDHNxT4CoE8SsSlzK8VVXCSSqDgYm4SvkBoOzusREGGNLJes/pkuHQvR8uXdTQIYX
+ Sutt+RJliS8aaSxaIYllIhjpx48J/R2im6X+CK+kXzzm3QVYox5QhhrnOL7EUf927Szn
+ zaXA==
+X-Gm-Message-State: AOAM531VAZiXld2+Dqjon7TFzy25g/xumSynWK4igJcuXB4/+q0AX5Ng
+ ilSmURtbJ0lVRqhTNgk8v3yQWZbb0CnDyBg0niz/qN4duiCL+9MTNTTR20u3OYDocIDp4znRb90
+ VnwHRNxyAGFAE9IzAlY0156wa64g=
+X-Received: by 2002:a25:3b81:: with SMTP id i123mr33377510yba.86.1604454640825; 
+ Tue, 03 Nov 2020 17:50:40 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxy/V8kJRZ2dOhcApmgEl9Z0t+0KFNZRIldKzxXUikQ+CXDIfUI1yTrbdxftTHGedoK3DvBdUx8j33tb1xSu4c=
+X-Received: by 2002:a25:3b81:: with SMTP id i123mr33377490yba.86.1604454640603; 
+ Tue, 03 Nov 2020 17:50:40 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from carbon.dhcp.thefacebook.com (2620:10d:c090:400::5:6cce) by
- MWHPR13CA0022.namprd13.prod.outlook.com (2603:10b6:300:16::32) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3541.10 via Frontend Transport; Tue, 3 Nov 2020 21:30:15 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a8810314-e3eb-4bf9-68bd-08d8803fa857
-X-MS-TrafficTypeDiagnostic: BYAPR15MB3445:
-X-Microsoft-Antispam-PRVS: <BYAPR15MB3445E6D33CF0F727E632A90CBE110@BYAPR15MB3445.namprd15.prod.outlook.com>
-X-FB-Source: Internal
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pNjctyuogJnAmdSXoC9xUHlkL1IOrJZEOSibiG/Rc1LC3KQJ7VDLMe6jloOjakOrkg7Z7yBdUYoCFrQauLmmOR4fTYXy6IIa4DdslL4GibJ/7da0W1wSspsC9dloYSCSLWpSRSx34xnB8KRFu53vln4OpvyqkRZfnC09YT7uSD4gCj26/j5mIc0ZMtEC0D4RbjzFFcBPlZ0IUwH714qGJqyqc6KUNWYU8BrnuttLEpUEiLFhOzrx/cPiqACXOu9lKp2do2x7nX038+UA25pTLP/okEUaWN632UarnDluFf8Q83KJah+XddCFv8tmYUATRuJ/udZ4ZSp6GaBGXp7dJQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR15MB4136.namprd15.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(346002)(366004)(136003)(396003)(376002)(39860400002)(2906002)(5660300002)(33656002)(6916009)(1076003)(55016002)(4326008)(86362001)(7416002)(478600001)(54906003)(8676002)(8936002)(6506007)(66946007)(186003)(66476007)(66556008)(16526019)(7696005)(83380400001)(6666004)(9686003)(52116002)(316002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData: V6Cw4kJsQr8OftNtXkyOtb5TrlcP9upQHN1mYs7p2cEE8DzMJRK1yNhiKzYIR+TBUR7/UFTJ6Fnr9GOjRGmBaJ0IpMlpo6Ff1+mA9kc3IVIFDdW1VMJe+OtC2JENJtQcvJ3XekU8ISKfZE8Ryd+C1O8sq0tVell5R3WEB4pofqwRHycGyihtFSHfV6bNwzVD3rj7zhq//VwZ1RVGoOHBtzQczNG91Q7vSP8vZE+4ROapPVWk5IQlRCi0ZafMo6Yjw257mta0jyX7Ax14Ym9zkmWIfxPjSu+im70mB+CrZpCnxi/zKoVNIoKS0/ezKBdZZCVVOQoXjHHGA0Z8AUvlC63ZyqoGIz2cB6c95TLhIf/5dMKJOkZVT4xnqVNIRiDZrTFUbCWnZzMJFMo803IVcax+CMGEbb2Ibj0AaFTCdVxLUMtex9u0yyO78RUeFq1y9+T9v3cn4a6N84q+LmgIwNoyw2K7wacgQKhCUd4C/WRCBHJ6ihhgAXbpJCfRGXHnZ+hk/Cf97+zFO++Ofz0wmXMFbNrtU8hy9d8nEpEk+hshwfrAd/KA4D3/sBCJWfZ3qqQSJ4LCVWlurmT7p1Cqb6Uo2ifOhKMuLHXGvzW/eQ98/JGAHZ7F6bSKn0LyE4Bk0Am5Ish1D+lNZKAuE2UOXP2XxrrbsFZfLLfxn3jMMSo=
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8810314-e3eb-4bf9-68bd-08d8803fa857
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR15MB4136.namprd15.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2020 21:30:17.0719 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: g8ggpXwjuVTy6k6lPOTM5Vh5J3y1ADGNABL6xkq7j81HlMupoOCaPuItL5vHNYwq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR15MB3445
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
- definitions=2020-11-03_14:2020-11-03,
- 2020-11-03 signatures=0
-X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0
- adultscore=0 spamscore=0
- clxscore=1015 phishscore=0 impostorscore=0 mlxscore=0 mlxlogscore=999
- suspectscore=1 priorityscore=1501 malwarescore=0 bulkscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2011030142
-X-FB-Internal: deliver
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+References: <20201103154950.32000-1-rpalethorpe@suse.com>
+In-Reply-To: <20201103154950.32000-1-rpalethorpe@suse.com>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 4 Nov 2020 09:50:28 +0800
+Message-ID: <CAEemH2c2pm438iDTZZDOAoFBHL_AW0-kUh=qB5e6JhssG0+img@mail.gmail.com>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH] mm: memcg/slab: Stop reparented obj_cgroups
- from charging root
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] madvise06: Add tag for "mm: memcg: link page
+ counters to root ..."
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,46 +80,69 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Roman Gushchin via ltp <ltp@lists.linux.it>
-Reply-To: Roman Gushchin <guro@fb.com>
-Cc: Christoph Lameter <cl@linux.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, Shakeel Butt <shakeelb@google.com>,
- Vlastimil Babka <vbabka@suse.cz>, Johannes Weiner <hannes@cmpxchg.org>,
- Tejun Heo <tj@kernel.org>, Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============2003065730=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, Nov 03, 2020 at 02:22:21PM +0100, Michal Hocko wrote:
-> Hi,
-> I am sorry but I was quite busy at the time this has been discussed.
-> Now that I got to this thread finally I am wondering whether this
-> resp. other root cgroup exceptions have any follow up.
+--===============2003065730==
+Content-Type: multipart/alternative; boundary="000000000000e96b0d05b33e34db"
 
-I'll address a feedback I've got from Johannes and will post and updated
-version soon.
+--000000000000e96b0d05b33e34db
+Content-Type: text/plain; charset="UTF-8"
 
-> 
-> I have seen the issue is fixed in Linus tree by 8de15e920dc8 ("mm:
-> memcg: link page counters to root if use_hierarchy is false"). Thanks
-> for taking care of that! I do agree that this approach is the most
-> reasonable immediate fix.
+On Tue, Nov 3, 2020 at 11:50 PM Richard Palethorpe <rpalethorpe@suse.com>
+wrote:
 
-Thanks!
+> The test may trigger a warning if bf4f059 is present (5.9) and
+> use_hierarchy=0 which is fixed by 8de15e920dc8. Full details of the
+> bug are in the kernel commit description and I do not want to repeat
+> them in the test description as they are likely to be irrelevant to
+> most readers.
+>
+> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+>
 
-> 
-> Btw. we have been carrying a warning about non hierarchical hierarchies
-> for years in our distribution kernels and haven't heard of any actual
-> bug reports (except for LTP driven ones). So we might be really close to
-> simply drop this functionality completely. This would simplify the code
-> and prevent from future surprises.
+Pushed.
+-- 
+Regards,
+Li Wang
 
-Just sent an rfc patchset. Your feedback will be greatly appreciated!
+--000000000000e96b0d05b33e34db
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thanks!
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Tue, Nov 3, 2020 at 11:50 PM Richard Palethorpe =
+&lt;<a href=3D"mailto:rpalethorpe@suse.com">rpalethorpe@suse.com</a>&gt; wr=
+ote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
+ 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">The test ma=
+y trigger a warning if bf4f059 is present (5.9) and<br>
+use_hierarchy=3D0 which is fixed by 8de15e920dc8. Full details of the<br>
+bug are in the kernel commit description and I do not want to repeat<br>
+them in the test description as they are likely to be irrelevant to<br>
+most readers.<br>
+<br>
+Signed-off-by: Richard Palethorpe &lt;<a href=3D"mailto:rpalethorpe@suse.co=
+m" target=3D"_blank">rpalethorpe@suse.com</a>&gt;<br></blockquote><div><br>=
+</div><div class=3D"gmail_default" style=3D"font-size:small">Pushed.</div><=
+div class=3D"gmail_default" style=3D"font-size:small"></div></div>-- <br><d=
+iv dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br>=
+</div><div>Li Wang<br></div></div></div></div>
+
+--000000000000e96b0d05b33e34db--
+
+
+--===============2003065730==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============2003065730==--
+
