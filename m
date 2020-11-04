@@ -1,75 +1,105 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9039A2A64F1
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Nov 2020 14:20:46 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 643862A64F3
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Nov 2020 14:21:40 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E85CC3C5462
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Nov 2020 14:20:45 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 107BA3C2FFD
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Nov 2020 14:21:40 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id BC74E3C2FF8
- for <ltp@lists.linux.it>; Wed,  4 Nov 2020 14:20:42 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 177BB60012E
- for <ltp@lists.linux.it>; Wed,  4 Nov 2020 14:20:41 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1604496040;
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 8A4FD3C2462
+ for <ltp@lists.linux.it>; Wed,  4 Nov 2020 14:21:35 +0100 (CET)
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [51.163.158.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B5A021A014AB
+ for <ltp@lists.linux.it>; Wed,  4 Nov 2020 14:21:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com;
+ s=mimecast20200619; t=1604496094;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=F//op2dHvOclLo1Md557wQ2YKUhO1iFWL6GebS7APhg=;
- b=ZmlvrWIn6U7HjT56fsAj79JxBx3WqvIHeHJZdWEC9NnLHeagmLAWWL4QMehENxu2V+P0T2
- +vAixMfQhQCA6/0/3t5HtbtpYoVtucNFDHjqL/+deGZtC6nouAPrdvEQnhoAvgEmH4aAli
- UuIileCvvmpw6BBLgKisfjaCpWn3O14=
-Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
- [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-348-_967EFg_PGWJk_YG81ckpA-1; Wed, 04 Nov 2020 08:20:37 -0500
-X-MC-Unique: _967EFg_PGWJk_YG81ckpA-1
-Received: by mail-yb1-f198.google.com with SMTP id j2so2869243ybb.12
- for <ltp@lists.linux.it>; Wed, 04 Nov 2020 05:20:37 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=F//op2dHvOclLo1Md557wQ2YKUhO1iFWL6GebS7APhg=;
- b=oWLX7VsXntX/NQfMMwpiuBsOB7coFkkD1etaZ3AXNePlghVs16CGMvYHac7D8IwC2G
- qCpxycHqZchl5Aemh8VyisPNTpQTo0dDK0hlyHUze8VUEqC8NIcHG3UQdDmHZ6VuoV6I
- 1NJX/zPLcVryuw860v9Kmu62MPbB12xiTe2B2EL0fmKozqZD3FmWxRLUh4yHOT+492lQ
- tJu90jLb5XtiAVi0CA6D+kWbpbL971PP9gMlgJi9050L88VhfCEa7zqh2zh6TUpQ5+be
- HYhhFuasCgj+on+DJ/QoatqMz1i6cQuEWNYsnj14+yaM3Yhk1eEwjkCdhgBqrtC4F9Hn
- +ryQ==
-X-Gm-Message-State: AOAM531O0SKjGFAPbECq0HDPVYZEKST4LtvvHO9czxYwA2eMDIMXQTcQ
- QIpccrEhlIHmlgy158UGqCzZHLPGuGWpCp+4Bi6n5drnW66NttXLMkLsTkJKnVsplltgSYpgbU2
- ezD62Nkd/CMqjHKpQQmkm6NcdzKo=
-X-Received: by 2002:a25:1c1:: with SMTP id 184mr35818412ybb.243.1604496036774; 
- Wed, 04 Nov 2020 05:20:36 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwOapEBYTqm3gh/IGxJD82cO0BGlRwHh13SXbjnEcsRym2zNBGWyjvIU9Pyj1uW/CGJmY2RLpJTnJn5Cpj2ANM=
-X-Received: by 2002:a25:1c1:: with SMTP id 184mr35818379ybb.243.1604496036548; 
- Wed, 04 Nov 2020 05:20:36 -0800 (PST)
+ content-transfer-encoding:content-transfer-encoding;
+ bh=CUnmP906YZeko+kVg7NyR44guUzpaXtdxztlkMJv+ok=;
+ b=Whpv6ANF21SlHy8diysnJXmYTSZY2Jv7+FzoS2S1v67WRtt3Bk/dlshyJCZeB2sKJeRjpj
+ e3UiqQYzNcVYFCk5UfLG21+8q28gaBic+HKp6+ZbFuxnYZwiv+g1WpQgCaGO7EDMe0Hckq
+ toLPpGqVqpPZzqlputVcgja+NmrD5cg=
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01lp2057.outbound.protection.outlook.com [104.47.2.57]) (Using
+ TLS) by relay.mimecast.com with ESMTP id de-mta-3-V9_A6u5yMyeUB_hpZylrQQ-1;
+ Wed, 04 Nov 2020 14:21:32 +0100
+X-MC-Unique: V9_A6u5yMyeUB_hpZylrQQ-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YWbPP2FxkENKIJ6BfsM0qNdXfXXV8jkyOBdyjeHt7VDESEsnQypZwcjhiuhLG5gcOxZmR0x88TYkGpHM3cr4+xb2RNbSeuFyjf56tVcMSEr1ClYQV+kF0rqE0kIUH113yY+phSUMAWRFMgmmyv7rNKxe9KaIR68vrNE9o3rlMtppVjWfumkY9ewkoijecj8C8hdMICP2r+u7cIAs+ZM4KLLWhpGZeHQi57d0RFlwCEzb8WP4GG3qEmvCMP4ZcqAm5FCwC3NLH09Lav1tEXibsrg/nmdIo54gbMpKbNGK+eeP7rF42U5k1CqAqEDQFYNMf2Dc8ynVbG5QfXwm1wB0zw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BSjIjlBjLZo3wkkbDppRqnAMJSsGxfq00kbpbaSdDfU=;
+ b=V7lqkBmle2/i3J3gxMivzSgI+QhZCFcFFMuAfDVOwAYswOfSbFxQOuokD2ml28Y7GYRkAALedJ65cyeO9rWrj7v6pYSN/L5Uux8DOVVTtH+hg+sfqAP96SbzHS9NrG4AgcYE6MgzIijtUZwiwk85sUsKn9Xrm62GLy8X8RmC7hHM4PxtG3UpX3tEAPV0B1JQgnYeUwhRmJPSEQRP/CRhG7EgMQWOl/YN7I6A57IbOsHeFKzcUIVPnXAQ9JhEWjFCwSK7rErH5RMuPMJZzgb1gmWKbAZ1BeQhsvqhNTY31kvZbSpEPFFR59dvQ74rLcyVqy6KJ/O7OTfJEKCYqpSiHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: lists.linux.it; dkim=none (message not signed)
+ header.d=none;lists.linux.it; dmarc=none action=none header.from=suse.com;
+Received: from VI1PR0402MB3663.eurprd04.prod.outlook.com
+ (2603:10a6:803:1f::24) by VE1PR04MB7472.eurprd04.prod.outlook.com
+ (2603:10a6:800:1b2::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.18; Wed, 4 Nov
+ 2020 13:21:30 +0000
+Received: from VI1PR0402MB3663.eurprd04.prod.outlook.com
+ ([fe80::e807:2ec4:9ad1:d224]) by VI1PR0402MB3663.eurprd04.prod.outlook.com
+ ([fe80::e807:2ec4:9ad1:d224%7]) with mapi id 15.20.3499.032; Wed, 4 Nov 2020
+ 13:21:30 +0000
+From: Radoslav Kolev <radoslav.kolev@suse.com>
+To: ltp@lists.linux.it
+Date: Wed,  4 Nov 2020 15:21:16 +0200
+Message-ID: <20201104132116.20712-1-radoslav.kolev@suse.com>
+X-Mailer: git-send-email 2.26.2
+X-Originating-IP: [85.196.172.93]
+X-ClientProxiedBy: AM8P192CA0010.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:20b:21b::15) To VI1PR0402MB3663.eurprd04.prod.outlook.com
+ (2603:10a6:803:1f::24)
 MIME-Version: 1.0
-References: <20201103191327.11081-1-pvorel@suse.cz>
- <20201103191327.11081-4-pvorel@suse.cz>
- <20201104073008.GB8632@pevik>
-In-Reply-To: <20201104073008.GB8632@pevik>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 4 Nov 2020 21:20:24 +0800
-Message-ID: <CAEemH2dx2wYT0dHcDnFnZ0sqY8MO1QOb1-qEmgRSPdFLO=9NUw@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.suse.de (85.196.172.93) by
+ AM8P192CA0010.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:21b::15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3499.19 via Frontend Transport; Wed, 4 Nov 2020 13:21:28 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 64bc552a-2b4b-427e-a364-08d880c48a38
+X-MS-TrafficTypeDiagnostic: VE1PR04MB7472:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <VE1PR04MB7472CFFB6871B6E5745FE64EE0EF0@VE1PR04MB7472.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RWe8d/8p3EZiaz+eSnQGS7W+9n1YEadS673hu9eRgjW60/AP0hV4NT7AKYSUesAe3jrAFqa7OurAJaZ9wMuAOHNE2v5/SrBgqFWxNeVcoIUU1Yp8xAKyowtGFRyTgZQ7sTy5kt3LJvwxEplCh2htm7eNykdDguqQE/MK295I0qPGBLcoDXLrw3VJZadc4asAszxDMbcdATGXc6ToDHkhk2/nOg+iGExqq+TI/SlLQQCcskiidpw2gFAQmuiOKSnIhB53FY8HxaEnc6JcCzGGX5ao+DSL36xEvvJNRRmAQKKayNhWTDBGj7yUhTdqUfh1mpFMB4tx//1eXp7kn8L/E56dxJUNmcnzwKWjrdte+sAnKhVQwxe1A2SMO3WEALVQm6yPbIin+dGGNn/vRIYuhF/3cp8q7/Q0Zy+QXvC5DaU0bfEt2sf/dLnljF/TYp4YwBvDXyHCnZjMkVBRQLFtEA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR0402MB3663.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(376002)(136003)(396003)(346002)(39860400002)(366004)(6916009)(66556008)(83380400001)(52116002)(26005)(8936002)(6506007)(66476007)(66946007)(107886003)(16526019)(186003)(2906002)(6486002)(8676002)(44832011)(36756003)(956004)(5660300002)(4326008)(966005)(6666004)(316002)(478600001)(6512007)(86362001)(2616005)(1076003)(2004002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: 9yMxcZRPASh/wDkspWthhaARKjcI3lKZUMGHHzlCdLaBcb9KPUiv9Z/oMdik4oL/lR6sBV8b9y7xOk2CzHKboD7+3NwWXhRxK81U/q0JDVmrgXwmbFSftNVtore2H0NzllVurQv+tYgIyvYhzvIdi/q9b77xK/bxjzLCypJswYv0QVkNDjCpkbcr/tVo6OkdZtqQmFJuHJbp3qx4Gw/c0oW/pe9x1VlhxfUcASfR6xESGpzJkYugOHSSJ38wko+jhBfumZgl6oV+5v9n5/P/eq+VNDUzUfP+n5YUBHZAEqK30OOExAmNBtBRKKy4v1CHgzhvgMPEjmiKxCleYnRQ0UjL0hEzk8wuyRCkYmNa34dbyTmwbXNsGUX7ejC7D+3+6yjFAVGdnf5+iWulB5Ki9810I1zDeZgOQ1v6nFutbtfLfp2Zw0bmy3bp0vWoR92WhA9Jf7juxcOFvlN+iqhjhlkU441bGrmSetQx+8URnM0AVjH57GefPQPZ+mvNL/5hLpj6+qBbi1Ep9yOF/Emy0nuHcxmZNTMgXyNudLzaQVScyU2ewoUlJkLyz6jIlQs05/+n9z9ZDERIBAoiedlP0f48lvjUvhpPhY5ZJpLNiVX39psWJFFd8rszcOtnxAhOgE2UZDA+W1sxxgmpZ60Zmw==
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 64bc552a-2b4b-427e-a364-08d880c48a38
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR0402MB3663.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2020 13:21:30.1683 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iACYtxGNbYoJLvnb6+BdsNwrd1JYKsCcmqWynHlv2lWtX7mVorRDXvXEXBSgpf6d3at9Evr4EvyqcU7WApfjLQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7472
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 03/11] docparse: Add test documentation parser
+ DKIM_VALID_AU,DKIM_VALID_EF,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH] Convert dup02 to new API and clean up
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,230 +111,246 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Cyril Hrubis <metan@ucw.cz>, automated-testing@yoctoproject.org,
- LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1934252433=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1934252433==
-Content-Type: multipart/alternative; boundary="0000000000004d6bbb05b347d8dc"
+Signed-off-by: Radoslav Kolev <radoslav.kolev@suse.com>
+---
+ testcases/kernel/syscalls/dup/dup02.c | 212 ++++++--------------------
+ 1 file changed, 43 insertions(+), 169 deletions(-)
 
---0000000000004d6bbb05b347d8dc
-Content-Type: text/plain; charset="UTF-8"
-
-On Wed, Nov 4, 2020 at 3:30 PM Petr Vorel <pvorel@suse.cz> wrote:
-
-> Hi,
->
-> > --- /dev/null
-> > +++ b/docparse/docparse.c
->
-> ...
-> > +const char *next_token(FILE *f, struct data_node *doc)
-> > +{
-> > +     size_t i = 0;
-> > +     static char buf[4096];
-> > +     int c;
-> > +     int in_str = 0;
-> > +
-> > +     for (;;) {
-> > +             c = fgetc(f);
-> > +
-> > +             if (c == EOF)
-> > +                     goto exit;
-> > +
-> > +             if (in_str) {
-> > +                     if (c == '"') {
-> > +                             if (i == 0 || buf[i-1] != '\\') {
-> > +                                     buf[i++] = c;
-> > +                                     goto exit;
-> > +                             }
-> IMHO this change (adding buf[i++] = c;), which Li suggested,
-> is causing build failures:
-> https://travis-ci.org/github/pevik/ltp/builds/741217630
->
-> /usr/src/ltp/docparse/testinfo.pl metadata.json
-> , or ] expected while parsing array, at character offset 340 (before
-> "",\n      "0c461cb72...") at /usr/src/ltp/docparse/testinfo.pl line 379.
-> make[1]: *** [/usr/src/ltp/docparse/Makefile:60: txt] Error 255
-> make[1]: Leaving directory '/usr/src/ltp-build/docparse'
-> make: *** [/usr/src/ltp/Makefile:108: docparse-all] Error 2
-> make: *** Waiting for unfinished jobs....
->
-
-Sorry for the error, it because of wrongly parsed tst_test struct with
-including .min_kver = "2.6.32",  then output into metada.json like:
-
-# cat metadata.json
-...
-  "cpuset01": {
-   "needs_root": "1",
-   "forks_child": "1",
-   "min_kver": "2.6.32"",  <====== here has two "" in the end
-   "fname": "testcases/kernel/mem/cpuset/cpuset01.c"
-  },
-
-So the "$(abs_srcdir)/testinfo.pl metadata.json" in Makefile report failure
-as above.
-
-==========
-
-Another fix I can think of is just to avoid return NULL if detecting in the
-string("").
-Hope this will work for us, I will help to check it again tomorrow.
-
---- a/docparse/docparse.c
-+++ b/docparse/docparse.c
-@@ -138,10 +138,8 @@ const char *next_token(FILE *f, struct data_node *doc)
-
-                if (in_str) {
-                        if (c == '"') {
--                               if (i == 0 || buf[i-1] != '\\') {
--                                       buf[i++] = c;
-+                               if (i == 0 || buf[i-1] != '\\')
-                                        goto exit;
--                               }
-                        }
-
-                        buf[i++] = c;
-@@ -189,7 +187,7 @@ const char *next_token(FILE *f, struct data_node *doc)
-        }
-
- exit:
--       if (i == 0)
-+       if (i == 0 && !in_str)
-                return NULL;
-
-        buf[i] = 0;
-
-
+diff --git a/testcases/kernel/syscalls/dup/dup02.c b/testcases/kernel/syscalls/dup/dup02.c
+index c0919ef09..55ba288f6 100644
+--- a/testcases/kernel/syscalls/dup/dup02.c
++++ b/testcases/kernel/syscalls/dup/dup02.c
+@@ -1,179 +1,53 @@
++// SPDX-License-Identifier: GPL-2.0-only
+ /*
+  * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
++ * Copyright (c) 2020 SUSE LLC
+  *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * Further, this software is distributed without any warranty that it is
+- * free of the rightful claim of any third person regarding infringement
+- * or the like.  Any license provided herein, whether implied or
+- * otherwise, applies only to this software file.  Patent licenses, if
+- * any, provided herein do not apply to combinations of this program with
+- * other software, or any other product whatsoever.
+- *
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- *
+- * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
+- * Mountain View, CA  94043, or:
+- *
+- * http://www.sgi.com
+- *
+- * For further information regarding this notice, see:
+- *
+- * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
++ * 03/30/1992 AUTHOR: Richard Logan CO-PILOT: William Roske
+  *
+  */
+-/* $Id: dup02.c,v 1.6 2009/10/13 14:00:46 subrata_modak Exp $ */
+-/**********************************************************
+- *
+- *    OS Test - Silicon Graphics, Inc.
+- *
+- *    TEST IDENTIFIER	: dup02
+- *
+- *    EXECUTED BY	: anyone
+- *
+- *    TEST TITLE	: Negative test for dup(2) with bad fd.
+- *
+- *    PARENT DOCUMENT	: usctpl01
+- *
+- *    TEST CASE TOTAL	: 2
+- *
+- *    WALL CLOCK TIME	: 1
+- *
+- *    CPU TYPES		: ALL
+- *
+- *    AUTHOR		: Richard Logan
+- *
+- *    CO-PILOT		: William Roske
+- *
+- *    DATE STARTED	: 06/94
+- *
+- *    INITIAL RELEASE	: UNICOS 7.0
+- *
+- *    TEST CASES
+- *
+- * 	1-?.) dup(2) returns -1 with errno set to EBADF...(See Description)
+- *
+- *    INPUT SPECIFICATIONS
+- * 	The standard options for system call tests are accepted.
+- *	(See the parse_opts(3) man page).
+- *
+- *    OUTPUT SPECIFICATIONS
+- *	Standard tst_res formatted output
+- *$
+- *    DURATION
+- * 	Terminates - with frequency and infinite modes.
+- *
+- *    SIGNALS
+- * 	Uses SIGUSR1 to pause before test if option set.
+- * 	(See the parse_opts(3) man page).
+- *
+- *    RESOURCES
+- * 	None
+- *
+- *    ENVIRONMENTAL NEEDS
+- *      No run-time environmental needs.
+- *
+- *    SPECIAL PROCEDURAL REQUIREMENTS
+- * 	None
+- *
+- *    INTERCASE DEPENDENCIES
+- * 	None
+- *
+- *    DETAILED DESCRIPTION
+- *
+- * 	Setup:
+- * 	  Setup signal handling.
+- *	  Pause for SIGUSR1 if option specified.
+- *
+- * 	Test:
+- *	 Loop if the proper options are given.
+- *	  Loop through the test cases
+- * 	   Execute system call
+- *	   Check return code, if system call failed (return=-1)
+- *		if doing functional check
+- *		   check if errno set correctly, report results
+- *	  Otherwise, Issue a FAIL message.
+- *
+- * 	Cleanup:
+- * 	  Print errno log and/or timing stats if options given
+- *
+- *
+- *#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#**/
+-
+-#include <sys/types.h>
+-#include <fcntl.h>
+-#include <errno.h>
+-#include <string.h>
+-#include <signal.h>
+-#include "test.h"
+-#include "safe_macros.h"
+-
+-void setup();
+-void cleanup();
+-
+-char *TCID = "dup02";
+-int TST_TOTAL = 2;
+-
+-int Fds[] = { -1, 1500 };
+-
+-int main(int ac, char **av)
++/*\
++ * [DESCRIPTION]
++ * Negative test for dup(2) with bad fds.
++ *
++ * [ALGORITHM]
++ * Call dup(2) with invalid argument and make sure it returns -1 with errno set
++ * to EBADF.
++\*/
++
++#include "tst_test.h"
++
++static struct tcase {
++	int fd;
++	int expected_errno;
++} testcases[] = {
++	{-1, EBADF},
++	{1500, EBADF},
++};
++
++static void run(unsigned int n)
+ {
+-	int lc;
+-	int nfds = sizeof(Fds) / sizeof(int);
+-	int ind;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-
+-		tst_count = 0;
+-
+-		for (ind = 0; ind < nfds; ind++) {
+-
+-			TEST(dup(Fds[ind]));
+-
+-			if (TEST_RETURN == -1) {
+-				if (TEST_ERRNO == EBADF)
+-					tst_resm(TPASS,
+-						 "dup failed as expected "
+-						 "with EBADF");
+-				else
+-					tst_resm(TFAIL | TTERRNO,
+-						 "dup failed unexpectedly");
+-			} else {
+-				tst_resm(TFAIL, "dup succeeded unexpectedly");
+-
+-				SAFE_CLOSE(cleanup, TEST_RETURN);
+-			}
++	struct tcase *testcase = &testcases[n];
++
++	TEST(dup(testcase->fd));
++
++	if (TST_RET < -1) {
++		tst_res(TFAIL, "Invalid dup() return value %ld", TST_RET);
++	} else if (TST_RET == -1) {
++		if (TST_ERR == testcase->expected_errno) {
++			tst_res(TPASS | TERRNO, "dup(%d) failed as expected",
++				testcase->fd);
++		} else {
++			tst_res(TFAIL | TERRNO, "dup(%d) Failed unexpectedly",
++				testcase->fd);
+ 		}
++	} else {
++		tst_res(TFAIL, "dup(%d) Succeeded unexpectedly", testcase->fd);
++		SAFE_CLOSE(TST_RET);
+ 	}
+-
+-	cleanup();
+-	tst_exit();
+-}
+-
+-void setup(void)
+-{
+-
+-	tst_sig(FORK, DEF_HANDLER, cleanup);
+-
+-	TEST_PAUSE;
+-
+-	tst_tmpdir();
+-
+ }
+ 
+-void cleanup(void)
+-{
+-	tst_rmdir();
+-}
++static struct tst_test test = {
++	.test = run,
++	.tcnt = ARRAY_SIZE(testcases),
++};
 -- 
-Regards,
-Li Wang
-
---0000000000004d6bbb05b347d8dc
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Wed, Nov 4, 2020 at 3:30 PM Petr Vorel &lt;<a hr=
-ef=3D"mailto:pvorel@suse.cz">pvorel@suse.cz</a>&gt; wrote:<br></div><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1p=
-x solid rgb(204,204,204);padding-left:1ex">Hi,<br>
-<br>
-&gt; --- /dev/null<br>
-&gt; +++ b/docparse/docparse.c<br>
-<br>
-...<br>
-&gt; +const char *next_token(FILE *f, struct data_node *doc)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0size_t i =3D 0;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0static char buf[4096];<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int c;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int in_str =3D 0;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0for (;;) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0c =3D fgetc(f);<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (c =3D=3D EOF)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0goto exit;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (in_str) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0if (c =3D=3D &#39;&quot;&#39;) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (i =3D=3D 0 || buf[i-1] !=3D &#39;\\&=
-#39;) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0buf[i++] =3D=
- c;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto exit;<b=
-r>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-IMHO this change (adding buf[i++] =3D c;), which Li suggested,<br>
-is causing build failures:<br>
-<a href=3D"https://travis-ci.org/github/pevik/ltp/builds/741217630" rel=3D"=
-noreferrer" target=3D"_blank">https://travis-ci.org/github/pevik/ltp/builds=
-/741217630</a><br>
-<br>
-/usr/src/ltp/docparse/<a href=3D"http://testinfo.pl" rel=3D"noreferrer" tar=
-get=3D"_blank">testinfo.pl</a> metadata.json<br>
-, or ] expected while parsing array, at character offset 340 (before &quot;=
-&quot;,\n=C2=A0 =C2=A0 =C2=A0 &quot;0c461cb72...&quot;) at /usr/src/ltp/doc=
-parse/<a href=3D"http://testinfo.pl" rel=3D"noreferrer" target=3D"_blank">t=
-estinfo.pl</a> line 379.<br>
-make[1]: *** [/usr/src/ltp/docparse/Makefile:60: txt] Error 255<br>
-make[1]: Leaving directory &#39;/usr/src/ltp-build/docparse&#39;<br>
-make: *** [/usr/src/ltp/Makefile:108: docparse-all] Error 2<br>
-make: *** Waiting for unfinished jobs....<br></blockquote><div><br></div><d=
-iv><div class=3D"gmail_default" style=3D"font-size:small">Sorry for the err=
-or, it because=C2=A0of wrongly parsed tst_test struct with</div><div class=
-=3D"gmail_default" style=3D"font-size:small">including=C2=A0<span class=3D"=
-gmail_default"></span>.min_kver =3D &quot;2.6.32&quot;,=C2=A0 then output i=
-nto=C2=A0metada.json=C2=A0like:</div><div class=3D"gmail_default" style=3D"=
-font-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size:=
-small"># cat metadata.json</div><div class=3D"gmail_default" style=3D"font-=
-size:small">...</div><div class=3D"gmail_default" style=3D"font-size:small"=
->=C2=A0 &quot;cpuset01&quot;: {</div>=C2=A0 =C2=A0&quot;needs_root&quot;: &=
-quot;1&quot;,<br>=C2=A0 =C2=A0&quot;forks_child&quot;: &quot;1&quot;,<br>=
-=C2=A0 =C2=A0&quot;min_kver&quot;: &quot;2.6.32&quot;&quot;,<span class=3D"=
-gmail_default" style=3D"font-size:small">=C2=A0 &lt;=3D=3D=3D=3D=3D=3D here=
- has two &quot;&quot; in the end</span><br>=C2=A0 =C2=A0&quot;fname&quot;: =
-&quot;testcases/kernel/mem/cpuset/cpuset01.c&quot;<br>=C2=A0 },<br><br></di=
-v><div><div class=3D"gmail_default" style=3D"font-size:small">So the &quot;=
-$(abs_srcdir)/<a href=3D"http://testinfo.pl">testinfo.pl</a> metadata.json&=
-quot; in Makefile report failure as above.</div><div class=3D"gmail_default=
-" style=3D"font-size:small"><br></div><div class=3D"gmail_default" style=3D=
-"font-size:small">=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</div><div class=3D"gmail_d=
-efault" style=3D"font-size:small"><br></div><div class=3D"gmail_default" st=
-yle=3D"font-size:small">Another fix I can think of is just to avoid return =
-NULL if detecting in the string(&quot;&quot;).</div><div class=3D"gmail_def=
-ault" style=3D"font-size:small">Hope this will work for us,=C2=A0I will hel=
-p to check it again tomorrow.</div><div class=3D"gmail_default" style=3D"fo=
-nt-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size:sm=
-all">--- a/docparse/docparse.c<br>+++ b/docparse/docparse.c<br>@@ -138,10 +=
-138,8 @@ const char *next_token(FILE *f, struct data_node *doc)<br>=C2=A0<b=
-r>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (in_str) {<br>=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 if (c =3D=3D &#39;&quot;&#39;) {<br>- =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 if (i =3D=3D 0 || buf[i-1] !=3D &#39;\\&#39;) {<br>- =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 buf[i++] =3D c;<br>+ =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 if (i =3D=3D 0 || buf[i-1] !=3D &#39;\\&#39;)<br>=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto exi=
-t;<br>- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>=C2=A0<br>=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 buf[i++] =3D c;<br>@@ -189,7 +187,7 @@ const char *next_token(FILE *f, =
-struct data_node *doc)<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>=C2=A0<br>=C2=A0=
-exit:<br>- =C2=A0 =C2=A0 =C2=A0 if (i =3D=3D 0)<br>+ =C2=A0 =C2=A0 =C2=A0 i=
-f (i =3D=3D 0 &amp;&amp; !in_str)<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 return NULL;<br>=C2=A0<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 buf=
-[i] =3D 0;<br></div><br></div><div><br></div></div>-- <br><div dir=3D"ltr" =
-class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li W=
-ang<br></div></div></div></div>
-
---0000000000004d6bbb05b347d8dc--
-
-
---===============1934252433==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+2.26.2
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1934252433==--
-
