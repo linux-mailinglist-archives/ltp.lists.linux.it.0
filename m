@@ -2,72 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 183732AA65A
-	for <lists+linux-ltp@lfdr.de>; Sat,  7 Nov 2020 16:39:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F68E2AA6B3
+	for <lists+linux-ltp@lfdr.de>; Sat,  7 Nov 2020 17:42:23 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A1EFE3C2FDA
-	for <lists+linux-ltp@lfdr.de>; Sat,  7 Nov 2020 16:39:07 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9DEAB3C6013
+	for <lists+linux-ltp@lfdr.de>; Sat,  7 Nov 2020 17:42:22 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id E5EF43C2397
- for <ltp@lists.linux.it>; Sat,  7 Nov 2020 16:39:02 +0100 (CET)
-Received: from wforward1-smtp.messagingengine.com
- (wforward1-smtp.messagingengine.com [64.147.123.30])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 572673C0888
+ for <ltp@lists.linux.it>; Sat,  7 Nov 2020 17:42:18 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3F01F200BD1
- for <ltp@lists.linux.it>; Sat,  7 Nov 2020 16:38:59 +0100 (CET)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailforward.west.internal (Postfix) with ESMTP id BB47DED1;
- Sat,  7 Nov 2020 10:38:56 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Sat, 07 Nov 2020 10:38:57 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:message-id:mime-version:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=tzcRRw
- q9gi3B1RsTEyLlm2zRz8olgrdx855GYOfTjXE=; b=cuSfSNChTmqTWvdkWV8FTT
- VZ1aR0F+IHl1MHnxGlGIqWw7x0mo7DWQM9Oi0XxszU3871HTqYDMSwOrURaV5T2a
- kjNwvxw2sEV1Qe+sP7ZZUVdTG2tjPomHmYcYZCQpWJEgDQ7b6bVaBqlTVPGrJ52r
- ChGUOqAK19Z9P2OIl8pJOVxOghQw0VneSsz9Yk/Tl4gy6D5ZsGQ5iyncuKlCP9We
- 9SAgL8fcQ8Xi22Psn5+nouj3gRphyrruSyxFik2Lb0lmARHmHHbTW0uNQ+St/pbJ
- 1Bl539eu5Js6CYX13J43vpmqB5dNXBFVHhDQmX0yDKxx6oFHLoH5UABqHvS5tn9Q
- ==
-X-ME-Sender: <xms:j7-mXwm9r5NbqQMDaNC_bOuDJyRcddSoABXw2TLMHBQAOIHRZwp43g>
- <xme:j7-mX_2u6x_pbu2BUgDN-vd1LddQvCWlbXnqHSZ4Kpb0KHfKRoVAYTugVve4Pn8fM
- LmPGxfO50Rnwg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrudduuddgkedtucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefuvffhfffkgggtgfesthekredttd
- dtjeenucfhrhhomhepoehgrhgvghhkhheslhhinhhugihfohhunhgurghtihhonhdrohhr
- gheqnecuggftrfgrthhtvghrnheptedvveduiefhtefggfduffefkedvhfevgefhvddthf
- etfeekveffudetffegkeeinecuffhomhgrihhnpehophgvnhhsuhhsvgdrohhrghdpkhgv
- rhhnvghlrdhorhhgnecukfhppeekfedrkeeirdejgedrieegnecuvehluhhsthgvrhfuih
- iivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorghhrdgtohhm
-X-ME-Proxy: <xmx:j7-mX-onLQVVHc8rcUQCn1AHT7JwkygiWng4XdzXoMVQCzLpDGSe0w>
- <xmx:j7-mX8mmscKBoiZtgjmp4X7npl-pU18DhEHyNcQgzgxpeO7KCykK8g>
- <xmx:j7-mX-1dDM25aeJcAWCyL0ecWWIWqJ94kq_AUS5H56gcrOu89d8f0A>
- <xmx:kL-mX3nyQg-cKNH2jNqR1rElXr4RbVn0uoKiXvPMXbxg0d6tT6ghDRSymGA>
-Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
- by mail.messagingengine.com (Postfix) with ESMTPA id 20F4B3280414;
- Sat,  7 Nov 2020 10:38:55 -0500 (EST)
-To: guro@fb.com, akpm@linux-foundation.org, hannes@cmpxchg.org,
- ltp@lists.linux.it, mhocko@kernel.org, mkoutny@suse.com, rpalethorpe@suse.com,
- shakeelb@google.com, stable@vger.kernel.org, torvalds@linux-foundation.org
-From: <gregkh@linuxfoundation.org>
-Date: Sat, 07 Nov 2020 16:39:37 +0100
-Message-ID: <1604763577148237@kroah.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 4A905140019F
+ for <ltp@lists.linux.it>; Sat,  7 Nov 2020 17:42:16 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 110D2AB8F;
+ Sat,  7 Nov 2020 16:42:16 +0000 (UTC)
+Date: Sat, 7 Nov 2020 17:42:14 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20201107164214.GA10159@pevik>
+References: <20201026164756.30556-1-mdoucha@suse.cz>
+ <20201026164756.30556-4-mdoucha@suse.cz>
+ <5F97E6A0.8090506@cn.fujitsu.com> <20201106173545.GA30641@pevik>
+ <5FA5E8D6.4040401@cn.fujitsu.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <5FA5E8D6.4040401@cn.fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_NEUTRAL
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] FAILED: patch "[PATCH] mm: memcg: link page counters to root
- if use_hierarchy is" failed to apply to 5.9-stable tree
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 03/19] Unify error handling in
+ lib/tst_safe_timerfd.c
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,92 +49,42 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: stable@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-ClRoZSBwYXRjaCBiZWxvdyBkb2VzIG5vdCBhcHBseSB0byB0aGUgNS45LXN0YWJsZSB0cmVlLgpJ
-ZiBzb21lb25lIHdhbnRzIGl0IGFwcGxpZWQgdGhlcmUsIG9yIHRvIGFueSBvdGhlciBzdGFibGUg
-b3IgbG9uZ3Rlcm0KdHJlZSwgdGhlbiBwbGVhc2UgZW1haWwgdGhlIGJhY2twb3J0LCBpbmNsdWRp
-bmcgdGhlIG9yaWdpbmFsIGdpdCBjb21taXQKaWQgdG8gPHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+
-LgoKdGhhbmtzLAoKZ3JlZyBrLWgKCi0tLS0tLS0tLS0tLS0tLS0tLSBvcmlnaW5hbCBjb21taXQg
-aW4gTGludXMncyB0cmVlIC0tLS0tLS0tLS0tLS0tLS0tLQoKRnJvbSA4ZGUxNWU5MjBkYzg1ZDE3
-MDVhYjljMjAyYzk1ZDU2ODQ1YmMyZDQ4IE1vbiBTZXAgMTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBS
-b21hbiBHdXNoY2hpbiA8Z3Vyb0BmYi5jb20+CkRhdGU6IFN1biwgMSBOb3YgMjAyMCAxNzowNzoz
-NCAtMDgwMApTdWJqZWN0OiBbUEFUQ0hdIG1tOiBtZW1jZzogbGluayBwYWdlIGNvdW50ZXJzIHRv
-IHJvb3QgaWYgdXNlX2hpZXJhcmNoeSBpcwogZmFsc2UKTUlNRS1WZXJzaW9uOiAxLjAKQ29udGVu
-dC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PVVURi04CkNvbnRlbnQtVHJhbnNmZXItRW5jb2Rp
-bmc6IDhiaXQKClJpY2hhcmQgcmVwb3J0ZWQgYSB3YXJuaW5nIHdoaWNoIGNhbiBiZSByZXByb2R1
-Y2VkIGJ5IHJ1bm5pbmcgdGhlIExUUAptYWR2aXNlNiB0ZXN0IChjZ3JvdXAgdjEgaW4gdGhlIG5v
-bi1oaWVyYXJjaGljYWwgbW9kZSBzaG91bGQgYmUgdXNlZCk6CgogIFdBUk5JTkc6IENQVTogMCBQ
-SUQ6IDEyIGF0IG1tL3BhZ2VfY291bnRlci5jOjU3IHBhZ2VfY291bnRlcl91bmNoYXJnZSAobW0v
-cGFnZV9jb3VudGVyLmM6NTcgbW0vcGFnZV9jb3VudGVyLmM6NTAgbW0vcGFnZV9jb3VudGVyLmM6
-MTU2KQogIE1vZHVsZXMgbGlua2VkIGluOgogIENQVTogMCBQSUQ6IDEyIENvbW06IGt3b3JrZXIv
-MDoxIE5vdCB0YWludGVkIDUuOS4wLXJjNy0yMi1kZWZhdWx0ICM3NwogIEhhcmR3YXJlIG5hbWU6
-IFFFTVUgU3RhbmRhcmQgUEMgKGk0NDBGWCArIFBJSVgsIDE5OTYpLCBCSU9TIHJlbC0xLjEzLjAt
-NDgtZ2Q5YzgxMmQtcmVidWlsdC5vcGVuc3VzZS5vcmcgMDQvMDEvMjAxNAogIFdvcmtxdWV1ZTog
-ZXZlbnRzIGRyYWluX2xvY2FsX3N0b2NrCiAgUklQOiAwMDEwOnBhZ2VfY291bnRlcl91bmNoYXJn
-ZSAobW0vcGFnZV9jb3VudGVyLmM6NTcgbW0vcGFnZV9jb3VudGVyLmM6NTAgbW0vcGFnZV9jb3Vu
-dGVyLmM6MTU2KQogIENhbGwgVHJhY2U6CiAgICBfX21lbWNnX2ttZW1fdW5jaGFyZ2UgKG1tL21l
-bWNvbnRyb2wuYzozMDIyKQogICAgZHJhaW5fb2JqX3N0b2NrICguL2luY2x1ZGUvbGludXgvcmN1
-cGRhdGUuaDo2ODkgbW0vbWVtY29udHJvbC5jOjMxMTQpCiAgICBkcmFpbl9sb2NhbF9zdG9jayAo
-bW0vbWVtY29udHJvbC5jOjIyNTUpCiAgICBwcm9jZXNzX29uZV93b3JrICguL2FyY2gveDg2L2lu
-Y2x1ZGUvYXNtL2p1bXBfbGFiZWwuaDoyNSAuL2luY2x1ZGUvbGludXgvanVtcF9sYWJlbC5oOjIw
-MCAuL2luY2x1ZGUvdHJhY2UvZXZlbnRzL3dvcmtxdWV1ZS5oOjEwOCBrZXJuZWwvd29ya3F1ZXVl
-LmM6MjI3NCkKICAgIHdvcmtlcl90aHJlYWQgKC4vaW5jbHVkZS9saW51eC9saXN0Lmg6MjgyIGtl
-cm5lbC93b3JrcXVldWUuYzoyNDE2KQogICAga3RocmVhZCAoa2VybmVsL2t0aHJlYWQuYzoyOTIp
-CiAgICByZXRfZnJvbV9mb3JrIChhcmNoL3g4Ni9lbnRyeS9lbnRyeV82NC5TOjMwMCkKClRoZSBw
-cm9ibGVtIG9jY3VycyBiZWNhdXNlIGluIHRoZSBub24taGllcmFyY2hpY2FsIG1vZGUgbm9uLXJv
-b3QgcGFnZQpjb3VudGVycyBhcmUgbm90IGxpbmtlZCB0byByb290IHBhZ2UgY291bnRlcnMsIHNv
-IHRoZSBjaGFyZ2UgaXMgbm90CnByb3BhZ2F0ZWQgdG8gdGhlIHJvb3QgbWVtb3J5IGNncm91cC4K
-CkFmdGVyIHRoZSByZW1vdmFsIG9mIHRoZSBvcmlnaW5hbCBtZW1vcnkgY2dyb3VwIGFuZCByZXBh
-cmVudGluZyBvZiB0aGUKb2JqZWN0IGNncm91cCwgdGhlIHJvb3QgY2dyb3VwIG1pZ2h0IGJlIHVu
-Y2hhcmdlZCBieSBkcmFpbmluZyBhIG9iamNnCnN0b2NrLCBmb3IgZXhhbXBsZS4gIEl0IGxlYWRz
-IHRvIGFuIGV2ZW50dWFsIHVuZGVyZmxvdyBvZiB0aGUgY2hhcmdlIGFuZAp0cmlnZ2VycyBhIHdh
-cm5pbmcuCgpGaXggaXQgYnkgbGlua2luZyBhbGwgcGFnZSBjb3VudGVycyB0byBjb3JyZXNwb25k
-aW5nIHJvb3QgcGFnZSBjb3VudGVycwppbiB0aGUgbm9uLWhpZXJhcmNoaWNhbCBtb2RlLgoKUGxl
-YXNlIG5vdGUsIHRoYXQgaW4gdGhlIG5vbi1oaWVyYXJjaGljYWwgbW9kZSBhbGwgb2JqY2dzIGFy
-ZSBhbHdheXMKcmVwYXJlbnRlZCB0byB0aGUgcm9vdCBtZW1vcnkgY2dyb3VwLCBldmVuIGlmIHRo
-ZSBoaWVyYXJjaHkgaGFzIG1vcmUKdGhhbiAxIGxldmVsLiAgVGhpcyBwYXRjaCBkb2Vzbid0IGNo
-YW5nZSBpdC4KClRoZSBwYXRjaCBhbHNvIGRvZXNuJ3QgYWZmZWN0IGhvdyB0aGUgaGllcmFyY2hp
-Y2FsIG1vZGUgaXMgd29ya2luZywKd2hpY2ggaXMgdGhlIG9ubHkgc2FuZSBhbmQgdHJ1bHkgc3Vw
-cG9ydGVkIG1vZGUgbm93LgoKVGhhbmtzIHRvIFJpY2hhcmQgZm9yIHJlcG9ydGluZywgZGVidWdn
-aW5nIGFuZCBwcm92aWRpbmcgYW4gYWx0ZXJuYXRpdmUKdmVyc2lvbiBvZiB0aGUgZml4IQoKRml4
-ZXM6IGJmNGYwNTk5NTRkYyAoIm1tOiBtZW1jZy9zbGFiOiBvYmpfY2dyb3VwIEFQSSIpClJlcG9y
-dGVkLWJ5OiA8bHRwQGxpc3RzLmxpbnV4Lml0PgpTaWduZWQtb2ZmLWJ5OiBSb21hbiBHdXNoY2hp
-biA8Z3Vyb0BmYi5jb20+ClNpZ25lZC1vZmYtYnk6IEFuZHJldyBNb3J0b24gPGFrcG1AbGludXgt
-Zm91bmRhdGlvbi5vcmc+ClJldmlld2VkLWJ5OiBTaGFrZWVsIEJ1dHQgPHNoYWtlZWxiQGdvb2ds
-ZS5jb20+ClJldmlld2VkLWJ5OiBNaWNoYWwgS291dG7DvSA8bWtvdXRueUBzdXNlLmNvbT4KQWNr
-ZWQtYnk6IEpvaGFubmVzIFdlaW5lciA8aGFubmVzQGNtcHhjaGcub3JnPgpDYzogTWljaGFsIEhv
-Y2tvIDxtaG9ja29Aa2VybmVsLm9yZz4KQ2M6IDxzdGFibGVAdmdlci5rZXJuZWwub3JnPgpMaW5r
-OiBodHRwczovL2xrbWwua2VybmVsLm9yZy9yLzIwMjAxMDI2MjMxMzI2LjMyMTIyMjUtMS1ndXJv
-QGZiLmNvbQpEZWJ1Z2dlZC1ieTogUmljaGFyZCBQYWxldGhvcnBlIDxycGFsZXRob3JwZUBzdXNl
-LmNvbT4KU2lnbmVkLW9mZi1ieTogTGludXMgVG9ydmFsZHMgPHRvcnZhbGRzQGxpbnV4LWZvdW5k
-YXRpb24ub3JnPgoKZGlmZiAtLWdpdCBhL21tL21lbWNvbnRyb2wuYyBiL21tL21lbWNvbnRyb2wu
-YwppbmRleCBjM2I2ZGM3ZDVjOTQuLjNkY2JmMjRkMjIyNyAxMDA2NDQKLS0tIGEvbW0vbWVtY29u
-dHJvbC5jCisrKyBiL21tL21lbWNvbnRyb2wuYwpAQCAtNTM0NSwxNyArNTM0NSwyMiBAQCBtZW1f
-Y2dyb3VwX2Nzc19hbGxvYyhzdHJ1Y3QgY2dyb3VwX3N1YnN5c19zdGF0ZSAqcGFyZW50X2NzcykK
-IAkJbWVtY2ctPnN3YXBwaW5lc3MgPSBtZW1fY2dyb3VwX3N3YXBwaW5lc3MocGFyZW50KTsKIAkJ
-bWVtY2ctPm9vbV9raWxsX2Rpc2FibGUgPSBwYXJlbnQtPm9vbV9raWxsX2Rpc2FibGU7CiAJfQot
-CWlmIChwYXJlbnQgJiYgcGFyZW50LT51c2VfaGllcmFyY2h5KSB7CisJaWYgKCFwYXJlbnQpIHsK
-KwkJcGFnZV9jb3VudGVyX2luaXQoJm1lbWNnLT5tZW1vcnksIE5VTEwpOworCQlwYWdlX2NvdW50
-ZXJfaW5pdCgmbWVtY2ctPnN3YXAsIE5VTEwpOworCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ct
-PmttZW0sIE5VTEwpOworCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPnRjcG1lbSwgTlVMTCk7
-CisJfSBlbHNlIGlmIChwYXJlbnQtPnVzZV9oaWVyYXJjaHkpIHsKIAkJbWVtY2ctPnVzZV9oaWVy
-YXJjaHkgPSB0cnVlOwogCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPm1lbW9yeSwgJnBhcmVu
-dC0+bWVtb3J5KTsKIAkJcGFnZV9jb3VudGVyX2luaXQoJm1lbWNnLT5zd2FwLCAmcGFyZW50LT5z
-d2FwKTsKIAkJcGFnZV9jb3VudGVyX2luaXQoJm1lbWNnLT5rbWVtLCAmcGFyZW50LT5rbWVtKTsK
-IAkJcGFnZV9jb3VudGVyX2luaXQoJm1lbWNnLT50Y3BtZW0sICZwYXJlbnQtPnRjcG1lbSk7CiAJ
-fSBlbHNlIHsKLQkJcGFnZV9jb3VudGVyX2luaXQoJm1lbWNnLT5tZW1vcnksIE5VTEwpOwotCQlw
-YWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPnN3YXAsIE5VTEwpOwotCQlwYWdlX2NvdW50ZXJfaW5p
-dCgmbWVtY2ctPmttZW0sIE5VTEwpOwotCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPnRjcG1l
-bSwgTlVMTCk7CisJCXBhZ2VfY291bnRlcl9pbml0KCZtZW1jZy0+bWVtb3J5LCAmcm9vdF9tZW1f
-Y2dyb3VwLT5tZW1vcnkpOworCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPnN3YXAsICZyb290
-X21lbV9jZ3JvdXAtPnN3YXApOworCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPmttZW0sICZy
-b290X21lbV9jZ3JvdXAtPmttZW0pOworCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPnRjcG1l
-bSwgJnJvb3RfbWVtX2Nncm91cC0+dGNwbWVtKTsKIAkJLyoKIAkJICogRGVlcGVyIGhpZXJhY2h5
-IHdpdGggdXNlX2hpZXJhcmNoeSA9PSBmYWxzZSBkb2Vzbid0IG1ha2UKIAkJICogbXVjaCBzZW5z
-ZSBzbyBsZXQgY2dyb3VwIHN1YnN5c3RlbSBrbm93IGFib3V0IHRoaXMKCgotLSAKTWFpbGluZyBs
-aXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Hi Martin, Xu,
+
+> > Hi Martin, Xu,
+
+> > > > diff --git a/lib/tst_safe_timerfd.c b/lib/tst_safe_timerfd.c
+> > > > index ffe7b2ef7..4c36a309c 100644
+> > > > --- a/lib/tst_safe_timerfd.c
+> > > > +++ b/lib/tst_safe_timerfd.c
+> > > > @@ -17,9 +17,14 @@ int safe_timerfd_create(const char *file, const int lineno,
+> > > >    	int fd;
+
+> > > >    	fd = timerfd_create(clockid, flags);
+> > > > -	if (fd<   0) {
+> > > > -		tst_brk(TTYPE | TERRNO, "%s:%d timerfd_create(%s) failed",
+> > > > -			file, lineno, tst_clock_name(clockid));
+> > > > +
+> > > > +	if (fd == -1) {
+> > > > +		tst_brk_(file, lineno, TTYPE | TERRNO,
+> > > > +			"timerfd_create(%s) failed", tst_clock_name(clockid));
+> > > > +	} else if (fd<   0) {
+> > nit: fd<   0 =>  fd<   0
+> Sorry, It is my email format problem, on patchwork[1], the format is right.
+
+Martin, sorry for not checking what you send in the patch.
+
+> [1]https://patchwork.ozlabs.org/project/ltp/patch/20201026164756.30556-4-mdoucha@suse.cz/
+
+Kind regards,
+Petr
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
