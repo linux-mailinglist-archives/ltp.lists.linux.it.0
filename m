@@ -1,45 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90E042AB872
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Nov 2020 13:41:52 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A82532AB893
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Nov 2020 13:49:18 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 34AA23C2F81
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Nov 2020 13:41:52 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2B45E3C2F80
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Nov 2020 13:49:18 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 2CD803C0888
- for <ltp@lists.linux.it>; Mon,  9 Nov 2020 13:41:48 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 4A2663C0888
+ for <ltp@lists.linux.it>; Mon,  9 Nov 2020 13:49:14 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id B85B2600157
+ for <ltp@lists.linux.it>; Mon,  9 Nov 2020 13:49:13 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1604926152;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=k7O4VI048/DpbltN5RzJEiSOXXZHHiHWIxAJ0nafgzE=;
+ b=Mx5RqhVz/9fcecW90egmqkPfHRid40ruMamZ7pkR0Tsd8cQNFSzsPNH7brjl16FPljJTfk
+ sptqGp2qyziccocfae4/Dx50SWrGbgmAMVW6+hkSK8LBvabWYuzJokk8uDSTyPMoQZI6jY
+ PhA0BWrb3C95eTkPOOmpZnnaHmlzIBs=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-563-SyUVBoEdOAGMwAZNxO3C5g-1; Mon, 09 Nov 2020 07:49:10 -0500
+X-MC-Unique: SyUVBoEdOAGMwAZNxO3C5g-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 82E4C1400E65
- for <ltp@lists.linux.it>; Mon,  9 Nov 2020 13:41:48 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BAAA2ABF4;
- Mon,  9 Nov 2020 12:41:47 +0000 (UTC)
-Date: Mon, 9 Nov 2020 13:42:33 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Xiao Yang <yangx.jy@cn.fujitsu.com>
-Message-ID: <20201109124233.GA9991@yuki.lan>
-References: <1603691317-22811-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <5FA21AA9.9020208@cn.fujitsu.com> <20201106123604.GA30097@yuki.lan>
- <0bc685ce-1983-b900-787f-3d89e75ca48d@163.com>
- <20201106164742.GA6449@rei.lan>
- <f99d3484-f86d-dd8a-e64e-7d9d94533de4@163.com>
- <20201107165518.GB10159@pevik> <5FA8BE07.4040201@cn.fujitsu.com>
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8F07510866AA
+ for <ltp@lists.linux.it>; Mon,  9 Nov 2020 12:49:09 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com
+ (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8861B62A14
+ for <ltp@lists.linux.it>; Mon,  9 Nov 2020 12:49:09 +0000 (UTC)
+Received: from zmail17.collab.prod.int.phx2.redhat.com
+ (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
+ by colo-mx.corp.redhat.com (Postfix) with ESMTP id CAB55CF60;
+ Mon,  9 Nov 2020 12:49:08 +0000 (UTC)
+Date: Mon, 9 Nov 2020 07:49:08 -0500 (EST)
+From: Jan Stancek <jstancek@redhat.com>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <69530275.22574785.1604926148605.JavaMail.zimbra@redhat.com>
+In-Reply-To: <CAEemH2f-okBCGktRfT5-RgkXziAu3FrFAN7Qih2vz=A9mfJzRw@mail.gmail.com>
+References: <5d6e978c803e4e6449cabd89596729bfad996a17.1604408825.git.jstancek@redhat.com>
+ <CAEemH2dHXYbmkbzccWNurYURZQJJ4GENRBr=6KfQaL5HJaBO2g@mail.gmail.com>
+ <CAEemH2f-okBCGktRfT5-RgkXziAu3FrFAN7Qih2vz=A9mfJzRw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <5FA8BE07.4040201@cn.fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Originating-IP: [10.36.110.76, 10.4.195.21]
+Thread-Topic: lib/tst_cgroup: fix short reads of mems/cpus
+Thread-Index: yqTKc8WM4WrQGKkad29jOADTNKAPSA==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/4] syscalls/sync01: Remove it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] lib/tst_cgroup: fix short reads of mems/cpus
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,69 +85,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> 1) open(2) will return -1 if an error occur.
->      Is it necessary to check invalid return value(except -1) if an 
-> error occur?
-
-Well if there are values that are never supposed to be returned it makes
-sense to catch these and return a TBROK or TFAIL.
-
-If we are expecially testing a syscall() I would say that we should
-check for all kinds of errors including the values that shall not be
-returned e.g.:
-
-	TEST(open(...));
-
-	if (TST_RET == -1) {
-		tst_ret(TFAIL | TTERRNO, "open() failed");
-		return;
-	}
-
-	if (TST_RET < 0) {
-		tst_ret(TFAIL | TTERRNO, "Invalid open() retval %ld", TST_RET);
-		return;
-	}
-
-	...
 
 
-If the syscall is part of the test preparation and there is no safe
-macro I would say that it's enough to cover all invalid values in one
-condition e.g.:
+----- Original Message -----
+> On Wed, Nov 4, 2020 at 2:22 PM Li Wang <liwang@redhat.com> wrote:
+> 
+> > ...
+> >> -       tst_cgroup_cpuset_read_files(PATH_TMP_CG_CST, "cpus", buf);
+> >> +       tst_cgroup_cpuset_read_files(PATH_TMP_CG_CST, "cpus", buf,
+> >> sizeof(buf));
+> >>         tst_cgroup_cpuset_write_files(PATH_TMP_CG_CST, "cpus", buf);
+> >> -       tst_cgroup_cpuset_read_files(PATH_TMP_CG_CST, "mems", mems);
+> >> +       tst_cgroup_cpuset_read_files(PATH_TMP_CG_CST, "mems", mems,
+> >> sizeof(buf));
+> >>
+> >
+> > sizeof() is generally used to calculate the size (in bytes) of a data type,
+> > e.g sizeof(char *).
+> > I think here to pass 'BUFSIZ' directly is better than sizeof(buf).
+> >
+> 
+> Jan, do you agree with this point?
+> If yes, I can help to modify and apply this patch.
 
-	fd = open(...);
-	if (fd < 0)
-		tst_brk(TBROK | TERRNO, "open() failed");
+2nd line should have been sizeof(mems), but BUFSIZ will work too.
 
-
-> 2) mmap(2) will return MAP_FAILED if an error occurs.
->      Is it necessary to check invalid value(except MAP_FAILED) if an 
-> error occur?
-
-Actually return value from mmap() is pointer, right? And the only value
-that is not supposed to be returned is MAP_FAILED or do I miss
-something?
-
-> Martin's patches have added a check for invalid return value in many 
-> safe macros but a lot of syscall tests(e.g. after doingTEST()) don't add 
-> the check for now.
-> I am not sure if we need to add the check for all syscall tests. :-)
-
-I would say that at least for newly added test we should make sure that
-there is no unexpected value returned.
-
-> BTW: In my opinion, it is hardly to get invalid return value so the 
-> check seems unnecessary and redundance.
-
-Well it's not a common case but I've seen this to happen a few times,
-once it was because a backported patch applied cleanly but the code was
-incorrect and as a result syscall started to return really unexpected
-values.
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
