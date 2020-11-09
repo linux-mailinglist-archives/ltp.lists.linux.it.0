@@ -2,73 +2,85 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 708532AB37D
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Nov 2020 10:23:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27DCA2AB63B
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Nov 2020 12:11:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1BEDD3C2F73
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Nov 2020 10:23:49 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 946CA3C5DC2
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Nov 2020 12:11:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id B4A673C1876
- for <ltp@lists.linux.it>; Mon,  9 Nov 2020 10:23:47 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 2F7701000417
- for <ltp@lists.linux.it>; Mon,  9 Nov 2020 10:23:46 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1604913825;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Be//ns5aIO86xHiTTL/2yk78S5AaXk8RZJHhQs8Ah6I=;
- b=hOpzGQohhSTPivWO1EWlWhWi5++OBBD9eOXuWOClAwVihVY8wDrwQVeP30U20/ZlTEKvPa
- StoCOkNceZl4PtGNHeO3fhdhFvFPe6DSOBac+YndEZ8RMhaNA3RYgcI7mP0lKnddEzGq3F
- 2/Y0f3dj7BvvbcXMZIxdHwbxCNryuOI=
-Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
- [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-443-aOLszOyYNJS7D0YZBMmjZg-1; Mon, 09 Nov 2020 04:23:43 -0500
-X-MC-Unique: aOLszOyYNJS7D0YZBMmjZg-1
-Received: by mail-yb1-f198.google.com with SMTP id b189so10339721ybh.5
- for <ltp@lists.linux.it>; Mon, 09 Nov 2020 01:23:43 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Be//ns5aIO86xHiTTL/2yk78S5AaXk8RZJHhQs8Ah6I=;
- b=bXTMojXCczjgkBMOjIbXQXsuDqIvukjnLwvfvZvzv/OV0LwUicOtITvOxdX9usehhO
- hldJiNkbPEwsadnuKKjzsVCk94eniEW3w/OUtyOhiH1kuDS55MBfXmNkyQFe/GpsYbJ3
- cCndSGD7fchOpZaktFQ0cgv9d19adSdUXdx9v6B1MxvAzigixX6qdO0MT2uEH6vV6jTJ
- TJPMkN8KZM5iIBtmU05ue2IgHj17zEQAWjOxe2MlJ86w9Gmr4chnzGv2Ei15I3wpzFnQ
- Cb7uXWjXdcQSjpEiTgfDuAjYaTFIbr+S1I9mvHjHH7jR69xRufk5sZ0VYwJh6gdJbCq5
- SVzA==
-X-Gm-Message-State: AOAM531oN3Ba24p0U0KwXR8Lklu/C+nQoPW88iANEAojBcgKwmos0US7
- PVDO4oNPJnxxR7ZHoIYS5LlFLFze5vJG7LISwMXaZ+sR7ybWjtzTeE+PsevqphvgjlHnkBXaalS
- nRDcKSQv8JODj3aztsi9CBpRYSrw=
-X-Received: by 2002:a25:ba4c:: with SMTP id z12mr16945593ybj.366.1604913822452; 
- Mon, 09 Nov 2020 01:23:42 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzFCSVuCkzYMF3Y4+DHwxc4Wgm6ubw5kY70F4A+Cfcq7MHifW+tBkKjTup+IKO8TLfbHv1tBe5T/rG3JHjHxZs=
-X-Received: by 2002:a25:ba4c:: with SMTP id z12mr16945577ybj.366.1604913822203; 
- Mon, 09 Nov 2020 01:23:42 -0800 (PST)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 107053C287E
+ for <ltp@lists.linux.it>; Mon,  9 Nov 2020 12:11:39 +0100 (CET)
+Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 464021A00F47
+ for <ltp@lists.linux.it>; Mon,  9 Nov 2020 12:11:39 +0100 (CET)
+Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
+ by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0A9BAMcp107291;
+ Mon, 9 Nov 2020 11:11:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=IUemsdi0/wRGIrQwNUNA9XX1GpJePLD2t6K5sbn9z94=;
+ b=nU+ZycN4zgTUUpIKEEPNCwcQO9xykzU41BlaJ2tCwNrvmvk+D28a1hI3r033uLT8fb1v
+ ZmfsbnaDaoWpSoESmSXFoEdCTYXwiCbqLm8GVslV09twO9kUdbS7h+aEAQ034cHsL2bi
+ rEr3jqn7keCX7t3cWJRon2MRsbMwraqpplVNd2zMlU/q3q4ywbue74IgcmtzmQAFOeai
+ GQe3Wp0AAMm4yB2kwSk4qfoshxcAXSoV4Q5qO3uclJfwJf9U5TxJsC7BDD2L0oZzd4Gz
+ y/UD6ZaBl6Qvrtzqt1pNK2m/yMXYct85+8Kto6x6lwyBDq7Jdfa6e3i9eq9xJVtDRqsj Vg== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by aserp2130.oracle.com with ESMTP id 34nh3anjet-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 09 Nov 2020 11:11:34 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0A9B57ia131079;
+ Mon, 9 Nov 2020 11:09:33 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by aserp3030.oracle.com with ESMTP id 34p55ktkkh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 09 Nov 2020 11:09:33 +0000
+Received: from abhmp0012.oracle.com (abhmp0012.oracle.com [141.146.116.18])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0A9B9QXU015944;
+ Mon, 9 Nov 2020 11:09:27 GMT
+Received: from [192.168.1.35] (/95.161.221.177)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Mon, 09 Nov 2020 03:09:26 -0800
+To: Kory Maincent <kory.maincent@bootlin.com>, ltp@lists.linux.it
+References: <20201106143605.27230-1-kory.maincent@bootlin.com>
+From: Alexey Kodanev <alexey.kodanev@oracle.com>
+Message-ID: <5de346c3-ccd6-743e-c83c-e16c592c7ac5@oracle.com>
+Date: Mon, 9 Nov 2020 14:09:24 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <5d6e978c803e4e6449cabd89596729bfad996a17.1604408825.git.jstancek@redhat.com>
- <CAEemH2dHXYbmkbzccWNurYURZQJJ4GENRBr=6KfQaL5HJaBO2g@mail.gmail.com>
-In-Reply-To: <CAEemH2dHXYbmkbzccWNurYURZQJJ4GENRBr=6KfQaL5HJaBO2g@mail.gmail.com>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 9 Nov 2020 17:23:30 +0800
-Message-ID: <CAEemH2f-okBCGktRfT5-RgkXziAu3FrFAN7Qih2vz=A9mfJzRw@mail.gmail.com>
-To: Jan Stancek <jstancek@redhat.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <20201106143605.27230-1-kory.maincent@bootlin.com>
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9799
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ spamscore=0 phishscore=0
+ mlxlogscore=999 mlxscore=0 malwarescore=0 bulkscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2011090073
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9799
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ lowpriorityscore=0 priorityscore=1501
+ clxscore=1015 malwarescore=0 mlxscore=0 spamscore=0 suspectscore=0
+ mlxlogscore=999 impostorscore=0 phishscore=0 adultscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2011090073
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] lib/tst_cgroup: fix short reads of mems/cpus
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] tcp_cmds/ping/ping02: Make it compatible with
+ Busybox
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,88 +92,61 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0372372259=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0372372259==
-Content-Type: multipart/alternative; boundary="00000000000044a0bd05b3a91e19"
+On 06.11.2020 17:36, Kory Maincent wrote:
+> The ping from busybox does not have -f parameter, use -i parameter instead.
+> BusyBox does not accept pattern longer than 2 bytes.
+> 
+> Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+> ---
+>  testcases/network/tcp_cmds/ping/ping02.sh | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/testcases/network/tcp_cmds/ping/ping02.sh b/testcases/network/tcp_cmds/ping/ping02.sh
+> index e0a63c5f6..2784c8160 100755
+> --- a/testcases/network/tcp_cmds/ping/ping02.sh
+> +++ b/testcases/network/tcp_cmds/ping/ping02.sh
+> @@ -20,7 +20,7 @@ do_setup()
+>  
+>  do_test()
+>  {
+> -	local pat="000102030405060708090a0b0c0d0e0f"
+> +	local pat="aa"
+>  
 
---00000000000044a0bd05b3a91e19
-Content-Type: text/plain; charset="UTF-8"
+Hi Kory,
 
-On Wed, Nov 4, 2020 at 2:22 PM Li Wang <liwang@redhat.com> wrote:
+I think we should replace the options only if ping doesn't support
+'-f', i.e. something like in the first version and this patch:
 
-> ...
->> -       tst_cgroup_cpuset_read_files(PATH_TMP_CG_CST, "cpus", buf);
->> +       tst_cgroup_cpuset_read_files(PATH_TMP_CG_CST, "cpus", buf,
->> sizeof(buf));
->>         tst_cgroup_cpuset_write_files(PATH_TMP_CG_CST, "cpus", buf);
->> -       tst_cgroup_cpuset_read_files(PATH_TMP_CG_CST, "mems", mems);
->> +       tst_cgroup_cpuset_read_files(PATH_TMP_CG_CST, "mems", mems,
->> sizeof(buf));
->>
->
-> sizeof() is generally used to calculate the size (in bytes) of a data type,
-> e.g sizeof(char *).
-> I think here to pass 'BUFSIZ' directly is better than sizeof(buf).
->
+local ping_opts="-f -p 000102030405060708090a0b0c0d0e0f"
+local ipaddr=$(tst_ipaddr rhost)
+local s
 
-Jan, do you agree with this point?
-If yes, I can help to modify and apply this patch.
+$PING -h 2>&1 | grep -q '[-]f' || ping_opts="-i 0.01 -p aa"
 
--- 
-Regards,
-Li Wang
-
---00000000000044a0bd05b3a91e19
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Wed, Nov 4, 2020 at 2:22 PM Li Wang &lt;<a href=
-=3D"mailto:liwang@redhat.com">liwang@redhat.com</a>&gt; wrote:<br></div><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
-t:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div class=
-=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
-0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">.<span c=
-lass=3D"gmail_default" style=3D"font-size:small">..</span><br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_cgroup_cpuset_read_files(PATH_TMP_CG_CST, &=
-quot;cpus&quot;, buf);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_cgroup_cpuset_read_files(PATH_TMP_CG_CST, &=
-quot;cpus&quot;, buf, sizeof(buf));<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_cgroup_cpuset_write_files(PATH_TMP_CG_CST, =
-&quot;cpus&quot;, buf);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_cgroup_cpuset_read_files(PATH_TMP_CG_CST, &=
-quot;mems&quot;, mems);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_cgroup_cpuset_read_files(PATH_TMP_CG_CST, &=
-quot;mems&quot;, mems, sizeof(buf));<br></blockquote><div><br></div>sizeof(=
-) is <span class=3D"gmail_default" style=3D"font-size:small">generally </sp=
-an>used to calculate the size (in bytes) of a data type<span class=3D"gmail=
-_default" style=3D"font-size:small">, e.g sizeof(char *).</span></div><div =
-class=3D"gmail_quote"><span class=3D"gmail_default" style=3D"font-size:smal=
-l">I think here to pass &#39;BUFSIZ&#39; directly is better than sizeof(buf=
-).<br></span></div></div></blockquote><div><br></div><div><div class=3D"gma=
-il_default" style=3D"font-size:small">Jan, do you agree with this point?</d=
-iv><div class=3D"gmail_default" style=3D"font-size:small">If yes, I can hel=
-p to modify and apply this patch.</div></div><div>=C2=A0</div></div>-- <br>=
-<div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<b=
-r></div><div>Li Wang<br></div></div></div></div>
-
---00000000000044a0bd05b3a91e19--
+for s in $PACKETSIZES; do
+	EXPECT_PASS $PING -c $COUNT -s $s $ipaddr $ping_opts \>/dev/null
+done
 
 
---===============0372372259==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+>  	tst_res TINFO "flood $PING: ICMP packets filled with pattern '$pat'"
+>  
+> @@ -28,7 +28,7 @@ do_test()
+>  	local s
+>  
+>  	for s in $PACKETSIZES; do
+> -		EXPECT_PASS $PING -c $COUNT -f -s $s $ipaddr -p "$pat" \>/dev/null
+> +		EXPECT_PASS $PING -c $COUNT -i 0.001 -s $s $ipaddr -p "$pat" \>/dev/null
+>  	done
+>  }
+>  
+> 
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0372372259==--
-
