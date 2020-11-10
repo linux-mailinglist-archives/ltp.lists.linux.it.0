@@ -2,42 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 180242AD3A0
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Nov 2020 11:24:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8795E2AD3A6
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Nov 2020 11:26:00 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8AAE53C5378
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Nov 2020 11:24:01 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 214163C5389
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Nov 2020 11:26:00 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 5BFDF3C20D7
- for <ltp@lists.linux.it>; Tue, 10 Nov 2020 11:23:58 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id A87DE3C20D7
+ for <ltp@lists.linux.it>; Tue, 10 Nov 2020 11:25:56 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D14271A00148
- for <ltp@lists.linux.it>; Tue, 10 Nov 2020 11:23:57 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 235A11000465
+ for <ltp@lists.linux.it>; Tue, 10 Nov 2020 11:25:56 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0BC9AABCC;
- Tue, 10 Nov 2020 10:23:57 +0000 (UTC)
-Date: Tue, 10 Nov 2020 11:23:55 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20201110102355.GA10788@pevik>
-References: <20201109164605.25965-1-mdoucha@suse.cz>
- <20201109164605.25965-2-mdoucha@suse.cz>
- <CAEemH2egUaO=ebaRFOZDNCZYi1QKZN168xE=_J_U_yoBH5PyLQ@mail.gmail.com>
- <20201110085225.GA3767@yuki.lan>
+ by mx2.suse.de (Postfix) with ESMTP id 6F536AC1F;
+ Tue, 10 Nov 2020 10:25:55 +0000 (UTC)
+Date: Tue, 10 Nov 2020 11:26:41 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20201110102641.GA11262@yuki.lan>
+References: <1604925271-4811-1-git-send-email-zhufy.jy@cn.fujitsu.com>
+ <20201109125938.GC9991@yuki.lan> <5FA9ED44.7080909@cn.fujitsu.com>
+ <5FAA0151.3030002@cn.fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201110085225.GA3767@yuki.lan>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <5FAA0151.3030002@cn.fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 2/2] syscalls/iopl,
- ioperm: Check for SecureBoot lockdown
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] pan/ltp-pan.c: fix file descriptors leaks
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,35 +47,29 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Martin Doucha <martin.doucha@suse.com>, LTP List <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi!
+> > Yes, musl-libc doesn't support "e" mode for fopen[1].
+> Sorry, I ignore __fmodeflags function, musl libc supports "e" mode since 
+> 0.9.7 after this commit 8582a6e9f ("add 'e' modifier (close-on-exec) to 
+> fopen and fdopen").
+> 
+> https://git.musl-libc.org/cgit/musl/commit/src?id=8582a6e9f25dd7b87d72961f58008052a4cac473
+> 
+> It is about 8 years since musl libc fopen() supports "e". glibc2.7 
+> fopen() supports "e" is about 13 years.  Maybe we can use "e" mode now?
 
-...
-> > >  include $(top_srcdir)/include/mk/testcases.mk
+To be honest I haven't had used ltp-pan for last two years, so if that
+change works for everyone still using it, then we can go ahead with it.
 
-> > > +CFLAGS                 += $(EFIVAR_CFLAGS)
-> > > +LDLIBS                 += $(EFIVAR_LIBS)
-
-
-> > Where can we get the value of these two variables? Shouldn't we
-> > add AC_SUBST() in the m4 file?
-
-> These are exported by the PKG_CHECK_MODULES() pkgconfig autotools macro.
-FYI: I added a fix for old pkg-config (< 0.24) into m4/ltp-tirpc.m4
-(the first m4 file which started to use pkg-config)
-https://autotools.io/pkgconfig/pkg_check_modules.html
-
-But 0.24 is probably old enough (2010; 0.23 was released 2008), thus we should
-probably remove it.
-
-Kind regards,
-Petr
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
