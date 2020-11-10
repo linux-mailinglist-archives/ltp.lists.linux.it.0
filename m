@@ -1,52 +1,55 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C17D2ACB5A
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Nov 2020 03:56:24 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id AB0D62ACC01
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Nov 2020 04:42:11 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 21CF13C6092
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Nov 2020 03:56:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 59A243C6093
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Nov 2020 04:42:11 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 678B73C011E
- for <ltp@lists.linux.it>; Tue, 10 Nov 2020 03:56:22 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 411B3600A78
- for <ltp@lists.linux.it>; Tue, 10 Nov 2020 03:56:20 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.77,465,1596470400"; d="scan'208";a="101126617"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 10 Nov 2020 10:56:18 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 91D324CE3A51;
- Tue, 10 Nov 2020 10:56:12 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Tue, 10 Nov 2020 10:56:11 +0800
-Message-ID: <5FAA0151.3030002@cn.fujitsu.com>
-Date: Tue, 10 Nov 2020 10:56:17 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
-MIME-Version: 1.0
+ by picard.linux.it (Postfix) with ESMTP id 50D803C2FB4
+ for <ltp@lists.linux.it>; Tue, 10 Nov 2020 04:42:09 +0100 (CET)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 39BEF600B94
+ for <ltp@lists.linux.it>; Tue, 10 Nov 2020 04:42:06 +0100 (CET)
+IronPort-SDR: o1oKWInlUT5cOhoRjvTyYgvibOPl8jUIjoEEF2iStgPnWluDAWoOF7AEraWVSGeE3WjrgiAmsy
+ MuPhSSs8qANg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9800"; a="157694049"
+X-IronPort-AV: E=Sophos;i="5.77,465,1596524400"; d="scan'208";a="157694049"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2020 19:42:04 -0800
+IronPort-SDR: 3un1O90fqTv6Dp6hJoOQ3SaXkAKRhXX0j/UxdFVJ79hfzPWATNWr6rPN0fWhnR7bPsT5GS+2FB
+ ycBCLtduK5uw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,465,1596524400"; d="scan'208";a="355967089"
+Received: from fedora29.sh.intel.com ([10.239.183.87])
+ by fmsmga004.fm.intel.com with ESMTP; 09 Nov 2020 19:42:03 -0800
+Date: Tue, 10 Nov 2020 11:30:11 -0500
+From: Pengfei Xu <pengfei.xu@intel.com>
 To: Cyril Hrubis <chrubis@suse.cz>
-References: <1604925271-4811-1-git-send-email-zhufy.jy@cn.fujitsu.com>
- <20201109125938.GC9991@yuki.lan> <5FA9ED44.7080909@cn.fujitsu.com>
-In-Reply-To: <5FA9ED44.7080909@cn.fujitsu.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 91D324CE3A51.ACFB0
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+Message-ID: <20201110163011.GA8178@fedora29.sh.intel.com>
+References: <20201109141948.25412-1-chrubis@suse.cz>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20201109141948.25412-1-chrubis@suse.cz>
+User-Agent: Mutt/1.12.1 (2019-06-15)
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=2.5 required=7.0 tests=DATE_IN_FUTURE_12_24,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Level: **
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] pan/ltp-pan.c: fix file descriptors leaks
+Subject: Re: [LTP] [PATCH] [COMMITTED] security/umip_basic_test: Fix config
+ constraints
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,43 +62,39 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril
-> Hi Cyril, Feiyu
->> Hi!
->>> ltp-pan will leak file descriptors of fopen() into the child process
->>> of the test case, fix this problem by using mode "e" for fopen().
->>
->> Looks good, however this is supported since glibc 2.7 and it does not
->> seem to be supported on musl libc either.
->>
-> Yes, musl-libc doesn't support "e" mode for fopen[1].
-Sorry, I ignore __fmodeflags function, musl libc supports "e" mode since 
-0.9.7 after this commit 8582a6e9f ("add 'e' modifier (close-on-exec) to 
-fopen and fdopen").
+Thanks a lot, Cyril!
 
-https://git.musl-libc.org/cgit/musl/commit/src?id=8582a6e9f25dd7b87d72961f58008052a4cac473
-
-It is about 8 years since musl libc fopen() supports "e". glibc2.7 
-fopen() supports "e" is about 13 years.  Maybe we can use "e" mode now?
->
-> [1]https://git.musl-libc.org/cgit/musl/tree/src/stdio/fopen.c
->> I guess that it would be better just to close these files after a fork
->> in the runchild() function, but that would mean that we would have to
->> pass all these files as paramters to the function as well.
-> +1
->>
->
->
->
->
-
-
-
+On 2020-11-09 at 15:19:48 +0100, Cyril Hrubis wrote:
+> Since linux-5.5 UMIP kconfig changed from "CONFIG_X86_INTEL_UMIP=y" to
+> "CONFIG_X86_UMIP=y" fix this by accepting either of these two.
+> 
+> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+> Reported-by: Pengfei Xu <pengfei.xu@intel.com>
+> ---
+>  testcases/kernel/security/umip/umip_basic_test.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/testcases/kernel/security/umip/umip_basic_test.c b/testcases/kernel/security/umip/umip_basic_test.c
+> index 1baa26c52..13c317022 100644
+> --- a/testcases/kernel/security/umip/umip_basic_test.c
+> +++ b/testcases/kernel/security/umip/umip_basic_test.c
+> @@ -171,7 +171,7 @@ static struct tst_test test = {
+>  	.forks_child = 1,
+>  	.test = verify_umip_instruction,
+>  	.needs_kconfigs = (const char *[]){
+> -		"CONFIG_X86_INTEL_UMIP=y",
+> +		"CONFIG_X86_INTEL_UMIP=y | CONFIG_X86_UMIP=y",
+>  		NULL
+>  	},
+>  	.needs_root = 1,
+> -- 
+> 2.26.2
+> 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
