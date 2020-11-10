@@ -1,41 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8795E2AD3A6
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Nov 2020 11:26:00 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 06B372AD55C
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Nov 2020 12:36:21 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 214163C5389
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Nov 2020 11:26:00 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B2E5A3C2F76
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Nov 2020 12:36:20 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id A87DE3C20D7
- for <ltp@lists.linux.it>; Tue, 10 Nov 2020 11:25:56 +0100 (CET)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 58F363C26D6
+ for <ltp@lists.linux.it>; Tue, 10 Nov 2020 12:36:19 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 235A11000465
- for <ltp@lists.linux.it>; Tue, 10 Nov 2020 11:25:56 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E408C600478
+ for <ltp@lists.linux.it>; Tue, 10 Nov 2020 12:36:18 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 6F536AC1F;
- Tue, 10 Nov 2020 10:25:55 +0000 (UTC)
-Date: Tue, 10 Nov 2020 11:26:41 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 44705ABD1
+ for <ltp@lists.linux.it>; Tue, 10 Nov 2020 11:36:18 +0000 (UTC)
+Date: Tue, 10 Nov 2020 12:37:04 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <20201110102641.GA11262@yuki.lan>
-References: <1604925271-4811-1-git-send-email-zhufy.jy@cn.fujitsu.com>
- <20201109125938.GC9991@yuki.lan> <5FA9ED44.7080909@cn.fujitsu.com>
- <5FAA0151.3030002@cn.fujitsu.com>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <20201110113704.GA13013@yuki.lan>
+References: <20201026164756.30556-1-mdoucha@suse.cz>
+ <20201026164756.30556-16-mdoucha@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <5FAA0151.3030002@cn.fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <20201026164756.30556-16-mdoucha@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] pan/ltp-pan.c: fix file descriptors leaks
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 15/19] Unify error handling in
+ include/tst_safe_macros.h
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,18 +55,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > Yes, musl-libc doesn't support "e" mode for fopen[1].
-> Sorry, I ignore __fmodeflags function, musl libc supports "e" mode since 
-> 0.9.7 after this commit 8582a6e9f ("add 'e' modifier (close-on-exec) to 
-> fopen and fdopen").
-> 
-> https://git.musl-libc.org/cgit/musl/commit/src?id=8582a6e9f25dd7b87d72961f58008052a4cac473
-> 
-> It is about 8 years since musl libc fopen() supports "e". glibc2.7 
-> fopen() supports "e" is about 13 years.  Maybe we can use "e" mode now?
-
-To be honest I haven't had used ltp-pan for last two years, so if that
-change works for everyone still using it, then we can go ahead with it.
+Applied, thanks.
 
 -- 
 Cyril Hrubis
