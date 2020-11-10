@@ -2,74 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 818C92AD01C
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Nov 2020 07:57:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47D042AD1D7
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Nov 2020 09:51:46 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2AD153C2F53
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Nov 2020 07:57:30 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C20A13C5369
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Nov 2020 09:51:45 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 744183C26D6
- for <ltp@lists.linux.it>; Tue, 10 Nov 2020 07:57:28 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 0EA8F1400B9A
- for <ltp@lists.linux.it>; Tue, 10 Nov 2020 07:57:26 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1604991445;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=v7MP/bWlFuhyKORWuZnMEVTUv0zcmmzEXWqbQH5Pkk4=;
- b=Bnh+jDGeFb4n5xf6+xVMBe9+pwcFtLSIlwD//WihK93RCnEE9i6/t0MnqyF9xhuEr2rTCD
- PzKE4cam0MwQ0XYHaIvuHIwKaLf7G9OZERFN+rMjm1JhCOJLEs2dNOHiaPQ1vVEXStHDpk
- Q6Ai2YUBX2I1QEH246vlLcll34eUiaA=
-Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
- [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-330-Z20XdmW4P_WDcJwry38BFA-1; Tue, 10 Nov 2020 01:57:20 -0500
-X-MC-Unique: Z20XdmW4P_WDcJwry38BFA-1
-Received: by mail-yb1-f200.google.com with SMTP id n186so8421717ybg.17
- for <ltp@lists.linux.it>; Mon, 09 Nov 2020 22:57:20 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=v7MP/bWlFuhyKORWuZnMEVTUv0zcmmzEXWqbQH5Pkk4=;
- b=eOUV1uk+ZWeMavvNC/a9QbAQDKxbO51nu/Uzl8f9sbnocm3qiRgpUGj13JEq9Fyxb9
- PCsK956de3RHJxbgrJktpG5Bo63gzcJVf2MzIlXzDHV/14yHWETJWRXQYJTHAchE2klV
- 9mQSjh4Xhs/orHXRNivBaCFJjOriq20Ib7Um8YJMMuyynul6neXTILwsABggU8CqXYXk
- HkP1wPp1wZue105kQjdwEwOoSc6hWpe3TlnXp3uX910N0Y48ig8TgFoM6RJs73J3j8KV
- FFEDnkENe4b4oD1sw0UrcYD9s/gpkeAF+sD8U08pfyZbJ8xN4+ubrd0WsTLcK8/Kzucm
- IGXQ==
-X-Gm-Message-State: AOAM532nwnSBiYEm49EbBdn9rm2KPq3cy/kS+NNGeJjwww7tHYg79hIX
- a7we3OxDJ+GOEzUfuhIndbOEa3hZYgfiRz2sWoatW/1NodM4l14OflBBRUqw0PpFPjl5LOHyXBV
- 857NLyOiTfYrHGaXzrEKko58CSlg=
-X-Received: by 2002:a25:7243:: with SMTP id n64mr24143655ybc.86.1604991440230; 
- Mon, 09 Nov 2020 22:57:20 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzbCCpcukHF/YtdrgrSlV4aSlXWjgMmaovQDLndzSRsEAiZx6G5Vf/KU+xWtYyC65x0v4dBTa1us3Ff+jE+TF4=
-X-Received: by 2002:a25:7243:: with SMTP id n64mr24143634ybc.86.1604991440031; 
- Mon, 09 Nov 2020 22:57:20 -0800 (PST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 894533C23EC
+ for <ltp@lists.linux.it>; Tue, 10 Nov 2020 09:51:41 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 90CDC600A94
+ for <ltp@lists.linux.it>; Tue, 10 Nov 2020 09:51:40 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 70E78AB95;
+ Tue, 10 Nov 2020 08:51:39 +0000 (UTC)
+Date: Tue, 10 Nov 2020 09:52:25 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <20201110085225.GA3767@yuki.lan>
+References: <20201109164605.25965-1-mdoucha@suse.cz>
+ <20201109164605.25965-2-mdoucha@suse.cz>
+ <CAEemH2egUaO=ebaRFOZDNCZYi1QKZN168xE=_J_U_yoBH5PyLQ@mail.gmail.com>
 MIME-Version: 1.0
-References: <1604317338-22774-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-In-Reply-To: <1604317338-22774-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 10 Nov 2020 14:57:07 +0800
-Message-ID: <CAEemH2fr0RLmhKnp-1rFaj+QSWjRdNZtt479WrFDi6MxagXDOg@mail.gmail.com>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <CAEemH2egUaO=ebaRFOZDNCZYi1QKZN168xE=_J_U_yoBH5PyLQ@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] syscalls/ptrace03: Clean up and converted
- into new api
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 2/2] syscalls/iopl,
+ ioperm: Check for SecureBoot lockdown
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,43 +49,59 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1485952246=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1485952246==
-Content-Type: multipart/alternative; boundary="000000000000a6a86305b3bb309b"
+Hi!
+> > ...
+> >
+> >  include $(top_srcdir)/include/mk/testcases.mk
+> >
+> > +CFLAGS                 += $(EFIVAR_CFLAGS)
+> > +LDLIBS                 += $(EFIVAR_LIBS)
+> >
+> 
+> Where can we get the value of these two variables? Shouldn't we
+> add AC_SUBST() in the m4 file?
 
---000000000000a6a86305b3bb309b
-Content-Type: text/plain; charset="UTF-8"
+These are exported by the PKG_CHECK_MODULES() pkgconfig autotools macro.
 
-Thanks for the cleanup work, pushed.
+> > --- a/testcases/kernel/syscalls/ioperm/ioperm02.c
+> > +++ b/testcases/kernel/syscalls/ioperm/ioperm02.c
+> > @@ -22,6 +22,7 @@
+> >  #include <pwd.h>
+> >  #include "tst_test.h"
+> >  #include "tst_safe_macros.h"
+> > +#include "tst_secureboot.h"
+> >
+> >  #if defined __i386__ || defined(__x86_64__)
+> >  #include <sys/io.h>
+> > @@ -45,6 +46,10 @@ static struct tcase_t {
+> >
+> >  static void setup(void)
+> >  {
+> > +       /* ioperm() is restricted under kernel lockdown. */
+> > +       if (tst_lockdown_enabled() || tst_secureboot_enabled() > 0)
+> > +               tst_brk(TCONF, "Kernel is locked down, skip this test");
+> >
+> 
+> The ioperm02 is an error test for ioperm(), it doesn't matter without the
+> lockdown/secure-boot status. Better to remove this from setup().
+> 
+> iopl02 as well.
+
+Actually I think that this is correct, since there is no imposed order
+on the checks in kernel, so we may not get the errors we expect to get.
+
+
+What we are actually missing are tests that iopl() and ioperm() does
+fail with EPERM when either of lockdown or secureboot are enabled.
 
 -- 
-Regards,
-Li Wang
-
---000000000000a6a86305b3bb309b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Thanks for the cleanup work, pushed.</div></div><div><br></di=
-v>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>R=
-egards,<br></div><div>Li Wang<br></div></div></div></div>
-
---000000000000a6a86305b3bb309b--
-
-
---===============1485952246==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1485952246==--
-
