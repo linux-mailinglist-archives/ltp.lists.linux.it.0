@@ -1,38 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC07F2AF1BB
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Nov 2020 14:10:49 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 93A5F2AF35E
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Nov 2020 15:19:07 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2FCD73C6029
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Nov 2020 14:10:49 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DF0F03C6022
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Nov 2020 15:19:06 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id A74A23C2F3E
- for <ltp@lists.linux.it>; Wed, 11 Nov 2020 14:10:45 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 49D8E3C2956
+ for <ltp@lists.linux.it>; Wed, 11 Nov 2020 15:19:02 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 304FE1A013CD
- for <ltp@lists.linux.it>; Wed, 11 Nov 2020 14:10:44 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DD95A200CFF
+ for <ltp@lists.linux.it>; Wed, 11 Nov 2020 15:19:01 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5DDE1AD45;
- Wed, 11 Nov 2020 13:10:44 +0000 (UTC)
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Wed, 11 Nov 2020 14:11:31 +0100
-Message-Id: <20201111131131.17360-1-chrubis@suse.cz>
-X-Mailer: git-send-email 2.26.2
+ by mx2.suse.de (Postfix) with ESMTP id 353BFAED8;
+ Wed, 11 Nov 2020 14:19:01 +0000 (UTC)
+References: <20201111131131.17360-1-chrubis@suse.cz>
+User-agent: mu4e 1.4.13; emacs 27.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Cyril Hrubis <chrubis@suse.cz>
+In-reply-to: <20201111131131.17360-1-chrubis@suse.cz>
+Date: Wed, 11 Nov 2020 14:19:00 +0000
+Message-ID: <87mtzoou23.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH] lib: tst_bool_expr: Add support for strings
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] lib: tst_bool_expr: Add support for strings
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,145 +45,69 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: automated-testing@yoctoproject.org
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it, automated-testing@yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-There are cases where special characters, e.g. parentesis appear in the
-value of a kernel config variable, so in order to be able to parse
-boolean variables such as "CONFIG_DEFAULT_HOSTNAME=\"(none)\"" the
-tokenizer must be able to parse strings.
+Hello,
 
-The implementation is easy, when in string we do not split the input
-into tokens.
+Cyril Hrubis <chrubis@suse.cz> writes:
 
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
----
- lib/newlib_tests/config01        |  1 +
- lib/newlib_tests/config02        |  1 +
- lib/newlib_tests/config03        |  1 +
- lib/newlib_tests/config04        |  1 +
- lib/newlib_tests/config05        |  1 +
- lib/newlib_tests/test_kconfig.c  |  1 +
- lib/newlib_tests/tst_bool_expr.c |  3 +++
- lib/tst_bool_expr.c              | 18 +++++++++++++-----
- 8 files changed, 22 insertions(+), 5 deletions(-)
+> diff --git a/lib/tst_bool_expr.c b/lib/tst_bool_expr.c
+> index dd147cde3..35ffa5a80 100644
+> --- a/lib/tst_bool_expr.c
+> +++ b/lib/tst_bool_expr.c
+> @@ -64,6 +64,7 @@ static unsigned int tokenize(const char *expr, struct tst_expr_tok *last)
+>  {
+>  	size_t i, j;
+>  	unsigned int token_cnt = 0;
+> +	int in_string = 0;
+>  
+>  	for (j = i = 0; expr[i]; i++) {
 
-diff --git a/lib/newlib_tests/config01 b/lib/newlib_tests/config01
-index 96d68d836..1d94d810a 100644
---- a/lib/newlib_tests/config01
-+++ b/lib/newlib_tests/config01
-@@ -2,3 +2,4 @@
- CONFIG_MMU=y
- CONFIG_EXT4_FS=m
- CONFIG_PGTABLE_LEVELS=4
-+CONFIG_DEFAULT_HOSTNAME="(none)"
-diff --git a/lib/newlib_tests/config02 b/lib/newlib_tests/config02
-index 2de45cff8..e1b0e8086 100644
---- a/lib/newlib_tests/config02
-+++ b/lib/newlib_tests/config02
-@@ -2,3 +2,4 @@
- # CONFIG_MMU is not set
- CONFIG_EXT4_FS=m
- CONFIG_PGTABLE_LEVELS=4
-+CONFIG_DEFAULT_HOSTNAME="(none)"
-diff --git a/lib/newlib_tests/config03 b/lib/newlib_tests/config03
-index 1a3b9e648..05c8e194a 100644
---- a/lib/newlib_tests/config03
-+++ b/lib/newlib_tests/config03
-@@ -2,3 +2,4 @@
- CONFIG_MMU=y
- CONFIG_EXT4_FS=m
- CONFIG_PGTABLE_LEVELS=44
-+CONFIG_DEFAULT_HOSTNAME="(none)"
-diff --git a/lib/newlib_tests/config04 b/lib/newlib_tests/config04
-index cce7051ae..da01579b6 100644
---- a/lib/newlib_tests/config04
-+++ b/lib/newlib_tests/config04
-@@ -2,3 +2,4 @@
- CONFIG_MMU=y
- CONFIG_EXT4_FS=y
- CONFIG_PGTABLE_LEVELS=4
-+CONFIG_DEFAULT_HOSTNAME="(none)"
-diff --git a/lib/newlib_tests/config05 b/lib/newlib_tests/config05
-index a9d7bab4d..490f94fa6 100644
---- a/lib/newlib_tests/config05
-+++ b/lib/newlib_tests/config05
-@@ -1,3 +1,4 @@
- # Everything is wrong
- CONFIG_EXT4_FS=y
- CONFIG_PGTABLE_LEVELS=44
-+CONFIG_DEFAULT_HOSTNAME=""
-diff --git a/lib/newlib_tests/test_kconfig.c b/lib/newlib_tests/test_kconfig.c
-index 1f659b95a..9280f07ca 100644
---- a/lib/newlib_tests/test_kconfig.c
-+++ b/lib/newlib_tests/test_kconfig.c
-@@ -16,6 +16,7 @@ static const char *kconfigs[] = {
- 	"CONFIG_PGTABLE_LEVELS=4",
- 	"CONFIG_MMU & CONFIG_EXT4_FS=m",
- 	"CONFIG_EXT4_FS=m | CONFIG_MMU",
-+	"CONFIG_DEFAULT_HOSTNAME=\"(none)\"",
- 	NULL
- };
- 
-diff --git a/lib/newlib_tests/tst_bool_expr.c b/lib/newlib_tests/tst_bool_expr.c
-index f9bb1780d..8f0929d35 100644
---- a/lib/newlib_tests/tst_bool_expr.c
-+++ b/lib/newlib_tests/tst_bool_expr.c
-@@ -102,6 +102,9 @@ static void do_test(void)
- 	do_eval_test("False & A", 1, 0, 0, 0);
- 	do_eval_test("! Undefined", 0, 0, 0, -1);
- 
-+	do_eval_test("\"(none)\"", 0, 0, 0, -1);
-+	do_eval_test("\"(none)\" & \" \"", 0, 0, 0, -1);
-+
- 	parse_fail("A!");
- 	parse_fail("A &");
- 	parse_fail("A B");
-diff --git a/lib/tst_bool_expr.c b/lib/tst_bool_expr.c
-index dd147cde3..35ffa5a80 100644
---- a/lib/tst_bool_expr.c
-+++ b/lib/tst_bool_expr.c
-@@ -64,6 +64,7 @@ static unsigned int tokenize(const char *expr, struct tst_expr_tok *last)
- {
- 	size_t i, j;
- 	unsigned int token_cnt = 0;
-+	int in_string = 0;
- 
- 	for (j = i = 0; expr[i]; i++) {
- 		switch (expr[i]) {
-@@ -72,14 +73,21 @@ static unsigned int tokenize(const char *expr, struct tst_expr_tok *last)
- 		case '!':
- 		case '&':
- 		case '|':
--			token_cnt += new_tok(&last, &expr[j], i - j);
--			token_cnt += new_tok(&last, &expr[i], 1);
--			j = i+1;
-+			if (!in_string) {
-+				token_cnt += new_tok(&last, &expr[j], i - j);
-+				token_cnt += new_tok(&last, &expr[i], 1);
-+				j = i+1;
-+			}
- 		break;
- 		case '\t':
- 		case ' ':
--			token_cnt += new_tok(&last, &expr[j], i - j);
--			j = i+1;
-+			if (!in_string) {
-+				token_cnt += new_tok(&last, &expr[j], i - j);
-+				j = i+1;
-+			}
-+		break;
-+		case '"':
-+			in_string = !in_string;
- 		break;
- 		default:
- 		break;
+
+Why not skip the whole switch statement if in_string and just check for
+the closing '"' instead?
+
+>  		switch (expr[i]) {
+> @@ -72,14 +73,21 @@ static unsigned int tokenize(const char *expr, struct tst_expr_tok *last)
+>  		case '!':
+>  		case '&':
+>  		case '|':
+> -			token_cnt += new_tok(&last, &expr[j], i - j);
+> -			token_cnt += new_tok(&last, &expr[i], 1);
+> -			j = i+1;
+> +			if (!in_string) {
+> +				token_cnt += new_tok(&last, &expr[j], i - j);
+> +				token_cnt += new_tok(&last, &expr[i], 1);
+> +				j = i+1;
+> +			}
+>  		break;
+>  		case '\t':
+>  		case ' ':
+> -			token_cnt += new_tok(&last, &expr[j], i - j);
+> -			j = i+1;
+> +			if (!in_string) {
+> +				token_cnt += new_tok(&last, &expr[j], i - j);
+> +				j = i+1;
+> +			}
+> +		break;
+> +		case '"':
+> +			in_string = !in_string;
+>  		break;
+>  		default:
+>  		break;
+> -- 
+> 2.26.2
+
+It should probably be an error if tokenize exits with in_string=1?
+
 -- 
-2.26.2
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
