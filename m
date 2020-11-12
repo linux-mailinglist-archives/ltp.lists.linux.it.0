@@ -2,42 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F9DE2B04AB
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Nov 2020 13:04:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECAC92B05BD
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Nov 2020 14:01:39 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AFFAD3C4FEB
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Nov 2020 13:04:20 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A7EFA3C5260
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Nov 2020 14:01:39 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 39C273C2EE6
- for <ltp@lists.linux.it>; Thu, 12 Nov 2020 13:04:18 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 04CB13C262E
+ for <ltp@lists.linux.it>; Thu, 12 Nov 2020 14:01:37 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6AFBB1401320
- for <ltp@lists.linux.it>; Thu, 12 Nov 2020 13:04:18 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9807160125A
+ for <ltp@lists.linux.it>; Thu, 12 Nov 2020 14:01:37 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BFD5FAC54;
- Thu, 12 Nov 2020 12:04:17 +0000 (UTC)
-Date: Thu, 12 Nov 2020 13:05:05 +0100
+ by mx2.suse.de (Postfix) with ESMTP id CE47FAC75;
+ Thu, 12 Nov 2020 13:01:36 +0000 (UTC)
+Date: Thu, 12 Nov 2020 14:02:24 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Message-ID: <20201112120505.GA15765@yuki.lan>
-References: <20201111150926.GA21539@yuki.lan>
- <1605163724-20306-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <1605163724-20306-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <20201112103217.GD11365@yuki.lan>
+To: Richard Palethorpe <rpalethorpe@suse.de>
+Message-ID: <20201112130224.GA17493@yuki.lan>
+References: <20201111131131.17360-1-chrubis@suse.cz> <87mtzoou23.fsf@suse.de>
+ <20201111143744.GA16874@yuki.lan> <87k0urpzdf.fsf@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201112103217.GD11365@yuki.lan>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <87k0urpzdf.fsf@suse.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/2] syscalls/ptrace11: Add test for tracing
- init process
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] lib: tst_bool_expr: Add support for strings
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,26 +47,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: ltp@lists.linux.it, automated-testing@yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > +// SPDX-License-Identifier: GPL-2.0-or-later
-> > +/*
-> > + * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
-> > + * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com
-> > + *
-> > + * This case just check whether we can trace init(1) process and
-> > + * doesn't trigger error.
-> > + */
-> 
-> Why is init(1) special here? Is this a regression test?
+> I suppose it depends how much later and how such an error would look. If
+> the error will happen directly after leaving this function then I don't
+> think it matters either, but if it is possible that it manages to
+> complete the whole evaluation process before failing with TCONF because
+> the vars don't match then this has the potential to waste some time.
 
-Looking into the manual page this wasn't supported until 2.6.26. I guess
-that we should mention that here in the test description.
+Well I can easily add this kind of check here, however out of all
+possible mistakes that you can do with misplaced quotes this would only
+catch the cases where the number of quotes is odd. I.e. only a subset of
+all possible errors, everything else would be caught later on when we
+attempt to evaluate the expression.
+
+E.g.
+
+	CONFIG_FOO"=val"
+	"CONFIG_FOO=val & CONFIG_BAR"
+	"CONFIG_FOO"
+	etc.
+
+are all valid in this context, but completely wrong when evaluated.
+
+I guess that it would make more sense to check if variable token is sane
+in the upper layer, i.e. in the kconfig parser since we do have the full
+information about how it should look like there. And this check would
+also cover this case as well.
 
 -- 
 Cyril Hrubis
