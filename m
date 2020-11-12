@@ -2,39 +2,38 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7D542B077D
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Nov 2020 15:21:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B9762B07B4
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Nov 2020 15:43:12 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1DB563C525F
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Nov 2020 15:21:02 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id EB8873C525F
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Nov 2020 15:43:11 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id DD95B3C262E
- for <ltp@lists.linux.it>; Thu, 12 Nov 2020 15:20:59 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 35AD13C262E
+ for <ltp@lists.linux.it>; Thu, 12 Nov 2020 15:43:10 +0100 (CET)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 484D7200FCF
- for <ltp@lists.linux.it>; Thu, 12 Nov 2020 15:20:59 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9ADF9AC1D
- for <ltp@lists.linux.it>; Thu, 12 Nov 2020 14:20:58 +0000 (UTC)
-Date: Thu, 12 Nov 2020 15:21:46 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20201112142146.GA19824@yuki.lan>
-References: <20201109164605.25965-1-mdoucha@suse.cz>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B73A51A014E2
+ for <ltp@lists.linux.it>; Thu, 12 Nov 2020 15:43:09 +0100 (CET)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id A475567373; Thu, 12 Nov 2020 15:43:07 +0100 (CET)
+Date: Thu, 12 Nov 2020 15:43:07 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <20201112144307.GA8377@lst.de>
+References: <20201111180846.21515-1-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201109164605.25965-1-mdoucha@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20201111180846.21515-1-pvorel@suse.cz>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 1/2] Add tst_secureboot_enabled() helper
- function
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] loop: Fix occasional uevent drop
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,43 +45,44 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Jens Axboe <axboe@kernel.dk>,
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+ Josef Bacik <josef@toxicpanda.com>, linux-block@vger.kernel.org,
+ Hannes Reinecke <hare@suse.de>, Martijn Coenen <maco@android.com>,
+ Christoph Hellwig <hch@lst.de>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-I've looked into the library and what it actually does in this case is
-that it opens a sysfs file and reads a few bytes from there. I guess
-that we can even avoid linking the library in this case, since we just
-want to know a value of the single bit in the SecureBoot file.
+On Wed, Nov 11, 2020 at 07:08:46PM +0100, Petr Vorel wrote:
+> 716ad0986cbd caused to occasional drop of loop device uevent, which was
+> no longer triggered in loop_set_size() but in a different part of code.
+> 
+> Bug is reproducible with LTP test uevent01 [1]:
+> 
+> i=0; while true; do
+>     i=$((i+1)); echo "== $i =="
+>     lsmod |grep -q loop && rmmod -f loop
+>     ./uevent01 || break
+> done
+> 
+> Put back triggering through code called in loop_set_size().
+> 
+> Fix required to add yet another parameter to
+> set_capacity_revalidate_and_notify().
 
-The full path is:
+I don't like where this is heading, especially as I've rewritten the whole
+area pending inclusion for 5.11. I think the you want something like what
+I did in this three commits with a loop commit equivalent to the last
+commit for nbd:
 
-/sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c
+http://git.infradead.org/users/hch/block.git/commitdiff/89348f9f510d77d0bf69994f096eb6b71199e0f4
 
-The SecureBoot is the name of the variable and the hex numbers
-represends the global GUID.
+http://git.infradead.org/users/hch/block.git/commitdiff/89348f9f510d77d0bf69994f096eb6b71199e0f4
 
-Now on my system with secure boot disabled the content of the file looks
-like:
-
-cat /sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c  |xxd
-00000000: 0600 0000 00                             .....
-
-The first four bytes are attributes, we can ingore them and the last
-byte is the data byte, which tells us if secure boot is enabled or not.
-
-So it may be as well easier to:
-
-* Check if that file exists
-
-* Read five bytes and return the last one
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
+Jens, maybe I should rebase things so that a version of that first
+commit can go into 5.10 and stable?
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
