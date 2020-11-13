@@ -1,42 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 543872B1E82
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 16:23:51 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CF172B1E90
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 16:26:08 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 128C03C5FBF
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 16:23:51 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 49DBB3C5FBF
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 16:26:08 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id B857F3C4FCB
- for <ltp@lists.linux.it>; Fri, 13 Nov 2020 16:23:48 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 724453C4FCB
+ for <ltp@lists.linux.it>; Fri, 13 Nov 2020 16:26:06 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 40B9E201187
- for <ltp@lists.linux.it>; Fri, 13 Nov 2020 16:23:48 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 09BF1100143D
+ for <ltp@lists.linux.it>; Fri, 13 Nov 2020 16:26:05 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9158DABD9
- for <ltp@lists.linux.it>; Fri, 13 Nov 2020 15:23:47 +0000 (UTC)
-Date: Fri, 13 Nov 2020 16:24:36 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 74A6FAD07;
+ Fri, 13 Nov 2020 15:26:05 +0000 (UTC)
+Date: Fri, 13 Nov 2020 16:26:54 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <20201113152436.GA16827@yuki.lan>
-References: <20201109164605.25965-1-mdoucha@suse.cz>
- <20201112142146.GA19824@yuki.lan>
- <2c091ecd-af38-2569-5fd4-a1f3e3458a01@suse.cz>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20201113152654.GB16827@yuki.lan>
+References: <20200722154558.GB2714@yuki.lan>
+ <1603285074-28392-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20201111154437.GA23576@yuki.lan> <5FAE244C.3030806@cn.fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <2c091ecd-af38-2569-5fd4-a1f3e3458a01@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <5FAE244C.3030806@cn.fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 1/2] Add tst_secureboot_enabled() helper
- function
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 1/4] syscalls/msgstress: Add common file for
+ msgstress
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,29 +55,19 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > I've looked into the library and what it actually does in this case is
-> > that it opens a sysfs file and reads a few bytes from there. I guess
-> > that we can even avoid linking the library in this case, since we just
-> > want to know a value of the single bit in the SecureBoot file.
-> > 
-> > The full path is:
-> > 
-> > /sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c
+> > Well if we add msg to the function names there would be no harm in
+> > putting these functions into the ipc library, right? E.g. we would have
+> > msg_do_reader() etc.
 > 
-> Yes, we could read the sysfile directly. But do we want to deal with
-> potential compatibility issues and test breakage if the UEFI vars API
-> changes in the future? The binary format of those sysfiles is controlled
-> by the UEFI Forum, not by kernel devs. The efivars library is available
-> on basically all modern distros and we most likely won't do any
-> SecureBoot tests on distros that don't have it.
+> Yes. it is no harm. But I don't see any other case using these api.
 
-I do not see how the code that uses the library is actually better. If
-the format changes you will need a newer UEFI library that will
-presumbly handle the difference. Which is even worse than hardcoding the
-stuff in LTP because the UEFI library has to be updated by a distribution.
+Well it makes it easier to maintain the build system since we do not end
+up with hacks in random Makefiles.
 
-In that case patching the code in LTP will be faster and work everywhere
-and not only on distributions that are fast enough to update packages.
+> Also this patch looks has wrongly merged into ltp master.
+
+Sorry I must have pushed that by accident yesterday, I've reverted it
+now.
 
 -- 
 Cyril Hrubis
