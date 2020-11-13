@@ -1,40 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48EA12B1F35
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 16:52:04 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D993E2B1F85
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 17:06:18 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1844C3C5FEB
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 16:52:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8A4C43C5FB9
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 17:06:18 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 811D03C2EBE
- for <ltp@lists.linux.it>; Fri, 13 Nov 2020 16:51:35 +0100 (CET)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 4B4413C2DB1
+ for <ltp@lists.linux.it>; Fri, 13 Nov 2020 17:06:16 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 22454601D4B
- for <ltp@lists.linux.it>; Fri, 13 Nov 2020 16:51:35 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0012B6013F0
+ for <ltp@lists.linux.it>; Fri, 13 Nov 2020 17:06:15 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A54A6ABD9;
- Fri, 13 Nov 2020 15:51:34 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id 62218AE61
+ for <ltp@lists.linux.it>; Fri, 13 Nov 2020 16:06:15 +0000 (UTC)
+From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 13 Nov 2020 16:51:23 +0100
-Message-Id: <20201113155123.5959-6-pvorel@suse.cz>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201113155123.5959-1-pvorel@suse.cz>
-References: <20201113155123.5959-1-pvorel@suse.cz>
+Date: Fri, 13 Nov 2020 17:07:03 +0100
+Message-Id: <20201113160703.4523-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 5/5] fanotify: Add a pedantic check for return value
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH] [COMMITTED] openposix: threads_scenarii: Fix a
+ warnings.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,35 +50,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-for fanotify_init() in safe_fanotify_init()
+Fix many warnings caused by non-static declaration of the threaded()
+function in the threads_scenarii.c.
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
-New in v2.
+ .../conformance/interfaces/testfrmw/threads_scenarii.c          | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-FYI We agreed in LTP to test these.
-
- testcases/kernel/syscalls/fanotify/fanotify.h | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify.h b/testcases/kernel/syscalls/fanotify/fanotify.h
-index 277760c09..f3c2d48b3 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify.h
-+++ b/testcases/kernel/syscalls/fanotify/fanotify.h
-@@ -67,6 +67,11 @@ int safe_fanotify_init(const char *file, const int lineno,
- 		tst_brk(TBROK | TERRNO, "%s:%d: fanotify_init() failed",
- 			file, lineno);
- 	}
-+
-+	if (rval < -1) {
-+		tst_brk(TBROK | TERRNO, "%s:%d: invalid fanotify_init() return %d",
-+			file, lineno, rval);
-+	}
- #else
- 	tst_brk(TCONF, "Header <sys/fanotify.h> is not present");
- #endif /* HAVE_SYS_FANOTIFY_H */
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/testfrmw/threads_scenarii.c b/testcases/open_posix_testsuite/conformance/interfaces/testfrmw/threads_scenarii.c
+index 4597c43e8..baf30a87c 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/testfrmw/threads_scenarii.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/testfrmw/threads_scenarii.c
+@@ -486,7 +486,7 @@ static unsigned int sc;
+ 
+ #ifdef STD_MAIN
+ 
+-extern void *threaded(void *arg);
++static void *threaded(void *arg);
+ 
+ int main(void)
+ {
 -- 
-2.29.2
+2.26.2
 
 
 -- 
