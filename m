@@ -2,39 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC5542B1E6B
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 16:17:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 543872B1E82
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 16:23:51 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 812453C5FBE
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 16:17:44 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 128C03C5FBF
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 16:23:51 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 1E9A43C4FCB
- for <ltp@lists.linux.it>; Fri, 13 Nov 2020 16:17:43 +0100 (CET)
-Received: from relay10.mail.gandi.net (relay10.mail.gandi.net [217.70.178.230])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id B857F3C4FCB
+ for <ltp@lists.linux.it>; Fri, 13 Nov 2020 16:23:48 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 9B77614016D7
- for <ltp@lists.linux.it>; Fri, 13 Nov 2020 16:17:42 +0100 (CET)
-Received: from kmaincent-XPS-13-7390 (212.208.113.78.rev.sfr.net
- [78.113.208.212]) (Authenticated sender: kory.maincent@bootlin.com)
- by relay10.mail.gandi.net (Postfix) with ESMTPSA id 8B31F240013
- for <ltp@lists.linux.it>; Fri, 13 Nov 2020 15:17:41 +0000 (UTC)
-Date: Fri, 13 Nov 2020 16:17:39 +0100
-From: =?UTF-8?B?S8O2cnk=?= Maincent <kory.maincent@bootlin.com>
-To: ltp@lists.linux.it
-Message-ID: <20201113161739.37034d68@kmaincent-XPS-13-7390>
-Organization: bootlin
-X-Mailer: Claws Mail 3.16.0 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 40B9E201187
+ for <ltp@lists.linux.it>; Fri, 13 Nov 2020 16:23:48 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9158DABD9
+ for <ltp@lists.linux.it>; Fri, 13 Nov 2020 15:23:47 +0000 (UTC)
+Date: Fri, 13 Nov 2020 16:24:36 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <20201113152436.GA16827@yuki.lan>
+References: <20201109164605.25965-1-mdoucha@suse.cz>
+ <20201112142146.GA19824@yuki.lan>
+ <2c091ecd-af38-2569-5fd4-a1f3e3458a01@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <2c091ecd-af38-2569-5fd4-a1f3e3458a01@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] Need support on host01 test command.
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 1/2] Add tst_secureboot_enabled() helper
+ function
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,19 +48,40 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGVsbG8sCgpJIGFtIHRyeWluZyB0byB1cGRhdGUgaG9zdDAxIHRlc3QgdG8gdGhlIG5ldyBBUEks
-IGJ1dCBJIGdvdCBzb21lIHByb2JsZW0gd2l0aAp0aGF0IHRhc2suCgpJIGFtIG5vdCBhIG5ldHdv
-cmsgZXhwZXJ0IGFuZCBJIGFtIHdvbmRlcmluZyB3aHkgSSBnb3QgdGhpcyBpc3N1ZToKIyBob3N0
-ICQoaG9zdG5hbWUpCjs7IGNvbm5lY3Rpb24gdGltZWQgb3V0OyBubyBzZXJ2ZXJzIGNvdWxkIGJl
-IHJlYWNoZWQKIyBob3N0IGxvY2FsY2hvc3QKOzsgY29ubmVjdGlvbiB0aW1lZCBvdXQ7IG5vIHNl
-cnZlcnMgY291bGQgYmUgcmVhY2hlZAoKCkkgYW0gd29ya2luZyBvbiBhbiBlbWJlZGRlZCBib2Fy
-ZCB3aXRoIGFuIE9wZW5FbWJlZGRlZCBiYXNlZCBkaXN0cmlidXRpb24uCkkgbWF5IG1pc3Mgc29t
-ZSBuZXR3b3JrIHBhY2thZ2UsIGNvdWxkIHlvdSBnaXZlIG1lIGEgaGludCB0byBnbyBmdXJ0aGVy
-LgoKUmVnYXJkcywKCi0tIApLw7ZyeSBNYWluY2VudCwgQm9vdGxpbgpFbWJlZGRlZCBMaW51eCBh
-bmQga2VybmVsIGVuZ2luZWVyaW5nCmh0dHBzOi8vYm9vdGxpbi5jb20KCi0tIApNYWlsaW5nIGxp
-c3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+Hi!
+> > I've looked into the library and what it actually does in this case is
+> > that it opens a sysfs file and reads a few bytes from there. I guess
+> > that we can even avoid linking the library in this case, since we just
+> > want to know a value of the single bit in the SecureBoot file.
+> > 
+> > The full path is:
+> > 
+> > /sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c
+> 
+> Yes, we could read the sysfile directly. But do we want to deal with
+> potential compatibility issues and test breakage if the UEFI vars API
+> changes in the future? The binary format of those sysfiles is controlled
+> by the UEFI Forum, not by kernel devs. The efivars library is available
+> on basically all modern distros and we most likely won't do any
+> SecureBoot tests on distros that don't have it.
+
+I do not see how the code that uses the library is actually better. If
+the format changes you will need a newer UEFI library that will
+presumbly handle the difference. Which is even worse than hardcoding the
+stuff in LTP because the UEFI library has to be updated by a distribution.
+
+In that case patching the code in LTP will be faster and work everywhere
+and not only on distributions that are fast enough to update packages.
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
