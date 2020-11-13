@@ -2,38 +2,36 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D993E2B1F85
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 17:06:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E746C2B1F96
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 17:07:39 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8A4C43C5FB9
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 17:06:18 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A9FCB3C5FBB
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 17:07:39 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 4B4413C2DB1
- for <ltp@lists.linux.it>; Fri, 13 Nov 2020 17:06:16 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id D95733C2EB6
+ for <ltp@lists.linux.it>; Fri, 13 Nov 2020 17:07:37 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0012B6013F0
- for <ltp@lists.linux.it>; Fri, 13 Nov 2020 17:06:15 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 80BAE2009D9
+ for <ltp@lists.linux.it>; Fri, 13 Nov 2020 17:07:37 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 62218AE61
- for <ltp@lists.linux.it>; Fri, 13 Nov 2020 16:06:15 +0000 (UTC)
-From: Cyril Hrubis <chrubis@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id E2762ABD9;
+ Fri, 13 Nov 2020 16:07:36 +0000 (UTC)
+Date: Fri, 13 Nov 2020 17:07:35 +0100
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 13 Nov 2020 17:07:03 +0100
-Message-Id: <20201113160703.4523-1-chrubis@suse.cz>
-X-Mailer: git-send-email 2.26.2
+Message-ID: <20201113160735.GA8018@pevik>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] [COMMITTED] openposix: threads_scenarii: Fix a
- warnings.
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] Failing Fedora rawhide (again)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,35 +43,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Fix many warnings caused by non-static declaration of the threaded()
-function in the threads_scenarii.c.
+Hi,
 
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
----
- .../conformance/interfaces/testfrmw/threads_scenarii.c          | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+this time it's on autoconf broken:
 
-diff --git a/testcases/open_posix_testsuite/conformance/interfaces/testfrmw/threads_scenarii.c b/testcases/open_posix_testsuite/conformance/interfaces/testfrmw/threads_scenarii.c
-index 4597c43e8..baf30a87c 100644
---- a/testcases/open_posix_testsuite/conformance/interfaces/testfrmw/threads_scenarii.c
-+++ b/testcases/open_posix_testsuite/conformance/interfaces/testfrmw/threads_scenarii.c
-@@ -486,7 +486,7 @@ static unsigned int sc;
- 
- #ifdef STD_MAIN
- 
--extern void *threaded(void *arg);
-+static void *threaded(void *arg);
- 
- int main(void)
- {
--- 
-2.26.2
+    /usr/bin/autoconf: This script requires a shell more modern than all
+    /usr/bin/autoconf: the shells that I found on your system.
+    /usr/bin/autoconf: Please tell bug-autoconf@gnu.org about your system,
+    /usr/bin/autoconf: including any error possibly output before this
+    /usr/bin/autoconf: message. Then install a modern shell, or manually run
+    /usr/bin/autoconf: the script under such a shell if you do have one.
 
+I suspect this is just for docker image (I remember some discussion on github,
+but cannot find anything at [1] now).
+
+I checked autoconf file and it's perfectly ok, thus I'll downgrade to Fedora
+latest (33). I like rawhide for newest software (together with Tumbleweed),
+but it must be working.
+
+Kind regards,
+Petr
+
+[1] https://github.com/fedora-cloud/docker-brew-fedora/issues
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
