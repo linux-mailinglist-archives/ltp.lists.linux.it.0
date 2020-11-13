@@ -1,76 +1,53 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0D5E2B15BA
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 07:02:50 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B2A552B15CA
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 07:14:42 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0DC2B3C2ED7
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 07:02:50 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 288E03C4FA6
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 07:14:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id CA8663C2EC1
- for <ltp@lists.linux.it>; Fri, 13 Nov 2020 07:02:45 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 3D239600787
- for <ltp@lists.linux.it>; Fri, 13 Nov 2020 07:02:43 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1605247362;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=mBwO2/D0xk3h1bSryz5sKP/lD0RLuo0z3bwnOYhaT3I=;
- b=aCR5YbfPi/Z1q1GcrXlxJx85X+vy9phFi6jwlC1WiHiKkULTmbRMCLxDYwETuB6syNXChw
- WYJkBiKhCnY5876af6zV4MPR2kXrws6ZqKUph4G2MeFTsRdPZ+W0oleIRLU2yEbWcjm7mQ
- 95Ko9Uzio7Vb9bAgwqjxM19/G5oFKLQ=
-Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
- [209.85.219.197]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-300-B0ThDdUiNrSufZcLnFvg_g-1; Fri, 13 Nov 2020 01:02:39 -0500
-X-MC-Unique: B0ThDdUiNrSufZcLnFvg_g-1
-Received: by mail-yb1-f197.google.com with SMTP id k7so9088140ybm.13
- for <ltp@lists.linux.it>; Thu, 12 Nov 2020 22:02:39 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=mBwO2/D0xk3h1bSryz5sKP/lD0RLuo0z3bwnOYhaT3I=;
- b=pdFYApxnYUB6/DKQuDZj5uSCzL/bE/hX7Bc21HYaVH7AXlBMPjTt2mmVmVAhEZQN9j
- CZt3ciqAr/+Z5ESNSt2R3QRsufndPDKxOIBOeCDPFLUlEZvASq6IhbnBIBxrkQVnoag+
- cbySBjlzVbL89vAWB1JGH1xgjD1e7qqg3Nac464gcVQhiRPbWJ1kFj910eN9L1eV2Atp
- NEcVJSKb92VgJKh3fiKaI+f65QRZyvTEtY6SJg8Saf9jkPMYxCdR53rMkW6u3MtxAyvo
- E5shlxjhVsRAyOWR09QVRovJz+1j/LxA9Jz/OIOl/BaJcP6AAH7edqiySb5XU0fh8BCt
- UnOw==
-X-Gm-Message-State: AOAM532RxG35hOSHTFCcIsG2OGdymPWGWCp1XK4nk7OdUIlCpD3rfBrf
- cjjfnKW/GRqDWU4LhWvW9RJ7+3EeLJDX0TjNCYoOFM7XZhjgOyvFfc9CLdpKKjaGMZX9MdBDSZ9
- 4oIkqkn+On5jmyIcFz7wDFVq8zXo=
-X-Received: by 2002:a25:ba4c:: with SMTP id z12mr787447ybj.366.1605247359336; 
- Thu, 12 Nov 2020 22:02:39 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJw3+lpgrKdJQ6hnp8b1yZtdi294NFYqgU2EAwOuPaJqs4YvpcBIgh3tlnY4vCPJ6uaGMJmuYmmsoWsWp52iS24=
-X-Received: by 2002:a25:ba4c:: with SMTP id z12mr787426ybj.366.1605247359023; 
- Thu, 12 Nov 2020 22:02:39 -0800 (PST)
+ by picard.linux.it (Postfix) with ESMTP id 05F923C2EC1
+ for <ltp@lists.linux.it>; Fri, 13 Nov 2020 07:14:38 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 069126010DE
+ for <ltp@lists.linux.it>; Fri, 13 Nov 2020 07:14:37 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.77,474,1596470400"; d="scan'208";a="101329935"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 13 Nov 2020 14:14:35 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 621B84CE4BB7;
+ Fri, 13 Nov 2020 14:14:34 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Fri, 13 Nov 2020 14:14:34 +0800
+Message-ID: <5FAE244C.3030806@cn.fujitsu.com>
+Date: Fri, 13 Nov 2020 14:14:36 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-References: <20201109164605.25965-1-mdoucha@suse.cz>
- <20201112142146.GA19824@yuki.lan>
- <2c091ecd-af38-2569-5fd4-a1f3e3458a01@suse.cz> <20201112174341.GB29575@pevik>
-In-Reply-To: <20201112174341.GB29575@pevik>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 13 Nov 2020 14:02:27 +0800
-Message-ID: <CAEemH2cnAmZ-Ovc4DpGRe8NkQdFgX4cjaOrqbboc+o1aYpTuwA@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <20200722154558.GB2714@yuki.lan>
+ <1603285074-28392-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20201111154437.GA23576@yuki.lan>
+In-Reply-To: <20201111154437.GA23576@yuki.lan>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 621B84CE4BB7.AC0A5
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
 X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 1/2] Add tst_secureboot_enabled() helper
- function
+Subject: Re: [LTP] [PATCH v3 1/4] syscalls/msgstress: Add common file for
+ msgstress
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,112 +59,198 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1523023406=="
+Cc: ltp@lists.linux.it
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1523023406==
-Content-Type: multipart/alternative; boundary="0000000000009c99d205b3f6c69b"
-
---0000000000009c99d205b3f6c69b
-Content-Type: text/plain; charset="UTF-8"
-
-On Fri, Nov 13, 2020 at 1:44 AM Petr Vorel <pvorel@suse.cz> wrote:
-
-> Hi,
+Hi Cyril
+> Hi!
+>> Copy old libmsgctl.c three functions(doreader,dowriter, fill_buffer, verify)
+>> into this common file. The reason for not putting it into lib directory because
+>> only msgstress cases use these functions. So raising them into lib level makes
+>> no sense.
 >
-> > On 12. 11. 20 15:21, Cyril Hrubis wrote:
-> > > Hi!
-> > > I've looked into the library and what it actually does in this case is
-> > > that it opens a sysfs file and reads a few bytes from there. I guess
-> > > that we can even avoid linking the library in this case, since we just
-> > > want to know a value of the single bit in the SecureBoot file.
+> Well if we add msg to the function names there would be no harm in
+> putting these functions into the ipc library, right? E.g. we would have
+> msg_do_reader() etc.
+
+Yes. it is no harm. But I don't see any other case using these api.
+
+Also this patch looks has wrongly merged into ltp master.
+
 >
-> > > The full path is:
+> I would actually prefer that, since we would have avoided complexity in
+> the msgstress/Makefile that way.
 >
-> > >
-> /sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c
+>> Signed-off-by: Yang Xu<xuyang2018.jy@cn.fujitsu.com>
+>> ---
+>>   .../kernel/syscalls/ipc/msgstress/Makefile    |  2 +-
+>>   .../syscalls/ipc/msgstress/msgstress_common.c | 95 +++++++++++++++++++
+>>   .../syscalls/ipc/msgstress/msgstress_common.h | 26 +++++
+>>   3 files changed, 122 insertions(+), 1 deletion(-)
+>>   create mode 100644 testcases/kernel/syscalls/ipc/msgstress/msgstress_common.c
+>>   create mode 100644 testcases/kernel/syscalls/ipc/msgstress/msgstress_common.h
+>>
+>> diff --git a/testcases/kernel/syscalls/ipc/msgstress/Makefile b/testcases/kernel/syscalls/ipc/msgstress/Makefile
+>> index b821bda01..2c8fa8e5b 100644
+>> --- a/testcases/kernel/syscalls/ipc/msgstress/Makefile
+>> +++ b/testcases/kernel/syscalls/ipc/msgstress/Makefile
+>> @@ -6,7 +6,7 @@ top_srcdir              ?= ../../../../..
+>>   LTPLIBS = ltpipc
+>>
+>>   include $(top_srcdir)/include/mk/testcases.mk
+>> -
+>> +FILTER_OUT_MAKE_TARGETS         := msgstress_common
+>>   LTPLDLIBS  += -lltpipc
+>>
+>>   include $(top_srcdir)/include/mk/generic_leaf_target.mk
+>> diff --git a/testcases/kernel/syscalls/ipc/msgstress/msgstress_common.c b/testcases/kernel/syscalls/ipc/msgstress/msgstress_common.c
+>> new file mode 100644
+>> index 000000000..3431355f6
+>> --- /dev/null
+>> +++ b/testcases/kernel/syscalls/ipc/msgstress/msgstress_common.c
+>> @@ -0,0 +1,95 @@
+>> +// SPDX-License-Identifier: GPL-2.0-or-later
+>> +/*
+>> + * Copyright (c) International Business Machines  Corp., 2002
+>> + * Copyright (c) 2013 Oracle and/or its affiliates. All Rights Reserved.
+>> + * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved???
+>> + */
+>> +
+>> +#define TST_NO_DEFAULT_MAIN
+>> +#include "msgstress_common.h"
+>> +
+>> +int verify(char *buf, char val, int size, int child)
+>> +{
+>> +	while (size-->  0) {
+>> +		if (*buf++ != val) {
+>> +			tst_res(TFAIL, "Verify error in child %d, *buf = %x, "
+>> +				"val = %x, size = %d\n", child, *buf, val,
+>> +				size);
+>> +			return 1;
+>> +		}
+>> +	}
+>> +	return 0;
+>> +}
+>> +
+>> +void do_reader(long key, int tid, long type, int child, int nreps)
+>> +{
+>> +	int i, size;
+>> +	int id;
+>> +	struct mbuffer buffer;
+>> +
+>> +	id = SAFE_MSGGET(key, 0);
+>> +	if (id != tid) {
+>> +		tst_res(TFAIL,
+>> +			"Message queue mismatch in the reader of child group"
+>> +			" %d for message queue id %d\n", child, id);
+>> +		return;
+>> +	}
+>> +	for (i = 0; i<  nreps; i++) {
+>> +		memset(&buffer, 0, sizeof(buffer));
+>> +
+>> +		size = SAFE_MSGRCV(id,&buffer, 100, type, 0);
+>> +		if (buffer.type != type) {
+>> +			tst_res(TFAIL, "Type mismatch in child %d, read #%d, "
+>> +				"for message got %ld, exected %ld",
+>> +				child, (i + 1), buffer.type, type);
+>> +			return;
+>> +		}
+>> +		if (buffer.data.len + 1 != size) {
+>> +			tst_res(TFAIL, "Size mismatch in child %d, read #%d, "
+>> +				"for message got %d, expected %d",
+>> +				child, (i + 1), buffer.data.len + 1, size);
+>> +			return;
+>> +		}
+>> +		if (verify(buffer.data.pbytes, (key % 255), size - 1, child)) {
+>> +			tst_res(TFAIL, "Verify failed in child %d read # = %d, "
+>> +				"key = %lx\n", child, (i + 1), key);
+>> +			return;
+>> +		}
+>> +		key++;
+>> +	}
+>> +}
+>> +
+>> +void fill_buffer(char *buf, char val, int size)
+>> +{
+>> +	int i;
+>> +
+>> +	for (i = 0; i<  size; i++)
+>> +		buf[i] = val;
+>> +}
 >
-> > Yes, we could read the sysfile directly. But do we want to deal with
-> > potential compatibility issues and test breakage if the UEFI vars API
-> > changes in the future? The binary format of those sysfiles is controlled
-> > by the UEFI Forum, not by kernel devs. The efivars library is available
-> > on basically all modern distros and we most likely won't do any
-> > SecureBoot tests on distros that don't have it.
+> This is open-coded memset() please use memset() instead.
+OK
 >
-> I also don't see a big deal to use the efivars library.
+>> +void do_writer(long key, int tid, long type, int child, int nreps)
+>> +{
+>> +	int i, size;
+>> +	int id;
+>> +	struct mbuffer buffer;
+>> +
+>> +	id = SAFE_MSGGET(key, 0);
+>> +	if (id != tid) {
+>> +		tst_res(TFAIL, "Message queue mismatch in the reader of child"
+>> +			" group %d for message queue id %d\n", child, id);
+>> +		return;
+>> +	}
+>> +
+>> +	for (i = 0; i<  nreps; i++) {
+>> +		memset(&buffer, 0, sizeof(buffer));
+>> +
+>> +		do {
+>> +			size = (lrand48() % 99);
+>> +		} while (size == 0);
+>> +		fill_buffer(buffer.data.pbytes, (key % 255), size);
+>> +		buffer.data.len = size;
+>> +		buffer.type = type;
+>> +		SAFE_MSGSND(id,&buffer, size + 1, 0);
+>> +		key++;
+>> +	}
+>> +}
+>> diff --git a/testcases/kernel/syscalls/ipc/msgstress/msgstress_common.h b/testcases/kernel/syscalls/ipc/msgstress/msgstress_common.h
+>> new file mode 100644
+>> index 000000000..81e2f288b
+>> --- /dev/null
+>> +++ b/testcases/kernel/syscalls/ipc/msgstress/msgstress_common.h
+>> @@ -0,0 +1,26 @@
+>> +// SPDX-License-Identifier: GPL-2.0-or-later
+>> +/*
+>> + * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
+>> + * Author: Yang Xu<xuyang2018.jy@cn.fujitsu.com>
+>> + */
+>> +
+>> +#ifndef MSGSTRESS_COMMON_H
+>> +#define MSGSTRESS_COMMON_H
+>> +
+>> +#include<stdlib.h>
+>> +#include "tst_safe_sysv_ipc.h"
+>> +#include "tst_test.h"
+>> +
+>> +struct mbuffer {
+>> +	long type;
+>> +	struct {
+>> +		char len;
+>> +		char pbytes[99];
+>> +	} data;
+>> +};
+>> +
+>> +void do_reader(long key, int tid, long type, int child, int nreps);
+>> +void do_writer(long key, int tid, long type, int child, int nreps);
+>> +
+>> +#endif
+>> +
+>> --
+>> 2.23.0
+>>
+>>
+>>
 >
 
-That's true. I have no objection to the patchset.
 
-But we always try to avoid the LTP dependency on other libraries, in this
-point, I agree with Cyril.
-
--- 
-Regards,
-Li Wang
-
---0000000000009c99d205b3f6c69b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Fri, Nov 13, 2020 at 1:44 AM Petr Vorel &lt;<a h=
-ref=3D"mailto:pvorel@suse.cz">pvorel@suse.cz</a>&gt; wrote:<br></div><block=
-quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
-px solid rgb(204,204,204);padding-left:1ex">Hi,<br>
-<br>
-&gt; On 12. 11. 20 15:21, Cyril Hrubis wrote:<br>
-&gt; &gt; Hi!<br>
-&gt; &gt; I&#39;ve looked into the library and what it actually does in thi=
-s case is<br>
-&gt; &gt; that it opens a sysfs file and reads a few bytes from there. I gu=
-ess<br>
-&gt; &gt; that we can even avoid linking the library in this case, since we=
- just<br>
-&gt; &gt; want to know a value of the single bit in the SecureBoot file.<br=
->
-<br>
-&gt; &gt; The full path is:<br>
-<br>
-&gt; &gt; /sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e0=
-98032b8c<br>
-<br>
-&gt; Yes, we could read the sysfile directly. But do we want to deal with<b=
-r>
-&gt; potential compatibility issues and test breakage if the UEFI vars API<=
-br>
-&gt; changes in the future? The binary format of those sysfiles is controll=
-ed<br>
-&gt; by the UEFI Forum, not by kernel devs. The efivars library is availabl=
-e<br>
-&gt; on basically all modern distros and we most likely won&#39;t do any<br=
->
-&gt; SecureBoot tests on distros that don&#39;t have it.<br>
-<br>
-I also don&#39;t see a big deal to use the efivars library.<br></blockquote=
-><div><br></div><div class=3D"gmail_default" style=3D"font-size:small">That=
-&#39;s true. I have no objection to the patchset.</div><div class=3D"gmail_=
-default" style=3D"font-size:small"><br></div><div class=3D"gmail_default" s=
-tyle=3D"font-size:small">But we always try to avoid the LTP dependency on o=
-ther libraries, in this point, I agree with Cyril.</div></div><div><br></di=
-v>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>R=
-egards,<br></div><div>Li Wang<br></div></div></div></div>
-
---0000000000009c99d205b3f6c69b--
-
-
---===============1523023406==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1523023406==--
-
