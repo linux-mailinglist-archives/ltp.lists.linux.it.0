@@ -2,38 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 161842B1E02
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 16:04:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C8D62B1E58
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 16:11:54 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BF8173C5FBC
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 16:03:59 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 22F2D3C5FBD
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 16:11:54 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 692A43C2ED7
- for <ltp@lists.linux.it>; Fri, 13 Nov 2020 16:03:58 +0100 (CET)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id B16633C4FBC
+ for <ltp@lists.linux.it>; Fri, 13 Nov 2020 16:11:51 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E48581A014FF
- for <ltp@lists.linux.it>; Fri, 13 Nov 2020 16:03:57 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5F83F6013FB
+ for <ltp@lists.linux.it>; Fri, 13 Nov 2020 16:11:51 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4B15DAC91;
- Fri, 13 Nov 2020 15:03:57 +0000 (UTC)
-Date: Fri, 13 Nov 2020 16:04:45 +0100
+ by mx2.suse.de (Postfix) with ESMTP id B1A14AC91;
+ Fri, 13 Nov 2020 15:11:50 +0000 (UTC)
+Date: Fri, 13 Nov 2020 16:12:39 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Radoslav Kolev <radoslav.kolev@suse.com>
-Message-ID: <20201113150445.GA16315@yuki.lan>
-References: <20201113084030.19317-1-radoslav.kolev@suse.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <20201113151239.GB16315@yuki.lan>
+References: <20201112120505.GA15765@yuki.lan>
+ <1605233273-3784-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201113084030.19317-1-radoslav.kolev@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <1605233273-3784-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] Convert dup03 to new API and clean up
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] syscalls/ptrace11: Add test for tracing init
+ process
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,15 +54,16 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> -	fd = malloc(maxfds * sizeof(int));
-> +	fd = SAFE_MALLOC(maxfds * sizeof(int));
->  	if (fd == NULL)
-> -		tst_brkm(TBROK | TERRNO, NULL, "malloc failed");
-> -	fd[0] = -1;
-> +		tst_brk(TBROK | TERRNO, "malloc failed");
+> +	/*
+> +	 * Running attach/detach more times will trigger a ESRCH error because
+> +	 * ptrace_check_attach function in kernel will report it if its process
+> +	 * stats is not __TASK_TRACED.
+> +	 */
+> +	TST_RETRY_FUNC(ptrace(PTRACE_DETACH, 1, NULL, NULL), TST_RETVAL_EQ0);
 
-I've removed the fd == NULL check, since that cannot happen since you
-call SAFE_MALLOC() now and pushed, thanks.
+Why do we have to retry the detach here?
+
+Other than that the rest looks fine now.
 
 -- 
 Cyril Hrubis
