@@ -1,56 +1,85 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06D7C2B1FE2
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 17:16:13 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A3792B2038
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 17:25:00 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C00313C5FC2
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 17:16:12 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id AF6613C5FD8
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Nov 2020 17:24:59 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 49E063C4FC1
- for <ltp@lists.linux.it>; Fri, 13 Nov 2020 17:13:45 +0100 (CET)
-Received: from smtprelay.hostedemail.com (smtprelay0148.hostedemail.com
- [216.40.44.148])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 86D963C4FBC
+ for <ltp@lists.linux.it>; Fri, 13 Nov 2020 17:24:55 +0100 (CET)
+Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DAC9820006F
- for <ltp@lists.linux.it>; Fri, 13 Nov 2020 17:13:43 +0100 (CET)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay03.hostedemail.com (Postfix) with ESMTP id 0D394837F24A;
- Fri, 13 Nov 2020 16:13:41 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Spam-Summary: 50, 0, 0, , d41d8cd98f00b204, joe@perches.com, ,
- RULES_HIT:41:355:379:599:800:960:967:973:988:989:1260:1277:1311:1313:1314:1345:1359:1437:1515:1516:1518:1534:1541:1593:1594:1711:1730:1747:1777:1792:1801:2198:2199:2393:2525:2560:2563:2682:2685:2828:2859:2901:2933:2937:2939:2942:2945:2947:2951:2954:3022:3138:3139:3140:3141:3142:3352:3622:3865:3867:3868:3870:3872:3873:3934:3936:3938:3941:3944:3947:3950:3953:3956:3959:4250:4321:4605:5007:6117:6119:7208:7464:7904:8784:8957:9025:9113:9121:9163:9165:9391:10004:10394:10400:10848:11026:11232:11233:11658:11876:11914:11984:12043:12050:12114:12266:12295:12296:12297:12438:12555:12740:12760:12895:12986:13069:13311:13357:13439:13870:13904:14181:14659:14721:14777:21063:21067:21080:21347:21433:21451:21611:21627:21789:30003:30029:30054:30055:30056:30064:30091,
- 0, RBL:none, CacheIP:none, Bayesian:0.5, 0.5, 0.5, Netcheck:none,
- DomainCache:0, MSF:not bulk, SPF:, MSBL:0, DNSBL:none, Custom_rules:0:0:0,
- LFtime:2, LUA_SUMMARY:none
-X-HE-Tag: owl98_140d4ca27310
-X-Filterd-Recvd-Size: 2867
-Received: from XPS-9350.home (unknown [47.151.133.149])
- (Authenticated sender: joe@perches.com)
- by omf15.hostedemail.com (Postfix) with ESMTPA;
- Fri, 13 Nov 2020 16:13:37 +0000 (UTC)
-Message-ID: <97b1b575659bc87a07a308765769451d9eee4aef.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: kernel test robot <oliver.sang@intel.com>
-Date: Fri, 13 Nov 2020 08:13:36 -0800
-In-Reply-To: <20201113121025.GA7578@xsang-OptiPlex-9020>
-References: <20201113121025.GA7578@xsang-OptiPlex-9020>
-User-Agent: Evolution 3.38.1-1 
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E05A41A0174E
+ for <ltp@lists.linux.it>; Fri, 13 Nov 2020 17:24:54 +0100 (CET)
+Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
+ by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0ADGK1SS139659;
+ Fri, 13 Nov 2020 16:24:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=eZoeU6Mlk6cMW3vBKO8rPsrxnyc2CzAyzE5AOpRRETo=;
+ b=qKQ9KN4Kz1Fxu8xX11tUou3bm1MEhAtKceYvp8izJfiCMKQGy+pfdHSsT13eo+RBhK5W
+ y9mlX+rYjEoSzM+tTjQan029W+nKmqWw8rnx4IhDs3rMA8n+uJRTvUDKXljIfVv4ox17
+ mQUfIS5cdKp7u9hm509dFBzML/qaEou+ty/hgo1GOku6wMLn6zisj02Q9iVB2jqpQJf5
+ oVWNudoYMNdevCq6Gz+PRAKplzr8scVEjRLnuGIYle5AVYzgJPkFflRtat8Cm/4VVHh4
+ dkZ2wP6OC/oEOAQNyZjz4HnrbJwezMWVPZDHjjdmLN1++dM76bfh2/Iu+ZFITrujV7iA 9w== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by aserp2130.oracle.com with ESMTP id 34nh3bbcrm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 13 Nov 2020 16:24:46 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0ADGLFLC005139;
+ Fri, 13 Nov 2020 16:22:46 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by userp3020.oracle.com with ESMTP id 34rt5855qb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 13 Nov 2020 16:22:46 +0000
+Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0ADGMgRg005602;
+ Fri, 13 Nov 2020 16:22:43 GMT
+Received: from [192.168.1.39] (/91.233.44.185)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Fri, 13 Nov 2020 08:22:42 -0800
+To: =?UTF-8?Q?K=c3=b6ry_Maincent?= <kory.maincent@bootlin.com>,
+ ltp@lists.linux.it
+References: <20201113161739.37034d68@kmaincent-XPS-13-7390>
+From: Alexey Kodanev <alexey.kodanev@oracle.com>
+Message-ID: <509d120d-35b5-d435-c052-4d34314dd438@oracle.com>
+Date: Fri, 13 Nov 2020 19:22:39 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20201113161739.37034d68@kmaincent-XPS-13-7390>
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9804
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ bulkscore=0 mlxscore=0
+ mlxlogscore=999 suspectscore=0 adultscore=0 phishscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2011130105
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9804
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ lowpriorityscore=0 priorityscore=1501
+ clxscore=1015 malwarescore=0 mlxscore=0 spamscore=0 suspectscore=0
+ mlxlogscore=999 impostorscore=0 phishscore=0 adultscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2011130105
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-X-Mailman-Approved-At: Fri, 13 Nov 2020 17:16:10 +0100
-Subject: Re: [LTP] [mm] b6efe2fcc4: BUG:kernel_NULL_pointer_dereference,
- address
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] Need support on host01 test command.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,58 +91,20 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Andrew Morton <akpm@linux-foundation.org>, lkp@lists.01.org,
- linux-kernel@vger.kernel.org, Pekka Enberg <penberg@kernel.org>,
- linux-mm@kvack.org, David Rientjes <rientjes@google.com>,
- Christoph Lameter <cl@linux.com>, Joonsoo Kim <iamjoonsoo.kim@lge.com>,
- ltp@lists.linux.it, 0day robot <lkp@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Fri, 2020-11-13 at 20:10 +0800, kernel test robot wrote:
-> Greeting,
-> 
-> FYI, we noticed the following commit (built with gcc-9):
-> 
-> commit: b6efe2fcc4e11010710ef5cd8e2bcbeb221a06c6 ("mm: slub: Convert sysfs sprintf family to sysfs_emit/sysfs_emit_at")
-> url: https://github.com/0day-ci/linux/commits/Joe-Perches/mm-Convert-sysfs-sprintf-family-to-sysfs_emit/20201102-041456
-[] 
-> on test machine: 8 threads Intel(R) Core(TM) i7-7700 CPU @ 3.60GHz with 32G memory
-> 
-> caused below changes (please refer to attached dmesg/kmsg for entire log/backtrace):
-> 
-> If you fix the issue, kindly add following tag
-> Reported-by: kernel test robot <oliver.sang@intel.com>
-> 
-> [   41.689368] BUG: kernel NULL pointer dereference, address: 0000000000000010
-> [   41.696354] #PF: supervisor read access in kernel mode
-> [   41.701508] #PF: error_code(0x0000) - not-present page
-> [   41.706661] PGD 0 P4D 0 
-> [   41.709205] Oops: 0000 [#1] SMP PTI
-> [   41.712702] CPU: 3 PID: 4619 Comm: read_all Tainted: G          I       5.10.0-rc1-00005-gb6efe2fcc4e1 #1
-> [   41.722296] Hardware name: Dell Inc. OptiPlex 7050/062KRH, BIOS 1.2.0 12/22/2016
-> [   41.729714] RIP: 0010:slabs_cpu_partial_show+0x95/0xe0
-
-Right, thanks.
-
-I mistakenly dropped a test for page below:
-
-@@ -5156,44 +5156,45 @@ static ssize_t slabs_cpu_partial_show(struct kmem_cache *s, char *buf)
- 
-                page = slub_percpu_partial(per_cpu_ptr(s->cpu_slab, cpu));
- 
--               if (page && len < PAGE_SIZE - 20)
--                       len += sprintf(buf + len, " C%d=%d(%d)", cpu,
--                               page->pobjects, page->pages);
-+               len += sysfs_emit_at(buf, len, " C%d=%d(%d)",
-+                                    cpu, page->pobjects, page->pages);
-        }
-
-I'll correct it and resubmit.
-
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gMTMuMTEuMjAyMCAxODoxNywgS8O2cnkgTWFpbmNlbnQgd3JvdGU6Cj4gSGVsbG8sCj4gCj4g
+SSBhbSB0cnlpbmcgdG8gdXBkYXRlIGhvc3QwMSB0ZXN0IHRvIHRoZSBuZXcgQVBJLCBidXQgSSBn
+b3Qgc29tZSBwcm9ibGVtIHdpdGgKPiB0aGF0IHRhc2suCj4gCj4gSSBhbSBub3QgYSBuZXR3b3Jr
+IGV4cGVydCBhbmQgSSBhbSB3b25kZXJpbmcgd2h5IEkgZ290IHRoaXMgaXNzdWU6Cj4gIyBob3N0
+ICQoaG9zdG5hbWUpCj4gOzsgY29ubmVjdGlvbiB0aW1lZCBvdXQ7IG5vIHNlcnZlcnMgY291bGQg
+YmUgcmVhY2hlZAo+ICMgaG9zdCBsb2NhbGNob3N0Cj4gOzsgY29ubmVjdGlvbiB0aW1lZCBvdXQ7
+IG5vIHNlcnZlcnMgY291bGQgYmUgcmVhY2hlZAo+IAo+IAo+IEkgYW0gd29ya2luZyBvbiBhbiBl
+bWJlZGRlZCBib2FyZCB3aXRoIGFuIE9wZW5FbWJlZGRlZCBiYXNlZCBkaXN0cmlidXRpb24uCj4g
+SSBtYXkgbWlzcyBzb21lIG5ldHdvcmsgcGFja2FnZSwgY291bGQgeW91IGdpdmUgbWUgYSBoaW50
+IHRvIGdvIGZ1cnRoZXIuCj4gCgpIaSBLb3J5LAoKRWl0aGVyIHlvdSBkb24ndCBoYXZlIC9ldGMv
+cmVzb2x2LmNvbmYgb3IgaXQgaXMgZW1wdHkuCgoKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0
+dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
