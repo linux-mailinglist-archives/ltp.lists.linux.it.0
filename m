@@ -1,46 +1,49 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB9FD2B43ED
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Nov 2020 13:46:24 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 677DE2B43EE
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Nov 2020 13:46:33 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 60C153C5DA0
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Nov 2020 13:46:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 103933C6492
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Nov 2020 13:46:33 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id AC7063C4F47
- for <ltp@lists.linux.it>; Mon, 16 Nov 2020 13:46:20 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 4C8943C5D9F
+ for <ltp@lists.linux.it>; Mon, 16 Nov 2020 13:46:23 +0100 (CET)
 Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 56C2A600AAB
- for <ltp@lists.linux.it>; Mon, 16 Nov 2020 13:46:20 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4ACB61A00CC0
+ for <ltp@lists.linux.it>; Mon, 16 Nov 2020 13:46:22 +0100 (CET)
 Received: from ubuntu.localdomain (unknown [188.192.65.157])
- by mail.jv-coder.de (Postfix) with ESMTPSA id C61BB9F928
- for <ltp@lists.linux.it>; Mon, 16 Nov 2020 12:46:17 +0000 (UTC)
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 7AC8AA0807;
+ Mon, 16 Nov 2020 12:46:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1605530777; bh=+KVzfa+0OL6U5LMJM3NpmNCx9KgXinkU5tM3kRuojFk=;
+ t=1605530779; bh=wJaBaKSFBJL+hGIbWbFA560p4gOFNba6mV13KYMhWvA=;
  h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=A4lWhrvXgKbG2PqCEJEt4n1sCZ3SkckhEi9j5U3rZgEx5MmldkjLFx77vOb1khvlD
- 7feN6xVEGVijX//I5ol5PZw4Xtgn0MGtCcOAjcJiwwthDS/Fx80adLSGYKRvLs/X1F
- mY34bgWXdGhskzXLo1eKnquAej2CPFCN/Whiv69s=
+ b=YwFhNve8AeNRWMvK4S1RpwmIZ/mYBY6Rhx4wkJUtaiG4poiAQ+VP/h2uDiuL8cgGw
+ +OhBtt6yvFAr/hRA3wXqNfoyCLfGhKnnLKbMVQOlwd0gNyGdRI60UCV91AbiGXOcVS
+ +TZs8dt/y3Hg7VvLBLobTWwHOl0LIwEreyHEdoTw=
 From: Joerg Vehlow <lkml@jv-coder.de>
 To: ltp@lists.linux.it
-Date: Mon, 16 Nov 2020 13:46:08 +0100
-Message-Id: <20201116124611.16919-1-lkml@jv-coder.de>
+Date: Mon, 16 Nov 2020 13:46:09 +0100
+Message-Id: <20201116124611.16919-2-lkml@jv-coder.de>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20201116124611.16919-1-lkml@jv-coder.de>
+References: <20201116124611.16919-1-lkml@jv-coder.de>
 MIME-Version: 1.0
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 0/3] Convert network stress tests to tst_net.sh
+Subject: [LTP] [PATCH 1/3] network/stress/mutlicast/packet-flood: Update to
+ tst_net.sh
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,36 +55,741 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-CkhpLAoKdGhpcyBwYXRjaCBzZXJpZXMgY29udmVydHMgKGFsbD8pIHJlbWVpYW5pbmcgdGVzdHMg
-aW4gbmV0d29yay9zdHJlc3MgdG8KdXNlIHRzdF9uZXQuc2gKCkrDtnJnCgogLi4uL3N0cmVzcy9t
-dWx0aWNhc3QvcGFja2V0LWZsb29kL21jYXN0NC1wa3RmbGQwMSAgfCAxMTQgKysrLS0tLS0tLS0t
-LQogLi4uL3N0cmVzcy9tdWx0aWNhc3QvcGFja2V0LWZsb29kL21jYXN0NC1wa3RmbGQwMiAgfCAx
-MTYgKysrLS0tLS0tLS0tLQogLi4uL3N0cmVzcy9tdWx0aWNhc3QvcGFja2V0LWZsb29kL21jYXN0
-Ni1wa3RmbGQwMSAgfCAxMTIgKysrLS0tLS0tLS0tLQogLi4uL3N0cmVzcy9tdWx0aWNhc3QvcGFj
-a2V0LWZsb29kL21jYXN0Ni1wa3RmbGQwMiAgfCAxMTQgKysrLS0tLS0tLS0tLQogLi4uL3N0cmVz
-cy9tdWx0aWNhc3QvcXVlcnktZmxvb2QvbWNhc3Q0LXF1ZXJ5ZmxkMDEgfCAxNTMgKysrKystLS0t
-LS0tLS0tLS0KIC4uLi9zdHJlc3MvbXVsdGljYXN0L3F1ZXJ5LWZsb29kL21jYXN0NC1xdWVyeWZs
-ZDAyIHwgMTQ1ICsrKystLS0tLS0tLS0tLS0tCiAuLi4vc3RyZXNzL211bHRpY2FzdC9xdWVyeS1m
-bG9vZC9tY2FzdDQtcXVlcnlmbGQwMyB8IDE0MiArKysrLS0tLS0tLS0tLS0tCiAuLi4vc3RyZXNz
-L211bHRpY2FzdC9xdWVyeS1mbG9vZC9tY2FzdDQtcXVlcnlmbGQwNCB8IDE0OCArKysrLS0tLS0t
-LS0tLS0tLQogLi4uL3N0cmVzcy9tdWx0aWNhc3QvcXVlcnktZmxvb2QvbWNhc3Q0LXF1ZXJ5Zmxk
-MDUgfCAxODEgKysrKysrKy0tLS0tLS0tLS0tLS0tCiAuLi4vc3RyZXNzL211bHRpY2FzdC9xdWVy
-eS1mbG9vZC9tY2FzdDQtcXVlcnlmbGQwNiB8IDE2NiArKysrKystLS0tLS0tLS0tLS0tCiAuLi4v
-c3RyZXNzL211bHRpY2FzdC9xdWVyeS1mbG9vZC9tY2FzdDYtcXVlcnlmbGQwMSB8IDE0NCArKysr
-LS0tLS0tLS0tLS0tCiAuLi4vc3RyZXNzL211bHRpY2FzdC9xdWVyeS1mbG9vZC9tY2FzdDYtcXVl
-cnlmbGQwMiB8IDE0MCArKysrLS0tLS0tLS0tLS0tCiAuLi4vc3RyZXNzL211bHRpY2FzdC9xdWVy
-eS1mbG9vZC9tY2FzdDYtcXVlcnlmbGQwMyB8IDE0NCArKysrKy0tLS0tLS0tLS0tCiAuLi4vc3Ry
-ZXNzL211bHRpY2FzdC9xdWVyeS1mbG9vZC9tY2FzdDYtcXVlcnlmbGQwNCB8IDE0NyArKysrKy0t
-LS0tLS0tLS0tLQogLi4uL3N0cmVzcy9tdWx0aWNhc3QvcXVlcnktZmxvb2QvbWNhc3Q2LXF1ZXJ5
-ZmxkMDUgfCAxODAgKysrKysrKy0tLS0tLS0tLS0tLS0KIC4uLi9zdHJlc3MvbXVsdGljYXN0L3F1
-ZXJ5LWZsb29kL21jYXN0Ni1xdWVyeWZsZDA2IHwgMTc3ICsrKysrKy0tLS0tLS0tLS0tLS0tCiB0
-ZXN0Y2FzZXMvbmV0d29yay9zdHJlc3Mvcm91dGUvcm91dGU0LXJlZGlyZWN0ICAgICB8IDE1NSAr
-KysrKy0tLS0tLS0tLS0tLS0KIHRlc3RjYXNlcy9uZXR3b3JrL3N0cmVzcy9yb3V0ZS9yb3V0ZTYt
-cmVkaXJlY3QgICAgIHwgMTQzICsrKystLS0tLS0tLS0tLS0KIDE4IGZpbGVzIGNoYW5nZWQsIDY2
-MiBpbnNlcnRpb25zKCspLCAxOTU5IGRlbGV0aW9ucygtKQoKCi0tIApNYWlsaW5nIGxpc3QgaW5m
-bzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+
+Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+---
+ .../multicast/packet-flood/mcast4-pktfld01    | 114 ++++-------------
+ .../multicast/packet-flood/mcast4-pktfld02    | 116 ++++--------------
+ .../multicast/packet-flood/mcast6-pktfld01    | 112 ++++-------------
+ .../multicast/packet-flood/mcast6-pktfld02    | 114 ++++-------------
+ 4 files changed, 85 insertions(+), 371 deletions(-)
+
+diff --git a/testcases/network/stress/multicast/packet-flood/mcast4-pktfld01 b/testcases/network/stress/multicast/packet-flood/mcast4-pktfld01
+index c1ee513d4..20284569d 100644
+--- a/testcases/network/stress/multicast/packet-flood/mcast4-pktfld01
++++ b/testcases/network/stress/multicast/packet-flood/mcast4-pktfld01
+@@ -42,41 +42,20 @@
+ #trace_logic=${trace_logic:-"set -x"}
+ $trace_logic
+ 
+-# The test case ID, the test case count and the total number of test case
+-TCID=mcast4-pktfld01
+-TST_TOTAL=1
+-TST_COUNT=1
+-export TCID
+-export TST_COUNT
+-export TST_TOTAL
+-
+-# Make sure the value of LTPROOT
+-LTPROOT=${LTPROOT:-`(cd ../../../../.. ; pwd)`}
+-export LTPROOT
+-
+-# Check the environmanet variable
+-. check_envval || exit $TST_TOTAL
+-
+-# Dulation of the test [sec]
+-NS_DURATION=${NS_DURATION:-3600}      # 1 hour
++TST_TESTFUNC=test_body
++TST_NEEDS_ROOT=1
++TST_SETUP=do_setup
++TST_CLEANUP=do_cleanup
+ 
+ # The number of the test link where tests run
+ LINK_NUM=${LINK_NUM:-0}
+ 
+-# Network portion of the IPv4 address
+-NETWORK_PART=${IPV4_NETWORK:-"10.0.0"}
+-
+-# Netmask of the IPv4 network
+-NETWORK_MASK=24
+-
+-# Host portion of the IPv4 address
+-LHOST_HOST_PART=${LHOST_IPV4_HOST:-"2"}     # local host
+-RHOST_HOST_PART=${RHOST_IPV4_HOST:-"1"}     # remote host
+-
+ # Multicast Address
+ MCAST_ADDR=224.10.0.1
+ 
+ 
++. tst_net.sh
++
+ #-----------------------------------------------------------------------
+ #
+ # Function: do_cleanup
+@@ -89,11 +68,7 @@ do_cleanup()
+ {
+     # Make sure to kill the multicast receiver and sender
+     killall -SIGHUP ns-mcast_receiver >/dev/null 2>&1
+-    $LTP_RSH $RHOST killall -SIGHUP ns-udpsender >/dev/null 2>&1
+-
+-    # Clean up each interface
+-    initialize_if lhost ${LINK_NUM}
+-    initialize_if rhost ${LINK_NUM}
++	tst_rhost_run -c "killall -SIGHUP ns-udpsender >/dev/null 2>&1"
+ }
+ 
+ 
+@@ -107,57 +82,15 @@ do_cleanup()
+ #-----------------------------------------------------------------------
+ do_setup()
+ {
+-    # Initialize the system configuration
+-    do_cleanup
+-
+-    # Call do_cleanup function before exit
+-    trap do_cleanup 0
++	local lhost_ifname=$(tst_iface lhost ${LINK_NUM})
+ 
+     # Unset the maximum number of processes
+     ulimit -u unlimited
+ 
+-    # name of interface of the local/remote host
+-    lhost_ifname=`get_ifname lhost $LINK_NUM`
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to get the interface name at the local host"
+-	exit $TST_TOTAL
+-    fi
+-
+-    rhost_ifname=`get_ifname rhost $LINK_NUM`
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to get the interface name at the remote host"
+-	exit $TST_TOTAL
+-    fi
+-
+-    # Set IPv4 addresses to the interfaces
+-    set_ipv4addr lhost $LINK_NUM $NETWORK_PART $LHOST_HOST_PART
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to add any IP address at the local host"
+-	exit 1
+-    fi
+-
+-    set_ipv4addr rhost $LINK_NUM $NETWORK_PART $RHOST_HOST_PART
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to add any IP address at the remote host"
+-	exit 1
+-    fi
+-
+-    # IPv4 address of the local/remote host
+-    lhost_addr="${NETWORK_PART}.${LHOST_HOST_PART}"
+-    rhost_addr="${NETWORK_PART}.${RHOST_HOST_PART}"
+-
+-    # Make sure the connectvity
+-    check_icmpv4_connectivity $lhost_ifname $rhost_addr
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "There is no IPv4 connectivity."
+-	exit 1
+-    fi
+-
+     # Make sure the sysctl values
+     sysctl -w net.ipv4.igmp_max_memberships=20 >/dev/null
+     if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to set the sysctl value regarding multicast"
+-	exit $TST_TOTAL
++		tst_brk TBROK "Failed to set the sysctl value regarding multicast"
+     fi
+ 
+     sysctl -w net.ipv4.igmp_max_msf=10 >/dev/null
+@@ -173,35 +106,30 @@ do_setup()
+ #
+ 
+ # Test description
+-tst_resm TINFO "Verify that the kernel is not crashed when joining a IPv4 multicast group a single socket, then receiving a large number of UDP packets at the socket in $NS_DURATION [sec]"
+ 
+-do_setup
++test_body()
++{
++	local lhost_ifname=$(tst_iface lhost ${LINK_NUM})
++	local rhost_ifname=$(tst_iface rhost ${LINK_NUM})
++
++	tst_res TINFO "Verify that the kernel is not crashed when joining a IPv4 multicast group a single socket, then receiving a large number of UDP packets at the socket in $NS_DURATION [sec]"
+ 
+ # Find the available consecutive ports
+ mcast_port=`find_portbundle udp 1025 1`
+ if [ $? -ne 0 ]; then
+-    tst_resm TBROK "No port is available."
+-    exit 1
++		tst_brk TBROK "No port is available."
+ fi
+ 
+ # Run a receiver
+ ns-mcast_receiver -f 4 -I $lhost_ifname -m $MCAST_ADDR -p $mcast_port -b
+ if [ $? -ne 0 ]; then
+-    tst_resm TBROK "Failed to start multicast receiver"
+-    exit 1
++		tst_brk TBROK "Failed to start multicast receiver"
+ fi
+ 
+ # Run a sender
+-ret=`$LTP_RSH $RHOST ${LTPROOT}/testcases/bin/ns-udpsender -D $MCAST_ADDR -f 4 -p $mcast_port -s 32767 -m -I $rhost_ifname -t $NS_DURATION' ; echo $?'`
+-if [ $ret -ne 0 ]; then
+-    tst_resm TBROK "Failed to start multicast sender"
+-    exit 1
+-fi
++	tst_rhost_run -s -c "ns-udpsender -D $MCAST_ADDR -f 4 -p $mcast_port -s 32767 -m -I $rhost_ifname -t $NS_DURATION"
+ 
+-#-----------------------------------------------------------------------
+-#
+-# Clean up
+-#
++	tst_res TPASS "Test is finished successfully."
++}
+ 
+-tst_resm TPASS "Test is finished successfully."
+-exit 0
++tst_run
+diff --git a/testcases/network/stress/multicast/packet-flood/mcast4-pktfld02 b/testcases/network/stress/multicast/packet-flood/mcast4-pktfld02
+index b3b6134c3..ac591fce1 100644
+--- a/testcases/network/stress/multicast/packet-flood/mcast4-pktfld02
++++ b/testcases/network/stress/multicast/packet-flood/mcast4-pktfld02
+@@ -43,42 +43,18 @@
+ #trace_logic=${trace_logic:-"set -x"}
+ $trace_logic
+ 
+-# The test case ID, the test case count and the total number of test case
+-TCID=mcast4-pktfld02
+-TST_TOTAL=1
+-TST_COUNT=1
+-export TCID
+-export TST_COUNT
+-export TST_TOTAL
+-
+-LTPROOT=${LTPROOT:-`(cd ../../../../.. ; pwd)`}
+-export LTPROOT
+-
+-# Check the environmanet variable
+-. check_envval || exit $TST_TOTAL
+-
+-# Dulation of the test [sec]
+-NS_DURATION=${NS_DURATION:-3600}      # 1 hour
++TST_TESTFUNC=test_body
++TST_NEEDS_ROOT=1
++TST_SETUP=do_setup
++TST_CLEANUP=do_cleanup
+ 
+ # The number of the test link where tests run
+ LINK_NUM=${LINK_NUM:-0}
+ 
+-# Network portion of the IPv4 address
+-NETWORK_PART=${IPV4_NETWORK:-"10.0.0"}
+-
+-# Netmask of the IPv4 network
+-NETWORK_MASK=24
+-
+-# Host portion of the IPv4 address
+-LHOST_HOST_PART=${LHOST_IPV4_HOST:-"2"}     # local host
+-RHOST_HOST_PART=${RHOST_IPV4_HOST:-"1"}     # remote host
+-
+ # Prefix of the multicast address
+ MCAST_ADDR_PREFIX=224.10
+ 
+-# Number of the multicast connection
+-MCASTNUM_NORMAL=${MCASTNUM_NORMAL:-20}
+-
++. tst_net.sh
+ 
+ #-----------------------------------------------------------------------
+ #
+@@ -92,11 +68,7 @@ do_cleanup()
+ {
+     # Make sure to kill the multicast receiver and sender
+     killall -SIGHUP ns-mcast_receiver >/dev/null 2>&1
+-    $LTP_RSH $RHOST killall -SIGHUP ns-udpsender >/dev/null 2>&1
+-
+-    # Clean up each interface
+-    initialize_if lhost ${LINK_NUM}
+-    initialize_if rhost ${LINK_NUM}
++	tst_rhost_run -c "killall -SIGHUP ns-udpsender >/dev/null 2>&1"
+ }
+ 
+ 
+@@ -110,57 +82,15 @@ do_cleanup()
+ #-----------------------------------------------------------------------
+ do_setup()
+ {
+-    # Initialize the system configuration
+-    do_cleanup
+-
+-    # Call do_cleanup function before exit
+-    trap do_cleanup 0
++	local lhost_ifname=$(tst_iface lhost ${LINK_NUM})
+ 
+     # Unset the maximum number of processes
+     ulimit -u unlimited
+ 
+-    # name of interface of the local/remote host
+-    lhost_ifname=`get_ifname lhost $LINK_NUM`
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to get the interface name at the local host"
+-	exit $TST_TOTAL
+-    fi
+-
+-    rhost_ifname=`get_ifname rhost $LINK_NUM`
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to get the interface name at the remote host"
+-	exit $TST_TOTAL
+-    fi
+-
+-    # Set IPv4 addresses to the interfaces
+-    set_ipv4addr lhost $LINK_NUM $NETWORK_PART $LHOST_HOST_PART
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to add any IP address at the local host"
+-	exit 1
+-    fi
+-
+-    set_ipv4addr rhost $LINK_NUM $NETWORK_PART $RHOST_HOST_PART
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to add any IP address at the remote host"
+-	exit 1
+-    fi
+-
+-    # IPv4 address of the local/remote host
+-    lhost_addr="${NETWORK_PART}.${LHOST_HOST_PART}"
+-    rhost_addr="${NETWORK_PART}.${RHOST_HOST_PART}"
+-
+-    # Make sure the connectvity
+-    check_icmpv4_connectivity $lhost_ifname $rhost_addr
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "There is no IPv4 connectivity."
+-	exit 1
+-    fi
+-
+     # Make sure the sysctl values
+     sysctl -w net.ipv4.igmp_max_memberships=$MCASTNUM_NORMAL >/dev/null
+     if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to set the sysctl value regarding multicast"
+-	exit $TST_TOTAL
++		tst_brk TBROK "Failed to set the sysctl value regarding multicast"
+     fi
+ 
+     sysctl -w net.ipv4.igmp_max_msf=10 >/dev/null
+@@ -176,16 +106,18 @@ do_setup()
+ #
+ 
+ # Test description
+-tst_resm TINFO "Verify that the kernel is not crashed when joining $MCASTNUM_NORMAL IPv4 multicast groups on separate sockets, then receiving a large number of UDP packets at the each socket in $NS_DURATION [sec]"
+ 
+-# Make sure the value of LTPROOT
+-do_setup
++test_body()
++{
++	local lhost_ifname=$(tst_iface lhost ${LINK_NUM})
++	local rhost_ifname=$(tst_iface rhost ${LINK_NUM})
++
++	tst_res TINFO "Verify that the kernel is not crashed when joining $MCASTNUM_NORMAL IPv4 multicast groups on separate sockets, then receiving a large number of UDP packets at the each socket in $NS_DURATION [sec]"
+ 
+ mcastnum=0
+ mcast_port_range=`find_portbundle udp 1025 $MCASTNUM_NORMAL`
+ if [ $? -ne 0 ]; then
+-    tst_resm TBROK "Failed to get enough port"
+-    exit 1
++		tst_brk TBROK "Failed to get enough port"
+ fi
+ mcast_port_top=`echo $mcast_port_range | cut -f 1 -d '-'`
+ 
+@@ -194,8 +126,7 @@ while [ $mcastnum -lt $MCASTNUM_NORMAL ]; do
+     x=`expr $mcastnum \/ 254`
+     y=`expr $mcastnum % 254 + 1`
+     if [ $x -gt 254 ]; then
+-	tst_resm TINFO "The number of the connection is less than $mcastnum"
+-	break
++			tst_res TINFO "The number of the connection is less than $mcastnum"
+     fi
+     mcast_addr=${MCAST_ADDR_PREFIX}.${x}.${y}
+ 
+@@ -203,23 +134,18 @@ while [ $mcastnum -lt $MCASTNUM_NORMAL ]; do
+     mcast_port=`expr $mcast_port_top + $mcastnum`
+     ns-mcast_receiver -f 4 -I $lhost_ifname -m $mcast_addr -p $mcast_port -b
+     if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to start multicast receiver"
+-	exit 1
++			tst_brk TBROK "Failed to start multicast receiver"
+     fi
+ 
+     # Run a sender
+-    $LTP_RSH $RHOST ${LTPROOT}/testcases/bin/ns-udpsender -D $mcast_addr -f 4 -p $mcast_port -m -I $rhost_ifname -b -t $NS_DURATION
++		tst_rhost_run -s -c "ns-udpsender -D $mcast_addr -f 4 -p $mcast_port -m -I $rhost_ifname -b -t $NS_DURATION"
+ 
+     mcastnum=`expr $mcastnum + 1`
+ done
+ 
+ sleep $NS_DURATION
+-do_cleanup
+ 
+-#-----------------------------------------------------------------------
+-#
+-# Clean up
+-#
++	tst_res TPASS "Test is finished successfully."
++}
+ 
+-tst_resm TPASS "Test is finished successfully."
+-exit 0
++tst_run
+diff --git a/testcases/network/stress/multicast/packet-flood/mcast6-pktfld01 b/testcases/network/stress/multicast/packet-flood/mcast6-pktfld01
+index e9d932b43..bd20b2b07 100644
+--- a/testcases/network/stress/multicast/packet-flood/mcast6-pktfld01
++++ b/testcases/network/stress/multicast/packet-flood/mcast6-pktfld01
+@@ -42,37 +42,19 @@
+ #trace_logic=${trace_logic:-"set -x"}
+ $trace_logic
+ 
+-# The test case ID, the test case count and the total number of test case
+-TCID=mcast6-pktfld01
+-TST_TOTAL=1
+-TST_COUNT=1
+-export TCID
+-export TST_COUNT
+-export TST_TOTAL
+-
+-# Make sure the value of LTPROOT
+-LTPROOT=${LTPROOT:-`(cd ../../../../.. ; pwd)`}
+-export LTPROOT
+-
+-# Check the environmanet variable
+-. check_envval || exit $TST_TOTAL
+-
+-# Dulation of the test [sec]
+-NS_DURATION=${NS_DURATION:-3600}      # 1 hour
++TST_TESTFUNC=test_body
++TST_NEEDS_ROOT=1
++TST_IPV6=6
++TST_SETUP=do_setup
++TST_CLEANUP=do_cleanup
+ 
+ # The number of the test link where tests run
+ LINK_NUM=${LINK_NUM:-0}
+ 
+-# Network portion of the IPv6 address
+-NETWORK_PART="fec0:1:1:1"
+-
+-# Host portion of the IPv6 address
+-LHOST_HOST_PART=":2"     # local host
+-RHOST_HOST_PART=":1"     # remote host
+-
+ # Multicast Address
+ MCAST_ADDR=ff0e::1111:1
+ 
++. tst_net.sh
+ 
+ #-----------------------------------------------------------------------
+ #
+@@ -86,11 +68,7 @@ do_cleanup()
+ {
+     # Make sure to kill the multicast receiver and sender
+     killall -SIGHUP ns-mcast_receiver >/dev/null 2>&1
+-    $LTP_RSH $RHOST killall -SIGHUP ns-udpsender >/dev/null 2>&1
+-
+-    # Clean up each interface
+-    initialize_if lhost ${LINK_NUM}
+-    initialize_if rhost ${LINK_NUM}
++	tst_rhost_run -c "killall -SIGHUP ns-udpsender >/dev/null 2>&1"
+ }
+ 
+ 
+@@ -104,57 +82,15 @@ do_cleanup()
+ #-----------------------------------------------------------------------
+ do_setup()
+ {
+-    # Initialize the system configuration
+-    do_cleanup
+-
+-    # Call do_cleanup function before exit
+-    trap do_cleanup 0
++	local lhost_ifname=$(tst_iface lhost ${LINK_NUM})
+ 
+     # Unset the maximum number of processes
+     ulimit -u unlimited
+ 
+-    # name of interface of the local/remote host
+-    lhost_ifname=`get_ifname lhost $LINK_NUM`
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to get the interface name at the local host"
+-	exit $TST_TOTAL
+-    fi
+-
+-    rhost_ifname=`get_ifname rhost $LINK_NUM`
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to get the interface name at the remote host"
+-	exit $TST_TOTAL
+-    fi
+-
+-    # Set IPv6 addresses to the interfaces
+-    add_ipv6addr lhost $LINK_NUM $NETWORK_PART $LHOST_HOST_PART
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to add any IP address at the local host"
+-	exit 1
+-    fi
+-
+-    add_ipv6addr rhost $LINK_NUM $NETWORK_PART $RHOST_HOST_PART
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to add any IP address at the remote host"
+-	exit 1
+-    fi
+-
+-    # IPv6 address of the local/remote host
+-    lhost_addr="${NETWORK_PART}:${LHOST_HOST_PART}"
+-    rhost_addr="${NETWORK_PART}:${RHOST_HOST_PART}"
+-
+-    # Make sure the connectvity
+-    check_icmpv6_connectivity $lhost_ifname $rhost_addr
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "There is no IPv6 connectivity."
+-	exit 1
+-    fi
+-
+     # Make sure the sysctl values
+     sysctl -w net.ipv6.conf.all.force_mld_version=0 >/dev/null
+     if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to set the sysctl value regarding multicast"
+-	exit $TST_TOTAL
++		tst_brk TBROK "Failed to set the sysctl value regarding multicast"
+     fi
+ 
+     sysctl -w net.ipv6.conf.${lhost_ifname}.force_mld_version=0 >/dev/null
+@@ -168,36 +104,30 @@ do_setup()
+ #
+ #
+ 
++test_body()
++{
++	local lhost_ifname=$(tst_iface lhost ${LINK_NUM})
++	local rhost_ifname=$(tst_iface rhost ${LINK_NUM})
++	
+ # Test description
+-tst_resm TINFO "Verify that the kernel is not crashed when joining a IPv6 multicast group a single socket, then receiving a large number of UDP packets at the socket in $NS_DURATION [sec]"
+-
+-do_setup
++	tst_res TINFO "Verify that the kernel is not crashed when joining a IPv6 multicast group a single socket, then receiving a large number of UDP packets at the socket in $NS_DURATION [sec]"
+ 
+ # Find the available consecutive ports
+ mcast_port=`find_portbundle udp 1025 1`
+ if [ $? -ne 0 ]; then
+-    tst_resm TBROK "No port is available."
+-    exit 1
++		tst_brk TBROK "No port is available."
+ fi
+ 
+ # Run a receiver
+ ns-mcast_receiver -f 6 -I $lhost_ifname -m $MCAST_ADDR -p $mcast_port -b
+ if [ $? -ne 0 ]; then
+-    tst_resm TBROK "Failed to start multicast receiver"
+-    exit 1
++		tst_brk TBROK "Failed to start multicast receiver"
+ fi
+ 
+ # Run a sender
+-ret=`$LTP_RSH $RHOST ${LTPROOT}/testcases/bin/ns-udpsender -D $MCAST_ADDR -f 6 -p $mcast_port -s 32767 -m -I $rhost_ifname -t $NS_DURATION' ; echo $?'`
+-if [ $ret -ne 0 ]; then
+-    tst_resm TBROK "Failed to start multicast sender"
+-    exit 1
+-fi
++	tst_rhost_run -s -c "ns-udpsender -D $MCAST_ADDR -f 6 -p $mcast_port -s 32767 -m -I $rhost_ifname -t $NS_DURATION"
+ 
+-#-----------------------------------------------------------------------
+-#
+-# Clean up
+-#
++	tst_res TPASS "Test is finished successfully."
++}
+ 
+-tst_resm TPASS "Test is finished successfully."
+-exit 0
++tst_run
+diff --git a/testcases/network/stress/multicast/packet-flood/mcast6-pktfld02 b/testcases/network/stress/multicast/packet-flood/mcast6-pktfld02
+index e8187b1a6..201a63a05 100644
+--- a/testcases/network/stress/multicast/packet-flood/mcast6-pktfld02
++++ b/testcases/network/stress/multicast/packet-flood/mcast6-pktfld02
+@@ -43,39 +43,19 @@
+ #trace_logic=${trace_logic:-"set -x"}
+ $trace_logic
+ 
+-# The test case ID, the test case count and the total number of test case
+-TCID=mcast6-pktfld02
+-TST_TOTAL=1
+-TST_COUNT=1
+-export TCID
+-export TST_COUNT
+-export TST_TOTAL
+-
+-LTPROOT=${LTPROOT:-`(cd ../../../../.. ; pwd)`}
+-export LTPROOT
+-
+-# Check the environmanet variable
+-. check_envval || exit $TST_TOTAL
+-
+-# Dulation of the test [sec]
+-NS_DURATION=${NS_DURATION:-3600}      # 1 hour
++TST_TESTFUNC=test_body
++TST_NEEDS_ROOT=1
++TST_IPV6=6
++TST_SETUP=do_setup
++TST_CLEANUP=do_cleanup
+ 
+ # The number of the test link where tests run
+ LINK_NUM=${LINK_NUM:-0}
+ 
+-# Network portion of the IPv6 address
+-NETWORK_PART="fec0:1:1:1"
+-
+-# Host portion of the IPv6 address
+-LHOST_HOST_PART=":2"	# local host
+-RHOST_HOST_PART=":1"	# remote host
+-
+ # Prefix of the multicast address
+ MCAST_ADDR_PREFIX=ff0e::1111
+ 
+-# Number of the multicast connection
+-MCASTNUM_NORMAL=${MCASTNUM_NORMAL:-20}
+-
++. tst_net.sh
+ 
+ #-----------------------------------------------------------------------
+ #
+@@ -89,11 +69,7 @@ do_cleanup()
+ {
+     # Make sure to kill the multicast receiver and sender
+     killall -SIGHUP ns-mcast_receiver >/dev/null 2>&1
+-    $LTP_RSH $RHOST killall -SIGHUP ns-udpsender >/dev/null 2>&1
+-
+-    # Clean up each interface
+-    initialize_if lhost ${LINK_NUM}
+-    initialize_if rhost ${LINK_NUM}
++	tst_rhost_run -c "killall -SIGHUP ns-udpsender >/dev/null 2>&1"
+ }
+ 
+ 
+@@ -107,57 +83,15 @@ do_cleanup()
+ #-----------------------------------------------------------------------
+ do_setup()
+ {
+-    # Initialize the system configuration
+-    do_cleanup
+-
+-    # Call do_cleanup function before exit
+-    trap do_cleanup 0
++	local lhost_ifname=$(tst_iface lhost ${LINK_NUM})
+ 
+     # Unset the maximum number of processes
+     ulimit -u unlimited
+ 
+-    # name of interface of the local/remote host
+-    lhost_ifname=`get_ifname lhost $LINK_NUM`
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to get the interface name at the local host"
+-	exit $TST_TOTAL
+-    fi
+-
+-    rhost_ifname=`get_ifname rhost $LINK_NUM`
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to get the interface name at the remote host"
+-	exit $TST_TOTAL
+-    fi
+-
+-    # Set IPv6 addresses to the interfaces
+-    add_ipv6addr lhost $LINK_NUM $NETWORK_PART $LHOST_HOST_PART
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to add any IP address at the local host"
+-	exit 1
+-    fi
+-
+-    add_ipv6addr rhost $LINK_NUM $NETWORK_PART $RHOST_HOST_PART
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to add any IP address at the remote host"
+-	exit 1
+-    fi
+-
+-    # IPv6 address of the local/remote host
+-    lhost_addr="${NETWORK_PART}:${LHOST_HOST_PART}"
+-    rhost_addr="${NETWORK_PART}:${RHOST_HOST_PART}"
+-
+-    # Make sure the connectvity
+-    check_icmpv6_connectivity $lhost_ifname $rhost_addr
+-    if [ $? -ne 0 ]; then
+-	tst_resm TBROK "There is no IPv6 connectivity."
+-	exit 1
+-    fi
+-
+     # Make sure the sysctl values
+     sysctl -w net.ipv6.conf.all.force_mld_version=0 >/dev/null
+     if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to set the sysctl value regarding multicast"
+-	exit $TST_TOTAL
++		tst_brk TBROK "Failed to set the sysctl value regarding multicast"
+     fi
+ 
+     sysctl -w net.ipv6.conf.${lhost_ifname}.force_mld_version=0 >/dev/null
+@@ -171,24 +105,25 @@ do_setup()
+ #
+ #
+ 
+-# Test description
+-tst_resm TINFO "Verify that the kernel is not crashed when joining $MCASTNUM_NORMAL IPv6 multicast groups on separate sockets, then receiving a large number of UDP packets at the each socket in $NS_DURATION [sec]"
++test_body()
++{
++	local lhost_ifname=$(tst_iface lhost ${LINK_NUM})
++	local rhost_ifname=$(tst_iface rhost ${LINK_NUM})
+ 
+-# Make sure the value of LTPROOT
+-do_setup
++# Test description
++	tst_res TINFO "Verify that the kernel is not crashed when joining $MCASTNUM_NORMAL IPv6 multicast groups on separate sockets, then receiving a large number of UDP packets at the each socket in $NS_DURATION [sec]"
+ 
+ mcastnum=0
+ mcast_port_range=`find_portbundle udp 1025 $MCASTNUM_NORMAL`
+ if [ $? -ne 0 ]; then
+-    tst_resm TBROK "Failed to get enough port"
+-    exit 1
++		tst_brk TBROK "Failed to get enough port"
+ fi
+ mcast_port_top=`echo $mcast_port_range | cut -f 1 -d '-'`
+ 
+ while [ $mcastnum -lt $MCASTNUM_NORMAL ]; do
+     # Define the multicast address
+     if [ $mcastnum -gt 65535 ]; then
+-	tst_resm TINFO "The number of the connection is less than 65535"
++			tst_res TINFO "The number of the connection is less than 65535"
+ 	break
+     fi
+     mcastnum_hex=`printf "%x" $mcastnum`
+@@ -198,23 +133,18 @@ while [ $mcastnum -lt $MCASTNUM_NORMAL ]; do
+     mcast_port=`expr $mcast_port_top + $mcastnum`
+     ns-mcast_receiver -f 6 -I $lhost_ifname -m $mcast_addr -p $mcast_port -b
+     if [ $? -ne 0 ]; then
+-	tst_resm TBROK "Failed to start multicast receiver"
+-	exit 1
++			tst_brk TBROK "Failed to start multicast receiver"
+     fi
+ 
+     # Run a sender
+-    $LTP_RSH $RHOST ${LTPROOT}/testcases/bin/ns-udpsender -D $mcast_addr -f 6 -p $mcast_port -m -I $rhost_ifname -b -t $NS_DURATION
++		tst_rhost_run -s -c "ns-udpsender -D $mcast_addr -f 6 -p $mcast_port -m -I $rhost_ifname -b -t $NS_DURATION"
+ 
+     mcastnum=`expr $mcastnum + 1`
+ done
+ 
+ sleep $NS_DURATION
+-do_cleanup
+ 
+-#-----------------------------------------------------------------------
+-#
+-# Clean up
+-#
++	tst_res TPASS "Test is finished successfully."
++}
+ 
+-tst_resm TPASS "Test is finished successfully."
+-exit 0
++tst_run
+-- 
+2.25.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
