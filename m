@@ -2,40 +2,52 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD3DA2B409D
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Nov 2020 11:18:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E52752B41B8
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Nov 2020 11:51:30 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 561273C4F48
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Nov 2020 11:18:45 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E9B8F3C4F4C
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Nov 2020 11:51:29 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 5D84E3C27EC
- for <ltp@lists.linux.it>; Mon, 16 Nov 2020 11:18:43 +0100 (CET)
-Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
- [217.70.183.200])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id AF58260075D
- for <ltp@lists.linux.it>; Mon, 16 Nov 2020 11:18:42 +0100 (CET)
-X-Originating-IP: 78.113.208.212
-Received: from localhost.localdomain (212.208.113.78.rev.sfr.net
- [78.113.208.212]) (Authenticated sender: kory.maincent@bootlin.com)
- by relay7-d.mail.gandi.net (Postfix) with ESMTPSA id B711720016;
- Mon, 16 Nov 2020 10:18:41 +0000 (UTC)
-From: Kory Maincent <kory.maincent@bootlin.com>
-To: ltp@lists.linux.it
-Date: Mon, 16 Nov 2020 11:18:40 +0100
-Message-Id: <20201116101840.15433-1-kory.maincent@bootlin.com>
-X-Mailer: git-send-email 2.17.1
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 236483C2419
+ for <ltp@lists.linux.it>; Mon, 16 Nov 2020 11:51:28 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 0056B60066F
+ for <ltp@lists.linux.it>; Mon, 16 Nov 2020 11:51:26 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.77,482,1596470400"; d="scan'208";a="101418547"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 16 Nov 2020 18:51:23 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 6B1C14CE4BC1;
+ Mon, 16 Nov 2020 18:51:23 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Mon, 16 Nov 2020 18:51:24 +0800
+Message-ID: <5FB259B2.4040106@cn.fujitsu.com>
+Date: Mon, 16 Nov 2020 18:51:30 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <20201112120505.GA15765@yuki.lan>
+ <1605233273-3784-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <20201113151239.GB16315@yuki.lan>
+In-Reply-To: <20201113151239.GB16315@yuki.lan>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 6B1C14CE4BC1.AE5C5
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] net/host: update to new api
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] syscalls/ptrace11: Add test for tracing init
+ process
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,74 +59,64 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: thomas.petazzoni@bootlin.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ltp@lists.linux.it
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Rml4ZWQgYXdrIGZpZWxkIHNlcGFyYXRvciBwYXJzaW5nLgoKU2lnbmVkLW9mZi1ieTogS29yeSBN
-YWluY2VudCA8a29yeS5tYWluY2VudEBib290bGluLmNvbT4KLS0tCiB0ZXN0Y2FzZXMvbmV0d29y
-ay90Y3BfY21kcy9ob3N0L2hvc3QwMS5zaCB8IDgwICsrKysrLS0tLS0tLS0tLS0tLS0tLS0tCiAx
-IGZpbGUgY2hhbmdlZCwgMTggaW5zZXJ0aW9ucygrKSwgNjIgZGVsZXRpb25zKC0pCgpkaWZmIC0t
-Z2l0IGEvdGVzdGNhc2VzL25ldHdvcmsvdGNwX2NtZHMvaG9zdC9ob3N0MDEuc2ggYi90ZXN0Y2Fz
-ZXMvbmV0d29yay90Y3BfY21kcy9ob3N0L2hvc3QwMS5zaAppbmRleCAxMzA4ODcwZjcuLjQ5ODdj
-YjgzOCAxMDA3NTUKLS0tIGEvdGVzdGNhc2VzL25ldHdvcmsvdGNwX2NtZHMvaG9zdC9ob3N0MDEu
-c2gKKysrIGIvdGVzdGNhc2VzL25ldHdvcmsvdGNwX2NtZHMvaG9zdC9ob3N0MDEuc2gKQEAgLTEs
-ODcgKzEsNDMgQEAKICMhL2Jpbi9zaAogIwotIyAgIENvcHlyaWdodCAoYykgSW50ZXJuYXRpb25h
-bCBCdXNpbmVzcyBNYWNoaW5lcyAgQ29ycC4sIDIwMDAKLSMKLSMgICBUaGlzIHByb2dyYW0gaXMg
-ZnJlZSBzb2Z0d2FyZTsgIHlvdSBjYW4gcmVkaXN0cmlidXRlIGl0IGFuZC9vciBtb2RpZnkKLSMg
-ICBpdCB1bmRlciB0aGUgdGVybXMgb2YgdGhlIEdOVSBHZW5lcmFsIFB1YmxpYyBMaWNlbnNlIGFz
-IHB1Ymxpc2hlZCBieQotIyAgIHRoZSBGcmVlIFNvZnR3YXJlIEZvdW5kYXRpb247IGVpdGhlciB2
-ZXJzaW9uIDIgb2YgdGhlIExpY2Vuc2UsIG9yCi0jICAgKGF0IHlvdXIgb3B0aW9uKSBhbnkgbGF0
-ZXIgdmVyc2lvbi4KLSMKLSMgICBUaGlzIHByb2dyYW0gaXMgZGlzdHJpYnV0ZWQgaW4gdGhlIGhv
-cGUgdGhhdCBpdCB3aWxsIGJlIHVzZWZ1bCwKLSMgICBidXQgV0lUSE9VVCBBTlkgV0FSUkFOVFk7
-ICB3aXRob3V0IGV2ZW4gdGhlIGltcGxpZWQgd2FycmFudHkgb2YKLSMgICBNRVJDSEFOVEFCSUxJ
-VFkgb3IgRklUTkVTUyBGT1IgQSBQQVJUSUNVTEFSIFBVUlBPU0UuICBTZWUKLSMgICB0aGUgR05V
-IEdlbmVyYWwgUHVibGljIExpY2Vuc2UgZm9yIG1vcmUgZGV0YWlscy4KLSMKLSMgICBZb3Ugc2hv
-dWxkIGhhdmUgcmVjZWl2ZWQgYSBjb3B5IG9mIHRoZSBHTlUgR2VuZXJhbCBQdWJsaWMgTGljZW5z
-ZQotIyAgIGFsb25nIHdpdGggdGhpcyBwcm9ncmFtOyAgaWYgbm90LCB3cml0ZSB0byB0aGUgRnJl
-ZSBTb2Z0d2FyZQotIyAgIEZvdW5kYXRpb24sIEluYy4sIDUxIEZyYW5rbGluIFN0cmVldCwgRmlm
-dGggRmxvb3IsIEJvc3RvbiwgTUEgMDIxMTAtMTMwMSBVU0EKLSMKLSMKLSMKLSMgIEZJTEUgICA6
-IGhvc3QKLSMKLSMgIFBVUlBPU0U6IFRvIHRlc3QgdGhlIGJhc2ljIGZ1bmN0aW9uYWxpdHkgb2Yg
-dGhlIGBob3N0YCBjb21tYW5kLgotIwotIyAgU0VUVVA6IElmICJSSE9TVCIgaXMgbm90IGV4cG9y
-dGVkLCB0aGVuIHRoZSBsb2NhbCBob3N0bmFtZSBpcyB1c2VkLgotIwotIyAgSElTVE9SWToKLSMg
-ICAgMDYvMDYvMDMgTWFub2ogSXllciBtYW5qb0BtYWlsLnV0ZXhhcy5lZHUKLSMgICAgICAtIE1v
-ZGlmaWVkIHRvIHVzZSBMVFAgdGVzdHMgQVBJcwotIyAgICAwMy8wMSBSb2JiaWUgV2lsbGlhbXNv
-biAocm9iYmlld0B1cy5pYm0uY29tKQotIyAgICAgIC1Qb3J0ZWQKLSMKLSMKLSMtLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLQorIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vci1sYXRlcgorIyBDb3B5
-cmlnaHQgKGMpIEvDtnJ5IE1haW5jZW50IDxrb3J5Lm1haW5jZW50QGJvb3RsaW4uY29tPiAyMDIw
-CisjIENvcHlyaWdodCAoYykgTWFub2ogSXllciA8bWFuam9AbWFpbC51dGV4YXMuZWR1PiAyMDAz
-CisjIENvcHlyaWdodCAoYykgUm9iYmllIFdpbGxpYW1zb24gPHJvYmJpZXdAdXMuaWJtLmNvbT4g
-MjAwMQorIyBDb3B5cmlnaHQgKGMpIEludGVybmF0aW9uYWwgQnVzaW5lc3MgTWFjaGluZXMgIENv
-cnAuLCAyMDAwCisKK1RTVF9TRVRVUD0iZG9fc2V0dXAiCitUU1RfVEVTVEZVTkM9ImRvX3Rlc3Qi
-CitUU1RfTkVFRFNfQ01EUz0iYXdrIGhvc3QgaG9zdG5hbWUiCisKKy4gdHN0X25ldC5zaAogCiBk
-b19zZXR1cCgpCiB7CiAgICAgTlVNTE9PUFM9JHtOVU1MT09QUzotMX0KICAgICBTTEVFUFRJTUU9
-JHtTTEVFUFRJTUU6LTB9Ci0KLSAgICB0c3Rfc2V0dXAKLQotICAgIGV4aXN0cyBhd2sgaG9zdCBo
-b3N0bmFtZQotCiAgICAgUkhPU1Q9JHtSSE9TVDotYGhvc3RuYW1lYH0KLQogfQogCi0jLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0KLSMKLSMgRlVOQ1RJT046ICBkb190ZXN0Ci0jCi0jLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KLQog
-ZG9fdGVzdCgpCiB7CiAKLSAgICB0c3RfcmVzbSBUSU5GTyAidGVzdCBiYXNpYyBmdW5jdGlvbmFs
-aXR5IG9mIHRoZSBcYCRUQycgY29tbWFuZC4iCisgICAgdHN0X3JlcyBUSU5GTyAidGVzdCBiYXNp
-YyBmdW5jdGlvbmFsaXR5IG9mIHRoZSBob3N0IGNvbW1hbmQuIgogCi0gICAgd2hpbGUgWyAkVFNU
-X0NPVU5UIC1sdCAkTlVNTE9PUFMgXTsgZG8KKyAgICB3aGlsZSBbICRUU1RfQ09VTlQgLWxlICRO
-VU1MT09QUyBdOyBkbwogCiAgICAgICAgIGlmIHJob3N0X2FkZHI9JChob3N0ICRSSE9TVCk7IHRo
-ZW4KLSAgICAgICAgICAgIHJob3N0X2FkZHI9JChlY2hvICIkcmhvc3RfYWRkciIgfCBhd2sgLUYs
-ICd7cHJpbnQgJE5GfScpID4vZGV2L251bGwgMj4mMQotICAgICAgICAgICAgaWYgISBob3N0ICRy
-aG9zdF9hZGRyID4vZGV2L251bGwgMj4mMTsgdGhlbgotICAgICAgICAgICAgICAgIGVuZF90ZXN0
-Y2FzZSAicmV2ZXJzZSBsb29rdXAgd2l0aCBob3N0IGZhaWxlZCIKLSAgICAgICAgICAgIGZpCi0K
-KyAgICAgICAgICAgIHJob3N0X2FkZHI9JChlY2hvICIkcmhvc3RfYWRkciIgfCBhd2sgJ3twcmlu
-dCAkTkZ9JykgPi9kZXYvbnVsbCAyPiYxCisgICAgICAgICAgICBFWFBFQ1RfUEFTUyBob3N0ICRy
-aG9zdF9hZGRyIFw+L2Rldi9udWxsIDI+JjEKICAgICAgICAgZWxzZQotICAgICAgICAgICAgZW5k
-X3Rlc3RjYXNlICJob3N0ICRSSE9TVCBvbiBsb2NhbCBtYWNoaW5lIGZhaWxlZCIKKyAgICAgICAg
-ICAgIHRzdF9icmsgVEZBSUwgImhvc3QgJFJIT1NUIG9uIGxvY2FsIG1hY2hpbmUgZmFpbGVkIgog
-ICAgICAgICBmaQogCi0gICAgICAgIGluY3JfdHN0X2NvdW50CisgICAgICAgIFRTVF9DT1VOVD0k
-KChUU1RfQ09VTlQgKyAxKSkKICAgICAgICAgc2xlZXAgJFNMRUVQVElNRQogCiAgICAgZG9uZQog
-CiB9CiAKLSMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLQotIyBGVU5DVElPTjogTUFJTgotIy0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-Ci0uIG5ldF9jbWRsaWIuc2gKLQotcmVhZF9vcHRzICQqCi1kb19zZXR1cAotZG9fdGVzdAotZW5k
-X3Rlc3RjYXNlCit0c3RfcnVuCi0tIAoyLjE3LjEKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0
-dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Hi Cyril
+> Hi!
+>> +	/*
+>> +	 * Running attach/detach more times will trigger a ESRCH error because
+>> +	 * ptrace_check_attach function in kernel will report it if its process
+>> +	 * stats is not __TASK_TRACED.
+>> +	 */
+>> +	TST_RETRY_FUNC(ptrace(PTRACE_DETACH, 1, NULL, NULL), TST_RETVAL_EQ0);
+>
+> Why do we have to retry the detach here?
+
+I add a retry here because running attach/detach serval times may make 
+init process isn't traced status . Even we have do attach action, detach 
+will get ESRCH error .
+
+In kernel/ptrace.c code, it has the following calltrace
+SYSCALL_DEFINE4(ptrace...
+    =>ptrace_check_attach   //if we don't use PTRACE_ATTACH/PTRACE_SEIZE
+      =>ptrace_freeze_traced
+
+/* Ensure that nothing can wake it up, even SIGKILL */
+static bool ptrace_freeze_traced(struct task_struct *task)
+{
+         bool ret = false;
+
+         /* Lockless, nobody but us can set this flag */
+         if (task->jobctl & JOBCTL_LISTENING)
+                 return ret;
+         spin_lock_irq(&task->sighand->siglock);
+         if (task_is_traced(task) && !__fatal_signal_pending(task)) {
+                 task->state = __TASK_TRACED;
+                 ret = true;
+         }
+         spin_unlock_irq(&task->sighand->siglock);
+
+         return ret;
+}
+
+ptrace_freeze_traced() may returns false when we run attach/detach 
+serval times, so ptrace_check_attach returns ESRCH error .
+
+To be honset, I don't figure out why task->stat is not task_traced 
+status after attaching. I am looking into this.
+
+Best Regards
+Yang Xu
+>
+> Other than that the rest looks fine now.
+>
+
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
