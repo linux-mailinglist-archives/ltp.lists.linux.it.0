@@ -1,77 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 275F62B4F05
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Nov 2020 19:19:58 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id AFB702B4FFB
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Nov 2020 19:41:46 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D76F43C6AF4
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Nov 2020 19:19:57 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 76A6F3C6AF4
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Nov 2020 19:41:46 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 671F83C4F3C
- for <ltp@lists.linux.it>; Mon, 16 Nov 2020 19:19:56 +0100 (CET)
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id B7A053C4F4C
+ for <ltp@lists.linux.it>; Mon, 16 Nov 2020 19:41:45 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 246C2200C1F
- for <ltp@lists.linux.it>; Mon, 16 Nov 2020 19:19:56 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id f20so25783767ejz.4
- for <ltp@lists.linux.it>; Mon, 16 Nov 2020 10:19:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:reply-to:references:mime-version
- :content-disposition:in-reply-to;
- bh=NTGfdoHGXkCq7vt0kZUN/xDWBf3HfW40exJHG9blRzk=;
- b=oftTGIK1YvX1cZ9qdAyj3v/sIWe20WHlsDAYoPq8CtbHJWllKkrCB0tCZY7mYmDACm
- fPZh8faLugswn0iQxlYKAmRFfW2OsJFRNrGTzLWR8Go2ruz7nbUsDd/WAupstbWV8W7E
- +TnTUmvsS3dGXwaOaQFwKtisQx4t6tiKi4uAg/IW9k/7VLsqO4G75KjAG2IovxVd80E9
- mCioLP6GY5KyuwEsUkVsPbveUEGrJu4dbaftkdo9oGRyIRJxVItJuqjawxpLzyWdtCKg
- O6hm476xo6wzkxl4saBfNdwRR1waRXrdY1SG9AYzLvPog5SbOsIJvCPFd8cXQsdNZ5sM
- m8xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:reply-to
- :references:mime-version:content-disposition:in-reply-to;
- bh=NTGfdoHGXkCq7vt0kZUN/xDWBf3HfW40exJHG9blRzk=;
- b=fiFN4oJDaM4fht/413Aai2+8RVgN/WWU2lNnS2Vkm9V28Au2a+BDt8cCCl1ncPK/Kb
- rTyozSmnpfRE58h0aHebKI9bbjVbQVDJDf1MYOd4x0oEqz/m+kwCfiSbxzABkJ+nHqko
- r2zfS7pTWlTDVNOt7B2k0s4S3ix8Fe8LnRFCsdiC0frZjHXXWJCVCzjOKJkuY9l+S0HP
- ohYui6FZ1DNvYc4olDZCQGc/0+5y4IxZFqAq5zL+Kr4j8+h7/OzRa84yvwTa88MMaJwI
- I43gfmJsL7mt965rSsT+WTKRmwITPNnifcwH3hH1APUfX4KzBT2p9SwVdnPerfZnQvmE
- z5Iw==
-X-Gm-Message-State: AOAM530qd/5O3TpfW5U/DtLgY3rjdabdwlc6JHurBPA2aBfbT/71QjEL
- EzqGt+1pA1GdhRWWaWZK/E/HOvcfKQHGLw==
-X-Google-Smtp-Source: ABdhPJzKnoneLp+ktcjPKQvOZry/Ekrec8BgSWnY9slYVIpv44/jnFpH3D71zh6WM6XSZZYm4VXh3A==
-X-Received: by 2002:a17:907:1112:: with SMTP id
- qu18mr16063576ejb.507.1605550795750; 
- Mon, 16 Nov 2020 10:19:55 -0800 (PST)
-Received: from pevik ([62.201.25.198])
- by smtp.gmail.com with ESMTPSA id lf18sm7912857ejb.74.2020.11.16.10.19.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2020 10:19:55 -0800 (PST)
-Date: Mon, 16 Nov 2020 19:19:53 +0100
-From: Petr Vorel <petr.vorel@gmail.com>
-To: Khem Raj <raj.khem@gmail.com>
-Message-ID: <20201116181953.GD152616@pevik>
-References: <20201116003345.3261577-1-raj.khem@gmail.com>
- <20201116070857.GB81864@pevik>
- <CAMKF1sqjVMexm38VVt=grmL-K63=hyfA-0aoNyi=53TyFVXJ0w@mail.gmail.com>
- <20201116170320.GC152616@pevik>
- <CAMKF1srem0H=hkjkD_Yb1qzyygbbosB06y9x6=g+PasASQrqRQ@mail.gmail.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 5FDA7600CE2
+ for <ltp@lists.linux.it>; Mon, 16 Nov 2020 19:41:45 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9C5BEAD79;
+ Mon, 16 Nov 2020 18:41:44 +0000 (UTC)
+Date: Mon, 16 Nov 2020 19:41:43 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Kory Maincent <kory.maincent@bootlin.com>
+Message-ID: <20201116184143.GA171432@pevik>
+References: <20201116101840.15433-1-kory.maincent@bootlin.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAMKF1srem0H=hkjkD_Yb1qzyygbbosB06y9x6=g+PasASQrqRQ@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20201116101840.15433-1-kory.maincent@bootlin.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] Define SYS_futex on 32bit arches using 64-bit
- time_t
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] net/host: update to new api
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,23 +45,89 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <petr.vorel@gmail.com>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: thomas.petazzoni@bootlin.com, ltp@lists.linux.it
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Khem,
+Hi Kory,
+
+thanks for your patch.
+...
+>  do_test()
+>  {
+
+> -    tst_resm TINFO "test basic functionality of the \`$TC' command."
+> +    tst_res TINFO "test basic functionality of the host command."
+
+> -    while [ $TST_COUNT -lt $NUMLOOPS ]; do
+> +    while [ $TST_COUNT -le $NUMLOOPS ]; do
+IMHO there is no need to have loop like this.
+If required, we'd just add -iN parameter to it in the runtest file (where N=
+ is
+<1,max int), but IMHO it's enough to test host only once.
+
+>          if rhost_addr=3D$(host $RHOST); then
+> -            rhost_addr=3D$(echo "$rhost_addr" | awk -F, '{print $NF}') >=
+/dev/null 2>&1
+> -            if ! host $rhost_addr >/dev/null 2>&1; then
+> -                end_testcase "reverse lookup with host failed"
+> -            fi
+> -
+> +            rhost_addr=3D$(echo "$rhost_addr" | awk '{print $NF}') >/dev=
+/null 2>&1
+> +            EXPECT_PASS host $rhost_addr \>/dev/null 2>&1
+We need to redirect also second > and &:
+EXPECT_PASS host $rhost_addr \>/dev/null 2\>\&1
+
+>          else
+> -            end_testcase "host $RHOST on local machine failed"
+> +            tst_brk TFAIL "host $RHOST on local machine failed"
+>          fi
+
+> -        incr_tst_count
+> +        TST_COUNT=3D$((TST_COUNT + 1))
+>          sleep $SLEEPTIME
+Also sleep time is not really needed.
 
 ...
-> I tested https://github.com/pevik/ltp/commit/a20107ab47554798e0de0347dd4d7259f01675af
-> and it works fine. So please use this one.
 
-Thanks for a confirmation, merged.
+Can I merge this simplified variant?
 
 Kind regards,
 Petr
 
--- 
+#!/bin/sh
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright (c) K=F6ry Maincent <kory.maincent@bootlin.com> 2020
+# Copyright (c) Manoj Iyer <manjo@mail.utexas.edu> 2003
+# Copyright (c) Robbie Williamson <robbiew@us.ibm.com> 2001
+# Copyright (c) International Business Machines  Corp., 2000
+
+TST_TESTFUNC=3D"do_test"
+TST_NEEDS_CMDS=3D"awk host hostname"
+
+. tst_net.sh
+
+do_test()
+{
+	local rhost=3D${RHOST:-$(hostname)}
+	local rhost_addr
+
+    tst_res TINFO "test basic functionality of the host command"
+
+	if rhost_addr=3D$(host $rhost); then
+		rhost_addr=3D$(echo "$rhost_addr" | awk '{print $NF}')
+		EXPECT_PASS host $rhost_addr \>/dev/null 2\>\&1
+	else
+		tst_brk TFAIL "host $rhost on local machine failed"
+	fi
+}
+
+tst_run
+
+-- =
+
 Mailing list info: https://lists.linux.it/listinfo/ltp
